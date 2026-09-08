@@ -1,63 +1,64 @@
 Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 479063D45FE;
-	Tue,  8 Sep 2026 20:51:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DB353D5C31;
+	Tue,  8 Sep 2026 20:51:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788900716; cv=none; b=X9T7z5UaX92qDyluQB6Y9hiH/iYXnA0OP0AN0ymjP9ABtqbfQj3cmhEWWpZjjdqGa9bwEpk3oqMZegX3pMnf9vIEoHhSM+Vhs7eOFQffI6VkhDYefW1Sg50yEVqbynMWXaCz62qX38Qcs11RJ1la+uuR0BQZQm7daRXqXiR1Tfw=
+	t=1788900717; cv=none; b=mPGbX4En/3S9Lm539/AmENIIMhGYb8yJDqnCVamW+mPQyiHLppxmMLhoMOReqjYZ/hT+9Pv2RFTmbSQANSDCMcSlL8rf5++GgAZfHfjZNPoXjlR7joxZdJR0vp33Y9ZqsxyMDYzQ4rUEvzex0yfLF0EFDfPwjYrbj21eMxfPUPE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788900716; c=relaxed/simple;
-	bh=j9VUgU+og6f2Lo8DYhf0Xsl/06JLTk3aUeTtGITpi38=;
+	s=arc-20240116; t=1788900717; c=relaxed/simple;
+	bh=mWUxgGcAdk+5W6rVWBSAdVwlg/N6Bc4tYVAA3Xs1hqw=;
 	h=Date:From:To:Subject:Cc:In-Reply-To:References:MIME-Version:
-	 Message-ID:Content-Type; b=hl5eSYl+CDPYZg3ka68VfvZ2aywvtwDmaNrQiLa8qiTg1GYmNBzGMBnx38awgbEl+bCegufw5AsRCQUN3+GrY9gFZu5r5z5PnP/l+BwueOhezEJJRO0X+YA4gtlvCh+I93tW8OF6WCUbu8B074GzUMBX6uQ/hB38dO1eZpRAdJE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=beSQW5bX; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=o5eqenqD; arc=none smtp.client-ip=193.142.43.55
+	 Message-ID:Content-Type; b=r4Rpgun0Cx8VylBf/laf7AL8JyeiqQPQ10ghtmgewm4nTOIRjosMTrZiDtT7QhpL44LEWJWx6Ts91he7dMidQRxbgJ1798AVqkydlv/xnOCJe1hWJjQLqwV06HWdCj84RDDYv2Ll0hDa96lwi21oT5zZqyoorVjz0zgp0buwLIA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=bfpEm21+; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=mGO8sbdk; arc=none smtp.client-ip=193.142.43.55
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="beSQW5bX";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="o5eqenqD"
-Date: Tue, 08 Sep 2026 20:51:50 -0000
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="bfpEm21+";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="mGO8sbdk"
+Date: Tue, 08 Sep 2026 20:51:52 -0000
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1788900712;
+	s=2020; t=1788900714;
 	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=MqRUWVxD02DAEmMota9s4tHA0uuKlUmrajSbjQbQ8Sc=;
-	b=beSQW5bXdhzPKMsyOJJXRhsOG0pxjm58nekQLyFlVXPZAyWgGAr9T1VvQM49coHRh3lAxj
-	nTqgPo/EhoDfPPsozG/6dZ/3KuRwfsRWmHXExcVYvL8GVwmNEjPz+/4fnZF6+1tyVkkOGa
-	WM/5Ra7B8Tiy9L4jJIELSnAG9Z0pKBi86t8WdGHhc3cHX82SUEEl8oXqgsVzneVcoPe3Qh
-	8ZUHzaVzSCGmPFmVcoubHXV9zTi6Z0cNKpzpSdW/U6nX7Lwhbfkmr0phLGY6LTXsV3Kxcg
-	fGnFXUCU33Qpfsuh7jJeYEjOfFrIQUei6gLKDHOBAR6UBuKCIO4ZOHN5gKxqMQ==
+	bh=VVYCIXc8DLLjUqEpa380xVvWQnEY45j2/3BS8/74FrU=;
+	b=bfpEm21+n/Twhn2GdA+nFN4/A9MBI9CPDUlxlk9IE8pqKJkWiybfm3cGBXdNKoTrapWO+g
+	band1fHjnRuLL0M9IUzoaSUM0msXSVLNRIcuZKiNDSMXtpt9OInjNvx4iLLx1/lxGs/kST
+	9sLzLp2GMVt/P6bm2P+hngB3si8KYJDnYcjzSa9OuHdP8PFL6pI8Djzjy548Me9xSUvhUu
+	t4acKW4rOTloQysSCJcTQ5cWffrp6EtSlgfbUeY5jZa+1kv/+BerFv1Q2ICN2H22e50nXB
+	PD9TsoHSfbZiKPFFYsBLUXehJG4gFrTKVoKmTIYPpjpIpXAEGXjbcAMbCnsttQ==
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1788900712;
+	s=2020e; t=1788900714;
 	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=MqRUWVxD02DAEmMota9s4tHA0uuKlUmrajSbjQbQ8Sc=;
-	b=o5eqenqDXjgXvwmBwBoxWw0QGWFL2Zss4J8z2OJn5ceKgl+fqhBo29wPqKSdWZft9Neyvu
-	2P2CZojRltl8ZuBw==
-From: "tip-bot2 for Dapeng Mi" <tip-bot2@linutronix.de>
+	bh=VVYCIXc8DLLjUqEpa380xVvWQnEY45j2/3BS8/74FrU=;
+	b=mGO8sbdkCNEG0lhxju4NjLDdDgFjtH2F01lZc1X/O/ZapMTKPmW8k08pZrPsKebc5ZsMzg
+	feihCsMWZbbYeoCQ==
+From: "tip-bot2 for Kan Liang" <tip-bot2@linutronix.de>
 Sender: tip-bot2@linutronix.de
 Reply-to: linux-kernel@vger.kernel.org
 To: linux-tip-commits@vger.kernel.org
-Subject: [tip: perf/core] x86/fpu: Add update_fpu_state_and_flag() helper
-Cc: Dapeng Mi <dapeng1.mi@linux.intel.com>,
+Subject: [tip: perf/core] x86/fpu/xstate: Add xsaves_nmi() helper
+Cc: Kan Liang <kan.liang@linux.intel.com>,
+ Dapeng Mi <dapeng1.mi@linux.intel.com>,
  "Peter Zijlstra (Intel)" <peterz@infradead.org>, x86@kernel.org,
  linux-kernel@vger.kernel.org
-In-Reply-To: <20260824082731.1013973-8-dapeng1.mi@linux.intel.com>
-References: <20260824082731.1013973-8-dapeng1.mi@linux.intel.com>
+In-Reply-To: <20260824082731.1013973-7-dapeng1.mi@linux.intel.com>
+References: <20260824082731.1013973-7-dapeng1.mi@linux.intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <178890071086.623050.13758352261538120696.tip-bot2@tip-bot2>
+Message-ID: <178890071233.623050.9494401351267927011.tip-bot2@tip-bot2>
 Robot-ID: <tip-bot2@linutronix.de>
 Robot-Unsubscribe:
  Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
@@ -67,134 +68,81 @@ Content-Transfer-Encoding: quoted-printable
 
 The following commit has been merged into the perf/core branch of tip:
 
-Commit-ID:     450d73dc5f9188ade87fe2d2d967cf18e63b280f
-Gitweb:        https://git.kernel.org/tip/450d73dc5f9188ade87fe2d2d967cf18e63=
-b280f
-Author:        Dapeng Mi <dapeng1.mi@linux.intel.com>
-AuthorDate:    Mon, 24 Aug 2026 16:27:15 +08:00
+Commit-ID:     03b89c9f202ee75c9997a8421f0e09a5590c3878
+Gitweb:        https://git.kernel.org/tip/03b89c9f202ee75c9997a8421f0e09a5590=
+c3878
+Author:        Kan Liang <kan.liang@linux.intel.com>
+AuthorDate:    Mon, 24 Aug 2026 16:27:14 +08:00
 Committer:     Peter Zijlstra <peterz@infradead.org>
 CommitterDate: Wed, 02 Sep 2026 13:10:41 +02:00
 
-x86/fpu: Add update_fpu_state_and_flag() helper
+x86/fpu/xstate: Add xsaves_nmi() helper
 
-Add update_fpu_state_and_flag() as suggested by Peter and Dave.
-The helper saves user FPU state and then sets TIF_NEED_FPU_LOAD,
-ensuring the task FPU state is saved whenever the flag is set.
+Add xsaves_nmi() to save supported xsave states in NMI handler.
 
-Subsequent patches will use this guarantee in NMI context by checking
-TIF_NEED_FPU_LOAD before retrieving user FPU state from the saved
-task FPU state.
+This function is similar to xsaves(), but should only be called within
+the NMI handler. This function returns the actual register contents at
+the moment the NMI occurs.
 
-Also add barrier() in the host/guest FPU state switch path and move
-clearing of fpu->__task_fpstate after switching back to host state. So
-fpu->__task_fpstate is always observed as host FPU state when non-NULL.
+Currently the perf subsystem is the sole user of this helper. It uses
+this function to snapshot SIMD (XMM/YMM/ZMM) and APX eGPRs registers
+which would be added in subsequent patches.
 
+Signed-off-by: Kan Liang <kan.liang@linux.intel.com>
 Signed-off-by: Dapeng Mi <dapeng1.mi@linux.intel.com>
 Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
-Link: https://lore.kernel.org/all/20251204154721.GB2619703@noisy.programming.=
-kicks-ass.net/
-Link: https://patch.msgid.link/20260824082731.1013973-8-dapeng1.mi@linux.inte=
+Link: https://patch.msgid.link/20260824082731.1013973-7-dapeng1.mi@linux.inte=
 l.com
 ---
- arch/x86/include/asm/fpu/sched.h |  5 +++--
- arch/x86/kernel/fpu/core.c       | 33 +++++++++++++++++++++++++------
- 2 files changed, 30 insertions(+), 8 deletions(-)
+ arch/x86/include/asm/fpu/xstate.h |  1 +
+ arch/x86/kernel/fpu/xstate.c      | 23 +++++++++++++++++++++++
+ 2 files changed, 24 insertions(+)
 
-diff --git a/arch/x86/include/asm/fpu/sched.h b/arch/x86/include/asm/fpu/sche=
-d.h
-index 89004f4..dcb2fa5 100644
---- a/arch/x86/include/asm/fpu/sched.h
-+++ b/arch/x86/include/asm/fpu/sched.h
-@@ -10,6 +10,8 @@
- #include <asm/trace/fpu.h>
+diff --git a/arch/x86/include/asm/fpu/xstate.h b/arch/x86/include/asm/fpu/xst=
+ate.h
+index 7a7dc9d..38fa8ff 100644
+--- a/arch/x86/include/asm/fpu/xstate.h
++++ b/arch/x86/include/asm/fpu/xstate.h
+@@ -110,6 +110,7 @@ int xfeature_size(int xfeature_nr);
 =20
- extern void save_fpregs_to_fpstate(struct fpu *fpu);
-+extern void update_fpu_state_and_flag(struct fpu *fpu,
-+				      struct task_struct *task);
- extern void fpu__drop(struct task_struct *tsk);
- extern int  fpu_clone(struct task_struct *dst, u64 clone_flags, bool minimal,
- 		      unsigned long shstk_addr);
-@@ -36,8 +38,7 @@ static inline void switch_fpu(struct task_struct *old, int =
-cpu)
- 	    !(old->flags & (PF_KTHREAD | PF_USER_WORKER))) {
- 		struct fpu *old_fpu =3D x86_task_fpu(old);
+ void xsaves(struct xregs_state *xsave, u64 mask);
+ void xrstors(struct xregs_state *xsave, u64 mask);
++void xsaves_nmi(struct xregs_state *xsave, u64 mask);
 =20
--		set_tsk_thread_flag(old, TIF_NEED_FPU_LOAD);
--		save_fpregs_to_fpstate(old_fpu);
-+		update_fpu_state_and_flag(old_fpu, old);
- 		/*
- 		 * The save operation preserved register state, so the
- 		 * fpu_fpregs_owner_ctx is still @old_fpu. Store the
-diff --git a/arch/x86/kernel/fpu/core.c b/arch/x86/kernel/fpu/core.c
-index d1aeecd..047244e 100644
---- a/arch/x86/kernel/fpu/core.c
-+++ b/arch/x86/kernel/fpu/core.c
-@@ -213,6 +213,19 @@ void restore_fpregs_from_fpstate(struct fpstate *fpstate=
-, u64 mask)
- 	}
+ int xfd_enable_feature(u64 xfd_err);
+=20
+diff --git a/arch/x86/kernel/fpu/xstate.c b/arch/x86/kernel/fpu/xstate.c
+index a7b6524..d39c015 100644
+--- a/arch/x86/kernel/fpu/xstate.c
++++ b/arch/x86/kernel/fpu/xstate.c
+@@ -1474,6 +1474,29 @@ void xrstors(struct xregs_state *xstate, u64 mask)
+ 	WARN_ON_ONCE(err);
  }
 =20
-+/*
-+ * Save the FPU register state in fpu->fpstate->regs and set
-+ * TIF_NEED_FPU_LOAD subsequently.
++/**
++ * xsaves_nmi - Save selected components to a kernel xstate buffer in NMI
++ * @xstate:	Pointer to the buffer
++ * @mask:	Feature mask to select the components to save
 + *
-+ * Must be called with fpregs_lock() held, ensuring flag
-+ * TIF_NEED_FPU_LOAD is set last.
++ * This function is similar to xsaves(), but should only be called within
++ * the NMI handler. This function returns the actual register contents at
++ * the moment the NMI occurs.
++ *
++ * Currently, the perf subsystem is the sole user of this helper. It uses
++ * the function to snapshot SIMD (XMM/YMM/ZMM) and APX eGPRs registers.
 + */
-+void update_fpu_state_and_flag(struct fpu *fpu, struct task_struct *task)
++void xsaves_nmi(struct xregs_state *xstate, u64 mask)
 +{
-+	save_fpregs_to_fpstate(fpu);
-+	set_tsk_thread_flag(task, TIF_NEED_FPU_LOAD);
++	int err;
++
++	if (!in_nmi())
++		return;
++
++	XSTATE_OP(XSAVES, xstate, (u32)mask, (u32)(mask >> 32), err);
++	WARN_ON_ONCE(err);
 +}
 +
- void fpu_reset_from_exception_fixup(void)
+ #if IS_ENABLED(CONFIG_KVM)
+ void fpstate_clear_xstate_component(struct fpstate *fpstate, unsigned int xf=
+eature)
  {
- 	restore_fpregs_from_fpstate(&init_fpstate, XFEATURE_MASK_FPSTATE);
-@@ -383,13 +396,13 @@ int fpu_swap_kvm_fpstate(struct fpu_guest *guest_fpu, b=
-ool enter_guest)
-=20
- 	/* Swap fpstate */
- 	if (enter_guest) {
--		fpu->__task_fpstate =3D cur_fps;
-+		WRITE_ONCE(fpu->__task_fpstate, cur_fps);
-+		barrier();
- 		fpu->fpstate =3D guest_fps;
- 		guest_fps->in_use =3D true;
- 	} else {
- 		guest_fps->in_use =3D false;
- 		fpu->fpstate =3D fpu->__task_fpstate;
--		fpu->__task_fpstate =3D NULL;
- 	}
-=20
- 	cur_fps =3D fpu->fpstate;
-@@ -406,6 +419,16 @@ int fpu_swap_kvm_fpstate(struct fpu_guest *guest_fpu, bo=
-ol enter_guest)
- 		xfd_update_state(cur_fps);
- 	}
-=20
-+	/*
-+	 * Clear fpu->__task_fpstate after switching back to host state.
-+	 * A non-NULL __task_fpstate means guest state is still resident in
-+	 * hardware; reset it only once host state has been restored.
-+	 */
-+	if (!enter_guest) {
-+		barrier();
-+		WRITE_ONCE(fpu->__task_fpstate, NULL);
-+	}
-+
- 	fpregs_mark_activate();
- 	fpregs_unlock();
- 	return 0;
-@@ -481,10 +504,8 @@ void kernel_fpu_begin_mask(unsigned int kfpu_mask)
- 	this_cpu_write(kernel_fpu_allowed, false);
-=20
- 	if (!(current->flags & (PF_KTHREAD | PF_USER_WORKER)) &&
--	    !test_thread_flag(TIF_NEED_FPU_LOAD)) {
--		set_thread_flag(TIF_NEED_FPU_LOAD);
--		save_fpregs_to_fpstate(x86_task_fpu(current));
--	}
-+	    !test_thread_flag(TIF_NEED_FPU_LOAD))
-+		update_fpu_state_and_flag(x86_task_fpu(current), current);
- 	__cpu_invalidate_fpregs_state();
-=20
- 	/* Put sane initial values into the control registers. */
