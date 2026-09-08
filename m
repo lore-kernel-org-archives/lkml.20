@@ -1,267 +1,157 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C60FB5964F0;
-	Tue,  8 Sep 2026 18:39:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788892756; cv=none; b=BapyqamdRZvlqVXDIax3nOhLS7YomWl45IwZYyOUkByX0aSA/C6wepRwgJEqLpe0x5C4VQcFJHlsHGWVfjRobKxeApRH8f9jGV4vCQSTfJVxCvoXwNsqYojV75lPv5jh7COqYSbVz7Sl35mS7wQLqP6t38keT8au7A5JaJMi+Sg=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788892756; c=relaxed/simple;
-	bh=RXvS/DbLE/Z+LeWdSdrUOHcOobt/9vSEKzGA0NSWBwA=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=mfXIhSsZgk9UObeJeWvw5PctTSqY8db/Argz9ZzZDJ8aLwBTgqKGf5CdmQQw7BoeUDmjAdjb3jxEMNceFZuhdbvvIiZVV38vwsh8GPqsMrvUaLiSUHA6E5GDAFxOMp4BKapEfmOKfmtG0Oumm3rXee4IebocTDWspTMsYA0Gpjw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bRTPFE3w; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F030233F5B1
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 18:39:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.46
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788892794; cv=pass; b=kuvldgNZi3JM4moU71GpfeKpU7Xv4Z105uCzhpLQ8O5EuC2Jh2DzibSXBqdK4ResI6L0pLNzOgT/+DQYAmM0eF5Co0IlLKq5De+UYFR4PkYNW24kTgG9Z2r/S2+Mt42af3TU8W31J7GBEswj81xQdtjDrStqAqCPIjreqW4dxkk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788892794; c=relaxed/simple;
+	bh=oDK1zDg/oSey2EOVLolfzuplOiYAA9At+21vSxpayKs=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=rcLQG5BG3z2SZNS/VlA12efp7EC5Tne2/uIbY8PDGPJi2Jq5ZIV6k2g3H3F/mqNS+hScK0tqHyAXzwoVBUtk5KC6Y41Vt8veGBE4w1G2+hP92iNff8Vuw4BViZYomWSFy442hex56bhbZXIIpgPBAx5OeSwQD/IqnP6ReSQcWtk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Csj5J8Wx; arc=pass smtp.client-ip=209.85.128.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bRTPFE3w"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A76041F00A3A;
-	Tue,  8 Sep 2026 18:39:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788892753;
-	bh=8gYQri0gkSMtdqvPScp9bYWtriSeUO+1CUCy2d4eraU=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=bRTPFE3w1pEszfLI7CaHj5kIKU9NrVh6AYDD/KWHrJxO+v2Bv38/WhOG7qTkqdGhb
-	 9I8XfjGrFh7Zs7jve8n1o3bsQUKrwkF/APHlzk+wUkhD1aEMqEBc7f6oenuGEln9zn
-	 q+BSzIYJsHUn3TTcftrjW6rmF3iguPf/AysMd3JFUzUUoCiP1WPpbSP2bdktkHRYw7
-	 U83FX8egqzlfyOhSijyQZArFGrp7pkCkM9s3kFESsrO99ei7UcpI3s90SGQ+dFtDCF
-	 WoXgRQIdYmJ0O7AAVUrg0xz306+slCLs6JncFtcRt9S9/4gvh1pHAcky7w7Es+yWX6
-	 aNVHKFJ0JmWmg==
-Date: Tue, 8 Sep 2026 19:39:06 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Terry Bowman <terry.bowman@amd.com>
-Cc: Dave Jiang <dave.jiang@intel.com>, Alison Schofield
- <alison.schofield@intel.com>, Vishal Verma <vishal.l.verma@intel.com>,
- Davidlohr Bueso <dave@stgolabs.net>, "Bjorn Helgaas" <bhelgaas@google.com>,
- Dan Williams <djbw@kernel.org>, "Rafael J . Wysocki" <rafael@kernel.org>,
- Jonathan Corbet <corbet@lwn.net>, <linux-cxl@vger.kernel.org>, Tony Luck
- <tony.luck@intel.com>, Borislav Petkov <bp@alien8.de>, "Hanjun Guo"
- <guohanjun@huawei.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, "Shuai
- Xue" <xueshuai@linux.alibaba.com>, Len Brown <lenb@kernel.org>, Ira Weiny
- <iweiny@kernel.org>, Li Ming <ming.li@zohomail.com>, Shuah Khan
- <skhan@linuxfoundation.org>, Ben Cheatham <Benjamin.Cheatham@amd.com>,
- Richard Cheng <icheng@nvidia.com>, Robert Richter <rrichter@amd.com>,
- "Lukas Wunner" <lukas@wunner.de>, <linux-pci@vger.kernel.org>,
- <linux-acpi@vger.kernel.org>, <linux-doc@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v20 9/9] Documentation: cxl: Document CXL protocol error
- handling
-Message-ID: <20260908193906.093dd008@jic23-huawei>
-In-Reply-To: <20260902133933.2992457-10-terry.bowman@amd.com>
-References: <20260902133933.2992457-1-terry.bowman@amd.com>
-	<20260902133933.2992457-10-terry.bowman@amd.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Csj5J8Wx"
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-49d0d2d37ceso16636115e9.0
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 11:39:52 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788892791; cv=none;
+        d=google.com; s=arc-20260327;
+        b=jMh8k45NmSLr5Wui8RXkRy7RiaYPqxTslDzdK8TGhFAWdRCKAW+g3EUBuYpin3vju/
+         6ggCFwNnCltfUgzofQ1eCYex4wQIL0uBxFC9RiWJIV0hQk+70wjgtmfvHRAgk3FSbp4J
+         TbLo4i51gJO9iM6vh9vK5ILijc8Ablohp40yMRUbSJhKgm5Sgzlh0A2TNmORlWTBiv1D
+         BdluR+EILiun2pagvl1+zXtAZ9XIiPDIRpp3SfH9dv3cetEziK/3aCr/xcXt8ZPEQagH
+         14Rm2E7d23zM6y3J+xgi7xFBlPHCCljhT9kf8bBuNtnQVtwAJUf82c+REVx1khpqA0Zp
+         ygnA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=TRHHPtqnAHNoNBtGQy93BNsOG6GDWejrubjBMOtK5uk=;
+        fh=loYU6lmenUxTAzvLoNMrRlAYm2UYul8Ls2gjGeR79UM=;
+        b=DNH6FaA2QLzyDaSJHNoi7gP93UO0NUMh5Y3Mu+5qURVUQD5mvnIZ0mbkd3mniBBeKY
+         Wu1C3DOaCupTwqloRcWrWKSshBysA5lTfkqk54lUbOEt6vzQBP0wbVQnCuYAD8X1MaYq
+         ulFGb5kZJdeN35IeizMQSuh8KOUzKvwzLktyFFnBYQJST/BpQLMoqA2t7J0pI2QK/yLt
+         TGq3Le8ABB4q4bpL6vG1N4EUHMwO0BF+pyzWL6KeMPml/S5yojEgx8/HUwrBaQ9fOP2n
+         e7lAzR4roERavc4CW3qt7RYCj1Kws8K2HUTMIEZ47Hb3Zr1joznz4dfnVhqhgem1iwO3
+         JDaA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788892791; x=1789497591; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=TRHHPtqnAHNoNBtGQy93BNsOG6GDWejrubjBMOtK5uk=;
+        b=Csj5J8WxkMm8R2EqCFomh0kAcCdz+sUYZPIFzdUKf0fykkQVUjgBPs2M2Syg7zCJYv
+         s+Tkp7iaiUreUtraHsYnEBupFh3MECX/3g3IthYWrAQfPcMpH+QMf+IdfeKFGCwWvPMQ
+         15VYir/ackzr08xgllwWQEmCumeNW5hmGy0lE9lKEWRB9ijtDirK32spxN0m628YjiPR
+         EUm7R8QG0XFp8xoQABPrz5w5tkmcHSSU7m+v9Oo/YapoXC0s1MjncEZkDyEzhIF6IP2B
+         4LRNCULlZHz6y5ifUHqb0FrOke7dRTF5y8CFfdgkVKqmc+fRkmz6kF+uLMenEexGQNU0
+         htsQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788892791; x=1789497591;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=TRHHPtqnAHNoNBtGQy93BNsOG6GDWejrubjBMOtK5uk=;
+        b=FYnP8tFetqwhXV4LbzpEfycEZdS7/3ge8mNXMJsCnfb+uiOuuhJL8uClXvpECWhOMa
+         IojNct8UFwWCWQIfgy0O5hdJ1IFOArDAaCka+nmukWI4/3rQTekeS9Nrz5IlTj58sYKC
+         fdFHKDXjHThOdQKFe6rTVWrALeR0zkN3TXGHtumNwL+w+iJmBLCTPumsDVLuNfIKvWna
+         M8J+ZRyrgSh5jJm+NXMK1RyNgaVliD8BHM04czgvq39DVbQWLSOYhpqf8JQS/b3bkXeU
+         rtvw0VmuiBqLLzHI+818OszZl64T1rdyWtaQBVGcmVv3Vu+qn0/TqmoCRHFmpolWbjS+
+         KjLw==
+X-Forwarded-Encrypted: i=1; AKwUvBzgKYSYqj7MJjuhQWkY/lptqLGpvcFXvgngTh2rntbAsum6EUMvQ5OyNYA5efzEo1VyQzZ7jR5WbFcCL+k=@vger.kernel.org
+X-Gm-Message-State: AFuF++mccEPUeeYjGbcNYDAqqVQw1OV1rW25eNVKkWnYQoXFWQZGdFtF
+	TA+3/e4i9El9fzQ5weeMFGX/91HYO3ggTNyU5s8bd9GHoT37ONK2UbHIfgd4+dvGt+WfwvuE5uJ
+	9fpHxb8Mr5KWI+Cmplo437XunpHtXpL8=
+X-Gm-Gg: AYBFou3aupLNEJdnrZDciFrAv7JF1pvqhIM+hIclZkeBIfpuYe6p6UtVKF/frgJZCLZ
+	DtyTF5rNQ3XnzYrdTHnVoKOlaW+qVI5drTsR18VkIxDKaYp/7sK3140WCaKhT156jjlbC5LC5/s
+	Hmk7HscTji+TTrHCPKt12CaGeJMg3sWru64Dl6wXP9eI5avv5fgTL+vm1h5PsvffpKZ1G4Sn1Eb
+	UTLt0CiNtPJ5Kb3vFSTgJdv6yqrdEBc+oGs+FrlwDw7Ki3J26sszHbmKDsSC/1/iZa7GM07UDsK
+	H+DjQhUk2ncojTXziRV8c1xWe8Ij50LkE4Azm/05uxQOohIAvmzwLHy9mcrEvZe41PfvRCCc4ew
+	H
+X-Received: by 2002:a05:600c:4f89:b0:49c:e1df:79a4 with SMTP id
+ 5b1f17b1804b1-49cf822c827mr275918375e9.5.1788892790894; Tue, 08 Sep 2026
+ 11:39:50 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+References: <20260825135209.3135169-1-alex@ghiti.fr> <20260825135209.3135169-3-alex@ghiti.fr>
+In-Reply-To: <20260825135209.3135169-3-alex@ghiti.fr>
+From: Nhat Pham <nphamcs@gmail.com>
+Date: Tue, 8 Sep 2026 11:39:39 -0700
+X-Gm-Features: AcwNN1UgwciD1I-qE2yD_ZK2P3jH-A8WPIpVEy3cs7LbzeEfivAviywv0_QerXY
+Message-ID: <CAKEwX=NUFMjHHbeeRnUm0Ex9YQaesYTM-22WMGRJMXSKTkc6uw@mail.gmail.com>
+Subject: Re: [PATCH v4 2/3] mm: swap: drop dropbehind swap cache folios on
+ writeback completion
+To: Alexandre Ghiti <alex@ghiti.fr>
+Cc: Johannes Weiner <hannes@cmpxchg.org>, Yosry Ahmed <yosry@kernel.org>, 
+	Andrew Morton <akpm@linux-foundation.org>, Chris Li <chrisl@kernel.org>, 
+	Kairui Song <kasong@tencent.com>, Kairui Song <ryncsn@gmail.com>, 
+	Chengming Zhou <chengming.zhou@linux.dev>, "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
+	Kemeng Shi <shikemeng@huaweicloud.com>, Baoquan He <baoquan.he@linux.dev>, 
+	Barry Song <baohua@kernel.org>, Youngjun Park <youngjun.park@lge.com>, 
+	Alexander Viro <viro@zeniv.linux.org.uk>, Christian Brauner <brauner@kernel.org>, 
+	David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, Michal Hocko <mhocko@kernel.org>, 
+	Axel Rasmussen <axelrasmussen@google.com>, Qi Zheng <qi.zheng@linux.dev>, 
+	Shakeel Butt <shakeel.butt@linux.dev>, Wei Xu <weixugc@google.com>, 
+	Yuanchu Xie <yuanchu@google.com>, Kunwu Chan <kunwu.chan@gmail.com>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, 2 Sep 2026 08:39:33 -0500
-Terry Bowman <terry.bowman@amd.com> wrote:
+On Tue, Aug 25, 2026 at 6:54=E2=80=AFAM Alexandre Ghiti <alex@ghiti.fr> wro=
+te:
+>
+> A PG_dropbehind folio is dropped from its cache once writeback completes
+> rather than left for reclaim to find later; this is implemented for file
+> folios in folio_end_dropbehind(). Extend it to swap cache folios.
+>
+> The drop takes the folio and swap cluster locks and may sleep, so it
+> cannot run in interrupt context. Set BIO_COMPLETE_IN_TASK on the write,
+> as the file dropbehind paths do, and drop the folio directly from
+> folio_end_writeback().
 
-> Add Documentation/driver-api/cxl/linux/protocol-error-handling.rst
-> describing the end-to-end CXL protocol error path: AER ingress, the
-> AER-CXL kfifo handoff, the cxl_core consumer worker, RCD/RCH special
-> cases, severity policy, trace events, and a source code map.
-> 
-> This documents the architecture introduced by the preceding patches in
-> this series.
-> 
-> Assisted-by: Claude:claude-opus-4.8
-Assited-by: LLM
-for all of these (kernel documentation was recently changed on this).
-> Signed-off-by: Terry Bowman <terry.bowman@amd.com>
-> Reviewed-by: Dave Jiang <dave.jiang@intel.com>
-> Reviewed-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-> Reviewed-by: Alison Schofield <alison.schofield@intel.com>
+This BIO_COMPLETE_IN_TASK thing is really nice! I'm glad we have a
+proper infra now and no longer have to roll our own solutions :)
 
+>
+> Suggested-by: Yosry Ahmed <yosry@kernel.org>
+> Suggested-by: Johannes Weiner <hannes@cmpxchg.org>
+> Suggested-by: Nhat Pham <nphamcs@gmail.com>
+> Signed-off-by: Alexandre Ghiti <alex@ghiti.fr>
 
-...
+Mostly LGTM FWIW. Just one query below:
 
-> diff --git a/Documentation/driver-api/cxl/linux/protocol-error-handling.rst b/Documentation/driver-api/cxl/linux/protocol-error-handling.rst
-> new file mode 100644
-> index 0000000000000..1da71d0409a05
-> --- /dev/null
-> +++ b/Documentation/driver-api/cxl/linux/protocol-error-handling.rst
-> @@ -0,0 +1,441 @@
-> +Error flow
-> +==========
-> +
-> +.. code-block:: text
-> +
-> +   CXL device raises AER Internal Error
-> +   (PCI_ERR_COR_INTERNAL or PCI_ERR_UNC_INTN)
-> +                   |
-> +                   v
-> +   +--------------------------------------+
-> +   | AER core (aer.c)                     |
-> +   |  aer_irq() -> aer_isr()              |
-> +   |  -> find_source_device()             |
-> +   |  -> handle_error_source(dev, info)   |
-> +   +--------------------------------------+
-> +                   |
-> +                   v
-> +   +--------------------------------------+
-> +   | handle_error_source() dispatch       |
-> +   |                                      |
-> +   |  1. cxl_rch_handle_error()           |
-> +   |     [always; filters internally.     |
-> +   |      RC_END enters the kfifo here    |
-> +   |      via pcie_walk_rcec(), NOT via   |
-> +   |      is_cxl_error() below]           |
-> +   |                                      |
-> +   |  2. if is_cxl_error():               |
-> +   |       cxl_forward_error()            |
-> +   |       [enqueue to kfifo; EP/RP/USP/  |
-> +   |        DSP only, RC_END excluded]    |
-> +   |                                      |
-> +   |  3. if cxl_pending && non-CE:        |
-> +   |       cxl_proto_err_wait_for_empty() |
-> +   |       [sync drain before recovery]   |
-> +   |                                      |
-> +   |  4. pci_aer_handle_error() [always]  |
-> +   +--------------------------------------+
-> +                   |
-> +          (kfifo -> workqueue)
-> +                   |
-> +                   v
-> +   +--------------------------------------+
-> +   | __cxl_proto_err_work_fn() consumer   |
-> +   |                                      |
-> +   |  if is_cxl_restricted(pdev):         |
-> +   |    cxl_handle_rdport_errors()        |
-> +   |    [RCH dport RAS first]             |
-> +   |                                      |
-> +   |  cxl_handle_proto_error()            |
-> +   +--------------------------------------+
-> +            |                |
-> +            v                v
-> +   +-----------------+  +--------------------+
-> +   | CE              |  | UCE                |
-> +   | cxl_handle_     |  | cxl_do_recovery()  |
-> +   |   cor_ras()     |  |  read RAS status   |
-> +   | trace + clear   |  |  trace + panic     |
-> +   +-----------------+  +--------------------+
+[...]
 
-Why so narrow. Seems like bits of this diag would be more readable if
-you use the whole 80 chars?
+> +        * Gate remove_mapping_reclaim() on folio_test_swapcache(): a rac=
+ing
+> +        * swapin may have freed the swap slot (folio_free_swap()) and dr=
+opped the
+> +        * folio from the cache, and it must not run on a non-swapcache f=
+olio (it
+> +        * would trip __remove_mapping()'s mapping =3D=3D folio_mapping()=
+ check).
+> +        */
+> +       if (!folio_test_swapcache(folio) || folio_test_writeback(folio) |=
+|
+> +           !remove_mapping_reclaim(swap_address_space(folio->swap), foli=
+o, memcg)) {
 
+remove_mapping_reclaim() and the likes seem a bit confusing to me, but
+I don't have a good suggestions for the naming...
 
-> +
-> +.. code-block:: text
-> +
-> +   Fatal UCE on Endpoint (VH Endpoint or RCD; link down, no AER status)
-> +                   |
-> +                   v
-> +   +--------------------------------------+
-> +   | PCIe core error recovery             |
-> +   |  pcie_do_recovery()                  |
-> +   |  -> report_error_detected()          |
-> +   |  -> cxl_pci_error_detected()         |
-> +   |     [pci_error_handlers callback in  |
-> +   |      cxl_core/ras.c; the RAS handler,|
-> +   |      NOT the AER kfifo path]         |
-> +   +--------------------------------------+
-> +                   |
-> +                   v
-> +   +--------------------------------------+
-> +   | cxl_pci_error_detected()             |
-> +   |                                      |
-> +   |  if is_cxl_restricted(pdev):         |
-> +   |    cxl_handle_rdport_errors()        |
-> +   |    [RCD-only: RCH Dport RAS first]   |
-> +   |                                      |
-> +   |  if port->dev.driver == NULL:        |
-> +   |    return DISCONNECT [port unbound]  |
-> +   |                                      |
-> +   |  cxl_handle_ras(port, NULL,          |
-> +   |                 to_ras_base(...),    |
-> +   |                 pdev->dsn)           |
-> +   |    [EP RAS read, independent of      |
-> +   |     channel state (not skipped for   |
-> +   |     io_normal); dead link            |
-> +   |     readl()==0xFFFFFFFF sets all UE  |
-> +   |     bits -> panic]                   |
-> +   |                                      |
-> +   |  if ue: panic("CXL cachemem error")  |
-> +   |                                      |
-> +   |  else switch (channel state):        |
-> +   |    io_normal      -> CAN_RECOVER     |
-> +   |    io_frozen      -> release driver, |
-> +   |                      NEED_RESET      |
-> +   |    perm_failure   -> DISCONNECT      |
-> +   +--------------------------------------+
+(also I'm hoping we're fixing the weird shadows behavior of zswap
+writeback soon :))
 
-Similar.  I have a new favourite irritation - overly narrow LLM (I guess)
-generated diagrams!
+Anyway:
 
-
-
-> +.. code-block:: text
-> +
-> +   Platform firmware CPER record (CPER_SEC_CXL_PROT_ERR)
-> +            |
-> +            v
-> +   +----------------------+
-> +   | GHES/APEI (ghes.c)   |
-> +   |  ghes_do_proc()      |
-> +   |  cxl_cper_post_      |
-> +   |    prot_err()        |
-> +   |  kfifo_put(CPER-CXL) |
-> +   |  schedule_work()     |
-> +   +----------------------+
-Ouch. Definitely wider here too to avoid splitting those function names.
-
-> +            |
-> +            v
-> +   +----------------------+
-> +   | CPER-CXL kfifo       |
-> +   | + work_struct        |
-> +   +----------------------+
-> +            |
-> +            v
-> +   +----------------------+
-> +   | cxl_cper_prot_err_   |
-> +   |   work_fn() consumer |
-> +   | (cxl_core/ras.c)     |
-> +   |  drain kfifo ->      |
-> +   +----------------------+
-> +            |
-> +            v
-> +   +--------------------------------+
-> +   | cxl_cper_handle_prot_err()     |
-> +   |  pci_get_domain_bus_and_slot() |
-> +   |  find_cxl_port_by_dev()        |
-> +   |  cxl_find_dport_by_dev()       |
-> +   |                                |
-> +   |  if CE: trace correctable      |
-> +   |  else:  trace uncorrectable    |
-> +   |  [trace-only; no panic,        |
-> +   |   no cxl_do_recovery()]        |
-> +   +--------------------------------+
-
-> +Severity policy
-> +===============
-
-> +**Fatal UCE on EP/USP** - A fatal event brings the link down, so the AER
-> +core reads no AER status and is_cxl_error() cannot enqueue the event to the
-> +kfifo. Endpoints and RCDs are instead handled through the
-> +pci_error_handlers .error_detected callback (cxl_pci_error_detected()),
-> +which reads the CXL RAS registers when they are mapped and panics on any UE
-> +bit. If the RAS registers are unmapped the read is skipped without a panic,
-> +because this path has no prior confirmation that the error is CXL internal.
-> +Upstream Ports bound to portdrv fall back to standard AER recovery - a known
-> +limitation. See "Fatal UCE flow for Endpoints and RCDs" above for the full
-> +path and channel-state handling.
-
-This 'known limitation' language kind of implies there is a solution. I'm curious,
-do you have one in mind?  I can sort of see maybe that the class of UCE that leaves
-CXL.io up is larger than that for PCIe so maybe it would be worth logic to probe
-the device and see if we can get to it's registers?  Anyhow, job for another day.
-
-
-This looks good to me and even the diag things is just a 'make it prettier' so
-Reviewed-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+Reviewed-by: Nhat Pham <nphamcs@gmail.com>
