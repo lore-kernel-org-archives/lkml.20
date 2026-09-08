@@ -1,447 +1,136 @@
-Received: from mail-oo1-f72.google.com (mail-oo1-f72.google.com [209.85.161.72])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D390204C31
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 04:34:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DD3B35B636
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 04:37:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788842084; cv=none; b=kJ69cL4IJuFvl5l5jbYZR79hqbAg8FypTXfhTcOCSZc+0RxtSMz5W1Oax33vDZYQy1DPID2FuIUX1Tp6f6/fUWkdW9uilw4Bu8IotWwPUvJeap7lQZbjSvm/7KFErpPsTSgGDBLqBSFgzWv8UmlTftX7zpGZ3HjOC6Y7uVfoIIM=
+	t=1788842277; cv=none; b=FrsyQ/IPV7Ge5o8zBMoj1K1StGNqXa+089mMr9SfhnClU6lMGTxiNTK0uX1ncy4MmqN81zKo2GjCSfrHFcsobBXDxrwz9KeZuvt/TdhmxeiXDucFoXH9s60bpqjvgF791IOl3dxCCzSXWc/NFjBLsbS+mmZJm82FSLUjA0ONkM4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788842084; c=relaxed/simple;
-	bh=zYqFe0NRBz1fFvs4TdBDdowJAswYqgLWUgvYLXwpNC0=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=lqQRmOa+c2xFf25NumlkSAdFiJ9LHeSkV+lf7INASIq1jOVGnBSih7cP1fBtVHJX8fhWJ7DnN3QDQb5Up8ptm+SAeqUM0+nWT/GOz46raUZ2q4JF981Mfpqhpr7uZvRXkbTA84/t1YJ5on1fqVOfmddYj08dlfHd7Uv48bu7X5w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--avagin.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=OOz5lS9x; arc=none smtp.client-ip=209.85.161.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--avagin.bounces.google.com
+	s=arc-20240116; t=1788842277; c=relaxed/simple;
+	bh=GDa161aAG5luI95KnLUgrUA2iG8rWS1txhTiWPkoxts=;
+	h=Date:From:To:Cc:Subject:Message-ID; b=fk18xRG3XIF30GBnCzkr2hXBADpIUmgKVk1+s+7EDXOGpeHkI1/7jLAGB8X4Y6IWMvVxc1fkLv40MiXbwoIHwd87PptqPWQRYRJKXDJGU49SeR6PYkZStAoCSSntFpRuYrm5cdpSWHGb1jEZYkhe7AvHCxIwVkxkNuL9JWMN6OE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=SMNh7TuY; arc=none smtp.client-ip=192.198.163.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="OOz5lS9x"
-Received: by mail-oo1-f72.google.com with SMTP id 006d021491bc7-6b1abf73d1fso2120220eaf.3
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 21:34:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788842077; x=1789446877; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=XY3hQ0xzaAWy4M5qAqcF3UMax0jVDeGWrrn7UI3joc0=;
-        b=OOz5lS9x1z64s7Ixl2d1IUMiHWbVjacMq0zp0uWYdzXZ6vqxfC300X/dodFI7WwcVZ
-         6VyuWJfSVIeVJ4IXyjXts2XR/sLR57sZh0/PNO4+7nAlCAqVo5eUskCiZDN3YXyx9LHl
-         gRoA2/7+yAyY8tn/gLHpBiWnK/gjpVFpi/sZDRuh7FvymHrzG1oVxDlOwldtr1QIEgWN
-         EXl8/nndVmh3BHQzMXrzDNDtPGc+fwez1s2U5QlRmA32GsdpNS4FtCA3xchxTceK0x1p
-         +PfBQy+SMQGkEH3bi9iIBZyDzGTlv+7hVbFStV2gyRHvXvMFZFUgK4OHcoCUloGWwAi4
-         RbNw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788842077; x=1789446877;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=XY3hQ0xzaAWy4M5qAqcF3UMax0jVDeGWrrn7UI3joc0=;
-        b=FFiOWdhyf5Umh4MmEyd+huiKoKslcMhmjwLzulQ0Lx/4jep9OTNS2oEkTWaAuO7Faa
-         xM2BQwaSI3rcYAzUD2Md8pSmKULtwfAvcKqwlYHn637bqAKlx0EMinB6RnO9QzdJUqBF
-         AaRuijvLJNuI1uuNnrLYg1+917RU9C6GhWYzDZW8ext32dGy65aW8CalF3r914gHHuW+
-         MbdnBbP4j7AMeOnKecLwUQFIa6f+BBLlHpj+Bp+ktsqWTdoaTtSuij5JTYkaFA8F+R3T
-         pZlRQtqbEa5cTaiXdubF5OWeah2oKP+sf/Dgz+1izyn8W7MEFkJGZOfkUXFjYd96AZfq
-         YEWw==
-X-Gm-Message-State: AFuF++mMILH3WgwsyHHDdxvFJQzywEEZQq0eyNa3FGPTdLpMPee9/iFl
-	UFDamnPfGznx+CnkRZ8xsTkYvyT0kn63ce/NYanNAlrhoGWIrVkQwpd43c6Istr4uBsyIIt5jfn
-	8XdlSQg==
-X-Received: from ilsd9.prod.google.com ([2002:a05:6e02:509:b0:505:fb7c:de7d])
- (user=avagin job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6820:4dee:b0:6b7:8396:f3d5
- with SMTP id 006d021491bc7-6b78396f81amr12890637eaf.55.1788842076754; Mon, 07
- Sep 2026 21:34:36 -0700 (PDT)
-Date: Tue,  8 Sep 2026 04:34:27 +0000
-In-Reply-To: <20260908043427.1842515-1-avagin@google.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="SMNh7TuY"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788842274; x=1820378274;
+  h=date:from:to:cc:subject:message-id;
+  bh=GDa161aAG5luI95KnLUgrUA2iG8rWS1txhTiWPkoxts=;
+  b=SMNh7TuYIzgbNIFY3R86+iWlFjvCjNbpG9EuX+2fd3Yax9RF7zk5/hzu
+   WePEzX6Tg2sf9eFTrchnfLFILf0VpyYSmPRqjwV4C1NbH1uyA/nJQB/4i
+   gAPBUt0E/bFO4UEV7Nwv9HJRGFP9JX7Z6mgTMXh4KlOl5oONB9DY2OCuj
+   DHuZACurQvhaqdqEDtkf5Km3JDsicE/QUDGFrs0VrXTnJ7wcaxqNQolrX
+   TWXcq+g4wewmF5mq+iKx0/gs7YKiXfyN4hil72T5bXey1toHZE9StTSiq
+   IbKGQgABdFATtFG60Yhi+buzdqjNishpz1Mlkfbt8aGKXfpL1kqgJnc27
+   w==;
+X-CSE-ConnectionGUID: GXcKhrSHSW2cH7gs3LZ4LQ==
+X-CSE-MsgGUID: AFMivz4/SUqeI4M1l1DI2Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11899"; a="99828584"
+X-IronPort-AV: E=Sophos;i="6.25,268,1779174000"; 
+   d="scan'208";a="99828584"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Sep 2026 21:37:54 -0700
+X-CSE-ConnectionGUID: VMZCDNxuS0iHb8FXjO5yeg==
+X-CSE-MsgGUID: 3zzlYApyR0S8/y+MQNRZ7Q==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,268,1779174000"; 
+   d="scan'208";a="274658617"
+Received: from lkp-server01.sh.intel.com (HELO dff15f1b2031) ([10.239.97.150])
+  by orviesa004.jf.intel.com with ESMTP; 07 Sep 2026 21:37:53 -0700
+Received: from kbuild by dff15f1b2031 with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1x3nag-000000001fh-3814;
+	Tue, 08 Sep 2026 04:37:50 +0000
+Date: Tue, 08 Sep 2026 12:36:57 +0800
+From: kernel test robot <lkp@intel.com>
+To: Chao Yu <chao@kernel.org>
+Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org,
+ Jaegeuk Kim <jaegeuk@kernel.org>
+Subject: fs/f2fs/checkpoint.c:784:57: sparse: sparse: incorrect type
+ in argument 1 (different address spaces)
+Message-ID: <202609081243.Jo4beeqD-lkp@intel.com>
+User-Agent: s-nail v14.9.25
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260908043427.1842515-1-avagin@google.com>
-X-Mailer: git-send-email 2.55.0.979.g7e5102b832-goog
-Message-ID: <20260908043427.1842515-8-avagin@google.com>
-Subject: [PATCH 7/7] selftests/x86: Add tests for signal frame FPU portability
-From: Andrei Vagin <avagin@google.com>
-To: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
-	"Chang S. Bae" <chang.seok.bae@intel.com>
-Cc: linux-kernel@vger.kernel.org, criu@lists.linux.dev, 
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
-	Andrei Vagin <avagin@google.com>, Alexander Mikhalitsyn <alexander@mihalicyn.com>, 
-	"H. Peter Anvin" <hpa@zytor.com>
-Content-Type: text/plain; charset="UTF-8"
 
-Add a new selftest tools/testing/selftests/x86/sigframe_fpu_portability.c
-to verify signal frame portability and consistency when the xstate size
-is shrunk:
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
+head:   28924df2a08f440c73991b83028032c901de2ae4
+commit: 9a9ee7408a1f8271bd1978baff2dd09457054ef4 f2fs: reduce memory footprint of ino management
+date:   3 weeks ago
+config: parisc-randconfig-r132-20260908 (https://download.01.org/0day-ci/archive/20260908/202609081243.Jo4beeqD-lkp@intel.com/config)
+compiler: hppa-linux-gcc (GCC) 10.5.0
+sparse: v0.6.5-rc1
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260908/202609081243.Jo4beeqD-lkp@intel.com/reproduce)
 
-- test_valid_shrunk_xstate_size: Verifies that the kernel correctly
-  restores the xstate context from a signal frame where xstate_size has
-  been manually shrunk to only cover active features, as long as the
-  FP_XSTATE_MAGIC2 marker is correctly placed. This simulates migrating
-  a process created on a host with fewer xstate features to a host with
-  more features.
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Fixes: 9a9ee7408a1f ("f2fs: reduce memory footprint of ino management")
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202609081243.Jo4beeqD-lkp@intel.com/
 
-- test_invalid_shrunk_xstate_size: Verifies that the kernel rejects
-  (via SIGSEGV) a signal frame where xstate_size is smaller than required
-  by the enabled features in the xfeatures mask.
+sparse warnings: (new ones prefixed by >>)
+   fs/f2fs/checkpoint.c:782:14: sparse: sparse: incorrect type in assignment (different address spaces) @@     expected void **slot @@     got void [noderef] __rcu ** @@
+   fs/f2fs/checkpoint.c:782:14: sparse:     expected void **slot
+   fs/f2fs/checkpoint.c:782:14: sparse:     got void [noderef] __rcu **
+>> fs/f2fs/checkpoint.c:784:57: sparse: sparse: incorrect type in argument 1 (different address spaces) @@     expected void [noderef] __rcu **slot @@     got void **slot @@
+   fs/f2fs/checkpoint.c:784:57: sparse:     expected void [noderef] __rcu **slot
+   fs/f2fs/checkpoint.c:784:57: sparse:     got void **slot
+   fs/f2fs/checkpoint.c:789:64: sparse: sparse: incorrect type in argument 2 (different address spaces) @@     expected void [noderef] __rcu **slot @@     got void **slot @@
+   fs/f2fs/checkpoint.c:789:64: sparse:     expected void [noderef] __rcu **slot
+   fs/f2fs/checkpoint.c:789:64: sparse:     got void **slot
+   fs/f2fs/checkpoint.c:810:14: sparse: sparse: incorrect type in assignment (different address spaces) @@     expected void **slot @@     got void [noderef] __rcu ** @@
+   fs/f2fs/checkpoint.c:810:14: sparse:     expected void **slot
+   fs/f2fs/checkpoint.c:810:14: sparse:     got void [noderef] __rcu **
+   fs/f2fs/checkpoint.c:812:57: sparse: sparse: incorrect type in argument 1 (different address spaces) @@     expected void [noderef] __rcu **slot @@     got void **slot @@
+   fs/f2fs/checkpoint.c:812:57: sparse:     expected void [noderef] __rcu **slot
+   fs/f2fs/checkpoint.c:812:57: sparse:     got void **slot
+   fs/f2fs/checkpoint.c:819:64: sparse: sparse: incorrect type in argument 2 (different address spaces) @@     expected void [noderef] __rcu **slot @@     got void **slot @@
+   fs/f2fs/checkpoint.c:819:64: sparse:     expected void [noderef] __rcu **slot
+   fs/f2fs/checkpoint.c:819:64: sparse:     got void **slot
 
-Reviewed-by: Alexander Mikhalitsyn <alexander@mihalicyn.com>
-Signed-off-by: Andrei Vagin <avagin@google.com>
----
- tools/testing/selftests/x86/Makefile          |   5 +-
- .../selftests/x86/sigframe_fpu_portability.c  | 246 ++++++++++++++++++
- tools/testing/selftests/x86/xstate.c          |  12 -
- tools/testing/selftests/x86/xstate.h          |  20 ++
- 4 files changed, 270 insertions(+), 13 deletions(-)
- create mode 100644 tools/testing/selftests/x86/sigframe_fpu_portability.c
+vim +784 fs/f2fs/checkpoint.c
 
-diff --git a/tools/testing/selftests/x86/Makefile b/tools/testing/selftests/x86/Makefile
-index 434065215d12..72071deda978 100644
---- a/tools/testing/selftests/x86/Makefile
-+++ b/tools/testing/selftests/x86/Makefile
-@@ -19,7 +19,8 @@ TARGETS_C_32BIT_ONLY := entry_from_vm86 test_syscall_vdso unwind_vdso \
- 			test_FCMOV test_FCOMI test_FISTTP \
- 			vdso_restorer
- TARGETS_C_64BIT_ONLY := fsgsbase sysret_rip syscall_numbering \
--			corrupt_xstate_header amx lam test_shadow_stack avx apx
-+			corrupt_xstate_header amx lam test_shadow_stack avx apx \
-+			sigframe_fpu_portability
- # Some selftests require 32bit support enabled also on 64bit systems
- TARGETS_C_32BIT_NEEDED := ldt_gdt ptrace_syscall
- 
-@@ -138,3 +139,5 @@ $(OUTPUT)/avx_64: CFLAGS += -mno-avx -mno-avx512f
- $(OUTPUT)/amx_64: EXTRA_FILES += xstate.c
- $(OUTPUT)/avx_64: EXTRA_FILES += xstate.c
- $(OUTPUT)/apx_64: EXTRA_FILES += xstate.c
-+
-+$(OUTPUT)/sigframe_fpu_portability_64: CFLAGS += -mno-avx -mno-avx512f
-diff --git a/tools/testing/selftests/x86/sigframe_fpu_portability.c b/tools/testing/selftests/x86/sigframe_fpu_portability.c
-new file mode 100644
-index 000000000000..5ddab44a0369
---- /dev/null
-+++ b/tools/testing/selftests/x86/sigframe_fpu_portability.c
-@@ -0,0 +1,246 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+#define _GNU_SOURCE
-+#include <stdio.h>
-+#include <signal.h>
-+#include <string.h>
-+#include <sys/ucontext.h>
-+#include <stdlib.h>
-+#include <stdint.h>
-+#include <stdbool.h>
-+#include <cpuid.h>
-+#include <unistd.h>
-+#include <sys/syscall.h>
-+#include <stddef.h>
-+#include <setjmp.h>
-+
-+#include "helpers.h"
-+#include "xstate.h"
-+
-+#ifndef FP_XSTATE_MAGIC2_SIZE
-+#define FP_XSTATE_MAGIC2_SIZE	sizeof(FP_XSTATE_MAGIC2)
-+#endif
-+
-+/*
-+ * This test verifies the FPU portability and consistency of the signal frame.
-+ *
-+ * - test_valid_shrunk_xstate_size:
-+ *   Verifies that the kernel restores state from a frame with xstate_size
-+ *   shrunk to only include active features.
-+ *
-+ * - test_invalid_shrunk_xstate_size:
-+ *   Verifies that the kernel rejects a frame if xstate_size is too small for
-+ *   the features enabled in xfeatures.
-+ */
-+
-+#define SIGFRAME_XSTATE_HDR_OFFSET	512
-+#define XSTATE_SSE_ONLY_SIZE	(SIGFRAME_XSTATE_HDR_OFFSET + XSAVE_HDR_SIZE)
-+#define XFEATURE_MASK_FPSSE	((1 << XFEATURE_FP) | (1 << XFEATURE_SSE))
-+
-+static uint32_t ymm_offset;
-+static uint32_t xstate_size_ymm;
-+static pid_t self_pid;
-+
-+/* Use a raw syscall instead of raise() to avoid clobbering FPU registers. */
-+static inline void raw_raise(int sig)
-+{
-+	register long rax asm("rax") = SYS_kill;
-+	register long rdi asm("rdi") = self_pid;
-+	register long rsi asm("rsi") = sig;
-+
-+	asm volatile ("syscall"
-+		      : "+r" (rax)
-+		      : "r" (rdi), "r" (rsi)
-+		      : "rcx", "r11", "memory");
-+}
-+
-+/*
-+ * Avoid using printf() in signal handlers as it is not
-+ * async-signal-safe.
-+ */
-+#define SIGNAL_BUF_LEN 1024
-+static char sig_err_buf[SIGNAL_BUF_LEN];
-+
-+static void sig_print(const char *msg)
-+{
-+	int left = SIGNAL_BUF_LEN - strlen(sig_err_buf) - 1;
-+
-+	strncat(sig_err_buf, msg, left);
-+}
-+
-+
-+static void check_avx_support(void)
-+{
-+	struct xstate_info xstate;
-+	uint32_t eax, ebx, ecx, edx;
-+
-+	/* Check CPUID.01H:ECX.OSXSAVE[bit 27] before calling xgetbv to avoid #UD */
-+	__cpuid(1, eax, ebx, ecx, edx);
-+	if (!(ecx & (1 << 27)))
-+		ksft_exit_skip("OSXSAVE not enabled by OS\n");
-+
-+	/* Check XCR0[2] (YMM) is enabled by OS */
-+	if (!(xgetbv(0) & (1 << XFEATURE_YMM)))
-+		ksft_exit_skip("AVX (YMM) not enabled in XCR0\n");
-+
-+	xstate = get_xstate_info(XFEATURE_YMM);
-+	if (!xstate.size)
-+		ksft_exit_skip("AVX not supported by hardware\n");
-+
-+	ymm_offset = xstate.xbuf_offset;
-+	xstate_size_ymm = xstate.xbuf_offset + xstate.size;
-+}
-+
-+#define TEST_YMMH_VAL (0x5656565656565656UL)
-+
-+__attribute__((target("avx")))
-+static void read_ymm0(uint64_t *v)
-+{
-+	asm volatile ("vmovdqu %%ymm0, %0" : "=m"  (*(char (*)[32])v));
-+}
-+
-+__attribute__((target("avx")))
-+static void write_ymm0(uint64_t *v)
-+{
-+	asm volatile ("vmovdqu %0, %%ymm0" : : "m"  (*(char (*)[32])v));
-+}
-+
-+static void __handle_shrunk_xstate_size(int sig, siginfo_t *si, void *ucp, bool valid_size)
-+{
-+	ucontext_t *uc = ucp;
-+	void *fp = uc->uc_mcontext.fpregs;
-+	struct _fpx_sw_bytes *sw;
-+	struct xsave_buffer *xbuf;
-+	uint64_t xfeatures, *ymmh_p;
-+
-+	if (!fp) {
-+		sig_print("fpregs is NULL\n");
-+		return;
-+	}
-+
-+	sw = get_fpx_sw_bytes(fp);
-+	if (sw->magic1 != FP_XSTATE_MAGIC1) {
-+		sig_print("magic1 is not valid\n");
-+		return;
-+	}
-+
-+	xbuf = (struct xsave_buffer *)fp;
-+
-+	/*
-+	 * Both test cases shrink the frame to contain only AVX (FP + SSE + YMM).
-+	 * If valid_size is true, set xstate_size to match the enabled features.
-+	 * If valid_size is false, set xstate_size too small (SSE only), which
-+	 * the kernel must reject.
-+	 */
-+	if (valid_size)
-+		sw->xstate_size = xstate_size_ymm;
-+	else
-+		sw->xstate_size = XSTATE_SSE_ONLY_SIZE;
-+
-+	xfeatures = get_xstatebv(xbuf);
-+	xfeatures &= XFEATURE_MASK_FPSSE | (1 << XFEATURE_YMM);
-+	set_xstatebv(xbuf, xfeatures);
-+	set_fpx_sw_bytes_features(fp, xfeatures);
-+
-+	*(uint32_t *)(fp + sw->xstate_size) = FP_XSTATE_MAGIC2;
-+
-+	if (valid_size) {
-+		ymmh_p = (uint64_t *)(fp + ymm_offset);
-+		ymmh_p[0] = TEST_YMMH_VAL;
-+		ymmh_p[1] = TEST_YMMH_VAL + 1;
-+	}
-+
-+	/* clear everything after MAGIC2. */
-+	if (sw->xstate_size + FP_XSTATE_MAGIC2_SIZE < sw->extended_size)
-+		memset(fp + sw->xstate_size + FP_XSTATE_MAGIC2_SIZE, 0,
-+		       sw->extended_size - sw->xstate_size - FP_XSTATE_MAGIC2_SIZE);
-+}
-+
-+static void handle_valid_shrunk_xstate_size(int sig, siginfo_t *si, void *ucp)
-+{
-+	__handle_shrunk_xstate_size(sig, si, ucp, true);
-+}
-+
-+static void handle_invalid_shrunk_xstate_size(int sig, siginfo_t *si, void *ucp)
-+{
-+	__handle_shrunk_xstate_size(sig, si, ucp, false);
-+}
-+
-+static void test_valid_shrunk_xstate_size(void)
-+{
-+	uint64_t v[4] = {0, 0, 0, 0};
-+
-+	sig_err_buf[0] = 0;
-+	sethandler(SIGUSR1, handle_valid_shrunk_xstate_size, 0);
-+
-+	v[0] = 0x1111111111111111ULL;
-+	v[1] = 0x2222222222222222ULL;
-+	v[2] = 0x3333333333333333ULL;
-+	v[3] = 0x4444444444444444ULL;
-+	write_ymm0(v);
-+
-+	raw_raise(SIGUSR1);
-+	v[0] = v[1] = v[2] = v[3] = 0;
-+	read_ymm0(v);
-+
-+	if (sig_err_buf[0])
-+		ksft_test_result_fail("%s\n", sig_err_buf);
-+	else if (v[2] == TEST_YMMH_VAL && v[3] == (TEST_YMMH_VAL + 1))
-+		ksft_test_result_pass("YMM state restored correctly from shrunk frame\n");
-+	else
-+		ksft_test_result_fail(
-+				"Got upper bits: 0x%lx 0x%lx (expected %lx %lx)\n",
-+			       v[2], v[3], TEST_YMMH_VAL, TEST_YMMH_VAL + 1);
-+
-+	clearhandler(SIGUSR1);
-+}
-+
-+static sigjmp_buf segv_jmpbuf;
-+
-+static void handle_segv(int sig, siginfo_t *si, void *ucp)
-+{
-+	siglongjmp(segv_jmpbuf, 1);
-+}
-+
-+static void test_invalid_shrunk_xstate_size(void)
-+{
-+	uint64_t v[4] = {0, 0, 0, 0};
-+
-+	sig_err_buf[0] = 0;
-+	sethandler(SIGUSR1, handle_invalid_shrunk_xstate_size, 0);
-+	sethandler(SIGSEGV, handle_segv, 0);
-+
-+	if (sigsetjmp(segv_jmpbuf, 1) == 0) {
-+		v[0] = 0x1111111111111111ULL;
-+		v[1] = 0x2222222222222222ULL;
-+		v[2] = 0x3333333333333333ULL;
-+		v[3] = 0x4444444444444444ULL;
-+		write_ymm0(v);
-+
-+		raw_raise(SIGUSR1);
-+		sig_print("Inconsistent size was NOT rejected\n");
-+	}
-+
-+	clearhandler(SIGUSR1);
-+	clearhandler(SIGSEGV);
-+
-+	if (sig_err_buf[0])
-+		ksft_test_result_fail("%s\n", sig_err_buf);
-+	else
-+		ksft_test_result_pass("Inconsistent size correctly rejected\n");
-+}
-+
-+int main(void)
-+{
-+	ksft_print_header();
-+	ksft_set_plan(2);
-+
-+	self_pid = getpid();
-+
-+	check_avx_support();
-+
-+	test_valid_shrunk_xstate_size();
-+	test_invalid_shrunk_xstate_size();
-+
-+	ksft_finished();
-+	return 0;
-+}
-diff --git a/tools/testing/selftests/x86/xstate.c b/tools/testing/selftests/x86/xstate.c
-index 97fe4bd8bc77..0ab577157cd7 100644
---- a/tools/testing/selftests/x86/xstate.c
-+++ b/tools/testing/selftests/x86/xstate.c
-@@ -34,18 +34,6 @@
- 	 (1 << XFEATURE_XTILEDATA) |	\
- 	 (1 << XFEATURE_APX))
- 
--static inline uint64_t xgetbv(uint32_t index)
--{
--	uint32_t eax, edx;
--
--	asm volatile("xgetbv" : "=a" (eax), "=d" (edx) : "c" (index));
--	return eax + ((uint64_t)edx << 32);
--}
--
--static inline uint64_t get_xstatebv(struct xsave_buffer *xbuf)
--{
--	return *(uint64_t *)(&xbuf->header);
--}
- 
- static struct xstate_info xstate;
- 
-diff --git a/tools/testing/selftests/x86/xstate.h b/tools/testing/selftests/x86/xstate.h
-index 6ee816e7625a..eedf0cab7ccb 100644
---- a/tools/testing/selftests/x86/xstate.h
-+++ b/tools/testing/selftests/x86/xstate.h
-@@ -3,6 +3,8 @@
- #define __SELFTESTS_X86_XSTATE_H
- 
- #include <stdint.h>
-+#include <stdlib.h>
-+#include <string.h>
- 
- #include "kselftest.h"
- 
-@@ -94,6 +96,14 @@ static inline void xrstor(struct xsave_buffer *xbuf, uint64_t rfbm)
- 		     : : "D" (xbuf), "a" (rfbm_lo), "d" (rfbm_hi));
- }
- 
-+static inline uint64_t xgetbv(uint32_t index)
-+{
-+	uint32_t eax, edx;
-+
-+	asm volatile("xgetbv" : "=a" (eax), "=d" (edx) : "c" (index));
-+	return eax + ((uint64_t)edx << 32);
-+}
-+
- #define CPUID_LEAF_XSTATE		0xd
- #define CPUID_SUBLEAF_XSTATE_USER	0x0
- 
-@@ -160,6 +170,11 @@ static inline void set_xstatebv(struct xsave_buffer *xbuf, uint64_t bv)
- 	*(uint64_t *)(&xbuf->header) = bv;
- }
- 
-+static inline uint64_t get_xstatebv(struct xsave_buffer *xbuf)
-+{
-+	return *(uint64_t *)(&xbuf->header);
-+}
-+
- /* See 'struct _fpx_sw_bytes' at sigcontext.h */
- #define SW_BYTES_OFFSET		464
- /* N.B. The struct's field name varies so read from the offset. */
-@@ -175,6 +190,11 @@ static inline uint64_t get_fpx_sw_bytes_features(void *buffer)
- 	return *(uint64_t *)(buffer + SW_BYTES_BV_OFFSET);
- }
- 
-+static inline void set_fpx_sw_bytes_features(void *buffer, uint64_t features)
-+{
-+	*(uint64_t *)(buffer + SW_BYTES_BV_OFFSET) = features;
-+}
-+
- static inline void set_rand_data(struct xstate_info *xstate, struct xsave_buffer *xbuf)
- {
- 	int *ptr = (int *)&xbuf->bytes[xstate->xbuf_offset];
--- 
-2.55.0.979.g7e5102b832-goog
+   768	
+   769	static void __set_ino_bitmap(struct f2fs_sb_info *sbi, nid_t ino, int type)
+   770	{
+   771		struct inode_management *im = &sbi->im[type];
+   772		unsigned long index = INO_SLOT_INDEX(ino);
+   773		unsigned int ofs = INO_BIT_OFFSET(ino);
+   774		void **slot, *entry;
+   775		unsigned long bitmap = 0;
+   776		int ret;
+   777	
+   778		ret = radix_tree_preload(GFP_NOFS | __GFP_NOFAIL);
+   779		f2fs_bug_on(sbi, ret);
+   780	
+   781		spin_lock(&im->ino_lock);
+   782		slot = radix_tree_lookup_slot(&im->ino_root, index);
+   783		if (slot) {
+ > 784			entry = radix_tree_deref_slot_protected(slot, &im->ino_lock);
+   785			bitmap = xa_to_value(entry);
+   786			if (!(bitmap & (1UL << ofs))) {
+   787				bitmap |= (1UL << ofs);
+   788				entry = xa_mk_value(bitmap);
+   789				radix_tree_replace_slot(&im->ino_root, slot, entry);
+   790			}
+   791		} else {
+   792			bitmap |= (1UL << ofs);
+   793			entry = xa_mk_value(bitmap);
+   794			if (unlikely(radix_tree_insert(&im->ino_root, index, entry)))
+   795				f2fs_bug_on(sbi, 1);
+   796		}
+   797		spin_unlock(&im->ino_lock);
+   798		radix_tree_preload_end();
+   799	}
+   800	
 
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
