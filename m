@@ -1,137 +1,157 @@
-Received: from mail-qv1-f49.google.com (mail-qv1-f49.google.com [209.85.219.49])
+Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com [209.85.214.170])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 275FF58FD1B
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 16:58:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.219.49
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788886713; cv=pass; b=fk7QKq0zPIrfTTyPe5GC9kaNTtV2wXLGUu0R+lh3AYuXigDFB0fzot8SeOiHFgfDFVHYzltQuGSZbskSDO2AZYAAn+lr7SzW0eU8nz8Au4Yjw9QiXC7JXWgFswEBUAYS3nNHigcKFQrtUhYmE2jYEgydYHSKfNc+yodmaizHd5o=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788886713; c=relaxed/simple;
-	bh=ULxa4JRrSAZB5pD9oIq2oZNnuuD6C8U1jqAHoElMSdA=;
-	h=From:In-Reply-To:References:MIME-Version:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=jjbqJHAD0lcJnbBGuCCa/VksgZFdXmKUl68nkwXyarp0hrfdfSEl0O/zpd3Xgn6mg8kzG0yiA+isxJ1PLG7esOHsuU2qzU8ELQEAjVdzcMJp5FQgWxLAtylwSe7j7lUuT45mUpP72qyzyw/K8f07+wZ6n0mKUrUS+BAdty8Qif0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=eMz+XpJH; arc=pass smtp.client-ip=209.85.219.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC4DD572683
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 16:59:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.170
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788886781; cv=none; b=Ha3YdtJbnmVN9dEDT6mMzHffFjBwUdWcm/WWqSbmp5JyW8gYyDTkGDTGYazogc9S19W0HlRd8xOZOP9m639yQe2LB+UmVpvqCZApxoVLrJqUxss4NWLFRtjU6y2cFvNUzALSGl5gBeWTOCk0sE2Ok0cgAXKbnxSerrnzibGPmOU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788886781; c=relaxed/simple;
+	bh=+KOQ1Ds4ZkQOJQZRLn+J3z1zuh2gsIE6PlCJszLVBFg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=gieEFzXk4nBwMZRvGXbxaGaTbusuv42mnDhBQ8rHspAxZ2ZWw5id9V1sBBriDNSe509R7gbh1fPHiraBz+EfVxIlf4CNLYb6rCnDZ8Xpz12h2cSro1jM4BxNQjqh+z4aMGthcGg2v4v7ufQrFkAdBXmc88bqhf1tNLU+lFcapZk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=c1zrakv2; arc=none smtp.client-ip=209.85.214.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="eMz+XpJH"
-Received: by mail-qv1-f49.google.com with SMTP id 6a1803df08f44-9103e193381so44408226d6.3
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 09:58:28 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788886702; cv=none;
-        d=google.com; s=arc-20260327;
-        b=lcZNHv8JDAORgEqOVm+VFIBaWS0rnr7x+iiDIj2mXvPUIlBMmPgZKc/sQgyshfYKCm
-         BRr1cYcRuZcqir20jDjZGMbjgnxRqNjO/IUgqKqhTC6gH9Jln3lwKCTaqiVUQyRwtDLW
-         TlSKeGOaDQb0AZk5ecpueWCSzC6Z9+/HnweXQ8PZnVDalT6hZ8V9cW04ev2f1aj3vtjK
-         FDSspo5oGFP8Nrv+Sx5r7DXqU1cVVueupSrJLeWC6/54j2uSVpiiU5fZCcGgQy+RYI8u
-         W4UZ/VdSX4XYZt1TIixiTo4bkQGAtsEXh6qInyE3GbgZvo062fFonejGEUSgGWNEig6a
-         PPSw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:mime-version:references:in-reply-to
-         :from:dkim-signature;
-        bh=8fcdr/hrzW8YjLnM5OVm+g395+cNXrG+fCcu71g0lZU=;
-        fh=DUY3ZPvOEnWhG5KymS/8l5ubM4d9GlW9A3/2i86p1ac=;
-        b=c7Gejw8WUECjFhentuHqmnddm34w3INqdpSGNkdB03ZArLiLAvTYOBAdr+SkJK2+yS
-         Uc1vdYEYhVxX1Pji018YRpD/DfMoj9CShm6KvXZDy13Eh634GL/8pisdihsDmug7EajG
-         kAKmaHekRRVyBazLn+ElGtiBu/aSDsTLsdYZxCreRvi8XqQw6A3MbO8wyEY/ZmYhNwR6
-         rEjyMaNG4OQk1GAFCH552YRVLGvqMxuKwcLo71RiZ2ozI/aI4dPx2MoN86yU3/M//8Tt
-         tlFSSs5WdnIRXO+pYDMyBiQexbkDI9LlbXCw/IB1ML3aohRQagJf8hw+GsCPVhlmVIvB
-         frGQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="c1zrakv2"
+Received: by mail-pl1-f170.google.com with SMTP id d9443c01a7336-2d715f4a587so67573875ad.2
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 09:59:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788886702; x=1789491502; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:mime-version:references
-         :in-reply-to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=8fcdr/hrzW8YjLnM5OVm+g395+cNXrG+fCcu71g0lZU=;
-        b=eMz+XpJH8AC4z0HU59N10CwiV7jWB2XkXiXfbJIdwPg9pCizkaqKgQ2pA+sDReAkRu
-         symxpB9EJaTSk3ubMMpTtNNds1xRV/H1uDJHELk26ThbzxwBw0ZicDxeurCbCsadwFE/
-         +tXRzwxQLtqQq83teNHqJZ4nd8xfGB7sLCwT/Ccir7u60wm5o+R8fFsyqG848ZI5pXsJ
-         zG8B876bNDs/OPgeecJK/ktGSxXN5IT+eJr7oB4IdTb1tjj6a5sNSTZcgtNJYBCtpJJE
-         bvRm8av7+CH9Tdmunx74W7KDnay6nWuFHB2Kidhh8mcdhtEeA5OOQvzbF4JDUEBkAC+3
-         pRtg==
+        d=gmail.com; s=20251104; t=1788886779; x=1789491579; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=rgqygJFgVHpbr65+v3Un3U0dLoYuKnbnhqEwnLI1X3A=;
+        b=c1zrakv2Tqf2KocQK8haNdChgaRQpAKLnfhN01cDlgDlMslO0+ub6rFIfxrOjKUnDM
+         4wSZOqdfmHzZrmJcKFoqAsXYs4ewgrfAYEmlfFkDsRAxb3sZjb+FFrvHqZfZWyqNwYSS
+         Ml6xU/eWPGzG8pmAhP3CughSIcbPxvAPfpEWqMs2GenBlzleYH6g8h5QijU257hbIeBC
+         AjUYLzVc3/0V1Bn/6AZraOBbs8b9B+ujwWoQSTIRL5wzCkJSpJ5edcqW54EevmBmJviz
+         At61N1BmJrWOpxY4aUh2JjvYlyeK7BtGm6KWPjb+m8stpqst9vtXd6QMa/dvZb6PMJYY
+         fOnA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788886702; x=1789491502;
-        h=content-type:cc:to:subject:message-id:date:mime-version:references
-         :in-reply-to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20251104; t=1788886779; x=1789491579;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=8fcdr/hrzW8YjLnM5OVm+g395+cNXrG+fCcu71g0lZU=;
-        b=UcL0zbL4qnZD/G9T5Aoy+1TEbRkw+Ytje6TGAv3cygIccrz6V10d4DC033EgIk8X8x
-         243Jx9+1p4SZKaWLcHj/mqljcu/IYG2iO8SkAyIiuGUYrhE64G6Hr6dJWDQDggr9Q/oo
-         bVAwOahN3tiKJGIsl5vUU0ncOfpOe09veLLQMGswnROtD0R1lJzA3PluChbUhX/IHD8L
-         rSBbrKAtkckY8Ihs80payz7atm9vPugkz+ER71O/cxxAuIgCDFMRXeAC2ALrgZskF+8B
-         Sr2sEmzvAM4a2wpUz2AVJ3m0h6S6eBqfIwN6hQv6/rMGbNFdczq5N8dFRyRQuEgXzwfi
-         /e/g==
-X-Forwarded-Encrypted: i=1; AKwUvBx/mx2W9/9XS3f3Cmj7ThJafAvWcExrapCH7lpGY/vnLQeptyogBgY0nFsgMrsfon9e3gLerxb2k58wFI4=@vger.kernel.org
-X-Gm-Message-State: AFuF++mjuxo2Wo5QabiWYG5VWZoba6R5eOLHZtPRQ/vupqcjDdmajU79
-	Jb8+u6TmA07h9Dfq2lIbTq87JzIrXPdqZv7GWudvSHG1sjD3zIaH1fsJn2v4FNFP4Lf6ezBEmAx
-	R68Fi9yIg7AOw8glBz321shc1guHl/7Jdo8GTz+JY
-X-Gm-Gg: AYBFou0Z4WcuhNORy/w3stR4JdaV6e40u5UoLB2vtgA/OhrnpjE38keVAlMKzO+9JMi
-	/+qqQmIgY0VBu0LnK8y8UVoMVhz60NbhTgIJAXIiK/igIj1nhBFPn2KGFZfSJdEZNbmVqOL8fHu
-	YkP3bh9NqhqoZoMc6RJY6KF1dicqQFd7JOFD3sQB/p/TIwnoioyVyLFnjyywVMILL91/7s5TeaE
-	tH1/eNF2pgDNb2YjbehZ79gC9mVvnxkQcC1zEq4yvdvFo8NniCw58wWdTCCJYEe+2K7MyevUIj0
-	G7sl1oY9H+76FRQ4zZ5nEFZIN8Qe3LfhffnhPwFKBswwX6ZW+H9dOqM+YN2fBMtQ+++vb8FQOD9
-	X22+gfR+adRVy7gwMT1Dq+ohYaviBqWY=
-X-Received: by 2002:a05:6214:c24:b0:90c:ab32:d9 with SMTP id
- 6a1803df08f44-9103ef04cbemr59785766d6.9.1788886701269; Tue, 08 Sep 2026
- 09:58:21 -0700 (PDT)
-Received: from 176938342045 named unknown by gmailapi.google.com with
- HTTPREST; Tue, 8 Sep 2026 09:58:20 -0700
-Received: from 176938342045 named unknown by gmailapi.google.com with
- HTTPREST; Tue, 8 Sep 2026 09:58:20 -0700
-From: Ackerley Tng <ackerleytng@google.com>
-In-Reply-To: <20260722-tdx-selftests-v14-1-15ad654a50db@google.com>
-References: <20260722-tdx-selftests-v14-0-15ad654a50db@google.com> <20260722-tdx-selftests-v14-1-15ad654a50db@google.com>
+        bh=rgqygJFgVHpbr65+v3Un3U0dLoYuKnbnhqEwnLI1X3A=;
+        b=ZkXcRuut6KD3v1mczystGn0lm57lj+9syxD9ZrL8y6LM9wHZ9JamJzWzp7/E+K4HDz
+         LPHussvjWpHIb2tfal1R12DCJKurWZAD0VkwFFZtcVsMnvoxGl/F/l4jawwjY2dHuYQU
+         ZxKlJlKj7Rbb6rqVfDJIanMp1LT8wMDZ7YVqCbpUz9aZB52MUqVj00WDHcMFxcM0ZKAJ
+         e8Ay6HebUiIbXNVwsXeLQv3kh1xOr8RZiKEIiIa8Nd7eLWVgnWSpM61a9n2AtN5YOkQv
+         k6ump1MOD0xBC+LOzoW0PSpZqlz2u7ryD+GSfm/1nRgJAGNkKFcYMCCKt+SEw+EFgMzi
+         pPdQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxDLinT+zjaQnVY8ajJu/2jYu27T82eeRGPFrchevBb9ijOwSz0lQ/JouhWN+ZC+UhtETJUGPi++um9nuE=@vger.kernel.org
+X-Gm-Message-State: AFuF++k89nQ+iV0WKU0Jy36lrcADllIKDwWzdaD7SPLgcuxy7ePBZ9hB
+	xF32qnSjQpMlFcSbner1fmFmqKSH4pbB6fI8z1Ft/0i4jNXCTJiX4Ngc
+X-Gm-Gg: AYBFou0kXLVXVLmgr2d2jFMEiZp/YKR+u5ByQ7rmoWLLlTkBNbf1I/8xjkom5htWtmN
+	0rB4j8WPPj2w7S29CbO4vrP78go3MRJT+CuWWn/x4cCcsnhisxgATvwHGliehiXD4YChMkzekMo
+	L1735VnuqkSeWLPCR+MvfMz7cpVeT0mxcwN5xc6qlKJjMUOL9NNcVQz1iPlNpIHTpxZLec3lvUg
+	/VG+h+FPkZp5fDJ1m6zqMjzQXNixbCEbU9vRc9AVTC/qWoHDZcfuXEHFZddwidRHmQgu9UAhywe
+	B6nXFAA+Hedsfw0v2Reuw6ePeXAhJTT+VuBQoinppIxbHmC2DY+hMlTPL4C+ztXAIgqEzWgIDKR
+	uZZ75GGAy2pgSe/NTpIi909F/gCnM6nFg2KnoDQ2RxQNC+9AM/xldv3qzkQqoNEOlqnWBxUdbGZ
+	YJVu0Bd4I13qbHua5WE6s1JQ+J31V2wjY9LKiVLZS5hz528mzJn8ecmGIFChX8U1dvRJPErtWaF
+	eD3GhuPW18rbz2GX1WLn5eB
+X-Received: by 2002:a17:903:90b:b0:2db:5f00:ff52 with SMTP id d9443c01a7336-2db5f0103fbmr170823495ad.22.1788886778892;
+        Tue, 08 Sep 2026 09:59:38 -0700 (PDT)
+Received: from LAPTOP-450UDG4J ([223.185.135.143])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2db146b9691sm61436395ad.0.2026.09.08.09.59.34
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 08 Sep 2026 09:59:38 -0700 (PDT)
+From: Yogesh Gaur <yogeshgaur.83@gmail.com>
+To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Cc: linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Christopher Heiny <cheiny@synaptics.com>,
+	Andrew Duggan <aduggan@synaptics.com>,
+	Yogesh Gaur <yogeshgaur.83@gmail.com>,
+	syzbot+09103639e39c989e3ed3@syzkaller.appspotmail.com
+Subject: [PATCH] Input: synaptics-rmi4 - fix NULL dereference in the PM callbacks
+Date: Tue,  8 Sep 2026 22:29:25 +0530
+Message-ID: <20260908165925.2030-1-yogeshgaur.83@gmail.com>
+X-Mailer: git-send-email 2.55.0.windows.5
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Tue, 8 Sep 2026 09:58:20 -0700
-X-Gm-Features: AcwNN1Ul0Nx7jhJwVNNvygXIUovvrGXjOMRCxh0xNG50wROb5Y6Vd7rvg4wlMm4
-Message-ID: <CAEvNRgFgE3DFw1=zc65iMy1gNyPryVJuKPMrNF+ssXydtuEazA@mail.gmail.com>
-Subject: Re: [PATCH v14 01/22] KVM: selftests: Add macros to simplify creating
- VM shapes for non-default types
-To: Lisa Wang <wyihan@google.com>, Andrew Jones <ajones@ventanamicro.com>, 
-	Binbin Wu <binbin.wu@linux.intel.com>, Chao Gao <chao.gao@intel.com>, 
-	Chenyi Qiang <chenyi.qiang@intel.com>, Dave Hansen <dave.hansen@linux.intel.com>, 
-	Erdem Aktas <erdemaktas@google.com>, Ira Weiny <ira.weiny@intel.com>, 
-	Isaku Yamahata <isaku.yamahata@intel.com>, Kiryl Shutsemau <kas@kernel.org>, 
-	linux-kselftest@vger.kernel.org, Paolo Bonzini <pbonzini@redhat.com>, 
-	"Pratik R. Sampat" <pratikrajesh.sampat@amd.com>, Reinette Chatre <reinette.chatre@intel.com>, 
-	Rick Edgecombe <rick.p.edgecombe@intel.com>, Roger Wang <runanwang@google.com>, 
-	Ryan Afranji <afranji@google.com>, Sagi Shahar <sagis@google.com>, 
-	Sean Christopherson <seanjc@google.com>, Shuah Khan <shuah@kernel.org>, Xiaoyao Li <xiaoyao.li@intel.com>, 
-	Oliver Upton <oupton@kernel.org>
-Cc: Jeremiah McReynolds <jmcrey@google.com>, kvm@vger.kernel.org, linux-coco@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, x86@kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-Lisa Wang <wyihan@google.com> writes:
+rmi_driver_suspend() and rmi_driver_resume() are exported for the
+transport drivers; hid-rmi calls them straight from its ->suspend and
+->resume. Both reach code that dereferences the driver data right away:
 
-> From: Sean Christopherson <seanjc@google.com>
->
-> Add VM_TYPE() and __VM_SHAPE() macros to create a vm_shape structure given
-> a type (and mode), and use the macros to define VM_SHAPE_{SEV,SEV_ES,SNP}
-> shapes for x86's SEV family of VM shapes.  Providing common infrastructure
-> will avoid having to copy+paste vm_sev_create_with_one_vcpu() for TDX.
->
-> Use the new SEV+ shapes and drop vm_sev_create_with_one_vcpu().
->
-> Opportunistically move the existing VM_SHAPE() (now __VM_SHAPE()) macro
-> below the definitions of VM_MODE_DEFAULT so that all of the SHAPE/TYPE
-> macros are bundled together.
->
-> No functional change intended.
->
-> Reviewed-by: Binbin Wu <binbin.wu@linux.intel.com>
-> Reviewed-by: Ira Weiny <ira.weiny@intel.com>
-> Reviewed-by: Xiaoyao Li <xiaoyao.li@intel.com>
-> Signed-off-by: Sean Christopherson <seanjc@google.com>
->
-> [...snip...]
->
+	static int rmi_suspend_functions(struct rmi_device *rmi_dev)
+	{
+		struct rmi_driver_data *data = dev_get_drvdata(&rmi_dev->dev);
+		...
+		list_for_each_entry(entry, &data->function_list, node) {
 
-Reviewed-by: Ackerley Tng <ackerleytng@google.com>
+That data is installed by rmi_driver_probe(), which binds only after the
+transport driver has already published rmi_dev via
+rmi_register_transport_device(). A runtime PM suspend of the underlying
+USB interface in that window dereferences NULL:
+
+	KASAN: null-ptr-deref in range [0x0000000000000078-0x000000000000007f]
+	RIP: 0010:dev_get_drvdata include/linux/device.h:989 [inline]
+	RIP: 0010:rmi_suspend_functions drivers/input/rmi4/rmi_driver.c:283 [inline]
+	RIP: 0010:rmi_driver_suspend+0x30/0x180 drivers/input/rmi4/rmi_driver.c:994
+	Call Trace:
+	 <TASK>
+	 rmi_suspend+0xa7/0xf0 drivers/hid/hid-rmi.c:448
+	 hid_suspend+0x4a3/0x530 drivers/hid/usbhid/hid-core.c:1618
+	 usb_suspend_interface drivers/usb/core/driver.c:1323 [inline]
+	 usb_suspend_both+0x285/0x1040 drivers/usb/core/driver.c:1446
+	 usb_runtime_suspend+0x58/0x110 drivers/usb/core/driver.c:2000
+	 rpm_callback drivers/base/power/runtime.c:460 [inline]
+	 rpm_suspend+0x8a0/0x17a0 drivers/base/power/runtime.c:698
+	 pm_runtime_work+0x132/0x1b0 drivers/base/power/runtime.c
+	 </TASK>
+
+rmi_disable_irq() and rmi_enable_irq(), reached a few lines further on,
+look the driver data up the same way and then take
+&data->enabled_mutex, so they would fault too.
+
+There is nothing to suspend or resume before the driver has bound, so
+return success early while the driver data is not there yet.
+
+Fixes: 2b6a321da9a2 ("Input: synaptics-rmi4 - add support for Synaptics RMI4 devices")
+Reported-by: syzbot+09103639e39c989e3ed3@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=09103639e39c989e3ed3
+Signed-off-by: Yogesh Gaur <yogeshgaur.83@gmail.com>
+---
+ drivers/input/rmi4/rmi_driver.c | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
+
+diff --git a/drivers/input/rmi4/rmi_driver.c b/drivers/input/rmi4/rmi_driver.c
+index 5d49a9021c7d..cff9209ec0b3 100644
+--- a/drivers/input/rmi4/rmi_driver.c
++++ b/drivers/input/rmi4/rmi_driver.c
+@@ -991,6 +991,14 @@ int rmi_driver_suspend(struct rmi_device *rmi_dev, bool enable_wake)
+ {
+ 	int retval;
+ 
++	/*
++	 * The transport driver registers rmi_dev before this driver has bound
++	 * to it, so a PM transition can reach here while the driver data does
++	 * not exist yet. There is nothing to suspend in that case.
++	 */
++	if (!dev_get_drvdata(&rmi_dev->dev))
++		return 0;
++
+ 	retval = rmi_suspend_functions(rmi_dev);
+ 	if (retval)
+ 		dev_warn(&rmi_dev->dev, "Failed to suspend functions: %d\n",
+@@ -1005,6 +1013,9 @@ int rmi_driver_resume(struct rmi_device *rmi_dev, bool clear_wake)
+ {
+ 	int retval;
+ 
++	if (!dev_get_drvdata(&rmi_dev->dev))
++		return 0;
++
+ 	rmi_enable_irq(rmi_dev, clear_wake);
+ 
+ 	retval = rmi_resume_functions(rmi_dev);
+-- 
+2.55.0.windows.5
+
