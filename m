@@ -1,140 +1,148 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8190F57EDB1;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88FC257EDB7;
 	Tue,  8 Sep 2026 15:57:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788883030; cv=none; b=IalQMLQe44y33WeFxO3xTX3Abi3OSz575tzbQJoVDPowoIjycHOzMMtTpM1RuXCpSJrcP7r944RuMtVuwRSTYv0mEw0FR84bhG4u18Ws5JLRRIBe7Qb01S6ghYg8unI257RTD/Z8IsYRf9DQ8dwklRCMEaDfwx5ex5AebovokNg=
+	t=1788883032; cv=none; b=AyOfkC6W+agsRbF9c6SnHRyqgI2+ju/Qpvmz4wVPAysSsJdERNSdcGIxJOkQy2/7yZRU8zUeyMO4SF5A84T1yDgwmj3G2b2QoiNliWd8N368zdNIqXQ2Gq+asLLRKla0ISR+xTPDB2n1uw1kKFMYCsF3evgKOChEWqxlFEE8OlY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788883030; c=relaxed/simple;
-	bh=FdzTo5I9j/Voa2ar+cDzGaGXqj7sHN/MyX8pwpvwWmY=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=IjvqUZxBl3PQgAYXSp800Ln/hTjfVmh7pKL6ydW3eOe1jbC1e3q3czfKHeZPbbNRxjaBob+weuuaiMYBNpv8SfxCkXdvOp8L13SQRSVOi8p7Hi/1Nla7cCtzCkAS5J16IT5FZayWLS+2He2oodGfdjQOLiJ7zTN5pKMav3j3udc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=rvE2NrE3; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1788883032; c=relaxed/simple;
+	bh=wE6BShZdQbly6Vg1sd3BDglUpI4DPevW12nlE/4EB1M=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=mZKubrkfXU8g1jZfdLg03XaG/dtw5JYjBnD0cdgUDcgMXdFzThcZ7E/eaeZ+vWoL/CVbrPrkMJiwDh3j0OsJVl7EePRAEUMXRgQYYFc3Sn9MX9zDmH5lmCWYiQ2Ap5ztUbD33hi/Q6QTA4puJ1THOOBCeT6N/1e11k5zmA6p4UU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HJKdL4ri; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="rvE2NrE3"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id ED274C2BCB8;
-	Tue,  8 Sep 2026 15:57:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1788883030;
-	bh=FdzTo5I9j/Voa2ar+cDzGaGXqj7sHN/MyX8pwpvwWmY=;
-	h=From:Subject:Date:To:Cc:Reply-To:From;
-	b=rvE2NrE3PGd6HcBpS+Pf0pAX9JZ6/NX+/5e0CMxr68WxjN9xZJboK1bvRPwHRGbM1
-	 auo3YbPuJUDhFgnzCTtGpkah1HMNNheSwSpFAU2uymZMOkU4TWZYgftcz6D0z2APqv
-	 TFeytR8H5lOijSS2Pvo57FCxtjoX4Uj20Tsv1ykKsTukILwq8klMEiwL0xS8aWMVJC
-	 LjjQyDHzyMC0seaT4bSy2IKzyUXYtU7Kd6rKfTIdQJnmpC7fZKz+ma7s3O40pUavHW
-	 ED7zKs5lhaUa5F8TugRtwyAA2qrq+5uymgIabIh3mLs4yyoDrQPHMcpV/yfCEtx87S
-	 5DXSoS771/ltg==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C7F26C79F99;
-	Tue,  8 Sep 2026 15:57:09 +0000 (UTC)
-From: =?utf-8?q?Dawid_Wr=C3=B3bel_via_B4_Relay?= <devnull+me.dawidwrobel.com@kernel.org>
-Subject: [PATCH v3 0/3] arm64: dts: qcom: add the Xiaomi Mi Pad 5 Pro 5G
-Date: Tue, 08 Sep 2026 17:56:58 +0200
-Message-Id: <20260908-sm8250-xiaomi-enuma-v3-0-0198c3bf954a@dawidwrobel.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HJKdL4ri"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7D5121F00A3A;
+	Tue,  8 Sep 2026 15:57:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788883030;
+	bh=+Xk5g9hhke4NmnhJKxFuptmSPt0Ay2UA09dJINvaSs4=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=HJKdL4riRsnh3DhO2GkvZ/ogoKy4cKyEmOvTJglm7Ip96uP51Mz6B+llNdwnkey88
+	 LZjxDsVk+bxYDC3x0yZrX+z9K5M8WjQXBHz2A9ZSDLpBDcggVMYJ+W9OeRvRrL9S5Y
+	 7O+ISDfA90VfnmJu98usOYjZzwB2elVtj2fC9KDpoG8tgUEdXQyBu0CWNrUuSSpuHU
+	 kPym+dsZ2ZJALMPqLE6/XBd+DwP8PhFxyjGkUgYyW7VVCTAAQKmnTorAKqKeWDjEEV
+	 yHI92h3lTYDHxB+8tzNmqQsHc0q1ey9cBKFP8p8hpvhYnhWdZpkAUStQjHdaT0XUj4
+	 dSX4btIS8Uatw==
+From: Pratyush Yadav <pratyush@kernel.org>
+To: Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Pasha Tatashin <pasha.tatashin@soleen.com>,
+	Pratyush Yadav <pratyush@kernel.org>,
+	Alexander Graf <graf@amazon.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	David Hildenbrand <david@kernel.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	Ard Biesheuvel <ardb@kernel.org>,
+	Ilias Apalodimas <ilias.apalodimas@linaro.org>,
+	Rob Herring <robh@kernel.org>,
+	Saravana Kannan <saravanak@kernel.org>,
+	Arnd Bergmann <arnd@arndb.de>,
+	Baoquan He <baoquan.he@linux.dev>
+Cc: x86@kernel.org,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	kexec@lists.infradead.org,
+	linux-mm@kvack.org,
+	linux-efi@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-arch@vger.kernel.org
+Subject: [PATCH v2 4/4] kho: rename kho_scratch= commandline parameter to kho_bootmem=
+Date: Tue,  8 Sep 2026 17:56:38 +0200
+Message-ID: <20260908155639.2496551-5-pratyush@kernel.org>
+X-Mailer: git-send-email 2.55.0.979.g7e5102b832-goog
+In-Reply-To: <20260908155639.2496551-1-pratyush@kernel.org>
+References: <20260908155639.2496551-1-pratyush@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/33NQQ7CIBCF4asY1mKAtpS68h7GBS2DnUSKAaU1T
- e8u7caFxuX/kvlmJhECQiTH3UwCJIzohxzFfke6Xg9XoGhyE8GEZHXBaHRKVIxOqL1DCsPTaQq
- qVlZ0TJW8IPnyHsDitKnnS+4e48OH1/Yk8XX97yVOGQUjjbJt00ipTkaPaMbgW7gdOu/Iqibxk
- RQrf0siS40xrFTScl5V39KyLG8xLDLsBgEAAA==
-X-Change-ID: 20260730-sm8250-xiaomi-enuma-e878f2c08413
-To: Jianhua Lu <lujianhua000@gmail.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
- =?utf-8?q?Dawid_Wr=C3=B3bel?= <me@dawidwrobel.com>, 
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2914; i=me@dawidwrobel.com;
- h=from:subject:message-id;
- bh=FdzTo5I9j/Voa2ar+cDzGaGXqj7sHN/MyX8pwpvwWmY=;
- b=owGbwMvMwCV2qrTGfeXVd28ZT6slMWQtMAixW5/M9EzBdK5vqGbx9g0rX1T1bHS6dD7w4R1Zt
- W3l51+c6ShlYRDjYpAVU2TRSwvaYxX88vu7F7/DYeawMoEMYeDiFICJOD5g+B9YekI99gDX3YP/
- 95by8L3YuN+83YOTaaqO8+Ezcbeyk/0ZGa4dv3JO31Sx6f8s81e/ndP8xB7v/rf6pmrkC6bXHG1
- zqnkA
-X-Developer-Key: i=me@dawidwrobel.com; a=openpgp;
- fpr=B64A778E0E64049A70C831C8B7B81FA12B282A92
-X-Endpoint-Received: by B4 Relay for me@dawidwrobel.com/default with
- auth_id=901
-X-Original-From: =?utf-8?q?Dawid_Wr=C3=B3bel?= <me@dawidwrobel.com>
-Reply-To: me@dawidwrobel.com
 
-The Mi Pad 5 Pro 5G (enuma, 2021) is the modem-equipped variant of the
-Mi Pad 5 Pro (elish). The two boards share a design, so this describes
-enuma as sm8250-xiaomi-elish-common.dtsi plus the three things that
-differ: the board ID the bootloader matches on, the panel compatible and
-the WiFi board data variant.
+From: "Pratyush Yadav (Google)" <pratyush@kernel.org>
 
-Unlike elish, enuma shipped with a single display variant, so there is
-one device tree rather than a per-panel pair. The vendor device trees key
-the touch configuration to a display maker, and enuma declares a single
-entry against elish's three:
+KHO now no longer uses "scratch" to describe the memory areas passed by
+previous kernel. Instead, it calls them boot memory, or bootmem in
+short. Rename the kho_scratch= commandline parameter to reflect this
+terminology change.
 
-  https://github.com/MiCode/kernel_devicetree/blob/elish-r-oss/qcom/enuma-sm8250.dtsi#L309
-  https://github.com/MiCode/kernel_devicetree/blob/elish-r-oss/qcom/elish-sm8250.dtsi#L294
-
-The panel itself is the same part elish uses: both trees pull in the
-same dsi-panel-k81-42-02-0a-video.dtsi, so the new
-xiaomi,enuma-csot-nt36523 compatible falls back to
-xiaomi,elish-csot-nt36523, leaving room to handle any difference that
-turns up later without requiring a device tree change.
-
-The WiFi board data is already upstream in ath11k-firmware as
-bus=pci,qmi-chip-id=0,qmi-board-id=255,variant=Xiaomi_Pad_5Pro_5G
-(QCA6390 hw2.0 board-2.bin, commit 235d09a5e111).
-
-Tested on the device: the panel and WiFi come up and perform as expected
-under postmarketOS.
-
-The fingerprint sensor, PCIe2/modem and touchscreen this board also
-provides are left out here; they depend on bindings that are not upstream
-yet and will follow separately.
-
-Signed-off-by: Dawid Wróbel <me@dawidwrobel.com>
+Signed-off-by: Pratyush Yadav (Google) <pratyush@kernel.org>
 ---
-Changes in v3:
-- Picked up Konrad's Reviewed-by, given on the v1 patch.
-- Follow convention and separate status = "okay" with a newline (Konrad Dybcio)
-- Keep the copyright date range current (Konrad Dybcio)
-- Link to v2: https://lore.kernel.org/r/20260804-sm8250-xiaomi-enuma-v2-0-9dd0486f1155@dawidwrobel.com
+ Documentation/admin-guide/kernel-parameters.txt | 2 +-
+ Documentation/admin-guide/mm/kho.rst            | 4 ++--
+ kernel/liveupdate/kexec_handover.c              | 6 +++---
+ 3 files changed, 6 insertions(+), 6 deletions(-)
 
-Changes in v2:
-- Dropped the "label the WiFi node" patch, folded into device tree patch (Krzysztof Kozlowski)
-- Link to v1: https://lore.kernel.org/r/20260730-sm8250-xiaomi-enuma-v1-0-ed6d8fb99668@dawidwrobel.com
-
----
-Dawid Wróbel (3):
-      dt-bindings: display: panel: novatek,nt36523: add the Mi Pad 5 Pro 5G panel
-      dt-bindings: arm: qcom: add the Xiaomi Mi Pad 5 Pro 5G
-      arm64: dts: qcom: sm8250: add device tree for the Xiaomi Mi Pad 5 Pro 5G
-
- Documentation/devicetree/bindings/arm/qcom.yaml    |  5 ++++
- .../bindings/display/panel/novatek,nt36523.yaml    |  4 ++++
- arch/arm64/boot/dts/qcom/Makefile                  |  1 +
- .../boot/dts/qcom/sm8250-xiaomi-elish-common.dtsi  |  2 +-
- arch/arm64/boot/dts/qcom/sm8250-xiaomi-enuma.dts   | 27 ++++++++++++++++++++++
- 5 files changed, 38 insertions(+), 1 deletion(-)
----
-base-commit: bd94276d96726a82700d85ad3b32892f45809d3a
-change-id: 20260730-sm8250-xiaomi-enuma-e878f2c08413
-
-Best regards,
+diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentation/admin-guide/kernel-parameters.txt
+index 6132fa73382a..8a42a924f133 100644
+--- a/Documentation/admin-guide/kernel-parameters.txt
++++ b/Documentation/admin-guide/kernel-parameters.txt
+@@ -3031,7 +3031,7 @@ Kernel parameters
+ 			"0" | "off" | "n" - kexec handover is disabled
+ 			"1" | "on" | "y" - kexec handover is enabled
+ 
+-	kho_scratch=	[KEXEC,EARLY]
++	kho_bootmem=	[KEXEC,EARLY]
+ 			Format: ll[KMG],mm[KMG],nn[KMG] | nn%
+ 
+ 			Defines the size of the KHO boot memory region. The
+diff --git a/Documentation/admin-guide/mm/kho.rst b/Documentation/admin-guide/mm/kho.rst
+index 4fae09096038..f14c8d9ad6a4 100644
+--- a/Documentation/admin-guide/mm/kho.rst
++++ b/Documentation/admin-guide/mm/kho.rst
+@@ -20,8 +20,8 @@ need to enable if you would like to preserve their respective state across
+ kexec.
+ 
+ To use KHO, please boot the kernel with the ``kho=on`` command line
+-parameter. You may use ``kho_scratch`` parameter to define size of the
+-boot memory regions. For example ``kho_scratch=16M,512M,256M`` will reserve a
++parameter. You may use ``kho_bootmem`` parameter to define size of the
++boot memory regions. For example ``kho_bootmem=16M,512M,256M`` will reserve a
+ 16 MiB low memory bootmem area, a 512 MiB global bootmem region, and 256 MiB
+ per NUMA node bootmem regions on boot.
+ 
+diff --git a/kernel/liveupdate/kexec_handover.c b/kernel/liveupdate/kexec_handover.c
+index fe4b76ff5a2c..7018e25e4eda 100644
+--- a/kernel/liveupdate/kexec_handover.c
++++ b/kernel/liveupdate/kexec_handover.c
+@@ -671,12 +671,12 @@ unsigned int kho_bootmem_cnt;
+  * The bootmem areas are scaled by default as percent of memory allocated from
+  * memblock. A user can override the scale with command line parameter:
+  *
+- * kho_scratch=N%
++ * kho_bootmem=N%
+  *
+  * It is also possible to explicitly define size for a lowmem, a global and
+  * per-node bootmem areas:
+  *
+- * kho_scratch=l[KMG],n[KMG],m[KMG]
++ * kho_bootmem=l[KMG],n[KMG],m[KMG]
+  *
+  * The explicit size definition takes precedence over scale definition.
+  */
+@@ -751,7 +751,7 @@ static int __init kho_parse_bootmem_size(char *p)
+ 
+ 	return 0;
+ }
+-early_param("kho_scratch", kho_parse_bootmem_size);
++early_param("kho_bootmem", kho_parse_bootmem_size);
+ 
+ static void __init bootmem_size_update(void)
+ {
 -- 
-Dawid Wróbel <me@dawidwrobel.com>
-
+2.55.0.979.g7e5102b832-goog
 
