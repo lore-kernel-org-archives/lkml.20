@@ -1,142 +1,384 @@
-Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazon11010063.outbound.protection.outlook.com [52.101.84.63])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yw1-f177.google.com (mail-yw1-f177.google.com [209.85.128.177])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 980BC534479;
-	Tue,  8 Sep 2026 14:00:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.84.63
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8118454939F
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 14:00:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.177
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788876025; cv=fail; b=KqcygOjABKUP0ut60erR8Tl4Skf3lEBL6PH642R4aWcJIXtR244RknWeo0ATQBMl/UetZ9odkM8vA2ZGPRuaJndDvna3mklOIlCqo8Ioq3Fxskvm2gVc6/nd0Pqsw0SwD/thQVNiPFwXPH/kNgBSPGaE+W5dXjmx2hzFcjOfZT8=
+	t=1788876048; cv=pass; b=eJOO+pAEcawUfvoMnXDqxj/yPMSZqkeswfxRihx4wOYK+vWmWyI7ZH3wVsq21p76s4YeJQiHoLL34Na48CjYtoOmfij/lwpB/1W9el61OlRasmcGgDiVqc8kZq5MJXe1493DV+d3fY/Cc0wsKbqfxIRLvsdtZY9FzEwJrTYB0Y0=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788876025; c=relaxed/simple;
-	bh=waIpQmoq5R6jA5xLKOAzBdBp8AVQJeDaJnKQNm8YfmQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=k8cCv4E917kLvM1T+Nqys1OeYdWg063Qv0iGH7d3Dp6LJvgPGe+OE4mKxL9YNjNHRTEuM3rRmH4FYHC8N1Y3RB8csrvrlysMI+zFFlKEYZ7455pjsX7xJWJWGFxoPFUQMl5c0UOpv+YaFsekWC4iU+vbzamoIuia9X/ijecSUSU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=LsPZeIUa; arc=fail smtp.client-ip=52.101.84.63
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
+	s=arc-20240116; t=1788876048; c=relaxed/simple;
+	bh=iPjwqdkAoSQfhEH46iMs8ytY7do3IzdmRx6c6+kJVJU=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=U5YRHQOygM+w4t+F/LWqIm/KfVSLYxTQsX98eqS2Xgjw6100FM4/4rxmRnYGYWemASwO1ZTftnWwgH7VTj66KA7Ks3uFS5F4+xX/NHYQ31dJiZBohoAPuv2kB5XG2YygoO2F99741/GhG3aoYuPQ6AcyFQ27MIsD8v8GOvI/2S0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pwJhGDYn; arc=pass smtp.client-ip=209.85.128.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="LsPZeIUa"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=fB4HPNJeZCSZwCEi8rWaazcFCGc3JaLFRjmQV+AvquKIzpwjusTwkDW7Ulb5VfaQLnboP1AbWEZ6oAQ1ffJFFjvuvoqTjxHaRFkHG1MhOQZexPryTauc6FvbmpWUhsokkxjJNAuh3qxRJ4/72jQ3zKe0R//SrKNOcdZusPioSZh5YKrTmcICzOMS2ga+KHfbQk1iUiAj2s+zgpOZBP/lD0Q6ZKpN8riELYK/FJMiLK0Fw2y7MHlU4QYX1k1uQY9KPSUvaKHu+DO3cg8ZXiR63Z4u4r00hV0b9uZ4dl9V/XaIIDI444FMbgNWGptl/x2PBh+I8AkNmaHYHeN3RR/riw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=i+3mAT781mGIvB+1fiA3UdLXL7Miso7We4dTW9K3CEM=;
- b=ww10BkKjErsfHa1QBL6jwZpZSReDH/G4y+iSb9Boe5LPR0W+ypS2qOl/J79+0AKkCqMoH9MUoYcL+vd5G89zqlh7J2HJEE9jADdA4AGyXaEw9uaa3O8ehdRkgq/gJ5xKesyd7tzjl9Gd53p7DL822chS91yms6hxrWHORIUEVJ8CasgM0Qaw3fn0yqU3eO9C6oYXexaoxyet2xHy34du16oSW/RHng+WYCUGOpoeHtzkKntInIURbov+IRtMngJfBq43cYpampECTzGEuxoEKnc1uAJuEiY+RZmk9d7SMqkcTuEBvvHQVw7JdeYRFf7n81yhDo0eBN85ipcdJBz1bQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=i+3mAT781mGIvB+1fiA3UdLXL7Miso7We4dTW9K3CEM=;
- b=LsPZeIUaA8svkhaZw+S8E2Uv4BArWhwqSpEJM19RYiaRyWGf5J4WWOQV0vbdUiMHlHFkN5OlDyn4W1/NXHxUcPzfdPSNdw2P29olU5h/6g5gVJUlLX54NCKnEMBm67o/aSXOFZweZJFIzKjnRdX8OYFT26Np1wURn3febAVwVlKGVrnKNkB1FhVi6XkAbdN50pMPevsNz1k7dmzGhBYJcPuWy+gEs6Fv8qhtT3iruVaM9FTptHIICWX0yD35QgruvQnom/LALWoaYlzPqC9PKdaFXg01tjWwcjNaIEm4RYyE8RwwXAJ6o6wDo4tZFC8V70UZTMNMYndRs6q2pYMxXA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-Received: from GVXPR04MB12290.eurprd04.prod.outlook.com
- (2603:10a6:150:319::13) by GV2PR04MB11959.eurprd04.prod.outlook.com
- (2603:10a6:150:2f1::20) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.15; Tue, 8 Sep
- 2026 14:00:08 +0000
-Received: from GVXPR04MB12290.eurprd04.prod.outlook.com
- ([fe80::1739:3404:2175:33dd]) by GVXPR04MB12290.eurprd04.prod.outlook.com
- ([fe80::1739:3404:2175:33dd%3]) with mapi id 15.21.0382.012; Tue, 8 Sep 2026
- 14:00:08 +0000
-Date: Tue, 8 Sep 2026 17:00:05 +0300
-From: Ioana Ciornei <ioana.ciornei@nxp.com>
-To: Abdifatah Suruur <suruurism@gmail.com>
-Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Alex Williamson <alex@shazbot.org>
-Subject: Re: [PATCH v3] vfio/fsl-mc: prevent read-only region mappings from
- becoming writable
-Message-ID: <advmj7drj6kfokjqoy47p4rrcq2c6ungrt422vyi7aqxubtsel@os3ba72l6pqk>
-References: <20260903092912.444-1-suruurism@gmail.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260903092912.444-1-suruurism@gmail.com>
-X-ClientProxiedBy: AM8P251CA0002.EURP251.PROD.OUTLOOK.COM
- (2603:10a6:20b:21b::7) To GVXPR04MB12290.eurprd04.prod.outlook.com
- (2603:10a6:150:319::13)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pwJhGDYn"
+Received: by mail-yw1-f177.google.com with SMTP id 00721157ae682-836c4474028so41927417b3.0
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 07:00:37 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788876035; cv=none;
+        d=google.com; s=arc-20260327;
+        b=mGES93jnt6rHrcbh6vW3InG/jFHmiPQAHd4sf9EDmyMLJSLMSjx2JkmdQbtFA6Of3X
+         /gqTWnW7T2+R0nCb9tNI/PhzclZb+tiiwVEaIU2d1gZ8i7gkFm2fL+YVTRJg1E2PwmLj
+         iBeglJvUgR3xst2UPQoRitLFkNHxYNDQvexlU7a6jSfSmYvwPKM7IDXs9QYEmtRZI8/s
+         7rYU/WD4iJvO+qHQ3eb0a/Heriahm7L4jJEWb7Tt6FKyLhokhHUrIL7bKYXyFvJpSrHU
+         vwatW+4dVvMw5vLBciLo7AlbbnMl7Lvb7L8BL/VMbfezCB0rj6RDEUMpKQ53ii+AfFUx
+         NqiQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=k640zG7BWa9KUAoBYdvfQi2mkX3cXyctSPNiuSYngu4=;
+        fh=RQEFB5uKbP5b+MOVa3MKi0eWSto+3Tqv1EWpmi6ESVU=;
+        b=Gmwj+EUABgznwwDfcIPxvB57LBRyWKq+XGdx29V+d6s4Bn9xw9pi/w6hWqbxJAM/6w
+         KHwENZNp4jzYrPYOCd6stfeLPGrNu+ux1Ce6CsC6mxyB8XtI4hNbF4aGjrrtvxkXZMwv
+         G3a6quxDQnPz7LdZYNZpEOOuVXsLFnGFvhAATpPZBxqELeo1RkQPlc1qtCNCK54RYPWF
+         n9B6q3wPEKsOuJVWL9v+h7UScphrHdFYs8D7sTAuFRBTCbRqDh5wAc5F4tZL+hD01S1+
+         D5IeM+srMd2NLgmLOQtIlAk5j5Xx+iGhzWU6km3sZYSGo0JEFGLVhi578a/i+kLl7vM1
+         g5tQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788876035; x=1789480835; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=k640zG7BWa9KUAoBYdvfQi2mkX3cXyctSPNiuSYngu4=;
+        b=pwJhGDYnQVQgFCQ+pf9Zod0iTnE9eeHu/YETKfvDqyg+bzA7DM3LewrnPxt2C2P9WY
+         rINGvdJU/JukZN777J99BGxx1nMRlx5MSkMYctxUWWx5JjI558Ykz2oQ5ICNUJNKGepm
+         QUmaiVjoS5Oes1ENPA9Z4upq84P/J/MNG5Sp93p7CXA5M93bbUtLjV94SIQ1JWZAv+qW
+         0d9fZiLnoPppvlc11uo834qKdyg2z/nAM/q6OcBSwROs/glgTZdfwSRPP2I4RijMf6Zn
+         AHw+zPLuj7nW16AE6TJwzgwIp2vIJUg/BFp2/OF+To+jQflUnAjSODcampziMHiY1yfy
+         c5XQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788876035; x=1789480835;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=k640zG7BWa9KUAoBYdvfQi2mkX3cXyctSPNiuSYngu4=;
+        b=sK+wKAnb0NPJoKhqXggCqdEDSVgW+bWNRbQZx8GYsM9ssl8zaJGKGOda2jJNiIh8O2
+         RtHzZVtWvemQl8bOG6bxjwBY/xO1ZCo8FE4uu9rVB+U2LFfR9mdrfbwdQyaQ2YprdJPG
+         6xEYGBNZnxIYhsOQqI5uC41gOvos3M/dy4NLOlgKpWIm0Ll/jBOJ9NCEyswUgq5DCiAb
+         426tyNYoL4XBHnR2XfEYjpKn9fkr261ct7xxSqX+V/hzaBgWUkCtvsAZ0hCcaapwrRDo
+         WPqrmQyrTtry7Y+dByP23NOsUSCyFqgcm3e4ayN5omjuq4DpPvFZYeTsorkSQjnQAwe/
+         47jg==
+X-Forwarded-Encrypted: i=1; AKwUvBwN1urdwdaXdPlR2iYVtvKcw+I3DUxqWZK9wvr3bJalB375B0e6pid5sef/iXfT2BBJhPTfS8eSJ7WBvQI=@vger.kernel.org
+X-Gm-Message-State: AFuF++kY9usH3XnPg153ABkEpO8JH8C7D7kkc2bR1zcbUkmgrXIx+TTZ
+	MSuuANOrxG37TXwZvSD0+Z/SRIR4IXtm/Fsznd3CnbVJhhcL2zCsZ22BxqEXfRsC+xme84n2I9l
+	ysNVrVdNeRp2mKD/Ba+jOGXeYKE+7WSM=
+X-Gm-Gg: AYBFou1EGuDrFuxr2hyOYNNAFUgDjA0TOTqhVcEd5HVPgt5ipQBeyNrPERhiEv6Oh9y
+	rwDJK+cxCsh203mkPK75vshHneYgb5hOiqergEojKgR6OvV2vDBpgxtj9CYOlu/wuj549eViQUi
+	JU4rKRvxRQtx9ZF560zSWAmMQz9Drw13PupRQ2SPU8HT9gtute+REpppyHzv/KyKzjwM5LkaJOF
+	JepUcHyTa95mh/JyS/v8AmngmYc+aGaNhwi+3XZ/BtRJXfEVZ05yibxVUUh7xVD6LPkwb78dJWd
+	KmnhlMtyhksaFELZhtysEsPoJpgYI7ibKNLwRFHUhkj6s8gd1bGkGwINuXC/JKmpzK17F1rrJIK
+	SM6YFbmeISzOW9+Qp0RaGf7s6K4bQuG0BIJMxNrQ=
+X-Received: by 2002:a05:690c:39b:b0:873:5bb2:6c07 with SMTP id
+ 00721157ae682-8735bb26d1emr73936247b3.49.1788876034932; Tue, 08 Sep 2026
+ 07:00:34 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GVXPR04MB12290:EE_|GV2PR04MB11959:EE_
-X-MS-Office365-Filtering-Correlation-Id: 69b0e023-f2ac-4f6d-d587-08df0db17e2d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|366016|376014|23010399003|19092799006|10067099003|11063799006|5023799004|56012099006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	tH95O3YnQc2cZYIkDv1OV3ByZK7gFkAnG+/5IT0yAhWLpUPSgQPfcPbaUtB7zmgdvXKJrtubN8ERGpF0w9IGFh6dbmaKxQWIx+MxV+2H/dh0g/DMqJsLHIXGKMgYJd2+dA51voQui6COYUitKZYQkSuYMwR5ei8G4q4p/Vq/3UUunakehW9wnd+R1vNHa3OhlSiYrv12WpOvRMxpkBQvkbtfk87yjxYSspyjlAb7QGmaNYUViuk8Zx1Grx6bJluTT2inHnXi/7KDYNCuMtiNJie/RyZ2FHRIYTh+W0ZqxPKBPTGC54/huammHqu1cR1Aly4T242mKuUEv+bhbw79iPDFeJJcZsVDMYhXmaZc2pnNigFX5C1YvCbcpgbc8wMwV1CSgUmhnc9AVSs0pTeYjb5tCi/a7QfVbvvkygNpbvbProR4jh3jhJhfbodpapHPpUWbuyCAB1L2/eukt1HmMCL3oH1DVwt2yW6dDvUMdjMiRGJOwGbaFNPdDvuOZ67QFY9Jtth/ja2/4shi5XbWCqmpqcWl+1DFJPN0lUP28zMuhGleYWEucgl9xaIQyN+2Vc4tJXv1mLo++K2wU4H/3pBv3CM/1Nry7v+K2kH24I6XwEy0gspzBH7VWqjLNQlZV4W7cBpt9zFl79DhwECuZo0jWeesh5lkCGfhys51EAo=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GVXPR04MB12290.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(23010399003)(19092799006)(10067099003)(11063799006)(5023799004)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?bdv+Sa9NsWuMabOEsAXyNz1Vs6i9wCvtXc9ZipYAixllXEZNfWKIymk9+qAl?=
- =?us-ascii?Q?RNEAO7vaIaXpydLQolc1VE6yAb+mAjZZ+W8rddxtKuljrE66WnV0byfDGuFX?=
- =?us-ascii?Q?IbDNNkaTrnekYerMROE4C+Rq/xzuQcoUNu/lCU5X3i1vC0Zyr2dIwaKjMlRU?=
- =?us-ascii?Q?gTjsrZQ7quMvgA3NJqRXVkisdig9oElptgyIQa7RIVsikx6eFjul+xAYhk7e?=
- =?us-ascii?Q?XkgyL1Z9dr7IBubdtcz85R1jZTOgyQjh0C6jNxmcDQhQ3yhI0nuWu/N3Nq8X?=
- =?us-ascii?Q?DdE06pzfcriRb5J0cfexHCbLXRTEJTL+D1K+zf1jomI8Fwt3+lV5lhGfzM6D?=
- =?us-ascii?Q?gtc8a+Y5u0af1yHHYa3P4u1r+cjeOQ54Xb6P1aEn9MKM2DE5O2tfhRVU9PFW?=
- =?us-ascii?Q?tom2gqFnvmakfZG24rgpNizn0f6iLZQH8LkUbNgShZLDHVLq7A9vJXsCPUDi?=
- =?us-ascii?Q?C7Qr7jxyPLbPIPQX8niMS0h+tZ2eWijqMhlLomXjcAyod79pnHsMpoUe0pa9?=
- =?us-ascii?Q?Z1bp3QABND2ULUQ+tqdAPT84g9okfVvkOqi/c2KCr86dEl1HpI5bMBsdGarE?=
- =?us-ascii?Q?Ld1C/PZMb4011xP6oj4d7BfDqdt6U1DB+lPLg1gg71YpnCLW5baRB5yOJsck?=
- =?us-ascii?Q?b6ja/2+OGxWKOHSlkiE6ynJlGNRkJeUzvZIQjzZcm+OT+b7kLH5jjMLETgJz?=
- =?us-ascii?Q?kqesvIa8hAGxSWd9LEWX311rTyzwjS5H0gewiwg5jb+q2ggHM0GOdNH24ebU?=
- =?us-ascii?Q?aZ4cgIDstx63HO6FZMQ7wF/TomhSTzjrq0SPbxn1BrNWHpxsAT97gJJOuMvO?=
- =?us-ascii?Q?RDDQoMzFpy6r4nXD17aQtXS3TNIdw8qO26qYhClXNIDIsUA5SnnWDXm+Z+TF?=
- =?us-ascii?Q?2o7LyANEfXzHiPnfAH52S2RnbGb6l6dB0+PApNLyzoXJ/UHh9/sShiJ5gYNE?=
- =?us-ascii?Q?wNbwzweENt0t82yueBXinG4YAmqppQammJrG44dnwEJULkB3+ol7QukwRcWL?=
- =?us-ascii?Q?iKu0o8lD2vAVVFcC4FWVFRxYXWrES5BYqgf0LfFeikgWVvqPHSEppN2pPoiy?=
- =?us-ascii?Q?dBT+U5FAUCgeO/mpxX5UABIqPUh5/90KDKz7lAfo6fsH75YvKLpHFrg4FB9r?=
- =?us-ascii?Q?tdZuWoIGrtLDfhAXZ4fWqtYPqS1TL49aS+dJgm7Lb2N/zmtFuzE1IeZRt0Do?=
- =?us-ascii?Q?byRw12liz0EaAbPmywG0EBndNIJt/jOKU5uQLduU7pGN+j69Bs1xRDZ3x/ho?=
- =?us-ascii?Q?XtTcWBK3XNUzFVZcCaBt7pXyVgYbQUirxq1nWd1oU4u4bvEXD7iAVypK8L0Y?=
- =?us-ascii?Q?hAYZcH/U0dT4FXDVMKCA8qhGOzqchuwagbI2PSJys72yX/LOIXUNnzmn8BdW?=
- =?us-ascii?Q?a6FtNSInlrDSlyDi70dJ4tAajtOd+3Kb9xM5FJbHYh0SlpOuMrAzBi9p3JPD?=
- =?us-ascii?Q?/1HuUDHrBnALISssekeB+pOXT5V7HQYi1D/ybex3qTlZfWH5715eL4mF9UPj?=
- =?us-ascii?Q?Z13Vn6LGmR8GcZkDITc4EAxicVLLepDCZHRUFgeF8HQu6WMo9kNYZlYZTjbH?=
- =?us-ascii?Q?bMbzPyCygUcLHPVdbFiZOaHVuPzO4OOIn9xUPfvJCsKwraBk7U9kACbOpCaT?=
- =?us-ascii?Q?fWO/ZpEyM1CiflQJd6zWiThoSAQY6e4Itw0IpFsH9dligmX3nRqZ/wM0oc+4?=
- =?us-ascii?Q?PSblN04Kf46HDOfINoUVn2nXCncYWiSmY+sD4p507sFgs7z/dTbZeN3CAdAh?=
- =?us-ascii?Q?ptDCIelRhw=3D=3D?=
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 69b0e023-f2ac-4f6d-d587-08df0db17e2d
-X-MS-Exchange-CrossTenant-AuthSource: GVXPR04MB12290.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Sep 2026 14:00:08.8273
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 8uQlPPvHM2NIiiyOTr16MaS22QqMjbG09jqXUbpqhxZsBpvJUvW9QHGgCXpDv5MEFBm14sWnTIu4vtLHj3BCPg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV2PR04MB11959
+References: <20260908012048.3681904-2-radek@podgorny.cz> <20260908012048.3681904-4-radek@podgorny.cz>
+In-Reply-To: <20260908012048.3681904-4-radek@podgorny.cz>
+From: Luiz Augusto von Dentz <luiz.dentz@gmail.com>
+Date: Tue, 8 Sep 2026 10:00:23 -0400
+X-Gm-Features: AcwNN1W7GZwfE2YnHeV3w1UncZu_mUSOdDvGCSKK7fOIS_oUcTprOZz8V7pe5T0
+Message-ID: <CABBYNZ+nWb0m=qMvxADM2HvuLhopxG7L+io2JTmGXQM51YOYhA@mail.gmail.com>
+Subject: Re: [PATCH 2/2] Bluetooth: put the peer's on-air address on air when
+ we cannot resolve
+To: Radek Podgorny <radek@podgorny.cz>
+Cc: Marcel Holtmann <marcel@holtmann.org>, linux-bluetooth@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, Sep 03, 2026 at 12:29:12PM +0300, Abdifatah Suruur wrote:
-> vfio_fsl_mc_mmap() rejects writable mappings of regions without the
-> WRITE flag, but leaves VM_MAYWRITE set.  Userspace can map such a region
-> read-only and then upgrade the mapping to writable with mprotect().
-> 
-> Clear VM_MAYWRITE for regions without the WRITE flag, as i915 does for
-> its read-only objects and as fixed in drm/vc4 (CVE-2026-68445),
-> drm/panthor (CVE-2024-53071) and commit a5edadbae57e ("ptp: vmclock:
-> prevent read-only mappings from becoming writable").
-> 
-> Note this is defensive hardening: the fsl-mc bus publishes all device
-> regions with the WRITE flag set, so no device can currently reach the
-> read-only path.  The guard costs nothing and keeps the mmap() interface
-> honest if a read-only region ever appears.
-> 
-> Fixes: 67247289688d4 ("vfio/fsl-mc: Allow userspace to MMAP fsl-mc device MMIO regions")
-> Signed-off-by: Abdifatah Suruur <suruurism@gmail.com>
+Hi Radek,
 
-Reviewed-by: Ioana Ciornei <ioana.ciornei@nxp.com>
+On Mon, Sep 7, 2026 at 7:21=E2=80=AFPM Radek Podgorny <radek@podgorny.cz> w=
+rote:
+>
+> An identity address only reaches a peer that is advertising an RPA if the
+> controller resolves on our behalf. Where it cannot, the host has to put t=
+he
+> peer's on-air address on air itself.
+>
+> hci_connect_le() used to do exactly that, swapping the caller's identity
+> address for the peer's cached RPA before creating the connection:
+>
+>         irk =3D hci_find_irk_by_addr(hdev, dst, dst_type);
+>         if (irk && bacmp(&irk->rpa, BDADDR_ANY)) {
+>                 dst =3D &irk->rpa;
+>                 dst_type =3D ADDR_LE_DEV_RANDOM;
+>         }
+>
+> __hci_conn_add() now resolves that RPA back to the identity address when =
+it
+> stores it, so the swap no longer survives into conn->dst and the identity
+> address is what goes out. Storing the identity is right for host
+> bookkeeping, but nothing translates it again on the way to the controller=
+.
+>
+> A peer advertising an RPA cannot answer an identity address, so the attem=
+pt
+> burns a full create-connection timeout. That is not merely a slow connect=
+:
+> a controller without extended scanning cannot scan while it is initiating=
+,
+> so every dead attempt also takes the scanner off the air for the whole
+> timeout.
+>
+> Measured on a CYW43438, which reports neither LL Privacy nor extended
+> advertising (LE features 3f 00 00 08 00 00 00 00), against a peer
+> advertising a resolvable private address the host holds the IRK for, with
+> the connection requested on the peer's identity address:
+>
+>   before: LE Create Connection to the identity address, public type
+>           1.61s -> 22.07s, then LE Create Connection Cancel
+>           LE Connection Complete: Unknown Connection Identifier (0x02)
+>   after:  LE Create Connection to the peer's RPA, random type
+>           LE Connection Complete: Success
 
-Thanks!
+Ok, the problem is then that we are trying to an indentity address to
+connect when LL Privacy is not supported, so we probably can just
+revert to use the private address at hci_conn_add in LL Pirvacy is not
+supported or we didn't program the address in the resolving list.
+
+> Advertising reports reaching the host per second, same window, same five
+> unrelated devices on the adapter:
+>
+>   before   1s:2   [nothing from 2s through 21s]   22s:5  23s:3
+>   after    0s:11 1s:5 2s:2 3s:5 4s:3 5s:4 ... 21s:2 22s:1 23s:2
+>
+> One dead connect costs twenty seconds of scanning for every device on the
+> adapter, not just the one being dialled. Enough of them in a row and the
+> host's advertisement monitor sees nothing for long enough to power-cycle
+> the adapter, dropping every link on it.
+>
+> Choose the address to dial rather than assuming conn->dst:
+>
+>   - if the controller is resolving and this peer's IRK is programmed, the
+>     identity address is correct and the resolving list translates it.
+>     Testing ll_privacy_capable() alone is not enough: it reports the
+>     feature bit, not whether resolution is switched on and not whether th=
+is
+>     peer is in the list. Resolution is cleared with the other volatile
+>     flags on power-off and switched off again while suspend pauses
+>     scanning, and a peer's IRK is only programmed along the accept list
+>     path, so a direct-connect target, a peer without
+>     HCI_CONN_FLAG_ADDRESS_RESOLUTION, and one that did not fit in a full
+>     list are all absent from it;
+>   - a dst that is already a private address is what the peer is on air wi=
+th
+>     and needs no translation;
+>   - otherwise use the last RPA resolved for this peer, while it is still
+>     fresh. A stale RPA is worse than none: the peer has already rotated
+>     away from it.
+>
+> The first branch was measured on an Intel controller that does report LL
+> Privacy. With the peer's IRK programmed into the controller's resolving
+> list the host puts the identity address on air and the controller
+> translates it, reporting Resolved Public with the peer's RPA
+> 6D:CA:DB:24:14:E9 in LE Enhanced Connection Complete. With the peer
+> absent from the list the same setup dials that RPA itself.
+>
+> The address is chosen once in hci_le_create_conn_sync() and handed to
+> whichever command builder runs, the same way own_addr_type already is, so
+> the two paths cannot disagree.
+>
+> Store the chosen address in conn->dst when it is not already there. The
+> connection complete event names the address that was dialled and
+> hci_conn_hash_lookup_role() finds a connection by conn->dst, so leaving t=
+he
+> identity address behind would make the event miss this connection and add=
+ a
+> second one while this one waits out its timeout. le_conn_complete_evt()
+> resolves the address back to the identity once the link is up, which is t=
+he
+> same round trip hci_connect_le() has always relied on.
+>
+> Fixes: 14b06c3a88f7 ("Bluetooth: HCI: Always use the identity address whe=
+n initializing a connection")
+> Assisted-by: Claude:claude-opus-5
+> Signed-off-by: Radek Podgorny <radek@podgorny.cz>
+> ---
+>  net/bluetooth/hci_sync.c | 82 ++++++++++++++++++++++++++++++++++++----
+>  1 file changed, 75 insertions(+), 7 deletions(-)
+>
+> diff --git a/net/bluetooth/hci_sync.c b/net/bluetooth/hci_sync.c
+> index 5376ade2cdc1..136d801baa85 100644
+> --- a/net/bluetooth/hci_sync.c
+> +++ b/net/bluetooth/hci_sync.c
+> @@ -6794,8 +6794,60 @@ static void set_ext_conn_params(struct hci_conn *c=
+onn,
+>         p->max_ce_len =3D cpu_to_le16(0x0000);
+>  }
+>
+> +/* An RPA resolved more recently than this is taken to still be what the=
+ peer
+> + * is on air with. The spec-recommended rotation period is the best esti=
+mate
+> + * the host has; a stale RPA costs one failed connect, while falling bac=
+k to an
+> + * identity address the controller cannot translate costs a full
+> + * create-connection timeout that cannot succeed.
+> + */
+> +#define HCI_RPA_FRESH_TIMEOUT secs_to_jiffies(HCI_DEFAULT_RPA_TIMEOUT)
+
+Not really following why this is needed though, we always scan before
+connecting, so perhaps we need to update the rpa whenever we resolve
+at process_adv_report:
+
+/* Check if we need to convert to identity address */
+irk =3D hci_get_irk(hdev, bdaddr, bdaddr_type);
+if (irk) {
+bdaddr =3D &irk->bdaddr;
+bdaddr_type =3D irk->addr_type;
+}
+
+So we do translate the advertisements to back to the identity address,
+but we don't update the irk->rpa, which is probably what shall be used
+in case the controller cannot resolve.
+
+> +/* Pick the address to put on air for an outgoing LE connection.
+> + *
+> + * hci_conn_add() stores the peer identity address whenever an IRK resol=
+ves,
+> + * which is what host bookkeeping wants but not what reaches the peer: a=
+n
+> + * identity address only gets there if the controller resolves on our be=
+half.
+> + * Prefer an address the peer has actually been seen using.
+> + *
+> + * This function requires the caller holds hdev->lock.
+> + */
+> +static void hci_conn_select_peer_addr(struct hci_dev *hdev,
+> +                                     struct hci_conn *conn,
+> +                                     bdaddr_t *peer_addr, u8 *peer_addr_=
+type)
+> +{
+> +       struct smp_irk *irk;
+> +
+> +       /* conn->dst is right both when the controller translates it for =
+us and
+> +        * when it is already a private address.
+> +        */
+> +       bacpy(peer_addr, &conn->dst);
+> +       *peer_addr_type =3D conn->dst_type;
+> +
+> +       /* Supporting LL Privacy is not enough: resolution has to be swit=
+ched on
+> +        * and this peer's IRK actually programmed, which only happens al=
+ong the
+> +        * accept list path.
+> +        */
+> +       if (hci_dev_test_flag(hdev, HCI_LL_RPA_RESOLUTION) &&
+> +           hci_bdaddr_list_lookup_with_irk(&hdev->le_resolv_list, &conn-=
+>dst,
+> +                                           conn->dst_type))
+> +               return;
+> +
+> +       if (hci_bdaddr_is_rpa(&conn->dst, conn->dst_type))
+> +               return;
+> +
+> +       irk =3D hci_find_irk_by_addr(hdev, &conn->dst, conn->dst_type);
+> +       if (!irk || !bacmp(&irk->rpa, BDADDR_ANY) ||
+> +           !time_before(jiffies, READ_ONCE(irk->rpa_jiffies) +
+> +                                 HCI_RPA_FRESH_TIMEOUT))
+> +               return;
+> +
+> +       bacpy(peer_addr, &irk->rpa);
+> +       *peer_addr_type =3D ADDR_LE_DEV_RANDOM;
+> +}
+> +
+>  static int hci_le_ext_create_conn_sync(struct hci_dev *hdev,
+> -                                      struct hci_conn *conn, u8 own_addr=
+_type)
+> +                                      struct hci_conn *conn, u8 own_addr=
+_type,
+> +                                      bdaddr_t *peer_addr, u8 peer_addr_=
+type)
+>  {
+>         struct hci_cp_le_ext_create_conn *cp;
+>         struct hci_cp_le_ext_conn_param *p;
+> @@ -6807,8 +6859,8 @@ static int hci_le_ext_create_conn_sync(struct hci_d=
+ev *hdev,
+>
+>         memset(cp, 0, sizeof(*cp));
+>
+> -       bacpy(&cp->peer_addr, &conn->dst);
+> -       cp->peer_addr_type =3D conn->dst_type;
+> +       bacpy(&cp->peer_addr, peer_addr);
+> +       cp->peer_addr_type =3D peer_addr_type;
+>         cp->own_addr_type =3D own_addr_type;
+>
+>         plen =3D sizeof(*cp);
+> @@ -6849,7 +6901,8 @@ static int hci_le_create_conn_sync(struct hci_dev *=
+hdev, void *data)
+>  {
+>         struct hci_cp_le_create_conn cp;
+>         struct hci_conn_params *params;
+> -       u8 own_addr_type;
+> +       u8 own_addr_type, peer_addr_type;
+> +       bdaddr_t peer_addr;
+>         int err;
+>         struct hci_conn *conn =3D data;
+>
+> @@ -6927,9 +6980,24 @@ static int hci_le_create_conn_sync(struct hci_dev =
+*hdev, void *data)
+>          */
+>         set_bit(HCI_CONN_CREATE, &conn->flags);
+>
+> +       hci_dev_lock(hdev);
+> +       hci_conn_select_peer_addr(hdev, conn, &peer_addr, &peer_addr_type=
+);
+> +
+> +       /* The connection complete event names the address that was diall=
+ed and
+> +        * hci_conn_hash_lookup_role() finds a connection by conn->dst, s=
+o
+> +        * leaving the identity address there would make the event miss t=
+his
+> +        * connection and build a second one. Follow the dialled address
+> +        * instead; le_conn_complete_evt() resolves it back once the link=
+ is
+> +        * up.
+> +        */
+> +       bacpy(&conn->dst, &peer_addr);
+> +       conn->dst_type =3D peer_addr_type;
+> +       hci_dev_unlock(hdev);
+> +
+>         /* Send command LE Extended Create Connection if supported */
+>         if (use_ext_conn(hdev)) {
+> -               err =3D hci_le_ext_create_conn_sync(hdev, conn, own_addr_=
+type);
+> +               err =3D hci_le_ext_create_conn_sync(hdev, conn, own_addr_=
+type,
+> +                                                 &peer_addr, peer_addr_t=
+ype);
+>                 goto done;
+>         }
+>
+> @@ -6938,8 +7006,8 @@ static int hci_le_create_conn_sync(struct hci_dev *=
+hdev, void *data)
+>         cp.scan_interval =3D cpu_to_le16(hdev->le_scan_int_connect);
+>         cp.scan_window =3D cpu_to_le16(hdev->le_scan_window_connect);
+>
+> -       bacpy(&cp.peer_addr, &conn->dst);
+> -       cp.peer_addr_type =3D conn->dst_type;
+> +       bacpy(&cp.peer_addr, &peer_addr);
+> +       cp.peer_addr_type =3D peer_addr_type;
+>         cp.own_address_type =3D own_addr_type;
+>         cp.conn_interval_min =3D cpu_to_le16(conn->le_conn_min_interval);
+>         cp.conn_interval_max =3D cpu_to_le16(conn->le_conn_max_interval);
+> --
+> 2.55.0
+>
 
 
+--=20
+Luiz Augusto von Dentz
