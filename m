@@ -1,35 +1,35 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA97354DADA
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 14:35:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01266548551
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 14:35:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788878137; cv=none; b=ePdE+KVTkfJhbXMTyp9eKqCCweieCteUtW58s8JtrKmnuWZkEGmPL3A74/dg9wKZFdfmoJUi8vqhBodCE34Y+MDQDQLshN+3DmJ+XyBnco3ZAbWVn1XF6PbYT8cy214oVYq5w+c+CXqx0ookfknQhbt25k4D/QPJ0WzIGodk8wM=
+	t=1788878141; cv=none; b=pXWAAI9xNHP8o92KnEyOWEBL25kynlOiCLSY/IWqpbs+CC4tDeQcaZkEik6JRWrJUopJn2JXLDVhf4BSCLJaXTReY1NM6ZZommItAWEPKzmEGdppieKkZ8GDLcOqUuNvuFKxaR6XcFAw8kenrWo3BIrYVidyAN4sXWMgiKFV2T8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788878137; c=relaxed/simple;
-	bh=SBXepA+Kzx2kmCXRTs2XA6GB/9sKhpv4dQQh4KGM1yE=;
+	s=arc-20240116; t=1788878141; c=relaxed/simple;
+	bh=norOsKJSzhagJvOfVR7DhL/TvimASvnyTfHuJ3JakF4=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=J81IxhNhHK+N/nITAf87Qb/NwuuG2PVj2RMTrvNl9jjeUwp3lZ9OTHeEaj4wGs90t3fookIHH5C2PgB4Hxu+nNtqOQGLs4LTg6RMZJBAX5Aibyi1gfoZAa6EWi7dofk7iwW5tyfElUPBWrNe+05gzFOXYKOHJ4bK6Ndsw4KAJk8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BEz2sfP/; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:To:Cc; b=IzAVVec4QRElBm2A2/MDrZk7T73vL8tyl7eUwSVlLidmL2B7z5pOz2n+nmQbhjXKmjCniedQIGZodZ0TXy6fIaRvr1FzrchLxoXBsFtuulBl2JcbAt8Di4r6u8dTHJOJTn891ZwFVNsySA9M2sLGsSPlDS+rnbtZVtCTh+j6uGc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GEoB3Kdu; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BEz2sfP/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B860C1F00ACA;
-	Tue,  8 Sep 2026 14:35:26 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GEoB3Kdu"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 815EE1F00AC4;
+	Tue,  8 Sep 2026 14:35:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788878127;
-	bh=bqBWshvt3L6MTIRaqkZiDc6MNSNPGD81ogLG36xTIIg=;
+	s=k20260515; t=1788878131;
+	bh=XMX13DtPDDnyfrT120bG1968XXiMmSlCAD2GolHcyVY=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=BEz2sfP/ZwE43hDKsTyCe3K9a1usqzxP2GqopSFANewtxzFAF78Rt0Gq3FQqrUZDK
-	 4fx+h5+G1O6B/wmcVZJUG4e/XPeotusY80Uq3GgBoRGJGAs5sK9u1exr74VDgWOevA
-	 g+pAAmIh3uwDFUvaTHWQweiDvfR0x9hl//XA2vqHO2I5URSyf7UAYC2OpQxyKZUoaH
-	 mD5Lq0SXO3O1VgUxeVz+v1my4wJ94UTdLw/rWTRyBaX6gIg8CTa4NxmdpPooyR5FDF
-	 mxHBXfs13g4LzqZQY7SuhB/Kiw7qYC0sOEJgL5AVN37FMRgP33ECeGhAyPw1Na8WHX
-	 8JCCFtiIz9s1Q==
+	b=GEoB3KduVPc01tcYEIO5KOnyQn8BuXVS+a4NBE7w49HkSSc0rYPbkiqEq/ssz2IO4
+	 +ZQnc1rlTsoI8tZeMGB9tZpupdB+Rssb2ATAQKjUfwJfJy0XGpVGWiCoSOFyD7YYfD
+	 4ZbzuRS37eTW3k4vZwK7v31rCdcLzbmit1Ynj8W2MsQsLeXyOMnETuIrHetrLwAezG
+	 pyeq3xLCnKCHZTRnq2IO+GZcvPNu0Y8Vw4CV3mGTHqQvDYd8rE4qdoSjEx7fKT31yb
+	 W/0GwK2FkTUD/nfNX4/K7AEWOiRkT+jDTyMtEW7Sv0/IftZ9BK9RFgg8xUSJnuK1bc
+	 n32ddQ0NavmVA==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Tue, 08 Sep 2026 16:35:04 +0200
-Subject: [PATCH v3 03/11] drm/atomic: Create function to insert plane state
- into a commit
+Date: Tue, 08 Sep 2026 16:35:05 +0200
+Subject: [PATCH v3 04/11] drm/atomic: Create function to insert colorop
+ state into a commit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -38,7 +38,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260908-drm-reset-state-flag-v3-3-905570f387a4@kernel.org>
+Message-Id: <20260908-drm-reset-state-flag-v3-4-905570f387a4@kernel.org>
 References: <20260908-drm-reset-state-flag-v3-0-905570f387a4@kernel.org>
 In-Reply-To: <20260908-drm-reset-state-flag-v3-0-905570f387a4@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -55,26 +55,26 @@ Cc: Daniel Stone <daniels@collabora.com>,
  Xaver Hugl <xaver.hugl@kde.org>, dri-devel@lists.freedesktop.org, 
  linux-kernel@vger.kernel.org, Maxime Ripard <mripard@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2806; i=mripard@kernel.org;
- h=from:subject:message-id; bh=SBXepA+Kzx2kmCXRTs2XA6GB/9sKhpv4dQQh4KGM1yE=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFkLZGUCKrn1cxZYyWvt5SnhZlp0JTpPwP+QjJdmy4sa8
- 2Pqxzd1TGVhEOZkkBVTZHkiE3Z6efviKgf7lT9g5rAygQxh4OIUgInsZWZs+DIlMy7uwq2Cidyz
- g841bbi569PDVKXz1++/XyHHHH6pzCb3mo7xtEsn+7fMF5D72/lLnLFOZV91guXCk3MzamXym1I
- WrX97xGjS37l9r+LuCTO6L1ZLfXNbYf/d8CjtbVJ7XS0WbJMGAA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2972; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=norOsKJSzhagJvOfVR7DhL/TvimASvnyTfHuJ3JakF4=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFkLZGX627PvOfkniETfr0q78jYrODRLPD22dNtsd79q2
+ 1P2ToYdU1kYhDkZZMUUWZ7IhJ1e3r64ysF+5Q+YOaxMIEMYuDgFYCJBdxlrBY9N2cI/O6HI8Abr
+ Elk/tndxlXdt7lkdXnFl1+zQS7wFm+zLNL+907l0wkIg/Kb79qtpjPU+s9TM0y4psM7+2P3P+/6
+ jbysOLHNasnduqMKauHZP7pCNOhoXmRbtsQxi/PuhRc+C7TQA
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 
-drm_atomic_get_plane_state() allocates a new plane state by
+drm_atomic_get_colorop_state() allocates a new colorop state by
 duplicating the current one and inserts it into the atomic commit as
 a single operation.
 
-However, a later change will need to insert a plane state into a
+However, a later change will need to insert a colorop state into a
 commit without going through the full allocation and duplication path
-in drm_atomic_get_plane_state().
+in drm_atomic_get_colorop_state().
 
 Extract the state insertion logic into a new static
-drm_atomic_commit_set_plane_state() helper, and convert
-drm_atomic_get_plane_state() to use it.
+drm_atomic_commit_set_colorop_state() helper, and convert
+drm_atomic_get_colorop_state() to use it.
 
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
@@ -82,71 +82,71 @@ Signed-off-by: Maxime Ripard <mripard@kernel.org>
  1 file changed, 23 insertions(+), 6 deletions(-)
 
 diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
-index 153d959bd4ff..f62323679f44 100644
+index f62323679f44..f6a31c9d477d 100644
 --- a/drivers/gpu/drm/drm_atomic.c
 +++ b/drivers/gpu/drm/drm_atomic.c
-@@ -624,10 +624,27 @@ static int drm_atomic_connector_check(struct drm_connector *connector,
- 	}
+@@ -704,10 +704,27 @@ drm_atomic_get_plane_state(struct drm_atomic_commit *state,
  
- 	return 0;
+ 	return plane_state;
  }
+ EXPORT_SYMBOL(drm_atomic_get_plane_state);
  
-+static int drm_atomic_commit_set_plane_state(struct drm_atomic_commit *commit,
-+					     struct drm_plane *plane,
-+					     struct drm_plane_state *plane_state)
++static int drm_atomic_commit_set_colorop_state(struct drm_atomic_commit *commit,
++					       struct drm_colorop *colorop,
++					       struct drm_colorop_state *colorop_state)
 +{
-+	int index = drm_plane_index(plane);
++	int index = drm_colorop_index(colorop);
 +
-+	drm_modeset_lock_assert_held(&plane->mutex);
++	drm_modeset_lock_assert_held(&colorop->plane->mutex);
 +
-+	commit->planes[index].state_to_destroy = plane_state;
-+	commit->planes[index].old_state = plane->state;
-+	commit->planes[index].new_state = plane_state;
-+	commit->planes[index].ptr = plane;
-+	plane_state->state = commit;
++	commit->colorops[index].state_to_destroy = colorop_state;
++	commit->colorops[index].old_state = colorop->state;
++	commit->colorops[index].new_state = colorop_state;
++	commit->colorops[index].ptr = colorop;
++	colorop_state->state = commit;
 +
 +	return 0;
 +}
 +
  /**
-  * drm_atomic_get_plane_state - get plane state
+  * drm_atomic_get_colorop_state - get colorop state
   * @state: global atomic state object
-  * @plane: plane to get state object for
+  * @colorop: colorop to get state object for
   *
-@@ -642,11 +659,11 @@ static int drm_atomic_connector_check(struct drm_connector *connector,
+@@ -723,11 +740,11 @@ EXPORT_SYMBOL(drm_atomic_get_plane_state);
   */
- struct drm_plane_state *
- drm_atomic_get_plane_state(struct drm_atomic_commit *state,
- 			  struct drm_plane *plane)
+ struct drm_colorop_state *
+ drm_atomic_get_colorop_state(struct drm_atomic_commit *state,
+ 			     struct drm_colorop *colorop)
  {
--	int ret, index = drm_plane_index(plane);
+-	int ret, index = drm_colorop_index(colorop);
 +	int ret;
- 	struct drm_plane_state *plane_state;
+ 	struct drm_colorop_state *colorop_state;
  
  	WARN_ON(!state->acquire_ctx);
- 	drm_WARN_ON(state->dev, state->checked);
  
-@@ -665,15 +682,15 @@ drm_atomic_get_plane_state(struct drm_atomic_commit *state,
+ 	colorop_state = drm_atomic_get_new_colorop_state(state, colorop);
+@@ -740,15 +757,15 @@ drm_atomic_get_colorop_state(struct drm_atomic_commit *state,
  
- 	plane_state = plane->funcs->atomic_duplicate_state(plane);
- 	if (!plane_state)
+ 	colorop_state = drm_atomic_helper_colorop_duplicate_state(colorop);
+ 	if (!colorop_state)
  		return ERR_PTR(-ENOMEM);
  
--	state->planes[index].state_to_destroy = plane_state;
--	state->planes[index].ptr = plane;
--	state->planes[index].old_state = plane->state;
--	state->planes[index].new_state = plane_state;
--	plane_state->state = state;
-+	ret = drm_atomic_commit_set_plane_state(state, plane, plane_state);
+-	state->colorops[index].state_to_destroy = colorop_state;
+-	state->colorops[index].ptr = colorop;
+-	state->colorops[index].old_state = colorop->state;
+-	state->colorops[index].new_state = colorop_state;
+-	colorop_state->state = state;
++	ret = drm_atomic_commit_set_colorop_state(state, colorop, colorop_state);
 +	if (ret) {
-+		plane->funcs->atomic_destroy_state(plane, plane_state);
++		drm_colorop_atomic_destroy_state(colorop, colorop_state);
 +		return ERR_PTR(ret);
 +	}
  
- 	drm_dbg_atomic(plane->dev, "Added [PLANE:%d:%s] %p state to %p\n",
- 		       plane->base.id, plane->name, plane_state, state);
+ 	drm_dbg_atomic(colorop->dev, "Added [COLOROP:%d:%d] %p state to %p\n",
+ 		       colorop->base.id, colorop->type, colorop_state, state);
  
- 	if (plane_state->crtc) {
+ 	return colorop_state;
 
 -- 
 2.55.0
