@@ -1,245 +1,149 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-34.mta0.migadu.com [91.218.175.34])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E45C9371CE4;
-	Tue,  8 Sep 2026 08:08:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55BAF371CE4
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 08:08:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.34
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788854918; cv=none; b=OLl4f9CY/AzP4Sdbzd4rstTfuXdWPRqSS/mWDbD3mqjogpO3OCHc6d+Wyadm5zbzKMBwrDfIIRbj6VWBevilYrMKMTVfxeoNxBJXv7J9sXD25CQv+ZelfSjX1EABOD//hDigoassYv8nj0IsWvoinK0jw0WkpvcfqIyPVyB/i6k=
+	t=1788854927; cv=none; b=W+Tepyunz9o6AgT1gifj2rGMKhAzYRi9vUTzEde4THWlzevZJNfi8Yl3V8sfu6sgP9xCVAW5tNEsoH+U+Ahpu3dFiHpYTB35V8EQGhxiRa0F4V/j2NydUOTcIn1VcjHq1D7Nh1d56LfNlIyVBe8kecgoS96M5tkt3T285YtvxsQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788854918; c=relaxed/simple;
-	bh=2wZ2doXUzi2aIm4V/ENGB8bCQcoIBkHuFL+g4v5WD2I=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=QGmVds5H1pq+t9D2ksoeUMG374L7GlZqxoPHuz9PmDvEUkb4DZHYAsJUszBVmMzaSufNmHzHrhplmu0BlFF1xFrGE+v8fjjPTs3zO7KgEWeOyD/lSUMsFX5SwJfHzSm7IAKv8fVqW0ELbcjeoIvISgys6q1lB7skDPbXvWz7ZbU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=XlTUbEI0; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1788854927; c=relaxed/simple;
+	bh=wj96FLvK72m67pH3jNQ0C+1v/0ID0Ycr2wlTUU5TRzE=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Xsgw+8UgWfLLwhyEegAY1M6dJ/xCZgWqiuDHMqqeoJelcgRxYPoeQG++87N8VdmmIp9JOrZF7TOqAi40l0+FQltnyh6MAMfRk5J7w8a6ImR60Fy7nl4UCq36QdfTlWD/2b1MwKhFxqjpCcxzcrfDDPnxYt+i+pqFO7LB1ZtlaOc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=FbOxpPYT; arc=none smtp.client-ip=91.218.175.34
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="XlTUbEI0"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 35AC81A1A53;
-	Tue,  8 Sep 2026 08:08:34 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id F3CD1603C4;
-	Tue,  8 Sep 2026 08:08:33 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 0338C11C79CA0;
-	Tue,  8 Sep 2026 10:08:25 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1788854911; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=t9CpF3Le5x9tMB87TR8LLv1UIQckiSWM3QvppfwLAuE=;
-	b=XlTUbEI0fCK/KYY2AvvBs+2I7A/rds/KJrtROXCiFag0p88KmA3A53DIoZGx9aaB3y94iZ
-	8N3T/2qlGCieZyw/39vPOpBijPt4KSaAg3xQF2HBvDzQLmjwezYNPBnOclOWlIKwbtEYTE
-	V/Jn4Go0wMIkYuxw5RwcYuzcDmHvBCiNMEEb6moFFB0u2CQ1ArLlqsMBHoBoGOnWOnX6Kb
-	7I0w4OluzgaB2kXFy3e+HNF0G0jCx9uRGDsWVPo32bs2Dq2SFyKGJqBdxadX0uMFvupvr8
-	Q/Qc5HH4jMwb0ZMPblkQSNcNkCPVSFUZLZWyf0FQxTwzM2Y+XUPWzELJZLyT8g==
-Date: Tue, 8 Sep 2026 10:08:23 +0200
-From: Herve Codina <herve.codina@bootlin.com>
-To: David Gibson <david@gibson.dropbear.id.au>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Laurent Pinchart
- <laurent.pinchart@ideasonboard.com>, David Lechner <dlechner@baylibre.com>,
- Ayush Singh <ayush@beagleboard.org>, Geert Uytterhoeven
- <geert@linux-m68k.org>, devicetree-compiler@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- devicetree-spec@vger.kernel.org, Hui Pu <hui.pu@gehealthcare.com>, Ian Ray
- <ian.ray@gehealthcare.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, Frank Li
- <Frank.Li@nxp.com>
-Subject: Re: [PATCH v3 02/15] libfdt: Don't assume the root node is
- available at offset 0
-Message-ID: <20260908100823.1f474894@bootlin.com>
-In-Reply-To: <ap-t8qMg5VMwh-T9@gractus.seuss>
-References: <20260826083146.304291-1-herve.codina@bootlin.com>
-	<20260826083146.304291-3-herve.codina@bootlin.com>
-	<apOhk-NQusFgV5Sx@gractus.seuss>
-	<20260831140119.1f14b420@bootlin.com>
-	<apaBuQ8kn2bOzYcI@gractus.seuss>
-	<20260901141826.49b1a1b7@bootlin.com>
-	<apfKx_u3v3GBfzOz@gractus.seuss>
-	<20260907184641.537cfa49@bootlin.com>
-	<ap-t8qMg5VMwh-T9@gractus.seuss>
-Organization: Bootlin
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="FbOxpPYT"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=wj96FLvK72m67pH3jNQ0C+1v/0ID0Ycr2wlTUU5TRzE=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788854924; v=1; x=1789459724;
+ b=FbOxpPYTo4Qsf1/Q7lDYuj1nGMQ3zNNu6567wMqYgHKGxSQJz8dAgQ23qQkPzWSN4Jzzww9n
+ UL8d/Bkh2PSVF6OZN2v1ewk6ZHAfzspfly8LnQa+q8LXwOcR1zzi+nhRfgI11CTwEY5j6olvm9I
+ /4k8QwtaZaVTu0uiIQzJAQ10=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 5c17c75da2ce979e;
+	Tue, 08 Sep 2026 08:08:44 +0000
+X-Mizu-Trace-ID: 5c17c75da2ce979e
+X-Migadu-Flow: FLOW_OUT
+Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b4a0b17359so14276e87.0
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 01:08:40 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwz2jP80qPQnVVOeP5uphM1hJjBsZ/X7Ev/4DZ4/8AIupyDFMDUzsF6Xeihh4G2wYSJOVNYm46gSwisQlU=@vger.kernel.org
+X-Gm-Message-State: AFuF++kFQKIDEmcjb3Arh7S2h7P7/E4k6oNJH/TIMqYDHT8LUJAtQ2vs
+	ST6zZw5VaavwwsHPrDJpAOJwSwsJPXtp6fvJcKS5bs6oqugp1jAT2RyEhxs34f6vP4qXlCKd0iS
+	VnHjhl3HAO/okQEGEJV6X/NB98l85R0TVbidADJn7
+X-Received: by 2002:a05:6512:6412:b0:5ae:b918:79d5 with SMTP id
+ 2adb3069b0e04-5b74d1658d8mr213819e87.2.1788854919259; Tue, 08 Sep 2026
+ 01:08:39 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+References: <20260826-arm64-52bit-va-v1-0-14ec98211363@fujitsu.com>
+ <20260826-arm64-52bit-va-v1-1-14ec98211363@fujitsu.com> <CA+EHjTy6EH-d=O+dtRdWdTUkS0zkXeW=auxiK6N5Dc-yihrYRw@mail.gmail.com>
+ <ap9oag87vZiuTVer@sm-arm-grace07>
+In-Reply-To: <ap9oag87vZiuTVer@sm-arm-grace07>
+From: Fuad Tabba <fuad.tabba@linux.dev>
+Date: Tue, 8 Sep 2026 09:08:03 +0100
+X-Gmail-Original-Message-ID: <CA+EHjTx+Dtt-v8_6g1Rj9vO6j_7zRwjxywjYUXbgUj+FfsV6Rg@mail.gmail.com>
+X-Gm-Features: AcwNN1WmotBPGHexNMlSdHcPHTVxfo5f6HxmhkMWAF9Pb_2HyxTj1nidelDjEwA
+Message-ID: <CA+EHjTx+Dtt-v8_6g1Rj9vO6j_7zRwjxywjYUXbgUj+FfsV6Rg@mail.gmail.com>
+Subject: Re: [PATCH 1/2] KVM: selftest: arm64: Support 5-level paging in stage
+ 1 translation table
+To: Itaru Kitayama <itaru.kitayama@fujitsu.com>
+Cc: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, Joey Gouly <joey.gouly@arm.com>, 
+	Steffen Eiden <seiden@linux.ibm.com>, Suzuki K Poulose <suzuki.poulose@arm.com>, 
+	Zenghui Yu <yuzenghui@huawei.com>, Paolo Bonzini <pbonzini@redhat.com>, 
+	Shuah Khan <shuah@kernel.org>, linux-arm-kernel@lists.infradead.org, 
+	kvmarm@lists.linux.dev, kvm@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Takayuki Okamoto <tokamoto@fujitsu.com>
+Content-Type: text/plain; charset="UTF-8"
 
-On Tue, 8 Sep 2026 16:41:06 +1000
-David Gibson <david@gibson.dropbear.id.au> wrote:
+Hi Itaru,
 
-> On Mon, Sep 07, 2026 at 06:46:41PM +0200, Herve Codina wrote:
-> > Hi David,
-> > 
-> > On Wed, 2 Sep 2026 17:06:03 +1000
-> > David Gibson <david@gibson.dropbear.id.au> wrote:
-> > 
-> > ...  
-> > > > 
-> > > > Ok, I will update fdt_check_node_offset_() to have it updating its offset
-> > > > parameter to the real offset of the root node when its value is 0.
-> > > > 
-> > > > Based on this update, will see where it goes. I mean, impacts on callers, if
-> > > > it simplifies things or not, if the offset update needs also to be propagate
-> > > > to caller's parameter or any other similar point that we can see during the
-> > > > implementation.
-> > > > 
-> > > > Having something implemented and available in a patch will be the best to
-> > > > compare changes and impacts related to fdt_check_node_offset_() update.
-> > > > 
-> > > > Here we have a version of handling offset 0 vs real root node without any
-> > > > offset update done in fdt_check_node_offset_(). In the next iteration we will
-> > > > have the version with update done in fdt_check_node_offset_().
-> > > > 
-> > > > I think the golden rules to follow on this point is "keep it as simple as
-> > > > possible".    
-> > > 
-> > > Agreed.  Feel free to repost just the NOP before root patches on their
-> > > own.  At this time, frequent small series is easier for me to tackle
-> > > than occasional large series.
-> > >   
-> > 
-> > I've moved forward on the fdt_check_node_offset_() update.
-> > 
-> > The new fdt_check_node_offset_() looks like this:
-> > --- 8< ---
-> > int fdt_check_node_offset_(const void *fdt, int *offset)
-> > {
-> > 	int nextoffset;
-> > 
-> > 	if (!can_assume(VALID_INPUT)
-> > 	    && ((*offset < 0) || (*offset % FDT_TAGSIZE)))
-> > 		return -FDT_ERR_BADOFFSET;
-> > 
-> > 	if (*offset == 0) {
-> > 		*offset = fdt_root_offset(fdt);
-> > 		if (*offset < 0)
-> > 			return *offset;
-> > 	}
-> > 
-> > 	if (fdt_next_tag(fdt, *offset, &nextoffset) != FDT_BEGIN_NODE)
-> > 		return -FDT_ERR_BADOFFSET;
-> > 
-> > 	return nextoffset;
-> > }
-> > --- 8< ---  
-> 
-> That looks fine.  If it was an exposed function I'd want to look for a
-> better interface, but as an internal function it's fine.
-> 
-> > If the given offset is 0, fdt_check_node_offset_() considers we want to check
-> > the root node and so update offset to the real root node offset.
-> > 
-> > Ok, I still need some fdt_root_offset() calls from some other parts but that's
-> > not my main issue.
-> > 
-> > My main issue comes with orphan nodes in addons. fdt_check_node_offset_() is
-> > called with offset pointing to an orphan node and this offset can be 0.
-> > 
-> > The offset 0 seen by fdt_check_node_offset_() can be the "fake" offset of a root
-> > node and in that case fdt_check_node_offset_() should update offset to the real
-> > root node offset but it can also be the offset of the orphan node we want to check
-> > and in that case the offset should not be updated.
-> > 
-> > fdt_check_node_offset_() cannot determine whether or not the offset should be
-> > updated.  
-> 
-> Hrm.  But if offset 0 has an orphan node, we can see that with the
-> FDT_BEGIN_NODE or FDT_BEGIN_NODE_REF there, right?
-> 
-> > With orphan nodes in the loop, fdt_check_node_offset_() becomes:
-> > --- 8< ---
-> > int fdt_check_node_offset_(const void *fdt, int *offset)
-> > {
-> >         int nextoffset;
-> >         uint32_t tag;
-> > 
-> >         if (!can_assume(VALID_INPUT)
-> >             && ((*offset < 0) || (*offset % FDT_TAGSIZE)))
-> >                 return -FDT_ERR_BADOFFSET;
-> > 
-> >         if (*offset == 0) {
-> > #pragma message "We have a problem!"
-> >                 /*
-> >                  * An orphan node can be present at offset 0.
-> >                  * In that case, looking for the root node may or may not be
-> >                  * correct.
-> >                  * Indeed is offset = 0 requested because we want the root
-> >                  * node and sadly an orphan node is available at offset 0 or
-> >                  * is it requested because we want to really check the orphan
-> >                  * node available at offset 0. How to determine the correct
-> >                  * case?
-> >                  */
-> >                 tag = fdt_next_tag(fdt, *offset, &nextoffset);
-> >                 if (tag == FDT_BEGIN_NODE || tag == FDT_BEGIN_NODE_REF)
-> >                         return nextoffset;
-> > 
-> >                 *offset = fdt_root_offset(fdt);
-> >                 if (*offset < 0)
-> >                         return *offset;
-> >         }
-> > 
-> >         tag = fdt_next_tag(fdt, *offset, &nextoffset);
-> >         if (tag != FDT_BEGIN_NODE && tag != FDT_BEGIN_NODE_REF)
-> >                 return -FDT_ERR_BADOFFSET;
-> > 
-> >         return nextoffset;
-> > }
-> > --- 8< ---  
-> 
-> Right.. like that.  Except simpler would be to have fdt_root_offset()
-> stop when it sees a FDT_BEGIN_NODE_REF as well as a FDT_BEGIN_NODE.
-> Or maybe that should be, say, fdt_root_offset_(), and
-> fdt_root_offset() will wrap it to return an error on an addon tree
-> with no root.
+On Tue, 8 Sept 2026 at 02:44, Itaru Kitayama <itaru.kitayama@fujitsu.com> wrote:
+...
+> > This changes what level means for the existing three-level modes:
+> > level 0 used to return the top-level entry and now trips the assert,
+> > level 1 used to return the leaf and now returns the top level. No
+> > caller in tree asks for either of those two levels, and the new
+> > numbering matches the architecture.
+>
+> Yes, as you checked this change won't break current tests, so if you
+> have better comments I will replace it with yours.
 
-No, fdt_root_offset() must get the root node offset. An orphan node identified
-with FDT_BEGIN_NODE_REF cannot be a root node.
+The code comment reads fine. What's worth adding is a commit-message
+note on the behavior change:
 
-An addon can have, a root node only, orphan nodes only or both a root node and
-orphan nodes.
+  For 3-level (64K) modes this renumbers the levels to match the
+  architecture: level 0 is no longer valid, level 1 is the top entry.
+  No in-tree caller passes those levels.
 
-fdt_root_offset() looks for the root node (i.e. the first FDT_BEGIN_NODE at
-top level). If not found, -ERRNOTFOUND (addon) or -ERRBADSTRUCTURE (not addon).
+...
 
-Having a fdt_root_offset() stop at either FDT_BEGIN_NODE_REF or FDT_BEGIN_NODE
-is "fdt_first_node_offset()".
+> Yes, I've dropped the _va_size() function and instead, expanded a bit
+> as you suggested the aarch64_get_supported_page_sizes() to check if vcpu
+> can address upto 52-bit VA space or not (48-bit max).
 
-Let me introduce the internal fdt_first_node_offset_()
-- fdt_root_offset()
-  It calls fdt_first_node_offset_() and check that this node is a
-  FDT_BEGIN_NODE node.
+Sounds good. One thing for v2: 52-bit VA support is per-granule, so a
+single 52-vs-48 result won't hold across granules.
+ID_AA64MMFR2_EL1.VARange is the 64K indicator. 4K and 16K get 52-bit
+VA from LPA2.
 
-- fdt_check_node_offset_()
-  if the offset == 0, it updates the value with the offset returned by
-  fdt_first_node_offset_()
+Cheers,
+/fuad
 
-And so, a node offset 0 doesn't means the root node but the first node
-in the dtb (root or orphan). I am totally fine with this definition.
-
-At some point, maybe users of the API (when addon are involved) will have to
-take care of that and perform something like:
-  root = fdt_root_offset();
-  fdt_get_property(fdt, root, "prop", NULL);
-
-Or
-  fdt_for_each_orphan(orphan, fdt) {
-     fdt_get_property(fdt, orphan, "prop", NULL);
-     ...
-  }
-
-Here also, I am totally fine with that an I already use this kind of sequence
-in libfdt/fdt_addon.c to apply an addon on a base dtb.
-
-I will introduce fdt_first_node_offset_() but let me know if you prefer
-having fdt_first_node_offset_() introduced right now in this "structure
-tags" series or later in the addon series.
-
-Best regards,
-Hervé
+> Thanks,
+> Itaru.
+> >
+> > Cheers,
+> > /fuad
+> >
+> >
+> > > +{
+> > > +       struct kvm_vcpu_init preferred_init = {};
+> > > +       int kvm_fd, vm_fd, vcpu_fd, err;
+> > > +       u64 val;
+> > > +       u32 va_range;
+> > > +       struct kvm_one_reg reg = {
+> > > +               .id     = KVM_ARM64_SYS_REG(SYS_ID_AA64MMFR2_EL1),
+> > > +               .addr   = (u64)&val,
+> > > +       };
+> > > +
+> > > +       kvm_fd = open_kvm_dev_path_or_exit();
+> > > +       vm_fd = __kvm_ioctl(kvm_fd, KVM_CREATE_VM, NULL);
+> > > +       TEST_ASSERT(vm_fd >= 0, KVM_IOCTL_ERROR(KVM_CREATE_VM, vm_fd));
+> > > +
+> > > +       vcpu_fd = ioctl(vm_fd, KVM_CREATE_VCPU, 0);
+> > > +       TEST_ASSERT(vcpu_fd >= 0, KVM_IOCTL_ERROR(KVM_CREATE_VCPU, vcpu_fd));
+> > > +
+> > > +       err = ioctl(vm_fd, KVM_ARM_PREFERRED_TARGET, &preferred_init);
+> > > +       TEST_ASSERT(err == 0, KVM_IOCTL_ERROR(KVM_ARM_PREFERRED_TARGET, err));
+> > > +
+> > > +       err = ioctl(vcpu_fd, KVM_ARM_VCPU_INIT, &preferred_init);
+> > > +       TEST_ASSERT(err == 0, KVM_IOCTL_ERROR(KVM_ARM_VCPU_INIT, err));
+> > > +
+> > > +       err = ioctl(vcpu_fd, KVM_GET_ONE_REG, &reg);
+> > > +       TEST_ASSERT(err == 0, KVM_IOCTL_ERROR(KVM_GET_ONE_REG, err));
+> > > +
+> > > +       va_range = FIELD_GET(ID_AA64MMFR2_EL1_VARange, val);
+> > > +
+> > > +       close(vcpu_fd);
+> > > +       close(vm_fd);
+> > > +       close(kvm_fd);
+> > > +
+> > > +       return va_range >= ID_AA64MMFR2_EL1_VARange_52 ? 52 : 48;
+> > > +}
+> > > +
+> > >  void aarch64_get_supported_page_sizes(u32 ipa, u32 *ipa4k,
+> > >                                       u32 *ipa16k, u32 *ipa64k)
+> > >  {
+> > >
+> > > --
+> > > 2.43.0
+> > >
