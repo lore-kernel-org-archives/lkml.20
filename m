@@ -1,85 +1,54 @@
-Received: from mail-pg1-f172.google.com (mail-pg1-f172.google.com [209.85.215.172])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 005585293E0
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 11:00:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A2BB525A64
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 11:00:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788865236; cv=none; b=AcnjFqrf0yHfgAuzWp18pyvawVFwefasar7uas+vM+4mrmd2DrXwnB8ci8KUJjwGwETxFPohv+J2HaXcLK+uAaUKdsfoCo+QaHWp4W2feLCqIP6bU/FooQkGKgEjRSPo2ushFxE2zJUAatCs+szJrJh7KgYUDI7POZv1KROqSFs=
+	t=1788865257; cv=none; b=iShzPJ8wfhc+/AKSNIaAOKat5+K+uRS2B4Knq+YZrSDV3mw/V64mMIK5cfiOBVxrosEhQxvkYKL5aByoFnCM28mgHqTbXGfr9KJ1Pgy5+Z4dqR5jmpf6BhGkBhbLH0V14KB6E7iyMTKEfHgjr1OWb0l9A5Tc5Iux0sEJqG3f/CM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788865236; c=relaxed/simple;
-	bh=7YonU+3U3Csgg7NVd1AGIrmwK8SsFgirVwtU4hC2YHk=;
+	s=arc-20240116; t=1788865257; c=relaxed/simple;
+	bh=kAJ2P3r/jeGAk/H4RZYyJwxbxVsUoJgYZb17kzexSQY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=iBs/lHDqC08gA0GdoPcjTruWzJlxkIGBhGSJOPuMHmR0kIJ8Pj3RWMNsgIz4lE+U13AureJpesuuvuaWEkImzBQMn0IquTy5HhM9nI2mcma3XHlQ02XFqa2IpX6TOAoC3As1x8KViM0ueT2ScU6c0spqlH9lw2zQvOW+f1V9Sz4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hw52+2Js; arc=none smtp.client-ip=209.85.215.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 MIME-Version; b=EMcW0IRb4hXO86hEZYbxX98N58J/JT48hCbQyNfKFX55DevB9AOgdkfH9e7waQHzh2GgHTq1uxgQNB1WFmbLKsqoQKKPskgJbgm7Jt2MvBeWu7fX6kpaH3dbNrGA7gbve13URCO40+Wlczj9sDlPFYupJBhJihOM6cD2BIC8ohc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HLWafxTw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hw52+2Js"
-Received: by mail-pg1-f172.google.com with SMTP id 41be03b00d2f7-cbee846deecso5222630a12.1
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 04:00:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788865234; x=1789470034; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=1LQOiRmCK+7QjsHZ0o37HxXuGfkjXxAF0goXiA50ma4=;
-        b=hw52+2JsO+1UNjgLYqHy1Lt3O63eTH+P6uwOEoHrK/shkV+itUIFZGuSm4oKEFAmkt
-         GyIFL5GhgGAwcAnF4a3FdPJuMMlMqEl93/rzbBpBoDfQHf7wotgkIIKQrJWXoHO1bxbW
-         cVTIzkclE0RzOEI6f3lUKSycSC/gSua7XGZ+IWRaNAn1rjvnVGerxnfoXibljnvxdXWV
-         IaBjn9cflhrxLhj+X2VzvKBDX+kAa+cN2dGpN5oiID+TymDLi2HlVRmMBs0tV5HOkBsg
-         A+NsZ9T+mM9HSDqG69o68xqnhkD7YWHwbgROaeHV+TznHELZ8R7IwsbLN2reqK4RyCWQ
-         qfQw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788865234; x=1789470034;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=1LQOiRmCK+7QjsHZ0o37HxXuGfkjXxAF0goXiA50ma4=;
-        b=U1+00wLBZpV5FMCeflx56JQsv8VKDZivVpzqHZEnYax0rISOmlDvG5aN2dQ/XSwLVQ
-         GaZW7/No93o1onLJxfSbViqGQoHCVsvxA+qhZigxtmTmYlOJ5xD2zWJzwYNWMUTb3mEC
-         sqSDdmJDpU+mwmeAbJtQfp2LgmIFQKThGwsYI9CX4eUC5fo3S4YLiQFYivqDmlfADEm8
-         6+cGX2b4a6UdE3qSDm8K+aln8tpzfp3MUbNwPdlRX3Fy7u3VCNYf+mbTdI8AMKnC0HJj
-         Fb92R8uy/2NLrcCdpLLGEw+Mho/HtPW9nay49GLe3qRgcNZ9/2KD7gCyoZM486yDGWBr
-         a7QQ==
-X-Forwarded-Encrypted: i=1; AKwUvByfPcc3Dg+NvQtWbjSFQuM/TeGy2PJQdTRLTuNhBsUFyOWDHrRatRweed/NPc2ZimdkOVkIVoB8xUu5Imk=@vger.kernel.org
-X-Gm-Message-State: AFuF++mxV5vfUoJdmo8MDQBjUFJ2tKc92DjGbQxZ1kyYWrPdJVfz9Nti
-	+gsb7DZmw3ZLppi3SfaAERwLr045NHtcB2k1WXgtP0senQCObktE1Uc=
-X-Gm-Gg: AYBFou0UaE5Ns59s1mtsUxBMR9WVd8kbNwqoQv9p6MHGR/GDBKgTa0Q0ps9np3JrjhW
-	brlmrXDJ8WsUMSyEw0ZeV9ZX0Q4rO8XVL7i8NWHQXvgGC1UE9DiC8tLtKKrviPUIvV3zMZBggW/
-	cJR8mS65xpUrQdGLYc5fBJfZ9tiErY1Tejp/AxGDrhFM7bz4+PD6huJKAcOWXqoOfOdZSfILyo2
-	piLv8oSiD62QE6+sLmFft0JRMFqesajvUJnu1lf+n8JDOWCg1bKHhlejs06UwfRXjmujOMP5rCW
-	DMozr4tM73AUkVTo3ijtdqpuxniHaptTQNGja5iGmEzRlQSndFRPLi60Z8cGeWcZYRKPvMZEdSW
-	P3FXsqrrI4fc6wJPWTiGG+zKH8hjndyjq5wLQm3R+uh4PEAV8pvwnTjN7LbMECs0rCFHE/y0GCh
-	REkjVdZaJsYgzVAjGRDtgg5rpki6epQk/D2J8qOwr9Dxof04gmTcgj++drAnb3pDt+hiK2Ho6J5
-	xMvJeMETdM2La2M
-X-Received: by 2002:a17:90b:440e:b0:380:fead:448d with SMTP id 98e67ed59e1d1-39b261e1011mr40346945a91.13.1788865224500;
-        Tue, 08 Sep 2026 04:00:24 -0700 (PDT)
-Received: from ydg-Zenbook-14-UM3406GA ([2001:2d8:6467:d689:f6ea:9d29:b387:9ed5])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b08cacbb0sm32429842a91.13.2026.09.08.04.00.19
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 08 Sep 2026 04:00:23 -0700 (PDT)
-From: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
-To: andrew@lunn.ch,
-	hkallweit1@gmail.com,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com
-Cc: linux@armlinux.org.uk,
-	daniel@makrotopia.org,
-	o.rempel@pengutronix.de,
-	netdev@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HLWafxTw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5D3361F00A3F;
+	Tue,  8 Sep 2026 11:00:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788865255;
+	bh=YUBi9cz8P5up80+XfrrGReU0+/VNjJYUMKNLQu76ATw=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=HLWafxTwNoUcaPxfktKqbC1ra7sh9/CWHu+D2DJTV8lZcAWyoKxwWO7A6yP8IMkA2
+	 AhFipwqC2X/sx3X63BxphU/0fWifll25efLNDQmGMhzZU/ciwWg6GOUl6OAQI+4N6r
+	 nhqqhCpcf1s5f2myySQvwhoP9l+OUvbwsnd6LpmaIgV8/oQY+YF9qX671Vmtp1X9KU
+	 JPsX0fr5JJPTmHCys882nX4+WhZ2fLm9ZCwrVcQLAo7Jgjo4hIhlzyDnbIBN2VX7rH
+	 UMsx5p9O9AkrwD0IeFL9rwkuUkwvtIAH8jz0d4OgkNYCh3nFVg57wCRhf7GUHYHP/v
+	 mgaph7wKPnsUA==
+From: Philipp Stanner <phasta@kernel.org>
+To: Sumit Semwal <sumit.semwal@linaro.org>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+	Boris Brezillon <boris.brezillon@collabora.com>,
+	Tvrtko Ursulin <tursulin@ursulin.net>,
+	dakr@kernel.org,
+	Marco Pagani <marco.pagani@linux.dev>,
+	Alice Ryhl <aliceryhl@google.com>,
+	Gary Guo <gary@garyguo.net>,
+	Jonghyuk Kim <malhyuk97@gmail.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Jiri Slaby <jirislaby@kernel.org>,
+	Simona Vetter <simona@ffwll.ch>,
+	David Airlie <airlied@gmail.com>
+Cc: dri-devel@lists.freedesktop.org,
 	linux-kernel@vger.kernel.org,
-	donggeunyoo.kernel@gmail.com,
-	stable@vger.kernel.org
-Subject: [PATCH net v3 3/3] net: phy: qca808x: handle the active-high LED polarity mode
-Date: Tue,  8 Sep 2026 19:59:59 +0900
-Message-ID: <20260908105959.70453-4-donggeunyoo.kernel@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260908105959.70453-1-donggeunyoo.kernel@gmail.com>
-References: <20260908105959.70453-1-donggeunyoo.kernel@gmail.com>
+	Philipp Stanner <phasta@kernel.org>
+Subject: [RFC PATCH 2/2] drm/i915: Adjust to RCU-less fence
+Date: Tue,  8 Sep 2026 12:59:27 +0200
+Message-ID: <20260908105926.1120378-3-phasta@kernel.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260908105926.1120378-2-phasta@kernel.org>
+References: <20260908105926.1120378-2-phasta@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -88,46 +57,118 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Commit a274465cc3be ("net: phy: support 'active-high' property for PHY
-LEDs") added PHY_LED_ACTIVE_HIGH and made of_phy_led() set the matching
-bit in the modes mask when a LED node carries the 'active-high' property.
-qca808x was not part of that series.
+dma_fence has been reworked in a way that it allows for handling fences
+without any need for RCU functionality.
 
-qca808x_led_polarity_set() only recognizes PHY_LED_ACTIVE_LOW, so
-PHY_LED_ACTIVE_HIGH falls through to the default case and returns -EINVAL.
-of_phy_led() propagates the error, of_phy_leds() drops the LEDs registered
-so far and passes it on, and phy_probe() returns it. A device tree marking
-a QCA808x LED as 'active-high', which leds/common.yaml allows and
-ethernet-phy.yaml references for led@N nodes, thus leaves the mdio device
-unbound, so phy_attach_direct() falls back to the genphy driver and the
-PHY loses its QCA808x-specific configuration.
+Adjust i915 accordingly.
 
-active_low is already false when no polarity mode is requested, which
-programs QCA808X_LED_ACTIVE_HIGH, so the request is already satisfied and
-only the case label is missing.
+(Serves as an example to show how the situation gets easier for users)
 
-Cc: stable@vger.kernel.org
-Fixes: a274465cc3be ("net: phy: support 'active-high' property for PHY LEDs")
-Assisted-by: Claude:claude-fable-5
-Signed-off-by: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+Signed-off-by: Philipp Stanner <phasta@kernel.org>
 ---
- drivers/net/phy/qcom/qca808x.c | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/gpu/drm/i915/gt/intel_gt_requests.c | 10 ++++------
+ drivers/gpu/drm/i915/i915_request.c         |  6 ++----
+ drivers/gpu/drm/i915/i915_sw_fence.c        | 10 ++++------
+ 3 files changed, 10 insertions(+), 16 deletions(-)
 
-diff --git a/drivers/net/phy/qcom/qca808x.c b/drivers/net/phy/qcom/qca808x.c
-index 8eb51b1a006c..3ba58f14e248 100644
---- a/drivers/net/phy/qcom/qca808x.c
-+++ b/drivers/net/phy/qcom/qca808x.c
-@@ -603,6 +603,9 @@ static int qca808x_led_polarity_set(struct phy_device *phydev, int index,
- 		case PHY_LED_ACTIVE_LOW:
- 			active_low = true;
- 			break;
-+		case PHY_LED_ACTIVE_HIGH:
-+			active_low = false;
-+			break;
- 		default:
- 			return -EINVAL;
+diff --git a/drivers/gpu/drm/i915/gt/intel_gt_requests.c b/drivers/gpu/drm/i915/gt/intel_gt_requests.c
+index 93298820bee2..724c4359f688 100644
+--- a/drivers/gpu/drm/i915/gt/intel_gt_requests.c
++++ b/drivers/gpu/drm/i915/gt/intel_gt_requests.c
+@@ -238,6 +238,8 @@ void intel_gt_fini_requests(struct intel_gt *gt)
+ 
+ void intel_gt_watchdog_work(struct work_struct *work)
+ {
++	char driver[64] = "";
++	char timeline[64] = "";
+ 	struct intel_gt *gt =
+ 		container_of(work, typeof(*gt), watchdog.work);
+ 	struct i915_request *rq, *rn;
+@@ -250,17 +252,13 @@ void intel_gt_watchdog_work(struct work_struct *work)
+ 	llist_for_each_entry_safe(rq, rn, first, watchdog.link) {
+ 		if (!i915_request_completed(rq)) {
+ 			struct dma_fence *f = &rq->fence;
+-			const char __rcu *timeline;
+-			const char __rcu *driver;
+ 
+-			rcu_read_lock();
+-			driver = dma_fence_driver_name(f);
+-			timeline = dma_fence_timeline_name(f);
++			dma_fence_driver_name(f, driver, 64);
++			dma_fence_timeline_name(f, timeline, 64);
+ 			pr_notice("Fence expiration time out i915-%s:%s:%llx!\n",
+ 				  rcu_dereference(driver),
+ 				  rcu_dereference(timeline),
+ 				  f->seqno);
+-			rcu_read_unlock();
+ 			i915_request_cancel(rq, -EINTR);
  		}
+ 		i915_request_put(rq);
+diff --git a/drivers/gpu/drm/i915/i915_request.c b/drivers/gpu/drm/i915/i915_request.c
+index d2c7b1090df0..2a3df13217b9 100644
+--- a/drivers/gpu/drm/i915/i915_request.c
++++ b/drivers/gpu/drm/i915/i915_request.c
+@@ -2185,7 +2185,7 @@ void i915_request_show(struct drm_printer *m,
+ 		       const char *prefix,
+ 		       int indent)
+ {
+-	const char __rcu *timeline;
++	char timeline[64] = "";
+ 	char buf[80] = "";
+ 	int x = 0;
+ 
+@@ -2221,8 +2221,7 @@ void i915_request_show(struct drm_printer *m,
+ 
+ 	x = print_sched_attr(&rq->sched.attr, buf, x, sizeof(buf));
+ 
+-	rcu_read_lock();
+-	timeline = dma_fence_timeline_name((struct dma_fence *)&rq->fence);
++	dma_fence_timeline_name((struct dma_fence *)&rq->fence, timeline, 64);
+ 	drm_printf(m, "%s%.*s%c %llx:%lld%s%s %s @ %dms: %s\n",
+ 		   prefix, indent, "                ",
+ 		   queue_status(rq),
+@@ -2232,7 +2231,6 @@ void i915_request_show(struct drm_printer *m,
+ 		   buf,
+ 		   jiffies_to_msecs(jiffies - rq->emitted_jiffies),
+ 		   rcu_dereference(timeline));
+-	rcu_read_unlock();
+ }
+ 
+ static bool engine_match_ring(struct intel_engine_cs *engine, struct i915_request *rq)
+diff --git a/drivers/gpu/drm/i915/i915_sw_fence.c b/drivers/gpu/drm/i915/i915_sw_fence.c
+index f24f616e23ee..d0e733beff86 100644
+--- a/drivers/gpu/drm/i915/i915_sw_fence.c
++++ b/drivers/gpu/drm/i915/i915_sw_fence.c
+@@ -427,25 +427,23 @@ static void dma_i915_sw_fence_wake(struct dma_fence *dma,
+ 
+ static void timer_i915_sw_fence_wake(struct timer_list *t)
+ {
++	char driver[64] = "";
++	char timeline[64] = "";
+ 	struct i915_sw_dma_fence_cb_timer *cb = timer_container_of(cb, t,
+ 								   timer);
+ 	struct i915_sw_fence *fence;
+-	const char __rcu *timeline;
+-	const char __rcu *driver;
+ 
+ 	fence = xchg(&cb->base.fence, NULL);
+ 	if (!fence)
+ 		return;
+ 
+-	rcu_read_lock();
+-	driver = dma_fence_driver_name(cb->dma);
+-	timeline = dma_fence_timeline_name(cb->dma);
++	dma_fence_driver_name(cb->dma, driver, 64);
++	dma_fence_timeline_name(cb->dma, timeline, 64);
+ 	pr_notice("Asynchronous wait on fence %s:%s:%llx timed out (hint:%ps)\n",
+ 		  rcu_dereference(driver),
+ 		  rcu_dereference(timeline),
+ 		  cb->dma->seqno,
+ 		  i915_sw_fence_debug_hint(fence));
+-	rcu_read_unlock();
+ 
+ 	i915_sw_fence_set_error_once(fence, -ETIMEDOUT);
+ 	i915_sw_fence_complete(fence);
 -- 
-2.53.0
+2.55.0
 
