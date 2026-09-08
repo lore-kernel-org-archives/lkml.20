@@ -1,198 +1,145 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo2-f8.google.com (mail-oo2-f8.google.com [74.125.231.136])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8609A274FDF;
-	Tue,  8 Sep 2026 01:21:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39A8A2741B6
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 01:22:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.136
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788830512; cv=none; b=GjZ7jUEvcT9F/pOuozhI14wkA3FNHDB0kX/kBFUKwtDIudocqj/Ni0BVNb2CW6v2hzYFgm63iQiu3CwBL2kU96h4IrCxlqnBYoDrN14knLm6GrtDKTaSUJm8n7XPvNz4UvToxYigUuCKz7LO9wVJVJNKEO/ka5SkusZ093Eq4S0=
+	t=1788830548; cv=none; b=lAbRBakr9TQ/RwyRwfgxSqUyHMmSif3bLFb9ty5w7DglGQgiarr2eVydEOdfkxKAXfsh3NkK7PBAAc2djetHqliz9/1P47DJ7OMWT3i9ztFvs0do7BTR6RC9Mdp0SZ3ikqYRagrVzAAuNI4Y0W68Crs85gG1IdnjXqW9LpNdX3c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788830512; c=relaxed/simple;
-	bh=YAiSjk+6REMd5kt4d2wa73VQ6KYny//uDrfQknPLt2A=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=dM94SBQfYc9Hs3Fp0XOnJbQcwCEELXijDl1uUlFTWeWYmb1RTd885Lyg/VwDGN+wRsC+KZUlPB1ZEolwXZ+wkE0C9Hd38ZQ26KTVf82sCyGhNX9GiVn3Pth7IADVlt2EDJF/1VH5ZpR6tcp/q/NyPzTW1G7dIxxl6ZdJI/YuMXY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=g4fo4nx5; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="g4fo4nx5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A17A1F00A3A;
-	Tue,  8 Sep 2026 01:21:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788830506;
-	bh=eN25iy9GQSstUWyrX7CCqIq95xPSPYavzJyfENoDndo=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=g4fo4nx5OGHIpCHJb0VTtSorxEXV84VagW2Qw3SnvLt3pZQi/phBToCj7yBGU9pji
-	 aTL+QIPU3D+U8QszP//lv0EJL+c1QjmQQLd+FtAMEucoE5gfghJmhU38PjfPpReVOL
-	 C5gJcDOsyJqmySqL0v2fy9GxNubWMg8f+ZNYOJ8dEZ96BT7AdK3eeTB9fZghoHbW3R
-	 jWaRig7Eazyl4hFcglY0HAoU4G1Gi3bKfi3fW93utMMM21nvGSrAPzEsK3+y/6rGfI
-	 jlqm05Yc6ql26BL4qF4qaG4F9Ya3F/hLTit+16DrpczDNiCZJ17K1Ny76zSPQucfiJ
-	 XySJFXEVUYFCg==
-Date: Tue, 8 Sep 2026 10:21:40 +0900
-From: Masami Hiramatsu (Google) <mhiramat@kernel.org>
-To: Pengfei Li <ljdlns1987@gmail.com>
-Cc: Steven Rostedt <rostedt@goodmis.org>, Mathieu Desnoyers
- <mathieu.desnoyers@efficios.com>, Mark Rutland <mark.rutland@arm.com>,
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
- kernel test robot <lkp@intel.com>, Bo Zhang <zhangbo56@xiaomi.com>, Pengfei
- Li <lipengfei28@xiaomi.com>, linux-kernel@vger.kernel.org,
- linux-trace-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
- linux-kselftest@vger.kernel.org
-Subject: Re: [RFC PATCH v6 1/3] trace: add lock-free stackmap for stack
- trace deduplication
-Message-Id: <20260908102140.2ed161f1c851d94e1365520d@kernel.org>
-In-Reply-To: <20260903132409.270195-2-lipengfei28@xiaomi.com>
-References: <20260903132409.270195-1-lipengfei28@xiaomi.com>
-	<20260903132409.270195-2-lipengfei28@xiaomi.com>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	s=arc-20240116; t=1788830548; c=relaxed/simple;
+	bh=k2M/NHXxyH9UZlUco2xAjFejJQzTmPuFI6iGzr59XR4=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=U84+TUyJMDJn8tzUmAAXPkRHz3JwFgKzcpo7RUaICpxPQS9t1spXR69a40GN2EkNVrrrRXkKdiyVo6J02lcQi948YjLnmUg5QEF6s1W3+/uhfcU7ypm/CZJM+sir2rQE8VzTZ5zYgjd3JyiNeMDaV3NABE3pK9FUhisBHBDxGqU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.136
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oo2-f8.google.com with SMTP id 006d021491bc7-6b12d30261cso1052499eaf.0
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 18:22:25 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788830544; x=1789435344;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ZCij2SvlUZ0ciBIF3n1U915PLtoGJOJG9GMDx+Fo66w=;
+        b=lni95Uidr03fhf/VKbgpn228bGIiILPLwGdvtcuKUUX0QH93bH44yOk8k42hiBr1lf
+         sAsJeapQf6AAv5KEJOHhP1X8TGgmjs4oH5G+1aNX7LIgmD7JWN/3ZPgTpSPq6/TSEoBv
+         DSGrmGMW6piAeKf3qpkS2KNV0uZDA/f+DhUOWd5CNXQqiQwaUm0Z/ebH1VSjNcVCKcK0
+         0mU/3UhJn+tBzrPZyrmMedT/cejmCV1pLQ7ckKc4YcbPMoDdxXJnV1VLvJU56vEPw3yq
+         Mktp7bbjygZPnpgcAepvoUze26/CS5XGU0HtVdMCnl6g5JTuk92R2LdIB1vuDve8ud89
+         m/2A==
+X-Forwarded-Encrypted: i=1; AKwUvByfgUeeZlnfVHRuN5anhT8QljZKbS2B6pXKUR1ZOI3WlIDCkpuqAYI8TGm2WBzroJSk5AHQJ2IKacPXnh0=@vger.kernel.org
+X-Gm-Message-State: AFuF++k6HmSoE4t1UwpiyfS8NMZJFsT9jswCm9l1UWAFSpyMf9o25iUD
+	WOIGBpf/1qxSsH/32mhGFcKfkqLQ/oYLmj+LIg4rNi1IYFigIGThxgO61Z3AV6BcrV/P3H6zqkK
+	FvLx1ck7mjl75RNacZO4L6YriPcobYqDF24bLdhO6ZHgy0rpOJK9XX9AMdfk=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+X-Received: by 2002:a05:6820:221c:b0:6b7:46fc:1ca with SMTP id
+ 006d021491bc7-6b746fc0324mr13647657eaf.41.1788830544096; Mon, 07 Sep 2026
+ 18:22:24 -0700 (PDT)
+Date: Mon, 07 Sep 2026 18:22:24 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6a9f6350.6e6c5f9e.28f11f.0005.GAE@google.com>
+Subject: [syzbot] [mm?] WARNING in swap_put_entries_direct
+From: syzbot <syzbot+23b25ba3c6bf971f9c57@syzkaller.appspotmail.com>
+To: akpm@linux-foundation.org, baohua@kernel.org, baoquan.he@linux.dev, 
+	chrisl@kernel.org, kasong@tencent.com, linux-kernel@vger.kernel.org, 
+	linux-mm@kvack.org, nphamcs@gmail.com, shikemeng@huaweicloud.com, 
+	syzkaller-bugs@googlegroups.com, youngjun.park@lge.com
+Content-Type: text/plain; charset="UTF-8"
 
-On Thu,  3 Sep 2026 21:24:07 +0800
-Pengfei Li <ljdlns1987@gmail.com> wrote:
+Hello,
 
-> Add a lock-free hash map (ftrace_stackmap) that deduplicates kernel
-> stack traces for the ftrace ring buffer. Instead of storing full
-> stack traces (80-160 bytes each) in the ring buffer for every event,
-> ftrace can store a 4-byte stack_id when the stackmap option is enabled.
+syzbot found the following issue on:
 
-Thanks, I have some comments below.
+HEAD commit:    8ab1afb2eb24 Merge tag 'for-7.3/dm-fixes' of git://git.ker..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=1034a125580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=85bc5cc2fc7394d9
+dashboard link: https://syzkaller.appspot.com/bug?extid=23b25ba3c6bf971f9c57
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+userspace arch: i386
 
-[...]
-> 
-> Kernel command line parameter:
-> - ftrace_stackmap.bits=N: set map capacity (2^N unique stacks,
->   range 10-18, default 14)
+Unfortunately, I don't have any reproducer for this issue yet.
 
-Ah, this kernel cmdline parameter is also be a separated patch,
-because this is not fundamentary needed.
+Downloadable assets:
+disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/d900f083ada3/non_bootable_disk-8ab1afb2.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/4767b33b6704/vmlinux-8ab1afb2.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/aa0bdf390bbc/bzImage-8ab1afb2.xz
 
-> 
-> Signed-off-by: Pengfei Li <lipengfei28@xiaomi.com>
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+23b25ba3c6bf971f9c57@syzkaller.appspotmail.com
 
-It is OK to use an official address for SoB, but to make sure this
-address work, please at least Cc to this address.
+get_swap_device: Bad swap file entry 7c00000000000002
+------------[ cut here ]------------
+!si
+WARNING: mm/swapfile.c:2130 at swap_put_entries_direct+0x17d/0x1b0 mm/swapfile.c:2130, CPU#1: udevd/13167
+Modules linked in:
+CPU: 1 UID: 0 PID: 13167 Comm: udevd Tainted: G             L      syzkaller #0 PREEMPT(full) 
+Tainted: [L]=SOFTLOCKUP
+Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+RIP: 0010:swap_put_entries_direct+0x17d/0x1b0 mm/swapfile.c:2130
+Code: 00 00 00 00 48 8b 44 24 58 65 48 2b 05 64 fa 15 12 75 3b 48 83 c4 60 5b 5d 41 5c 41 5d 41 5e c3 cc cc cc cc e8 74 a6 95 ff 90 <0f> 0b 90 eb be e8 69 a6 95 ff 90 0f 0b 90 eb a6 e8 5e bf 07 00 e9
+RSP: 0018:ffffc90004d9f628 EFLAGS: 00010293
+RAX: 0000000000000000 RBX: dffffc0000000000 RCX: 0000000000000000
+RDX: ffff888049448000 RSI: ffffffff827595bc RDI: fffff520009b3ea4
+RBP: 0000000000000003 R08: 0000000000000007 R09: 0000000000000000
+R10: 8000000000000000 R11: 0000000000000001 R12: 0000000000000002
+R13: 0000000000000000 R14: 1ffff920009b3ec5 R15: ffffc90004d9f6e0
+FS:  00007fcd01ba2880(0000) GS:ffff888096a67000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00000000f740d2a8 CR3: 00000000703ea000 CR4: 0000000000352ef0
+DR0: 0000000000000000 DR1: 0000000000000000 DR2: 0000000000000000
+DR3: 000000000000000e DR6: 00000000ffff0ff0 DR7: 0000000000000400
+Call Trace:
+ <TASK>
+ shmem_free_swap+0x1f4/0x200 mm/shmem.c:996
+ shmem_undo_range+0x3fd/0x1570 mm/shmem.c:1151
+ shmem_truncate_range mm/shmem.c:1289 [inline]
+ shmem_evict_inode+0x3b1/0xca0 mm/shmem.c:1420
+ evict+0x3c2/0xad0 fs/inode.c:822
+ iput_final fs/inode.c:2015 [inline]
+ iput.part.0+0x989/0x1050 fs/inode.c:2064
+ iput+0x35/0x40 fs/inode.c:2030
+ filename_unlinkat+0x466/0x730 fs/namei.c:5723
+ __do_sys_unlink fs/namei.c:5754 [inline]
+ __se_sys_unlink fs/namei.c:5751 [inline]
+ __x64_sys_unlink+0x46/0x70 fs/namei.c:5751
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x121/0x770 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7fcd01515937
+Code: 00 00 e9 a9 fd ff ff 66 2e 0f 1f 84 00 00 00 00 00 66 90 b8 5f 00 00 00 0f 05 c3 0f 1f 84 00 00 00 00 00 b8 57 00 00 00 0f 05 <48> 3d 00 f0 ff ff 77 01 c3 48 8b 15 91 b4 0d 00 f7 d8 64 89 02 b8
+RSP: 002b:00007ffc4214fcf8 EFLAGS: 00000206 ORIG_RAX: 0000000000000057
+RAX: ffffffffffffffda RBX: 00007ffc4214fd00 RCX: 00007fcd01515937
+RDX: 0000000000000000 RSI: 00000000000003ed RDI: 00007ffc4214fd00
+RBP: 000055f191cfee00 R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000206 R12: 000000000aba9500
+R13: 0000000003938700 R14: 000055f18779e100 R15: 000055f18779e140
+ </TASK>
 
-> ---
->  kernel/trace/Kconfig          |  22 +
->  kernel/trace/Makefile         |   1 +
->  kernel/trace/trace_stackmap.c | 871 ++++++++++++++++++++++++++++++++++
->  kernel/trace/trace_stackmap.h |  55 +++
->  4 files changed, 949 insertions(+)
->  create mode 100644 kernel/trace/trace_stackmap.c
->  create mode 100644 kernel/trace/trace_stackmap.h
 
-[...]
+---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
 
-> +/* --- Stats --- */
-> +
-> +static int stackmap_stat_show(struct seq_file *m, void *v)
-> +{
-> +	struct ftrace_stackmap *smap = m->private;
-> +	u64 successes = 0, drops = 0;
-> +	u32 entries;
-> +	int cpu;
-> +
-> +	if (!smap) {
-> +		seq_puts(m, "stackmap not initialized\n");
-> +		return 0;
-> +	}
-> +
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
 
-You also need down_read(&smap->reader_sem) here for serializing.
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
 
-> +	entries = atomic_read(&smap->next_elt);
-> +	for_each_possible_cpu(cpu) {
-> +		successes += local_read(per_cpu_ptr(smap->successes, cpu));
-> +		drops += local_read(per_cpu_ptr(smap->drops, cpu));
-> +	}
-> +
-> +	seq_printf(m, "entries:      %u / %u\n", entries, smap->max_elts);
-> +	seq_printf(m, "table_size:   %u\n", smap->map_size);
-> +	seq_printf(m, "successes:    %llu\n", successes);
-> +	seq_printf(m, "drops:        %llu\n", drops);
-> +	if (successes + drops > 0) {
-> +		/*
-> +		 * mul_u64_u64_div_u64() uses a 128-bit intermediate, so
-> +		 * (successes * 100) cannot overflow even when successes
-> +		 * approaches U64_MAX on a very long trace.
-> +		 */
-> +		successes = mul_u64_u64_div_u64(successes, 100, successes + drops);
-> +	} else {
-> +		successes = 0;
-> +	}
-> +	seq_printf(m, "success_rate: %llu%%\n", successes);
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
 
-and up_read(&smap->reader_sem) too.
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
 
-> +	return 0;
-> +}
-> +
-> +static int stackmap_stat_open(struct inode *inode, struct file *file)
-> +{
-> +	return single_open(file, stackmap_stat_show, inode->i_private);
-> +}
-> +
-> +const struct file_operations ftrace_stackmap_stat_fops = {
-> +	.open		= stackmap_stat_open,
-> +	.read		= seq_read,
-> +	.llseek		= seq_lseek,
-> +	.release	= single_release,
-> +};
-> +
-> +/* --- Binary export --- */
-> +
-> +struct stackmap_bin_snapshot {
-> +	/*
-> +	 * Use u64 (not size_t) so data[] is 8-byte aligned on both
-> +	 * 32-bit and 64-bit architectures. The IP array within data[]
-> +	 * is accessed as u64*, which would alignment-fault on strict
-> +	 * architectures (e.g. older ARM, SPARC) if data[] started at
-> +	 * a 4-byte boundary.
-> +	 */
-> +	u64	size;
-> +	char	data[];
-> +};
-> +
-> +static int stackmap_bin_open(struct inode *inode, struct file *file)
-> +{
-> +	struct ftrace_stackmap *smap = inode->i_private;
-> +	struct stackmap_bin_snapshot *snap;
-> +	struct ftrace_stackmap_bin_header *hdr;
-> +	struct ftrace_stackmap_bin_entry *e;
-> +	size_t alloc_size, off;
-> +	u32 nr_entries, i, nr_stacks;
-> +
-> +	if (!smap)
-> +		return -ENODEV;
-> +
-> +	/*
-> +	 * Serialize opens: only one snapshot may be pinned at a time
-> +	 * (see @bin_open). Released in stackmap_bin_release().
-> +	 */
-> +	if (atomic_cmpxchg(&smap->bin_open, 0, 1) != 0)
-> +		return -EBUSY;
-> +
-> +	/*
-> +	 * Worst-case allocation size: every populated entry uses a
-> +	 * full-depth stack. The (+1) gives one slack slot in case a
-> +	 * concurrent insert lands between this snapshot and iteration.
-> +	 * The loop below performs an explicit bounds check anyway.
-> +	 *
-> +	 * At bits=18 this caps at ~135 MB. The file is mode 0440
-> +	 * (TRACE_MODE_READ), so only privileged users can open it.
-
-Hmm, this is too huge to make a copy inside the kernel.
-If the stackmap is only increasing, and can avoid resetting by
-reader_sem, what about rewriting this as a raw-output mode of
-seq_file?
-You can use seq_write() to seq_file buffer.
-
-Thank you,
-
--- 
-Masami Hiramatsu (Google) <mhiramat@kernel.org>
+If you want to undo deduplication, reply with:
+#syz undup
