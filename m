@@ -1,258 +1,253 @@
-Received: from TYPPR03CU001.outbound.protection.outlook.com (mail-japaneastazolkn19012048.outbound.protection.outlook.com [52.103.43.48])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9BF7380FDB;
-	Tue,  8 Sep 2026 07:17:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.103.43.48
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788851881; cv=fail; b=PCgrBhyAFi5NcFvXgYSTF4a+vBeHwsEdVLF9a2KJSss8Yjxi3TQNdRxdCyPTwf2bD5xOrXUDCJOO9ShBeEdTBhmKzT8Qb3eO/JK3SRIOgd3q8ovR9+ifIaivpTwX4EOrCclkNctxCaCgwb5/tb2MxPXmmwZol0A2ANvTXNoT/28=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788851881; c=relaxed/simple;
-	bh=dprwiTwRHxJ1zO+O2cV/VurOAzdcbzIa7hG5mB5vksI=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=IKfjNGqQC3RAVfCauw7Cd3ILKW//F3KxPpys4kqfgzQLdjE2xHTcdhdLGJwCsgdfqWOeAwsDPecYfNmtpIlQ3l7gTyO0BJzYyV+lLoGv8t6OTAs/85TrD/dG7TXBiGzz1G7MYtKAs20T7Iev/0LPX2/DOm2t9XR2FcmPtAhe9Sw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com; spf=pass smtp.mailfrom=outlook.com; dkim=pass (2048-bit key) header.d=outlook.com header.i=@outlook.com header.b=OY4YoYmr; arc=fail smtp.client-ip=52.103.43.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=outlook.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27FD42931D3
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 07:18:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788851907; cv=none; b=WYrslKKBxGRdsq3qX3vDM40jDdUGXSHCXzerhzV6xrjeNnfzM8eqo13iWIOuWr9HlmMYzZemUCSbwwFQ6oRmspHxUH0IVzRQ2CgCI8ZFjDjy3izXryriOi+jwKKY6CKIt9oPdEkRBos06Ha5LZUaJOR8ry9ZT3uEX4aHtDo96hs=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788851907; c=relaxed/simple;
+	bh=awNKVpbba7txbNiZHCmEdrhtU+RGi370afg+wtscxlQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=cEskf4r0w7DUa2ie8CoDQlprWVSscYjNDLWqm689k8He7Bep6nPvZiefk0iu2VdkdMDhWVB7bi8zUqfTZ7FPkmSSeYe6aSEudzCebGdJRSN6PtFYdaw6lFP7Pf82Jcti+Le9rFnoCAxfAdmo1E8vaFS57T+Ydvl9+MH0Mk4mwe4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=ndUbY35u; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=JJgS/4FG; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=outlook.com header.i=@outlook.com header.b="OY4YoYmr"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=LJ+LDpDLFuOwsxdIeOvGZEiYghN1jl6bB+1A6Z+MeazCBt4GBzxNj4+oPGZbxgJzSNU89k39WvT0IdCtz9+o0no8L+ee9xhf/9gEa2B0Cp2lq4xyPNISk8k0zvVv3RbJiTndAam86aqWGYw+rrcc2ArPSHuJBnJeLHJa68LBSae1xt7gI70QqRdfYTLnMl2AEZOJjqpIxkbkBALJFtyfITI395IWicHVXoGCXqpWkBlhMd8XjKQkaiJD2PWvf+pudNvscddqcalAx5eiJapRVGmAPUrLGTDY9oXacgjC7xm1ZvPbQdudTQFBF8jUkcFwGmH0aMmiArBiA5jsmN11GQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Jw9u2AxzTRA58GzjudjEsuRw6SWDT6o59YUCRtRHIIk=;
- b=aRyn1GYcXwrXxVAyQur72aYWuDe1Gj8LgpszyLlWL4ISWkcTp6rcB5UbFXZDsAbBNBeRPdFFv8DE88QWgX8NiUaCJjnvTQUJHs1imBJLhcXBuQ9+yjmaydxhT/OT6MCjCglvRerf3V9HyNcgdY2jB6SMOgpjmHPFtPnxp4/BvatdmAxAg9rvy40F041dtVBTIux+M4wYAjURFA3g/iYJhx021Qs3kMZg5sC0k6w0vCry3y/wcpCSdPytJ1ejkGiNXNqKIqXSJCyWV5u1gDJ1UUf6MKuxXzXtrTF92HOBsWcZedAm0JexuZ04ONueHYO3+7XhQooQkeNUy9jUsrhdzg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Jw9u2AxzTRA58GzjudjEsuRw6SWDT6o59YUCRtRHIIk=;
- b=OY4YoYmrOpW1njzGMb1r2gqA693sBKg1Grn1NdIkBLvLLlD7CbTz+7KtfKJKeCDi1py6N1Ei4fMOpSpyHcDb+7/08fLPygyrCtLAPspMYCLs/dEGXlap6fxRv5Y+BvL6v6wUtv3mnHxGRTAFHxFdnKT6qwSMzky2hEWV1klV2XQTBojuhBkphGrRKaG+FBznPo59kpimzBkhJiTO0qTFMlzZJhOIaLBMV3R6fMCi/HsTIj3SAUeTVioW0NT4BPZOV5j4gJhw6Us3s9yJJmeAh7lQUJBOvwngoT6+FMjPiPH/m8OSuuJcL1w1W4PN7z8RXkv0BsxkBTnUfHVSdjom3Q==
-Received: from PUZPR04MB4922.apcprd04.prod.outlook.com (2603:1096:301:b2::11)
- by TYNPR04MB9384.apcprd04.prod.outlook.com (2603:1096:405:3b4::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.15; Tue, 8 Sep
- 2026 07:17:54 +0000
-Received: from PUZPR04MB4922.apcprd04.prod.outlook.com
- ([fe80::4c31:36d:6ab1:c530]) by PUZPR04MB4922.apcprd04.prod.outlook.com
- ([fe80::4c31:36d:6ab1:c530%3]) with mapi id 15.21.0382.014; Tue, 8 Sep 2026
- 07:17:54 +0000
-Message-ID:
- <PUZPR04MB4922771B19195F4D1BF89EFEE3B12@PUZPR04MB4922.apcprd04.prod.outlook.com>
-Date: Tue, 8 Sep 2026 15:19:30 +0800
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] sched/fair: Only apply cpufreq pressure where frequency
- is invariant
-To: K Prateek Nayak <kprateek.nayak@amd.com>,
- Hongyan Xia <hongyan.xia@transsion.com>
-Cc: Ingo Molnar <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>,
- Juri Lelli <juri.lelli@redhat.com>, Viresh Kumar <viresh.kumar@linaro.org>,
- Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>,
- Dietmar Eggemann <dietmar.eggemann@arm.com>,
- "linux-pm@vger.kernel.org" <linux-pm@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "zhongyuan@hygon.cn" <zhongyuan@hygon.cn>,
- "huangsj@hygon.cn" <huangsj@hygon.cn>,
- Vincent Guittot <vincent.guittot@linaro.org>,
- "Rafael J . Wysocki" <rafael@kernel.org>
-References: <20260821073927.455475-1-wujianyong@hygon.cn>
- <fea033f4-a680-445f-b231-2a0cc1dded8b@transsion.com>
- <F16AADE6-B6B7-4997-9CC1-A2E323498B7F@outlook.com>
- <CAKfTPtCxMA-7BX20LNhdOT+BQysdnOxOALrLvhTFNYJLbdsoCA@mail.gmail.com>
- <SI2PR04MB4931F65C44962845CE345B79E3B72@SI2PR04MB4931.apcprd04.prod.outlook.com>
- <44993024-f1bb-4b4f-802b-a22f95101171@transsion.com>
- <SI2PR04MB49315D05AB89CFA3B0E41BF3E3B62@SI2PR04MB4931.apcprd04.prod.outlook.com>
- <f38d55b1-68f8-4cfa-8b97-47fe58bd9ed7@transsion.com>
- <d709498b-9572-44bd-a93e-bbed23fd7372@amd.com>
- <4e39e935-2339-442b-8b14-a688b605c35e@amd.com>
-Content-Language: en-US
-From: jong wu <jianyong.wu@outlook.com>
-In-Reply-To: <4e39e935-2339-442b-8b14-a688b605c35e@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: TP0P295CA0036.TWNP295.PROD.OUTLOOK.COM
- (2603:1096:910:4::15) To PUZPR04MB4922.apcprd04.prod.outlook.com
- (2603:1096:301:b2::11)
-X-Microsoft-Original-Message-ID:
- <ee4f5fb0-fcdf-4cc3-b5e0-92f4c276093a@outlook.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="ndUbY35u";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="JJgS/4FG"
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6886M1sf2979240
+	for <linux-kernel@vger.kernel.org>; Tue, 8 Sep 2026 07:18:25 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	yySNJ2c/T3/7UiSJLByUZbtOSSdVDE444k2LE0ArApM=; b=ndUbY35ug66347vF
+	2aF7dQwPlR5/Fa5aKgu/jzPrfxpDnTj274Fpp6b40pAGHDftnf5yuCd7I8zb8RGg
+	m6utY83nJS95l2aFLRO26vGp+jEgYDPEIr/kG3KKfKKtjz98zh5Q31F+WH7grfGt
+	GvmTdzGL8RjQkPta3mRreaJpjqUVJLGG3FBk+uhpaTyfUzZOdVSWDSz8SPFkMMiU
+	crMj9P6kDsDQYnQ1k1TM1IWmvgVE+Kk9kXPjBMJbTohBGCELaKD/d9dvRUgDZ0fP
+	gvyRWiL4boxFJLAQ3n390Zxo2sVAZ3R76gKefFW67wAHozIIvQUWbk3Yzs+xJ4Ge
+	IClpGQ==
+Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com [209.85.215.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ghuykbme4-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 07:18:25 +0000 (GMT)
+Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-cbedbd182f5so3425228a12.1
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 00:18:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1788851905; x=1789456705; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=yySNJ2c/T3/7UiSJLByUZbtOSSdVDE444k2LE0ArApM=;
+        b=JJgS/4FGlG/1UzDCuXRv1Ygfui3srxFvMALo9l6Min01o+rglLDxeCNOGl765gNAq3
+         yIwCDOTGLTIAfm1YjlDqMhDWpdSlxLKdhDoL+8OffA2bP+4YproT1nQD3W2Jf+tdUzNP
+         7A1xcARKUJe7xURuv1oASTMhDJelWnnVekQNuYdYo7nDhTpVWBhQ5a3FNcHfKUglX4H8
+         cRsYu5iFPr2OB1jeNxKNakV7w74gBEysOFT49MiGgo2oMLPEfJg9XihrIE72zUmbani1
+         Hw4/ln/h5+FIN7x09+2TfBeKOjXFmFP8H7zLk+Iebke0+qUI3lPQVNkl3AmTs2X7hpGK
+         TEpQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788851905; x=1789456705;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=yySNJ2c/T3/7UiSJLByUZbtOSSdVDE444k2LE0ArApM=;
+        b=QXlrUbeIsm0RQBg4UNt0EpRDgreQMr5R1F0KZM1blH8ZtzlQesUp46SU9DGIGEsY4j
+         XrZhohAGUt+seh2mBiqBhPua7NAxbOSmMqTSr/vX0qmH8oXqzoa9rvVCyMoGUkSHS4xx
+         RK4vg6aMvav+USvHa9mxi8K27mU0oN7jc/pabLDbic8UaAs2yFuZcEgskK/QBBb9gWBR
+         HbMkYIKnVCC4ydtwZcOB3AdovtZCx+2ZRcYKpHrz1CnkPPt2wz7QGRPt8snVLyg4TZl8
+         NpdaqFl9FBjFphWgrRkotC0fMWAmomnM5tnNm8JKkdsZ87mHnfgIUdWsiBZbuzwoQfYL
+         Bb+w==
+X-Forwarded-Encrypted: i=1; AKwUvBwLMeTEJED+TtsxncGxaaiNLdsxX7LXa3a/S0VjVpk1R5voURPrrOh+gsLGWO3/cXpMZ3/gTh561CiMaRo=@vger.kernel.org
+X-Gm-Message-State: AFuF++lXGiTLSNyF09zZqEFj0Dsh9KuL1swMnMWZaAtgyhCzL8hrDOBY
+	q+9CJjvCMVwlgXHJc0wD67719/mornwSYM1CW6pgu1gswKXnio1bIhtXP2+7zjQpsLauJ0LeYsi
+	K4FQBqxvYNIziMPt2l3tOG89sQrylksIrkJG0egfAraKnW1UCPjLmY909lL5KyQ7jqF1XNCP6DB
+	Q=
+X-Gm-Gg: AYBFou1OtYphwlKcfCQtolZQlzhW+qTbjwQbyTjIq1cuLaeH5NGqh8//0hgCTYms3B/
+	CiCXR/12gQtbRyO6JPHew1WoonG9y5hs5UxuFsCvApTGRasEBhK1DkpAP4vmMxECPkHgdrXSOqR
+	t2PDzVyL8khtQWUx74DkfAuejKHsQWcMWtC2VNTQf1ooVeCtzW7wKWQ1ysBDiJmfhoBp8fnlWgr
+	lyy+lnQD5PE4yyvkARhgwQ0WaNXIADVV06VYL90D136dvgsNkI33HcRTXvNmjC/EUHmkOR4kOwH
+	9F4TxQYtBBLACcjDc0EBcFdSD1m36MeEFYyc2YJAacd9pANXiZvwzcJyZitaxKfRyX3rLIQ5rDE
+	SbRD8/qNAT2tzKEzzOt+Hn4Sx2pOzD42s2Lo/LDapmGqDTQFVAim3x3in8GjE+ISi5ifELTQ=
+X-Received: by 2002:a17:902:d48b:b0:2d8:d4d2:d139 with SMTP id d9443c01a7336-2dafb1820bcmr307986965ad.21.1788851904560;
+        Tue, 08 Sep 2026 00:18:24 -0700 (PDT)
+X-Received: by 2002:a17:902:d48b:b0:2d8:d4d2:d139 with SMTP id d9443c01a7336-2dafb1820bcmr307986695ad.21.1788851903977;
+        Tue, 08 Sep 2026 00:18:23 -0700 (PDT)
+Received: from [10.133.33.87] (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2db14ae36adsm53287175ad.76.2026.09.08.00.18.22
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 08 Sep 2026 00:18:23 -0700 (PDT)
+Message-ID: <54f89935-526c-4582-a8ca-4f645257db53@oss.qualcomm.com>
+Date: Tue, 8 Sep 2026 15:18:20 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PUZPR04MB4922:EE_|TYNPR04MB9384:EE_
-X-MS-Office365-Filtering-Correlation-Id: 36968821-3eb8-4869-7284-08df0d794c32
-X-Microsoft-Antispam:
-	BCL:0;ARA:14566002|6090799003|24021099003|5072599009|15080799012|25010399006|51005399006|23021999003|19110799012|8060799015|41001999006|3412199025|440099028|40105399003|2607281247196008;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?d3lHRldXUHhiU3phRjVidlhxdUpsNS94Z1BzczRTK0x6VDEwTFNnWGF4OXFI?=
- =?utf-8?B?c2h3cDloQmNTUTB0TXJIc0RIdnZiaWJsbkJhN0NyTCt4cDh2THBaSWh3YUhr?=
- =?utf-8?B?L1Y5bGdRR3lCTVA1YldOY0lOanM5NkxtMGVoaFdkS0RLejlteDNiWHRVU2gz?=
- =?utf-8?B?SW0xZkpsbU9RTE9lazQvT28wQkl6UmhaTmhBWjEvTjJLbklyWG5aQWhJY2I3?=
- =?utf-8?B?YnVPUTdVNUNxdEhIYUJzaGVGdE42endOL2ZOTGh6dERwZmxjdVVBLy9EVmJ0?=
- =?utf-8?B?OHh5SmI5YUp1ZFZJc1RQSU5zdmU2c0xQK05WdzdrUExEdWtYbDZDbFpBeTJB?=
- =?utf-8?B?UDU3d295MXNXdnVoeXRYWDB4UEFPZjhDK2FRSlFHaG5NcmVyZHVLVUF0b09N?=
- =?utf-8?B?Rkh5QzE2dHhxeTNTSGJpT2RpWVdNbEJCeER5TnllTG9WcTU5Q0JKcEtKU29r?=
- =?utf-8?B?MVdSVXpqZUFta3l4SlhYbnhTblRmdDFwSHRDMTJjMUFkYnY4elJhQlJyczRs?=
- =?utf-8?B?em1temlaZk0rSG9BSk9XbkF0S2RVaW1rSlo3QUw1VklwR3Q5bnlHeGhFZTFP?=
- =?utf-8?B?QUdYVGNtOUFPZitTQStXL3dsYTd6VThhc2crY3Y3eFlRYWZrR1prR3FQV01R?=
- =?utf-8?B?dis0cnhHUGlqNVJYT3pyTUdvSkZlVjIrS2l2MXptZVlhaVVEclhrcXNkQmlh?=
- =?utf-8?B?aFJrY0hHMHRMZUNqbjRJV1FlcWVrcFNjajlLZXYwNkUvblZRSHlaOFBrSXlJ?=
- =?utf-8?B?UklxNkppbHJCOWNYWWkrRWRCZ05LcDRrRmJ4R2R1ZnhFaERNS2ZwUFU3SEpx?=
- =?utf-8?B?Vi9sUmszWmtEQTIzMnFkTnRtdFBlY3FyMzFoMk9xYnVZVmpqamJTVm10TDlv?=
- =?utf-8?B?MXNZaG1iT3B0TkNKV3IvWWtUY21iY3VMMWRTd0prSU5BNS9ubDNLNEl3c3ZM?=
- =?utf-8?B?Uk1paFlCL1dENngvTlFqbE0xNzU2T280T3c0ZHp6V1Jtc2FFZE1BczUwU2Fv?=
- =?utf-8?B?K3dSeEEzSGR4UEkwR0c5NmZDQUNJcUl1K0JGWFN5ZHNnbmg2eDZTZ3NDejdL?=
- =?utf-8?B?ZllQRldtZ0lIbUxqVUtDTDRCeWZPYUpRd0NtYTcxUTBxVFd3Ty9vKzVVRElV?=
- =?utf-8?B?NE9xRk8wQ2h4NkRsZFhESjlNUEFzMWIrTmVrK0lJT2JVODRyd3dYQlErRFd1?=
- =?utf-8?B?M09KRHlsRjVHK0dZNFB0QkRzK2lKMnN0RlE4VzBYaTU1dVNuNkpjNEJMVTRB?=
- =?utf-8?B?cVdTN01uYWZyLzZRSzQxS2lEVk5XTkp6UzJkcWU2d2kxeHdYcTg4VnBjRDJp?=
- =?utf-8?Q?qV8XlsuCmirJv8pPHcFBxfDn4joeVrhHC2?=
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?bXhyL0FWcVF6Z3pUMGNVNnRMRGdWRDcrbm81VVc0cE5QdGM4STBWaVpGZXhk?=
- =?utf-8?B?bng4M1hkMDZ3VkNqVU0yZmhyRGJFWVB6TXdLWWk2MlZLWHV2ZEdsaEpjNUkv?=
- =?utf-8?B?TTkrMFh2Y3UvZTl1WFpkQjE0NmxPZFZ4VWkrbE5Hc3pEWnRzMjJ5VHNtSXBK?=
- =?utf-8?B?RnlHTWxiNUNtRnNMSEpEeStBa3grTFdRQVNFaHdkVVYyb2hoWEJsNjMwbElk?=
- =?utf-8?B?aHl0bWE0Q2s1aEtMMWtGTHZqZXpNVE1XbDY2ZWQ4NjNLQ2Y4UUZFdU9wb0l4?=
- =?utf-8?B?TmlrOEIwY2w5N0hVNlZ2eHducGtwR1JFaktuZDJ2L2JTbTJnSk91UjkzamRX?=
- =?utf-8?B?SjlRZ29LYStZY0FGZVIzdnJjOW4zM0d3SFF1NEJXb1VDa0NRQXFQVUFITUsv?=
- =?utf-8?B?MyswYU1WMkNCcHZ4cDVBQm1COVVKSkUraEtmOExodzdlMkw3SHFsTXlGSFlJ?=
- =?utf-8?B?blJFbDZnS3pYSGozcXVrbkVxQmM1emZzN0xGOVF5bkxLK0Q5NnRnKzhWbUM4?=
- =?utf-8?B?TDduKzRQU2M3QkRvbGh1UFFyOVhHdlFEa2VmcHZWUmNNVlQ4ZWVVZW5XQ2lR?=
- =?utf-8?B?dUhMTXd2NS94ZUVLNSt3Yy96bW1jUVF3RktPb003ODR5MVR6RmIzNmVSWWdT?=
- =?utf-8?B?WHlGRnEvK2JBbmRCZkhDUXRYd0pDOE1RcWY1YUpGL0ttNmhDQUc4ekdId1ZX?=
- =?utf-8?B?anE4czlCdmxmaEVpOUpibmtORUV4b1dwcU9HY2M2MlFTckFwRW5BZ1NpUlly?=
- =?utf-8?B?YVhTaGdWNzU5SHAwOUFmV3R1M3hPMUJTSnJpNWdsQ1JpN01hb2pBUkRYYzdj?=
- =?utf-8?B?dHlGazhURTFoV2JOaHF2aVA2MmYzRklMZzBzbE9KdVRCcXpTRWZHYmpXUFdF?=
- =?utf-8?B?K2JzNm53clYya1BGNVJsejJuN2FHOGV6dnRZb2RFSVN6Rlp0b0xKbXBPcjFl?=
- =?utf-8?B?R0cySWlrUHRQY1BoQUoyQTZ2UjNMUFR6TW5HclFNOTVWSXJZWHljRGNPRGhI?=
- =?utf-8?B?LzRVVlVLV09LdjYxTytlaEhZbWw1dW1veFdMS2FWYXgxV3Q3UVJWVTA5ZFBO?=
- =?utf-8?B?WjN6OVk3SVlBSGZ2Vk5LRVFvekJNdi9aTmFWZTVGWDREYWYxczQyclBOSmd2?=
- =?utf-8?B?dHNEM0EvNjN6emVpeWduYVF1V1pnNFhRaGtWNTVuL042bjhCVm5SeVltOFhO?=
- =?utf-8?B?Q2taa0RjVUpSK0pnN01yNWQ3aDJCc3hHQzdTTHkwVGtiNGhxM3BNbkt1NWxx?=
- =?utf-8?B?ODFZTTA4ZEtzOXJEZlJsYjhjS0hKZjBRWm5iaFUwY1RRc3BNTmpsUS9oUThy?=
- =?utf-8?B?WkFQYkNuSW91cE51NkdFdStkOVp3N0U4aUloZ2ZNUWFRUHRrUUF2Z01tWXFi?=
- =?utf-8?B?T0JvNVI3U3l2YXRzb0hteWhDcUo4TzdpVWJOYjlMaHozanlwTWk4YjdjMFBh?=
- =?utf-8?B?eDZUMlA3N1BSNlpWbkg5ME9ZT0RFWlE4cFFtbE5IblhYRDQ1dXVUTHc0UXU0?=
- =?utf-8?B?YmN0RHoxeHd1ZklaNlhySE9rYW9PSkhGaHlSak9ERzBJN0QrK1FpczVMSGVK?=
- =?utf-8?B?K0gvbDFQM3ROUnNFSHRWNnhSK2RVNUJvTlZvNVE3UlVrMkYxNDJ6Ukh4S1hN?=
- =?utf-8?B?ekdNS2h5MzJRbVpaVVh5aG5jL2w4SHNYVUMrVlg1NXh5d0hGQ21TRXVXWTEx?=
- =?utf-8?B?Z2U0WWdJVXhBeFdaZWFQOXdHTHQ1aXRrallkdkV5NjhkazJENy9XTDVGQU9a?=
- =?utf-8?B?WlVjMk1HbHBpNmtIaU1rSVpzVG84enNrMEg0eSs1bVhLTEJEeVBNUkF2dlhM?=
- =?utf-8?B?OVdjemRlb3piZzh4UWJGM1llUDhQOWd4ekpUTStrbmc2cVJ5ZHhLOG9LbmV6?=
- =?utf-8?Q?5lihScUBxvwCr?=
-X-OriginatorOrg: outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 36968821-3eb8-4869-7284-08df0d794c32
-X-MS-Exchange-CrossTenant-AuthSource: PUZPR04MB4922.apcprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Sep 2026 07:17:53.9745
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
-X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
-	00000000-0000-0000-0000-000000000000
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYNPR04MB9384
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH ath-next] wifi: ath12k: provide MAC address list for
+ single-radio wiphys
+To: Vitor Soares <ivitro@gmail.com>, Jeff Johnson <jjohnson@kernel.org>
+Cc: Vitor Soares <vitor.soares@toradex.com>, linux-wireless@vger.kernel.org,
+        ath12k@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <20260902082219.3010793-2-ivitro@gmail.com>
+From: Baochen Qiang <baochen.qiang@oss.qualcomm.com>
+Content-Language: en-US
+In-Reply-To: <20260902082219.3010793-2-ivitro@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA4MDA3NCBTYWx0ZWRfXzMdGax/XUIWV
+ NenkfgAWkmslIvyYh3KYQySTmyGtHOZN5ZpPK7lwv3ls+D1av5y62JDmVKUKMjura/4hVJ8xGm7
+ QnuNCPkwFx2Qn4Ds5qplMDQnbeX+a/k=
+X-Proofpoint-GUID: GIt-5kAoj0TF2tr-CsltvH68nfQ6PVj7
+X-Authority-Analysis: v=2.4 cv=ObSoyBTY c=1 sm=1 tr=0 ts=6a9fb6c1 cx=c_pps
+ a=oF/VQ+ItUULfLr/lQ2/icg==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=m8ToADvmAAAA:8 a=8dmAZdvqxf5LAHb2O34A:9 a=QEXdDO2ut3YA:10
+ a=3WC7DwWrALyhR5TkjVHa:22 a=kCrBFHLFDAq2jDEeoMj9:22
+X-Proofpoint-ORIG-GUID: GIt-5kAoj0TF2tr-CsltvH68nfQ6PVj7
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA4MDA3NCBTYWx0ZWRfX4rV3hvO+lEpx
+ 2UJ8ZhIw1eQH6mhH6pUHP/4NTzNFSv5Vsohxv5yrsWw6GwQxUGzaiTyHoFmOcFhqgLf+gmO6/uv
+ mRCC0cOOaVIvrNBA34SQURo1WPEfz16y+wjQqquPaFRKd6Dc4WreI/4jw0hZWWiOIJsSLAs5IZ3
+ YuHqNVoi9/n2/5pv0VT0OenBPWpvVVgBZYdvUrK3CPauhiNTZ55p51Vw+GQRoo5moySBhShE30m
+ 3u0MRcY2pEAiXpHZmJumAFv4kSz6/YlYqlhXQVgkiNXT7PZuKADA+9qTt9Atwo58JKbQl72vx7q
+ IHO+4Q6drEx+29KwR7VXlnm1ZaXv7hDUIDVzRRSdvgA/U6t5+m4GqNBJfuywuEx2Pvz0BC5iV6u
+ i1NSh6BRw4xGhNmaA4v5WI9/XXmTMwNW5vQ83+FWHWYecmBPqCNE24M6ktj15Z2A0I6/IWTMAwV
+ H6MkV94bjj8zMBNa6uw==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-08_01,2026-09-07_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 lowpriorityscore=0 impostorscore=0 adultscore=0 phishscore=0
+ priorityscore=1501 malwarescore=0 clxscore=1015 bulkscore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609080074
 
 
 
-在 2026/9/7 16:37, K Prateek Nayak 写道:
-> On 9/7/2026 1:37 PM, K Prateek Nayak wrote:
->> So, I've been trying to understand these bits and looking at
->> cpufreq_policy_init_qos(), the "policy->cpuinfo.max_freq" should be the
->> frequency including the boost range but I see cpufreq_update_pressure()
->> and it says:
->>
->>      max_freq = arch_scale_freq_ref(cpu);
->>      if (!max_freq)
->>          max_freq = policy->cpuinfo.max_freq;
->>
->>      capped_freq = policy->max;
->>
->>      /*
->>       * Handle properly the boost frequencies, which should simply clean
->>       * the cpufreq pressure value.
->>       */
->>      if (max_freq <= capped_freq) {
->>          ...
->>      }
->>
->>
->> Looking at this, I feel "policy->cpuinfo.max_freq" should not include
->> the boost frequency, or x86 should implement a arch_scale_freq_ref()
->> to know when boost is enabled vs disabled.
->>
->> If cpufreq_update_pressure() indeed has to disregard boost frequency,
->> and anything above P0 is not considered as pressure, we can simply
->> do:
->>
->> diff --git a/drivers/cpufreq/cpufreq.c b/drivers/cpufreq/cpufreq.c
->> index b898b6544069..068e6d6e15a1 100644
->> --- a/drivers/cpufreq/cpufreq.c
->> +++ b/drivers/cpufreq/cpufreq.c
->> @@ -2586,8 +2586,11 @@ static void cpufreq_update_pressure(struct cpufreq_policy *policy)
->>   
->>   	cpu = cpumask_first(policy->related_cpus);
->>   	max_freq = arch_scale_freq_ref(cpu);
->> -	if (!max_freq)
->> -		max_freq = policy->cpuinfo.max_freq;
->> +	if (!max_freq) {
->> +		max_freq = __resolve_freq(policy, policy->cpuinfo.max_freq,
->> +					  policy->max, policy->min,
+On 9/2/2026 4:22 PM, Vitor Soares wrote:
+> From: Vitor Soares <vitor.soares@toradex.com>
 > 
-> My bad, that should have been other way around and use the cpuinfo
-> fields to prevent capping based on policy limits. Updated diff:
+> ath12k supports creating vdevs with addresses provided by mac80211.
+> Userspace can already make concurrent interfaces work by explicitly
+> assigning different locally administered addresses.
 > 
-> diff --git a/drivers/cpufreq/cpufreq.c b/drivers/cpufreq/cpufreq.c
-> index b898b6544069..97f4a3ba5107 100644
-> --- a/drivers/cpufreq/cpufreq.c
-> +++ b/drivers/cpufreq/cpufreq.c
-> @@ -2586,8 +2586,11 @@ static void cpufreq_update_pressure(struct cpufreq_policy *policy)
->   
->   	cpu = cpumask_first(policy->related_cpus);
->   	max_freq = arch_scale_freq_ref(cpu);
-> -	if (!max_freq)
-> -		max_freq = policy->cpuinfo.max_freq;
-> +	if (!max_freq) {
-> +		max_freq = __resolve_freq(policy, policy->cpuinfo.max_freq,
-> +					  policy->cpuinfo.min_freq, policy->cpuinfo.max_freq,
-> +					  CPUFREQ_RELATION_H);
-> +	}
->   
->   	capped_freq = policy->max;
->   
+> However, ath12k does not advertise an address list, so when a second
+> interface is created without an explicit address, mac80211 has nothing
+> to pick from and falls back to the permanent address. If the first
+> interface is already running with that address, bringing up the second
+> one fails with -ENOTUNIQ.
+> 
+> As in ath11k, provide a list of usable addresses so
+> ieee80211_assign_perm_addr() can hand each new interface an unused one.
+> Keep the first entry as the radio's own MAC address. Generate the
+> remaining entries as locally administered variants by changing only the
+> upper nibble of the first octet, which naturally limits the pool to 16
+> unique addresses.
+> 
+
+We (Qualcomm) ever internally proposed a similar solution, but it turns out to break chips
+like QCN9274 etc. I have forwarded this patch to internal developers, will come back once
+get a conclusion.
+
+> Handle only single-radio wiphys. Wiphys with more than one radio behave
+> exactly as before.
+> 
+> Tested-on: WCN7850 hw2.0 PCI WLAN.HMT.1.1.c7-00108-QCAHMTSWPL_V1.0_V2.0_SILICONZ_UPSTREAM-3
+> 
+> Signed-off-by: Vitor Soares <vitor.soares@toradex.com>
 > ---
+> Note that a device which is not MLO capable registers one wiphy per
+> radio, so each radio of a multi-radio device also gets a pool, seeded
+> from that radio's own MAC. I only have single-radio WCN7850 hardware,
+> so that case is untested.
+> ---
+>  drivers/net/wireless/ath/ath12k/mac.c | 48 +++++++++++++++++++++++++++
+>  1 file changed, 48 insertions(+)
 > 
->> +					  CPUFREQ_RELATION_H);
->> +	}
->>   
->>   	capped_freq = policy->max;
->>   
->> ---
->>
->> __resolve_freq() will cap "policy->cpuinfo.max_freq" based on the freq_table
->> entries if it exists (acpi-cpufreq), or otherwise return
->> "policy->cpuinfo.max_freq" as is for drivers that uses CPPC based scaling
->> (amd-pstate, intel_pstate).
->>
->> Thoughts?
->>
-I think this is the right way to resolve the issue.  I had written a
-patch for it as well, but it is more complex than yours, so I have made
-a small change on top of your version instead.  On my machine, where
-cpuinfo_max_freq (3100000) sits above the highest _PSS entry (2700000),
-the CPU capacity is back to 1024 with it applied.  I will add a
-Suggested-by: for you since the approach is yours - if you would rather
-post it under your own authorship, say the word and I will stay out of
-the way.
-
-Thanks
-Jianyong
-
-> 
+> diff --git a/drivers/net/wireless/ath/ath12k/mac.c b/drivers/net/wireless/ath/ath12k/mac.c
+> index 9a775602775d..bee6701f1029 100644
+> --- a/drivers/net/wireless/ath/ath12k/mac.c
+> +++ b/drivers/net/wireless/ath/ath12k/mac.c
+> @@ -14685,6 +14685,50 @@ static void ath12k_mac_cleanup_unregister(struct ath12k *ar)
+>  	kfree(ar->mac.sbands[NL80211_BAND_6GHZ].channels);
+>  }
+>  
+> +static void ath12k_mac_cleanup_mac_address_list(struct ath12k_hw *ah)
+> +{
+> +	kfree(ah->hw->wiphy->addresses);
+> +}
+> +
+> +static void ath12k_mac_setup_mac_address_list(struct ath12k_hw *ah,
+> +					      const u8 *mac_addr)
+> +{
+> +	struct ath12k *ar = ath12k_ah_to_ar(ah, 0);
+> +	struct mac_address *addresses;
+> +	u16 n_addresses;
+> +	int i;
+> +
+> +	/* The pool is derived from one base address, so it can describe only a
+> +	 * single-radio wiphy: with more radios each radio has its own base
+> +	 * address, possibly from a different ath12k_base.
+> +	 */
+> +	if (ah->num_radio != 1)
+> +		return;
+> +
+> +	/* Only the upper nibble of the first octet is varied, so at most 16
+> +	 * addresses can be derived from one base.
+> +	 */
+> +	n_addresses = min_t(u16, TARGET_NUM_VDEVS(ar->ab), 16);
+> +	if (n_addresses <= 1)
+> +		return;
+> +
+> +	addresses = kzalloc_objs(*addresses, n_addresses);
+> +	if (!addresses)
+> +		return;
+> +
+> +	ether_addr_copy(addresses[0].addr, mac_addr);
+> +	for (i = 1; i < n_addresses; i++) {
+> +		ether_addr_copy(addresses[i].addr, mac_addr);
+> +		/* set Local Administered Address bit */
+> +		addresses[i].addr[0] |= 0x2;
+> +
+> +		addresses[i].addr[0] += i << 4;
+> +	}
+> +
+> +	ah->hw->wiphy->addresses = addresses;
+> +	ah->hw->wiphy->n_addresses = n_addresses;
+> +}
+> +
+>  static void ath12k_mac_hw_unregister(struct ath12k_hw *ah)
+>  {
+>  	struct ieee80211_hw *hw = ah->hw;
+> @@ -14704,6 +14748,7 @@ static void ath12k_mac_hw_unregister(struct ath12k_hw *ah)
+>  		ath12k_mac_cleanup_unregister(ar);
+>  
+>  	ath12k_mac_cleanup_iface_combinations(ah);
+> +	ath12k_mac_cleanup_mac_address_list(ah);
+>  
+>  	SET_IEEE80211_DEV(hw, NULL);
+>  }
+> @@ -14820,6 +14865,7 @@ static int ath12k_mac_hw_register(struct ath12k_hw *ah)
+>  	wiphy->available_antennas_tx = antennas_tx;
+>  
+>  	SET_IEEE80211_PERM_ADDR(hw, mac_addr);
+> +	ath12k_mac_setup_mac_address_list(ah, mac_addr);
+>  	SET_IEEE80211_DEV(hw, ab->dev);
+>  
+>  	ret = ath12k_mac_setup_iface_combinations(ah);
+> @@ -15041,6 +15087,8 @@ static int ath12k_mac_hw_register(struct ath12k_hw *ah)
+>  		ath12k_mac_cleanup_unregister(ar);
+>  	}
+>  
+> +	ath12k_mac_cleanup_mac_address_list(ah);
+> +
+>  	SET_IEEE80211_DEV(hw, NULL);
+>  
+>  	return ret;
 
