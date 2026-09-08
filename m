@@ -1,173 +1,192 @@
-Received: from mta1.migadu.com (out-24.mta1.migadu.com [95.215.58.24])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD8C55947F1
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 22:43:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.24
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C40BC56B87D;
+	Tue,  8 Sep 2026 22:44:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788907399; cv=none; b=dzEZRS8JFTRDB2EngfxrWR9ggYFL2+KuwX2zwAL5DZ/UDo4YrMulZDCw6P5k6YFZdT6Pt+Tutkbd7JBvLmdXinDR+QmJiP0NS3j7PSjMdN4c9NszlxSpeZfRAe+2WQiAgKx6nqYLDqHph31aG4gnwjOW+q1/uuWB19bMG/dzOKo=
+	t=1788907463; cv=none; b=jjLMi1uWb+ITMnyFg9UQUsJycSBaiCUWrfm/8Z8n/sxvm0iMmAddEcvAwP6Uz/qiXby5JiBTiCqk8XFZgZo4RrDuSdkg4dZyRKOyGDGRjZ0QKkjWFgEOBwcpqytvDpmKPIhdY7gDjrEI0Qo8P+ijVIWxEDRKHiuRjzMq4amysBg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788907399; c=relaxed/simple;
-	bh=1aEK9JH0KAYLycRwGTjlyXIKWppvN4MuQOuaWrOw0Fk=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=mSq8WDdSziFXLhN5aqbAvEVPaWygkhDtsIvtQCVwXWXWgWMF3CTB8+6ZilIMKrtW29nEbPjl3m95qL0kR2oYW0/nkC57skZMZsz/UujbV89uCXzWTbUfEVSiqy6ooDnL1D3TVP46FY9AsPJuAPyQ/+81UQ7ScEtheKXzk+OOSDw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=packett.cool; spf=pass smtp.mailfrom=packett.cool; dkim=pass (2048-bit key) header.d=packett.cool header.i=@packett.cool header.b=tsC1cYhb; arc=none smtp.client-ip=95.215.58.24
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=packett.cool
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=packett.cool
+	s=arc-20240116; t=1788907463; c=relaxed/simple;
+	bh=JOEDJP2DW+ls2ZC/0vA+O8vm2ntANqCPaKHWS5/MXzg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Y1h2+yN28INookQpg1EARSBKMOCN/Szr7zrztX/ALooM/5oRifrnLId1HUkCpQl9SRo062vYsczTCoqkBbBoTckJEayIKQHT8tQJ8GrwRl4hVHl9gPXmijS7hHVujVo6hDXUBhw76HvskvIWa2AFsniD8vFBhW8quVINMJdyCKo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QAh3jSaG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=packett.cool header.i=@packett.cool header.b="tsC1cYhb"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=1aEK9JH0KAYLycRwGTjlyXIKWppvN4MuQOuaWrOw0Fk=;
- c=simple/simple; d=packett.cool;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788907386; v=1; x=1789512186;
- b=tsC1cYhb+7HI4oLcFoAo85DjvzY0BY4yguxYrvh87H7h06ClY5TWwyiii0AoqN1NePr1WbNG
- xvdmL+Z1NgtnfaXhf1EPsPUTCbOu38t05Yz1ZIUPPd4xesQ+pCSWv4kqq/Ml9C+FCf56BFHGtZl
- mG7VEeM3Q608jxDNMfanttMwXV9iTnxtW6pM/naOljawBQiS2x1Y17M8XZ2u6aAuUXCNr+/FdYo
- tof9nnvpjtl4Rx1fUpyxFJjYW4u61ZXLAEnJTyd2syFy+d24JiShRkePTvTxUbsetIJ0UuNjR0g
- XSU6f55jmD04bllFghvw+tBjf6WJr7mZZvAXazSJWZecA==
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 58c3b349da017f56;
-	Tue, 08 Sep 2026 22:43:06 +0000
-X-Mizu-Trace-ID: 58c3b349da017f56
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <f9926203-ee69-4e18-b6c7-95261ba10807@packett.cool>
-Date: Tue, 8 Sep 2026 19:43:02 -0300
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QAh3jSaG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 318A01F00A3A;
+	Tue,  8 Sep 2026 22:44:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788907454;
+	bh=1ZnYa73NqlHvx0NBeklkPLHckc4CqlArTF1KYVVsrjI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=QAh3jSaGlsGc3Fayn5XHnyXj4mBXkPfEEtBja09rGhxffJ28vDMcMuS4JLz5xE0di
+	 yPWz64mObi0YhHANOZ0uZGGmyNYvnLv/YG4QiXX0h8IRkaktrgSZiK+pACQt4/rSHR
+	 OqIjN7Ij5ZYkA2VLYTd/wkpqKt2pt+MVJjrrOrJbLaVvMK3RRQhtS13Yc+fpvN7stJ
+	 4oWbgpvB3lfi7YbjpsX0TbgdMRkiUomrr07LJgsP2Knx6PCXMHSMswat18fbg6/o+h
+	 SCSmpTcc9BkN8QVIbZqxthpFyBqMT+elACJHuS3a6XSuO+9S+361SMrCH3FNRuqH3Q
+	 PDrH30/JDB/aQ==
+Date: Tue, 8 Sep 2026 17:44:10 -0500
+From: Bjorn Andersson <andersson@kernel.org>
+To: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
+Cc: rob.clark@oss.qualcomm.com, Krzysztof Kozlowski <krzk@kernel.org>, 
+	Oded Gabbay <ogabbay@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
+	Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, 
+	Nathan Chancellor <nathan@kernel.org>, Nick Desaulniers <ndesaulniers@google.com>, 
+	Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, 
+	"Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>, 
+	Robin Murphy <robin.murphy@arm.com>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	Sumit Semwal <sumit.semwal@linaro.org>, Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>, 
+	Bharath Kumar <quic_bkumar@quicinc.com>, Chenna Kesava Raju <quic_chennak@quicinc.com>, 
+	srinivas.kandagatla@oss.qualcomm.com, dmitry.baryshkov@oss.qualcomm.com, linux-kernel@vger.kernel.org, 
+	dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+	llvm@lists.linux.dev, iommu@lists.linux.dev, linux-media@vger.kernel.org, 
+	linaro-mm-sig@lists.linaro.org, Anandu Krishnan E <anandu.e@oss.qualcomm.com>
+Subject: Re: [PATCH v2 00/15] accel/qda: Qualcomm DSP Accelerator driver
+Message-ID: <aqCKgM1yCbWjFdgO@baldur>
+References: <CACSVV01eYr6FyA6XBG0xw0yv2dydvTEhcY-WUy07mxM8WwkZcg@mail.gmail.com>
+ <318f14c2-0e87-4e07-8173-1511dca67d78@kernel.org>
+ <CACSVV01T=ytVJKM7NRoBTAJm7vH+JPJNT9Tftu5X9YskGXerwg@mail.gmail.com>
+ <e7b4eceb-cb3a-49ea-bed9-728c958594b0@kernel.org>
+ <CACSVV03ypjBYkhRpt=TyDwOKhejKKke3x=Fi_TvxXN-5U_rCsw@mail.gmail.com>
+ <fb834ae5-7113-4a86-bb84-ca5115c8d7ff@kernel.org>
+ <CACSVV018jB4WRRJ_CUHQmkHXZcqauWJXWGgrzY_HA6cFQ+Q3Xw@mail.gmail.com>
+ <dd3da35b-1db6-43a4-ae1f-35620692f51f@kernel.org>
+ <CACSVV01o_XYuSzaYGbo9pY=459qiA_fgL_KRHVJH+LH4RYcMzQ@mail.gmail.com>
+ <23e31249-cce2-421e-88f7-1a2af66e34b6@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] usb: dwc3: qcom: Add support to skip phy management by
- USB core
-From: Val Packett <val@packett.cool>
-To: Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>,
- Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-usb@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260723-dwc3-skip-init-quirk-v1-1-97682bb44ebd@oss.qualcomm.com>
- <cbb4ae94-7862-4d91-b01d-0d7f18d49a45@packett.cool>
-Content-Language: en-US
-In-Reply-To: <cbb4ae94-7862-4d91-b01d-0d7f18d49a45@packett.cool>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <23e31249-cce2-421e-88f7-1a2af66e34b6@oss.qualcomm.com>
+
+On Wed, Aug 26, 2026 at 06:37:00PM +0530, Ekansh Gupta wrote:
+> On 20-08-2026 20:17, Rob Clark wrote:
+> > On Wed, Aug 19, 2026 at 11:15 PM Krzysztof Kozlowski <krzk@kernel.org> wrote:
+> >>
+> >> On 19/08/2026 17:48, Rob Clark wrote:
+> >>> On Wed, Aug 19, 2026 at 8:27 AM Krzysztof Kozlowski <krzk@kernel.org> wrote:
+> >>>> The rule of usptream development is that we do not accept duplicated
+> >>>> code, just because a vendor wants to write something new. This is
+> >>>> basically the concept applied all over the drivers tree, where we pushed
+> >>>> back against all sorts of duplications all over the vendors.
+> >>>>
+> >>>> What I miss in this thread is why would there be any exception here. We
+> >>>> do not grant exceptions from standard practices on "I want" reasons.
+> >>>
+> >>> I agree that we should not have duplicated drivers just for vendor
+> >>> lolz.  But when it comes to adopting common frameworks and integrating
+> >>> better into the ecosystem, this doesn't seem like something we should
+> >>> actively discourage.  I don't think this is a case of vendor lolz, but
+> >>
+> >> No one discourages it. Following standard Linux kernel practices and
+> >> requirements is not discouraging, do not twist the narrative here.
+> >> Again, it is standard upstream review telling that we do not duplicate
+> >> drivers. Ever, unless there is serious exception needed.
+> > 
+> > I wasn't trying to twist the narrative, just trying to come up with a
+> > path forward that isn't "no" or "improve existing driver", since
+> > neither of those gets us towards a future using common frameworks.
+> > 
+> >> I asked why there should be an exception granted? Is the reason for
+> >> exception following:
+> >> "We want to adopt common framework"
+> >> ?
+> > 
+> > Possibly?  But I don't think we want two drivers to be any sort of
+> > long term solution.  (Ie. as long as venus/iris have co-exist.)
+> > 
+> >>
+> >>> rather reacting to drm/accel emerging as the standard framework for
+> >>> this sort of driver.
+> >>>
+> >>> So how do we get from here to there?
+> >>
+> >> What is wrong with my proposal?
+> > 
+> > Maybe I missed something, my understanding was your proposal was
+> > "Grow/replace/improve existing driver instead of coming with a
+> > duplicate"..  grow or improve doesn't move us toward common
+> > frameworks.  Maybe "replace" is a valid option.  If there is something
+> > I missed, then I apologize.
+> > 
+> > Options I can think of are:
+> > 
+> > 1. Hardware cutoff.. new hw gets new driver, existing hw gets existing
+> >    driver
+> > 2. Backwards compat chardev registered by new driver, providing existing
+> >    UABI.  I'm not 100% sure about the feasibility/drawbacks of this..
+> >    AFAIU the fastrpc folks where planning a backwards compat layer in
+> >    userspace, so maybe it is possible.
+> > 3. exception?
+> > 
+> > I'd like to know what the feasibility of #2 is, since at a high level
+> > that sounds like the best option.  Possibly limit exposure of legacy
+> > UABI to existing hw so we don't get into a place of needing to extend
+> > the legacy UABI for new hw?
+> > 
+> > But #1 sounds like a non-controversial place to start regardless.
+> > Possibly with #2 coming as followup and necessary step before eventual
+> > migration to new driver for existing hw?
+> > 
+> > Even if we start with #2, how do we handle first-merge-window
+> > bugs/regressions without reverting addition of new driver and removal
+> > of old?  It seems like we'd need a window of a couple release cycles
+> > where both drivers exist?
+> > 
+> > Maybe others have other/better options in mind?
+> To all, I'm seeking on the approach I should follow to go ahead here. I
+> can work on implementing #1(as per Rob's list) with hw specific
+> compatible for v4 if it's acceptable.
+> 
+
+I don't see any reason for you to define a "hw specific compatible",
+because as you have shown in this series (and as Rob point out), there's
+no difference in the "hardware".
+
+The only reason for your "hw specific compatible" is to make a software
+selection in Linux - and that's not what DeviceTree is for.
 
 
-On 9/8/26 7:33 PM, Val Packett wrote:
->
-> On 7/23/26 7:54 AM, Krishna Kurapati wrote:
->> DWC3 driver does manage phys itself sufficiently for Qualcomm platforms.
->> If xhci-skip-phy-init is not set, the HCD core does a phy_init and phy_
->> exit is done only when roothub is being destroyed. Due to this, during
->> system suspend in host mode, although phy_exit is done by DWC3 core, the
->> init_count on phy is never down to zero since HCD core also did an init.
->> consequently causing phy's exit routine to not be called. Hence, add
->> support to skip phy management by USB core.
->>
->> Some Exynos platforms still do rely on USB core for phy_calibrate calls,
->> hence disable USB core management for Qualcomm platforms only.
->>
->> Signed-off-by: Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
->> ---
->> Link to PHY calibrate handling for Exynos platforms:
->> https://lore.kernel.org/all/20190829053028.32438-1-m.szyprowski@samsung.com/ 
->>
->
-> Hi,
->
-> this was merged into -next a few days ago, and I'm seeing warnings on 
-> boot now:
->
-> [    0.613188] sysfs: cannot create duplicate filename 
-> '/devices/platform/soc@0/a800000.usb/software_node'
-> [    0.613195] CPU: 10 UID: 0 PID: 93 Comm: kworker/u49:0 Tainted: G  
->       W           7.3.0-rc2-next-20260907-uwu+ #143 PREEMPT(full)
-> [    0.613197] Tainted: [W]=WARN
-> [    0.613198] Hardware name: Dell Inc. Latitude 7455/0FK7MX, BIOS 
-> 2.13.0 09/19/2025
-> [    0.613199] Workqueue: events_unbound deferred_probe_work_func
-> [    0.613206] Call trace:
-> [..]
-> [    0.613226]  device_create_managed_software_node+0xe8/0x108
-> [    0.613227]  dwc3_qcom_probe+0x5a4/0x7b0
->
-> There is indeed already a software node being created in the shared 
-> dwc3 core code.
->
-> Could there be any other consequences than a duplicate sysfs path?
->
-Answering my own question: even worse messages when the controller 
-switches to gadget mode (which happens even with chargers when DRD is 
-enabled)
+As such, I don't see that you have a DeviceTree problem at all, because
+this is a Linux-internal problem.
 
-[    5.620951] refcount_t: underflow; use-after-free.
-[    5.620957] WARNING: lib/refcount.c:28 at 
-refcount_warn_saturate+0xd8/0x140, CPU#2: kworker/2:1/98
-[    5.621075] CPU: 2 UID: 0 PID: 98 Comm: kworker/2:1 Tainted: G       
-W           7.3.0-rc2-next-20260907-uwu+ #143 PREEMPT(full)
-[    5.621077] Tainted: [W]=WARN
-[    5.621078] Hardware name: Dell Inc. Latitude 7455/0FK7MX, BIOS 
-2.13.0 09/19/2025
-[    5.621079] Workqueue: events_freezable __dwc3_set_mode
-[..]
-[    5.621114] Call trace:
-[    5.621115]  refcount_warn_saturate+0xd8/0x140 (P)
-[    5.621117]  kobject_put+0x11c/0x230
-[    5.621121]  software_node_notify_remove+0xdc/0xf8
-[    5.621124]  device_del+0x1dc/0x328
-[    5.621126]  usb_disconnect+0x1d8/0x348
-[    5.621129]  usb_remove_hcd+0x100/0x2a8
-[    5.621131]  xhci_plat_remove+0x8c/0x170
-[    5.621134]  platform_remove+0x28/0x40
-[    5.621135]  device_release_driver_internal+0x174/0x290
-[    5.621138]  device_release_driver+0x20/0x38
-[    5.621140]  bus_remove_device+0x19c/0x1f8
-[    5.621142]  device_del+0x1c4/0x328
-[    5.621143]  platform_device_unregister+0x34/0xc0
-[    5.621145]  dwc3_host_exit+0x50/0x70
-[    5.621146]  __dwc3_set_mode+0xa4/0x378
+> #2(compat driver) is something that we are still exploring as we
+> couldn't find any standard way to achieve it. We might start a separate
+> discussion for that once we have few possible designs with us.
+> 
+
+This is the actual problem!
+
+We have existing user space that depends on the ioctl interface exposed
+by the current misc driver. You must not break these.
+
+Hardware cutoff is not a viable solution, because that's just a
+declaration that we'll let the old platforms rotten - or alternatively
+you commit to maintain two drivers to the very same feature and quality
+level.
+
+So the only reasonable solution is #2; from there it's a valid question
+if you reach that point my stepwise migrating the current misc driver
+that solution, or if you present a new driver with the fully backwards
+compatible interface, alongside the new ABI.
 
 
-[..]
+But this does bring to a question which the cover letter should explain
+- but doesn't: what problem does this patch series actually solve?
 
+Regards,
+Bjorn
 
-[    5.644535] Unable to handle kernel paging request at virtual address 
-006563697665642f
-[    5.644537] Mem abort info:
-[    5.644538]   ESR = 0x0000000096000004
-[    5.644539]   EC = 0x25: DABT (current EL), IL = 32 bits
-[    5.644540]   SET = 0, FnV = 0
-[    5.644541]   EA = 0, S1PTW = 0
-[    5.644542]   FSC = 0x04: level 0 translation fault
-[    5.644543] Data abort info:
-[    5.644543]   ISV = 0, ISS = 0x00000004, ISS2 = 0x00000000
-[    5.644545]   CM = 0, WnR = 0, TnD = 0, TagAccess = 0
-[    5.644546]   GCS = 0, Overlay = 0, DirtyBit = 0
-[    5.644546] [006563697665642f] address between user and kernel 
-address ranges
-[    5.644548] Internal error: Oops: 0000000096000004 [#1]  SMP
-[    5.644653] CPU: 2 UID: 0 PID: 98 Comm: kworker/2:1 Tainted: G       
-W           7.3.0-rc2-next-20260907-uwu+ #143 PREEMPT(full)
-[    5.644655] Tainted: [W]=WARN
-[    5.644656] Hardware name: Dell Inc. Latitude 7455/0FK7MX, BIOS 
-2.13.0 09/19/2025
-[    5.644657] Workqueue: events_freezable __dwc3_set_mode
-[    5.644664] pc : __pi_strcmp+0x9c/0x140
-[    5.644668] lr : software_node_property_present+0x60/0x98
-[    5.644697] Call trace:
-[    5.644698]  __pi_strcmp+0x9c/0x140 (P)
-[    5.644700]  device_property_present+0x9c/0xc0
-[    5.644703]  dwc3_gadget_init+0x230/0x7b0
-[    5.644704]  __dwc3_set_mode+0x314/0x378
-[    5.644707]  process_scheduled_works+0x1b8/0x538
-[    5.644710]  worker_thread+0x1fc/0x2f8
-[    5.644711]  kthread+0x114/0x148
-[    5.644713]  ret_from_fork+0x10/0x20
-
-
-> Thanks,
-> ~val
->
+> Happy to take any other suggestion also.>
+> > BR,
+> > -R
+> 
+> 
