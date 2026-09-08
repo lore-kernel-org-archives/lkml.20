@@ -1,106 +1,141 @@
-Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
+Received: from mail-oa2-f0.google.com (mail-oa2-f0.google.com [74.125.231.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF4A048F013
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 22:07:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.199
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A25D48F01A
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 22:08:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788905252; cv=none; b=QXsnpB7e0enudtkKE+4iHK9VVegDy4xNbBEXwPZgCQU7fzM6uFohj3rssoePVbJO/lJ7N1WJiI57j3rKw0VjwuhfkTqwNFiuT88PwpVFafUSd17sNFyJ1YG7EOwryp2fxCV8vBc1S6T9YvXCsi6girkdOfh1Egkr4+YTsOU1/Xc=
+	t=1788905328; cv=none; b=IMbe16cwUlaiL2r8pmkDKCN7ikRwBIgETRCfncgz5xbJCjaSwnU9aeGsMAN141CRiUc0ke3Hs40GvBp7IYOdQ8x1Lsc5BnI06L3ZxXAQZTmdwQWil5x7tSsqkwh/in7tMy33nt9hyQBWtoA6bZ12f8ZpUTZoNObD4SFihFDKIlU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788905252; c=relaxed/simple;
-	bh=R6ddLj4qpQcWo28GoaB+VeJdr3ZHW4JbeaEBuc5D0WA=;
-	h=Date:Mime-Version:Message-ID:Subject:From:To:Content-Type; b=ScNi9tBd6UsMifHU5ivOAmGtsBbYoITvLSw3POORJ7+G+CzfvFrhD4Cc1QLK0/i1WIwxUEZFlltfUo4eW2mBn/1huuho4zx1ci96eZTQzupP36PKWTLvIMKgjJqvJ82T0A9w+yKRshIxd9rP2pcUXY6CJ/ewO/KKxLJSzxlr3PU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=vUFjYXy8; arc=none smtp.client-ip=209.85.214.199
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="vUFjYXy8"
-Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2cfc52ddc55so73542565ad.3
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 15:07:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788905249; x=1789510049; darn=vger.kernel.org;
-        h=content-type:to:from:subject:message-id:mime-version:date:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=Wq4cyKKlw50Wq2YF/HlUbZTYcyRZ1QyW7Wojt21z254=;
-        b=vUFjYXy8otLZxHMt0nsVoK7/DRFNrgich9JlxpHprdtqWZfBy6uMWyUCQtP/EZHnx5
-         eYsO32TdqWdYY/r3CNcinreTBu9njDBUk/rNgUj8eAF3dGKhkF5qNfTpBdc+k67s/k61
-         egxUAnyJVnfexDMyyebXaSu1b4PT1F6k9C1EoE1NEvRhuC8OHweM/zKDOK54G7xscmGw
-         4gjx57lNWiPXCalCx8NnoSU2zLltmHZ032KlpY7AtJUiyv2F4ecv0/naBD7KyN0or06A
-         sIJQsZEXwm0b3KXQmOeVBlBB500rBZiKmS4dthte5Q/1tW8oOKOiJndL9J9k5hnCGntK
-         tAQg==
+	s=arc-20240116; t=1788905328; c=relaxed/simple;
+	bh=OnKvCHQQWpy21sOx08SAt6H+1UlBFhVgYfLX4fnd6kw=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=JtAmOvhBHBk8TCoWAcKvh2OtOiuJPypNF+ys5YZxf69CICbfizb6GWzY3wwiUJMx/SCVljQ9utPgij0stD57SMWkeoidomX8VjFYadAkW+GVEENu0LvCpZG43NYBvtfaszMDJatwiwoAlf5sgvH84fBul8QozIWvujf8w6vpZXA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oa2-f0.google.com with SMTP id 586e51a60fabf-455efbd6e96so1555780fac.1
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 15:08:46 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788905249; x=1789510049;
-        h=content-type:to:from:subject:message-id:mime-version:date
+        d=1e100.net; s=20251104; t=1788905326; x=1789510126;
+        h=content-type:to:from:subject:message-id:date:mime-version
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Wq4cyKKlw50Wq2YF/HlUbZTYcyRZ1QyW7Wojt21z254=;
-        b=UQti5QjzAty2c718Tn3ssnAPiru1dq/56N8fCPYtFbyUcDUDLoLvRsEKhAN6hkBV4W
-         B+LzVc3aHuYV5FX/s87SHspkBo2zDxVl8d4CKr5CekmPSPvitu5GdZDQ3chTkI2h3WNn
-         L16TTX/hawYiv3xG78CtG7ePErnSEpCDrFVCOTgGBxYRSAh8tGaTtGT2QRraX1B1q8yH
-         HDdvg4dXnt4KIXwax9CQvTmpuQflfRgmpzA2TPXb5iBJ9J7AJjSxsjMI8n29HQq1Aryy
-         DaYk3kH8KVmejnN6AehgQM+T6ZCavXOsMoE05py1TR6I87taE3CTnryxYPEaHSC+g0oG
-         WS6A==
-X-Forwarded-Encrypted: i=1; AKwUvBwhQ2jT2kCaub8UliPOPlnxNEngx1Y4zYpfy/NTu2eK5T0YsELlpJD+AP/SXGa90j6MBz5NO35WMaMmdqw=@vger.kernel.org
-X-Gm-Message-State: AFuF++miqsQEnRywxgQ5mna23xeZ4uZQ9V8SaozrYvAsbfKqE+KPVQCx
-	XMB7kczRPy9SUYgo+kc6YMl5KSdRbDjStm/pEc5XgPxNsDoAdF1dnaXCOouuVqXXyQ0XLv0XTYS
-	HxStb72RuLA==
-X-Received: from dlbbq8.prod.google.com ([2002:a05:7022:6708:b0:142:efc7:61e3])
- (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:578c:b0:398:e6b6:acc2
- with SMTP id 98e67ed59e1d1-39b261e7649mr50141222a91.12.1788905248956; Tue, 08
- Sep 2026 15:07:28 -0700 (PDT)
-Date: Tue,  8 Sep 2026 15:07:20 -0700
+        bh=A4MhYi0B0IRTLYdNfba+OaC5J49MdhkPU0xHMnjFvmA=;
+        b=S2pjmmwgstVtcshac4NMMCRs459lggsB1b932tAOqN87GWSh9Pe+uELFgO40dTNE0/
+         jG2bwEXJMcLedda/G6rngeNBlRECMyUGKlK7xYi0Y5UVRNNFHAiHmI+nSf3pKsGqtnaA
+         kO6FMfgTkcyjno7CVTNiX5ViMnLUm9r2mcRCX7DmvjnAZ0Lxmuw5FqtjH2U8z8s134Pu
+         0fKNOnVOTCHpFuI8wkd3aKgS19nGNuXBiK4IVqXzpJTjR6jN+pQjYYLZs25906fZ82rJ
+         LH+7P9MuvlA0gjMVTVotUno0j1tVpn2TwpJNg9zWAlwDHQILQIBfuG0F64YEouL4sVqU
+         X4Qg==
+X-Forwarded-Encrypted: i=1; AKwUvBwQnRPGLOYaJ+V4m7is5J0idpS2u03iaXD15GCmtFErWkZboNvTKSWMjDr4BcDEozAi7n1MPdwYPI2716E=@vger.kernel.org
+X-Gm-Message-State: AFuF++ly7t9I5ox7iB19oU/VA5X4apx1rMlmhzpW2WE8p3S/88hsT8RY
+	OKKYYcOzUFay6SeomPemkU7tk7Egld8XrEsSzAhMpzDrt+HJvIi9m2MzA7apihHs7cUH0DGOxf1
+	g2pTDuIWaVAmvN6k7Ym60yemA9Jm9OR8uhjtvirJX8FgQaKzoFs8aT13fkIE=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.55.0.979.g7e5102b832-goog
-Message-ID: <20260908220720.564614-1-irogers@google.com>
-Subject: [PATCH v1] perf stat: Avoid uninitialized memory read on error
-From: Ian Rogers <irogers@google.com>
-To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
-	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, Jiri Olsa <jolsa@kernel.org>, 
-	Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>, 
-	James Clark <james.clark@linaro.org>, linux-perf-users@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
+MIME-Version: 1.0
+X-Received: by 2002:a05:6820:f036:b0:6b1:b68e:5109 with SMTP id
+ 006d021491bc7-6b6fe59cdf5mr17762393eaf.33.1788905325930; Tue, 08 Sep 2026
+ 15:08:45 -0700 (PDT)
+Date: Tue, 08 Sep 2026 15:08:45 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6aa0876d.f81106d8.285f0a.0003.GAE@google.com>
+Subject: [syzbot] [usb-storage?] BUG: unable to handle kernel NULL pointer
+ dereference in usb_stor_invoke_transport (2)
+From: syzbot <syzbot+356ae236154297f0d60d@syzkaller.appspotmail.com>
+To: gregkh@linuxfoundation.org, linux-kernel@vger.kernel.org, 
+	linux-usb@vger.kernel.org, stern@rowland.harvard.edu, 
+	syzkaller-bugs@googlegroups.com, usb-storage@lists.one-eyed-alien.net
 Content-Type: text/plain; charset="UTF-8"
 
-If has_supported_counters fails then msg was passed to ui__error
-regardless of whether an error was written into msg leading to reading
-uninitialized memory. Avoid this by always terminating msg at
-initialization.
+Hello,
 
-Opportunistically reduce the scope of msg to make its use clearer.
+syzbot found the following issue on:
 
-Fixes: c9a8c343ef2f ("perf stat: When no events, don't report an error if there is none")
-Signed-off-by: Ian Rogers <irogers@google.com>
+HEAD commit:    28924df2a08f Merge tag 'perf-tools-fixes-for-v7.3-2026-09-..
+git tree:       upstream
+console+strace: https://syzkaller.appspot.com/x/log.txt?x=16145749580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=5e4e3a0e188a497e
+dashboard link: https://syzkaller.appspot.com/bug?extid=356ae236154297f0d60d
+compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
+syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=14bf2a15580000
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=15023b9e580000
+
+Downloadable assets:
+disk image: https://storage.googleapis.com/syzbot-assets/dbb658780e3f/disk-28924df2.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/ed954d86e83d/vmlinux-28924df2.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/56cc5fdb5ce4/bzImage-28924df2.xz
+
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+356ae236154297f0d60d@syzkaller.appspotmail.com
+
+BUG: kernel NULL pointer dereference, address: 0000000000000000
+#PF: supervisor instruction fetch in kernel mode
+#PF: error_code(0x0010) - not-present page
+PGD 80000000733dc067 P4D 80000000733dc067 PUD 7324b067 PMD 0 
+Oops: Oops: 0010 [#1] SMP KASAN PTI
+CPU: 0 UID: 0 PID: 5644 Comm: usb-storage Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/24/2026
+RIP: 0010:0x0
+Code: Unable to access opcode bytes at 0xffffffffffffffd6.
+RSP: 0018:ffffc90003997af8 EFLAGS: 00010246
+RAX: 1ffff1100f2c69f0 RBX: ffff888073cbd110 RCX: ffffffff9a9de501
+RDX: 0000000000000001 RSI: ffffffff8e474d50 RDI: ffff888079634e90
+RBP: ffffc90003997cd0 R08: ffffffff907a1e7f R09: 1ffffffff20f43cf
+R10: dffffc0000000000 R11: 0000000000000000 R12: 1ffff1100f2c680e
+R13: 1ffff92000732f74 R14: ffff888079634e90 R15: dffffc0000000000
+FS:  0000000000000000(0000) GS:ffff888124cd6000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: ffffffffffffffd6 CR3: 00000000729a6000 CR4: 00000000003526f0
+Call Trace:
+ <TASK>
+ usb_stor_invoke_transport+0x55a/0x1a40 drivers/usb/storage/transport.c:926
+ usb_stor_control_thread+0x44c/0x8f0 drivers/usb/storage/usb.c:462
+ kthread+0x38b/0x480 kernel/kthread.c:436
+ ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+ </TASK>
+Modules linked in:
+CR2: 0000000000000000
+---[ end trace 0000000000000000 ]---
+RIP: 0010:0x0
+Code: Unable to access opcode bytes at 0xffffffffffffffd6.
+RSP: 0018:ffffc90003997af8 EFLAGS: 00010246
+RAX: 1ffff1100f2c69f0 RBX: ffff888073cbd110 RCX: ffffffff9a9de501
+RDX: 0000000000000001 RSI: ffffffff8e474d50 RDI: ffff888079634e90
+RBP: ffffc90003997cd0 R08: ffffffff907a1e7f R09: 1ffffffff20f43cf
+R10: dffffc0000000000 R11: 0000000000000000 R12: 1ffff1100f2c680e
+R13: 1ffff92000732f74 R14: ffff888079634e90 R15: dffffc0000000000
+FS:  0000000000000000(0000) GS:ffff888124cd6000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: ffffffffffffffd6 CR3: 00000000729a6000 CR4: 00000000003526f0
+
+
 ---
- tools/perf/builtin-stat.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
 
-diff --git a/tools/perf/builtin-stat.c b/tools/perf/builtin-stat.c
-index c50cf230f16e..37752d6bfef4 100644
---- a/tools/perf/builtin-stat.c
-+++ b/tools/perf/builtin-stat.c
-@@ -777,7 +777,6 @@ static int __run_perf_stat(int argc, const char **argv, int run_idx)
- 	int interval = stat_config.interval;
- 	int times = stat_config.times;
- 	int timeout = stat_config.timeout;
--	char msg[BUFSIZ];
- 	unsigned long long t0, t1;
- 	struct evsel *counter;
- 	size_t l;
-@@ -908,6 +907,9 @@ static int __run_perf_stat(int argc, const char **argv, int run_idx)
- 		}
- 	}
- 	if (!has_supported_counters && !stat_config.null_run) {
-+		char msg[BUFSIZ];
-+
-+		msg[0] = '\0';
- 		if (open_err) {
- 			evsel__open_strerror(evlist__first(evsel_list), &target, open_err,
- 					     msg, sizeof(msg));
--- 
-2.55.0.979.g7e5102b832-goog
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
 
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
+
+If you want syzbot to run the reproducer, reply with:
+#syz test: git://repo/address.git branch-or-commit-hash
+If you attach or paste a git patch, syzbot will apply it before testing.
+
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
+
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
+
+If you want to undo deduplication, reply with:
+#syz undup
