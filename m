@@ -1,201 +1,105 @@
-Received: from pdx-out-013.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-013.esa.us-west-2.outbound.mail-perimeter.amazon.com [34.218.115.239])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com [209.85.216.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56E4457C722
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 16:02:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=34.218.115.239
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC4C557D22F
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 16:04:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788883382; cv=none; b=q2uMj6VfiDQ1Wdm6raz0pymhGMvWgs+t7FJZ2O20TXXef5zaurbIJC/usDMf2rQyYQodq0MI21huw8EdKGUYgW21CSr4SYAgcAheWBgWI0xqGy0agwUnFoFs9NVBdpIA5fLD2kyw9+zWLusAVwazm9dBdqmFOV1MeqgXeHAWne4=
+	t=1788883479; cv=none; b=JyeXTj9zYpWJi1sOFWh8f/JqQbBmH4nE7xSMvKKVXCRVwKff37KgrMIW1T4QmbYIS2A6BMPPX3GTKOSyRFU+4UnfYwkBXXQox4mFQf1RXkthOuvzmYefjuDhjcPlC8S25ZCNGyyWi9a2C28g1iv3iy2KyQmmcF+VzUHgG8EVY0Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788883382; c=relaxed/simple;
-	bh=YPPG7mGDH5Gt2hIBfA30lIj49aJvABa4xtEKMraKBgU=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=rvydvO+/KVC8PES3e9e+sqOinior4GzecQR+PdFlyDWODgKeOuHk/6bSfwxURC96wePrjHjPqKwBFUJPJLE6jiCl8cezR001jh9mNPwzrGK08BDhdaihvICFbryiMMzTNoXk8/oHcj6XWcdriFFfAOr+sQ6sKnORMFOa1qv+uqU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de; spf=pass smtp.mailfrom=amazon.de; dkim=pass (2048-bit key) header.d=amazon.de header.i=@amazon.de header.b=HPsks8IC; arc=none smtp.client-ip=34.218.115.239
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.de
+	s=arc-20240116; t=1788883479; c=relaxed/simple;
+	bh=gVHwDpb6HBHtyoUlDRtjlp7YtX5g9j3oG6AFmVF0QMI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=gyng2TSjZq+8x6VRPtOORvQFG4uABQAMMHH/uVRAma7DdQE23MHDu4m4cgbsty4I1fdS2fU1GnsbVS5HGOq4eCszIx2KRmpu1WL4tRWHU9EH8xu2ZKwMjaKfZyJ0yjsFSoWvllsJntvUpwQvHW8vvo+cnk5TGOHoahaD5zKnbYE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LJ8Bws0G; arc=none smtp.client-ip=209.85.216.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amazon.de header.i=@amazon.de header.b="HPsks8IC"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LJ8Bws0G"
+Received: by mail-pj1-f43.google.com with SMTP id 98e67ed59e1d1-398b3d66515so4643182a91.0
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 09:04:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.de; i=@amazon.de; q=dns/txt; s=amazoncorp2;
-  t=1788883377; x=1820419377;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=wyrp65su9krdNFJRiUJxVNjQuYFB+0tAdojc3S8S0uU=;
-  b=HPsks8ICZgVTvSpCnVWLyfBPLyN+q6jvteDAZkJxbGmgjhRgEzlpoyat
-   gAKeqxktbAjrHC5ox5jvI2FKq42TaHWST9lx9p86IDdi1Na2XGFpgtwHu
-   Wdgrqwhd476B8Mhek6AYB08rZnCSFnKuABAiFd3mBSxhmBM8fmv9H2KND
-   V/Po3nc1mmlOuQxj7lRn/BXVN24B4km2iGn10CpVI6D/OhEOcG5UkoSbX
-   oA/cBT62pZFVwBJuSFBEbViQSYEExMQ5OZ7SEAkugg4vzUNa3SpDrDU65
-   V7uCe4DXfljU9vt64HKZD4NDe5uLZgMSDhXlDFH21tfS9pFMvXlCfnGBx
-   w==;
-X-CSE-ConnectionGUID: fNyCOxl0Qx2W1YWVfHfBWw==
-X-CSE-MsgGUID: DVPmOfs8TZmXEvt+vX/a/g==
-X-IronPort-AV: E=Sophos;i="6.25,269,1779148800"; 
-   d="scan'208";a="27917537"
-Received: from ip-10-5-12-219.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.12.219])
-  by internal-pdx-out-013.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Sep 2026 16:02:54 +0000
-Received: from EX19MTAUWA002.ant.amazon.com [205.251.233.234:30167]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.37.238:2525] with esmtp (Farcaster)
- id ca9330a7-2a4e-490a-9189-ff7824e49092; Tue, 8 Sep 2026 16:02:54 +0000 (UTC)
-X-Farcaster-Flow-ID: ca9330a7-2a4e-490a-9189-ff7824e49092
-Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWA002.ant.amazon.com (10.250.64.202) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.45;
- Tue, 8 Sep 2026 16:02:53 +0000
-Received: from dev-dsk-fparola-1b-85ea2014.eu-west-1.amazon.com
- (10.13.236.104) by EX19D001UWA001.ant.amazon.com (10.13.138.214) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.46; Tue, 8 Sep 2026
- 16:02:52 +0000
-From: Federico Parola <fparola@amazon.de>
-To: Robin Murphy <robin.murphy@arm.com>, "Joerg Roedel (AMD)"
-	<joro@8bytes.org>, Will Deacon <will@kernel.org>, <iommu@lists.linux.dev>,
-	<linux-kernel@vger.kernel.org>
-CC: <nh-open-source@amazon.com>
-Subject: [PATCH] iommu/dma: Finalize deferred attachments when mapping MSI pages
-Date: Tue, 8 Sep 2026 16:01:56 +0000
-Message-ID: <20260908160218.62322-1-fparola@amazon.de>
-X-Mailer: git-send-email 2.47.3
+        d=gmail.com; s=20251104; t=1788883477; x=1789488277; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=0Tzx5UI34JujonmDJzMPjBkhAE6c2rwa6ggnBzBUQec=;
+        b=LJ8Bws0GBV/ub3Kj5tG7v8iCXHMUT86wS+IPOEVoj30052ESJFIUHpiXmkA7sOT3hO
+         NZvSOf3l5SoOeGWv/shV4FdvXYACJNfUhpGN6jDk4xEBwmDOqU0gnfF4b17IsS/boewd
+         4asf7mZ4iQ0MNFmDBuncx4lR3MAR9VQyxM56/LaqOCYFoarZw/8o/+jG61zIEn1jmklu
+         f5MlfQUfpKS92+vAet2OinbuiCgYwNs10Fe/1pMydBr7fMCvb7d/WGJJMKP6C59eKSw7
+         gxsZpbFrlaPopZqX5qOTOVA0UEvrRJWVGiSMfUXGt6oCcLUX703lUrbahSlDObSG57GR
+         lnVw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788883477; x=1789488277;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=0Tzx5UI34JujonmDJzMPjBkhAE6c2rwa6ggnBzBUQec=;
+        b=WGSt25IwQ5JYDFwUTekRxWdkP1k2Q5FkA0SxVGMw89clBQzzX//on8KcRyqIs3TAou
+         Ytre5A0YSqx1sM/lbpQ55jpRrj7zsH7M3JXrYfiUtis41qWgrYjDUiIt5YV6V9E280Fc
+         qk3T13yOl+nGOX2nXRCmWs1AN9+anmt4Su71ASOYakqFjpqIc7MRmrr5JedpW7Um2a9R
+         CPD8DW7ouoevA75L21A3aURNlthgR1xHSb3cCHVU31tkfh6rKTWgpNcjvhSUXscBr4mh
+         Bk36SuYyMe04EMPtKy1vi4oloKWlen19wZ2sjDejWeJYilVEBo6KE9bhBrPqnOk6TEgI
+         osRg==
+X-Forwarded-Encrypted: i=1; AKwUvBwkSaxCPM7IbJVxTTlbeRmi/NVMFh7IGdyAs9Z2M+Jubry8yCFT8mGF7ogDiOD0IKA4THGOaWHDqdrttss=@vger.kernel.org
+X-Gm-Message-State: AFuF++nqeuQI5MUMutK6gbHXlnE8/NSX50g5biaa0F//k5GvyGL7Xoq8
+	yzWfEWDOWjau317OnyE2i8HOBiek+QtgFFNX81M2mSqXfzkTjFGWqUVt
+X-Gm-Gg: AYBFou2tI75GP8K/9g8dWKaUu8diErcnYbH1EgTMntRYsPt4pAPwt/8aOsDfrIkCoCY
+	a2hpsqfv02vRTusNeN8uvXzvFezQjp+ZJos/cSPXkgdQf6/J04dkkYx6sytAIg5rxT7YpvCLAbz
+	KbU0ROSBS5m3Z45b4LX0FiQHNXgYZO/XIm9ehZIJCtB5gla1GwnfT9qbdKNKu/ABJWVBdyTjNM+
+	0xWTtARtFUnyCLYblpsa9URb+la9jpxZWW1d4Fp3UB195i/ubsVlcK4zaN0Uvb4oiEbdN25uGS5
+	iL8UG+hy/JIcM/Qio5jNrRrkETXuqPevc/Vdb3jQjhBDd9XKUg7EZl+iT63peaB/x6Zq7iLeJhj
+	ujoKKXjKp7zMoPtZEssl/FSfsjpuakMzkxpP6mjZVZVpJpNopsM/ydPlA3Ilwccw0+tcEzMvtM8
+	ZC8i1uOUF4tlRFzo7HIc7m5yc2IJIfCQXNFgNUwsYckSnsJWMKCLAktKTgZEDGjcmnSDgdkbwbb
+	wukWRY=
+X-Received: by 2002:a17:90b:1d52:b0:398:dcef:c040 with SMTP id 98e67ed59e1d1-39b26242a20mr46112186a91.19.1788883476937;
+        Tue, 08 Sep 2026 09:04:36 -0700 (PDT)
+Received: from kernel ([45.251.35.112])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339bbf1feesm37459495eec.26.2026.09.08.09.04.32
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 08 Sep 2026 09:04:36 -0700 (PDT)
+Date: Tue, 8 Sep 2026 21:34:28 +0530
+From: Mohamad Raizudeen <raizudeen.kerneldev@gmail.com>
+To: Herbert Xu <herbert@gondor.apana.org.au>
+Cc: clabbe@baylibre.com, davem@davemloft.net, skhan@linuxfoundation.org,
+	me@brighamcampbell.com, jkoolstra@xs4all.nl,
+	linux-crypto@vger.kernel.org, linux-amlogic@lists.infradead.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH 1/2] crypto: amlogic: Fix IRQ handler return value and
+ fallthrough logic
+Message-ID: <aqAyDJq37-mCJL-2@kernel>
+References: <20260821151243.8125-1-raizudeen.kerneldev@gmail.com>
+ <apox0f2D6bYOYOnj@kernel>
+ <ap_T2wCesl3whdJV@gondor.apana.org.au>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: EX19D035UWB003.ant.amazon.com (10.13.138.85) To
- EX19D001UWA001.ant.amazon.com (10.13.138.214)
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <ap_T2wCesl3whdJV@gondor.apana.org.au>
 
-When a device's attachment to its default domain is deferred, the IOMMU
-is still translating the device with the tables inherited from the
-previous kernel. Any mapping installed in that domain does not take
-effect until the deferred attachment is finalized.
-iommu_deferred_attach() covers the DMA mapping paths, but nothing covers
-iommu_dma_sw_msi(): programming an MSI installs the MSI page in
-group->domain and hands the resulting IOVA to the irqchip, so an MSI
-programmed before the first DMA map is written using an IOVA that the
-hardware does not yet translate.
+On Tue, Sep 08, 2026 at 07:22:35PM +1000, Herbert Xu wrote:
+> On Fri, Sep 04, 2026 at 08:19:53AM +0530, Mohamad Raizudeen wrote:
+> >
+> > Just following up on this patch. Please let me know if you have any
+> > feedback or if further changes are needed.
+> 
+> Please repost this patch by itself since it's not really part of a
+> series.
+> 
+> Thanks,
+> -- 
+> Email: Herbert Xu <herbert@gondor.apana.org.au>
+> Home Page: http://gondor.apana.org.au/~herbert/
+> PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
 
-This issue is currently not triggerable as the two IOMMU implementations
-supporting deferred attachments, Intel and AMD, do not rely on DMA
-translations for MSI transactions. However, the Arm implementation being
-introduced in [1] will be subject to it.
+Hi Herbert, 
+I have reposted this patch by itself. 
 
-Finalize the deferred attachment from iommu_dma_sw_msi() too, right
-before the MSI page is mapped. iommu_dma_prepare_msi() already holds
-group->mutex across the call, so factor the locked part of
-iommu_deferred_attach() out into __iommu_deferred_attach() and call that
-instead of taking the mutex recursively. The static branch on
-iommu_deferred_attach_enabled can be omitted as MSI page allocation is
-not on a fast path.
-
-The behaviour of a rejected attach changes slightly: an attach refused
-because the device is being reset (-EBUSY) now fails MSI setup rather
-than only the first DMA map.
-
-Link: https://lore.kernel.org/linux-iommu/cover.1788130528.git.nicolinc@nvidia.com/ [1]
-Signed-off-by: Federico Parola <fparola@amazon.de>
----
- drivers/iommu/dma-iommu.c  |  7 +++++++
- drivers/iommu/iommu-priv.h |  2 ++
- drivers/iommu/iommu.c      | 25 ++++++++++++++++++-------
- 3 files changed, 27 insertions(+), 7 deletions(-)
-
-diff --git a/drivers/iommu/dma-iommu.c b/drivers/iommu/dma-iommu.c
-index 58c624513cd4..fa7de1b3d538 100644
---- a/drivers/iommu/dma-iommu.c
-+++ b/drivers/iommu/dma-iommu.c
-@@ -37,6 +37,7 @@
- 
- #include "dma-iommu.h"
- #include "iommu-pages.h"
-+#include "iommu-priv.h"
- 
- struct iommu_dma_msi_page {
- 	struct list_head	list;
-@@ -2247,6 +2248,7 @@ int iommu_dma_sw_msi(struct iommu_domain *domain, struct msi_desc *desc,
- {
- 	struct device *dev = msi_desc_to_dev(desc);
- 	const struct iommu_dma_msi_page *msi_page;
-+	int ret;
- 
- 	if (!has_msi_cookie(domain)) {
- 		msi_desc_set_iommu_msi_iova(desc, 0, 0);
-@@ -2254,6 +2256,11 @@ int iommu_dma_sw_msi(struct iommu_domain *domain, struct msi_desc *desc,
- 	}
- 
- 	iommu_group_mutex_assert(dev);
-+
-+	ret = __iommu_deferred_attach(dev, domain);
-+	if (ret)
-+		return ret;
-+
- 	msi_page = iommu_dma_get_msi_page(dev, msi_addr, domain);
- 	if (!msi_page)
- 		return -ENOMEM;
-diff --git a/drivers/iommu/iommu-priv.h b/drivers/iommu/iommu-priv.h
-index aaffad5854fc..ba72f9a03b0b 100644
---- a/drivers/iommu/iommu-priv.h
-+++ b/drivers/iommu/iommu-priv.h
-@@ -21,6 +21,8 @@ static inline const struct iommu_ops *dev_iommu_ops(struct device *dev)
- 
- void dev_iommu_free(struct device *dev);
- 
-+int __iommu_deferred_attach(struct device *dev, struct iommu_domain *domain);
-+
- const struct iommu_ops *iommu_ops_from_fwnode(const struct fwnode_handle *fwnode);
- 
- static inline const struct iommu_ops *iommu_fwspec_ops(struct iommu_fwspec *fwspec)
-diff --git a/drivers/iommu/iommu.c b/drivers/iommu/iommu.c
-index cd1bca7ede9a..d7d70689c784 100644
---- a/drivers/iommu/iommu.c
-+++ b/drivers/iommu/iommu.c
-@@ -2214,19 +2214,15 @@ int iommu_attach_device(struct iommu_domain *domain, struct device *dev)
- }
- EXPORT_SYMBOL_GPL(iommu_attach_device);
- 
--int iommu_deferred_attach(struct device *dev, struct iommu_domain *domain)
-+/* Caller must hold dev->iommu_group->mutex */
-+int __iommu_deferred_attach(struct device *dev, struct iommu_domain *domain)
- {
- 	struct group_device *gdev;
- 
--	/*
--	 * This is called on the dma mapping fast path so avoid locking. This is
--	 * racy, but we have an expectation that the driver will setup its DMAs
--	 * inside probe while being single threaded to avoid racing.
--	 */
- 	if (!dev->iommu || !dev->iommu->attach_deferred)
- 		return 0;
- 
--	guard(mutex)(&dev->iommu_group->mutex);
-+	lockdep_assert_held(&dev->iommu_group->mutex);
- 
- 	gdev = __dev_to_gdev(dev);
- 	if (WARN_ON(!gdev))
-@@ -2244,6 +2240,21 @@ int iommu_deferred_attach(struct device *dev, struct iommu_domain *domain)
- 	return __iommu_attach_device(domain, dev, NULL);
- }
- 
-+int iommu_deferred_attach(struct device *dev, struct iommu_domain *domain)
-+{
-+	/*
-+	 * This is called on the dma mapping fast path so avoid locking. This is
-+	 * racy, but we have an expectation that the driver will setup its DMAs
-+	 * inside probe while being single threaded to avoid racing.
-+	 */
-+	if (!dev->iommu || !dev->iommu->attach_deferred)
-+		return 0;
-+
-+	guard(mutex)(&dev->iommu_group->mutex);
-+
-+	return __iommu_deferred_attach(dev, domain);
-+}
-+
- void iommu_detach_device(struct iommu_domain *domain, struct device *dev)
- {
- 	/* Caller must be a probed driver on dev */
--- 
-2.47.3
-
+Thanks,
+Mohamad Raizudeen
