@@ -1,280 +1,194 @@
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 930FF38BF7A
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 07:01:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4561F315D49
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 07:02:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788850919; cv=none; b=uidhWV9Wh6MCuh6DmFb56qhHYSQfe9iA7HFan8/igDHZA0CJVpsLFIZ4QlvqaTMmByGxjT6mGOYcVZbKvXxz3ofQ6fYNMu755U5FhCHYLC/AKfJCmexwivHi36J/OPXxJsegorN6bBZe21R+FjlBUJYgRd1dMyIob4MnAojB/RM=
+	t=1788850973; cv=none; b=oxnfeIGkQSXeQP07gZ95soMUcwPpZD1lPUKWrdbrj13VfmBO0kR4GcpFN7syavBR9+VK/SMAbUEEaFOC5Mt7CYE3nTqTYL26lSVF1DsSn4Ha90VoFulv/BO0Wp0Uz4tq9w8L2jDxFNXmCfxG9oOF8RvwA61PriBP9vev1suu6jw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788850919; c=relaxed/simple;
-	bh=woDkwfEuwfC4HRUIw5dO9ioa2u5fHtmv49TNTjh7IRc=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=R40RDjkmLm53N00maTCyfiLFdiRUv6fRlMxDfPekhqR/S8ZTXq4TqCT8rqvzTn8/+RgRH/+mTZOr0UcJ+5bxq7dpSVy9h353m05OvyK8a79yzcQP1+rhGckeC3tcU9KAfmj3qfuaJZcAL0l8jfkvq/F3wCss73tyh2L+B9YqldY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RnBxDwkw; arc=none smtp.client-ip=209.85.128.53
+	s=arc-20240116; t=1788850973; c=relaxed/simple;
+	bh=tFhVIGvqrdIyyVl0uRcPiZBn30HFsG0MOAbNQFMUjcU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=YxT20A+e9YVZYjfJxhSHSmaEcFBzZbBVsJLINX8BUKtBzpVtgtyRdj/sJQbOdqjNOAOJs31mtbRQA7oj1JyH0g490wTMeClHq+zu0NmnWdGeKIY76ZZORrMTP5VGYjfRxLdmhdfNbLK7MnhHg/4sW7R4BIeD9K7n7d4a0LnuZB4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fEGyRlPE; arc=none smtp.client-ip=74.125.228.12
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RnBxDwkw"
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-49b8e527d63so51161515e9.2
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 00:01:55 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fEGyRlPE"
+Received: by mail-pz2-f12.google.com with SMTP id d2e1a72fcca58-8523cc41f38so212753b3a.2
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 00:02:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788850914; x=1789455714; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=LwflIzcBWQAlCH5G1lHkwk2yyve824n1VD85Tvhgohg=;
-        b=RnBxDwkw7EVTyjvF443+sxnRHTt4XpyamutejmOuGgzQwz/Me/143o+SkL2li0mIUH
-         kp7AWndd+lwGR28dJOXONXKRPvFlAy8pFUc6Iver2KKiXeHWKXT1rQ9DqHJW/bML9pPE
-         IS+2GY6Az7aDFvuQtG9qd/hnQy2MkIszVTDtfpVWfiTxIqYK46iEInL3HQ0MmG0wD3t6
-         MV7JvvyqwaEzzTy2vXTJQJcjDPQeST4wvqOJIhFDSN3dSk8vKB+F2M6rtsfP9sDkGUKN
-         HTbHTRM496p1VzTHOxu7t/a4B4UgW8xthoUKsdJbQMPVEmJIxbwaBUENwe8CJ7MABAkb
-         xpfg==
+        d=gmail.com; s=20251104; t=1788850971; x=1789455771; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=NELnY7rhvN2fX0w+mwkpJWMxqnyiES6ZAAlSHyGONzo=;
+        b=fEGyRlPEITQ2kEQ85nAVH7fMUjFKZbhONe9y8E8HzMths7YuWvazQWWlgyP8XIzHYB
+         hPPm45TfELuWOhrJAi8vMQQiM1cvPWWGDfcYhdW9l8w3D5CW0/YQ0vunORjtWNJZ5/Sh
+         9IUb9Pks2CUJlmlVXikfEJXAxa3f3KmzQ7SE6aXc2t7/L4j//ANo7BEBRPRcWyBNllWd
+         2wRE9MaVzdyWWkEWsBl+naCUDQIhVNxDVhZ76OPbFkzmu0erDYXxZlpVHD1N25LbbMe7
+         0q77/sD5cAGyrgpX7O7oZ2LnCnveozqplYphcvz/PP+mdrgvRajURJjyevZiRiOH3bF/
+         pTWw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788850914; x=1789455714;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=LwflIzcBWQAlCH5G1lHkwk2yyve824n1VD85Tvhgohg=;
-        b=r4Z1e3QpXYnjeLgcHbXCJod8CC/KO5j5PVcxVaInWWLVQriQsD41YHRZN4n4vuQ3Ik
-         IeLNpYyC3jfn9QAiXcxv/Mt2BOozJ8unWrqOVInjpe/AGuxrmZq4YAy31/29BoRj/Jlm
-         5J09/WFzgVmzMsrXzbqpPsT8ULZBq8BRIWuUaM3RGAGeMcj1yFknjnazIhUn7xJw+ib9
-         KR2wbktm8QohjvCEAYjm0vcoMUttirKh0q/73ycY0CL3G24l6MoQw/RaFcFfTaio/gn/
-         GSd60yMsVJV3kMSSKZlbyhxyj4iUzc/hAi1SwNxg0Hu0KcK02DOAFQ5DpdNNEXWLt10U
-         nQfA==
-X-Forwarded-Encrypted: i=1; AKwUvByEIJdlsN3ufd+t/Xrf8V6BOijpSpUplI4pcSvfaGJGYAFE7Q5jbTR6wBImp2arCe/UXSkF94RHr6t5oaQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++lYRTsEPn8LxU4SCNNThvxd+YMyIxDvWaVFlkPGM+I5KcfZnIFu
-	JF1WM4tEx9NktOLkKMPUeL7Yh/7SQxziCnnyrtDUHdhtYDFrakJQzD/s
-X-Gm-Gg: AYBFou3EncYbaD/N2D/GDYV4m7yDvsUt73HF9uaRh4zHBpZ/0+nQFqSRE1JSSiBBlml
-	97A1Rdze9p5mAgyzyf3FUc4u1KrmCMVNB2pLoON1JGGF7KDImIgasFrwxDaQDplD7vE14vXIFsf
-	WRRyrguMaStQ+bykUedH3qUyT7p9qIjZErqjx255Mtwd0LSPB/AaNoloHvAVO3XF3tOAxkZhueo
-	BzYz51ne3MUQ5R3OBZp10V/aQ3oMvtoQlCwslBdrSdsA5tPYmXJS5zfgeQG2lA6T8BIO7bR/g6L
-	Zq7125Bhx+XCaVQ/NIbNOql5ruZdf4MzBd0+TBIEia6+1nLvJQzOid34iiKSWwHfqQXRVvfLx1b
-	7z7r82sBjf2x7HpmvRxNURa0gELi6KHhsaWfZQ0Hz9aKhhCUqUMTjc8oLqddyxijRqqLYv1WpU3
-	rYd4SSiSZIyIEQeqJ4DRsNwOTbCPi7yfk6VekTce24WbJ0PfJgWuBq+HXxToDvSWoCmVuOTao0L
-	JzvT3OkV5lPYLk4t3Cj9Ru9QA7BEcmt+qhvUTVgXzViVlWzd2ByNHQ1vnfH67S8fpla/l+CR2m8
-	M7QX2ZoaWowTM5s+yldGc/wzIn8C0vvEXRHvZ9Ar
-X-Received: by 2002:a05:600c:34c2:b0:49d:10d6:fd55 with SMTP id 5b1f17b1804b1-49d10d6fdeemr97830585e9.1.1788850913275;
-        Tue, 08 Sep 2026 00:01:53 -0700 (PDT)
-Received: from MacBook-Pro-von-Karl.localdomain (dynamic-095-117-170-066.95.117.pool.telefonica.de. [95.117.170.66])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cee7febb4sm492402925e9.14.2026.09.08.00.01.51
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Tue, 08 Sep 2026 00:01:52 -0700 (PDT)
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: Jonathan Corbet <corbet@lwn.net>
-Cc: Karl Mehltretter <kmehltretter@gmail.com>,
-	=?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Alexander Usyskin <alexander.usyskin@intel.com>,
-	Dominik Brodowski <linux@dominikbrodowski.net>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Mathieu Poirier <mathieu.poirier@linaro.org>,
-	Alex Shi <alexs@kernel.org>,
-	Yanteng Si <si.yanteng@linux.dev>,
-	Dongliang Mu <dzm91@hust.edu.cn>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Takashi Sakamoto <o-takashi@sakamocchi.jp>,
-	Geert Uytterhoeven <geert@linux-m68k.org>,
-	linux-pci@vger.kernel.org,
-	linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-remoteproc@vger.kernel.org
-Subject: [PATCH v3] Documentation: Update after split of <linux/mod_devicetable.h>
-Date: Tue,  8 Sep 2026 09:00:31 +0200
-Message-Id: <20260908070031.32833-1-kmehltretter@gmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+        d=1e100.net; s=20251104; t=1788850971; x=1789455771;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=NELnY7rhvN2fX0w+mwkpJWMxqnyiES6ZAAlSHyGONzo=;
+        b=DINIRKZx0pYHei3bhXXr9/MUCn4sjmBvovR6DqB4QtRS1QnQUBlNhpv/rWmD2X9D+D
+         aBlCXm7KSJoWMJePTQRVhdMp1WEA0RKxoVteRtlzc89yV1230ckB20y3eevjsLuj/Rfp
+         tKmbVOVp6D3J4OPNBgvyGl0oaVrLvyI2wbTllCwhqyhBz9ZW/jTdk18tT075G3jlgm+k
+         923inNyU6SRIt5E+hxYESnT2z0iNSAcJplIRysaxQdNmjcaYU0ptwOzFM43fTLIdyVxr
+         CD5vDUZy9tGyopJwKakFiIja2CoBqHyN8DnR/HHMwp7oCX01JznLRTsL0skrssBVCM21
+         XRvw==
+X-Forwarded-Encrypted: i=1; AKwUvBwLpLqvHpV9/K3chWo270xHj28TrjC/CNkhTylA1gskY29//iBm47a7oW6pok4Wv97T7z/ykdBOrVE+ANQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++kNISLe07IFG49OL8xeBMDFK+UDL35tCS6ylqV/iPY5ZJVXt0ft
+	psp05F1VTPWtPCmu6sBjH7/i8Owa9DfQE0MCqpWEQPXRO6QSL1VyCWiL
+X-Gm-Gg: AYBFou2ub9GpBNLHHTsi7rncoDLzdXVLE6h+7Z+0sqgcL6pV9Kg2c4bSFCQzHcMjlC2
+	8fICRu7l3q/vJyFhaZ0oIUiyhqB/AqWBKUI4lrdUG7PgUBHXa53QACilyAaeEEFSaIjUzQLLHTN
+	aOEemq3fJohNPFCuaFfYDX/sWQ1W+LPHbIRVArCFA0rxLLyOyf9CF/SwbNv6tkihwdjdBbkFNiI
+	7rZPviIPBFJ62PtZwj+KNs6/Q7DcE6rL2MsUtYpwMi1DB0ZAapN24O7e6gIfwVvQ7sQnEM3FAoQ
+	MnDSOFc0TkQzga9lT8Y8V6IbgWtMfyrc2KUG/mjRZN3iSZWTYY4Acf6E7zxQO6neQi94SYIdXtL
+	BT4hX5bdpFzo9+fSkHmMjojBKvLpeX4j39+ECwvQxyQvOSzQs5Yvbv+TXeUDlav6gI5WFFs60xE
+	/bGY10BeLT9BHhXhqTxWyHD4eWohzvy0n1RQZ8gDUe810210Xuo3V0pV7E5jkb3aserDG9xgEyU
+	Fd4+HQIOyTi1w==
+X-Received: by 2002:a17:903:38cc:b0:2c7:ef84:c58e with SMTP id d9443c01a7336-2db276b8656mr203032685ad.1.1788850971418;
+        Tue, 08 Sep 2026 00:02:51 -0700 (PDT)
+Received: from fedora (45.62.127.193.16clouds.com. [45.62.127.193])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2db1483ea94sm54981615ad.9.2026.09.08.00.02.39
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 08 Sep 2026 00:02:50 -0700 (PDT)
+From: Frank Zhang <rmxpzlb@gmail.com>
+To: royalnet026@gmail.com,
+	Laurent.pinchart@ideasonboard.com,
+	airlied@gmail.com,
+	andrzej.hajda@intel.com,
+	luca.ceresoli@bootlin.com,
+	cristian.ciocaltea@collabora.com,
+	daniels@collabora.com,
+	detlev.casanova@collabora.com,
+	dmitry.baryshkov@oss.qualcomm.com,
+	heiko@sntech.de,
+	jernej.skrabec@gmail.com,
+	jonas@kwiboo.se,
+	maarten.lankhorst@linux.intel.com,
+	mripard@kernel.org,
+	neil.armstrong@linaro.org,
+	rfoss@kernel.org,
+	simona@ffwll.ch,
+	tzimmermann@suse.de,
+	sebastian.reichel@collabora.com,
+	macromorgan@hotmail.com
+Cc: dri-devel@lists.freedesktop.org,
+	stable@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v5] drm/bridge: dw-hdmi-qp: Guard clear_audio_infoframe when PHY is down
+Date: Tue,  8 Sep 2026 15:02:20 +0800
+Message-ID: <20260908070220.41574-1-rmxpzlb@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Uwe Kleine-König (The Capable Hub) <u.kleine-koenig@baylibre.com>
+The following panic was observed during system reboot:
 
-Most structs that were defined in <linux/mod_devicetable.h> before were
-moved to a bus specific header. Follow the movement to get the struct's
-documentation back.
+Kernel panic - not syncing: Asynchronous SError Interrupt
+CPU: 6 UID: 1000 PID: 2348 Comm: pipewire ... 7.0.5+ #4 PREEMPT(full)
+Call trace:
+ ...
+ regmap_update_bits_base+0x70/0xa8
+ dw_hdmi_qp_bridge_clear_audio_infoframe+0x3c/0x58 [dw_hdmi_qp]
+ drm_bridge_connector_clear_audio_infoframe+0x2c/0x48 [drm_display_helper]
+ ...
+ dw_hdmi_qp_audio_disable+0x28/0xa8 [dw_hdmi_qp]
+ drm_bridge_connector_audio_shutdown+0x38/0x68 [drm_display_helper]
+ drm_connector_hdmi_audio_shutdown+0x28/0x40 [drm_display_helper]
+ hdmi_codec_shutdown+0x60/0x90 [snd_soc_hdmi_codec]
+ ...
+ snd_pcm_release_substream+0xcc/0x120 [snd_pcm]
+ snd_pcm_release+0x4c/0xc0 [snd_pcm]
+ ...
 
-For the list of device ids in basics.rst use an explicit list of all the
-headers that have kernel-doc annotations and that are not described
-elsewhere (i.e. pci and mei_cl). <linux/device-id/acpi.h> is left out on
-purpose, ACPI_DEVICE_CLASS() is not a device id struct.
+The root cause is pipewire tries to close the HDMI audio device after
+atomic_disable(), which sets tmds_char_rate to 0 and disables the PHY.
 
-Also repair the referencing in the zh_CN translation of pci.rst and
-don't duplicate `struct mei_cl_device_id`.
+In this case, dw_hdmi_qp_audio_disable() will call
+dw_hdmi_qp_bridge_clear_audio_infoframe(), accessing register without
+checking tmds_char_rate.
 
-Fixes: ad428f5811bd ("mod_devicetable.h: Split into per subsystem headers")
-Signed-off-by: Uwe Kleine-König (The Capable Hub) <u.kleine-koenig@baylibre.com>
-Reviewed-by: Randy Dunlap <rdunlap@infradead.org>
-Tested-by: Randy Dunlap <rdunlap@infradead.org>
-[Karl Mehltretter: use the :file: role in pcmcia/driver.rst, say why
- acpi.h is left out]
-Assisted-by: LLM
-Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+Guard the register access in drm_display_helper callback function with
+tmds_char_rate check.
+
+Fixes: fd0141d1a8a2 ("drm/bridge: synopsys: Add audio support for dw-hdmi-qp")
+Cc: stable@vger.kernel.org
+Signed-off-by: Frank Zhang <rmxpzlb@gmail.com>
+
 ---
-Changes since v2
-  https://lore.kernel.org/r/ede7ce64f20e10660ebf6bc1b41836dad750ae3b.1783349758.git.ukleinek@kernel.org/
-- use the :file: role for the header path in pcmcia/driver.rst (Randy)
-- say in the commit message that <linux/device-id/acpi.h> is left out on
-  purpose (question raised by the Sashiko review)
-- carried Randy's Reviewed-by and Tested-by from v2, the diff changed in
-  one line of markup only
-- Uwe asked me to take over the patch:
-  https://lore.kernel.org/r/apv6yQ1U-HhNglyV@monoceros/
-  It supersedes my PCI-only patch
-  https://lore.kernel.org/r/20260905084916.40196-1-kmehltretter@gmail.com/
+Changes in v2:
+- Move drm_atomic_helper_connector_hdmi_clear_audio_infoframe() inside
+  the if (hdmi->tmds_char_rate) of dw_hdmi_qp_audio_disable().
+- Link to v1: https://lore.kernel.org/all/20260416093150.13853-1-rmxpzlb@gmail.com/
 
-Randy's suggestion to add kernel-doc comments to <linux/mei_cl_bus.h> for
-struct mei_cl_driver and include those instead of the duplicated struct is
-left for a separate patch, it touches a header outside Documentation/.
+Changes in v3:
+- Add a tmds_char_rate guard in clear_audio_infoframe path.
+- Decouple write_audio_infoframe from clear_audio_infoframe.
+- Balance the PKTSCHED_AMD_TX_EN bit enable/disable.
+- Link to v2: https://lore.kernel.org/all/20260418101936.7731-1-rmxpzlb@gmail.com/
 
- Documentation/PCI/pci.rst                     |  2 +-
- Documentation/driver-api/basics.rst           | 31 +++++++++++++++++--
- .../driver-api/mei/mei-client-bus.rst         | 12 ++-----
- Documentation/pcmcia/driver.rst               |  2 +-
- Documentation/staging/rpmsg.rst               |  2 +-
- Documentation/translations/zh_CN/PCI/pci.rst  |  8 ++---
- 6 files changed, 39 insertions(+), 18 deletions(-)
+Changes in v4:
+- Update panic stack on 7.0.5
+- Link to v3: https://lore.kernel.org/all/20260423081514.15444-1-rmxpzlb@gmail.com/
 
-diff --git a/Documentation/PCI/pci.rst b/Documentation/PCI/pci.rst
-index be35e9a1ee75..71c42b0bfa8b 100644
---- a/Documentation/PCI/pci.rst
-+++ b/Documentation/PCI/pci.rst
-@@ -84,7 +84,7 @@ initialization with a pointer to a structure describing the driver
- The ID table is an array of ``struct pci_device_id`` entries ending with an
- all-zero entry.  Definitions with static const are generally preferred.
- 
--.. kernel-doc:: include/linux/mod_devicetable.h
-+.. kernel-doc:: include/linux/device-id/pci.h
-    :functions: pci_device_id
- 
- Most drivers only need ``PCI_DEVICE()`` or ``PCI_DEVICE_CLASS()`` to set up
-diff --git a/Documentation/driver-api/basics.rst b/Documentation/driver-api/basics.rst
-index 3b182cfdf135..84f701b84e4f 100644
---- a/Documentation/driver-api/basics.rst
-+++ b/Documentation/driver-api/basics.rst
-@@ -10,9 +10,36 @@ Driver Entry and Exit points
- Driver device table
- -------------------
- 
--.. kernel-doc:: include/linux/mod_devicetable.h
-+.. kernel-doc:: include/linux/device-id/amba.h
-+   :internal:
-+.. kernel-doc:: include/linux/device-id/cdx.h
-+   :internal:
-+.. kernel-doc:: include/linux/device-id/coreboot.h
-+   :internal:
-+.. kernel-doc:: include/linux/device-id/dfl.h
-+   :internal:
-+.. kernel-doc:: include/linux/device-id/fsl_mc.h
-+   :internal:
-+.. kernel-doc:: include/linux/device-id/ishtp.h
-+   :internal:
-+.. kernel-doc:: include/linux/device-id/mdio.h
-+   :internal:
-+.. kernel-doc:: include/linux/device-id/mhi.h
-+   :internal:
-+.. kernel-doc:: include/linux/device-id/mips_cdmm.h
-+   :internal:
-+.. kernel-doc:: include/linux/device-id/rio.h
-+   :internal:
-+.. kernel-doc:: include/linux/device-id/tb.h
-+   :internal:
-+.. kernel-doc:: include/linux/device-id/tee_client.h
-+   :internal:
-+.. kernel-doc:: include/linux/device-id/typec.h
-+   :internal:
-+.. kernel-doc:: include/linux/device-id/usb.h
-+   :internal:
-+.. kernel-doc:: include/linux/device-id/wmi.h
-    :internal:
--   :no-identifiers: pci_device_id
- 
- 
- Delaying and scheduling routines
-diff --git a/Documentation/driver-api/mei/mei-client-bus.rst b/Documentation/driver-api/mei/mei-client-bus.rst
-index f242b3f8d6aa..d46c0d0b3540 100644
---- a/Documentation/driver-api/mei/mei-client-bus.rst
-+++ b/Documentation/driver-api/mei/mei-client-bus.rst
-@@ -41,17 +41,11 @@ the ``struct mei_cl_driver`` structure defined in :file:`include/linux/mei_cl_bu
- 
- 
- 
--The mei_cl_device_id structure defined in :file:`include/linux/mod_devicetable.h` allows a
-+The mei_cl_device_id structure defined in :file:`include/linux/device-id/mei_cl.h` allows a
- driver to bind itself against a device name.
- 
--.. code-block:: C
--
--        struct mei_cl_device_id {
--                char name[MEI_CL_NAME_SIZE];
--                uuid_le uuid;
--                __u8    version;
--                kernel_ulong_t driver_info;
--        };
-+.. kernel-doc:: include/linux/device-id/mei_cl.h
-+   :functions: mei_cl_device_id
- 
- To actually register a driver on the ME Client bus one must call the :c:func:`mei_cl_add_driver`
- API. This is typically called at module initialization time.
-diff --git a/Documentation/pcmcia/driver.rst b/Documentation/pcmcia/driver.rst
-index 5c4fe84d51c1..0b6370c1d525 100644
---- a/Documentation/pcmcia/driver.rst
-+++ b/Documentation/pcmcia/driver.rst
-@@ -15,7 +15,7 @@ runtime as shown below::
- All fields are passed in as hexadecimal values (no leading 0x).
- The meaning is described in the PCMCIA specification, the match_flags is
- a bitwise or-ed combination from PCMCIA_DEV_ID_MATCH_* constants
--defined in include/linux/mod_devicetable.h.
-+defined in :file:`include/linux/device-id/pcmcia.h`.
- 
- Once added, the driver probe routine will be invoked for any unclaimed
- PCMCIA device listed in its (newly updated) pcmcia_device_id list.
-diff --git a/Documentation/staging/rpmsg.rst b/Documentation/staging/rpmsg.rst
-index 63612b7ee120..ea0eb1981124 100644
---- a/Documentation/staging/rpmsg.rst
-+++ b/Documentation/staging/rpmsg.rst
-@@ -224,7 +224,7 @@ content to the console.
- ::
- 
-   #include <linux/dev_printk.h>
--  #include <linux/mod_devicetable.h>
-+  #include <linux/device-id/rpmsg.h>
-   #include <linux/module.h>
-   #include <linux/printk.h>
-   #include <linux/rpmsg.h>
-diff --git a/Documentation/translations/zh_CN/PCI/pci.rst b/Documentation/translations/zh_CN/PCI/pci.rst
-index 347f5c3f5ce9..64372a16caf6 100644
---- a/Documentation/translations/zh_CN/PCI/pci.rst
-+++ b/Documentation/translations/zh_CN/PCI/pci.rst
-@@ -84,16 +84,16 @@ PCI设备驱动程序在初始化过程中调用 ``pci_register_driver()`` ，
- 
- 该API在以下内核代码中:
- 
--include/linux/pci.h
--pci_driver
-+.. kernel-doc:: include/linux/pci.h
-+   :functions: pci_driver
- 
- ID表是一个由 ``struct pci_device_id`` 结构体成员组成的数组，以一个全零的成员
- 结束。一般来说，带有静态常数的定义是首选。
- 
- 该API在以下内核代码中:
- 
--include/linux/mod_devicetable.h
--pci_device_id
-+.. kernel-doc:: include/linux/device-id/pci.h
-+   :functions: pci_device_id
- 
- 大多数驱动程序只需要 ``PCI_DEVICE()`` 或 ``PCI_DEVICE_CLASS()`` 来设置一个
- pci_device_id表。
+Changes in v5:
+- Reuse the origin dw_hdmi_qp_bridge_clear_audio_infoframe and add
+  tmds_char_rate guard in new callback function.
+- Link to v4: https://lore.kernel.org/all/20260512103153.8861-1-rmxpzlb@gmail.com/
+---
+ drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c | 14 ++++++++++++--
+ 1 file changed, 12 insertions(+), 2 deletions(-)
 
-base-commit: 986c24e0fe44f844b44d365b71ce831947f50298
+diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
+index 1c214a8e6dc2..8729783d4eb6 100644
+--- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
++++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
+@@ -880,7 +880,7 @@ static int dw_hdmi_qp_bridge_clear_spd_infoframe(struct drm_bridge *bridge)
+ 	return 0;
+ }
+ 
+-static int dw_hdmi_qp_bridge_clear_audio_infoframe(struct drm_bridge *bridge)
++static int __dw_hdmi_qp_bridge_clear_audio_infoframe(struct drm_bridge *bridge)
+ {
+ 	struct dw_hdmi_qp *hdmi = bridge->driver_private;
+ 
+@@ -893,6 +893,16 @@ static int dw_hdmi_qp_bridge_clear_audio_infoframe(struct drm_bridge *bridge)
+ 	return 0;
+ }
+ 
++static int dw_hdmi_qp_bridge_clear_audio_infoframe(struct drm_bridge *bridge)
++{
++	struct dw_hdmi_qp *hdmi = bridge->driver_private;
++
++	if (hdmi->tmds_char_rate > 0)
++		return __dw_hdmi_qp_bridge_clear_audio_infoframe(bridge);
++
++	return 0;
++}
++
+ static void dw_hdmi_qp_write_pkt(struct dw_hdmi_qp *hdmi, const u8 *buffer,
+ 				 size_t start, size_t len, unsigned int reg)
+ {
+@@ -987,7 +997,7 @@ static int dw_hdmi_qp_bridge_write_audio_infoframe(struct drm_bridge *bridge,
+ {
+ 	struct dw_hdmi_qp *hdmi = bridge->driver_private;
+ 
+-	dw_hdmi_qp_bridge_clear_audio_infoframe(bridge);
++	__dw_hdmi_qp_bridge_clear_audio_infoframe(bridge);
+ 
+ 	/*
+ 	 * AUDI_CONTENTS0: { RSV, HB2, HB1, RSV }
 -- 
-2.53.0
+2.55.0
 
