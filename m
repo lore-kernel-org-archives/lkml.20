@@ -1,174 +1,157 @@
-Received: from canpmsgout01.his.huawei.com (canpmsgout01.his.huawei.com [113.46.200.216])
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8F3952ED40
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 11:26:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.216
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 618783D3498;
+	Tue,  8 Sep 2026 11:26:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788866775; cv=none; b=gkzj75PzwtK2g1JLFEZ625Tn1WHMUSiNyN94422kRKkBgOaai9hQLNYleYs9PwuxUh2uxeiQOiW8ZlgQW53hjuP59QJ5dHIAyg9RrPpb5CSklIc8B2KkAMk2CJ0FQR/Oezh160ddNw9RVd2lYqODv1RgqBDhuxsrFWV2QV8OeEM=
+	t=1788866793; cv=none; b=uwHh9lGnIniDXw1eAjsihmYPw10x1YzUr9ulNdwo0p12AMhWjcW+C47gOUtuUV+is/8ve/WRHdHevJbyM3W65LbaM05i/qfXHlByAWMgoGBSTS5Mu2WFXpcnfLXiesWqrJaxN0OIZwK5/7gKc3xhTm39tnvGuauPs/r4kaVYqig=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788866775; c=relaxed/simple;
-	bh=NbC+mIVn9SED/GhiqCJ6umoceJlLr0Q0IxWxPW1qD0U=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=Pg4fVuSXvKCegPaAppXvP5xqxTEkLkqIpf/PcBCRbCKkCu4NipiEyyiwn0gfAkVvsG76DcJOkR3Hgb2xEyBdcMtw7TMmVzW5y9utbhCArKEZ5zGERJ79ILvKIx+r0vMCfEyRLWTLq87Wthwdct3v+xRalPKxgUsJ14+/HqsDFyM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=X+s2RjUp; arc=none smtp.client-ip=113.46.200.216
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	s=arc-20240116; t=1788866793; c=relaxed/simple;
+	bh=NRJWzG6+BUdTryF2o8t2oci58TIeBpzItGkSajbOHFI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=LS8XGwNFrg6kMm/hjc2BSgTXmuz0veUj4VqAUfmSLFuSeE3mrVAZPF9j3y6YHISyqCJ/IR7xRqOW5ZBqzmiaoVerl17/crHtn1yxjYXUul8GakvlsIgPtVna0GGs9zyMfZ3ywcFON3yLLblR6TPYtEUhycegY/5Zd+OFyO/nYiw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=qfQcfxmS; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="X+s2RjUp"
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=Qzwfi/vRXJ/sbPtrb6nPo1rLb6V5zc5XUhtnjBMfvxU=;
-	b=X+s2RjUp4CGWb/lCsCXZNGeXilRRifMw5jErICf8jsLDnoOzU6DPP2oDiiU7LSTT4GDAT2Gmm
-	QUF3wLqybVpgcX5nbou+DpyW2p9fGThRSz4s3VMtomwz7ftaypqfn41O6xWC1V6UOv1+15UqXFR
-	Mb7UvSXiHwA4VTQ53C2iw9c=
-Received: from mail.maildlp.com (unknown [172.19.163.104])
-	by canpmsgout01.his.huawei.com (SkyGuard) with ESMTPS id 4hfLtT2rtfz1T4Fq;
-	Tue,  8 Sep 2026 19:14:25 +0800 (CST)
-Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
-	by mail.maildlp.com (Postfix) with ESMTPS id 9903F4056E;
-	Tue,  8 Sep 2026 19:25:55 +0800 (CST)
-Received: from [10.67.109.254] (10.67.109.254) by
- kwepemk200008.china.huawei.com (7.202.194.74) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Tue, 8 Sep 2026 19:25:55 +0800
-Message-ID: <f01fc59e-5254-484d-adf9-8dd1c2e58d91@huawei.com>
-Date: Tue, 8 Sep 2026 19:25:54 +0800
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="qfQcfxmS"
+Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 688AVNKl641397;
+	Tue, 8 Sep 2026 11:26:26 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=pp1; bh=0+KOuUkv5NXhrHFikHiaqF1JEy8ozSeMHfFFSOVyk
+	r4=; b=qfQcfxmSrPhMZ58mnUbg546CZz+gzBVJj9tADChsn0KcBjuodqwg6NNoD
+	0lWjkwbxD0w5zsyGbWxbjIqIGe4N9a8b1tByytgjEGJxMmKnUd+V8uIiMmuvhvjB
+	vx/YuUhFbT7Q4vFaN0At/3W6+LmQs5Gboa9/2w5Jc7LGIiYq+IHkiTifNEgXZ5Qd
+	6GO+Dy4k6Sg1BFRXdMBn7xJZYGY6DDuaVWSN1Pp2VfO6jLB7M+YMa6BuTtrBU5yY
+	FnMDQ0ZBh0NXem9sJfXWXlAfMbrC+FHauCGyayY/cHeSTj8mmP0hOyrjE+R7P8z/
+	7iRLDMdsBtBZoAP7eRMz5X/EgXHSw==
+Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4ggbhkph17-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 08 Sep 2026 11:26:25 +0000 (GMT)
+Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma22.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 688BQPTA009378;
+	Tue, 8 Sep 2026 11:26:25 GMT
+Received: from smtprelay04.fra02v.mail.ibm.com ([9.218.2.228])
+	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4ggwsw3jmh-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 08 Sep 2026 11:26:24 +0000 (GMT)
+Received: from smtpav03.fra02v.mail.ibm.com (smtpav03.fra02v.mail.ibm.com [10.20.54.102])
+	by smtprelay04.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 688BQKXY22217320
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Tue, 8 Sep 2026 11:26:20 GMT
+Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 9F1662004B;
+	Tue,  8 Sep 2026 11:26:20 +0000 (GMT)
+Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 7CD2320043;
+	Tue,  8 Sep 2026 11:26:20 +0000 (GMT)
+Received: from tuxmaker.boeblingen.de.ibm.com (unknown [9.87.85.9])
+	by smtpav03.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Tue,  8 Sep 2026 11:26:20 +0000 (GMT)
+From: Jan Polensky <japo@linux.ibm.com>
+To: hca@linux.ibm.com, gor@linux.ibm.com, agordeev@linux.ibm.com
+Cc: borntraeger@linux.ibm.com, svens@linux.ibm.com, ciunas@linux.ibm.com,
+        linux-s390@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [PATCH] s390/rwlock: Add contention tracepoints to rwlock slowpath
+Date: Tue,  8 Sep 2026 13:26:07 +0200
+Message-ID: <20260908112607.828469-1-japo@linux.ibm.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 09/19] arm64: smp: Defer RCU registration during secondary
- CPU bringup
-To: Will Deacon <will@kernel.org>
-CC: <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>, Catalin Marinas <catalin.marinas@arm.com>,
-	Borislav Petkov <bp@alien8.de>, Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>, David Woodhouse <dwmw@amazon.co.uk>,
-	Peter Zijlstra <peterz@infradead.org>, Marc Zyngier <maz@kernel.org>
-References: <20260907164024.17164-1-will@kernel.org>
- <20260907164024.17164-10-will@kernel.org>
- <45c37592-f05d-4b1c-812b-0cb38d1c3e24@huawei.com>
- <ap_hR1mntzm-TZOP@willie-the-truck>
-From: Jinjie Ruan <ruanjinjie@huawei.com>
-In-Reply-To: <ap_hR1mntzm-TZOP@willie-the-truck>
-Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: kwepems200001.china.huawei.com (7.221.188.67) To
- kwepemk200008.china.huawei.com (7.202.194.74)
+X-TM-AS-GCONF: 00
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA4MDExNyBTYWx0ZWRfXxmZexCEm8m0/
+ 5VZ6Oj/yn8PDpCREQl8VtFXlQdVEi6/418mAVIsi8eSG2/Xi8tAU+qM12Y2GsBIdkL6TCXR3fbl
+ bwHrI+SGndqk9I8J9snE5UXl0XEkEl4=
+X-Proofpoint-ORIG-GUID: H5-Rwavw12wlNa_84TNdvAWUZHQDmjVy
+X-Authority-Analysis: v=2.4 cv=NMDlPU6g c=1 sm=1 tr=0 ts=6a9ff0e2 cx=c_pps
+ a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
+ a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
+ a=U7nrCbtTmkRpXpFmAIza:22 a=VnNF1IyMAAAA:8 a=YYcdB7fvNfgyQl8EhqgA:9
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA4MDExNyBTYWx0ZWRfX3x4rAEtrjcWg
+ H5zGqUtB/fydgh5T8y2rxtSzWtrPbY1ZL3c9zk4Un5JMf75FZuI61ZtIkpsYbcfDXgVcew0JCGp
+ PFzs5rYoAn+V+TwYg7nCpZC+dw8Z8YcvyG14/wkBLttgV8lT6ssf/vQ45L8SwFgxaQeh6B94d4o
+ LAyOctM4q3TF+vI2qxyMNgakXf0868uEtWtIef5swq2LrJ88EEZyDdXwR0UbR1EYQfr2zZLJv0w
+ 1uJeSM2WOlNtzUlsOmVsu/Tv+FXFk6PtRc7a47n9QOliVdtelwIAyDKAbPAAonjmyj8CACZrjvf
+ a2RaV6VfE/C768uVMYAexWVEbD29n29kWr/tFxyOxat5ifmZKm1NqoqXahG2rZ6Y3BpOiV/i0xr
+ wSJvvG72ZBpQRJL0AiZf34wVm49Hxku3ZCityh3DEH3+dcENCFKde2/A7Ay3zu8V9Gxe+rsmGr6
+ +8DBZcp0sBu9R3vO0MQ==
+X-Proofpoint-GUID: H5-Rwavw12wlNa_84TNdvAWUZHQDmjVy
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-08_02,2026-09-07_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 spamscore=0 lowpriorityscore=0 clxscore=1015 adultscore=0
+ impostorscore=0 bulkscore=0 malwarescore=0 priorityscore=1501 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609080117
 
+Instrument arch_read_lock_wait() and arch_write_lock_wait() with
+trace_contention_begin() and trace_contention_end().
 
+These tracepoints are used by lock contention analysis tools such as
+perf lock contention to identify contended rwlocks and measure wait
+times. The generic implementation in kernel/locking/qrwlock.c already
+emits the same events from its read and write slowpaths.
 
-在 2026/9/8 18:19, Will Deacon 写道:
-> Hi Jinjie,
-> 
-> On Tue, Sep 08, 2026 at 04:55:36PM +0800, Jinjie Ruan wrote:
->> 在 2026/9/8 0:40, Will Deacon 写道:
->>> Calling rcutree_report_cpu_starting() early during boot can lead to
->>> livelocks with the generic CPU hotplug mechanism if the boot CPU blocks
->>> on an RCU grace period while the CPU being onlined is spinning in
->>> cpuhp_ap_sync_alive().
->>>
->>> In preparation for enabling the generic CPU hotplug code on arm64, split
->>> up the trace_hardirqs_off() call during secondary CPU bringup so that we
->>> update lockdep early but defer the tracing updates until after
->>> notify_cpu_starting() has registered the new CPU with RCU, allowing us
->>> to drop the explicit call to rcutree_report_cpu_starting() entirely.
->>>
->>> Signed-off-by: Will Deacon <will@kernel.org>
->>> ---
->>>  arch/arm64/kernel/smp.c | 5 ++---
->>>  include/linux/rcutree.h | 2 +-
->>>  2 files changed, 3 insertions(+), 4 deletions(-)
->>>
->>> diff --git a/arch/arm64/kernel/smp.c b/arch/arm64/kernel/smp.c
->>> index f4cabf9e19e6..ff68640d0c0b 100644
->>> --- a/arch/arm64/kernel/smp.c
->>> +++ b/arch/arm64/kernel/smp.c
->>> @@ -217,8 +217,7 @@ asmlinkage notrace void secondary_start_kernel(void)
->>>  	if (system_uses_irq_prio_masking())
->>>  		init_gic_priority_masking();
->>>  
->>> -	rcutree_report_cpu_starting(cpu);
->>> -	trace_hardirqs_off();
->>
->> I think we need to handle the printk problem before this patch as we
->> discussed earlier.
->>
->> Otherwise defer the rcutree_report_cpu_starting() will trigger a
->> false-positive lockdep"suspicious RCU usage" splat during early lock
->> acquisitions as commit ce3d31ad3cac ("arm64/smp: Move
->> rcu_cpu_starting() earlier") pointed out.
-> 
-> Sorry, I meant to mention this in the cover letter but forgot about it.
-> I'm not sure that ce3d31ad3cac ("arm64/smp: Move rcu_cpu_starting()
-> earlier") is still relevant with the latest printk/console/lockdep code.
-> I tried quite hard to trigger lockdep splats manually, but the only way
-> I could do it was by using the "%pS" specifier to print the name of a
-> symbol in a module, which would cause an RCU walk of the module symbols
-> in the kallsyms code! Manually calling WARN() or even rcu_read_lock() /
-> spin_lock() did _not_ trigger a splat.
+For arch_read_lock_wait(), the in_interrupt() fast-path is intentionally
+left outside the tracepoint scope. That path spins without entering the
+wait queue, so it does not represent queue-based contention and its
+duration is not comparable to the normal slowpath. This matches the
+behaviour of queued_read_lock_slowpath() in qrwlock.c.
 
-Hi Will,
+The include for <trace/events/lock.h> is already present from
+commit ffa796cc1f45 ("s390/spinlock: Add contention tracepoints to
+lock slowpath").
 
-Add "dyndbg="+p"" in cmdline, CONFIG_DEBUG_LOCK_ALLOC=y,
-CONFIG_PROVE_RCU_LIST=y, we can reproduce the warning as below:
+Signed-off-by: Jan Polensky <japo@linux.ibm.com>
+---
+ arch/s390/lib/spinlock.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-I believe there is also a problem in the RISC-V code itself here as
-store_cpu_topology() is common for RISC-V.
-
-[    0.335162] smp: Bringing up secondary CPUs ...
-[    0.345495]
-[    0.345513] =============================
-[    0.345523] WARNING: suspicious RCU usage
-[    0.345621] 7.3.0-rc2-00010-g2311ba2cd56f #500 Tainted: G        W
-[    0.345637] -----------------------------
-[    0.345646] kernel/locking/lockdep.c:3845 RCU-list traversed in
-non-reader section!!
-[    0.345659]
-[    0.345659] other info that might help us debug this:
-[    0.345659]
-[    0.345680]
-[    0.345680] RCU used illegally from offline CPU!
-[    0.345680] rcu_scheduler_active = 1, debug_locks = 1
-[    0.345725] locks held by swapper/1/0: 0, last CPU#1
-[    0.345743]
-[    0.345743] stack backtrace:
-[    0.345834] CPU: 1 UID: 0 PID: 0 Comm: swapper/1 Tainted: G        W
-         7.3.0-rc2-00010-g2311ba2cd56f #500 PREEMPT(full)
-[    0.345885] Tainted: [W]=WARN
-[    0.346077] Call trace:
-[    0.346102]  show_stack+0x20/0x38 (C)
-[    0.346153]  dump_stack_lvl+0xc4/0x150
-[    0.346176]  dump_stack+0x18/0x28
-[    0.346194]  lockdep_rcu_suspicious+0x170/0x238
-[    0.346217]  __lock_acquire+0xf08/0x1818
-[    0.346237]  lock_acquire+0x1e0/0x450
-[    0.346256]  _raw_spin_lock_irqsave+0x70/0xc0
-[    0.346277]  down_trylock+0x20/0x60
-[    0.346293]  __down_trylock_console_sem+0x4c/0x118
-[    0.346316]  vprintk_emit+0x2d8/0x3f8
-[    0.346333]  vprintk_default+0x40/0x58
-[    0.346350]  vprintk+0x3c/0x80
-[    0.346366]  _printk+0x64/0x98
-[    0.346386]  __dynamic_pr_debug+0x90/0xd8
-[    0.346406]  acpi_get_cache_info+0x140/0x1a0
-[    0.346430]  init_cache_level+0xec/0x110
-[    0.346450]  detect_cache_attributes+0x74/0x7c0
-[    0.346473]  update_siblings_masks+0x30/0x300
-[    0.346495]  store_cpu_topology+0x70/0xf0
-[    0.346515]  secondary_start_kernel+0xe0/0x178
-[    0.346535]  __secondary_switched+0xc0/0xc8
-
-
-> 
-> Since that's not something I think we should be doing this early, I
-> decided to leave the code as-is unless I have a way to trigger a lockdep
-> splat with the relatively simple prints we have on the early error paths.
-> 
-> Will
+diff --git a/arch/s390/lib/spinlock.c b/arch/s390/lib/spinlock.c
+index dbabca35c008..9094617a5e00 100644
+--- a/arch/s390/lib/spinlock.c
++++ b/arch/s390/lib/spinlock.c
+@@ -316,6 +316,7 @@ void arch_read_lock_wait(arch_rwlock_t *rw)
+ 		return;
+ 	}
+ 
++	trace_contention_begin(rw, LCB_F_SPIN | LCB_F_READ);
+ 	/* Remove this reader again to allow recursive read locking */
+ 	__atomic_add_const(-1, &rw->cnts);
+ 	/* Put the reader into the wait queue */
+@@ -326,6 +327,7 @@ void arch_read_lock_wait(arch_rwlock_t *rw)
+ 	while (READ_ONCE(rw->cnts) & 0x10000)
+ 		barrier();
+ 	arch_spin_unlock(&rw->wait);
++	trace_contention_end(rw, 0);
+ }
+ EXPORT_SYMBOL(arch_read_lock_wait);
+ 
+@@ -333,6 +335,7 @@ void arch_write_lock_wait(arch_rwlock_t *rw)
+ {
+ 	int old;
+ 
++	trace_contention_begin(rw, LCB_F_SPIN | LCB_F_WRITE);
+ 	/* Add this CPU to the write waiters */
+ 	__atomic_add(0x20000, &rw->cnts);
+ 
+@@ -349,6 +352,7 @@ void arch_write_lock_wait(arch_rwlock_t *rw)
+ 	}
+ 
+ 	arch_spin_unlock(&rw->wait);
++	trace_contention_end(rw, 0);
+ }
+ EXPORT_SYMBOL(arch_write_lock_wait);
+ 
+-- 
+2.53.0
 
