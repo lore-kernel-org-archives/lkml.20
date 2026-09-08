@@ -1,53 +1,52 @@
-Received: from out-zbxj-a75.jellyfish.systems (out-zbxj-a75.jellyfish.systems [198.54.127.75])
+Received: from out-2uec-a118.jellyfish.systems (out-2uec-a118.jellyfish.systems [63.250.43.118])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAE6D4AE8CB
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 09:55:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.54.127.75
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 147743AA1BF
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 09:56:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=63.250.43.118
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788861345; cv=none; b=M4AiTy4TM+DjiB77mme1Nl/C6qULpbt6v2/6HgqoanrI+YueFYSyeco4ix+VJktIsmlp+SA8mM3EHOByzlRMirQr/BobF2VnqqBdg170pCDPstmqq6ul5o3Ql4nhusnk6er+T15bpWawhCA75rfXgsCruc6VMZy/20E/M4mKpmQ=
+	t=1788861365; cv=none; b=mkXIcoqZwqmjwNmX4xN6wIVJBdF7xcYfQiCnK8MJxUyZ2rxsa0p5AwP/4ybe47ZMyzSJ0yenBQsNt6t+kOQWBUJVXpcbcJGxqWvmzUblNTPOafGVMmy6SICTHxpGgHVICxEuyje5b/yQG/aDl7yTs9ZhZCnDkNFJReXxt635Yi8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788861345; c=relaxed/simple;
-	bh=kI8BIenxP/oTBV6UvYvFBuaWTyWZQhInmhRnutyRURs=;
+	s=arc-20240116; t=1788861365; c=relaxed/simple;
+	bh=GJKDCPElpX2rpNARwUgmgTRmn85+zT/qo0mb009bxZ4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=hhakf13Ii0IoQeQhEQD9TCIAK2GelvjoBaUa+0MX6K5t4e/7B4FrvX38R6cY+kxYkC4PYOT0Oq6FovJ32LT2mASKUSQgCvji4gezXerPYfW499gFvleM1UyBUEFSerSuozCq0X5+qwCCss7lLZjwoubWPwhaheqjvWtY6dqJrEA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tychen.cc; spf=pass smtp.mailfrom=tychen.cc; dkim=pass (2048-bit key) header.d=tychen.cc header.i=@tychen.cc header.b=YLHRykSU; arc=none smtp.client-ip=198.54.127.75
+	 MIME-Version; b=BwJijJWCPUNx5pmCqvzYOv+9aNlIDaBDyQsZNicXpUA0CJlIWqB7RIpREaXYY22gGnJ5mUaZty4iBVU5GfI2ksrzRlHAppiaZ5NRrSA+7Qi1Ckel8yjd8AhiVpjsYMyiPSbG+nVfBBYF0OJdSA+HgOeJ5gKHBTgV/YmwjPXJ/jw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tychen.cc; spf=pass smtp.mailfrom=tychen.cc; dkim=pass (2048-bit key) header.d=tychen.cc header.i=@tychen.cc header.b=KM+HATLl; arc=none smtp.client-ip=63.250.43.118
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tychen.cc
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tychen.cc
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tychen.cc header.i=@tychen.cc header.b="YLHRykSU"
+	dkim=pass (2048-bit key) header.d=tychen.cc header.i=@tychen.cc header.b="KM+HATLl"
 Received: from fedora (unknown [69.5.53.41])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mail.spacemail.com (Postfix) with ESMTPSA id 4hfK7J4xm0z2xGX;
-	Tue, 08 Sep 2026 09:55:24 +0000 (UTC)
+	by mail.spacemail.com (Postfix) with ESMTPSA id 4hfK7p3czFz2xMb;
+	Tue, 08 Sep 2026 09:55:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tychen.cc;
-	s=spacemail; t=1788861328;
-	bh=aqU3LuAqQb/xeTEGHX/5XlAw8+0+r7gANB1IqPfKmKs=;
+	s=spacemail; t=1788861355;
+	bh=F3A3Ti8zHULaJXvRQhe+IOMxiiKMtUoHgOGnDhRSZ4A=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=YLHRykSULgmfDk5NT2skjV+cSCpjsLrUbk5082TKlzhcXnapZrPytc9Ly2AncswY7
-	 K3NIyvpmok1RCiIKsRz08/Qi4oOR6156KK2FM/AEbHFMq317NRxFDYJ45eJ4+33pLP
-	 2ud9d7F54cEM2xSy2O2YNPYr5DTwXxNnki0iuoCNOK16Qw4/T/yUnD+4FBSIlSOTuU
-	 PL9stulPqVy31efueRNvW2oEs9ykGp/OC4dWNXbDtX+GC4XrTwGpkIjUo5WCBUSJUb
-	 9+AZLOL4Xw3KXi+UKjHgdEOnhn9VBxw8Fxg+hV5U1zgTxFVe4oIIH4DZTzxxWnHsvb
-	 O/s5flGhQd6JA==
+	b=KM+HATLl/00pp1TKFH+uuYnLDrMWkAQhZAz4OLB6hGUg/JZF04lHzvDhuT8w62o1b
+	 wpYFKfZLv82MXPqka7i99mVNrSCM+WAKrzPdWu9EjoAXArubeRPSPKVPCIxiQ2bfYt
+	 qHaVq/KoSiZ2F/JGwb+oAAylwdIZJm5TCk5ceCcCU+/MYa5gjpaFXQsjh6SrBWenSM
+	 3v5iKsOb+LL/A4Q/AVnhEg0fHUuE0TBAqbGx4uoNx+id3l6O4KAYyFzWIrpPMOYWjC
+	 puWR+mpAIflz0/mrPeOi3whEqXIUKorEty6qBzxx4KHni4kOgep7U2HqkG9KDz/t62
+	 HhNugY2aKGL/g==
 From: Tianyi Chen <hi@tychen.cc>
-To: Lorenzo Stoakes <ljs@kernel.org>,
-	"Liam R . Howlett" <liam@infradead.org>,
-	Andrew Morton <akpm@linux-foundation.org>
-Cc: vbabka@kernel.org,
-	jannh@google.com,
-	pfalcato@suse.de,
+To: Andrew Morton <akpm@linux-foundation.org>,
+	David Hildenbrand <david@kernel.org>
+Cc: shuah@kernel.org,
 	linux-mm@kvack.org,
+	linux-kselftest@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
+	jsavitz@redhat.com,
 	hi@tychen.cc
-Subject: [PATCH v2] tools/testing/vma: cover hole filling through __mmap_region()
-Date: Tue,  8 Sep 2026 17:55:15 +0800
-Message-ID: <178886112560.138404.17741948638665342936.vma-v2@tychen.cc>
+Subject: [PATCH v2 1/2] selftests/mm: Reject invalid test selections before running tests
+Date: Tue,  8 Sep 2026 17:55:32 +0800
+Message-ID: <178886112560.138404.14562368683011041790.mm-cli-v2-1@tychen.cc>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260906144100.849288-1-hi@tychen.cc>
-References: <20260906144100.849288-1-hi@tychen.cc>
+In-Reply-To: <178886112560.138404.1278745290043112298.mm-cli-v2-0@tychen.cc>
+References: <20260906135444.749144-1-hi@tychen.cc> <178886112560.138404.1278745290043112298.mm-cli-v2-0@tychen.cc>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -57,121 +56,78 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Envelope-From: hi@tychen.cc
 
-The mmap tests extend existing mappings one neighbor at a time, while
-merge tests construct merge state directly. Neither exercises filling
-a hole between compatible mappings through the mmap setup and completion
-path.
+getopts reports unknown options and missing arguments, but run_vmtests.sh
+ignores its error result and continues with test setup. An empty -t
+argument also falls back to the default selection, while unknown category
+names can silently select no tests and still reach setup code.
 
-Fill a gap through __mmap_region() and require both neighbors to merge
-into one VMA. Repeat with only the new mapping's execute permission set
-and require three separate VMAs. Check boundaries, permissions, page
-offsets, map_count and cleanup.
+Exit on getopts errors and validate category names against the existing
+list in usage() before any test setup. Reject empty and whitespace-only
+selections, and normalize category separators so validation and execution
+agree. Keep the default selection for an unset or empty VM_SELFTEST_ITEMS
+environment variable, and preserve the existing standalone default value.
 
-Signed-off-by: Tianyi Chen <hi@tychen.cc>
+Fixes: 85463321e726 ("selftests/vm: enable running select groups of tests")
 Assisted-by: Codex:GPT-6
+Signed-off-by: Tianyi Chen <hi@tychen.cc>
 ---
-Changes in v2:
-- Rebase onto mm-unstable, preserving the new /dev/zero test.
-- Rename hole_flags to middle_flags and describe each mapping's address
-  and length in its comment.
-- Remove the redundant hole, per-page and outer-boundary iterator checks.
-- Use const bounds and named booleans for the middle VMA's expected execute
-  permission, and separate assertion groups for readability.
+ tools/testing/selftests/mm/run_vmtests.sh | 27 +++++++++++++++++++----
+ 1 file changed, 23 insertions(+), 4 deletions(-)
 
-Validation: all 29 VMA tests passed with ASan and UBSan enabled, built
-with clang 20 using the existing VMA Makefile.
-
-v1: https://lore.kernel.org/r/20260906144100.849288-1-hi@tychen.cc
-Review: https://lore.kernel.org/r/ap5pmX-RddQ-c90O@gremlin
-
- tools/testing/vma/tests/mmap.c | 68 ++++++++++++++++++++++++++++++++++
- 1 file changed, 68 insertions(+)
-
-diff --git a/tools/testing/vma/tests/mmap.c b/tools/testing/vma/tests/mmap.c
-index fa73faff226..53e4abe6a63 100644
---- a/tools/testing/vma/tests/mmap.c
-+++ b/tools/testing/vma/tests/mmap.c
-@@ -45,6 +45,72 @@ static bool test_mmap_region_basic(void)
- 	return true;
+diff --git a/tools/testing/selftests/mm/run_vmtests.sh b/tools/testing/selftests/mm/run_vmtests.sh
+index d09f9f6a384..836c7454cba 100755
+--- a/tools/testing/selftests/mm/run_vmtests.sh
++++ b/tools/testing/selftests/mm/run_vmtests.sh
+@@ -96,26 +96,45 @@ separated by spaces:
+ 
+ example: ./run_vmtests.sh -t "hmm mmap ksm"
+ EOF
+-	exit 0
  }
  
-+static bool mmap_region_fill_hole(bool merge)
-+{
-+	const vma_flags_t vma_flags = mk_vma_flags(VMA_READ_BIT, VMA_WRITE_BIT,
-+			VMA_MAYREAD_BIT, VMA_MAYWRITE_BIT, VMA_MAYEXEC_BIT);
-+	vma_flags_t middle_flags = vma_flags;
-+	struct mm_struct mm = {};
-+	struct vm_area_struct *vma;
-+	unsigned long addr;
-+	int count = 0;
-+	VMA_ITERATOR(vmi, &mm, 0);
+ RUN_ALL=false
+ RUN_DESTRUCTIVE=false
+ TAP_PREFIX="# "
+ 
++# An unset or empty environment selection keeps the default behavior.
++VM_SELFTEST_ITEMS=${VM_SELFTEST_ITEMS:-default}
 +
-+	current->mm = &mm;
-+	if (!merge)
-+		vma_flags_set(&middle_flags, VMA_EXEC_BIT);
+ while getopts "aht:nd" OPT; do
+ 	case ${OPT} in
+ 		"a") RUN_ALL=true ;;
+-		"h") usage ;;
++		"h") usage; exit 0 ;;
+ 		"t") VM_SELFTEST_ITEMS=${OPTARG} ;;
+ 		"n") TAP_PREFIX= ;;
+ 		"d") RUN_DESTRUCTIVE=true ;;
++		"?") exit 1 ;;
+ 	esac
+ done
+ shift $((OPTIND -1))
+ 
+-# default behavior: run all tests
+-VM_SELFTEST_ITEMS=${VM_SELFTEST_ITEMS:-default}
++# Normalize whitespace so validation and test_selected() use the same names.
++read -r -a selected_categories <<< "${VM_SELFTEST_ITEMS//$'\n'/ }"
++VM_SELFTEST_ITEMS="${selected_categories[*]}"
++if [ -z "$VM_SELFTEST_ITEMS" ]; then
++	echo "No test categories specified" >&2
++	exit 1
++fi
 +
-+	/* Map at 0x300000, length 0x3000. */
-+	addr = __mmap_region(NULL, 0x300000, 0x3000, vma_flags, 0x300, NULL);
-+	ASSERT_EQ(addr, 0x300000);
-+
-+	/* Map at 0x306000, length 0x3000, leaving a hole. */
-+	addr = __mmap_region(NULL, 0x306000, 0x3000, vma_flags, 0x306, NULL);
-+	ASSERT_EQ(addr, 0x306000);
-+	ASSERT_EQ(mm.map_count, 2);
-+
-+	/* Map at 0x303000, length 0x3000, filling the hole. */
-+	addr = __mmap_region(NULL, 0x303000, 0x3000, middle_flags, 0x303, NULL);
-+	ASSERT_EQ(addr, 0x303000);
-+	ASSERT_EQ(mm.map_count, merge ? 1 : 3);
-+
-+	vma_iter_set(&vmi, 0);
-+	for_each_vma(vmi, vma) {
-+		const unsigned long start = 0x300000 + count * 0x3000;
-+		const unsigned long end = merge ? 0x309000 : start + 0x3000;
-+		/* Only the middle VMA in the non-merge case has VMA_EXEC. */
-+		const bool is_middle_vma = count == 1;
-+		const bool expect_exec_vma = is_middle_vma && !merge;
-+
-+		ASSERT_EQ(vma->vm_start, start);
-+		ASSERT_EQ(vma->vm_end, end);
-+		ASSERT_EQ(vma_start_pgoff(vma), start >> PAGE_SHIFT);
-+		ASSERT_EQ(vma_start_anon_pgoff(vma), start >> PAGE_SHIFT);
-+
-+		ASSERT_TRUE(vma_test_all(vma, VMA_READ_BIT, VMA_WRITE_BIT,
-+					 VMA_MAYREAD_BIT, VMA_MAYWRITE_BIT,
-+					 VMA_MAYEXEC_BIT));
-+		ASSERT_EQ(vma_test(vma, VMA_EXEC_BIT), expect_exec_vma);
-+
-+		count++;
-+	}
-+
-+	ASSERT_EQ(count, mm.map_count);
-+
-+	ASSERT_EQ(cleanup_mm(&mm, &vmi), count);
-+	return true;
-+}
-+
-+static bool test_mmap_region_fill_hole_merge(void)
-+{
-+	return mmap_region_fill_hole(true);
-+}
-+
-+static bool test_mmap_region_fill_hole_flags_mismatch(void)
-+{
-+	return mmap_region_fill_hole(false);
-+}
-+
- static bool test_pure_anon_dev_zero(void)
- {
- 	const vma_flags_t vma_flags = mk_vma_flags(VMA_READ_BIT, VMA_WRITE_BIT,
-@@ -84,5 +150,7 @@ static bool test_pure_anon_dev_zero(void)
- static void run_mmap_tests(int *num_tests, int *num_fail)
- {
- 	TEST(mmap_region_basic);
-+	TEST(mmap_region_fill_hole_merge);
-+	TEST(mmap_region_fill_hole_flags_mismatch);
- 	TEST(pure_anon_dev_zero);
- }
++if [ "$VM_SELFTEST_ITEMS" != "default" ]; then
++	# Keep the documented category list as the source of valid names.
++	valid_categories=$(usage | sed -n 's/^- //p')
++	for category in "${selected_categories[@]}"; do
++		if ! grep -Fxq -- "$category" <<< "$valid_categories"; then
++			echo "Unknown test category: $category" >&2
++			exit 1
++		fi
++	done
++fi
+ 
+ test_selected() {
+ 	if [ "$VM_SELFTEST_ITEMS" == "default" ]; then
 -- 
 2.55.0
 
