@@ -1,79 +1,110 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f43.google.com (mail-ed1-f43.google.com [209.85.208.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6148250C29C
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 09:42:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A24D2BE03C
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 09:42:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788860538; cv=none; b=LzFQH7ZjF/+R1FOrHdbKWUTGBlTlsJnQJBLoK+iRuuCoz3BH2AIAlqGZVCpFofWBurutPxP2v/G9swXKROhE4V6x+39G/fSw2AkQZcIDn/v8MU5mAErexN1JkNSLJWILk3R0ScZDgU+L7+1IYwrdfg5UwLfXzeHnDUlFJERJI4A=
+	t=1788860555; cv=none; b=Jn8jYYr8pYt9/GVol70xQrjp7FLuj0Hs5uHOUgaDBZA3n9CpIYU+pFkfUomvnZ7Eh1qFL0K0mC+nFO8sjbxjxWOL/8uabUgHjrEF1l04629Uu0fVu6bd7y6NJ1UhCQcgKpjJwgSmEtKOgeXtkIS2e37M3bE1unTkRFkQ9uhggsQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788860538; c=relaxed/simple;
-	bh=4mrNDgy6AMSKjtPprwZWZ7OJTzobbZjA2LIfx+rptdk=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=cewxFa81ghH0NhmnGI88yHobN4YJjVCkyljZhdT6sP8GCq01LEVE4+ERuAhT+2bHrje8ZfFdAxIwNep8g9xIOFYPmEVzwZs8gYWhboKpzIZjc2HIDXmt10DLk69r0vKK79i8kyXmbor5AhDHwBUrjoyfqBJp7CeRxQzWNlW+Mg8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oR1IGP6i; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788860555; c=relaxed/simple;
+	bh=K1zoawtIHXn0RBbF60I1H1C9ybSRR5Nw0HEbVljdmi8=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=E32aBE1CkVVxJCEg8hcb7K9IuXXtyCNdwkT7+/rQqSwiw2/MQh8bHd2tDw5UegiPGks5eQAph2dWshDU9E1TXn8hVJIvwHkAY71mdmEu3P8qGPkXTZX7/YaNIN94UqtZKrFNmP9czj+vuGS2GcFZa3ULJHm/YXlYaQYQpwryiCc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=T1xHDOyW; arc=none smtp.client-ip=209.85.208.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oR1IGP6i"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A9DE1F00A3E
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 09:42:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788860537;
-	bh=aupG1zdrXQoxXyLvplWPXti+Kkhol8td9bfr4ziccWk=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=oR1IGP6iTS0DHCAQ1HiLJmOVOM233HUifwNym4qRX1gFKQEPzqIQoJv3vs05oH14Q
-	 tokEBEWXo1FHDFUNOEVo6ScLwzZJEHjEAO3z8kID4/JOCK+MrmjT+LsAMF07KVybc4
-	 X8wZNfzUMPo5BiEpXxR58XqrLMIycrKJhUx3q03TqiakHzV2kplD3sb3DWWcIzrEgl
-	 a64IqC9F8PqRfk5VInEGI5n03mIEi0/AcEfB7M60BRgU1xUVeDJsHIv+oxUJeqVpoE
-	 ni8jRx53lxhy1O/R2/2q7AG8sF91ylD+B5fHbwn4ln34VRowljhF70CBtAZKxuHu6d
-	 qpxCJaLIudZLw==
-Received: by mail-ej1-f45.google.com with SMTP id a640c23a62f3a-c250a2bc3b3so506738966b.2
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 02:42:17 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvByaptEB4QZV9al/tbujnUCzs5s+oV+hYAJ2AB4hwuotchMcaFScweWuy7KDBYuk6ZK8eG26sDnqcDZwjMg=@vger.kernel.org
-X-Gm-Message-State: AFuF++lnuXG4ozXH0+fPEt84d5CziJhSjLDMdwLBB3ZHIoV0OJr5OyKt
-	4vIHYSKT08nQeU6/P6Tv2ACXBi9EzXdIhs3yzOqNaLAWDFl44ZbXwXuaj9iL2igHKD5/LNePJnc
-	rZEy7u7eymoClR/0ZkaY227mB9pjT19c=
-X-Received: by 2002:a17:907:c5c5:b0:c26:19e3:e983 with SMTP id
- a640c23a62f3a-c2619e3ef06mr929376466b.35.1788860533346; Tue, 08 Sep 2026
- 02:42:13 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="T1xHDOyW"
+Received: by mail-ed1-f43.google.com with SMTP id 4fb4d7f45d1cf-6a63c610b8dso5923832a12.2
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 02:42:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788860553; x=1789465353; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :references:in-reply-to:date:cc:to:from:subject:message-id:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=pjj4FGVfbpefB5YMY5bf6wxg1EBuFtqC/RFD5ZXsYfI=;
+        b=T1xHDOyWWYuYSUrvscdDqOu4fngP3CziUuehVN2rclbRfCYnTQHLMY9s6g6vI6iSpA
+         RzUUXOTvN7NnvBWiNVBufHjoE5hCd56gJ08bLCm9NwmcbstDqS4KePRb7bhwskdnI+sO
+         KG3wPsxqtGaJoSwpN1IU5tYdIciwmy58Vx8DJqVh9cF1FfuWSSAxpx33XgKHA2Jok01J
+         Eahv/aSoaQjvuWmTzaD6MCnq9+UnAG13WpMqAKLgAkIQYrvxcDrAvVx+BdFXZ4kZdIcw
+         7EdkdYywHF8SlyYUoggeD1mTuKXCjvdYw27agBU6jCWrMXlHBg6gcYrKw6nSfKY19W0R
+         iODg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788860553; x=1789465353;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=pjj4FGVfbpefB5YMY5bf6wxg1EBuFtqC/RFD5ZXsYfI=;
+        b=iye+8bKz5VVUwVXL/q7x5Zn/9CReD2gLU0Jj2oV0XzfSFui8ensx9NDnvWlyJ01v82
+         dTmqrTNXFvHB/4srvWmaREmJ/LvNIBu5NAomm8LYgBLHvmSkL8nWB99+If+TPZKnY1FI
+         GmwsSLy8IjEUq8OqpKkdfhGWheLkAnOavw5Rh9R84DspO/6Wv1y3W3MoPdkZ6AF0YhEt
+         XRQlTkyfj0HbnRTwxVJU2+ZWU3EDiKRcmSBeVWwqJY79tR2owTl73rdmnELAxM3bdq9s
+         AtojYMPvAkjhCvnx1Tg44go64hcN+53FXH0pvp9d2fgnRPQzFdjOklMiPWjrJ7K2ROhT
+         HJGg==
+X-Forwarded-Encrypted: i=1; AKwUvByfky1Q8vjRhMd/DbU+irBMbZJdnpKCaBsu+Xo71Je5okID/tSP56p9xiYuzFzI3H6Gc1GUbN37R3+3rDc=@vger.kernel.org
+X-Gm-Message-State: AFuF++l0Q9WSb4KIdXg/VIA5Kw3xYGDrL2CGnM14GY+1LxOlpffUOoPT
+	5vYufVrAbbaOQmaaTdvq5N+kg5ve2rALZwnC05G0LJaKCR+mqoMum5+o
+X-Gm-Gg: AYBFou1V0ibGhc7/uIcuqKSdTz51RQXQ0C1kkyKylY0bjwvxkirNlt/Eg8RQLPmtJcQ
+	WQWIRFXOlxCBJQsiBa+765+3mWRva/ljZU7L22z2tXTKsonp58xwkjBNsBsIdYRoowi0s6Yzcqs
+	scuvFAh33tRPqkpgyTzFFLfXHmXs3vz9eM2LyBe//7xN1jwOqppXJcTV031k0Qep8t4T6ZUc8vU
+	0PDir7hQ26YToO9IIUJuF2o14kKWFnLLmdF85Z5jhbxeAfMM5qFaxS2WnEW/JGPL8zFhfXiNPTn
+	82cYtBqEnRyjye3DdQ61rLbiZnSeGoplUeCqc8/BUeuptrRdZtjYX2EXmraGT8jsmrWLGYlKUJi
+	MOIxhA39UQD701S907Wv9g5HLZFaoUEvO4yT2Ux479K4fWDRdKrz7wddj6IQW++jTyliZD5T/Gn
+	j9eRqiXDNlUMBlYtX8sWaCBrAWZPLkxjz4upVQaJYrbYV4hX8J8fO4wqXdWjq74w==
+X-Received: by 2002:a17:907:c81a:b0:c25:c67d:53cc with SMTP id a640c23a62f3a-c260c8d5829mr1740810066b.8.1788860552436;
+        Tue, 08 Sep 2026 02:42:32 -0700 (PDT)
+Received: from [10.245.244.96] ([192.198.151.45])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c260d5768c2sm574816666b.39.2026.09.08.02.42.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 08 Sep 2026 02:42:31 -0700 (PDT)
+Message-ID: <1f1877f904d0521100d2ca656fc9f0542c46a68b.camel@gmail.com>
+Subject: Re: [PATCH v3 0/4] KVM: TDX: Validate directly configurable CPUID
+ bits
+From: Artem Bityutskiy <dedekind1@gmail.com>
+To: Binbin Wu <binbin.wu@linux.intel.com>, linux-kernel@vger.kernel.org, 
+	kvm@vger.kernel.org
+Cc: seanjc@google.com, pbonzini@redhat.com, dave.hansen@linux.intel.com, 
+	andrew.cooper3@citrix.com, nik.borisov@suse.com, kas@kernel.org, 
+	rick.p.edgecombe@intel.com, xiaoyao.li@intel.com, chao.gao@intel.com
+Date: Tue, 08 Sep 2026 12:42:28 +0300
+In-Reply-To: <20260827031837.2863609-1-binbin.wu@linux.intel.com>
+References: <20260827031837.2863609-1-binbin.wu@linux.intel.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260907070852.291323-1-zenghongling@kylinos.cn> <20260907070852.291323-4-zenghongling@kylinos.cn>
-In-Reply-To: <20260907070852.291323-4-zenghongling@kylinos.cn>
-From: Namjae Jeon <linkinjeon@kernel.org>
-Date: Tue, 8 Sep 2026 18:42:00 +0900
-X-Gmail-Original-Message-ID: <CAKYAXd9gJLgGkMfnZHoXAYibn3f8N2JnRkTB8rtvw9-ag-OJNQ@mail.gmail.com>
-X-Gm-Features: AcwNN1W9IzQSzR6_c1WN9casCEjIBxK59Aqdd_IE_CafvM5McrSP169ltZY9jNI
-Message-ID: <CAKYAXd9gJLgGkMfnZHoXAYibn3f8N2JnRkTB8rtvw9-ag-OJNQ@mail.gmail.com>
-Subject: Re: [PATCH v3 3/3] ntfs: NULL vol->vol_ino in the load_system_files()
- error teardown
-To: Hongling Zeng <zenghongling@kylinos.cn>
-Cc: hyc.lee@gmail.com, ntfs@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	zhongling0719@126.com, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Mon, Sep 7, 2026 at 4:09=E2=80=AFPM Hongling Zeng <zenghongling@kylinos.=
-cn> wrote:
->
-> The error unwind of load_system_files() drops vol->vol_ino on two
-> paths but leaves the stale pointer in place while it keeps iput()ing
-> the remaining system inodes ($Bitmap, $MFT bitmap, $MFTMirr; $MFT
-> itself is dropped by the caller, ntfs_fill_super()).  A third path
-> carried an iput() that can never execute: it sits inside the
-> IS_ERR(vol->vol_ino) branch guarded by !IS_ERR(vol->vol_ino), and is
-> removed along with the stale pointers.  Nothing in the teardown
-> dereferences vol_ino today, so this is pure hygiene, but a stale
-> pointer to a freed inode surviving the unwind is a trap for any
-> future code walking the volume during teardown.
->
-> ntfs_put_super() and the ntfs_fill_super() error path already NULL it
-> after their iput(); do the same here.
->
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
-Applied it to #ntfs-next.
+Hi Binbin,
+
+On Thu, 2026-08-27 at 11:18 +0800, Binbin Wu wrote:
+>=20
+> Specifically, this series builds a KVM-side allowlist of supported TDX
+> directly configurable CPUID bits to:
+>  - Filter KVM_TDX_CAPABILITIES
+>    Replace the hardcoded denylist to only report configurable bits that
+>    KVM explicitly supports.
+>  - Validate KVM_TDX_INIT_VM
+>    Reject any configurable bit that the TDX module allows but KVM does
+>    not support, as well as CPUID entries with an unexpected subleaf.
+
+Today's denylist only rejects TSX and WAITPKG. Everything else is allowed.
+
+Obviously, the TDX module allows directly setting virtual CPUID values
+only for a subset of CPUID leaves, not all of them. So "everything else"
+above is that subset minus TSX and WAITPKG.
+
+My question is: is there a feature in that "everything else" that
+causes host state clobbering today?
+
+In other words, does this patch only build the infrastructure for
+addressing future clobbering issues, or does it also fix a specific
+bug?
+
 Thanks!
