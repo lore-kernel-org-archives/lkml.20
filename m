@@ -1,146 +1,129 @@
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
+Received: from mail-qt1-f172.google.com (mail-qt1-f172.google.com [209.85.160.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB231568FDB
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 16:47:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.43
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788886062; cv=pass; b=u9/FkAwX3FO+rBG5t6meLytJNdyLjC9Jqnc7N6F2GKIR/tt/A1mWO9fmLo+qm63XOXoxpEnXYg/KwTWUoplgYTEo4SgeSUKBQb5FfN2skNaziSLgVeTx0sfCf2HtAoE/IwSpaznraL10MlN4uNyELzazf7IlaUWRJ7n+ewrKEOM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788886062; c=relaxed/simple;
-	bh=mwAxvZMzHRoyoS5SlFNnDSEx6Xh8O3uTGsYLqZ4P580=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=HRa2MgvbQt62rpRLM3LuKPmNpB0UP60e4X2OaoeBgCUeVbCOPX+CDVGmJXUeTLDp+/GQbWPBu/UImKDckDLeeRHUSg9iDEx054lu1r2zf0uDTJCC2OkJgyubwCbB62M2VGiKXu12Q7clT+e1/9MmjyzmWUcPuewK9iXvzZopN0Y=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=ZeWDij5q; arc=pass smtp.client-ip=209.85.128.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 949075867CC
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 16:47:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.172
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788886072; cv=none; b=erE4ln4wc/fz4+Ijw0hwrHcigAHJ4N0W+2083lXp4JERPDjOwZu9/6ecoP9fIQVhUt/dkLaoIR1laK0bQefhT3xGGTfbYHKapPIMJNDUf78MXSUZohGOgx42TYB1YBBRGSpdKlfwkZXzPT8PhVBiIgqn04fJIu/AyLR6e98au5U=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788886072; c=relaxed/simple;
+	bh=LWKICpFS9xFvsp69obCht2UQnb78KG0Es2im+ByJTVk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=q5q/0hNzNpFKeB6bKHUOgi4APxKSmLG0136z/ZpxNapw8N0UkW4afF6VYRWTkEYAf7cdfZjh7bEMxJI5w7KqmgdUksK2hAHFMgA7VqJMQ70HeUo2ltjsZzbZV4Qfu13a3/Dydb88JHhHJRxUOa1hGT5BpoWEVGlxd2LRoOvnsM4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca; spf=pass smtp.mailfrom=ziepe.ca; dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b=SNm4GE/Y; arc=none smtp.client-ip=209.85.160.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="ZeWDij5q"
-Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-49d05d51553so27056535e9.2
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 09:47:39 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788886058; cv=none;
-        d=google.com; s=arc-20260327;
-        b=d2oB+9ZLuXkqKlSl91itb9PcNFcJp6tFWBYrMbG4nr+wQxjEaIhUQWDGOX2/TzqM2S
-         vjAhzqXgnq40ycBbvv2hL6QK5MmqNQvLatuanq1XQClnevb+ASZ3xDVR33lnV+cXiWyd
-         o0XHRpJ5vznRP59JwPULNkzfPUnMuhkmN+5Ja+pMxX7u9IJLrYBKOaSNIL7j8e/Hfhau
-         bZf7+SlwHIXhtaGQwafgo1YeW+ba9yIW8xrrjhckwnDYde/J0SW3r4DdaTjfQvU6ILUf
-         /kgrvcdiINg75wN8/LbPr+2XEYY6Igfyfaf6zGrJzafTVGjiALdL70b6wwLYcJ4U4Jac
-         8ksw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=lQTr2U76uYl3nor0tns8i6gi/m+LsiVvyKvG51LqGmw=;
-        fh=m664Qk9PI+Bc9s2ey5kczs2DQA5Uh0mXCG5U2oUAXAE=;
-        b=fkgo6HiMrTRqFLNH5DegoaV01yae/N25w25kTV67Z2td5QXon3cO0m5POsTz58H9rj
-         n5glM0v72qPzsQJomTRSEsxi972c3Vj67zXdAuvy3Dp88a7dv+kkPlABSMGBiiVEQ2Pk
-         Rz+1mMsR7wW6LLH93/fhQZA+UQuPZ/DOAxR3yhLW/FJ5KPkaIEUG7GOy7vjm+QFXRoy3
-         fV9AZWIVjyHikRp/B0g6fu4YML7Nua1Pv4XYj9d/NT+vsIXnPspVsQMdLgkAQXkWsfqc
-         s4V4l8RIFchE1JZir1P1fTLzvTJDyltX+rDK3E1rAC6+gPoLqhiQBUIDPnmwhsAWEx2k
-         /qRw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b="SNm4GE/Y"
+Received: by mail-qt1-f172.google.com with SMTP id d75a77b69052e-52fa6005224so42227151cf.1
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 09:47:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1788886058; x=1789490858; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=lQTr2U76uYl3nor0tns8i6gi/m+LsiVvyKvG51LqGmw=;
-        b=ZeWDij5qCX58pjNIOWqP5T0WwTbCTYmg9/C3jusLKLwjD09DWYEnX0tdae7ZguME6H
-         lhfsqRR1a1twNwVjmiRA+E0Z25HLxcD1pvX4jHJ31YZQGRC/53qQgUw+lJo4NKHkLrRl
-         425BHkFkIpOduF245QPbwxdQXdoQCVsk2ydZWdL7imUQtEWxlBpTYbCjPYw5HoDIPFwR
-         ZN8SdF1WQAaYoiNp1EhGISVBI/RZ/M1e08APN4/r16Oo98wmnJsQKDSWMv72NL/0O7s2
-         HmqaXM808bFk/ir0x0a7IPVbtg5GVCAvwUnHyidWwkWCBDD35wxITvIYgKUSz0wVWUgw
-         DuJA==
+        d=ziepe.ca; s=google; t=1788886069; x=1789490869; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=wg7dqcSt6yfLp94UU5Cr+hhthqJWmJ7c1cnnv4D4Hxg=;
+        b=SNm4GE/YnvlitvWOHTBTRTz9EKkbY2fdImMKVkhEHxtYbjQ2tBSfrfTln0IW+Dh6oU
+         a/JzOiSjBYakNZW5G0tzppZ5MZ1z4F/euoKv9YvqPCMdkLeMw3iou/sONkP2IVcRwP2d
+         /ZgoWcb/MxeJoSiz4MXbEDU91xqUVcgg+WWc6iJgVQb/gpqbdoNtT4BxC9Hmwm5PeWTt
+         3UDwcpsAxLEOvz6486OAnkOae8p+uSo2S23nnO764QO4cvs2Baqt+V8la7J6td2Z1rRa
+         gh/85+jmQ1bOvjNzlYgjn71xMUftwpoxrbkk4RUSzNINERpqcr9EeIgqEG/mwMHHu2ET
+         ipfw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788886058; x=1789490858;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=lQTr2U76uYl3nor0tns8i6gi/m+LsiVvyKvG51LqGmw=;
-        b=p+hrQozaKGBKfBqq5jhVdVloMeOD3VMwDxAVucUUEI1+UYT6p6sWCzlWjntr3IcFeM
-         ZQTR4SwrUROBUpdNAzFQVc5WUp+LlytVqYLvl7Cpaq7D37I78SPGx8Pt4tlbKfacjMQe
-         OrUBoddp6uMb0m2to9MDkV/VjRWxsHah0Jqul4JU475GooZN94MG5p4i91/kTuGysZR8
-         EoJOqnastWVBbqAlwl77rJBVMAZBPprF1iQzaqfyMF4SFMabYwHSvTAggsjIOHc9Qngb
-         faXYvB6QWsG+1STKE3xhlSAW44Ix5ZPcnUYv+jR6KBnstb4a7TkwwrqKCanOGXJ2zCwK
-         VJlA==
-X-Forwarded-Encrypted: i=1; AKwUvBzhvDWxv6PyZXIFZqpgVQ3rprVoJfsqlO7EHNSWi/xUquSaTQX/Ne6rZKyZFWdWesD3zzCHnAHjA5UR9ls=@vger.kernel.org
-X-Gm-Message-State: AFuF++mlzPyUbxR+GKyf5OoOc5scq5i8sYkwZ3UysTkO9IfQDnTP5kSh
-	Gsoy1I8NtRlO/Ftri81nvAva9bwznoIRVExeB+ML/0QhovZ/p4ocrpmYWsEyqeUnFAirRYnaO8f
-	cyRZCLDCBfx7kzjQ1s/GHLkgjGDTzpl7jCeRw+R8nrA==
-X-Gm-Gg: AYBFou3xL12HsQ/YhlRUrM7FegOkL+30MItruq1aL9bnAm5JT+UdvqpQ61zTWRxhu9E
-	KXWPFQI+W7b2hP3J+uA1xMj0r3y4cK+kpfiVwTMlycKe2QpEIcgqIV8Hj+hU77nt+E3yeOELkiA
-	d2D7vc7fOUG2dXlRetrNUx7xowCt6FFGUgbJ6AjX2CzQl+FmoaNKhctac45kPHYFkNZzY8e5YzS
-	x0rNSLVGq95ax5mNTZi9pB/JmDz5irgVdJxUhgc+hkdKZvu+6/LxahZSs8sDdFwpzjb65rVjEb5
-	IvxvTD6T/yt9pivDz4q8ztV5J4NbigLJP2fjRWYkI6+RQQuPFA9WF+OyawqryXlT0wUBhsajRaI
-	QmtpscYpCTSshO+NP3pqaSWJOc1x7KCbxhULF81p8Zw==
-X-Received: by 2002:a05:600c:138e:b0:49d:daa:af6e with SMTP id
- 5b1f17b1804b1-49d1c7b732amr46339715e9.16.1788886058021; Tue, 08 Sep 2026
- 09:47:38 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1788886069; x=1789490869;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=wg7dqcSt6yfLp94UU5Cr+hhthqJWmJ7c1cnnv4D4Hxg=;
+        b=szwMEBbu1RAH4sDu6UvITPMqAmskS0zBN0Qnhlr6PIaoiCjj3uvRkctCM1aNo01t5F
+         Bju3IaEa6JbOrW295Gy8YNFgHNCKaxf1DoPbSsSmlXEKJny1mOGGI2T/Eyb8I1j4ZQ+8
+         Fv7SjUdDeGpcSKHNJaP+EQXTlfM79u5h80emUaW2vXqZ04iqNkA2rRV7NJqSeJor/BHr
+         /MJ42RQuaawraZMGOB1DVz29g8CZv8irTB5b4RRzEzFjugtvFf8CXHTovBCkqz+J08Qz
+         Qt8fbYBBPnHL815GUsVlRrPRpWuGEIUTLlZfnLcdqNQZLoQZpuVvELRhiTTvp/u0qs6t
+         r7KA==
+X-Forwarded-Encrypted: i=1; AKwUvBzvVX/p2lnvOVvBeQdx06bEdJ7NSX5SIcnPd5YndDpUGnTgHYGVlOb28e5OP8sttuF2Kjrz7ygzbJt4sPw=@vger.kernel.org
+X-Gm-Message-State: AFuF++nLsU+bdickokRol2aZpBKpy8lgrXB0DibsRIXBRLUCcmcX+7Ov
+	MdIymUliO5H95nv9g3ZxqlAsBpi4D5xoFMczbIj5BcBy7H62vH0Ra1+TQ9F9Q6iOyY8=
+X-Gm-Gg: AYBFou0UcyMsm+ziXEp4E2m7AaZrKrWHpeJ/2BW05r01ZXSwmH9y83hH6nrZGADuBzT
+	U4/QJ/isxru2arJ8x8PvrKiFhOwsAm2IqBC9zlc1Idy3oDpdY1yBhGJmcmlS2+rqlYTORSYvRCm
+	A2el5pwvyQwaSx9ABFIHaWQss7xqvFs7RXwIf3FZICQE52VXwNFd0XPXnhM7qYo+HkwEKdeoa3a
+	/UIsY5X30NS1i2JP1jkgbogsaqkVAqaJXiRnHVDFKTeW6LlRdxN0vMEj5MFdxU2HOgyLo736EvJ
+	ozyqK4gLkYyq384rI/jiF/9KFifrs0AX2hPTJJtcs5Wlj5TZMIvc7QcAFAbdcbLBWOM7xz6t12P
+	nrPKMwSeY9EOtVfzoFcC/j7q+TDw4yeAEBfnHoLnfg1ayKDz185ohk7yW0ydDp1QuQ+JtJzegc+
+	qFPWcRsLPUEqMGvU7/ieLfHHLdlyClleKHlqmv9lHPsdhwmjSFXIOGNcumT7TFYMfVjgNqkH55w
+	srkbBJUd56yMksi6EJA8Ad8QmGcokPCaNWs0JLh04gAfw==
+X-Received: by 2002:a05:622a:258a:b0:530:430f:630a with SMTP id d75a77b69052e-53054a1f457mr350385211cf.48.1788886069109;
+        Tue, 08 Sep 2026 09:47:49 -0700 (PDT)
+Received: from ziepe.ca (hlfxns010zw-159-2-239-150.pppoe-dynamic.high-speed.ns.bellaliant.net. [159.2.239.150])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-5305402a908sm117296241cf.4.2026.09.08.09.47.47
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 08 Sep 2026 09:47:47 -0700 (PDT)
+Received: from jgg by wakko with local (Exim 4.97)
+	(envelope-from <jgg@ziepe.ca>)
+	id 1x3yz5-0000000ECD9-00Dk;
+	Tue, 08 Sep 2026 13:47:47 -0300
+Date: Tue, 8 Sep 2026 13:47:46 -0300
+From: Jason Gunthorpe <jgg@ziepe.ca>
+To: Daniel Mentz <danielmentz@google.com>
+Cc: Vijayanand Jitta <vijayanand.jitta@oss.qualcomm.com>,
+	Prakash Gupta <prakash.gupta@oss.qualcomm.com>,
+	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+	"Joerg Roedel (AMD)" <joro@8bytes.org>,
+	linux-arm-msm@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	iommu@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4] iommu/io-pgtable-arm: Add support for contiguous hint
+ bit
+Message-ID: <20260908164746.GC2543240@ziepe.ca>
+References: <20260804-iommu_contig_hint-v4-1-d7a47ed5db98@oss.qualcomm.com>
+ <CAE2F3rBQQEHsksOyE2ojQPbMd_vvFqaFMC2RzT0B6KkxMB5YgQ@mail.gmail.com>
+ <c84e61b1-785e-4a47-9082-c5111bf35fd4@oss.qualcomm.com>
+ <CAE2F3rC80=ZpiHVtmRDU6f8g4AwV_RrJ-Zqr0Xi7zbUc0fsQog@mail.gmail.com>
+ <9c28300b-a17f-4324-b9d5-8fc800e4d794@oss.qualcomm.com>
+ <CAE2F3rDdogf1jGsD2ekGqT7X692fFyqv=H-8iM5OTu8AdHHoJg@mail.gmail.com>
+ <CAE2F3rAeq_CPeaDxuh40v41v2f=68oD2TqK9DYSPKz9F74kqeg@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260513085340.3673127-1-neelx@suse.com> <20260513085340.3673127-10-neelx@suse.com>
- <20260602025436.GF2295@sol>
-In-Reply-To: <20260602025436.GF2295@sol>
-From: Daniel Vacek <neelx@suse.com>
-Date: Tue, 8 Sep 2026 18:47:27 +0200
-X-Gm-Features: AcwNN1WHoSNszmavv4wORasY461K9gsH-mc9zR1O6zdN1S5pOlfHSeHNoKmuOnY
-Message-ID: <CAPjX3Fd-YEgnzhMryAJi44tZNs_YsHRAAwsxaKbO_jpgvp=qQg@mail.gmail.com>
-Subject: Re: [PATCH v7 09/43] btrfs: add infrastructure for safe em freeing
-To: Eric Biggers <ebiggers@kernel.org>
-Cc: Chris Mason <clm@fb.com>, Josef Bacik <josef@toxicpanda.com>, "Theodore Y. Ts'o" <tytso@mit.edu>, 
-	Jaegeuk Kim <jaegeuk@kernel.org>, Jens Axboe <axboe@kernel.dk>, David Sterba <dsterba@suse.com>, 
-	linux-block@vger.kernel.org, linux-fscrypt@vger.kernel.org, 
-	linux-btrfs@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Boris Burkov <boris@bur.io>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAE2F3rAeq_CPeaDxuh40v41v2f=68oD2TqK9DYSPKz9F74kqeg@mail.gmail.com>
 
-On Tue, 2 Jun 2026 at 04:56, Eric Biggers <ebiggers@kernel.org> wrote:
-> On Wed, May 13, 2026 at 10:52:43AM +0200, Daniel Vacek wrote:
-> > +/*
-> > + * Drop a ref for the extent map in the given tree.
-> > + *
-> > + * @tree:    tree that the em is a part of.
-> > + * @em:              the em to drop the reference to.
-> > + *
-> > + * Drop the reference count on @em by one, if the reference count hits 0 and
-> > + * there is an object on the em that can't be safely freed in the current
-> > + * context (if we are holding the extent_map_tree->lock for example), then add
-> > + * it to the freed_extents list on the extent_map_tree for later processing.
-> > + *
-> > + * This must be followed by a btrfs_free_pending_extent_maps() to clear
-> > + * the pending frees.
-> > + */
-> > +void btrfs_free_extent_map_safe(struct extent_map_tree *tree,
-> > +                             struct extent_map *em)
->
-> The "unsafe" btrfs_free_extent_map() still exists.  Assuming both
-> variants will continue to be needed, shouldn't the comment above the
-> "unsafe" variant be updated to document the preconditions for using it?
+On Tue, Sep 08, 2026 at 09:36:35AM -0700, Daniel Mentz wrote:
+> > > That said, install_leaf() is shared by other callers that reach it through
+> > > ops->map_pages() directly, without going through iommu_pgsize(). panthor_vm_map_pages()
+> > > (drivers/gpu/drm/panthor/panthor_mmu.c) is one -- it allocates its io_pgtable_ops via
+> > > alloc_io_pgtable_ops(ARM_64_LPAE_S1, ...), same as any other LPAE consumer, but does its
+> > > own chunking with a local get_pgsize() that only ever returns SZ_4K or SZ_2M, with no
+> > > notion of the 64K/32M CONT boundaries. That can hand install_leaf() exactly the mixed
+> > > iova=paddr=0x1000, pgcount=34 shape in a single call (panfrost's map loop uses the same
+> > > get_pgsize() and hits the same case). So the prefix/aligned-group/suffix handling in
+> > > install_leaf() is still needed for that path.
+> >
+> > Maybe other people can chime in here, but I feel, from an API
+> > perspective, we should have only one way to make of use iopgtable. I
+> > think we should just mandate that users honor the updated value for
+> > pgtbl_cfg.pgsize_bitmap (and pgtbl_cfg.ias) after the
+> > alloc_io_pgtable_ops() call and then choose page sizes appropriately.
+> > Otherwise, we end up with two pieces of code in the kernel solving the
+> > same problem. panthor_mmu won't be able to take advantage of the
+> > contiguous bit until it gets updated accordingly, and that's ok.
+> 
+> On this note, I want to point out that I tried something similar in
+> 2025 (see https://lore.kernel.org/linux-iommu/20250430231924.1481493-1-danielmentz@google.com/).
+> The feedback I received from Jason at the time was:
+> 
+> "Wouldn't it be better to use the pgsize_bitmap and rely on the core
+> code to indicate that a contiguous page size is being used, so it can
+> trivially set the PTE bit without doing all this extra work?"
 
-Actually this could be cleaned up and unified into a single function
-with optional argument.
+Still think this is right, Panthor is not using it well if it doesn't
+jump through all the hoops. Probably there should be an general entry
+point for map/unmap that does the right stuff for the DRM drivers to
+call.
 
-> > diff --git a/fs/btrfs/extent_map.h b/fs/btrfs/extent_map.h
-> > index 6f685f3c9327..a962012be1c3 100644
-> > --- a/fs/btrfs/extent_map.h
-> > +++ b/fs/btrfs/extent_map.h
-> > @@ -97,11 +97,18 @@ struct extent_map {
-> >       u32 flags;
-> >       refcount_t refs;
-> >       struct list_head list;
-> > +     struct list_head free_list;
-> > +};
->
-> The comment above this struct says "Keep this structure as compact as
-> possible, as we can have really large amounts of allocated extent maps
-> at any time."  Is there any way to avoid adding a whole list_head?
-
-Good catch. In fact we can reuse the old list member. No need for a new one.
-
---nX
-
-> - Eric
+Jason
