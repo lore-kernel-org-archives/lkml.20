@@ -1,131 +1,154 @@
-Received: from mail-pf1-f175.google.com (mail-pf1-f175.google.com [209.85.210.175])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D336E545D82
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 14:23:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 126A0545D82;
+	Tue,  8 Sep 2026 14:25:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788877432; cv=none; b=qnJdGsI/6slaa2k4XqseSOLafmH2qJDpJSdx9E4NRwlcGRLnpYAHDRr7Je6bElZvzomFNsPgRd2GtTTshP1GqkiYOPwNCP5MIy4s2kBFUeavcg9RcdfTfJ2WMl6NIsE+Evqra8lrx9Jczwq9lzSqqPrP+H4S+kHq1XeheqqiuIA=
+	t=1788877509; cv=none; b=NPPpd/V0M25UMXRKUMH4xpIqpiwIpKejlW3MIoWeGQlcZnMYuiTpSbun/bMFBrbTbnLk+d8YjU/2z6EmEB46JYLflxskyjzIu6S3M956j9ooRiFAurkXgOYifygCAkW1cKmrIH3U/ZlHk2dZWBIWBv4hIOIU1ik6dNF/GICW7Oc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788877432; c=relaxed/simple;
-	bh=NKSLcc0XWVLl32spztk7XP02BhHOIHp87F6EtVuddIc=;
-	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=jNJYPjKL9P9rdDZFjh4P9gOY02M8hKM1KNH7CvaTzoJ3huXWke9fs8/5PUHGwUUjVe1TkpaFDpjcb4WCWpUKYvEklaqehs96ATkGb77uDcIz+xmML0tFMlPxNZiSJd069yCP7C87LBWIH0WVS+VO8qnQQGoYKsRsjB8fR1Usg/Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=k9CpbJC5; arc=none smtp.client-ip=209.85.210.175
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788877509; c=relaxed/simple;
+	bh=0zTWRMOSrIPyxHH4DhfPpkrmaXsO0+MIuSmvP0/RniY=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=nYLS9UhsXEemOTmsQF4OY36u3gXxmBXpObrhZI+sa9sKMAcZmSZUu+uobdFb6lSw2SYkcYVLWodZBUkEsKZWgcxkK4V26ufIy2G8tCSBeZDt/q1ItKCi+FQB7cHM8a7/54vEju4fFLp6vLY0oRFM8f6HvTpoX8c8ycV3Frkb7uY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=w3sGhBk0; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=hwD3ytoY; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=eJYsAkg0; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=Q3asSZUQ; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="k9CpbJC5"
-Received: by mail-pf1-f175.google.com with SMTP id d2e1a72fcca58-8520161fdb9so4689744b3a.3
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 07:23:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788877417; x=1789482217; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:date:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=SnF7FxdLIEQlswE9xvoQ5sUHHcQzYgPIRrMFvodMtWw=;
-        b=k9CpbJC59T/ItxFXqXOfQlo8l+W0og/JCj0dh1uf7UVGMP9xBqViRBa3uTRcY0jywx
-         6yJqa/qXixbI/0BpZEBmO/czC5Y5elR+8fErfRubGiGmWKpdZh8E8GZ33nexZE3oWJbl
-         utdlEo8c3CreWGs8kOMTOXV9Bo/l7eD6CJaDzqKfZSjX5mUzCx7JrOCgT3XylIRPxbpH
-         XGh8onrhNVC0eyTOXRlYqGgZ3vuiC9Go5hJ1MOJNoiqW2Z3G28p+F7b8T6lOR7QqG8UO
-         43NP1rsBiQJuEfgMsZsg8MG1OQ6y4NKvYSg9cNrE7YZv7uYY3KotNJlCmbBgSp+fPOMw
-         jbpg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788877417; x=1789482217;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=SnF7FxdLIEQlswE9xvoQ5sUHHcQzYgPIRrMFvodMtWw=;
-        b=pa5fxBBNtgLunFQiNMNPRbBWrD53Sg8yv+OLyc/X8FP/ND7M6IaKE5IWqXeGfdtTeX
-         KnrHXNOleUftJjjfwxETmB7MipTDcaLZ4yRxbrEx4K7CGOcS9oDanT69np+bh3rhUoBL
-         JrDPcpES238Jxp4M/od0U0osrrup1o4VS4yW9vWii+KFs8WU2hlKcsJGPFDmthAhfxnw
-         KoaZDYHfGqbiE8weJ8Te7GYh0QEpMGp8Z3cFxAGGphqVfgc47rL1kcgIkbdkuVK2Q4Ff
-         xcvSHaWRo+pwoTefG0NRBZ+rLbAZiGikbKYcQYCO3Dp9nLS9ENO/8fO0ZUP3OFSv5yys
-         CtoA==
-X-Forwarded-Encrypted: i=1; AKwUvByYVyXGLeBGZfKW4Kzm1xQ5pxdZqCDIx4hrYN5ikE1o6UDwn2abdCWNBux2/TJa82yiusn9ppiQB5/bgNI=@vger.kernel.org
-X-Gm-Message-State: AFuF++lGekVXBd1PYz+vHLrM/87vwpMVYxQNI2byl5gdsHAdu58HhEuI
-	fRQGxaxQwettz2xFFHC3REmVry9w+UQi4o2dRMqg7z+mWDWvyxlOVfgw
-X-Gm-Gg: AYBFou2kLQuq8SCayo0WQ/mZ36XDiMUjvkeCd7ro9VDhRx27I8Q9NBLF772vl+gOWn0
-	zxeOY0vWs+F35MsW0yoMZVoCmKqWd7pme4fXs5S6/9lN5FV7AqGm+s1TNvhkGMtXNZNDtsytGUd
-	MK5gXn0AVoiLS8BJ1yZnBZyPmv9M9Mj7ex7PIOt1hbHhc/ETc5SAHqryClYeFlRd0k7P/OaoXsI
-	dFYIj7CPUpmB+ZtS3D3+ymAUY1SNfD2Cq1DoN0BHZDXMUUINGqyJHW/D272GitQ1E9Rc+FinOTI
-	ot+KxHR8S+1Hvbw3WjBHcohNgFVRxHb6ykzNbz1kUvzM7Xv5SBpD5rKb7lA+ZNjql/e7FbkrXfW
-	l+shcWMRgM9PStiwz5F9yDYj9bdJnlpYYLqcV9whtWloCsD253SOt3yQ5L/pmtAmpu6iv3Os/rU
-	LBD/3PUUD6kN2fAtxLV7aUi/CPs5OI6kddyHoxJKDYZg==
-X-Received: by 2002:a05:6a00:1702:b0:857:726d:270c with SMTP id d2e1a72fcca58-8616dd51063mr41868561b3a.24.1788877416550;
-        Tue, 08 Sep 2026 07:23:36 -0700 (PDT)
-Received: from pc636 ([125.29.25.186])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8615404876fsm5590951b3a.59.2026.09.08.07.23.33
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 08 Sep 2026 07:23:36 -0700 (PDT)
-From: Uladzislau Rezki <urezki@gmail.com>
-X-Google-Original-From: Uladzislau Rezki <urezki@pc636>
-Date: Tue, 8 Sep 2026 16:23:30 +0200
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: "Uladzislau Rezki (Sony)" <urezki@gmail.com>, linux-mm@kvack.org,
-	Baoquan He <bhe@redhat.com>, LKML <linux-kernel@vger.kernel.org>,
-	stable@vger.kernel.org, Dev Jain <dev.jain@arm.com>,
-	Ye Liu <ye.liu@linux.dev>, lirongqing <lirongqing@baidu.com>
-Subject: Re: [PATCH RESEND] mm/vmalloc: Use dedicated unbound workqueues for
- vmap drain
-Message-ID: <aqAaYhLcyzscOCxb@pc636>
-References: <20260905152717.11711-1-urezki@gmail.com>
- <20260905153704.e7fe650d0226c3e20c1c8449@linux-foundation.org>
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="w3sGhBk0";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="hwD3ytoY";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="eJYsAkg0";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="Q3asSZUQ"
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id EA7D521ADF;
+	Tue,  8 Sep 2026 14:24:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1788877489; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=hHJKGSD2nFK/r/6f73cKpn6t2cf00+z7JQKS548yRy0=;
+	b=w3sGhBk08adRcOYfsOAa5bJwIaDpeCMdy/oP3XnrsrMTW1rD9O3l+FEXOhsICqiCJOzz8b
+	mCvSbcPkKM3BqFkJXQynZzT248uX/AHA720tAbeYdyxL9+gQ+Ghd/09UWZJBkuDMjLMJZs
+	IWvNj2RbP58mouFOnmrb2NfH0nUP4Xo=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1788877489;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=hHJKGSD2nFK/r/6f73cKpn6t2cf00+z7JQKS548yRy0=;
+	b=hwD3ytoYukqf1ABQS9gMwWY0Rj7qs/UtkR+FRNrGh2pUQp5PE0c92i2jeM4NwIuilHsQ07
+	hCKmTbhE9bfQzKAw==
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=eJYsAkg0;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=Q3asSZUQ
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1788877484; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=hHJKGSD2nFK/r/6f73cKpn6t2cf00+z7JQKS548yRy0=;
+	b=eJYsAkg0GEpmeTUKR9aXVqBdhNnq8tDwsHQh1JwUP7unnAV9GnUCaLoX34zz49DFUH8eF7
+	H9QNW52tcP8VZOUg3jOINoXxtjXnQWd/Adfe+Orsj1tD+Z1yWew5s6xk2DG8pTIhER6k+1
+	Xh1CQO4e8Q44A462WJtcZ9vC7qzUmV0=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1788877484;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=hHJKGSD2nFK/r/6f73cKpn6t2cf00+z7JQKS548yRy0=;
+	b=Q3asSZUQHNAxn4o6t6CDBr0zCkhEv9kDY1V+iifBodboLftNQGwoFbLgrntoogjXANTlsf
+	MfLYCLDck778lFAA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id BD5701364A;
+	Tue,  8 Sep 2026 14:24:44 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id j+2qLawaoGq3BwAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Tue, 08 Sep 2026 14:24:44 +0000
+Date: Tue, 08 Sep 2026 16:24:29 +0200
+Message-ID: <87ik4fq0rm.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Kazuki Hanai <hnkz.64@gmail.com>
+Cc: Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] ALSA: us122l: Prevent write upgrades for read mappings
+In-Reply-To: <20260908110053.2950767-1-hnkz.64@gmail.com>
+References: <20260908110053.2950767-1-hnkz.64@gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260905153704.e7fe650d0226c3e20c1c8449@linux-foundation.org>
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Spam-Score: -2.01
+X-Rspamd-Queue-Id: EA7D521ADF
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Spam-Level: 
+X-Rspamd-Action: no action
+X-Spamd-Result: default: False [-2.01 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_CONTAINS_FROM(1.00)[];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	TO_DN_SOME(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	ARC_NA(0.00)[];
+	FREEMAIL_TO(0.00)[gmail.com];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	RCVD_TLS_ALL(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[6];
+	DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TAGGED_RCPT(0.00)[];
+	DKIM_TRACE(0.00)[suse.de:+];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.de:dkim,suse.de:mid]
+X-Spam-Flag: NO
 
-On Sat, Sep 05, 2026 at 03:37:04PM -0700, Andrew Morton wrote:
-> On Sat,  5 Sep 2026 17:27:17 +0200 "Uladzislau Rezki (Sony)" <urezki@gmail.com> wrote:
+On Tue, 08 Sep 2026 13:00:53 +0200,
+Kazuki Hanai wrote:
 > 
-> > drain_vmap_area_work() function can take >10ms to complete
-> > when there are many accumulated vmap areas in a system with
-> > high CPU count, causing workqueue watchdog warnings when run
-> > via schedule_work():
-> > 
-> >   workqueue: drain_vmap_area_work hogged CPU for >10000us
-> > 
-> > Move the top-level drain work to a dedicated WQ_UNBOUND
-> > workqueue so the scheduler can run this background work
-> > on any available CPU, improving responsiveness. Use the
-> > WQ_MEM_RECLAIM to ensure forward progress under memory
-> > pressure.
-> > 
-> > Move purge helpers to separate WQ_UNBOUND | WQ_MEM_RECLAIM
-> > workqueue. This allows drain_vmap_work to wait for helpers
-> > completion without creating dependency on the same rescuer
-> > thread and avoid a potential parent/child deadlock.
-> > 
-> > Simplify purge helper scheduling by removing cpumask-based
-> > iteration to iterating directly over vmap nodes checking
-> > work_queued state.
+> The hwdep mmap callback rejects read-buffer mappings that are initially
+> writable, but leaves VM_MAYWRITE set on mappings created with PROT_READ.
+> A process that can open the hwdep node O_RDWR can later use mprotect() to
+> make the mapping writable.
 > 
-> Thanks.
+> The read allocation begins with struct usb_stream. Its read_size member is
+> used by the fault handler to decide which pages belong to the read buffer.
+> The read VMA intentionally remains expandable because pcm_usb_stream uses
+> mremap() after reading that size. Changing read_size first can therefore
+> map and access pages beyond the allocation. The same member is also
+> consumed by usb_stream_free(), where changing it can make
+> free_pages_exact() release pages outside the allocation.
 > 
-> > Cc: stable@vger.kernel.org
-> > Cc: Dev Jain <dev.jain@arm.com>
-> > Cc: Ye Liu <ye.liu@linux.dev>
-> > Cc: lirongqing <lirongqing@baidu.com>
-> > Fixes: 72210662c5a2 ("mm: vmalloc: offload free_vmap_area_lock lock")
-> > Link: https://lore.kernel.org/all/20260319074307.2325-1-lirongqing@baidu.com/
-> > Reviewed-by: Baoquan He <bhe@redhat.com>
-> > Signed-off-by: Uladzislau Rezki (Sony) <urezki@gmail.com>
+> Clear VM_MAYWRITE for read-buffer mappings after rejecting an initially
+> writable VMA. This keeps the separate output-buffer mapping writable while
+> preventing later permission upgrades.
 > 
-> I think what we wanted here was
-> 
-> Reported-by: Li RongQing <lirongqing@baidu.com>
-> Closes: https://lore.kernel.org/all/20260319074307.2325-1-lirongqing@baidu.com/
-> 
-> so I made that change.
-> 
-Yep :) Thank you!
+> Fixes: 030a07e44129 ("ALSA: Add USB US122L driver")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Kazuki Hanai <hnkz.64@gmail.com>
 
---
-Uladzislau Rezki
+Applied now.  Thanks.
+
+
+Takashi
