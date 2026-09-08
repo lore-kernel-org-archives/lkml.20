@@ -1,151 +1,176 @@
-Received: from mail-qk1-f176.google.com (mail-qk1-f176.google.com [209.85.222.176])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from LO0P265CU003.outbound.protection.outlook.com (mail-uksouthazon11022129.outbound.protection.outlook.com [52.101.96.129])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDE5F3B42D9
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 20:32:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.176
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788899551; cv=none; b=Yth09KhM3K43FDcSDsHROWFG2wQhz3CpQM2f5qRdNB40dtRA0ow7bS89kixIgs3rdxzB7hTx1tebSzPWuM+DB2oyVYCSQdGtWPyPNMLWe5BNtRr590l5VdeWesNTGU8sxhJaUoYV3Ab1BxSoeZ9xH7lcdKwRsMMN/EQuQOnm8Tw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788899551; c=relaxed/simple;
-	bh=FWhpj9vK1Ldc5YrEXaIJia5AF+nsKyUciE2D2XEf6lg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=k5+ARhoNT7hVhEinIDPW0T9mnM3lztiRfQHCdLVFm86e3W3J1GjnzpmDPpzeujSG0IYB+NsuqqmlydC9Dn8QpBVdPYjsDu6WXbs2cbQ1hcpcn8Z1Law3qAxbmhpL9jdp973lwB5LzSqKyQE3pHRDD9VptCsANx8ax8n2CsRI45s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=oXwrG636; arc=none smtp.client-ip=209.85.222.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oXwrG636"
-Received: by mail-qk1-f176.google.com with SMTP id af79cd13be357-9399798cdd2so222498585a.2
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 13:32:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788899549; x=1789504349; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=za+wuIfq3+qQspCDNaDw17t8tpWBTd0I2bcbC8c7q5Q=;
-        b=oXwrG636T4NN0xTsDqgj+W1Ps/RSgKbz25+2lAyG2wHA0OruGipGyPyngDjOW2WlHJ
-         U/oa1WJs63UvjGZGx1iy6ktfvAh+GgYnggYPxEFtKZzBfGe5LP5uVwh+pcPLjdTZy9F6
-         grDYdsFRDOhuDfSusHVPRJmuV0A7n1jgvG5W424bXhXW05uvwX5eTCQUTK1h5ANE5umA
-         alD4mAr0k2aE6kAKPn6mSZqiHRegOr4DOs32MwFGgSK9RUY3P0MJhFvrOY+92+pMPY0U
-         lPEmiLf2x+Ggus/VjYj6UTXgnTYrr/bDrEkXMe4dsHhWUsmbBQGpjFLRxuTIUOjF+dS3
-         67GQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788899549; x=1789504349;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=za+wuIfq3+qQspCDNaDw17t8tpWBTd0I2bcbC8c7q5Q=;
-        b=nigVS/S+JBgl92uknXxkhB2LcHNEtF6sJodB8KEv6qVVdWPKsR76qtsfn8gZ2Ps+sK
-         b4DX7IbFvRpfeDKqH3bHiO0TUBrRQRcFnibpsznkFkydNKCINhA/aXs1VBO33a5su3wN
-         fO1sqrGFXTJyA2WJsPvISbnkWmUcek0AsUbMwmx2cgZt69wO5dKMJb81QgHc5xYa8NXW
-         AfYyTEWSwdTREicCtb7wDaoPGhK6z1SYhdmVN5DJCI9Ta0MFXQM6Mxml+Bz46R5vrfnH
-         79k0g1Edv8sATTBCy7GjVplZ5cjV/9SWm8C/zKUEXxXesGYOS4ZePd1Fv+Zn5OawMB68
-         vYLg==
-X-Forwarded-Encrypted: i=1; AKwUvBwjmJjTqpMLpjyKQXguXSWBoj7lIqv+mZ4NTCgICG4Q+A1hy+kH134JxzXXpG3yeknrQ5eAxCkkO/RpkT8=@vger.kernel.org
-X-Gm-Message-State: AFuF++mu3D5m7VEAPt1Px7pYaFZrBPW/31ipdG5M+gQlgQc5wBGyfNIe
-	IlEW5Qp2X3l7xQHYxow9MwzYy3ZBwCgg1A2svwgkHgE1IUH57McSQa4c
-X-Gm-Gg: AYBFou19UMR6kMdAD/aay5tHA8Kl2SNZR0QUAAi0hbr6GeHiqxJ1OiaMoccAFUkjvXK
-	BHTBo9dVc6nSWeqZqlq8rkW60h2uIGob2600KIMsD9SMk7EzGEe3UDm9RJawhKtAEG0isyWSw1W
-	YmcS7+xbZSjPuX1j7Bk3nckbg5pTOF/u+4HWNeAVX04VSeQRt2/OoPLo73dn1/ns6Q4hvv3XEm8
-	dGHpDk/ngCVCsYKQyrRhq1ouFvB8p3a0lRP4/7HruUAJo+yX3nv1MFW1dZxhQoL750DsYlgOO9U
-	lYYjFYb12+O057fm7Weg2bQuQUPdVks5srzWzxZgnvpnWMK2xTmdnPLs03ufPONaiKfUH1pT56m
-	qsa1rjuaTlx616aMWE9zV3evhlXEVITETbmbh7cidmg4efvmyzUUU78rOkRClHMj5jYRA3zrVEJ
-	owUqI/QiQuK+3lbKKUO+HBqLygGHMRWAa8Pmd28ZMBvETOudIwWAzeE/z+AOBO/fjBeRBNpQ==
-X-Received: by 2002:a05:620a:8ac7:b0:936:c026:be61 with SMTP id af79cd13be357-9398036fbbcmr2132977485a.13.1788899548747;
-        Tue, 08 Sep 2026 13:32:28 -0700 (PDT)
-Received: from tofu.. ([128.210.0.165])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-9397f9f4b3csm1219948385a.5.2026.09.08.13.32.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 08 Sep 2026 13:32:28 -0700 (PDT)
-From: Georgios Androutsopoulos <georgeandrout13@gmail.com>
-To: Alice Ryhl <aliceryhl@google.com>,
-	Burak Emir <burak.emir@gmail.com>,
-	Miguel Ojeda <ojeda@kernel.org>,
-	Yury Norov <yury.norov@gmail.com>
-Cc: Boqun Feng <boqun@kernel.org>,
-	Gary Guo <gary@garyguo.net>,
-	=?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
-	Benno Lossin <lossin@kernel.org>,
-	Andreas Hindborg <a.hindborg@kernel.org>,
-	Trevor Gross <tmgross@umich.edu>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Daniel Almeida <daniel.almeida@collabora.com>,
-	Tamir Duberstein <tamird@kernel.org>,
-	Alexandre Courbot <acourbot@nvidia.com>,
-	=?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>,
-	Eliot Courtney <ecourtney@nvidia.com>,
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F9C43B2FFE;
+	Tue,  8 Sep 2026 20:32:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.96.129
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788899565; cv=fail; b=cGDpr8sJOLdP74f0kymrDNsQYfgapWASGt2okm5m+PeWpaxsFe+/78qjmb6PYD8Hee7eaqQM5CF3wIKrIY2HjhY9wDwk/bbzMngWKBvFg9TUc0AOCu9sQFZzcA3OYGkbq7vFFUO64eVb1zRbdfIdTbd36FmRNDF4f8cuXEgjyiU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788899565; c=relaxed/simple;
+	bh=6yEWKeQb/SEoo+2lpor2jRQcRYZHkb4uTbjtAbKjQbY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=R2GTzjg4p09KrPXGoWkkcwnzQj5td0i/uGBSFNTIHaohuho24Spbwxco2gCzTHDm+dNVgV+0mespds6qgcmWTAuOhPKj/utIZA2s5vEdazNwLGhLUoLrkKQlyW68yJDXz/ogYyGbWWygFdoINQuz/HKafCe7P9Dua84icMpbaYc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=atomlin.com; spf=pass smtp.mailfrom=atomlin.com; arc=fail smtp.client-ip=52.101.96.129
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=atomlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=atomlin.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=CBfHEp56RfU+lSmQcm5WSqz0s5PhHMrHGaNRdmDzB/ux1lyEaE+iVfBL7WFL4oYE0sZq7pnG7z3BUDWOR2BTtrPFAgvcOk/hwjidDczDjmPodT5SnAtVGFmtVMBlQygu/GNq6JX44UfxCDTcUHA7LUguuKqQmacn5MxmRW/MmWrwo1Qj7IcagS/sAaJjxVb+/EKCehsp00zXYMbm8Qb1fkMIAzcLRK6a/iQPuRFO4bo5Tl1haxvtvnElRWCkBXJJRBBzNKgK5nhdzKeH7QawLBbqeQUJGqk/fBjBFf8VKfZcAvr55y73sKG/uq9giX8QG14JU9/x9uxtFvl/v/2R1w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001; h=From:Date:Subject:Message-ID:MIME-Version;
+ bh=I6N2x9whj4JzC7LETE3SPsVQkRtwuSL6bGItzjlypVw=;
+ b=khRtyFh9v6ob1a6xC33zCeC3smpAjLzGGKJvUNc4RT+XOBRC0dYRs6vHB/WK4eCQdnXW8N8ERtDXBwtNo9/lrNax4A/lOGpVyiV1Abh+M4Br6MHEYHLrjd9oyiMDuhgxIwRxwVSdgBBZeugN16oGuhyZFfcW5AFnwHXZcivkVn9NfiUvmIz9fEsq9Jv5kcBUdyFewNdp0hwVf0lzAEpZuZT7oh6gIDXJv3bgOKgPoG8xVK2rpjNHH0kATtmMec41MWKILFRbGNDnFUQ7W1Bmz9U+wg5qptR7Xrd8RE8E9Ri8ekvGHeCv++jE8NKcfPp9WPSgTm/OaIYvPZoebixKww==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=atomlin.com; dmarc=pass action=none header.from=atomlin.com;
+ dkim=pass header.d=atomlin.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=atomlin.com;
+Received: from CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM (2603:10a6:400:183::5)
+ by LO6P123MB7126.GBRP123.PROD.OUTLOOK.COM (2603:10a6:600:341::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.7; Tue, 8 Sep 2026
+ 20:32:39 +0000
+Received: from CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
+ ([fe80::cec4:77ab:262e:d230]) by CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
+ ([fe80::cec4:77ab:262e:d230%4]) with mapi id 15.21.0406.005; Tue, 8 Sep 2026
+ 20:32:39 +0000
+From: Aaron Tomlin <atomlin@atomlin.com>
+To: arnd@arndb.de,
+	mcgrof@kernel.org,
+	petr.pavlu@suse.com,
+	da.gomez@kernel.org,
+	samitolvanen@google.com,
+	peterz@infradead.org,
+	ojeda@kernel.org
+Cc: akpm@linux-foundation.org,
+	gregkh@linuxfoundation.org,
+	mhiramat@kernel.org,
+	boqun@kernel.org,
+	atomlin@atomlin.com,
+	neelx@suse.com,
+	da.anzani@gmail.com,
+	sean@ashe.io,
+	chjohnst@mail.com,
+	steve@abita.co,
+	mproche@mail.com,
+	nick.lane@mail.com,
+	linux-arch@vger.kernel.org,
+	linux-modules@vger.kernel.org,
 	rust-for-linux@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Georgios Androutsopoulos <georgeandrout13@gmail.com>
-Subject: [PATCH v2] rust: id_pool: document panics in `find_unused_id` and `release_id`
-Date: Tue,  8 Sep 2026 16:31:57 -0400
-Message-ID: <20260908203157.1271219-1-georgeandrout13@gmail.com>
-X-Mailer: git-send-email 2.47.3
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v11 1/3] module: Treat dashes and underscores interchangeably in module_blacklist
+Date: Tue,  8 Sep 2026 16:32:28 -0400
+Message-ID: <20260908203230.401020-2-atomlin@atomlin.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260908203230.401020-1-atomlin@atomlin.com>
+References: <20260908203230.401020-1-atomlin@atomlin.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: BLAPR03CA0002.namprd03.prod.outlook.com
+ (2603:10b6:208:32b::7) To CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:400:183::5)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CWLP123MB6607:EE_|LO6P123MB7126:EE_
+X-MS-Office365-Filtering-Correlation-Id: ec0f18c8-ef11-43eb-1089-08df0de8539f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|366016|376014|7416014|23010399003|10067099003|56012099006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	TzelBlaNS0ZydXdEGlcO5IrFyZT1dWnnNBcgzegTPI+XxX+XLqvvfXltSoYgh5M9NKOJp4fGgGrltBwnXO6hKQ7VSrC1RJbKqUtpM22q9eRyuoUiEji7z8K8ewD+I8vNpgAJmLJ/nF7CSbQCYHEKMMnzsv+KyL6+KtW0BsVZ8LfoFb9YB/eiGvzjaxXH7QtO1hFErKUEeqQGR1DjYbSoX8zDlArCizs+JsApQxTUamYpU+k8koNPDMQmLCc3+S2M3h3BVa8T27PTNP9M6sYUp7Eg1rAeWLnYh0AMGB6wsFDSkc4++WYfC6R6JLYcfKHphlm0MObMvKGpkUN9fEuIIUiD3hT3yVO1GFOoPZmog9CAFz4KX24FFS05W5qDtagnDM+H1ihe6QxIdQbBZXleFhp5uQFtjc8naAUYV5OxdItGusOSBz4UurVPJHkjhxjVJcNUa0m3AgK5E+U0Gcd7ZZo8ktac8GYxpicAgbS/WfH15yi4hAkq9eY0nrFflPMtZqC+KHFIcwJwRJR+ioHYbXcELNpYZvpkXLMHLWXNHL2hu5LLug0AONwuoPPi7E/cWgi4reHdOngiObBM0nlJHBHom7jukS0UToyJW99+NynL3RUny3s6c2fRJihCl8wzFh27vAI7C4xwVeW/vIS72R4UHi3jgwav+zRl1PNcEU4=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(7416014)(23010399003)(10067099003)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?21hwkVtIWa/BEMenYrl+8hNVYHqmqIy+aAVlxuCsxmwm8SHV8mR/xmV2rc5n?=
+ =?us-ascii?Q?41+F/66WyIg1WkVu7EDf6qNtxcRV4nWPDxvvea2rk6yI7pWFyJ/HqTx12LSh?=
+ =?us-ascii?Q?qxVe9kUsLsSGlt6eeoVqvYFVAz9AgZC4C9PF91hHaktfDSOvG3WcGxME/ONx?=
+ =?us-ascii?Q?VLoUWaBYU8jnM7Ann4q6noNNkmQJq6BWtiJhct4Kh7GQl9I7V96snSj0uZTB?=
+ =?us-ascii?Q?WXJcL0ROZw3l0S2yWeYEN/Sh1Z/ybmKnXXZaIdRVEwaaHjI/884x/Lvb2o/g?=
+ =?us-ascii?Q?fsunYGOkJ5A9Bd0XOzDkCXvADhbVMZUC4BuM77Y+dXVVRr2xYUIVtkCt5hI1?=
+ =?us-ascii?Q?eJ44MP3BTqUs2pAlzYDk3hixiVUszSGgkkVagk2U2PFsq7PjQsdkcJlT43WI?=
+ =?us-ascii?Q?BE+MKWowA5NYt6X3M40pbTwIWpbNZus/YwuK2tTr1nbPwrT+5f6p73U69gYo?=
+ =?us-ascii?Q?fpbr0VjYU1hw7w0mq1xmhGVm+aAqDo30eYi5RlbZ5g2f9HJGGSf05q0wSlU1?=
+ =?us-ascii?Q?W9xxAj84r+BraHOT2rmoI6EnbUya4bvHx+gSbwVNIK19g12yDB+UtzJmjRMf?=
+ =?us-ascii?Q?/3z5STduaq+Fy91vutIkMmX1mZa7TNX3EGd7TmF9PTjrrXhQvUmGY7bU1JQ1?=
+ =?us-ascii?Q?7+cBlxBOqTbLoqc2sYhHSoeFvOsJMRHD4Sfc5L9Ppqp3/VaIBcjqIp2CFSQB?=
+ =?us-ascii?Q?ULG+ivksuNLbblEv//UmKIEXhGS4KZMxmH7EjROstSJYHDevudJdcxqIyr8A?=
+ =?us-ascii?Q?H9IKEhx3hFals+N/Lfa+Z6KfjDq3Wv8P62vhV1IBTLGRBu9vRnYv1MzaMMI3?=
+ =?us-ascii?Q?tlaTthBmj1m1vSej8SVEt0ulk1QGaYfJOEh/81sEUHb28sQ6j5r55yCSKtaq?=
+ =?us-ascii?Q?o45aQoRbpm2XDSSpn3ldG0w0p4vsEOhvzVBhdoQuxhuXnl6uI/13OED7/J0+?=
+ =?us-ascii?Q?5BZ+KAHeBtRSblrWhQbLJMf6ics611fbn3Jf1M+Zgk9IrV0nZeaFUNOYMTYy?=
+ =?us-ascii?Q?4ePITDW2rlm8j9dkuf/X5U//AAiJOq2+89BE4c5GV4Eq2ve5c7Gan7cXCBhW?=
+ =?us-ascii?Q?ndhm3i5aGU21WekBLMqQBBmyaX+CcQnknXG04xEQDZPSg3r8zvv1L8Ia3tgN?=
+ =?us-ascii?Q?TySP4jB6LEAZWs0Zh7abeKVaaYYpkIwttNmwou5MB2jGXUwrDcNlp5S2O7mz?=
+ =?us-ascii?Q?n8C0TBx5xAa0yx7U8G7ML4JaOdxO/U4yGTqZgrdowjj6TCfETo5nS3VFeN25?=
+ =?us-ascii?Q?wchJ8FEGEzYtdlINKkEFew61Nt9fnKaxVY/LZm38Qrmf/0g1YklO3SEdLmtO?=
+ =?us-ascii?Q?8f7aCGMqcT4P347FjUSJIkChJLSNyKOn6/SbYrakTmJFuI6m+vjbSD4Hlo6O?=
+ =?us-ascii?Q?MXW9NfaXEdXr+z3UvCpBJQl1pW+MLjqr7qKma+yp8eMo/zpa5OC1dCfF1AXd?=
+ =?us-ascii?Q?DTC5sFJiOgXOCIfZ/z7GR30IMAw29u5tqyILf+cjidheil/xlL7D/BPerf8J?=
+ =?us-ascii?Q?8aUAsgCfxBWU6Ewi+WpM5PXFzofnXt2uv0XrpngxWTICnb3V1LqVdGfRar78?=
+ =?us-ascii?Q?BaQGC2rNRTVSNX/LBI8cI20yJEE4JR/LZwxgoB8f//Wwir5qVbGhjZ9pWFAE?=
+ =?us-ascii?Q?Ifjo2MVlleNWWZnlUg+bLLDHXvrPxJV75wtlZrAnM6XuiidiJyKfdqCNFU9+?=
+ =?us-ascii?Q?Prg/qxh2of99VgZu4MA8qTy5kczZSa0XtLn/ckteqzhGrqTk/9bHYBfgL7T9?=
+ =?us-ascii?Q?/bBap/L9kA=3D=3D?=
+X-OriginatorOrg: atomlin.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ec0f18c8-ef11-43eb-1089-08df0de8539f
+X-MS-Exchange-CrossTenant-AuthSource: CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Sep 2026 20:32:39.8535
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: e6a32402-7d7b-4830-9a2b-76945bbbcb57
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: XPQ1Z17bGXx3AGOCIra+Tj12sOVmcYfBMXyCu20LbOe2GyKZcAOIMrvK3+RAzGfbsx/ctkBmapDy220CqbdQkw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO6P123MB7126
 
-`find_unused_id()` calls `Bitmap::next_zero_bit()` and `release_id()`
-calls `Bitmap::clear_bit()`, both of which panic when
-`CONFIG_RUST_BITMAP_HARDENED` is enabled and the index is out of
-bounds. Neither `IdPool` method documents this.
+The "module_blacklist=" command-line parameter allows administrators to
+prevent specific modules from loading by specifying a comma-separated
+list of module names. The blacklisted() helper checks candidate modules
+against this list using a strict byte-for-byte comparison via memcmp().
 
-Add the missing `# Panics` sections and state the bounds requirement
-on `offset` and `id`.
+However, the kernel build system normalises module names to use
+underscores (e.g., "my_module"), whereas administrators and user-space
+utilities may use hyphens (e.g., "my-module") interchangeably.
 
-Fixes: 2cdae413cd3e ("rust: add dynamic ID pool abstraction for bitmap")
-Reviewed-by: Alexandre Courbot <acourbot@nvidia.com>
-Signed-off-by: Georgios Androutsopoulos <georgeandrout13@gmail.com>
+Because of the strict memcmp(), specifying a module name with a hyphen
+on the kernel command line (e.g., "module_blacklist=my-module") fails
+to match the internal module name ("my_module"). Consequently, the
+module is loaded despite having been explicitly blacklisted, defeating
+the intended administrative mitigation.
+
+Replace memcmp() with parameqn(), which treats dashes and underscores as
+equivalent. This ensures that module names match correctly regardless of
+whether hyphens or underscores are supplied, matching standard kernel
+parameter and modprobe behaviour.
+
+Fixes: be7de5f91fdc ("modules: Add kernel parameter to blacklist modules")
+Reported-by: sashiko-bot <sashiko-bot@kernel.org>
+Cc: stable@vger.kernel.org
+Signed-off-by: Aaron Tomlin <atomlin@atomlin.com>
 ---
-Changes in v2:
-- Use "within bounds" instead of "in bounds", following feedback from
-  Alexandre Courbot.
-- Add Fixes:, treating the documentation hole as a bug [1].
-- Link to v1: https://lore.kernel.org/rust-for-linux/20260829153442.20799-1-georgeandrout13@gmail.com/
+ kernel/module/main.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-[1] https://lore.kernel.org/rust-for-linux/CANiq72mgZg-QBy4gwzHmD4gJm4wScktfpdDtyZt3Zijk83h2CA@mail.gmail.com/
----
- rust/kernel/id_pool.rs | 15 ++++++++++++++-
- 1 file changed, 14 insertions(+), 1 deletion(-)
-
-diff --git a/rust/kernel/id_pool.rs b/rust/kernel/id_pool.rs
-index 384753fe0e44..ae6960d7f638 100644
---- a/rust/kernel/id_pool.rs
-+++ b/rust/kernel/id_pool.rs
-@@ -224,7 +224,13 @@ pub fn grow(&mut self, mut resizer: PoolResizer) {
-     /// Finds an unused ID in the bitmap.
-     ///
-     /// Upon success, returns its index. Otherwise, returns [`None`]
--    /// to indicate that a [`Self::grow_request`] is needed.
-+    /// to indicate that a [`Self::grow_request`] is needed. `offset` must be
-+    /// within bounds.
-+    ///
-+    /// # Panics
-+    ///
-+    /// Panics if `CONFIG_RUST_BITMAP_HARDENED` is enabled and `offset` is out
-+    /// of bounds.
-     #[inline]
-     #[must_use]
-     pub fn find_unused_id(&mut self, offset: usize) -> Option<UnusedId<'_>> {
-@@ -236,6 +242,13 @@ pub fn find_unused_id(&mut self, offset: usize) -> Option<UnusedId<'_>> {
-     }
-
-     /// Releases an ID.
-+    ///
-+    /// The `id` must be within bounds.
-+    ///
-+    /// # Panics
-+    ///
-+    /// Panics if `CONFIG_RUST_BITMAP_HARDENED` is enabled and `id` is out of
-+    /// bounds.
-     #[inline]
-     pub fn release_id(&mut self, id: usize) {
-         self.map.clear_bit(id);
-
-base-commit: 73e3f0710014fe6d4ed98cfc02292f6121db7558
---
-2.47.3
+diff --git a/kernel/module/main.c b/kernel/module/main.c
+index d0e1e0bd2ad0..2b708c59f0f1 100644
+--- a/kernel/module/main.c
++++ b/kernel/module/main.c
+@@ -2942,7 +2942,7 @@ static bool blacklisted(const char *module_name)
+ 
+ 	for (p = module_blacklist; *p; p += len) {
+ 		len = strcspn(p, ",");
+-		if (strlen(module_name) == len && !memcmp(module_name, p, len))
++		if (strlen(module_name) == len && parameqn(module_name, p, len))
+ 			return true;
+ 		if (p[len] == ',')
+ 			len++;
+-- 
+2.55.0
 
