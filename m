@@ -1,134 +1,202 @@
-Received: from sg-2-5.ptr.blmpb.com (sg-2-5.ptr.blmpb.com [71.18.227.5])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail-m3292.qiye.163.com (mail-m3292.qiye.163.com [220.197.32.92])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBF4F33AD88
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 02:38:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=71.18.227.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27C102AE78;
+	Tue,  8 Sep 2026 02:46:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.32.92
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788835105; cv=none; b=ZVoqJx0/62JzL+RWxUlhmAGZ7RHjHNIXOAQpWdD7l8rzET8Rl9+XD7NCGcuInOdm2VDWAUw4xVnFni/Oidzoq/+z54BobUiCPkZv53QjsUSggV0cYXqEHz9REOWnZnUj4F8wNpHnGs69In4vHICyX9StsnT0zRligbSd5yOn6cI=
+	t=1788835609; cv=none; b=HQCiatqqMh7VXvtg/b/yGNlSwOzRYwxiGT3baBYS9VotweLml6/6xFuayeIJGVvUy8XYsgCCoSD6vX89baeIG6BnNwJJW5B1pyH5/9PkzSkX7PRc1505+6amujrZgVEp+F3X5mSQHB/6d95jUvsveLItccm6Y5dObaCkS74hQkE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788835105; c=relaxed/simple;
-	bh=pxlOfexWygBPVSw286Nocjn0c3g8NEXXEojlLnb2oyY=;
-	h=From:To:Message-Id:References:Cc:Subject:Date:Mime-Version:
-	 In-Reply-To:Content-Type; b=H7pmmuCQg5jOyCs9a6oRs5GukVILMsB2AbIoMco+qALZSblqiH9mwUduRma5GdqyES9ER6SMyKGswnCVyKHDOuKdoYpIqtNzdNlN/rT04I4dTolMGY7U1U01of0Gne4b7kE2gauB9O15C6JayTIevVHlUcyJjmCIAFI1DOMQcJA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cherr.cc; spf=pass smtp.mailfrom=cherr.cc; dkim=pass (2048-bit key) header.d=cherr.cc header.i=@cherr.cc header.b=wRt6i5N8; arc=none smtp.client-ip=71.18.227.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cherr.cc
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cherr.cc
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cherr.cc header.i=@cherr.cc header.b="wRt6i5N8"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=feishu2604220257; d=cherr.cc; t=1788835091; h=from:subject:
- mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
- mime-version:in-reply-to:message-id;
- bh=6beIM0Su1eFg259xHdu6aLppSM3IuAgqBeGAf0Hsje0=;
- b=wRt6i5N84pMAv5jbhtS3bwDkDQb0VMZ5rXTihYcFUeTJodotCoZ7hoaQQBNgwPlT0spHYm
- KHAlqRZvd2Ca+BiUB6dlDh1JpmEGx7lDQPDDHBN/78J8neD44NOZvqo9+FxRks6uRep6Zp
- /U+oZ9K1ahRJeydRbSW4KDxh8ANMNjit/yaGg49NmGEhkbCOM3vrpeEvGUZ2HVduvd22q7
- uuIRBvBHTWLwu0KKKUS6pyOjqh8L0IufEDm4ohgsckf5R47kSTIpfOOOj6wwEWTTetQX82
- CfmK6nS5FtGoKKvkJiMyb1IaT5X1kfoFsqGcseGT/AMeCdKcLTeR1vAKWppMhw==
-From: "Shengzhuo Wei" <me@cherr.cc>
-Received: from [192.168.9.107] ([111.42.148.30]) by smtp.feishu.cn with ESMTPS; Tue, 08 Sep 2026 10:38:08 +0800
-To: "Wei Fang" <wei.fang@nxp.com>, "Frank Li" <frank.li@nxp.com>, 
-	"Shenwei Wang" <shenwei.wang@nxp.com>, 
-	"Andrew Lunn" <andrew+netdev@lunn.ch>, 
-	"David S. Miller" <davem@davemloft.net>, 
-	"Eric Dumazet" <edumazet@google.com>, "Jakub Kicinski" <kuba@kernel.org>, 
-	"Paolo Abeni" <pabeni@redhat.com>, 
-	"Richard Cochran" <richardcochran@gmail.com>, 
-	"Troy Kisky" <troy.kisky@boundarydevices.com>, 
-	"Fugang Duan" <fugang.duan@nxp.com>, 
-	"Lucas Stach" <l.stach@pengutronix.de>
-Message-Id: <20260908-fec-ptp-pps-event-uaf-v2-2-2a1d57121ade@cherr.cc>
-References: <20260908-fec-ptp-pps-event-uaf-v2-0-2a1d57121ade@cherr.cc>
-X-Mailer: b4 0.16.0
-Content-Transfer-Encoding: 7bit
-X-Original-From: Shengzhuo Wei <me@cherr.cc>
-Cc: "Simon Horman" <horms@kernel.org>, "Phuc" <phucduc.bui@gmail.com>, 
-	<imx@lists.linux.dev>, <netdev@vger.kernel.org>, 
-	<linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>, 
-	"Shengzhuo Wei" <me@cherr.cc>
-Subject: [PATCH net v2 2/2] net: fec: free the PPS interrupt before tearing down the PHC and netdev
-Date: Tue, 08 Sep 2026 10:37:58 +0800
+	s=arc-20240116; t=1788835609; c=relaxed/simple;
+	bh=bkvaihQtTwwvBE9ba51dTul0teoIzaHg5vaIpuaQHhc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=CS+IUpxqvDMQMujHGoWXXr32OOZBG0nt9sX8tXnXpGD3h+uf3rq8v/u++IW2rpxGalHTDfTl8/Zmz0fWu/Pom99PO9j/xx+pwrBgqCubvxd7qy/SA7ZBzMYxAmrygjuw7FM5UZgR/bGSUlhHBuW5ci2APhIae/uWxffUWRDdejs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=easystack.cn; spf=pass smtp.mailfrom=easystack.cn; arc=none smtp.client-ip=220.197.32.92
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=easystack.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=easystack.cn
+Received: from [192.168.0.59] (unknown [218.94.118.90])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 1ece1b045;
+	Tue, 8 Sep 2026 10:41:23 +0800 (GMT+08:00)
+Message-ID: <6744bcdb-3456-4ba2-95a0-a58c354bfbfa@easystack.cn>
+Date: Tue, 8 Sep 2026 10:41:23 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-X-Lms-Return-Path: <lba+26a9f7511+5029b6+vger.kernel.org+me@cherr.cc>
-In-Reply-To: <20260908-fec-ptp-pps-event-uaf-v2-0-2a1d57121ade@cherr.cc>
-Content-Type: text/plain; charset=UTF-8
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 0/8] mm/page_owner: Add PID/TGID/COMM and cgroup
+ filtering
+To: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>
+Cc: David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ "Liam R . Howlett" <liam@infradead.org>, Mike Rapoport <rppt@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ Randy Dunlap <rdunlap@infradead.org>,
+ Brendan Jackman <brendan.jackman@linux.dev>,
+ Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>,
+ linux-mm@kvack.org, linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Steven Rostedt <rostedt@goodmis.org>
+References: <20260903041819.1776630-1-zhen.ni@easystack.cn>
+ <a6ce8684-116b-42f2-a88c-154eb86bad59@kernel.org>
+ <a98bde94-d1fb-4246-b7c6-e64303d8388a@easystack.cn>
+ <5d4c247c-b8ea-4d3f-b2b9-d442d372fd03@kernel.org>
+From: "zhen.ni" <zhen.ni@easystack.cn>
+In-Reply-To: <5d4c247c-b8ea-4d3f-b2b9-d442d372fd03@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa07ee443440229kunma965adf619bcf2
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFJQjdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZTx1LVh1MTE5PGE1CQ01MGlYVFA
+	kWGhdVGRETFhoSFyQUDg9ZV1kYEgtZQVlJSkNVQk9VSkpDVUJLWVdZFhoPEhUdFFlBWU9LSFVCQk
+	lOS1VKS0tVSkJLQlkG
 
-The devm-managed PPS interrupt remains registered until after the
-remove callback returns, outliving both the PHC and the netdev.
-An in-flight handler can call ptp_clock_event() during PHC teardown,
-and a later interrupt can dereference the freed netdev.
 
-Record the IRQ after a successful request and release it with
-devm_free_irq() in fec_ptp_stop(), before ptp_clock_unregister().
-This removes the handler and waits for any running instance to
-finish before the PHC and netdev are torn down.
 
-Fixes: 4ad1ceec05e4 ("net: fec: Let fec_ptp have its own interrupt routine")
-Cc: stable@vger.kernel.org
-Assisted-by: GLM:5.3
-Signed-off-by: Shengzhuo Wei <me@cherr.cc>
----
- drivers/net/ethernet/freescale/fec.h     |  1 +
- drivers/net/ethernet/freescale/fec_ptp.c | 12 +++++++++++-
- 2 files changed, 12 insertions(+), 1 deletion(-)
+在 2026/9/7 23:21, Vlastimil Babka (SUSE) 写道:
+> On 9/7/26 06:08, zhen.ni wrote:
+>>
+>>
+>> 在 2026/9/4 16:25, Vlastimil Babka (SUSE) 写道:
+>>> On 9/3/26 06:18, Zhen Ni wrote:
+>>>> This patch series adds process and memory cgroup filtering support to
+>>>> page_owner. Following the previous series that introduced print_mode and
+>>>> NUMA node filters:
+>>>>     https://lore.kernel.org/linux-mm/20260707115411.1714314-1-zhen.ni@easystack.cn/
+>>>>
+>>>> This series adds filtering capabilities to page_owner, allowing users to
+>>>> filter output by specific processes and memory cgroups. Users can now
+>>>> filter page_owner output by PID, TGID, COMM (with wildcard support), and
+>>>> memory cgroup path. This makes page_owner debugging more focused and
+>>>> efficient for tracking memory allocations in specific contexts.
+>>>
+>>> I wonder about the usefulness of all the new filters. In my experience
+>>> page_owner is useful to find a kernel memory leak code, and for that the
+>>> stacktraces are most useful. Dealing with things like pid/tgid/comm/cgroups
+>>> sounds more like your aim is to profile and optimize particular userspace to
+>>> use less kernel memory? In that case, isn't it rather the area of memory
+>>> allocation profiling (or maybe tracing with bpf), not page_owner?
+>>>
+>>> Moreover, tracing or bpf can already do such kind of filtering and AFAIK
+>>> ftrace filters for tracepoints are nice and generic, while this is adding a
+>>> bunch of custom parsing and filtering. So that makes me somewhat sceptical.
+>>>
+>>
+>> Thanks for the review, and the scepticism is fair - let me first
+>> clarify where I agree with you, then explain the niche I think these
+>> filters fill.
+> 
+> Sorry but your whole reply reads like a LLM slop. It took a lot of mental
+> effor to actually try and engage with it.
+> 
 
-diff --git a/drivers/net/ethernet/freescale/fec.h b/drivers/net/ethernet/freescale/fec.h
-index 7176803146f3..960b9f01c531 100644
---- a/drivers/net/ethernet/freescale/fec.h
-+++ b/drivers/net/ethernet/freescale/fec.h
-@@ -670,6 +670,7 @@ struct fec_enet_private {
- 
- 	/* pps  */
- 	int pps_channel;
-+	int pps_irq;
- 	unsigned int reload_period;
- 	int pps_enable;
- 	unsigned int next_counter;
-diff --git a/drivers/net/ethernet/freescale/fec_ptp.c b/drivers/net/ethernet/freescale/fec_ptp.c
-index 56801c2009d5..567ea2a46117 100644
---- a/drivers/net/ethernet/freescale/fec_ptp.c
-+++ b/drivers/net/ethernet/freescale/fec_ptp.c
-@@ -778,6 +778,7 @@ void fec_ptp_init(struct platform_device *pdev, int irq_idx)
- 	hrtimer_setup(&fep->perout_timer, fec_ptp_pps_perout_handler, CLOCK_REALTIME,
- 		      HRTIMER_MODE_REL);
- 
-+	fep->pps_irq = -1;
- 	irq = platform_get_irq_byname_optional(pdev, "pps");
- 	if (irq < 0)
- 		irq = platform_get_irq_optional(pdev, irq_idx);
-@@ -787,9 +788,12 @@ void fec_ptp_init(struct platform_device *pdev, int irq_idx)
- 	if (irq >= 0) {
- 		ret = devm_request_irq(&pdev->dev, irq, fec_pps_interrupt,
- 				       0, pdev->name, ndev);
--		if (ret < 0)
-+		if (ret < 0) {
- 			dev_warn(&pdev->dev, "request for pps irq failed(%d)\n",
- 				 ret);
-+		} else {
-+			fep->pps_irq = irq;
-+		}
- 	}
- 
- 	fep->ptp_clock = ptp_clock_register(&fep->ptp_caps, &pdev->dev);
-@@ -861,6 +865,12 @@ void fec_ptp_stop(struct platform_device *pdev)
- 
- 	cancel_delayed_work_sync(&fep->time_keep);
- 	hrtimer_cancel(&fep->perout_timer);
-+
-+	if (fep->pps_irq >= 0) {
-+		devm_free_irq(&pdev->dev, fep->pps_irq, ndev);
-+		fep->pps_irq = -1;
-+	}
-+
- 	if (fep->ptp_clock)
- 		ptp_clock_unregister(fep->ptp_clock);
- }
+This reply was written by me, and its viewpoints are not simply copied 
+directly from an LLM. The LLM only assists with the wording.
 
--- 
-2.47.3
+>> In memory usage source analysis and memory leak analysis, I believe
+>> page_owner has its own unique niche:
+>>
+>> 1. Nearly all historical allocation records are queryable. Dynamic
+>>      tracing tools (bpf, ftrace) cannot do this.
+> 
+> This seems totally the opposite. page_owner gives you the current allocation
+> snapshot. Tracing can provide the full historical record of allocation and
+> freeing, which can be also postprocessed for snapshots.
+> 
+Here you completely misunderstood my meaning, perhaps I did not express 
+it clearly.
+
+The biggest difference between page_owner and dynamic tracing tools is 
+that page_owner traverses all currently allocated pages using PFN; 
+whereas dynamic tracing tools can only view pages after the observation 
+point is established. The pages collected by page_owner include those 
+from relatively early in the kernel — as long as they are still 
+occupying memory, they can be detected. This is what I mean by 
+"historical allocation records."
+
+>> 2. The full allocation stack is recorded via stackdepot. Memory
+>>      allocation profiling as a code-tagging technique cannot do this.
+> 
+> I think there's some extension (or plan for it), Suren would know better.
+> 
+
+I have previously researched the code and documentation of Memory 
+allocation profiling, so this viewpoint is not directly copied from an 
+LLM. The reason I think it cannot record stacks is: its design goal is 
+to be lightweight and usable in production environments, therefore it 
+chose the code-tagging approach. If it recorded stacks, it would already 
+deviate from its original design goal.
+
+>> 3. Zero extra usage cost (works as long as page_owner is enabled) and
+>>      a low barrier to entry (one echo line versus writing a bpf
+>>      program).
+>>
+>> On the pain points that motivated the series. On production machines
+>> with large memory configurations (e.g., 250GB+):
+>>
+>> 1. Collecting page_owner information takes minutes to tens of minutes.
+>> 2. The output is several gigabytes to over 10GB.
+>>
+>> That makes the raw output nearly unreadable and forces post-processing
+>> with tools/mm/page_owner_sort.c, adding further workload. The root
+>> causes are:
+> 
+> the "workload" is just cpu time though
+
+This workload is not just CPU — printing the stack takes up the vast 
+majority of it.
+
+> 
+>> 1. The PFN scan itself - unavoidable, it is the price of page_owner's
+>>      core function of covering every page.
+>> 2. Printing every stack for every page - this dominates the cost and
+>>      is avoidable. stackdepot already deduplicates stacks and keeps a
+>>      refcount per unique stack; page_owner then re-prints the same stack
+>>      once per page, and page_owner_sort deduplicates it all over again
+>>      in userspace.
+> 
+> Since it's avoidable, why mention it at all? Oh I know, LLM slop.
+> 
+
+I feel like you haven't really understood what I'm trying to express.
+
+>> The filters target exactly this waste: they keep page_owner focused on
+>> the user's area of interest instead of paying the full print cost.
+>>
+>> On the overlap with dynamic tracing and allocation profiling: the
+>> features do look similar, but the usage scenarios differ. page_owner
+>> is not enabled by default on production systems, so most developers
+>> rightly reach for the lighter-weight tools first - dynamic tracing or
+>> allocation profiling.
+> 
+> Good! That's an argument against.
+> 
+>> But when page_owner is already enabled, or the
+>> lighter-weight tools cannot solve (or cannot conveniently solve) the
+> 
+> Adding custom filtering code to kernel vs user convenience is a trade-off.
+> 
+>> problem and enabling page_owner is an option, the advantages above
+>> kick in: the historical snapshot is filterable in place, and the
+>> filtered output is small enough to read directly.
+>>
+>> So I see the filters as completing page_owner for the scenarios where
+>> it is the right tool, rather than competing with the profiling and
+>> tracing tooling.
+> 
+> I'm not convinced it's worth it.
+
+You may keep your opinion. I think you haven't carefully read my reply, 
+or you simply assumed this is just an automated reply from an LLM.
+
+Perhaps you haven't actually used page_owner on a server with very large 
+memory to investigate memory usage or leak issues (for example, the NIC 
+ring buffer usage problem cannot be solved with dynamic tracing tools). 
+Once you've used it, you'll know how much you need a filter.
+
+
+Thanks,
+Zhen
