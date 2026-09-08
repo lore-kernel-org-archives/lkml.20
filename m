@@ -1,163 +1,209 @@
-Received: from mxb.seznam.cz (mxb.seznam.cz [77.75.78.89])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C205599A41;
-	Tue,  8 Sep 2026 22:30:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=77.75.78.89
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788906646; cv=none; b=tdm9Vx8wb3Q21USTKfEzysm3eHqFAECFVfDiBqaVvF9WKVZPJWiqovsp56dPlFlur3mi/ViD9rNrCb6LOjTlk3YFD4OXoa7CsxKB+QIa+Mg9GGRAL3/SZA/6Y6SI+l0f6lPr4bmDCDYt8Y6FkIc0OW7AiK64sKlhJooRpogOWPo=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788906646; c=relaxed/simple;
-	bh=xkRA3SsWryu7DlbwcSzKkpPCmeXlBfjYntbFpVJ3814=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=oh6of0gFw5GyUXSrpjDvFpUcLTJj2ZDsxGTSu/Hz4yj3gNPGz9esNghJ82NlUTLvG5E4Z0DV9DTmUc/pHJfQm4lFEV8ZhrZ8m//GnhzC8/cVtOuUDUhr8BZ/ipNPYeYD6Aqel4NOUxBqKeXgpna5Dygf+gBgU0xcnjZvFEXJl78=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=podgorny.cz; spf=pass smtp.mailfrom=podgorny.cz; dkim=pass (2048-bit key) header.d=emailprofi.seznam.cz header.i=@emailprofi.seznam.cz header.b=ww6QiAw7; arc=none smtp.client-ip=77.75.78.89
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=podgorny.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=podgorny.cz
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D8B65947E6;
+	Tue,  8 Sep 2026 22:31:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=198.175.65.15
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788906694; cv=fail; b=heaag2U986H7mhv4VHtNoDk4iOauxj+X4REg9wAS/2Dj5siEI8pDiBXBYIBfWv6Zd/MgyQa77hUvTs+GGuERd+B1Yqae01j2aMzcNuIKR02ZKINtpVeKb0WmXCmjDa33GXnEEhs7mk9vCOlxpF+liQjTi/9GVvio0vPgsui0HUY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788906694; c=relaxed/simple;
+	bh=j9wPR8sfCrKkzzyuI5vRIYvJsu53+LT354v/PpL2yzI=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=iv//WmvPMV9L8acuChLH8uAlq2tgfvpcMdzF0dAFGkXqRkI3iAfZg0GyNdvNXsgr1M7eEB26L8V9p2FW0J/x5g3hCAyW9VFkWWw3XkTmwRaWEwBHspmWJ8eao6KABjuNpWTkEjBGtulZy8I8m832AOaiLgyOarXzuEv2Os9yfoE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=UrYU/vFJ; arc=fail smtp.client-ip=198.175.65.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=emailprofi.seznam.cz header.i=@emailprofi.seznam.cz header.b="ww6QiAw7"
-Received: from email.seznam.cz
-	by smtpc-mxb-7db765f675-fgg8f
-	(smtpc-mxb-7db765f675-fgg8f [2a02:598:64:8a00::1000:90d])
-	id 1f582406a962891f1ad73e4e;
-	Wed, 09 Sep 2026 00:30:34 +0200 (CEST)
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=emailprofi.seznam.cz; s=szn1; t=1788906634;
-	bh=qX9dXFdeBk2ipP3lgnFYeexZSCLW9x6QEQvTAxC+6tA=;
-	h=From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:To:Cc;
-	b=ww6QiAw7vm5bFu8PDlQGqtMtWZ7pezhq29jxVsSRmqIn9pmbsFrpc8qWCBTGYOIkX
-	 gcY1wRQ0yER82p/mpsSr/bVYI0RT6U3vbDjhvO3hhiFCrNVf5ese5MD1O2g+oInLjL
-	 dbldxKppFAVVZCTigcxXrCdaLpgeSZTKtcm8d3hmLMRlx16OkD5RK8ipb4NlmpLsir
-	 g3xRKMjcEUvocggrCKdR5pcy6E1kRYw1xptG+fFxxLuw8IK2epIA50UPBUZ8qhgMqx
-	 8TMLAKSTAylSgopiNKDGuokLfHMjoRXkS4l6Y1ObsyTYyhtZ2uS6oTTL3pBEDRyeqx
-	 Y+y4ilAME8bnQ==
-Received: from [192.168.31.57] ([2a01:9422:904:1ee:272:eeff:feab:4ab4])
-	by smtpd-relay-6ffbffc97b-l7tfj (szn-email-smtpd/2.0.82) with ESMTPA
-	id 31f84ae0-7711-4864-9521-f6556ea17b47;
-	Wed, 09 Sep 2026 00:29:38 +0200
-From: Radek Podgorny <radek@podgorny.cz>
-Date: Wed, 09 Sep 2026 00:29:37 +0200
-Subject: [PATCH v3 2/2] Bluetooth: put the peer's on-air address on air
- when we cannot resolve
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="UrYU/vFJ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788906690; x=1820442690;
+  h=from:to:cc:subject:date:message-id:references:
+   in-reply-to:content-id:content-transfer-encoding:
+   mime-version;
+  bh=j9wPR8sfCrKkzzyuI5vRIYvJsu53+LT354v/PpL2yzI=;
+  b=UrYU/vFJacrloBdwgJPB4YxDddy2dkji5d+KIjJU7hv96HQ66eR1u533
+   TABTrtgAsivQzlfDcvixAi34p+QxiJ6omIDwyrS3BTQOOsgyP+za5k0Tv
+   GFeL672APkDOPuAp5xNVcTMzYP8E2f3bquR4QcxECH8oHIRhRd1wZk3wP
+   pQkp8rvU4QsOaZYtpCpgy5q3DMj6bpmrRMInt+8CHSYeJLh6VqDpM9iQq
+   w/t4ZZj4F/IWNIh7M/mD17zct2lswHJZBvp6XBPnwBOn36VklDUGSF1VV
+   YdoeO2zBk/mcCDAHpPeevOK/7gQXMN1VtJpbpaoncUKlvCBpN23RXmdSn
+   g==;
+X-CSE-ConnectionGUID: svTsrdYdSLm/8vXZstibDw==
+X-CSE-MsgGUID: k0f2dGfnS9mKYXigzorMag==
+X-IronPort-AV: E=McAfee;i="6800,10657,11900"; a="93019847"
+X-IronPort-AV: E=Sophos;i="6.25,269,1779174000"; 
+   d="scan'208";a="93019847"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Sep 2026 15:31:29 -0700
+X-CSE-ConnectionGUID: 8HkO26PGQs+WWx2Y/FMYhg==
+X-CSE-MsgGUID: 7yLAjvJGR1anFxwo5PiRPg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,269,1779174000"; 
+   d="scan'208";a="296071237"
+Received: from fmsmsx903.amr.corp.intel.com ([10.18.126.92])
+  by fmviesa001.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Sep 2026 15:31:29 -0700
+Received: from FMSMSX901.amr.corp.intel.com (10.18.126.90) by
+ fmsmsx903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Tue, 8 Sep 2026 15:31:28 -0700
+Received: from fmsedg902.ED.cps.intel.com (10.1.192.144) by
+ FMSMSX901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46 via Frontend Transport; Tue, 8 Sep 2026 15:31:28 -0700
+Received: from CH1PR05CU001.outbound.protection.outlook.com (52.101.193.13) by
+ edgegateway.intel.com (192.55.55.82) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Tue, 8 Sep 2026 15:31:28 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=nJucSjC7Ib3Tt8GCdcQWgXcNaOIRxO7MGqJHXqeOfj3DbSm333oN4eh791xpT3Iw8VjWp8Q+ds4QBXOQTTLwO/kIpk7p3Wfdhm108XvOhWJ0a4TxU8aS7qelYGYH3EQgoU5dnHVfWQ8JbSnu7MsAOcGrd42am7jWSPQVVx+0HZ68zNllH3tjqyDw3T9nBIdq9IsTfhpOc2GOX5DCm7EI6oJi0JS3Kei2v3oxXkX5R4XhelVhUfB4dDjToP/0JpMSHJWA/3ryeonuEA5DROi8LdSNOHe2ZZI9IidMmvxhJhoZsRbGIHiyY9KqyUi3g1rZMlQV8nRvzl8AGNwiZ3uf0Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=j9wPR8sfCrKkzzyuI5vRIYvJsu53+LT354v/PpL2yzI=;
+ b=QK67f4XaFBUR455VHsSmqNPhd8ezjiRWOwbX7aFZ/VIigN2tGDrFXVk+1ZQLvBz7c1avU9hzBM3r+6s6CdgYpyZ3jCHOFZuUm6sPfLJB3qjITJNOOXq6JzLo3PmR+L3oKgkhM87zcdPx9Cx/HgwROk9l/M7p21o5Jr55HIQXKMs+8A0PDDyu6arRQf4g/af4+ufnx8/B+oAbieMd/cLQNrvL23gfYpu29ypVUE6q8/LLiaWmkM1Yie4GKloZvSr8Y2xvPG4BLAUC6H9VrH4KrY3vmj6hfP1tAmIpkHDqT3iE68tyMyQ+QOS1zvYzP6sLKnGUFs7eZT9Y2BK3RX/VMw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Received: from PH7PR11MB6771.namprd11.prod.outlook.com (2603:10b6:510:1b5::20)
+ by PH8PR11MB6730.namprd11.prod.outlook.com (2603:10b6:510:1c6::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.15; Tue, 8 Sep
+ 2026 22:31:25 +0000
+Received: from PH7PR11MB6771.namprd11.prod.outlook.com
+ ([fe80::effa:162e:c9c9:a1b4]) by PH7PR11MB6771.namprd11.prod.outlook.com
+ ([fe80::effa:162e:c9c9:a1b4%4]) with mapi id 15.21.0406.005; Tue, 8 Sep 2026
+ 22:31:24 +0000
+From: "Edgecombe, Rick P" <rick.p.edgecombe@intel.com>
+To: "dedekind1@gmail.com" <dedekind1@gmail.com>, "kvm@vger.kernel.org"
+	<kvm@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, "binbin.wu@linux.intel.com"
+	<binbin.wu@linux.intel.com>
+CC: "Gao, Chao" <chao.gao@intel.com>, "seanjc@google.com" <seanjc@google.com>,
+	"dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>, "kas@kernel.org"
+	<kas@kernel.org>, "Li, Xiaoyao" <xiaoyao.li@intel.com>, "pbonzini@redhat.com"
+	<pbonzini@redhat.com>, "andrew.cooper3@citrix.com"
+	<andrew.cooper3@citrix.com>, "nik.borisov@suse.com" <nik.borisov@suse.com>
+Subject: Re: [PATCH v3 0/4] KVM: TDX: Validate directly configurable CPUID
+ bits
+Thread-Topic: [PATCH v3 0/4] KVM: TDX: Validate directly configurable CPUID
+ bits
+Thread-Index: AQHdNdIhqH6lArRWVEmiaZbi1C7mgLbFNg+AgAAh2wA=
+Date: Tue, 8 Sep 2026 22:31:24 +0000
+Message-ID: <58c185c82658819454a9950f37c6424226a098bb.camel@intel.com>
+References: <20260827031837.2863609-1-binbin.wu@linux.intel.com>
+	 <32b51faabf60f6e87d9fdebbf2c3fe5a45fbff1c.camel@gmail.com>
+In-Reply-To: <32b51faabf60f6e87d9fdebbf2c3fe5a45fbff1c.camel@gmail.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+user-agent: Evolution 3.44.4-0ubuntu2.1 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: PH7PR11MB6771:EE_|PH8PR11MB6730:EE_
+x-ms-office365-filtering-correlation-id: 290aedfe-b4bb-4406-3787-08df0df8ea9d
+x-ld-processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;ARA:13230040|7416014|366016|376014|23010399003|1800799024|38070700021|10067099003|4143699003|56012099006|11063799006|22082099003|18002099003;
+x-microsoft-antispam-message-info: IoMUCF4kdP2BGcp9xJpoxdZyZSNPTGHeiMPVvGTBoca+Gi/fR1BylvksM0V6SPZ3AE84iMivW4BrPmXpsYDct2yzfLqG3SwwTQCIU8gaylIyAgXMYd5cOI62QUDS1y89z4qZJ4z9qFTP/w8VHhdCYB4Z6t3uvV+vk1olZw/p22CDh5/VDTkOBesSPIfgY5i2Gtt1Iv7e9ynfUGvxlZqXIXEd7MHyCeoC4FPc5zMJrLooi7ajZw4rDU7F8ubSqY+0w0hJg6gTwo6kIu95mpoKR44wjBBp2ElU0Q63nAJQfDSjx7I0f5TZR4b7mInNHUsOq6FlceMIDnVIqbdThClgbsmx+b+S637eohlrZNIPOv2DXLUxp8hVYaetPuxj64+8G0lGIBhdmS1dtaEsTquW2TmagCo8m0I6xN9zclZ/f5UjhUymCAivWI7XpT8F00fg/YZy5I/QwgZ+OQHUkrxlmz3TaFF6PE5IsJGLMdJ3N5/9QgiLPaboFhlK0s8PjryMBJFFmXG0b/C0g21Hip797TrkOhikFA8B4M8XSF239HAI1l/IGkjPRYx4vzxdLu4BF8WEWN/OESLWmdr6HlTTvNT/6VGbGc7kUQ0f6u9S3QDs0V2Mj4MpbGxdC3ZmVIDKqV+jIdoyrCL6ss9vxmLchT0Nlk7eqhFyidnSKr52qZYZnJ4vWQNh/rBJshdxknt2TVOE+UmsDSsN+pioUjfKa8TA9HYdfo+1SELE4WIu69w=
+x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR11MB6771.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(366016)(376014)(23010399003)(1800799024)(38070700021)(10067099003)(4143699003)(56012099006)(11063799006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?c3h5ZmllRlFxVno1Zm1YbE1UMXdCc083MmVXNUJHWlR3bVFJbHJSQU0zWXBJ?=
+ =?utf-8?B?UEU5N1NuRW5xdEFLcmdwYVdTUjZZSUZ4MVZ2cXRaY3hNY2pGc1MxZTVxcys3?=
+ =?utf-8?B?OCtzWUhhdC9tQTZxOFVDdW5Vc2hCMDF6RVJDek80TDlEV1lHL1lMQjF0NVhE?=
+ =?utf-8?B?TTkzRXFSa2tJOXh3aVprUVhMQXhJV1NJemtOVVlocUx1UGVSRUdyWGEwdjRx?=
+ =?utf-8?B?N1lLZlp6SisxR0FQdVlkRm1oejR2MzNGYnBDN1dzT3FFaXN6WFpXaStzNndo?=
+ =?utf-8?B?NFYxZittVVFhL3kwU2xoaU1tYStpZE9PZEFOdjlnNmMvMTFWdDlqdnNDL1JH?=
+ =?utf-8?B?VFlpR2JtcEc4YSsvcXlya0V5TThkbC9wR2xiQ2w1dm82dzNjN2dOclZDZE9D?=
+ =?utf-8?B?bFUxN0llMUx5NFlST1AwZzhhdkNWWXRvOUx4anlTM1pzdCtPUnZ0RVdCSkh6?=
+ =?utf-8?B?QlRka0NhUnVxaC9QY0dGWFMreGdpSFRsQ25WejRHM3pFNCs5TDZBTzRKY0tB?=
+ =?utf-8?B?alhGZGNvczJ4WWtlZXFuRFZTV0MwMHR6bW5kL0xucXQyYXhJazRoMzRXWEgv?=
+ =?utf-8?B?V2xWaXhkdXFHeU5tcENJVzVybTdnUTdOb0tibHZHVWhJZHo5YVdpd1FxeXRZ?=
+ =?utf-8?B?WE1vanB5d2JuL1ZSZ2xiY0JlYktpYkg1TTUrUmp1UFJITnlua2JtZjQzWDcw?=
+ =?utf-8?B?am1jWkJoOEd2dUtFSFlVRjZIMW9QTHdwWTZuNE13K0VVbVBhamk3VlpSY0JH?=
+ =?utf-8?B?WDcxOVZjcm4wZVBHM29odU1rSUd4aVkyaEpETzloMXdQSk9VUGVIOVJxQkFz?=
+ =?utf-8?B?eXFIbGdHSU9JZTI2WWt6a2VxNUZvTmxGRVRLYUxXM0VhTVVuem5rMHdoVXNZ?=
+ =?utf-8?B?TUorMXhUcnRhTHhqMEE3WWpZWitKcXZsbkE4QjVMK2JKaTFsT1k2U2M4SDNQ?=
+ =?utf-8?B?RGJTYVFUbUk5VWwvcnZTSGxMb2ZMUlROdEM2Tm1WVkJEVjE0MEY0djVvaDNG?=
+ =?utf-8?B?Q2VVWm1jYS9iNzYxTFBJR1E1bGU0cEtXcmpRUGRLUm9xOFVDRU5oUUhxTjd6?=
+ =?utf-8?B?K1lrTlhybHduMlkrNmZSNzBvQktHSXlUTFcrc1RaUEJWWTE4WTVDVnVNNFhY?=
+ =?utf-8?B?cnF3dC8xS3dxZy9hcC9hQmt6MDZwNEI0a1NJZDVHQXN6RUVyejB2dEVRRFkx?=
+ =?utf-8?B?bFJmMTMrUW9SdlpUaEtxTE1DdjFXalo2aGNoWkRPanVFWHExblkyeE5OdTg5?=
+ =?utf-8?B?VXhIa0NDZEwvNzQxeTdydGlhUlZRbXFJeG82ODc5QU1VV0lLVkNOaGtnckZm?=
+ =?utf-8?B?bmMrK0NXSm1rWGtwTWNCUTlXRzgrdVFmVlhtbEUzSFluNVB2ZGYreGxreTdm?=
+ =?utf-8?B?dld1Ylh3ZVFMMkY1VFZpZjBTQjZLbGlkallzUWg4a2Z0QjV6T2NPS00zS0ND?=
+ =?utf-8?B?RVMyWEFZSUd5VXFZZ1ZMSG50SzkyN0Q5R0ExeW5hOWN0bm9kdk5MQmlmZWYw?=
+ =?utf-8?B?WnF5ejNISFdyS3N0Z3hBZ2pRZGZucG9GMjEyVWkxZFBRcjlZTmh6SlAxczlD?=
+ =?utf-8?B?R1pxQjd4RmlpbDM3MWo1UGVJNlVDM1NROGFibmlaMndJc0FpYjUrN0V1cStu?=
+ =?utf-8?B?TitMUm5CSjB4R3g1Wm9vb21uMTNqbnJFSUt3ck5wb0FEMmMvL2RwQlQzZW5C?=
+ =?utf-8?B?UlNmQldOa2xycGF1MVlZeE04MHhkVUxpWWxML1l2L1BseWVQQkE5WVNIMDl4?=
+ =?utf-8?B?cFVxNGFxekd4ajRmU0YvbldLdG41ZmF2N1pTcklZVXhRbFZWNWMwOVEwejZ6?=
+ =?utf-8?B?Q1c3TGQ2NmtlajUxZG1xYkdPRU5zdm0zMExncU5jNC9mKzBmclJDNTRzY2Zq?=
+ =?utf-8?B?bmRJeWpNQUI3WGhROXNLOWg3L2Z4NGZXOUpMWm1ZaHdVWEVxMVd5RTZDTnB2?=
+ =?utf-8?B?WDRUTTZoWXpqOEthYUEwbTJtWXZnVk95dTNEV09mUlhZd29OejJ0RUl1M0Ny?=
+ =?utf-8?B?N2UxMFUxQ3Q0aStHRlQvNDl5SW9sM08zeVk4SXZUODBrcXAweHJ5VG1uS2pD?=
+ =?utf-8?B?bFFwYXk1dzhxRXVXQ3oyaWRtc0ZYd3FwQnlmNmFkdXB4cEZ4aDNWeXNCRVV4?=
+ =?utf-8?B?U0p3T2FMVFNybXU5NHM3bFFWaFcrSEZLY3VSK2xLTHJMbzJoWllyaUZlVzFx?=
+ =?utf-8?B?Sllpd0ZGcmh1ZTFHdGZoUTJTL1loc3FkbkJKOHRpN3N4bkJwRUJ5Y3d4STVW?=
+ =?utf-8?B?bFcwc0NmeGlZbmhJUnJGV2dhMjBQd3U0cU1ya2VreGw3WmdkblBaRzU5aTJZ?=
+ =?utf-8?B?TVJ2QTFtZ056L0t6VEJzSy9VR0QreFVRYXA5bWdhbndYc093OE14MnVYVGxJ?=
+ =?utf-8?Q?/rPmRduRb/CmklYg=3D?=
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <37E030EB9E32AC4D90C89E35EE712655@namprd11.prod.outlook.com>
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260909-for-upstream-le-connect-on-air-addr-v3-2-0e49c4e7abc2@podgorny.cz>
-References: <20260909-for-upstream-le-connect-on-air-addr-v3-0-0e49c4e7abc2@podgorny.cz>
-In-Reply-To: <20260909-for-upstream-le-connect-on-air-addr-v3-0-0e49c4e7abc2@podgorny.cz>
-To: Marcel Holtmann <marcel@holtmann.org>, 
- Luiz Augusto von Dentz <luiz.dentz@gmail.com>
-Cc: linux-bluetooth@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Luiz Augusto von Dentz <luiz.von.dentz@intel.com>, 
- Radek Podgorny <radek@podgorny.cz>
-X-Mailer: b4 0.15.2
+X-Exchange-RoutingPolicyChecked: k8o4q4En0bxj5TEA1B4cYZgzkL0WC4DHvfFzsvoWtp3bul3CZeni7TcR0bYNLlCpT3asZOlmloWOuG2Wwz8U7h6KPifZTvwDbMDHQGW/+3qZAYTXxYb6oKm6koQo35ZMgWtka8auewrs2Q8ymtfHPfFs73YbrX8dkkRqSqajLO2HGIPlNr3LqCxWDu6CqIskTiMB5uC/LGr+B/snKEGgpWaYGHskBj108luZvTA4YwsxgRxGla/4yfNIhTixJsQdpZqdHY0nNzV8aOwRAuhN3xIIzvItnYOuBhflguBkET8uHBDDGHl/BpwsaF/AmRVtieZbkVYVGubOGK2I2HFljQ==
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR11MB6771.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 290aedfe-b4bb-4406-3787-08df0df8ea9d
+X-MS-Exchange-CrossTenant-originalarrivaltime: 08 Sep 2026 22:31:24.9066
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: QwGhWVuP+435Jgr0onOrCw6LG8ckEnjFPIpenEq2GYTU+Pwo75gOb9aPUvIRdc/kPgRpYF/kxaRa9mIBB7Lhvz2mh3r3me0ZMjT/hbM7LGU=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR11MB6730
+X-OriginatorOrg: intel.com
 
-An identity address only reaches a peer that is advertising an RPA if the
-controller resolves it on our behalf. Where it cannot, the host has to put
-the peer's on-air address on air itself.
-
-hci_connect_le() still swaps the caller's identity address for the peer's
-cached RPA before creating the connection, but __hci_conn_add() resolves
-the RPA back to the identity address when it stores it, so the identity is
-what goes out. Storing the identity is right when the controller
-translates it on the way to the radio; without LL Privacy, or with this
-peer absent from the resolving list, nothing does.
-
-A peer advertising an RPA cannot answer its identity address, so the
-attempt burns a full create-connection timeout. That is not merely a slow
-connect: a controller without extended scanning cannot scan while it is
-initiating, so every dead attempt also takes the scanner off the air for
-the whole timeout.
-
-Measured on a CYW43438, which reports neither LL Privacy nor extended
-advertising (LE features 3f 00 00 08 00 00 00 00), against a peer
-advertising a resolvable private address the host holds the IRK for, with
-the connection requested on the peer's identity address:
-
-  before: LE Create Connection to the identity address, public type
-          1.61s -> 22.07s, then LE Create Connection Cancel
-          LE Connection Complete: Unknown Connection Identifier (0x02)
-  after:  LE Create Connection to the peer's RPA, random type
-          LE Connection Complete: Success
-
-Advertising reports reaching the host per second, same window, same five
-unrelated devices on the adapter:
-
-  before   1s:2   [nothing from 2s through 21s]   22s:5  23s:3
-  after    0s:11 1s:5 2s:2 3s:5 4s:3 5s:4 ... 21s:2 22s:1 23s:2
-
-One dead connect costs twenty seconds of scanning for every device on the
-adapter, not just the one being dialled.
-
-Keep the RPA in conn->dst unless the controller will translate the
-identity address: address resolution enabled and the peer's identity
-actually programmed into the resolving list. Testing ll_privacy_capable()
-alone would not be enough: it reports the feature bit, not whether
-resolution is switched on and not whether this peer is in the list.
-Resolution is cleared with the other volatile flags on power-off and
-switched off again while suspend pauses scanning, and a peer's IRK is only
-programmed along the accept list path, so a direct-connect target, a peer
-without HCI_CONN_FLAG_ADDRESS_RESOLUTION, and one that did not fit in a
-full list are all absent from it.
-
-With the peer programmed, the identity address stays in conn->dst and the
-controller translates it: measured on an Intel controller, the host dials
-the identity and LE Enhanced Connection Complete reports Resolved Public
-with the peer's RPA in the separate peer resolvable private address field.
-With the peer absent from the list the same setup dials the RPA itself.
-
-Everything downstream already copes with an RPA in conn->dst: it is what
-every outgoing LE connection stored before 14b06c3a88f7, the connection
-complete event names the address that was dialled, and
-le_conn_complete_evt() resolves it back to the identity once the link is
-up. ISO links keep the unconditional conversion: they are created from an
-existing ACL or a periodic sync and never dial this address themselves.
-
-Keeping the RPA is only right while the peer is still using it, which is
-why the preceding patch drops the cached RPA as soon as the peer is seen
-advertising its identity address. Without that, a peer that turns privacy
-off would be dialled on the address it abandoned rather than the one it
-is answering on.
-
-Fixes: 14b06c3a88f7 ("Bluetooth: HCI: Always use the identity address when initializing a connection")
-Assisted-by: Claude:claude-opus-5
-Assisted-by: Claude:claude-fable-5
-Signed-off-by: Radek Podgorny <radek@podgorny.cz>
----
- net/bluetooth/hci_conn.c | 13 +++++++++++++
- 1 file changed, 13 insertions(+)
-
-diff --git a/net/bluetooth/hci_conn.c b/net/bluetooth/hci_conn.c
-index 8de98af2fb58..c9466cb2c7c0 100644
---- a/net/bluetooth/hci_conn.c
-+++ b/net/bluetooth/hci_conn.c
-@@ -1023,6 +1023,19 @@ static struct hci_conn *__hci_conn_add(struct hci_dev *hdev, int type,
- 		if (!hdev->le_mtu && hdev->acl_mtu < HCI_MIN_LE_MTU)
- 			return ERR_PTR(-ECONNREFUSED);
- 		irk = hci_get_irk(hdev, dst, dst_type);
-+		/* An identity address only reaches a peer advertising an RPA
-+		 * if the controller translates it. Unless address resolution
-+		 * is enabled and this peer is programmed into the resolving
-+		 * list, keep the RPA the peer is on air with;
-+		 * le_conn_complete_evt() resolves it back once the link is
-+		 * up.
-+		 */
-+		if (irk &&
-+		    (!hci_dev_test_flag(hdev, HCI_LL_RPA_RESOLUTION) ||
-+		     !hci_bdaddr_list_lookup_with_irk(&hdev->le_resolv_list,
-+						      &irk->bdaddr,
-+						      irk->addr_type)))
-+			irk = NULL;
- 		break;
- 	case SCO_LINK:
- 	case ESCO_LINK:
-
--- 
-2.55.0
-
+T24gVHVlLCAyMDI2LTA5LTA4IGF0IDIzOjMwICswMzAwLCBBcnRlbSBCaXR5dXRza2l5IHdyb3Rl
+Og0KPiAqKkRpc2NsYWltZXIqKjogSSBhbSBuZXcgdG8gS1ZNIGFuZCBURFgsIHN0aWxsIGxlYXJu
+aW5nLCBsZXQgbWUga25vdyBpZg0KPiBzb21lwqBvZiBteSBjb21tZW50cyBhcmUgb2ZmLg0KPiAN
+Cj4gDQouLi4NCj4gDQo+IFNvIG1heWJlIHRoZSB3YXkgdG8gZ28gaXMgdG8ganVzdCBmb2xsb3cg
+J21zcl9wcmVzZXJ2YXRpb24ucGRmJyBhbmQNCj4gYWRqdXN0IHRoZSBhbGxvd2xpc3Q/IEkgZmlu
+ZCB0aGlzIGFwcHJvYWNoIHNhZmUgYW5kIGFjY2VwdGFibGUuDQoNCldlIGFyZSBraW5kIG9mIGRp
+c2N1c3Npbmcgd2hhdCByZWNvbW1lbmRhdGlvbnMgd2Ugc2hvdWxkIGdpdmUgYWJvdXQgaG93DQpt
+c3JfcHJlc2VydmF0aW9uLnBkZiBzaG91bGQgYmUgZGVmaW5lZCBmb3IgbmV3IENQVUlEIGJpdCBi
+YXNlZCBmZWF0dXJlcy4gU28NCnNheWluZyB0byBmb2xsb3cgbXNyX3ByZXNlcnZhdGlvbi5wZGYg
+aXMgc2VsZiByZWZlcmVudGlhbC4NCg0KQWdhaW4sIHBsZWFzZSBkbyBub3QgdHJlYXQgdGhlIFRE
+WCBzcGVjcyBhcyBzb21ldGhpbmcgdG8gYmUgaGFuZGVkIGRvd24gYW5kDQoiZm9sbG93ZWQiLiBJ
+IHRoaW5rIHRoaXMgaXMgc29tZXRoaW5nIHRvIGdldCB1c2VkIHRvIGZvciBURFguIEkgbWVhbiwg
+dXBzdHJlYW0NCm5ldmVyIHdhbnRzIHRvIGFkYXB0IHRvIHBsYXRmb3JtIGFyY2ggdGhhdCBmaXRz
+IGF3a3dhcmRseSwgYnV0IGl0J3MgZXZlbiB0b3VnaGVyDQp0byBzd2FsbG93IHdoZW4gdGhlIGFy
+Y2ggaXMgbW9zdGx5IFNXIGRlZmluZWQuIEFuZCBmdXJ0aGVyLCB0aGUgcGVvcGxlIHdvcmtpbmcN
+Cm9uIHRoZSBURFggYXJjaCB3YW50IHRvIGhlYXIgc3VjaCByZXF1aXJlbWVudHMgZnJvbSB1cHN0
+cmVhbS4NCg0KDQpIZXJlLCB0aGUgdGhpbmcgdG8gZGlzY3VzcyBpcyBob3cgVERYIHNob3VsZCBk
+ZWZpbmUgbmV3IGZlYXR1cmVzIHRoYXQgd2lsbA0KY2xvYmJlciBob3N0IHN0YXRlIChlLmcuIGJp
+dHMgdGhhdCB3b3VsZCBhcHBlYXIgaW4gbXNyX3ByZXNlcnZhdGlvbi5wZGYgYXMgbm90DQpiZWlu
+ZyBwcmVzZXJ2ZWQpLg0KDQpUaGVyZSBoYXZlIGJlZW4gc2V2ZXJhbCBQVUNLIGRpc2N1c3Npb25z
+IG9uIHRoZSBwcm9ibGVtIHRoaXMgc2VyaWVzIGlzIHRhY2tsaW5nLA0KYW5kIGFjdHVhbGx5IHNl
+dmVyYWwgYXR0ZW1wdHMgdG8gc29sdmUgdGhlIHByb2JsZW0gZHVyaW5nIHRoZSBiYXNlIHNlcmll
+cy4gTW9yZQ0KcmVjZW50bHkgYSBob3N0IGNsb2JiZXJpbmcgY29udHJvbCB3YXMgcHJvcG9zZWQg
+dGhhdCBhdHRlbXB0ZWQgdG8gbWFrZSBpdCBzYWZlLA0KYnV0IGl0IHdhcyBub3QgYWNjZXB0ZWQu
+IFRoYXQgcHJvcG9zYWwgYnJvdWdodCB1cCB0aGUgdG9waWMgb2Ygd2hldGhlciBoYXZpbmcNCnNl
+bGVjdCBzdGF0ZXMgY2xvYmJlcmVkIHdhcyBhY3R1YWxseSBhbiB1bnByb3ZlbiBvcHRpbWl6YXRp
+b24uDQoNCk5vdyB0aGF0IHdlIGFyZSBtb3ZpbmcgYmFjayB0byBhbiBhbGxvdyBsaXN0IHR5cGUg
+c29sdXRpb24sIHdoYXQgZ3VpZGFuY2Ugc2hvdWxkDQp3ZSBnaXZlIG9uIHRoaXMgb3RoZXIgc3Vy
+ZmFjZWQgdG9waWMuIFNpbmNlIFREWCBzaGFyZXMgc29tZSBzYXZlL3Jlc3RvcmUgbG9naWMNCndp
+dGggbm9ybWFsIFZNcywgd2Ugc2hvdWxkIGhhdmUgaXQgd29yayB3ZWxsIHdpdGggdGhhdCBjb2Rl
+LiBTbyBmb3JnZXR0aW5nIGFib3V0DQp0aGUgcGVyZm9ybWFuY2Ugb3B0aW1pemF0aW9uIHF1ZXN0
+aW9uLCBob3cgdG8gaGF2ZSBpdCB3b3JrIGluIGEgc2Vuc2libGUgd2F5DQp3aXRoIHRoZSBzaGFy
+ZWQgY29kZSBwYXRocy4NCg0K
