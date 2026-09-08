@@ -1,224 +1,160 @@
-Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com [209.85.214.170])
+Received: from mail-qk2-f12.google.com (mail-qk2-f12.google.com [74.125.230.204])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F4944CCDC7
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 04:51:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3A3A2EF653
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 04:58:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.204
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788843062; cv=pass; b=AiS7Xf1SxLJ+mB+UMSTj1yEWlPAtIXS3ZTzHQWVDNmCvagAfdc/LXYgrgPUb9v557MCcozHfuYzJLScibeYqTn89AnQHlz4MfV39EI3u2r8L/TShw5S18H9J+UTJeHAcDNxY4KY376YfpyM1zJmv6PDroBEfPk4MdC/3avU+u1Q=
+	t=1788843491; cv=pass; b=dxYMNKJw337AJQD6HpNNW4UXb/gxyFbXQgWRPWzgcJMXwjBMo9uHwZ25jQX4XpzlnaagKTCqGT/m/jEhcxh0hY2YZhOVKs36dvpCJn6EoaakQsKzw9jAN72Olw3rEWzRYNXgEy72qaoTW/B+DbgFdW2XneJxhKWXK94Id9WmGSk=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788843062; c=relaxed/simple;
-	bh=ku42uUX7ZbH/7LpItS9aH3fLeAK5HsS4meKJPMvm4v4=;
+	s=arc-20240116; t=1788843491; c=relaxed/simple;
+	bh=RgLJezrTBUs5CG3LnOFPDG4AOpylPG1JRVWLEgIQPGU=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Q/Yt7tDn8mdapkQJzZBOYCptblHjE47SH/+vGJtSPrzXfQ6FVrqFmMDuRaP6ZgO6q79d6HNcOLDvZzcNRq0uAxiuo/t8CwXASDXknHfLStqA5DE+sEjPGAs3Tzd94Ue+gvtTyliHrPVDBKpYyPVyHHDFihRz4LiGWKYj+Ld3TXQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=berkeley.edu; spf=pass smtp.mailfrom=berkeley.edu; dkim=pass (2048-bit key) header.d=berkeley.edu header.i=@berkeley.edu header.b=HPU0XU05; arc=pass smtp.client-ip=209.85.214.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=berkeley.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=berkeley.edu
+	 To:Cc:Content-Type; b=hJEXYN8/Oi6fikXrn97TyUmd4lZYAr0DaUGzSuosODUMYOc/AeSR0HCktnhGR9sp8JBXMrahka0z5W9efXmKlwJ6vh8jRHH9kUAG9AFT0scoIP2hO5TaY3wotJ81kw9tAyV20wpBiyExhOB67eang5brVDeqdHp6pBKdRu32xAg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Ja7ANi/Q; arc=pass smtp.client-ip=74.125.230.204
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=berkeley.edu header.i=@berkeley.edu header.b="HPU0XU05"
-Received: by mail-pl1-f170.google.com with SMTP id d9443c01a7336-2d71d1cc8b2so31123565ad.1
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 21:51:00 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788843060; cv=none;
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Ja7ANi/Q"
+Received: by mail-qk2-f12.google.com with SMTP id d75a77b69052e-5306706e89dso512951cf.1
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 21:58:09 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788843488; cv=none;
         d=google.com; s=arc-20260327;
-        b=ktfE2tJ7PYba8obwkhLhtbRuo1qpIcqN4G0NAY0ZYClsthwq3WxL1SMCFR3RJpQDsB
-         CcrrRq/UONQjljUwFT6RVPPn5MzrefzMZc5AGpz4MDqEIlIkbczC0fZOo2Xfs+pK4luk
-         XCL0/P8RGs3JrL1RFd7ZY+8kHvT1zs7mMzz/o08IEzeLpJE7MhzQA70NrZ/orrtsS99V
-         0vGk1DHe5cabBUPt/j9+cxbe6LaZv3gyv0KQ9klqnYqM50dHUZEqnByF0qrrZ887ROBO
-         7rSaDK5WFlHhRpbeHsr/RCmh+gB4d6Hrzec9hUFg0onc+0vMuIBsu5fobQZaXWCzewr9
-         nYWw==
+        b=MeOvRjsPvFmJ+kr5V3Sh3Z7kFAc5elWku4pTr9RJt7LWufIGSMEpj2eXDqdYH4hZCq
+         awrz4FePWLnaYWUuORUquvVav8YiE2zBa4hnYe3DuSD8Vpvu1UUZZMS2NL2YsjLcsBYS
+         64JCZ+6Z9fE0RVxvk0FPksKdzSF3BpmW6JFD79EejVmRbciwQOY8cQc31MexInIA7nc9
+         XPtFXmYSMLHlMF+gLWT+ipJGSiSiKdkP35GakKTi0HRfAX1lq4tH81q06nLN5ktDU6m9
+         3KzAlKJ0XXZLQNef7ubieoEXJ5oGXC0DdbChGkq28T5+7jFfQhOIBykwVCjt2z/uLi1R
+         LaFQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=MWbLzTpbSRidQp2YUKLqdKPg9dESEJFx6zLcf8UCnwA=;
-        fh=qapPBYEGb+YKFj+n4sg6YrcK/Y18/OqhltKFxhtEuBw=;
-        b=jqqbcQ7/2MjI3ULIxqCEEndbr33UcqsV5oj98GfAasUgS4Rni0N8q3AR7KWsqNpE1t
-         Gh9Ui1TrwA4VoNioer80E2p7ATw+y/jcYtGbcyXx36DgXJbaKjCB/Pkn34vEd8yFM6ig
-         XW/AUyib+xmuCt72VktnE43CFs+aj8gE55cpb9dNFOUPy0fM9v/xY+jna7WGsOuvebSa
-         Eg6cn1zbVVDaPRP7qsa+YLJUN1h9qolSYCSR5PN76+Z8XZCWN8Ewd/TiaLwjGl1zsJjE
-         NgxJrCSuyNy4zbyGOkCiJbUMbSS/nAlcRKwGJbi8pvfbWmgtjlyROqG9HltLG0j/Prm9
-         VtVg==;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=72ehCLFMyNfTgkqst2/aW85nSHtZnpsBG16QZCxLCCU=;
+        fh=aLPgxPVmSH4DcAFbUgPnS8IiffFPht/2+7RDderDLgk=;
+        b=fSmvYdiCYTozM1LeLTaxm98z/zZESLxVRrLoCzGPcxg4P6pmkd97+jYDFVs0LAaat8
+         pA/h8iozU59GP8NcjYMYEiuzmNnYc20vIStacUYWDxLQBOld9axV4aheCH8NPjvGH/AA
+         iIt4IZY41/o0qnHXdA0kJEFWF4uCwKAAMB+O2dXpl9RmmvtsVUS78OrjouQZZ9D0Iebj
+         GQtCrgq54W9HXscXWQ+8oMS9y54m07XvCwlZ5hSj75D1Q5iTJnP+TxnQ0eA5bMPPp4VS
+         9MNt7/6SB5zORv0mUiI//g8PV4S4KIkPPQHDW8vk/cNwqoRcIF9X+5TpO0rcJsDVL8rA
+         vnhg==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=berkeley.edu; s=google; t=1788843060; x=1789447860; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=MWbLzTpbSRidQp2YUKLqdKPg9dESEJFx6zLcf8UCnwA=;
-        b=HPU0XU05dxS49ThX0e7TcSAwHU+bXP4qkFwrrgEkOmsUvSnHWxBYnRnu30Lm99d8ie
-         2psE5wnAOHOiM2HMR9i2SoUjmqrvj2AZFH1ZxYf1+Dn06RBJhAzHDZljLDteKm7X2T5Z
-         xtac9zjJWW5e/TAmxbuBjyimCWHw0h+rECjC/a744ZwcEBpNLVwoiYlpMfHFnfWBqq/Z
-         ZLaw+x6JzqPcahtx0Txl7KoWcvo+8wk4APIvVUFWcxaPve27VFiAm2kixIMid2e3LnNh
-         Ck/LcdtPFjjVsC6i20sR3w5D2g0Ri3ewc9Ua1JnyuVB4GHnqdXaMg8P2/1W3bsFvbxak
-         zTmA==
+        d=google.com; s=20251104; t=1788843488; x=1789448288; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=72ehCLFMyNfTgkqst2/aW85nSHtZnpsBG16QZCxLCCU=;
+        b=Ja7ANi/QfO8JQ96r+R+Te0+n1ZblgTrtam3QeDRQoc2mlfZbO2qw12qyvq1k+NhzeA
+         VtZfNwia0lgLaQkMAEmhFYbMwLyZgTuYOA02zenVz9kU6nWbdso93EN3fqzu7qdkiOh8
+         D6Vn/53mMVxM9CKzLq5qgylWFhJTkvbAfi2G6J6q7o6ussrF8lEDwGDdpSTCi0E1QyjK
+         LYr3JxJtllVst9y+QSuRqmfDofJWZjIIXYXJliIPpkZBQ3b6kUw8R1Qg/JVLxh5Rn7MK
+         zq9c1ijWZQxC417heZG/OC4Y+vBP4JGZpAyETOuJcIOAc3QyIPTNPYe/9Oiu+FOgBf6b
+         WTtg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788843060; x=1789447860;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=MWbLzTpbSRidQp2YUKLqdKPg9dESEJFx6zLcf8UCnwA=;
-        b=Ol44C7280sdeK2MtAw1z7Vyv0tRqCIYpEe3dt6+KCHkV5OZyBKHZAr5EyABhRWVFJl
-         kPegJRLql1VWIntpVVcdsIxjONGvFORrVqogDBT5uFqTh1n4GA4z7nzBcUIri8tmD0PI
-         l3zjt4kqud7MUqliLSsLWD4V1Z8YfiWyHr/VeFRPAz6wnolhOqlB5hkyyQAnIRgJM7U5
-         pLcXQI222DhUl1UaJYocMaBW6a9woAzuP1VwbEXBDOhkE9qs4hPc8HssCBQx3e1gwd+W
-         iX+KURLEKZxr8fm0MHLopebNjbM/NQgTqhQ3d7o3Qqcs/xMTXNrWuOlL64p3d0udSqJG
-         BhqQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwg58W5UY4yFL1W2ummE4eoo9dOs5fJtb4mtL6Gskq77IgAdqKlWHmDmDfEhl3Oqle8QEFlyvTJPIZYY3Q=@vger.kernel.org
-X-Gm-Message-State: AFuF++mJ89ASXcaVYhbx9Rz+lLLNQ9UkZAZ1/2xEoir853Rx4ydWr6oK
-	/xEe0/neCBFd7S6pw040+Fqop+0z9FScmHHqQuXEzsTV25xt+l18YJo3j82Q2xCqkJc56ORkEZe
-	38Du1A4fd0c1nvsJy2+FFF9qMwpnDxIjqzfy2LncCkJ4EE3snrhNxugRk
-X-Gm-Gg: AYBFou1cv/bWGwcAaEjswr7RwEgosLP2QMi1zEX8iExIczOwQYZ1UdxW15/cEFm5Es8
-	0g6hiwuS2MPDhhl2OGUUxBQ0FtlmgjIdmukmSj/3lU7c9/G7C+1wc3hUkxy5bPmEZnK8ToWlHWT
-	PUimd38FWoaxMfNc+xboijJpMwJCGCUtUgNSGtqow6m9KENWw3fcRdW3ziUOYelVJajZCdorI13
-	j5cMAr7fqQ9MUNKiJz5LNXh+OrRWxsCoTj7dywt3n6BsadSInXlywFIII9xTEjR3QXplOVW+NIW
-	lA+FDcSkjGnr/RaDVTA9CmTZGuNng8t24kYAw1HiBjQ2Pfku3UxjIRmenWV1+F1SFTxUPUxcCBw
-	BMErDI3VrBoS06zZ9ULPW0H0tivPTo2qH
-X-Received: by 2002:a17:902:8a8d:b0:2ca:e19c:97b with SMTP id
- d9443c01a7336-2db122edd50mr288389825ad.5.1788843058747; Mon, 07 Sep 2026
- 21:50:58 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1788843488; x=1789448288;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=72ehCLFMyNfTgkqst2/aW85nSHtZnpsBG16QZCxLCCU=;
+        b=XeWU0a747tP59uDzLN+8B1GojitIg4CKbLGQJ3W9HlWlXGUMl7dMVcf40t9N3ZM6/J
+         ghBzQ8TbM8IV8AT5slHTItPYVtt81KiE9EHHzdDVk8Ix+Nt9oD8fxRUrQQP2glPJQPcI
+         583tDkf613CZO6LLhlPfTu/K0BlYc7eCwYBzq1uFPnqIa0BEK9ghh+IixRzq4B8wtqbN
+         XavHgauDc36GQosSzCXbT7/xFeVM7xpajl69KqOdAcuJ2N9kuvCO5KJSkNugpCk80DSm
+         NYev2viVJJzYtmGK2ESPS9Jz0FM2k81kZTrz5lENP9tdBG7kXhHFyOTHIGhPORXaLYG5
+         78HA==
+X-Forwarded-Encrypted: i=1; AKwUvBykzduNO4ck2NU+lxCwEwBw+zGh425Yh+TCvu4j93O7PvpQEOG+9W+gHmo7qPrJFk2sOEs/1ZJ1boyHtKA=@vger.kernel.org
+X-Gm-Message-State: AFuF++kzF6ImkPjg1JfkmPKeU8dVUP/qfiGMHjDgwUyUiHw/RM303mhA
+	d5ZZaW98mW35r+cUVWO4mKqWLwRF6qJW2xLOd2H9Z/vTK6BcgsE1p4NoHKbQnlKxI0Qum8B9wpA
+	/M8ibUKw6En5RQfXvoDoQC9GdLD8AuBon6ADPA98B
+X-Gm-Gg: AYBFou1zTi/OHjhAoe91mL0hpilhvzAnzUtaZzk2VV4OFoGygLKSKQ+YaR3htc9B32R
+	YfkdDgzepnaX4NsSh+ZC1Q/BcJR22Sej7vmhcMcbcrnIbyFxzJLQYaK3/hdBAFondjFhDnQYZCH
+	gCmQ4jknuGJBM5OlmAzR9CFxItsNNP+EwEpvtvRAn/fEEXPzlDLnbWgud8gtJ49UYGbZ3DXrSH1
+	mchCkJe2YwMjJaS/wMax8QA5Wf0Nh7fPlOZtrgb6OtUwcPii2DySLl72Ou+mA5nWSj422FeBgkJ
+	NxF3EFL7Kz29NQXMe+PZ4UXKZybsRws5VHhKH3eR+rwzRoi1JJIluGe5kRF0tIMtjzBsviQ7TCJ
+	iiU0iUQJGKi2oWSSjC0B0bpx3OtrWj3W2P+5NzTg=
+X-Received: by 2002:a05:622a:2b0b:b0:52f:4a75:f840 with SMTP id
+ d75a77b69052e-53082b07b6dmr24762111cf.9.1788843488057; Mon, 07 Sep 2026
+ 21:58:08 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <CA+0ovCgYP920GT68hAJK6Trjyv1kGv2dZAuem4LEunycQ=POww@mail.gmail.com>
- <apG98qJyYqvcTXIh@yaupon>
-In-Reply-To: <apG98qJyYqvcTXIh@yaupon>
-From: Farhad Alemi <farhad.alemi@berkeley.edu>
-Date: Mon, 7 Sep 2026 21:50:47 -0700
-X-Gm-Features: AcwNN1VEDWIXd7xQleRkSk4sjyC_iC9YFu7sqDm8tMiDGbWikWjVERdX3hee9jw
-Message-ID: <CA+0ovCi_MdcoT7-JuouAYXuGrN5_iFpH344VwqT3hsnqmbEM2w@mail.gmail.com>
-Subject: Re: [BUG] ecryptfs leaks an inode on lookup failure -> kernel BUG in generic_shutdown_super()
-To: Tyler Hicks <code@tyhicks.com>
-Cc: ecryptfs@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: multipart/mixed; boundary="0000000000001446ae065af17bb1"
-
---0000000000001446ae065af17bb1
+References: <20260904031912.2133476-1-tweek@google.com> <20260904031912.2133476-2-tweek@google.com>
+ <4468d220-9d7f-47d0-8e5c-c01070ab2d47@kernel.org>
+In-Reply-To: <4468d220-9d7f-47d0-8e5c-c01070ab2d47@kernel.org>
+From: =?UTF-8?Q?Thi=C3=A9baud_Weksteen?= <tweek@google.com>
+Date: Tue, 8 Sep 2026 14:57:50 +1000
+X-Gm-Features: AcwNN1Vv3IgsdJ48TcwQ9T2zgBF6SbU0dMzFnoZRARrkmuhvOX0r_mwDFwUWnFQ
+Message-ID: <CA+zpnLdPu+os2SFU1UxR9ha0NqYwO52Hr9ogk2zaEUHLLcv1XQ@mail.gmail.com>
+Subject: Re: [PATCH bpf-next 2/2] bpftool: Reject non-autoload programs for
+ light skeletons
+To: Quentin Monnet <qmo@kernel.org>
+Cc: Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
+	Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>, Shuah Khan <shuah@kernel.org>, Leon Hwang <leon.hwang@linux.dev>, 
+	Emil Tsalapatis <emil@etsalapatis.com>, Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
+	Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
+	Ihor Solodrai <ihor.solodrai@linux.dev>, Sid Nayyar <sidnayyar@google.com>, 
+	linux-kernel@vger.kernel.org, bpf@vger.kernel.org, 
+	linux-kselftest@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Apologies for the delayed response; reproducer attached! Thanks!
-
-On Fri, Aug 28, 2026 at 9:57=E2=80=AFAM Tyler Hicks <code@tyhicks.com> wrot=
+On Tue, Sep 8, 2026 at 1:24=E2=80=AFAM Quentin Monnet <qmo@kernel.org> wrot=
 e:
 >
-> On 2026-08-27 20:18:11, Farhad Alemi wrote:
-> > Hello,
->
-> Hi - Thank you for the report.
->
-> > As part of the kernel research at ASU's SEFCOM
-> > lab, we hit the crash below. Crash reports can be found here:
+> On 04/09/2026 04:19, Thi=C3=A9baud Weksteen wrote:
+> > When generating a light skeleton (bpftool gen skeleton -L), there is no
+> > libbpf runtime object or bpf_program__set_autoload() API available to
+> > enable/disable the autoloading of programs. If a BPF program in the
+> > object has autoload disabled (e.g. via SEC("?...")), bpf_object__load()
+> > silently skips loading it. bpftool still generates struct bpf_prog_desc
+> > fields and attach functions in the light skeleton header, leaving
+> > skel->progs.<name>.prog_fd uninitialized (0).
 > >
-> >   https://github.com/farhad-alemi/public_bug_reports/tree/main/128-ecry=
-ptfs-i_new-inode-leak-lookup-failure/
+> > Explicitly reject non-autoloaded programs when use_loader is true with
+> > an error message, preventing the generation of broken light skeleton
+> > headers.
 > >
-> >   ecryptfs_i_size_read: Error attempting to initialize the lower file
-> > for the dentry with name [victim]; rc =3D [-26]
-> >   VFS: Busy inodes after unmount of ecryptfs (ecryptfs)
-> >   kernel BUG at fs/super.c:779!
-> >   Oops: invalid opcode: 0000 [#1] SMP KASAN NOPTI
-> >   Call Trace:
-> >    kill_anon_super+0x3b/0x70
-> >    ecryptfs_kill_block_super+0x44/0xa0
-> >    deactivate_locked_super+0xbc/0x110
-> >    cleanup_mnt+0x437/0x4d0
-> >    task_work_run+0x1d9/0x270
-> >    exit_to_user_mode_loop+0x14e/0x540
-> >    do_syscall_64+0x317/0x510
-> >   Kernel panic - not syncing: Fatal exception
+> > Signed-off-by: Thi=C3=A9baud Weksteen <tweek@google.com>
+> > ---
+> >  tools/bpf/bpftool/gen.c | 6 ++++++
+> >  1 file changed, 6 insertions(+)
 > >
-> > Our reproducer.c is available upon request.
+> > diff --git a/tools/bpf/bpftool/gen.c b/tools/bpf/bpftool/gen.c
+> > index a50540ef6521..1583150241c8 100644
+> > --- a/tools/bpf/bpftool/gen.c
+> > +++ b/tools/bpf/bpftool/gen.c
+> > @@ -1340,6 +1340,12 @@ static int do_skeleton(int argc, char **argv)
+> >       }
+> >       bpf_object__for_each_program(prog, obj) {
+> >               prog_cnt++;
+> > +
+> > +             if (use_loader && !bpf_program__autoload(prog)) {
+> > +                     p_err("program '%s' is marked as non-autoload, wh=
+ich is not supported for light skeletons",
+> > +                           bpf_program__name(prog));
+> > +                     return -1;
 >
-> Yes, please provide reproducer.c.
 >
-> Tyler
->
-> > Happy to test a patch if that would help.
-> >
-> > Regards,
+> Sashiko is correct, at this stage of the function, rather than returning
+> directly, you'd need to "goto out".
 
---0000000000001446ae065af17bb1
-Content-Type: application/octet-stream; name="reproducer.c"
-Content-Disposition: attachment; filename="reproducer.c"
-Content-Transfer-Encoding: base64
-Content-ID: <f_mts6yhci0>
-X-Attachment-Id: f_mts6yhci0
+Thanks for the review. I agree, I'm not sure how I missed that one.
 
-LyoKICogUmVwcm9kdWNlciBmb3IgMTI4LWVjcnlwdGZzLWlfbmV3LWlub2RlLWxlYWstbG9va3Vw
-LWZhaWx1cmUKICoKICogQnVpbGQ6IGdjYyAtc3RhdGljIC1PMCAtdyAtbyByZXBybyByZXByb2R1
-Y2VyLmMKICogUnVuOiAgIGFzIHJvb3QsIGluIGEgZGlzcG9zYWJsZSBWTS4gSXQgaXMgZXhwZWN0
-ZWQgdG8gcGFuaWMgdGhlIGtlcm5lbC4KICovCiNkZWZpbmUgX0dOVV9TT1VSQ0UKI2luY2x1ZGUg
-PGVycm5vLmg+CiNpbmNsdWRlIDxmY250bC5oPgojaW5jbHVkZSA8c3RkaW8uaD4KI2luY2x1ZGUg
-PHN0cmluZy5oPgojaW5jbHVkZSA8c3lzL21vdW50Lmg+CiNpbmNsdWRlIDxzeXMvc3RhdC5oPgoj
-aW5jbHVkZSA8c3lzL3N5c2NhbGwuaD4KI2luY2x1ZGUgPHVuaXN0ZC5oPgoKI2RlZmluZSBXT1JL
-X0RJUiAgICIvZWN3b3JrIgojZGVmaW5lIExPV0VSX0RJUiAgV09SS19ESVIgIi9sb3dlciIKI2Rl
-ZmluZSBVUFBFUl9ESVIgIFdPUktfRElSICIvdG9wIgojZGVmaW5lIFZJQ1RJTSAgICAgTE9XRVJf
-RElSICIvdmljdGltIgoKLyogInNpZz0iIGlzIG1lbWNtcCdkIG92ZXIgRUNSWVBURlNfU0lHX1NJ
-WkVfSEVYIGJ5dGVzIGFuZCBpcyBhbHNvIHRoZQogKiBkZXNjcmlwdGlvbiBvZiB0aGUgInVzZXIi
-IGtleSB0aGF0IGVjcnlwdGZzIHJlcXVlc3Rfa2V5KClzICovCiNkZWZpbmUgS0VZX1NJRyAiMDEy
-MzQ1Njc4OWFiY2RlZiIKCiNkZWZpbmUgRUNSWVBURlNfTUFYX0VOQ1JZUFRFRF9LRVlfQllURVMg
-NTEyCiNkZWZpbmUgRUNSWVBURlNfTUFYX0tFWV9CWVRFUyA2NAojZGVmaW5lIEVDUllQVEZTX1NB
-TFRfU0laRSA4CiNkZWZpbmUgRUNSWVBURlNfUEFTU1dPUkRfU0lHX1NJWkUgMTYKCnN0cnVjdCBl
-Y3J5cHRmc19zZXNzaW9uX2tleSB7Cgl1bnNpZ25lZCBpbnQgZmxhZ3M7Cgl1bnNpZ25lZCBpbnQg
-ZW5jcnlwdGVkX2tleV9zaXplOwoJdW5zaWduZWQgaW50IGRlY3J5cHRlZF9rZXlfc2l6ZTsKCXVu
-c2lnbmVkIGNoYXIgZW5jcnlwdGVkX2tleVtFQ1JZUFRGU19NQVhfRU5DUllQVEVEX0tFWV9CWVRF
-U107Cgl1bnNpZ25lZCBjaGFyIGRlY3J5cHRlZF9rZXlbRUNSWVBURlNfTUFYX0tFWV9CWVRFU107
-Cn07CgpzdHJ1Y3QgZWNyeXB0ZnNfcGFzc3dvcmQgewoJdW5zaWduZWQgaW50IHBhc3N3b3JkX2J5
-dGVzOwoJaW50IGhhc2hfYWxnbzsKCXVuc2lnbmVkIGludCBoYXNoX2l0ZXJhdGlvbnM7Cgl1bnNp
-Z25lZCBpbnQgc2Vzc2lvbl9rZXlfZW5jcnlwdGlvbl9rZXlfYnl0ZXM7Cgl1bnNpZ25lZCBpbnQg
-ZmxhZ3M7Cgl1bnNpZ25lZCBjaGFyIHNlc3Npb25fa2V5X2VuY3J5cHRpb25fa2V5W0VDUllQVEZT
-X01BWF9LRVlfQllURVNdOwoJdW5zaWduZWQgY2hhciBzaWduYXR1cmVbRUNSWVBURlNfUEFTU1dP
-UkRfU0lHX1NJWkUgKyAxXTsKCXVuc2lnbmVkIGNoYXIgc2FsdFtFQ1JZUFRGU19TQUxUX1NJWkVd
-Owp9OwoKLyogNzQwIGJ5dGVzIG9uIHg4Nl82NDsgZWNyeXB0ZnMgdmFsaWRhdGVzIHRoZSBwYXls
-b2FkIHNpemUgKi8Kc3RydWN0IGVjcnlwdGZzX2F1dGhfdG9rIHsKCXVuc2lnbmVkIHNob3J0IHZl
-cnNpb247Cgl1bnNpZ25lZCBzaG9ydCB0b2tlbl90eXBlOwoJdW5zaWduZWQgaW50IGZsYWdzOwoJ
-c3RydWN0IGVjcnlwdGZzX3Nlc3Npb25fa2V5IHNlc3Npb25fa2V5OwoJdW5zaWduZWQgY2hhciBy
-ZXNlcnZlZFszMl07Cgl1bmlvbiB7CgkJc3RydWN0IGVjcnlwdGZzX3Bhc3N3b3JkIHBhc3N3b3Jk
-OwoJfSB0b2tlbjsKfSBfX2F0dHJpYnV0ZV9fKChwYWNrZWQpKTsKCnN0YXRpYyBpbnQgYWRkX2Vj
-cnlwdGZzX2F1dGhfdG9rX2tleSh2b2lkKQp7CglzdHJ1Y3QgZWNyeXB0ZnNfYXV0aF90b2sgYXV0
-aF90b2s7CgoJbWVtc2V0KCZhdXRoX3RvaywgMCwgc2l6ZW9mKGF1dGhfdG9rKSk7CglhdXRoX3Rv
-ay52ZXJzaW9uID0gMHgwMDA0OwoJYXV0aF90b2sudG9rZW5fdHlwZSA9IDA7CQkJLyogRUNSWVBU
-RlNfUEFTU1dPUkQgKi8KCWF1dGhfdG9rLnRva2VuLnBhc3N3b3JkLnBhc3N3b3JkX2J5dGVzID0g
-MTY7CglhdXRoX3Rvay50b2tlbi5wYXNzd29yZC5oYXNoX2l0ZXJhdGlvbnMgPSAxOwoJYXV0aF90
-b2sudG9rZW4ucGFzc3dvcmQuc2Vzc2lvbl9rZXlfZW5jcnlwdGlvbl9rZXlfYnl0ZXMgPSAxNjsK
-CWF1dGhfdG9rLnRva2VuLnBhc3N3b3JkLmZsYWdzID0gMHgwMjsJLyogU0VTU0lPTl9LRVlfRU5D
-UllQVElPTl9LRVlfU0VUICovCgltZW1zZXQoYXV0aF90b2sudG9rZW4ucGFzc3dvcmQuc2Vzc2lv
-bl9rZXlfZW5jcnlwdGlvbl9rZXksIDB4NDEsIDE2KTsKCW1lbWNweShhdXRoX3Rvay50b2tlbi5w
-YXNzd29yZC5zaWduYXR1cmUsIEtFWV9TSUcsIDE2KTsKCglyZXR1cm4gc3lzY2FsbChfX05SX2Fk
-ZF9rZXksICJ1c2VyIiwgS0VZX1NJRywgJmF1dGhfdG9rLAoJCSAgICAgICBzaXplb2YoYXV0aF90
-b2spLCAtMyAvKiBLRVlfU1BFQ19TRVNTSU9OX0tFWVJJTkcgKi8pIDwgMDsKfQoKc3RhdGljIGlu
-dCBjb3B5X3NlbGZfdG9fdmljdGltKHZvaWQpCnsKCWNoYXIgYnVmWzY1NTM2XTsKCWludCBzZWxm
-X2ZkID0gb3BlbigiL3Byb2Mvc2VsZi9leGUiLCBPX1JET05MWSk7CglpbnQgdmljdGltX2ZkID0g
-b3BlbihWSUNUSU0sIE9fUkRXUiB8IE9fQ1JFQVQgfCBPX1RSVU5DLCAwNzU1KTsKCXNzaXplX3Qg
-bjsKCglpZiAoc2VsZl9mZCA8IDAgfHwgdmljdGltX2ZkIDwgMCkKCQlyZXR1cm4gMTsKCXdoaWxl
-ICgobiA9IHJlYWQoc2VsZl9mZCwgYnVmLCBzaXplb2YoYnVmKSkpID4gMCkKCQlpZiAod3JpdGUo
-dmljdGltX2ZkLCBidWYsIG4pICE9IG4pCgkJCXJldHVybiAxOwoJY2xvc2Uoc2VsZl9mZCk7Cglj
-bG9zZSh2aWN0aW1fZmQpOwoJcmV0dXJuIGNobW9kKFZJQ1RJTSwgMDc1NSk7Cn0KCmludCBtYWlu
-KGludCBhcmdjLCBjaGFyICoqYXJndikKewoJc3RydWN0IHN0YXQgc3RhdF9idWY7CgoJLyogcmUt
-ZXhlYydlZCBhcyB0aGUgcHJvY2VzcyB0aGF0IGtlZXBzIFZJQ1RJTSBidXN5ICovCglpZiAoYXJn
-YyA+IDEpCgkJZm9yICg7OykKCQkJcGF1c2UoKTsKCglta2RpcihXT1JLX0RJUiwgMDc3Nyk7Cglt
-b3VudCgibm9uZSIsIFdPUktfRElSLCAidG1wZnMiLCAwLCAiIik7Cglta2RpcihMT1dFUl9ESVIs
-IDA3NzcpOwoJbWtkaXIoVVBQRVJfRElSLCAwNzc3KTsKCglpZiAoY29weV9zZWxmX3RvX3ZpY3Rp
-bSgpKSB7CgkJcHJpbnRmKCJjYW5ub3Qgc3RhZ2UgJXM6ICVzXG4iLCBWSUNUSU0sIHN0cmVycm9y
-KGVycm5vKSk7CgkJcmV0dXJuIDE7Cgl9CgoJLyogRXhlY3V0aW5nIFZJQ1RJTSBtYWtlcyBkZW55
-X3dyaXRlX2FjY2VzcygpIHJlZnVzZSBldmVyeSBsYXRlcgoJICogT19SRFdSIG9wZW4gb2YgaXQg
-d2l0aCAtRVRYVEJTWSAtLSBpbmNsdWRpbmcgdGhlIG9uZSBlY3J5cHRmcycKCSAqIHByaXZpbGVn
-ZWQga3RocmVhZCBkb2VzLCB3aGljaCBpcyB3aGF0IG1ha2VzIHRoZSBsb29rdXAgZmFpbC4gKi8K
-CWlmIChmb3JrKCkgPT0gMCkgewoJCWNoYXIgKmFyZ3Zfc2xlZXBlcltdID0geyAoY2hhciAqKSJ2
-aWN0aW0iLCAoY2hhciAqKSJidXN5IiwgTlVMTCB9OwoJCWV4ZWN2KFZJQ1RJTSwgYXJndl9zbGVl
-cGVyKTsKCQlfZXhpdCgxMjcpOwoJfQoJc2xlZXAoMSk7CgoJaWYgKGFkZF9lY3J5cHRmc19hdXRo
-X3Rva19rZXkoKSkgewoJCXByaW50ZigiYWRkX2tleTogJXNcbiIsIHN0cmVycm9yKGVycm5vKSk7
-CgkJcmV0dXJuIDE7Cgl9CglpZiAobW91bnQoTE9XRVJfRElSLCBVUFBFUl9ESVIsICJlY3J5cHRm
-cyIsIDAsCgkJICAic2lnPSIgS0VZX1NJRyAiLGNpcGhlcj1hZXMsZWNyeXB0ZnNfa2V5X2J5dGVz
-PTE2IikpIHsKCQlwcmludGYoImVjcnlwdGZzIG1vdW50OiAlc1xuIiwgc3RyZXJyb3IoZXJybm8p
-KTsKCQlyZXR1cm4gMTsKCX0KCgkvKiBlY3J5cHRmc19sb29rdXBfaW50ZXJwb3NlKCkgLT4gZWNy
-eXB0ZnNfaV9zaXplX3JlYWQoKSBmYWlscywgYW5kIGl0cwoJICogZXJyb3IgcGF0aCByZXR1cm5z
-IHdpdGhvdXQgdW5sb2NrX25ld19pbm9kZSgpIGFuZCB3aXRob3V0IGlwdXQoKSwgc28KCSAqIHRo
-aXMgSV9ORVcgaW5vZGUgc3RheXMgb24gc2ItPnNfaW5vZGVzLiAqLwoJc3RhdChVUFBFUl9ESVIg
-Ii92aWN0aW0iLCAmc3RhdF9idWYpOwoKCS8qIHRoZSBsZWFrZWQgaW5vZGUgaXMgc3RpbGwgdGhl
-cmU6IGJ1c3ktaW5vZGUgY2hlY2sgLT4gQlVHKCkgKi8KCXVtb3VudDIoVVBQRVJfRElSLCAwKTsK
-CXJldHVybiAwOwp9Cg==
---0000000000001446ae065af17bb1--
+>
+>
+> > +             }
+>
+>
+> Thank you. Maybe consider adding a word about autoload/non-autoload in
+> "bpftool gen" man page? My concern is that users who are not familiar
+> with the notion will struggle to understand the error message.
+
+Ack. I'll send a new patch to skip over these programs instead, as
+suggested by Leon in the other patch ("selftests/bpf: Move verifier
+failure tests out of test_global_percpu_data"). Thanks.
