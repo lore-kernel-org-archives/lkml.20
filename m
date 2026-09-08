@@ -1,106 +1,135 @@
-Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79564511228;
-	Tue,  8 Sep 2026 18:40:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7FA959E334
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 18:41:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788892823; cv=none; b=I6fiFM9lNYnIYSrUxCszXVKdNFbxQTmMkxxKSRSVGxnARFbgln6zO2tMJz2Eem8UHTs3D7H+9R4W65kV+eKrZFaOpSGXfvPnucwic0Twdb67Tppf1syDG2KgUYrNCDEKe/CBTywf/B7WPDjzsK88D5xoINPWaYzXnM2Ui086/Ag=
+	t=1788892903; cv=none; b=R5clpoF2eWFk0nembFLTeThicPoVQ8HWe81z6g3PjJjKJlDSHGQslCZf7pmyQ7WRR7s2yH9d5O5brQqjOjAJ/ceppG2fc5nwflfDTVkQhlsMEAwpH4b+wKR8BunJjr1YQvBH/dDOeJUkzzZPpIBqUrCmB1Bsvdg3zS7hjOdxKEY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788892823; c=relaxed/simple;
-	bh=MIQfWf7S0tnEVtPzmP4KcxUXGdieiiJi2elrbgA6nS8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=NXwUtJEo/5fBJGLbN9QZKXEkzk1fZtztEae5qW4hUXD+57dLWpUhbMxslHOVaOEe4G7drLnNuGHIKgedtJ1bHk9H7AyeWfFoNzeQeaIGZiCJl7NoR/4T3ltf+34yCfTcMKxrQjR0qpfyUWiYUqo0txsYqbi+HAR5DBttb7gMeKE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=BdsgoPPK; arc=none smtp.client-ip=198.137.202.133
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	s=arc-20240116; t=1788892903; c=relaxed/simple;
+	bh=QFDrZwsfKk9LFPbgnNXK7VjMPHmgc4yfPfxtZvvfD/E=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=rIgho6GuetHNSP8i/qsDovIQmAgZW3wKYuj6FT01Zy3llYM3SK1zqtHJjFW9Mnf5pZKriaxdaFvXkAsTkPy4J3qYHNnZD4S9m0DVVjGUGvzdSbyVfvpUIEC56j1n5daqKCRvhLD7A4Q5kwtKzKmzYsaeT0dHGhdFvjxcZrF90v4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EwhGoRvB; arc=none smtp.client-ip=209.85.128.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="BdsgoPPK"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
-	Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
-	Message-ID:Sender:Reply-To:Content-ID:Content-Description;
-	bh=/r4vdkbDofK8rt9bMGcF41mARvsonWC380bc7dX3e90=; b=BdsgoPPK6G/o29unZIE6pmTD6h
-	vl8XlRK2dMl1trQMgcYg+yNlsZ4aoDtauOsRYPZSnopwZpQN/qITcGAP77Jvv0raUCVRYWYks2eg3
-	owzKdzsFoWNXJo2BrWhycroWMfC1LhlcqolZFYJVxpj0xyv6IC2dEqUUTh/SaQrQa7pWX+AnCuCPv
-	GbDx0UCewJAn1uefSZYbF/uzdW26sy2rnzpO3bHUlat1tCHSrOOeEzaiYt2DkNFD+rGHKN5mo/Fov
-	mkFJkesgAshNad7evCYuWwfU+bRMLby3BelwbEGZl+FVpKSZKMU5iI+9oz/Pl8bxUlqXWvhMHxaeu
-	5X4Kklyg==;
-Received: from [50.53.43.113] (helo=[192.168.254.34])
-	by bombadil.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1x40jc-00000009zZM-22bT;
-	Tue, 08 Sep 2026 18:39:56 +0000
-Message-ID: <0fdd2490-b076-4722-85e0-55c25fc21a6d@infradead.org>
-Date: Tue, 8 Sep 2026 11:39:54 -0700
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EwhGoRvB"
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-49d0da752ffso28543395e9.3
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 11:41:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788892898; x=1789497698; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Cr8h1Yq/NnZMM4WE8/4qnlK3saUP4YTKFSQMTgTF9Wk=;
+        b=EwhGoRvBxzTRE/ebXMTAz1lCvuWJ4zBwTCfaOTMKtxBuQD9jlhgSDC/Q7dLLsBRpP9
+         OmDMplHSJmYELbHQSggv+4saH+ClT+6JpCO5GVDfdFx2ddAVa196yCS3rjO0KgOc5nHR
+         qaNHUJEbitSsfa8no/+zG2PdeWgiDvumCdVNoqG2wzjpB8ELER+sXMskxXO8d83mSOsE
+         WZVr3L6I9oN6Krwy4z8/R4fWN73XfxnE5R10ey4Vy8A/dpL5BDNHX4rdhO1jgRu/E+Tf
+         Syl1T24NXNWEhlSzz+hSZ1KhXgYYr/5MCoztBiEkYXT64COPOVIT2WvSfhz62QNfaQjM
+         vQSA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788892898; x=1789497698;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Cr8h1Yq/NnZMM4WE8/4qnlK3saUP4YTKFSQMTgTF9Wk=;
+        b=KXXPg4MLv/VR41+GFUMGq3Ar7xVFulO0osTSZL/EuBC/oO5TKKavjYpUo4iLCIZmQF
+         ztsdn70SnLkNGQosjQH98Hl741rpkcZeO1NZzPT/y0QFVuRti33IV87SJMqH5Z0y9yW7
+         LJ2NXkrwjyf4e6eLUx9omC6TD9uKw7+nZqkrZkH4G8MNk2QLPu5z7ZsdqbAm0F0WqoSC
+         nC4cjkye91rT19pXydH6o/wDjmhyBE6r/VIypp1isoT9Wkfst5cXSh6dA0mRNUyBCXgB
+         dDEA6xfe7v2dkzg1zHZueyOvAtNJ4pKBck8tcl4VndZxD/gV5Go0E9/v31y4pb0W8a3s
+         JDVA==
+X-Forwarded-Encrypted: i=1; AKwUvByhGKJ7jJDZJdiMWMyWIx2UzklbPBuP82JVAZoiQe8bNKqwSD1b3SVXzvpKNxu5WvXhVekchSRnLjYanWE=@vger.kernel.org
+X-Gm-Message-State: AFuF++nlCaxizCyMOwHlytdZhr9W0WGuWG+neV83xx9yC0cdU3TnK3rH
+	kvUzCX4UzD93fYEA/tuYkHFzkrKE0eFsQDE8aB4Bh6iSUy+smAGX/k1m
+X-Gm-Gg: AYBFou3udBCDA3HrRwBi1hChiqXC7MgQG9M98ugbPN+x6faPVRI/a/PMiqSZ36nJS1t
+	Z8d0Mz1VubnS0A/PBoSXCaU7Dqu+gMC7hHL6WP2Je87BXFFvAscptFdX1vwedvBor0LBqX7FKkR
+	RRCl73D2LNwjl8nUuQrx3bX9T9qD2VQd5LYn1WIE2+/Z6oWivO2gw2MEDqI0QxW0ymH4KjpsJEM
+	wkhew+1Jw3XV2Mreqn3EtMY5Hc9HL7n4SOEEJOXryPpIOPs0Q2cH0MFRVoagPgGBAOc5yxAiAs4
+	wkVCC8FqtwmSG6u4fDgfrrUL8sc6OhinqM/+jkCuMN6Nboz0bTE/lT1YZA+90nya8K8HBLQEPNX
+	C4/JZrG9bOvnW/WIK1PlarkiXIZKPzRlvP3fzlsEwELJ+efDL6L6o8qdzu17nUrZdHcsPUDQHbR
+	rnwGU/v2KJjTqJ5ylYrsP/W8NZNKGVEZaeIpcUUhNaneEA8oy2/7pN9u2I
+X-Received: by 2002:a05:600c:1da8:b0:49c:cf18:494e with SMTP id 5b1f17b1804b1-49cf825a530mr371178485e9.12.1788892897552;
+        Tue, 08 Sep 2026 11:41:37 -0700 (PDT)
+Received: from luca-vm.lan ([154.61.61.58])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-485883c81c3sm38558775f8f.26.2026.09.08.11.41.36
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 08 Sep 2026 11:41:37 -0700 (PDT)
+From: Luca Leonardo Scorcia <l.scorcia@gmail.com>
+To: linux-mediatek@lists.infradead.org
+Cc: Luca Leonardo Scorcia <l.scorcia@gmail.com>,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+	Chun-Kuang Hu <chunkuang.hu@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	CK Hu <ck.hu@mediatek.com>,
+	Jitao shi <jitao.shi@mediatek.com>,
+	dri-devel@lists.freedesktop.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org
+Subject: [PATCH RESEND v2] dt-bindings: mediatek: hdmi-ddc: Correct the compatibles for mt7623-mt8167
+Date: Tue,  8 Sep 2026 20:41:05 +0200
+Message-ID: <20260908184125.10916-1-l.scorcia@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 00/13] ARM: deprecated platform removal
-To: Arnd Bergmann <arnd@arndb.de>, Arnd Bergmann <arnd@kernel.org>,
- Krzysztof Kozlowski <krzk@kernel.org>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Linus Walleij <linusw@kernel.org>, Russell King <linux@armlinux.org.uk>
-Cc: Drew Fustini <fustini@kernel.org>, Rob Herring <robh@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Liviu Dudau <liviu.dudau@arm.com>,
- Sudeep Holla <sudeep.holla@kernel.org>,
- Lorenzo Pieralisi <lpieralisi@kernel.org>, Frank Li <Frank.Li@nxp.com>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, Vladimir Zapolskiy <vz@mleia.com>,
- Stefan Agner <stefan@agner.ch>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Aaro Koskinen <aaro.koskinen@iki.fi>, Andreas Kemnade
- <andreas@kemnade.info>, Kevin Hilman <khilman@baylibre.com>,
- Roger Quadros <rogerq@kernel.org>, Tony Lindgren <tony@atomide.com>,
- Nicolas Ferre <nicolas.ferre@microchip.com>,
- Claudiu Beznea <claudiu.beznea@tuxon.dev>, Andrew Lunn <andrew@lunn.ch>,
- Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
- Gregory Clement <gregory.clement@bootlin.com>,
- Robert Jarzmik <robert.jarzmik@free.fr>,
- Kristoffer Ericson <kristoffer.ericson@gmail.com>,
- Ethan Nelson-Moore <enelsonmoore@gmail.com>,
- Geert Uytterhoeven <geert@linux-m68k.org>,
- "A. Sverdlin" <alexander.sverdlin@siemens.com>,
- Shawn Guo <shawnguo@kernel.org>, Karl Mehltretter <kmehltretter@gmail.com>,
- "David Hildenbrand (Red Hat)" <david@kernel.org>,
- Nicolas Pitre <npitre@baylibre.com>, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- devicetree@vger.kernel.org, imx@lists.linux.dev,
- linux-stm32@st-md-mailman.stormreply.com,
- Linux-OMAP <linux-omap@vger.kernel.org>
-References: <20260908152808.3928630-1-arnd@kernel.org>
- <fd157e63-e581-44b6-9e4a-962002669438@infradead.org>
- <173bb63a-59de-4961-a841-4a2fd0c2bcac@app.fastmail.com>
-Content-Language: en-US
-From: Randy Dunlap <rdunlap@infradead.org>
-In-Reply-To: <173bb63a-59de-4961-a841-4a2fd0c2bcac@app.fastmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
+The HDMI DDC driver for both mt7623 and mt8167 is actually the same as
+mt8173-hdmi-ddc and the mt7623n.dtsi board include file already uses
+mt8173-hdmi-ddc compatible as a fallback, but the documentation lists
+them as separate entries. Correct the binding by adding the correct
+fallback.
 
+Signed-off-by: Luca Leonardo Scorcia <l.scorcia@gmail.com>
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+---
+Fixes the following dtbs_check error in mt7623n-rfb-emmc.dts and
+mt7623n-bananapi-bpi-r2.dts:
 
-On 9/8/26 11:33 AM, Arnd Bergmann wrote:
-> On Tue, Sep 8, 2026, at 18:53, Randy Dunlap wrote:
->>
->> If netwinder is going away, can all of
->> Documentation/arch/arm/nwfpe/ also go away?
->>
->> Or do all of these come later (in phase 2 or 3)?
-> 
-> nwfpe is used on all OABI platforms, not just netwinder, so
-> the patch to remove that comes in the next series after removing
-> OABI. See
-> 
-> https://git.kernel.org/pub/scm/linux/kernel/git/soc/soc.git/commit/?id=ff375183fe225b79de700f004181405ff6a739cc
-> 
-> for the draft patch.
+i2c@11013000 (mediatek,mt7623-hdmi-ddc): compatible:
+  ['mediatek,mt7623-hdmi-ddc', 'mediatek,mt8173-hdmi-ddc'] is too long
 
-Got it. Thanks.
+ .../bindings/display/mediatek/mediatek,hdmi-ddc.yaml  | 11 +++++++----
+ 1 file changed, 7 insertions(+), 4 deletions(-)
 
+diff --git a/Documentation/devicetree/bindings/display/mediatek/mediatek,hdmi-ddc.yaml b/Documentation/devicetree/bindings/display/mediatek/mediatek,hdmi-ddc.yaml
+index bd8f7b8ae0ff..966127e1ee63 100644
+--- a/Documentation/devicetree/bindings/display/mediatek/mediatek,hdmi-ddc.yaml
++++ b/Documentation/devicetree/bindings/display/mediatek/mediatek,hdmi-ddc.yaml
+@@ -15,10 +15,13 @@ description: |
+ 
+ properties:
+   compatible:
+-    enum:
+-      - mediatek,mt7623-hdmi-ddc
+-      - mediatek,mt8167-hdmi-ddc
+-      - mediatek,mt8173-hdmi-ddc
++    oneOf:
++      - const: mediatek,mt8173-hdmi-ddc
++      - items:
++          - enum:
++              - mediatek,mt7623-hdmi-ddc
++              - mediatek,mt8167-hdmi-ddc
++          - const: mediatek,mt8173-hdmi-ddc
+ 
+   reg:
+     maxItems: 1
 -- 
-~Randy
+2.43.0
 
