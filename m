@@ -1,225 +1,103 @@
-Received: from mta1.migadu.com (out-37.mta1.migadu.com [95.215.58.37])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE12751356A
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 09:20:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.37
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBC5E4AD7E6;
+	Tue,  8 Sep 2026 09:20:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=180.181.231.80
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788859260; cv=none; b=C1W0L6/rfYXs2KDqr6IKSwKebA0J0ZTaC2HbuDtTNmjoxG0z49LAvwhKFCkmZYHr94iiW+sOl2kms6aPUfzLYmqkgIQ2O/F8QtOB9DaLMcfhr/O85Yu1ugxprrdU+2l2vpeAFaPLbmXoeiS9UhWLdzZn8KvnGbcrttYDZhuqczA=
+	t=1788859259; cv=none; b=byvMXBOnHn/XtPk42YwenvxUOsUMzCwewe//6L29RxI/BSOIRSvgNcfcAKuSfvCo6ySYYa111/f1jSaM+lQrCc63Z1Aq8eziZfdQSidsFPt4xXOtFQkfjaAjAb2kBRfXJWVaoRl9xLsrKLFL9QlHZtASQBeMYvIOIZKS8VYaA/Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788859260; c=relaxed/simple;
-	bh=5qZoCBZiXzbympZO5SLiimtaqd6GAU+iP1rCRMtmMRs=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=II+VYKmd0eMx8snODhocFbim6Vn4KedSsdSjxqgIPzQKbm8itLwtBlVfdte8JfkDHkQsUYp6pE4Eu/IBr+KJIes3jXmh0PwvfPZQiWEs+MLpSvJ6pJoMrPriGn7b4hwtf12Zh7KkpqEdude3TC7xgZLmEJKVnAX/kbpzMZoudKo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=dbGpm5W0; arc=none smtp.client-ip=95.215.58.37
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1788859259; c=relaxed/simple;
+	bh=VGdgfu8FflBUe1F0QvCfe+YXb0jjB4KTsG1VdxloQ1M=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=jsNy1QahzZHh6yVTwzMD050u5QqizEVDcely56uJdJ9ex/WJ+OBTl32xwPCf1yhjqj08cjm8xhrcmGe4mRbv6hMtAUmb5m7yu09Oa5AGM4C+HU3tKtn5aKEkoBMffMKJW+ePErXSn88HvNjq3652ywM9i5bT0vQM1vzfUnQ6NTw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au; spf=pass smtp.mailfrom=gondor.apana.org.au; dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b=iqCEkxAq; arc=none smtp.client-ip=180.181.231.80
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gondor.apana.org.au
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="dbGpm5W0"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=5qZoCBZiXzbympZO5SLiimtaqd6GAU+iP1rCRMtmMRs=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788859255; v=1; x=1789464055;
- b=dbGpm5W0Xg9SB5Xt648j1l9N0LrtMzg/bgqMr1qYC68tF6VJLqsJyiSoMh+zRO7hhvX74KXd
- +Ri1BNn8uH2ynopB+iwJWnQ6Ck11cH3MATwPlMCg5eV/vcmHj6uHglybS3oD8OGdFQgyhdx1rYV
- zDZ7ChPg/mx/cipL8+xSVD4I=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id bd3504b82ee67862;
-	Tue, 08 Sep 2026 09:20:55 +0000
-X-Mizu-Trace-ID: bd3504b82ee67862
-X-Migadu-Flow: FLOW_OUT
-From: Hao Ge <hao.ge@linux.dev>
-To: Luis Chamberlain <mcgrof@kernel.org>,
-	Petr Pavlu <petr.pavlu@suse.com>,
-	Daniel Gomez <da.gomez@kernel.org>,
-	Sami Tolvanen <samitolvanen@google.com>,
-	Aaron Tomlin <atomlin@atomlin.com>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Hao Ge <hao.ge@linux.dev>,
-	Andrew Morton <akpm@linux-foundation.org>
-Cc: linux-modules@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org
-Subject: [PATCH v9 0/4] alloc_tag and module codetag section fixes
-Date: Tue,  8 Sep 2026 17:21:35 +0800
-Message-Id: <20260908092139.115329-1-hao.ge@linux.dev>
-X-Mailer: git-send-email 2.25.1
+	dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b="iqCEkxAq"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
+	from:content-type:reply-to; bh=C407YdSwLyJjiUUnrA36d5Mbdvt5XnU6O23tFgKHeQw=; 
+	b=iqCEkxAqCo7XVL7E97GFXAOhpV6JPho2st8lQtUfP4A41jAbO2CbgHhoNg0315hmmQpAyqqBI/w
+	Wl7SK+hGFcjEsk8P6sVSBAByY+u2ZDGpc+H8jgXHwT9aZsKmUZFm3ld4UCVXOpdpXHHfeWM1LQchL
+	HX9TYGZ9xDp2D/dAQnJvJVpq/8ZItBgNel6RYGv/9zqFeG+DSf6ECIQWpWwA+Wp/vinHqyU3QCGV3
+	5acQzPEoj+bNw+AiqnMFe/T9yKzicMqhptHC2hb7MiemYFnOK6v+JsdKABkA1s8lKLoJ9vRmMIBKr
+	GDjD5WouYQ8KFFWfC4enyI2srdjLjCqKObYA==;
+Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
+	by formenos.hmeau.com with smtp (Exim 4.98.2 #2 (Debian))
+	id 1x3s0Q-0000000Bncv-0UA9;
+	Tue, 08 Sep 2026 17:20:43 +0800
+Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Tue, 08 Sep 2026 19:20:42 +1000
+Date: Tue, 8 Sep 2026 19:20:42 +1000
+From: Herbert Xu <herbert@gondor.apana.org.au>
+To: =?iso-8859-1?B?Suly6W15?= Jean <Jeremy.Jean@oss.cyber.gouv.fr>
+Cc: arei.gonglei@huawei.com, mst@redhat.com, davem@davemloft.net,
+	jasowangio@gmail.com, xuanzhuo@linux.alibaba.com,
+	eperezma@redhat.com, linux-crypto@vger.kernel.org,
+	virtualization@lists.linux.dev, linux-kernel@vger.kernel.org,
+	Bryam Vargas <hexlabsecurity@proton.me>
+Subject: Re: [PATCH] crypto: virtio: validate akcipher completion length
+Message-ID: <ap_TatiabFuXiiad@gondor.apana.org.au>
+References: <20260821095511.3600564-2-Jeremy.Jean@oss.cyber.gouv.fr>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260821095511.3600564-2-Jeremy.Jean@oss.cyber.gouv.fr>
 
-I ran into an overflow problem in the module tag area. With profiling
-toggled off, the overflow check in reserve_module_tags() did not
-run, a module could load with more tags than the page flags can
-address, and re-enabling profiling then silently corrupted
-/proc/allocinfo. On overflow the fix shuts profiling down, releases
-the reservation and returns -EAGAIN, and the codetag section lands
-as regular module data in the same load, so the module loads without
-profiling.
+On Fri, Aug 21, 2026 at 09:55:12AM +0000, Jérémy Jean wrote:
+> The device controls the used length returned for an akcipher request.
+> Subtracting the status byte without validating that length can underflow
+> dst_len, while accepting a payload larger than the submitted destination
+> can make sg_copy_from_buffer() read past the response buffer.
+> 
+> Reject malformed completion lengths before updating dst_len or copying the
+> response.
+> 
+> Fixes: a36bd0ad9fbf ("virtio-crypto: adjust dst_len at ops callback")
+> Assisted-by: Codex:gpt-5
+> Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
+> ---
+>  drivers/crypto/virtio/virtio_crypto_akcipher_algs.c | 13 ++++++++++++-
+>  1 file changed, 12 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/crypto/virtio/virtio_crypto_akcipher_algs.c b/drivers/crypto/virtio/virtio_crypto_akcipher_algs.c
+> index d8d452cac391..886032abae80 100644
+> --- a/drivers/crypto/virtio/virtio_crypto_akcipher_algs.c
+> +++ b/drivers/crypto/virtio/virtio_crypto_akcipher_algs.c
+> @@ -69,6 +69,7 @@ static void virtio_crypto_dataq_akcipher_callback(struct virtio_crypto_request *
+>  	struct akcipher_request *akcipher_req =
+>  		container_of((void *)vc_akcipher_req, struct akcipher_request,
+>  			     __ctx);
+> +	unsigned int dst_len;
+>  	int error;
+>  
+>  	switch (vc_req->status) {
+> @@ -88,9 +89,19 @@ static void virtio_crypto_dataq_akcipher_callback(struct virtio_crypto_request *
+>  	}
+>  
+>  	/* actual length may be less than dst buffer */
+> -	akcipher_req->dst_len = len - sizeof(vc_req->status);
 
-Review of the earlier series by Sashiko turned up two more problems.
+This appears to have already been fixed by
 
-One is a race. layout_sections() and move_module() both asked
-codetag_needs_module_section() where a codetag section goes, and
-mem_profiling_support can change between the two calls, for instance
-when another module load overflows the tag index and shuts profiling
-down. move_module() then copied the codetag section to offset 0 of
-its regular destination and clobbered the first section placed in
-that region.
+commit f77a956f6a19f9463ef1527c9d0cda50dded6b92
+Author: Bryam Vargas <hexlabsecurity@proton.me>
+Date:   Mon Jun 22 01:52:15 2026 -0500
 
-v7 reworks where codetag sections are allocated, on a prototype by
-Petr Pavlu [1]. The allocation runs before layout_sections() and the
-placement is decided in one step, so nothing re-asks the question
-and the race is gone. The retry is gone too, on -EAGAIN the section
-is laid out as regular module data right in the same load.
+    crypto: virtio - bound the akcipher result length
 
-[1] https://lore.kernel.org/all/499bb60c-c6e3-43a3-bd92-95a0567ece5e@suse.com/
+Please check that commit and see if it's sufficient or not.
 
-Following review feedback from Petr and Suren the series is now
-split into four patches.
-
-Patch 1 moves release_module_tags() above reserve_module_tags(),
-since the failure paths now have to call it.
-
-Patch 2 cleans up the populate failure path: the reservation is
-released, module_tags.size rolled back and the PTEs a failed
-vmap_pages_range() left behind unmapped, so a later populate of the
-same range is safe. It carries both Fixes tags so it backports
-wherever patch 4 goes, which uses its prev_size.
-
-Patch 3 introduces SH_ENTSIZE_STANDALONE to mark sections with a
-separate allocation, per the ELF spec SHF_ALLOC means a section
-occupies memory during execution, and the percpu section does, only
-outside the regular module layout. It was previously excluded from
-the layout by clearing its SHF_ALLOC, overloading the flag with a
-loader-internal meaning. The mark lives in sh_entsize now,
-find_sec(".data..percpu") gives stable results again and
-apply_relocations() goes back to testing only SHF_ALLOC. The section
-would now show up under /sys/module/*/sections/, but it has one
-instance per CPU and no single address to report, and the entry
-never existed before, so add_sect_attrs() and add_notes_attrs()
-skip it.
-
-Patch 4 moves the codetag allocation out of move_module() in front
-of layout_sections(). On overflow reserve_module_tags() shuts
-profiling down, releases the reservation, rolls module_tags.size
-back and returns -EAGAIN, and the section is laid out as regular
-module data, so the module loads without profiling instead of
-failing. Any other error fails the load. The release and the
-fallback belong together, without the release rmmod hits the stale
-entry and panics.
-
-Tested on an x86_64 virtual machine:
-
-Booted without sysctl.vm.mem_profiling=1,compressed:
-# cat /proc/allocinfo is fine
-
-Booted with sysctl.vm.mem_profiling=1,compressed:
-# cat /proc/allocinfo is fine
-# insmod overflow_tag.ko
-# dmesg
-  With module overflow_tag there are too many tags to fit in 13 page
-  flag bits. Memory allocation profiling is disabled!
-# rmmod overflow_tag
-The module loads without profiling and unloads cleanly.
-
-Changes in v9:
-- do not export .data..percpu under /sys/module/*/sections/ (Petr
-  Pavlu).
-- move the populate failure cleanup in front of the rework, v8 patch
-  4 is patch 2 now. It declares prev_size itself, which the overflow
-  path of the rework also uses, so it carries both Fixes tags and the
-  two patches backport together
-
-Changes in v8:
-- roll back module_tags.size when the reservation is released, so a
-  concurrent load which already passed needs_section_mem() does not
-  skip populate for the freed gap (Sashiko)
-- unmap the PTEs a failed vmap_pages_range() installed, a retry to
-  populate the same range would BUG on them
-- zero the separately allocated codetag memory for an SHT_NOBITS
-  section, the tag area pages are not zeroed on allocation (Sashiko)
-- .data..percpu is exported under /sys/module/*/sections/ with the
-  boot CPU instance of the per-cpu area, and the interface is
-  documented in the ABI docs (Petr Pavlu)
-- keep a comment in apply_relocations() on how .data..percpu is
-  relocated (Petr Pavlu)
-- replace the "Based-on-a-patch-by:" tag with an in-body
-  attribution and a numbered Link: (Andrew Morton)
-
-Changes in v7:
-- split the rework following review feedback (Petr Pavlu, Suren
-  Baghdasaryan)
-- new patch 2 marks separately allocated sections with
-  SH_ENTSIZE_STANDALONE instead of clearing SHF_ALLOC
-  (suggested by Petr Pavlu)
-- split the populate failure release into its own patch (suggested
-  by Suren Baghdasaryan)
-
-Changes in v6:
-- rework on Petr's prototype and allocate codetag sections before
-  layout_sections(), the retry and its state resets are gone
-- fix the layout_sections()/move_module() race (Found by Sashiko)
-- release the reservation on populate failure as well (Found by
-  Sashiko)
-- only -EAGAIN keeps the fallback, other errors fail the load
-
-Changes in v5:
-- add Fixes: and Cc: stable to patch 1/2 as well, since 2/2 does not
-  compile without it (Andrew Morton)
-- restore frob-adjusted mem[type].size on retry instead of zeroing,
-  as s390 and parisc add GOT/PLT space there in
-  module_frob_arch_sections() (Reported by Sashiko)
-- drop the load_module() mem_profiling_support check; the percpu
-  counter leak is pre-existing and orthogonal to this fix
-
-Changes in v4:
-- add a new patch (1/2) to move release_module_tags() above
-  reserve_module_tags(); the overflow fix is 2/2
-- release the reservation on the -EAGAIN path
-- return -EAGAIN instead of -ENOMEM so the module can still load
-  without profiling (Suren)
-- reset sh_addr, mem[type].size and sym/str SHF_ALLOC before retry
-- skip percpu counters in load_module() when profiling is off
-
-Changes in v3:
-- use pr_warn_once() instead of pr_warn()
-- return -ENOMEM instead of -ENOSPC (Suren)
-- expand the commit message to describe the /proc/allocinfo impact
-  (Andrew)
-
-Changes in v2:
-- return an error after shutdown_mem_profiling() to skip
-  vm_module_tags_populate()
-
-v1: https://lore.kernel.org/all/20260804064408.105033-1-hao.ge@linux.dev/
-v2: https://lore.kernel.org/all/20260804122038.190270-1-hao.ge@linux.dev/
-v3: https://lore.kernel.org/all/20260805090633.141001-1-hao.ge@linux.dev/
-v4: https://lore.kernel.org/all/20260810093955.153015-1-hao.ge@linux.dev/
-v5: https://lore.kernel.org/all/20260812054105.102637-1-hao.ge@linux.dev/
-v6: https://lore.kernel.org/all/20260831072104.120197-1-hao.ge@linux.dev/
-v7: https://lore.kernel.org/all/20260902081802.146145-1-hao.ge@linux.dev/
-v8: https://lore.kernel.org/all/20260907062414.106873-1-hao.ge@linux.dev/
-
-Hao Ge (4):
-  alloc_tag: move release_module_tags() above reserve_module_tags()
-  alloc_tag: clean up the populate failure path
-  module: introduce SH_ENTSIZE_STANDALONE for separately allocated
-    sections
-  module: allocate codetag sections before the regular module layout
-
- include/linux/module.h   |   2 +
- kernel/module/internal.h |   8 +++
- kernel/module/kallsyms.c |  13 +---
- kernel/module/main.c     | 133 +++++++++++++++++++++------------------
- kernel/module/sysfs.c    |  15 ++++-
- mm/alloc_tag.c           | 111 +++++++++++++++++---------------
- 6 files changed, 158 insertions(+), 124 deletions(-)
-
+Thanks,
 -- 
-2.25.1
-
+Email: Herbert Xu <herbert@gondor.apana.org.au>
+Home Page: http://gondor.apana.org.au/~herbert/
+PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
