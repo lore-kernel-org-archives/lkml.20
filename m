@@ -1,155 +1,234 @@
-Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com [209.85.214.172])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86DA83DE430
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 18:22:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3346859C996;
+	Tue,  8 Sep 2026 18:22:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788891734; cv=none; b=kmgTHUGA0R7mF2qqAo/QxMTAMYyEAYeYLEJfGftn7AqHD5VWDhVmNqCfaaIZ+A+U5qnl9Pc8pxXHmhElYUlszbGZlGqv26D5QiWwqhNXxrRcwfHxI2eV0rNVih5qbIP2rcd9GGxZoaotXnAwqSZw+FVODabdB1xslrgW/GZg47c=
+	t=1788891738; cv=none; b=TOFIT2wYyLunvtxBTFezYpHEpfh4fxc7T/grU2rAsbvazhCj8TN9rXpM+5EMscLF3bcLvSBfZK12uO9cKfqcyMXNrbmTbbwnenut1HEZ4TagNRDBOWeC4EyQ3uHqG3iQOlqWM708cjcQTFm93mjOjjtbXbcvLWKe46X0Jm+qkus=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788891734; c=relaxed/simple;
-	bh=LRnpiDdCwPVUv6E32t3wFhociHyoISEzKZ7dorbh3Ak=;
-	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=MWvjJsg/S6do4fhadTWHD7RPet+ZNSZXKH8LG7PD+qM19tir0bmO1aSvIX9DBOam/r3OHmaun+E6/CtOL1JXZ7PlsvU+tBdcxeco57B6wlZIzgihiqQ7n7M6tUWF7+oS01RsVQYawG3xN6DBcLfkvxwBL2bEF0rd1aWSM3gyqSU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ISiV+R7r; arc=none smtp.client-ip=209.85.214.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788891738; c=relaxed/simple;
+	bh=BM3fZl19IwFWW2VmP2bope9le0t3zCvilbHR6XjSCUI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=YYeN6QnmYEWbE48KGhHthRheTQK8MeyJ/iUJoA9fHP0FGen13xZqOYVxywxUhk3zIdNXUhhIihN6YdLDtWWFuQUaS52LT/MpGe3prehQVqMndTu4Krj6OdsRHDjuIXkIcswNl2YX3iMvu4TttlFCV9furGgf+8IPe/5ub6NT3+U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FV0Q0PyA; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ISiV+R7r"
-Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-2ce98cb8165so47388775ad.1
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 11:22:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788891733; x=1789496533; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:date:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=+BxcL09W5glUQ1sDY66ek8nAca5eaYWCK6VFgLXdB3U=;
-        b=ISiV+R7r6mjxpraQNItNUW8Psrp87j9X17mx89D4T9zGexdq4K8WMiZxUMILHDz9oX
-         /VTWl08Af4RolgJ6hLBnusZ5iYAKSCJ9sP2zcUR82a/IR0tHN0TBb0GAbQnLoI1X/J6q
-         tSt0eHMcN0Y3eNtKkfZy4Z3+ar0OWi2lx4X9xPu6sKJkKddM5CL+rYEhfOStFLItq4SK
-         ZGVh0oIE8pkDxkFnt8lVo1X1FLubL0oz/fOCXg9SOHBMiztBqhGCv0pdzDjD4D5XvX3A
-         MTry5BNXQWPaf3wy6vqJER6+fM1x0blH6ldjjJKcXIMCfSuTzCd4Y/qXABfWFdDc+Bqo
-         mH4g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788891733; x=1789496533;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=+BxcL09W5glUQ1sDY66ek8nAca5eaYWCK6VFgLXdB3U=;
-        b=gfunGXPiF0FhusSF8YHcivC2vTjSSO2FNtZLr4bQ1AQ+cLiDHtxoKgKgD8QMGJp51o
-         h59Kilu9OMrY8SV4WzxQAsNZckhFTltCHJJPmMXeouYL93L1y0HpdHN3XHTLE7FrwKBo
-         u9LsVf/pFDR24BVrQxlIC7Kz2toHIhErTGHwzu37osNXMkW6XJKK6MYXOdYuy55DOfx6
-         imOSvjnuWt2Dlw+26RgSFHmMXmngI72A0af2cVeagN9LNgrUY5vjRIrrxuTHRXHLURkg
-         q06XmoD0BwZNGCSoRQb2MZRd1h0BzFMHTXM0tiItkPHN7G3HO91Ey6BgBjnABIe8ir/F
-         d7Fw==
-X-Forwarded-Encrypted: i=1; AKwUvBypbRNAM7IyY6GKlC/gOmHmIFDLGt1l3CNkkLqlYyd+6pVuau3boZuM25+U2lNbQcyYNyyFnUPM3iUgxFA=@vger.kernel.org
-X-Gm-Message-State: AFuF++n6IHxrWOvLobvGuxqIQ+s63BgLjEVEXJd/YF2YRtfixqWt4ULO
-	TSbsvRpSD0qHGkXJXYcXjzfYa9HNPlajzHI1fNJqKXGz/1MZjuDINea0
-X-Gm-Gg: AYBFou3XD+EBQ6m8MRPIlMRVV2iqmqG3jiz2d4NKe0WHKdW0AW4PaeDagNkTvO8QXq0
-	NkHP0hTbRFo7a0P3/K2avzoEy27cDpUl9HuyC0RcvQMS/Axg/wgwfvQrIeKH1S/+1A+09At6NU2
-	bmThWfkHhlU36NKfMJY+B7OxpsI5km9esdNlFphZW7SGF1faRoRwVBdi6pCSIfeCsqLWZisxjHc
-	XEYrgtGmtN2EJNLO+UzFwFvXlnAnA9+xBzQd1+KIvnq0J/ZrxGqP2RaIKtbKLXAH44nBIiKoYep
-	YKqXT1cbEw+MitCB1xGdKzZSc1k5iXbLi5R+5lnbq1idJ/4rv6rZ0jqUxVJAM+u4PFiBgSTrveM
-	+a6AwufsKS5rn7aDREDCxwThzvO7Lnx0ruJk7kaWuA2ibM9Au3/UvYaknudNdFO3BLZpdPxtSHb
-	+bihkW+PbAK92Yo041lSmy4i8gz9rZh5spLrDyQtCQb/Z0152ELoCELzIKOHj7tpq8FVOEGLb4Y
-	Nm3PHHil/pzzIp+dAFNBpY+pP9TUw97zijvL2s1KmMhklpL
-X-Received: by 2002:a17:902:ce8e:b0:2d8:d4d2:d138 with SMTP id d9443c01a7336-2dafb136d0emr325992585ad.20.1788891732704;
-        Tue, 08 Sep 2026 11:22:12 -0700 (PDT)
-Received: from 4470NRD-ASU.ssi.samsung.com ([50.205.20.42])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339a534152sm36546691eec.10.2026.09.08.11.22.11
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 08 Sep 2026 11:22:12 -0700 (PDT)
-From: Anisa Su <anisa.su887@gmail.com>
-X-Google-Original-From: Anisa Su <anisa.su@samsung.com>
-Date: Tue, 8 Sep 2026 11:22:09 -0700
-To: Shaikh Kamaluddin <shaikhkamal2012@gmail.com>
-Cc: Davidlohr Bueso <dave@stgolabs.net>,
-	Jonathan Cameron <jic23@kernel.org>,
-	Dave Jiang <dave.jiang@intel.com>,
-	Alison Schofield <alison.schofield@intel.com>,
-	Vishal Verma <vishal.l.verma@intel.com>,
-	Dan Williams <djbw@kernel.org>, Ira Weiny <iweiny@kernel.org>,
-	Li Ming <ming.li@zohomail.com>, linux-cxl@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] cxl/events: Return IRQ_NONE when no event is pending
-Message-ID: <aqBSUSJWVA8JfCvX@4470NRD-ASU.ssi.samsung.com>
-References: <20260906155705.13252-1-shaikhkamal2012@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FV0Q0PyA"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D42FA1F00A3A;
+	Tue,  8 Sep 2026 18:22:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788891737;
+	bh=bBK+lkdc8WwiRkWcvS70bm/lr9IbN1ckG2JedwJWCmU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=FV0Q0PyAlsj3gQkYvccOjxyp+wPNNQG1o/rEV7PrXLd6ooywnFzhHawMwm7THW4bn
+	 Fs407hAZxIWOsik+ISyaQA3IpJqwRtIuYOPDtCK4AOu1J9v7krVn8dCsj3TG0eSHWd
+	 R57yUqiDllBWT7BraNBPDKy/Vkz5y76VabfYXqu7gaBUE0I9iwcpieLMM364QCzInf
+	 PeF9WjHYW8Q/SE14yzpXEaBEdZI+t9Fl+9PHKtLVeJvjMzmnhopUWQXvCut6neZu8E
+	 Us9ls+kXfbhk1+hYLilxEK3ssN+L/pr9C4x2DDRHhVVz7yFGK6dkZ1j0Xdwi0/kZGN
+	 oWL9QLrbmFYCg==
+Date: Tue, 8 Sep 2026 19:22:11 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Alex Deucher <alexdeucher@gmail.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+	Alex Huang <Alex.Huang2@amd.com>,
+	Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>,
+	Fangzhi Zuo <jerry.zuo@amd.com>, Ivan Lipski <ivan.lipski@amd.com>,
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+	Linux Next Mailing List <linux-next@vger.kernel.org>,
+	Mario Limonciello <superm1@kernel.org>,
+	Tomasz =?utf-8?Q?Paku=C5=82a?= <tomasz.pakula.oficjalny@gmail.com>,
+	Tom Chung <chiahsuan.chung@amd.com>
+Subject: Re: linux-next: manual merge of the amdgpu tree with the drm-misc
+ tree
+Message-ID: <f28a4c40-dd14-4488-9a4d-68055713b262@sirena.org.uk>
+References: <aqA5IjDLvW7ANQ3K@sirena.org.uk>
+ <042afcca-18a6-4372-ad16-c2096c216b98@sirena.org.uk>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="/ERcDeG73J2zZuhT"
+Content-Disposition: inline
+In-Reply-To: <042afcca-18a6-4372-ad16-c2096c216b98@sirena.org.uk>
+X-Cookie: The world is not octal despite DEC.
+
+
+--/ERcDeG73J2zZuhT
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260906155705.13252-1-shaikhkamal2012@gmail.com>
+Content-Transfer-Encoding: quoted-printable
 
-On Sun, Sep 06, 2026 at 09:27:05PM +0530, Shaikh Kamaluddin wrote:
-> CXL event interrupts may share an MSI/MSI-X vector with other event
-> logs or device features. Consequently, cxl_event_thread() is registered
-> with IRQF_SHARED and must determine whether an interrupt belongs to the
-> event-log facility.
-> 
-> The handler masks the Device Event Status register to the event logs
-> supported by the driver. However, when no supported status bit is set,
-> it exits the processing loop and still returns IRQ_HANDLED.
-> 
-> Track whether at least one supported event status bit was observed.
-> Return IRQ_NONE when there was no event to service, while continuing to
-> return IRQ_HANDLED after processing one or more event logs.
-> 
-> Fixes: a49aa8141b65 ("cxl/mem: Wire up event interrupts")
-> 
-> Signed-off-by: Shaikh Kamaluddin <shaikhkamal2012@gmail.com>
-Hello,
+On Tue, Sep 08, 2026 at 06:16:28PM +0100, Mark Brown wrote:
+> On Tue, Sep 08, 2026 at 05:34:48PM +0100, Mark Brown wrote:
 
-This looks similar to a patch I sent last week:
-[PATCH v2 4/4] cxl/events: Return IRQ_NONE when no events were processed
-https://lore.kernel.org/linux-cxl/8e22c1c2-8098-492a-8162-3dd27507c853@amd.com/T/#ma4cf2b2dddaeebc06cb73f81647817bdbb51963c
+> The merge here is wrong, and there's more extensive conflicts including
 
-It was dropped because I received the feedback that in general, the driver does
-not need to handle device-side errors/spec-violating behaviors. I believe it
-would apply here as well. But if I misunderstood the intent of this patch,
-let me know.
+> I'll get something that builds but no idea if it'll work.
 
-Thanks,
-Anisa
-> ---
->  drivers/cxl/pci.c | 5 ++++-
->  1 file changed, 4 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/cxl/pci.c b/drivers/cxl/pci.c
-> index c7c91e8dc51d..8b560cae91f2 100644
-> --- a/drivers/cxl/pci.c
-> +++ b/drivers/cxl/pci.c
-> @@ -515,6 +515,7 @@ static irqreturn_t cxl_event_thread(int irq, void *id)
->  	struct cxl_dev_id *dev_id = id;
->  	struct cxl_dev_state *cxlds = dev_id->cxlds;
->  	struct cxl_memdev_state *mds = to_cxl_memdev_state(cxlds);
-> +	bool handled = false;
->  	u32 status;
->  
->  	do {
-> @@ -527,11 +528,13 @@ static irqreturn_t cxl_event_thread(int irq, void *id)
->  		status &= CXLDEV_EVENT_STATUS_ALL;
->  		if (!status)
->  			break;
-> +
-> +		handled = true;
->  		cxl_mem_get_event_records(mds, status);
->  		cond_resched();
->  	} while (status);
->  
-> -	return IRQ_HANDLED;
-> +	return handled ? IRQ_HANDLED : IRQ_NONE;
->  }
->  
->  static int cxl_event_req_irq(struct cxl_dev_state *cxlds, u8 setting)
-> 
-> base-commit: 7098e9cd98a05c0c5de2fae0c2465f9d966fdd07
-> prerequisite-patch-id: 92e40cd60a697020faac475dcc77ba63b33434ea
-> prerequisite-patch-id: 10027ad5d9aed85806047f807b3a76273b6c4a77
-> -- 
-> 2.43.0
-> 
+Final fixup below which almost certainly will not work, this is a
+semantic conflict which you probably want to resolve with a direct merge
+yourselves.  If you've got a better fixup I can drop it in.
+
+=46rom f9c146baa10ead28e3356fba8ff966ec15b5d32b Mon Sep 17 00:00:00 2001
+=46rom: Mark Brown <broonie@kernel.org>
+Date: Tue, 8 Sep 2026 17:42:52 +0100
+Subject: [PATCH] drm: amd: Problematic merge fixup
+
+Almost certainly broken, a semantic conflict after the rerere stage :(
+
+Signed-off-by: Mark Brown <broonie@kernel.org>
+---
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  5 +++--
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |  5 ++++-
+ .../display/amdgpu_dm/amdgpu_dm_connector.c   | 22 -------------------
+ .../display/amdgpu_dm/tests/amdgpu_dm_test.c  |  4 ++--
+ 4 files changed, 9 insertions(+), 27 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gp=
+u/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 7e5bc461f8839..09385cb53eca6 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -3076,6 +3076,7 @@ fill_dc_plane_info_and_addr(struct amdgpu_device *ade=
+v,
+ EXPORT_IF_KUNIT(fill_dc_plane_info_and_addr);
+=20
+ STATIC_IFN_KUNIT int fill_dc_plane_attributes(struct amdgpu_device *adev,
++					      struct drm_atomic_commit *state,
+ 					      struct dc_plane_state *dc_plane_state,
+ 					      struct drm_plane_state *plane_state,
+ 					      struct drm_crtc_state *crtc_state)
+@@ -3095,7 +3096,7 @@ STATIC_IFN_KUNIT int fill_dc_plane_attributes(struct =
+amdgpu_device *adev,
+ 	dc_plane_state->clip_rect =3D scaling_info.clip_rect;
+ 	dc_plane_state->scaling_quality =3D scaling_info.scaling_quality;
+=20
+-	ret =3D fill_dc_plane_info_and_addr(adev, plane_state->state, plane_state,
++	ret =3D fill_dc_plane_info_and_addr(adev, state, plane_state,
+ 					  &plane_info,
+ 					  &dc_plane_state->address,
+ 					  afb->tmz_surface);
+@@ -5970,7 +5971,7 @@ static int dm_update_plane_state(struct dc *dc,
+ 				 plane->base.id, new_plane_crtc->base.id);
+=20
+ 		ret =3D fill_dc_plane_attributes(
+-			drm_to_adev(new_plane_crtc->dev),
++			drm_to_adev(new_plane_crtc->dev), state,
+ 			dc_new_plane_state,
+ 			new_plane_state,
+ 			new_crtc_state);
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/gp=
+u/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+index 18ee988251557..b4f677aceb60e 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+@@ -1260,6 +1260,7 @@ void mmhub_read_system_context(struct amdgpu_device *=
+adev,
+ int amdgpu_dm_init_power_module(struct amdgpu_display_manager *dm);
+ int dm_early_init(struct amdgpu_ip_block *ip_block);
+ int fill_dc_plane_info_and_addr(struct amdgpu_device *adev,
++                                struct drm_atomic_commit *state,
+ 				const struct drm_plane_state *plane_state,
+ 				struct dc_plane_info *plane_info,
+ 				struct dc_plane_address *address, bool tmz_surface);
+@@ -1272,7 +1273,9 @@ int amdgpu_dm_mode_config_init(struct amdgpu_device *=
+adev);
+ int initialize_plane(struct amdgpu_display_manager *dm, struct amdgpu_mode=
+_info *mode_info,
+ 		     int plane_id, enum drm_plane_type plane_type,
+ 		     const struct dc_plane_cap *plane_cap);
+-int fill_dc_plane_attributes(struct amdgpu_device *adev, struct dc_plane_s=
+tate *dc_plane_state,
++int fill_dc_plane_attributes(struct amdgpu_device *adev,
++			     struct drm_atomic_commit *state,
++			     struct dc_plane_state *dc_plane_state,
+ 			     struct drm_plane_state *plane_state,
+ 			     struct drm_crtc_state *crtc_state);
+ #endif
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c b/=
+drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+index 147459e48e136..738fee11d2678 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+@@ -3767,28 +3767,6 @@ void amdgpu_dm_update_freesync_caps(struct drm_conne=
+ctor *connector,
+ 	} else if (drm_edid &&
+ 		  (sink->sink_signal =3D=3D SIGNAL_TYPE_HDMI_TYPE_A ||
+ 		   sink->sink_signal =3D=3D SIGNAL_TYPE_HDMI_FRL)) {
+-		i =3D parse_hdmi_amd_vsdb(amdgpu_dm_connector, edid, &vsdb_info);
+-		if (i >=3D 0) {
+-			amdgpu_dm_connector->vsdb_info =3D vsdb_info;
+-			sink->edid_caps.freesync_vcp_code =3D vsdb_info.freesync_mccs_vcp_code;
+-
+-			if (vsdb_info.freesync_supported) {
+-				amdgpu_dm_connector->min_vfreq =3D vsdb_info.min_refresh_rate_hz;
+-				amdgpu_dm_connector->max_vfreq =3D vsdb_info.max_refresh_rate_hz;
+-				if (amdgpu_dm_connector->max_vfreq - amdgpu_dm_connector->min_vfreq > =
+10)
+-					freesync_capable =3D true;
+-
+-				connector->display_info.monitor_range.min_vfreq =3D vsdb_info.min_refr=
+esh_rate_hz;
+-				connector->display_info.monitor_range.max_vfreq =3D vsdb_info.max_refr=
+esh_rate_hz;
+-			}
+-		}
+-
+-		drm_dbg_driver(adev_to_drm(adev),
+-			       "VRR: amd_vsdb i=3D%d fs_sup=3D%d min=3D%d max=3D%d fs_capable=
+=3D%d\n",
+-			       i, vsdb_info.freesync_supported,
+-			       vsdb_info.min_refresh_rate_hz,
+-			       vsdb_info.max_refresh_rate_hz, freesync_capable);
+-
+ 		/*
+ 		 * If AMD VSDB didn't provide a valid FreeSync range, fall back to
+ 		 * the HDMI 2.1 VRR capability parsed from the HF-VSDB.
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_test.c b=
+/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_test.c
+index ccc3fda7f3502..fc53b1bffe998 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_test.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_test.c
+@@ -3628,7 +3628,7 @@ dm_test_plane_info_ctx_alloc(struct kunit *test, stru=
+ct amdgpu_device *adev,
+=20
+ static int dm_test_fill_plane_info(struct dm_test_plane_info_ctx *ctx)
+ {
+-	return fill_dc_plane_info_and_addr(ctx->adev, ctx->plane_state,
++	return fill_dc_plane_info_and_addr(ctx->adev, NULL, ctx->plane_state,
+ 					   &ctx->plane_info, &ctx->address, false);
+ }
+=20
+@@ -4110,7 +4110,7 @@ dm_test_plane_attr_ctx_alloc(struct kunit *test, u32 =
+drm_format)
+=20
+ static int dm_test_fill_plane_attr(struct dm_test_plane_attr_ctx *ctx)
+ {
+-	return fill_dc_plane_attributes(ctx->adev, ctx->dc_plane,
++	return fill_dc_plane_attributes(ctx->adev, NULL, ctx->dc_plane,
+ 					ctx->plane->plane_state, &ctx->crtc_state->base);
+ }
+=20
+--=20
+2.47.3
+
+
+--/ERcDeG73J2zZuhT
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqgUlIACgkQJNaLcl1U
+h9DJhgf/TBPCR9dWxlC6EIRDYh+BB7KDQGZ4wBZ1EWGOEWDcRJkPUAhGj/hWkIsm
+ZqItK5jxtk8loKcCKQrtLP47W+rHsG8S5temSQjjQzhXPw/bmoDOPHDMnSoJZyq/
+wHr0fTHW6PHgy8Up7aLO/V7MnSGKuV7qBijcC0cxMKl34Pt38CRgkw0M5PQz5KbQ
+kCzdoU+Iqq1Ca6voChXrr9a7aVfguHZYHh0GJgX18/+faE8RtjQgwaj/JIorMamV
+nbup9wk+3fy3qvsqUk9t86F49R0Tvespfr4pInJW7GpWWBfaXDaN0eSawfQcBGgT
+zcGUrn38ruWU0obTp55UcrqwRqWRyQ==
+=zKPw
+-----END PGP SIGNATURE-----
+
+--/ERcDeG73J2zZuhT--
