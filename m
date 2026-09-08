@@ -1,100 +1,125 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71CE635C180;
-	Tue,  8 Sep 2026 18:58:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E62C59C977;
+	Tue,  8 Sep 2026 18:59:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788893931; cv=none; b=i5WEeE/wK+a5MrmyAui2Hsida4ssYDzOcaZTAhgo04oZhv1LBVqpAzpyL42HAIh32k7dxJZVtMVQLYOHinX8+6t4jsqWMt2kJcqsjgno4z2Zk4I40740XE/2uA4Cwue/ENfu7PuhV7y6zhL+mTeV6eOFipuq2yDi2s+60L0ljkI=
+	t=1788893978; cv=none; b=lGo2NOxPW5dxXiMj20mgj3nhTGCbt5XqzwMQz3uA7OOPZNEccR/fsay5gCgIUgf7mOmz7UbGY5ujjoSlHYZwTZAk/1eANZimy3YWeLle3sYPfCpR9wUXCc0urD49RYxpi2t8oqskKfGYSbgKYaE4ggSBi/pZ+vl4cJcp6wM94i4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788893931; c=relaxed/simple;
-	bh=YBNUPhK+dSG8Rj+GgFl/0zrJ57AbV8JvJot3uj9k1OU=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=GiN5c4X9x/7K46mUofNwp7bd1Vxh+tpGciVdELPXWlF6+h0fhawvp7TPY3VmWq96e3+tMOqzNZlfw/2zR9xl7mXM9pcXi/5xn+9TTj7AZz4WuY4218s/++OGMkjh6KT1NMK0Bw9qlbozLDEvvPIl1Kd8Rm5kHJF0GCXIrA3mDYE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JhnzMcGd; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788893978; c=relaxed/simple;
+	bh=fWURKfC0YnKtnpIW+sCXZWGoSCh2jCIDL2blX3O/UH0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=kDx8XExUNUUWb5Ytwphiz1oakgIhXen7uu0F17cDghvp4g6V8BSg3oA5m4Q7ql4ot6gVb2n2I0XbQeKFGNMADHfI+wp6YS0+bSgeNNGRGSuk+2ThLbXWixkCmoe+jx5KgSVwOl44udVAuhSBm25gFOrsq02Vpkrntq4lritf4mk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=U4oLHunT; arc=none smtp.client-ip=198.175.65.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JhnzMcGd"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9229F1F00A3A;
-	Tue,  8 Sep 2026 18:58:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788893930;
-	bh=7cgAipI1fCRs+j94B3V9v2XQIDOdhYQSv7FLrs5JCAY=;
-	h=From:Date:Subject:To:Cc;
-	b=JhnzMcGdo5B88I00ke3UkNQOidATxO+8bKtleRggm9yHIQlT7LKi0GwEqqTQgIuIL
-	 R27ZPKyuSXLv9IavHDkQT3t/KtWSTqsNIP1EF8PZFnrXiGDWfDAtEcpy0EYI0ThjNK
-	 UFZ76y18WiCVlz747GuC4UVuGmwChjWNO7ILlxCcsWbZJEfXx15lBDhAsu/9tpYOx9
-	 bvVTQB08qrvqi/sCSBCaJLqitV8mkjzUGXUbHu/HeK7YufipaFCLrJuBLoVDMVxc0k
-	 LeCPRXZzofFKCS7epSG3/U2bnkn9dGHzf5y7TPvSwsFvrc9l29O7PISYsVTXUU7ETZ
-	 EKXpaNVkOFQsQ==
-From: Vincent Mailhol <mailhol@kernel.org>
-Date: Tue, 08 Sep 2026 20:58:26 +0200
-Subject: [PATCH RESEND] block: store GPT attributes as a raw value
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="U4oLHunT"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788893977; x=1820429977;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=fWURKfC0YnKtnpIW+sCXZWGoSCh2jCIDL2blX3O/UH0=;
+  b=U4oLHunTydgLRgJHVBXZmgl5ZG6vkOuK/0EpvxOT8kIiSR69RvcamciC
+   tuMmg+3l9rvoHqnfHMvCML74QzQ4aIy7zPr+zLHvXU5jhQqI+a8keDAh8
+   W/D2S7GSUVm/uX59g4o+A2PDiIf+47aApL5yoPs/cAkKRe8Ha0HYROKlm
+   macinbxQa4OVzWDaghI2ITkBWzj1R3ITc7Qk2tD+3AWInOD3uh1zP4X6Q
+   EcoAjKBTkdB1x2ksiUFKBZCEg7Q5LOTl5zMzTamAa3KINzBVbyMZsT2KQ
+   pMicR0/HTCo6dNGgMP3JVXbG70g+eHj1INXOV2z0ABNZwr8kCUFztPSAC
+   Q==;
+X-CSE-ConnectionGUID: uxSB/k+vRxenodLJzu9MTg==
+X-CSE-MsgGUID: m+zERQXcRLmCbdoCYjB+sA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11900"; a="100828040"
+X-IronPort-AV: E=Sophos;i="6.25,269,1779174000"; 
+   d="scan'208";a="100828040"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Sep 2026 11:59:36 -0700
+X-CSE-ConnectionGUID: SAxxF9giQsaP/2WeIAZ85A==
+X-CSE-MsgGUID: cktt8h4WT8SZl+P+UCCZbw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,269,1779174000"; 
+   d="scan'208";a="266773711"
+Received: from yilunxu-optiplex-7050.sh.intel.com (HELO localhost) ([10.239.47.46])
+  by fmviesa006.fm.intel.com with ESMTP; 08 Sep 2026 11:59:33 -0700
+Date: Wed, 9 Sep 2026 02:59:32 +0800
+From: Xu Yilun <yilun.xu@linux.intel.com>
+To: Heiko Schocher <hs@nabladev.com>
+Cc: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-fpga@vger.kernel.org, Bartosz Golaszewski <brgl@kernel.org>,
+	Linus Walleij <linusw@kernel.org>,
+	Michal Simek <michal.simek@amd.com>,
+	Moritz Fischer <mdf@kernel.org>, Tom Rix <trix@redhat.com>,
+	Xu Yilun <yilun.xu@intel.com>, linux-gpio@vger.kernel.org
+Subject: Re: [PATCH v4] driver: fpga: xilinx-selectmap: add csi and rdwr
+ support
+Message-ID: <aqBbFGExUpS0k0yE@yilunxu-OptiPlex-7050>
+References: <20260810062105.299808-1-hs@nabladev.com>
+ <ap2Yx8oACWfBKOep@yilunxu-OptiPlex-7050>
+ <6a489d2b-b5d1-0455-793f-f4100fd3b3d1@nabladev.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260908-fix_gpt_entry_attributes-v1-1-a4dcb417e8fc@kernel.org>
-To: Davidlohr Bueso <dave@stgolabs.net>, Jens Axboe <axboe@kernel.dk>
-Cc: linux-efi@vger.kernel.org, linux-block@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Vincent Mailhol <mailhol@kernel.org>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1540; i=mailhol@kernel.org;
- h=from:subject:message-id; bh=YBNUPhK+dSG8Rj+GgFl/0zrJ57AbV8JvJot3uj9k1OU=;
- b=owGbwMvMwCV2McXO4Xp97WbG02pJDFkLop7anP2VP+O0YM6ZpawlzAWGbifMgjRbXs839GsV5
- k1x/Di1YyILgxgXg6WYIsuyck5uhY5C77BDfy1h5rAygQyRFmlgAAIWBr7cxLxSIx0jPVNtQz1D
- IEPHiIGLUwCm+qUCw3+n3pnblvPPnFoU9vWRwgrdTXUZW7feWveC87GH6nP+l+sbGP7XbFHrnv+
- uyDbrXoXmlf+PIncs5F3MNC9up9T7D6dCs/9wAwA=
-X-Developer-Key: i=mailhol@kernel.org; a=openpgp;
- fpr=ED8F700574E67F20E574E8E2AB5FEB886DBB99C2
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <6a489d2b-b5d1-0455-793f-f4100fd3b3d1@nabladev.com>
 
-struct _gpt_entry_attributes currently models the GPT partition entry
-attributes field with bitfields. This is broken on machines using the
-__BIG_ENDIAN_BITFIELD ABI because GPT always stores the attributes on
-disk as a 64-bit little-endian.
+> I would change v5 commit message to:
+> """
+>     The driver requests the optional CSI_B and RDWR_B GPIOs with
+>     GPIOD_OUT_HIGH and never touches them again. That flag carries a
+>     logical value, so both signals end up asserted on every board,
+>     whatever polarity the device tree states.
 
-No current code consumes individual fields from that structure. So just
-remove struct _gpt_entry_attributes entirely and replace it by an __le64
-value in struct _gpt_entry instead. This lets users apply endian-aware
-masks explicitly when inspecting attribute bits.
+Yeah, that's clear now.
 
-Signed-off-by: Vincent Mailhol <mailhol@kernel.org>
----
- block/partitions/efi.h | 8 +-------
- 1 file changed, 1 insertion(+), 7 deletions(-)
+> 
+>     Keeping them asserted works as long as a single FPGA owns the
+>     SelectMAP port. That FPGA is the only device on the bus, so it may
+>     stay selected, and the driver never reads from it, so the port may
+>     stay in write mode.
 
-diff --git a/block/partitions/efi.h b/block/partitions/efi.h
-index 84b9f36b9e47..1f56f93b2804 100644
---- a/block/partitions/efi.h
-+++ b/block/partitions/efi.h
-@@ -75,18 +75,12 @@ typedef struct _gpt_header {
- 	 */
- } __packed gpt_header;
- 
--typedef struct _gpt_entry_attributes {
--	u64 required_to_function:1;
--	u64 reserved:47;
--        u64 type_guid_specific:16;
--} __packed gpt_entry_attributes;
--
- typedef struct _gpt_entry {
- 	efi_guid_t partition_type_guid;
- 	efi_guid_t unique_partition_guid;
- 	__le64 starting_lba;
- 	__le64 ending_lba;
--	gpt_entry_attributes attributes;
-+	__le64 attributes;
- 	__le16 partition_name[72/sizeof(__le16)];
- } __packed gpt_entry;
- 
+I think keeping them asserted is a bad idea even for single FPGA, isn't
+it?
 
----
-base-commit: 1590cf0329716306e948a8fc29f1d3ee87d3989f
-change-id: 20260724-fix_gpt_entry_attributes-e5af9e080ce1
+> 
+>     It stops working as soon as two FPGAs share one SelectMAP data bus,
+>     which is the case CSI_B exists for. Both devices are selected all
+>     the time, so every byte written for one of them is clocked into the
+>     other as well, and neither can be configured on its own.
+> 
+>     CSI_B (Chip Select) selects the target FPGA. Assert it before the
+>     configuration data is transferred and deassert it afterwards, so that
+>     only the intended device sees the bus cycles.
 
-Best regards,
--- 
-Vincent Mailhol <mailhol@kernel.org>
+What if we re-program the 2 FPGAs at the same time? Is there still
+chance the 2 CS lines are all asserted? Can they be correctly
+re-programmed in this case?
 
+I mean I think this patch does fix the problem of "always assertion",
+which is good to me. But the changelog seems stop me, it talks all about
+2 FPGAs sharing the same bus, which seems more complex than just
+manipulating the CS.
+
+Thanks,
+Yilun
+
+> 
+>     RDWR_B (Read/Write) selects the transfer direction on the SelectMAP
+>     interface. Assert it for the write cycles that carry the bitstream and
+>     deassert it afterwards. UG570 wants RDWR_B settled before CSI_B is
+>     asserted, a change while the device is selected aborts the
+>     configuration on the next CCLK.
+> 
+>     Both are requested with GPIOD_OUT_LOW now, the logical 0 that leaves
+>     them deasserted, and their descriptors are kept in the driver private
+>     data.
+> 
+>     A board with one FPGA keeps working. SelectMAP allows the bitstream to
+>     be loaded non-continuously, with CSI_B deasserted between the data
+>     transfers, and a deselected device ignores the bus.
+> """
