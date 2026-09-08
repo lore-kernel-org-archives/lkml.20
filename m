@@ -1,138 +1,171 @@
-Received: from va-2-40.ptr.blmpb.com (va-2-40.ptr.blmpb.com [209.127.231.40])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C595C54CF50
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 14:15:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.231.40
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCE835540B2;
+	Tue,  8 Sep 2026 14:15:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788876945; cv=none; b=Lxpo3elWJLWz9nGbNf1Xf18gA0/KOeIcy6RAUIoazlifKqL5zk5F2zrJV2quDzYUE/jetSE2KWmzfgxq0JOOuLd2vps7SVKsnahOPIXyrPDbH/4Y/RHwTdrSseOc/kEyvo9gUt+95LkzI/RgbHOQHoyOEA9iIrrVmj1B0vxFMpM=
+	t=1788876957; cv=none; b=dE92e8YAXkogkYwkP02tSNHiwhcYKN37qED3jvdUrwOoHNfhxeaBT1V8c+oS6UOYrQ3m8RQqEw/6IpMRerKtJf31h4HjLjpa7aMJDXpDSkTNIL7nIRpZMTv3xBa1nLDkt03wkx8yqSwyJ8GTfBp/Fv6ptteFUFY3eaI0ECqTE5E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788876945; c=relaxed/simple;
-	bh=WbRONzMQ/kwQsAeLtudKmzBlGmNDGSDc20uABv49DFI=;
-	h=Date:Mime-Version:Content-Type:To:Cc:Subject:From:Message-Id; b=kwPspztFV4jXrylBi5uFo6w3QXfnE2Pq45CKVJzuh8Ot6rm0I7fBmfkKdEGu1BYBTh4UtGg7Og26QYqNlGDPxkctGw3qqcjWtzKBzamYnJNPRO5kkLW+dou0DLtgczjtOPUmOsY40LqYdE6eK8pwLrcm2eX82aTKisrwLvpsvk0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=picoheart.com; spf=pass smtp.mailfrom=picoheart.com; dkim=pass (2048-bit key) header.d=picoheart.com header.i=@picoheart.com header.b=ChSTBG3K; arc=none smtp.client-ip=209.127.231.40
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=picoheart.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=picoheart.com
+	s=arc-20240116; t=1788876957; c=relaxed/simple;
+	bh=UmzRLg9YuP0UokhozXud47y5dFbrbDDKOh1IQcffn44=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=pOdP/tbSIjJxCjlE+x4RCZCkHx+tfPz7RvSsG7krXDJJlf9PWYiVryNAuGOzi0hctoTXFdKOX9q4lDIwqWQh86csckTpvBqcw0gCV4BU1x0OWdYHQdU757quKSzbrYHITmIwEf/4j8/INesLFe6aEyu2gIu3VwMSHiRCPcZh0l4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=eIPQ2AJ/; arc=none smtp.client-ip=192.198.163.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=picoheart.com header.i=@picoheart.com header.b="ChSTBG3K"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=feishu2604151535; d=picoheart.com; t=1788876929; h=from:subject:
- mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
- mime-version:in-reply-to:message-id;
- bh=NykhdQB85wUFqWXBB887LtHXqWSwd719YTZAAMOLWjc=;
- b=ChSTBG3Kk2+JbCxDM4hqRHK7ZGUdfiEuJTjfzZshaLHRbbeIrp/yAjwoJWKJDLFSOISviq
- iIKfLlunFw09pVvk0UDMGB6H1V5hJBI6rkumuLbYHgosqRDT9Nu1EdPwkq35e/UpliitXS
- T0odLJ9atvDGeF+3rIPUYw+2w3WH9MZirIXCUyAH0c4P4DBINAyILJPsMDtIRVTxXHGyp2
- ALM+t/UfSpbpHJxxSLlq+r4QyOYtWWJpp7EpAdiXehHnRo00g82Vhzqqiqh4aSQeHPMdZH
- K91Q/6s75gOzHsHfpugaCxyPGvl0qN2bqCZgYlDT3JwhsS/h3P796XDW1I1gQA==
-Date: Tue,  8 Sep 2026 22:15:24 +0800
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="eIPQ2AJ/"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788876948; x=1820412948;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=UmzRLg9YuP0UokhozXud47y5dFbrbDDKOh1IQcffn44=;
+  b=eIPQ2AJ/BzhsFcRCDKfgw1lxIHIoJtcdBYs0Aq0tsTWoSwp6S//vk4Rm
+   gACQOYyEwEmn/yrhswj6wgDFSfnFsZ6lvb3fAHOGWCUj6j4p8iQTJiFEv
+   HS4ejgnWwdWLApRrsYvQ1UenaMnzVq5tbgVnW5wVMB8TOTbWUSOiUYS5L
+   LmUvEZKbD9p8q2to6NSKStRGQobYCLEZRQkkuNJAXr5XwabmDEuZ4t9UE
+   Tb5hhX28+aVLw81FFs6ByLHyL4E0/60ASIZOwiyUe9nOxMmPA9eIt+JCc
+   PY+ZR3q1FcB9zuvX/q4s++OTz8ZnTjU/xlaraKBYb4QTGlYkIDReOiwfU
+   Q==;
+X-CSE-ConnectionGUID: rk42PQCxTd6sxZnCxKEW3Q==
+X-CSE-MsgGUID: qrQJ6EFoRHWHmHsjpzYD6g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11899"; a="99873122"
+X-IronPort-AV: E=Sophos;i="6.25,269,1779174000"; 
+   d="scan'208";a="99873122"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Sep 2026 07:15:40 -0700
+X-CSE-ConnectionGUID: arCvz7q5RtuSE/ZzRlFGVg==
+X-CSE-MsgGUID: Zoxde7IOQ8GMxKUOPxv2sw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,269,1779174000"; 
+   d="scan'208";a="266692854"
+Received: from igk-lkp-server01.igk.intel.com (HELO cc074f2a4298) ([10.211.93.152])
+  by fmviesa006.fm.intel.com with ESMTP; 08 Sep 2026 07:15:38 -0700
+Received: from kbuild by cc074f2a4298 with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1x3wbo-000000000jO-2VeK;
+	Tue, 08 Sep 2026 14:15:36 +0000
+Date: Tue, 8 Sep 2026 16:15:04 +0200
+From: kernel test robot <lkp@intel.com>
+To: Alex Elder <elder@riscstar.com>, bhelgaas@google.com, robh@kernel.org,
+	saravanak@kernel.org
+Cc: oe-kbuild-all@lists.linux.dev, herve.codina@bootlin.com,
+	daniel@riscstar.com, mohd.anwar@oss.qualcomm.com,
+	lorenzo.bianconi@oss.qualcomm.com, linux-pci@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 4/4] PCI: of: introduce of_pci_verify_node()
+Message-ID: <202609081616.N6meYz4f-lkp@intel.com>
+References: <20260904134607.1856121-5-elder@riscstar.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: 7bit
-X-Lms-Return-Path: <lba+26aa0187f+53c00f+vger.kernel.org+yang.yicong@picoheart.com>
-Content-Type: text/plain; charset=UTF-8
-To: <ilpo.jarvinen@linux.intel.com>, <andriy.shevchenko@linux.intel.com>, 
-	<linux-serial@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-Cc: <gregkh@linuxfoundation.org>, <jirislaby@kernel.org>, 
-	<geshijian@picoheart.com>, <yangyang.8776@picoheart.com>, 
-	<yanligen@picoheart.com>, <yang.yicong@picoheart.com>
-Subject: [PATCH v3] serial: 8250_dw: Prefer SRBR in bogus RX timeout workaround if available
-X-Mailer: git-send-email 2.50.1
-Received: from G9WYR9K0VW.bytedance.net ([61.141.241.110]) by smtp.feishu.cn with ESMTPS; Tue, 08 Sep 2026 22:15:26 +0800
-From: "Yicong Yang" <yang.yicong@picoheart.com>
-Message-Id: <20260908141524.20302-1-yang.yicong@picoheart.com>
-X-Original-From: Yicong Yang <yang.yicong@picoheart.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260904134607.1856121-5-elder@riscstar.com>
 
-The DW uart could get into the cases where a bogus RX timeout
-interrupt is asserted but no available data. This could be
-workaround by doing a bogus read.
+Hi Alex,
 
-Currently the driver's using the standard RBR (receive buffer
-register) for this bogus read. However the reading of RBR
-in this case is allowed to raise a hardware error if vendor
-choose to implement in this way (our platform). It's also
-allowed to do the bogus read using SRBR (shadow RBR) for
-workaround which won't raise the hardware error. So change
-to use the SRBR to workaround the issue if it's available.
+kernel test robot noticed the following build errors:
 
-Signed-off-by: Yicong Yang <yang.yicong@picoheart.com>
----
-Change since v1:
-- refine the comments and type per Andy
-Link: https://lore.kernel.org/linux-serial/20260907074035.77796-1-yang.yicong@picoheart.com/
+[auto build test ERROR on cee9395acd8043be0644b25c34bfa86623f2b935]
 
-Change since v1:
-- simply the workaround path per Ilpo and Andy
-- run ~48k reboot tests and didn't reproduce the issue
-Link: https://lore.kernel.org/linux-serial/20260629075510.32854-1-yang.yicong@picoheart.com/
+url:    https://github.com/intel-lab-lkp/linux/commits/Alex-Elder/PCI-of-avoid-allocations-in-of_pci_prop_compatible/20260904-084603
+base:   cee9395acd8043be0644b25c34bfa86623f2b935
+patch link:    https://lore.kernel.org/r/20260904134607.1856121-5-elder%40riscstar.com
+patch subject: [PATCH v4 4/4] PCI: of: introduce of_pci_verify_node()
+config: loongarch-allyesconfig (https://download.01.org/0day-ci/archive/20260908/202609081616.N6meYz4f-lkp@intel.com/config)
+compiler: clang version 22.1.8 (https://github.com/llvm/llvm-project ca7933e47d3a3451d81e72ac174dcb5aa28b59d1)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260908/202609081616.N6meYz4f-lkp@intel.com/reproduce)
 
- drivers/tty/serial/8250/8250_dw.c    | 9 ++++++++-
- drivers/tty/serial/8250/8250_dwlib.c | 5 +++++
- drivers/tty/serial/8250/8250_dwlib.h | 5 +++++
- 3 files changed, 18 insertions(+), 1 deletion(-)
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202609081616.N6meYz4f-lkp@intel.com/
 
-diff --git a/drivers/tty/serial/8250/8250_dw.c b/drivers/tty/serial/8250/8250_dw.c
-index 51d026f20825..b8a0bca8b536 100644
---- a/drivers/tty/serial/8250/8250_dw.c
-+++ b/drivers/tty/serial/8250/8250_dw.c
-@@ -439,8 +439,15 @@ static int dw8250_handle_irq(struct uart_port *p)
- 	if (!up->dma && rx_timeout) {
- 		status = serial_lsr_in(up);
- 
-+		/*
-+		 * Do the bogus read from Shadow RBR (SRBR) if provided.
-+		 * Both RBR and SRBR are supported ways to workaround
-+		 * this problem. But read RBR can cause hardware error
-+		 * (PSLVERR) if hardware choose to implement in this way
-+		 * (implement REG_TIMEOUT_WIDTH to 0), whereas SRBR won't.
-+		 */
- 		if (!(status & (UART_LSR_DR | UART_LSR_BI)))
--			serial_port_in(p, UART_RX);
-+			serial_port_in(p, d->data.srbr);
- 	}
- 
- 	/* Manually stop the Rx DMA transfer when acting as flow controller */
-diff --git a/drivers/tty/serial/8250/8250_dwlib.c b/drivers/tty/serial/8250/8250_dwlib.c
-index 8859e66d2d71..9bb02a4ab11f 100644
---- a/drivers/tty/serial/8250/8250_dwlib.c
-+++ b/drivers/tty/serial/8250/8250_dwlib.c
-@@ -247,5 +247,10 @@ void dw8250_setup_port(struct uart_port *p)
- 
- 	if (reg & DW_UART_CPR_SIR_MODE)
- 		up->capabilities |= UART_CAP_IRDA;
-+
-+	if (reg & DW_UART_CPR_SHADOW)
-+		pd->srbr = DW_UART_SRBR_0;
-+	else
-+		pd->srbr = UART_RX;
- }
- EXPORT_SYMBOL_GPL(dw8250_setup_port);
-diff --git a/drivers/tty/serial/8250/8250_dwlib.h b/drivers/tty/serial/8250/8250_dwlib.h
-index 1fe52332e774..ee7a07fac0f6 100644
---- a/drivers/tty/serial/8250/8250_dwlib.h
-+++ b/drivers/tty/serial/8250/8250_dwlib.h
-@@ -13,6 +13,7 @@
- #include "8250.h"
- 
- /* Offsets for the DesignWare specific registers */
-+#define DW_UART_SRBR_0	0x0c /* Shadow Receive Buffer Register */
- #define DW_UART_USR	0x1f /* UART Status Register */
- #define DW_UART_DMASA	0xa8 /* DMA Software Ack */
- #define DW_UART_TCR	0xac /* Transceiver Control Register (RS485) */
-@@ -90,6 +91,10 @@ struct dw8250_port_data {
- 
- 	/* RS485 variables */
- 	bool			hw_rs485_support;
-+
-+	/* Register offsets */
-+	/* Shadow RBR (if not defined RBR will be used) */
-+	int		srbr;
- };
- 
- void dw8250_do_set_termios(struct uart_port *p, struct ktermios *termios, const struct ktermios *old);
--- 
-2.50.1 (Apple Git-155)
+All errors (new ones prefixed by >>):
+
+>> drivers/pci/of_property.c:335:7: error: incompatible pointer to integer conversion initializing 'char' with an expression of type 'char[48]' [-Wint-conversion]
+     335 |         char bufp = buf;
+         |              ^      ~~~
+>> drivers/pci/of_property.c:338:17: error: incompatible integer to pointer conversion passing 'char' to parameter of type 'char *'; take the address with & [-Wint-conversion]
+     338 |         ret = snprintf(bufp, PROP_SIZE, "pci%x,%x", pdev->vendor, pdev->device);
+         |                        ^~~~
+         |                        &
+   include/linux/sprintf.h:13:35: note: passing argument to parameter 'buf' here
+      13 | __printf(3, 4) int snprintf(char *buf, size_t size, const char *fmt, ...);
+         |                                   ^
+>> drivers/pci/of_property.c:341:41: error: incompatible integer to pointer conversion assigning to 'const char *' from 'char'; take the address with & [-Wint-conversion]
+     341 |         compat_strs[PROP_COMPAT_PCI_VVVV_DDDD] = bufp;
+         |                                                ^ ~~~~
+         |                                                  &
+   drivers/pci/of_property.c:344:17: error: incompatible integer to pointer conversion passing 'char' to parameter of type 'char *'; take the address with & [-Wint-conversion]
+     344 |         ret = snprintf(bufp, PROP_SIZE, "pciclass,%06x", pdev->class);
+         |                        ^~~~
+         |                        &
+   include/linux/sprintf.h:13:35: note: passing argument to parameter 'buf' here
+      13 | __printf(3, 4) int snprintf(char *buf, size_t size, const char *fmt, ...);
+         |                                   ^
+   drivers/pci/of_property.c:347:43: error: incompatible integer to pointer conversion assigning to 'const char *' from 'char'; take the address with & [-Wint-conversion]
+     347 |         compat_strs[PROP_COMPAT_PCICLASS_CCSSPP] = bufp;
+         |                                                  ^ ~~~~
+         |                                                    &
+   drivers/pci/of_property.c:350:17: error: incompatible integer to pointer conversion passing 'char' to parameter of type 'char *'; take the address with & [-Wint-conversion]
+     350 |         ret = snprintf(bufp, PROP_SIZE, "pciclass,%04x", pdev->class >> 8);
+         |                        ^~~~
+         |                        &
+   include/linux/sprintf.h:13:35: note: passing argument to parameter 'buf' here
+      13 | __printf(3, 4) int snprintf(char *buf, size_t size, const char *fmt, ...);
+         |                                   ^
+   drivers/pci/of_property.c:351:41: error: incompatible integer to pointer conversion assigning to 'const char *' from 'char'; take the address with & [-Wint-conversion]
+     351 |         compat_strs[PROP_COMPAT_PCICLASS_CCSS] = bufp;
+         |                                                ^ ~~~~
+         |                                                  &
+   drivers/pci/of_property.c:336:6: warning: unused variable 'i' [-Wunused-variable]
+     336 |         int i, ret;
+         |             ^
+   1 warning and 7 errors generated.
+
+
+vim +335 drivers/pci/of_property.c
+
+   326	
+   327	/* The three compatible property strings have max sizes 12+1, 15+1, and 13+1 */
+   328	#define PROP_SIZE	16	/* Max size of each compatible string */
+   329	static int of_pci_prop_compatible(struct pci_dev *pdev,
+   330					  struct of_changeset *ocs,
+   331					  struct device_node *np)
+   332	{
+   333		const char *compat_strs[PROP_COMPAT_NUM] = { 0 };
+   334		char buf[PROP_COMPAT_NUM * PROP_SIZE] = { };
+ > 335		char bufp = buf;
+   336		int i, ret;
+   337	
+ > 338		ret = snprintf(bufp, PROP_SIZE, "pci%x,%x", pdev->vendor, pdev->device);
+   339		if (ret >= PROP_SIZE)
+   340			return -EINVAL;
+ > 341		compat_strs[PROP_COMPAT_PCI_VVVV_DDDD] = bufp;
+   342		bufp += ret + 1;
+   343	
+   344		ret = snprintf(bufp, PROP_SIZE, "pciclass,%06x", pdev->class);
+   345		if (ret >= PROP_SIZE)
+   346			return -EINVAL;
+   347		compat_strs[PROP_COMPAT_PCICLASS_CCSSPP] = bufp;
+   348		bufp += ret + 1;
+   349	
+   350		ret = snprintf(bufp, PROP_SIZE, "pciclass,%04x", pdev->class >> 8);
+   351		compat_strs[PROP_COMPAT_PCICLASS_CCSS] = bufp;
+   352	
+   353		return of_changeset_add_prop_string_array(ocs, np, "compatible",
+   354							  compat_strs, PROP_COMPAT_NUM);
+   355	}
+   356	#undef PROP_SIZE
+   357	
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
