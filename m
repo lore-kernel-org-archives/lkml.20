@@ -1,246 +1,312 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-172.mta0.migadu.com [91.218.175.172])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C8E451D53E
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 10:03:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=192.198.163.17
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788861788; cv=fail; b=VhAzBx2cr7x7Ob7df1E6L4A2aaOUQJVWYs6xU4/rekdRSYKD6xXCOsp9DLCamVbmHiUTZBj9ORKeJkK91MmDeUCf24C98Heh/rlVKw7r8wMjgKvC/rFKM6K8QfWu1JUjRU9LfvkTMKQpcUV1qFloKqc2bvbV771mcdk+CVAnOsI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788861788; c=relaxed/simple;
-	bh=Z7Fbars+gIZ0g2YvUDV/3I7jmKVzROOkFhsHscLZX/E=;
-	h=Message-ID:Date:Subject:To:CC:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=R6p7YnrwlkQXtJqStmg57GQ/OiIpICLpJpZX50JM8wQcned+LVJN7TqA6uxPhNWFlOt6/T4D0rNVCkA/HrcozVLBKIF+lL89oqKqZTZSlIyfuccjtwQMCHWGW/BlJE4eohUbGkqoHkkKeTnzNyvu2TYl635TIMaoj8n4MRoZTmE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Fjuh+XO/; arc=fail smtp.client-ip=192.198.163.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C90C5237B3
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 10:03:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.172
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788861793; cv=none; b=YBM1ryp5WNBl+MkimTrY9bn6eeobsnOpcWPHgpiV6EckOQ4q9YHlxGkbkXNt03a+SWcOcN75NCJayUi3Hfdo3AQ0itEzgl3Ggobv1m/N6r1B1yTAixCwCygcB7twiao5avJXXnwU46QFw/5HIzKOrkSUPRJTThYBPtuujIrOK20=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788861793; c=relaxed/simple;
+	bh=r4FFykHx2l0Mym4QKl1EfWhMWo17b+iIf/S75GX9C8I=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=hwDr6k4KyjXoGNxIfacwtlhFYo1j5nD5GwvpySXFC9wJKaZuwGtbF5Q9vCb1FyEpo8TwxJ1tiqfRq2wmd9Hhgbg1BZ0wkxQyJs9Gs7W6B3ZPvVigqgp5yyeUSMXKvtaDXwKYsbhzTQAkJ5f+9y6pvixDnzlxhBk7IUe8Uk16igs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Hjw1Nxt2; arc=none smtp.client-ip=91.218.175.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Fjuh+XO/"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788861786; x=1820397786;
-  h=message-id:date:subject:to:cc:references:from:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=Z7Fbars+gIZ0g2YvUDV/3I7jmKVzROOkFhsHscLZX/E=;
-  b=Fjuh+XO/8POWh86dk+bgIcgQvKpvwqN+7FX8EnXp7YK+0levd/KEi4DK
-   Lsv2cwTOrGa/jxXPAGX8y0ytwMUVC52RWCdw+aZus5Qtw5yT/OEdg5QiD
-   YFaHVhqgBK5N8/w0hN05kt6zW+bcm7i/LpwPdeDttMW+mxXbg/IedrY2F
-   Ynh6ODZJb1VGw1ibtwOrGEMKzJHsayWSbutlBBEJlm7V7dfnxgIHo2Cb5
-   1nz1/ZZ79BQV3RSfjO81gYR0dNqRT8L8mr0eENfhsK0BxO4r2mlN0Ona7
-   d+Gxp9DpKIQvnHjbA5el8hZ7DjCLfeIOVduA57TrhH58oD7NWBD3fyvOO
-   w==;
-X-CSE-ConnectionGUID: eMVIWP0bRXuQCfwPxePj8w==
-X-CSE-MsgGUID: 09Fz9zFFQdqVpqCMr3PVnQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11899"; a="89133254"
-X-IronPort-AV: E=Sophos;i="6.25,268,1779174000"; 
-   d="scan'208";a="89133254"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
-  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Sep 2026 03:03:05 -0700
-X-CSE-ConnectionGUID: HFP3hkeOS8iSLYqoHDap4A==
-X-CSE-MsgGUID: g1FRUwE7TYiiFFdFuaiMNw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,268,1779174000"; 
-   d="scan'208";a="275082198"
-Received: from fmsmsx902.amr.corp.intel.com ([10.18.126.91])
-  by orviesa005.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Sep 2026 03:03:04 -0700
-Received: from FMSMSX902.amr.corp.intel.com (10.18.126.91) by
- fmsmsx902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Tue, 8 Sep 2026 03:03:03 -0700
-Received: from fmsedg903.ED.cps.intel.com (10.1.192.145) by
- FMSMSX902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46 via Frontend Transport; Tue, 8 Sep 2026 03:03:03 -0700
-Received: from BN8PR05CU002.outbound.protection.outlook.com (52.101.57.9) by
- edgegateway.intel.com (192.55.55.83) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Tue, 8 Sep 2026 03:02:38 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=FakOtKuITPodxh8hjWXkYTEtXDRHOFdv3IQTJqUQ3e/xjR1srSAzA4XMCC+A9VqI6GakcQq9Co14Cxa/r9l7vkXLD73YahbTuZavqXl1mp5WVs1FOPpY/o2zLJEuzKwwwEQtJqqXmFPRtRyUSvyW40aBzmY1YoaTEr/d4Bz1MZXuPstxVIwYTWeVBIfVsM7c6Ht4znbkL+nAn9LxqppMp37iofOfxH2muKoPNcZmjMSigAd30IRD7M/VjXYR/iot+zxWLgKHBJ7wOTAo2BIlK2a+ciZQbbpByhP7sAgwkU9YSXZSRu5xGVgKSAmsoOYQ05ljZE4HCJykoRUwdDOCFw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=SkGJp+MzJU5kY0kTHwu77lwv7JdSQ5U5HfV+HT4AWRI=;
- b=I7rECUS0hDUpvQdprZusSUSt0pzezDjii7s4tlWorbFRsdXwP+tdzAjNP6KeZMvyNKOT07W5AvSkEyffQ9eEDcqHht07oAEz0WTQ9Cpf3IOrFyp5CPj3FqWcQkWRh80xGiiv9ueEQMeooAdSzskGRaJ6Dmq/zqfLHU1GQwb6EER7mQq0/ZLy7HySjnKU00QB4Wqoa0IVRoRyr/t1eEjfVcu2ARGzVRLaGQ2vp0nBn+7RDA/otrzHcQw2CsX5f7GsaxuJ95zxJ0Exm3nEvHVjvKbPoMIW93O75jG1a971BCmnhNSTCvCNCrNqXs1te3blJDGAZ/VYBe3RwjU5D27m7A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from DM4PR11MB6020.namprd11.prod.outlook.com (2603:10b6:8:61::19) by
- IA1PR11MB6171.namprd11.prod.outlook.com (2603:10b6:208:3e9::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.6; Tue, 8 Sep 2026
- 10:02:36 +0000
-Received: from DM4PR11MB6020.namprd11.prod.outlook.com
- ([fe80::3058:1480:e4ac:5765]) by DM4PR11MB6020.namprd11.prod.outlook.com
- ([fe80::3058:1480:e4ac:5765%4]) with mapi id 15.21.0406.005; Tue, 8 Sep 2026
- 10:02:36 +0000
-Message-ID: <a89a2aef-f374-4fd6-aafe-ca21d21c980d@intel.com>
-Date: Tue, 8 Sep 2026 18:02:26 +0800
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/2] sched/numa: Drive NUMA task tick from execution
- context
-To: Peter Zijlstra <peterz@infradead.org>, Hui Su <sh_def@163.com>
-CC: <mingo@redhat.com>, <tim.c.chen@linux.intel.com>,
-	<kprateek.nayak@amd.com>, <juri.lelli@redhat.com>,
-	<vincent.guittot@linaro.org>, <dietmar.eggemann@arm.com>,
-	<rostedt@goodmis.org>, <bsegall@google.com>, <mgorman@suse.de>,
-	<vschneid@redhat.com>, <connoro@google.com>, <jstultz@google.com>,
-	<linux-kernel@vger.kernel.org>, <arighi@nvidia.com>
-References: <20260904085244.799276-1-sh_def@163.com>
- <20260904085244.799276-2-sh_def@163.com>
- <20260908083545.GM4121339@noisy.programming.kicks-ass.net>
-Content-Language: en-US
-From: "Chen, Yu C" <yu.c.chen@intel.com>
-In-Reply-To: <20260908083545.GM4121339@noisy.programming.kicks-ass.net>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: SI3PR01CA0001.apcprd01.prod.exchangelabs.com
- (2603:1096:4:296::17) To DM4PR11MB6020.namprd11.prod.outlook.com
- (2603:10b6:8:61::19)
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Hjw1Nxt2"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=r4FFykHx2l0Mym4QKl1EfWhMWo17b+iIf/S75GX9C8I=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788861788; v=1; x=1789466588;
+ b=Hjw1Nxt2FlCqtEby6RwyjPsfi6lncRLLubQU5P83G2amqWf8Ng7nmMPT77tiNSEnplLzyeu6
+ gCVQeMiqQDcWMLvBqgjBDUw+IfOls7MHNOSxzZaN5x1mfojTTxnglofb15rQsEkM5pMLZRD2rIs
+ Me4XMXnBVrfCTZHt8ypyB7No=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id dbfa77b83717f402;
+	Tue, 08 Sep 2026 10:03:08 +0000
+X-Mizu-Trace-ID: dbfa77b83717f402
+X-Migadu-Flow: FLOW_OUT
+From: Tao Cui <cui.tao@linux.dev>
+To: tj@kernel.org,
+	josef@toxicopanda.com,
+	axboe@kernel.dk
+Cc: cgroups@vger.kernel.org,
+	linux-block@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	bpf@vger.kernel.org,
+	andrii@kernel.org,
+	ast@kernel.org,
+	daniel@iogearbox.net,
+	linux-kselftest@vger.kernel.org,
+	cui.tao@linux.dev,
+	Tao Cui <cuitao@kylinos.cn>
+Subject: [RFC PATCH 6/8] selftests/bpf: add iocost cost model test
+Date: Tue,  8 Sep 2026 18:01:41 +0800
+Message-ID: <20260908100143.47598-7-cui.tao@linux.dev>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260908100143.47598-1-cui.tao@linux.dev>
+References: <20260908100143.47598-1-cui.tao@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR11MB6020:EE_|IA1PR11MB6171:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0b6a8761-95d1-47df-621f-08df0d904f44
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|7416014|376014|23010399003|1800799024|366016|4143699003|11063799006|56012099006|10067099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: uM1iObVG/wvO5SiG8wAK37dMVl5sA/na0X9YCP2rYCuW6URNYSgo99MFRZ29w6m6bCUljRiLlpkYwqOnerKOjWH7iWZhTeyUFmpbbcMYSyUEP1wx8EGq8HWoHhBFAsZqiDFvrVAYGEzi4lKkAIx2VUPOcQYNtHYTwA9cVfhAgtlr6PJsexFlDRGCs/JENF05Ppp/Yn1MG9FB5LTCQ/gaIgdbtMG74d6F0uKh9TQWsSn6aDPYG9kWORKzdgFwsDbPSmwfcjFwB9PNQz6cqvHLyXd0ZW0LaHUF2cwjNKumL/ZlbUkKKEJPcwdLacn/fAx6jk4ErrIA6CbsRKEqHZXZYOD+LnyErjCTOYELz/mtrz3lOosO5ogTVdTOyGjZvjVGQRwVpFTUufNjYJsEbp3MVca6D7qL5MjamLFwy3Pelo0TRvKFsdwkaquuElNigxjpw1sf3lc5HcSzPtPMJTMPxjN0A7Ea/Km/E3bAJ2olAanH+bW4xJHb7AXsea6soBOuqB2N1kMRBOWr4H2GUJKwBQGumsbX/pmOl3ASY1PMKsY4w/0AyC4H/aS2hwYSvphfbD3p4+ynx7l6f8f5Yzkyoorv0XkaKtcks/xBiZ6j4r/sENVRclzOpfuvx5z+bTD4vBMqWs/vN41O2dxWUnB9FaOLd2w7SZBkd8/tjeiAqo4=
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR11MB6020.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(23010399003)(1800799024)(366016)(4143699003)(11063799006)(56012099006)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?MWp2OTdOQURLcXZkNkNzVUl2RkpGNk1xbm8wSjhTSkZNN25wRnZQVWN5dGFo?=
- =?utf-8?B?TkkxVXEvejVjYXJtemlWZC95czBtT29iVTdFRFpLMUNvK3B2MVNTWktSQ1M1?=
- =?utf-8?B?Z0NTNEhrNVpRNVRWQWpHY3FlVEVmSnBlU3E1bGN0dFNGQmFFYlFkdnRwVmFY?=
- =?utf-8?B?Q3F3NnAxeVRaTmlQSUpXLzFydkt6WTR4MlZ6Yzdtcjh2WVVtUDI0N250TjZu?=
- =?utf-8?B?NDlIQ1VKckRlK0pkUTZ4bFJVWTlIZDRpMlExRzc2N1lGTG9OSFNKSkdMVEh3?=
- =?utf-8?B?RFdjdHFEMDVJMGhDN053cWg4WWpnUUtjbEFBcXYyMHgybERUeTZyc2xrOVU5?=
- =?utf-8?B?Sy84WmU1Ym5yTEg0cFR3MDdNQnhFcXkyUjJPbllHWFkwbkpSVlBqdVVEeG5O?=
- =?utf-8?B?VmRxbzhYbnVwVzNsc2pkeUVOcWRobWlWVkNidnkyT0FWQ3NiSU1KUDN2VHRy?=
- =?utf-8?B?M0w1V2lYdkZ1V0hCdTM3NWNDYmtxVXBuUzRqc21wZUp1cnNlTzI3SEh5U0Vz?=
- =?utf-8?B?Ymw1VklSRzdtU0RHYzlYZDNidGxDbkxQMzdHcWxEMm9yaW56QjdmQXlCWHBX?=
- =?utf-8?B?U0RHMGdZUTM1RFQxaHcyTm45czJqWWdOczJQQnhuRjVSMWFtUUlWLysvamdZ?=
- =?utf-8?B?V0ZVZXorVG96c1lrUXZuQVp3bUQzREsyV3BJM0xScGNHdnlKbEwzNWEwTHQ2?=
- =?utf-8?B?OWFJWUlCbmYwQVQyOVdRZlpoUS8xRytUdFlYanZ1bWM1aG5uTTJzT01ZNmNq?=
- =?utf-8?B?Z1hnam1NL0pmTXpWRUxxSzN0VGlhNFZjSGxjTFFURnFBVHZlbmVZR1E4dVlk?=
- =?utf-8?B?bzZCY3lZci9yYUptRDBRaEJBYjVScmJwNTRvRi9NTngxZkhhZzJpdXc1YmN1?=
- =?utf-8?B?eFJWdGhXaER4cElISXN3YU84ZFRZRDhWVzZFR09qdDVPY2xueGU0SkJvY2NW?=
- =?utf-8?B?WnJRTmk1WFpxYmkxY2NHZWxleDNDMmVtOFFKYml3RTA4TFQ2Y2RkQmI2Skc0?=
- =?utf-8?B?YnhkZEQvVW1nZEQ4S0hScUNUeVNaRGFZTlQ1OTVORllMRGQ3R2t5VWpMTHdG?=
- =?utf-8?B?Nm0xWUJubkRJa3hGTUE2TmNvcDJQVkozblltVDV1TmRzQUpMalhHU211R1Nn?=
- =?utf-8?B?b1NpV0FTSnl4NndxeEcweERqWWhnSUR4MjF3eGJkeER6aXNNOHV5ZjM1TUV1?=
- =?utf-8?B?dXpXc1hCQm5xR1hUK3ZLQXNoYnM0ZEZzamZWSkRrRndwOGVaYWFZWHJINzVI?=
- =?utf-8?B?d2hhdnFNeUhKZnlKU1pFMW9vM2dKVll6dDlxRUluRUx6cWR3REdXOEV4aWdS?=
- =?utf-8?B?TDFyWUZjZGhaV2M4SVZqdlpjVHA2VVQ0ZlZRaXJ4NTlFYkdBZFNHMmlOWkNq?=
- =?utf-8?B?N0t1R1ZUMjJKTlJLaU40dE11OE1YZzVPck0vRDVrOGRESVMxa0JNMUhiV251?=
- =?utf-8?B?QmVxajNLMHhKYW41UW9Mc202cWxqVnlDREt4aFV2akhuanExQjcwVEVSWVJv?=
- =?utf-8?B?NDBYOW1iZUEvMCtxT2p6K3NFK2FwRWc0SEtjekNtSnBoQ0s1TlVFUW1yeHhl?=
- =?utf-8?B?QzBIeThCcHFIbnBic3FNS0Q0UU1qOHdyQy9LNXpGZjVKTmF2Q3BqU2t3SENB?=
- =?utf-8?B?UUF5NGp5TlVra2t3bVFXTXk2UkJEeCszQkNrZVFqbkRxMGZMVzlucDVHdmlY?=
- =?utf-8?B?eHV6NFRxVzN4eTQ5blZ1MkgvaXFyVnhUVVE3a1BHSWw4ZC9Ib0JrMHpSRzlR?=
- =?utf-8?B?Z3J3RFVqMkVPSGhlRkhlQkhZaDFQRFpxdDZhZi9KeVl3aTBnV2FUdzJHeVVW?=
- =?utf-8?B?NWl1Mlp5bFpnenNCOW1sZGJQR040RS9CY0FxQVp0dHhsaTZXem5sRXNPVDdW?=
- =?utf-8?B?czNWSXpldElpRjVjZlZ2TWtJMUl5UlNwdVRsY25HQmJkb0htdjFyUWs1bXBv?=
- =?utf-8?B?cmtMUmxZWFY5L1pkUmc4K1p4UE1CQWhsR0FIU1pRS1FIZXVRMEV3eGV6L2pM?=
- =?utf-8?B?UWh0YmwyWWxqOFdORjU0OC83UHl6NS9EMElqYUpUSlhxazFpa0JBZW9LZXJX?=
- =?utf-8?B?emlhMlRZcGpEdkwzWk1PYmVITkZJV28zckM1YVB3MXpwNHZqaWFDVzV1cW9t?=
- =?utf-8?B?Y3NCTVdFZEpKMmdDd1NmOVJFbm1MR04yRmF5VGphVjNQV2thU2huWExLeFdh?=
- =?utf-8?B?UDdHUXl4MDNJS3hjMHN1YkdxK1FQeUgwa2p2b3p0ZmlWdDlyaWFVQ2hJVFlD?=
- =?utf-8?B?aWJJRVBTc3pWbXlibUFhM052RDZGSXAzT1RWWDFuYUVKTXBRN05URjVGYzJv?=
- =?utf-8?B?UkFqWGp2SzJpWjhkeUFYTkdvVWFmTnk2c0NqcDIzNTFQRWdaWDE1QT09?=
-X-Exchange-RoutingPolicyChecked: gGud2k68LomM38swz5hbOgz2wOMpqZhdG0VwftE1SMhNxVngzGjosU04GsexLw8aHIvQJyw6WD6SN9VdctAu9/QjkY6Ek/LwKS+QbeU7n9cfl2kTYl9stl8te/Hd05dBTnnZ3jCZVfUMKOp6MGFyxJdAJIlAWv7g2h6MKnOAH5AWhB6+dAMhUA0IIhA26/LS84LywyT88Y1QvycFlbe/O725f+QIrU5ZFuVu4ZTEQxdLPFx3kNedQKr5JUnI2c6lVHA31X/ZGXQhgTItOhJZwutDc3PJb6RkvPrfSXuN6n6vReStWhdtp6vHQkgcRigBVlAlzgEY85u3cJTDJKjo5w==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0b6a8761-95d1-47df-621f-08df0d904f44
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR11MB6020.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Sep 2026 10:02:36.7404
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Ggz+r+E4XEuglAl7qn2Vic3jZ7CEVGfOIDLYbbo6g0GwRn4dmjYwNHwPoWtYzcdPTOw14S4CEfcYjHvrJT/9tA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR11MB6171
-X-OriginatorOrg: intel.com
+Content-Transfer-Encoding: 8bit
 
-On 9/8/2026 4:35 PM, Peter Zijlstra wrote:
-> What about something like so?
-> 
+From: Tao Cui <cuitao@kylinos.cn>
 
-Thanks Peter for taking a look at this. I think this version achieves 
-better decoupling
-since the logic is added per scheduling class, rather than inserting 
-random hooks into
-the core scheduler.
+Add an example cost model implementing iocost_model_ops with the
+builtin linear HDD formula at double cost, and a runner which
+registers it as a struct_ops, switches a device to ctrl=bpf through
+io.cost.model and verifies the readback, restoring ctrl=auto
+afterwards.  The runner first checks the negative case: writing
+ctrl=bpf while no model is registered is rejected.  Under the same
+workload the doubled model should charge exactly twice the builtin
+model, which makes it a convenient way to verify that accounting
+goes through the BPF path; the accounting itself needs real IO and
+is covered by the kernel-side validation described in the cover
+letter.  The runner is skipped unless $IOCOST_TEST_DEV gives a
+major:minor of a device with iocost enabled.
 
-> -static void task_tick_scx(struct rq *rq, struct task_struct *curr, int queued)
-> +static void task_tick_scx(struct rq *rq, int queued)
->   {
-> +	struct task_struct *curr = rq->donor;
+Signed-off-by: Tao Cui <cuitao@kylinos.cn>
+---
+ .../selftests/bpf/prog_tests/iocost_model.c   | 124 ++++++++++++++++++
+ .../selftests/bpf/progs/iocost_model.c        |  91 +++++++++++++
+ 2 files changed, 215 insertions(+)
+ create mode 100644 tools/testing/selftests/bpf/prog_tests/iocost_model.c
+ create mode 100644 tools/testing/selftests/bpf/progs/iocost_model.c
 
-struct task_struct *donor = rq->donor
+diff --git a/tools/testing/selftests/bpf/prog_tests/iocost_model.c b/tools/testing/selftests/bpf/prog_tests/iocost_model.c
+new file mode 100644
+index 0000000000000..386026241d5b4
+--- /dev/null
++++ b/tools/testing/selftests/bpf/prog_tests/iocost_model.c
+@@ -0,0 +1,124 @@
++// SPDX-License-Identifier: GPL-2.0
++/* Copyright (c) 2026 Tao Cui */
++#include <test_progs.h>
++#include "iocost_model.skel.h"
++
++/*
++ * Switch a device to ctrl=bpf through io.cost.model and verify the
++ * readback, restoring ctrl=auto afterwards.  Returns 0 on success.
++ * Shared by the example-model tests below.
++ */
++static int switch_to_bpf(const char *dev)
++{
++	char path[] = "/sys/fs/cgroup/io.cost.model";
++	char word[256], line[256], buf[300];
++	FILE *fp;
++	int err, found = 0;
++
++	fp = fopen(path, "r+");
++	if (!fp) {
++		TH_LOG("open %s: %s", path, strerror(errno));
++		return -1;
++	}
++
++	while (fgets(line, sizeof(line), fp)) {
++		if (sscanf(line, "%255s", word) == 1 && !strcmp(word, dev)) {
++			found = 1;
++			break;
++		}
++	}
++	if (!found) {
++		TH_LOG("%s has no iocost line", dev);
++		fclose(fp);
++		return -1;
++	}
++
++	snprintf(buf, sizeof(buf), "%s ctrl=bpf", dev);
++	err = fprintf(fp, "%s\n", buf);
++	if (err <= 0) {
++		TH_LOG("write ctrl=bpf failed");
++		fclose(fp);
++		return -1;
++	}
++	fflush(fp);
++
++	rewind(fp);
++	found = 0;
++	while (fgets(line, sizeof(line), fp)) {
++		if (sscanf(line, "%255s", word) == 1 && !strcmp(word, dev)) {
++			found = strstr(line, "ctrl=bpf") != NULL;
++			break;
++		}
++	}
++	if (!found)
++		TH_LOG("readback does not show ctrl=bpf");
++
++	fprintf(fp, "%s ctrl=auto\n", dev);
++	fclose(fp);
++	return found ? 0 : -1;
++}
++
++static int dev_has_iocost(void)
++{
++	FILE *fp = fopen("/sys/fs/cgroup/io.cost.qos", "r");
++
++	if (fp)
++		fclose(fp);
++	return fp != NULL;
++}
++
++/*
++ * Register the example cost model and switch a device to ctrl=bpf.
++ * IO accounting itself is not checked here; it needs a device doing
++ * real IO under iocost and is covered by the kernel-side validation
++ * described in the cover letter.
++ *
++ * Requires root, cgroup v2 and a device with iocost support.  The
++ * device must be given as major:minor in $IOCOST_TEST_DEV, otherwise
++ * the test is skipped.
++ */
++void serial_test_iocost_model(void)
++{
++	struct iocost_model *skel;
++	char word[256], *dev;
++	int err;
++
++	dev = getenv("IOCOST_TEST_DEV");
++	if (!dev || geteuid() != 0) {
++		test__skip();
++		return;
++	}
++	if (!ASSERT_TRUE(dev_has_iocost(), "iocost_mounted"))
++		return;
++
++	/* negative: ctrl=bpf must be rejected while no model is
++	 * registered, so a typo cannot silently disable cost model
++	 * updates */
++	if (sscanf(dev, "%255s", word) != 1)
++		return;
++	{
++		char path[] = "/sys/fs/cgroup/io.cost.model";
++		char buf[300];
++		FILE *fp = fopen(path, "w");
++
++		snprintf(buf, sizeof(buf), "%s ctrl=bpf\n", word);
++		err = 0;
++		if (fp) {
++			err = fprintf(fp, "%s", buf) <= 0;
++			fclose(fp);
++		}
++		ASSERT_TRUE(err, "ctrl_bpf_without_model_rejected");
++	}
++
++	skel = iocost_model__open_and_load();
++	if (!ASSERT_OK_PTR(skel, "skel_open_load"))
++		return;
++
++	/* attaching the struct_ops registers the model; a second
++	 * registration of the same ops would fail with EBUSY */
++	err = iocost_model__attach(skel);
++	if (ASSERT_OK(err, "attach"))
++		ASSERT_OK(switch_to_bpf(dev), "switch_and_readback");
++
++	iocost_model__destroy(skel);
++}
+diff --git a/tools/testing/selftests/bpf/progs/iocost_model.c b/tools/testing/selftests/bpf/progs/iocost_model.c
+new file mode 100644
+index 0000000000000..70f7987f8eb6a
+--- /dev/null
++++ b/tools/testing/selftests/bpf/progs/iocost_model.c
+@@ -0,0 +1,91 @@
++// SPDX-License-Identifier: GPL-2.0
++/* Copyright (c) 2026 Tao Cui */
++/*
++ * Example iocost cost model: the builtin linear HDD formula with all
++ * costs doubled.
++ *
++ * The constants mirror what calc_lcoefs() derives from the AUTOP_HDD
++ * defaults (rbps=174019176 rseqiops=41708 rrandiops=370, w-side
++ * analog) in vtime units where 1s == 2^37, expressed with the same
++ * round-up divisions so they cannot drift from the kernel, so a
++ * device switched to ctrl=bpf with this model registered charges
++ * exactly twice the builtin model under the same workload, which
++ * makes it a convenient way to verify that accounting goes through
++ * the BPF path.
++ */
++#include "vmlinux.h"
++#include <bpf/bpf_helpers.h>
++#include <bpf/bpf_tracing.h>
++
++/* VTIME_PER_SEC comes from vmlinux.h (a BTF enum constant) */
++#define IOC_PAGE_SIZE		4096
++#define IOC_SECT_TO_PAGE_SHIFT	3	/* 512B sectors to 4kB pages */
++#define LCOEF_RANDIO_PAGES	4096	/* 16MB seek threshold */
++#define IOCOST_COST_F_MERGE	(1ULL << 0)	/* not in BTF: a plain macro */
++
++/* DIV64_U64_ROUND_UP / DIV_ROUND_UP_ULL equivalents, folded at
++ * compile time */
++#define RU(x, y)		((x) / (y) + (((x) % (y)) ? 1 : 0))
++
++#define RBPS	174019176ULL
++#define RSEQIOPS	41708ULL
++#define RRANDIOPS	370ULL
++#define WBPS	178075866ULL
++#define WSEQIOPS	42705ULL
++#define WRANDIOPS	378ULL
++
++#define RPAGE	(RU(VTIME_PER_SEC, RU(RBPS, IOC_PAGE_SIZE)))
++#define RSEQIO	(RU(VTIME_PER_SEC, RSEQIOPS) - RPAGE)
++#define RRANDIO	(RU(VTIME_PER_SEC, RRANDIOPS) - RPAGE)
++#define WPAGE	(RU(VTIME_PER_SEC, RU(WBPS, IOC_PAGE_SIZE)))
++#define WSEQIO	(RU(VTIME_PER_SEC, WSEQIOPS) - WPAGE)
++#define WRANDIO	(RU(VTIME_PER_SEC, WRANDIOPS) - WPAGE)
++
++static __always_inline u64 builtin_cost(u64 op, u64 nbytes, u64 sector,
++					u64 cursor, u64 flags)
++{
++	u64 pages, seek_pages = 0, base, coef_page;
++
++	if (!nbytes)
++		return 0;
++
++	switch (op) {
++	case REQ_OP_READ:
++		base = RSEQIO;
++		coef_page = RPAGE;
++		break;
++	case REQ_OP_WRITE:
++		base = WSEQIO;
++		coef_page = WPAGE;
++		break;
++	default:
++		return 0;
++	}
++
++	if (cursor) {
++		seek_pages = sector > cursor ? sector - cursor
++					     : cursor - sector;
++		seek_pages >>= IOC_SECT_TO_PAGE_SHIFT;
++		if (seek_pages > LCOEF_RANDIO_PAGES)
++			base = (op == REQ_OP_READ) ? RRANDIO : WRANDIO;
++	}
++
++	pages = RU(nbytes, IOC_PAGE_SIZE);
++	if (flags & IOCOST_COST_F_MERGE)
++		base = 0;
++	return base + pages * coef_page;
++}
++
++SEC("struct_ops")
++u64 BPF_PROG(iocost_2x_calc_cost, u64 op, u64 nbytes, u64 sector,
++	     u64 cursor, u64 iocg_id, u64 flags)
++{
++	return 2 * builtin_cost(op, nbytes, sector, cursor, flags);
++}
++
++SEC(".struct_ops")
++struct iocost_model_ops iocost_2x = {
++	.calc_cost = (void *)iocost_2x_calc_cost,
++};
++
++char LICENSE[] SEC("license") = "GPL";
+-- 
+2.43.0
 
->   	struct scx_sched *sch = scx_task_sched(curr);
->   
-> +	if (donor->sched_class != &ext_sched_class)
-> +		return;
-> +
->   	update_curr_scx(rq);
->   
->   	/*
-
-[ ... ]
-
-> -static void task_tick_fair(struct rq *rq, struct task_struct *curr, int queued)
-> +static void task_tick_fair(struct rq *rq, int queued)
->   {
-> -	struct sched_entity *se = &curr->se;
-> +	struct task_struct *curr = rq->curr, *donor = rq->donor;
->   
-> -	if (se->on_rq) {
-> -		unsigned long weight = NICE_0_LOAD;
-> -		struct cfs_rq *cfs_rq;
-> +	if (donor->sched_class == &fair_sched_class) {
-> +		struct sched_entity *se = &donor->se;
->   
-> -		for_each_sched_entity(se) {
-> -			cfs_rq = cfs_rq_of(se);
-> -			entity_tick(cfs_rq, se, queued);
-> +		if (se->on_rq) {
-> +			unsigned long weight = NICE_0_LOAD;
-> +			struct cfs_rq *cfs_rq;
->   
-> -			weight = __calc_prop_weight(cfs_rq, se, weight);
-> +			for_each_sched_entity(se) {
-> +				cfs_rq = cfs_rq_of(se);
-> +				entity_tick(cfs_rq, se, queued);
-> +
-> +				weight = __calc_prop_weight(cfs_rq, se, weight);
-> +			}
-> +
-> +			se = &donor->se;
-> +			reweight_eevdf(cfs_rq, se, weight, se->on_rq);
->   		}
->   
-> -		se = &curr->se;
-> -		reweight_eevdf(cfs_rq, se, weight, se->on_rq);
-> +		if (queued)
-> +			return;
-> +
-> +		update_misfit_status(donor, rq);
-> +		check_update_overutilized_status(task_rq(donor));
-> +
-> +		task_tick_core(rq, donor);
->   	}
->   
-> -	if (queued)
-> -		return;
-
-The queued check might still be needed: if donor is not a fair task, we 
-still
-want to skip the numa balancing/sched_cache for hrtick event?
-thanks,
-Chenyu
