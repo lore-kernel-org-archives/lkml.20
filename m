@@ -1,128 +1,78 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA4594CA77E;
-	Tue,  8 Sep 2026 09:41:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38D9F41D228
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 09:41:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788860487; cv=none; b=IiYLePDMVzpSWJGOvJSOE1zmHAh5jQVZMZ4/hzoUfvJ0vct+6zvWjPklAQw0GRYpwQqnmgImaSGJ2upbw2TZz2y13WBqfPAxhd6gU+iBBX11eIsRGSWTuq5SpCJZyaqm1wPqKDwbRM6D67bhLPKrwuIRb9BRriIUAOhVQfEJ1Ig=
+	t=1788860512; cv=none; b=LSsYU6ymSOBrgyqllOkr/Pc1P3I18/PABxsGqYhzRtLAWEgYCw2UbnWf5gsQoT1oAOsUFQD5NbjvoK5wx7a98v+wTHwnxZNHbiSCby+gXFIbp5RwH2XQsEvZeDpeVu5egWzFG4OpkXPC5ep6ZwAYszPYUyXCkrdVwa8Um5aDXqQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788860487; c=relaxed/simple;
-	bh=927i0POuteXLSBNVLgMU73J3Nczar0uXhikC4tx4xKg=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=WPjKJslGHUVGDpXmoov2ftLGJyK9PrSo9g/6osDQX1UqUab2MVn+ertNLcpuDK+zN6fdLz+NhQqq12eNSzH0Rhmyp7O+7FAAiXxguyCUOyLZMQ9V1U/pO/TqbCSFcRqiDUCEomn19vT6+3Qb1bZEmdAna43tSi6mAGPUdrJpBB0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: 714da566ab6911f19a56ed5b684f684d-20260908
-X-CTIC-Tags:
-	HR_CC_COUNT, HR_CC_DOMAIN_COUNT, HR_CC_NAME, HR_CC_NO_NAME, HR_CTE_8B
-	HR_CTT_MISS, HR_DATE_H, HR_DATE_WKD, HR_DATE_ZONE, HR_FROM_NAME
-	HR_SJ_DIGIT_LEN, HR_SJ_LANG, HR_SJ_LEN, HR_SJ_LETTER, HR_SJ_NOR_SYM
-	HR_SJ_PHRASE, HR_SJ_PHRASE_LEN, HR_SJ_WS, HR_TO_COUNT, HR_TO_DOMAIN_COUNT
-	HR_TO_NO_NAME, IP_TRUSTED, SRC_TRUSTED, DN_TRUSTED, SA_TRUSTED
-	SA_EXISTED, SN_TRUSTED, SN_EXISTED, SPF_NOPASS, DKIM_NOPASS
-	DMARC_NOPASS, CIE_BAD, CIE_GOOD, CIE_GOOD_SPF, GTI_FG_BS
-	GTI_RG_INFO, GTI_C_BU, AMN_GOOD, ABX_MISS_RDNS
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:b223f7a6-611b-4a2b-9651-2e2074a52760,IP:15,
-	URL:0,TC:0,Content:-5,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
-	N:release,TS:10
-X-CID-INFO: VERSION:1.3.19,REQID:b223f7a6-611b-4a2b-9651-2e2074a52760,IP:15,UR
-	L:0,TC:0,Content:-5,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
-	release,TS:10
-X-CID-META: VersionHash:7db8b62,CLOUDID:4f6c2ac63aeba85c8c7c42e1d1963a5c,BulkI
-	D:260908174120EI0IXWZC,BulkQuantity:0,SF:10|38|66|78|102|127|850|865|898,T
-	C:nil,Content:0|15|50|99,EDM:-3,IP:-2,URL:0,File:nil,RT:nil,Bulk:nil,QS:ni
-	l,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:
-	0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 714da566ab6911f19a56ed5b684f684d-20260908
-X-User: yijiangshan@kylinos.cn
-Received: from localhost.localdomain [(116.128.244.171)] by mailgw.kylinos.cn
-	(envelope-from <yijiangshan@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 894235165; Tue, 08 Sep 2026 17:41:18 +0800
-From: Jiangshan Yi <yijiangshan@kylinos.cn>
-To: sgoutham@marvell.com,
-	rkannoth@marvell.com,
-	gakula@marvell.com,
-	sbhatta@marvell.com,
-	andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com
-Cc: netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	13667453960@163.com,
-	Jiangshan Yi <yijiangshan@kylinos.cn>
-Subject: [PATCH net-next] octeontx2-af: consolidate RVU AFVF device id definitions
-Date: Tue,  8 Sep 2026 17:40:51 +0800
-Message-Id: <20260908094051.666769-1-yijiangshan@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
+	s=arc-20240116; t=1788860512; c=relaxed/simple;
+	bh=br2suaEIjGKbFF5+bYLbcAvyV0Ek7eGUNoJPbZzLNjk=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Qu4LqKRmlL7nb++1GCEMaQtHRPj/+EYynbR4fSBjKI+I+1YGxa19WgjxpRDXIlpy9yPJ9MQx/JPDFlhTZ3hGs/xfpteas6HNTUm0dQkvBDEy08cqW9/m4oBgVJgwGj+VDo7Pcy3iM4Y09tGUtaAPdIP3XTsHJxnlt72KmOwRA4U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Le77j9dU; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Le77j9dU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2038A1F00A3D
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 09:41:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788860511;
+	bh=TINBbytPg/b2XLiSEqbqNhjnJmx78W0AKEtx4nAg5lw=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=Le77j9dUTadbLOSRixm2P6rTaILzEK/at1TksaCRJ+xmLbL/06yaWGPZKkb5SPXpz
+	 3udrBLAxmQSUandbbKdzs8/b8yqevBIgIf3J5U8X/3lS9vWFZWmGGhMBkJJT4xfuI+
+	 rw546/BSY42TyUTyKlAT3Z37be8xMw3JdedptTSF0oTv0obvDGNQ9hoA29hDROZ1jS
+	 qHlcpRnq7KXxBKNN3figFyJ3YtEFjwztyhZeuINFJI5N8krzGucvlc4b9mWlDhf/w/
+	 dzHhZYhuJFXphSvqkd8qbP7Svc20avXG8bROg+JMmu7DiX68rf8NpBYNQUyoyrqC6+
+	 J4FQulGQlW2yQ==
+Received: by mail-ej1-f45.google.com with SMTP id a640c23a62f3a-c2637dd37c1so324196166b.0
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 02:41:51 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxclQo/AGe5go0GfYJ0kxpMvkfw1zXcG0udYhYvSBDhP56aBrKkWk9cW/BE/oP1LBnXeiZFAa0OGjGLzsc=@vger.kernel.org
+X-Gm-Message-State: AFuF++ntA+FHay6uuMoL/Fnl3NoLVaOb4calwt734DR6Ee3DtpT59kgg
+	PkRU0HRM06PY+Fqx5+FuXwqOoLECmoxjv4Cxzn5p8dtzzPOQl2AcZ3gTnnKDwITQuX8gzQXtMjC
+	dxxqpzmje37GOJjIMGZpJM9XSDzSnjbQ=
+X-Received: by 2002:a17:906:478f:b0:c20:fda7:1856 with SMTP id
+ a640c23a62f3a-c260c7b61fcmr1143741466b.8.1788860509808; Tue, 08 Sep 2026
+ 02:41:49 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260907101623.671477-1-yijiangshan@kylinos.cn>
+In-Reply-To: <20260907101623.671477-1-yijiangshan@kylinos.cn>
+From: Namjae Jeon <linkinjeon@kernel.org>
+Date: Tue, 8 Sep 2026 18:41:36 +0900
+X-Gmail-Original-Message-ID: <CAKYAXd_RLbH6uoqjua+mLaYaepN9MxsLSfEt0fN5OL2Qk7esGg@mail.gmail.com>
+X-Gm-Features: AcwNN1VeMm1B8clYUuTUaR8yTLbeixI9pFWrgsZs3UdgGnv01BI4eN9UjyOOCBA
+Message-ID: <CAKYAXd_RLbH6uoqjua+mLaYaepN9MxsLSfEt0fN5OL2Qk7esGg@mail.gmail.com>
+Subject: Re: [PATCH] ntfs: remove unreachable code in load_and_init_attrdef/upcase
+To: Jiangshan Yi <yijiangshan@kylinos.cn>
+Cc: hyc.lee@gmail.com, ntfs@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	13667453960@163.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-commit f695390ea639 ("octeontx2-af: Fix limiting SRIOV VF count logic")
-added a local PCI_DEVID_OCTEONTX2_RVU_AFVF define in rvu.c, duplicating
-RVU_LBK_VF_DEVID in rvu.h.  Move the definition into the "PCI device
-IDs" block in rvu.h, rename RVU_LBK_VF_DEVID to match the PCI_DEVID_*
-naming convention of its peers, and drop the local define.
-
-No functional change.
-
-Signed-off-by: Jiangshan Yi <yijiangshan@kylinos.cn>
----
- drivers/net/ethernet/marvell/octeontx2/af/rvu.c | 2 --
- drivers/net/ethernet/marvell/octeontx2/af/rvu.h | 4 ++--
- 2 files changed, 2 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/net/ethernet/marvell/octeontx2/af/rvu.c b/drivers/net/ethernet/marvell/octeontx2/af/rvu.c
-index 937b085582b5..65e08ad9d82e 100644
---- a/drivers/net/ethernet/marvell/octeontx2/af/rvu.c
-+++ b/drivers/net/ethernet/marvell/octeontx2/af/rvu.c
-@@ -3468,8 +3468,6 @@ int rvu_get_num_lbk_chans(void)
- 	return ret;
- }
- 
--#define PCI_DEVID_OCTEONTX2_RVU_AFVF	0xA0F8
--
- static int rvu_enable_sriov(struct rvu *rvu)
- {
- 	struct pci_dev *pdev = rvu->pdev;
-diff --git a/drivers/net/ethernet/marvell/octeontx2/af/rvu.h b/drivers/net/ethernet/marvell/octeontx2/af/rvu.h
-index 094227404ef9..16846eeb793d 100644
---- a/drivers/net/ethernet/marvell/octeontx2/af/rvu.h
-+++ b/drivers/net/ethernet/marvell/octeontx2/af/rvu.h
-@@ -22,6 +22,7 @@
- 
- /* PCI device IDs */
- #define	PCI_DEVID_OCTEONTX2_RVU_AF		0xA065
-+#define	PCI_DEVID_OCTEONTX2_RVU_AFVF		0xA0F8
- #define	PCI_DEVID_OCTEONTX2_LBK			0xA061
- 
- /* Subsystem Device ID */
-@@ -882,11 +883,10 @@ static inline bool is_rvu_supports_nix1(struct rvu *rvu)
- /* Function Prototypes
-  * RVU
-  */
--#define	RVU_LBK_VF_DEVID	0xA0F8
- static inline bool is_lbk_vf(struct rvu *rvu, u16 pcifunc)
- {
- 	return (!(pcifunc & ~RVU_PFVF_FUNC_MASK) &&
--		(rvu->vf_devid == RVU_LBK_VF_DEVID));
-+		(rvu->vf_devid == PCI_DEVID_OCTEONTX2_RVU_AFVF));
- }
- 
- static inline bool is_vf(u16 pcifunc)
--- 
-2.25.1
-
+On Mon, Sep 7, 2026 at 7:17=E2=80=AFPM Jiangshan Yi <yijiangshan@kylinos.cn=
+> wrote:
+>
+> Both load_and_init_attrdef() and load_and_init_upcase() open a system
+> inode with ntfs_iget() and, on error, run:
+>
+>         if (IS_ERR(ino)) {
+>                 if (!IS_ERR(ino))
+>                         iput(ino);
+>                 goto failed;
+>         }
+>
+> The inner guard is the exact negation of the outer one, so
+> iput(ino) is dead code.  Drop the unreachable branch and collapse
+> the error check to a single statement.
+>
+> No functional change.
+>
+> Signed-off-by: Jiangshan Yi <yijiangshan@kylinos.cn>
+Applied it to #ntfs-next.
+Thanks!
