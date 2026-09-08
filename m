@@ -1,108 +1,463 @@
-Received: from out162-62-58-211.mail.qq.com (out162-62-58-211.mail.qq.com [162.62.58.211])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AF543A9616;
-	Tue,  8 Sep 2026 08:06:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.62.58.211
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5EDD3A961B;
+	Tue,  8 Sep 2026 08:06:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788854807; cv=none; b=R7KuTalXGfvUfYykcuP0tfihWBAL3yd0ApBerfYaS6J0RrCjIIcuF0MAREGeZ1JCewgT1QR/2ncqy4TTxoZVqBPU1T6oUwTYb5HCI6jKzSyvDZ8rNhjpAXYFN9uYoLtjF6U1+ZsN8CF2ih47jdZQpqbuQjDZFRqBIL8+7grOyR0=
+	t=1788854805; cv=none; b=aZR+z4Iw/mDvwQrFpoLmymNif77rLpWOAIpDkuMkygUNM9RD9DdNlDZQJIvio7V2g9djPepyeuLjvZLtu7m2dbongpw9Z00vxrpb7Xysje9LEGDHwwwVJepKfGKm2jHgUwzG4cPBuo4HORZdaVKwbXkULQTxfAkU2O0JyuwnbVg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788854807; c=relaxed/simple;
-	bh=2xqmYT9HDXnhzbfJRGQf79SeIwwTFyFfKijTt7HmlJg=;
-	h=Message-ID:From:To:Cc:Subject:Date:MIME-Version; b=o5HwV4bzJKCueX8Aa9yiczZq+l3yZVj4w2SiJbQ+pP7+ORtOBWdg/jjuRW7BQaGF4/A/S1oTtbYjeOPwwHjbbFIPEiFo2o/e2qlIYpmLUMRobD90jfE3v6JbGxHnpNRajeu8Zs0Wt/CavseNliFKitXNBx352kDa3LFbPy9Xt4w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=L7Ed/hK3; arc=none smtp.client-ip=162.62.58.211
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	s=arc-20240116; t=1788854805; c=relaxed/simple;
+	bh=RMtCmZMdqd93NFPSVJln6yKON1M6pgpj31CMw55qoGQ=;
+	h=Date:From:To:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=fQCtOq7lFVB8BYLn6iyRIwrOoUTZDiVI6SPVf5rw0a/8ARTP2SNLTw3MLKCRP5a7QE0jieZwpvdDllFPHoAfIKLkDN9idmlPwaks9G27Fcg0JC7rl4LICeFnIoZP6NHvmRLVlCFvl/0WmM9ytSkG8Yg3Zk+y4NE8vzLkBeZ0md4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gP9F/IXc; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="L7Ed/hK3"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1788854792; bh=98YyOZdshhn5cPZjXVwyFbNEDVw72Ziv/YVFEcGoRpw=;
-	h=From:To:Cc:Subject:Date;
-	b=L7Ed/hK3+qnS4oGV6uXVbV0GmF63+DNoDaJsqF8bEhvhG6UKfOKB7vbcBUya1xJ3C
-	 wBxA37Q0FS1iRrTVfG7Ik4KKMXJS0+G5MuYekKMwZQhBhMBwHACeZS+UADdn1Ms0ed
-	 0yoL9Nb2NsHwCIhc4yVQXogwYLj9MqtbNAYY9z1A=
-Received: from localhost.localdomain ([106.114.216.75])
-	by newxmesmtplogicsvrsza73-0.qq.com (NewEsmtp) with SMTP
-	id 185190A2; Tue, 08 Sep 2026 16:06:05 +0800
-X-QQ-mid: xmsmtpt1788854765tzqwk7xsr
-Message-ID: <tencent_4E077A13DB36F0C12D69B0E89FD5C7DCB506@qq.com>
-X-QQ-XMAILINFO: MDbayGdXPuoeCWl6JLYX9iT4KFyTP4BOAs/TVgRKNN3qePWHPHaM937c3cEOSw
-	 gEMzJx/6L0E7pc5TUef1oNNef8p7TaBjvKrF/RuJOmrVTIfaCeOvmZsFPvB4VWh+NPBfHW4fgepG
-	 S6epI4g9XYvj4k/+LmAenIn3SD3b9iRPLZvagISGUTONATkxU5qyPFCMfm4JsBb0XgXlTy/q9vCo
-	 8/fK7IyZfwNAZ0OxnohE1BC1b/AwTwihBMIDg+s5YnHRwW/Dcm+jV5XOVBY2qNw6cgv9CsuY6ep4
-	 nRjBqW0Hm2/1f+8Pf3DXf9Z+afrT6Z+8X242hTZExMcHQ55yxCsXQaEbvd3Dc8khKuGiMfCEAPZr
-	 ieljfu7Y1LaAbkjoziq4Pyy/WhJsMPKviVlue5loH0++WvQ5ct/bF0wAtI+0w5lLguC4Z2HxvMyu
-	 VsOj3K/d2KxEVYcEQbKpvfRizlwHH/YBm7eeieFn/gfkt7iqmI3iPDjqoHkyp47F6fXqUWbwHQpJ
-	 c0MetieAU+beo4icbzmRAwcvEgkvWE1NQz0kRg+vZO1ZhTDUed1wZqwfJ89Uath6NGCXr7znISJu
-	 Xh7Uk9rtMje7g2C/cHgOlp5/lkAaINsUBLr0aRolBhdmMUTiIgZ/DIsDd7vn0R6HNSXMD1fYclhq
-	 3/i3bYf9+7tbKMbohOSHSpnz3e1Kr1uHAH/sksflln8/pV50hni8IFgYS4FeMIW8/d+lHAD4aZoG
-	 Gxg24rfVWjcAPJm5OLRp5jJaTRYier+zr0iHxs/jfTkzDqSoOStepPP6qGjTvx8/DtDKiegJo5dU
-	 aURyrXNwvP8uLzycmv/1cJrxJ+BGEdbvBl+RLhy5rmZKZoT4YVmgwUub6mJRqCEmfT0tUVFfmyUq
-	 sLfJVN0MgpLUlOkg/Cf5GXwnfYKZl6dP3FPmwJBR6mlGt55gi1YmAmFKavc4mAYsFfG5PNwW3x5w
-	 31rpAyfDZpEf3q3EkVNhkopDgb1AtKeIK2m2L2W/LfRW1YSMw8fZB2lR1EK1GsW/lQJKSBlI4VwI
-	 UeZGQSNDtKrzCvvmaRglCV4Y9uKxmWtlYsiyEt3J03e0+ZpB2o
-X-QQ-XMRINFO: M/715EihBoGS47X28/vv4NpnfpeBLnr4Qg==
-From: JX <1239989762@qq.com>
-To: Miguel Ojeda <ojeda@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>
-Cc: Boqun Feng <boqun@kernel.org>,
-	Gary Guo <gary@garyguo.net>,
-	=?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
-	Benno Lossin <lossin@kernel.org>,
-	Andreas Hindborg <a.hindborg@kernel.org>,
-	Alice Ryhl <aliceryhl@google.com>,
-	Trevor Gross <tmgross@umich.edu>,
-	Daniel Almeida <daniel.almeida@collabora.com>,
-	Tamir Duberstein <tamird@kernel.org>,
-	Alexandre Courbot <acourbot@nvidia.com>,
-	=?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	"Liam R . Howlett" <liam@infradead.org>,
-	Uladzislau Rezki <urezki@gmail.com>,
-	rust-for-linux@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 0/2] rust: add unsafe precondition assertions to Vec length helpers
-Date: Tue,  8 Sep 2026 16:06:01 +0800
-X-OQ-MSGID: <20260908080604.34070-1-1239989762@qq.com>
-X-Mailer: git-send-email 2.54.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gP9F/IXc"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 218911F00AC4;
+	Tue,  8 Sep 2026 08:06:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788854803;
+	bh=C3dWyP1ymdYwK1JXfnr4eAjaAOB1e8b+TA8TtFWQc3M=;
+	h=Date:From:To:Subject:References:In-Reply-To;
+	b=gP9F/IXcHf8PLJ2OavhQ+dP/Anj7MwFEuIo9jdFzehmluUfnNpNdl7+2kqwVKW8TJ
+	 iULVRwwee7jHpX+bBcRvL9/gKoGtTqXw6jwMetQukwxYYLxqEdpm2BH6YBZFmApDLq
+	 3edQcJ75PiTdHPoinG8EYPNWi5FF0fK+01RRb4ADr1/ePNY9V+Ta1PJrkVdQrYh8iP
+	 VZPVdo3gH2k1yl+dCoLgRLiJaKXoCtNwHpq2UTw7YahYmAeG3AXxq3o2okiq34C1H5
+	 nQQwknlzw19ggNRZu0PFxAq/BEjdh8fxmoGUEA3Mu+59eGH5iu+KypX/XUSRT7qaWs
+	 L1Il/aWRQm8pA==
+Date: Tue, 8 Sep 2026 09:06:38 +0100
+From: Lee Jones <lee@kernel.org>
+To: David Heidelberg <david@ixit.cz>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Samuel Ortiz <sameo@linux.intel.com>,
+	Szymon Janc <szymon.janc@tieto.com>, oe-linux-nfc@lists.linux.dev,
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 1/1] nfc: llcp: Fix race condition in accept_queue
+ lifecycle
+Message-ID: <20260908080638.GY2133376@google.com>
+References: <20260902123033.1169067-1-lee@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260902123033.1169067-1-lee@kernel.org>
 
-The safety requirements of `Vec::inc_len` and `Vec::dec_len` are
-currently checked with `debug_assert!`. Convert them to
-`unsafe_precondition_assert!` so violations are reported consistently
-with other unsafe precondition failures.
+[INTENTIONAL TOP-POST]
 
-The first patch makes the no-message form of
-`unsafe_precondition_assert!` usable from const functions. This is
-needed by `Vec::inc_len`, which is const, and avoids runtime formatting
-when the diagnostic consists only of the stringified condition.
+Good morning David,
 
-The second patch converts both Vec length helpers.
+Just checking that this is on your radar this time [0].
 
-The series has been checked with:
+Please let me know if you'd prefer a [RESEND].
 
-  make rustfmtcheck
-  make CLIPPY=1 rust/kernel.o
-  make rusttest
-  make rustdoc
+[0] https://lore.kernel.org/all/016b7162-b633-4561-a003-526c9d9c5f21@ixit.cz/
 
-JX (2):
-  rust: make unsafe_precondition_assert! const compatible
-  rust: alloc: use unsafe_precondition_assert! in Vec length helpers
+Kind regards,
+Lee
 
- rust/kernel/alloc/kvec.rs |  7 ++++---
- rust/kernel/safety.rs     | 10 +++++++++-
- 2 files changed, 13 insertions(+), 4 deletions(-)
+> In nfc_llcp_socket_release(), sockets and listener accept queues are
+> walked under the local sockets rwlock and bh_lock_sock().  However,
+> bh_lock_sock() does not synchronise against process-context lock_sock()
+> held by nfc_llcp_accept_dequeue() during accept().  Because
+> socket_release() does not check sock_owned_by_user(), both paths can
+> concurrently unlink and release the same child socket, resulting in
+> use-after-free or a NULL pointer dereference of child->parent in
+> nfc_llcp_accept_unlink().
+> 
+> Fix this synchronisation race by having nfc_llcp_socket_release() use
+> process-context lock_sock() instead of bh_lock_sock():
+> 
+> 1. Pop sockets from the local sockets list under the write lock using
+>    nfc_llcp_sock_list_pop() so lock_sock() can be acquired without
+>    holding the rwlock.
+> 
+> 2. Because lock_sock() can sleep, defer the final release of the
+>    nfc_llcp_local structure to a workqueue (release_work).  This avoids
+>    a sleeping-in-atomic bug when the last local reference is dropped
+>    from softirq context.  Additionally, hold a single device reference
+>    on local from registration until final destruction.
+> 
+> 3. In nfc_llcp_local_get(), use kref_get_unless_zero() to prevent
+>    resurrecting a local object whose teardown has been scheduled.
+> 
+> 4. In llcp_sock_accept(), verify that the listener socket state is still
+>    LLCP_LISTEN after waking from schedule_timeout() to prevent hangs if
+>    the listener is closed concurrently.
+> 
+> 5. When unlinking unaccepted child sockets during listener release,
+>    unlink them from local->sockets, call sock_orphan(), and drop their
+>    initial sk_alloc creation reference via sock_put().
+> 
+> 6. Make nfc_llcp_accept_unlink() idempotent by guarding parent access with
+>    a NULL check.
+> 
+> Fixes: 50b78b2a6500 ("NFC: Fix sleeping in atomic when releasing socket")
+> Signed-off-by: Lee Jones <lee@kernel.org>
+> ---
+> 
+> v1 -> v2:
+> - Defer local release to dedicated workqueue (llcp_wq) to avoid sleeping in atomic
+> - Drain and destroy llcp_wq on module unload to prevent module exit race
+> - Drop initial sk_alloc creation ref on unaccepted child sockets across all teardown paths
+> - Use kref_get_unless_zero() in local_get to prevent resurrecting dying local objects
+> - Check listener socket state after waking in llcp_sock_accept() to avoid hangs
+> - Standardise Parent (0) -> Child (1) lockdep subclass nesting
+> 
+> v2 -> v3:
+> - Allocate dedicated workqueue (llcp_wq) with WQ_UNBOUND to fix syzbot warning
+> 
+>  net/nfc/llcp.h      |   1 +
+>  net/nfc/llcp_core.c | 123 +++++++++++++++++++++++++++-----------------
+>  net/nfc/llcp_sock.c |  49 +++++++++++++-----
+>  3 files changed, 115 insertions(+), 58 deletions(-)
+> 
+> diff --git a/net/nfc/llcp.h b/net/nfc/llcp.h
+> index d8345ed57c95..23ae7a0112d3 100644
+> --- a/net/nfc/llcp.h
+> +++ b/net/nfc/llcp.h
+> @@ -91,6 +91,7 @@ struct nfc_llcp_local {
+>  	struct hlist_head pending_sdreqs;
+>  	struct timer_list sdreq_timer;
+>  	struct work_struct sdreq_timeout_work;
+> +	struct work_struct release_work;
+>  	u8 sdreq_next_tid;
+>  
+>  	/* sockets array */
+> diff --git a/net/nfc/llcp_core.c b/net/nfc/llcp_core.c
+> index bd6361e2efa4..23553e7426ec 100644
+> --- a/net/nfc/llcp_core.c
+> +++ b/net/nfc/llcp_core.c
+> @@ -20,6 +20,8 @@ static LIST_HEAD(llcp_devices);
+>  /* Protects llcp_devices list */
+>  static DEFINE_SPINLOCK(llcp_devices_lock);
+>  
+> +static struct workqueue_struct *llcp_wq;
+> +
+>  static void nfc_llcp_rx_skb(struct nfc_llcp_local *local, struct sk_buff *skb);
+>  
+>  void nfc_llcp_sock_link(struct llcp_sock_list *l, struct sock *sk)
+> @@ -63,21 +65,33 @@ static void nfc_llcp_socket_purge(struct nfc_llcp_sock *sock)
+>  	}
+>  }
+>  
+> +static struct sock *nfc_llcp_sock_list_pop(struct llcp_sock_list *l)
+> +{
+> +	struct sock *sk;
+> +
+> +	write_lock(&l->lock);
+> +	sk = sk_head(&l->head);
+> +	if (sk) {
+> +		sock_hold(sk);
+> +		sk_del_node_init(sk);
+> +	}
+> +	write_unlock(&l->lock);
+> +
+> +	return sk;
+> +}
+> +
+>  static void nfc_llcp_socket_release(struct nfc_llcp_local *local, bool device,
+>  				    int err)
+>  {
+>  	struct sock *sk;
+> -	struct hlist_node *tmp;
+>  	struct nfc_llcp_sock *llcp_sock;
+>  
+>  	skb_queue_purge(&local->tx_queue);
+>  
+> -	write_lock(&local->sockets.lock);
+> -
+> -	sk_for_each_safe(sk, tmp, &local->sockets.head) {
+> +	while ((sk = nfc_llcp_sock_list_pop(&local->sockets))) {
+>  		llcp_sock = nfc_llcp_sock(sk);
+>  
+> -		bh_lock_sock(sk);
+> +		lock_sock(sk);
+>  
+>  		nfc_llcp_socket_purge(llcp_sock);
+>  
+> @@ -91,17 +105,27 @@ static void nfc_llcp_socket_release(struct nfc_llcp_local *local, bool device,
+>  			list_for_each_entry_safe(lsk, n,
+>  						 &llcp_sock->accept_queue,
+>  						 accept_queue) {
+> +				bool put_creation = false;
+> +
+>  				accept_sk = &lsk->sk;
+> -				bh_lock_sock(accept_sk);
+> +				lock_sock_nested(accept_sk,
+> +						 SINGLE_DEPTH_NESTING);
+>  
+> -				nfc_llcp_accept_unlink(accept_sk);
+> +				if (nfc_llcp_sock(accept_sk)->parent == sk) {
+> +					nfc_llcp_accept_unlink(accept_sk);
+> +					nfc_llcp_sock_unlink(&local->sockets, accept_sk);
+>  
+> -				if (err)
+> -					accept_sk->sk_err = err;
+> -				accept_sk->sk_state = LLCP_CLOSED;
+> -				accept_sk->sk_state_change(sk);
+> +					if (err)
+> +						accept_sk->sk_err = err;
+> +					accept_sk->sk_state = LLCP_CLOSED;
+> +					accept_sk->sk_state_change(accept_sk);
+> +					sock_orphan(accept_sk);
+> +					put_creation = true;
+> +				}
+>  
+> -				bh_unlock_sock(accept_sk);
+> +				release_sock(accept_sk);
+> +				if (put_creation)
+> +					sock_put(accept_sk); /* creation ref */
+>  			}
+>  		}
+>  
+> @@ -110,23 +134,18 @@ static void nfc_llcp_socket_release(struct nfc_llcp_local *local, bool device,
+>  		sk->sk_state = LLCP_CLOSED;
+>  		sk->sk_state_change(sk);
+>  
+> -		bh_unlock_sock(sk);
+> -
+> -		sk_del_node_init(sk);
+> +		release_sock(sk);
+> +		sock_put(sk);
+>  	}
+>  
+> -	write_unlock(&local->sockets.lock);
+> -
+>  	/* If we still have a device, we keep the RAW sockets alive */
+>  	if (device == true)
+>  		return;
+>  
+> -	write_lock(&local->raw_sockets.lock);
+> -
+> -	sk_for_each_safe(sk, tmp, &local->raw_sockets.head) {
+> +	while ((sk = nfc_llcp_sock_list_pop(&local->raw_sockets))) {
+>  		llcp_sock = nfc_llcp_sock(sk);
+>  
+> -		bh_lock_sock(sk);
+> +		lock_sock(sk);
+>  
+>  		nfc_llcp_socket_purge(llcp_sock);
+>  
+> @@ -135,26 +154,20 @@ static void nfc_llcp_socket_release(struct nfc_llcp_local *local, bool device,
+>  		sk->sk_state = LLCP_CLOSED;
+>  		sk->sk_state_change(sk);
+>  
+> -		bh_unlock_sock(sk);
+> -
+> -		sk_del_node_init(sk);
+> +		release_sock(sk);
+> +		sock_put(sk);
+>  	}
+> -
+> -	write_unlock(&local->raw_sockets.lock);
+>  }
+>  
+>  static struct nfc_llcp_local *nfc_llcp_local_get(struct nfc_llcp_local *local)
+>  {
+> -	/* Since using nfc_llcp_local may result in usage of nfc_dev, whenever
+> -	 * we hold a reference to local, we also need to hold a reference to
+> -	 * the device to avoid UAF.
+> -	 */
+> -	if (!nfc_get_device(local->dev->idx))
+> +	if (!local)
+>  		return NULL;
+>  
+> -	kref_get(&local->ref);
+> +	if (kref_get_unless_zero(&local->ref))
+> +		return local;
+>  
+> -	return local;
+> +	return NULL;
+>  }
+>  
+>  static void local_cleanup(struct nfc_llcp_local *local)
+> @@ -172,30 +185,34 @@ static void local_cleanup(struct nfc_llcp_local *local)
+>  	nfc_llcp_free_sdp_tlv_list(&local->pending_sdreqs);
+>  }
+>  
+> +static void local_release_work(struct work_struct *work)
+> +{
+> +	struct nfc_llcp_local *local;
+> +	struct nfc_dev *dev;
+> +
+> +	local = container_of(work, struct nfc_llcp_local, release_work);
+> +	dev = local->dev;
+> +
+> +	local_cleanup(local);
+> +	kfree(local);
+> +	nfc_put_device(dev);
+> +}
+> +
+>  static void local_release(struct kref *ref)
+>  {
+>  	struct nfc_llcp_local *local;
+>  
+>  	local = container_of(ref, struct nfc_llcp_local, ref);
+>  
+> -	local_cleanup(local);
+> -	kfree(local);
+> +	queue_work(llcp_wq, &local->release_work);
+>  }
+>  
+>  int nfc_llcp_local_put(struct nfc_llcp_local *local)
+>  {
+> -	struct nfc_dev *dev;
+> -	int ret;
+> -
+> -	if (local == NULL)
+> +	if (!local)
+>  		return 0;
+>  
+> -	dev = local->dev;
+> -
+> -	ret = kref_put(&local->ref, local_release);
+> -	nfc_put_device(dev);
+> -
+> -	return ret;
+> +	return kref_put(&local->ref, local_release);
+>  }
+>  
+>  static struct nfc_llcp_sock *nfc_llcp_sock_get(struct nfc_llcp_local *local,
+> @@ -1705,6 +1722,7 @@ int nfc_llcp_register_device(struct nfc_dev *ndev)
+>  	INIT_WORK(&local->rx_work, nfc_llcp_rx_work);
+>  
+>  	INIT_WORK(&local->timeout_work, nfc_llcp_timeout_work);
+> +	INIT_WORK(&local->release_work, local_release_work);
+>  
+>  	rwlock_init(&local->sockets.lock);
+>  	rwlock_init(&local->connecting_sockets.lock);
+> @@ -1748,10 +1766,23 @@ void nfc_llcp_unregister_device(struct nfc_dev *dev)
+>  
+>  int __init nfc_llcp_init(void)
+>  {
+> -	return nfc_llcp_sock_init();
+> +	int ret;
+> +
+> +	llcp_wq = alloc_workqueue("nfc_llcp_wq", WQ_UNBOUND, 0);
+> +	if (!llcp_wq)
+> +		return -ENOMEM;
+> +
+> +	ret = nfc_llcp_sock_init();
+> +	if (ret) {
+> +		destroy_workqueue(llcp_wq);
+> +		return ret;
+> +	}
+> +
+> +	return 0;
+>  }
+>  
+>  void nfc_llcp_exit(void)
+>  {
+>  	nfc_llcp_sock_exit();
+> +	destroy_workqueue(llcp_wq);
+>  }
+> diff --git a/net/nfc/llcp_sock.c b/net/nfc/llcp_sock.c
+> index 5558d8a4d48b..ce6875eb58fb 100644
+> --- a/net/nfc/llcp_sock.c
+> +++ b/net/nfc/llcp_sock.c
+> @@ -392,11 +392,12 @@ void nfc_llcp_accept_unlink(struct sock *sk)
+>  
+>  	pr_debug("state %d\n", sk->sk_state);
+>  
+> -	list_del_init(&llcp_sock->accept_queue);
+> -	sk_acceptq_removed(llcp_sock->parent);
+> -	llcp_sock->parent = NULL;
+> -
+> -	sock_put(sk);
+> +	if (llcp_sock->parent) {
+> +		list_del_init(&llcp_sock->accept_queue);
+> +		sk_acceptq_removed(llcp_sock->parent);
+> +		llcp_sock->parent = NULL;
+> +		sock_put(sk);
+> +	}
+>  }
+>  
+>  void nfc_llcp_accept_enqueue(struct sock *parent, struct sock *sk)
+> @@ -423,12 +424,20 @@ struct sock *nfc_llcp_accept_dequeue(struct sock *parent,
+>  
+>  	list_for_each_entry_safe(lsk, n, &llcp_parent->accept_queue,
+>  				 accept_queue) {
+> +		struct nfc_llcp_local *local;
+> +
+>  		sk = &lsk->sk;
+> -		lock_sock(sk);
+> +		lock_sock_nested(sk, SINGLE_DEPTH_NESTING);
+>  
+>  		if (sk->sk_state == LLCP_CLOSED) {
+> -			release_sock(sk);
+> +			local = nfc_llcp_sock(sk)->local;
+> +
+>  			nfc_llcp_accept_unlink(sk);
+> +			if (local)
+> +				nfc_llcp_sock_unlink(&local->sockets, sk);
+> +			sock_orphan(sk);
+> +			release_sock(sk);
+> +			sock_put(sk);
+>  			continue;
+>  		}
+>  
+> @@ -464,7 +473,7 @@ static int llcp_sock_accept(struct socket *sock, struct socket *newsock,
+>  
+>  	pr_debug("parent %p\n", sk);
+>  
+> -	lock_sock_nested(sk, SINGLE_DEPTH_NESTING);
+> +	lock_sock(sk);
+>  
+>  	if (sk->sk_state != LLCP_LISTEN) {
+>  		ret = -EBADFD;
+> @@ -490,7 +499,12 @@ static int llcp_sock_accept(struct socket *sock, struct socket *newsock,
+>  
+>  		release_sock(sk);
+>  		timeo = schedule_timeout(timeo);
+> -		lock_sock_nested(sk, SINGLE_DEPTH_NESTING);
+> +		lock_sock(sk);
+> +
+> +		if (sk->sk_state != LLCP_LISTEN) {
+> +			ret = -EBADFD;
+> +			break;
+> +		}
+>  	}
+>  	__set_current_state(TASK_RUNNING);
+>  	remove_wait_queue(sk_sleep(sk), &wait);
+> @@ -629,13 +643,24 @@ static int llcp_sock_release(struct socket *sock)
+>  
+>  		list_for_each_entry_safe(lsk, n, &llcp_sock->accept_queue,
+>  					 accept_queue) {
+> +			bool put_creation = false;
+> +
+>  			accept_sk = &lsk->sk;
+> -			lock_sock(accept_sk);
+> +			lock_sock_nested(accept_sk, SINGLE_DEPTH_NESTING);
+>  
+> -			nfc_llcp_send_disconnect(lsk);
+> -			nfc_llcp_accept_unlink(accept_sk);
+> +			if (nfc_llcp_sock(accept_sk)->parent == sk) {
+> +				nfc_llcp_send_disconnect(lsk);
+> +				nfc_llcp_accept_unlink(accept_sk);
+> +				nfc_llcp_sock_unlink(&local->sockets, accept_sk);
+> +
+> +				accept_sk->sk_state = LLCP_CLOSED;
+> +				sock_orphan(accept_sk);
+> +				put_creation = true;
+> +			}
+>  
+>  			release_sock(accept_sk);
+> +			if (put_creation)
+> +				sock_put(accept_sk); /* creation ref */
+>  		}
+>  	}
+>  
+> -- 
+> 2.55.0.966.g6673acef38-goog
+> 
 
-
-base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
 -- 
-2.54.0
-
+Lee Jones
