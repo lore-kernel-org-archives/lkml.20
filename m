@@ -1,108 +1,97 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-127.mta1.migadu.com [95.215.58.127])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F11E53955F1;
-	Tue,  8 Sep 2026 14:26:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA91D53ED1D
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 14:26:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.127
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788877583; cv=none; b=J8Gd0HwC1FJcmseUK+K1eUsdF31os7MOab8Pk4RvYRs+B0U4pJ6By24a6kNtV7vrcthIcSDtBhiuOC9xVEUPEGJs+Rn7xK+Y6MplbxWJCUZD80Kob7ChUEwPxK5E7XcfP8TDd35d3kS1GZ8xuneM+OdUL6CXwahUaJ6tM/N8Xf0=
+	t=1788877603; cv=none; b=o3INfb+WeQfDN5W69oU9Js6tVrBWVVbb9VGsqpMWRp53yPeN5Emu04VaKX13XfJlAzb03G8q5UXA6fOa2yLIsThD4/QxQILVHjSUmJ9u7d0l3e6qsiEVbBBYD0f0bIF68LYeZCtiO29luLBUEQov0EZ/2ngiAv8hfY2gmNzf2JY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788877583; c=relaxed/simple;
-	bh=5Mv42E8KfV+o7sMkeP3depUAOidAkVxElMYKgS2D8nU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=VVc9Mh7jtZR5cQpoXDX0FvhmQKtMjWJDL15zp2tHrQrligAw4a6WUWYh/EtVUR7Kwv1l9N61TiO0K3pfrbapyPejzQe5WfSgV9qObfsGGS+QpBOXlyUhmVGc4wxSFarY3rSoL2iUIwvzVavrMqMdwH+/yR/2s8GksWD1cr6yyB0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=ibCJ1vTa; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=dujpHxA7; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	s=arc-20240116; t=1788877603; c=relaxed/simple;
+	bh=s9TT0fZk57NAYbdQgPZkg4s8vZfT60FtoXTyRRE+hbY=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=UdID1+8a9VVVWGd0RWcgxtLVkDPor+Ha3/Q/ewYioqqNKqTCQ/xoXw1twoDQYXJPDa9+4jVlI0qYeaorUT82jpJG0QJajQqu5yUjZBEAw7WHgpYGhNMaKa4q4IR/KjQnyRXMAGk/1p4sroRNYsslMSatYtO2NubrLGHRGwBDTY0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=oUf2b2Me; arc=none smtp.client-ip=95.215.58.127
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="ibCJ1vTa";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="dujpHxA7"
-Date: Tue, 8 Sep 2026 16:26:00 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1788877566;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=3bG7xzyOLgkq/hT1vQoL2+37rRIngeN99Zi6O3p/t1Q=;
-	b=ibCJ1vTaf2PfeTeGGS4CPdeCQlmt6p7aLY7mIyests6CYT2a6E4Mjbx9HP5VcqSFIGIDN5
-	lQzNq4LeidtkfT+EysNyxDj3JNRd+SkiSObbBLZntgveQTRfZuO3v/L3jsJBVUb2BH8YCM
-	7vKdLixe7hXeDeAfmTR73MLoheT6qddEqn0zSpdo08XfzCFSXasPoLv5PXY5oZ4uUtuuhQ
-	ue9dInv7mMssJZ5SEhI8zG40m/o1XMobx0JA0bqLkrd6i/I6QO8W9g5ozGh5HmdlKJSK+H
-	nBg3aR8ypjomfwqNmYevI/XWRU18YkOzSNQOVFvzM7BNe1wvopfv0uHl4KPu0w==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1788877566;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=3bG7xzyOLgkq/hT1vQoL2+37rRIngeN99Zi6O3p/t1Q=;
-	b=dujpHxA7PKpeJCyeZiOagFVHrYS6MiqrupOYGFJ0EP4mlmR+jdnMRKg1XsL53yLYA37pen
-	ASTs5tXfWZYBIDDw==
-From: Thomas =?utf-8?Q?Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>
-To: Borislav Petkov <bp@alien8.de>
-Cc: Paul Walmsley <paul.walmsley@sifive.com>, 
-	Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
-	Alexandre Ghiti <alex@ghiti.fr>, Nathan Chancellor <nathan@kernel.org>, 
-	Nick Desaulniers <nick.desaulniers+lkml@gmail.com>, Bill Wendling <morbo@google.com>, 
-	Justin Stitt <justinstitt@google.com>, Andy Lutomirski <luto@kernel.org>, 
-	Vincenzo Frascino <vincenzo.frascino@arm.com>, Kees Cook <kees@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
-	Richard Weinberger <richard@nod.at>, Anton Ivanov <anton.ivanov@cambridgegreys.com>, 
-	Johannes Berg <johannes@sipsolutions.net>, Russell King <linux@armlinux.org.uk>, 
-	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
-	Madhavan Srinivasan <maddy@linux.ibm.com>, Michael Ellerman <mpe@ellerman.id.au>, 
-	Nicholas Piggin <npiggin@gmail.com>, Huacai Chen <chenhuacai@kernel.org>, 
-	WANG Xuerui <kernel@xen0n.name>, Heiko Carstens <hca@linux.ibm.com>, 
-	Vasily Gorbik <gor@linux.ibm.com>, Alexander Gordeev <agordeev@linux.ibm.com>, 
-	Christian Borntraeger <borntraeger@linux.ibm.com>, Sven Schnelle <svens@linux.ibm.com>, 
-	Thomas Bogendoerfer <tsbogend@alpha.franken.de>, Miguel Ojeda <ojeda@kernel.org>, 
-	Alex Gaynor <alex.gaynor@gmail.com>, Gary Guo <gary@garyguo.net>, 
-	=?utf-8?B?QmrDtnJu?= Roy Baron <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, 
-	Andreas Hindborg <a.hindborg@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
-	Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, 
-	Thomas Gleixner <tglx@kernel.org>, Christophe Leroy <chleroy@kernel.org>, 
-	Boqun Feng <boqun@kernel.org>, Nicolas Schier <nsc@kernel.org>, linux-riscv@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, llvm@lists.linux.dev, linux-mm@kvack.org, 
-	linux-um@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
-	linuxppc-dev@lists.ozlabs.org, loongarch@lists.linux.dev, linux-s390@vger.kernel.org, 
-	linux-mips@vger.kernel.org, rust-for-linux@vger.kernel.org, linux-kbuild@vger.kernel.org, 
-	Jan Stancek <jstancek@redhat.com>, Arnaldo Carvalho de Melo <acme@redhat.com>, 
-	Alexandre Ghiti <alexghiti@rivosinc.com>
-Subject: Re: [PATCH v5 02/24] x86/elf, um/x86/elf: Move relocation constants
- to UAPI
-Message-ID: <20260908161740-0d79e592-87a6-43c5-9174-84ce1904e639@linutronix.de>
-References: <20260908-vdso-absolute-reloc-v5-0-3a93791af1cf@linutronix.de>
- <20260908-vdso-absolute-reloc-v5-2-3a93791af1cf@linutronix.de>
- <20260908135513.GAaqATwXHcQD7plnH-@fat_crate.local>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="oUf2b2Me"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=s9TT0fZk57NAYbdQgPZkg4s8vZfT60FtoXTyRRE+hbY=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788877594; v=1; x=1789482394;
+ b=oUf2b2Me5yQ1AkdLjcXZPsY7ezdSRSf+FZqsh6OeISavuE1DxUeM4PkWAKetZy6F/KgvOdTk
+ 7YjM/Zm4Oj25/F61ESN1YtuOf0/UIxjFagO+BoPqwcXGe2jsfoNh+pG3w11trKG/0qEeEuiFq4r
+ KaIfZarT0vQOs2O8ZK+a/KCU=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 14221e000fbbf8e3;
+	Tue, 08 Sep 2026 14:26:34 +0000
+X-Mizu-Trace-ID: 14221e000fbbf8e3
+X-Migadu-Flow: FLOW_OUT
+From: Fuad Tabba <fuad.tabba@linux.dev>
+To: Marc Zyngier <maz@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>
+Cc: Radu Rendec <radu@rendec.net>,
+	Kemeng Shi <shikemeng@huaweicloud.com>,
+	Will Deacon <will@kernel.org>,
+	Fuad Tabba <tabba@google.com>,
+	stable@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 1/3] irqchip/gic-v3: Release the partition node in gic_irq_get_fwspec_info()
+Date: Tue,  8 Sep 2026 15:26:30 +0100
+Message-Id: <20260908142632.2795308-2-fuad.tabba@linux.dev>
+X-Mailer: git-send-email 2.39.5
+In-Reply-To: <20260908142632.2795308-1-fuad.tabba@linux.dev>
+References: <20260908142632.2795308-1-fuad.tabba@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260908135513.GAaqATwXHcQD7plnH-@fat_crate.local>
 
-On Tue, Sep 08, 2026 at 06:55:13AM -0700, Borislav Petkov wrote:
-> On Tue, Sep 08, 2026 at 08:33:36AM +0200, Thomas Weißschuh wrote:
-> > These constants are useful for cross-platform userspace, for example to
-> > process ELF files during kernel cross-compilation.
-> > 
-> > Move them from the kernel-private architecture-specific header to the UAPI.
-> 
-> Why UAPI?
-> 
-> Why not include/linux/ ?
+gic_irq_get_fwspec_info() never puts the node it takes from
+of_find_node_by_phandle(), so every lookup from a four-cell PPI or EPPI
+specifier naming a partition leaks one.
 
-The existing, generic ELF definitions are there.
-The ELF stuff in include/linux/ is highly specific to Linux.
+The node is only used for the comparison against gic_data.parts[], and
+the mask returned points into gic_data, so it can go out of scope with
+the lookup.
 
-Also later in the patchset I want to expose the definitions to the
-tools/ build. Exposing generic UAPI definitions to tools/ is a much
-easier sell than include/linux/.
+Fixes: 68905ea65ceff ("irqchip/gic-v3: Add FW info retrieval support")
+Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
+---
+ drivers/irqchip/irq-gic-v3.c | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
 
+diff --git a/drivers/irqchip/irq-gic-v3.c b/drivers/irqchip/irq-gic-v3.c
+index 6e1fa5b247fc4..b0142b0a93fa4 100644
+--- a/drivers/irqchip/irq-gic-v3.c
++++ b/drivers/irqchip/irq-gic-v3.c
+@@ -1728,8 +1728,6 @@ static int gic_irq_get_fwspec_info(struct irq_fwspec *fwspec, struct irq_fwspec_
+ 
+ 	/* If the specifier provides an affinity, use it */
+ 	if (fwspec->param_count == 4 && fwspec->param[3]) {
+-		struct fwnode_handle *fw;
+-
+ 		switch (fwspec->param[0]) {
+ 		case 1:			/* PPI */
+ 		case 3:			/* EPPI */
+@@ -1738,7 +1736,10 @@ static int gic_irq_get_fwspec_info(struct irq_fwspec *fwspec, struct irq_fwspec_
+ 			return 0;
+ 		}
+ 
+-		fw = of_fwnode_handle(of_find_node_by_phandle(fwspec->param[3]));
++		struct device_node *np __free(device_node) =
++			of_find_node_by_phandle(fwspec->param[3]);
++		struct fwnode_handle *fw = of_fwnode_handle(np);
++
+ 		if (!fw)
+ 			return -ENOENT;
+ 
+-- 
+2.39.5
 
-Thomas
