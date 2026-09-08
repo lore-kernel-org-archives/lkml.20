@@ -1,176 +1,76 @@
-Received: from mta1.migadu.com (out-212.mta1.migadu.com [95.215.58.212])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from out30-118.freemail.mail.aliyun.com (out30-118.freemail.mail.aliyun.com [115.124.30.118])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B453313546
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 01:40:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.212
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5794313546
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 01:42:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.118
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788831659; cv=none; b=OOW8CFr94LXpx5aNZDH6njCkv7vXNIySOrybFj+r5HBCrXKHY2Cc4QlpYR3blNTqToF+jPVqLggBkpDSlugeJMo5CVZ2+lnKvBdgIax5hICLnYI8rH172T+iYXpT41Cc2ZvloSHOEoY9G+/W61id3zxPCiozGpBuHNBKkduDzjQ=
+	t=1788831748; cv=none; b=tC/tsgI0ERIM6+fl2ragvYxWonms8dB4gsPXKcFKfTXPZ6dd4DA40lOetFtLqo1mBG1Quu5ge8Xhrwn8X09LbNbqMP0PwpEttfd3KK21pSw70X50FH5uiwm6cyAHyxagK7A+1hIaVni65zKlEN7PMJGyQXfXUH2M5W8Mda3367M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788831659; c=relaxed/simple;
-	bh=njFz8+N4GFRKkhHgnolDJ7cNiihKm6IZpjgne2qpBeA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=nKLGXFtMCQre96B7v9mQDNrk7/T9ub980jtJ4QJu/fGJyRNQzToYqwcUlufuzsruVu/PUFavV2pXoLX+P27X+T3J89BL0AInm71f2RGT3+4RhLb0qTmpvB2aD3mU9GqmhE27cve+Gmmflk3KNfIUPQ2sAxNHFxWnPJYdhQcFRFA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=ELcJ3R4v; arc=none smtp.client-ip=95.215.58.212
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1788831748; c=relaxed/simple;
+	bh=x+Apm4K5w/zxjDiEnd4u8/cQUJ81R5nziYXXGku/nf8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=aqjLDhVmuVTjP24cS8b0NSa4GmvT5BcZ29eIKRyCCehPXoxYqB9796CufHBixougrWKWLXiIpc9R5GJzKeT5PqaBb6/2P3dC3h5hcJbMduQixItEOm+t8NatdnKaPekpXlzrEq9uyBsXOlV4S4srfd+rvOa7JiYvQk79bzbpadQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=AUnNf7HB; arc=none smtp.client-ip=115.124.30.118
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="ELcJ3R4v"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=njFz8+N4GFRKkhHgnolDJ7cNiihKm6IZpjgne2qpBeA=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788831655; v=1; x=1789436455;
- b=ELcJ3R4vL2tl4Vadb7MVJ3njg0Sz2kpeahJjRUoxm53e0SxucXDuCd5vGDhCPyVyUVRjSBA6
- AQUPh9uXwPqxGBi9sC16dI66Rnlcicpz5ZOz3CmSoBlYvh07HAWZ9fyoAwk1B8RLzGFF5BvRCP0
- 0NAWQ6dN++18LvCUgNTPa9/g=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id e543444743d1275e;
-	Tue, 08 Sep 2026 01:40:45 +0000
-X-Mizu-Trace-ID: e543444743d1275e
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <7c2a545f-7fa2-40d5-8d4f-25a65ec5df24@linux.dev>
-Date: Tue, 8 Sep 2026 09:40:41 +0800
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="AUnNf7HB"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1788831742; h=From:To:Subject:Date:Message-ID:MIME-Version;
+	bh=vuvYXO2zojXIeNrpcLKcQQ7TtoojYysUTPVrrXSxdEA=;
+	b=AUnNf7HBwr3WGfZMyF2QzwSodkpW8sLItlkMNH+WD9j+J4f9lA1ZGGXPx0jbljot0ZVvWcvcLix47pMG47K6USyw7sk8uL4R0kBboIhgbYL8pGlSQEiYti/Eh48iTP5T81xm9wylFAWzrge1oNIUgdN17nQboBhSgiziLDosQAQ=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R101e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam011083073210;MF=baolin.wang@linux.alibaba.com;NM=1;PH=DS;RN=12;SR=0;TI=SMTPD_---0XAZnZlP_1788831741;
+Received: from localhost(mailfrom:baolin.wang@linux.alibaba.com fp:SMTPD_---0XAZnZlP_1788831741 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Tue, 08 Sep 2026 09:42:21 +0800
+From: Baolin Wang <baolin.wang@linux.alibaba.com>
+To: akpm@linux-foundation.org
+Cc: kasong@tencent.com,
+	qi.zheng@linux.dev,
+	shakeel.butt@linux.dev,
+	baohua@kernel.org,
+	axelrasmussen@google.com,
+	yuanchu@google.com,
+	weixugc@google.com,
+	baoquan.he@linux.dev,
+	baolin.wang@linux.alibaba.com,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] MAINTAINERS: add Baoquan and me as MGLRU reviewers
+Date: Tue,  8 Sep 2026 09:42:12 +0800
+Message-ID: <06e20ef4f603a4ffeafcdbf623ce2936281457bf.1788831480.git.baolin.wang@linux.alibaba.com>
+X-Mailer: git-send-email 2.43.5
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/7] cgroup/cpuset: Factor out child partition
- validation
-To: Guopeng Zhang <guopeng.zhang@linux.dev>, Waiman Long
- <longman@redhat.com>, cgroups@vger.kernel.org
-Cc: tj@kernel.org, hannes@cmpxchg.org, mkoutny@suse.com, shuah@kernel.org,
- linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
- Guopeng Zhang <zhangguopeng@kylinos.cn>
-References: <20260902102615.79189-1-guopeng.zhang@linux.dev>
- <20260902102615.79189-2-guopeng.zhang@linux.dev>
- <5842edcd-9283-4a87-afc9-50e51962368e@redhat.com>
- <5e0d1386-b094-4d4e-8569-e6b584f955c5@linux.dev>
- <fe0c93af-5562-44fe-8aee-328c4a450a9b@linux.dev>
-From: Ridong Chen <ridong.chen@linux.dev>
-In-Reply-To: <fe0c93af-5562-44fe-8aee-328c4a450a9b@linux.dev>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
+Baoquan and I have been contributing MGLRU patches and helping review MGLRU
+related patches for some time. We will continue to follow MGLRU changes, so
+we'd like to be CC'd on MGLRU related patches.
 
+Signed-off-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+---
+ MAINTAINERS | 2 ++
+ 1 file changed, 2 insertions(+)
 
-On 9/7/2026 5:49 PM, Guopeng Zhang wrote:
-> 
-> 
-> 在 2026/9/4 09:25, Ridong Chen 写道:
->>
->>
->> On 9/4/2026 2:33 AM, Waiman Long wrote:
->>> On 9/2/26 6:26 AM, Guopeng Zhang wrote:
->>>> From: Guopeng Zhang <zhangguopeng@kylinos.cn>
->>>>
->>>> compute_partition_effective_cpumask() checks whether each valid child
->>>> partition remains covered by the parent exclusive CPU mask and whether it
->>>> would consume all remaining CPUs of a populated parent.
->>>>
->>>> Factor these two checks into child_partition_error() so the same rules can
->>>> be reused when evaluating a proposed parent configuration. This is a
->>>> preparatory refactoring with no intended functional change.
->>>>
->>>> Signed-off-by: Guopeng Zhang <zhangguopeng@kylinos.cn>
->>>> ---
->>>>    kernel/cgroup/cpuset.c | 38 +++++++++++++++++++++++++++++---------
->>>>    1 file changed, 29 insertions(+), 9 deletions(-)
->>>>
->>>> diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
->>>> index 8f24171b6055..6994dc75d940 100644
->>>> --- a/kernel/cgroup/cpuset.c
->>>> +++ b/kernel/cgroup/cpuset.c
->>>> @@ -2085,6 +2085,26 @@ static int update_parent_effective_cpumask(struct cpuset *cs, int cmd,
->>>>        return 0;
->>>>    }
->>>> +/*
->>>> + * Return the error that will invalidate a child partition under a proposed
->>>> + * parent partition configuration.
->>>> + */
->>>> +static enum prs_errcode
->>>> +child_partition_error(struct cpuset *child,
->>>> +              const struct cpumask *partition_cpus,
->>>> +              const struct cpumask *remaining_cpus,
->>>> +              bool parent_populated)
->>> I think you should add some functional comments on what "partition_cpus" and "remaining_cpus" are supposed to be so that caller knows what to pass into this helper.
->>
->> Would it help to rename them to excpus and local_excpus?
->> local already implies "excluding children" (just like cgroup.stat.local), so I think that makes the intent clearer.
->>
-> 
-> Ridong, thanks for your review.
-> 
-> Renaming the masks would help, but I think `local_excpus` may be slightly misleading here. When the helper is called, the mask may still contain active CPUs assigned to the current child and to children that have not yet been visited. It excludes only the CPUs of previously visited children that remain valid under the configuration being evaluated, and the mask itself is restricted to active CPUs.
-> 
-> In addition, "local" already has the local-versus-remote partition meaning in cpuset.
-> 
-> Would `parent_xcpus` for the complete effective exclusive mask, which may include offline CPUs, and `remaining_ecpus` for the remaining active CPUs before evaluating the current child be clearer? I will also document both parameters explicitly.
-> 
-
-Passing struct cpuset *parent into the function simplifies naming, as the needed 
-values become local variables derived from it.
-
-> 
->>>> +{
->>>> +    if (!cpumask_subset(child->effective_xcpus, partition_cpus))
->>>> +        return PERR_INVCPUS;
->>>> +
->>>> +    if (parent_populated &&
->>>> +        cpumask_subset(remaining_cpus, child->effective_xcpus))
->>>> +        return PERR_NOCPUS;
->>>> +
->>>> +    return PERR_NONE;
->>>> +}
->>>> +
->>>>    /**
->>>>     * compute_partition_effective_cpumask - compute effective_cpus for partition
->>>>     * @cs: partition root cpuset
->>>> @@ -2121,6 +2141,8 @@ static void compute_partition_effective_cpumask(struct cpuset *cs,
->>>>        rcu_read_lock();
->>>>        cpuset_for_each_child(child, css, cs) {
->>>> +        enum prs_errcode child_err;
->>>> +
->>>>            if (!is_partition_valid(child))
->>>>                continue;
->>>> @@ -2129,15 +2151,13 @@ static void compute_partition_effective_cpumask(struct cpuset *cs,
->>>>             * partition root.
->>>>             */
->>>>            WARN_ON_ONCE(is_remote_partition(child));
->>>> -        WRITE_ONCE(child->prs_err, 0);
->>>> -        if (!cpumask_subset(child->effective_xcpus,
->>>> -                    cs->effective_xcpus))
->>>> -            WRITE_ONCE(child->prs_err, PERR_INVCPUS);
->>>> -        else if (populated &&
->>>> -             cpumask_subset(new_ecpus, child->effective_xcpus))
->>>> -            WRITE_ONCE(child->prs_err, PERR_NOCPUS);
->>>> -
->>>> -        if (child->prs_err) {
->>>> +        WRITE_ONCE(child->prs_err, PERR_NONE);
->>>> +        child_err = child_partition_error(child, cs->effective_xcpus,
->>>> +                          new_ecpus, populated);
->>>> +        if (child_err)
->>>> +            WRITE_ONCE(child->prs_err, child_err);
->>>> +
->>>
->>> You can ignore the inital PERR_NONE write and always write the child_err value into child->prs_err.
->>>
->>> Not big issue, just some nits.
->>>
->>> Cheers,
->>> Longman
->>>
->>>> +        if (child_err) {
->>>>                int old_prs = child->partition_root_state;
->>>>                /*
->>>
->>
-> 
-
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 4d1ff4c76496..c558d5370dd0 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -17242,6 +17242,8 @@ R:	Barry Song <baohua@kernel.org>
+ R:	Axel Rasmussen <axelrasmussen@google.com>
+ R:	Yuanchu Xie <yuanchu@google.com>
+ R:	Wei Xu <weixugc@google.com>
++R:	Baoquan He <baoquan.he@linux.dev>
++R:	Baolin Wang <baolin.wang@linux.alibaba.com>
+ L:	linux-mm@kvack.org
+ S:	Maintained
+ W:	http://www.linux-mm.org
 -- 
-Best regards
-Ridong
+2.47.3
 
