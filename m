@@ -1,91 +1,78 @@
-Received: from mail-yw1-f180.google.com (mail-yw1-f180.google.com [209.85.128.180])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D55342D24B7
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 15:19:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFEA755292C
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 15:20:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788880775; cv=none; b=oXBelCp8mxw1vHFcM2eNwsBuHaKF/YjRxtIjMZ97oyHGOKsxdkvCq2pstIQgWbOY8Pt5FsQ1Kej1zjM1XE3hDu0HZxaIjNJ8hzJVpN7k8mJ6qprRpmnKEzlsDgNnECgMBimlPui77kQ/ErvfvQdufS1tsMIad98Yogvc/OyY1V8=
+	t=1788880847; cv=none; b=qXL7tXtgpxPNwbZ32fnmG1odZJjgOoNvlpk11h7WUt05H8zwYVjgYxrkqWpVtjl3bq5wDK6L0OsF09NYCi08eMXp1uu9YgRx/lQzBce2trtd+6BfeywHwsdZfcnGZTZMbbqXzGE6W0NYojX2h5U/FkeJ1U/i2XqXrppsdsJppjs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788880775; c=relaxed/simple;
-	bh=2E2paIhVSecgEqjIXBb7PZzzAn2OOgH65j7qNTEeMiY=;
-	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=KN61SXBMeRU8SWhYVRnnHWyfFrEOqTybDqeJzDYGnQDgAwO/JJSMXrJEYwCrOFP88R6ElcwY95MAwelM204/uTaKGQsW74qEpm2iBqfFDm/ln0gYEv7d2u6ROxz4rLJHTqkmRU18Z4GDL6laAOmasYLp/u3B5yyLa6qIRiR4O9Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CFBxOYKB; arc=none smtp.client-ip=209.85.128.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788880847; c=relaxed/simple;
+	bh=KUUnt+jZnvg2R8DoPjb9nhfE+lf8rDK6Iw+SiqfTeEY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Ut+WqlH27T9rm+xrcqVW06szFnR9I/esjhf7JSsz9kRgq9hwbmeLr7lyyXx91XDzN8w60aEvD+l+YJdKXWRx3fWF7j0P36f8AElE9S1hxg9RMuZbwho/GMhLDXtfxf02rcp7+szR3UsyfM2d8mtP1M0B6eZxGR099mwfN2tXUD0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fXLezJjO; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CFBxOYKB"
-Received: by mail-yw1-f180.google.com with SMTP id 00721157ae682-8706dfdcd4fso59566287b3.3
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 08:19:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788880761; x=1789485561; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:date:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=QhdCOmP4zDl1C4qG/vDZ2J5jFE+DMqbe+H/tbxij/K4=;
-        b=CFBxOYKB3iRfvLbButzgKpzs1fOoQywfEeAYQVEyRRu0uRJHy9btNUKKy6vQ/FYDlf
-         KY0X7JPm+TPmkMLm4oXmTnri693RhMPrR+MSsie4WAgAzLJFtcMZDR645ARELlf/eONu
-         b1LQbzBGi6u7leRHYiZ0Mi03+3C7Hl66lYz9s785Dzu9oY1HWjaDlhkD72A6cZT7bs7o
-         m7vF/XYi6N13hl8kkbL4m/R2/bKZ/szzUFGIFPXWDHA25l33JiiaDHCLkn2zT6oIYTBn
-         DdepwaZ50w2KKo33Enz1rdxsF6J1VJULQol2YAhDOzoIQkjPKq8QfOr5xDCnET0ENzst
-         MwWQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788880761; x=1789485561;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=QhdCOmP4zDl1C4qG/vDZ2J5jFE+DMqbe+H/tbxij/K4=;
-        b=oqBewOIaBe75+g3q1NrsLdHJTBxrDtSujOykkJlfEuO7DVzT5gQ65rSqC6uHokRF1N
-         HQhjrjK6Jaqw1jbx8vNZPT+lgYm1/IIYpiaP2M563oO5QNjc+vOlWhGNip0VUC/hWsRh
-         RXPkdfSZZu6/Jw66Pd+cr1Cs+avl/nl2dkf+QEwBQb1LLFri9apuJlUAsBbPx4RcV7vL
-         RJojgpsJeIyS0gTwHtWEJcLsGozlSHFyChp+oV8jwwbkZZy8YndDuqEKz7ejup6L+/BN
-         0KR/9RU67hrY8JhA/kNTicyQwq8VyxIJc/PuQpWCVktqNvDxcrw5kkKyMw5WWEpfHxG/
-         Bc5g==
-X-Forwarded-Encrypted: i=1; AKwUvBwVSKgudP+P5wU7XgUwbffCMdPxhtj1j23pd9VxOah20f6yeUe8EVKuEWFOU3kVdK5hKWKal1TE2KBt4YA=@vger.kernel.org
-X-Gm-Message-State: AFuF++mtCUeh+8XID3hsbIu9aLkFxStNxiViNBCI5+bGrxiX1XzyXXDY
-	hLWe9wiisVaWJAbo/P3qjCcOXbAXkwIPyh4FyEiHBGkZPz3D2SPQ/06W
-X-Gm-Gg: AYBFou0N9NB2CstKzAn+vH5jG1dPYEVutsJ1Y1IM8CZOnbsQ83bZa1FukrEllxmFIl/
-	60taMQvTZhKV2gf+zlTbUNfPW+SpXPQS04oASlHF1YogbFYHc3xApGniY3gqdbYq3I3bzFkcs1p
-	72hInaWxNy6Re3TGe1R+yt5ET3AeUEeB1HmXdMr51xmDo6XJdbKP8Zs6fvb6VD5rg2i+l4GunyH
-	c80SbmppI5C33Py5/ZDIqqX8Um1EuPqD6oSmgQWrpIuTYoF1kEBUonAFB7qIAbR4CVZOR0Iaq9d
-	RDk3BKJolvIjZCNWOp9I7lkqe3/FOtUKqKUlTmPJCABHF5Q8ioCittbqcgMu2MkcRSyKAsycfd3
-	6Lo/Havd80yZb3WUpB1BGcl3JyhFf8c6c4eoDibPRiGlL5/VM8nbQK16/P3dZYr95U29A/n3JZO
-	5emZx5yQxnEtoZacRFpjNFlTVh2Zeg19lE8FSpkDgC1c3czmnTb21BEisx0NzkjoDgwsBz1k8E8
-	Fv4FrRi0b4VZxsMGw==
-X-Received: by 2002:a05:690e:4893:10b0:66f:c6b0:e10b with SMTP id 956f58d0204a3-670f63fcd8fmr2064936d50.68.1788880760843;
-        Tue, 08 Sep 2026 08:19:20 -0700 (PDT)
-Received: from localhost (c-73-105-0-191.hsd1.fl.comcast.net. [73.105.0.191])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-670febedc44sm1035024d50.11.2026.09.08.08.19.19
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 08 Sep 2026 08:19:19 -0700 (PDT)
-From: Yury Norov <yury.norov@gmail.com>
-X-Google-Original-From: Yury Norov <ynorov@nvidia.com>
-Date: Tue, 8 Sep 2026 11:19:19 -0400
-To: Andrew Lunn <andrew@lunn.ch>
-Cc: Yury Norov <yury.norov@gmail.com>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	Raju Rangoju <Raju.Rangoju@amd.com>,
-	Prashanth Kumar K R <PrashanthKumar.K.R@amd.com>,
-	Tony Nguyen <anthony.l.nguyen@intel.com>,
-	Przemek Kitszel <przemyslaw.kitszel@intel.com>,
-	Jian Shen <shenjian15@huawei.com>,
-	Jijie Shao <shaojijie@huawei.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
-	intel-wired-lan@lists.osuosl.org, linux-usb@vger.kernel.org,
-	Rasmus Villemoes <linux@rasmusvillemoes.dk>,
-	Andrew Morton <akpm@linux-foundation.org>
-Subject: Re: [PATCH 7/9] net: phy: use linkmode operation return values in
- phy_device.c
-Message-ID: <aqAnd1gpXne2lqCT@yury>
-References: <20260907215439.409858-1-ynorov@nvidia.com>
- <20260907215439.409858-8-ynorov@nvidia.com>
- <67ed1522-cec8-4137-85df-ffbae654e07c@lunn.ch>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fXLezJjO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BAFA91F00A3A;
+	Tue,  8 Sep 2026 15:20:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788880835;
+	bh=N9GvPvkVH3GDsSf88CO+swazKNMR30SF4MGfbbOxMsg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=fXLezJjOJZU2xOqaYilaey23hYGIg30QgBtFuUaHaP7rsIS9jTOQrC7xfGoyOYW2q
+	 JDCfHViLuQSaYWnpNaa3VXnriaYTghhEmXlvfLiRIQpHFXHXM4BvsfUnLYON86H6/k
+	 gNjDNmA5x2GfF3HurReH5TsX+VR8m5CFTH3LvU85WWfPut6+Mc+FkcF4vozlOV0Iyu
+	 KmyF42nbnWEXvuhBSVrEIRbTfRg0+BTjLm0In4a8DH4oiQB8d1nOvsdrpBs3vUvfkU
+	 Mzo3rgHyIMGmMgm50ycFzwhRlHbqSP9grEZ5yH+Vueb0rRqaPfWSHLxW1RUe1oUXb6
+	 XfV3LH83L/MWg==
+Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
+	by mailfauth.ams.internal (Postfix) with ESMTP id 1DCD7198003A;
+	Tue,  8 Sep 2026 11:20:28 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-02.internal (MEProxy); Tue, 08 Sep 2026 11:20:32 -0400
+X-ME-Sender: <xms:uyegauxEEq-mne6_XVEOHQbgLXut_W967BtOls1pPJELKluGLma1Vg>
+    <xme:uyegatVriC0Inyjjkxo4cvMO-pFVMof3RvZGXNY_Qfq5mqLgg-Z7iqUXfntBS5gY-
+    BLsCDvNpCMrUJ-1UKvWmWlWrlagaYimWsNjZX1X0t8CkW1PpnT6-Ram>
+X-ME-Received: <xmr:uyegauZrbwVW3dmj-XKNLRpkBwt668-SxqbPjoLn1ZbimgtNoA1DF_isq3s>
+X-ME-Proxy-Cause: dmFkZTElbzIz+CfUVvzCuvF1pU8/u78Ji6LGJRtMTGPjQOKbznP2ORd8FuwUSaZKzrvUt9
+    yZMYsil1uc/6jaD1bfzKeYKBJWZrme8oP22eTYcOGSdVZx7Aj0reqoh4grxRrpUNNK5VE/
+    E71KQ66nC6B8eLozDhntnTWlIjOW4JG0cZt4DHeu5SvqbRZ/l/w48i4B/Afjmf6bmXeBtr
+    z/X2dLovtapsaXGceUPw1fKwfRMr1WtS9KFTneXL2TeMr0kHg9giArdCsujpkyhilayw1L
+    owjKVpVtYtB37YB0WzYJJL/sg/vVq3dAc4g7nJJ0fiVhJk2S4e9u/Hvq6YOb/X48ZK7bX4
+    38v/CQuxP+hdhQBicshC0KO9n1LUDSKUhohpctYYBt3dZUFgwiOaszPe6d5LUBViFplI6U
+    SzvUhiFxm8iSsF9bxvjprH6HLs9cskh1C2256A9edtwdUxoUzXnmYEyomhSV/7DYykFKXA
+    rk/mGs0+ItGnb/RRrWi/YvuIAJGtWZIo7HkTwiz8H2G4YziOgoFfd0pLjGihNXHqq5gH0N
+    TYjbo4MiSJEo/agStiyifBlfy/b5Ap7aKaDQwJ7UUFwPbhwLfeM58epJn8zoIK/n+hRXBX
+    v+Sgf1iYJF6ulyJFMuBCpjGmi3mhIxrdiiP4FTmroJvwJyUC8QVrIgJJQJrg
+X-ME-Proxy: <xmx:uyegan_Vsf3U4OQcfy9MMjFz-weNyJy4uZ6lxiDA1S_xgN1_tIeIMg>
+    <xmx:uyegamItJS88MCop4rsksYAuBlRCpXxftt_ewD70Vw_dFXGQ0OyvKA>
+    <xmx:uyegaitAJ1nHj5SjPxgCAoNvDgHdBLO7RCMQe6WJYblNmAtAh-ZqiQ>
+    <xmx:uyegainl5yEV6Mp5zVrBjRWG6sM9CpBqwhPnFu_6md0M1JOG6ktyDg>
+    <xmx:uyegaoGY3255JDybxHeTA0CgbpinxvUZAe4a9zTlKcpztoavoG6iYCSg>
+Feedback-ID: i10464835:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 8 Sep 2026 11:20:26 -0400 (EDT)
+Date: Tue, 8 Sep 2026 16:20:25 +0100
+From: Kiryl Shutsemau <kas@kernel.org>
+To: kasong@tencent.com
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>, 
+	Lorenzo Stoakes <ljs@kernel.org>, Zi Yan <ziy@nvidia.com>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, "Liam R. Howlett" <liam@infradead.org>, 
+	Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
+	Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
+	Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, Chris Li <chrisl@kernel.org>, 
+	Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, 
+	Barry Song <baohua@kernel.org>, Youngjun Park <youngjun.park@lge.com>, 
+	Yeoreum Yun <yeoreum.yun@arm.com>, Shivam Kalra <shivamkalra98@zohomail.in>, 
+	Kairui Song <ryncsn@gmail.com>
+Subject: Re: [PATCH v4 10/17] mm/huge_memory: move the racy refcount check
+ into unmap_folio()
+Message-ID: <aqAnXgXPFcP76y9o@thinkstation>
+References: <20260908-swap-thp-cleanup-v4-0-b532a3f20e71@tencent.com>
+ <20260908-swap-thp-cleanup-v4-10-b532a3f20e71@tencent.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -94,59 +81,25 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <67ed1522-cec8-4137-85df-ffbae654e07c@lunn.ch>
+In-Reply-To: <20260908-swap-thp-cleanup-v4-10-b532a3f20e71@tencent.com>
 
-On Tue, Sep 08, 2026 at 03:52:09PM +0200, Andrew Lunn wrote:
-> > -	linkmode_and(sfp_support, port->supported, caps->link_modes);
-> > -	if (linkmode_empty(sfp_support)) {
-> > +	if (!linkmode_and(sfp_support, port->supported, caps->link_modes)) {
-> >  		dev_err(&phydev->mdio.dev, "incompatible SFP module inserted, no common linkmode\n");
+On Tue, Sep 08, 2026 at 02:12:14AM +0800, Kairui Song via B4 Relay wrote:
+> From: Kairui Song <kasong@tencent.com>
 > 
-> From a readability perspective, i like linkmode_empty(). It is more
-> obvious than !linkmode_and().
-
-OK, a function returning 2 values is not something obvious in C. What
-about this?
-
-        
-	sfp_supported = linkmode_and(sfp_support, port->supported, caps->link_modes);
-        if (!sfp_supported)
-		dev_err(&phydev->mdio.dev, "incompatible SFP module inserted, no common linkmode\n");
-
-> None of this code is in the hot path. So we should put readability
-> above performance. 
+> The check only exists to avoid the expensive PMD-splitting unmap of a
+> folio that cannot be split anyway.  Move it from __folio_split() into
+> unmap_folio(), right before the PMD split, so both the anon and file
+> split helpers get the early check without repeating it.
 > 
-> >  	/* Some PHYs may advertise, by default, not support EEE modes. So,
-> >  	 * we need to clean them. In addition remove all disabled EEE modes.
-> >  	 */
-> > -	linkmode_and(phydev->advertising_eee, phydev->supported_eee,
-> > -		     phydev->advertising_eee);
-> > -	linkmode_andnot(phydev->advertising_eee, phydev->advertising_eee,
-> > -			phydev->eee_disabled_modes);
-> > -
-> >  	/* There is no "enabled" flag. If PHY is advertising, assume it is
-> >  	 * kind of enabled.
-> >  	 */
-> > -	phydev->eee_cfg.eee_enabled = !linkmode_empty(phydev->advertising_eee);
-> > +	phydev->eee_cfg.eee_enabled =
-> > +		linkmode_and_andnot(phydev->advertising_eee,
-> > +				    phydev->advertising_eee,
-> > +				    phydev->supported_eee,
-> > +				    phydev->eee_disabled_modes);
+> unmap_folio() now returns -EAGAIN if the check fails and the split
+> helpers propagate the error.  folio_split_unmapped() drops its own
+> copy of the check: it works on already unmapped folios and the
+> definitive folio_ref_freeze() in __folio_freeze_split_anon() still
+> catches unexpected references.
 > 
-> So, which is more readable, the original or this?
+> Signed-off-by: Kairui Song <kasong@tencent.com>
 
-The new version is more readable to me. What about this:
-        
-        eee_advertised = linkmode_and_andnot(phydev->advertising_eee,
-	                                     phydev->advertising_eee,
-                                             phydev->supported_eee,
-		                             phydev->eee_disabled_modes);
+Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
 
-  	/* There is no "enabled" flag. If PHY is advertising, assume it is
-  	 * kind of enabled.
-  	 */
-	phydev->eee_cfg.eee_enabled = eee_advertised;
-
-Thanks,
-Yury
+-- 
+  Kiryl Shutsemau / Kirill A. Shutemov
