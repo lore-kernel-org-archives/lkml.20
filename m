@@ -1,239 +1,130 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A63203A0EB8;
-	Tue,  8 Sep 2026 20:06:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B27D3A0EB8;
+	Tue,  8 Sep 2026 20:06:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788897978; cv=none; b=d0O+7i9YlqgyQNyXB0TTbWxgKmXIjLypRWIABWzxjp+avVhIlLCLw8GKFHfc+wUwZsytDgxdenlsg+QSjWPF+zuZlAy63EicXqT+WsSIG/Ta+Zq7oplZYR015JrFfXeQUAHuEh2Y+HqcK+/XhWsF0hmLBmeJ5ZIsULucnB9HIHU=
+	t=1788897990; cv=none; b=YNAhK36HWiB1jTWWbQJ3OohaDkN5ygDhRv4u1VJz0EIDRddh3nqDvHnF+G4CLojAtrZe11OG4lOC4nx7oKKtZ8N6+BcCRiBAjnih/rmiLq7Knije+UUh3JaBq6zgOY2QzeO40NhIwf4REmze444ic+rKDKTZhwX94yb1gwXRE54=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788897978; c=relaxed/simple;
-	bh=ku45FxaXB5jDrWF7xzKWcksoG8pHB6sirZFvJa9Q21A=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=cOBwUeLp2WDoryJcp3ANKGMQm80pvsHkPc0WU17dbLo0cXFnzst/lvZ4JTzEfmAxyhpSHY1JWw/27ccWsxviOLEUXGhjBB28RnsIJvX86Ary9ytj+KHbUhJj6vA2LQyL2132ofGJBJFMiFSl6pMzoxREaOtl5Umo9/2adtLcy7Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VGKeUcB6; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788897990; c=relaxed/simple;
+	bh=iz9z7KReodlK2q8cUqb2rVtIgOTMExJlKh+c7EdFhRE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Ap/5C/d9xc/gDnsZyCHceZbX+851E2Ro8lwXiGP31Ab5cnVa+DSST1Fk4ATnUIYbRPctRkWKi3xYPcatp3Gj7370bksXqpwPRbtFFCnX36OPTFeVViaoir+XCRplo8vnGxz76RIHZIfF+4kw0dgiqJ8BgO/7p+zfQi7GuUEsDyo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=duPYE1Xm; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VGKeUcB6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8918D1F00A3D;
-	Tue,  8 Sep 2026 20:05:48 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="duPYE1Xm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DDAE61F00A3D;
+	Tue,  8 Sep 2026 20:06:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788897976;
-	bh=CxJPdlL4ukdxMfUTmFq0FMtswRM14QRAmb+14GeHlio=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=VGKeUcB6SUFLsSVulzqqQfyaFz69NQyby2vU8XLSBUmGFDMbCJPSyoJGPIOC9nknp
-	 YlLLLNB1c3/NwBUzuvm71qtgs3xh9aXPHu1f8/84w1ZUz6tso/7EN3wpR2x5RrxqI1
-	 FAapoB9pql3luYUvaoesEhmMXGdcafc+m8jfWIpN23x0gaG7/lQW4qzb7GW9A3h/sK
-	 AUVoUXtZ9IOKcZctb9ifbw6Y3iyBZC+h4/Dqw+OtSsSsHG6MMQ+76u/67m1RxlgAvw
-	 emgvFdJ/Iqsc6Eb9WUd8KgN5wh90axjl39n9zOW4/x48c8VIcjO544EftN7hXMfcu3
-	 ne4KzPtvSqzqg==
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Date: Tue, 08 Sep 2026 21:01:12 +0100
-Subject: [PATCH 08/39] docs: filesystems: update mmap_prepare docs for
- discontig kernel pgs
+	s=k20260515; t=1788897989;
+	bh=7lK58BGvbT+0KFsfL00ur7tIOSKYjNnYpM36ZLoBwxw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=duPYE1XmufUDIvM963zEHdnWYrnlHMl5CNEYCKBx5IX5+RbuTsWEd7rhrP0WMbqNq
+	 WSZsT5ANJf0+Srhu3FLjfA4vSjn0cSm89fRj5f/9/HOD7R3DoGsRjswAdbtkWzuPIk
+	 GHBChwMesKv4Qs+U/woQKb6nIJzMpCU7OB/m8LRSScdanIRsFsSB0Pcm74hlBHs5/8
+	 3NCICDrZCR1Ka4q8qT+/yBg0B/br0i3pgBw5lWPUr8hgHl81Q4DrBzOlKeckUykNj6
+	 dFbYbJ8P48q5O81Hkgnv99PSBR55ytmR1RiXhNy9sDeDvoAaT3H4akABOHS8Ns8ZVS
+	 Kw/BcrSUmisyw==
+Date: Tue, 8 Sep 2026 21:06:22 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Changhuang Liang <changhuang.liang@starfivetech.com>
+Cc: Michael Turquette <mturquette@baylibre.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney@redhat.com>, Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Emil Renner Berthing <kernel@esmil.dk>,
+	Chen Wang <unicorn_wang@outlook.com>,
+	Inochi Amaoto <inochiama@gmail.com>,
+	Alexey Charkov <alchark@gmail.com>,
+	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+	Keguang Zhang <keguang.zhang@gmail.com>, linux-clk@vger.kernel.org,
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-riscv@lists.infradead.org,
+	Hal Feng <hal.feng@starfivetech.com>
+Subject: Re: [PATCH v5 0/8] Add StarFive JHB100 syscon modules
+Message-ID: <20260908-plaything-clutter-a72865edd110@spud>
+References: <20260828095608.19955-1-changhuang.liang@starfivetech.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260908-b4-mmap-prepare-vma-flag-sanify-v1-8-dacf19cce22b@kernel.org>
-References: <20260908-b4-mmap-prepare-vma-flag-sanify-v1-0-dacf19cce22b@kernel.org>
-In-Reply-To: <20260908-b4-mmap-prepare-vma-flag-sanify-v1-0-dacf19cce22b@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
- David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
- Jonathan Corbet <corbet@lwn.net>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>, 
- Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, 
- Paul Moore <paul@paul-moore.com>, 
- Stephen Smalley <stephen.smalley.work@gmail.com>, 
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
- Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
- Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
- Kumar Kartikeya Dwivedi <memxor@gmail.com>, Zi Yan <ziy@nvidia.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, 
- Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, 
- Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
- Kiryl Shutsemau <kas@kernel.org>, Doug Gilbert <dgilbert@interlog.com>, 
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
- "Martin K. Petersen" <mkp@kernel.org>, Jaya Kumar <jayalk@intworks.biz>, 
- Simona Vetter <simona@ffwll.ch>, Helge Deller <deller@gmx.de>, 
- Sebastian Reichel <sre@kernel.org>, John Hubbard <jhubbard@nvidia.com>, 
- Peter Xu <peterx@redhat.com>, Masami Hiramatsu <mhiramat@kernel.org>, 
- Oleg Nesterov <oleg@redhat.com>, Peter Zijlstra <peterz@infradead.org>, 
- Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, 
- x86@kernel.org, Arnaldo Carvalho de Melo <acme@kernel.org>, 
- Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
- Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
- Juri Lelli <juri.lelli@redhat.com>, 
- Vincent Guittot <vincent.guittot@linaro.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Will Deacon <will@kernel.org>, 
- "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
- Nick Piggin <npiggin@gmail.com>, Arnd Bergmann <arnd@arndb.de>, 
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
- Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
- Catalin Marinas <catalin.marinas@arm.com>, 
- Madhavan Srinivasan <maddy@linux.ibm.com>, Anup Patel <anup@brainfault.org>, 
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
- Albert Ou <aou@eecs.berkeley.edu>, 
- Christian Borntraeger <borntraeger@linux.ibm.com>, 
- Janosch Frank <frankja@linux.ibm.com>, 
- Claudio Imbrenda <imbrenda@linux.ibm.com>, 
- Alexander Gordeev <agordeev@linux.ibm.com>, 
- Gerald Schaefer <gerald.schaefer@linux.ibm.com>, 
- Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
- "David S. Miller" <davem@davemloft.net>, 
- Andreas Larsson <andreas@gaisler.com>, 
- Alexander Viro <viro@zeniv.linux.org.uk>, 
- Christian Brauner <brauner@kernel.org>, 
- Matthew Brost <matthew.brost@intel.com>, 
- Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
- Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
- Ying Huang <ying.huang@linux.alibaba.com>, 
- Alistair Popple <apopple@nvidia.com>, Chris Li <chrisl@kernel.org>, 
- Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>, 
- Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, 
- Youngjun Park <youngjun.park@lge.com>, Johannes Weiner <hannes@cmpxchg.org>, 
- Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
- Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
- Wei Xu <weixugc@google.com>, Xu Xin <xu.xin16@zte.com.cn>, 
- Chengming Zhou <chengming.zhou@linux.dev>, Michal Hocko <mhocko@kernel.org>, 
- Miklos Szeredi <miklos@szeredi.hu>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- linux-doc@vger.kernel.org, linux-usb@vger.kernel.org, 
- linux-rdma@vger.kernel.org, selinux@vger.kernel.org, 
- linux-sound@vger.kernel.org, bpf@vger.kernel.org, 
- linux-scsi@vger.kernel.org, linux-fbdev@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linux-trace-kernel@vger.kernel.org, 
- linux-perf-users@vger.kernel.org, linux-arch@vger.kernel.org, 
- linux-fsdevel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- kvmarm@lists.linux.dev, linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org, 
- kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org, 
- linux-s390@vger.kernel.org, sparclinux@vger.kernel.org, 
- fuse-devel@lists.linux.dev, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4561; i=ljs@kernel.org;
- h=from:subject:message-id; bh=ku45FxaXB5jDrWF7xzKWcksoG8pHB6sirZFvJa9Q21A=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLIWZG40yzl3S0bbfdV5lj1Wju9vbK2b8fXiT66j54KLT
- 7cFxDAndJSyMIhxMciKKbI8/yK+P0gkbF7nBX83mDmsTCBDGLg4BWAisVKMDGvmHuaUbdd3mH1Q
- VvmsWUMDJ8fR85zTff4c3CYtezPIuo2R4aSOfd0+J5fHj+QdN0TU+X4PyOBfLSMWfcPe7fVH7rm
- 9nAA=
-X-Developer-Key: i=ljs@kernel.org; a=openpgp;
- fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="XrPUIry8dt0NQeQF"
+Content-Disposition: inline
+In-Reply-To: <20260828095608.19955-1-changhuang.liang@starfivetech.com>
 
-Describe the newly introduced discontiguous kernel page mapping mechanism,
-detailing how to use it sensibly and how the API looks.
+--XrPUIry8dt0NQeQF
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Explicitly detail the various discontiguous actions available and how to
-use them.
+On Fri, Aug 28, 2026 at 02:56:00AM -0700, Changhuang Liang wrote:
+> StarFive JHB100 has many syscon modules, as listed below:
+> - pcieep0_ecsr_syscon	(PCIe endpoint 0 externel syscon)
+> - pcieep1_ecsr_syscon
+> - host0_syscon		(Host0 syscon)
+> - host1_syscon
+> - husb0_syscon		(Host USB 0 syscon)
+> - husb1_syscon
+> - husbd0_syscon		(Host USB device 0 syscon)
+> - husbd1_syscon
+> - husbcmn_syscon	(Host USB common syscon)
+> - gpu0_syscon		(GPU0 syscon)
+> - gpu1_syscon
+> - b2h_syscon		(BMC to Host syscon)
+> - h2b_syscon		(Host to BMC syscon)
+> - vout_syscon		(Video output syscon)
+> - pcierp_ecsr_syscon	(PCIe root port externel syscon)
+> - pcierp_syscon		(PCIe root port syscon)
+> - usb_syscon
+> - npu_syscon
+> - per0_syscon		(Peripheral 0 syscon)
+> - per1_syscon
+> - per2_syscon
+> - per3_syscon
+> - sys0_syscon		(System 0 syscon)
+> - sys1_syscon
+> - sys2_syscon
+> - strap_syscon
+> - sfc0_filter_syscon	(SFC0 filter syscon)
+> - sfc1_filter_syscon
+> - sfc2_filter_syscon
+>=20
+> Some syscon modules contain PLL, reset, and socinfo nodes
+>=20
+> This series depends on the series:
+> https://lore.kernel.org/all/20260807112923.191627-1-changhuang.liang@star=
+fivetech.com/
 
-Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
----
- Documentation/filesystems/mmap_prepare.rst | 81 ++++++++++++++++++++++++++++++
- 1 file changed, 81 insertions(+)
+I tried to apply the soc patches, but they depend on this so I can't.
+Can you get someone from Starfive, ideally one of the listed clock
+maintainers, to review that series?
 
-diff --git a/Documentation/filesystems/mmap_prepare.rst b/Documentation/filesystems/mmap_prepare.rst
-index 82c99c95ad85..a476e1006bf1 100644
---- a/Documentation/filesystems/mmap_prepare.rst
-+++ b/Documentation/filesystems/mmap_prepare.rst
-@@ -164,5 +164,86 @@ pointer. These are:
-   sufficient entries in the page array to cover the entire range of the
-   described VMA.
- 
-+* mmap_action_map_discontig_kernel_pages() - Maps a discontiguous range of
-+  `struct page` pointers over the VMA. They must span from the start of the VMA,
-+  but may terminate prior to the end (leaving the remainder unmapped).
-+
- **NOTE:** The ``action`` field should never normally be manipulated directly,
- rather you ought to use one of these helpers.
-+
-+Discontiguous Actions
-+=====================
-+
-+Some actions can be performed across discontiguous ranges.
-+
-+Map kernel pages
-+----------------
-+
-+To map kernel pages discontiguously, you must provide hooks using ``struct
-+discontig_kernel_page_ops``:
-+
-+.. code-block:: C
-+
-+    struct discontig_kernel_page_ops {
-+        int (*init)(void *vm_private_data, void **private);
-+        int (*get)(struct discontig_kernel_page_state *state);
-+    };
-+
-+The ``init`` hook is optional and allows state to be established before the
-+operation starts, for instance taking a reference count. Nothing is invoked
-+after the operation, so ``init`` must not leave locks held, and state that must
-+be released once the mapping goes away should be released in
-+``vm_ops->close``.
-+
-+The ``init`` hook, if provided, is invoked prior to the operation starting. It
-+may update what is pointed to by ``vm_private_data`` and/or ``private``. If an
-+error is returned, then the operation is aborted. The ``private`` field can be
-+reassigned.
-+
-+**NOTE:** The operation may sleep between invocations of ``get``, so locks
-+needed to stabilise state must be taken and released within each hook.
-+
-+The ``get`` handler is the key means through which the operation is
-+executed. The current state of the operation is provided through ``struct
-+discontig_kernel_page_state``:
-+
-+.. code-block:: C
-+
-+    struct discontig_kernel_page_state {
-+        /* Map state. */
-+        unsigned long start;            /* Start address of VMA. */
-+        unsigned long end;              /* End address of VMA. */
-+        unsigned long addr;             /* The current address to be mapped. */
-+        pgoff_t pgoff;                  /* The current pgoff to be mapped. */
-+        unsigned long nr_pages_mapped;  /* The number of pages mapped. */
-+        unsigned long nr_pages_remain;  /* The number of pages remaining. */
-+
-+        /* User-defined state. */
-+        void *vm_private_data;          /* VMA private data. */
-+        void *private;                  /* Mapping private data. */
-+
-+        /* Users should not touch these, use discontig_kernel_map_*() helpers. */
-+        ... internal fields ...
-+    };
-+
-+With ``private`` being an additional user-controllable state variable,
-+initialised via ``mmap_action_map_discontig_kernel_pages()``, and
-+``vm_private_data`` being equal to the ``desc->private_data`` field set in
-+the ``mmap_prepare()`` hook.
-+
-+In the ``get`` hook, the user must choose how to map kernel pages:
-+
-+* ``discontig_kernel_map_abort()`` - Call this to abort the operation, whatever
-+  has been mapped so far will be retained, the rest of the mapping will SIGBUS
-+  if accessed.
-+* ``discontig_kernel_map_page()`` - Maps a single page, correctly handling
-+  compound pages (if the compound page is bigger than the remaining pages in the
-+  VMA, then only those pages that fit will be mapped). For a compound page, the
-+  head page must be passed.
-+* ``discontig_kernel_map_page_range()`` - Map an array of pages of a specified
-+  size. Note that if the number of pages specified exceeds the VMA size then an
-+  error will arise.
-+
-+If an error arises after ``init`` succeeded, the core unmaps the VMA, invoking
-+``vm_ops->close`` if set, which is therefore the place to release any state
-+that ``init`` established.
+If you look here, about half the patches are missing a review:
+https://patchwork.kernel.org/project/lei-conor/list/?series=3D1142160
 
--- 
-2.55.0
+If you do that, I'll try to sort out getting a PR sent to the clock
+folks for it and figuring out how these bits can go on top.
 
+Thanks,
+Conor.
+
+--XrPUIry8dt0NQeQF
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaqBqvgAKCRB4tDGHoIJi
+0pcXAP9wGUx5B0ugAlKrI+SAFNcGs2S5MjPe4f3L4H5VI0pZPAEAs3hu83T9jjU1
+QBx5LgX5pS+DNjwx5P2Effhh0mKzIgQ=
+=h5Z6
+-----END PGP SIGNATURE-----
+
+--XrPUIry8dt0NQeQF--
