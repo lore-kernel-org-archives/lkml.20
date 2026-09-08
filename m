@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDB5D54488E;
-	Tue,  8 Sep 2026 12:45:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 448B24B5CA2;
+	Tue,  8 Sep 2026 12:45:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788871521; cv=none; b=ZBumGChAcf289EzKFJ/QpO4ErOounFYPp73TL282yGlrVnueWLWKRP35cjEp0hnQ7e2xXutnSRBNmtjI61TKGmrRzu5wvBe6nLhNgUpLFzAz+Q86IEEEYCs8mH2AKaXf6dBO6M3bgYMRasl5n/S/l5jlkc3fZ9VrXZuOMkIaRC8=
+	t=1788871523; cv=none; b=JoQ33seJ1qSq6Q/v5zZL/F6x2Q/2Jm1i8sk4gcNa+PAsDxgxK0oVxc1h2alhj6gzlv10ZHOR5ZxSkHFvBRea4rAvW1ZdyEM2mnJa7ENYds6KB9rCofCTwC8t55M/q6t+OybWvcnGMV2/zs/5/EgQk6Bv5gElgpnMLFZceduBJvY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788871521; c=relaxed/simple;
-	bh=fo0CYPtdAHBYrzJGdTMPb16TIFbwam5b3NyAhn/O7tM=;
+	s=arc-20240116; t=1788871523; c=relaxed/simple;
+	bh=QYOWXz19o9E5ZhwYIRZHnj+UTpryOctRSpqLn6x2Qfw=;
 	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=NLig6DeTwgCNEmGQr11TLKSX6UcwfMddoWYjueAoRj/oiRPp6a65rE6YlyJESAkvOmSYY5M/Rb9/8TpGibS1IEOenT1VXj+Wrgpo8PlpEIcwPJRIrpXYHle+IoUI+ZdgYYVbiWrINHXcf6K0B6WZbALQSXLib9vDhAmb5PA/538=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FxZpqWkj; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:MIME-Version; b=bxyFxn8AJIqB1dUkv6A3NXs0K97lxlMYNJUS43Bn8dvwHU3lP3aJp+tsT/zz0QNiiXY/vMES9DGmTt5YjkqbQ2G9gHwka1ExNHXSeiXqlw4Fo0Vi4axtu4QX/NIUe7u8YjhrswOnQYocQ//FzF4VRG+R+bLXSkJjIut/9K5OIHg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UJuDXXW4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FxZpqWkj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B14FC1F00A3D;
-	Tue,  8 Sep 2026 12:45:17 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UJuDXXW4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 647081F00A3A;
+	Tue,  8 Sep 2026 12:45:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788871518;
-	bh=/I1IR7Tb8vg5vCZlc/SMEY2pxZXONAuf9ZZ4tTFhf/w=;
+	s=k20260515; t=1788871521;
+	bh=0ZFyRXWQqOp7m0JjVb9Iy94cy0RvPUZKccfTTHE9SyA=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=FxZpqWkjwhC4LfAQ4M9YY6aoGgOrKm0MhVg6DCwLidnhHxZwq3eamv0DfNHKsL61q
-	 kEj67p27RzqoL1Ye8QA+CLdcyifaxdSs3AZQCQyXTXL4asyEduSd0HgHm+p5mbODg0
-	 nmE5bYseELl4k+Add2RpmXZ4g2OKoCdFRag6r+rN6Zb4I+8Z11lL9nrGvolxp3as6m
-	 Xopem92Dneqb1LY+AsfmrRqnRrrI4Ou3u0PVLxsOVUgmDzfEgKbtbGH/5ylD/FzsY6
-	 fqgor+hNGfA2AiB4GnDkhpSmZ9KfZgoOQmOjv4CM1CWvjtJ26+NZyqj9VyQrJTvkj1
-	 Ym0LHXODwOuzw==
-Subject: Re: [PATCH net-next v8 07/15] dpll: sit9531x: add support to get and
- set priority on input pins
+	b=UJuDXXW4GS4S0tH+3+cBOfr9dqd/ejfFnjq/U4Rb05Bysqq3YwYxo4E9bxynmVZzC
+	 iFE/0qU7UPYbxYoh2BdcsmQyyGQZ0Tj1yqL4tcZ9IVo+ThruoyYe/AedD7NCkLHvT4
+	 sJe8+nLCF0bH00t3AtppCWKmjM1hWvt2mJyxsyLw8FGVPkAg0w7RjFZ5QfCJ0l1fUD
+	 d4YySlbW2ESDjtGrp5QLTiD2hMiMOYZCLQKkP5hhBQzjUl/bxmd6VN8vjZNBj/mVem
+	 AQzGAxnG3+lxroelnoSpldgs0sC3xu+9h3/OaKGUacmanFOO0zthm3WO7nd7Aauhvc
+	 dLHrtOpY6Yi5A==
+Subject: Re: [PATCH net-next v8 09/15] dpll: sit9531x: implement output pin
+ state on a DPLL
 From: netdev-bot+sashiko@kernel.org
 To: arouhi@sitime.com
 Cc: jiri@resnulli.us, vadim.fedorenko@linux.dev,
@@ -35,10 +35,10 @@ Cc: jiri@resnulli.us, vadim.fedorenko@linux.dev,
  krzk+dt@kernel.org, conor+dt@kernel.org, cjubran@nvidia.com,
  Oleg.Zadorozhnyi@devoxsoftware.com, devicetree@vger.kernel.org,
  netdev@vger.kernel.org, linux-kernel@vger.kernel.org, kuba@kernel.org
-Date: Tue, 08 Sep 2026 12:45:17 +0000
-Message-ID: <178887151730.219967.5781480771166965281@kernel.org>
-In-Reply-To: <20260902214030.20955-8-arouhi@sitime.com>
-References: <20260902214030.20955-8-arouhi@sitime.com>
+Date: Tue, 08 Sep 2026 12:45:19 +0000
+Message-ID: <178887151995.219967.3640152255355236600@kernel.org>
+In-Reply-To: <20260902214030.20955-10-arouhi@sitime.com>
+References: <20260902214030.20955-10-arouhi@sitime.com>
 X-sashiko-severity: Medium
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
@@ -49,396 +49,323 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 8 potential
+Thank you for your contribution! Sashiko AI review found 3 potential
 issue(s) to consider:
 
-Critical: 0 · High: 0 · Medium: 4 · Low: 4
+Critical: 0 · High: 0 · Medium: 2 · Low: 1
 
-- [Medium] sit9531x_input_prio_get()
-  (drivers/dpll/sit9531x/core.c:456-457) returns success with *prio =…
-- [Medium] Setting one input pin's priority silently renumbers other
-  pins' priorities without notifying them.
-- [Medium] A demotion request through the newly wired .prio_set can be a
-  complete no-op at the register level while the callback reports…
-- [Medium] sit9531x_input_prio_get() decides presence purely by comparing
-  each of the 11 nibbles against the input's hardware source code ('if…
-- [Low] The kernel-doc added by this patch for sit9531x_input_prio_get()
-  states "Scans the PLL's 12-slot priority table on Page 1"…
-- [Low] With .prio_set/.prio_get exposed, a userspace-configured priority
-  is volatile and the field meant to preserve it is dead code.
-- [Low] sit9531x_input_prio_get() issues one I2C read per slot (11 reads)
-  although the slots are nibble-packed two per register…
-- [Low] The 'dpin->dir != DPLL_PIN_DIRECTION_INPUT' guard in
-  sit9531x_dpll_input_pin_prio_set() (dpll.c:467-470) is unreachable…
+- [Medium] The new `.state_on_dpll_get`/`.state_on_dpll_set` callbacks
+  are installed into `sit9531x_dpll_output_pin_ops`, which…
+- [Medium] `sit9531x_output_disable()` and `sit9531x_output_enable()`
+  program the Page-0x03 Hi-Z force/state banks with a sequence of read-…
+- [Low] The banner comment on `sit9531x_output_disable()`
+  (drivers/dpll/sit9531x/core.c:409) states it "Sets MASK+STATE on BOTH…
 
 --
 
-dpll: sit9531x: add support to get and set priority on input pins
+dpll: sit9531x: implement output pin state on a DPLL
 
-This adds .prio_get and .prio_set to the sit9531x input pin ops.  The
-getter scans the per-PLL priority table over I2C and reports the slot the
-input occupies, and the setter moves the input to the requested slot via
-sit9531x_input_prio_set().
-
-A few questions below about the value reported for inputs absent from the
-table, about the interaction with the tail-backfill done by
-sit9531x_input_prio_remove(), and about a couple of comments.
+This adds .state_on_dpll_get / .state_on_dpll_set for output pins, mapping
+CONNECTED and DISCONNECTED onto the Page 0x03 Hi-Z force/state register
+pairs.  New core helpers sit9531x_output_enable() and
+sit9531x_output_disable() wrap the register writes in the PRG_CMD / NVM
+update / loop lock sequence and update the cached out[].enabled flag.
 
 > diff --git a/drivers/dpll/sit9531x/core.c b/drivers/dpll/sit9531x/core.c
-> index f42c41d8a42e..e706f6942f65 100644
+> index 721b2c451d59..0f886cfd1401 100644
 > --- a/drivers/dpll/sit9531x/core.c
 > +++ b/drivers/dpll/sit9531x/core.c
-> @@ -414,6 +414,49 @@ static int sit9531x_prio_prg_commit(struct sit9531x_dev *sitdev)
->  	return 0;
+
+[ ... ]
+
+> @@ -368,6 +402,115 @@ static int sit9531x_prg_commit(struct sit9531x_dev *sitdev)
+>  	return rc ? rc : rc2;
 >  }
->  
+>
 > +/*
-> + * sit9531x_input_prio_get - read an input's priority slot for a PLL
-> + * @input_idx:	input source in hardware encoding (see
-> + *		sit9531x_input_hw_src())
-> + * @prio:	output slot position (0 = highest); set to
-> + *		SIT9531X_PRIO_MAX_SLOTS when the source is not in the table
+> + * sit9531x_output_disable - mute an output (force Hi-Z)
+> + * @index:	logical output index (0..info->num_outputs-1)
 > + *
-> + * Scans the PLL's 12-slot priority table on Page 1 and returns the
-                        ^^^^^^^
+> + * Sets MASK+STATE on BOTH the DIFF and SE register pairs so that the
+> + * output is muted regardless of its electrical configuration.  The
 
 [Severity: Low]
-This isn't a bug, but should this say 11-slot?  regs.h has:
+This isn't a bug, but does the banner describe the wrong polarity?  It says
+MASK+STATE are set to mute, while the body sets MASK and clears STATE:
 
-  /*
-   * 11 priority slots, CLK_SPARE0SEL_PLL through CLK_SPARE10SEL_PLL.
-   * The twelfth nibble of the block is not a slot: it is
-   * CLK_ACTIVESEL_PLL, see SIT9531X_PRIO_ACTIVESEL_OFF below.
-   */
-  #define SIT9531X_PRIO_MAX_SLOTS		11
-  /* Number of source encodings (0-11), unrelated to the slot count */
-  #define SIT9531X_PRIO_NUM_SRC		12
+	/* Take control (MASK=1) and mute (STATE=0) on both DIFF and SE */
+	rc = sit9531x_hiz_set_bit(sitdev, r.diff_mask, r.bit, true);
+	...
+	rc = sit9531x_hiz_set_bit(sitdev, r.diff_state, r.bit, false);
 
-and the block comment already in core.c above sit9531x_prio_reg() says "The
-SiT9531x has an 11-slot priority table per PLL on Page 1."  The loop in the
-function itself stops at SIT9531X_PRIO_MAX_SLOTS, so 12 looks like the source
-encoding count rather than the slot count, and a later reader could conclude
-that slot 11 exists and is programmable when that nibble is
-CLK_ACTIVESEL_PLL.
+The register description above sit9531x_output_get_hiz_regs() agrees with the
+body:
 
-> + * highest-priority (lowest-numbered) slot that references the source.
-> + * This reads the value the chip actually holds rather than a cached
-> + * default, so pin-get reflects the real hardware priority.
+ * MASK bit = 1  -> driver takes control of that output's Hi-Z state
+ * STATE bit = 0 -> output is forced to Hi-Z (muted)
+
+and so does the reader sit9531x_output_forced_hiz():
+
+	*muted = (mask & BIT(r.bit)) && !(state & BIT(r.bit));
+
+Could the banner be reworded to say "sets MASK and clears STATE"?
+
+> + * writes are wrapped in the PRG_CMD / NVM update / loop lock sequence
+> + * so the new state is applied by the hardware.
 > + *
 > + * Caller must hold sitdev->multiop_lock.
 > + */
-> +int sit9531x_input_prio_get(struct sit9531x_dev *sitdev, u8 pll_idx,
-> +			    u8 input_idx, u8 *prio)
+> +int sit9531x_output_disable(struct sit9531x_dev *sitdev, u8 index)
 > +{
-> +	u8 val, slot, src;
-> +	int rc;
+> +	const struct sit9531x_chip_info *info = sitdev->info;
+> +	struct sit9531x_hiz_regs r;
+> +	u8 slot;
+> +	int rc, ret;
 > +
 > +	lockdep_assert_held(&sitdev->multiop_lock);
 > +
-> +	if (pll_idx >= SIT9531X_NUM_PLLS)
+> +	if (index >= info->num_outputs)
 > +		return -EINVAL;
 > +
-> +	for (slot = 0; slot < SIT9531X_PRIO_MAX_SLOTS; slot++) {
-> +		rc = sit9531x_read_u8(sitdev,
-> +				      sit9531x_prio_reg(pll_idx, slot), &val);
-> +		if (rc)
-> +			return rc;
-
-[Severity: Low]
-Could this loop read each register only once?  The slots are nibble-packed two
-per register:
-
-  static u16 sit9531x_prio_reg(u8 pll_idx, u8 slot)
-  {
-	return SIT9531X_REG(SIT9531X_PAGE_PRIOSYS,
-			    SIT9531X_PRIO_BASE_REG +
-			    SIT9531X_PRIO_REGS_PER_PLL * pll_idx +
-			    slot / SIT9531X_PRIO_SLOTS_PER_REG);
-  }
-
-so slots 0 and 1 map to the same register, 2 and 3 to the next, and so on,
-giving 11 reads where 6 would do.  The regmap is created with .cache_type =
-REGCACHE_NONE, so each of those is a real bus transfer plus page-selector
-traffic, all under multiop_lock, which the 500 ms monitor kthread also takes.
-
-sit9531x_prio_table_read() already exists and returns the whole table in one
-pass; would using it here (or reusing the table the poll worker already reads
-before sit9531x_prio_mask_build() discards the slot numbers) be simpler?
-
+> +	slot = info->clkout_map[index];
+> +	sit9531x_output_get_hiz_regs(slot, &r);
 > +
-> +		src = sit9531x_prio_slot_get(val, slot);
-> +
-> +		if (src == input_idx) {
-> +			*prio = slot;
-> +			return 0;
-> +		}
-
-[Severity: Medium]
-Can a nibble that was never programmed be mistaken for IN0P here?  regs.h
-documents the encoding as:
-
-   *   0=IN0P, 1=IN1P, 2=IN2P, 3=IN3P, 4=IN4P,
-   *   5=OCXO, 6=INTSYNC,
-   *   7=IN0N, 8=IN1N, 9=IN2N, 10=IN3N, 11=IN4N
-
-There is no reserved "slot unused" value, and sit9531x_input_hw_src(0)
-returns 0 for IN0P, so a slot left at 0 by the efuse/blob configuration
-compares equal to IN0P.  In that case IN0 is reported as occupying the first
-such slot (often slot 0, the highest priority) on every PLL even if it was
-never added, the "not in the table" path below can never be taken for that
-input, and the -EINVAL guard in sit9531x_input_prio_set() would let the table
-be rearranged around an entry that is not really there.
-
-I could not find code that initialises the priority block to a known state at
-probe, so whether unprogrammed slots really read 0 depends on the device
-configuration.  Is that guaranteed not to happen, or should a match be
-qualified against sources the driver knows it programmed?
-
-> +	}
-> +
-> +	*prio = SIT9531X_PRIO_MAX_SLOTS;
-> +	return 0;
-> +}
-
-[Severity: Medium]
-Is priority 11 a value userspace can be handed?  This returns success with
-*prio = SIT9531X_PRIO_MAX_SLOTS, and sit9531x_dpll_input_pin_prio_get()
-forwards it unchanged:
-
-	dpin->prio = slot;
-	*prio = slot;
-	return 0;
-
-The core has no "no value" convention on that path; dpll_msg_add_pin_prio()
-calls ops->prio_get and, on success, does:
-
-	if (nla_put_u32(msg, DPLL_A_PIN_PRIO, prio))
-		return -EMSGSIZE;
-
-So every input not present in the PLL table is reported as DPLL_A_PIN_PRIO
-11, while the setter added in the same patch rejects exactly that value:
-
-	if (prio >= SIT9531X_PRIO_MAX_SLOTS) {
-		NL_SET_ERR_MSG(extack, "Priority out of range (0-10)");
-		return -EINVAL;
-	}
-
-A dump/modify/restore round trip of a disconnected input then fails with
-EINVAL.  Since this is a new driver the value becomes uAPI once released.
-
-The commit message says:
-
-  "An input absent from the table has no priority to report, and the core is
-  told so rather than handed a made-up number."
-
-Does the code match that?  As written the core is handed 11, which is
-out of range for this driver.
-
-> +
->  /*
->   * Rebuild a PLL's membership mask from the source codes of its priority
->   * table.  The mask is what the pin state getters test, so it is refreshed
-> diff --git a/drivers/dpll/sit9531x/dpll.c b/drivers/dpll/sit9531x/dpll.c
-> index 29088707a3e6..67b9fbba9f2e 100644
-> --- a/drivers/dpll/sit9531x/dpll.c
-> +++ b/drivers/dpll/sit9531x/dpll.c
-> @@ -417,10 +417,90 @@ sit9531x_dpll_input_pin_state_on_dpll_set(const struct dpll_pin *pin,
->  	return rc;
->  }
->  
-> +/*
-> + * sit9531x_dpll_input_pin_prio_get - read input pin priority
-> + *
-> + * reads the PLL's priority table on Page 1 (via
-> + * sit9531x_input_prio_get()) and returns the slot the input
-> + * occupies, so pin-get reports the real hardware priority rather
-> + * than a software default.
-> + */
-> +static int
-> +sit9531x_dpll_input_pin_prio_get(const struct dpll_pin *pin, void *pin_priv,
-> +				 const struct dpll_device *dpll, void *dpll_priv,
-> +				 u32 *prio, struct netlink_ext_ack *extack)
-> +{
-> +	struct sit9531x_dpll_pin *dpin = pin_priv;
-> +	struct sit9531x_dpll *sitdpll = dpll_priv;
-> +	struct sit9531x_dev *sitdev = sitdpll->dev;
-> +	u8 slot;
-> +	int rc;
-> +
-> +	mutex_lock(&sitdev->multiop_lock);
-> +	rc = sit9531x_input_prio_get(sitdev, sitdpll->id,
-> +				     sit9531x_input_hw_src(dpin->id), &slot);
-> +	mutex_unlock(&sitdev->multiop_lock);
+> +	rc = sit9531x_prg_enter(sitdev);
 > +	if (rc)
 > +		return rc;
 > +
-> +	dpin->prio = slot;
-
-[Severity: Low]
-Is anything reading dpin->prio?  It is written here and again at the end of
-sit9531x_dpll_input_pin_prio_set(), and I could not find a read of it
-anywhere in the driver, at this commit or at the end of the series.  Writing
-driver state from a getter is also a side effect in an otherwise read-only
-op, and the value stored can be the out-of-range 11 discussed above.
-
-Related to that: a configured priority does not survive a disconnect and
-reconnect.  DPLL_PIN_STATE_DISCONNECTED goes through
-sit9531x_input_prio_remove(), which compacts the table, and
-DPLL_PIN_STATE_SELECTABLE goes through sit9531x_input_prio_add(), which
-always lands the source in the last slot:
-
-	srcs[SIT9531X_PRIO_MAX_SLOTS - 1] = input_idx;
-
-with its kernel-doc stating "The original priority is not restored".  So a
-pin configured with prio 0 comes back as prio 10.  Meanwhile the natural
-order of operations (set priority, then connect) is refused, since
-sit9531x_input_prio_set() returns -EINVAL for a source absent from the table
-and the callback answers "Pin is not a reference of this DPLL; connect it
-first".  Would using dpin->prio to re-apply the priority on reconnect close
-that, or should the field be dropped?
-
-> +	*prio = slot;
-> +	return 0;
+> +	/* Take control (MASK=1) and mute (STATE=0) on both DIFF and SE */
+> +	rc = sit9531x_hiz_set_bit(sitdev, r.diff_mask, r.bit, true);
+> +	if (rc)
+> +		goto commit;
+> +	rc = sit9531x_hiz_set_bit(sitdev, r.diff_state, r.bit, false);
+> +	if (rc)
+> +		goto commit;
+> +	rc = sit9531x_hiz_set_bit(sitdev, r.se_mask, r.bit, true);
+> +	if (rc)
+> +		goto commit;
+> +	rc = sit9531x_hiz_set_bit(sitdev, r.se_state, r.bit, false);
+> +
+> +commit:
+> +	/*
+> +	 * Always leave the PRG_CMD programming state, even on a mid-sequence
+> +	 * write failure: prg_enter() unlocked the output loops, so returning
+> +	 * without prg_commit() would strand the chip in the programming state
+> +	 * with the loops unlocked.  Best effort -- keep the first error.
+> +	 */
+> +	ret = sit9531x_prg_commit(sitdev);
+> +	if (ret && !rc)
+> +		rc = ret;
+> +	if (!rc)
+> +		sitdev->out[index].enabled = false;
+> +
+> +	return rc;
 > +}
+
+[Severity: Medium]
+Can a partial register sequence here leave sitdev->out[index].enabled
+permanently disagreeing with the hardware?
+
+Suppose the diff_mask write succeeds and the diff_state write returns an I2C
+error:
+
+	rc = sit9531x_hiz_set_bit(sitdev, r.diff_mask, r.bit, true);	/* ok */
+	if (rc)
+		goto commit;
+	rc = sit9531x_hiz_set_bit(sitdev, r.diff_state, r.bit, false);	/* -EIO */
+	if (rc)
+		goto commit;
+
+MASK=1 with STATE still 0 from the loaded configuration is the muted encoding
+per the register notes ("STATE bit = 0 -> output is forced to Hi-Z"), and
+sit9531x_prg_commit() then issues UPDATE_NVM + LOOP_LOCK so the partial
+programming is applied.  But rc is nonzero, so:
+
+	if (!rc)
+		sitdev->out[index].enabled = false;
+
+is skipped and enabled stays true.
+
+The mirror case in sit9531x_output_enable() is the same: if the diff_mask
+clear succeeds and the se_mask clear fails, a DIFF-configured pad is already
+released and driving while enabled stays false.
+
+Is there anything that later reconciles the cache?  The hardware readback
+sit9531x_output_forced_hiz() is reached only via sit9531x_out_state_fetch(),
+whose only caller is sit9531x_dev_state_fetch() on the probe/start path:
+
+	for (i = 0; i < sitdev->info->num_outputs; i++) {
+		rc = sit9531x_out_state_fetch(sitdev, i);
+
+The periodic worker refreshes only ref and chan state, and the new getter
+reads only the cached flag, so the wrong state would be reported over netlink
+for the life of the bound device.
+
+Would it be better to record the intended state (or mark it unknown and
+re-read the force/state registers) even when rc is nonzero?
+
 > +
 > +/*
-> + * sit9531x_dpll_input_pin_prio_set - set input pin priority
+> + * sit9531x_output_enable - un-mute an output (active state)
+> + * @index:	logical output index (0..info->num_outputs-1)
 > + *
-> + * writes input priority table on Page 1 via
-> + * core.c sit9531x_input_prio_set().  Forces holdover during update.
+> + * Releases MASK on BOTH register pairs so the output returns to
+> + * whatever the initial_config blob programmed.  The writes are wrapped
+> + * in the PRG_CMD / NVM update / loop lock sequence so the new state is
+> + * applied by the hardware.
+> + *
+> + * Caller must hold sitdev->multiop_lock.
+> + */
+> +int sit9531x_output_enable(struct sit9531x_dev *sitdev, u8 index)
+> +{
+
+[ ... ]
+
+> +	rc = sit9531x_hiz_set_bit(sitdev, r.diff_mask, r.bit, false);
+> +	if (rc)
+> +		goto commit;
+> +	rc = sit9531x_hiz_set_bit(sitdev, r.se_mask, r.bit, false);
+> +
+> +commit:
+
+[ ... ]
+
+> diff --git a/drivers/dpll/sit9531x/dpll.c b/drivers/dpll/sit9531x/dpll.c
+> index a7510ca721b6..6365a83e4c52 100644
+> --- a/drivers/dpll/sit9531x/dpll.c
+> +++ b/drivers/dpll/sit9531x/dpll.c
+> @@ -669,10 +669,79 @@ sit9531x_dpll_output_pin_frequency_set(const struct dpll_pin *pin,
+>  	return rc;
+>  }
+>
+> +/*
+> + * sit9531x_dpll_output_pin_state_on_dpll_get - get output pin state
+> + *
+> + * reports CONNECTED when the output is driven and
+> + * DISCONNECTED when it has been muted via sit9531x_output_disable().
 > + */
 > +static int
-> +sit9531x_dpll_input_pin_prio_set(const struct dpll_pin *pin, void *pin_priv,
-> +				 const struct dpll_device *dpll, void *dpll_priv,
-> +				 u32 prio, struct netlink_ext_ack *extack)
+> +sit9531x_dpll_output_pin_state_on_dpll_get(const struct dpll_pin *pin,
+> +					   void *pin_priv,
+> +					   const struct dpll_device *dpll,
+> +					   void *dpll_priv,
+> +					   enum dpll_pin_state *state,
+> +					   struct netlink_ext_ack *extack)
+> +{
+> +	struct sit9531x_dpll_pin *dpin = pin_priv;
+> +	struct sit9531x_dpll *sitdpll = dpll_priv;
+> +	const struct sit9531x_out *out;
+> +
+> +	out = sit9531x_out_state_get(sitdpll->dev, dpin->id);
+> +	*state = out->enabled ? DPLL_PIN_STATE_CONNECTED
+> +			      : DPLL_PIN_STATE_DISCONNECTED;
+> +	return 0;
+> +}
+
+[Severity: Medium]
+Does this read past sitdev->out[] for the internal INTSYNC source pin?
+
+sit9531x_dpll_pin_ops_get() hands this ops table to every non-input pin, with
+no id filtering:
+
+	if (!sit9531x_dpll_is_input_pin(pin))
+		return &sit9531x_dpll_output_pin_ops;
+
+and sit9531x_dpll_pin_is_registrable() always registers a pin whose id is
+SIT9531X_INTSYNC_OUT_PIN_ID:
+
+	/* The internal INTSYNC source pin is always registrable */
+	if (index == SIT9531X_INTSYNC_OUT_PIN_ID)
+		return true;
+
+core.h defines that id as the array size:
+
+	#define SIT9531X_INTSYNC_OUT_PIN_ID	SIT9531X_MAX_OUTPUTS
+	...
+	struct sit9531x_out	out[SIT9531X_MAX_OUTPUTS];
+
+so sit9531x_out_state_get(sitdev, 12) resolves to &sitdev->out[12], one
+element past the end, and ->enabled is read from whatever follows in struct
+sit9531x_dev (chan[0]).  That value is then reported to user space as the pin
+state on every DPLL_CMD_PIN_GET dump.
+
+> +
+> +/*
+> + * sit9531x_dpll_output_pin_state_on_dpll_set - mute/un-mute an output
+> + *
+> + * forces Hi-Z on the output pin via the Page 0x03
+> + * force/state register pair.
+> + *   CONNECTED    -> enable (release force, back to factory default)
+> + *   DISCONNECTED -> disable (force Hi-Z)
+> + */
+> +static int
+> +sit9531x_dpll_output_pin_state_on_dpll_set(const struct dpll_pin *pin,
+> +					   void *pin_priv,
+> +					   const struct dpll_device *dpll,
+> +					   void *dpll_priv,
+> +					   enum dpll_pin_state state,
+> +					   struct netlink_ext_ack *extack)
 > +{
 > +	struct sit9531x_dpll_pin *dpin = pin_priv;
 > +	struct sit9531x_dpll *sitdpll = dpll_priv;
 > +	struct sit9531x_dev *sitdev = sitdpll->dev;
 > +	int rc;
 > +
-> +	if (dpin->dir != DPLL_PIN_DIRECTION_INPUT) {
-> +		NL_SET_ERR_MSG(extack, "Priority applies only to input pins");
-> +		return -EINVAL;
-> +	}
-
-[Severity: Low]
-Can this branch ever be taken?  sit9531x_dpll_pin_ops_get() only installs
-sit9531x_dpll_input_pin_ops for pins that are inputs:
-
-	if (!sit9531x_dpll_is_input_pin(pin))
-		return &sit9531x_dpll_output_pin_ops;
-	if (sit9531x_dpll_is_xo_pin(pin))
-		return &sit9531x_dpll_xo_pin_ops;
-	return &sit9531x_dpll_input_pin_ops;
-
-and sit9531x_dpll_is_input_pin() is just pin->dir == DPLL_PIN_DIRECTION_INPUT.
-There is no .direction_set in any of the driver's ops tables, so dir cannot
-change after registration.  The getter added in the same patch has no such
-check, which makes the pair inconsistent too.
-
-> +
-> +	if (prio >= SIT9531X_PRIO_MAX_SLOTS) {
-> +		NL_SET_ERR_MSG(extack, "Priority out of range (0-10)");
-> +		return -EINVAL;
-> +	}
-> +
 > +	mutex_lock(&sitdev->multiop_lock);
-> +	rc = sit9531x_input_prio_set(sitdev, sitdpll->id,
-> +				     sit9531x_input_hw_src(dpin->id),
-> +				     (u8)prio);
+> +
+> +	switch (state) {
+> +	case DPLL_PIN_STATE_CONNECTED:
+> +		rc = sit9531x_output_enable(sitdev, dpin->id);
+> +		break;
+> +	case DPLL_PIN_STATE_DISCONNECTED:
+> +		rc = sit9531x_output_disable(sitdev, dpin->id);
+> +		break;
+
+The same pin reaches the setter with dpin->id == 12, which both helpers reject
+because 12 >= info->num_outputs:
+
+	if (index >= info->num_outputs)
+		return -EINVAL;
+
+yet sit9531x_pin_props_get() advertises that pin as changeable:
+
+	} else if (dir == DPLL_PIN_DIRECTION_OUTPUT &&
+		   index == SIT9531X_INTSYNC_OUT_PIN_ID) {
+		...
+		props->dpll_props.capabilities =
+			DPLL_PIN_CAPABILITIES_STATE_CAN_CHANGE;
+
+so user space is told the state can change but always gets -EINVAL.  Would it
+make sense to route the INTSYNC source pin to its own ops table, or at least
+bound-check dpin->id against info->num_outputs in the getter?
+
+For what it is worth, a later patch in this series, "dpll: sit9531x: model the
+inter-PLL sync net as a pair of pins", adds sit9531x_dpll_intsync_src_pin_ops
+and dispatches the INTSYNC source pin to it in sit9531x_dpll_pin_ops_get(),
+which removes both problems.  Could that dispatch be folded in here, or this
+patch ordered after it, so no intermediate commit exposes the out-of-range
+access?
+
+> +	default:
+> +		rc = -EINVAL;
+> +		break;
+> +	}
+> +
 > +	mutex_unlock(&sitdev->multiop_lock);
-
-[Severity: Medium]
-Can a demotion request through this path end up a no-op that still reports
-success?
-
-sit9531x_input_prio_remove() deliberately duplicates the last kept source
-into the freed tail slots, since the 4-bit encoding has no empty value:
-
-	/* Backfill freed tail slots with the lowest-priority remaining src */
-	while (count < SIT9531X_PRIO_MAX_SLOTS) {
-		kept[count] = kept[count - 1];
-		count++;
-	}
-
-So a table like [A,B,C,C,C,C,C,C,C,C,C] is a normal state.  If userspace now
-asks to move C to slot 6, sit9531x_input_prio_set() picks the first match:
-
-	for (from = 0; from < SIT9531X_PRIO_MAX_SLOTS; from++)
-		if (srcs[from] == input_idx)
-			break;
-	...
-		for (slot = from; slot < prio; slot++)
-			srcs[slot] = srcs[slot + 1];
-
-	srcs[prio] = input_idx;
-
-from is 2, and the shift copies C over C, so the committed array is identical
-to what the chip already holds.  sit9531x_prio_table_commit() still forces the
-PLL into holdover:
-
-	rc = sit9531x_update_pll_u8(sitdev, pll_idx, SIT9531X_PLL_REG_HO_CTRL,
-				    BIT(SIT9531X_PLL_HO_FORCE_BIT),
-				    BIT(SIT9531X_PLL_HO_FORCE_BIT));
-	...
-	usleep_range(10000, 12000);
-
-rewrites the same nibbles, releases holdover and returns 0.  The effective
-priority stays 2 because the device picks the lowest occupied slot, so a set
-followed by a get disagree, and the PLL took a holdover excursion for a write
-that changed nothing.
-
-[Severity: Medium]
-Should the other affected pins get a change notification here?
-
-sit9531x_input_prio_set() shifts every entry between the old and the new slot:
-
-	if (from > prio) {
-		/* Moving up: push the entries in between down one slot. */
-		for (slot = from; slot > prio; slot--)
-			srcs[slot] = srcs[slot - 1];
-	} else {
-		for (slot = from; slot < prio; slot++)
-			srcs[slot] = srcs[slot + 1];
-	}
-
-The slot number is what .prio_get reports as DPLL_A_PIN_PRIO, so several other
-pins change priority as a side effect of one request.
-
-The core only notifies the pin named in the request, in dpll_pin_prio_set():
-
-	__dpll_pin_change_ntf(pin);
-
-and the driver's periodic sit9531x_dpll_changes_check() only compares the
-result of state_on_dpll_get() against pin->pin_state, never priority.  Does a
-userspace cache of the other pins' priorities then stay stale indefinitely
-with no DPLL_CMD_PIN_CHANGE_NTF?
-
 > +
-> +	if (rc == -EINVAL) {
-> +		NL_SET_ERR_MSG(extack,
-> +			       "Pin is not a reference of this DPLL; connect it first");
-> +		return rc;
-> +	}
-> +	if (rc) {
-> +		NL_SET_ERR_MSG(extack, "Failed to set input priority");
-> +		return rc;
-> +	}
+> +	if (rc)
+> +		NL_SET_ERR_MSG(extack, "Failed to set output pin state");
 > +
-> +	dpin->prio = (u8)prio;
-> +
-> +	return 0;
+> +	return rc;
 > +}
 > +
->  static const struct dpll_pin_ops sit9531x_dpll_input_pin_ops = {
->  	.direction_get		= sit9531x_dpll_input_pin_direction_get,
->  	.state_on_dpll_get	= sit9531x_dpll_input_pin_state_on_dpll_get,
->  	.state_on_dpll_set	= sit9531x_dpll_input_pin_state_on_dpll_set,
-> +	.prio_get		= sit9531x_dpll_input_pin_prio_get,
-> +	.prio_set		= sit9531x_dpll_input_pin_prio_set,
-
-[ ... ]
+>  static const struct dpll_pin_ops sit9531x_dpll_output_pin_ops = {
+>  	.direction_get		= sit9531x_dpll_output_pin_direction_get,
+>  	.frequency_get		= sit9531x_dpll_output_pin_frequency_get,
+>  	.frequency_set		= sit9531x_dpll_output_pin_frequency_set,
+> +	.state_on_dpll_get	= sit9531x_dpll_output_pin_state_on_dpll_get,
+> +	.state_on_dpll_set	= sit9531x_dpll_output_pin_state_on_dpll_set,
+>  };
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260902214030.20955-1-arouhi%40sitime.com
