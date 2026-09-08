@@ -1,106 +1,79 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBD365964E9
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 17:38:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B715859221B;
+	Tue,  8 Sep 2026 17:38:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788889090; cv=none; b=ga8W7OyrUw5UNrmTEBwu5QBwxYz28zZgII7nQNM18oT1EpzkYuZI0IbyPzashTrrAGmy+6cOLLQYMoHzSN5OTFfB7HwXYjw9/3TZc/YU1H7BxMC4JC97nV2ChFdyx5zy+Nft+LVa1yjyrwtwGN+Qpf/WYhwpE/ExLDutJuuPZHk=
+	t=1788889103; cv=none; b=sF/cBKq1np15koOqsLGTjRMFZBtT2f+/Q9HenjChlIgAZM93TRmLsw2G6X2HjeCqNKKgju0+nw9q3jVc1XH984H6DyM+5g88FhGVf0FtsDOj3MUdLLzYBvwpy33GBPTenl2c84lBcgR6Lh+dgyVdWNLDbp1/iGE31QKOFqlZJpo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788889090; c=relaxed/simple;
-	bh=xV9WGVUhDaM7feSHAMHRU17JK/43xAFNQC9C+0SKuzY=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=mg+C720YB/Csosy2sD52FGZiiy66qp501Qa9SLVIOw1h021jvM3vUKRfUFiomEayguRr5J6OH3MafGNDoBqfo0jwGTMA6N7YBOqJRkJ1IGg+LO/XuqttyfuWrWYIeR0CVX8KUXDxsfZ0N8cafsZ4a462CHKJlVtRPIlC9mg8UZ4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=E/y5ZWFZ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788889103; c=relaxed/simple;
+	bh=bRgy5T5W0KgX9F3ZoSCoTIxqZG0nVr7jNUHrMLEYcTI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=HNB2Db0LODCJs3atAwvFHHVbS7IdoUI1tdtQw3PNmW762x7DDniEeNVMCJSgHMffBVfPMlbsNrnEs8/FM9w71LTcWy4fFhfRYpOpBfpGMrp4m7s8Aryf61UVTx145f4uYb8pxkzbZUX1pgQK4yciGiOKVdq9Kp8YTTVYPonTV5Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=H0D5TMVJ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="E/y5ZWFZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 84BC71F00A3F
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 17:38:08 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="H0D5TMVJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 846811F00A3A;
+	Tue,  8 Sep 2026 17:38:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788889088;
-	bh=xV9WGVUhDaM7feSHAMHRU17JK/43xAFNQC9C+0SKuzY=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=E/y5ZWFZ2hwHxch3L34izLg0s7LbkYAR0qYto+nyFgTySlUXkSWDGvDNVbzmJ7FJW
-	 a6wv5BA1EO1HbPuYdniyeIW/3E4n9ji2bcHyIp2qKXzdhMWwElQ8EIoDQGjoHAGsiG
-	 PAiKJGGkknYUxMCVuJkINzJ1qRO7YXy8XKlU9Hj30vkBoSWN/PZAiU4SBUx1DulzNK
-	 wWMBUbNAvivKUmhBbP42Zaar5j4cAK5jz+mIdBEr9NmTFOBw4cPpu72BFEI9s6WJrB
-	 a8/2n1Pn/echlAt0iJycONAQvMVMmP/ax9fe3zwyW9cAFCTxFEe0CcponmtfFkRvAA
-	 vp+WX0Y/4Cirw==
-Received: by mail-lf1-f47.google.com with SMTP id 2adb3069b0e04-5b6188a2c0eso3942175e87.1
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 10:38:08 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwcDIWmNhE06tFMbup6KtrZHjSGiIi3GmACVmFraIYaCz7KmeeJtSE04gA7ubCtkHfGhVRN9o/+Us8K34Q=@vger.kernel.org
-X-Gm-Message-State: AFuF++kCcnteGiF8KZfOhI0Ej6fsJV76J2+0K19Ja+DvibxjD0ROTJDh
-	jT+/VaZi6IOBn/hyTNlpD/uzdkE4dnG8QnHyA2R9x+gAEl2Nm9RWD1nHzkvWvcOimxYqnAVWXeT
-	5uBeYIL53p0hKzX3QJ8AuAn2BOM/Z+dM=
-X-Received: by 2002:a05:6512:2c04:b0:5b6:1a81:b960 with SMTP id
- 2adb3069b0e04-5b61a81bbd7mr4978552e87.67.1788889087269; Tue, 08 Sep 2026
- 10:38:07 -0700 (PDT)
+	s=k20260515; t=1788889102;
+	bh=bRgy5T5W0KgX9F3ZoSCoTIxqZG0nVr7jNUHrMLEYcTI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=H0D5TMVJUI/WmvzLp2e5LwnkMtTWgZOz8iM5MPle+B4Up1HqvZP7HNUsxhhWcKwTp
+	 Tfycp7+59W81EZjVQzGR2mm1kd3yaHVSfx4Ag8qr1Rxwy+a8JwVYLvspdE0hmke1Pp
+	 Z0xCoYhlquwl9/iKu9a/GzyGaeYRUjkb0LklS51FcwNj8LFg/mx/wSSa6QGk8cIIgx
+	 ww1D9t5P/lsrlUSIMpndJOikA6Lvs6E5iLUaCcGtkKDGfn/Qi2CcP+EXz4mkHmo9Vv
+	 QEKfcYKOIccEF3+7zaAGEx6QS+f8XgwJvJjzbo5yla7P6kSnsO9JrOhAIQGz2qz3yQ
+	 fLsuPJsVxeIvg==
+Date: Tue, 8 Sep 2026 18:38:16 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Junhui Liu <junhui.liu@pigmoral.tech>
+Cc: Daniel Lezcano <daniel.lezcano@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>,
+	Inochi Amaoto <inochiama@outlook.com>,
+	Radu Rendec <radu@rendec.net>, Paul Walmsley <pjw@kernel.org>,
+	Samuel Holland <samuel.holland@sifive.com>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Anup Patel <anup@brainfault.org>, Guodong Xu <docular.xu@gmail.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-riscv@lists.infradead.org, spacemit@lists.linux.dev,
+	Conor Dooley <conor.dooley@microchip.com>
+Subject: Re: [PATCH v2 3/6] dt-bindings: interrupt-controller:
+ thead,c900-aclint-sswi: Add SpacemiT K3
+Message-ID: <20260908-lecturer-cornfield-7f701982730e@spud>
+References: <20260909-k3-aclint-v2-0-7931e5bc86ad@pigmoral.tech>
+ <20260909-k3-aclint-v2-3-7931e5bc86ad@pigmoral.tech>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260908152808.3928630-1-arnd@kernel.org> <20260908152808.3928630-12-arnd@kernel.org>
-In-Reply-To: <20260908152808.3928630-12-arnd@kernel.org>
-From: Linus Walleij <linusw@kernel.org>
-Date: Tue, 8 Sep 2026 19:37:55 +0200
-X-Gmail-Original-Message-ID: <CAD++jLmoSUE9582xd9zNCEq3rN0UEyG6sivNz8SDoYy9RxXuQw@mail.gmail.com>
-X-Gm-Features: AcwNN1WWmio2Em4aKVDNeDjQ4YqA6DMZXwfzcFUzVwF968HsT49NyvahOJQzbQM
-Message-ID: <CAD++jLmoSUE9582xd9zNCEq3rN0UEyG6sivNz8SDoYy9RxXuQw@mail.gmail.com>
-Subject: Re: [PATCH 11/13] ARM: versatile: remove mps2 support
-To: Arnd Bergmann <arnd@kernel.org>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>, Alexandre Belloni <alexandre.belloni@bootlin.com>, 
-	Russell King <linux@armlinux.org.uk>, Drew Fustini <fustini@kernel.org>, 
-	Arnd Bergmann <arnd@arndb.de>, Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Liviu Dudau <liviu.dudau@arm.com>, Sudeep Holla <sudeep.holla@kernel.org>, 
-	Lorenzo Pieralisi <lpieralisi@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
-	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
-	Fabio Estevam <festevam@gmail.com>, Vladimir Zapolskiy <vz@mleia.com>, Stefan Agner <stefan@agner.ch>, 
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>, 
-	Aaro Koskinen <aaro.koskinen@iki.fi>, Andreas Kemnade <andreas@kemnade.info>, 
-	Kevin Hilman <khilman@baylibre.com>, Roger Quadros <rogerq@kernel.org>, 
-	Tony Lindgren <tony@atomide.com>, Nicolas Ferre <nicolas.ferre@microchip.com>, 
-	Claudiu Beznea <claudiu.beznea@tuxon.dev>, Andrew Lunn <andrew@lunn.ch>, 
-	Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>, 
-	Gregory Clement <gregory.clement@bootlin.com>, Robert Jarzmik <robert.jarzmik@free.fr>, 
-	Kristoffer Ericson <kristoffer.ericson@gmail.com>, Ethan Nelson-Moore <enelsonmoore@gmail.com>, 
-	Geert Uytterhoeven <geert@linux-m68k.org>, Alexander Sverdlin <alexander.sverdlin@siemens.com>, 
-	Shawn Guo <shawnguo@kernel.org>, Karl Mehltretter <kmehltretter@gmail.com>, 
-	"David Hildenbrand (Arm)" <david@kernel.org>, Nicolas Pitre <npitre@baylibre.com>, linux-doc@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	devicetree@vger.kernel.org, imx@lists.linux.dev, 
-	linux-stm32@st-md-mailman.stormreply.com, linux-omap@vger.kernel.org, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Andi Shyti <andi.shyti@kernel.org>, linux-i2c@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="oQWXLwoO16ML7jtG"
+Content-Disposition: inline
+In-Reply-To: <20260909-k3-aclint-v2-3-7931e5bc86ad@pigmoral.tech>
 
-On Tue, Sep 8, 2026 at 5:30=E2=80=AFPM Arnd Bergmann <arnd@kernel.org> wrot=
-e:
+--oQWXLwoO16ML7jtG
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-> From: Arnd Bergmann <arnd@arndb.de>
->
-> The Arm mps2 platform is the reference implementation for Arm
-> microcontrollers and is useful for testing but not expected to be used
-> as a production device.
->
-> With all the Cortex-M based products gone, there is no longer a need
-> for a reference platform either, so remove it as well.
->
-> Cc: Liviu Dudau <liviu.dudau@arm.com>
-> Cc: Sudeep Holla <sudeep.holla@kernel.org>
-> Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>
-> Cc: Linus Walleij <linusw@kernel.org>
-> Cc: Rob Herring <robh@kernel.org>
-> Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
-> Cc: Conor Dooley <conor+dt@kernel.org>
-> Cc: Andi Shyti <andi.shyti@kernel.org>
-> Cc: Ethan Nelson-Moore <enelsonmoore@gmail.com>
-> Cc: devicetree@vger.kernel.org
-> Cc: linux-i2c@vger.kernel.org
-> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+pw-bot: not-applicable
 
-Acked-by: Linus Walleij <linusw@kernel.org>
+--oQWXLwoO16ML7jtG
+Content-Type: application/pgp-signature; name=signature.asc
 
-Yours,
-Linus Walleij
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaqBICAAKCRB4tDGHoIJi
+0kpXAQC8OSH/32amtCuarJmBKD0X8OJRlr68eC9OrTz06njAQQEAlLoifckm/Qo1
+oLzjk0p89N1TMPLXBX4B9xUQMRXRpAM=
+=Zs39
+-----END PGP SIGNATURE-----
+
+--oQWXLwoO16ML7jtG--
