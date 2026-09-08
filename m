@@ -1,267 +1,127 @@
-Received: from mail-lr2-f12.google.com (mail-lr2-f12.google.com [74.125.230.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11012024.outbound.protection.outlook.com [52.101.66.24])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 278964B0498
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 08:52:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E9394AF17E;
+	Tue,  8 Sep 2026 08:53:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.66.24
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788857568; cv=pass; b=ZeTT5m/3czjQVqy/kx6dtTRIVpKu2HDPmrp209sw6snHV5aIMPecl2Aw+g2J/24UWtRRUcBzmW7A0ya0MwKHDuIYf0HD7XkJgMWe+6NMGa83rUcQBYT0sLLd1mbtW0YmXRWdYUemOJ9eHGXvHOQQzzBDUv1MJvAf0D8wWMmF3YA=
+	t=1788857602; cv=fail; b=EdmCwIfHJUo7GaGDB5PZGA49h/iax1wf/gKqoueV9z1EDRVe7Z2sf04pNXx0zdWx3CHuKceDHH+qJplz5BxdqIMYDB4dtXkeAJ42JVzYYRWI57p2VGKBwlUfUySoSYC34Q0+mcHjzApM2BADdxf495fabrEGub0J9pfmj0th2Qc=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788857568; c=relaxed/simple;
-	bh=7+QAXGzBYBpJzxjDNrtSBQuyaTOBdqxbCzIS9nOmbTk=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Rol/qq5FDduzEShaHt2v0Hy1XsGF7bTYgT+tCzYfQG23BcRnif1QWEtDhg1KgNLjIxh625UdikvSwIuHa9JthgzVA3N6s6DwY7u86w4XOZ3+3KaWTY147vA28j8lS4l69em6R9+BBj0zNKBKBARJgcF6dzc6epoYXurIG3vO7HA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=eWRjHdxy; arc=pass smtp.client-ip=74.125.230.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788857602; c=relaxed/simple;
+	bh=VQgBn9GaPqeyhE08fH8KVG5lWbgt/9WN/M0N99BPnms=;
+	h=Message-ID:Subject:From:To:CC:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=WN4yg0bFvm/YfEfsXKQtgOWmN5q96rd03tMBxsSSbMiclgczM+02DPFxK6QflJLGKIl+zZqtsFvWHTw3Ss2pfyiQAMy2rwsmbi2VN/tzjsHH6oQxDJuxwqzvEfbXYSJp3FtGxNEGwWsLNLqnuamUEGnOlncswXHN2Y5o1gG8lhs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com; spf=pass smtp.mailfrom=foss.st.com; dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b=hrBQUcSM; arc=fail smtp.client-ip=52.101.66.24
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="eWRjHdxy"
-Received: by mail-lr2-f12.google.com with SMTP id 38308e7fff4ca-3a2ff15fadfso2351321fa.0
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 01:52:35 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788857551; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Jcl2iBEgZc2LY2HKetxHxqpR38bbO/ZnxAtMzDEHyq4nTxT7bzt7X15+eDOLK+hc4e
-         ao+POeLLfM59HVnMhm7vrNN0J8vGnA9QuSp/+wowq+H5WD9/J+QLT6gB+X1OvWoDmYVk
-         R66+QCj0m16KcFpif35YFNbtGpjuwLzyoggcZ/lrPO75QuE+1oktL76WjXNZlLkQsE/t
-         pAYyKAkLtgphvm/bOpWoX+A3DCRDY6fLJAllEpHdeI+VMBZ8M19GzSOT37UczKitDc3h
-         RNoCt7048W+xL2h1v6EGwikbbdB+x6jmGS1IpfIcoVj7VUsMjLKr70SZ59lZ/vaYjUN8
-         wHlA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=bLC2NZjnn7tKn+yLWIbpSK/NQx1TlPN6P03Q7UFQsBA=;
-        fh=eUWjLrnEWL7FjzSdlCZpGzgOtPxvXTuYX6/GuckvkMQ=;
-        b=DYyXOfgBOQPfqtTiA0Uhknq+Tnr7UQQ3XiKdujqaUWqj6A+b8Y8HDrH/Gn6ffeU1Lf
-         ChilNPpRivqZEgIpJo9XTatKarehm5ATSTGc+3GFueNjZrcMMBaxtk/5wtSrpEl35aRP
-         a0CZetUeQV9PKIuV2BXSDWJorammC+mP6/21E0qnOdFHLZaSAxUK9l2llPuzrHB4OUnC
-         NJLF3OQ6BcwbsWQwk3zzP8VpA8FBVEfOvOmow3yrdF7KfdGw44ImIDYfpx+ZPgOGNozF
-         omqHc1QHLKkNOkDX+6fMrjkrbDD7Z6gZQy5kg6uwy+C/PAAY0gfjWkmFV1RkUO2kOSy0
-         9Jow==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788857551; x=1789462351; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=bLC2NZjnn7tKn+yLWIbpSK/NQx1TlPN6P03Q7UFQsBA=;
-        b=eWRjHdxy6nw+Fzs4rMRX/CzFap7Ok9eg6MphRqfMIvyTOZrZsklE3U223uaBuiWlFP
-         bpt9wGrbyReI3c1DAhpKyUC5mZR9m4iFsDjC4CtlbKn/+649coFKYJh9h2wSs1izb7EZ
-         GBdTc3mfScSDm4xudYSs3uRFPfj5MJVd4+hPKe8zTNVCns8hR3Xq+b0V4OruC4KFQp+O
-         U3jERx55qe64FmsTHYEQ04aMSZu6KdVpdpOQfaZH9CP5yVhR80I98tiM9YvtdRIem7TN
-         Ov+YvBD90qRLM3Nbi6FCxNW0+uyTTFIoWCmLpY/Me47nOQ9EVk6aEz/JSekcHA5nv1MI
-         DsBw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788857551; x=1789462351;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=bLC2NZjnn7tKn+yLWIbpSK/NQx1TlPN6P03Q7UFQsBA=;
-        b=ed0zbkkOPDSYIPUj0gwgA0YunFXfVh3wulCijC4g21g3OJ1SFYDkNwxc1OGFiPAoVC
-         U22jKaEWRG65BSHPd8RYOYi2eNLj+2L/Aj445umk0pe5qVrATqRLfWraXxG4C5ehyWly
-         BwyamoAgth5p5opJsT+xwNGkrTKzBjX+vo+zdFXCuBF9CRDWm9QrTsDeg5c2WTtVQ4H0
-         FX7LLfWEbbMSVnhgPQ15OYdv7AeefgzQALmuz0LRbRT0VWQ7Z8X/A478MIOg2t5RWCYL
-         2pskrd8CR8K8k85aiQSf63bvV2CiNljq/HASUd8aVi/QWEQ+2nueRuzsbEHUp8SSJvkW
-         AEEA==
-X-Forwarded-Encrypted: i=1; AKwUvBzCGD8lWVkWjTTuUUWD58o00Vh9D8fC2ot2N0eUUjnpjoPd06BIoS491yH/cfMyHAt5I5Y3t839nQuueno=@vger.kernel.org
-X-Gm-Message-State: AFuF++mhJbbVbVornQS2zjJKqLmSK8eJF3dUH0g46fw/7N8azaZdmfju
-	20m7jdSLxmRgx/4BsH7LdLL5Zaeoq2S34wmQya1gOh2hLNkan+gnfbVZ68fyOIMtcsmUPABbIwG
-	I25II8m+xlwNbz+HRuNqkZgFNhTqWuQUzE0pQH6OxXA==
-X-Gm-Gg: AYBFou3zv6wES0oJnBgwsrwRdv3wmbYN6d8mPCAEhna2G3mhm6RPrKiNIWhdOFU5MzS
-	vq3sRQm2cj8kZIFBCLPVMcdMRMNWzlK2dBIH2BVA9QjXVOux1B8in403/h4fHRWeorGCm/iCnMP
-	q4vUrHpyG7eIozeR0qiPmRcxVx7WTyW/LZUT1d+VnWyaa1RaB//sA3pDvX22g5XvPFmt0lQl87X
-	UV0slGT2W0AnI9Vw5mt8ZzgkvZzXYz/E8B0FT1snqqJiu8kWzMFMnx8TMdPC5J+glH/Yxxj2RTP
-	dtyEJrcTK5gFCIbgwn0C1S5TbDQaRkKgk2LcWK6TcsNC8wOBotzNsxVrK4vpOhjBFqBLqtPq+vC
-	A
-X-Received: by 2002:a2e:8a96:0:b0:3a3:61ec:7db9 with SMTP id
- 38308e7fff4ca-3a4882d39d4mr5921281fa.15.1788857551247; Tue, 08 Sep 2026
- 01:52:31 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b="hrBQUcSM"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=F2CfXqpoDX7d48+lIpMLjNQtmE/ZrNVEuMl3cqoO7UwH/lsWnG++6S2nN5DLiEM1kj8uA3cSztBh6K8+cxB38e3Cev240/1shzkbEl3MvgC+XAV/uvWKMDM61JpLQGTiMGptq/uqtpAWqQgZhLdQl0wiSXGI5uRZjkbCRCaZr+bRR63trZrHw02YQCip5xqUz9RNmKXEM136I/Ld5x+N3DuCVPLxg/Stll81RtUhRfO7ZgTEadR8M1Xi9w3eZ+9hZH4rlWaCUUwOVWabWZtaDDJjgTS4qrBDWvejtt/tUTiSzrW/tMEzCSNocUPUqc5y4NvPieDYo/N43k9n3u35lA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=VQgBn9GaPqeyhE08fH8KVG5lWbgt/9WN/M0N99BPnms=;
+ b=yqUF49KvOO40y1uW06z1AOdS1gA7KCcz1iESv1TyRTVzzd2d7+5SmpHvOsZSzAWKRjA/KTfEl+5FUAY48VhBBRg3eHWHZedQeorsBIxa0Cx40+polS4vcvVg4EvtGX+YRic94TL8iENMexg5qY3kizAaPNRn38hyV3JaLRRJnQEdHvg80sjszFhgYRalmM9CZjaXv3tO23mLaq03MZr57o3noCDuC4mxDhaj8+Xgk0z4WXb9zxEIgSwyYzfoc2O7a4ct221In0sFfML1GBw7UVQbGiJ/fTjrZeFmBIb6ARUAUKRFq2u/RDiemd0rTcCOqM6bw96E16v1+x2cdXvPMw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
+ 164.130.1.60) smtp.rcpttodomain=posteo.net smtp.mailfrom=foss.st.com;
+ dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=VQgBn9GaPqeyhE08fH8KVG5lWbgt/9WN/M0N99BPnms=;
+ b=hrBQUcSMQM30+xYJ0yVksd4Aei8wHNrGHujV8N37X5ZfEOgaVEm/K+RyBaT5lflpLYzOpVnuXi30a2zLPtoUKeJadUMF98DlHKIvk0YEsy/IhHf7WUhZ1/28rEyznj2on9JLJT2XBC8mu0HO368OEN6QeV1qZvixybceNUm8Esw78ygML+x9wtK62xeUzMHUMhjUEOcYuEjGfiCb6uWl1jV1thjNDVL0KoyiE/lRTO55sL8O8/NWQjBzjt6JwMDZeSInyHg9xEm1OSfFyeTqFcJhXDzfM5ezy7butsTBHiRDyqgHQv5Ca/84HyuFaXtDEoS2iZ4mcl+bEJqaFtBStw==
+Received: from ZRAP278CA0002.CHEP278.PROD.OUTLOOK.COM (2603:10a6:910:10::12)
+ by DU0PR10MB6608.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:10:403::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.15; Tue, 8 Sep
+ 2026 08:52:57 +0000
+Received: from MI3PEPF0000847F.eurprd02.prod.outlook.com
+ (2603:10a6:910:10:cafe::2e) by ZRAP278CA0002.outlook.office365.com
+ (2603:10a6:910:10::12) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.15 via Frontend Transport; Tue, 8
+ Sep 2026 08:52:56 +0000
+X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 164.130.1.60)
+ smtp.mailfrom=foss.st.com; dkim=none (message not signed)
+ header.d=none;dmarc=fail action=none header.from=foss.st.com;
+Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
+ designate 164.130.1.60 as permitted sender) receiver=protection.outlook.com;
+ client-ip=164.130.1.60; helo=smtpO365.st.com;
+Received: from smtpO365.st.com (164.130.1.60) by
+ MI3PEPF0000847F.mail.protection.outlook.com (10.167.240.166) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.406.5 via Frontend Transport; Tue, 8 Sep 2026 08:52:56 +0000
+Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpO365.st.com
+ (10.250.44.72) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Tue, 8 Sep
+ 2026 10:58:21 +0200
+Received: from [192.168.8.15] (10.48.86.45) by STKDAG1NODE2.st.com
+ (10.75.128.133) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Tue, 8 Sep
+ 2026 10:52:54 +0200
+Message-ID: <7b131dede6a53c2e7f775137a7a98b7902a8487b.camel@foss.st.com>
+Subject: Re: [Linux-stm32] [PATCH] arm64: dts: st: fix arm, smc-id of the
+ SMC watchdog on stm32mp2
+From: Antonio Borneo <antonio.borneo@foss.st.com>
+To: Mateusz Nowicki <mateusz.nowicki@posteo.net>,
+	<alexandre.torgue@foss.st.com>, <mcoquelin.stm32@gmail.com>
+CC: <robh@kernel.org>, <conor+dt@kernel.org>, <devicetree@vger.kernel.org>,
+	<linux-stm32@st-md-mailman.stormreply.com>, <linux-kernel@vger.kernel.org>,
+	<krzk+dt@kernel.org>, <linux-arm-kernel@lists.infradead.org>
+Date: Tue, 8 Sep 2026 10:52:53 +0200
+In-Reply-To: <20260907091400.55954-1-mateusz.nowicki@posteo.net>
+References: <20260907091400.55954-1-mateusz.nowicki@posteo.net>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.48.4 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260625031932.9412-1-skyexpoc@gmail.com> <CAOC0qyLj55itFPEurfNddWpzzcPJ4j3bvDxfWBRev_GzPLL+mw@mail.gmail.com>
- <74bcba1c-6bf4-43b0-bbb5-ef2f0490e3f7@paragon-software.com>
-In-Reply-To: <74bcba1c-6bf4-43b0-bbb5-ef2f0490e3f7@paragon-software.com>
-From: =?UTF-8?B?SEUgV0VJ77yI44Ku44Kr44Kv77yJ?= <skyexpoc@gmail.com>
-Date: Tue, 8 Sep 2026 17:52:20 +0900
-X-Gm-Features: AcwNN1XHobYU14yAHDwLGyDtqdEDR7tiASY5WHgtvOcElymufa-qIxPZqIfvEDM
-Message-ID: <CAOC0qyKG=RG=7Nf0OpTYLQ5QZLhjNUMd2=YGQc4+S_SCoRBbcQ@mail.gmail.com>
-Subject: Re: [PATCH v2] fs/ntfs3: fix slab-out-of-bounds write in ni_create_attr_list()
-To: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>
-Cc: ntfs3@lists.linux.dev, linux-fsdevel@vger.kernel.org, 
-	Christian Brauner <brauner@kernel.org>, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-ClientProxiedBy: STKCAS1NODE1.st.com (10.75.128.134) To STKDAG1NODE2.st.com
+ (10.75.128.133)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MI3PEPF0000847F:EE_|DU0PR10MB6608:EE_
+X-MS-Office365-Filtering-Correlation-Id: f6d484a1-8691-4e43-716a-08df0d8693da
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|82310400026|36860700016|23010399003|1800799024|10067099003|56012099006|11063799006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	ziA6vmkJn6b0CDXNSSDqup1KsK8h4X/3rwjvYcLjAOc/kOCszaUvXDWFj7QjaBnPX5cwmtRdUINQtWx790bPedBuZAlrtdmXLgPChKMc6iYIw4GtbGEp9zYnHMac57UaL2MkGWXu9A6GFEG65ad2c8aRZe1GfCvdhbT2YCq2y1SAi1LT95ZlXTyVNrgrY+1UNr+tzFdRoI2fBeIMI30/gjKBZ8iQ9oyZceyuQdbJXzb2D/TxG9m4l31dhCQRW9MmaYAtR1q41LDOOUEmat9cLNuoVt8Ek5fZuMKdY0Y8HwT20BuJWBoI/WvA8IFZ83tURFOLdNS5kaA8AprWnrosCThet2xhlmEXgfbEnHToItFWsxqnySp5AX4HmsONYY01PHvPqH/vHUBkq6zC+DCy+m7fqn+LDcQX4SehiwSrDxjTrzlhrImmTjNnJ4wrSbXBtuadEtENRtNTgWY1wqI39bZWXczxEg04exsm2sM7S8lv2nUtw7bUb/X44dx31089nGtzLuTEEdADPG8vyuzAeXQTQdhzckprCoSS9LYOHdBCdNnJAzWj85vZQtIoo2V707WlO42WzQU0H7TU+kJyfrsimW9RWa3/0jxJ/m3VE4CuOfbi1APwa5ITNKdr9w7uXk7Cm+xUZu0VcfBlmukiSXIg9Fsr+JRMJuuE9PiRA1K+Ddm1+GZ1cHhwzuzNi3nTnpKd7/XJb7M6DycQHtokKw==
+X-Forefront-Antispam-Report:
+	CIP:164.130.1.60;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(82310400026)(36860700016)(23010399003)(1800799024)(10067099003)(56012099006)(11063799006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	X7rDzUDbyaAoK5mInJib896IiLKnnSq4dmuCygnDZsHIVfZ5FV5Umlg3HiQvaIm41RgHsGLIAn5HKYiTsKIjNMJ57zLSQ66t3fIXWNQqJQ4zl2f8RXDk6tcScAfdrWY57bXvxNnOaZQ/YAPsPcvLY1xjogoH8CIF2ILeElXsPHFPitKOKpkKYs2TnQDrFqnvgEg4M4qW4W9rjXhbJHaX2phDpEeeGgbgTSX/0BcvchaZm6/hcGplWSfDlvnam4G1yTgAVzRB0YsI4kIwLOqUCXzzXBe+GcDGXk3ui+QP+Dwoya97i6ywEARxZI+LccJucruzo2+jwn5qkWbDO6XJ2va6dPl0zEjLiKSVoT8IaTucOt3LV41Wa2BJMDI0iyLahoanVcLYwOdDiFFVi/YHI9rEiNikdeitDF9XX3HsbrhOv5A6mHYNZxbu2QzTru80
+X-OriginatorOrg: foss.st.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Sep 2026 08:52:56.6402
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: f6d484a1-8691-4e43-716a-08df0d8693da
+X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.60];Helo=[smtpO365.st.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	MI3PEPF0000847F.eurprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU0PR10MB6608
 
-Thanks for clarifying. Since the upstream commit did not carry the
-stable tag, could the stable team please consider backporting commit
-7c4841e2a627 to the applicable supported stable trees? This fixes an
-attacker-controlled on-disk slab-out-of-bounds write. My v2 carried
-Cc: stable@vger.kernel.org, but the functionally identical v1 was the
-version merged upstream.
+On Mon, 2026-09-07 at 09:14 +0000, Mateusz Nowicki wrote:
+> OP-TEE implements the STM32MP2 watchdog SMC service with function ID
+> 0xbc000000 (CFG_WDT_SM_HANDLER_ID), not 0xb200005a. With the current
+> value the arm_smc_wdt probe fails with -EIO and the IWDG started by the
+> bootloader is never refreshed.
+>=20
+> Fixes: 89fca38168c9 ("arm64: dts: st: add arm-wdt node for watchdog suppo=
+rt on stm32mp251")
+> Fixes: e9b03ef21386 ("arm64: dts: st: introduce stm32mp23 SoCs family")
+> Signed-off-by: Mateusz Nowicki <mateusz.nowicki@posteo.net>
+
+Reviewed-by: Antonio Borneo <antonio.borneo@foss.st.com>
 
 Thanks,
-He Wei=EF=BC=88=E3=82=AE=E3=82=AB=E3=82=AF=EF=BC=89
-
-Konstantin Komarov <almaz.alexandrovich@paragon-software.com>
-=E4=BA=8E2026=E5=B9=B49=E6=9C=888=E6=97=A5=E5=91=A8=E4=BA=8C 17:41=E5=86=99=
-=E9=81=93=EF=BC=9A
->
-> On 7/6/26 06:40, HE WEI=EF=BC=88=E3=82=AE=E3=82=AB=E3=82=AF=EF=BC=89 wrot=
-e:
->
-> > Hi Konstantin,
-> >
-> > Gentle ping on this v2. It's an attacker-controlled on-disk image heap
-> > out-of-bounds write in ni_create_attr_list(),
-> > reachable via setxattr on a crafted, loop-mounted NTFS image (KASAN
-> > trace is in the commit message), which is why it's Cc'd to stable.
-> >
-> > For the record, the fix was first posted as v1 on 2026-06-10:
-> > https://lore.kernel.org/ntfs3/20260610002929.51765-1-skyexpoc@gmail.com=
-/
-> > This v2 (2026-06-25) only adds Cc: stable and widens review to
-> > linux-fsdevel; the fix itself is unchanged from v1.
-> >
-> > Could you let me know if you'd like any changes, or whether it can be
-> > queued for a future bugfix pull? I'm happy to rebase or adjust as
-> > needed.
-> >
-> > Thanks,
-> > HE WEI (=E3=82=AE=E3=82=AB=E3=82=AF)
-> >
-> > hewei-gikaku <skyexpoc@gmail.com> =E4=BA=8E2026=E5=B9=B46=E6=9C=8825=E6=
-=97=A5=E5=91=A8=E5=9B=9B 12:19=E5=86=99=E9=81=93=EF=BC=9A
-> >> From: HE WEI (=E3=82=AE=E3=82=AB=E3=82=AF) <skyexpoc@gmail.com>
-> >>
-> >> ni_create_attr_list() allocates a fixed buffer of al_aligned(record_si=
-ze)
-> >> (=3D=3D record_size) bytes and then walks every attribute of the prima=
-ry MFT
-> >> record, writing one ATTR_LIST_ENTRY per attribute and advancing the cu=
-rsor
-> >> by le_size(name_len), with no check against the end of the buffer; the
-> >> total size is only computed after the loop.
-> >>
-> >> A minimum-size resident attribute occupies SIZEOF_RESIDENT (0x18 =3D 2=
-4)
-> >> bytes on disk, but an unnamed attribute expands to le_size(0) (0x20 =
-=3D 32)
-> >> bytes in the list.  Because the number of attributes in a record is no=
-t
-> >> bounded (mi_enum_attr() accepts arbitrarily many equal-type, nameless
-> >> minimum-size attributes), a crafted record packed with such attributes
-> >> produces a list larger than record_size and overflows the heap buffer.
-> >>
-> >> This is reachable from a crafted, loop-mounted NTFS image: opening the=
- file
-> >> and adding an attribute (e.g. via setxattr) drives ntfs_set_ea() ->
-> >> ni_insert_resident() -> ni_insert_attr() -> ni_ins_attr_ext() ->
-> >> ni_create_attr_list().
-> >>
-> >>    BUG: KASAN: slab-out-of-bounds in ni_create_attr_list+0xc48/0x1058
-> >>    Write of size 4 at addr ffff000008984c00 by task setfattr/345
-> >>     ni_create_attr_list+0xc48/0x1058
-> >>     ni_ins_attr_ext+0x510/0x7c0
-> >>     ni_insert_attr+0x3f8/0x70c
-> >>     ni_insert_resident+0xc8/0x3b0
-> >>     ntfs_set_ea+0x66c/0xd28
-> >>     ntfs_setxattr+0x4d8/0x5b0
-> >>     __arm64_sys_setxattr+0xa4/0x124
-> >>    Allocated by task 345:
-> >>     ni_create_attr_list+0x188/0x1058
-> >>    The buggy address belongs to the cache kmalloc-1k of size 1024
-> >>    (the write lands at object+1024).
-> >>
-> >> Size the buffer from the actual attributes instead of assuming a singl=
-e
-> >> record_size is always enough.
-> >>
-> >> Fixes: 4342306f0f0d ("fs/ntfs3: Add file operations and implementation=
-")
-> >> Cc: stable@vger.kernel.org
-> >> Signed-off-by: HE WEI (=E3=82=AE=E3=82=AB=E3=82=AF) <skyexpoc@gmail.co=
-m>
-> >> ---
-> >> v2:
-> >>   - Add Cc: stable@vger.kernel.org: this is an attacker-controlled on-=
-disk
-> >>     image heap out-of-bounds write and should be backported.
-> >>   - No functional change from v1; widening Cc (linux-fsdevel, VFS) for
-> >>     review, as the v1 posting received no response.
-> >>   - Drop a redundant self Reported-by.
-> >>
-> >> v1: https://lore.kernel.org/all/20260610002929.51765-1-skyexpoc@gmail.=
-com/
-> >> ---
-> >>   fs/ntfs3/frecord.c | 20 ++++++++++++++++----
-> >>   1 file changed, 16 insertions(+), 4 deletions(-)
-> >>
-> >> diff --git a/fs/ntfs3/frecord.c b/fs/ntfs3/frecord.c
-> >> index 2e901d073fe9..6488d7a415c0 100644
-> >> --- a/fs/ntfs3/frecord.c
-> >> +++ b/fs/ntfs3/frecord.c
-> >> @@ -768,10 +768,23 @@ int ni_create_attr_list(struct ntfs_inode *ni)
-> >>          rs =3D sbi->record_size;
-> >>
-> >>          /*
-> >> -        * Skip estimating exact memory requirement.
-> >> -        * Looks like one record_size is always enough.
-> >> +        * Compute the exact size of the attribute list.  Each attribu=
-te in the
-> >> +        * record yields one ATTR_LIST_ENTRY of le_size(name_len) byte=
-s.  The
-> >> +        * minimum on-disk attribute is SIZEOF_RESIDENT (0x18) bytes, =
-but an
-> >> +        * unnamed one expands to le_size(0) (0x20) here, so a record =
-crafted
-> >> +        * with many such attributes needs more than a single record_s=
-ize; the
-> >> +        * previous fixed kzalloc(record_size) could therefore be over=
-flowed by
-> >> +        * an attacker-controlled record.
-> >>           */
-> >> -       le =3D kzalloc(al_aligned(rs), GFP_NOFS);
-> >> +       lsize =3D 0;
-> >> +       attr =3D NULL;
-> >> +       while ((attr =3D mi_enum_attr(ni, &ni->mi, attr)))
-> >> +               lsize +=3D le_size(attr->name_len);
-> >> +
-> >> +       if (!lsize)
-> >> +               return -EINVAL;
-> >> +
-> >> +       le =3D kzalloc(al_aligned(lsize), GFP_NOFS);
-> >>          if (!le)
-> >>                  return -ENOMEM;
-> >>
-> >> @@ -781,7 +794,6 @@ int ni_create_attr_list(struct ntfs_inode *ni)
-> >>          attr =3D NULL;
-> >>          nb =3D 0;
-> >>          free_b =3D 0;
-> >> -       attr =3D NULL;
-> >>
-> >>          for (; (attr =3D mi_enum_attr(ni, &ni->mi, attr)); le =3D Add=
-2Ptr(le, sz)) {
-> >>                  sz =3D le_size(attr->name_len);
-> >> --
-> >> 2.43.0
->
-> Hello,
->
-> Sorry for the confusion. The fix is already upstream: v1 was applied as
-> commit 7c4841e2a627 ("fs/ntfs3: fix slab-out-of-bounds write in
-> ni_create_attr_list()"), in v7.3-rc1. v2 is functionally identical, so
-> there is nothing further for me to apply.
->
-> The applied commit does not carry Cc: stable, though, so it has not
-> been backported.
->
-> Thanks for the fix, and for following up on it.
->
-> Regards,
-> Konstantin
->
+Antonio
