@@ -1,31 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F18B55616B2;
-	Tue,  8 Sep 2026 15:30:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DC24556BBA;
+	Tue,  8 Sep 2026 15:30:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788881427; cv=none; b=GYcqm9DcuWOyzNvRrMNEC4ZIRzxmgLJTC7YuMbBwcln0kHNGtfYvoKoNawrH6vEhnKDWsL2tXk+mIJz+D2OCSdkRGhW20zZS0ukY6ZiYVwVtBusN+XHgaqiIGeS2xt2UNw1c7mJNhfa5NiiFzycNMkWEETqUP2RFolOoYZY5XTY=
+	t=1788881449; cv=none; b=flgoCzyv0BvTsrD53xa8je/8cWHQmhh8Yaw37Uun8nq53SkR6+NnDMDU9T6OqZxMv3FfmeA0xRq+Ghy/rkd5U9GrHQMFsCywfFJRheYz6z+Q1f1io4nJiYbPUItURXvHmNYBn6My44R13vtJCs38Ebf8vaJtGM1aAl/l+R6yRk8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788881427; c=relaxed/simple;
-	bh=TgC7Qds9Ybm8um7dic9eJEWyXuS2ukabCTVVUZ1VnOk=;
+	s=arc-20240116; t=1788881449; c=relaxed/simple;
+	bh=QZjzJGR1XOmtk5JtHq1HNAy2ia1atKueZJt4Emy3FEc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Autbo2sjNu7LcBOOxoAsYfE5/Qdppi6hPW+qh40n56KTdMHRaIKXwpPVwz/lR5OoKNbmuNMV66J1q2Mp7Wd2f0I+WJsYe8uzlEk5qpeeBjmNRwIWa+kjl1h2cTblNDWI4d49P5K0dbYyfFhDJsS/3JzRroUGDmMmDgVqvB76qEs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=h1H1hUZR; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=Ngt1a4Isco5RiHhTsynnWa4m4t+7sBo26Zi4b47hCDJWxOFv1hRzTXs1FwF+xm87NAhC3Vij8xxp67it0vmUJNfymTBvgPnICevgyanf7XCwoFmXE+iWJ6lge5Pk4Mpo/TbBk5+STwrk9+Fpm08NyQACJVxaL0hG42RMowyDkDI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lU5QEf0E; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="h1H1hUZR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8EB791F00ADF;
-	Tue,  8 Sep 2026 15:29:49 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lU5QEf0E"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 70B8A1F00A3E;
+	Tue,  8 Sep 2026 15:30:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788881398;
-	bh=3SEkswK6wWK4+rtPej9bTDHXUt1Aj0qpi15ZREJptHA=;
+	s=k20260515; t=1788881417;
+	bh=MllwV7oi+bhJifdGUI8Pcj1yqOBA829Kml+KTXkrXA4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=h1H1hUZRX6DE0k5WaqzW/9+hdyicmE9n8Kr1vU0IX6JSPAr5NYk9uCp0eWa1hYMSJ
-	 ybBICQJYiGCFFZNOeNlaJ5ID+bTs+fuP5HJDntnjwdgXhZCfgDrDfxE7+JktuEyVgu
-	 RSFyyZ268uB4zFb1GTQj+pCQW81CBDOm61ckuqR5VlAmwQYW2iYZgukBQkt/kqDwv7
-	 KzknwueGvs9AWC6v0tTLkNySunozTR3enAUerlHNQ5Dp/VxuI4jGXsjgbfNmMs34cW
-	 FrImi60pCrBCNxcIZxZUl3FJu5+3qgNTnEWGD8ZVwG2gg1R93P0GkyfVFrJ3bTlEFa
-	 lKQC00VNJ5fiw==
+	b=lU5QEf0EXQnyKgEZoJPP9vbyKeQ9YW6DNqgTOgXzUswWkjGgGlp3wDh+RzYRhrS3v
+	 Mua7gS4pHtmDRnqb2Z7lzeNrcrQSw37GHUB249f1mfaf0BGgdsZJuJscsm/XFJXvLh
+	 JQHaIuRBu28PXUmSq09qWUbZh6sYu66k7HzMrwnCnHH3rafzjbG27euJayU5jHd2eL
+	 wiY+6QyRRfPFwa4Jx3DKRomNnWUcXUnT+oT3xSzCTIntQT91qrqF0ue9ZqUEpVcM16
+	 XhVLkH6rARVjXAB5j9tYG9CB9cEXqV4M4dVuk2IzQWxgsRh1H8FaVJpbXBCgJ5f23+
+	 6a7BVXRWIujfg==
 From: Arnd Bergmann <arnd@kernel.org>
 To: Krzysztof Kozlowski <krzk@kernel.org>,
 	Alexandre Belloni <alexandre.belloni@bootlin.com>,
@@ -73,10 +73,12 @@ Cc: Drew Fustini <fustini@kernel.org>,
 	linux-stm32@st-md-mailman.stormreply.com,
 	linux-omap@vger.kernel.org,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Giulio Benetti <giulio.benetti@benettiengineering.com>
-Subject: [PATCH 08/13] ARM: imx: remove nommu support
-Date: Tue,  8 Sep 2026 17:27:58 +0200
-Message-ID: <20260908152808.3928630-9-arnd@kernel.org>
+	Christophe Parant <c.parant@phytec.fr>,
+	Benjamin Gaignard <benjamin.gaignard@collabora.com>,
+	Dario Binacchi <dario.binacchi@amarulasolutions.com>
+Subject: [PATCH 10/13] ARM: stm32: remove stm32f4/f7/h7 MCU support
+Date: Tue,  8 Sep 2026 17:28:00 +0200
+Message-ID: <20260908152808.3928630-11-arnd@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260908152808.3928630-1-arnd@kernel.org>
 References: <20260908152808.3928630-1-arnd@kernel.org>
@@ -90,2975 +92,3479 @@ Content-Transfer-Encoding: 8bit
 
 From: Arnd Bergmann <arnd@arndb.de>
 
-The i.MX platform has grown support for three separate product
-lines using Cortex-M based microcontrollers over the years:
+The stm32 platform started out as a Cortex-M based microcontoller
+platform in 2007, with a few of the older products gaining Linux kernel
+support in 2016. These days, the only relevant chips for Linux are the
+stm32mp1 (Cortex-A7) and stm32mp2 (Cortex-A35) product lines, with the
+microcontrollers running smaller RTOSs on new products.
 
- - i.MX RT1050, a high-end microcontroller
- - Vybrid vf610 suppors running Linux on either the Cortex-A5
-   CPU or the Cortex-M4 MCU
- - i.MX7D similarly can run Linux on the Cortex-A7 or the
-   Cortex-M4
+The microcontrollers were marked as deprecated in the linux-7.3LTS
+release, which will remain supported for a few more years and
+is expected to be sufficient for any of the remaining original users.
 
-There are no known upstream users of any of those three, so
-drop support and simplify the platform to assume that an MMU
-is present.
+Remove the MCU support now, leaving only the stm32mp SoCs in the platform.
 
-Cc: Frank Li <Frank.Li@nxp.com>
-Cc: Sascha Hauer <s.hauer@pengutronix.de>
-Cc: Pengutronix Kernel Team <kernel@pengutronix.de>
-Cc: Fabio Estevam <festevam@gmail.com>
-Cc: Stefan Agner <stefan@agner.ch>
+Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
+Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
 Cc: Rob Herring <robh@kernel.org>
 Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
 Cc: Conor Dooley <conor+dt@kernel.org>
-Cc: Vladimir Zapolskiy <vz@mleia.com>
-Cc: Giulio Benetti <giulio.benetti@benettiengineering.com>
+Cc: Christophe Parant <c.parant@phytec.fr>
+Cc: Benjamin Gaignard <benjamin.gaignard@collabora.com>
+Cc: Dario Binacchi <dario.binacchi@amarulasolutions.com>
 Cc: devicetree@vger.kernel.org
-Cc: imx@lists.linux.dev
+Cc: linux-stm32@st-md-mailman.stormreply.com
 Signed-off-by: Arnd Bergmann <arnd@arndb.de>
 ---
- arch/arm/boot/dts/nxp/imx/Makefile            |    2 -
- arch/arm/boot/dts/nxp/imx/imxrt1050-evk.dts   |   72 -
- arch/arm/boot/dts/nxp/imx/imxrt1050-pinfunc.h |  993 -----------
- arch/arm/boot/dts/nxp/imx/imxrt1050.dtsi      |  160 --
- arch/arm/boot/dts/nxp/imx/imxrt1170-pinfunc.h | 1561 -----------------
- arch/arm/boot/dts/nxp/vf/Makefile             |    2 -
- arch/arm/boot/dts/nxp/vf/vf610m4-colibri.dts  |   61 -
- arch/arm/boot/dts/nxp/vf/vf610m4-cosmic.dts   |   88 -
- arch/arm/boot/dts/nxp/vf/vf610m4.dtsi         |   61 -
- arch/arm/configs/imxrt_defconfig              |   35 -
- arch/arm/configs/vf610m4_defconfig            |   39 -
- arch/arm/mach-imx/Kconfig                     |   27 +-
- arch/arm/mach-imx/Makefile                    |    3 -
- arch/arm/mach-imx/mach-imx7d-cm4.c            |   18 -
- arch/arm/mach-imx/mach-imxrt.c                |   19 -
- arch/arm/mach-imx/mach-vf610.c                |    1 -
- 16 files changed, 6 insertions(+), 3136 deletions(-)
- delete mode 100644 arch/arm/boot/dts/nxp/imx/imxrt1050-evk.dts
- delete mode 100644 arch/arm/boot/dts/nxp/imx/imxrt1050-pinfunc.h
- delete mode 100644 arch/arm/boot/dts/nxp/imx/imxrt1050.dtsi
- delete mode 100644 arch/arm/boot/dts/nxp/imx/imxrt1170-pinfunc.h
- delete mode 100644 arch/arm/boot/dts/nxp/vf/vf610m4-colibri.dts
- delete mode 100644 arch/arm/boot/dts/nxp/vf/vf610m4-cosmic.dts
- delete mode 100644 arch/arm/boot/dts/nxp/vf/vf610m4.dtsi
- delete mode 100644 arch/arm/configs/imxrt_defconfig
- delete mode 100644 arch/arm/configs/vf610m4_defconfig
- delete mode 100644 arch/arm/mach-imx/mach-imx7d-cm4.c
- delete mode 100644 arch/arm/mach-imx/mach-imxrt.c
+ Documentation/arch/arm/index.rst              |   5 -
+ Documentation/arch/arm/stm32/overview.rst     |   8 +-
+ .../arch/arm/stm32/stm32f429-overview.rst     |  25 -
+ .../arch/arm/stm32/stm32f746-overview.rst     |  32 -
+ .../arch/arm/stm32/stm32f769-overview.rst     |  34 -
+ .../arch/arm/stm32/stm32h743-overview.rst     |  33 -
+ .../arch/arm/stm32/stm32h750-overview.rst     |  34 -
+ arch/arm/Kconfig.debug                        |  38 -
+ arch/arm/boot/dts/st/Makefile                 |  11 -
+ arch/arm/boot/dts/st/stm32429i-eval.dts       | 349 --------
+ arch/arm/boot/dts/st/stm32746g-eval.dts       | 236 ------
+ arch/arm/boot/dts/st/stm32f4-pinctrl.dtsi     | 482 -----------
+ arch/arm/boot/dts/st/stm32f429-disco.dts      | 243 ------
+ arch/arm/boot/dts/st/stm32f429-pinctrl.dtsi   |  91 --
+ arch/arm/boot/dts/st/stm32f429.dtsi           | 800 ------------------
+ arch/arm/boot/dts/st/stm32f469-disco.dts      | 260 ------
+ arch/arm/boot/dts/st/stm32f469-pinctrl.dtsi   |  92 --
+ arch/arm/boot/dts/st/stm32f469.dtsi           |  18 -
+ arch/arm/boot/dts/st/stm32f7-pinctrl.dtsi     | 436 ----------
+ arch/arm/boot/dts/st/stm32f746-disco.dts      | 234 -----
+ arch/arm/boot/dts/st/stm32f746-pinctrl.dtsi   |  55 --
+ arch/arm/boot/dts/st/stm32f746.dtsi           | 727 ----------------
+ .../dts/st/stm32f769-disco-mb1166-reva09.dts  |  13 -
+ arch/arm/boot/dts/st/stm32f769-disco.dts      | 243 ------
+ arch/arm/boot/dts/st/stm32f769-pinctrl.dtsi   |  55 --
+ arch/arm/boot/dts/st/stm32f769.dtsi           |  37 -
+ arch/arm/boot/dts/st/stm32h7-pinctrl.dtsi     | 301 -------
+ arch/arm/boot/dts/st/stm32h743.dtsi           | 738 ----------------
+ arch/arm/boot/dts/st/stm32h743i-disco.dts     | 145 ----
+ arch/arm/boot/dts/st/stm32h743i-eval.dts      | 185 ----
+ arch/arm/boot/dts/st/stm32h747i-disco.dts     | 149 ----
+ arch/arm/boot/dts/st/stm32h750.dtsi           |   6 -
+ arch/arm/boot/dts/st/stm32h750i-art-pi.dts    | 229 -----
+ arch/arm/configs/stm32_defconfig              |  80 --
+ arch/arm/mach-stm32/Kconfig                   |  38 +-
+ arch/arm/mach-stm32/board-dt.c                |   7 -
+ 36 files changed, 7 insertions(+), 6462 deletions(-)
+ delete mode 100644 Documentation/arch/arm/stm32/stm32f429-overview.rst
+ delete mode 100644 Documentation/arch/arm/stm32/stm32f746-overview.rst
+ delete mode 100644 Documentation/arch/arm/stm32/stm32f769-overview.rst
+ delete mode 100644 Documentation/arch/arm/stm32/stm32h743-overview.rst
+ delete mode 100644 Documentation/arch/arm/stm32/stm32h750-overview.rst
+ delete mode 100644 arch/arm/boot/dts/st/stm32429i-eval.dts
+ delete mode 100644 arch/arm/boot/dts/st/stm32746g-eval.dts
+ delete mode 100644 arch/arm/boot/dts/st/stm32f4-pinctrl.dtsi
+ delete mode 100644 arch/arm/boot/dts/st/stm32f429-disco.dts
+ delete mode 100644 arch/arm/boot/dts/st/stm32f429-pinctrl.dtsi
+ delete mode 100644 arch/arm/boot/dts/st/stm32f429.dtsi
+ delete mode 100644 arch/arm/boot/dts/st/stm32f469-disco.dts
+ delete mode 100644 arch/arm/boot/dts/st/stm32f469-pinctrl.dtsi
+ delete mode 100644 arch/arm/boot/dts/st/stm32f469.dtsi
+ delete mode 100644 arch/arm/boot/dts/st/stm32f7-pinctrl.dtsi
+ delete mode 100644 arch/arm/boot/dts/st/stm32f746-disco.dts
+ delete mode 100644 arch/arm/boot/dts/st/stm32f746-pinctrl.dtsi
+ delete mode 100644 arch/arm/boot/dts/st/stm32f746.dtsi
+ delete mode 100644 arch/arm/boot/dts/st/stm32f769-disco-mb1166-reva09.dts
+ delete mode 100644 arch/arm/boot/dts/st/stm32f769-disco.dts
+ delete mode 100644 arch/arm/boot/dts/st/stm32f769-pinctrl.dtsi
+ delete mode 100644 arch/arm/boot/dts/st/stm32f769.dtsi
+ delete mode 100644 arch/arm/boot/dts/st/stm32h7-pinctrl.dtsi
+ delete mode 100644 arch/arm/boot/dts/st/stm32h743.dtsi
+ delete mode 100644 arch/arm/boot/dts/st/stm32h743i-disco.dts
+ delete mode 100644 arch/arm/boot/dts/st/stm32h743i-eval.dts
+ delete mode 100644 arch/arm/boot/dts/st/stm32h747i-disco.dts
+ delete mode 100644 arch/arm/boot/dts/st/stm32h750.dtsi
+ delete mode 100644 arch/arm/boot/dts/st/stm32h750i-art-pi.dts
+ delete mode 100644 arch/arm/configs/stm32_defconfig
 
-diff --git a/arch/arm/boot/dts/nxp/imx/Makefile b/arch/arm/boot/dts/nxp/imx/Makefile
-index e0747cb6e772..288d16d9315d 100644
---- a/arch/arm/boot/dts/nxp/imx/Makefile
-+++ b/arch/arm/boot/dts/nxp/imx/Makefile
-@@ -452,5 +452,3 @@ dtb-$(CONFIG_SOC_IMX7D) += \
- dtb-$(CONFIG_SOC_IMX7ULP) += \
- 	imx7ulp-com.dtb \
- 	imx7ulp-evk.dtb
--dtb-$(CONFIG_SOC_IMXRT) += \
--	imxrt1050-evk.dtb
-diff --git a/arch/arm/boot/dts/nxp/imx/imxrt1050-evk.dts b/arch/arm/boot/dts/nxp/imx/imxrt1050-evk.dts
+diff --git a/Documentation/arch/arm/index.rst b/Documentation/arch/arm/index.rst
+index 17d6a5bbfc26..70bc418fdb38 100644
+--- a/Documentation/arch/arm/index.rst
++++ b/Documentation/arch/arm/index.rst
+@@ -47,12 +47,7 @@ SoC-specific documents
+ 
+    pxa/mfp
+ 
+-   stm32/stm32f746-overview
+    stm32/overview
+-   stm32/stm32h743-overview
+-   stm32/stm32h750-overview
+-   stm32/stm32f769-overview
+-   stm32/stm32f429-overview
+    stm32/stm32mp13-overview
+    stm32/stm32mp151-overview
+    stm32/stm32mp157-overview
+diff --git a/Documentation/arch/arm/stm32/overview.rst b/Documentation/arch/arm/stm32/overview.rst
+index 85cfc8410798..b63aa875cb48 100644
+--- a/Documentation/arch/arm/stm32/overview.rst
++++ b/Documentation/arch/arm/stm32/overview.rst
+@@ -5,15 +5,13 @@ STM32 ARM Linux Overview
+ Introduction
+ ------------
+ 
+-The STMicroelectronics STM32 family of Cortex-A microprocessors (MPUs) and
+-Cortex-M microcontrollers (MCUs) are supported by the 'STM32' platform of
+-ARM Linux.
++The STMicroelectronics STM32 family of Cortex-A microprocessors (MPUs) is
++supported by the 'STM32' platform of ARM Linux, support for the Cortex-M
++based MCUs is has been removed.
+ 
+ Configuration
+ -------------
+ 
+-For MCUs, use the provided default configuration:
+-        make stm32_defconfig
+ For MPUs, use multi_v7 configuration:
+         make multi_v7_defconfig
+ 
+diff --git a/Documentation/arch/arm/stm32/stm32f429-overview.rst b/Documentation/arch/arm/stm32/stm32f429-overview.rst
 deleted file mode 100644
-index 6a9c10decf52..000000000000
---- a/arch/arm/boot/dts/nxp/imx/imxrt1050-evk.dts
+index a7ebe8ea6697..000000000000
+--- a/Documentation/arch/arm/stm32/stm32f429-overview.rst
 +++ /dev/null
-@@ -1,72 +0,0 @@
--// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
+@@ -1,25 +0,0 @@
+-==================
+-STM32F429 Overview
+-==================
+-
+-Introduction
+-------------
+-
+-The STM32F429 is a Cortex-M4 MCU aimed at various applications.
+-It features:
+-
+-- ARM Cortex-M4 up to 180MHz with FPU
+-- 2MB internal Flash Memory
+-- External memory support through FMC controller (PSRAM, SDRAM, NOR, NAND)
+-- I2C, SPI, SAI, CAN, USB OTG, Ethernet controllers
+-- LCD controller & Camera interface
+-- Cryptographic processor
+-
+-Resources
+----------
+-
+-Datasheet and reference manual are publicly available on ST website (STM32F429_).
+-
+-.. _STM32F429: http://www.st.com/web/en/catalog/mmc/FM141/SC1169/SS1577/LN1806?ecmp=stm32f429-439_pron_pr-ces2014_nov2013
+-
+-:Authors: Maxime Coquelin <mcoquelin.stm32@gmail.com>
+diff --git a/Documentation/arch/arm/stm32/stm32f746-overview.rst b/Documentation/arch/arm/stm32/stm32f746-overview.rst
+deleted file mode 100644
+index 335f0855a858..000000000000
+--- a/Documentation/arch/arm/stm32/stm32f746-overview.rst
++++ /dev/null
+@@ -1,32 +0,0 @@
+-==================
+-STM32F746 Overview
+-==================
+-
+-Introduction
+-------------
+-
+-The STM32F746 is a Cortex-M7 MCU aimed at various applications.
+-It features:
+-
+-- Cortex-M7 core running up to @216MHz
+-- 1MB internal flash, 320KBytes internal RAM (+4KB of backup SRAM)
+-- FMC controller to connect SDRAM, NOR and NAND memories
+-- Dual mode QSPI
+-- SD/MMC/SDIO support
+-- Ethernet controller
+-- USB OTFG FS & HS controllers
+-- I2C, SPI, CAN buses support
+-- Several 16 & 32 bits general purpose timers
+-- Serial Audio interface
+-- LCD controller
+-- HDMI-CEC
+-- SPDIFRX
+-
+-Resources
+----------
+-
+-Datasheet and reference manual are publicly available on ST website (STM32F746_).
+-
+-.. _STM32F746: http://www.st.com/content/st_com/en/products/microcontrollers/stm32-32-bit-arm-cortex-mcus/stm32f7-series/stm32f7x6/stm32f746ng.html
+-
+-:Authors: Alexandre Torgue <alexandre.torgue@st.com>
+diff --git a/Documentation/arch/arm/stm32/stm32f769-overview.rst b/Documentation/arch/arm/stm32/stm32f769-overview.rst
+deleted file mode 100644
+index ef31aadee68f..000000000000
+--- a/Documentation/arch/arm/stm32/stm32f769-overview.rst
++++ /dev/null
+@@ -1,34 +0,0 @@
+-==================
+-STM32F769 Overview
+-==================
+-
+-Introduction
+-------------
+-
+-The STM32F769 is a Cortex-M7 MCU aimed at various applications.
+-It features:
+-
+-- Cortex-M7 core running up to @216MHz
+-- 2MB internal flash, 512KBytes internal RAM (+4KB of backup SRAM)
+-- FMC controller to connect SDRAM, NOR and NAND memories
+-- Dual mode QSPI
+-- SD/MMC/SDIO support*2
+-- Ethernet controller
+-- USB OTFG FS & HS controllers
+-- I2C*4, SPI*6, CAN*3 buses support
+-- Several 16 & 32 bits general purpose timers
+-- Serial Audio interface*2
+-- LCD controller
+-- HDMI-CEC
+-- DSI
+-- SPDIFRX
+-- MDIO salave interface
+-
+-Resources
+----------
+-
+-Datasheet and reference manual are publicly available on ST website (STM32F769_).
+-
+-.. _STM32F769: http://www.st.com/content/st_com/en/products/microcontrollers/stm32-32-bit-arm-cortex-mcus/stm32-high-performance-mcus/stm32f7-series/stm32f7x9/stm32f769ni.html
+-
+-:Authors: Alexandre Torgue <alexandre.torgue@st.com>
+diff --git a/Documentation/arch/arm/stm32/stm32h743-overview.rst b/Documentation/arch/arm/stm32/stm32h743-overview.rst
+deleted file mode 100644
+index 7659df24d362..000000000000
+--- a/Documentation/arch/arm/stm32/stm32h743-overview.rst
++++ /dev/null
+@@ -1,33 +0,0 @@
+-==================
+-STM32H743 Overview
+-==================
+-
+-Introduction
+-------------
+-
+-The STM32H743 is a Cortex-M7 MCU aimed at various applications.
+-It features:
+-
+-- Cortex-M7 core running up to @400MHz
+-- 2MB internal flash, 1MBytes internal RAM
+-- FMC controller to connect SDRAM, NOR and NAND memories
+-- Dual mode QSPI
+-- SD/MMC/SDIO support
+-- Ethernet controller
+-- USB OTFG FS & HS controllers
+-- I2C, SPI, CAN buses support
+-- Several 16 & 32 bits general purpose timers
+-- Serial Audio interface
+-- LCD controller
+-- HDMI-CEC
+-- SPDIFRX
+-- DFSDM
+-
+-Resources
+----------
+-
+-Datasheet and reference manual are publicly available on ST website (STM32H743_).
+-
+-.. _STM32H743: http://www.st.com/en/microcontrollers/stm32h7x3.html?querycriteria=productId=LN2033
+-
+-:Authors: Alexandre Torgue <alexandre.torgue@st.com>
+diff --git a/Documentation/arch/arm/stm32/stm32h750-overview.rst b/Documentation/arch/arm/stm32/stm32h750-overview.rst
+deleted file mode 100644
+index be032b77d1f1..000000000000
+--- a/Documentation/arch/arm/stm32/stm32h750-overview.rst
++++ /dev/null
+@@ -1,34 +0,0 @@
+-==================
+-STM32H750 Overview
+-==================
+-
+-Introduction
+-------------
+-
+-The STM32H750 is a Cortex-M7 MCU aimed at various applications.
+-It features:
+-
+-- Cortex-M7 core running up to @480MHz
+-- 128K internal flash, 1MBytes internal RAM
+-- FMC controller to connect SDRAM, NOR and NAND memories
+-- Dual mode QSPI
+-- SD/MMC/SDIO support
+-- Ethernet controller
+-- USB OTFG FS & HS controllers
+-- I2C, SPI, CAN buses support
+-- Several 16 & 32 bits general purpose timers
+-- Serial Audio interface
+-- LCD controller
+-- HDMI-CEC
+-- SPDIFRX
+-- DFSDM
+-
+-Resources
+----------
+-
+-Datasheet and reference manual are publicly available on ST website (STM32H750_).
+-
+-.. _STM32H750: https://www.st.com/en/microcontrollers-microprocessors/stm32h750-value-line.html
+-
+-:Authors: Dillon Min <dillon.minfei@gmail.com>
+-
+diff --git a/arch/arm/Kconfig.debug b/arch/arm/Kconfig.debug
+index e4910cf865da..3d5f2e41eef1 100644
+--- a/arch/arm/Kconfig.debug
++++ b/arch/arm/Kconfig.debug
+@@ -1128,42 +1128,6 @@ choice
+ 
+ 		  If unsure, say N.
+ 
+-	config STM32F4_DEBUG_UART
+-		bool "Use STM32F4 UART for low-level debug"
+-		depends on MACH_STM32F429 || MACH_STM32F469
+-		select DEBUG_STM32_UART
+-		help
+-		  Say Y here if you want kernel low-level debugging support
+-		  on STM32F4 based platforms, which default UART is wired on
+-		  USART1, but another UART instance can be selected by modifying
+-		  CONFIG_DEBUG_UART_PHYS.
+-
+-		  If unsure, say N.
+-
+-	config STM32F7_DEBUG_UART
+-		bool "Use STM32F7 UART for low-level debug"
+-		depends on MACH_STM32F746 || MACH_STM32F769
+-		select DEBUG_STM32_UART
+-		help
+-		  Say Y here if you want kernel low-level debugging support
+-		  on STM32F7 based platforms, which default UART is wired on
+-		  USART1, but another UART instance can be selected by modifying
+-		  CONFIG_DEBUG_UART_PHYS.
+-
+-		  If unsure, say N.
+-
+-	config STM32H7_DEBUG_UART
+-		bool "Use STM32H7 UART for low-level debug"
+-		depends on MACH_STM32H743
+-		select DEBUG_STM32_UART
+-		help
+-		  Say Y here if you want kernel low-level debugging support
+-		  on STM32H7 based platforms, which default UART is wired on
+-		  USART1, but another UART instance can be selected by modifying
+-		  CONFIG_DEBUG_UART_PHYS.
+-
+-		  If unsure, say N.
+-
+ 	config STM32MP1_DEBUG_UART
+ 		bool "Use STM32MP1 UART for low-level debug"
+ 		depends on MACH_STM32MP157
+@@ -1540,8 +1504,6 @@ config DEBUG_UART_PHYS
+ 	default 0x3e000000 if DEBUG_BCM_KONA_UART
+ 	default 0x3f201000 if DEBUG_BCM2836
+ 	default 0x40010000 if STM32MP1_DEBUG_UART
+-	default 0x40011000 if STM32F4_DEBUG_UART || STM32F7_DEBUG_UART || \
+-				STM32H7_DEBUG_UART
+ 	default 0x40028000 if DEBUG_AT91_SAMV7_USART1
+ 	default 0x40090000 if DEBUG_LPC32XX
+ 	default 0x40100000 if DEBUG_PXA_UART1
+diff --git a/arch/arm/boot/dts/st/Makefile b/arch/arm/boot/dts/st/Makefile
+index 10c5d75f6169..733ae4cc418b 100644
+--- a/arch/arm/boot/dts/st/Makefile
++++ b/arch/arm/boot/dts/st/Makefile
+@@ -102,17 +102,6 @@ stm32mp15xx-dhcom-picoitx-overlay-626-100-x2-ch101olhlwh-dtbs := \
+ 	stm32mp15xx-dhcom-picoitx-overlay-626-100-x2-ch101olhlwh.dtbo \
+ 
+ dtb-$(CONFIG_ARCH_STM32) += \
+-	stm32f429-disco.dtb \
+-	stm32f469-disco.dtb \
+-	stm32f746-disco.dtb \
+-	stm32f769-disco.dtb \
+-	stm32f769-disco-mb1166-reva09.dtb \
+-	stm32429i-eval.dtb \
+-	stm32746g-eval.dtb \
+-	stm32h743i-eval.dtb \
+-	stm32h743i-disco.dtb \
+-	stm32h747i-disco.dtb \
+-	stm32h750i-art-pi.dtb \
+ 	stm32mp133c-prihmb.dtb \
+ 	stm32mp135f-dhcor-dhsbc.dtb \
+ 	stm32mp13xx-dhcor-dhsbc-overlay-rb-tft32-v2.dtb \
+diff --git a/arch/arm/boot/dts/st/stm32429i-eval.dts b/arch/arm/boot/dts/st/stm32429i-eval.dts
+deleted file mode 100644
+index f4b1c4eb64f2..000000000000
+--- a/arch/arm/boot/dts/st/stm32429i-eval.dts
++++ /dev/null
+@@ -1,349 +0,0 @@
 -/*
-- * Copyright (C) 2019
-- * Author(s): Giulio Benetti <giulio.benetti@benettiengineering.com>
+- * Copyright 2015 - Maxime Coquelin <mcoquelin.stm32@gmail.com>
+- *
+- * This file is dual-licensed: you can use it either under the terms
+- * of the GPL or the X11 license, at your option. Note that this dual
+- * licensing only applies to this file, and not this project as a
+- * whole.
+- *
+- *  a) This file is free software; you can redistribute it and/or
+- *     modify it under the terms of the GNU General Public License as
+- *     published by the Free Software Foundation; either version 2 of the
+- *     License, or (at your option) any later version.
+- *
+- *     This file is distributed in the hope that it will be useful,
+- *     but WITHOUT ANY WARRANTY; without even the implied warranty of
+- *     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+- *     GNU General Public License for more details.
+- *
+- *     You should have received a copy of the GNU General Public
+- *     License along with this file; if not, write to the Free
+- *     Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston,
+- *     MA 02110-1301 USA
+- *
+- * Or, alternatively,
+- *
+- *  b) Permission is hereby granted, free of charge, to any person
+- *     obtaining a copy of this software and associated documentation
+- *     files (the "Software"), to deal in the Software without
+- *     restriction, including without limitation the rights to use,
+- *     copy, modify, merge, publish, distribute, sublicense, and/or
+- *     sell copies of the Software, and to permit persons to whom the
+- *     Software is furnished to do so, subject to the following
+- *     conditions:
+- *
+- *     The above copyright notice and this permission notice shall be
+- *     included in all copies or substantial portions of the Software.
+- *
+- *     THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+- *     EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+- *     OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+- *     NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+- *     HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+- *     WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+- *     FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+- *     OTHER DEALINGS IN THE SOFTWARE.
 - */
 -
 -/dts-v1/;
--#include "imxrt1050.dtsi"
--#include "imxrt1050-pinfunc.h"
+-#include "stm32f429.dtsi"
+-#include "stm32f429-pinctrl.dtsi"
+-#include <dt-bindings/gpio/gpio.h>
+-#include <dt-bindings/input/input.h>
+-#include <dt-bindings/leds/common.h>
+-#include <dt-bindings/media/video-interfaces.h>
 -
 -/ {
--	model = "NXP IMXRT1050-evk board";
--	compatible = "fsl,imxrt1050-evk", "fsl,imxrt1050";
+-	model = "STMicroelectronics STM32429i-EVAL board";
+-	compatible = "st,stm32429i-eval", "st,stm32f429";
 -
 -	chosen {
--		stdout-path = &lpuart1;
+-		bootargs = "root=/dev/ram";
+-		stdout-path = "serial0:115200n8";
+-	};
+-
+-	memory@0 {
+-		device_type = "memory";
+-		reg = <0x00000000 0x2000000>;
 -	};
 -
 -	aliases {
--		gpio0 = &gpio1;
--		gpio1 = &gpio2;
--		gpio2 = &gpio3;
--		gpio3 = &gpio4;
--		gpio4 = &gpio5;
--		mmc0 = &usdhc1;
--		serial0 = &lpuart1;
+-		serial0 = &usart1;
 -	};
 -
--	memory@80000000 {
+-	clocks {
+-		clk_ext_camera: clk-ext-camera {
+-			#clock-cells = <0>;
+-			compatible = "fixed-clock";
+-			clock-frequency = <24000000>;
+-		};
+-	};
+-
+-	soc {
+-		dma-ranges = <0xc0000000 0x0 0x10000000>;
+-	};
+-
+-	leds {
+-		compatible = "gpio-leds";
+-		led_green: led-green {
+-			function = LED_FUNCTION_HEARTBEAT;
+-			color = <LED_COLOR_ID_GREEN>;
+-			gpios = <&gpiog 6 1>;
+-			linux,default-trigger = "heartbeat";
+-		};
+-		led-orange {
+-			color = <LED_COLOR_ID_ORANGE>;
+-			gpios = <&gpiog 7 1>;
+-		};
+-		led-red {
+-			color = <LED_COLOR_ID_RED>;
+-			gpios = <&gpiog 10 1>;
+-		};
+-		led-blue {
+-			color = <LED_COLOR_ID_BLUE>;
+-			gpios = <&gpiog 12 1>;
+-		};
+-	};
+-
+-	gpio-keys {
+-		compatible = "gpio-keys";
+-		autorepeat;
+-		button-0 {
+-			label = "Wake up";
+-			linux,code = <KEY_WAKEUP>;
+-			gpios = <&gpioa 0 0>;
+-		};
+-		button-1 {
+-			label = "Tamper";
+-			linux,code = <KEY_RESTART>;
+-			gpios = <&gpioc 13 0>;
+-		};
+-	};
+-
+-	mmc_vcard: mmc_vcard {
+-		compatible = "regulator-fixed";
+-		regulator-name = "mmc_vcard";
+-		regulator-min-microvolt = <3300000>;
+-		regulator-max-microvolt = <3300000>;
+-	};
+-
+-	options {
+-		u-boot {
+-			compatible = "u-boot,config";
+-			boot-led = <&led_green>;
+-		};
+-	};
+-
+-	panel_rgb: panel-rgb {
+-		compatible = "ampire,am-480272h3tmqw-t01h";
+-		power-supply = <&vdd_panel>;
+-		status = "okay";
+-		port {
+-			panel_in_rgb: endpoint {
+-				remote-endpoint = <&ltdc_out_rgb>;
+-			};
+-		};
+-	};
+-
+-	vdda: regulator-vdda {
+-		compatible = "regulator-fixed";
+-		regulator-name = "vdda";
+-		regulator-min-microvolt = <3300000>;
+-		regulator-max-microvolt = <3300000>;
+-	};
+-
+-	vref: regulator-vref {
+-		compatible = "regulator-fixed";
+-		regulator-name = "vref";
+-		regulator-min-microvolt = <3300000>;
+-		regulator-max-microvolt = <3300000>;
+-	};
+-
+-	usbotg_hs_phy: usbphy {
+-		#phy-cells = <0>;
+-		compatible = "usb-nop-xceiv";
+-		clocks = <&rcc 0 STM32F4_AHB1_CLOCK(OTGHSULPI)>;
+-		clock-names = "main_clk";
+-	};
+-
+-	vdd_panel: vdd-panel {
+-		compatible = "regulator-fixed";
+-		regulator-name = "vdd_panel";
+-		regulator-min-microvolt = <3300000>;
+-		regulator-max-microvolt = <3300000>;
+-	};
+-};
+-
+-&adc {
+-	pinctrl-names = "default";
+-	pinctrl-0 = <&adc3_in8_pin>;
+-	vdda-supply = <&vdda>;
+-	vref-supply = <&vref>;
+-	status = "okay";
+-	adc3: adc@200 {
+-		st,adc-channels = <8>;
+-		status = "okay";
+-	};
+-};
+-
+-&clk_hse {
+-	clock-frequency = <25000000>;
+-};
+-
+-&crc {
+-	status = "okay";
+-};
+-
+-&dcmi {
+-	status = "okay";
+-
+-	port {
+-		dcmi_0: endpoint {
+-			remote-endpoint = <&ov2640_0>;
+-			bus-type = <MEDIA_BUS_TYPE_PARALLEL>;
+-			bus-width = <8>;
+-			hsync-active = <0>;
+-			vsync-active = <0>;
+-			pclk-sample = <1>;
+-		};
+-	};
+-};
+-
+-&i2c1 {
+-	pinctrl-0 = <&i2c1_pins>;
+-	pinctrl-names = "default";
+-	status = "okay";
+-
+-	ov2640: camera@30 {
+-		compatible = "ovti,ov2640";
+-		reg = <0x30>;
+-		resetb-gpios = <&stmpegpio 2 GPIO_ACTIVE_HIGH>;
+-		pwdn-gpios = <&stmpegpio 0 GPIO_ACTIVE_LOW>;
+-		clocks = <&clk_ext_camera>;
+-		clock-names = "xvclk";
+-		status = "okay";
+-
+-		port {
+-			ov2640_0: endpoint {
+-				remote-endpoint = <&dcmi_0>;
+-			};
+-		};
+-	};
+-
+-	stmpe1600: stmpe1600@42 {
+-		compatible = "st,stmpe1600";
+-		reg = <0x42>;
+-		interrupts = <8 3>;
+-		interrupt-parent = <&gpioi>;
+-		wakeup-source;
+-
+-		stmpegpio: stmpe_gpio {
+-			compatible = "st,stmpe-gpio";
+-			gpio-controller;
+-			#gpio-cells = <2>;
+-		};
+-	};
+-};
+-
+-&iwdg {
+-	status = "okay";
+-	timeout-sec = <32>;
+-};
+-
+-&ltdc {
+-	status = "okay";
+-	pinctrl-0 = <&ltdc_pins_a>;
+-	pinctrl-names = "default";
+-
+-	port {
+-		ltdc_out_rgb: endpoint {
+-			remote-endpoint = <&panel_in_rgb>;
+-		};
+-	};
+-};
+-
+-&mac {
+-	status = "okay";
+-	pinctrl-0 = <&ethernet_mii>;
+-	pinctrl-names = "default";
+-	phy-mode = "mii";
+-	phy-handle = <&phy1>;
+-	mdio0 {
+-		#address-cells = <1>;
+-		#size-cells = <0>;
+-		compatible = "snps,dwmac-mdio";
+-		phy1: ethernet-phy@1 {
+-			reg = <1>;
+-		};
+-	};
+-};
+-
+-&rtc {
+-	status = "okay";
+-};
+-
+-&sdio {
+-	status = "okay";
+-	vmmc-supply = <&mmc_vcard>;
+-	cd-gpios = <&stmpegpio 15 GPIO_ACTIVE_LOW>;
+-	pinctrl-names = "default", "opendrain";
+-	pinctrl-0 = <&sdio_pins>;
+-	pinctrl-1 = <&sdio_pins_od>;
+-	bus-width = <4>;
+-	max-frequency = <12500000>;
+-};
+-
+-&timers1 {
+-	status = "okay";
+-
+-	pwm {
+-		pinctrl-0 = <&pwm1_pins>;
+-		pinctrl-names = "default";
+-		status = "okay";
+-	};
+-
+-	timer@0 {
+-		status = "okay";
+-	};
+-};
+-
+-&timers3 {
+-	status = "okay";
+-
+-	pwm {
+-		pinctrl-0 = <&pwm3_pins>;
+-		pinctrl-names = "default";
+-		status = "okay";
+-	};
+-
+-	timer@2 {
+-		status = "okay";
+-	};
+-};
+-
+-&timers5 {
+-	/* Override timer5 to act as clockevent */
+-	compatible = "st,stm32-timer";
+-	interrupts = <50>;
+-	status = "okay";
+-	/delete-property/#address-cells;
+-	/delete-property/#size-cells;
+-	/delete-property/clock-names;
+-	/delete-node/pwm;
+-	/delete-node/timer@4;
+-};
+-
+-&usart1 {
+-	pinctrl-0 = <&usart1_pins_a>;
+-	pinctrl-names = "default";
+-	status = "okay";
+-};
+-
+-&usbotg_hs {
+-	dr_mode = "host";
+-	phys = <&usbotg_hs_phy>;
+-	phy-names = "usb2-phy";
+-	pinctrl-0 = <&usbotg_hs_pins_a>;
+-	pinctrl-names = "default";
+-	status = "okay";
+-};
+diff --git a/arch/arm/boot/dts/st/stm32746g-eval.dts b/arch/arm/boot/dts/st/stm32746g-eval.dts
+deleted file mode 100644
+index 6772c1f9d03e..000000000000
+--- a/arch/arm/boot/dts/st/stm32746g-eval.dts
++++ /dev/null
+@@ -1,236 +0,0 @@
+-/*
+- * Copyright 2015 - Maxime Coquelin <mcoquelin.stm32@gmail.com>
+- *
+- * This file is dual-licensed: you can use it either under the terms
+- * of the GPL or the X11 license, at your option. Note that this dual
+- * licensing only applies to this file, and not this project as a
+- * whole.
+- *
+- *  a) This file is free software; you can redistribute it and/or
+- *     modify it under the terms of the GNU General Public License as
+- *     published by the Free Software Foundation; either version 2 of the
+- *     License, or (at your option) any later version.
+- *
+- *     This file is distributed in the hope that it will be useful,
+- *     but WITHOUT ANY WARRANTY; without even the implied warranty of
+- *     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+- *     GNU General Public License for more details.
+- *
+- * Or, alternatively,
+- *
+- *  b) Permission is hereby granted, free of charge, to any person
+- *     obtaining a copy of this software and associated documentation
+- *     files (the "Software"), to deal in the Software without
+- *     restriction, including without limitation the rights to use,
+- *     copy, modify, merge, publish, distribute, sublicense, and/or
+- *     sell copies of the Software, and to permit persons to whom the
+- *     Software is furnished to do so, subject to the following
+- *     conditions:
+- *
+- *     The above copyright notice and this permission notice shall be
+- *     included in all copies or substantial portions of the Software.
+- *
+- *     THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+- *     EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+- *     OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+- *     NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+- *     HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+- *     WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+- *     FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+- *     OTHER DEALINGS IN THE SOFTWARE.
+- */
+-
+-/dts-v1/;
+-#include "stm32f746.dtsi"
+-#include "stm32f746-pinctrl.dtsi"
+-#include <dt-bindings/input/input.h>
+-#include <dt-bindings/interrupt-controller/irq.h>
+-#include <dt-bindings/leds/common.h>
+-
+-/ {
+-	model = "STMicroelectronics STM32746g-EVAL board";
+-	compatible = "st,stm32746g-eval", "st,stm32f746";
+-
+-	chosen {
+-		bootargs = "root=/dev/ram";
+-		stdout-path = "serial0:115200n8";
+-	};
+-
+-	memory@c0000000 {
 -		device_type = "memory";
--		reg = <0x80000000 0x2000000>;
+-		reg = <0xc0000000 0x2000000>;
+-	};
+-
+-	aliases {
+-		serial0 = &usart1;
+-	};
+-
+-	leds {
+-		compatible = "gpio-leds";
+-		led_green: led-green {
+-			function = LED_FUNCTION_HEARTBEAT;
+-			color = <LED_COLOR_ID_GREEN>;
+-			gpios = <&gpiof 10 1>;
+-			linux,default-trigger = "heartbeat";
+-		};
+-		led-orange {
+-			color = <LED_COLOR_ID_ORANGE>;
+-			gpios = <&stmfx_pinctrl 17 1>;
+-		};
+-		led-red {
+-			color = <LED_COLOR_ID_RED>;
+-			gpios = <&gpiob 7 1>;
+-		};
+-		led-blue {
+-			color = <LED_COLOR_ID_BLUE>;
+-			gpios = <&stmfx_pinctrl 19 1>;
+-		};
+-	};
+-
+-	gpio-keys {
+-		compatible = "gpio-keys";
+-		autorepeat;
+-		button-0 {
+-			label = "Wake up";
+-			linux,code = <KEY_WAKEUP>;
+-			gpios = <&gpioc 13 0>;
+-		};
+-	};
+-
+-	joystick {
+-		compatible = "gpio-keys";
+-		pinctrl-0 = <&joystick_pins>;
+-		pinctrl-names = "default";
+-		button-0 {
+-			label = "JoySel";
+-			linux,code = <KEY_ENTER>;
+-			interrupt-parent = <&stmfx_pinctrl>;
+-			interrupts = <0 IRQ_TYPE_EDGE_FALLING>;
+-		};
+-		button-1 {
+-			label = "JoyDown";
+-			linux,code = <KEY_DOWN>;
+-			interrupt-parent = <&stmfx_pinctrl>;
+-			interrupts = <1 IRQ_TYPE_EDGE_FALLING>;
+-		};
+-		button-2 {
+-			label = "JoyLeft";
+-			linux,code = <KEY_LEFT>;
+-			interrupt-parent = <&stmfx_pinctrl>;
+-			interrupts = <2 IRQ_TYPE_EDGE_FALLING>;
+-		};
+-		button-3 {
+-			label = "JoyRight";
+-			linux,code = <KEY_RIGHT>;
+-			interrupt-parent = <&stmfx_pinctrl>;
+-			interrupts = <3 IRQ_TYPE_EDGE_FALLING>;
+-		};
+-		button-4 {
+-			label = "JoyUp";
+-			linux,code = <KEY_UP>;
+-			interrupt-parent = <&stmfx_pinctrl>;
+-			interrupts = <4 IRQ_TYPE_EDGE_FALLING>;
+-		};
+-	};
+-
+-	options {
+-		u-boot {
+-			compatible = "u-boot,config";
+-			boot-led = <&led_green>;
+-		};
+-	};
+-
+-	usbotg_hs_phy: usb-phy {
+-		#phy-cells = <0>;
+-		compatible = "usb-nop-xceiv";
+-		clocks = <&rcc 0 STM32F7_AHB1_CLOCK(OTGHSULPI)>;
+-		clock-names = "main_clk";
+-	};
+-
+-	mmc_vcard: mmc_vcard {
+-		compatible = "regulator-fixed";
+-		regulator-name = "mmc_vcard";
+-		regulator-min-microvolt = <3300000>;
+-		regulator-max-microvolt = <3300000>;
 -	};
 -};
 -
--&lpuart1 {
--	pinctrl-names = "default";
--	pinctrl-0 = <&pinctrl_lpuart1>;
+-&clk_hse {
+-	clock-frequency = <25000000>;
+-};
+-
+-&crc {
 -	status = "okay";
 -};
 -
--&iomuxc {
+-&i2c1 {
+-	pinctrl-0 = <&i2c1_pins_b>;
 -	pinctrl-names = "default";
--	pinctrl_lpuart1: lpuart1grp {
--		fsl,pins = <
--			MXRT1050_IOMUXC_GPIO_AD_B0_12_LPUART1_TXD	0xf1
--			MXRT1050_IOMUXC_GPIO_AD_B0_13_LPUART1_RXD	0xf1
--		>;
--	};
+-	i2c-scl-rising-time-ns = <185>;
+-	i2c-scl-falling-time-ns = <20>;
+-	status = "okay";
 -
--	pinctrl_usdhc0: usdhc0grp {
--		fsl,pins = <
--			MXRT1050_IOMUXC_GPIO_B1_12_USDHC1_CD_B		0x1B000
--			MXRT1050_IOMUXC_GPIO_B1_14_USDHC1_VSELECT	0xB069
--			MXRT1050_IOMUXC_GPIO_SD_B0_00_USDHC1_CMD	0x17061
--			MXRT1050_IOMUXC_GPIO_SD_B0_01_USDHC1_CLK	0x17061
--			MXRT1050_IOMUXC_GPIO_SD_B0_05_USDHC1_DATA3	0x17061
--			MXRT1050_IOMUXC_GPIO_SD_B0_04_USDHC1_DATA2	0x17061
--			MXRT1050_IOMUXC_GPIO_SD_B0_03_USDHC1_DATA1	0x17061
--			MXRT1050_IOMUXC_GPIO_SD_B0_02_USDHC1_DATA0	0x17061
--		>;
+-	stmfx: stmfx@42 {
+-		compatible = "st,stmfx-0300";
+-		reg = <0x42>;
+-		interrupts = <8 IRQ_TYPE_EDGE_RISING>;
+-		interrupt-parent = <&gpioi>;
+-
+-		stmfx_pinctrl: pinctrl {
+-			compatible = "st,stmfx-0300-pinctrl";
+-			gpio-controller;
+-			#gpio-cells = <2>;
+-			interrupt-controller;
+-			#interrupt-cells = <2>;
+-			gpio-ranges = <&stmfx_pinctrl 0 0 24>;
+-
+-			joystick_pins: joystick {
+-				pins = "gpio0", "gpio1", "gpio2", "gpio3", "gpio4";
+-				drive-push-pull;
+-				bias-pull-up;
+-			};
+-		};
 -	};
 -};
 -
--&usdhc1 {
--	pinctrl-names = "default", "state_100mhz", "state_200mhz", "sleep";
--	pinctrl-0 = <&pinctrl_usdhc0>;
--	pinctrl-1 = <&pinctrl_usdhc0>;
--	pinctrl-2 = <&pinctrl_usdhc0>;
--	pinctrl-3 = <&pinctrl_usdhc0>;
--	cd-gpios = <&gpio2 28 GPIO_ACTIVE_LOW>;
+-&rtc {
 -	status = "okay";
 -};
-diff --git a/arch/arm/boot/dts/nxp/imx/imxrt1050-pinfunc.h b/arch/arm/boot/dts/nxp/imx/imxrt1050-pinfunc.h
+-
+-&sdio1 {
+-	status = "okay";
+-	vmmc-supply = <&mmc_vcard>;
+-	broken-cd;
+-	pinctrl-names = "default", "opendrain", "sleep";
+-	pinctrl-0 = <&sdio_pins_a>;
+-	pinctrl-1 = <&sdio_pins_od_a>;
+-	pinctrl-2 = <&sdio_pins_sleep_a>;
+-	bus-width = <4>;
+-};
+-
+-&timers5 {
+-	/* Override timer5 to act as clockevent */
+-	compatible = "st,stm32-timer";
+-	interrupts = <50>;
+-	status = "okay";
+-	/delete-property/#address-cells;
+-	/delete-property/#size-cells;
+-	/delete-property/clock-names;
+-	/delete-node/pwm;
+-	/delete-node/timer@4;
+-};
+-
+-&usart1 {
+-	pinctrl-0 = <&usart1_pins_a>;
+-	pinctrl-names = "default";
+-	status = "okay";
+-};
+-
+-&usbotg_hs {
+-	dr_mode = "otg";
+-	phys = <&usbotg_hs_phy>;
+-	phy-names = "usb2-phy";
+-	pinctrl-0 = <&usbotg_hs_pins_a>;
+-	pinctrl-names = "default";
+-	status = "okay";
+-};
+diff --git a/arch/arm/boot/dts/st/stm32f4-pinctrl.dtsi b/arch/arm/boot/dts/st/stm32f4-pinctrl.dtsi
 deleted file mode 100644
-index 22c14a3262ad..000000000000
---- a/arch/arm/boot/dts/nxp/imx/imxrt1050-pinfunc.h
+index 3bb812d6399e..000000000000
+--- a/arch/arm/boot/dts/st/stm32f4-pinctrl.dtsi
 +++ /dev/null
-@@ -1,993 +0,0 @@
--/* SPDX-License-Identifier: (GPL-2.0+ OR MIT) */
+@@ -1,482 +0,0 @@
 -/*
-- * Copyright (C) 2019
-- * Author(s): Giulio Benetti <giulio.benetti@benettiengineering.com>
+- * Copyright 2017 - Alexandre Torgue <alexandre.torgue@st.com>
+- *
+- * This file is dual-licensed: you can use it either under the terms
+- * of the GPL or the X11 license, at your option. Note that this dual
+- * licensing only applies to this file, and not this project as a
+- * whole.
+- *
+- *  a) This file is free software; you can redistribute it and/or
+- *     modify it under the terms of the GNU General Public License as
+- *     published by the Free Software Foundation; either version 2 of the
+- *     License, or (at your option) any later version.
+- *
+- *     This file is distributed in the hope that it will be useful,
+- *     but WITHOUT ANY WARRANTY; without even the implied warranty of
+- *     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+- *     GNU General Public License for more details.
+- *
+- * Or, alternatively,
+- *
+- *  b) Permission is hereby granted, free of charge, to any person
+- *     obtaining a copy of this software and associated documentation
+- *     files (the "Software"), to deal in the Software without
+- *     restriction, including without limitation the rights to use,
+- *     copy, modify, merge, publish, distribute, sublicense, and/or
+- *     sell copies of the Software, and to permit persons to whom the
+- *     Software is furnished to do so, subject to the following
+- *     conditions:
+- *
+- *     The above copyright notice and this permission notice shall be
+- *     included in all copies or substantial portions of the Software.
+- *
+- *     THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+- *     EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+- *     OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+- *     NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+- *     HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+- *     WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+- *     FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+- *     OTHER DEALINGS IN THE SOFTWARE.
 - */
 -
--#ifndef _DT_BINDINGS_PINCTRL_IMXRT1050_PINFUNC_H
--#define _DT_BINDINGS_PINCTRL_IMXRT1050_PINFUNC_H
--
--#define IMX_PAD_SION	0x40000000
--
--/*
-- * The pin function ID is a tuple of
-- * <mux_reg conf_reg input_reg mux_mode input_val>
-- */
--
--#define MXRT1050_IOMUXC_GPIO_EMC_00_SEMC_DA00				0x014 0x204 0x000 0x0 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_00_FLEXPWM4_PWM0_A			0x014 0x204 0x494 0x1 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_00_LPSPI2_SCK				0x014 0x204 0x500 0x2 0x1
--#define MXRT1050_IOMUXC_GPIO_EMC_00_XBAR_INOUT2				0x014 0x204 0x60C 0x3 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_00_FLEXIO1_D00				0x014 0x204 0x000 0x4 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_00_GPIO4_IO00				0x014 0x204 0x000 0x5 0x0
--
--#define MXRT1050_IOMUXC_GPIO_EMC_01_SEMC_DA01				0x018 0x208 0x000 0x0 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_01_FLEXPWM4_PWM0_B			0x018 0x208 0x000 0x1 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_01_LPSPI2_PCS0				0x018 0x208 0x4FC 0x2 0x1
--#define MXRT1050_IOMUXC_GPIO_EMC_01_XBAR_INOUT3				0x018 0x208 0x610 0x3 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_01_FLEXIO1_D01				0x018 0x208 0x000 0x4 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_01_GPIO4_IO01				0x018 0x208 0x000 0x5 0x0
--
--#define MXRT1050_IOMUXC_GPIO_EMC_02_SEMC_DA02				0x01C 0x20C 0x000 0x0 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_02_FLEXPWM4_PWM1_A			0x01C 0x20C 0x498 0x1 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_02_LPSPI2_SDO				0x01C 0x20C 0x508 0x2 0x1
--#define MXRT1050_IOMUXC_GPIO_EMC_02_XBAR_INOUT4				0x01C 0x20C 0x614 0x3 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_02_FLEXIO1_D02				0x01C 0x20C 0x000 0x4 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_02_GPIO4_IO02				0x01C 0x20C 0x000 0x5 0x0
--
--#define MXRT1050_IOMUXC_GPIO_EMC_03_SEMC_DA03				0x020 0x210 0x000 0x0 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_03_FLEXPWM4_PWM1_B			0x020 0x210 0x000 0x1 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_03_LPSPI2_SDI				0x020 0x210 0x504 0x2 0x1
--#define MXRT1050_IOMUXC_GPIO_EMC_03_XBAR_INOUT5				0x020 0x210 0x618 0x3 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_03_FLEXIO1_D03				0x020 0x210 0x000 0x4 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_03_GPIO4_IO03				0x020 0x210 0x000 0x5 0x0
--
--#define MXRT1050_IOMUXC_GPIO_EMC_04_SEMC_DA04				0x024 0x214 0x000 0x0 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_04_FLEXPWM4_PWM2_A			0x024 0x214 0x49C 0x1 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_04_SAI2_TX_DATA			0x024 0x214 0x000 0x2 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_04_XBAR_INOUT6				0x024 0x214 0x61C 0x3 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_04_FLEXIO1_D04				0x024 0x214 0x000 0x4 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_04_GPIO4_IO04				0x024 0x214 0x000 0x5 0x0
--
--#define MXRT1050_IOMUXC_GPIO_EMC_05_SEMC_DA05				0x028 0x218 0x000 0x0 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_05_FLEXPWM4_PWM2_B			0x028 0x218 0x000 0x1 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_05_SAI2_TX_SYNC			0x028 0x218 0x5C4 0x2 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_05_XBAR_INOUT7				0x028 0x218 0x620 0x3 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_05_FLEXIO1_D05				0x028 0x218 0x000 0x4 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_05_GPIO4_IO05				0x028 0x218 0x000 0x5 0x0
--
--#define MXRT1050_IOMUXC_GPIO_EMC_06_SEMC_DA06				0x02C 0x21C 0x000 0x0 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_06_FLEXPWM2_PWM0_A			0x02C 0x21C 0x478 0x1 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_06_SAI2_TX_BCLK			0x02C 0x21C 0x5C0 0x2 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_06_XBAR_INOUT8				0x02C 0x21C 0x624 0x3 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_06_FLEXIO1_D06				0x02C 0x21C 0x000 0x4 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_06_GPIO4_IO06				0x02C 0x21C 0x000 0x5 0x0
--
--#define MXRT1050_IOMUXC_GPIO_EMC_07_SEMC_DA07				0x030 0x220 0x000 0x0 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_07_FLEXPWM2_PWM0_B			0x030 0x220 0x488 0x1 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_07_SAI2_MCLK				0x030 0x220 0x5B0 0x2 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_07_XBAR_INOUT9				0x030 0x220 0x628 0x3 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_07_FLEXIO1_D07				0x030 0x220 0x000 0x4 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_07_GPIO4_IO07				0x030 0x220 0x000 0x5 0x0
--
--#define MXRT1050_IOMUXC_GPIO_EMC_08_SEMC_DM00				0x034 0x224 0x000 0x0 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_08_FLEXPWM2_PWM1_A			0x034 0x224 0x47C 0x1 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_08_SAI2_RX_DATA			0x034 0x224 0x5B8 0x2 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_08_XBAR_INOUT17			0x034 0x224 0x62C 0x3 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_08_FLEXIO1_D08				0x034 0x224 0x000 0x4 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_08_GPIO4_IO08				0x034 0x224 0x000 0x5 0x0
--
--#define MXRT1050_IOMUXC_GPIO_EMC_09_SEMC_ADDR00				0x038 0x228 0x000 0x0 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_09_FLEXPWM2_PWM1_B			0x038 0x228 0x48C 0x1 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_09_SAI2_RX_SYNC			0x038 0x228 0x5BC 0x2 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_09_FLEXCAN2_TX				0x038 0x228 0x000 0x3 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_09_FLEXIO1_D09				0x038 0x228 0x000 0x4 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_09_GPIO4_IO09				0x038 0x228 0x000 0x5 0x0
--
--#define MXRT1050_IOMUXC_GPIO_EMC_10_SEMC_ADDR01				0x03C 0x22C 0x000 0x0 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_10_FLEXPWM2_PWM2_A			0x03C 0x22C 0x480 0x1 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_10_SAI2_RX_BCLK			0x03C 0x22C 0x5B4 0x2 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_10_FLEXCAN2_RX				0x03C 0x22C 0x450 0x3 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_10_FLEXIO1_D10				0x03C 0x22C 0x000 0x4 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_10_GPIO4_IO10				0x03C 0x22C 0x000 0x5 0x0
--
--#define MXRT1050_IOMUXC_GPIO_EMC_11_SEMC_ADDR02				0x040 0x230 0x000 0x0 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_11_FLEXPWM2_PWM2_B			0x040 0x230 0x490 0x1 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_11_LPI2C4_SDA				0x040 0x230 0x4E8 0x2 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_11_USDHC2_RESET_B			0x040 0x230 0x000 0x3 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_11_FLEXIO1_D11				0x040 0x230 0x000 0x4 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_11_GPIO4_IO11				0x040 0x230 0x000 0x5 0x0
--
--#define MXRT1050_IOMUXC_GPIO_EMC_12_SEMC_ADDR03				0x044 0x234 0x000 0x0 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_12_XBAR_INOUT24			0x044 0x234 0x640 0x1 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_12_LPI2C4_SCL				0x044 0x234 0x4E4 0x2 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_12_USDHC2_WP				0x044 0x234 0x5D8 0x3 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_12_FLEXPWM1_PWM3_A			0x044 0x234 0x454 0x4 0x1
--#define MXRT1050_IOMUXC_GPIO_EMC_12_GPIO4_IO12				0x044 0x234 0x000 0x5 0x0
--
--#define MXRT1050_IOMUXC_GPIO_EMC_13_SEMC_ADDR04				0x048 0x238 0x000 0x0 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_13_XBAR_INOUT25			0x048 0x238 0x650 0x1 0x1
--#define MXRT1050_IOMUXC_GPIO_EMC_13_LPUART3_TXD				0x048 0x238 0x53C 0x2 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_13_MQS_RIGHT				0x048 0x238 0x000 0x3 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_13_FLEXPWM1_PWM3_B			0x048 0x238 0x464 0x4 0x1
--#define MXRT1050_IOMUXC_GPIO_EMC_13_GPIO4_IO13				0x048 0x238 0x000 0x5 0x0
--
--#define MXRT1050_IOMUXC_GPIO_EMC_14_SEMC_ADDR05				0x04C 0x23C 0x000 0x0 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_14_XBAR_INOUT19			0x04C 0x23C 0x654 0x1 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_14_LPUART3_RXD				0x04C 0x23C 0x538 0x2 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_14_MQS_LEFT				0x04C 0x23C 0x000 0x3 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_14_LPSPI2_PCS1				0x04C 0x23C 0x000 0x4 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_14_GPIO4_IO14				0x04C 0x23C 0x000 0x5 0x0
--
--#define MXRT1050_IOMUXC_GPIO_EMC_15_SEMC_ADDR06				0x050 0x240 0x000 0x0 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_15_XBAR_INOUT20			0x050 0x240 0x634 0x1 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_15_LPUART3_CTS_B			0x050 0x240 0x534 0x2 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_15_SPDIF_OUT				0x050 0x240 0x000 0x3 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_15_TMR3_TIMER0				0x050 0x240 0x57C 0x4 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_15_GPIO4_IO15				0x050 0x240 0x000 0x5 0x0
--
--#define MXRT1050_IOMUXC_GPIO_EMC_16_SEMC_ADDR07				0x054 0x244 0x000 0x0 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_16_XBAR_INOUT21			0x054 0x244 0x658 0x1 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_16_LPUART3_RTS_B			0x054 0x244 0x000 0x2 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_16_SPDIF_IN				0x054 0x244 0x5C8 0x3 0x1
--#define MXRT1050_IOMUXC_GPIO_EMC_16_TMR3_TIMER1				0x054 0x244 0x580 0x4 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_16_GPIO4_IO16				0x054 0x244 0x000 0x5 0x0
--
--#define MXRT1050_IOMUXC_GPIO_EMC_17_SEMC_ADDR08				0x058 0x248 0x000 0x0 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_17_FLEXPWM4_PWM3_A			0x058 0x248 0x4A0 0x1 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_17_LPUART4_CTS_B			0x058 0x248 0x000 0x2 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_17_FLEXCAN1_TX				0x058 0x248 0x000 0x3 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_17_TMR3_TIMER2				0x058 0x248 0x584 0x4 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_17_GPIO4_IO17				0x058 0x248 0x000 0x5 0x0
--
--#define MXRT1050_IOMUXC_GPIO_EMC_18_SEMC_ADDR09				0x05C 0x24C 0x000 0x0 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_18_FLEXPWM4_PWM3_B			0x05C 0x24C 0x000 0x1 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_18_LPUART4_RTS_B			0x05C 0x24C 0x000 0x2 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_18_FLEXCAN1_RX				0x05C 0x24C 0x44C 0x3 0x1
--#define MXRT1050_IOMUXC_GPIO_EMC_18_TMR3_TIMER3				0x05C 0x24C 0x588 0x4 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_18_GPIO4_IO18				0x05C 0x24C 0x000 0x5 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_18_SNVS_VIO_5_CTL			0x05C 0x24C 0x000 0x6 0x0
--
--#define MXRT1050_IOMUXC_GPIO_EMC_19_SEMC_ADDR11				0x060 0x250 0x000 0x0 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_19_FLEXPWM2_PWM3_A			0x060 0x250 0x000 0x1 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_19_LPUART4_TXD				0x060 0x250 0x544 0x2 0x1
--#define MXRT1050_IOMUXC_GPIO_EMC_19_ENET_RX_DATA01			0x060 0x250 0x438 0x3 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_19_TMR2_TIMER0				0x060 0x250 0x56C 0x4 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_19_GPIO4_IO19				0x060 0x250 0x000 0x5 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_19_SNVS_VIO_5				0x060 0x250 0x000 0x6 0x0
--
--#define MXRT1050_IOMUXC_GPIO_EMC_20_SEMC_ADDR12				0x064 0x254 0x000 0x0 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_20_FLEXPWM2_PWM3_B			0x064 0x254 0x484 0x1 0x1
--#define MXRT1050_IOMUXC_GPIO_EMC_20_LPUART4_RXD				0x064 0x254 0x540 0x2 0x1
--#define MXRT1050_IOMUXC_GPIO_EMC_20_ENET_RX_DATA00			0x064 0x254 0x434 0x3 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_20_TMR2_TIMER0				0x064 0x254 0x570 0x4 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_20_GPIO4_IO20				0x064 0x254 0x000 0x5 0x0
--
--#define MXRT1050_IOMUXC_GPIO_EMC_21_SEMC_BA0				0x068 0x258 0x000 0x0 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_21_FLEXPWM3_PWM3_A			0x068 0x258 0x000 0x1 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_21_LPI2C3_SDA				0x068 0x258 0x4E0 0x2 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_21_ENET_TX_DATA01			0x068 0x258 0x000 0x3 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_21_TMR2_TIMER2				0x068 0x258 0x574 0x4 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_21_GPIO4_IO21				0x068 0x258 0x000 0x5 0x0
--
--#define MXRT1050_IOMUXC_GPIO_EMC_22_SEMC_BA1				0x06C 0x25C 0x000 0x0 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_22_FLEXPWM3_PWM3_B			0x06C 0x25C 0x000 0x1 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_22_LPI2C3_SCL				0x06C 0x25C 0x4DC 0x2 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_22_ENET_TX_DATA00			0x06C 0x25C 0x000 0x3 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_22_TMR2_TIMER3				0x06C 0x25C 0x578 0x4 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_22_GPIO4_IO22				0x06C 0x25C 0x000 0x5 0x0
--
--#define MXRT1050_IOMUXC_GPIO_EMC_23_SEMC_ADDR10				0x070 0x260 0x000 0x0 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_23_FLEXPWM1_PWM0_A			0x070 0x260 0x458 0x1 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_23_LPUART5_TXD				0x070 0x260 0x54C 0x2 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_23_ENET_RX_EN				0x070 0x260 0x43C 0x3 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_23_GPT1_CAPTURE2			0x070 0x260 0x000 0x4 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_23_GPIO4_IO23				0x070 0x260 0x000 0x5 0x0
--
--#define MXRT1050_IOMUXC_GPIO_EMC_24_SEMC_CAS				0x074 0x264 0x000 0x0 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_24_FLEXPWM1_PWM0_B			0x074 0x264 0x000 0x1 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_24_LPUART5_RXD				0x074 0x264 0x548 0x2 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_24_ENET_TX_EN				0x074 0x264 0x000 0x3 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_24_GPT1_CAPTURE1			0x074 0x264 0x000 0x4 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_24_GPIO4_IO24				0x074 0x264 0x000 0x5 0x0
--
--#define MXRT1050_IOMUXC_GPIO_EMC_25_SEMC_RAS				0x078 0x268 0x000 0x0 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_25_FLEXPWM1_PWM1_A			0x078 0x268 0x45C 0x1 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_25_LPUART6_TXD				0x078 0x268 0x554 0x2 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_25_ENET_TX_CLK				0x078 0x268 0x448 0x3 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_25_ENET_REF_CLK			0x078 0x268 0x42C 0x4 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_25_GPIO4_IO25				0x078 0x268 0x000 0x5 0x0
--
--#define MXRT1050_IOMUXC_GPIO_EMC_26_SEMC_CLK				0x07C 0x26C 0x000 0x0 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_26_FLEXPWM1_PWM1_B			0x07C 0x26C 0x46C 0x1 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_26_LPUART6_RXD				0x07C 0x26C 0x550 0x2 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_26_ENET_RX_ER				0x07C 0x26C 0x440 0x3 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_26_FLEXIO1_D12				0x07C 0x26C 0x000 0x4 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_26_GPIO4_IO26				0x07C 0x26C 0x000 0x5 0x0
--
--#define MXRT1050_IOMUXC_GPIO_EMC_27_SEMC_CKE				0x080 0x270 0x000 0x0 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_27_FLEXPWM1_PWM2_A			0x080 0x270 0x460 0x1 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_27_LPUART5_RTS_B			0x080 0x270 0x000 0x2 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_27_LPSPI1_SCK				0x080 0x270 0x4F0 0x3 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_27_FLEXIO1_D13				0x080 0x270 0x000 0x4 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_27_GPIO4_IO27				0x080 0x270 0x000 0x5 0x0
--
--#define MXRT1050_IOMUXC_GPIO_EMC_28_SEMC_WE				0x084 0x274 0x000 0x0 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_28_FLEXPWM1_PWM2_B			0x084 0x274 0x470 0x1 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_28_LPUART5_CTS_B			0x084 0x274 0x000 0x2 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_28_LPSPI1_SDO				0x084 0x274 0x4F8 0x3 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_28_FLEXIO1_D14				0x084 0x274 0x000 0x4 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_28_GPIO4_IO28				0x084 0x274 0x000 0x5 0x0
--
--#define MXRT1050_IOMUXC_GPIO_EMC_29_SEMC_CS0				0x088 0x278 0x000 0x0 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_29_FLEXPWM3_PWM0_A			0x088 0x278 0x000 0x1 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_29_LPUART6_RTS_B			0x088 0x278 0x000 0x2 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_29_LPSPI1_SDI				0x088 0x278 0x4F4 0x3 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_29_FLEXIO1_D15				0x088 0x278 0x000 0x4 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_29_GPIO4_IO29				0x088 0x278 0x000 0x5 0x0
--
--#define MXRT1050_IOMUXC_GPIO_EMC_30_SEMC_DA08				0x08C 0x27C 0x000 0x0 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_30_FLEXPWM3_PWM0_B			0x08C 0x27C 0x000 0x1 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_30_LPUART6_CTS_B			0x08C 0x27C 0x000 0x2 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_30_LPSPI1_PCS0				0x08C 0x27C 0x4EC 0x3 0x1
--#define MXRT1050_IOMUXC_GPIO_EMC_30_CSI_DATA23				0x08C 0x27C 0x000 0x4 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_30_GPIO4_IO30				0x08C 0x27C 0x000 0x5 0x0
--
--#define MXRT1050_IOMUXC_GPIO_EMC_31_SEMC_DA09				0x090 0x280 0x000 0x0 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_31_FLEXPWM3_PWM1_A			0x090 0x280 0x000 0x1 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_31_LPUART7_TXD				0x090 0x280 0x55C 0x2 0x1
--#define MXRT1050_IOMUXC_GPIO_EMC_31_LPSPI1_PCS1				0x090 0x280 0x000 0x3 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_31_CSI_DATA22				0x090 0x280 0x000 0x4 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_31_GPIO4_IO31				0x090 0x280 0x000 0x5 0x0
--
--#define MXRT1050_IOMUXC_GPIO_EMC_32_SEMC_DA10				0x094 0x284 0x000 0x0 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_32_FLEXPWM3_PWM1_B			0x094 0x284 0x000 0x1 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_32_LPUART7_RXD				0x094 0x284 0x558 0x2 0x1
--#define MXRT1050_IOMUXC_GPIO_EMC_32_CCM_PMIC_READY			0x094 0x284 0x3FC 0x3 0x4
--#define MXRT1050_IOMUXC_GPIO_EMC_32_CSI_DATA21				0x094 0x284 0x000 0x4 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_32_GPIO3_IO18				0x094 0x284 0x000 0x5 0x0
--
--#define MXRT1050_IOMUXC_GPIO_EMC_33_SEMC_DA11				0x098 0x288 0x000 0x0 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_33_FLEXPWM3_PWM2_A			0x098 0x288 0x000 0x1 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_33_USDHC1_RESET_B			0x098 0x288 0x000 0x2 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_33_SAI3_RX_DATA			0x098 0x288 0x000 0x3 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_33_CSI_DATA20				0x098 0x288 0x000 0x4 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_33_GPIO3_IO19				0x098 0x288 0x000 0x5 0x0
--
--#define MXRT1050_IOMUXC_GPIO_EMC_34_SEMC_DA12				0x09C 0x28C 0x000 0x0 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_34_FLEXPWM3_PWM2_B			0x09C 0x28C 0x000 0x1 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_34_USDHC1_VSELECT			0x09C 0x28C 0x000 0x2 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_34_SAI3_RX_SYNC			0x09C 0x28C 0x000 0x3 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_34_CSI_DATA19				0x09C 0x28C 0x000 0x4 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_34_GPIO3_IO20				0x09C 0x28C 0x000 0x5 0x0
--
--#define MXRT1050_IOMUXC_GPIO_EMC_35_SEMC_DA13				0x0A0 0x290 0x000 0x0 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_35_XBAR_INOUT18			0x0A0 0x290 0x630 0x1 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_35_GPT1_COMPARE1			0x0A0 0x290 0x000 0x2 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_35_SAI3_RX_BCLK			0x0A0 0x290 0x000 0x3 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_35_CSI_DATA18				0x0A0 0x290 0x000 0x4 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_35_GPIO3_IO21				0x0A0 0x290 0x000 0x5 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_35_USDHC1_CD_B				0x0A0 0x290 0x5D4 0x6 0x0
--
--#define MXRT1050_IOMUXC_GPIO_EMC_36_SEMC_DA14				0x0A4 0x294 0x000 0x0 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_36_XBAR_INOUT22			0x0A4 0x294 0x638 0x1 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_36_GPT1_COMPARE2			0x0A4 0x294 0x000 0x2 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_36_SAI3_TX_DATA			0x0A4 0x294 0x000 0x3 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_36_CSI_DATA17				0x0A4 0x294 0x000 0x4 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_36_GPIO3_IO22				0x0A4 0x294 0x000 0x5 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_36_USDHC1_WP				0x0A4 0x294 0x5D8 0x6 0x1
--
--#define MXRT1050_IOMUXC_GPIO_EMC_37_SEMC_DA15				0x0A8 0x298 0x000 0x0 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_37_XBAR_INOUT23			0x0A8 0x298 0x63C 0x1 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_37_GPT1_COMPARE3			0x0A8 0x298 0x000 0x2 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_37_SAI3_MCLK				0x0A8 0x298 0x000 0x3 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_37_CSI_DATA16				0x0A8 0x298 0x000 0x4 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_37_GPIO3_IO23				0x0A8 0x298 0x000 0x5 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_37_USDHC2_WP				0x0A8 0x298 0x608 0x6 0x0
--
--#define MXRT1050_IOMUXC_GPIO_EMC_38_SEMC_DM01				0x0AC 0x29C 0x000 0x0 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_38_FLEXPWM1_PWM3_A			0x0AC 0x29C 0x454 0x1 0x2
--#define MXRT1050_IOMUXC_GPIO_EMC_38_LPUART8_TXD				0x0AC 0x29C 0x564 0x2 0x2
--#define MXRT1050_IOMUXC_GPIO_EMC_38_SAI3_TX_BCLK			0x0AC 0x29C 0x000 0x3 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_38_CSI_FIELD				0x0AC 0x29C 0x000 0x4 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_38_GPIO3_IO24				0x0AC 0x29C 0x000 0x5 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_38_USDHC2_VSELECT			0x0AC 0x29C 0x000 0x6 0x0
--
--#define MXRT1050_IOMUXC_GPIO_EMC_39_SEMC_DQS				0x0B0 0x2A0 0x000 0x0 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_39_FLEXPWM1_PWM3_B			0x0B0 0x2A0 0x464 0x1 0x2
--#define MXRT1050_IOMUXC_GPIO_EMC_39_LPUART8_RXD				0x0B0 0x2A0 0x560 0x2 0x2
--#define MXRT1050_IOMUXC_GPIO_EMC_39_SAI3_TX_SYNC			0x0B0 0x2A0 0x000 0x3 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_39_WDOG1_B				0x0B0 0x2A0 0x000 0x4 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_39_GPIO3_IO25				0x0B0 0x2A0 0x000 0x5 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_39_USDHC2_CD_B				0x0B0 0x2A0 0x5E0 0x6 0x1
--
--#define MXRT1050_IOMUXC_GPIO_EMC_40_SEMC_RDY				0x0B4 0x2A4 0x000 0x0 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_40_GPT2_CAPTURE2			0x0B4 0x2A4 0x000 0x1 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_40_LPSPI1_PCS2				0x0B4 0x2A4 0x000 0x2 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_40_USB_OTG2_OC				0x0B4 0x2A4 0x5CC 0x3 0x1
--#define MXRT1050_IOMUXC_GPIO_EMC_40_ENET_MDC				0x0B4 0x2A4 0x000 0x4 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_40_GPIO3_IO26				0x0B4 0x2A4 0x000 0x5 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_40_USDHC2_RESET_B			0x0B4 0x2A4 0x000 0x6 0x0
--
--#define MXRT1050_IOMUXC_GPIO_EMC_41_SEMC_CSX0				0x0B8 0x2A8 0x000 0x0 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_41_GPT2_CAPTURE1			0x0B8 0x2A8 0x000 0x1 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_41_LPSPI1_PCS3				0x0B8 0x2A8 0x000 0x2 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_41_USB_OTG2_PWR			0x0B8 0x2A8 0x000 0x3 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_41_ENET_MDIO				0x0B8 0x2A8 0x430 0x4 0x1
--#define MXRT1050_IOMUXC_GPIO_EMC_41_GPIO3_IO27				0x0B8 0x2A8 0x000 0x5 0x0
--#define MXRT1050_IOMUXC_GPIO_EMC_41_USDHC2_VSELECT			0x0B8 0x2A8 0x000 0x6 0x0
--
--#define MXRT1050_IOMUXC_GPIO_AD_B0_00_FLEXPWM2_PWM3_A			0x0BC 0x2AC 0x000 0x0 0x0
--#define MXRT1050_IOMUXC_GPIO_AD_B0_00_XBAR_INOUT14			0x0BC 0x2AC 0x644 0x1 0x0
--#define MXRT1050_IOMUXC_GPIO_AD_B0_00_REF_CLK_32K			0x0BC 0x2AC 0x000 0x2 0x0
--#define MXRT1050_IOMUXC_GPIO_AD_B0_00_USB_OTG2_ID			0x0BC 0x2AC 0x3F8 0x3 0x0
--#define MXRT1050_IOMUXC_GPIO_AD_B0_00_LPI2C1_SCLS			0x0BC 0x2AC 0x000 0x4 0x0
--#define MXRT1050_IOMUXC_GPIO_AD_B0_00_GPIO1_IO00			0x0BC 0x2AC 0x000 0x5 0x0
--#define MXRT1050_IOMUXC_GPIO_AD_B0_00_USDHC1_RESET_B			0x0BC 0x2AC 0x000 0x6 0x0
--#define MXRT1050_IOMUXC_GPIO_AD_B0_00_LPSPI3_SCK			0x0BC 0x2AC 0x510 0x7 0x0
--
--#define MXRT1050_IOMUXC_GPIO_AD_B0_01_FLEXPWM2_PWM3_B			0x0C0 0x2B0 0x484 0x0 0x2
--#define MXRT1050_IOMUXC_GPIO_AD_B0_01_XBAR_INOUT15			0x0C0 0x2B0 0x648 0x1 0x0
--#define MXRT1050_IOMUXC_GPIO_AD_B0_01_REF_CLK_24M			0x0C0 0x2B0 0x000 0x2 0x0
--#define MXRT1050_IOMUXC_GPIO_AD_B0_01_USB_OTG1_ID			0x0C0 0x2B0 0x3F4 0x3 0x0
--#define MXRT1050_IOMUXC_GPIO_AD_B0_01_LPI2C1_SDAS			0x0C0 0x2B0 0x000 0x4 0x0
--#define MXRT1050_IOMUXC_GPIO_AD_B0_01_GPIO1_IO01			0x0C0 0x2B0 0x000 0x5 0x0
--#define MXRT1050_IOMUXC_GPIO_AD_B0_01_EWM_OUT_B				0x0C0 0x2B0 0x000 0x6 0x0
--#define MXRT1050_IOMUXC_GPIO_AD_B0_01_LPSPI3_SDO			0x0C0 0x2B0 0x518 0x7 0x1
--
--#define MXRT1050_IOMUXC_GPIO_AD_B0_02_FLEXCAN2_TX			0x0C4 0x2B4 0x000 0x0 0x0
--#define MXRT1050_IOMUXC_GPIO_AD_B0_02_XBAR_INOUT16			0x0C4 0x2B4 0x64C 0x1 0x0
--#define MXRT1050_IOMUXC_GPIO_AD_B0_02_LPUART6_TXD			0x0C4 0x2B4 0x554 0x2 0x1
--#define MXRT1050_IOMUXC_GPIO_AD_B0_02_USB_OTG1_PWR			0x0C4 0x2B4 0x000 0x3 0x0
--#define MXRT1050_IOMUXC_GPIO_AD_B0_02_FLEXPWM1_PWM0_X			0x0C4 0x2B4 0x000 0x4 0x0
--#define MXRT1050_IOMUXC_GPIO_AD_B0_02_GPIO1_IO02			0x0C4 0x2B4 0x000 0x5 0x0
--#define MXRT1050_IOMUXC_GPIO_AD_B0_02_LPI2C1_HREQ			0x0C4 0x2B4 0x000 0x6 0x0
--#define MXRT1050_IOMUXC_GPIO_AD_B0_02_LPSPI3_SDI			0x0C4 0x2B4 0x514 0x7 0x1
--
--#define MXRT1050_IOMUXC_GPIO_AD_B0_03_FLEXCAN2_RX			0x0C8 0x2B8 0x450 0x0 0x1
--#define MXRT1050_IOMUXC_GPIO_AD_B0_03_XBAR_INOUT17			0x0C8 0x2B8 0x62C 0x1 0x1
--#define MXRT1050_IOMUXC_GPIO_AD_B0_03_LPUART6_RXD			0x0C8 0x2B8 0x550 0x2 0x1
--#define MXRT1050_IOMUXC_GPIO_AD_B0_03_USB_OTG1_OC			0x0C8 0x2B8 0x5D0 0x3 0x0
--#define MXRT1050_IOMUXC_GPIO_AD_B0_03_FLEXPWM1_PWM1_X			0x0C8 0x2B8 0x000 0x4 0x0
--#define MXRT1050_IOMUXC_GPIO_AD_B0_03_GPIO1_IO03			0x0C8 0x2B8 0x000 0x5 0x0
--#define MXRT1050_IOMUXC_GPIO_AD_B0_03_REF_CLK_24M			0x0C8 0x2B8 0x000 0x6 0x0
--#define MXRT1050_IOMUXC_GPIO_AD_B0_03_LPSPI3_PCS0			0x0C8 0x2B8 0x50C 0x7 0x0
--
--#define MXRT1050_IOMUXC_GPIO_AD_B0_04_SRC_BOOT_MODE00			0x0CC 0x2BC 0x000 0x0 0x0
--#define MXRT1050_IOMUXC_GPIO_AD_B0_04_MQS_RIGHT				0x0CC 0x2BC 0x000 0x1 0x0
--#define MXRT1050_IOMUXC_GPIO_AD_B0_04_ENET_TX_DATA03			0x0CC 0x2BC 0x000 0x2 0x0
--#define MXRT1050_IOMUXC_GPIO_AD_B0_04_SAI2_TX_SYNC			0x0CC 0x2BC 0x5C4 0x3 0x1
--#define MXRT1050_IOMUXC_GPIO_AD_B0_04_CSI_DATA09			0x0CC 0x2BC 0x41C 0x4 0x1
--#define MXRT1050_IOMUXC_GPIO_AD_B0_04_GPIO1_IO04			0x0CC 0x2BC 0x000 0x5 0x0
--#define MXRT1050_IOMUXC_GPIO_AD_B0_04_PIT_TRIGGER00			0x0CC 0x2BC 0x000 0x6 0x0
--#define MXRT1050_IOMUXC_GPIO_AD_B0_04_LPSPI3_PCS1			0x0CC 0x2BC 0x000 0x7 0x0
--
--#define MXRT1050_IOMUXC_GPIO_AD_B0_05_SRC_BOOT_MODE01			0x0D0 0x2C0 0x000 0x0 0x0
--#define MXRT1050_IOMUXC_GPIO_AD_B0_05_MQS_LEFT				0x0D0 0x2C0 0x000 0x1 0x0
--#define MXRT1050_IOMUXC_GPIO_AD_B0_05_ENET_TX_DATA02			0x0D0 0x2C0 0x000 0x2 0x0
--#define MXRT1050_IOMUXC_GPIO_AD_B0_05_SAI2_TX_BCLK			0x0D0 0x2C0 0x5C0 0x3 0x1
--#define MXRT1050_IOMUXC_GPIO_AD_B0_05_CSI_DATA08			0x0D0 0x2C0 0x418 0x4 0x1
--#define MXRT1050_IOMUXC_GPIO_AD_B0_05_GPIO1_IO05			0x0D0 0x2C0 0x000 0x5 0x0
--#define MXRT1050_IOMUXC_GPIO_AD_B0_05_XBAR_INOUT17			0x0D0 0x2C0 0x62C 0x6 0x2
--#define MXRT1050_IOMUXC_GPIO_AD_B0_05_LPSPI3_PCS2			0x0D0 0x2C0 0x000 0x7 0x0
--
--#define MXRT1050_IOMUXC_GPIO_AD_B0_06_JTAG_TMS				0x0D4 0x2C4 0x000 0x0 0x0
--#define MXRT1050_IOMUXC_GPIO_AD_B0_06_GPT2_COMPARE1			0x0D4 0x2C4 0x000 0x1 0x0
--#define MXRT1050_IOMUXC_GPIO_AD_B0_06_ENET_RX_CLK			0x0D4 0x2C4 0x000 0x2 0x0
--#define MXRT1050_IOMUXC_GPIO_AD_B0_06_SAI2_RX_BCLK			0x0D4 0x2C4 0x5B4 0x3 0x1
--#define MXRT1050_IOMUXC_GPIO_AD_B0_06_CSI_DATA07			0x0D4 0x2C4 0x414 0x4 0x1
--#define MXRT1050_IOMUXC_GPIO_AD_B0_06_GPIO1_IO06			0x0D4 0x2C4 0x000 0x5 0x0
--#define MXRT1050_IOMUXC_GPIO_AD_B0_06_XBAR_INOUT18			0x0D4 0x2C4 0x630 0x6 0x1
--#define MXRT1050_IOMUXC_GPIO_AD_B0_06_LPSPI3_PCS3			0x0D4 0x2C4 0x000 0x7 0x0
--
--#define MXRT1050_IOMUXC_GPIO_AD_B0_07_JTAG_TCK				0x0D8 0x2C8 0x000 0x0 0x0
--#define MXRT1050_IOMUXC_GPIO_AD_B0_07_GPT2_COMPARE2			0x0D8 0x2C8 0x000 0x1 0x0
--#define MXRT1050_IOMUXC_GPIO_AD_B0_07_ENET_TX_ER			0x0D8 0x2C8 0x000 0x2 0x0
--#define MXRT1050_IOMUXC_GPIO_AD_B0_07_SAI2_RX_SYNC			0x0D8 0x2C8 0x5BC 0x3 0x1
--#define MXRT1050_IOMUXC_GPIO_AD_B0_07_CSI_DATA06			0x0D8 0x2C8 0x410 0x4 0x1
--#define MXRT1050_IOMUXC_GPIO_AD_B0_07_GPIO1_IO07			0x0D8 0x2C8 0x000 0x5 0x0
--#define MXRT1050_IOMUXC_GPIO_AD_B0_07_XBAR_INOUT19			0x0D8 0x2C8 0x654 0x6 0x1
--#define MXRT1050_IOMUXC_GPIO_AD_B0_07_ENET_1588_EVENT3_OUT		0x0D8 0x2C8 0x000 0x7 0x0
--
--#define MXRT1050_IOMUXC_GPIO_AD_B0_08_JTAG_MOD				0x0DC 0x2CC 0x000 0x0 0x0
--#define MXRT1050_IOMUXC_GPIO_AD_B0_08_GPT2_COMPARE3			0x0DC 0x2CC 0x000 0x1 0x0
--#define MXRT1050_IOMUXC_GPIO_AD_B0_08_ENET_RX_DATA03			0x0DC 0x2CC 0x000 0x2 0x0
--#define MXRT1050_IOMUXC_GPIO_AD_B0_08_SAI2_RX_DATA			0x0DC 0x2CC 0x5B8 0x3 0x1
--#define MXRT1050_IOMUXC_GPIO_AD_B0_08_CSI_DATA05			0x0DC 0x2CC 0x40C 0x4 0x1
--#define MXRT1050_IOMUXC_GPIO_AD_B0_08_GPIO1_IO08			0x0DC 0x2CC 0x000 0x5 0x0
--#define MXRT1050_IOMUXC_GPIO_AD_B0_08_XBAR_INOUT20			0x0DC 0x2CC 0x634 0x6 0x1
--#define MXRT1050_IOMUXC_GPIO_AD_B0_08_ENET_1588_EVENT3_IN		0x0DC 0x2CC 0x000 0x7 0x0
--
--#define MXRT1050_IOMUXC_GPIO_AD_B0_09_JTAG_TDI				0x0E0 0x2D0 0x000 0x0 0x0
--#define MXRT1050_IOMUXC_GPIO_AD_B0_09_FLEXPWM2_PWM3_A			0x0E0 0x2D0 0x000 0x1 0x0
--#define MXRT1050_IOMUXC_GPIO_AD_B0_09_ENET_RX_DATA02			0x0E0 0x2D0 0x000 0x2 0x0
--#define MXRT1050_IOMUXC_GPIO_AD_B0_09_SAI2_TX_DATA			0x0E0 0x2D0 0x000 0x3 0x0
--#define MXRT1050_IOMUXC_GPIO_AD_B0_09_CSI_DATA04			0x0E0 0x2D0 0x408 0x4 0x1
--#define MXRT1050_IOMUXC_GPIO_AD_B0_09_GPIO1_IO09			0x0E0 0x2D0 0x000 0x5 0x0
--#define MXRT1050_IOMUXC_GPIO_AD_B0_09_XBAR_INOUT21			0x0E0 0x2D0 0x658 0x6 0x1
--#define MXRT1050_IOMUXC_GPIO_AD_B0_09_GPT2_CLK				0x0E0 0x2D0 0x000 0x7 0x0
--
--#define MXRT1050_IOMUXC_GPIO_AD_B0_10_JTAG_TDO				0x0E4 0x2D4 0x000 0x0 0x0
--#define MXRT1050_IOMUXC_GPIO_AD_B0_10_FLEXPWM1_PWM3_A			0x0E4 0x2D4 0x454 0x1 0x3
--#define MXRT1050_IOMUXC_GPIO_AD_B0_10_ENET_CRS				0x0E4 0x2D4 0x000 0x2 0x0
--#define MXRT1050_IOMUXC_GPIO_AD_B0_10_SAI2_MCLK				0x0E4 0x2D4 0x5B0 0x3 0x1
--#define MXRT1050_IOMUXC_GPIO_AD_B0_10_CSI_DATA03			0x0E4 0x2D4 0x404 0x4 0x1
--#define MXRT1050_IOMUXC_GPIO_AD_B0_10_GPIO1_IO10			0x0E4 0x2D4 0x000 0x5 0x0
--#define MXRT1050_IOMUXC_GPIO_AD_B0_10_XBAR_INOUT22			0x0E4 0x2D4 0x638 0x6 0x1
--#define MXRT1050_IOMUXC_GPIO_AD_B0_10_ENET_1588_EVENT0_OUT		0x0E4 0x2D4 0x000 0x7 0x0
--
--#define MXRT1050_IOMUXC_GPIO_AD_B0_11_JTAG_TRSTB			0x0E8 0x2D8 0x000 0x0 0x0
--#define MXRT1050_IOMUXC_GPIO_AD_B0_11_FLEXPWM1_PWM3_B			0x0E8 0x2D8 0x464 0x1 0x3
--#define MXRT1050_IOMUXC_GPIO_AD_B0_11_ENET_COL				0x0E8 0x2D8 0x000 0x2 0x0
--#define MXRT1050_IOMUXC_GPIO_AD_B0_11_WDOG1_B				0x0E8 0x2D8 0x000 0x3 0x0
--#define MXRT1050_IOMUXC_GPIO_AD_B0_11_CSI_DATA02			0x0E8 0x2D8 0x400 0x4 0x1
--#define MXRT1050_IOMUXC_GPIO_AD_B0_11_GPIO1_IO11			0x0E8 0x2D8 0x000 0x5 0x0
--#define MXRT1050_IOMUXC_GPIO_AD_B0_11_XBAR_INOUT23			0x0E8 0x2D8 0x63C 0x6 0x1
--#define MXRT1050_IOMUXC_GPIO_AD_B0_11_ENET_1588_EVENT0_IN		0x0E8 0x2D8 0x444 0x7 0x1
--
--#define MXRT1050_IOMUXC_GPIO_AD_B0_12_LPI2C4_SCL			0x0EC 0x2DC 0x4E4 0x0 0x1
--#define MXRT1050_IOMUXC_GPIO_AD_B0_12_CCM_PMIC_READY			0x0EC 0x2DC 0x3FC 0x1 0x1
--#define MXRT1050_IOMUXC_GPIO_AD_B0_12_LPUART1_TXD			0x0EC 0x2DC 0x000 0x2 0x0
--#define MXRT1050_IOMUXC_GPIO_AD_B0_12_WDOG2_B				0x0EC 0x2DC 0x000 0x3 0x0
--#define MXRT1050_IOMUXC_GPIO_AD_B0_12_FLEXPWM1_PWM2_X			0x0EC 0x2DC 0x000 0x4 0x0
--#define MXRT1050_IOMUXC_GPIO_AD_B0_12_GPIO1_IO12			0x0EC 0x2DC 0x000 0x5 0x0
--#define MXRT1050_IOMUXC_GPIO_AD_B0_12_ENET_1588_EVENT1_OUT		0x0EC 0x2DC 0x000 0x6 0x0
--#define MXRT1050_IOMUXC_GPIO_AD_B0_12_NMI				0x0EC 0x2DC 0x568 0x7 0x0
--
--#define MXRT1050_IOMUXC_GPIO_AD_B0_13_LPI2C4_SDA			0x0F0 0x2E0 0x4E8 0x0 0x1
--#define MXRT1050_IOMUXC_GPIO_AD_B0_13_GPT1_CLK				0x0F0 0x2E0 0x000 0x1 0x0
--#define MXRT1050_IOMUXC_GPIO_AD_B0_13_LPUART1_RXD			0x0F0 0x2E0 0x000 0x2 0x0
--#define MXRT1050_IOMUXC_GPIO_AD_B0_13_EWM_OUT_B				0x0F0 0x2E0 0x000 0x3 0x0
--#define MXRT1050_IOMUXC_GPIO_AD_B0_13_FLEXPWM1_PWM3_X			0x0F0 0x2E0 0x000 0x4 0x0
--#define MXRT1050_IOMUXC_GPIO_AD_B0_13_GPIO1_IO13			0x0F0 0x2E0 0x000 0x5 0x0
--#define MXRT1050_IOMUXC_GPIO_AD_B0_13_ENET_1588_EVENT1_IN		0x0F0 0x2E0 0x000 0x6 0x0
--#define MXRT1050_IOMUXC_GPIO_AD_B0_13_REF_CLK_24M			0x0F0 0x2E0 0x000 0x7 0x0
--
--#define MXRT1050_IOMUXC_GPIO_AD_B0_14_USB_OTG2_OC			0x0F4 0x2E4 0x5CC 0x0 0x0
--#define MXRT1050_IOMUXC_GPIO_AD_B0_14_XBAR_INOUT24			0x0F4 0x2E4 0x640 0x1 0x1
--#define MXRT1050_IOMUXC_GPIO_AD_B0_14_LPUART1_CTS_B			0x0F4 0x2E4 0x000 0x2 0x0
--#define MXRT1050_IOMUXC_GPIO_AD_B0_14_ENET_1588_EVENT0_OUT		0x0F4 0x2E4 0x000 0x3 0x0
--#define MXRT1050_IOMUXC_GPIO_AD_B0_14_CSI_VSYNC				0x0F4 0x2E4 0x428 0x4 0x0
--#define MXRT1050_IOMUXC_GPIO_AD_B0_14_GPIO1_IO14			0x0F4 0x2E4 0x000 0x5 0x0
--#define MXRT1050_IOMUXC_GPIO_AD_B0_14_FLEXCAN2_TX			0x0F4 0x2E4 0x000 0x6 0x0
--
--#define MXRT1050_IOMUXC_GPIO_AD_B0_15_USB_OTG2_PWR			0x0F8 0x2E8 0x000 0x0 0x0
--#define MXRT1050_IOMUXC_GPIO_AD_B0_15_XBAR_INOUT25			0x0F8 0x2E8 0x650 0x1 0x0
--#define MXRT1050_IOMUXC_GPIO_AD_B0_15_LPUART1_RTS_B			0x0F8 0x2E8 0x000 0x2 0x0
--#define MXRT1050_IOMUXC_GPIO_AD_B0_15_ENET_1588_EVENT0_IN		0x0F8 0x2E8 0x444 0x3 0x0
--#define MXRT1050_IOMUXC_GPIO_AD_B0_15_CSI_HSYNC				0x0F8 0x2E8 0x420 0x4 0x0
--#define MXRT1050_IOMUXC_GPIO_AD_B0_15_GPIO1_IO15			0x0F8 0x2E8 0x000 0x5 0x0
--#define MXRT1050_IOMUXC_GPIO_AD_B0_15_FLEXCAN2_RX			0x0F8 0x2E8 0x450 0x6 0x2
--#define MXRT1050_IOMUXC_GPIO_AD_B0_15_WDOG1_WDOG_RST_B_DEB		0x0F8 0x2E8 0x000 0x7 0x0
--
--#define MXRT1050_IOMUXC_GPIO_AD_B1_00_USB_OTG2_ID			0x0FC 0x2EC 0x3F8 0x0 0x1
--#define MXRT1050_IOMUXC_GPIO_AD_B1_00_TMR3_TIMER0			0x0FC 0x2EC 0x57C 0x1 0x1
--#define MXRT1050_IOMUXC_GPIO_AD_B1_00_LPUART2_CTS_B			0x0FC 0x2EC 0x000 0x2 0x0
--#define MXRT1050_IOMUXC_GPIO_AD_B1_00_LPI2C1_SCL			0x0FC 0x2EC 0x4CC 0x3 0x1
--#define MXRT1050_IOMUXC_GPIO_AD_B1_00_WDOG1_B				0x0FC 0x2EC 0x000 0x4 0x0
--#define MXRT1050_IOMUXC_GPIO_AD_B1_00_GPIO1_IO16			0x0FC 0x2EC 0x000 0x5 0x0
--#define MXRT1050_IOMUXC_GPIO_AD_B1_00_USDHC1_WP				0x0FC 0x2EC 0x5D8 0x6 0x2
--#define MXRT1050_IOMUXC_GPIO_AD_B1_00_KPP_ROW07				0x0FC 0x2EC 0x000 0x7 0x0
--
--#define MXRT1050_IOMUXC_GPIO_AD_B1_01_USB_OTG1_PWR			0x100 0x2F0 0x000 0x0 0x0
--#define MXRT1050_IOMUXC_GPIO_AD_B1_01_TMR3_TIMER1			0x100 0x2F0 0x580 0x1 0x1
--#define MXRT1050_IOMUXC_GPIO_AD_B1_01_LPUART2_RTS_B			0x100 0x2F0 0x000 0x2 0x0
--#define MXRT1050_IOMUXC_GPIO_AD_B1_01_LPI2C1_SDA			0x100 0x2F0 0x4D0 0x3 0x1
--#define MXRT1050_IOMUXC_GPIO_AD_B1_01_CCM_PMIC_READY			0x100 0x2F0 0x3FC 0x4 0x2
--#define MXRT1050_IOMUXC_GPIO_AD_B1_01_GPIO1_IO17			0x100 0x2F0 0x000 0x5 0x0
--#define MXRT1050_IOMUXC_GPIO_AD_B1_01_USDHC1_VSELECT			0x100 0x2F0 0x000 0x6 0x0
--#define MXRT1050_IOMUXC_GPIO_AD_B1_01_KPP_COL07				0x100 0x2F0 0x000 0x7 0x0
--
--#define MXRT1050_IOMUXC_GPIO_AD_B1_02_USB_OTG1_ID			0x104 0x2F4 0x3F4 0x0 0x1
--#define MXRT1050_IOMUXC_GPIO_AD_B1_02_TMR3_TIMER2			0x104 0x2F4 0x584 0x1 0x1
--#define MXRT1050_IOMUXC_GPIO_AD_B1_02_LPUART2_TXD			0x104 0x2F4 0x530 0x2 0x1
--#define MXRT1050_IOMUXC_GPIO_AD_B1_02_SPDIF_OUT				0x104 0x2F4 0x000 0x3 0x0
--#define MXRT1050_IOMUXC_GPIO_AD_B1_02_ENET_1588_EVENT2_OUT		0x104 0x2F4 0x000 0x4 0x0
--#define MXRT1050_IOMUXC_GPIO_AD_B1_02_GPIO1_IO18			0x104 0x2F4 0x000 0x5 0x0
--#define MXRT1050_IOMUXC_GPIO_AD_B1_02_USDHC1_CD_B			0x104 0x2F4 0x5D4 0x6 0x1
--#define MXRT1050_IOMUXC_GPIO_AD_B1_02_KPP_ROW06				0x104 0x2F4 0x000 0x7 0x0
--
--#define MXRT1050_IOMUXC_GPIO_AD_B1_03_USB_OTG1_OC			0x108 0x2F8 0x5D0 0x0 0x1
--#define MXRT1050_IOMUXC_GPIO_AD_B1_03_TMR3_TIMER3			0x108 0x2F8 0x588 0x1 0x1
--#define MXRT1050_IOMUXC_GPIO_AD_B1_03_LPUART2_RXD			0x108 0x2F8 0x52C 0x2 0x1
--#define MXRT1050_IOMUXC_GPIO_AD_B1_03_SPDIF_IN				0x108 0x2F8 0x5C8 0x3 0x0
--#define MXRT1050_IOMUXC_GPIO_AD_B1_03_ENET_1588_EVENT2_IN		0x108 0x2F8 0x000 0x4 0x0
--#define MXRT1050_IOMUXC_GPIO_AD_B1_03_GPIO1_IO19			0x108 0x2F8 0x000 0x5 0x0
--#define MXRT1050_IOMUXC_GPIO_AD_B1_03_USDHC2_CD_B			0x108 0x2F8 0x5E0 0x6 0x0
--#define MXRT1050_IOMUXC_GPIO_AD_B1_03_KPP_COL06				0x108 0x2F8 0x000 0x7 0x0
--
--#define MXRT1050_IOMUXC_GPIO_AD_B1_04_FLEXSPI_B_DATA3			0x10C 0x2FC 0x4C4 0x0 0x1
--#define MXRT1050_IOMUXC_GPIO_AD_B1_04_ENET_MDC				0x10C 0x2FC 0x000 0x1 0x0
--#define MXRT1050_IOMUXC_GPIO_AD_B1_04_LPUART3_CTS_B			0x10C 0x2FC 0x534 0x2 0x1
--#define MXRT1050_IOMUXC_GPIO_AD_B1_04_SPDIF_SR_CLK			0x10C 0x2FC 0x000 0x3 0x0
--#define MXRT1050_IOMUXC_GPIO_AD_B1_04_CSI_PIXCLK			0x10C 0x2FC 0x424 0x4 0x0
--#define MXRT1050_IOMUXC_GPIO_AD_B1_04_GPIO1_IO20			0x10C 0x2FC 0x000 0x5 0x0
--#define MXRT1050_IOMUXC_GPIO_AD_B1_04_USDHC2_DATA0			0x10C 0x2FC 0x5E8 0x6 0x1
--#define MXRT1050_IOMUXC_GPIO_AD_B1_04_KPP_ROW05				0x10C 0x2FC 0x000 0x7 0x0
--
--#define MXRT1050_IOMUXC_GPIO_AD_B1_05_FLEXSPI_B_DATA2			0x110 0x300 0x4C0 0x0 0x1
--#define MXRT1050_IOMUXC_GPIO_AD_B1_05_ENET_MDIO				0x110 0x300 0x430 0x1 0x0
--#define MXRT1050_IOMUXC_GPIO_AD_B1_05_LPUART3_RTS_B			0x110 0x300 0x000 0x2 0x0
--#define MXRT1050_IOMUXC_GPIO_AD_B1_05_SPDIF_OUT				0x110 0x300 0x000 0x3 0x0
--#define MXRT1050_IOMUXC_GPIO_AD_B1_05_CSI_MCLK				0x110 0x300 0x000 0x4 0x0
--#define MXRT1050_IOMUXC_GPIO_AD_B1_05_GPIO1_IO21			0x110 0x300 0x000 0x5 0x0
--#define MXRT1050_IOMUXC_GPIO_AD_B1_05_USDHC2_DATA1			0x110 0x300 0x5EC 0x6 0x1
--#define MXRT1050_IOMUXC_GPIO_AD_B1_05_KPP_COL05				0x110 0x300 0x000 0x7 0x0
--
--#define MXRT1050_IOMUXC_GPIO_AD_B1_06_FLEXSPI_B_DATA1			0x114 0x304 0x4BC 0x0 0x1
--#define MXRT1050_IOMUXC_GPIO_AD_B1_06_LPI2C3_SDA			0x114 0x304 0x4E0 0x1 0x2
--#define MXRT1050_IOMUXC_GPIO_AD_B1_06_LPUART3_TXD			0x114 0x304 0x53C 0x2 0x1
--#define MXRT1050_IOMUXC_GPIO_AD_B1_06_SPDIF_LOCK			0x114 0x304 0x000 0x3 0x0
--#define MXRT1050_IOMUXC_GPIO_AD_B1_06_CSI_VSYNC				0x114 0x304 0x428 0x4 0x1
--#define MXRT1050_IOMUXC_GPIO_AD_B1_06_GPIO1_IO22			0x114 0x304 0x000 0x5 0x0
--#define MXRT1050_IOMUXC_GPIO_AD_B1_06_USDHC2_DATA2			0x114 0x304 0x5F0 0x6 0x1
--#define MXRT1050_IOMUXC_GPIO_AD_B1_06_KPP_ROW04				0x114 0x304 0x000 0x7 0x0
--
--#define MXRT1050_IOMUXC_GPIO_AD_B1_07_FLEXSPI_B_DATA0			0x118 0x308 0x4B8 0x0 0x1
--#define MXRT1050_IOMUXC_GPIO_AD_B1_07_LPI2C3_SCL			0x118 0x308 0x4DC 0x1 0x2
--#define MXRT1050_IOMUXC_GPIO_AD_B1_07_LPUART3_RXD			0x118 0x308 0x538 0x2 0x1
--#define MXRT1050_IOMUXC_GPIO_AD_B1_07_SPDIF_EXT_CLK			0x118 0x308 0x000 0x3 0x0
--#define MXRT1050_IOMUXC_GPIO_AD_B1_07_CSI_HSYNC				0x118 0x308 0x420 0x4 0x1
--#define MXRT1050_IOMUXC_GPIO_AD_B1_07_GPIO1_IO23			0x118 0x308 0x000 0x5 0x0
--#define MXRT1050_IOMUXC_GPIO_AD_B1_07_USDHC2_DATA3			0x118 0x308 0x5F4 0x6 0x1
--#define MXRT1050_IOMUXC_GPIO_AD_B1_07_KPP_COL04				0x118 0x308 0x000 0x7 0x0
--
--#define MXRT1050_IOMUXC_GPIO_AD_B1_08_FLEXSPI_A_SS1_B			0x11C 0x30C 0x000 0x0 0x0
--#define MXRT1050_IOMUXC_GPIO_AD_B1_08_FLEXPWM4_PWM0_A			0x11C 0x30C 0x494 0x1 0x1
--#define MXRT1050_IOMUXC_GPIO_AD_B1_08_FLEXCAN1_TX			0x11C 0x30C 0x000 0x2 0x0
--#define MXRT1050_IOMUXC_GPIO_AD_B1_08_CCM_PMIC_READY			0x11C 0x30C 0x3FC 0x3 0x3
--#define MXRT1050_IOMUXC_GPIO_AD_B1_08_CSI_DATA09			0x11C 0x30C 0x41C 0x4 0x0
--#define MXRT1050_IOMUXC_GPIO_AD_B1_08_GPIO1_IO24			0x11C 0x30C 0x000 0x5 0x0
--#define MXRT1050_IOMUXC_GPIO_AD_B1_08_USDHC2_CMD			0x11C 0x30C 0x5E4 0x6 0x1
--#define MXRT1050_IOMUXC_GPIO_AD_B1_08_KPP_ROW03				0x11C 0x30C 0x000 0x7 0x0
--
--#define MXRT1050_IOMUXC_GPIO_AD_B1_09_FLEXSPI_A_DQS			0x120 0x310 0x4A4 0x0 0x1
--#define MXRT1050_IOMUXC_GPIO_AD_B1_09_FLEXPWM4_PWM1_A			0x120 0x310 0x498 0x1 0x1
--#define MXRT1050_IOMUXC_GPIO_AD_B1_09_FLEXCAN1_RX			0x120 0x310 0x44C 0x2 0x2
--#define MXRT1050_IOMUXC_GPIO_AD_B1_09_SAI1_MCLK				0x120 0x310 0x58C 0x3 0x1
--#define MXRT1050_IOMUXC_GPIO_AD_B1_09_CSI_DATA08			0x120 0x310 0x418 0x4 0x0
--#define MXRT1050_IOMUXC_GPIO_AD_B1_09_GPIO1_IO25			0x120 0x310 0x000 0x5 0x0
--#define MXRT1050_IOMUXC_GPIO_AD_B1_09_USDHC2_CLK			0x120 0x310 0x5DC 0x6 0x1
--#define MXRT1050_IOMUXC_GPIO_AD_B1_09_KPP_COL03				0x120 0x310 0x000 0x7 0x0
--
--#define MXRT1050_IOMUXC_GPIO_AD_B1_10_FLEXSPI_A_DATA3			0x124 0x314 0x4B4 0x0 0x1
--#define MXRT1050_IOMUXC_GPIO_AD_B1_10_WDOG1_B				0x124 0x314 0x000 0x1 0x0
--#define MXRT1050_IOMUXC_GPIO_AD_B1_10_LPUART8_TXD			0x124 0x314 0x564 0x2 0x1
--#define MXRT1050_IOMUXC_GPIO_AD_B1_10_SAI1_RX_SYNC			0x124 0x314 0x5A4 0x3 0x1
--#define MXRT1050_IOMUXC_GPIO_AD_B1_10_CSI_DATA07			0x124 0x314 0x414 0x4 0x0
--#define MXRT1050_IOMUXC_GPIO_AD_B1_10_GPIO1_IO26			0x124 0x314 0x000 0x5 0x0
--#define MXRT1050_IOMUXC_GPIO_AD_B1_10_USDHC2_WP				0x124 0x314 0x608 0x6 0x1
--#define MXRT1050_IOMUXC_GPIO_AD_B1_10_KPP_ROW02				0x124 0x314 0x000 0x7 0x0
--
--#define MXRT1050_IOMUXC_GPIO_AD_B1_11_FLEXSPI_A_DATA2			0x128 0x318 0x4B0 0x0 0x1
--#define MXRT1050_IOMUXC_GPIO_AD_B1_11_EWM_OUT_B				0x128 0x318 0x000 0x1 0x0
--#define MXRT1050_IOMUXC_GPIO_AD_B1_11_LPUART8_RXD			0x128 0x318 0x560 0x2 0x1
--#define MXRT1050_IOMUXC_GPIO_AD_B1_11_SAI1_RX_BCLK			0x128 0x318 0x590 0x3 0x1
--#define MXRT1050_IOMUXC_GPIO_AD_B1_11_CSI_DATA06			0x128 0x318 0x410 0x4 0x0
--#define MXRT1050_IOMUXC_GPIO_AD_B1_11_GPIO1_IO27			0x128 0x318 0x000 0x5 0x0
--#define MXRT1050_IOMUXC_GPIO_AD_B1_11_USDHC2_RESET_B			0x128 0x318 0x000 0x6 0x0
--#define MXRT1050_IOMUXC_GPIO_AD_B1_11_KPP_COL02				0x128 0x318 0x000 0x7 0x0
--
--#define MXRT1050_IOMUXC_GPIO_AD_B1_12_FLEXSPI_A_DATA1			0x12C 0x31C 0x4AC 0x0 0x1
--#define MXRT1050_IOMUXC_GPIO_AD_B1_12_ACMP1_OUT				0x12C 0x31C 0x000 0x1 0x0
--#define MXRT1050_IOMUXC_GPIO_AD_B1_12_LPSPI3_PCS0			0x12C 0x31C 0x50C 0x2 0x1
--#define MXRT1050_IOMUXC_GPIO_AD_B1_12_SAI1_RX_DATA00			0x12C 0x31C 0x594 0x3 0x1
--#define MXRT1050_IOMUXC_GPIO_AD_B1_12_CSI_DATA05			0x12C 0x31C 0x40C 0x4 0x0
--#define MXRT1050_IOMUXC_GPIO_AD_B1_12_GPIO1_IO28			0x12C 0x31C 0x000 0x5 0x0
--#define MXRT1050_IOMUXC_GPIO_AD_B1_12_USDHC2_DATA4			0x12C 0x31C 0x5F8 0x6 0x1
--#define MXRT1050_IOMUXC_GPIO_AD_B1_12_KPP_ROW01				0x12C 0x31C 0x000 0x7 0x0
--
--#define MXRT1050_IOMUXC_GPIO_AD_B1_13_FLEXSPI_A_DATA0			0x130 0x320 0x4A8 0x0 0x1
--#define MXRT1050_IOMUXC_GPIO_AD_B1_13_ACMP2_OUT				0x130 0x320 0x000 0x1 0x0
--#define MXRT1050_IOMUXC_GPIO_AD_B1_13_LPSPI3_SDI			0x130 0x320 0x514 0x2 0x0
--#define MXRT1050_IOMUXC_GPIO_AD_B1_13_SAI1_TX_DATA00			0x130 0x320 0x000 0x3 0x0
--#define MXRT1050_IOMUXC_GPIO_AD_B1_13_CSI_DATA04			0x130 0x320 0x408 0x4 0x0
--#define MXRT1050_IOMUXC_GPIO_AD_B1_13_GPIO1_IO29			0x130 0x320 0x000 0x5 0x0
--#define MXRT1050_IOMUXC_GPIO_AD_B1_13_USDHC2_DATA5			0x130 0x320 0x5FC 0x6 0x1
--#define MXRT1050_IOMUXC_GPIO_AD_B1_13_KPP_COL01				0x130 0x320 0x000 0x7 0x0
--
--#define MXRT1050_IOMUXC_GPIO_AD_B1_14_FLEXSPI_A_SCLK			0x134 0x324 0x4C8 0x0 0x1
--#define MXRT1050_IOMUXC_GPIO_AD_B1_14_ACMP3_OUT				0x134 0x324 0x000 0x1 0x0
--#define MXRT1050_IOMUXC_GPIO_AD_B1_14_LPSPI3_SDO			0x134 0x324 0x518 0x2 0x0
--#define MXRT1050_IOMUXC_GPIO_AD_B1_14_SAI1_TX_BCLK			0x134 0x324 0x5A8 0x3 0x1
--#define MXRT1050_IOMUXC_GPIO_AD_B1_14_CSI_DATA03			0x134 0x324 0x404 0x4 0x0
--#define MXRT1050_IOMUXC_GPIO_AD_B1_14_GPIO1_IO30			0x134 0x324 0x000 0x5 0x0
--#define MXRT1050_IOMUXC_GPIO_AD_B1_14_USDHC2_DATA6			0x134 0x324 0x600 0x6 0x1
--#define MXRT1050_IOMUXC_GPIO_AD_B1_14_KPP_ROW00				0x134 0x324 0x000 0x7 0x0
--
--#define MXRT1050_IOMUXC_GPIO_AD_B1_15_FLEXSPI_A_SS0_B			0x138 0x328 0x000 0x0 0x0
--#define MXRT1050_IOMUXC_GPIO_AD_B1_15_ACMP4_OUT				0x138 0x328 0x000 0x1 0x0
--#define MXRT1050_IOMUXC_GPIO_AD_B1_15_LPSPI3_SCK			0x138 0x328 0x510 0x2 0x1
--#define MXRT1050_IOMUXC_GPIO_AD_B1_15_SAI1_TX_SYNC			0x138 0x328 0x5AC 0x3 0x1
--#define MXRT1050_IOMUXC_GPIO_AD_B1_15_CSI_DATA02			0x138 0x328 0x400 0x4 0x0
--#define MXRT1050_IOMUXC_GPIO_AD_B1_15_GPIO1_IO31			0x138 0x328 0x000 0x5 0x0
--#define MXRT1050_IOMUXC_GPIO_AD_B1_15_USDHC2_DATA7			0x138 0x328 0x604 0x6 0x1
--#define MXRT1050_IOMUXC_GPIO_AD_B1_15_KPP_COL00				0x138 0x328 0x000 0x7 0x0
--
--#define MXRT1050_IOMUXC_GPIO_B0_00_LCD_CLK				0x13C 0x32C 0x000 0x0 0x0
--#define MXRT1050_IOMUXC_GPIO_B0_00_TMR1_TIMER0				0x13C 0x32C 0x000 0x1 0x0
--#define MXRT1050_IOMUXC_GPIO_B0_00_MQS_RIGHT				0x13C 0x32C 0x000 0x2 0x0
--#define MXRT1050_IOMUXC_GPIO_B0_00_LPSPI4_PCS0				0x13C 0x32C 0x51C 0x3 0x0
--#define MXRT1050_IOMUXC_GPIO_B0_00_FLEXIO2_D00				0x13C 0x32C 0x000 0x4 0x0
--#define MXRT1050_IOMUXC_GPIO_B0_00_GPIO2_IO00				0x13C 0x32C 0x000 0x5 0x0
--#define MXRT1050_IOMUXC_GPIO_B0_00_SEMC_CSX1				0x13C 0x32C 0x000 0x6 0x0
--
--#define MXRT1050_IOMUXC_GPIO_B0_01_LCD_ENABLE				0x140 0x330 0x000 0x0 0x0
--#define MXRT1050_IOMUXC_GPIO_B0_01_TMR1_TIMER1				0x140 0x330 0x000 0x1 0x0
--#define MXRT1050_IOMUXC_GPIO_B0_01_MQS_LEFT				0x140 0x330 0x000 0x2 0x0
--#define MXRT1050_IOMUXC_GPIO_B0_01_LPSPI4_SDI				0x140 0x330 0x524 0x3 0x0
--#define MXRT1050_IOMUXC_GPIO_B0_01_FLEXIO2_D01				0x140 0x330 0x000 0x4 0x0
--#define MXRT1050_IOMUXC_GPIO_B0_01_GPIO2_IO01				0x140 0x330 0x000 0x5 0x0
--#define MXRT1050_IOMUXC_GPIO_B0_01_SEMC_CSX2				0x140 0x330 0x000 0x6 0x0
--
--#define MXRT1050_IOMUXC_GPIO_B0_02_LCD_HSYNC				0x144 0x334 0x000 0x0 0x0
--#define MXRT1050_IOMUXC_GPIO_B0_02_TMR1_TIMER2				0x144 0x334 0x000 0x1 0x0
--#define MXRT1050_IOMUXC_GPIO_B0_02_FLEXCAN1_TX				0x144 0x334 0x000 0x2 0x0
--#define MXRT1050_IOMUXC_GPIO_B0_02_LPSPI4_SDO				0x144 0x334 0x528 0x3 0x0
--#define MXRT1050_IOMUXC_GPIO_B0_02_FLEXIO2_D02				0x144 0x334 0x000 0x4 0x0
--#define MXRT1050_IOMUXC_GPIO_B0_02_GPIO2_IO02				0x144 0x334 0x000 0x5 0x0
--#define MXRT1050_IOMUXC_GPIO_B0_02_SEMC_CSX3				0x144 0x334 0x000 0x6 0x0
--
--#define MXRT1050_IOMUXC_GPIO_B0_03_LCD_VSYNC				0x148 0x338 0x000 0x0 0x0
--#define MXRT1050_IOMUXC_GPIO_B0_03_TMR2_TIMER0				0x148 0x338 0x56C 0x1 0x1
--#define MXRT1050_IOMUXC_GPIO_B0_03_FLEXCAN1_RX				0x148 0x338 0x44C 0x2 0x3
--#define MXRT1050_IOMUXC_GPIO_B0_03_LPSPI4_SCK				0x148 0x338 0x520 0x3 0x0
--#define MXRT1050_IOMUXC_GPIO_B0_03_FLEXIO2_D03				0x148 0x338 0x000 0x4 0x0
--#define MXRT1050_IOMUXC_GPIO_B0_03_GPIO2_IO03				0x148 0x338 0x000 0x5 0x0
--#define MXRT1050_IOMUXC_GPIO_B0_03_WDOG2_RESET_B_DEB			0x148 0x338 0x000 0x6 0x0
--
--#define MXRT1050_IOMUXC_GPIO_B0_04_LCD_DATA00				0x14C 0x33C 0x000 0x0 0x0
--#define MXRT1050_IOMUXC_GPIO_B0_04_TMR2_TIMER1				0x14C 0x33C 0x570 0x1 0x1
--#define MXRT1050_IOMUXC_GPIO_B0_04_LPI2C2_SCL				0x14C 0x33C 0x4D4 0x2 0x1
--#define MXRT1050_IOMUXC_GPIO_B0_04_ARM_TRACE00				0x14C 0x33C 0x000 0x3 0x0
--#define MXRT1050_IOMUXC_GPIO_B0_04_FLEXIO2_D04				0x14C 0x33C 0x000 0x4 0x0
--#define MXRT1050_IOMUXC_GPIO_B0_04_GPIO2_IO04				0x14C 0x33C 0x000 0x5 0x0
--#define MXRT1050_IOMUXC_GPIO_B0_04_SRC_BT_CFG00				0x14C 0x33C 0x000 0x6 0x0
--
--#define MXRT1050_IOMUXC_GPIO_B0_05_LCD_DATA01				0x150 0x340 0x000 0x0 0x0
--#define MXRT1050_IOMUXC_GPIO_B0_05_TMR2_TIMER2				0x150 0x340 0x574 0x1 0x1
--#define MXRT1050_IOMUXC_GPIO_B0_05_LPI2C2_SDA				0x150 0x340 0x4D8 0x2 0x1
--#define MXRT1050_IOMUXC_GPIO_B0_05_ARM_TRACE01				0x150 0x340 0x000 0x3 0x0
--#define MXRT1050_IOMUXC_GPIO_B0_05_FLEXIO2_D05				0x150 0x340 0x000 0x4 0x0
--#define MXRT1050_IOMUXC_GPIO_B0_05_GPIO2_IO05				0x150 0x340 0x000 0x5 0x0
--#define MXRT1050_IOMUXC_GPIO_B0_05_SRC_BT_CFG01				0x150 0x340 0x000 0x6 0x0
--
--#define MXRT1050_IOMUXC_GPIO_B0_06_LCD_DATA02				0x154 0x344 0x000 0x0 0x0
--#define MXRT1050_IOMUXC_GPIO_B0_06_TMR3_TIMER0				0x154 0x344 0x57C 0x1 0x2
--#define MXRT1050_IOMUXC_GPIO_B0_06_FLEXPWM2_PWM0_A			0x154 0x344 0x478 0x2 0x1
--#define MXRT1050_IOMUXC_GPIO_B0_06_ARM_TRACE02				0x154 0x344 0x000 0x3 0x0
--#define MXRT1050_IOMUXC_GPIO_B0_06_FLEXIO2_D06				0x154 0x344 0x000 0x4 0x0
--#define MXRT1050_IOMUXC_GPIO_B0_06_GPIO2_IO06				0x154 0x344 0x000 0x5 0x0
--#define MXRT1050_IOMUXC_GPIO_B0_06_SRC_BT_CFG02				0x154 0x344 0x000 0x6 0x0
--
--#define MXRT1050_IOMUXC_GPIO_B0_07_LCD_DATA03				0x158 0x348 0x000 0x0 0x0
--#define MXRT1050_IOMUXC_GPIO_B0_07_TMR3_TIMER1				0x158 0x348 0x580 0x1 0x2
--#define MXRT1050_IOMUXC_GPIO_B0_07_FLEXPWM2_PWM0_B			0x158 0x348 0x488 0x2 0x1
--#define MXRT1050_IOMUXC_GPIO_B0_07_ARM_TRACE03				0x158 0x348 0x000 0x3 0x0
--#define MXRT1050_IOMUXC_GPIO_B0_07_FLEXIO2_D07				0x158 0x348 0x000 0x4 0x0
--#define MXRT1050_IOMUXC_GPIO_B0_07_GPIO2_IO07				0x158 0x348 0x000 0x5 0x0
--#define MXRT1050_IOMUXC_GPIO_B0_07_SRC_BT_CFG03				0x158 0x348 0x000 0x6 0x0
--
--#define MXRT1050_IOMUXC_GPIO_B0_08_LCD_DATA04				0x15C 0x34C 0x000 0x0 0x0
--#define MXRT1050_IOMUXC_GPIO_B0_08_TMR3_TIMER2				0x15C 0x34C 0x584 0x1 0x2
--#define MXRT1050_IOMUXC_GPIO_B0_08_FLEXPWM2_PWM1_A			0x15C 0x34C 0x47C 0x2 0x1
--#define MXRT1050_IOMUXC_GPIO_B0_08_LPUART3_TXD				0x15C 0x34C 0x53C 0x3 0x2
--#define MXRT1050_IOMUXC_GPIO_B0_08_FLEXIO2_D08				0x15C 0x34C 0x000 0x4 0x0
--#define MXRT1050_IOMUXC_GPIO_B0_08_GPIO2_IO08				0x15C 0x34C 0x000 0x5 0x0
--#define MXRT1050_IOMUXC_GPIO_B0_08_SRC_BT_CFG04				0x15C 0x34C 0x000 0x6 0x0
--
--#define MXRT1050_IOMUXC_GPIO_B0_09_LCD_DATA05				0x160 0x350 0x000 0x0 0x0
--#define MXRT1050_IOMUXC_GPIO_B0_09_TMR4_TIMER0				0x160 0x350 0x000 0x1 0x0
--#define MXRT1050_IOMUXC_GPIO_B0_09_FLEXPWM2_PWM1_B			0x160 0x350 0x48C 0x2 0x1
--#define MXRT1050_IOMUXC_GPIO_B0_09_LPUART3_RXD				0x160 0x350 0x538 0x3 0x2
--#define MXRT1050_IOMUXC_GPIO_B0_09_FLEXIO2_D09				0x160 0x350 0x000 0x4 0x0
--#define MXRT1050_IOMUXC_GPIO_B0_09_GPIO2_IO09				0x160 0x350 0x000 0x5 0x0
--#define MXRT1050_IOMUXC_GPIO_B0_09_SRC_BT_CFG05				0x160 0x350 0x000 0x6 0x0
--
--#define MXRT1050_IOMUXC_GPIO_B0_10_LCD_DATA06				0x164 0x354 0x000 0x0 0x0
--#define MXRT1050_IOMUXC_GPIO_B0_10_TMR4_TIMER1				0x164 0x354 0x000 0x1 0x0
--#define MXRT1050_IOMUXC_GPIO_B0_10_FLEXPWM2_PWM2_A			0x164 0x354 0x480 0x2 0x1
--#define MXRT1050_IOMUXC_GPIO_B0_10_SAI1_TX_DATA03			0x164 0x354 0x598 0x3 0x1
--#define MXRT1050_IOMUXC_GPIO_B0_10_FLEXIO2_D10				0x164 0x354 0x000 0x4 0x0
--#define MXRT1050_IOMUXC_GPIO_B0_10_GPIO2_IO10				0x164 0x354 0x000 0x5 0x0
--#define MXRT1050_IOMUXC_GPIO_B0_10_SRC_BT_CFG06				0x164 0x354 0x000 0x6 0x0
--
--#define MXRT1050_IOMUXC_GPIO_B0_11_LCD_DATA07				0x168 0x358 0x000 0x0 0x0
--#define MXRT1050_IOMUXC_GPIO_B0_11_TMR4_TIMER2				0x168 0x358 0x000 0x1 0x0
--#define MXRT1050_IOMUXC_GPIO_B0_11_FLEXPWM2_PWM2_B			0x168 0x358 0x490 0x2 0x1
--#define MXRT1050_IOMUXC_GPIO_B0_11_SAI1_TX_DATA02			0x168 0x358 0x59C 0x3 0x1
--#define MXRT1050_IOMUXC_GPIO_B0_11_FLEXIO2_D11				0x168 0x358 0x000 0x4 0x0
--#define MXRT1050_IOMUXC_GPIO_B0_11_GPIO2_IO11				0x168 0x358 0x000 0x5 0x0
--#define MXRT1050_IOMUXC_GPIO_B0_11_SRC_BT_CFG07				0x168 0x358 0x000 0x6 0x0
--
--#define MXRT1050_IOMUXC_GPIO_B0_12_LCD_DATA08				0x16C 0x35C 0x000 0x0 0x0
--#define MXRT1050_IOMUXC_GPIO_B0_12_XBAR_INOUT10				0x16C 0x35C 0x000 0x1 0x0
--#define MXRT1050_IOMUXC_GPIO_B0_12_ARM_TRACE_CLK			0x16C 0x35C 0x000 0x2 0x0
--#define MXRT1050_IOMUXC_GPIO_B0_12_SAI1_TX_DATA01			0x16C 0x35C 0x5A0 0x3 0x1
--#define MXRT1050_IOMUXC_GPIO_B0_12_FLEXIO2_D12				0x16C 0x35C 0x000 0x4 0x0
--#define MXRT1050_IOMUXC_GPIO_B0_12_GPIO2_IO12				0x16C 0x35C 0x000 0x5 0x0
--#define MXRT1050_IOMUXC_GPIO_B0_12_SRC_BT_CFG08				0x16C 0x35C 0x000 0x6 0x0
--
--#define MXRT1050_IOMUXC_GPIO_B0_13_LCD_DATA09				0x170 0x360 0x000 0x0 0x0
--#define MXRT1050_IOMUXC_GPIO_B0_13_XBAR_INOUT11				0x170 0x360 0x000 0x1 0x0
--#define MXRT1050_IOMUXC_GPIO_B0_13_ARM_TRACE_SWO			0x170 0x360 0x000 0x2 0x0
--#define MXRT1050_IOMUXC_GPIO_B0_13_SAI1_MCLK				0x170 0x360 0x58C 0x3 0x2
--#define MXRT1050_IOMUXC_GPIO_B0_13_FLEXIO2_D13				0x170 0x360 0x000 0x4 0x0
--#define MXRT1050_IOMUXC_GPIO_B0_13_GPIO2_IO13				0x170 0x360 0x000 0x5 0x0
--#define MXRT1050_IOMUXC_GPIO_B0_13_SRC_BT_CFG09				0x170 0x360 0x000 0x6 0x0
--
--#define MXRT1050_IOMUXC_GPIO_B0_14_LCD_DATA10				0x174 0x364 0x000 0x0 0x0
--#define MXRT1050_IOMUXC_GPIO_B0_14_XBAR_INOUT12				0x174 0x364 0x000 0x1 0x0
--#define MXRT1050_IOMUXC_GPIO_B0_14_ARM_CM7_TXEV				0x174 0x364 0x000 0x2 0x0
--#define MXRT1050_IOMUXC_GPIO_B0_14_SAI1_RX_SYNC				0x174 0x364 0x5A4 0x3 0x2
--#define MXRT1050_IOMUXC_GPIO_B0_14_FLEXIO2_D14				0x174 0x364 0x000 0x4 0x0
--#define MXRT1050_IOMUXC_GPIO_B0_14_GPIO2_IO14				0x174 0x364 0x000 0x5 0x0
--#define MXRT1050_IOMUXC_GPIO_B0_14_SRC_BT_CFG10				0x174 0x364 0x000 0x6 0x0
--
--#define MXRT1050_IOMUXC_GPIO_B0_15_LCD_DATA11				0x178 0x368 0x000 0x0 0x0
--#define MXRT1050_IOMUXC_GPIO_B0_15_XBAR_INOUT13				0x178 0x368 0x000 0x1 0x0
--#define MXRT1050_IOMUXC_GPIO_B0_15_ARM_CM7_RXEV				0x178 0x368 0x000 0x2 0x0
--#define MXRT1050_IOMUXC_GPIO_B0_15_SAI1_RX_BCLK				0x178 0x368 0x590 0x3 0x2
--#define MXRT1050_IOMUXC_GPIO_B0_15_FLEXIO2_D15				0x178 0x368 0x000 0x4 0x0
--#define MXRT1050_IOMUXC_GPIO_B0_15_GPIO2_IO15				0x178 0x368 0x000 0x5 0x0
--#define MXRT1050_IOMUXC_GPIO_B0_15_SRC_BT_CFG11				0x178 0x368 0x000 0x6 0x0
--
--#define MXRT1050_IOMUXC_GPIO_B1_00_LCD_DATA12				0x17C 0x36C 0x000 0x0 0x0
--#define MXRT1050_IOMUXC_GPIO_B1_00_XBAR_INOUT14				0x17C 0x36C 0x644 0x1 0x1
--#define MXRT1050_IOMUXC_GPIO_B1_00_LPUART4_TXD				0x17C 0x36C 0x544 0x2 0x2
--#define MXRT1050_IOMUXC_GPIO_B1_00_SAI1_RX_DATA00			0x17C 0x36C 0x594 0x3 0x2
--#define MXRT1050_IOMUXC_GPIO_B1_00_FLEXIO2_D16				0x17C 0x36C 0x000 0x4 0x0
--#define MXRT1050_IOMUXC_GPIO_B1_00_GPIO2_IO16				0x17C 0x36C 0x000 0x5 0x0
--#define MXRT1050_IOMUXC_GPIO_B1_00_FLEXPWM1_PWM3_A			0x17C 0x36C 0x454 0x6 0x4
--
--#define MXRT1050_IOMUXC_GPIO_B1_01_LCD_DATA13				0x180 0x370 0x000 0x0 0x0
--#define MXRT1050_IOMUXC_GPIO_B1_01_XBAR_INOUT15				0x180 0x370 0x648 0x1 0x1
--#define MXRT1050_IOMUXC_GPIO_B1_01_LPUART4_RXD				0x180 0x370 0x540 0x2 0x2
--#define MXRT1050_IOMUXC_GPIO_B1_01_SAI1_TX_DATA00			0x180 0x370 0x000 0x3 0x0
--#define MXRT1050_IOMUXC_GPIO_B1_01_FLEXIO2_D17				0x180 0x370 0x000 0x4 0x0
--#define MXRT1050_IOMUXC_GPIO_B1_01_GPIO2_IO17				0x180 0x370 0x000 0x5 0x0
--#define MXRT1050_IOMUXC_GPIO_B1_01_FLEXPWM1_PWM3_B			0x180 0x370 0x464 0x6 0x4
--
--#define MXRT1050_IOMUXC_GPIO_B1_02_LCD_DATA14				0x184 0x374 0x000 0x0 0x0
--#define MXRT1050_IOMUXC_GPIO_B1_02_XBAR_INOUT16				0x184 0x374 0x64C 0x1 0x1
--#define MXRT1050_IOMUXC_GPIO_B1_02_LPSPI4_PCS2				0x184 0x374 0x000 0x2 0x0
--#define MXRT1050_IOMUXC_GPIO_B1_02_SAI1_TX_BCLK				0x184 0x374 0x5A8 0x3 0x2
--#define MXRT1050_IOMUXC_GPIO_B1_02_FLEXIO2_D18				0x184 0x374 0x000 0x4 0x0
--#define MXRT1050_IOMUXC_GPIO_B1_02_GPIO2_IO18				0x184 0x374 0x000 0x5 0x0
--#define MXRT1050_IOMUXC_GPIO_B1_02_FLEXPWM2_PWM3_A			0x184 0x374 0x000 0x6 0x0
--
--#define MXRT1050_IOMUXC_GPIO_B1_03_LCD_DATA15				0x188 0x378 0x000 0x0 0x0
--#define MXRT1050_IOMUXC_GPIO_B1_03_XBAR_INOUT17				0x188 0x378 0x62C 0x1 0x3
--#define MXRT1050_IOMUXC_GPIO_B1_03_LPSPI4_PCS1				0x188 0x378 0x000 0x2 0x0
--#define MXRT1050_IOMUXC_GPIO_B1_03_SAI1_TX_SYNC				0x188 0x378 0x5AC 0x3 0x2
--#define MXRT1050_IOMUXC_GPIO_B1_03_FLEXIO2_D19				0x188 0x378 0x000 0x4 0x0
--#define MXRT1050_IOMUXC_GPIO_B1_03_GPIO2_IO19				0x188 0x378 0x000 0x5 0x0
--#define MXRT1050_IOMUXC_GPIO_B1_03_FLEXPWM2_PWM3_B			0x188 0x378 0x484 0x6 0x3
--
--#define MXRT1050_IOMUXC_GPIO_B1_04_LCD_DATA16				0x18C 0x37C 0x000 0x0 0x0
--#define MXRT1050_IOMUXC_GPIO_B1_04_LPSPI4_PCS0				0x18C 0x37C 0x51C 0x1 0x1
--#define MXRT1050_IOMUXC_GPIO_B1_04_CSI_DATA15				0x18C 0x37C 0x000 0x2 0x0
--#define MXRT1050_IOMUXC_GPIO_B1_04_ENET_RX_DATA00			0x18C 0x37C 0x434 0x3 0x1
--#define MXRT1050_IOMUXC_GPIO_B1_04_FLEXIO2_D20				0x18C 0x37C 0x000 0x4 0x0
--#define MXRT1050_IOMUXC_GPIO_B1_04_GPIO2_IO20				0x18C 0x37C 0x000 0x5 0x0
--
--#define MXRT1050_IOMUXC_GPIO_B1_05_LCD_DATA17				0x190 0x380 0x000 0x0 0x0
--#define MXRT1050_IOMUXC_GPIO_B1_05_LPSPI4_SDI				0x190 0x380 0x524 0x1 0x1
--#define MXRT1050_IOMUXC_GPIO_B1_05_CSI_DATA14				0x190 0x380 0x000 0x2 0x0
--#define MXRT1050_IOMUXC_GPIO_B1_05_ENET_RX_DATA01			0x190 0x380 0x438 0x3 0x1
--#define MXRT1050_IOMUXC_GPIO_B1_05_FLEXIO2_D21				0x190 0x380 0x000 0x4 0x0
--#define MXRT1050_IOMUXC_GPIO_B1_05_GPIO2_IO21				0x190 0x380 0x000 0x5 0x0
--
--#define MXRT1050_IOMUXC_GPIO_B1_06_LCD_DATA18				0x194 0x384 0x000 0x0 0x0
--#define MXRT1050_IOMUXC_GPIO_B1_06_LPSPI4_SDO				0x194 0x384 0x528 0x1 0x1
--#define MXRT1050_IOMUXC_GPIO_B1_06_CSI_DATA13				0x194 0x384 0x000 0x2 0x0
--#define MXRT1050_IOMUXC_GPIO_B1_06_ENET_RX_EN				0x194 0x384 0x43C 0x3 0x1
--#define MXRT1050_IOMUXC_GPIO_B1_06_FLEXIO2_D22				0x194 0x384 0x000 0x4 0x0
--#define MXRT1050_IOMUXC_GPIO_B1_06_GPIO2_IO22				0x194 0x384 0x000 0x5 0x0
--
--#define MXRT1050_IOMUXC_GPIO_B1_07_LCD_DATA19				0x198 0x388 0x000 0x0 0x0
--#define MXRT1050_IOMUXC_GPIO_B1_07_LPSPI4_SCK				0x198 0x388 0x520 0x1 0x1
--#define MXRT1050_IOMUXC_GPIO_B1_07_CSI_DATA12				0x198 0x388 0x000 0x2 0x0
--#define MXRT1050_IOMUXC_GPIO_B1_07_ENET_TX_DATA00			0x198 0x388 0x000 0x3 0x0
--#define MXRT1050_IOMUXC_GPIO_B1_07_FLEXIO2_D23				0x198 0x388 0x000 0x4 0x0
--#define MXRT1050_IOMUXC_GPIO_B1_07_GPIO2_IO23				0x198 0x388 0x000 0x5 0x0
--
--#define MXRT1050_IOMUXC_GPIO_B1_08_LCD_DATA20				0x19C 0x38C 0x000 0x0 0x0
--#define MXRT1050_IOMUXC_GPIO_B1_08_TMR1_TIMER3				0x19C 0x38C 0x000 0x1 0x0
--#define MXRT1050_IOMUXC_GPIO_B1_08_CSI_DATA11				0x19C 0x38C 0x000 0x2 0x0
--#define MXRT1050_IOMUXC_GPIO_B1_08_ENET_TX_DATA01			0x19C 0x38C 0x000 0x3 0x0
--#define MXRT1050_IOMUXC_GPIO_B1_08_FLEXIO2_D24				0x19C 0x38C 0x000 0x4 0x0
--#define MXRT1050_IOMUXC_GPIO_B1_08_GPIO2_IO24				0x19C 0x38C 0x000 0x5 0x0
--#define MXRT1050_IOMUXC_GPIO_B1_08_FLEXCAN2_TX				0x19C 0x38C 0x000 0x6 0x0
--
--#define MXRT1050_IOMUXC_GPIO_B1_09_LCD_DATA21				0x1A0 0x390 0x000 0x0 0x0
--#define MXRT1050_IOMUXC_GPIO_B1_09_TMR2_TIMER3				0x1A0 0x390 0x578 0x1 0x1
--#define MXRT1050_IOMUXC_GPIO_B1_09_CSI_DATA10				0x1A0 0x390 0x000 0x2 0x0
--#define MXRT1050_IOMUXC_GPIO_B1_09_ENET_TX_EN				0x1A0 0x390 0x000 0x3 0x0
--#define MXRT1050_IOMUXC_GPIO_B1_09_FLEXIO2_D25				0x1A0 0x390 0x000 0x4 0x0
--#define MXRT1050_IOMUXC_GPIO_B1_09_GPIO2_IO25				0x1A0 0x390 0x000 0x5 0x0
--#define MXRT1050_IOMUXC_GPIO_B1_09_FLEXCAN2_RX				0x1A0 0x390 0x450 0x6 0x3
--
--#define MXRT1050_IOMUXC_GPIO_B1_10_LCD_DATA22				0x1A4 0x394 0x000 0x0 0x0
--#define MXRT1050_IOMUXC_GPIO_B1_10_TMR3_TIMER3				0x1A4 0x394 0x588 0x1 0x2
--#define MXRT1050_IOMUXC_GPIO_B1_10_CSI_DATA00				0x1A4 0x394 0x000 0x2 0x0
--#define MXRT1050_IOMUXC_GPIO_B1_10_ENET_TX_CLK				0x1A4 0x394 0x448 0x3 0x1
--#define MXRT1050_IOMUXC_GPIO_B1_10_FLEXIO2_D26				0x1A4 0x394 0x000 0x4 0x0
--#define MXRT1050_IOMUXC_GPIO_B1_10_GPIO2_IO26				0x1A4 0x394 0x000 0x5 0x0
--#define MXRT1050_IOMUXC_GPIO_B1_10_ENET_REF_CLK				0x1A4 0x394 0x42C 0x6 0x1
--
--#define MXRT1050_IOMUXC_GPIO_B1_11_LCD_DATA23				0x1A8 0x398 0x000 0x0 0x0
--#define MXRT1050_IOMUXC_GPIO_B1_11_TMR4_TIMER3				0x1A8 0x398 0x000 0x1 0x0
--#define MXRT1050_IOMUXC_GPIO_B1_11_CSI_DATA01				0x1A8 0x398 0x000 0x2 0x0
--#define MXRT1050_IOMUXC_GPIO_B1_11_ENET_RX_ER				0x1A8 0x398 0x440 0x3 0x1
--#define MXRT1050_IOMUXC_GPIO_B1_11_FLEXIO2_D27				0x1A8 0x398 0x000 0x4 0x0
--#define MXRT1050_IOMUXC_GPIO_B1_11_GPIO2_IO27				0x1A8 0x398 0x000 0x5 0x0
--#define MXRT1050_IOMUXC_GPIO_B1_11_LPSPI4_PCS3				0x1A8 0x398 0x000 0x6 0x0
--
--#define MXRT1050_IOMUXC_GPIO_B1_12_LPUART5_TXD				0x1AC 0x39C 0x54C 0x1 0x1
--#define MXRT1050_IOMUXC_GPIO_B1_12_CSI_PIXCLK				0x1AC 0x39C 0x424 0x2 0x1
--#define MXRT1050_IOMUXC_GPIO_B1_12_ENET_1588_EVENT0_IN			0x1AC 0x39C 0x444 0x3 0x2
--#define MXRT1050_IOMUXC_GPIO_B1_12_FLEXIO2_D28				0x1AC 0x39C 0x000 0x4 0x0
--#define MXRT1050_IOMUXC_GPIO_B1_12_GPIO2_IO28				0x1AC 0x39C 0x000 0x5 0x0
--#define MXRT1050_IOMUXC_GPIO_B1_12_USDHC1_CD_B				0x1AC 0x39C 0x5D4 0x6 0x2
--
--#define MXRT1050_IOMUXC_GPIO_B1_13_WDOG1_B				0x1B0 0x3A0 0x000 0x0 0x0
--#define MXRT1050_IOMUXC_GPIO_B1_13_LPUART5_RXD				0x1B0 0x3A0 0x548 0x1 0x1
--#define MXRT1050_IOMUXC_GPIO_B1_13_CSI_VSYNC				0x1B0 0x3A0 0x428 0x2 0x2
--#define MXRT1050_IOMUXC_GPIO_B1_13_ENET_1588_EVENT0_OUT			0x1B0 0x3A0 0x000 0x3 0x0
--#define MXRT1050_IOMUXC_GPIO_B1_13_FLEXIO2_D29				0x1B0 0x3A0 0x000 0x4 0x0
--#define MXRT1050_IOMUXC_GPIO_B1_13_GPIO2_IO29				0x1B0 0x3A0 0x000 0x5 0x0
--#define MXRT1050_IOMUXC_GPIO_B1_13_USDHC1_WP				0x1B0 0x3A0 0x5D8 0x6 0x3
--
--#define MXRT1050_IOMUXC_GPIO_B1_14_ENET_MDC				0x1B4 0x3A4 0x000 0x0 0x0
--#define MXRT1050_IOMUXC_GPIO_B1_14_FLEXPWM4_PWM2_A			0x1B4 0x3A4 0x49C 0x1 0x1
--#define MXRT1050_IOMUXC_GPIO_B1_14_CSI_HSYNC				0x1B4 0x3A4 0x420 0x2 0x2
--#define MXRT1050_IOMUXC_GPIO_B1_14_XBAR_INOUT02				0x1B4 0x3A4 0x60C 0x3 0x1
--#define MXRT1050_IOMUXC_GPIO_B1_14_FLEXIO2_D30				0x1B4 0x3A4 0x000 0x4 0x0
--#define MXRT1050_IOMUXC_GPIO_B1_14_GPIO2_IO30				0x1B4 0x3A4 0x000 0x5 0x0
--#define MXRT1050_IOMUXC_GPIO_B1_14_USDHC1_VSELECT			0x1B4 0x3A4 0x000 0x6 0x0
--
--#define MXRT1050_IOMUXC_GPIO_B1_15_ENET_MDIO				0x1B8 0x3A8 0x430 0x0 0x2
--#define MXRT1050_IOMUXC_GPIO_B1_15_FLEXPWM4_PWM3_A			0x1B8 0x3A8 0x4A0 0x1 0x1
--#define MXRT1050_IOMUXC_GPIO_B1_15_CSI_MCLK				0x1B8 0x3A8 0x000 0x2 0x0
--#define MXRT1050_IOMUXC_GPIO_B1_15_XBAR_INOUT03				0x1B8 0x3A8 0x610 0x3 0x1
--#define MXRT1050_IOMUXC_GPIO_B1_15_FLEXIO2_D31				0x1B8 0x3A8 0x000 0x4 0x0
--#define MXRT1050_IOMUXC_GPIO_B1_15_GPIO2_IO31				0x1B8 0x3A8 0x000 0x5 0x0
--#define MXRT1050_IOMUXC_GPIO_B1_15_USDHC1_RESET_B			0x1B8 0x3A8 0x000 0x6 0x0
--
--#define MXRT1050_IOMUXC_GPIO_SD_B0_00_USDHC1_CMD			0x1BC 0x3AC 0x000 0x0 0x0
--#define MXRT1050_IOMUXC_GPIO_SD_B0_00_FLEXPWM1_PWM0_A			0x1BC 0x3AC 0x458 0x1 0x1
--#define MXRT1050_IOMUXC_GPIO_SD_B0_00_LPI2C3_SCL			0x1BC 0x3AC 0x4DC 0x2 0x1
--#define MXRT1050_IOMUXC_GPIO_SD_B0_00_XBAR_INOUT04			0x1BC 0x3AC 0x614 0x3 0x1
--#define MXRT1050_IOMUXC_GPIO_SD_B0_00_LPSPI1_SCK			0x1BC 0x3AC 0x4F0 0x4 0x1
--#define MXRT1050_IOMUXC_GPIO_SD_B0_00_GPIO3_IO12			0x1BC 0x3AC 0x000 0x5 0x0
--#define MXRT1050_IOMUXC_GPIO_SD_B0_00_FLEXSPI_A_SS1_B			0x1BC 0x3AC 0x000 0x6 0x0
--
--#define MXRT1050_IOMUXC_GPIO_SD_B0_01_USDHC1_CLK			0x1C0 0x3B0 0x000 0x0 0x0
--#define MXRT1050_IOMUXC_GPIO_SD_B0_01_FLEXPWM1_PWM0_B			0x1C0 0x3B0 0x000 0x1 0x0
--#define MXRT1050_IOMUXC_GPIO_SD_B0_01_LPI2C3_SDA			0x1C0 0x3B0 0x4E0 0x2 0x1
--#define MXRT1050_IOMUXC_GPIO_SD_B0_01_XBAR_INOUT05			0x1C0 0x3B0 0x618 0x3 0x1
--#define MXRT1050_IOMUXC_GPIO_SD_B0_01_LPSPI1_PCS0			0x1C0 0x3B0 0x4EC 0x4 0x0
--#define MXRT1050_IOMUXC_GPIO_SD_B0_01_GPIO3_IO13			0x1C0 0x3B0 0x000 0x5 0x0
--#define MXRT1050_IOMUXC_GPIO_SD_B0_01_FLEXSPI_B_SS1_B			0x1C0 0x3B0 0x000 0x6 0x0
--
--#define MXRT1050_IOMUXC_GPIO_SD_B0_02_USDHC1_DATA0			0x1C4 0x3B4 0x000 0x0 0x0
--#define MXRT1050_IOMUXC_GPIO_SD_B0_02_FLEXPWM1_PWM1_A			0x1C4 0x3B4 0x45C 0x1 0x1
--#define MXRT1050_IOMUXC_GPIO_SD_B0_02_LPUART8_CTS_B			0x1C4 0x3B4 0x000 0x2 0x0
--#define MXRT1050_IOMUXC_GPIO_SD_B0_02_XBAR_INOUT06			0x1C4 0x3B4 0x61C 0x3 0x1
--#define MXRT1050_IOMUXC_GPIO_SD_B0_02_LPSPI1_SDO			0x1C4 0x3B4 0x4F8 0x4 0x1
--#define MXRT1050_IOMUXC_GPIO_SD_B0_02_GPIO3_IO14			0x1C4 0x3B4 0x000 0x5 0x0
--
--#define MXRT1050_IOMUXC_GPIO_SD_B0_03_USDHC1_DATA1			0x1C8 0x3B8 0x000 0x0 0x0
--#define MXRT1050_IOMUXC_GPIO_SD_B0_03_FLEXPWM1_PWM1_B			0x1C8 0x3B8 0x46C 0x1 0x1
--#define MXRT1050_IOMUXC_GPIO_SD_B0_03_LPUART8_RTS_B			0x1C8 0x3B8 0x000 0x2 0x0
--#define MXRT1050_IOMUXC_GPIO_SD_B0_03_XBAR_INOUT07			0x1C8 0x3B8 0x620 0x3 0x1
--#define MXRT1050_IOMUXC_GPIO_SD_B0_03_LPSPI1_SDI			0x1C8 0x3B8 0x4F4 0x4 0x1
--#define MXRT1050_IOMUXC_GPIO_SD_B0_03_GPIO3_IO15			0x1C8 0x3B8 0x000 0x5 0x0
--
--#define MXRT1050_IOMUXC_GPIO_SD_B0_04_USDHC1_DATA2			0x1CC 0x3BC 0x000 0x0 0x0
--#define MXRT1050_IOMUXC_GPIO_SD_B0_04_FLEXPWM1_PWM2_A			0x1CC 0x3BC 0x460 0x1 0x1
--#define MXRT1050_IOMUXC_GPIO_SD_B0_04_LPUART8_TXD			0x1CC 0x3BC 0x564 0x2 0x0
--#define MXRT1050_IOMUXC_GPIO_SD_B0_04_XBAR_INOUT08			0x1CC 0x3BC 0x624 0x3 0x1
--#define MXRT1050_IOMUXC_GPIO_SD_B0_04_FLEXSPI_B_SS0_B			0x1CC 0x3BC 0x000 0x4 0x0
--#define MXRT1050_IOMUXC_GPIO_SD_B0_04_GPIO3_IO16			0x1CC 0x3BC 0x000 0x5 0x0
--#define MXRT1050_IOMUXC_GPIO_SD_B0_04_CCM_CLKO1				0x1CC 0x3BC 0x000 0x6 0x0
--
--#define MXRT1050_IOMUXC_GPIO_SD_B0_05_USDHC1_DATA3			0x1D0 0x3C0 0x000 0x0 0x0
--#define MXRT1050_IOMUXC_GPIO_SD_B0_05_FLEXPWM1_PWM2_B			0x1D0 0x3C0 0x470 0x1 0x1
--#define MXRT1050_IOMUXC_GPIO_SD_B0_05_LPUART8_RXD			0x1D0 0x3C0 0x560 0x2 0x0
--#define MXRT1050_IOMUXC_GPIO_SD_B0_05_XBAR_INOUT09			0x1D0 0x3C0 0x628 0x3 0x1
--#define MXRT1050_IOMUXC_GPIO_SD_B0_05_FLEXSPI_B_DQS			0x1D0 0x3C0 0x000 0x4 0x0
--#define MXRT1050_IOMUXC_GPIO_SD_B0_05_GPIO3_IO17			0x1D0 0x3C0 0x000 0x5 0x0
--#define MXRT1050_IOMUXC_GPIO_SD_B0_05_CCM_CLKO2				0x1D0 0x3C0 0x000 0x6 0x0
--
--#define MXRT1050_IOMUXC_GPIO_SD_B1_00_USDHC2_DATA3			0x1D4 0x3C4 0x5F4 0x0 0x0
--#define MXRT1050_IOMUXC_GPIO_SD_B1_00_FLEXSPI_B_DATA3			0x1D4 0x3C4 0x4C4 0x1 0x0
--#define MXRT1050_IOMUXC_GPIO_SD_B1_00_FLEXPWM1_PWM3_A			0x1D4 0x3C4 0x454 0x2 0x0
--#define MXRT1050_IOMUXC_GPIO_SD_B1_00_SAI1_TX_DATA03			0x1D4 0x3C4 0x598 0x3 0x0
--#define MXRT1050_IOMUXC_GPIO_SD_B1_00_LPUART4_TXD			0x1D4 0x3C4 0x544 0x4 0x0
--#define MXRT1050_IOMUXC_GPIO_SD_B1_00_GPIO3_IO00			0x1D4 0x3C4 0x000 0x5 0x0
--
--#define MXRT1050_IOMUXC_GPIO_SD_B1_01_USDHC2_DATA2			0x1D8 0x3C8 0x5F0 0x0 0x0
--#define MXRT1050_IOMUXC_GPIO_SD_B1_01_FLEXSPI_B_DATA2			0x1D8 0x3C8 0x4C0 0x1 0x0
--#define MXRT1050_IOMUXC_GPIO_SD_B1_01_FLEXPWM1_PWM3_B			0x1D8 0x3C8 0x464 0x2 0x0
--#define MXRT1050_IOMUXC_GPIO_SD_B1_01_SAI1_TX_DATA02			0x1D8 0x3C8 0x59C 0x3 0x0
--#define MXRT1050_IOMUXC_GPIO_SD_B1_01_LPUART4_RXD			0x1D8 0x3C8 0x540 0x4 0x0
--#define MXRT1050_IOMUXC_GPIO_SD_B1_01_GPIO3_IO01			0x1D8 0x3C8 0x000 0x5 0x0
--
--#define MXRT1050_IOMUXC_GPIO_SD_B1_02_USDHC2_DATA1			0x1DC 0x3CC 0x5EC 0x0 0x0
--#define MXRT1050_IOMUXC_GPIO_SD_B1_02_FLEXSPI_B_DATA1			0x1DC 0x3CC 0x4BC 0x1 0x0
--#define MXRT1050_IOMUXC_GPIO_SD_B1_02_FLEXPWM2_PWM3_A			0x1DC 0x3CC 0x000 0x2 0x0
--#define MXRT1050_IOMUXC_GPIO_SD_B1_02_SAI1_TX_DATA01			0x1DC 0x3CC 0x5A0 0x3 0x0
--#define MXRT1050_IOMUXC_GPIO_SD_B1_02_FLEXCAN1_TX			0x1DC 0x3CC 0x000 0x4 0x0
--#define MXRT1050_IOMUXC_GPIO_SD_B1_02_GPIO3_IO02			0x1DC 0x3CC 0x000 0x5 0x0
--#define MXRT1050_IOMUXC_GPIO_SD_B1_02_CCM_WAIT				0x1DC 0x3CC 0x000 0x6 0x0
--
--#define MXRT1050_IOMUXC_GPIO_SD_B1_03_USDHC2_DATA0			0x1E0 0x3D0 0x5E8 0x0 0x0
--#define MXRT1050_IOMUXC_GPIO_SD_B1_03_FLEXSPI_B_DATA0			0x1E0 0x3D0 0x4B8 0x1 0x0
--#define MXRT1050_IOMUXC_GPIO_SD_B1_03_FLEXPWM2_PWM3_B			0x1E0 0x3D0 0x484 0x2 0x0
--#define MXRT1050_IOMUXC_GPIO_SD_B1_03_SAI1_MCLK				0x1E0 0x3D0 0x58C 0x3 0x0
--#define MXRT1050_IOMUXC_GPIO_SD_B1_03_FLEXCAN1_RX			0x1E0 0x3D0 0x44C 0x4 0x0
--#define MXRT1050_IOMUXC_GPIO_SD_B1_03_GPIO3_IO03			0x1E0 0x3D0 0x000 0x5 0x0
--#define MXRT1050_IOMUXC_GPIO_SD_B1_03_CCM_PMIC_READY			0x1E0 0x3D0 0x3FC 0x6 0x0
--
--#define MXRT1050_IOMUXC_GPIO_SD_B1_04_USDHC2_CLK			0x1E4 0x3D4 0x5DC 0x0 0x0
--#define MXRT1050_IOMUXC_GPIO_SD_B1_04_FLEXSPI_B_SCLK			0x1E4 0x3D4 0x000 0x1 0x0
--#define MXRT1050_IOMUXC_GPIO_SD_B1_04_LPI2C1_SCL			0x1E4 0x3D4 0x4CC 0x2 0x0
--#define MXRT1050_IOMUXC_GPIO_SD_B1_04_SAI1_RX_SYNC			0x1E4 0x3D4 0x5A4 0x3 0x0
--#define MXRT1050_IOMUXC_GPIO_SD_B1_04_FLEXCAN1_A_SS1_B			0x1E4 0x3D4 0x000 0x4 0x0
--#define MXRT1050_IOMUXC_GPIO_SD_B1_04_GPIO3_IO04			0x1E4 0x3D4 0x000 0x5 0x0
--#define MXRT1050_IOMUXC_GPIO_SD_B1_04_CCM_STOP				0x1E4 0x3D4 0x000 0x6 0x0
--
--#define MXRT1050_IOMUXC_GPIO_SD_B1_05_USDHC2_CMD			0x1E8 0x3D8 0x5E4 0x0 0x0
--#define MXRT1050_IOMUXC_GPIO_SD_B1_05_FLEXSPI_A_DQS			0x1E8 0x3D8 0x4A4 0x1 0x0
--#define MXRT1050_IOMUXC_GPIO_SD_B1_05_LPI2C1_SDA			0x1E8 0x3D8 0x4D0 0x2 0x0
--#define MXRT1050_IOMUXC_GPIO_SD_B1_05_SAI1_RX_BCLK			0x1E8 0x3D8 0x590 0x3 0x0
--#define MXRT1050_IOMUXC_GPIO_SD_B1_05_FLEXCAN1_B_SS0_B			0x1E8 0x3D8 0x000 0x4 0x0
--#define MXRT1050_IOMUXC_GPIO_SD_B1_05_GPIO3_IO05			0x1E8 0x3D8 0x000 0x5 0x0
--
--#define MXRT1050_IOMUXC_GPIO_SD_B1_06_USDHC2_RESET_B			0x1EC 0x3DC 0x000 0x0 0x0
--#define MXRT1050_IOMUXC_GPIO_SD_B1_06_FLEXSPI_A_SS0_B			0x1EC 0x3DC 0x000 0x1 0x0
--#define MXRT1050_IOMUXC_GPIO_SD_B1_06_LPUART7_CTS_B			0x1EC 0x3DC 0x000 0x2 0x0
--#define MXRT1050_IOMUXC_GPIO_SD_B1_06_SAI1_RX_DATA00			0x1EC 0x3DC 0x594 0x3 0x0
--#define MXRT1050_IOMUXC_GPIO_SD_B1_06_LPSPI2_PCS0			0x1EC 0x3DC 0x4FC 0x4 0x0
--#define MXRT1050_IOMUXC_GPIO_SD_B1_06_GPIO3_IO06			0x1EC 0x3DC 0x000 0x5 0x0
--
--#define MXRT1050_IOMUXC_GPIO_SD_B1_07_SEMC_CSX1				0x1F0 0x3E0 0x000 0x0 0x0
--#define MXRT1050_IOMUXC_GPIO_SD_B1_07_FLEXSPI_A_SCLK			0x1F0 0x3E0 0x4C8 0x1 0x0
--#define MXRT1050_IOMUXC_GPIO_SD_B1_07_LPUART7_RTS_B			0x1F0 0x3E0 0x000 0x2 0x0
--#define MXRT1050_IOMUXC_GPIO_SD_B1_07_SAI1_TX_DATA00			0x1F0 0x3E0 0x000 0x3 0x0
--#define MXRT1050_IOMUXC_GPIO_SD_B1_07_LPSPI2_SCK			0x1F0 0x3E0 0x500 0x4 0x0
--#define MXRT1050_IOMUXC_GPIO_SD_B1_07_GPIO3_IO07			0x1F0 0x3E0 0x000 0x5 0x0
--#define MXRT1050_IOMUXC_GPIO_SD_B1_07_CCM_REF_EN_B			0x1F0 0x3E0 0x000 0x6 0x0
--
--#define MXRT1050_IOMUXC_GPIO_SD_B1_08_USDHC2_DATA4			0x1F4 0x3E4 0x5F8 0x0 0x0
--#define MXRT1050_IOMUXC_GPIO_SD_B1_08_FLEXSPI_A_DATA0			0x1F4 0x3E4 0x4A8 0x1 0x0
--#define MXRT1050_IOMUXC_GPIO_SD_B1_08_LPUART7_TXD			0x1F4 0x3E4 0x55C 0x2 0x0
--#define MXRT1050_IOMUXC_GPIO_SD_B1_08_SAI1_TX_BLCK			0x1F4 0x3E4 0x5A8 0x3 0x0
--#define MXRT1050_IOMUXC_GPIO_SD_B1_08_LPSPI2_SDO			0x1F4 0x3E4 0x508 0x4 0x0
--#define MXRT1050_IOMUXC_GPIO_SD_B1_08_GPIO3_IO08			0x1F4 0x3E4 0x000 0x5 0x0
--#define MXRT1050_IOMUXC_GPIO_SD_B1_08_SEMC_CSX2				0x1F4 0x3E4 0x000 0x6 0x0
--
--#define MXRT1050_IOMUXC_GPIO_SD_B1_09_USDHC2_DATA5			0x1F8 0x3E8 0x5FC 0x0 0x0
--#define MXRT1050_IOMUXC_GPIO_SD_B1_09_FLEXSPI_A_DATA1			0x1F8 0x3E8 0x4AC 0x1 0x0
--#define MXRT1050_IOMUXC_GPIO_SD_B1_09_LPUART7_RXD			0x1F8 0x3E8 0x558 0x2 0x0
--#define MXRT1050_IOMUXC_GPIO_SD_B1_09_SAI1_TX_SYNC			0x1F8 0x3E8 0x5AC 0x3 0x0
--#define MXRT1050_IOMUXC_GPIO_SD_B1_09_LPSPI2_SDI			0x1F8 0x3E8 0x504 0x4 0x0
--#define MXRT1050_IOMUXC_GPIO_SD_B1_09_GPIO3_IO09			0x1F8 0x3E8 0x000 0x5 0x0
--
--#define MXRT1050_IOMUXC_GPIO_SD_B1_10_USDHC2_DATA6			0x1FC 0x3EC 0x600 0x0 0x0
--#define MXRT1050_IOMUXC_GPIO_SD_B1_10_FLEXSPI_A_DATA2			0x1FC 0x3EC 0x4B0 0x1 0x0
--#define MXRT1050_IOMUXC_GPIO_SD_B1_10_LPUART2_RXD			0x1FC 0x3EC 0x52C 0x2 0x0
--#define MXRT1050_IOMUXC_GPIO_SD_B1_10_LPI2C2_SDA			0x1FC 0x3EC 0x4D8 0x3 0x0
--#define MXRT1050_IOMUXC_GPIO_SD_B1_10_LPSPI2_PCS2			0x1FC 0x3EC 0x000 0x4 0x0
--#define MXRT1050_IOMUXC_GPIO_SD_B1_10_GPIO3_IO10			0x1FC 0x3EC 0x000 0x5 0x0
--
--#define MXRT1050_IOMUXC_GPIO_SD_B1_11_USDHC2_DATA7			0x200 0x3F0 0x604 0x0 0x0
--#define MXRT1050_IOMUXC_GPIO_SD_B1_11_FLEXSPI_A_DATA3			0x200 0x3F0 0x4B4 0x1 0x0
--#define MXRT1050_IOMUXC_GPIO_SD_B1_11_LPUART2_TXD			0x200 0x3F0 0x530 0x2 0x0
--#define MXRT1050_IOMUXC_GPIO_SD_B1_11_LPI2C2_SCL			0x200 0x3F0 0x4D4 0x3 0x0
--#define MXRT1050_IOMUXC_GPIO_SD_B1_11_LPSPI2_PCS3			0x200 0x3F0 0x000 0x4 0x0
--#define MXRT1050_IOMUXC_GPIO_SD_B1_11_GPIO3_IO11			0x200 0x3F0 0x000 0x5 0x0
--
--#endif /* _DT_BINDINGS_PINCTRL_IMXRT1050_PINFUNC_H */
-diff --git a/arch/arm/boot/dts/nxp/imx/imxrt1050.dtsi b/arch/arm/boot/dts/nxp/imx/imxrt1050.dtsi
+-#include <dt-bindings/pinctrl/stm32-pinfunc.h>
+-#include <dt-bindings/mfd/stm32f4-rcc.h>
+-
+-/ {
+-	soc {
+-		pinctrl: pinctrl@40020000 {
+-			#address-cells = <1>;
+-			#size-cells = <1>;
+-			ranges = <0 0x40020000 0x3000>;
+-			interrupt-parent = <&exti>;
+-			st,syscfg = <&syscfg 0x8>;
+-
+-			gpioa: gpio@40020000 {
+-				gpio-controller;
+-				#gpio-cells = <2>;
+-				interrupt-controller;
+-				#interrupt-cells = <2>;
+-				reg = <0x0 0x400>;
+-				clocks = <&rcc 0 STM32F4_AHB1_CLOCK(GPIOA)>;
+-				st,bank-name = "GPIOA";
+-			};
+-
+-			gpiob: gpio@40020400 {
+-				gpio-controller;
+-				#gpio-cells = <2>;
+-				interrupt-controller;
+-				#interrupt-cells = <2>;
+-				reg = <0x400 0x400>;
+-				clocks = <&rcc 0 STM32F4_AHB1_CLOCK(GPIOB)>;
+-				st,bank-name = "GPIOB";
+-			};
+-
+-			gpioc: gpio@40020800 {
+-				gpio-controller;
+-				#gpio-cells = <2>;
+-				interrupt-controller;
+-				#interrupt-cells = <2>;
+-				reg = <0x800 0x400>;
+-				clocks = <&rcc 0 STM32F4_AHB1_CLOCK(GPIOC)>;
+-				st,bank-name = "GPIOC";
+-			};
+-
+-			gpiod: gpio@40020c00 {
+-				gpio-controller;
+-				#gpio-cells = <2>;
+-				interrupt-controller;
+-				#interrupt-cells = <2>;
+-				reg = <0xc00 0x400>;
+-				clocks = <&rcc 0 STM32F4_AHB1_CLOCK(GPIOD)>;
+-				st,bank-name = "GPIOD";
+-			};
+-
+-			gpioe: gpio@40021000 {
+-				gpio-controller;
+-				#gpio-cells = <2>;
+-				interrupt-controller;
+-				#interrupt-cells = <2>;
+-				reg = <0x1000 0x400>;
+-				clocks = <&rcc 0 STM32F4_AHB1_CLOCK(GPIOE)>;
+-				st,bank-name = "GPIOE";
+-			};
+-
+-			gpiof: gpio@40021400 {
+-				gpio-controller;
+-				#gpio-cells = <2>;
+-				interrupt-controller;
+-				#interrupt-cells = <2>;
+-				reg = <0x1400 0x400>;
+-				clocks = <&rcc 0 STM32F4_AHB1_CLOCK(GPIOF)>;
+-				st,bank-name = "GPIOF";
+-			};
+-
+-			gpiog: gpio@40021800 {
+-				gpio-controller;
+-				#gpio-cells = <2>;
+-				interrupt-controller;
+-				#interrupt-cells = <2>;
+-				reg = <0x1800 0x400>;
+-				clocks = <&rcc 0 STM32F4_AHB1_CLOCK(GPIOG)>;
+-				st,bank-name = "GPIOG";
+-			};
+-
+-			gpioh: gpio@40021c00 {
+-				gpio-controller;
+-				#gpio-cells = <2>;
+-				interrupt-controller;
+-				#interrupt-cells = <2>;
+-				reg = <0x1c00 0x400>;
+-				clocks = <&rcc 0 STM32F4_AHB1_CLOCK(GPIOH)>;
+-				st,bank-name = "GPIOH";
+-			};
+-
+-			gpioi: gpio@40022000 {
+-				gpio-controller;
+-				#gpio-cells = <2>;
+-				interrupt-controller;
+-				#interrupt-cells = <2>;
+-				reg = <0x2000 0x400>;
+-				clocks = <&rcc 0 STM32F4_AHB1_CLOCK(GPIOI)>;
+-				st,bank-name = "GPIOI";
+-			};
+-
+-			gpioj: gpio@40022400 {
+-				gpio-controller;
+-				#gpio-cells = <2>;
+-				interrupt-controller;
+-				#interrupt-cells = <2>;
+-				reg = <0x2400 0x400>;
+-				clocks = <&rcc 0 STM32F4_AHB1_CLOCK(GPIOJ)>;
+-				st,bank-name = "GPIOJ";
+-			};
+-
+-			gpiok: gpio@40022800 {
+-				gpio-controller;
+-				#gpio-cells = <2>;
+-				interrupt-controller;
+-				#interrupt-cells = <2>;
+-				reg = <0x2800 0x400>;
+-				clocks = <&rcc 0 STM32F4_AHB1_CLOCK(GPIOK)>;
+-				st,bank-name = "GPIOK";
+-			};
+-
+-			usart1_pins_a: usart1-0 {
+-				pins1 {
+-					pinmux = <STM32_PINMUX('A', 9, AF7)>; /* USART1_TX */
+-					bias-disable;
+-					drive-push-pull;
+-					slew-rate = <0>;
+-				};
+-				pins2 {
+-					pinmux = <STM32_PINMUX('A', 10, AF7)>; /* USART1_RX */
+-					bias-disable;
+-				};
+-			};
+-
+-			usart3_pins_a: usart3-0 {
+-				pins1 {
+-					pinmux = <STM32_PINMUX('B', 10, AF7)>; /* USART3_TX */
+-					bias-disable;
+-					drive-push-pull;
+-					slew-rate = <0>;
+-				};
+-				pins2 {
+-					pinmux = <STM32_PINMUX('B', 11, AF7)>; /* USART3_RX */
+-					bias-disable;
+-				};
+-			};
+-
+-			usbotg_fs_pins_a: usbotg-fs-0 {
+-				pins {
+-					pinmux = <STM32_PINMUX('A', 10, AF10)>, /* OTG_FS_ID */
+-						 <STM32_PINMUX('A', 11, AF10)>, /* OTG_FS_DM */
+-						 <STM32_PINMUX('A', 12, AF10)>; /* OTG_FS_DP */
+-					bias-disable;
+-					drive-push-pull;
+-					slew-rate = <2>;
+-				};
+-			};
+-
+-			usbotg_fs_pins_b: usbotg-fs-1 {
+-				pins {
+-					pinmux = <STM32_PINMUX('B', 12, AF12)>, /* OTG_HS_ID */
+-						 <STM32_PINMUX('B', 14, AF12)>, /* OTG_HS_DM */
+-						 <STM32_PINMUX('B', 15, AF12)>; /* OTG_HS_DP */
+-					bias-disable;
+-					drive-push-pull;
+-					slew-rate = <2>;
+-				};
+-			};
+-
+-			usbotg_hs_pins_a: usbotg-hs-0 {
+-				pins {
+-					pinmux = <STM32_PINMUX('H', 4, AF10)>, /* OTG_HS_ULPI_NXT*/
+-						 <STM32_PINMUX('I', 11, AF10)>, /* OTG_HS_ULPI_DIR */
+-						 <STM32_PINMUX('C', 0, AF10)>, /* OTG_HS_ULPI_STP */
+-						 <STM32_PINMUX('A', 5, AF10)>, /* OTG_HS_ULPI_CK */
+-						 <STM32_PINMUX('A', 3, AF10)>, /* OTG_HS_ULPI_D0 */
+-						 <STM32_PINMUX('B', 0, AF10)>, /* OTG_HS_ULPI_D1 */
+-						 <STM32_PINMUX('B', 1, AF10)>, /* OTG_HS_ULPI_D2 */
+-						 <STM32_PINMUX('B', 10, AF10)>, /* OTG_HS_ULPI_D3 */
+-						 <STM32_PINMUX('B', 11, AF10)>, /* OTG_HS_ULPI_D4 */
+-						 <STM32_PINMUX('B', 12, AF10)>, /* OTG_HS_ULPI_D5 */
+-						 <STM32_PINMUX('B', 13, AF10)>, /* OTG_HS_ULPI_D6 */
+-						 <STM32_PINMUX('B', 5, AF10)>; /* OTG_HS_ULPI_D7 */
+-					bias-disable;
+-					drive-push-pull;
+-					slew-rate = <2>;
+-				};
+-			};
+-
+-			ethernet_mii: mii-0 {
+-				pins {
+-					pinmux = <STM32_PINMUX('G', 13, AF11)>, /* ETH_MII_TXD0_ETH_RMII_TXD0 */
+-						 <STM32_PINMUX('G', 14, AF11)>, /* ETH_MII_TXD1_ETH_RMII_TXD1 */
+-						 <STM32_PINMUX('C', 2, AF11)>, /* ETH_MII_TXD2 */
+-						 <STM32_PINMUX('B', 8, AF11)>, /* ETH_MII_TXD3 */
+-						 <STM32_PINMUX('C', 3, AF11)>, /* ETH_MII_TX_CLK */
+-						 <STM32_PINMUX('G', 11,AF11)>, /* ETH_MII_TX_EN_ETH_RMII_TX_EN */
+-						 <STM32_PINMUX('A', 2, AF11)>, /* ETH_MDIO */
+-						 <STM32_PINMUX('C', 1, AF11)>, /* ETH_MDC */
+-						 <STM32_PINMUX('A', 1, AF11)>, /* ETH_MII_RX_CLK_ETH_RMII_REF_CLK */
+-						 <STM32_PINMUX('A', 7, AF11)>, /* ETH_MII_RX_DV_ETH_RMII_CRS_DV */
+-						 <STM32_PINMUX('C', 4, AF11)>, /* ETH_MII_RXD0_ETH_RMII_RXD0 */
+-						 <STM32_PINMUX('C', 5, AF11)>, /* ETH_MII_RXD1_ETH_RMII_RXD1 */
+-						 <STM32_PINMUX('H', 6, AF11)>, /* ETH_MII_RXD2 */
+-						 <STM32_PINMUX('H', 7, AF11)>; /* ETH_MII_RXD3 */
+-					slew-rate = <2>;
+-				};
+-			};
+-
+-			adc3_in8_pin: adc-200 {
+-				pins {
+-					pinmux = <STM32_PINMUX('F', 10, ANALOG)>;
+-				};
+-			};
+-
+-			pwm1_pins: pwm1-0 {
+-				pins {
+-					pinmux = <STM32_PINMUX('A', 8, AF1)>, /* TIM1_CH1 */
+-						 <STM32_PINMUX('B', 13, AF1)>, /* TIM1_CH1N */
+-						 <STM32_PINMUX('B', 12, AF1)>; /* TIM1_BKIN */
+-				};
+-			};
+-
+-			pwm3_pins: pwm3-0 {
+-				pins {
+-					pinmux = <STM32_PINMUX('B', 4, AF2)>, /* TIM3_CH1 */
+-						 <STM32_PINMUX('B', 5, AF2)>; /* TIM3_CH2 */
+-				};
+-			};
+-
+-			i2c1_pins: i2c1-0 {
+-				pins {
+-					pinmux = <STM32_PINMUX('B', 9, AF4)>, /* I2C1_SDA */
+-						 <STM32_PINMUX('B', 6, AF4)>; /* I2C1_SCL */
+-					bias-disable;
+-					drive-open-drain;
+-					slew-rate = <3>;
+-				};
+-			};
+-
+-			ltdc_pins_a: ltdc-0 {
+-				pins {
+-					pinmux = <STM32_PINMUX('I', 12, AF14)>, /* LCD_HSYNC */
+-						 <STM32_PINMUX('I', 13, AF14)>, /* LCD_VSYNC */
+-						 <STM32_PINMUX('I', 14, AF14)>, /* LCD_CLK */
+-						 <STM32_PINMUX('I', 15, AF14)>, /* LCD_R0 */
+-						 <STM32_PINMUX('J', 0, AF14)>, /* LCD_R1 */
+-						 <STM32_PINMUX('J', 1, AF14)>, /* LCD_R2 */
+-						 <STM32_PINMUX('J', 2, AF14)>, /* LCD_R3 */
+-						 <STM32_PINMUX('J', 3, AF14)>, /* LCD_R4 */
+-						 <STM32_PINMUX('J', 4, AF14)>, /* LCD_R5 */
+-						 <STM32_PINMUX('J', 5, AF14)>, /* LCD_R6*/
+-						 <STM32_PINMUX('J', 6, AF14)>, /* LCD_R7 */
+-						 <STM32_PINMUX('J', 7, AF14)>, /* LCD_G0 */
+-						 <STM32_PINMUX('J', 8, AF14)>, /* LCD_G1 */
+-						 <STM32_PINMUX('J', 9, AF14)>, /* LCD_G2 */
+-						 <STM32_PINMUX('J', 10, AF14)>, /* LCD_G3 */
+-						 <STM32_PINMUX('J', 11, AF14)>, /* LCD_G4 */
+-						 <STM32_PINMUX('J', 12, AF14)>, /* LCD_B0 */
+-						 <STM32_PINMUX('J', 13, AF14)>, /* LCD_B1 */
+-						 <STM32_PINMUX('J', 14, AF14)>, /* LCD_B2 */
+-						 <STM32_PINMUX('J', 15, AF14)>, /* LCD_B3*/
+-						 <STM32_PINMUX('K', 0, AF14)>, /* LCD_G5 */
+-						 <STM32_PINMUX('K', 1, AF14)>, /* LCD_G6 */
+-						 <STM32_PINMUX('K', 2, AF14)>, /* LCD_G7 */
+-						 <STM32_PINMUX('K', 3, AF14)>, /* LCD_B4 */
+-						 <STM32_PINMUX('K', 4, AF14)>, /* LCD_B5 */
+-						 <STM32_PINMUX('K', 5, AF14)>, /* LCD_B6 */
+-						 <STM32_PINMUX('K', 6, AF14)>, /* LCD_B7 */
+-						 <STM32_PINMUX('K', 7, AF14)>; /* LCD_DE */
+-					slew-rate = <2>;
+-				};
+-			};
+-
+-			ltdc_pins_b: ltdc-1 {
+-				pins {
+-					pinmux = <STM32_PINMUX('C', 6,  AF14)>,
+-						/* LCD_HSYNC */
+-						 <STM32_PINMUX('A', 4,  AF14)>,
+-						 /* LCD_VSYNC */
+-						 <STM32_PINMUX('G', 7,  AF14)>,
+-						 /* LCD_CLK */
+-						 <STM32_PINMUX('C', 10, AF14)>,
+-						 /* LCD_R2 */
+-						 <STM32_PINMUX('B', 0,  AF9)>,
+-						 /* LCD_R3 */
+-						 <STM32_PINMUX('A', 11, AF14)>,
+-						 /* LCD_R4 */
+-						 <STM32_PINMUX('A', 12, AF14)>,
+-						 /* LCD_R5 */
+-						 <STM32_PINMUX('B', 1,  AF9)>,
+-						 /* LCD_R6*/
+-						 <STM32_PINMUX('G', 6,  AF14)>,
+-						 /* LCD_R7 */
+-						 <STM32_PINMUX('A', 6,  AF14)>,
+-						 /* LCD_G2 */
+-						 <STM32_PINMUX('G', 10, AF9)>,
+-						 /* LCD_G3 */
+-						 <STM32_PINMUX('B', 10, AF14)>,
+-						 /* LCD_G4 */
+-						 <STM32_PINMUX('D', 6,  AF14)>,
+-						 /* LCD_B2 */
+-						 <STM32_PINMUX('G', 11, AF14)>,
+-						 /* LCD_B3*/
+-						 <STM32_PINMUX('B', 11, AF14)>,
+-						 /* LCD_G5 */
+-						 <STM32_PINMUX('C', 7,  AF14)>,
+-						 /* LCD_G6 */
+-						 <STM32_PINMUX('D', 3,  AF14)>,
+-						 /* LCD_G7 */
+-						 <STM32_PINMUX('G', 12, AF9)>,
+-						 /* LCD_B4 */
+-						 <STM32_PINMUX('A', 3,  AF14)>,
+-						 /* LCD_B5 */
+-						 <STM32_PINMUX('B', 8,  AF14)>,
+-						 /* LCD_B6 */
+-						 <STM32_PINMUX('B', 9,  AF14)>,
+-						 /* LCD_B7 */
+-						 <STM32_PINMUX('F', 10, AF14)>;
+-						 /* LCD_DE */
+-					slew-rate = <2>;
+-				};
+-			};
+-
+-			spi5_pins: spi5-0 {
+-				pins1 {
+-					pinmux = <STM32_PINMUX('F', 7, AF5)>,
+-						/* SPI5_CLK */
+-						 <STM32_PINMUX('F', 9, AF5)>;
+-						/* SPI5_MOSI */
+-					bias-disable;
+-					drive-push-pull;
+-					slew-rate = <0>;
+-				};
+-				pins2 {
+-					pinmux = <STM32_PINMUX('F', 8, AF5)>;
+-						/* SPI5_MISO */
+-					bias-disable;
+-				};
+-			};
+-
+-			i2c3_pins: i2c3-0 {
+-				pins {
+-					pinmux = <STM32_PINMUX('C', 9, AF4)>,
+-						/* I2C3_SDA */
+-						 <STM32_PINMUX('A', 8, AF4)>;
+-						/* I2C3_SCL */
+-					bias-disable;
+-					drive-open-drain;
+-					slew-rate = <3>;
+-				};
+-			};
+-
+-			dcmi_pins: dcmi-0 {
+-				pins {
+-					pinmux = <STM32_PINMUX('A', 4, AF13)>, /* DCMI_HSYNC */
+-						 <STM32_PINMUX('B', 7, AF13)>, /* DCMI_VSYNC */
+-						 <STM32_PINMUX('A', 6, AF13)>, /* DCMI_PIXCLK */
+-						 <STM32_PINMUX('C', 6, AF13)>, /* DCMI_D0 */
+-						 <STM32_PINMUX('C', 7, AF13)>, /* DCMI_D1 */
+-						 <STM32_PINMUX('C', 8, AF13)>, /* DCMI_D2 */
+-						 <STM32_PINMUX('C', 9, AF13)>, /* DCMI_D3 */
+-						 <STM32_PINMUX('C', 11, AF13)>, /*DCMI_D4 */
+-						 <STM32_PINMUX('D', 3, AF13)>, /* DCMI_D5 */
+-						 <STM32_PINMUX('B', 8, AF13)>, /* DCMI_D6 */
+-						 <STM32_PINMUX('E', 6, AF13)>, /* DCMI_D7 */
+-						 <STM32_PINMUX('C', 10, AF13)>, /* DCMI_D8 */
+-						 <STM32_PINMUX('C', 12, AF13)>, /* DCMI_D9 */
+-						 <STM32_PINMUX('D', 6, AF13)>, /* DCMI_D10 */
+-						 <STM32_PINMUX('D', 2, AF13)>; /* DCMI_D11 */
+-					bias-disable;
+-					drive-push-pull;
+-					slew-rate = <3>;
+-				};
+-			};
+-
+-			sdio_pins: sdio-pins-0 {
+-				pins {
+-					pinmux = <STM32_PINMUX('C', 8, AF12)>, /* SDIO_D0 */
+-						 <STM32_PINMUX('C', 9, AF12)>, /* SDIO_D1 */
+-						 <STM32_PINMUX('C', 10, AF12)>, /* SDIO_D2 */
+-						 <STM32_PINMUX('C', 11, AF12)>, /* SDIO_D3 */
+-						 <STM32_PINMUX('C', 12, AF12)>, /* SDIO_CK */
+-						 <STM32_PINMUX('D', 2, AF12)>; /* SDIO_CMD */
+-					drive-push-pull;
+-					slew-rate = <2>;
+-				};
+-			};
+-
+-			sdio_pins_od: sdio-pins-od-0 {
+-				pins1 {
+-					pinmux = <STM32_PINMUX('C', 8, AF12)>, /* SDIO_D0 */
+-						 <STM32_PINMUX('C', 9, AF12)>, /* SDIO_D1 */
+-						 <STM32_PINMUX('C', 10, AF12)>, /* SDIO_D2 */
+-						 <STM32_PINMUX('C', 11, AF12)>, /* SDIO_D3 */
+-						 <STM32_PINMUX('C', 12, AF12)>; /* SDIO_CK */
+-					drive-push-pull;
+-					slew-rate = <2>;
+-				};
+-
+-				pins2 {
+-					pinmux = <STM32_PINMUX('D', 2, AF12)>; /* SDIO_CMD */
+-					drive-open-drain;
+-					slew-rate = <2>;
+-				};
+-			};
+-
+-			can1_pins_a: can1-0 {
+-				pins1 {
+-					pinmux = <STM32_PINMUX('B', 9, AF9)>; /* CAN1_TX */
+-				};
+-				pins2 {
+-					pinmux = <STM32_PINMUX('B', 8, AF9)>; /* CAN1_RX */
+-					bias-pull-up;
+-				};
+-			};
+-
+-			can2_pins_a: can2-0 {
+-				pins1 {
+-					pinmux = <STM32_PINMUX('B', 13, AF9)>; /* CAN2_TX */
+-				};
+-				pins2 {
+-					pinmux = <STM32_PINMUX('B', 5, AF9)>; /* CAN2_RX */
+-					bias-pull-up;
+-				};
+-			};
+-
+-			can2_pins_b: can2-1 {
+-				pins1 {
+-					pinmux = <STM32_PINMUX('B', 13, AF9)>; /* CAN2_TX */
+-				};
+-				pins2 {
+-					pinmux = <STM32_PINMUX('B', 12, AF9)>; /* CAN2_RX */
+-					bias-pull-up;
+-				};
+-			};
+-		};
+-	};
+-};
+diff --git a/arch/arm/boot/dts/st/stm32f429-disco.dts b/arch/arm/boot/dts/st/stm32f429-disco.dts
 deleted file mode 100644
-index b0bad0d1ba36..000000000000
---- a/arch/arm/boot/dts/nxp/imx/imxrt1050.dtsi
+index ded369abee4f..000000000000
+--- a/arch/arm/boot/dts/st/stm32f429-disco.dts
 +++ /dev/null
-@@ -1,160 +0,0 @@
--// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
+@@ -1,243 +0,0 @@
 -/*
-- * Copyright (C) 2019
-- * Author(s): Giulio Benetti <giulio.benetti@benettiengineering.com>
+- * Copyright 2015 - Maxime Coquelin <mcoquelin.stm32@gmail.com>
+- *
+- * This file is dual-licensed: you can use it either under the terms
+- * of the GPL or the X11 license, at your option. Note that this dual
+- * licensing only applies to this file, and not this project as a
+- * whole.
+- *
+- *  a) This file is free software; you can redistribute it and/or
+- *     modify it under the terms of the GNU General Public License as
+- *     published by the Free Software Foundation; either version 2 of the
+- *     License, or (at your option) any later version.
+- *
+- *     This file is distributed in the hope that it will be useful,
+- *     but WITHOUT ANY WARRANTY; without even the implied warranty of
+- *     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+- *     GNU General Public License for more details.
+- *
+- *     You should have received a copy of the GNU General Public
+- *     License along with this file; if not, write to the Free
+- *     Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston,
+- *     MA 02110-1301 USA
+- *
+- * Or, alternatively,
+- *
+- *  b) Permission is hereby granted, free of charge, to any person
+- *     obtaining a copy of this software and associated documentation
+- *     files (the "Software"), to deal in the Software without
+- *     restriction, including without limitation the rights to use,
+- *     copy, modify, merge, publish, distribute, sublicense, and/or
+- *     sell copies of the Software, and to permit persons to whom the
+- *     Software is furnished to do so, subject to the following
+- *     conditions:
+- *
+- *     The above copyright notice and this permission notice shall be
+- *     included in all copies or substantial portions of the Software.
+- *
+- *     THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+- *     EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+- *     OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+- *     NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+- *     HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+- *     WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+- *     FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+- *     OTHER DEALINGS IN THE SOFTWARE.
 - */
 -
--#include "../../armv7-m.dtsi"
--#include <dt-bindings/interrupt-controller/arm-gic.h>
--#include <dt-bindings/clock/imxrt1050-clock.h>
+-/dts-v1/;
+-#include "stm32f429.dtsi"
+-#include "stm32f429-pinctrl.dtsi"
 -#include <dt-bindings/gpio/gpio.h>
+-#include <dt-bindings/input/input.h>
+-#include <dt-bindings/interrupt-controller/irq.h>
+-#include <dt-bindings/leds/common.h>
+-
+-/ {
+-	model = "STMicroelectronics STM32F429i-DISCO board";
+-	compatible = "st,stm32f429i-disco", "st,stm32f429";
+-
+-	chosen {
+-		bootargs = "root=/dev/ram";
+-		stdout-path = "serial0:115200n8";
+-	};
+-
+-	memory@90000000 {
+-		device_type = "memory";
+-		reg = <0x90000000 0x800000>;
+-	};
+-
+-	aliases {
+-		serial0 = &usart1;
+-	};
+-
+-	leds {
+-		compatible = "gpio-leds";
+-		led-red {
+-			color = <LED_COLOR_ID_RED>;
+-			gpios = <&gpiog 14 0>;
+-		};
+-		led_green: led-green {
+-			function = LED_FUNCTION_HEARTBEAT;
+-			color = <LED_COLOR_ID_GREEN>;
+-			gpios = <&gpiog 13 0>;
+-			linux,default-trigger = "heartbeat";
+-		};
+-	};
+-
+-	gpio-keys {
+-		compatible = "gpio-keys";
+-		autorepeat;
+-		button-0 {
+-			label = "User";
+-			linux,code = <KEY_HOME>;
+-			gpios = <&gpioa 0 0>;
+-		};
+-	};
+-
+-	options {
+-		u-boot {
+-			compatible = "u-boot,config";
+-			boot-led = <&led_green>;
+-		};
+-	};
+-
+-	/* This turns on vbus for otg for host mode (dwc2) */
+-	vcc5v_otg: vcc5v-otg-regulator {
+-		compatible = "regulator-fixed";
+-		gpio = <&gpioc 4 0>;
+-		regulator-name = "vcc5_host1";
+-		regulator-always-on;
+-	};
+-};
+-
+-&clk_hse {
+-	clock-frequency = <8000000>;
+-};
+-
+-&crc {
+-	status = "okay";
+-};
+-
+-&i2c3 {
+-	pinctrl-names = "default";
+-	pinctrl-0 = <&i2c3_pins>;
+-	clock-frequency = <100000>;
+-	status = "okay";
+-
+-	stmpe811@41 {
+-		compatible = "st,stmpe811";
+-		reg = <0x41>;
+-		interrupts = <15 IRQ_TYPE_EDGE_FALLING>;
+-		interrupt-parent = <&gpioa>;
+-		/* 3.25 MHz ADC clock speed */
+-		st,adc-freq = <1>;
+-		/* 12-bit ADC */
+-		st,mod-12b = <1>;
+-		/* internal ADC reference */
+-		st,ref-sel = <0>;
+-		/* ADC converstion time: 80 clocks */
+-		st,sample-time = <4>;
+-
+-		stmpe_touchscreen {
+-			compatible = "st,stmpe-ts";
+-			/* 8 sample average control */
+-			st,ave-ctrl = <3>;
+-			/* 7 length fractional part in z */
+-			st,fraction-z = <7>;
+-			/*
+-			 * 50 mA typical 80 mA max touchscreen drivers
+-			 * current limit value
+-			 */
+-			st,i-drive = <1>;
+-			/* 1 ms panel driver settling time */
+-			st,settling = <3>;
+-			/* 5 ms touch detect interrupt delay */
+-			st,touch-det-delay = <5>;
+-		};
+-
+-		stmpe_adc {
+-			compatible = "st,stmpe-adc";
+-			/* forbid to use ADC channels 3-0 (touch) */
+-			st,norequest-mask = <0x0F>;
+-		};
+-	};
+-};
+-
+-&ltdc {
+-	status = "okay";
+-	pinctrl-0 = <&ltdc_pins_b>;
+-	pinctrl-names = "default";
+-
+-	port {
+-		ltdc_out_rgb: endpoint {
+-			remote-endpoint = <&panel_in_rgb>;
+-		};
+-	};
+-};
+-
+-&rtc {
+-	assigned-clocks = <&rcc 1 CLK_RTC>;
+-	assigned-clock-parents = <&rcc 1 CLK_LSI>;
+-	status = "okay";
+-};
+-
+-&spi5 {
+-	status = "okay";
+-	pinctrl-0 = <&spi5_pins>;
+-	pinctrl-names = "default";
+-	#address-cells = <1>;
+-	#size-cells = <0>;
+-	cs-gpios = <&gpioc 1 GPIO_ACTIVE_LOW>, <&gpioc 2 GPIO_ACTIVE_LOW>;
+-
+-	l3gd20: l3gd20@0 {
+-		compatible = "st,l3gd20-gyro";
+-		spi-max-frequency = <10000000>;
+-		st,drdy-int-pin = <2>;
+-		interrupt-parent = <&gpioa>;
+-		interrupts = <1 IRQ_TYPE_EDGE_RISING>,
+-				<2 IRQ_TYPE_EDGE_RISING>;
+-		reg = <0>;
+-		status = "okay";
+-	};
+-
+-	display: display@1 {
+-		/* Connect panel-ilitek-9341 to ltdc */
+-		compatible = "st,sf-tc240t-9370-t", "ilitek,ili9341";
+-		reg = <1>;
+-		spi-3wire;
+-		spi-max-frequency = <10000000>;
+-		dc-gpios = <&gpiod 13 0>;
+-		port {
+-			panel_in_rgb: endpoint {
+-			remote-endpoint = <&ltdc_out_rgb>;
+-			};
+-		};
+-	};
+-};
+-
+-&timers5 {
+-	/* Override timer5 to act as clockevent */
+-	compatible = "st,stm32-timer";
+-	interrupts = <50>;
+-	status = "okay";
+-	/delete-property/#address-cells;
+-	/delete-property/#size-cells;
+-	/delete-property/clock-names;
+-	/delete-node/pwm;
+-	/delete-node/timer@4;
+-};
+-
+-&usart1 {
+-	pinctrl-0 = <&usart1_pins_a>;
+-	pinctrl-names = "default";
+-	status = "okay";
+-};
+-
+-&usbotg_hs {
+-	compatible = "st,stm32f4x9-fsotg";
+-	dr_mode = "host";
+-	pinctrl-0 = <&usbotg_fs_pins_b>;
+-	pinctrl-names = "default";
+-	status = "okay";
+-};
+diff --git a/arch/arm/boot/dts/st/stm32f429-pinctrl.dtsi b/arch/arm/boot/dts/st/stm32f429-pinctrl.dtsi
+deleted file mode 100644
+index e10d7a1f3207..000000000000
+--- a/arch/arm/boot/dts/st/stm32f429-pinctrl.dtsi
++++ /dev/null
+@@ -1,91 +0,0 @@
+-/*
+- * Copyright 2017 - Alexandre Torgue <alexandre.torgue@st.com>
+- *
+- * This file is dual-licensed: you can use it either under the terms
+- * of the GPL or the X11 license, at your option. Note that this dual
+- * licensing only applies to this file, and not this project as a
+- * whole.
+- *
+- *  a) This file is free software; you can redistribute it and/or
+- *     modify it under the terms of the GNU General Public License as
+- *     published by the Free Software Foundation; either version 2 of the
+- *     License, or (at your option) any later version.
+- *
+- *     This file is distributed in the hope that it will be useful,
+- *     but WITHOUT ANY WARRANTY; without even the implied warranty of
+- *     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+- *     GNU General Public License for more details.
+- *
+- * Or, alternatively,
+- *
+- *  b) Permission is hereby granted, free of charge, to any person
+- *     obtaining a copy of this software and associated documentation
+- *     files (the "Software"), to deal in the Software without
+- *     restriction, including without limitation the rights to use,
+- *     copy, modify, merge, publish, distribute, sublicense, and/or
+- *     sell copies of the Software, and to permit persons to whom the
+- *     Software is furnished to do so, subject to the following
+- *     conditions:
+- *
+- *     The above copyright notice and this permission notice shall be
+- *     included in all copies or substantial portions of the Software.
+- *
+- *     THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+- *     EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+- *     OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+- *     NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+- *     HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+- *     WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+- *     FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+- *     OTHER DEALINGS IN THE SOFTWARE.
+- */
+-
+-#include "stm32f4-pinctrl.dtsi"
+-
+-&pinctrl {
+-	compatible = "st,stm32f429-pinctrl";
+-
+-	gpioa: gpio@40020000 {
+-		gpio-ranges = <&pinctrl 0 0 16>;
+-	};
+-
+-	gpiob: gpio@40020400 {
+-		gpio-ranges = <&pinctrl 0 16 16>;
+-	};
+-
+-	gpioc: gpio@40020800 {
+-		gpio-ranges = <&pinctrl 0 32 16>;
+-	};
+-
+-	gpiod: gpio@40020c00 {
+-		gpio-ranges = <&pinctrl 0 48 16>;
+-	};
+-
+-	gpioe: gpio@40021000 {
+-		gpio-ranges = <&pinctrl 0 64 16>;
+-	};
+-
+-	gpiof: gpio@40021400 {
+-		gpio-ranges = <&pinctrl 0 80 16>;
+-	};
+-
+-	gpiog: gpio@40021800 {
+-		gpio-ranges = <&pinctrl 0 96 16>;
+-	};
+-
+-	gpioh: gpio@40021c00 {
+-		gpio-ranges = <&pinctrl 0 112 16>;
+-	};
+-
+-	gpioi: gpio@40022000 {
+-		gpio-ranges = <&pinctrl 0 128 16>;
+-	};
+-
+-	gpioj: gpio@40022400 {
+-		gpio-ranges = <&pinctrl 0 144 16>;
+-	};
+-
+-	gpiok: gpio@40022800 {
+-		gpio-ranges = <&pinctrl 0 160 8>;
+-	};
+-};
+diff --git a/arch/arm/boot/dts/st/stm32f429.dtsi b/arch/arm/boot/dts/st/stm32f429.dtsi
+deleted file mode 100644
+index ad91b74ddd0d..000000000000
+--- a/arch/arm/boot/dts/st/stm32f429.dtsi
++++ /dev/null
+@@ -1,800 +0,0 @@
+-/*
+- * Copyright 2015 - Maxime Coquelin <mcoquelin.stm32@gmail.com>
+- *
+- * This file is dual-licensed: you can use it either under the terms
+- * of the GPL or the X11 license, at your option. Note that this dual
+- * licensing only applies to this file, and not this project as a
+- * whole.
+- *
+- *  a) This file is free software; you can redistribute it and/or
+- *     modify it under the terms of the GNU General Public License as
+- *     published by the Free Software Foundation; either version 2 of the
+- *     License, or (at your option) any later version.
+- *
+- *     This file is distributed in the hope that it will be useful,
+- *     but WITHOUT ANY WARRANTY; without even the implied warranty of
+- *     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+- *     GNU General Public License for more details.
+- *
+- *     You should have received a copy of the GNU General Public
+- *     License along with this file; if not, write to the Free
+- *     Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston,
+- *     MA 02110-1301 USA
+- *
+- * Or, alternatively,
+- *
+- *  b) Permission is hereby granted, free of charge, to any person
+- *     obtaining a copy of this software and associated documentation
+- *     files (the "Software"), to deal in the Software without
+- *     restriction, including without limitation the rights to use,
+- *     copy, modify, merge, publish, distribute, sublicense, and/or
+- *     sell copies of the Software, and to permit persons to whom the
+- *     Software is furnished to do so, subject to the following
+- *     conditions:
+- *
+- *     The above copyright notice and this permission notice shall be
+- *     included in all copies or substantial portions of the Software.
+- *
+- *     THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+- *     EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+- *     OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+- *     NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+- *     HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+- *     WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+- *     FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+- *     OTHER DEALINGS IN THE SOFTWARE.
+- */
+-
+-#include "../armv7-m.dtsi"
+-#include <dt-bindings/clock/stm32fx-clock.h>
+-#include <dt-bindings/mfd/stm32f4-rcc.h>
 -
 -/ {
 -	#address-cells = <1>;
 -	#size-cells = <1>;
 -
 -	clocks {
--		osc: osc {
--			compatible = "fixed-clock";
+-		clk_hse: clk-hse {
 -			#clock-cells = <0>;
--			clock-frequency = <24000000>;
+-			compatible = "fixed-clock";
+-			clock-frequency = <0>;
 -		};
 -
--		osc3M: osc3M {
--			compatible = "fixed-clock";
+-		clk_lse: clk-lse {
 -			#clock-cells = <0>;
--			clock-frequency = <3000000>;
+-			compatible = "fixed-clock";
+-			clock-frequency = <32768>;
+-		};
+-
+-		clk_lsi: clk-lsi {
+-			#clock-cells = <0>;
+-			compatible = "fixed-clock";
+-			clock-frequency = <32000>;
+-		};
+-
+-		clk_i2s_ckin: i2s-ckin {
+-			#clock-cells = <0>;
+-			compatible = "fixed-clock";
+-			clock-frequency = <0>;
 -		};
 -	};
 -
 -	soc {
--		lpuart1: serial@40184000 {
--			compatible = "fsl,imxrt1050-lpuart", "fsl,imx7ulp-lpuart";
--			reg = <0x40184000 0x4000>;
--			interrupts = <20>;
--			clocks = <&clks IMXRT1050_CLK_LPUART1>;
--			clock-names = "ipg";
+-		romem: efuse@1fff7800 {
+-			compatible = "st,stm32f4-otp";
+-			reg = <0x1fff7800 0x400>;
+-			#address-cells = <1>;
+-			#size-cells = <1>;
+-			ts_cal1: calib@22c {
+-				reg = <0x22c 0x2>;
+-			};
+-			ts_cal2: calib@22e {
+-				reg = <0x22e 0x2>;
+-			};
+-		};
+-
+-		timers2: timers@40000000 {
+-			#address-cells = <1>;
+-			#size-cells = <0>;
+-			compatible = "st,stm32-timers";
+-			reg = <0x40000000 0x400>;
+-			clocks = <&rcc 0 STM32F4_APB1_CLOCK(TIM2)>;
+-			clock-names = "int";
+-			status = "disabled";
+-
+-			pwm {
+-				compatible = "st,stm32-pwm";
+-				#pwm-cells = <3>;
+-				status = "disabled";
+-			};
+-
+-			timer@1 {
+-				compatible = "st,stm32-timer-trigger";
+-				reg = <1>;
+-				status = "disabled";
+-			};
+-		};
+-
+-		timers3: timers@40000400 {
+-			#address-cells = <1>;
+-			#size-cells = <0>;
+-			compatible = "st,stm32-timers";
+-			reg = <0x40000400 0x400>;
+-			clocks = <&rcc 0 STM32F4_APB1_CLOCK(TIM3)>;
+-			clock-names = "int";
+-			status = "disabled";
+-
+-			pwm {
+-				compatible = "st,stm32-pwm";
+-				#pwm-cells = <3>;
+-				status = "disabled";
+-			};
+-
+-			timer@2 {
+-				compatible = "st,stm32-timer-trigger";
+-				reg = <2>;
+-				status = "disabled";
+-			};
+-		};
+-
+-		timers4: timers@40000800 {
+-			#address-cells = <1>;
+-			#size-cells = <0>;
+-			compatible = "st,stm32-timers";
+-			reg = <0x40000800 0x400>;
+-			clocks = <&rcc 0 STM32F4_APB1_CLOCK(TIM4)>;
+-			clock-names = "int";
+-			status = "disabled";
+-
+-			pwm {
+-				compatible = "st,stm32-pwm";
+-				#pwm-cells = <3>;
+-				status = "disabled";
+-			};
+-
+-			timer@3 {
+-				compatible = "st,stm32-timer-trigger";
+-				reg = <3>;
+-				status = "disabled";
+-			};
+-		};
+-
+-		timers5: timers@40000c00 {
+-			#address-cells = <1>;
+-			#size-cells = <0>;
+-			compatible = "st,stm32-timers";
+-			reg = <0x40000C00 0x400>;
+-			clocks = <&rcc 0 STM32F4_APB1_CLOCK(TIM5)>;
+-			clock-names = "int";
+-			status = "disabled";
+-
+-			pwm {
+-				compatible = "st,stm32-pwm";
+-				#pwm-cells = <3>;
+-				status = "disabled";
+-			};
+-
+-			timer@4 {
+-				compatible = "st,stm32-timer-trigger";
+-				reg = <4>;
+-				status = "disabled";
+-			};
+-		};
+-
+-		timers6: timers@40001000 {
+-			#address-cells = <1>;
+-			#size-cells = <0>;
+-			compatible = "st,stm32-timers";
+-			reg = <0x40001000 0x400>;
+-			clocks = <&rcc 0 STM32F4_APB1_CLOCK(TIM6)>;
+-			clock-names = "int";
+-			status = "disabled";
+-
+-			timer@5 {
+-				compatible = "st,stm32-timer-trigger";
+-				reg = <5>;
+-				status = "disabled";
+-			};
+-		};
+-
+-		timers7: timers@40001400 {
+-			#address-cells = <1>;
+-			#size-cells = <0>;
+-			compatible = "st,stm32-timers";
+-			reg = <0x40001400 0x400>;
+-			clocks = <&rcc 0 STM32F4_APB1_CLOCK(TIM7)>;
+-			clock-names = "int";
+-			status = "disabled";
+-
+-			timer@6 {
+-				compatible = "st,stm32-timer-trigger";
+-				reg = <6>;
+-				status = "disabled";
+-			};
+-		};
+-
+-		timers12: timers@40001800 {
+-			#address-cells = <1>;
+-			#size-cells = <0>;
+-			compatible = "st,stm32-timers";
+-			reg = <0x40001800 0x400>;
+-			clocks = <&rcc 0 STM32F4_APB1_CLOCK(TIM12)>;
+-			clock-names = "int";
+-			status = "disabled";
+-
+-			pwm {
+-				compatible = "st,stm32-pwm";
+-				#pwm-cells = <3>;
+-				status = "disabled";
+-			};
+-
+-			timer@11 {
+-				compatible = "st,stm32-timer-trigger";
+-				reg = <11>;
+-				status = "disabled";
+-			};
+-		};
+-
+-		timers13: timers@40001c00 {
+-			compatible = "st,stm32-timers";
+-			reg = <0x40001C00 0x400>;
+-			clocks = <&rcc 0 STM32F4_APB1_CLOCK(TIM13)>;
+-			clock-names = "int";
+-			status = "disabled";
+-
+-			pwm {
+-				compatible = "st,stm32-pwm";
+-				#pwm-cells = <3>;
+-				status = "disabled";
+-			};
+-		};
+-
+-		timers14: timers@40002000 {
+-			compatible = "st,stm32-timers";
+-			reg = <0x40002000 0x400>;
+-			clocks = <&rcc 0 STM32F4_APB1_CLOCK(TIM14)>;
+-			clock-names = "int";
+-			status = "disabled";
+-
+-			pwm {
+-				compatible = "st,stm32-pwm";
+-				#pwm-cells = <3>;
+-				status = "disabled";
+-			};
+-		};
+-
+-		rtc: rtc@40002800 {
+-			compatible = "st,stm32-rtc";
+-			reg = <0x40002800 0x400>;
+-			clocks = <&rcc 1 CLK_RTC>;
+-			assigned-clocks = <&rcc 1 CLK_RTC>;
+-			assigned-clock-parents = <&rcc 1 CLK_LSE>;
+-			interrupt-parent = <&exti>;
+-			interrupts = <17 1>;
+-			st,syscfg = <&pwrcfg 0x00 0x100>;
 -			status = "disabled";
 -		};
 -
--		iomuxc: pinctrl@401f8000 {
--			compatible = "fsl,imxrt1050-iomuxc";
--			reg = <0x401f8000 0x4000>;
--			fsl,mux_mask = <0x7>;
--		};
--
--		anatop: anatop@400d8000 {
--			compatible = "fsl,imxrt-anatop";
--			reg = <0x400d8000 0x4000>;
--		};
--
--		clks: clock-controller@400fc000 {
--			compatible = "fsl,imxrt1050-ccm";
--			reg = <0x400fc000 0x4000>;
--			interrupts = <95>, <96>;
--			clocks = <&osc>;
--			clock-names = "osc";
--			#clock-cells = <1>;
--			assigned-clocks = <&clks IMXRT1050_CLK_PLL1_BYPASS>,
--				<&clks IMXRT1050_CLK_PLL1_BYPASS>,
--				<&clks IMXRT1050_CLK_PLL2_BYPASS>,
--				<&clks IMXRT1050_CLK_PLL3_BYPASS>,
--				<&clks IMXRT1050_CLK_PLL3_PFD1_664_62M>,
--				<&clks IMXRT1050_CLK_PLL2_PFD2_396M>;
--			assigned-clock-parents = <&clks IMXRT1050_CLK_PLL1_REF_SEL>,
--				<&clks IMXRT1050_CLK_PLL1_ARM>,
--				<&clks IMXRT1050_CLK_PLL2_SYS>,
--				<&clks IMXRT1050_CLK_PLL3_USB_OTG>,
--				<&clks IMXRT1050_CLK_PLL3_USB_OTG>,
--				<&clks IMXRT1050_CLK_PLL2_SYS>;
--		};
--
--		edma1: dma-controller@400e8000 {
--			#dma-cells = <2>;
--			compatible = "fsl,imx7ulp-edma";
--			reg = <0x400e8000 0x4000>,
--				<0x400ec000 0x4000>;
--			dma-channels = <32>;
--			interrupts = <0>, <1>, <2>, <3>, <4>, <5>, <6>, <7>, <8>,
--				<9>, <10>, <11>, <12>, <13>, <14>, <15>, <16>;
--			clock-names = "dma", "dmamux0";
--			clocks = <&clks IMXRT1050_CLK_DMA>,
--				 <&clks IMXRT1050_CLK_DMA_MUX>;
--		};
--
--		usdhc1: mmc@402c0000 {
--			compatible = "fsl,imxrt1050-usdhc", "fsl,imx6sl-usdhc";
--			reg = <0x402c0000 0x4000>;
--			interrupts = <110>;
--			clocks = <&clks IMXRT1050_CLK_IPG_PDOF>,
--				<&clks IMXRT1050_CLK_AHB_PODF>,
--				<&clks IMXRT1050_CLK_USDHC1>;
--			clock-names = "ipg", "ahb", "per";
--			bus-width = <4>;
--			fsl,wp-controller;
--			no-1-8-v;
--			max-frequency = <200000000>;
--			fsl,tuning-start-tap = <20>;
--			fsl,tuning-step = <2>;
+-		iwdg: watchdog@40003000 {
+-			compatible = "st,stm32-iwdg";
+-			reg = <0x40003000 0x400>;
+-			clocks = <&clk_lsi>;
+-			clock-names = "lsi";
 -			status = "disabled";
 -		};
 -
--		gpio1: gpio@401b8000 {
--			compatible = "fsl,imxrt1050-gpio", "fsl,imx35-gpio";
--			reg = <0x401b8000 0x4000>;
--			interrupts = <80>, <81>;
--			gpio-controller;
--			#gpio-cells = <2>;
--			interrupt-controller;
--			#interrupt-cells = <2>;
+-		spi2: spi@40003800 {
+-			#address-cells = <1>;
+-			#size-cells = <0>;
+-			compatible = "st,stm32f4-spi";
+-			reg = <0x40003800 0x400>;
+-			interrupts = <36>;
+-			clocks = <&rcc 0 STM32F4_APB1_CLOCK(SPI2)>;
+-			status = "disabled";
 -		};
 -
--		gpio2: gpio@401bc000 {
--			compatible = "fsl,imxrt1050-gpio", "fsl,imx35-gpio";
--			reg = <0x401bc000 0x4000>;
--			interrupts = <82>, <83>;
--			gpio-controller;
--			#gpio-cells = <2>;
--			interrupt-controller;
--			#interrupt-cells = <2>;
+-		spi3: spi@40003c00 {
+-			#address-cells = <1>;
+-			#size-cells = <0>;
+-			compatible = "st,stm32f4-spi";
+-			reg = <0x40003c00 0x400>;
+-			interrupts = <51>;
+-			clocks = <&rcc 0 STM32F4_APB1_CLOCK(SPI3)>;
+-			status = "disabled";
 -		};
 -
--		gpio3: gpio@401c0000 {
--			compatible = "fsl,imxrt1050-gpio", "fsl,imx35-gpio";
--			reg = <0x401c0000 0x4000>;
--			interrupts = <84>, <85>;
--			gpio-controller;
--			#gpio-cells = <2>;
--			interrupt-controller;
--			#interrupt-cells = <2>;
+-		usart2: serial@40004400 {
+-			compatible = "st,stm32-uart";
+-			reg = <0x40004400 0x400>;
+-			interrupts = <38>;
+-			clocks = <&rcc 0 STM32F4_APB1_CLOCK(UART2)>;
+-			status = "disabled";
 -		};
 -
--		gpio4: gpio@401c4000 {
--			compatible = "fsl,imxrt1050-gpio", "fsl,imx35-gpio";
--			reg = <0x401c4000 0x4000>;
--			interrupts = <86>, <87>;
--			gpio-controller;
--			#gpio-cells = <2>;
--			interrupt-controller;
--			#interrupt-cells = <2>;
+-		usart3: serial@40004800 {
+-			compatible = "st,stm32-uart";
+-			reg = <0x40004800 0x400>;
+-			interrupts = <39>;
+-			clocks = <&rcc 0 STM32F4_APB1_CLOCK(UART3)>;
+-			status = "disabled";
+-			dmas = <&dma1 1 4 0x400 0x0>,
+-			       <&dma1 3 4 0x400 0x0>;
+-			dma-names = "rx", "tx";
 -		};
 -
--		gpio5: gpio@400c0000 {
--			compatible = "fsl,imxrt1050-gpio", "fsl,imx35-gpio";
--			reg = <0x400c0000 0x4000>;
+-		usart4: serial@40004c00 {
+-			compatible = "st,stm32-uart";
+-			reg = <0x40004c00 0x400>;
+-			interrupts = <52>;
+-			clocks = <&rcc 0 STM32F4_APB1_CLOCK(UART4)>;
+-			status = "disabled";
+-		};
+-
+-		usart5: serial@40005000 {
+-			compatible = "st,stm32-uart";
+-			reg = <0x40005000 0x400>;
+-			interrupts = <53>;
+-			clocks = <&rcc 0 STM32F4_APB1_CLOCK(UART5)>;
+-			status = "disabled";
+-		};
+-
+-		i2c1: i2c@40005400 {
+-			compatible = "st,stm32f4-i2c";
+-			reg = <0x40005400 0x400>;
+-			interrupts = <31>,
+-				     <32>;
+-			resets = <&rcc STM32F4_APB1_RESET(I2C1)>;
+-			clocks = <&rcc 0 STM32F4_APB1_CLOCK(I2C1)>;
+-			#address-cells = <1>;
+-			#size-cells = <0>;
+-			status = "disabled";
+-		};
+-
+-		i2c3: i2c@40005c00 {
+-			compatible = "st,stm32f4-i2c";
+-			reg = <0x40005c00 0x400>;
+-			interrupts = <72>,
+-				     <73>;
+-			resets = <&rcc STM32F4_APB1_RESET(I2C3)>;
+-			clocks = <&rcc 0 STM32F4_APB1_CLOCK(I2C3)>;
+-			#address-cells = <1>;
+-			#size-cells = <0>;
+-			status = "disabled";
+-		};
+-
+-		can1: can@40006400 {
+-			compatible = "st,stm32f4-bxcan";
+-			reg = <0x40006400 0x200>;
+-			interrupts = <19>, <20>, <21>, <22>;
+-			interrupt-names = "tx", "rx0", "rx1", "sce";
+-			resets = <&rcc STM32F4_APB1_RESET(CAN1)>;
+-			clocks = <&rcc 0 STM32F4_APB1_CLOCK(CAN1)>;
+-			st,can-primary;
+-			st,gcan = <&gcan>;
+-			status = "disabled";
+-		};
+-
+-		gcan: gcan@40006600 {
+-			compatible = "st,stm32f4-gcan", "syscon";
+-			reg = <0x40006600 0x200>;
+-			clocks = <&rcc 0 STM32F4_APB1_CLOCK(CAN1)>;
+-		};
+-
+-		can2: can@40006800 {
+-			compatible = "st,stm32f4-bxcan";
+-			reg = <0x40006800 0x200>;
+-			interrupts = <63>, <64>, <65>, <66>;
+-			interrupt-names = "tx", "rx0", "rx1", "sce";
+-			resets = <&rcc STM32F4_APB1_RESET(CAN2)>;
+-			clocks = <&rcc 0 STM32F4_APB1_CLOCK(CAN2)>;
+-			st,can-secondary;
+-			st,gcan = <&gcan>;
+-			status = "disabled";
+-		};
+-
+-		dac: dac@40007400 {
+-			compatible = "st,stm32f4-dac-core";
+-			reg = <0x40007400 0x400>;
+-			resets = <&rcc STM32F4_APB1_RESET(DAC)>;
+-			clocks = <&rcc 0 STM32F4_APB1_CLOCK(DAC)>;
+-			clock-names = "pclk";
+-			#address-cells = <1>;
+-			#size-cells = <0>;
+-			status = "disabled";
+-
+-			dac1: dac@1 {
+-				compatible = "st,stm32-dac";
+-				#io-channel-cells = <1>;
+-				reg = <1>;
+-				status = "disabled";
+-			};
+-
+-			dac2: dac@2 {
+-				compatible = "st,stm32-dac";
+-				#io-channel-cells = <1>;
+-				reg = <2>;
+-				status = "disabled";
+-			};
+-		};
+-
+-		usart7: serial@40007800 {
+-			compatible = "st,stm32-uart";
+-			reg = <0x40007800 0x400>;
+-			interrupts = <82>;
+-			clocks = <&rcc 0 STM32F4_APB1_CLOCK(UART7)>;
+-			status = "disabled";
+-		};
+-
+-		usart8: serial@40007c00 {
+-			compatible = "st,stm32-uart";
+-			reg = <0x40007c00 0x400>;
+-			interrupts = <83>;
+-			clocks = <&rcc 0 STM32F4_APB1_CLOCK(UART8)>;
+-			status = "disabled";
+-		};
+-
+-		timers1: timers@40010000 {
+-			#address-cells = <1>;
+-			#size-cells = <0>;
+-			compatible = "st,stm32-timers";
+-			reg = <0x40010000 0x400>;
+-			clocks = <&rcc 0 STM32F4_APB2_CLOCK(TIM1)>;
+-			clock-names = "int";
+-			status = "disabled";
+-
+-			pwm {
+-				compatible = "st,stm32-pwm";
+-				#pwm-cells = <3>;
+-				status = "disabled";
+-			};
+-
+-			timer@0 {
+-				compatible = "st,stm32-timer-trigger";
+-				reg = <0>;
+-				status = "disabled";
+-			};
+-		};
+-
+-		timers8: timers@40010400 {
+-			#address-cells = <1>;
+-			#size-cells = <0>;
+-			compatible = "st,stm32-timers";
+-			reg = <0x40010400 0x400>;
+-			clocks = <&rcc 0 STM32F4_APB2_CLOCK(TIM8)>;
+-			clock-names = "int";
+-			status = "disabled";
+-
+-			pwm {
+-				compatible = "st,stm32-pwm";
+-				#pwm-cells = <3>;
+-				status = "disabled";
+-			};
+-
+-			timer@7 {
+-				compatible = "st,stm32-timer-trigger";
+-				reg = <7>;
+-				status = "disabled";
+-			};
+-		};
+-
+-		usart1: serial@40011000 {
+-			compatible = "st,stm32-uart";
+-			reg = <0x40011000 0x400>;
+-			interrupts = <37>;
+-			clocks = <&rcc 0 STM32F4_APB2_CLOCK(USART1)>;
+-			status = "disabled";
+-			dmas = <&dma2 2 4 0x400 0x0>,
+-			       <&dma2 7 4 0x400 0x0>;
+-			dma-names = "rx", "tx";
+-		};
+-
+-		usart6: serial@40011400 {
+-			compatible = "st,stm32-uart";
+-			reg = <0x40011400 0x400>;
+-			interrupts = <71>;
+-			clocks = <&rcc 0 STM32F4_APB2_CLOCK(USART6)>;
+-			status = "disabled";
+-		};
+-
+-		adc: adc@40012000 {
+-			compatible = "st,stm32f4-adc-core";
+-			reg = <0x40012000 0x400>;
+-			interrupts = <18>;
+-			clocks = <&rcc 0 STM32F4_APB2_CLOCK(ADC1)>;
+-			clock-names = "adc";
+-			interrupt-controller;
+-			#interrupt-cells = <1>;
+-			#address-cells = <1>;
+-			#size-cells = <0>;
+-			status = "disabled";
+-
+-			adc1: adc@0 {
+-				compatible = "st,stm32f4-adc";
+-				#io-channel-cells = <1>;
+-				reg = <0x0>;
+-				clocks = <&rcc 0 STM32F4_APB2_CLOCK(ADC1)>;
+-				interrupt-parent = <&adc>;
+-				interrupts = <0>;
+-				dmas = <&dma2 0 0 0x400 0x0>;
+-				dma-names = "rx";
+-				status = "disabled";
+-			};
+-
+-			adc2: adc@100 {
+-				compatible = "st,stm32f4-adc";
+-				#io-channel-cells = <1>;
+-				reg = <0x100>;
+-				clocks = <&rcc 0 STM32F4_APB2_CLOCK(ADC2)>;
+-				interrupt-parent = <&adc>;
+-				interrupts = <1>;
+-				dmas = <&dma2 3 1 0x400 0x0>;
+-				dma-names = "rx";
+-				status = "disabled";
+-			};
+-
+-			adc3: adc@200 {
+-				compatible = "st,stm32f4-adc";
+-				#io-channel-cells = <1>;
+-				reg = <0x200>;
+-				clocks = <&rcc 0 STM32F4_APB2_CLOCK(ADC3)>;
+-				interrupt-parent = <&adc>;
+-				interrupts = <2>;
+-				dmas = <&dma2 1 2 0x400 0x0>;
+-				dma-names = "rx";
+-				status = "disabled";
+-			};
+-		};
+-
+-		sdio: mmc@40012c00 {
+-			compatible = "arm,pl180", "arm,primecell";
+-			arm,primecell-periphid = <0x00880180>;
+-			reg = <0x40012c00 0x400>;
+-			clocks = <&rcc 0 STM32F4_APB2_CLOCK(SDIO)>;
+-			clock-names = "apb_pclk";
+-			interrupts = <49>;
+-			max-frequency = <48000000>;
+-			status = "disabled";
+-		};
+-
+-		spi1: spi@40013000 {
+-			#address-cells = <1>;
+-			#size-cells = <0>;
+-			compatible = "st,stm32f4-spi";
+-			reg = <0x40013000 0x400>;
+-			interrupts = <35>;
+-			clocks = <&rcc 0 STM32F4_APB2_CLOCK(SPI1)>;
+-			status = "disabled";
+-		};
+-
+-		spi4: spi@40013400 {
+-			#address-cells = <1>;
+-			#size-cells = <0>;
+-			compatible = "st,stm32f4-spi";
+-			reg = <0x40013400 0x400>;
+-			interrupts = <84>;
+-			clocks = <&rcc 0 STM32F4_APB2_CLOCK(SPI4)>;
+-			status = "disabled";
+-		};
+-
+-		syscfg: syscon@40013800 {
+-			compatible = "st,stm32-syscfg", "syscon";
+-			reg = <0x40013800 0x400>;
+-			clocks = <&rcc 0 STM32F4_APB2_CLOCK(SYSCFG)>;
+-		};
+-
+-		exti: interrupt-controller@40013c00 {
+-			compatible = "st,stm32-exti";
+-			interrupt-controller;
+-			#interrupt-cells = <2>;
+-			reg = <0x40013C00 0x400>;
+-			interrupts = <1>, <2>, <3>, <6>, <7>, <8>, <9>, <10>, <23>, <40>, <41>, <42>, <62>, <76>;
+-		};
+-
+-		timers9: timers@40014000 {
+-			#address-cells = <1>;
+-			#size-cells = <0>;
+-			compatible = "st,stm32-timers";
+-			reg = <0x40014000 0x400>;
+-			clocks = <&rcc 0 STM32F4_APB2_CLOCK(TIM9)>;
+-			clock-names = "int";
+-			status = "disabled";
+-
+-			pwm {
+-				compatible = "st,stm32-pwm";
+-				#pwm-cells = <3>;
+-				status = "disabled";
+-			};
+-
+-			timer@8 {
+-				compatible = "st,stm32-timer-trigger";
+-				reg = <8>;
+-				status = "disabled";
+-			};
+-		};
+-
+-		timers10: timers@40014400 {
+-			compatible = "st,stm32-timers";
+-			reg = <0x40014400 0x400>;
+-			clocks = <&rcc 0 STM32F4_APB2_CLOCK(TIM10)>;
+-			clock-names = "int";
+-			status = "disabled";
+-
+-			pwm {
+-				compatible = "st,stm32-pwm";
+-				#pwm-cells = <3>;
+-				status = "disabled";
+-			};
+-		};
+-
+-		timers11: timers@40014800 {
+-			compatible = "st,stm32-timers";
+-			reg = <0x40014800 0x400>;
+-			clocks = <&rcc 0 STM32F4_APB2_CLOCK(TIM11)>;
+-			clock-names = "int";
+-			status = "disabled";
+-
+-			pwm {
+-				compatible = "st,stm32-pwm";
+-				#pwm-cells = <3>;
+-				status = "disabled";
+-			};
+-		};
+-
+-		spi5: spi@40015000 {
+-			#address-cells = <1>;
+-			#size-cells = <0>;
+-			compatible = "st,stm32f4-spi";
+-			reg = <0x40015000 0x400>;
+-			interrupts = <85>;
+-			clocks = <&rcc 0 STM32F4_APB2_CLOCK(SPI5)>;
+-			dmas = <&dma2 3 2 0x400 0x0>,
+-				<&dma2 4 2 0x400 0x0>;
+-			dma-names = "rx", "tx";
+-			status = "disabled";
+-		};
+-
+-		spi6: spi@40015400 {
+-			#address-cells = <1>;
+-			#size-cells = <0>;
+-			compatible = "st,stm32f4-spi";
+-			reg = <0x40015400 0x400>;
+-			interrupts = <86>;
+-			clocks = <&rcc 0 STM32F4_APB2_CLOCK(SPI6)>;
+-			status = "disabled";
+-		};
+-
+-		pwrcfg: power-config@40007000 {
+-			compatible = "st,stm32-power-config", "syscon";
+-			reg = <0x40007000 0x400>;
+-		};
+-
+-		ltdc: display-controller@40016800 {
+-			compatible = "st,stm32-ltdc";
+-			reg = <0x40016800 0x200>;
 -			interrupts = <88>, <89>;
--			gpio-controller;
--			#gpio-cells = <2>;
--			interrupt-controller;
--			#interrupt-cells = <2>;
+-			resets = <&rcc STM32F4_APB2_RESET(LTDC)>;
+-			clocks = <&rcc 1 CLK_LCD>;
+-			clock-names = "lcd";
+-			status = "disabled";
 -		};
 -
--		gpt: timer@401ec000 {
--			compatible = "fsl,imxrt1050-gpt", "fsl,imx6dl-gpt", "fsl,imx6sl-gpt";
--			reg = <0x401ec000 0x4000>;
--			interrupts = <100>;
--			clocks = <&osc3M>;
--			clock-names = "per";
+-		crc: crc@40023000 {
+-			compatible = "st,stm32f4-crc";
+-			reg = <0x40023000 0x400>;
+-			clocks = <&rcc 0 STM32F4_AHB1_CLOCK(CRC)>;
+-			status = "disabled";
+-		};
+-
+-		rcc: rcc@40023800 {
+-			#reset-cells = <1>;
+-			#clock-cells = <2>;
+-			compatible = "st,stm32f42xx-rcc", "st,stm32-rcc";
+-			reg = <0x40023800 0x400>;
+-			clocks = <&clk_hse>, <&clk_i2s_ckin>;
+-			st,syscfg = <&pwrcfg>;
+-			assigned-clocks = <&rcc 1 CLK_HSE_RTC>;
+-			assigned-clock-rates = <1000000>;
+-		};
+-
+-		dma1: dma-controller@40026000 {
+-			compatible = "st,stm32-dma";
+-			reg = <0x40026000 0x400>;
+-			interrupts = <11>,
+-				     <12>,
+-				     <13>,
+-				     <14>,
+-				     <15>,
+-				     <16>,
+-				     <17>,
+-				     <47>;
+-			clocks = <&rcc 0 STM32F4_AHB1_CLOCK(DMA1)>;
+-			#dma-cells = <4>;
+-		};
+-
+-		dma2: dma-controller@40026400 {
+-			compatible = "st,stm32-dma";
+-			reg = <0x40026400 0x400>;
+-			interrupts = <56>,
+-				     <57>,
+-				     <58>,
+-				     <59>,
+-				     <60>,
+-				     <68>,
+-				     <69>,
+-				     <70>;
+-			clocks = <&rcc 0 STM32F4_AHB1_CLOCK(DMA2)>;
+-			#dma-cells = <4>;
+-			st,mem2mem;
+-		};
+-
+-		mac: ethernet@40028000 {
+-			compatible = "st,stm32-dwmac", "snps,dwmac-3.50a";
+-			reg = <0x40028000 0x8000>;
+-			reg-names = "stmmaceth";
+-			interrupts = <61>;
+-			interrupt-names = "macirq";
+-			clock-names = "stmmaceth", "mac-clk-tx", "mac-clk-rx";
+-			clocks = <&rcc 0 STM32F4_AHB1_CLOCK(ETHMAC)>,
+-					<&rcc 0 STM32F4_AHB1_CLOCK(ETHMACTX)>,
+-					<&rcc 0 STM32F4_AHB1_CLOCK(ETHMACRX)>;
+-			st,syscon = <&syscfg 0x4>;
+-			snps,pbl = <8>;
+-			snps,mixed-burst;
+-			status = "disabled";
+-		};
+-
+-		dma2d: dma2d@4002b000 {
+-			compatible = "st,stm32-dma2d";
+-			reg = <0x4002b000 0xc00>;
+-			interrupts = <90>;
+-			resets = <&rcc STM32F4_AHB1_RESET(DMA2D)>;
+-			clocks = <&rcc 0 STM32F4_AHB1_CLOCK(DMA2D)>;
+-			clock-names = "dma2d";
+-			status = "disabled";
+-		};
+-
+-		usbotg_hs: usb@40040000 {
+-			compatible = "snps,dwc2";
+-			reg = <0x40040000 0x40000>;
+-			interrupts = <77>;
+-			clocks = <&rcc 0 STM32F4_AHB1_CLOCK(OTGHS)>;
+-			clock-names = "otg";
+-			status = "disabled";
+-		};
+-
+-		usbotg_fs: usb@50000000 {
+-			compatible = "st,stm32f4x9-fsotg";
+-			reg = <0x50000000 0x40000>;
+-			interrupts = <67>;
+-			clocks = <&rcc 0 39>;
+-			clock-names = "otg";
+-			status = "disabled";
+-		};
+-
+-		dcmi: dcmi@50050000 {
+-			compatible = "st,stm32-dcmi";
+-			reg = <0x50050000 0x400>;
+-			interrupts = <78>;
+-			resets = <&rcc STM32F4_AHB2_RESET(DCMI)>;
+-			clocks = <&rcc 0 STM32F4_AHB2_CLOCK(DCMI)>;
+-			clock-names = "mclk";
+-			pinctrl-names = "default";
+-			pinctrl-0 = <&dcmi_pins>;
+-			dmas = <&dma2 1 1 0x414 0x3>;
+-			dma-names = "tx";
+-			status = "disabled";
+-		};
+-
+-		rng: rng@50060800 {
+-			compatible = "st,stm32-rng";
+-			reg = <0x50060800 0x400>;
+-			clocks = <&rcc 0 STM32F4_AHB2_CLOCK(RNG)>;
+-
 -		};
 -	};
 -};
-diff --git a/arch/arm/boot/dts/nxp/imx/imxrt1170-pinfunc.h b/arch/arm/boot/dts/nxp/imx/imxrt1170-pinfunc.h
+-
+-&systick {
+-	clocks = <&rcc 1 SYSTICK>;
+-	status = "okay";
+-};
+diff --git a/arch/arm/boot/dts/st/stm32f469-disco.dts b/arch/arm/boot/dts/st/stm32f469-disco.dts
 deleted file mode 100644
-index 3b9fff2f08e1..000000000000
---- a/arch/arm/boot/dts/nxp/imx/imxrt1170-pinfunc.h
+index 943afba06b5f..000000000000
+--- a/arch/arm/boot/dts/st/stm32f469-disco.dts
 +++ /dev/null
-@@ -1,1561 +0,0 @@
--/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
+@@ -1,260 +0,0 @@
 -/*
-- * Copyright (C) 2021
-- * Author(s): Jesse Taube <Mr.Bossman075@gmail.com>
-- */
--
--#ifndef _DT_BINDINGS_PINCTRL_IMXRT1170_PINFUNC_H
--#define _DT_BINDINGS_PINCTRL_IMXRT1170_PINFUNC_H
--
--#define IMX_PAD_SION		0x40000000
--
--/*
-- * The pin function ID is a tuple of
-- * <mux_reg conf_reg input_reg mux_mode input_val>
-- */
--
--#define IOMUXC_GPIO_LPSR_00_FLEXCAN3_TX				0x000 0x040 0x0 0x0 0x0
--#define IOMUXC_GPIO_LPSR_00_MIC_CLK				0x000 0x040 0x0 0x1 0x0
--#define IOMUXC_GPIO_LPSR_00_MQS_RIGHT				0x000 0x040 0x0 0x2 0x0
--#define IOMUXC_GPIO_LPSR_00_ARM_CM4_EVENTO			0x000 0x040 0x0 0x3 0x0
--#define IOMUXC_GPIO_LPSR_00_GPIO_MUX6_IO00			0x000 0x040 0x0 0x5 0x0
--#define IOMUXC_GPIO_LPSR_00_LPUART12_TXD			0x000 0x040 0x0B0 0x6 0x0
--#define IOMUXC_GPIO_LPSR_00_SAI4_MCLK				0x000 0x040 0x0C8 0x7 0x0
--#define IOMUXC_GPIO_LPSR_00_GPIO12_IO00				0x000 0x040 0x0 0xA 0x0
--
--#define IOMUXC_GPIO_LPSR_01_FLEXCAN3_RX				0x004 0x044 0x080 0x0 0x0
--#define IOMUXC_GPIO_LPSR_01_MIC_BITSTREAM0			0x004 0x044 0x0B4 0x1 0x0
--#define IOMUXC_GPIO_LPSR_01_MQS_LEFT				0x004 0x044 0x0 0x2 0x0
--#define IOMUXC_GPIO_LPSR_01_ARM_CM4_EVENTI			0x004 0x044 0x0 0x3 0x0
--#define IOMUXC_GPIO_LPSR_01_GPIO_MUX6_IO01			0x004 0x044 0x0 0x5 0x0
--#define IOMUXC_GPIO_LPSR_01_LPUART12_RXD			0x004 0x044 0x0AC 0x6 0x0
--#define IOMUXC_GPIO_LPSR_01_GPIO12_IO01				0x004 0x044 0x0 0xA 0x0
--
--#define IOMUXC_GPIO_LPSR_02_GPIO12_IO02				0x008 0x048 0x0 0xA 0x0
--#define IOMUXC_GPIO_LPSR_02_SRC_BOOT_MODE00			0x008 0x048 0x0 0x0 0x0
--#define IOMUXC_GPIO_LPSR_02_LPSPI5_SCK				0x008 0x048 0x098 0x1 0x0
--#define IOMUXC_GPIO_LPSR_02_SAI4_TX_DATA			0x008 0x048 0x0 0x2 0x0
--#define IOMUXC_GPIO_LPSR_02_MQS_RIGHT				0x008 0x048 0x0 0x3 0x0
--#define IOMUXC_GPIO_LPSR_02_GPIO_MUX6_IO02			0x008 0x048 0x0 0x5 0x0
--
--#define IOMUXC_GPIO_LPSR_03_SRC_BOOT_MODE01			0x00C 0x04C 0x0 0x0 0x0
--#define IOMUXC_GPIO_LPSR_03_LPSPI5_PCS0				0x00C 0x04C 0x094 0x1 0x0
--#define IOMUXC_GPIO_LPSR_03_SAI4_TX_SYNC			0x00C 0x04C 0x0DC 0x2 0x0
--#define IOMUXC_GPIO_LPSR_03_MQS_LEFT				0x00C 0x04C 0x0 0x3 0x0
--#define IOMUXC_GPIO_LPSR_03_GPIO_MUX6_IO03			0x00C 0x04C 0x0 0x5 0x0
--#define IOMUXC_GPIO_LPSR_03_GPIO12_IO03				0x00C 0x04C 0x0 0xA 0x0
--
--#define IOMUXC_GPIO_LPSR_04_LPI2C5_SDA				0x010 0x050 0x088 0x0 0x0
--#define IOMUXC_GPIO_LPSR_04_LPSPI5_SOUT				0x010 0x050 0x0A0 0x1 0x0
--#define IOMUXC_GPIO_LPSR_04_SAI4_TX_BCLK			0x010 0x050 0x0D8 0x2 0x0
--#define IOMUXC_GPIO_LPSR_04_LPUART12_RTS_B			0x010 0x050 0x0 0x3 0x0
--#define IOMUXC_GPIO_LPSR_04_GPIO_MUX6_IO04			0x010 0x050 0x0 0x5 0x0
--#define IOMUXC_GPIO_LPSR_04_LPUART11_TXD			0x010 0x050 0x0A8 0x6 0x0
--#define IOMUXC_GPIO_LPSR_04_GPIO12_IO04				0x010 0x050 0x0 0xA 0x0
--
--#define IOMUXC_GPIO_LPSR_05_GPIO12_IO05				0x014 0x054 0x0 0xA 0x0
--#define IOMUXC_GPIO_LPSR_05_LPI2C5_SCL				0x014 0x054 0x084 0x0 0x0
--#define IOMUXC_GPIO_LPSR_05_LPSPI5_SIN				0x014 0x054 0x09C 0x1 0x0
--#define IOMUXC_GPIO_LPSR_05_SAI4_MCLK				0x014 0x054 0x0C8 0x2 0x1
--#define IOMUXC_GPIO_LPSR_05_LPUART12_CTS_B			0x014 0x054 0x0 0x3 0x0
--#define IOMUXC_GPIO_LPSR_05_GPIO_MUX6_IO05			0x014 0x054 0x0 0x5 0x0
--#define IOMUXC_GPIO_LPSR_05_LPUART11_RXD			0x014 0x054 0x0A4 0x6 0x0
--#define IOMUXC_GPIO_LPSR_05_NMI_GLUE_NMI			0x014 0x054 0x0C4 0x7 0x0
--
--#define IOMUXC_GPIO_LPSR_06_LPI2C6_SDA				0x018 0x058 0x090 0x0 0x0
--#define IOMUXC_GPIO_LPSR_06_SAI4_RX_DATA			0x018 0x058 0x0D0 0x2 0x0
--#define IOMUXC_GPIO_LPSR_06_LPUART12_TXD			0x018 0x058 0x0B0 0x3 0x1
--#define IOMUXC_GPIO_LPSR_06_LPSPI6_PCS3				0x018 0x058 0x0 0x4 0x0
--#define IOMUXC_GPIO_LPSR_06_GPIO_MUX6_IO06			0x018 0x058 0x0 0x5 0x0
--#define IOMUXC_GPIO_LPSR_06_FLEXCAN3_TX				0x018 0x058 0x0 0x6 0x0
--#define IOMUXC_GPIO_LPSR_06_PIT2_TRIGGER3			0x018 0x058 0x0 0x7 0x0
--#define IOMUXC_GPIO_LPSR_06_LPSPI5_PCS1				0x018 0x058 0x0 0x8 0x0
--#define IOMUXC_GPIO_LPSR_06_GPIO12_IO06				0x018 0x058 0x0 0xA 0x0
--
--#define IOMUXC_GPIO_LPSR_07_LPI2C6_SCL				0x01C 0x05C 0x08C 0x0 0x0
--#define IOMUXC_GPIO_LPSR_07_SAI4_RX_BCLK			0x01C 0x05C 0x0CC 0x2 0x0
--#define IOMUXC_GPIO_LPSR_07_LPUART12_RXD			0x01C 0x05C 0x0AC 0x3 0x1
--#define IOMUXC_GPIO_LPSR_07_LPSPI6_PCS2				0x01C 0x05C 0x0 0x4 0x0
--#define IOMUXC_GPIO_LPSR_07_GPIO_MUX6_IO07			0x01C 0x05C 0x0 0x5 0x0
--#define IOMUXC_GPIO_LPSR_07_FLEXCAN3_RX				0x01C 0x05C 0x080 0x6 0x1
--#define IOMUXC_GPIO_LPSR_07_PIT2_TRIGGER2			0x01C 0x05C 0x0 0x7 0x0
--#define IOMUXC_GPIO_LPSR_07_LPSPI5_PCS2				0x01C 0x05C 0x0 0x8 0x0
--#define IOMUXC_GPIO_LPSR_07_GPIO12_IO07				0x01C 0x05C 0x0 0xA 0x0
--
--#define IOMUXC_GPIO_LPSR_08_GPIO12_IO08				0x020 0x060 0x0 0xA 0x0
--#define IOMUXC_GPIO_LPSR_08_LPUART11_TXD			0x020 0x060 0x0A8 0x0 0x1
--#define IOMUXC_GPIO_LPSR_08_FLEXCAN3_TX				0x020 0x060 0x0 0x1 0x0
--#define IOMUXC_GPIO_LPSR_08_SAI4_RX_SYNC			0x020 0x060 0x0D4 0x2 0x0
--#define IOMUXC_GPIO_LPSR_08_MIC_CLK				0x020 0x060 0x0 0x3 0x0
--#define IOMUXC_GPIO_LPSR_08_LPSPI6_PCS1				0x020 0x060 0x0 0x4 0x0
--#define IOMUXC_GPIO_LPSR_08_GPIO_MUX6_IO08			0x020 0x060 0x0 0x5 0x0
--#define IOMUXC_GPIO_LPSR_08_LPI2C5_SDA				0x020 0x060 0x088 0x6 0x1
--#define IOMUXC_GPIO_LPSR_08_PIT2_TRIGGER1			0x020 0x060 0x0 0x7 0x0
--#define IOMUXC_GPIO_LPSR_08_LPSPI5_PCS3				0x020 0x060 0x0 0x8 0x0
--
--#define IOMUXC_GPIO_LPSR_09_GPIO12_IO09				0x024 0x064 0x0 0xA 0x0
--#define IOMUXC_GPIO_LPSR_09_LPUART11_RXD			0x024 0x064 0x0A4 0x0 0x1
--#define IOMUXC_GPIO_LPSR_09_FLEXCAN3_RX				0x024 0x064 0x080 0x1 0x2
--#define IOMUXC_GPIO_LPSR_09_PIT2_TRIGGER0			0x024 0x064 0x0 0x2 0x0
--#define IOMUXC_GPIO_LPSR_09_MIC_BITSTREAM0			0x024 0x064 0x0B4 0x3 0x1
--#define IOMUXC_GPIO_LPSR_09_LPSPI6_PCS0				0x024 0x064 0x0 0x4 0x0
--#define IOMUXC_GPIO_LPSR_09_GPIO_MUX6_IO09			0x024 0x064 0x0 0x5 0x0
--#define IOMUXC_GPIO_LPSR_09_LPI2C5_SCL				0x024 0x064 0x084 0x6 0x1
--#define IOMUXC_GPIO_LPSR_09_SAI4_TX_DATA			0x024 0x064 0x0 0x7 0x0
--
--#define IOMUXC_GPIO_LPSR_10_GPIO12_IO10				0x028 0x068 0x0 0xA 0x0
--#define IOMUXC_GPIO_LPSR_10_JTAG_MUX_TRSTB			0x028 0x068 0x0 0x0 0x0
--#define IOMUXC_GPIO_LPSR_10_LPUART11_CTS_B			0x028 0x068 0x0 0x1 0x0
--#define IOMUXC_GPIO_LPSR_10_LPI2C6_SDA				0x028 0x068 0x090 0x2 0x1
--#define IOMUXC_GPIO_LPSR_10_MIC_BITSTREAM1			0x028 0x068 0x0B8 0x3 0x0
--#define IOMUXC_GPIO_LPSR_10_LPSPI6_SCK				0x028 0x068 0x0 0x4 0x0
--#define IOMUXC_GPIO_LPSR_10_GPIO_MUX6_IO10			0x028 0x068 0x0 0x5 0x0
--#define IOMUXC_GPIO_LPSR_10_LPI2C5_SCLS				0x028 0x068 0x0 0x6 0x0
--#define IOMUXC_GPIO_LPSR_10_SAI4_TX_SYNC			0x028 0x068 0x0DC 0x7 0x1
--#define IOMUXC_GPIO_LPSR_10_LPUART12_TXD			0x028 0x068 0x0B0 0x8 0x2
--
--#define IOMUXC_GPIO_LPSR_11_JTAG_MUX_TDO			0x02C 0x06C 0x0 0x0 0x0
--#define IOMUXC_GPIO_LPSR_11_LPUART11_RTS_B			0x02C 0x06C 0x0 0x1 0x0
--#define IOMUXC_GPIO_LPSR_11_LPI2C6_SCL				0x02C 0x06C 0x08C 0x2 0x1
--#define IOMUXC_GPIO_LPSR_11_MIC_BITSTREAM2			0x02C 0x06C 0x0BC 0x3 0x0
--#define IOMUXC_GPIO_LPSR_11_LPSPI6_SOUT				0x02C 0x06C 0x0 0x4 0x0
--#define IOMUXC_GPIO_LPSR_11_GPIO_MUX6_IO11			0x02C 0x06C 0x0 0x5 0x0
--#define IOMUXC_GPIO_LPSR_11_LPI2C5_SDAS				0x02C 0x06C 0x0 0x6 0x0
--#define IOMUXC_GPIO_LPSR_11_ARM_TRACE_SWO			0x02C 0x06C 0x0 0x7 0x0
--#define IOMUXC_GPIO_LPSR_11_LPUART12_RXD			0x02C 0x06C 0x0AC 0x8 0x2
--#define IOMUXC_GPIO_LPSR_11_GPIO12_IO11				0x02C 0x06C 0x0 0xA 0x0
--
--#define IOMUXC_GPIO_LPSR_12_GPIO12_IO12				0x030 0x070 0x0 0xA 0x0
--#define IOMUXC_GPIO_LPSR_12_JTAG_MUX_TDI			0x030 0x070 0x0 0x0 0x0
--#define IOMUXC_GPIO_LPSR_12_PIT2_TRIGGER0			0x030 0x070 0x0 0x1 0x0
--#define IOMUXC_GPIO_LPSR_12_MIC_BITSTREAM3			0x030 0x070 0x0C0 0x3 0x0
--#define IOMUXC_GPIO_LPSR_12_LPSPI6_SIN				0x030 0x070 0x0 0x4 0x0
--#define IOMUXC_GPIO_LPSR_12_GPIO_MUX6_IO12			0x030 0x070 0x0 0x5 0x0
--#define IOMUXC_GPIO_LPSR_12_LPI2C5_HREQ				0x030 0x070 0x0 0x6 0x0
--#define IOMUXC_GPIO_LPSR_12_SAI4_TX_BCLK			0x030 0x070 0x0D8 0x7 0x1
--#define IOMUXC_GPIO_LPSR_12_LPSPI5_SCK				0x030 0x070 0x098 0x8 0x1
--
--#define IOMUXC_GPIO_LPSR_13_GPIO12_IO13				0x034 0x074 0x0 0xA 0x0
--#define IOMUXC_GPIO_LPSR_13_JTAG_MUX_MOD			0x034 0x074 0x0 0x0 0x0
--#define IOMUXC_GPIO_LPSR_13_MIC_BITSTREAM1			0x034 0x074 0x0B8 0x1 0x1
--#define IOMUXC_GPIO_LPSR_13_PIT2_TRIGGER1			0x034 0x074 0x0 0x2 0x0
--#define IOMUXC_GPIO_LPSR_13_GPIO_MUX6_IO13			0x034 0x074 0x0 0x5 0x0
--#define IOMUXC_GPIO_LPSR_13_SAI4_RX_DATA			0x034 0x074 0x0D0 0x7 0x1
--#define IOMUXC_GPIO_LPSR_13_LPSPI5_PCS0				0x034 0x074 0x094 0x8 0x1
--
--#define IOMUXC_GPIO_LPSR_14_JTAG_MUX_TCK			0x038 0x078 0x0 0x0 0x0
--#define IOMUXC_GPIO_LPSR_14_MIC_BITSTREAM2			0x038 0x078 0x0BC 0x1 0x1
--#define IOMUXC_GPIO_LPSR_14_PIT2_TRIGGER2			0x038 0x078 0x0 0x2 0x0
--#define IOMUXC_GPIO_LPSR_14_GPIO_MUX6_IO14			0x038 0x078 0x0 0x5 0x0
--#define IOMUXC_GPIO_LPSR_14_SAI4_RX_BCLK			0x038 0x078 0x0CC 0x7 0x1
--#define IOMUXC_GPIO_LPSR_14_LPSPI5_SOUT				0x038 0x078 0x0A0 0x8 0x1
--#define IOMUXC_GPIO_LPSR_14_GPIO12_IO14				0x038 0x078 0x0 0xA 0x0
--
--#define IOMUXC_GPIO_LPSR_15_GPIO12_IO15				0x03C 0x07C 0x0 0xA 0x0
--#define IOMUXC_GPIO_LPSR_15_JTAG_MUX_TMS			0x03C 0x07C 0x0 0x0 0x0
--#define IOMUXC_GPIO_LPSR_15_MIC_BITSTREAM3			0x03C 0x07C 0x0C0 0x1 0x1
--#define IOMUXC_GPIO_LPSR_15_PIT2_TRIGGER3			0x03C 0x07C 0x0 0x2 0x0
--#define IOMUXC_GPIO_LPSR_15_GPIO_MUX6_IO15			0x03C 0x07C 0x0 0x5 0x0
--#define IOMUXC_GPIO_LPSR_15_SAI4_RX_SYNC			0x03C 0x07C 0x0D4 0x7 0x1
--#define IOMUXC_GPIO_LPSR_15_LPSPI5_SIN				0x03C 0x07C 0x09C 0x8 0x1
--
--#define IOMUXC_WAKEUP_DIG_GPIO13_IO00				0x40C94000 0x40C94040 0x0 0x5 0x0
--#define IOMUXC_WAKEUP_DIG_NMI_GLUE_NMI				0x40C94000 0x40C94040 0x0C4 0x7 0x1
--
--#define IOMUXC_PMIC_ON_REQ_DIG_SNVS_LP_PMIC_ON_REQ		0x40C94004 0x40C94044 0x0 0x0 0x0
--#define IOMUXC_PMIC_ON_REQ_DIG_GPIO13_IO01			0x40C94004 0x40C94044 0x0 0x5 0x0
--
--#define IOMUXC_PMIC_STBY_REQ_DIG_CCM_PMIC_VSTBY_REQ		0x40C94008 0x40C94048 0x0 0x0 0x0
--#define IOMUXC_PMIC_STBY_REQ_DIG_GPIO13_IO02			0x40C94008 0x40C94048 0x0 0x5 0x0
--
--#define IOMUXC_GPIO_SNVS_00_DIG_SNVS_TAMPER0			0x40C9400C 0x40C9404C 0x0 0x0 0x0
--#define IOMUXC_GPIO_SNVS_00_DIG_GPIO13_IO03			0x40C9400C 0x40C9404C 0x0 0x5 0x0
--
--#define IOMUXC_GPIO_SNVS_01_DIG_SNVS_TAMPER1			0x40C94010 0x40C94050 0x0 0x0 0x0
--#define IOMUXC_GPIO_SNVS_01_DIG_GPIO13_IO04			0x40C94010 0x40C94050 0x0 0x5 0x0
--
--#define IOMUXC_GPIO_SNVS_02_DIG_SNVS_TAMPER2			0x40C94014 0x40C94054 0x0 0x0 0x0
--#define IOMUXC_GPIO_SNVS_02_DIG_GPIO13_IO05			0x40C94014 0x40C94054 0x0 0x5 0x0
--
--#define IOMUXC_GPIO_SNVS_03_DIG_SNVS_TAMPER3			0x40C94018 0x40C94058 0x0 0x0 0x0
--#define IOMUXC_GPIO_SNVS_03_DIG_GPIO13_IO06			0x40C94018 0x40C94058 0x0 0x5 0x0
--
--#define IOMUXC_GPIO_SNVS_04_DIG_SNVS_TAMPER4			0x40C9401C 0x40C9405C 0x0 0x0 0x0
--#define IOMUXC_GPIO_SNVS_04_DIG_GPIO13_IO07			0x40C9401C 0x40C9405C 0x0 0x5 0x0
--
--#define IOMUXC_GPIO_SNVS_05_DIG_SNVS_TAMPER5			0x40C94020 0x40C94060 0x0 0x0 0x0
--#define IOMUXC_GPIO_SNVS_05_DIG_GPIO13_IO08			0x40C94020 0x40C94060 0x0 0x5 0x0
--
--#define IOMUXC_GPIO_SNVS_06_DIG_SNVS_TAMPER6			0x40C94024 0x40C94064 0x0 0x0 0x0
--#define IOMUXC_GPIO_SNVS_06_DIG_GPIO13_IO09			0x40C94024 0x40C94064 0x0 0x5 0x0
--
--#define IOMUXC_GPIO_SNVS_07_DIG_SNVS_TAMPER7			0x40C94028 0x40C94068 0x0 0x0 0x0
--#define IOMUXC_GPIO_SNVS_07_DIG_GPIO13_IO10			0x40C94028 0x40C94068 0x0 0x5 0x0
--
--#define IOMUXC_GPIO_SNVS_08_DIG_SNVS_TAMPER8			0x40C9402C 0x40C9406C 0x0 0x0 0x0
--#define IOMUXC_GPIO_SNVS_08_DIG_GPIO13_IO11			0x40C9402C 0x40C9406C 0x0 0x5 0x0
--
--#define IOMUXC_GPIO_SNVS_09_DIG_SNVS_TAMPER9			0x40C94030 0x40C94070 0x0 0x0 0x0
--#define IOMUXC_GPIO_SNVS_09_DIG_GPIO13_IO12			0x40C94030 0x40C94070 0x0 0x5 0x0
--
--#define IOMUXC_TEST_MODE_DIG					0x0 0x40C94034 0x0 0x0 0x0
--
--#define IOMUXC_POR_B_DIG					0x0 0x40C94038 0x0 0x0 0x0
--
--#define IOMUXC_ONOFF_DIG					0x0 0x40C9403C 0x0 0x0 0x0
--
--#define IOMUXC_GPIO_EMC_B1_00_SEMC_DATA00			0x010 0x254 0x0 0x0 0x0
--#define IOMUXC_GPIO_EMC_B1_00_FLEXPWM4_PWM0_A			0x010 0x254 0x0 0x1 0x0
--#define IOMUXC_GPIO_EMC_B1_00_GPIO_MUX1_IO00			0x010 0x254 0x0 0x5 0x0
--#define IOMUXC_GPIO_EMC_B1_00_FLEXIO1_D00			0x010 0x254 0x0 0x8 0x0
--#define IOMUXC_GPIO_EMC_B1_00_GPIO7_IO00			0x010 0x254 0x0 0xA 0x0
--
--#define IOMUXC_GPIO_EMC_B1_01_GPIO7_IO01			0x014 0x258 0x0 0xA 0x0
--#define IOMUXC_GPIO_EMC_B1_01_SEMC_DATA01			0x014 0x258 0x0 0x0 0x0
--#define IOMUXC_GPIO_EMC_B1_01_FLEXPWM4_PWM0_B			0x014 0x258 0x0 0x1 0x0
--#define IOMUXC_GPIO_EMC_B1_01_GPIO_MUX1_IO01			0x014 0x258 0x0 0x5 0x0
--#define IOMUXC_GPIO_EMC_B1_01_FLEXIO1_D01			0x014 0x258 0x0 0x8 0x0
--
--#define IOMUXC_GPIO_EMC_B1_02_SEMC_DATA02			0x018 0x25C 0x0 0x0 0x0
--#define IOMUXC_GPIO_EMC_B1_02_FLEXPWM4_PWM1_A			0x018 0x25C 0x0 0x1 0x0
--#define IOMUXC_GPIO_EMC_B1_02_GPIO_MUX1_IO02			0x018 0x25C 0x0 0x5 0x0
--#define IOMUXC_GPIO_EMC_B1_02_FLEXIO1_D02			0x018 0x25C 0x0 0x8 0x0
--#define IOMUXC_GPIO_EMC_B1_02_GPIO7_IO02			0x018 0x25C 0x0 0xA 0x0
--
--#define IOMUXC_GPIO_EMC_B1_03_SEMC_DATA03			0x01C 0x260 0x0 0x0 0x0
--#define IOMUXC_GPIO_EMC_B1_03_FLEXPWM4_PWM1_B			0x01C 0x260 0x0 0x1 0x0
--#define IOMUXC_GPIO_EMC_B1_03_GPIO_MUX1_IO03			0x01C 0x260 0x0 0x5 0x0
--#define IOMUXC_GPIO_EMC_B1_03_FLEXIO1_D03			0x01C 0x260 0x0 0x8 0x0
--#define IOMUXC_GPIO_EMC_B1_03_GPIO7_IO03			0x01C 0x260 0x0 0xA 0x0
--
--#define IOMUXC_GPIO_EMC_B1_04_GPIO7_IO04			0x020 0x264 0x0 0xA 0x0
--#define IOMUXC_GPIO_EMC_B1_04_SEMC_DATA04			0x020 0x264 0x0 0x0 0x0
--#define IOMUXC_GPIO_EMC_B1_04_FLEXPWM4_PWM2_A			0x020 0x264 0x0 0x1 0x0
--#define IOMUXC_GPIO_EMC_B1_04_GPIO_MUX1_IO04			0x020 0x264 0x0 0x5 0x0
--#define IOMUXC_GPIO_EMC_B1_04_FLEXIO1_D04			0x020 0x264 0x0 0x8 0x0
--
--#define IOMUXC_GPIO_EMC_B1_05_SEMC_DATA05			0x024 0x268 0x0 0x0 0x0
--#define IOMUXC_GPIO_EMC_B1_05_FLEXPWM4_PWM2_B			0x024 0x268 0x0 0x1 0x0
--#define IOMUXC_GPIO_EMC_B1_05_GPIO_MUX1_IO05			0x024 0x268 0x0 0x5 0x0
--#define IOMUXC_GPIO_EMC_B1_05_FLEXIO1_D05			0x024 0x268 0x0 0x8 0x0
--#define IOMUXC_GPIO_EMC_B1_05_GPIO7_IO05			0x024 0x268 0x0 0xA 0x0
--
--#define IOMUXC_GPIO_EMC_B1_06_SEMC_DATA06			0x028 0x26C 0x0 0x0 0x0
--#define IOMUXC_GPIO_EMC_B1_06_FLEXPWM2_PWM0_A			0x028 0x26C 0x518 0x1 0x0
--#define IOMUXC_GPIO_EMC_B1_06_GPIO_MUX1_IO06			0x028 0x26C 0x0 0x5 0x0
--#define IOMUXC_GPIO_EMC_B1_06_FLEXIO1_D06			0x028 0x26C 0x0 0x8 0x0
--#define IOMUXC_GPIO_EMC_B1_06_GPIO7_IO06			0x028 0x26C 0x0 0xA 0x0
--
--#define IOMUXC_GPIO_EMC_B1_07_GPIO7_IO07			0x02C 0x270 0x0 0xA 0x0
--#define IOMUXC_GPIO_EMC_B1_07_SEMC_DATA07			0x02C 0x270 0x0 0x0 0x0
--#define IOMUXC_GPIO_EMC_B1_07_FLEXPWM2_PWM0_B			0x02C 0x270 0x524 0x1 0x0
--#define IOMUXC_GPIO_EMC_B1_07_GPIO_MUX1_IO07			0x02C 0x270 0x0 0x5 0x0
--#define IOMUXC_GPIO_EMC_B1_07_FLEXIO1_D07			0x02C 0x270 0x0 0x8 0x0
--
--#define IOMUXC_GPIO_EMC_B1_08_SEMC_DM00				0x030 0x274 0x0 0x0 0x0
--#define IOMUXC_GPIO_EMC_B1_08_FLEXPWM2_PWM1_A			0x030 0x274 0x51C 0x1 0x0
--#define IOMUXC_GPIO_EMC_B1_08_GPIO_MUX1_IO08			0x030 0x274 0x0 0x5 0x0
--#define IOMUXC_GPIO_EMC_B1_08_FLEXIO1_D08			0x030 0x274 0x0 0x8 0x0
--#define IOMUXC_GPIO_EMC_B1_08_GPIO7_IO08			0x030 0x274 0x0 0xA 0x0
--
--#define IOMUXC_GPIO_EMC_B1_09_SEMC_ADDR00			0x034 0x278 0x0 0x0 0x0
--#define IOMUXC_GPIO_EMC_B1_09_FLEXPWM2_PWM1_B			0x034 0x278 0x528 0x1 0x0
--#define IOMUXC_GPIO_EMC_B1_09_GPT5_CAPTURE1			0x034 0x278 0x0 0x2 0x0
--#define IOMUXC_GPIO_EMC_B1_09_GPIO_MUX1_IO09			0x034 0x278 0x0 0x5 0x0
--#define IOMUXC_GPIO_EMC_B1_09_FLEXIO1_D09			0x034 0x278 0x0 0x8 0x0
--#define IOMUXC_GPIO_EMC_B1_09_GPIO7_IO09			0x034 0x278 0x0 0xA 0x0
--
--#define IOMUXC_GPIO_EMC_B1_10_SEMC_ADDR01			0x038 0x27C 0x0 0x0 0x0
--#define IOMUXC_GPIO_EMC_B1_10_FLEXPWM2_PWM2_A			0x038 0x27C 0x520 0x1 0x0
--#define IOMUXC_GPIO_EMC_B1_10_GPT5_CAPTURE2			0x038 0x27C 0x0 0x2 0x0
--#define IOMUXC_GPIO_EMC_B1_10_GPIO_MUX1_IO10			0x038 0x27C 0x0 0x5 0x0
--#define IOMUXC_GPIO_EMC_B1_10_FLEXIO1_D10			0x038 0x27C 0x0 0x8 0x0
--#define IOMUXC_GPIO_EMC_B1_10_GPIO7_IO10			0x038 0x27C 0x0 0xA 0x0
--
--#define IOMUXC_GPIO_EMC_B1_11_GPIO7_IO11			0x03C 0x280 0x0 0xA 0x0
--#define IOMUXC_GPIO_EMC_B1_11_SEMC_ADDR02			0x03C 0x280 0x0 0x0 0x0
--#define IOMUXC_GPIO_EMC_B1_11_FLEXPWM2_PWM2_B			0x03C 0x280 0x52C 0x1 0x0
--#define IOMUXC_GPIO_EMC_B1_11_GPT5_COMPARE1			0x03C 0x280 0x0 0x2 0x0
--#define IOMUXC_GPIO_EMC_B1_11_GPIO_MUX1_IO11			0x03C 0x280 0x0 0x5 0x0
--#define IOMUXC_GPIO_EMC_B1_11_FLEXIO1_D11			0x03C 0x280 0x0 0x8 0x0
--
--#define IOMUXC_GPIO_EMC_B1_12_SEMC_ADDR03			0x040 0x284 0x0 0x0 0x0
--#define IOMUXC_GPIO_EMC_B1_12_XBAR1_INOUT04			0x040 0x284 0x0 0x1 0x0
--#define IOMUXC_GPIO_EMC_B1_12_GPT5_COMPARE2			0x040 0x284 0x0 0x2 0x0
--#define IOMUXC_GPIO_EMC_B1_12_GPIO_MUX1_IO12			0x040 0x284 0x0 0x5 0x0
--#define IOMUXC_GPIO_EMC_B1_12_FLEXIO1_D12			0x040 0x284 0x0 0x8 0x0
--#define IOMUXC_GPIO_EMC_B1_12_GPIO7_IO12			0x040 0x284 0x0 0xA 0x0
--
--#define IOMUXC_GPIO_EMC_B1_13_SEMC_ADDR04			0x044 0x288 0x0 0x0 0x0
--#define IOMUXC_GPIO_EMC_B1_13_XBAR1_INOUT05			0x044 0x288 0x0 0x1 0x0
--#define IOMUXC_GPIO_EMC_B1_13_GPT5_COMPARE3			0x044 0x288 0x0 0x2 0x0
--#define IOMUXC_GPIO_EMC_B1_13_GPIO_MUX1_IO13			0x044 0x288 0x0 0x5 0x0
--#define IOMUXC_GPIO_EMC_B1_13_FLEXIO1_D13			0x044 0x288 0x0 0x8 0x0
--#define IOMUXC_GPIO_EMC_B1_13_GPIO7_IO13			0x044 0x288 0x0 0xA 0x0
--
--#define IOMUXC_GPIO_EMC_B1_14_GPIO7_IO14			0x048 0x28C 0x0 0xA 0x0
--#define IOMUXC_GPIO_EMC_B1_14_SEMC_ADDR05			0x048 0x28C 0x0 0x0 0x0
--#define IOMUXC_GPIO_EMC_B1_14_XBAR1_INOUT06			0x048 0x28C 0x0 0x1 0x0
--#define IOMUXC_GPIO_EMC_B1_14_GPT5_CLK				0x048 0x28C 0x0 0x2 0x0
--#define IOMUXC_GPIO_EMC_B1_14_GPIO_MUX1_IO14			0x048 0x28C 0x0 0x5 0x0
--#define IOMUXC_GPIO_EMC_B1_14_FLEXIO1_D14			0x048 0x28C 0x0 0x8 0x0
--
--#define IOMUXC_GPIO_EMC_B1_15_SEMC_ADDR06			0x04C 0x290 0x0 0x0 0x0
--#define IOMUXC_GPIO_EMC_B1_15_XBAR1_INOUT07			0x04C 0x290 0x0 0x1 0x0
--#define IOMUXC_GPIO_EMC_B1_15_GPIO_MUX1_IO15			0x04C 0x290 0x0 0x5 0x0
--#define IOMUXC_GPIO_EMC_B1_15_FLEXIO1_D15			0x04C 0x290 0x0 0x8 0x0
--#define IOMUXC_GPIO_EMC_B1_15_GPIO7_IO15			0x04C 0x290 0x0 0xA 0x0
--
--#define IOMUXC_GPIO_EMC_B1_16_SEMC_ADDR07			0x050 0x294 0x0 0x0 0x0
--#define IOMUXC_GPIO_EMC_B1_16_XBAR1_INOUT08			0x050 0x294 0x0 0x1 0x0
--#define IOMUXC_GPIO_EMC_B1_16_GPIO_MUX1_IO16			0x050 0x294 0x0 0x5 0x0
--#define IOMUXC_GPIO_EMC_B1_16_FLEXIO1_D16			0x050 0x294 0x0 0x8 0x0
--#define IOMUXC_GPIO_EMC_B1_16_GPIO7_IO16			0x050 0x294 0x0 0xA 0x0
--
--#define IOMUXC_GPIO_EMC_B1_17_GPIO7_IO17			0x054 0x298 0x0 0xA 0x0
--#define IOMUXC_GPIO_EMC_B1_17_SEMC_ADDR08			0x054 0x298 0x0 0x0 0x0
--#define IOMUXC_GPIO_EMC_B1_17_FLEXPWM4_PWM3_A			0x054 0x298 0x0 0x1 0x0
--#define IOMUXC_GPIO_EMC_B1_17_TMR1_TIMER0			0x054 0x298 0x63C 0x2 0x0
--#define IOMUXC_GPIO_EMC_B1_17_GPIO_MUX1_IO17			0x054 0x298 0x0 0x5 0x0
--#define IOMUXC_GPIO_EMC_B1_17_FLEXIO1_D17			0x054 0x298 0x0 0x8 0x0
--
--#define IOMUXC_GPIO_EMC_B1_18_SEMC_ADDR09			0x058 0x29C 0x0 0x0 0x0
--#define IOMUXC_GPIO_EMC_B1_18_FLEXPWM4_PWM3_B			0x058 0x29C 0x0 0x1 0x0
--#define IOMUXC_GPIO_EMC_B1_18_TMR2_TIMER0			0x058 0x29C 0x648 0x2 0x0
--#define IOMUXC_GPIO_EMC_B1_18_GPIO_MUX1_IO18			0x058 0x29C 0x0 0x5 0x0
--#define IOMUXC_GPIO_EMC_B1_18_FLEXIO1_D18			0x058 0x29C 0x0 0x8 0x0
--#define IOMUXC_GPIO_EMC_B1_18_GPIO7_IO18			0x058 0x29C 0x0 0xA 0x0
--
--#define IOMUXC_GPIO_EMC_B1_19_SEMC_ADDR11			0x05C 0x2A0 0x0 0x0 0x0
--#define IOMUXC_GPIO_EMC_B1_19_FLEXPWM2_PWM3_A			0x05C 0x2A0 0x0 0x1 0x0
--#define IOMUXC_GPIO_EMC_B1_19_TMR3_TIMER0			0x05C 0x2A0 0x654 0x2 0x0
--#define IOMUXC_GPIO_EMC_B1_19_GPIO_MUX1_IO19			0x05C 0x2A0 0x0 0x5 0x0
--#define IOMUXC_GPIO_EMC_B1_19_FLEXIO1_D19			0x05C 0x2A0 0x0 0x8 0x0
--#define IOMUXC_GPIO_EMC_B1_19_GPIO7_IO19			0x05C 0x2A0 0x0 0xA 0x0
--
--#define IOMUXC_GPIO_EMC_B1_20_SEMC_ADDR12			0x060 0x2A4 0x0 0x0 0x0
--#define IOMUXC_GPIO_EMC_B1_20_FLEXPWM2_PWM3_B			0x060 0x2A4 0x0 0x1 0x0
--#define IOMUXC_GPIO_EMC_B1_20_TMR4_TIMER0			0x060 0x2A4 0x660 0x2 0x0
--#define IOMUXC_GPIO_EMC_B1_20_GPIO_MUX1_IO20			0x060 0x2A4 0x0 0x5 0x0
--#define IOMUXC_GPIO_EMC_B1_20_FLEXIO1_D20			0x060 0x2A4 0x0 0x8 0x0
--#define IOMUXC_GPIO_EMC_B1_20_GPIO7_IO20			0x060 0x2A4 0x0 0xA 0x0
--
--#define IOMUXC_GPIO_EMC_B1_21_GPIO7_IO21			0x064 0x2A8 0x0 0xA 0x0
--#define IOMUXC_GPIO_EMC_B1_21_SEMC_BA0				0x064 0x2A8 0x0 0x0 0x0
--#define IOMUXC_GPIO_EMC_B1_21_FLEXPWM3_PWM3_A			0x064 0x2A8 0x53C 0x1 0x0
--#define IOMUXC_GPIO_EMC_B1_21_GPIO_MUX1_IO21			0x064 0x2A8 0x0 0x5 0x0
--#define IOMUXC_GPIO_EMC_B1_21_FLEXIO1_D21			0x064 0x2A8 0x0 0x8 0x0
--
--#define IOMUXC_GPIO_EMC_B1_22_GPIO7_IO22			0x068 0x2AC 0x0 0xA 0x0
--#define IOMUXC_GPIO_EMC_B1_22_SEMC_BA1				0x068 0x2AC 0x0 0x0 0x0
--#define IOMUXC_GPIO_EMC_B1_22_FLEXPWM3_PWM3_B			0x068 0x2AC 0x54C 0x1 0x0
--#define IOMUXC_GPIO_EMC_B1_22_GPIO_MUX1_IO22			0x068 0x2AC 0x0 0x5 0x0
--#define IOMUXC_GPIO_EMC_B1_22_FLEXIO1_D22			0x068 0x2AC 0x0 0x8 0x0
--
--#define IOMUXC_GPIO_EMC_B1_23_SEMC_ADDR10			0x06C 0x2B0 0x0 0x0 0x0
--#define IOMUXC_GPIO_EMC_B1_23_FLEXPWM1_PWM0_A			0x06C 0x2B0 0x500 0x1 0x0
--#define IOMUXC_GPIO_EMC_B1_23_GPIO_MUX1_IO23			0x06C 0x2B0 0x0 0x5 0x0
--#define IOMUXC_GPIO_EMC_B1_23_FLEXIO1_D23			0x06C 0x2B0 0x0 0x8 0x0
--#define IOMUXC_GPIO_EMC_B1_23_GPIO7_IO23			0x06C 0x2B0 0x0 0xA 0x0
--
--#define IOMUXC_GPIO_EMC_B1_24_GPIO7_IO24			0x070 0x2B4 0x0 0xA 0x0
--#define IOMUXC_GPIO_EMC_B1_24_SEMC_CAS				0x070 0x2B4 0x0 0x0 0x0
--#define IOMUXC_GPIO_EMC_B1_24_FLEXPWM1_PWM0_B			0x070 0x2B4 0x50C 0x1 0x0
--#define IOMUXC_GPIO_EMC_B1_24_GPIO_MUX1_IO24			0x070 0x2B4 0x0 0x5 0x0
--#define IOMUXC_GPIO_EMC_B1_24_FLEXIO1_D24			0x070 0x2B4 0x0 0x8 0x0
--
--#define IOMUXC_GPIO_EMC_B1_25_GPIO7_IO25			0x074 0x2B8 0x0 0xA 0x0
--#define IOMUXC_GPIO_EMC_B1_25_SEMC_RAS				0x074 0x2B8 0x0 0x0 0x0
--#define IOMUXC_GPIO_EMC_B1_25_FLEXPWM1_PWM1_A			0x074 0x2B8 0x504 0x1 0x0
--#define IOMUXC_GPIO_EMC_B1_25_GPIO_MUX1_IO25			0x074 0x2B8 0x0 0x5 0x0
--#define IOMUXC_GPIO_EMC_B1_25_FLEXIO1_D25			0x074 0x2B8 0x0 0x8 0x0
--
--#define IOMUXC_GPIO_EMC_B1_26_SEMC_CLK				0x078 0x2BC 0x0 0x0 0x0
--#define IOMUXC_GPIO_EMC_B1_26_FLEXPWM1_PWM1_B			0x078 0x2BC 0x510 0x1 0x0
--#define IOMUXC_GPIO_EMC_B1_26_GPIO_MUX1_IO26			0x078 0x2BC 0x0 0x5 0x0
--#define IOMUXC_GPIO_EMC_B1_26_FLEXIO1_D26			0x078 0x2BC 0x0 0x8 0x0
--#define IOMUXC_GPIO_EMC_B1_26_GPIO7_IO26			0x078 0x2BC 0x0 0xA 0x0
--
--#define IOMUXC_GPIO_EMC_B1_27_GPIO7_IO27			0x07C 0x2C0 0x0 0xA 0x0
--#define IOMUXC_GPIO_EMC_B1_27_SEMC_CKE				0x07C 0x2C0 0x0 0x0 0x0
--#define IOMUXC_GPIO_EMC_B1_27_FLEXPWM1_PWM2_A			0x07C 0x2C0 0x508 0x1 0x0
--#define IOMUXC_GPIO_EMC_B1_27_GPIO_MUX1_IO27			0x07C 0x2C0 0x0 0x5 0x0
--#define IOMUXC_GPIO_EMC_B1_27_FLEXIO1_D27			0x07C 0x2C0 0x0 0x8 0x0
--
--#define IOMUXC_GPIO_EMC_B1_28_GPIO7_IO28			0x080 0x2C4 0x0 0xA 0x0
--#define IOMUXC_GPIO_EMC_B1_28_SEMC_WE				0x080 0x2C4 0x0 0x0 0x0
--#define IOMUXC_GPIO_EMC_B1_28_FLEXPWM1_PWM2_B			0x080 0x2C4 0x514 0x1 0x0
--#define IOMUXC_GPIO_EMC_B1_28_GPIO_MUX1_IO28			0x080 0x2C4 0x0 0x5 0x0
--#define IOMUXC_GPIO_EMC_B1_28_FLEXIO1_D28			0x080 0x2C4 0x0 0x8 0x0
--
--#define IOMUXC_GPIO_EMC_B1_29_SEMC_CS0				0x084 0x2C8 0x0 0x0 0x0
--#define IOMUXC_GPIO_EMC_B1_29_FLEXPWM3_PWM0_A			0x084 0x2C8 0x530 0x1 0x0
--#define IOMUXC_GPIO_EMC_B1_29_GPIO_MUX1_IO29			0x084 0x2C8 0x0 0x5 0x0
--#define IOMUXC_GPIO_EMC_B1_29_FLEXIO1_D29			0x084 0x2C8 0x0 0x8 0x0
--#define IOMUXC_GPIO_EMC_B1_29_GPIO7_IO29			0x084 0x2C8 0x0 0xA 0x0
--
--#define IOMUXC_GPIO_EMC_B1_30_SEMC_DATA08			0x088 0x2CC 0x0 0x0 0x0
--#define IOMUXC_GPIO_EMC_B1_30_FLEXPWM3_PWM0_B			0x088 0x2CC 0x540 0x1 0x0
--#define IOMUXC_GPIO_EMC_B1_30_GPIO_MUX1_IO30			0x088 0x2CC 0x0 0x5 0x0
--#define IOMUXC_GPIO_EMC_B1_30_FLEXIO1_D30			0x088 0x2CC 0x0 0x8 0x0
--#define IOMUXC_GPIO_EMC_B1_30_GPIO7_IO30			0x088 0x2CC 0x0 0xA 0x0
--
--#define IOMUXC_GPIO_EMC_B1_31_GPIO7_IO31			0x08C 0x2D0 0x0 0xA 0x0
--#define IOMUXC_GPIO_EMC_B1_31_SEMC_DATA09			0x08C 0x2D0 0x0 0x0 0x0
--#define IOMUXC_GPIO_EMC_B1_31_FLEXPWM3_PWM1_A			0x08C 0x2D0 0x534 0x1 0x0
--#define IOMUXC_GPIO_EMC_B1_31_GPIO_MUX1_IO31			0x08C 0x2D0 0x0 0x5 0x0
--#define IOMUXC_GPIO_EMC_B1_31_FLEXIO1_D31			0x08C 0x2D0 0x0 0x8 0x0
--
--#define IOMUXC_GPIO_EMC_B1_32_GPIO8_IO00			0x090 0x2D4 0x0 0xA 0x0
--#define IOMUXC_GPIO_EMC_B1_32_SEMC_DATA10			0x090 0x2D4 0x0 0x0 0x0
--#define IOMUXC_GPIO_EMC_B1_32_FLEXPWM3_PWM1_B			0x090 0x2D4 0x544 0x1 0x0
--#define IOMUXC_GPIO_EMC_B1_32_GPIO_MUX2_IO00			0x090 0x2D4 0x0 0x5 0x0
--
--#define IOMUXC_GPIO_EMC_B1_33_SEMC_DATA11			0x094 0x2D8 0x0 0x0 0x0
--#define IOMUXC_GPIO_EMC_B1_33_FLEXPWM3_PWM2_A			0x094 0x2D8 0x538 0x1 0x0
--#define IOMUXC_GPIO_EMC_B1_33_GPIO_MUX2_IO01			0x094 0x2D8 0x0 0x5 0x0
--#define IOMUXC_GPIO_EMC_B1_33_GPIO8_IO01			0x094 0x2D8 0x0 0xA 0x0
--
--#define IOMUXC_GPIO_EMC_B1_34_GPIO8_IO02			0x098 0x2DC 0x0 0xA 0x0
--#define IOMUXC_GPIO_EMC_B1_34_SEMC_DATA12			0x098 0x2DC 0x0 0x0 0x0
--#define IOMUXC_GPIO_EMC_B1_34_FLEXPWM3_PWM2_B			0x098 0x2DC 0x548 0x1 0x0
--#define IOMUXC_GPIO_EMC_B1_34_GPIO_MUX2_IO02			0x098 0x2DC 0x0 0x5 0x0
--
--#define IOMUXC_GPIO_EMC_B1_35_GPIO8_IO03			0x09C 0x2E0 0x0 0xA 0x0
--#define IOMUXC_GPIO_EMC_B1_35_SEMC_DATA13			0x09C 0x2E0 0x0 0x0 0x0
--#define IOMUXC_GPIO_EMC_B1_35_XBAR1_INOUT09			0x09C 0x2E0 0x0 0x1 0x0
--#define IOMUXC_GPIO_EMC_B1_35_GPIO_MUX2_IO03			0x09C 0x2E0 0x0 0x5 0x0
--
--#define IOMUXC_GPIO_EMC_B1_36_SEMC_DATA14			0x0A0 0x2E4 0x0 0x0 0x0
--#define IOMUXC_GPIO_EMC_B1_36_XBAR1_INOUT10			0x0A0 0x2E4 0x0 0x1 0x0
--#define IOMUXC_GPIO_EMC_B1_36_GPIO_MUX2_IO04			0x0A0 0x2E4 0x0 0x5 0x0
--#define IOMUXC_GPIO_EMC_B1_36_GPIO8_IO04			0x0A0 0x2E4 0x0 0xA 0x0
--
--#define IOMUXC_GPIO_EMC_B1_37_GPIO8_IO05			0x0A4 0x2E8 0x0 0xA 0x0
--#define IOMUXC_GPIO_EMC_B1_37_SEMC_DATA15			0x0A4 0x2E8 0x0 0x0 0x0
--#define IOMUXC_GPIO_EMC_B1_37_XBAR1_INOUT11			0x0A4 0x2E8 0x0 0x1 0x0
--#define IOMUXC_GPIO_EMC_B1_37_GPIO_MUX2_IO05			0x0A4 0x2E8 0x0 0x5 0x0
--
--#define IOMUXC_GPIO_EMC_B1_38_GPIO8_IO06			0x0A8 0x2EC 0x0 0xA 0x0
--#define IOMUXC_GPIO_EMC_B1_38_SEMC_DM01				0x0A8 0x2EC 0x0 0x0 0x0
--#define IOMUXC_GPIO_EMC_B1_38_FLEXPWM1_PWM3_A			0x0A8 0x2EC 0x0 0x1 0x0
--#define IOMUXC_GPIO_EMC_B1_38_TMR1_TIMER1			0x0A8 0x2EC 0x640 0x2 0x0
--#define IOMUXC_GPIO_EMC_B1_38_GPIO_MUX2_IO06			0x0A8 0x2EC 0x0 0x5 0x0
--
--#define IOMUXC_GPIO_EMC_B1_39_SEMC_DQS				0x0AC 0x2F0 0x0 0x0 0x0
--#define IOMUXC_GPIO_EMC_B1_39_FLEXPWM1_PWM3_B			0x0AC 0x2F0 0x0 0x1 0x0
--#define IOMUXC_GPIO_EMC_B1_39_TMR2_TIMER1			0x0AC 0x2F0 0x64C 0x2 0x0
--#define IOMUXC_GPIO_EMC_B1_39_GPIO_MUX2_IO07			0x0AC 0x2F0 0x0 0x5 0x0
--#define IOMUXC_GPIO_EMC_B1_39_GPIO8_IO07			0x0AC 0x2F0 0x0 0xA 0x0
--
--#define IOMUXC_GPIO_EMC_B1_40_SEMC_RDY				0x0B0 0x2F4 0x0 0x0 0x0
--#define IOMUXC_GPIO_EMC_B1_40_XBAR1_INOUT12			0x0B0 0x2F4 0x0 0x1 0x0
--#define IOMUXC_GPIO_EMC_B1_40_MQS_RIGHT				0x0B0 0x2F4 0x0 0x2 0x0
--#define IOMUXC_GPIO_EMC_B1_40_LPUART6_TXD			0x0B0 0x2F4 0x0 0x3 0x0
--#define IOMUXC_GPIO_EMC_B1_40_GPIO_MUX2_IO08			0x0B0 0x2F4 0x0 0x5 0x0
--#define IOMUXC_GPIO_EMC_B1_40_ENET_1G_MDC			0x0B0 0x2F4 0x0 0x7 0x0
--#define IOMUXC_GPIO_EMC_B1_40_CCM_CLKO1				0x0B0 0x2F4 0x0 0x9 0x0
--#define IOMUXC_GPIO_EMC_B1_40_GPIO8_IO08			0x0B0 0x2F4 0x0 0xA 0x0
--
--#define IOMUXC_GPIO_EMC_B1_41_GPIO8_IO09			0x0B4 0x2F8 0x0 0xA 0x0
--#define IOMUXC_GPIO_EMC_B1_41_SEMC_CSX00			0x0B4 0x2F8 0x0 0x0 0x0
--#define IOMUXC_GPIO_EMC_B1_41_XBAR1_INOUT13			0x0B4 0x2F8 0x0 0x1 0x0
--#define IOMUXC_GPIO_EMC_B1_41_MQS_LEFT				0x0B4 0x2F8 0x0 0x2 0x0
--#define IOMUXC_GPIO_EMC_B1_41_LPUART6_RXD			0x0B4 0x2F8 0x0 0x3 0x0
--#define IOMUXC_GPIO_EMC_B1_41_FLEXSPI2_B_DATA07			0x0B4 0x2F8 0x0 0x4 0x0
--#define IOMUXC_GPIO_EMC_B1_41_GPIO_MUX2_IO09			0x0B4 0x2F8 0x0 0x5 0x0
--#define IOMUXC_GPIO_EMC_B1_41_ENET_1G_MDIO			0x0B4 0x2F8 0x4C8 0x7 0x0
--#define IOMUXC_GPIO_EMC_B1_41_CCM_CLKO2				0x0B4 0x2F8 0x0 0x9 0x0
--
--#define IOMUXC_GPIO_EMC_B2_00_SEMC_DATA16			0x0B8 0x2FC 0x0 0x0 0x0
--#define IOMUXC_GPIO_EMC_B2_00_CCM_ENET_REF_CLK_25M		0x0B8 0x2FC 0x0 0x1 0x0
--#define IOMUXC_GPIO_EMC_B2_00_TMR3_TIMER1			0x0B8 0x2FC 0x658 0x2 0x0
--#define IOMUXC_GPIO_EMC_B2_00_LPUART6_CTS_B			0x0B8 0x2FC 0x0 0x3 0x0
--#define IOMUXC_GPIO_EMC_B2_00_FLEXSPI2_B_DATA06			0x0B8 0x2FC 0x0 0x4 0x0
--#define IOMUXC_GPIO_EMC_B2_00_GPIO_MUX2_IO10			0x0B8 0x2FC 0x0 0x5 0x0
--#define IOMUXC_GPIO_EMC_B2_00_XBAR1_INOUT20			0x0B8 0x2FC 0x6D8 0x6 0x0
--#define IOMUXC_GPIO_EMC_B2_00_ENET_QOS_1588_EVENT1_OUT		0x0B8 0x2FC 0x0 0x7 0x0
--#define IOMUXC_GPIO_EMC_B2_00_LPSPI1_SCK			0x0B8 0x2FC 0x5D0 0x8 0x0
--#define IOMUXC_GPIO_EMC_B2_00_LPI2C2_SCL			0x0B8 0x2FC 0x5B4 0x9 0x0
--#define IOMUXC_GPIO_EMC_B2_00_GPIO8_IO10			0x0B8 0x2FC 0x0 0xA 0x0
--#define IOMUXC_GPIO_EMC_B2_00_FLEXPWM3_PWM0_A			0x0B8 0x2FC 0x530 0xB 0x1
--
--#define IOMUXC_GPIO_EMC_B2_01_SEMC_DATA17			0x0BC 0x300 0x0 0x0 0x0
--#define IOMUXC_GPIO_EMC_B2_01_USDHC2_CD_B			0x0BC 0x300 0x6D0 0x1 0x0
--#define IOMUXC_GPIO_EMC_B2_01_TMR4_TIMER1			0x0BC 0x300 0x664 0x2 0x0
--#define IOMUXC_GPIO_EMC_B2_01_LPUART6_RTS_B			0x0BC 0x300 0x0 0x3 0x0
--#define IOMUXC_GPIO_EMC_B2_01_FLEXSPI2_B_DATA05			0x0BC 0x300 0x0 0x4 0x0
--#define IOMUXC_GPIO_EMC_B2_01_GPIO_MUX2_IO11			0x0BC 0x300 0x0 0x5 0x0
--#define IOMUXC_GPIO_EMC_B2_01_XBAR1_INOUT21			0x0BC 0x300 0x6DC 0x6 0x0
--#define IOMUXC_GPIO_EMC_B2_01_ENET_QOS_1588_EVENT1_IN		0x0BC 0x300 0x0 0x7 0x0
--#define IOMUXC_GPIO_EMC_B2_01_LPSPI1_PCS0			0x0BC 0x300 0x5CC 0x8 0x0
--#define IOMUXC_GPIO_EMC_B2_01_LPI2C2_SDA			0x0BC 0x300 0x5B8 0x9 0x0
--#define IOMUXC_GPIO_EMC_B2_01_GPIO8_IO11			0x0BC 0x300 0x0 0xA 0x0
--#define IOMUXC_GPIO_EMC_B2_01_FLEXPWM3_PWM0_B			0x0BC 0x300 0x540 0xB 0x1
--
--#define IOMUXC_GPIO_EMC_B2_02_SEMC_DATA18			0x0C0 0x304 0x0 0x0 0x0
--#define IOMUXC_GPIO_EMC_B2_02_USDHC2_WP				0x0C0 0x304 0x6D4 0x1 0x0
--#define IOMUXC_GPIO_EMC_B2_02_VIDEO_MUX_CSI_DATA23		0x0C0 0x304 0x0 0x3 0x0
--#define IOMUXC_GPIO_EMC_B2_02_FLEXSPI2_B_DATA04			0x0C0 0x304 0x0 0x4 0x0
--#define IOMUXC_GPIO_EMC_B2_02_GPIO_MUX2_IO12			0x0C0 0x304 0x0 0x5 0x0
--#define IOMUXC_GPIO_EMC_B2_02_XBAR1_INOUT22			0x0C0 0x304 0x6E0 0x6 0x0
--#define IOMUXC_GPIO_EMC_B2_02_ENET_QOS_1588_EVENT1_AUX_IN	0x0C0 0x304 0x0 0x7 0x0
--#define IOMUXC_GPIO_EMC_B2_02_LPSPI1_SOUT			0x0C0 0x304 0x5D8 0x8 0x0
--#define IOMUXC_GPIO_EMC_B2_02_GPIO8_IO12			0x0C0 0x304 0x0 0xA 0x0
--#define IOMUXC_GPIO_EMC_B2_02_FLEXPWM3_PWM1_A			0x0C0 0x304 0x534 0xB 0x1
--
--#define IOMUXC_GPIO_EMC_B2_03_SEMC_DATA19			0x0C4 0x308 0x0 0x0 0x0
--#define IOMUXC_GPIO_EMC_B2_03_USDHC2_VSELECT			0x0C4 0x308 0x0 0x1 0x0
--#define IOMUXC_GPIO_EMC_B2_03_VIDEO_MUX_CSI_DATA22		0x0C4 0x308 0x0 0x3 0x0
--#define IOMUXC_GPIO_EMC_B2_03_FLEXSPI2_B_DATA03			0x0C4 0x308 0x0 0x4 0x0
--#define IOMUXC_GPIO_EMC_B2_03_GPIO_MUX2_IO13			0x0C4 0x308 0x0 0x5 0x0
--#define IOMUXC_GPIO_EMC_B2_03_XBAR1_INOUT23			0x0C4 0x308 0x6E4 0x6 0x0
--#define IOMUXC_GPIO_EMC_B2_03_ENET_1G_TX_DATA03			0x0C4 0x308 0x0 0x7 0x0
--#define IOMUXC_GPIO_EMC_B2_03_LPSPI1_SIN			0x0C4 0x308 0x5D4 0x8 0x0
--#define IOMUXC_GPIO_EMC_B2_03_GPIO8_IO13			0x0C4 0x308 0x0 0xA 0x0
--#define IOMUXC_GPIO_EMC_B2_03_FLEXPWM3_PWM1_B			0x0C4 0x308 0x544 0xB 0x1
--
--#define IOMUXC_GPIO_EMC_B2_04_SEMC_DATA20			0x0C8 0x30C 0x0 0x0 0x0
--#define IOMUXC_GPIO_EMC_B2_04_USDHC2_RESET_B			0x0C8 0x30C 0x0 0x1 0x0
--#define IOMUXC_GPIO_EMC_B2_04_SAI2_MCLK				0x0C8 0x30C 0x0 0x2 0x0
--#define IOMUXC_GPIO_EMC_B2_04_VIDEO_MUX_CSI_DATA21		0x0C8 0x30C 0x0 0x3 0x0
--#define IOMUXC_GPIO_EMC_B2_04_FLEXSPI2_B_DATA02			0x0C8 0x30C 0x0 0x4 0x0
--#define IOMUXC_GPIO_EMC_B2_04_GPIO_MUX2_IO14			0x0C8 0x30C 0x0 0x5 0x0
--#define IOMUXC_GPIO_EMC_B2_04_XBAR1_INOUT24			0x0C8 0x30C 0x6E8 0x6 0x0
--#define IOMUXC_GPIO_EMC_B2_04_ENET_1G_TX_DATA02			0x0C8 0x30C 0x0 0x7 0x0
--#define IOMUXC_GPIO_EMC_B2_04_LPSPI3_SCK			0x0C8 0x30C 0x600 0x8 0x0
--#define IOMUXC_GPIO_EMC_B2_04_GPIO8_IO14			0x0C8 0x30C 0x0 0xA 0x0
--#define IOMUXC_GPIO_EMC_B2_04_FLEXPWM3_PWM2_A			0x0C8 0x30C 0x538 0xB 0x1
--
--#define IOMUXC_GPIO_EMC_B2_05_SEMC_DATA21			0x0CC 0x310 0x0 0x0 0x0
--#define IOMUXC_GPIO_EMC_B2_05_GPT3_CLK				0x0CC 0x310 0x598 0x1 0x0
--#define IOMUXC_GPIO_EMC_B2_05_SAI2_RX_SYNC			0x0CC 0x310 0x0 0x2 0x0
--#define IOMUXC_GPIO_EMC_B2_05_VIDEO_MUX_CSI_DATA20		0x0CC 0x310 0x0 0x3 0x0
--#define IOMUXC_GPIO_EMC_B2_05_FLEXSPI2_B_DATA01			0x0CC 0x310 0x0 0x4 0x0
--#define IOMUXC_GPIO_EMC_B2_05_GPIO_MUX2_IO15			0x0CC 0x310 0x0 0x5 0x0
--#define IOMUXC_GPIO_EMC_B2_05_XBAR1_INOUT25			0x0CC 0x310 0x6EC 0x6 0x0
--#define IOMUXC_GPIO_EMC_B2_05_ENET_1G_RX_CLK			0x0CC 0x310 0x4CC 0x7 0x0
--#define IOMUXC_GPIO_EMC_B2_05_LPSPI3_PCS0			0x0CC 0x310 0x5F0 0x8 0x0
--#define IOMUXC_GPIO_EMC_B2_05_PIT1_TRIGGER0			0x0CC 0x310 0x0 0x9 0x0
--#define IOMUXC_GPIO_EMC_B2_05_GPIO8_IO15			0x0CC 0x310 0x0 0xA 0x0
--#define IOMUXC_GPIO_EMC_B2_05_FLEXPWM3_PWM2_B			0x0CC 0x310 0x548 0xB 0x1
--
--#define IOMUXC_GPIO_EMC_B2_06_SEMC_DATA22			0x0D0 0x314 0x0 0x0 0x0
--#define IOMUXC_GPIO_EMC_B2_06_GPT3_CAPTURE1			0x0D0 0x314 0x590 0x1 0x0
--#define IOMUXC_GPIO_EMC_B2_06_GPIO8_IO16			0x0D0 0x314 0x0 0xA 0x0
--#define IOMUXC_GPIO_EMC_B2_06_SAI2_RX_BCLK			0x0D0 0x314 0x0 0x2 0x0
--#define IOMUXC_GPIO_EMC_B2_06_FLEXPWM3_PWM3_A			0x0D0 0x314 0x53C 0xB 0x1
--#define IOMUXC_GPIO_EMC_B2_06_VIDEO_MUX_CSI_DATA19		0x0D0 0x314 0x0 0x3 0x0
--#define IOMUXC_GPIO_EMC_B2_06_FLEXSPI2_B_DATA00			0x0D0 0x314 0x0 0x4 0x0
--#define IOMUXC_GPIO_EMC_B2_06_GPIO_MUX2_IO16			0x0D0 0x314 0x0 0x5 0x0
--#define IOMUXC_GPIO_EMC_B2_06_XBAR1_INOUT26			0x0D0 0x314 0x6F0 0x6 0x0
--#define IOMUXC_GPIO_EMC_B2_06_ENET_1G_TX_ER			0x0D0 0x314 0x0 0x7 0x0
--#define IOMUXC_GPIO_EMC_B2_06_LPSPI3_SOUT			0x0D0 0x314 0x608 0x8 0x0
--#define IOMUXC_GPIO_EMC_B2_06_PIT1_TRIGGER1			0x0D0 0x314 0x0 0x9 0x0
--
--#define IOMUXC_GPIO_EMC_B2_07_SEMC_DATA23			0x0D4 0x318 0x0 0x0 0x0
--#define IOMUXC_GPIO_EMC_B2_07_GPT3_CAPTURE2			0x0D4 0x318 0x594 0x1 0x0
--#define IOMUXC_GPIO_EMC_B2_07_SAI2_RX_DATA			0x0D4 0x318 0x0 0x2 0x0
--#define IOMUXC_GPIO_EMC_B2_07_VIDEO_MUX_CSI_DATA18		0x0D4 0x318 0x0 0x3 0x0
--#define IOMUXC_GPIO_EMC_B2_07_FLEXSPI2_B_DQS			0x0D4 0x318 0x0 0x4 0x0
--#define IOMUXC_GPIO_EMC_B2_07_GPIO_MUX2_IO17			0x0D4 0x318 0x0 0x5 0x0
--#define IOMUXC_GPIO_EMC_B2_07_XBAR1_INOUT27			0x0D4 0x318 0x6F4 0x6 0x0
--#define IOMUXC_GPIO_EMC_B2_07_ENET_1G_RX_DATA03			0x0D4 0x318 0x4DC 0x7 0x0
--#define IOMUXC_GPIO_EMC_B2_07_LPSPI3_SIN			0x0D4 0x318 0x604 0x8 0x0
--#define IOMUXC_GPIO_EMC_B2_07_PIT1_TRIGGER2			0x0D4 0x318 0x0 0x9 0x0
--#define IOMUXC_GPIO_EMC_B2_07_GPIO8_IO17			0x0D4 0x318 0x0 0xA 0x0
--#define IOMUXC_GPIO_EMC_B2_07_FLEXPWM3_PWM3_B			0x0D4 0x318 0x54C 0xB 0x1
--
--#define IOMUXC_GPIO_EMC_B2_08_SEMC_DM02				0x0D8 0x31C 0x0 0x0 0x0
--#define IOMUXC_GPIO_EMC_B2_08_GPT3_COMPARE1			0x0D8 0x31C 0x0 0x1 0x0
--#define IOMUXC_GPIO_EMC_B2_08_SAI2_TX_DATA			0x0D8 0x31C 0x0 0x2 0x0
--#define IOMUXC_GPIO_EMC_B2_08_VIDEO_MUX_CSI_DATA17		0x0D8 0x31C 0x0 0x3 0x0
--#define IOMUXC_GPIO_EMC_B2_08_FLEXSPI2_B_SS0_B			0x0D8 0x31C 0x0 0x4 0x0
--#define IOMUXC_GPIO_EMC_B2_08_GPIO_MUX2_IO18			0x0D8 0x31C 0x0 0x5 0x0
--#define IOMUXC_GPIO_EMC_B2_08_XBAR1_INOUT28			0x0D8 0x31C 0x6F8 0x6 0x0
--#define IOMUXC_GPIO_EMC_B2_08_ENET_1G_RX_DATA02			0x0D8 0x31C 0x4D8 0x7 0x0
--#define IOMUXC_GPIO_EMC_B2_08_LPSPI3_PCS1			0x0D8 0x31C 0x5F4 0x8 0x0
--#define IOMUXC_GPIO_EMC_B2_08_PIT1_TRIGGER3			0x0D8 0x31C 0x0 0x9 0x0
--#define IOMUXC_GPIO_EMC_B2_08_GPIO8_IO18			0x0D8 0x31C 0x0 0xA 0x0
--
--#define IOMUXC_GPIO_EMC_B2_09_GPIO8_IO19			0x0DC 0x320 0x0 0xA 0x0
--#define IOMUXC_GPIO_EMC_B2_09_SEMC_DATA24			0x0DC 0x320 0x0 0x0 0x0
--#define IOMUXC_GPIO_EMC_B2_09_GPT3_COMPARE2			0x0DC 0x320 0x0 0x1 0x0
--#define IOMUXC_GPIO_EMC_B2_09_SAI2_TX_BCLK			0x0DC 0x320 0x0 0x2 0x0
--#define IOMUXC_GPIO_EMC_B2_09_VIDEO_MUX_CSI_DATA16		0x0DC 0x320 0x0 0x3 0x0
--#define IOMUXC_GPIO_EMC_B2_09_FLEXSPI2_B_SCLK			0x0DC 0x320 0x0 0x4 0x0
--#define IOMUXC_GPIO_EMC_B2_09_GPIO_MUX2_IO19			0x0DC 0x320 0x0 0x5 0x0
--#define IOMUXC_GPIO_EMC_B2_09_XBAR1_INOUT29			0x0DC 0x320 0x6FC 0x6 0x0
--#define IOMUXC_GPIO_EMC_B2_09_ENET_1G_CRS			0x0DC 0x320 0x0 0x7 0x0
--#define IOMUXC_GPIO_EMC_B2_09_LPSPI3_PCS2			0x0DC 0x320 0x5F8 0x8 0x0
--#define IOMUXC_GPIO_EMC_B2_09_TMR1_TIMER0			0x0DC 0x320 0x63C 0x9 0x1
--
--#define IOMUXC_GPIO_EMC_B2_10_GPIO8_IO20			0x0E0 0x324 0x0 0xA 0x0
--#define IOMUXC_GPIO_EMC_B2_10_SEMC_DATA25			0x0E0 0x324 0x0 0x0 0x0
--#define IOMUXC_GPIO_EMC_B2_10_GPT3_COMPARE3			0x0E0 0x324 0x0 0x1 0x0
--#define IOMUXC_GPIO_EMC_B2_10_SAI2_TX_SYNC			0x0E0 0x324 0x0 0x2 0x0
--#define IOMUXC_GPIO_EMC_B2_10_VIDEO_MUX_CSI_FIELD		0x0E0 0x324 0x0 0x3 0x0
--#define IOMUXC_GPIO_EMC_B2_10_FLEXSPI2_A_SCLK			0x0E0 0x324 0x58C 0x4 0x0
--#define IOMUXC_GPIO_EMC_B2_10_GPIO_MUX2_IO20			0x0E0 0x324 0x0 0x5 0x0
--#define IOMUXC_GPIO_EMC_B2_10_XBAR1_INOUT30			0x0E0 0x324 0x700 0x6 0x0
--#define IOMUXC_GPIO_EMC_B2_10_ENET_1G_COL			0x0E0 0x324 0x0 0x7 0x0
--#define IOMUXC_GPIO_EMC_B2_10_LPSPI3_PCS3			0x0E0 0x324 0x5FC 0x8 0x0
--#define IOMUXC_GPIO_EMC_B2_10_TMR1_TIMER1			0x0E0 0x324 0x640 0x9 0x1
--
--#define IOMUXC_GPIO_EMC_B2_11_SEMC_DATA26			0x0E4 0x328 0x0 0x0 0x0
--#define IOMUXC_GPIO_EMC_B2_11_SPDIF_IN				0x0E4 0x328 0x6B4 0x1 0x0
--#define IOMUXC_GPIO_EMC_B2_11_ENET_1G_TX_DATA00			0x0E4 0x328 0x0 0x2 0x0
--#define IOMUXC_GPIO_EMC_B2_11_SAI3_RX_SYNC			0x0E4 0x328 0x0 0x3 0x0
--#define IOMUXC_GPIO_EMC_B2_11_FLEXSPI2_A_SS0_B			0x0E4 0x328 0x0 0x4 0x0
--#define IOMUXC_GPIO_EMC_B2_11_GPIO_MUX2_IO21			0x0E4 0x328 0x0 0x5 0x0
--#define IOMUXC_GPIO_EMC_B2_11_XBAR1_INOUT31			0x0E4 0x328 0x704 0x6 0x0
--#define IOMUXC_GPIO_EMC_B2_11_EMVSIM1_IO			0x0E4 0x328 0x69C 0x8 0x0
--#define IOMUXC_GPIO_EMC_B2_11_TMR1_TIMER2			0x0E4 0x328 0x644 0x9 0x0
--#define IOMUXC_GPIO_EMC_B2_11_GPIO8_IO21			0x0E4 0x328 0x0 0xA 0x0
--
--#define IOMUXC_GPIO_EMC_B2_12_SEMC_DATA27			0x0E8 0x32C 0x0 0x0 0x0
--#define IOMUXC_GPIO_EMC_B2_12_SPDIF_OUT				0x0E8 0x32C 0x0 0x1 0x0
--#define IOMUXC_GPIO_EMC_B2_12_ENET_1G_TX_DATA01			0x0E8 0x32C 0x0 0x2 0x0
--#define IOMUXC_GPIO_EMC_B2_12_SAI3_RX_BCLK			0x0E8 0x32C 0x0 0x3 0x0
--#define IOMUXC_GPIO_EMC_B2_12_FLEXSPI2_A_DQS			0x0E8 0x32C 0x0 0x4 0x0
--#define IOMUXC_GPIO_EMC_B2_12_GPIO_MUX2_IO22			0x0E8 0x32C 0x0 0x5 0x0
--#define IOMUXC_GPIO_EMC_B2_12_XBAR1_INOUT32			0x0E8 0x32C 0x708 0x6 0x0
--#define IOMUXC_GPIO_EMC_B2_12_EMVSIM1_CLK			0x0E8 0x32C 0x0 0x8 0x0
--#define IOMUXC_GPIO_EMC_B2_12_TMR1_TIMER3			0x0E8 0x32C 0x0 0x9 0x0
--#define IOMUXC_GPIO_EMC_B2_12_GPIO8_IO22			0x0E8 0x32C 0x0 0xA 0x0
--
--#define IOMUXC_GPIO_EMC_B2_13_GPIO8_IO23			0x0EC 0x330 0x0 0xA 0x0
--#define IOMUXC_GPIO_EMC_B2_13_SEMC_DATA28			0x0EC 0x330 0x0 0x0 0x0
--#define IOMUXC_GPIO_EMC_B2_13_ENET_1G_TX_EN			0x0EC 0x330 0x0 0x2 0x0
--#define IOMUXC_GPIO_EMC_B2_13_SAI3_RX_DATA			0x0EC 0x330 0x0 0x3 0x0
--#define IOMUXC_GPIO_EMC_B2_13_FLEXSPI2_A_DATA00			0x0EC 0x330 0x57C 0x4 0x0
--#define IOMUXC_GPIO_EMC_B2_13_GPIO_MUX2_IO23			0x0EC 0x330 0x0 0x5 0x0
--#define IOMUXC_GPIO_EMC_B2_13_XBAR1_INOUT33			0x0EC 0x330 0x70C 0x6 0x0
--#define IOMUXC_GPIO_EMC_B2_13_EMVSIM1_RST			0x0EC 0x330 0x0 0x8 0x0
--#define IOMUXC_GPIO_EMC_B2_13_TMR2_TIMER0			0x0EC 0x330 0x648 0x9 0x1
--
--#define IOMUXC_GPIO_EMC_B2_14_SEMC_DATA29			0x0F0 0x334 0x0 0x0 0x0
--#define IOMUXC_GPIO_EMC_B2_14_ENET_1G_TX_CLK_IO			0x0F0 0x334 0x4E8 0x2 0x0
--#define IOMUXC_GPIO_EMC_B2_14_SAI3_TX_DATA			0x0F0 0x334 0x0 0x3 0x0
--#define IOMUXC_GPIO_EMC_B2_14_FLEXSPI2_A_DATA01			0x0F0 0x334 0x580 0x4 0x0
--#define IOMUXC_GPIO_EMC_B2_14_GPIO_MUX2_IO24			0x0F0 0x334 0x0 0x5 0x0
--#define IOMUXC_GPIO_EMC_B2_14_XBAR1_INOUT34			0x0F0 0x334 0x710 0x6 0x0
--#define IOMUXC_GPIO_EMC_B2_14_SFA_ipp_do_atx_clk_under_test	0x0F0 0x334 0x0 0x7 0x0
--#define IOMUXC_GPIO_EMC_B2_14_EMVSIM1_SVEN			0x0F0 0x334 0x0 0x8 0x0
--#define IOMUXC_GPIO_EMC_B2_14_TMR2_TIMER1			0x0F0 0x334 0x64C 0x9 0x1
--#define IOMUXC_GPIO_EMC_B2_14_GPIO8_IO24			0x0F0 0x334 0x0 0xA 0x0
--
--#define IOMUXC_GPIO_EMC_B2_15_SEMC_DATA30			0x0F4 0x338 0x0 0x0 0x0
--#define IOMUXC_GPIO_EMC_B2_15_ENET_1G_RX_DATA00			0x0F4 0x338 0x4D0 0x2 0x0
--#define IOMUXC_GPIO_EMC_B2_15_SAI3_TX_BCLK			0x0F4 0x338 0x0 0x3 0x0
--#define IOMUXC_GPIO_EMC_B2_15_FLEXSPI2_A_DATA02			0x0F4 0x338 0x584 0x4 0x0
--#define IOMUXC_GPIO_EMC_B2_15_GPIO_MUX2_IO25			0x0F4 0x338 0x0 0x5 0x0
--#define IOMUXC_GPIO_EMC_B2_15_XBAR1_INOUT35			0x0F4 0x338 0x714 0x6 0x0
--#define IOMUXC_GPIO_EMC_B2_15_EMVSIM1_PD			0x0F4 0x338 0x6A0 0x8 0x0
--#define IOMUXC_GPIO_EMC_B2_15_TMR2_TIMER2			0x0F4 0x338 0x650 0x9 0x0
--#define IOMUXC_GPIO_EMC_B2_15_GPIO8_IO25			0x0F4 0x338 0x0 0xA 0x0
--
--#define IOMUXC_GPIO_EMC_B2_16_GPIO8_IO26			0x0F8 0x33C 0x0 0xA 0x0
--#define IOMUXC_GPIO_EMC_B2_16_SEMC_DATA31			0x0F8 0x33C 0x0 0x0 0x0
--#define IOMUXC_GPIO_EMC_B2_16_XBAR1_INOUT14			0x0F8 0x33C 0x0 0x1 0x0
--#define IOMUXC_GPIO_EMC_B2_16_ENET_1G_RX_DATA01			0x0F8 0x33C 0x4D4 0x2 0x0
--#define IOMUXC_GPIO_EMC_B2_16_SAI3_TX_SYNC			0x0F8 0x33C 0x0 0x3 0x0
--#define IOMUXC_GPIO_EMC_B2_16_FLEXSPI2_A_DATA03			0x0F8 0x33C 0x588 0x4 0x0
--#define IOMUXC_GPIO_EMC_B2_16_GPIO_MUX2_IO26			0x0F8 0x33C 0x0 0x5 0x0
--#define IOMUXC_GPIO_EMC_B2_16_EMVSIM1_POWER_FAIL		0x0F8 0x33C 0x6A4 0x8 0x0
--#define IOMUXC_GPIO_EMC_B2_16_TMR2_TIMER3			0x0F8 0x33C 0x0 0x9 0x0
--
--#define IOMUXC_GPIO_EMC_B2_17_SEMC_DM03				0x0FC 0x340 0x0 0x0 0x0
--#define IOMUXC_GPIO_EMC_B2_17_XBAR1_INOUT15			0x0FC 0x340 0x0 0x1 0x0
--#define IOMUXC_GPIO_EMC_B2_17_ENET_1G_RX_EN			0x0FC 0x340 0x4E0 0x2 0x0
--#define IOMUXC_GPIO_EMC_B2_17_SAI3_MCLK				0x0FC 0x340 0x0 0x3 0x0
--#define IOMUXC_GPIO_EMC_B2_17_FLEXSPI2_A_DATA04			0x0FC 0x340 0x0 0x4 0x0
--#define IOMUXC_GPIO_EMC_B2_17_GPIO_MUX2_IO27			0x0FC 0x340 0x0 0x5 0x0
--#define IOMUXC_GPIO_EMC_B2_17_WDOG1_ANY				0x0FC 0x340 0x0 0x8 0x0
--#define IOMUXC_GPIO_EMC_B2_17_TMR3_TIMER0			0x0FC 0x340 0x654 0x9 0x1
--#define IOMUXC_GPIO_EMC_B2_17_GPIO8_IO27			0x0FC 0x340 0x0 0xA 0x0
--
--#define IOMUXC_GPIO_EMC_B2_18_SEMC_DQS4				0x100 0x344 0x0 0x0 0x0
--#define IOMUXC_GPIO_EMC_B2_18_XBAR1_INOUT16			0x100 0x344 0x0 0x1 0x0
--#define IOMUXC_GPIO_EMC_B2_18_ENET_1G_RX_ER			0x100 0x344 0x4E4 0x2 0x0
--#define IOMUXC_GPIO_EMC_B2_18_EWM_OUT_B				0x100 0x344 0x0 0x3 0x0
--#define IOMUXC_GPIO_EMC_B2_18_FLEXSPI2_A_DATA05			0x100 0x344 0x0 0x4 0x0
--#define IOMUXC_GPIO_EMC_B2_18_GPIO_MUX2_IO28			0x100 0x344 0x0 0x5 0x0
--#define IOMUXC_GPIO_EMC_B2_18_FLEXSPI1_A_DQS			0x100 0x344 0x550 0x6 0x0
--#define IOMUXC_GPIO_EMC_B2_18_WDOG1_B				0x100 0x344 0x0 0x8 0x0
--#define IOMUXC_GPIO_EMC_B2_18_TMR3_TIMER1			0x100 0x344 0x658 0x9 0x1
--#define IOMUXC_GPIO_EMC_B2_18_GPIO8_IO28			0x100 0x344 0x0 0xA 0x0
--
--#define IOMUXC_GPIO_EMC_B2_19_GPIO8_IO29			0x104 0x348 0x0 0xA 0x0
--#define IOMUXC_GPIO_EMC_B2_19_SEMC_CLKX00			0x104 0x348 0x0 0x0 0x0
--#define IOMUXC_GPIO_EMC_B2_19_ENET_MDC				0x104 0x348 0x0 0x1 0x0
--#define IOMUXC_GPIO_EMC_B2_19_ENET_1G_MDC			0x104 0x348 0x0 0x2 0x0
--#define IOMUXC_GPIO_EMC_B2_19_ENET_1G_REF_CLK			0x104 0x348 0x4C4 0x3 0x0
--#define IOMUXC_GPIO_EMC_B2_19_FLEXSPI2_A_DATA06			0x104 0x348 0x0 0x4 0x0
--#define IOMUXC_GPIO_EMC_B2_19_GPIO_MUX2_IO29			0x104 0x348 0x0 0x5 0x0
--#define IOMUXC_GPIO_EMC_B2_19_ENET_QOS_MDC			0x104 0x348 0x0 0x8 0x0
--#define IOMUXC_GPIO_EMC_B2_19_TMR3_TIMER2			0x104 0x348 0x65C 0x9 0x0
--
--#define IOMUXC_GPIO_EMC_B2_20_GPIO8_IO30			0x108 0x34C 0x0 0xA 0x0
--#define IOMUXC_GPIO_EMC_B2_20_SEMC_CLKX01			0x108 0x34C 0x0 0x0 0x0
--#define IOMUXC_GPIO_EMC_B2_20_ENET_MDIO				0x108 0x34C 0x4AC 0x1 0x0
--#define IOMUXC_GPIO_EMC_B2_20_ENET_1G_MDIO			0x108 0x34C 0x4C8 0x2 0x1
--#define IOMUXC_GPIO_EMC_B2_20_ENET_QOS_REF_CLK			0x108 0x34C 0x4A0 0x3 0x0
--#define IOMUXC_GPIO_EMC_B2_20_FLEXSPI2_A_DATA07			0x108 0x34C 0x0 0x4 0x0
--#define IOMUXC_GPIO_EMC_B2_20_GPIO_MUX2_IO30			0x108 0x34C 0x0 0x5 0x0
--#define IOMUXC_GPIO_EMC_B2_20_ENET_QOS_MDIO			0x108 0x34C 0x4EC 0x8 0x0
--#define IOMUXC_GPIO_EMC_B2_20_TMR3_TIMER3			0x108 0x34C 0x0 0x9 0x0
--
--#define IOMUXC_GPIO_AD_00_GPIO8_IO31				0x10C 0x350 0x0 0xA 0x0
--#define IOMUXC_GPIO_AD_00_EMVSIM1_IO				0x10C 0x350 0x69C 0x0 0x1
--#define IOMUXC_GPIO_AD_00_FLEXCAN2_TX				0x10C 0x350 0x0 0x1 0x0
--#define IOMUXC_GPIO_AD_00_ENET_1G_1588_EVENT1_IN		0x10C 0x350 0x0 0x2 0x0
--#define IOMUXC_GPIO_AD_00_GPT2_CAPTURE1				0x10C 0x350 0x0 0x3 0x0
--#define IOMUXC_GPIO_AD_00_FLEXPWM1_PWM0_A			0x10C 0x350 0x500 0x4 0x1
--#define IOMUXC_GPIO_AD_00_GPIO_MUX2_IO31			0x10C 0x350 0x0 0x5 0x0
--#define IOMUXC_GPIO_AD_00_LPUART7_TXD				0x10C 0x350 0x630 0x6 0x0
--#define IOMUXC_GPIO_AD_00_FLEXIO2_D00				0x10C 0x350 0x0 0x8 0x0
--#define IOMUXC_GPIO_AD_00_FLEXSPI2_B_SS1_B			0x10C 0x350 0x0 0x9 0x0
--
--#define IOMUXC_GPIO_AD_01_GPIO9_IO00				0x110 0x354 0x0 0xA 0x0
--#define IOMUXC_GPIO_AD_01_EMVSIM1_CLK				0x110 0x354 0x0 0x0 0x0
--#define IOMUXC_GPIO_AD_01_FLEXCAN2_RX				0x110 0x354 0x49C 0x1 0x0
--#define IOMUXC_GPIO_AD_01_ENET_1G_1588_EVENT1_OUT		0x110 0x354 0x0 0x2 0x0
--#define IOMUXC_GPIO_AD_01_GPT2_CAPTURE2				0x110 0x354 0x0 0x3 0x0
--#define IOMUXC_GPIO_AD_01_FLEXPWM1_PWM0_B			0x110 0x354 0x50C 0x4 0x1
--#define IOMUXC_GPIO_AD_01_GPIO_MUX3_IO00			0x110 0x354 0x0 0x5 0x0
--#define IOMUXC_GPIO_AD_01_LPUART7_RXD				0x110 0x354 0x62C 0x6 0x0
--#define IOMUXC_GPIO_AD_01_FLEXIO2_D01				0x110 0x354 0x0 0x8 0x0
--#define IOMUXC_GPIO_AD_01_FLEXSPI2_A_SS1_B			0x110 0x354 0x0 0x9 0x0
--
--#define IOMUXC_GPIO_AD_02_GPIO9_IO01				0x114 0x358 0x0 0xA 0x0
--#define IOMUXC_GPIO_AD_02_EMVSIM1_RST				0x114 0x358 0x0 0x0 0x0
--#define IOMUXC_GPIO_AD_02_LPUART7_CTS_B				0x114 0x358 0x0 0x1 0x0
--#define IOMUXC_GPIO_AD_02_ENET_1G_1588_EVENT2_IN		0x114 0x358 0x0 0x2 0x0
--#define IOMUXC_GPIO_AD_02_GPT2_COMPARE1				0x114 0x358 0x0 0x3 0x0
--#define IOMUXC_GPIO_AD_02_FLEXPWM1_PWM1_A			0x114 0x358 0x504 0x4 0x1
--#define IOMUXC_GPIO_AD_02_GPIO_MUX3_IO01			0x114 0x358 0x0 0x5 0x0
--#define IOMUXC_GPIO_AD_02_LPUART8_TXD				0x114 0x358 0x638 0x6 0x0
--#define IOMUXC_GPIO_AD_02_FLEXIO2_D02				0x114 0x358 0x0 0x8 0x0
--#define IOMUXC_GPIO_AD_02_VIDEO_MUX_EXT_DCIC1			0x114 0x358 0x0 0x9 0x0
--
--#define IOMUXC_GPIO_AD_03_GPIO9_IO02				0x118 0x35C 0x0 0xA 0x0
--#define IOMUXC_GPIO_AD_03_EMVSIM1_SVEN				0x118 0x35C 0x0 0x0 0x0
--#define IOMUXC_GPIO_AD_03_LPUART7_RTS_B				0x118 0x35C 0x0 0x1 0x0
--#define IOMUXC_GPIO_AD_03_ENET_1G_1588_EVENT2_OUT		0x118 0x35C 0x0 0x2 0x0
--#define IOMUXC_GPIO_AD_03_GPT2_COMPARE2				0x118 0x35C 0x0 0x3 0x0
--#define IOMUXC_GPIO_AD_03_FLEXPWM1_PWM1_B			0x118 0x35C 0x510 0x4 0x1
--#define IOMUXC_GPIO_AD_03_GPIO_MUX3_IO02			0x118 0x35C 0x0 0x5 0x0
--#define IOMUXC_GPIO_AD_03_LPUART8_RXD				0x118 0x35C 0x634 0x6 0x0
--#define IOMUXC_GPIO_AD_03_FLEXIO2_D03				0x118 0x35C 0x0 0x8 0x0
--#define IOMUXC_GPIO_AD_03_VIDEO_MUX_EXT_DCIC2			0x118 0x35C 0x0 0x9 0x0
--
--#define IOMUXC_GPIO_AD_04_EMVSIM1_PD				0x11C 0x360 0x6A0 0x0 0x1
--#define IOMUXC_GPIO_AD_04_LPUART8_CTS_B				0x11C 0x360 0x0 0x1 0x0
--#define IOMUXC_GPIO_AD_04_ENET_1G_1588_EVENT3_IN		0x11C 0x360 0x0 0x2 0x0
--#define IOMUXC_GPIO_AD_04_GPT2_COMPARE3				0x11C 0x360 0x0 0x3 0x0
--#define IOMUXC_GPIO_AD_04_FLEXPWM1_PWM2_A			0x11C 0x360 0x508 0x4 0x1
--#define IOMUXC_GPIO_AD_04_GPIO_MUX3_IO03			0x11C 0x360 0x0 0x5 0x0
--#define IOMUXC_GPIO_AD_04_WDOG1_B				0x11C 0x360 0x0 0x6 0x0
--#define IOMUXC_GPIO_AD_04_FLEXIO2_D04				0x11C 0x360 0x0 0x8 0x0
--#define IOMUXC_GPIO_AD_04_TMR4_TIMER0				0x11C 0x360 0x660 0x9 0x1
--#define IOMUXC_GPIO_AD_04_GPIO9_IO03				0x11C 0x360 0x0 0xA 0x0
--
--#define IOMUXC_GPIO_AD_05_EMVSIM1_POWER_FAIL			0x120 0x364 0x6A4 0x0 0x1
--#define IOMUXC_GPIO_AD_05_LPUART8_RTS_B				0x120 0x364 0x0 0x1 0x0
--#define IOMUXC_GPIO_AD_05_ENET_1G_1588_EVENT3_OUT		0x120 0x364 0x0 0x2 0x0
--#define IOMUXC_GPIO_AD_05_GPT2_CLK				0x120 0x364 0x0 0x3 0x0
--#define IOMUXC_GPIO_AD_05_FLEXPWM1_PWM2_B			0x120 0x364 0x514 0x4 0x1
--#define IOMUXC_GPIO_AD_05_GPIO_MUX3_IO04			0x120 0x364 0x0 0x5 0x0
--#define IOMUXC_GPIO_AD_05_WDOG2_B				0x120 0x364 0x0 0x6 0x0
--#define IOMUXC_GPIO_AD_05_FLEXIO2_D05				0x120 0x364 0x0 0x8 0x0
--#define IOMUXC_GPIO_AD_05_TMR4_TIMER1				0x120 0x364 0x664 0x9 0x1
--#define IOMUXC_GPIO_AD_05_GPIO9_IO04				0x120 0x364 0x0 0xA 0x0
--
--#define IOMUXC_GPIO_AD_06_USB_OTG2_OC				0x124 0x368 0x6B8 0x0 0x0
--#define IOMUXC_GPIO_AD_06_FLEXCAN1_TX				0x124 0x368 0x0 0x1 0x0
--#define IOMUXC_GPIO_AD_06_EMVSIM2_IO				0x124 0x368 0x6A8 0x2 0x0
--#define IOMUXC_GPIO_AD_06_GPT3_CAPTURE1				0x124 0x368 0x590 0x3 0x1
--#define IOMUXC_GPIO_AD_06_VIDEO_MUX_CSI_DATA15			0x124 0x368 0x0 0x4 0x0
--#define IOMUXC_GPIO_AD_06_GPIO_MUX3_IO05			0x124 0x368 0x0 0x5 0x0
--#define IOMUXC_GPIO_AD_06_ENET_1588_EVENT1_IN			0x124 0x368 0x0 0x6 0x0
--#define IOMUXC_GPIO_AD_06_FLEXIO2_D06				0x124 0x368 0x0 0x8 0x0
--#define IOMUXC_GPIO_AD_06_TMR4_TIMER2				0x124 0x368 0x668 0x9 0x0
--#define IOMUXC_GPIO_AD_06_GPIO9_IO05				0x124 0x368 0x0 0xA 0x0
--#define IOMUXC_GPIO_AD_06_FLEXPWM1_PWM0_X			0x124 0x368 0x0 0xB 0x0
--
--#define IOMUXC_GPIO_AD_07_USB_OTG2_PWR				0x128 0x36C 0x0 0x0 0x0
--#define IOMUXC_GPIO_AD_07_FLEXCAN1_RX				0x128 0x36C 0x498 0x1 0x0
--#define IOMUXC_GPIO_AD_07_EMVSIM2_CLK				0x128 0x36C 0x0 0x2 0x0
--#define IOMUXC_GPIO_AD_07_GPT3_CAPTURE2				0x128 0x36C 0x594 0x3 0x1
--#define IOMUXC_GPIO_AD_07_VIDEO_MUX_CSI_DATA14			0x128 0x36C 0x0 0x4 0x0
--#define IOMUXC_GPIO_AD_07_GPIO_MUX3_IO06			0x128 0x36C 0x0 0x5 0x0
--#define IOMUXC_GPIO_AD_07_ENET_1588_EVENT1_OUT			0x128 0x36C 0x0 0x6 0x0
--#define IOMUXC_GPIO_AD_07_FLEXIO2_D07				0x128 0x36C 0x0 0x8 0x0
--#define IOMUXC_GPIO_AD_07_TMR4_TIMER3				0x128 0x36C 0x0 0x9 0x0
--#define IOMUXC_GPIO_AD_07_GPIO9_IO06				0x128 0x36C 0x0 0xA 0x0
--#define IOMUXC_GPIO_AD_07_FLEXPWM1_PWM1_X			0x128 0x36C 0x0 0xB 0x0
--
--#define IOMUXC_GPIO_AD_08_USBPHY2_OTG_ID			0x12C 0x370 0x6C4 0x0 0x0
--#define IOMUXC_GPIO_AD_08_LPI2C1_SCL				0x12C 0x370 0x5AC 0x1 0x0
--#define IOMUXC_GPIO_AD_08_EMVSIM2_RST				0x12C 0x370 0x0 0x2 0x0
--#define IOMUXC_GPIO_AD_08_GPT3_COMPARE1				0x12C 0x370 0x0 0x3 0x0
--#define IOMUXC_GPIO_AD_08_VIDEO_MUX_CSI_DATA13			0x12C 0x370 0x0 0x4 0x0
--#define IOMUXC_GPIO_AD_08_GPIO_MUX3_IO07			0x12C 0x370 0x0 0x5 0x0
--#define IOMUXC_GPIO_AD_08_ENET_1588_EVENT2_IN			0x12C 0x370 0x0 0x6 0x0
--#define IOMUXC_GPIO_AD_08_FLEXIO2_D08				0x12C 0x370 0x0 0x8 0x0
--#define IOMUXC_GPIO_AD_08_GPIO9_IO07				0x12C 0x370 0x0 0xA 0x0
--#define IOMUXC_GPIO_AD_08_FLEXPWM1_PWM2_X			0x12C 0x370 0x0 0xB 0x0
--
--#define IOMUXC_GPIO_AD_09_USBPHY1_OTG_ID			0x130 0x374 0x6C0 0x0 0x0
--#define IOMUXC_GPIO_AD_09_LPI2C1_SDA				0x130 0x374 0x5B0 0x1 0x0
--#define IOMUXC_GPIO_AD_09_EMVSIM2_SVEN				0x130 0x374 0x0 0x2 0x0
--#define IOMUXC_GPIO_AD_09_GPT3_COMPARE2				0x130 0x374 0x0 0x3 0x0
--#define IOMUXC_GPIO_AD_09_VIDEO_MUX_CSI_DATA12			0x130 0x374 0x0 0x4 0x0
--#define IOMUXC_GPIO_AD_09_GPIO_MUX3_IO08			0x130 0x374 0x0 0x5 0x0
--#define IOMUXC_GPIO_AD_09_ENET_1588_EVENT2_OUT			0x130 0x374 0x0 0x6 0x0
--#define IOMUXC_GPIO_AD_09_FLEXIO2_D09				0x130 0x374 0x0 0x8 0x0
--#define IOMUXC_GPIO_AD_09_GPIO9_IO08				0x130 0x374 0x0 0xA 0x0
--#define IOMUXC_GPIO_AD_09_FLEXPWM1_PWM3_X			0x130 0x374 0x0 0xB 0x0
--
--#define IOMUXC_GPIO_AD_10_USB_OTG1_PWR				0x134 0x378 0x0 0x0 0x0
--#define IOMUXC_GPIO_AD_10_LPI2C1_SCLS				0x134 0x378 0x0 0x1 0x0
--#define IOMUXC_GPIO_AD_10_EMVSIM2_PD				0x134 0x378 0x6AC 0x2 0x0
--#define IOMUXC_GPIO_AD_10_GPT3_COMPARE3				0x134 0x378 0x0 0x3 0x0
--#define IOMUXC_GPIO_AD_10_VIDEO_MUX_CSI_DATA11			0x134 0x378 0x0 0x4 0x0
--#define IOMUXC_GPIO_AD_10_GPIO_MUX3_IO09			0x134 0x378 0x0 0x5 0x0
--#define IOMUXC_GPIO_AD_10_ENET_1588_EVENT3_IN			0x134 0x378 0x0 0x6 0x0
--#define IOMUXC_GPIO_AD_10_FLEXIO2_D10				0x134 0x378 0x0 0x8 0x0
--#define IOMUXC_GPIO_AD_10_GPIO9_IO09				0x134 0x378 0x0 0xA 0x0
--#define IOMUXC_GPIO_AD_10_FLEXPWM2_PWM0_X			0x134 0x378 0x0 0xB 0x0
--
--#define IOMUXC_GPIO_AD_11_USB_OTG1_OC				0x138 0x37C 0x6BC 0x0 0x0
--#define IOMUXC_GPIO_AD_11_LPI2C1_SDAS				0x138 0x37C 0x0 0x1 0x0
--#define IOMUXC_GPIO_AD_11_EMVSIM2_POWER_FAIL			0x138 0x37C 0x6B0 0x2 0x0
--#define IOMUXC_GPIO_AD_11_GPT3_CLK				0x138 0x37C 0x598 0x3 0x1
--#define IOMUXC_GPIO_AD_11_VIDEO_MUX_CSI_DATA10			0x138 0x37C 0x0 0x4 0x0
--#define IOMUXC_GPIO_AD_11_GPIO_MUX3_IO10			0x138 0x37C 0x0 0x5 0x0
--#define IOMUXC_GPIO_AD_11_ENET_1588_EVENT3_OUT			0x138 0x37C 0x0 0x6 0x0
--#define IOMUXC_GPIO_AD_11_FLEXIO2_D11				0x138 0x37C 0x0 0x8 0x0
--#define IOMUXC_GPIO_AD_11_GPIO9_IO10				0x138 0x37C 0x0 0xA 0x0
--#define IOMUXC_GPIO_AD_11_FLEXPWM2_PWM1_X			0x138 0x37C 0x0 0xB 0x0
--
--#define IOMUXC_GPIO_AD_12_SPDIF_LOCK				0x13C 0x380 0x0 0x0 0x0
--#define IOMUXC_GPIO_AD_12_LPI2C1_HREQ				0x13C 0x380 0x0 0x1 0x0
--#define IOMUXC_GPIO_AD_12_GPT1_CAPTURE1				0x13C 0x380 0x0 0x2 0x0
--#define IOMUXC_GPIO_AD_12_FLEXSPI1_B_DATA03			0x13C 0x380 0x570 0x3 0x0
--#define IOMUXC_GPIO_AD_12_VIDEO_MUX_CSI_PIXCLK			0x13C 0x380 0x0 0x4 0x0
--#define IOMUXC_GPIO_AD_12_GPIO_MUX3_IO11			0x13C 0x380 0x0 0x5 0x0
--#define IOMUXC_GPIO_AD_12_ENET_TX_DATA03			0x13C 0x380 0x0 0x6 0x0
--#define IOMUXC_GPIO_AD_12_FLEXIO2_D12				0x13C 0x380 0x0 0x8 0x0
--#define IOMUXC_GPIO_AD_12_EWM_OUT_B				0x13C 0x380 0x0 0x9 0x0
--#define IOMUXC_GPIO_AD_12_GPIO9_IO11				0x13C 0x380 0x0 0xA 0x0
--#define IOMUXC_GPIO_AD_12_FLEXPWM2_PWM2_X			0x13C 0x380 0x0 0xB 0x0
--
--#define IOMUXC_GPIO_AD_13_SPDIF_SR_CLK				0x140 0x384 0x0 0x0 0x0
--#define IOMUXC_GPIO_AD_13_PIT1_TRIGGER0				0x140 0x384 0x0 0x1 0x0
--#define IOMUXC_GPIO_AD_13_GPT1_CAPTURE2				0x140 0x384 0x0 0x2 0x0
--#define IOMUXC_GPIO_AD_13_FLEXSPI1_B_DATA02			0x140 0x384 0x56C 0x3 0x0
--#define IOMUXC_GPIO_AD_13_VIDEO_MUX_CSI_MCLK			0x140 0x384 0x0 0x4 0x0
--#define IOMUXC_GPIO_AD_13_GPIO_MUX3_IO12			0x140 0x384 0x0 0x5 0x0
--#define IOMUXC_GPIO_AD_13_ENET_TX_DATA02			0x140 0x384 0x0 0x6 0x0
--#define IOMUXC_GPIO_AD_13_FLEXIO2_D13				0x140 0x384 0x0 0x8 0x0
--#define IOMUXC_GPIO_AD_13_REF_CLK_32K				0x140 0x384 0x0 0x9 0x0
--#define IOMUXC_GPIO_AD_13_GPIO9_IO12				0x140 0x384 0x0 0xA 0x0
--#define IOMUXC_GPIO_AD_13_FLEXPWM2_PWM3_X			0x140 0x384 0x0 0xB 0x0
--
--#define IOMUXC_GPIO_AD_14_SPDIF_EXT_CLK				0x144 0x388 0x0 0x0 0x0
--#define IOMUXC_GPIO_AD_14_REF_CLK_24M				0x144 0x388 0x0 0x1 0x0
--#define IOMUXC_GPIO_AD_14_GPT1_COMPARE1				0x144 0x388 0x0 0x2 0x0
--#define IOMUXC_GPIO_AD_14_FLEXSPI1_B_DATA01			0x144 0x388 0x568 0x3 0x0
--#define IOMUXC_GPIO_AD_14_VIDEO_MUX_CSI_VSYNC			0x144 0x388 0x0 0x4 0x0
--#define IOMUXC_GPIO_AD_14_GPIO_MUX3_IO13			0x144 0x388 0x0 0x5 0x0
--#define IOMUXC_GPIO_AD_14_ENET_RX_CLK				0x144 0x388 0x0 0x6 0x0
--#define IOMUXC_GPIO_AD_14_FLEXIO2_D14				0x144 0x388 0x0 0x8 0x0
--#define IOMUXC_GPIO_AD_14_CCM_ENET_REF_CLK_25M			0x144 0x388 0x0 0x9 0x0
--#define IOMUXC_GPIO_AD_14_GPIO9_IO13				0x144 0x388 0x0 0xA 0x0
--#define IOMUXC_GPIO_AD_14_FLEXPWM3_PWM0_X			0x144 0x388 0x0 0xB 0x0
--
--#define IOMUXC_GPIO_AD_15_GPIO9_IO14				0x148 0x38C 0x0 0xA 0x0
--#define IOMUXC_GPIO_AD_15_FLEXPWM3_PWM1_X			0x148 0x38C 0x0 0xB 0x0
--#define IOMUXC_GPIO_AD_15_SPDIF_IN				0x148 0x38C 0x6B4 0x0 0x1
--#define IOMUXC_GPIO_AD_15_LPUART10_TXD				0x148 0x38C 0x628 0x1 0x0
--#define IOMUXC_GPIO_AD_15_GPT1_COMPARE2				0x148 0x38C 0x0 0x2 0x0
--#define IOMUXC_GPIO_AD_15_FLEXSPI1_B_DATA00			0x148 0x38C 0x564 0x3 0x0
--#define IOMUXC_GPIO_AD_15_VIDEO_MUX_CSI_HSYNC			0x148 0x38C 0x0 0x4 0x0
--#define IOMUXC_GPIO_AD_15_GPIO_MUX3_IO14			0x148 0x38C 0x0 0x5 0x0
--#define IOMUXC_GPIO_AD_15_ENET_TX_ER				0x148 0x38C 0x0 0x6 0x0
--#define IOMUXC_GPIO_AD_15_FLEXIO2_D15				0x148 0x38C 0x0 0x8 0x0
--
--#define IOMUXC_GPIO_AD_16_SPDIF_OUT				0x14C 0x390 0x0 0x0 0x0
--#define IOMUXC_GPIO_AD_16_LPUART10_RXD				0x14C 0x390 0x624 0x1 0x0
--#define IOMUXC_GPIO_AD_16_GPT1_COMPARE3				0x14C 0x390 0x0 0x2 0x0
--#define IOMUXC_GPIO_AD_16_FLEXSPI1_B_SCLK			0x14C 0x390 0x578 0x3 0x0
--#define IOMUXC_GPIO_AD_16_VIDEO_MUX_CSI_DATA09			0x14C 0x390 0x0 0x4 0x0
--#define IOMUXC_GPIO_AD_16_GPIO_MUX3_IO15			0x14C 0x390 0x0 0x5 0x0
--#define IOMUXC_GPIO_AD_16_ENET_RX_DATA03			0x14C 0x390 0x0 0x6 0x0
--#define IOMUXC_GPIO_AD_16_FLEXIO2_D16				0x14C 0x390 0x0 0x8 0x0
--#define IOMUXC_GPIO_AD_16_ENET_1G_MDC				0x14C 0x390 0x0 0x9 0x0
--#define IOMUXC_GPIO_AD_16_GPIO9_IO15				0x14C 0x390 0x0 0xA 0x0
--#define IOMUXC_GPIO_AD_16_FLEXPWM3_PWM2_X			0x14C 0x390 0x0 0xB 0x0
--
--#define IOMUXC_GPIO_AD_17_SAI1_MCLK				0x150 0x394 0x66C 0x0 0x0
--#define IOMUXC_GPIO_AD_17_ACMP1_OUT				0x150 0x394 0x0 0x1 0x0
--#define IOMUXC_GPIO_AD_17_GPT1_CLK				0x150 0x394 0x0 0x2 0x0
--#define IOMUXC_GPIO_AD_17_FLEXSPI1_A_DQS			0x150 0x394 0x550 0x3 0x1
--#define IOMUXC_GPIO_AD_17_VIDEO_MUX_CSI_DATA08			0x150 0x394 0x0 0x4 0x0
--#define IOMUXC_GPIO_AD_17_GPIO_MUX3_IO16			0x150 0x394 0x0 0x5 0x0
--#define IOMUXC_GPIO_AD_17_ENET_RX_DATA02			0x150 0x394 0x0 0x6 0x0
--#define IOMUXC_GPIO_AD_17_FLEXIO2_D17				0x150 0x394 0x0 0x8 0x0
--#define IOMUXC_GPIO_AD_17_ENET_1G_MDIO				0x150 0x394 0x4C8 0x9 0x2
--#define IOMUXC_GPIO_AD_17_GPIO9_IO16				0x150 0x394 0x0 0xA 0x0
--#define IOMUXC_GPIO_AD_17_FLEXPWM3_PWM3_X			0x150 0x394 0x0 0xB 0x0
--
--#define IOMUXC_GPIO_AD_18_GPIO9_IO17				0x154 0x398 0x0 0xA 0x0
--#define IOMUXC_GPIO_AD_18_FLEXPWM4_PWM0_X			0x154 0x398 0x0 0xB 0x0
--#define IOMUXC_GPIO_AD_18_SAI1_RX_SYNC				0x154 0x398 0x678 0x0 0x0
--#define IOMUXC_GPIO_AD_18_ACMP2_OUT				0x154 0x398 0x0 0x1 0x0
--#define IOMUXC_GPIO_AD_18_LPSPI1_PCS1				0x154 0x398 0x0 0x2 0x0
--#define IOMUXC_GPIO_AD_18_FLEXSPI1_A_SS0_B			0x154 0x398 0x0 0x3 0x0
--#define IOMUXC_GPIO_AD_18_VIDEO_MUX_CSI_DATA07			0x154 0x398 0x0 0x4 0x0
--#define IOMUXC_GPIO_AD_18_GPIO_MUX3_IO17			0x154 0x398 0x0 0x5 0x0
--#define IOMUXC_GPIO_AD_18_ENET_CRS				0x154 0x398 0x0 0x6 0x0
--#define IOMUXC_GPIO_AD_18_FLEXIO2_D18				0x154 0x398 0x0 0x8 0x0
--#define IOMUXC_GPIO_AD_18_LPI2C2_SCL				0x154 0x398 0x5B4 0x9 0x1
--
--#define IOMUXC_GPIO_AD_19_SAI1_RX_BCLK				0x158 0x39C 0x670 0x0 0x0
--#define IOMUXC_GPIO_AD_19_ACMP3_OUT				0x158 0x39C 0x0 0x1 0x0
--#define IOMUXC_GPIO_AD_19_LPSPI1_PCS2				0x158 0x39C 0x0 0x2 0x0
--#define IOMUXC_GPIO_AD_19_FLEXSPI1_A_SCLK			0x158 0x39C 0x574 0x3 0x0
--#define IOMUXC_GPIO_AD_19_VIDEO_MUX_CSI_DATA06			0x158 0x39C 0x0 0x4 0x0
--#define IOMUXC_GPIO_AD_19_GPIO_MUX3_IO18			0x158 0x39C 0x0 0x5 0x0
--#define IOMUXC_GPIO_AD_19_ENET_COL				0x158 0x39C 0x0 0x6 0x0
--#define IOMUXC_GPIO_AD_19_FLEXIO2_D19				0x158 0x39C 0x0 0x8 0x0
--#define IOMUXC_GPIO_AD_19_LPI2C2_SDA				0x158 0x39C 0x5B8 0x9 0x1
--#define IOMUXC_GPIO_AD_19_GPIO9_IO18				0x158 0x39C 0x0 0xA 0x0
--#define IOMUXC_GPIO_AD_19_FLEXPWM4_PWM1_X			0x158 0x39C 0x0 0xB 0x0
--
--#define IOMUXC_GPIO_AD_20_SAI1_RX_DATA00			0x15C 0x3A0 0x674 0x0 0x0
--#define IOMUXC_GPIO_AD_20_ACMP4_OUT				0x15C 0x3A0 0x0 0x1 0x0
--#define IOMUXC_GPIO_AD_20_LPSPI1_PCS3				0x15C 0x3A0 0x0 0x2 0x0
--#define IOMUXC_GPIO_AD_20_FLEXSPI1_A_DATA00			0x15C 0x3A0 0x554 0x3 0x0
--#define IOMUXC_GPIO_AD_20_VIDEO_MUX_CSI_DATA05			0x15C 0x3A0 0x0 0x4 0x0
--#define IOMUXC_GPIO_AD_20_GPIO_MUX3_IO19			0x15C 0x3A0 0x0 0x5 0x0
--#define IOMUXC_GPIO_AD_20_KPP_ROW07				0x15C 0x3A0 0x5A8 0x6 0x0
--#define IOMUXC_GPIO_AD_20_FLEXIO2_D20				0x15C 0x3A0 0x0 0x8 0x0
--#define IOMUXC_GPIO_AD_20_ENET_QOS_1588_EVENT2_OUT		0x15C 0x3A0 0x0 0x9 0x0
--#define IOMUXC_GPIO_AD_20_GPIO9_IO19				0x15C 0x3A0 0x0 0xA 0x0
--#define IOMUXC_GPIO_AD_20_FLEXPWM4_PWM2_X			0x15C 0x3A0 0x0 0xB 0x0
--
--#define IOMUXC_GPIO_AD_21_SAI1_TX_DATA00			0x160 0x3A4 0x0 0x0 0x0
--#define IOMUXC_GPIO_AD_21_LPSPI2_PCS1				0x160 0x3A4 0x5E0 0x2 0x0
--#define IOMUXC_GPIO_AD_21_FLEXSPI1_A_DATA01			0x160 0x3A4 0x558 0x3 0x0
--#define IOMUXC_GPIO_AD_21_VIDEO_MUX_CSI_DATA04			0x160 0x3A4 0x0 0x4 0x0
--#define IOMUXC_GPIO_AD_21_GPIO_MUX3_IO20			0x160 0x3A4 0x0 0x5 0x0
--#define IOMUXC_GPIO_AD_21_KPP_COL07				0x160 0x3A4 0x5A0 0x6 0x0
--#define IOMUXC_GPIO_AD_21_FLEXIO2_D21				0x160 0x3A4 0x0 0x8 0x0
--#define IOMUXC_GPIO_AD_21_ENET_QOS_1588_EVENT2_IN		0x160 0x3A4 0x0 0x9 0x0
--#define IOMUXC_GPIO_AD_21_GPIO9_IO20				0x160 0x3A4 0x0 0xA 0x0
--#define IOMUXC_GPIO_AD_21_FLEXPWM4_PWM3_X			0x160 0x3A4 0x0 0xB 0x0
--
--#define IOMUXC_GPIO_AD_22_GPIO9_IO21				0x164 0x3A8 0x0 0xA 0x0
--#define IOMUXC_GPIO_AD_22_SAI1_TX_BCLK				0x164 0x3A8 0x67C 0x0 0x0
--#define IOMUXC_GPIO_AD_22_LPSPI2_PCS2				0x164 0x3A8 0x0 0x2 0x0
--#define IOMUXC_GPIO_AD_22_FLEXSPI1_A_DATA02			0x164 0x3A8 0x55C 0x3 0x0
--#define IOMUXC_GPIO_AD_22_VIDEO_MUX_CSI_DATA03			0x164 0x3A8 0x0 0x4 0x0
--#define IOMUXC_GPIO_AD_22_GPIO_MUX3_IO21			0x164 0x3A8 0x0 0x5 0x0
--#define IOMUXC_GPIO_AD_22_KPP_ROW06				0x164 0x3A8 0x5A4 0x6 0x0
--#define IOMUXC_GPIO_AD_22_FLEXIO2_D22				0x164 0x3A8 0x0 0x8 0x0
--#define IOMUXC_GPIO_AD_22_ENET_QOS_1588_EVENT3_OUT		0x164 0x3A8 0x0 0x9 0x0
--
--#define IOMUXC_GPIO_AD_23_SAI1_TX_SYNC				0x168 0x3AC 0x680 0x0 0x0
--#define IOMUXC_GPIO_AD_23_LPSPI2_PCS3				0x168 0x3AC 0x0 0x2 0x0
--#define IOMUXC_GPIO_AD_23_FLEXSPI1_A_DATA03			0x168 0x3AC 0x560 0x3 0x0
--#define IOMUXC_GPIO_AD_23_VIDEO_MUX_CSI_DATA02			0x168 0x3AC 0x0 0x4 0x0
--#define IOMUXC_GPIO_AD_23_GPIO_MUX3_IO22			0x168 0x3AC 0x0 0x5 0x0
--#define IOMUXC_GPIO_AD_23_KPP_COL06				0x168 0x3AC 0x59C 0x6 0x0
--#define IOMUXC_GPIO_AD_23_FLEXIO2_D23				0x168 0x3AC 0x0 0x8 0x0
--#define IOMUXC_GPIO_AD_23_ENET_QOS_1588_EVENT3_IN		0x168 0x3AC 0x0 0x9 0x0
--#define IOMUXC_GPIO_AD_23_GPIO9_IO22				0x168 0x3AC 0x0 0xA 0x0
--
--#define IOMUXC_GPIO_AD_24_LPUART1_TXD				0x16C 0x3B0 0x620 0x0 0x0
--#define IOMUXC_GPIO_AD_24_LPSPI2_SCK				0x16C 0x3B0 0x5E4 0x1 0x0
--#define IOMUXC_GPIO_AD_24_VIDEO_MUX_CSI_DATA00			0x16C 0x3B0 0x0 0x2 0x0
--#define IOMUXC_GPIO_AD_24_ENET_RX_EN				0x16C 0x3B0 0x4B8 0x3 0x0
--#define IOMUXC_GPIO_AD_24_FLEXPWM2_PWM0_A			0x16C 0x3B0 0x518 0x4 0x1
--#define IOMUXC_GPIO_AD_24_GPIO_MUX3_IO23			0x16C 0x3B0 0x0 0x5 0x0
--#define IOMUXC_GPIO_AD_24_KPP_ROW05				0x16C 0x3B0 0x0 0x6 0x0
--#define IOMUXC_GPIO_AD_24_FLEXIO2_D24				0x16C 0x3B0 0x0 0x8 0x0
--#define IOMUXC_GPIO_AD_24_LPI2C4_SCL				0x16C 0x3B0 0x5C4 0x9 0x0
--#define IOMUXC_GPIO_AD_24_GPIO9_IO23				0x16C 0x3B0 0x0 0xA 0x0
--
--#define IOMUXC_GPIO_AD_25_GPIO9_IO24				0x170 0x3B4 0x0 0xA 0x0
--#define IOMUXC_GPIO_AD_25_LPUART1_RXD				0x170 0x3B4 0x61C 0x0 0x0
--#define IOMUXC_GPIO_AD_25_LPSPI2_PCS0				0x170 0x3B4 0x5DC 0x1 0x0
--#define IOMUXC_GPIO_AD_25_VIDEO_MUX_CSI_DATA01			0x170 0x3B4 0x0 0x2 0x0
--#define IOMUXC_GPIO_AD_25_ENET_RX_ER				0x170 0x3B4 0x4BC 0x3 0x0
--#define IOMUXC_GPIO_AD_25_FLEXPWM2_PWM0_B			0x170 0x3B4 0x524 0x4 0x1
--#define IOMUXC_GPIO_AD_25_GPIO_MUX3_IO24			0x170 0x3B4 0x0 0x5 0x0
--#define IOMUXC_GPIO_AD_25_KPP_COL05				0x170 0x3B4 0x0 0x6 0x0
--#define IOMUXC_GPIO_AD_25_FLEXIO2_D25				0x170 0x3B4 0x0 0x8 0x0
--#define IOMUXC_GPIO_AD_25_LPI2C4_SDA				0x170 0x3B4 0x5C8 0x9 0x0
--
--#define IOMUXC_GPIO_AD_26_LPUART1_CTS_B				0x174 0x3B8 0x0 0x0 0x0
--#define IOMUXC_GPIO_AD_26_LPSPI2_SOUT				0x174 0x3B8 0x5EC 0x1 0x0
--#define IOMUXC_GPIO_AD_26_SEMC_CSX01				0x174 0x3B8 0x0 0x2 0x0
--#define IOMUXC_GPIO_AD_26_ENET_RX_DATA00			0x174 0x3B8 0x4B0 0x3 0x0
--#define IOMUXC_GPIO_AD_26_FLEXPWM2_PWM1_A			0x174 0x3B8 0x51C 0x4 0x1
--#define IOMUXC_GPIO_AD_26_GPIO_MUX3_IO25			0x174 0x3B8 0x0 0x5 0x0
--#define IOMUXC_GPIO_AD_26_KPP_ROW04				0x174 0x3B8 0x0 0x6 0x0
--#define IOMUXC_GPIO_AD_26_FLEXIO2_D26				0x174 0x3B8 0x0 0x8 0x0
--#define IOMUXC_GPIO_AD_26_ENET_QOS_MDC				0x174 0x3B8 0x0 0x9 0x0
--#define IOMUXC_GPIO_AD_26_GPIO9_IO25				0x174 0x3B8 0x0 0xA 0x0
--#define IOMUXC_GPIO_AD_26_USDHC2_CD_B				0x174 0x3B8 0x6D0 0xB 0x1
--
--#define IOMUXC_GPIO_AD_27_LPUART1_RTS_B				0x178 0x3BC 0x0 0x0 0x0
--#define IOMUXC_GPIO_AD_27_LPSPI2_SIN				0x178 0x3BC 0x5E8 0x1 0x0
--#define IOMUXC_GPIO_AD_27_SEMC_CSX02				0x178 0x3BC 0x0 0x2 0x0
--#define IOMUXC_GPIO_AD_27_ENET_RX_DATA01			0x178 0x3BC 0x4B4 0x3 0x0
--#define IOMUXC_GPIO_AD_27_FLEXPWM2_PWM1_B			0x178 0x3BC 0x528 0x4 0x1
--#define IOMUXC_GPIO_AD_27_GPIO_MUX3_IO26			0x178 0x3BC 0x0 0x5 0x0
--#define IOMUXC_GPIO_AD_27_KPP_COL04				0x178 0x3BC 0x0 0x6 0x0
--#define IOMUXC_GPIO_AD_27_FLEXIO2_D27				0x178 0x3BC 0x0 0x8 0x0
--#define IOMUXC_GPIO_AD_27_ENET_QOS_MDIO				0x178 0x3BC 0x4EC 0x9 0x1
--#define IOMUXC_GPIO_AD_27_GPIO9_IO26				0x178 0x3BC 0x0 0xA 0x0
--#define IOMUXC_GPIO_AD_27_USDHC2_WP				0x178 0x3BC 0x6D4 0xB 0x1
--
--#define IOMUXC_GPIO_AD_28_GPIO9_IO27				0x17C 0x3C0 0x0 0xA 0x0
--#define IOMUXC_GPIO_AD_28_USDHC2_VSELECT			0x17C 0x3C0 0x0 0xB 0x0
--#define IOMUXC_GPIO_AD_28_LPSPI1_SCK				0x17C 0x3C0 0x5D0 0x0 0x1
--#define IOMUXC_GPIO_AD_28_LPUART5_TXD				0x17C 0x3C0 0x0 0x1 0x0
--#define IOMUXC_GPIO_AD_28_SEMC_CSX03				0x17C 0x3C0 0x0 0x2 0x0
--#define IOMUXC_GPIO_AD_28_ENET_TX_EN				0x17C 0x3C0 0x0 0x3 0x0
--#define IOMUXC_GPIO_AD_28_FLEXPWM2_PWM2_A			0x17C 0x3C0 0x520 0x4 0x1
--#define IOMUXC_GPIO_AD_28_GPIO_MUX3_IO27			0x17C 0x3C0 0x0 0x5 0x0
--#define IOMUXC_GPIO_AD_28_KPP_ROW03				0x17C 0x3C0 0x0 0x6 0x0
--#define IOMUXC_GPIO_AD_28_FLEXIO2_D28				0x17C 0x3C0 0x0 0x8 0x0
--#define IOMUXC_GPIO_AD_28_VIDEO_MUX_EXT_DCIC1			0x17C 0x3C0 0x0 0x9 0x0
--
--#define IOMUXC_GPIO_AD_29_LPSPI1_PCS0				0x180 0x3C4 0x5CC 0x0 0x1
--#define IOMUXC_GPIO_AD_29_LPUART5_RXD				0x180 0x3C4 0x0 0x1 0x0
--#define IOMUXC_GPIO_AD_29_ENET_REF_CLK				0x180 0x3C4 0x4A8 0x2 0x0
--#define IOMUXC_GPIO_AD_29_ENET_TX_CLK				0x180 0x3C4 0x4C0 0x3 0x0
--#define IOMUXC_GPIO_AD_29_FLEXPWM2_PWM2_B			0x180 0x3C4 0x52C 0x4 0x1
--#define IOMUXC_GPIO_AD_29_GPIO_MUX3_IO28			0x180 0x3C4 0x0 0x5 0x0
--#define IOMUXC_GPIO_AD_29_KPP_COL03				0x180 0x3C4 0x0 0x6 0x0
--#define IOMUXC_GPIO_AD_29_FLEXIO2_D29				0x180 0x3C4 0x0 0x8 0x0
--#define IOMUXC_GPIO_AD_29_VIDEO_MUX_EXT_DCIC2			0x180 0x3C4 0x0 0x9 0x0
--#define IOMUXC_GPIO_AD_29_GPIO9_IO28				0x180 0x3C4 0x0 0xA 0x0
--#define IOMUXC_GPIO_AD_29_USDHC2_RESET_B			0x180 0x3C4 0x0 0xB 0x0
--
--#define IOMUXC_GPIO_AD_30_LPSPI1_SOUT				0x184 0x3C8 0x5D8 0x0 0x1
--#define IOMUXC_GPIO_AD_30_USB_OTG2_OC				0x184 0x3C8 0x6B8 0x1 0x1
--#define IOMUXC_GPIO_AD_30_FLEXCAN2_TX				0x184 0x3C8 0x0 0x2 0x0
--#define IOMUXC_GPIO_AD_30_ENET_TX_DATA00			0x184 0x3C8 0x0 0x3 0x0
--#define IOMUXC_GPIO_AD_30_LPUART3_TXD				0x184 0x3C8 0x0 0x4 0x0
--#define IOMUXC_GPIO_AD_30_GPIO_MUX3_IO29			0x184 0x3C8 0x0 0x5 0x0
--#define IOMUXC_GPIO_AD_30_KPP_ROW02				0x184 0x3C8 0x0 0x6 0x0
--#define IOMUXC_GPIO_AD_30_FLEXIO2_D30				0x184 0x3C8 0x0 0x8 0x0
--#define IOMUXC_GPIO_AD_30_WDOG2_RESET_B_DEB			0x184 0x3C8 0x0 0x9 0x0
--#define IOMUXC_GPIO_AD_30_GPIO9_IO29				0x184 0x3C8 0x0 0xA 0x0
--
--#define IOMUXC_GPIO_AD_31_LPSPI1_SIN				0x188 0x3CC 0x5D4 0x0 0x1
--#define IOMUXC_GPIO_AD_31_USB_OTG2_PWR				0x188 0x3CC 0x0 0x1 0x0
--#define IOMUXC_GPIO_AD_31_FLEXCAN2_RX				0x188 0x3CC 0x49C 0x2 0x1
--#define IOMUXC_GPIO_AD_31_ENET_TX_DATA01			0x188 0x3CC 0x0 0x3 0x0
--#define IOMUXC_GPIO_AD_31_LPUART3_RXD				0x188 0x3CC 0x0 0x4 0x0
--#define IOMUXC_GPIO_AD_31_GPIO_MUX3_IO30			0x188 0x3CC 0x0 0x5 0x0
--#define IOMUXC_GPIO_AD_31_KPP_COL02				0x188 0x3CC 0x0 0x6 0x0
--#define IOMUXC_GPIO_AD_31_FLEXIO2_D31				0x188 0x3CC 0x0 0x8 0x0
--#define IOMUXC_GPIO_AD_31_WDOG1_RESET_B_DEB			0x188 0x3CC 0x0 0x9 0x0
--#define IOMUXC_GPIO_AD_31_GPIO9_IO30				0x188 0x3CC 0x0 0xA 0x0
--
--#define IOMUXC_GPIO_AD_32_GPIO9_IO31				0x18C 0x3D0 0x0 0xA 0x0
--#define IOMUXC_GPIO_AD_32_LPI2C1_SCL				0x18C 0x3D0 0x5AC 0x0 0x1
--#define IOMUXC_GPIO_AD_32_USBPHY2_OTG_ID			0x18C 0x3D0 0x6C4 0x1 0x1
--#define IOMUXC_GPIO_AD_32_PGMC_PMIC_RDY				0x18C 0x3D0 0x0 0x2 0x0
--#define IOMUXC_GPIO_AD_32_ENET_MDC				0x18C 0x3D0 0x0 0x3 0x0
--#define IOMUXC_GPIO_AD_32_USDHC1_CD_B				0x18C 0x3D0 0x6C8 0x4 0x0
--#define IOMUXC_GPIO_AD_32_GPIO_MUX3_IO31			0x18C 0x3D0 0x0 0x5 0x0
--#define IOMUXC_GPIO_AD_32_KPP_ROW01				0x18C 0x3D0 0x0 0x6 0x0
--#define IOMUXC_GPIO_AD_32_LPUART10_TXD				0x18C 0x3D0 0x628 0x8 0x1
--#define IOMUXC_GPIO_AD_32_ENET_1G_MDC				0x18C 0x3D0 0x0 0x9 0x0
--
--#define IOMUXC_GPIO_AD_33_LPI2C1_SDA				0x190 0x3D4 0x5B0 0x0 0x1
--#define IOMUXC_GPIO_AD_33_USBPHY1_OTG_ID			0x190 0x3D4 0x6C0 0x1 0x1
--#define IOMUXC_GPIO_AD_33_XBAR1_INOUT17				0x190 0x3D4 0x0 0x2 0x0
--#define IOMUXC_GPIO_AD_33_ENET_MDIO				0x190 0x3D4 0x4AC 0x3 0x1
--#define IOMUXC_GPIO_AD_33_USDHC1_WP				0x190 0x3D4 0x6CC 0x4 0x0
--#define IOMUXC_GPIO_AD_33_GPIO_MUX4_IO00			0x190 0x3D4 0x0 0x5 0x0
--#define IOMUXC_GPIO_AD_33_KPP_COL01				0x190 0x3D4 0x0 0x6 0x0
--#define IOMUXC_GPIO_AD_33_LPUART10_RXD				0x190 0x3D4 0x624 0x8 0x1
--#define IOMUXC_GPIO_AD_33_ENET_1G_MDIO				0x190 0x3D4 0x4C8 0x9 0x3
--#define IOMUXC_GPIO_AD_33_GPIO10_IO00				0x190 0x3D4 0x0 0xA 0x0
--
--#define IOMUXC_GPIO_AD_34_ENET_1G_1588_EVENT0_IN		0x194 0x3D8 0x0 0x0 0x0
--#define IOMUXC_GPIO_AD_34_USB_OTG1_PWR				0x194 0x3D8 0x0 0x1 0x0
--#define IOMUXC_GPIO_AD_34_XBAR1_INOUT18				0x194 0x3D8 0x0 0x2 0x0
--#define IOMUXC_GPIO_AD_34_ENET_1588_EVENT0_IN			0x194 0x3D8 0x0 0x3 0x0
--#define IOMUXC_GPIO_AD_34_USDHC1_VSELECT			0x194 0x3D8 0x0 0x4 0x0
--#define IOMUXC_GPIO_AD_34_GPIO_MUX4_IO01			0x194 0x3D8 0x0 0x5 0x0
--#define IOMUXC_GPIO_AD_34_KPP_ROW00				0x194 0x3D8 0x0 0x6 0x0
--#define IOMUXC_GPIO_AD_34_LPUART10_CTS_B			0x194 0x3D8 0x0 0x8 0x0
--#define IOMUXC_GPIO_AD_34_WDOG1_ANY				0x194 0x3D8 0x0 0x9 0x0
--#define IOMUXC_GPIO_AD_34_GPIO10_IO01				0x194 0x3D8 0x0 0xA 0x0
--
--#define IOMUXC_GPIO_AD_35_GPIO10_IO02				0x198 0x3DC 0x0 0xA 0x0
--#define IOMUXC_GPIO_AD_35_ENET_1G_1588_EVENT0_OUT		0x198 0x3DC 0x0 0x0 0x0
--#define IOMUXC_GPIO_AD_35_USB_OTG1_OC				0x198 0x3DC 0x6BC 0x1 0x1
--#define IOMUXC_GPIO_AD_35_XBAR1_INOUT19				0x198 0x3DC 0x0 0x2 0x0
--#define IOMUXC_GPIO_AD_35_ENET_1588_EVENT0_OUT			0x198 0x3DC 0x0 0x3 0x0
--#define IOMUXC_GPIO_AD_35_USDHC1_RESET_B			0x198 0x3DC 0x0 0x4 0x0
--#define IOMUXC_GPIO_AD_35_GPIO_MUX4_IO02			0x198 0x3DC 0x0 0x5 0x0
--#define IOMUXC_GPIO_AD_35_KPP_COL00				0x198 0x3DC 0x0 0x6 0x0
--#define IOMUXC_GPIO_AD_35_LPUART10_RTS_B			0x198 0x3DC 0x0 0x8 0x0
--#define IOMUXC_GPIO_AD_35_FLEXSPI1_B_SS1_B			0x198 0x3DC 0x0 0x9 0x0
--
--#define IOMUXC_GPIO_SD_B1_00_USDHC1_CMD				0x19C 0x3E0 0x0 0x0 0x0
--#define IOMUXC_GPIO_SD_B1_00_XBAR1_INOUT20			0x19C 0x3E0 0x6D8 0x2 0x1
--#define IOMUXC_GPIO_SD_B1_00_GPT4_CAPTURE1			0x19C 0x3E0 0x0 0x3 0x0
--#define IOMUXC_GPIO_SD_B1_00_GPIO_MUX4_IO03			0x19C 0x3E0 0x0 0x5 0x0
--#define IOMUXC_GPIO_SD_B1_00_FLEXSPI2_A_SS0_B			0x19C 0x3E0 0x0 0x6 0x0
--#define IOMUXC_GPIO_SD_B1_00_KPP_ROW07				0x19C 0x3E0 0x5A8 0x8 0x1
--#define IOMUXC_GPIO_SD_B1_00_GPIO10_IO03			0x19C 0x3E0 0x0 0xA 0x0
--
--#define IOMUXC_GPIO_SD_B1_01_USDHC1_CLK				0x1A0 0x3E4 0x0 0x0 0x0
--#define IOMUXC_GPIO_SD_B1_01_XBAR1_INOUT21			0x1A0 0x3E4 0x6DC 0x2 0x1
--#define IOMUXC_GPIO_SD_B1_01_GPT4_CAPTURE2			0x1A0 0x3E4 0x0 0x3 0x0
--#define IOMUXC_GPIO_SD_B1_01_GPIO_MUX4_IO04			0x1A0 0x3E4 0x0 0x5 0x0
--#define IOMUXC_GPIO_SD_B1_01_FLEXSPI2_A_SCLK			0x1A0 0x3E4 0x58C 0x6 0x1
--#define IOMUXC_GPIO_SD_B1_01_KPP_COL07				0x1A0 0x3E4 0x5A0 0x8 0x1
--#define IOMUXC_GPIO_SD_B1_01_GPIO10_IO04			0x1A0 0x3E4 0x0 0xA 0x0
--
--#define IOMUXC_GPIO_SD_B1_02_GPIO10_IO05			0x1A4 0x3E8 0x0 0xA 0x0
--#define IOMUXC_GPIO_SD_B1_02_USDHC1_DATA0			0x1A4 0x3E8 0x0 0x0 0x0
--#define IOMUXC_GPIO_SD_B1_02_XBAR1_INOUT22			0x1A4 0x3E8 0x6E0 0x2 0x1
--#define IOMUXC_GPIO_SD_B1_02_GPT4_COMPARE1			0x1A4 0x3E8 0x0 0x3 0x0
--#define IOMUXC_GPIO_SD_B1_02_GPIO_MUX4_IO05			0x1A4 0x3E8 0x0 0x5 0x0
--#define IOMUXC_GPIO_SD_B1_02_FLEXSPI2_A_DATA00			0x1A4 0x3E8 0x57C 0x6 0x1
--#define IOMUXC_GPIO_SD_B1_02_KPP_ROW06				0x1A4 0x3E8 0x5A4 0x8 0x1
--#define IOMUXC_GPIO_SD_B1_02_FLEXSPI1_A_SS1_B			0x1A4 0x3E8 0x0 0x9 0x0
--
--#define IOMUXC_GPIO_SD_B1_03_USDHC1_DATA1			0x1A8 0x3EC 0x0 0x0 0x0
--#define IOMUXC_GPIO_SD_B1_03_XBAR1_INOUT23			0x1A8 0x3EC 0x6E4 0x2 0x1
--#define IOMUXC_GPIO_SD_B1_03_GPT4_COMPARE2			0x1A8 0x3EC 0x0 0x3 0x0
--#define IOMUXC_GPIO_SD_B1_03_GPIO_MUX4_IO06			0x1A8 0x3EC 0x0 0x5 0x0
--#define IOMUXC_GPIO_SD_B1_03_FLEXSPI2_A_DATA01			0x1A8 0x3EC 0x580 0x6 0x1
--#define IOMUXC_GPIO_SD_B1_03_KPP_COL06				0x1A8 0x3EC 0x59C 0x8 0x1
--#define IOMUXC_GPIO_SD_B1_03_FLEXSPI1_B_SS1_B			0x1A8 0x3EC 0x0 0x9 0x0
--#define IOMUXC_GPIO_SD_B1_03_GPIO10_IO06			0x1A8 0x3EC 0x0 0xA 0x0
--
--#define IOMUXC_GPIO_SD_B1_04_USDHC1_DATA2			0x1AC 0x3F0 0x0 0x0 0x0
--#define IOMUXC_GPIO_SD_B1_04_XBAR1_INOUT24			0x1AC 0x3F0 0x6E8 0x2 0x1
--#define IOMUXC_GPIO_SD_B1_04_GPT4_COMPARE3			0x1AC 0x3F0 0x0 0x3 0x0
--#define IOMUXC_GPIO_SD_B1_04_GPIO_MUX4_IO07			0x1AC 0x3F0 0x0 0x5 0x0
--#define IOMUXC_GPIO_SD_B1_04_FLEXSPI2_A_DATA02			0x1AC 0x3F0 0x584 0x6 0x1
--#define IOMUXC_GPIO_SD_B1_04_FLEXSPI1_B_SS0_B			0x1AC 0x3F0 0x0 0x8 0x0
--#define IOMUXC_GPIO_SD_B1_04_ENET_QOS_1588_EVENT2_AUX_IN	0x1AC 0x3F0 0x0 0x9 0x0
--#define IOMUXC_GPIO_SD_B1_04_GPIO10_IO07			0x1AC 0x3F0 0x0 0xA 0x0
--
--#define IOMUXC_GPIO_SD_B1_05_GPIO10_IO08			0x1B0 0x3F4 0x0 0xA 0x0
--#define IOMUXC_GPIO_SD_B1_05_USDHC1_DATA3			0x1B0 0x3F4 0x0 0x0 0x0
--#define IOMUXC_GPIO_SD_B1_05_XBAR1_INOUT25			0x1B0 0x3F4 0x6EC 0x2 0x1
--#define IOMUXC_GPIO_SD_B1_05_GPT4_CLK				0x1B0 0x3F4 0x0 0x3 0x0
--#define IOMUXC_GPIO_SD_B1_05_GPIO_MUX4_IO08			0x1B0 0x3F4 0x0 0x5 0x0
--#define IOMUXC_GPIO_SD_B1_05_FLEXSPI2_A_DATA03			0x1B0 0x3F4 0x588 0x6 0x1
--#define IOMUXC_GPIO_SD_B1_05_FLEXSPI1_B_DQS			0x1B0 0x3F4 0x0 0x8 0x0
--#define IOMUXC_GPIO_SD_B1_05_ENET_QOS_1588_EVENT3_AUX_IN	0x1B0 0x3F4 0x0 0x9 0x0
--
--#define IOMUXC_GPIO_SD_B2_00_GPIO10_IO09			0x1B4 0x3F8 0x0 0xA 0x0
--#define IOMUXC_GPIO_SD_B2_00_USDHC2_DATA3			0x1B4 0x3F8 0x0 0x0 0x0
--#define IOMUXC_GPIO_SD_B2_00_FLEXSPI1_B_DATA03			0x1B4 0x3F8 0x570 0x1 0x1
--#define IOMUXC_GPIO_SD_B2_00_ENET_1G_RX_EN			0x1B4 0x3F8 0x4E0 0x2 0x1
--#define IOMUXC_GPIO_SD_B2_00_LPUART9_TXD			0x1B4 0x3F8 0x0 0x3 0x0
--#define IOMUXC_GPIO_SD_B2_00_LPSPI4_SCK				0x1B4 0x3F8 0x610 0x4 0x0
--#define IOMUXC_GPIO_SD_B2_00_GPIO_MUX4_IO09			0x1B4 0x3F8 0x0 0x5 0x0
--
--#define IOMUXC_GPIO_SD_B2_01_USDHC2_DATA2			0x1B8 0x3FC 0x0 0x0 0x0
--#define IOMUXC_GPIO_SD_B2_01_FLEXSPI1_B_DATA02			0x1B8 0x3FC 0x56C 0x1 0x1
--#define IOMUXC_GPIO_SD_B2_01_ENET_1G_RX_CLK			0x1B8 0x3FC 0x4CC 0x2 0x1
--#define IOMUXC_GPIO_SD_B2_01_LPUART9_RXD			0x1B8 0x3FC 0x0 0x3 0x0
--#define IOMUXC_GPIO_SD_B2_01_LPSPI4_PCS0			0x1B8 0x3FC 0x60C 0x4 0x0
--#define IOMUXC_GPIO_SD_B2_01_GPIO_MUX4_IO10			0x1B8 0x3FC 0x0 0x5 0x0
--#define IOMUXC_GPIO_SD_B2_01_GPIO10_IO10			0x1B8 0x3FC 0x0 0xA 0x0
--
--#define IOMUXC_GPIO_SD_B2_02_GPIO10_IO11			0x1BC 0x400 0x0 0xA 0x0
--#define IOMUXC_GPIO_SD_B2_02_USDHC2_DATA1			0x1BC 0x400 0x0 0x0 0x0
--#define IOMUXC_GPIO_SD_B2_02_FLEXSPI1_B_DATA01			0x1BC 0x400 0x568 0x1 0x1
--#define IOMUXC_GPIO_SD_B2_02_ENET_1G_RX_DATA00			0x1BC 0x400 0x4D0 0x2 0x1
--#define IOMUXC_GPIO_SD_B2_02_LPUART9_CTS_B			0x1BC 0x400 0x0 0x3 0x0
--#define IOMUXC_GPIO_SD_B2_02_LPSPI4_SOUT			0x1BC 0x400 0x618 0x4 0x0
--#define IOMUXC_GPIO_SD_B2_02_GPIO_MUX4_IO11			0x1BC 0x400 0x0 0x5 0x0
--
--#define IOMUXC_GPIO_SD_B2_03_GPIO10_IO12			0x1C0 0x404 0x0 0xA 0x0
--#define IOMUXC_GPIO_SD_B2_03_USDHC2_DATA0			0x1C0 0x404 0x0 0x0 0x0
--#define IOMUXC_GPIO_SD_B2_03_FLEXSPI1_B_DATA00			0x1C0 0x404 0x564 0x1 0x1
--#define IOMUXC_GPIO_SD_B2_03_ENET_1G_RX_DATA01			0x1C0 0x404 0x4D4 0x2 0x1
--#define IOMUXC_GPIO_SD_B2_03_LPUART9_RTS_B			0x1C0 0x404 0x0 0x3 0x0
--#define IOMUXC_GPIO_SD_B2_03_LPSPI4_SIN				0x1C0 0x404 0x614 0x4 0x0
--#define IOMUXC_GPIO_SD_B2_03_GPIO_MUX4_IO12			0x1C0 0x404 0x0 0x5 0x0
--
--#define IOMUXC_GPIO_SD_B2_04_USDHC2_CLK				0x1C4 0x408 0x0 0x0 0x0
--#define IOMUXC_GPIO_SD_B2_04_FLEXSPI1_B_SCLK			0x1C4 0x408 0x578 0x1 0x1
--#define IOMUXC_GPIO_SD_B2_04_ENET_1G_RX_DATA02			0x1C4 0x408 0x4D8 0x2 0x1
--#define IOMUXC_GPIO_SD_B2_04_FLEXSPI1_A_SS1_B			0x1C4 0x408 0x0 0x3 0x0
--#define IOMUXC_GPIO_SD_B2_04_LPSPI4_PCS1			0x1C4 0x408 0x0 0x4 0x0
--#define IOMUXC_GPIO_SD_B2_04_GPIO_MUX4_IO13			0x1C4 0x408 0x0 0x5 0x0
--#define IOMUXC_GPIO_SD_B2_04_GPIO10_IO13			0x1C4 0x408 0x0 0xA 0x0
--
--#define IOMUXC_GPIO_SD_B2_05_GPIO10_IO14			0x1C8 0x40C 0x0 0xA 0x0
--#define IOMUXC_GPIO_SD_B2_05_USDHC2_CMD				0x1C8 0x40C 0x0 0x0 0x0
--#define IOMUXC_GPIO_SD_B2_05_FLEXSPI1_A_DQS			0x1C8 0x40C 0x550 0x1 0x2
--#define IOMUXC_GPIO_SD_B2_05_ENET_1G_RX_DATA03			0x1C8 0x40C 0x4DC 0x2 0x1
--#define IOMUXC_GPIO_SD_B2_05_FLEXSPI1_B_SS0_B			0x1C8 0x40C 0x0 0x3 0x0
--#define IOMUXC_GPIO_SD_B2_05_LPSPI4_PCS2			0x1C8 0x40C 0x0 0x4 0x0
--#define IOMUXC_GPIO_SD_B2_05_GPIO_MUX4_IO14			0x1C8 0x40C 0x0 0x5 0x0
--
--#define IOMUXC_GPIO_SD_B2_06_GPIO10_IO15			0x1CC 0x410 0x0 0xA 0x0
--#define IOMUXC_GPIO_SD_B2_06_USDHC2_RESET_B			0x1CC 0x410 0x0 0x0 0x0
--#define IOMUXC_GPIO_SD_B2_06_FLEXSPI1_A_SS0_B			0x1CC 0x410 0x0 0x1 0x0
--#define IOMUXC_GPIO_SD_B2_06_ENET_1G_TX_DATA03			0x1CC 0x410 0x0 0x2 0x0
--#define IOMUXC_GPIO_SD_B2_06_LPSPI4_PCS3			0x1CC 0x410 0x0 0x3 0x0
--#define IOMUXC_GPIO_SD_B2_06_GPT6_CAPTURE1			0x1CC 0x410 0x0 0x4 0x0
--#define IOMUXC_GPIO_SD_B2_06_GPIO_MUX4_IO15			0x1CC 0x410 0x0 0x5 0x0
--
--#define IOMUXC_GPIO_SD_B2_07_USDHC2_STROBE			0x1D0 0x414 0x0 0x0 0x0
--#define IOMUXC_GPIO_SD_B2_07_FLEXSPI1_A_SCLK			0x1D0 0x414 0x574 0x1 0x1
--#define IOMUXC_GPIO_SD_B2_07_ENET_1G_TX_DATA02			0x1D0 0x414 0x0 0x2 0x0
--#define IOMUXC_GPIO_SD_B2_07_LPUART3_CTS_B			0x1D0 0x414 0x0 0x3 0x0
--#define IOMUXC_GPIO_SD_B2_07_GPT6_CAPTURE2			0x1D0 0x414 0x0 0x4 0x0
--#define IOMUXC_GPIO_SD_B2_07_GPIO_MUX4_IO16			0x1D0 0x414 0x0 0x5 0x0
--#define IOMUXC_GPIO_SD_B2_07_LPSPI2_SCK				0x1D0 0x414 0x5E4 0x6 0x1
--#define IOMUXC_GPIO_SD_B2_07_ENET_TX_ER				0x1D0 0x414 0x0 0x8 0x0
--#define IOMUXC_GPIO_SD_B2_07_ENET_QOS_REF_CLK			0x1D0 0x414 0x4A0 0x9 0x1
--#define IOMUXC_GPIO_SD_B2_07_GPIO10_IO16			0x1D0 0x414 0x0 0xA 0x0
--
--#define IOMUXC_GPIO_SD_B2_08_GPIO10_IO17			0x1D4 0x418 0x0 0xA 0x0
--#define IOMUXC_GPIO_SD_B2_08_USDHC2_DATA4			0x1D4 0x418 0x0 0x0 0x0
--#define IOMUXC_GPIO_SD_B2_08_FLEXSPI1_A_DATA00			0x1D4 0x418 0x554 0x1 0x1
--#define IOMUXC_GPIO_SD_B2_08_ENET_1G_TX_DATA01			0x1D4 0x418 0x0 0x2 0x0
--#define IOMUXC_GPIO_SD_B2_08_LPUART3_RTS_B			0x1D4 0x418 0x0 0x3 0x0
--#define IOMUXC_GPIO_SD_B2_08_GPT6_COMPARE1			0x1D4 0x418 0x0 0x4 0x0
--#define IOMUXC_GPIO_SD_B2_08_GPIO_MUX4_IO17			0x1D4 0x418 0x0 0x5 0x0
--#define IOMUXC_GPIO_SD_B2_08_LPSPI2_PCS0			0x1D4 0x418 0x5DC 0x6 0x1
--
--#define IOMUXC_GPIO_SD_B2_09_GPIO10_IO18			0x1D8 0x41C 0x0 0xA 0x0
--#define IOMUXC_GPIO_SD_B2_09_USDHC2_DATA5			0x1D8 0x41C 0x0 0x0 0x0
--#define IOMUXC_GPIO_SD_B2_09_FLEXSPI1_A_DATA01			0x1D8 0x41C 0x558 0x1 0x1
--#define IOMUXC_GPIO_SD_B2_09_ENET_1G_TX_DATA00			0x1D8 0x41C 0x0 0x2 0x0
--#define IOMUXC_GPIO_SD_B2_09_LPUART5_CTS_B			0x1D8 0x41C 0x0 0x3 0x0
--#define IOMUXC_GPIO_SD_B2_09_GPT6_COMPARE2			0x1D8 0x41C 0x0 0x4 0x0
--#define IOMUXC_GPIO_SD_B2_09_GPIO_MUX4_IO18			0x1D8 0x41C 0x0 0x5 0x0
--#define IOMUXC_GPIO_SD_B2_09_LPSPI2_SOUT			0x1D8 0x41C 0x5EC 0x6 0x1
--
--#define IOMUXC_GPIO_SD_B2_10_GPIO10_IO19			0x1DC 0x420 0x0 0xA 0x0
--#define IOMUXC_GPIO_SD_B2_10_USDHC2_DATA6			0x1DC 0x420 0x0 0x0 0x0
--#define IOMUXC_GPIO_SD_B2_10_FLEXSPI1_A_DATA02			0x1DC 0x420 0x55C 0x1 0x1
--#define IOMUXC_GPIO_SD_B2_10_ENET_1G_TX_EN			0x1DC 0x420 0x0 0x2 0x0
--#define IOMUXC_GPIO_SD_B2_10_LPUART5_RTS_B			0x1DC 0x420 0x0 0x3 0x0
--#define IOMUXC_GPIO_SD_B2_10_GPT6_COMPARE3			0x1DC 0x420 0x0 0x4 0x0
--#define IOMUXC_GPIO_SD_B2_10_GPIO_MUX4_IO19			0x1DC 0x420 0x0 0x5 0x0
--#define IOMUXC_GPIO_SD_B2_10_LPSPI2_SIN				0x1DC 0x420 0x5E8 0x6 0x1
--
--#define IOMUXC_GPIO_SD_B2_11_USDHC2_DATA7			0x1E0 0x424 0x0 0x0 0x0
--#define IOMUXC_GPIO_SD_B2_11_FLEXSPI1_A_DATA03			0x1E0 0x424 0x560 0x1 0x1
--#define IOMUXC_GPIO_SD_B2_11_ENET_1G_TX_CLK_IO			0x1E0 0x424 0x4E8 0x2 0x1
--#define IOMUXC_GPIO_SD_B2_11_ENET_1G_REF_CLK			0x1E0 0x424 0x4C4 0x3 0x1
--#define IOMUXC_GPIO_SD_B2_11_GPT6_CLK				0x1E0 0x424 0x0 0x4 0x0
--#define IOMUXC_GPIO_SD_B2_11_GPIO_MUX4_IO20			0x1E0 0x424 0x0 0x5 0x0
--#define IOMUXC_GPIO_SD_B2_11_LPSPI2_PCS1			0x1E0 0x424 0x5E0 0x6 0x1
--#define IOMUXC_GPIO_SD_B2_11_GPIO10_IO20			0x1E0 0x424 0x0 0xA 0x0
--
--#define IOMUXC_GPIO_DISP_B1_00_VIDEO_MUX_LCDIF_CLK		0x1E4 0x428 0x0 0x0 0x0
--#define IOMUXC_GPIO_DISP_B1_00_ENET_1G_RX_EN			0x1E4 0x428 0x4E0 0x1 0x2
--#define IOMUXC_GPIO_DISP_B1_00_TMR1_TIMER0			0x1E4 0x428 0x63C 0x3 0x2
--#define IOMUXC_GPIO_DISP_B1_00_XBAR1_INOUT26			0x1E4 0x428 0x6F0 0x4 0x1
--#define IOMUXC_GPIO_DISP_B1_00_GPIO_MUX4_IO21			0x1E4 0x428 0x0 0x5 0x0
--#define IOMUXC_GPIO_DISP_B1_00_ENET_QOS_RX_EN			0x1E4 0x428 0x4F8 0x8 0x0
--#define IOMUXC_GPIO_DISP_B1_00_GPIO10_IO21			0x1E4 0x428 0x0 0xA 0x0
--
--#define IOMUXC_GPIO_DISP_B1_01_VIDEO_MUX_LCDIF_ENABLE		0x1E8 0x42C 0x0 0x0 0x0
--#define IOMUXC_GPIO_DISP_B1_01_ENET_1G_RX_CLK			0x1E8 0x42C 0x4CC 0x1 0x2
--#define IOMUXC_GPIO_DISP_B1_01_ENET_1G_RX_ER			0x1E8 0x42C 0x4E4 0x2 0x1
--#define IOMUXC_GPIO_DISP_B1_01_TMR1_TIMER1			0x1E8 0x42C 0x640 0x3 0x2
--#define IOMUXC_GPIO_DISP_B1_01_XBAR1_INOUT27			0x1E8 0x42C 0x6F4 0x4 0x1
--#define IOMUXC_GPIO_DISP_B1_01_GPIO_MUX4_IO22			0x1E8 0x42C 0x0 0x5 0x0
--#define IOMUXC_GPIO_DISP_B1_01_ENET_QOS_RX_CLK			0x1E8 0x42C 0x0 0x8 0x0
--#define IOMUXC_GPIO_DISP_B1_01_ENET_QOS_RX_ER			0x1E8 0x42C 0x4FC 0x9 0x0
--#define IOMUXC_GPIO_DISP_B1_01_GPIO10_IO22			0x1E8 0x42C 0x0 0xA 0x0
--
--#define IOMUXC_GPIO_DISP_B1_02_GPIO10_IO23			0x1EC 0x430 0x0 0xA 0x0
--#define IOMUXC_GPIO_DISP_B1_02_VIDEO_MUX_LCDIF_HSYNC		0x1EC 0x430 0x0 0x0 0x0
--#define IOMUXC_GPIO_DISP_B1_02_ENET_1G_RX_DATA00		0x1EC 0x430 0x4D0 0x1 0x2
--#define IOMUXC_GPIO_DISP_B1_02_LPI2C3_SCL			0x1EC 0x430 0x5BC 0x2 0x0
--#define IOMUXC_GPIO_DISP_B1_02_TMR1_TIMER2			0x1EC 0x430 0x644 0x3 0x1
--#define IOMUXC_GPIO_DISP_B1_02_XBAR1_INOUT28			0x1EC 0x430 0x6F8 0x4 0x1
--#define IOMUXC_GPIO_DISP_B1_02_GPIO_MUX4_IO23			0x1EC 0x430 0x0 0x5 0x0
--#define IOMUXC_GPIO_DISP_B1_02_ENET_QOS_RX_DATA00		0x1EC 0x430 0x4F0 0x8 0x0
--#define IOMUXC_GPIO_DISP_B1_02_LPUART1_TXD			0x1EC 0x430 0x620 0x9 0x1
--
--#define IOMUXC_GPIO_DISP_B1_03_VIDEO_MUX_LCDIF_VSYNC		0x1F0 0x434 0x0 0x0 0x0
--#define IOMUXC_GPIO_DISP_B1_03_ENET_1G_RX_DATA01		0x1F0 0x434 0x4D4 0x1 0x2
--#define IOMUXC_GPIO_DISP_B1_03_LPI2C3_SDA			0x1F0 0x434 0x5C0 0x2 0x0
--#define IOMUXC_GPIO_DISP_B1_03_TMR2_TIMER0			0x1F0 0x434 0x648 0x3 0x2
--#define IOMUXC_GPIO_DISP_B1_03_XBAR1_INOUT29			0x1F0 0x434 0x6FC 0x4 0x1
--#define IOMUXC_GPIO_DISP_B1_03_GPIO_MUX4_IO24			0x1F0 0x434 0x0 0x5 0x0
--#define IOMUXC_GPIO_DISP_B1_03_ENET_QOS_RX_DATA01		0x1F0 0x434 0x4F4 0x8 0x0
--#define IOMUXC_GPIO_DISP_B1_03_LPUART1_RXD			0x1F0 0x434 0x61C 0x9 0x1
--#define IOMUXC_GPIO_DISP_B1_03_GPIO10_IO24			0x1F0 0x434 0x0 0xA 0x0
--
--#define IOMUXC_GPIO_DISP_B1_04_VIDEO_MUX_LCDIF_DATA00		0x1F4 0x438 0x0 0x0 0x0
--#define IOMUXC_GPIO_DISP_B1_04_ENET_1G_RX_DATA02		0x1F4 0x438 0x4D8 0x1 0x2
--#define IOMUXC_GPIO_DISP_B1_04_LPUART4_RXD			0x1F4 0x438 0x0 0x2 0x0
--#define IOMUXC_GPIO_DISP_B1_04_TMR2_TIMER1			0x1F4 0x438 0x64C 0x3 0x2
--#define IOMUXC_GPIO_DISP_B1_04_XBAR1_INOUT30			0x1F4 0x438 0x700 0x4 0x1
--#define IOMUXC_GPIO_DISP_B1_04_GPIO_MUX4_IO25			0x1F4 0x438 0x0 0x5 0x0
--#define IOMUXC_GPIO_DISP_B1_04_ENET_QOS_RX_DATA02		0x1F4 0x438 0x0 0x8 0x0
--#define IOMUXC_GPIO_DISP_B1_04_LPSPI3_SCK			0x1F4 0x438 0x600 0x9 0x1
--#define IOMUXC_GPIO_DISP_B1_04_GPIO10_IO25			0x1F4 0x438 0x0 0xA 0x0
--
--#define IOMUXC_GPIO_DISP_B1_05_GPIO10_IO26			0x1F8 0x43C 0x0 0xA 0x0
--#define IOMUXC_GPIO_DISP_B1_05_VIDEO_MUX_LCDIF_DATA01		0x1F8 0x43C 0x0 0x0 0x0
--#define IOMUXC_GPIO_DISP_B1_05_ENET_1G_RX_DATA03		0x1F8 0x43C 0x4DC 0x1 0x2
--#define IOMUXC_GPIO_DISP_B1_05_LPUART4_CTS_B			0x1F8 0x43C 0x0 0x2 0x0
--#define IOMUXC_GPIO_DISP_B1_05_TMR2_TIMER2			0x1F8 0x43C 0x650 0x3 0x1
--#define IOMUXC_GPIO_DISP_B1_05_XBAR1_INOUT31			0x1F8 0x43C 0x704 0x4 0x1
--#define IOMUXC_GPIO_DISP_B1_05_GPIO_MUX4_IO26			0x1F8 0x43C 0x0 0x5 0x0
--#define IOMUXC_GPIO_DISP_B1_05_ENET_QOS_RX_DATA03		0x1F8 0x43C 0x0 0x8 0x0
--#define IOMUXC_GPIO_DISP_B1_05_LPSPI3_SIN			0x1F8 0x43C 0x604 0x9 0x1
--
--#define IOMUXC_GPIO_DISP_B1_06_VIDEO_MUX_LCDIF_DATA02		0x1FC 0x440 0x0 0x0 0x0
--#define IOMUXC_GPIO_DISP_B1_06_ENET_1G_TX_DATA03		0x1FC 0x440 0x0 0x1 0x0
--#define IOMUXC_GPIO_DISP_B1_06_LPUART4_TXD			0x1FC 0x440 0x0 0x2 0x0
--#define IOMUXC_GPIO_DISP_B1_06_TMR3_TIMER0			0x1FC 0x440 0x654 0x3 0x2
--#define IOMUXC_GPIO_DISP_B1_06_XBAR1_INOUT32			0x1FC 0x440 0x708 0x4 0x1
--#define IOMUXC_GPIO_DISP_B1_06_GPIO_MUX4_IO27			0x1FC 0x440 0x0 0x5 0x0
--#define IOMUXC_GPIO_DISP_B1_06_SRC_BT_CFG00			0x1FC 0x440 0x0 0x6 0x0
--#define IOMUXC_GPIO_DISP_B1_06_ENET_QOS_TX_DATA03		0x1FC 0x440 0x0 0x8 0x0
--#define IOMUXC_GPIO_DISP_B1_06_LPSPI3_SOUT			0x1FC 0x440 0x608 0x9 0x1
--#define IOMUXC_GPIO_DISP_B1_06_GPIO10_IO27			0x1FC 0x440 0x0 0xA 0x0
--
--#define IOMUXC_GPIO_DISP_B1_07_VIDEO_MUX_LCDIF_DATA03		0x200 0x444 0x0 0x0 0x0
--#define IOMUXC_GPIO_DISP_B1_07_ENET_1G_TX_DATA02		0x200 0x444 0x0 0x1 0x0
--#define IOMUXC_GPIO_DISP_B1_07_LPUART4_RTS_B			0x200 0x444 0x0 0x2 0x0
--#define IOMUXC_GPIO_DISP_B1_07_TMR3_TIMER1			0x200 0x444 0x658 0x3 0x2
--#define IOMUXC_GPIO_DISP_B1_07_XBAR1_INOUT33			0x200 0x444 0x70C 0x4 0x1
--#define IOMUXC_GPIO_DISP_B1_07_GPIO_MUX4_IO28			0x200 0x444 0x0 0x5 0x0
--#define IOMUXC_GPIO_DISP_B1_07_SRC_BT_CFG01			0x200 0x444 0x0 0x6 0x0
--#define IOMUXC_GPIO_DISP_B1_07_ENET_QOS_TX_DATA02		0x200 0x444 0x0 0x8 0x0
--#define IOMUXC_GPIO_DISP_B1_07_LPSPI3_PCS0			0x200 0x444 0x5F0 0x9 0x1
--#define IOMUXC_GPIO_DISP_B1_07_GPIO10_IO28			0x200 0x444 0x0 0xA 0x0
--
--#define IOMUXC_GPIO_DISP_B1_08_GPIO10_IO29			0x204 0x448 0x0 0xA 0x0
--#define IOMUXC_GPIO_DISP_B1_08_VIDEO_MUX_LCDIF_DATA04		0x204 0x448 0x0 0x0 0x0
--#define IOMUXC_GPIO_DISP_B1_08_ENET_1G_TX_DATA01		0x204 0x448 0x0 0x1 0x0
--#define IOMUXC_GPIO_DISP_B1_08_USDHC1_CD_B			0x204 0x448 0x6C8 0x2 0x1
--#define IOMUXC_GPIO_DISP_B1_08_TMR3_TIMER2			0x204 0x448 0x65C 0x3 0x1
--#define IOMUXC_GPIO_DISP_B1_08_XBAR1_INOUT34			0x204 0x448 0x710 0x4 0x1
--#define IOMUXC_GPIO_DISP_B1_08_GPIO_MUX4_IO29			0x204 0x448 0x0 0x5 0x0
--#define IOMUXC_GPIO_DISP_B1_08_SRC_BT_CFG02			0x204 0x448 0x0 0x6 0x0
--#define IOMUXC_GPIO_DISP_B1_08_ENET_QOS_TX_DATA01		0x204 0x448 0x0 0x8 0x0
--#define IOMUXC_GPIO_DISP_B1_08_LPSPI3_PCS1			0x204 0x448 0x5F4 0x9 0x1
--
--#define IOMUXC_GPIO_DISP_B1_09_VIDEO_MUX_LCDIF_DATA05		0x208 0x44C 0x0 0x0 0x0
--#define IOMUXC_GPIO_DISP_B1_09_ENET_1G_TX_DATA00		0x208 0x44C 0x0 0x1 0x0
--#define IOMUXC_GPIO_DISP_B1_09_USDHC1_WP			0x208 0x44C 0x6CC 0x2 0x1
--#define IOMUXC_GPIO_DISP_B1_09_TMR4_TIMER0			0x208 0x44C 0x660 0x3 0x2
--#define IOMUXC_GPIO_DISP_B1_09_XBAR1_INOUT35			0x208 0x44C 0x714 0x4 0x1
--#define IOMUXC_GPIO_DISP_B1_09_GPIO_MUX4_IO30			0x208 0x44C 0x0 0x5 0x0
--#define IOMUXC_GPIO_DISP_B1_09_SRC_BT_CFG03			0x208 0x44C 0x0 0x6 0x0
--#define IOMUXC_GPIO_DISP_B1_09_ENET_QOS_TX_DATA00		0x208 0x44C 0x0 0x8 0x0
--#define IOMUXC_GPIO_DISP_B1_09_LPSPI3_PCS2			0x208 0x44C 0x5F8 0x9 0x1
--#define IOMUXC_GPIO_DISP_B1_09_GPIO10_IO30			0x208 0x44C 0x0 0xA 0x0
--
--#define IOMUXC_GPIO_DISP_B1_10_VIDEO_MUX_LCDIF_DATA06		0x20C 0x450 0x0 0x0 0x0
--#define IOMUXC_GPIO_DISP_B1_10_ENET_1G_TX_EN			0x20C 0x450 0x0 0x1 0x0
--#define IOMUXC_GPIO_DISP_B1_10_USDHC1_RESET_B			0x20C 0x450 0x0 0x2 0x0
--#define IOMUXC_GPIO_DISP_B1_10_TMR4_TIMER1			0x20C 0x450 0x664 0x3 0x2
--#define IOMUXC_GPIO_DISP_B1_10_XBAR1_INOUT36			0x20C 0x450 0x0 0x4 0x0
--#define IOMUXC_GPIO_DISP_B1_10_GPIO_MUX4_IO31			0x20C 0x450 0x0 0x5 0x0
--#define IOMUXC_GPIO_DISP_B1_10_SRC_BT_CFG04			0x20C 0x450 0x0 0x6 0x0
--#define IOMUXC_GPIO_DISP_B1_10_ENET_QOS_TX_EN			0x20C 0x450 0x0 0x8 0x0
--#define IOMUXC_GPIO_DISP_B1_10_LPSPI3_PCS3			0x20C 0x450 0x5FC 0x9 0x1
--#define IOMUXC_GPIO_DISP_B1_10_GPIO10_IO31			0x20C 0x450 0x0 0xA 0x0
--
--#define IOMUXC_GPIO_DISP_B1_11_VIDEO_MUX_LCDIF_DATA07		0x210 0x454 0x0 0x0 0x0
--#define IOMUXC_GPIO_DISP_B1_11_ENET_1G_TX_CLK_IO		0x210 0x454 0x4E8 0x1 0x2
--#define IOMUXC_GPIO_DISP_B1_11_ENET_1G_REF_CLK			0x210 0x454 0x4C4 0x2 0x2
--#define IOMUXC_GPIO_DISP_B1_11_TMR4_TIMER2			0x210 0x454 0x668 0x3 0x1
--#define IOMUXC_GPIO_DISP_B1_11_XBAR1_INOUT37			0x210 0x454 0x0 0x4 0x0
--#define IOMUXC_GPIO_DISP_B1_11_GPIO_MUX5_IO00			0x210 0x454 0x0 0x5 0x0
--#define IOMUXC_GPIO_DISP_B1_11_SRC_BT_CFG05			0x210 0x454 0x0 0x6 0x0
--#define IOMUXC_GPIO_DISP_B1_11_ENET_QOS_TX_CLK			0x210 0x454 0x4A4 0x8 0x0
--#define IOMUXC_GPIO_DISP_B1_11_ENET_QOS_REF_CLK			0x210 0x454 0x4A0 0x9 0x2
--#define IOMUXC_GPIO_DISP_B1_11_GPIO11_IO00			0x210 0x454 0x0 0xA 0x0
--
--#define IOMUXC_GPIO_DISP_B2_00_GPIO11_IO01			0x214 0x458 0x0 0xA 0x0
--#define IOMUXC_GPIO_DISP_B2_00_VIDEO_MUX_LCDIF_DATA08		0x214 0x458 0x0 0x0 0x0
--#define IOMUXC_GPIO_DISP_B2_00_WDOG1_B				0x214 0x458 0x0 0x1 0x0
--#define IOMUXC_GPIO_DISP_B2_00_MQS_RIGHT			0x214 0x458 0x0 0x2 0x0
--#define IOMUXC_GPIO_DISP_B2_00_ENET_1G_TX_ER			0x214 0x458 0x0 0x3 0x0
--#define IOMUXC_GPIO_DISP_B2_00_SAI1_TX_DATA03			0x214 0x458 0x0 0x4 0x0
--#define IOMUXC_GPIO_DISP_B2_00_GPIO_MUX5_IO01			0x214 0x458 0x0 0x5 0x0
--#define IOMUXC_GPIO_DISP_B2_00_SRC_BT_CFG06			0x214 0x458 0x0 0x6 0x0
--#define IOMUXC_GPIO_DISP_B2_00_ENET_QOS_TX_ER			0x214 0x458 0x0 0x8 0x0
--
--#define IOMUXC_GPIO_DISP_B2_01_VIDEO_MUX_LCDIF_DATA09		0x218 0x45C 0x0 0x0 0x0
--#define IOMUXC_GPIO_DISP_B2_01_USDHC1_VSELECT			0x218 0x45C 0x0 0x1 0x0
--#define IOMUXC_GPIO_DISP_B2_01_MQS_LEFT				0x218 0x45C 0x0 0x2 0x0
--#define IOMUXC_GPIO_DISP_B2_01_WDOG2_B				0x218 0x45C 0x0 0x3 0x0
--#define IOMUXC_GPIO_DISP_B2_01_SAI1_TX_DATA02			0x218 0x45C 0x0 0x4 0x0
--#define IOMUXC_GPIO_DISP_B2_01_GPIO_MUX5_IO02			0x218 0x45C 0x0 0x5 0x0
--#define IOMUXC_GPIO_DISP_B2_01_SRC_BT_CFG07			0x218 0x45C 0x0 0x6 0x0
--#define IOMUXC_GPIO_DISP_B2_01_EWM_OUT_B			0x218 0x45C 0x0 0x8 0x0
--#define IOMUXC_GPIO_DISP_B2_01_CCM_ENET_REF_CLK_25M		0x218 0x45C 0x0 0x9 0x0
--#define IOMUXC_GPIO_DISP_B2_01_GPIO11_IO02			0x218 0x45C 0x0 0xA 0x0
--
--#define IOMUXC_GPIO_DISP_B2_02_GPIO11_IO03			0x21C 0x460 0x0 0xA 0x0
--#define IOMUXC_GPIO_DISP_B2_02_VIDEO_MUX_LCDIF_DATA10		0x21C 0x460 0x0 0x0 0x0
--#define IOMUXC_GPIO_DISP_B2_02_ENET_TX_DATA00			0x21C 0x460 0x0 0x1 0x0
--#define IOMUXC_GPIO_DISP_B2_02_PIT1_TRIGGER3			0x21C 0x460 0x0 0x2 0x0
--#define IOMUXC_GPIO_DISP_B2_02_ARM_TRACE00			0x21C 0x460 0x0 0x3 0x0
--#define IOMUXC_GPIO_DISP_B2_02_SAI1_TX_DATA01			0x21C 0x460 0x0 0x4 0x0
--#define IOMUXC_GPIO_DISP_B2_02_GPIO_MUX5_IO03			0x21C 0x460 0x0 0x5 0x0
--#define IOMUXC_GPIO_DISP_B2_02_SRC_BT_CFG08			0x21C 0x460 0x0 0x6 0x0
--#define IOMUXC_GPIO_DISP_B2_02_ENET_QOS_TX_DATA00		0x21C 0x460 0x0 0x8 0x0
--
--#define IOMUXC_GPIO_DISP_B2_03_GPIO11_IO04			0x220 0x464 0x0 0xA 0x0
--#define IOMUXC_GPIO_DISP_B2_03_VIDEO_MUX_LCDIF_DATA11		0x220 0x464 0x0 0x0 0x0
--#define IOMUXC_GPIO_DISP_B2_03_ENET_TX_DATA01			0x220 0x464 0x0 0x1 0x0
--#define IOMUXC_GPIO_DISP_B2_03_PIT1_TRIGGER2			0x220 0x464 0x0 0x2 0x0
--#define IOMUXC_GPIO_DISP_B2_03_ARM_TRACE01			0x220 0x464 0x0 0x3 0x0
--#define IOMUXC_GPIO_DISP_B2_03_SAI1_MCLK			0x220 0x464 0x66C 0x4 0x1
--#define IOMUXC_GPIO_DISP_B2_03_GPIO_MUX5_IO04			0x220 0x464 0x0 0x5 0x0
--#define IOMUXC_GPIO_DISP_B2_03_SRC_BT_CFG09			0x220 0x464 0x0 0x6 0x0
--#define IOMUXC_GPIO_DISP_B2_03_ENET_QOS_TX_DATA01		0x220 0x464 0x0 0x8 0x0
--
--#define IOMUXC_GPIO_DISP_B2_04_VIDEO_MUX_LCDIF_DATA12		0x224 0x468 0x0 0x0 0x0
--#define IOMUXC_GPIO_DISP_B2_04_ENET_TX_EN			0x224 0x468 0x0 0x1 0x0
--#define IOMUXC_GPIO_DISP_B2_04_PIT1_TRIGGER1			0x224 0x468 0x0 0x2 0x0
--#define IOMUXC_GPIO_DISP_B2_04_ARM_TRACE02			0x224 0x468 0x0 0x3 0x0
--#define IOMUXC_GPIO_DISP_B2_04_SAI1_RX_SYNC			0x224 0x468 0x678 0x4 0x1
--#define IOMUXC_GPIO_DISP_B2_04_GPIO_MUX5_IO05			0x224 0x468 0x0 0x5 0x0
--#define IOMUXC_GPIO_DISP_B2_04_SRC_BT_CFG10			0x224 0x468 0x0 0x6 0x0
--#define IOMUXC_GPIO_DISP_B2_04_ENET_QOS_TX_EN			0x224 0x468 0x0 0x8 0x0
--#define IOMUXC_GPIO_DISP_B2_04_GPIO11_IO05			0x224 0x468 0x0 0xA 0x0
--
--#define IOMUXC_GPIO_DISP_B2_05_GPIO11_IO06			0x228 0x46C 0x0 0xA 0x0
--#define IOMUXC_GPIO_DISP_B2_05_VIDEO_MUX_LCDIF_DATA13		0x228 0x46C 0x0 0x0 0x0
--#define IOMUXC_GPIO_DISP_B2_05_ENET_TX_CLK			0x228 0x46C 0x4C0 0x1 0x1
--#define IOMUXC_GPIO_DISP_B2_05_ENET_REF_CLK			0x228 0x46C 0x4A8 0x2 0x1
--#define IOMUXC_GPIO_DISP_B2_05_ARM_TRACE03			0x228 0x46C 0x0 0x3 0x0
--#define IOMUXC_GPIO_DISP_B2_05_SAI1_RX_BCLK			0x228 0x46C 0x670 0x4 0x1
--#define IOMUXC_GPIO_DISP_B2_05_GPIO_MUX5_IO06			0x228 0x46C 0x0 0x5 0x0
--#define IOMUXC_GPIO_DISP_B2_05_SRC_BT_CFG11			0x228 0x46C 0x0 0x6 0x0
--#define IOMUXC_GPIO_DISP_B2_05_ENET_QOS_TX_CLK			0x228 0x46C 0x4A4 0x8 0x1
--
--#define IOMUXC_GPIO_DISP_B2_06_GPIO11_IO07			0x22C 0x470 0x0 0xA 0x0
--#define IOMUXC_GPIO_DISP_B2_06_VIDEO_MUX_LCDIF_DATA14		0x22C 0x470 0x0 0x0 0x0
--#define IOMUXC_GPIO_DISP_B2_06_ENET_RX_DATA00			0x22C 0x470 0x4B0 0x1 0x1
--#define IOMUXC_GPIO_DISP_B2_06_LPUART7_TXD			0x22C 0x470 0x630 0x2 0x1
--#define IOMUXC_GPIO_DISP_B2_06_ARM_TRACE_CLK			0x22C 0x470 0x0 0x3 0x0
--#define IOMUXC_GPIO_DISP_B2_06_SAI1_RX_DATA00			0x22C 0x470 0x674 0x4 0x1
--#define IOMUXC_GPIO_DISP_B2_06_GPIO_MUX5_IO07			0x22C 0x470 0x0 0x5 0x0
--#define IOMUXC_GPIO_DISP_B2_06_ENET_QOS_RX_DATA00		0x22C 0x470 0x4F0 0x8 0x1
--
--#define IOMUXC_GPIO_DISP_B2_07_VIDEO_MUX_LCDIF_DATA15		0x230 0x474 0x0 0x0 0x0
--#define IOMUXC_GPIO_DISP_B2_07_ENET_RX_DATA01			0x230 0x474 0x4B4 0x1 0x1
--#define IOMUXC_GPIO_DISP_B2_07_LPUART7_RXD			0x230 0x474 0x62C 0x2 0x1
--#define IOMUXC_GPIO_DISP_B2_07_ARM_TRACE_SWO			0x230 0x474 0x0 0x3 0x0
--#define IOMUXC_GPIO_DISP_B2_07_SAI1_TX_DATA00			0x230 0x474 0x0 0x4 0x0
--#define IOMUXC_GPIO_DISP_B2_07_GPIO_MUX5_IO08			0x230 0x474 0x0 0x5 0x0
--#define IOMUXC_GPIO_DISP_B2_07_ENET_QOS_RX_DATA01		0x230 0x474 0x4F4 0x8 0x1
--#define IOMUXC_GPIO_DISP_B2_07_GPIO11_IO08			0x230 0x474 0x0 0xA 0x0
--
--#define IOMUXC_GPIO_DISP_B2_08_GPIO11_IO09			0x234 0x478 0x0 0xA 0x0
--#define IOMUXC_GPIO_DISP_B2_08_VIDEO_MUX_LCDIF_DATA16		0x234 0x478 0x0 0x0 0x0
--#define IOMUXC_GPIO_DISP_B2_08_ENET_RX_EN			0x234 0x478 0x4B8 0x1 0x1
--#define IOMUXC_GPIO_DISP_B2_08_LPUART8_TXD			0x234 0x478 0x638 0x2 0x1
--#define IOMUXC_GPIO_DISP_B2_08_ARM_CM7_EVENTO			0x234 0x478 0x0 0x3 0x0
--#define IOMUXC_GPIO_DISP_B2_08_SAI1_TX_BCLK			0x234 0x478 0x67C 0x4 0x1
--#define IOMUXC_GPIO_DISP_B2_08_GPIO_MUX5_IO09			0x234 0x478 0x0 0x5 0x0
--#define IOMUXC_GPIO_DISP_B2_08_ENET_QOS_RX_EN			0x234 0x478 0x4F8 0x8 0x1
--#define IOMUXC_GPIO_DISP_B2_08_LPUART1_TXD			0x234 0x478 0x620 0x9 0x2
--
--#define IOMUXC_GPIO_DISP_B2_09_GPIO11_IO10			0x238 0x47C 0x0 0xA 0x0
--#define IOMUXC_GPIO_DISP_B2_09_VIDEO_MUX_LCDIF_DATA17		0x238 0x47C 0x0 0x0 0x0
--#define IOMUXC_GPIO_DISP_B2_09_ENET_RX_ER			0x238 0x47C 0x4BC 0x1 0x1
--#define IOMUXC_GPIO_DISP_B2_09_LPUART8_RXD			0x238 0x47C 0x634 0x2 0x1
--#define IOMUXC_GPIO_DISP_B2_09_ARM_CM7_EVENTI			0x238 0x47C 0x0 0x3 0x0
--#define IOMUXC_GPIO_DISP_B2_09_SAI1_TX_SYNC			0x238 0x47C 0x680 0x4 0x1
--#define IOMUXC_GPIO_DISP_B2_09_GPIO_MUX5_IO10			0x238 0x47C 0x0 0x5 0x0
--#define IOMUXC_GPIO_DISP_B2_09_ENET_QOS_RX_ER			0x238 0x47C 0x4FC 0x8 0x1
--#define IOMUXC_GPIO_DISP_B2_09_LPUART1_RXD			0x238 0x47C 0x61C 0x9 0x2
--
--#define IOMUXC_GPIO_DISP_B2_10_GPIO11_IO11			0x23C 0x480 0x0 0xA 0x0
--#define IOMUXC_GPIO_DISP_B2_10_VIDEO_MUX_LCDIF_DATA18		0x23C 0x480 0x0 0x0 0x0
--#define IOMUXC_GPIO_DISP_B2_10_EMVSIM2_IO			0x23C 0x480 0x6A8 0x1 0x1
--#define IOMUXC_GPIO_DISP_B2_10_LPUART2_TXD			0x23C 0x480 0x0 0x2 0x0
--#define IOMUXC_GPIO_DISP_B2_10_WDOG2_RESET_B_DEB		0x23C 0x480 0x0 0x3 0x0
--#define IOMUXC_GPIO_DISP_B2_10_XBAR1_INOUT38			0x23C 0x480 0x0 0x4 0x0
--#define IOMUXC_GPIO_DISP_B2_10_GPIO_MUX5_IO11			0x23C 0x480 0x0 0x5 0x0
--#define IOMUXC_GPIO_DISP_B2_10_LPI2C3_SCL			0x23C 0x480 0x5BC 0x6 0x1
--#define IOMUXC_GPIO_DISP_B2_10_ENET_QOS_RX_ER			0x23C 0x480 0x4FC 0x8 0x2
--#define IOMUXC_GPIO_DISP_B2_10_SPDIF_IN				0x23C 0x480 0x6B4 0x9 0x2
--
--#define IOMUXC_GPIO_DISP_B2_11_VIDEO_MUX_LCDIF_DATA19		0x240 0x484 0x0 0x0 0x0
--#define IOMUXC_GPIO_DISP_B2_11_EMVSIM2_CLK			0x240 0x484 0x0 0x1 0x0
--#define IOMUXC_GPIO_DISP_B2_11_LPUART2_RXD			0x240 0x484 0x0 0x2 0x0
--#define IOMUXC_GPIO_DISP_B2_11_WDOG1_RESET_B_DEB		0x240 0x484 0x0 0x3 0x0
--#define IOMUXC_GPIO_DISP_B2_11_XBAR1_INOUT39			0x240 0x484 0x0 0x4 0x0
--#define IOMUXC_GPIO_DISP_B2_11_GPIO_MUX5_IO12			0x240 0x484 0x0 0x5 0x0
--#define IOMUXC_GPIO_DISP_B2_11_LPI2C3_SDA			0x240 0x484 0x5C0 0x6 0x1
--#define IOMUXC_GPIO_DISP_B2_11_ENET_QOS_CRS			0x240 0x484 0x0 0x8 0x0
--#define IOMUXC_GPIO_DISP_B2_11_SPDIF_OUT			0x240 0x484 0x0 0x9 0x0
--#define IOMUXC_GPIO_DISP_B2_11_GPIO11_IO12			0x240 0x484 0x0 0xA 0x0
--
--#define IOMUXC_GPIO_DISP_B2_12_GPIO11_IO13			0x244 0x488 0x0 0xA 0x0
--#define IOMUXC_GPIO_DISP_B2_12_VIDEO_MUX_LCDIF_DATA20		0x244 0x488 0x0 0x0 0x0
--#define IOMUXC_GPIO_DISP_B2_12_EMVSIM2_RST			0x244 0x488 0x0 0x1 0x0
--#define IOMUXC_GPIO_DISP_B2_12_FLEXCAN1_TX			0x244 0x488 0x0 0x2 0x0
--#define IOMUXC_GPIO_DISP_B2_12_LPUART2_CTS_B			0x244 0x488 0x0 0x3 0x0
--#define IOMUXC_GPIO_DISP_B2_12_XBAR1_INOUT40			0x244 0x488 0x0 0x4 0x0
--#define IOMUXC_GPIO_DISP_B2_12_GPIO_MUX5_IO13			0x244 0x488 0x0 0x5 0x0
--#define IOMUXC_GPIO_DISP_B2_12_LPI2C4_SCL			0x244 0x488 0x5C4 0x6 0x1
--#define IOMUXC_GPIO_DISP_B2_12_ENET_QOS_COL			0x244 0x488 0x0 0x8 0x0
--#define IOMUXC_GPIO_DISP_B2_12_LPSPI4_SCK			0x244 0x488 0x610 0x9 0x1
--
--#define IOMUXC_GPIO_DISP_B2_13_GPIO11_IO14			0x248 0x48C 0x0 0xA 0x0
--#define IOMUXC_GPIO_DISP_B2_13_VIDEO_MUX_LCDIF_DATA21		0x248 0x48C 0x0 0x0 0x0
--#define IOMUXC_GPIO_DISP_B2_13_EMVSIM2_SVEN			0x248 0x48C 0x0 0x1 0x0
--#define IOMUXC_GPIO_DISP_B2_13_FLEXCAN1_RX			0x248 0x48C 0x498 0x2 0x1
--#define IOMUXC_GPIO_DISP_B2_13_LPUART2_RTS_B			0x248 0x48C 0x0 0x3 0x0
--#define IOMUXC_GPIO_DISP_B2_13_ENET_REF_CLK			0x248 0x48C 0x4A8 0x4 0x2
--#define IOMUXC_GPIO_DISP_B2_13_GPIO_MUX5_IO14			0x248 0x48C 0x0 0x5 0x0
--#define IOMUXC_GPIO_DISP_B2_13_LPI2C4_SDA			0x248 0x48C 0x5C8 0x6 0x1
--#define IOMUXC_GPIO_DISP_B2_13_ENET_QOS_1588_EVENT0_OUT		0x248 0x48C 0x0 0x8 0x0
--#define IOMUXC_GPIO_DISP_B2_13_LPSPI4_SIN			0x248 0x48C 0x614 0x9 0x1
--
--#define IOMUXC_GPIO_DISP_B2_14_GPIO_MUX5_IO15			0x24C 0x490 0x0 0x5 0x0
--#define IOMUXC_GPIO_DISP_B2_14_FLEXCAN1_TX			0x24C 0x490 0x0 0x6 0x0
--#define IOMUXC_GPIO_DISP_B2_14_ENET_QOS_1588_EVENT0_IN		0x24C 0x490 0x0 0x8 0x0
--#define IOMUXC_GPIO_DISP_B2_14_LPSPI4_SOUT			0x24C 0x490 0x618 0x9 0x1
--#define IOMUXC_GPIO_DISP_B2_14_GPIO11_IO15			0x24C 0x490 0x0 0xA 0x0
--#define IOMUXC_GPIO_DISP_B2_14_VIDEO_MUX_LCDIF_DATA22		0x24C 0x490 0x0 0x0 0x0
--#define IOMUXC_GPIO_DISP_B2_14_EMVSIM2_PD			0x24C 0x490 0x6AC 0x1 0x1
--#define IOMUXC_GPIO_DISP_B2_14_WDOG2_B				0x24C 0x490 0x0 0x2 0x0
--#define IOMUXC_GPIO_DISP_B2_14_VIDEO_MUX_EXT_DCIC1		0x24C 0x490 0x0 0x3 0x0
--#define IOMUXC_GPIO_DISP_B2_14_ENET_1G_REF_CLK			0x24C 0x490 0x4C4 0x4 0x3
--
--#define IOMUXC_GPIO_DISP_B2_15_VIDEO_MUX_LCDIF_DATA23		0x250 0x494 0x0 0x0 0x0
--#define IOMUXC_GPIO_DISP_B2_15_EMVSIM2_POWER_FAIL		0x250 0x494 0x6B0 0x1 0x1
--#define IOMUXC_GPIO_DISP_B2_15_WDOG1_B				0x250 0x494 0x0 0x2 0x0
--#define IOMUXC_GPIO_DISP_B2_15_VIDEO_MUX_EXT_DCIC2		0x250 0x494 0x0 0x3 0x0
--#define IOMUXC_GPIO_DISP_B2_15_PIT1_TRIGGER0			0x250 0x494 0x0 0x4 0x0
--#define IOMUXC_GPIO_DISP_B2_15_GPIO_MUX5_IO16			0x250 0x494 0x0 0x5 0x0
--#define IOMUXC_GPIO_DISP_B2_15_FLEXCAN1_RX			0x250 0x494 0x498 0x6 0x2
--#define IOMUXC_GPIO_DISP_B2_15_ENET_QOS_1588_EVENT0_AUX_IN	0x250 0x494 0x0 0x8 0x0
--#define IOMUXC_GPIO_DISP_B2_15_LPSPI4_PCS0			0x250 0x494 0x60C 0x9 0x1
--#define IOMUXC_GPIO_DISP_B2_15_GPIO11_IO16			0x250 0x494 0x0 0xA 0x0
--
--#endif  /* _DT_BINDINGS_PINCTRL_IMXRT1170_PINFUNC_H */
-diff --git a/arch/arm/boot/dts/nxp/vf/Makefile b/arch/arm/boot/dts/nxp/vf/Makefile
-index 0a4a7f9dd43e..1733506c0c72 100644
---- a/arch/arm/boot/dts/nxp/vf/Makefile
-+++ b/arch/arm/boot/dts/nxp/vf/Makefile
-@@ -3,9 +3,7 @@ dtb-$(CONFIG_SOC_VF610) += \
- 	vf500-colibri-eval-v3.dtb \
- 	vf610-bk4.dtb \
- 	vf610-colibri-eval-v3.dtb \
--	vf610m4-colibri.dtb \
- 	vf610-cosmic.dtb \
--	vf610m4-cosmic.dtb \
- 	vf610-twr.dtb \
- 	vf610-zii-cfu1.dtb \
- 	vf610-zii-dev-rev-b.dtb \
-diff --git a/arch/arm/boot/dts/nxp/vf/vf610m4-colibri.dts b/arch/arm/boot/dts/nxp/vf/vf610m4-colibri.dts
-deleted file mode 100644
-index 86d32f54c250..000000000000
---- a/arch/arm/boot/dts/nxp/vf/vf610m4-colibri.dts
-+++ /dev/null
-@@ -1,61 +0,0 @@
--// SPDX-License-Identifier: GPL-2.0+ OR MIT
--/*
-- * Device tree for Colibri VF61 Cortex-M4 support
+- * Copyright 2016 - Lee Jones <lee.jones@linaro.org>
 - *
-- * Copyright (C) 2015 Stefan Agner
+- * This file is dual-licensed: you can use it either under the terms
+- * of the GPL or the X11 license, at your option. Note that this dual
+- * licensing only applies to this file, and not this project as a
+- * whole.
+- *
+- *  a) This file is free software; you can redistribute it and/or
+- *     modify it under the terms of the GNU General Public License as
+- *     published by the Free Software Foundation; either version 2 of the
+- *     License, or (at your option) any later version.
+- *
+- *     This file is distributed in the hope that it will be useful,
+- *     but WITHOUT ANY WARRANTY; without even the implied warranty of
+- *     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+- *     GNU General Public License for more details.
+- *
+- *     You should have received a copy of the GNU General Public
+- *     License along with this file; if not, write to the Free
+- *     Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston,
+- *     MA 02110-1301 USA
+- *
+- * Or, alternatively,
+- *
+- *  b) Permission is hereby granted, free of charge, to any person
+- *     obtaining a copy of this software and associated documentation
+- *     files (the "Software"), to deal in the Software without
+- *     restriction, including without limitation the rights to use,
+- *     copy, modify, merge, publish, distribute, sublicense, and/or
+- *     sell copies of the Software, and to permit persons to whom the
+- *     Software is furnished to do so, subject to the following
+- *     conditions:
+- *
+- *     The above copyright notice and this permission notice shall be
+- *     included in all copies or substantial portions of the Software.
+- *
+- *     THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+- *     EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+- *     OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+- *     NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+- *     HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+- *     WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+- *     FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+- *     OTHER DEALINGS IN THE SOFTWARE.
 - */
 -
 -/dts-v1/;
--#include "vf610m4.dtsi"
+-#include "stm32f469.dtsi"
+-#include "stm32f469-pinctrl.dtsi"
+-#include <dt-bindings/gpio/gpio.h>
+-#include <dt-bindings/input/input.h>
+-#include <dt-bindings/leds/common.h>
 -
 -/ {
--	model = "VF610 Cortex-M4";
--	compatible = "fsl,vf610m4";
+-	model = "STMicroelectronics STM32F469i-DISCO board";
+-	compatible = "st,stm32f469i-disco", "st,stm32f469";
 -
 -	chosen {
--		bootargs = "clk_ignore_unused init=/linuxrc rw";
--		stdout-path = "serial2:115200";
+-		bootargs = "root=/dev/ram";
+-		stdout-path = "serial0:115200n8";
 -	};
 -
--	memory@8c000000 {
+-	memory@0 {
 -		device_type = "memory";
--		reg = <0x8c000000 0x3000000>;
+-		reg = <0x00000000 0x1000000>;
+-	};
+-
+-	aliases {
+-		serial0 = &usart3;
+-	};
+-
+-	vcc_3v3: vcc-3v3 {
+-		compatible = "regulator-fixed";
+-		regulator-name = "vcc_3v3";
+-		regulator-min-microvolt = <3300000>;
+-		regulator-max-microvolt = <3300000>;
+-	};
+-
+-	soc {
+-		dma-ranges = <0xc0000000 0x0 0x10000000>;
+-	};
+-
+-	leds {
+-		compatible = "gpio-leds";
+-		led_green: led-green {
+-			function = LED_FUNCTION_HEARTBEAT;
+-			color = <LED_COLOR_ID_GREEN>;
+-			gpios = <&gpiog 6 GPIO_ACTIVE_LOW>;
+-			linux,default-trigger = "heartbeat";
+-		};
+-		led-orange {
+-			color = <LED_COLOR_ID_ORANGE>;
+-			gpios = <&gpiod 4 GPIO_ACTIVE_LOW>;
+-		};
+-		led-red {
+-			color = <LED_COLOR_ID_RED>;
+-			gpios = <&gpiod 5 GPIO_ACTIVE_LOW>;
+-		};
+-		led-blue {
+-			color = <LED_COLOR_ID_BLUE>;
+-			gpios = <&gpiok 3 GPIO_ACTIVE_LOW>;
+-		};
+-	};
+-
+-	gpio-keys {
+-		compatible = "gpio-keys";
+-		autorepeat;
+-		button-0 {
+-			label = "User";
+-			linux,code = <KEY_WAKEUP>;
+-			gpios = <&gpioa 0 GPIO_ACTIVE_HIGH>;
+-		};
+-	};
+-
+-	options {
+-		u-boot {
+-			compatible = "u-boot,config";
+-			boot-led = <&led_green>;
+-		};
+-	};
+-
+-	/* This turns on vbus for otg for host mode (dwc2) */
+-	vcc5v_otg: vcc5v-otg-regulator {
+-		compatible = "regulator-fixed";
+-		enable-active-high;
+-		gpio = <&gpiob 2 GPIO_ACTIVE_HIGH>;
+-		regulator-name = "vcc5_host1";
+-		regulator-always-on;
 -	};
 -};
 -
--&gpio0 {
--	status = "disabled";
+-&rcc {
+-	compatible = "st,stm32f469-rcc", "st,stm32f42xx-rcc", "st,stm32-rcc";
 -};
 -
--&gpio1 {
--	status = "disabled";
+-&clk_hse {
+-	clock-frequency = <8000000>;
 -};
 -
--&gpio2 {
--	status = "disabled";
--};
--
--&gpio3 {
--	status = "disabled";
--};
--
--&gpio4 {
--	status = "disabled";
--};
--
--&uart2 {
--	pinctrl-names = "default";
--	pinctrl-0 = <&pinctrl_uart2>;
+-&dma2d {
 -	status = "okay";
 -};
 -
--&iomuxc {
--	pinctrl_uart2: uart2grp {
--		fsl,pins = <
--			VF610_PAD_PTD0__UART2_TX		0x21a2
--			VF610_PAD_PTD1__UART2_RX		0x21a1
--			VF610_PAD_PTD2__UART2_RTS		0x21a2
--			VF610_PAD_PTD3__UART2_CTS		0x21a1
--		>;
+-&dsi {
+-	#address-cells = <1>;
+-	#size-cells = <0>;
+-	status = "okay";
+-
+-	ports {
+-		#address-cells = <1>;
+-		#size-cells = <0>;
+-
+-		port@0 {
+-			reg = <0>;
+-			dsi_in: endpoint {
+-				remote-endpoint = <&ltdc_out_dsi>;
+-			};
+-		};
+-
+-		port@1 {
+-			reg = <1>;
+-			dsi_out: endpoint {
+-				remote-endpoint = <&dsi_panel_in>;
+-			};
+-		};
+-	};
+-
+-	panel@0 {
+-		compatible = "orisetech,otm8009a";
+-		reg = <0>; /* dsi virtual channel (0..3) */
+-		reset-gpios = <&gpioh 7 GPIO_ACTIVE_LOW>;
+-		power-supply = <&vcc_3v3>;
+-		status = "okay";
+-
+-		port {
+-			dsi_panel_in: endpoint {
+-				remote-endpoint = <&dsi_out>;
+-			};
+-		};
 -	};
 -};
-diff --git a/arch/arm/boot/dts/nxp/vf/vf610m4-cosmic.dts b/arch/arm/boot/dts/nxp/vf/vf610m4-cosmic.dts
+-
+-&ltdc {
+-	status = "okay";
+-
+-	port {
+-		ltdc_out_dsi: endpoint {
+-			remote-endpoint = <&dsi_in>;
+-		};
+-	};
+-};
+-
+-&rtc {
+-	status = "okay";
+-};
+-
+-&timers1 {
+-	status = "okay";
+-
+-	pwm {
+-		pinctrl-0 = <&pwm1_pins>;
+-		pinctrl-names = "default";
+-		status = "okay";
+-	};
+-
+-	timer@0 {
+-		status = "okay";
+-	};
+-};
+-
+-&timers3 {
+-	status = "okay";
+-
+-	pwm {
+-		pinctrl-0 = <&pwm3_pins>;
+-		pinctrl-names = "default";
+-		status = "okay";
+-	};
+-
+-	timer@2 {
+-		status = "okay";
+-	};
+-};
+-
+-&sdio {
+-	status = "okay";
+-	vmmc-supply = <&vcc_3v3>;
+-	cd-gpios = <&gpiog 2 GPIO_ACTIVE_LOW>;
+-	broken-cd;
+-	pinctrl-names = "default", "opendrain";
+-	pinctrl-0 = <&sdio_pins>;
+-	pinctrl-1 = <&sdio_pins_od>;
+-	bus-width = <4>;
+-};
+-
+-&timers5 {
+-	/* Override timer5 to act as clockevent */
+-	compatible = "st,stm32-timer";
+-	interrupts = <50>;
+-	status = "okay";
+-	/delete-property/#address-cells;
+-	/delete-property/#size-cells;
+-	/delete-property/clock-names;
+-	/delete-node/pwm;
+-	/delete-node/timer@4;
+-};
+-
+-&usart3 {
+-	pinctrl-0 = <&usart3_pins_a>;
+-	pinctrl-names = "default";
+-	status = "okay";
+-};
+-
+-&usbotg_fs {
+-	dr_mode = "host";
+-	pinctrl-0 = <&usbotg_fs_pins_a>;
+-	pinctrl-names = "default";
+-	status = "okay";
+-};
+diff --git a/arch/arm/boot/dts/st/stm32f469-pinctrl.dtsi b/arch/arm/boot/dts/st/stm32f469-pinctrl.dtsi
 deleted file mode 100644
-index 454b484368cb..000000000000
---- a/arch/arm/boot/dts/nxp/vf/vf610m4-cosmic.dts
+index 6bf60263dff8..000000000000
+--- a/arch/arm/boot/dts/st/stm32f469-pinctrl.dtsi
 +++ /dev/null
-@@ -1,88 +0,0 @@
+@@ -1,92 +0,0 @@
 -/*
-- * Device tree for Cosmic+ VF6xx Cortex-M4 support
+- * Copyright 2017 - Alexandre Torgue <alexandre.torgue@st.com>
 - *
-- * Copyright (C) 2015
+- * This file is dual-licensed: you can use it either under the terms
+- * of the GPL or the X11 license, at your option. Note that this dual
+- * licensing only applies to this file, and not this project as a
+- * whole.
 - *
-- * Based on vf610m4 Colibri
+- *  a) This file is free software; you can redistribute it and/or
+- *     modify it under the terms of the GNU General Public License as
+- *     published by the Free Software Foundation; either version 2 of the
+- *     License, or (at your option) any later version.
+- *
+- *     This file is distributed in the hope that it will be useful,
+- *     but WITHOUT ANY WARRANTY; without even the implied warranty of
+- *     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+- *     GNU General Public License for more details.
+- *
+- * Or, alternatively,
+- *
+- *  b) Permission is hereby granted, free of charge, to any person
+- *     obtaining a copy of this software and associated documentation
+- *     files (the "Software"), to deal in the Software without
+- *     restriction, including without limitation the rights to use,
+- *     copy, modify, merge, publish, distribute, sublicense, and/or
+- *     sell copies of the Software, and to permit persons to whom the
+- *     Software is furnished to do so, subject to the following
+- *     conditions:
+- *
+- *     The above copyright notice and this permission notice shall be
+- *     included in all copies or substantial portions of the Software.
+- *
+- *     THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+- *     EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+- *     OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+- *     NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+- *     HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+- *     WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+- *     FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+- *     OTHER DEALINGS IN THE SOFTWARE.
+- */
+-
+-#include "stm32f4-pinctrl.dtsi"
+-
+-&pinctrl {
+-	compatible = "st,stm32f469-pinctrl";
+-
+-	gpioa: gpio@40020000 {
+-		gpio-ranges = <&pinctrl 0 0 16>;
+-	};
+-
+-	gpiob: gpio@40020400 {
+-		gpio-ranges = <&pinctrl 0 16 16>;
+-	};
+-
+-	gpioc: gpio@40020800 {
+-		gpio-ranges = <&pinctrl 0 32 16>;
+-	};
+-
+-	gpiod: gpio@40020c00 {
+-		gpio-ranges = <&pinctrl 0 48 16>;
+-	};
+-
+-	gpioe: gpio@40021000 {
+-		gpio-ranges = <&pinctrl 0 64 16>;
+-	};
+-
+-	gpiof: gpio@40021400 {
+-		gpio-ranges = <&pinctrl 0 80 16>;
+-	};
+-
+-	gpiog: gpio@40021800 {
+-		gpio-ranges = <&pinctrl 0 96 16>;
+-	};
+-
+-	gpioh: gpio@40021c00 {
+-		gpio-ranges = <&pinctrl 0 112 16>;
+-	};
+-
+-	gpioi: gpio@40022000 {
+-		gpio-ranges = <&pinctrl 0 128 16>;
+-	};
+-
+-	gpioj: gpio@40022400 {
+-		gpio-ranges = <&pinctrl 0 144 6>,
+-			      <&pinctrl 12 156 4>;
+-	};
+-
+-	gpiok: gpio@40022800 {
+-		gpio-ranges = <&pinctrl 3 163 5>;
+-	};
+-};
+diff --git a/arch/arm/boot/dts/st/stm32f469.dtsi b/arch/arm/boot/dts/st/stm32f469.dtsi
+deleted file mode 100644
+index be002e8a78ac..000000000000
+--- a/arch/arm/boot/dts/st/stm32f469.dtsi
++++ /dev/null
+@@ -1,18 +0,0 @@
+-/* SPDX-License-Identifier: (GPL-2.0+ OR BSD-3-Clause) */
+-/* Copyright (C) STMicroelectronics 2017 - All Rights Reserved */
+-
+-#include "stm32f429.dtsi"
+-
+-/ {
+-	soc {
+-		dsi: dsi@40016c00 {
+-			compatible = "st,stm32-dsi";
+-			reg = <0x40016c00 0x800>;
+-			resets = <&rcc STM32F4_APB2_RESET(DSI)>;
+-			reset-names = "apb";
+-			clocks = <&rcc 1 CLK_F469_DSI>, <&clk_hse>;
+-			clock-names = "pclk", "ref";
+-			status = "disabled";
+-		};
+-	};
+-};
+diff --git a/arch/arm/boot/dts/st/stm32f7-pinctrl.dtsi b/arch/arm/boot/dts/st/stm32f7-pinctrl.dtsi
+deleted file mode 100644
+index 97fc3fb5a9ca..000000000000
+--- a/arch/arm/boot/dts/st/stm32f7-pinctrl.dtsi
++++ /dev/null
+@@ -1,436 +0,0 @@
+-// SPDX-License-Identifier: (GPL-2.0+ OR BSD-3-Clause)
+-/*
+- * Copyright (C) STMicroelectronics 2017 - All Rights Reserved
+- * Author: Alexandre Torgue  <alexandre.torgue@st.com> for STMicroelectronics.
+- */
+-
+-#include <dt-bindings/pinctrl/stm32-pinfunc.h>
+-#include <dt-bindings/mfd/stm32f7-rcc.h>
+-
+-/ {
+-	soc {
+-		pinctrl: pinctrl@40020000 {
+-			#address-cells = <1>;
+-			#size-cells = <1>;
+-			ranges = <0 0x40020000 0x3000>;
+-			interrupt-parent = <&exti>;
+-			st,syscfg = <&syscfg 0x8>;
+-
+-			gpioa: gpio@40020000 {
+-				gpio-controller;
+-				#gpio-cells = <2>;
+-				interrupt-controller;
+-				#interrupt-cells = <2>;
+-				reg = <0x0 0x400>;
+-				clocks = <&rcc 0 STM32F7_AHB1_CLOCK(GPIOA)>;
+-				st,bank-name = "GPIOA";
+-			};
+-
+-			gpiob: gpio@40020400 {
+-				gpio-controller;
+-				#gpio-cells = <2>;
+-				interrupt-controller;
+-				#interrupt-cells = <2>;
+-				reg = <0x400 0x400>;
+-				clocks = <&rcc 0 STM32F7_AHB1_CLOCK(GPIOB)>;
+-				st,bank-name = "GPIOB";
+-			};
+-
+-			gpioc: gpio@40020800 {
+-				gpio-controller;
+-				#gpio-cells = <2>;
+-				interrupt-controller;
+-				#interrupt-cells = <2>;
+-				reg = <0x800 0x400>;
+-				clocks = <&rcc 0 STM32F7_AHB1_CLOCK(GPIOC)>;
+-				st,bank-name = "GPIOC";
+-			};
+-
+-			gpiod: gpio@40020c00 {
+-				gpio-controller;
+-				#gpio-cells = <2>;
+-				interrupt-controller;
+-				#interrupt-cells = <2>;
+-				reg = <0xc00 0x400>;
+-				clocks = <&rcc 0 STM32F7_AHB1_CLOCK(GPIOD)>;
+-				st,bank-name = "GPIOD";
+-			};
+-
+-			gpioe: gpio@40021000 {
+-				gpio-controller;
+-				#gpio-cells = <2>;
+-				interrupt-controller;
+-				#interrupt-cells = <2>;
+-				reg = <0x1000 0x400>;
+-				clocks = <&rcc 0 STM32F7_AHB1_CLOCK(GPIOE)>;
+-				st,bank-name = "GPIOE";
+-			};
+-
+-			gpiof: gpio@40021400 {
+-				gpio-controller;
+-				#gpio-cells = <2>;
+-				interrupt-controller;
+-				#interrupt-cells = <2>;
+-				reg = <0x1400 0x400>;
+-				clocks = <&rcc 0 STM32F7_AHB1_CLOCK(GPIOF)>;
+-				st,bank-name = "GPIOF";
+-			};
+-
+-			gpiog: gpio@40021800 {
+-				gpio-controller;
+-				#gpio-cells = <2>;
+-				interrupt-controller;
+-				#interrupt-cells = <2>;
+-				reg = <0x1800 0x400>;
+-				clocks = <&rcc 0 STM32F7_AHB1_CLOCK(GPIOG)>;
+-				st,bank-name = "GPIOG";
+-			};
+-
+-			gpioh: gpio@40021c00 {
+-				gpio-controller;
+-				#gpio-cells = <2>;
+-				interrupt-controller;
+-				#interrupt-cells = <2>;
+-				reg = <0x1c00 0x400>;
+-				clocks = <&rcc 0 STM32F7_AHB1_CLOCK(GPIOH)>;
+-				st,bank-name = "GPIOH";
+-			};
+-
+-			gpioi: gpio@40022000 {
+-				gpio-controller;
+-				#gpio-cells = <2>;
+-				interrupt-controller;
+-				#interrupt-cells = <2>;
+-				reg = <0x2000 0x400>;
+-				clocks = <&rcc 0 STM32F7_AHB1_CLOCK(GPIOI)>;
+-				st,bank-name = "GPIOI";
+-			};
+-
+-			gpioj: gpio@40022400 {
+-				gpio-controller;
+-				#gpio-cells = <2>;
+-				interrupt-controller;
+-				#interrupt-cells = <2>;
+-				reg = <0x2400 0x400>;
+-				clocks = <&rcc 0 STM32F7_AHB1_CLOCK(GPIOJ)>;
+-				st,bank-name = "GPIOJ";
+-			};
+-
+-			gpiok: gpio@40022800 {
+-				gpio-controller;
+-				#gpio-cells = <2>;
+-				interrupt-controller;
+-				#interrupt-cells = <2>;
+-				reg = <0x2800 0x400>;
+-				clocks = <&rcc 0 STM32F7_AHB1_CLOCK(GPIOK)>;
+-				st,bank-name = "GPIOK";
+-			};
+-
+-			cec_pins_a: cec-0 {
+-				pins {
+-					pinmux = <STM32_PINMUX('A', 15, AF4)>; /* HDMI CEC */
+-					slew-rate = <0>;
+-					drive-open-drain;
+-					bias-disable;
+-				};
+-			};
+-
+-			usart1_pins_a: usart1-0 {
+-				pins1 {
+-					pinmux = <STM32_PINMUX('A', 9, AF7)>; /* USART1_TX */
+-					bias-disable;
+-					drive-push-pull;
+-					slew-rate = <0>;
+-				};
+-				pins2 {
+-					pinmux = <STM32_PINMUX('A', 10, AF7)>; /* USART1_RX */
+-					bias-disable;
+-				};
+-			};
+-
+-			usart1_pins_b: usart1-1 {
+-				pins1 {
+-					pinmux = <STM32_PINMUX('A', 9, AF7)>; /* USART1_TX */
+-					bias-disable;
+-					drive-push-pull;
+-					slew-rate = <0>;
+-				};
+-				pins2 {
+-					pinmux = <STM32_PINMUX('B', 7, AF7)>; /* USART1_RX */
+-					bias-disable;
+-				};
+-			};
+-
+-			i2c1_pins_b: i2c1-0 {
+-				pins {
+-					pinmux = <STM32_PINMUX('B', 9, AF4)>, /* I2C1 SDA */
+-						 <STM32_PINMUX('B', 8, AF4)>; /* I2C1 SCL */
+-					bias-disable;
+-					drive-open-drain;
+-					slew-rate = <0>;
+-				};
+-			};
+-
+-			i2c3_pins_a: i2c3-0 {
+-				pins {
+-					pinmux = <STM32_PINMUX('H', 8, AF4)>, /* I2C3_SDA */
+-						 <STM32_PINMUX('H', 7, AF4)>; /* I2C3_SCL */
+-					bias-disable;
+-					drive-open-drain;
+-					slew-rate = <0>;
+-				};
+-			};
+-
+-			usbotg_hs_pins_a: usbotg-hs-0 {
+-				pins {
+-					pinmux = <STM32_PINMUX('H', 4, AF10)>, /* OTG_HS_ULPI_NXT */
+-						 <STM32_PINMUX('I', 11, AF10)>, /* OTG_HS_ULPI_DIR */
+-						 <STM32_PINMUX('C', 0, AF10)>, /* OTG_HS_ULPI_STP */
+-						 <STM32_PINMUX('A', 5, AF10)>, /* OTG_HS_ULPI_CK */
+-						 <STM32_PINMUX('A', 3, AF10)>, /* OTG_HS_ULPI_D0 */
+-						 <STM32_PINMUX('B', 0, AF10)>, /* OTG_HS_ULPI_D1 */
+-						 <STM32_PINMUX('B', 1, AF10)>, /* OTG_HS_ULPI_D2 */
+-						 <STM32_PINMUX('B', 10, AF10)>, /* OTG_HS_ULPI_D3 */
+-						 <STM32_PINMUX('B', 11, AF10)>, /* OTG_HS_ULPI_D4 */
+-						 <STM32_PINMUX('B', 12, AF10)>, /* OTG_HS_ULPI_D5 */
+-						 <STM32_PINMUX('B', 13, AF10)>, /* OTG_HS_ULPI_D6 */
+-						 <STM32_PINMUX('B', 5, AF10)>; /* OTG_HS_ULPI_D7 */
+-					bias-disable;
+-					drive-push-pull;
+-					slew-rate = <2>;
+-				};
+-			};
+-
+-			usbotg_hs_pins_b: usbotg-hs-1 {
+-				pins {
+-					pinmux = <STM32_PINMUX('H', 4, AF10)>, /* OTG_HS_ULPI_NXT */
+-						 <STM32_PINMUX('C', 2, AF10)>, /* OTG_HS_ULPI_DIR */
+-						 <STM32_PINMUX('C', 0, AF10)>, /* OTG_HS_ULPI_STP */
+-						 <STM32_PINMUX('A', 5, AF10)>, /* OTG_HS_ULPI_CK */
+-						 <STM32_PINMUX('A', 3, AF10)>, /* OTG_HS_ULPI_D0 */
+-						 <STM32_PINMUX('B', 0, AF10)>, /* OTG_HS_ULPI_D1 */
+-						 <STM32_PINMUX('B', 1, AF10)>, /* OTG_HS_ULPI_D2 */
+-						 <STM32_PINMUX('B', 10, AF10)>, /* OTG_HS_ULPI_D3 */
+-						 <STM32_PINMUX('B', 11, AF10)>, /* OTG_HS_ULPI_D4 */
+-						 <STM32_PINMUX('B', 12, AF10)>, /* OTG_HS_ULPI_D5 */
+-						 <STM32_PINMUX('B', 13, AF10)>, /* OTG_HS_ULPI_D6 */
+-						 <STM32_PINMUX('B', 5, AF10)>; /* OTG_HS_ULPI_D7 */
+-					bias-disable;
+-					drive-push-pull;
+-					slew-rate = <2>;
+-				};
+-			};
+-
+-			usbotg_fs_pins_a: usbotg-fs-0 {
+-				pins {
+-					pinmux = <STM32_PINMUX('A', 10, AF10)>, /* OTG_FS_ID */
+-						 <STM32_PINMUX('A', 11, AF10)>, /* OTG_FS_DM */
+-						 <STM32_PINMUX('A', 12, AF10)>; /* OTG_FS_DP */
+-					bias-disable;
+-					drive-push-pull;
+-					slew-rate = <2>;
+-				};
+-			};
+-
+-			sdio_pins_a: sdio-pins-a-0 {
+-				pins {
+-					pinmux = <STM32_PINMUX('C', 8, AF12)>, /* SDMMC1 D0 */
+-						 <STM32_PINMUX('C', 9, AF12)>, /* SDMMC1 D1 */
+-						 <STM32_PINMUX('C', 10, AF12)>, /* SDMMC1 D2 */
+-						 <STM32_PINMUX('C', 11, AF12)>, /* SDMMC1 D3 */
+-						 <STM32_PINMUX('C', 12, AF12)>, /* SDMMC1 CLK */
+-						 <STM32_PINMUX('D', 2, AF12)>; /* SDMMC1 CMD */
+-					drive-push-pull;
+-					slew-rate = <2>;
+-				};
+-			};
+-
+-			sdio_pins_od_a: sdio-pins-od-a-0 {
+-				pins1 {
+-					pinmux = <STM32_PINMUX('C', 8, AF12)>, /* SDMMC1 D0 */
+-						 <STM32_PINMUX('C', 9, AF12)>, /* SDMMC1 D1 */
+-						 <STM32_PINMUX('C', 10, AF12)>, /* SDMMC1 D2 */
+-						 <STM32_PINMUX('C', 11, AF12)>, /* SDMMC1 D3 */
+-						 <STM32_PINMUX('C', 12, AF12)>; /* SDMMC1 CLK */
+-					drive-push-pull;
+-					slew-rate = <2>;
+-				};
+-
+-				pins2 {
+-					pinmux = <STM32_PINMUX('D', 2, AF12)>; /* SDMMC1 CMD */
+-					drive-open-drain;
+-					slew-rate = <2>;
+-				};
+-			};
+-
+-			sdio_pins_sleep_a: sdio-pins-sleep-a-0 {
+-				pins {
+-					pinmux = <STM32_PINMUX('C', 8, ANALOG)>, /* SDMMC1 D0 */
+-						 <STM32_PINMUX('C', 9, ANALOG)>, /* SDMMC1 D1 */
+-						 <STM32_PINMUX('C', 10, ANALOG)>, /* SDMMC1 D2 */
+-						 <STM32_PINMUX('C', 11, ANALOG)>, /* SDMMC1 D3 */
+-						 <STM32_PINMUX('C', 12, ANALOG)>, /* SDMMC1 CLK */
+-						 <STM32_PINMUX('D', 2, ANALOG)>; /* SDMMC1 CMD */
+-				};
+-			};
+-
+-			sdio_pins_b: sdio-pins-b-0 {
+-				pins {
+-					pinmux = <STM32_PINMUX('G', 9, AF11)>, /* SDMMC2 D0 */
+-						 <STM32_PINMUX('G', 10, AF11)>, /* SDMMC2 D1 */
+-						 <STM32_PINMUX('B', 3, AF10)>, /* SDMMC2 D2 */
+-						 <STM32_PINMUX('B', 4, AF10)>, /* SDMMC2 D3 */
+-						 <STM32_PINMUX('D', 6, AF11)>, /* SDMMC2 CLK */
+-						 <STM32_PINMUX('D', 7, AF11)>; /* SDMMC2 CMD */
+-					drive-push-pull;
+-					slew-rate = <2>;
+-				};
+-			};
+-
+-			sdio_pins_od_b: sdio-pins-od-b-0 {
+-				pins1 {
+-					pinmux = <STM32_PINMUX('G', 9, AF11)>, /* SDMMC2 D0 */
+-						 <STM32_PINMUX('G', 10, AF11)>, /* SDMMC2 D1 */
+-						 <STM32_PINMUX('B', 3, AF10)>, /* SDMMC2 D2 */
+-						 <STM32_PINMUX('B', 4, AF10)>, /* SDMMC2 D3 */
+-						 <STM32_PINMUX('D', 6, AF11)>; /* SDMMC2 CLK */
+-					drive-push-pull;
+-					slew-rate = <2>;
+-				};
+-
+-				pins2 {
+-					pinmux = <STM32_PINMUX('D', 7, AF11)>; /* SDMMC2 CMD */
+-					drive-open-drain;
+-					slew-rate = <2>;
+-				};
+-			};
+-
+-			sdio_pins_sleep_b: sdio-pins-sleep-b-0 {
+-				pins {
+-					pinmux = <STM32_PINMUX('G', 9, ANALOG)>, /* SDMMC2 D0 */
+-						 <STM32_PINMUX('G', 10, ANALOG)>, /* SDMMC2 D1 */
+-						 <STM32_PINMUX('B', 3, ANALOG)>, /* SDMMC2 D2 */
+-						 <STM32_PINMUX('B', 4, ANALOG)>, /* SDMMC2 D3 */
+-						 <STM32_PINMUX('D', 6, ANALOG)>, /* SDMMC2 CLK */
+-						 <STM32_PINMUX('D', 7, ANALOG)>; /* SDMMC2 CMD */
+-				};
+-			};
+-
+-			can1_pins_a: can1-0 {
+-				pins1 {
+-					pinmux = <STM32_PINMUX('A', 12, AF9)>; /* CAN1_TX */
+-				};
+-				pins2 {
+-					pinmux = <STM32_PINMUX('A', 11, AF9)>; /* CAN1_RX */
+-					bias-pull-up;
+-				};
+-			};
+-
+-			can1_pins_b: can1-1 {
+-				pins1 {
+-					pinmux = <STM32_PINMUX('B', 9, AF9)>; /* CAN1_TX */
+-				};
+-				pins2 {
+-					pinmux = <STM32_PINMUX('B', 8, AF9)>; /* CAN1_RX */
+-					bias-pull-up;
+-				};
+-			};
+-
+-			can1_pins_c: can1-2 {
+-				pins1 {
+-					pinmux = <STM32_PINMUX('D', 1, AF9)>; /* CAN1_TX */
+-				};
+-				pins2 {
+-					pinmux = <STM32_PINMUX('D', 0, AF9)>; /* CAN1_RX */
+-					bias-pull-up;
+-
+-				};
+-			};
+-
+-			can1_pins_d: can1-3 {
+-				pins1 {
+-					pinmux = <STM32_PINMUX('H', 13, AF9)>; /* CAN1_TX */
+-				};
+-				pins2 {
+-					pinmux = <STM32_PINMUX('H', 14, AF9)>; /* CAN1_RX */
+-					bias-pull-up;
+-
+-				};
+-			};
+-
+-			can2_pins_a: can2-0 {
+-				pins1 {
+-					pinmux = <STM32_PINMUX('B', 6, AF9)>; /* CAN2_TX */
+-				};
+-				pins2 {
+-					pinmux = <STM32_PINMUX('B', 5, AF9)>; /* CAN2_RX */
+-					bias-pull-up;
+-				};
+-			};
+-
+-			can2_pins_b: can2-1 {
+-				pins1 {
+-					pinmux = <STM32_PINMUX('B', 13, AF9)>; /* CAN2_TX */
+-				};
+-				pins2 {
+-					pinmux = <STM32_PINMUX('B', 12, AF9)>; /* CAN2_RX */
+-					bias-pull-up;
+-				};
+-			};
+-
+-			can3_pins_a: can3-0 {
+-				pins1 {
+-					pinmux = <STM32_PINMUX('A', 15, AF11)>; /* CAN3_TX */
+-				};
+-				pins2 {
+-					pinmux = <STM32_PINMUX('A', 8, AF11)>; /* CAN3_RX */
+-					bias-pull-up;
+-				};
+-			};
+-
+-			can3_pins_b: can3-1 {
+-				pins1 {
+-					pinmux = <STM32_PINMUX('B', 4, AF11)>;  /* CAN3_TX */
+-				};
+-				pins2 {
+-					pinmux = <STM32_PINMUX('B', 3, AF11)>; /* CAN3_RX */
+-					bias-pull-up;
+-				};
+-			};
+-
+-			ltdc_pins_a: ltdc-0 {
+-				pins {
+-					pinmux = <STM32_PINMUX('E', 4, AF14)>, /* LCD_B0 */
+-						 <STM32_PINMUX('G',12, AF9)>,  /* LCD_B4 */
+-						 <STM32_PINMUX('I', 9, AF14)>, /* LCD_VSYNC */
+-						 <STM32_PINMUX('I',10, AF14)>, /* LCD_HSYNC */
+-						 <STM32_PINMUX('I',14, AF14)>, /* LCD_CLK */
+-						 <STM32_PINMUX('I',15, AF14)>, /* LCD_R0 */
+-						 <STM32_PINMUX('J', 0, AF14)>, /* LCD_R1 */
+-						 <STM32_PINMUX('J', 1, AF14)>, /* LCD_R2 */
+-						 <STM32_PINMUX('J', 2, AF14)>, /* LCD_R3 */
+-						 <STM32_PINMUX('J', 3, AF14)>, /* LCD_R4 */
+-						 <STM32_PINMUX('J', 4, AF14)>, /* LCD_R5 */
+-						 <STM32_PINMUX('J', 5, AF14)>, /* LCD_R6 */
+-						 <STM32_PINMUX('J', 6, AF14)>, /* LCD_R7 */
+-						 <STM32_PINMUX('J', 7, AF14)>, /* LCD_G0 */
+-						 <STM32_PINMUX('J', 8, AF14)>, /* LCD_G1 */
+-						 <STM32_PINMUX('J', 9, AF14)>, /* LCD_G2 */
+-						 <STM32_PINMUX('J',10, AF14)>, /* LCD_G3 */
+-						 <STM32_PINMUX('J',11, AF14)>, /* LCD_G4 */
+-						 <STM32_PINMUX('J',13, AF14)>, /* LCD_B1 */
+-						 <STM32_PINMUX('J',14, AF14)>, /* LCD_B2 */
+-						 <STM32_PINMUX('J',15, AF14)>, /* LCD_B3 */
+-						 <STM32_PINMUX('K', 0, AF14)>, /* LCD_G5 */
+-						 <STM32_PINMUX('K', 1, AF14)>, /* LCD_G6 */
+-						 <STM32_PINMUX('K', 2, AF14)>, /* LCD_G7 */
+-						 <STM32_PINMUX('K', 4, AF14)>, /* LCD_B5 */
+-						 <STM32_PINMUX('K', 5, AF14)>, /* LCD_B6 */
+-						 <STM32_PINMUX('K', 6, AF14)>, /* LCD_B7 */
+-						 <STM32_PINMUX('K', 7, AF14)>; /* LCD_DE */
+-					slew-rate = <2>;
+-				};
+-			};
+-		};
+-	};
+-};
+diff --git a/arch/arm/boot/dts/st/stm32f746-disco.dts b/arch/arm/boot/dts/st/stm32f746-disco.dts
+deleted file mode 100644
+index 61ca41ea523e..000000000000
+--- a/arch/arm/boot/dts/st/stm32f746-disco.dts
++++ /dev/null
+@@ -1,234 +0,0 @@
+-/*
+- * Copyright 2017 - Vikas MANOCHA <vikas.manocha@st.com>
 - *
 - * This file is dual-licensed: you can use it either under the terms
 - * of the GPL or the X11 license, at your option. Note that this dual
@@ -3100,57 +3606,266 @@ index 454b484368cb..000000000000
 - */
 -
 -/dts-v1/;
--#include "vf610m4.dtsi"
+-#include "stm32f746.dtsi"
+-#include "stm32f746-pinctrl.dtsi"
+-#include <dt-bindings/gpio/gpio.h>
+-#include <dt-bindings/input/input.h>
+-#include <dt-bindings/interrupt-controller/irq.h>
+-#include <dt-bindings/leds/common.h>
 -
 -/ {
--	model = "VF610 Cortex-M4";
--	compatible = "fsl,vf610m4";
+-	model = "STMicroelectronics STM32F746-DISCO board";
+-	compatible = "st,stm32f746-disco", "st,stm32f746";
+-
+-	chosen {
+-		bootargs = "root=/dev/ram";
+-		stdout-path = "serial0:115200n8";
+-	};
+-
+-	memory@c0000000 {
+-		device_type = "memory";
+-		reg = <0xC0000000 0x800000>;
+-	};
+-
+-	reserved-memory {
+-		#address-cells = <1>;
+-		#size-cells = <1>;
+-		ranges;
+-
+-		linux,cma {
+-			compatible = "shared-dma-pool";
+-			no-map;
+-			size = <0x80000>;
+-			linux,dma-default;
+-		};
+-	};
+-
+-	aliases {
+-		serial0 = &usart1;
+-	};
+-
+-	leds {
+-		compatible = "gpio-leds";
+-		led_usr: led-usr {
+-			function = LED_FUNCTION_HEARTBEAT;
+-			color = <LED_COLOR_ID_GREEN>;
+-			gpios = <&gpioi 1 GPIO_ACTIVE_HIGH>;
+-			linux,default-trigger = "heartbeat";
+-		};
+-	};
+-
+-	gpio-keys {
+-		compatible = "gpio-keys";
+-		autorepeat;
+-		button-0 {
+-			label = "User";
+-			linux,code = <KEY_HOME>;
+-			gpios = <&gpioi 11 GPIO_ACTIVE_HIGH>;
+-		};
+-	};
+-
+-	options {
+-		u-boot {
+-			compatible = "u-boot,config";
+-			boot-led = <&led_usr>;
+-		};
+-	};
+-
+-	usbotg_hs_phy: usb-phy {
+-		#phy-cells = <0>;
+-		compatible = "usb-nop-xceiv";
+-		clocks = <&rcc 0 STM32F7_AHB1_CLOCK(OTGHSULPI)>;
+-		clock-names = "main_clk";
+-	};
+-
+-	/* This turns on vbus for otg fs for host mode (dwc2) */
+-	vcc5v_otg_fs: vcc5v-otg-fs-regulator {
+-		compatible = "regulator-fixed";
+-		gpio = <&gpiod 5 0>;
+-		regulator-name = "vcc5_host1";
+-		regulator-always-on;
+-	};
+-
+-	vcc_3v3: vcc-3v3 {
+-		compatible = "regulator-fixed";
+-		regulator-name = "vcc_3v3";
+-		regulator-min-microvolt = <3300000>;
+-		regulator-max-microvolt = <3300000>;
+-	};
+-
+-	backlight: backlight {
+-		compatible = "gpio-backlight";
+-		gpios = <&gpiok 3 GPIO_ACTIVE_HIGH>;
+-		status = "okay";
+-	};
+-
+-	panel_rgb: panel-rgb {
+-		compatible = "rocktech,rk043fn48h";
+-		power-supply = <&vcc_3v3>;
+-		backlight = <&backlight>;
+-		enable-gpios = <&gpioi 12 GPIO_ACTIVE_HIGH>;
+-		status = "okay";
+-		port {
+-			panel_in_rgb: endpoint {
+-				remote-endpoint = <&ltdc_out_rgb>;
+-			};
+-		};
+-	};
 -};
 -
--&gpio0 {
--	status = "disabled";
+-&clk_hse {
+-	clock-frequency = <25000000>;
 -};
 -
--&gpio1 {
--	status = "disabled";
--};
--
--&gpio2 {
--	status = "disabled";
--};
--
--&gpio3 {
--	status = "disabled";
--};
--
--&gpio4 {
--	status = "disabled";
--};
--
--&uart3 {
+-&i2c1 {
+-	pinctrl-0 = <&i2c1_pins_b>;
 -	pinctrl-names = "default";
--	pinctrl-0 = <&pinctrl_uart3>;
+-	i2c-scl-rising-time-ns = <185>;
+-	i2c-scl-falling-time-ns = <20>;
 -	status = "okay";
 -};
 -
--&iomuxc {
--	pinctrl_uart3: uart3grp {
--		fsl,pins = <
--			VF610_PAD_PTA20__UART3_TX		0x21a2
--			VF610_PAD_PTA21__UART3_RX		0x21a1
--		>;
+-&i2c3 {
+-	pinctrl-0 = <&i2c3_pins_a>;
+-	pinctrl-names = "default";
+-	clock-frequency = <400000>;
+-	status = "okay";
+-
+-	touchscreen@38 {
+-		compatible = "edt,edt-ft5306";
+-		reg = <0x38>;
+-		interrupt-parent = <&gpioi>;
+-		interrupts = <13 IRQ_TYPE_EDGE_FALLING>;
+-		touchscreen-size-x = <480>;
+-		touchscreen-size-y = <272>;
 -	};
 -};
-diff --git a/arch/arm/boot/dts/nxp/vf/vf610m4.dtsi b/arch/arm/boot/dts/nxp/vf/vf610m4.dtsi
+-
+-&ltdc {
+-	pinctrl-0 = <&ltdc_pins_a>;
+-	pinctrl-names = "default";
+-	status = "okay";
+-
+-	port {
+-		ltdc_out_rgb: endpoint {
+-			remote-endpoint = <&panel_in_rgb>;
+-		};
+-	};
+-};
+-
+-&sdio1 {
+-	status = "okay";
+-	vmmc-supply = <&vcc_3v3>;
+-	cd-gpios = <&gpioc 13 GPIO_ACTIVE_LOW>;
+-	pinctrl-names = "default", "opendrain", "sleep";
+-	pinctrl-0 = <&sdio_pins_a>;
+-	pinctrl-1 = <&sdio_pins_od_a>;
+-	pinctrl-2 = <&sdio_pins_sleep_a>;
+-	bus-width = <4>;
+-};
+-
+-&timers5 {
+-	/* Override timer5 to act as clockevent */
+-	compatible = "st,stm32-timer";
+-	interrupts = <50>;
+-	status = "okay";
+-	/delete-property/#address-cells;
+-	/delete-property/#size-cells;
+-	/delete-property/clock-names;
+-	/delete-node/pwm;
+-	/delete-node/timer@4;
+-};
+-
+-&usart1 {
+-	pinctrl-0 = <&usart1_pins_b>;
+-	pinctrl-names = "default";
+-	status = "okay";
+-};
+-
+-&usbotg_fs {
+-	dr_mode = "host";
+-	pinctrl-0 = <&usbotg_fs_pins_a>;
+-	pinctrl-names = "default";
+-	status = "okay";
+-};
+-
+-&usbotg_hs {
+-	dr_mode = "host";
+-	phys = <&usbotg_hs_phy>;
+-	phy-names = "usb2-phy";
+-	pinctrl-0 = <&usbotg_hs_pins_b>;
+-	pinctrl-names = "default";
+-	status = "okay";
+-};
+diff --git a/arch/arm/boot/dts/st/stm32f746-pinctrl.dtsi b/arch/arm/boot/dts/st/stm32f746-pinctrl.dtsi
 deleted file mode 100644
-index 648d219e1d0e..000000000000
---- a/arch/arm/boot/dts/nxp/vf/vf610m4.dtsi
+index 139f72b790c0..000000000000
+--- a/arch/arm/boot/dts/st/stm32f746-pinctrl.dtsi
 +++ /dev/null
-@@ -1,61 +0,0 @@
+@@ -1,55 +0,0 @@
+-// SPDX-License-Identifier: (GPL-2.0+ OR BSD-3-Clause)
 -/*
-- * Device tree for VF6xx Cortex-M4 support
-- *
-- * Copyright (C) 2015 Stefan Agner
+- * Copyright (C) STMicroelectronics 2017 - All Rights Reserved
+- * Author: Alexandre Torgue  <alexandre.torgue@st.com> for STMicroelectronics.
+- */
+-
+-#include "stm32f7-pinctrl.dtsi"
+-
+-&pinctrl {
+-	compatible = "st,stm32f746-pinctrl";
+-
+-	gpioa: gpio@40020000 {
+-		gpio-ranges = <&pinctrl 0 0 16>;
+-	};
+-
+-	gpiob: gpio@40020400 {
+-		gpio-ranges = <&pinctrl 0 16 16>;
+-	};
+-
+-	gpioc: gpio@40020800 {
+-		gpio-ranges = <&pinctrl 0 32 16>;
+-	};
+-
+-	gpiod: gpio@40020c00 {
+-		gpio-ranges = <&pinctrl 0 48 16>;
+-	};
+-
+-	gpioe: gpio@40021000 {
+-		gpio-ranges = <&pinctrl 0 64 16>;
+-	};
+-
+-	gpiof: gpio@40021400 {
+-		gpio-ranges = <&pinctrl 0 80 16>;
+-	};
+-
+-	gpiog: gpio@40021800 {
+-		gpio-ranges = <&pinctrl 0 96 16>;
+-	};
+-
+-	gpioh: gpio@40021c00 {
+-		gpio-ranges = <&pinctrl 0 112 16>;
+-	};
+-
+-	gpioi: gpio@40022000 {
+-		gpio-ranges = <&pinctrl 0 128 16>;
+-	};
+-
+-	gpioj: gpio@40022400 {
+-		gpio-ranges = <&pinctrl 0 144 16>;
+-	};
+-
+-	gpiok: gpio@40022800 {
+-		gpio-ranges = <&pinctrl 0 160 8>;
+-	};
+-};
+diff --git a/arch/arm/boot/dts/st/stm32f746.dtsi b/arch/arm/boot/dts/st/stm32f746.dtsi
+deleted file mode 100644
+index 208f8c6dfc9d..000000000000
+--- a/arch/arm/boot/dts/st/stm32f746.dtsi
++++ /dev/null
+@@ -1,727 +0,0 @@
+-/*
+- * Copyright 2015 - Maxime Coquelin <mcoquelin.stm32@gmail.com>
 - *
 - * This file is dual-licensed: you can use it either under the terms
 - * of the GPL or the X11 license, at your option. Note that this dual
@@ -3191,256 +3906,3028 @@ index 648d219e1d0e..000000000000
 - *     OTHER DEALINGS IN THE SOFTWARE.
 - */
 -
--#include "../../armv7-m.dtsi"
--#include "vfxxx.dtsi"
+-#include "../armv7-m.dtsi"
+-#include <dt-bindings/clock/stm32fx-clock.h>
+-#include <dt-bindings/mfd/stm32f7-rcc.h>
+-#include <dt-bindings/interrupt-controller/irq.h>
 -
 -/ {
 -	#address-cells = <1>;
 -	#size-cells = <1>;
--	chosen { };
--	aliases { };
+-
+-	clocks {
+-		clk_hse: clk-hse {
+-			#clock-cells = <0>;
+-			compatible = "fixed-clock";
+-			clock-frequency = <0>;
+-		};
+-
+-		clk-lse {
+-			#clock-cells = <0>;
+-			compatible = "fixed-clock";
+-			clock-frequency = <32768>;
+-		};
+-
+-		clk-lsi {
+-			#clock-cells = <0>;
+-			compatible = "fixed-clock";
+-			clock-frequency = <32000>;
+-		};
+-
+-		clk_i2s_ckin: clk-i2s-ckin {
+-			#clock-cells = <0>;
+-			compatible = "fixed-clock";
+-			clock-frequency = <48000000>;
+-		};
+-	};
+-
+-	soc {
+-		timers2: timers@40000000 {
+-			#address-cells = <1>;
+-			#size-cells = <0>;
+-			compatible = "st,stm32-timers";
+-			reg = <0x40000000 0x400>;
+-			clocks = <&rcc 0 STM32F7_APB1_CLOCK(TIM2)>;
+-			clock-names = "int";
+-			status = "disabled";
+-
+-			pwm {
+-				compatible = "st,stm32-pwm";
+-				#pwm-cells = <3>;
+-				status = "disabled";
+-			};
+-
+-			timer@1 {
+-				compatible = "st,stm32-timer-trigger";
+-				reg = <1>;
+-				status = "disabled";
+-			};
+-		};
+-
+-		timers3: timers@40000400 {
+-			#address-cells = <1>;
+-			#size-cells = <0>;
+-			compatible = "st,stm32-timers";
+-			reg = <0x40000400 0x400>;
+-			clocks = <&rcc 0 STM32F7_APB1_CLOCK(TIM3)>;
+-			clock-names = "int";
+-			status = "disabled";
+-
+-			pwm {
+-				compatible = "st,stm32-pwm";
+-				#pwm-cells = <3>;
+-				status = "disabled";
+-			};
+-
+-			timer@2 {
+-				compatible = "st,stm32-timer-trigger";
+-				reg = <2>;
+-				status = "disabled";
+-			};
+-		};
+-
+-		timers4: timers@40000800 {
+-			#address-cells = <1>;
+-			#size-cells = <0>;
+-			compatible = "st,stm32-timers";
+-			reg = <0x40000800 0x400>;
+-			clocks = <&rcc 0 STM32F7_APB1_CLOCK(TIM4)>;
+-			clock-names = "int";
+-			status = "disabled";
+-
+-			pwm {
+-				compatible = "st,stm32-pwm";
+-				#pwm-cells = <3>;
+-				status = "disabled";
+-			};
+-
+-			timer@3 {
+-				compatible = "st,stm32-timer-trigger";
+-				reg = <3>;
+-				status = "disabled";
+-			};
+-		};
+-
+-		timers5: timers@40000c00 {
+-			#address-cells = <1>;
+-			#size-cells = <0>;
+-			compatible = "st,stm32-timers";
+-			reg = <0x40000C00 0x400>;
+-			clocks = <&rcc 0 STM32F7_APB1_CLOCK(TIM5)>;
+-			clock-names = "int";
+-			status = "disabled";
+-
+-			pwm {
+-				compatible = "st,stm32-pwm";
+-				#pwm-cells = <3>;
+-				status = "disabled";
+-			};
+-
+-			timer@4 {
+-				compatible = "st,stm32-timer-trigger";
+-				reg = <4>;
+-				status = "disabled";
+-			};
+-		};
+-
+-		timers6: timers@40001000 {
+-			#address-cells = <1>;
+-			#size-cells = <0>;
+-			compatible = "st,stm32-timers";
+-			reg = <0x40001000 0x400>;
+-			clocks = <&rcc 0 STM32F7_APB1_CLOCK(TIM6)>;
+-			clock-names = "int";
+-			status = "disabled";
+-
+-			timer@5 {
+-				compatible = "st,stm32-timer-trigger";
+-				reg = <5>;
+-				status = "disabled";
+-			};
+-		};
+-
+-		timers7: timers@40001400 {
+-			#address-cells = <1>;
+-			#size-cells = <0>;
+-			compatible = "st,stm32-timers";
+-			reg = <0x40001400 0x400>;
+-			clocks = <&rcc 0 STM32F7_APB1_CLOCK(TIM7)>;
+-			clock-names = "int";
+-			status = "disabled";
+-
+-			timer@6 {
+-				compatible = "st,stm32-timer-trigger";
+-				reg = <6>;
+-				status = "disabled";
+-			};
+-		};
+-
+-		timers12: timers@40001800 {
+-			#address-cells = <1>;
+-			#size-cells = <0>;
+-			compatible = "st,stm32-timers";
+-			reg = <0x40001800 0x400>;
+-			clocks = <&rcc 0 STM32F7_APB1_CLOCK(TIM12)>;
+-			clock-names = "int";
+-			status = "disabled";
+-
+-			pwm {
+-				compatible = "st,stm32-pwm";
+-				#pwm-cells = <3>;
+-				status = "disabled";
+-			};
+-
+-			timer@11 {
+-				compatible = "st,stm32-timer-trigger";
+-				reg = <11>;
+-				status = "disabled";
+-			};
+-		};
+-
+-		timers13: timers@40001c00 {
+-			compatible = "st,stm32-timers";
+-			reg = <0x40001C00 0x400>;
+-			clocks = <&rcc 0 STM32F7_APB1_CLOCK(TIM13)>;
+-			clock-names = "int";
+-			status = "disabled";
+-
+-			pwm {
+-				compatible = "st,stm32-pwm";
+-				#pwm-cells = <3>;
+-				status = "disabled";
+-			};
+-		};
+-
+-		timers14: timers@40002000 {
+-			compatible = "st,stm32-timers";
+-			reg = <0x40002000 0x400>;
+-			clocks = <&rcc 0 STM32F7_APB1_CLOCK(TIM14)>;
+-			clock-names = "int";
+-			status = "disabled";
+-
+-			pwm {
+-				compatible = "st,stm32-pwm";
+-				#pwm-cells = <3>;
+-				status = "disabled";
+-			};
+-		};
+-
+-		lptimer1: timer@40002400 {
+-			#address-cells = <1>;
+-			#size-cells = <0>;
+-			compatible = "st,stm32-lptimer";
+-			reg = <0x40002400 0x400>;
+-			interrupts-extended = <&exti 23 IRQ_TYPE_EDGE_RISING>;
+-			clocks = <&rcc 1 CLK_LPTIMER>;
+-			clock-names = "mux";
+-			status = "disabled";
+-
+-			pwm {
+-				compatible = "st,stm32-pwm-lp";
+-				#pwm-cells = <3>;
+-				status = "disabled";
+-			};
+-
+-			trigger@0 {
+-				compatible = "st,stm32-lptimer-trigger";
+-				reg = <0>;
+-				status = "disabled";
+-			};
+-
+-			counter {
+-				compatible = "st,stm32-lptimer-counter";
+-				status = "disabled";
+-			};
+-
+-			timer {
+-				compatible = "st,stm32-lptimer-timer";
+-				status = "disabled";
+-			};
+-		};
+-
+-		rtc: rtc@40002800 {
+-			compatible = "st,stm32-rtc";
+-			reg = <0x40002800 0x400>;
+-			clocks = <&rcc 1 CLK_RTC>;
+-			assigned-clocks = <&rcc 1 CLK_RTC>;
+-			assigned-clock-parents = <&rcc 1 CLK_LSE>;
+-			interrupt-parent = <&exti>;
+-			interrupts = <17 1>;
+-			st,syscfg = <&pwrcfg 0x00 0x100>;
+-			status = "disabled";
+-		};
+-
+-		spi2: spi@40003800 {
+-			#address-cells = <1>;
+-			#size-cells = <0>;
+-			compatible = "st,stm32f7-spi";
+-			reg = <0x40003800 0x400>;
+-			interrupts = <36>;
+-			clocks = <&rcc 0 STM32F7_APB1_CLOCK(SPI2)>;
+-			status = "disabled";
+-		};
+-
+-		spi3: spi@40003c00 {
+-			#address-cells = <1>;
+-			#size-cells = <0>;
+-			compatible = "st,stm32f7-spi";
+-			reg = <0x40003c00 0x400>;
+-			interrupts = <51>;
+-			clocks = <&rcc 0 STM32F7_APB1_CLOCK(SPI3)>;
+-			status = "disabled";
+-		};
+-
+-		usart2: serial@40004400 {
+-			compatible = "st,stm32f7-uart";
+-			reg = <0x40004400 0x400>;
+-			interrupts = <38>;
+-			clocks = <&rcc 1 CLK_USART2>;
+-			status = "disabled";
+-		};
+-
+-		usart3: serial@40004800 {
+-			compatible = "st,stm32f7-uart";
+-			reg = <0x40004800 0x400>;
+-			interrupts = <39>;
+-			clocks = <&rcc 1 CLK_USART3>;
+-			status = "disabled";
+-		};
+-
+-		usart4: serial@40004c00 {
+-			compatible = "st,stm32f7-uart";
+-			reg = <0x40004c00 0x400>;
+-			interrupts = <52>;
+-			clocks = <&rcc 1 CLK_UART4>;
+-			status = "disabled";
+-		};
+-
+-		usart5: serial@40005000 {
+-			compatible = "st,stm32f7-uart";
+-			reg = <0x40005000 0x400>;
+-			interrupts = <53>;
+-			clocks = <&rcc 1 CLK_UART5>;
+-			status = "disabled";
+-		};
+-
+-		i2c1: i2c@40005400 {
+-			compatible = "st,stm32f7-i2c";
+-			reg = <0x40005400 0x400>;
+-			interrupts = <31>,
+-				     <32>;
+-			resets = <&rcc STM32F7_APB1_RESET(I2C1)>;
+-			clocks = <&rcc 1 CLK_I2C1>;
+-			#address-cells = <1>;
+-			#size-cells = <0>;
+-			status = "disabled";
+-		};
+-
+-		i2c2: i2c@40005800 {
+-			compatible = "st,stm32f7-i2c";
+-			reg = <0x40005800 0x400>;
+-			interrupts = <33>,
+-				     <34>;
+-			resets = <&rcc STM32F7_APB1_RESET(I2C2)>;
+-			clocks = <&rcc 1 CLK_I2C2>;
+-			#address-cells = <1>;
+-			#size-cells = <0>;
+-			status = "disabled";
+-		};
+-
+-		i2c3: i2c@40005c00 {
+-			compatible = "st,stm32f7-i2c";
+-			reg = <0x40005c00 0x400>;
+-			interrupts = <72>,
+-				     <73>;
+-			resets = <&rcc STM32F7_APB1_RESET(I2C3)>;
+-			clocks = <&rcc 1 CLK_I2C3>;
+-			#address-cells = <1>;
+-			#size-cells = <0>;
+-			status = "disabled";
+-		};
+-
+-		i2c4: i2c@40006000 {
+-			compatible = "st,stm32f7-i2c";
+-			reg = <0x40006000 0x400>;
+-			interrupts = <95>,
+-				     <96>;
+-			resets = <&rcc STM32F7_APB1_RESET(I2C4)>;
+-			clocks = <&rcc 1 CLK_I2C4>;
+-			#address-cells = <1>;
+-			#size-cells = <0>;
+-			status = "disabled";
+-		};
+-
+-		can1: can@40006400 {
+-			compatible = "st,stm32f4-bxcan";
+-			reg = <0x40006400 0x200>;
+-			interrupts = <19>, <20>, <21>, <22>;
+-			interrupt-names = "tx", "rx0", "rx1", "sce";
+-			resets = <&rcc STM32F7_APB1_RESET(CAN1)>;
+-			clocks = <&rcc 0 STM32F7_APB1_CLOCK(CAN1)>;
+-			st,can-primary;
+-			st,gcan = <&gcan1>;
+-			status = "disabled";
+-		};
+-
+-		gcan1: gcan@40006600 {
+-			compatible = "st,stm32f4-gcan", "syscon";
+-			reg = <0x40006600 0x200>;
+-			clocks = <&rcc 0 STM32F7_APB1_CLOCK(CAN1)>;
+-		};
+-
+-		can2: can@40006800 {
+-			compatible = "st,stm32f4-bxcan";
+-			reg = <0x40006800 0x200>;
+-			interrupts = <63>, <64>, <65>, <66>;
+-			interrupt-names = "tx", "rx0", "rx1", "sce";
+-			resets = <&rcc STM32F7_APB1_RESET(CAN2)>;
+-			clocks = <&rcc 0 STM32F7_APB1_CLOCK(CAN2)>;
+-			st,can-secondary;
+-			st,gcan = <&gcan1>;
+-			status = "disabled";
+-		};
+-
+-		cec: cec@40006c00 {
+-			compatible = "st,stm32-cec";
+-			reg = <0x40006C00 0x400>;
+-			interrupts = <94>;
+-			clocks = <&rcc 0 STM32F7_APB1_CLOCK(CEC)>, <&rcc 1 CLK_HDMI_CEC>;
+-			clock-names = "cec", "hdmi-cec";
+-			status = "disabled";
+-		};
+-
+-		usart7: serial@40007800 {
+-			compatible = "st,stm32f7-uart";
+-			reg = <0x40007800 0x400>;
+-			interrupts = <82>;
+-			clocks = <&rcc 1 CLK_UART7>;
+-			status = "disabled";
+-		};
+-
+-		usart8: serial@40007c00 {
+-			compatible = "st,stm32f7-uart";
+-			reg = <0x40007c00 0x400>;
+-			interrupts = <83>;
+-			clocks = <&rcc 1 CLK_UART8>;
+-			status = "disabled";
+-		};
+-
+-		timers1: timers@40010000 {
+-			#address-cells = <1>;
+-			#size-cells = <0>;
+-			compatible = "st,stm32-timers";
+-			reg = <0x40010000 0x400>;
+-			clocks = <&rcc 0 STM32F7_APB2_CLOCK(TIM1)>;
+-			clock-names = "int";
+-			status = "disabled";
+-
+-			pwm {
+-				compatible = "st,stm32-pwm";
+-				#pwm-cells = <3>;
+-				status = "disabled";
+-			};
+-
+-			timer@0 {
+-				compatible = "st,stm32-timer-trigger";
+-				reg = <0>;
+-				status = "disabled";
+-			};
+-		};
+-
+-		timers8: timers@40010400 {
+-			#address-cells = <1>;
+-			#size-cells = <0>;
+-			compatible = "st,stm32-timers";
+-			reg = <0x40010400 0x400>;
+-			clocks = <&rcc 0 STM32F7_APB2_CLOCK(TIM8)>;
+-			clock-names = "int";
+-			status = "disabled";
+-
+-			pwm {
+-				compatible = "st,stm32-pwm";
+-				#pwm-cells = <3>;
+-				status = "disabled";
+-			};
+-
+-			timer@7 {
+-				compatible = "st,stm32-timer-trigger";
+-				reg = <7>;
+-				status = "disabled";
+-			};
+-		};
+-
+-		usart1: serial@40011000 {
+-			compatible = "st,stm32f7-uart";
+-			reg = <0x40011000 0x400>;
+-			interrupts = <37>;
+-			clocks = <&rcc 1 CLK_USART1>;
+-			status = "disabled";
+-		};
+-
+-		usart6: serial@40011400 {
+-			compatible = "st,stm32f7-uart";
+-			reg = <0x40011400 0x400>;
+-			interrupts = <71>;
+-			clocks = <&rcc 1 CLK_USART6>;
+-			status = "disabled";
+-		};
+-
+-		sdio2: mmc@40011c00 {
+-			compatible = "arm,pl180", "arm,primecell";
+-			arm,primecell-periphid = <0x00880180>;
+-			reg = <0x40011c00 0x400>;
+-			clocks = <&rcc 0 STM32F7_APB2_CLOCK(SDMMC2)>;
+-			clock-names = "apb_pclk";
+-			interrupts = <103>;
+-			max-frequency = <48000000>;
+-			status = "disabled";
+-		};
+-
+-		sdio1: mmc@40012c00 {
+-			compatible = "arm,pl180", "arm,primecell";
+-			arm,primecell-periphid = <0x00880180>;
+-			reg = <0x40012c00 0x400>;
+-			clocks = <&rcc 0 STM32F7_APB2_CLOCK(SDMMC1)>;
+-			clock-names = "apb_pclk";
+-			interrupts = <49>;
+-			max-frequency = <48000000>;
+-			status = "disabled";
+-		};
+-
+-		spi1: spi@40013000 {
+-			#address-cells = <1>;
+-			#size-cells = <0>;
+-			compatible = "st,stm32f7-spi";
+-			reg = <0x40013000 0x400>;
+-			interrupts = <35>;
+-			clocks = <&rcc 0 STM32F7_APB2_CLOCK(SPI1)>;
+-			status = "disabled";
+-		};
+-
+-		spi4: spi@40013400 {
+-			#address-cells = <1>;
+-			#size-cells = <0>;
+-			compatible = "st,stm32f7-spi";
+-			reg = <0x40013400 0x400>;
+-			interrupts = <84>;
+-			clocks = <&rcc 0 STM32F7_APB2_CLOCK(SPI4)>;
+-			status = "disabled";
+-		};
+-
+-		syscfg: syscon@40013800 {
+-			compatible = "st,stm32-syscfg", "syscon";
+-			reg = <0x40013800 0x400>;
+-			clocks = <&rcc 0 STM32F7_APB2_CLOCK(SYSCFG)>;
+-		};
+-
+-		exti: interrupt-controller@40013c00 {
+-			compatible = "st,stm32-exti";
+-			interrupt-controller;
+-			#interrupt-cells = <2>;
+-			reg = <0x40013C00 0x400>;
+-			interrupts = <1>, <2>, <3>, <6>, <7>, <8>, <9>, <10>, <23>, <40>, <41>, <42>, <62>, <76>;
+-		};
+-
+-		timers9: timers@40014000 {
+-			#address-cells = <1>;
+-			#size-cells = <0>;
+-			compatible = "st,stm32-timers";
+-			reg = <0x40014000 0x400>;
+-			clocks = <&rcc 0 STM32F7_APB2_CLOCK(TIM9)>;
+-			clock-names = "int";
+-			status = "disabled";
+-
+-			pwm {
+-				compatible = "st,stm32-pwm";
+-				#pwm-cells = <3>;
+-				status = "disabled";
+-			};
+-
+-			timer@8 {
+-				compatible = "st,stm32-timer-trigger";
+-				reg = <8>;
+-				status = "disabled";
+-			};
+-		};
+-
+-		timers10: timers@40014400 {
+-			compatible = "st,stm32-timers";
+-			reg = <0x40014400 0x400>;
+-			clocks = <&rcc 0 STM32F7_APB2_CLOCK(TIM10)>;
+-			clock-names = "int";
+-			status = "disabled";
+-
+-			pwm {
+-				compatible = "st,stm32-pwm";
+-				#pwm-cells = <3>;
+-				status = "disabled";
+-			};
+-		};
+-
+-		timers11: timers@40014800 {
+-			compatible = "st,stm32-timers";
+-			reg = <0x40014800 0x400>;
+-			clocks = <&rcc 0 STM32F7_APB2_CLOCK(TIM11)>;
+-			clock-names = "int";
+-			status = "disabled";
+-
+-			pwm {
+-				compatible = "st,stm32-pwm";
+-				#pwm-cells = <3>;
+-				status = "disabled";
+-			};
+-		};
+-
+-		spi5: spi@40015000 {
+-			#address-cells = <1>;
+-			#size-cells = <0>;
+-			compatible = "st,stm32f7-spi";
+-			reg = <0x40015000 0x400>;
+-			interrupts = <85>;
+-			clocks = <&rcc 0 STM32F7_APB2_CLOCK(SPI5)>;
+-			status = "disabled";
+-		};
+-
+-		spi6: spi@40015400 {
+-			#address-cells = <1>;
+-			#size-cells = <0>;
+-			compatible = "st,stm32f7-spi";
+-			reg = <0x40015400 0x400>;
+-			interrupts = <86>;
+-			clocks = <&rcc 0 STM32F7_APB2_CLOCK(SPI6)>;
+-			status = "disabled";
+-		};
+-
+-		ltdc: display-controller@40016800 {
+-			compatible = "st,stm32-ltdc";
+-			reg = <0x40016800 0x200>;
+-			interrupts = <88>, <89>;
+-			resets = <&rcc STM32F7_APB2_RESET(LTDC)>;
+-			clocks = <&rcc 1 CLK_LCD>;
+-			clock-names = "lcd";
+-			status = "disabled";
+-		};
+-
+-		pwrcfg: power-config@40007000 {
+-			compatible = "st,stm32-power-config", "syscon";
+-			reg = <0x40007000 0x400>;
+-		};
+-
+-		crc: crc@40023000 {
+-			compatible = "st,stm32f7-crc";
+-			reg = <0x40023000 0x400>;
+-			clocks = <&rcc 0 STM32F7_AHB1_CLOCK(CRC)>;
+-			status = "disabled";
+-		};
+-
+-		rcc: rcc@40023800 {
+-			#reset-cells = <1>;
+-			#clock-cells = <2>;
+-			compatible = "st,stm32f746-rcc", "st,stm32-rcc";
+-			reg = <0x40023800 0x400>;
+-			clocks = <&clk_hse>, <&clk_i2s_ckin>;
+-			st,syscfg = <&pwrcfg>;
+-			assigned-clocks = <&rcc 1 CLK_HSE_RTC>;
+-			assigned-clock-rates = <1000000>;
+-		};
+-
+-		dma1: dma-controller@40026000 {
+-			compatible = "st,stm32-dma";
+-			reg = <0x40026000 0x400>;
+-			interrupts = <11>,
+-				     <12>,
+-				     <13>,
+-				     <14>,
+-				     <15>,
+-				     <16>,
+-				     <17>,
+-				     <47>;
+-			clocks = <&rcc 0 STM32F7_AHB1_CLOCK(DMA1)>;
+-			#dma-cells = <4>;
+-			status = "disabled";
+-		};
+-
+-		dma2: dma-controller@40026400 {
+-			compatible = "st,stm32-dma";
+-			reg = <0x40026400 0x400>;
+-			interrupts = <56>,
+-				     <57>,
+-				     <58>,
+-				     <59>,
+-				     <60>,
+-				     <68>,
+-				     <69>,
+-				     <70>;
+-			clocks = <&rcc 0 STM32F7_AHB1_CLOCK(DMA2)>;
+-			#dma-cells = <4>;
+-			st,mem2mem;
+-			status = "disabled";
+-		};
+-
+-		usbotg_hs: usb@40040000 {
+-			compatible = "st,stm32f7-hsotg";
+-			reg = <0x40040000 0x40000>;
+-			interrupts = <77>;
+-			clocks = <&rcc 0 STM32F7_AHB1_CLOCK(OTGHS)>;
+-			clock-names = "otg";
+-			g-rx-fifo-size = <256>;
+-			g-np-tx-fifo-size = <32>;
+-			g-tx-fifo-size = <128 128 64 64 64 64 32 32>;
+-			status = "disabled";
+-		};
+-
+-		usbotg_fs: usb@50000000 {
+-			compatible = "st,stm32f4x9-fsotg";
+-			reg = <0x50000000 0x40000>;
+-			interrupts = <67>;
+-			clocks = <&rcc 0 STM32F7_AHB2_CLOCK(OTGFS)>;
+-			clock-names = "otg";
+-			status = "disabled";
+-		};
+-	};
 -};
 -
--&mscm_ir {
--	interrupt-parent = <&nvic>;
+-&systick {
+-	clocks = <&rcc 1 0>;
+-	status = "okay";
 -};
--
--&nvic {
--	arm,num-irq-priority-bits = <4>;
--};
-diff --git a/arch/arm/configs/imxrt_defconfig b/arch/arm/configs/imxrt_defconfig
+diff --git a/arch/arm/boot/dts/st/stm32f769-disco-mb1166-reva09.dts b/arch/arm/boot/dts/st/stm32f769-disco-mb1166-reva09.dts
 deleted file mode 100644
-index 52dba3762996..000000000000
---- a/arch/arm/configs/imxrt_defconfig
+index ff7ff32371d0..000000000000
+--- a/arch/arm/boot/dts/st/stm32f769-disco-mb1166-reva09.dts
 +++ /dev/null
-@@ -1,35 +0,0 @@
--# CONFIG_LOCALVERSION_AUTO is not set
--CONFIG_BPF_SYSCALL=y
--CONFIG_SCHED_AUTOGROUP=y
+@@ -1,13 +0,0 @@
+-// SPDX-License-Identifier: GPL-2.0
+-/*
+- * Copyright (c) 2023 Dario Binacchi <dario.binacchi@amarulasolutions.com>
+- */
+-
+-#include "stm32f769-disco.dts"
+-
+-&panel0 {
+-	compatible = "frida,frd400b25025", "novatek,nt35510";
+-	vddi-supply = <&vcc_3v3>;
+-	vdd-supply = <&vcc_3v3>;
+-	/delete-property/power-supply;
+-};
+diff --git a/arch/arm/boot/dts/st/stm32f769-disco.dts b/arch/arm/boot/dts/st/stm32f769-disco.dts
+deleted file mode 100644
+index e5854fa1071b..000000000000
+--- a/arch/arm/boot/dts/st/stm32f769-disco.dts
++++ /dev/null
+@@ -1,243 +0,0 @@
+-/*
+- * Copyright 2017 - Vikas MANOCHA <vikas.manocha@st.com>
+- *
+- * This file is dual-licensed: you can use it either under the terms
+- * of the GPL or the X11 license, at your option. Note that this dual
+- * licensing only applies to this file, and not this project as a
+- * whole.
+- *
+- *  a) This file is free software; you can redistribute it and/or
+- *     modify it under the terms of the GNU General Public License as
+- *     published by the Free Software Foundation; either version 2 of the
+- *     License, or (at your option) any later version.
+- *
+- *     This file is distributed in the hope that it will be useful,
+- *     but WITHOUT ANY WARRANTY; without even the implied warranty of
+- *     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+- *     GNU General Public License for more details.
+- *
+- * Or, alternatively,
+- *
+- *  b) Permission is hereby granted, free of charge, to any person
+- *     obtaining a copy of this software and associated documentation
+- *     files (the "Software"), to deal in the Software without
+- *     restriction, including without limitation the rights to use,
+- *     copy, modify, merge, publish, distribute, sublicense, and/or
+- *     sell copies of the Software, and to permit persons to whom the
+- *     Software is furnished to do so, subject to the following
+- *     conditions:
+- *
+- *     The above copyright notice and this permission notice shall be
+- *     included in all copies or substantial portions of the Software.
+- *
+- *     THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+- *     EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+- *     OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+- *     NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+- *     HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+- *     WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+- *     FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+- *     OTHER DEALINGS IN THE SOFTWARE.
+- */
+-
+-/dts-v1/;
+-#include "stm32f769.dtsi"
+-#include "stm32f769-pinctrl.dtsi"
+-#include <dt-bindings/input/input.h>
+-#include <dt-bindings/gpio/gpio.h>
+-#include <dt-bindings/leds/common.h>
+-
+-/ {
+-	model = "STMicroelectronics STM32F769-DISCO board";
+-	compatible = "st,stm32f769-disco", "st,stm32f769";
+-
+-	chosen {
+-		bootargs = "root=/dev/ram";
+-		stdout-path = "serial0:115200n8";
+-	};
+-
+-	memory@c0000000 {
+-		device_type = "memory";
+-		reg = <0xC0000000 0x1000000>;
+-	};
+-
+-	reserved-memory {
+-		#address-cells = <1>;
+-		#size-cells = <1>;
+-		ranges;
+-
+-		linux,dma {
+-			compatible = "shared-dma-pool";
+-			linux,dma-default;
+-			no-map;
+-			size = <0x100000>;
+-		};
+-	};
+-
+-	aliases {
+-		serial0 = &usart1;
+-	};
+-
+-	leds {
+-		compatible = "gpio-leds";
+-		led_usr2: led-usr2 {
+-			function = LED_FUNCTION_HEARTBEAT;
+-			color = <LED_COLOR_ID_GREEN>;
+-			gpios = <&gpioj 5 GPIO_ACTIVE_HIGH>;
+-			linux,default-trigger = "heartbeat";
+-		};
+-		led-usr1 {
+-			color = <LED_COLOR_ID_RED>;
+-			gpios = <&gpioj 13 GPIO_ACTIVE_HIGH>;
+-		};
+-		led-usr3 {
+-			color = <LED_COLOR_ID_GREEN>;
+-			gpios = <&gpioa 12 GPIO_ACTIVE_HIGH>;
+-		};
+-	};
+-
+-	gpio-keys {
+-		compatible = "gpio-keys";
+-		autorepeat;
+-		button-0 {
+-			label = "User";
+-			linux,code = <KEY_HOME>;
+-			gpios = <&gpioa 0 GPIO_ACTIVE_HIGH>;
+-		};
+-	};
+-
+-	options {
+-		u-boot {
+-			compatible = "u-boot,config";
+-			boot-led = <&led_usr2>;
+-		};
+-	};
+-
+-	usbotg_hs_phy: usb-phy {
+-		#phy-cells = <0>;
+-		compatible = "usb-nop-xceiv";
+-		clocks = <&rcc 0 STM32F7_AHB1_CLOCK(OTGHSULPI)>;
+-		clock-names = "main_clk";
+-	};
+-
+-	vcc_3v3: vcc-3v3 {
+-		compatible = "regulator-fixed";
+-		regulator-name = "vcc_3v3";
+-		regulator-min-microvolt = <3300000>;
+-		regulator-max-microvolt = <3300000>;
+-	};
+-};
+-
+-&rcc {
+-	compatible = "st,stm32f769-rcc", "st,stm32f746-rcc", "st,stm32-rcc";
+-};
+-
+-&cec {
+-	pinctrl-0 = <&cec_pins_a>;
+-	pinctrl-names = "default";
+-	status = "okay";
+-};
+-
+-&clk_hse {
+-	clock-frequency = <25000000>;
+-};
+-
+-&dsi {
+-	#address-cells = <1>;
+-	#size-cells = <0>;
+-	status = "okay";
+-
+-	ports {
+-		#address-cells = <1>;
+-		#size-cells = <0>;
+-
+-		port@0 {
+-			reg = <0>;
+-			dsi_in: endpoint {
+-				remote-endpoint = <&ltdc_out_dsi>;
+-			};
+-		};
+-
+-		port@1 {
+-			reg = <1>;
+-			dsi_out: endpoint {
+-				remote-endpoint = <&dsi_panel_in>;
+-			};
+-		};
+-	};
+-
+-	panel0: panel@0 {
+-		compatible = "orisetech,otm8009a";
+-		reg = <0>; /* dsi virtual channel (0..3) */
+-		reset-gpios = <&gpioj 15 GPIO_ACTIVE_LOW>;
+-		power-supply = <&vcc_3v3>;
+-		status = "okay";
+-
+-		port {
+-			dsi_panel_in: endpoint {
+-				remote-endpoint = <&dsi_out>;
+-			};
+-		};
+-	};
+-};
+-
+-&i2c1 {
+-	pinctrl-0 = <&i2c1_pins_b>;
+-	pinctrl-names = "default";
+-	i2c-scl-rising-time-ns = <185>;
+-	i2c-scl-falling-time-ns = <20>;
+-	status = "okay";
+-};
+-
+-&ltdc {
+-	status = "okay";
+-
+-	port {
+-		ltdc_out_dsi: endpoint {
+-			remote-endpoint = <&dsi_in>;
+-		};
+-	};
+-};
+-
+-&rtc {
+-	status = "okay";
+-};
+-
+-&sdio2 {
+-	status = "okay";
+-	vmmc-supply = <&vcc_3v3>;
+-	cd-gpios = <&gpioi 15 GPIO_ACTIVE_LOW>;
+-	broken-cd;
+-	pinctrl-names = "default", "opendrain", "sleep";
+-	pinctrl-0 = <&sdio_pins_b>;
+-	pinctrl-1 = <&sdio_pins_od_b>;
+-	pinctrl-2 = <&sdio_pins_sleep_b>;
+-	bus-width = <4>;
+-};
+-
+-&timers5 {
+-	/* Override timer5 to act as clockevent */
+-	compatible = "st,stm32-timer";
+-	interrupts = <50>;
+-	status = "okay";
+-	/delete-property/#address-cells;
+-	/delete-property/#size-cells;
+-	/delete-property/clock-names;
+-	/delete-node/pwm;
+-	/delete-node/timer@4;
+-};
+-
+-&usart1 {
+-	pinctrl-0 = <&usart1_pins_a>;
+-	pinctrl-names = "default";
+-	status = "okay";
+-};
+-
+-&usbotg_hs {
+-	dr_mode = "otg";
+-	phys = <&usbotg_hs_phy>;
+-	phy-names = "usb2-phy";
+-	pinctrl-0 = <&usbotg_hs_pins_a>;
+-	pinctrl-names = "default";
+-	status = "okay";
+-};
+diff --git a/arch/arm/boot/dts/st/stm32f769-pinctrl.dtsi b/arch/arm/boot/dts/st/stm32f769-pinctrl.dtsi
+deleted file mode 100644
+index 02c2a8b08468..000000000000
+--- a/arch/arm/boot/dts/st/stm32f769-pinctrl.dtsi
++++ /dev/null
+@@ -1,55 +0,0 @@
+-// SPDX-License-Identifier: (GPL-2.0+ OR BSD-3-Clause)
+-/*
+- * Copyright (C) STMicroelectronics 2017 - All Rights Reserved
+- * Author: Alexandre Torgue  <alexandre.torgue@st.com> for STMicroelectronics.
+- */
+-
+-#include "stm32f7-pinctrl.dtsi"
+-
+-&pinctrl {
+-	compatible = "st,stm32f769-pinctrl";
+-
+-	gpioa: gpio@40020000 {
+-		gpio-ranges = <&pinctrl 0 0 16>;
+-	};
+-
+-	gpiob: gpio@40020400 {
+-		gpio-ranges = <&pinctrl 0 16 16>;
+-	};
+-
+-	gpioc: gpio@40020800 {
+-		gpio-ranges = <&pinctrl 0 32 16>;
+-	};
+-
+-	gpiod: gpio@40020c00 {
+-		gpio-ranges = <&pinctrl 0 48 16>;
+-	};
+-
+-	gpioe: gpio@40021000 {
+-		gpio-ranges = <&pinctrl 0 64 16>;
+-	};
+-
+-	gpiof: gpio@40021400 {
+-		gpio-ranges = <&pinctrl 0 80 16>;
+-	};
+-
+-	gpiog: gpio@40021800 {
+-		gpio-ranges = <&pinctrl 0 96 16>;
+-	};
+-
+-	gpioh: gpio@40021c00 {
+-		gpio-ranges = <&pinctrl 0 112 16>;
+-	};
+-
+-	gpioi: gpio@40022000 {
+-		gpio-ranges = <&pinctrl 0 128 16>;
+-	};
+-
+-	gpioj: gpio@40022400 {
+-		gpio-ranges = <&pinctrl 0 144 16>;
+-	};
+-
+-	gpiok: gpio@40022800 {
+-		gpio-ranges = <&pinctrl 0 160 8>;
+-	};
+-};
+diff --git a/arch/arm/boot/dts/st/stm32f769.dtsi b/arch/arm/boot/dts/st/stm32f769.dtsi
+deleted file mode 100644
+index e8cbb99e81a6..000000000000
+--- a/arch/arm/boot/dts/st/stm32f769.dtsi
++++ /dev/null
+@@ -1,37 +0,0 @@
+-// SPDX-License-Identifier: GPL-2.0
+-/*
+- * Copyright (c) 2023 Dario Binacchi <dario.binacchi@amarulasolutions.com>
+- */
+-
+-#include "stm32f746.dtsi"
+-
+-/ {
+-	soc {
+-		can3: can@40003400 {
+-			compatible = "st,stm32f4-bxcan";
+-			reg = <0x40003400 0x200>;
+-			interrupts = <104>, <105>, <106>, <107>;
+-			interrupt-names = "tx", "rx0", "rx1", "sce";
+-			resets = <&rcc STM32F7_APB1_RESET(CAN3)>;
+-			clocks = <&rcc 0 STM32F7_APB1_CLOCK(CAN3)>;
+-			st,gcan = <&gcan3>;
+-			status = "disabled";
+-		};
+-
+-		gcan3: gcan@40003600 {
+-			compatible = "st,stm32f4-gcan", "syscon";
+-			reg = <0x40003600 0x200>;
+-			clocks = <&rcc 0 STM32F7_APB1_CLOCK(CAN3)>;
+-		};
+-
+-		dsi: dsi@40016c00 {
+-			compatible = "st,stm32-dsi";
+-			reg = <0x40016c00 0x800>;
+-			clocks = <&rcc 1 CLK_F769_DSI>, <&clk_hse>;
+-			clock-names = "pclk", "ref";
+-			resets = <&rcc STM32F7_APB2_RESET(DSI)>;
+-			reset-names = "apb";
+-			status = "disabled";
+-		};
+-	};
+-};
+diff --git a/arch/arm/boot/dts/st/stm32h7-pinctrl.dtsi b/arch/arm/boot/dts/st/stm32h7-pinctrl.dtsi
+deleted file mode 100644
+index 8a6db484383d..000000000000
+--- a/arch/arm/boot/dts/st/stm32h7-pinctrl.dtsi
++++ /dev/null
+@@ -1,301 +0,0 @@
+-/*
+- * Copyright 2017 - Alexandre Torgue <alexandre.torgue@st.com>
+- *
+- * This file is dual-licensed: you can use it either under the terms
+- * of the GPL or the X11 license, at your option. Note that this dual
+- * licensing only applies to this file, and not this project as a
+- * whole.
+- *
+- *  a) This file is free software; you can redistribute it and/or
+- *     modify it under the terms of the GNU General Public License as
+- *     published by the Free Software Foundation; either version 2 of the
+- *     License, or (at your option) any later version.
+- *
+- *     This file is distributed in the hope that it will be useful,
+- *     but WITHOUT ANY WARRANTY; without even the implied warranty of
+- *     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+- *     GNU General Public License for more details.
+- *
+- * Or, alternatively,
+- *
+- *  b) Permission is hereby granted, free of charge, to any person
+- *     obtaining a copy of this software and associated documentation
+- *     files (the "Software"), to deal in the Software without
+- *     restriction, including without limitation the rights to use,
+- *     copy, modify, merge, publish, distribute, sublicense, and/or
+- *     sell copies of the Software, and to permit persons to whom the
+- *     Software is furnished to do so, subject to the following
+- *     conditions:
+- *
+- *     The above copyright notice and this permission notice shall be
+- *     included in all copies or substantial portions of the Software.
+- *
+- *     THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+- *     EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+- *     OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+- *     NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+- *     HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+- *     WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+- *     FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+- *     OTHER DEALINGS IN THE SOFTWARE.
+- */
+-
+-#include <dt-bindings/pinctrl/stm32-pinfunc.h>
+-
+-&pinctrl {
+-
+-	i2c1_pins_a: i2c1-0 {
+-		pins {
+-			pinmux = <STM32_PINMUX('B', 6, AF4)>, /* I2C1_SCL */
+-				 <STM32_PINMUX('B', 7, AF4)>; /* I2C1_SDA */
+-			bias-disable;
+-			drive-open-drain;
+-			slew-rate = <0>;
+-		};
+-	};
+-
+-	ethernet_rmii: rmii-0 {
+-		pins {
+-			pinmux = <STM32_PINMUX('G', 11, AF11)>,
+-				 <STM32_PINMUX('G', 13, AF11)>,
+-				 <STM32_PINMUX('G', 12, AF11)>,
+-				 <STM32_PINMUX('C', 4, AF11)>,
+-				 <STM32_PINMUX('C', 5, AF11)>,
+-				 <STM32_PINMUX('A', 7, AF11)>,
+-				 <STM32_PINMUX('C', 1, AF11)>,
+-				 <STM32_PINMUX('A', 2, AF11)>,
+-				 <STM32_PINMUX('A', 1, AF11)>;
+-			slew-rate = <2>;
+-		};
+-	};
+-
+-	sdmmc1_b4_pins_a: sdmmc1-b4-0 {
+-		pins {
+-			pinmux = <STM32_PINMUX('C', 8, AF12)>, /* SDMMC1_D0 */
+-				 <STM32_PINMUX('C', 9, AF12)>, /* SDMMC1_D1 */
+-				 <STM32_PINMUX('C', 10, AF12)>, /* SDMMC1_D2 */
+-				 <STM32_PINMUX('C', 11, AF12)>, /* SDMMC1_D3 */
+-				 <STM32_PINMUX('C', 12, AF12)>, /* SDMMC1_CK */
+-				 <STM32_PINMUX('D', 2, AF12)>; /* SDMMC1_CMD */
+-			slew-rate = <3>;
+-			drive-push-pull;
+-			bias-disable;
+-		};
+-	};
+-
+-	sdmmc1_b4_od_pins_a: sdmmc1-b4-od-0 {
+-		pins1 {
+-			pinmux = <STM32_PINMUX('C', 8, AF12)>, /* SDMMC1_D0 */
+-				 <STM32_PINMUX('C', 9, AF12)>, /* SDMMC1_D1 */
+-				 <STM32_PINMUX('C', 10, AF12)>, /* SDMMC1_D2 */
+-				 <STM32_PINMUX('C', 11, AF12)>, /* SDMMC1_D3 */
+-				 <STM32_PINMUX('C', 12, AF12)>; /* SDMMC1_CK */
+-			slew-rate = <3>;
+-			drive-push-pull;
+-			bias-disable;
+-		};
+-		pins2 {
+-			pinmux = <STM32_PINMUX('D', 2, AF12)>; /* SDMMC1_CMD */
+-			slew-rate = <3>;
+-			drive-open-drain;
+-			bias-disable;
+-		};
+-	};
+-
+-	sdmmc1_b4_sleep_pins_a: sdmmc1-b4-sleep-0 {
+-		pins {
+-			pinmux = <STM32_PINMUX('C', 8, ANALOG)>, /* SDMMC1_D0 */
+-				 <STM32_PINMUX('C', 9, ANALOG)>, /* SDMMC1_D1 */
+-				 <STM32_PINMUX('C', 10, ANALOG)>, /* SDMMC1_D2 */
+-				 <STM32_PINMUX('C', 11, ANALOG)>, /* SDMMC1_D3 */
+-				 <STM32_PINMUX('C', 12, ANALOG)>, /* SDMMC1_CK */
+-				 <STM32_PINMUX('D', 2, ANALOG)>; /* SDMMC1_CMD */
+-		};
+-	};
+-
+-	sdmmc1_dir_pins_a: sdmmc1-dir-0 {
+-		pins1 {
+-			pinmux = <STM32_PINMUX('C', 6, AF8)>, /* SDMMC1_D0DIR */
+-				 <STM32_PINMUX('C', 7, AF8)>, /* SDMMC1_D123DIR */
+-				 <STM32_PINMUX('B', 9, AF7)>; /* SDMMC1_CDIR */
+-			slew-rate = <3>;
+-			drive-push-pull;
+-			bias-pull-up;
+-		};
+-		pins2 {
+-			pinmux = <STM32_PINMUX('B', 8, AF7)>; /* SDMMC1_CKIN */
+-			bias-pull-up;
+-		};
+-	};
+-
+-	sdmmc1_dir_sleep_pins_a: sdmmc1-dir-sleep-0 {
+-		pins {
+-			pinmux = <STM32_PINMUX('C', 6, ANALOG)>, /* SDMMC1_D0DIR */
+-				 <STM32_PINMUX('C', 7, ANALOG)>, /* SDMMC1_D123DIR */
+-				 <STM32_PINMUX('B', 9, ANALOG)>, /* SDMMC1_CDIR */
+-				 <STM32_PINMUX('B', 8, ANALOG)>; /* SDMMC1_CKIN */
+-		};
+-	};
+-
+-	sdmmc2_b4_pins_a: sdmmc2-b4-0 {
+-		pins {
+-			pinmux = <STM32_PINMUX('B', 14, AF9)>, /* SDMMC1_D0 */
+-				 <STM32_PINMUX('B', 15, AF9)>, /* SDMMC1_D1 */
+-				 <STM32_PINMUX('B', 3, AF9)>, /* SDMMC1_D2 */
+-				 <STM32_PINMUX('B', 4, AF9)>, /* SDMMC1_D3 */
+-				 <STM32_PINMUX('D', 6, AF11)>, /* SDMMC1_CK */
+-				 <STM32_PINMUX('D', 7, AF11)>; /* SDMMC1_CMD */
+-			slew-rate = <3>;
+-			drive-push-pull;
+-			bias-disable;
+-		};
+-	};
+-
+-	sdmmc2_b4_od_pins_a: sdmmc2-b4-od-0 {
+-		pins1 {
+-			pinmux = <STM32_PINMUX('B', 14, AF9)>, /* SDMMC2_D0 */
+-				 <STM32_PINMUX('B', 15, AF9)>, /* SDMMC1_D1 */
+-				 <STM32_PINMUX('B', 3, AF9)>, /* SDMMC1_D2 */
+-				 <STM32_PINMUX('B', 4, AF9)>, /* SDMMC1_D3 */
+-				 <STM32_PINMUX('D', 6, AF11)>; /* SDMMC1_CK */
+-			slew-rate = <3>;
+-			drive-push-pull;
+-			bias-disable;
+-		};
+-		pins2 {
+-			pinmux = <STM32_PINMUX('D', 7, AF11)>; /* SDMMC1_CMD */
+-			slew-rate = <3>;
+-			drive-open-drain;
+-			bias-disable;
+-		};
+-	};
+-
+-	sdmmc2_b4_sleep_pins_a: sdmmc2-b4-sleep-0 {
+-		pins {
+-			pinmux = <STM32_PINMUX('B', 14, ANALOG)>, /* SDMMC1_D0 */
+-				 <STM32_PINMUX('B', 15, ANALOG)>, /* SDMMC1_D1 */
+-				 <STM32_PINMUX('B', 3, ANALOG)>, /* SDMMC1_D2 */
+-				 <STM32_PINMUX('B', 4, ANALOG)>, /* SDMMC1_D3 */
+-				 <STM32_PINMUX('D', 6, ANALOG)>, /* SDMMC1_CK */
+-				 <STM32_PINMUX('D', 7, ANALOG)>; /* SDMMC1_CMD */
+-		};
+-	};
+-
+-	spi1_pins: spi1-0 {
+-		pins1 {
+-			pinmux = <STM32_PINMUX('A', 5, AF5)>,
+-				/* SPI1_CLK */
+-				 <STM32_PINMUX('B', 5, AF5)>;
+-				/* SPI1_MOSI */
+-			bias-disable;
+-			drive-push-pull;
+-			slew-rate = <2>;
+-		};
+-		pins2 {
+-			pinmux = <STM32_PINMUX('G', 9, AF5)>;
+-				/* SPI1_MISO */
+-			bias-disable;
+-		};
+-	};
+-
+-	uart4_pins_a: uart4-0 {
+-		pins1 {
+-			pinmux = <STM32_PINMUX('A', 0, AF8)>; /* UART4_TX */
+-			bias-disable;
+-			drive-push-pull;
+-			slew-rate = <0>;
+-		};
+-		pins2 {
+-			pinmux = <STM32_PINMUX('I', 9, AF8)>; /* UART4_RX */
+-			bias-disable;
+-		};
+-	};
+-
+-	uart8_pins_a: uart8-0 {
+-		pins1 {
+-			pinmux = <STM32_PINMUX('J', 8, AF8)>; /* UART8_TX */
+-			bias-disable;
+-			drive-push-pull;
+-			slew-rate = <0>;
+-		};
+-		pins2 {
+-			pinmux = <STM32_PINMUX('J', 9, AF8)>; /* UART8_RX */
+-			bias-disable;
+-		};
+-	};
+-
+-	usart1_pins_a: usart1-0 {
+-		pins1 {
+-			pinmux = <STM32_PINMUX('B', 14, AF4)>; /* USART1_TX */
+-			bias-disable;
+-			drive-push-pull;
+-			slew-rate = <0>;
+-		};
+-		pins2 {
+-			pinmux = <STM32_PINMUX('B', 15, AF4)>; /* USART1_RX */
+-			bias-disable;
+-		};
+-	};
+-
+-	usart1_pins_b: usart1-1 {
+-		pins1 {
+-			pinmux = <STM32_PINMUX('A', 9, AF7)>; /* USART1_TX */
+-			bias-disable;
+-			drive-push-pull;
+-			slew-rate = <0>;
+-		};
+-		pins2 {
+-			pinmux = <STM32_PINMUX('A', 10, AF7)>; /* USART1_RX */
+-			bias-disable;
+-		};
+-	};
+-
+-	usart2_pins_a: usart2-0 {
+-		pins1 {
+-			pinmux = <STM32_PINMUX('D', 5, AF7)>; /* USART2_TX */
+-			bias-disable;
+-			drive-push-pull;
+-			slew-rate = <0>;
+-		};
+-		pins2 {
+-			pinmux = <STM32_PINMUX('D', 6, AF7)>; /* USART2_RX */
+-			bias-disable;
+-		};
+-	};
+-
+-	usart3_pins_a: usart3-0 {
+-		pins1 {
+-			pinmux = <STM32_PINMUX('B', 10, AF7)>, /* USART3_TX */
+-				 <STM32_PINMUX('D', 12, AF7)>; /* USART3_RTS_DE */
+-			bias-disable;
+-			drive-push-pull;
+-			slew-rate = <0>;
+-		};
+-		pins2 {
+-			pinmux = <STM32_PINMUX('B', 11, AF7)>, /* USART3_RX */
+-				 <STM32_PINMUX('D', 11, AF7)>; /* USART3_CTS_NSS */
+-			bias-disable;
+-		};
+-	};
+-
+-	usbotg_hs_pins_a: usbotg-hs-0 {
+-		pins {
+-			pinmux = <STM32_PINMUX('H', 4, AF10)>,	/* ULPI_NXT */
+-					 <STM32_PINMUX('I', 11, AF10)>, /* ULPI_DIR> */
+-					 <STM32_PINMUX('C', 0, AF10)>,	/* ULPI_STP> */
+-					 <STM32_PINMUX('A', 5, AF10)>,	/* ULPI_CK> */
+-					 <STM32_PINMUX('A', 3, AF10)>,	/* ULPI_D0> */
+-					 <STM32_PINMUX('B', 0, AF10)>,	/* ULPI_D1> */
+-					 <STM32_PINMUX('B', 1, AF10)>,	/* ULPI_D2> */
+-					 <STM32_PINMUX('B', 10, AF10)>, /* ULPI_D3> */
+-					 <STM32_PINMUX('B', 11, AF10)>, /* ULPI_D4> */
+-					 <STM32_PINMUX('B', 12, AF10)>, /* ULPI_D5> */
+-					 <STM32_PINMUX('B', 13, AF10)>, /* ULPI_D6> */
+-					 <STM32_PINMUX('B', 5, AF10)>;	/* ULPI_D7> */
+-			bias-disable;
+-			drive-push-pull;
+-			slew-rate = <2>;
+-		};
+-	};
+-};
+-
+diff --git a/arch/arm/boot/dts/st/stm32h743.dtsi b/arch/arm/boot/dts/st/stm32h743.dtsi
+deleted file mode 100644
+index 2f19cfbc57ad..000000000000
+--- a/arch/arm/boot/dts/st/stm32h743.dtsi
++++ /dev/null
+@@ -1,738 +0,0 @@
+-/*
+- * Copyright 2017 - Alexandre Torgue <alexandre.torgue@st.com>
+- *
+- * This file is dual-licensed: you can use it either under the terms
+- * of the GPL or the X11 license, at your option. Note that this dual
+- * licensing only applies to this file, and not this project as a
+- * whole.
+- *
+- *  a) This file is free software; you can redistribute it and/or
+- *     modify it under the terms of the GNU General Public License as
+- *     published by the Free Software Foundation; either version 2 of the
+- *     License, or (at your option) any later version.
+- *
+- *     This file is distributed in the hope that it will be useful,
+- *     but WITHOUT ANY WARRANTY; without even the implied warranty of
+- *     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+- *     GNU General Public License for more details.
+- *
+- * Or, alternatively,
+- *
+- *  b) Permission is hereby granted, free of charge, to any person
+- *     obtaining a copy of this software and associated documentation
+- *     files (the "Software"), to deal in the Software without
+- *     restriction, including without limitation the rights to use,
+- *     copy, modify, merge, publish, distribute, sublicense, and/or
+- *     sell copies of the Software, and to permit persons to whom the
+- *     Software is furnished to do so, subject to the following
+- *     conditions:
+- *
+- *     The above copyright notice and this permission notice shall be
+- *     included in all copies or substantial portions of the Software.
+- *
+- *     THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+- *     EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+- *     OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+- *     NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+- *     HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+- *     WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+- *     FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+- *     OTHER DEALINGS IN THE SOFTWARE.
+- */
+-
+-#include "../armv7-m.dtsi"
+-#include <dt-bindings/clock/stm32h7-clks.h>
+-#include <dt-bindings/mfd/stm32h7-rcc.h>
+-#include <dt-bindings/interrupt-controller/irq.h>
+-
+-/ {
+-	#address-cells = <1>;
+-	#size-cells = <1>;
+-
+-	clocks {
+-		clk_hse: clk-hse {
+-			#clock-cells = <0>;
+-			compatible = "fixed-clock";
+-			clock-frequency = <0>;
+-		};
+-
+-		clk_lse: clk-lse {
+-			#clock-cells = <0>;
+-			compatible = "fixed-clock";
+-			clock-frequency = <32768>;
+-		};
+-
+-		clk_i2s: i2s_ckin {
+-			#clock-cells = <0>;
+-			compatible = "fixed-clock";
+-			clock-frequency = <0>;
+-		};
+-	};
+-
+-	soc {
+-		timer5: timer@40000c00 {
+-			compatible = "st,stm32-timer";
+-			reg = <0x40000c00 0x400>;
+-			interrupts = <50>;
+-			clocks = <&rcc TIM5_CK>;
+-		};
+-
+-		lptimer1: timer@40002400 {
+-			#address-cells = <1>;
+-			#size-cells = <0>;
+-			compatible = "st,stm32-lptimer";
+-			reg = <0x40002400 0x400>;
+-			clocks = <&rcc LPTIM1_CK>;
+-			clock-names = "mux";
+-			status = "disabled";
+-
+-			pwm {
+-				compatible = "st,stm32-pwm-lp";
+-				#pwm-cells = <3>;
+-				status = "disabled";
+-			};
+-
+-			trigger@0 {
+-				compatible = "st,stm32-lptimer-trigger";
+-				reg = <0>;
+-				status = "disabled";
+-			};
+-
+-			counter {
+-				compatible = "st,stm32-lptimer-counter";
+-				status = "disabled";
+-			};
+-		};
+-
+-		spi2: spi@40003800 {
+-			#address-cells = <1>;
+-			#size-cells = <0>;
+-			compatible = "st,stm32h7-spi";
+-			reg = <0x40003800 0x400>;
+-			interrupts = <36>;
+-			resets = <&rcc STM32H7_APB1L_RESET(SPI2)>;
+-			clocks = <&rcc SPI2_CK>;
+-			status = "disabled";
+-
+-		};
+-
+-		spi3: spi@40003c00 {
+-			#address-cells = <1>;
+-			#size-cells = <0>;
+-			compatible = "st,stm32h7-spi";
+-			reg = <0x40003c00 0x400>;
+-			interrupts = <51>;
+-			resets = <&rcc STM32H7_APB1L_RESET(SPI3)>;
+-			clocks = <&rcc SPI3_CK>;
+-			status = "disabled";
+-		};
+-
+-		usart2: serial@40004400 {
+-			compatible = "st,stm32h7-uart";
+-			reg = <0x40004400 0x400>;
+-			interrupts = <38>;
+-			status = "disabled";
+-			clocks = <&rcc USART2_CK>;
+-		};
+-
+-		usart3: serial@40004800 {
+-			compatible = "st,stm32h7-uart";
+-			reg = <0x40004800 0x400>;
+-			interrupts = <39>;
+-			status = "disabled";
+-			clocks = <&rcc USART3_CK>;
+-		};
+-
+-		uart4: serial@40004c00 {
+-			compatible = "st,stm32h7-uart";
+-			reg = <0x40004c00 0x400>;
+-			interrupts = <52>;
+-			status = "disabled";
+-			clocks = <&rcc UART4_CK>;
+-		};
+-
+-		i2c1: i2c@40005400 {
+-			compatible = "st,stm32f7-i2c";
+-			#address-cells = <1>;
+-			#size-cells = <0>;
+-			reg = <0x40005400 0x400>;
+-			interrupts = <31>,
+-				     <32>;
+-			resets = <&rcc STM32H7_APB1L_RESET(I2C1)>;
+-			clocks = <&rcc I2C1_CK>;
+-			status = "disabled";
+-		};
+-
+-		i2c2: i2c@40005800 {
+-			compatible = "st,stm32f7-i2c";
+-			#address-cells = <1>;
+-			#size-cells = <0>;
+-			reg = <0x40005800 0x400>;
+-			interrupts = <33>,
+-				     <34>;
+-			resets = <&rcc STM32H7_APB1L_RESET(I2C2)>;
+-			clocks = <&rcc I2C2_CK>;
+-			status = "disabled";
+-		};
+-
+-		i2c3: i2c@40005c00 {
+-			compatible = "st,stm32f7-i2c";
+-			#address-cells = <1>;
+-			#size-cells = <0>;
+-			reg = <0x40005C00 0x400>;
+-			interrupts = <72>,
+-				     <73>;
+-			resets = <&rcc STM32H7_APB1L_RESET(I2C3)>;
+-			clocks = <&rcc I2C3_CK>;
+-			status = "disabled";
+-		};
+-
+-		dac: dac@40007400 {
+-			compatible = "st,stm32h7-dac-core";
+-			reg = <0x40007400 0x400>;
+-			clocks = <&rcc DAC12_CK>;
+-			clock-names = "pclk";
+-			#address-cells = <1>;
+-			#size-cells = <0>;
+-			status = "disabled";
+-
+-			dac1: dac@1 {
+-				compatible = "st,stm32-dac";
+-				#io-channel-cells = <1>;
+-				reg = <1>;
+-				status = "disabled";
+-			};
+-
+-			dac2: dac@2 {
+-				compatible = "st,stm32-dac";
+-				#io-channel-cells = <1>;
+-				reg = <2>;
+-				status = "disabled";
+-			};
+-		};
+-
+-		uart8: serial@40007c00 {
+-			compatible = "st,stm32h7-uart";
+-			reg = <0x40007c00 0x400>;
+-			interrupts = <83>;
+-			status = "disabled";
+-			clocks = <&rcc UART8_CK>;
+-		};
+-
+-		usart1: serial@40011000 {
+-			compatible = "st,stm32h7-uart";
+-			reg = <0x40011000 0x400>;
+-			interrupts = <37>;
+-			status = "disabled";
+-			clocks = <&rcc USART1_CK>;
+-		};
+-
+-		spi1: spi@40013000 {
+-			#address-cells = <1>;
+-			#size-cells = <0>;
+-			compatible = "st,stm32h7-spi";
+-			reg = <0x40013000 0x400>;
+-			interrupts = <35>;
+-			resets = <&rcc STM32H7_APB2_RESET(SPI1)>;
+-			clocks = <&rcc SPI1_CK>;
+-			status = "disabled";
+-		};
+-
+-		spi4: spi@40013400 {
+-			#address-cells = <1>;
+-			#size-cells = <0>;
+-			compatible = "st,stm32h7-spi";
+-			reg = <0x40013400 0x400>;
+-			interrupts = <84>;
+-			resets = <&rcc STM32H7_APB2_RESET(SPI4)>;
+-			clocks = <&rcc SPI4_CK>;
+-			status = "disabled";
+-		};
+-
+-		spi5: spi@40015000 {
+-			#address-cells = <1>;
+-			#size-cells = <0>;
+-			compatible = "st,stm32h7-spi";
+-			reg = <0x40015000 0x400>;
+-			interrupts = <85>;
+-			resets = <&rcc STM32H7_APB2_RESET(SPI5)>;
+-			clocks = <&rcc SPI5_CK>;
+-			status = "disabled";
+-		};
+-
+-		dma1: dma-controller@40020000 {
+-			compatible = "st,stm32-dma";
+-			reg = <0x40020000 0x400>;
+-			interrupts = <11>,
+-				     <12>,
+-				     <13>,
+-				     <14>,
+-				     <15>,
+-				     <16>,
+-				     <17>,
+-				     <47>;
+-			clocks = <&rcc DMA1_CK>;
+-			#dma-cells = <4>;
+-			st,mem2mem;
+-			dma-requests = <8>;
+-			status = "disabled";
+-		};
+-
+-		dma2: dma-controller@40020400 {
+-			compatible = "st,stm32-dma";
+-			reg = <0x40020400 0x400>;
+-			interrupts = <56>,
+-				     <57>,
+-				     <58>,
+-				     <59>,
+-				     <60>,
+-				     <68>,
+-				     <69>,
+-				     <70>;
+-			clocks = <&rcc DMA2_CK>;
+-			#dma-cells = <4>;
+-			st,mem2mem;
+-			dma-requests = <8>;
+-			status = "disabled";
+-		};
+-
+-		dmamux1: dma-router@40020800 {
+-			compatible = "st,stm32h7-dmamux";
+-			reg = <0x40020800 0x40>;
+-			#dma-cells = <3>;
+-			dma-channels = <16>;
+-			dma-requests = <128>;
+-			dma-masters = <&dma1 &dma2>;
+-			clocks = <&rcc DMA1_CK>;
+-		};
+-
+-		adc_12: adc@40022000 {
+-			compatible = "st,stm32h7-adc-core";
+-			reg = <0x40022000 0x400>;
+-			interrupts = <18>;
+-			clocks = <&rcc ADC12_CK>;
+-			clock-names = "bus";
+-			interrupt-controller;
+-			#interrupt-cells = <1>;
+-			#address-cells = <1>;
+-			#size-cells = <0>;
+-			status = "disabled";
+-
+-			adc1: adc@0 {
+-				compatible = "st,stm32h7-adc";
+-				#io-channel-cells = <1>;
+-				reg = <0x0>;
+-				interrupt-parent = <&adc_12>;
+-				interrupts = <0>;
+-				status = "disabled";
+-			};
+-
+-			adc2: adc@100 {
+-				compatible = "st,stm32h7-adc";
+-				#io-channel-cells = <1>;
+-				reg = <0x100>;
+-				interrupt-parent = <&adc_12>;
+-				interrupts = <1>;
+-				status = "disabled";
+-			};
+-		};
+-
+-		usbotg_hs: usb@40040000 {
+-			compatible = "st,stm32f7-hsotg";
+-			reg = <0x40040000 0x40000>;
+-			interrupts = <77>;
+-			clocks = <&rcc USB1OTG_CK>;
+-			clock-names = "otg";
+-			g-rx-fifo-size = <256>;
+-			g-np-tx-fifo-size = <32>;
+-			g-tx-fifo-size = <128 128 64 64 64 64 32 32>;
+-			status = "disabled";
+-		};
+-
+-		usbotg_fs: usb@40080000 {
+-			compatible = "st,stm32f4x9-fsotg";
+-			reg = <0x40080000 0x40000>;
+-			interrupts = <101>;
+-			clocks = <&rcc USB2OTG_CK>;
+-			clock-names = "otg";
+-			status = "disabled";
+-		};
+-
+-		ltdc: display-controller@50001000 {
+-			compatible = "st,stm32-ltdc";
+-			reg = <0x50001000 0x200>;
+-			interrupts = <88>, <89>;
+-			resets = <&rcc STM32H7_APB3_RESET(LTDC)>;
+-			clocks = <&rcc LTDC_CK>;
+-			clock-names = "lcd";
+-			status = "disabled";
+-		};
+-
+-		mdma1: dma-controller@52000000 {
+-			compatible = "st,stm32h7-mdma";
+-			reg = <0x52000000 0x1000>;
+-			interrupts = <122>;
+-			clocks = <&rcc MDMA_CK>;
+-			#dma-cells = <5>;
+-			dma-channels = <16>;
+-			dma-requests = <32>;
+-		};
+-
+-		sdmmc1: mmc@52007000 {
+-			compatible = "arm,pl18x", "arm,primecell";
+-			arm,primecell-periphid = <0x10153180>;
+-			reg = <0x52007000 0x1000>;
+-			interrupts = <49>;
+-			clocks = <&rcc SDMMC1_CK>;
+-			clock-names = "apb_pclk";
+-			resets = <&rcc STM32H7_AHB3_RESET(SDMMC1)>;
+-			cap-sd-highspeed;
+-			cap-mmc-highspeed;
+-			max-frequency = <120000000>;
+-		};
+-
+-		sdmmc2: mmc@48022400 {
+-			compatible = "arm,pl18x", "arm,primecell";
+-			arm,primecell-periphid = <0x10153180>;
+-			reg = <0x48022400 0x400>;
+-			interrupts = <124>;
+-			clocks = <&rcc SDMMC2_CK>;
+-			clock-names = "apb_pclk";
+-			resets = <&rcc STM32H7_AHB2_RESET(SDMMC2)>;
+-			cap-sd-highspeed;
+-			cap-mmc-highspeed;
+-			max-frequency = <120000000>;
+-			status = "disabled";
+-		};
+-
+-		exti: interrupt-controller@58000000 {
+-			compatible = "st,stm32h7-exti";
+-			interrupt-controller;
+-			#interrupt-cells = <2>;
+-			reg = <0x58000000 0x400>;
+-			interrupts = <1>, <2>, <3>, <6>, <7>, <8>, <9>, <10>, <23>, <40>, <41>, <62>, <76>;
+-		};
+-
+-		syscfg: syscon@58000400 {
+-			compatible = "st,stm32-syscfg", "syscon";
+-			reg = <0x58000400 0x400>;
+-		};
+-
+-		spi6: spi@58001400 {
+-			#address-cells = <1>;
+-			#size-cells = <0>;
+-			compatible = "st,stm32h7-spi";
+-			reg = <0x58001400 0x400>;
+-			interrupts = <86>;
+-			resets = <&rcc STM32H7_APB4_RESET(SPI6)>;
+-			clocks = <&rcc SPI6_CK>;
+-			status = "disabled";
+-		};
+-
+-		i2c4: i2c@58001c00 {
+-			compatible = "st,stm32f7-i2c";
+-			#address-cells = <1>;
+-			#size-cells = <0>;
+-			reg = <0x58001C00 0x400>;
+-			interrupts = <95>,
+-				     <96>;
+-			resets = <&rcc STM32H7_APB4_RESET(I2C4)>;
+-			clocks = <&rcc I2C4_CK>;
+-			status = "disabled";
+-		};
+-
+-		lptimer2: timer@58002400 {
+-			#address-cells = <1>;
+-			#size-cells = <0>;
+-			compatible = "st,stm32-lptimer";
+-			reg = <0x58002400 0x400>;
+-			clocks = <&rcc LPTIM2_CK>;
+-			clock-names = "mux";
+-			status = "disabled";
+-
+-			pwm {
+-				compatible = "st,stm32-pwm-lp";
+-				#pwm-cells = <3>;
+-				status = "disabled";
+-			};
+-
+-			trigger@1 {
+-				compatible = "st,stm32-lptimer-trigger";
+-				reg = <1>;
+-				status = "disabled";
+-			};
+-
+-			counter {
+-				compatible = "st,stm32-lptimer-counter";
+-				status = "disabled";
+-			};
+-		};
+-
+-		lptimer3: timer@58002800 {
+-			#address-cells = <1>;
+-			#size-cells = <0>;
+-			compatible = "st,stm32-lptimer";
+-			reg = <0x58002800 0x400>;
+-			clocks = <&rcc LPTIM3_CK>;
+-			clock-names = "mux";
+-			status = "disabled";
+-
+-			pwm {
+-				compatible = "st,stm32-pwm-lp";
+-				#pwm-cells = <3>;
+-				status = "disabled";
+-			};
+-
+-			trigger@2 {
+-				compatible = "st,stm32-lptimer-trigger";
+-				reg = <2>;
+-				status = "disabled";
+-			};
+-		};
+-
+-		lptimer4: timer@58002c00 {
+-			compatible = "st,stm32-lptimer";
+-			reg = <0x58002c00 0x400>;
+-			clocks = <&rcc LPTIM4_CK>;
+-			clock-names = "mux";
+-			status = "disabled";
+-
+-			pwm {
+-				compatible = "st,stm32-pwm-lp";
+-				#pwm-cells = <3>;
+-				status = "disabled";
+-			};
+-		};
+-
+-		lptimer5: timer@58003000 {
+-			compatible = "st,stm32-lptimer";
+-			reg = <0x58003000 0x400>;
+-			clocks = <&rcc LPTIM5_CK>;
+-			clock-names = "mux";
+-			status = "disabled";
+-
+-			pwm {
+-				compatible = "st,stm32-pwm-lp";
+-				#pwm-cells = <3>;
+-				status = "disabled";
+-			};
+-		};
+-
+-		vrefbuf: regulator@58003c00 {
+-			compatible = "st,stm32-vrefbuf";
+-			reg = <0x58003C00 0x8>;
+-			clocks = <&rcc VREF_CK>;
+-			regulator-min-microvolt = <1500000>;
+-			regulator-max-microvolt = <2500000>;
+-			status = "disabled";
+-		};
+-
+-		rtc: rtc@58004000 {
+-			compatible = "st,stm32h7-rtc";
+-			reg = <0x58004000 0x400>;
+-			clocks = <&rcc RTCAPB_CK>, <&rcc RTC_CK>;
+-			clock-names = "pclk", "rtc_ck";
+-			assigned-clocks = <&rcc RTC_CK>;
+-			assigned-clock-parents = <&rcc LSE_CK>;
+-			interrupt-parent = <&exti>;
+-			interrupts = <17 IRQ_TYPE_EDGE_RISING>;
+-			st,syscfg = <&pwrcfg 0x00 0x100>;
+-			status = "disabled";
+-		};
+-
+-		rcc: reset-clock-controller@58024400 {
+-			compatible = "st,stm32h743-rcc", "st,stm32-rcc";
+-			reg = <0x58024400 0x400>;
+-			#clock-cells = <1>;
+-			#reset-cells = <1>;
+-			clocks = <&clk_hse>, <&clk_lse>, <&clk_i2s>;
+-			st,syscfg = <&pwrcfg>;
+-		};
+-
+-		pwrcfg: power-config@58024800 {
+-			compatible = "st,stm32-power-config", "syscon";
+-			reg = <0x58024800 0x400>;
+-		};
+-
+-		adc_3: adc@58026000 {
+-			compatible = "st,stm32h7-adc-core";
+-			reg = <0x58026000 0x400>;
+-			interrupts = <127>;
+-			clocks = <&rcc ADC3_CK>;
+-			clock-names = "bus";
+-			interrupt-controller;
+-			#interrupt-cells = <1>;
+-			#address-cells = <1>;
+-			#size-cells = <0>;
+-			status = "disabled";
+-
+-			adc3: adc@0 {
+-				compatible = "st,stm32h7-adc";
+-				#io-channel-cells = <1>;
+-				reg = <0x0>;
+-				interrupt-parent = <&adc_3>;
+-				interrupts = <0>;
+-				status = "disabled";
+-			};
+-		};
+-
+-		mac: ethernet@40028000 {
+-			compatible = "st,stm32-dwmac", "snps,dwmac-4.10a";
+-			reg = <0x40028000 0x8000>;
+-			reg-names = "stmmaceth";
+-			interrupts = <61>;
+-			interrupt-names = "macirq";
+-			clock-names = "stmmaceth", "mac-clk-tx", "mac-clk-rx";
+-			clocks = <&rcc ETH1MAC_CK>, <&rcc ETH1TX_CK>, <&rcc ETH1RX_CK>;
+-			st,syscon = <&syscfg 0x4>;
+-			snps,pbl = <8>;
+-			status = "disabled";
+-		};
+-
+-		pinctrl: pinctrl@58020000 {
+-			#address-cells = <1>;
+-			#size-cells = <1>;
+-			compatible = "st,stm32h743-pinctrl";
+-			ranges = <0 0x58020000 0x3000>;
+-			interrupt-parent = <&exti>;
+-			st,syscfg = <&syscfg 0x8>;
+-
+-			gpioa: gpio@58020000 {
+-				gpio-controller;
+-				#gpio-cells = <2>;
+-				reg = <0x0 0x400>;
+-				clocks = <&rcc GPIOA_CK>;
+-				st,bank-name = "GPIOA";
+-				interrupt-controller;
+-				#interrupt-cells = <2>;
+-				ngpios = <16>;
+-				gpio-ranges = <&pinctrl 0 0 16>;
+-			};
+-
+-			gpiob: gpio@58020400 {
+-				gpio-controller;
+-				#gpio-cells = <2>;
+-				reg = <0x400 0x400>;
+-				clocks = <&rcc GPIOB_CK>;
+-				st,bank-name = "GPIOB";
+-				interrupt-controller;
+-				#interrupt-cells = <2>;
+-				ngpios = <16>;
+-				gpio-ranges = <&pinctrl 0 16 16>;
+-			};
+-
+-			gpioc: gpio@58020800 {
+-				gpio-controller;
+-				#gpio-cells = <2>;
+-				reg = <0x800 0x400>;
+-				clocks = <&rcc GPIOC_CK>;
+-				st,bank-name = "GPIOC";
+-				interrupt-controller;
+-				#interrupt-cells = <2>;
+-				ngpios = <16>;
+-				gpio-ranges = <&pinctrl 0 32 16>;
+-			};
+-
+-			gpiod: gpio@58020c00 {
+-				gpio-controller;
+-				#gpio-cells = <2>;
+-				reg = <0xc00 0x400>;
+-				clocks = <&rcc GPIOD_CK>;
+-				st,bank-name = "GPIOD";
+-				interrupt-controller;
+-				#interrupt-cells = <2>;
+-				ngpios = <16>;
+-				gpio-ranges = <&pinctrl 0 48 16>;
+-			};
+-
+-			gpioe: gpio@58021000 {
+-				gpio-controller;
+-				#gpio-cells = <2>;
+-				reg = <0x1000 0x400>;
+-				clocks = <&rcc GPIOE_CK>;
+-				st,bank-name = "GPIOE";
+-				interrupt-controller;
+-				#interrupt-cells = <2>;
+-				ngpios = <16>;
+-				gpio-ranges = <&pinctrl 0 64 16>;
+-			};
+-
+-			gpiof: gpio@58021400 {
+-				gpio-controller;
+-				#gpio-cells = <2>;
+-				reg = <0x1400 0x400>;
+-				clocks = <&rcc GPIOF_CK>;
+-				st,bank-name = "GPIOF";
+-				interrupt-controller;
+-				#interrupt-cells = <2>;
+-				ngpios = <16>;
+-				gpio-ranges = <&pinctrl 0 80 16>;
+-			};
+-
+-			gpiog: gpio@58021800 {
+-				gpio-controller;
+-				#gpio-cells = <2>;
+-				reg = <0x1800 0x400>;
+-				clocks = <&rcc GPIOG_CK>;
+-				st,bank-name = "GPIOG";
+-				interrupt-controller;
+-				#interrupt-cells = <2>;
+-				ngpios = <16>;
+-				gpio-ranges = <&pinctrl 0 96 16>;
+-			};
+-
+-			gpioh: gpio@58021c00 {
+-				gpio-controller;
+-				#gpio-cells = <2>;
+-				reg = <0x1c00 0x400>;
+-				clocks = <&rcc GPIOH_CK>;
+-				st,bank-name = "GPIOH";
+-				interrupt-controller;
+-				#interrupt-cells = <2>;
+-				ngpios = <16>;
+-				gpio-ranges = <&pinctrl 0 112 16>;
+-			};
+-
+-			gpioi: gpio@58022000 {
+-				gpio-controller;
+-				#gpio-cells = <2>;
+-				reg = <0x2000 0x400>;
+-				clocks = <&rcc GPIOI_CK>;
+-				st,bank-name = "GPIOI";
+-				interrupt-controller;
+-				#interrupt-cells = <2>;
+-				ngpios = <16>;
+-				gpio-ranges = <&pinctrl 0 128 16>;
+-			};
+-
+-			gpioj: gpio@58022400 {
+-				gpio-controller;
+-				#gpio-cells = <2>;
+-				reg = <0x2400 0x400>;
+-				clocks = <&rcc GPIOJ_CK>;
+-				st,bank-name = "GPIOJ";
+-				interrupt-controller;
+-				#interrupt-cells = <2>;
+-				ngpios = <16>;
+-				gpio-ranges = <&pinctrl 0 144 16>;
+-			};
+-
+-			gpiok: gpio@58022800 {
+-				gpio-controller;
+-				#gpio-cells = <2>;
+-				reg = <0x2800 0x400>;
+-				clocks = <&rcc GPIOK_CK>;
+-				st,bank-name = "GPIOK";
+-				interrupt-controller;
+-				#interrupt-cells = <2>;
+-				ngpios = <8>;
+-				gpio-ranges = <&pinctrl 0 160 8>;
+-			};
+-		};
+-	};
+-};
+-
+-&systick {
+-	clock-frequency = <250000000>;
+-	status = "okay";
+-};
+diff --git a/arch/arm/boot/dts/st/stm32h743i-disco.dts b/arch/arm/boot/dts/st/stm32h743i-disco.dts
+deleted file mode 100644
+index 78d55b77db7c..000000000000
+--- a/arch/arm/boot/dts/st/stm32h743i-disco.dts
++++ /dev/null
+@@ -1,145 +0,0 @@
+-/*
+- * Copyright 2017 - Patrice Chotard <patrice.chotard@st.com>
+- *
+- * This file is dual-licensed: you can use it either under the terms
+- * of the GPL or the X11 license, at your option. Note that this dual
+- * licensing only applies to this file, and not this project as a
+- * whole.
+- *
+- *  a) This file is free software; you can redistribute it and/or
+- *     modify it under the terms of the GNU General Public License as
+- *     published by the Free Software Foundation; either version 2 of the
+- *     License, or (at your option) any later version.
+- *
+- *     This file is distributed in the hope that it will be useful,
+- *     but WITHOUT ANY WARRANTY; without even the implied warranty of
+- *     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+- *     GNU General Public License for more details.
+- *
+- * Or, alternatively,
+- *
+- *  b) Permission is hereby granted, free of charge, to any person
+- *     obtaining a copy of this software and associated documentation
+- *     files (the "Software"), to deal in the Software without
+- *     restriction, including without limitation the rights to use,
+- *     copy, modify, merge, publish, distribute, sublicense, and/or
+- *     sell copies of the Software, and to permit persons to whom the
+- *     Software is furnished to do so, subject to the following
+- *     conditions:
+- *
+- *     The above copyright notice and this permission notice shall be
+- *     included in all copies or substantial portions of the Software.
+- *
+- *     THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+- *     EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+- *     OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+- *     NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+- *     HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+- *     WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+- *     FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+- *     OTHER DEALINGS IN THE SOFTWARE.
+- */
+-
+-/dts-v1/;
+-#include "stm32h743.dtsi"
+-#include "stm32h7-pinctrl.dtsi"
+-#include <dt-bindings/gpio/gpio.h>
+-#include <dt-bindings/leds/common.h>
+-
+-/ {
+-	model = "STMicroelectronics STM32H743i-Discovery board";
+-	compatible = "st,stm32h743i-disco", "st,stm32h743";
+-
+-	chosen {
+-		bootargs = "root=/dev/ram";
+-		stdout-path = "serial0:115200n8";
+-	};
+-
+-	memory@d0000000 {
+-		device_type = "memory";
+-		reg = <0xd0000000 0x2000000>;
+-	};
+-
+-	aliases {
+-		serial0 = &usart2;
+-	};
+-
+-	v3v3: regulator-v3v3 {
+-		compatible = "regulator-fixed";
+-		regulator-name = "v3v3";
+-		regulator-min-microvolt = <3300000>;
+-		regulator-max-microvolt = <3300000>;
+-		regulator-always-on;
+-	};
+-
+-	leds {
+-		compatible = "gpio-leds";
+-		led_green: led-green {
+-			function = LED_FUNCTION_HEARTBEAT;
+-			color = <LED_COLOR_ID_GREEN>;
+-			gpios = <&gpioi 12 GPIO_ACTIVE_LOW>;
+-			linux,default-trigger = "heartbeat";
+-		};
+-
+-		led-orange {
+-			color = <LED_COLOR_ID_ORANGE>;
+-			gpios = <&gpioi 13 GPIO_ACTIVE_LOW>;
+-		};
+-
+-		led-red {
+-			color = <LED_COLOR_ID_RED>;
+-			gpios = <&gpioi 14 GPIO_ACTIVE_LOW>;
+-		};
+-
+-		led-blue {
+-			color = <LED_COLOR_ID_BLUE>;
+-			gpios = <&gpioi 15 GPIO_ACTIVE_LOW>;
+-		};
+-	};
+-
+-	options {
+-		u-boot {
+-			compatible = "u-boot,config";
+-			boot-led = <&led_green>;
+-		};
+-	};
+-};
+-
+-&clk_hse {
+-	clock-frequency = <25000000>;
+-};
+-
+-&mac {
+-	status = "disabled";
+-	pinctrl-0 = <&ethernet_rmii>;
+-	pinctrl-names = "default";
+-	phy-mode = "rmii";
+-	phy-handle = <&phy0>;
+-
+-	mdio0 {
+-		#address-cells = <1>;
+-		#size-cells = <0>;
+-		compatible = "snps,dwmac-mdio";
+-		phy0: ethernet-phy@0 {
+-			reg = <0>;
+-		};
+-	};
+-};
+-
+-&sdmmc1 {
+-	pinctrl-names = "default", "opendrain", "sleep";
+-	pinctrl-0 = <&sdmmc1_b4_pins_a>;
+-	pinctrl-1 = <&sdmmc1_b4_od_pins_a>;
+-	pinctrl-2 = <&sdmmc1_b4_sleep_pins_a>;
+-	broken-cd;
+-	st,neg-edge;
+-	bus-width = <4>;
+-	vmmc-supply = <&v3v3>;
+-	status = "okay";
+-};
+-
+-&usart2 {
+-	pinctrl-0 = <&usart2_pins_a>;
+-	pinctrl-names = "default";
+-	status = "okay";
+-};
+diff --git a/arch/arm/boot/dts/st/stm32h743i-eval.dts b/arch/arm/boot/dts/st/stm32h743i-eval.dts
+deleted file mode 100644
+index e5e10b0758ee..000000000000
+--- a/arch/arm/boot/dts/st/stm32h743i-eval.dts
++++ /dev/null
+@@ -1,185 +0,0 @@
+-/*
+- * Copyright 2017 - Alexandre Torgue <alexandre.torgue@st.com>
+- *
+- * This file is dual-licensed: you can use it either under the terms
+- * of the GPL or the X11 license, at your option. Note that this dual
+- * licensing only applies to this file, and not this project as a
+- * whole.
+- *
+- *  a) This file is free software; you can redistribute it and/or
+- *     modify it under the terms of the GNU General Public License as
+- *     published by the Free Software Foundation; either version 2 of the
+- *     License, or (at your option) any later version.
+- *
+- *     This file is distributed in the hope that it will be useful,
+- *     but WITHOUT ANY WARRANTY; without even the implied warranty of
+- *     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+- *     GNU General Public License for more details.
+- *
+- * Or, alternatively,
+- *
+- *  b) Permission is hereby granted, free of charge, to any person
+- *     obtaining a copy of this software and associated documentation
+- *     files (the "Software"), to deal in the Software without
+- *     restriction, including without limitation the rights to use,
+- *     copy, modify, merge, publish, distribute, sublicense, and/or
+- *     sell copies of the Software, and to permit persons to whom the
+- *     Software is furnished to do so, subject to the following
+- *     conditions:
+- *
+- *     The above copyright notice and this permission notice shall be
+- *     included in all copies or substantial portions of the Software.
+- *
+- *     THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+- *     EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+- *     OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+- *     NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+- *     HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+- *     WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+- *     FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+- *     OTHER DEALINGS IN THE SOFTWARE.
+- */
+-
+-/dts-v1/;
+-#include "stm32h743.dtsi"
+-#include "stm32h7-pinctrl.dtsi"
+-#include <dt-bindings/gpio/gpio.h>
+-#include <dt-bindings/leds/common.h>
+-
+-/ {
+-	model = "STMicroelectronics STM32H743i-EVAL board";
+-	compatible = "st,stm32h743i-eval", "st,stm32h743";
+-
+-	chosen {
+-		bootargs = "root=/dev/ram";
+-		stdout-path = "serial0:115200n8";
+-	};
+-
+-	memory@d0000000 {
+-		device_type = "memory";
+-		reg = <0xd0000000 0x2000000>;
+-	};
+-
+-	aliases {
+-		serial0 = &usart1;
+-	};
+-
+-	led {
+-		compatible = "gpio-leds";
+-		led_green: led-green {
+-			function = LED_FUNCTION_HEARTBEAT;
+-			color = <LED_COLOR_ID_GREEN>;
+-			gpios = <&gpiof 10 GPIO_ACTIVE_LOW>;
+-			linux,default-trigger = "heartbeat";
+-			default-state = "off";
+-		};
+-
+-		led-red {
+-			color = <LED_COLOR_ID_RED>;
+-			gpios = <&gpioa 4 GPIO_ACTIVE_LOW>;
+-		};
+-	};
+-
+-	options {
+-		u-boot {
+-			compatible = "u-boot,config";
+-			boot-led = <&led_green>;
+-		};
+-	};
+-
+-	vdda: regulator-vdda {
+-		compatible = "regulator-fixed";
+-		regulator-name = "vdda";
+-		regulator-min-microvolt = <3300000>;
+-		regulator-max-microvolt = <3300000>;
+-		regulator-always-on;
+-	};
+-
+-	v2v9_sd: regulator-v2v9_sd {
+-		compatible = "regulator-fixed";
+-		regulator-name = "v2v9_sd";
+-		regulator-min-microvolt = <2900000>;
+-		regulator-max-microvolt = <2900000>;
+-		regulator-always-on;
+-	};
+-
+-	usbotg_hs_phy: usb-phy {
+-		#phy-cells = <0>;
+-		compatible = "usb-nop-xceiv";
+-		clocks = <&rcc USB1ULPI_CK>;
+-		clock-names = "main_clk";
+-	};
+-};
+-
+-&adc_12 {
+-	vdda-supply = <&vdda>;
+-	vref-supply = <&vdda>;
+-	status = "okay";
+-	adc1: adc@0 {
+-		/* potentiometer */
+-		st,adc-channels = <0>;
+-		status = "okay";
+-	};
+-};
+-
+-&clk_hse {
+-	clock-frequency = <25000000>;
+-};
+-
+-&i2c1 {
+-	pinctrl-0 = <&i2c1_pins_a>;
+-	pinctrl-names = "default";
+-	i2c-scl-rising-time-ns = <185>;
+-	i2c-scl-falling-time-ns = <20>;
+-	status = "okay";
+-};
+-
+-&rtc {
+-	status = "okay";
+-};
+-
+-&mac {
+-	status = "disabled";
+-	pinctrl-0 = <&ethernet_rmii>;
+-	pinctrl-names = "default";
+-	phy-mode = "rmii";
+-	phy-handle = <&phy0>;
+-
+-	mdio0 {
+-		#address-cells = <1>;
+-		#size-cells = <0>;
+-		compatible = "snps,dwmac-mdio";
+-		phy0: ethernet-phy@0 {
+-			reg = <0>;
+-		};
+-	};
+-};
+-
+-&sdmmc1 {
+-	pinctrl-names = "default", "opendrain", "sleep";
+-	pinctrl-0 = <&sdmmc1_b4_pins_a &sdmmc1_dir_pins_a>;
+-	pinctrl-1 = <&sdmmc1_b4_od_pins_a &sdmmc1_dir_pins_a>;
+-	pinctrl-2 = <&sdmmc1_b4_sleep_pins_a &sdmmc1_dir_sleep_pins_a>;
+-	broken-cd;
+-	st,sig-dir;
+-	st,neg-edge;
+-	st,use-ckin;
+-	bus-width = <4>;
+-	vmmc-supply = <&v2v9_sd>;
+-	status = "okay";
+-};
+-
+-&usart1 {
+-	pinctrl-0 = <&usart1_pins_a>;
+-	pinctrl-names = "default";
+-	status = "okay";
+-};
+-
+-&usbotg_hs {
+-	pinctrl-0 = <&usbotg_hs_pins_a>;
+-	pinctrl-names = "default";
+-	phys = <&usbotg_hs_phy>;
+-	phy-names = "usb2-phy";
+-	dr_mode = "otg";
+-	status = "okay";
+-};
+diff --git a/arch/arm/boot/dts/st/stm32h747i-disco.dts b/arch/arm/boot/dts/st/stm32h747i-disco.dts
+deleted file mode 100644
+index c9dcc680e26d..000000000000
+--- a/arch/arm/boot/dts/st/stm32h747i-disco.dts
++++ /dev/null
+@@ -1,149 +0,0 @@
+-// SPDX-License-Identifier: GPL-2.0
+-/*
+- * Copyright (C) 2025 Amarula Solutions, Dario Binacchi <dario.binacchi@amarulasolutions.com>
+- */
+-
+-/dts-v1/;
+-#include "stm32h743.dtsi"
+-#include "stm32h7-pinctrl.dtsi"
+-#include <dt-bindings/gpio/gpio.h>
+-#include <dt-bindings/input/input.h>
+-#include <dt-bindings/leds/common.h>
+-
+-/ {
+-	model = "STMicroelectronics STM32H747i-Discovery board";
+-	compatible = "st,stm32h747i-disco", "st,stm32h747";
+-
+-	chosen {
+-		bootargs = "root=/dev/ram";
+-		stdout-path = "serial0:115200n8";
+-	};
+-
+-	memory@d0000000 {
+-		device_type = "memory";
+-		reg = <0xd0000000 0x2000000>;
+-	};
+-
+-	aliases {
+-		serial0 = &usart1;
+-		serial1 = &uart8;
+-	};
+-
+-	v3v3: regulator-v3v3 {
+-		compatible = "regulator-fixed";
+-		regulator-name = "v3v3";
+-		regulator-min-microvolt = <3300000>;
+-		regulator-max-microvolt = <3300000>;
+-		regulator-always-on;
+-	};
+-
+-	leds {
+-		compatible = "gpio-leds";
+-		led_green: led-green {
+-			function = LED_FUNCTION_HEARTBEAT;
+-			color = <LED_COLOR_ID_GREEN>;
+-			gpios = <&gpioi 12 GPIO_ACTIVE_LOW>;
+-			linux,default-trigger = "heartbeat";
+-		};
+-		led-orange {
+-			color = <LED_COLOR_ID_ORANGE>;
+-			gpios = <&gpioi 13 GPIO_ACTIVE_LOW>;
+-		};
+-		led-red {
+-			color = <LED_COLOR_ID_RED>;
+-			gpios = <&gpioi 14 GPIO_ACTIVE_LOW>;
+-		};
+-		led-blue {
+-			color = <LED_COLOR_ID_BLUE>;
+-			gpios = <&gpioi 15 GPIO_ACTIVE_LOW>;
+-		};
+-	};
+-
+-	gpio-keys {
+-		compatible = "gpio-keys";
+-		autorepeat;
+-		button-0 {
+-			label = "User";
+-			linux,code = <KEY_WAKEUP>;
+-			gpios = <&gpioc 13 GPIO_ACTIVE_HIGH>;
+-		};
+-		button-1 {
+-			label = "JoySel";
+-			linux,code = <KEY_ENTER>;
+-			gpios = <&gpiok 2 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
+-		};
+-		button-2 {
+-			label = "JoyDown";
+-			linux,code = <KEY_DOWN>;
+-			gpios = <&gpiok 3 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
+-		};
+-		button-3 {
+-			label = "JoyUp";
+-			linux,code = <KEY_UP>;
+-			gpios = <&gpiok 6 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
+-		};
+-		button-4 {
+-			label = "JoyLeft";
+-			linux,code = <KEY_LEFT>;
+-			gpios = <&gpiok 4 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
+-		};
+-		button-5 {
+-			label = "JoyRight";
+-			linux,code = <KEY_RIGHT>;
+-			gpios = <&gpiok 5 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
+-		};
+-	};
+-
+-	options {
+-		u-boot {
+-			compatible = "u-boot,config";
+-			boot-led = <&led_green>;
+-		};
+-	};
+-};
+-
+-&clk_hse {
+-	clock-frequency = <25000000>;
+-};
+-
+-&mac {
+-	status = "disabled";
+-	pinctrl-0 = <&ethernet_rmii>;
+-	pinctrl-names = "default";
+-	phy-mode = "rmii";
+-	phy-handle = <&phy0>;
+-
+-	mdio0 {
+-		#address-cells = <1>;
+-		#size-cells = <0>;
+-		compatible = "snps,dwmac-mdio";
+-		phy0: ethernet-phy@0 {
+-			reg = <0>;
+-		};
+-	};
+-};
+-
+-&sdmmc1 {
+-	pinctrl-names = "default", "opendrain", "sleep";
+-	pinctrl-0 = <&sdmmc1_b4_pins_a>;
+-	pinctrl-1 = <&sdmmc1_b4_od_pins_a>;
+-	pinctrl-2 = <&sdmmc1_b4_sleep_pins_a>;
+-	cd-gpios = <&gpioi 8 GPIO_ACTIVE_LOW>;
+-	broken-cd;
+-	st,neg-edge;
+-	bus-width = <4>;
+-	vmmc-supply = <&v3v3>;
+-	status = "okay";
+-};
+-
+-&usart1 {
+-	pinctrl-0 = <&usart1_pins_b>;
+-	pinctrl-names = "default";
+-	status = "okay";
+-};
+-
+-&uart8 {
+-	pinctrl-0 = <&uart8_pins_a>;
+-	pinctrl-names = "default";
+-	status = "okay";
+-};
+diff --git a/arch/arm/boot/dts/st/stm32h750.dtsi b/arch/arm/boot/dts/st/stm32h750.dtsi
+deleted file mode 100644
+index 41e3b1e3a874..000000000000
+--- a/arch/arm/boot/dts/st/stm32h750.dtsi
++++ /dev/null
+@@ -1,6 +0,0 @@
+-/* SPDX-License-Identifier: (GPL-2.0+ OR BSD-3-Clause) */
+-/* Copyright (C) STMicroelectronics 2021 - All Rights Reserved */
+-
+-#include "stm32h743.dtsi"
+-
+-
+diff --git a/arch/arm/boot/dts/st/stm32h750i-art-pi.dts b/arch/arm/boot/dts/st/stm32h750i-art-pi.dts
+deleted file mode 100644
+index 56c53e262da7..000000000000
+--- a/arch/arm/boot/dts/st/stm32h750i-art-pi.dts
++++ /dev/null
+@@ -1,229 +0,0 @@
+-/*
+- * Copyright 2021 - Dillon Min <dillon.minfei@gmail.com>
+- *
+- * This file is dual-licensed: you can use it either under the terms
+- * of the GPL or the X11 license, at your option. Note that this dual
+- * licensing only applies to this file, and not this project as a
+- * whole.
+- *
+- *  a) This file is free software; you can redistribute it and/or
+- *     modify it under the terms of the GNU General Public License as
+- *     published by the Free Software Foundation; either version 2 of the
+- *     License, or (at your option) any later version.
+- *
+- *     This file is distributed in the hope that it will be useful,
+- *     but WITHOUT ANY WARRANTY; without even the implied warranty of
+- *     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+- *     GNU General Public License for more details.
+- *
+- * Or, alternatively,
+- *
+- *  b) Permission is hereby granted, free of charge, to any person
+- *     obtaining a copy of this software and associated documentation
+- *     files (the "Software"), to deal in the Software without
+- *     restriction, including without limitation the rights to use,
+- *     copy, modify, merge, publish, distribute, sublicense, and/or
+- *     sell copies of the Software, and to permit persons to whom the
+- *     Software is furnished to do so, subject to the following
+- *     conditions:
+- *
+- *     The above copyright notice and this permission notice shall be
+- *     included in all copies or substantial portions of the Software.
+- *
+- *     THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+- *     EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+- *     OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+- *     NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+- *     HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+- *     WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+- *     FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+- *     OTHER DEALINGS IN THE SOFTWARE.
+- *
+- * For art-pi board resources, you can refer to link:
+- * 	https://art-pi.gitee.io/website/
+- */
+-
+-/dts-v1/;
+-#include "stm32h750.dtsi"
+-#include "stm32h7-pinctrl.dtsi"
+-#include <dt-bindings/interrupt-controller/irq.h>
+-#include <dt-bindings/gpio/gpio.h>
+-
+-/ {
+-	model = "RT-Thread STM32H750i-ART-PI board";
+-	compatible = "st,stm32h750i-art-pi", "st,stm32h750";
+-
+-	chosen {
+-		bootargs = "root=/dev/ram";
+-		stdout-path = "serial0:2000000n8";
+-	};
+-
+-	memory@c0000000 {
+-		device_type = "memory";
+-		reg = <0xc0000000 0x2000000>;
+-	};
+-
+-	reserved-memory {
+-		#address-cells = <1>;
+-		#size-cells = <1>;
+-		ranges;
+-
+-		linux,cma {
+-			compatible = "shared-dma-pool";
+-			no-map;
+-			size = <0x100000>;
+-			linux,dma-default;
+-		};
+-	};
+-
+-	aliases {
+-		serial0 = &uart4;
+-		serial1 = &usart3;
+-	};
+-
+-	leds {
+-		compatible = "gpio-leds";
+-		led-red {
+-			gpios = <&gpioi 8 0>;
+-		};
+-		led-green {
+-			gpios = <&gpioc 15 0>;
+-			linux,default-trigger = "heartbeat";
+-		};
+-	};
+-
+-	v3v3: regulator-v3v3 {
+-		compatible = "regulator-fixed";
+-		regulator-name = "v3v3";
+-		regulator-min-microvolt = <3300000>;
+-		regulator-max-microvolt = <3300000>;
+-		regulator-always-on;
+-	};
+-
+-	wlan_pwr: regulator-wlan {
+-		compatible = "regulator-fixed";
+-
+-		regulator-name = "wl-reg";
+-		regulator-min-microvolt = <3300000>;
+-		regulator-max-microvolt = <3300000>;
+-
+-		gpios = <&gpioc 13 GPIO_ACTIVE_HIGH>;
+-		enable-active-high;
+-	};
+-};
+-
+-&clk_hse {
+-	clock-frequency = <25000000>;
+-};
+-
+-&dma1 {
+-	status = "okay";
+-};
+-
+-&dma2 {
+-	status = "okay";
+-};
+-
+-&mac {
+-	status = "disabled";
+-	pinctrl-0 = <&ethernet_rmii>;
+-	pinctrl-names = "default";
+-	phy-mode = "rmii";
+-	phy-handle = <&phy0>;
+-
+-	mdio0 {
+-		#address-cells = <1>;
+-		#size-cells = <0>;
+-		compatible = "snps,dwmac-mdio";
+-		phy0: ethernet-phy@0 {
+-			reg = <0>;
+-		};
+-	};
+-};
+-
+-&sdmmc1 {
+-	pinctrl-names = "default", "opendrain", "sleep";
+-	pinctrl-0 = <&sdmmc1_b4_pins_a>;
+-	pinctrl-1 = <&sdmmc1_b4_od_pins_a>;
+-	pinctrl-2 = <&sdmmc1_b4_sleep_pins_a>;
+-	broken-cd;
+-	st,neg-edge;
+-	bus-width = <4>;
+-	vmmc-supply = <&v3v3>;
+-	status = "okay";
+-};
+-
+-&sdmmc2 {
+-	pinctrl-names = "default", "opendrain", "sleep";
+-	pinctrl-0 = <&sdmmc2_b4_pins_a>;
+-	pinctrl-1 = <&sdmmc2_b4_od_pins_a>;
+-	pinctrl-2 = <&sdmmc2_b4_sleep_pins_a>;
+-	broken-cd;
+-	non-removable;
+-	st,neg-edge;
+-	bus-width = <4>;
+-	vmmc-supply = <&wlan_pwr>;
+-	status = "okay";
+-
+-	#address-cells = <1>;
+-	#size-cells = <0>;
+-	brcmf: wifi@1 {
+-		reg = <1>;
+-		compatible = "brcm,bcm4329-fmac";
+-	};
+-};
+-
+-&spi1 {
+-	status = "okay";
+-	pinctrl-0 = <&spi1_pins>;
+-	pinctrl-names = "default";
+-	cs-gpios = <&gpioa 4 GPIO_ACTIVE_LOW>;
+-	dmas = <&dmamux1 37 0x400 0x05>,
+-	       <&dmamux1 38 0x400 0x05>;
+-	dma-names = "rx", "tx";
+-
+-	flash@0 {
+-		#address-cells = <1>;
+-		#size-cells = <1>;
+-		compatible = "winbond,w25q128", "jedec,spi-nor";
+-		reg = <0>;
+-		spi-max-frequency = <80000000>;
+-
+-		partition@0 {
+-			label = "root filesystem";
+-			reg = <0 0x1000000>;
+-		};
+-	};
+-};
+-
+-&usart2 {
+-	pinctrl-0 = <&usart2_pins_a>;
+-	pinctrl-names = "default";
+-	status = "disabled";
+-};
+-
+-&usart3 {
+-	pinctrl-names = "default";
+-	pinctrl-0 = <&usart3_pins_a>;
+-	dmas = <&dmamux1 45 0x400 0x05>,
+-	       <&dmamux1 46 0x400 0x05>;
+-	dma-names = "rx", "tx";
+-	uart-has-rtscts;
+-	status = "okay";
+-
+-	bluetooth {
+-		compatible = "brcm,bcm43438-bt";
+-		host-wakeup-gpios = <&gpioc 0 GPIO_ACTIVE_HIGH>;
+-		device-wakeup-gpios = <&gpioi 10 GPIO_ACTIVE_HIGH>;
+-		shutdown-gpios = <&gpioi 11 GPIO_ACTIVE_HIGH>;
+-		max-speed = <115200>;
+-	};
+-};
+-
+-&uart4 {
+-	pinctrl-0 = <&uart4_pins_a>;
+-	pinctrl-names = "default";
+-	status = "okay";
+-};
+-
+-
+diff --git a/arch/arm/configs/stm32_defconfig b/arch/arm/configs/stm32_defconfig
+deleted file mode 100644
+index 7366aade19ad..000000000000
+--- a/arch/arm/configs/stm32_defconfig
++++ /dev/null
+@@ -1,80 +0,0 @@
+-CONFIG_NO_HZ_IDLE=y
+-CONFIG_HIGH_RES_TIMERS=y
+-CONFIG_PREEMPT=y
+-CONFIG_LOG_BUF_SHIFT=16
+-CONFIG_BLK_DEV_INITRD=y
+-CONFIG_CC_OPTIMIZE_FOR_SIZE=y
+-CONFIG_EXPERT=y
+-# CONFIG_UID16 is not set
+-# CONFIG_POSIX_TIMERS is not set
+-CONFIG_BASE_SMALL=y
+-# CONFIG_FUTEX is not set
+-# CONFIG_EPOLL is not set
+-# CONFIG_SIGNALFD is not set
+-# CONFIG_EVENTFD is not set
+-# CONFIG_AIO is not set
+-# CONFIG_IO_URING is not set
+-# CONFIG_ADVISE_SYSCALLS is not set
 -# CONFIG_MMU is not set
--CONFIG_ARCH_MXC=y
--CONFIG_SOC_IMXRT=y
+-CONFIG_ARCH_STM32=y
+-CONFIG_CPU_V7M_NUM_IRQ=240
 -CONFIG_SET_MEM_PARAM=y
--CONFIG_DRAM_BASE=0x80000000
--CONFIG_DRAM_SIZE=0x02000000
+-CONFIG_DRAM_BASE=0x90000000
+-CONFIG_XIP_KERNEL=y
+-CONFIG_XIP_PHYS_ADDR=0x08008000
+-# CONFIG_SUSPEND is not set
+-# CONFIG_GCC_PLUGINS is not set
 -CONFIG_BINFMT_FLAT=y
--CONFIG_UEVENT_HELPER=y
+-# CONFIG_COREDUMP is not set
+-# CONFIG_VM_EVENT_COUNTERS is not set
 -CONFIG_DEVTMPFS=y
 -CONFIG_DEVTMPFS_MOUNT=y
--CONFIG_IMX_WEIM=y
--CONFIG_LEGACY_PTY_COUNT=2
--CONFIG_SERIAL_FSL_LPUART=y
--CONFIG_SERIAL_FSL_LPUART_CONSOLE=y
--CONFIG_SERIAL_DEV_BUS=y
--CONFIG_PINCTRL_IMXRT1050=y
--CONFIG_GPIO_MXC=y
--CONFIG_MMC=y
--CONFIG_MMC_SDHCI=y
--CONFIG_MMC_SDHCI_PLTFM=y
--CONFIG_MMC_SDHCI_ESDHC_IMX=y
--CONFIG_DMADEVICES=y
--CONFIG_FSL_EDMA=y
--CONFIG_CLK_IMXRT1050=y
--CONFIG_EXT4_FS=y
--CONFIG_EXT4_FS_POSIX_ACL=y
--CONFIG_EXT4_FS_SECURITY=y
--CONFIG_VFAT_FS=y
--CONFIG_FAT_DEFAULT_UTF8=y
--CONFIG_EXFAT_FS=y
--CONFIG_NLS_ASCII=y
--CONFIG_NLS_UTF8=y
-diff --git a/arch/arm/configs/vf610m4_defconfig b/arch/arm/configs/vf610m4_defconfig
-deleted file mode 100644
-index a5609cbfdfb3..000000000000
---- a/arch/arm/configs/vf610m4_defconfig
-+++ /dev/null
-@@ -1,39 +0,0 @@
--CONFIG_NAMESPACES=y
--CONFIG_BLK_DEV_INITRD=y
--# CONFIG_RD_BZIP2 is not set
--# CONFIG_RD_LZMA is not set
--# CONFIG_RD_XZ is not set
--# CONFIG_RD_LZ4 is not set
--CONFIG_EXPERT=y
--CONFIG_KALLSYMS_ALL=y
--# CONFIG_MMU is not set
--CONFIG_ARCH_MXC=y
--CONFIG_SOC_VF610=y
--CONFIG_SET_MEM_PARAM=y
--CONFIG_DRAM_BASE=0x8c000000
--CONFIG_FLASH_MEM_BASE=0x8f000000
--CONFIG_FLASH_SIZE=0x01000000
--CONFIG_CMDLINE="console=/dev/ttyLP2"
--CONFIG_XIP_KERNEL=y
--CONFIG_XIP_PHYS_ADDR=0x0f000080
--# CONFIG_SUSPEND is not set
--CONFIG_BINFMT_FLAT=y
--CONFIG_BINFMT_ZFLAT=y
--# CONFIG_UEVENT_HELPER is not set
--# CONFIG_STANDALONE is not set
--# CONFIG_PREVENT_FIRMWARE_BUILD is not set
--# CONFIG_ALLOW_DEV_COREDUMP is not set
--CONFIG_BLK_DEV_RAM=y
--CONFIG_BLK_DEV_RAM_COUNT=4
--# CONFIG_INPUT_MOUSEDEV is not set
--# CONFIG_KEYBOARD_ATKBD is not set
--# CONFIG_INPUT_MOUSE is not set
--# CONFIG_SERIO is not set
--CONFIG_SERIAL_FSL_LPUART=y
--CONFIG_SERIAL_FSL_LPUART_CONSOLE=y
+-# CONFIG_FW_LOADER is not set
+-# CONFIG_BLK_DEV is not set
+-CONFIG_EEPROM_93CX6=y
+-CONFIG_KEYBOARD_GPIO=y
+-# CONFIG_VT is not set
+-# CONFIG_UNIX98_PTYS is not set
+-# CONFIG_LEGACY_PTYS is not set
+-CONFIG_SERIAL_STM32=y
+-CONFIG_SERIAL_STM32_CONSOLE=y
+-CONFIG_SERIAL_NONSTANDARD=y
 -# CONFIG_HW_RANDOM is not set
--CONFIG_MFD_SYSCON=y
--# CONFIG_HID is not set
+-CONFIG_I2C=y
+-CONFIG_I2C_CHARDEV=y
+-CONFIG_I2C_STM32F4=y
+-CONFIG_I2C_STM32F7=y
+-CONFIG_GPIO_STMPE=y
+-# CONFIG_HWMON is not set
+-CONFIG_WATCHDOG=y
+-CONFIG_MFD_STMPE=y
+-CONFIG_REGULATOR=y
+-CONFIG_REGULATOR_FIXED_VOLTAGE=y
 -# CONFIG_USB_SUPPORT is not set
+-CONFIG_MMC=y
+-CONFIG_MMC_ARMMMCI=y
+-CONFIG_NEW_LEDS=y
+-CONFIG_LEDS_CLASS=y
+-CONFIG_LEDS_GPIO=y
+-CONFIG_LEDS_TRIGGERS=y
+-CONFIG_LEDS_TRIGGER_HEARTBEAT=y
+-CONFIG_RTC_CLASS=y
+-CONFIG_RTC_DRV_STM32=y
+-CONFIG_DMADEVICES=y
+-CONFIG_STM32_DMA=y
+-CONFIG_STM32_DMAMUX=y
+-CONFIG_STM32_MDMA=y
+-# CONFIG_COMMON_CLK_STM32MP is not set
+-CONFIG_IIO=y
+-CONFIG_STM32_ADC_CORE=y
+-CONFIG_STM32_ADC=y
 -CONFIG_EXT4_FS=y
--# CONFIG_MISC_FILESYSTEMS is not set
-diff --git a/arch/arm/mach-imx/Kconfig b/arch/arm/mach-imx/Kconfig
-index 77704c6a70ba..cdc1b31fe573 100644
---- a/arch/arm/mach-imx/Kconfig
-+++ b/arch/arm/mach-imx/Kconfig
-@@ -2,7 +2,7 @@
- menuconfig ARCH_MXC
- 	bool "Freescale i.MX family"
- 	depends on ((ARCH_MULTI_V4T || ARCH_MULTI_V5) && CPU_LITTLE_ENDIAN) || \
--		ARCH_MULTI_V6_V7 || ARM_SINGLE_ARMV7M
-+		ARCH_MULTI_V6_V7
- 	select CLKSRC_IMX_GPT
- 	select GENERIC_IRQ_CHIP
- 	select GPIOLIB
-@@ -174,7 +174,7 @@ config SOC_LS1021A
- 
- endif
- 
--if ARCH_MULTI_V7 || ARM_SINGLE_ARMV7M
-+if ARCH_MULTI_V7
- 
- comment "Cortex-A/Cortex-M asymmetric multiprocessing platforms"
- 
-@@ -187,38 +187,23 @@ config SOC_IMX7D_CA7
- 	select HAVE_IMX_SRC
- 	select IMX_GPCV2
- 
--config SOC_IMX7D_CM4
--	bool
--	select ARMV7M_SYSTICK
--
- config SOC_IMX7D
- 	bool "i.MX7 Dual support"
--	select SOC_IMX7D_CA7 if ARCH_MULTI_V7
--	select SOC_IMX7D_CM4 if ARM_SINGLE_ARMV7M
--	select ARM_ERRATA_814220 if ARCH_MULTI_V7
-+	select SOC_IMX7D_CA7
-+	select ARM_ERRATA_814220
- 	help
- 	  This enables support for Freescale i.MX7 Dual processor.
- 
- config SOC_IMX7ULP
- 	bool "i.MX7ULP support"
- 	select CLKSRC_IMX_TPM
--	select SOC_IMX7D_CA7 if ARCH_MULTI_V7
--	select SOC_IMX7D_CM4 if ARM_SINGLE_ARMV7M
-+	select SOC_IMX7D_CA7
- 	help
- 	  This enables support for Freescale i.MX7 Ultra Low Power processor.
- 
--config SOC_IMXRT
--	bool "i.MXRT support (DEPRECATED)"
--	depends on ARM_SINGLE_ARMV7M
+-# CONFIG_FILE_LOCKING is not set
+-# CONFIG_DNOTIFY is not set
+-# CONFIG_INOTIFY_USER is not set
+-CONFIG_NLS=y
+-CONFIG_PRINTK_TIME=y
+-# CONFIG_DEBUG_BUGVERBOSE is not set
+-CONFIG_DEBUG_INFO_DWARF_TOOLCHAIN_DEFAULT=y
+-CONFIG_MAGIC_SYSRQ=y
+-# CONFIG_SLUB_DEBUG is not set
+diff --git a/arch/arm/mach-stm32/Kconfig b/arch/arm/mach-stm32/Kconfig
+index 4ac3384e397a..6ca8507f9451 100644
+--- a/arch/arm/mach-stm32/Kconfig
++++ b/arch/arm/mach-stm32/Kconfig
+@@ -1,17 +1,15 @@
+ # SPDX-License-Identifier: GPL-2.0-only
+ menuconfig ARCH_STM32
+ 	bool "STMicroelectronics STM32 family"
+-	depends on ARM_SINGLE_ARMV7M || ARCH_MULTI_V7
 -	select ARMV7M_SYSTICK if ARM_SINGLE_ARMV7M
--	help
--	  This enables support for Freescale i.MXRT Crossover processor.
--
--	  This platform is scheduled for removal in early 2027
--
- config SOC_VF610
- 	bool "Vybrid Family VF610 support"
+-	select HAVE_ARM_ARCH_TIMER if ARCH_MULTI_V7
 -	select ARM_GIC if ARCH_MULTI_V7
+-	select ARM_PSCI if ARCH_MULTI_V7
++	depends on ARCH_MULTI_V7
++	select HAVE_ARM_ARCH_TIMER
 +	select ARM_GIC
- 
++	select ARM_PSCI
+ 	select ARM_AMBA
+ 	select ARCH_HAS_RESET_CONTROLLER
+ 	select CLKSRC_STM32
+ 	select PINCTRL
+ 	select RESET_CONTROLLER
+-	select STM32_EXTI if ARM_SINGLE_ARMV7M
+ 	select STM32_FIREWALL
  	help
- 	  This enables support for Freescale Vybrid VF610 processor.
-diff --git a/arch/arm/mach-imx/Makefile b/arch/arm/mach-imx/Makefile
-index fa0144f0882d..135079340428 100644
---- a/arch/arm/mach-imx/Makefile
-+++ b/arch/arm/mach-imx/Makefile
-@@ -42,7 +42,6 @@ obj-$(CONFIG_SOC_IMX6SLL) += mach-imx6sl.o
- obj-$(CONFIG_SOC_IMX6SX) += mach-imx6sx.o
- obj-$(CONFIG_SOC_IMX6UL) += mach-imx6ul.o
- obj-$(CONFIG_SOC_IMX7D_CA7) += mach-imx7d.o
--obj-$(CONFIG_SOC_IMX7D_CM4) += mach-imx7d-cm4.o
- obj-$(CONFIG_SOC_IMX7ULP) += mach-imx7ulp.o pm-imx7ulp.o
+ 	  Support for STMicroelectronics STM32MP1 processors using Cortex-A7
+@@ -20,32 +18,6 @@ menuconfig ARCH_STM32
  
- ifeq ($(CONFIG_SUSPEND),y)
-@@ -59,8 +58,6 @@ obj-$(CONFIG_SOC_IMX50) += mach-imx50.o
- obj-$(CONFIG_SOC_IMX51) += mach-imx51.o
- obj-$(CONFIG_SOC_IMX53) += mach-imx53.o
+ if ARCH_STM32
  
--obj-$(CONFIG_SOC_IMXRT) += mach-imxrt.o
+-if ARM_SINGLE_ARMV7M
 -
- obj-$(CONFIG_SOC_VF610) += mach-vf610.o
+-config MACH_STM32F429
+-	bool "STMicroelectronics STM32F429 (DEPRECATED)"
+-	default y
+-
+-config MACH_STM32F469
+-	bool "STMicroelectronics STM32F469 (DEPRECATED)"
+-	default y
+-
+-config MACH_STM32F746
+-	bool "STMicroelectronics STM32F746 (DEPRECATED)"
+-	default y
+-
+-config MACH_STM32F769
+-	bool "STMicroelectronics STM32F769 (DEPRECATED)"
+-	default y
+-
+-config MACH_STM32H743
+-	bool "STMicroelectronics STM32H743 (DEPRECATED)"
+-	default y
+-
+-endif # ARMv7-M
+-
+-if ARCH_MULTI_V7
+-
+ config MACH_STM32MP157
+ 	bool "STMicroelectronics STM32MP157"
+ 	select ARM_ERRATA_814220
+@@ -59,6 +31,4 @@ config MACH_STM32MP13
+ 	  Support for STM32MP13 SoCs:
+ 	  STM32MP131, STM32MP133, STM32MP135
  
- obj-$(CONFIG_SOC_LS1021A) += mach-ls1021a.o
-diff --git a/arch/arm/mach-imx/mach-imx7d-cm4.c b/arch/arm/mach-imx/mach-imx7d-cm4.c
-deleted file mode 100644
-index 0800b5891d2a..000000000000
---- a/arch/arm/mach-imx/mach-imx7d-cm4.c
-+++ /dev/null
-@@ -1,18 +0,0 @@
--// SPDX-License-Identifier: GPL-2.0
--/*
-- * Copyright (c) 2018 Pengutronix, Oleksij Rempel <o.rempel@pengutronix.de>
-- */
+-endif # ARMv7-A
 -
--#include <linux/kernel.h>
--#include <asm/v7m.h>
--#include <asm/mach/arch.h>
--
--static const char * const imx7d_cm4_dt_compat[] __initconst = {
--	"fsl,imx7d-cm4",
--	NULL,
--};
--
--DT_MACHINE_START(IMX7D, "Freescale i.MX7 Dual Cortex-M4 (Device Tree)")
--	.dt_compat = imx7d_cm4_dt_compat,
--	.restart = armv7m_restart,
--MACHINE_END
-diff --git a/arch/arm/mach-imx/mach-imxrt.c b/arch/arm/mach-imx/mach-imxrt.c
-deleted file mode 100644
-index 2063a3059c84..000000000000
---- a/arch/arm/mach-imx/mach-imxrt.c
-+++ /dev/null
-@@ -1,19 +0,0 @@
--// SPDX-License-Identifier: GPL-2.0
--/*
-- * Copyright (C) 2019
-- * Author(s): Giulio Benetti <giulio.benetti@benettiengineering.com>
-- */
--
--#include <linux/kernel.h>
--#include <asm/mach/arch.h>
--#include <asm/v7m.h>
--
--static const char *const imxrt_compat[] __initconst = {
--	"fsl,imxrt1050",
--	NULL
--};
--
--DT_MACHINE_START(IMXRTDT, "IMXRT (Device Tree Support)")
--	.dt_compat = imxrt_compat,
--	.restart = armv7m_restart,
--MACHINE_END
-diff --git a/arch/arm/mach-imx/mach-vf610.c b/arch/arm/mach-imx/mach-vf610.c
-index 208ff640698d..f77565381097 100644
---- a/arch/arm/mach-imx/mach-vf610.c
-+++ b/arch/arm/mach-imx/mach-vf610.c
-@@ -59,7 +59,6 @@ static const char * const vf610_dt_compat[] __initconst = {
- 	"fsl,vf510",
- 	"fsl,vf600",
- 	"fsl,vf610",
--	"fsl,vf610m4",
- 	NULL,
- };
+ endif
+diff --git a/arch/arm/mach-stm32/board-dt.c b/arch/arm/mach-stm32/board-dt.c
+index e6233c8725ae..3d32ce2c1333 100644
+--- a/arch/arm/mach-stm32/board-dt.c
++++ b/arch/arm/mach-stm32/board-dt.c
+@@ -12,13 +12,6 @@
+ #endif
  
+ static const char *const stm32_compat[] __initconst = {
+-	"st,stm32f429",
+-	"st,stm32f469",
+-	"st,stm32f746",
+-	"st,stm32f769",
+-	"st,stm32h743",
+-	"st,stm32h747",
+-	"st,stm32h750",
+ 	"st,stm32mp131",
+ 	"st,stm32mp133",
+ 	"st,stm32mp135",
 -- 
 2.53.0
 
