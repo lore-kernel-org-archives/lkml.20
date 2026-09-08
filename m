@@ -1,83 +1,119 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A36F538D72;
-	Tue,  8 Sep 2026 12:11:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71D8653445B
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 12:12:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.3
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788869520; cv=none; b=PsD1PBW07ZtB7QlyBmJRRCScLTIl6ZDQR0QKEzh4B3ZYvnS3b8ovK736QO9IzyyWe6LTV5BdnZPfX/BjpLLMdu50rjGUxQaNRrIZeMEjQcgKO0qd7i8m5ngoRQC3NGwHi1tUxJT6xTUzfIcFtrPmL2Wjwz33KKZD/nXZEAHc5Q0=
+	t=1788869531; cv=none; b=YWKKA/E7rZn8Tg23x+Oy+zN4d/0BaS01hZop2puCt9MxmAqcj9ccg/b8Gfq15m0m0nQOBE/dKdcWVEFszuWZoVb0C+EX8m90TudLt7q9kkHgn7NEZ3b4laGF3cq2bvthGyY7Xc5ucCsEm5yZR9/JueYlWYWQIzfuBuP4aoJ19dw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788869520; c=relaxed/simple;
-	bh=g3EU/SwNXzHcls/4SnZ5WjIBF80bI+SuZA3/IBQzgSc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=e0Xcj0sD+7LB3nDJsI23uzuBEGvgNDZcx4U4yPEsyLecnqaCxVJEsN0a5MHKX3KufOvB6XmZgbNYtYxOSClW743OiPIU0uJCcg5bU5Oi6Y/vePpXMN8OKbgFDNJ9zfqrsQUlzthgnj2HNgg4OhcCQqf4nuh6AEg5wvKfPsddJnM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=6H+/rHWI; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1788869531; c=relaxed/simple;
+	bh=7MZ34SuoOSFwcVQ8PPpWMhVFvn7nWkutCyX+CUXnOWM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=daSMVEHQUH4RrhUNKb4Y1msPSHKqQ9ZwdX1BeqbDgRijBu0OGdQcxjsaJZVpfe6gc/lzIMmc9Fiu6PgZSQfo2wzrQJcOfDj7MgWZ7U7n2c/s7/tq5lRXwnVEXdxveoJciSUGprnOoXcmav2+ACWM7fSin2HWNBdpAMgt/sBlgGA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=gFLXCg+f; arc=none smtp.client-ip=220.197.31.3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="6H+/rHWI"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=QRgLDIKiB+9Awq0KyO7EgBwdPwQyrHHXRPZ1aYnv8w8=; b=6H+/rHWICEjmPSa/znlZBSFfHi
-	ir79TOdkyzSFNS/wilSMtJxU3+Ymlxi4wtNue1aE82xdBGDooqJBN3lT4eu4M+cpw/xybhra7vy1u
-	BsowDMg+5CJWpFlue7krAuIGyQjEHsrOz5GcNx+p8oTxIVde0PuUkBjC+O5L7B83GDiw=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1x3ufa-003sje-GZ; Tue, 08 Sep 2026 14:11:22 +0200
-Date: Tue, 8 Sep 2026 14:11:22 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Komal Bajaj <komal.bajaj@oss.qualcomm.com>,
-	Anurag Pateriya <apateriy@qti.qualcomm.com>,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-	Richard Cochran <richardcochran@gmail.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	Maxime Chevallier <maxime.chevallier@bootlin.com>,
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, netdev@vger.kernel.org
-Subject: Re: [PATCH PRELIMINARY 1/5] arm64: dts: qcom: shikra-iqs-som: fix
- GPIO138 reservation
-Message-ID: <169b2cd5-d0d8-4682-8756-bacf545a95a0@lunn.ch>
-References: <20260908-shikra_ethernet_dts-v1-0-69c0c5c7c124@oss.qualcomm.com>
- <20260908-shikra_ethernet_dts-v1-1-69c0c5c7c124@oss.qualcomm.com>
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="gFLXCg+f"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=Uv
+	mH7c6M+7vOZfYCkR4Eyo9GPcvZrJqtGyUwn8Ub6HU=; b=gFLXCg+fXWQYNzbhyV
+	ScPDfHLeai3ry8GgEYHIBhrp0RcAvI+8R4P2HTfhCFiBSayTeFru7gayXDgFXDtK
+	102cf44rD8NgSS53wHWG6a5j6avyHAhXqs+BX1/LreBpyHK6CqL2VVUS8VHut7hm
+	ldoTvJJB359tAr8ETprJFnewE=
+Received: from localhost (unknown [])
+	by gzga-smtp-mtada-g0-0 (Coremail) with SMTP id _____wD3x7wt+59q+PGFBQ--.46038S2;
+	Tue, 08 Sep 2026 20:10:22 +0800 (CST)
+From: Hui Su <sh_def@163.com>
+To: Peter Zijlstra <peterz@infradead.org>,
+	"Chen, Yu C" <yu.c.chen@intel.com>,
+	tim.c.chen@linux.intel.com
+Cc: mingo@redhat.com,
+	kprateek.nayak@amd.com,
+	juri.lelli@redhat.com,
+	vincent.guittot@linaro.org,
+	dietmar.eggemann@arm.com,
+	rostedt@goodmis.org,
+	bsegall@google.com,
+	mgorman@suse.de,
+	vschneid@redhat.com,
+	connoro@google.com,
+	jstultz@google.com,
+	linux-kernel@vger.kernel.org,
+	arighi@nvidia.com
+Subject: Re: [PATCH v3 1/2] sched/numa: Drive NUMA task tick from execution context
+Date: Tue,  8 Sep 2026 21:10:21 +0900
+Message-ID: <20260908121021.53837-1-sh_def@163.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260908104407.GD687043@noisy.programming.kicks-ass.net>
+References: <20260904085244.799276-1-sh_def@163.com> <20260904085244.799276-2-sh_def@163.com> <20260908083545.GM4121339@noisy.programming.kicks-ass.net> <a89a2aef-f374-4fd6-aafe-ca21d21c980d@intel.com> <20260908104407.GD687043@noisy.programming.kicks-ass.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260908-shikra_ethernet_dts-v1-1-69c0c5c7c124@oss.qualcomm.com>
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD3x7wt+59q+PGFBQ--.46038S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7Zw17XF4ktF17uryxJr4fZrb_yoW8ur1Upr
+	Z2qFykGryvvay5KF12y398Wa4rGwn3Cayjgr1xGr45uryrJr4FvrWUWF1j93W5A3ykAr1I
+	vr48ZrZ7AF1kKw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07Uj0PhUUUUU=
+X-CM-SenderInfo: xvkbvvri6rljoofrz/xtbCwg6M62qf+y4r6gAA3K
 
-On Tue, Sep 08, 2026 at 11:53:30AM +0530, Mohd Ayaan Anwar wrote:
-> The GPIO mappings on the IQS variant differ from the CQ variants.
-> GPIO138 is connected to the RGMII1_RX_CTL pin rather than the NFC ESE
-> Secure IO pin; the latter is connected to GPIO49. This incorrect
-> reservation causes the probe of the second Ethernet port to fail:
-> 
->   shikra-tlmm 500000.pinctrl: error -EINVAL: pin-138 (5d20000.ethernet)
->   shikra-tlmm 500000.pinctrl: error -EINVAL: could not request pin 138
->   (GPIO_138) from group gpio138 on device 500000.pinctrl
->   qcom-ethqos 5d20000.ethernet: Error applying setting, reverse things back
-> 
-> Replace gpio138 with gpio49 in the reserved list.
-> 
-> Fixes: 779aead2dace ("arm64: dts: qcom: shikra: Add gpio-reserved-ranges to tlmm")
-> Signed-off-by: Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>
+On Tue, Sep 08, 2026 at 12:44:07PM +0200, Peter Zijlstra wrote:
+> I also wondered if we should have task_tick() do curr_class->task_tick()
+> last, rather than first. But I couldn't immediately find a compelling
+> argument either way around.
+>
+> Updated...
+>
+> @@ -910,6 +910,16 @@ static void __used hrtick_clear(struct rq *rq)
+>  		hrtimer_cancel(&rq->hrtick_timer);
+>  }
+>
+> +static inline void task_tick(struct rq *rq, int queued)
+> +{
+> +	const struct sched_class *curr_class = rq->curr->sched_class,
+> +				*donor_class = rq->donor->sched_class;
+> +
+> +	curr_class->task_tick(rq, queued);
+> +	if (sched_proxy_exec() && donor_class != curr_class)
+> +		donor_class->task_tick(rq, queued);
+> +}
 
-If this is a fix, should it be posted for a different tree, so it
-makes it way to stable?
+The per-class split looks good to me. I noticed a couple of details while
+going through the updated version.
 
-You don't normally mix fixes and on going development work.
+First, I think there is a reason to call curr_class->task_tick() last.
 
-    Andrew
+For example, with an RT/DL donor and a FAIR execution context, the donor
+class tick calls update_curr_*(), which goes through
+update_curr_common()/update_se() and accounts the elapsed task runtime
+to rq->curr->se.sum_exec_runtime. If the FAIR callback runs first,
+task_tick_numa() observes sum_exec_runtime before the current tick's runtime
+has been accounted.
+
+Calling the donor class first preserves the accounting-before-consumer
+ordering:
+
+	donor_class->task_tick(rq, queued);
+	if (sched_proxy_exec() && curr_class != donor_class)
+		curr_class->task_tick(rq, queued);
+
+This also matches the ordering in v3, where the donor tick ran before
+sched_tick_exec_ctx().
+
+Second, task_tick() is added after hrtick_clear(), which puts it inside
+CONFIG_SCHED_HRTICK. Since sched_tick() calls task_tick() unconditionally,
+CONFIG_SCHED_HRTICK=n would leave task_tick() undefined. The helper needs
+to be outside the CONFIG_SCHED_HRTICK block.
+
+With those changes, the split and the queued handling look good to me so far.
+I'll test the cross-class and hrtick cases, rework the series accordingly,
+and send a v4.
+
+Thanks,
+Hui
+
