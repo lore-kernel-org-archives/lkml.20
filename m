@@ -1,186 +1,393 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A07473CAA51
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 21:11:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 100713D4130;
+	Tue,  8 Sep 2026 21:11:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788901868; cv=none; b=lPsD0ppPrmnjQNWq6fMrrMTggCfxZ1ioRVs0S8+FiSzFlU91c1iKf8Cd5Okn5iLeriDOgxWcLIPTfGz+LY1RA8RjdyqjLlihyEBiwGOYAT13nKx6NiKk++ssEZpe1LdB2W8Pp6EUEwzVke7H4q92tXVmm47zbME0cZQ/AeROm7c=
+	t=1788901887; cv=none; b=GZN821EQYGynBY7OPRvIv1YcsGuWZq9zLHgCIyG5aYaiSo6zNZAwUJ+PkCWrR9tg6aLHKegc+uInlGOsHqmF7Ft0aNrfqMa46sd2tC3ozySR9uSECPUhIHgeCRkgvjGVDAT3TuWoZ/o3yp/dHLQXZemk2Oca0i9eLKMhdBB5dpM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788901868; c=relaxed/simple;
-	bh=ZBdXw1WoDcwiCjaUv4MZLM0wbiCftyZoNgtoRmvAeEg=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=GDGsjF7uj8d4a/40yG3jUPxJ4dcZiWcM0H3sBVcA/U8mopmNTihriclDYVmM+z0kQsSj28UF3EEUn6eXlvpsj0nrbQznS59LBW12NlLfmeY/Ms3Ben64Mo8/SxlmRCNJW0mFQSNB6wAkGGeBxefM1BAIaG2VP/a67XAY7fwWQaw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KuNgpwud; arc=none smtp.client-ip=74.125.225.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788901887; c=relaxed/simple;
+	bh=6D883CD2wr2Py7VW5NdlHvcKz+aEZU7BYevTXwMz6MY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=tCeHX1X9V6e1esXc/O/+8111+SMEvfmv52YOd7aRqn4m9CGXtV45s+HhKJhnOleugNVsYVErrwUbxWSgL4voUlUuV28pveoeQUt0v/XHEPQd6YnEj6OHD0SsAGek7wYQjCYvHqywEIS7G4X/GT+2ASH8tLyoMDEnWVjAMqs35RE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hu/Ds/qF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KuNgpwud"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-482f6356257so702775f8f.0
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 14:11:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788901865; x=1789506665; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=sMHh5XXdQcxwm528CdURMvQM1pvniFLZf/cfKJK1eCE=;
-        b=KuNgpwudimnhm4cKsMoNKz7X99aV33vhTSlduzB5NmlCh7/2QXnOFI9vcC4Fhc5C6P
-         stpyolMOwsllTl55nVenw10khksTrh8zOy8eWYzlJd4GpYXX+bw63DAAR+S0WxAaJy1L
-         uLaKfICBDcpT7Xflcv0obw1ZKWKgcT98Oe5Zl4FKn9PUYZ7bTOfkHMtuXmcgA+OODcyj
-         k2IhkUX4tmneLt5HqroGSY6R/NNltSUOXRTxMxNQ/HA1JadSi8/w5gcFG+2M/IsubATy
-         VD22O4VpYYzYcfT2673cS6ZI1DdkwtlmMFyBEFQkJvQd3vHwxyTuNJ7fteze2TjMZP8W
-         WazA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788901865; x=1789506665;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=sMHh5XXdQcxwm528CdURMvQM1pvniFLZf/cfKJK1eCE=;
-        b=IIRkT720Xv0z/Fh0Q1VI6qU0BDrGGyCAWteOBC+T4Xq57Ivs3VO0VAhOdBM66+kCEC
-         AZIZBDJEbFEyH7kiyN4p9F2MqhnM91nAQty2991RPAnCsBEXEeIJCLsIq3VOgMTFB08m
-         HND6GfGL2WIUGU4KrT8UcHwYup6H7G4m4LznjcbDkQmJM//2b4tF9IHUVS3BU4pfl3cw
-         iZGuG3pyHgWrAxcwqk0O3UkvC89h/hosJX2DMJh3ZtDRbJlJpcCtMkoJ0benwsJSle/1
-         N3p3GZv+VSqPzWdOCvUnH634jHWuokHFeEn9yFxFRFHzbm8h5GZb035udNtZg2n1Meg4
-         gixw==
-X-Forwarded-Encrypted: i=1; AKwUvBxeu46b2iTDYJ4hjAhxempwlXSHjws+pLzJcluCofV0f/CbFO7a8+W1I9IA6nlm+ajOq1ZzykVl52gQK7o=@vger.kernel.org
-X-Gm-Message-State: AFuF++kAbJ0IljBijelA+UbUiudnqSC23Mslg7CFiUuskAhQYGo03jVG
-	Mg5epLwZ47PNAFhgfU+4KPTft80c8epdCWmB5zqR8P5NdSzztaY+sBttn0ooqD+Y
-X-Gm-Gg: AYBFou0gdPcjsVgMQwewHlVKTGkhdXdJMn3ebsg1YvbZQ7dxIZhX931Id8lsruqK7lr
-	nAsqzL+MFkzTg9QE8g1+ciDW71ipAAETTCfWgMz7fMUsidUDW7q2ejFhd6B2Vngc9F1ROb1myWn
-	jI0SaiomAWOQi2zLotiBl9sB3m0UJY6EASuxnMPhLREsJBZswMIKLDeo1EwCXTdkUis90jesQPP
-	5/fPwQ9WPEsoY8L/Wbp7yq3Smy49P0bD52MK8/uEW4EBqLYfBJmHcj/Aqjj4SZFqx1ECuaVRfCD
-	tUzTVNA6laZy+S4CY0gxbQw15EYTvwXpHI8t7C8KIky+nHJRXGF2cElPMeWsSB9mI2WbrZNAVlI
-	A2tKIQvmMpTOsOYE1RtG9inDT3S/PuNQm6Y7TzzVSNOt8Sju67R1EffFQm9rKP478Vo69izsPdC
-	PRbGarikaIaQKf/aIKGsCdFmV7CmrXosFHjMrazEnV/d2dQJZk3tx7pFx1pNCWglcORN1hbJK/x
-	tHBntAt5c5NwHQh9yxY/fjbcH0MPp9J8y5g
-X-Received: by 2002:a05:600c:1908:b0:49c:f13e:e4f with SMTP id 5b1f17b1804b1-49d1757b03dmr84949105e9.12.1788901864599;
-        Tue, 08 Sep 2026 14:11:04 -0700 (PDT)
-Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49d20daed8esm3377285e9.2.2026.09.08.14.11.04
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 08 Sep 2026 14:11:04 -0700 (PDT)
-Date: Tue, 8 Sep 2026 22:11:03 +0100
-From: David Laight <david.laight.linux@gmail.com>
-To: Xuhua Zhang <zhangxuhua@kylinsec.com.cn>
-Cc: marcel@holtmann.org, luiz.dentz@gmail.com,
- linux-bluetooth@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] Bluetooth: hci_bcsp: Use the shared CRC-CCITT byte
- helper
-Message-ID: <20260908221103.44c6559b@pumpkin>
-In-Reply-To: <D667F392AF7221D8+20260907151015.13522-1-zhangxuhua@kylinsec.com.cn>
-References: <D667F392AF7221D8+20260907151015.13522-1-zhangxuhua@kylinsec.com.cn>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hu/Ds/qF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0FBEE1F00A3A;
+	Tue,  8 Sep 2026 21:11:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788901885;
+	bh=fjERWspeddswXdxXy1/xj9AiaxX9ZM1qQojxWsimpks=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=hu/Ds/qFR4dDhJVrw9JBMBHI17K0ySQC7+cZZQ/hB7tegfQYsHF1TMq5bqww8tenA
+	 VpF+itFwwreFerHB+K9atwOIOfFjAqO7QOgzDKWf2RH5+4IJ6DHsnDcYiKcfGSUlqK
+	 WGqTquD8WXcGrX5e8OrDmXwNSk384nnt0/y4UZIKQ78dxIwzt/Il3gyRA9ifRhBSmZ
+	 mBdNQYKYjtsOY711AbqxoQlqwxBIerJaUZzHg3KtWty3EwXxA/UZemPTYQhedvSZWl
+	 OM7qCzt2gL2ib74cojyhraDMw2r4nqBlrG+iIZY9EtJRneXM2mUfVQceWNCnwqZtqk
+	 CCHO4E3+Lc4+g==
+Date: Tue, 8 Sep 2026 18:11:22 -0300
+From: Arnaldo Carvalho de Melo <acme@kernel.org>
+To: Ian Rogers <irogers@google.com>
+Cc: Matt Turner <mattst88@gmail.com>, Peter Zijlstra <peterz@infradead.org>,
+	Ingo Molnar <mingo@redhat.com>, Namhyung Kim <namhyung@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	James Clark <james.clark@linaro.org>,
+	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/2] perf annotate: add Alpha instruction support
+Message-ID: <aqB5-vP1q7g42Hp0@x2>
+References: <20260905-perf-alpha-annotate-v1-0-97380433ccb6@gmail.com>
+ <20260905-perf-alpha-annotate-v1-2-97380433ccb6@gmail.com>
+ <CAP-5=fW8s5WndkCDEHFhxmBOqRV+3LCz8kKFoiU7ExJHviFFiQ@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAP-5=fW8s5WndkCDEHFhxmBOqRV+3LCz8kKFoiU7ExJHviFFiQ@mail.gmail.com>
 
-On Mon,  7 Sep 2026 23:10:15 +0800
-Xuhua Zhang <zhangxuhua@kylinsec.com.cn> wrote:
-
-> bcsp_crc_update() processes each byte as two nibbles, requiring two
-> dependent table lookups for every header and payload byte when CRC is
-> enabled.
+On Tue, Sep 08, 2026 at 10:35:57AM -0700, Ian Rogers wrote:
+> On Sat, Sep 5, 2026 at 3:54 PM Matt Turner <mattst88@gmail.com> wrote:
+> >
+> > Teach perf annotate about the Alpha control-transfer instructions, so that
+> > an Alpha perf.data gets call and jump arrows and resolved call targets,
+> > whether it is read on Alpha or on another host.
+> >
+> > Add tools/perf/util/annotate-arch/annotate-alpha.c with arch__new_alpha()
+> > and an associate_instruction_ops() that classifies:
+> >
+> >   call:   bsr, plus jsr and jcr as indirect calls
+> >   ret:    ret
+> >   jump:   br, the conditional branches beq/bne/blt/ble/bgt/bge/blbc/blbs
+> >           and fbeq/fbne/fblt/fble/fbgt/fbge, plus jmp as an indirect jump
+> >   mov:    mov, fmov (objdump pseudos)
+> >
+> > That is every mnemonic binutils can print for the branch and JSR formats.
+> > jcr rather than jsr_coroutine, because both name the same MBR(0x1a,3)
+> > encoding and print_insn_alpha() takes the first match in the table, where
+> > the jcr alias has come first since the sources were imported in 1999.
+> >
+> > bsr needs an Alpha-specific parse routine.  The generic call__parse()
+> > expects the operand string to begin with the target address, but a bsr
+> > prints its return-address register first:
+> >
+> >   bsr     t0,fffffc0001031dc0 <cserve_ena>
+> >
+> > strtoull() then stops on the leading register name, leaving the target
+> > address as 0, which makes call__scnprintf() fall back to printing the raw
+> > operands and leaves target.sym unresolved so the browser cannot follow the
+> > call.  alpha_call__parse() takes the address from after the comma instead,
+> > as s390_call__parse() does for the same reason.  The PC-relative branches
+> > need no such handling, as jump__parse() already skips up to two operands.
+> >
+> > jsr and jmp get ins_ops that resolve no target at all.  They transfer
+> > control to a register, and their trailing operand is only a branch
+> > prediction hint:
+> >
+> >   jsr     ra,(t12),fffffc0001014ee8 <_printk>
+> >
+> > binutils extracts that hint as a 14-bit signed field scaled by four and
+> > prints it relative to the next instruction (extract_jhint() in alpha-opc.c,
+> > print_insn_alpha() in alpha-dis.c), so it can name the callee only when the
+> > callee lies within the resulting +-32KB.  It also defaults to zero, which
+> > prints as the next instruction.  Of the 213750 jsr in a vmlinux built from
+> > this tree, only 23093 hints land on a symbol; 157204 point into the middle
+> > of an unrelated function and 33453 are that default.  Parsing the hint
+> > would therefore invent a call target for the majority of calls, so these
+> > keep their operands, as an indirect call does elsewhere.
+> >
+> > EM_ALPHA is 0x9026, far too large to index the e_machine-keyed
+> > arch_new_fn[] table in arch__find(), so select arch__new_alpha explicitly
+> > before the table lookup.  Declare it in disasm.h and add the object to the
+> > annotate-arch Build.
+> >
+> > Disassembly itself comes from objdump/binutils, which already supports
+> > Alpha; this provides perf's instruction-class metadata for annotation.
+> >
+> > Tested on an EV7 Marvel, both natively and by annotating its perf.data on
+> > an x86_64 host, over bsr to a local function, jsr through the PLT and
+> > kernel-mode jsr; the two hosts produce identical output.
+> >
+> > Signed-off-by: Matt Turner <mattst88@gmail.com>
 > 
-> The existing crc_ccitt_byte() helper implements the same reflected
-> polynomial with one lookup per byte. Use it instead of the private
-> nibble-based implementation and select CRC_CCITT for BCSP-only UART
-> configurations as well. The initial CRC value and final bit reversal
-> remain unchanged.
+> Reviewed-by: Ian Rogers <irogers@google.com>
+
+WOW! EV7 Marvel! :-)
+
+Thanks, applied to perf-tools-next, for v7.4.
+
+- Arnaldo
+ 
+> Thanks!
+> Ian
 > 
-> This replaces the private 16-entry table with the shared 256-entry table,
-> trading table size for fewer dependent lookups. An exhaustive comparison
-> of all 65536 CRC states and 256 input bytes matches both the old code and
-> a bitwise reference implementation.
-
-How about this version?
-static inline u16 crc_ccitt_byte(u16 crc, u8 c)
-{
-    c ^= crc;
-    c ^= c << 4;
-    return crc >> 8 ^ c << 8 ^ c << 3 ^ c >> 4;
-}
-Does the standard crc used for hdlc (etc).
-Avoids the data cache misses associated with the array lookup
-(which can make the nibble version faster than the byte one for short buffers).
-A modern cpu will execute some of the instructions in parallel,
-but you lose a clock because gcc converts (a ^ b) ^ (c ^ d) into
-a ^ ( b ^ (c ^ d)) lengthening the register dependency chain by one.
-
-David
-
-
-> 
-> Signed-off-by: Xuhua Zhang <zhangxuhua@kylinsec.com.cn>
-> ---
->  drivers/bluetooth/Kconfig    |  1 +
->  drivers/bluetooth/hci_bcsp.c | 26 +++-----------------------
->  2 files changed, 4 insertions(+), 23 deletions(-)
-> 
-> diff --git a/drivers/bluetooth/Kconfig b/drivers/bluetooth/Kconfig
-> index 4e8c24d757e9..2d6a3117e387 100644
-> --- a/drivers/bluetooth/Kconfig
-> +++ b/drivers/bluetooth/Kconfig
-> @@ -151,6 +151,7 @@ config BT_HCIUART_BCSP
->  	bool "BCSP protocol support"
->  	depends on BT_HCIUART
->  	select BITREVERSE
-> +	select CRC_CCITT
->  	help
->  	  BCSP (BlueCore Serial Protocol) is serial protocol for communication
->  	  between Bluetooth device and host. This protocol is required for non
-> diff --git a/drivers/bluetooth/hci_bcsp.c b/drivers/bluetooth/hci_bcsp.c
-> index 0323db21c428..ef71a349e777 100644
-> --- a/drivers/bluetooth/hci_bcsp.c
-> +++ b/drivers/bluetooth/hci_bcsp.c
-> @@ -25,6 +25,7 @@
->  #include <linux/ioctl.h>
->  #include <linux/skbuff.h>
->  #include <linux/bitrev.h>
-> +#include <linux/crc-ccitt.h>
->  #include <linux/unaligned.h>
->  
->  #include <net/bluetooth/bluetooth.h>
-> @@ -75,34 +76,13 @@ struct bcsp_struct {
->  
->  /* ---- BCSP CRC calculation ---- */
->  
-> -/* Table for calculating CRC for polynomial 0x1021, LSB processed first,
-> - * initial value 0xffff, bits shifted in reverse order.
-> - */
-> -
-> -static const u16 crc_table[] = {
-> -	0x0000, 0x1081, 0x2102, 0x3183,
-> -	0x4204, 0x5285, 0x6306, 0x7387,
-> -	0x8408, 0x9489, 0xa50a, 0xb58b,
-> -	0xc60c, 0xd68d, 0xe70e, 0xf78f
-> -};
-> -
->  /* Initialise the crc calculator */
->  #define BCSP_CRC_INIT(x) x = 0xffff
->  
-> -/* Update crc with next data byte
-> - *
-> - * Implementation note
-> - *     The data byte is treated as two nibbles.  The crc is generated
-> - *     in reverse, i.e., bits are fed into the register from the top.
-> - */
-> +/* Update crc with next data byte */
->  static void bcsp_crc_update(u16 *crc, u8 d)
->  {
-> -	u16 reg = *crc;
-> -
-> -	reg = (reg >> 4) ^ crc_table[(reg ^ d) & 0x000f];
-> -	reg = (reg >> 4) ^ crc_table[(reg ^ (d >> 4)) & 0x000f];
-> -
-> -	*crc = reg;
-> +	*crc = crc_ccitt_byte(*crc, d);
->  }
->  
->  /* ---- BCSP core ---- */
-
+> > ---
+> >  tools/perf/util/annotate-arch/Build            |   1 +
+> >  tools/perf/util/annotate-arch/annotate-alpha.c | 185 +++++++++++++++++++++++++
+> >  tools/perf/util/disasm.c                       |  15 +-
+> >  tools/perf/util/disasm.h                       |   1 +
+> >  4 files changed, 200 insertions(+), 2 deletions(-)
+> >
+> > diff --git a/tools/perf/util/annotate-arch/Build b/tools/perf/util/annotate-arch/Build
+> > index 23316743fdc5..0a74e1a9f17b 100644
+> > --- a/tools/perf/util/annotate-arch/Build
+> > +++ b/tools/perf/util/annotate-arch/Build
+> > @@ -1,3 +1,4 @@
+> > +perf-util-y += annotate-alpha.o
+> >  perf-util-y += annotate-arc.o
+> >  perf-util-y += annotate-arm.o
+> >  perf-util-y += annotate-arm64.o
+> > diff --git a/tools/perf/util/annotate-arch/annotate-alpha.c b/tools/perf/util/annotate-arch/annotate-alpha.c
+> > new file mode 100644
+> > index 000000000000..ccb13e2338a2
+> > --- /dev/null
+> > +++ b/tools/perf/util/annotate-arch/annotate-alpha.c
+> > @@ -0,0 +1,185 @@
+> > +// SPDX-License-Identifier: GPL-2.0
+> > +#include <stdlib.h>
+> > +#include <string.h>
+> > +#include <linux/compiler.h>
+> > +#include <linux/kernel.h>
+> > +#include <linux/zalloc.h>
+> > +#include "../../util/disasm.h"
+> > +#include "../../util/map.h"
+> > +#include "../../util/maps.h"
+> > +#include "../../util/symbol.h"
+> > +#include "../../util/thread.h"
+> > +
+> > +/*
+> > + * Alpha control-transfer instructions, as printed by objdump:
+> > + *
+> > + *   PC-relative (opcode group 0x30-0x3f), 21-bit displacement:
+> > + *     br, bsr                             unconditional / to-subroutine
+> > + *     beq bne blt ble bgt bge blbc blbs   integer conditional
+> > + *     fbeq fbne fblt fble fbgt fbge       floating conditional
+> > + *
+> > + *   Register-indirect (JSR group, opcode 0x1a):
+> > + *     jmp, jsr, ret, jcr
+> > + *
+> > + * bsr/jsr (and jcr, the coroutine form, which binutils prints in preference to
+> > + * the jsr_coroutine spelling) save a return address, so they are calls; ret
+> > + * returns; everything else that transfers control is a jump.
+> > + *
+> > + * Alpha has no machine "mov"; objdump prints "mov"/"fmov" as pseudos for
+> > + * bis/cpys, so map them to mov_ops when present.  The no-ops are deliberately
+> > + * left alone: nop_ops would let delete_last_nop() trim the padding gcc leaves
+> > + * at the end of a function, but its scnprintf() prints the literal "nop", and
+> > + * Alpha pads with unop (ldq_u $31) rather than nop.
+> > + */
+> > +
+> > +/*
+> > + * The generic call__parse() expects the target address to be the first thing
+> > + * in the operand string, but a bsr prints its return-address register first:
+> > + *
+> > + *     bsr     t0,fffffc0001031dc0 <cserve_ena>
+> > + *
+> > + * so take the address from after the comma.  Without this the address comes
+> > + * out as 0, and neither the callee symbol nor the annotation browser's
+> > + * "go to target" work.
+> > + */
+> > +static int alpha_call__parse(const struct arch *arch, struct ins_operands *ops,
+> > +                            struct map_symbol *ms,
+> > +                            struct disasm_line *dl __maybe_unused)
+> > +{
+> > +       char *endptr, *tok, *name;
+> > +       struct map *map = ms->map;
+> > +       struct addr_map_symbol target;
+> > +
+> > +       tok = strchr(ops->raw, ',');
+> > +       if (tok == NULL)
+> > +               return -1;
+> > +
+> > +       ops->target.addr = strtoull(tok + 1, &endptr, 16);
+> > +       if (endptr == tok + 1)
+> > +               return -1;
+> > +
+> > +       /* A stripped object has no "<symbol>" to name the target with. */
+> > +       name = strchr(endptr, '<');
+> > +       if (name == NULL)
+> > +               goto find_target;
+> > +
+> > +       name++;
+> > +
+> > +       if (arch->objdump.skip_functions_char &&
+> > +           strchr(name, arch->objdump.skip_functions_char))
+> > +               return -1;
+> > +
+> > +       tok = strchr(name, '>');
+> > +       if (tok == NULL)
+> > +               return -1;
+> > +
+> > +       *tok = '\0';
+> > +       ops->target.name = strdup(name);
+> > +       *tok = '>';
+> > +
+> > +       if (ops->target.name == NULL)
+> > +               return -1;
+> > +
+> > +find_target:
+> > +       target = (struct addr_map_symbol) {
+> > +               .ms = { .map = map__get(map), },
+> > +               .addr = map__objdump_2mem(map, ops->target.addr),
+> > +       };
+> > +
+> > +       if (maps__find_ams(thread__maps(ms->thread), &target) == 0 &&
+> > +           map__rip_2objdump(target.ms.map,
+> > +                             map__map_ip(target.ms.map, target.addr)) == ops->target.addr)
+> > +               ops->target.sym = target.ms.sym;
+> > +
+> > +       addr_map_symbol__exit(&target);
+> > +       return 0;
+> > +}
+> > +
+> > +static const struct ins_ops alpha_call_ops = {
+> > +       .parse     = alpha_call__parse,
+> > +       .scnprintf = call__scnprintf,
+> > +       .is_call   = true,
+> > +};
+> > +
+> > +/*
+> > + * jsr and jmp transfer control to a register, and their trailing operand is
+> > + * only a branch prediction hint:
+> > + *
+> > + *     jsr     ra,(t12),fffffc0001014ee8 <_printk>
+> > + *
+> > + * binutils extracts that hint as a 14-bit signed field scaled by four and
+> > + * prints it relative to the next instruction (extract_jhint() in alpha-opc.c,
+> > + * print_insn_alpha() in alpha-dis.c), so it can name the callee only when the
+> > + * callee lies within the resulting +-32KB.  It also defaults to zero, which
+> > + * prints as the next instruction.  Most hints are therefore not the callee at
+> > + * all, and parsing one would invent a call target, so these resolve no target
+> > + * and keep their operands, as an indirect call does elsewhere.  The hint on
+> > + * jcr is not even an address.
+> > + */
+> > +static const struct ins_ops alpha_indirect_call_ops = {
+> > +       .scnprintf = ins__raw_scnprintf,
+> > +       .is_call   = true,
+> > +};
+> > +
+> > +static const struct ins_ops alpha_indirect_jump_ops = {
+> > +       .scnprintf = ins__raw_scnprintf,
+> > +       .is_jump   = true,
+> > +};
+> > +
+> > +static int is_alpha_cond_branch(const char *name)
+> > +{
+> > +       static const char *const branches[] = {
+> > +               "beq", "bne", "blt", "ble", "bgt", "bge", "blbc", "blbs",
+> > +               "fbeq", "fbne", "fblt", "fble", "fbgt", "fbge",
+> > +       };
+> > +       unsigned int i;
+> > +
+> > +       for (i = 0; i < ARRAY_SIZE(branches); i++) {
+> > +               if (!strcmp(name, branches[i]))
+> > +                       return 1;
+> > +       }
+> > +       return 0;
+> > +}
+> > +
+> > +static const struct ins_ops *alpha__associate_instruction_ops(struct arch *arch, const char *name)
+> > +{
+> > +       const struct ins_ops *ops = NULL;
+> > +
+> > +       if (!strcmp(name, "bsr")) {
+> > +               ops = &alpha_call_ops;
+> > +       } else if (!strcmp(name, "jsr") ||
+> > +                  !strcmp(name, "jcr")) {
+> > +               ops = &alpha_indirect_call_ops;
+> > +       } else if (!strcmp(name, "ret")) {
+> > +               ops = &ret_ops;
+> > +       } else if (!strcmp(name, "jmp")) {
+> > +               ops = &alpha_indirect_jump_ops;
+> > +       } else if (!strcmp(name, "br") ||
+> > +                  is_alpha_cond_branch(name)) {
+> > +               ops = &jump_ops;
+> > +       } else if (!strcmp(name, "mov") ||
+> > +                  !strcmp(name, "fmov")) {
+> > +               ops = &mov_ops;
+> > +       }
+> > +
+> > +       if (ops)
+> > +               arch__associate_ins_ops(arch, name, ops);
+> > +
+> > +       return ops;
+> > +}
+> > +
+> > +const struct arch *arch__new_alpha(const struct e_machine_and_e_flags *id,
+> > +                                  const char *cpuid __maybe_unused)
+> > +{
+> > +       struct arch *arch = zalloc(sizeof(*arch));
+> > +
+> > +       if (!arch)
+> > +               return NULL;
+> > +
+> > +       arch->name = "alpha";
+> > +       arch->id = *id;
+> > +       arch->associate_instruction_ops = alpha__associate_instruction_ops;
+> > +       /* objdump emits no comments for Alpha; '#' is what the assembler uses. */
+> > +       arch->objdump.comment_char = '#';
+> > +       return arch;
+> > +}
+> > diff --git a/tools/perf/util/disasm.c b/tools/perf/util/disasm.c
+> > index 6cfdbabbb8c7..49c206a88eec 100644
+> > --- a/tools/perf/util/disasm.c
+> > +++ b/tools/perf/util/disasm.c
+> > @@ -161,6 +161,8 @@ const struct arch *arch__find(uint16_t e_machine, uint32_t e_flags, const char *
+> >                 .e_flags = e_flags,
+> >         };
+> >         const struct arch *result = NULL, **tmp;
+> > +       const struct arch *(*new_fn)(const struct e_machine_and_e_flags *id,
+> > +                                    const char *cpuid) = NULL;
+> >
+> >         if (num_archs > 0) {
+> >                 tmp = bsearch(&key, archs, num_archs, sizeof(*archs), arch__key_cmp);
+> > @@ -171,7 +173,16 @@ const struct arch *arch__find(uint16_t e_machine, uint32_t e_flags, const char *
+> >         if (result)
+> >                 return result;
+> >
+> > -       if (e_machine >= ARRAY_SIZE(arch_new_fn) || arch_new_fn[e_machine] == NULL) {
+> > +       /*
+> > +        * EM_ALPHA (0x9026) is far too large to index arch_new_fn[], so it is
+> > +        * selected explicitly; everything else uses the e_machine-indexed table.
+> > +        */
+> > +       if (e_machine == EM_ALPHA)
+> > +               new_fn = arch__new_alpha;
+> > +       else if (e_machine < ARRAY_SIZE(arch_new_fn))
+> > +               new_fn = arch_new_fn[e_machine];
+> > +
+> > +       if (new_fn == NULL) {
+> >                 errno = ENOTSUP;
+> >                 return NULL;
+> >         }
+> > @@ -182,7 +193,7 @@ const struct arch *arch__find(uint16_t e_machine, uint32_t e_flags, const char *
+> >
+> >         archs = tmp;
+> >
+> > -       result = arch_new_fn[e_machine](&key, cpuid);
+> > +       result = new_fn(&key, cpuid);
+> >         if (!result) {
+> >                 pr_err("%s: failed to initialize %u arch priv area\n",
+> >                         __func__, e_machine);
+> > diff --git a/tools/perf/util/disasm.h b/tools/perf/util/disasm.h
+> > index 25756e3f47e4..adbdbf8f1f35 100644
+> > --- a/tools/perf/util/disasm.h
+> > +++ b/tools/perf/util/disasm.h
+> > @@ -122,6 +122,7 @@ extern const struct ins_ops ret_ops;
+> >
+> >  int arch__associate_ins_ops(struct arch *arch, const char *name, const struct ins_ops *ops);
+> >
+> > +const struct arch *arch__new_alpha(const struct e_machine_and_e_flags *id, const char *cpuid);
+> >  const struct arch *arch__new_arc(const struct e_machine_and_e_flags *id, const char *cpuid);
+> >  const struct arch *arch__new_arm(const struct e_machine_and_e_flags *id, const char *cpuid);
+> >  const struct arch *arch__new_arm64(const struct e_machine_and_e_flags *id, const char *cpuid);
+> >
+> > --
+> > 2.54.0
+> >
