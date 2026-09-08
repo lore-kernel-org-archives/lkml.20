@@ -1,88 +1,86 @@
-Received: from mta1.migadu.com (out-83.mta1.migadu.com [95.215.58.83])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D07A7549384
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 13:12:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.83
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21E05558207
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 13:12:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788873148; cv=none; b=h1JX6/prqDJdrrFQHeGxLbx0OcQkYsVbqj6IdSOU3YVzcm15H6xyk6Etd4wF0QT3xTpE1vEDIk6+ovvR4wkDmGvORbluiqPLJgCi2wzV+HWvardU4QFAQHL96hxilGSP5E5LT7xzy9eB/NWa7qok3snQM8fKkyTkBUozUK5a3XU=
+	t=1788873160; cv=none; b=k3Saq752ibhmdy+pdkz1BrvQYL4a2XfF4o+0yV6rcFQtbfFLqm4aAWwQaZcjNcsTRz3Dv7/gz5b4sIIpduJc4E8thTCaxJzVfUtw0Ufj8YVIcA4Q1gSWTry0JEVOsGlJTV4W2shaQXc3l10cLF/RmEOmpz0ZQM+1Q/mKVpb+ZE4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788873148; c=relaxed/simple;
-	bh=BTINXEB71p3un6Zx4FRobRD/CU0PSpH4Nhb7pyFnVBE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=sRKe9Qsn9QRrO0qROt1pVw3zsmn4+6Xn6Op2hROJCccFEuyWF84ZS4TUNw+pZnMDAzqKhPFVue88L6WKP5ZVRmk8ceNymNwrokfsky3VVOen66UjWCnAoAtBtLuiE41pU+62KGyUuN2wXHFSpp04ssV9gORu2xQCTH/HzCaGPBU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=OZwAwVmp; arc=none smtp.client-ip=95.215.58.83
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1788873160; c=relaxed/simple;
+	bh=I5bgQLL3mOz2emhCrq/9rK0IrbEOOeUKQmpFrejvUao=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=WfKEmKFKTpL+vakOxPUejuibKZuOvMkEpCgLZmFFoa+SCARIcpJuOkq++V4EW3kPkWH9Ph4z9ji9HL976lkALFp/SDPS1SsJQu2c/hzRwfq40piX2yGdlHotb7GLk6XGjzqviEkAzwlWiu50/z8neUCwKPi+hZ7auADuKJY3Cjc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=T81wdDxo; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="OZwAwVmp"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=BTINXEB71p3un6Zx4FRobRD/CU0PSpH4Nhb7pyFnVBE=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788873138; v=1; x=1789477938;
- b=OZwAwVmpkC54Wepld2n7a8bN6d+ryN0ydeXzJ+zaZmsCKFvT/Q7yXcmVg+jGugdcM9ifG8r+
- DlU0pdUI6oeOBRggsVqg+F3Rzqeb+bOSx7u61UNKa5arjl8LmfsVW2RoqXQz0RCsH6HmOvWWJ0+
- N+lMnkR9wxo4c+MUTbvG7Zlo=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 5cef6a7009e631ce;
-	Tue, 08 Sep 2026 13:12:18 +0000
-X-Mizu-Trace-ID: 5cef6a7009e631ce
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <7492fc56-fbce-4665-ad2e-25a38685e20c@linux.dev>
-Date: Tue, 8 Sep 2026 15:12:16 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="T81wdDxo"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A96051F00A3D
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 13:12:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788873155;
+	bh=m5aqyxE6+jxmKoeT0KNsiR9Pz7T3xO0C00yyx8tqkHk=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=T81wdDxoEeFusn7KNahrxnUhA0L+QqXtdQv9MkdSA6g1Ee3TRP+ss0Cf8FhA/JzcI
+	 hpPw49nIqChzGSiXCTyb9pxD9A0ZJEKPMLNq7ggK2TN8edk4k+uOS5GwRyxv6c6IRw
+	 BQdmW/sjW5oavcHJdFAivqOsC7TasF5wLbZ6QGTlVB0V6Bmz4uPmXFtp4SHnqkx4PX
+	 8+BJQq8Iy8Z6QGGjI+Z7M1Hlm8cVy3Pzw5EBjY75SzWH7IkfFeG3C1b84g1TcGgE/j
+	 +hdzBbY44bQm9MPe3/HShw/viBUT60vvpRc1uNOlGk04Ml4pkynrl4FPzZqz8Zt4MM
+	 pbt8+KCQtY9FA==
+Received: by mail-ej1-f44.google.com with SMTP id a640c23a62f3a-c250f28f1cdso741102566b.0
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 06:12:35 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxNiAZv0ieSgTKcsqmuqgo07VJlJVZGDjPsgYdjVxRQkF9Si2lwFJ9BvQ3UZ9hqtVBp76SPvR8nZmYCQq8=@vger.kernel.org
+X-Gm-Message-State: AFuF++nVYeHJtRX+N/K+9EOgLk8nLNEMqaDUFSqQJF7V36vPpY5xYIN0
+	RT3ZI+QMW9omU/4cJJvn+vXUOq85+Vv/OVGbGT3LL8bqArs2QF36lY6IaPIq30WzmzC7EhZuOwq
+	bWl6Z/YiapY//HHlj/vUVhs92Nce9LA==
+X-Received: by 2002:a17:906:478f:b0:c26:19de:9ad5 with SMTP id
+ a640c23a62f3a-c2619dea727mr1058176066b.45.1788873150708; Tue, 08 Sep 2026
+ 06:12:30 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] RDMA/siw: Bound fragmented header copies by the remaining
- length
-To: =?UTF-8?B?SsOpcsOpbXkgSmVhbg==?= <Jeremy.Jean@oss.cyber.gouv.fr>
-Cc: jgg@nvidia.com, leonro@nvidia.com, linux-rdma@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260908085520.1746329-1-Jeremy.Jean@oss.cyber.gouv.fr>
-From: Bernard Metzler <bernard.metzler@linux.dev>
-In-Reply-To: <20260908085520.1746329-1-Jeremy.Jean@oss.cyber.gouv.fr>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+References: <20260907062017.5881-1-hemanth.selam@gmail.com>
+In-Reply-To: <20260907062017.5881-1-hemanth.selam@gmail.com>
+From: Rob Herring <robh@kernel.org>
+Date: Tue, 8 Sep 2026 08:12:19 -0500
+X-Gmail-Original-Message-ID: <CAL_Jsq+qAyYKDSFy1DiOMvdQu9ENK1gCa2tp2SMZiAE5yQpRQQ@mail.gmail.com>
+X-Gm-Features: AcwNN1Veb5dPZANx3rRgo31FccZ0cifgahXe8-HGm3cwQxAGhNhQLOqQFSSk2GM
+Message-ID: <CAL_Jsq+qAyYKDSFy1DiOMvdQu9ENK1gCa2tp2SMZiAE5yQpRQQ@mail.gmail.com>
+Subject: Re: [PATCH] of: fix typos in comments
+To: Hemanth Selam <hemanth.selam@gmail.com>
+Cc: Saravana Kannan <saravanak@kernel.org>, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 08.09.2026 10:55, Jérémy Jean wrote:
-> siw_get_hdr() can receive an extended DDP/RDMAP header across more than
-> one TCP callback. The first callback may receive most of the header,
-> while the next one still limits the copy to hdrlen - MIN_DDP_HDR instead
-> of the number of missing bytes. This makes the destination move past the
-> end of the header and overwrite the receive state, including
-> fpdu_part_rcvd. A later callback can then use a negative fpdu_part_rcvd
-> value as a copy offset, which creates an OOB write.
-> 
-
-Excellent finding, thank you! That must trickle down to older stable.
-
-> Use the number of header bytes already received when calculating the
-> next copy length.
-> 
-> Fixes: 754209850df8 ("RDMA/siw: Always consume all skbuf data in sk_data_ready() upcall.")
-> Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
-> Assisted-by: Codex:gpt-6
+On Mon, Sep 7, 2026 at 1:20=E2=80=AFAM Hemanth Selam <hemanth.selam@gmail.c=
+om> wrote:
+>
+> Fix typos in comments, reported by scripts/checkpatch.pl using the
+> misspelling list in scripts/spelling.txt.  Only touches comments, no code
+> changes.
+>
+> Assisted-by: Cursor:claude-opus-5
+> Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
 > ---
->   drivers/infiniband/sw/siw/siw_qp_rx.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/infiniband/sw/siw/siw_qp_rx.c b/drivers/infiniband/sw/siw/siw_qp_rx.c
-> index b566d16..e5b641c 100644
-> --- a/drivers/infiniband/sw/siw/siw_qp_rx.c
-> +++ b/drivers/infiniband/sw/siw/siw_qp_rx.c
-> @@ -1079,7 +1079,7 @@ static int siw_get_hdr(struct siw_rx_stream *srx)
->   	if (iwarp_pktinfo[opcode].hdr_len > sizeof(struct iwarp_ctrl_tagged)) {
->   		int hdrlen = iwarp_pktinfo[opcode].hdr_len;
->   
-> -		bytes = min_t(int, hdrlen - MIN_DDP_HDR, srx->skb_new);
-> +		bytes = min_t(int, hdrlen - srx->fpdu_part_rcvd, srx->skb_new);
->   
->   		skb_copy_bits(skb, srx->skb_offset,
->   			      (char *)c_hdr + srx->fpdu_part_rcvd, bytes);
+>  drivers/of/base.c        | 2 +-
+>  drivers/of/fdt_address.c | 2 +-
+>  2 files changed, 2 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/of/base.c b/drivers/of/base.c
+> index d71ae0449360..9e249286be71 100644
+> --- a/drivers/of/base.c
+> +++ b/drivers/of/base.c
+> @@ -700,7 +700,7 @@ static struct device_node *__of_get_next_child(const =
+struct device_node *node,
+>              child =3D __of_get_next_child(parent, child))
+>
+>  /**
+> - * of_get_next_child - Iterate a node childs
+> + * of_get_next_child - Iterate a node children
 
-Acked-by: Bernard Metzler <bernard.metzler@linux.dev>
+Still does not make sense.
+
+Rob
