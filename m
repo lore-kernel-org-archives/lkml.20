@@ -1,62 +1,64 @@
-Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com [209.85.216.45])
+Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com [209.85.216.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A2B74F30FD
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 09:28:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82276517BA3
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 09:28:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788859730; cv=none; b=FYW92GlFK7uUtpf9k0EzwwE63embwvrZJRYadvHGp24OACsBYRhl4wD1nnbKm1UyxCFUDwaKDqOk9zCoCSC6NgOqAqEdgE+joXSaMBXMG5rD5M4vLduId+3JfVO4FFGh4338I3lUCTcpH5QonvJTT98nBPIO/X+jAQRQTYwE5kQ=
+	t=1788859734; cv=none; b=j23UUeNla7pgfosvP4yu6CiRPxoHGn9r9OfUyTjybzc2q4kbG52bbZBPGh7teBD5B4/8jFc3Me/VfqxjR3oBZXzI2KLwVQYhShbB5B4a7Foc4+OyMLEI5u9pqLZW5cVib+KCvkBh7stkIZffbaWtE1N2+/q0h+H3DXcxaMxIPdU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788859730; c=relaxed/simple;
-	bh=F0xUuzXHZyymxqAvs1Si8mOhaBzzUTC8YR4HB1fYGyA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=AdCxTKOKlxEhoQ/T6A2m64jrFEVTnZZMvbaD8VwdiawIhHkfIpmiiuHQ0ZRg7LBPnil8aQDjgW7USmiICIB8ACC8cn3aCr4OQBF8BbkbuS+Q0Hswv3ve/XP95VAtbA44fkGSLc9klwSHY20Nb0TKKNxqBTs79WLkKMsgAvN6I1U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BiE5wHGN; arc=none smtp.client-ip=209.85.216.45
+	s=arc-20240116; t=1788859734; c=relaxed/simple;
+	bh=Qtu69igHTHFeUpqJnL+cNF9pCnQyvj2ES5i9e2nUAdc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=U9p1yCDkRn6mQ3udwA2G2B+c9EbAuPLc+p77imSR9aMVB62WxlYRoi+HJuuS94SajcbGT05zPEUtYYtzcaIz1RnVM3I67/b84rWvDaBCMzWFj1vO9Fn9Q47IOdIQmkR1Yr8ngeu1/1zbiR/0AJgqG9KX+0b3DkrChtdBZ7ngB6Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Y7C6J/e0; arc=none smtp.client-ip=209.85.216.50
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BiE5wHGN"
-Received: by mail-pj1-f45.google.com with SMTP id 98e67ed59e1d1-398a5aad413so3333885a91.3
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 02:28:48 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Y7C6J/e0"
+Received: by mail-pj1-f50.google.com with SMTP id 98e67ed59e1d1-38e041ea211so3445187a91.0
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 02:28:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788859728; x=1789464528; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=1cMT7fKgP+zuYY8ESvwdYk2VGfHp7bRIw/gwcfnHbX4=;
-        b=BiE5wHGNM+hVDxq96Nnjd3Gk3QLb1uS62tEBTtmNpBy2GqL0k3hDnz6lv7oLkySlkv
-         6Z/TkLhh6LwJDbxcDZYqxdGlvfVIJIFJCk9KNNaPTODZVmJ/xCJeWcT21iEAlybc3GM1
-         vWzAs7xqgIJqo08Rco/hHZRp5lfkOM/FWXnVOm09a9zNpi4qYaWLKCIo4KhepLe6kq/D
-         JwyN5zB4cLcZIf1//mV4uppT6ljKa+mrJe+/aFSvQ9YnxzML0tOPoWiSPb1nQnLyNgHf
-         XOYOaPubFfy8AUqd/IGIBsqx2aeFWREklHcsOwn6t0X2oZbTiNgBJHbco0WmXaolh1R6
-         TGxA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788859728; x=1789464528;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1788859732; x=1789464532; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=1cMT7fKgP+zuYY8ESvwdYk2VGfHp7bRIw/gwcfnHbX4=;
-        b=dA/xjmgQSSMPqCjZKqF7QZidJtvX7PFmef3K+oV/poMsMAKC+V7nrOnogRWT8zEmD2
-         BTGkSUs/RTyKwC80p8Khqiq80xEzYdBcB6FCrWuWc/cOmVzTWPBHOuaVlrHFqlb4G6zY
-         mysS3wyXXLWnBD4cxjyZPhiyaqhAbqP9HImWVCLH/5t1rD2ulDN8495pjwdFoH+HXDSW
-         P3zzZ/RiO4uHa7/tZ+KuR48kAs0Bq3EJq+ibCCNu1zSMU9bNml/QJlkdZHp+8Tox+v8J
-         J/ILvs1kgV5vf1LgAuQOVtqc+MrB9KTUfcmj7ovfsP+dgcHtvfT7PsLdzrj0wL3GTbfL
-         koUg==
-X-Forwarded-Encrypted: i=1; AKwUvBzHoCdEh5iZA9jdwaYhqie06xC7RNDbbwXD8w/nNOIoKBW2HOZ6fKdl338/Qq5BAM4okHMK7C5LpVmxCkY=@vger.kernel.org
-X-Gm-Message-State: AFuF++k4ZPa1mOhj8NlniiwEiNztCMVNCjUHMqc6+LLyZJ0/gYhGYli0
-	1leFvz49ZE64UoMLxvKliMLQjiP/4Bum7eKkmT2IM6Do8fGMq2dRT3Bb
-X-Gm-Gg: AYBFou2hYGptKgF0qge6vJXbH59ie3SHC+uWEalM3uiNZBiNbKKehZCO5aXr0u080Rt
-	ex7oyPzLwTIf0plN1lvFsrTGlXBtac3TxkUOxfCtZZ/hDPK80O6hQrW2YcpqmHP9EQnNR4CSA75
-	AJ2Edegfe6bKSCDlRfoxOkd+tgsKQA1C/jcC/WHt/ebb1wOZLFxxAS23lpikQxcisK06oeXcSZ1
-	sY0vNfTk5ymD9dfbucfCC1k3eA0bCy3sVEkGPvbcphlNfnuzya4LOy4eedEKlmS+0hzObJ79TJo
-	BCAZ21bqkkH198geUGEXVr9XNW9fVcoiAZTD21AyvY+DbcjgjgTh2O54whcwAlJioySLGDqwEGG
-	vDWKAXAoe4nselscMM5a+L+QkAGqXUAxj2hVazTicqd30RTcx8jyukAdzVX/4cn09iQo5kKJlkn
-	ggAtohP/rYj34+g3ikRdsBCLL9Fs/pOCSMTJGcOO0w4DhPLP0V/oG+N9MINM/qSISjtQ3k0aGBr
-	S04/rm4sXeQppCEskLJHXEfuxCuSV4KfTaJRkQRKKTqEwmwMFIrF0kGaCHt+9E=
-X-Received: by 2002:a17:90b:394e:b0:37f:fd1f:d30f with SMTP id 98e67ed59e1d1-39b26272d76mr43048844a91.12.1788859727665;
-        Tue, 08 Sep 2026 02:28:47 -0700 (PDT)
+        bh=8EcwJ6FJdDLZqAgx4ZJcfrdseGR1/I5SVESCmgXprts=;
+        b=Y7C6J/e0ct2QBI9ua/KC9QZqNv4KyRGLUyKE7lgB2L4NQNynrBrzvywjnNS8fXh/wh
+         w0ni5BQCJ3gVGW7e55rCgzDDPkwEK1aZA3wMc4vSREC4vyVxHEdNeUEjaVusYt2qIeU5
+         hxk0LJ552zEo/QA6gV+Lg1mhVxYSjktBAtazPJjBmCg3q8uyPGv22SdBAX46DnXbGSit
+         KdL02thk19/NoRwIjMRrcqWLFwXe5TiJNWChG1w8XL6D4Qhb6i0PyvxpVWepNjXFmMoP
+         02TJvy11ejhYHWTF5sBT5HVDPx4w51jfxeIgFRnRl+xzK9N9UBn8OOOofLV+8da1Ht45
+         O/hA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788859732; x=1789464532;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=8EcwJ6FJdDLZqAgx4ZJcfrdseGR1/I5SVESCmgXprts=;
+        b=OC/73UFeDWSGJ/sH3tTGe7s4KhsJlXwG3V6JVISuyE+BKmi4uK/8ib5i9F6DfsdysS
+         zm9IUJVl7QR0kiZLAMDEiTIoo1JPXu7PHIZ67JHzKiMcSE87+rbEXvXG8lNveFZT0oKO
+         +7vlVUI6cpHDbPSYlPaJkpuiIp1yD+wdUGwxkVUKKmnCL/983blck1lEHJtqc3eU5ZE2
+         o9v27jC+4mGaS7it6qrS7rr9TbjAC1cFwTYB9CGbO1ByeGNDW2BPI3KYgBA+AMQTzcXw
+         ky9H3bjD4o7SPGAQAXHS8RdYbcOJ7yIlbzM90SGWrcXvn2cfmtfoxrJeL24JaOga2EQ1
+         73sA==
+X-Forwarded-Encrypted: i=1; AKwUvByVh3p3kY5T5jhUPYIO3LDuKRKS6pQZvmxLRxGroalCGD6fpPystAVZGl5WGsua6Nl8y/B3q/wKpQEswns=@vger.kernel.org
+X-Gm-Message-State: AFuF++lgiUsj+Y1qG+FywYyxiSR4Ve84i8UM/XxC/CZaK3mWh75IvzpE
+	+tkw51zx0FJVbKD8KYmJZtxlHsEE07vvAlvkGe5rpGUmvebRCTjfBuuF
+X-Gm-Gg: AYBFou09jRhiUEQo6T+xm8BZFkItuJ0Ae3ucAPv/pfVJ1WilK+e4Fl2svKJUcgRdhpS
+	Q8C+Rv5HCgerN24kFeGTwhONimw2UKYN27N9Yh5vPaFdmO7TZyI7bDONhd18YvqeY2qkeYQRKML
+	OmhGAjCxQ57uFwY0wtPQIlu6fwmXsZuz1BmbQUs0Jt9u+umas7ZzkN1cOysLF7EWn1DGmrs1sq/
+	8z50FQiDkQ1ZfHpbH+NM7c7apE2PUZmFwQvC/b/LswygtlR2vDFD4PqirezRea0UGZ8gcl3nEJi
+	ex7LvoZduOe5P1fkP8m+P/5Fcj1k0ST9GoBJI5hcCzEboDNMYe1L3BDcFLx+bcfPqAkj/RHfHnT
+	5O6joLdYRRMdQP06cuuQn7HfwxJXzp4JOqORFINBRk76CeVhGkND4WJZpQwSFGzKH0ePss3ybl0
+	rNtjHrK4763YwdjvwbRzTWIoUAIFbPum0xSyfgtPjlZCVha5hWS+OxFeD6XWbNF+tFafOa1pOW9
+	9Vepr5Gg9nQsb+/Gil5dyb8ZouzHbXwKezGXp6rmyzYobdKluL5
+X-Received: by 2002:a17:90b:2808:b0:398:b46d:48c0 with SMTP id 98e67ed59e1d1-39b262aaeb7mr44896355a91.18.1788859731444;
+        Tue, 08 Sep 2026 02:28:51 -0700 (PDT)
 Received: from localhost.localdomain (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b08c39227sm32109846a91.9.2026.09.08.02.28.44
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b08c39227sm32109846a91.9.2026.09.08.02.28.47
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 08 Sep 2026 02:28:47 -0700 (PDT)
+        Tue, 08 Sep 2026 02:28:51 -0700 (PDT)
 From: Joey Lu <a0987203069@gmail.com>
 To: zhengxingda@iscas.ac.cn,
 	maarten.lankhorst@linux.intel.com,
@@ -75,10 +77,12 @@ Cc: ychuang3@nuvoton.com,
 	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
 	Joey Lu <a0987203069@gmail.com>
-Subject: [PATCH v6 0/6] drm/verisilicon: add Nuvoton MA35D1 DCU Lite support
-Date: Tue,  8 Sep 2026 17:28:34 +0800
-Message-ID: <20260908092840.225220-1-a0987203069@gmail.com>
+Subject: [PATCH v6 1/6] dt-bindings: display: verisilicon,dc: add support for nuvoton,ma35d1-dcu
+Date: Tue,  8 Sep 2026 17:28:35 +0800
+Message-ID: <20260908092840.225220-2-a0987203069@gmail.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260908092840.225220-1-a0987203069@gmail.com>
+References: <20260908092840.225220-1-a0987203069@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -87,121 +91,118 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This series adds support for the Verisilicon DCUltraLite display
-controller as integrated in the Nuvoton MA35D1 SoC.
+Add the Nuvoton MA35D1 DCUltraLite (nuvoton,ma35d1-dcu) to the binding.
+The DCUltraLite uses only four clocks (core, axi, ahb, pix0) and one
+reset (core), with a single output port.
 
-The Verisilicon DC driver and its DT binding were originally written by
-Icenowy Zheng <zhengxingda@iscas.ac.cn> for the T-Head TH1520 SoC, which
-carries a DC8200 IP block.  The present series builds on that foundation
-with gratitude to Icenowy for the original work.
+The MA35D1 clock controller gates the core, AXI and AHB clocks with a
+single bit, but each remains a distinct clock line feeding the IP with
+its own rate constraints, so all four must still be listed individually
+in the devicetree; core, axi and ahb happen to share the same clock
+phandle.
 
-The DCUltraLite is a different variant in the DC IP family.  While the two
-IPs share a broadly similar register layout, a number of differences
-prevent the existing driver from working on the MA35D1 without
-modification:
+Move the clocks/clock-names minItems to 4 and resets/reset-names
+minItems to 1 at the top level, since that is the lowest count any
+supported variant needs.  Add an allOf/if block that tightens the
+constraint back up to the fixed 5-clock/3-reset topology required by
+the existing thead,th1520-dc8200 compatible, and another one that caps
+the new nuvoton,ma35d1-dcu compatible at the 4-clock/1-reset count it
+actually wires up.
 
-  - No CONFIG_EX commit path: the DC8200 staging registers
-    (FB_CONFIG_EX, FB_TOP_LEFT, FB_BOTTOM_RIGHT, FB_BLEND_CONFIG,
-    PANEL_CONFIG_EX) are absent.  The DCUltraLite uses enable (bit 0) and
-    reset (bit 4) bits in FB_CONFIG for direct framebuffer updates, and
-    requires a per-frame VALID bit toggle (FB_CONFIG bit 3) to latch
-    configuration changes.
+Signed-off-by: Joey Lu <a0987203069@gmail.com>
+---
+ .../bindings/display/verisilicon,dc.yaml      | 44 +++++++++++++++++++
+ 1 file changed, 44 insertions(+)
 
-  - No PANEL_START register: panel output begins when
-    PANEL_CONFIG.RUNNING is set; the DC8200 multi-display sync start
-    register at 0x1CCC does not exist.
-
-  - Different IRQ registers: DISP_IRQ_STA at 0x147C / DISP_IRQ_EN at
-    0x1480, versus the DC8200's TOP_IRQ_ACK at 0x0010 / TOP_IRQ_EN at
-    0x0014.
-
-  - Simpler clock topology: the MA35D1 clock controller gates the core,
-    AXI and AHB clocks with a single bit, so the devicetree supplies the
-    same clock phandle for all three; only the pixel clock is distinct.
-    No second output port is present, so no pix1 clock is needed either.
-
-  - Single display output: no per-output indexing beyond index 0 is
-    needed.
-
-  - Hardware-discoverable identity: the DCUltraLite exposes chip identity
-    registers whose model field reads 0x0 (revision 0x5560,
-    customer_id 0x305), allowing the existing vs_fill_chip_identity()
-    path to identify the variant purely through register reads.
-
-Patch 1 adds the nuvoton,ma35d1-dcu compatible to the verisilicon,dc DT
-binding and relaxes the top-level clock/reset item counts so per-variant
-allOf/if blocks can constrain each compatible's actual topology.
-
-Patch 2 adds the register-level macros needed by the DC8000 ops.
-
-Patches 3-4 introduce the driver changes in two logical steps: the
-vs_dc_funcs hardware ops vtable with DC8200 ops extracted into
-vs_dc8200.c, and the DC8000 ops in vs_dc8000.c.  Patch 5 adds the
-DCUltraLite HWDB entry that gates hardware recognition once all support
-is in place.
-
-Patch 6 adds the Kconfig dependency on ARCH_MA35, placed last because it
-is only meaningful after the HWDB entry is added.
-
-All patches have been tested on Nuvoton MA35D1 hardware.
-
-Changes from v5:
-  - [dt-bindings] Renamed the patch from "generalize for single-output
-    variants" to "add support for nuvoton,ma35d1-dcu", since the binding
-    topology itself isn't being generalised, only a new compatible is
-    being added.
-  - [dt-bindings] Moved clocks/clock-names minItems to 4 and
-    resets/reset-names minItems to 1 at the top level (the lowest count
-    any variant needs), instead of overriding both minItems and maxItems
-    redundantly inside each allOf/if block.
-  - [dt-bindings] Kept the thead,th1520-dc8200 allOf/if block, tightening
-    it back up to minItems: 5 (clocks) / minItems: 3 (resets), since the
-    outer constraint is now looser than what that compatible requires.
-  - [dt-bindings] Dropped the nuvoton,ma35d1-dcu clock-names/reset-names
-    item overrides entirely: the devicetree will supply all four clocks
-    (core, axi, ahb, pix0) and the one core reset in the same order the
-    top-level schema already expects, so only maxItems: 4 / maxItems: 1
-    are needed to cap the count.
-  - [dt-bindings] Dropped the redundant "required: resets/reset-names"
-    sub-blocks, now that resets/reset-names are unconditionally required
-    at the top level (landed separately by Icenowy Zheng).
-  - [driver] Dropped "make axi and ahb clocks optional" entirely: since
-    the devicetree will always supply distinct axi/ahb clock properties
-    (sharing the core clock's phandle), vs_dc_probe() keeps treating them
-    as mandatory via devm_clk_get_enabled(), same as core and pix0.
-  - [driver] Added drm_WARN_ONCE() in both vs_dc8200_irq_ack() and
-    vs_dc8000_irq_ack() to flag any hardware IRQ bit that doesn't
-    translate to a known VSDC_IRQ_* definition.
-
-Joey Lu (6):
-  dt-bindings: display: verisilicon,dc: add support for
-    nuvoton,ma35d1-dcu
-  drm/verisilicon: add register-level macros for DC8000
-  drm/verisilicon: introduce per-variant hardware ops table
-  drm/verisilicon: add DC8000 (DCUltraLite) display controller support
-  drm/verisilicon: add DCUltraLite chip identity to HWDB
-  drm/verisilicon: extend Kconfig to support ARCH_MA35 platforms
-
- .../bindings/display/verisilicon,dc.yaml      |  44 +++++++
- drivers/gpu/drm/verisilicon/Kconfig           |   2 +-
- drivers/gpu/drm/verisilicon/Makefile          |   2 +-
- drivers/gpu/drm/verisilicon/vs_bridge.c       |  20 +--
- drivers/gpu/drm/verisilicon/vs_crtc.c         |  38 +++++-
- drivers/gpu/drm/verisilicon/vs_crtc_regs.h    |   1 +
- drivers/gpu/drm/verisilicon/vs_dc.c           |   9 +-
- drivers/gpu/drm/verisilicon/vs_dc.h           |  33 +++++
- drivers/gpu/drm/verisilicon/vs_dc8000.c       |  92 +++++++++++++
- drivers/gpu/drm/verisilicon/vs_dc8200.c       | 121 ++++++++++++++++++
- drivers/gpu/drm/verisilicon/vs_drm.c          |   5 +-
- drivers/gpu/drm/verisilicon/vs_drm.h          |   8 ++
- drivers/gpu/drm/verisilicon/vs_hwdb.c         |  14 ++
- drivers/gpu/drm/verisilicon/vs_hwdb.h         |   6 +
- .../gpu/drm/verisilicon/vs_primary_plane.c    |  32 +----
- .../drm/verisilicon/vs_primary_plane_regs.h   |   3 +
- 16 files changed, 375 insertions(+), 55 deletions(-)
- create mode 100644 drivers/gpu/drm/verisilicon/vs_dc8000.c
- create mode 100644 drivers/gpu/drm/verisilicon/vs_dc8200.c
-
+diff --git a/Documentation/devicetree/bindings/display/verisilicon,dc.yaml b/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
+index 919a900122012..773966677d0f4 100644
+--- a/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
++++ b/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
+@@ -17,6 +17,7 @@ properties:
+     items:
+       - enum:
+           - thead,th1520-dc8200
++          - nuvoton,ma35d1-dcu
+       - const: verisilicon,dc # DC IPs have discoverable ID/revision registers
+ 
+   reg:
+@@ -26,6 +27,7 @@ properties:
+     maxItems: 1
+ 
+   clocks:
++    minItems: 4
+     items:
+       - description: DC Core clock
+       - description: DMA AXI bus clock
+@@ -34,6 +36,7 @@ properties:
+       - description: Pixel clock of output 1
+ 
+   clock-names:
++    minItems: 4
+     items:
+       - const: core
+       - const: axi
+@@ -42,12 +45,14 @@ properties:
+       - const: pix1
+ 
+   resets:
++    minItems: 1
+     items:
+       - description: DC Core reset
+       - description: DMA AXI bus reset
+       - description: Configuration AHB bus reset
+ 
+   reset-names:
++    minItems: 1
+     items:
+       - const: core
+       - const: axi
+@@ -79,6 +84,45 @@ required:
+   - reset-names
+   - ports
+ 
++allOf:
++  - if:
++      properties:
++        compatible:
++          contains:
++            const: thead,th1520-dc8200
++    then:
++      properties:
++        clocks:
++          minItems: 5
++
++        clock-names:
++          minItems: 5
++
++        resets:
++          minItems: 3
++
++        reset-names:
++          minItems: 3
++
++  - if:
++      properties:
++        compatible:
++          contains:
++            const: nuvoton,ma35d1-dcu
++    then:
++      properties:
++        clocks:
++          maxItems: 4
++
++        clock-names:
++          maxItems: 4
++
++        resets:
++          maxItems: 1
++
++        reset-names:
++          maxItems: 1
++
+ additionalProperties: false
+ 
+ examples:
 -- 
 2.43.0
 
