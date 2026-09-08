@@ -1,111 +1,112 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5497133BBD7;
-	Tue,  8 Sep 2026 07:43:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+Received: from mailgw1.hygon.cn (unknown [101.204.27.37])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 91519373C12
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 07:43:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.204.27.37
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788853410; cv=none; b=bB5IMPxnLXrtDWVUG6r7diHJotRrxnlWzw8SsyvJQXFyigqjVfnNSRmc2G37E41v4/4VCwJc36ks4Ez9LawnlTAZtHH3+eooFaw1vxEdHcAyUKE5LFX8PrGxfPQtXdQ7QW57ju5Dvft8kPerZDrR0193ckUqUgxDVBQlfJIUVrg=
+	t=1788853422; cv=none; b=oBhCHh89fMNN8IsU/MOObrsfYMxorK/+3UmxDBSWy9izLbS679mazI4ARMAUN0H8232SlYkaLkht5JJ/CYWSPm+k+gGq6eKfruvlThd4XSznDEmAOoiHQa/Z/2gQ4PW8+7cr9orDN5QYcVcg02f7trkjbVMHoVzycYkt59daZss=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788853410; c=relaxed/simple;
-	bh=Bw+axu43avkyFLTiQQZ6kVUvzDKn3N2bQGb9RJKbMhQ=;
-	h=Date:From:To:Subject:Cc:In-Reply-To:References:MIME-Version:
-	 Message-ID:Content-Type; b=L2+BSzVRRSBvu1Uh4lOhfS/JfmLAPHAxXkoHLuqsIqWMZmG6QU44CYJCM4dIPrs5k0xdXblL/7RiNhqxUAUy4T2t2Z2Vda6wXNyFSOWjYEAAiiP8rG0wdQAuWR4nJDGCEsaVdpChJKIXQP900R4scp8kqak2I2pBxuGzA8PdEEM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=hEihOaDp; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=rCOmH0x7; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="hEihOaDp";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="rCOmH0x7"
-Date: Tue, 08 Sep 2026 07:43:26 -0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1788853407;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=RbJ+JyFBWq30OXKCQxIasTApAKF3nXO2y4UjUlihjtg=;
-	b=hEihOaDpzWyntxUgfa0eq6yX5RKvhhUhHHCxguRtm+o7RRGxJZULqItVgf1+iAQ/rH4nFz
-	WHKff5OS1kG1YWl2ikG22FoblJeARjylqR5qTeVmgIZ9EOnNTf2ug5ttTrZISZdwJpplyz
-	/W4tR8UxmIslzsEvuMra/9xluRiQD0PtpJPyF3obizcKLyR2wVvLzh1w/wZdeCVbha1I9Q
-	PPVYBx5CNR0dYcy23jHo4hk3lT9PPiIFv4xR5HT/KKu5Yly+FG7JA96TC9iK81P3/ELlDg
-	WyXCN87kWOXS87R/ASxbuD8/8eI8tiKTttfbHb/kMvrndqI35vwghNyFCG1aYQ==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1788853407;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=RbJ+JyFBWq30OXKCQxIasTApAKF3nXO2y4UjUlihjtg=;
-	b=rCOmH0x7oSKGry2oATVjoDy71D2hvUBLMz1azZRKfLL68Is6lXV0gqjrG9dsU27N9Op4AW
-	xa0xQzap5waZVPCQ==
-From: "tip-bot2 for Yafang Shao" <tip-bot2@linutronix.de>
-Sender: tip-bot2@linutronix.de
-Reply-to: linux-kernel@vger.kernel.org
-To: linux-tip-commits@vger.kernel.org
-Subject:
- [tip: objtool/urgent] klp-build: Fix wrong index in funcs cleanup error path
-Cc: Yafang Shao <laoar.shao@gmail.com>, Song Liu <song@kernel.org>,
- Petr Mladek <pmladek@suse.com>, Miroslav Benes <mbenes@suse.cz>,
- Josh Poimboeuf <jpoimboe@kernel.org>, x86@kernel.org,
- linux-kernel@vger.kernel.org
-In-Reply-To: <20260816090442.18128-2-laoar.shao@gmail.com>
-References: <20260816090442.18128-2-laoar.shao@gmail.com>
+	s=arc-20240116; t=1788853422; c=relaxed/simple;
+	bh=NK5G9o5ezsAsqrBCZmwJLNi0WCgJ8f/urKL18vh3vyU=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=PRY7BIBYE/7FMT7aunzLK6/vj1MSMkc/P4IvQffcn96N5SqyfmkEdlOzvLwKoK3Oy+Qu0zOLm7DJM57KTNGL3qKa9IcRXhJGco74idjamF+9zVGbr4A7QSY+5iriNFTbP78KaRdQ0w0ztcP2XrS8Jaqt0PlzURSHUs3Mck/KPgg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hygon.cn; spf=pass smtp.mailfrom=hygon.cn; arc=none smtp.client-ip=101.204.27.37
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hygon.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hygon.cn
+Received: from maildlp2.hygon.cn (unknown [127.0.0.1])
+	by mailgw1.hygon.cn (Postfix) with ESMTP id 4hfGBv4PwRzVcB6;
+	Tue,  8 Sep 2026 15:43:19 +0800 (CST)
+Received: from maildlp2.hygon.cn (unknown [172.23.18.61])
+	by mailgw1.hygon.cn (Postfix) with ESMTP id 4hfGBv23GPzVcB6;
+	Tue,  8 Sep 2026 15:43:19 +0800 (CST)
+Received: from cncheex05.Hygon.cn (unknown [172.23.18.115])
+	by maildlp2.hygon.cn (Postfix) with ESMTPS id F06E330A6E44;
+	Tue,  8 Sep 2026 15:39:14 +0800 (CST)
+Received: from cncheex04.Hygon.cn (172.23.18.114) by cncheex05.Hygon.cn
+ (172.23.18.115) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.36; Tue, 8 Sep
+ 2026 15:43:19 +0800
+Received: from cncheex04.Hygon.cn ([fe80::1b6f:6c58:58a4:430d]) by
+ cncheex04.Hygon.cn ([fe80::1b6f:6c58:58a4:430d%10]) with mapi id
+ 15.02.1544.036; Tue, 8 Sep 2026 15:43:19 +0800
+From: Jianyong Wu <wujianyong@hygon.cn>
+To: Peter Zijlstra <peterz@infradead.org>
+CC: Ingo Molnar <mingo@redhat.com>, Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>, Chen Yu <yu.c.chen@intel.com>,
+	Tim Chen <tim.c.chen@linux.intel.com>, Dietmar Eggemann
+	<dietmar.eggemann@arm.com>, Steven Rostedt <rostedt@goodmis.org>, Ben Segall
+	<bsegall@google.com>, Mel Gorman <mgorman@suse.de>, Valentin Schneider
+	<vschneid@redhat.com>, K Prateek Nayak <kprateek.nayak@amd.com>, "Shrikanth
+ Hegde" <sshegde@linux.ibm.com>, Phil Auld <pauld@redhat.com>, Andrew Morton
+	<akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"linux-mm@kvack.org" <linux-mm@kvack.org>, "jianyong.wu@outlook.com"
+	<jianyong.wu@outlook.com>, Yuan Zhong <zhongyuan@hygon.cn>, Huangsj
+	<huangsj@hygon.cn>, Fengyu Wang <wangfengyu@hygon.cn>, Zhiwei Ying
+	<yingzhiwei@hygon.cn>, "justin.he@arm.com" <justin.he@arm.com>
+Subject: RE: [RFC PATCH v2 20/23] sched/cache: Estimate utilization of the
+ whole thread group
+Thread-Topic: [RFC PATCH v2 20/23] sched/cache: Estimate utilization of the
+ whole thread group
+Thread-Index: AQHdNpMnbRlIzduVrECfPaikBnRoA7a5TZ6AgAsO2lA=
+Date: Tue, 8 Sep 2026 07:43:18 +0000
+Message-ID: <3994638d89da4fd58365cefe62ff94ed@hygon.cn>
+References: <20260827122816.756234-1-wujianyong@hygon.cn>
+ <20260828021156.785662-1-wujianyong@hygon.cn>
+ <20260901144449.GJ776954@noisy.programming.kicks-ass.net>
+In-Reply-To: <20260901144449.GJ776954@noisy.programming.kicks-ass.net>
+Accept-Language: zh-CN, en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <178885340612.623050.6013140772652803851.tip-bot2@tip-bot2>
-Robot-ID: <tip-bot2@linutronix.de>
-Robot-Unsubscribe:
- Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
-Precedence: bulk
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
 
-The following commit has been merged into the objtool/urgent branch of tip:
+Hi Peter,
 
-Commit-ID:     4825ef699cda4c6f2f0586b17a5e225560481da6
-Gitweb:        https://git.kernel.org/tip/4825ef699cda4c6f2f0586b17a5e2255604=
-81da6
-Author:        Yafang Shao <laoar.shao@gmail.com>
-AuthorDate:    Sun, 16 Aug 2026 17:04:41 +08:00
-Committer:     Josh Poimboeuf <jpoimboe@kernel.org>
-CommitterDate: Mon, 31 Aug 2026 17:50:06 -07:00
+Sorry for the late reply.
 
-klp-build: Fix wrong index in funcs cleanup error path
+> -----Original Message-----
+> From: owner-linux-mm@kvack.org <owner-linux-mm@kvack.org> On
+> Behalf Of Peter Zijlstra
+> Sent: Tuesday, September 1, 2026 10:45 PM
+> To: Jianyong Wu <wujianyong@hygon.cn>
+> Cc: Ingo Molnar <mingo@redhat.com>; Juri Lelli <juri.lelli@redhat.com>;
+> Vincent Guittot <vincent.guittot@linaro.org>; Chen Yu
+> <yu.c.chen@intel.com>; Tim Chen <tim.c.chen@linux.intel.com>; Dietmar
+> Eggemann <dietmar.eggemann@arm.com>; Steven Rostedt
+> <rostedt@goodmis.org>; Ben Segall <bsegall@google.com>; Mel Gorman
+> <mgorman@suse.de>; Valentin Schneider <vschneid@redhat.com>; K
+> Prateek Nayak <kprateek.nayak@amd.com>; Shrikanth Hegde
+> <sshegde@linux.ibm.com>; Phil Auld <pauld@redhat.com>; Andrew
+> Morton <akpm@linux-foundation.org>; David Hildenbrand
+> <david@kernel.org>; linux-kernel@vger.kernel.org; linux-mm@kvack.org;
+> jianyong.wu@outlook.com; Yuan Zhong <zhongyuan@hygon.cn>; Huangsj
+> <huangsj@hygon.cn>; Fengyu Wang <wangfengyu@hygon.cn>; Zhiwei Ying
+> <yingzhiwei@hygon.cn>; justin.he@arm.com
+> Subject: Re: [RFC PATCH v2 20/23] sched/cache: Estimate utilization of th=
+e
+> whole thread group
+>=20
+> On Fri, Aug 28, 2026 at 10:11:56AM +0800, Jianyong Wu wrote:
+>=20
+> > +					mm_util =3D mul_u64_u32_div(cpu_util,
+> > +							min_t(unsigned long, occ, NICE_0_LOAD),
+> > +							NICE_0_LOAD);
+>=20
+> mul_u64_u32_shr(..., NICE_0_LOAD_SHIFT);
+>=20
+> will probably generate better code -- I *think* the mul_u64_u32_div()
+> ends up being inline asm and as such cannot optimize the divide
+> properly.
+>=20
+Good point, will fix.
 
-In the object allocation loop, when kzalloc() for funcs fails, the
-cleanup loop uses `objs[i].funcs` instead of `objs[j].funcs`. Since
-`objs[i].funcs` is still NULL at that point, it repeatedly calls
-kfree(NULL) and leaks all previously allocated funcs arrays.
+Thanks
+Jianyong
 
-Fixes: 59adee07b568 ("livepatch/klp-build: Add stub init code for livepatch m=
-odules")
-Signed-off-by: Yafang Shao <laoar.shao@gmail.com>
-Acked-by: Song Liu <song@kernel.org>
-Reviewed-by: Petr Mladek <pmladek@suse.com>
-Acked-by: Miroslav Benes <mbenes@suse.cz>
-Link: https://patch.msgid.link/20260816090442.18128-2-laoar.shao@gmail.com
-Signed-off-by: Josh Poimboeuf <jpoimboe@kernel.org>
----
- scripts/livepatch/init.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/scripts/livepatch/init.c b/scripts/livepatch/init.c
-index f14d8c8..16aff8f 100644
---- a/scripts/livepatch/init.c
-+++ b/scripts/livepatch/init.c
-@@ -51,7 +51,7 @@ static int __init livepatch_mod_init(void)
- 		if (!funcs) {
- 			ret =3D -ENOMEM;
- 			for (int j =3D 0; j < i; j++)
--				kfree(objs[i].funcs);
-+				kfree(objs[j].funcs);
- 			goto err_free_objs;
- 		}
-=20
