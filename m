@@ -1,166 +1,133 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA80A46EF65;
-	Tue,  8 Sep 2026 22:52:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 798FF2EEE7E;
+	Tue,  8 Sep 2026 22:53:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788907932; cv=none; b=qyuJt3x5epJtu09K6ki3p0j7c08zLjqe+d7Tttxw4il2AiI5/UyiAprTRzVBvvO+A9YSMc5ampPz1Co/1//JLLxt6vRnArKAmC/3rb03I8lJBSsdWZSNKVUy91TUzStJyVBkPCd6UowywwVjOPOOw9eBXEJDhSwDjhqi8XxVP20=
+	t=1788907991; cv=none; b=r5akfhRYicJM3vTYtG/ePv73wp6QV8AzhCDF3J1FpnZOz9ycqPi0gi47V6RdrPsAKxdGej4bkiJVSvz8hCc7xGRihZNyNkUdQ68REiQYS38uydglG933MB5jYqb/bbfMTo0c1acJPLawJ2UaSAeY3zm35OkTIClBf8XAA8Eg+9k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788907932; c=relaxed/simple;
-	bh=tG4VSSvErh6tfAQR+To6UqCegD+Q2x4RJ4/NdEiufYs=;
-	h=Date:From:To:Subject:Cc:In-Reply-To:References:MIME-Version:
-	 Message-ID:Content-Type; b=hjH8l2dz2NcoBDbqK3CKuKHkRm4OlGcB7W/m28ZC+jDrI2bRNMfVhmbK727w19fCo2HZxc3DwNhwEpLhx+7/Nc9c2G7RSCks8X9HEHxt0KJ8ldQ3qEnYNpvm/Ltzr3pmGvAD91b0LHxQSsCIV7LNFC+OxHyME5SL4iAYxYL9eF0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=rxTisgea; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=GUW2YQ0W; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	s=arc-20240116; t=1788907991; c=relaxed/simple;
+	bh=DISlVCss88ZicVbynktng/BLrfT3gPYPLHKgzz0nRPU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=gX+dvYNO2JUTLrzmcAVvGupikGdnL1czFbF9V9/bSuYTELVYysb22Ds7COthDeLSU3Tnhlf85DsJopuNKmW6kBX+8fEW0gpsuivRb7LmgQcOGCpRsDkKdfcUunx5sd28b9KsciUT4cZWb/eT3j+ZEo7VcZIik7kq3AWhKcmLUIE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iqrK/NYO; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="rxTisgea";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="GUW2YQ0W"
-Date: Tue, 08 Sep 2026 22:52:04 -0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1788907925;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=w1Dzqpva4AZ5rICn+MME7nr+BrlMjsYq6N2EZTgC93Y=;
-	b=rxTisgea4E7zW4J1lIDxMv3fXFiv1pqUKxz7yQzHzmdZ5VuM26m9qbezBe65mHCbmMxzsJ
-	h8xM/kYJbPCvNJ0a+Hp04OMQBk/3Gt1bOaaMMNODFdgliC/IBAiJsetOBxU8xYhWJGiTu2
-	I+Gh/GdoLfsLCAhkihUJCzt+A9oONCUnyfqweIrJhciFAe3ML+JDGBTD193PyuHH4+rfmJ
-	NMJOV7V0x6xTl3d+gv4DGzWcdfCsUWrfwXHDa/TMBJkFrn+toNX5C2D3LRLST6KF1N8Euu
-	/YvKyielLHl305n1bl2NOWFmil4TTUK0M5IzTllgutLxyiEBqC/teQWfmEMwNw==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1788907925;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=w1Dzqpva4AZ5rICn+MME7nr+BrlMjsYq6N2EZTgC93Y=;
-	b=GUW2YQ0WYfxDPK2NEWQ4IeKuZqyT3o3J+uUKvv5vuMkSPxCSsa/QCby9YpWykFNV9Eam83
-	ZQ7FkptVelO0SSBg==
-From: "tip-bot2 for Mike Rapoport (Microsoft)" <tip-bot2@linutronix.de>
-Sender: tip-bot2@linutronix.de
-Reply-to: linux-kernel@vger.kernel.org
-To: linux-tip-commits@vger.kernel.org
-Subject: [tip: x86/mm] x86/mm/pat: Fix effective RW computation in
- lookup_address_in_pgd_attr()
-Cc: "Mike Rapoport (Microsoft)" <rppt@kernel.org>,
- Dave Hansen <dave.hansen@linux.intel.com>, Juergen Gross <jgross@suse.com>,
- "Lorenzo Stoakes (ARM)" <ljs@kernel.org>, syzbot@syzkaller.appspotmail.com,
- Atish Patra <atishp@meta.com>, Nikunj A Dadhania <nikunj@amd.com>,
- stable@vger.kernel.org, x86@kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20260813-cpa-fixes-v2-5-39b4ff90f91d@kernel.org>
-References: <20260813-cpa-fixes-v2-5-39b4ff90f91d@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iqrK/NYO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 031491F00A3A;
+	Tue,  8 Sep 2026 22:53:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788907990;
+	bh=9wWdGP1udDEeod5fBcAORq96Hru0DiWoOt99Itk2KqQ=;
+	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
+	b=iqrK/NYOO9u2/PbshlXCNOJLbv1QGM8a7NL91AVwtv66Cq6jMAY6I8LVmelIzfe85
+	 LbuGH8Kn3buuGeKTO24LECSiL6XUfzflG0GrvDFJWKoIv6AmoNueBKYKTgkAf0jpkJ
+	 sSenKjivuov8q7M1nthEPJlFC62lZE8P4X+tgQezlH+Bv9rDJjZSSIGGg04AAB0He4
+	 lHOPN6D97xDp3k8TArGatLp7AtwXXninP/E81J6yQguVBylprAAWbxV0W1b50U273l
+	 mAWciUNSnmP9lXuKMa8JBvKcZpdR+wMfrcI9ht+9q2V1dHLunIfpGbWkig4etWT/yK
+	 xVsOl2KWvlimQ==
+Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
+	id BF774CE0F83; Tue,  8 Sep 2026 15:53:09 -0700 (PDT)
+Date: Tue, 8 Sep 2026 15:53:09 -0700
+From: "Paul E. McKenney" <paulmck@kernel.org>
+To: David Woodhouse <dwmw2@infradead.org>
+Cc: Kunwu Chan <kunwu.chan@gmail.com>, jiangshanlai@gmail.com,
+	josh@joshtriplett.org, rostedt@goodmis.org,
+	mathieu.desnoyers@efficios.com, rcu@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 03/13] srcutree: Add reader-free fastpath to
+ synchronize_srcu_atomic()
+Message-ID: <8889e3f6-4cba-4d6c-97f8-85cdff367b0a@paulmck-laptop>
+Reply-To: paulmck@kernel.org
+References: <20260907075829.2073224-1-kunwu.chan@linux.dev>
+ <20260907075829.2073224-4-kunwu.chan@linux.dev>
+ <b7bc58aa-4b8a-4eaa-a7e8-8d338f34d14a@paulmck-laptop>
+ <0d4af6318ac67486858be1df8d436147b444a2d2.camel@infradead.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <178890792419.623050.17837096270552656021.tip-bot2@tip-bot2>
-Robot-ID: <tip-bot2@linutronix.de>
-Robot-Unsubscribe:
- Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
-Precedence: bulk
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <0d4af6318ac67486858be1df8d436147b444a2d2.camel@infradead.org>
 
-The following commit has been merged into the x86/mm branch of tip:
+On Tue, Sep 08, 2026 at 11:26:06PM +0100, David Woodhouse wrote:
+> On Tue, 2026-09-08 at 13:29 -0700, Paul E. McKenney wrote:
+> > On Mon, Sep 07, 2026 at 03:58:19PM +0800, Kunwu Chan wrote:
+> > > From: Kunwu Chan <kunwu.chan@gmail.com>
+> > > 
+> > > synchronize_srcu_atomic() is restricted to srcu_read_lock_atomic() and
+> > > srcu_read_unlock_atomic(), whose read-side critical sections disable
+> > > preemption.  In the common case where there are no readers at all, the
+> > > grace period therefore need not do the index flip.  Add a fastpath
+> > > that sums both ranks of the per-CPU ->srcu_ctrs[] counters and, if the
+> > > lock counts match the unlock counts on both ranks, ends the grace
+> > > period immediately, skipping the srcu_advance_state() scans, mirroring
+> > > the similar Tiny SRCU fastpath.
+> > > 
+> > > Correctness requires the counter-sum proof to follow the grace-period
+> > > anchor written by srcu_gp_start(); placing it before the anchor could
+> > > let this grace period miss a pre-existing reader and return without
+> > > waiting for it.  The smp_mb() between the unlock and lock sums pairs
+> > > with the smp_mb() in __srcu_read_lock().  The grace period is ended
+> > > manually under ->lock and ->srcu_atomic_gp_flag.
+> > > 
+> > > Signed-off-by: Kunwu Chan <kunwu.chan@gmail.com>
+> > 
+> > Adding David Woodhouse on CC.
+> > 
+> > David, does this provide appropriate performance in your use case?
+> 
+> Compared with the early bail that I had before, there's a *slight*
+> shift into the higher-latency buckets as expected, but definitely not
+> enough that I care. We're doing this whole thing to eliminate the
+> multi-millisecond p100 latencies that happen when we invoke the
+> workqueue, and the differences we're looking at in the table below are
+> *well* below what we care about:
+> 
+> 
+>   ┌─────────────┬───────────────────┬───────────────────┬───────┐
+>   │   bucket    │  try-first (#10)  │    Kunwu (#11)    │   Δ   │
+>   ├─────────────┼───────────────────┼───────────────────┼───────┤
+>   │ [0,1µs)     │ 5,338,474 (60.8%) │ 4,953,657 (56.8%) │ −7%   │
+>   ├─────────────┼───────────────────┼───────────────────┼───────┤
+>   │ [1,2)       │ 1,077,998         │ 1,087,133         │ ≈     │
+>   ├─────────────┼───────────────────┼───────────────────┼───────┤
+>   │ [2,4)       │ 803,244           │ 790,489           │ ≈     │
+>   ├─────────────┼───────────────────┼───────────────────┼───────┤
+>   │ [4,8)       │ 811,708           │ 880,673           │ +8%   │
+>   ├─────────────┼───────────────────┼───────────────────┼───────┤
+>   │ [8,16)      │ 366,183           │ 597,443           │ +63%  │
+>   ├─────────────┼───────────────────┼───────────────────┼───────┤
+>   │ [16,32)     │ 338,731           │ 361,243           │ +7%   │
+>   ├─────────────┼───────────────────┼───────────────────┼───────┤
+>   │ [32,64)     │ 14,290            │ 28,823            │ ×2.0  │
+>   ├─────────────┼───────────────────┼───────────────────┼───────┤
+>   │ [64,128)    │ 2,549             │ 3,655             │ +43%  │
+>   ├─────────────┼───────────────────┼───────────────────┼───────┤
+>   │ [128,256)   │ 555               │ 783               │ +41%  │
+>   ├─────────────┼───────────────────┼───────────────────┼───────┤
+>   │ [256,512)   │ 456               │ 625               │ +37%  │
+>   ├─────────────┼───────────────────┼───────────────────┼───────┤
+>   │ [512µs+)    │ 13                │ 8                 │ ≈     │
+>   ├─────────────┼───────────────────┼───────────────────┼───────┤
+>   │ max         │ 1.07ms            │ 1.56ms            │ +46%  │
+>   ├─────────────┼───────────────────┼───────────────────┼───────┤
+>   │ total walks │ 8,777,514         │ 8,723,453         │ −0.6% │
+>   └─────────────┴───────────────────┴───────────────────┴───────┘
+> 
+>   (192-CPU PREEMPT_RT host, 12 concurrent gfn_to_pfn_cache invalidation
+>   reproducers, 300-second windows; each "walk" is one invalidation drain
+>   which includes the synchronize_srcu_atomic() call. #10/#11 are just
+>   local build numbers.)
 
-Commit-ID:     ebaf7c9bbb1e16523d7036e7e1225ad2dfcc6482
-Gitweb:        https://git.kernel.org/tip/ebaf7c9bbb1e16523d7036e7e1225ad2dfc=
-c6482
-Author:        Mike Rapoport (Microsoft) <rppt@kernel.org>
-AuthorDate:    Thu, 13 Aug 2026 12:01:28 +03:00
-Committer:     Dave Hansen <dave.hansen@linux.intel.com>
-CommitterDate: Tue, 08 Sep 2026 15:41:32 -07:00
+Thank you very much!!!
 
-x86/mm/pat: Fix effective RW computation in lookup_address_in_pgd_attr()
+I am interpreting this to mean that Kunwu's current approach does what
+you need, so that we can keep current get_state_synchronize_srcu()
+and poll_state_synchronize_srcu() semantics.
 
-lookup_address_in_pgd_attr() accumulates the effective NX and RW bits of
-the walked page table levels so that verify_rwx() can detect mappings that
-are both writable and executable.
-
-The RW bits are folded into a bool with
-
-	rw &=3D pXd_flags(*pXd) & _PAGE_RW;
-
-but _PAGE_RW is 0x2. So consider the accumulation line:
-
-        rw &=3D pXd_flags(*pXd) & _PAGE_RW;
-
-where rw=3D0x1 and the right side evaluates down to 0x2. It'll end up doing:
-
-        rw =3D 0x1 & 0x2
-
-and rw always ends up 0.
-
-This way rw becomes false at the first level walked, regardless of the
-actual permissions, and verify_rwx() treats every mapping as non-writable
-and never reports a W^X violation.
-
-Add double negation to the right side to normalize the _PAGE_RW flag to
-0 or 1.
-
-Assisted-by: Copilot:claude-opus-4.8
-Fixes: ceb647b4b529 ("x86/pat: Introduce lookup_address_in_pgd_attr()")
-Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
-Signed-off-by: Dave Hansen <dave.hansen@linux.intel.com>
-Reviewed-by: Juergen Gross <jgross@suse.com>
-Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Tested-by: syzbot@syzkaller.appspotmail.com
-Tested-by: Atish Patra <atishp@meta.com>
-Tested-by: Nikunj A Dadhania <nikunj@amd.com>
-Cc:stable@vger.kernel.org
-Link: https://patch.msgid.link/20260813-cpa-fixes-v2-5-39b4ff90f91d@kernel.org
----
- arch/x86/mm/pat/set_memory.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
-
-diff --git a/arch/x86/mm/pat/set_memory.c b/arch/x86/mm/pat/set_memory.c
-index c38faf3..b306000 100644
---- a/arch/x86/mm/pat/set_memory.c
-+++ b/arch/x86/mm/pat/set_memory.c
-@@ -732,7 +732,7 @@ pte_t *lookup_address_in_pgd_attr(pgd_t *pgd, unsigned lo=
-ng address,
-=20
- 	*level =3D PG_LEVEL_512G;
- 	*nx |=3D pgd_flags(*pgd) & _PAGE_NX;
--	*rw &=3D pgd_flags(*pgd) & _PAGE_RW;
-+	*rw &=3D !!(pgd_flags(*pgd) & _PAGE_RW);
-=20
- 	p4d =3D p4d_offset(pgd, address);
- 	if (p4d_none(*p4d))
-@@ -743,7 +743,7 @@ pte_t *lookup_address_in_pgd_attr(pgd_t *pgd, unsigned lo=
-ng address,
-=20
- 	*level =3D PG_LEVEL_1G;
- 	*nx |=3D p4d_flags(*p4d) & _PAGE_NX;
--	*rw &=3D p4d_flags(*p4d) & _PAGE_RW;
-+	*rw &=3D !!(p4d_flags(*p4d) & _PAGE_RW);
-=20
- 	pud =3D pud_offset(p4d, address);
- 	if (pud_none(*pud))
-@@ -754,7 +754,7 @@ pte_t *lookup_address_in_pgd_attr(pgd_t *pgd, unsigned lo=
-ng address,
-=20
- 	*level =3D PG_LEVEL_2M;
- 	*nx |=3D pud_flags(*pud) & _PAGE_NX;
--	*rw &=3D pud_flags(*pud) & _PAGE_RW;
-+	*rw &=3D !!(pud_flags(*pud) & _PAGE_RW);
-=20
- 	pmd =3D pmd_offset(pud, address);
- 	if (pmd_none(*pmd))
-@@ -765,7 +765,7 @@ pte_t *lookup_address_in_pgd_attr(pgd_t *pgd, unsigned lo=
-ng address,
-=20
- 	*level =3D PG_LEVEL_4K;
- 	*nx |=3D pmd_flags(*pmd) & _PAGE_NX;
--	*rw &=3D pmd_flags(*pmd) & _PAGE_RW;
-+	*rw &=3D !!(pmd_flags(*pmd) & _PAGE_RW);
-=20
- 	return pte_offset_kernel(pmd, address);
- }
+							Thanx, Paul
