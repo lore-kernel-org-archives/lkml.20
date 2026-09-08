@@ -1,107 +1,138 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 085B72FBE;
-	Tue,  8 Sep 2026 00:57:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 429651FDE31
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 00:58:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.9
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788829052; cv=none; b=pfgoyF9BX8nAqQo0eMO1OjQsS2YEidYg/b9r3hLjUWVmKS/5pCXQXD3G8nyM+eMTAeVfnL5nm4tO5hSkg47PMZ4pxUlT0g3HPBG9c7wuzHHsDI8D29dt3smfPHYf4h2EQ7oFq4CgA3sL2RLpmXjkUdNg9D4z05VP1CeNf4NmYX4=
+	t=1788829113; cv=none; b=qXXfMv1NKuYUHvGgoeROQg9yV/vD+Y/gInk4W5n55wZa9j8ZWNFbblqsTQtTn/0XCDf0mUEMKfa1PicEDQtMbFbKCfWfkWNNNj9sNQvpHodQJQDeBPPyz/Yjc0lRqLFucfYaigesCyDyC7GZ1rKPKSIKEBLs442E797sqrr30HM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788829052; c=relaxed/simple;
-	bh=tgIPkqLL574nRd6uH/OdIE9pkw6UuV75K0iwBwebEZM=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=L4z1ufbFrR3yGwvmcbpLy4c69UPd/VGFmbt4CFu/YrMk5lvIS9Gyqlzep6buy2Qrk8sl+IwuH254QBC9piyrTF+afzII/l6YQ0e8eFAFCruZUqxaJJfSSTacLBtpUX2yEZddMn99fMcBFYDIQjuLYI/D/fmVn2XY6yC0Phx5B/g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jszKzdoa; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788829113; c=relaxed/simple;
+	bh=g234LDnNm3zbfFZEcNxpTnRYCHq7yep686w4ocVO5F0=;
+	h=Date:From:To:Cc:Subject:Message-ID; b=I6HH9+e1AUpT0NTKuB0XFmech9rrDV9u8L+gquek84TKQtbXuGtUovLQ++nSqwREjtfFKNbJJ2DBY721Hudo0lY6P4uq+dn7iINxyUHjee2/dy1+KWat6bBfc4CXof21C3gDft1QI2vRqknvtupqg4xQHdJMcGpA5E0NJRqvYXg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=WJHBOSez; arc=none smtp.client-ip=198.175.65.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jszKzdoa"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 44C3D1F00A3A;
-	Tue,  8 Sep 2026 00:57:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788829050;
-	bh=MYAjivpgE01XT5FVIerMOmRGhLGhfUaCEwoU29tcf6A=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=jszKzdoai+InfYmqoMr2Hwi6AkaxkKgAjPaC3XOlAocNZlFH+bleB4Na7aLPtFqCR
-	 4rXAx5+mVPHU4XkgFbq2SP7kHXIHgoI9WFvyxjKYMZEpsj6WaMphZH152XdM0smFj1
-	 n5S581LGPBGMNgj9PxBFK1AD3nzLKkPeKWKKZY5Juio+vPNCg9sQ4Ip0s3LiS43QO1
-	 QKxcrAXdRWFzj+HyYLOCI4rmevEe0lO45IUiivVithYOEQYwddkYYNG3oMetBmTbCa
-	 TIesKmw4l3TAxEETNXbZQdbxm88H1EKWjPJlT9oh0FVUR+RIMoUkP9feRGty1XH6FM
-	 a3N1hXD1wmoYQ==
-Date: Tue, 8 Sep 2026 01:57:23 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Terry Bowman <terry.bowman@amd.com>
-Cc: Dave Jiang <dave.jiang@intel.com>, Alison Schofield
- <alison.schofield@intel.com>, Vishal Verma <vishal.l.verma@intel.com>,
- Davidlohr Bueso <dave@stgolabs.net>, "Bjorn Helgaas" <bhelgaas@google.com>,
- Dan Williams <djbw@kernel.org>, "Rafael J . Wysocki" <rafael@kernel.org>,
- Jonathan Corbet <corbet@lwn.net>, <linux-cxl@vger.kernel.org>, Tony Luck
- <tony.luck@intel.com>, Borislav Petkov <bp@alien8.de>, "Hanjun Guo"
- <guohanjun@huawei.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, "Shuai
- Xue" <xueshuai@linux.alibaba.com>, Len Brown <lenb@kernel.org>, Ira Weiny
- <iweiny@kernel.org>, Li Ming <ming.li@zohomail.com>, Shuah Khan
- <skhan@linuxfoundation.org>, Ben Cheatham <Benjamin.Cheatham@amd.com>,
- Richard Cheng <icheng@nvidia.com>, Robert Richter <rrichter@amd.com>,
- "Lukas Wunner" <lukas@wunner.de>, <linux-pci@vger.kernel.org>,
- <linux-acpi@vger.kernel.org>, <linux-doc@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v20 2/9] PCI: Establish common CXL Port protocol error
- flow
-Message-ID: <20260908015723.6d6ebd44@jic23-huawei>
-In-Reply-To: <20260902133933.2992457-3-terry.bowman@amd.com>
-References: <20260902133933.2992457-1-terry.bowman@amd.com>
-	<20260902133933.2992457-3-terry.bowman@amd.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="WJHBOSez"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788829111; x=1820365111;
+  h=date:from:to:cc:subject:message-id;
+  bh=g234LDnNm3zbfFZEcNxpTnRYCHq7yep686w4ocVO5F0=;
+  b=WJHBOSezOvEoe70C7DSg84T4g+GxZPYneOvfnoBziZ8Cyezl3y83jgvF
+   MYHkssCfNnWR/oz5rdSOvaeK7NxEQAvc50KIVA/YBZm/kUtS6JGhSyUIS
+   +62IbCCI2ieBiJqIV02XJlGW1K2LsJmCTfx9X1u5m2OQa9SFya+QCiZy1
+   7KsEj4O/1EodPzmALSdOueh6J45Iz9uCqxwbizFtg1dVO9H1N3AuPrUc4
+   98+VspPsNVYMiHgLwCUWdLIKiVcqoROgYaXDSIz83me1SOwDs9lONwRYI
+   yE1R2AQqvdpGEN2kBg/tPHhnz4+YPaSjIg9AlM2sAbpvIG5bPqBWIcXBP
+   g==;
+X-CSE-ConnectionGUID: 7fTv78w/RDuMEF5WryyNzw==
+X-CSE-MsgGUID: K1PXQNnBTyOjqIbPv8iMZg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11899"; a="111999196"
+X-IronPort-AV: E=Sophos;i="6.25,268,1779174000"; 
+   d="scan'208";a="111999196"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Sep 2026 17:58:30 -0700
+X-CSE-ConnectionGUID: ddszyrbFRViZJEnPQAklcQ==
+X-CSE-MsgGUID: eXSL6nTmTVyAifSpvVOwig==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,268,1779174000"; 
+   d="scan'208";a="269113682"
+Received: from lkp-server01.sh.intel.com (HELO dff15f1b2031) ([10.239.97.150])
+  by orviesa006.jf.intel.com with ESMTP; 07 Sep 2026 17:58:28 -0700
+Received: from kbuild by dff15f1b2031 with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1x3kAL-000000001TL-0M0f;
+	Tue, 08 Sep 2026 00:58:25 +0000
+Date: Tue, 08 Sep 2026 08:58:08 +0800
+From: kernel test robot <lkp@intel.com>
+To: "GUO Ren (XuanTie)" <guoren@kernel.org>
+Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
+ linux-kernel@vger.kernel.org, x86@kernel.org,
+ Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>,
+ Anup Patel <anup@brainfault.org>
+Subject: [tip:irq/drivers 6/22]
+ drivers/media/platform/mediatek/vpu/mtk_vpu.c:299:9: warning: comparison of
+ different enumeration types ('enum ipi_id' and 'enum ipi_message_type')
+Message-ID: <202609080837.vE9lfq1K-lkp@intel.com>
+User-Agent: s-nail v14.9.25
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
 
-On Wed, 2 Sep 2026 08:39:26 -0500
-Terry Bowman <terry.bowman@amd.com> wrote:
+Hi GUO,
 
-> Establish a single CXL protocol error path shared by CXL Virtual
-> Hierarchy (VH) and Restricted CXL Host (RCH) topologies. AER dispatch in
-> handle_error_source() routes CXL protocol errors, gated by
-> is_cxl_error(), through the AER-CXL kfifo to a cxl_core consumer for
-> logging and recovery. Producer and consumer go live together so no CXL
-> error is silently dropped across a bisect.
-> 
-> is_cxl_error() expands from Endpoint-only to also cover Root Port,
-> Upstream Port, and Downstream Port. RCDs report on behalf of an upstream
-> RCH Downstream Port and instead reach the kfifo via
-> cxl_rch_handle_error().
-> 
-> For uncorrectable errors, cxl_proto_err_wait_for_empty() drains the CXL
-> plane (RAS read, panic policy, state clear) before pci_aer_handle_error()
-> drives PCIe recovery, so recovery does not tear down RAS iomaps while the
-> consumer is still reading them. Correctable errors run asynchronously.
-> 
-> Panic policy: cxl_do_recovery() panics on a confirmed UCE, and also when
-> the RAS registers cannot be mapped -- an unconfirmable UCE is treated
-> conservatively as fatal since CXL.mem coherency may be lost. A
-> mapped-but-clear status is logged as spurious with no panic.
-> 
-> to_ras_base() centralizes RAS base lookup (dport->regs.ras for
-> Root/Downstream Ports, port->regs.ras otherwise) and provides an
-> injection point for RAS status simulation during testing. The
-> cxl_cor_error_detected() AER callback is removed; correctable Endpoint
-> errors now route through the kfifo like every other CXL protocol error.
-> 
-> Update cxl_handle_rdport_errors() with locking to prevent dport from
-> being freed and RAS from being unmapped.
-> 
-> At this step cxl_handle_rdport_errors() still dispatches a single
-> severity per pass (matching the pre-series baseline). The following
-> patch, "cxl/ras: Handle RCH correctable and uncorrectable errors in one
-> pass", processes a simultaneously signalled CE and UCE together.
-> 
-> Co-developed-by: Dan Williams <djbw@kernel.org>
-> Signed-off-by: Dan Williams <djbw@kernel.org>
-> Signed-off-by: Terry Bowman <terry.bowman@amd.com>
-> 
-Reviewed-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+FYI, the error/warning was bisected to this commit, please ignore it if it's irrelevant.
+
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/tip/tip.git irq/drivers
+head:   0c65a1331928d0207c385f03fb5eba0cfecce0e6
+commit: 1ae91dc397eb1dbc0f4fc6b96f2481cbc02fe0f9 [6/22] riscv: smp: Move enum ipi_message_type to asm/smp.h
+config: riscv-allyesconfig (https://download.01.org/0day-ci/archive/20260908/202609080837.vE9lfq1K-lkp@intel.com/config)
+compiler: clang version 24.0.0git (https://github.com/llvm/llvm-project 2362eeb5f75560740146975e9eabe84c6bd25a0d)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260908/202609080837.vE9lfq1K-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202609080837.vE9lfq1K-lkp@intel.com/
+
+All warnings (new ones prefixed by >>):
+
+   In file included from drivers/media/platform/mediatek/vpu/mtk_vpu.c:20:
+   drivers/media/platform/mediatek/vpu/mtk_vpu.h:63:2: error: redefinition of enumerator 'IPI_MAX'
+      63 |         IPI_MAX,
+         |         ^
+   arch/riscv/include/asm/smp.h:27:2: note: previous definition is here
+      27 |         IPI_MAX
+         |         ^
+>> drivers/media/platform/mediatek/vpu/mtk_vpu.c:299:9: warning: comparison of different enumeration types ('enum ipi_id' and 'enum ipi_message_type') [-Wenum-compare]
+     299 |         if (id < IPI_MAX && handler) {
+         |             ~~ ^ ~~~~~~~
+   drivers/media/platform/mediatek/vpu/mtk_vpu.c:322:31: warning: comparison of different enumeration types ('enum ipi_id' and 'enum ipi_message_type') [-Wenum-compare]
+     322 |         if (id <= IPI_VPU_INIT || id >= IPI_MAX ||
+         |                                   ~~ ^  ~~~~~~~
+   2 warnings and 1 error generated.
 
 
+vim +299 drivers/media/platform/mediatek/vpu/mtk_vpu.c
+
+040d31ccf2bd87 drivers/media/platform/mtk-vpu/mtk_vpu.c Irui Wang      2020-10-29  286  
+3003a180ef6b94 drivers/media/platform/mtk-vpu/mtk_vpu.c Andrew-CT Chen 2016-05-03  287  int vpu_ipi_register(struct platform_device *pdev,
+3003a180ef6b94 drivers/media/platform/mtk-vpu/mtk_vpu.c Andrew-CT Chen 2016-05-03  288  		     enum ipi_id id, ipi_handler_t handler,
+3003a180ef6b94 drivers/media/platform/mtk-vpu/mtk_vpu.c Andrew-CT Chen 2016-05-03  289  		     const char *name, void *priv)
+3003a180ef6b94 drivers/media/platform/mtk-vpu/mtk_vpu.c Andrew-CT Chen 2016-05-03  290  {
+3003a180ef6b94 drivers/media/platform/mtk-vpu/mtk_vpu.c Andrew-CT Chen 2016-05-03  291  	struct mtk_vpu *vpu = platform_get_drvdata(pdev);
+3003a180ef6b94 drivers/media/platform/mtk-vpu/mtk_vpu.c Andrew-CT Chen 2016-05-03  292  	struct vpu_ipi_desc *ipi_desc;
+3003a180ef6b94 drivers/media/platform/mtk-vpu/mtk_vpu.c Andrew-CT Chen 2016-05-03  293  
+3003a180ef6b94 drivers/media/platform/mtk-vpu/mtk_vpu.c Andrew-CT Chen 2016-05-03  294  	if (!vpu) {
+3003a180ef6b94 drivers/media/platform/mtk-vpu/mtk_vpu.c Andrew-CT Chen 2016-05-03  295  		dev_err(&pdev->dev, "vpu device in not ready\n");
+3003a180ef6b94 drivers/media/platform/mtk-vpu/mtk_vpu.c Andrew-CT Chen 2016-05-03  296  		return -EPROBE_DEFER;
+3003a180ef6b94 drivers/media/platform/mtk-vpu/mtk_vpu.c Andrew-CT Chen 2016-05-03  297  	}
+3003a180ef6b94 drivers/media/platform/mtk-vpu/mtk_vpu.c Andrew-CT Chen 2016-05-03  298  
+c4abb192caca96 drivers/media/platform/mtk-vpu/mtk_vpu.c Hans Verkuil   2019-11-03 @299  	if (id < IPI_MAX && handler) {
+3003a180ef6b94 drivers/media/platform/mtk-vpu/mtk_vpu.c Andrew-CT Chen 2016-05-03  300  		ipi_desc = vpu->ipi_desc;
+3003a180ef6b94 drivers/media/platform/mtk-vpu/mtk_vpu.c Andrew-CT Chen 2016-05-03  301  		ipi_desc[id].name = name;
+3003a180ef6b94 drivers/media/platform/mtk-vpu/mtk_vpu.c Andrew-CT Chen 2016-05-03  302  		ipi_desc[id].handler = handler;
+3003a180ef6b94 drivers/media/platform/mtk-vpu/mtk_vpu.c Andrew-CT Chen 2016-05-03  303  		ipi_desc[id].priv = priv;
+3003a180ef6b94 drivers/media/platform/mtk-vpu/mtk_vpu.c Andrew-CT Chen 2016-05-03  304  		return 0;
+3003a180ef6b94 drivers/media/platform/mtk-vpu/mtk_vpu.c Andrew-CT Chen 2016-05-03  305  	}
+3003a180ef6b94 drivers/media/platform/mtk-vpu/mtk_vpu.c Andrew-CT Chen 2016-05-03  306  
+3003a180ef6b94 drivers/media/platform/mtk-vpu/mtk_vpu.c Andrew-CT Chen 2016-05-03  307  	dev_err(&pdev->dev, "register vpu ipi id %d with invalid arguments\n",
+3003a180ef6b94 drivers/media/platform/mtk-vpu/mtk_vpu.c Andrew-CT Chen 2016-05-03  308  		id);
+3003a180ef6b94 drivers/media/platform/mtk-vpu/mtk_vpu.c Andrew-CT Chen 2016-05-03  309  	return -EINVAL;
+3003a180ef6b94 drivers/media/platform/mtk-vpu/mtk_vpu.c Andrew-CT Chen 2016-05-03  310  }
+3003a180ef6b94 drivers/media/platform/mtk-vpu/mtk_vpu.c Andrew-CT Chen 2016-05-03  311  EXPORT_SYMBOL_GPL(vpu_ipi_register);
+3003a180ef6b94 drivers/media/platform/mtk-vpu/mtk_vpu.c Andrew-CT Chen 2016-05-03  312  
+
+:::::: The code at line 299 was first introduced by commit
+:::::: c4abb192caca96a53c2e833d25b1f7f12b454bf4 media: mtk-vpu: fix two smatch warnings
+
+:::::: TO: Hans Verkuil <hverkuil-cisco@xs4all.nl>
+:::::: CC: Mauro Carvalho Chehab <mchehab@kernel.org>
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
