@@ -1,73 +1,64 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-29.mta0.migadu.com [91.218.175.29])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D351511183
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C83B5111B9
 	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 09:11:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.29
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788858715; cv=none; b=JLN3wn7AZz9O7uiHRSSjyNh6hpuCeJPR6wK1PGQjnqVN32HtxGzR+U3FT/XsCkI2fE5fz/bbI55SxV5/LTyxshLzy/osSYHr6vl7W1Nv9BrfqRjwJ+A/Ujligu48z7XJ+WEoxZ7oSL9G3mnTn25EHKmFHsH/ISqTCDD70JkZqNw=
+	t=1788858716; cv=none; b=bU+nkkOS/zDg6vljJP/nljNY5CsKXhB6fBM2TunFnw6QtQJgqR/S4klr3rAwiO3/5Un8y8u6bk8J+PJgzm7VV5t4OIlcJEZvQG3PSVO2zkDMCPUB9cqDyuSc+Kf+/q3oy3pXwYTKx1gD9yTXNNcu1QqWyqyV+zb1J3g9A324XdU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788858715; c=relaxed/simple;
-	bh=AfC6AN0+oRv9f00/2dtlwIkW+5nMtEfQM9UmhCLa+bE=;
+	s=arc-20240116; t=1788858716; c=relaxed/simple;
+	bh=fhWEdSTjs9B2MAlTgThpgs2j4iGNoPGiSJakWwaXUGY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=DjyfYMzJUs1muF0/uzChJFzqGb/7CnZ5BG7pOBo1ip5sWZtgUxtGfq4VIvPhj0K/E525yl0Qsa5EFWLKyb5kYnYD2jDGx2UTT7Mh6HotyQe/pJGeZFyG8RxvTMGh9D7x12LD012S8Zwyh9xpXrLLDHfgROMTtw/Q8IeeO/uU1p8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=RajVMlgZ; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	 MIME-Version; b=KvSbLEZ70A3qrGBqj/HpNXHZZjSMtw0i2lJ6NmHoyaXtucecaekOb2eOdZyu18L588wfse0GO/8HXzHDcTr3HazsMBnr8WkGKXtlCdqKKHm3NtXI8XskZpmFK+anr1HxU6h0msN4xC9LkzJjuEUSM5STkmMwowBRyMXviXUVg6k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=wD93d/jD; arc=none smtp.client-ip=91.218.175.29
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="RajVMlgZ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1788858713;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=sxO7FEkCCz/20KjVrg30v5ozCynNyOtWLTOKJ0S48jc=;
-	b=RajVMlgZukPpnnJVes2sikx2eDkPCd18NW8uFAQ92XUH1qOC0F3qL9EtJL9fpocetRwVAL
-	Y5x+KzR7etZ8X1mxw3wmEYZMwjIoprj85RX3Oe24d6eAelrIDwxqlyHNacmhNvLAAiYA4b
-	kpFM+YRBLtvKi+zzcTN2FerUbMDGEvE=
-Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-622-8YNJsXH9MtiWIpWsQgpP2g-1; Tue,
- 08 Sep 2026 05:11:47 -0400
-X-MC-Unique: 8YNJsXH9MtiWIpWsQgpP2g-1
-X-Mimecast-MFC-AGG-ID: 8YNJsXH9MtiWIpWsQgpP2g_1788858705
-Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 017AC195DB9B;
-	Tue,  8 Sep 2026 09:11:45 +0000 (UTC)
-Received: from warthog.com (unknown [10.44.32.158])
-	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 260CF1800605;
-	Tue,  8 Sep 2026 09:11:38 +0000 (UTC)
-From: David Howells <dhowells@redhat.com>
-To: Paulo Alcantara <pc@manguebit.org>
-Cc: David Howells <dhowells@redhat.com>,
-	Christian Brauner <christian@brauner.io>,
-	Matthew Wilcox <willy@infradead.org>,
-	Namjae Jeon <linkinjeon@kernel.org>,
-	Marc Dionne <marc.dionne@auristor.com>,
-	Stefan Metzmacher <metze@samba.org>,
-	Eric Van Hensbergen <ericvh@kernel.org>,
-	Dominique Martinet <asmadeus@codewreck.org>,
-	Ilya Dryomov <idryomov@gmail.com>,
-	netfs@lists.linux.dev,
-	linux-afs@lists.infradead.org,
-	linux-cifs@vger.kernel.org,
-	linux-nfs@vger.kernel.org,
-	ceph-devel@vger.kernel.org,
-	v9fs@lists.linux.dev,
-	linux-erofs@lists.ozlabs.org,
-	linux-fsdevel@vger.kernel.org,
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="wD93d/jD"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=fhWEdSTjs9B2MAlTgThpgs2j4iGNoPGiSJakWwaXUGY=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788858712; v=1; x=1789463512;
+ b=wD93d/jDxGKweuS6SP0neFuPg8CIxfSQ4YsaJ0VkX3FvKgoyIlKDceE0oUVl9KBTQ0fFRMyh
+ yPDJwQ8r4r2QiiobXPsvnOTdmyOALJ1zs4Gx33b2f/Y1sPOrUjIqcaP3xqpcPrwpnofATJ8M04i
+ ilkM5LvQ8yvm40BeJBGjZPtM=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta12.migadu.com with ESMTPS id 616980083be58a88;
+	Tue, 08 Sep 2026 09:11:51 +0000
+X-Mizu-Trace-ID: 616980083be58a88
+X-Migadu-Flow: FLOW_OUT
+From: Hui Zhu <hui.zhu@linux.dev>
+To: Roman Gushchin <roman.gushchin@linux.dev>,
+	JP Kobryn <inwardvessel@gmail.com>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Andrii Nakryiko <andrii@kernel.org>,
+	Eduard Zingerman <eddyz87@gmail.com>,
+	Ihor Solodrai <ihor.solodrai@linux.dev>,
+	Alexei Starovoitov <ast@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+	Martin KaFai Lau <martin.lau@linux.dev>,
+	Song Liu <song@kernel.org>,
+	Yonghong Song <yonghong.song@linux.dev>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Emil Tsalapatis <emil@etsalapatis.com>,
+	Shuah Khan <shuah@kernel.org>,
+	Barry Song <baohua@kernel.org>,
+	Geliang Tang <geliang@kernel.org>,
 	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org
-Subject: [PATCH v12 8/8] netfs: Set subrequest->source at alloc before trace emission
-Date: Tue,  8 Sep 2026 10:10:29 +0100
-Message-ID: <20260908091031.1506798-9-dhowells@redhat.com>
-In-Reply-To: <20260908091031.1506798-1-dhowells@redhat.com>
-References: <20260908091031.1506798-1-dhowells@redhat.com>
+	bpf@vger.kernel.org,
+	linux-mm@kvack.org,
+	linux-kselftest@vger.kernel.org
+Cc: Hui Zhu <zhuhui@kylinos.cn>
+Subject: [PATCH bpf-next v9 1/2] mm/bpf: Add bpf_proactive_reclaim kfunc
+Date: Tue,  8 Sep 2026 17:11:27 +0800
+Message-ID: <06452a0d7722c92a38fdfd117954d244c3e52d0e.1788857915.git.zhuhui@kylinos.cn>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <cover.1788857915.git.zhuhui@kylinos.cn>
+References: <cover.1788857915.git.zhuhui@kylinos.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -75,162 +66,168 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
 
-Set subrequest->source in netfs_alloc_subrequest() before we emit the trace
-line indicating we allocated the subrequest.  Note that this requires the
-allocation of the subreq in netfs_read_to_pagecache() to be pushed to after
-the decision about what sort of subreq it should be.
+From: Hui Zhu <zhuhui@kylinos.cn>
 
-Signed-off-by: David Howells <dhowells@redhat.com>
-cc: Paulo Alcantara <pc@manguebit.org>
-cc: netfs@lists.linux.dev
-cc: linux-fsdevel@vger.kernel.org
-cc: linux-mm@kvack.org
+BPF programs can observe memory pressure on a cgroup (e.g. refault
+stats via bpf_mem_cgroup_page_state()), but cannot act on it:
+triggering reclaim on a chosen cgroup requires writing to
+memory.reclaim, which BPF cannot do. Add bpf_proactive_reclaim(),
+a sleepable kfunc which performs one proactive reclaim pass on a
+given memory cgroup, similar to a write to memory.reclaim but
+without retrying until the target is reached, so that when and how
+hard to reclaim is BPF policy rather than hard-coded thresholds.
+
+Since some bpf program types may be invoked while holding fs locks,
+limit the kfunc to BPF_PROG_TYPE_SYSCALL only, to avoid deadlocking
+in filesystem shrinkers on the reclaim path. A SYSCALL program can
+invoke the kfunc directly, or asynchronously from its bpf_wq or
+task_work callbacks, which run in process context and keep the
+SYSCALL program type.
+
+The reclaim target of a single call is capped at MEMCG_CHARGE_BATCH,
+following the precedent of high_work_func(), the memory.high
+workqueue fallback, which bounds each reclaim request the same way
+and uses one work item per memcg. Note that only the reclaim target
+is capped: the actual scanning work and its duration are not
+bounded. Reclaiming more than one batch is left to the BPF program
+rather than enforced by the kfunc: with one call per bpf_wq callback
+and the same work item requeued for the next batch, the program can
+also stop submitting batches in between, e.g. once the target cgroup
+is dying.
+
+Signed-off-by: Hui Zhu <zhuhui@kylinos.cn>
 ---
- fs/netfs/buffered_read.c | 4 ++--
- fs/netfs/direct_read.c   | 3 +--
- fs/netfs/internal.h      | 3 ++-
- fs/netfs/objects.c       | 4 +++-
- fs/netfs/read_retry.c    | 3 +--
- fs/netfs/read_single.c   | 2 +-
- fs/netfs/write_issue.c   | 3 +--
- fs/netfs/write_retry.c   | 3 +--
- 8 files changed, 12 insertions(+), 13 deletions(-)
+ mm/bpf_memcontrol.c | 88 ++++++++++++++++++++++++++++++++++++++++++++-
+ 1 file changed, 87 insertions(+), 1 deletion(-)
 
-diff --git a/fs/netfs/buffered_read.c b/fs/netfs/buffered_read.c
-index e7fa30376862..f88b87c8303e 100644
---- a/fs/netfs/buffered_read.c
-+++ b/fs/netfs/buffered_read.c
-@@ -276,10 +276,10 @@ static void netfs_read_to_pagecache(struct netfs_io_request *rreq)
- 
- 	do {
- 		struct netfs_io_subrequest *subreq;
--		enum netfs_io_source source = NETFS_SOURCE_UNKNOWN;
-+		enum netfs_io_source source;
- 		ssize_t slice;
- 
--		subreq = netfs_alloc_subrequest(rreq);
-+		subreq = netfs_alloc_subrequest(rreq, NETFS_SOURCE_UNKNOWN);
- 		if (!subreq) {
- 			ret = -ENOMEM;
- 			break;
-diff --git a/fs/netfs/direct_read.c b/fs/netfs/direct_read.c
-index 5405e108b7a3..8c15f3079723 100644
---- a/fs/netfs/direct_read.c
-+++ b/fs/netfs/direct_read.c
-@@ -55,7 +55,7 @@ static void netfs_dispatch_unbuffered_reads(struct netfs_io_request *rreq)
- 		struct netfs_io_subrequest *subreq;
- 		ssize_t slice;
- 
--		subreq = netfs_alloc_subrequest(rreq);
-+		subreq = netfs_alloc_subrequest(rreq, NETFS_DOWNLOAD_FROM_SERVER);
- 		if (!subreq) {
- 			/* Stash the error in the request if there's not
- 			 * already an error set.
-@@ -64,7 +64,6 @@ static void netfs_dispatch_unbuffered_reads(struct netfs_io_request *rreq)
- 			break;
- 		}
- 
--		subreq->source	= NETFS_DOWNLOAD_FROM_SERVER;
- 		subreq->start	= start;
- 		subreq->len	= size;
- 
-diff --git a/fs/netfs/internal.h b/fs/netfs/internal.h
-index e0aa0ea510e9..ec520c948420 100644
---- a/fs/netfs/internal.h
-+++ b/fs/netfs/internal.h
-@@ -92,7 +92,8 @@ void netfs_get_request(struct netfs_io_request *rreq, enum netfs_rreq_ref_trace
- void netfs_clear_subrequests(struct netfs_io_request *rreq);
- void netfs_put_request(struct netfs_io_request *rreq, enum netfs_rreq_ref_trace what);
- void netfs_put_failed_request(struct netfs_io_request *rreq);
--struct netfs_io_subrequest *netfs_alloc_subrequest(struct netfs_io_request *rreq);
-+struct netfs_io_subrequest *netfs_alloc_subrequest(struct netfs_io_request *rreq,
-+						   enum netfs_io_source source);
- 
- static inline void netfs_see_request(struct netfs_io_request *rreq,
- 				     enum netfs_rreq_ref_trace what)
-diff --git a/fs/netfs/objects.c b/fs/netfs/objects.c
-index 3460aa1c4af1..9c6ea718692a 100644
---- a/fs/netfs/objects.c
-+++ b/fs/netfs/objects.c
-@@ -207,7 +207,8 @@ void netfs_put_failed_request(struct netfs_io_request *rreq)
- /*
-  * Allocate and partially initialise an I/O request structure.
+diff --git a/mm/bpf_memcontrol.c b/mm/bpf_memcontrol.c
+index 716df49d7647..2817c6db9a5d 100644
+--- a/mm/bpf_memcontrol.c
++++ b/mm/bpf_memcontrol.c
+@@ -6,8 +6,11 @@
   */
--struct netfs_io_subrequest *netfs_alloc_subrequest(struct netfs_io_request *rreq)
-+struct netfs_io_subrequest *netfs_alloc_subrequest(struct netfs_io_request *rreq,
-+						   enum netfs_io_source source)
+ 
+ #include <linux/memcontrol.h>
++#include <linux/swap.h>
+ #include <linux/bpf.h>
+ 
++#include "internal.h"
++
+ __bpf_kfunc_start_defs();
+ 
+ /**
+@@ -159,6 +162,73 @@ __bpf_kfunc void bpf_mem_cgroup_flush_stats(struct mem_cgroup *memcg)
+ 	mem_cgroup_flush_stats(memcg);
+ }
+ 
++/**
++ * bpf_proactive_reclaim - proactively reclaim memory from a memory
++ *                         cgroup
++ * @memcg: the target memory cgroup to reclaim from
++ * @size:  the amount of memory to reclaim, in bytes, clamped to
++ *         MEMCG_CHARGE_BATCH (64 pages)
++ * @swappiness: the reclaim swappiness, in the range [0, 201] where 201
++ *         means anon-only reclaim; a negative value means the memcg's
++ *         own swappiness is used
++ *
++ * Trigger one proactive reclaim pass on @memcg, similar to a write to
++ * memory.reclaim, but without retrying until @size is reached.
++ *
++ * Only the reclaim target is capped: @size is clamped to
++ * MEMCG_CHARGE_BATCH, following the precedent of high_work_func(),
++ * the memory.high workqueue fallback, which bounds each reclaim
++ * request the same way. The actual scanning work and its duration
++ * are not bounded. To reclaim more, call this kfunc repeatedly
++ * instead of passing a larger @size.
++ *
++ * The kfunc can be called directly from a BPF_PROG_TYPE_SYSCALL
++ * program, synchronously in the context of the thread running the
++ * program, or from the bpf_wq and task_work callbacks of a SYSCALL
++ * program, which run in process context and keep the SYSCALL program
++ * type. It is registered for BPF_PROG_TYPE_SYSCALL only, because
++ * generic sleepable programs may run with filesystem locks held or
++ * in NOFS/NOIO contexts, where the reclaim path could deadlock on
++ * those locks via filesystem shrinkers.
++ *
++ * For asynchronous reclaim of more than one batch, driving the
++ * reclaim from a bpf_wq callback is recommended: call this kfunc
++ * once per callback and requeue the same work item for the next
++ * batch, instead of looping inside the callback and monopolizing a
++ * workqueue worker, and give each target memcg its own work item,
++ * as high_work_func() does with one work item per memcg. Whether
++ * to submit the next batch is up to the BPF program, which can stop
++ * at any point, e.g. once the target cgroup is dying.
++ *
++ * Return: The amount of memory reclaimed, in bytes, or 0 if @size is
++ * smaller than a page, or (unsigned long)-1 if @swappiness is out of
++ * range.
++ */
++__bpf_kfunc unsigned long bpf_proactive_reclaim(struct mem_cgroup *memcg,
++						unsigned long size,
++						int swappiness)
++{
++	unsigned long nr_reclaimed;
++	unsigned long nr_pages;
++
++	if (swappiness < -1 || swappiness > SWAPPINESS_ANON_ONLY)
++		return (unsigned long)-1;
++
++	if (size < PAGE_SIZE)
++		return 0;
++
++	nr_pages = min(size / PAGE_SIZE, (unsigned long)MEMCG_CHARGE_BATCH);
++
++	nr_reclaimed = try_to_free_mem_cgroup_pages(memcg, nr_pages,
++						    GFP_KERNEL,
++						    MEMCG_RECLAIM_MAY_SWAP |
++						    MEMCG_RECLAIM_PROACTIVE,
++						    swappiness < 0 ? NULL :
++								     &swappiness);
++
++	return nr_reclaimed * PAGE_SIZE;
++}
++
+ __bpf_kfunc_end_defs();
+ 
+ BTF_KFUNCS_START(bpf_memcontrol_kfuncs)
+@@ -174,19 +244,35 @@ BTF_ID_FLAGS(func, bpf_mem_cgroup_flush_stats, KF_SLEEPABLE)
+ 
+ BTF_KFUNCS_END(bpf_memcontrol_kfuncs)
+ 
++BTF_KFUNCS_START(bpf_memcontrol_reclaim_kfuncs)
++BTF_ID_FLAGS(func, bpf_proactive_reclaim, KF_SLEEPABLE)
++BTF_KFUNCS_END(bpf_memcontrol_reclaim_kfuncs)
++
+ static const struct btf_kfunc_id_set bpf_memcontrol_kfunc_set = {
+ 	.owner          = THIS_MODULE,
+ 	.set            = &bpf_memcontrol_kfuncs,
+ };
+ 
++static const struct btf_kfunc_id_set bpf_memcontrol_reclaim_kfunc_set = {
++	.owner          = THIS_MODULE,
++	.set            = &bpf_memcontrol_reclaim_kfuncs,
++};
++
+ static int __init bpf_memcontrol_init(void)
  {
- 	struct netfs_io_subrequest *subreq;
- 	mempool_t *mempool = rreq->netfs_ops->subrequest_pool ?: &netfs_subrequest_pool;
-@@ -224,6 +225,7 @@ struct netfs_io_subrequest *netfs_alloc_subrequest(struct netfs_io_request *rreq
- 	INIT_WORK(&subreq->work, NULL);
- 	INIT_LIST_HEAD(&subreq->rreq_link);
- 	refcount_set(&subreq->ref, 2);
-+	subreq->source = source;
- 	subreq->rreq = rreq;
- 	subreq->debug_index = atomic_inc_return(&rreq->subreq_counter);
- 	netfs_get_request(rreq, netfs_rreq_trace_get_subreq);
-diff --git a/fs/netfs/read_retry.c b/fs/netfs/read_retry.c
-index 46810d29f0c0..396a05432a7e 100644
---- a/fs/netfs/read_retry.c
-+++ b/fs/netfs/read_retry.c
-@@ -195,12 +195,11 @@ static void netfs_retry_read_subrequests(struct netfs_io_request *rreq)
- 		 * and insert them after.
- 		 */
- 		do {
--			subreq = netfs_alloc_subrequest(rreq);
-+			subreq = netfs_alloc_subrequest(rreq, NETFS_DOWNLOAD_FROM_SERVER);
- 			if (!subreq) {
- 				subreq = to;
- 				goto abandon_after;
- 			}
--			subreq->source		= NETFS_DOWNLOAD_FROM_SERVER;
- 			subreq->start		= start;
- 			subreq->len		= len;
- 			subreq->stream_nr	= stream->stream_nr;
-diff --git a/fs/netfs/read_single.c b/fs/netfs/read_single.c
-index ccb5fc809d99..50775370d13d 100644
---- a/fs/netfs/read_single.c
-+++ b/fs/netfs/read_single.c
-@@ -92,7 +92,7 @@ static int netfs_single_dispatch_read(struct netfs_io_request *rreq)
- 	struct netfs_io_subrequest *subreq;
- 	int ret = 0;
+ 	int err;
  
--	subreq = netfs_alloc_subrequest(rreq);
-+	subreq = netfs_alloc_subrequest(rreq, NETFS_DOWNLOAD_FROM_SERVER);
- 	if (!subreq)
- 		return -ENOMEM;
+ 	err = register_btf_kfunc_id_set(BPF_PROG_TYPE_UNSPEC,
+ 					&bpf_memcontrol_kfunc_set);
+-	if (err)
++	if (err) {
+ 		pr_warn("error while registering bpf memcontrol kfuncs: %d", err);
++		return err;
++	}
++
++	err = register_btf_kfunc_id_set(BPF_PROG_TYPE_SYSCALL,
++					&bpf_memcontrol_reclaim_kfunc_set);
++	if (err)
++		pr_warn("error registering bpf reclaim kfuncs: %d", err);
  
-diff --git a/fs/netfs/write_issue.c b/fs/netfs/write_issue.c
-index 9a528da4bf9f..e7cb496f6324 100644
---- a/fs/netfs/write_issue.c
-+++ b/fs/netfs/write_issue.c
-@@ -168,10 +168,9 @@ void netfs_prepare_write(struct netfs_io_request *wreq,
- 	    wreq_iter->folioq_slot >= folioq_nr_slots(wreq_iter->folioq))
- 		rolling_buffer_make_space(&wreq->buffer, wreq->gfp);
- 
--	subreq = netfs_alloc_subrequest(wreq);
-+	subreq = netfs_alloc_subrequest(wreq, stream->source);
- 	if (!subreq)
- 		return;
--	subreq->source		= stream->source;
- 	subreq->start		= start;
- 	subreq->stream_nr	= stream->stream_nr;
- 	subreq->io_iter		= *wreq_iter;
-diff --git a/fs/netfs/write_retry.c b/fs/netfs/write_retry.c
-index 6cd584242af2..d7d5348496fc 100644
---- a/fs/netfs/write_retry.c
-+++ b/fs/netfs/write_retry.c
-@@ -149,8 +149,7 @@ static void netfs_retry_write_stream(struct netfs_io_request *wreq,
- 		 * and insert them after.
- 		 */
- 		do {
--			subreq = netfs_alloc_subrequest(wreq);
--			subreq->source		= to->source;
-+			subreq = netfs_alloc_subrequest(wreq, stream->source);
- 			subreq->start		= start;
- 			subreq->stream_nr	= to->stream_nr;
- 			subreq->retry_count	= 1;
+ 	return err;
+ }
+-- 
+2.43.0
 
