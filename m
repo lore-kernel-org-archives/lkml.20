@@ -1,267 +1,122 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-118.mta0.migadu.com [91.218.175.118])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1316F37FF68;
-	Tue,  8 Sep 2026 06:22:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8ED533839B3
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 06:22:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.118
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788848544; cv=none; b=I5ByP2HkUakZ2vG1YaTD86UORidEFnK+MA1jQouHIeTpfE7AwwuwyZ+i59tO4F5gZ7iAyZjrYm5N06T6bwyef5i2DVHEkQJ0b0E1uYQsMP7eqbVbzgVTOxdkuJ6ZXJ55j3kD7G/lNtzuGOaIzKAyNy0cdIGzVdpCrgFna6ZB8bM=
+	t=1788848545; cv=none; b=ZJ7jKqa2iS6Eczz04h0I4JUMm2cxMiqC1+DZNop/+4p7rGm/aZwAIjlrtAMM4Vs1bJsAXOZePAr+IWi1Y3XnQFG+8AWPMLykanJ5zPm4hr5zUs5yRNegsXvTN8TNmnC1a70sW0w8JIpifxQJT6Hv0AfuLeLUm1fYiRcTbTpfzuw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788848544; c=relaxed/simple;
-	bh=5TVCsUrOMQYcESAbQ2G221/u2D2fA8NDkNdqUy0yaik=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Tsce8K/mYbF5cNWV0Tx7Mwhgk36/1bJaO2lgWiQgbPqKuznoYfY6esuvWSu+dUQQ6Z9Tbegq++RTtDWp4QQLQaMADoQJPU8md1sqFzoklqwDd0xL75AB7WSWnjUl/WTDk2EY3kcaVK0bHdDEHxALP0FNx4bKFz785bjhZsx3Z0I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=FIFX0nRK; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=lDHG4kqU; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	s=arc-20240116; t=1788848545; c=relaxed/simple;
+	bh=z0MVAooCmQ3rZNmO0VCYVTgDQhlmc13rqoT9wo169BE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=W0x0fJBhdDPQEXtw2I3YetN25MzW3FhUKVSkp64Q4R/QlCAdvowLYaOMzs7iUIzaUf2738l0L4+ppbpI5/xs5D4xsmlP6KJ/Plq2FkfzJIoMgmoiWbf45G4mGsohf4qZJP+zVt+t22/5FKK4vUqQ/AkTkrfUSgzKPeafK/FToBY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=FQc8V1oK; arc=none smtp.client-ip=91.218.175.118
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="FIFX0nRK";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="lDHG4kqU"
-From: =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1788848539;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=GssFXxtIHVdcg58tXsfZzX4oarFl2s1/f6rlQWfF6kw=;
-	b=FIFX0nRKEOqyfGBvwZEnKZv/pSbmM4nnmEc+tk4d6FZcGE/DGZ73p+H71P8ztj9+YdThEX
-	p2PEIO7FBNadsIy5+QWyKFldmk0fAnvcr0TEpCj5B7UfyRe2/K1iIskNtOjXULC4qvfDAX
-	xTygW0X9FSKN84FfnEWwq9axoUcoJDP4nD/bmfAyU5vuuq7ARoxpFrel9AAUtL16ZRQhB0
-	HJifPrexdb3ENncM2i0ZGOmpOpsymFMk6QcFsUx1ZH86Tq9xmNCZyUtdSKMw5qkeLjkVDn
-	5P1P1W+VPLE1/ggzfWVtFKaY5eoQuus8zVGWj5bg0V2SQ+a9qnfVWC6rW6YRBw==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1788848539;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=GssFXxtIHVdcg58tXsfZzX4oarFl2s1/f6rlQWfF6kw=;
-	b=lDHG4kqUfaccOcS1bkxJ4aFh+2aMx6dHCCiKLP0o5q87aoTn2F9ZtwXyvoZoSF2v28zF4m
-	sQKp8AgqlHT5KVAQ==
-Date: Tue, 08 Sep 2026 08:22:19 +0200
-Subject: [PATCH v2 5/7] tracing: Add a test for ftrace_parse_event_string()
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="FQc8V1oK"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=z0MVAooCmQ3rZNmO0VCYVTgDQhlmc13rqoT9wo169BE=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788848539; v=1; x=1789453339;
+ b=FQc8V1oKBmRocgDHXCKMMxfQRrFh69ApwKYSbOzPgSey6FyOY7rHCKZ0K5GT/vXAL6S2/IwG
+ CEET4Q34UbvmkvTtESDyiQtr5fISi3e/mLuzlpsNH3g1g9OYuyHcRaFw3HphmCw1cVFaIvLKMnB
+ OeizhUt8IadYeZM4A++u+W+E=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta12.migadu.com with ESMTPS id 14da612d3da88a82;
+	Tue, 08 Sep 2026 06:22:19 +0000
+X-Mizu-Trace-ID: 14da612d3da88a82
+X-Migadu-Flow: FLOW_OUT
+Date: Tue, 8 Sep 2026 14:22:08 +0800
+From: Hangbin Liu <hangbin.liu@linux.dev>
+To: faicker.mo@gmail.com
+Cc: stable@vger.kernel.org, Sridhar Samudrala <sridhar.samudrala@intel.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Stanislav Fomichev <sdf@fomichev.me>, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] net: net_failover: Fix the deadlock in
+ net_failover_slave_name_change()
+Message-ID: <ap-pkHCX6O5AOEIz@fedora>
+References: <20260908040708.3972058-1-faicker.mo@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20260908-tracing-cli-event-filter-v2-5-05396a3fb663@linutronix.de>
-References: <20260908-tracing-cli-event-filter-v2-0-05396a3fb663@linutronix.de>
-In-Reply-To: <20260908-tracing-cli-event-filter-v2-0-05396a3fb663@linutronix.de>
-To: Steven Rostedt <rostedt@goodmis.org>, 
- Masami Hiramatsu <mhiramat@kernel.org>, 
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
- Jonathan Corbet <corbet@lwn.net>
-Cc: linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-trace-kernel@vger.kernel.org, 
- =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788848535; l=5394;
- i=thomas.weissschuh@linutronix.de; s=20240209; h=from:subject:message-id;
- bh=5TVCsUrOMQYcESAbQ2G221/u2D2fA8NDkNdqUy0yaik=;
- b=LHAy7qOyB8OR6mKqYLGIpugvedEnjZGGDFS3oaGfppyyeQatQnzZ6caa0Xiq38BnD8PJyIjYG
- l9m0aGM+KkrA1HFNj/cu+Of1Xp1lyfKweD24NomCm/ETF1sfNa5PO8h
-X-Developer-Key: i=thomas.weissschuh@linutronix.de; a=ed25519;
- pk=pfvxvpFUDJV2h2nY0FidLUml22uGLSjByFbM6aqQQws=
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260908040708.3972058-1-faicker.mo@gmail.com>
 
-The parsing logic is a bit complicated and about to become more so.
+On Tue, Sep 08, 2026 at 12:06:29PM +0800, faicker.mo@gmail.com wrote:
+> From: Faicker Mo <faicker.mo@gmail.com>
+> 
+> This is a sibling fix of commit
+> b84c5632c7b3 ("net: net_failover: Fix the deadlock in slave register").
+> There is netdev_lock_ops() in the upper callers, so using netif_open()
+> instead of dev_open().
+> 
+> Call Trace:
+>  __schedule+0x2bb/0x650
+>  schedule+0x27/0xb0
+>  schedule_preempt_disabled+0x15/0x30
+>  __mutex_lock.constprop.0+0x550/0xaf0
+>  __mutex_lock_slowpath+0x13/0x20
+>  mutex_lock+0x3b/0x50
+>  dev_open+0x3b/0xe0
+>  net_failover_slave_name_change+0x22/0x40
+>  failover_event+0xd4/0x1e0
+>  notifier_call_chain+0x62/0xf0
+>  raw_notifier_call_chain+0x16/0x30
+>  call_netdevice_notifiers_info+0x50/0x80
+>  netif_change_name+0x200/0x330
+>  do_setlink.isra.0+0xb12/0xdf0
+>  ? security_capable+0x9a/0x1e0
+>  ? ns_capable+0x31/0x60
+>  rtnl_setlink+0x302/0x670
+>  ? netlink_recvmsg+0x296/0x340
+>  ? security_capable+0x9a/0x1e0
+>  ? __pfx_rtnl_setlink+0x10/0x10
+>  rtnetlink_rcv_msg+0x384/0x460
+>  ? __pfx_rtnetlink_rcv_msg+0x10/0x10
+>  netlink_rcv_skb+0x61/0x120
+>  rtnetlink_rcv+0x15/0x30
+>  netlink_unicast+0x28f/0x3c0
+>  netlink_sendmsg+0x216/0x450
+>  __sys_sendto+0x222/0x230
+>  __x64_sys_sendto+0x24/0x40
+>  x64_sys_call+0x1d5d/0x2390
+>  do_syscall_64+0x105/0x5a0
+>  ? do_syscall_64+0x140/0x5a0
+>  ? exc_page_fault+0x94/0x1e0
+>  entry_SYSCALL_64_after_hwframe+0x76/0x7e
+> 
+> Fixes: 7e4d784f5810 ("net: hold netdev instance lock during rtnetlink operations")
+> Signed-off-by: Faicker Mo <faicker.mo@gmail.com>
+> ---
+>  drivers/net/net_failover.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/net/net_failover.c b/drivers/net/net_failover.c
+> index 3f7d31033bae..1b5213e87070 100644
+> --- a/drivers/net/net_failover.c
+> +++ b/drivers/net/net_failover.c
+> @@ -675,7 +675,7 @@ static int net_failover_slave_name_change(struct net_device *slave_dev,
+>  	/* We need to bring up the slave after the rename by udev in case
+>  	 * open failed with EBUSY when it was registered.
+>  	 */
+> -	dev_open(slave_dev, NULL);
+> +	netif_open(slave_dev, NULL);
+>  
+>  	return 0;
+>  }
+> -- 
+> 2.53.0
+> 
 
-Add a unit test to avoid regressions.
-
-Signed-off-by: Thomas Weißschuh <thomas.weissschuh@linutronix.de>
----
- kernel/trace/Kconfig             |   8 +++
- kernel/trace/Makefile            |   1 +
- kernel/trace/trace.h             |   4 ++
- kernel/trace/trace_events.c      |   5 +-
- kernel/trace/trace_events_test.c | 102 +++++++++++++++++++++++++++++++++++++++
- 5 files changed, 119 insertions(+), 1 deletion(-)
-
-diff --git a/kernel/trace/Kconfig b/kernel/trace/Kconfig
-index 0ab5916575a9..430a4152095e 100644
---- a/kernel/trace/Kconfig
-+++ b/kernel/trace/Kconfig
-@@ -151,6 +151,14 @@ config EVENT_TRACING
- 	select GLOB
- 	bool
- 
-+config EVENT_TRACING_TEST
-+	tristate "Test for event tracing" if !KUNIT_ALL_TESTS
-+	depends on EVENT_TRACING
-+	depends on KUNIT
-+	default KUNIT_ALL_TESTS
-+	help
-+	  KUnit test for the event tracing implementation.
-+
- config CONTEXT_SWITCH_TRACER
- 	bool
- 
-diff --git a/kernel/trace/Makefile b/kernel/trace/Makefile
-index f934ff586bd4..7bef5a84ce47 100644
---- a/kernel/trace/Makefile
-+++ b/kernel/trace/Makefile
-@@ -96,6 +96,7 @@ obj-$(CONFIG_EVENT_TRACING) += blktrace.o
- endif
- obj-$(CONFIG_EVENT_TRACING) += trace_events.o
- obj-$(CONFIG_EVENT_TRACING) += trace_export.o
-+obj-$(CONFIG_EVENT_TRACING_TEST) += trace_events_test.o
- obj-$(CONFIG_FTRACE_SYSCALLS) += trace_syscalls.o
- ifeq ($(CONFIG_PERF_EVENTS),y)
- obj-$(CONFIG_EVENT_TRACING) += trace_event_perf.o
-diff --git a/kernel/trace/trace.h b/kernel/trace/trace.h
-index 8fffd10fad53..35f619a1655e 100644
---- a/kernel/trace/trace.h
-+++ b/kernel/trace/trace.h
-@@ -2506,3 +2506,7 @@ static inline int rv_init_interface(void)
- 	})
- 
- #endif /* _LINUX_KERNEL_TRACE_H */
-+
-+#if IS_ENABLED(CONFIG_KUNIT)
-+void ftrace_parse_event_string(char *buf, char **match, char **sub, char **event, char **mod);
-+#endif
-diff --git a/kernel/trace/trace_events.c b/kernel/trace/trace_events.c
-index 4104ccbebf4a..7a491dbe6e81 100644
---- a/kernel/trace/trace_events.c
-+++ b/kernel/trace/trace_events.c
-@@ -25,6 +25,8 @@
- #include <linux/delay.h>
- #include <linux/btf.h>
- 
-+#include <kunit/visibility.h>
-+
- #include <trace/events/sched.h>
- #include <trace/syscall.h>
- 
-@@ -1440,7 +1442,7 @@ static int __ftrace_set_clr_event(struct trace_array *tr, const char *match,
- 	return ret;
- }
- 
--static void
-+VISIBLE_IF_KUNIT void
- ftrace_parse_event_string(char *buf, char **match, char **sub, char **event, char **mod)
- {
- 	*event = NULL;
-@@ -1482,6 +1484,7 @@ ftrace_parse_event_string(char *buf, char **match, char **sub, char **event, cha
- 			*match = NULL;
- 	}
- }
-+EXPORT_SYMBOL_IF_KUNIT(ftrace_parse_event_string);
- 
- int ftrace_set_clr_event(struct trace_array *tr, const char *arg_buf, int set)
- {
-diff --git a/kernel/trace/trace_events_test.c b/kernel/trace/trace_events_test.c
-new file mode 100644
-index 000000000000..515d2e668c31
---- /dev/null
-+++ b/kernel/trace/trace_events_test.c
-@@ -0,0 +1,102 @@
-+// SPDX-License-Identifier: GPL-2.0
-+#include <linux/module.h>
-+
-+#include <kunit/test.h>
-+
-+#include "trace.h"
-+
-+struct parse_event_string_test_case {
-+	const char *input;
-+
-+	const char *match, *sub, *event, *mod;
-+};
-+
-+static const struct parse_event_string_test_case parse_event_string_test_cases[] = {
-+	{
-+		"",
-+		.match	= "",
-+	},
-+	{
-+		"*:event",
-+		.event	= "event",
-+	},
-+	{
-+		":event",
-+		.event	= "event",
-+	},
-+	{
-+		"sub:*",
-+		.sub	= "sub",
-+	},
-+	{
-+		"sub:",
-+		.sub	= "sub",
-+	},
-+	{
-+		"sub:event",
-+		.sub	= "sub",
-+		.event	= "event",
-+	},
-+	{
-+		"match",
-+		.match	= "match",
-+	},
-+	{
-+		":mod:module",
-+		.mod	= "module",
-+	},
-+	{
-+		"sub:event:mod:module",
-+		.sub	= "sub",
-+		.event	= "event",
-+		.mod	= "module",
-+	},
-+};
-+
-+static void
-+parse_event_string_test_desc(const struct parse_event_string_test_case *params, char *desc)
-+{
-+	snprintf(desc, KUNIT_PARAM_DESC_SIZE, "'%s'", params->input);
-+}
-+
-+KUNIT_ARRAY_PARAM(parse_event_string, parse_event_string_test_cases, parse_event_string_test_desc);
-+
-+#define EXPECT_NULL_OR_STR_EQ(test, left, right)		\
-+({								\
-+	if ((left) != NULL)					\
-+		KUNIT_EXPECT_STREQ(test, (left), (right));	\
-+	else							\
-+		KUNIT_EXPECT_NULL(test, (right));		\
-+})
-+
-+static void parse_event_string(struct kunit *test)
-+{
-+	const struct parse_event_string_test_case *params = test->param_value;
-+	char *input, *match, *sub, *event, *mod;
-+
-+	input = kunit_kstrdup(test, params->input, GFP_KERNEL);
-+	if (!input)
-+		kunit_skip(test, "ENOMEM");
-+
-+	ftrace_parse_event_string(input, &match, &sub, &event, &mod);
-+
-+	EXPECT_NULL_OR_STR_EQ(test, match, params->match);
-+	EXPECT_NULL_OR_STR_EQ(test, sub, params->sub);
-+	EXPECT_NULL_OR_STR_EQ(test, event, params->event);
-+	EXPECT_NULL_OR_STR_EQ(test, mod, params->mod);
-+}
-+
-+static struct kunit_case trace_events_test_cases[] = {
-+	KUNIT_CASE_PARAM(parse_event_string, parse_event_string_gen_params),
-+	{}
-+};
-+
-+static struct kunit_suite trace_events_test_suite = {
-+	.name = "trace-events",
-+	.test_cases = trace_events_test_cases,
-+};
-+kunit_test_suite(trace_events_test_suite);
-+
-+MODULE_DESCRIPTION("KUnit test for the event tracing implementation");
-+MODULE_LICENSE("GPL");
-+MODULE_IMPORT_NS("EXPORTED_FOR_KUNIT_TESTING");
-
--- 
-2.55.0
-
+Reviewed-by: Hangbin Liu <liuhangbin@kylinos.cn>
