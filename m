@@ -1,137 +1,99 @@
-Received: from mail-vk1-f181.google.com (mail-vk1-f181.google.com [209.85.221.181])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D7D83A0E88
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 08:46:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D10E3F5BD6;
+	Tue,  8 Sep 2026 08:46:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788857190; cv=none; b=To/RMyZ6FR3hbJlicKt/5vfgmGtxEFx6pqFPmWRYw48/IuudJJqqdusUp1y6PJn66B7I35N08hybM2S9oH9I8iy4oUcVl1KywZ+0Xcoo6Zi3vAmhHRxX2rSYvqVMlsP4pv2QUFoNot6Nv6QpAQEMxo7XV8AAwuT4QAuHVO4QGNU=
+	t=1788857199; cv=none; b=sr92hcfOB2rRdk05sYHaP6NytDzzqwLWAHHvJp9ngJ56LcaCuF/LSiEbZ0sh7Lv6+ynTto7EjSQKIm3HLqypBOuCV1+kmfOEMsImBl3B9hMFzH4Pi1ROu8W0gQlsBmK3upbdbqptFjYsHFgntqW0j1Yarprii4MzbQBhbbyvICU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788857190; c=relaxed/simple;
-	bh=92gyEZZTnYL7xeeh6ZEwBFSKdx2055oIqu0lK/Rebu4=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=UkqSI/UO0xOs5iMIeq+jszvhd0XTYuZNXHmV3QF76a3jaXxIJv7dZpVtdCeN0oqF0QoSFl9b9VyFAWa7PHdSuytT11Uc/5cNDc+AfADblmJfBvmFVbx6t80bVEnQLARk4gX13gkXo3bCjmRS+VdAGFC+tbxXEtnlfVBm4xLLl/I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.221.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-vk1-f181.google.com with SMTP id 71dfb90a1353d-5bf83925ddaso2492481e0c.1
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 01:46:28 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788857188; x=1789461988;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=ApssUKPvTBDPBMVIhSzHAqwCbeQAa06dIhcXYuDQzKs=;
-        b=NDtRPtnIvvfZoIHXMuO8Lo/2AiJnfVLki/ZU+C9/X6KogxS7HZDu7TcvJzvZA9GtVQ
-         Ioli1UPiJlcADLzvtyywwrKkZTzn7MGrAcEvHqnP8u7I0uUyZBqdWaxfO39JpBhNSxPY
-         aGzss6kUJoEcO/Omv1aeKWZPORbnsIK8Er9HZd5RhqLTeC35qkJfBvMepzjLR6UhLiFD
-         zTCJIboXt4Qvl7dSSzU9crPiD451Pk2fzXrfgizwfc7OMg4+hCs0zo56EK6oo63zRToQ
-         M8/Xjgbde5uT2q01xyLvvaPL+EbMp5a6lvfnFT4uS7mCB1F9OBIfwNxDK+Sn5oN8SS6o
-         DmRg==
-X-Forwarded-Encrypted: i=1; AKwUvBziPt5IkzY/lpNApGbCL4iomyBmAbVbun3ZEGD8fxsW9KuQRaXO18PYWgXDia1E4vU4DhH+NPPDV4+ffqM=@vger.kernel.org
-X-Gm-Message-State: AFuF++k69dcqH8VGuZLH+asFTwIEno11PlTPDgVSt8ggmDQwBlrK1HhQ
-	XMYeM6Z8nmnn471wU/fD1kSg1uLfJNbDwv0W9o4IYxTm8sFDSW0sFOakWHIqMHC2
-X-Gm-Gg: AYBFou10S5F9f6sF6lNfu80DvwedlSqf3Oe4xCe8AiG/pcj9+I37Jo4KKk/t/W+luhb
-	bak+jEJ6JbjGTWyXXMUVMin+HVMLL7NRnYyMYq25/i8tIeINWN7jjaDo5gIuSebiYVzj7f7u4mp
-	hXAeWYGr/aMc59eBSd/UXlWpWH9yGa1/n/GAqo2n2pD12R/qgtp7wM9Fhg7X2JaDrQQT0+/FlMj
-	fAgKtpjndcdVRkzTXHP6yor1rKhQPl8G/mdBU+OiahewDOxRbC+JncfFRQ/xJer8cFLPqkOP+KK
-	ovkB+2763aQeyFDIg6Z0kXph8/hcaXlwD5fnlUeSNC1nxRmQwlC1iXExjIczaIUeq0befeH5h8b
-	RzXnYr5VGqOMOA7x61yKZzGPaadJXnMbb3Byfx3C6I3CbYgsNOz6ht+uOwmf5WNsmrfmkMj4sGo
-	1tUi8Z7XR16mC3S5si6U6eLgC8daC5vn19vH8EieEQ+bhbrw7kX6aOpYQMSQ2lA+j9u11mQtu7R
-	VpdKszLlKbwYoKhV0q1W8ZGXU+gwA==
-X-Received: by 2002:a05:6122:f18:b0:5c7:a814:b987 with SMTP id 71dfb90a1353d-5c7ed298f6bmr13384577e0c.2.1788857187910;
-        Tue, 08 Sep 2026 01:46:27 -0700 (PDT)
-Received: from mail-vk1-f181.google.com (mail-vk1-f181.google.com. [209.85.221.181])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5c7ec35d85fsm9598541e0c.12.2026.09.08.01.46.27
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 08 Sep 2026 01:46:27 -0700 (PDT)
-Received: by mail-vk1-f181.google.com with SMTP id 71dfb90a1353d-5c681c2a6a7so1651029e0c.0
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 01:46:27 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvByNMkYuuXu8CsWM0/LbNOrXj+FVD88VI3txPazdWShu+XruKDFnHoqRM2ej2y/n2JP/0wIQ2jYcYzZiiJ4=@vger.kernel.org
-X-Received: by 2002:a05:6122:e189:b0:5c7:a9ee:dcfb with SMTP id
- 71dfb90a1353d-5c7ed3d6e40mr12626919e0c.5.1788857187476; Tue, 08 Sep 2026
- 01:46:27 -0700 (PDT)
+	s=arc-20240116; t=1788857199; c=relaxed/simple;
+	bh=g6pzjrfdtvDH5v6W1HOkv6l/ndJmKaxF6TDrQNpBWHo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=otgnj7s/dPgRcyT+StiSYBk3DQatioKWKiCyPOHlRyZmzJzkgNgkWTEGfyLJoinr1beS8HTySMepLEA1ldn9c0EaeuLDTb/dcAe7F3sMRt3sCWrS031zWgEc4EvC69LaPGzkWRj8tH1OLA/f+zZWIO+crj7Sko+O8shtEP413Y0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PFVEN8Jg; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PFVEN8Jg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 865B01F00A3A;
+	Tue,  8 Sep 2026 08:46:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788857197;
+	bh=pi6DH3h9BVaC49RRQjlI0O6aYCIlCAFAZNGWG1WvFkY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=PFVEN8JgyzdpOjdG910dp2qyUJAFTPtXr0iNqWNr5MagH+H0QrDfVOBmEq6qipxbZ
+	 ++krRlOTWT+r0W+aWIpso/p7i548JDpWtUPeoJ33EH1oE/mskhWZ/+AqLSPidspNYi
+	 Dkv//LMEhgIc1fNBR0aGJJlJPMvUIAZR5n69gc2lMfZBqn8PFIqfVk0MjJvjjM2kwP
+	 tHcZLmXVCGfVFqK07+qnTf1iKO93NehQ/JPShF2pvFi+2TDN4voi2YR/aZhtQVRz6F
+	 FRfIzr2sG6JwXZHfdvK6GP+pqy0lc6TPJtcNCiQI143SWohY2E+jlZWsZWNmiOZXvr
+	 l1DDLcjvqttJA==
+Date: Tue, 8 Sep 2026 09:46:30 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Arnd Bergmann <arnd@arndb.de>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Andrew Morton <akpm@linux-foundation.org>, 
+	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
+	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+	Michal Hocko <mhocko@suse.com>, Hugh Dickins <hughd@google.com>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, "Matthew Wilcox (Oracle)" <willy@infradead.org>, 
+	Jan Kara <jack@suse.cz>, linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
+	linux-fsdevel@vger.kernel.org, linux-kselftest@vger.kernel.org
+Subject: Re: [PATCH 3/6] mm/vma: only permit MAP_PRIVATE /dev/zero to be
+ mapped anonymous
+Message-ID: <ap_LD6lE6JTYouGr@gremlin>
+References: <20260902-map-private-dev-zero-v1-0-a578c730cec7@kernel.org>
+ <20260902-map-private-dev-zero-v1-3-a578c730cec7@kernel.org>
+ <d6dc52e3-b27d-4663-848c-a2f270fb4c5d@kernel.org>
+ <ap71GOPAeKHfHp5J@gremlin>
+ <8f797f01-e958-404e-bcdf-283da960e95c@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260906140134.492084-1-marek.vasut+renesas@mailbox.org>
-In-Reply-To: <20260906140134.492084-1-marek.vasut+renesas@mailbox.org>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Tue, 8 Sep 2026 10:46:16 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdXKr-2+_kcCd8hSB84=AZpmOtDt2-Dxpgiewyg+67O+fw@mail.gmail.com>
-X-Gm-Features: AcwNN1X8I3PAUGIRvp1JcLzwLyyr5hfRt4h4h2_fZyfEgH0XnWVqbEIcNTcm87E
-Message-ID: <CAMuHMdXKr-2+_kcCd8hSB84=AZpmOtDt2-Dxpgiewyg+67O+fw@mail.gmail.com>
-Subject: Re: [PATCH] arm64: dts: renesas: r8a779h0: Add GICv3 ITS and update
- PCIe node
-To: Marek Vasut <marek.vasut+renesas@mailbox.org>
-Cc: linux-arm-kernel@lists.infradead.org, Conor Dooley <conor+dt@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Magnus Damm <magnus.damm@gmail.com>, 
-	Rob Herring <robh@kernel.org>, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-renesas-soc@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <8f797f01-e958-404e-bcdf-283da960e95c@kernel.org>
 
-Hi Marek,
-
-On Sun, 6 Sept 2026 at 16:01, Marek Vasut
-<marek.vasut+renesas@mailbox.org> wrote:
-> This SoC implements GIC600 with GICv3 ITS and PCIe host mode on this
-> SoC can use it. Add GIC ITS node into GIC node, update interrupt-map
-> and add msi-map into PCIe controller node.
+On Mon, Sep 07, 2026 at 09:54:04PM +0200, David Hildenbrand (Arm) wrote:
+> Yes, but my point is that the comment
 >
-> The GIC ITS does have master interface to issue transactions to RAM.
-> The interface does support cacheable transactions, however, it does
-> not support shareable attribute, because the AXI port signals are tied
-> to inactive in this implementation. Therefore, add "dma-noncoherent"
-> DT property into the GIC ITS subnode.
+> "cannot mark themselves anonymous"
 >
-> The GIC redistributor does not have cacheable/shareable, therefore
-> add "dma-noncoherent" DT property into the GIC node.
+> will not really be correct after the next patch, no?
+
+Ah ok ack I get your point. I will update this comment in the next patch.
+
+> >>>  		set_vma_user_defined_fields(vma, &map);
+> >>
+> >> Ah, we have mmap_zero_prepare() for handling the shmem_zero_setup_desc(). I was
+> >> just about to ask whether we can just get rid of this here.
+> >>
+> >>
+> >> But, hold on, do we now even need that? Could core-mm now take care of that as
+> >> well, and we could just remove mmap_zero_prepare() entirely?
+> >>
+> >> That is, we'd make shmem_zero_setup() in __mmap_new_vma() take care of this?
+> >> Then we might not even need shmem_zero_setup_desc() anymore.
+> >>
+> >> Maybe harder than it sounds at first.
+> >
+> > I think I'd rather that be a follow up :) this series is about eliminiating the
+> > one last (I hope?) corner case for anon VMAs.
+> Right; having to deal with anonymous mappings that have mmap_prepare is rather
+> suboptimal. Ideally we'd just handle the odd dev-zero special-casing early in
+> the mmap path also for MAP_SHARED, and avoid messing with mmap_prepare entirely.
 >
-> Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
+> So agreed that this can be done separately.
 
-Thanks for your patch!
+Yeah, really life will be easier once the mmap path is gone in general :)
 
-As I am not PCIe DT expert, I am comparing this to the corresponding
-patch for R-Car V4H, which I have already queued as commit
-7fe73a3a3f2c3718 ("arm64: dts: renesas: r8a779g0: Add GICv3 ITS and
-update PCIe nodes") in renesas-devel, but which probably needs some
-updates.
-
-> --- a/arch/arm64/boot/dts/renesas/r8a779h0.dtsi
-> +++ b/arch/arm64/boot/dts/renesas/r8a779h0.dtsi
-> @@ -691,6 +691,8 @@ pciec0: pcie@e65d0000 {
->                         resets = <&cpg 624>, <&cpg 1121>;
->                         reset-names = "pwr", "core";
->                         max-link-speed = <4>;
-> +                       msi-parent = <&its 0>;
-
-This has an extra cell "0", which is probably correct, given
-"#msi-cells = <1>" below.
-
-> +                       msi-map = <0x0 &its 0x0 0x10000>;
-
-This is not present on R-Car V4H (which is probably wrong).
-
-Interestingly, Documentation/devicetree/bindings/pci/pci-ep.yaml
-documents msi-map for endpoint node, so should it be added to the
-pcie-ep node, too?
-
->                         num-lanes = <2>;
->                         #address-cells = <3>;
->                         #size-cells = <2>;
-
-Gr{oetje,eeting}s,
-
-                        Geert
-
+>
+> --
+> Cheers,
+>
+> David
 
 --
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+Cheers, Lorenzo
