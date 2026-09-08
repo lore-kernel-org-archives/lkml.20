@@ -1,78 +1,82 @@
-Received: from mail-pg1-f177.google.com (mail-pg1-f177.google.com [209.85.215.177])
+Received: from mail-pf1-f169.google.com (mail-pf1-f169.google.com [209.85.210.169])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 490AD559C9A
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 16:51:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52FB957C729
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 16:51:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788886266; cv=none; b=fdNfheG2w/UHUoMzPp5qbBKW+RIwCEet092HksVhKFa7tKoEnHQ5w+N3AdH+ut7FZ4Y40NXGpHm/VdJzmLueRjAsMqjixV3gjBM+rkd231wLyfyrM9VvC0rXB3VORvqFDa8V4PWm82NWUdLRRS4w/luTYkQVsXZV6f2h55741m4=
+	t=1788886284; cv=none; b=XXVp0XpbcLX3AZ0M9DTTb4H1ySIehtIoI9ViAyJkTTkE4BnRarQX2YWWY2KQNtGSrZiREBxIxplvwJLfrJmmFpwv00iKq0mtxp+fhv2p5rmu5G258m30DGSTuJbRDg6QO2JcBoY9bvAjomhmFL/3eX2xqQFnDJe7V/6R9l3qFSg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788886266; c=relaxed/simple;
-	bh=//Xd2E9Et0LpJ/htgFKkYKCvZz8Q8y6Fs3nOUuaKX1w=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=s8QsmsE9zALQujPxNR53G2I8ybl0Q0o2FTUadAL1xvF5iIZ42x04sMunQvsI4iWc8pk+8ORx92qSSBmDxtZZt2YsGgkGi/Gr5b9xBIRBFpam+N8UQAIyTp1trY42j1jBXr++61zULd6TyDBlx2zPahhvpOOZHfRKG1c0d63qNTI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JDpwWrG0; arc=none smtp.client-ip=209.85.215.177
+	s=arc-20240116; t=1788886284; c=relaxed/simple;
+	bh=UfQvBvSuxFTjQyo4ge7nD5KznVnWw+/9dkfp9bppCVY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=fkDBm1UQRZP05lwSdyakcE8fvmj7p7UN9+UjGobM1A2Py+6IjujTjCkKU6NAEgp5uBqGDWwCEtZm+c3dvq4x2La+MxcTNVPGxfgiwW2eNdLsJCsKS78JocJ+N+Ps/AxjSDyUOovQICa3jl5yAeOEpbvuaErPjBdoHqPfgdgVT3w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=L+C5l1zo; arc=none smtp.client-ip=209.85.210.169
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JDpwWrG0"
-Received: by mail-pg1-f177.google.com with SMTP id 41be03b00d2f7-cc439aa0078so4061155a12.0
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 09:51:05 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="L+C5l1zo"
+Received: by mail-pf1-f169.google.com with SMTP id d2e1a72fcca58-853e2610bb4so3642221b3a.0
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 09:51:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788886265; x=1789491065; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788886282; x=1789491082; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=y8ZA0hxlEL612Yt3BdEYa97uIj05iqxTvv5XFoK7oW4=;
-        b=JDpwWrG0dJ1WfudmT6ZYZBO+YXA3kN9D9ZBeVCdG0Yjbk8VRv369FJJf/3oCqnl14w
-         olewqGgcFQZWfIeEECsTBBeAtH5kwfAxphFGOaM3o3/BeSACTcagmI0lun+HE8I3QndP
-         XPWRSjztiGT3bXfVJfpZja4MT5UQwKy6bgHOVQvuBbUEoJFJ98jxH0tnkkWYpcGc8fLE
-         4jqQwkk83Zt60oi5SP/uO/gE6gqHYQ+R4Gc9KXceVBZc2YkbraL9LGULF0w8qsvkk1r1
-         HfebQ0ye65IFdwvl65bN22gzvkEzJSg8uSsSJe704tuFG5w1zSwNtSyg98EQobgxzSIA
-         iIFQ==
+        bh=llq/+G51IPyNePo3r5tJVqAdU0RXFNXMCuQq3OACrvE=;
+        b=L+C5l1zo0hlH7lW+ewtEA7Bl/X41puccls3vD4KXP4PTteMTnAKdvEgXBF+yyeAdc7
+         kgvBOF4VueGQZXDuT17ZKm3MwyA7t07zECLeFWw0yo0c6tup5EGG8Wi+RDsV+trwhDD8
+         /don2ozN9KwpTBDO95zO3w7VDSjIn7xM+cNWmW23a2pmb7Y5VqhIJ8BF+VAyv3Hlxe9t
+         1AZ0GKWeqcr7DuSjhDid6TsDoQeM2KpW/GrVsreXYCzWE1erEuvt2s1R/h/Lp8i/+12/
+         YK1bSfGkg4okeUZTZotEW1DrQ9+noqHaWOwsjNEc7yJksBT8CnuPw7KRv5ShxIbMTU6k
+         oRdQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788886265; x=1789491065;
+        d=1e100.net; s=20251104; t=1788886282; x=1789491082;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=y8ZA0hxlEL612Yt3BdEYa97uIj05iqxTvv5XFoK7oW4=;
-        b=oLBrFhRFjtGlygSrKcSBECjI7nPGMMnu5X0r6ME9U2sV3W2gVTrdsykG98AfDaSMpS
-         XGVPo7HR4A3Qz58BBiToXSV/Kca05jobZSDi61lz5Wjpp1WCf+UKMFoDbkporsOJSm7O
-         jwTwOUiehlDiJIBFKxOZ0G29LPk/Y79aAfWhHUIHTxzc9/nRsQR5LxxNBs+Kl3/Sx16L
-         oIxugBP6Ffbq380sjn5hAQzwMFOKKRCFsykN9XJus2sQrYd0EwgtHlUZY1F6/rTbCXFT
-         08nzmeu2WVeFzZ5vdETuTejdn8ZE3npFjdkNQ2KJOjjwM0bpFvWazazV22s90qJSUOkv
-         /Nbg==
-X-Forwarded-Encrypted: i=1; AKwUvBzdsIEZPs7IZ7/Rgpq6b+sEUqN3dKiouBPpmy+UyF1afxdb3IH1ZCfMzWHImE2S5NbjT0hjQeiiUoBkNlo=@vger.kernel.org
-X-Gm-Message-State: AFuF++m/05ew7uqy78aJLHg/72gPzeaG30/Zgo7g+SeKeqUINNtI4DRh
-	LDXK/nY/UcBYfjADrLu3SPXnyYrrYFm5BUwQdLtn+pEQEmavrlEm9SrK
-X-Gm-Gg: AYBFou1Od6VBfdwXxGS9C+2EzgKxjWuHZIcvJO9vI6Dz1n+OA0WQb9tOkU4Y/bWEZLR
-	FBhdDZfT+qHSGz4A8Erolh/CMwN5MDHkNn+ySFtR4bw96IWJHM/2FVcWCSiMUAwfujNu1PH1KRq
-	XFDmb2EhfLoj103s288kt1LCzJ0JZjGbCU/lMhqRPAH/bmPL+ropN3TRSiVW9GQamdE9PSff5cd
-	HT3ZJrArwh96VotPQoYzim7fo/T2LgxdS6FTgTR24NqjU8u0jNwUL0wj6jtHVokBgHHwIy+UEWE
-	/lYdzD2k9yXoEO3pzrvRDlVj4F8JrmxiV7m6UnTpEtZdLG+4Ve/2eiA0cZSh8KkIuWAzta/wRgY
-	Xm3I3qdTQax3uXYUDIpKi1OLantr32ZKCHorPzQeeDn9HZojR+BYfbPZtCr8Et/7/lt17tDcC4H
-	mPjOL5kqD28UlKBS1fpYsyX7kv2FLZ88wDHhysW8fa5MP9uqzfA3tazyCWuhsDilZgsgqAGcMHR
-	BMl3eXBixkmEQ==
-X-Received: by 2002:a17:90b:4c06:b0:396:b98b:a3c2 with SMTP id 98e67ed59e1d1-39b26116d9fmr39048348a91.8.1788886264478;
-        Tue, 08 Sep 2026 09:51:04 -0700 (PDT)
-Received: from LAPTOP-450UDG4J ([223.185.135.143])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b26155324sm26567910a91.17.2026.09.08.09.50.59
+        bh=llq/+G51IPyNePo3r5tJVqAdU0RXFNXMCuQq3OACrvE=;
+        b=QInCu8PowmyrY1PC+FBThF66A2dWRQKFCQSvyLkzLK5HwdHILrb5Wg9pQuOLjDFNCD
+         yXllHCFqY260PEUYDKOqCENLAF/iccMnfXgIWSFOJ7iUygRChHYlGXwukC7eIAKdhgOQ
+         VH9fm0Ay5F1SfnJFyeLxFxC5nlqUH0G3uie7LgyfC+4ZR8gOeq7i0IFCbCCM3JOOWZgK
+         oiYNORygdOY3OZcpObloT2MD+Bv1ky2tmLy3CCniue1yEpFqgPK5Ss45NTpwG08sb0Vq
+         KT9vsl8NHUGjMstDhld1A0ZCu3PQ0d33aH74gaQzUclqNgh1mvt30Xf6kOrRqxMBX28a
+         n1lA==
+X-Forwarded-Encrypted: i=1; AKwUvBwY8D6v0hIqUHixg/Z37lbViAlikyZhqiCQ/G8qNbVvXGE2cKmaL/uFVOW1tx+3jV1N6oiRGVbk3sHYsw4=@vger.kernel.org
+X-Gm-Message-State: AFuF++lla1/esbz0NSYBvQvIkOz4AhWNiOzohRq7P4SD8uyGQwf84bUg
+	CwcbnemrhKD8nMaahTYuE79vETBpJZGOQIyU3FatygvzDYS4veFTlcJf
+X-Gm-Gg: AYBFou1r4um2lL5gxpHwWv7zbyv15fX6p9M4lcjRk0qVhmV/5n07XSrWqzhJRnqeDGG
+	sfaNAlWhrOjEM7Eyj1vJ7aW2I40e9LwyIbX0fTvmCxP371ygenp1xd9Nc7gqTz7zL46unvuH0jc
+	z0nQx3oBasqdV+qav2FBRQrpmS0deO1lO0hlrH4CpwkLj8WMkTv8UqYiHgo1pb9AJGcnMKeKsiX
+	OfRdjmk76J1vQgtXSmIvyjuNialCFXpCH8hV7eDqTCryHakJw/E5DnljcBPEf+l+EKpUqmXm3Y6
+	zzW+GHW36aoxdh99xzMcepxv5jCt6yWaMW9WNlpOM/SfFp3REfAWmc8TDFiKV3ixvTSKOz4aozY
+	qQIUl5bSLbdM7j+CX5REDbxw9BEoRvWZ/yX/65e4mUkkFe+ORNkfSACWVmlsOSqkhXXmc/j5Z/U
+	xSqCunU1UR4DqpMTQ918If0V1B5+4hGWMuZrjZzQJ0xRXl1o/fpxKTDETKbLYqx+2jnHsLaM2lK
+	7owFxzgwHGNjSaSCU/N
+X-Received: by 2002:a05:6a20:cf83:b0:3d2:ee7a:eba9 with SMTP id adf61e73a8af0-3da213cae76mr40530496637.4.1788886282481;
+        Tue, 08 Sep 2026 09:51:22 -0700 (PDT)
+Received: from 192.168.50.3 ([183.193.115.0])
+        by smtp.googlemail.com with ESMTPSA id 41be03b00d2f7-cc455451bc0sm5851334a12.19.2026.09.08.09.51.17
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 08 Sep 2026 09:51:03 -0700 (PDT)
-From: Yogesh Gaur <yogeshgaur.83@gmail.com>
-To: Ulf Hansson <ulfh@kernel.org>
-Cc: linux-mmc@vger.kernel.org,
+        Tue, 08 Sep 2026 09:51:21 -0700 (PDT)
+From: Weiming Shi <bestswngs@gmail.com>
+To: Florian Fainelli <florian.fainelli@broadcom.com>,
+	Jonas Gorski <jonas.gorski@gmail.com>,
+	Andrew Lunn <andrew@lunn.ch>,
+	Vladimir Oltean <olteanv@gmail.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>
+Cc: netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Johan Hovold <johan@kernel.org>,
-	Runyu Xiao <runyu.xiao@seu.edu.cn>,
-	Guangshuo Li <lgs201920130244@gmail.com>,
-	Tony Olech <tony.olech@elandigitalsystems.com>,
-	Chris Ball <cjb@laptop.org>,
-	Yogesh Gaur <yogeshgaur.83@gmail.com>,
-	syzbot+f4a0159ce6802a0a4774@syzkaller.appspotmail.com,
-	syzbot+1ee4f3b9228e35f14677@syzkaller.appspotmail.com
-Subject: [PATCH] mmc: vub300: never tear the host down from the inactivity timer
-Date: Tue,  8 Sep 2026 22:20:50 +0530
-Message-ID: <20260908165050.1930-1-yogeshgaur.83@gmail.com>
-X-Mailer: git-send-email 2.55.0.windows.5
+	=?UTF-8?q?=C3=81lvaro=20Fern=C3=A1ndez=20Rojas?= <noltari@gmail.com>,
+	Xiang Mei <xmei5@asu.edu>,
+	co+28eef7d8af9428e6@bugs.sh,
+	stable@vger.kernel.org
+Subject: [PATCH net] net: dsa: tag_brcm: legacy FCS: request needed tailroom
+Date: Wed,  9 Sep 2026 00:50:47 +0800
+Message-ID: <20260908165047.2786340-1-bestswngs@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -81,143 +85,58 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-vub300_probe() takes a second kref reference on behalf of the inactivity
-timer and arms it:
+The legacy FCS tagger calculates the CRC over skb->len bytes starting at
+skb->data. When a nonlinear skb reaches the tagger, this reads past the
+linear head into unrelated slab memory.
 
-	kref_init(&vub300->kref);
-	...
-	kref_get(&vub300->kref);
-	timer_setup(&vub300->inactivity_timer,
-		    vub300_inactivity_timer_expired, 0);
-	vub300->inactivity_timer.expires = jiffies + HZ;
-	add_timer(&vub300->inactivity_timer);
+The tagger appends an Ethernet FCS but does not declare that tailroom. As a
+result, DSA leaves NETIF_F_SG and NETIF_F_FRAGLIST enabled on the user
+port, and nonlinear skbs can reach the CRC calculation.
 
-and expects the timer to release that reference from its own expiry
-function, once it observes that vub300->interface has been cleared:
+Declare the required tailroom. DSA will then clear those features and the
+networking core will linearize skbs before the tagger runs.
 
-	if (!vub300->interface) {
-		kref_put(&vub300->kref, vub300_delete);
-	} else if (vub300->cmd) {
+A KASAN-enabled dsa_loop test using this tagger reports:
 
-That is wrong in both directions, because the expiry function runs in
-softirq context.
+  BUG: KASAN: slab-out-of-bounds in crc32_le
+  Read of size 1 at addr ffff8880397086c0 by task exp/135
 
-If the timer happens to hold the last reference, the kref_put() runs
-vub300_delete() -> mmc_free_host() -> cancel_delayed_work_sync(), which
-sleeps. The ->probe() error path arranges exactly that: it clears
-->interface and drops only its own reference, leaving the timer armed
-and owning the last one.
+  Call Trace:
+   crc32_le (lib/crc/crc32-main.c:38)
+   brcm_leg_fcs_tag_xmit (net/dsa/tag_brcm.c:343)
+   dsa_user_xmit (net/dsa/user.c:942)
+   dev_hard_start_xmit (net/core/dev.c:3937)
+   __dev_queue_xmit (net/core/dev.c:4926)
+   packet_sendmsg (net/packet/af_packet.c:3110)
+   __sys_sendto (net/socket.c:2281)
 
-	BUG: sleeping function called from invalid context at kernel/workqueue.c:4487
-	in_atomic(): 1, irqs_disabled(): 0, non_block: 0, pid: 191, name: kworker/0:2
-	Call Trace:
-	 <IRQ>
-	 __might_resched.cold+0x1ec/0x232 kernel/sched/core.c:9197
-	 __cancel_work_sync kernel/workqueue.c:4487 [inline]
-	 cancel_delayed_work_sync+0xb8/0xf0 kernel/workqueue.c:4568
-	 mmc_free_host+0x19/0x30 drivers/mmc/core/host.c:700
-	 vub300_delete drivers/mmc/host/vub300.c:379 [inline]
-	 kref_put include/linux/kref.h:65 [inline]
-	 vub300_inactivity_timer_expired drivers/mmc/host/vub300.c:747
-	 call_timer_fn+0x11f/0x610 kernel/time/timer.c:1745
-	 </IRQ>
+  The buggy address belongs to the object at ffff888039708400
+   which belongs to the cache skbuff_small_head of size 704
+  The buggy address is located 0 bytes to the right of
+   allocated 704-byte region [ffff888039708400, ffff8880397086c0)
 
-If instead the timer drops its reference and stops rearming, one of the
-mod_timer() calls in the command and dead work threads can arm it again
--- those do not take a reference of their own. The kref_put() in
-vub300_disconnect() then drops what is now the last reference and
-vub300_delete() frees the host together with the still armed timer
-embedded in it.
-
-	ODEBUG: free active (active state 0) object: ffff88803cd81420 object type: timer_list hint: vub300_inactivity_timer_expired+0x0/0x3f0
-	WARNING: lib/debugobjects.c:632 at debug_print_object+0xec/0x230 lib/debugobjects.c:629
-	Call Trace:
-	 <TASK>
-	 debug_check_no_obj_freed+0x2e3/0x450 lib/debugobjects.c:1201
-	 kfree+0x13e/0x6d0 mm/slub.c:6792
-	 kobject_put+0x222/0x550 lib/kobject.c:737
-	 vub300_delete drivers/mmc/host/vub300.c:379 [inline]
-	 vub300_disconnect+0x280/0x2f0 drivers/mmc/host/vub300.c:2388
-	 usb_unbind_interface+0x295/0x9f0 drivers/usb/core/driver.c:458
-	 usb_disconnect+0x32d/0x990 drivers/usb/core/hub.c:2345
-	 hub_event+0x1bb7/0x4cf0 drivers/usb/core/hub.c:5961
-	 </TASK>
-
-Take the timer out of the reference counting altogether. The expiry
-function no longer inspects ->interface and no longer drops a reference;
-it just queues the dead work and rearms as before. Both teardown paths
-now call the new vub300_stop_inactivity_timer(), which runs
-timer_shutdown_sync() from process context and then drops the reference
-that ->probe() took for the timer. timer_shutdown_sync() additionally
-turns any later mod_timer() into a no-op, so the work threads can no
-longer resurrect the timer, and vub300_delete() only ever runs somewhere
-it is allowed to sleep.
-
-vub300_deadwork_thread() has the same "->interface is NULL, so put the
-reference" shape, but it runs in process context and releases the
-reference that vub300_queue_dead_work() took for it, so it is left as
-is.
-
-Fixes: 88095e7b473a ("mmc: Add new VUB300 USB-to-SD/SDIO/MMC driver")
-Reported-by: syzbot+f4a0159ce6802a0a4774@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=f4a0159ce6802a0a4774
-Reported-by: syzbot+1ee4f3b9228e35f14677@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=1ee4f3b9228e35f14677
-Signed-off-by: Yogesh Gaur <yogeshgaur.83@gmail.com>
+Fixes: ef07df397a62 ("net: dsa: tag_brcm: add support for legacy FCS tags")
+Cc: stable@vger.kernel.org
+Reported-by: co+28eef7d8af9428e6@bugs.sh
+Closes: https://lore.kernel.org/all/jH6u350kaBRuqklDjd3k3BW4nWzp0tYRjq3p%40bugs.sh/
+Assisted-by: Claude:gpt-5
+Signed-off-by: Weiming Shi <bestswngs@gmail.com>
 ---
- drivers/mmc/host/vub300.c | 24 +++++++++++++++++-------
- 1 file changed, 17 insertions(+), 7 deletions(-)
+ net/dsa/tag_brcm.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/mmc/host/vub300.c b/drivers/mmc/host/vub300.c
-index 2dae474dcd06..b8e72a054439 100644
---- a/drivers/mmc/host/vub300.c
-+++ b/drivers/mmc/host/vub300.c
-@@ -743,14 +743,22 @@ static void vub300_inactivity_timer_expired(struct timer_list *t)
- {				/* softirq */
- 	struct vub300_mmc_host *vub300 = timer_container_of(vub300, t,
- 							    inactivity_timer);
--	if (!vub300->interface) {
--		kref_put(&vub300->kref, vub300_delete);
--	} else if (vub300->cmd) {
--		mod_timer(&vub300->inactivity_timer, jiffies + HZ);
--	} else {
-+	if (!vub300->cmd)
- 		vub300_queue_dead_work(vub300);
--		mod_timer(&vub300->inactivity_timer, jiffies + HZ);
--	}
-+
-+	mod_timer(&vub300->inactivity_timer, jiffies + HZ);
-+}
-+
-+/*
-+ * Stop the inactivity timer and drop the reference that ->probe() took on its
-+ * behalf.  Must be called from process context: once timer_shutdown_sync() has
-+ * returned the timer can neither run nor be rearmed by the mod_timer() calls
-+ * made from the command and dead work threads.
-+ */
-+static void vub300_stop_inactivity_timer(struct vub300_mmc_host *vub300)
-+{
-+	timer_shutdown_sync(&vub300->inactivity_timer);
-+	kref_put(&vub300->kref, vub300_delete);
- }
+diff --git a/net/dsa/tag_brcm.c b/net/dsa/tag_brcm.c
+index 411e3b57d16af..b7c49822ca888 100644
+--- a/net/dsa/tag_brcm.c
++++ b/net/dsa/tag_brcm.c
+@@ -373,6 +373,7 @@ static const struct dsa_device_ops brcm_legacy_fcs_netdev_ops = {
+ 	.xmit = brcm_leg_fcs_tag_xmit,
+ 	.rcv = brcm_leg_tag_rcv,
+ 	.needed_headroom = BRCM_LEG_TAG_LEN,
++	.needed_tailroom = ETH_FCS_LEN,
+ };
  
- static int vub300_response_error(u8 error_code)
-@@ -2350,6 +2358,7 @@ static int vub300_probe(struct usb_interface *interface,
- 
- err_stop_io:
- 	vub300->interface = NULL;
-+	vub300_stop_inactivity_timer(vub300);
- 	kref_put(&vub300->kref, vub300_delete);
- 
- 	return retval;
-@@ -2384,6 +2393,7 @@ static void vub300_disconnect(struct usb_interface *interface)
- 			usb_set_intfdata(interface, NULL);
- 			/* prevent more I/O from starting */
- 			vub300->interface = NULL;
-+			vub300_stop_inactivity_timer(vub300);
- 			mmc_remove_host(mmc);
- 			kref_put(&vub300->kref, vub300_delete);
- 			pr_info("USB vub300 remote SDIO host controller[%d]"
+ DSA_TAG_DRIVER(brcm_legacy_fcs_netdev_ops);
 -- 
-2.55.0.windows.5
+2.55.0
 
