@@ -1,297 +1,309 @@
-Received: from mx0a-00128a01.pphosted.com (mx0a-00128a01.pphosted.com [148.163.135.77])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f171.google.com (mail-pg1-f171.google.com [209.85.215.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F023396597;
-	Tue,  8 Sep 2026 07:25:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.135.77
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CA45376A1E
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 07:26:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788852317; cv=none; b=mX7OWinkL9sLJAyKRfONtD7mZu+bMx79K0DxhmjlA0qszl/wsaIizt8JxOhJLhHy3aVK8lqj//NgaSeJRaBUwBeTDAXVnZo9qJnfMmbtBy9jnj4VxSWJpgeBFYqCxlFrPB9G2oINg5YEg2fDBMVaZIlgLphFDXZhQYPY8kSALIw=
+	t=1788852371; cv=none; b=MPSm4b+vGx0XDCvACJEC7jOQMa/AQ+ywb84TMP3U8y3DNrXTFEwQ9JET9+kwuCD8O9J4IFiplrhtCFEGQDdF9CGAWnu27DK2pwqygciTEgXQ8r7JA5POCpS+cvUsTxv364OVcvRyvv7NOicMWAh5B99kbhhluv+cmWlc6Fl6ZuE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788852317; c=relaxed/simple;
-	bh=l+Eony3UuqYY0Z+qZgt4P9TCjcM6pbMWWjgi+x/jxa8=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
-	 In-Reply-To:To:CC; b=V0MeJohK+z3BfOXxxfaxIcuPpOaM5HM8R6q7wOL1gZygRNOQS1ET8peWtbwWh+GoT+C56F0DHU/h4+XaRmcIAioTBzUW80qNH320uIbQfJoUe1f0/nlhuWr/Kmq5/JyVhpDHVqX5JxJSxpve1iktAdAsADNzHYUbHl6wWJPY5u4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com; spf=pass smtp.mailfrom=analog.com; dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b=WjzhKaTg; arc=none smtp.client-ip=148.163.135.77
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
+	s=arc-20240116; t=1788852371; c=relaxed/simple;
+	bh=g2N7u5+KpCZU0GkwFtMcLt92bYHgv/NW9aruaK0B2Ko=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=bXJQvTYRBM3snaS2OQ9jXDonQhwGZcWKUV3xCGCq/MUMGU4TzqVo843ozugfIwGG8EJ3BDK6W4pag96rG9VMsIqqsEosqtdQ+me0VgeWN+AwQ0ScKmgB45IrRqCEdF6wnAHNd4rbhtpeIVWrRjxpgEmJ7HuM4THFTr7KNYxuiro=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=aicharmers.com; spf=fail smtp.mailfrom=pythoncharmers.com; dkim=pass (2048-bit key) header.d=aicharmers.com header.i=@aicharmers.com header.b=DS6LBNRH; arc=none smtp.client-ip=209.85.215.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=aicharmers.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=pythoncharmers.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b="WjzhKaTg"
-Received: from pps.filterd (m0516787.ppops.net [127.0.0.1])
-	by mx0a-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6886RaXD1884298;
-	Tue, 8 Sep 2026 03:25:10 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=DKIM; bh=j/Swa
-	lTTNkhfhIHJjX5eNE0kNrAtrLo17uwB+pFIWqQ=; b=WjzhKaTgF/dDQioIncxiN
-	StYTn8kxmJ18RElytCIu0zh7/7HjsnMhy09TafSl/mecJVUUz6V6rM4+6ELTKVFT
-	snZnrA4vv8UgnkTbvzibUOTcvCmAOc8OkTqs9YXl4n+L9NnQBkCQyfUbVAzcuy9f
-	/E8x7efT2oBpE6DcvPNaL2iihJXtPWNcy36mkmqxsoL3NZ/hF/jGxcqhI3IgNb3H
-	i2ac0Gi/hE9u/A4Kmhbiq+pHPNDskq2+nM1PCtDaYvEDnXMsDc+YrkvodWLRmO+r
-	ltGDwW9DoEGmPO6bUSWdapEcHN4eAwnKmLAyl1pXdiBhwSnTBiy9ZBcW0G8ioTWW
-	Q==
-Received: from nwd2mta4.analog.com ([137.71.173.58])
-	by mx0a-00128a01.pphosted.com (PPS) with ESMTPS id 4gh4dg835k-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 08 Sep 2026 03:25:10 -0400 (EDT)
-Received: from ASHBMBX9.ad.analog.com (ASHBMBX9.ad.analog.com [10.64.17.10])
-	by nwd2mta4.analog.com (8.14.7/8.14.7) with ESMTP id 6887P9E7039609
-	(version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Tue, 8 Sep 2026 03:25:09 -0400
-Received: from ASHBCASHYB4.ad.analog.com (10.64.17.132) by
- ASHBMBX9.ad.analog.com (10.64.17.10) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1748.37; Tue, 8 Sep 2026 03:25:09 -0400
-Received: from ASHBMBX9.ad.analog.com (10.64.17.10) by
- ASHBCASHYB4.ad.analog.com (10.64.17.132) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1748.37; Tue, 8 Sep 2026 03:25:09 -0400
-Received: from zeus.spd.analog.com (10.66.68.11) by ashbmbx9.ad.analog.com
- (10.64.17.10) with Microsoft SMTP Server id 15.2.1748.37 via Frontend
- Transport; Tue, 8 Sep 2026 03:25:09 -0400
-Received: from HYB-e1y2fvUQ3cx.ad.analog.com (HYB-e1y2fvUQ3cx.ad.analog.com [10.44.3.59])
-	by zeus.spd.analog.com (8.15.1/8.15.1) with ESMTP id 6887Ot8f016290;
-	Tue, 8 Sep 2026 03:25:05 -0400
-From: Janani Sunil <janani.sunil@analog.com>
-Date: Tue, 8 Sep 2026 09:24:54 +0200
-Subject: [PATCH v7 3/3] gpio: ad7768: Add AD7768 GPIO auxiliary driver
+	dkim=pass (2048-bit key) header.d=aicharmers.com header.i=@aicharmers.com header.b="DS6LBNRH"
+Received: by mail-pg1-f171.google.com with SMTP id 41be03b00d2f7-cc1cc1b42b5so4304714a12.2
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 00:26:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=aicharmers.com; s=google; t=1788852369; x=1789457169; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=9p6gnFadNyB/qeih9jsIAGctpC57sjAwmCrr2gNlVmQ=;
+        b=DS6LBNRHnQxgDHLf3+T69GtXYZ+tSbGiLSetZi7V73S/KnV4Y7zr3kAyespQNsVkUz
+         uInLtBmhUWdED3gLcLwfBuB/fC/3kV32r4dwNASu7ufrt5q3KrqXmX0KEYhyvDdme1Kx
+         S5W8wf8SxENSyvKdC9byQseLc65jPM1+p+/DN0jnzErra0zfuuzPU57mmDkLliIIZABV
+         gybdBgiBJQN5JMbD/fCUDmlUICc+cKrLdu24j4dz6Ob1BNI5YQtpd//2eUvIyZdN1XZN
+         mNnQMXuCwcQiOZXWcv6vNMIdHC1j3rq+aLxX+cAtUVOwAEqax7Yj822CN/rd7eJklhGS
+         T8aQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788852369; x=1789457169;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=9p6gnFadNyB/qeih9jsIAGctpC57sjAwmCrr2gNlVmQ=;
+        b=qNnEYYgYxaqBB3+DpcV9emn4EzOHqXHeZo4/emTUn/4XbO0KUbA7EYplPiobMXxWT4
+         0Bqu70y9Sx7PmCfXss1ffUwkSG4DpnJItaXVqzBm4O+OltcrCkmrCiv3d5Dvg29383cG
+         hEjUeYpKUY7bWlJ/Tz/liUUW65Ne/UA+Ft2MsNFB3wXrwDZxg5+iG4FHo52BW64avn2e
+         06CWK62sEvpVhUrkWjhe6SQTBfCnv8z/d8ZyQnNp6+DRV3O+EkyfbXYmOoyYe/o5ZYvG
+         qulHmK3c89jRA+zU9JlVaGR/MSX0jFgV1FKt5zyqHMNmYRm4CX8CCPq2ksoCf5+AjTN3
+         /vqA==
+X-Forwarded-Encrypted: i=1; AKwUvByrDgD10e4+d+hi25VCAcQaejRhOleP0q3PSnWueF/FVKou4wccs2YyJDYwAf0My8pasrjeF1yzsbCKUGI=@vger.kernel.org
+X-Gm-Message-State: AFuF++lJInj7oD16AA1bT/WpJx2EqhehUfTT8yHy7dtUqtRhba579Bsi
+	R1YEAXMMpbioVdtuQmUHtFX7wNZxnSeuGJ03sk/DfyZ1ko+oYbHkRKUiluFV0vf9G1Q=
+X-Gm-Gg: AYBFou0CkW8zTP3KNBvdDWh2YITbBsQ3cAlaHaSOEMxAo+Z9Uymert/Cdo7b7969a6A
+	sFFhJZAi1QDdG9S4ielY+/N4IsF3DJipJq23FqulQHGT6kymK8s071O/ufkJZP9RoLyUUPcblGa
+	SkbOmMv3vvRMK/KAnStCuFYAieRYDBjA+NwgQHkrhBZ2p8osEmN6p6KRnHQUt4N7ua+2T3uFW4O
+	9V1UMj2s3If6+RHkTqBLPCX/TEzPp0iz2A68Q7cX5VL+bDC0y21UEfG/7FPYlIP5UCXH4j5kEbw
+	82ket1PLsendMseDc5AkIkZ13Vk7j7/NN6tqwLXZLmUl4LUhyg3Ym/walnL5WPEZDQOEaAw9RJi
+	3OTfirW0Am3V1s7Fot7Olsiwos8M+7Zp62qmTRtu54jvZGDYXLcz+jWvIumMjsiEcAhFuTNYgr3
+	YQxTx1Uh2nMfYse95QEdpoD0YqrtyFdRpIYjpAH+iBwgBV2QTSfQloANmXF1aO+j6oN4gsVbNL5
+	hWoagD6YLoxa3Kv/on59HyRskY1TcA9VC5dCRLK1YyvcLvF3mwz0mh7KhTp24O1miDrpcKcgUvO
+	75rIhTgm5S7T3IIoaRDPhMl92DwvtJA0BDF3zU0JsQ==
+X-Received: by 2002:a17:90b:5344:b0:395:4de4:92be with SMTP id 98e67ed59e1d1-39b261b1a47mr44358365a91.13.1788852368553;
+        Tue, 08 Sep 2026 00:26:08 -0700 (PDT)
+Received: from ip-192-168-20-24.ap-southeast-2.compute.internal (2403-5803-1750-0-3d77-e76e-aa73-3d48.ip6.aussiebb.net. [2403:5803:1750:0:3d77:e76e:aa73:3d48])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339aa33e96sm33210752eec.12.2026.09.08.00.26.03
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Tue, 08 Sep 2026 00:26:07 -0700 (PDT)
+From: Ed Schofield <ed@aicharmers.com>
+To: amd-gfx@lists.freedesktop.org
+Cc: kenneth.feng@amd.com,
+	alexander.deucher@amd.com,
+	christian.koenig@amd.com,
+	airlied@gmail.com,
+	simona@ffwll.ch,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org
+Subject: [RFC PATCH] drm/amd/pm: defer UCLK DPM enablement on Apple Navi 14 0218
+Date: Tue,  8 Sep 2026 17:25:34 +1000
+Message-ID: <20260908072552.67798-1-ed@aicharmers.com>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20260908-ad7768-gpio-v7-3-52ee6ef18a1e@analog.com>
-References: <20260908-ad7768-gpio-v7-0-52ee6ef18a1e@analog.com>
-In-Reply-To: <20260908-ad7768-gpio-v7-0-52ee6ef18a1e@analog.com>
-To: Michael Walle <mwalle@kernel.org>, Linus Walleij <linusw@kernel.org>,
-        Bartosz Golaszewski <brgl@kernel.org>
-CC: <linux-gpio@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-        =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
-        Jonathan Cameron
-	<jic23@kernel.org>,
-        Andy Shevchenko <andriy.shevchenko@intel.com>,
-        "Janani
- Sunil" <jananisunil.dev@gmail.com>,
-        Janani Sunil <janani.sunil@analog.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788852295; l=5643;
- i=janani.sunil@analog.com; s=20260903; h=from:subject:message-id;
- bh=l+Eony3UuqYY0Z+qZgt4P9TCjcM6pbMWWjgi+x/jxa8=;
- b=r1Fsj3hHn9Orqzg3+dNw0LyTG1imtFoHo4e7FuZKpi6N5zLhsawKoG813G2HGwNt9T9DFF11a
- KFI5PKFm+1wBbbBx6vxlftuFQWqzYiT/vNkvANgkxSLxKDDstxpeEXT
-X-Developer-Key: i=janani.sunil@analog.com; a=ed25519;
- pk=0UJo4rLJeMHBMco/+wcMHzXI7nV8k1T72+XQlBNV4Rw=
-X-ADIRuleOP-NewSCL: Rule Triggered
-X-Proofpoint-ORIG-GUID: rxciDb0v_iNRXExW1O6UqMVWKv9OO135
-X-Authority-Analysis: v=2.4 cv=f5N4wuyM c=1 sm=1 tr=0 ts=6a9fb856 cx=c_pps
- a=3WNzaoukacrqR9RwcOSAdA==:117 a=3WNzaoukacrqR9RwcOSAdA==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=0sLvza09kfJOxVLZPwjg:22 a=OmVn7CZJonkx5R5zMQLL:22 a=QyXUC8HyAAAA:8
- a=VwQbUJbxAAAA:8 a=gAnH3GRIAAAA:8 a=8fq82CzG31171KfXEYkA:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-GUID: rxciDb0v_iNRXExW1O6UqMVWKv9OO135
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA4MDA3NiBTYWx0ZWRfX6M/+kxeXAHdh
- mLM+LgUwY1jGl5nuN97fhjjT+YTzkz49aHocyGFrbAi13Om/d9evGKR8qaGVLqGWjkKn90mHVCy
- CeFvfoRUqAnLTQ7HrTPINM0j/VnVw0h3qCkFckPMwAlXa+zL8do3
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA4MDA3NiBTYWx0ZWRfX6PXSMiMBcBme
- kTuxGdK314NChvAI0Phr3EW6CwpY9+b7nSJHz3agp5iW1pzf1EqV9Ms86/Z494PdzMbxkFe2t5F
- pERrxcENvkNQIGoJfZqdXlKJiNnX+DIDwkKe381dJ1ygJb+1xBlKxsgAljhPywuXCh9V61HFBZ5
- hC19KgSvxQe+6HQzKAyVtwv1NR+5tcIuHv2hDH55q9dn+zlbko1IQ8G0jbhWP1hR4hUlLoay+cF
- vpQxambjGFBJV/TPnMsx0RUfoy/hLsUpg8H32LGGydWw2xRbgRyu0jjNfKrnu5kKf04AEJVFkj+
- +xET2xkyigqpwyd86sc8A2KJJwrbqtYWNdsJ5VdcP3bKLQEQKorDm+4mdfqrEARPqYUiRVxArda
- I18WSKDr9HklBaGpfuoDbAl+k34bbj+K9cK4qsEnYN4FlJWD1Qm5hKdz2GIP5uBedtVaUZ6ryiz
- dX8jJAHH+KN1eIxoFfw==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-08_01,2026-09-07_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 malwarescore=0 phishscore=0 bulkscore=0 priorityscore=1501
- impostorscore=0 lowpriorityscore=0 adultscore=0 spamscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609080076
+Content-Transfer-Encoding: 8bit
 
-The AD7768 provides five GPIOs controlled through registers shared
-with the parent IIO device. Register an auxiliary gpio-regmap driver
-and use the parent device for runtime PM.
+On the Apple 1002:7340/106b:0218 revision 41 board, enabling UCLK DPM
+with EnableAllSmuFeatures can time out and leave amdgpu without a DRM
+device. Omitting only UCLK avoids that timeout; enabling it separately
+immediately afterwards still timed out in a local experiment.
 
-The device has separate input-state and output-latch registers. Add a
-reg_mask_xlate() callback that checks the line direction and reads the
-programmed output latch for output lines while retaining input-state
-reads for input lines.
+Defer UCLK enablement to the Navi post-init callback, then verify the
+firmware bit and refresh the supported-feature bit, memory DPM table
+and sustainable clock limits before the UMC workaround and UMD setup.
+Validate the PPT memory states consumed by DCN20 before that callback.
+Keep both memory-voltage features enabled and respect PP_MCLK_DPM_MASK.
+Limit the change to the board and revision tested locally.
 
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
-Reviewed-by: Linus Walleij <linusw@kernel.org>
-Signed-off-by: Janani Sunil <janani.sunil@analog.com>
+Based on Atharva Tiwari's delayed-UCLK proposal for Apple board 0219.
+This adaptation uses the Navi callback and updates driver clock state;
+it does not change T2's existing 0219 allowed-mask workaround.
+
+Link: https://www.mail-archive.com/amd-gfx@lists.freedesktop.org/msg149770.html
+Link: https://github.com/t2linux/kernel/issues/19#issuecomment-5537823876
+Assisted-by: LLM
+Signed-off-by: Ed Schofield <ed@aicharmers.com>
 ---
- drivers/gpio/Kconfig       |  12 +++++
- drivers/gpio/Makefile      |   1 +
- drivers/gpio/gpio-ad7768.c | 121 +++++++++++++++++++++++++++++++++++++++++++++
- 3 files changed, 134 insertions(+)
+This is a board-specific follow-up to Atharva Tiwari's August 25 delayed-UCLK
+proposal for Apple 0219:
+https://www.mail-archive.com/amd-gfx@lists.freedesktop.org/msg149770.html
 
-diff --git a/drivers/gpio/Kconfig b/drivers/gpio/Kconfig
-index a48586bb8edb..07b7f8ab0ccb 100644
---- a/drivers/gpio/Kconfig
-+++ b/drivers/gpio/Kconfig
-@@ -1818,6 +1818,18 @@ endmenu
- menu "Auxiliary Bus GPIO drivers"
- 	depends on AUXILIARY_BUS
+T2 review: https://github.com/t2linux/linux-t2-patches/pull/60
+Hardware report follow-up: https://github.com/t2linux/kernel/issues/19#issuecomment-5579537553
+
+The affected machine here is iMac20,1, PCI 1002:7340 / 106b:0218, revision 41,
+with SMU firmware 53.38.0, interface 38. The original-policy control times out
+in EnableAllSmuFeatures (message 6, -62). Omitting only UCLK avoids that
+timeout. Enabling it immediately afterwards also failed in an earlier local
+experiment; Navi's post-init callback is the point tested successfully.
+
+The patch refreshes driver state after enabling UCLK because initial table
+setup ran while that feature was disabled. DCN20 also consumes the PPT memory
+states before post-init, so their count and nonzero frequencies are checked.
+Both memory-voltage features remain enabled, and the public MCLK-DPM policy
+still takes precedence over the workaround.
+
+A direct control on this AMD staging base used the same kernel image,
+configuration, firmware, boot parameters and 6,434 companion modules, with
+only amdgpu rebuilt from the pristine upstream source. Comparing the two
+extracted initramfs images found exactly one changed file: amdgpu.ko.zst.
+The first unpatched warm boot passed rendering and video checks. The second
+reproduced the EnableAllSmuFeatures timeout (message 6, -62) and left no bound
+AMDGPU driver. Linux remained reachable over SSH. Warnings in amdgpu_irq_put
+followed during GPU error cleanup. The control series stopped at that point.
+Restoring the exact patched module/initramfs recovered GPU initialization,
+hardware rendering and all 60 VAAPI/software frame comparisons on the next
+warm boot. This demonstrates an intermittent GPU initialization fault on the
+upstream base, not an inability of every unpatched kernel boot to reach Linux.
+
+The experimental implementation passed 40 warm and ten cold boots on this
+machine. The extracted production implementation has separate T2 7.2.3 warm,
+rendering, video, sustained-render and public-policy checks. The production
+T2 patch also passed prescribed AC-connected and AC-unplugged cold starts,
+with operator-confirmed 60-second intervals and rendering/video validation.
+An intervening start was corrected to AC-connected when the operator clarified
+that he had not unplugged it; the actual unplugged test followed.
+The T2 build also passed a ten-minute, 2 GiB-budget
+Vulkan memory test with a load/idle/load transition and a normal boot after
+system updates and initramfs regeneration. This AMD staging variant has a
+successful W=1 object build, full kernel build and extracted-C ASan/UBSan
+checks; it has now passed ten warm boots: two attended boots, including
+recovery after the failed unpatched control, and eight further unattended
+boots. SMU initialization, SSH, hardware rendering and all 60 VAAPI H.264
+frame comparisons against software decoding passed on every boot. Console
+login was visually confirmed on the two attended boots.
+All four memory states (98, 500, 625 and 875 MHz) were available, with both
+memory-voltage features enabled. This build has only the proposed GPU fix
+on AMD staging, without the T2 patch collection. Rust was disabled after an unrelated Rust DRM
+preparation failure. This is AMD staging hardware coverage, not a boot of Linus's current tree.
+No AMD staging cold, suspend/resume or full desktop test is claimed. The staging
+boot also logged an applesmc probe failure (-5), Bluetooth initialization
+errors and the previously observed boot-time MCEs. The T2-patched SMC driver
+initialized successfully after returning to the protected production kernel.
+USB storage and wired Ethernet provided the boot and SSH path; this test does
+not establish full T2 device support.
+
+Is the Navi post-init callback the right place for this sequencing quirk, and
+are there additional clock-state consumers that should be refreshed? The
+predicate is deliberately limited to the tested subsystem and revision.
+The related 0219 board has an existing T2 allowed-mask override and needs
+separate evidence before combining the cases.
+
+Codex assisted with investigating the initialization sequence, writing the
+patch and tests, and preparing this message. The session progressed from
+reproducing the GPU boot failure to isolating UCLK timing and extracting a
+board-specific fix with public policy and error handling preserved. The
+patch contains an Assisted-by trailer. The host checks use extracted C with
+mocked firmware; the T2 hardware results are recorded separately above.
+
+ .../gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c   | 81 +++++++++++++++++++
+ 1 file changed, 81 insertions(+)
+
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
+index f8ca5eb9a..4e8fb9e7c 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
+@@ -60,6 +60,18 @@
  
-+config GPIO_AD7768
-+	tristate "Analog Devices AD7768 GPIO support"
-+	depends on AD7768
-+	depends on GPIOLIB
-+	select GPIO_REGMAP
-+	help
-+	  Say yes here to expose the AD7768 utility pins as GPIOs when the
-+	  device tree node is marked as a GPIO controller.
-+
-+	  To compile this driver as a module, choose M here: the module will be
-+	  called gpio-ad7768.
-+
- config GPIO_LTC4283
- 	tristate "Analog Devices LTC4283 GPIO support"
- 	depends on SENSORS_LTC4283
-diff --git a/drivers/gpio/Makefile b/drivers/gpio/Makefile
-index dc9e6d643b5b..ce56e9b3f55d 100644
---- a/drivers/gpio/Makefile
-+++ b/drivers/gpio/Makefile
-@@ -27,6 +27,7 @@ obj-$(CONFIG_GPIO_104_IDI_48)		+= gpio-104-idi-48.o
- obj-$(CONFIG_GPIO_104_IDIO_16)		+= gpio-104-idio-16.o
- obj-$(CONFIG_GPIO_74X164)		+= gpio-74x164.o
- obj-$(CONFIG_GPIO_74XX_MMIO)		+= gpio-74xx-mmio.o
-+obj-$(CONFIG_GPIO_AD7768)		+= gpio-ad7768.o
- obj-$(CONFIG_GPIO_ADNP)			+= gpio-adnp.o
- obj-$(CONFIG_GPIO_ADP5520)		+= gpio-adp5520.o
- obj-$(CONFIG_GPIO_ADP5585)		+= gpio-adp5585.o
-diff --git a/drivers/gpio/gpio-ad7768.c b/drivers/gpio/gpio-ad7768.c
-new file mode 100644
-index 000000000000..6d373c697e7a
---- /dev/null
-+++ b/drivers/gpio/gpio-ad7768.c
-@@ -0,0 +1,121 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Analog Devices AD7768 GPIO auxiliary driver
-+ *
-+ * Copyright 2026 Analog Devices Inc.
-+ */
-+
-+#include <linux/auxiliary_bus.h>
-+#include <linux/bitops.h>
-+#include <linux/device.h>
-+#include <linux/err.h>
-+#include <linux/gpio/driver.h>
-+#include <linux/gpio/regmap.h>
-+#include <linux/module.h>
-+#include <linux/pm_runtime.h>
-+#include <linux/property.h>
-+#include <linux/regmap.h>
-+
-+#define AD7768_REG_GPIO_CONTROL		0x0E
-+#define   AD7768_GPIO_UGPIO_ENABLE	BIT(7)
-+
-+#define AD7768_REG_GPIO_WRITE		0x0F
-+#define AD7768_REG_GPIO_READ		0x10
-+
-+#define AD7768_NUM_GPIOS		5
-+#define AD7768_FILTER_GPIO		4
-+
-+static int ad7768_gpio_init_valid_mask(struct gpio_chip *gc,
-+				       unsigned long *valid_mask,
-+				       unsigned int ngpios)
+ static int navi10_init_ppt_limits(struct smu_context *smu);
+ 
++static bool navi14_needs_late_uclk(struct amdgpu_device *adev)
 +{
-+	if (ngpios > AD7768_FILTER_GPIO &&
-+	    device_property_match_string(gc->parent->parent, "clock-names",
-+					 "mclk") < 0)
-+		__clear_bit(AD7768_FILTER_GPIO, valid_mask);
++	struct pci_dev *pdev = adev->pdev;
 +
-+	return 0;
++	return pdev->vendor == PCI_VENDOR_ID_ATI &&
++		pdev->device == 0x7340 &&
++		pdev->subsystem_vendor == PCI_VENDOR_ID_APPLE &&
++		pdev->subsystem_device == 0x0218 &&
++		pdev->revision == 0x41 &&
++		(adev->pm.pp_feature & PP_MCLK_DPM_MASK);
 +}
 +
-+static int ad7768_gpio_reg_mask_xlate(struct gpio_regmap *gpio,
-+				      enum gpio_regmap_operation op,
-+				      unsigned int base, unsigned int offset,
-+				      unsigned int *reg, unsigned int *mask)
+ static const struct smu_feature_bits navi10_dpm_features = {
+ 	.bits = {
+ 		SMU_FEATURE_BIT_INIT(FEATURE_DPM_PREFETCHER_BIT),
+@@ -356,6 +368,11 @@ navi10_init_allowed_features(struct smu_context *smu)
+ 		smu_feature_list_set_bit(smu, SMU_FEATURE_LIST_ALLOWED, FEATURE_MEM_MVDD_SCALING_BIT);
+ 	}
+ 
++	/* This board times out if EnableAllSmuFeatures includes UCLK DPM. */
++	if (navi14_needs_late_uclk(adev))
++		smu_feature_list_clear_bit(smu, SMU_FEATURE_LIST_ALLOWED,
++					   FEATURE_DPM_UCLK_BIT);
++
+ 	if (is_asic_secure(smu) &&
+ 	    (amdgpu_ip_version(adev, MP1_HWIP, 0) == IP_VERSION(11, 0, 0)) &&
+ 	    (adev->rev_id == 0))
+@@ -470,6 +487,25 @@ static int navi10_store_powerplay_table(struct smu_context *smu)
+ 	return 0;
+ }
+ 
++/* DCN20 consumes these PPT states before the post-init UCLK enable. */
++static int navi14_imac_check_uclk_states(struct smu_context *smu)
 +{
-+	struct regmap *regmap = gpio_regmap_get_drvdata(gpio);
-+	int ret;
++	PPTable_t *ppt = smu->smu_table.driver_pptable;
++	unsigned int count, i;
 +
-+	*reg = base;
-+	*mask = BIT(offset);
-+
-+	if (op != GPIO_REGMAP_GET_OP)
++	if (!navi14_needs_late_uclk(smu->adev))
 +		return 0;
 +
-+	/*
-+	 * AD7768 has separate input-state and output-latch registers. For an
-+	 * output line, report the programmed value from the output latch;
-+	 * input lines continue to use the input-state register.
-+	 */
-+	ret = regmap_test_bits(regmap, AD7768_REG_GPIO_CONTROL, *mask);
-+	if (ret < 0)
-+		return ret;
-+	if (ret)
-+		*reg = AD7768_REG_GPIO_WRITE;
-+
++	count = ppt->DpmDescriptor[PPCLK_UCLK].NumDiscreteLevels;
++	if (!count || count > ARRAY_SIZE(ppt->FreqTableUclk))
++		return -EINVAL;
++	for (i = 0; i < count; i++) {
++		if (!ppt->FreqTableUclk[i])
++			return -EINVAL;
++	}
 +	return 0;
 +}
 +
-+static int ad7768_gpio_probe(struct auxiliary_device *adev,
-+			     const struct auxiliary_device_id *id)
+ static int navi10_setup_pptable(struct smu_context *smu)
+ {
+ 	int ret = 0;
+@@ -490,6 +526,10 @@ static int navi10_setup_pptable(struct smu_context *smu)
+ 	if (ret)
+ 		return ret;
+ 
++	ret = navi14_imac_check_uclk_states(smu);
++	if (ret)
++		return ret;
++
+ 	return navi10_init_ppt_limits(smu);
+ }
+ 
+@@ -3219,6 +3259,41 @@ static int navi10_enable_mgpu_fan_boost(struct smu_context *smu)
+ 					       NULL);
+ }
+ 
++/* Rebuild memory clocks before the UMC workaround and UMD clock setup. */
++static int navi14_imac_late_uclk_enable(struct smu_context *smu)
 +{
-+	struct gpio_regmap_config config;
-+	struct device *dev = &adev->dev;
-+	struct device *parent = dev->parent;
-+	struct regmap *map;
++	struct smu_11_0_dpm_context *dpm = smu->smu_dpm.dpm_context;
++	struct smu_dpm_table *table = &dpm->dpm_tables.uclk_table;
++	PPTable_t *ppt = smu->smu_table.driver_pptable;
++	struct smu_feature_bits enabled;
 +	int ret;
 +
-+	map = dev_get_regmap(parent, NULL);
-+	if (!map)
-+		return -ENODEV;
++	if (!navi14_needs_late_uclk(smu->adev))
++		return 0;
 +
-+	PM_RUNTIME_ACQUIRE_AUTOSUSPEND(parent, pm);
-+	ret = PM_RUNTIME_ACQUIRE_ERR(&pm);
++	ret = smu_cmn_feature_set_enabled(smu, SMU_FEATURE_DPM_UCLK_BIT, true);
 +	if (ret)
 +		return ret;
-+
-+	ret = regmap_set_bits(map, AD7768_REG_GPIO_CONTROL, AD7768_GPIO_UGPIO_ENABLE);
++	ret = smu_cmn_get_enabled_mask(smu, &enabled);
 +	if (ret)
 +		return ret;
++	if (!smu_feature_bits_is_set(&enabled, FEATURE_DPM_UCLK_BIT))
++		return -EIO;
 +
-+	config = (struct gpio_regmap_config) {
-+		.parent = dev,
-+		.regmap = map,
-+		.label = dev_name(parent),
-+		.ngpio = AD7768_NUM_GPIOS,
-+		.reg_dat_base = AD7768_REG_GPIO_READ,
-+		.reg_set_base = AD7768_REG_GPIO_WRITE,
-+		.reg_dir_out_base = AD7768_REG_GPIO_CONTROL,
-+		.pm_dev = parent,
-+		.reg_mask_xlate = ad7768_gpio_reg_mask_xlate,
-+		.init_valid_mask = ad7768_gpio_init_valid_mask,
-+		.drvdata = map,
-+	};
++	smu_feature_list_set_bit(smu, SMU_FEATURE_LIST_SUPPORTED,
++				 FEATURE_DPM_UCLK_BIT);
++	table->clk_type = SMU_UCLK;
++	ret = smu_v11_0_set_single_dpm_table(smu, SMU_UCLK, table);
++	if (ret)
++		return ret;
++	if (!table->count)
++		return -EINVAL;
++	if (!ppt->DpmDescriptor[PPCLK_UCLK].SnapToDiscrete)
++		table->flags |= SMU_DPM_TABLE_FINE_GRAINED;
 +
-+	return PTR_ERR_OR_ZERO(devm_gpio_regmap_register(dev, &config));
++	return smu_v11_0_init_max_sustainable_clocks(smu);
 +}
 +
-+static const struct auxiliary_device_id ad7768_gpio_ids[] = {
-+	{ .name = "ad7768.gpio" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(auxiliary, ad7768_gpio_ids);
+ static int navi10_post_smu_init(struct smu_context *smu)
+ {
+ 	struct amdgpu_device *adev = smu->adev;
+@@ -3227,6 +3302,12 @@ static int navi10_post_smu_init(struct smu_context *smu)
+ 	if (amdgpu_sriov_vf(adev))
+ 		return 0;
+ 
++	ret = navi14_imac_late_uclk_enable(smu);
++	if (ret) {
++		dev_err(adev->dev, "Failed to enable late UCLK DPM: %d\n", ret);
++		return ret;
++	}
 +
-+static struct auxiliary_driver ad7768_gpio_driver = {
-+	.probe = ad7768_gpio_probe,
-+	.id_table = ad7768_gpio_ids,
-+};
-+module_auxiliary_driver(ad7768_gpio_driver);
-+
-+MODULE_AUTHOR("Janani Sunil <janani.sunil@analog.com>");
-+MODULE_DESCRIPTION("Analog Devices AD7768 GPIO auxiliary driver");
-+MODULE_LICENSE("GPL");
+ 	ret = navi10_run_umc_cdr_workaround(smu);
+ 	if (ret)
+ 		dev_err(adev->dev, "Failed to apply umc cdr workaround!\n");
 
+base-commit: c22f9a61e288580824edbbc3ae5a29c9a338594f
 -- 
-2.43.0
+2.55.0
 
