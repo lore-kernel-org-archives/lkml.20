@@ -1,29 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8831B5519B0;
-	Tue,  8 Sep 2026 13:58:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B1C654B1AE;
+	Tue,  8 Sep 2026 13:58:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788875923; cv=none; b=ZdYwvei7axCXjK4+wYUwjl/gMKKrHVy1Uf/qV7vp5KqSyRzSjq7ZkPGhXcUYJCaj5fh2PU4f9DtWqWtexGRQbYHwzchAj1itzKsFcJYgSB+zyLQZguuAu1qh7kXQIkhXenWlxZiGfndR0E2TTzPQ2jzQh2dy1WKv4DJiBiDt9Ws=
+	t=1788875929; cv=none; b=aMUhngUnGYhNfRC4iwh7ntotxslwIKHyBxkZmdG2JuDYEfvOK6TcNIfvWrJUJxalpt+gvO/RGs+c6qsKAHq86Zk1HdsC3Zi7RCK+boBf9HCA5Pb8d/4+ecfsY/LAr1HJRfelWZH+IbDvQ3rYgDqutDO3oO10oTMUdQY2+DWQqLA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788875923; c=relaxed/simple;
-	bh=u7bq+aVY6Thbk8JHy7csRZZE3peS/+hq5NLfEKSrhu4=;
+	s=arc-20240116; t=1788875929; c=relaxed/simple;
+	bh=c8E2IVn1r4MHWePm284oMZk+m+NcPBxzbQe4UN8JzeA=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=cABpwl/sf/5ecf8jepURcoAp4Rd4P3WbB2YlY/vUwxnrSRxJgUhZfBRC5fVwQPnb3kL/r65GrPeHJ+UUhXryAv1mhCAJQq/TajGXJ11+VP95YCNM52GGIt6kPEBHlSty6bnxPkEinX9srDqNcflggGYnXkZYfzk09w1ugZkVaiM=
+	 MIME-Version:Content-Type; b=guVUXIjPUebUz46Ln/G2BET5nEYnjNm1id9LAWEPFLo5zf4Uz220EquM3Mz3ppzXAwtZwW4Swi6H48vkNE3YgdT3DMJhZgdY0oG3uLcBCipk7lIENPMp8jKr3y6YIVxbfSOc6uFbmz0ykY4IEpL8fjI4DixJOIe7Slzdsm74B9w=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AAA831F00A3A;
-	Tue,  8 Sep 2026 13:58:28 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D0DF91F00ACA;
+	Tue,  8 Sep 2026 13:58:38 +0000 (UTC)
 From: Vinod Koul <vkoul@kernel.org>
-To: Bard Liao <yung-chuan.liao@linux.intel.com>, 
- Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>, 
- Hemanth Selam <hemanth.selam@gmail.com>
-Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20260907062930.18120-1-hemanth.selam@gmail.com>
-References: <20260907062930.18120-1-hemanth.selam@gmail.com>
-Subject: Re: [PATCH] soundwire: fix repeated words in log messages
-Message-Id: <178887590825.2104350.13530437090644031001.b4-ty@kernel.org>
-Date: Tue, 08 Sep 2026 19:28:28 +0530
+To: linux-sound@vger.kernel.org, 
+ Bard Liao <yung-chuan.liao@linux.intel.com>
+Cc: vinod.koul@linaro.org, linux-kernel@vger.kernel.org, 
+ pierre-louis.bossart@linux.dev, peter.ujfalusi@linux.intel.com, 
+ bard.liao@intel.com
+In-Reply-To: <20260901030311.232823-1-yung-chuan.liao@linux.intel.com>
+References: <20260901030311.232823-1-yung-chuan.liao@linux.intel.com>
+Subject: Re: [PATCH v2 0/3] soundwire: bus: re-enable CLOCK_STOP_MODE1
+ support
+Message-Id: <178887591841.2104350.3095665702238521740.b4-ty@kernel.org>
+Date: Tue, 08 Sep 2026 19:28:38 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -35,18 +37,29 @@ Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.14.3
 
 
-On Mon, 07 Sep 2026 11:59:30 +0530, Hemanth Selam wrote:
-> Drop the words written twice, reported by checkpatch.pl as a possible
-> repeated word.
+On Tue, 01 Sep 2026 11:03:08 +0800, Bard Liao wrote:
+> Add CLOCK_STOP_MODE1 back to allow the peripheral to utilize it when
+> the clock is stopped.
+> This mode is designed for power-sensitive devices as it enables a deeper
+> power-saving state, although it does not retain the peripheral's state
+> during the clock stop.
 > 
-> Only the message text changes, no code changes.
+> v2:
+>  - check slave->probed before looking at the driver to avoid NULL pointer
+>    dereference.
+>  - add wake_enable parameter to stop_bus ops to stop the clock but keep the
+>    bus unwakeable during system suspend.
 > 
-> 
+> [...]
 
 Applied, thanks!
 
-[1/1] soundwire: fix repeated words in log messages
-      commit: 1f26ff6aab686c5da7ef749bd14049d1eb3029e4
+[1/3] soundwire: bus: add CLOCK_STOP_MODE1 support back
+      commit: 267665f8a3d7a17c5012f85b068d4e11f83432c1
+[2/3] soundwire: Intel: add wake_enable parameter to stop_bus ops
+      commit: 8c1e69e322a9757f596242bdd004e76e30181869
+[3/3] soundwire: Intel: stop sdw clock in system suspend
+      commit: 90b63b309fd6c0f192337659e73e3047a67df99f
 
 Best regards,
 -- 
