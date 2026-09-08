@@ -1,185 +1,135 @@
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com [209.85.214.170])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8662D434989
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 19:21:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31A3148E0F5
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 19:21:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788895273; cv=none; b=HTgwLxtNPS8K6aWjp9jYLDcKO0XG/tsPer32oxKSyaL3nwCsed2wxQgOfqz1xJzKFD/pT+usO+AiD2JcVJsd7XACypoaGAuYeV3hx89YUZJ+RqQ9ZeMGLHunM88rpu8bxVv6+lkpRgz8cIQ7bzGx3N5nomBYWN1Jj0aSmwX0eIc=
+	t=1788895288; cv=none; b=Sd5P/i7GUc7ty/gCiN5XXOM2bMA0UjnkNVQhMuwPNZH+TBmXfQtwWHYdUzEY/flxKvvJpPORaYVlePbh7fsAssNg1HMmn9qkl8Ivkof3UGmvmOjY11qRCYTCCDVFU7O6/wSOSFW7y6bl09RnTvOZdWK6diAmH1c6bakoSLccK3Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788895273; c=relaxed/simple;
-	bh=25uBJoo4JZ26ZIYB2cQwpWUhC8xBD8wl805UIP6bEjI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=jYcFwib+lqUE6x5RlDfKUnIaHM/xvKeDaFu6CddfUyRCGu7GZMYv+TO7hZSzbzVXm/hwlheRY8j5br1cY6Ra735Dns7T8m8M4v1wh/9wFXetu7kVhTIbnXnVf8HjVVrcH+9nMdhxwcizKggRal+hEfsYQcNESotOtdpwGltBBiY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XXIr8EPn; arc=none smtp.client-ip=209.85.128.45
+	s=arc-20240116; t=1788895288; c=relaxed/simple;
+	bh=4EOC3wW3OamsK9JdLlJUqHEbH0Xlwq31V0h4ZN+fFs4=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=M8v2WZsuJiruEHAVigzvrj96BbXd9AGn+MdkaeMEa4vV+XPdzgWAh+sheSCc0LRVG2Xn4Lbjgz+72yd1HPNNkcwgsTo+7/1O7rrs3sh5MtcfAZyL1D7smDmk4EBhvZeDzZXQOHixgDsaKc3Yj59BJkfa0gFbMrJaO3Gu36/+16A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JtHW880O; arc=none smtp.client-ip=209.85.214.170
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XXIr8EPn"
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4995b0343c1so70988385e9.3
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 12:21:06 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JtHW880O"
+Received: by mail-pl1-f170.google.com with SMTP id d9443c01a7336-2d91ded8174so39998285ad.1
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 12:21:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788895263; x=1789500063; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=JUDx5mN4Fxz6V+jBn6+jDa8+QAdVAQRdNH1HIZiM03M=;
-        b=XXIr8EPnJeeqMDq70m2wC6zQ3Huiwp6UKDqQt17f7yRLqTt5SJiN109hL1JxP0HIcj
-         Ck17v6VbtRwN3D9j7Tf3wmsGo569p8a0t+zzfHaZqD6RwSmnLx+mU4peczRFvKckiIe7
-         beqcPPJTMpNcNR1OPchsFD1ahnHrYi0oO9CIZIUT8Ce4g/2qBMYhT/ZpdTComMn6MLWj
-         WXA4JaJQ9pZj3k9YzPCBgXBEKXDeXFohiZI7gRPVG00snOOXWyMTR2PwVcoQ8WVJ2oCL
-         1R3QTUWa0+udDu9FkNL0IVIWMybvbTSDAJpg000zdRQNWCXczfPNBipGP17DiRz9HjIg
-         JT6g==
+        d=gmail.com; s=20251104; t=1788895280; x=1789500080; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=QRL3dA3Rcc+XFjHN/uSduejfnR4cK/ww1jXye5/2bAo=;
+        b=JtHW880OZKwpnLHFEGBSY+sl5vX7psArdkuk0hNZzeYrNxTfwgaBF37j9sp1iBIH3I
+         k2739g95F5GRbGWf4vFGuuR4UaVovTcvcTQo9TrB6SuPE7ErcQqWiJx4OlO3njoqNb8O
+         49TxoHLSwgmNbgsTR4gj0w+Ly8osUWLazS9VB7lKqX1Qw+JR9rERKbmy8a88ZF8gtDOO
+         sbtBtis6nbK3zNkfmRUj7BLK3XsQttDm+/RuYlmFOyHTiEgNAuiaNyO9ut5egEmyX5cb
+         jpiYlEMf2SnI9qP4M+67EkSW9mLDxhqmygeWqi7dnFh3cFo/DVsmBEBV+LNP0TSx368Y
+         PQXg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788895263; x=1789500063;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=JUDx5mN4Fxz6V+jBn6+jDa8+QAdVAQRdNH1HIZiM03M=;
-        b=do2BHLhnloTaiy/yXJ9nbrUimCfWHlurbvNdQl/+u1zS3SAycv11jtDMa2jeu4hnn0
-         att0OuxNRu7zDt9dNlwlTY52Gx7rtCfihV2/jmeePiFO/zstutt++mPke03TOFqz/QmR
-         n8zL80iwHKbdgRsAS4UbvRWhcLW5Klqs9i+HNvooaDZYPWn7fqz0lKY43sIIm9WAaJQi
-         mghDZX0XuwHgT9Tbe6BJIRY9pbGoSt82PH3rW/NkqBBOzNBxJNSsPVKbWJmgM9KMPY5f
-         7Xed87ssDx2PgPPvZoPL+T3lkKYaXM46jT8CZfOqSHVdxJ2JSFgQu+nYWG+mDTaekeNe
-         GfZA==
-X-Forwarded-Encrypted: i=1; AKwUvBzUhR+jIQvT5ebWRlvkXThf+t20VeVN2bVo3tx+LbSjNx/MFc/Iard1JkFL2nSBvXV41zlaF4jLYqro36w=@vger.kernel.org
-X-Gm-Message-State: AFuF++km7785MnXadnIgO6xv1ua90XDtj3vXp5Sf4d8v5zZGETFLBvZa
-	6TH2mkOjnZn7bQ/kLZK1cQIgGGgZzDWTbUN0VlkhfXoV2WTPJrHM2SwZ
-X-Gm-Gg: AYBFou1jzIrCpa9RzJ+uIFafkAbpUCoRVfWS6NqR6c1lq9K2dtZ2moLtclHbaSraO3D
-	Z6KLJ2P8dd27lx6kb4MBIyIlAYzvmGzkhqv4WtTk8cV0wot/X+TfPHN8676zNern8vUWeiwkbVm
-	U+c7VhVhWDC4CrbrTwJMRwbIaoi5B/8vc3Xflckuz/EaFsrICo8m7C3vWyQcN9csujB7+FZ6Zvh
-	BLi6UE8q+X7Ts/mCUUaFNc1WfYS4TsQhpRk5oYwNtx+OgrHk9dyla4PVO3Mm4uXPQlNEb37VKWu
-	Youg03YBfN5amvDRfWDoRIKAbZjujbeFaCwZweY0JQjmoasOyrrr2EySQ+jRemEjxZeVVJ1uUvK
-	MQWVYFRRsJjawGLSKveJsRlNsXMblFfNWmuRPhFyIv0gnOMaDTNbpCqhCHlL8370+q7Sl7w13I7
-	VIuYyUunAENKzumryRJCd6F5X7b7zYc2AC5hmQ6fSQAZpXqzBWVCwus2/Of0n652nLR2E2fa7BU
-	iqp1uhDK74mb9OrLV097BgkqwyBaDAl82gUMRwCGg==
-X-Received: by 2002:a05:600c:3e06:b0:49d:99:1d98 with SMTP id 5b1f17b1804b1-49d00991db1mr243065025e9.9.1788895262515;
-        Tue, 08 Sep 2026 12:21:02 -0700 (PDT)
-Received: from flaviu-Aspire-E5-572G.. ([93.122.248.115])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cf770fcf5sm407885845e9.6.2026.09.08.12.21.00
+        d=1e100.net; s=20251104; t=1788895280; x=1789500080;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=QRL3dA3Rcc+XFjHN/uSduejfnR4cK/ww1jXye5/2bAo=;
+        b=psWfoL9Q+Bjxn/drx1Sg7IMlgNxu/ZfvSxHGQti1KQJjAlysxzj7seEXurpMO2aHtQ
+         V/gxaZmf18xJeMjzIJtzzvYI+AdC21GYfduMCjJcJ0XFDEJtqoOd1NLSg6hOOeGR6sTF
+         PbfRAVF+nvL45xVaL5ijFgyOlqQwHKk1Owwc8NPFe0P5VjFrpisITg8TTVCNk7DeKHEW
+         lFLR3tX/979HsB0EIRdkPVnppGv6FF8IOC9UWSSyrc6QRBZ8dH7C0cld5A44JKG3asCF
+         q9HP+sTeBvJUtlIBUfMLVoafibbTshM4bri1YfE+0NaNH3i2zv1Eh5hcvYAHxEGJjttT
+         VgPg==
+X-Forwarded-Encrypted: i=1; AKwUvBwMIVFNG4SmOMyj3J7TVu0LIJiBIDCfmLlPrxz78y/TNcBc5XI6mYgkC9iw1PzoYh5pZejlIa9brrjnteA=@vger.kernel.org
+X-Gm-Message-State: AFuF++kqvdo9HYy60C3Dw7Rw4BCWP+HR8t1fdjMMb/MmHaeum2t/2rJ0
+	Pz1fjmcAdPJ9ikEL+L0/XmWSYolEY2PBt/PcTu51NXqYNytVUPu+/mZm
+X-Gm-Gg: AYBFou2g0LkDZTiP41mcClJx34/4Y280C7bShAIIylwEh8jm/GCLLph+ZJCS6rPgrc/
+	jjH/2HTGZo+4srZ2X3Ib/fI9wxPcfk6v3hx2wFC8v7BROA9fSkW+vCv/Vjr0Cwxpxoz7/O8pXPX
+	l2hgNiem5qYHGVC9+tBo2jJ9+qLAGhRV2o1+tUvaB0KhK1aiqaUyAhMQTGAGxvcVboy5cwGjH4f
+	AoVhTHQWM+NFTyloOsf6r0X6WAUo+wyMvy73ZhszqB3D7bqy0K78aYBghnRRhNqsejx9JfysYK2
+	RgTMyZU66VCSoFeWuR36T+UjfxjFo4MR7p41MOyx1xentkNCz51AN5G+WBibm4h85E2lWngOyam
+	D7Mw2WYXzVeYBjF+8F3sFM+vXC2cnPJ5+3vcVCRaqxpAh4vM0Es0vcISrowYar+gD9DTksBjO5R
+	sjM6azMZVbKedUKN1i0ndF48qt9vMcUVpgWeU+zMlyx0XEDPgi/6zw27MtEzOMBd4vuuJB7A==
+X-Received: by 2002:a17:90b:4d06:b0:366:10f1:3d91 with SMTP id 98e67ed59e1d1-39b2614df74mr43780160a91.1.1788895280501;
+        Tue, 08 Sep 2026 12:21:20 -0700 (PDT)
+Received: from [127.0.0.1] ([2601:1c2:e01:85f0:7a30:bd30:851c:db6a])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b4b72f62esm22280244a91.5.2026.09.08.12.21.19
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 08 Sep 2026 12:21:01 -0700 (PDT)
-From: Flaviu Nistor <flaviu.nistor@gmail.com>
-To: Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno Sa <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Daniel Baluta <daniel.baluta@nxp.com>,
-	Antoniu Miclaus <antoniu.miclaus@analog.com>
-Cc: Flaviu Nistor <flaviu.nistor@gmail.com>,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-iio@vger.kernel.org
-Subject: [PATCH v4 2/2] iio: adc: ti-ads1015: Add support for label
-Date: Tue,  8 Sep 2026 22:20:36 +0300
-Message-ID: <20260908192036.8503-3-flaviu.nistor@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260908192036.8503-1-flaviu.nistor@gmail.com>
-References: <20260908192036.8503-1-flaviu.nistor@gmail.com>
+        Tue, 08 Sep 2026 12:21:19 -0700 (PDT)
+From: Eric Anderson <ejona86@gmail.com>
+Date: Tue, 08 Sep 2026 12:20:39 -0700
+Subject: [PATCH] mfd: rk8xx: Register poweroff handler in atomic phase
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260908-veyron-shutdown-v1-1-066ecb80f5f2@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMOw6EMAwA0asg1xspgBYRroK2IGCDKRIU8xXi7
+ mShfMXMCYKBUaBKTgi4srB3EekngXZoXI+Ku2jIdFZoo0u14hG8UzIsc+c3p7SxOTVE9ksGYjU
+ FJN6fY/17LYsdsZ3/G7iuG7YHi7VzAAAA
+X-Change-ID: 20260908-veyron-shutdown-09b3faffb5f9
+To: Lee Jones <lee@kernel.org>, 
+ Sebastian Reichel <sebastian.reichel@collabora.com>
+Cc: mfd@lists.linux.dev, linux-kernel@vger.kernel.org, 
+ Eric Anderson <ejona86@gmail.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788895279; l=2014;
+ i=ejona86@gmail.com; s=20260908; h=from:subject:message-id;
+ bh=4EOC3wW3OamsK9JdLlJUqHEbH0Xlwq31V0h4ZN+fFs4=;
+ b=FkumfeDmjPIZ+aWz2xwq2LP+5HBrHZM+CLurBl5Ry/sURLJWMXpanBX3OOeJt2BLTWAZXQPCx
+ UhkOcz7NFjACLbtHD4RrcYgMhyh5oPfSWSiXsEsq9VM48w+ntHe6C2Q
+X-Developer-Key: i=ejona86@gmail.com; a=ed25519;
+ pk=2H3Lzec9LRMjV4nOTpsCkU4+6npwE5AujP1dyNqM4lE=
 
-Add support for label sysfs attribute similar to other ADC devices. This is
-particularly useful because the label can match the schematic signal name,
-identifying channel voltages easier if label is defined via device tree.
+This fixes a regression from v6.1 to v6.6 where Google Veyron devices
+(rk3288) would not power off after being shut down.
 
-Signed-off-by: Flaviu Nistor <flaviu.nistor@gmail.com>
+Prior to commit 4fec8a5a85c4 ("mfd: rk808: Convert to device managed
+resources"), pm_power_off was called by legacy_pm_power_off() which
+itself was registered using SYS_OFF_MODE_POWER_OFF. But in that commit
+the registration of rk808_power_off() moved to
+SYS_OFF_MODE_POWER_OFF_PREPARE. At the very least, the code should be
+consistent between SYS_OFF_MODE_POWER_OFF and SYS_OFF_MODE_RESTART; both
+should be *_PREPARE or both not.
+
+It appears interrupt delivery is already shut down (but not disabled)
+when SYS_OFF_MODE_POWER_OFF_PREPARE is triggered, so
+regmap_update_bits() in rk808_power_off() does not complete
+successfully. Registering rk808_power_off() as SYS_OFF_MODE_POWER_OFF
+runs with interrupts disabled which causes polling I/O to be used
+instead, and the device to power down.
+
+Fixes: 4fec8a5a85c4 ("mfd: rk808: Convert to device managed resources")
+Signed-off-by: Eric Anderson <ejona86@gmail.com>
+Assisted-by: Gemini:gemini-3.5-flash
 ---
- drivers/iio/adc/ti-ads1015.c | 30 ++++++++++++++++++++++++++++++
- 1 file changed, 30 insertions(+)
+ drivers/mfd/rk8xx-core.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/iio/adc/ti-ads1015.c b/drivers/iio/adc/ti-ads1015.c
-index 0fbfa4e499aa..0f9244107c6d 100644
---- a/drivers/iio/adc/ti-ads1015.c
-+++ b/drivers/iio/adc/ti-ads1015.c
-@@ -233,6 +233,7 @@ static const struct iio_event_spec ads1015_events[] = {
- struct ads1015_channel_data {
- 	unsigned int pga;
- 	unsigned int data_rate;
-+	const char *label;
- };
- 
- struct ads1015_thresh_data {
-@@ -586,6 +587,15 @@ static int ads1015_read_raw(struct iio_dev *indio_dev,
- 	}
- }
- 
-+static int ads1015_read_label(struct iio_dev *indio_dev,
-+			      struct iio_chan_spec const *chan, char *label)
-+{
-+	struct ads1015_data *data = iio_priv(indio_dev);
-+
-+	return sysfs_emit(label, "%s\n",
-+			  data->channel_data[chan->address].label);
-+}
-+
- static int ads1015_write_raw(struct iio_dev *indio_dev,
- 			     struct iio_chan_spec const *chan, int val,
- 			     int val2, long mask)
-@@ -843,6 +853,7 @@ static const struct iio_buffer_setup_ops ads1015_buffer_setup_ops = {
- static const struct iio_info ads1015_info = {
- 	.read_avail	= ads1015_read_avail,
- 	.read_raw	= ads1015_read_raw,
-+	.read_label	= ads1015_read_label,
- 	.write_raw	= ads1015_write_raw,
- 	.read_event_value = ads1015_read_event,
- 	.write_event_value = ads1015_write_event,
-@@ -853,6 +864,7 @@ static const struct iio_info ads1015_info = {
- static const struct iio_info tla2024_info = {
- 	.read_avail	= ads1015_read_avail,
- 	.read_raw	= ads1015_read_raw,
-+	.read_label	= ads1015_read_label,
- 	.write_raw	= ads1015_write_raw,
- };
- 
-@@ -861,7 +873,9 @@ static int ads1015_client_get_channels_config(struct i2c_client *client)
- 	struct iio_dev *indio_dev = i2c_get_clientdata(client);
- 	struct ads1015_data *data = iio_priv(indio_dev);
- 	struct device *dev = &client->dev;
-+	const char *label;
- 	int i = -1;
-+	int ret;
- 
- 	device_for_each_child_node_scoped(dev, node) {
- 		u32 pval;
-@@ -897,6 +911,15 @@ static int ads1015_client_get_channels_config(struct i2c_client *client)
- 			}
- 		}
- 
-+		if (fwnode_property_present(node, "label")) {
-+			ret = fwnode_property_read_string(node, "label", &label);
-+			if (ret) {
-+				dev_err(dev, "invalid label on %pfw\n", node);
-+				return ret;
-+			}
-+			data->channel_data[channel].label = label;
-+		}
-+
- 		data->channel_data[channel].pga = pga;
- 		data->channel_data[channel].data_rate = data_rate;
- 
-@@ -985,6 +1008,13 @@ static int ads1015_probe(struct i2c_client *client)
- 	/* we need to keep this ABI the same as used by hwmon ADS1015 driver */
- 	ads1015_get_channels_config(client);
- 
-+	/* Channels without a label property fall back to the datasheet name */
-+	for (i = 0; i < ADS1015_CHANNELS; i++) {
-+		if (!data->channel_data[i].label)
-+			data->channel_data[i].label =
-+				indio_dev->channels[i].datasheet_name;
-+	}
-+
- 	data->regmap = devm_regmap_init_i2c(client, chip->has_comparator ?
- 					    &ads1015_regmap_config :
- 					    &tla2024_regmap_config);
--- 
-2.34.1
+diff --git a/drivers/mfd/rk8xx-core.c b/drivers/mfd/rk8xx-core.c
+index 3dcf6abfda74..21182df45d1b 100644
+--- a/drivers/mfd/rk8xx-core.c
++++ b/drivers/mfd/rk8xx-core.c
+@@ -875,7 +875,7 @@ int rk8xx_probe(struct device *dev, int variant, unsigned int irq, struct regmap
+ 	if (device_property_read_bool(dev, "system-power-controller") ||
+ 	    device_property_read_bool(dev, "rockchip,system-power-controller")) {
+ 		ret = devm_register_sys_off_handler(dev,
+-				    SYS_OFF_MODE_POWER_OFF_PREPARE, SYS_OFF_PRIO_HIGH,
++				    SYS_OFF_MODE_POWER_OFF, SYS_OFF_PRIO_HIGH,
+ 				    &rk808_power_off, rk808);
+ 		if (ret)
+ 			return dev_err_probe(dev, ret,
+
+---
+base-commit: f5098b6bae761e346ebcd9da7f95622c04733cff
+change-id: 20260908-veyron-shutdown-09b3faffb5f9
+
+Best regards,
+--  
+Eric Anderson <ejona86@gmail.com>
 
