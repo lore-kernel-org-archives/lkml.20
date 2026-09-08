@@ -1,55 +1,73 @@
-Received: from mta0.migadu.com (out-40.mta0.migadu.com [91.218.175.40])
+Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com [209.85.214.180])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4E932F3614
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 13:42:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.40
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 048572D8762
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 13:42:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788874929; cv=none; b=Ib8eqN6C2NKHluclM47RDKnuB21OXmfUDcSWBxwqPqNvJ3GvngNGPvhr/RDJLUQ4GtiAYG6I/O5ITE6gfHfETNVn37gOU99/4lMSsiynCJXNKXNUyUHUt4MXrYlxZ2f1OsZL3WqR3bwpWESzqM7A9z38Fu1HSd7wxnZyEbSNgVU=
+	t=1788874941; cv=none; b=JssDBCvbrVam+p51iPRXsu2hnowKqAJbCE/MhTWKaxc39NwAB4Ku5Kk6KKz2J1UK2IiXJMsUxl/7l9HmZJPo7Mheq6YzkWHwb30KzpiUEAoXGOYMncl1XneRBYCbIuWaqPL2g1ZEwp7s2Swaqka/ckRgJeJc57I/jUxHLH6WQBA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788874929; c=relaxed/simple;
-	bh=9Pn6WEKh9yWLcc46n2nOTgd0OJ+T+gFpMQTRrWx1hgs=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=nGvpD3JArLAsZXWEjtQc6J6tL7HkejlWM0BbtwkRBpIbvDFuEYGWK30A++oCY9Euumerm99IQXhGaB7yzrBw7Tngkm2Uq8eheBC19r2cQ+mqoVe+O2PZyIIjPNlAFtXembW5nxwqguzEqVRW9rRzuAYThOtxHIfNbFYhjwHdi88=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=MTNKSg6x; arc=none smtp.client-ip=91.218.175.40
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1788874941; c=relaxed/simple;
+	bh=f6LkZ3SNkqp06uwoTOsGUcuHj4poyCBbPzQWOMP/g1c=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=W8wDCIaq2BXuGBJNTslVl1rf/UY9EudyCNToY31TFyOXZiIesfmU3/9WSeJMZd88gIdeNjzS6BxffoCw3aN5qoq/qK7EvEPPGuLWtR2sNArE7s47ocGRvpKLHUi6nTG5oTK+xIttsG/WkUSc3X1IBmA/vaM42+E+zlOLOzRS4Qg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DsZzJ2qI; arc=none smtp.client-ip=209.85.214.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="MTNKSg6x"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=9Pn6WEKh9yWLcc46n2nOTgd0OJ+T+gFpMQTRrWx1hgs=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788874914; v=1; x=1789479714;
- b=MTNKSg6x6bEVRkvz5ATOcXafg42L1fEJGfhYrjA4SxtaGYbfsuv7iekjWiQRnKbGAHj1NkgK
- Vv72SyhOmcdnVqHu8Qyg5/OCZrw21YpYBSfKtN+fct1ZDPj4A1kL3VjT55uMvf6eD2HmP9Wr98n
- nVjZ6w+UbXQV5F3S+iOXBlB0=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id d22640a39a64a70b;
-	Tue, 08 Sep 2026 13:41:54 +0000
-X-Mizu-Trace-ID: d22640a39a64a70b
-X-Migadu-Flow: FLOW_OUT
-From: Zenghui Yu <zenghui.yu@linux.dev>
-To: linux-mm@kvack.org,
-	linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: akpm@linux-foundation.org,
-	david@kernel.org,
-	ljs@kernel.org,
-	liam@infradead.org,
-	vbabka@kernel.org,
-	rppt@kernel.org,
-	surenb@google.com,
-	mhocko@suse.com,
-	shuah@kernel.org,
-	gourry@gourry.net,
-	"Zenghui Yu (Huawei)" <zenghui.yu@linux.dev>
-Subject: [PATCH v2 1/3] selftests/mm: fix size truncation in pagemap_ioctl test
-Date: Tue,  8 Sep 2026 21:41:15 +0800
-Message-ID: <20260908134117.84405-2-zenghui.yu@linux.dev>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260908134117.84405-1-zenghui.yu@linux.dev>
-References: <20260908134117.84405-1-zenghui.yu@linux.dev>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DsZzJ2qI"
+Received: by mail-pl1-f180.google.com with SMTP id d9443c01a7336-2d58efc7356so58238205ad.1
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 06:42:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788874922; x=1789479722; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=sXurqb983IfQUcK3m3FW1ovqxbHBMIrBCPQs3JxfBQU=;
+        b=DsZzJ2qIiaGKH0+Fuxvf1U09FlG4qS1UrDkGhq16xuC6rGDMouztNEMZ0fhMpPmma0
+         Y3ojaHUcAszdHlDh0tLLOdYEs+mW8HeBG4ekjQZ7sLNkDjKNy+/fulw24qZCzrhP2bKv
+         t9RgLjPuMe7b9HWVV/hGe0srI/tK0PS47FKSJwZr1Zx2pkvQFzPNAPnwfcVoGBibqKgP
+         AFHpOwfY6EW5DFnmJQskCjz2eIWaSxCsS32KyiCEFEomHxscXpgCNDxc3GqrY/k1mtMD
+         FG/fcNAoDd6IT8qhvcDLqKnMGCl3PtWkV2oRjRcWPF+nmM7TWdxbXwn7xbOATHQEgbey
+         dVkQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788874922; x=1789479722;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=sXurqb983IfQUcK3m3FW1ovqxbHBMIrBCPQs3JxfBQU=;
+        b=DOHgycQBMTJtDGm3buRREpd9LaSG2MsSGonGBX2jggJb1RiSU9vf0RKmshsqlYGwYw
+         eSqz5rTN5GEwGilwWlZnKnLnnBubZTQKoolsHlziai2XWlnJqjgcxxobIFkkwb30qoEI
+         IOD0N3GxMemCLy+q53Ds2olxhxMvTfcQI+nxtQetVU1D49Vf/KLEum2BWSOZscoLxsMC
+         2wvmfMz6eHmX8u+mn0TdNvwN4T1wRG/l739ZLIRpQkhx0c+vfm4oXZ5If0j5iG1JVpi9
+         qZSnZrf+mY1Tr1MNWWe6KZRwx5195O3W8JWHEVR/8oDQZEikUlFDP6bmEd4XNVvjSyn8
+         kkDQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxePISC6bekG+VUfM28Mf4FUIIVw38lPVSuevpX9ageDxTlaWNSdowBimXGMsHpZ+W9j2XJRrwHCs8M3CA=@vger.kernel.org
+X-Gm-Message-State: AFuF++lIXFPuOA0hf7f/+tJEeYCBUAq1awaRTfoUS+egu+jpTSS8VZLS
+	GjtykrqPCNYX30CxNds0rOXuDrdye8rAKKnjsASdx0H6blYGfF/LuWNQ
+X-Gm-Gg: AYBFou1+XmnQ7XI7v1qX5QI8nLSh3xW3qMWrSkmwO4lmPhjdZeX87PkTq3Ghp/+ab+9
+	MgvG65M5R0XJi2sSUOqRXfcA5QGKmMq8pYT7RrNg0jlElj4UGFwFGHKN1rSwTZ7W/QmwyP54o9a
+	FHsYKMaPXoH+niFs/3entiGtMrQxnLnRH1zeT6Jk2xwa8B91qMxqvI3lXnSGyGlIGFh4yjmm8E3
+	IFAVE8E4T7NMmP03v7KdVdnNURv7nscxlP6EDX/q+3SL0TJeFrIEAGAmWskh11Wnu4A4uXs/7V5
+	V4dPPKpDMK23Czfuco2LF4hCDibO4UQjMsyiDA1Ag1tqSsFtqtSdN8oGnjynLa4YiWPBsIe6x8J
+	BwTF50g9ufIqP6Kop6HUa9BJ7/PAL9nc0qbm+RQklnHEFXQBNlM5E7HXgegFHQBRdH4GYdFc4C2
+	Mw9d4FoUHmjO3H6XJSDV69Z2xangy3AO5oZqGOhqA0V50Fm99ziZ2nF8WQwp8LOFiG+URsA5Wq2
+	YBL1fsDwu/r0eRmTVO9VI0EE2EVRQfzyVT32yOPrYef4uulFib1DI2tuL1FhEN8
+X-Received: by 2002:a17:90b:4c41:b0:398:9bd5:490e with SMTP id 98e67ed59e1d1-39b2623ac0fmr43309544a91.21.1788874922309;
+        Tue, 08 Sep 2026 06:42:02 -0700 (PDT)
+Received: from nugod-NUC15CRHU5.tail9f095a.ts.net ([218.237.104.87])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2db14aeb16fsm58990835ad.83.2026.09.08.06.42.00
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 08 Sep 2026 06:42:01 -0700 (PDT)
+From: HyeongJun An <sammiee5311@gmail.com>
+To: Takashi Iwai <tiwai@suse.com>,
+	Jaroslav Kysela <perex@perex.cz>
+Cc: =?UTF-8?q?C=C3=A1ssio=20Gabriel?= <cassiogabrielcontato@gmail.com>,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	HyeongJun An <sammiee5311@gmail.com>
+Subject: [PATCH] ALSA: hda: Report a change when only the channel status bytes move
+Date: Tue,  8 Sep 2026 22:41:53 +0900
+Message-ID: <20260908134153.1614273-1-sammiee5311@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -58,223 +76,58 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: "Zenghui Yu (Huawei)" <zenghui.yu@linux.dev>
+The put() callback of "IEC958 Playback Default" returns whether the
+converted register value moved. The convert_from_spdif_status() helper
+reads part of the first two channel status bytes and none of the last
+two, while the get() callback returns all four. So a write that lands
+only in the bits it does not read changes what userspace reads back and
+reports no change. Of the 31 bits above the mode bit, 20 are such bits
+in consumer mode and 29 in professional mode. The core notifies only on
+a positive return.
 
-On arm64 with 64K base pages, the huge page size is 512 MiB, and
-hpage_unit_tests() builds a 5 GiB range (10 * 512 MiB) for its tests.  This
-exceeds the range of the int size parameters of gethugepage(),
-wp_addr_range() and pagemap_ioctl().  The implicit truncation to 1 GiB
-makes gethugepage() allocate a too small buffer, while the callers keep
-operating on the original 5 GiB range, resulting in spurious failures or
-SIGSEGV.
+Toggling status[2] bit 0 on an HDA HDMI codec moves the read-back from
+04 00 00 00 to 04 00 01 00 with no event. Toggling the non-audio bit
+in status[0] gives one.
 
-Fix the truncation by changing those size parameters to size_t, and for
-consistency, also convert the remaining size-related parameters and
-variables that use int, long or unsigned long long to size_t.
+Compare the stored status as well, the way the ac97 code does. The
+write to the codec stays gated on the converted value.
 
-Fixes: 46fd75d4a3c9 ("selftests: mm: add pagemap ioctl tests")
-Assisted-by: GLM-5.3 OpenCode
-Suggested-by: David Hildenbrand (Arm) <david@kernel.org>
-Signed-off-by: Zenghui Yu (Huawei) <zenghui.yu@linux.dev>
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Signed-off-by: HyeongJun An <sammiee5311@gmail.com>
+Assisted-by: Claude:claude-opus-5
 ---
- tools/testing/selftests/mm/pagemap_ioctl.c | 55 ++++++++++++----------
- 1 file changed, 29 insertions(+), 26 deletions(-)
+ sound/hda/common/codec.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/tools/testing/selftests/mm/pagemap_ioctl.c b/tools/testing/selftests/mm/pagemap_ioctl.c
-index eadc7159ca5b..3665530eda76 100644
---- a/tools/testing/selftests/mm/pagemap_ioctl.c
-+++ b/tools/testing/selftests/mm/pagemap_ioctl.c
-@@ -44,7 +44,7 @@ const char *progname;
+diff --git a/sound/hda/common/codec.c b/sound/hda/common/codec.c
+index 7d17d773cfbf..5d9b53bd64ea 100644
+--- a/sound/hda/common/codec.c
++++ b/sound/hda/common/codec.c
+@@ -2277,6 +2277,7 @@ static int snd_hda_spdif_default_put(struct snd_kcontrol *kcontrol,
+ 	int idx = kcontrol->private_value;
+ 	struct hda_spdif_out *spdif;
+ 	hda_nid_t nid;
++	unsigned int old_status;
+ 	unsigned short val;
+ 	int change;
  
- #define LEN(region)	((region.end - region.start)/page_size)
- 
--static long pagemap_ioctl(void *start, int len, void *vec, int vec_len, int flag,
-+static long pagemap_ioctl(void *start, size_t len, void *vec, size_t vec_len, int flag,
- 			  int max_pages, long required_mask, long anyof_mask, long excluded_mask,
- 			  long return_mask)
- {
-@@ -65,7 +65,7 @@ static long pagemap_ioctl(void *start, int len, void *vec, int vec_len, int flag
- 	return ioctl(pagemap_fd, PAGEMAP_SCAN, &arg);
+@@ -2285,6 +2286,7 @@ static int snd_hda_spdif_default_put(struct snd_kcontrol *kcontrol,
+ 	guard(mutex)(&codec->spdif_mutex);
+ 	spdif = snd_array_elem(&codec->spdif_out, idx);
+ 	nid = spdif->nid;
++	old_status = spdif->status;
+ 	spdif->status = ucontrol->value.iec958.status[0] |
+ 		((unsigned int)ucontrol->value.iec958.status[1] << 8) |
+ 		((unsigned int)ucontrol->value.iec958.status[2] << 16) |
+@@ -2295,7 +2297,7 @@ static int snd_hda_spdif_default_put(struct snd_kcontrol *kcontrol,
+ 	spdif->ctls = val;
+ 	if (change && nid != (u16)-1)
+ 		set_dig_out_convert(codec, nid, val & 0xff, (val >> 8) & 0xff);
+-	return change;
++	return change || spdif->status != old_status;
  }
  
--static long pagemap_ioc(void *start, int len, void *vec, int vec_len, int flag,
-+static long pagemap_ioc(void *start, size_t len, void *vec, size_t vec_len, int flag,
- 			int max_pages, long required_mask, long anyof_mask, long excluded_mask,
- 			long return_mask, long *walk_end)
- {
-@@ -116,7 +116,7 @@ int init_uffd(void)
- 	return 0;
- }
- 
--int wp_init(void *addr, long size)
-+int wp_init(void *addr, size_t size)
- {
- 	struct uffdio_register uffdio_register;
- 	struct uffdio_writeprotect wp;
-@@ -140,7 +140,7 @@ int wp_init(void *addr, long size)
- 	return 0;
- }
- 
--int wp_free(void *addr, long size)
-+int wp_free(void *addr, size_t size)
- {
- 	struct uffdio_register uffdio_register;
- 
-@@ -152,7 +152,7 @@ int wp_free(void *addr, long size)
- 	return 0;
- }
- 
--int wp_addr_range(void *addr, int size)
-+int wp_addr_range(void *addr, size_t size)
- {
- 	if (pagemap_ioctl(addr, size, NULL, 0,
- 			  PM_SCAN_WP_MATCHING | PM_SCAN_CHECK_WPASYNC,
-@@ -162,7 +162,7 @@ int wp_addr_range(void *addr, int size)
- 	return 0;
- }
- 
--void *gethugetlb_mem(int size, int *shmid)
-+void *gethugetlb_mem(size_t size, int *shmid)
- {
- 	char *mem;
- 
-@@ -188,7 +188,8 @@ void *gethugetlb_mem(int size, int *shmid)
- 
- int userfaultfd_tests(void)
- {
--	long mem_size, vec_size, written, num_pages = 16;
-+	size_t mem_size, vec_size, num_pages = 16;
-+	long written;
- 	char *mem, *vec;
- 
- 	mem_size = num_pages * page_size;
-@@ -229,9 +230,10 @@ int userfaultfd_tests(void)
- 	return 0;
- }
- 
--int get_reads(struct page_region *vec, int vec_size)
-+int get_reads(struct page_region *vec, size_t vec_size)
- {
--	int i, sum = 0;
-+	size_t i;
-+	int sum = 0;
- 
- 	for (i = 0; i < vec_size; i++)
- 		sum += LEN(vec[i]);
-@@ -241,7 +243,7 @@ int get_reads(struct page_region *vec, int vec_size)
- 
- int sanity_tests_sd(void)
- {
--	unsigned long long mem_size, vec_size, i, total_pages = 0;
-+	size_t mem_size, vec_size, i, total_pages = 0;
- 	long ret, ret2, ret3;
- 	int num_pages = 1000;
- 	int total_writes, total_reads, reads, count;
-@@ -331,7 +333,7 @@ int sanity_tests_sd(void)
- 	if (ret < 0)
- 		ksft_exit_fail_msg("error %ld %d %s\n", ret, errno, strerror(errno));
- 
--	ksft_test_result((unsigned long long)ret == mem_size/(page_size * 2),
-+	ksft_test_result((size_t)ret == mem_size/(page_size * 2),
- 			 "%s Repeated pattern of written and non-written pages\n", __func__);
- 
- 	/* 4. Repeated pattern of written and non-written pages in parts */
-@@ -682,9 +684,9 @@ int sanity_tests_sd(void)
- 	return 0;
- }
- 
--int base_tests(char *prefix, char *mem, unsigned long long mem_size, int skip)
-+int base_tests(char *prefix, char *mem, size_t mem_size, int skip)
- {
--	unsigned long long vec_size;
-+	size_t vec_size;
- 	int written;
- 	struct page_region *vec, *vec2;
- 
-@@ -787,7 +789,7 @@ int base_tests(char *prefix, char *mem, unsigned long long mem_size, int skip)
- 	return 0;
- }
- 
--void *gethugepage(int map_size)
-+void *gethugepage(size_t map_size)
- {
- 	int ret;
- 	char *map;
-@@ -810,8 +812,8 @@ int hpage_unit_tests(void)
- 	char *map;
- 	int ret, ret2;
- 	size_t num_pages = 10;
--	unsigned long long map_size = hpage_size * num_pages;
--	unsigned long long vec_size = map_size/page_size;
-+	size_t map_size = hpage_size * num_pages;
-+	size_t vec_size = map_size/page_size;
- 	struct page_region *vec, *vec2;
- 
- 	vec = calloc(vec_size, sizeof(struct page_region));
-@@ -1002,8 +1004,9 @@ int hpage_unit_tests(void)
- int unmapped_region_tests(void)
- {
- 	void *start = (void *)0x10000000;
--	int written, len = 0x00040000;
--	long vec_size = len / page_size;
-+	int written;
-+	size_t len = 0x00040000;
-+	size_t vec_size = len / page_size;
- 	struct page_region *vec = calloc(vec_size, sizeof(struct page_region));
- 	if (!vec)
- 		ksft_exit_fail_msg("error nomem\n");
-@@ -1072,7 +1075,7 @@ static void test_simple(void)
-  * with no page table, exercising pagemap_scan_pte_hole(); a base-page range
-  * leaves pte_none entries.
-  */
--static void unpopulated_written_test(const char *name, char *mem, long size,
-+static void unpopulated_written_test(const char *name, char *mem, size_t size,
- 				     bool use_thp)
- {
- 	long npages = size / page_size, fast = 0, slow = 0, ret;
-@@ -1115,7 +1118,7 @@ static void unpopulated_written_test(const char *name, char *mem, long size,
- 
- static void unpopulated_scan_test(void)
- {
--	long mem_size = 16 * page_size;
-+	size_t mem_size = 16 * page_size;
- 	char *mem;
- 
- 	mem = mmap(NULL, mem_size, PROT_READ | PROT_WRITE,
-@@ -1157,8 +1160,8 @@ static void unpopulated_thp_scan_test(void)
- 
- int sanity_tests(void)
- {
--	unsigned long long mem_size, vec_size;
--	long ret, fd, i, buf_size, nr_pages;
-+	size_t mem_size, vec_size, i, buf_size;
-+	long ret, fd, nr_pages;
- 	struct page_region *vec;
- 	char *mem, *fmem;
- 	struct stat sbuf;
-@@ -1582,9 +1585,9 @@ static void transact_test(int page_size)
- 
- void zeropfn_tests(void)
- {
--	unsigned long long mem_size;
-+	size_t mem_size, i;
- 	struct page_region vec;
--	int i, ret;
-+	int ret;
- 	char *mmap_mem, *mem;
- 
- 	/* Test with normal memory */
-@@ -1642,8 +1645,8 @@ void zeropfn_tests(void)
- 
- int main(int __attribute__((unused)) argc, char *argv[])
- {
--	int shmid, buf_size, fd, i, ret;
--	unsigned long long mem_size;
-+	int shmid, fd, ret;
-+	size_t mem_size, buf_size, i;
- 	char *mem, *map, *fmem;
- 	struct stat sbuf;
- 
+ #define snd_hda_spdif_out_switch_info	snd_ctl_boolean_mono_info
 -- 
-2.53.0
+2.43.0
 
