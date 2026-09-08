@@ -1,188 +1,176 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82AF033A9F8;
-	Tue,  8 Sep 2026 17:04:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788887091; cv=none; b=PdsoArj1YIpBsxruNYJMsF8qRaDfpKy7Nd8FlNzCSy5XiPUK0M6eLHfkITIPgq44vGnKoP+efXCG9bgdwZBg4zPYNkYLV9UURORsGziT3RKcOQ2BkVXzQR7n43VGLz9iqlCy8h84913iBOvwQm2bmst5jDIDbJ+e7zKJlUA2Ick=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788887091; c=relaxed/simple;
-	bh=cgxvIR7KZyvUD/UIdueV6Tb4z6fUOJZHD/riDvwewmE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=UYmQJmKcZa2ARKrr1GJkj7U8rSh6HfXTFAMvBg+NgZ/OjeYKAKrpGRJmgxI2m/5JfYt9gYeUb2E6muZ3keDa3od7UW5yfP0aypfKW9neGLiIuD1W1rylv1dZUtmSRTPLjE6YPrRbQGNUOAan+OzTk6VHU49denT5LcY8NOxTsYk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=tYLI6ixx; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7B4658F083
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 17:05:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.227.140
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788887132; cv=pass; b=YyAs6v2eGSvZoqkOtd6lg4xdzqKZf83J+R3FR+dxLFUEHh2VqCZpZszuEK4zkoGJr3HcfoB7XUzuuSeS0nl5xi5gbCVkFI+kUZmdljkWnoCpvbB9FxUIOZDm8Ia7vr8VNBmoaX+WYzWJqi1hCkeOGvFOB1mx7pDMA1TzojdDeVU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788887132; c=relaxed/simple;
+	bh=ZUsNUDfHNSayvs0cLcpq7eFB/vP8mG73JqyT3D6YigY=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=mjkvE50AvCM7q/yn7OXWGcPn1LKs0DdCfFgVpfIz4J2EsiJLueiaur85UhT/AghVWYmwDtqJPLzLAbkl2FNmVnrnnD6t7CkRuJ50qvPRSLQKbH6aDxDc/pWFkzIi9jUNYBkRGA2RKb6uHgCTi2M7jBAN7zgolLALwjeH5SsEeOA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=TRJtx9dm; arc=pass smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="tYLI6ixx"
-Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 688F1eJY1268563;
-	Tue, 8 Sep 2026 17:04:43 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=U1n6Rq
-	vtplt2mS9BVm+Dv4IDALJSJUvvoeyVX9qlr8Q=; b=tYLI6ixxhf+yeh0BrLhno9
-	doRKfHN/RcsdIN5G5GpX08o74dQaPjw9IlrGdlK2Tt5pef+8b9ITp/OXmLCIEkHu
-	wxFgPsSa9JNf+dHe5ttq7BB00kGDF+uWIGOaV0ilwsZZivU5I+kC0mkYYef/UKmb
-	iFD9Adi8lDyBvGjF+P+d47aOynygzbDzZXHos91f4rl8QJWLRVQxxSC61Ea5ek2h
-	7pREcpUUofFZb9ypDSJiW0ExGEUc00a31Xm2JvzvJnjmANLlk3sEjlQHS3/zWwFg
-	XgTCpBloS5w52Lbm0x9olNq2nNwKZ8646TGVurniLtNmCJa2AT1ODeuypiscnPFg
-	==
-Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4ggbhf0bss-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 08 Sep 2026 17:04:42 +0000 (GMT)
-Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma23.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 688GuKrL008756;
-	Tue, 8 Sep 2026 17:04:42 GMT
-Received: from smtprelay02.fra02v.mail.ibm.com ([9.218.2.226])
-	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4ggxwh55ty-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 08 Sep 2026 17:04:41 +0000 (GMT)
-Received: from smtpav04.fra02v.mail.ibm.com (smtpav04.fra02v.mail.ibm.com [10.20.54.103])
-	by smtprelay02.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 688H4bSE43581938
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Tue, 8 Sep 2026 17:04:37 GMT
-Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id A46E32004B;
-	Tue,  8 Sep 2026 17:04:37 +0000 (GMT)
-Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 102C020040;
-	Tue,  8 Sep 2026 17:04:37 +0000 (GMT)
-Received: from [9.111.167.236] (unknown [9.111.167.236])
-	by smtpav04.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Tue,  8 Sep 2026 17:04:36 +0000 (GMT)
-Message-ID: <a5ffb5d2-4509-4e73-af0d-aad4b1cc9412@linux.ibm.com>
-Date: Tue, 8 Sep 2026 19:04:36 +0200
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="TRJtx9dm"
+Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2d6ff390a6cso232765ad.1
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 10:05:29 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788887129; cv=none;
+        d=google.com; s=arc-20260327;
+        b=WN7K2cJd0q6doJaN0+QTQW59DbxXjvzwgsN0USwNAZyefnec+JuXRlKzv/XBLVbwPx
+         glCbLpOKe/FbGHWOet3+/OxVtNMYgJGIGYhxTyWVl2bxRs0UzwznnGtFLSPL+29bEpf9
+         bZ0gOZc2ZX6Syj+uTr7f0OaO38PQa/IvUJ98FCxyaDsYM91IPDSiR4V4Y68RB3hxdpZJ
+         ujfhSj5ZcuWfqqdCR4yvTA+5ljWsjui2XUzIS57k0gpn76vo9aISDrHF4NclrLvvu6zd
+         u7qOmTtRnUEd1BV7TbLIbdaKwknqdaR2fsKjPKH6RY9uNV49MmRiGlcOn+5+y3tJE8ff
+         rsyg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=t2BEbL6oK2TNdrl07S1eqJBu8muYQ4YhMI1yhqy/NuU=;
+        fh=OfWC9xZ9hblJGtRJStyoOOoZtj+0uSob+ykJFN/729M=;
+        b=TJEwam0/53a+oPBx8FYGvK1N2No1r08PCS/eIX4IybEKP1Lewjh0P0CySRcEp6ynTQ
+         Si+S3r0ycOxXGx5Dd6R8S0KIxj39npuIQaz0PYCq6/kWsbgB8EvQHaQrmgeipJRXu7q8
+         QwxMtOYlR2A3X2LNgMeQxLbJ+ic1cwo/ogkQnm0DkCvbUFvZ2queLmEgi9rrIAxurdDD
+         QER3iQ/eO2sGLg9mDgvY/5EO6C7Fx6bxf3qfsaPP0RwM9jjMBiVZM1mpkAPfLJ4V5oNp
+         s4VLdNmY3Iq4+KRmGhiScq8eN4ZB+O0N18HyhMc3RoIm6BLNQ93v9PjHT1dH0yPp/lJ/
+         HarA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1788887129; x=1789491929; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=t2BEbL6oK2TNdrl07S1eqJBu8muYQ4YhMI1yhqy/NuU=;
+        b=TRJtx9dm82UydXooLijXgweSIPd/7h7ego1IEGxsi31TGWTEYzOuvf0PulEs5Bk/VJ
+         XIATD8LDlvhemQhGnHyILtw1CT8w0kDnYPjJSfrnkH9UYr0OKSjhDpi3xro1+vi5AqII
+         8mHt7zlG0HbE7E2p+WKKKyIHb81ZJi7GgPzheXytf/YwFbi/G/W/El6DLB4gg+re+UYm
+         9BcS+HvDGoz9EqX8Bbfj24ubMj9X9bNEz0Ch6BaD2UQmYqzlpiOV3EmH1uf36yVKQ3o2
+         rcFEhnFzeGrI4AF1FRLN4YIgYRR+eDbf2+rG/VrdEP6JgFp7AQ3UFB7jpe8svWViE7GW
+         6sFA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788887129; x=1789491929;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=t2BEbL6oK2TNdrl07S1eqJBu8muYQ4YhMI1yhqy/NuU=;
+        b=ki+MstdH42+T88iHsgeRLrkvs1HUc494tvruw9X9d0xjwoaq2FU9uZ18+VoiHdnJtJ
+         22Gek2T8gUcYESiLmWG6BWuZS+3iDGAPki7y1old6irWJkmsqfrRGgilyHM6ySvMxl6S
+         MUT8RNpMe+hfl9/H/cg6P/Hs0H5v2anN8LiE7E1vfDlg2z/4yiFw4GyDtxvUfD9wPzHf
+         PTxu5Hrs7RlfFbVu3UPXxFuoLsPDe9OY0Qac15oxHc5LPYlVFV+cW7gl9bERlzXPUK2t
+         8eTUOphIlDe1/ezRqIZVkClYu2M+HAcTTOnednVbHBSHLXXM+maa3W3A+RMf8g7zDjRU
+         /4+g==
+X-Forwarded-Encrypted: i=1; AKwUvBwe2/xXqqCwI9tP8Q7lbhKuNxfr+r9oLTmR+FpRWui/3VJOGoXnU+Y2zlhbE2gIoj9VW1O5qEQm+UcZv7Y=@vger.kernel.org
+X-Gm-Message-State: AFuF++ki/Gtc4mx4SBMuOGvbrdcA54QQX4o4Gnlq/i8eB0CGAa0tt4zP
+	tkD265s/VhKvLqfP4aTtg9+ovPbwyGpE69CduLYgMl5QS30KV42ZnpwO7B+j0h5V2FWcRk5eXFx
+	5rLGBeacKdOiDE5j3VWq5NfvaeajkRyOfeAlIOeX2
+X-Gm-Gg: AYBFou04tn28Kqa+KTaArzlXg4LXzbv7efs5mjhzjNZiQqjXIRWwnnXoJP1gytXVsP/
+	gGfFuN/mPHGEQ/USRgU1aE78WDpT6lZ5Qys/B0B0WLc9h2405xnb4ZmIHI0onQc6oCKBHxrVyJv
+	7eBYrRtxzqtkjuw8fTyeyLJ1tLx+boMe5yDFenEDNsD4CKqNg8Gkkl29wdRSmLkD+YiJw2BM5n/
+	RbnmXWLfMBeFsH2vBwC2roupZGuRDuIHh3lBOD8013EbQ2Q6KV8OWpl87N6V59n6/fYHuWglt0K
+	slW0k727QsBcUiLqQljxGx1ZU/NUG+eKe9ahNQNAU/6RLk8PE7XunSK3zBXT87WSu4J1xR+F+IV
+	/iUTiQLlE7RM2czpkszPYr8AmfAQYIE8=
+X-Received: by 2002:a17:903:26cc:b0:2d5:db3d:1a43 with SMTP id
+ d9443c01a7336-2db28e87ca5mr17559255ad.16.1788887128208; Tue, 08 Sep 2026
+ 10:05:28 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next] dibs: Avoid inconsistent lockstate warning in
- dibs_lo_move_data()
-To: netdev-bot+sashiko@kernel.org
-Cc: alibuda@linux.alibaba.com, dust.li@linux.alibaba.com,
-        sidraya@linux.ibm.com, mjambigi@linux.ibm.com, davem@davemloft.net,
-        kuba@kernel.org, pabeni@redhat.com, edumazet@google.com,
-        andrew+netdev@lunn.ch, tonylu@linux.alibaba.com,
-        guwen@linux.alibaba.com, netdev@vger.kernel.org,
-        linux-s390@vger.kernel.org, linux-kernel@vger.kernel.org,
-        hca@linux.ibm.com, gor@linux.ibm.com, agordeev@linux.ibm.com,
-        borntraeger@linux.ibm.com, svens@linux.ibm.com, horms@kernel.org
-References: <20260904094446.1342654-1-wintera@linux.ibm.com>
- <178887153533.219967.1817289806507440884@kernel.org>
-Content-Language: en-US
-From: Alexandra Winter <wintera@linux.ibm.com>
-In-Reply-To: <178887153533.219967.1817289806507440884@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-GUID: pJJv20tp77M_bMt11DmhNNlHpvFwY-G-
-X-Authority-Analysis: v=2.4 cv=RIaD2Yi+ c=1 sm=1 tr=0 ts=6aa0402b cx=c_pps
- a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=RzCfie-kr_QcCd8fBx8p:22 a=VwQbUJbxAAAA:8
- a=TqvEKpW1L8R4wEG_ojMA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA4MDE4NCBTYWx0ZWRfX6G106RzS9tju
- u6w/DJdzvyoUtIzGCQZWsijUECbDPHuFhWTrkqdaPRsDg4ZWcY07lHfUMF4YjT/Hs36h7PkVOmY
- 4QcIKAlFMvgAw+qM/tuXKumQeN3WLAQ=
-X-Proofpoint-ORIG-GUID: ghIgFFWfwLroN4Lmvm957VMglJKA_8sH
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA4MDE4NCBTYWx0ZWRfXxckbs15pHi8s
- kCdpgwCmLWuYJH5cqaVhG8wPPimyM/1HxIv/9AB5R/KYko/zKpm4stK2vAOCZ2/o3i++0AG4rjQ
- cY+86PgIPdS78ZWIZSv9o3BH2kPT7URDUNyR0kEHxaI0kszHd4fOJLkB4Bn539BCnq8CADxBNaz
- 8jIQbYSo7bmMgYxOCpyBT/Tc8Tv6ju2/gE38p7nMNxppWJqNCAnx9V5i1na5QpSVU3t31ahpRlt
- vVPFZTB+UJPVJuUCI7dIIz0n7v4B3sID5bKPfATNjgthAtDUj4FwZAbwDXuDt+QzKBBKUPuxioO
- n3B/GuDtJEP/sG+JZFYFCB7BUmp010phXImiv3Rluc9N7YyPepkH15QEk61redswI67Gh9cKYsZ
- pptdBdBNggacQjFxirZlyRyn8G6zv2g8z3PzAl7ukH8gDulL0VtnhNl7rBYYCeaMawWJYl/OOus
- gUEcf7PioKWC9n6AWZw==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-08_03,2026-09-08_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=0 malwarescore=0 priorityscore=1501 bulkscore=0
- adultscore=0 phishscore=0 clxscore=1011 impostorscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609080184
+References: <20260908-kcov-extrecord-v3-0-dcbc11593e88@google.com> <20260908-kcov-extrecord-v3-8-dcbc11593e88@google.com>
+In-Reply-To: <20260908-kcov-extrecord-v3-8-dcbc11593e88@google.com>
+From: Jann Horn <jannh@google.com>
+Date: Tue, 8 Sep 2026 19:04:50 +0200
+X-Gm-Features: AcwNN1VvbLJASh_Ky3VRZJSD9T0ID1T_I_eVvcK3XtYNZ85Q5pJtmiWgBBKhAmI
+Message-ID: <CAG48ez1ueO-rc+TKQZJoFuf0ingYR=E7s_exEDvOyE=CsDp7Ew@mail.gmail.com>
+Subject: Re: [PATCH RFC v3 08/12] kcov: log freeing of SLUB objects and pages
+To: Dmitry Vyukov <dvyukov@google.com>, Andrey Konovalov <andreyknvl@gmail.com>, 
+	Alexander Potapenko <glider@google.com>
+Cc: Nathan Chancellor <nathan@kernel.org>, Nick Desaulniers <nick.desaulniers+lkml@gmail.com>, 
+	Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, linux-kernel@vger.kernel.org, 
+	kasan-dev@googlegroups.com, llvm@lists.linux.dev, 
+	Andrew Morton <akpm@linux-foundation.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
+	Brendan Jackman <brendan.jackman@linux.dev>, Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>, 
+	Harry Yoo <harry@kernel.org>, Hao Li <hao.li@linux.dev>, Christoph Lameter <cl@gentwo.org>, 
+	David Rientjes <rientjes@google.com>, Roman Gushchin <roman.gushchin@linux.dev>, 
+	Linux-MM <linux-mm@kvack.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+On Tue, Sep 8, 2026 at 6:55=E2=80=AFPM Jann Horn <jannh@google.com> wrote:
+> To help with using CONFIG_KCOV_MEMORY for detecting use-after-free issues=
+,
+> log when memory (SLUB objects or page allocations) is being freed.
+>
+> This should happen after KASAN has already marked the memory as freed;
+> this will become important if we allow driving delay injection off this
+> in the future.
 
+Oops, I should include the page allocator and SLUB people on this one
+patch in the series, since I'm adding a hook in their code.
 
-On 08.09.26 14:45, netdev-bot+sashiko@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential
-> issue(s) to consider:
-> 
-> Critical: 0 · High: 0 · Medium: 1 · Low: 0
-> 
-> - [Medium] The patch fixes an observable lockdep "inconsistent lock
->   state" splat produced by the plain spin_lock(&dibs->lock) in…
-> 
+> Signed-off-by: Jann Horn <jannh@google.com>
+> ---
+>  include/uapi/linux/kcov.h | 1 +
+>  mm/kasan/common.c         | 2 ++
+>  mm/page_alloc.c           | 3 +++
+>  3 files changed, 6 insertions(+)
+>
+> diff --git a/include/uapi/linux/kcov.h b/include/uapi/linux/kcov.h
+> index 7d7147e7b427..76822d1c119a 100644
+> --- a/include/uapi/linux/kcov.h
+> +++ b/include/uapi/linux/kcov.h
+> @@ -90,6 +90,7 @@ static inline __u64 kcov_remote_handle(__u64 subsys, __=
+u64 inst)
+>  #define MEMORY_ACCESS_RECORD_WRITE 0x10
+>  #define MEMORY_ACCESS_RECORD_RMW 0x20
+>  #define MEMORY_ACCESS_RECORD_ATOMIC 0x40
+> +#define MEMORY_ACCESS_RECORD_FREE 0x80
+>  struct memory_access_record {
+>         __aligned_u64 ip_address_and_kcov_flags;
+>         __aligned_u64 data_address;
+> diff --git a/mm/kasan/common.c b/mm/kasan/common.c
+> index 1ab77ac9719c..3a648eaad024 100644
+> --- a/mm/kasan/common.c
+> +++ b/mm/kasan/common.c
+> @@ -283,6 +283,8 @@ bool __kasan_slab_free(struct kmem_cache *cache, void=
+ *object, bool init,
+>                 return false;
+>
+>         poison_slab_object(cache, object, init);
+> +       _kcov_handle_memaccess(object, cache->object_size,
+> +                                   MEMORY_ACCESS_RECORD_WRITE|MEMORY_ACC=
+ESS_RECORD_FREE);
+>
+>         if (no_quarantine)
+>                 return false;
+> diff --git a/mm/page_alloc.c b/mm/page_alloc.c
+> index 083cbcb5bdde..910d14925b84 100644
+> --- a/mm/page_alloc.c
+> +++ b/mm/page_alloc.c
+> @@ -1446,6 +1446,9 @@ static __always_inline bool __free_pages_prepare(st=
+ruct page *page,
+>         if (init)
+>                 clear_highpages_kasan_tagged(page, 1 << order);
+>
+> +       _kcov_handle_memaccess(page_address(page), (1 << order)*PAGE_SIZE=
+,
+> +                                   MEMORY_ACCESS_RECORD_WRITE|MEMORY_ACC=
+ESS_RECORD_FREE);
+> +
+>         /*
+>          * arch_free_page() can make the page's contents inaccessible.  s=
+390
+>          * does this.  So nothing which can access the page's contents sh=
+ould
+>
 > --
-> 
-> Here is the report.
-> 
-> dibs: Avoid inconsistent lockstate warning in dibs_lo_move_data()
-> 
-> This converts the plain spin_lock()/spin_unlock() around the
-> dibs->subs[]->ops->handle_irq() call in dibs_lo_move_data() to
-> spin_lock_irqsave()/spin_unlock_irqrestore(), because the same lock is
-> also taken from hardirq context in ism_handle_irq().  The commit message
-> notes this is not a real deadlock since dibs_lo devices have no interrupt
-> context.
-> 
->> diff --git a/drivers/dibs/dibs_loopback.c b/drivers/dibs/dibs_loopback.c
->> index 649e4e375be33..44a2e74c2efcb 100644
->> --- a/drivers/dibs/dibs_loopback.c
->> +++ b/drivers/dibs/dibs_loopback.c
-> 
-> [ ... ]
-> 
->> @@ -267,12 +268,12 @@ static int dibs_lo_move_data(struct dibs_dev *dibs, u64 dmb_tok,
->>  	if (!sf)
->>  		return 0;
->>  
->> -	spin_lock(&dibs->lock);
->> +	spin_lock_irqsave(&dibs->lock, flags);
->>  	client_id = dibs->dmb_clientid_arr[sba_idx];
->>  	s_mask = ror16(0x1000, idx);
->>  	if (likely(client_id != NO_DIBS_CLIENT && dibs->subs[client_id]))
->>  		dibs->subs[client_id]->ops->handle_irq(dibs, sba_idx, s_mask);
->> -	spin_unlock(&dibs->lock);
->> +	spin_unlock_irqrestore(&dibs->lock, flags);
-> 
-> [Severity: Medium]
-> Should this carry a Fixes: tag?  The lockdep splat quoted in the commit
-> message is reproducible on shipped kernels, and git blame attributes the
-> converted spin_lock()/spin_unlock() pair in dibs_lo_move_data() to:
-> 
-> cc21191b584c6f ("dibs: Move data path to dibs layer")
-> 
-> The hardirq-side acquisition of the same lock is in ism_handle_irq()
-> (drivers/s390/net/ism_drv.c):
-> 
-> 	spin_lock(&dibs->lock);
-> 
-> which matches the {IN-HARDIRQ-W} registration in the report, so the
-> warning can be hit by ordinary SMC traffic through
-> smc_close_active()->smcd_cdc_msg_send()->smcd_tx_ism_write()->dibs_lo_move_data()
-> on a lockdep-enabled kernel.
-> 
-> The splat also ends with "INFO: lockdep is turned off", so further lock
-> checking is lost for the rest of that boot on affected kernels.
-> 
-> Would adding the following help backporters and stable tooling identify
-> which trees need this change?
-> 
-> Fixes: cc21191b584c6f ("dibs: Move data path to dibs layer")
-> 
-
-
-As mentioned in the commit message the paths reported by lockdep belong to two
-different device types (dibs-lo and ism). So not a real deadlock.
-So unless lockdep-warnings by themselves warrant a Fixes-tag (?), I think net-next is correct here.
-
-Paolo applied this already to net-next.
-For the records: Sahiko identified the right patch to blame.
+> 2.55.0.979.g7e5102b832-goog
+>
