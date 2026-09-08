@@ -1,123 +1,157 @@
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90051559C92
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 15:12:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788880372; cv=none; b=U1A2kqydSYwki/wD+SQD8l3OhGkKZMG72tevPJ2FpmsiCb57HbhwO66jtccLnw+7fUFsfNpUCFd4+vx6prQsIUaQr/LO0DtaiwG9khtmOP3RX4UbJonv41t6UAyebHLoYSUjUDgIFGafdn6l5gIIN2E/etcIMSyWZaeLFNykrqo=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788880372; c=relaxed/simple;
-	bh=Doj+ZCEyQBnoNJxOjsX1VqYVjYJ/WamXYne20s6EuPw=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=S6A8GQaEDto/0Q2GD8sqDv9v/F6DU/wPHOpHJVP/0brc49QDcECm88EMU82yQLCxk9wQhW3rs9moUrDDSDeHHSy0hC6SGKjqtg6AxU7IzpoPhOpzKapAeHRZsO16aaQvBzs4f1yQqenE2UNZndIyFjy3rzYRcTJeieXCSHbuROY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mbI2GhOV; arc=none smtp.client-ip=209.85.128.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDC733A9618
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 15:12:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.227.140
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788880386; cv=pass; b=uXltPXr7k6W0M5yl92FDV8TOXJsNqZaZ+E2j1wW7N8CNZjy37Cozg+ymW75JKI5uNNoHcxR49TWj64cwiu0yblz6VeyYE2r6ytDQb72JbRMFPgvoU0KeNk7ysTbKfe2zWdFbuEqCG+MnDf+iM1psYY6rPswBw71NXOaWYLKJ+OU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788880386; c=relaxed/simple;
+	bh=h4V3qmSg9Cl3SBicqioBkg1pZFXj8Z00HAErU9xLdic=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=D5MbRItP3YVj5nhO7/m24A0gikRZobZgPg7LwXwEPuFHgjMZw8XBG5yJmDxE6wzdDCBGZrqhjVVAqrPJXEBwVtPYzluweuXT43EfYCbogPy2zYsYSlFAuGoqczCqbHdyHHBpK+K/1j6/xFyKeJWcKKcDSXO/WBvA8BQzjZ+Qw6k=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=C8hA5CSV; arc=pass smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mbI2GhOV"
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-499b2981a7bso51614575e9.3
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 08:12:48 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="C8hA5CSV"
+Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2d6ff3aca07so266475ad.1
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 08:12:56 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788880372; cv=none;
+        d=google.com; s=arc-20260327;
+        b=jQFoJVU5kBwqV03kbBOo93JTwxRIFxRX1WyxZf0Em2JHznlMfTC1tbth/6SuEJR1j3
+         GegT6U0a+R3Nvpqmi08JVaB+ig2du+IR+l01H9MWonN2kV8EjMz2XUVTMGn6tLuhUDIl
+         s6QYx58mAHmuaax8xfAbRUb1rbP2MtFLsva9u7FuIQuu6eRllSsP8W+8A/4VXhProfzC
+         B9JrMwQ5drjvJHev/IH1Qla6hNYOh4u8maG73/kzB+2dSbNMKtca/AW3FAj6UMpcHRmK
+         2yWy+z/6y/ksLn10NjowDHgTDTgj/FrWSzMO4Tt7aV9LzZUAIRySbINpVlt8sHw3mw7X
+         6h3w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=BouDQyseTpgBscOBCF3a6wtMXmz3CzisSn6GhPbdwBA=;
+        fh=cfMpRBahjFNNZz2obx4ZeUWhvWQcqe7YUxrWjyUH+Nw=;
+        b=UR2e9VxmB8oywFJuWR6zsF9SHGEXVWQHUAYGyicEQpaHDiSj4yk7GbKg0NpKWgUb00
+         loJNT+8f2RthbWT37XfY0lLCO9szT8QvqbKYcY1dG+GXo/It5+NSPfWmRtBwVdRKVTm0
+         gRvTOixcdoy7bq/X8H1fG/JM3ZmgkdjG0dNHut5M6Fy1jiFA0aGfBLVJTwDcb32Ex8Ox
+         cZcKZ/w+UgMA2Xp7mZdeU1UcmG2DUaqSKu2kX5MF8W4SYRJeUW0xX4cxyPuJv5QF0ZN3
+         qRLN8T/WiRL/1aaP6Qh+OMBlYVbwy9M0FBs8Ya9lyXUkKZZna+rjhgXAy1BbnZNrzizf
+         0LNA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788880366; x=1789485166; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+        d=google.com; s=20251104; t=1788880372; x=1789485172; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=XTgfNw2BEojIwEu1GKTPFuPQGMGtUKwmZuzA7RAeACQ=;
-        b=mbI2GhOVU5hVYrA6X7OisrHVk6+nFnwrTJ1tYU9BCoo9hbtVC8TiYKvCFhDfDzaHBb
-         HWbrCinpMmsyqOj1KCHqMrfGEi5L+0tDp61aoFPoacUTDoyqGyN/EQjHep2H2P5xVCPV
-         rCNqZKQoQpgbCFtPIdqrH2W/2MHOUQVX4/ktVv4JYZoT7l8azXpaFuKO5F0vublJr+Rz
-         YMl2/Us/mJuAk+Ojt7oWuIAWki0pAz8ua4FuKh9DTt27KiId8ewA8iYFBAmU6RDVYXZs
-         F4HfUk76HgQLbQ/NYTns8c32ujbtd1ZwDLJU+CiKqy2yJWHC3xmrXUSLSxjPNu1S2TZA
-         VeGA==
+        bh=BouDQyseTpgBscOBCF3a6wtMXmz3CzisSn6GhPbdwBA=;
+        b=C8hA5CSVxM/Z74ufDl36ekUeNsEHH0WhC055seX39waYfrIjxLVZ4VhECPL9nMmD/K
+         wLdIm0FQyh/deMhjU8aIUom//KEOY82WrXpdUbM7PBWESChmWZNeTyh8FOIkFGCQRHnH
+         V+QjdSgJVP6wZaBVd28laxSh8PhhsWvJvsV1HHj6qpe87nj4gtmmTAyZr3inkbnv59dk
+         wOlegio/ZYU86wJwwQ+16BwGPyXrbgX2sA2hLTvUfeuEIsqb2ZeILbC/KkOzbkRi7UCN
+         9IPPJlDqQt0j4OnW4uSgA5mN04rCsNt5IhBF0P9BZnrGSF/ksjVmbDiLioj2EAV5ji1F
+         g6Og==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788880366; x=1789485166;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20251104; t=1788880372; x=1789485172;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=XTgfNw2BEojIwEu1GKTPFuPQGMGtUKwmZuzA7RAeACQ=;
-        b=rfaYzywCSl48RrbVuINXlPZb6YVFUM6Ttwc0Hy6Sfow9+EwOc+bGNosQywv+Fg1AZz
-         pfPEu1pEv4BttpV4xwC8upN1bOIJj25klImySB3an2sxnI28FXwELJo6T+uWviCiXMF/
-         j2cpnc+MIXLhmclf8CdFIkVDL5NgWTrTcGE1nppyInORi4FI+ZDIqJwjeK4NPNwrwx5R
-         ASR9x6GMKmRazPzKeu8iX89eK1+O10iFNi4G3eitYBYMQ4inFFNJ8fGEke0nDZTJqOq+
-         9vV6T0rBknvPdxAsDh4gdKelPFtqe+dyccCljtpJWksft03qN4GfbZib80EBBLm2+Pfn
-         TUpQ==
-X-Forwarded-Encrypted: i=1; AKwUvBx2KPbaCS/451O/zNyb9VjEgEAmiBvIa7Wfifu+/o8yDARQYxVyHcJUgopws08vGtZcOrlv+3XnhNLJjyc=@vger.kernel.org
-X-Gm-Message-State: AFuF++kD313bh/Dh13h2Ntfe1lQ8TrlNI62QMKOcIFV0lFp2mXHBzHhD
-	8bhrk6RrtqTBJuwCw81yx6GoCcBbDRtXJWG4CZDwcuqEhGwpeAVxB4Vf
-X-Gm-Gg: AYBFou114lxgTWKPz1LnVcNOwgxzCdDU9+nAA9qY+P6lvYW4ZSUzV/oL3ns9dfZ2YME
-	9kG6o4LxlTSOarta7KHICLZ7TKt3FWz3iPPECZDzV2eqzn9KB9VY9uubu/GVSoliP0w171wv8Gw
-	swjOSpbh9CHkNTYeLqKOSl6WHLr80KQ2xTfN9PANffrYLaSFfal4lQldu8/F3j6ecHYnySOc9gf
-	E4YTRg+Yf3Iv4GHtNPIjhYEhxVm/GaMEqy6CSDNlF4l7poxFSWnMA6vtZTO+Q0AW0pwzhOPLztQ
-	5yqvFhOPxqvOqv0Vq4/khOeiBQiw9Fc6mI8YtS/+KlNPPn6y/yo1+KZKSB9HNb9rGedeb1r2DmQ
-	ZzpEtPqwIUDNgn203BFKXdSc8APkC66vu5SIDwjex0mXhFJNXbjpAh4jS6cW9+nj/gmWCLgH2os
-	Gw142VZkWAEk4zP4EE531EqWRLO16NLrd/SgFNkvqDo3a6TB/5hVnbHKDDVUTclFEamNIcvmHTA
-	W7Rghki+5dr5RRWF2Lvfet+z3UtD3iK0se04EaOYvHmKXyV0UDj8xe2tuAoAbW4jmqev5DzefKE
-	0PJw0fTfnqRIqD+DK4ZQnGcpjEySblJT2kZEDVWP++pshNham5GHaQ3VDEDyLXJbZeR2pN0+jGn
-	9pmZFFC5FUag1Wwb0zpIoLAiH4jW2r6DHonOlSZJ0C52/DsBrVXJfJUJF22o0a43LXWZ9XWc=
-X-Received: by 2002:a05:600c:4e94:b0:498:943:ccc0 with SMTP id 5b1f17b1804b1-49cf81e368emr508972015e9.6.1788880365425;
-        Tue, 08 Sep 2026 08:12:45 -0700 (PDT)
-Received: from localhost (90-182-112-124.rcp.o2.cz. [90.182.112.124])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cee6024a8sm507187685e9.6.2026.09.08.08.12.44
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 08 Sep 2026 08:12:45 -0700 (PDT)
-Date: Tue, 8 Sep 2026 17:12:42 +0200
-From: Joshua Crofts <joshua.crofts1@gmail.com>
-To: Andy Shevchenko <andriy.shevchenko@intel.com>
-Cc: Andy Shevchenko <andy.shevchenko@gmail.com>, Kim Seer Paller
- <kimseer.paller@analog.com>, Marilene Andrade Garcia
- <marilene.agarcia@gmail.com>, Jonathan Cameron <jic23@kernel.org>, David
- Lechner <dlechner@baylibre.com>, Nuno =?ISO-8859-1?Q?S=E1?=
- <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
- linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Subject: Re: [PATCH] iio: adc: max14001: add missing MODULE_DEVICE_TABLE
- macro
-Message-ID: <20260908171242.00007f88@gmail.com>
-In-Reply-To: <aqAlAJEJPrglb2E_@ashevche-desk.local>
-References: <20260908114047.1360-1-joshua.crofts1@gmail.com>
-	<CAHp75Vd-LTwJU-SvVug3MNPzFYsOQFc7qQ5AiMDjHOx8XNkHow@mail.gmail.com>
-	<20260908150311.00000da6@gmail.com>
-	<aqAlAJEJPrglb2E_@ashevche-desk.local>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
+        bh=BouDQyseTpgBscOBCF3a6wtMXmz3CzisSn6GhPbdwBA=;
+        b=S8rP5ALDVkWZBYso37LjSabmuGFCDvpqjZZyXBOxjKIHB3Dj4k6VlJgfUtSxSYIK3j
+         5JBVGURTR14c7qODyWnPtAURk/YzU6dHSaN/67MKhrbNnD1KMA3QFzzM0gnxo20hnj4X
+         xD0phtDaN2Fii5+9s3OHVNvTiGkE0/yTslFcOV1pviURVGtELtvmZZ8u6UPJTIK/9ezl
+         Ro9qeiw1lyDSrawv6riaZfxrq9tfaUyE3zn67OLXmyfY2zhTEMui1ttRufUEOe8Bbuwe
+         lBLMLYKKkAdF73FBmBe2SptUD9xyzlviMGHzkWFDkm/DZsz1OAZlC4yNBrHSw7/NeUnN
+         fkJQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxQu/HW1ww5WXoCQgNkimNM7T75ilSzHxHNiue0MHAvS8mVMiqRH7/JcLNjT0gSA340flZH9N6SOxbEiIU=@vger.kernel.org
+X-Gm-Message-State: AFuF++k4Pzdqh6i/kyu1IMHdXMYIGjXAXzGPUsObxCjUilfxNKC4+5/M
+	aqbjGNQhq22nH0bkABAbwYvLD3wVg7QbC+ZpiC6NRmgZdnS+EneG/0EUWXQ4wjsL7QgfLDhK6tW
+	FZYN7iLzqZvx53sLJitSa12Ls/9yX5wrI86NJFVbF
+X-Gm-Gg: AYBFou2Fei5mwkZCpwEYW3SAFWFSC+wzG6aIIZ8nkNk8gTAEXUFIEPIge26TJjcgw4F
+	IpSP+FHilN5J91By5YHF9WkJv5CZrUTpq0hKpI29QXbzVPLpkj+tfclNIskN2hH3N926lzW7T/c
+	GJB2xe7crH7Ha24Twt2Ceb2lzbI+iFdpBTOzEAo7HerBhDtDDcEbmJs0372tv2Ytmtfoze28BPy
+	WWiATPwPH6mlCei0dQJ4kidpjNltv2f7a/R+f56DvSKqjXxdGhf4F1EZzSDLmyXOu7gyxCADb4y
+	u2ukhUw4E84QM22tANlaOVndAzf5Att41lH+TrZ4e8pxilJc4gw7VNFsOzOz24jYe6nZwdrF5QC
+	ex5nUtnOBy0L3/w==
+X-Received: by 2002:a17:902:c102:b0:2ca:4bb4:4bd with SMTP id
+ d9443c01a7336-2db294d1416mr11909045ad.5.1788880371498; Tue, 08 Sep 2026
+ 08:12:51 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+References: <20260903215606.31633-1-hramamurthy@google.com> <923eefe9-141a-47b7-94c5-c91df94e66f6@redhat.com>
+In-Reply-To: <923eefe9-141a-47b7-94c5-c91df94e66f6@redhat.com>
+From: Harshitha Ramamurthy <hramamurthy@google.com>
+Date: Tue, 8 Sep 2026 08:12:40 -0700
+X-Gm-Features: AcwNN1W-djDon6i2Oxz6RcG_IKMBsvPvG6L-ePIXfRp75VFE_wdPCqR4Vyc6SXM
+Message-ID: <CAEAWyHdvav2Yd1qjt9Z+O0f5OAN3OKd1y9OPV=VuASLXYbUdpQ@mail.gmail.com>
+Subject: Re: [PATCH net-next v5 00/12] gve: AdminQ mode related refactors
+To: Paolo Abeni <pabeni@redhat.com>
+Cc: netdev@vger.kernel.org, joshwash@google.com, andrew+netdev@lunn.ch, 
+	davem@davemloft.net, edumazet@google.com, kuba@kernel.org, ast@kernel.org, 
+	daniel@iogearbox.net, hawk@kernel.org, john.fastabend@gmail.com, 
+	sdf@fomichev.me, jordanrhee@google.com, willemb@google.com, nktgrg@google.com, 
+	maolson@google.com, thostet@google.com, jacob.e.keller@intel.com, 
+	debarghyak@google.com, kees@kernel.org, bpf@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, przemyslaw.kitszel@intel.com
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Tue, 8 Sep 2026 18:08:48 +0300
-Andy Shevchenko <andriy.shevchenko@intel.com> wrote:
+On Tue, Sep 8, 2026 at 3:09=E2=80=AFAM Paolo Abeni <pabeni@redhat.com> wrot=
+e:
+>
+> On 9/3/26 11:55 PM, Harshitha Ramamurthy wrote:
+> > This series is preparing the driver for the addition of a new control
+> > plane mode(MailboxQ) by commonizing and reusing as much code as possibl=
+e.
+> > MailboxQ is a new control plane infrastructure which uses mailbox queue=
+s.
+> > This is a new control plane to communicate with the device when the dri=
+ver
+> > is running on bare-metal instances as well as newer versions of the dev=
+ice.
+> >
+> > This series contains 2 main changes to the gve driver's existing contro=
+l
+> > plane(AdminQ):
+> > 1) refactor some initialization/teardown path methods to make it work f=
+or
+> >    both control planes.
+> > 2) add gve_ctrl_ops structure to the driver for various control plane
+> >    operations
+> >
+> > The refactors are mainly around the init, reset and recover paths so th=
+at
+> > functionalities could be moved into the control ops like 'set_num_queue=
+s',
+> > 'set_num_ntfy_blks' etc.
+> >
+> > This patch series only sets the control ops for AdminQ mode. This is
+> > intended as a preparation for adding MailboxQ mode in upcoming series
+> > which will add the new control plane infrastructure and then introduce
+> > the corresponding control ops for MailboxQ mode.
+> >
+> > The entire list of future patches can be found here for reference:
+> > https://github.com/hramamurthy12/linux/commits/gve-mailbox-queues/
+> Imho the 'medium' severity issues raised by clashiko on patches 1 should
+> be addressed in this same series.
+>
 
-> On Tue, Sep 08, 2026 at 03:03:11PM +0200, Joshua Crofts wrote:
-> > On Tue, 8 Sep 2026 15:41:23 +0300
-> > Andy Shevchenko <andy.shevchenko@gmail.com> wrote: =20
-> > > On Tue, Sep 8, 2026 at 2:41=E2=80=AFPM Joshua Crofts <joshua.crofts1@=
-gmail.com> wrote: =20
-> > > >
-> > > > The MAX14001 has an SPI ID table, but is missing a MODULE_DEVICE_TA=
-BLE()
-> > > > macro.   =20
-> > >=20
-> > > Is this a problem? =20
-> >=20
-> > For systems using devicetree, no. For legacy systems using spi_board_in=
-fo and
-> > this stuff, yes.
-> >=20
-> > If you're referring to the mark for stable then I'm fine with removing =
-it. =20
->=20
-> No, I'm trying to (implicitly) tell you that the commit message misses
-> the answer to "why?".
->=20
+Will fix in v6.
 
-Oh right... Will update in v2.
+> Please note that you are supposed to act on sashiko reviews, see commit
+> c82ff94592fb68f529afe63ca7f5ddb7dae4ba83. Lacking such feedback, I'll
+> tend to err on the safe side - i.e. requesting a new revision.
 
---=20
-Kind regards,
-Joshua Crofts
+Acknowledged.
+
+Thanks,
+Harshitha
+
+>
+> /P
+>
