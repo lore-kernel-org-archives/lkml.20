@@ -1,83 +1,99 @@
-Received: from smtpo75.interia.pl (smtpo75.interia.pl [217.74.67.75])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D2E6524AEC
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 09:44:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.74.67.75
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 509044AA595;
+	Tue,  8 Sep 2026 09:44:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788860666; cv=none; b=PrqY+ly6iGIDsSzyei8dps93FO+By6plRcrN80Rz192hm9M6qQpQ7n3EKqcl96/Jl04/w2pD4yqV46GYP9iHir+wsd/10T/1uwlP14TnXsifHbZotFwQlgwNQ/KlpbuJz8dGxGEmhuEEnkbtGvAZbR9urXhqY3PLMMyhrLQZhEU=
+	t=1788860689; cv=none; b=uLSR60VL189q+XdpVZU3vwptrtUxlFIBbl9NbiPp8n024CRsf8ESYEht/MtCyBJA68L42XEcpoRzOfMWMocX7AMxbzgy5ho6f5O3I92+z+hqwlSPCPMYVUHv6eWcX7UZmBNv4hKCM2iiWBgm7KI/I0eCm7vXnFSUgF9Tz81SNdE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788860666; c=relaxed/simple;
-	bh=3nSzLZLYMzxlGIZlESoUGe+P1IGAPlZ6M0eSLcsLM3E=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Nr2xz5AQNL37J2zFfgjVNsbCfJo4TjIceuu6mGvwdR5LCugP0WWQjzW78qWeqPLR02q5W7muakYgNMhnabFdOJ356oKp89CcJNDB7FY0p4nrq7TYn24uAbzCwo2hbqmZwZW8I2qKhGF1FTZfl6odxBQNron40+PSpFISNDEZUms=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=poczta.fm; spf=pass smtp.mailfrom=poczta.fm; dkim=pass (1024-bit key) header.d=poczta.fm header.i=@poczta.fm header.b=q7zaBDqC; arc=none smtp.client-ip=217.74.67.75
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=poczta.fm
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=poczta.fm
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=poczta.fm header.i=@poczta.fm header.b="q7zaBDqC"
-Received: from nr200 (unknown [80.68.231.31])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by poczta.interia.pl (INTERIA.PL) with ESMTPSA;
-	Tue,  8 Sep 2026 11:44:18 +0200 (CEST)
-Date: Tue, 8 Sep 2026 11:44:16 +0200
-From: Slawomir Stepien <sst@poczta.fm>
-To: Johannes Berg <johannes@sipsolutions.net>
-Cc: syzkaller-bugs@googlegroups.com, linux-wireless@vger.kernel.org,
-	linux-kernel@vger.kernel.org, syzbot@lists.linux.dev,
-	syzbot+9bdc0c5998ab45b05030@syzkaller.appspotmail.com
-Subject: Re: [PATCH 3/3] wifi: cfg80211: check if AP has been started before
- adding new station
-Message-ID: <ap_Y8OD0eBAnB8QS@nr200>
-References: <20260813090434.2071318-1-sst@poczta.fm>
- <20260813090434.2071318-3-sst@poczta.fm>
- <113768c35523738bdc7ab8441ecda64a063900bf.camel@sipsolutions.net>
+	s=arc-20240116; t=1788860689; c=relaxed/simple;
+	bh=hZE62hYy80JCmRJl8frLe8BRekVemno7foWWlr7ByQA=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=oznXUkV7GN7jfeUHEOmJArXfnt/tyOSM7v29C2c3iWi+37AhkhR7VjesEWJdu6B2iuS1YCZA2yQFdbrxEyr9ohWd1tM2m0tn0ZqBTdbK/oUiphhSOS8zuUOFUw/Ni4x4WgJgEEeO7HJQt+UWy3ScnsFi5v27/H+uUDm77dUks7g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: ea830a7aab6911f19a56ed5b684f684d-20260908
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:1aaeb123-10e7-410a-b55b-6715d5593966,IP:0,U
+	RL:0,TC:0,Content:-5,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
+	:release,TS:-5
+X-CID-META: VersionHash:7db8b62,CLOUDID:b7342ac129824bbfa49c5374921c0be9,BulkI
+	D:nil,BulkQuantity:0,SF:102|136|850|865|898,TC:nil,Content:0|15|50|99,EDM:
+	-3|-100,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,O
+	SA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: ea830a7aab6911f19a56ed5b684f684d-20260908
+X-User: lilinmao@kylinos.cn
+Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <lilinmao@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 1401455100; Tue, 08 Sep 2026 17:44:41 +0800
+From: Linmao Li <lilinmao@kylinos.cn>
+To: Herbert Xu <herbert@gondor.apana.org.au>,
+	"David S. Miller" <davem@davemloft.net>
+Cc: Frank Li <Frank.Li@oss.nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Leonard Crestez <cdleonard@gmail.com>,
+	Radu Solea <radu.solea@nxp.com>,
+	Franck LENORMAND <franck.lenormand@nxp.com>,
+	linux-crypto@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Linmao Li <lilinmao@kylinos.cn>
+Subject: [PATCH v2] crypto: mxs-dcp: handle zero-length skcipher requests
+Date: Tue,  8 Sep 2026 17:44:37 +0800
+Message-Id: <20260908094437.1548278-1-lilinmao@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <113768c35523738bdc7ab8441ecda64a063900bf.camel@sipsolutions.net>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=poczta.fm; s=dk;
-	t=1788860660; bh=qRS7sqO90bq5MVdJypTliiG6818q57NEQsDft4ry+hI=;
-	h=Date:From:To:Subject:Message-ID:MIME-Version:Content-Type;
-	b=q7zaBDqCkkw/yyr04OVA2Hq5CU58aK1lTU13Ra10D3cNCQUwRzv/chDGAMRcNaTpP
-	 eP52WU8Lpc9JUaxRurYVFm/b5Rgzjz+nO9djoqFI5k/a45+sjNcKxWyZORoZMtzvuk
-	 SOTugGULAeLg/0UJyMB18y58ulP/Ja2rZBhv4Lag=
+Content-Transfer-Encoding: 8bit
 
-On wrz 04, 2026 11:25, Johannes Berg wrote:
-> On Thu, 2026-08-13 at 11:04 +0200, Slawomir Stepien wrote:
-> > 
-> >  	case NL80211_IFTYPE_P2P_GO:
-> > +		/* Add a new station only after the AP and link has been started */
-> > +		link_id = wdev->valid_links ? params.link_sta_params.link_id : 0;
-> 
-> max() maybe?
-> 
-> > +		if (!wdev->links[link_id].ap.beacon_interval)
-> > +			return -ENETDOWN;
-> 
-> I think the same issue might exist also for mesh, maybe address that as
-> well?
-> 
-> And I think you could have a fourth patch to clean up the mac80211 code
-> to no longer handle the "STA creation on AP_VLAN" case?
+The generic ECB and CBC implementations return success for zero-length
+requests, but MXS-DCP queues them anyway. When such a request reaches
+the worker, last_out_len remains zero. The CBC completion path then
+subtracts AES_BLOCK_SIZE from this unsigned value when updating the IV,
+causing the offset to underflow. On decryption, the resulting source
+address precedes aes_in_buf.
 
-But is there such case?
-The only part I think is related is the handling code when params.vlan is set. However, this code is
-still OK. I do not see any other code that would be a good candidate for removal/change.
+Return success before enqueueing zero-length requests, matching the
+generic implementations. This avoids the invalid source access and
+leaves the IV unchanged.
 
-Am I missing something here?
+Fixes: fadd7a6e616b ("crypto: mxs-dcp - Fix AES issues")
+Signed-off-by: Linmao Li <lilinmao@kylinos.cn>
+---
+v2: Clarify commit message: describe zero-length return-0 as existing
+    generic ECB/CBC behavior rather than a general API rule (Frank Li).
+ drivers/crypto/mxs-dcp.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-Also, during this check, I've came to a conclusion that I will reword a bit the commit message for
-PATCH 1/3, since userspace can still add STA to AP_VLAN in one go, using
-attrs[NL80211_ATTR_STA_VLAN] and that's fine, since the wdev would be the base AP interface, so all
-check will happen.
+diff --git a/drivers/crypto/mxs-dcp.c b/drivers/crypto/mxs-dcp.c
+index 133ebc998236..60794b4d49fa 100644
+--- a/drivers/crypto/mxs-dcp.c
++++ b/drivers/crypto/mxs-dcp.c
+@@ -473,6 +473,9 @@ static int mxs_dcp_aes_enqueue(struct skcipher_request *req, int enc, int ecb)
+ 	struct dcp_aes_req_ctx *rctx = skcipher_request_ctx(req);
+ 	int ret;
+ 
++	if (!req->cryptlen)
++		return 0;
++
+ 	if (unlikely(actx->key_len != AES_KEYSIZE_128 && !actx->key_referenced))
+ 		return mxs_dcp_block_fallback(req, enc);
+ 
 
+base-commit: 8d3ae59288f1e7d58d76558a6ee96d533bc5019f
 -- 
-Slawomir Stepien
+2.25.1
+
