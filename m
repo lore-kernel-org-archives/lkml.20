@@ -1,75 +1,108 @@
-Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
+Received: from mta1.migadu.com (out-107.mta1.migadu.com [95.215.58.107])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 793F1526A84
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 11:07:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.200
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 890454AC16D
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 11:07:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.107
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788865633; cv=none; b=fOpZAHlBjXpYISSj9JdaZMRVNv2WpTK9X8G/snVr1DxCk2KfVEBHc78t2wlXkOPCBmBD5qfMm9aCps2ah+B1sofJmx6lZRhGzn6wCKgBsT030JKWbMEr4XrH0qhjk3qn8Xi6jVp9fUPgAGkzG5QkMgCyRApIZQDi0Dnh80SZCxM=
+	t=1788865645; cv=none; b=CiTNIIzLUAMmzc9RguXuMipjo3HkkF40S8ecAEUwxSgReRW+iAcAeT021szwzw9Obkwsx4lp48EyfoZFoi/tCiEgHO+YFR/KwfBJzq2avpV8EDoM0OM0FZ/l0XURKdgzARNwO5qM3KeDbvz8KzhJXtrkoaQsg+7yW+0e+9+yxPA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788865633; c=relaxed/simple;
-	bh=mVnycIIIdt93Q/C6T4Eea9qad0nDQRG30pGBwKnOwZE=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=CLUKswbZ41fhcchlyqRI1eeTpqf5I3E56jowQG2YqsVXTvk27H727rtdLF3NQ3JXGB7P0NdMo2P86wOFhhHUxByQLuMcmtv7LJiFp951vby1eNsvzsk4slIuHeaMG2Sjxod8uawOePRe9lP9hZXPCYfeGC077bfaMwu4cRSHbpo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.200
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-4b28d9206f8so1921043b6e.0
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 04:07:11 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788865630; x=1789470430;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=CZ0+01D4AuO1B4+6k3s3JJVLdaevTDGCudWPqPrm4ZU=;
-        b=UKTh/vGNwezTdCGvxj6KsuKEg9Fb3K3F97yviFkemf0q12Ge6lueZCbSGUS7KxkYqs
-         Y9D4cpXxuKBDEjaTCe+TTckhsxBqaLjhv1TT9D/h5VlxT7zIKhoYTQ+HnajGuGAM/8Sw
-         7ScJ6CVC/+83homfpC5y2KshwjAF0nD57n+ZIWHvugrChXD+bYY7MPSZBwi605CB1GCg
-         b2UImDrKiQr3CMJQxPHifW/XaTbgYD8SnNvIq/TZ+sVKYMvX7mdhTsx5P6qmkXdkjRjN
-         9Lo5YUSA9AWoOtuBbM/n5QdP20y774EJsFjPG7UCaSAzciNumMlkUj+PQV7bj4lextz2
-         pgQw==
-X-Gm-Message-State: AFuF++nuV+uva/UW43lNxKs8ZNWaTiy60EVd3PfJqpjnu6P9Gp/Wyzys
-	tm6FkPOWEzoXq8ZLe7Uqlb1lVlmlu+b+ZkZcxzq9r7J0EfozZZHJ03Wyrdbp4ZaXLuk9o20X0yd
-	4fBVJdm0h8C8U16Li5dxTYQ7EbB8chq8AaiWSZwSklzPvQPEYyTHAwwQGsW4=
+	s=arc-20240116; t=1788865645; c=relaxed/simple;
+	bh=nIpoc5sfHGTXjBAy3ABWY1KxxnQB5xQPhoL+P57mMcM=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=G1IEpdFMFCqaDHiZUITrQmjTI/pqhtBlWNidvhEoL6RcTI97h9QZXtqB76zYqmmUIlPcim6/y7t1RVPwiCf0PTNCBIHkkjzSUBwBi22YsZD/uO4PH60jGxVb8mxnm/iWyN3pN1piyulllxWNbSoECXFR3uyGhWzYM2lgbI7ER2U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Fky8TGAO; arc=none smtp.client-ip=95.215.58.107
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Fky8TGAO"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=nIpoc5sfHGTXjBAy3ABWY1KxxnQB5xQPhoL+P57mMcM=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788865638; v=1; x=1789470438;
+ b=Fky8TGAOiy8DE0IDEkqE+srgvlRiIcysThTrBbw9d2Jad2Ij4Hb3t7FmNUWr5P4pNsDYzFCA
+ WQkbeKjliMyLjAQ2HguMBM7+tGzA/BB2sv2+L0Om53PmGughuj3RTctPTFSlFoXOYnsKyq4X+V7
+ 113EeIvbiHjPNDTofrB0bKx4=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 6d105b631239bd15;
+	Tue, 08 Sep 2026 11:07:18 +0000
+X-Mizu-Trace-ID: 6d105b631239bd15
+X-Migadu-Flow: FLOW_OUT
+From: Fuad Tabba <fuad.tabba@linux.dev>
+To: Marc Zyngier <maz@kernel.org>,
+	Oliver Upton <oupton@kernel.org>
+Cc: Will Deacon <will@kernel.org>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Joey Gouly <joey.gouly@arm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Vincent Donnefort <vdonnefort@google.com>,
+	Keir Fraser <keirf@google.com>,
+	Kalesh Singh <kaleshsingh@google.com>,
+	Quentin Perret <qperret@google.com>,
+	Hiroyuki Katsura <hk590@cam.ac.uk>,
+	Fuad Tabba <tabba@google.com>,
+	stable@vger.kernel.org,
+	kvmarm@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 0/4] KVM: arm64: Fix host access to the EL2 stacks
+Date: Tue,  8 Sep 2026 12:07:09 +0100
+Message-Id: <20260908110713.1540304-1-fuad.tabba@linux.dev>
+X-Mailer: git-send-email 2.39.5
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6809:191:10b0:4bd:6e20:2cd1 with SMTP id
- 5614622812f47-4bd6e202faemr3400180b6e.4.1788865630218; Tue, 08 Sep 2026
- 04:07:10 -0700 (PDT)
-Date: Tue, 08 Sep 2026 04:07:10 -0700
-In-Reply-To: <6a6d375e.2d659fcc.1d46f5.01a4.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6a9fec5e.f614420e.2bf292.000c.GAE@google.com>
-Subject: Forwarded: Re: test patch
-From: syzbot <syzbot+31117fde582fe6a0cd62@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-For archival purposes, forwarding an incoming command email to
-linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com.
+Hi folks,
 
-***
+The per-CPU EL2 stacks are initialised as host-owned after pKVM init.
+fix_host_ownership() walks only the linear-map alias of each memblock
+region, and the stacks, mapped in the private VA range for their guard
+pages, have none.
 
-Subject: Re: test patch
-Author: syedtayyabfarooq08@gmail.com
+Patch 1 is the fix, and it needs none of the other three. Patch 4 adds
+the check that would have caught it and would catch similar instances
+in the future: once the transfer is done, walk the private VA range and
+fail init unless every valid leaf is hyp-owned, or is hyp text mapped
+without write access.
 
-#syz test
+Patch 2 is a fix in its own right, but to a different bug.
+fix_host_ownership_walker() matches hyp text on its stage-1 permissions,
+and that test hasn't matched on a non-hVHE host since 7.0, so hyp text
+is donated there rather than left read-only. Nothing crashes, but the
+instruction dump on hyp panic reads a page the host can't access, so
+the Code: line comes out as question marks. It matches by physical
+address instead, which is what patch 4 needs too. Patch 3 splits the
+start of the range from the allocation cursor, with no functional
+change, so patch 4 knows where the range begins.
 
-diff --git a/drivers/usb/usbip/usbip_event.c b/drivers/usb/usbip/usbip_event.c
-index 0e00c2d00..81d761891 100644
---- a/drivers/usb/usbip/usbip_event.c
-+++ b/drivers/usb/usbip/usbip_event.c
-@@ -115,7 +115,7 @@ void usbip_stop_eh(struct usbip_device *ud)
- 	if (pending)
- 		usbip_dbg_eh("usbip_eh waiting completion %lx\n", pending);
- 
--	wait_event_interruptible(ud->eh_waitq, !(ud->event & ~USBIP_EH_BYE));
-+	wait_event(ud->eh_waitq, !(ud->event & ~USBIP_EH_BYE));
- 	usbip_dbg_eh("usbip_eh has stopped\n");
- }
- EXPORT_SYMBOL_GPL(usbip_stop_eh);
+Based on Linux 7.3-rc2 (df2908090cda3).
+
+Cheers,
+/fuad
+
+Fuad Tabba (4):
+  KVM: arm64: Transfer the hyp stack pages out of the host stage-2
+  KVM: arm64: Match hyp text by physical address in fix_host_ownership()
+  KVM: arm64: Move the private VA allocation cursor to __io_map_next
+  KVM: arm64: Check every private mapping is hyp-owned at pKVM init
+
+ arch/arm64/kvm/hyp/include/nvhe/mem_protect.h |  2 +
+ arch/arm64/kvm/hyp/include/nvhe/mm.h          |  1 +
+ arch/arm64/kvm/hyp/nvhe/mem_protect.c         | 20 +++++
+ arch/arm64/kvm/hyp/nvhe/mm.c                  | 79 ++++++++++++++++---
+ arch/arm64/kvm/hyp/nvhe/setup.c               | 16 +++-
+ 5 files changed, 108 insertions(+), 10 deletions(-)
+
+
+base-commit: df2908090cda368b01ff43709f51890076c56157
+-- 
+2.39.5
+
