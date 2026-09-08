@@ -1,33 +1,87 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 851BC5427FE
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 13:15:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CD04562617
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 13:15:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788873331; cv=none; b=rb5XeM3pf5/jbpaVu5iIOIVjegpjs/mvBskPPtOMNhL7LfYXi1bvm6Qe1ClqK446HgBg+ty2k7Hbb+g8vHJIreHWzSGhJ3MEcI/RkGlV5JLJKEIQVIkpzREKY5p1V/tQ+LGYxlSuGS4NmFEgPWtjhsZntG1Xdh1jUbd7DS2D67E=
+	t=1788873340; cv=none; b=Y3TgcLteg6/PxIWpeFMFmPGeFygRngpDkJIP9LmVe3SOMC+A6HoTFwcQYBYsnbb5tlGtygyM4XCPZY6SoX0T2Prz2ghzmtEXaA48uYhEHTcZfKQxLInycTbmWYeo4r9OFmjqjRfYnjS+gZEuVoFpkl9iIhVTgwXQ9zi15I6/PFs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788873331; c=relaxed/simple;
-	bh=rTMz/xlUFYVRRRGd5XADHoDI6DvwfIJL1qpU/Fb0hHk=;
+	s=arc-20240116; t=1788873340; c=relaxed/simple;
+	bh=Zcdpx+RNhi3G5SXrQ458cAnUNQSGCbuLRxF/WFPWRuY=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ln+MpdBXNAWpuaK23N4F0MRHkL5mMpydXRm8vI70HLH5rmbsbar3rnRf543gj2gtOWaI7slHQ30hNRsi5TPFXCDx5zX2WdzPXQ0ruL1s3i1EGLcDdIaX0AsvxMAGcrkqvTSrLQtS6e9IVYAzKhz6lPozOsNUatNbWvrd/vMm1dk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=i3lnViUl; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	 In-Reply-To:Content-Type; b=JhgwvAL+2c6w62BMjsGFOilwiVY45Hay+nVB6dyGNjKlftuvzir1nUu8KDT8U37Ks+rgSqgkX+4FWyslVZvRvA8P14OTgPgeKFGSBolO6vQZ/M9/iXWVfSlg4bYS3FWIAUR9Uc6PhHX2lD4kZlqU/MsLnSEgBSpEYJpTMJddMkA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=GuxecpYO; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Xjxh2zgu; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="i3lnViUl"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id C45BE1476;
-	Tue,  8 Sep 2026 06:15:24 -0700 (PDT)
-Received: from [10.2.212.8] (e134344.arm.com [10.2.212.8])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 3A3583F7B4;
-	Tue,  8 Sep 2026 06:15:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1788873328; bh=rTMz/xlUFYVRRRGd5XADHoDI6DvwfIJL1qpU/Fb0hHk=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=i3lnViUlTkdIdq8vFPwdhABKk1klUY2eE8I1NZTqXzzWk4B211p8HV0G84qurtHb9
-	 kXoVE4R8/aGfp/N8pI2DRKkcpkxk1af6HmQBWmeuG4tD3xvQMICZ0t0iX7ZEdvbcSK
-	 /ksnXZcaVkQjl79ddCxU9DqKSvB5LBajCzwwicZA=
-Message-ID: <18acfcfd-93e7-4319-9a2e-4fe1ccccacfd@arm.com>
-Date: Tue, 8 Sep 2026 14:15:24 +0100
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="GuxecpYO";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Xjxh2zgu"
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 688Ckt1B3844305
+	for <linux-kernel@vger.kernel.org>; Tue, 8 Sep 2026 13:15:38 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	Wqg4RIvj4EDznPdH5QGIsGmd5X2+Q2zBtKlvYGU1LoU=; b=GuxecpYOHeqk9Hn5
+	tMZ/7WCZnCZWme6Z243IfcJ3Uw4W1q/nUlhC2aHKoCQX+uAzg36m+C9UeHSDKfOC
+	iPsmjW9BtXfrMUyo8dgm2IQrJAetXDdaViKKtzoJasolUNlcVK7YvoV0+Xf2AfUg
+	YR2DdW8RdyRAR/eptdDTodJqUm/0MhgUq5LeW8YYDNH23dweth+m4NdpjgYsW/NG
+	SGkK6bSLPX0EpkiTm+WIHwomulj44VxqjVEqnnSGIrdwLiDSszbUqB+VaFz0YPxW
+	3h8L/C3SxAJpzObxaJWQFspvASbh0Ht92F5OK1VmxCGDDRUDG3MdZwrqVX9llJ82
+	a2trtw==
+Received: from mail-vk1-f198.google.com (mail-vk1-f198.google.com [209.85.221.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gjg8xrq89-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 13:15:37 +0000 (GMT)
+Received: by mail-vk1-f198.google.com with SMTP id 71dfb90a1353d-5c665139c92so83302e0c.1
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 06:15:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1788873337; x=1789478137; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Wqg4RIvj4EDznPdH5QGIsGmd5X2+Q2zBtKlvYGU1LoU=;
+        b=Xjxh2zguwvL/NWWBWCewc/lZMIYertvOR549mm8JkT3JE9GNAo25OWwG2NnwVc3rZn
+         dXXDamrb+PfF+sDkLrHCFvaV+0ehz7JFosJYv3IB45i7A0rF4FQ6oJuWeGhOstrdq+pQ
+         611P58KIpYWbKktqRUt2z/cBvCCHU04cG5UU/sIVwE9CGnHRrne0KMvqmjvyMxduEIhl
+         ga0mh1/YasQ5zzv1BxmwapGIgPhDzogDQfAVOmo7Nhru+iUkfyzWmgKxWhJEwSTaq4Z5
+         7NUC7ZhuxFvNZSI4vb/qUA2hnYYtBgglS1gmHbiApOI+RKRu3I40n97i4knW6P+w1ML5
+         juZA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788873337; x=1789478137;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Wqg4RIvj4EDznPdH5QGIsGmd5X2+Q2zBtKlvYGU1LoU=;
+        b=YXp3+Bcgi8+SQRrauYP4dPx7EpBU04+lRdE+Ntz0XcK04l1rGLHVQHnr0CnkSvpf06
+         40elj2tNC49LdIR5l24SfWOh5MCXSapJkAsEUh4vRAbK8NEPFdZynSZO22KfWN9UjV07
+         oeiWav4WX8s2umJSV1bpiexJlmLAgrJSUYVBiEPgn4d6IGXYV3xbs64vrUGevmhdfar7
+         OmPHYBsQdi3Xwd2OJIIljL12yqjza5ke9LUVfBQdiPtTJOqGWMw59R3wW4iJzdEhECNs
+         U9OfT2HIFiOxTb0JJR9F5JO/W8FkMXrKrDrfsKTMA/toIPP0pXqKFowW5SCqp7zO0iMv
+         mSPQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxnaZjbS5Ghsy4HzUQ5Op2X0trBz/E7hwAtYJYVs0drlKwxX+PK4w4HSxygfs1tHDH5slpVamHLdV/a3VI=@vger.kernel.org
+X-Gm-Message-State: AFuF++mq3xzY7NYACzaRrV+2VA+tXKPC1dbkbKhOHt7q6T/17fy9JIZe
+	1Evt0kt1uthbQgyj8LPHRkaFDnSmxDjIFIQ4xvwSfeXxRcuReICkpqlvkzfnxnqH0WTunXfn/gC
+	Zb3ag/Olvb9Y2/s99lABQcOEUtKtx6k5K9X2Uf1E7eAZes7Avu6OFjmFS34XnkSx+VTs=
+X-Gm-Gg: AYBFou31jvGYqHhYOuR3txaJ6K0y1YuTQSuUuM82CIQG0K5rtE6Hr/HcZCmTQC8VZsD
+	AKH4qZOgMQDjip8GI2NqtTpMp9nn9C9ksgrVyrV3Ig1Vz3zK/LtxixFaRIJBPRkSPoFNDTJtoMf
+	TYxh6Rj06agZTymruOj0p/fZNq8DryLml8/o7MzMkcCG4h/D2G/RaUpFrc/vVreSkHUGewnAIMe
+	4IdJbyAQoVnkCfZM9wlM7zWRWl1kL7XZGyM2+qKiv/DVIAyuHMaBdJaVFbsf1EKoKdCKXbQgko9
+	iHA7Az6TElGp61mDwu6RUTnY6wc3ApxtdqT4BQsdDZs+PcQfwOMm8OLxKbrnnKAXXyjnJtW2CG/
+	w45cio74eii6byXhgy+eCfw==
+X-Received: by 2002:a05:6123:5d9:10b0:5c3:b339:7b19 with SMTP id 71dfb90a1353d-5c7fb7ea227mr24550e0c.1.1788873336811;
+        Tue, 08 Sep 2026 06:15:36 -0700 (PDT)
+X-Received: by 2002:a05:6123:5d9:10b0:5c3:b339:7b19 with SMTP id 71dfb90a1353d-5c7fb7ea227mr24534e0c.1.1788873336105;
+        Tue, 08 Sep 2026 06:15:36 -0700 (PDT)
+Received: from [192.168.202.12] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b6167031f1sm3053010e87.60.2026.09.08.06.15.33
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 08 Sep 2026 06:15:35 -0700 (PDT)
+Message-ID: <de1c8eb5-c965-405d-bc4e-551926a886d9@oss.qualcomm.com>
+Date: Tue, 8 Sep 2026 15:15:32 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -35,168 +89,95 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] KVM: arm64: Trap guest MPAM accesses whenever MPAM is
- implemented
-To: Fuad Tabba <fuad.tabba@linux.dev>
-Cc: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>,
- Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
- James Morse <james.morse@arm.com>, Xi Ruoyao <xry111@xry111.site>,
- Mark Rutland <mark.rutland@arm.com>, Joey Gouly <joey.gouly@arm.com>,
- Suzuki K Poulose <suzuki.poulose@arm.com>, Zenghui Yu
- <yuzenghui@huawei.com>, Steffen Eiden <seiden@linux.ibm.com>,
- Gavin Shan <gshan@redhat.com>, linux-arm-kernel@lists.infradead.org,
- kvmarm@lists.linux.dev, linux-kernel@vger.kernel.org
-References: <20260903160819.831518-1-fuad.tabba@linux.dev>
- <dd850141-ea85-4d94-9793-393f24a2fdc2@arm.com>
- <CA+EHjTyuLKYE1UL4XYvq4rxW7fgFNafdTY8H0=Qt6Hnjz3wYvQ@mail.gmail.com>
- <CA+EHjTzZovYDUeoEryhdmP1bvqJyEDmOoPtT7PEDvS2y5puXYA@mail.gmail.com>
+Subject: Re: [PATCH] arm64: dts: qcom: sdm845-oneplus: fix fuel gauge
+ compatible
+To: Rinat Muhamedgaliev <rinat.muhamedgaliev@gmail.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Caleb Connolly <caleb@connolly.tech>,
+        Frederic Laing <dev@fredfunk.tech>
+References: <20260826233818.124278-1-rinat.muhamedgaliev@gmail.com>
+ <60faed5e-8a19-4eea-8272-145aca3db2d9@oss.qualcomm.com>
+ <CAGHQT46f3wexEQHpcp_aoa4MHpi6vrtAd8Pbmt0KANdn9rANLg@mail.gmail.com>
 Content-Language: en-US
-From: Ben Horgan <ben.horgan@arm.com>
-In-Reply-To: <CA+EHjTzZovYDUeoEryhdmP1bvqJyEDmOoPtT7PEDvS2y5puXYA@mail.gmail.com>
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <CAGHQT46f3wexEQHpcp_aoa4MHpi6vrtAd8Pbmt0KANdn9rANLg@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=J7GaKgnS c=1 sm=1 tr=0 ts=6aa00a79 cx=c_pps
+ a=1Os3MKEOqt8YzSjcPV0cFA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=ApsbdhC_8wnva6kFnVgA:9 a=QEXdDO2ut3YA:10 a=hhpmQAJR8DioWGSBphRh:22
+X-Proofpoint-ORIG-GUID: EMtcP1DDMK5LJ0KAGAwo3EJOa2X-RzFU
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA4MDE0MSBTYWx0ZWRfX9IilfXMyLTE7
+ US6VdgCztt9iY3FrAsibAcTb5heg/NwRGz/OFxfWbIvXX1y8hlcpQJIuJLGOGvjasX+SK3bf1F4
+ 3iujV4ZFsU1orU4BVMcEPzYxr7AGk5NHT7iLLc6WahI/cVrlUKZABOk2DTGUG5LvowAcyF7HNYT
+ GVs7w1zXVT2ZRs3hZS+zqJcEFfsd70FJAX7ZGe1+SGqFxkgqe497zl8dOZnHYkZX+lR7gojQPYE
+ yu0CoDHvUe7sHDWUE/rMdEuLDKjSzVKU1k1e4FdVWqLHA6IQmw50RZur8i88hwHVgqb62wRdSPo
+ e+QMcomKgY82dTWBBWNmN7Op7R5F5Wi5cO95PwwaxKP8GWCY5j4nwTuv1w6oNL2GKVcOhExMu5P
+ nHRrwrUxqeycDSaVSsSw75kbAp+SlJ8jREOKPfkMg2eFXnYum06vGUVL8EomBEQJvioqtbaanrE
+ ciDixe/u7OCR+tVBkmg==
+X-Proofpoint-GUID: EMtcP1DDMK5LJ0KAGAwo3EJOa2X-RzFU
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA4MDE0MSBTYWx0ZWRfX3W1+5X+BzRZu
+ Yyzk3Iiv8rTYAQrvEY/sqgZgY4OZqfiWp6+oKewf0ko8T+1DDghhNwQb/bBeZHRMLzTBs1tVqYo
+ SoWyQlRjVYbxMu+vxOfynCiteyBcXJI=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-08_02,2026-09-08_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 adultscore=0 suspectscore=0 clxscore=1015 spamscore=0
+ priorityscore=1501 impostorscore=0 lowpriorityscore=0 phishscore=0
+ malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2609080141
 
-Hi Fuad,
+On 8/29/26 11:03 PM, Rinat Muhamedgaliev wrote:
+> On 29/08/2026, Konrad Dybcio wrote:
+>> If I'm reading that thread right, this IC is on the battery itself (?)
+>> and it seems to differ across different units / suppliers, would that
+>> be a good interpretation?
+> 
+> That matches what I found while looking into this. Both the bq27411-G1
+> and bq27541-G1 datasheets describe them as pack-side fuel gauges meant
+> for integration into the battery pack itself, alongside the protection
+> IC, rather than being placed on the phone's mainboard. So it's
+> plausible that different battery packs (different suppliers or
+> production batches) could carry a different chip variant, and DT
+> can't detect that at boot time - the bq27xxx driver picks its register
+> map purely from the compatible string, with no runtime DeviceType
+> probing.
+> 
+> I want to be upfront: I only tested this on my own OnePlus 6T
+> (fajita), by reading DeviceType directly over I2C on that one unit. I
+> haven't verified whether other fajita/enchilada units report the same
+> value, so I can't rule out that some devices out there actually do
+> have a bq27411 and would regress with this patch.
+> 
+> I'm not sure what the right way to handle this is and would appreciate
+> guidance. A few options I can think of, roughly in order of effort:
+> 
+> - Ask other sdm845-mainline users to report their DeviceType (a quick
+>   i2cget on 0x55) to get a sense of how common each variant is.
+> - Leave the fix as-is for now, since it's still strictly correct for
+>   the tested unit and the previous binding was wrong for it, but note
+>   the pack-side/per-battery caveat explicitly in the commit message.
+> - Longer term, add DeviceType autodetection to bq27xxx_battery.c
+>   itself so the driver picks the right register map at probe time
+>   instead of relying on a static DT compatible - though that's a
+>   separate, larger change to the driver, not this DT patch.
+> 
+> Happy to go whichever direction you and the other reviewers think is
+> right; just didn't want to claim more certainty than I actually have.
 
-On 07/09/2026 16:00, Fuad Tabba wrote:
-> Hi Ben,
-> 
-> I built the respin first, and it didn't hold up.
-> 
-> On Mon, 7 Sept 2026 at 11:28, Fuad Tabba <fuad.tabba@linux.dev> wrote:
-> ...
->> This patch misses that case. check_override reads the CPU's own ID
->> registers, detect_ftr_has_mpam() the sanitised ones, so
->> finalise_el2_state clears the traps and neither cap is set.
->>
->> Not advertising MPAM already happens, since a mismatch lowers the ID
->> field to 0. The trap default is the missing half, and I agree it
->> belongs in finalise_el2_state, which already computes whether
->> MPAM2_EL2 can be touched. KVM then needs only system_supports_mpam(),
->> and the cap goes.
-> 
-> finalise_el2_state can't set that default. Under nVHE and hVHE the
-> host is the trapped party, and cpufeature reads MPAMIDR_EL1 and
-> MPAM1_EL1 from EL1 before KVM exists, so the only way out is to stop
-> the host detecting MPAM.
-> 
->> The one host left is a forced nVHE, where test_has_mpam()'s MPAM1_EL1
->> read would trap before cpu_enable_mpam(). The respin makes the caps
->> false when is_hyp_nvhe(), so MPAM is off there rather than the boot
->> hanging [1].
-> 
-> is_hyp_nvhe() is true on an hVHE host too, since
-> is_kernel_in_hyp_mode() reads CurrentEL. So that turns MPAM off for
-> every pKVM host on VHE hardware, not for a forced-nVHE corner. On the
-> AEM FVP with MPAM, a host booted kvm-arm.mode=protected detects MPAM
-> without the change and not with it.
-> 
->> I'll respin along those lines.
-> 
-> Not along those lines :) I think that v2 would be v1 with a clearer
-> commit message, keeping both predicates. Merging them would give
-> resctrl the wrong answer, since it needs firmware to have enabled MPAM
-> where KVM's trapping needs only that the registers are implemented.
-> 
-> The mismatched machine stays uncovered, with this patch at least.
-> Closing it means deciding per CPU at EL2 from the CPU's own registers
-> rather than from a system-wide cap.
+If the driver can do autodetection, then that's a good idea
 
+Otherwise, since based on David's reply there's strong reasons to
+believe both variants are out in the wild, no autodetection would
+suggest we need 2 DT variants (I'm really a fan of the other option)
 
-Ok, there seems no way to properly handle mismatched systems anyway as CPUs can come online at any
-time. I don't know of any mismatched MPAM systems and they would be strange as the interface to the
-interconnect would on the CPUS that support MPAM require providing PARTID and PMG and the others not.
-
-Thanks,
-
-Ben
-
-> 
-> Cheers,
-> /fuad
-> 
->> Cheers,
->> /fuad
->>
->> [1] https://lore.kernel.org/all/apqrky27mJmUV9UA@willie-the-truck/
->>
->>
->>>
->>> Thanks,
->>>
->>> Ben
->>>
->>>
->>>> +
->>>>  static inline bool system_supports_pmuv3(void)
->>>>  {
->>>>       return cpus_have_final_cap(ARM64_HAS_PMUV3);
->>>> diff --git a/arch/arm64/kernel/cpufeature.c b/arch/arm64/kernel/cpufeature.c
->>>> index 17b83a2518a8f..36a27692e5cf7 100644
->>>> --- a/arch/arm64/kernel/cpufeature.c
->>>> +++ b/arch/arm64/kernel/cpufeature.c
->>>> @@ -2501,6 +2501,13 @@ test_has_mpam(const struct arm64_cpu_capabilities *entry, int scope)
->>>>       return (read_sysreg_s(SYS_MPAM1_EL1) & MPAM1_EL1_MPAMEN);
->>>>  }
->>>>
->>>> +static bool
->>>> +test_has_mpam_sysregs(const struct arm64_cpu_capabilities *entry, int __unused)
->>>> +{
->>>> +     /* The registers exist whether or not firmware enabled MPAM. */
->>>> +     return detect_ftr_has_mpam();
->>>> +}
->>>> +
->>>>  static void
->>>>  cpu_enable_mpam(const struct arm64_cpu_capabilities *entry)
->>>>  {
->>>> @@ -3116,6 +3123,12 @@ static const struct arm64_cpu_capabilities arm64_features[] = {
->>>>               .matches = test_has_mpam,
->>>>               .cpu_enable = cpu_enable_mpam,
->>>>       },
->>>> +     {
->>>> +             .desc = "Memory Partitioning And Monitoring system registers",
->>>> +             .type = ARM64_CPUCAP_SYSTEM_FEATURE,
->>>> +             .capability = ARM64_MPAM_SYSREGS,
->>>> +             .matches = test_has_mpam_sysregs,
->>>> +     },
->>>>       {
->>>>               .desc = "Memory Partitioning And Monitoring Virtualisation",
->>>>               .type = ARM64_CPUCAP_SYSTEM_FEATURE,
->>>> diff --git a/arch/arm64/kvm/hyp/include/hyp/switch.h b/arch/arm64/kvm/hyp/include/hyp/switch.h
->>>> index 1ce7130e25490..8941335724f6b 100644
->>>> --- a/arch/arm64/kvm/hyp/include/hyp/switch.h
->>>> +++ b/arch/arm64/kvm/hyp/include/hyp/switch.h
->>>> @@ -298,7 +298,7 @@ static inline void  __activate_traps_mpam(struct kvm_vcpu *vcpu)
->>>>       u64 clr = MPAM2_EL2_EnMPAMSM;
->>>>       u64 set = MPAM2_EL2_TRAPMPAM0EL1 | MPAM2_EL2_TRAPMPAM1EL1;
->>>>
->>>> -     if (!system_supports_mpam())
->>>> +     if (!system_supports_mpam_sysregs())
->>>>               return;
->>>>
->>>>       /* trap guest access to MPAMIDR_EL1 */
->>>> @@ -317,7 +317,7 @@ static inline void __deactivate_traps_mpam(void)
->>>>       u64 clr = MPAM2_EL2_TRAPMPAM0EL1 | MPAM2_EL2_TRAPMPAM1EL1 | MPAM2_EL2_TIDR;
->>>>       u64 set = MPAM2_EL2_EnMPAMSM;
->>>>
->>>> -     if (!system_supports_mpam())
->>>> +     if (!system_supports_mpam_sysregs())
->>>>               return;
->>>>
->>>>       sysreg_clear_set_s(SYS_MPAM2_EL2, clr, set);
->>>> diff --git a/arch/arm64/tools/cpucaps b/arch/arm64/tools/cpucaps
->>>> index 2775ba3359cfe..aa5be51385f68 100644
->>>> --- a/arch/arm64/tools/cpucaps
->>>> +++ b/arch/arm64/tools/cpucaps
->>>> @@ -78,6 +78,7 @@ KVM_PROTECTED_MODE
->>>>  MISMATCHED_CACHE_TYPE
->>>>  MPAM
->>>>  MPAM_HCR
->>>> +MPAM_SYSREGS
->>>>  MTE
->>>>  MTE_ASYMM
->>>>  MTE_FAR
->>>>
->>>> base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
->>>
-
+Konrad
