@@ -1,216 +1,159 @@
-Received: from mx0a-00364e01.pphosted.com (mx0a-00364e01.pphosted.com [148.163.135.74])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C104A58FD33
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 15:58:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.135.74
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57A07592205
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 15:58:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788883084; cv=none; b=kAnBsiRysYvBONjqIPyAckrHTP9bpBMhHXEUGy7DxyD/nfA2Wfs4YwBt+bDW5wCYFsrbYM14cbhhr/BGCBMH7cvRRjfrOegIrB5ElCrkhnpqE4SxqgJ121eAVJXLph1AZU5pPWWHClAHBD9yFUYuSU4GfmC53291mnHBzEMo1cg=
+	t=1788883090; cv=none; b=psso5wQJU7WsydFtLfLrh9gWzYKI6WO9ira7FrCRKUtoakDbQ3sICdPHQJFhrCPmdL3KC5J03kAo1Go6Lk/cya+W++36O/EyvfI2I8B+vkuIuGf9VfTT+ZetmrLwNrEloQGWNldqFyL8nUrBYeCAmbyAmkAqqdTwbI+TdQjBZGA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788883084; c=relaxed/simple;
-	bh=sTxDvcBSc00s+E0SSNkYgU0cKv4ApygZkq2VbRV+db8=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=g8u05SMaLE/nYu8J4t4GQ/BbvpM5x+qKvSuCk3GFVpscN1rnvhut7xs9ZasB1t0g5a0sZNfe3RQo6Pp5n/p9+xr4Wj4nSo3yQ0PT8lmN3+5nOg0oyli4nisJcHyRtkxmzPnQ6OdqJLGL1rF/8cyF8LzFeK2kWfR5wtwO6xrQ0RI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=columbia.edu; spf=pass smtp.mailfrom=columbia.edu; dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b=mFTLj215; dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b=h7rBeBdc; arc=none smtp.client-ip=148.163.135.74
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=columbia.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=columbia.edu
+	s=arc-20240116; t=1788883090; c=relaxed/simple;
+	bh=HCOjmtuIURC8etW7PMldOk8sZqet30nx4hUSBGF2CaM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ihPMtueTMbko9J+6Z+aY4UsuJ3Rm8rcrQp22+0LdyV7dielJ9/1XxZDwaT2cqvvVGVMiJ1NU+nLb5Y9t2PbdlRjWO6kidVj589nAC+6JdbUpB9PxMdcpMAaWtm5SLet/4xGWA74/ybaWHzGYiBMfI2GiVsZG1R4/dWhZ8lisiyo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=R1wihYgR; arc=none smtp.client-ip=209.85.128.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b="mFTLj215";
-	dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b="h7rBeBdc"
-Received: from pps.filterd (m0167071.ppops.net [127.0.0.1])
-	by mx0a-00364e01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 688FbjLi2588987
-	for <linux-kernel@vger.kernel.org>; Tue, 8 Sep 2026 11:58:00 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=columbia.edu; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pps01; bh=VZAo
-	AKs2Ax9DnjZGlZmzQZMg+pVNkC6x9N/eAHovH94=; b=mFTLj215gL9krPEnghEW
-	BkCATtqnpnf81Q3cOJ9R2JvvxdtoE72lSDbkObhiFhaV6HBGqwfUdjUjppn5EdqR
-	GwHg85a8euVyqr7aztrEESAwfVl2NJgSn+BiCgP2otwtdP7F+iBNyTJ5OvjqUH+X
-	0/GGR+uLCd7RNZB7DA/wERFnd4GEGFJiQ9IhGZD/eiHLtXtg/5yvN1H5C94l/Swo
-	KKGqTLtBwwSt89K+jVaHjX3t8EpIb3Am52sasc5eNersEdmkInGQu0yRjBqc9n04
-	bNmOUNsFq8FBtcSIK5iIVMJLjcCWsoR5NGEGzKZirP//87jVf3mkCXbLf8IK/lPz
-	ew==
-Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com [209.85.160.198])
-	by mx0a-00364e01.pphosted.com (PPS) with ESMTPS id 4gj4d5dmad-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 11:57:59 -0400 (EDT)
-Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-52d33c89a29so106163321cf.1
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 08:57:59 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="R1wihYgR"
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-49954b88fffso35754545e9.0
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 08:58:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=columbia.edu; s=lionmail; t=1788883079; x=1789487879; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=VZAoAKs2Ax9DnjZGlZmzQZMg+pVNkC6x9N/eAHovH94=;
-        b=h7rBeBdcXYe2SJISVDDSNG0X47NV0WDgEVVavayY7VS1nuxh/SqfICMVLc82yzpZ0u
-         3BmX782mGaJAYOrZqxPgBg7oMLgUNSjoEgIHZJlyoBrqTyj6vk1iPHcE6PMnlKE9sO3T
-         dow9Y/FtwQwDdBFR7UyjgJZzeLAa9oin73pfkVRoaJ7fQmvcu9h/4wg9SMwlAW3OcZox
-         EtQYYiEZkMpUp1GqvTYeWljjQ+TRUTKkaSY4UKanvwHLWfhpOTIPK69u4GIViiN7I89c
-         qx5c5IWfIsXjuwL5s0uSgmzEyOxOGLhW22I8DWTjrHZRmfBYFqE0tNo1CuqVsVf4CLMd
-         W6Ww==
+        d=baylibre.com; s=google; t=1788883086; x=1789487886; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=COKTXmW8lCYoLX/NVE9lHsQ1T9j35CdnW3YzobS56+o=;
+        b=R1wihYgRLDUHV4dUomXmKTaBwR50POp7oEB6TzD5CsxU5cGBvanOrj5b/MGM2TbnhB
+         RqgXlGux3WqVJ7wAU77ykLKoLugAOgc5MY13YEI2L8PeaSZZk4X9lt4Yba5Jb1b4NRNO
+         pDqSFhE33y2l1ce4kwcaVi0e1CgYOWUA5OWhuQkgQQH8mkjoAOHQk6fmPf6RnqsFX4+V
+         khy0aO8TEsZbVKRsF/bk+0NX0qbnsmn18pKJQpQZNevFEWvsvDiv5of+RacNp2mLeKRi
+         FMVabifqOWn5F3WUvNFlJ3xXDSG4JMl7l6wpQ5J9WKdGPEaUR6fifhD7d7GhpbjD/gxp
+         pFfw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788883079; x=1789487879;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
+        d=1e100.net; s=20251104; t=1788883086; x=1789487886;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=VZAoAKs2Ax9DnjZGlZmzQZMg+pVNkC6x9N/eAHovH94=;
-        b=NNMZ1ptY6/VwppR3D962bC55rScdj1sWNrejBNonWiNO/ZGhrp/K+Ppwoa5wGeEbkm
-         sm/pWw2DtbOj5ZuIvlu6cHIkQ87pHFC0uuiGoM4mS1Dq67gwyGSSBrugnruqfXa0Sate
-         KGrqVUIN1BJMyUTMKDWj8jztmRGzobBSiyttIUV4mj60/Pg9fxOLahUQTdu86wFE5D8k
-         DH6l1Lw5vuRDDy4Gvy36l0AmB7IDdt7s/8ygqrRASg/psrkdkuE7Rf5UP+S+ooMCFSro
-         qfdG0CoAaXUB8KpkiVnhYKgR7yWuqsns8u8BRnLLYtC8qpYNu7ikgS55LANQk3/0Tdz0
-         EBJg==
-X-Forwarded-Encrypted: i=1; AKwUvBwD/GWMst3eol64g/dMFe3EEERwHW5VCrwfUYz3xKMzPvXzV5lhZcKXgyfCCopy/Uwa0nSwyVmI+0fAKmA=@vger.kernel.org
-X-Gm-Message-State: AFuF++k+4pXmqUmpO/zgNLZ412u9O1eEvy8TF8bzjU+SYfCwt6V2e1VV
-	4Rix4yearrz4Pq+yiX0+bbW/FYMa2muIDkifnaQMfn/HQvBCZW9PL8fom+dog6ApuvjUsx4/t/z
-	dhnMvuTXXf9xJ09AFWxJTOIZP4V6beoU+jeToEALlxU7i1jKAP+TnO1WrwVohrz2A3RyKkwQU
-X-Gm-Gg: AYBFou1+Ko8T0DdzCUkCI71bt7ex+4Wt4/8cQWYamE253+jd8HVzrUyR3mfQ/2P9xJW
-	xXPGnZumoh04QDCD1avGEn3NL21ObgUQQIHv6HpcfdDMbS7jFf4omX+YS4kuXLi2+xpS1NtRv+0
-	lVTF2QLOkCHHHHwEZXlGhw4Z1OWVbM+ww91mMge8vLWRrZgnhLu7cxs4zDY/PkTuq0869ZijCg9
-	ab4vvAGc+i7KQviAGNJHwdbVzZY4vfzRUXvIwhNG9GOSQw20KOAyjWek4kDjEPM7u6hCe7J1Zjr
-	rd5VovSNZPt/McQ/kstYzaftlAG/6ypODqHmYDLxp5rux02PUMvZKQHDtSZfnsLuc4K4qWVQaZy
-	d+ytWiTU2PpMIyGaHzX2Az0lKHliT2iFxlod9fHfQH+y4+eFr
-X-Received: by 2002:ac8:6f1a:0:b0:530:2146:81c with SMTP id d75a77b69052e-530547ebfa7mr375745591cf.12.1788883079033;
-        Tue, 08 Sep 2026 08:57:59 -0700 (PDT)
-X-Received: by 2002:ac8:6f1a:0:b0:530:2146:81c with SMTP id d75a77b69052e-530547ebfa7mr375744731cf.12.1788883078431;
-        Tue, 08 Sep 2026 08:57:58 -0700 (PDT)
-Received: from [127.0.1.1] (nat-128-59-177-174.net.columbia.edu. [128.59.177.174])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-53093295584sm27830461cf.13.2026.09.08.08.57.57
+        bh=COKTXmW8lCYoLX/NVE9lHsQ1T9j35CdnW3YzobS56+o=;
+        b=ovwLXvO6ulctebdG6gbj8UE4CSdqaWtalm4Ptuyj97mGK0YS2qNJcmbMvESFQ+Q1Jf
+         vhRnDIP3kclocxsOiA7wzFjzPZy2FWq8vogNw0VSO8y4P9MfaTgb37RYkepve1vyLz0E
+         F21uH6gkNaZPWsM+GfFwztix9N8uT3IZ6mj9uxg4UduFfbGUQoNK4t9NGP853BfUgRlj
+         1305WOztYu7fj72QiHlt/lqLooyYvISqtL0Z4uGMNZ7xJQBgbFjrIFT1a/c6nniC4Ms1
+         YS2vM2vxgBlMVwmT1QhBtCsjvLrW9qGLxfb4KxCv/5hFJKIYpRUVuwyKc5PIev7rtPea
+         +Sng==
+X-Forwarded-Encrypted: i=1; AKwUvBzJvHWvNKzzGbH6nHFH4iwsYq4XdEkXUUjc7qMI7i1apKIHPx4LVO0NmgVLdhS98QCmGCAX3jnwaxRw3tk=@vger.kernel.org
+X-Gm-Message-State: AFuF++kSEHJCMGnW0/qlE9inDiYgSmANzdAh9/wY+aobFsiGA/KrILAk
+	OxII91amp051M5wf4eGBsoXwvqM9iNbU3oyiDNnvsnqbfkwvbp2T/RFzZaQrds3oOos=
+X-Gm-Gg: AYBFou0GMuNyzEvXMIfxNDE5FLe20XQsv9UklwFbiEo8A78J5k83zoiosZ9Hd+HYIG3
+	LC1u4LbsUV+3dBUCVqg+BfGb4scEQlPhTQ3QGB6eOdKuzzRV9sy21RH9VylEDAb1fBrnd+3m/i7
+	npIOZNEK6DVsxIWg7dktm2a4utSSmXtWnLzuBbFifsrDz4YFZdKa9sfjZzg82qCebG7u7Y2AVS1
+	gBDla2GuVDSh3E7SZQ5m9z4dzAfHUvcJ6I77zE1836njYkBH6h1y82qVWCYnex5oJeawcXzmXmH
+	NCM9JUHmEOpidnEILVJu5Z8UkIv3I0Bd8untN6Yw+sJrQcXhkO+19wpv5xCMNSaA9Gel3bYdakD
+	oVpKmmS3cPnZNeMh7z+aURVeC+Qms+5FJJmnNg2kwGyRYqhJB9Bjj5BFlLrD5hAbpP3pAPsiPnw
+	S/4ma59L/oeGsvBCLzVVgZDEzp5K2A61inLwI4p/d7FOwwKtepWzkSt3REJE9wdnUBhd8nCdZzK
+	c43xuRWD+xn9sNk5m8/2OeYuPfZJXdnRKkwujsFF9LKuzrsI1I=
+X-Received: by 2002:a05:600c:a0b:b0:49c:cee2:1697 with SMTP id 5b1f17b1804b1-49cf8262133mr304493845e9.16.1788883085916;
+        Tue, 08 Sep 2026 08:58:05 -0700 (PDT)
+Received: from localhost (p200300f65f19a9042cc2680c1f1bf2f5.dip0.t-ipconnect.de. [2003:f6:5f19:a904:2cc2:680c:1f1b:f2f5])
+        by smtp.gmail.com with UTF8SMTPSA id ffacd0b85a97d-48588394fa1sm35076368f8f.8.2026.09.08.08.58.04
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 08 Sep 2026 08:57:58 -0700 (PDT)
-From: Tal Zussman <tz2294@columbia.edu>
-Date: Tue, 08 Sep 2026 11:57:47 -0400
-Subject: [PATCH v2 11/11] mm: memcontrol: constify the zswap and socket
- pressure helpers
+        Tue, 08 Sep 2026 08:58:05 -0700 (PDT)
+Date: Tue, 8 Sep 2026 17:58:04 +0200
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
+To: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+Cc: Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Charles Keepax <ckeepax@opensource.cirrus.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Bard Liao <yung-chuan.liao@linux.intel.com>, 
+	Jaroslav Kysela <perex@perex.cz>, Liam Girdwood <lgirdwood@gmail.com>, 
+	Maciej Strozek <mstrozek@opensource.cirrus.com>, Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>, 
+	Takashi Iwai <tiwai@suse.com>, Faiz Nabi Kuchay <fkuchay@oss.qualcomm.com>, 
+	Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>, patches@opensource.cirrus.com, linux-sound@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 11/11] ASoC: codecs: add Qualcomm Tambora (WCD9378)
+ SDCA codec
+Message-ID: <aqAvgcljjWCkFquD@monoceros>
+References: <20260907083727.733705-1-srinivas.kandagatla@oss.qualcomm.com>
+ <20260907083727.733705-12-srinivas.kandagatla@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260908-folio_memcg-const-v2-11-811e9f443409@columbia.edu>
-References: <20260908-folio_memcg-const-v2-0-811e9f443409@columbia.edu>
-In-Reply-To: <20260908-folio_memcg-const-v2-0-811e9f443409@columbia.edu>
-To: Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>,
-        Roman Gushchin <roman.gushchin@linux.dev>,
-        Shakeel Butt <shakeel.butt@linux.dev>,
-        Muchun Song <muchun.song@linux.dev>,
-        Andrew Morton <akpm@linux-foundation.org>,
-        Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>,
-        Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>,
-        Baoquan He <baoquan.he@linux.dev>, Barry Song <baohua@kernel.org>,
-        Youngjun Park <youngjun.park@lge.com>,
-        David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
-        "Liam R. Howlett" <liam@infradead.org>,
-        Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
-        Suren Baghdasaryan <surenb@google.com>, Qi Zheng <qi.zheng@linux.dev>,
-        Axel Rasmussen <axelrasmussen@google.com>,
-        Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>,
-        "Matthew Wilcox (Oracle)" <willy@infradead.org>
-Cc: cgroups@vger.kernel.org, linux-mm@kvack.org, linux-kernel@vger.kernel.org,
-        Tal Zussman <tz2294@columbia.edu>
-X-Mailer: b4 0.17-dev-db0b7
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788883062; l=2712;
- i=tz2294@columbia.edu; s=20250528; h=from:subject:message-id;
- bh=sTxDvcBSc00s+E0SSNkYgU0cKv4ApygZkq2VbRV+db8=;
- b=sJizXWoGo1rVvGoDXQiLVN33M72gG7xZZyNbel4ui+3OC9JpfjXFuF9ei+YJLkZw7mYNNJkGq
- 7hffOHn34/7AqSurvRku8iBT7qln4VRWvcwQhBnarz3BH0ZJAGefK0G
-X-Developer-Key: i=tz2294@columbia.edu; a=ed25519;
- pk=BIj5KdACscEOyAC0oIkeZqLB3L94fzBnDccEooxeM5Y=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA4MDE3MiBTYWx0ZWRfXwgQvxUy/yz8W
- mOk9xd/841mvM2nziVT0xROFA9+nxK5hsWUh2CLYQYkOlTW/ZTbfVJTmCZT2hz4eXLtHCDBI4FW
- VafV6t2/Qc/3K5ZZvVIeUzkgweznLDhTgR578PR3VUyi6/zeMErs2mhDP/5nREYFykToglmLpiy
- +9KENPkYpfIa6ahZm9LfOHlXAW+MTTYAUuCe4KvoX0GBTiZ3A/+fZQcqS1+HyTqqOsZ/tSbKUe5
- Z4XEtdlRq3YXWA/mPft0/EEKx7jAkwlpLH7xZSH8JeK8g8dcC/gU1O997BwqGrRzF1erTw4JcQf
- L4lmLhzVrs61OE6svvOXj35q3iv/k0y6K8ECuEvQ1mJWYneqPkxIVJd/e1YrLlsm5sXM1/PpdQb
- vTjoF/llWSCtuWo72wUgM8U69X3FW+QKV0vWkZX/V2jVLKafDhuK1T7Pxz4jjLetn5rpsLztU4c
- X3Cs1X9uP7P1W+jg7MQ==
-X-Proofpoint-ORIG-GUID: BhA6jvH5ohSf-ol1rtOkebLiBBIPcv0O
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA4MDE3MiBTYWx0ZWRfX02L7cYY2D1p9
- oZ8uf5yRqDdfwUW9CPLAh9gyOpBL56O10Z+EM+XHoBwhCJarSalvTDY92GWMLo5klkq5J2cPufh
- uc33312GmDhREk/CSe4ljk7x5bqvUHPANeONBgWPcg547ZR/zhXu
-X-Proofpoint-GUID: BhA6jvH5ohSf-ol1rtOkebLiBBIPcv0O
-X-Authority-Analysis: v=2.4 cv=BqCtB4X5 c=1 sm=1 tr=0 ts=6aa03088 cx=c_pps
- a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=HBUb3goEnnz3w2smY6d+Hw==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=x7bEGLp0ZPQA:10 a=A0y_DWxS2BwA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=Da8U98TiO7q1upZEImrf:22 a=79PYxaXUQd1wl-QFWJnA:22
- a=JrvLMZgmaQ4VKr8cMrEA:9 a=QEXdDO2ut3YA:10 a=dawVfQjAaf238kedN5IG:22
-X-Proofpoint-Virus-Version: vendor=nai engine=6900 definitions=11900
- signatures=596817
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 suspectscore=0 adultscore=0 spamscore=0 impostorscore=10
- lowpriorityscore=10 priorityscore=1501 clxscore=1015 bulkscore=10
- phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2609080172
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="765wben5jmkzogdu"
+Content-Disposition: inline
+In-Reply-To: <20260907083727.733705-12-srinivas.kandagatla@oss.qualcomm.com>
 
-mem_cgroup_zswap_writeback_enabled() only reads the zswap_writeback
-flags, and mem_cgroup_get_socket_pressure() only reads the socket
-pressure timestamp. Constify them.
 
-Signed-off-by: Tal Zussman <tz2294@columbia.edu>
----
- include/linux/memcontrol.h | 8 ++++----
- mm/memcontrol.c            | 2 +-
- 2 files changed, 5 insertions(+), 5 deletions(-)
+--765wben5jmkzogdu
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Subject: Re: [PATCH v2 11/11] ASoC: codecs: add Qualcomm Tambora (WCD9378)
+ SDCA codec
+MIME-Version: 1.0
 
-diff --git a/include/linux/memcontrol.h b/include/linux/memcontrol.h
-index 9fade4667d9b..ae044d77c79d 100644
---- a/include/linux/memcontrol.h
-+++ b/include/linux/memcontrol.h
-@@ -1684,7 +1684,7 @@ static inline void mem_cgroup_set_socket_pressure(struct mem_cgroup *memcg)
- 	write_sequnlock_irqrestore(&memcg->socket_pressure_seqlock, flags);
- }
- 
--static inline u64 mem_cgroup_get_socket_pressure(struct mem_cgroup *memcg)
-+static inline u64 mem_cgroup_get_socket_pressure(const struct mem_cgroup *memcg)
- {
- 	unsigned int seq;
- 	u64 val;
-@@ -1702,7 +1702,7 @@ static inline void mem_cgroup_set_socket_pressure(struct mem_cgroup *memcg)
- 	WRITE_ONCE(memcg->socket_pressure, jiffies + HZ);
- }
- 
--static inline u64 mem_cgroup_get_socket_pressure(struct mem_cgroup *memcg)
-+static inline u64 mem_cgroup_get_socket_pressure(const struct mem_cgroup *memcg)
- {
- 	return READ_ONCE(memcg->socket_pressure);
- }
-@@ -1927,7 +1927,7 @@ static inline bool memcg_is_dying(struct mem_cgroup *memcg)
- bool obj_cgroup_may_zswap(struct obj_cgroup *objcg);
- void obj_cgroup_charge_zswap(struct obj_cgroup *objcg, size_t size);
- void obj_cgroup_uncharge_zswap(struct obj_cgroup *objcg, size_t size);
--bool mem_cgroup_zswap_writeback_enabled(struct mem_cgroup *memcg);
-+bool mem_cgroup_zswap_writeback_enabled(const struct mem_cgroup *memcg);
- #else
- static inline bool obj_cgroup_may_zswap(struct obj_cgroup *objcg)
- {
-@@ -1941,7 +1941,7 @@ static inline void obj_cgroup_uncharge_zswap(struct obj_cgroup *objcg,
- 					     size_t size)
- {
- }
--static inline bool mem_cgroup_zswap_writeback_enabled(struct mem_cgroup *memcg)
-+static inline bool mem_cgroup_zswap_writeback_enabled(const struct mem_cgroup *memcg)
- {
- 	/* if zswap is disabled, do not block pages going to the swapping device */
- 	return true;
-diff --git a/mm/memcontrol.c b/mm/memcontrol.c
-index 4de2aee45ac8..517995e418b6 100644
---- a/mm/memcontrol.c
-+++ b/mm/memcontrol.c
-@@ -6259,7 +6259,7 @@ void obj_cgroup_uncharge_zswap(struct obj_cgroup *objcg, size_t size)
- 	rcu_read_unlock();
- }
- 
--bool mem_cgroup_zswap_writeback_enabled(struct mem_cgroup *memcg)
-+bool mem_cgroup_zswap_writeback_enabled(const struct mem_cgroup *memcg)
- {
- 	/* if zswap is disabled, do not block pages going to the swapping device */
- 	if (!zswap_is_enabled())
+Hello,
 
--- 
-2.39.5
+On Mon, Sep 07, 2026 at 09:37:25AM +0100, Srinivas Kandagatla wrote:
+> +#include <linux/mod_devicetable.h>
 
+Please don't include <linux/mod_devicetable.h>. Either rely on
+<linux/soundwire/sdw.h> to provide sdw_device_id (my preferred way), or
+(if you want full iwyu) include <linux/device-id/sdw.h>.
+
+> [...]
+> +static const struct sdw_device_id wcd9378_sdw_id[] = {
+> +	SDW_SLAVE_ENTRY(0x0217, 0x0110, 0),
+> +	{}
+> +};
+
+s/{}/{ }/ please to match the common style.
+
+> +MODULE_DEVICE_TABLE(sdw, wcd9378_sdw_id);
+> +
+> +static struct sdw_driver wcd9378_sdw_driver = {
+> +	.driver = {
+> +		.name	= "wcd9378",
+> +		.pm	= pm_ptr(&wcd9378_sdw_pm_ops),
+> +	},
+> +	.probe		= wcd9378_sdca_probe,
+> +	.remove		= wcd9378_sdca_remove,
+> +	.id_table	= wcd9378_sdw_id,
+> +	.ops		= &wcd9378_sdw_ops,
+> +};
+
+subjective feedback: I'm not a fan of aligning the = in such
+initialisations. They tend to get inconsistent over time, and sometimes
+(like here) they even start inconsistently. So if you ask me, use a
+single space before each =.
+
+> +module_sdw_driver(wcd9378_sdw_driver);
+> +
+> +MODULE_DESCRIPTION("Qualcomm WCD9378 (Tambora) SoundWire codec");
+> +MODULE_AUTHOR("Qualcomm Technologies, Inc.");
+> +MODULE_LICENSE("Dual BSD/GPL");
+> +MODULE_IMPORT_NS("SND_SOC_SDCA");
+> +MODULE_IMPORT_NS("SND_SOC_SDCA_CLASS");
+
+Best regards
+Uwe
+
+--765wben5jmkzogdu
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmqgMIkACgkQj4D7WH0S
+/k7HSggApAsqBk4MvLcFhPNfq1ozMJSIoE+LirT/GzBRY6d7XMtZW8CLtYNiq6Q3
+HeZbQlcqOlJ5fT3O6pGkpEwA23r0GX7JtqBOgz39PxQV9CX8l72tcqw6CcQrG2tV
+qoub2YTQt/7/ZaPAHEhxxcZxWzR1+S02ejC6kf2+4FrySDkUfBdJ3vVD/KKxbyS9
+FcMHpBbR9Nv/J01dLTASs9iUWSki8qNwld1+hhfWTFYI7Ho+7Yrt79+LAiUqwJjj
+Ph2+Toa/P2Zf6i5IFf0K3k9g7HfMxt8WzYTeW5asujYRo0bNQfBk3vj9yqwJveHr
+H2iSp++GJEzaPEbhyx9imFpQ3voL1A==
+=cFZA
+-----END PGP SIGNATURE-----
+
+--765wben5jmkzogdu--
