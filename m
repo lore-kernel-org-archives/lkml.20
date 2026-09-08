@@ -1,116 +1,113 @@
-Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 941784A0EFB;
-	Tue,  8 Sep 2026 21:41:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.151
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 585494A090D
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 21:42:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788903721; cv=none; b=huYY3oVWOTO0IgNJBzpRg9XREfpzCvfPAjhZX1IP+6OJnfCa1QN7tgxQGuJd44bD2XVhebAUPppIzYf7kpuvNb7EnsVFj/gfsUfPFNMFSpgLn76WYvor3L2AVQ8v6NzlxVoBfVNqBOOfhNDCXipbOYvzqVqJx4BrpoNeIcm3bV0=
+	t=1788903739; cv=none; b=kRoXgEZG6JM3LQDYvEOIe1Nt1XgOmkBeqSjahyxVO6FHxmVWv900X7Tq45T2rhm9Nd0xOjuqt1io+4zN0Q2YrL2mD9L/JEI1QmNdr8o1dqqqBHreZZ1sDJA0Ooy+mVK3Sxo4C1DnGL6/B4jwSUCRZUm91V4+534kDFJqHj5cu4E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788903721; c=relaxed/simple;
-	bh=4dNan55tob2LOF4ICRiPwaJKoCoLQny5O3PU+Yv8Qvg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=l8i1pnP+xF1ehMqn1tLkGscV4pRj+SbpYpJErmNr4ESE9//1Zc7j7hVFtGPd5Ct4uRRtlDUxL5gnVEevCi/EuAx3Z62nZPqz1OkwIhQaObKeQNtm6CmIXmQq5JQL9up4c9azN4/6g5egX1TRufFbLaNbAtYBzfM8xrlSc2C4dAA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=c8hh8DVj; arc=none smtp.client-ip=80.241.56.151
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	s=arc-20240116; t=1788903739; c=relaxed/simple;
+	bh=B3RlepYw+gz7j/lHhtDy+Q356KPKjQOJnndOnA4AUCo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=nT6t8hVuLjqFospLCqoh1c7JvVpTv7/I6zHOJUcvxQPTfwOcizdhHbxhJhrbNbYbT9WkkBRixHZJzKPBTQbnaN+euURM2Okr/tNFvlzfWjEzxutlcQ8QppTvACbOzXfe3PsMjv2dV+3dtc3YCcv0mR6dra7tiFCjeQnwSVs40ss=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=s0CvCtLh; arc=none smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="c8hh8DVj"
-Received: from smtp202.mailbox.org (smtp202.mailbox.org [IPv6:2001:67c:2050:b231:465::202])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4hfcfk28JFz8tb0;
-	Tue, 08 Sep 2026 23:35:10 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1788903310;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=yPRewbRjUY6AxemfQFvb3JMr40Wk83tULzwCS3eA65Y=;
-	b=c8hh8DVjXTUksj1nzMqKlJitW8Q1dBKDcSsIw3R0irgSq55BYQ+2/NVplJe53H+4zS+e+/
-	Oahmeq3IunayEHEOJHIbOmrOYyfgYlrn41FLU66Bm5ZZXEw1PUUuLEax2JmrdBq1HJC+ZI
-	I0NdMYWuScdFyllvRDoAVahns4l4uVmGb7QfUk3upZNSNS0+q36ziaTEVBkXkn9YPUE0fH
-	dpY7fRfXx4synD74tDIiMe497sPOyagpgjYwhcGgjAx17D4F4PxVMtVPJRIkd3GfocW2Tf
-	7HaKb0LoVQrFtMoXBdUEXKobqB+fA99DHsFA9Zca3eU0U0nNkhMv4usfp+wusQ==
-Message-ID: <de8e26a0-cd05-4448-8392-0fb3953e7d3f@mailbox.org>
-Date: Tue, 8 Sep 2026 18:29:24 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="s0CvCtLh"
+Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-398beb616f5so615254a91.1
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 14:42:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788903734; x=1789508534; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=UHrD1W/xUh8N3eKgAHmZMqC6W7o0uzrtTZ6P6CfRVxQ=;
+        b=s0CvCtLhGK0KihJ+6z5+msKxL6UdhziavUMMVU0NoXn6rJk9MLJYooxSNThz02K80L
+         o5ft5G6TOA6/wTO7a/brDlf7ve82ciQOpB3XwRMLa30yni8H4ntN5OK8A7J5xSxT/0+C
+         12rDj5ewVTqe9dfJeNkyWQCbAtxa+DlTs8rSpzRTEl28UwKyp4IZpME764ycMhmr19zp
+         ATAi70Cibn1GmFXTqCkitLkmcHA2WMkfvgAQlNTZVSrAB7bIUqLoLmld3ASdKcvD27Jt
+         dR8v2xvMtoheY0JUZIQgoy/iOdW6+xLQgHtA8skEkXmkh44CSI2p602rBav601lgIsEs
+         rSZQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788903734; x=1789508534;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=UHrD1W/xUh8N3eKgAHmZMqC6W7o0uzrtTZ6P6CfRVxQ=;
+        b=Bf3PSLk3/FhKOkZKFccB+PX/I4ZZsHQ69x292yuMKDGSuou9rBuMTxCbJpqBebYvjp
+         v7tyR4CmT0IWo+4q2Ym7QFZ3PcLzW/NztJzYFO9ACnhlPK2XJJrICysz722BmyzXmog8
+         wvNs9/pSc1qMi6ayrkPwf2PebVUA3WhIFytZDTcrIM0xqbc89RFki4XR+W821OVGmWOT
+         0u0j3Ppy7KVRi5xYl8cF8aNE8QWTenYtjUmk4rl+zIQirz0H0J5sRo79S1PoQ7lUR5r9
+         736gZk7iiOnQk+GE/2BUGCEYIMGo9NjjDAQmcoxTEl/m9pT0GgJW/4ymgkXup5w3nwVZ
+         QDzw==
+X-Forwarded-Encrypted: i=1; AKwUvBwy+bSDNSnAAk8SKntDVbGRbvijv9NcfwQY2oyj2GP9+ctEgxM3JJdVKMziUgcTgsz1nFAppcc2kKaNtnM=@vger.kernel.org
+X-Gm-Message-State: AFuF++nfTE8bXnJcY4vpdkTsqJBFjBTPnhxqHY8M0q609o73vnXIZW4c
+	cpVLwOSvpdjVwfIVu9IsWH4mPazz5zX/3lyw7FPaw5UN893iGn6pPM7A
+X-Gm-Gg: AYBFou0Js4m/ck31yqA/10+q6rHweYEEgTt0m1jYJojooOoaDQ4J/vYcGvYmyvuR/ue
+	PG8uBiauDYTfvBmYFTwKbHJrkvNp7WykrKEU2io1T8O8M9z9voIbzXKFS+lxIBLEnAgDpbHGk1I
+	SF6HvWovwCELibDAepQWXRXJJ0VJq0SHvI4w4ZRvbFwGkbcM25gD3no9Y8bcLY3BQH6eKmDW2Rq
+	5gohoBhdCJ/VyY1EWfFc6jdvz6iTuKgQCrbooP9RWeULaPkNl1ZJM+DoR6Z2oIOKSOmF7ENdtrj
+	9ic2yNjcteRHPPmpFbXacDB6sgVPFF5wM3SyoC6qV5aocLAxJZtAMb+sRLiHlh7Az53sBoRd5OA
+	sVr18ga9bdar1spLCwTu/iaT8QZcaVrVGlySVcDcJEfUMf1XnNtDj91HJ2NXY3s1pcbK+aFqFGV
+	peAtZlGEG/C/gEbsPmUI/gNaIOnXM5Xra+Lkcbp6Rkyd9E/Zi28rACZ/DEi0euQhFs+Yaa71bI0
+	2XY6JcZ7DAVbVw2jUtNlYURoa46ljJmJ6LO2ux+sr019phUPYA4IRoPiJELgiWSfsjoIpyaqG//
+	LMnwNb0/U5mVAiA7tUUIX0ZHgFwOasHXRzjxZw==
+X-Received: by 2002:a17:90b:58eb:b0:398:ceef:edde with SMTP id 98e67ed59e1d1-39b8bf497edmr7045541a91.15.1788903734330;
+        Tue, 08 Sep 2026 14:42:14 -0700 (PDT)
+Received: from ryzen.lan ([2601:644:8000:7a86::e34])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b3312f9a8sm25576005a91.2.2026.09.08.14.42.13
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 08 Sep 2026 14:42:13 -0700 (PDT)
+From: Rosen Penev <rosenp@gmail.com>
+To: linux-ide@vger.kernel.org
+Cc: Damien Le Moal <dlemoal@kernel.org>,
+	Niklas Cassel <cassel@kernel.org>,
+	Tejun Heo <tj@kernel.org>,
+	Mans Rullgard <mans@mansr.com>,
+	linux-kernel@vger.kernel.org (open list)
+Subject: [PATCHv2] ata: sata_dwc_460ex: fix data race on hsdev->sactive_issued in interrupt handler
+Date: Tue,  8 Sep 2026 14:42:12 -0700
+Message-ID: <20260908214212.597139-1-rosenp@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Subject: Re: [PATCH v3] PCI: rcar-gen4: Add missing PM ops
-To: Koichiro Den <den@valinux.co.jp>
-Cc: linux-pci@vger.kernel.org, Geert Uytterhoeven <geert+renesas@glider.be>,
- =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
- Bjorn Helgaas <bhelgaas@google.com>, Conor Dooley <conor+dt@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Lorenzo Pieralisi <lpieralisi@kernel.org>,
- Magnus Damm <magnus.damm@gmail.com>, Manivannan Sadhasivam
- <mani@kernel.org>, Rob Herring <robh@kernel.org>,
- Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-renesas-soc@vger.kernel.org
-References: <20260907163554.725127-1-marek.vasut+renesas@mailbox.org>
- <74il3j2dzfdt4xhqrfjkifhnpnmgqtplon2mtzfjzkbszwegi7@vou6a5rshcvr>
-Content-Language: en-US
-From: Marek Vasut <marek.vasut@mailbox.org>
-In-Reply-To: <74il3j2dzfdt4xhqrfjkifhnpnmgqtplon2mtzfjzkbszwegi7@vou6a5rshcvr>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-MBO-RS-META: br9gyjqousy31kxahj56zaqan7ipmphb
-X-MBO-RS-ID: 8d8dffee87eec16168b
+Content-Transfer-Encoding: 8bit
 
-Hello Den-san,
+hsdev->sactive_issued is written locklessly in sata_dwc_isr() before
+acquiring host->lock, while sata_dwc_qc_complete() performs a
+read-modify-write on the same field under the lock.  This creates a
+data race that can corrupt NCQ tag tracking state.
 
-On 9/8/26 3:05 AM, Koichiro Den wrote:
-> On Mon, Sep 07, 2026 at 06:35:22PM +0200, Marek Vasut wrote:
->> The R-Car Gen4 PCIe controller is part of a power domain. On R-Car S4
->> and V4H, this is an always-on power domain which is not shut down in
->> suspend. On R-Car V4M, this is a dedicated A2PCIPHY power domain,
->> which is shut down during suspend, and the controller loses state,
->> which prevents the PCIe from working after resume.
->>
->> Fix this by adding generic suspend/resume noirq ops for the controller,
->> which tear the link down on suspend, and restart it on resume. Use the
->> same PM ops on all of R-Car Gen4 to gracefully suspend and resume the
->> PCIe link on V4H and S4 too.
->>
->> Test case which demonstrates the problem on R-Car V4M:
->> "
->> $ hexdump -vC /sys/bus/pci/devices/0000:00:00.0/config > /tmp/pre
->> $ echo s2idle > /sys/power/mem_sleep
->> $ echo platform > /sys/power/pm_test
->> $ echo mem > /sys/power/state
->> $ hexdump -vC /sys/bus/pci/devices/0000:00:00.0/config > /tmp/post
->> $ diff -Naru /tmp/pre /tmp/post
->> ...
->> -00000000  12 19 32 00 07 05 10 00  00 00 04 06 00 00 01 00
->> +00000000  12 19 32 00 07 05 10 00  00 00 00 ff 00 00 80 00
->>                                            ^^^^^
->>                                      Class 0604->00ff
->> "
->>
->> Fixes: 0d0c551011df ("PCI: rcar-gen4: Add R-Car Gen4 PCIe controller support for host mode")
->> Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
->> Tested-by: Geert Uytterhoeven <geert+renesas@glider.be>
->> Reported-by: Geert Uytterhoeven <geert+renesas@glider.be>
->> Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
->> ---
-> 
-> The s2idle test with pm_test=platform now passes in EP mode on S4 Spider even
-> with CONFIG_PCIE_DW_HOST=y. Thanks! Feel free to use the tag for it if it helps.
-> 
-> Tested-by: Koichiro Den <den@valinux.co.jp>
-Thank you for your test. I would like to ask -- is the EP side of PCIe 
-link behaving correctly during suspend/resume cycle on your S4 setup ? 
-Does the EP require any special handling during suspend/resume ?
+Move the zero assignment inside the critical section so all accesses
+to sactive_issued are serialized by host->lock.
 
-Thank you for your help !
+Fixes: 2d20da00c324b ("ata: sata_dwc_460ex: get rid of global data")
+Assisted-by: opencode:big-pickle
+Signed-off-by: Rosen Penev <rosenp@gmail.com>
+---
+ v2: resend as standalone patch
+ drivers/ata/sata_dwc_460ex.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
+diff --git a/drivers/ata/sata_dwc_460ex.c b/drivers/ata/sata_dwc_460ex.c
+index 8a1d80ac906a..73bacdfd0bd3 100644
+--- a/drivers/ata/sata_dwc_460ex.c
++++ b/drivers/ata/sata_dwc_460ex.c
+@@ -465,9 +465,9 @@ static irqreturn_t sata_dwc_isr(int irq, void *dev_instance)
+ 	int handled, port = 0;
+ 	uint intpr, sactive, sactive2, tag_mask;
+ 	struct sata_dwc_device_port *hsdevp;
+-	hsdev->sactive_issued = 0;
+ 
+ 	spin_lock_irqsave(&host->lock, flags);
++	hsdev->sactive_issued = 0;
+ 
+ 	/* Read the interrupt register */
+ 	intpr = sata_dwc_readl(&hsdev->sata_dwc_regs->intpr);
 -- 
-Best regards,
-Marek Vasut
+2.55.0
+
