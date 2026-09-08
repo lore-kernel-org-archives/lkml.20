@@ -1,54 +1,48 @@
-Received: from out30-110.freemail.mail.aliyun.com (out30-110.freemail.mail.aliyun.com [115.124.30.110])
+Received: from canpmsgout08.his.huawei.com (canpmsgout08.his.huawei.com [113.46.200.223])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 682EED531
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 13:08:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.110
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CC6F5452AE;
+	Tue,  8 Sep 2026 13:08:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.223
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788872920; cv=none; b=B3+A/BQdTHa2Gay7s0X1McdtFJNa58QEi33d4lsXJ3DvhLHNFBlu+gMNVxRmsISUvQJyCG4d/9z7YIJmqZ4KwmJpubpUBbgXcwUg1ToOoKU7XOyunsXtCRW3zcFeos2xOViCMDzJNKHssQBOZgj5bFr2aBF8NQBHiuYY9zWfBb0=
+	t=1788872931; cv=none; b=NpsaPeljr4aiR+z140sQR8nyYLrTbfazNjSh7IMhBpyT6yqdsEW+juYQ5lkee01rnPu6Yt3wf/FfaVpN921cGgbP3E5wUUlaCZMg17RtDJmpSUtB90yiKyOK1lfTraNeRI5L3GbingEg0mNaXSaQ723uwL15MhYcdTFo9Fqmh58=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788872920; c=relaxed/simple;
-	bh=lZOJZ1eXA52ShReNf9dL+c4a3gllm4PudhUTHQNpfUI=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=GT8qAEHcOMSUoN7pjVpIGWqHz5ybVp8gYFJMv+3JxIhOyXxCMrmQHPJlo1bWctOvJUFkO2dCubLM3EiC4I1zpqgVQi4tdDbPHp1QIapRrJsWQYt4q5X8YU66rkbodJR5ON4lpGiO628iT+swS17PmFMP19psCV2YkzmGHA8pTi4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=Kf1o7emR; arc=none smtp.client-ip=115.124.30.110
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	s=arc-20240116; t=1788872931; c=relaxed/simple;
+	bh=zzd6uzk3xUz5w5wCwKt8Bv5z2FR/iAHlwOv9gj4Np6k=;
+	h=From:To:Subject:Date:Message-ID:MIME-Version:Content-Type; b=ghWVZvh3yDlwVwROmh5W4nB+OYEJ+tBa2GBG6ey4iXk8BFSGEtjCe+Mt6jH2sS94tK73aA6nctS/uXV04S+bsrXkvWtveDzUDlZ3yfDNPUI9U2Qpj5CbkYEz856cBuF+hirwnu4saRJJ8lGsbazoE5aIiGD8HdPjP9u5xfNuo7I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=f0V4G50U; arc=none smtp.client-ip=113.46.200.223
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="Kf1o7emR"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1788872914; h=From:To:Subject:Date:Message-Id:MIME-Version;
-	bh=lZOJZ1eXA52ShReNf9dL+c4a3gllm4PudhUTHQNpfUI=;
-	b=Kf1o7emR9g3kf9jtpzeS1GntQu7yQo3md4CxE/TvbE+P4QYW/CZizfTk0TNCJrVgw9kNu6CUyRNK387iDvNvWqLYBXvwPfqpwbBJBAwoI5drCZMzNK+5HFA+X9x84PKVFl06SX3FmGSawifb8baKuXjb6DGtXEI2pqkWHcH+/4Y=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R181e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045098064;MF=fangyu.yu@linux.alibaba.com;NM=1;PH=DS;RN=17;SR=0;TI=SMTPD_---0XAbablx_1788872910;
-Received: from localhost.localdomain(mailfrom:fangyu.yu@linux.alibaba.com fp:SMTPD_---0XAbablx_1788872910 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Tue, 08 Sep 2026 21:08:32 +0800
-From: fangyu.yu@linux.alibaba.com
-To: andrew.jones@oss.qualcomm.com
-Cc: anup@brainfault.org,
-	fangyu.yu@linux.alibaba.com,
-	iommu@lists.linux.dev,
-	jgg@nvidia.com,
-	jgg@ziepe.ca,
-	joro@8bytes.org,
-	kevin.tian@intel.com,
-	linux-kernel@vger.kernel.org,
-	linux-riscv@lists.infradead.org,
-	palmer@dabbelt.com,
-	pjw@kernel.org,
-	robin.murphy@arm.com,
-	tglx@kernel.org,
-	tjeznach@rivosinc.com,
-	tomasz.jeznach@linux.dev,
-	will@kernel.org
-Subject: Re: [PATCH v5 00/17] iommu/riscv: Enable MSI remapping, IOMMU_DMA and VFIO
-Date: Tue,  8 Sep 2026 21:08:28 +0800
-Message-Id: <20260908130828.14195-1-fangyu.yu@linux.alibaba.com>
-X-Mailer: git-send-email 2.39.3 (Apple Git-146)
-In-Reply-To: <20260831145943.313726-1-andrew.jones@oss.qualcomm.com>
-References: <20260831145943.313726-1-andrew.jones@oss.qualcomm.com>
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="f0V4G50U"
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=B+2IBNaofa1Ew7xyFspcz5giGEkRFBZuf5UcHuv76xY=;
+	b=f0V4G50UOv0de6WaDiMYaOamv8cGS94BzJ6BX+evYDZN0nuzmTUYlt3hdkGmR4hb8MzACAJfq
+	4bYj2cBVTWtYLhlV721ChbXg+CEBYtbQG8Fzu38hcb0Un69AWuvfcrnCedzsJY5COYQt5g6OpfO
+	lEqEUcISounmbEeoxvSWNg4=
+Received: from mail.maildlp.com (unknown [172.19.163.163])
+	by canpmsgout08.his.huawei.com (SkyGuard) with ESMTPS id 4hfP9f46zHzmVCF;
+	Tue,  8 Sep 2026 20:57:42 +0800 (CST)
+Received: from kwepemf100015.china.huawei.com (unknown [7.202.181.14])
+	by mail.maildlp.com (Postfix) with ESMTPS id 8D3414057A;
+	Tue,  8 Sep 2026 21:08:36 +0800 (CST)
+Received: from dggphicprd10024.huawei.com (10.243.6.112) by
+ kwepemf100015.china.huawei.com (7.202.181.14) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Tue, 8 Sep 2026 21:08:36 +0800
+From: Abbott Liu <liuwenliang@huawei.com>
+To: <liuwenliang@huawei.com>, <tony.luck@intel.com>, <bp@alien8.de>,
+	<jic23@kernel.org>, <ardb@kernel.org>, <rafael.j.wysocki@intel.com>,
+	<guohanjun@huawei.com>, <mchehab+huawei@kernel.org>,
+	<luoshengwei@huawei.com>, <jason@os.amperecomputing.com>,
+	<danielf@os.amperecomputing.com>, <linux-edac@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>
+Subject: [PATCH v3 0/3] RAS: Fix ARM processor error bounds checking
+Date: Tue, 8 Sep 2026 21:08:15 +0800
+Message-ID: <20260906130000.4181892-1-liuwenliang@huawei.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -56,74 +50,68 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: kwepems100001.china.huawei.com (7.221.188.238) To
+ kwepemf100015.china.huawei.com (7.202.181.14)
 
->This series adds MSI remapping for IMSIC so a device's MSI target gets
->translated the same way its DMA does, allowing RISC-V to enable IOMMU_DMA
->and paging domains by default.
->
->v1[1] used get_resv_regions() with IOMMU_RESV_DIRECT_RELAXABLE to identity
->map IMSIC pages, but that was rejected as only a workaround. v2 through
->v4[2] instead introduced a RISC-V IOMMU IRQ domain which pre-mapped every
->possible IMSIC target and maintained a domain-local PA-to-IOVA table. The
->v4 discussion with Jason identified a simpler way to handle the RISC-V
->requirement that the MSI target address changes with interrupt affinity:
->extend the existing iommu_dma_prepare_msi() model to prepare an ordered
->list of MSI targets as one contiguous IOVA range. v5 is a complete redesign
->around that approach.
->
->The IMSIC driver now builds an array containing the supervisor IMSIC page
->for every possible CPU, indexed by logical CPU number. When allocating an
->IRQ, it passes the complete array to iommu_dma_prepare_msi_list(). The new
->API maps the ordered physical address list into one contiguous IOVA range
->through either DMA-IOMMU or iommufd, then caches the base IOVA and mapping
->granule in the MSI descriptor. MSI composition can therefore select the
->target for the current CPU with simple arithmetic, including during an
->affinity change, without allocating memory or consulting IOMMU-owned state
->in atomic context.
->
->DMA-IOMMU extends its existing per-page MSI cache to recognize and reuse
->complete ranges. iommufd grows its software-MSI bitmap on demand, bounds
->allocations to the reserved MSI window, and prepares, installs, rolls back,
->and replays a range as one unit. This keeps the descriptor's contiguous
->IOVA valid across iommufd paging-domain replacement without exposing a
->partially installed range.
->
->Unlike v4, v5 has no RISC-V IOMMU IRQ domain, no domain-local IMSIC mapping
->table, and no IOMMU lookup during MSI composition. The IMSIC IRQ domain
->owns the target list and message composition, while the IOMMU layers only
->provide the mappings. Devices which do not need IOMMU MSI translation keep
->using physical MSI addresses through the same IMSIC path.
->
->The series also carries the remaining plumbing needed for RISC-V PCIe
->device assignment through VFIO/KVM: the RISC-V IOMMU reports DMA
->cache-coherency capability for coherent devices, VFIO type1 and KVM_VFIO
->are enabled for RISC-V, defconfig enables IOMMUFD/VFIO as modules with cdev
->support, and the generic VFIO/iommufd selftests can be built for RISC-V.
->The RISC-V IOMMU specification does not provide MSI data validation, so
->VFIO device assignment requires the applicable allow_unsafe_interrupts=1
->module parameter. Direct MSI routing to guest interrupt files (irqbypass)
->is not yet supported by this series and will be posted separately on top.
->
+Commit 87880af2d24e ("APEI/GHES: ARM processor Error: don't go past
+allocated memory") and commit 05954511b73e ("RAS: Report all ARM
+processor CPER information to userspace") introduced bounds checking
+for malformed ARM processor error records in log_arm_hw_error().
+However, three issues remain:
 
-Hi Andrew:
+1. The ctx_info bounds check condition is inverted: it adds
+   ctx_info->size when the context header is already past the end of
+   the section instead of when it is within bounds.
 
-I tested this on riscv64 QEMU with an emulated NVMe device and e1000e
-network adapter. The fio and iperf3 tests both completed successfully,
-and the interrupt status was as expected.
+2. When vsei_len < 0, the error path does not verify pei_len and
+   ctx_len. Since these are derived from err_info_num and
+   context_info_num, they may describe regions beyond the allocated
+   record, causing trace_arm_event() to read out of bounds.
 
-For this series
-Tested-by: Fangyu Yu <fangyu.yu@linux.alibaba.com>
+3. ctx_info->size is a u32 taken directly from the firmware-generated
+   record. A value over 0x7fffffff overflows the signed int sz used
+   to advance ctx_info, so the iteration can walk past the end of the
+   section.
 
->LLM-based coding assistants were used during development for code
->exploration, patch review, test execution, and drafting and editing
->commit messages and this cover letter. I reviewed and finalized all
->resulting code and text. Per-patch Assisted-by tags are omitted in
->light of ongoing discussions about simplifying coding-assistant
->attribution.
->
->Thanks,
->drew
->
->[1] https://lore.kernel.org/all/20260508212339.381933-1-andrew.jones@oss.qualcomm.com/
->[2] https://lore.kernel.org/all/20260820214150.545737-1-andrew.jones@oss.qualcomm.com/
->
+Patch 1 fixes the inverted bounds check for context info iteration.
+Patch 2 sanitizes pei_len/ctx_len/ven_err_data in the vsei_len < 0
+error path to prevent out-of-bounds reads in trace_arm_event().
+Patch 3 checks each context entry with 64-bit arithmetic so that both
+the header and the context data fit in the section, and stops the walk
+at the first entry that does not fit, so a malformed size cannot
+overflow sz and walk ctx_info out of the section.
+
+Changes in v3:
+  - Remove the empty line between the Fixes: and Signed-off-by: tags
+    in patches 1 and 2, per Hanjun Guo's comments.
+  - Add braces around the else branch that assigns ven_err_data in
+    patch 2, as suggested by Hanjun Guo.
+  - Add new patch 3 to check each context entry with 64-bit
+    arithmetic and stop the walk at the first entry that does not fit
+    in the section, so a ctx_info->size over 0x7fffffff cannot
+    overflow the signed int sz and walk ctx_info past the section,
+    addressing Hanjun Guo's overflow comment.
+
+Changes in v2:
+  - Split the original single patch into two separate patches, one
+    for each distinct fix, to ease review and backporting.
+
+v2:
+  RAS: Fix ARM processor error bounds checking
+  https://lore.kernel.org/all/20260825134323.4181892-1-liuwenliang@huawei.com/
+
+v1:
+  RAS: Fix out-of-range section_length in ARM processor error handling
+  https://lore.kernel.org/all/20260820131829.1006371-1-liuwenliang@huawei.com/
+
+Abbott Liu (3):
+  RAS: Fix inverted context info bounds check in ARM processor errors
+  RAS: Fix out-of-bounds read when tracing arm_event
+  RAS: Fix integer overflow in ARM processor error context walk
+
+ drivers/ras/ras.c | 33 +++++++++++++++++++++++++++------
+ 1 file changed, 27 insertions(+), 6 deletions(-)
+
+-- 
+2.43.0
