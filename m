@@ -1,150 +1,142 @@
-Received: from mail-oo1-f46.google.com (mail-oo1-f46.google.com [209.85.161.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBDCC4A3418
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 23:32:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.161.46
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788910326; cv=pass; b=IEOAMUTm4yZgsiuj0qXlRugufITtxyrxsNrYsDwggX85/SyhU3Nd6JFfv8e6nb65WVrqKr52S2m7Nf8Q8lx3R6FLNUhvQtAySczXGb5JvXSjL6VgLiMZbpdpH+slit+qsjOLJvpaycY6g3Bp4qG9FFOC1Avr9jr+ouWXOdJBgCY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788910326; c=relaxed/simple;
-	bh=pLxPncky5zvsWZOTFKe5A+fK/mnU9up8jT15KYFF6dQ=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=O1N5j1M+l8IO9ViHMXpmYEHfG08pc6uw39YFJEUwsVhtQeWpgaeawX1FoAtNr+XMpn8tXyKnSvTpVBPFaYwAXb6GIw/vZKvjVaXNj0eF+RUZXu6kkZiHWbEg54IMc1uSZl5RD/Lm8yilMXRr/LSCSAm2+Q4Q0n4lw9YKxk5DcBU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=TQw3aIJ2; arc=pass smtp.client-ip=209.85.161.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFB3323E330
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 23:33:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788910421; cv=none; b=PY8/jTvmsrdyAvE8RN7Wt3URr/ExHMERhoF7niyNUZisql721mUsGQZesbZRQmJPUZl1o9XQjaANapy3CTfJj8A9cvadQ5bwkWJi+N4Q+X6C99ON1+QNmkZpOUh/KiF5wt3j9OizdynhFZfWbVgvERXELu8X3bCSnq8EWR/uIOc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788910421; c=relaxed/simple;
+	bh=qrLNIG1hJQSxUnZ/3DZVebqrz6cwG9DkV4nRv53ebt0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=RRNBf4orzRTUACrAD1aPD/+sQ1MyBrNc2FvN++HAJ8upeU4A/gHJpMeBoEMgtszvw2J8DAnzDzb2xbCraN/VcX1Q4AJqzGwBmUItM/Vb7208ybhmJDvsiSsqerANxC1USN1pIk5zvkeVtUCpcX7x5ylo38ifbsUZiiGqeNzQLQo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hEOdsXPY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="TQw3aIJ2"
-Received: by mail-oo1-f46.google.com with SMTP id 006d021491bc7-6be4202867aso19887eaf.1
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 16:32:04 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788910323; cv=none;
-        d=google.com; s=arc-20260327;
-        b=jzsC0iHesTSaJ7zvxmviu/44xWG0RJVQOeIqxQVpqUkrRGz9kWJoSPsk8iZzSh57JW
-         N2N8mKi8AquX47BLMe14dY/IB95VZDRNr+plBqF6xAb8zgLxWspnX8EgpEVEUXoTZqcv
-         aqvvgsODvYb5Ytw6tQb+mtii1ijS+oK4KV7onLomM7JJNQ9X0SZbnkiSaxrjNJLgDbDH
-         F4hFkYr05UvUfkTdmcjmzd5znyJPAky8wBwWIeOkLYFACQpIeHOf+MPVuDB6HGNlou5A
-         +EgAJ/1/hcxKNLCR9clINrroOEw6E3TykQSehCYoShYub50kEDOI32x+sWKg+TPWz3Bm
-         rizg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=7+3nLzSILAYs3qmpLkeoZcGFoXxWf/bBrMplbZ8qrRk=;
-        fh=hQrv+vviOQPSG0pS2uCJyMK7Uu/d1/WqnsbTOGx5Y8M=;
-        b=cntqo6QKZCUG+P8eGC6uQndf5fihsV588vLeMiZnHoexfF/eebEyIrl+7p9LE1aMcM
-         or72tT1zOVPrJ8RABcZ0KwBVUPfJRD+2M06MHmAw1WAPb5CSv9PlNSPCPU+41/7yUA4g
-         s+A48evkeHRS0WUnHdZahROlZJXeo7ZFeM14jv61ooQEaiTX6mMugl6ToBmZnycgwA9v
-         fVWHsUYtZFnbwzQulcmUzik6Krx6KnaowCS7L/ygE5V0yxeyI64HU/qI6222CMyL5Cwu
-         0TWIdCUxFX+PiO2tVxzAdAcr2Z6bk9469RDzOT8Xgmi8IPTNe1MAt44TqVDEM5OQC/H5
-         s3jg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788910323; x=1789515123; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=7+3nLzSILAYs3qmpLkeoZcGFoXxWf/bBrMplbZ8qrRk=;
-        b=TQw3aIJ2GQiXqCtRGlXmZqNBGNC5ojuHadlBGh80a5FD2j8d7ORLzQ4vJq1uDCx7TX
-         qiddYpqX9RiRnAuDkktfmt8ZqmMnl3WMQR9MnU+PWyVmbJFx6bs3Daej2B9P44n/Ic8i
-         ZKkU3XRcF4LCHl6KIUk0u8GjPP42YXNSyXyMeAZIB1t46LibkCQe4K/bRXiTO78YiaFO
-         KBHYMhkPMzP3h+aJzTesLPvoCMtrD9bdtEhz5I68xANwOk7sI0knCwe+qacBL/QccJkp
-         +Qhzh9nkmSmUcjTQfGlfSkhiuxOGyRQWcmwhUG67hAG3JvuEM7D37wK1uQUhtobVr39s
-         oEkw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788910323; x=1789515123;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=7+3nLzSILAYs3qmpLkeoZcGFoXxWf/bBrMplbZ8qrRk=;
-        b=Plx4dtIIT/KU27nG+4oGprPv0wILxuztGaD0SonjLm/2kidlcJN3VzsHOrr5xUrCyg
-         svaiKJ3dMnk4ZH+vh3lt9W+lJWbJh4jTfCeP+qZdkoODxAsQUuKwqJK4yotu7zk2/omQ
-         yq0/t70+BzTIaG/RYinoLW/F9RoehkTwUw6phm1FlIvF2/tNwgJqY7BO1pI6awydUtFI
-         d5gYTeTaZEfQT62tzxVuKhJlJxY9LgGyLX/diUIyI9ed+6XlP1SGdlNMHzviOkt4j1lp
-         +k/WMOrAbIGqDHt5CGhW5NDJOWTDdcQ8DxwUYnymCzs1uh41TDpHI1w8VgwhgKPt2ANo
-         Z3og==
-X-Forwarded-Encrypted: i=1; AKwUvBwQqtbRaxsrc6ymfQCrzGOj0W0WD441jNEUNYfi96fIG+5yBY6rVqtrJ+DjTL34kR6vyLnO5f9E3FwM220=@vger.kernel.org
-X-Gm-Message-State: AFuF++lUoW0sTOmXo8nJHpV9vt8Kyw78yDzX6xg/t7RpiBPsZyDnSLca
-	Ten0p8PxO89ZmBzczu9LtZiUFD3lMd8A11ha3Jnt0BIvNIRX4BSYYA31nOvP33QT4wzP983xCs/
-	TmegOlScE9UitMcBPuyB1YUebyaGzZ2voBOWqHC4+
-X-Gm-Gg: AYBFou2Fwbu+UkYRn+Ff2178xP0WgrfH9cRsL3dHpMk/U1ZURmC5/G5IqA5WAmwOVyL
-	mUFOZS6NyCk8qwoSGuEaMm7MeQC1cQmR2txgv3lp887ZRMG42etSdemgG9i9L1jEaqb/7kaJ3aZ
-	mRBmdNgHnTPkVWUgUB/l0HOHcEk0AiIZ3P1zelt3z6f+ZhcGLuPZsV0/FER9lYB/ON7xz2FYo4i
-	JCzgw3If9wH/MUv6XBonZBmXb1a+eURuX3bQnHSCeALF0UT0r12qnSangjNxCg0k5gPDszBhd6C
-	GLIq4hOkSUqVccOAi3DgrKEKl2WBZVankin0woDFlBcIJ3djDdoWWspBloCkrpO/Eab/7hBDHM2
-	Tw9OAANWl2nc=
-X-Received: by 2002:a05:6820:4b85:b0:6b8:319b:9e1f with SMTP id
- 006d021491bc7-6b8319b9e9cmr15317381eaf.5.1788910322806; Tue, 08 Sep 2026
- 16:32:02 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hEOdsXPY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6786F1F00A3A;
+	Tue,  8 Sep 2026 23:33:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788910419;
+	bh=M/YNoh46F5RVDPowrbPKouyzIWXWEJqi2J64y5A/WtM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=hEOdsXPY9IdQ4T7RFq/9Zia1kZhrQg+r84MswkaPKCxxtoYpyT5+KIhZZvdChqdNj
+	 i5BWEBPIzs320eU9x14ZPQo5azQ1bPqoqsk91i/J7bN2R2/SRNazVx1TM9r/9894Hh
+	 bw4ViBqnf6M8o/p9VQam9En5Rh4WNWrbF0fhUY/ANm0GAvIT8oJGYZgIj3N04vUbFx
+	 cFhorFekUwrA/31vqbKQwILdiqT2PuQX7cXU6Kw8b/Vjm/dzCgxKSYdSMylVq5Luro
+	 fShMVJjChcM0eKs3sQfJO+HCDa1tolIVWiUAgkbPtDw/eqvBSw0SwZ7vyagOknS9bd
+	 +HhytQkCC23tA==
+Date: Tue, 8 Sep 2026 16:33:34 -0700
+From: Nathan Chancellor <nathan@kernel.org>
+To: Mike Rapoport <rppt@kernel.org>
+Cc: Dave Hansen <dave.hansen@linux.intel.com>,
+	Andy Lutomirski <luto@kernel.org>, Borislav Petkov <bp@alien8.de>,
+	Ingo Molnar <mingo@redhat.com>, "H. Peter Anvin" <hpa@zytor.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Thomas Gleixner <tglx@kernel.org>, linux-kernel@vger.kernel.org,
+	x86@kernel.org
+Subject: Re: [PATCH] x86/mm/pat: skip RWX verification until kernel text is
+ set to read only
+Message-ID: <20260908233334.GA2902183@ax162>
+References: <20260908092730.4002628-1-rppt@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260710172946.15633-2-rdbabiera@google.com> <ao3d2TlIRqxbz4WP@google.com>
-In-Reply-To: <ao3d2TlIRqxbz4WP@google.com>
-From: RD Babiera <rdbabiera@google.com>
-Date: Tue, 8 Sep 2026 16:31:51 -0700
-X-Gm-Features: AcwNN1Xw1Y5ryO3wQ35hV6_NmfuyHI7Zbl4nz0Z-Sqsiz6v2x3IDE9LAtXts248
-Message-ID: <CALzBnUF14HuRhAObW+HXbaWYpPYzqG_Tt0rrm1nF2OW1T1OSqg@mail.gmail.com>
-Subject: Re: [PATCH v6] phy: Add USB3 PHY support to Google Tensor SoC USB PHY driver
-To: Neill Kapron <nkapron@google.com>
-Cc: vkoul@kernel.org, peter.griffin@linaro.org, andre.draszik@linaro.org, 
-	tudor.ambarus@linaro.org, p.zabel@pengutronix.de, neil.armstrong@linaro.org, 
-	badhri@google.com, linux-arm-kernel@lists.infradead.org, 
-	linux-samsung-soc@vger.kernel.org, linux-phy@lists.infradead.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260908092730.4002628-1-rppt@kernel.org>
 
-Hi Neill, thanks for taking a look. Sorry for the delay here, the feedback
-arrived right before I had left for vacation so I wanted to make sure I had
-proper time to look at it:
+On Tue, Sep 08, 2026 at 12:27:30PM +0300, Mike Rapoport wrote:
+> From: "Mike Rapoport (Microsoft)" <rppt@kernel.org>
+> 
+> Nathan Chancellor reports the following warning:
+> 
+>   CPA detected W^X violation: 8000000000000123 -> 0000000000000123 range: 0xffffffffc0400000 - 0xffffffffc0400fff PFN 100e00
+>   WARNING: arch/x86/mm/pat/set_memory.c:722 at __change_page_attr_set_clr+0xde7/0x1290, CPU#0: swapper/0/0
+>   Modules linked in:
+>   CPU: 0 UID: 0 PID: 0 Comm: swapper/0 Not tainted 7.3.0-rc1-debug-00006-g453e78594434 #1 PREEMPT(full)  2950d432dd3910251071a66f3134fe0875432786
+>   Hardware name: ASUS System Product Name/PRIME Z590M-PLUS, BIOS 1801 12/26/2022
+>   RIP: 0010:__change_page_attr_set_clr+0xdff/0x1290
+>   Code: 80 7c 24 42 00 0f 85 3a 04 00 00 48 8d 3d 19 8d 79 02 49 89 d9 4c 89 e1 4c 89 d2 4c 89 f6 4d 8d 84 24 ff 0f 00 00 4c 89 14 24 <67> 48 0f b9 3a 4c 8b 14 24 48 8b 0d 81 44 bf 01 41 f6 c2 01
+>   RSP: 0000:ffffffff87003c60 EFLAGS: 00010246
+>   RAX: 0000000000000002 RBX: 0000000000100e00 RCX: ffffffffc0400000
+>   RDX: 0000000000000123 RSI: 8000000000000123 RDI: ffffffff872e50c0
+>   RBP: 8000000100e00123 R08: ffffffffc0400fff R09: 0000000000100e00
+>   R10: 0000000000000123 R11: 0000000000000001 R12: ffffffffc0400000
+>   R13: 0000000100e00123 R14: 8000000000000123 R15: ffffffff87003d58
+>   FS:  0000000000000000(0000) GS:ffff8ad1777a7000(0000) knlGS:0000000000000000
+>   CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+>   CR2: ffff8ad0a4201000 CR3: 00000007e3022001 CR4: 0000000000770ef0
+>   PKRU: 55555554
+>   Call Trace:
+>    <TASK>
+>    ? _vm_unmap_aliases+0x219/0x280
+>    change_page_attr_set_clr+0x161/0x250
+>    ? events_sysfs_show+0x5d/0x80
+>    set_memory_x+0x39/0x50
+>    apply_retpolines+0x656/0x6d0
+>    ? events_sysfs_show+0x5d/0x80
+>    ? events_sysfs_show+0x6c/0x80
+>    ? events_sysfs_show+0x62/0x80
+>    alternative_instructions+0x3c/0xd0
+>    arch_cpu_finalize_init+0x130/0x190
+>    start_kernel+0x97d/0xa10
+>    x86_64_start_reservations+0x24/0x30
+>    x86_64_start_kernel+0xda/0xe0
+>    common_startup_64+0x13e/0x151
+>    </TASK>
+>   ---[ end trace 0000000000000000 ]---
+> 
+> The warning appears because commit 038176c21617f ("x86/mm/pat: fix
+> effective RW computation in lookup_address_in_pgd_attr()") fixed the
+> effective RW checked by verify_rwx() and it exposed that pages used
+> for ITS trampolines temporarily have RWX permissions.
+> 
+> The permissions are updated in its_fini_core() after all the ITS
+> trampolines are generated, but since verify_rwx() detects invalid
+> transitions, it warns when its_alloc() makes RW memory executable.
+> 
+> At the time of alternatives patching the entire kernel text is mapped
+> RWX, so the warning is bogus anyway.
+> 
+> Skip verification of W^X violations in verify_rwx() when they are
+> triggered by transitions happening before the kernel text is remapped as
+> read-only.
+> 
+> Reported-by: Nathan Chancellor <nathan@kernel.org>
+> Closes: https://lore.kernel.org/all/20260905044253.GA3816371@ax162
+> Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
 
-On Tue, Aug 25, 2026 at 11:24=E2=80=AFAM Neill Kapron <nkapron@google.com> =
-wrote:
+Tested-by: Nathan Chancellor <nathan@kernel.org>
 
-> Do we really need a 2.5s timeout?
+> ---
+>  arch/x86/mm/pat/set_memory.c | 4 ++++
+>  1 file changed, 4 insertions(+)
+> 
+> diff --git a/arch/x86/mm/pat/set_memory.c b/arch/x86/mm/pat/set_memory.c
+> index 226660973d515..2eecb76703bb4 100644
+> --- a/arch/x86/mm/pat/set_memory.c
+> +++ b/arch/x86/mm/pat/set_memory.c
+> @@ -708,6 +708,10 @@ static inline pgprot_t verify_rwx(pgprot_t old, pgprot_t new, unsigned long star
+>  	if (!(__supported_pte_mask & _PAGE_NX))
+>  		return new;
+>  
+> +	/* skip verification until kernel text is set to read only */
+> +	if (!kernel_set_to_readonly)
+> +		return new;
+> +
+>  	if (!((pgprot_val(old) ^ pgprot_val(new)) & (_PAGE_RW | _PAGE_NX)))
+>  		return new;
+>  
+> 
+> base-commit: 038176c21617fcc03ccc1ca43230ffedb712c047
+> -- 
+> 2.53.0
+> 
 
-2.5s is actually the hardware default for this transaction, which I agree i=
-s
-unnecessarily long=E2=80=94I set it here for correctness. We use software p=
-olling
-instead of the hardware interrupt, and in the product's lifetime 100ms is
-more than enough time for the ACK signal to arrive. I'll update the next
-patch version to use this value. I'll also program
-TCA_CTRLSYNCMODE_CFG1.xa_timeout_val to match the SW
-poll timeout so we don't let the operation hang on the PHY when SW
-finishes its poll.
-
-> The dev_* calls throughout this patch should have trailing newline
-> characters.
-
-Thanks for the heads-up, I will add them.
-
-> > +
-> > +     pm_runtime_put_autosuspend(gphy->dev);
->
-> Here you are using the _autosuspend variant, but autosuspend is never
-> configured in probe(). Should this be changed to the plain
-> pm_runtime_put(), or actually enable autosuspend in the probe function?
->
-> > +
-> > +     return ret;
-> >  }
-
-That's fair, I'll commit to pm_runtime_put() here given we don't implement
-suspend/resume on the PHY itself.
-
-> I think prior to this we should add a check if phy_state is
-> COMBO_PHY_IDLE, return an error and change this check to phy_state =3D=3D
-> COMBO_PHY_INIT_DONE to make sure we are explicit in our state handling
-> to prevent issues with any potential refactoring.
-
-Makes sense to me, this will also allow power_on to only run once in the
-PHY init/exit lifetime as well.
-
-Best,
-RD
+-- 
+Cheers,
+Nathan
