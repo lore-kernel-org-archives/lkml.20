@@ -1,246 +1,116 @@
-Received: from mta0.migadu.com (out-165.mta0.migadu.com [91.218.175.165])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 336102C027C
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 01:27:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.165
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A3542DFA3A;
+	Tue,  8 Sep 2026 01:29:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788830852; cv=none; b=uxNfhM/7Tmu8jbiJF5n/BnKxN5VlZA03TFzx3HxDouKzesnRxckC1Cn1iHKCUMAFBtvUWOdZwUd7kwxTBwmBoxdc9tikguTPZ0okWtWY2bRs4gRUIp+zvcwgUvH4Yt21xPXQcNx/swd2RSxQJUvcBRTO/QLajvdS6maW2TdszHM=
+	t=1788830959; cv=none; b=EyrkDB5ntfDY2Nzryhqshh1cdtOiwk3/AnkEeFeCQTbOMbRheJ8B3DUUT9V9zpioRjJVChN+yO7DZOEj9uFDQwi/hHz7yG1P/DvBlaOcKB98FaB2QmrZv6j0qZpaZ+7YOv8HNMDgoRCTQmnSqJdtZsJOTB+srMFO3WlPZ39g2+o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788830852; c=relaxed/simple;
-	bh=dsDRaDunIKCn+MJPiPdeLUKuKsqc8In8Ij1klgunuKA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=JExvQuyfoWiIGRDXxZM8oERYi99Z96KxsZTKyBMDc8+reyU+mm7vvDqvLXDqr5V2a2blmGj6KjluFiUfUaYKAOO6B3pD513qOIt3q2WmVhMHL4kxcXzODSOzY9cN0V9M+TB2fp0+DX5GPgIG/jsHaF/0cxv/xlZ9MWKCzOBPVow=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=C+uvDn8x; arc=none smtp.client-ip=91.218.175.165
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1788830959; c=relaxed/simple;
+	bh=2z+5QJRQOIyUKvEiYatSJHcBERjX55mCjVJlRNbtTKM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Oe6yZkfSzu8xCJ6rAeH3r06qUk1KggN3KHTspOBhPozLP+q4+qroHBkiGroB+TkFJf4YA0IraJIOeXYgNnHVfTb0/GsR22KJ3mER+MvgTi+4ne1Jn4d7VNUQJMnxzkaYR4SdA8GN/8qSdLSBeieewHQm3X9XSgz8U1i5w1ECf84=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=AJRoT++H; arc=none smtp.client-ip=220.197.31.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="C+uvDn8x"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=dsDRaDunIKCn+MJPiPdeLUKuKsqc8In8Ij1klgunuKA=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788830846; v=1; x=1789435646;
- b=C+uvDn8xCDw+XGQR7EDzpxMWYlvnBHcH+jj4UhK5jXHNzLoBhnFCfVvGAiUyc0Q9ETq4vJIP
- 9mxIyUFqsOf6S7iuHWSO4sVYceBY8dJjua/jZuh1SbJcRO5C/zQdhu5i9Tr4lWE6iZY2a3wFEW/
- Kw+hNJxDZV3+EBx9/oIgKmMQ=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id ef7a5941853f9600;
-	Tue, 08 Sep 2026 01:27:26 +0000
-X-Mizu-Trace-ID: ef7a5941853f9600
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <a89dab46-c6e8-4643-bf83-83fd76a38ab7@linux.dev>
-Date: Tue, 8 Sep 2026 09:27:17 +0800
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="AJRoT++H"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=gV
+	ulFbo+Xlb+gZYwWyf9RSx+niLz2941rDVq59YkMVQ=; b=AJRoT++HQHMkq5tNQ7
+	dleQ8IpE0khpIpVfe+qVCxpGlN0IFUMStRrP886MnYVaVahTvaSGZqhJ/WU3YEpL
+	sIoph7KGyTNVHCMxqbkTuTrMnr7kfwIZWGvosrAbnNca4RzD9MDjbuuggwckOk5X
+	uUSOJz7euUeSHaIJIghxm4iLE=
+Received: from XLL-9950X.localdomain (unknown [])
+	by gzga-smtp-mtada-g0-3 (Coremail) with SMTP id _____wBX5g6wZJ9qrohVBQ--.12557S2;
+	Tue, 08 Sep 2026 09:28:18 +0800 (CST)
+From: Longlong Xia <xialonglong2025@163.com>
+To: yosry@kernel.org
+Cc: akpm@linux-foundation.org,
+	chengming.zhou@linux.dev,
+	hannes@cmpxchg.org,
+	linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org,
+	nphamcs@gmail.com,
+	stable@vger.kernel.org,
+	xialonglong2025@163.com,
+	xialonglong@kylinos.cn,
+	Sashiko <sashiko-bot@kernel.org>
+Subject: [PATCH v2] mm/zswap: publish the initial pool with list_add_rcu()
+Date: Tue,  8 Sep 2026 09:28:01 +0800
+Message-ID: <20260908012801.1864430-1-xialonglong2025@163.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <CAO9r8zMhs_DQGah6mRfh2=Q_9WU4tm7SsWWGguUt4h7mXiOFRg@mail.gmail.com>
+References: <CAO9r8zMhs_DQGah6mRfh2=Q_9WU4tm7SsWWGguUt4h7mXiOFRg@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/7] cgroup/cpuset: Factor out child partition
- validation
-To: Guopeng Zhang <guopeng.zhang@linux.dev>, Waiman Long
- <longman@redhat.com>, cgroups@vger.kernel.org
-Cc: tj@kernel.org, hannes@cmpxchg.org, mkoutny@suse.com, shuah@kernel.org,
- linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
- Guopeng Zhang <zhangguopeng@kylinos.cn>
-References: <20260902102615.79189-1-guopeng.zhang@linux.dev>
- <20260902102615.79189-2-guopeng.zhang@linux.dev>
- <5842edcd-9283-4a87-afc9-50e51962368e@redhat.com>
- <5e0d1386-b094-4d4e-8569-e6b584f955c5@linux.dev>
- <7d1f1c95-5dad-4124-858c-7c8e3119f437@linux.dev>
- <0b2b6b9d-98de-4f45-8e65-a202fe9ce0d1@linux.dev>
-From: Ridong Chen <ridong.chen@linux.dev>
-In-Reply-To: <0b2b6b9d-98de-4f45-8e65-a202fe9ce0d1@linux.dev>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wBX5g6wZJ9qrohVBQ--.12557S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7uFykuFWUCFy7JFWDtryfCrg_yoW8CF43pF
+	WfWr9xKFWUXr92yrWDJ3Wj9rn5tw4DJF4fKr1UGF4xZwn5Cr1ay34ftr9Yqas2v3ykC3yU
+	WrWkZw17Jr1YkFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0piPCztUUUUU=
+X-CM-SenderInfo: x0ldz0pqjo00rjsqjki6rwjhhfrp/xtbC3BPHwGqfZLOE7QAA3D
 
+From: Longlong Xia <xialonglong@kylinos.cn>
 
+zswap_setup() publishes the pool on the zswap_pools list with a
+plain list_add(), but the list is walked by concurrent RCU readers
+holding nothing but rcu_read_lock() through zswap_total_pages(), e.g.
+/proc/meminfo and the shrinker count path.
 
-On 9/7/2026 6:16 PM, Guopeng Zhang wrote:
-> 
-> 
-> 在 2026/9/4 09:55, Ridong Chen 写道:
->>
->>
->> On 9/4/2026 9:25 AM, Ridong Chen wrote:
->>>
->>>
->>> On 9/4/2026 2:33 AM, Waiman Long wrote:
->>>> On 9/2/26 6:26 AM, Guopeng Zhang wrote:
->>>>> From: Guopeng Zhang <zhangguopeng@kylinos.cn>
->>>>>
->>>>> compute_partition_effective_cpumask() checks whether each valid child
->>>>> partition remains covered by the parent exclusive CPU mask and whether it
->>>>> would consume all remaining CPUs of a populated parent.
->>>>>
->>>>> Factor these two checks into child_partition_error() so the same rules can
->>>>> be reused when evaluating a proposed parent configuration. This is a
->>>>> preparatory refactoring with no intended functional change.
->>>>>
->>>>> Signed-off-by: Guopeng Zhang <zhangguopeng@kylinos.cn>
->>>>> ---
->>>>>    kernel/cgroup/cpuset.c | 38 +++++++++++++++++++++++++++++---------
->>>>>    1 file changed, 29 insertions(+), 9 deletions(-)
->>>>>
->>>>> diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
->>>>> index 8f24171b6055..6994dc75d940 100644
->>>>> --- a/kernel/cgroup/cpuset.c
->>>>> +++ b/kernel/cgroup/cpuset.c
->>>>> @@ -2085,6 +2085,26 @@ static int update_parent_effective_cpumask(struct cpuset *cs, int cmd,
->>>>>        return 0;
->>>>>    }
->>>>> +/*
->>>>> + * Return the error that will invalidate a child partition under a proposed
->>>>> + * parent partition configuration.
->>>>> + */
->>>>> +static enum prs_errcode
->>>>> +child_partition_error(struct cpuset *child,
->>>>> +              const struct cpumask *partition_cpus,
->>>>> +              const struct cpumask *remaining_cpus,
->>>>> +              bool parent_populated)
->>>> I think you should add some functional comments on what "partition_cpus" and "remaining_cpus" are supposed to be so that caller knows what to pass into this helper.
->>>
->>> Would it help to rename them to excpus and local_excpus?
->>> local already implies "excluding children" (just like cgroup.stat.local), so I think that makes the intent clearer.
->>>
->>
->> Regarding the naming: child_partition_error is a bit odd — it sounds like it's validating a hierarchical child partition, but it's actually validating the partition itself (the child argument). The parent is only needed as context for the validation logic, not because we're checking a subordinate partition.
->>
->> I'd suggest renaming it to something like:
->>
->> ```
->> static enum prs_errcode cs_partition_error(struct cpuset *cs, ...)
->>
->> ```
->>
->> That would better reflect what the function actually does.
->>
-> 
-> Thanks, Ridong. I see what you mean about the name.
-> 
-> My intention with "child" was to describe the role of the partition in these checks. Both callers use the helper while walking a parent's child partitions, and the result depends on the parent's complete exclusive mask, whether the parent is populated, and the active CPUs remaining at that point in the walk. The helper also checks only the two conditions that can invalidate a child during this process, rather than performing general validation of an arbitrary cpuset partition.
-> 
-> For that reason, `cs_partition_error()` might suggest a broader scope than the helper actually has. Would it make sense to keep `child_partition_error()` and clarify the comment, for example:
-> 
+    CPU 0 (writer)                          CPU 1 (reader)
+    --------------                          --------------
+    zswap_pool_create():
+      pool->zs_pool = zs_create_pool(); (1)
+    list_add() -> __list_add():
+      WRITE_ONCE(zswap_pools.next,
+          &pool->list);                (2)   zswap_total_pages():
+                                                pool = READ_ONCE(     (a)
+                                                    zswap_pools.next);
+                                                zs_get_total_pages(   (b)
+                                                    pool->zs_pool);
 
-As you can see, we are continuing to add partition checks, so I'd still suggest 
-avoiding child_partition_error(), it would become confusing when we later 
-refactor the partition validation logic. All of these functions are ultimately 
-used to validate a partition, and the validation may depend on either the parent 
-or a trialcs, or something else.
+If (2) becomes visible to CPU 1 before (1), CPU 1 finds the pool at
+(a) but dereferences a wild pointer at (b). Publish the node with
+list_add_rcu().
 
-So I'd propose keeping it as:
+Fixes: 91cdcd8d624bf ("mm: zswap: optimize zswap pool size tracking")
+Cc: stable@vger.kernel.org
+Assisted-by: Zcode:GLM-5.3
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Link: https://sashiko.dev/#/patchset/20260906133601.3563324-1-xialonglong2025%40163.com
+Acked-by: Yosry Ahmed <yosry@kernel.org>
+Signed-off-by: Longlong Xia <xialonglong@kylinos.cn>
+---
+Changes in v2:
+- Add Reported-by: and Link: trailers pointing at the Sashiko report,
+  as suggested by Yosry Ahmed.
+- Collect Acked-by from Yosry Ahmed.
 
-static enum prs_errcode cs_partition_error(struct cpuset *cs, struct cpuset 
-*parent);
+No code changes since v1.
 
-This is more general and better accommodates future extensions.
+ mm/zswap.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-
-> /*
->   * Return the error that would invalidate @child under its parent
->   * partition's CPU configuration.
->   */
-> 
-> I am also open to another name that preserves this parent-child context.
-> 
-
-
-
-> 
->> On a related note, the current partition validation logic is scattered across the code. I think we should consider consolidating it into a common set of helpers, perhaps like:
->>
->>
->> ```
->> static enum prs_errcode validate_partition(struct cpuset *cs, struct cpuset *trialcs, struct cpuset *parent)
->> {
->> ...
->> }
->>
->> static enum prs_errcode validate_local_partition(struct cpuset *cs, struct cpuset *trialcs, struct cpuset *parent)
->> {
->>      // local partion specific check
->>      // call validate_partition
->>      
->> }
->>
->> static enum prs_errcode validate_remote_partition(struct cpuset *cs, struct cpuset *trialcs, struct cpuset *parent)
->> {
->>      // remote partion specific check
->>      // call validate_partition
->> }
->>
->> ```
->>
-> 
-> That sounds like a good idea.
-> 
-> Since these validation paths have different inputs and side effects, consolidating them may require a broader review and restructuring.
-> 
-> I will look into this separately after the current series is completed.
-> 
-> Thanks,
-> Guopeng
->>
->>>>> +{
->>>>> +    if (!cpumask_subset(child->effective_xcpus, partition_cpus))
->>>>> +        return PERR_INVCPUS;
->>>>> +
->>>>> +    if (parent_populated &&
->>>>> +        cpumask_subset(remaining_cpus, child->effective_xcpus))
->>>>> +        return PERR_NOCPUS;
->>>>> +
->>>>> +    return PERR_NONE;
->>>>> +}
->>>>> +
->>>>>    /**
->>>>>     * compute_partition_effective_cpumask - compute effective_cpus for partition
->>>>>     * @cs: partition root cpuset
->>>>> @@ -2121,6 +2141,8 @@ static void compute_partition_effective_cpumask(struct cpuset *cs,
->>>>>        rcu_read_lock();
->>>>>        cpuset_for_each_child(child, css, cs) {
->>>>> +        enum prs_errcode child_err;
->>>>> +
->>>>>            if (!is_partition_valid(child))
->>>>>                continue;
->>>>> @@ -2129,15 +2151,13 @@ static void compute_partition_effective_cpumask(struct cpuset *cs,
->>>>>             * partition root.
->>>>>             */
->>>>>            WARN_ON_ONCE(is_remote_partition(child));
->>>>> -        WRITE_ONCE(child->prs_err, 0);
->>>>> -        if (!cpumask_subset(child->effective_xcpus,
->>>>> -                    cs->effective_xcpus))
->>>>> -            WRITE_ONCE(child->prs_err, PERR_INVCPUS);
->>>>> -        else if (populated &&
->>>>> -             cpumask_subset(new_ecpus, child->effective_xcpus))
->>>>> -            WRITE_ONCE(child->prs_err, PERR_NOCPUS);
->>>>> -
->>>>> -        if (child->prs_err) {
->>>>> +        WRITE_ONCE(child->prs_err, PERR_NONE);
->>>>> +        child_err = child_partition_error(child, cs->effective_xcpus,
->>>>> +                          new_ecpus, populated);
->>>>> +        if (child_err)
->>>>> +            WRITE_ONCE(child->prs_err, child_err);
->>>>> +
->>>>
->>>> You can ignore the inital PERR_NONE write and always write the child_err value into child->prs_err.
->>>>
->>>> Not big issue, just some nits.
->>>>
->>>> Cheers,
->>>> Longman
->>>>
->>>>> +        if (child_err) {
->>>>>                int old_prs = child->partition_root_state;
->>>>>                /*
->>>>
->>>
->>
-> 
-
+diff --git a/mm/zswap.c b/mm/zswap.c
+index 37f34e406c8e..cb5a0855fd2a 100644
+--- a/mm/zswap.c
++++ b/mm/zswap.c
+@@ -1803,7 +1803,7 @@ static int zswap_setup(void)
+ 	pool = __zswap_pool_create_fallback();
+ 	if (pool) {
+ 		pr_info("loaded using pool %s\n", pool->tfm_name);
+-		list_add(&pool->list, &zswap_pools);
++		list_add_rcu(&pool->list, &zswap_pools);
+ 		zswap_has_pool = true;
+ 		static_branch_enable(&zswap_ever_enabled);
+ 	} else {
 -- 
-Best regards
-Ridong
+2.43.0
 
