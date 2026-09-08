@@ -1,496 +1,154 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from mail.zytor.com (terminus.zytor.com [198.137.202.136])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDDEE3BFAEE
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 23:16:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2212B492E2F
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 23:17:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.136
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788909400; cv=none; b=M0JCpt5SN7Yub2s8Ptxq/n8tx9Nz8PRRnWjOoiNmGd/lrXcf17A/5bjWK9G94iqQ/pz6KSEVlQSp5L0EkDHmdr6kj1zP0HJ6ijagDB7CpJTg0HUQuV+6MPBS9uKvK/6nI9dz0/AhoA3dNa7cUnABAIbyJty2y24bPmod+ocPurE=
+	t=1788909474; cv=none; b=pl+PygGQA0N24kyoAZxpQPJnCII7H1kBRviiabVP8PS6IfyIjJTpP1pwkkWTZseOSresF2r2fKr5iyeO3rXqMAcG9ksFtV2zISHgn5ZpFjNfpsplj9+RV6bM0pddSSaGHlw/YjzXHLcXxarJYWkumtPaVPztP8GM2Iy8UzZRVJI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788909400; c=relaxed/simple;
-	bh=7gH0DdCcJ8z5QZeIJ8H1KTKklRXXtiA1S6fS/5PxSBY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=TfG0X46ek8RK724yYO19rJqte5exjIg+E6fKv1hiwgVbpD77QQSxK+H0TY0XQ0OMU0sPXcy4jn61AFqnr54qW0DpUQeaGpsKbH1Mit6ixaPuAKJI8nYO54TtE5kZhaBFaVflYhBmyYNAMbgiqbJ5XHnHj2NTgPmG/ft9NytacCo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=QnRZI6nv; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=ahg9xUJf; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1788909474; c=relaxed/simple;
+	bh=MlLZ1jj4jVs9xY80KBl5qvgVlBvxKM9xlOcTHjGYrH0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Gln2p77LD4CJD3HQ+wz2136IRHOl8C2nQnxVPffaNiA95CZ/1v3A6V5+0p3e0zZ8xslU9yOw1lpyr1wrOSaYQTophExYD2voZiWdfbNMncgzAOSEsAJ6tUEPGIqt43DAcsua+0tgEyRbKSu43QC1ImK0gVBDKDbAqXDZQLkzSak=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zytor.com; spf=pass smtp.mailfrom=zytor.com; dkim=pass (2048-bit key) header.d=zytor.com header.i=@zytor.com header.b=DhyEuYlJ; arc=none smtp.client-ip=198.137.202.136
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zytor.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zytor.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="QnRZI6nv";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ahg9xUJf"
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 688Mg5pU1274431
-	for <linux-kernel@vger.kernel.org>; Tue, 8 Sep 2026 23:16:38 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=5OpX0FvQVUkIQJtPqzVnZ/Nb
-	Tsx2FqQIdJRRkVKt+og=; b=QnRZI6nvjSo5DsAESsy6xbYDktBxBT2IRdqnBI7X
-	FCnj5oDNDyM/LJZns946y4evuRXzVWe+iXP+dgtfASwlaoTnsB7Uo4HOfjB4ja0M
-	E2dSXKXzXj9whr/narRp2sCBn1GB++SBVDyRZ9kqlI2caj2uPtBUF+QNlTn3yxpU
-	Mf/C/q0alRXIhMWsvH61poIu8Nq49W3EL0SQJbgdcZO/x8K57LklWwR5luwaSAw8
-	KFdAFI78cw8Wws1d0Bk0EDNWh1lh7fwRxzXV0U8TFhyB8/2UMHXnh52+53/+EU0r
-	muLhvJwdgjvL4solreMgpjZiq6ZleDqwQKJkeW6ExeorDw==
-Received: from mail-vk1-f200.google.com (mail-vk1-f200.google.com [209.85.221.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gjqdw18f2-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 23:16:37 +0000 (GMT)
-Received: by mail-vk1-f200.google.com with SMTP id 71dfb90a1353d-5c405d3e18eso6601076e0c.0
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 16:16:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788909396; x=1789514196; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=5OpX0FvQVUkIQJtPqzVnZ/NbTsx2FqQIdJRRkVKt+og=;
-        b=ahg9xUJfvy4dvScupMAytjsEr+kbE4FYr8IyxXiXkH1bjIjuY6BXkDvqXaoGxPOiMC
-         U5B9AHqKe3YY3r02fu+zO0XSU9EteZAMIiynp1azm+oSMuywV6PbQUdN20Y8lMAnGoPp
-         SOEIcKGqbIot0dELav/72rU68ZcNO6ieRspXY1YTxq741b0EoB/Ni0rPPEvzMPgq/Ol6
-         XQlKjOQ58FUeCQzclbtoQPdTKB8IYbCUMz1E7cV1xI5TtH3llquyFWhHvO40/b2gRRng
-         OMl1dg6UuuuOARO6g9AkuCcxSX/cJ3T5ZjhPNQISSuvF0ynUbYT/CGh2XBMu4FnhL5WI
-         c7Hg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788909396; x=1789514196;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=5OpX0FvQVUkIQJtPqzVnZ/NbTsx2FqQIdJRRkVKt+og=;
-        b=jIoNOjmk0G/Fky6bfueiG5/IFZX+v19aMa79qQ7vD6FV27qKxCpC5Ti6hzK9RhMma1
-         MT78VVT3/n1gynvPGioilDVaTa7CoGn0Ti3/nFKyM60ewaFIsmpMcc7AfimSIzYjN0Qf
-         AgJlOldY9Ghprirl4WdvVpDh2KU4+mqdbOOjXvcVJEpVVzS2hTzeEkqCwUek//UeQK8Z
-         1j/fZj1tujzh2lKbw3r7eH3I9DrSFGRqWVZO6zVwf6zgDEJgf61U48MQ+q88uAl6glJ9
-         evorDocb6UDVOKyDNz+zir29H3kjp1T7I7B2NtvzzxZgKUOIxJVGd3QAfdb6NbCWqJfW
-         kpOw==
-X-Forwarded-Encrypted: i=1; AKwUvBx7k18ipG9n+b3gntKVn+b82nHzI+vVJ0+V8DMg85OaFF5Ypqf3gwh/mx96YtPUCZ6JwJC2WVIMczmOdsw=@vger.kernel.org
-X-Gm-Message-State: AFuF++nH3JsLJSASo/aZApS4ml+rG0+QTJ11XuulQRCMYMYBw5Qyvku9
-	QiQokJAG+JLHWoalinVm8ECX1xi1yzLpkcSebAqGcwAemPLvJkXP+4UCABEBhctE1VtLGXOrcm3
-	KoWVjOn85Gt2m+TFlFHRKCp9FjOtyDBwnq8uZ24wi+MdGE9TXY5UTPnD6ovO2vVS/ER8=
-X-Gm-Gg: AYBFou1CctACD5+lpSoHvTaU8HsTbQ8JIBv2IPfCmW4pAxECXdzXT/pg0efJ5ZUno7q
-	9epAce5oPiF2SqeW0Bo2yYOf+is/7kNkI2WdNugY+Bn4NUxlHYuIsRBpPBWCnni6S0S++ZbYZy1
-	j7ug/dIOrJFzwEduoSY2gqVj8UaUO/kUdyGSf/v6ZTqr4DjA5GQ4ZMhYPHdqaNaMyuokVk3bjh8
-	ZCyGHOlyOVUfWcX416yRZRY7GBKawU6iDwfwrRqlkhSUKbmYKIuChnhUVf5DSidu11jtM/MY9zt
-	81gXAD0Q3oI2eOcyu4B5kgFUsYDo0/lHTIRnJ9zADxWsbgm841r89afHxvMKulemq3rwk+O35HG
-	GvWTkffhYB7OGpIa2VMqRJJvSP+54B6tO6m2YBcs+YRVjkC+PJR2hFwjW0mJgutLpB6qRISu2MY
-	WMCXhyUgYQJna3
-X-Received: by 2002:a05:6102:5126:b0:785:5a17:739b with SMTP id ada2fe7eead31-78a4a4944femr15114658137.0.1788909391524;
-        Tue, 08 Sep 2026 16:16:31 -0700 (PDT)
-X-Received: by 2002:a05:6102:5126:b0:785:5a17:739b with SMTP id ada2fe7eead31-78a4a4944femr15114434137.0.1788909386306;
-        Tue, 08 Sep 2026 16:16:26 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a3705ed75dsm39469231fa.40.2026.09.08.16.16.24
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 08 Sep 2026 16:16:25 -0700 (PDT)
-Date: Wed, 9 Sep 2026 02:16:23 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
-Cc: Oded Gabbay <ogabbay@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
-        Shuah Khan <skhan@linuxfoundation.org>,
-        Randy Dunlap <rdunlap@infradead.org>,
-        Nathan Chancellor <nathan@kernel.org>,
-        Nick Desaulniers <ndesaulniers@google.com>,
-        Bill Wendling <morbo@google.com>,
-        Justin Stitt <justinstitt@google.com>,
-        "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
-        Robin Murphy <robin.murphy@arm.com>,
-        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-        Maxime Ripard <mripard@kernel.org>,
-        Thomas Zimmermann <tzimmermann@suse.de>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Sumit Semwal <sumit.semwal@linaro.org>,
-        Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
-        Bharath Kumar <quic_bkumar@quicinc.com>,
-        Chenna Kesava Raju <quic_chennak@quicinc.com>,
-        srinivas.kandagatla@oss.qualcomm.com, linux-kernel@vger.kernel.org,
-        dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, llvm@lists.linux.dev,
-        iommu@lists.linux.dev, linux-media@vger.kernel.org,
-        linaro-mm-sig@lists.linaro.org
-Subject: Re: [PATCH v2 12/15] accel/qda: Add FastRPC invocation support
-Message-ID: <ja2usiwasnu2x7lgx2xjsk57mew2nj7szn6ruqo6v7d2cpjcqe@xjpmxfkhxqkn>
-References: <20260817-qda-v2-v2-0-69a02e9090d4@oss.qualcomm.com>
- <20260817-qda-v2-v2-12-69a02e9090d4@oss.qualcomm.com>
- <hbrtbfpmcodd3nkaytihzki56232bws7ubbcth7ewwckwi5y6t@ft4ej4fr7duz>
- <3f644c83-ffd6-452d-aa81-1c13aaa397ac@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=zytor.com header.i=@zytor.com header.b="DhyEuYlJ"
+Received: from [IPV6:2601:646:8081:8d71:e98b:813a:9897:e5d1] ([IPv6:2601:646:8081:8d71:e98b:813a:9897:e5d1])
+	(authenticated bits=0)
+	by mail.zytor.com (8.18.1/8.17.1) with ESMTPSA id 688NGusI2287284
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NO);
+	Tue, 8 Sep 2026 16:16:56 -0700
+DKIM-Filter: OpenDKIM Filter v2.11.0 mail.zytor.com 688NGusI2287284
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zytor.com;
+	s=2026082801; t=1788909420;
+	bh=YxvPbk1+TIa+eRjm3uzymXdFyg0V4mRSsiJGDFWOH4c=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=DhyEuYlJaKlD5Kqmx1TR6UbWQOE2kUzui755tS5hezt4IAReRx2LCRaz8exC7PYiV
+	 2tY6rnOGQK3M9ywC0h8kXKEFjc2o6kFF6poiyH9WdyWsr2+QlZxds+1u2MwrHSfwG+
+	 XLbKaeii0VHMChicpduK82c3XGU/pKMi5DDWa4O6CWkTWkZFzkg45hbAk2FmaT2ka8
+	 xenh3PCD3NouI+Xtx0kVqsAN2RA7rQ5EGQv7eglg8KNs8Hfcv2rZP7c0guZx/YQOIJ
+	 n4zWBf7ULs/igJ9KZOSWOg/f+/eKClMasKTWLS0RWqOHcG4Q4tjgRcow7mDQy8vCA3
+	 IyQJ4H5mGZ+pQ==
+Message-ID: <e74c5a6b-ed9c-40c6-b9d7-ff04ee8c099e@zytor.com>
+Date: Tue, 8 Sep 2026 16:16:51 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <3f644c83-ffd6-452d-aa81-1c13aaa397ac@oss.qualcomm.com>
-X-Proofpoint-ORIG-GUID: v7Hi9jv1jRjOldVUgUlYl3a76Gtfs_mI
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA4MDI1NSBTYWx0ZWRfX8s+FKZANdm4k
- jbJ7f6HKAQaGWrKHWcUI1fyzvCY81QmMUyWI3BbcAVaWuO2B59u3u0N0Gu6CuU6JWN/KhftRK7S
- oOjF5EjigHZR0RbEf76g7KSigUcCXgk=
-X-Proofpoint-GUID: v7Hi9jv1jRjOldVUgUlYl3a76Gtfs_mI
-X-Authority-Analysis: v=2.4 cv=Bo2tB4X5 c=1 sm=1 tr=0 ts=6aa09755 cx=c_pps
- a=wuOIiItHwq1biOnFUQQHKA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22 a=EUspDBNiAAAA:8
- a=NJr1yQlnZ1qXxQj-jTwA:9 a=CjuIK1q_8ugA:10 a=XD7yVLdPMpWraOa8Un9W:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA4MDI1NSBTYWx0ZWRfXws6eg1VlcwC+
- ZAULgqNX0BLsJIGwzG6WCWx9TGvEWMAhtUDJAVvq5GDswqudOm1QPJTEr3TEdE8PXIQdmsO1fRJ
- vQV6JwXOdFcqw8d1ZOszF0xG1bmUILrJ0+SL6vW46waJtR0KY6Nxli0RqMhLXc13fLpTJRGPzA0
- ZvvxTdQeoUVxqf4p7M4BeVq3RZ3lgaUujlFcDNSQjKJhqCe9c7+YJUgXCQsY0abkoYb7NbUKKCG
- jua//8jb4XCGg21JfKZTYqOZBkC4c/EODZhb3OPCpvFazpPslqhzpPJ0hCNGOCoXiQ+P6E0+g3l
- qE+BOvs+7FDZx6+Gugiq6ZxzgaGwpKFfl8g9gs40Rp2tPtMjTiY5Gm6ROWTHxFLPxzo6CwZvzhx
- 4L/QWugEdNk7U7tfdgyz94/LXkNb9ZM6a/mK5oXpKQMiHFQ8DwsOQ2vlcr7NGN56+MvQph9k/hN
- X35Pjq48c61Y/+c7qyw==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-08_03,2026-09-08_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 suspectscore=0 bulkscore=0 impostorscore=0 adultscore=0
- malwarescore=0 spamscore=0 priorityscore=1501 lowpriorityscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609080255
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v9 2/5] x86/asm, x86/boot: expose inline memcmp()
+To: Borislav Petkov <bp@alien8.de>,
+        Mauricio Faria de Oliveira <mfo@igalia.com>
+Cc: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+        Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+        Juergen Gross <jgross@suse.com>, Alexey Dobriyan <adobriyan@gmail.com>,
+        Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+        Jan Beulich
+ <jbeulich@suse.com>, Brian Gerst <brgerst@gmail.com>,
+        kernel-dev@igalia.com, linux-kernel@vger.kernel.org,
+        xen-devel@lists.xenproject.org
+References: <20260822-pvh-kasan-inline-v9-0-e70ef3b75b6a@igalia.com>
+ <20260822-pvh-kasan-inline-v9-2-e70ef3b75b6a@igalia.com>
+ <20260906170116.GRap2cXOY6ENSzAXUJ@fat_crate.local>
+ <E4FDF95C-3FAB-41DB-8EA0-8A26B964B38D@zytor.com>
+ <d1b9ff734b918889eaf8885d64141bc3@igalia.com>
+ <20260908193229.GFaqBizWcssBoewNSo@fat_crate.local>
+Content-Language: en-US, sv-SE
+From: "H. Peter Anvin" <hpa@zytor.com>
+In-Reply-To: <20260908193229.GFaqBizWcssBoewNSo@fat_crate.local>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Thu, Aug 20, 2026 at 02:05:01PM +0530, Ekansh Gupta wrote:
-> On 18-08-2026 09:49, Dmitry Baryshkov wrote:
-> > On Mon, Aug 17, 2026 at 10:17:47AM +0530, Ekansh Gupta wrote:
-> >> Implement the FastRPC remote procedure call path, allowing user-space to
-> >> invoke methods on the DSP via DRM_IOCTL_QDA_REMOTE_INVOKE.
-> >>
-> >> qda_fastrpc.c / qda_fastrpc.h
-> >>   Implements the FastRPC protocol layer: argument marshalling
-> >>   (qda_fastrpc_invoke_pack), response unmarshalling
-> >>   (qda_fastrpc_invoke_unpack), and invocation context lifecycle
-> >>   management. Each invocation allocates a qda_fastrpc_invoke_ctx which
-> >>   tracks buffer descriptors, GEM objects, and the completion used to
-> >>   synchronise with the DSP response.
-> >>
-> >>   Buffer arguments are identified by GEM handles. Userspace imports any
-> >>   DMA-BUF fd to a GEM handle with DRM_IOCTL_PRIME_FD_TO_HANDLE before
-> >>   invoking; the driver never accepts DMA-BUF fds directly. Each argument
-> >>   is described by its GEM handle, the user virtual address of the data
-> >>   and its length, from which the driver derives the offset within the
-> >>   buffer and the page-aligned range to describe to the DSP. Packing
-> >>   several arguments into one buffer, and any overlap handling, is left
-> >>   to user space.
-> >>
-> >> qda_rpmsg.c
-> >>   Implements qda_rpmsg_send_msg() which sends the wire-format
-> >>   fastrpc_msg (embedded as the first member of qda_msg) directly via
-> >>   rpmsg_send(), and qda_rpmsg_wait_for_rsp() which blocks on the context
-> >>   completion. The RPMsg callback dispatches responses to waiting
-> >>   contexts via the ctx_xa XArray.
-> >>
-> >> qda_ioctl.c
-> >>   qda_ioctl_invoke() drives the full invocation lifecycle: it builds the
-> >>   invocation context from the user-supplied arguments, packs the
-> >>   arguments into the message buffer, sends the message to the DSP, waits
-> >>   for the response, unpacks the output arguments back to user space and
-> >>   releases the context.
-> >>
-> >> include/uapi/drm/qda_accel.h
-> >>   Adds DRM_IOCTL_QDA_REMOTE_INVOKE with struct drm_qda_invoke_args and
-> >>   the per-argument descriptor struct drm_qda_fastrpc_invoke_args.
-> >>
-> >> Assisted-by: Claude:claude-sonnet-5
-> >> Signed-off-by: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
-> >> ---
-> >> Changes in v2:
-> >> - Drop the DMA-BUF fd argument path. Buffer arguments are now identified
-> >>   by GEM handles only; user space is responsible for importing fds to
-> >>   GEM handles before invoking (Dmitry Baryshkov)
-> >> - Leave argument packing and overlap handling to user space rather than
-> >>   supporting several buffer-passing formats in the driver
-> >>   (Dmitry Baryshkov)
-> >> ---
-> >>  drivers/accel/qda/Makefile      |   1 +
-> >>  drivers/accel/qda/qda_drv.c     |   8 +
-> >>  drivers/accel/qda/qda_drv.h     |   8 +
-> >>  drivers/accel/qda/qda_fastrpc.c | 434 ++++++++++++++++++++++++++++++++++++++++
-> >>  drivers/accel/qda/qda_fastrpc.h | 242 ++++++++++++++++++++++
-> >>  drivers/accel/qda/qda_ioctl.c   |  83 ++++++++
-> >>  drivers/accel/qda/qda_ioctl.h   |   1 +
-> >>  drivers/accel/qda/qda_rpmsg.c   |  91 ++++++++-
-> >>  drivers/accel/qda/qda_rpmsg.h   |  26 +++
-> >>  include/uapi/drm/qda_accel.h    |  42 ++++
-> >>  10 files changed, 934 insertions(+), 2 deletions(-)
-> >>
-> >> diff --git a/drivers/accel/qda/Makefile b/drivers/accel/qda/Makefile
-> >> index fb092e56d7f3..2d10420cd1ec 100644
-> >> --- a/drivers/accel/qda/Makefile
-> >> +++ b/drivers/accel/qda/Makefile
-> >> @@ -8,6 +8,7 @@ obj-$(CONFIG_DRM_ACCEL_QDA)	:= qda.o
-> >>  qda-y := \
-> >>  	qda_cb.o \
-> >>  	qda_drv.o \
-> >> +	qda_fastrpc.o \
-> >>  	qda_gem.o \
-> >>  	qda_ioctl.o \
-> >>  	qda_memory_dma.o \
-> >> diff --git a/drivers/accel/qda/qda_drv.c b/drivers/accel/qda/qda_drv.c
-> >> index a68a07d0ae56..f925bbcfa6e9 100644
-> >> --- a/drivers/accel/qda/qda_drv.c
-> >> +++ b/drivers/accel/qda/qda_drv.c
-> >> @@ -25,6 +25,8 @@ static int qda_open(struct drm_device *dev, struct drm_file *file)
-> >>  
-> >>  	qda_file_priv->pid = current->pid;
-> >>  	qda_file_priv->qda_dev = qda_dev_from_drm(dev);
-> >> +	qda_file_priv->remote_session_id =
-> >> +		atomic_inc_return(&qda_file_priv->qda_dev->remote_session_id_counter);
-> > 
-> > What happens on the wraparound? What if some of those sessions are still
-> > alive?
-> collision would require 2^31 opens without close, is this reachable?
-> Should I add a comment here? Or some how address this?>
-
-Just address it in the driver, disallowing such collisions. If there is
-a way for the counter to wrap, it will wrap once.
-
-> >>  	file->driver_priv = qda_file_priv;
-> >>  
-> >>  	return 0;
-> > 
-> > [...]
-
-> >> +
-> >> +/**
-> >> + * struct fastrpc_remote_buf - Remote buffer descriptor
-> >> + */
-> >> +struct fastrpc_remote_buf {
-> >> +	/** @pv: Buffer pointer (user virtual address) */
-> >> +	u64 pv;
-> > 
-> > pv would mean physical something. Also, where do you validate the user's
-> > address? Where do we check that it's ok to access the buffer, that it's
-> > not a garbage?
-> this is inherited from fastrpc(same is also used on DSP firmware) but I
-> can rename it to something more meaningful like addr/va. This `pv` is
-> used for offset calculation which eventually gives address of the page
-> carrying the buffer. I can add checks when this calculation is done to
-> ensure the pv is in proper range of the buffer passed by user.>
-
-Don't inherit bad names. Don't use 'user virtual address' unless you
-really mean __user. In the latter case the address must go through
-access_ok() checks.
-
-> >> +	/** @len: Length of the buffer in bytes */
-> >> +	u64 len;
-> >> +};
-> >> +
-> >> +/**
-> >> + * union fastrpc_remote_arg - Remote argument (buffer or DMA handle)
-> >> + */
-> >> +union fastrpc_remote_arg {
-> >> +	/** @buf: Inline buffer descriptor */
-> >> +	struct fastrpc_remote_buf buf;
-> >> +	/** @dma: DMA-BUF handle descriptor */
-> >> +	struct fastrpc_remote_dmahandle dma;
-> >> +};
-> >> +
-> >> +/**
-> >> + * struct fastrpc_phy_page - Physical page descriptor
-> >> + */
-> >> +struct fastrpc_phy_page {
-> >> +	/** @addr: Physical (IOMMU) address of the page */
-> >> +	u64 addr;
-> >> +	/** @size: Size of the contiguous region in bytes */
-> >> +	u64 size;
-> >> +};
-> >> +
-> >> +/**
-> >> + * struct fastrpc_invoke_buf - Invoke buffer descriptor
-> >> + */
-> >> +struct fastrpc_invoke_buf {
-> >> +	/** @num: Number of contiguous physical regions */
-> >> +	u32 num;
-> >> +	/** @pgidx: Index into the physical page array */
-> >> +	u32 pgidx;
-> >> +};
-> >> +
-> >> +/**
-> >> + * struct fastrpc_msg - FastRPC wire message for remote invocations
-> >> + *
-> >> + * Sent to the remote processor via RPMsg. This is the exact layout
-> >> + * the DSP expects; do not reorder or add fields without DSP firmware
-> >> + * coordination.
-> > 
-> > __packed?
-> I'll check more on this.>
-> >> + */
-> >> +struct fastrpc_msg {
-> >> +	/** @remote_session_id: Session identifier on the remote processor */
-> >> +	int remote_session_id;
-> > 
-> > Is it int or u32?
-> This is again from fastrpc where it's a mix of int and s32. I'll keep it
-> the to actual s32 here in QDA.>
-
-Thanks. Also please stop using fastrpc_ prefix in the QDA driver.
-
-> >> +	/** @tid: Thread ID of the invoking thread */
-> >> +	int tid;
-> >> +	/** @ctx: Context identifier for matching request/response */
-> >> +	u64 ctx;
-> >> +	/** @handle: Handle of the remote method to invoke */
-> >> +	u32 handle;
-> >> +	/** @sc: Scalars value encoding in/out buffer counts */
-> >> +	u32 sc;
-> >> +	/** @addr: Physical address of the message payload buffer */
-> >> +	u64 addr;
-> >> +	/** @size: Size of the message payload in bytes */
-> >> +	u64 size;
-> >> +};
-> >> +
-> >> +/**
-> >> + * struct qda_fastrpc_invoke_ctx - Remote procedure call invocation context
-> >> + *
-> >> + * Maintains all state for a single remote procedure call, including buffer
-> >> + * management, synchronisation, and result handling.
-> >> + */
-> >> +struct qda_fastrpc_invoke_ctx {
-> >> +	/** @node: List node for linking contexts in a queue */
-> >> +	struct list_head node;
-> >> +	/** @qdev: Device owning the XArray this context is registered in */
-> >> +	struct qda_dev *qdev;
-> >> +	/** @ctxid: Unique context identifier (XArray key shifted left by 4) */
-> > 
-> > Why is it shifted by 4? Why not by 3?
-> I'll add the PD encoding comment here.>
-
-So, why?
-
-> >> +	u64 ctxid;
-> >> +	/** @inbufs: Number of input buffers */
-> >> +	int inbufs;
-> >> +	/** @nscalars: Total number of scalar arguments */
-> >> +	int nscalars;
-> >> +	/** @nbufs: Total number of buffer arguments (inbufs + outbufs) */
-> >> +	int nbufs;
-> >> +	/** @pid: Process ID of the calling process */
-> >> +	int pid;
-> >> +	/** @retval: Status code reported by the DSP for this invocation */
-> >> +	int retval;
-> >> +	/** @remote_session_id: Session identifier on the remote processor */
-> >> +	int remote_session_id;
-> > 
-> > is pid linked to remote_session_id?
-> not really, remote_session_id is more of session specific, so in case of
-> multi-session(same PID having multiple sessions) should have different
-> remote_session_id.>
-
-Then drop the pid, please. You already have a session here.
-
-> >> +	/** @pd: Protection domain identifier encoded into the context ID */
-> > 
-> > If it's already encoded, why do you need it here?c
-> it's stores so the packing step can use it, I'll document more on this.
-> Or if I can have both msg->fastrpc.ctx and ctxid same, I'll check that
-> also>
-> >> +	int pd;
-> >> +	/** @type: Invocation type (e.g. FASTRPC_RMID_INVOKE_DYNAMIC) */
-> >> +	u32 type;
-> > 
-> > What other types can exist?
-> I'll add all the types in document or just add FASTRPC_RMID_* and point
-> to qda_fastrpc.h for more details.>
-
-Do we really need to support those in the first iteration? I think you
-should have heart it several times: get the minimal sensible driver in.
-You can add all the features afterwards.
-
-> >> +	/** @sc: Scalars value encoding in/out buffer counts */
-> >> +	u32 sc;
-> > 
-> > Remove it and calculate from in/outbufs above?
-> The source of sc is the auto-generated stub file which passes this to
-> remote_handle_invoke() based on the method requested by the user. This
-> as is as it is passed to DSP where this is used in auto-generated skel.
+On 2026-09-08 12:32, Borislav Petkov wrote:
+> On Tue, Sep 08, 2026 at 03:04:53PM -0300, Mauricio Faria de Oliveira wrote:
+>> Boris, perhaps the approach here could be changed to add an actual
+>> memcmp()-like inline implementation (e.g., as provided in a previous
+>> revision, without return value differences), or continue with the
+>> memeq()-like memcmp() from arch/x86/boot/ but rename it to memeq() ?
 > 
-> I think the other way around(in/outbufs from sc) would make more sense.>
-
-ok
-
-> >> +	/** @handle: Handle of the remote method being invoked */
-> >> +	u32 handle;
-> >> +	/** @metalen: Length of the FastRPC metadata header in bytes */
-> >> +	size_t metalen;
-> >> +	/** @pkt_size: Total payload size in bytes */
-> >> +	u64 pkt_size;
-> >> +	/** @aligned_pkt_size: Page-aligned payload size for GEM allocation */
-> > 
-> > ???
-> I'll check and remove this.>
-> >> +	u64 aligned_pkt_size;
-> >> +	/** @list: Array of invoke buffer descriptors */
-> >> +	struct fastrpc_invoke_buf *list;
-> >> +	/** @pages: Array of physical page descriptors for all arguments */
-> >> +	struct fastrpc_phy_page *pages;
-> >> +	/** @input_pages: Array of physical page descriptors for input buffers */
-> >> +	struct fastrpc_phy_page *input_pages;
-> >> +	/** @work: Completion used to synchronise with the DSP response */
-> >> +	struct completion work;
-> >> +	/** @msg: Pointer to the QDA message structure for this invocation */
-> >> +	struct qda_msg *msg;
-> >> +	/** @rpra: Array of remote procedure arguments */
-> >> +	union fastrpc_remote_arg *rpra;
-> >> +	/** @gem_objs: Array of GEM objects imported for argument buffers */
-> >> +	struct drm_gem_object **gem_objs;
-> >> +	/** @args: Invoke argument descriptors */
-> >> +	struct drm_qda_fastrpc_invoke_args *args;
-> >> +	/** @refcount: Reference counter for context lifetime management */
-> > 
-> > What for?
-> just to ensure that the context is not freed in case the
-> wait_for_completion() is interrupted.>
-
-If it's not _interruptible, it can't be interrupted. Or there should be
-a better description of the reasons.
-
-> >> +	struct kref refcount;
-> >> +	/** @msg_gem_obj: GEM object backing the message payload buffer */
-> >> +	struct qda_gem_obj *msg_gem_obj;
-> >> +	/** @file_priv: DRM file private data */
-> >> +	struct drm_file *file_priv;
-> >> +	/**
-> >> +	 * @req: Request buffer for the internal init/map/unmap calls.  Points
-> >> +	 * into a kernel-owned GEM mapping tracked by @gem_objs, so it must
-> >> +	 * never be freed directly.
-> >> +	 */
-> >> +	void *req;
-> > 
-> > Why do you need separate pointers here? Can't you be getting them from
-> > msm_gem_obj?
-> These are typed pointers into different offsets of the kernel GEM
-> mapping. I could compute them each time from `msg_gem_obj->virt +
-> offset`, but caching them avoids repetitive casting. Let me see if
-> removing this looks cleaner.>
-
-Calculate them when necessary. If you use them in a few places, they
-don't need to be cached.
-
-> >> +	/** @rsp: Response buffer, same lifetime rules as @req */
-> >> +	void *rsp;
-> >> +	/** @inbuf: Process-create input buffer, same lifetime rules as @req */
-> >> +	void *inbuf;
-> >> +};
-> >> +
-> >> @@ -84,6 +88,44 @@ struct drm_qda_gem_mmap_offset {
-> >>  	__u32 pad;
-> >>  };
-> >>  
-> >> +/**
-> >> + * struct drm_qda_fastrpc_invoke_args - FastRPC invocation argument descriptor
-> >> + * @ptr: Pointer to argument data (user virtual address)
-> > 
-> > Why do you need it? Is handle + length not enough? If you want, specify
-> > offset inside the GEM BO.
-> The user VA (`ptr`) is needed because userspace mmaps the GEM BO and
-> then passes pointers into it to the DSP. The kernel derives the offset
-> within the BO from the VMA (via `calculate_vma_offset()`).
+> Nah, new functionality is not needed. We can add it later when it is really needed.
 > 
-> I can check if just passing handle + offset + length works here but that
-> might require some userspace change.
 
-You are going to have a different userspace. It must pass only
-handle+offset+length triplets. All the rest must go to the compatibility
-layers.
+I personally think it would be a good reason to explicitly rename it memeq(),
+after all it indicates what it actually *does*.
+
+	bool memeq(const void *m1, const void *m2, size_t n);
+
+Note, however, that the sense of the return value is opposite -- true means
+equal, so !memcmp(...) needs to be replaced with memeq(...) and vice versa.
+
+The other issue is when gcc/clang wants to call memcmp() out of line. Although
+a theoretical concern, there really isn't any reason not to DTRT there since
+there is only one instance in the code, ever.
+
+Here is an out-of-line compact memcmp() which works for both 16/32 and 64 bits:
+
+int memcmp(const void *s1, const void *s2, size_t len)
+{
+	int rv;
+
+	asm volatile("xor %0,%0 ; "
+		     "test %3, %3 ; "	/* Handle len == 0 correctly */
+		     "repe cmpsb ; "}g
+		     "setz %b0 ; "
+		     "sbb $0, %0"
+		: "=&r" (rv), "+D" (s1), "+S" (s2), "+c" (len)
+		: : "cc", "memory");
+
+	return rv;
+}
+
+On 64 bits it compiles to:
+
+0000000000000000 <memcmp>:
+   0:   48 89 d1                mov    %rdx,%rcx
+   3:   31 d2                   xor    %edx,%edx
+   5:   31 c0                   xor    %eax,%eax
+   7:   f3 a6                   repz cmpsb (%rdi),(%rsi)
+   9:   0f 97 c2                seta   %dl
+   c:   0f 92 c0                setb   %al
+   f:   29 d0                   sub    %edx,%eax
+  11:   c3                      ret
+
+On 32 bits (-mregparm=3):
+
+00000000 <memcmp>:
+   0:   57                      push   %edi
+   1:   56                      push   %esi
+   2:   89 c7                   mov    %eax,%edi
+   4:   89 d6                   mov    %edx,%esi
+   6:   31 d2                   xor    %edx,%edx
+   8:   31 c0                   xor    %eax,%eax
+   a:   f3 a6                   repz cmpsb %es:(%edi),%ds:(%esi)
+   c:   0f 97 c2                seta   %dl
+   f:   0f 92 c0                setb   %al
+  12:   29 d0                   sub    %edx,%eax
+  14:   5e                      pop    %esi
+  15:   5f                      pop    %edi
+  16:   c3                      ret
 
 
--- 
-With best wishes
-Dmitry
+On 16 bits:
+
+00000000 <memcmp>:
+   0:   66 57                   push   %edi
+   2:   66 56                   push   %esi
+   4:   66 89 c7                mov    %eax,%edi
+   7:   66 89 d6                mov    %edx,%esi
+   a:   66 31 d2                xor    %edx,%edx
+   d:   66 31 c0                xor    %eax,%eax
+  10:   f3 a6                   repz cmpsb %es:(%di),%ds:(%si)
+  12:   0f 97 c2                seta   %dl
+  15:   0f 92 c0                setb   %al
+  18:   66 29 d0                sub    %edx,%eax
+  1b:   66 5e                   pop    %esi
+  1d:   66 5f                   pop    %edi
+  1f:   66 c3                   retl
+
+	-hpa
+
