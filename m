@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CCBB4F0541;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6215C4EE84D;
 	Tue,  8 Sep 2026 09:41:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788860516; cv=none; b=n03jUnLCZBRSJjMGyqdR3tJtEN2mTMgds6XpMpD069Mk8Vv3DLQLrezhO/hZQOCp9JQR1WULwaV7JeZDPhJAygLkxticug+uUPtWoa0iK9B/Ak1OmcA69NgOH+oJHnSQyBC2/GJZI54F94m03vydFzPnBsZeMecexSVMtGYQVEg=
+	t=1788860516; cv=none; b=dfiyVdcz4TZgYHgZmQ7spBnvJh2sgk/pu2FSTLXSHbx/ovk/b6LVPPMVqlZLUIS3ZAlisYlw7LxZ6cC+JC4iOie//0bnpOJ88d6OwZmkHpmNbVIeb9mDnYihUGMexAtfm/jmT57OVzcCbP6y0j//DK1v85TRnvmKTG4CN6p9iIY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788860516; c=relaxed/simple;
-	bh=uWZIHL2RMVsnz8x+iZFwErDd550WZ2Cci9TFAmY6WQk=;
+	bh=+r5joPgRFCFYWXgPKNZ7DFEUDDAg9qDqy9jlkzCRojk=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=IZRVn2ZvBXH89GTOt8qDwtKRzEcqg0Tbf1wyF7xObL84TC3fC/PHgEbkc+eNFFjAwlvx6EjYkjb+Qv6ogbdib+uXu0x/8JJJVIfs1KJ2Ul1a5akFGWtEPMJ9YEdMvid6CLt4Egoy7m/Ipal6qrT5t05g6p3yRRejm+wGB3Xd5R0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JAL2Jtmp; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=Am5P1/h12hsBZHxXYUlHbkDO0GgscqUbsM1XPMdodYaJ0yqh0gS2x+IUZANVw0KYIF0kJOxyZ9txFfvCZcWt6d+YlpTaERsUaGmjqBSLUamdWwjK+HYmi+kMjZXSBx0ycU+BKaujrQr4qIr74WhLqFE/mxiBQV6ZU9wbJhNikOg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KCELvOj8; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JAL2Jtmp"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 3CCC6C2BD00;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KCELvOj8"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 166B4C32781;
 	Tue,  8 Sep 2026 09:41:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1788860516;
-	bh=uWZIHL2RMVsnz8x+iZFwErDd550WZ2Cci9TFAmY6WQk=;
+	bh=+r5joPgRFCFYWXgPKNZ7DFEUDDAg9qDqy9jlkzCRojk=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=JAL2JtmpRRNA13Kt3DTbQkNYbJHVZcl6FKbOGltm24A7BA0i/g5Izl30h8F/A61JD
-	 3jfzlyD+WsWbh0t/cPjFwKmmX8iq39cWLMOwNLIXRluAq6Sg8kzkSMfurc3JlxAK4H
-	 D9dp7gU3EesnFl6D8xvgxG8/XYPVfSu2ccQ5G05wDpatXuXoGizX3GSPPYSyNesWPY
-	 TgatRavAUHQZmM9CWE6vz+U6A/aB3XQZ5KnhBm3kvQBykddMAKLBeZcC0vjZuWJOCG
-	 MNkzpUDArFVHNV5cbZRgD5OFwBWchAQgq5gw9LFWObSBODS92qY5Gxrvlq28akJK8e
-	 v626PbWCDSKEQ==
+	b=KCELvOj8GCAMREoziPERLvMYVqKNKgTZFtX6n1tss91uMPDueR+/CMj9PoRWepqdj
+	 ND+I13nAXygkV9cEzcl/05Md1wd5Pu2Y7OQvMHZInxu7aSfL372y+ndq7ttuO0tusx
+	 YicAGdpFoNCwK17vek2KLjF6gIOq6YJlrf8jKr5TTqarlRNG97IX6YS00oiSJZvLV4
+	 3Gyf1Z4jPMCiSTn7NoYg54CgwmvRfBhlFfrZKhTqV003SVR7Kq+fSaxzHrJ/yp1U0g
+	 roOYxVmunMw2KjRGeZ/xGGAjHZlEaCvVTpGy6NKp89KbLsyb577sAjsZ9RREOA4ExZ
+	 IdLotAimpY61A==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 29FB1C79FAE;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 01467C79F99;
 	Tue,  8 Sep 2026 09:41:56 +0000 (UTC)
 From: George Moussalem via B4 Relay <devnull+george.moussalem.outlook.com@kernel.org>
-Date: Tue, 08 Sep 2026 13:41:00 +0400
-Subject: [PATCH v4 07/13] phy: qualcomm: qcom-uniphy-pcie-usb3-28lp: Assert
- reset on clock enable failure
+Date: Tue, 08 Sep 2026 13:40:58 +0400
+Subject: [PATCH v4 05/13] phy: qualcomm: qcom-uniphy-pcie-usb3-28lp:
+ Refactor init regs table definitions
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -41,7 +41,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260908-ipq5018-usb3-v4-7-b789702f0695@outlook.com>
+Message-Id: <20260908-ipq5018-usb3-v4-5-b789702f0695@outlook.com>
 References: <20260908-ipq5018-usb3-v4-0-b789702f0695@outlook.com>
 In-Reply-To: <20260908-ipq5018-usb3-v4-0-b789702f0695@outlook.com>
 To: Vinod Koul <vkoul@kernel.org>, 
@@ -60,14 +60,15 @@ To: Vinod Koul <vkoul@kernel.org>,
  Varadarajan Narayanan <quic_varada@quicinc.com>
 Cc: linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org, 
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-usb@vger.kernel.org, Stanislaw Pal <kuncy7@gmail.com>, 
+ linux-usb@vger.kernel.org, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
+ Stanislaw Pal <kuncy7@gmail.com>, 
  George Moussalem <george.moussalem@outlook.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788860513; l=945;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788860513; l=2508;
  i=george.moussalem@outlook.com; s=20250321; h=from:subject:message-id;
- bh=Xt9077phHCqVPqMVNZVzBLq0pYjZ3VnSS927ST8gSWc=;
- b=AIvUePJfwwQReYU60ZhpE5aFQZ4csdMBGKGnxFwBKh1Lt4PYR1ueo4LZpPFkx4/d3/w64mEWA
- Oza4apZiP0TA+sqkwp7OeyVBpJW+NfuQMyYtbemzANyG+LTdKMQ9qR3
+ bh=j5eDBU1/M/VWuaZnnm/rYsHj5E3f2ArUUkz0LzF/aZY=;
+ b=EsNjOdFWxRh2tznRzAS6gw4JLaSQrKdA36/aIXLc4K5DTg5/I8/PQbYw+TZY4zp84nmNiE1sl
+ xzsDXRNyIw8AZ+dls5TglpJU8c+Ge4pwXmush/Jznv/uNBAMCNWSuDJ
 X-Developer-Key: i=george.moussalem@outlook.com; a=ed25519;
  pk=/PuRTSI9iYiHwcc6Nrde8qF4ZDhJBlUgpHdhsIjnqIk=
 X-Endpoint-Received: by B4 Relay for george.moussalem@outlook.com/20250321
@@ -77,27 +78,94 @@ Reply-To: george.moussalem@outlook.com
 
 From: George Moussalem <george.moussalem@outlook.com>
 
-When the PHY fails the enable clocks, it leaves the PHY out of reset.
-Fix this by asserting the reset before returning the error.
+Refactor the IPQ5018/IPQ5332 UNIPHY PCIe init data by introducing a
+helper macro for register/value entries and converting open-coded struct
+initializers to the compact form.
 
+No functional change intended.
+
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 Tested-by: Stanislaw Pal <kuncy7@gmail.com>
 Signed-off-by: George Moussalem <george.moussalem@outlook.com>
 ---
- drivers/phy/qualcomm/phy-qcom-uniphy-pcie-usb3-28lp.c | 1 +
- 1 file changed, 1 insertion(+)
+ .../phy/qualcomm/phy-qcom-uniphy-pcie-usb3-28lp.c  | 60 +++++++---------------
+ 1 file changed, 19 insertions(+), 41 deletions(-)
 
 diff --git a/drivers/phy/qualcomm/phy-qcom-uniphy-pcie-usb3-28lp.c b/drivers/phy/qualcomm/phy-qcom-uniphy-pcie-usb3-28lp.c
-index 0a50eb44c0ce..15b17044fde3 100644
+index 0256183fbcbd..c12de5549652 100644
 --- a/drivers/phy/qualcomm/phy-qcom-uniphy-pcie-usb3-28lp.c
 +++ b/drivers/phy/qualcomm/phy-qcom-uniphy-pcie-usb3-28lp.c
-@@ -164,6 +164,7 @@ static int qcom_uniphy_pcie_power_on(struct phy *x)
- 	ret = clk_bulk_prepare_enable(phy->num_clks, phy->clks);
- 	if (ret) {
- 		dev_err(phy->dev, "clk prepare and enable failed %d\n", ret);
-+		reset_control_bulk_assert(phy->num_resets, phy->resets);
- 		return ret;
- 	}
+@@ -72,51 +72,29 @@ struct qcom_uniphy {
+ 	int lanes;
+ };
  
++#define PHY_INIT_CFG(o, v)		\
++	{				\
++		.offset = o,		\
++		.val = v,		\
++	}
++
+ static const struct qcom_uniphy_regs ipq5018_pcie_regs[] = {
+-	{
+-		.offset = SSCG_CTRL_REG_4,
+-		.val = 0x1cb9,
+-	}, {
+-		.offset = SSCG_CTRL_REG_5,
+-		.val = 0x023a,
+-	}, {
+-		.offset = SSCG_CTRL_REG_3,
+-		.val = 0xd360,
+-	}, {
+-		.offset = SSCG_CTRL_REG_1,
+-		.val = 0x1,
+-	}, {
+-		.offset = SSCG_CTRL_REG_2,
+-		.val = 0xeb,
+-	}, {
+-		.offset = CDR_CTRL_REG_4,
+-		.val = 0x3f9,
+-	}, {
+-		.offset = CDR_CTRL_REG_5,
+-		.val = 0x1c9,
+-	}, {
+-		.offset = CDR_CTRL_REG_2,
+-		.val = 0x419,
+-	}, {
+-		.offset = CDR_CTRL_REG_1,
+-		.val = 0x200,
+-	}, {
+-		.offset = PCS_INTERNAL_CONTROL_2,
+-		.val = 0xf101,
+-	},
++	PHY_INIT_CFG(SSCG_CTRL_REG_4, 0x1cb9),
++	PHY_INIT_CFG(SSCG_CTRL_REG_5, 0x023a),
++	PHY_INIT_CFG(SSCG_CTRL_REG_3, 0xd360),
++	PHY_INIT_CFG(SSCG_CTRL_REG_1, 0x1),
++	PHY_INIT_CFG(SSCG_CTRL_REG_2, 0xeb),
++	PHY_INIT_CFG(CDR_CTRL_REG_4, 0x3f9),
++	PHY_INIT_CFG(CDR_CTRL_REG_5, 0x1c9),
++	PHY_INIT_CFG(CDR_CTRL_REG_2, 0x419),
++	PHY_INIT_CFG(CDR_CTRL_REG_1, 0x200),
++	PHY_INIT_CFG(PCS_INTERNAL_CONTROL_2, 0xf101),
+ };
+ 
+ static const struct qcom_uniphy_regs ipq5332_pcie_regs[] = {
+-	{
+-		.offset = PHY_CFG_PLLCFG,
+-		.val = 0x30,
+-	}, {
+-		.offset = PHY_CFG_EIOS_DTCT_REG,
+-		.val = 0x53ef,
+-	}, {
+-		.offset = PHY_CFG_GEN3_ALIGN_HOLDOFF_TIME,
+-		.val = 0xcf,
+-	},
++	PHY_INIT_CFG(PHY_CFG_PLLCFG, 0x30),
++	PHY_INIT_CFG(PHY_CFG_EIOS_DTCT_REG, 0x53ef),
++	PHY_INIT_CFG(PHY_CFG_GEN3_ALIGN_HOLDOFF_TIME, 0xcf),
+ };
+ 
+ static const struct qcom_uniphy_data ipq5018_pcie_data = {
 
 -- 
 2.53.0
