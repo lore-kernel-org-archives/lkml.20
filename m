@@ -1,86 +1,38 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-24.mta1.migadu.com [95.215.58.24])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5CB5598BF1
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 22:41:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD8C55947F1
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 22:43:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.24
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788907306; cv=none; b=AopsQVqcf3x7Onq2yxZLoa7TLIeFYKnCHs/mNMg1Ew6/8fBS1zod7fTlYYHZzIIJtmsUdTh3go67FiB47KA+4PZWnxlX3s24xEHLTHnfbi9r/VDCgNHkUc7++IHHtHPy+xCOBooq8JWA3vzsdtJadcF3Jchw6SCDUbi1F1sbVkQ=
+	t=1788907399; cv=none; b=dzEZRS8JFTRDB2EngfxrWR9ggYFL2+KuwX2zwAL5DZ/UDo4YrMulZDCw6P5k6YFZdT6Pt+Tutkbd7JBvLmdXinDR+QmJiP0NS3j7PSjMdN4c9NszlxSpeZfRAe+2WQiAgKx6nqYLDqHph31aG4gnwjOW+q1/uuWB19bMG/dzOKo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788907306; c=relaxed/simple;
-	bh=ZN6cWP/Yb/IvBfN4GQTD664at/DhRbeG7MzN5RUyw4Y=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=hfTiCZZQK392FT/mBY7dRMdabXdVHcgJ5hmDIPWXIvfDvXRUVnkLnNdlfRKFtxc6jUjmRPOuP0Pmu6qHm0XCzjLLjo9ARBZx1oJ+WNz0PzkwhjzXnUjBZMfrmsQcF7yQnjFjJql0quYQ3oIFIyUIyr7H6ouaYOeK8bWnoOdrkpA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=RxHitAmj; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=PKBMzKxl; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1788907399; c=relaxed/simple;
+	bh=1aEK9JH0KAYLycRwGTjlyXIKWppvN4MuQOuaWrOw0Fk=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
+	 In-Reply-To:Content-Type; b=mSq8WDdSziFXLhN5aqbAvEVPaWygkhDtsIvtQCVwXWXWgWMF3CTB8+6ZilIMKrtW29nEbPjl3m95qL0kR2oYW0/nkC57skZMZsz/UujbV89uCXzWTbUfEVSiqy6ooDnL1D3TVP46FY9AsPJuAPyQ/+81UQ7ScEtheKXzk+OOSDw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=packett.cool; spf=pass smtp.mailfrom=packett.cool; dkim=pass (2048-bit key) header.d=packett.cool header.i=@packett.cool header.b=tsC1cYhb; arc=none smtp.client-ip=95.215.58.24
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=packett.cool
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=packett.cool
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="RxHitAmj";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="PKBMzKxl"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1788907301;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=LbRygIjj1UISKx3LvtxKvIim7ExfCkLiZ8qAFUjhHAw=;
-	b=RxHitAmjY1PIYRMV42ZOMlLSa+BRKeJbOq8sK8i0juBpAHpEgbNEO4AKp6lZECECYstu3c
-	04dSBzlJ2P+QQtda8rNA7qaxWRdc6xxiCCInRTJlck1hAGa82A8TH9CKgNiOk96h9rPXjB
-	Q5JY4yMtrjO9+lMzJbCyl8O2iX1621M=
-Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com
- [209.85.215.197]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-504-Tk57BBvcMxiDG7VOrrwZbQ-1; Tue, 08 Sep 2026 18:41:40 -0400
-X-MC-Unique: Tk57BBvcMxiDG7VOrrwZbQ-1
-X-Mimecast-MFC-AGG-ID: Tk57BBvcMxiDG7VOrrwZbQ_1788907299
-Received: by mail-pg1-f197.google.com with SMTP id 41be03b00d2f7-cbedbd182f5so4152479a12.1
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 15:41:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1788907299; x=1789512099; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=LbRygIjj1UISKx3LvtxKvIim7ExfCkLiZ8qAFUjhHAw=;
-        b=PKBMzKxl9zNLfQlKpEwYU8p1vjCERtrpbPVC0OuLfkN4vklzUeP4+4Sds0ui2/5UbP
-         KqaYDQ9DHO29lMERe0mIJ8QLYUo23XaK+xD5GXOW50/47tBCwxbef0iQkLpTtrhkOMIU
-         OEgIs128ZuSv9Yc1lE8H75aGaORZxefue50sTRfF/QwAvmfMv8AlXcwSvKjGxs2jD7md
-         JQg1hsOMs4nCCnH6k6xyfQXKsF+XN1Nbh53fOcmDV8Th6EkIt1HhSB8nfKs9Xaft3KC2
-         TdCMvLLt/9rIkeiBaKeCrKhI1XqwpOa3t0LDKrw3NZpY0IV+EddTJIGgu52gDb3opdKK
-         zOCQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788907299; x=1789512099;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=LbRygIjj1UISKx3LvtxKvIim7ExfCkLiZ8qAFUjhHAw=;
-        b=VZtRtBPdj+uC7e+IqIg/NKsUb2F/wMm0cFXyROsm8pnSBfyGMkwED/fROlabykigXw
-         i0cRl7E2M9Q5uwGNQLks3yEFIyaF2Kim4PNyH4jzyP8SXkrTgT9AvoTYaKQzuD2FWlP4
-         ShrYhCmsNXEpVrn5hl9W/twQxZybE2L04eFEu6cjOU9NHiQJ4e/kzqEJdcutHkPeqfOR
-         K6b9pibLiIMiLmAND65uk7ST3FIJVtpvSJ9pc5iVFc2E4D0l+3x8PSsZQmGirOJzEAoJ
-         88cTFln/JVWh46eZUemMDQ8QJvGovAqH/8kk5riYFBU9jY5n4Ut9j4YFy+2GUDwjsfZI
-         +jlw==
-X-Forwarded-Encrypted: i=1; AKwUvBwb4dEHhXF/+q0gEv+yqueWQwu1AfO989LfI6CJonTjUuaSYIsxBTiTdhT75ANjCbLkn3lqVtJ40wPiLiE=@vger.kernel.org
-X-Gm-Message-State: AFuF++keVOxoPmqiqPBG6mLNxtKIAMwkH6Ab21f+KWz03ZF0eb5byhcC
-	4YedIUr5+8n0LRPYWKGzqyxkO7UUScExicAni4yY9BPLc5PxLIvMlADUNg3otxFwCjTJS9k9YF8
-	6scCEJ1gzYhYztZ+5AJ17RCET3XJJiigiGkWkGIaRc/CbsxpACrSgM5hTQ9H95aj6Nw==
-X-Gm-Gg: AYBFou2aJIGu6/lU6wUjjvlTG0psJu6QrWcVl0vWVg1NTOz3jI/JzpPvRAoT0j7b0Zv
-	wg6qTgTnc7sSUpvV9JLH+znja2PWRrLC8rchTk5iwTWd0hwQpuyNP/9Crm+x+yY8kln994rBw5s
-	XrX1Igv9+OA2imSLJYSvQq6yk0EbzmeOhZ/44F/labb0ixsHOjfKUDX7O1AEUnDyP5o8F2zMW1N
-	muL8+chNw9s4C55Vyh4lRHkY3DWH+kp60klwI97uWeE2aTlzXqz267asys/Ow0HLL+4WTCRZE+L
-	v9nvMA7Ko6TepgYUNj9jAJgtQBh8VJFQ0+GwEBlQRv9yvay/ipw6SaxywoXY+034z+PoJVmlyKO
-	ATyAlFplASVJq1rs4c7IsQkJnoDihWYgF1dT4aXaTjQ==
-X-Received: by 2002:a17:90b:5743:b0:38e:c232:9d2c with SMTP id 98e67ed59e1d1-39b8bc9422emr7157581a91.2.1788907298739;
-        Tue, 08 Sep 2026 15:41:38 -0700 (PDT)
-X-Received: by 2002:a17:90b:5743:b0:38e:c232:9d2c with SMTP id 98e67ed59e1d1-39b8bc9422emr7157553a91.2.1788907298136;
-        Tue, 08 Sep 2026 15:41:38 -0700 (PDT)
-Received: from [192.168.68.52] (n175-34-8-244.mrk21.qld.optusnet.com.au. [175.34.8.244])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39cd20641e2sm204402a91.3.2026.09.08.15.41.26
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 08 Sep 2026 15:41:36 -0700 (PDT)
-Message-ID: <52e58930-8fa4-4c75-981c-25be42d83f2d@redhat.com>
-Date: Wed, 9 Sep 2026 08:41:23 +1000
+	dkim=pass (2048-bit key) header.d=packett.cool header.i=@packett.cool header.b="tsC1cYhb"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=1aEK9JH0KAYLycRwGTjlyXIKWppvN4MuQOuaWrOw0Fk=;
+ c=simple/simple; d=packett.cool;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788907386; v=1; x=1789512186;
+ b=tsC1cYhb+7HI4oLcFoAo85DjvzY0BY4yguxYrvh87H7h06ClY5TWwyiii0AoqN1NePr1WbNG
+ xvdmL+Z1NgtnfaXhf1EPsPUTCbOu38t05Yz1ZIUPPd4xesQ+pCSWv4kqq/Ml9C+FCf56BFHGtZl
+ mG7VEeM3Q608jxDNMfanttMwXV9iTnxtW6pM/naOljawBQiS2x1Y17M8XZ2u6aAuUXCNr+/FdYo
+ tof9nnvpjtl4Rx1fUpyxFJjYW4u61ZXLAEnJTyd2syFy+d24JiShRkePTvTxUbsetIJ0UuNjR0g
+ XSU6f55jmD04bllFghvw+tBjf6WJr7mZZvAXazSJWZecA==
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 58c3b349da017f56;
+	Tue, 08 Sep 2026 22:43:06 +0000
+X-Mizu-Trace-ID: 58c3b349da017f56
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <f9926203-ee69-4e18-b6c7-95261ba10807@packett.cool>
+Date: Tue, 8 Sep 2026 19:43:02 -0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -88,294 +40,134 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v17 1/7] firmware: arm_rmm: Add SMC definitions for
- calling the RMM
-To: Suzuki K Poulose <suzuki.poulose@arm.com>, kvm@vger.kernel.org,
- kvmarm@lists.linux.dev
-Cc: maz@kernel.org, will@kernel.org, catalin.marinas@arm.com,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- steven.price@arm.com, aneesh.kumar@kernel.org, oupton@kernel.org,
- joey.gouly@arm.com, tabba@google.com, yuzenghui@huawei.com,
- linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com,
- sdonthineni@nvidia.com, alpergun@google.com, fj0570is@fujitsu.com,
- WeiLin.Chang@arm.com, lpieralisi@kernel.org, enju.kohei@fujitsu.com
-References: <20260907095942.1140734-1-suzuki.poulose@arm.com>
- <20260907095942.1140734-2-suzuki.poulose@arm.com>
- <c9990440-acab-4c6c-b67f-8bde17feddce@redhat.com>
- <aca629b2-27a0-4c47-acac-87edb3b0d3d9@arm.com>
+Subject: Re: [PATCH] usb: dwc3: qcom: Add support to skip phy management by
+ USB core
+From: Val Packett <val@packett.cool>
+To: Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>,
+ Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-usb@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260723-dwc3-skip-init-quirk-v1-1-97682bb44ebd@oss.qualcomm.com>
+ <cbb4ae94-7862-4d91-b01d-0d7f18d49a45@packett.cool>
 Content-Language: en-US
-From: Gavin Shan <gshan@redhat.com>
-In-Reply-To: <aca629b2-27a0-4c47-acac-87edb3b0d3d9@arm.com>
+In-Reply-To: <cbb4ae94-7862-4d91-b01d-0d7f18d49a45@packett.cool>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-On 9/8/26 8:37 PM, Suzuki K Poulose wrote:
-> On 08/09/2026 07:19, Gavin Shan wrote:
->> On 9/7/26 7:59 PM, Suzuki K Poulose wrote:
->>> From: Steven Price <steven.price@arm.com>
->>>
->>> The RMM (Realm Management Monitor) provides functionality that can be
->>> accessed by SMC calls from the host.
->>>
->>> The SMC definitions are based on DEN0137[1] version 2.0-bet3
->>>
->>> [1] https://developer.arm.com/documentation/den0137/2-0bet3/
->>>
->>> Signed-off-by: Steven Price <steven.price@arm.com>
->>> Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>
-> 
-> ...
-> 
->>> ---
->>>   include/linux/arm-smccc-rmi.h | 494 ++++++++++++++++++++++++++++++++++
->>>   1 file changed, 494 insertions(+)
->>>   create mode 100644 include/linux/arm-smccc-rmi.h
->>>
->>
->> Some nitpicks below, please pick up the commits that look reasonable :)
->>
-> 
-> 
->>> +
->>> +#define RMI_RETURN_STATUS_MASK        (0xFFUL)
->>> +#define RMI_RETURN_INDEX_MASK        (0xFFUL << 8)
->>> +#define RMI_RETURN_MEMREQ_MASK        (0x3UL << 8)
->>> +#define RMI_RETURN_CAN_CANCEL_MASK    (0x1UL << 10)
->>> +
->>> +#define RMI_RETURN_STATUS(ret) FIELD_GET(RMI_RETURN_STATUS_MASK, ret)
->>> +#define RMI_RETURN_INDEX(ret)        FIELD_GET(RMI_RETURN_INDEX_MASK, ret)
->>> +#define RMI_RETURN_MEMREQ(ret) FIELD_GET(RMI_RETURN_MEMREQ_MASK, ret)
->>> +#define RMI_RETURN_CAN_CANCEL(ret) FIELD_GET(RMI_RETURN_CAN_CANCEL_MASK, ret)
->>> +
->>
->> If I'm correct enough, RMI_RETURN_{STATUS, INDEX, MEMREQ, CAN_CANEL} _MASK are used
->> for once in this header file. So we needn't explicitly expose them and combine their
->> definitions with users to fetch the corresponding fields, as below.
->>
->> #define RMI_RETURN_STATUS(ret)        FIELD_GET(GENMASK(7, 0), ret)
->> #define RMI_RETURN_INDEX(ret)        FIELD_GET(GENMASK(15, 8), ret)
->> #define RMI_RETURN_MEMREQ(ret)        FIELD_GET(GENMASK(10, 8), ret)
->> #define RMI_RETURN_CAN_CANCEL(ret)    FIELD_GEt(GENMASK(10, 10), ret)
-> 
-> I belive the header files were generated from a tool (by Steven) and
-> these would make it easier to compare with the generated header file for
-> any deviation from the spec. So, I am a bit reluctant make these
-> changes.
-> 
-> That said, I am happy to convert the mask definitions to GENMASK() for
-> consistency and readability. i.e., something like:
-> 
-> diff --git a/include/linux/arm-smccc-rmi.h b/include/linux/arm-smccc-rmi.h
-> index 3eb88caf40964..078197284415e 100644
-> --- a/include/linux/arm-smccc-rmi.h
-> +++ b/include/linux/arm-smccc-rmi.h
-> @@ -139,10 +139,10 @@
->   #define RMI_ABI_VERSION_GET_MINOR(version) ((version) & 0xFFFF)
->   #define RMI_ABI_VERSION(major, minor)      (((major) << 16) | (minor))
-> 
-> -#define RMI_RETURN_STATUS_MASK         (0xFFUL)
-> -#define RMI_RETURN_INDEX_MASK          (0xFFUL << 8)
-> -#define RMI_RETURN_MEMREQ_MASK         (0x3UL << 8)
-> -#define RMI_RETURN_CAN_CANCEL_MASK     (0x1UL << 10)
-> +#define RMI_RETURN_STATUS_MASK         GENMASK(7, 0)
-> +#define RMI_RETURN_INDEX_MASK          GENMASK(15, 8)
-> +#define RMI_RETURN_MEMREQ_MASK         GENMASK(10, 8)
-> +#define RMI_RETURN_CAN_CANCEL_MASK     BIT(10)
-> 
 
-Ok.
+On 9/8/26 7:33 PM, Val Packett wrote:
+>
+> On 7/23/26 7:54 AM, Krishna Kurapati wrote:
+>> DWC3 driver does manage phys itself sufficiently for Qualcomm platforms.
+>> If xhci-skip-phy-init is not set, the HCD core does a phy_init and phy_
+>> exit is done only when roothub is being destroyed. Due to this, during
+>> system suspend in host mode, although phy_exit is done by DWC3 core, the
+>> init_count on phy is never down to zero since HCD core also did an init.
+>> consequently causing phy's exit routine to not be called. Hence, add
+>> support to skip phy management by USB core.
+>>
+>> Some Exynos platforms still do rely on USB core for phy_calibrate calls,
+>> hence disable USB core management for Qualcomm platforms only.
+>>
+>> Signed-off-by: Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
+>> ---
+>> Link to PHY calibrate handling for Exynos platforms:
+>> https://lore.kernel.org/all/20190829053028.32438-1-m.szyprowski@samsung.com/ 
+>>
+>
+> Hi,
+>
+> this was merged into -next a few days ago, and I'm seeing warnings on 
+> boot now:
+>
+> [    0.613188] sysfs: cannot create duplicate filename 
+> '/devices/platform/soc@0/a800000.usb/software_node'
+> [    0.613195] CPU: 10 UID: 0 PID: 93 Comm: kworker/u49:0 Tainted: G  
+>       W           7.3.0-rc2-next-20260907-uwu+ #143 PREEMPT(full)
+> [    0.613197] Tainted: [W]=WARN
+> [    0.613198] Hardware name: Dell Inc. Latitude 7455/0FK7MX, BIOS 
+> 2.13.0 09/19/2025
+> [    0.613199] Workqueue: events_unbound deferred_probe_work_func
+> [    0.613206] Call trace:
+> [..]
+> [    0.613226]  device_create_managed_software_node+0xe8/0x108
+> [    0.613227]  dwc3_qcom_probe+0x5a4/0x7b0
+>
+> There is indeed already a software node being created in the shared 
+> dwc3 core code.
+>
+> Could there be any other consequences than a duplicate sysfs path?
+>
+Answering my own question: even worse messages when the controller 
+switches to gadget mode (which happens even with chargers when DRD is 
+enabled)
 
->>
->>> +#define RMI_SUCCESS            0
->>> +#define RMI_ERROR_INPUT            1
->>> +#define RMI_ERROR_REALM            2
->>> +#define RMI_ERROR_REC            3
->>> +#define RMI_ERROR_RTT            4
->>> +#define RMI_ERROR_NOT_SUPPORTED        5
->>> +#define RMI_ERROR_DEVICE        6
->>> +#define RMI_ERROR_RTT_AUX        7
->>> +#define RMI_ERROR_PSMMU_ST        8
->>> +#define RMI_ERROR_DPT            9
->>> +#define RMI_BUSY            10
->>> +#define RMI_ERROR_GLOBAL        11
->>> +#define RMI_ERROR_TRACKING        12
->>> +#define RMI_INCOMPLETE            13
->>> +#define RMI_BLOCKED            14
->>> +#define RMI_ERROR_GPT            15
->>> +#define RMI_ERROR_GRANULE        16
->>> +
->>> +#define RMI_CONTINUE_KEEP_GOING        0
->>> +#define RMI_CONTINUE_STOP        1
->>> +
->>> +#define RMI_OP_MEM_REQ_NONE        0
->>> +#define RMI_OP_MEM_REQ_DONATE        1
->>> +#define RMI_OP_MEM_REQ_RECLAIM        2
->>> +
->>> +#define RMI_DONATE_SIZE_MASK        3UL
->>> +#define RMI_DONATE_COUNT_MASK        GENMASK(15, 2)
->>> +#define RMI_DONATE_CONTIG_MASK        BIT(16)
->>> +#define RMI_DONATE_STATE_MASK        GENMASK(18, 17)
->>> +
->>> +#define RMI_DONATE_SIZE(req)        FIELD_GET(RMI_DONATE_SIZE_MASK, req)
->>> +#define RMI_DONATE_COUNT(req)        FIELD_GET(RMI_DONATE_COUNT_MASK, req)
->>> +#define RMI_DONATE_CONTIG(req) FIELD_GET(RMI_DONATE_CONTIG_MASK, req)
->>> +#define RMI_DONATE_STATE(req)        FIELD_GET(RMI_DONATE_STATE_MASK, req)
->>> +
->>
->> As above, RMI_DONATE_{SIZE, COUNT, CONTIG, STATE}_MASK are used for once in this
->> header file. So their definitions can be dropped by modifying the followup macros,
->> as below. Some enhancements are also applicable: (a) Use 'BLOCK' to indicate the
->> unit encoded in the request. (b) The macros are put into order from MSB to LSB.
->>
->> #define RMI_DONATE_STATE(req)        FIELD_GET(GENMASK(18, 17), req)
->> #define RMI_DONATE_CONTIG(req)        FIELD_GET(GENMASK(16, 16), req)
->> #define RMI_DONATE_BLOCK_COUNT(req)    FIELD_GET(GENMASK(15, 2), req)
->> #define RMI_DONATE_BLOCK_SIZE(req)    FIELD_GET(GENMASK(1, 0), req)
-> 
-> Same as above.
-> 
+[    5.620951] refcount_t: underflow; use-after-free.
+[    5.620957] WARNING: lib/refcount.c:28 at 
+refcount_warn_saturate+0xd8/0x140, CPU#2: kworker/2:1/98
+[    5.621075] CPU: 2 UID: 0 PID: 98 Comm: kworker/2:1 Tainted: G       
+W           7.3.0-rc2-next-20260907-uwu+ #143 PREEMPT(full)
+[    5.621077] Tainted: [W]=WARN
+[    5.621078] Hardware name: Dell Inc. Latitude 7455/0FK7MX, BIOS 
+2.13.0 09/19/2025
+[    5.621079] Workqueue: events_freezable __dwc3_set_mode
+[..]
+[    5.621114] Call trace:
+[    5.621115]  refcount_warn_saturate+0xd8/0x140 (P)
+[    5.621117]  kobject_put+0x11c/0x230
+[    5.621121]  software_node_notify_remove+0xdc/0xf8
+[    5.621124]  device_del+0x1dc/0x328
+[    5.621126]  usb_disconnect+0x1d8/0x348
+[    5.621129]  usb_remove_hcd+0x100/0x2a8
+[    5.621131]  xhci_plat_remove+0x8c/0x170
+[    5.621134]  platform_remove+0x28/0x40
+[    5.621135]  device_release_driver_internal+0x174/0x290
+[    5.621138]  device_release_driver+0x20/0x38
+[    5.621140]  bus_remove_device+0x19c/0x1f8
+[    5.621142]  device_del+0x1c4/0x328
+[    5.621143]  platform_device_unregister+0x34/0xc0
+[    5.621145]  dwc3_host_exit+0x50/0x70
+[    5.621146]  __dwc3_set_mode+0xa4/0x378
 
-Please rename RMI_DONATE_{SIZE, COUNT} to RMI_DONATE_BLOCK_{SIZE, COUNT} if possible.
 
->>
->>> +#define RMI_OP_MEM_DELEGATED        0
->>> +#define RMI_OP_MEM_UNDELEGATED        1
->>> +#define RMI_OP_MEM_CONDITIONAL        2
->>> +
->>
->> B4.6.40 RmiOpMemContig type is missed here and they should be used in the c code.
->>
->> #define RMI_OP_MEM_NON_CONTIG    0
->> #define RMI_OP_MEM_CONTIG    1
->>
->> In the c code, we shall have:
->>
->> if (RMI_DONATE_CONTIG(req) == RMI_OP_MEM_CONTIG)) {
->>     ...
->> } else {
->>     ...
->> }
->>
-> 
-> Does it make much sense though ? I prefer
-> 
-> if (RMI_DONATE_CONTIG(req))
-> 
-> to
-> 
-> 
-> if (RMI_DONATE_CONTIG(req) == RMI_OP_MEM_CONTIG)) {
-> 
-> 
-> than having a field for a single bit values. I am happy to change
-> this if there is strong preference to the other.
-> 
+[..]
 
-The point is RMM-v2.0-bet3 expose RMI_OP_{MEM, MEM_NON}_CONTIG instead of true/false
-to indicate if the requested memory blocks are physically contiguous or not. So the
-expression 'if (RMI_DONATE_CONTIG(req) == RMI_OP_MEM_CONTIG)' is consistent to the
-RMM-v2.0-bet3 spec.
 
-  
->> Similarly, B4.6.39 RmiOpCanCancel type is missed here and they should be used in
->> the c code.
->>
->> #define RMI_OP_CANNOT_CANCEL    0
->> #define RMI_OP_CAN_CANCEL    1
->>
->> In the c code, we shall have:
->>
->> if (RMI_RETURN_CAN_CANCEL(ret) == RMI_OP_CAN_CANCEL) {
->>      ...
->> } else {
->>      ...
->> }
->>
-> 
-> Same as above.
-> 
+[    5.644535] Unable to handle kernel paging request at virtual address 
+006563697665642f
+[    5.644537] Mem abort info:
+[    5.644538]   ESR = 0x0000000096000004
+[    5.644539]   EC = 0x25: DABT (current EL), IL = 32 bits
+[    5.644540]   SET = 0, FnV = 0
+[    5.644541]   EA = 0, S1PTW = 0
+[    5.644542]   FSC = 0x04: level 0 translation fault
+[    5.644543] Data abort info:
+[    5.644543]   ISV = 0, ISS = 0x00000004, ISS2 = 0x00000000
+[    5.644545]   CM = 0, WnR = 0, TnD = 0, TagAccess = 0
+[    5.644546]   GCS = 0, Overlay = 0, DirtyBit = 0
+[    5.644546] [006563697665642f] address between user and kernel 
+address ranges
+[    5.644548] Internal error: Oops: 0000000096000004 [#1]  SMP
+[    5.644653] CPU: 2 UID: 0 PID: 98 Comm: kworker/2:1 Tainted: G       
+W           7.3.0-rc2-next-20260907-uwu+ #143 PREEMPT(full)
+[    5.644655] Tainted: [W]=WARN
+[    5.644656] Hardware name: Dell Inc. Latitude 7455/0FK7MX, BIOS 
+2.13.0 09/19/2025
+[    5.644657] Workqueue: events_freezable __dwc3_set_mode
+[    5.644664] pc : __pi_strcmp+0x9c/0x140
+[    5.644668] lr : software_node_property_present+0x60/0x98
+[    5.644697] Call trace:
+[    5.644698]  __pi_strcmp+0x9c/0x140 (P)
+[    5.644700]  device_property_present+0x9c/0xc0
+[    5.644703]  dwc3_gadget_init+0x230/0x7b0
+[    5.644704]  __dwc3_set_mode+0x314/0x378
+[    5.644707]  process_scheduled_works+0x1b8/0x538
+[    5.644710]  worker_thread+0x1fc/0x2f8
+[    5.644711]  kthread+0x114/0x148
+[    5.644713]  ret_from_fork+0x10/0x20
 
-Please see above explanation.
 
->>> +#define RMI_ADDR_TYPE_NONE        0
->>> +#define RMI_ADDR_TYPE_SINGLE        1
->>> +#define RMI_ADDR_TYPE_LIST        2
->>> +
->>> +#define RMI_ADDR_RANGE_SIZE_MASK    GENMASK(1, 0)
->>> +#define RMI_ADDR_RANGE_COUNT_MASK    GENMASK(PAGE_SHIFT - 1, 2)
->>> +#define RMI_ADDR_RANGE_ADDR_MASK    (PAGE_MASK & GENMASK(51, 0))
->>> +#define RMI_ADDR_RANGE_STATE_MASK    GENMASK(63, 62)
->>> +
->>> +#define RMI_ADDR_RANGE_SIZE(ar) (FIELD_GET(RMI_ADDR_RANGE_SIZE_MASK, \
->>> +                           (ar)))
->>> +#define RMI_ADDR_RANGE_COUNT(ar) (FIELD_GET(RMI_ADDR_RANGE_COUNT_MASK, \
->>> +                           (ar)))
->>> +#define RMI_ADDR_RANGE_ADDR(ar)        ((ar) & RMI_ADDR_RANGE_ADDR_MASK)
->>> +#define RMI_ADDR_RANGE_STATE(ar) (FIELD_GET(RMI_ADDR_RANGE_STATE_MASK, \
->>> +                           (ar)))
->>> +
->>
->> I guess it wouldn't a bad idea to explictly indicate 'BLOCK' in the definitions, as
->> below. Some improvements are applicated either: (a) 'ar' is renamed to 'r'; (b) The
->> excessive parentheses are dropped to follow the patterns we already had; (c) For
->> RMI_ADDR_RANGE_ADDR(r), FIELD_GET() is used.
->>
->> #define RMI_ADDR_RANGE_BLOCK_SIZE_MASK        GENMASK(1, 0)
->> #define RMI_ADDR_RANGE_BLOCK_COUNT_MASK        GENMASK(PAGE_SHIFT - 1, 2)
->> #define RMI_ADDR_RANGE_ADDR_MASK        (PAGE_MASK & GENMASK(51, 0))
->> #define RMI_ADDR_RANGE_STATE_MASK        GENMASK(63, 62)
->>
->> #define RMI_ADDR_RANGE_BLOCK_SIZE(r) FIELD_GET(RMI_ADDR_RANGE_SIZE_MASK, r)
->> #define RMI_ADDR_RANGE_BLOCK_COUNT(r) FIELD_GET(RMI_ADDR_RANGE_COUNT_MASK, r)
->> #define RMI_ADDR_RANGE_ADDR(r) FIELD_GET(RMI_ADDR_RANGE_ADDR_MASK, r)
->> #define RMI_ADDR_RANGE_STATE(r) FIELD_GET(RMI_ADDR_RANGE_STATE_MASK, r)
-> 
-> Ack
-> 
->>
->>> +enum rmi_ripas {
->>> +    RMI_EMPTY = 0,
->>> +    RMI_RAM = 1,
->>> +    RMI_DESTROYED = 2,
->>> +    RMI_DEV = 3,
->>> +};
-> 
->>> +#define RMI_FEATURE_REGISTER_1_RMI_GRAN_SZ_4KB    BIT(0)
->>> +#define RMI_FEATURE_REGISTER_1_RMI_GRAN_SZ_16KB    BIT(1)
->>> +#define RMI_FEATURE_REGISTER_1_RMI_GRAN_SZ_64KB    BIT(2)
->>> +#define RMI_FEATURE_REGISTER_1_HASH_SHA_256    BIT(3)
->>> +#define RMI_FEATURE_REGISTER_1_HASH_SHA_384    BIT(4)
->>> +#define RMI_FEATURE_REGISTER_1_HASH_SHA_512    BIT(5)
->>> +#define RMI_FEATURE_REGISTER_1_MAX_RECS_ORDER    GENMASK(9, 6)
->>> +#define RMI_FEATURE_REGISTER_1_L0GPTSZ        GENMASK(13, 10)
->>> +#define RMI_FEATURE_REGISTER_1_PPS        GENMASK(16, 14)
->>> +
->>> +#define RMI_FEATURE_REGISTER_2_DA        BIT(0)
->>> +#define RMI_FEATURE_REGISTER_2_DA_COH        BIT(1)
->>> +#define RMI_FEATURE_REGISTER_2_VSMMU        BIT(2)
->>> +#define RMI_FEATURE_REGISTER_2_ATS        BIT(3)
->>> +#define RMI_FEATURE_REGISTER_2_PDEV_MAX_VDEVS_ORDER    GENMASK(7, 4)
->>> +#define RMI_FEATURE_REGISTER_2_VDEV_KROU    BIT(8)
->>> +#define RMI_FEATURE_REGISTER_2_NON_TEE_STREAM    BIT(9)
->>> +#define RMI_FEATURE_REGISTER_2_REALM_MAX_VDEVS_ORDER    GENMASK(14, 10)
->>> +
->>> +#define RMI_FEATURE_REGISTER_3_MAX_NUM_AUX_PLANES    GENMASK(3, 0)
->>> +#define RMI_FEATURE_REGISTER_3_RTT_PLANE        GENMASK(5, 4)
->>> +#define RMI_FEATURE_REGISTER_3_RTT_S2AP_INDIRECT    BIT(6)
->>> +
->>> +#define RMI_FEATURE_REGISTER_4_MEC_COUNT        GENMASK(63, 0)
->>> +
->>
->> We would reorder those feature register definitions from MSB ro LSB :-)
-> 
-> Ack
-> 
-> Thanks for your review.
-> 
-> Cheers
-> Suzuki
-> 
-
-Thanks,
-Gavin
-
+> Thanks,
+> ~val
+>
