@@ -1,78 +1,133 @@
-Received: from mta1.migadu.com (out-98.mta1.migadu.com [95.215.58.98])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2844503BDE
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 09:24:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.98
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A35B350AC1E;
+	Tue,  8 Sep 2026 09:24:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788859455; cv=none; b=F7N7D4JZiqS/w8g8uQMH0i7RXCdggj0rkU5O7TRZjwecSTRmIbc+SJQBKlPVTpyY5JergwnRg3UtqbBIY7mOzrDAXLc2WmFo8LiumhQddG4arZb02/wBXWZxtrwh396UR/YbdbzN1btKrEYZAwnSvrlJdn9f0RoEhyt7FHtHHWU=
+	t=1788859470; cv=none; b=dzivAMfHUiZaALqYlMFXKVir2H/1aP5xCKsKNPQVqZEX8MSQ4nnXuPd9PJmhF/bVw1888svYRbDf0S1aUyJgnQp6oxXerNQgVq77v+rwTS/PbKp14UisOpWm4+2yO3R6gCvcnwaYTTtSVXn6ZtjOqVzodCLKwS3vyxYaSNo1kBE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788859455; c=relaxed/simple;
-	bh=Lq4ARpMbanal89TxHuI1tA2YfFgMGpzO1BWcDeL62IM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=RxxJNhENsTc2tvCcegJCdft+e4sHlvrALu7drDfZ2qXncIP0aRkI0tTmdR3Q/M3p2iCeW36hdWh/t3VdZsfTM6VjlGmFtZJtXErBe8LqKlRkuJDGMlN5fQNO+xdguYegMvKcd8iPlG8NfElc6JGxdmbtPy+MTHBDfA72TUT+m1E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Wz/m6DiO; arc=none smtp.client-ip=95.215.58.98
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1788859470; c=relaxed/simple;
+	bh=h/T7ycLMSDC3a2kr6DgdOAzHxcYYnc5NhlAyE3UitFc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=gF/hy/aXwtJ59SfOWZs7f5dk5jkAcnfFZqk1N2LcSqbTkmWVl/MdCpAXnuZGTXAQkouU7rIsVvu4bWKHOhYd9wDzb4EeGrhvghUH7h03K/chWCtcogZZxdFG2jZugUcdUospaKXCjOzX8JbZ4lSFaC002lGVi56FDcj9KyOugZw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hdump79V; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Wz/m6DiO"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=Lq4ARpMbanal89TxHuI1tA2YfFgMGpzO1BWcDeL62IM=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788859451; v=1; x=1789464251;
- b=Wz/m6DiOq1YxbsMtchpMqiWZFAFYeJZxnQsp0wNqfhJbnxHELIRL+4mNh+zOeEs0bxXQXyKD
- DOu1VjcosI8jmEOyMHOZKxr6nZBXbxfQt4fyOleU7LawF0ThwoQJTgrmQUARgtWMclAubvqIct9
- cJnlnFp7wy/2Y6OuZaoXWANM=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 98e59e83dd11dcc5;
-	Tue, 08 Sep 2026 09:24:01 +0000
-X-Mizu-Trace-ID: 98e59e83dd11dcc5
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <bb30518c-9046-418e-b190-9f3f1b542cbe@linux.dev>
-Date: Tue, 8 Sep 2026 17:23:54 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hdump79V"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8522F1F00A3A;
+	Tue,  8 Sep 2026 09:24:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788859469;
+	bh=nwt4MSvg+/6zRv8Vcf7XT0o+MS+vnu26qoTN+G3zanc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=hdump79Vw5fEgXFJ9VugGGr5h6P63z5Rb/y5Hg0yODT+xkwe1X9g+jFlOkv7xQ2AQ
+	 uoCqpfp3P4EELicYSY5xFxcScIgnN41HJE9Hv+IxmdZE3UxokuQE7yocbQixaPW1bD
+	 BW578Iwlzn0eG3XZClR5mMtu1brAknhWLvs7GumecG1XFVYvsexzXf5BQLuUikEodO
+	 6U91vturj452mofL9n1U1GBjg37Vl2/FSlgkBctDhnEQTdhaEBWmhcv5aTHVRUL7ID
+	 Ek2bZXURLjsVrHEStEywjsO0iimjIlhQPJW7MDJgN3QgLd7fwNXC4iMlsT1e/eY3bc
+	 gi7qJpbxFcf3Q==
+Date: Tue, 8 Sep 2026 11:24:25 +0200
+From: Maxime Ripard <mripard@kernel.org>
+To: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+	Simona Vetter <simona@ffwll.ch>, Dave Stevenson <dave.stevenson@raspberrypi.com>, 
+	Dmitry Baryshkov <lumag@kernel.org>, Andrzej Hajda <andrzej.hajda@intel.com>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman <jonas@kwiboo.se>, 
+	Jernej Skrabec <jernej.skrabec@gmail.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+	Chen-Yu Tsai <wens@kernel.org>, Samuel Holland <samuel@sholland.org>, 
+	=?utf-8?B?TWHDrXJh?= Canal <mcanal@igalia.com>, Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>, 
+	Raphael Gallais-Pou <rgallaispou@gmail.com>, Sandy Huang <hjc@rock-chips.com>, 
+	Heiko =?utf-8?Q?St=C3=BCbner?= <heiko@sntech.de>, Andy Yan <andy.yan@rock-chips.com>, 
+	Algea Cao <algea.cao@rock-chips.com>, Daniel Stone <daniels@collabora.com>, 
+	Liu Ying <victor.liu@nxp.com>, Phong LE <ple@baylibre.com>, Helge Deller <deller@gmx.de>, 
+	kernel@collabora.com, linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+	linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, linux-rockchip@lists.infradead.org, 
+	linux-fbdev@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>
+Subject: Re: [PATCH v11 13/74] drm/bridge: Fix NULL deref in drm_bridge_add()
+ for legacy bridges
+Message-ID: <ap_Tr_Viqy29f515@houat>
+References: <20260901-dw-hdmi-qp-scramb-v11-0-bc12954a0688@collabora.com>
+ <20260901-dw-hdmi-qp-scramb-v11-13-bc12954a0688@collabora.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 10/11] mm/sparse-vmemmap: drop unused
- section_nr_vmemmap_pages() arguments
-To: Muchun Song <songmuchun@bytedance.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- David Hildenbrand <david@kernel.org>, Oscar Salvador <osalvador@suse.de>,
- Madhavan Srinivasan <maddy@linux.ibm.com>,
- Michael Ellerman <mpe@ellerman.id.au>, Jonathan Corbet <corbet@lwn.net>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- linuxppc-dev@lists.ozlabs.org, linux-doc@vger.kernel.org,
- Muchun Song <muchun.song@linux.dev>, Lorenzo Stoakes <ljs@kernel.org>,
- Mike Rapoport <rppt@kernel.org>, Nicholas Piggin <npiggin@gmail.com>,
- Christophe Leroy <chleroy@kernel.org>, Randy Dunlap <rdunlap@infradead.org>
-References: <20260908030335.96549-1-songmuchun@bytedance.com>
- <20260908030335.96549-11-songmuchun@bytedance.com>
-From: Qi Zheng <qi.zheng@linux.dev>
-In-Reply-To: <20260908030335.96549-11-songmuchun@bytedance.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha384;
+	protocol="application/pgp-signature"; boundary="ygj36ay46abkkslu"
+Content-Disposition: inline
+In-Reply-To: <20260901-dw-hdmi-qp-scramb-v11-13-bc12954a0688@collabora.com>
 
 
+--ygj36ay46abkkslu
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v11 13/74] drm/bridge: Fix NULL deref in drm_bridge_add()
+ for legacy bridges
+MIME-Version: 1.0
 
-On 9/8/26 11:03 AM, Muchun Song wrote:
-> section_nr_vmemmap_pages() no longer uses the altmap or pgmap
-> arguments, so drop them from the helper and its callers.
-> 
-> Signed-off-by: Muchun Song <songmuchun@bytedance.com>
+On Tue, Sep 01, 2026 at 09:50:37PM +0300, Cristian Ciocaltea wrote:
+> Legacy bridge drivers that embed struct drm_bridge in a zero-initialized
+> allocation, rather than obtaining it from devm_drm_bridge_alloc(), never
+> run INIT_LIST_HEAD() on bridge->list, leaving next and prev NULL.
+> list_empty() compares next against &bridge->list, so it reports such a
+> list head as non-empty.  list_del_init() therefore runs and dereferences
+> the NULL pointers, panicking the kernel during probe.  Only builds with
+> CONFIG_DEBUG_LIST survive, with a list corruption report.
+>=20
+> This affects rk3066_hdmi and the i.MX8 LDB bridges, which still embed a
+> bridge in a devm_kzalloc()'d struct.
+>=20
+> Initialize the list head when it is found to be NULL, so that the bridge
+> ends up with a valid empty list head and list_del_init() is only reached
+> for bridges that can actually be linked.
+>=20
+> Fixes: 17805a15d175 ("drm/bridge: add list of removed refcounted bridges")
+> Reported-by: Sashiko <sashiko-bot@kernel.org>
+> Closes: https://lore.kernel.org/all/20260731175016.C5D591F00AC4@smtp.kern=
+el.org/
+> Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 > ---
->   mm/sparse-vmemmap.c | 10 ++++------
->   mm/sparse.c         |  3 +--
->   mm/sparse.h         |  6 ++----
->   3 files changed, 7 insertions(+), 12 deletions(-)
-> 
+>  drivers/gpu/drm/drm_bridge.c | 9 ++++++++-
+>  1 file changed, 8 insertions(+), 1 deletion(-)
+>=20
+> diff --git a/drivers/gpu/drm/drm_bridge.c b/drivers/gpu/drm/drm_bridge.c
+> index 2c457ad74f3b..a8b6df5c13ea 100644
+> --- a/drivers/gpu/drm/drm_bridge.c
+> +++ b/drivers/gpu/drm/drm_bridge.c
+> @@ -453,9 +453,16 @@ void drm_bridge_add(struct drm_bridge *bridge)
+>  	 * If the bridge was previously added and then removed, it is now
+>  	 * in bridge_lingering_list. Remove it or bridge_lingering_list will be
+>  	 * corrupted when adding this bridge to bridge_list below.
+> +	 *
+> +	 * Legacy drivers that allocate the bridge with kzalloc() rather than
+> +	 * devm_drm_bridge_alloc() leave list.next NULL. Such a bridge cannot
+> +	 * be on any list, and list_del_init() would dereference NULL, so
+> +	 * initialize the list head first.
 
-Acked-by: Qi Zheng <qi.zheng@linux.dev>
+"legacy" bridges are ambigous and was also used for non-atomic bridges.
+That being said, it's now *required* that bridges use
+devm_drm_bridge_alloc() instead of kzalloc, and we warn in
+drm_bridge_add if it hasn't.
 
-Thanks,
-Qi
+So I don't think we should merge this patch.
 
+Maxime
+
+--ygj36ay46abkkslu
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCap/USAAKCRAnX84Zoj2+
+dvfBAX9Xat1E7rHDo5AwoQwclzUX6gFePTOLCX7JzUTlJj4v+JVqzvUmXYfX2MVE
+CDhj71EBf2f48qg8uxY+jSn8HuuECyGRZX1EJkTYg9OjYG+JlhXy81xPlHXuun/i
+wRZxh6EhmA==
+=t0EL
+-----END PGP SIGNATURE-----
+
+--ygj36ay46abkkslu--
