@@ -1,71 +1,115 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from sg-3-111.ptr.tlmpb.com (sg-3-111.ptr.tlmpb.com [101.45.255.111])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B23ED374A1B;
-	Tue,  8 Sep 2026 12:27:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28EFB3D6CDD
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 12:28:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.45.255.111
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788870438; cv=none; b=gHS7KIIArtamyj0KVrro2UVuQlZSeFNne/nSbCiJ8MxCz/ASStACfsRxOfV6hf4G32GjuC5bVEnn4VeLO9R6NXWAiaJH+bxBjQTlLqgFSzZnTxUt9EbL06J1wjfmUZZBtjntYErBqdal/y33Tm7tz+i04FEuzxsbvz79TfyexMs=
+	t=1788870499; cv=none; b=ZkqA2Nd1jyMv2rYF27H+2AkK0chaGoYyK8GCVqVYGGjAGMMxeCNCCUKByACbZTOJGsuyK80D+DU/VArdwR/fPF/gWdvHfzQeCxXxEnMSfYpseUBShGRQB/UPTBpeXvOdYZMhgEjU9XSQct6MuNUlzKoO3nMSZ79He+/b9c8dFTM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788870438; c=relaxed/simple;
-	bh=9uvxCapjI4rnsF74LxQSOyWBvkiTodNoDkDsxskLB84=;
-	h=Message-ID:Date:From:To:Subject:In-Reply-To:References:Cc; b=ZurUT1Wg3p/mJR2RFXiQ8lnVumIQmLh2dcPsUeJGk4YKUdxfoQHT8UYFIL5v7++n1zTWAg9L+yj+GYVwPtBAWnhe1vGdaoa5jSxVQokd/FOP6rA8IMu5Qr2i1NrA1a/4nYkLaR+8n4GZvkWedLvd9+HyqOcvKKjaAiBFfR9F9UI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=T+OZxDzm; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788870499; c=relaxed/simple;
+	bh=CAWNFS566Mb/PBl/Fdw1exjQuJBSVd6ATh2wTNizWAs=;
+	h=To:Date:Mime-Version:References:From:In-Reply-To:Content-Type:Cc:
+	 Subject:Message-Id; b=WmkjPy/OWRSjor2aZwdNGRU2SQqqdSBg57DqhKwU5n97Mb6Nt6HvYmqLv1/C2anxSs70Tyze2Rrz9KwUdg4a8TyYSfjHMNd2F4+wPMScj7ptGFYlhd0ndsdSEbDIaXtCwcowumnJSpRMXD22D7ale/r3smPR8KMLgvlNQRDOiYw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=KMSJRMcv; arc=none smtp.client-ip=101.45.255.111
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="T+OZxDzm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D16D21F00A3A;
-	Tue,  8 Sep 2026 12:27:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788870437;
-	bh=fzGtfk86Cjb9SfEfKKT3CvCMk5MzBMJhuuAr5zCkHDo=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc;
-	b=T+OZxDzmFhtwfxQUDigQV8iYgcmk1nVuS1p5I+fsWVjs6z/Foia6U8gnM+85CdD1q
-	 8e3kEiGLj5EIgbAajVqBFp3BmOAhliLVBkj0EbrxHbdhYj0OvlJS0h96Wd2S+Zj9Pw
-	 7jOLuBaY9BnvA7BAYgHvOcpQ/qlhcash2+du7RPJj3Ph3VhFr8SidngLg0LGPcaCmi
-	 AiUiql/fUlpQrSx5KSbjx7cz3fJozZD1rnmNxtYPXWQanoXM8F7rp7I5rKC3oSnfTg
-	 bPCZucNWjKUAAFXBzd2Q2OYiVjpAQTRt9a1cBETRT1WfyVUGh1JI/NJQbQA2+FmK2j
-	 Duxwa0xZf8Fsw==
-Message-ID: <d251e4005c5bef3e1cf1cd49abe0e1bb@kernel.org>
-Date: Tue, 08 Sep 2026 12:27:14 +0000
-From: "Maxime Ripard" <mripard@kernel.org>
-To: "Cristian Ciocaltea" <cristian.ciocaltea@collabora.com>
-Subject: Re: [PATCH v11 07/74] drm/connector: Add HDMI 2.0 scrambler
- infrastructure
-In-Reply-To: <20260901-dw-hdmi-qp-scramb-v11-7-bc12954a0688@collabora.com>
-References: <20260901-dw-hdmi-qp-scramb-v11-7-bc12954a0688@collabora.com>
-Cc: dri-devel@lists.freedesktop.org, kernel@collabora.com, linux-arm-kernel@lists.infradead.org, linux-fbdev@vger.kernel.org, linux-kernel@vger.kernel.org, linux-rockchip@lists.infradead.org, linux-sunxi@lists.linux.dev, "Algea
- Cao" <algea.cao@rock-chips.com>, "Andrzej Hajda" <andrzej.hajda@intel.com>, "Andy
- Yan" <andy.yan@rock-chips.com>, "Chen-Yu Tsai" <wens@kernel.org>, "Daniel
- Stone" <daniels@collabora.com>, "Dave Stevenson" <dave.stevenson@raspberrypi.com>, "David
- Airlie" <airlied@gmail.com>, "Diederik de Haas" <diederik@cknow-tech.com>, "Dmitry
- Baryshkov" <lumag@kernel.org>, =?utf-8?b?SGVpa28gU3TDvGJuZXI=?= <heiko@sntech.de>, "Helge
- Deller" <deller@gmx.de>, "Jernej Skrabec" <jernej.skrabec@gmail.com>, "Jonas
- Karlman" <jonas@kwiboo.se>, "Laurent Pinchart" <Laurent.pinchart@ideasonboard.com>, "Liu
- Ying" <victor.liu@nxp.com>, "Luca Ceresoli" <luca.ceresoli@bootlin.com>, "Maarten
- Lankhorst" <maarten.lankhorst@linux.intel.com>, "Maud Spierings" <maud_spierings@hotmail.com>, "Maxime
- Ripard" <mripard@kernel.org>, =?utf-8?b?TWHDrXJhIENhbmFs?= <mcanal@igalia.com>, "Neil
- Armstrong" <neil.armstrong@linaro.org>, "Phong LE" <ple@baylibre.com>, "Raphael
- Gallais-Pou" <rgallaispou@gmail.com>, "Raspberry Pi Kernel Maintenance" <kernel-list@raspberrypi.com>, "Robert
- Foss" <rfoss@kernel.org>, "Samuel Holland" <samuel@sholland.org>, "Sandy
- Huang" <hjc@rock-chips.com>, "Simona Vetter" <simona@ffwll.ch>, "Thomas
- Zimmermann" <tzimmermann@suse.de>
-Content-Transfer-Encoding: 7bit
+	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="KMSJRMcv"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=2212171451; d=bytedance.com; t=1788870448; h=from:subject:
+ mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
+ mime-version:in-reply-to:message-id;
+ bh=oU1SN1evCfMvWApaJ8Az3rYN4gJaNSTnoUYsE3H6ZNc=;
+ b=KMSJRMcvibOHpw8yDZ/5L3eGliGjEvwsRLTvMG1iHf0zZOuoP5fLgWAKpBY6lfOMOsqk1o
+ 077FfQ0obyIDZ/tdPbKrSlIUfrkvUPdnmtFLiP0q9k790PmQWInmdwlmlf3mCXDYWWpJJP
+ LL1GaXUzUJWTi+OlkH4CwPz/PHM6NlEFmF2s4m9M1lqZazeCZuWA2xeGf/vRc2TVwLePE+
+ WVqQVGHSIOeP1vUF5kT/OzBfsU3KadMipgUOuBRBx3/xFnEYXTtKd2EIrhK+YBMDb0qZL3
+ blcbRk+GRYYJY5ReT/MfD/aXQbSOSc0r+UpoVy3MgljgbQOdwYCVsnEMGnbo+A==
+To: <mingo@redhat.com>, <peterz@infradead.org>, <juri.lelli@redhat.com>, 
+	<vincent.guittot@linaro.org>, <dietmar.eggemann@arm.com>, 
+	<rostedt@goodmis.org>, <bsegall@google.com>, <mgorman@suse.de>, 
+	<vschneid@redhat.com>, <kprateek.nayak@amd.com>
+Date: Tue,  8 Sep 2026 20:24:46 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+Mime-Version: 1.0
+References: <20260908122446.56708-1-lizhe.67@bytedance.com>
+From: "Li Zhe" <lizhe.67@bytedance.com>
+Content-Transfer-Encoding: 7bit
+In-Reply-To: <20260908122446.56708-1-lizhe.67@bytedance.com>
+Content-Type: text/plain; charset=UTF-8
+Cc: <linux-kernel@vger.kernel.org>, <linux-fsdevel@vger.kernel.org>, 
+	<linux-doc@vger.kernel.org>, <lizhe.67@bytedance.com>
+Subject: [PATCH 4/4] Documentation: Describe per-process NUMA balancing control
+Message-Id: <20260908122446.56708-5-lizhe.67@bytedance.com>
+X-Mailer: git-send-email 2.45.2
+X-Original-From: Li Zhe <lizhe.67@bytedance.com>
+X-Lms-Return-Path: <lba+26a9fff2e+f29522+vger.kernel.org+lizhe.67@bytedance.com>
 
-On Tue, 1 Sep 2026 21:50:31 +0300, Cristian Ciocaltea wrote:
-> Add the connector-level infrastructure to support HDMI 2.0 scrambling:
-> 
-> - A drm_connector_hdmi_scrambler_supported() helper to report whether
->   the source supports the scrambling capability
-> - A .scrambler_{enable,disable}() pair of callbacks in
-> 
-> [ ... ]
+Document the PR_SET_NUMA_BALANCING and PR_GET_NUMA_BALANCING operations
+near the kernel.numa_balancing sysctl documentation, and describe the
+NumaB_mode field in /proc/<pid>/status.
 
-Reviewed-by: Maxime Ripard <mripard@kernel.org>
+Signed-off-by: Li Zhe <lizhe.67@bytedance.com>
+---
+ Documentation/admin-guide/sysctl/kernel.rst | 16 ++++++++++++++++
+ Documentation/filesystems/proc.rst          |  6 ++++++
+ 2 files changed, 22 insertions(+)
 
-Thanks!
-Maxime
+diff --git a/Documentation/admin-guide/sysctl/kernel.rst b/Documentation/admin-guide/sysctl/kernel.rst
+index b6328cd0f43e..7f665c28828a 100644
+--- a/Documentation/admin-guide/sysctl/kernel.rst
++++ b/Documentation/admin-guide/sysctl/kernel.rst
+@@ -754,6 +754,22 @@ different types of memory (represented as different NUMA nodes) to
+ place the hot pages in the fast memory.  This is implemented based on
+ unmapping and page fault too.
+ 
++The ``PR_SET_NUMA_BALANCING`` and ``PR_GET_NUMA_BALANCING`` prctl(2)
++operations can be used by a process to opt out of automatic NUMA balancing
++or re-enable participation for the whole thread group.  Any thread in the
++thread group may change the process setting.  The setting is inherited by
++fork(2), is shared by threads created with clone(2) ``CLONE_THREAD`` and is
++preserved across execve(2).  The global ``numa_balancing`` sysctl remains
++the top-level control: a process-level enable does not turn automatic NUMA
++balancing on when it is disabled system-wide.  Memory policy still applies,
++so the process setting does not make VMAs participate when their policy
++prevents automatic NUMA balancing.
++
++Disabling the process setting stops scheduling new periodic NUMA scans for
++that process. Existing NUMA hinting PTEs and already queued work are not
++actively cleared and may still drain naturally as the disabled state takes
++effect.
++
+ numa_balancing_promote_rate_limit_MBps
+ ======================================
+ 
+diff --git a/Documentation/filesystems/proc.rst b/Documentation/filesystems/proc.rst
+index c102b62023cd..a4e9037a3161 100644
+--- a/Documentation/filesystems/proc.rst
++++ b/Documentation/filesystems/proc.rst
+@@ -188,6 +188,7 @@ read the file /proc/PID/status::
+   HugetlbPages:          0 kB
+   CoreDumping:    0
+   THP_enabled:	  1
++  NumaB_mode:     enabled
+   Threads:        1
+   SigQ:   0/28578
+   SigPnd: 0000000000000000
+@@ -274,6 +275,11 @@ It's slow but very precise.
+  THP_enabled                 process is allowed to use THP (returns 0 when
+                              PR_SET_THP_DISABLE is set on the process to disable
+                              THP completely, not just partially)
++ NumaB_mode                  process automatic NUMA balancing mode:
++                             enabled or disabled when supported, otherwise
++                             unsupported; the effective behavior also depends
++                             on the global numa_balancing sysctl and memory
++                             policy
+  Threads                     number of threads
+  SigQ                        number of signals queued/max. number for queue
+  SigPnd                      bitmap of pending signals for the thread
+-- 
+2.20.1
