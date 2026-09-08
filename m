@@ -1,112 +1,121 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 088AF595747
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 17:30:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACEF6339382
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 17:32:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788888643; cv=none; b=MUSiLe3aWYGEu7+SX+PztxgTgeLSe6rPln3k5htbYr+E7bn8SUD2GcFa4Mrxv8JhqxYSEonhuXhjZY52gUDiyGde8p81/7nfjqSYZlGT+VsAZGvZEXdZgbZ0IGYqDyu2/spJTb+4NTs5WGWbuGOfQ98RNWXNpWAvQ8kbhhIazj0=
+	t=1788888729; cv=none; b=Nxgccbzf3/ZIwz1I8ALve+4zfGoxGnqTpaRXv/81EidtA57RSjn/1mWkQyskFd9lWHSAuoDyzEg6vHvzbzMAY00SDdy/QOZEzlsL6oeNAoPPBvRUlgOTsCPdSDeDgVSsLEoR21xA99CFYpADbNRZoIDriOLU5C+vQ+bp10zPnH4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788888643; c=relaxed/simple;
-	bh=68dTFTlGjK0XaJEAddlzUlXXUgt+rSGSQ0njU5H9lxc=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=IIXsUQe09dVOZG+0cjcKMTbWC8BOLQRh96XVdJuort2MZLmzfqE9WeLXxXE4HGsa5yp6ozagy4omHiBbhLnPjFIyG+6vKtpbnYJYSUa2OPL4yZC/otkVcpTebV02o5U6tBq3xOMv0pbPNZKUAna7Zo8UO7sqzmPpUGxFlV5LVJ0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oxrv/Clx; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788888729; c=relaxed/simple;
+	bh=6JIlt6oRgX4aHn0hVogF9w/JbTbSr9xxJ3EQWLN9Xyw=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=X0M7F+plniQveMqF+DgLuUusHTrAuoFe4rXpGPxD+U1MCH4FgP6OTYNcF6rP8wnKuu7HcszAZL3OUiDAHlUNRgHDqft7Q0wKj9IETLf8g1D75Ms/O6z8AEqwiQ+tBkkXOUt8tqPfffCy8yCYfDmM+t2YU/kTx510epjk6ToXmfU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=iK6w6z2j; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oxrv/Clx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AF4A31F0155F
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 17:30:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788888640;
-	bh=68dTFTlGjK0XaJEAddlzUlXXUgt+rSGSQ0njU5H9lxc=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=oxrv/ClxN2t78XeQbMP1BOQ2CF7BRSdBlylr6GW7o5+/v5GYQVd60IwisZn6HiGsJ
-	 9RNqbkS68Pppw2cn+v5FA+PAWCNn2YMVBbWALX2+hALj/iBCSNzWIx3MqOR5Mo5tgV
-	 70O9as9qVLJ6hHVbxRTZC3jcjJfupxQQH2Pl2p0Hwd+hFuhAHt0AaJ25PHkfkCoFXI
-	 xXOtNRg2wCFas1yuSrwrvKDhy+o8lMgX5v4BGSyo166IzndsjZGIVmsTezw4ewkgYI
-	 X40EsPBLjrq0tDb2gMLQ3cQU0n2dV5bZlEWe6WpAj3cEufphl2aaG9ekhrHoOREV8Y
-	 aeQg2R1NDfojA==
-Received: by mail-lf1-f52.google.com with SMTP id 2adb3069b0e04-5b4afc8465eso6726739e87.2
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 10:30:40 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBw3zX0pcyPQov5fg2aOSW3/XHHG877Tgi1MlU3pxzfWlyxxQykEB+tR3zsHUUi3GXXHuz4ykuobIze4sLs=@vger.kernel.org
-X-Gm-Message-State: AFuF++m68tokO4DEqUELsz0JhWW3ieV09W4GlYznmeSfB8f7oCb+UUa4
-	a+xh9gypQ5r4sOVKvtP6xPPUgKPL3s6aosRCpaRiX9WloFUqyJM0OWq72iHN0o8qKrSvGkWS3Ia
-	qwgiyCw1GxojfgbO6N5tHbYi0ZOeVhRU=
-X-Received: by 2002:a05:6512:1252:b0:5b6:4ae:19e7 with SMTP id
- 2adb3069b0e04-5b61706d22fmr5531696e87.26.1788888639310; Tue, 08 Sep 2026
- 10:30:39 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="iK6w6z2j"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1788888726;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=4WtaTTgBItQ8IiXr6AeflHG0tfmvAFO+w6dYKY9XneI=;
+	b=iK6w6z2j91xSbQ/0sCyFNrnClNgE4mxMM/GlYtpxBOGWJM7BQhT6dbNBKQtjrPHJMqdgvf
+	RFQoeXQq4xSPKaogk7OV3b8Ss4U5MPNeNrZya6VKD4j3H4/uZHktKM9SUyqcb1giL5R0iK
+	WuQADr1CMoDxvtvG3Mecjh6RZgXHv94=
+Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-636-YsE4fdhvOGibw2HS6bTNYw-1; Tue,
+ 08 Sep 2026 13:32:03 -0400
+X-MC-Unique: YsE4fdhvOGibw2HS6bTNYw-1
+X-Mimecast-MFC-AGG-ID: YsE4fdhvOGibw2HS6bTNYw_1788888719
+Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id C15A31954117;
+	Tue,  8 Sep 2026 17:31:58 +0000 (UTC)
+Received: from fweimer-oldenburg.csb.redhat.com (headnet03.pony-001.prod.iad2.dc.redhat.com [10.2.32.114])
+	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 54AE91800346;
+	Tue,  8 Sep 2026 17:31:53 +0000 (UTC)
+From: Florian Weimer <fweimer@redhat.com>
+To: Olivier Dion <odion@efficios.com>
+Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,  Peter Zijlstra
+ <peterz@infradead.org>,  "Paul E. McKenney" <paulmck@kernel.org>,  Boqun
+ Feng <boqun@kernel.org>,  LKML <linux-kernel@vger.kernel.org>,  Thomas
+ Gleixner <tglx@kernel.org>,  Dmitry Vyukov <dvyukov@google.com>,  David
+ Matlack <dmatlack@google.com>,  Marco Elver <elver@google.com>,  Sean
+ Christopherson <seanjc@google.com>,  Wei Liu <wei.liu@kernel.org>,
+  Mathias Stearn <mathias@mongodb.com>,  Chris Kennelly
+ <ckennelly@google.com>,  Blake Oler <blake.oler@mongodb.com>,  Rich Felker
+ <dalias@libc.org>,  Matthew Wilcox <willy@infradead.org>,  Greg
+ Kroah-Hartman <gregkh@linuxfoundation.org>,  Carlos O'Donell
+ <codonell@redhat.com>
+Subject: Re: [RFC PATCH 1/5] rseq: uapi: add rseq operation definitions
+In-Reply-To: <874ifzwx3e.fsf@laura> (Olivier Dion's message of "Tue, 08 Sep
+	2026 12:01:57 -0400")
+References: <20260828153349.8061-1-odion@efficios.com>
+	<20260828153349.8061-2-odion@efficios.com>
+	<lhua4q28z30.fsf@oldenburg.str.redhat.com> <874ifzwx3e.fsf@laura>
+Date: Tue, 08 Sep 2026 19:31:50 +0200
+Message-ID: <lhuy0dbd4zd.fsf@oldenburg.str.redhat.com>
+User-Agent: Gnus/5.13 (Gnus v5.13)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260908152808.3928630-1-arnd@kernel.org> <20260908152808.3928630-5-arnd@kernel.org>
-In-Reply-To: <20260908152808.3928630-5-arnd@kernel.org>
-From: Linus Walleij <linusw@kernel.org>
-Date: Tue, 8 Sep 2026 19:30:26 +0200
-X-Gmail-Original-Message-ID: <CAD++jLm=XWMMjJvLrLH-g3wfUEOFdzU_8K1oMHGuf2ZzfjFtxQ@mail.gmail.com>
-X-Gm-Features: AcwNN1VtwTPYEunvryYhcDqpN6EJYSgh3lXDGedkufyoJM4Ll9RbC4SzO6PXMr4
-Message-ID: <CAD++jLm=XWMMjJvLrLH-g3wfUEOFdzU_8K1oMHGuf2ZzfjFtxQ@mail.gmail.com>
-Subject: Re: [PATCH 04/13] ARM: remove legacy pxa board files
-To: Arnd Bergmann <arnd@kernel.org>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>, Alexandre Belloni <alexandre.belloni@bootlin.com>, 
-	Russell King <linux@armlinux.org.uk>, Drew Fustini <fustini@kernel.org>, 
-	Arnd Bergmann <arnd@arndb.de>, Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Liviu Dudau <liviu.dudau@arm.com>, Sudeep Holla <sudeep.holla@kernel.org>, 
-	Lorenzo Pieralisi <lpieralisi@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
-	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
-	Fabio Estevam <festevam@gmail.com>, Vladimir Zapolskiy <vz@mleia.com>, Stefan Agner <stefan@agner.ch>, 
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>, 
-	Aaro Koskinen <aaro.koskinen@iki.fi>, Andreas Kemnade <andreas@kemnade.info>, 
-	Kevin Hilman <khilman@baylibre.com>, Roger Quadros <rogerq@kernel.org>, 
-	Tony Lindgren <tony@atomide.com>, Nicolas Ferre <nicolas.ferre@microchip.com>, 
-	Claudiu Beznea <claudiu.beznea@tuxon.dev>, Andrew Lunn <andrew@lunn.ch>, 
-	Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>, 
-	Gregory Clement <gregory.clement@bootlin.com>, Robert Jarzmik <robert.jarzmik@free.fr>, 
-	Kristoffer Ericson <kristoffer.ericson@gmail.com>, Ethan Nelson-Moore <enelsonmoore@gmail.com>, 
-	Geert Uytterhoeven <geert@linux-m68k.org>, Alexander Sverdlin <alexander.sverdlin@siemens.com>, 
-	Shawn Guo <shawnguo@kernel.org>, Karl Mehltretter <kmehltretter@gmail.com>, 
-	"David Hildenbrand (Arm)" <david@kernel.org>, Nicolas Pitre <npitre@baylibre.com>, linux-doc@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	devicetree@vger.kernel.org, imx@lists.linux.dev, 
-	linux-stm32@st-md-mailman.stormreply.com, linux-omap@vger.kernel.org, 
-	Daniel Mack <daniel@zonque.org>, Haojian Zhuang <haojian.zhuang@gmail.com>, 
-	Bartosz Golaszewski <brgl@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
 
-On Tue, Sep 8, 2026 at 5:29=E2=80=AFPM Arnd Bergmann <arnd@kernel.org> wrot=
-e:
+* Olivier Dion:
 
-> From: Arnd Bergmann <arnd@arndb.de>
+>> Would it be possible to use actual CPU instructions running in userspace
+>> for this?  I assume not because it's not possible to restore the
+>> register contents.
 >
-> The PXA platform supports devicetree based booting, but still has a
-> few traditional board files, which were left as a starting point for a
-> possible conversion to devicetree during the last mass purge of board
-> files in 2022.
+> Well I had in mind another solution, albeit some might find it ugly but
+> I think it does have the merit to be explored.
 >
-> None of these boards were actually converted, so drop support for these
-> now, along with the 'scoop' support chip that was used on some PDAs that
-> are no longer usable now.
->
-> The only remaining board support is for the "Raumfeld" speaker system
-> based on PXA300 SoC, though basic support for PXA250 and PXA270 is still
-> there and may work with external dts files.
->
-> Cc: Daniel Mack <daniel@zonque.org>
-> Cc: Haojian Zhuang <haojian.zhuang@gmail.com>
-> Cc: Robert Jarzmik <robert.jarzmik@free.fr>
-> Cc: Linus Walleij <linusw@kernel.org>
-> Cc: Bartosz Golaszewski <brgl@kernel.org>
-> Cc: Ethan Nelson-Moore <enelsonmoore@gmail.com>
-> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+> Basically, instead of doing all the operations in the kernel, we could
+> setup something akin to a signal handler by pushing a frame on the
+> userspace stack and resuming the execution of the thread into that
+> "handler".  Userspace is now responsible of everything, including
+> returning to the original IP.
 
-Acked-by: Linus Walleij <linusw@kernel.org>
+On mere context switch (not signal delivery), I don't think the kernel
+assumes that there is a valid stack pointer.  These scheme would change
+that.  This would be fine for managed code, but this scheme has to work
+with arbitrary code that reassigns registers temporarily.
 
-I ACK this based on the number of refactorings I did on this
-to remove the static GPIO assignments, I'm really tired of
-doing them if no-one benefits.
+(We had a longjmp on POWER for a while that corrupted the stack pointer
+temporarily, and that was visible only upon signal delivery, not regular
+context switch.)
 
-Yours,
-Linus Walleij
+> For example, there is a CPU-stride variant of the reset operation.  I
+> dabble with this operation to cache a TLS that is global-dynamic into a
+> per-cpu cache.  Thus, making a TLS global-dynamic access as fast as a
+> TLS initial-exec.
+
+I don't think this can work?  The problem with global-dynamic TLS is
+that it can't be a single memory block (it may have to grow).  Even
+if the access path changes, we can't relocate the memory because
+TLS objects must live in the linear address space.
+
+We can do away with the current complicated scheme in glibc and use an
+array of arrays, where the inner arrays follow an exponential growth
+policy (for size and alignment).  That would still have dependent loads,
+but would be quite a bit faster than our current global-dynamic scheme.
+
+  New TLS allocator for glibc
+  <https://conf.gnu-tools-cauldron.org/opo25/talk/LQTU3G/>
+
+(Sadly still not implemented.)
+
+Thanks,
+Florian
+
