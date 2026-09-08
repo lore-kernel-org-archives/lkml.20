@@ -1,92 +1,153 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D747C52ED2C;
-	Tue,  8 Sep 2026 14:33:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEA3A53FD5A
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 14:35:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788878017; cv=none; b=taHTwayKrLXF3yEixX0ocqtwJRmAbmbvITurV0KPtc/5qpFC4EaefB8kgwtOaJM9AJQJ6H+bHYoXNhh86m46dpYUUkWV8/Sr4ajBBcTUCaft5qYiP43meIgJzXHlOdEQgimTfTjg84miYD8weKqY0jLFh9sh46tEHwbpYCqMxsQ=
+	t=1788878131; cv=none; b=et2/yDvwypzt6LhiINtOX0OIHaOMQ3RNF8D7ZF7nxRCmrIljMEkTrN7gP42/CeVIwwntwFwlsfyI/661i0LfXHzLW861kp5W75ZMWK188CvsbutkKNzq4p5jMoW/tavpVxqKJZae/pvBDLFfs00rHqnK72nvNxAgCK86lFQ/uCE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788878017; c=relaxed/simple;
-	bh=hg5HOedH0VT2kuJxh85hrVEba0JlCtOgEQLgr00dUhI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=POfFN2ndXbuFtXFNRKrRvkkmMMRoEt/++2zFQfI7RUjpk59lKR56GTIn6296o4WACnwCtTatxZGJAQ8MGl64BqdGHychCn3aXZQAuKb827CM98Qvq22iLvSmSSkLoB9qQspjedz+GxVMoIDfEO1M3OF79DQ9kaCLPDei3JLiS8U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CF0701F00A3E;
-	Tue,  8 Sep 2026 14:33:02 +0000 (UTC)
-Message-ID: <1ef2c31d-6ad5-46cd-98ca-0f31485cf8c1@kernel.org>
-Date: Tue, 8 Sep 2026 16:32:59 +0200
+	s=arc-20240116; t=1788878131; c=relaxed/simple;
+	bh=i0ebjrzllE9a+RJMjGlK4kAZEGdsP5r+YMP40Y27aFM=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=MmT8KALjtPw2Pgq7qcyx2uK31CTAvDA5NebOBiifC6KEe4Wkp+2fKtxoFY/GdLGCUPqvC9dFBZOLwMe6T1AraERkpvTA8OD+Mt+TwhB+6p3SJOfPz0jOqBf/N/NcwkxTcQEsmPk0Z1JVS5ef+5h2Ilo2QwpZoqHyXBeb5K6oa90=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YXuIcb0o; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YXuIcb0o"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F0DAC1F00A3F;
+	Tue,  8 Sep 2026 14:35:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788878123;
+	bh=ohLVhV+vK2hN/lzyGqNK6/ZnRj8cPzMGLS+edC/u0TE=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=YXuIcb0oHtVxmTaaTOmZaVKppO3iR0VLad2tU6WIJKab+W12QMtu0r5wjceeBkJap
+	 1fHoWaJ1CL5dotJC28xJLRpj0Ryzobf5sdHPwLbvsLXwmy9vbEwSBxFJlp9k43SbdH
+	 7LPncrfmrQtDFmtd1glP48+I7ULFBYFdlDCi4rdBSsg9YlW8jpmch/8bk/xkxv5xV9
+	 CIb4OFTzaeecZ02u8FwyV/XwFor0wyaxRCQkc9f5y60NjqFVf8VKmT+5vhGn2Hz8U6
+	 ta7wjpdOhLbd2C/aAjR/7WmlvnjExOWe+JC30p/kQW9mnTMJi1FoX4a4lms5vN17dN
+	 BCBRiJDODEm7Q==
+From: Maxime Ripard <mripard@kernel.org>
+Date: Tue, 08 Sep 2026 16:35:03 +0200
+Subject: [PATCH v3 02/11] drm/atomic: Create function to insert CRTC state
+ into a commit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 02/24] x86/elf, um/x86/elf: Move relocation constants
- to UAPI
-To: Borislav Petkov <bp@alien8.de>,
- =?UTF-8?Q?Thomas_Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>
-Cc: Paul Walmsley <paul.walmsley@sifive.com>,
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
- Alexandre Ghiti <alex@ghiti.fr>, Nathan Chancellor <nathan@kernel.org>,
- Nick Desaulniers <nick.desaulniers+lkml@gmail.com>,
- Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
- Andy Lutomirski <luto@kernel.org>,
- Vincenzo Frascino <vincenzo.frascino@arm.com>, Kees Cook <kees@kernel.org>,
- Ingo Molnar <mingo@redhat.com>, Dave Hansen <dave.hansen@linux.intel.com>,
- x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>,
- Richard Weinberger <richard@nod.at>,
- Anton Ivanov <anton.ivanov@cambridgegreys.com>,
- Johannes Berg <johannes@sipsolutions.net>,
- Russell King <linux@armlinux.org.uk>,
- Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
- Madhavan Srinivasan <maddy@linux.ibm.com>,
- Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>,
- Huacai Chen <chenhuacai@kernel.org>, WANG Xuerui <kernel@xen0n.name>,
- Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
- Alexander Gordeev <agordeev@linux.ibm.com>,
- Christian Borntraeger <borntraeger@linux.ibm.com>,
- Sven Schnelle <svens@linux.ibm.com>,
- Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
- Miguel Ojeda <ojeda@kernel.org>, Alex Gaynor <alex.gaynor@gmail.com>,
- Gary Guo <gary@garyguo.net>, =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?=
- <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>,
- Andreas Hindborg <a.hindborg@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
- Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>,
- Thomas Gleixner <tglx@kernel.org>, Boqun Feng <boqun@kernel.org>,
- Nicolas Schier <nsc@kernel.org>, linux-riscv@lists.infradead.org,
- linux-kernel@vger.kernel.org, llvm@lists.linux.dev, linux-mm@kvack.org,
- linux-um@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- linuxppc-dev@lists.ozlabs.org, loongarch@lists.linux.dev,
- linux-s390@vger.kernel.org, linux-mips@vger.kernel.org,
- rust-for-linux@vger.kernel.org, linux-kbuild@vger.kernel.org,
- Jan Stancek <jstancek@redhat.com>, Arnaldo Carvalho de Melo
- <acme@redhat.com>, Alexandre Ghiti <alexghiti@rivosinc.com>
-References: <20260908-vdso-absolute-reloc-v5-0-3a93791af1cf@linutronix.de>
- <20260908-vdso-absolute-reloc-v5-2-3a93791af1cf@linutronix.de>
- <20260908135513.GAaqATwXHcQD7plnH-@fat_crate.local>
-Content-Language: fr-FR
-From: "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>
-In-Reply-To: <20260908135513.GAaqATwXHcQD7plnH-@fat_crate.local>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260908-drm-reset-state-flag-v3-2-905570f387a4@kernel.org>
+References: <20260908-drm-reset-state-flag-v3-0-905570f387a4@kernel.org>
+In-Reply-To: <20260908-drm-reset-state-flag-v3-0-905570f387a4@kernel.org>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>
+Cc: Daniel Stone <daniels@collabora.com>, 
+ Harry Wentland <harry.wentland@amd.com>, 
+ Jocelyn Falempe <jfalempe@redhat.com>, 
+ =?utf-8?q?Jonas_=C3=85dahl?= <jadahl@redhat.com>, 
+ =?utf-8?q?Michel_D=C3=A4nzer?= <mdaenzer@redhat.com>, 
+ Pekka Paalanen <pekka.paalanen@collabora.com>, 
+ Sebastian Wick <sebastian.wick@redhat.com>, Simon Ser <contact@emersion.fr>, 
+ Victoria Brekenfeld <victoria@system76.com>, 
+ Xaver Hugl <xaver.hugl@kde.org>, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, Maxime Ripard <mripard@kernel.org>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2732; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=i0ebjrzllE9a+RJMjGlK4kAZEGdsP5r+YMP40Y27aFM=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFkLZKWljCJ9Odhma/RYf+YLudotPzmx1SDaoCqaRXNuy
+ 2K7NKGOqSwMwpwMsmKKLE9kwk4vb19c5WC/8gfMHFYmkCEMXJwCMJH97xnrvXP7My8E5l96uWYR
+ Q/TE5+0Ohf/5zmmft3As5E1aGGS36pbcopLWY3bL3/7cmTbtrWEKY52dZP25bw2vbyzue38xQzZ
+ wxZ+pz45JOfC/6VnS3nzmwP6/+RxblfofRW06ESwS47FftQUA
+X-Developer-Key: i=mripard@kernel.org; a=openpgp;
+ fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 
+drm_atomic_get_crtc_state() allocates a new CRTC state by duplicating
+the current one and inserts it into the atomic commit as a single
+operation.
 
+However, a later change will need to insert a CRTC state into a
+commit without going through the full allocation and duplication path
+in drm_atomic_get_crtc_state().
 
-Le 08/09/2026 à 15:55, Borislav Petkov a écrit :
-> On Tue, Sep 08, 2026 at 08:33:36AM +0200, Thomas Weißschuh wrote:
->> These constants are useful for cross-platform userspace, for example to
->> process ELF files during kernel cross-compilation.
->>
->> Move them from the kernel-private architecture-specific header to the UAPI.
-> 
-> Why UAPI?
-> 
-> Why not include/linux/ ?
-> 
+Extract the state insertion logic into a new static
+drm_atomic_commit_set_crtc_state() helper, and convert
+drm_atomic_get_crtc_state() to use it.
 
-I guess because on some architectures it is already in UAPI, see for 
-instance powerpc in patch 5 ?
+Signed-off-by: Maxime Ripard <mripard@kernel.org>
+---
+ drivers/gpu/drm/drm_atomic.c | 29 +++++++++++++++++++++++------
+ 1 file changed, 23 insertions(+), 6 deletions(-)
 
-Christophe
+diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
+index 5c0f7b7024d1..153d959bd4ff 100644
+--- a/drivers/gpu/drm/drm_atomic.c
++++ b/drivers/gpu/drm/drm_atomic.c
+@@ -421,10 +421,27 @@ void __drm_atomic_commit_free(struct kref *ref)
+ 
+ 	drm_dev_put(dev);
+ }
+ EXPORT_SYMBOL(__drm_atomic_commit_free);
+ 
++static int drm_atomic_commit_set_crtc_state(struct drm_atomic_commit *commit,
++					    struct drm_crtc *crtc,
++					    struct drm_crtc_state *crtc_state)
++{
++	int index = drm_crtc_index(crtc);
++
++	drm_modeset_lock_assert_held(&crtc->mutex);
++
++	commit->crtcs[index].state_to_destroy = crtc_state;
++	commit->crtcs[index].old_state = crtc->state;
++	commit->crtcs[index].new_state = crtc_state;
++	commit->crtcs[index].ptr = crtc;
++	crtc_state->state = commit;
++
++	return 0;
++}
++
+ /**
+  * drm_atomic_get_crtc_state - get CRTC state
+  * @state: global atomic state object
+  * @crtc: CRTC to get state object for
+  *
+@@ -443,11 +460,11 @@ EXPORT_SYMBOL(__drm_atomic_commit_free);
+  */
+ struct drm_crtc_state *
+ drm_atomic_get_crtc_state(struct drm_atomic_commit *state,
+ 			  struct drm_crtc *crtc)
+ {
+-	int ret, index = drm_crtc_index(crtc);
++	int ret;
+ 	struct drm_crtc_state *crtc_state;
+ 
+ 	WARN_ON(!state->acquire_ctx);
+ 	drm_WARN_ON(state->dev, state->checked);
+ 
+@@ -461,15 +478,15 @@ drm_atomic_get_crtc_state(struct drm_atomic_commit *state,
+ 
+ 	crtc_state = crtc->funcs->atomic_duplicate_state(crtc);
+ 	if (!crtc_state)
+ 		return ERR_PTR(-ENOMEM);
+ 
+-	state->crtcs[index].state_to_destroy = crtc_state;
+-	state->crtcs[index].old_state = crtc->state;
+-	state->crtcs[index].new_state = crtc_state;
+-	state->crtcs[index].ptr = crtc;
+-	crtc_state->state = state;
++	ret = drm_atomic_commit_set_crtc_state(state, crtc, crtc_state);
++	if (ret) {
++		crtc->funcs->atomic_destroy_state(crtc, crtc_state);
++		return ERR_PTR(ret);
++	}
+ 
+ 	drm_dbg_atomic(state->dev, "Added [CRTC:%d:%s] %p state to %p\n",
+ 		       crtc->base.id, crtc->name, crtc_state, state);
+ 
+ 	return crtc_state;
+
+-- 
+2.55.0
+
