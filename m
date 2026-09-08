@@ -1,247 +1,183 @@
-Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11011036.outbound.protection.outlook.com [52.101.52.36])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from va-2-40.ptr.blmpb.com (va-2-40.ptr.blmpb.com [209.127.231.40])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97C773D88F7
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 08:41:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.52.36
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788856892; cv=fail; b=Ws6poUzLphOrw3jGgsix0keQjZlegHzBjIbiCdBCxS8lmazk64DGL/W98h1qJNWjksMf/cgJcqJrOSU/wyR0oLQWiD3k+j2grR/KKCx9iHCZwoMZYKdWNc6mj6leNdfXoWjXfMnsHK6iGtuyvxJzC7ySJkuPSDWUAm9LAAvn7/w=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788856892; c=relaxed/simple;
-	bh=UZwjtQhyUkICgreryu2WOPt+4Unznjl33n+dXxEJTmU=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=rx2VtM868d2KRzgHQgWSnqJYdHXYaIDEs00n140oS+yQVgn62yChUpqxIag7kctrE+1CqgoZE88zAJ7f1cjcvNFr1rG3enmLsphJnaqY8NTk1gYLJtmMvv9sXR+1v7eZHEs7+tkTvcuKv8g+t8CJ32pTfID+mV26kUErlnFIGUc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=rk/bvfe/; arc=fail smtp.client-ip=52.101.52.36
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24D6B47D450
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 08:41:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.231.40
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788856904; cv=none; b=pZKCPjKs/6UVjg0Gp87sT1bN2Q2/e/lSVaFoy9zrhCXrBXGK+7lSZODjm/ZO8anzeQ1a2r4aJLfUcVQpINUS/zEXXuKx5C7Vr9nRlV7fvJ4i4hTOq8tpGKE/SNwJTlfuczK8BR/+GfHWuACGOx5agfoqYs7kWrv2Yy9CE4kHtp4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788856904; c=relaxed/simple;
+	bh=wY3VV5WDN1nI99aH2yAc9UFlxwaH9JlgtrHoShr7BTI=;
+	h=To:Date:From:Message-Id:Subject:Content-Type:Cc:Mime-Version; b=BkjCvqQ5vDRMv4YFE83C7cMz93/+ZHL5WjMeBxTrZsyS7mSNHH3/9Vlt6z2M9Fy3G/X+ip6bV0qCVACxmdbhHrPNtFWX2CFvEa+TkhVbqOOkNB5fn9klB+cNXAFkmc/Lv55kDnX+mVu0U804yqJgXHGG0lAfy9tR3b7CyMmhPcM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=moonshot.ai; spf=pass smtp.mailfrom=moonshot.ai; dkim=pass (2048-bit key) header.d=moonshot.ai header.i=@moonshot.ai header.b=igU+VauJ; arc=none smtp.client-ip=209.127.231.40
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=moonshot.ai
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=moonshot.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="rk/bvfe/"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=qyHBxKch2ca5sz+b0F2s5LX4tn+6Fa9ZMKJFpEdPQI/JKF4lXF47cZGLaEMqfJ+p27dmNi2XuE/efGE7IFNnv0db3/zr5EDm6ECm8bF0uszCFBq9JHICbPMaHbsqS58aTKituuS3c9V4xIYg5OTzw0pHWDn9NcbqfiHa54CghNudIiDxg3wXIqky5zr7SAkdlNVyHjJc2/L1cThIviK9S3qRmTgFUC/fZd2Ci1IXdR9RbF6Po186qp1Ru8cFh1EHPcCBTvhvzlO191GR2WGsX3WIdb37CGfVEZSzjB33XpyjgLh7E8n0lk5NzhIu6F5Xgb5SFk1hAWeJKPuDrq8N2A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=UZwjtQhyUkICgreryu2WOPt+4Unznjl33n+dXxEJTmU=;
- b=xhHDD7iX8yJ0759yD0eY0bdPzsDgAaq5WRq/7Xleba2DEIfJ+NLS0sk77amcHsqvd4L4wHXY/Ql5LCcPU6fDlyRR0IRu7mT+oZkOvQTpNk6m3vAqGp6N/9A3AuNiV2pTZ/6A8KBNkuWFfLFbxLuc0sXj9720KaFChl6N8H9tB3dsMW0kI6lfCmj0PltNeOb45Ey5nhGHXLmXCJ3E7n9LGnwyZd1It4/6+0YqnqvZkEcHtt/m/Og+lUPS1a7kEjqWmSb0MofnB3nhD1PnJYDI6XQuebz7sxahIEE5GLqOdEupKXhpaNMMAyAsj7fn3+01PqFO4/iN0Lfl1NzdLUQZ0w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=UZwjtQhyUkICgreryu2WOPt+4Unznjl33n+dXxEJTmU=;
- b=rk/bvfe/EzMJ9wbUmiXmiCxgnN3Ni/PqIBbcPJAkp+cnx6yRoo70NpXKWATVvYwRnro3trR3ZO0tckZ5RbJe1uKxhGLPgfPc8K+mINfgLVyQe2yH7EXo9/DOBaiI3QXc8jGy0gu26DLwIe2+pnGIMUJfSALO752mwsIV7zGHXY8=
-Received: from BN9PR12MB5259.namprd12.prod.outlook.com (2603:10b6:408:100::17)
- by DS7PR12MB8084.namprd12.prod.outlook.com (2603:10b6:8:ef::5) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.382.15; Tue, 8 Sep 2026 08:41:25 +0000
-Received: from BN9PR12MB5259.namprd12.prod.outlook.com
- ([fe80::122c:cca7:c2b3:90ed]) by BN9PR12MB5259.namprd12.prod.outlook.com
- ([fe80::122c:cca7:c2b3:90ed%2]) with mapi id 15.21.0382.007; Tue, 8 Sep 2026
- 08:41:25 +0000
-From: "Garg, Shivank" <shivankg@amd.com>
-To: "dev.jain@arm.com" <dev.jain@arm.com>, "baohua@kernel.org"
-	<baohua@kernel.org>
-CC: "hughd@google.com" <hughd@google.com>, "rppt@kernel.org"
-	<rppt@kernel.org>, "chrisl@kernel.org" <chrisl@kernel.org>,
-	"shikemeng@huaweicloud.com" <shikemeng@huaweicloud.com>, "harry@kernel.org"
-	<harry@kernel.org>, "vbabka@kernel.org" <vbabka@kernel.org>,
-	"riel@surriel.com" <riel@surriel.com>, "akpm@linux-foundation.org"
-	<akpm@linux-foundation.org>, "david@kernel.org" <david@kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"nphamcs@gmail.com" <nphamcs@gmail.com>, "surenb@google.com"
-	<surenb@google.com>, "linux-mm@kvack.org" <linux-mm@kvack.org>,
-	"youngjun.park@lge.com" <youngjun.park@lge.com>, "anshuman.khandual@arm.com"
-	<anshuman.khandual@arm.com>, "ryan.roberts@arm.com" <ryan.roberts@arm.com>,
-	"kasong@tencent.com" <kasong@tencent.com>, "liam@infradead.org"
-	<liam@infradead.org>, "jannh@google.com" <jannh@google.com>,
-	"baolin.wang@linux.alibaba.com" <baolin.wang@linux.alibaba.com>,
-	"ljs@kernel.org" <ljs@kernel.org>, "lance.yang@linux.dev"
-	<lance.yang@linux.dev>, "mhocko@suse.com" <mhocko@suse.com>,
-	"baoquan.he@linux.dev" <baoquan.he@linux.dev>, "pfalcato@suse.de"
-	<pfalcato@suse.de>
-Subject: Re: [PATCH v2 5/8] mm/internal: rename swap offset helpers to
- softleaf offset
-Thread-Topic: [PATCH v2 5/8] mm/internal: rename swap offset helpers to
- softleaf offset
-Thread-Index: AQHdP23TCl1MibJBN0esUfaGpg2m3g==
-Date: Tue, 8 Sep 2026 08:41:25 +0000
-Message-ID: <e69e68f58afb8001613b710df6a602d490581292.camel@amd.com>
-References: <20260901054358.4049095-1-dev.jain@arm.com>
-		 <20260901054358.4049095-6-dev.jain@arm.com>
-		 <CAGsJ_4yigbhqkrnufJKC2+rW7StraQvD0gr=4HQkTjKGQ9siGQ@mail.gmail.com>
-		 <12efdc7f-ff82-412b-b79d-bff211d34218@arm.com>
-		 <CAGsJ_4y7V40CnTTh=84=Ek6T3tPTyLXsUtgO81O1zyZpmQcbug@mail.gmail.com>
-		 <8cc0b340-9526-47ac-abd4-3f5724963409@arm.com>
-In-Reply-To: <8cc0b340-9526-47ac-abd4-3f5724963409@arm.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: BN9PR12MB5259:EE_|DS7PR12MB8084:EE_
-x-ms-office365-filtering-correlation-id: 144aaca8-f36a-4100-497f-08df0d84f7a2
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|376014|366016|1800799024|23010399003|7416014|11063799006|4143699003|6133799003|56012099006|3023799007|10067099003|22082099003|18002099003|38070700021;
-x-microsoft-antispam-message-info:
- bPUdkvW860hR+gEpYpFlE69dRMjJPCpbiv6MPTq5V7Ra4Kwn9SlN5l3rGm0saPvh8uvMSs4gxXo3NFk7h/O2BH3Rbkfq0r+uOaPJe4uG77QSePnsTwOqkHRvCdE6u4B7tjtTQ2xetbeavafpE9B4P8mN4epTsIPNQtaN+wlGcacKfIC/hg2F4U8pXA3FswWHbzoHWPuT451XA3QkXNzHUNa0F6ZvyfvyuoqPOyIymGtl9IDqMqeJCCmHOAy+HuBJyBMkaYWQgvqs2Y8iQfHHVlb7qT3rQmUVzhueNvjPO6werg/gH+9W8uj6NAyAuZMj3pekkCqaoGlR/e3pGgFDBS9ciF2iFpC8KnpH9egCdhMWUVm6GPmBO2NjptC9tO2TgUeihY+UomdUUk0exjKfj6jtu87/8qNpJ1fku4H13mwQKrRIP6yw5MQVfxW1kxEIc0o+KCCVJ4YcVBqOjjkAhrOyfdYfXVUuoq7GqFUyukPyxBFYtf51AFL0thdnZhYpwVW6AaEXjbXfU2YjFG+GS56igp6eiBMjyszLezcitoeRuQu5W89aTW4GTa34RNxZTt+R8hTftc6e5gdoM9dnIW+dn0z3VAP7E7fbMSruYk2xJz87uuZo1hjt5/KN79UEPCPil2XLDvYTj9ur9otfgOGurXaoX9udxgN0XbdJzrMJZjduF5SBWkGs7wYfPfGVu2wfcSM149Qi9HSGuHhgaDe2280Cf99i82OlW5tSh8E=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BN9PR12MB5259.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024)(23010399003)(7416014)(11063799006)(4143699003)(6133799003)(56012099006)(3023799007)(10067099003)(22082099003)(18002099003)(38070700021);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?azdEZ3J4QjNiZk52Mk1HNU94L2F3V1huRlcrK0pXRE43cDY4YUdFMGovQlFX?=
- =?utf-8?B?a1pqMUkrbXNna0NiRGlxTmlteVA1RlV6N2dqbkxVSDVZVTlCOW41Q01JUWM2?=
- =?utf-8?B?TllKQzQwR2kzc2J5dGUrbTlqYjQvSnM5OThUWFNUT2Z0c3UrV2F2cGJpWS80?=
- =?utf-8?B?Y0RTMVQvU1J1TDAvMGRocjZnQ3dwZkVMcEN0UW1Sa3g5SDVoV3FOR296UlBD?=
- =?utf-8?B?aTNnSkhtZExlbUUvRTRxYkZtWjNrdk9HdWxqTFplZ1MzaThzQ1dXS1dFSER1?=
- =?utf-8?B?VWdvSVB1UmVEZ0Q4NlQxUDA2VFhXdW9xa0RVcktocVUrK05JZVhUMlF6Vms3?=
- =?utf-8?B?RWxYcUZkeTFIYWNuOFJBbVU0OG01akVFS0VYOGlWZWU1MWRMN1ppdjlxbHNj?=
- =?utf-8?B?THBiMTB6cXhHYzMwQTc5RGpnT1BTVHVqRVFnSG9YRUZlc3ptQ0lOeFY0TjVj?=
- =?utf-8?B?akQ0SjlBNDk3ZjBLOWl1VWFMeDhBNEpmSGFQS1FFZ1JlU01FWGg2akFPWUlN?=
- =?utf-8?B?R2dhNXhCMVhBWkFNbG1PcndXZnJjbk80MURBRzkwdVpycmw3ODk5TzB3bXRZ?=
- =?utf-8?B?ZVdKaVZPSzhoT1d6dDd0c0Yvb2syMjBaeHZkeUdoalBobEpOODF0eXFkYUpl?=
- =?utf-8?B?RHJqcWJGR1BjWHpTSHgzTk1IM0xiL05lcm5ENmo4NGxLclZaVTRJaEUwMGU4?=
- =?utf-8?B?d3VKNnc4Z0kxZ0pxQThsSHA0NEFnL21WbU1WUXZaZVB5ZWFaZ1hDdEtzSFNz?=
- =?utf-8?B?ZDVuQVhhRlRDZVozSUJma0dwUHBkY1Zuem1seE43S0NjNFdlMFlXN3RjNmNK?=
- =?utf-8?B?bTRoUzY1eEVmRURMbEpJYWxLVWNqNkl6SWRkczBpT3BrOEFTV3BkWTBWeXVI?=
- =?utf-8?B?NmdpRWdiSmpHbU4wek83ZkhYUG81ZExJNGFld3R3T2l4K0JReUdUOTlKcTdL?=
- =?utf-8?B?aE1Md0x2VzBnMlNZVGFYMHphMGN1dHVndlI5UFFma1VOM0dmNFBicjc3ejYy?=
- =?utf-8?B?dFBTdFFTTnRNb2w4Q0lnMEVuTGI3eDlsc3d6LzhqVWZpR3NsdFdZN2c2cnJs?=
- =?utf-8?B?NGRkdWNySzRyT1FlQVBFeENVSlc4djJ4dG5jOUErc2UxLzdiY0Z6dzkzTkE0?=
- =?utf-8?B?Q213Nk1lVHdkdVVvaGFVN2NHbEE4NCt5cnJrUDhWZTZDMytPd1pYakZoem1P?=
- =?utf-8?B?OS83Z04yeS9QWXlRWGRZRXNNL0FUdEl2dTRpTzM3emNDTDdSZWdKemtQMnEw?=
- =?utf-8?B?ZDJ2Kzdtc2hpc2hMK3dmN2hPbGVLZ1ZaR0FDM2VKMlJRVzljbkc2YndZS1lv?=
- =?utf-8?B?SGlVTnFDZnBCOWRWVjdIU1lIQUFtWE5SQjdMeFpCWUcxQUtOdFhaZWlFRito?=
- =?utf-8?B?MWFzaWIrUXBiZkt4TzdZOGNsUFJNRHB1amMxZjY5MUFoTkNVdTd6Y1hpQ0hG?=
- =?utf-8?B?MytkRGI5Mk1hOEVqczdPSDVycTJEQWlNVitFQkMybnVyemRSOTlmN0EveGts?=
- =?utf-8?B?OE1yeTNpVmZxZnpheW9yZFA5RXBkZ1VnMGcvRWM2QmNTWFozMFRZeUlxWk1l?=
- =?utf-8?B?NzA5eTRRN0RyQU9mejhVR0xsSDF4dVhXTlVLeDNFMjZnaUJJd2V4K2l4dlhK?=
- =?utf-8?B?ZTJ5MG5Tbk9YUi9kTGlvWlM4aFhwNytVaGFDNEZ3bjBGQXhHR0o0OGJsOE5W?=
- =?utf-8?B?dmNIcHcxTlo5WVExQ0c3YzZ3bHJNSkc0cjV6NUcwSjZoM3d2bmM1ckxWb2Qx?=
- =?utf-8?B?eE9ObFdkT3hkUDVhKzZhaWk1c3B4cklDeUZDMUxDWnFmVVdRdi81RXFnVTk5?=
- =?utf-8?B?TXpHNFBudytmM0d4b1ZkakwrdjBGL05RNm1YdnZaalV3OGpDN3RnK05YZ0g3?=
- =?utf-8?B?d21PSFFiUnZ0K3l5THNQUjRXYXpSYi9MWWt2d01XS3FoaTRvSnlWeTlBQktw?=
- =?utf-8?B?UzBoTFFQWkgxNGt6QmZKY0FGY0VtVzFQcDJlcVQ4SGk4Z2ltMjZxNnFXU0hQ?=
- =?utf-8?B?cHhzZFZHQzJUVElkOHN0cy9CejlUWWRZTWdCN1FvbkE5VXBKZFUwRlVlV0I0?=
- =?utf-8?B?UithRnFPK2NuMzRMWHlUcFM1TlhpbzFvdDQ3bWx4YkxVcC9lVFRBZFYrRGQ1?=
- =?utf-8?B?TUt6b0JvNEp4cVFBNmZxY2lOUUJ0amhjWVcxYkVUV1liNGNCZFhOYWE3bjJL?=
- =?utf-8?B?TUpNY0lBNGtCbHhtWlppWjNaZEdDRFc5cjJ5OGFIRitidm4wNE5Od0lnNWsw?=
- =?utf-8?B?QUIyVG8yRFhReW1lZitqNmV2ZEJ5MHlEUUxkNU5aQVFzOHBHNjVGdUZPTmx1?=
- =?utf-8?B?U2VFME9reENtZEJEMDV2d3IvZUMrSUNKZ1dhbTVJcGFGU2ZYVC9BUT09?=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <B481BF83AAE8B34BB8E311537F64C9B8@namprd12.prod.outlook.com>
-Content-Transfer-Encoding: base64
+	dkim=pass (2048-bit key) header.d=moonshot.ai header.i=@moonshot.ai header.b="igU+VauJ"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=feishu2510091218; d=moonshot.ai; t=1788856886; h=from:subject:
+ mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
+ mime-version:in-reply-to:message-id;
+ bh=5o7fWMlFekwwncUURIGYfK7rbrZX2OhHQRVSVrU9p+w=;
+ b=igU+VauJ8HLhNVdaQf16qG27f3O9AROpbiVYrV+3fvNwBlwVMYcp5svve6kEboFl/LN4M2
+ mW9kFqvmDVO9esq6fJk5TtdD/P8gYWb/RNOL7mhaDPIAXEPvE5zt2bOiQYIyVsSakfbt/g
+ GkKS8oHbkVMY/GTkpHJxWwX8K6tZ3Xt9Yj7exbHWrn39Zp8+aBuYJ/BQQeXZJNqF2uDwC3
+ gmy+evkeJVDvnwQQkwXrw7GfiMrM4cjPIyQ4PBxVF15s5o+Fu1fdjDlgmOGeqhIX+TOkHj
+ smw/BEzrpxnhzOk3N/I9XwFMvMsbVkau72Zt/2EnGHOhcwvnM9eaUGMZ27fL3Q==
+To: "Paul Mackerras" <paulus@ozlabs.org>
+Date: Tue,  8 Sep 2026 16:41:16 +0800
+X-Lms-Return-Path: <lba+26a9fca35+6aa51c+vger.kernel.org+yilinzhang@moonshot.ai>
+From: "Yilin Zhang" <yilinzhang@moonshot.ai>
+Message-Id: <20260908084116.634633-1-yilinzhang@moonshot.ai>
+Received: from dev.msh-dev.svc.cluster.local ([117.157.206.135]) by smtp.feishu.cn with ESMTPS; Tue, 08 Sep 2026 16:41:23 +0800
+Subject: [PATCH net v2] ppp: enforce minimum MTU/MRU to fix Deflate buffer underflows
+Content-Type: text/plain; charset=UTF-8
+Cc: "Yilin Zhang" <yilinzhang@moonshot.ai>, <linux-ppp@vger.kernel.org>, 
+	<netdev@vger.kernel.org>, <linux-kernel@vger.kernel.org>, 
+	"Kimi Security Team" <bug-report@moonshot.ai>, 
+	"Weiming Shi" <shiweiming@moonshot.ai>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5259.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 144aaca8-f36a-4100-497f-08df0d84f7a2
-X-MS-Exchange-CrossTenant-originalarrivaltime: 08 Sep 2026 08:41:25.1330
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: hzu4NDJxSZ5Ifq+uSx41yU0qmqqojVBV26KDlzJc4FITN31qCfAd7QenssK4C31GwxrCJzLzG62Pu4p/w85L6g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB8084
+Mime-Version: 1.0
+X-Original-From: Yilin Zhang <yilinzhang@moonshot.ai>
+Content-Transfer-Encoding: 7bit
+X-Mailer: git-send-email 2.34.1
 
-T24gVHVlLCAyMDI2LTA5LTA4IGF0IDExOjA4ICswNTMwLCBEZXYgSmFpbiB3cm90ZToNCj4gDQo+
-IE9uIDA4LzA5LzI2IDM6MDMgYW0sIEJhcnJ5IFNvbmcgd3JvdGU6DQo+ID4gT24gTW9uLCBTZXAg
-NywgMjAyNiBhdCAxOjM44oCvUE0gRGV2IEphaW4gPGRldi5qYWluQGFybS5jb20+IHdyb3RlOg0K
-PiA+ID4gDQo+ID4gPiANCj4gPiA+IA0KPiA+ID4gT24gMDUvMDkvMjYgNDoxMiBwbSwgQmFycnkg
-U29uZyB3cm90ZToNCj4gPiA+ID4gT24gVHVlLCBTZXAgMSwgMjAyNiBhdCAxOjQ04oCvUE0gRGV2
-IEphaW4gPGRldi5qYWluQGFybS5jb20+IHdyb3RlOg0KPiA+ID4gPiA+IA0KPiA+ID4gPiA+IElu
-IHByZXBhcmF0aW9uIGZvciBhZGRpbmcgYSBoZWxwZXIgdG8gc2V0IHNvZnRsZWFmIHB0ZXMgaW4g
-b25lIGdvLA0KPiA+ID4gPiA+IGdlbmVyYWxpemUgdGhlIHN3YXAgZW50cnkgaGVscGVycyBzaGlm
-dGluZyB0aGUgc3dhcCBvZmZzZXQgYnkgZGVsdGEsDQo+ID4gPiA+ID4gZm9yIHNvZnRsZWF2ZXMu
-DQo+ID4gPiA+ID4gDQo+ID4gPiA+ID4gTm90ZSB0aGF0IHRoZSBzb2Z0LWRpcnR5IGJpdCwgZXhj
-bHVzaXZlIGJpdCBhbmQgdWZmZCBiaXQgcHJlc2VydmF0aW9uDQo+ID4gPiA+ID4gd2lsbCBzdGls
-bCB3b3JrIGZvciBub24tc3dhcCBzb2Z0bGVhdmVzLCBzaW5jZSBhIHNvZnRsZWFmIGVudHJ5IGlz
-DQo+ID4gPiA+ID4gY29uc3RydWN0ZWQgb3V0IG9mIGEgdHlwZSBhbmQgb2Zmc2V0LCBhbmQgdGhv
-c2UgYml0cyBhcmUgYWhlYWQgb2YNCj4gPiA+ID4gPiB0aGUgc29mdC1kaXJ0eSwgZXhjbHVzaXZl
-IGFuZCB1ZmZkIGJpdHMuDQo+ID4gPiA+ID4gDQo+ID4gPiA+ID4gRm9yIGV4YW1wbGUsIGZvciBh
-IG1pZ3JhdGlvbiBlbnRyeSwgcHRlX3N3cF9leGNsdXNpdmUoKSB3aWxsIHJldHVybg0KPiA+ID4g
-PiA+IGZhbHNlLCBhcyB0aGUgZXhjbHVzaXZpdHkgaXMgZW5jb2RlZCBpbiB0aGUgdHlwZSBpdHNl
-bGYNCj4gPiA+ID4gPiAoU09GVExFQUZfTUlHUkFUSU9OX1JFQURfRVhDTFVTSVZFKS4NCj4gPiA+
-ID4gDQo+ID4gPiA+IEkgZG9uJ3QgcXVpdGUgdW5kZXJzdGFuZCB3aHkgeW91IG1lbnRpb24gdGhp
-cy4gSXMgYW55b25lIGNhbGxpbmcNCj4gPiA+ID4gYHB0ZV9zd3BfZXhjbHVzaXZlKClgIG9uIGEg
-bWlncmF0aW9uIGVudHJ5PyBTaG91bGRuJ3QgaXQgb25seSBiZSBjYWxsZWQNCj4gPiA+ID4gd2hl
-biBgc29mdGxlYWZfaXNfc3dhcCgpYCBpcyB0cnVlPw0KPiA+ID4gDQo+ID4gPiBZb3UgYXJlIHJp
-Z2h0LiBJIGp1c3Qgd2FudGVkIHRvIGVtcGhhc2l6ZSB0aGUgc2Vjb25kIHBhcmFncmFwaCAtIHRo
-YXQgdGhlDQo+ID4gPiBwdGVfbW92ZV9zd3Bfb2Zmc2V0IHdpbGwgYWxzbyB3b3JrIGZvciBzb2Z0
-bGVhZiBlbnRyaWVzLiBCdXQgSSB0aGluaw0KPiA+ID4gdGhlIHRoaXJkIHBhcmEgY29uZnVzZXMg
-bW9yZSwgSSdsbCBkcm9wIGl0Lg0KPiA+IA0KPiA+IEkgd291bGQgcmF0aGVyIGludGVycHJldCB0
-aGlzIGFzIG1lYW5pbmcgdGhhdA0KPiA+IGBwdGVfbW92ZV9zb2Z0bGVhZl9vZmZzZXRgIHdpbGwg
-YWxzbyB3b3JrIGZvciBzd2FwIHNvZnRsZWFmcywNCj4gPiBzaW5jZSBgcHRlX21vdmVfc29mdGxl
-YWZfb2Zmc2V0YCB3aWxsIGNhbGwgc29tZSBwdXJlLXN3YXANCj4gPiBmdW5jdGlvbnPvvJ8NCj4g
-DQo+IFllcywgc28gaWYgeW91IHNlZSByZW1vdmVfbWlncmF0aW9uX3B0ZSwgdGhlcmUgcHRlX3N3
-cF91ZmZkIGFuZA0KPiBwdGVfc3dwX3NvZnRfZGlydHkgYXJlIGJlaW5nIHVzZWQuIFNhbWUgd2l0
-aCByZXN0b3JlX2V4Y2x1c2l2ZV9wdGUNCj4gKGZvciBkZXZpY2UtZXhjbHVzaXZlIHN0dWZmKS4N
-Cj4gDQo+IFdoaWNoIG1lYW5zIHRoYXQgcHRlX3N3cF9leGNsdXNpdmUgaXMgdGhlIG9ubHkgb25l
-IGJlaW5nIHVzZWQNCj4gKm9ubHkqIGZvciBzd2FwIGVudHJpZXMuDQo+IA0KPiANCj4gPiANCj4g
-PiBXb3VsZCBpdCBiZSBwb3NzaWJsZSB0byB1c2UgYGlmIChzb2Z0bGVhZl9pc19zd2FwKCkpYCBm
-b3INCj4gPiB0aGVzZSBjYXNlcyB0byBtYWtlIHRoZSBpbnRlbnQgY2xlYXJlcj8gb3Igd2UgY2Fu
-DQo+ID4ga2VlcCBib3RoIHB0ZV9tb3ZlX3NvZnRsZWFmX29mZnNldCBhbmQgcHRlX21vdmVfc3dh
-cF9vZmZzZXQ/DQo+IA0KPiBTbyBpbiBteSBwYXRjaCBJIGNhbiBkbw0KPiANCj4gaWYgKHNvZnRs
-ZWFmX2lzX3N3YXAoZW50cnkpICYmIHB0ZV9zd3BfZXhjbHVzaXZlKHB0ZSkpDQo+IA0KPiBUaGF0
-IHdvdWxkIG1ha2UgdGhlIGludGVudCBjbGVhci4NCj4gDQo+IA0KPiA+IA0KPiA+IEFzIGBwdGVf
-bW92ZV9zb2Z0bGVhZl9vZmZzZXQoKWAgaXMgZ2V0dGluZyBhIGJpdCB3ZWlyZCBub3csDQo+ID4g
-YSBnZW5lcmljIHNvZnRsZWFmIGZ1bmN0aW9uIGhhcyBhIGxvdCBvZiBzd2FwLXNwZWNpZmljIGNv
-ZGUgaW4gaXQ6DQo+ID4gDQo+ID4gc3RhdGljIGlubGluZSBwdGVfdCBwdGVfbW92ZV9zb2Z0bGVh
-Zl9vZmZzZXQocHRlX3QgcHRlLCBsb25nIGRlbHRhKQ0KPiA+IHsNCj4gPiAgICAgICAgIGNvbnN0
-IHNvZnRsZWFmX3QgZW50cnkgPSBzb2Z0bGVhZl9mcm9tX3B0ZShwdGUpOw0KPiA+ICAgICAgICAg
-cHRlX3QgbmV3ID0gX19zd3BfZW50cnlfdG9fcHRlKF9fc3dwX2VudHJ5KHN3cF90eXBlKGVudHJ5
-KSwNCj4gPiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAoc3dwX29mZnNldChlbnRyeSkNCj4gPiArIGRlbHRhKSkpOw0KPiA+IA0KPiA+ICAgICAgICAg
-aWYgKHB0ZV9zd3Bfc29mdF9kaXJ0eShwdGUpKQ0KPiA+ICAgICAgICAgICAgICAgICBuZXcgPSBw
-dGVfc3dwX21rc29mdF9kaXJ0eShuZXcpOw0KPiA+ICAgICAgICAgaWYgKHB0ZV9zd3BfZXhjbHVz
-aXZlKHB0ZSkpDQo+ID4gICAgICAgICAgICAgICAgIG5ldyA9IHB0ZV9zd3BfbWtleGNsdXNpdmUo
-bmV3KTsNCj4gPiAgICAgICAgIGlmIChwdGVfc3dwX3VmZmQocHRlKSkNCj4gPiAgICAgICAgICAg
-ICAgICAgbmV3ID0gcHRlX3N3cF9ta3VmZmQobmV3KTsNCj4gPiANCj4gPiAgICAgICAgIHJldHVy
-biBuZXc7DQo+ID4gfQ0KPiA+IA0KPiA+IEFtIEkgbWlzc2luZyBzb21ldGhpbmcgaGVyZT8NCj4g
-PiANCj4gPiA+IA0KPiA+ID4gPiANCj4gPiA+ID4gPiANCj4gPiA+ID4gPiBTaWduZWQtb2ZmLWJ5
-OiBEZXYgSmFpbiA8ZGV2LmphaW5AYXJtLmNvbT4NCj4gPiA+ID4gDQo+ID4gPiA+IFJldmlld2Vk
-LWJ5OiBCYXJyeSBTb25nIDxiYW9odWFAa2VybmVsLm9yZz4NCj4gPiA+IA0KPiA+ID4gVGhhbmtz
-Lg0KPiA+ID4gDQo+ID4gPiANCj4gPiA+ID4gDQo+ID4gPiA+ID4gLS0tDQo+ID4gPiA+ID4gIG1t
-L2ludGVybmFsLmggfCAyOSArKysrKysrKysrKysrKystLS0tLS0tLS0tLS0tLQ0KPiA+ID4gPiA+
-ICBtbS9tZW1vcnkuYyAgIHwgIDQgKystLQ0KPiA+ID4gPiA+ICAyIGZpbGVzIGNoYW5nZWQsIDE3
-IGluc2VydGlvbnMoKyksIDE2IGRlbGV0aW9ucygtKQ0KPiA+ID4gPiA+IA0KPiA+ID4gPiBbLi4u
-XQ0KPiA+ID4gPiA+IA0KPiA+ID4gPiA+ICAvKioNCj4gPiA+ID4gPiBAQCAtNTIzLDcgKzUyNCw3
-IEBAIHN0YXRpYyBpbmxpbmUgcHRlX3QgcHRlX25leHRfc3dwX29mZnNldChwdGVfdCBwdGUpDQo+
-ID4gPiA+ID4gICAqLw0KPiA+ID4gPiA+ICBzdGF0aWMgaW5saW5lIGludCBzd2FwX3B0ZV9iYXRj
-aChwdGVfdCAqc3RhcnRfcHRlcCwgaW50IG1heF9uciwgcHRlX3QgcHRlKQ0KPiA+ID4gPiA+ICB7
-DQo+ID4gPiA+IA0KPiA+ID4gPiBXZSBtaWdodCBmaW5kIGEgdXNlciBmb3IgdGhpcyBpbiB0aGUg
-ZnV0dXJlLCBpbiB3aGljaCBjYXNlIHdlIG1pZ2h0DQo+ID4gPiA+IHdhbnQgdG8gcmVuYW1lIGBz
-d2FwX3B0ZV9iYXRjaCgpYCB0byBgc3dhcF9zb2Z0bGVhZl9iYXRjaCgpYD8NCj4gPiA+IA0KPiA+
-ID4gVGhhdCBpcyB3aGF0IGlzIGJlaW5nIGRvbmUgaGVyZToNCj4gPiA+IGh0dHBzOi8vbG9yZS5r
-ZXJuZWwub3JnL2FsbC8yMDI2MDgxMy1taWdyYXRlLXJtYXAtYmF0Y2gtdjItMS0zYzU0MjRjNTU1
-YzdAYW1kLmNvbS8NCj4gPiA+IA0KPiA+ID4gSSBkb24ndCBoYXZlIGEgc3Ryb25nIG9waW5pb24s
-IEkgY2FuIGFsc28gZ2VuZXJhbGl6ZSB0aGlzIHJpZ2h0IG5vdy4NCj4gPiANCj4gPiBJIGRvbid0
-IGtub3cgaG93IHlvdSBhbmQgU2hpdmFuayBhcmUgY29sbGFib3JhdGluZywNCj4gPiBzaW5jZSB5
-b3UncmUgYm90aCBjaGFuZ2luZyB0aGUgc2FtZSB0aGluZyBhdCB0aGUgc2FtZSB0aW1lIDotKQ0K
-PiANCj4gV2UgYXJlIG5vdCBjb2xsYWJvcmF0aW5nIHJlYWxseSA6ICkgaGUgc2hvdWxkIGhhdmUg
-aWRlYWxseSB3YWl0ZWQNCj4gZm9yIG15IHBhdGNoc2V0IHRvIGdvIGluIGZpcnN0IHNpbmNlIEkg
-d2FzIGRvaW5nIGJpZyBjaGFuZ2VzIGluDQo+IHJtYXAuYy4NCj4gDQoNCkp1c3QgdG8gY2xhcmlm
-eSwgbXkgc2VyaWVzIGlzIGFscmVhZHkgYmFzZWQgb24geW91ciBWMSBzZXJpZXMsIGFzIG5vdGVk
-DQppbiBpdHMgY292ZXIgbGV0dGVyIGFuZCBiNCBwcmVyZXF1aXNpdGUtbWVzc2FnZS1pZC4NCg0K
-VGhlIGludGVudGlvbiB3YXMgYWx3YXlzIGZvciB5b3VyIHNlcmllcyB0byBnbyBpbiBmaXJzdC4g
-SSBwb3N0ZWQgbWluZQ0KbWVhbndoaWxlIHRvIGNvbGxlY3QgcmV2aWV3IHJhdGhlciB0aGFuIHdh
-aXQgZm9yIHlvdXJzIHRvIGxhbmQuIA0KDQo+ID4gDQo+ID4gSG9wZWZ1bGx5LCB3ZSBjYW4gZ2V0
-IG9uZSBvZiB5b3VycyBpbnRvIG1tLW5ldyBmaXJzdCwNCj4gPiBhbmQgdGhlIG90aGVyIG9uZSBj
-YW4gZmluZCBhIHdheSB0byByZXNvbHZlIHRoZSBjb25mbGljdHMuDQo+IA0KPiBZZXMuDQo+IA0K
-DQpJIGFncmVlIHRoZXJlIGlzIHNvbWUgb3ZlcmxhcCBpbiBybWFwLmMsIGFuZCBJIHdpbGwgcmVi
-YXNlIG15IHNlcmllcyBvbiB5b3VyDQpsYXRlc3QgdmVyc2lvbiB0byBhdm9pZCBjb25mbGljdHMu
-DQoNClJlZ2FyZGluZyBzb2Z0bGVhZl9wdGVfYmF0Y2goKSwgbXkgcGF0Y2ggZmFjdG9ycyB0aGUg
-Z2VuZXJpYyBsb2dpYyBvdXQgb2YNCnN3YXBfcHRlX2JhdGNoKCkgYmVjYXVzZSB0aGUgbWlncmF0
-aW9uIHBhdGggKG1pZ3JhdGlvbl9wdGVfYmF0Y2gpIG5lZWRzIGl0Lg0KSSBzdWdnZXN0IGtlZXBp
-bmcgaXQgaW4gbXkgc2VyaWVzLCBidXQgSSBjYW4gZHJvcCB0aGF0IHBhdGNoIGlmIHlvdSBwcmVm
-ZXINCnRvIGNhcnJ5IHRoaXMgcmV2aXNlZCBwYXRjaFsxXSBpbiB5b3Vycy4NCg0KWzFdIGh0dHBz
-Oi8vbG9yZS5rZXJuZWwub3JnL2FsbC84OWQ4YzJkNmYzNWY3ZmRjMzQ0NGVhM2E2MmNjZDI0NDk0
-NWQ5NjQ0LmNhbWVsQGFtZC5jb20NCg0KVGhhbmtzLA0KU2hpdmFuaw0KDQo=
+z_compress() assumes that its output buffer can hold the six-byte
+PPP/Deflate header.  A user with CAP_NET_ADMIN can set the MTU to 1,
+making pad_compress_skb() allocate a five-byte skb.  z_compress() then
+writes the header past the end and makes avail_out wrap when subtracting
+the header length, allowing zlib to continue writing past the allocation.
+
+On receive, PPPIOCSMRU accepts any signed int.  An MRU of -1 makes
+ppp_decompress_frame() allocate a three-byte skb, after which
+z_decompress() writes the PPP header and makes avail_out wrap when
+subtracting PPP_HDRLEN, letting inflate overwrite the skb.
+
+Set the PPP netdevice minimum MTU to 128 and reject MRU values below 128
+(or large enough to overflow the allocation-size calculation) in
+PPPIOCSMRU, matching the minimum that pppd uses when negotiating MRU
+values.  This ensures that the output buffer seen by z_compress() and
+z_decompress() always covers the PPP/Deflate header, so avail_out
+cannot wrap.
+
+Take one MTU snapshot when calculating both the skb allocation and
+compressor sizes, so a concurrent MTU change cannot make them
+inconsistent.
+
+The two memory-corruption paths produce (Linux 6.1.0, KASAN, decoded):
+
+  BUG: KASAN: slab-out-of-bounds in deflate_slow (lib/zlib_deflate/defutil.h:431 lib/zlib_deflate/deflate.c:1123)
+  Write of size 8198 at addr ff110000045edc06 by task exp/78
+  CPU: 1 PID: 78 Comm: exp Not tainted 6.1.0 #1
+  Call Trace:
+    kasan_check_range (mm/kasan/generic.c:190)
+    memcpy (mm/kasan/shadow.c:65)
+    deflate_slow (lib/zlib_deflate/defutil.h:431 lib/zlib_deflate/deflate.c:1123)
+    zlib_deflate (lib/zlib_deflate/deflate.c:412)
+    z_compress (drivers/net/ppp/ppp_deflate.c:227)
+    __ppp_xmit_process (drivers/net/ppp/ppp_generic.c:1703 drivers/net/ppp/ppp_generic.c:1826 drivers/net/ppp/ppp_generic.c:1646)
+    ppp_xmit_process (drivers/net/ppp/ppp_generic.c:1668)
+    ppp_write (drivers/net/ppp/ppp_generic.c:520)
+
+  Allocated by task 78:
+    __alloc_skb (net/core/skbuff.c:437 net/core/skbuff.c:509)
+    __ppp_xmit_process (include/linux/skbuff.h:1267 drivers/net/ppp/ppp_generic.c:1692 drivers/net/ppp/ppp_generic.c:1826 drivers/net/ppp/ppp_generic.c:1646)
+    ppp_xmit_process (drivers/net/ppp/ppp_generic.c:1668)
+    ppp_write (drivers/net/ppp/ppp_generic.c:520)
+
+  The buggy address belongs to the object at ff110000045edc00
+   which belongs to the cache kmalloc-512 of size 512
+  The buggy address is located 6 bytes inside of
+   512-byte region [ff110000045edc00, ff110000045ede00)
+
+  BUG: KASAN: slab-out-of-bounds in zlib_inflate (lib/zlib_inflate/inflate.c:458)
+  Write of size 8191 at addr ff110000021d1044 by task ksoftirqd/0/12
+  CPU: 0 PID: 12 Comm: ksoftirqd/0 Not tainted 6.1.0 #1
+  Call Trace:
+    kasan_check_range (mm/kasan/generic.c:190)
+    memcpy (mm/kasan/shadow.c:65)
+    zlib_inflate (lib/zlib_inflate/inflate.c:458)
+    z_decompress (drivers/net/ppp/ppp_deflate.c:460)
+    ppp_receive_nonmp_frame (drivers/net/ppp/ppp_generic.c:2546 drivers/net/ppp/ppp_generic.c:2383)
+    ppp_input (drivers/net/ppp/ppp_generic.c:2355 drivers/net/ppp/ppp_generic.c:2195 drivers/net/ppp/ppp_generic.c:2310)
+    ppp_async_process (drivers/net/ppp/ppp_async.c:496)
+
+  Allocated by task 12:
+    __alloc_skb (net/core/skbuff.c:437 net/core/skbuff.c:509)
+    __netdev_alloc_skb (net/core/skbuff.c:575)
+    ppp_receive_nonmp_frame (include/linux/skbuff.h:3155 include/linux/skbuff.h:3168 drivers/net/ppp/ppp_generic.c:2539 drivers/net/ppp/ppp_generic.c:2383)
+    ppp_input (drivers/net/ppp/ppp_generic.c:2355 drivers/net/ppp/ppp_generic.c:2195 drivers/net/ppp/ppp_generic.c:2310)
+    ppp_async_process (drivers/net/ppp/ppp_async.c:496)
+
+  The buggy address belongs to the object at ff110000021d1000
+   which belongs to the cache kmalloc-512 of size 512
+  The buggy address is located 68 bytes inside of
+   512-byte region [ff110000021d1000, ff110000021d1200)
+
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Suggested-by: Paul Mackerras <paulus@ozlabs.org>
+Reported-by: Kimi Security Team <bug-report@moonshot.ai>
+Co-developed-by: Weiming Shi <shiweiming@moonshot.ai>
+Signed-off-by: Weiming Shi <shiweiming@moonshot.ai>
+Signed-off-by: Yilin Zhang <yilinzhang@moonshot.ai>
+---
+ drivers/net/ppp/ppp_generic.c | 12 ++++++++++--
+ 1 file changed, 10 insertions(+), 2 deletions(-)
+
+Changes in v2:
+- Set dev->min_mtu = 128 and reject MRU < 128 in PPPIOCSMRU per Paul's
+  suggestion; drop the z_compress()/z_decompress() changes from v1.
+
+diff --git a/drivers/net/ppp/ppp_generic.c b/drivers/net/ppp/ppp_generic.c
+index 1a610a1..4022117 100644
+--- a/drivers/net/ppp/ppp_generic.c
++++ b/drivers/net/ppp/ppp_generic.c
+@@ -72,6 +72,8 @@
+ 
+ #define PPP_PROTO_LEN	2
+ #define PPP_LCP_HDRLEN	4
++#define PPP_MIN_MTU	128
++#define PPP_MIN_MRU	128
+ 
+ /* The filter instructions generated by libpcap are constructed
+  * assuming a four-byte PPP header on each packet, where the last
+@@ -808,6 +810,10 @@ static long ppp_ioctl(struct file *file, unsigned int cmd, unsigned long arg)
+ 	case PPPIOCSMRU:
+ 		if (get_user(val, p))
+ 			break;
++		if (val < PPP_MIN_MRU || val > INT_MAX - PPP_HDRLEN - 1) {
++			err = -EINVAL;
++			break;
++		}
+ 		ppp_recv_lock(ppp);
+ 		ppp->mru = val;
+ 		ppp_recv_unlock(ppp);
+@@ -1628,6 +1634,7 @@ static void ppp_setup(struct net_device *dev)
+ 
+ 	dev->hard_header_len = PPP_HDRLEN;
+ 	dev->mtu = PPP_MRU;
++	dev->min_mtu = PPP_MIN_MTU;
+ 	dev->addr_len = 0;
+ 	dev->tx_queue_len = 3;
+ 	dev->type = ARPHRD_PPP;
+@@ -1719,10 +1726,11 @@ pad_compress_skb(struct ppp *ppp, struct sk_buff *skb)
+ {
+ 	struct net_device *dev = netdev_from_priv(ppp);
+ 	struct sk_buff *new_skb;
++	int mtu = READ_ONCE(dev->mtu);
+ 	int len;
+-	int new_skb_size = dev->mtu +
++	int new_skb_size = mtu +
+ 		ppp->xcomp->comp_extra + dev->hard_header_len;
+-	int compressor_skb_size = dev->mtu +
++	int compressor_skb_size = mtu +
+ 		ppp->xcomp->comp_extra + PPP_HDRLEN;
+ 
+ 	if (skb_linearize(skb))
+-- 
+2.55.0
