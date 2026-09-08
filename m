@@ -1,76 +1,111 @@
-Received: from mail-43167.protonmail.ch (mail-43167.protonmail.ch [185.70.43.167])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B20BD53D0BA
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 12:43:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.167
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A75E653ECEB;
+	Tue,  8 Sep 2026 12:45:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788871425; cv=none; b=PQGFUvrEkf+YMiHg+jtSGjhEkUAWGtPvmN42cFR1gRnXhGlZoLXRcrLrp8xeTVXkfyTzTueJQBtPUHMAvFBN4A+YFd87kr3p6DUeW2ZtwUjAvrgtDI45397jd6Yozr7mQkiOI20h711NBEABCEHD/pTCqYL5++77v2MiDAKXTr0=
+	t=1788871504; cv=none; b=iiDePxgLLRX2EC1s6r6Gyo32xjZ/581H12H+MayTg0Nt5rFgqrEZWvhMfnrPIB/Rg2TfxDqM+HzqH/3oSuyaSqjO5xP77JStqGFSoq3THypP9xov2iG9boLNEXX/F0LbowGRZXRZhTK02Ne4H9idzppNpCWM/uo+rRdgZ0mwAdA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788871425; c=relaxed/simple;
-	bh=UJSjgFhs32spsSbz3nbqM96IYqNhxGGxV940WNPjSmk=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=giOaFsL5LnInCnjNbRfmjxYfnq2sXKSUQkuqCq9srxkT9opBlJ6ytXkH1/mv/KJ1b2auPLxwteiVmSTyqXwUORiPvcTqaG0MyNd5oKJIbF2hcJWBB01HSe0OEoJw3x7BlcophKHovZn9tijsuRKRprtdAAurDdKXEOP7c3+/Ihc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com; spf=pass smtp.mailfrom=protonmail.com; dkim=pass (2048-bit key) header.d=protonmail.com header.i=@protonmail.com header.b=I8GKxt+4; arc=none smtp.client-ip=185.70.43.167
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=protonmail.com
+	s=arc-20240116; t=1788871504; c=relaxed/simple;
+	bh=tggSJCl2AdaSwI6K1UKsXMUFn3nfnZ+dlVIx8qMmy08=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=D/2ZBNFrDDgv7dmzDA3N5dmCJNPP94teIKX0PAIVgXiGqz+FGGiwKRWUokIIytbUFUqG7v9pF3MG974KYqJGAbXv1vwyaFOj4qlrVY+9zqy5tWm4BlF7ZPNw2nZZRw5ii/mNwcQ+Euv+DtucNpU0N5oRK+biPEM22hPfLvxZ7/Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LvCSllkj; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=protonmail.com header.i=@protonmail.com header.b="I8GKxt+4"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
-	s=protonmail3; t=1788871415; x=1789130615;
-	bh=UJSjgFhs32spsSbz3nbqM96IYqNhxGGxV940WNPjSmk=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=I8GKxt+4AZwRUYSxuDSeZW+bx2VdPBQpQx6MCOgAPMoyegYxzYC2bSAB77qHdacB7
-	 u1hR7INWFLurEv2MhCUc/USgQjpJEN7yrkaoAgIj4oDAZTVdgvo/8Yw4AMOdAlBWhc
-	 KOE6JsLl4YSoU+VirPSvJ4IdYydVpXKywvjyo1650+uL0bKjDRcWqPV/qCxmxWEM5t
-	 MLkqawmub0hKX7dI4KTQkd7ugm3bAbxVQKw59ggttMd1PBaTmZukBfHAVUy6d454rP
-	 3WH1Nh03P9hPVvyTHuizwoIJz76N2ZW0ZYSz062l2W4BskrnPGMpaJZ3IMgCDB+jSa
-	 jBOwNRqfvdAlg==
-Date: Tue, 08 Sep 2026 12:43:29 +0000
-To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-From: Roman Vivchar <rva333@protonmail.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>, Flora Fu <flora.fu@mediatek.com>, Alexandre Mergnat <amergnat@baylibre.com>, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, "moderated list:ARM SUB-ARCHITECTURES" <linux-arm-kernel@lists.infradead.org>, "moderated list:ARM/Mediatek SoC support" <linux-mediatek@lists.infradead.org>
-Subject: Re: [PATCH v2 3/3] soc: mediatek: pwrap: add mt6572 support
-Message-ID: <hbDKbnlOf7yqJYJuWVg6P8y7T2ltx6kphF6V0jho-1Z1KNKWNxqD0ffPp6rhjGDfXW88hP4ynycDkZF_1VQZj1PpRHekJqeorEijupq4GRY=@protonmail.com>
-In-Reply-To: <27cdcc55-b9b1-49ad-82f3-25e38e3e0e50@collabora.com>
-References: <20260715-6572-pwrap-v2-0-bea1d801c81b@protonmail.com> <20260715-6572-pwrap-v2-3-bea1d801c81b@protonmail.com> <27cdcc55-b9b1-49ad-82f3-25e38e3e0e50@collabora.com>
-Feedback-ID: 173184497:user:proton
-X-Pm-Message-ID: 6ad0deee7d7c11f91a563fe03d94143783dac5a4
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LvCSllkj"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 56667C2BCFB;
+	Tue,  8 Sep 2026 12:45:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1788871504;
+	bh=tggSJCl2AdaSwI6K1UKsXMUFn3nfnZ+dlVIx8qMmy08=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=LvCSllkj2sm2J7JLd9pjsN4toGFiIanibYlRwxG8GRLppF9gcb+Q9E/2lfAUlcAMd
+	 CZ2Tqh3jfpZVXNznujApSMNDS8W9gpLjcB5jp9Ct9Wvyo6ZQC9MdB0CGxFHjG6XTne
+	 BPyDrS6EnQ9wDYqYk/7jikloDFqQMMvfIE0YVjXhgJEnhaOCoNZSs5/Gjil7A6YpEe
+	 0rp387o2TmN1ZzqVs7BmQ1jPJwnuBA4xVDYVJm2aacX9r1A3QSs6skSiwegDEdrvai
+	 CQlQNOswOM533J5YZhr8zVl+TPdfEbAOMSkmPvWN9X41qJhm77/1A6akfI9O/cX1VB
+	 DAVBVuXNoGOjA==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 39B8FC79F99;
+	Tue,  8 Sep 2026 12:45:04 +0000 (UTC)
+From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
+Subject: [PATCH v2 0/3] Xiaomi Poco F1 (ebbg display variant) fixes
+Date: Tue, 08 Sep 2026 14:45:01 +0200
+Message-Id: <20260908-ebbg-ft8719-fixups-v2-0-5454ae1f5581@ixit.cz>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/22NsQ6DMAxEfwV5rivHAgqd+I+KgQQDXgAlFNEi/
+ r0pXTu+O927HYJ4lQD3ZAcvqwadxgh8ScANzdgLahsZmDgnw4xibY/dUtxMiZ1uzzmgdZKlBWd
+ kiSEOZy+xOaWPOvKgYZn86/xYzTf96UrK/+lWg4SpFGmeGXJNayrddLm6N9THcXwAEn4yybIAA
+ AA=
+X-Change-ID: 20260122-ebbg-ft8719-fixups-bce548250b02
+To: Joel Selvaraj <foss@joelselvaraj.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Sam Ravnborg <sam@ravnborg.org>, Marco Mattiolo <marco.mattiolo@hotmail.it>, 
+ Linus Walleij <linusw@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ phone-devel@vger.kernel.org, David Heidelberg <david@ixit.cz>, 
+ Casey Connolly <casey.connolly@linaro.org>, stable@vger.kernel.org
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1011; i=david@ixit.cz;
+ h=from:subject:message-id;
+ bh=tggSJCl2AdaSwI6K1UKsXMUFn3nfnZ+dlVIx8qMmy08=;
+ b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBqoANOFJeLQjNYi0kXTpsGdTO+bBpMS+a5Wl0S6
+ Nl0RyjUoaiJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCaqADTgAKCRBgAj/E00kg
+ ciBnD/wNSFGRfZVkyBhqNF/AkPwW+A9tFaAfw6x8X3yaefweifSqELEDIH87v+L6N1TSxgj32QD
+ RNZ6ocaJEAZge4WV6qcvklwSJcWGlwhWFoBDHnIndBbRudUMIkdZkxvIo1htvE9Wn9Gq7GCsCwY
+ mhIRGr05Uba06qS+W0SoZt1jt8U+Y0O9N1AOql3NGNv0qRXD63M8cPh2PYBuOFgcu/nQVOrF3m8
+ GNB9GKF5dPRjRfjNB7Yp0pUCX+4OrS1opxeRZ4qZi9pin26icIIoMHBqMV+tz7qY+x5eRNJSL5y
+ RmNkl2frVAmm4Apapb120L0gG4Rezu9RS/0hC94pRoRAypz4Ku2ZkhJ/7IlDbgEV8yNu4S0zCyg
+ WoRACCzChM1NvHTey88xChBgEzsNleOO1GXjqVvzTNkCnFyNuTqIMDBdmhdM0poX/QGKu5Y4dPX
+ F2dXB8APaQPmZssiW72lizk5G84nletKZKvHiPRO/y9M4B4pRzyGmw2cQ86Q+XSADb7Hj7HjZlk
+ g3r6G1Dt47ugA8YxFSSvqT+CJH+zhTxcc+DbXHn2+Ein+ejEjocHPVGm1NCIrh6RUmvxULnvBOB
+ FkHPEFCE+Z1A61t5ROmhpTKdQwRjALU9ow3HIQD40cy5V2cZLJGGWQbZs0Sfrg4hJxyvbBZljdv
+ laqYTedl76R230A==
+X-Developer-Key: i=david@ixit.cz; a=openpgp;
+ fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
+X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
+X-Original-From: David Heidelberg <david@ixit.cz>
+Reply-To: david@ixit.cz
 
-Hi Angelo,
+Been broken in mainline for some time.
 
-On Wednesday, July 15th, 2026 at 4:23 PM, AngeloGioacchino Del Regno <angel=
-ogioacchino.delregno@collabora.com> wrote:
+Signed-off-by: David Heidelberg <david@ixit.cz>
+---
+Changes in v2:
+- Ignore the disable() errors, as there were ignored before too. (Neil)
+- Update the `Split initialization into enable/disable fn` commit
+  message. (Neil)
+- Replaced the maintainer old email with new, so Joel gets notified
+  about this patchset being sent.
+- Link to v1: https://patch.msgid.link/20260906-ebbg-ft8719-fixups-v1-0-4e846510cad1@ixit.cz
 
-> On 7/15/26 14:26, Roman Vivchar via B4 Relay wrote:
-> > From: Roman Vivchar <rva333@protonmail.com>
-> >
-> > Add mt6572 registers and platform data for the pmic wrapper.
-> >
-> > While vendor kernel source code suggests that mt6572 can be paired with
-> > the mt6320 PMIC, no such devices have been found yet. Hence, registers
-> > that not included in the mt2701 array are omitted.
-> >
-> > The mt2701 SoC-specific initialization function is used because they
-> > share the same GPS_INTF settings.
-> >
-> > Signed-off-by: Roman Vivchar <rva333@protonmail.com>
->
-> Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collab=
-ora.com>
+---
+Casey Connolly (1):
+      drm/panel: ebbg-ft8719: Set prepare_prev_first
 
-Could you please take a look at this series? It has ack for dt-bindings pat=
-ch and your reviews for the rest.
+David Heidelberg (2):
+      drm/panel: ebbg-ft8719: Fix the MODULE_LICENSE() string
+      drm/panel: ebbg-ft8719: Split initialization into enable/disable fn
 
-Thanks,
-Roman
+ drivers/gpu/drm/panel/panel-ebbg-ft8719.c | 23 +++++++++++------------
+ 1 file changed, 11 insertions(+), 12 deletions(-)
+---
+base-commit: 7079a12d7506b07fb53b54a664bfad5fa9b16d70
+change-id: 20260122-ebbg-ft8719-fixups-bce548250b02
+
+Best regards,
+--  
+David Heidelberg <david@ixit.cz>
+
+
