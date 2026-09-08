@@ -1,107 +1,143 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com [165.173.182.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4D2B579838
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 22:15:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788905743; cv=none; b=s4MJI/I923jBaZACkyyJh6GErPED5wx73FhI5a3Pp6H+G5ysaEstGDyU+Gfikz/lP2KLcQuJc1bVfL5qDuGtlpMKh+eZoKWllXkBNKStueJf+pe8vtAVSnfjLQaUHqkYdiCrUZQvXy/3kANVpKBAfgANFiyAmHzfILUW0TPGGmQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788905743; c=relaxed/simple;
-	bh=YdeaSz1ZMpPi3WNhWEKVwleFNUmSr1j6NVx2DNuRh5Y=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=EXoNokC6JFiVF+MEYUSTE3kNFTxPGKXBGTVoD2mv4k4LS8GRpUwmzdyeEN0Ob3dTRetZdP9RNPxIL96SicoVOLEp98rk/7P/xgZ52KVSlXLOvJods1LOZctBV6Bf8txG3wyTFRraJdmr6pTpFvcnFovHUi2I4DnnCqE1pOGUlDk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jRWL2rnb; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F28C753A8AC
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 22:19:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.182.11
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788905947; cv=pass; b=BsLVbiRky54K6lD6i4ousbEoRA0xJua2juVVP4Ft+SN+W4/ESBky/DrpwWh8m+nznk/n/8e+p9RZnVEnJZ9NHldavywvmK9Zo2laYewatVirmvDX6hvAazVYiVaCQ4BlGFhUNYIn0LrrWlSj5W5JlBnwUFs7GQm5DSJcAMLs+Tk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788905947; c=relaxed/simple;
+	bh=snOQHJlJlLtcKSy04YXjuNf7CJOjR/2uZnieHHCYJ40=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=bT4/WUwlG3EgMNJ7FPoldZEwAUs4T18yZgqsX4pivA9VucVi0p5YlMdnoB5QR/wiTuQkZCGGhwtOTBMQHivbBacnX20+cKgYCi/5MdPnCpLTzHVQe820i8uxIPC7FHs+QyhV+gqALVjUEod9dNHN7HO2OTrFQxbKgMn1lSoCTiw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=leandro.ribeiro@collabora.com header.b=kTEnG4Aw; arc=pass smtp.client-ip=165.173.182.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jRWL2rnb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E51C11F00A3A;
-	Tue,  8 Sep 2026 22:15:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788905741;
-	bh=biOXQY29VUqFI2tf6h3jT8vQ2QWQDuZsZ84Sh2bREdc=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=jRWL2rnbb4GuMHvrfx/N4vEjpcWQWuHG5LH+yf9uWSRXjcICCOw1I8sY9yA4vS8x1
-	 vk2gdNwhTHe8XRNqvMGuit+o61k2A02gBcIx74HjzWN0pTb7uHIO7eo8diRXmfvw8h
-	 k5j5MYk9a2iwxO1Pw/exX9Qznj/eA8DnlUjmeLyRHtqkgLMPQiH+RHDmEfOmcTCdeV
-	 pJi3XAMHdz3pwUF9O3OWsdHSisoRgIHLOCaEN7icKmUoxYP5Avk5aoLkOWagLPnANJ
-	 VHivxdZhCyZnJim6SqZtuWm2t3vaCQRCP3M6Res3bjoU18CVBYnlkpo5BGsSpzuKiN
-	 ZNukwfz5A7MLA==
-From: Thomas Gleixner <tglx@kernel.org>
-To: Florian Weimer <fweimer@redhat.com>, Olivier Dion <odion@efficios.com>
-Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, Peter Zijlstra
- <peterz@infradead.org>, "Paul E. McKenney" <paulmck@kernel.org>, Boqun
- Feng <boqun@kernel.org>, LKML <linux-kernel@vger.kernel.org>, Dmitry Vyukov
- <dvyukov@google.com>, David
- Matlack <dmatlack@google.com>, Marco Elver <elver@google.com>, Sean
- Christopherson <seanjc@google.com>, Wei Liu <wei.liu@kernel.org>, Mathias
- Stearn <mathias@mongodb.com>, Chris Kennelly <ckennelly@google.com>, Blake
- Oler <blake.oler@mongodb.com>, Rich Felker <dalias@libc.org>, Matthew
- Wilcox <willy@infradead.org>, Greg
- Kroah-Hartman <gregkh@linuxfoundation.org>, Carlos O'Donell
- <codonell@redhat.com>
-Subject: Re: [RFC PATCH 1/5] rseq: uapi: add rseq operation definitions
-In-Reply-To: <lhuy0dbd4zd.fsf@oldenburg.str.redhat.com>
-References: <20260828153349.8061-1-odion@efficios.com>
- <20260828153349.8061-2-odion@efficios.com>
- <lhua4q28z30.fsf@oldenburg.str.redhat.com> <874ifzwx3e.fsf@laura>
- <lhuy0dbd4zd.fsf@oldenburg.str.redhat.com>
-Date: Wed, 09 Sep 2026 00:15:38 +0200
-Message-ID: <87h5jz1jat.ffs@fw13>
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=leandro.ribeiro@collabora.com header.b="kTEnG4Aw"
+ARC-Seal: i=1; a=rsa-sha256; t=1788905916; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=ZfQ1fHSTdL4Utckb7F8TIEPF3XaBGg+HB/ABRvZ2oKPwNVS7UXmtC0YbskMcdJirF9B8Nuf9HJJUL/52hC6kXWK13Cs+x1Vv0YdltRMce2SzXd51z5Uq+wH8SJSqAMWoj2/oCUiWj/HD/WXqAYm9jMKJWj5WjrGWez755kqyJ+Q=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1788905916; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=uX34t09K/6FyPyum4/uGWqSmdiYpZyqWkAPNdfi7dkI=; 
+	b=hQEcRL0GUdUoRow6VydCozYW+dfP+j7hNI4HQ3jgRSrUps2d9+wn1Yx8IvXlTlR43XRiYotFBeoioGtz8fOlXpGMpc+bZogqOmZhzL3yxbool4PWEvLY6XZMer7X6mvWEUtHl2Sw+XDrztYuZr9B3Ck0Vwdnt6sTi+/Z4MWgSAc=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=leandro.ribeiro@collabora.com;
+	dmarc=pass header.from=<leandro.ribeiro@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1788905916;
+	s=zohomail; d=collabora.com; i=leandro.ribeiro@collabora.com;
+	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=uX34t09K/6FyPyum4/uGWqSmdiYpZyqWkAPNdfi7dkI=;
+	b=kTEnG4AweUAcrf2bnxFvoVfIEu29rIm3OKOqdng6yADsoBA11ONtYq2fQ+Jo7eJA
+	IXhyzrzo50W1FKYnK94G8Q7c7Q0q8oFM2Yusis8f4DFxf+smZxAWSKSPdMj28uFK1dM
+	qkLJYDxWoydnHqqDSAkShJmIA2KLkaHIuKcIvzM0=
+Received: by mx.zohomail.com with SMTPS id 1788905915266449.26774191890786;
+	Tue, 8 Sep 2026 15:18:35 -0700 (PDT)
+Message-ID: <44c5ceae-4824-4b45-878c-1aac9e646116@collabora.com>
+Date: Tue, 8 Sep 2026 19:18:29 -0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
-
-On Tue, Sep 08 2026 at 19:31, Florian Weimer wrote:
->>> Would it be possible to use actual CPU instructions running in userspace
->>> for this?  I assume not because it's not possible to restore the
->>> register contents.
->>
->> Well I had in mind another solution, albeit some might find it ugly but
->> I think it does have the merit to be explored.
->>
->> Basically, instead of doing all the operations in the kernel, we could
->> setup something akin to a signal handler by pushing a frame on the
->> userspace stack and resuming the execution of the thread into that
->> "handler".  Userspace is now responsible of everything, including
->> returning to the original IP.
->
-> On mere context switch (not signal delivery), I don't think the kernel
-> assumes that there is a valid stack pointer.  These scheme would change
-> that.  This would be fine for managed code, but this scheme has to work
-> with arbitrary code that reassigns registers temporarily.
-
-You are right that aside of signal handling there is no assumption, but
-as signal handling can happen at arbitrary times user space should not
-play with SP unless there is an alternative signal stack, which has its
-own nasties as we all know.
-
-If there is truly code which needs to trainwreck SP for a sane reason
-and not just because and has a good reason to utilize such a
-library/functionality, then we can work around that by a mandating a
-separate "fixup" stack per thread to enable this functionality. Then the
-screwed up user space stack pointer becomes completely irrelevant and
-the only interesting register on the kernel entry stack is the return IP
-which got pushed by the hardware. And provide an option to work without
-this indirection of course. :)
-
-There are probably other solutions, but I really want to move this to
-user space and not introduce yet another limited single purpose
-"interpreter" in the kernel, which will be "extended" and duct taped
-forever.
-
-TBH. At some point we have to stop pretending that we can support all
-possible insanities and their arbitrary combination. That just limits
-ourself and puts the burden and the complexity into the wrong places
-just because.
-
-Thanks,
-
-        tglx
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/vkms: Add pixel blend mode property
+To: oushixiong1025@163.com, Louis Chauvet <louis.chauvet@bootlin.com>
+Cc: Haneen Mohammed <hamohammed.sa@gmail.com>, Simona Vetter
+ <simona@ffwll.ch>, Melissa Wen <melissa.srw@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Shixiong Ou <oushixiong@kylinos.cn>,
+ Ye Liu <liuye@kylinos.cn>
+References: <20260828090257.788076-1-oushixiong1025@163.com>
+Content-Language: en-US
+From: Leandro Ribeiro <leandro.ribeiro@collabora.com>
+In-Reply-To: <20260828090257.788076-1-oushixiong1025@163.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ZohoMailClient: External
 
 
 
+On 8/28/26 6:02 AM, oushixiong1025@163.com wrote:
+> From: Shixiong Ou <oushixiong@kylinos.cn>
+> 
+> The vkms planes expose formats with an alpha channel but do not
+> create the pixel blend mode property. Since
+> commit 860e748bddcc ("drm: ensure blend mode supported if pixel
+> format with alpha exposed") this triggers a warning during
+> drm_mode_config_validate():
+> 
+> [  993.538979] ------------[ cut here ]------------
+> [  993.539000] [PLANE:35:plane-0] pixel format with alpha exposed but blend mode not setup
+> [  993.539063] WARNING: drivers/gpu/drm/drm_mode_config.c:872 at drm_mode_config_validate
+> ......
+> [  993.539578] Call trace:
+> [  993.539580]  drm_mode_config_validate+0x398/0x558 [drm] (P)
+> [  993.539707]  drm_dev_register+0x1cc/0x2a0 [drm]
+> [  993.539832]  vkms_create+0x184/0x1d0 [vkms]
+> [  993.539854]  vkms_init+0x78/0xff8 [vkms]
+> ......
+> 
+> The vkms composer only blends premultiplied alpha, see
+> pre_mul_alpha_blend(), so create the property with
+> DRM_MODE_BLEND_PREMULTI as the only supported mode.
+> 
+> Reported-by: Ye Liu <liuye@kylinos.cn>
+> Signed-off-by: Shixiong Ou <oushixiong@kylinos.cn>
+> ---
+>  drivers/gpu/drm/vkms/vkms_plane.c | 10 ++++++++++
+>  1 file changed, 10 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/vkms/vkms_plane.c b/drivers/gpu/drm/vkms/vkms_plane.c
+> index 6ee5c3f3207c..c4272f5f0354 100644
+> --- a/drivers/gpu/drm/vkms/vkms_plane.c
+> +++ b/drivers/gpu/drm/vkms/vkms_plane.c
+> @@ -276,6 +276,7 @@ struct vkms_plane *vkms_plane_init(struct vkms_device *vkmsdev,
+>  {
+>  	struct drm_device *dev = &vkmsdev->drm;
+>  	struct vkms_plane *plane;
+> +	int ret;
+>  
+>  	plane = drmm_universal_plane_alloc(dev, struct vkms_plane, base, 0,
+>  					   &vkms_plane_funcs,
+> @@ -287,6 +288,15 @@ struct vkms_plane *vkms_plane_init(struct vkms_device *vkmsdev,
+>  
+>  	drm_plane_helper_add(&plane->base, &vkms_plane_helper_funcs);
+>  
+> +	/*
+> +	 * The vkms composer only blends premultiplied alpha, see
+> +	 * pre_mul_alpha_blend(), so that is the only supported mode.
+> +	 */
+> +	ret = drm_plane_create_blend_mode_property(&plane->base,
+> +						   BIT(DRM_MODE_BLEND_PREMULTI));
+> +	if (ret)
+> +		return ERR_PTR(ret);
+> +
+
+Hello,
+
+This looks good to me! But I think the comment in pre_mul_alpha_blend()
+could also be updated. It states:
+
+"The current DRM assumption is that pixel color values have been already
+pre-multiplied with the alpha channel values"
+
+Which is not true anymore.
+
+With this change:
+
+Reviewed-by: Leandro Ribeiro <leandro.ribeiro@collabora.com>
+
+>  	drm_plane_create_rotation_property(&plane->base, DRM_MODE_ROTATE_0,
+>  					   DRM_MODE_ROTATE_MASK | DRM_MODE_REFLECT_MASK);
+>  
+
+-- 
+Leandro Ribeiro
 
