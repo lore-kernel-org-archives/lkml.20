@@ -1,64 +1,64 @@
-Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
+Received: from mail-pg1-f181.google.com (mail-pg1-f181.google.com [209.85.215.181])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6261379991
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 05:27:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C16737996C
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 05:27:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788845235; cv=none; b=dSCT4zzuwu+bj5LBYfuyb4OUcoihbturMikbnejaiT9Qx57UvCEOcxyQKhH10NljFPfoObIFhqHik0HXJ7rpDD9nZuIMIHIyaBvXQ5Zyl4FfC341g6GjXh/BgXycRKRifav63cIP2O8MCt2PkDtlAonlCcFv8gA835pKRF9PqUs=
+	t=1788845244; cv=none; b=HyUGHVdaYpAYUJB+SkO74RhdVw7RqUJtLG5DOjoKJlJNHlmFYHn1GoIJcILM9xIg9dx2ZZ14AkojoOVzLnuPPdXj1PinPlDHmQMcSBA8WT4jznd56y9KoRY2J++m8E0Sr7xaFxepPWVxJMXn3pHlIGZ1ffcflbBtTYPG+15iWfs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788845235; c=relaxed/simple;
-	bh=CuNmVJCuZY2+JNGzwafB/YLT0mbdir+vx/GW+DTkJ50=;
+	s=arc-20240116; t=1788845244; c=relaxed/simple;
+	bh=OVAxsYtMwS+xYpN4RB/GP7KqacvWf7bU6GaHsxqTBPU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=cqeDvNa7PNp5ka2OxjAVZafdvjxo8mHDBWO2qYBPPAilUXTC84M/Y/5PrS/cFj6hyJ78WL9KpBi2VcNp3pcmspua4B68dCtsA0+wVeiPSb9bVRHDCC+YGfL0cKmeOmdB6nSNqehwJqO/aeqWljSAOM+XJf6VKVHXb8qmcsGmpzw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=H2ZvVZd7; arc=none smtp.client-ip=209.85.216.41
+	 MIME-Version; b=KBIXwhx/UWbzf6Tp+/xZvM4zL10vOmcoRDX8GV5LX60qI16RB1TOuzaKP5/bbZemfAXK44NecBjBe9UZqvCjUfuanRDUWVNu4ysluwdbAYFKcGzNGnaCAmh6yZ3HWflTT7iEtPO+RzM+sZAEdbW0Dq23nhwv26QGaBEEyPMRD4Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ib7Crh1f; arc=none smtp.client-ip=209.85.215.181
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="H2ZvVZd7"
-Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-3856d6fbcb3so3384538a91.2
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 22:27:13 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ib7Crh1f"
+Received: by mail-pg1-f181.google.com with SMTP id 41be03b00d2f7-c9d1fff21edso3352006a12.1
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 22:27:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788845233; x=1789450033; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788845242; x=1789450042; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=5EVHk0NXXIU8EHUIjtyFuKryvLqKxApr9W8JeHmHPt8=;
-        b=H2ZvVZd70iCPfPoCSLZlADFiW1q+a/Aze/2RpINRvuMX+Bvsz5/qVcRjgd/m1cRVGF
-         dqOxnZIEs4vdUAx36Xb8Rn6XrIOc4EMJcwMwwVTTwXeQelc00ihyk5BoeYyjifSe82nE
-         2slQLfQycBdqDcv7PqDrP8dbkhGs6wI0v7EOh3pUAL6iHFU5cm+CMAKVaTHPH/MEOwGd
-         nK0pXq57kuprz3pF9kQ9/ZjAvIpu2AnjONj28J+LPMJsRGiC1oFg/W8qlPaKaHE46DGx
-         dJxTy07Rhn4B/geyAmJAXkRdK35xIKEiAnwo77SBpStfmmtzFPA5LWP8k56jy10ln7ac
-         frKQ==
+        bh=a0G6PBNCNI9Yj3CIpfLEh1JaSFXkOQqLFV+7Mz1Okng=;
+        b=ib7Crh1f8VhReMh072khkSSY27geHcaRHtuGEKHtgtOhRvp/bFC32bYF7dKa9K3VPs
+         61ivPMYO7hK0B/hHdLip2zGjEJCd6DEQISKmXYBoum6sS2rXUcE9sTZkGFR0KMu3Cta7
+         8ImjD68aGRKtTUqIz+lNygdlJIxd6wbc61NwqhoW2eejmXhts1stnqTUQ8pekkD9ZZbQ
+         QdkW0Co8/Cy8m2MIGtoqBNZSuc8SzH2R2ACD9waHE4zQRP2QLWFfq+b5YMoW8fYJlwDs
+         AUL4KORL2aSKTQPzPpGkHYw94Bqj+4psjt0IJ/zlZBjh+51/r63HjIbMFVAMS3ConRLm
+         DrEg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788845233; x=1789450033;
+        d=1e100.net; s=20251104; t=1788845242; x=1789450042;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=5EVHk0NXXIU8EHUIjtyFuKryvLqKxApr9W8JeHmHPt8=;
-        b=mmCqi71gfWLvAfKTm0L6FqRMsy+R6Z2n2ULzSY7iugssY6rU1NeWhMFx4SXCWPN5JK
-         ZHELMpVmYBhoqRKIWtN3m/XjfEfR8K5cig/fYO+4xeTeftfHGYqB850dks6MJimzVvcY
-         hb6YnyrtxMav5qQijtei7So1kF9Oz1wK+e1LGRZIHLBxrnSZpFSNontcHEJAyey0iixG
-         ZA7G0+XtYfrU+EDQ/PVmSkUAO7Xi3IKMUiRFN7Uu9y0gPXjgqFF2/+yoJf/F1pNmqkcE
-         SWKbswBGqPKkGcr/CEe9J5cln9ol1ei+fAFSQra3sFkRgpsWVgm2Z7iGRm+mkrx48zM6
-         KlEA==
-X-Forwarded-Encrypted: i=1; AKwUvBzL6EhW65k/ycKR+fzGZB3QE9FZDNnQ5I4luPRNP69VQXg9ixo+B8rUdsUK01kQsMw7nXsPfImKAjalgtE=@vger.kernel.org
-X-Gm-Message-State: AFuF++kfa3CXc5a8jPAp1UtLfTeQD0ya2smpzsT8QXWaBnEjtUyO6aSy
-	b0ui22BEo4S1zFVfWQugyTQgBVAT9Y953pfwVnQ5pokaNHL8fN7ePtOW
-X-Gm-Gg: AYBFou0Nn1F93AE9fqzuISXwzASALPNclr85i4oWMmz0Yoot9LX458mQMVO/2/+tJXP
-	Egv/WIs1T4+gb1tFOhpMj7YGrHabPb5Zh5ZjIcTYluHEz06Eqbbr9klPDZzzjCUJjys8u5CDw0m
-	cbMrOwPkbB1bwwk8k9UXUuUpy+IoZcFSxfh50lkNc0WT1VCgR+T07HgoGqtyTaUGtnmS0nN1iCu
-	tTyL3v6AcG65TrEUtIdwBEbqwEzv36tX1bEMqVLRYnQT4GUfdMm2A/+FvOdyVDcXudlZsEPcql9
-	dL6BNAEZ0eDCxtV3Cc+DiIAuuXSMM2u/468O/aN+g9j8uL0qHGIumRw8YTRjC1vSN8VSQtHapRR
-	X/b3fDzVtl+aoNyYe96bhe7RQMNC66ti7PYvn+EB9PN36izvz+mUXun71Uxgkqv7A40zFzikVw3
-	a3vkQ+5A0+yE+MTruMkCxUf7/WOHOe00krcrQ0ZvPtaAqFXX2jjR8Fo7VAO6Ok82aPzlGl+5Uf8
-	QbW/4mYNSLSH7JXF+zfQu/X
-X-Received: by 2002:a17:90b:4d06:b0:366:10f1:3d91 with SMTP id 98e67ed59e1d1-39b2614df74mr38607866a91.1.1788845233163;
-        Mon, 07 Sep 2026 22:27:13 -0700 (PDT)
+        bh=a0G6PBNCNI9Yj3CIpfLEh1JaSFXkOQqLFV+7Mz1Okng=;
+        b=AIN093xCAaMsGIm6gg0bxX9pKjiFYrqUUjEBxFzkBkDMmbdta3BBPPY8nlgc58fBaT
+         hA/jk0jATSdLOuXNrzbh47wUnNlK8SE7m9jCXLYdyaF/CSXefee1oayn+kpUQIedW8oH
+         iITN5pHRhiNSGhF5ayOLV66zozFIQ6JTL3O7i3IBcVIAOUstFhgOYzV6jK+IiicckVkH
+         IwwzOOhXM9IyaQAhOGFtntwSKcFgzbLDRQ4dMXTg/pusZpiRkbCiVsF8Ic3h3k1zg0PE
+         ZV6SzjENESMEOKjGlQkFEd9POwOk/9qv2TFGfBCa/EOY4HafG8zUPyybTk0LhSbUPBVA
+         ndJQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwkQEeVCGiRWRageUw1TPpj9JLNT30aWNy7oqahhpi0NCMSh+hJbB8v5/Lf8eQv/2n6t8Xc6wpoIGVcbnU=@vger.kernel.org
+X-Gm-Message-State: AFuF++knvx29lxL74nQJtdoAdjEMaPs3uJ8T7op16UqSbktjhPMIMagY
+	tx/7h6BiIDPAuD6783OEzKm9P4+g31k9cUm97VNXjUVC5RAE8YEyzKx6
+X-Gm-Gg: AYBFou0Yr+U1B/U5QwpXTIsFuMYfehGVed2OTa24+DtC1OfDpF18TX7T0MDKzJ9mMVV
+	WzchjVbvCdLFOo+rXNlJDWZfFBfmrwlCz7yobCQeZe7IhRWD43oDX3yFwh82pO84+sZBJYln6rs
+	6sD4aC7X2dYS8Fchc6x1phpHDLKEflsjaf6OwsMSQMVpw697OE2OmQkX2fPprU8MWlF2p4Ab7QL
+	K3wxFaXNelQldvFh12XDkhhAeY/WhwHVwMRwkNoRewECBZB8aw7xUomPmOvLng++FfLR7S0aJ9g
+	IbR37kq0Q235Hb+aQPxtoY7F5pi3UUgLVi8pva0MOe4gUbKIaMoOg1Fdf94jtqR+55Y/jkZ3XZ8
+	q70lGz85X8eO9nC2/HYix0Dcpm8AFB4G9yj3+2S8yCfjW5WlvEBYN2QPbMQoogBTbMShq6PEAeM
+	oVSDstRJNh/I5GcMluE5VaA28fh0nAdjXVi56hX//uAH4hHfpsoZP4rfgSUHkluCR80JrlxSsUw
+	2WwLTZwkitlPA==
+X-Received: by 2002:a05:6a21:a38b:b0:3d1:deec:9265 with SMTP id adf61e73a8af0-3da39b5832bmr46064670637.6.1788845241699;
+        Mon, 07 Sep 2026 22:27:21 -0700 (PDT)
 Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14340a69666sm11720586c88.9.2026.09.07.22.27.04
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14340a69666sm11720586c88.9.2026.09.07.22.27.13
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 07 Sep 2026 22:27:12 -0700 (PDT)
+        Mon, 07 Sep 2026 22:27:21 -0700 (PDT)
 From: Hemanth Selam <hemanth.selam@gmail.com>
 To: "David S. Miller" <davem@davemloft.net>,
 	Andrew Lunn <andrew+netdev@lunn.ch>,
@@ -89,9 +89,9 @@ Cc: linux-arm-kernel@lists.infradead.org,
 	linux-kselftest@vger.kernel.org,
 	linux-parisc@vger.kernel.org,
 	netdev@vger.kernel.org
-Subject: [PATCH net-next v3 07/10] net: marvell: fix typos in comments
-Date: Tue,  8 Sep 2026 10:55:59 +0530
-Message-ID: <20260908052602.27497-8-hemanth.selam@gmail.com>
+Subject: [PATCH net-next v3 08/10] net: hisilicon: fix typos in comments
+Date: Tue,  8 Sep 2026 10:56:00 +0530
+Message-ID: <20260908052602.27497-9-hemanth.selam@gmail.com>
 X-Mailer: git-send-email 2.48.1
 In-Reply-To: <20260908052602.27497-1-hemanth.selam@gmail.com>
 References: <20260908052602.27497-1-hemanth.selam@gmail.com>
@@ -108,153 +108,104 @@ the misspelling list in scripts/spelling.txt.  Comments only, no code
 changes.
 
 Assisted-by: Cursor:claude-opus-5
+Reviewed-by: Jijie Shao <shaojijie@huawei.com>
 Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
 ---
- drivers/net/ethernet/marvell/mvpp2/mvpp2.h              | 2 +-
- drivers/net/ethernet/marvell/mvpp2/mvpp2_prs.c          | 8 ++++----
- drivers/net/ethernet/marvell/octeontx2/af/npc.h         | 4 ++--
- drivers/net/ethernet/marvell/octeontx2/af/rvu_nix.c     | 2 +-
- drivers/net/ethernet/marvell/octeontx2/nic/cn10k.c      | 2 +-
- drivers/net/ethernet/marvell/octeontx2/nic/otx2_dcbnl.c | 2 +-
- drivers/net/ethernet/marvell/pxa168_eth.c               | 4 ++--
- 7 files changed, 12 insertions(+), 12 deletions(-)
+ drivers/net/ethernet/hisilicon/hns/hns_dsaf_misc.c        | 2 +-
+ drivers/net/ethernet/hisilicon/hns/hns_dsaf_ppe.c         | 2 +-
+ drivers/net/ethernet/hisilicon/hns/hns_enet.c             | 4 ++--
+ drivers/net/ethernet/hisilicon/hns3/hns3pf/hclge_main.c   | 2 +-
+ drivers/net/ethernet/hisilicon/hns3/hns3pf/hclge_tm.c     | 2 +-
+ drivers/net/ethernet/hisilicon/hns3/hns3vf/hclgevf_main.c | 2 +-
+ 6 files changed, 7 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/net/ethernet/marvell/mvpp2/mvpp2.h b/drivers/net/ethernet/marvell/mvpp2/mvpp2.h
-index 061fcd444d50..3ed5670f01c2 100644
---- a/drivers/net/ethernet/marvell/mvpp2/mvpp2.h
-+++ b/drivers/net/ethernet/marvell/mvpp2/mvpp2.h
-@@ -729,7 +729,7 @@
- #define MVPP2_MAX_TXQ			8
- 
- /* MVPP2_MAX_TSO_SEGS is the maximum number of fragments to allow in the GSO
-- * skb. As we need a maxium of two descriptors per fragments (1 header, 1 data),
-+ * skb. As we need a maximum of two descriptors per fragments (1 header, 1 data),
-  * multiply this value by two to count the maximum number of skb descs needed.
-  */
- #define MVPP2_MAX_TSO_SEGS		300
-diff --git a/drivers/net/ethernet/marvell/mvpp2/mvpp2_prs.c b/drivers/net/ethernet/marvell/mvpp2/mvpp2_prs.c
-index 93e978bdf303..ad677cfddb4d 100644
---- a/drivers/net/ethernet/marvell/mvpp2/mvpp2_prs.c
-+++ b/drivers/net/ethernet/marvell/mvpp2/mvpp2_prs.c
-@@ -382,7 +382,7 @@ static int mvpp2_prs_flow_find(struct mvpp2 *priv, int flow)
- 	struct mvpp2_prs_entry pe;
- 	int tid;
- 
--	/* Go through the all entires with MVPP2_PRS_LU_FLOWS */
-+	/* Go through the all entries with MVPP2_PRS_LU_FLOWS */
- 	for (tid = MVPP2_PRS_TCAM_SRAM_SIZE - 1; tid >= 0; tid--) {
- 		u8 bits;
- 
-@@ -1212,7 +1212,7 @@ static void mvpp2_prs_mh_init(struct mvpp2 *priv)
- 	mvpp2_prs_hw_write(priv, &pe);
+diff --git a/drivers/net/ethernet/hisilicon/hns/hns_dsaf_misc.c b/drivers/net/ethernet/hisilicon/hns/hns_dsaf_misc.c
+index 91391a49fcea..a59fd280a045 100644
+--- a/drivers/net/ethernet/hisilicon/hns/hns_dsaf_misc.c
++++ b/drivers/net/ethernet/hisilicon/hns/hns_dsaf_misc.c
+@@ -591,7 +591,7 @@ static int hns_mac_config_sds_loopback(struct hns_mac_cb *mac_cb, bool en)
+ #define HILINK_ACCESS_SEL_CFG		0x40008
+ 			/* hilink4 & hilink3 use the same xge training and
+ 			 * xge u adaptor. There is a hilink access sel cfg
+-			 * register to select which one to be configed
++			 * register to select which one to be configured
+ 			 */
+ 			if ((!HNS_DSAF_IS_DEBUG(mac_cb->dsaf_dev)) &&
+ 			    (mac_cb->mac_id <= 3))
+diff --git a/drivers/net/ethernet/hisilicon/hns/hns_dsaf_ppe.c b/drivers/net/ethernet/hisilicon/hns/hns_dsaf_ppe.c
+index 5013beb4d282..408d36d85fb1 100644
+--- a/drivers/net/ethernet/hisilicon/hns/hns_dsaf_ppe.c
++++ b/drivers/net/ethernet/hisilicon/hns/hns_dsaf_ppe.c
+@@ -139,7 +139,7 @@ static void hns_ppe_set_vlan_strip(struct hns_ppe_cb *ppe_cb, int en)
  }
  
--/* Set default entires (place holder) for promiscuous, non-promiscuous and
-+/* Set default entries (place holder) for promiscuous, non-promiscuous and
-  * multicast MAC addresses
+ /**
+- * hns_ppe_checksum_hw - set ppe checksum caculate
++ * hns_ppe_checksum_hw - set ppe checksum calculate
+  * @ppe_cb: ppe device
+  * @value: value
   */
- static void mvpp2_prs_mac_init(struct mvpp2 *priv)
-@@ -2241,7 +2241,7 @@ mvpp2_prs_mac_da_range_find(struct mvpp2 *priv, int pmap, const u8 *da,
- 	struct mvpp2_prs_entry pe;
- 	int tid;
+diff --git a/drivers/net/ethernet/hisilicon/hns/hns_enet.c b/drivers/net/ethernet/hisilicon/hns/hns_enet.c
+index e905f10b894e..d819d2bb3450 100644
+--- a/drivers/net/ethernet/hisilicon/hns/hns_enet.c
++++ b/drivers/net/ethernet/hisilicon/hns/hns_enet.c
+@@ -1230,7 +1230,7 @@ static void hns_nic_update_stats(struct net_device *netdev)
+ 	h->dev->ops->update_stats(h, &netdev->stats);
+ }
  
--	/* Go through the all entires with MVPP2_PRS_LU_MAC */
-+	/* Go through the all entries with MVPP2_PRS_LU_MAC */
- 	for (tid = MVPP2_PE_MAC_RANGE_START;
- 	     tid <= MVPP2_PE_MAC_RANGE_END; tid++) {
- 		unsigned int entry_pmap;
-@@ -2539,7 +2539,7 @@ int mvpp2_prs_def_flow(struct mvpp2_port *port)
+-/* set mac addr if it is configed. or leave it to the AE driver */
++/* set mac addr if it is configured. or leave it to the AE driver */
+ static void hns_init_mac_addr(struct net_device *ndev)
+ {
+ 	struct hns_nic_priv *priv = netdev_priv(ndev);
+@@ -2317,7 +2317,7 @@ static int hns_nic_dev_probe(struct platform_device *pdev)
+ 		ret = device_property_read_u32(dev, "port-id", &port_id);
+ 		if (ret)
+ 			goto out_read_prop_fail;
+-		/* for old dts, we need to caculate the port offset */
++		/* for old dts, we need to calculate the port offset */
+ 		port_id = port_id < HNS_SRV_OFFSET ? port_id + HNS_DEBUG_OFFSET
+ 			: port_id - HNS_SRV_OFFSET;
+ 	}
+diff --git a/drivers/net/ethernet/hisilicon/hns3/hns3pf/hclge_main.c b/drivers/net/ethernet/hisilicon/hns3/hns3pf/hclge_main.c
+index e6af939c1c19..bf35f55f5b8f 100644
+--- a/drivers/net/ethernet/hisilicon/hns3/hns3pf/hclge_main.c
++++ b/drivers/net/ethernet/hisilicon/hns3/hns3pf/hclge_main.c
+@@ -10527,7 +10527,7 @@ static int hclge_get_link_diagnosis_info(struct hnae3_handle *handle,
+ }
  
- 	/* Such entry not exist */
- 	if (tid < 0) {
--		/* Go through the all entires from last to first */
-+		/* Go through the all entries from last to first */
- 		tid = mvpp2_prs_tcam_first_free(port->priv,
- 						MVPP2_PE_LAST_FREE_TID,
- 					       MVPP2_PE_FIRST_FREE_TID);
-diff --git a/drivers/net/ethernet/marvell/octeontx2/af/npc.h b/drivers/net/ethernet/marvell/octeontx2/af/npc.h
-index 719b3618eeb5..309244fe8754 100644
---- a/drivers/net/ethernet/marvell/octeontx2/af/npc.h
-+++ b/drivers/net/ethernet/marvell/octeontx2/af/npc.h
-@@ -84,7 +84,7 @@ enum npc_kpu_lc_ltype {
- 	NPC_LT_LC_CUSTOM1 = 0xF,
- };
- 
--/* Don't modify Ltypes upto SCTP, otherwise it will
-+/* Don't modify Ltypes up to SCTP, otherwise it will
-  * effect flow tag calculation and thus RSS.
+ /* After disable sriov, VF still has some config and info need clean,
+- * which configed by PF.
++ * which configured by PF.
   */
- enum npc_kpu_ld_ltype {
-@@ -140,7 +140,7 @@ enum npc_kpu_lg_ltype {
- 	NPC_LT_LG_CUSTOM1 = 0xF,
- };
- 
--/* Don't modify Ltypes upto SCTP, otherwise it will
-+/* Don't modify Ltypes up to SCTP, otherwise it will
-  * effect flow tag calculation and thus RSS.
-  */
- enum npc_kpu_lh_ltype {
-diff --git a/drivers/net/ethernet/marvell/octeontx2/af/rvu_nix.c b/drivers/net/ethernet/marvell/octeontx2/af/rvu_nix.c
-index 153eb57bad06..d80d2c00bd84 100644
---- a/drivers/net/ethernet/marvell/octeontx2/af/rvu_nix.c
-+++ b/drivers/net/ethernet/marvell/octeontx2/af/rvu_nix.c
-@@ -4974,7 +4974,7 @@ static void rvu_nix_setup_capabilities(struct rvu *rvu, int blkaddr)
- 
- 	/* On OcteonTx2 DWRR quantum is directly configured into each of
- 	 * the transmit scheduler queues. And PF/VF drivers were free to
--	 * config any value upto 2^24.
-+	 * config any value up to 2^24.
- 	 * On CN10K, HW is modified, the quantum configuration at scheduler
- 	 * queues is in terms of weight. And SW needs to setup a base DWRR MTU
- 	 * at NIX_AF_DWRR_RPM_MTU / NIX_AF_DWRR_SDP_MTU. HW will do
-diff --git a/drivers/net/ethernet/marvell/octeontx2/nic/cn10k.c b/drivers/net/ethernet/marvell/octeontx2/nic/cn10k.c
-index 3e1bf22cba69..f98ef5431c90 100644
---- a/drivers/net/ethernet/marvell/octeontx2/nic/cn10k.c
-+++ b/drivers/net/ethernet/marvell/octeontx2/nic/cn10k.c
-@@ -301,7 +301,7 @@ static void cn10k_get_ingress_rate_cfg(u64 rate, u32 *rate_exp,
- 	 * policer timeunit * 2^rdiv ie 2 * 2^rdiv usecs, to the token bucket.
- 	 * Here policer timeunit is 2 usecs and rate is in bits per sec.
- 	 * Since floating point cannot be used below algorithm uses 1000000
--	 * scale factor to support rates upto 100Gbps.
-+	 * scale factor to support rates up to 100Gbps.
- 	 */
- 	tmp = rate * 32 * 2;
- 	if (tmp < 256000000) {
-diff --git a/drivers/net/ethernet/marvell/octeontx2/nic/otx2_dcbnl.c b/drivers/net/ethernet/marvell/octeontx2/nic/otx2_dcbnl.c
-index f110dfa42360..91d346d114af 100644
---- a/drivers/net/ethernet/marvell/octeontx2/nic/otx2_dcbnl.c
-+++ b/drivers/net/ethernet/marvell/octeontx2/nic/otx2_dcbnl.c
-@@ -67,7 +67,7 @@ static int otx2_pfc_txschq_alloc_one(struct otx2_nic *pfvf, u8 prio)
- 	if (!req)
- 		return -ENOMEM;
- 
--	/* Request one schq per level upto max level as configured
-+	/* Request one schq per level up to max level as configured
- 	 * link config level. These rest of the scheduler can be
- 	 * same as hw.txschq_list.
- 	 */
-diff --git a/drivers/net/ethernet/marvell/pxa168_eth.c b/drivers/net/ethernet/marvell/pxa168_eth.c
-index bbbbbba63e15..2370b2ddba6b 100644
---- a/drivers/net/ethernet/marvell/pxa168_eth.c
-+++ b/drivers/net/ethernet/marvell/pxa168_eth.c
-@@ -514,7 +514,7 @@ static int add_del_hash_entry(struct pxa168_eth_private *pep,
- /*
-  * ----------------------------------------------------------------------------
-  *  Create an addressTable entry from MAC address info
-- *  found in the specifed net_device struct
-+ *  found in the specified net_device struct
+ static void hclge_clear_vport_vf_info(struct hclge_vport *vport, int vfid)
+ {
+diff --git a/drivers/net/ethernet/hisilicon/hns3/hns3pf/hclge_tm.c b/drivers/net/ethernet/hisilicon/hns3/hns3pf/hclge_tm.c
+index 00c3f2548bf6..bf533b8f46ae 100644
+--- a/drivers/net/ethernet/hisilicon/hns3/hns3pf/hclge_tm.c
++++ b/drivers/net/ethernet/hisilicon/hns3/hns3pf/hclge_tm.c
+@@ -35,7 +35,7 @@ enum hclge_shaper_level {
+  * IR(Mbps) = -------------------------  *  CLOCK(1000Mbps)
+  *		Tick * (2 ^ IR_s)
   *
-  *  Input : pointer to ethernet interface network device structure
-  *  Output : N/A
-@@ -806,7 +806,7 @@ static int rxq_process(struct net_device *dev, int budget)
- 		stats->rx_bytes += rx_desc->byte_cnt;
- 		/*
- 		 * In case received a packet without first / last bits on OR
--		 * the error summary bit is on, the packets needs to be droped.
-+		 * the error summary bit is on, the packets needs to be dropped.
- 		 */
- 		if (((cmd_sts & (RX_FIRST_DESC | RX_LAST_DESC)) !=
- 		     (RX_FIRST_DESC | RX_LAST_DESC))
+- * @return: 0: calculate sucessful, negative: fail
++ * @return: 0: calculate successful, negative: fail
+  */
+ static int hclge_shaper_para_calc(u32 ir, u8 shaper_level,
+ 				  struct hclge_shaper_ir_para *ir_para,
+diff --git a/drivers/net/ethernet/hisilicon/hns3/hns3vf/hclgevf_main.c b/drivers/net/ethernet/hisilicon/hns3/hns3vf/hclgevf_main.c
+index 063a692c2b41..5d14d29b0296 100644
+--- a/drivers/net/ethernet/hisilicon/hns3/hns3vf/hclgevf_main.c
++++ b/drivers/net/ethernet/hisilicon/hns3/hns3vf/hclgevf_main.c
+@@ -1880,7 +1880,7 @@ static void hclgevf_reset_service_task(struct hclgevf_dev *hdev)
+ 		 * from PF as cmdq would be in unreliable state i.e. mailbox
+ 		 * communication between PF and VF would be broken.
+ 		 *
+-		 * if we are never geting into pending state it means either:
++		 * if we are never getting into pending state it means either:
+ 		 * 1. PF is not receiving our request which could be due to IMP
+ 		 *    reset
+ 		 * 2. PF is screwed
 -- 
 2.48.1
 
