@@ -1,336 +1,137 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1618C4EBADC;
-	Tue,  8 Sep 2026 09:27:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 603E85013CA;
+	Tue,  8 Sep 2026 09:27:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788859633; cv=none; b=fmGSl9LybvJAJKnuHFH8WFURPtDdhXX0WkxPEp/DzsCKlLD8PvBRSTwHaeIPx7vDt4JWUr2XRpbIazJJs8b3Ss4Ci5dn2Q7iagmeWQVVCFQHImppJvmkoteEPLug0yrYMLmGm98UAq1jxliVO5Dkvqu4BQ3cZtIgquVu31bMjzE=
+	t=1788859647; cv=none; b=bACuSVm/hbJ8HbQ07LzVUt6TOGvDWx7+E70tUPUmStLL9jEI7sWgX6jWxaKV+hAlV0IvUAs0n0DVOPBSmk1/DSqzNz6nsOPjVTx2yrVYllGWRwbHPP5/huCYr+2jH/C1r2OpNzO1CXL6JUDyAi2TugdmWl87zreXoViqySAsVIw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788859633; c=relaxed/simple;
-	bh=gV63zHCi7shw/Oa+eFIH0iTh+5EdixT92i8snzno4Es=;
+	s=arc-20240116; t=1788859647; c=relaxed/simple;
+	bh=Ser78ur/Hp5OvdMUy5OZ98mktqdsEMDg1PUdcYQiAxI=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=qciFU5lIpFZvSJGy7OLtnTTKFf3tt1r+ph0ZpTx3hACSkhdZ9SMa1Y4qQcLp3q+HiRfh1p5feAZtLZ5kAqwu1GWR5jwG+1No8WF1IUSEZJsxso0K8EKTz4oiukjEZIWpsQLZTdVRffWuOVHHLih/jBrQPYjYM3eOG8QKHm+PHXs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=KEGrH+0/; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=NQRf2cZb; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=oXEHshzo; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=xXbjOXqV; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	 Content-Type:Content-Disposition:In-Reply-To; b=BmCVJH6n7ushcsdJf5NKjRycxKJ7mqg4Lx1WqImzEaNQ7JUQmci3sn8yJHdtIyAnuyxGgTGVW4aBthhmWirOVKyqZnBU33+n5R5Gui0ztTLkCadgOlPzDqinDIejognbipzUJ3SMN79KbLU100JsH2B4tqgLbuckOxkG+kw7d/Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PaF/fX3J; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="KEGrH+0/";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="NQRf2cZb";
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="oXEHshzo";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="xXbjOXqV"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id CFBB021A35;
-	Tue,  8 Sep 2026 09:27:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1788859626; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=AWGzYGgNIklpiS6XLM7Zm8kgqN/+DKlX7bMJrGwLqYU=;
-	b=KEGrH+0/RoLlAYH0/UN/au5tKCS2TWkeBzSgB3LYaszFjJgXpYuljxZC1mj59dDuqKQYOd
-	7TEXUuEFc+cQt1aXZxOBiLuUN3vdjUQ8lOfmgNV8+R/vIq6kBW4zc/ZsMlUtXcYJR4m5Nb
-	bQUN2DjIpukCT0FieX1KmFrorKfYENk=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1788859626;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=AWGzYGgNIklpiS6XLM7Zm8kgqN/+DKlX7bMJrGwLqYU=;
-	b=NQRf2cZb7Uv51vqLo0+KsGutQOHl/zKrKKnkcFI0tE/HY+1fLU9tBo2uVjCAtPsYbKOLLX
-	E8ZgHK8RNU7O8FAA==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1788859621; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=AWGzYGgNIklpiS6XLM7Zm8kgqN/+DKlX7bMJrGwLqYU=;
-	b=oXEHshzoTCnF1r1TlmbXnCyJOBBpD5Uarjj/MVKX/57jM5GwG3oTChd8PP7z4faeZRJbTR
-	NhhOGtHj7XsD/enxXCnyhA7hM+PO8vjBfp99QJ2hLW65QfzBRDaxAII4AEqTK+SYGW18NB
-	vPgS77LMkk0ZjgSXbxCZ6Aozj0VBJ+g=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1788859621;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=AWGzYGgNIklpiS6XLM7Zm8kgqN/+DKlX7bMJrGwLqYU=;
-	b=xXbjOXqVF26Q9UHa+S/UnsIVQ6SxBWgFZfNvcUDTUQa9s+RzXJkqibMNKzHx2XNQAPy9pc
-	fg4aKWAdayZfXMCw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id A8F6013332;
-	Tue,  8 Sep 2026 09:27:01 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id Az44KeXUn2qwWAAAD6G6ig
-	(envelope-from <jack@suse.cz>); Tue, 08 Sep 2026 09:27:01 +0000
-Received: by quack3.suse.cz (Postfix, from userid 1000)
-	id 38A40A12E2; Tue, 08 Sep 2026 11:26:57 +0200 (CEST)
-Date: Tue, 8 Sep 2026 11:26:57 +0200
-From: Jan Kara <jack@suse.cz>
-To: Tal Zussman <tz2294@columbia.edu>
-Cc: Jan Kara <jack@suse.cz>, Matthew Wilcox <willy@infradead.org>, 
-	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] isofs: convert the zisofs read path to use folios
-Message-ID: <snq6ii4qrjqvohdcb6ybmarzjvkqpibcmnujh7ut2tbftx6egs@y7ocbbe36oap>
-References: <20260907-isofs-zisofs-folio-v2-1-c2e430abfcbc@columbia.edu>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PaF/fX3J"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6661A1F00A3A;
+	Tue,  8 Sep 2026 09:27:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788859646;
+	bh=e9S4ei21MKUHBJjiz+ftl+IF+EunK9f6ULHxYAUuV7M=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=PaF/fX3J0DRupK9yZ8ExzCVv71/WO0ICJ28j+TyvKhtF/hisGFrPp6LKseCIVXv/Q
+	 Xv4AshCcIwMNuKbb8+dxto3+mGjz5rMUQq/QJ2IgqPw+dooCVV2iDULjBmGXzLbgLD
+	 rOSVB53nuuWeM8HFhRcmKqJ/CyAipkyYFgAjsw9QpuZe6RgVyP8fpuVv9HwLu6uVex
+	 jfAohxfE8UZsnlwsbHyRf8t1dccvI1hCQ0fCo8vMvs6meWiOVcd2Pq0AedZDxTHTkm
+	 5hC6JTFuW4s0Eu1Yb+f0+8bQC6rJCaK0bT+r6tHPo6xivVUvui4MB6MkT/727ZDg1r
+	 unFw927J5uwSA==
+Date: Tue, 8 Sep 2026 11:27:23 +0200
+From: Thierry Reding <thierry.reding@kernel.org>
+To: Vincent Donnefort <vdonnefort@google.com>
+Cc: catalin.marinas@arm.com, will@kernel.org, rppt@kernel.org, 
+	akpm@linux-foundation.org, sudeep.holla@kernel.org, jenswi@kernel.org, robh@kernel.org, 
+	mark.rutland@arm.com, sumit.garg@kernel.org, ardb@kernel.org, david@kernel.org, 
+	danielmentz@google.com, linux-arm-kernel@lists.infradead.org, linux-mm@kvack.org, 
+	op-tee@lists.trustedfirmware.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v9 07/10] arm64: Implement __set_direct_map*()
+Message-ID: <ap_UYjvpf1sXBXE-@orome>
+References: <20260902104712.2399797-1-vdonnefort@google.com>
+ <20260902104712.2399797-8-vdonnefort@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="43scnsiptq6igc3p"
 Content-Disposition: inline
-In-Reply-To: <20260907-isofs-zisofs-folio-v2-1-c2e430abfcbc@columbia.edu>
-X-Spam-Level: 
-X-Spam-Score: -3.80
-X-Spam-Flag: NO
-X-Spamd-Result: default: False [-3.80 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MISSING_XM_UA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	TO_DN_SOME(0.00)[];
-	ARC_NA(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[5];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_COUNT_THREE(0.00)[3];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	RCVD_TLS_LAST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[msgid.link:url,suse.com:email,imap1.dmz-prg2.suse.org:helo,columbia.edu:email]
-
-On Mon 07-09-26 11:18:38, Tal Zussman wrote:
-> Store folios in the array that zisofs_read_folio() passes to
-> zisofs_fill_pages() and zisofs_uncompress_block(), use the folio APIs on
-> them, and grab the folios with __filemap_get_folio() instead of
-> grab_cache_page_nowait(). This removes six compound_head() calls, from
-> page_offset(), the three SetPageUptodate() calls, unlock_page() and
-> put_page(), and the last struct page usage in isofs.
-> 
-> isofs only uses order-0 folios, so folio_size() is PAGE_SIZE and the
-> logic is unchanged.
-> 
-> grab_cache_page_nowait() passed FGP_NOFS as well, but FGP_NOWAIT already
-> prevents reclaim entirely, so leave it out, as FGP_NOFS is on its way
-> out [1].
-> 
-> Change poffset to be unsigned int rather than just unsigned while at
-> it.
-> 
-> [1] https://lore.kernel.org/linux-mm/20260830041901.2668-9-willy@infradead.org/
-> 
-> Signed-off-by: Tal Zussman <tz2294@columbia.edu>
-
-Thanks! I've added the patch to my tree.
-
-								Honza
+In-Reply-To: <20260902104712.2399797-8-vdonnefort@google.com>
 
 
-> ---
-> Changes in v2:
-> - Pass the offset to kmap_local_folio() and use folio_size(), per Jan
-> - Add a sentence in the commit message about how all folios here are
->   order-0 for now
-> - Link to v1: https://patch.msgid.link/20260906-isofs-zisofs-folio-v1-1-cbea614a773f@columbia.edu
-> ---
->  fs/isofs/compress.c | 77 ++++++++++++++++++++++++++++++-----------------------
->  1 file changed, 43 insertions(+), 34 deletions(-)
-> 
-> diff --git a/fs/isofs/compress.c b/fs/isofs/compress.c
-> index f9869d62b850..2d23abaeb874 100644
-> --- a/fs/isofs/compress.c
-> +++ b/fs/isofs/compress.c
-> @@ -39,7 +39,7 @@ static DEFINE_MUTEX(zisofs_zlib_lock);
->   */
->  static loff_t zisofs_uncompress_block(struct inode *inode, loff_t block_start,
->  				      loff_t block_end, int pcount,
-> -				      struct page **pages, unsigned poffset,
-> +				      struct folio **folios, unsigned int poffset,
->  				      int *errp)
->  {
->  	unsigned int zisofs_block_shift = ISOFS_I(inode)->i_format_parm[1];
-> @@ -66,11 +66,12 @@ static loff_t zisofs_uncompress_block(struct inode *inode, loff_t block_start,
->  	if (block_size == 0) {
->  		for ( i = 0 ; i < pcount ; i++ ) {
->  			unsigned int off = i ? 0 : poffset;
-> +			struct folio *folio = folios[i];
->  
-> -			if (!pages[i])
-> +			if (!folio)
->  				continue;
-> -			memzero_page(pages[i], off, PAGE_SIZE - off);
-> -			SetPageUptodate(pages[i]);
-> +			folio_zero_range(folio, off, folio_size(folio) - off);
-> +			folio_mark_uptodate(folio);
->  		}
->  		return (((loff_t)pcount) << PAGE_SHIFT) - poffset;
->  	}
-> @@ -119,11 +120,12 @@ static loff_t zisofs_uncompress_block(struct inode *inode, loff_t block_start,
->  
->  	while (curpage < pcount && curbh < haveblocks &&
->  	       zerr != Z_STREAM_END) {
-> +		struct folio *folio = folios[curpage];
-> +
->  		if (!stream.avail_out) {
-> -			if (pages[curpage]) {
-> -				stream.next_out = kmap_local_page(pages[curpage])
-> -						+ poffset;
-> -				stream.avail_out = PAGE_SIZE - poffset;
-> +			if (folio) {
-> +				stream.next_out = kmap_local_folio(folio, poffset);
-> +				stream.avail_out = folio_size(folio) - poffset;
->  				poffset = 0;
->  			} else {
->  				stream.next_out = (void *)&zisofs_sink_page;
-> @@ -173,9 +175,9 @@ static loff_t zisofs_uncompress_block(struct inode *inode, loff_t block_start,
->  
->  		if (!stream.avail_out) {
->  			/* This page completed */
-> -			if (pages[curpage]) {
-> -				flush_dcache_page(pages[curpage]);
-> -				SetPageUptodate(pages[curpage]);
-> +			if (folio) {
-> +				flush_dcache_folio(folio);
-> +				folio_mark_uptodate(folio);
->  			}
->  			if (stream.next_out != (unsigned char *)zisofs_sink_page) {
->  				kunmap_local(stream.next_out);
-> @@ -206,7 +208,7 @@ static loff_t zisofs_uncompress_block(struct inode *inode, loff_t block_start,
->   * fills in other pages if we have data for them.
->   */
->  static int zisofs_fill_pages(struct inode *inode, int full_page, int pcount,
-> -			     struct page **pages)
-> +			     struct folio **folios)
->  {
->  	loff_t start_off, end_off;
->  	loff_t block_start, block_end;
-> @@ -221,14 +223,14 @@ static int zisofs_fill_pages(struct inode *inode, int full_page, int pcount,
->  	int err;
->  	loff_t ret;
->  
-> -	BUG_ON(!pages[full_page]);
-> +	BUG_ON(!folios[full_page]);
->  
->  	/*
->  	 * We want to read at least 'full_page' page. Because we have to
->  	 * uncompress the whole compression block anyway, fill the surrounding
->  	 * pages with the data we have anyway...
->  	 */
-> -	start_off = page_offset(pages[full_page]);
-> +	start_off = folio_pos(folios[full_page]);
->  	end_off = min_t(loff_t, start_off + PAGE_SIZE, inode->i_size);
->  
->  	cstart_block = start_off >> zisofs_block_shift;
-> @@ -267,9 +269,9 @@ static int zisofs_fill_pages(struct inode *inode, int full_page, int pcount,
->  		}
->  		err = 0;
->  		ret = zisofs_uncompress_block(inode, block_start, block_end,
-> -					      pcount, pages, poffset, &err);
-> +					      pcount, folios, poffset, &err);
->  		poffset += ret;
-> -		pages += poffset >> PAGE_SHIFT;
-> +		folios += poffset >> PAGE_SHIFT;
->  		pcount -= poffset >> PAGE_SHIFT;
->  		full_page -= poffset >> PAGE_SHIFT;
->  		poffset &= ~PAGE_MASK;
-> @@ -289,9 +291,11 @@ static int zisofs_fill_pages(struct inode *inode, int full_page, int pcount,
->  		cstart_block++;
->  	}
->  
-> -	if (poffset && *pages) {
-> -		memzero_page(*pages, poffset, PAGE_SIZE - poffset);
-> -		SetPageUptodate(*pages);
-> +	if (poffset && *folios) {
-> +		struct folio *folio = *folios;
-> +
-> +		folio_zero_range(folio, poffset, folio_size(folio) - poffset);
-> +		folio_mark_uptodate(folio);
->  	}
->  	brelse(bh);
->  	return 0;
-> @@ -312,7 +316,7 @@ static int zisofs_read_folio(struct file *file, struct folio *folio)
->  	unsigned int zisofs_pages_per_cblock =
->  		PAGE_SHIFT <= zisofs_block_shift ?
->  		(1 << (zisofs_block_shift - PAGE_SHIFT)) : 0;
-> -	struct page **pages;
-> +	struct folio **folios;
->  	pgoff_t index = folio->index, end_index;
->  
->  	end_index = (inode->i_size + PAGE_SIZE - 1) >> PAGE_SHIFT;
-> @@ -336,33 +340,38 @@ static int zisofs_read_folio(struct file *file, struct folio *folio)
->  		full_page = 0;
->  		pcount = 1;
->  	}
-> -	pages = kzalloc_objs(*pages,
-> -			     max_t(unsigned int, zisofs_pages_per_cblock, 1));
-> -	if (!pages) {
-> +	folios = kzalloc_objs(*folios,
-> +			      max_t(unsigned int, zisofs_pages_per_cblock, 1));
-> +	if (!folios) {
->  		folio_unlock(folio);
->  		return -ENOMEM;
->  	}
-> -	pages[full_page] = &folio->page;
-> +	folios[full_page] = folio;
->  
->  	for (i = 0; i < pcount; i++, index++) {
-> -		if (i != full_page)
-> -			pages[i] = grab_cache_page_nowait(mapping, index);
-> +		if (i == full_page)
-> +			continue;
-> +		folios[i] = __filemap_get_folio(mapping, index,
-> +				FGP_LOCK | FGP_CREAT | FGP_NOWAIT,
-> +				mapping_gfp_mask(mapping));
-> +		if (IS_ERR(folios[i]))
-> +			folios[i] = NULL;
->  	}
->  
-> -	err = zisofs_fill_pages(inode, full_page, pcount, pages);
-> +	err = zisofs_fill_pages(inode, full_page, pcount, folios);
->  
-> -	/* Release any residual pages, do not SetPageUptodate */
-> +	/* Release any residual folios, do not mark them uptodate */
->  	for (i = 0; i < pcount; i++) {
-> -		if (pages[i]) {
-> -			flush_dcache_page(pages[i]);
-> -			unlock_page(pages[i]);
-> +		if (folios[i]) {
-> +			flush_dcache_folio(folios[i]);
-> +			folio_unlock(folios[i]);
->  			if (i != full_page)
-> -				put_page(pages[i]);
-> +				folio_put(folios[i]);
->  		}
-> -	}			
-> +	}
->  
->  	/* At this point, err contains 0 or -EIO depending on the "critical" page */
-> -	kfree(pages);
-> +	kfree(folios);
->  	return err;
+--43scnsiptq6igc3p
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v9 07/10] arm64: Implement __set_direct_map*()
+MIME-Version: 1.0
+
+On Wed, Sep 02, 2026 at 11:47:09AM +0100, Vincent Donnefort wrote:
+> Add implementation for the unsafe functions __set_direct_map*(). They do
+> not verify for can_set_direct_map() and expect the caller to do so
+> beforehand.
+>=20
+> Signed-off-by: Vincent Donnefort <vdonnefort@google.com>
+>=20
+> diff --git a/arch/arm64/include/asm/set_memory.h b/arch/arm64/include/asm=
+/set_memory.h
+> index 1a37f4ef130b..080a40846bbe 100644
+> --- a/arch/arm64/include/asm/set_memory.h
+> +++ b/arch/arm64/include/asm/set_memory.h
+> @@ -16,6 +16,10 @@ int set_memory_valid(unsigned long addr, int numpages,=
+ int enable);
+> =20
+>  int set_direct_map_invalid_noflush(struct page *page);
+>  int set_direct_map_default_noflush(struct page *page);
+> +int __set_direct_map_invalid_noflush(struct page *page);
+> +#define __set_direct_map_invalid_noflush __set_direct_map_invalid_noflush
+> +int __set_direct_map_default_noflush(struct page *page);
+> +#define __set_direct_map_default_noflush __set_direct_map_default_noflush
+>  int set_direct_map_valid_noflush(struct page *page, unsigned nr, bool va=
+lid);
+>  bool kernel_page_present(struct page *page);
+> =20
+> diff --git a/arch/arm64/mm/pageattr.c b/arch/arm64/mm/pageattr.c
+> index c59ef17eb0d0..28adab0edace 100644
+> --- a/arch/arm64/mm/pageattr.c
+> +++ b/arch/arm64/mm/pageattr.c
+> @@ -294,28 +294,38 @@ int set_memory_valid(unsigned long addr, int numpag=
+es, int enable)
+>  					__pgprot(PTE_PRESENT_VALID_KERNEL));
 >  }
->  
-> 
-> ---
-> base-commit: df2908090cda368b01ff43709f51890076c56157
-> change-id: 20260906-isofs-zisofs-folio-5b1621d694e4
-> 
-> Best regards,
-> --  
-> Tal Zussman <tz2294@columbia.edu>
-> 
--- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+> =20
+> -int set_direct_map_invalid_noflush(struct page *page)
+> +int __set_direct_map_invalid_noflush(struct page *page)
+>  {
+>  	pgprot_t clear_mask =3D __pgprot(PTE_PRESENT_VALID_KERNEL);
+>  	pgprot_t set_mask =3D __pgprot(PTE_PRESENT_INVALID);
+> =20
+> +	return update_range_prot((unsigned long)page_address(page),
+> +				 PAGE_SIZE, set_mask, clear_mask);
+> +}
+
+I think these would work quite nicely if you rebase the series onto
+linux-next, which contains the patches that add the number of pages to
+these functions.
+
+You can then keep can_set_direct_map_range() from the previous patch and
+call that from the set_direct_map_*_noflush() functions instead of the
+simple can_set_direct_map() (which is a shortcut path in the _range
+check anyway.
+
+I've used that locally in my tree and it seems to be working just fine.
+
+Thierry
+
+--43scnsiptq6igc3p
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmqf1PsACgkQ3SOs138+
+s6FbJhAAq7rdW+WQpw2aS+4U2xEYrsJtjGRTj94QjexotpKa2p3eyw0SLesuF9zU
++2u/FbYsoxer4kU3QDhJC96FhLS9GwWuldwvOy3tXj+Jgim+5vBbEqynCr0nEGqg
+nQCYWjZXMgSab6kJdxEjcywIXZ/noCDsK2bqF5PN1dz/4lhTVuDGHaxmbf3yV/oR
+TebCIeTN5gSrIxZLAC9yWHu+1QVl4v5+06tJOJdtuIIiS+V/AKr9MFHxKRw5O4st
+ElIm7uM6goaowuUnByavL3kZ1Vm56bc8k2rDqQ/7gcqoJfqUfqH0jPxAzpLsscQO
+vXxM6OoEqPLB0bFou1KWnLPvxjQIAtjWjous+w7QTthjSgnwkbsW5UcrOZWw9o1Q
+VPc3KGvB/1djAVyBUmV4I00sfrvwqqS4wMAcXkffhZo9likAZCQJG3dNp/su464N
+X9aN99o2iMMqCnOzSedwMh9t7i422FTUpUMl4m+hCnqIHqVG7VUVI32s2nx1S5n2
+5RBZckCoNgL2LgG1tgsnTpl3My/l+AhW3OwRTqdXIA/b8h6+/DonZVNIoeAcAEeu
+0IYdOPIOnagFiYOCWzkMNEl6ce/Vd2AOl6JQ3ZEaIdS2FUMumXbdnbtLftgj9RtP
+BB16Tsr/sbJb+A3+9MeoYl9ASll6PDapN/3qICYTCK0NkSRK+S0=
+=54Zj
+-----END PGP SIGNATURE-----
+
+--43scnsiptq6igc3p--
