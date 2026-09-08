@@ -1,194 +1,165 @@
-Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4561F315D49
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 07:02:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4866B38333A
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 07:04:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788850973; cv=none; b=oxnfeIGkQSXeQP07gZ95soMUcwPpZD1lPUKWrdbrj13VfmBO0kR4GcpFN7syavBR9+VK/SMAbUEEaFOC5Mt7CYE3nTqTYL26lSVF1DsSn4Ha90VoFulv/BO0Wp0Uz4tq9w8L2jDxFNXmCfxG9oOF8RvwA61PriBP9vev1suu6jw=
+	t=1788851047; cv=none; b=kUCQT4Sj+yQCs4VtuSiGJkJX1hopGOX8Ef5sd1HjTQ2sH53Xt8AZm+4HTsquH9S9PnlEJlaR5mpQqVvhKi0phR12LtW1QKdWIr2uyuizZiSbg8PaKTK+QABfSZ2uvhpCrooTrlPV61+fbabnE0SbYq4dHzC4/XVoxfxtlSOm+80=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788850973; c=relaxed/simple;
-	bh=tFhVIGvqrdIyyVl0uRcPiZBn30HFsG0MOAbNQFMUjcU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=YxT20A+e9YVZYjfJxhSHSmaEcFBzZbBVsJLINX8BUKtBzpVtgtyRdj/sJQbOdqjNOAOJs31mtbRQA7oj1JyH0g490wTMeClHq+zu0NmnWdGeKIY76ZZORrMTP5VGYjfRxLdmhdfNbLK7MnhHg/4sW7R4BIeD9K7n7d4a0LnuZB4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fEGyRlPE; arc=none smtp.client-ip=74.125.228.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788851047; c=relaxed/simple;
+	bh=GtHEnZk9MyBdKv7ubuUHgxN1koWc+wxdG4Xd9W9NvNo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=HM+IKkbX9NxONNYui6gGFHtNWL1g6Du3lCQqDXlUPxSsEf8sWOIXdOSkFoWhVQ4T7rJiXF2CRVr43PpLGSAFGa17SNiDPq5KvkYTtrmOTqen8r0VJLtBKQBkSIB/yH9/FxOael6MyctyfF5/OS8pb4aws/Kdh6ogaDtNXoqXDJY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=mlzeTykR; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=U09ZI6D4; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fEGyRlPE"
-Received: by mail-pz2-f12.google.com with SMTP id d2e1a72fcca58-8523cc41f38so212753b3a.2
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 00:02:52 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="mlzeTykR";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="U09ZI6D4"
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6886M0RK2979087
+	for <linux-kernel@vger.kernel.org>; Tue, 8 Sep 2026 07:04:05 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	rSgnM7WQLIr2JaQ5sXzvM8SpynBQx/3leL7JcFUsetI=; b=mlzeTykRkXaD+r/e
+	qHrt6wRxHQgbe8cKzUm6jbUJKOKQowVaNY/rFVyO4EanxNfPn89LV+es3Txi7ePw
+	XKI5EGhjsigTTh2QdUs66wrQjpoJEawOtPYWfB1EyW+ND2tUc97tuQCaqt2bSkqI
+	7m0PQYt5aAwusVD9PK2kOAdbkf2dY66qEi/Ohdya4K9qBkyhQfLGC2BwSsdUBFPr
+	UQCoBg/54M/JjcfHw9ngzrd0h5zCXmDeAoN02vAEI7mpg8g6FMRpum3yFZQl/gEs
+	3ByD0RnGyZ4uYlEltGlPxoxudohx2XV0dxu58WvPFs5HaCWqFNa63r8VSLjTIgNL
+	U68zzA==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ghuykbjbx-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 07:04:05 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-939a28482e4so35676785a.0
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 00:04:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788850971; x=1789455771; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=NELnY7rhvN2fX0w+mwkpJWMxqnyiES6ZAAlSHyGONzo=;
-        b=fEGyRlPEITQ2kEQ85nAVH7fMUjFKZbhONe9y8E8HzMths7YuWvazQWWlgyP8XIzHYB
-         hPPm45TfELuWOhrJAi8vMQQiM1cvPWWGDfcYhdW9l8w3D5CW0/YQ0vunORjtWNJZ5/Sh
-         9IUb9Pks2CUJlmlVXikfEJXAxa3f3KmzQ7SE6aXc2t7/L4j//ANo7BEBRPRcWyBNllWd
-         2wRE9MaVzdyWWkEWsBl+naCUDQIhVNxDVhZ76OPbFkzmu0erDYXxZlpVHD1N25LbbMe7
-         0q77/sD5cAGyrgpX7O7oZ2LnCnveozqplYphcvz/PP+mdrgvRajURJjyevZiRiOH3bF/
-         pTWw==
+        d=oss.qualcomm.com; s=google; t=1788851039; x=1789455839; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=rSgnM7WQLIr2JaQ5sXzvM8SpynBQx/3leL7JcFUsetI=;
+        b=U09ZI6D4peYFqu3z4sbrfBuZOKxIQc5J7JGIwOnNACd5WGvzGI8fIA7IrFG4AGx4ZX
+         K1mXS+FcYv2epq6J5OaseKpiMyKLR/RCP8U76iORMYUTThm3U4egzPECZiKshhLH2x+K
+         LGjwPMJldIp4X7RIQL9Ew14ujKWZc5+mqa+cqaNGNYIvSpVccB4fGFuexb9JWhLQsnDE
+         f4XaE33oCeSoJsRUygExG4mpP2DmIkrQhZYpH+ZDtSlVDNMlb7p+FrU/s+QzJtRiPuPQ
+         2gO3rBH4FY9Y9lIRH/jhSV/0LrQ1yUcfxnDFC31LyYjk/XlQw+2k2q+vx3pNftcwYFDu
+         hDjg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788850971; x=1789455771;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20251104; t=1788851039; x=1789455839;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=NELnY7rhvN2fX0w+mwkpJWMxqnyiES6ZAAlSHyGONzo=;
-        b=DINIRKZx0pYHei3bhXXr9/MUCn4sjmBvovR6DqB4QtRS1QnQUBlNhpv/rWmD2X9D+D
-         aBlCXm7KSJoWMJePTQRVhdMp1WEA0RKxoVteRtlzc89yV1230ckB20y3eevjsLuj/Rfp
-         tKmbVOVp6D3J4OPNBgvyGl0oaVrLvyI2wbTllCwhqyhBz9ZW/jTdk18tT075G3jlgm+k
-         923inNyU6SRIt5E+hxYESnT2z0iNSAcJplIRysaxQdNmjcaYU0ptwOzFM43fTLIdyVxr
-         CD5vDUZy9tGyopJwKakFiIja2CoBqHyN8DnR/HHMwp7oCX01JznLRTsL0skrssBVCM21
-         XRvw==
-X-Forwarded-Encrypted: i=1; AKwUvBwLpLqvHpV9/K3chWo270xHj28TrjC/CNkhTylA1gskY29//iBm47a7oW6pok4Wv97T7z/ykdBOrVE+ANQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++kNISLe07IFG49OL8xeBMDFK+UDL35tCS6ylqV/iPY5ZJVXt0ft
-	psp05F1VTPWtPCmu6sBjH7/i8Owa9DfQE0MCqpWEQPXRO6QSL1VyCWiL
-X-Gm-Gg: AYBFou2ub9GpBNLHHTsi7rncoDLzdXVLE6h+7Z+0sqgcL6pV9Kg2c4bSFCQzHcMjlC2
-	8fICRu7l3q/vJyFhaZ0oIUiyhqB/AqWBKUI4lrdUG7PgUBHXa53QACilyAaeEEFSaIjUzQLLHTN
-	aOEemq3fJohNPFCuaFfYDX/sWQ1W+LPHbIRVArCFA0rxLLyOyf9CF/SwbNv6tkihwdjdBbkFNiI
-	7rZPviIPBFJ62PtZwj+KNs6/Q7DcE6rL2MsUtYpwMi1DB0ZAapN24O7e6gIfwVvQ7sQnEM3FAoQ
-	MnDSOFc0TkQzga9lT8Y8V6IbgWtMfyrc2KUG/mjRZN3iSZWTYY4Acf6E7zxQO6neQi94SYIdXtL
-	BT4hX5bdpFzo9+fSkHmMjojBKvLpeX4j39+ECwvQxyQvOSzQs5Yvbv+TXeUDlav6gI5WFFs60xE
-	/bGY10BeLT9BHhXhqTxWyHD4eWohzvy0n1RQZ8gDUe810210Xuo3V0pV7E5jkb3aserDG9xgEyU
-	Fd4+HQIOyTi1w==
-X-Received: by 2002:a17:903:38cc:b0:2c7:ef84:c58e with SMTP id d9443c01a7336-2db276b8656mr203032685ad.1.1788850971418;
-        Tue, 08 Sep 2026 00:02:51 -0700 (PDT)
-Received: from fedora (45.62.127.193.16clouds.com. [45.62.127.193])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2db1483ea94sm54981615ad.9.2026.09.08.00.02.39
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 08 Sep 2026 00:02:50 -0700 (PDT)
-From: Frank Zhang <rmxpzlb@gmail.com>
-To: royalnet026@gmail.com,
-	Laurent.pinchart@ideasonboard.com,
-	airlied@gmail.com,
-	andrzej.hajda@intel.com,
-	luca.ceresoli@bootlin.com,
-	cristian.ciocaltea@collabora.com,
-	daniels@collabora.com,
-	detlev.casanova@collabora.com,
-	dmitry.baryshkov@oss.qualcomm.com,
-	heiko@sntech.de,
-	jernej.skrabec@gmail.com,
-	jonas@kwiboo.se,
-	maarten.lankhorst@linux.intel.com,
-	mripard@kernel.org,
-	neil.armstrong@linaro.org,
-	rfoss@kernel.org,
-	simona@ffwll.ch,
-	tzimmermann@suse.de,
-	sebastian.reichel@collabora.com,
-	macromorgan@hotmail.com
-Cc: dri-devel@lists.freedesktop.org,
-	stable@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v5] drm/bridge: dw-hdmi-qp: Guard clear_audio_infoframe when PHY is down
-Date: Tue,  8 Sep 2026 15:02:20 +0800
-Message-ID: <20260908070220.41574-1-rmxpzlb@gmail.com>
-X-Mailer: git-send-email 2.55.0
+        bh=rSgnM7WQLIr2JaQ5sXzvM8SpynBQx/3leL7JcFUsetI=;
+        b=Ei2OXNxa+6vIDBgjUDsKz3jg6gB7GCwLTpuTzOWVpmrN9GvGEbIBVYGzO42qZCoUGA
+         F/98coRu6EsQ65oOCQexHYc4/GRSbkUC7tf9W8EXXspOMjN69AKLQUAJVSN+Mwy+olLq
+         Yh85taKOn/FvKHxY8n9SbgFBgRIs4dt2V5tSFOw0jIML14elrbkcJQBxJurkcVrcreHd
+         I+ZcThz4IZ52m5AZVYP8+ni0e9VGLEYOaIhg7fBYhOs5NHQDrCbzM46mZ2MB8TzP63RB
+         HIxik/JrlfDbECfabvY1BHMP0RzfPTJEje2DN7jFVzfX4FQispjG8J3QGWPIvHmJvmhn
+         vpTQ==
+X-Forwarded-Encrypted: i=1; AKwUvByZsQTVbs0E4T+lUdGIpIf0DuywOMYOZ/xDGVrGDci4kULkNHyfSVc8AyHCbEcDBh6AJr2zJTAgM39ogeM=@vger.kernel.org
+X-Gm-Message-State: AFuF++kuJ7ezu9Yyaw6pwxIomxfVMvMMFNMXVzZ1vyLrvZkSEvPfMc7j
+	2lUn6IuDD8ZXtJcriEWU5gCd2bTtWleI994zDybkKtYVpeF2s+yTWfGH0oSXqd41kEPWM/a+jZE
+	UF+gCf7D9OT09Fsnl+LbJK3tITsvF/s5yeA6wiSMPJMVxl8lt6DS0khOGQJWC0mmMCnU=
+X-Gm-Gg: AYBFou2ywaIqQfARZoS3ZkV8y5zzFJH+o4sd1YgYEC8R6z2I9XJ9mOipw94GAqEGgax
+	R6zqfVe5i7iyNzIxklMAqteHl9xA66kn3bpArjaGZXAfwkEMmV9TpjSrgc0NzeMWszNI62sHp4o
+	TBKsUY4vjD9dVa1yJI1qSGHUxQW/wgIiRjcWIUQ5Yd0BO6sGHpX5bUuka2bOTcFyKb1QyZ2D4Tn
+	78mKYi+a18N9dIzWR4omtYTVPwa0ai0qJKz6FuSCIWou4tTqxrzJ7O6PCjvnnow1Um9oUy+CnOU
+	5/3Gx4uP5x9svwiExSQUw+s2AXTmjn8hRArq/4MlrIExJmoxyX/eKlUmR/4DhXAsJYBWp2k0hh9
+	s0pC4RG+U2iyHHBJKQBbHnw==
+X-Received: by 2002:a05:620a:4623:b0:931:23a:83ca with SMTP id af79cd13be357-93980be17f4mr2342013285a.4.1788851039594;
+        Tue, 08 Sep 2026 00:03:59 -0700 (PDT)
+X-Received: by 2002:a05:620a:4623:b0:931:23a:83ca with SMTP id af79cd13be357-93980be17f4mr2342006485a.4.1788851038866;
+        Tue, 08 Sep 2026 00:03:58 -0700 (PDT)
+Received: from [192.168.202.12] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c260d5497cbsm564096566b.34.2026.09.08.00.03.56
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 08 Sep 2026 00:03:58 -0700 (PDT)
+Message-ID: <80eb9f51-9cff-4c07-822a-759360617cbf@oss.qualcomm.com>
+Date: Tue, 8 Sep 2026 09:03:55 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/msm/adreno: keep the GPU timestamp monotonic across
+ power collapse
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+        Dmitry Baryshkov <lumag@kernel.org>,
+        Abhinav Kumar
+ <abhinav.kumar@linux.dev>,
+        Jessica Zhang <jesszhan0024@gmail.com>,
+        Marijn Suijten <marijn.suijten@somainline.org>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+        freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <20260828-b4-adreno-timestamp-v1-1-273525da144c@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260828-b4-adreno-timestamp-v1-1-273525da144c@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA4MDA3MSBTYWx0ZWRfX/zDXoAKnZIwR
+ nIbfq38N00E0R7nDN8+xgJRProuZcBi1FAmlPHzVWI5Q+5UULUNLoTRHl9l/rQD+aloc4j0leC1
+ cRPSec9XYReok2ylhLLU1Rgz9Wmobdo=
+X-Proofpoint-GUID: 2gQQh6NVAZzyWQjE6bskjugFBJXS8hn3
+X-Authority-Analysis: v=2.4 cv=ObSoyBTY c=1 sm=1 tr=0 ts=6a9fb365 cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=EUspDBNiAAAA:8 a=xJso4tAO6kuAywU0jPoA:9 a=QEXdDO2ut3YA:10
+ a=PEH46H7Ffwr30OY-TuGO:22
+X-Proofpoint-ORIG-GUID: 2gQQh6NVAZzyWQjE6bskjugFBJXS8hn3
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA4MDA3MSBTYWx0ZWRfX/oQzOq+C5G/2
+ xNBs8r9GWJrOkUAzGTgu4Zl2qkhCbMVQzu3HYzGNV087H7xpyGZI+xpkIr/j0WQRlWAzQDTVylM
+ IEoTKK7rVmInp55MUaT56XfJTnSobwtRYDA19SVovOMyWiFfyd8hIJfRReaKCcIeLcw2Gbh6HTG
+ GIlkHhvhcrGKzUcLXm/pcr1E2r5DTa+mOJ7klp0H49Il6p4obVJEmrH2SQttjWcSCY/2QnpeFaH
+ IZN/1qQh6/JUjExdLVLwj9ucbxTcYql7QtuCMQu7EFNph5/4Z0loMVj9ZUeS3AgIw6Y+s3Kkz1S
+ Nv7G2RUbpYYmgRIxxA7ZKA/12pVyqdcadm435tVa+N49GtNvj+Qam9kRi06E4h6m3eQsVVw0/BL
+ lzkmgjjMS3gk77RrZ0166t3qV4uie4g+z6CnuDOrAwmfby9yr46U+4DJU2wh9y9VjZcCYmCxde+
+ y5pbCATDAawe9rlFQtQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-08_01,2026-09-07_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 lowpriorityscore=0 impostorscore=0 adultscore=0 phishscore=0
+ priorityscore=1501 malwarescore=0 clxscore=1015 bulkscore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609080071
 
-The following panic was observed during system reboot:
+On 8/28/26 1:13 AM, Dmitry Baryshkov wrote:
+> The always-on counter behind MSM_PARAM_TIMESTAMP sits in the GPU power
+> domain on a4xx, a5xx and the GMU-less a6xx parts, so it restarts from
+> zero whenever the GPU is powered up again and the timestamp reported to
+> userspace jumps backwards. On an a702 six reads three seconds apart all
+> land in the 500..1200 tick range, stepping backwards twice, and on an
+> a530 the OpenCL device timer conformance test fails because
+> clGetDeviceAndHostTimer() returns an end time below the start time.
+> 
+> Save the counter in the suspend path of the affected generations, while
+> the GPU is still powered, and add the accumulated ticks to the value
+> reported to userspace.
+> 
+> Assisted-by: LLM
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> ---
+> The always-on counter behind MSM_PARAM_TIMESTAMP sits in the GPU power
+> domain on a4xx, a5xx and the GMU-less a6xx parts, so it restarts from zero
+> whenever the GPU is powered up again and the timestamp userspace reads
+> jumps backwards.  Accumulate what the counter reached before each suspend
+> and add it to what is reported afterwards.
 
-Kernel panic - not syncing: Asynchronous SError Interrupt
-CPU: 6 UID: 1000 PID: 2348 Comm: pipewire ... 7.0.5+ #4 PREEMPT(full)
-Call trace:
- ...
- regmap_update_bits_base+0x70/0xa8
- dw_hdmi_qp_bridge_clear_audio_infoframe+0x3c/0x58 [dw_hdmi_qp]
- drm_bridge_connector_clear_audio_infoframe+0x2c/0x48 [drm_display_helper]
- ...
- dw_hdmi_qp_audio_disable+0x28/0xa8 [dw_hdmi_qp]
- drm_bridge_connector_audio_shutdown+0x38/0x68 [drm_display_helper]
- drm_connector_hdmi_audio_shutdown+0x28/0x40 [drm_display_helper]
- hdmi_codec_shutdown+0x60/0x90 [snd_soc_hdmi_codec]
- ...
- snd_pcm_release_substream+0xcc/0x120 [snd_pcm]
- snd_pcm_release+0x4c/0xc0 [snd_pcm]
- ...
+Could (some) a5xx parts use A5XX_GPMU_ALWAYS_ON_COUNTER/0xa879?
+msm-3.x defines it as KGSL_PERFCOUNTER_NOT_USED fwiw..
 
-The root cause is pipewire tries to close the HDMI audio device after
-atomic_disable(), which sets tmds_char_rate to 0 and disables the PHY.
-
-In this case, dw_hdmi_qp_audio_disable() will call
-dw_hdmi_qp_bridge_clear_audio_infoframe(), accessing register without
-checking tmds_char_rate.
-
-Guard the register access in drm_display_helper callback function with
-tmds_char_rate check.
-
-Fixes: fd0141d1a8a2 ("drm/bridge: synopsys: Add audio support for dw-hdmi-qp")
-Cc: stable@vger.kernel.org
-Signed-off-by: Frank Zhang <rmxpzlb@gmail.com>
-
----
-Changes in v2:
-- Move drm_atomic_helper_connector_hdmi_clear_audio_infoframe() inside
-  the if (hdmi->tmds_char_rate) of dw_hdmi_qp_audio_disable().
-- Link to v1: https://lore.kernel.org/all/20260416093150.13853-1-rmxpzlb@gmail.com/
-
-Changes in v3:
-- Add a tmds_char_rate guard in clear_audio_infoframe path.
-- Decouple write_audio_infoframe from clear_audio_infoframe.
-- Balance the PKTSCHED_AMD_TX_EN bit enable/disable.
-- Link to v2: https://lore.kernel.org/all/20260418101936.7731-1-rmxpzlb@gmail.com/
-
-Changes in v4:
-- Update panic stack on 7.0.5
-- Link to v3: https://lore.kernel.org/all/20260423081514.15444-1-rmxpzlb@gmail.com/
-
-Changes in v5:
-- Reuse the origin dw_hdmi_qp_bridge_clear_audio_infoframe and add
-  tmds_char_rate guard in new callback function.
-- Link to v4: https://lore.kernel.org/all/20260512103153.8861-1-rmxpzlb@gmail.com/
----
- drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c | 14 ++++++++++++--
- 1 file changed, 12 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
-index 1c214a8e6dc2..8729783d4eb6 100644
---- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
-+++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
-@@ -880,7 +880,7 @@ static int dw_hdmi_qp_bridge_clear_spd_infoframe(struct drm_bridge *bridge)
- 	return 0;
- }
- 
--static int dw_hdmi_qp_bridge_clear_audio_infoframe(struct drm_bridge *bridge)
-+static int __dw_hdmi_qp_bridge_clear_audio_infoframe(struct drm_bridge *bridge)
- {
- 	struct dw_hdmi_qp *hdmi = bridge->driver_private;
- 
-@@ -893,6 +893,16 @@ static int dw_hdmi_qp_bridge_clear_audio_infoframe(struct drm_bridge *bridge)
- 	return 0;
- }
- 
-+static int dw_hdmi_qp_bridge_clear_audio_infoframe(struct drm_bridge *bridge)
-+{
-+	struct dw_hdmi_qp *hdmi = bridge->driver_private;
-+
-+	if (hdmi->tmds_char_rate > 0)
-+		return __dw_hdmi_qp_bridge_clear_audio_infoframe(bridge);
-+
-+	return 0;
-+}
-+
- static void dw_hdmi_qp_write_pkt(struct dw_hdmi_qp *hdmi, const u8 *buffer,
- 				 size_t start, size_t len, unsigned int reg)
- {
-@@ -987,7 +997,7 @@ static int dw_hdmi_qp_bridge_write_audio_infoframe(struct drm_bridge *bridge,
- {
- 	struct dw_hdmi_qp *hdmi = bridge->driver_private;
- 
--	dw_hdmi_qp_bridge_clear_audio_infoframe(bridge);
-+	__dw_hdmi_qp_bridge_clear_audio_infoframe(bridge);
- 
- 	/*
- 	 * AUDI_CONTENTS0: { RSV, HB2, HB1, RSV }
--- 
-2.55.0
-
+Konrad
