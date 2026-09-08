@@ -1,163 +1,135 @@
-Received: from mail-pg1-f177.google.com (mail-pg1-f177.google.com [209.85.215.177])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpbgau2.qq.com (smtpbgau2.qq.com [54.206.34.216])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1795851990F
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 09:40:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50777519908;
+	Tue,  8 Sep 2026 09:40:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.206.34.216
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788860444; cv=none; b=udFLmP5a9D+4jHmB13fAX9J7n9gW98CwMUWJxfmLVc1hdrg7W+2MH8tiGqPXJuXgZnGuBtZ6zAgxq86tvw7X0VhWkbMimjxPz35U90nQy1UtX8AYr3aitC2Bfn6EOcs9TYnLbRfe4hCIgR3Hwb01A9wSyAOp8IQRpciwflN6uww=
+	t=1788860448; cv=none; b=Pt4YedEaWD0ngs+6vTktLNQmHTOBsiXl4c68URFgM6zGHDMki2nRx9s8UhKXDA5YVAg8A2EwwvHlIXJU+CkDwQAVvhHdfgs/cGXjM/SO6bfm8R0IxZYY84hx+PTF5niLfVP5eiABLrIUBY8Lkz8pmqPSFDHD6gALFpHDalmTU70=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788860444; c=relaxed/simple;
-	bh=SWI63MDFjZNht/c4EEElOt+aKVUKQ3L3CRCdW/g+hoY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ch6WJmgdZqYwUjOdEIYnGAmif4sA3eZkvqhAZpZLxjIGS1BuNa6g/dlxgOMHl5X8HxlJ/uLNN2lLgqcyfzH3/H+/0jUDUWDHXqA9hsw+KX03K41/Dq5KQG0vZKpVKyOAUA2w2OvszKD+s5jpNclcyDZz/p8lMcF0JIavrzb/Di0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=iJrIOdlF; arc=none smtp.client-ip=209.85.215.177
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788860448; c=relaxed/simple;
+	bh=/MqnHKMUZO6pR7UnfizV67smzo2VOogPio2iF+YxGIM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=AUCeFJnoeqvi5nddwGdAIwZj2RAXoGPNqu74rppJJhbAII86UNNMWoGtUbDHQxHZXZvgioXwRdLzI+hWG/ZgoQdCpWkxEPDsXX600Dkpbz0DtSoiqv7+c/qi43QQjLlXcKcIZ9EFr4yNNJ6XjbrYAjM8dLyT6qrZCn4oCQTo+qE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com; spf=none smtp.mailfrom=linux.spacemit.com; dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b=PCb0x4mq; arc=none smtp.client-ip=54.206.34.216
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="iJrIOdlF"
-Received: by mail-pg1-f177.google.com with SMTP id 41be03b00d2f7-cc439bfb2d8so2719835a12.2
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 02:40:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788860442; x=1789465242; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=BKlva5de7tLauDWwEtkNz/euSCPlj9TGyi6mfKDbnjA=;
-        b=iJrIOdlFuSbo/Je3M9Ayh51gdDyyC56pItH5s/CB5S5ls6zmep+60QYSA/K025OvBb
-         3DObP7cFQv9P6qWU1Xg3/Ti4Y0mSWMan4tGf9/D+GfSBKr5n3VdJfO3BDlqxnd6ETta2
-         gxPrVO7pxyNLgqr/NJMGC9SVP1TLi5KoE/VYG2fK3xJ6g4RFKXutwOmvWAShAvaKlQ+D
-         YanRv8rfzb4s8IrYKS8ghSQNhCTahLynEvIwUxBFKMpkaNjRDt6/Ykjizc1I/KJzVTb1
-         gUr0m1UrRzkxpUXLP8X0Hk7xomiDrbuK98w5rD3gonueK0KLu2F3iZ8esNZl2/tPKVce
-         ewCA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788860442; x=1789465242;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=BKlva5de7tLauDWwEtkNz/euSCPlj9TGyi6mfKDbnjA=;
-        b=AzibAUdRLRf3I9VbI2sut/2DqohJ9S9Y4B4xvJ7ad+D+AO73z8uMA2Ne2e8+s/auDg
-         gpT4YdKbRLdnuXI1Cc5q45GmydM1ekKF0nbLRSob+RA+rPRPiFvKidVuz8RBl0FMWk/6
-         fn5u8K/O/oc8sQGtdhtUtpVp3hEA0p4PslN5461i6vncgPLGYqnpdkLiKhIzUfCxzNpJ
-         DTT8dzsJuCCakEpJFWOuXMSWdnYd9DntJ+Ch7ZHyic9X9hKm6FdOWrU3uejGNAwXQl1Q
-         w9JzmYYsFAeZf5yT6FBAEw4Uya37bhexBmpEndcawsV0D7LMYAz35+/LaI6MuOdDIXWY
-         qG3A==
-X-Forwarded-Encrypted: i=1; AKwUvBzGY3qPPWoYDGas1s4HXKSO5MrKJKIEM826KMND/R+p/frDU400mY5M3uix0j4QbXflFEeWIzPtwUeWNeM=@vger.kernel.org
-X-Gm-Message-State: AFuF++lCOz2jEWbfejKbJQjXQ22kQT2VeXSorGlQQQQPZujAyZn1Y2jG
-	Foo9Fu3kqMc8EU1thBRMggbhDHUp3HN6WfPfjtf3bDXVHxs3koPk3G8r
-X-Gm-Gg: AYBFou1KFDbeRkyJsh0zFZVb1GSBVrugqoH+lakYC29xZZWjSbROjh8HV3rmfT9fQX8
-	VVe5QVb57zFqR62Mfii7FZBLVrheM+vB8T3akmPfMY5T5Ko2y6mb9mAb1iHhQhRZ6o+XJGymr36
-	6D4BGojPViq36A2JrRd+hJCzl1xyWBpkMliZ4BzIYjr78jT1xnLc9884A4u7fLLCJJuY/DlbSuY
-	y05gOpsIXAOmtMZ0hU+RM0LB1Md7x5HY946Pg4eE/xiVDny8JsyW1Y+0rG+6ArsMDqJnQuSSEae
-	AqFQ9Dmt0WdZXdzr3KdwMOGtQZoJcf+SdXN8sd6BjEilBZEt24lv0bvnSpRVmX1awXAjGWvBvNY
-	Exgb8kfA1IwYvM+W/YOHARHy5tP+uJrCHEij77/bhw2nKhlibMOoSBAEEw20zXqK0V7loLclpNz
-	Ebo6nCC6qkVMhYhTwDgAp1wXDbWyFzhYeR5VuehkRsFN9DVfmz6rxYpkIXs7ll1WkE+l5ONAhVQ
-	BJrIUZiHMThk9/EWKYMdseuxE/aoY6lj/SoaMvM9JsiRfzJYQAc3eeyOCu4iGapHooJF6cmnUr4
-	uQ==
-X-Received: by 2002:a17:90b:1b05:b0:398:9bd1:3210 with SMTP id 98e67ed59e1d1-39b262a89d4mr38336464a91.17.1788860442166;
-        Tue, 08 Sep 2026 02:40:42 -0700 (PDT)
-Received: from visitorckw-work01.c.googlers.com.com (202.176.229.35.bc.googleusercontent.com. [35.229.176.202])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b08cacbb0sm31999240a91.13.2026.09.08.02.40.38
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 08 Sep 2026 02:40:41 -0700 (PDT)
-From: Kuan-Wei Chiu <visitorckw@gmail.com>
-To: geert@linux-m68k.org,
-	tglx@kernel.org,
-	miodrag.dinic@mips.com
-Cc: radu@rendec.net,
-	zewenchen@google.com,
-	jamiechen@google.com,
-	edwardwchen@google.com,
-	marscheng@google.com,
-	eleanor15x@gmail.com,
-	jserv@ccns.ncku.edu.tw,
-	linux-kernel@vger.kernel.org,
-	linux-m68k@lists.linux-m68k.org,
-	Kuan-Wei Chiu <visitorckw@gmail.com>
-Subject: [PATCH 1/6] irqchip/goldfish-pic: Use gf_ioread32/gf_iowrite32 for MMIO access
-Date: Tue,  8 Sep 2026 09:40:11 +0000
-Message-ID: <20260908094016.1997918-2-visitorckw@gmail.com>
-X-Mailer: git-send-email 2.55.0.979.g7e5102b832-goog
-In-Reply-To: <20260908094016.1997918-1-visitorckw@gmail.com>
-References: <20260908094016.1997918-1-visitorckw@gmail.com>
+	dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b="PCb0x4mq"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
+	s=mxsw2412; t=1788860387;
+	bh=FHFampfu+ImN2iiJYFmkXIBlrCdOXAMDPUO7WbZYY0I=;
+	h=Message-ID:Date:MIME-Version:Subject:To:From;
+	b=PCb0x4mquSapCsOP9uVykh8Bk1pT1OFD5GcZSPIPGU2Y6E5PhikhaBj22JaI8yRXf
+	 a92hmVjAz2STStDqANa3JZ3Yj7QOm843Wi5NAycW91piv5QqI+Q7NThxVjnj1dAm3x
+	 QtguhCn8jcn/XM01mG3iCEAeBSzVM20Ol+KnEDvU=
+X-QQ-mid: esmtpgz11t1788860380tc17f5ec9
+X-QQ-Originating-IP: Bugj5YLGVEyhMeIa6KzMeFxlT0lmNUHALoPlNP9mFzM=
+Received: from [192.168.1.100] ( [120.237.158.181])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Tue, 08 Sep 2026 17:39:36 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 8537548706978725419
+EX-QQ-RecipientCnt: 19
+Message-ID: <0F6BBCA4EF1303F8+e4bc3221-1f7d-42b4-a9e4-169b14e6d04b@linux.spacemit.com>
+Date: Tue, 8 Sep 2026 17:39:36 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 5/6] riscv: dts: spacemit: enable USB2.0 controllers on
+ BananaPi F3
+To: Troy Mitchell <troy.mitchell@linux.spacemit.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>,
+ Xu Yang <xu.yang_2@nxp.com>, Peng Fan <peng.fan@nxp.com>,
+ Peter Chen <peter.chen@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+ Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>
+Cc: linux-usb@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
+ spacemit@lists.linux.dev
+References: <20260812-b4-spacemit-k1-usb2-v1-0-f28cf29e522b@linux.spacemit.com>
+ <20260812-b4-spacemit-k1-usb2-v1-5-f28cf29e522b@linux.spacemit.com>
+ <DL8Y8HJ75OUV.2AC7IAYJ0UB26@linux.spacemit.com>
+Content-Language: en-US
+From: Junzhong Pan <panjunzhong@linux.spacemit.com>
+In-Reply-To: <DL8Y8HJ75OUV.2AC7IAYJ0UB26@linux.spacemit.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: esmtpgz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz5b-2
+X-QQ-XMAILINFO: NsTWTlXJmKxZ9b9lH0VlrKjOx80vPaKYD//8LCI2eOdjo0kW/6pfTkfa
+	UouNele6IjeBaUtOxZ9ZhfYDGQzIXm4Y25dpyTb9wSvNWJjqeoZl0ZP5RuGucj61mWkJ+Lf
+	ndS4vpiN9PBSaSWlY78SRDLfl8maEzCT1EUKDv5UbXqEw+xI3niZ+0uGC7rFzcPGgtqoM5j
+	+o/DLloLBUTU35YRN3gPElN3A/G8VzfpPdvvNQ93ETqTfZNhHcR+T6n7Kv6Vm6zRcaEnkJd
+	9AdXWZTjo8nUgJqxkZTIjnkUjTdiCsy4M/kim7Xb3CQG/hk+njJ34JeCCAxeiAJtjQ+aBIF
+	H3ayFQ540k54UZ6pwOvEyvSB7Elq0gHNbv8USvWWo7lhPZmVAix0mmjh0QL0fEYVJLbSdau
+	dWERvOOpuZBMnNp/Uwei2eni0R+nBykuqHq5gOFsusYpGr/jlMQOUXw8m9zX13IuJh9BL7R
+	T5C69XRvo+82rIDZWLvN50k9bdYl9nmirwHaAr89VDF+xPbpJQ1OerAjl8vVGH46301+6Sp
+	ECnDrcr8hhxRxhXbHCTGC8C5/4V+KlFhLy8xfE/xaKRfLvbs7CVhiXMBOS4s8Y3fS9T4q7N
+	HlQb4YQ5iefR/jHZiY7GTPFYuaS+nbABsAoB3qY3NDTSTWzgeeFcLdQxefB6FbYz8ZOCDiw
+	cLI+NHlDnzILtfsjqcytrAqRMSQF4wcTkgDX+pCy1hDzPK6urlnGc2Fl+5BcJnTvjGlqACj
+	WFRgvXLKpq+GjOAn1bjRHGVn/w0LUJctCJ025UraBuCKh2mDVLu2YVtcs8ULa6r2AxrNFyP
+	ZeUmxSFxGTtI03tl4CApt8u5+w8Bx7g5IDLwprq+rgllWxQyUleMNtGWIXJs3tjLoAeZnqy
+	DWB98Swvkb2bWYEnTIcPXSfnZjgQaF03tDXxjFGaebWfRRV85grEPciqUHhYtgqHAeCjll0
+	RxL6jNYk3JVtlNohKjjBe8RNB0caag7C0DZa7rZzAoNs4FATjpmf2RXtDy6H0CX1wWEofw4
+	+kuK+IDck6Rjz/3WQYKlo/vv0r+JAhaBBgXzmi4/El2HDxn/NeiMG8S8leeYDTCXPXwTEl5
+	IlSQ7jr3XUb
+X-QQ-XMRINFO: OD9hHCdaPRBwH5bRRRw8tsiH4UAatJqXfg==
+X-QQ-RECHKSPAM: 0
 
-The goldfish PIC driver uses readl() and writel() directly for register
-accesses. On big endian architectures, goldfish devices require big
-endian MMIO accessors [1].
+On 9/7/2026 4:42 PM, Troy Mitchell wrote:
+> On Wed Aug 12, 2026 at 5:26 PM +08, Junzhong Pan wrote:
+>> On BananaPi F3, usb2_0 is connected to a Type-C connector at device
+>> mode by default. This port have no VBUS supply capability, thus host
+>> mode only works with self-powered device or hub. User could switch the
+>> role in sysfs.
+>>
+>> And the usb2_1 is connected to the USB2.0 pins of the Mini PCIe slot to
+>> support cellular modules.
+>>
+>> Signed-off-by: Junzhong Pan <panjunzhong@linux.spacemit.com>
+>> ---
+>>  arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts | 16 ++++++++++++++++
+>>  1 file changed, 16 insertions(+)
+>>
+>> diff --git a/arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts b/arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts
+>> index 72f77e9edd63..fd0f96262009 100644
+>> --- a/arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts
+>> +++ b/arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts
+>> @@ -350,6 +350,22 @@ &uart0 {
+>>  	status = "okay";
+>>  };
+>>  
+>> +&usbphy0 {
+>> +	status = "okay";
+>> +};
+>> +
+>> +&usb2_0 {
+>> +	status = "okay";
+>> +};
+>> +
+>> +&usbphy1 {
+>> +	status = "okay";
+>> +};
+>> +
+>> +&usb2_1 {
+>> +	status = "okay";
+>> +};
+>> +
+>>  &usbphy2 {
+>>  	status = "okay";
+>>  };
+> Could you keep the USB nodes in the same order as in k1.dtsi, with
+> usbphy0/1/2 first, followed by usb2_0, usb2_1 and usb_dwc3?
+> 
+> 
 
-Switch to gf_ioread32() and gf_iowrite32() to make MMIO accesses endian
-safe.
-
-Link: https://gitlab.com/qemu-project/qemu/-/blob/stable-11.1/hw/intc/goldfish_pic.c#L130 [1]
-Signed-off-by: Kuan-Wei Chiu <visitorckw@gmail.com>
----
- drivers/irqchip/irq-goldfish-pic.c | 18 ++++++++++++++++--
- 1 file changed, 16 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/irqchip/irq-goldfish-pic.c b/drivers/irqchip/irq-goldfish-pic.c
-index d458cf898f8e..c3c33f066140 100644
---- a/drivers/irqchip/irq-goldfish-pic.c
-+++ b/drivers/irqchip/irq-goldfish-pic.c
-@@ -7,6 +7,7 @@
- 
- #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
- 
-+#include <linux/goldfish.h>
- #include <linux/interrupt.h>
- #include <linux/irq.h>
- #include <linux/irqchip.h>
-@@ -38,7 +39,7 @@ static void goldfish_pic_cascade(struct irq_desc *desc)
- 
- 	chained_irq_enter(host_chip, desc);
- 
--	pending = readl(gfpic->base + GFPIC_REG_IRQ_PENDING);
-+	pending = gf_ioread32(gfpic->base + GFPIC_REG_IRQ_PENDING);
- 	while (pending) {
- 		hwirq = __fls(pending);
- 		generic_handle_domain_irq(gfpic->irq_domain, hwirq);
-@@ -52,6 +53,16 @@ static const struct irq_domain_ops goldfish_irq_domain_ops = {
- 	.xlate = irq_domain_xlate_onecell,
- };
- 
-+static u32 gfpic_read(void __iomem *addr)
-+{
-+	return gf_ioread32(addr);
-+}
-+
-+static void gfpic_write(u32 val, void __iomem *addr)
-+{
-+	gf_iowrite32(val, addr);
-+}
-+
- static int __init goldfish_pic_of_init(struct device_node *of_node,
- 				       struct device_node *parent)
- {
-@@ -82,7 +93,7 @@ static int __init goldfish_pic_of_init(struct device_node *of_node,
- 	}
- 
- 	/* Mask interrupts. */
--	writel(1, gfpic->base + GFPIC_REG_IRQ_DISABLE_ALL);
-+	gf_iowrite32(1, gfpic->base + GFPIC_REG_IRQ_DISABLE_ALL);
- 
- 	gc = irq_alloc_generic_chip("GFPIC", 1, GFPIC_IRQ_BASE, gfpic->base,
- 				    handle_level_irq);
-@@ -92,6 +103,9 @@ static int __init goldfish_pic_of_init(struct device_node *of_node,
- 		goto out_iounmap;
- 	}
- 
-+	gc->reg_readl = gfpic_read;
-+	gc->reg_writel = gfpic_write;
-+
- 	ct = gc->chip_types;
- 	ct->regs.enable = GFPIC_REG_IRQ_ENABLE;
- 	ct->regs.disable = GFPIC_REG_IRQ_DISABLE;
--- 
-2.55.0.979.g7e5102b832-goog
+Will do, thanks
 
