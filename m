@@ -1,68 +1,68 @@
 Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FF0758F093
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 16:55:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA35B58F096
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 16:55:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788886521; cv=none; b=ak2HHPlcL1QkA7Qr6LI0TpzR2g3hkACHVeRFy0yx148qL1cQ8sTKjlWeUxAfsAkOTs7qnH6pmvUnIZmRnNNLHR3o9Uw5dyw1qXVdB3Tjfvx48LCz6h4SnYakwpWRHPqNlEHh85NPjZdupGg46bzW0Qlr/Uz3x+JUntUV1EW3TmE=
+	t=1788886522; cv=none; b=fbmDf9VgYYRuKCkB0XQ4ihmHaZHwUFbp9O3cmEkilbrXuMgn8/DeQSUW6phwZDJnwXYehT1Y8iTxftnUghyfnCSzoS3RlD5zb8SuMDauV9rMLLRSBaofxhF6WJ6DuKFIMV7AMr6V95mE92fDIKvZEyJfFK+u27WopiasvC1+sLk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788886521; c=relaxed/simple;
-	bh=D7dJVybwPKSlApecBF+pMS/ZKTr29P6+H87h9M038Z0=;
+	s=arc-20240116; t=1788886522; c=relaxed/simple;
+	bh=nI7UZDHKHLOeR8gHis7kZKBzbvddfeV62d7kRLq8zjs=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=YxBp62isHcZTavXrYpifAU4QW2hvJZpyPPVeDrUvr8pnQqEyAQjvjqIhuT1K/vLXbB1QtBgKaiy5n9hkfcSfkZStZMxlLph7n0ia07S13fRdRLX7zfF9P2BAm7k2n7XmnumTTGBqdd1Pkq7bPz3D+8/sNdzVh1jvNBvoLkeR8VQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Tyk/ogiH; arc=none smtp.client-ip=74.125.225.140
+	 In-Reply-To:To:Cc; b=GGPOCVcK1YVvKA3DBH1lCYZOKpeg6UO2lmoqE/sihEsREkCyhrKreSiZXDGPyeyNzKknQbDwSa+Fg+UbbMfqZ9KWoZKXLj9oQaXm/3+dgFD80s3WjkaFMDRwomCU5M5r7OEIECVTEpYRV3iOXSLDQTdZbPhbz3VtcYI5MaGTo9w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=vPFjOiAh; arc=none smtp.client-ip=74.125.225.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Tyk/ogiH"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49cda5e048fso145435e9.0
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 09:55:18 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="vPFjOiAh"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ccf3bc34cso140915e9.0
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 09:55:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788886517; x=1789491317; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1788886519; x=1789491319; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=4I7/tk4AzeXA19kVEngNjvzyfvBO6TVzR+9+9eypgrU=;
-        b=Tyk/ogiHJOa7N4cFUkShyTwLu6OIUuRujP8KI1hMdyjTIzEmwjANVm9SVh5uj6Fcjt
-         HDc4/AQIWgx4lAa/vDomNvsyc5/n77BJu51tprkt+pEYF48+4Q18s+NAQBUVaTrzKfiI
-         Ppty6uzNGfdY/4n19EfvZHrUD45bMnqiKDdcJFkgb4j/YOCS2LQ7FqYbC+5msAhLTJhv
-         pLJJZeY8Ac7VT9edIE0j4f+PjEm4FdPhGDaOCqleDjPoEMrdvzJWnvOzbwlKjS3RzeQf
-         ihI2Kk5guyrsWOUuS9KgSb2IyMdl6AumbSGBHAHvvY1y2+U5CFR4lUScqnaebeHpismM
-         2HNw==
+        bh=RaUxdToouQ436sBgssARKpnXWAtos5uuXm7i5Fmx0oI=;
+        b=vPFjOiAh3PIhjxKpyCuEVEVzbKmOT85FVCeym/wCyTNOL3qS/ISPnrbIn4wqiDbMdI
+         e9VlrcvB2M9S8fnBlUTceBA/vHasI1fzZIRhIpBxkLwn+3UQPWNHaZTahaUTrQFWT2h+
+         h6kEgCTlIcHb0XG18LLCsyhTDR++O2sKYoY2TH0fIvg3cLD/WuUMbkRreT1rUjZfbfDO
+         ujhPQF7Z0cXBkZex90iW91OhZGQOztVvQ17lnP8mccLai2ixYpp+Yhja60w2kqKRXwk4
+         ONruhpScJDwpcF6xbgYTafUW5tkRZ9TdHGp1RxUWbcxBT6uKbqEAKafpXjZ9Phte4NUH
+         0BgA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788886517; x=1789491317;
+        d=1e100.net; s=20251104; t=1788886519; x=1789491319;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=4I7/tk4AzeXA19kVEngNjvzyfvBO6TVzR+9+9eypgrU=;
-        b=E9eEyP/agHAUVdggMxWoHGTs69af7eiqws1QiXKzSHAM523b0GhXDEAiOtyHQ/g4eT
-         L+4F9MRMT2/xXUZfww707WpF2bVjAREyD7MP2EI+65aN6hKGXcfMbQiEyqL4w+07qBmY
-         +Ep8yDK41sTZxCRzzs37/p6CleU0rZL5gt+nBcADjo18AN2KzCt7+4mSHrZtYptjjnFd
-         OSm6EHNxQJJx0uCgz4Rxzk2zSC1L2+v01g4Agz7hmIm02xdjjuJGilCFwD8UwaoQIeT6
-         qsgQvB+s1/55xWPeyAIKNhwaEEqWVPgfHOKiBrCagwYDiKpI2gy+JStvN+/x2o24LDSz
-         dorQ==
-X-Forwarded-Encrypted: i=1; AKwUvBytA0Sb2NiXKaTPshP0gwW2vAAzsNXOQjz8TxWPboS61K3x94nX+CWA+CYsRdH9rW7DiZUFi0VDiK8SUOA=@vger.kernel.org
-X-Gm-Message-State: AFuF++mTHLQLO6HMUsgc6CRPvniRtE1e1YGHKaVg5u0sqWbyXbhJeoVw
-	Jvn73O1jFKMOM6Ftl6yuoF7XCAbzRU4A2pF5qs/JYrC6gbYuPyMVJ8j7A8tRQzdRPQ==
-X-Gm-Gg: AYBFou34b/Xus9qGQq/mgL+I4GobEx3nhyMWA/TndRxLH/H9xXAzDV8IwAJKOCLV6hz
-	dGJAQg4OF+ahmC9fbkZOJkRlaPk6IW4UvdBidarrYgtg1Sbc8nv4GajmVDCxW/tymP5pX29Lv/g
-	AX1ltsRfibrjPO7rzgHMm8PzsXRYnsw4mjz4CmRGXF5ld924dqBFmfFY0ci8EKkQwGTeK/umOpK
-	FeNQI37T8dJ/U9n8nF1dkHy/HM5P7L1+WIZivOIs4NMcbJcSGv27BYbuNnyfrIbhGeM9GHkOso3
-	kQIyJw7cqA5YPnVpiLVFZmAkv/mAKk0Vc+9vZeAKz19Vw0EBA+K4C7yClBAlXbp4RIIeYzDj/eK
-	kTdcvPyaUu2tL0olU43wDdWgjPCY8VgfA9PWrUfsjfCCXO8Q+8fpAeb1SGPYbQmm8Mx95JE4lZp
-	uGJAfK5yarU3Rp7s/aP01qddzfamAbAPofur2dWSWSWy4+OQg/3YTkXedIA5MT/HBlYwiYgVg3Q
-	v8inhC6Cta9rqYJhBCPVFaGrrFF+W5+m7onIYwGN8jCFRiC
-X-Received: by 2002:a05:600c:35d0:b0:499:fa56:f542 with SMTP id 5b1f17b1804b1-49d01d85e40mr4018175e9.8.1788886516560;
-        Tue, 08 Sep 2026 09:55:16 -0700 (PDT)
+        bh=RaUxdToouQ436sBgssARKpnXWAtos5uuXm7i5Fmx0oI=;
+        b=sVlu9/LunqWBDa9X1oN9MmveQ1IWhOL0+dOJUZZlbAgZaR0tyHrc38qqkkrh29jHI9
+         zGezq0dS3FcWFAoyUL1wvN4spto6/YdvCQfk/jS6wsOo0A6B4Kt5g4VXktGbZjEgH4V2
+         xhZLjaMsUlNVVy5MhwhEeW0P9SnCwT8hX8ElyeeiXOE5gGRioZep4GoyzoHTmIzMcD4I
+         60aPwOwh23w2VyUhR69iLG+/vHC+W0wrbOjZEoh5ki4mLAMVnr8Rv/sbuhUtXwBb/HQT
+         hDM3287eu2iGVjkgd40fb6jSbRTK5/z666Vx65sh/t7bWCxfc0FYDduKvIpnLl/qL4r7
+         U9Fg==
+X-Forwarded-Encrypted: i=1; AKwUvByr9N7KYyai3ZSwEeSdSWgdjM4CgrkQLtIRodLhxuBljS7iLfNN+9RYvJIn9cyMQYhlX+2uVjLb0Cn+UTQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++n3Ul7h3UxuCQrLCfgngUBmkAcEBoBZZO40pQVEoduSp3LuX4/O
+	yyxcyt9CPGpJAkMoT576qg4WwqIInXo7XuXU3JyZsWhUB037rI4Tta7IvuKiXnRX4w==
+X-Gm-Gg: AYBFou2nz2urtUTOdd3XV7cTktg74imZr6um8p8ruOVnztZtzgO2DRiS9A1lFTLr2am
+	Q1z+XBe1gwRr/tR2cCjZaB9iQ8e1c57E8Wj/+FkfxiOPZUlte7XhaSsbVG7+PKzDgGElEW9a86s
+	k02RCrtOBsvwxy258AX+D47TIbedRkHALPve66h44/TeuX09nUKZbDiOUaob57ZfSUBEwx+JPh4
+	pCOCqji70ItF94dKQXXebvsjyX5AU4IPSRFIF6CFUcWj/MhMr12ce3NWJ+JZmDVYFGaUTn1EKdI
+	FfXtdxft2+S4znFj31VQwVpffPHd7aftGTmYJzES0W75KyBRTJGCZcpCkhWJbLoes1RKvr09Oif
+	auyme/o+0aMxHRvq8Iym1RK4lqFyRlOVJvFau6Y7n3Y9jBWlR1PYJRajTX6dlvamYKMj6THee2v
+	PUpybaXAqxQq1+DhRLIwXLgZYd0Si+DYXQAuwEv+fRp4E1YmA+cEVc2Kxm9xUkaKjsBAoPgv4kR
+	wfL7RE5rFTGq4T/tYSIn+oTLEFNmkW/roYAuuldv20Wl7Rx
+X-Received: by 2002:a05:600d:10e:b0:495:4593:616c with SMTP id 5b1f17b1804b1-49d1f3bc3bbmr19965e9.1.1788886518456;
+        Tue, 08 Sep 2026 09:55:18 -0700 (PDT)
 Received: from localhost ([2a00:79e0:288a:8:ac21:220d:3908:7e61])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cee5f912esm504671695e9.4.2026.09.08.09.55.15
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4858ac2b4cdsm36061757f8f.16.2026.09.08.09.55.17
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 08 Sep 2026 09:55:15 -0700 (PDT)
+        Tue, 08 Sep 2026 09:55:17 -0700 (PDT)
 From: Jann Horn <jannh@google.com>
-Date: Tue, 08 Sep 2026 18:54:49 +0200
-Subject: [PATCH RFC v3 09/12] kcov: record return address on function entry
+Date: Tue, 08 Sep 2026 18:54:50 +0200
+Subject: [PATCH RFC v3 10/12] kcov: log old value
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -71,7 +71,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260908-kcov-extrecord-v3-9-dcbc11593e88@google.com>
+Message-Id: <20260908-kcov-extrecord-v3-10-dcbc11593e88@google.com>
 References: <20260908-kcov-extrecord-v3-0-dcbc11593e88@google.com>
 In-Reply-To: <20260908-kcov-extrecord-v3-0-dcbc11593e88@google.com>
 To: Dmitry Vyukov <dvyukov@google.com>, 
@@ -83,130 +83,79 @@ Cc: Nathan Chancellor <nathan@kernel.org>,
  linux-kernel@vger.kernel.org, kasan-dev@googlegroups.com, 
  llvm@lists.linux.dev, Jann Horn <jannh@google.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788886494; l=4458;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788886494; l=2312;
  i=jannh@google.com; s=20240730; h=from:subject:message-id;
- bh=D7dJVybwPKSlApecBF+pMS/ZKTr29P6+H87h9M038Z0=;
- b=blRTwufZNn3PfEU4TTbSRB/U9sQkxGpHTJbhKcJ7EX8g+GufzihLPqn2ue1NeTqRQ7qpfVzNg
- 1CypQf5tHhwAz9R/7Rz71PqldPRjeK/IEXvpu5jzzedr5uZCGzZvQgo
+ bh=nI7UZDHKHLOeR8gHis7kZKBzbvddfeV62d7kRLq8zjs=;
+ b=Lkb5Mmm5ypM1UlMzH2etDVDhjeF5GU8tDa7HVHPAceBtEplvzPo1Dw5v/cbOiOulRWKt0hmfK
+ 2WnKTrkqFwQBC+8ppvbSQgDl2Y5GEsO75520U6hPrKQqxpU6Q/iJXtN
 X-Developer-Key: i=jannh@google.com; a=ed25519;
  pk=AljNtGOzXeF6khBXDJVVvwSEkVDGnnZZYqfWhP1V+C8=
 
-It is helpful to know which code location a function was called from for:
+For manual analysis of traces, log the old value at the memory location as
+part of the memory_access_record.
 
- - attributing calls to source locations in the callee
- - attributing calls to inlined functions
+This is best-effort; in particular:
 
-For this purpose, make function entry records bigger, and record the caller
-instruction address in them.
+ - the value may not be recorded if it has an unusual size
+ - the recorded value may not match the value observed by the instrumented
+   memory operation in cases where the value is modified concurrently
 
 Signed-off-by: Jann Horn <jannh@google.com>
 ---
- kernel/kcov.c     | 26 ++++++++++++++++++--------
- lib/Kconfig.debug |  2 ++
- 2 files changed, 20 insertions(+), 8 deletions(-)
+ include/uapi/linux/kcov.h |  2 ++
+ kernel/kcov.c             | 20 ++++++++++++++++++++
+ 2 files changed, 22 insertions(+)
 
+diff --git a/include/uapi/linux/kcov.h b/include/uapi/linux/kcov.h
+index 76822d1c119a..235f73e11d59 100644
+--- a/include/uapi/linux/kcov.h
++++ b/include/uapi/linux/kcov.h
+@@ -91,12 +91,14 @@ static inline __u64 kcov_remote_handle(__u64 subsys, __u64 inst)
+ #define MEMORY_ACCESS_RECORD_RMW 0x20
+ #define MEMORY_ACCESS_RECORD_ATOMIC 0x40
+ #define MEMORY_ACCESS_RECORD_FREE 0x80
++#define MEMORY_ACCESS_RECORD_VALUE 0x100 /* value field is valid */
+ struct memory_access_record {
+ 	__aligned_u64 ip_address_and_kcov_flags;
+ 	__aligned_u64 data_address;
+ 	__u32 size;
+ 	__u32 flags; /* MEMORY_ACCESS_RECORD_* */
+ 	__aligned_u64 time;
++	__aligned_u64 value;
+ } __attribute__((aligned(8)));
+ 
+ #endif /* _LINUX_KCOV_IOCTLS_H */
 diff --git a/kernel/kcov.c b/kernel/kcov.c
-index 83e05aa61728..88aedaf41a9e 100644
+index 88aedaf41a9e..ef405940a2cb 100644
 --- a/kernel/kcov.c
 +++ b/kernel/kcov.c
-@@ -202,7 +202,8 @@ static notrace unsigned long canonicalize_ip(unsigned long ip)
- 	return ip;
+@@ -1267,6 +1267,26 @@ void notrace __kcov_handle_memaccess(const volatile void *p, size_t size, unsign
+ 		.flags = type,
+ 		.time = kcov_get_time()
+ 	};
++
++	switch (size) {
++	case 1:
++		__get_kernel_nofault((u8 *)&record->value, p, u8, handle_fault);
++		record->flags |= MEMORY_ACCESS_RECORD_VALUE;
++		break;
++	case 2:
++		__get_kernel_nofault((u16 *)&record->value, p, u16, handle_fault);
++		record->flags |= MEMORY_ACCESS_RECORD_VALUE;
++		break;
++	case 4:
++		__get_kernel_nofault((u32 *)&record->value, p, u32, handle_fault);
++		record->flags |= MEMORY_ACCESS_RECORD_VALUE;
++		break;
++	case 8:
++		__get_kernel_nofault((u64 *)&record->value, p, u64, handle_fault);
++		record->flags |= MEMORY_ACCESS_RECORD_VALUE;
++		break;
++	}
++handle_fault:;
  }
  
--static __always_inline void notrace kcov_add_pc_record(struct task_struct *t, unsigned long record)
-+static __always_inline notrace
-+void kcov_add_pc_record(struct task_struct *t, unsigned long record, bool hasext, unsigned long ext)
- {
- 	unsigned long *area;
- 	unsigned long pos;
-@@ -213,7 +214,7 @@ static __always_inline void notrace kcov_add_pc_record(struct task_struct *t, un
- 	area = t->kcov_area;
- 	/* The first 64-bit word is the number of subsequent PCs. */
- 	pos = READ_ONCE(area[0]) + 1;
--	if (likely(pos < t->kcov_size)) {
-+	if (likely(pos + (hasext?1:0) < t->kcov_size)) {
- 		/* Previously we write pc before updating pos. However, some
- 		 * early interrupt code could bypass check_kcov_context() check
- 		 * and invoke __sanitizer_cov_trace_pc(). If such interrupt is
-@@ -221,9 +222,11 @@ static __always_inline void notrace kcov_add_pc_record(struct task_struct *t, un
- 		 * overitten by the recursive __sanitizer_cov_trace_pc().
- 		 * Update pos before writing pc to avoid such interleaving.
- 		 */
--		WRITE_ONCE(area[0], pos);
-+		WRITE_ONCE(area[0], pos + (hasext?1:0));
- 		barrier();
- 		area[pos] = record;
-+		if (hasext)
-+			area[pos+1] = ext;
- 	}
- }
- 
-@@ -244,7 +247,7 @@ void notrace __sanitizer_cov_trace_pc(void)
- 	 * This relies on userspace not caring about the rest of the top byte
- 	 * for KCOV_RECORDFLAG_TYPE_NORMAL records.
- 	 */
--	kcov_add_pc_record(cur, canonicalize_ip(_RET_IP_));
-+	kcov_add_pc_record(cur, canonicalize_ip(_RET_IP_), false, 0);
- }
- EXPORT_SYMBOL(__sanitizer_cov_trace_pc);
- 
-@@ -254,6 +257,7 @@ void notrace __sanitizer_cov_trace_pc_entry(void)
- 	struct task_struct *cur = current;
- 	unsigned long record = canonicalize_ip(_RET_IP_);
- 	unsigned int kcov_mode = READ_ONCE(cur->kcov_mode);
-+	bool ext_format;
- 
- 	/*
- 	 * This hook replaces __sanitizer_cov_trace_pc() for the function entry
-@@ -265,9 +269,15 @@ void notrace __sanitizer_cov_trace_pc_entry(void)
- 		cur->kcov->suppressed_stack_delta++;
- 		return;
- 	}
--	if ((kcov_mode & KCOV_EXT_FORMAT) != 0)
-+	ext_format = (kcov_mode & KCOV_EXT_FORMAT) != 0;
-+	if (ext_format)
- 		record = (record & KCOV_RECORD_IP_MASK) | KCOV_RECORDFLAG_TYPE_ENTRY;
--	kcov_add_pc_record(cur, record);
-+	/*
-+	 * __builtin_return_address(1) is safe because this function is only
-+	 * called from C functions, which are compiled with frame pointers
-+	 * enabled
-+	 */
-+	kcov_add_pc_record(cur, record, ext_format, (unsigned long)__builtin_return_address(1));
- }
- void notrace __sanitizer_cov_trace_pc_exit(void)
- {
-@@ -293,7 +303,7 @@ void notrace __sanitizer_cov_trace_pc_exit(void)
- 		return;
- 	}
- 	record = (canonicalize_ip(_RET_IP_) & KCOV_RECORD_IP_MASK) | KCOV_RECORDFLAG_TYPE_EXIT;
--	kcov_add_pc_record(cur, record);
-+	kcov_add_pc_record(cur, record, false, 0);
- }
- #endif
- 
-@@ -441,7 +451,7 @@ void kcov_finish_switch(struct task_struct *cur)
- 	record = KCOV_RECORDFLAG_TYPE_EESUM |
- 		(((u16)(s16)kcov->suppressed_stack_mindelta)<<16) |
- 		(((u16)(s16)kcov->suppressed_stack_delta)<<16);
--	kcov_add_pc_record(cur, record);
-+	kcov_add_pc_record(cur, record, false, 0);
- }
- 
- static void kcov_start(struct task_struct *t, struct kcov *kcov,
-diff --git a/lib/Kconfig.debug b/lib/Kconfig.debug
-index f763f0504f62..55c786a373b5 100644
---- a/lib/Kconfig.debug
-+++ b/lib/Kconfig.debug
-@@ -2200,6 +2200,8 @@ config KCOV_EXT_RECORDS
- 	depends on KCOV
- 	depends on 64BIT
- 	depends on $(cc-option,-fsanitize-coverage=trace-pc-entry-exit)
-+	select ARCH_WANT_FRAME_POINTERS
-+	select FRAME_POINTER
- 	help
- 	  Extended KCOV records allow distinguishing between multiple types of
- 	  records: Normal edge coverage, function entry, and function exit.
+ void notrace _kcov_handle_memaccess(const volatile void *p, size_t size, unsigned int type)
 
 -- 
 2.55.0.979.g7e5102b832-goog
