@@ -1,117 +1,90 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DED1255292C;
-	Tue,  8 Sep 2026 15:17:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E18A255C30E
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 15:17:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788880681; cv=none; b=EiUncEcQPPXemCnXuX9tMicdnTCutiCm4HatNB10Vm72VDjEE4m9wYpYSwxvcv92iwcR7lWx7ALOU9KWKQAMBtakusPOoi/NB3vcwkSfXz2neXqf65aHGeJLwvfzJG8yBpEXGlXUYxSWZr2kss18UZLSPLk9PyzDqnITYY/RtUI=
+	t=1788880689; cv=none; b=t1jeiqjWadVw6IvCfloHVzsl8lR9KA2paFhADauYim+7k4eBQ8536IpnarROI+tf8LDiTlLxr645gt4wKfOnn48c5wxmElfA3gV514f+7DJ+HNFTDJs1w74LBTcJjw3F+62S+NjHCJq7rzYxfm7WTuF0n5c9nKGsOIVh5NRlgN4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788880681; c=relaxed/simple;
-	bh=lX2+xlhy6aKGcKxfnElI7gsPN9ftet39k8I+KmFj3SI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Oue0YKmGfrqyWONGOCfBLhXTKej9OT2R9JTVJhGDa9fPNJ15zH7zPLE7ZYLDkO7ezryyDzaZHcYMznI89iWgitGFKOPUkXjCQJjpoKa8NWJ/CoRkPwIIIatR6o46mhSq75mEo3MguYd7cBcnNBqi/TILleByN46rI8UQgHRvNyE=
+	s=arc-20240116; t=1788880689; c=relaxed/simple;
+	bh=ZPpWiroN8+dfkDk+6ugPwvpymxVXdRh5sW8dF89F4jg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=c1RsQPyES3F4icnS5qh2a9GgEhmZ1TAGG2EqpjJcpFRPvlRedtSGDooLcgPQ/wEjxXoAmElFq0fJcGoDhsTRt7lUV/xp/RID9VBD/m4mZc5o9s8LTqQTaQuv+5OCrUjqTp87+yUWZJxV4ej24PeiAqDgTn/uI/O3sDGb3kWpIwk=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 432B41F00A3A;
-	Tue,  8 Sep 2026 15:17:44 +0000 (UTC)
-Message-ID: <5394f2d7-03e2-4aeb-a5da-60a0368340d9@kernel.org>
-Date: Tue, 8 Sep 2026 17:17:12 +0200
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 62EE81F00A3E;
+	Tue,  8 Sep 2026 15:17:45 +0000 (UTC)
+Received: from phl-compute-08.internal (phl-compute-08.internal [10.202.2.48])
+	by mailfauth.ams.internal (Postfix) with ESMTP id D6DF8198003A;
+	Tue,  8 Sep 2026 11:17:09 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-08.internal (MEProxy); Tue, 08 Sep 2026 11:17:14 -0400
+X-ME-Sender: <xms:9SagajXg1RB4nxgW4qnXDcoKsra7V2dptsNBql8bDISIv-4-DKur9g>
+    <xme:9SagauofoQANoc9VQYWNOS7gmmDlKj9Xyy0f8_qwvrLtjoJi8MYf3gac-U5jR4wL-
+    h6PDQWbIfVkYbFkzrjoKuIGPN0QjdenGGPgLWCDZASZs3Eq89f4_IPd>
+X-ME-Received: <xmr:9Sagatf2GlJg66_djQc5uurRk_Bb8gb1xzkZjG7avsSX7knEkDbkOueB6B4>
+X-ME-Proxy-Cause: dmFkZTFEY+hQ++eX1WT0d18QISpjnqopgTIkTc197fr/D4AEUM/kc9KqJeyRYSclrYcP1c
+    XykK6bKruHR9a9Af6TdSDfsRwaG0kuuiFTdbIQxK0fk3sJWTHJ1nfw8FEUmTzotknj71xz
+    ml+JfT9VDf5Irx3HsqSaHqWmzJSSZjIFodSXvbmHW47PYVrsUSdZxAvW8G8hgFc6dAjgGg
+    hIuIT7YGTr8AEqqpO7ulwGdMeSUijanAbRo6eMC5Bb0mGAR86bsnPNFSQegPUIUlnM/FpD
+    e1MjPa5kV1P/j+qJjlVxnW9QC60gKJfVmkd2WdkLUiylOJgEzLMW8q4uD/mz/iHHpkhnkK
+    oGS2xZxH+SJdDuw+HJrIlfx1ASD7Li7KrXQlauJuQjpv8nzZs/8GaOEfZk6QRR6CzdnbYq
+    slR4AO/Tak030cDixEegZCJtBAn0qwU4u4woTew08cZKE0ioMqC4aLSlTTc3uoL0ECwTXm
+    M3jjbkKo7NQRgK9nRF1t6gPwMEJVc2MRxcCbVy2636MonWJ7opVvqy1q/DuZGHL9m2ctCw
+    3ew29fDEF2dlS9jG9U55sWrILzyeO/VLxPwn2PNvX1iLvBRZIK1VTtpzCQhhackpig/06h
+    TB+rpncREgHvPy7+mR2mghL8eO14/k4SSKR9iziB2m8/dBF+ChENHxJTxL8A
+X-ME-Proxy: <xmx:9SagahyEvNX02bBCrGheIE6-kFIGZCXlIAQuY22KDBx4kdWXXpW4aA>
+    <xmx:9SagajuUTuOakc1CAB_HY9rMxpwX4utANbMf1334Yp9T0XbpFEQ8Qw>
+    <xmx:9SagapAAOz-z1mLcYXrvHV7IJ2t58G_E3VqPvjDKGoKEZNLkK3xF6Q>
+    <xmx:9SagaiqOR8ooOREIhyv9zVoxPchDstdzbCBdlmjl_2-a2vymCax4ng>
+    <xmx:9Sagau5zXbyaqImztS9EjNCScpYqM2T8u0zP_HXzW2kseOqFMAlYr-6f>
+Feedback-ID: i10464835:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 8 Sep 2026 11:17:08 -0400 (EDT)
+Date: Tue, 8 Sep 2026 16:17:07 +0100
+From: Kiryl Shutsemau <kas@kernel.org>
+To: kasong@tencent.com
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>, 
+	Lorenzo Stoakes <ljs@kernel.org>, Zi Yan <ziy@nvidia.com>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, "Liam R. Howlett" <liam@infradead.org>, 
+	Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
+	Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
+	Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, Chris Li <chrisl@kernel.org>, 
+	Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, 
+	Barry Song <baohua@kernel.org>, Youngjun Park <youngjun.park@lge.com>, 
+	Yeoreum Yun <yeoreum.yun@arm.com>, Shivam Kalra <shivamkalra98@zohomail.in>, 
+	Kairui Song <ryncsn@gmail.com>
+Subject: Re: [PATCH v4 09/17] mm/huge_memory: rename remap_page() to
+ remap_folio()
+Message-ID: <aqAmezgS34JdeTVX@thinkstation>
+References: <20260908-swap-thp-cleanup-v4-0-b532a3f20e71@tencent.com>
+ <20260908-swap-thp-cleanup-v4-9-b532a3f20e71@tencent.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [tip: x86/urgent] x86/mm/pat: Acquire init_mm write lock on
- collapse to avoid UAF
-Content-Language: en-US
-To: Dave Hansen <dave.hansen@intel.com>, Mike Rapoport <rppt@kernel.org>
-Cc: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
- Dave Hansen <dave.hansen@linux.intel.com>, linux-kernel@vger.kernel.org,
- linux-tip-commits@vger.kernel.org, Jiri Slaby <jirislaby@kernel.org>,
- "Kiryl Shutsemau (Meta)" <kas@kernel.org>,
- "David Hildenbrand (Arm)" <david@kernel.org>, Will Deacon <will@kernel.org>,
- David Carlier <devnexen@gmail.com>, Atish Patra <atishp@meta.com>,
- Nikunj A Dadhania <nikunj@amd.com>, stable@vger.kernel.org, x86@kernel.org,
- Ingo Molnar <mingo@kernel.org>
-References: <20260813-cpa-fixes-v2-1-39b4ff90f91d@kernel.org>
- <178821524784.3717435.3293914321834699913.tip-bot2@tip-bot2>
- <b2095df8-9991-4e65-9890-c34f8c206319@kernel.org> <apZ52DKlJIrpX6qq@gremlin>
- <7fe0aee9-d1e9-419c-9ca6-c0160223d5dc@intel.com>
- <ap_WIZwCPKB07nAf@kernel.org>
- <54f55b19-4a42-4c5d-a6ec-979132e11ece@intel.com>
-From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
-Autocrypt: addr=vbabka@kernel.org; keydata=
- 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
-In-Reply-To: <54f55b19-4a42-4c5d-a6ec-979132e11ece@intel.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260908-swap-thp-cleanup-v4-9-b532a3f20e71@tencent.com>
 
-On 9/8/26 15:58, Dave Hansen wrote:
-> On 9/8/26 02:32, Mike Rapoport wrote:
->> I have to say I'm confused with today's batch of tip-bot emails saying Ingo
->> applied these to x86/mm :/
-> 
-> Just a reminder that we have x86/urgent which will be going to Linus
-> like today. There's also x86/mm which goes up in the next merge window..
+On Tue, Sep 08, 2026 at 02:12:13AM +0800, Kairui Song via B4 Relay wrote:
+> @@ -3636,10 +3636,17 @@ bool unmap_huge_pmd_locked(struct vm_area_struct *vma, unsigned long addr,
+>  	return __discard_anon_folio_pmd_locked(vma, addr, pmdp, folio);
+>  }
+>  
+> -static void remap_page(struct folio *folio, unsigned long nr, int flags)
+> +static void remap_folio(struct folio *folio, unsigned long nr, int flags)
 
-However x86/urgent (at least as visible [1]) doesn't contain anything from
-this series, and x86/mm has everything except "Fix effective RW computation".
+You opted out of indicating that the function target anon pages as David
+suggested? remap_anon_folio() seems to be fitting better.
 
-But tip/urgent does merge x86/mm so hopefully it means it's really going to
-Linus now-ish (and not next merge window)? It just doesn't have "urgent" in
-the branch name?
+But I don't care too much:
 
-> The "Fix effective RW computation" patch is getting broken out and is
-> going to wait for the next merge window. We don't want it sitting in
-> mainline generating warnings, especially false positives like the one
-> this weekend. That's not to disparage the patch; it's overall the right
-> thing to do.
+Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
 
-So that means adding it to x86/mm after the current one is sent as urgent?
-
-Just wanted to double check, thanks.
-Vlastimil
-
-[1] https://git.kernel.org/pub/scm/linux/kernel/git/tip/tip.git/
-
-> Sound good?
-
+-- 
+  Kiryl Shutsemau / Kirill A. Shutemov
