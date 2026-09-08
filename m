@@ -1,151 +1,116 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7CB8D580385;
-	Tue,  8 Sep 2026 16:23:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43AC0580387;
+	Tue,  8 Sep 2026 16:23:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788884607; cv=none; b=H5jvBs0QYnP8KGU218lhdHbaIeuwgvVCBC97ew2dvis9unsWBlUH1Bfd85mExZ/83othyYjjgMc73XknnVBuXhwwH0WkGkzxtzKt76etUqKL896CVCkyKgBR093cFJBnCLt0F5wKqv4yitQIas4cAc6ZfOQ6/ovKB+MxdEW1d4E=
+	t=1788884609; cv=none; b=cGsm2qnikbAePFjvCyu+7Da2pi12R13ilrUt9WhFS1LJwM04871ylxPIXp6XZf5wjTdnu5QsV1m0cGUmddxFv5cTCCIwGjQlS1wcFnt2GJzt1ceCNuLaKErRG+Jq890PWGM/hzsg2gHNWhpP+HxDDqUV4ziYf3MxBTu0/tMh9+Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788884607; c=relaxed/simple;
-	bh=X91qpxlmCb+RcASVwWsSL4AP+f2WCekRe8JKe4PKM9Y=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=cbOIP2K82Dv0+VFUTSB/shKMIHILlqZB+14jbdrWnk9JWMpjKYCo0qKvVWcoAJ0HNH1V8pOFj7REXSnYfit3EKnShPD+4DnL+e4f4r8IvvL7Qbd5GzwSsuIca8HXNnZrqbcM2TaBScxhdLonPhLKhwaoLroZeQdsjCeZqznXnH8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=OH674DE6; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1788884609; c=relaxed/simple;
+	bh=hub5blECutfizzP3hRGexeRhZ5of1o9nSPjFK5WWoKU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=VcRTQSlkMeixWk6IOFye04/0BNFO3dxnEjq+2HQyQjhcZ0ExV9/rMCsuYMLdEX6iHF8fBiRQUhw54aA2nQPLeEjCOyjDZT2vtSfxW+OQOWI/h0TQJ0c1caQpe5pk8qURYyDOJ6zYUmyQTc/5AG1MSqg1G747hkzGpBd0Hxb44RM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YG4Y+Wt3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="OH674DE6"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 32B571476;
-	Tue,  8 Sep 2026 09:23:21 -0700 (PDT)
-Received: from ewhatever.cambridge.arm.com (ewhatever.cambridge.arm.com [10.2.197.99])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 9009E3F7B4;
-	Tue,  8 Sep 2026 09:23:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1788884604; bh=X91qpxlmCb+RcASVwWsSL4AP+f2WCekRe8JKe4PKM9Y=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=OH674DE6RzZ1E5TLddbpKAdwRgPW35U59OH0+ZgFxiyjHnqexeWj+Ks77CBOV+pin
-	 cydpWohwNRxiQunWmrmtkKMCFzbW9949shwjmdj4SlY4utGeaBpEgF1ZLB4lag4Esc
-	 gzStEowg3HcQ76Uk2j8IHe3RHWEOJZzf4yS8VTRU=
-From: Suzuki K Poulose <suzuki.poulose@arm.com>
-To: kvm@vger.kernel.org,
-	kvmarm@lists.linux.dev
-Cc: maz@kernel.org,
-	will@kernel.org,
-	catalin.marinas@arm.com,
-	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	steven.price@arm.com,
-	aneesh.kumar@kernel.org,
-	oupton@kernel.org,
-	gshan@redhat.com,
-	joey.gouly@arm.com,
-	tabba@google.com,
-	yuzenghui@huawei.com,
-	linux-coco@lists.linux.dev,
-	gankulkarni@os.amperecomputing.com,
-	sdonthineni@nvidia.com,
-	alpergun@google.com,
-	fj0570is@fujitsu.com,
-	WeiLin.Chang@arm.com,
-	lpieralisi@kernel.org,
-	enju.kohei@fujitsu.com,
-	Suzuki K Poulose <suzuki.poulose@arm.com>
-Subject: [PATCH v17 10/20] KVM: arm64: coco: Disable Steal time accounting for coco guests
-Date: Tue,  8 Sep 2026 17:22:13 +0100
-Message-ID: <20260908162223.1683432-11-suzuki.poulose@arm.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260908162223.1683432-1-suzuki.poulose@arm.com>
-References: <20260908162223.1683432-1-suzuki.poulose@arm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YG4Y+Wt3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7139C1F00A3E;
+	Tue,  8 Sep 2026 16:23:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788884607;
+	bh=/HXYrbgclYu58RuX0QSm6jSDZFolOyDdWjKM7pSOK80=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=YG4Y+Wt3V5bhywm4t3ehe2TVwNWw8ZKVGEMXVpEq7x9UhJmXsHXEm7cZP9mO2b6N1
+	 SGN2Ep555PkW8ZNGjU83f9gLxMbcGYPboa+pTcIH0ip1UliNWbOFMHxOf6HOfrRya/
+	 6gImKNIxC525JNsQEFp15RhmAdaIIodt2yCkUwY1GiUFP1wbVBWy8n0RikTBzhaPxq
+	 +WgAQDCEUqyDC8XlOWaR8Y8uBQiI2lPb2xcbzC9qjPWLnGUY3HenmwB3mE74Ay5Wjm
+	 dlCh5DUmR1hvN0M9j7fSk2kg1McJLVWoTEqvMqt6MDEoc5JT3ZkkYGwt9tGPNr9GLD
+	 1cwQoaHVn0EQw==
+Message-ID: <331c0f09-5d81-4cb8-9728-5b13c252540e@kernel.org>
+Date: Tue, 8 Sep 2026 18:23:23 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] mfd: intel-lpss: add Dell Latitude 7275 to the resource
+ conflict quirk
+To: "D. Manresa" <dmanresa@gmail.com>, Lee Jones <lee@kernel.org>
+Cc: Thierry Chatard <tchatard@gmail.com>,
+ Andy Shevchenko <andriy.shevchenko@intel.com>,
+ =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ Sakari Ailus <sakari.ailus@linux.intel.com>,
+ Daniel Scally <dan.scally@ideasonboard.com>, linux-kernel@vger.kernel.org,
+ platform-driver-x86@vger.kernel.org, linux-media@vger.kernel.org
+References: <20260831160754.9857-2-tchatard@gmail.com>
+ <20260908161629.335223-1-dmanresa@gmail.com>
+From: Hans de Goede <hansg@kernel.org>
+Content-Language: en-US, nl
+In-Reply-To: <20260908161629.335223-1-dmanresa@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-PVTIME support is advertised by KVM_CAP_STEAL_TIME, which doesn't take into
-account the kvm instance. Even with that, a VMM could skip the CAP check and
-proceed to configure the PVTIME as we don't do further check on the DEVICE_CTRL.
-Tighten this up by passing the KVM instance around wherever possible and
-catch things early
+Hi,
 
-Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>
----
- arch/arm64/include/asm/kvm_host.h |  2 +-
- arch/arm64/kvm/arm.c              |  2 +-
- arch/arm64/kvm/pvtime.c           | 10 +++++-----
- 3 files changed, 7 insertions(+), 7 deletions(-)
+On 8-Sep-26 18:16, D. Manresa wrote:
+> The Dell Latitude 7275 2-in-1 has the same BIOS bug as the Latitude 5285:
+> the ACPI GEXP device declares an OperationRegion (BAR0) on the GNVS
+> variable SB04 and the I2C4 controller (INT3446) builds its _CRS from that
+> same variable, so intel_lpss_acpi fails to bind the controller with
+> -EBUSY and the front camera sensor (OV5670, INT3479) is never registered
+> unless acpi_enforce_resources=lax is passed.
+> 
+> Add the machine to the DMI table so QUIRK_IGNORE_RESOURCE_CONFLICTS is
+> applied to INT3446 on it as well.
+> 
+> Assisted-by: Claude Code:claude-fable-5-1
+> Signed-off-by: D. Manresa <dmanresa@gmail.com>
 
-diff --git a/arch/arm64/include/asm/kvm_host.h b/arch/arm64/include/asm/kvm_host.h
-index 020aef5a1b698..0f258f16fdf81 100644
---- a/arch/arm64/include/asm/kvm_host.h
-+++ b/arch/arm64/include/asm/kvm_host.h
-@@ -1367,7 +1367,7 @@ long kvm_hypercall_pv_features(struct kvm_vcpu *vcpu);
- gpa_t kvm_init_stolen_time(struct kvm_vcpu *vcpu);
- void kvm_update_stolen_time(struct kvm_vcpu *vcpu);
- 
--bool kvm_arm_pvtime_supported(void);
-+bool kvm_arm_pvtime_supported(struct kvm *kvm);
- int kvm_arm_pvtime_set_attr(struct kvm_vcpu *vcpu,
- 			    struct kvm_device_attr *attr);
- int kvm_arm_pvtime_get_attr(struct kvm_vcpu *vcpu,
-diff --git a/arch/arm64/kvm/arm.c b/arch/arm64/kvm/arm.c
-index 2ecd92156f7cc..b5e0893ea16f1 100644
---- a/arch/arm64/kvm/arm.c
-+++ b/arch/arm64/kvm/arm.c
-@@ -473,7 +473,7 @@ int kvm_vm_ioctl_check_extension(struct kvm *kvm, long ext)
- 		r = system_supports_mte();
- 		break;
- 	case KVM_CAP_STEAL_TIME:
--		r = kvm_arm_pvtime_supported();
-+		r = kvm_arm_pvtime_supported(kvm);
- 		break;
- 	case KVM_CAP_ARM_EL1_32BIT:
- 		r = cpus_have_final_cap(ARM64_HAS_32BIT_EL1);
-diff --git a/arch/arm64/kvm/pvtime.c b/arch/arm64/kvm/pvtime.c
-index 4ceabaa4c30bd..41fbfd92cd292 100644
---- a/arch/arm64/kvm/pvtime.c
-+++ b/arch/arm64/kvm/pvtime.c
-@@ -67,9 +67,9 @@ gpa_t kvm_init_stolen_time(struct kvm_vcpu *vcpu)
- 	return base;
- }
- 
--bool kvm_arm_pvtime_supported(void)
-+bool kvm_arm_pvtime_supported(struct kvm *kvm)
- {
--	return !!sched_info_on();
-+	return !!sched_info_on() && (!kvm || !kvm_vm_is_confidential(kvm));
- }
- 
- int kvm_arm_pvtime_set_attr(struct kvm_vcpu *vcpu,
-@@ -81,7 +81,7 @@ int kvm_arm_pvtime_set_attr(struct kvm_vcpu *vcpu,
- 	int ret = 0;
- 	int idx;
- 
--	if (!kvm_arm_pvtime_supported() ||
-+	if (!kvm_arm_pvtime_supported(kvm) ||
- 	    attr->attr != KVM_ARM_VCPU_PVTIME_IPA)
- 		return -ENXIO;
- 
-@@ -110,7 +110,7 @@ int kvm_arm_pvtime_get_attr(struct kvm_vcpu *vcpu,
- 	u64 __user *user = (u64 __user *)attr->addr;
- 	u64 ipa;
- 
--	if (!kvm_arm_pvtime_supported() ||
-+	if (!kvm_arm_pvtime_supported(vcpu->kvm) ||
- 	    attr->attr != KVM_ARM_VCPU_PVTIME_IPA)
- 		return -ENXIO;
- 
-@@ -126,7 +126,7 @@ int kvm_arm_pvtime_has_attr(struct kvm_vcpu *vcpu,
- {
- 	switch (attr->attr) {
- 	case KVM_ARM_VCPU_PVTIME_IPA:
--		if (kvm_arm_pvtime_supported())
-+		if (kvm_arm_pvtime_supported(vcpu->kvm))
- 			return 0;
- 	}
- 	return -ENXIO;
--- 
-2.43.0
+Thanks, patch looks good to me:
+
+Reviewed-by: Hans de Goede <johannes.goede@oss.qualcomm.com>
+
+
+Regards,
+
+Hans
+
+
+
+> ---
+> Applies on top of "mfd: intel-lpss: add resource conflict quirk for Dell
+> Latitude 5285" from Thierry Chatard's v10 series [1]. Thierry, feel free
+> to fold this into v11 instead if you prefer.
+> 
+> The conflict was verified in the 7275 DSDT (BIOS 1.18.0): GEXP has
+> OperationRegion (BAR0, SystemMemory, SB04, 0x0208) and INT3446._CRS
+> returns LCRS (SMD4, SB04, SIR4). With acpi_enforce_resources=lax, which
+> has the same effect as the quirk, the controller binds and the camera
+> works with the board data from "platform/x86: int3472: Add TPS68470 board
+> data for Dell Latitude 7275" [2]. The distribution kernel here builds
+> intel-lpss-acpi in, so this exact patch has not been run yet.
+> 
+> [1] https://lore.kernel.org/linux-media/20260831160754.9857-2-tchatard@gmail.com/
+> [2] https://lore.kernel.org/platform-driver-x86/20260908161445.334910-1-dmanresa@gmail.com/
+> 
+>  drivers/mfd/intel-lpss-acpi.c | 6 ++++++
+>  1 file changed, 6 insertions(+)
+> 
+> --- a/drivers/mfd/intel-lpss-acpi.c
+> +++ b/drivers/mfd/intel-lpss-acpi.c
+> @@ -191,6 +191,12 @@ static const struct dmi_system_id intel_lpss_quirk_dmi[] = {
+>  			DMI_EXACT_MATCH(DMI_PRODUCT_NAME, "Latitude 5285"),
+>  		},
+>  	},
+> +	{
+> +		.matches = {
+> +			DMI_EXACT_MATCH(DMI_SYS_VENDOR, "Dell Inc."),
+> +			DMI_EXACT_MATCH(DMI_PRODUCT_NAME, "Latitude 7275"),
+> +		},
+> +	},
+>  	{ }
+>  };
+>  
 
