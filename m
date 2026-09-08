@@ -1,147 +1,70 @@
-Received: from mail-qv1-f49.google.com (mail-qv1-f49.google.com [209.85.219.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69B7E48E0D5
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 22:57:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E52D95519AD;
+	Tue,  8 Sep 2026 22:57:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788908229; cv=none; b=W6OfsyLpa/+XdnBDh6n64hikrBPpOLYHJE28bpF8eHyZQCfXlrQv4EEn+Gd0zrJo5wsoEI37IWQAVDl2rc2eNpCUt4021Iq6YEt+jgE86eoyMwnu2S+ibFbZu9toE6FTUAsg3RaxTyRaChWTDDk5XADUqDFEt3dFSnxQ8NuZ4Qk=
+	t=1788908232; cv=none; b=elJj07oqUJOxPKK/qzgdEBEdD+WpclMDjtlZBtvLAfnFA43YrHkbvZBy7u1p2Bc1HN0ypV5EdJDa2Q44WaqM8VscUgGUjMKwd34heVOimsxrnzZHgOmJzRxgs/15zfLH8b+wuHh8S7NQi6rPz8vZZk9hiMXndMdFCtPbPcz+aMM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788908229; c=relaxed/simple;
-	bh=XkixryJ6xhw8563/RoCRB90dkT/SyANOqsZRCbfhKT0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=MDlBZWYVi0GyTCtJr/b3sHCFH2oIYhW+V3pE4zr+0MhoJ/XbM6JiKKwc6DMEi+CAEVCcOsC+v3WVp5cX4bvI9DtO5gqSWHReJlAnNN68LUdwl+YD0hqRxI5r+AVK/1VwiqHj6LB8DcRU/fGcv1Z7pEvr29fJJY1AYeB2MlYX42k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jvlw8Q1B; arc=none smtp.client-ip=209.85.219.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788908232; c=relaxed/simple;
+	bh=kFMz61bsSeVxZPVzvMmlybzCV4rtrABCn9D1StHNpXE=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=JnOXTtkqH2pwA9osfUouuATXPHhB6/h9ijaERh4AzNR3PMwo5DqDHR0UvOyKIpHxNiiRErbcA0YrTQwMDcfVsvOdKi6QBWUvmWcTkEIPCPnKVzrE2TK/BK97gdr8rk5wcMvCeVemMl4+x0ltXtmECDXH96FuC7j6S+CZD+ZTdcU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gDQLFF1W; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jvlw8Q1B"
-Received: by mail-qv1-f49.google.com with SMTP id 6a1803df08f44-90ccbed6edcso77394216d6.0
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 15:57:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788908226; x=1789513026; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=D0nTiw6DiAHBL12WLJk9/nfr01yMXuLmUjwkrlJeooc=;
-        b=jvlw8Q1B2N8SmqZqnPrDXYLnKyfMT8DcG08s+EuBJRGNnjsSZFz5jYPVOeOjC6abIk
-         V64X0NUOFiE+PAd4nP2/e7rTzTlm0OpQ2zBIkhF5w3j4vaGAC3IFaa8vqFs9PX2cW3cj
-         Q8g87hIqmiE/YlPnd1VA4oIeEHRho++27DUgolwxHJtSS6bfb4an+vD9LXvytqQtuMbu
-         AG7hCjxcAD/Jv9jIqpY+5bt9tXDFKd1OPUqSjpdd1EPH6cSDWNvJbjN25C+jmXlSW1AQ
-         uK55/X/Ps8dmIR2mOlQBYDz9hAwKQRxjGGpdRXInJeMpOXM9IaWMf7yhu/khRRogFp89
-         fdEA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788908226; x=1789513026;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=D0nTiw6DiAHBL12WLJk9/nfr01yMXuLmUjwkrlJeooc=;
-        b=CZ5Y0MPgWm6sR0E3o/ZjLJDJAKhlfEcrL/WyvCuaxUD/4wBLQJx4xTt3RyUzTaJnZk
-         lwb1k7Ck36gs5g61EiP0qEGtF+sLtKw9pr6iOgl/57rxMnfGqNtofdmEFjrGNdPbGuzv
-         7IMcMS4l0cywobeyZb6Tm72OblgpnM6FuDDyZUoQHoacPzX/H9B+B7kFpx+8KeQzMotE
-         jNQGvBZt6HvqLTEr0ac9fL7GD/Zch40DK1HJMbkNpJ4JnTtg+ejSpKKdWp6H1T4agY2k
-         x0LcuzPpX4HqCg9VG4IkrOQgHVB14F5sNxipFkqUDnOdr1RigJ1d5i++1oCNSRIiCJeB
-         zOmA==
-X-Forwarded-Encrypted: i=1; AKwUvBxSRW+hVHZJ3h4bmInPzdbCdXBqo7qPFJbj/p0J6JXDxrIWoEiirbiZNVHuo0S1OQb4nqESqrP+aTZPSaA=@vger.kernel.org
-X-Gm-Message-State: AFuF++l0ybMiZyXZ4+MJO8d33gnjnuxnyRn2QRcibeTIMSvh6/LcZq/s
-	bPWin0pGL6djqc6FHQvvDXO8nl+2BTPQ7LfjfzA2A/yZ6Geke1u54+fg
-X-Gm-Gg: AYBFou1/kHLoLxy2MdpoDiBOMToLco8AACN/AmxVWVrXctxlPPjx2iGfegOFFRNXwCZ
-	hQyx9Kh3UE5YEZAy+1SxwVfEILaIVoouyuAOi50azY/dV6pR6X8yVjoDOjnL51qWd6WyY9XzZ4U
-	ZbLQhTCvRjfV4GWk7xv3eTy4oqFFZzfU7sj0U7iu2r1lg0ls0rYpUTKtAGoGaWOvyXxC+vRVWLx
-	X7GPgWg1vaFqp0uKWMDpIwCPdXUuhGUW1HYL0TG3iacvm3nprYLO7dfUEt+COqg+TH1XN0CmvEj
-	Meln7jkbK0AlPNqOTfj6WcEl7fzW0eqD2C+u8lkduGUZF7IftIooCLW3VC075esP/gaPDjoGkdO
-	rWTbWTXU/gVd2fAN7G+sGm9Dzcs+aMDNYLxpL4jPKRCJ5AUdqEhbiH+ULyFaWOqj9drAzsbfopE
-	LUuV9UKxjx/HZVhc62Rq7r7rDI8WqExFjZiQQ+tXT0H/QSLxTA0fpJEEP//lY=
-X-Received: by 2002:a05:620a:410c:b0:936:bcd8:8650 with SMTP id af79cd13be357-9398072a3f9mr3588825185a.38.1788908226211;
-        Tue, 08 Sep 2026 15:57:06 -0700 (PDT)
-Received: from tofu.. ([128.210.0.165])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-910406afe48sm127700986d6.43.2026.09.08.15.57.04
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 08 Sep 2026 15:57:05 -0700 (PDT)
-From: Georgios Androutsopoulos <georgeandrout13@gmail.com>
-To: Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Miguel Ojeda <ojeda@kernel.org>
-Cc: Boqun Feng <boqun@kernel.org>,
-	Gary Guo <gary@garyguo.net>,
-	=?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
-	Benno Lossin <lossin@kernel.org>,
-	Andreas Hindborg <a.hindborg@kernel.org>,
-	Alice Ryhl <aliceryhl@google.com>,
-	Trevor Gross <tmgross@umich.edu>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Daniel Almeida <daniel.almeida@collabora.com>,
-	Tamir Duberstein <tamird@kernel.org>,
-	Alexandre Courbot <acourbot@nvidia.com>,
-	=?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>,
-	linux-clk@vger.kernel.org,
-	rust-for-linux@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Georgios Androutsopoulos <georgeandrout13@gmail.com>
-Subject: [PATCH] rust: clk: document overflow panics in `Hertz` constructors
-Date: Tue,  8 Sep 2026 18:56:15 -0400
-Message-ID: <20260908225615.1732105-1-georgeandrout13@gmail.com>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gDQLFF1W"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CBFD31F00A3A;
+	Tue,  8 Sep 2026 22:57:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788908230;
+	bh=JmSpKmNIGuwtBGwWNlLCzEn+j2a/Pzi41loRI1R69tE=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=gDQLFF1WU/6zDJOhTFeQh0hNYRCezlbSR7yubbGbesGlWOJw0hnA3+P13642yhq6U
+	 WvPdwcdIjVtXMM5Vdgu83pXfM8F9uCGWFnVYQ0P9mY0eLzktuKQvQOA82cASNB0gbj
+	 LW4Qr8wiHZihD98r0ODyIgIkcFr3v0qoQffiLoIzfYbKxf+P4UceaW+EM0R4Mxi4BR
+	 2WNr1fxNCgknKTyxvLMm/971seMUznKe53hcMPPywFssDj2gTgnxppAgcPWZ7pijm1
+	 LlVW3Lnv05htUn2/rbSz+q7mJkNLqaNFG3vfVs9UU/AniVF0R0CHLATDmFijkfw0+S
+	 KbLAy7IX6pOKQ==
+Date: Tue, 8 Sep 2026 23:57:04 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: alistair23@gmail.com
+Cc: linux-pci@vger.kernel.org, Jonathan.Cameron@huawei.com, djbw@kernel.org,
+ rust-for-linux@vger.kernel.org, lukas@wunner.de, alistair@alistair23.me,
+ linux-cxl@vger.kernel.org, bhelgaas@google.com, akpm@linux-foundation.org,
+ linux-kernel@vger.kernel.org, gary@garyguo.net, ojeda@kernel.org,
+ benno.lossin@proton.me, a.hindborg@kernel.org, wilfred.mallawa@wdc.com,
+ tmgross@umich.edu, boqun.feng@gmail.com, bjorn3_gh@protonmail.com,
+ alex.gaynor@gmail.com, aliceryhl@google.com
+Subject: Re: [PATCH v3 09/21] lib: rspdm: Initial commit of Rust SPDM
+Message-ID: <20260908235704.7b5992c3@jic23-huawei>
+In-Reply-To: <20260901010347.2614656-10-alistair.francis@wdc.com>
+References: <20260901010347.2614656-1-alistair.francis@wdc.com>
+	<20260901010347.2614656-10-alistair.francis@wdc.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-`Hertz::from_khz()`, `from_mhz()` and `from_ghz()` multiply their
-argument by 1_000, 1_000_000 and 1_000_000_000 respectively without
-checking for overflow. When `CONFIG_RUST_OVERFLOW_CHECKS` is enabled,
-each panics once its argument exceeds `c_ulong::MAX` divided by that
-factor. None of the three documents this. The panic occurs only at
-runtime, when the argument is not a constant expression.
+On Tue,  1 Sep 2026 11:03:35 +1000
+alistair23@gmail.com wrote:
 
-Add the missing `# Panics` sections stating the bound for each unit.
+> From: Alistair Francis <alistair@alistair23.me>
+> 
+> This is the initial commit of the Rust SPDM library.
+> 
+> Signed-off-by: Alistair Francis <alistair@alistair23.me>
+Maybe want to consider updating the copyright given you changed some stuff
+since 2024 :)
 
-Fixes: d01d70205601 ("rust: clk: Add initial abstractions")
-Signed-off-by: Georgios Androutsopoulos <georgeandrout13@gmail.com>
----
- rust/kernel/clk.rs | 15 +++++++++++++++
- 1 file changed, 15 insertions(+)
 
-diff --git a/rust/kernel/clk.rs b/rust/kernel/clk.rs
-index 7abbd0767d8c..f04f5c4a03d6 100644
---- a/rust/kernel/clk.rs
-+++ b/rust/kernel/clk.rs
-@@ -35,16 +35,31 @@ impl Hertz {
-     const GHZ_TO_HZ: c_ulong = 1_000_000_000;
- 
-     /// Create a new instance from kilohertz (kHz)
-+    ///
-+    /// # Panics
-+    ///
-+    /// Panics if `CONFIG_RUST_OVERFLOW_CHECKS` is enabled and `khz` is greater
-+    /// than `c_ulong::MAX / 1_000`.
-     pub const fn from_khz(khz: c_ulong) -> Self {
-         Self(khz * Self::KHZ_TO_HZ)
-     }
- 
-     /// Create a new instance from megahertz (MHz)
-+    ///
-+    /// # Panics
-+    ///
-+    /// Panics if `CONFIG_RUST_OVERFLOW_CHECKS` is enabled and `mhz` is greater
-+    /// than `c_ulong::MAX / 1_000_000`.
-     pub const fn from_mhz(mhz: c_ulong) -> Self {
-         Self(mhz * Self::MHZ_TO_HZ)
-     }
- 
-     /// Create a new instance from gigahertz (GHz)
-+    ///
-+    /// # Panics
-+    ///
-+    /// Panics if `CONFIG_RUST_OVERFLOW_CHECKS` is enabled and `ghz` is greater
-+    /// than `c_ulong::MAX / 1_000_000_000`.
-     pub const fn from_ghz(ghz: c_ulong) -> Self {
-         Self(ghz * Self::GHZ_TO_HZ)
-     }
+Subject to tags from rust folk, this looks fine to me.  Note I still haven't
+found the time to actually learn rust properly so this is me as a c coder
+reading and mostly figuring out what is going on.
 
-base-commit: 73e3f0710014fe6d4ed98cfc02292f6121db7558
--- 
-2.47.3
-
+Reviewed-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
