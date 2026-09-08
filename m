@@ -1,210 +1,203 @@
-Received: from mail-vk1-f172.google.com (mail-vk1-f172.google.com [209.85.221.172])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from canpmsgout09.his.huawei.com (canpmsgout09.his.huawei.com [113.46.200.224])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E9E553A8AA
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 12:16:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D8AA5335B7
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 12:16:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.224
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788869791; cv=none; b=MDDj3Y/VEDxCQcMppf7cDCWK/65+84eoCsVoBc78TdOqbRxnHkZ4am/FKlIlN3aCj32kRozCH6Jwez7w9TJaguEBns1nd06SvLRYN0h+LONMLJqdZ1gJ2+9q6CnxTXGMKhoLWdoixlRPwo8pD/cd5K0w+taSpOvnKbA0COAvFi8=
+	t=1788869791; cv=none; b=pJHwmXSCL7OtTQQKjEe0qPBkUe4W0pYbdv83U1yx+TTvkZS81H+fNBYr893+IvphtcoLf1Rgx0diujVihcwmcmwh6YA2jMAFsnPynlhRTLhnTSbRVX3gK6S2Du8V3UEXnI1Kvw4cCs3ccB+cwtRhYWt6F9Pe9ycQQNb/Ch5yDyo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788869791; c=relaxed/simple;
-	bh=GkAEwkhAh2GYIkLx6cCmw7o1fsF123JG5M31hDK1crM=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=EXBE8vUvO1Gwca17YxCmyNX4PU5TzrHqI194JTgY6aVGvfpAcuTGNeGr5afBwnzMreXoCo7bahCAgkSd/j5v+H+2/k8FinqVJRNNXEEj1Nlsv3/Ebn3InGwDM9nTks9noYDb0gQWbrGY9b70mJD2RiwlyrAEqfGk+vktJ3kSrGo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.221.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-vk1-f172.google.com with SMTP id 71dfb90a1353d-5c7bf03c4d0so3465506e0c.0
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 05:16:22 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788869777; x=1789474577;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=z3ivAQedapV9TM2nRTd5rbGn+RixfFjk0mtfmMN+Qx8=;
-        b=ZgaEZk13L/59z0a9rPDm4/6Tlu4OoR9Enz3xo6exOQ+mvjooGrbfGbtmnt4L24Croj
-         PW9ERcPfYAafzTd8lhQCHZ6q8eb3eS2RdKkKn3xZsXJfDHo0GkjapRpIPGM6Nn+2c+lk
-         eDSdLFXcW7rU2v1bhT2coErJB8ThszlQs0vq23Qx/f1WKJIyVLUOcdOXxzcfV7n+U40F
-         lqi7u+kuXLfG5/8iuXkx7DOk1gNgevQjXdr4B7eJ91sVXTVjpEKB6UhJA9HPIKozZwxR
-         AVNPQGhiWFWL1tSA9fi6/qU95gV7bUFYUnYjAIAryJ1C3DV4hKnCT54n9vW4g78Jyh6f
-         vjRw==
-X-Forwarded-Encrypted: i=1; AKwUvBxKG4p7E6sclzFNnrUvaRWUf93IIgKWPYgdbyVFS/7+Cee36R9EpNpaipN9qh0brVfn+iFzChZbS8TYfFQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++kBAMSd/1QgZupQkPXo+1yTxSgKZuY/26KnVd9zJf3v03T+vnVb
-	Qu24TqlJiKtkCTrEuydbrRvktGYQbX7GWPxeyM9XIhZk/O5BUDHBxpQicy+znPaG
-X-Gm-Gg: AYBFou12fqZr+oDrK70jRpwU/9sYhHqMXzpRwicPbXGPKbG5drkDecBTD74WyqkOHe7
-	uC2uE9t9mHR6HA3kZS92EkAXlQ3TCaRv8gxIX4GRbhzJPkqoSQBYGioaBv7l3dIg2yYZbPBd4LB
-	ElP3gggS6SyxJlhsKB89Biw9kzA/XgIt2OrE/qFW5tYgaw/+/28OggNW2nFFaP1p5fFKV4fYvom
-	9MRBplvqHMtrJWWEXdoFihteatR6efHBZMN98+lLZq0n91iBoHspgnyh/oRcrZXQB0uF0niMS4T
-	R5LoWOU7bWXErlhKIKUrChbs384OWMuUxfIaLCqvyl2aJamayEGUDs+v7rx2uYHN07tGA0nowIf
-	g5Vt49OoW/RWJXhJRFIu1piJ1ubjBYVJp6UkhTwyRus38s1xcPS5x4xunB3aO0M52wRyoWMCKsQ
-	EdYOD+qgUyXW/dLJ6T60rjeovW6Rtr5Rm1IpOSdrzJWeeW+O5NgNgrbs2xRMz8S2/uMd4D78XRC
-	f2OwuDV0vavrveNh2GICWc0FQ==
-X-Received: by 2002:a05:6122:792:b0:5c6:6189:c756 with SMTP id 71dfb90a1353d-5c7ed4a07b0mr13687920e0c.2.1788869777239;
-        Tue, 08 Sep 2026 05:16:17 -0700 (PDT)
-Received: from mail-ua1-f48.google.com (mail-ua1-f48.google.com. [209.85.222.48])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5c7ec1eeaf3sm9822530e0c.6.2026.09.08.05.16.17
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 08 Sep 2026 05:16:17 -0700 (PDT)
-Received: by mail-ua1-f48.google.com with SMTP id a1e0cc1a2514c-97e96666dd6so2647189241.1
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 05:16:17 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzMu3yUxn0eglNkH8/kseaDlmFET+311OaekvulAIrDF9fqbPjYlbJmWH0dBSRu5t8JEtscNlR2p01y+ZI=@vger.kernel.org
-X-Received: by 2002:a05:6102:1484:b0:785:1d9c:633c with SMTP id
- ada2fe7eead31-78a4a8436b7mr12752699137.7.1788869776751; Tue, 08 Sep 2026
- 05:16:16 -0700 (PDT)
+	bh=X7BEU7cfU8Ya9RmhmyEfqGW4HOwIPeupH2V8maTNUh8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=Z00ea3umd+b+SqNUhwD9X2hmq7HRCDQ0aarKU0A0zD9MlfxzQsotMTg/GPpdZUZvdHym/S0a/fC/y9c8OpWHZh/yY8/Cyho+wR8tnEmMp4v9flzYDMWUHnmRmlF0abDahox5Opx2Ivo9ydKmPhfltqZhYRnZyftDv3Y1WGGdVDI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=0W3ndBv3; arc=none smtp.client-ip=113.46.200.224
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="0W3ndBv3"
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=aiCnsHSGi62GZAt7gncihY9+iSVioavtrqNUZOmgZrc=;
+	b=0W3ndBv3Nf/NRIhDeXn7W8zYcBX7LWEJaIrBWPpX4nY8R6ucFiMVr54mv2WAYQOJ+l1i8sLxh
+	EKgIrGCXTJUoDIB6Q/zhgiq30OHuj5t9jWhWsY+EDOBNnLGodHKtjX/XYJPOApnDSQF6aHJT4Zg
+	e57yBEhk29zTIEr7+mY2GmY=
+Received: from mail.maildlp.com (unknown [172.19.163.15])
+	by canpmsgout09.his.huawei.com (SkyGuard) with ESMTPS id 4hfN1L1crRz1cyT9;
+	Tue,  8 Sep 2026 20:05:26 +0800 (CST)
+Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
+	by mail.maildlp.com (Postfix) with ESMTPS id 5892940586;
+	Tue,  8 Sep 2026 20:16:19 +0800 (CST)
+Received: from [10.67.109.254] (10.67.109.254) by
+ kwepemk200008.china.huawei.com (7.202.194.74) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Tue, 8 Sep 2026 20:16:18 +0800
+Message-ID: <e3d5a233-b32a-4e6c-99f2-e2d634baa9cf@huawei.com>
+Date: Tue, 8 Sep 2026 20:16:17 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260817185700.322370-1-cosmin-gabriel.tanislav.xa@renesas.com>
- <20260817185700.322370-3-cosmin-gabriel.tanislav.xa@renesas.com>
- <CAMuHMdX+PArWcN9Xc5UiErWNUeGDEVoM6DoLgZQJOQHav9GZ+w@mail.gmail.com> <TYRPR01MB156193BED16FC87EBE4B2008885B12@TYRPR01MB15619.jpnprd01.prod.outlook.com>
-In-Reply-To: <TYRPR01MB156193BED16FC87EBE4B2008885B12@TYRPR01MB15619.jpnprd01.prod.outlook.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Tue, 8 Sep 2026 14:16:05 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdVNzUJjvzkipZZY7EP+-sCUC-vDndFrjAY50j=HMNB4fA@mail.gmail.com>
-X-Gm-Features: AcwNN1UYRmPMEh1uwkSa9mR-HbOhT0h9W6j5sM8pk6E_tmyyrP47WzL_coSV8xc
-Message-ID: <CAMuHMdVNzUJjvzkipZZY7EP+-sCUC-vDndFrjAY50j=HMNB4fA@mail.gmail.com>
-Subject: Re: [PATCH 2/7] pinctrl: renesas: rzt2h: restore correct pin mode on
- IRQ free
-To: Cosmin-Gabriel Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>
-Cc: Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
-	"linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>, 
-	"linux-gpio@vger.kernel.org" <linux-gpio@vger.kernel.org>, 
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "stable@kernel.org" <stable@kernel.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 17/19] arm64: smp: Pass secondary CPU boot parameters via
+ firmware if possible
+To: Will Deacon <will@kernel.org>, <linux-arm-kernel@lists.infradead.org>
+CC: <linux-kernel@vger.kernel.org>, Thomas Gleixner <tglx@kernel.org>, Catalin
+ Marinas <catalin.marinas@arm.com>, Borislav Petkov <bp@alien8.de>, Lorenzo
+ Pieralisi <lpieralisi@kernel.org>, Mark Rutland <mark.rutland@arm.com>, David
+ Woodhouse <dwmw@amazon.co.uk>, Peter Zijlstra <peterz@infradead.org>, Marc
+ Zyngier <maz@kernel.org>
+References: <20260907164024.17164-1-will@kernel.org>
+ <20260907164024.17164-18-will@kernel.org>
+From: Jinjie Ruan <ruanjinjie@huawei.com>
+In-Reply-To: <20260907164024.17164-18-will@kernel.org>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: kwepems100001.china.huawei.com (7.221.188.238) To
+ kwepemk200008.china.huawei.com (7.202.194.74)
 
-Hi Cosmin,
 
-On Tue, 8 Sept 2026 at 13:33, Cosmin-Gabriel Tanislav
-<cosmin-gabriel.tanislav.xa@renesas.com> wrote:
-> > From: Geert Uytterhoeven <geert@linux-m68k.org>
-> > On Mon, 17 Aug 2026 at 20:58, Cosmin Tanislav
-> > <cosmin-gabriel.tanislav.xa@renesas.com> wrote:
-> > > rzt2h_gpio_irq_domain_free() calls rzt2h_pinctrl_set_gpio_en() with
-> > > false leaving the pin in interrupt function instead of returning it to
-> > > GPIO mode.
-> >
-> > OK....
-> >
-> > > Pass true to rzt2h_pinctrl_set_gpio_en() to take the pin out of
-> > > interrupt function after we're done using it as an IRQ.
-> > >
-> > > rzt2h_pinctrl_set_pfc_mode() switches the pin to Hi-Z, losing the
-> > > previous PM value.
-> > >
-> > > Save the PM value before switching to Hi-Z, and restore it after the
-> > > IRQ is freed.
-> >
-> > Why is it a problem if the pin is in Hi-Z after the interrupt has been freed?
-> > Isn't that the right state for an unused pin?
->
-> It wouldn't be an issue if it was actually unused once the IRQ is freed,
-> but that's not the case, because you can call gpiod_to_irq() on a GPIO,
-> and then request_irq() on the IRQ returned by it. If you then call
-> free_irq(), you only free the IRQ, not the GPIO itself. After that the
-> user of these APIs should still be able to continue using the GPIO.
 
-OK.
+在 2026/9/8 0:40, Will Deacon 写道:
+> In preparation for parallel bringup of secondary CPUs, the global
+> 'secondary_data' structure used for initial paramater passing must be
+> localised.
+> 
+> Pass the idle 'task_struct' pointer for secondary CPUs directly to
+> ->cpu_boot() if the backend supports it.
+Reviewed-by: Jinjie Ruan <ruanjinjie@huawei.com>
 
-> If the pin is left in Hi-Z after freeing the IRQ, rzt2h_gpio_get() will
-> see that the pin is not in peripheral mode anymore, it will then see
-> that neither PM_INPUT nor PM_OUTPUT are set, and will return -EINVAL.
+> 
+> Signed-off-by: Will Deacon <will@kernel.org>
+> ---
+>  arch/arm64/include/asm/smp.h |  1 +
+>  arch/arm64/kernel/head.S     | 12 +++++++++++-
+>  arch/arm64/kernel/psci.c     |  4 ++--
+>  arch/arm64/kernel/smp.c      | 25 +++++++++++--------------
+>  4 files changed, 25 insertions(+), 17 deletions(-)
+> 
+> diff --git a/arch/arm64/include/asm/smp.h b/arch/arm64/include/asm/smp.h
+> index 7b986a6a765b..7f2cd84b7785 100644
+> --- a/arch/arm64/include/asm/smp.h
+> +++ b/arch/arm64/include/asm/smp.h
+> @@ -95,6 +95,7 @@ struct secondary_data {
+>  extern struct secondary_data secondary_data;
+>  extern long __early_cpu_boot_status;
+>  extern void secondary_entry(void);
+> +extern void secondary_entry_with_arg(void);
+>  
+>  extern void arch_send_call_function_single_ipi(int cpu);
+>  extern void arch_send_call_function_ipi_mask(const struct cpumask *mask);
+> diff --git a/arch/arm64/kernel/head.S b/arch/arm64/kernel/head.S
+> index 87a822e5c4ca..17868b497d7c 100644
+> --- a/arch/arm64/kernel/head.S
+> +++ b/arch/arm64/kernel/head.S
+> @@ -335,6 +335,7 @@ SYM_FUNC_END(init_kernel_el)
+>  	 * cores are held until we're ready for them to initialise.
+>  	 */
+>  SYM_FUNC_START(secondary_holding_pen)
+> +	mov	x19, xzr
+>  	mov	x0, xzr
+>  	bl	init_kernel_el			// w0=cpu_boot_mode
+>  	mrs	x2, mpidr_el1
+> @@ -353,10 +354,16 @@ SYM_FUNC_END(secondary_holding_pen)
+>  	 * be used where CPUs are brought online dynamically by the kernel.
+>  	 */
+>  SYM_FUNC_START(secondary_entry)
+> +	mov	x0, xzr
+> +	b	secondary_entry_with_arg
+> +SYM_FUNC_END(secondary_entry)
+> +
+> +SYM_FUNC_START(secondary_entry_with_arg)
+> +	mov	x19, x0
+>  	mov	x0, xzr
+>  	bl	init_kernel_el			// w0=cpu_boot_mode
+>  	b	secondary_startup
+> -SYM_FUNC_END(secondary_entry)
+> +SYM_FUNC_END(secondary_entry_with_arg)
+>  
+>  SYM_FUNC_START_LOCAL(secondary_startup)
+>  	/*
+> @@ -391,10 +398,13 @@ SYM_FUNC_START_LOCAL(__secondary_switched)
+>  	msr	vbar_el1, x5
+>  	isb
+>  
+> +	mov	x2, x19
+> +	cbnz	x2, 1f
+>  	adr_l	x0, secondary_data
+>  	ldr	x2, [x0, #CPU_BOOT_TASK]
+>  	cbz	x2, __secondary_too_slow
+>  
+> +1:
+>  	init_cpu_task x2, x1, x3
+>  
+>  #ifdef CONFIG_ARM64_PTR_AUTH
+> diff --git a/arch/arm64/kernel/psci.c b/arch/arm64/kernel/psci.c
+> index 3ba4fa14b9e3..c13e635e8a11 100644
+> --- a/arch/arm64/kernel/psci.c
+> +++ b/arch/arm64/kernel/psci.c
+> @@ -38,8 +38,8 @@ static int __init cpu_psci_cpu_prepare(unsigned int cpu)
+>  
+>  static int cpu_psci_cpu_boot(unsigned int cpu, unsigned long context)
+>  {
+> -	phys_addr_t pa_secondary_entry = __pa_symbol(secondary_entry);
+> -	int err = psci_ops.cpu_on(cpu_logical_map(cpu), pa_secondary_entry,
+> +	void *entry_va = context ? secondary_entry_with_arg : secondary_entry;
+> +	int err = psci_ops.cpu_on(cpu_logical_map(cpu), __pa_symbol(entry_va),
+>  				  context);
+>  	if (err && err != -EPERM)
+>  		pr_err("failed to boot CPU%d (%d)\n", cpu, err);
+> diff --git a/arch/arm64/kernel/smp.c b/arch/arm64/kernel/smp.c
+> index b57f8f752f78..95d5328c3f5a 100644
+> --- a/arch/arm64/kernel/smp.c
+> +++ b/arch/arm64/kernel/smp.c
+> @@ -93,34 +93,31 @@ static inline int op_cpu_kill(unsigned int cpu)
+>  }
+>  #endif
+>  
+> -
+>  /*
+>   * Boot a secondary CPU, and assign it the specified idle task.
+>   * This also gives us the initial stack to use for this CPU.
+>   */
+> -static int boot_secondary(unsigned int cpu, struct task_struct *idle)
+> -{
+> -	const struct cpu_operations *ops = get_secondary_cpu_ops();
+> -
+> -	if (ops->cpu_boot)
+> -		return ops->cpu_boot(cpu, 0);
+> -
+> -	return -EOPNOTSUPP;
+> -}
+> -
+>  int arch_cpuhp_kick_ap_alive(unsigned int cpu, struct task_struct *idle)
+>  {
+> -	int ret;
+> +	const struct cpu_operations *ops = get_secondary_cpu_ops();
+> +	int ret = -EOPNOTSUPP;
+> +	void *arg = NULL;
+>  
+>  	/*
+>  	 * We need to tell the secondary core where to find its stack and the
+>  	 * page tables.
+>  	 */
+> -	secondary_data.task = idle;
+> +	if (ops->cpu_boot_has_arg && ops->cpu_boot_has_arg())
+> +		arg = idle;
+> +	else
+> +		secondary_data.task = idle;
+> +
+>  	update_cpu_boot_status(CPU_MMU_OFF);
+>  
+>  	/* Now bring the CPU into our world */
+> -	ret = boot_secondary(cpu, idle);
+> +	if (ops->cpu_boot)
+> +		ret = ops->cpu_boot(cpu, (unsigned long)arg);
+> +
+>  	if (ret && ret != -EPERM)
+>  		pr_err("CPU%u: failed to boot: %d\n", cpu, ret);
+>  	return ret;
 
-That is fixed by "[PATCH 4/7] pinctrl: renesas: rzt2h: fix reading pin
-value in IRQ function" anyway, right?
-
-> > > --- a/drivers/pinctrl/renesas/pinctrl-rzt2h.c
-> > > +++ b/drivers/pinctrl/renesas/pinctrl-rzt2h.c
-> >
-> > > @@ -170,6 +171,25 @@ static int rzt2h_validate_pin(struct rzt2h_pinctrl *pctrl, unsigned int offset)
-> > >         return (pincfg & BIT(pin)) ? 0 : -EINVAL;
-> > >  }
-> > >
-> > > +static u8 rzt2h_pin_read_pm(struct rzt2h_pinctrl *pctrl, u8 port, u8 pin)
-> > > +{
-> > > +       u16 reg = rzt2h_pinctrl_readw(pctrl, port, PM(port));
-> > > +
-> > > +       return field_get(PM_PIN_MASK(pin), reg);
-> > > +}
-> > > +
-> > > +static void rzt2h_pin_write_pm(struct rzt2h_pinctrl *pctrl, u8 port, u8 pin, u8 pm)
-> > > +{
-> > > +       u16 reg;
-> > > +
-> > > +       guard(raw_spinlock_irqsave)(&pctrl->lock);
-> > > +
-> > > +       reg = rzt2h_pinctrl_readw(pctrl, port, PM(port));
-> > > +       reg &= ~PM_PIN_MASK(pin);
-> > > +       reg |= (u16)pm << (pin * 2);
-> >
-> > General remark: the need for this cast is one reason why function
-> > parameters should use "unsigned int" instead of u8.  The other reason is
-> > that the compiler may add code to mask the parameters to 8 bits,
-> > depending on the CPU architecture.
->
-> Should I switch the pm parameter to unsigned int for V2 then?
-
-Yes please.
-
-> > > +       rzt2h_pinctrl_writew(pctrl, port, reg, PM(port));
-> > > +}
-> > > +
-> > >  static void rzt2h_pinctrl_set_gpio_en(struct rzt2h_pinctrl *pctrl,
-> > >                                       u8 port, u8 pin, bool en)
-> > >  {
-> > > @@ -1023,16 +1043,23 @@ static int rzt2h_gpio_child_to_parent_hwirq(struct gpio_chip *gc,
-> > >         struct rzt2h_pinctrl *pctrl = gpiochip_get_data(gc);
-> > >         u8 port = RZT2H_PIN_ID_TO_PORT(child);
-> > >         u8 pin = RZT2H_PIN_ID_TO_PIN(child);
-> > > -       u8 parent_irq;
-> > > +       u8 parent_irq, irq_idx;
-> > >
-> > >         parent_irq = rzt2h_gpio_irq_map[child];
-> > >         if (parent_irq < RZT2H_INTERRUPTS_START)
-> > >                 return -EINVAL;
-> > >
-> > > -       if (test_and_set_bit(parent_irq - RZT2H_INTERRUPTS_START,
-> > > -                            pctrl->used_irqs))
-> > > +       irq_idx = parent_irq - RZT2H_INTERRUPTS_START;
-> > > +       if (test_and_set_bit(irq_idx, pctrl->used_irqs))
-> > >                 return -EBUSY;
-> > >
-> > > +       /*
-> > > +        * rzt2h_pinctrl_set_pfc_mode() sets PM to Hi-Z before switching to the
-> > > +        * interrupt function, losing the previous PM value.
-> > > +        * Save it so it can be restored when the IRQ is freed.
-> > > +        */
-> > > +       pctrl->saved_pm[irq_idx] = rzt2h_pin_read_pm(pctrl, port, pin);
-> > > +
-> > >         rzt2h_pinctrl_set_pfc_mode(pctrl, port, pin, PFC_FUNC_INTERRUPT);
-> >
-> > If rzt2h_pinctrl_set_pfc_mode() would return the old PM value, you
-> > could drop rzt2h_pin_read_pm(), and write:
->
-> The main function of rzt2h_pinctrl_set_pfc_mode() is to change the PFC
-> mode. Returning the old PM value as a side effect would mean the
-> function does two unrelated things.
->
-> The extra register read this avoids only happens on IRQ request/release,
-> not a hot path, so I'd rather keep the two concerns separate if that's
-> okay.
-
-Fair enough.
-
->
-> >     pctrl->saved_pm[irq_idx] = rzt2h_pinctrl_set_pfc_mode(pctrl, port, pin,
-> >                                                      PFC_FUNC_INTERRUPT);
-
-Gr{oetje,eeting}s,
-
-                        Geert
-
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
