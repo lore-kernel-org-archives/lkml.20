@@ -1,228 +1,152 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id E4CB741D131
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 11:08:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 921C54A1DF9;
+	Tue,  8 Sep 2026 11:09:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.92.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788865732; cv=none; b=YwB+XAydHbqf83uGpqWmZaDajMQL/DX4phyzMS2Y/FbGRheXO0TbMdPy0z6pemxMd4TkfyKpNUAtxdOfPh43Pkm1Yye34jFNT20avWW+NR0MXrTrFBeX0MFCqQBOApuwH92WfPsb4EFprufdVg910zlKeZi8uJz9TsMEAQLk24k=
+	t=1788865796; cv=none; b=PsDcjbhmQfh4Ldk3oyjae1pLs+31SvI8natOEUcfiihCJbHXWoRmbuEhdMiLL1kYJzfO8TW65TOZaS0k0ASftBRLPwkwcum5/yd2IKYZ4GGTbksS7uCtgUDl9OXlE3hipKZ8t1igm/loaLke1OxJ7sIbWlFx/YNQC4vWH46keZ8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788865732; c=relaxed/simple;
-	bh=y4vz4D5RryrHFY2Ojox7ZbAALJZGSizZnfEyF/6Gj0M=;
+	s=arc-20240116; t=1788865796; c=relaxed/simple;
+	bh=HVH+A1GFz/X/2yj/naeeVPja5EEA11lro9gRX6J4Dgs=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=DnYzBnJNktUJ4Zg61HacQeWu+smj3hmTyJTEek+Xf6XzlY/xGz3PWDj3LlPtQiDUW63kXlWKBsLP4jzFPUx7PK0pYKMp4zjJ0vXAaJ7HghFWcmiwlrH9dLcMoQrO13luZezjuMmjHFGmXE/CJ6YWnHDRR6s4wfeXEKTs6urITEU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=DAnLwHIc; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=QGpYrj8DMEr90XP7+Ur0bTt24k0SlKUPDA5EM3NFH7ArGjzwdpQLnBlt6PwMrXQg1cr9MxO4GYCWU1sKOLR/ugyP/8IUwlxKPCxSlEcOtVlK/9jymDDAIuLKFtaY91wTIx7ay2LxcRb9lReYo49rWcH7CPEJIf5mZscdqPin1Fk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=PUhJwgub; arc=none smtp.client-ip=90.155.92.199
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="DAnLwHIc"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id BB21B1476
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 04:08:43 -0700 (PDT)
-Received: from [192.168.0.1] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 3CE7E3F7B4
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 04:08:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1788865727; bh=y4vz4D5RryrHFY2Ojox7ZbAALJZGSizZnfEyF/6Gj0M=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=DAnLwHIczLdjHwvmLjtYVbxyS7khtH/SSlMlAluGMDExxhaphF7jPPRq/L8sUS5y1
-	 9o1LOVgJq9P9L0y2IEu6jAEWxUla00fiN/ovNjR09ILjoLdIQl9QlNa1RQyoV4Qw7G
-	 FZ4Cf1JQO/ZjvWT5RyGpY+tAP+OLTjy751juNPUM=
-Date: Tue, 8 Sep 2026 12:08:32 +0100
-From: Liviu Dudau <liviu.dudau@arm.com>
-To: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Cc: Boris Brezillon <boris.brezillon@collabora.com>,
-	Steven Price <steven.price@arm.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
-	kernel@collabora.com
-Subject: Re: [PATCH v3] drm/panthor: Display priorities of panthor groups
- over debugfs
-Message-ID: <ap_ssLU9HnIOZLP4@e142607>
-References: <20260904-panthor-sched-group-prio-v3-1-678afcca08b8@collabora.com>
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="PUhJwgub"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=UoLoCYuddeXG7gpeaiQD110KDRCd319GS7KzMnh1Upc=; b=PUhJwgubQBHYABXl7YDZBTuH82
+	dqcb/YlVf/HnSL94YGP6LyGVJDLrLVZC95nzwJe3prP6vj3qzB6E/EbTHt5NUQEkH4a9oNxeqCdTn
+	q2kPHiWzX3aJbT5daETTDWsQFHMIiwgazNtmOYnnnN+Z0l1PSwikemwmL+uBxuVSWR1SUJYrMQJjG
+	Mgaqh9zFekFl7xfTuVNz5qydmB3vm1hcGrZtMw7CoJk/KrTprQ/jZIwbNbyCvSoAcz7R98UX5c1G2
+	rWISrNWq8oeoc4azvtWKsSO/DOQDE8BA2cf+M0ytASaGn7ej6s1PBwEbvhGJoLqP/25e0p4mIKFq3
+	VbSwyWDg==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by desiato.infradead.org with esmtpsa (Exim 4.99.2 #2 (Red Hat Linux))
+	id 1x3thz-0000000HJzf-1cAd;
+	Tue, 08 Sep 2026 11:09:47 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id AB5BB300400; Tue, 08 Sep 2026 13:09:46 +0200 (CEST)
+Date: Tue, 8 Sep 2026 13:09:46 +0200
+From: Peter Zijlstra <peterz@infradead.org>
+To: Andrea Parri <parri.andrea@gmail.com>
+Cc: Anna-Maria Behnsen <anna-maria@linutronix.de>,
+	Frederic Weisbecker <frederic@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] hrtimer: Use hard expiry when updating timers on the
+ same base
+Message-ID: <20260908110946.GE687043@noisy.programming.kicks-ass.net>
+References: <20260907211134.3854-1-parri.andrea@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260904-panthor-sched-group-prio-v3-1-678afcca08b8@collabora.com>
+In-Reply-To: <20260907211134.3854-1-parri.andrea@gmail.com>
 
-On Fri, Sep 04, 2026 at 07:38:09PM +0200, Nicolas Frattaroli wrote:
-> Analogous to what was added in Commit d41c79838c47 ("drm/panfrost:
-> Display list of device JM contexts over debugfs") for panfrost, add
-> similar debugfs information for panthor.
+On Mon, Sep 07, 2026 at 11:11:33PM +0200, Andrea Parri wrote:
+> Rearming a queued timer with nonzero slack can leave the timerqueue out
+> of order. remove_and_enqueue_same_base() checks the new soft expiry
+> against its neighbours' hard expiries, then stores the new hard expiry
+> in the node without requeueing it.
 > 
-> The group priority does not change over the lifetime of the group, so no
-> effort to synchronise with the scheduler lock is being made.
+> For example, with A at 10 and B at 20, rearming A at 11 with slack 30
+> passes the neighbour check but leaves A's hard expiry of 41 before B's
+> 20. The same function also caches the soft expiry in base->expires_next
+> when updating or inserting the first timer, giving next-event selection
+> an earlier deadline than the queue head's hard expiry.
 > 
-> Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+> Compute the hard expiry with the same saturating addition used by
+> hrtimer_set_expires_range_ns(). Use it for the in-place ordering check
+> and both updates to base->expires_next.
+> 
+> Fixes: eddffab8282e3 ("hrtimer: Keep track of first expiring timer per clock base")
+> Fixes: 343f2f4dc5425 ("hrtimer: Try to modify timers in place")
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM
+> Signed-off-by: Andrea Parri <parri.andrea@gmail.com>
 
-Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
-
-Best regards,
-Liviu
+Urgh!
 
 > ---
-> Changes in v3:
-> - Move group number to after the per-file specific information, which
->   helps readability
-> - Link to v2: https://patch.msgid.link/20260831-panthor-sched-group-prio-v2-1-a74c79b4b830@collabora.com
+>  kernel/time/hrtimer.c | 7 ++++---
+>  1 file changed, 4 insertions(+), 3 deletions(-)
 > 
-> Changes in v2:
-> - Take groups xa lock around the loop in show_file_groups to guard
->   against group object UAF
-> - Flatten the listing, removing most of the code in show_each_file,
->   printing that info for each group instead
-> - Also show queue count for each group
-> - Link to v1: https://patch.msgid.link/20260818-panthor-sched-group-prio-v1-1-1836857c53e9@collabora.com
-> ---
->  drivers/gpu/drm/panthor/panthor_drv.c   |  1 +
->  drivers/gpu/drm/panthor/panthor_sched.c | 73 +++++++++++++++++++++++++++++++++
->  drivers/gpu/drm/panthor/panthor_sched.h |  5 +++
->  3 files changed, 79 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/panthor/panthor_drv.c b/drivers/gpu/drm/panthor/panthor_drv.c
-> index 46a3080b0b20..8cdba0c1a14b 100644
-> --- a/drivers/gpu/drm/panthor/panthor_drv.c
-> +++ b/drivers/gpu/drm/panthor/panthor_drv.c
-> @@ -1769,6 +1769,7 @@ static void panthor_debugfs_init(struct drm_minor *minor)
+> diff --git a/kernel/time/hrtimer.c b/kernel/time/hrtimer.c
+> index 530d61257b9a0..c5940323746db 100644
+> --- a/kernel/time/hrtimer.c
+> +++ b/kernel/time/hrtimer.c
+> @@ -1261,6 +1261,7 @@ static inline bool
+>  remove_and_enqueue_same_base(struct hrtimer *timer, struct hrtimer_clock_base *base,
+>  			     const enum hrtimer_mode mode, ktime_t expires, u64 delta_ns)
 >  {
->  	panthor_mmu_debugfs_init(minor);
->  	panthor_gem_debugfs_init(minor);
-> +	panthor_sched_debugfs_init(minor);
->  }
->  #endif
+> +	ktime_t hard_expires = ktime_add_safe(expires, ns_to_ktime(delta_ns));
+>  	bool was_first = false;
 >  
-> diff --git a/drivers/gpu/drm/panthor/panthor_sched.c b/drivers/gpu/drm/panthor/panthor_sched.c
-> index 60b2417deb81..ac6aee554820 100644
-> --- a/drivers/gpu/drm/panthor/panthor_sched.c
-> +++ b/drivers/gpu/drm/panthor/panthor_sched.c
-> @@ -1,6 +1,7 @@
->  // SPDX-License-Identifier: GPL-2.0 or MIT
->  /* Copyright 2023 Collabora ltd. */
+>  	/* Remove it from the timer queue if active */
+> @@ -1268,11 +1269,11 @@ remove_and_enqueue_same_base(struct hrtimer *timer, struct hrtimer_clock_base *b
+>  		was_first = !timerqueue_linked_prev(&timer->node);
 >  
-> +#include <drm/drm_debugfs.h>
->  #include <drm/drm_drv.h>
->  #include <drm/drm_exec.h>
->  #include <drm/drm_file.h>
-> @@ -4175,3 +4176,75 @@ int panthor_sched_init(struct panthor_device *ptdev)
->  	ptdev->scheduler = sched;
->  	return 0;
->  }
-> +
-> +#ifdef CONFIG_DEBUG_FS
-> +
-> +static const char *
-> +panthor_sched_prio_str(enum panthor_csg_priority prio)
-> +{
-> +	switch (prio) {
-> +	case PANTHOR_CSG_PRIORITY_LOW:
-> +		return "LOW";
-> +	case PANTHOR_CSG_PRIORITY_MEDIUM:
-> +		return "MEDIUM";
-> +	case PANTHOR_CSG_PRIORITY_HIGH:
-> +		return "HIGH";
-> +	case PANTHOR_CSG_PRIORITY_RT:
-> +		return "REAL-TIME";
-> +	default:
-> +		return "UNKNOWN";
-> +	}
-> +}
-> +
-> +static int show_file_groups(struct drm_file *file, struct seq_file *m)
-> +{
-> +	struct panthor_file *pfile = file->driver_priv;
-> +	struct panthor_group *group;
-> +	unsigned long i;
-> +
-> +	if (IS_ERR_OR_NULL(pfile->groups))
-> +		return -ENOENT;
-> +
-> +	xa_lock(&pfile->groups->xa);
-> +	xa_for_each_marked(&pfile->groups->xa, i, group, GROUP_REGISTERED) {
-> +		seq_printf(m, "client_id %8llu pid %8d command %s: group %2lu priority %s queue count %u\n",
-> +			   file->client_id, group->task_info.pid, group->task_info.comm, i,
-> +			   panthor_sched_prio_str(group->priority), group->queue_count);
-> +	}
-> +	xa_unlock(&pfile->groups->xa);
-> +
-> +	return 0;
-> +}
-> +
-> +static int show_each_file(struct seq_file *m, void *arg)
-> +{
-> +	struct drm_info_node *node = (struct drm_info_node *)m->private;
-> +	struct drm_device *ddev = node->minor->dev;
-> +	int (*show)(struct drm_file *, struct seq_file *) =
-> +		node->info_ent->data;
-> +	struct drm_file *file;
-> +	int ret;
-> +
-> +	scoped_cond_guard(mutex_intr, return -EINTR, &ddev->filelist_mutex) {
-> +		list_for_each_entry(file, &ddev->filelist, lhead) {
-> +			ret = show(file, m);
-> +			if (ret < 0)
-> +				return ret;
-> +		}
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static struct drm_info_list panthor_sched_debugfs_list[] = {
-> +	{ "sched_groups", show_each_file, 0, show_file_groups },
-> +};
-> +
-> +void panthor_sched_debugfs_init(struct drm_minor *minor)
-> +{
-> +	drm_debugfs_create_files(panthor_sched_debugfs_list,
-> +				 ARRAY_SIZE(panthor_sched_debugfs_list),
-> +				 minor->debugfs_root, minor);
-> +}
-> +
-> +#endif /* CONFIG_DEBUG_FS */
-> diff --git a/drivers/gpu/drm/panthor/panthor_sched.h b/drivers/gpu/drm/panthor/panthor_sched.h
-> index 9a8692de8ade..d87cbdba4d40 100644
-> --- a/drivers/gpu/drm/panthor/panthor_sched.h
-> +++ b/drivers/gpu/drm/panthor/panthor_sched.h
-> @@ -10,6 +10,7 @@ struct drm_file;
->  struct drm_gem_object;
->  struct drm_sched_job;
->  struct drm_memory_stats;
-> +struct drm_minor;
->  struct drm_panthor_group_create;
->  struct drm_panthor_queue_create;
->  struct drm_panthor_group_get_state;
-> @@ -55,4 +56,8 @@ void panthor_sched_report_fw_events(struct panthor_device *ptdev, u32 events);
+>  		/* Try to update in place to avoid the de/enqueue dance */
+> -		if (hrtimer_can_update_in_place(timer, base, expires)) {
+> +		if (hrtimer_can_update_in_place(timer, base, hard_expires)) {
+>  			hrtimer_set_expires_range_ns(timer, expires, delta_ns);
+>  			trace_hrtimer_start(timer, mode, true);
+>  			if (was_first)
+> -				base->expires_next = expires;
+> +				base->expires_next = hard_expires;
+>  			return was_first;
+>  		}
 >  
->  void panthor_fdinfo_gather_group_samples(struct panthor_file *pfile);
+> @@ -1291,7 +1292,7 @@ remove_and_enqueue_same_base(struct hrtimer *timer, struct hrtimer_clock_base *b
 >  
-> +#ifdef CONFIG_DEBUG_FS
-> +void panthor_sched_debugfs_init(struct drm_minor *minor);
-> +#endif
-> +
->  #endif
-> 
-> ---
-> base-commit: 17c6b88e85ffe5de5720004ae8c2176d52944aca
-> change-id: 20260814-panthor-sched-group-prio-c987f6a15690
-> 
-> Best regards,
-> --  
-> Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-> 
+>  	/* If it's the first expiring timer now or again, update base */
+>  	if (timerqueue_linked_add(&base->active, &timer->node)) {
+> -		base->expires_next = expires;
+> +		base->expires_next = hard_expires;
+>  		return true;
+>  	}
 
--- 
-====================
-| I would like to |
-| fix the world,  |
-| but they're not |
-| giving me the   |
- \ source code!  /
-  ---------------
-    ¯\_(ツ)_/¯
+Can't we do something like so?
+
+diff --git a/kernel/time/hrtimer.c b/kernel/time/hrtimer.c
+index 530d61257b9a..8c157c4fa699 100644
+--- a/kernel/time/hrtimer.c
++++ b/kernel/time/hrtimer.c
+@@ -1263,13 +1263,16 @@ remove_and_enqueue_same_base(struct hrtimer *timer, struct hrtimer_clock_base *b
+ {
+ 	bool was_first = false;
+ 
++	/* Set the new expiry time */
++	hrtimer_set_expires_range_ns(timer, expires, delta_ns);
++	expires = timer->node.expires;
++
+ 	/* Remove it from the timer queue if active */
+ 	if (timer->is_queued) {
+ 		was_first = !timerqueue_linked_prev(&timer->node);
+ 
+ 		/* Try to update in place to avoid the de/enqueue dance */
+ 		if (hrtimer_can_update_in_place(timer, base, expires)) {
+-			hrtimer_set_expires_range_ns(timer, expires, delta_ns);
+ 			trace_hrtimer_start(timer, mode, true);
+ 			if (was_first)
+ 				base->expires_next = expires;
+@@ -1280,9 +1283,6 @@ remove_and_enqueue_same_base(struct hrtimer *timer, struct hrtimer_clock_base *b
+ 		timerqueue_linked_del(&base->active, &timer->node);
+ 	}
+ 
+-	/* Set the new expiry time */
+-	hrtimer_set_expires_range_ns(timer, expires, delta_ns);
+-
+ 	debug_activate(timer, mode, timer->is_queued);
+ 	base->cpu_base->active_bases |= 1 << base->index;
+ 
