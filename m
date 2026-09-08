@@ -1,115 +1,296 @@
-Received: from mxb.seznam.cz (mxb.seznam.cz [77.75.78.89])
+Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 855B038239A;
-	Tue,  8 Sep 2026 22:30:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=77.75.78.89
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E607592204;
+	Tue,  8 Sep 2026 22:30:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788906611; cv=none; b=T4C4+JYFlTZ1xW4epXFDVCa6BkYDjoYhK2QekxJycE+adTIaqW+o+pI1Y5NAsd2y4vzlDp3luimVPkcQaRtOEwNx0UmkxrZT8davmu8KY9Eqscp0/HCX5bj+2b7h6IhPszysyzST7iYTDCN7sohHkIs35sryh2rmz89eiJsfZ0k=
+	t=1788906635; cv=none; b=OtivIFIZT2VRaRL/eesWOentk/psEvlIM7Ti8jI+zMKUcqrmHU9bMGuxU+l2HXc5j/Nv7nMSVK2GZXZFeUI6vVwr3uRKW0x8ACuIDL8zthzxp6Xf1bd7SQTMWQe0aANz3dn1pIGF2bL9exwMRqp2c2rwa/rWd92rABzG/d6TIkk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788906611; c=relaxed/simple;
-	bh=YlbLFj1jubsTAblV9KkgFQYYIwxSXgA9K2+99tuQ61w=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=r1DwwimutiN8tC7d4BZz1X6u24O77VTaZxnpTqF9ovpPm82eCJ4nhdPcX7yO75/nXERBmNt6G0O3Pwz1MbBh55VkbMSyA+PT6/qVB9L6Ke6n6SZVVS4sCncML9mIG5xQzN99qLtDypXYGWFtbbeuLp66Vx8ERWe6XjEAYB09UiA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=podgorny.cz; spf=pass smtp.mailfrom=podgorny.cz; dkim=pass (2048-bit key) header.d=emailprofi.seznam.cz header.i=@emailprofi.seznam.cz header.b=B+XUlRae; arc=none smtp.client-ip=77.75.78.89
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=podgorny.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=podgorny.cz
+	s=arc-20240116; t=1788906635; c=relaxed/simple;
+	bh=AvglF/lS5jLRZxY5Tu3J3C80lthHKnHNLMrZERrEiJo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=OTHw5zNlgDtLy62dKgAOIiPwi4JCcByJyhY1SsIEcz6LV4DvknCBF2ueeqNOSda3xske7acQrjpDd0tVKJ7L5o8YYK0azLE/sCWFLHImrmvZSV6YEJbDjw+i3lgbHtPJ/dnMEaAQJd6uPzep0KUvg1VrVi44ArkcNPiQZ6Qvmys=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=jYXb0xZz; arc=none smtp.client-ip=178.251.229.89
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=emailprofi.seznam.cz header.i=@emailprofi.seznam.cz header.b="B+XUlRae"
-Received: from email.seznam.cz
-	by smtpc-mxb-7db765f675-fgg8f
-	(smtpc-mxb-7db765f675-fgg8f [2a02:598:64:8a00::1000:90d])
-	id 62648af1d45e27e867eb90b9;
-	Wed, 09 Sep 2026 00:29:57 +0200 (CEST)
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=emailprofi.seznam.cz; s=szn1; t=1788906597;
-	bh=7QOOJZhlQlG9owCJI+3WV6mxQgey+fVxd8O+Sbk7sqU=;
-	h=From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:To:Cc;
-	b=B+XUlRaeM3Gcxp1n467xEK0mHyOv2Nuz22uMsi1FMyrRcP8i1ZsYcEAudj6y10Dms
-	 yh6jk4DX6w9O7rzznQPTkLr2TMRnTDUmlMtC5B05Aty9C1cv6S2FU5UvHuVh5Cx6W4
-	 p+TBNyTyPOT2Wl/lSWjFt5B3NYXdGZh+f1g+P/PsEQLqeMIg9b6a7niHQShm6Usya+
-	 km36dV2MheUM3C2E/GcTz4i83wo/OlOxn1yV7xWpezIrNRV4jSH5znnJZOQRNkBAR+
-	 ssPobw/dwUHZ3sQpaMUHkXyEvtJld8FMtFSxvBptidCya8rKBeomQ2BDd+5GzpSRDR
-	 7K/jNEuaLRD5A==
-Received: from [192.168.31.57] ([2a01:9422:904:1ee:272:eeff:feab:4ab4])
-	by smtpd-relay-6ffbffc97b-l7tfj (szn-email-smtpd/2.0.82) with ESMTPA
-	id 72f5e36e-961a-4285-ab70-462fe6c4e235;
-	Wed, 09 Sep 2026 00:29:37 +0200
-From: Radek Podgorny <radek@podgorny.cz>
-Date: Wed, 09 Sep 2026 00:29:36 +0200
-Subject: [PATCH v3 1/2] Bluetooth: forget a peer's RPA once it advertises
- its identity address
+	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="jYXb0xZz"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 2E14410196A;
+	Wed, 09 Sep 2026 00:30:20 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
+	s=dkim; t=1788906621; h=from:subject:date:message-id:to:cc:mime-version:
+	 content-transfer-encoding; bh=aBIZOzE3i1JjRrtYfZeSQABj8yITCJ8amCyPP3PLllk=;
+	b=jYXb0xZzzrz69AyOLg6dTibqq+Uzjau6AnH/hwucb2M2eoGND1Nx0pOB78iapxGXLgKDAF
+	2NwLHWGUgIH8fdP+EupnLVqE5/1/9sMvAqUzxpFJ95/eaHWVvAMqa6mn9DQSvWIQDh/R7j
+	GjOrUSXUrGszy10G985W0iozPhA3OYpvGObQuD1e64n8gmEQEAnZq9Zx3lRxGQ1HfBmomH
+	ql3Y5z+XNs4+iqENCKo76Xa2siBv/fUbYIzrUIXw7aMMiarPUDZV0Cvc6IovPMkeFBvXrU
+	t5NrETB7Th8cFMGJhmhXOgppJ69krcf2TOsZQoeShL6EmPM3liacPvHXH3xeyg==
+From: Marek Vasut <marex@nabladev.com>
+To: linux-arm-kernel@lists.infradead.org
+Cc: Marek Vasut <marex@nabladev.com>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Fabio Estevam <festevam@gmail.com>,
+	Frank Li <Frank.Li@nxp.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Rob Herring <robh@kernel.org>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	devicetree@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2] arm64: dts: imx8mm: imx8mp: Update EEPROM with nWP GPIO, label and layout
+Date: Wed,  9 Sep 2026 00:29:42 +0200
+Message-ID: <20260908223005.38536-1-marex@nabladev.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260909-for-upstream-le-connect-on-air-addr-v3-1-0e49c4e7abc2@podgorny.cz>
-References: <20260909-for-upstream-le-connect-on-air-addr-v3-0-0e49c4e7abc2@podgorny.cz>
-In-Reply-To: <20260909-for-upstream-le-connect-on-air-addr-v3-0-0e49c4e7abc2@podgorny.cz>
-To: Marcel Holtmann <marcel@holtmann.org>, 
- Luiz Augusto von Dentz <luiz.dentz@gmail.com>
-Cc: linux-bluetooth@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Luiz Augusto von Dentz <luiz.von.dentz@intel.com>, 
- Radek Podgorny <radek@podgorny.cz>
-X-Mailer: b4 0.15.2
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-hci_connect_le() dials the RPA cached in the peer's IRK whenever one is
-set, on the assumption that a peer holding an IRK is on air with a
-resolvable private address. A peer that stops using privacy breaks that
-assumption: it advertises its identity address, the cached RPA keeps the
-value it had before the change, and the host aims at an address the peer
-has abandoned.
+Describe ID EEPROM nWP GPIO, label and nvmem layout. The i.MX8MM eDM SBC
+and i.MX8MP eDM SBC nvmem layout is almost identical, except for length
+of product-name@32 field, which is 19 Bytes on the Mini and 24 Bytes on
+the Plus.
 
-Nothing clears the cache. hci_find_irk_by_rpa() refreshes irk->rpa each
-time an advertisement resolves, so it tracks rotation, but a peer that
-stops sending RPAs stops producing the reports that would update it, and
-the stale address then survives until the adapter is powered off.
-
-On the path that creates the connection object this is currently masked:
-__hci_conn_add() resolves the cached RPA back to the identity address, so
-that is what goes on air. It is not masked on the reuse branch, which
-copies the swapped address straight into an existing conn->dst, and the
-next patch removes the conversion for the case where the controller
-cannot translate an identity address, so the stale RPA would be dialled
-there too.
-
-Clear the cached RPA when the peer is seen on its identity address.
-hci_find_irk_by_addr() only matches public and static random addresses,
-so an unresolved RPA belonging to some other device cannot reach this
-path.
-
-Assisted-by: Claude:claude-opus-5
-Signed-off-by: Radek Podgorny <radek@podgorny.cz>
+Signed-off-by: Marek Vasut <marex@nabladev.com>
 ---
- net/bluetooth/hci_event.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
+Cc: Conor Dooley <conor+dt@kernel.org>
+Cc: Fabio Estevam <festevam@gmail.com>
+Cc: Frank Li <Frank.Li@nxp.com>
+Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
+Cc: Pengutronix Kernel Team <kernel@pengutronix.de>
+Cc: Rob Herring <robh@kernel.org>
+Cc: Sascha Hauer <s.hauer@pengutronix.de>
+Cc: devicetree@vger.kernel.org
+Cc: imx@lists.linux.dev
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: linux-kernel@vger.kernel.org
+---
+V2: Fix wifi@1200 typo
+---
+ .../freescale/imx8mm-data-modul-edm-sbc.dts   |  56 ++++++++
+ .../freescale/imx8mp-data-modul-edm-sbc.dts   | 128 ++++++++++++++++++
+ 2 files changed, 184 insertions(+)
 
-diff --git a/net/bluetooth/hci_event.c b/net/bluetooth/hci_event.c
-index 2f5e21ff9752..03b805207ab0 100644
---- a/net/bluetooth/hci_event.c
-+++ b/net/bluetooth/hci_event.c
-@@ -6311,6 +6311,15 @@ static void process_adv_report(struct hci_dev *hdev, u8 type, bdaddr_t *bdaddr,
- 	if (irk) {
- 		bdaddr = &irk->bdaddr;
- 		bdaddr_type = irk->addr_type;
-+	} else {
-+		/* The peer is on air with its identity address, so whatever
-+		 * RPA is cached for it has been abandoned. Drop it, or
-+		 * hci_connect_le() would swap it back in and dial an address
-+		 * the peer no longer answers.
-+		 */
-+		irk = hci_find_irk_by_addr(hdev, bdaddr, bdaddr_type);
-+		if (irk)
-+			bacpy(&irk->rpa, BDADDR_ANY);
- 	}
+diff --git a/arch/arm64/boot/dts/freescale/imx8mm-data-modul-edm-sbc.dts b/arch/arm64/boot/dts/freescale/imx8mm-data-modul-edm-sbc.dts
+index df857de0375cf..cb76471440433 100644
+--- a/arch/arm64/boot/dts/freescale/imx8mm-data-modul-edm-sbc.dts
++++ b/arch/arm64/boot/dts/freescale/imx8mm-data-modul-edm-sbc.dts
+@@ -431,7 +431,63 @@ usb-hub@2c {
+ 	eeprom: eeprom@50 {
+ 		compatible = "atmel,24c32";
+ 		reg = <0x50>;
++		label = "dmo-board-info";
+ 		pagesize = <32>;
++		wp-gpios = <&gpio2 5 GPIO_ACTIVE_LOW>;
++
++		nvmem-layout {
++			compatible = "fixed-layout";
++			#address-cells = <1>;
++			#size-cells = <1>;
++
++			company-name@24 {
++				reg = <0x24 0xd>;
++			};
++
++			product-name@32 {
++				reg = <0x32 0x13>;
++			};
++
++			board-revision@4b {
++				reg = <0x4b 0x3>;
++			};
++
++			serial-number@4f {
++				reg = <0x4f 0x8>;
++			};
++
++			manufacturing-date@70 {
++				reg = <0x70 0xa>;
++			};
++
++			test-date@7b {
++				reg = <0x7b 0xa>;
++			};
++
++			product-number@86 {
++				reg = <0x86 0x8>;
++			};
++
++			board-variant@9a {
++				reg = <0x9a 0x9>;
++			};
++
++			company-acronym@a4 {
++				reg = <0xa4 0x3>;
++			};
++
++			mac-address@b0 {
++				reg = <0xb0 0x6>;
++			};
++
++			board-id@100 {
++				reg = <0x100 0x4>;
++			};
++
++			wifi-id@120 {
++				reg = <0x120 0x4>;
++			};
++		};
+ 	};
  
- 	bdaddr_type = ev_bdaddr_type(hdev, bdaddr_type, &bdaddr_resolved);
-
+ 	rtc: rtc@68 {
+diff --git a/arch/arm64/boot/dts/freescale/imx8mp-data-modul-edm-sbc.dts b/arch/arm64/boot/dts/freescale/imx8mp-data-modul-edm-sbc.dts
+index c284edfa1f4c8..4614a0de07906 100644
+--- a/arch/arm64/boot/dts/freescale/imx8mp-data-modul-edm-sbc.dts
++++ b/arch/arm64/boot/dts/freescale/imx8mp-data-modul-edm-sbc.dts
+@@ -421,14 +421,142 @@ tpm: tpm@2e {
+ 	eeprom900: eeprom@50 {	/* board rev.900 */
+ 		compatible = "atmel,24c32";
+ 		reg = <0x50>;
++		label = "dmo-board-info";
+ 		pagesize = <32>;
++		wp-gpios = <&gpio3 14 GPIO_ACTIVE_LOW>;
+ 		status = "disabled";
++
++		nvmem-layout {
++			compatible = "fixed-layout";
++			#address-cells = <1>;
++			#size-cells = <1>;
++
++			company-name@24 {
++				reg = <0x24 0xd>;
++			};
++
++			product-name@32 {
++				reg = <0x32 0x18>;
++			};
++
++			board-revision@4b {
++				reg = <0x4b 0x3>;
++			};
++
++			serial-number@4f {
++				reg = <0x4f 0x8>;
++			};
++
++			manufacturing-date@70 {
++				reg = <0x70 0xa>;
++			};
++
++			test-date@7b {
++				reg = <0x7b 0xa>;
++			};
++
++			product-number@86 {
++				reg = <0x86 0x8>;
++			};
++
++			board-variant@9a {
++				reg = <0x9a 0x9>;
++			};
++
++			company-acronym@a4 {
++				reg = <0xa4 0x3>;
++			};
++
++			eeprom900mac: mac-address@b0 {
++				reg = <0xb0 0x6>;
++			};
++
++			board-id@100 {
++				reg = <0x100 0x4>;
++			};
++
++			wifi-id@120 {
++				reg = <0x120 0x4>;
++			};
++
++			board-lvds-id@140 {
++				reg = <0x140 0x4>;
++			};
++
++			camera-id@160 {
++				reg = <0x160 0x4>;
++			};
++		};
+ 	};
+ 
+ 	eeprom902: eeprom@51 {	/* board rev.902 */
+ 		compatible = "atmel,24c32";
+ 		reg = <0x51>;
++		label = "dmo-board-info";
+ 		pagesize = <32>;
++		wp-gpios = <&gpio3 14 GPIO_ACTIVE_LOW>;
++
++		nvmem-layout {
++			compatible = "fixed-layout";
++			#address-cells = <1>;
++			#size-cells = <1>;
++
++			company-name@24 {
++				reg = <0x24 0xd>;
++			};
++
++			product-name@32 {
++				reg = <0x32 0x18>;
++			};
++
++			board-revision@4b {
++				reg = <0x4b 0x3>;
++			};
++
++			serial-number@4f {
++				reg = <0x4f 0x8>;
++			};
++
++			manufacturing-date@70 {
++				reg = <0x70 0xa>;
++			};
++
++			test-date@7b {
++				reg = <0x7b 0xa>;
++			};
++
++			product-number@86 {
++				reg = <0x86 0x8>;
++			};
++
++			board-variant@9a {
++				reg = <0x9a 0x9>;
++			};
++
++			company-acronym@a4 {
++				reg = <0xa4 0x3>;
++			};
++
++			eeprom902mac: mac-address@b0 {
++				reg = <0xb0 0x6>;
++			};
++
++			board-id@100 {
++				reg = <0x100 0x4>;
++			};
++
++			wifi-id@120 {
++				reg = <0x120 0x4>;
++			};
++
++			board-lvds-id@140 {
++				reg = <0x140 0x4>;
++			};
++
++			camera-id@160 {
++				reg = <0x160 0x4>;
++			};
++		};
+ 	};
+ 
+ 	rtc: rtc@68 {
 -- 
-2.55.0
+2.53.0
 
