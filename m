@@ -1,133 +1,98 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC1B0421235
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 10:46:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FB3A5221D6;
+	Tue,  8 Sep 2026 10:47:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788864394; cv=none; b=PKouShNmzoKqc6IfxGWY0FFDzSLUl6d3HLFWYL6u0WRLqNgjFJMhuqcCvCX63VhI8E3CA+rvfpHS4IRjR1Qmc1EgE4Fdpz6RIVjZM8PRHswhGyLOCLIM77k7fFx/PU4EDXbT+NY1GDg1+PdQ1o6KVbBtHv/CREPDalSE8WflUq4=
+	t=1788864436; cv=none; b=JYbuzN0tO6d8t7cxnWJfeIrbCH05JOtes1l8gEW+LqQqxiXhdwJcuM0uuwNVtvVgZQC43Q4qcWfE7SjMUXw5RORQQ/feXdX1N+kC6cI5MWBsWhxZaFzUO/Uf/Y4Lrl0Y6ZL/uR4c3Rf4G0xz0RgainQUa0E2Vwjj3x+kYVXI4Ew=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788864394; c=relaxed/simple;
-	bh=cilFTjb93/dwr+wNJUTVO/tKKA7+0kXrhvkosGKO7P8=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=tBeXMYPSNS6eU7dQtfJKDEC1LfiVbffNx62w5MkCbg76w+hnbj9OX4YgSis3qAW/B0xvc1evjQO0+GNvSk5LiI40BvDN9S/ptuPKwB+kENB8ykloxP+ZpKxe7O7K7Vm1EGbxKm1kaFlM9TO9aQ2y9TXSjIp8O9UEtQXLbwl5gzc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FXWsEext; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788864436; c=relaxed/simple;
+	bh=VbHlU/p6Tk/EjCLNWdDIjkjnGRxPZFpSEZTRc2D5f+4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Da53lwebkvC7+I5tCDNKQHhmt8u4nYbfJzpbJF+Bco6KmChWhJO1DENqa2p4ney4Tjfr9Vt0t0r0/B6+kum9Bhx/izMJaWWdcak/qvQL8c83Bi7BBI9JfYWe8eaXv4iwava0ezxT1bCWek7jSNwiHG4KbcPclzozZe2Wl4k3HlE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=W68NJc4n; arc=none smtp.client-ip=192.198.163.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FXWsEext"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AA57D1F00A3D;
-	Tue,  8 Sep 2026 10:46:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788864389;
-	bh=r1A3HpbHQsHA2RB041odelGfeGNrgx5zShwsPKCjVJY=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=FXWsEextUfrPwGyY37UbyGVfVPDoLNSY+T6wYA+fUXEjFoSus+TRyhggXZkdKA6P4
-	 Kosb4QbSEMtComqVYDUJGaLmX8W11/QckcB0vOvklC6s1c4A5pTxSLB0Ba8gVmZnOU
-	 j0k4GMbiYffA/sxT5WPOjTwlkvgIJ11SpxbMx4IjYmWA5Ukj5uzI2/Cjt0NAb6UqpJ
-	 lUi/jxAY9PDXi+xuo5eioM3/bqzPpJ+gYsxyMB5pjZka9sCAfFrdHO8TxVhpF7qT/P
-	 to8AHTuwG46xZkR15p7GQmm+Ybjr/DXRYfng0OzuZI8YRKqJ640RJaTgYERSvbfEfI
-	 CDgzw4qVC/ypg==
-Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
-	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <maz@kernel.org>)
-	id 1x3tLP-00000006AAm-2Jaw;
-	Tue, 08 Sep 2026 10:46:27 +0000
-Date: Tue, 08 Sep 2026 11:46:27 +0100
-Message-ID: <865x0g3trw.wl-maz@kernel.org>
-From: Marc Zyngier <maz@kernel.org>
-To: Raviteja Laggyshetty <raviteja.laggyshetty@oss.qualcomm.com>
-Cc: Abel Vesa <abel.vesa@oss.qualcomm.com>,
-	linux-arm-kernel@lists.infradead.org,
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="W68NJc4n"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788864434; x=1820400434;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=VbHlU/p6Tk/EjCLNWdDIjkjnGRxPZFpSEZTRc2D5f+4=;
+  b=W68NJc4nzJTHnuIuZQJm9+INRseDoGuNDz3TOvblsTKm6W/YwdhnwO8U
+   W3YNaTu+PrDbBxsBxsxeGKZUhwpymPZop3Ouu6AvjtWdMVr7B73BCwOSE
+   nh4hioca4yzWR+pp9zhMo0G9ZSKuLlBUbkeRlTfGn6GHZHEH2dt+QyBnP
+   BU+LuGbTGpxjaRjUYDLX1cddbqpP8+s1g2MtlXjsLXASlyIj4e+mW3sDF
+   gTLxXe1MBE9ZTWvgmfAyopiG3Kge+oYAWsTPlqPlrYTHZZHNjnM3MLMGk
+   03CyD8glsA+2BNVllZztV3U6vaBQNDtY5TUH5sPsZm/svEINdl3x0SqxS
+   g==;
+X-CSE-ConnectionGUID: UUjYK7qaTk2fPdQX9niTFA==
+X-CSE-MsgGUID: Gy8STUtaSNGnxQn6kr5viQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11899"; a="114802029"
+X-IronPort-AV: E=Sophos;i="6.25,268,1779174000"; 
+   d="scan'208";a="114802029"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Sep 2026 03:47:11 -0700
+X-CSE-ConnectionGUID: yA7xUbFpR7qlj3ufNyPP3A==
+X-CSE-MsgGUID: HYZLeDzfRem3/soDuZ7b9w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,268,1779174000"; 
+   d="scan'208";a="270922622"
+Received: from smoticic-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.92])
+  by orviesa007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Sep 2026 03:47:08 -0700
+Date: Tue, 8 Sep 2026 13:47:06 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Janani Sunil <janani.sunil@analog.com>
+Cc: Michael Walle <mwalle@kernel.org>, Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>, linux-gpio@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-	Abel Vesa <abelvesa@kernel.org>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Mostafa Saleh <smostafa@google.com>,
-	Odelu Kukatla <odelu.kukatla@oss.qualcomm.com>
-Subject: Re: [PATCH] interconnect: qcom: icc-rpmh: Add opt-out parameter for QoS settings
-In-Reply-To: <17d7ebef-9ec7-4bf8-bf16-34e3bd3cd92e@oss.qualcomm.com>
-References: <20260907171729.1735641-1-maz@kernel.org>
-	<v2gxqazjoxe74q5364jucy4pjds6gx4gfdchgulekl5mwk2azk@we4ibolioibm>
-	<87ld9c4vc2.wl-maz@kernel.org>
-	<6iixty74opjqkegpdmtytffgrllcjvrmhlsv53xtackdqzvwge@6fh5onz27p6c>
-	<17d7ebef-9ec7-4bf8-bf16-34e3bd3cd92e@oss.qualcomm.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
- FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
- (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	Janani Sunil <jananisunil.dev@gmail.com>
+Subject: Re: [PATCH v7 3/3] gpio: ad7768: Add AD7768 GPIO auxiliary driver
+Message-ID: <ap_nqnPLWJpz5N8o@ashevche-desk.local>
+References: <20260908-ad7768-gpio-v7-0-52ee6ef18a1e@analog.com>
+ <20260908-ad7768-gpio-v7-3-52ee6ef18a1e@analog.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-SA-Exim-Connect-IP: 185.219.108.64
-X-SA-Exim-Rcpt-To: raviteja.laggyshetty@oss.qualcomm.com, abel.vesa@oss.qualcomm.com, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, konrad.dybcio@oss.qualcomm.com, abelvesa@kernel.org, andersson@kernel.org, smostafa@google.com, odelu.kukatla@oss.qualcomm.com
-X-SA-Exim-Mail-From: maz@kernel.org
-X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260908-ad7768-gpio-v7-3-52ee6ef18a1e@analog.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Tue, 08 Sep 2026 09:29:44 +0100,
-Raviteja Laggyshetty <raviteja.laggyshetty@oss.qualcomm.com> wrote:
+On Tue, Sep 08, 2026 at 09:24:54AM +0200, Janani Sunil wrote:
+> The AD7768 provides five GPIOs controlled through registers shared
+> with the parent IIO device. Register an auxiliary gpio-regmap driver
+> and use the parent device for runtime PM.
 > 
-> 
-> 
-> On 9/8/2026 1:04 PM, Abel Vesa wrote:
-> > On 26-09-07 22:15:09, Marc Zyngier wrote:
-> >> On Mon, 07 Sep 2026 21:21:44 +0100,
-> >> Abel Vesa <abel.vesa@oss.qualcomm.com> wrote:
-> >>>
-> >>> On 26-09-07 18:17:29, Marc Zyngier wrote:
-> >>>> Recent addition of QoS configuration to the X1 variants resulted in
-> >>>> systems that spontaneously reset at boot time or under load.
-> >>>>
-> >>>> Given that this is both very unpleasant and hard to debug, give the
-> >>>> affected user the option to survive such event with a module parameter.
-> >>>>
-> >>>> Passing "icc_rpmh.enable_qos=0" to the kernel command-line will skip the
-> >>>> offending QoS setup.
-> >>>>
-> >>>
-> >>> Lets not start doing this, please.
-> >>>
-> >>> Can we figure out which platform deosn't work and then maybe we can 
-> >>> add a quirk in DT per platform?
-> >>
-> >> We have at least 3 machines that are dysfunctional since [1] was
-> >> merged (mini-x, sp12 and devkit). Probably some more, but I'm not
-> >> going to be the one doing a survey.
-> >>
-> >> What really should happen is [1] to be reversed until QC figures out a
-> >> set of parameters that actually works, instead of making this platform
-> >> even more unreliable than it already is.
-> > 
-> > I'd rather have the patch reverted than adding a module parameter which
-> > users might not know about and distros will probably never addopt.
-> > 
-> >>
-> >> Just like [2] should have been reverted.
-> >>
-> >> Until then, we'll have to paper over this stuff.
-> > 
-> > But a module parameter complicates things rather than just papering over.
-> > 
-> > I suggest we get both reverted if they break existing platforms.
-> 
-> I will share a patch to add interconnect support for Purwa. 
-> Purwa is similar to Hamoa, but there are few port additions and deletions with 
-> respect to PCIe, and trying to program QoS for them can result in crash. 
+> The device has separate input-state and output-latch registers. Add a
+> reg_mask_xlate() callback that checks the line direction and reads the
+> programmed output latch for output lines while retaining input-state
+> reads for input lines.
 
-This is unfortunately not solely about Purwa, as repeatedly pointed
-out in this thread and the original one.
+...
 
-Hamoa (at least the machine I use for a lot of my upstream work) has
-become completely unreliable since the QoS patch was merged, and
-randomly resets under IO load. Not applying the QoS configuration
-restores stability.
+> +	if (ngpios > AD7768_FILTER_GPIO &&
+> +	    device_property_match_string(gc->parent->parent, "clock-names",
+> +					 "mclk") < 0)
 
-My conclusion is that merging this stuff was premature and has
-evidently not seen enough testing and verification.
+Looking at the length of the line I have just noticed that this uses
+gc->parent->parent. Here is the question: what does gc->fwnode refer to?
 
-	M.
+> +		__clear_bit(AD7768_FILTER_GPIO, valid_mask);
+> +
+> +	return 0;
 
 -- 
-Without deviation from the norm, progress is not possible.
+With Best Regards,
+Andy Shevchenko
+
+
