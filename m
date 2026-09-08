@@ -1,27 +1,28 @@
 Received: from dggsgout12.his.huawei.com (dggsgout12.his.huawei.com [45.249.212.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15CB050EBF6;
-	Tue,  8 Sep 2026 13:05:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBC9855C1D1;
+	Tue,  8 Sep 2026 13:05:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.249.212.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788872752; cv=none; b=m4igImhRcG7Ib93VbR/hC0XstON7D9DcLPzCysS5q74vn1LhxM2Nj09Bt2e8Qy455htud0jW1nb4zb4CHioJY4PrW47BkLs9uRcKLlCGoCXIlbwEcOK8Pby9hn36ER66vJHLYIZRqVM+AbOigXVY35mVhGgQx4na+i18lIbfwUA=
+	t=1788872764; cv=none; b=rGaVle9kZ9cyU96BHaIlwzJ0dc0Xihn/0VLajmIR96pXkNAc2bdT0xNoRXTblX/CdxEOoWZjD3gQpnJb3pNB3tAG6yz8aMOJTIXPdm3OpLFxUNqvUJ/dJtpP3XmfFaUG4TQH5P9+fkz4AZnC8jQq/7higFvPrrsyK5PfsC3zHxw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788872752; c=relaxed/simple;
-	bh=mJOx4iPQfgiEnLnfdxSsl6eODVN+Bx81T2E29v8xIZw=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=lqhGssalZFNwRQpD+ofHcj26dx0TM4slmzxH/WSQGt63+miD6ExfYtJ32cnnIz/9UENvq5w3jJd+9YPiSmmTZasvpazE8Si0dGyIBiCmcDVoe/vSqYBoORdcUqQzN44k+SXcxmQ3aJvIgx6lnPyghGG9Zb40xUcfVStpYjcx3Ow=
+	s=arc-20240116; t=1788872764; c=relaxed/simple;
+	bh=8NRX9/NieMzZI97qgoqf1/AoQ5I8U3JumloRGRlnW3M=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=PjYUFnp7Lh+5D/RUTuJbFsUm/++6qiUUwJpBzwgYhFGIILGiNQXGsAAhc+BhqVnL5QKeM6HMeHhL6oC7/WEZdYbYssKpKcj4L5e9VHRI+bas9vJBxc6yB6NUPj8Nr88E44LtCP/VaPlfDBLyEYh6kvllWumTRuAzHjzL47lobrY=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com; spf=pass smtp.mailfrom=huaweicloud.com; arc=none smtp.client-ip=45.249.212.56
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huaweicloud.com
 Received: from mail.maildlp.com (unknown [172.19.163.177])
-	by dggsgout12.his.huawei.com (SkyGuard) with ESMTPS id 4hfPLr6DNfzKHN60;
-	Tue,  8 Sep 2026 21:05:40 +0800 (CST)
-Received: from mail02.huawei.com (unknown [10.116.40.75])
-	by mail.maildlp.com (Postfix) with ESMTP id 365CD4057D;
+	by dggsgout12.his.huawei.com (SkyGuard) with ESMTPS id 4hfPLt4XbfzKHN8b;
 	Tue,  8 Sep 2026 21:05:42 +0800 (CST)
+Received: from mail02.huawei.com (unknown [10.116.40.75])
+	by mail.maildlp.com (Postfix) with ESMTP id EE7834057D;
+	Tue,  8 Sep 2026 21:05:43 +0800 (CST)
 Received: from huawei.com (unknown [10.67.174.45])
-	by APP2 (Coremail) with UTF8SMTPA id Syh0CgDHLUoeCKBqX3XjBA--.22748S2;
-	Tue, 08 Sep 2026 21:05:41 +0800 (CST)
+	by APP2 (Coremail) with UTF8SMTPA id Syh0CgDHLUoeCKBqX3XjBA--.22748S21;
+	Tue, 08 Sep 2026 21:05:43 +0800 (CST)
 From: Tengda Wu <wutengda@huaweicloud.com>
 To: Namhyung Kim <namhyung@kernel.org>,
 	james.clark@linaro.org,
@@ -43,10 +44,12 @@ Cc: Peter Zijlstra <peterz@infradead.org>,
 	linux-kernel@vger.kernel.org,
 	llvm@lists.linux.dev,
 	Tengda Wu <wutengda@huaweicloud.com>
-Subject: [PATCH v5 00/26] perf arm64: Support data type profiling
-Date: Tue,  8 Sep 2026 13:05:03 +0000
-Message-Id: <cover.1788872630.git.wutengda@huaweicloud.com>
+Subject: [PATCH v5 19/26] perf annotate-data: Track imm_value for stack variables
+Date: Tue,  8 Sep 2026 13:05:22 +0000
+Message-Id: <be42fd481faf3c5b8cc31efa2f5ce22131b4f878.1788872630.git.wutengda@huaweicloud.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <cover.1788872630.git.wutengda@huaweicloud.com>
+References: <cover.1788872630.git.wutengda@huaweicloud.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -54,313 +57,158 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:Syh0CgDHLUoeCKBqX3XjBA--.22748S2
-X-Coremail-Antispam: 1UD129KBjvAXoW3uFWUWryrtw4rtry8Wr17Wrg_yoW8Jw47Ko
-	WIvFs8ur18Jr1rGayq9r1rCFyUZws7urn3Jr45Wwn5u3WUJa1agw1Ikw17W3WfuF4YqF1k
-	A34Dtw1UtFy7GFn3n29KB7ZKAUJUUUUr529EdanIXcx71UUUUU7v73VFW2AGmfu7bjvjm3
-	AaLaJ3UjIYCTnIWjp_UUUOo7kC6x804xWl14x267AKxVW5JVWrJwAFc2x0x2IEx4CE42xK
-	8VAvwI8IcIk0rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4
-	AK67xGY2AK021l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF
-	7I0E14v26F4UJVW0owA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x
-	0267AKxVW0oVCq3wAaw2AFwI0_Jrv_JF1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG
-	64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jrv_JF1lYx0Ex4A2jsIE14v26r
-	1j6r4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAq
-	YI8I648v4I1lFIxGxcIEc7CjxVA2Y2ka0xkIwI1lc7CjxVAaw2AFwI0_Wrv_ZF1lc7CjxV
-	AKzI0EY4vE52x082I5MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I
-	3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxV
-	W8ZVWrXwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26ryj6F1UMIIF0xvE2Ix0cI8I
-	cVCY1x0267AKxVWxJr0_GcWlIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2js
-	IE14v26F4j6r4UJwCI42IY6I8E87Iv6xkF7I0E14v26F4UJVW0obIYCTnIWIevJa73UjIF
-	yTuYvjTEPkXUUUUUU
+X-CM-TRANSID:Syh0CgDHLUoeCKBqX3XjBA--.22748S21
+X-Coremail-Antispam: 1UD129KBjvJXoWxGF18uw17Jw1DGFyUGFW8Crg_yoW7JF4xpr
+	WDWFy7W3W7Wr4IqrsxJF4UXr93Gws2gr1Fk34qqFnavFyxtr1fG3s7tFW5tF47Aryvyw17
+	Jwn0kr4DXw47KaDanT9S1TB71UUUUUJqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUHlb4IE77IF4wAFF20E14v26rWj6s0DM7CY07I20VC2zVCF04k2
+	6cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28IrcIa0xkI8VA2jI8067AKxVWUAV
+	Cq3wA2048vs2IY020Ec7CjxVAFwI0_Xr0E3s1l8cAvFVAK0II2c7xJM28CjxkF64kEwVA0
+	rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVW7JVWDJwA2z4x0Y4vE2Ix0cI8IcVCY1x0267
+	AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AK
+	xVW0oVCq3wAaw2AFwI0_Jrv_JF1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2
+	IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jrv_JF1lYx0Ex4A2jsIE14v26r1j6r4U
+	McvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I64
+	8v4I1lFIxGxcIEc7CjxVA2Y2ka0xkIwI1lc7CjxVAaw2AFwI0_Wrv_ZF1lc7CjxVAKzI0E
+	Y4vE52x082I5MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I
+	8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVW8ZVWr
+	XwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26F1j6w1UMIIF0xvE2Ix0cI8IcVCY1x
+	0267AKxVWxJr0_GcWlIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v2
+	6F4j6r4UJwCI42IY6I8E87Iv6xkF7I0E14v26rxl6s0DYxBIdaVFxhVjvjDU0xZFpf9x0z
+	CjgJUUUUUU=
 X-CM-SenderInfo: pzxwv0hjgdqx5xdzvxpfor3voofrz/
 
-This patch series implements data type profiling support for arm64,
-enabling 'perf annotate --data-type' to resolve memory locations and
-variable types on arm64 platforms.
+Currently, imm_value is tracked in registers but dropped when values
+are saved to or loaded from stack variables during type profiling.
+If a register of type TSR_KIND_CONST is stored to the stack, its value
+will be lost.
 
-The main changes since v4 include:
-v4: https://lore.kernel.org/all/20260808122400.2961238-1-wutengda@huaweicloud.com/
+Add an imm_value field to struct type_state_stack and update
+set_stack_state() and findnew_stack_state() to accept and preserve the
+immediate value when updating stack state.
 
-* Enhanced Arm64 Instruction Decoding: Added support for parsing extension
-  type (e.g., UXTW, SXTW) and shift amount in arm64 instructions, enabling
-  proper identification of SIB-style indexed addressing modes.
+Reviewed-by: Shuai Xue <xueshuai@linux.alibaba.com>
+Signed-off-by: Tengda Wu <wutengda@huaweicloud.com>
+---
+ tools/perf/util/annotate-arch/annotate-x86.c |  8 ++++++--
+ tools/perf/util/annotate-data.c              | 13 +++++++------
+ tools/perf/util/annotate-data.h              |  5 +++--
+ 3 files changed, 16 insertions(+), 10 deletions(-)
 
-* Unified Base Register Offset Handling: Introduced arch_get_reg_offset() to
-  centralize offset extraction across various addressing modes, including
-  post-index addressing, single-register addressing, SIB-style indexed
-  addressing as well as cases where the base register is a constant type.
-
-* Refined Instruction Tracking Policy: Adjusted instruction filtering logic.
-  All branch and jump instructions that do not modify registers are now
-  skipped. Special load/store instructions are also ignored (currently not
-  supported for tracking).
-
-* Naming Cleanup: Renamed dont_overlap to default_single_event_per_ip and
-  integrated it into itrace_synth_opts__set_default() per Adrian Hunter's
-  suggestion.
-
-Patch organization
-==================
-
-The series is organized as follows:
-
-1. Fix disassembly mismatches (Patches 01-02)
-   Current perf annotate supports three disassembly backends: llvm,
-   capstone, and objdump. On arm64, inconsistencies between the output
-   of these backends (specifically llvm/capstone vs. objdump) often
-   prevent the tracker from correctly identifying registers and offsets.
-   These patches resolve these mismatches, ensuring consistent instruction
-   parsing across all supported backends.
-
-2. Infrastructure for arm64 operand parsing (Patches 03-09)
-   These patches establish the necessary infrastructure for arm64-specific
-   operand handling. This includes implementing new callbacks and data
-   structures to manage arm64's unique addressing modes and register sets.
-   This foundation is essential for the subsequent type-tracking logic.
-
-3. ARM SPE event handling (Patches 10-11)
-   Patch 09 automatically deduplicates overlapping ARM SPE events (e.g.,
-   l1d-miss, tlb-access) in 'perf annotate' by retaining only the
-   "instructions" event when data type profiling is enabled. Patch 10
-   defaults  the synthesized event period to 1 for ARM SPE to fix zero
-   'Percent' values in annotate output.
-
-5. Core instruction tracking (Patches 12-26)
-   These patches implement the core logic for type tracking on arm64,
-   covering several key types of instructions, including:
-   * Memory Access: ldr/str variants (including stack-based access).
-   * Arithmetic & Data Processing: mov, add, and adrp.
-   * Special Access: System register access (mrs) and per-cpu variable
-     tracking.
-
-The implementation draws inspiration from the existing x86 logic while
-adapting it to the nuances of the AArch64 ISA [2][3]. With these changes,
-perf annotate can successfully resolve memory locations and register types,
-providing basic support for data type profiling on arm64 platforms.
-
-Example Result
-==============
-
-# perf mem record -a -K -- sleep 1
-# perf annotate --data-type --stdio --type-stat
-Annotate data type stats:
-total 1138, ok 842 (74.0%), bad 296 (26.0%)
------------------------------------------------------------
-         6 : no_sym
-        42 : no_var
-       240 : no_typeinfo
-         8 : bad_offset
-       203 : insn_track
-
-Annotate type: 'struct page' in [kernel.kallsyms] (66948 samples):
-============================================================================
- Percent     offset       size  field
-  100.00          0       0x40  struct page      {
-    9.01          0        0x8      long unsigned int   flags;
-   57.99        0x8       0x28      union        {
-   57.99        0x8       0x28          struct   {
-   33.00        0x8       0x10              union        {
-   33.00        0x8       0x10                  struct list_head        lru {
-   33.00        0x8        0x8                      struct list_head*   next;
-    0.00       0x10        0x8                      struct list_head*   prev;
-                                                };
-   33.00        0x8       0x10                  struct   {
-   33.00        0x8        0x8                      void*       __filler;
-    0.00       0x10        0x4                      unsigned int        mlock_count;
-   ...
-
-Each patch's type profiling results are as follows:
-
-Patch | Feature                    | no_sym | no_var | no_typeinfo | bad_offset | insn_track | ok(%)
-------+----------------------------+--------+--------+-------------+------------+------------+------
-0011  | base (default spe period)  | 6      | 493    | -           | -          | -          | 56.2%
-0013  | enable insn tracking       | 6      | 42     | 437         | 2          | 12         | 57.2%
-0016  | support 'load' insn        | 6      | 42     | 398         | 1          | 52         | 60.7%
-0017  | support 'store' insn       | 6      | 42     | 398         | 1          | 52         | 60.7%
-0021  | support stack variable     | 6      | 42     | 391         | 1          | 59         | 61.3%
-0022  | support 'mov' insn         | 6      | 42     | 372         | 3          | 76         | 62.8%
-0023  | support 'add' insn         | 6      | 42     | 323         | 7          | 121        | 66.8%
-0024  | support 'adrp' insn        | 6      | 42     | 243         | 8          | 200        | 73.7%
-0025  | support per-cpu variable   | 6      | 42     | 243         | 8          | 200        | 73.7%
-0026  | support 'mrs' insn         | 6      | 42     | 240         | 8          | 203        | 74.0%
-
-Limitations
-===========
-
-* SIMD/FP & SVE Vector Support:
-  Data type profiling currently focuses on General-Purpose (GP) register
-  operations. Vector/SIMD registers (v0-v31, d0-d31, q0-q31) and Scalable
-  Vector Extension (SVE/SME) instructions are not tracked yet.
-
-* Compiler Prologue/Epilogue Code:
-  As shown by the previous test results, approximately 14% of the failed
-  type profiling results originate from compiler-generated prologue or
-  epilogue code (e.g., ldp  x19, x20, [sp, #16]). These instructions manage
-  callee-saved registers across function boundaries, propagating type
-  context through these operations requires inter-procedural (cross-function)
-  instruction analysis, which is currently unsupported by the local backward
-  instruction tracker.
-
-Testing
-=======
-
-Tested on arm64 (all passed):
-
-  # perf test -v "perf data type profiling tests"
-  81: perf data type profiling tests                                                                  : Ok
-
-  === Test Summary ===
-  Passed main tests : 1
-  Passed subtests   : 0
-  Skipped tests     : 0
-  Failed tests      : 0
-
-Tested on x86. The profiling results show no change before/after applying
-this patch series:
-
-  before : total 880, ok 711 (80.8%), bad 169 (19.2%)
-  after  : total 880, ok 711 (80.8%), bad 169 (19.2%)
-
-Changelog
-=========
-v4 -> v5:
-  - v4: https://lore.kernel.org/all/20260808122400.2961238-1-wutengda@huaweicloud.com/
-  - Introduce arch_get_reg_offset() to uniformly handle reg offset.
-  - Add support for parsing extension type and shift amount in arm64 instructions.
-  - Refine which instructions to track or skip. (Shuai Xue)
-  - Rename dont_overlap to default_single_event_per_ip and use it in
-    itrace_synth_opts__set_default(). (Adrian Hunter)
-  - Introduce delete_stack_state() to clean up obsolete stack state. (Shuai Xue)
-  - Normalize arch__dwarf_regnum() error return values. (Shuai Xue)
-  - Drop canary support due to unresolved bugs.
-  - Fix various minor issues, such as name memory leaks and header includes.
-v3 -> v4:
-  - v3: https://lore.kernel.org/all/20260701035355.752944-1-wutengda@huaweicloud.com/
-  - Fix Capstone compilation failure.
-  - Stop adding new pcrel_adrp_addr in LLVM; reuse pcrel_load_addr instead.
-  - Fix parsing issue in arm64_mov__parse.
-  - Add PC-relative load instruction parsing logic to arm64_ldst__parse,
-    and introduce rstrip_space_and_comment to strip comments.
-  - Remove wzr/xzr register parsing (not planning to handle this yet).
-  - Add post-index addressing mode parsing for the '[base], reg' format.
-  - Update built-in implementation of --itrace=i1i to deduplicate early
-    during arm_spe_process_auxtrace_info.
-  - Restrict the "default period to 1" behavior to ARM SPE, instead of
-    applying it to all architectures.
-  - Add register type tracking for function call instructions.
-  - Add dual-register type tracking for load pair and store pair instructions.
-  - Correct stack variable offset calculations.
-  - Add type invalidation upon retry failure.
-  - Reuse imm_value instead of introducing addr for 'adrp' instruction tracking.
-  - Fix potential stale type resolution errors caused by TSR_KIND_GLOBAL_ADDR
-    and TSR_KIND_CONST during stack passing.
-  - Fix a strbuf memory leak during 'mrs' instruction tracking.
-  - Fix stale dieoff issue when debug info changes.
-  - Simplify add type propagation: only propagate offset/imm updates, leave
-    type parsing to chk.
-v2 -> v3:
-  - v2: https://lore.kernel.org/all/20260403094800.1418825-1-wutengda@huaweicloud.com/
-  - Instead of always parsing the left operand as src and the right operand as
-    dst, set them based on the actual instruction definition. (Namhyung Kim)
-  - Fix refcount leak in print_capstone_detail().
-  - Remove useless '<' check when parsing 'addr <symbol>' in arm64_mov__parse().
-  - Add example comments in arm64_ldst__parse().
-  - Split arch__dwarf_regnum() changes into a separate commit.
-  - Rename annotated_addr_mode enum: INSN_ADDR_* -> PERF_ADDR_MODE_*.
-  - Set caller-saved registers in init_type_state().
-  - For instructions with addressing mode, always goto adjust_reg_index_state()
-    at the end to update the src register state.
-  - Handle TSR_KIND_CONST registers for 'mov' and 'add' instructions.
-  - Invalidate dst register for all other unsupported instructions.
-  - Verify type DIE is task_struct pointer before caching globally.
-  - Enable --itrace=i1i by default for ARM SPE data type profiling in 'perf annotate'
-    to avoid overlapping event counting for the same instruction. (James Clark)
-  - Fix global variable type resolving error in check_matching_type(). (James Clark)
-  - Address review comments from sashiko [1]:
-    - Fix unconditional call to arch->extract_op_location()
-    - Handle multi_regs correctly
-    - Fix invalid register state in error path
-    - Other misc fixes
-v1 -> v2:
-  - v1: https://lore.kernel.org/all/20250314162137.528204-1-lihuafei1@huawei.com/
-  - Fix inconsistencies in arm64 instruction output across llvm, capstone,
-    and objdump disassembly backends.
-  - Support arm64-specific addressing modes and operand formats. (Leo Yan)
-  - Extend instruction tracking to support mov and add instructions,
-    along with per-cpu and stack variables.
-  - Include real-world examples in commit messages to demonstrate
-    practical effects. (Namhyung Kim)
-  - Improve type-tracking success rate (type stat) from 64.2% to 82.1%.
-
-Please let me know if you have any feedback.
-
-Thanks,
-Tengda
-
-[1] https://sashiko.dev/#/patchset/20260403094800.1418825-1-wutengda%40huaweicloud.com
-[2] https://developer.arm.com/documentation/102374/0103
-[3] https://github.com/flynd/asmsheets/releases/tag/v8
-
-
-Tengda Wu (26):
-  perf capstone: Symbolize address operands to match objdump on arm64
-  perf llvm: Fix arm64 adrp instruction disassembly mismatch with
-    objdump
-  perf annotate-arm64: Generalize arm64_mov__parse to support more
-    instructions
-  perf annotate-arm64: Handle load and store instructions
-  perf annotate: Normalize arch__dwarf_regnum() error return values
-  perf annotate: Introduce extract_op_location callback for
-    arch-specific parsing
-  perf dwarf-regs: Adapt get_dwarf_regnum() for arm64
-  perf annotate: Adapt arch__dwarf_regnum() for arm64
-  perf annotate-arm64: Implement extract_op_location() callback
-  perf annotate: Default to --itrace=i1i for data type profiling
-  perf arm-spe: Set default synthesized event period to 1
-  perf annotate-data: Extract invalidate_reg_state() as a common helper
-  perf annotate-arm64: Enable instruction tracking support
-  perf annotate-data: Add arch_get_reg_offset helper
-  perf annotate-arm64: Track return type after call instructions
-  perf annotate-arm64: Support load instruction tracking
-  perf annotate-arm64: Support store instruction tracking
-  perf annotate-data: Expand type_state_reg imm_value to u64
-  perf annotate-data: Track imm_value for stack variables
-  perf annotate-x86: Delete stale stack state on store of untracked
-    register
-  perf annotate-arm64: Support stack variable tracking
-  perf annotate-arm64: Support 'mov' instruction tracking
-  perf annotate-arm64: Support 'add' instruction tracking
-  perf annotate-arm64: Support 'adrp' instruction to track global
-    variables
-  perf annotate-arm64: Support per-cpu variable access tracking
-  perf annotate-arm64: Support 'mrs' instruction to track 'current'
-    pointer
-
- tools/perf/builtin-annotate.c                 |    8 +
- .../perf/util/annotate-arch/annotate-arm64.c  | 1194 ++++++++++++++++-
- .../util/annotate-arch/annotate-powerpc.c     |    9 +
- tools/perf/util/annotate-arch/annotate-x86.c  |  117 +-
- tools/perf/util/annotate-data.c               |  192 ++-
- tools/perf/util/annotate-data.h               |   14 +-
- tools/perf/util/annotate.c                    |  108 +-
- tools/perf/util/annotate.h                    |   63 +
- tools/perf/util/arm-spe.c                     |   16 +-
- tools/perf/util/auxtrace.c                    |   12 +-
- tools/perf/util/auxtrace.h                    |    7 +-
- tools/perf/util/capstone.c                    |  185 ++-
- tools/perf/util/cs-etm.c                      |    2 +-
- tools/perf/util/disasm.c                      |    5 +
- tools/perf/util/disasm.h                      |    5 +
- .../util/dwarf-regs-arch/dwarf-regs-arm64.c   |   22 +
- tools/perf/util/dwarf-regs.c                  |    2 +-
- tools/perf/util/include/dwarf-regs.h          |    1 +
- tools/perf/util/intel-bts.c                   |    2 +-
- tools/perf/util/intel-pt.c                    |    3 +-
- tools/perf/util/llvm.c                        |   52 +-
- 21 files changed, 1799 insertions(+), 220 deletions(-)
-
-
-base-commit: af5f12805e5cefa4fe68d6127c7e1fb78cd5535c
+diff --git a/tools/perf/util/annotate-arch/annotate-x86.c b/tools/perf/util/annotate-arch/annotate-x86.c
+index f5e40cef08ab..21729e153fa0 100644
+--- a/tools/perf/util/annotate-arch/annotate-x86.c
++++ b/tools/perf/util/annotate-arch/annotate-x86.c
+@@ -591,6 +591,7 @@ static void update_insn_state_x86(struct type_state *state,
+ 				tsr->type = stack->type;
+ 				tsr->kind = stack->kind;
+ 				tsr->offset = stack->ptr_offset;
++				tsr->imm_value = stack->imm_value;
+ 				tsr->ok = true;
+ 			} else if (die_get_member_type(&stack->type,
+ 						       offset - stack->offset,
+@@ -598,6 +599,7 @@ static void update_insn_state_x86(struct type_state *state,
+ 				tsr->type = type_die;
+ 				tsr->kind = TSR_KIND_TYPE;
+ 				tsr->offset = 0;
++				tsr->imm_value = 0;
+ 				tsr->ok = true;
+ 			} else {
+ 				invalidate_reg_state(tsr);
+@@ -773,10 +775,12 @@ static void update_insn_state_x86(struct type_state *state,
+ 				 */
+ 				if (!stack->compound)
+ 					set_stack_state(stack, offset, tsr->kind,
+-							&tsr->type, tsr->offset);
++							&tsr->type, tsr->offset,
++							tsr->imm_value);
+ 			} else {
+ 				findnew_stack_state(state, offset, tsr->kind,
+-						    &tsr->type, tsr->offset);
++						    &tsr->type, tsr->offset,
++						    tsr->imm_value);
+ 			}
+ 
+ 			if (dst->reg1 == fbreg) {
+diff --git a/tools/perf/util/annotate-data.c b/tools/perf/util/annotate-data.c
+index 754c0efe2077..2150af5599fb 100644
+--- a/tools/perf/util/annotate-data.c
++++ b/tools/perf/util/annotate-data.c
+@@ -590,7 +590,7 @@ struct type_state_stack *find_stack_state(struct type_state *state,
+ }
+ 
+ void set_stack_state(struct type_state_stack *stack, int offset, u8 kind,
+-			    Dwarf_Die *type_die, int ptr_offset)
++			    Dwarf_Die *type_die, int ptr_offset, u64 imm_value)
+ {
+ 	int tag;
+ 	Dwarf_Word size;
+@@ -607,8 +607,9 @@ void set_stack_state(struct type_state_stack *stack, int offset, u8 kind,
+ 	stack->offset = offset;
+ 	stack->ptr_offset = ptr_offset;
+ 	stack->kind = kind;
++	stack->imm_value = imm_value;
+ 
+-	if (kind == TSR_KIND_POINTER) {
++	if (kind == TSR_KIND_POINTER || kind == TSR_KIND_CONST) {
+ 		stack->compound = false;
+ 		return;
+ 	}
+@@ -629,18 +630,18 @@ void set_stack_state(struct type_state_stack *stack, int offset, u8 kind,
+ struct type_state_stack *findnew_stack_state(struct type_state *state,
+ 						    int offset, u8 kind,
+ 						    Dwarf_Die *type_die,
+-						    int ptr_offset)
++						    int ptr_offset, u64 imm_value)
+ {
+ 	struct type_state_stack *stack = find_stack_state(state, offset);
+ 
+ 	if (stack) {
+-		set_stack_state(stack, offset, kind, type_die, ptr_offset);
++		set_stack_state(stack, offset, kind, type_die, ptr_offset, imm_value);
+ 		return stack;
+ 	}
+ 
+ 	stack = malloc(sizeof(*stack));
+ 	if (stack) {
+-		set_stack_state(stack, offset, kind, type_die, ptr_offset);
++		set_stack_state(stack, offset, kind, type_die, ptr_offset, imm_value);
+ 		list_add(&stack->list, &state->stack_vars);
+ 	}
+ 	return stack;
+@@ -935,7 +936,7 @@ static void update_var_state(struct type_state *state, struct data_loc_info *dlo
+ 				continue;
+ 
+ 			findnew_stack_state(state, offset, TSR_KIND_TYPE,
+-					    &mem_die, /*ptr_offset=*/0);
++					    &mem_die, /*ptr_offset=*/0, /*imm_value=*/0);
+ 
+ 			if (var->reg == state->stack_reg) {
+ 				pr_debug_dtp("var [%"PRIx64"] %#x(reg%d)",
+diff --git a/tools/perf/util/annotate-data.h b/tools/perf/util/annotate-data.h
+index 3bce63e23a58..36ca7819a6f0 100644
+--- a/tools/perf/util/annotate-data.h
++++ b/tools/perf/util/annotate-data.h
+@@ -199,6 +199,7 @@ struct type_state_stack {
+ 	int size;
+ 	bool compound;
+ 	u8 kind;
++	u64 imm_value;
+ };
+ 
+ /*
+@@ -253,9 +254,9 @@ bool has_reg_type(struct type_state *state, int reg);
+ struct type_state_stack *findnew_stack_state(struct type_state *state,
+ 						int offset, u8 kind,
+ 						Dwarf_Die *type_die,
+-						int ptr_offset);
++						int ptr_offset, u64 imm_value);
+ void set_stack_state(struct type_state_stack *stack, int offset, u8 kind,
+-				Dwarf_Die *type_die, int ptr_offset);
++				Dwarf_Die *type_die, int ptr_offset, u64 imm_value);
+ struct type_state_stack *find_stack_state(struct type_state *state,
+ 						int offset);
+ void invalidate_reg_state(struct type_state_reg *reg);
 -- 
 2.34.1
 
