@@ -1,132 +1,141 @@
-Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com [209.85.216.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from omta38.uswest2.a.cloudfilter.net (omta38.uswest2.a.cloudfilter.net [35.89.44.37])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 706C5275870
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 02:56:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40A3A2F60B2
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 02:56:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=35.89.44.37
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788836186; cv=none; b=nSauDVtGkqZOtGxPk+C9wsrcEkoEmupvhJlbf1LH3GVEk0IatZ1eogG26UwgDcfITR5g06XJfzyF0MPmkgTc3sVXgOu1bVc6nqBO4xrmL6QyDrvXqyMkvMkzjnDEA1vY0Tva951/vRCsHmBbaWFGDhAPIFugd8PR7PzmRhN+W8Y=
+	t=1788836190; cv=none; b=sNXEn+y0NGMJ7eV7xdvK3fVMhRzNRrj+dAoce3cUyP0HFX8az4gcya/GHmIk+E7gyr7NO/DlkRSl2drvJ6RuLA4gpXjwE8bMAet3KpAsK+KCj+RswzaU4uyrj1xr94XcSx0ZZ1hGzCfv0yikGPXv9inPekrAw+peBQp4bLbbXbg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788836186; c=relaxed/simple;
-	bh=nh2azw4Q09y+V/LEQu8pCrIHmotw2s9BlnECGdIZ6Wg=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=NlRQsDsfUvkXw9FNziZopsqDqTiTk6bLJRT48zP4tfXRsa0P6RN+O6lPdnOTk8g2XpALRcyK8nn4sWzwiJXrAdjv/bblyU5zQuYgogQeWVAghPVAMUJVC/EJOXkJsJrk9k1cslD+IiJAoWSPRrzHOpwzCrFgQOW98Qca5NXH12g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OerdfL3Y; arc=none smtp.client-ip=209.85.216.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788836190; c=relaxed/simple;
+	bh=hKghPMvsY0e6k+kW0WDfNUw/HDe44DfIcOTDHpt0vfw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=cN178HX+/mCrtF2qk60L4NF0Q3RkhWdweqx1/PfvHZUIR1BUmUVxSwaxv7izR/bUPknXLYSOm8iN8PV7lR2XDV1m6HDTHGJnK8M0KDm+7JRWBTnBJm+k0SQiY5E5vWIrtnt2LqQ4Nrzgnn0R5AFNj03oSs4tSXP8MN/+MnGr24A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=embeddedor.com; spf=pass smtp.mailfrom=embeddedor.com; dkim=pass (2048-bit key) header.d=embeddedor.com header.i=@embeddedor.com header.b=H2yCuUhQ; arc=none smtp.client-ip=35.89.44.37
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=embeddedor.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=embeddedor.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OerdfL3Y"
-Received: by mail-pj1-f54.google.com with SMTP id 98e67ed59e1d1-3969e82ff8fso4242552a91.0
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 19:56:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788836185; x=1789440985; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ej1AYuaJ6I913RYzOv3nrsx0ow2YNcqJVwdQB6kart8=;
-        b=OerdfL3YcYBRw4G9U5biJhwUtmNLnCZJaaFNuSDNLTibHyCNuJ8L6+9p8Ryh9TUNGP
-         o9C7FsuLtmUPW/PkMyklTgw+3Xbq0mvEfFejkrLyxupDlu372xniUrUwp7cHLrbs/fQg
-         FLdNP+1Wfkv09OvipEKS4Ft9zxg/i6fl22dSbeqG1qzfcZPPEJ76S/65zJrKoTkKdN14
-         8BvYdvH28+J6P7QMVWrsG62pxoaCMoJVz3jjjnQXu7X+qgO5ErNP8djXSHB4NbiDMVgg
-         mkgsoBzB2Jy5+04RFVbzK+BAscPh3UVHuF5kAWksUeU1llKqwU+kcoC9kX5BLASoy3Nr
-         ZRlA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788836185; x=1789440985;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ej1AYuaJ6I913RYzOv3nrsx0ow2YNcqJVwdQB6kart8=;
-        b=NXUCyCHPItOjTK9XramwIjUCSnGs2pMdEmEs+ZiFb54TUE45LsgtgIy9vwmAFp1BVb
-         5omzYemaVHtWOKyNfiQtJworeqbIKeBpbUWc9SZ1Vybcm7gHqQlmH1HaLzWMjxvgv6KU
-         P5b89S12jZbof5emdCnLXevetLpNu3740tMPLH1KkiA24dHsB/W5Ymo9+9aPip4EeTYG
-         6wjcAt7yPanRoq/5PgIdkSATwrSG4cVWBnpq0iCuspI3EHSKkTMW+3EgemXb+xazOK2h
-         rG9VKLU56+Bmu3XWLiuA+DEj9GGwUBVH4MWTKyoP/uMnrCudOJZUebKXLuE9V8NGngDi
-         0Y8w==
-X-Forwarded-Encrypted: i=1; AKwUvBxQ9TlRhBoFHWSH8tOGlW5f9MFn/z+xEKBpFcCsURFFJxFI4yR768aIvBHP8KPbNozy0Hdcw/IdvJMxcLE=@vger.kernel.org
-X-Gm-Message-State: AFuF++nYSDzYyk/sxsB6k5FFlmyg8swe9f23pj+U0YF8Draz7HoEIjzv
-	BV/O4tu8W6Fb1b7C8xU/6rAAcrACi78IL/T0Ft3bgjNjl6kwfa+hyZpc
-X-Gm-Gg: AYBFou1HWdakBugtKPkrmWAP6ebfc9cQ+e4FcuVnH1c2TTdHqT6p80fH43VRcjZG86c
-	h4a9B7hAC+4a8pNaSQ7xuAlSTXj/HS7DKU+10E9D8kvyIDg6w3HsZzIwVA2ecMf1G3MR95BCp8G
-	pjzifMzvlWWS83Aq5rU6ZX+dR5PXfTmp1IX+c28T2KKit+yuh6ndZZbFjevVspBDrxBo6UiFaKK
-	aqhgRgeedv8jwPoM9fEaR/sLlaVvzcYz+sdzAPnvKr1E7LSrNxwCsFtkpnVywR9NcBx5uTRxfz9
-	TTo0G3ZQvgnWV6dYFzuiUbO37jaXWa7TJvYXC5RgS7dbaKrzyC7oB9hl11qUnNS/fjda5hETywy
-	/d7i+/vBwRzshDw8QTtSXVI4E4ormFJmmKRbQxKqtqcdxXfAeij0bA8aQ2WiM2mmkJ5hdJHdlhm
-	cgSZUCAqi5DLzpkm3o5qeyPSQdhlB2SvVEtT5Z+Hbb+6N5z3JOqxsRrGYyjZpnl8ouURC9Vkvh5
-	3A=
-X-Received: by 2002:a17:90b:52c4:b0:36a:5d1f:7b6 with SMTP id 98e67ed59e1d1-39b260d3375mr39542125a91.2.1788836184768;
-        Mon, 07 Sep 2026 19:56:24 -0700 (PDT)
-Received: from localhost.localdomain ([2408:8607:1b00:8:3fb3:b562:896c:1ac7])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b26155324sm22925971a91.17.2026.09.07.19.56.15
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 07 Sep 2026 19:56:22 -0700 (PDT)
-From: Pengfei Li <ljdlns1987@gmail.com>
-X-Google-Original-From: Pengfei Li <lipengfei28@xiaomi.com>
-To: Masami Hiramatsu <mhiramat@kernel.org>
-Cc: Steven Rostedt <rostedt@goodmis.org>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	kernel test robot <lkp@intel.com>,
-	Bo Zhang <zhangbo56@xiaomi.com>,
-	Pengfei Li <lipengfei28@xiaomi.com>,
-	linux-kernel@vger.kernel.org,
-	linux-trace-kernel@vger.kernel.org,
-	linux-doc@vger.kernel.org,
-	linux-kselftest@vger.kernel.org
-Subject: Re: [RFC PATCH v6 0/3] trace: stack trace deduplication for ftrace ring buffer
-Date: Tue,  8 Sep 2026 10:55:51 +0800
-Message-Id: <20260908025551.4155877-1-lipengfei28@xiaomi.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260908101509.5ca094dacc96053236f7d2f3@kernel.org>
-References: <20260903132409.270195-1-lipengfei28@xiaomi.com> <20260908101509.5ca094dacc96053236f7d2f3@kernel.org>
+	dkim=pass (2048-bit key) header.d=embeddedor.com header.i=@embeddedor.com header.b="H2yCuUhQ"
+Received: from eig-obgw-6006b.ext.cloudfilter.net ([10.0.30.211])
+	by cmsmtp with ESMTPS
+	id 3fYVxYZKVv0nd3m0UxlVZq; Tue, 08 Sep 2026 02:56:22 +0000
+Received: from gator4166.hostgator.com ([108.167.190.91])
+	by cmsmtp with ESMTPS
+	id 3m0Tx689CY4rX3m0TxaTjr; Tue, 08 Sep 2026 02:56:22 +0000
+X-Authority-Analysis: v=2.4 cv=CI8qXQrD c=1 sm=1 tr=0 ts=6a9f7956
+ a=vY9Mjuda9oMEc2E4Cx1x2A==:117 a=vY9Mjuda9oMEc2E4Cx1x2A==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=7T7KSl7uo7wA:10 a=VwQbUJbxAAAA:8
+ a=Zo5euW2OAAAA:8 a=hKUfJe5KFNZvrTfkyfoA:9 a=QEXdDO2ut3YA:10
+ a=2aFnImwKRvkU0tJ3nQRT:22
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=embeddedor.com; s=default; h=Content-Transfer-Encoding:Content-Type:
+	In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender
+	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
+	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
+	List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=pzu+31EHQDtgHMoLr2rB9t7rnhgD7c+9/SW4rLIamaA=; b=H2yCuUhQ80IFtzJJi9mKVHXYkd
+	ARjvM4XvKTcyW9NyOHqGhSy+LZ1eebRRDRXprtFQsZ4y7lPn0DQlB1e2GPjt+4JDIPf10AhD+Tb7a
+	KPMZUhUpvGuSFqxgE3ShWq2UaPEygEoU1ouJhMP0mDFn/RybUeH4/W7LToQb32i4U6FOeKT6Lc5S3
+	qG/5idH5Sm/Vcn4OEy5Vh4cpVhUQ2wZvIQG//Hni3F/uz2Oq2/nDFg/pTY5v++32GbZtH+dqdLXvu
+	IBS9NoGg9ntY7X29R+ioKks6R2zag5HCC8V4tUpmcChTSqAPD9dR+fE+xegcRgzot1Q4Bsz7xhVvA
+	0707Ua5g==;
+Received: from flh4-125-195-69-90.tky.mesh.ad.jp ([125.195.69.90]:50500 helo=[10.203.100.33])
+	by gator4166.hostgator.com with esmtpsa  (TLS1.3) tls TLS_AES_128_GCM_SHA256
+	(Exim 4.99.5)
+	(envelope-from <gustavo@embeddedor.com>)
+	id 1x3m0S-00000001ua5-4B56;
+	Mon, 07 Sep 2026 21:56:21 -0500
+Message-ID: <ce401b42-9dfb-4c8e-9051-7ba08c107382@embeddedor.com>
+Date: Tue, 8 Sep 2026 11:56:12 +0900
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] clk: tenstorrent: Assign .num before accessing .hws
+To: Aamir Ahmed <elb12345@hotmail.co.uk>,
+ Drew Fustini <dfustini@oss.tenstorrent.com>,
+ Joel Stanley <jms@oss.tenstorrent.com>, Stephen Boyd <sboyd@kernel.org>,
+ Brian Masney <bmasney+clk@redhat.com>,
+ Jerome Brunet <jbrunet+clk@baylibre.com>
+Cc: linux-riscv@lists.infradead.org, linux-clk@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>,
+ Kees Cook <kees@kernel.org>, linux-hardening@vger.kernel.org,
+ stable@vger.kernel.org
+References: <AS8P251MB00013BD9A093C06D2D60E10EC8B42@AS8P251MB0001.EURP251.PROD.OUTLOOK.COM>
+Content-Language: en-US
+From: "Gustavo A. R. Silva" <gustavo@embeddedor.com>
+In-Reply-To: <AS8P251MB00013BD9A093C06D2D60E10EC8B42@AS8P251MB0001.EURP251.PROD.OUTLOOK.COM>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - gator4166.hostgator.com
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - embeddedor.com
+X-BWhitelist: no
+X-Source-IP: 125.195.69.90
+X-Source-L: No
+X-Exim-ID: 1x3m0S-00000001ua5-4B56
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-Source-Sender: flh4-125-195-69-90.tky.mesh.ad.jp ([10.203.100.33]) [125.195.69.90]:50500
+X-Source-Auth: gustavo@embeddedor.com
+X-Email-Count: 6
+X-Org: HG=hgshared;ORG=hostgator;
+X-Source-Cap: Z3V6aWRpbmU7Z3V6aWRpbmU7Z2F0b3I0MTY2Lmhvc3RnYXRvci5jb20=
+X-Local-Domain: yes
+X-CMAE-Envelope: MS4xfKtVNP99vSIG0GbZnLhVd/SOab1pIH39ZjQ/NtPb/FEHAgvl70CBvUvo3pRN3sq1MuD3Yx024yXqwlI7w6evXjJ7H8kx/rfSuZ+xX2+ZUuT7RArLHTaQ
+ LYeNM59Vh0zmwhcHkV/NlzrHFu941JNIKosc+E0nAmRzvGpaU6QqvcorC9ZmmIiAUdAy7BLjzy6VMY93XtMrkGrDbdT6i5VjZcTpAthKkG7Ui2cXI/CQvWJT
 
-On Tue, 08 Sep 2026 10:15:09 +0900 Masami Hiramatsu (Google) <mhiramat@kernel.org> wrote:
-> BTW, to make it easier for review, can you split the patches in
-> several parts? For example, start from a minimum basic functionality
-> (just internal stackmap, seq_read, and reset), use it from tracing,
-> add stat interface, binary interface, and documents, tools, selftests.
-> This makes the series in at least 7 patches, but nicer to focus on
-> one thing for each patch.
 
-Agreed, and the split points you list match where the current patches
-are doing several things at once. v7 will follow that structure:
 
-   1. internal stackmap: table, element pool, get_id(), create/destroy
-   2. text seq_file export and reset
-   3. use it from the ftrace stack recording path
-   4. stat interface
-   5. binary interface
-   6. ftrace_stackmap.bits= kernel parameter
-   7. documentation
-   8. userspace parser
-   9. selftest: basic functionality
-  10. selftest: reset semantics and binary ABI header
-  11. selftest: top-level instance gating
+On 9/6/26 05:48, Aamir Ahmed wrote:
+> Commit f316cdff8d67 ("clk: Annotate struct clk_hw_onecell_data with
+> __counted_by") annotated the hws member of 'struct clk_hw_onecell_data'
+> with __counted_by, which informs the bounds sanitizer (UBSAN_BOUNDS)
+> about the number of elements in .hws[], so that it can warn when .hws[]
+> is accessed out of bounds. As noted in that change, the __counted_by
+> member must be initialized with the number of elements before the first
+> array access happens, otherwise there will be a warning from each access
+> prior to the initialization because the number of elements is zero.
+> This occurs in atlantis_prcm_clocks_register() due to .num being
+> assigned only after every clock has been stored in .hws[]. With
+> CONFIG_UBSAN_BOUNDS and a compiler that implements __counted_by (GCC
+> 15.1+ or Clang 20.1+), this triggers an array-index-out-of-bounds report
+> during probe, and with CONFIG_UBSAN_TRAP the first store traps so the
+> clock provider never registers.
+> 
+> Move the .num initialization to right after the allocation.
+> 
+> Cc: stable@vger.kernel.org
+> Fixes: 23c8ebc95284 ("clk: tenstorrent: Add Atlantis clock controller driver")
+> Assisted-by: LLM
+> Signed-off-by: Aamir Ahmed <elb12345@hotmail.co.uk>
 
-Each patch compiles on its own and does not leave unused helpers or
-tracefs files whose backing code has not been added yet. Patches 4 and
-5 also carry the stat locking fix and the binary export rework from
-your comments on 1/3, so those interfaces arrive in the shape you
-asked for rather than being split first and fixed afterwards.
+LGTM:
 
-> The patch description is a key area to focus on; if the explanation
-> proceeds by saying "add Foo, then add Bar, and so on," those changes
-> should likely be split into multiple patches.
+Reviewed-by: Gustavo A. R. Silva <gustavoars@kernel.org>
 
-That test also flags the current 1/3 and 3/3 accurately. Both of their
-descriptions are lists of independent additions, which is why they grew
-to 949 and 614 lines. I will use it as the check when writing the v7
-descriptions: if a description needs a bullet list of additions, the
-patch is still too coarse.
+Also, see more comments below...
 
-Pengfei
+> diff --git a/drivers/clk/tenstorrent/atlantis-prcm.c b/drivers/clk/tenstorrent/atlantis-prcm.c
+> index 6d4386eeb7d..a68534a295c 100644
+> --- a/drivers/clk/tenstorrent/atlantis-prcm.c
+> +++ b/drivers/clk/tenstorrent/atlantis-prcm.c
+> @@ -796,6 +796,8 @@ static int atlantis_prcm_clocks_register(struct device *dev,
+>   	if (!clk_data)
+>   		return -ENOMEM;
+>   
+> +	clk_data->num = num_clks;
+
+Looks like variable num_clks can be removed entirely, and just do:
+
+clk_data->num = data->num;
+
+Thanks
+-Gustavo
