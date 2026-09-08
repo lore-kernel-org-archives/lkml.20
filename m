@@ -1,153 +1,224 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012068.outbound.protection.outlook.com [40.93.195.68])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FBB9514754
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 11:42:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788867731; cv=none; b=aZlwiHOtvzbgtQvVtsEEhBhVyX3I8JhAPIEmJ/zP5hW1k5aLIVaw2+6z5eCqgxw0Saz5C/PCTeEcx799L0st1CFD/HnHVLSihN2d6C7OtrqRbEn5pmYG2iXXHModGI8WUsG4qJ8ovhwNTzPP2ghiaglWkHtiSmZJhbToM5w8ros=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788867731; c=relaxed/simple;
-	bh=zcxlvAI1Ae/q1EaKnTsv186NHrqAGAv0T8fIeszsq5A=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=JXVPLTzrjoM5+g5qLr07Tba9gBco4aqPW6dXNooisDGn9Psam/ke1w40SN2F5QijiFOD9G4qjhko4rrrSIzBj2slNhMbH/oPfB2BZFnB9lArtEgD51wjjl822Ov3JomZ52f8cFHgsgicPV3D60/MRpzMyGf3QMKnG5wui7ICS4Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=M/S5KLcF; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=NkPT29NY; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE39B52FE21
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 11:42:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.195.68
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788867772; cv=fail; b=cqIFKNcYGrLgzf6Bk0EldLSl6OZ5O4DBrvAA+KhPnQV1SojnHgzWu33W152+hnEuX8P5WXJUGd+csRqkFrzoNalpKn3kVXNqFSWhhUMwvJIXuHBHgnnz4H9fjNXdnZfcTe7Up6U2YvL+LICK/dBu4Fzw/XSIGVef9po+bwo7T+w=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788867772; c=relaxed/simple;
+	bh=sgLkv8wEVpTJQRlcbrFk6TCRCxLN3Cf0P/WvNWvuHSQ=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=qSiKEF0oVoYzgTuJbC9WFw/G+bMjNsPjVRtqTxkLdYGULLTX8GzvYTWCFAozYjjbmn9MCIdtROlhnnz5fgjzGqyiI4aMKL8dVa8UzIywUtCuxnG41dLRhtRwWStY8bVLj0/+RrijpT8/z2tw+f9os7SvwcZIdHX59b4hHM4VOC4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=PGmOmf4n; arc=fail smtp.client-ip=40.93.195.68
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="M/S5KLcF";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="NkPT29NY"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1788867723;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=RrNJtw6g290ODPNBtFlQPVdYDxDOj1rXvh8h+/vQvhk=;
-	b=M/S5KLcFgMhfhZhOsB3t9TILoJn+aaiTXr4VfHD2g8ekOf+lR+vjcJLkWh0RLfc8Ei/XeW
-	zshYvJociPAL6utr0iNoXQ8JkDYoTnpZiUZnfTZPyiAw/BbhvN7D3wAYSOiXf+wjS7rLjn
-	9VdemQpmZBX093Jk8EIgk1lSQkA/0/E=
-Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
- [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-278-7kMi-LUOPs6jppHIgdBNXQ-1; Tue, 08 Sep 2026 07:42:02 -0400
-X-MC-Unique: 7kMi-LUOPs6jppHIgdBNXQ-1
-X-Mimecast-MFC-AGG-ID: 7kMi-LUOPs6jppHIgdBNXQ_1788867721
-Received: by mail-wm1-f71.google.com with SMTP id 5b1f17b1804b1-49cdc4080ddso26347055e9.1
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 04:42:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1788867721; x=1789472521; darn=vger.kernel.org;
-        h=content-type:mime-version:message-id:date:references:in-reply-to
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=RrNJtw6g290ODPNBtFlQPVdYDxDOj1rXvh8h+/vQvhk=;
-        b=NkPT29NYx3lUXdkGCPgrrR3RQC/Sw+FUwL5H0Fsfz/LwVRDCSbnHhlV9SgJjkDgiOv
-         VHQ2OInaDTPgRDhk16K2hrsb5FFyr01zK3UtAqpZ5Xyk9w6BrgjsFXUNvX1naS5wbAp0
-         cZ1a4qnd5xhigaY4sQRu+EOxAYOH0n+inQQCrXHRyOb32324f06OeSm+IJawluME9OGn
-         xNTu+Ik518xA9XzZQHiEwEGqNpTYK2LqHfflbLwXQhiNKYCjg3ovCd72cbqqKIpNowvu
-         eWGOZJZThXuIewEJXwhikXHxTmwugpXoUQoFHhs92YbQuKNxWm4SNzaw+WIVcPNpZH3y
-         NMVg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788867721; x=1789472521;
-        h=content-type:mime-version:message-id:date:references:in-reply-to
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=RrNJtw6g290ODPNBtFlQPVdYDxDOj1rXvh8h+/vQvhk=;
-        b=QIwJJPUZ39GrH+l/3j4BSeAuXdLqnL/+LEp9kI038pnovH6NOfBXalJVmfAWqEfivn
-         teh2PtUSU2yBH5IAA7zw/FUgPS1KjPTL6IGKl44kSqch8pfjnIlDdxL2AbC7+s5AyZP1
-         qmff7TxjiICn5ltOwn9sKKq346sZfHOErNHLuNRXCzPq5xwRPxbJwArMfabViEHCM+Wj
-         5S3MidcV/p24ffXIqrOTssYDvZMUG1l8bfaF/+3PEXTxBdEJWAqgTVTF4S95hbW+KIij
-         u4c/vt4lo5Kc/H0IcBw1lh63HT6biIZOClZ+eL31mktnWm+zPl4PKr2l2sGTPvUI/NPL
-         RRNQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxPweFDFezohThCXuM4lv2ebdotVdcgCvHklocmeDXmBn2HWlr9dx16KBdeUoQ2p0J4j+j3graxmRMYqXw=@vger.kernel.org
-X-Gm-Message-State: AFuF++mrfwRVEMOefwXUnnKMtHi86WLpZRd2lPW/e83jnrqbODH+VWt0
-	nlK3MCodAtSU7Ko/prJq5ZkMvltztdb8JpTkGJqovU5VjqxsXc1V4uJCusSiLEMs9TeeG+2dJ3P
-	JxKyoRz8f9NQ5V8ohXu9IfrmJZ9iiO+8C8F3G8zT1na0jEoi/jqRTMSDTG3Y+IJY4RA==
-X-Gm-Gg: AYBFou1nu0s9NPIu4o5qoQBHWKMSqOPSPMc+qxPHOdZERfQhorgHr0EFvOU1IwKGawe
-	XtBCrePuMzY0zhzB/DT7bLArT+V853YHC7bV82Ee8dGD47ymAPKekvvcSiQk1ZqwAaIqHDqcvgm
-	fUVJ6DzOSK8pJ+pEBY9WFdyG7q7R1VT/NMLrlt1mHMLVmKR5AZRD8K/P56iiiTsdeOgFPMm7mVC
-	0aA5N4eZXZSBTEK5ahAjgBbW0pX644pUeGuoHVv6zQQpYXE5XKy77ygz2WD5UiRMupJB96WJ209
-	i2IZelI+uV5nC3AqLwKnKPicBrKQy7WQ3Eq0KejgHyiBEvqTuvWQSIbjmbgBz+I6ZpqFYUZr5S+
-	X4PaqgNPTJ5aUxxKpEhRQxTuL5rl7Q0NLZkyb/GAf9uM7/aXTdwmB31W5Jg==
-X-Received: by 2002:a05:600c:4752:b0:499:59fd:dbfc with SMTP id 5b1f17b1804b1-49d175439dbmr67724335e9.1.1788867721243;
-        Tue, 08 Sep 2026 04:42:01 -0700 (PDT)
-X-Received: by 2002:a05:600c:4752:b0:499:59fd:dbfc with SMTP id 5b1f17b1804b1-49d175439dbmr67723525e9.1.1788867720384;
-        Tue, 08 Sep 2026 04:42:00 -0700 (PDT)
-Received: from localhost (62-151-111-63.jazzfree.ya.com. [62.151.111.63])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49d03543064sm296441395e9.13.2026.09.08.04.41.59
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 08 Sep 2026 04:41:59 -0700 (PDT)
-From: Javier Martinez Canillas <javierm@redhat.com>
-To: Fabio Piparo <holofermes@gmail.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David
- Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Amit Barzilai
- <amit.barzilai22@gmail.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Fabio Piparo <holofermes@gmail.com>,
- stable@vger.kernel.org
-Subject: Re: [PATCH] drm/ssd130x: Set the address window in
- ssd132x_clear_screen()
-In-Reply-To: <20260817152500.703770-1-holofermes@gmail.com>
-References: <20260817152500.703770-1-holofermes@gmail.com>
-Date: Tue, 08 Sep 2026 13:41:58 +0200
-Message-ID: <87h5k0dl6h.fsf@ocarina.mail-host-address-is-not-set>
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="PGmOmf4n"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=TIhkIv27+ubABoqWGOR69yJrQsBSYJvmctNCLmmQlFzQQge6K44wwz3YkOTCGGC1XQF8wlGPDp+H+1vsVwFXT09wTQ8UC4SUr4aaAFB1V8sT4PtbzKiJhErRh/H66A+ubTKXd5l3bG3wNvoGMFquxyAFXX/L2qBYXhb8vb8/0uEbt8MQVd6on+KgYI9N4g+/NJmi6+bpziErd+s/71XMUdgO3POm4+kERvOeDibLhXHOhyXDR7t1M0AuoypiRoUwg27DDsuNd8kv6XEOApW7vVKF+HJv/g3k27VNZRLm/+Ba3QrH04hQOo5dnYQztYAxEcvHYrdRgWypbroOm1LiUw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=YpKUJkf3f8f97dA0sWvsE4YiPL6BT+Ul7h08YkOCUGQ=;
+ b=a9okztzdZpkkBG54u68eJ74KVXKHluHFNNjAdtLoZOymS0UwG/KEO4iDxfI3wRqHJCDzY9kjxcT4wGJahHWzJBWZZEQbwwqc9JrMJP038RVwPp7jqxGNB/0qOtHLNkzvgcOjWtMzz37laKOZHx2nwhb//i5qgKkSRlHL4TNzkNXlK0YUhj+eVsfN3BLHck3QblBokHC0u4/1yxP9QoRqj30C5yzwug59V027TZ0NSkF1Qezm/0crF6sBHejl/nAZNQnYZT0WlXUL0fjxvh2zHHLsJ3PJipGgADDH19mAHqWCJi5utP9cuWUPp6V2dNIAgNXlxzeCvzbkxShn2BsZsw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=YpKUJkf3f8f97dA0sWvsE4YiPL6BT+Ul7h08YkOCUGQ=;
+ b=PGmOmf4nw7jcJ0BzFaaYuHLoviXM0QabOo3V2r32a88niSrGsFKR4ZgJ+AMnvC9AtXdQgK8E847JClTmZsgthPl2q6EJOTPCpnf6p0MJZfKtzOrdCK7wIe4Ir5CQhzsnwzoNbXe9Su7GVjdJ9HtTaIU6p1VHCLqdP/v0sjaw4uQ=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DSVPR12MB999171.namprd12.prod.outlook.com (2603:10b6:8:388::22)
+ by DM6PR12MB4332.namprd12.prod.outlook.com (2603:10b6:5:21e::23) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.15; Tue, 8 Sep
+ 2026 11:42:43 +0000
+Received: from DSVPR12MB999171.namprd12.prod.outlook.com
+ ([fe80::b7ec:f444:4560:9f19]) by DSVPR12MB999171.namprd12.prod.outlook.com
+ ([fe80::b7ec:f444:4560:9f19%4]) with mapi id 15.21.0406.005; Tue, 8 Sep 2026
+ 11:42:43 +0000
+Message-ID: <f854072c-caa7-4ca2-8b28-8dc6cccce9bb@amd.com>
+Date: Tue, 8 Sep 2026 18:42:32 +0700
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 23/24] iommu/amd: Assign per-vIOMMU translate device ID
+To: "guanghuifeng@linux.alibaba.com" <guanghuifeng@linux.alibaba.com>,
+ linux-kernel@vger.kernel.org, iommu@lists.linux.dev, joro@8bytes.org,
+ jgg@nvidia.com
+Cc: yi.l.liu@intel.com, kevin.tian@intel.com, nicolinc@nvidia.com,
+ vasant.hegde@amd.com, jon.grimm@amd.com, santosh.shukla@amd.com,
+ Sairaj.K@amd.com, jay.chen@amd.com, wvw@google.com, wnliu@google.com,
+ dantuluris@google.com, chriscli@google.com, kpsingh@google.com,
+ alejandro.j.jimenez@oracle.com, joao.m.martins@oracle.com
+References: <20260727132913.22475-1-suravee.suthikulpanit@amd.com>
+ <20260727132913.22475-24-suravee.suthikulpanit@amd.com>
+ <23d80e6f-b4dc-45f9-856f-fb21b1905304@linux.alibaba.com>
+Content-Language: en-US
+From: "Suthikulpanit, Suravee" <suravee.suthikulpanit@amd.com>
+In-Reply-To: <23d80e6f-b4dc-45f9-856f-fb21b1905304@linux.alibaba.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: KU0P306CA0079.MYSP306.PROD.OUTLOOK.COM
+ (2603:1096:d10:2b::8) To DSVPR12MB999171.namprd12.prod.outlook.com
+ (2603:10b6:8:388::22)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DSVPR12MB999171:EE_|DM6PR12MB4332:EE_
+X-MS-Office365-Filtering-Correlation-Id: ea1ae311-b160-43a9-03c0-08df0d9e4b6b
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|366016|1800799024|23010399003|7416014|11063799006|4143699003|56012099006|10067099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	nUaas/1LtCvOWE1u18Mmv1oTtLYKB5By8/5gtudEjw+4n5tau9SVM9OrwkOoYP6r//dDgOTpyVrDnjDM3/oarvuPFi1TH6PpWEHH4lugmHXP8AxmtCyOEgY0XCQCvKw9b65DTvxXY5yVu0UhYfr60I9b5AGACLsE6hy+lPYc8/mu+WEdbWj5cKPqNGbA6VKMNN5+V3vRu2SvnylG2+J+aHdcW2w170hOmZp86hZzAVKER9yzJF4yuBsle53pJsUlHmIQoyj7awoTrmj5OBrBz8X21xaJPPOWOj+qzm+1WOgU0vn8LgRsEr3pEVjDMpAe3NVmfpKi9hKW76oWckzqTs2FiogwxcCEKVzUPqWd0b1LVQLK3fI7cs8ayLxUNdxDoYL1BzMTE8B04QZeoa3q4yTz0JMQJBcABIhZTFdr9Hr0mgHrFWE37CXLgOVe/mEw9+o7Cef5NVBQspwpmNyXmKhMJM0LffuZ0o4YPYkKPJ05iL7aRav4Ad7Vb2kXzE90+cVEBi4Am/9AtPbq7BWgDnyk89AIaGi2ukpBbNh/ZV1Jl4oEMT0DRvz4SCpB3kz53FzcVybq7GOAlCYF4kOjQz7DXe3gwRWN3OE07/TF5uV1sV8BrX4Q+Mj+IzdlQNqL0KnL0iO9fd+QkmKfTl+/AJv24S/uThAik9enX0iHNh8=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DSVPR12MB999171.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024)(23010399003)(7416014)(11063799006)(4143699003)(56012099006)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?dk5sd1RGZWp3U3dFNEIxQW45MG8raFkwcU1zZVNUV1VaYnFOMVplS09jVUla?=
+ =?utf-8?B?WFlOL3BjUE9BM2pWMEFRM3BBSXdpNEhiek1RSW4vMzJmVHRrRk1CR3QyYkFr?=
+ =?utf-8?B?OElzeGdacyt2aEg3Ym1xUU8yaFY4a1BaRGZCdkRweUx0VTRxN2szc29mSkFu?=
+ =?utf-8?B?ZThtdDBxODVsY0EvUTJpS1E1VE1vdWExeVlZUm13bjVyNXN5K0p3QUd3bS8r?=
+ =?utf-8?B?aUM0ZW53dkFmR0ExK1E4NkUrZ0U3K0Y0WVp1QldUUjZKUGFtT0ZUVzU1YWg0?=
+ =?utf-8?B?NkV4WDRQWk1WbkNydThoOFBrQTJlVzZubXhxQWxSdU4yVEJ6V0h2Q3V6cEVB?=
+ =?utf-8?B?R244SjhDYXp1QUc3eDJkQ1p3MWlWa3BIZlJnS0hDTWpXS1hvU096VnVEUnRX?=
+ =?utf-8?B?Umo3eEJwaEh1Y2V1WjBUNGloWmNkeXYxVDcwOEliZ09wVjRJUlNCdDJTOFNW?=
+ =?utf-8?B?dm9LMHRjM0x0WllmZWRJeVd6ZG4vRWZ2OFpzRmlZTkxBQlNBSVIyY1NIeDdD?=
+ =?utf-8?B?b1dZL3d5MjVHd1JiZDEyQzYwL3BZVUZobG9yS21IMFJzQkgyQ3c4czJlNUoy?=
+ =?utf-8?B?YUZtUTl0bzIzeHFiMkVibGM1L21MclEvdkNMTFI1VVJCZW9VelE2cnpqQlln?=
+ =?utf-8?B?a0owaWt1NXZYTDVRY3QwWEZqRUs1SVRhUXNZc0Q1WW1PVmZnNDQra01XNmJ6?=
+ =?utf-8?B?L25qa21DWHJ5UjVnTGIxK0hSU1RMUXNrL2hLd0dSd1pGT2RlQ3B2UUVqSnpk?=
+ =?utf-8?B?Wi8wS3gzb29pVmFsZkVmcXh1bEhlUXpocmV1SUhXZ3habHdXSzM0K1ArUDIw?=
+ =?utf-8?B?dVc1MzhEMHBPWnVqK1VOZ0dNVzZSMHh5ZTFIYlRTMXpsU0UxaEYzTmdheG1i?=
+ =?utf-8?B?bzJWS1M5OHVBR2VzOFZpb3dUV0EvMmFqTnlTZ3F4YkNMaGZIS29JZEJONy8w?=
+ =?utf-8?B?QXY5aUJMUWtmbEVFRDA1d0lvZTV0eHFmL21rVTAxNlhFRWZ1UVVETFBPVWVJ?=
+ =?utf-8?B?VDREeWJDYWkycjhjUnJwK002TjBWTCtoY3Z6d2cyRm9HWTNFTlo1N3ExZExz?=
+ =?utf-8?B?b3pXM0FqMC9aRWlNaDNXbHlqNzBOeS9NL2dvZ3U0eWYxeGtnbmZ1WE5JWnlq?=
+ =?utf-8?B?WWFYYzFBOEZnR2lIalVWYzN5NWpZb1J4OUtMVUxLNTR1cWhXakxuTm1uWmJj?=
+ =?utf-8?B?aXE0Vy9lUTB5UGRYWEFBaFBBZ0xDT0tSRnVkM25XRGVrUDNmbEIxWGgxbEdp?=
+ =?utf-8?B?UWJJN21pemVSTXVranVtSVpoTTM3RlNnSHlPYXlZODZkTlN2N1FaWmg2UU1Y?=
+ =?utf-8?B?OVhUdW5TTVpodjV6UHNBRVdNNHBzM0F5V010NjJTZElyM0JMNGc3VDl3NWIx?=
+ =?utf-8?B?dStpdWNBY1p4SmhIQmtNenY1SnZVZmlTeGRHYWNVSWtaVDdOaXlGV00xTnRB?=
+ =?utf-8?B?cGFSWnRUc1U4dUY1TUwrb2pueGVSdUlVYnBtdytwVjhOdS9vK1NwOXNrN1o5?=
+ =?utf-8?B?Q0haaGpjME50NmNXbjZSSjMraXFuV3dlazg1cmJDRE8rSjdoUG9oNUFpTzJE?=
+ =?utf-8?B?SGlySW1Cd0JRdVFLVVVnY2c5bFY1QVZWc1h2aEVUZHp1TmdzNFZVZDlUQjZB?=
+ =?utf-8?B?RElsajBtZFhIdUpwaVVtOFVuZms2MDM4SFFveTBiY05vYnhBRTNtdS96VXZy?=
+ =?utf-8?B?UFViVnR0SDFjZlE4eFdGVkRpQjBvZXJVU3FtOWxJWSt6OEd1NndVRzV1cWl6?=
+ =?utf-8?B?RmdvQ1BTeDBQcWx5R2hOaTBuZmVETG0yOFhiVSs3WDh3ZnVPdzM1T2EvQTVl?=
+ =?utf-8?B?V0lzTzlwb09LLzU0bkhNR0tJeVlXOWh4KzdFWHdyaGQrZlRSTElGTG1IYnlP?=
+ =?utf-8?B?RS9hZVIwTXh5YTR6THNBbmM1SFNqYVR4NGFDZlh5a1FJbytqMW9GS00yMTlr?=
+ =?utf-8?B?QWtQM2dzTmdCOGpXTElXZDZxMFI5UktGZnFPelg5L29qOXZ2RHhPRHVOWlR2?=
+ =?utf-8?B?dmVPaWdXajY2Kzc2WGZFZU80M3A0LzR5Vkx3dHl6VThXbmJ1ZFVwOE5ZbVZs?=
+ =?utf-8?B?S2pwWVcvL2pHcU85d1FWU1h0bnA2bmJxM3EyQmRhR2FJSk9xTVJBcG8xeHkw?=
+ =?utf-8?B?K3RhSlpUR2Z1aTBvdmk2ZDZMcEVyYWZSaXU0N1JLUEUvanNONGJ5ZUNscVBH?=
+ =?utf-8?B?RzZRSkdzT2VCN3NGSllYeS95OFIwd2Zzd1pSTURPSEpKZzgwYWhhVms0b0lt?=
+ =?utf-8?B?eWVwWW00clBXN1ZhcWR2VzVlYlZVMjNXSlEvZXVMT0IzRXZkVGMvWnFNRXdL?=
+ =?utf-8?B?ODFFZTBrMjVqQlY1eVA1eHVnOTduM3pMQmw3U0xJQS9ZclB1Z25yUT09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ea1ae311-b160-43a9-03c0-08df0d9e4b6b
+X-MS-Exchange-CrossTenant-AuthSource: DSVPR12MB999171.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Sep 2026 11:42:43.4367
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: OypRgGIQ1+E6b7QP0seW7Utdo40ozU3vF1OovXqXiVM/CWKVd0keQYIqCPLCOzE/vKvNQX4XQEJLWSJkpHqugw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4332
 
-Fabio Piparo <holofermes@gmail.com> writes:
 
-Hello Fabio,
 
-Sorry for the delay. I was on vacation for a few weeks and I'm just
-catching up on email.
+On 8/19/2026 5:18 PM, guanghuifeng@linux.alibaba.com wrote:
+> 
+> 在 2026/7/27 21:29, Suravee Suthikulpanit 写道:
+>> Allocate one translate-device-id per IOMMUFD vIOMMU instance from the
+>> per-segment pool on init.  Program translation DTE and VFctrl TransDevID
+>> after MMIO reset; clear both on init error and destroy.
+>>
+>> Add per-vIOMMU trans_devid_lock to serialize DTE and VFctrl updates
+>> during teardown.
+>>
+>> Signed-off-by: Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>
+>> ---
+>>   drivers/iommu/amd/amd_iommu_types.h |  7 ++++++
+>>   drivers/iommu/amd/iommufd.c         | 35 +++++++++++++++++++++++++++++
+>>   drivers/iommu/amd/viommu.c          |  2 ++
+>>   3 files changed, 44 insertions(+)
+>>
+>> diff --git a/drivers/iommu/amd/amd_iommu_types.h b/drivers/iommu/amd/ 
+>> amd_iommu_types.h
+>> index f288a7b384d0..39cf2c588106 100644
+>> --- a/drivers/iommu/amd/amd_iommu_types.h
+>> +++ b/drivers/iommu/amd/amd_iommu_types.h
+>> @@ -559,6 +559,13 @@ struct amd_iommu_viommu {
+>>       u64 *domid_table;
+>>       u16 trans_devid;
+>> +    /*
+>> +     * Serializes translate-device-id hardware changes (DTE, VFctrl) and
+>> +     * coordinates with pool relocation during PCI attach.  Lock 
+>> ordering:
+>> +     * pci_seg->trans_devid_mutex, then trans_devid_lock.
+>> +     */
+>> +    struct mutex trans_devid_lock;
+>> +
+>>
+>> ....
+>> 
+>> @@ -124,6 +153,12 @@ static void amd_iommufd_viommu_destroy(struct 
+>> iommufd_viommu *viommu)
+>>       xa_destroy(&aviommu->gdomid_array);
+>>       iommufd_viommu_destroy_mmap(&aviommu->core, aviommu- 
+>> >vfmmio_mmap_offset);
+>>       amd_viommu_uninit_one(iommu, aviommu);
+>> +
+>> +    mutex_lock(&aviommu->trans_devid_lock);
+>> +    amd_iommu_update_vfctrl_mmio_translate_devid(iommu, aviommu->gid, 
+>> 0);
+>> +    amd_iommu_clear_translate_dte(iommu, aviommu->trans_devid);
+>> +    amd_iommu_trans_devid_free(iommu->pci_seg, aviommu->trans_devid, 
+>> aviommu);
+>> +    mutex_unlock(&aviommu->trans_devid_lock);
+>>       amd_iommu_gid_free(iommu, aviommu->gid);
+>>   }
+> 
+> The comment states "pci_seg->trans_devid_mutex, then trans_devid_lock"
+> as the lock ordering. However, examining the actual code paths:
+> 
+> In amd_iommufd_viommu_destroy():
+>    mutex_lock(&aviommu->trans_devid_lock);          /* viommu lock first */
+>    ...
+>    amd_iommu_trans_devid_free(...);                  /* takes seg_mutex 
+> inside */
+>    mutex_unlock(&aviommu->trans_devid_lock);
+> 
+> In amd_iommu_trans_devid_free():
+>    mutex_lock(&pci_seg->trans_devid_mutex);          /* seg_mutex nested */
+> 
+> In trans_devid_relocate() (Patch 24):
+>    mutex_lock(&aviommu->trans_devid_lock);          /* viommu lock first */
+>    mutex_lock(&pci_seg->trans_devid_mutex);          /* seg_mutex second */
+> 
+> All paths consistently take trans_devid_lock first, then
+> trans_devid_mutex (nested). The actual ordering is the opposite of
+> what the comment describes:
+> 
+>    Actual:   trans_devid_lock -> trans_devid_mutex
+>    Comment:  trans_devid_mutex -> trans_devid_lock
+> 
+> The code is consistent and there is no deadlock risk, but the
+> comment should be corrected to avoid confusing future readers:
+> 
+>    * Lock ordering: trans_devid_lock, then pci_seg->trans_devid_mutex.
 
-> ssd132x_clear_screen() sends its zeroes without setting the column and
-> row ranges first, so they land in whatever window the last
-> ssd132x_update_rect() left programmed. A partial final update then
-> leaves the rest of the screen uncleared, with fbcon the last damage is
-> typically the cursor cell, so blanking keeps the console content on
-> the panel.
->
-> Set the full-screen window first, as ssd130x_clear_screen() already
-> does.
->
+I'll update the comment in v5.
 
-All this makes a lot of sense to me.
-
-> Fixes: fdd591e00a9c ("drm/ssd130x: Add support for the SSD132x OLED controller family")
-> Assisted-by: LLM
-
-I was going to mention that this isn't the convention documented in
-https://docs.kernel.org/process/coding-assistants.html#attribution,
-but I just noticed that there is a recent commit 816d9992d9ed
-("coding-assistants: simplify attribution").
-
-So your tag is correct and I learned today that "AGENT_NAME:MODEL_VERSION"
-got deprecated.
-
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Fabio Piparo <holofermes@gmail.com>
-> ---
-> Exercised on an SPI SSD1322 under local enablement patches for that
-> chip; compile-tested only on the SSD1325/1327. ssd133x_clear_screen()
-> has the same problem, left alone here for lack of hardware.
->
->  drivers/gpu/drm/solomon/ssd130x.c | 11 +++++++++++
->  1 file changed, 11 insertions(+)
->
-
-Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
-
-I'll push to drm-misc (drm-misc-fixes). Thanks for fixing this issue!
-
--- 
-Best regards,
-
-Javier Martinez Canillas
-Core Platforms
-Red Hat
-
+Thanks,
+Suravee
