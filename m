@@ -1,91 +1,162 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from canpmsgout08.his.huawei.com (canpmsgout08.his.huawei.com [113.46.200.223])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E3245335A7;
-	Tue,  8 Sep 2026 12:05:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 307F23F107D
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 12:05:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.223
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788869130; cv=none; b=VAd6w7nCAkzKeFgci0YrkrKgZJzAZZSoskI+qSI0ind/LHJ5OrZss/IqfkkrUMWgu4g/69yTkTwTmNlJDzwrb7GIbzGNlP3FKPDQp9qLVHcnP+XK0pRLU6aNw6VaBAu58mH26Xd7Em1tE1+WIDq10nSZ+7M7T1cjewD4pfHa0AI=
+	t=1788869135; cv=none; b=M3f/kH6HpEh7VEEdIN9K3LyYvxV8neZ52hsKaYL2Bbh+FjJmCUpsJMihWOqb8RjAp1MmCjbnbYJ3Gg+iNjm8vB6qi/EQ6/FfoK0x6S9/K76/BJa8QYXcLd+ohhnwUYtVBRk4Ie+nHkhTlZNcwOxbcG8+tZKmGaFww5ZBEew4ftg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788869130; c=relaxed/simple;
-	bh=DUBZyFChKXUcT9DUKLwE2m1oiUU1CB9FzxjTJVf1Mds=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=IER/h1Oj14ALTNaCpnTje1aYByDJ7qsSPncTCzc6zTApNw+IfLbX7GHC5jxQoKmlVCUKO2NNzw7faxau2qUzLzp/SCIPh10t6PbuPJY/EtE/wpveqzLgKAie5rTs+N+PVt8SW+q08UqUKYdVLpgSUqJZ5sN5ISw6DVEQtnVBFfk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=kcyfGyd4; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1788869135; c=relaxed/simple;
+	bh=nfiVOmpuZd9hw72a0uqsv0sPz6vNMPodqGLj5LoSU6c=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=Em7Hoq346dJ6mHYpv735nyap7NQpX41f/J7L0jBETrFoKn3V7lRoUj8dCmz/NSljxshZsXDy14SBHGoHk1Rcy3DAQqFQFNTPkCtIHqwpxgbzvTAoX3hTEGLu7srVtOjkwsh6ovXEoG+YQNOMRZBpGsCLrmiNLjk8JNYEKbc/ZSY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=j+l79iC6; arc=none smtp.client-ip=113.46.200.223
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="kcyfGyd4"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=+jN0CNGpu++wz2OfmG24unVE3E/eSCf8Ige67pFhPRQ=; b=kcyfGyd4ICgVZ6ZnWgMnZy1xZy
-	bAeUh6YAcYwtOhIFyrnHUaUCx/GfbEeLINs4dYI1r3PV4T3pGz5j+NXTJzYSwbFN0SM5umxz0Vz8S
-	nxYlgvQwf6NeEfleHhjjmomgAWWltSsAznr3shmYd8/HLDm/L1/N1o69aYuFM3SYZxg8=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1x3uZ7-003sY9-UJ; Tue, 08 Sep 2026 14:04:41 +0200
-Date: Tue, 8 Sep 2026 14:04:41 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Ratheesh Kannoth <rkannoth@marvell.com>
-Cc: Hemanth Selam <hemanth.selam@gmail.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	Bharat Bhushan <bbhushan2@marvell.com>,
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-	Chris Snook <chris.snook@gmail.com>,
-	Eric Dumazet <edumazet@google.com>,
-	Florian Fainelli <florian.fainelli@broadcom.com>,
-	GR-Linux-NIC-Dev@marvell.com, Geetha sowjanya <gakula@marvell.com>,
-	Jakub Kicinski <kuba@kernel.org>, Jian Shen <shenjian15@huawei.com>,
-	Jijie Shao <shaojijie@huawei.com>,
-	Manish Chopra <manishc@marvell.com>,
-	Marcin Wojtas <marcin.s.wojtas@gmail.com>,
-	Paolo Abeni <pabeni@redhat.com>, Rahul Verma <rahulv@marvell.com>,
-	Russell King <linux@armlinux.org.uk>,
-	Shahed Shaikh <shshaikh@marvell.com>, Shuah Khan <shuah@kernel.org>,
-	Simon Horman <horms@kernel.org>,
-	Subbaraya Sundeep <sbhatta@marvell.com>,
-	Sudarsana Kalluru <skalluru@marvell.com>,
-	Sunil Goutham <sgoutham@marvell.com>,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org, linux-parisc@vger.kernel.org,
-	netdev@vger.kernel.org
-Subject: Re: [PATCH net-next v3 07/10] net: marvell: fix typos in comments
-Message-ID: <326477d4-a04e-4797-93f1-831bfb91ccb4@lunn.ch>
-References: <20260908052602.27497-1-hemanth.selam@gmail.com>
- <20260908052602.27497-8-hemanth.selam@gmail.com>
- <ap-elz1ObdxcutDv@rkannoth-OptiPlex-7090>
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="j+l79iC6"
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=J5XVn+IP9JYSxt++vE5Bn2naLeVaA94FGOjdJNX08aM=;
+	b=j+l79iC6Ga0wp9hlWjwrZ8HywTNPofAg7yfW6EsEYDaAPIDozcVE3sgD8h1Qs8DnyZsYQ6jUs
+	QazBbYKcRUMkqESQOIid8vXj0DIuRuXUIGCEf6a0gbKq91YGnPasAXNfdmbwUbYvaGpbOQVfx83
+	4vcLksJIyTiYp6Su4hHU1hg=
+Received: from mail.maildlp.com (unknown [172.19.163.200])
+	by canpmsgout08.his.huawei.com (SkyGuard) with ESMTPS id 4hfMmk4xnRzmV8f;
+	Tue,  8 Sep 2026 19:54:30 +0800 (CST)
+Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
+	by mail.maildlp.com (Postfix) with ESMTPS id A05094055B;
+	Tue,  8 Sep 2026 20:05:24 +0800 (CST)
+Received: from [10.67.109.254] (10.67.109.254) by
+ kwepemk200008.china.huawei.com (7.202.194.74) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Tue, 8 Sep 2026 20:05:24 +0800
+Message-ID: <1489d67c-05f5-4c41-a360-dffe2cb95687@huawei.com>
+Date: Tue, 8 Sep 2026 20:05:23 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <ap-elz1ObdxcutDv@rkannoth-OptiPlex-7090>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 15/19] firmware/psci: Extend ->cpu_on() callback to take
+ an additional argument
+To: Will Deacon <will@kernel.org>, <linux-arm-kernel@lists.infradead.org>
+CC: <linux-kernel@vger.kernel.org>, Thomas Gleixner <tglx@kernel.org>, Catalin
+ Marinas <catalin.marinas@arm.com>, Borislav Petkov <bp@alien8.de>, Lorenzo
+ Pieralisi <lpieralisi@kernel.org>, Mark Rutland <mark.rutland@arm.com>, David
+ Woodhouse <dwmw@amazon.co.uk>, Peter Zijlstra <peterz@infradead.org>, Marc
+ Zyngier <maz@kernel.org>
+References: <20260907164024.17164-1-will@kernel.org>
+ <20260907164024.17164-16-will@kernel.org>
+From: Jinjie Ruan <ruanjinjie@huawei.com>
+In-Reply-To: <20260907164024.17164-16-will@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: kwepems100001.china.huawei.com (7.221.188.238) To
+ kwepemk200008.china.huawei.com (7.202.194.74)
 
-On Tue, Sep 08, 2026 at 11:05:19AM +0530, Ratheesh Kannoth wrote:
-> On 2026-09-08 at 10:55:59, Hemanth Selam (hemanth.selam@gmail.com) wrote:
-> > Fix misspellings in comments, found with scripts/checkpatch.pl using
-> > the misspelling list in scripts/spelling.txt.  Comments only, no code
-> > changes.
-> >
+Reviewed-by: Jinjie Ruan <ruanjinjie@huawei.com>
+
+在 2026/9/8 0:40, Will Deacon 写道:
+> In preparation for hooking up the 'context ID' parameter introduced by
+> PSCI v0.2 to the CPU_ON call, extend the ->cpu_on() callback to take
+> an additional argument and modify all callers to pass 0 for now.
 > 
-> For below files
+> Signed-off-by: Will Deacon <will@kernel.org>
+> ---
+>  arch/arm/kernel/psci_smp.c   |  4 ++--
+>  arch/arm64/kernel/psci.c     |  2 +-
+>  drivers/firmware/psci/psci.c | 20 ++++++++++++++------
+>  include/linux/psci.h         |  3 ++-
+>  4 files changed, 19 insertions(+), 10 deletions(-)
 > 
-> >  drivers/net/ethernet/marvell/octeontx2/af/npc.h         | 4 ++--
-> >  drivers/net/ethernet/marvell/octeontx2/af/rvu_nix.c     | 2 +-
-> >  drivers/net/ethernet/marvell/octeontx2/nic/cn10k.c      | 2 +-
-> >  drivers/net/ethernet/marvell/octeontx2/nic/otx2_dcbnl.c | 2 +-
-> 
-> Reviewed-by: Ratheesh Kannoth <rkannoth@marvell.com>
+> diff --git a/arch/arm/kernel/psci_smp.c b/arch/arm/kernel/psci_smp.c
+> index 3bb0c4dcfc5c..bf05dbf433b1 100644
+> --- a/arch/arm/kernel/psci_smp.c
+> +++ b/arch/arm/kernel/psci_smp.c
+> @@ -49,10 +49,10 @@ static int psci_boot_secondary(unsigned int cpu, struct task_struct *idle)
+>  		return psci_ops.cpu_on(cpu_logical_map(cpu),
+>  			((phys_addr_t)(&secondary_startup)
+>  			- XIP_VIRT_ADDR(CONFIG_XIP_PHYS_ADDR)
+> -			+ CONFIG_XIP_PHYS_ADDR));
+> +			+ CONFIG_XIP_PHYS_ADDR), 0);
+>  #else
+>  		return psci_ops.cpu_on(cpu_logical_map(cpu),
+> -					virt_to_idmap(&secondary_startup));
+> +					virt_to_idmap(&secondary_startup), 0);
+>  #endif
+>  	return -ENODEV;
+>  }
+> diff --git a/arch/arm64/kernel/psci.c b/arch/arm64/kernel/psci.c
+> index fabd732d0a2d..6b25a12ed143 100644
+> --- a/arch/arm64/kernel/psci.c
+> +++ b/arch/arm64/kernel/psci.c
+> @@ -39,7 +39,7 @@ static int __init cpu_psci_cpu_prepare(unsigned int cpu)
+>  static int cpu_psci_cpu_boot(unsigned int cpu)
+>  {
+>  	phys_addr_t pa_secondary_entry = __pa_symbol(secondary_entry);
+> -	int err = psci_ops.cpu_on(cpu_logical_map(cpu), pa_secondary_entry);
+> +	int err = psci_ops.cpu_on(cpu_logical_map(cpu), pa_secondary_entry, 0);
+>  	if (err && err != -EPERM)
+>  		pr_err("failed to boot CPU%d (%d)\n", cpu, err);
+>  
+> diff --git a/drivers/firmware/psci/psci.c b/drivers/firmware/psci/psci.c
+> index 8bb3f7c37678..95034485cb4d 100644
+> --- a/drivers/firmware/psci/psci.c
+> +++ b/drivers/firmware/psci/psci.c
+> @@ -219,22 +219,30 @@ static int psci_0_2_cpu_off(u32 state)
+>  	return __psci_cpu_off(PSCI_0_2_FN_CPU_OFF, state);
+>  }
+>  
+> -static int __psci_cpu_on(u32 fn, unsigned long cpuid, unsigned long entry_point)
+> +static int __psci_cpu_on(u32 fn, unsigned long cpuid, unsigned long entry_point,
+> +			 unsigned long context)
+>  {
+>  	int err;
+>  
+> -	err = invoke_psci_fn(fn, cpuid, entry_point, 0);
+> +	err = invoke_psci_fn(fn, cpuid, entry_point, context);
+>  	return psci_to_linux_errno(err);
+>  }
+>  
+> -static int psci_0_1_cpu_on(unsigned long cpuid, unsigned long entry_point)
+> +static int psci_0_1_cpu_on(unsigned long cpuid, unsigned long entry_point,
+> +			   unsigned long mbz)
+>  {
+> -	return __psci_cpu_on(psci_0_1_function_ids.cpu_on, cpuid, entry_point);
+> +	if (mbz)
+> +		return -EINVAL;
+> +
+> +	return __psci_cpu_on(psci_0_1_function_ids.cpu_on, cpuid, entry_point,
+> +			     0);
+>  }
+>  
+> -static int psci_0_2_cpu_on(unsigned long cpuid, unsigned long entry_point)
+> +static int psci_0_2_cpu_on(unsigned long cpuid, unsigned long entry_point,
+> +			   unsigned long context)
+>  {
+> -	return __psci_cpu_on(PSCI_FN_NATIVE(0_2, CPU_ON), cpuid, entry_point);
+> +	return __psci_cpu_on(PSCI_FN_NATIVE(0_2, CPU_ON), cpuid, entry_point,
+> +			     context);
+>  }
+>  
+>  static int __psci_migrate(u32 fn, unsigned long cpuid)
+> diff --git a/include/linux/psci.h b/include/linux/psci.h
+> index 4ca0060a3fc4..0f43868a0bee 100644
+> --- a/include/linux/psci.h
+> +++ b/include/linux/psci.h
+> @@ -25,7 +25,8 @@ struct psci_operations {
+>  	u32 (*get_version)(void);
+>  	int (*cpu_suspend)(u32 state, unsigned long entry_point);
+>  	int (*cpu_off)(u32 state);
+> -	int (*cpu_on)(unsigned long cpuid, unsigned long entry_point);
+> +	int (*cpu_on)(unsigned long cpuid, unsigned long entry_point,
+> +		      unsigned long context);
+>  	int (*migrate)(unsigned long cpuid);
+>  	int (*affinity_info)(unsigned long target_affinity,
+>  			unsigned long lowest_affinity_level);
 
-For the rest of them:
-
-Reviewed-by: Andrew Lunn <andrew@lunn.ch>
-
-    Andrew
