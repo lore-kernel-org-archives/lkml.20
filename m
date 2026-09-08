@@ -1,42 +1,77 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f179.google.com (mail-pg1-f179.google.com [209.85.215.179])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6E62509F18
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 10:21:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6893A5111AE
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 10:21:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788862899; cv=none; b=jPQJOQAmCQ44fuvIu1l/GKpCj4ZVfqw7rf/1Nh6hl7cpuCmzTKKdmmGcMBtRaalpkJobQ7rkJeeHoxyogv56VjpuBRvNtrj63GATK9oCjeh6xdiJwONvbxlHZ4idsLjyiTD6AHwDU3VjtGHDb8POPUa7PUZr+AmO97xS/yIVYCk=
+	t=1788862907; cv=none; b=C/AqQZ+ONCcP69RiTEm4CPtt+NmZXtAu3AuqL3GjMZ+xG2EqrUmQxxYaAFLykyDopd4PjJg8LIeFeSWy/eE5qBFJsnhJstUKgJlYMpSqI4AaHaGuBax+2sa420pyjPDfwatRghSm6z4rWRWC5gDFhCa941slcciVxWtslmab48I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788862899; c=relaxed/simple;
-	bh=tvA6eisArEKd0wG1Qr/T58/reEyjYFkwPuF18n0iWJI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=hS+NRjJ4XgrHDt80+zkxbNb7Qd8wXPIRUYFySuI/944R3i0ODztX6VSSmWP3z47BkLrzx3PM0+QVY0kZmUI0liqluZw/r3n4yVVDipDX3RqpW7t14SPQko72fO3Lfm5ZUTHmhOEOGKoFahhvy9XbG42raBXRPVG/DR9m6ma1CYc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=naAVfI6v; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788862907; c=relaxed/simple;
+	bh=2g3OVqHY7LPB5Tu9aJ/as+ex+qcAnM31F0nhSqOscTA=;
+	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=njhzJ7PvPBPmnhlnEbxRL2eaZJjnOodf2E49KnwirLREfJVv+LSlWCHS6ay5fSEMoanERfH7UUlOgLgSkxP4CD4TwhtA8WxsimglrVsQaMCwYf3sWMkC9T53eNDS8Xzbw3BOFNebKe9MkPk1K1MyvtEee0+NrM8/WFRxrJ8cQ0c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KA8DlYA4; arc=none smtp.client-ip=209.85.215.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="naAVfI6v"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 34E441F00A3D;
-	Tue,  8 Sep 2026 10:21:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788862898;
-	bh=trKkVjLDuoNyZ1KBYX25zdJ5VlGPOhjg9ThffyQDe88=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=naAVfI6vDSA2o8yuJf1a9zMvqUkjjc3EB/eQ0HaObPU5xZO+BguKYHo0/BI8FO5wO
-	 OPTkGvC+MxQEP7eTKyh7XFqvIXvpiVZlXuZht6DZBEg6i0YsBjd9RbSUg44cqDUg/W
-	 DYi/Ymu6EFJDSFSaOdKJh+Art02RzAW1vXucjI/m+/rJbatHGfjFKKdlzVDGw1YiWx
-	 oqlQi4rtudxQygI4tlVghW/3tam1Xjso8WGESLncynmqsA0rQTmaGnquHA1Uu+db/a
-	 JmLA+Y/hiXysYeDOKJ1KBFXVnuQ9At4J7hZA+880iOB+OSFGQkf6N8ABwn4Z7BrKUf
-	 xUnf53cNE74xg==
-Date: Tue, 8 Sep 2026 11:21:33 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Tianyi Chen <hi@tychen.cc>
-Cc: "Liam R . Howlett" <liam@infradead.org>, 
-	Andrew Morton <akpm@linux-foundation.org>, vbabka@kernel.org, jannh@google.com, pfalcato@suse.de, 
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] tools/testing/vma: cover hole filling through
- __mmap_region()
-Message-ID: <ap_gTfb10dw0wx91@gremlin>
-References: <20260906144100.849288-1-hi@tychen.cc>
- <178886112560.138404.17741948638665342936.vma-v2@tychen.cc>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KA8DlYA4"
+Received: by mail-pg1-f179.google.com with SMTP id 41be03b00d2f7-c9aea40d799so2409367a12.0
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 03:21:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788862906; x=1789467706; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:date:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=AhccQlmcLThBoQ55+SHM+25Vzt4uZpvbPRRHG0NdRkk=;
+        b=KA8DlYA4/esNHDNGf1FiJy8RJGcRY4cog3Lk/+5S9vwm6D0R+xASbyNb8rvWVvF15w
+         n4Bt7bCjrfSIGO+fNr7BqClfOlg6iWLUWppcsBTgZxO8UAcyQZpPEnORKoc0pb9dD7bm
+         gYC3LDDG2Z0SzmkKtJfwH2Ri6QFPQoGAvGorJNzdS9132ry2uyB6QkruKHkmiysTK/dy
+         i/AkgNqXfrOXoN1hwBTmsCYajRx4KrrbpuzzzO/GRt9r3HWviyJrmz2hjrXuUJTEQ9cT
+         tQznO+pMc5GX84EvX60S0JTQhRfOqzNKZIccrTXH3Jy8ii4lR73HP+If884d7Bt/XAkD
+         E7NA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788862906; x=1789467706;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=AhccQlmcLThBoQ55+SHM+25Vzt4uZpvbPRRHG0NdRkk=;
+        b=M+f58JKxgorTSzOoK9/Z9HDu4XP6PJkaNmT8YrafqTChDa5BRtxTyxBuibvmpTolxI
+         rq5fLUAP0nmQQlCnvVaXldQYj6ypvXmFJd6MewfjmwxbS3SObKB2bWvz+/k1I9REHXll
+         87ZaZu6JVa7ePHd5DAycnKPgZ6nLcHHtSxf8W0j2yBe7rrfXNBF3MhBu7WTgXIIBAvya
+         rGYXcXaKUS89x//DS+N7Jc1J18+u6ln/AcCjEEcd0n6Mj2pbPgosrQVP3oW44vyNkxPS
+         DJIMi43j5Ok+Vmvt+0U93VBEuYeGChqltXskHXS5wnJCHV2Iv6KpPfrM2hEhwrAImrYL
+         JAPw==
+X-Forwarded-Encrypted: i=1; AKwUvBxEktWFLZGWOBif0OJgIFeSGz5LfMV/8NBbqWGDI3RihTrgMcDI4h3ZSyVPvDtNGs30QTN9lFIXdq8d0+Y=@vger.kernel.org
+X-Gm-Message-State: AFuF++krEbUEmTweR89LN2qVYaA6UlyweZroAJCl+nZ0QEEqt3SI0h32
+	QvMkz6hDJ1zbCVyCSprn0h/xc2AKyZbcigd3kcNPXhHBFUmfs9G55p8h
+X-Gm-Gg: AYBFou3UvY6JNi1KX6BTC2vKbarUTJJI/PwcwFPjIhDYD5BFTotD7KFb906qw+Wj2Gb
+	xlhlw0yj/QT6s98vRpJoOYi/QLs4K37O81JATOjBSwdCnzfR7OgTjFOkNjDlKqOCxduIEquKTfv
+	dZuX6hrYvBkBT+N3pfLqePVzGF4pELZ+fSSvu5RjIYQFZqqWK4jOC+6dI8f3M/aAxqomRBl94ab
+	SgUUrFbNYH5KYWWnV0k2dyLIDdLDn14klYY89J9SAobWCIugCcicOAUXhMQCCswwkmQj0dSKKd+
+	DzLcAzVxfST2oYQPv5A/PuQ+9Zl8WvoFfQrNYkQnqtVRjKTeBYsFKnYhCWP2gqIii5WdinDYHgQ
+	E48uz2dw2sHEoq7eXMqql2YJ2HgjSWx5xsyxhoq2nPztyXTckB+m9qeJtEEBSNGATsmgqMWGQPj
+	O5AFRlrZ5qytpMfghXfk1cOx+n88Km0dr7K9vTYRUMCVj5I2vV17p+mkbGmCQ4q/b9EpWaGJbkU
+	KvSTB4vbYSF1M8qWPy1IRkf2pXg/LsQoLcsWOvh4L4ZWZCU0K0=
+X-Received: by 2002:a17:90b:3852:b0:38e:9ef9:eb97 with SMTP id 98e67ed59e1d1-39b26272d69mr42956469a91.16.1788862905641;
+        Tue, 08 Sep 2026 03:21:45 -0700 (PDT)
+Received: from nxpwireless-Inspiron-14-Plus-7440 (114-25-99-144.dynamic-ip.hinet.net. [114.25.99.144])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b260fe843sm25594085a91.10.2026.09.08.03.21.43
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 08 Sep 2026 03:21:45 -0700 (PDT)
+From: Jeff Chen <chunfan.chen@gmail.com>
+X-Google-Original-From: Jeff Chen <jeff.chen_1@nxp.com>
+Date: Tue, 8 Sep 2026 18:21:39 +0800
+To: Linmao Li <lilinmao@kylinos.cn>
+Cc: Francesco Dolcini <francesco@dolcini.it>,
+	Johannes Berg <johannes@sipsolutions.net>,
+	linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH wireless-next 2/3] wifi: nxpwifi: free the aggregation
+ buffer when the RA list disappears
+Message-ID: <ap/hsyBMiYeZqk/C@nxpwireless-Inspiron-14-Plus-7440>
+References: <20260813082315.1390321-1-lilinmao@kylinos.cn>
+ <20260813082315.1390321-3-lilinmao@kylinos.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -45,138 +80,14 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <178886112560.138404.17741948638665342936.vma-v2@tychen.cc>
+In-Reply-To: <20260813082315.1390321-3-lilinmao@kylinos.cn>
 
-On Tue, Sep 08, 2026 at 05:55:15PM +0800, Tianyi Chen wrote:
-> The mmap tests extend existing mappings one neighbor at a time, while
-> merge tests construct merge state directly. Neither exercises filling
-> a hole between compatible mappings through the mmap setup and completion
-> path.
->
-> Fill a gap through __mmap_region() and require both neighbors to merge
-> into one VMA. Repeat with only the new mapping's execute permission set
-> and require three separate VMAs. Check boundaries, permissions, page
-> offsets, map_count and cleanup.
->
-> Signed-off-by: Tianyi Chen <hi@tychen.cc>
+On Thu, Aug 13, 2026 at 04:23:14 PM +0800, Linmao Li wrote:
+> nxpwifi_11n_aggregate_pkt() drops ra_list_spinlock while it copies each
+> subframe, so it rechecks the RA list after taking the lock again.  The
+> check inside the aggregation loop returns without releasing the
+> skb_aggr it has been filling, leaking one tx_buf_size buffer along with
+> the subframes already aggregated into it.
+> 
 
-For future - please always send v2 patches not in-reply-to anything :P otherwise
-mails get buried.
-
-Otherwise all LGTM, thanks for addressing feedback! So:
-
-Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-
-> Assisted-by: Codex:GPT-6
-> ---
-> Changes in v2:
-> - Rebase onto mm-unstable, preserving the new /dev/zero test.
-> - Rename hole_flags to middle_flags and describe each mapping's address
->   and length in its comment.
-> - Remove the redundant hole, per-page and outer-boundary iterator checks.
-> - Use const bounds and named booleans for the middle VMA's expected execute
->   permission, and separate assertion groups for readability.
->
-> Validation: all 29 VMA tests passed with ASan and UBSan enabled, built
-> with clang 20 using the existing VMA Makefile.
->
-> v1: https://lore.kernel.org/r/20260906144100.849288-1-hi@tychen.cc
-> Review: https://lore.kernel.org/r/ap5pmX-RddQ-c90O@gremlin
-
-Thanks! :) very nice.
-
->
->  tools/testing/vma/tests/mmap.c | 68 ++++++++++++++++++++++++++++++++++
->  1 file changed, 68 insertions(+)
->
-> diff --git a/tools/testing/vma/tests/mmap.c b/tools/testing/vma/tests/mmap.c
-> index fa73faff226..53e4abe6a63 100644
-> --- a/tools/testing/vma/tests/mmap.c
-> +++ b/tools/testing/vma/tests/mmap.c
-> @@ -45,6 +45,72 @@ static bool test_mmap_region_basic(void)
->  	return true;
->  }
->
-> +static bool mmap_region_fill_hole(bool merge)
-> +{
-> +	const vma_flags_t vma_flags = mk_vma_flags(VMA_READ_BIT, VMA_WRITE_BIT,
-> +			VMA_MAYREAD_BIT, VMA_MAYWRITE_BIT, VMA_MAYEXEC_BIT);
-> +	vma_flags_t middle_flags = vma_flags;
-> +	struct mm_struct mm = {};
-> +	struct vm_area_struct *vma;
-> +	unsigned long addr;
-> +	int count = 0;
-> +	VMA_ITERATOR(vmi, &mm, 0);
-> +
-> +	current->mm = &mm;
-> +	if (!merge)
-> +		vma_flags_set(&middle_flags, VMA_EXEC_BIT);
-> +
-> +	/* Map at 0x300000, length 0x3000. */
-> +	addr = __mmap_region(NULL, 0x300000, 0x3000, vma_flags, 0x300, NULL);
-> +	ASSERT_EQ(addr, 0x300000);
-> +
-> +	/* Map at 0x306000, length 0x3000, leaving a hole. */
-> +	addr = __mmap_region(NULL, 0x306000, 0x3000, vma_flags, 0x306, NULL);
-> +	ASSERT_EQ(addr, 0x306000);
-> +	ASSERT_EQ(mm.map_count, 2);
-> +
-> +	/* Map at 0x303000, length 0x3000, filling the hole. */
-> +	addr = __mmap_region(NULL, 0x303000, 0x3000, middle_flags, 0x303, NULL);
-> +	ASSERT_EQ(addr, 0x303000);
-> +	ASSERT_EQ(mm.map_count, merge ? 1 : 3);
-> +
-> +	vma_iter_set(&vmi, 0);
-> +	for_each_vma(vmi, vma) {
-> +		const unsigned long start = 0x300000 + count * 0x3000;
-> +		const unsigned long end = merge ? 0x309000 : start + 0x3000;
-> +		/* Only the middle VMA in the non-merge case has VMA_EXEC. */
-> +		const bool is_middle_vma = count == 1;
-> +		const bool expect_exec_vma = is_middle_vma && !merge;
-> +
-> +		ASSERT_EQ(vma->vm_start, start);
-> +		ASSERT_EQ(vma->vm_end, end);
-> +		ASSERT_EQ(vma_start_pgoff(vma), start >> PAGE_SHIFT);
-> +		ASSERT_EQ(vma_start_anon_pgoff(vma), start >> PAGE_SHIFT);
-> +
-> +		ASSERT_TRUE(vma_test_all(vma, VMA_READ_BIT, VMA_WRITE_BIT,
-> +					 VMA_MAYREAD_BIT, VMA_MAYWRITE_BIT,
-> +					 VMA_MAYEXEC_BIT));
-> +		ASSERT_EQ(vma_test(vma, VMA_EXEC_BIT), expect_exec_vma);
-> +
-> +		count++;
-> +	}
-> +
-> +	ASSERT_EQ(count, mm.map_count);
-> +
-> +	ASSERT_EQ(cleanup_mm(&mm, &vmi), count);
-> +	return true;
-> +}
-> +
-> +static bool test_mmap_region_fill_hole_merge(void)
-> +{
-> +	return mmap_region_fill_hole(true);
-> +}
-> +
-> +static bool test_mmap_region_fill_hole_flags_mismatch(void)
-> +{
-> +	return mmap_region_fill_hole(false);
-> +}
-> +
->  static bool test_pure_anon_dev_zero(void)
->  {
->  	const vma_flags_t vma_flags = mk_vma_flags(VMA_READ_BIT, VMA_WRITE_BIT,
-> @@ -84,5 +150,7 @@ static bool test_pure_anon_dev_zero(void)
->  static void run_mmap_tests(int *num_tests, int *num_fail)
->  {
->  	TEST(mmap_region_basic);
-> +	TEST(mmap_region_fill_hole_merge);
-> +	TEST(mmap_region_fill_hole_flags_mismatch);
->  	TEST(pure_anon_dev_zero);
->  }
-> --
-> 2.55.0
->
-
---
-Cheers, Lorenzo
+Reviewed-by: Jeff Chen <jeff.chen_1@nxp.com>
