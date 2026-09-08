@@ -1,157 +1,192 @@
-Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com [209.85.214.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC4DD572683
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 16:59:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4853558496F;
+	Tue,  8 Sep 2026 16:59:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788886781; cv=none; b=Ha3YdtJbnmVN9dEDT6mMzHffFjBwUdWcm/WWqSbmp5JyW8gYyDTkGDTGYazogc9S19W0HlRd8xOZOP9m639yQe2LB+UmVpvqCZApxoVLrJqUxss4NWLFRtjU6y2cFvNUzALSGl5gBeWTOCk0sE2Ok0cgAXKbnxSerrnzibGPmOU=
+	t=1788886800; cv=none; b=nHVGT/V+//S3GKs3FyHZFQ72nMRXarl77RTC1x/qnH6phsdcFHG2Plg1kF+NHimL3iQBK74eF3vr180fNUpOCGohKakdYhpWb9gqrqOgCSMoot1MKN00X+vGCJbuBFC9hvHQpdugjsv7OjyWz0p3VVjA4HHtZTlCxHPISGVWnoc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788886781; c=relaxed/simple;
-	bh=+KOQ1Ds4ZkQOJQZRLn+J3z1zuh2gsIE6PlCJszLVBFg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=gieEFzXk4nBwMZRvGXbxaGaTbusuv42mnDhBQ8rHspAxZ2ZWw5id9V1sBBriDNSe509R7gbh1fPHiraBz+EfVxIlf4CNLYb6rCnDZ8Xpz12h2cSro1jM4BxNQjqh+z4aMGthcGg2v4v7ufQrFkAdBXmc88bqhf1tNLU+lFcapZk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=c1zrakv2; arc=none smtp.client-ip=209.85.214.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788886800; c=relaxed/simple;
+	bh=Z5wUi0Voy+X54vFv7sVmKPDtrh4we8LzRDCf1COlaBg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=tbe4mQvsQL8Zr1mYylTWnBU4TelAQQ4VXxJ7CfyKG3VD7UNR0fg5t2qUhCaPLNkrHoeeJIinwDUuo9J2u/YiI01CsEEDD2nD+bDE9bxMfARxqui1LAKCaLzA603HGT3pGvYp7PhHtJph0rX7WtbIOhvYh3ypMKs381uMMyj1un8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nKAdUKg3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="c1zrakv2"
-Received: by mail-pl1-f170.google.com with SMTP id d9443c01a7336-2d715f4a587so67573875ad.2
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 09:59:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788886779; x=1789491579; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=rgqygJFgVHpbr65+v3Un3U0dLoYuKnbnhqEwnLI1X3A=;
-        b=c1zrakv2Tqf2KocQK8haNdChgaRQpAKLnfhN01cDlgDlMslO0+ub6rFIfxrOjKUnDM
-         4wSZOqdfmHzZrmJcKFoqAsXYs4ewgrfAYEmlfFkDsRAxb3sZjb+FFrvHqZfZWyqNwYSS
-         Ml6xU/eWPGzG8pmAhP3CughSIcbPxvAPfpEWqMs2GenBlzleYH6g8h5QijU257hbIeBC
-         AjUYLzVc3/0V1Bn/6AZraOBbs8b9B+ujwWoQSTIRL5wzCkJSpJ5edcqW54EevmBmJviz
-         At61N1BmJrWOpxY4aUh2JjvYlyeK7BtGm6KWPjb+m8stpqst9vtXd6QMa/dvZb6PMJYY
-         fOnA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788886779; x=1789491579;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=rgqygJFgVHpbr65+v3Un3U0dLoYuKnbnhqEwnLI1X3A=;
-        b=ZkXcRuut6KD3v1mczystGn0lm57lj+9syxD9ZrL8y6LM9wHZ9JamJzWzp7/E+K4HDz
-         LPHussvjWpHIb2tfal1R12DCJKurWZAD0VkwFFZtcVsMnvoxGl/F/l4jawwjY2dHuYQU
-         ZxKlJlKj7Rbb6rqVfDJIanMp1LT8wMDZ7YVqCbpUz9aZB52MUqVj00WDHcMFxcM0ZKAJ
-         e8Ay6HebUiIbXNVwsXeLQv3kh1xOr8RZiKEIiIa8Nd7eLWVgnWSpM61a9n2AtN5YOkQv
-         k6ump1MOD0xBC+LOzoW0PSpZqlz2u7ryD+GSfm/1nRgJAGNkKFcYMCCKt+SEw+EFgMzi
-         pPdQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxDLinT+zjaQnVY8ajJu/2jYu27T82eeRGPFrchevBb9ijOwSz0lQ/JouhWN+ZC+UhtETJUGPi++um9nuE=@vger.kernel.org
-X-Gm-Message-State: AFuF++k89nQ+iV0WKU0Jy36lrcADllIKDwWzdaD7SPLgcuxy7ePBZ9hB
-	xF32qnSjQpMlFcSbner1fmFmqKSH4pbB6fI8z1Ft/0i4jNXCTJiX4Ngc
-X-Gm-Gg: AYBFou0kXLVXVLmgr2d2jFMEiZp/YKR+u5ByQ7rmoWLLlTkBNbf1I/8xjkom5htWtmN
-	0rB4j8WPPj2w7S29CbO4vrP78go3MRJT+CuWWn/x4cCcsnhisxgATvwHGliehiXD4YChMkzekMo
-	L1735VnuqkSeWLPCR+MvfMz7cpVeT0mxcwN5xc6qlKJjMUOL9NNcVQz1iPlNpIHTpxZLec3lvUg
-	/VG+h+FPkZp5fDJ1m6zqMjzQXNixbCEbU9vRc9AVTC/qWoHDZcfuXEHFZddwidRHmQgu9UAhywe
-	B6nXFAA+Hedsfw0v2Reuw6ePeXAhJTT+VuBQoinppIxbHmC2DY+hMlTPL4C+ztXAIgqEzWgIDKR
-	uZZ75GGAy2pgSe/NTpIi909F/gCnM6nFg2KnoDQ2RxQNC+9AM/xldv3qzkQqoNEOlqnWBxUdbGZ
-	YJVu0Bd4I13qbHua5WE6s1JQ+J31V2wjY9LKiVLZS5hz528mzJn8ecmGIFChX8U1dvRJPErtWaF
-	eD3GhuPW18rbz2GX1WLn5eB
-X-Received: by 2002:a17:903:90b:b0:2db:5f00:ff52 with SMTP id d9443c01a7336-2db5f0103fbmr170823495ad.22.1788886778892;
-        Tue, 08 Sep 2026 09:59:38 -0700 (PDT)
-Received: from LAPTOP-450UDG4J ([223.185.135.143])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2db146b9691sm61436395ad.0.2026.09.08.09.59.34
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 08 Sep 2026 09:59:38 -0700 (PDT)
-From: Yogesh Gaur <yogeshgaur.83@gmail.com>
-To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Cc: linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Christopher Heiny <cheiny@synaptics.com>,
-	Andrew Duggan <aduggan@synaptics.com>,
-	Yogesh Gaur <yogeshgaur.83@gmail.com>,
-	syzbot+09103639e39c989e3ed3@syzkaller.appspotmail.com
-Subject: [PATCH] Input: synaptics-rmi4 - fix NULL dereference in the PM callbacks
-Date: Tue,  8 Sep 2026 22:29:25 +0530
-Message-ID: <20260908165925.2030-1-yogeshgaur.83@gmail.com>
-X-Mailer: git-send-email 2.55.0.windows.5
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nKAdUKg3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C40E01F00A3A;
+	Tue,  8 Sep 2026 16:59:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788886797;
+	bh=OMQ70/u9u8szoGpESycjyQ4jjTMGAaUnnXdZJr5u6/w=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=nKAdUKg3A1aykLfiEUW6krK0n/AY7E3QMlIU7kvdE1FohxbPYOXiL1PXo3lQ85Qm1
+	 /w+XLES/yMGzI8yCW6vi77eFy2yoXUhghyV09DnNRW9/vY86XCjZkTJM9Dt1gEDqKR
+	 4MwBYc+sazM9MQCWVZERpV1Umhai4/ATKX3wHirYBI2Zmi58mpPhOYpNxgKuH7KOLw
+	 3m5sR0CnQuBoqPQEDDvvpqi05uRYSmmlEGoc7Tasv6KsC1sUtq+USrUJmqu1/bxgpO
+	 1RXCHPOsFiej2e4xQIFliIJXAeueCBM8FTCDC3MlfKkSeCaPPqdRXOcxTICWfbLYbZ
+	 3hDHeI+ivlJwg==
+Message-ID: <6efff84b-7628-4d26-b65a-6f5b747030d0@kernel.org>
+Date: Tue, 8 Sep 2026 18:59:43 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 10/14] mm/page-flags: introduce folio_test_fs_private()
+To: Zi Yan <ziy@nvidia.com>, "Matthew Wilcox (Oracle)" <willy@infradead.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Muchun Song <muchun.song@linux.dev>, Lorenzo Stoakes <ljs@kernel.org>,
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>, Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
+ Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
+ Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
+ Gregory Price <gourry@gourry.net>, Ying Huang
+ <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>,
+ Johannes Weiner <hannes@cmpxchg.org>, Qi Zheng <qi.zheng@linux.dev>,
+ Shakeel Butt <shakeel.butt@linux.dev>, Kairui Song <kasong@tencent.com>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu
+ <mhiramat@kernel.org>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>,
+ Byungchul Park <byungchul@sk.com>, linux-fsdevel@vger.kernel.org,
+ linux-trace-kernel@vger.kernel.org
+References: <20260907-remove-pg_private-v3-0-6ae22f9d9272@nvidia.com>
+ <20260907-remove-pg_private-v3-10-6ae22f9d9272@nvidia.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20260907-remove-pg_private-v3-10-6ae22f9d9272@nvidia.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-rmi_driver_suspend() and rmi_driver_resume() are exported for the
-transport drivers; hid-rmi calls them straight from its ->suspend and
-->resume. Both reach code that dereferences the driver data right away:
+On 9/8/26 04:56, Zi Yan wrote:
+> folio_test_fs_private() wraps folio->private != NULL check and excludes
+> swapcache and hugetlb folios, since swapcache uses swp_entry_t overlapping
+> with folio->private and hugetlb sets its own flags in folio->private.
+> Replace open code with the helper, since core MM does this check
+> frequently.
+> 
+> No functional change intended.
+> 
+> Assisted-by: Claude:claude-opus-4-8
+> Assisted-by: Codex:gpt-5
+> Signed-off-by: Zi Yan <ziy@nvidia.com>
+> To: Andrew Morton <akpm@linux-foundation.org>
+> To: David Hildenbrand <david@kernel.org>
+> To: Steven Rostedt <rostedt@goodmis.org>
+> To: Masami Hiramatsu <mhiramat@kernel.org>
+> To: Lorenzo Stoakes <ljs@kernel.org>
+> Cc: "Liam R. Howlett" <liam@infradead.org>
+> Cc: Vlastimil Babka <vbabka@kernel.org>
+> Cc: Mike Rapoport <rppt@kernel.org>
+> Cc: Suren Baghdasaryan <surenb@google.com>
+> Cc: Michal Hocko <mhocko@suse.com>
+> Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+> Cc: Zi Yan <ziy@nvidia.com>
+> Cc: Baolin Wang <baolin.wang@linux.alibaba.com>
+> Cc: Nico Pache <nico.pache@linux.dev>
+> Cc: Ryan Roberts <ryan.roberts@arm.com>
+> Cc: Dev Jain <dev.jain@arm.com>
+> Cc: Barry Song <baohua@kernel.org>
+> Cc: Lance Yang <lance.yang@linux.dev>
+> Cc: Usama Arif <usama.arif@linux.dev>
+> Cc: Matthew Brost <matthew.brost@intel.com>
+> Cc: Joshua Hahn <joshua.hahnjy@gmail.com>
+> Cc: Rakie Kim <rakie.kim@sk.com>
+> Cc: Byungchul Park <byungchul@sk.com>
+> Cc: Gregory Price <gourry@gourry.net>
+> Cc: Ying Huang <ying.huang@linux.alibaba.com>
+> Cc: Alistair Popple <apopple@nvidia.com>
+> Cc: linux-kernel@vger.kernel.org
+> Cc: linux-fsdevel@vger.kernel.org
+> Cc: linux-mm@kvack.org
+> Cc: linux-trace-kernel@vger.kernel.org
+> ---
+>  include/linux/mm.h             |  4 +---
+>  include/linux/page-flags.h     | 26 +++++++++++++++++++++++---
+>  include/trace/events/pagemap.h |  4 +---
+>  mm/huge_memory.c               |  4 +---
+>  mm/migrate.c                   |  3 +--
+>  mm/page-writeback.c            |  5 +----
+>  mm/vmscan.c                    |  3 +--
+>  7 files changed, 29 insertions(+), 20 deletions(-)
+> 
+> diff --git a/include/linux/mm.h b/include/linux/mm.h
+> index 5eb8a62fafb56..c861525cda83f 100644
+> --- a/include/linux/mm.h
+> +++ b/include/linux/mm.h
+> @@ -3053,9 +3053,7 @@ static inline int folio_expected_ref_count(const struct folio *folio)
+>  		 * One reference from filesystem private data.
+>  		 * Use data_race() since folio might not be locked.
+>  		 */
+> -		ref_count += data_race(folio_test_private(folio)) &&
+> -			     !folio_test_hugetlb(folio) &&
+> -			     !folio_test_swapbacked(folio);
+> +		ref_count += data_race(folio_test_fs_private(folio));
+>  	}
 
-	static int rmi_suspend_functions(struct rmi_device *rmi_dev)
-	{
-		struct rmi_driver_data *data = dev_get_drvdata(&rmi_dev->dev);
-		...
-		list_for_each_entry(entry, &data->function_list, node) {
+Lol :) That's what I meant with folio_has_attached_private()
 
-That data is installed by rmi_driver_probe(), which binds only after the
-transport driver has already published rmi_dev via
-rmi_register_transport_device(). A runtime PM suspend of the underlying
-USB interface in that window dereferences NULL:
+(I think I prefer that name as it matches folio_attach_private(), but I might be
+biased ;) )
 
-	KASAN: null-ptr-deref in range [0x0000000000000078-0x000000000000007f]
-	RIP: 0010:dev_get_drvdata include/linux/device.h:989 [inline]
-	RIP: 0010:rmi_suspend_functions drivers/input/rmi4/rmi_driver.c:283 [inline]
-	RIP: 0010:rmi_driver_suspend+0x30/0x180 drivers/input/rmi4/rmi_driver.c:994
-	Call Trace:
-	 <TASK>
-	 rmi_suspend+0xa7/0xf0 drivers/hid/hid-rmi.c:448
-	 hid_suspend+0x4a3/0x530 drivers/hid/usbhid/hid-core.c:1618
-	 usb_suspend_interface drivers/usb/core/driver.c:1323 [inline]
-	 usb_suspend_both+0x285/0x1040 drivers/usb/core/driver.c:1446
-	 usb_runtime_suspend+0x58/0x110 drivers/usb/core/driver.c:2000
-	 rpm_callback drivers/base/power/runtime.c:460 [inline]
-	 rpm_suspend+0x8a0/0x17a0 drivers/base/power/runtime.c:698
-	 pm_runtime_work+0x132/0x1b0 drivers/base/power/runtime.c
-	 </TASK>
 
-rmi_disable_irq() and rmi_enable_irq(), reached a few lines further on,
-look the driver data up the same way and then take
-&data->enabled_mutex, so they would fault too.
+This really should be sqashed into the previous patch, OR, have a prep patch
+that only replaces these instances and uses folio_test_private() until you
+convert it to folio->private in the second patch.
 
-There is nothing to suspend or resume before the driver has bound, so
-return success early while the driver data is not there yet.
+In short: touch these call sites only once, not twice in a row.
 
-Fixes: 2b6a321da9a2 ("Input: synaptics-rmi4 - add support for Synaptics RMI4 devices")
-Reported-by: syzbot+09103639e39c989e3ed3@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=09103639e39c989e3ed3
-Signed-off-by: Yogesh Gaur <yogeshgaur.83@gmail.com>
----
- drivers/input/rmi4/rmi_driver.c | 11 +++++++++++
- 1 file changed, 11 insertions(+)
-
-diff --git a/drivers/input/rmi4/rmi_driver.c b/drivers/input/rmi4/rmi_driver.c
-index 5d49a9021c7d..cff9209ec0b3 100644
---- a/drivers/input/rmi4/rmi_driver.c
-+++ b/drivers/input/rmi4/rmi_driver.c
-@@ -991,6 +991,14 @@ int rmi_driver_suspend(struct rmi_device *rmi_dev, bool enable_wake)
- {
- 	int retval;
- 
-+	/*
-+	 * The transport driver registers rmi_dev before this driver has bound
-+	 * to it, so a PM transition can reach here while the driver data does
-+	 * not exist yet. There is nothing to suspend in that case.
-+	 */
-+	if (!dev_get_drvdata(&rmi_dev->dev))
-+		return 0;
-+
- 	retval = rmi_suspend_functions(rmi_dev);
- 	if (retval)
- 		dev_warn(&rmi_dev->dev, "Failed to suspend functions: %d\n",
-@@ -1005,6 +1013,9 @@ int rmi_driver_resume(struct rmi_device *rmi_dev, bool clear_wake)
- {
- 	int retval;
- 
-+	if (!dev_get_drvdata(&rmi_dev->dev))
-+		return 0;
-+
- 	rmi_enable_irq(rmi_dev, clear_wake);
- 
- 	retval = rmi_resume_functions(rmi_dev);
 -- 
-2.55.0.windows.5
+Cheers,
 
+David
