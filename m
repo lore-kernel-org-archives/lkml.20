@@ -1,46 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D216F49C4AB;
-	Tue,  8 Sep 2026 23:45:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A092F43CE56;
+	Tue,  8 Sep 2026 23:46:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788911158; cv=none; b=LLYmgtx9L+UTx4f3GdJSSl/Sr7MzjXkf4bNCtTU7a/n7ztHZOoJS1QHrPf35BV8yIz2yjX9C95vNb5vHCP9zdKmk+Uxj0nteGTt/MkBy+0ZDLZzaSUPrzUVQyczIGw3yPafSahfukKwqCXJ5fyodApAzCmxGwjdN328vL+wOUhQ=
+	t=1788911213; cv=none; b=E0Efpc3KkjAwXPJI+3VJI8B8NQnIqETnIDfk4CSomIxoWm3MxHaEkBsBF0n9I/ZJXQksRul3469HH9wDS4bR8AKxc2ACdFXgSLn7y9VdxehIKc79ajx6P+92fbgtDnoFBPfEtkp7X3ZdrR4cqfI2jbC652VtAvHwgJZ+PMVgwHw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788911158; c=relaxed/simple;
-	bh=g7Ky83TgOwFbsOHyvgijjGXpRNo2425Nq4phshWzA7k=;
+	s=arc-20240116; t=1788911213; c=relaxed/simple;
+	bh=6vCcIIQVnZPoU4q7D2c9z019f+3J7WNmqcOzGdrT6kc=;
 	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=Bst/v+1fgtMkYE+mUgUFRuZ0BXKBvhURtunqSj+zfkLGU7ZFR2XCP6DhJ3c+0dvhQkGVEew7wzikKxShtm52wkxu/B81AJNSlI8ffxee4NS/JIpYwUMtNz4GRj1HjWw3jNRGMgiAlCaGul6VZe9m2CA6KUZSNXtM1FY0OCRBv3c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=LtxwYooG; arc=none smtp.client-ip=100.103.45.18
+	 Mime-Version:Content-Type; b=W+DTSjlcXwL3GCXZwizmCUYOjNEuyiy30RjGkVvyN3aD/87x7qjuoFfa4PaTw6FUWyPAElAblipdomh8HQ3YyjnT0/VjPOueJ8BkqgELmotM0RaSzXu6LBscvUPauc1r1Y9CWYG0/n2G3krfADB7+vggb8K0tR8I1lSXpndty6o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=U1+nmUsa; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="LtxwYooG"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD8271F00A3A;
-	Tue,  8 Sep 2026 23:45:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1788911156;
-	bh=YluYVMKByfxU0jhrfhAXdNg+GL+9Wi7y0AV09M0/EDg=;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="U1+nmUsa"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8349B1F00A3A;
+	Tue,  8 Sep 2026 23:46:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788911212;
+	bh=s76MEdgN6Dlw3VEj2tiygClyBZDsu40WfSu1krSscek=;
 	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=LtxwYooGM1HHVGcczPSCT9m8ZaErT53MmLnTvSFuygid+bQEwhZaASugrIOMh12pD
-	 BrNacsADi+fSErVF+GHr0LqnyguMwRdXSGWtF+phvEdI9KqZvARfPvq5h/w+cB/3aZ
-	 wa+Qr1QYe4BOmgodLgUdQd7EiEJygMD8PJDEeKSU=
-Date: Tue, 8 Sep 2026 16:45:55 -0700
-From: Andrew Morton <akpm@linux-foundation.org>
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Arnd Bergmann <arnd@arndb.de>, Greg Kroah-Hartman
- <gregkh@linuxfoundation.org>, "Liam R. Howlett" <liam@infradead.org>,
- Vlastimil Babka <vbabka@kernel.org>, Jann Horn <jannh@google.com>, Pedro
- Falcato <pfalcato@suse.de>, David Hildenbrand <david@kernel.org>, Mike
- Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, Michal
- Hocko <mhocko@suse.com>, Hugh Dickins <hughd@google.com>, Baolin Wang
- <baolin.wang@linux.alibaba.com>, "Matthew Wilcox (Oracle)"
- <willy@infradead.org>, Jan Kara <jack@suse.cz>,
- linux-kernel@vger.kernel.org, linux-mm@kvack.org,
- linux-fsdevel@vger.kernel.org, linux-kselftest@vger.kernel.org
-Subject: Re: [PATCH v2 0/6] mm: make MAP_PRIVATE-/dev/zero mappings truly
- anonymous
-Message-Id: <20260908164555.50a996a3f716523ddc13fbfb@linux-foundation.org>
-In-Reply-To: <20260908-map-private-dev-zero-v2-0-acc7b5625305@kernel.org>
-References: <20260908-map-private-dev-zero-v2-0-acc7b5625305@kernel.org>
+	b=U1+nmUsaenYMonLuueN/haGrGg4s69pb4x5XFrUrrO+zT8/N9DrZ3fTWwdLY03pZW
+	 qg5TBDLpiKcICA/PlLxjPnI5y6sfSTOx9GW1CpkX5zUep1Sr10OqiY+SQlf+cws0WR
+	 PLYVEQSguJgKTRnNcRlKGQwaqOgsvg4Ukbd3IbrC3gOTKybfH7bS85ghsxrkDMgPOB
+	 4ZRD2H+6LX8phjpeqxUCBdMkIsHCIWPZFKsNZxGBwfBfWunjH68mahhxrFY5/iQe3u
+	 rJ1G8L3ck36ekEw9TD795e746QUV8f926PXh6CV1lDTj+tsyFD6ow9wpN9cBrxLyda
+	 jdP8gNT73DSkQ==
+Date: Wed, 9 Sep 2026 08:46:47 +0900
+From: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+To: Bradley Morgan <brads@mainlining.org>
+Cc: davem@davemloft.net, include@grrlz.net, linux-kernel@vger.kernel.org,
+ linux-trace-kernel@vger.kernel.org, naveen@kernel.org
+Subject: Re: [PATCH v2] kprobes: use DEFINE_DEBUGFS_ATTRIBUTE for the
+ enabled knob
+Message-Id: <20260909084647.e2d9cf350e7e98df6032bee0@kernel.org>
+In-Reply-To: <E69D1F6E-8329-4A67-BCEA-EFBFF91E57D2@mainlining.org>
+References: <20260908101017.a4a72b4c93b51571d0fbfbac@kernel.org>
+	<E69D1F6E-8329-4A67-BCEA-EFBFF91E57D2@mainlining.org>
 X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -51,104 +47,19 @@ Mime-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 
-On Tue, 08 Sep 2026 12:23:37 +0100 "Lorenzo Stoakes (ARM)" <ljs@kernel.org> wrote:
+On Tue, 08 Sep 2026 16:19:00 +0100
+Bradley Morgan <brads@mainlining.org> wrote:
+> >
+> >
+> Hey, can u change sob to this email if possible? Check lore link below for
+> info
+> --- Thanks!
+> https://lore.kernel.org/all/EE579805-42F2-4C58-B752-F28779EEB717@grrlz.net/
 
-> Historically anonymous memory was obtained in linux by MAP_PRIVATE-mapping
-> /dev/zero.
-> 
-> The canonical way of doing these now is mmap() specifying MAP_PRIVATE |
-> MAP_ANON, but we must continue to support the legacy means of obtaining these
-> mappings.
-> 
-> As-is these mappings are an unusual edge-case - they satisfy
-> vma_is_anonymous() but have non-NULL vma->vm_file, and their page offset is
-> the offset into the /dev/zero file.
-> 
-> Commit 93c0c8dc87f6 ("mm/rmap: use anon pgoff to track MAP_PRIVATE
-> file-backed anon folios") causes all other anonymous folios to be tracked
-> by their anon index (vma->vm_start >> PAGE_SHIFT at the point of first
-> fault), leaving MAP_PRIVATE-/dev/zero as the outlier.
-> 
-> This series remedies the situation by making MAP_PRIVATE-/dev/zero mappings
-> truly anonymous with !vma->vm_file and correct anonymous page offset.
-> 
-> It starts by bringing the memory character driver into mm/ - this file
-> implements /dev/zero, /dev/mem among other things and is already (as
-> clearly indicated by its name) within the remit of memory management.
-> 
-> By doing this, the file_is_dev_zero() function can be provided, internal to
-> mm, which allows for positive identification of these mappings.
-> 
-> Using this, first prevent any other mappings from mapping memory
-> anonymously, then make these mappings truly anonymous and eliminate all
-> code in the kernel that previously had to account for these strange beasts.
-> 
-> Finally, it adds userland VMA tests to assert the behaviour and selftests
-> to assert expected merge behaviour.
+No, but basically I can add your new email. Or can you resend this to
+replace the new one?
 
-Thanks, I've updated mm-unstable to this version.
+Thank you,
 
-> v2:
-> * Added tags (thanks everybody!)
-> * Reworked comment about mappings not setting themselves anon as per David.
-> * Fixed up test typo as per David.
-> * Fixed up test close() as per David.
-
-Here's how v2 altered mm.git:
-
---- a/mm/vma.c~b
-+++ a/mm/vma.c
-@@ -2801,7 +2801,7 @@ static int call_mmap_prepare(struct mmap
- 	if (err)
- 		return err;
- 
--	/* Hooks cannot mark themselves anonymous. */
-+	/* It's invalid for mmap_preprare hooks to clear vm_ops. */
- 	if (!desc->vm_ops)
- 		return -EINVAL;
- 
---- a/tools/testing/selftests/mm/merge.c~b
-+++ a/tools/testing/selftests/mm/merge.c
-@@ -1381,7 +1381,7 @@ TEST_F(merge, merge_map_private_dev_zero
- 	 *
- 	 * With these being made truly anonymous upon mapping, they will
- 	 * merge. If they were file-backed VMAs the page offsets would prevent
--	 * merge:
-+	 * the merge:
- 	 *
- 	 * |-----||------|    |-------------|
- 	 * | ptr || ptr2 | -> |     ptr     |
-@@ -1389,17 +1389,11 @@ TEST_F(merge, merge_map_private_dev_zero
- 	 */
- 	ptr = mmap(carveout, 5 * page_size, PROT_READ | PROT_WRITE,
- 		   MAP_FIXED | MAP_PRIVATE, fd_zero, 0);
--	if (ptr == MAP_FAILED) {
--		close(fd_zero);
--		ASSERT_TRUE(false);
--	}
- 	ptr2 = mmap(&carveout[5 * page_size], 5 * page_size,
- 		   PROT_READ | PROT_WRITE, MAP_FIXED | MAP_PRIVATE, fd_zero, 0);
--	if (ptr2 == MAP_FAILED) {
--		close(fd_zero);
--		ASSERT_TRUE(false);
--	}
- 	close(fd_zero);
-+	ASSERT_NE(ptr, MAP_FAILED);
-+	ASSERT_NE(ptr2, MAP_FAILED);
- 
- 	/* Assert that they merged. */
- 	ASSERT_TRUE(find_vma_procmap(procmap, ptr));
-@@ -1430,10 +1424,7 @@ TEST_F(merge, merge_map_private_dev_zero
- 	 */
- 	ptr = mmap(carveout, 15 * page_size, PROT_READ | PROT_WRITE,
- 		   MAP_FIXED | MAP_PRIVATE, fd_zero, 0);
--	if (ptr == MAP_FAILED) {
--		close(fd_zero);
--		ASSERT_TRUE(false);
--	}
-+	ASSERT_NE(ptr, MAP_FAILED);
- 	memset(ptr, 'x', 15 * page_size);
- 
- 	/*
-_
-
+-- 
+Masami Hiramatsu (Google) <mhiramat@kernel.org>
