@@ -1,41 +1,49 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C37334D4CE
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 17:21:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D0315908B7;
+	Tue,  8 Sep 2026 17:21:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788888072; cv=none; b=DkfqRMg5TXyf+30DmQIkhiKAzMG/QE8PXpBRIOYG0Cd37RyJ+gb/y9V5NlxuksbyWo9h4aQULDaskh4HBbg89fr1HXkjtkgxpNI3s4sStVOeIkGKea3iE8e2HlCgwBfBNiRXDn0sV3ZBlAzaGXH0+6lZtqIjmzVKXRfl8T5t4z8=
+	t=1788888094; cv=none; b=EkTEmEesCfNu5D9jXrHLxZaBw6dnaSQ4zaZz90PS8hbdK+9VzrhmQjzlylqTV/4/bAP0TUyfoqDKxDwLA0KRTr5ePSqCDP3SIr+ieYR9Yc4g1M/K9HEOtVejhX9gY/HjBsziggsBt79txXkK5oX9UeI/0PI8GcW3L/5TeL73cw4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788888072; c=relaxed/simple;
-	bh=XqCrvpPr7Wlfw8QLYqvwPScbQmSXdxP1mItvqh8i8z0=;
+	s=arc-20240116; t=1788888094; c=relaxed/simple;
+	bh=ntd7vMiKDm1Lw1Lbez/LKqlSrMWxg49bhyGdjAem4kQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=jUIceeGaW3ZP+cE59qGgK/czkW8t5XJEaV1iLAiy/dW3Dcl7YiEPBVySqQOCXqhOCwbTQ0w3ZKmGPnr/Ek1RPdKURdMQqsZ84juoHCob7W4a0zf078lsg8djZG8pvU4ns86hfhs7FpRwRe7QBFhp757bcumj9kgqXR/vprb3y78=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=E+wR46kc; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:MIME-Version; b=KriQqKFPcUqksaL5oHkIb+DSmHsPya8As8om+xrWnQGvt2o8wCzeljE/a4W8y2gsDCDEqe1HIKN9T82VCuBwLV3xYcLxz6t/oFstPs4M3ySP/ucEkJC6G+4qIOHKFniQFKhfLhnz6o6EmVrFttns2QBoiK4UYLtLFA533OZfdHs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cxkOGuQf; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="E+wR46kc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 95F871F00A3A;
-	Tue,  8 Sep 2026 17:21:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cxkOGuQf"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A028B1F00A3A;
+	Tue,  8 Sep 2026 17:21:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788888070;
-	bh=1/vb7Cc4kB0hzrF0Spe/++h9XI0PZHyqTHHB7O77o2w=;
+	s=k20260515; t=1788888092;
+	bh=jhZ0SShC3oYkzoQzahUEc6hPC67BJJIUyAnVfy10OVg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=E+wR46kc7c/0P11JxZJ5o+P5ov8Hp15jaC9PG6Rg/aKjIMXDSONQFsZ3bDFzycbXj
-	 9QMLjn7oxUc6HYbCR+G94tcrBwPWZFku3sCi/mPvVZHuXW10YvZz53ujEguJaH67wf
-	 mn5pmAYfX0SAqG5BuAIWKVewazSBRP5kT4j7wVtiBG/xyl3PHvxIx2K/Q9UXwDy8gm
-	 Jx2KeEAqeRszizUKmWPC8QWiS2RLk1x55j5HC30aQbWXgM5Wvs4VTd+o54qxqnOFtb
-	 HnzrIH7tw34CW/64JXj04qcG7ehHv4iQAyIvvNJBqz6sb0NhgwCTbiRvHc0Dn7PjRi
-	 Y1jByMVcdAkMw==
+	b=cxkOGuQflBHj3LDc4ZQEbnP7Qrs2DSmnxsOuhKRNxByoq7o6pja7SLIaZGwCckMqR
+	 nX9CjN+PET66S20WcJ0dz7k2Mo9XiODiRlkSons8I6wqb8PUyEGORjZEeZznFJZule
+	 a06l9IrDKCx8/um0eZRazY1w+IuMYqA36HbqisiQR5Dp8Ad7ix/Jby45FENxXpb5dj
+	 JQL3MrKi4wvjq6KIiEyS/Euy2aYlCFvor3LtuNaLUupokUh9NtiKJweI5CZ2Kl9Llo
+	 Trtix2IvaMWBfKnWoNfj/0o5DmtZohthaq9l5w+nqj+p//SHrOlEh/Mzx8428b2BB2
+	 rF3XSZAgGZbOA==
 From: Tejun Heo <tj@kernel.org>
 To: Hemanth Selam <hemanth.selam@gmail.com>
-Cc: Tejun Heo <tj@kernel.org>, Lai Jiangshan <jiangshanlai@gmail.com>,
- linux-kernel@vger.kernel.org, Bradley Morgan <brads@mainlining.org>,
- Breno Leitao <leitao@debian.org>
-Subject: Re: [PATCH] kernel: fix typo "upto" in comment
+Cc: Tejun Heo <tj@kernel.org>, David Vernet <void@manifault.com>,
+ Andrea Righi <arighi@nvidia.com>, Changwoo Min <changwoo@igalia.com>,
+ Ingo Molnar <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>,
+ Juri Lelli <juri.lelli@redhat.com>,
+ Vincent Guittot <vincent.guittot@linaro.org>,
+ Dietmar Eggemann <dietmar.eggemann@arm.com>,
+ Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>,
+ Mel Gorman <mgorman@suse.de>, Valentin Schneider <vschneid@redhat.com>,
+ K Prateek Nayak <kprateek.nayak@amd.com>, sched-ext@lists.linux.dev,
+ linux-kernel@vger.kernel.org, bpf@vger.kernel.org,
+ Emil Tsalapatis <emil@etsalapatis.com>
+Subject: Re: [PATCH 0/2] sched: fix typos and repeated words in comments
 Date: Tue, 08 Sep 2026 07:13:02 -1000
-Message-ID: <178888758275.2.16639051884520853687@kernel.org>
-In-Reply-To: <20260907062338.10890-1-hemanth.selam@gmail.com>
-References: <20260907062338.10890-1-hemanth.selam@gmail.com>
+Message-ID: <178888758275.2.6189775612518482207@kernel.org>
+In-Reply-To: <20260907064943.25304-1-hemanth.selam@gmail.com>
+References: <20260907064943.25304-1-hemanth.selam@gmail.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Precedence: bulk
@@ -47,7 +55,11 @@ MIME-Version: 1.0
 
 Hello,
 
-Applied to wq/for-7.4.
+> Hemanth Selam (2):
+>   sched: fix typo "upto" in comments
+>   tools/sched_ext: fix repeated word 'be' in comment
+
+Applied 1-2 to sched_ext/for-7.4.
 
 Thanks.
 -- 
