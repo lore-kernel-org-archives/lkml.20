@@ -1,193 +1,161 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0324C53ED08;
-	Tue,  8 Sep 2026 13:52:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17C3F4AE138;
+	Tue,  8 Sep 2026 13:52:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788875530; cv=none; b=QOz2sb+LyUZMgClZqIvvt5nr6gY+pKMbU1srDwsRIPreX57lpddJt+6NMnS8QsgU5EZTCqmefXurCJIjOpc030Alb93U8NnFVZOz7mfIolz8SAULk6SKs/grt+vPk9uJYj9Y2MbKKXKf5ahZh2w0p/VyDLXLJpzBsFiEP4KXluE=
+	t=1788875533; cv=none; b=QJNu2SAivldGRrWO68vYW6YhhzSR14qsCvB37Y/xyUD33dzbYHqJUIiGlAgiNd+Wb511oHlzr6/O26Zn4btt07FOcBLegZjTNiryZSaebrQ/WhnVuy72uyPLwE4fhVT4xJIg+GNj/338+cwlaqEyjMeoejDL+VPpgWttF+KcC0c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788875530; c=relaxed/simple;
-	bh=+K4xTvSkKif75qG4vxNMmd1if/dED4tM7Xr2M32c6SY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=nmnpVUJOr7HGv3kv2WVzLLC/cz8esy501wRu9nl+ifyCxw0qrWMT6x7CyXOdogk5aDYlnlDceINfoLfn7nfzlv1gt/9xGK9cnxRJXE4rgaBNlOuRASBbmJbLVkTkdCr8nVK74bM3Wkwm8TUyfdHc3J+69Vu+19A13JEyd3dGUh8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=V3+r43w9; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788875533; c=relaxed/simple;
+	bh=Df8qXEo8UsnQNwgRqqCMUapr8nbkoYTbtsz3wYoOMFw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=DmEnX8VbDztjzTZLR3nXTz23igQB87Axz45mj7UYcA0MKkC5L+sfRC9Cu3KMhFk+KNgstSF6ZJjjtD3n9hlVs529E8xjNx4MU5LD4z3um2Il/WFow2GKDCPVoVUIeMAQZAqda0/ioLzU3BM4F+iY8sjbC8Fix9xa+5aBgd4ogpo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GyTqK3uB; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="V3+r43w9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A25521F00ACA;
-	Tue,  8 Sep 2026 13:52:04 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GyTqK3uB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2CDB11F00A3A;
+	Tue,  8 Sep 2026 13:52:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788875524;
-	bh=hbhWqGHP3IwdcG31EliQltqMq/ikBw+QUFL967DHBK4=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=V3+r43w92haZ4/6h+NEX+yvlEVncdTDrKytnbWI0M8fT87s/vDS11yKyUCSiOlDm0
-	 iyO0FmIXd//l+XRftblxtTIl8OTR5E2rj9iuLrwXYP1KY4sPbbqNtGHxImzC8jp6jz
-	 qVPtLROBDJZnukrHdgtAXZusmW7LJeRt/Ka9J4bQkPAfCLByACdIpBfT2sKnsK53Af
-	 xKjO6a1A8b+xui07xjlORaH2lkzvAQ7JywBg7EJ16r//tDIg03FHGcJ6KPYJth0LuI
-	 ZCwxELgh+DrFXUbnEdOcv5L0cAngD/p1QoCfSMQeO0v1f8P6SO+J1Jd6bTlqHk5lcf
-	 NFya6CFQn33bw==
-From: SJ Park <sj@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: Krishna Iyer <kiyer@crusoe.ai>,
-	SJ Park <sj@kernel.org>,
-	damon@lists.linux.dev,
+	s=k20260515; t=1788875520;
+	bh=jnCS9pXhim/eWcVp4OfT3e5HfVEzS4dxTYx15mUGx7s=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=GyTqK3uBYEYmXJviIwBtmA2VyVbmhAa5UC8WjRmVm+V/gskQgEiYidpBJoPglmL8p
+	 FB2lMbYuirXZAAJmflJhY7n9zD029aIFvqG78e3MkPlsz3aCNGecGzyHdn/OkmS8I6
+	 rCvPWZWqMsJH00LODKMp3BHjIypaqMtxUav1SorNNfg57tbw9hG9fTjloRuz7dmXwB
+	 5ztAZaEsxQI2Bs5T+AgPs/RirVdgAdPCGuhYWmHEbZa3yZ5V3hq/jXWQ8nV9HCD5I0
+	 rQvgOmUoGZ7DK7DI/fcbHYR+UrjtdvVv/uEeb5rUf/UJpiRs8W/3w3iawD6rZr4aCZ
+	 lryKtVQZpYJ0w==
+Received: from johan by xi.lan with local (Exim 4.99.4)
+	(envelope-from <johan@kernel.org>)
+	id 1x3wEv-00000001jBY-3XE6;
+	Tue, 08 Sep 2026 15:51:57 +0200
+Date: Tue, 8 Sep 2026 15:51:57 +0200
+From: Johan Hovold <johan@kernel.org>
+To: Adriano =?utf-8?Q?C=C3=B3rdova?= <adrianox@gmail.com>
+Cc: Ulf Hansson <ulfh@kernel.org>, linux-mmc@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org
-Subject: [PATCH v3 3/3] mm/damon/paddr: support hugetlb folios in access monitoring
-Date: Tue,  8 Sep 2026 06:51:55 -0700
-Message-ID: <20260908135156.97481-4-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260908135156.97481-1-sj@kernel.org>
-References: <20260908135156.97481-1-sj@kernel.org>
+	syzbot+f312381a95cc080992fd@syzkaller.appspotmail.com,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] mmc: vub300: fix use-after-free in vub300 teardown
+Message-ID: <aqAS_dB3_whEBd0O@hovoldconsulting.com>
+References: <20260907151428.643841-1-adrianox@gmail.com>
+ <ap-4khETBju3X8-T@hovoldconsulting.com>
+ <CAMGU2hXrURUh3NknkgLnmyiJiEwEqZdDz3Ujy5tO8oqVMD9OJw@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAMGU2hXrURUh3NknkgLnmyiJiEwEqZdDz3Ujy5tO8oqVMD9OJw@mail.gmail.com>
 
-From: Krishna Iyer <kiyer@crusoe.ai>
+On Tue, Sep 08, 2026 at 10:28:06AM -0300, Adriano Córdova wrote:
+> El mar, 8 sept 2026 a las 4:26, Johan Hovold (<johan@kernel.org>) escribió:
+> >
+> > On Mon, Sep 07, 2026 at 12:14:28PM -0300, Adriano Cordova wrote:
+> > > Do not dereference mmc/vub300/udev after the final kref_put, because
+> > > it can release them via mmc_free_host()/usb_put_dev().
+> > >
+> > > Fixes: 8f4d20a71022 ("mmc: vub300: fix use-after-free on disconnect")
+> >
+> > This commit reverted a buggy change so if anything is broken here, this
+> > isn't the commit to blame.
+> >
+> > > Reported-by: syzbot+f312381a95cc080992fd@syzkaller.appspotmail.com
+> > > Link: https://syzkaller.appspot.com/bug?extid=f312381a95cc080992fd
+> > > Cc: stable@vger.kernel.org
+> > > Signed-off-by: Adriano Cordova <adrianox@gmail.com>
+> >
+> > Are you missing an Assisted-by tag?
 
-DAMON's physical address space monitoring is blind to hugetlb-backed
-memory.  Every access check starts at damon_get_folio(), which rejects
-folios that are not on the LRU lists.  Hugetlb folios are managed
-outside of the LRU by design, so every sampling attempt on
-hugetlb-backed memory silently fails and the pages are reported as
-never accessed.
+Again, are you using an LLM without disclosing it?
 
-This is a significant blind spot on virtualization hosts.  Cloud
-hypervisor hosts commonly back guest memory with 1 GiB hugetlbfs pages,
-covering the vast majority of the machine's memory.  On such hosts,
-modules like DAMON_STAT observe only the host-side remainder (page
-cache, daemons) and report all guest working sets as permanently
-idle, defeating the purpose of host-level access monitoring.  In
-testing on a 1 TiB host, an hour of 4-thread random access over 842 GiB
-inside a guest was statistically indistinguishable from an idle host,
-while a 40x smaller host-side workload produced a quantitatively
-correct response.
+> > > ---
+> > >  drivers/mmc/host/vub300.c | 7 ++++---
+> > >  1 file changed, 4 insertions(+), 3 deletions(-)
+> > >
+> > > diff --git a/drivers/mmc/host/vub300.c b/drivers/mmc/host/vub300.c
+> > > index 2dae474dcd06..a1a6aa1aafdb 100644
+> > > --- a/drivers/mmc/host/vub300.c
+> > > +++ b/drivers/mmc/host/vub300.c
+> > > @@ -370,13 +370,14 @@ static void vub300_delete(struct kref *kref)
+> > >  {                            /* kref callback - softirq */
+> > >       struct vub300_mmc_host *vub300 = kref_to_vub300_mmc_host(kref);
+> > >       struct mmc_host *mmc = vub300->mmc;
+> > > +     struct usb_device *udev = vub300->udev;
+> > >
+> > >       usb_free_urb(vub300->command_out_urb);
+> > >       vub300->command_out_urb = NULL;
+> > >       usb_free_urb(vub300->command_res_urb);
+> > >       vub300->command_res_urb = NULL;
+> > > -     usb_put_dev(vub300->udev);
+> > >       mmc_free_host(mmc);
+> > > +     usb_put_dev(udev);
+> >
+> > This makes no sense at all as the driver data is freed by
+> > mmc_free_host().
+> 
+> mmc_free_host() only frees mmc (struct mmc_host) and vub300
+> (struct vub300_mmc_host), but the udev (struct usb_device, linked
+> as mmc->parent) is not freed by mmc_free_host() and has to be
+> freed separately.
+> 
+> But it cannot be freed before mmc_free_host(), because the kobject
+> cleanup code of mmc_host accesses it in mmc_host_classdev_release()
+> via host->parent->of_node.
 
-Add damon_get_monitor_folio(), which additionally accepts hugetlb
-folios, and use it in the two paddr access monitoring primitives,
-damon_pa_mkold() and damon_pa_young().  With the previous commit
-teaching the folio-granular rmap walkers to age huge PTEs and to call
-the mmu notifiers spanning the whole huge page, this makes guest
-accesses visible through secondary MMU (e.g. KVM/EPT) young bits.
+That's a bug in MMC core. It needs to hold a reference to the parent, or
+just store the id directly. 
 
-Free hugetlb pool folios have a zero refcount, so folio_try_get()
-naturally keeps rejecting them.
+And your LLM didn't put any of this in the commit message.
 
-The DAMOS action appliers (damon_pa_pageout(),
-damon_pa_mark_accessed_or_deactivate(), damon_pa_migrate(),
-damon_pa_stat()) keep using damon_get_folio(): reclaim, LRU
-manipulation and migration cannot act on hugetlb folios, so their
-behavior is unchanged.
+> > >       /*
+> > >        * and hence also frees vub300
+> > >        * which is contained at the end of struct mmc
+> > > @@ -1794,8 +1795,8 @@ static void vub300_cmndwork_thread(struct work_struct *work)
+> > >                       construct_request_response(vub300, cmd);
+> > >                       vub300->resp_len = 0;
+> > >                       mutex_unlock(&vub300->cmd_mutex);
+> > > -                     kref_put(&vub300->kref, vub300_delete);
+> > >                       mmc_request_done(vub300->mmc, req);
+> > > +                     kref_put(&vub300->kref, vub300_delete);
+> >
+> > This order has been here since the driver was merged.
+> >
+> > >                       return;
+> > >               }
+> > >       }
+> > > @@ -1946,8 +1947,8 @@ static void vub300_mmc_request(struct mmc_host *mmc, struct mmc_request *req)
+> > >                   satisfy_request_from_offloaded_data(vub300, cmd)) {
+> > >                       cmd->error = 0;
+> > >                       mutex_unlock(&vub300->cmd_mutex);
+> > > -                     kref_put(&vub300->kref, vub300_delete);
+> > >                       mmc_request_done(mmc, req);
+> > > +                     kref_put(&vub300->kref, vub300_delete);
+> >
+> > Same here.
+> >
+> > So if this is wrong (it does look suspicious, but this driver is just a
+> > mess) then that's the commit to blame.
+> 
+> Hope is more clear now, it makes sense to me, and I think the Fixes:
+> tag is right.
 
-Note that the access check granularity for hugetlb-backed memory is the
-huge page size: one touched byte reports the whole (up to 1 GiB) page
-as accessed.  Also, DAMON now consumes secondary MMU young bits that
-KVM's own aging uses; at DAMON's sampling rate (one page per region per
-sampling interval) the interference is negligible.
+No, these issues were there since the driver was merged, that is, they
+were introduced by commit 88095e7b473a ("mmc: Add new VUB300
+USB-to-SD/SDIO/MMC driver") in 2011. (And the of_node issue was
+introduced in 2021.)
 
-Link: https://lore.kernel.org/20260902025700.17975-4-kiyer@crusoe.ai
-Cc: Andrew Morton <akpm@linux-foundation.org>
-Assisted-by: Claude:claude-fable-5
-Signed-off-by: Krishna Iyer <kiyer@crusoe.ai>
-Reviewed-by: SJ Park <sj@kernel.org>
-Signed-off-by: SJ Park <sj@kernel.org>
----
- mm/damon/ops-common.c | 25 +++++++++++++++++++++----
- mm/damon/ops-common.h |  1 +
- mm/damon/paddr.c      |  4 ++--
- 3 files changed, 24 insertions(+), 6 deletions(-)
+The broken devres change may or may not have masked them for a bit, but
+the revert is not the culprit here.
 
-diff --git a/mm/damon/ops-common.c b/mm/damon/ops-common.c
-index 349e1604cc1b1..acf8f216c51cc 100644
---- a/mm/damon/ops-common.c
-+++ b/mm/damon/ops-common.c
-@@ -15,14 +15,20 @@
- #include "../internal.h"
- #include "ops-common.h"
- 
-+static bool damon_folio_acceptable(struct folio *folio, bool monitor)
-+{
-+	return folio_test_lru(folio) ||
-+		(monitor && folio_test_hugetlb(folio));
-+}
-+
- /*
-- * Get an online page for a pfn if it's in the LRU list.  Otherwise, returns
-- * NULL.
-+ * Get an online page for a pfn if it's in the LRU list, or a hugetlb folio if
-+ * @monitor is set.  Otherwise, returns NULL.
-  *
-  * The body of this function is stolen from the 'page_idle_get_folio()'.  We
-  * steal rather than reuse it because the code is quite simple.
-  */
--struct folio *damon_get_folio(unsigned long pfn)
-+static struct folio *__damon_get_folio(unsigned long pfn, bool monitor)
- {
- 	struct page *page = pfn_to_online_page(pfn);
- 	struct folio *folio;
-@@ -33,13 +39,24 @@ struct folio *damon_get_folio(unsigned long pfn)
- 	folio = page_folio(page);
- 	if (!folio_try_get(folio))
- 		return NULL;
--	if (unlikely(page_folio(page) != folio) || !folio_test_lru(folio)) {
-+	if (unlikely(page_folio(page) != folio) ||
-+			!damon_folio_acceptable(folio, monitor)) {
- 		folio_put(folio);
- 		folio = NULL;
- 	}
- 	return folio;
- }
- 
-+struct folio *damon_get_folio(unsigned long pfn)
-+{
-+	return __damon_get_folio(pfn, false);
-+}
-+
-+struct folio *damon_get_monitor_folio(unsigned long pfn)
-+{
-+	return __damon_get_folio(pfn, true);
-+}
-+
- void damon_ptep_mkold(pte_t *pte, struct vm_area_struct *vma, unsigned long addr)
- {
- 	pte_t pteval = ptep_get(pte);
-diff --git a/mm/damon/ops-common.h b/mm/damon/ops-common.h
-index f7811c9c7a024..172f0f17c4a84 100644
---- a/mm/damon/ops-common.h
-+++ b/mm/damon/ops-common.h
-@@ -6,6 +6,7 @@
- #include <linux/damon.h>
- 
- struct folio *damon_get_folio(unsigned long pfn);
-+struct folio *damon_get_monitor_folio(unsigned long pfn);
- 
- void damon_ptep_mkold(pte_t *pte, struct vm_area_struct *vma, unsigned long addr);
- void damon_pmdp_mkold(pmd_t *pmd, struct vm_area_struct *vma, unsigned long addr);
-diff --git a/mm/damon/paddr.c b/mm/damon/paddr.c
-index c1e7d7a4f40df..d2173a448d0b0 100644
---- a/mm/damon/paddr.c
-+++ b/mm/damon/paddr.c
-@@ -37,7 +37,7 @@ static unsigned long damon_pa_core_addr(
- 
- static void damon_pa_mkold(phys_addr_t paddr)
- {
--	struct folio *folio = damon_get_folio(PHYS_PFN(paddr));
-+	struct folio *folio = damon_get_monitor_folio(PHYS_PFN(paddr));
- 
- 	if (!folio)
- 		return;
-@@ -67,7 +67,7 @@ static void damon_pa_prepare_access_checks(struct damon_ctx *ctx)
- 
- static bool damon_pa_young(phys_addr_t paddr)
- {
--	struct folio *folio = damon_get_folio(PHYS_PFN(paddr));
-+	struct folio *folio = damon_get_monitor_folio(PHYS_PFN(paddr));
- 	bool accessed;
- 
- 	if (!folio)
--- 
-2.47.3
+> >
+> > >                       return;
+> > >               } else {
+> > >                       vub300->cmd = cmd;
+
+Johan
