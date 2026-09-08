@@ -1,31 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 194C849AA2E;
-	Tue,  8 Sep 2026 20:34:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AD3E4A6921;
+	Tue,  8 Sep 2026 20:34:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788899683; cv=none; b=CWNp6/5PHcfUfSaW1ws+cJ6sfUQ6xGPFVmClBn1Muh/rMIkkYBd0hl97ytmYbniTPbd1+xweuLyzL3LpvVqiJz5PhDDhDnUryG78pOHhAK+lLhnr50O27vqP4jzVsOCvy2ReXkBzeVRzQBAs8yxDaVc5C5cjpcwFAz0buHj1TTc=
+	t=1788899684; cv=none; b=sR08hOh+BfKkSUzXEc3pRYR2vdgXtnveGZN7DXTMdBhdfa691VNQe4zHog2GO8qNP/q7ab9QFBGTdlpqMZo/1TM/1Cym4jfjEgCryi6w+nks5kU8R8Bt/UhX0CcOFnK4+ewPMQQKKJNv23rNwSiN/whCBeLVngimS1ejM1woeXY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788899683; c=relaxed/simple;
-	bh=2MurTWYJOeRuSg+sc2N7GcoYpRtU/hGgZsMNWSfNpdY=;
+	s=arc-20240116; t=1788899684; c=relaxed/simple;
+	bh=YNPt/pv+SNAxikzMeSqs57yUM/YdnnOXve3MxfDf44o=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=guWVt7T+0XnxUi2K7cWdss8U97c+WawOjb7IffjKJU9m7LA4ZsY144xDYjH9OUn0m+5udT84zxg9WILo5c2kmOAhxagXrs6aBzmIKBAmY8EDW7jktbDkgHMYSGCiKkyGOlTJmzHlglJEm5SxTdD8WgJUN8GSk30CSHK7ABEwMR0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=U1eCXP5b; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=fnbBVi0EO/0Cz/kODYoWj4NEDGF0esT4ZaD3k0389jOdCu3sDtBW9wZQRLBPmNUEp6T0pJ2QX09+nlT4t54rt/Vzgede9nchq9bj8GG5BvpM3ijFgsNPenPMuKoyCCn7GejalsmX5zq98QXJQhQ3bixKbV7sfRt7uqs1bmT5yZY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WMHHwcnE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="U1eCXP5b"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8EF791F00AC4;
-	Tue,  8 Sep 2026 20:34:41 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WMHHwcnE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B38FF1F00ACF;
+	Tue,  8 Sep 2026 20:34:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788899682;
-	bh=f3A5JUSw2D9vEf1PMY00Hj+JmsX5sxeGo18IIUxbC8o=;
+	s=k20260515; t=1788899683;
+	bh=AoB/6AlrC21xrAzOYMzkf9Ib3/16DPISvxfS9ZuGVEw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=U1eCXP5b5KqZAJsJ1fxBWLI4j3gnjawpK7z9oLWHNBDxo4evNFwkytwW+P7XAX6wW
-	 DLcS/9UqPgnQjuo1rNLVANf3FNREoxdYhBkV+zq2yhSa4FN3bXJ05+3pbRofRuWAZI
-	 uOwZQnfI6aviAuZDk/BiXbiZIGtZCyUzxA/whV6zx8HA9Vkxrx+FTzbOUjX0NQ6O5V
-	 SL84bHnewTR3PsZgsXRK1cx/anhbJI5arieugjpIDr8WcRG8+deay4w4ElsGlf9Z8z
-	 VeJz++Q+GKn6M+7+0BQFY6c3ltvccOORX+mhVQT+FPNyUaCadg0aWC3gudjOJuT5C0
-	 4c0FUILJjXVcQ==
+	b=WMHHwcnEiWh2FxvgSU2OQTX2jnldxPe1oXGawHTCxhaeJTefAhTekNOiZChyBQYvU
+	 J+/cHBXLA7otYuS/xFcdSopI+HxRlO4nwnZZG5KEFwB1rZNZp13yDni6nMp7m8PLbu
+	 fncBUt5TCRmiE9KZx9SDVaAfvL9YfHvJGpITeeLbkgrSI2wnhG7yxavbfV40dfRpDg
+	 tM/TaqMR1O6yK9F2cPJOINlq99C2X6+ZLDFIblJ7kb092mcHLB9cnqcOU4ARw3KDEF
+	 UcDomg2VL1gJUAEPeNDCN7/ZRjmFmd0v2XMRbzIrSz7VjpLEBAP3fWVW6bWoZX5WP0
+	 06KFAEBQ9GJ0Q==
 From: Josh Poimboeuf <jpoimboe@kernel.org>
 To: x86@kernel.org
 Cc: linux-kernel@vger.kernel.org,
@@ -38,9 +38,9 @@ Cc: linux-kernel@vger.kernel.org,
 	Nicolas Schier <nsc@kernel.org>,
 	linux-kbuild@vger.kernel.org,
 	Huacai Chen <chenhuacai@kernel.org>
-Subject: [PATCH v2 25/27] objtool: Add ANNOTATE_EXPORTED_NORETURN()
-Date: Tue,  8 Sep 2026 13:33:37 -0700
-Message-ID: <17cf5f7262da604ea54f2a68a9567c9beaa0d8f9.1788899473.git.jpoimboe@kernel.org>
+Subject: [PATCH v2 27/27] objtool: Warn about missing/stale ANNOTATE_EXPORTED_NORETURN() usage
+Date: Tue,  8 Sep 2026 13:33:39 -0700
+Message-ID: <6a8ae573714ec91dd7a6ff7fe69260911dba33a7.1788899473.git.jpoimboe@kernel.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <cover.1788899473.git.jpoimboe@kernel.org>
 References: <cover.1788899473.git.jpoimboe@kernel.org>
@@ -52,160 +52,163 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add ANNOTATE_EXPORTED_NORETURN() for the rare case where a module
-exports a noreturn function.
+Add some warnings to keep ANNOTATE_EXPORTED_NORETURN() annotations
+correct.
 
 Signed-off-by: Josh Poimboeuf <jpoimboe@kernel.org>
 ---
- include/linux/annotate.h | 17 +++++++++++++++++
- tools/objtool/check.c    | 27 +++++++++++++++++++++++++++
- tools/objtool/klp-diff.c | 32 ++++++++++++++++++++++++++++++++
- 3 files changed, 76 insertions(+)
+ tools/objtool/Documentation/objtool.txt | 22 ++++++++-
+ tools/objtool/check.c                   | 59 ++++++++++++++++++++-----
+ tools/objtool/include/objtool/elf.h     |  1 +
+ 3 files changed, 71 insertions(+), 11 deletions(-)
 
-diff --git a/include/linux/annotate.h b/include/linux/annotate.h
-index a81ca04b4c501..70450eeec3186 100644
---- a/include/linux/annotate.h
-+++ b/include/linux/annotate.h
-@@ -25,6 +25,15 @@
- 	"912: "								\
- 	__stringify(__ASM_ANNOTATE(.discard.annotate_data, 912b, type))
+diff --git a/tools/objtool/Documentation/objtool.txt b/tools/objtool/Documentation/objtool.txt
+index d5ac48bc203ec..950e88c713d1d 100644
+--- a/tools/objtool/Documentation/objtool.txt
++++ b/tools/objtool/Documentation/objtool.txt
+@@ -393,7 +393,7 @@ the objtool maintainers.
  
-+/*
-+ * Annotate a symbol by name rather than by relocation, so it can optionally be
-+ * used in a header file.
-+ */
-+#define ASM_ANNOTATE_NAME(section, sym)					\
-+	".pushsection " section ", \"MS\", @progbits, 1\n\t"		\
-+	".asciz \"" __stringify(sym) "\"\n\t"				\
-+	".popsection"
+    a) funcA()'s last instruction is a call to a "noreturn" function like
+       panic(), and objtool doesn't know that function never returns.  See
+-      warning 3 above.
++      warnings 3 and 13.
+ 
+    b) funcA() uses the unreachable() annotation in a section of code
+       that is actually reachable.
+@@ -455,6 +455,26 @@ the objtool maintainers.
+     macros to create them.
+ 
+ 
++13. file.o: warning: objtool: func() is exported and noreturn, its declaration needs __noreturn and ANNOTATE_EXPORTED_NORETURN()
 +
- #else /* __ASSEMBLY__ */
- 
- .macro ANNOTATE type
-@@ -44,6 +53,7 @@
- #define ASM_ANNOTATE_LABEL(label, type) ""
- #define ASM_ANNOTATE(type)
- #define ASM_ANNOTATE_DATA(type)
-+#define ASM_ANNOTATE_NAME(section, sym) ""
- #else /* __ASSEMBLY__ */
- .macro ANNOTATE type
- .endm
-@@ -112,6 +122,13 @@
-  */
- #define ANNOTATE_IGNORE_NORETURN(sym)	asm(ASM_ANNOTATE_LABEL(sym, ANNOTYPE_IGNORE_NORETURN))
- 
-+/*
-+ * Tell objtool running on a module that a function exported by another module
-+ * is __noreturn.  Objtool has no way of communicating that between modules due
-+ * to the parallel nature of module linking in kbuild.
-+ */
-+#define ANNOTATE_EXPORTED_NORETURN(sym)	asm(ASM_ANNOTATE_NAME(".discard.annotate_noreturn", sym))
++    func() is exported and never returns, but is defined in a module, so
++    its noreturn status needs to be manually annotated.  Put an
++    ANNOTATE_EXPORTED_NORETURN() next to its declaration.
 +
- /*
-  * Annotate a special section entry.  This emables livepatch module generation
-  * to find and extract individual special section entries as needed.
++    Mark the declaration __noreturn while you're there, if it isn't
++    already.  The two go together: __noreturn stops the compiler from
++    emitting code after the call, and the annotation tells objtool the
++    call doesn't return.
++
++
++14. file.o: warning: objtool: func() has ANNOTATE_EXPORTED_NORETURN() but returns
++
++    func() is annotated as never returning, but it does.  Usually this
++    means the annotation outlived the fact: the function grew a return path
++    and the ANNOTATE_EXPORTED_NORETURN() next to its declaration was left
++    behind.  Remove it, along with the __noreturn.
++
++
+ If the error doesn't seem to make sense, it could be a bug in objtool.
+ Feel free to ask objtool maintainers for help.
+ 
 diff --git a/tools/objtool/check.c b/tools/objtool/check.c
-index 52630519bdbf2..94beedcdb49bb 100644
+index e6d33e57b7b33..cfd2d16cd5041 100644
 --- a/tools/objtool/check.c
 +++ b/tools/objtool/check.c
-@@ -409,6 +409,31 @@ static int read_noreturns(struct objtool_file *file)
- 	return 0;
+@@ -224,6 +224,22 @@ static bool might_return(struct objtool_file *file, struct symbol *func)
+ 	return false;
  }
  
-+static void read_annotate_noreturn(struct objtool_file *file)
++static bool is_noreturn_candidate(struct objtool_file *file, struct symbol *func)
 +{
-+	struct section *sec;
++	struct instruction *insn;
++
++	if (!is_func_sym(func) || is_undef_sym(func) ||
++	    is_prefix_func(func) || func->embedded_insn ||
++	    func != func->alias->pfunc)
++		return false;
++
++	insn = find_insn(file, func->sec, func->offset);
++	if (!insn || insn_func(insn) != func)
++		return false;
++
++	return true;
++}
++
+ static void detect_noreturns(struct objtool_file *file)
+ {
+ 	struct symbol *func, *dest;
+@@ -232,15 +248,7 @@ static void detect_noreturns(struct objtool_file *file)
+ 
+ 	/* Mark all functions guilty until proven innocent */
+ 	for_each_sym(file->elf, func) {
+-
+-		/* Aliases and cold subfunctions inherit the parent's verdict */
+-		if (!is_func_sym(func) || is_undef_sym(func) ||
+-		    is_prefix_func(func) || func->embedded_insn ||
+-		    func != func->alias->pfunc)
+-			continue;
+-
+-		insn = find_insn(file, func->sec, func->offset);
+-		if (!insn || insn_func(insn) != func)
++		if (!is_noreturn_candidate(file, func))
+ 			continue;
+ 
+ 		func->_noreturn = 1;
+@@ -410,9 +418,38 @@ static void read_annotate_noreturn(struct objtool_file *file)
+ 
+ 		if (is_undef_sym(func))
+ 			func->_noreturn = 1;
++
++		func->annotate_noreturn = 1;
+ 	}
+ }
+ 
++static int validate_noreturns(struct objtool_file *file)
++{
 +	struct symbol *func;
-+	unsigned long off;
-+	const char *name;
++	int warnings = 0;
 +
-+	sec = find_section_by_name(file->elf, ".discard.annotate_noreturn");
-+	if (!sec || !sec->data)
-+		return;
-+
-+	for (off = 0; off < sec_size(sec); off += strlen(name) + 1) {
-+		name = sec->data->d_buf + off;
-+		if (!*name)
++	for_each_sym(file->elf, func) {
++		if (!is_noreturn_candidate(file, func))
 +			continue;
 +
-+		func = find_global_symbol_by_name(file->elf, name);
-+		if (!func)
-+			continue;
++		if (opts.module && is_noreturn(func) && func->exported &&
++		    !func->annotate_noreturn) {
++			WARN("%s() is exported and noreturn, its declaration needs __noreturn and ANNOTATE_EXPORTED_NORETURN()",
++			     func->name);
++			warnings++;
++		}
 +
-+		if (is_undef_sym(func))
-+			func->_noreturn = 1;
++		if (func->annotate_noreturn && !func->ignore_noreturn &&
++		    !is_noreturn(func)) {
++			WARN("%s() has ANNOTATE_EXPORTED_NORETURN() but returns",
++			     func->name);
++			warnings++;
++		}
 +	}
++
++	return warnings;
 +}
 +
  static void init_cfi_state(struct cfi_state *cfi)
  {
  	int i;
-@@ -4983,6 +5008,8 @@ int check(struct objtool_file *file)
- 			goto out;
- 	}
+@@ -5004,8 +5041,10 @@ int check(struct objtool_file *file)
  
-+	read_annotate_noreturn(file);
-+
- 	ret = decode_file(file);
- 	if (ret)
- 		goto out;
-diff --git a/tools/objtool/klp-diff.c b/tools/objtool/klp-diff.c
-index 34da55e456097..8a30bf7d1eaf9 100644
---- a/tools/objtool/klp-diff.c
-+++ b/tools/objtool/klp-diff.c
-@@ -360,6 +360,7 @@ static bool is_special_section(struct section *sec)
+ 		w += validate_functions(file);
+ 		w += validate_unwind_hints(file, NULL);
+-		if (!w)
++		if (!w) {
+ 			w += validate_reachable_instructions(file);
++			w += validate_noreturns(file);
++		}
  
- 	static const char * const non_special_discards[] = {
- 		".discard.addressable",
-+		".discard.annotate_noreturn",
- 		".discard.sym_checksum",
- 	};
+ 		warnings += w;
  
-@@ -2216,6 +2217,34 @@ static int copy_import_ns(struct elfs *e)
- 	return 0;
- }
- 
-+/*
-+ * ANNOTATE_EXPORTED_NORETURN() annotations reference their functions by name
-+ * rather than by relocation, so individual entries can't be extracted.  Copy
-+ * the (tiny) section as-is.
-+ */
-+static int copy_annotate_noreturn(struct elfs *e)
-+{
-+	struct section *patched_sec, *out_sec;
-+
-+	patched_sec = find_section_by_name(e->patched, ".discard.annotate_noreturn");
-+	if (!patched_sec || !patched_sec->data || !sec_size(patched_sec))
-+		return 0;
-+
-+	out_sec = elf_create_section(e->out, patched_sec->name, 0,
-+				     patched_sec->sh.sh_entsize,
-+				     patched_sec->sh.sh_type,
-+				     patched_sec->sh.sh_addralign,
-+				     patched_sec->sh.sh_flags);
-+	if (!out_sec)
-+		return -1;
-+
-+	if (!elf_add_data(e->out, out_sec, patched_sec->data->d_buf,
-+			  sec_size(patched_sec)))
-+		return -1;
-+
-+	return 0;
-+}
-+
- int cmd_klp_diff(int argc, const char **argv)
- {
- 	struct elfs e = {0};
-@@ -2287,6 +2316,9 @@ int cmd_klp_diff(int argc, const char **argv)
- 	if (copy_import_ns(&e))
- 		return -1;
- 
-+	if (copy_annotate_noreturn(&e))
-+		return -1;
-+
- 	if  (elf_write(e.out))
- 		return -1;
- 
+diff --git a/tools/objtool/include/objtool/elf.h b/tools/objtool/include/objtool/elf.h
+index adf6e1322c6df..e79cdabf09c26 100644
+--- a/tools/objtool/include/objtool/elf.h
++++ b/tools/objtool/include/objtool/elf.h
+@@ -100,6 +100,7 @@ struct symbol {
+ 	u8 fake		     : 1;
+ 	u8 _noreturn         : 1;
+ 	u8 ignore_noreturn   : 1;
++	u8 annotate_noreturn : 1;
+ 	u8 exported          : 1;
+ 	struct list_head pv_target;
+ 	struct reloc *relocs;
 -- 
 2.55.0
 
