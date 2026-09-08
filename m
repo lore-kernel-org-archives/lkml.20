@@ -1,229 +1,208 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 094C153CA96;
-	Tue,  8 Sep 2026 14:12:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=192.198.163.7
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788876783; cv=fail; b=WwVa6XLTXrPjZBH+3shfpy8cVpeEVG1/fElLgvg8HovX3kGhAsh/Y3e4u2UeUKE2Zmz0cTYMrud3yaQtxiM9L7dDj+TJCWigbzt1AjPbHTlD2BIjUqNznygCWvoqmpAWoRDy51RmQb8BwKU293pyI1+cyaHqKBDfa0RKOJDnUvE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788876783; c=relaxed/simple;
-	bh=1uzyffcN20gO2Ka8sEh7yJ6k4UcMeWvfi77g8XFaD9Y=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=Du6L6cX0sShfcOc0wgFJtM9h+PO/1+hd1NzurzlJ0mwcXqqpsnOuz1EzviU9nLwCbLAw9Om+8K+z0gUnbgHhiQ2PrXDbdEu+TPEc5x7Y9gAcmdiLqVlgy2Y5TNOqQCON3rz64ZOW2XB/7YmXPSaNkbcK0sSQ3igjTN/ypQYLhQw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=AYFcdO48; arc=fail smtp.client-ip=192.198.163.7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C459E556B92
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 14:13:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.52
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788876813; cv=none; b=IvPZK1j6RBADqYjbTZHqvjoGUHlSqPFa425csUcjycBuXx4CS7lrTtAobZGgnu4xEDZJ8qPMTkwC/vxqhjsoaaik0tdSKugv9HtPr/PpbVUamTZn16g0359OzQU7IRENpRg4eCCGfQu6EvKUFwWu8PX2ocnVHejOID4tsEI8PvE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788876813; c=relaxed/simple;
+	bh=pC6jcGOtItS2e12mvg6Rf1hkiJ5TikWx8vGxQaaWnjY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=aylGTU+gKOW0aFbXI6GZ/VSYbFCVifn+WFeU9F5Oat4Z57zeVUZ+MEphOxqr0pRAyTZvwci+2epxkaVVUR2m1JLc9yr3SvBLVtrKiKdHUlgbEWhKWYR0pSjjn938p4cSVDaXNaWhy7iqYmWnapuDRjqzhgxBWfClWpfF7NNYmk8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=BOs0MWjZ; arc=none smtp.client-ip=209.85.221.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="AYFcdO48"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788876774; x=1820412774;
-  h=from:to:cc:subject:date:message-id:references:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=1uzyffcN20gO2Ka8sEh7yJ6k4UcMeWvfi77g8XFaD9Y=;
-  b=AYFcdO48ICDqvALkI7nsnJRZ2f+2oByypkcxh4sfhX603CfQ5cpsg0x3
-   xQxnuGVHzDxRRXNipAsKGZ9KyIerCjSZcYnYN9spK4uiii0jmHOAD8qtq
-   Tb9KVkYWgNcIgOGzNLKRl5tETKFuh8wsKc3Ho+WNP7Ry53BM1fUQHt5EQ
-   kuaR0PlvRHxXixxbBMqJjwIy0TjoSiaefg8doCvunlKLBtLS/Vvyb5qyT
-   WidD/BxIsmJNUrVizhKZQrU4noRaOonNogCPyQr9KGIHahMrYCbpslUsT
-   V8lOZ10MJvOFQn3fxFOPaOu5/d1RVd1nM/wSYey7mNkrZTjDpEtjC7qEP
-   g==;
-X-CSE-ConnectionGUID: FtHuHxYITAedaMFp57St9A==
-X-CSE-MsgGUID: Hm2P0uFoRqax7ZYKmXXYqw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11899"; a="114819166"
-X-IronPort-AV: E=Sophos;i="6.25,269,1779174000"; 
-   d="scan'208";a="114819166"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
-  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Sep 2026 07:12:48 -0700
-X-CSE-ConnectionGUID: eafy/Fp+T5aAjFcOPKr3eA==
-X-CSE-MsgGUID: P2rlGcEBRGGK/Mh0toVPmw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,269,1779174000"; 
-   d="scan'208";a="300895720"
-Received: from fmsmsx902.amr.corp.intel.com ([10.18.126.91])
-  by orviesa002.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Sep 2026 07:12:49 -0700
-Received: from FMSMSX903.amr.corp.intel.com (10.18.126.92) by
- fmsmsx902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Tue, 8 Sep 2026 07:12:48 -0700
-Received: from fmsedg903.ED.cps.intel.com (10.1.192.145) by
- FMSMSX903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46 via Frontend Transport; Tue, 8 Sep 2026 07:12:48 -0700
-Received: from CY3PR05CU001.outbound.protection.outlook.com (40.93.201.66) by
- edgegateway.intel.com (192.55.55.83) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Tue, 8 Sep 2026 07:12:48 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=BjkYYQVbGYl26x1dOmF/Gbp8JRmO2/RFtqLGEbUSr4hN+aizngtfdJjkt2CLeaBheajGgcCHvL++3gNZN//dLiiPskkF/el4hgoaKx0PEXd9C3Hb1tXfUktiVQ648PuuxrtDGDF2BIJdG5CsDykL+/tyA91vyl2lRAOH6OQBuyHYKS7txtp+95iOVBLTm0moQXMxuTerra/L0Wcsw+wH23RLPUfWKeF7IA8jSZEjGs+Krfl0fmUje3KBJ94wWQNxlv5vRbIXqTUe+39YulquNrZHDgwhEHQO8gbLOCRaVWpxfN4fLtLwlpwzMI59Zmsm9wWr2jB71JWhNaX/aK9ewg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=1uzyffcN20gO2Ka8sEh7yJ6k4UcMeWvfi77g8XFaD9Y=;
- b=k/pEWrmXcrhVTKxulVu5Gsow4p31lK/Cdpw11FaMmx2K6nW5Nz6cSLEQNXan4zKumFkGa4gCsAI6VZ5bacuOljkjE7i9OeeeSoJSZk6mZWmWO7ANzTZCOmrBm+3cTDJu9HGAbIKmX0JGjDYckHddotPjGRJDvz1FKStEYx3zwsa2ZKbXwfHMlvA6NArEzR6CanTdzYSNJP/gHBNB8iGnph0uBqk1nO2Rx9rMOXxTGRgep9+drKhliw+dKtwIegB0deEI87oWU8pIEFMRJ5IdaJy1ikxjw0zafO0G0DZWOZ5b7jdb9akCW+mDOgJvHDmi7ToOcbWsfr8it+ZGx93UXQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Received: from PH0PR11MB7585.namprd11.prod.outlook.com (2603:10b6:510:28f::10)
- by SABPR11MB9964.namprd11.prod.outlook.com (2603:10b6:806:50c::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.7; Tue, 8 Sep 2026
- 14:12:46 +0000
-Received: from PH0PR11MB7585.namprd11.prod.outlook.com
- ([fe80::3e58:d5d:4e05:885e]) by PH0PR11MB7585.namprd11.prod.outlook.com
- ([fe80::3e58:d5d:4e05:885e%5]) with mapi id 15.21.0406.005; Tue, 8 Sep 2026
- 14:12:46 +0000
-From: "K, Kiran" <kiran.k@intel.com>
-To: Sergey Lebedev <lsa.uz@pm.me>, "Vladimir V . Kondratyev"
-	<vladimirkondratyev2@gmail.com>
-CC: Marcel Holtmann <marcel@holtmann.org>, Luiz Augusto von Dentz
-	<luiz.dentz@gmail.com>, Paul Menzel <pmenzel@molgen.mpg.de>, "Devegowda,
- Chandrashekar" <chandrashekar.devegowda@intel.com>, Arnd Bergmann
-	<arnd@arndb.de>, "linux-bluetooth@vger.kernel.org"
-	<linux-bluetooth@vger.kernel.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "Chambarakatta, Mahalingeshwara"
-	<mahalingeshwara.chambarakatta@intel.com>, Ravindra <ravindra@intel.com>
-Subject: RE: [PATCH v4] Bluetooth: btintel_pcie: fix stale cache in
- set_dxstate fallback check
-Thread-Topic: [PATCH v4] Bluetooth: btintel_pcie: fix stale cache in
- set_dxstate fallback check
-Thread-Index: AQHdO9myqLo6hTx4wUixuKiu0Ims/7a9RCsAgAd6D0A=
-Date: Tue, 8 Sep 2026 14:12:46 +0000
-Message-ID: <PH0PR11MB75859CA0BF3BFECE89D32FA9F5B12@PH0PR11MB7585.namprd11.prod.outlook.com>
-References: <20260507203426.128975-1-vladimirkondratyev2@gmail.com>
- <20260903192245.135310-2-vladimirkondratyev2@gmail.com>
- <20260903195342.78248-1-lsa.uz@pm.me>
-In-Reply-To: <20260903195342.78248-1-lsa.uz@pm.me>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PH0PR11MB7585:EE_|SABPR11MB9964:EE_
-x-ms-office365-filtering-correlation-id: 07c6c464-d78b-4428-43e1-08df0db341a2
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230040|366016|376014|23010399003|1800799024|18002099003|22082099003|38070700021|56012099006|4143699003|5023799004|11063799006|10067099003;
-x-microsoft-antispam-message-info: puFVPVJ6/9Eecb3IKr6+8d95P++waeALNQbRjVGP5xhvAczjx8i3k8Lm3/a52pr9E3kNC8VwYRDbuwyfGPXhUU1lledxDKF2d5mjrhUw7XxI8cYasYzhCs5TXdchW7WIf8u//ArPhnSPecMHzKGx1fhj9B3KPl7oeDQpymBB2y/CSAJRtiRgsw3z0IdDJ3Oljojc/suyumRyeHEVmHzwagXVRSJhquPtMVyfSC7vSoLHfGa80XP2qkzlh6qkFNxDCY+SpjsthgFJ00kEDo8DkY7feAkP9dXiyiRbrt76nQs6jiC+QannrWz+ROTVNY+V2o7L11lqvuSzUwz2pBxqGOPhFM9hN1yfG9K1GN9eDcLtaA3EczqrePOCU/TdNPa5PZpTu0q5z3AQUe+szCrFxjFzemkB2c5Ad5RUkmJVyMFH7V32TU3VBf7dlPIQUkRoTsye14BwBawuWijhvCYsibCvxMygLEUwYh6odr2wg6WV5DuqyNABpYy2DU74BV42S+mxcw6Hi+6ImkLALmarO8HFfJ7ESX2PHwOWUSUYuCRpO6n6gUBb/mXuQPvP3zVpXM+EZZN+dKKycm2IvM+V44rb/FJ4AoNAgBsj9qaMETZDvBBlX/k7/GCutP5e9d+MSfa/WkZ+CjYauguTySjopEsbRcgk0nA0XemkOgmk1Lv+jtZZ5gOxh001yEdL0klruXriAsnbr7IcGwTQk6NAgZU72hYNnwhKdz/haFfjW6k=
-x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR11MB7585.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(23010399003)(1800799024)(18002099003)(22082099003)(38070700021)(56012099006)(4143699003)(5023799004)(11063799006)(10067099003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?cEtTeHB4RGxsRDlHWHVJSmVFZzk4TzlIUm1PQzVOWG12US9WcE96cHlpVGZo?=
- =?utf-8?B?dnBMRTFXVHViQ2xDVDdXTG1HNlRYZ1ozUmhldTQrRENvaUFSMmNjY2xaM0I0?=
- =?utf-8?B?cVpLVnpGdTBaUW1kenRRUElqTFRlTXZjM1BNWmR6UmVnbExzRmo2M3lFNnlS?=
- =?utf-8?B?T2FSL29wd3pSOVJ4L00rUUllRTdtUGIzK2pUMTJaS2xiSVYraWduakQrRU9s?=
- =?utf-8?B?Vmo4M2JwOHEwRld1OTZJZ0VQVmJKanVXZTgzQVJoUXBqQmpXQkl6TXl1TWdX?=
- =?utf-8?B?U2JHcjZiT2kvYTA5bU1EWmlXYW1JQlRvYXRqbThQUnFkWTZveFRwbHdoeEZG?=
- =?utf-8?B?V2NlR2lnUVB5SWZoQzYrdVpFeHZzWGJUYXI5Ylh6YWNmODBYWFYwVW9YZmRL?=
- =?utf-8?B?MkQvTnkyTVdydUZqVjhVcW02THhNWDM5TE5RWjJCOGs0SCt4cHM3V1IzV2Zx?=
- =?utf-8?B?L3BZeEZtaHR1RkM1ekptTFkwdmsrbkdobmRsbjZ3azNXWnBUSSs3Q0JhVXY0?=
- =?utf-8?B?YVpjNTA1ZmJxUWtOaFFGdE1GR3FJUTA3UnFZRmJGRXQ3VGFYdDdzbFZTcmgx?=
- =?utf-8?B?TlV6S0YzNGYrVFBXd3E5bUVEUVpzOHJ5cFVvZXRwL203Znh4a0Jqc2RtNVpa?=
- =?utf-8?B?MWtoV2RpMEFhTTJpd2RyNDNydjZ5bDF1MHBWbnFRQTNkQjF4OVM3ZkF0bUVH?=
- =?utf-8?B?ODRKeGxiRmhydk9YQXNIWnRQMUE5dm1zSU5UYXNYQzk0SlRxa29kRFZoanc1?=
- =?utf-8?B?dHJ3V0RZcnd0ZW11eGtaWGIxYzFrK3ZSaXk4OTVZUmJqSkd5cFpQV29VcG55?=
- =?utf-8?B?VXkrb1VrVThwUi91QXovbGZGTUVYR0w0cnFiNmNmbXU4bjZlVzhlOEsvWUxi?=
- =?utf-8?B?M0ZUYWU1dTNZZWhTYVVnQnFtU0tLRU4vaW8zbUdmcGppa3BjWmRyRUE4Ykg4?=
- =?utf-8?B?a2p6bVg5cVFKZGF2VUNWRTdrUEVrMWRiYWh4YkNGYjhST3h4L1Q5eFdlbERY?=
- =?utf-8?B?YWs1T0xGalJlbFUvQWw5Q0pSbGdJT2lEZWl5ZnJpWGxzVTRTTFgwdWRodm9r?=
- =?utf-8?B?eHhXbWFyWFdTR2VtVWEvR1FPVkVvcEFFTklMMnlKVlc5ZHU3NE1ML1RrUmxy?=
- =?utf-8?B?aDJ3eitaSmVZVkh0VnFKUis1S25jQzFVci9hMjY3d1R2QTk1bWVFUVlWcjVV?=
- =?utf-8?B?QWRmRnFBZWJnamF6SEd1ZWR2WTU0RFVvZEUwelc0NVFhSm1CaFU5aWRKVURR?=
- =?utf-8?B?L3hxVXJDMGs0MUxRTkJEQ1lKOHkyWm4vaHRicTZ2Mk4yZ09LZ1lHanE5MkpS?=
- =?utf-8?B?aGRBRUwwOWR2ZVRlOHVHanhvZ2tFUUw4TDFHU2kzR2I0TTlrZDF2VVNEcVFy?=
- =?utf-8?B?bzZCOUdPWktrQitDN3VNM0grYUh2OWxEVW1CWnBXNjFrOHZ1RVNFa0FLTXc2?=
- =?utf-8?B?THZLaDBySWtyckJwMDNxQkRXbVhwMHE5SlRGUy9kRGtjaHdFblg2T1Jka2FL?=
- =?utf-8?B?dWp6Z25EM2tLelc4ZXUyWVN6bzJ5c2RsWWpId3JCbTZOTCt5RkpYUVVmeW5B?=
- =?utf-8?B?SDFXN1BKMStZUVhjeGxUM0Q4NjV1emdWNVNlM1N0MGo1MUozbjdXV1A5dm1B?=
- =?utf-8?B?MzUxMmJ5Q1VyUmNETWpyY2RMbkVqcTZES1RrazUwdFlGR0VObE9FQkQyNzg5?=
- =?utf-8?B?WlhOQ1BnWHBTdTdabFBNZWZCckh6V0pkbnprSW5lY0c0SWhMOEtwUHprYVl3?=
- =?utf-8?B?WG50UTdpU2hxdnk5ZFlldXlrQzU0QithQlFTUGJ3UWF3QnJKU1h0dlNKOW96?=
- =?utf-8?B?SUIvMFYyYTE0bHVWa1JsbmtnYVU3SkYyQzVTRnh4ZlYzRkNMd2RYcjU2RnVM?=
- =?utf-8?B?K1lBT1BUWFNoN2NPdGJvMDRNZ1RuVzlQRmZ4cFY2Y0h6RDM5WXY4V3hZRnNw?=
- =?utf-8?B?WC9VRm13cTQyY3JOamkzRW1iRW9ycjFtcmdJYXU5MlV4QzlYZVV4TERFQXY2?=
- =?utf-8?B?SDlLbVRPTUlVU0VMWGVqZDJCK3hRbnpQRXRhMW4zaWVOVlpUUUxPQWRqa1Ez?=
- =?utf-8?B?SEk1QUcyY21DWUUwWlNWUy9HNEJTM3hMQkl6aTYrbmR1SkJEUmhpbGI4OUo1?=
- =?utf-8?B?QlpMOGhRdzkzUkRrSnQ0cHQyeHU4MENlcHB1cVdIMU5wN3VtQ1d5cTRnOS9F?=
- =?utf-8?B?MFVHcUdlTnlhZ3I3bWVmZnZQNlZBWU5VRWl6L2RTczVXZk9YMk9GKzRKckpm?=
- =?utf-8?B?YXd3RzlLcERRWlZiNmZSMXN2eU5KL0xSNTVydE9xUGMwdEl0MlFKTk1yU0Zo?=
- =?utf-8?Q?732GzgevcIylRXupbp?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="BOs0MWjZ"
+Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-4858be8b509so2091756f8f.0
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 07:13:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1788876793; x=1789481593; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=3L5oRWmTUO6yAxQOWYcTnXegO65U7Igw+Adee2Oy+KQ=;
+        b=BOs0MWjZyCSQnaxc8tKqRuXPfuGP+iYYdD/CqQya0kp/tF2dl7CbRxON1DB4/YZzE8
+         6JUKvrvchaz6Z05USmNp710FiKTZUOUSGnMq7OypAr08dkKhDksSF9dwav+sp887xtBF
+         5WlFoDLXU/tniYPwY1dvJ8b/b4E3MwIkGkuXK4tLuy8rSlUBlg1wnH/NqluFb724qgDE
+         l9XiwmO1hFfA9bg7ulNKqbbF02DzNatEJzxAyOtPQcpG2mejMvf/gkL/vJzn0oYmfQOj
+         VQZHcLxH8HPD1S5wkne9p4c3iHtvB3+IHpPNiH98CtPXpAuI1yKRtWPtBy/tY73TrmvX
+         +SMA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788876793; x=1789481593;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=3L5oRWmTUO6yAxQOWYcTnXegO65U7Igw+Adee2Oy+KQ=;
+        b=g7AHXohKZVvHTl7oZtGrfNVvs/VdLlEKaaPFgVs1jaTJ60HQvaVfSrOW+u6oSdv5J+
+         VBcQ6nhhq8vCgwGnC4lUDaaMDW0iDz7iJWOXUlsLB5lH2XpuD828aqbEpCYT1MRNP62E
+         9S1SaHmcmHZpVCYnQUsCCMQTURDvqnFwfaqSCUGgjPIUazfR2kePDYSBrwkQAb8iYpRC
+         wwis6fGeXXkxJlrMvvoAFVp9Ndx7QBpzRzoP33F+dkPlN+9/I8QzIJHy0dUtrjYixt3W
+         WdNbJhmmt5QZYsRp/JGH5b0Wm1exVCxpTUAduNvRlSgqTnw+Inc3+rvMIjTVjAp0Rgzn
+         k/yQ==
+X-Forwarded-Encrypted: i=1; AKwUvByvzGoNygaZJNWMvfXQaP+teV2vhPVjdITK20xJhCC/wnh0e9WLkpVMuFELnfuHH+tHgor9KTPSVFepHD0=@vger.kernel.org
+X-Gm-Message-State: AFuF++m6Ye7c50bYaHoqdcaNQB+Pvd3+bRNLKZjJ1qeqqf0ktO0BND2Y
+	JVyCxeG7QoOaZ984pnCy5ABRZ5YBPSLSTLtoJHwtJXmtQK+7w2lD7HP1xx+/r1Jsi9I=
+X-Gm-Gg: AYBFou1plVdQvuK0Y9gCIFanepaIFpsBHvWv/o8pdHsTvCAtAbSYbyYe5ewwwWkEjpi
+	q8bjVm02IFXbo77jxVEJVqSiNFv6u/m9Fsi9MHMzbl2PYyd9NuzXtFbbEF32aKF4+bckRaxEDNk
+	x/bFFIQ+eWfSjjP5fYucaw8xDJfo75zhLCKw2zicqx6P0YviKcE2aVMXTm2ZVB0XsBFWLXctbow
+	4V+xgyxkhQQf8lP3wL1CdaBLcZnXYK3xu5xufKGzxxpzyRSWe1cUqh79AsHpANFOiVztbeKOfaC
+	wfkXR3IkxrinLM06gRr/Q1tEmIWw75lRaME5vMvi1yOMdNBw7dZcsy9dvDKY/0SCaY7W6IEt4WO
+	eVAFXbi4d8KlY6cYnL63WvC6rRrgIjs9gq+vNU4DxIepSbhyj4Q3LcsXwYH7fKhLnv9Sd1pvul1
+	3f7gYusyF5Fvu9DjSSUBkBfLIIM55ERhRj3uKV/qYxLWAllnLZOMcWl8fTyQkJ7io=
+X-Received: by 2002:a05:6000:98a:b0:484:3311:af37 with SMTP id ffacd0b85a97d-48587298f26mr32655977f8f.26.1788876793275;
+        Tue, 08 Sep 2026 07:13:13 -0700 (PDT)
+Received: from localhost.localdomain ([2001:af0:8000:1409:193:86:92:181])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4858ac2b4cdsm35144071f8f.16.2026.09.08.07.13.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 08 Sep 2026 07:13:12 -0700 (PDT)
+Date: Tue, 8 Sep 2026 16:13:11 +0200
+From: Michal =?utf-8?Q?Koutn=C3=BD?= <mkoutny@suse.com>
+To: Junnan Zhang <zhangjn_dev@163.com>
+Cc: cgroups@vger.kernel.org, hannes@cmpxchg.org, 
+	linux-kernel@vger.kernel.org, sunshx@chinatelecom.cn, tj@kernel.org, zhangjn11@chinatelecom.cn
+Subject: Re: [PATCH v3] cgroup: avoid flushing global workqueue in
+ cgroup1_pidlist_destroy_all
+Message-ID: <ap_3u9i1n8mQrObY@localhost.localdomain>
+References: <apU1sXYP_QhsQFcB@localhost.localdomain>
+ <20260901033923.40420-1-zhangjn_dev@163.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked: G5lyGZPvpPCfa6XUGcwmBJ3ydEMQ2X9ubDzHd0A16Z27ab89x5g0OQeLubhaWzrDBHUVnRvJvbt71FPGXh0nV2l/hkb7tCAbRi6peNOrNfq2sGvS7VeYiPvIrCONVQW/v5lpzCq/t3yfd/PwTTdbu7GUXT+KaI7+mvUXKIYgYU+x+TfcOGg8C33NrIsCnL7Cjc8JMlFTvE9cuAwlmhrWJnYAUlpLViUV0ZaI+Ji6IXPB0HboEvvnAjnaG9w1Eqb2/atnI/aetagFdT9H3j0ZisfncrvQlYQekhEFU7vV8MfxR4sV0RfuXdo9vPWnMs2Ojbg3SOFjLgk4nSldm1uJBA==
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PH0PR11MB7585.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 07c6c464-d78b-4428-43e1-08df0db341a2
-X-MS-Exchange-CrossTenant-originalarrivaltime: 08 Sep 2026 14:12:46.0964
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: G1npb+8f+r2+nhF6wHy4Nbqd/eUwc9TiZYdf/qnjWxQitpOwYjsGz3UuzkSTa5Ojt4gqsTll3E+gFvJLN16XSA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SABPR11MB9964
-X-OriginatorOrg: intel.com
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="i6d4qd4oqwkj5vkb"
+Content-Disposition: inline
+In-Reply-To: <20260901033923.40420-1-zhangjn_dev@163.com>
 
-K01haGFsaW5nZXNod2FyYSwgUmF2aW5kcmENCg0KSGkgU2VyZ2V5LA0KDQpUaGFua3MgYSBsb3Qg
-Zm9yIHlvdXIgdGhvcm91Z2ggdGVzdGluZywgZGV0YWlsZWQgYW5hbHlzaXMsIGFuZCBpbnNpZ2h0
-ZnVsDQptZWFzdXJlbWVudCBkYXRhLiBZb3VyIFRlc3RlZC1ieSBmb3IgdjQgaXMgbXVjaCBhcHBy
-ZWNpYXRlZC4NCg0KR29vZCBjYXRjaCBvbiBQT0xMX0lOVEVSVkFMX1VTIGluIGJ0aW50ZWxfcGNp
-ZS5oLiBDdXJyZW50bHksIHdhaXRpbmcgZm9yIHRoZQ0KYWxpdmUgaW50ZXJydXB0IGlzIHRoZSBm
-bG93IGRlZmluZWQgZm9yIGFsbCBJbnRlbCBCbHVldG9vdGggUENJZSBwcm9kdWN0cywgYXMNCmlu
-dGVycnVwdC1kcml2ZW4gbm90aWZpY2F0aW9ucyBhcmUgZGVzaWduZWQgdG8gYXZvaWQgYWN0aXZl
-IHBvbGxpbmcgb24gdGhlDQpQQ0llIGJ1cyBkdXJpbmcgc3RhdGUgdHJhbnNpdGlvbnMuDQoNCldl
-IHdpbGwgZGlzY3VzcyB5b3VyIG9ic2VydmF0aW9ucyBhbmQgZGF0YSBpbnRlcm5hbGx5IHdpdGgg
-b3VyIFN5c3RlbXMgdGVhbSB0bw0KZXZhbHVhdGUgaWYgYW55IGFkanVzdG1lbnRzIGNhbiBiZSBh
-cHByb3ZlZCBmb3IgZnV0dXJlIGVuaGFuY2VtZW50cy4NCg0KVGhhbmtzIGFnYWluLA0KS2lyYW4N
-Cg0KPlN1YmplY3Q6IFJlOiBbUEFUQ0ggdjRdIEJsdWV0b290aDogYnRpbnRlbF9wY2llOiBmaXgg
-c3RhbGUgY2FjaGUgaW4gc2V0X2R4c3RhdGUNCj5mYWxsYmFjayBjaGVjaw0KPg0KPlZsYWRpbWly
-LCBQYXVsLCBDaGFuZHJhc2hla2FyLCBLaXJhbiwNCj4NCj5Ob3RoaW5nIGhlcmUgYXNrcyBmb3Ig
-YSBjaGFuZ2UgdG8gdjQg4oCUIGl0IGlzIHJpZ2h0IGFuZCBteSBUZXN0ZWQtYnkgc3RhbmRzLiBU
-aGlzDQo+aXMgdGhlIG1lYXN1cmVtZW50IGJlaGluZCBhIHF1ZXN0aW9uIEkgcHV0IHRvIHRoZSBs
-aXN0IG9uIDIwMjYtMDktMDIgYW5kDQo+Y291bGQgbm90IHN1cHBvcnQgd2l0aCBudW1iZXJzIGF0
-IHRoZSB0aW1lLg0KPg0KPlRoZSBxdWVzdGlvbiB3YXMgd2hldGhlciBCVElOVEVMX1BDSUVfQ1NS
-X0JPT1RfU1RBR0VfUkVHIHNob3VsZCBiZQ0KPnBvbGxlZCBmb3IgdGhlIHRhcmdldCBELXN0YXRl
-LCB3aXRoIHRoZSBhbGl2ZSBpbnRlcnJ1cHQgZGVtb3RlZCB0byBhbiBlYXJseSBleGl0LA0KPnJh
-dGhlciB0aGFuIHRoZSBvdGhlciB3YXkgcm91bmQuIFNvIEkgdGltZWQgYm90aCBhZ2FpbnN0IHRo
-ZSBzYW1lIHplcm8g4oCUIHRoZQ0KPndyaXRlIGluDQo+YnRpbnRlbF9wY2llX3dyX3NsZWVwX2Nu
-dHJsKCkg4oCUIG9uIFN1cmZhY2UgUHJvIDExIChMdW5hciBMYWtlKSwgSW50ZWwgQkUyMDEsDQo+
-ODA4NjphODc2IHJldiAxMCwga2VybmVsIDcuMC4wLTMwLCBzMmlkbGUuIEEgbWVhc3VyZW1lbnQg
-YnVpbGQgcG9sbHMgdGhlDQo+cmVnaXN0ZXIgZXZlcnkgMTAwIHVzIGFuZCByZWNvcmRzIHdoZW4g
-Yml0IDI0IHJlYWNoZXMgdGhlIHRhcmdldCBhbmQgd2hlbg0KPmdwMF9yZWNlaXZlZCBiZWNvbWVz
-IHRydWUuIEZvdXIgc3VzcGVuZC9yZXN1bWUgY3ljbGVzLCBlaWdodCB0cmFuc2l0aW9uczoNCj4N
-Cj4gIGR4c3RhdGUgIHJlZ2lzdGVyICh1cykgICAgICAgICAgICAgIGludGVycnVwdCAodXMpDQo+
-ICBEMyAgICAgICAxNTE3ICAxMDI3ICAxMDg1ICAxMTExICAgICAxNjcwICAxMTcxICAxMDg1ICAx
-MTEyDQo+ICBEMCAgICAgICAxNjMwICAxNTIxICAxNjc2ICAxNzAxICAgICAxNjMwICAxNjQ2ICAx
-Njc2ICAxNzAxDQo+DQo+VGhlIHJlZ2lzdGVyIHJlYWNoZXMgdGhlIHRhcmdldCBzdGF0ZSBpbiAq
-KjEuMCB0byAxLjcgbXMqKiBhbmQgaXMgKipuZXZlciBsYXRlcg0KPnRoYW4gdGhlIGludGVycnVw
-dCoqLiBJbiBmb3VyIG9mIHRoZSBlaWdodCBpdCBpcyB0aGUgc2FtZSAxMDAgdXMgc2FtcGxlOyBp
-biB0d28gaXQNCj5sZWFkcyBieSAxMjUgYW5kIDE1MyB1cy4gQWdhaW5zdCB0aGF0LCB0aGUgY3Vy
-cmVudCBwYXRoIGJ1ZGdldHMgMjAwIG1zIHBlcg0KPmF0dGVtcHQgYW5kIHRocmVlIGF0dGVtcHRz
-IOKAlCB1cCB0byA2MDAgbXMgcGVyIHRyYW5zaXRpb24sIHR3aWNlIHBlciBzdXNwZW5kDQo+Y3lj
-bGUuDQo+DQo+VGhhdCBpcyB0aGUgd2hvbGUgb2YgbXkgY2FzZSwgYW5kIGl0cyBsaW1pdHMgYXJl
-IHdvcnRoIHN0YXRpbmcgcGxhaW5seS4gT25lDQo+bWFjaGluZSwgb25lIGNvbnRyb2xsZXIsIG9u
-ZSBmaXJtd2FyZS4gVGhlIHBvbGwgaXRzZWxmIGlzIFBDSWUgdHJhZmZpYyBhbmQgY291bGQNCj5i
-ZSBwZXJ0dXJiaW5nIHdoYXQgaXQgbWVhc3VyZXMsIHRob3VnaCBpdCB3b3VsZCBoYXZlIHRvIGJl
-IHBlcnR1cmJpbmcgaXQgaW4gdGhlDQo+ZGlyZWN0aW9uIHRoYXQgZmxhdHRlcnMgdGhlIHJlZ2lz
-dGVyLiBBbmQgYSBzZXR0bGUgdGltZSBpcyBub3QgYSBndWFyYW50ZWU6IGFuDQo+aW50ZXJydXB0
-IGV4aXN0cyBwYXJ0bHkgc28gdGhlIGRyaXZlciBuZWVkIG5vdCBhc3N1bWUgYSBib3VuZC4NCj4N
-Cj5CdXQgaWYgdGhlIGJvdW5kIGhvbGRzIG9uIEludGVsJ3Mgb3duIGhhcmR3YXJlLCBwb2xsaW5n
-IHdvdWxkIGRlbGV0ZSB0aGUgc3RhbGUtDQo+Y2FjaGUgY2xhc3Mgb2YgYnVnIHJhdGhlciB0aGFu
-IGNhdGNoIGl0LCBhbmQgUE9MTF9JTlRFUlZBTF9VUyBpcyBhbHJlYWR5DQo+ZGVjbGFyZWQgaW4g
-YnRpbnRlbF9wY2llLmggYW5kIHVudXNlZC4NCj4NCj5JIGhhdmUgbm90IHdyaXR0ZW4gdGhhdCBw
-YXRjaCwgYmVjYXVzZSBpdCBpcyB5b3VyIHN1YnN5c3RlbSBhbmQgbXkgY292ZXJhZ2UgaXMNCj5v
-bmUgbWFjaGluZS4gV2hhdCBJIGRvIGhhdmUgaXMgdGhlIGhhcmR3YXJlLCBhIGZpeHR1cmUgdGhh
-dCBkcm9wcyB0aGUgYWxpdmUNCj5pbnRlcnJ1cHQgb24gZGVtYW5kLCBhbmQgdGhlIHBlci1odW5r
-IG1ldGhvZCBhbHJlYWR5IHVzZWQgaW4gdGhpcyB0aHJlYWQuIFNvDQo+aWYgYW4gUkZDIHdvdWxk
-IGJlIHVzZWZ1bCByYXRoZXIgdGhhbiBub2lzZSwgSSB3aWxsIHdyaXRlIG9uZSBhbmQgcmVwb3J0
-IGl0IHRoZQ0KPnNhbWUgd2F5IOKAlCBtZWFzdXJlZCBwZXIgaHVuaywgd2l0aCB0aGUgZmFpbHVy
-ZSBpbmplY3RlZCBhbmQgd2l0aCBpdCBkaXNhYmxlZC4NCj5JZiB5b3Ugd291bGQgcmF0aGVyIGl0
-IGNhbWUgZnJvbSBzb21lb25lIHdpdGggdGhlIGZ1bGwgcmFuZ2Ugb2YgY29udHJvbGxlcnMsDQo+
-dGhhdCBpcyBhIHBlcmZlY3RseSBnb29kIGFuc3dlciBhbmQgSSB3aWxsIGxlYXZlIGl0IGhlcmUu
-DQo+DQo+U2VyZ2V5DQoNCg==
+
+--i6d4qd4oqwkj5vkb
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v3] cgroup: avoid flushing global workqueue in
+ cgroup1_pidlist_destroy_all
+MIME-Version: 1.0
+
+Hi Junnan.
+
+On Tue, Sep 01, 2026 at 11:39:23AM +0800, Junnan Zhang <zhangjn_dev@163.com=
+> wrote:
+> Thanks for the review.
+>=20
+> > a) a single reader taking more than hung_task_timeout_secs (that'd be
+> >    a softlockup earlier),
+> > b) starvation of cgroup1_pidlist_destroy_all() by many (queued)
+> >    cgroup_pidlist_start() callers which goes against the second-long
+> >    caching of pidlists,
+> > c) there is large number of nr_cgroups * nr_pidnses which makes the
+> >    caching ineffective
+>=20
+> An honest caveat first: this was reported by a customer on a production
+> Kubernetes node. A guest memory dump was taken at the time, but it
+> couldn't be analyzed with crash, so I can't give you the exact
+> nr_cgroups/nr_pidnses.
+>=20
+> That said, I believe c) alone is sufficient, and neither a) nor b) is
+> needed to explain the 120s stall, because the flush latency is
+> backlog x per-work latency rather than the latency of any single work:
+>=20
+> - backlog: flush_workqueue() waits for all works already queued on the
+>   shared wq, which drains serially (WQ_PERCPU, max_active=3D1). Container
+>   churn constantly runs cgroup destruction, and each destroyed cgroup
+>   queues one work per cached (type, ns) pidlist, so the queue ahead of
+>   the flusher grows with churn rate x nr_cgroups.
+
+flush_workqueue() should only block for items present at its invocation
+(not later added). I assume large amount of rmdir's in short succession
+may build up the queue as a one-off event.
+
+>=20
+> - per-work latency: each destroy work must acquire the owner's
+>   pidlist_mutex, contending with readers (kubelet/cadvisor/runtime
+>   scraping cgroup.procs). pidlist_array_load() runs entirely under
+>   that mutex (css_set walk, kvmalloc, sort), so on a node with frequent
+>   scraping each work can sit tens of ms behind a reader.
+
+OK, lets (over)estimate 100ms per pidlist_mutex passthrough, that gives
+lower bound of some 1200 cgroups removed together. (That's a lot but
+borderline still practically possible.)
+
+> A few thousand queued works each delayed by tens of ms already exceed
+> hung_task_timeout_secs -- no single reader needs to hold the mutex for
+> that long (so a) doesn't apply), and each individual work does get the
+> mutex eventually, so it's not sustained starvation either (so b)
+> doesn't apply).
+>=20
+> More on b): the second-long caching only helps readers that re-read
+> within that 1s window (e.g. a single `cat` doing several seq_file
+> iterations). Periodic scrapers like kubelet/cadvisor, with typical
+> intervals of 10-30s, never hit the cache at all: every scrape round
+> rebuilds the pidlist under the mutex and queues an expiry work 1s
+> later.
+
+So one reader produces ~0.1 items/s, with the latency number above
+around 10 items/s should be dispatched. Or ~100 (parallel) scrapers
+should be manageable.
+
+> So heavy reader traffic and the existence of the cache are not
+> in conflict -- the cache is simply ineffective for this access
+> pattern. It also means the wq steadily carries ~nr_cgroups expiry
+> works per scrape round, on top of the works queued by churn, which is
+> what the flusher ends up waiting behind.
+
+I understand that an abprubt removal of thousands of cgroups may stress
+the pidlist_destroy workqueue.
+
+> On nr_pidnses specifically: containers typically share the pod/host
+> pid namespace, so in the common case the multiplier is really
+> nr_cgroups x scraping frequency rather than nr_pidnses. I can't confirm
+> the customer's pidns usage for the same reason as above.
+>=20
+> > OTOH, I'm surprised this v1-issue popped up only now
+>=20
+> cgroup v1 is legacy but still the default on widely deployed enterprise
+> distros, and per-node cgroup density plus metrics scraping frequency
+> have grown a lot in recent years, so the backlog needed to trip this
+> only became common recently.
+
+I remain somewhat reserved whether only the mere density would cause
+thise (as there are other bottlenecks that may start blocking with these
+numbers).
+
+
+> It still serves the normal path: the deferred expiry that makes the
+> pidlist cache work, and process context for freeing. The patch only
+> removes the flush from the cgroup-removal path where, as you noted,
+> the orphan list guarantees the pidlists head won't be used after cgrp
+> removal.
+
+Your patch looks correct to me, although, I'd rather not nurture the
+venerable code at all. And I've never liked pidlists, so I'd like to
+take the opportunity to retire them a bit:
+
+https://github.com/Werkov/linux/commit/8c3d45be95841ede16ceac29d48be59e59ec=
+5a82
+
+Opinions?
+
+Michal
+
+--i6d4qd4oqwkj5vkb
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iJEEABYKADkWIQRCE24Fn/AcRjnLivR+PQLnlNv4CAUCaqAX8xsUgAAAAAAEAA5t
+YW51MiwyLjUrMS4xMiwyLDIACgkQfj0C55Tb+AiCNAEAuH4tNak/UWWRTrr33e1Y
+/LNO4CkrwG5PfwH7cMDM8bEA/R5qVFuVBf/N8JAqUJg5KzBs1LoIvZVOFsWODqGT
+bpQC
+=VMSf
+-----END PGP SIGNATURE-----
+
+--i6d4qd4oqwkj5vkb--
