@@ -1,68 +1,69 @@
 Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A33642AE78
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 16:55:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D4BD58F068
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 16:55:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788886503; cv=none; b=TQ7y4oaBzC9VOqh21s5Lu7sa703TlnNL5nXSBPB6KQYglTZ+SGEkwIiGoONPoPuL8AaqUOs3oedJyyR5S+T/5DOhs8C/wkAyjDZK7clM+29PwEfv5ciAFq5MnwpEVw7ylQ3sEaPGglTzFPxzkA+T9vn5VlammmWWbhZvtG5d8W4=
+	t=1788886507; cv=none; b=cC5ErZE7MwGnU4KlKfGVLWJZogzz1C/qBH8qM3mLAFXgBPhsImWN9hcH8HKYu+UUhrm4+HJU6gc4+zW6R30jWgl/7C/u26OmqWWHzXxgvFB80XGVkLTTXzST2GQxa9lBHjA5kuFPV8DCSSTg0dZjYDMA6xEflehDggyhW9OJjzQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788886503; c=relaxed/simple;
-	bh=FdGYYZBpQ7PuEaN6jp8LzZTWVRnNLNFC19AbILWp6ZQ=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=AEEdUgoe909FskCuhyKmQdhj+1fUS9UtgLVhUDPRoUu03JM9Ih7mVDn6isLBhWlfqLL2lckZv9WvGLzMpBFEv+fBljvbMM6NuMwj7YdoqiCpHr8KMChpcjR8wmUhOGgqEaMFpib2cm3Ixz/3MPuUO9c3b+TzdvoiBOT4bLOs/mE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=hlZbqEhw; arc=none smtp.client-ip=74.125.225.140
+	s=arc-20240116; t=1788886507; c=relaxed/simple;
+	bh=zMSdv79W/28vOlNus87Hr0NP1H4bhJbv+hYzEQlIBho=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=to0ao2YsCtmeIzZ9qqPr++85ejiutlA5e8w6olNmXzEjk6k7SD+9DbcbedrTOc2kk8P2naCKAy9CmqziqmfohYG+/NDhtctMAYaCVkb6YkcA0RtN72TD5OgMPqOxw8QmjlPkSTKkZDqr7Jnn0DdW/juEsM+olbIA6mStTrtSzeE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=h5L5LCUT; arc=none smtp.client-ip=74.125.225.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="hlZbqEhw"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ccf3bc34cso140725e9.0
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 09:55:01 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="h5L5LCUT"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ccf3bc34cso140755e9.0
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 09:55:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788886500; x=1789491300; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=JhNhb6Q9Jz5uQGLykYthIjgwY7eYJQu4K+yL5PdofVg=;
-        b=hlZbqEhwCHC4QquU0M1qqs5hQ6/uQHNeixOLEPs7Z6gfc6ttKHHqqCDzwnt/LsDiEH
-         NFrH1PfS+YLBULDACTU81+v7tyzFn92hRVVorCkfasGCc0Rkh/Vk0ksa+/jjcOb+kThC
-         6d/Ue4tJc8057XfiJbzHMQ1SII9urHzmHsyuLYVowz0zNku6/IObr7Sv8/EuL6deO0IW
-         Y/auj4BGjmCeo79p1r+DBGLUDB6JkJLH2jqSuxEY0GvAMtiM8hj+w2QtO3UGCHtUOqJ0
-         bKSLo2+S0FFsva1VfaETIDdR7tkOwzziTx53FDitzkBGMG1trwWoT6SNcPoYPviIo3qc
-         ggnw==
+        d=google.com; s=20251104; t=1788886503; x=1789491303; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=0RnG64ZBEYmtca9ZKg3SGvzKLOcbOD+eKnvKZpxSN+E=;
+        b=h5L5LCUTJ8+sgQIq8Z+Hs7sTN/aCB2n3BtV7MaOjP0TcXCveZY/T4wQ/fX9j3svQkl
+         e4HVnr2xw3lDkpEjuiffo4rwiFdi1efL/7eyGC5o3K9PRefwK1DEiLiPB3zfHfUhTQvK
+         G92WqWee9eRuZBdoXgotmiDrAjzBhuU/XcpjtbwvAOpu8jkoeUc7Xqls47kbUk4ZEtNn
+         OmhpxTBk2lwB8XEeli96Xo0Htel2ubZSweKNZcIrpPmkQjMQ0SJcb1TLY5MSdRRYqz0/
+         6zq91D7/TlkDFibQEqw7peggqBZ24WRwJZb2rJOyseogTVRhlkQgaeJNchtLJ6AtrsiO
+         5YMg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788886500; x=1789491300;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=JhNhb6Q9Jz5uQGLykYthIjgwY7eYJQu4K+yL5PdofVg=;
-        b=IpdBKxO1kVXe5AZt+mh6GHfsf8Knid2M2jpMOqeftp4Cz9oDmVqSMwr+NV0MSrr2N/
-         NY7pu50lptWrlSyGvdDq+bmUZaee6Ci9HXQkNW5UYZUfcK8TGSJ/a3ipDDCoFlVexzWY
-         MvXMY2AHPa+dsG+JP/MKpie4MeE97VpmBdwlyvi1mIF7ulvEw/XmIJLcGJVx31jryeM4
-         oMasmy7fBJAGvfyTh0YIW9cVVedeSXEwvV5Qw8YxWFH2zwxjMJfpAG3u9X8E6flO1Ra4
-         NS7Q9HQrVCg9heLVGxKlalsM6XJXdKgVa++WV6r3u7uv9AYXIUR5sKsugwn9cRgzSsa7
-         3Wow==
-X-Forwarded-Encrypted: i=1; AKwUvBzKePYWlZhraoKJFgpa9B2awAE9xgH7w2PtDlJmlM1oQOfTGlyrfXEAG/xSf2jASbjwQAJV3NdYkfi1f58=@vger.kernel.org
-X-Gm-Message-State: AFuF++l4Ix19mLGq+5n4iJDmxlqkxkM1O8ZOQ7ZHf/X6PKqVtJPL40P6
-	YHEip4+iAwg0IcEZiEHfQdBBJrv4j+MLqvbcd5SXR0xx7cGLh/ig/FQGKY+eTQL0ZA==
-X-Gm-Gg: AYBFou1sul/uRHBpjhFtVLdQNDJbPeCEFDnn7xg+XiFzoUdGTwJMX2epbKJnhNbYRjb
-	vB10T076aNHGEQFHaRTbAWtVzCaY0cl/SkomCPqZSJBcEd7ag8LhuIoL4JpwyJiIVD+CJnz+agr
-	UT+aE0G4m85uRR6YJ9Bm9ajN8PQ7gbFrYG5TN6KLdV1Y68B4z/mul4QevtkhYAWveIUHuZdhH3S
-	dGg7N8g2zVKtaXh37gQ/mTo8FKYIgMcFoT2+TFSqRHUQWXrz2aSPCXdT7xNTQiGKs9yvgp/EgY+
-	cA9XhroRZGvbuq0LW7RYaVBcIlX+AEwV6x3EmDbUZfbNojxxy8PfajV42ea9RgB4B1kEu0pz4MZ
-	yL7uvrbgbZLumqQSbM2ByTwq+qf62GRecq3JCVS2Vz5yJQKd4rLbaRV54vO5g0/yQNDrwmnPRre
-	yo+gc7xbRCPpKNnttOnY3xQrDO5HzlOza6b6lmJ+56vWzskYtPYXk8bm2H/St1T+9dYmGm60IgK
-	AyjX8PpW7IN4qrXJcBfmxUL/wVtR/J5L8JzhGUY0Xape7WtBoNUQce4cj8=
-X-Received: by 2002:a05:600c:6c4e:b0:49d:3:4a29 with SMTP id 5b1f17b1804b1-49d1f6e324cmr36875e9.7.1788886499257;
-        Tue, 08 Sep 2026 09:54:59 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1788886503; x=1789491303;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=0RnG64ZBEYmtca9ZKg3SGvzKLOcbOD+eKnvKZpxSN+E=;
+        b=cIcTPOXWiIECoZvTy0bS2wzsQGyvSOXK4y7JwA8iGQ4FqE+dNQD8mmrYpBT7oua4G4
+         x/SieBdoPHEDKKzeEGJRv+HjSrNap+RZHpA1D9Zs/YEKzmSu0JueRIXISsPa+jnk+Iw4
+         ecNVcIqz82FzaHV041N7i3CfnjdXWHYxHnB7Lhe5YhOc3xtJwy7PubfSJ2wGoeFaW0l6
+         kSVwpkOmCY/+Mw2Udn5ODvJQV/XemdKp/0ysQUR+nox/54Hsj4VghxZm434eM0cC6FUA
+         jVsyYZ+gc4bMuO8lnBCkpMjTH8DcZwU/xRVRm1XfhSxnSbY4hqvI+5ui92OEtZeX5Lmv
+         3Z9w==
+X-Forwarded-Encrypted: i=1; AKwUvBwOMBQLr2FZmUAsiMtsX3Ym1LmjYEVywLwaAeh2VkRwx357uaMGVvv9fBKaSKTIgdEi2gBZyExIWdABJUg=@vger.kernel.org
+X-Gm-Message-State: AFuF++nZqgVMp5z1+ra3SAnVx+ejD1dPeei96W2V4TwXtXxxV9sFqQSc
+	wVbQ5+ucIsVNQogaAiIQ6blgSWPtKmLvX/eshVmekZjk1jJ2WSKNyDKFWl4qR0499A==
+X-Gm-Gg: AYBFou2CWFv09Tr25ZuneVo8Hem9wQeObD6U2Rd2fPcj7XIBuAha799laVgqBZNn76L
+	NKED48LgeefaYfAEx51WKOc11IxpaC9UZWOJSoWlfNPdwbnFbuIMKZMx+wgIPmP2Eq8mlYoInml
+	rMNoQn7BNX/dw9WPXv3k9b+9+fPpAQOqGkY4VHUQFOyvgCEr4wxpSR6ZhBiIvItlcujADrzQp1w
+	0aPUb1pQ3UZVWDM36C48l9V43WFbZ2DEE4V3ourvOuPk9nkisE2n996100QZ0bNelozpo80oUJe
+	vmqbPCVt51IO7fIeq6qJTVYGIhCncEd3xMmXEs8LWUFnD9mkGIYb6v9XROTHxOG5ylq9WoKKukI
+	PFYhtY9JBE7VfrP8pLVSXsbgwAc4re2wpb7YF+j8Lo61syFuPzdi/BTwy9svxNATs6Jg03uwzBo
+	+Id9aqWJu/GsRGMYKZSS6nXyM0vAgwcjMiUjy/IjKHxAhpwbOACKuY77jzSsNTvMpgUd0ISOvON
+	30i28/GAuCk3eA6XBZfJIzQQ9f6Y2Mz5fU3MX6VP7mYWutw
+X-Received: by 2002:a05:600d:8498:20b0:49b:c90:e1ee with SMTP id 5b1f17b1804b1-49d1f6edc70mr25955e9.11.1788886502918;
+        Tue, 08 Sep 2026 09:55:02 -0700 (PDT)
 Received: from localhost ([2a00:79e0:288a:8:ac21:220d:3908:7e61])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-485885b1320sm36407824f8f.27.2026.09.08.09.54.58
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48588392b3esm42560497f8f.12.2026.09.08.09.55.01
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 08 Sep 2026 09:54:58 -0700 (PDT)
+        Tue, 08 Sep 2026 09:55:02 -0700 (PDT)
 From: Jann Horn <jannh@google.com>
-Subject: [PATCH RFC v3 00/12] KCOV: entry/exit records, memory access
- records, and delay injection
-Date: Tue, 08 Sep 2026 18:54:40 +0200
-Message-Id: <20260908-kcov-extrecord-v3-0-dcbc11593e88@google.com>
+Date: Tue, 08 Sep 2026 18:54:42 +0200
+Subject: [PATCH RFC v3 02/12] kcov: refactor mode check out of
+ check_kcov_mode()
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -71,11 +72,9 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIANA9oGoC/3WNQQrCMBREr1L+2kj6Y0N1JQgewK24iMlPG9RGk
- hIqpXc3ZKWIy5nhvZkhUnAUYVfNECi56PyQg1hVoHs1dMScyRmQo+SirtlN+8RoGgNpHwyTxM1
- W4ZWrVkOGnoGsm4rwDKfjAS657F0cfXiVk1SX6Z8v1Ywz2Vou9EbxRpl95313p7X2j+JK+Mm3P
- zxmHhtEo6TVRtgvflmWN3JaQqzyAAAA
-X-Change-ID: 20260311-kcov-extrecord-6e0d9a2b0a8c
+Message-Id: <20260908-kcov-extrecord-v3-2-dcbc11593e88@google.com>
+References: <20260908-kcov-extrecord-v3-0-dcbc11593e88@google.com>
+In-Reply-To: <20260908-kcov-extrecord-v3-0-dcbc11593e88@google.com>
 To: Dmitry Vyukov <dvyukov@google.com>, 
  Andrey Konovalov <andreyknvl@gmail.com>, 
  Alexander Potapenko <glider@google.com>
@@ -85,367 +84,132 @@ Cc: Nathan Chancellor <nathan@kernel.org>,
  linux-kernel@vger.kernel.org, kasan-dev@googlegroups.com, 
  llvm@lists.linux.dev, Jann Horn <jannh@google.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788886494; l=13917;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788886494; l=4314;
  i=jannh@google.com; s=20240730; h=from:subject:message-id;
- bh=FdGYYZBpQ7PuEaN6jp8LzZTWVRnNLNFC19AbILWp6ZQ=;
- b=u1m9TLG8IpVlGUfOL95gslLjK/etQ8y9wdWnqicNz5zx3IWO6B4+4/vGovxq7CkX5yY2mUrf9
- FpCXSs2NAYrBi9nVaHDivxC8H5Ukmmt7OtAwkgX6cWk0CrucG7GiT++
+ bh=zMSdv79W/28vOlNus87Hr0NP1H4bhJbv+hYzEQlIBho=;
+ b=dc+rBp1W+qTZPJAb2xVJwbP8NlsZyRFXM4Sx2H+OrYfUbG/leu3BWxB4V4UE2C9jlKusRh70p
+ pgZDfOg+3/aBNHPOcsYwX4To6jVbLUPym3MCTzTQ3ybFpAbQtTc89Ns
 X-Developer-Key: i=jannh@google.com; a=ed25519;
  pk=AljNtGOzXeF6khBXDJVVvwSEkVDGnnZZYqfWhP1V+C8=
 
-This series consists of three parts that add new KCOV features.
-In short:
-
- - Part 1: Adds function entry/exit records
- - Part 2: Adds information about memory accesses (instruction address,
-   data address, access type, data value, timing)
- - Part 3: Adds an API for delay injection (spin-waiting at a specific
-   point on one thread until a specific event happens on another
-   thread)
-
-Together, these make it possible to build:
-
- - tooling to force specific ordering of parallel execution (entry/exit
-   records provide stable identifiers for recorded memory access events
-   that can then be targeted for delay injection)
- - tooling to force a specific ordering on a subset of events ("A should
-   happen before B"), where other parts of the testcase are left
-   executing in parallel
- - visualization of recorded execution traces of small samples for
-   manual review (though the large amount of data makes recording the
-   execution of larger programs prohibitively expensive); this is the
-   only usecase I have for recording data values, and the main usecase
-   for recording timing information
-
-At a higher level, I think this could be useful for the following use
-cases:
-
- - manual testing of possible bugs (especially race condition bugs)
- - unit tests for race conditions
- - fuzzing for race conditions
- - maybe also for other fuzzing (automatically discovering how syscalls
-   interact)
- - maybe also for providing more clues for analyzing normal fuzzer
-   crashes
-
-=== Part 1: function entry/exit records ===
-This series adds a KCOV feature that userspace can use to keep track of
-the current call stack. When userspace enables the new mode
-KCOV_TRACE_PC_EXT, collected instruction addresses are tagged with one
-of three types:
-
- - function entry
- - non-entry basic block
- - function exit
-
-This requires corresponding LLVM support, which was added in LLVM commit
-https://github.com/llvm/llvm-project/commit/dc5c6d008f487eea8f5d646011f9b3dca6caebd7
-a few months ago; I believe this will be part of LLVM 23.
-
-A simple example of how to use KCOV_TRACE_PC_EXT:
-```
-user@vm:~/kcov/u$ cat kcov-u.c
-
-  typeof(x) __res = (x);      \
-  if (__res == (typeof(x))-1) \
-    err(1, "SYSCHK(" #x ")"); \
-  __res;                      \
-})
-
-static void indent(int depth) {
-  for (int i=0; i<depth; i++)
-    printf("  ");
-}
-
-int main(void) {
-  int fd = SYSCHK(open("/sys/kernel/debug/kcov", O_RDWR));
-  SYSCHK(ioctl(fd, KCOV_INIT_TRACE, COVER_SIZE));
-  unsigned long *cover = (unsigned long*)SYSCHK(
-      mmap(NULL, COVER_SIZE * sizeof(unsigned long), PROT_READ | PROT_WRITE,
-           MAP_SHARED, fd, 0));
-  SYSCHK(ioctl(fd, KCOV_ENABLE, KCOV_TRACE_PC_EXT));
-  usleep(1000); // fault in stuff
-  __atomic_store_n(&cover[0], 0, __ATOMIC_RELAXED); // start recording
-  usleep(1000);
-  unsigned long cover_num = __atomic_load_n(&cover[0], __ATOMIC_RELAXED); // end
-
-  int depth = 0;
-  for (unsigned long i = 0; i < cover_num; i++) {
-    unsigned long record = cover[1+i];
-    unsigned long pc = record | ~KCOV_RECORD_IP_MASK;
-    switch (record & KCOV_RECORDFLAG_TYPEMASK) {
-    case KCOV_RECORDFLAG_TYPE_NORMAL:
-      indent(depth);
-      printf("BB    0x%lx\n", pc);
-      break;
-    case KCOV_RECORDFLAG_TYPE_ENTRY:
-      indent(depth);
-      printf("ENTER 0x%lx\n", pc);
-      depth++;
-      break;
-    case KCOV_RECORDFLAG_TYPE_EXIT:
-      if (depth == 0)
-        errx(1, "exit at depth 0");
-      depth--;
-      indent(depth);
-      printf("EXIT  0x%lx\n", pc);
-      break;
-    default: errx(1, "unknown record type in 0x%016lx", record);
-    }
-  }
-}
-user@vm:~/kcov/u$ cat symbolize.py
-import sys
-syms = []
-with open('/proc/kallsyms') as f:
-  for line in f:
-    parts = line.strip().split(' ')
-    if len(parts) < 3:
-      continue
-    syms.append((int(parts[0], 16), parts[2]))
-
-for line in sys.stdin:
-  parts = line.rstrip().split('0x')
-  if len(parts) != 2:
-    continue
-  record_pc = int(parts[1], 16)
-  for i in range(0, len(syms)-1):
-    if syms[i+1][0] > record_pc:
-      print(parts[0] + syms[i][1] + '+' + hex(record_pc - syms[i][0]))
-      break
-user@vm:~/kcov/u$ gcc -o kcov-u kcov-u.c -Wall
-user@vm:~/kcov/u$ sudo ./kcov-u | sudo ./symbolize.py
-ENTER __audit_syscall_entry+0x2c
-  BB    __audit_syscall_entry+0xa4
-  BB    __audit_syscall_entry+0xd2
-  BB    __audit_syscall_entry+0x1ab
-  ENTER ktime_get_coarse_real_ts64+0x1a
-    BB    ktime_get_coarse_real_ts64+0x3f
-    BB    ktime_get_coarse_real_ts64+0x96
-  EXIT  ktime_get_coarse_real_ts64+0x9b
-EXIT  __audit_syscall_entry+0x12b
-ENTER __x64_sys_clock_nanosleep+0x18
-  ENTER __se_sys_clock_nanosleep+0x33
-    BB    __se_sys_clock_nanosleep+0x10e
-    ENTER get_timespec64+0x29
-      ENTER _copy_from_user+0x17
-        BB    _copy_from_user+0x5d
-      EXIT  _copy_from_user+0x62
-      BB    get_timespec64+0xaf
-    EXIT  get_timespec64+0xd5
-    BB    __se_sys_clock_nanosleep+0x1c0
-    ENTER common_nsleep+0x1f
-      ENTER hrtimer_nanosleep+0x2f
-        ENTER hrtimer_setup_sleeper_on_stack+0x20
-          BB    hrtimer_setup_sleeper_on_stack+0x2a
-          BB    hrtimer_setup_sleeper_on_stack+0x7e
-        EXIT  hrtimer_setup_sleeper_on_stack+0x14c
-        ENTER do_nanosleep+0x2d
-          BB    do_nanosleep+0x3b
-          ENTER hrtimer_start_range_ns+0x28
-            BB    hrtimer_start_range_ns+0x67
-            ENTER remove_hrtimer+0x22
-              BB    remove_hrtimer+0x4b
-            EXIT  remove_hrtimer+0x1ea
-            BB    hrtimer_start_range_ns+0x173
-            ENTER __hrtimer_cb_get_time+0x11
-              BB    __hrtimer_cb_get_time+0x32
-              ENTER ktime_get+0x17
-                BB    ktime_get+0x33
-                BB    ktime_get+0x58
-                ENTER kvm_clock_get_cycles+0xc
-                  BB    kvm_clock_get_cycles+0x48
-                EXIT  kvm_clock_get_cycles+0x4d
-                BB    ktime_get+0xb7
-                BB    ktime_get+0x149
-              EXIT  ktime_get+0x151
-            EXIT  __hrtimer_cb_get_time+0x84
-            BB    hrtimer_start_range_ns+0x3bc
-            BB    hrtimer_start_range_ns+0x5a4
-            ENTER enqueue_hrtimer+0x20
-              BB    enqueue_hrtimer+0x2a
-              BB    enqueue_hrtimer+0x5b
-              ENTER timerqueue_add+0x1c
-                BB    timerqueue_add+0x41
-                BB    timerqueue_add+0xb2
-                BB    timerqueue_add+0xb2
-                BB    timerqueue_add+0xf9
-              EXIT  timerqueue_add+0x150
-            EXIT  enqueue_hrtimer+0xaf
-            BB    hrtimer_start_range_ns+0x714
-            ENTER hrtimer_reprogram+0x1b
-              BB    hrtimer_reprogram+0x65
-              BB    hrtimer_reprogram+0x13a
-              BB    hrtimer_reprogram+0x1dc
-              ENTER tick_program_event+0x25
-                BB    tick_program_event+0x65
-                ENTER clockevents_program_event+0x20
-                  BB    clockevents_program_event+0x7e
-                  ENTER ktime_get+0x17
-                    BB    ktime_get+0x33
-                    BB    ktime_get+0x58
-                    ENTER kvm_clock_get_cycles+0xc
-                      BB    kvm_clock_get_cycles+0x48
-                    EXIT  kvm_clock_get_cycles+0x4d
-                    BB    ktime_get+0xb7
-                    BB    ktime_get+0x149
-                  EXIT  ktime_get+0x151
-                  BB    clockevents_program_event+0x219
-                EXIT  clockevents_program_event+0x22b
-              EXIT  tick_program_event+0x89
-            EXIT  hrtimer_reprogram+0x211
-          EXIT  hrtimer_start_range_ns+0x74d
-          BB    do_nanosleep+0x9c
-          ENTER sched_clock+0xc
-            BB    sched_clock+0x40
-          EXIT  sched_clock+0x45
-          ENTER arch_scale_cpu_capacity+0x13
-            BB    arch_scale_cpu_capacity+0x1a
-          EXIT  arch_scale_cpu_capacity+0x24
-          ENTER __cgroup_account_cputime+0x1b
-            ENTER css_rstat_updated+0x2c
-              BB    css_rstat_updated+0x77
-              BB    css_rstat_updated+0xbe
-            EXIT  css_rstat_updated+0x1bc
-            BB    __cgroup_account_cputime+0x81
-          EXIT  __cgroup_account_cputime+0x86
-          ENTER sched_clock+0xc
-            BB    sched_clock+0x40
-          EXIT  sched_clock+0x45
-          ENTER sched_clock+0xc
-            BB    sched_clock+0x40
-          EXIT  sched_clock+0x45
-          ENTER __msecs_to_jiffies+0x13
-            BB    __msecs_to_jiffies+0x25
-          EXIT  __msecs_to_jiffies+0x4c
-          ENTER prandom_u32_state+0x15
-          EXIT  prandom_u32_state+0xbe
-          ENTER hrtimer_try_to_cancel+0x1e
-            BB    hrtimer_try_to_cancel+0x6a
-            BB    hrtimer_try_to_cancel+0x1da
-          EXIT  hrtimer_try_to_cancel+0x1be
-          BB    do_nanosleep+0xbf
-          BB    do_nanosleep+0x166
-          BB    do_nanosleep+0x177
-          BB    do_nanosleep+0x275
-        EXIT  do_nanosleep+0x2d5
-        BB    hrtimer_nanosleep+0x182
-      EXIT  hrtimer_nanosleep+0x194
-    EXIT  common_nsleep+0x77
-  EXIT  __se_sys_clock_nanosleep+0x15d
-EXIT  __x64_sys_clock_nanosleep+0x62
-ENTER __audit_syscall_exit+0x1d
-  BB    __audit_syscall_exit+0x5c
-  ENTER audit_reset_context+0x1e
-    BB    audit_reset_context+0x52
-  EXIT  audit_reset_context+0x5f6
-EXIT  __audit_syscall_exit+0x168
-ENTER fpregs_assert_state_consistent+0x11
-  BB    fpregs_assert_state_consistent+0x48
-  BB    fpregs_assert_state_consistent+0xa6
-EXIT  fpregs_assert_state_consistent+0xcc
-ENTER switch_fpu_return+0xe
-  ENTER fpregs_restore_userregs+0x12
-    BB    fpregs_restore_userregs+0x4c
-    BB    fpregs_restore_userregs+0xb8
-  EXIT  fpregs_restore_userregs+0x107
-EXIT  switch_fpu_return+0x18
-```
-
-=== part 2: memory access records (CONFIG_KCOV_MEMORY) ===
-A new mode KCOV mode KCOV_TRACE_MEMORY_ACCESS generates the same
-records as KCOV_TRACE_PC_EXT, but additionally generates records of
-type "struct memory_access_record" when a memory access happens.
-Information about memory accesses is obtained in two ways:
-
- - from instrument_*() hooks
- - from KASAN hooks in generic outline mode
-
-The memory_access_record records in multiple traces can be analyzed
-together to discover which memory regions could be relevant for
-concurrency bugs.
-
-=== part 3: delay injection ===
-A new set of KCOV ioctls can be used to inject spin-waits at specific
-points in the execution, identified by call stacks obtained from
-KCOV_TRACE_MEMORY_ACCESS.
-
-The main ioctl for configuring this feature for a KCOV instance is
-KCOV_SET_DI, which essentially takes a list of call stacks, each
-associated with an action, which is one of:
-
- - wait on bit N in a kcov state bitmap before this access
- - wake up bit N in a kcov state bitmap before this access
- - wake up bit N in a kcov state bitmap after this access
-
-=== userspace users ===
-I have written two userspace programs that use this API:
-A GUI which lets you interactively experiment with execution orderings
-of parallel execution, and a testing harness that can exercise ~all
-A-B-A orderings of a given testcase automatically.
-
-See:
-https://github.com/googleprojectzero/MAccConc
+The following patch will need to check t->kcov_mode in different ways at
+different check_kcov_mode() call sites. In preparation for that, move the
+mode check up the call hierarchy.
 
 Signed-off-by: Jann Horn <jannh@google.com>
 ---
-Changes in v3:
-- in part 1: remove sched hack and replace it with
-  "kcov: summarize entry/exit while disabled" (suggested by peterz)
-- add memory access records and delay injection
-- Link to v2: https://lore.kernel.org/r/20260318-kcov-extrecord-v2-0-2522da6fcd3f@google.com
+ kernel/kcov.c | 31 +++++++++++++++++--------------
+ 1 file changed, 17 insertions(+), 14 deletions(-)
 
-Changes in v2:
-- patch 2: change commit message (dvyukov)
-- patch 2: add __always_inline (dvyukov)
-- patch 2: add comment in __sanitizer_cov_trace_pc_entry
-- replaced patch 3 with patches 3+4
-  - store extended record format flag as part of kcov_mode (dvyukov)
-  - clarify comment in __sanitizer_cov_trace_pc_exit (dvyukov)
-- Link to v1: https://lore.kernel.org/r/20260311-kcov-extrecord-v1-0-68f03c4a05ad@google.com
+diff --git a/kernel/kcov.c b/kernel/kcov.c
+index 5d9686c8b3ec..26baccaaefa9 100644
+--- a/kernel/kcov.c
++++ b/kernel/kcov.c
+@@ -167,10 +167,8 @@ static __always_inline bool in_softirq_really(void)
+ 	return in_serving_softirq() && !in_hardirq() && !in_nmi();
+ }
+ 
+-static notrace bool check_kcov_mode(enum kcov_mode needed_mode, struct task_struct *t)
++static notrace bool check_kcov_context(struct task_struct *t)
+ {
+-	unsigned int mode;
+-
+ 	/*
+ 	 * We are interested in code coverage as a function of a syscall inputs,
+ 	 * so we ignore code executed in interrupts, unless we are in a remote
+@@ -178,7 +176,6 @@ static notrace bool check_kcov_mode(enum kcov_mode needed_mode, struct task_stru
+ 	 */
+ 	if (!in_task() && !(in_softirq_really() && t->kcov_softirq))
+ 		return false;
+-	mode = READ_ONCE(t->kcov_mode);
+ 	/*
+ 	 * There is some code that runs in interrupts but for which
+ 	 * in_interrupt() returns false (e.g. preempt_schedule_irq()).
+@@ -187,7 +184,7 @@ static notrace bool check_kcov_mode(enum kcov_mode needed_mode, struct task_stru
+ 	 * kcov_start().
+ 	 */
+ 	barrier();
+-	return mode == needed_mode;
++	return true;
+ }
+ 
+ static notrace unsigned long canonicalize_ip(unsigned long ip)
+@@ -198,14 +195,12 @@ static notrace unsigned long canonicalize_ip(unsigned long ip)
+ 	return ip;
+ }
+ 
+-static __always_inline void notrace kcov_add_pc_record(unsigned long record)
++static __always_inline void notrace kcov_add_pc_record(struct task_struct *t, unsigned long record)
+ {
+-	struct task_struct *t;
+ 	unsigned long *area;
+ 	unsigned long pos;
+ 
+-	t = current;
+-	if (!check_kcov_mode(KCOV_MODE_TRACE_PC, t))
++	if (!check_kcov_context(t))
+ 		return;
+ 
+ 	area = t->kcov_area;
+@@ -213,7 +208,7 @@ static __always_inline void notrace kcov_add_pc_record(unsigned long record)
+ 	pos = READ_ONCE(area[0]) + 1;
+ 	if (likely(pos < t->kcov_size)) {
+ 		/* Previously we write pc before updating pos. However, some
+-		 * early interrupt code could bypass check_kcov_mode() check
++		 * early interrupt code could bypass check_kcov_context() check
+ 		 * and invoke __sanitizer_cov_trace_pc(). If such interrupt is
+ 		 * raised between writing pc and updating pos, the pc could be
+ 		 * overitten by the recursive __sanitizer_cov_trace_pc().
+@@ -231,20 +226,28 @@ static __always_inline void notrace kcov_add_pc_record(unsigned long record)
+  */
+ void notrace __sanitizer_cov_trace_pc(void)
+ {
+-	kcov_add_pc_record(canonicalize_ip(_RET_IP_));
++	struct task_struct *cur = current;
++
++	if (READ_ONCE(cur->kcov_mode) != KCOV_MODE_TRACE_PC)
++		return;
++	kcov_add_pc_record(cur, canonicalize_ip(_RET_IP_));
+ }
+ EXPORT_SYMBOL(__sanitizer_cov_trace_pc);
+ 
+ #ifdef CONFIG_KCOV_EXT_RECORDS
+ void notrace __sanitizer_cov_trace_pc_entry(void)
+ {
++	struct task_struct *cur = current;
+ 	unsigned long record = canonicalize_ip(_RET_IP_);
++	unsigned int kcov_mode = READ_ONCE(cur->kcov_mode);
+ 
+ 	/*
+ 	 * This hook replaces __sanitizer_cov_trace_pc() for the function entry
+ 	 * basic block; it should still emit a record even in classic kcov mode.
+ 	 */
+-	kcov_add_pc_record(record);
++	if (kcov_mode != KCOV_MODE_TRACE_PC)
++		return;
++	kcov_add_pc_record(cur, record);
+ }
+ void notrace __sanitizer_cov_trace_pc_exit(void)
+ {
+@@ -259,7 +262,7 @@ static void notrace write_comp_data(u64 type, u64 arg1, u64 arg2, u64 ip)
+ 	u64 count, start_index, end_pos, max_pos;
+ 
+ 	t = current;
+-	if (!check_kcov_mode(KCOV_MODE_TRACE_CMP, t))
++	if (READ_ONCE(t->kcov_mode) != KCOV_MODE_TRACE_CMP || !check_kcov_context(t))
+ 		return;
+ 
+ 	ip = canonicalize_ip(ip);
+@@ -379,7 +382,7 @@ static void kcov_start(struct task_struct *t, struct kcov *kcov,
+ 	t->kcov_size = size;
+ 	t->kcov_area = area;
+ 	t->kcov_sequence = sequence;
+-	/* See comment in check_kcov_mode(). */
++	/* See comment in check_kcov_context(). */
+ 	barrier();
+ 	WRITE_ONCE(t->kcov_mode, mode);
+ }
 
----
-Jann Horn (12):
-      kcov: wire up compiler instrumentation for CONFIG_KCOV_EXT_RECORDS
-      kcov: refactor mode check out of check_kcov_mode()
-      kcov: introduce extended PC coverage collection mode
-      kcov: summarize entry/exit while disabled
-      kasan: refactor write/is_write arguments to flags
-      kcov: introduce memory access tracing
-      kasan: provide memory access information to KCOV
-      kcov: log freeing of SLUB objects and pages
-      kcov: record return address on function entry
-      kcov: log old value
-      kcov: introduce delay injection
-      Documentation/kcov: add documentation for EXT_RECORDS and KCOV_MEMORY
-
- Documentation/dev-tools/kcov.rst |  70 +++++
- arch/arm64/kernel/traps.c        |   2 +-
- arch/arm64/mm/fault.c            |   2 +-
- include/linux/instrumented.h     |  30 ++
- include/linux/kasan.h            |   7 +-
- include/linux/kcov.h             |  31 +-
- include/uapi/linux/kcov.h        |  86 ++++++
- kernel/kcov.c                    | 618 +++++++++++++++++++++++++++++++++++++--
- lib/Kconfig.debug                |  27 ++
- lib/Kconfig.kasan                |   9 +
- mm/kasan/common.c                |   4 +-
- mm/kasan/generic.c               |  35 ++-
- mm/kasan/kasan.h                 |   6 +-
- mm/kasan/report.c                |   3 +-
- mm/kasan/report_generic.c        |   8 +-
- mm/kasan/shadow.c                |  25 +-
- mm/kasan/sw_tags.c               |  20 +-
- mm/page_alloc.c                  |   3 +
- scripts/Makefile.kasan           |  17 ++
- scripts/Makefile.kcov            |   2 +
- tools/objtool/check.c            |   4 +
- 21 files changed, 931 insertions(+), 78 deletions(-)
----
-base-commit: 73ae59e975966d24e32926247ddb45a537ebe184
-change-id: 20260311-kcov-extrecord-6e0d9a2b0a8c
-
-Best regards,
---  
-Jann Horn <jannh@google.com>
+-- 
+2.55.0.979.g7e5102b832-goog
 
