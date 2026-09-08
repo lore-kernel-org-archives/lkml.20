@@ -1,173 +1,213 @@
-Received: from CO1PR03CU002.outbound.protection.outlook.com (mail-westus2azon11010031.outbound.protection.outlook.com [52.101.46.31])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FDB03A984F;
-	Tue,  8 Sep 2026 08:10:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.46.31
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788855003; cv=fail; b=F8MEglIo/y3OoVLUa1Vc+5olPiWUeZ8NCEkhMOSjLUyQTk4hXocjnYf/0/ulfKX4abxJunkIIXStRYbyQiH4IOgOSaC7D1g3eVsozOogxbTe9tpirsu4xoXT9pmssNvCFp7h/jU7LMGtFho1nNoqp9UxL15tEMFE8BxmfDTYeJc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788855003; c=relaxed/simple;
-	bh=ohG9Cg+d7MMwbeAptl9YHu99fN+uiNFF3IAiDZZfNKg=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=HnDgK4ja7NmyMkp3XtKchE0EV9fnlpQCpXUXbpilOEbInkeysuhZ6b/STdFe78hdVCJceniRgYIByL8Dh5a81lvoJmZu1sSVO66QROnZKTj8opmdttuw4SnNiMnlwELWZC91WXSnINwXZjQbbiSYgKQax5NZ1XDSUByBWTzmpc8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=HuyMl0Ap; arc=fail smtp.client-ip=52.101.46.31
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B56333A784E
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 08:10:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788855040; cv=none; b=DY11CLW/t5810n4Gc94Q+fZHER/dxMzFRVROt5kF9D8iXnN0oXnmLA29JAx/5cN4vrXOZ/WtfD9MQPf3/pD13Lty98HlDVQZcvoGtLRoWHbLhHtjOJDri7XqbYi+nsHN/8WwQ2nHqsdfR8kvUMSm05L4G/dlasIV0NtLwnlzCL0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788855040; c=relaxed/simple;
+	bh=1Ud8/dZbVNomn7snUX6HWLPxtbMautulEZ8HW9eK7+I=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=hYPxsyPoGyKFzoz21lD9hM2q97LJA3wbn5/4DXgZhRvTR/2kcObkLETrIf2d4PTkrCsVGH6AJ8ZDtGDB4mcE3s3jXmNnthapUOwFNG5LP5emyAVw7FGtMJ5Lz4xEcnxoY8S05DfBcmaAluTBmEmKV6DIT3k97duF4Fl9MZrguCg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VuvCCa9v; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="HuyMl0Ap"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=r9M98ysnIwh4hr6EQC4ebxOvhEhv0y6LPWAGRTWPX60jmVTh+u7Gj1hzqavwuTZS4vJid1tptRJHaD8A3wYICXpPYuJOhU0V6lWEI5xAumjbY5bTZEgUueKWyXdzB4fUlmMt3hUHzWY5KNFR1WQC1VbxPPXicc38Itu+9rRfYORvNl7/YtGh3sQl+DhcFb46jO1X0uzFh8QYxM837091pJxbSdtwn72fbv17x2OYiDb7JYfJ5cE1Dxwozc6q8wRMegMdNgy2uoMlOr9kZbhCsKbILfeh5yykkXI9gufcUPa/8iyul178J22dKpshAjowKioVc+4K/2mPJhRcqSMgMg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=r4tK4pomgVMTDnJep5Vcdb2TqHemBpYUt5XXHuXuM8g=;
- b=ZiphEp983wCWymuokR9VgJ1p+ZLiziPQcLY/BV1kiI/2ZhUe1IhjWXPT40MNz6IdJFLlZjVNd5GdS7qLQIKVsxBowYNw4F0AxO6xnJSRTVAy8PthvNh37TZVrFGh7HlrUxYr+j6hkXuL5jeFc+YeSyYfNklcksNhzGtO7lW1xV1cyiZzln+9clJpaHdBUdXGdIeaHh/UVHuLrLgXKX3NwOWQmW/d4BGce+L+cThei1EWGphC9YQRenSV1lm2eMpHxEkbr7wMFWEVV2xHzGdWrb9hovHjlt6IOX5OTb/m+QYq3UkGUSiawNO4R6oJHD3atmIQEH2YTBh5PPH6pMqKTw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=shazbot.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=r4tK4pomgVMTDnJep5Vcdb2TqHemBpYUt5XXHuXuM8g=;
- b=HuyMl0ApBpIGASsMfKljqsVoyOmy1DQvXsaytWBDp8bSZZ2zu1imUw2iT3c4TgXyz8K9jkvs/tJI8lamGJew4weXD67540ZyAM7+9bPFlZtHY8wqEFsA96gJQYDTBUgwVOqeLKaiu3as9IVrgl54+p8wpnUpf3nhf+QRP6e/lMU=
-Received: from BN9PR03CA0794.namprd03.prod.outlook.com (2603:10b6:408:13f::19)
- by CY1PR12MB9626.namprd12.prod.outlook.com (2603:10b6:930:106::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.15; Tue, 8 Sep
- 2026 08:09:57 +0000
-Received: from BN3PEPF00022BD0.namprd03.prod.outlook.com
- (2603:10b6:408:13f:cafe::7) by BN9PR03CA0794.outlook.office365.com
- (2603:10b6:408:13f::19) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.15 via Frontend Transport; Tue, 8
- Sep 2026 08:09:57 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BN3PEPF00022BD0.mail.protection.outlook.com (10.167.248.166) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.406.5 via Frontend Transport; Tue, 8 Sep 2026 08:09:56 +0000
-Received: from mao-Super-Server.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Tue, 8 Sep
- 2026 03:09:53 -0500
-From: YuanShang <YuanShang.Mao@amd.com>
-To: <alex@shazbot.org>, <anthony.pighin@nokia.com>
-CC: <kvm@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<Tiantian.Zhang@amd.com>
-Subject: [RFC PATCH] vfio/pci: Block for the upstream bridge lock in vfio_pci_core_disable()
-Date: Tue, 8 Sep 2026 16:09:46 +0800
-Message-ID: <20260908080946.2235849-1-YuanShang.Mao@amd.com>
-X-Mailer: git-send-email 2.25.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VuvCCa9v"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 367B31F00A3F
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 08:10:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788855038;
+	bh=/LQ40bG3b0qEiWUXfmVaeOdjqlO0VS+wXll0EN2GKX0=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=VuvCCa9vusaCARP4kqjikR+bv6LqFhsoUvglKfI1pJ9AsquQHsudSXKaSRn8WciPB
+	 PU18JpWe+CCGQx6pgLnGpxBdjf9d+Mqnyw1E9xm4a2xJ9aDt7sm9IBOWx3+xaz5O9f
+	 2Ay4dvMkb9bSXsEADr3vdT7M8wxiU/jRORNkZoyRhXHNLqO1haqy9GfjsmUMdT66EI
+	 /nA3gQ0tWJ5CJnqoSdyAGbyi8ZDHkzxKrSvGBcabUcF1k0uQ+jmtd8hmMrk2ac067f
+	 Pv4LmFlyY+5QoFse7RhmSATPp2FEbb13AOVufv4NIVar572vARYJfyAfl/ECwAFfOy
+	 Xa1T0McJHfLpw==
+Received: by mail-ej1-f53.google.com with SMTP id a640c23a62f3a-c255acff671so278431866b.0
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 01:10:38 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvByH9PI95P4MOR8C8tZ3t1VynXZYDbbS7h3O0/kHIsIl2J26Tcj+f0AZMoKZL2P1CxkNceYvFY9aJWiFaag=@vger.kernel.org
+X-Gm-Message-State: AFuF++k/FAohEw8wSK542WULrWu8MtWe7RDGC1kNgGKQNopVFSoF6Ck1
+	9ypNWooZ1G42P0S8k4fOpwn2bwh3Y+zgZe20XwMqVK3MlNUZOzo+mOZHbvd+gs+6ovdCmi1/gr3
+	unVOE7PHHseWqxycq3bKYz68F4U6Uv84=
+X-Received: by 2002:a17:907:940b:b0:c26:1691:b366 with SMTP id
+ a640c23a62f3a-c261691b9d4mr944555766b.31.1788855036997; Tue, 08 Sep 2026
+ 01:10:36 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN3PEPF00022BD0:EE_|CY1PR12MB9626:EE_
-X-MS-Office365-Filtering-Correlation-Id: 405b2300-9a0d-4a53-d74f-08df0d80923d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|82310400026|36860700016|23010399003|1800799024|6133799003|5023799004|10067099003|56012099006|11063799006|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	j6bcjX0kjj8lrKR7NGg0wTI3nBftDidMTDV3+JxPCpK8nsmO53Kw/rDEGUTexZDuJiQB3vGpPfRglzIwFVx5kkRd321ZCjzS+o2cM0Wb0V7CU9CWqmDkn6tTQSPT6r3NcUxlKc/QUPvwYOfbEc0PnO/RHbBMjZ1PLRQgdZnujiGYdvYifk0YXiuVydhYwkwmznBGjlwZLeGWI6RqcOLRctNhQoqbdvrhOuB1f2hbK+onLebuBfwX0IK6Th/wLMHuLIAsXgONmUi6mXvMDOC3S+UzEj1mFoelV46RtKuWQ3ekDSE8r7iAJw+HsX4ojKnd+zhYaf46F8FyBPiy9bU/rWGlSCMlhrTpzY9ty2BgDFGmvxq23Zi2jd+mCZ/qQmFe25BfUglguSaM35jf7TvBn7Ms7T++C3zjqD6l21Iho4mDUvVxX8CKJT2AJ932tHSzp4miS/Cn43/u2BWxcYFb4QU1A9yu5DTl0nMzjVSR7BM10vCkPwIWb/n9AJIZ/KN8NTurpYetHsMU8cXhAVxl3DM6YuG3IjafVTwjLqpLQzBLGifSVBO2LbpqBZ/ax7xsoIjuPzgBRbD5OSRyVPBsD+jeLi5OJ5A4X1CR6f9ruQ1GLvlxXVJjaMd6XfILknHXvyCxYhZc6zAO7onJJ+HbnQB/g4DbY3Yu/JOEHjq0vs3cKNrcKOLKw4k9f8D3Qt4oH+Wt30JpklAVlFQtlN7vaQ==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(82310400026)(36860700016)(23010399003)(1800799024)(6133799003)(5023799004)(10067099003)(56012099006)(11063799006)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	3pSF00ybQ5bsHnXbkTct8VFUw3W1QpocyrA/+TzokxRP43kLY809PayRxC+3wUNl0HF3MYaq0xn+DLlNE328CoGzAKmFC4GlnM5R5BtpCpThxaFhXR3yoqMpJ91b3I4TLfFsxepwRNLITXO297rEGipkMjNYjxhU3G92AhPerDRQA/e11KRAlL0KyDkZ9jHxTgFShgtHxSEhDhWW94oaSZLM4YQSSM8u+85OnkJ4DZXdIVWe9EEimKTA5JY2wmdTVp04/SB9rq/5oALV/fNPfM2DU1L0NZYQNk/TqqDR+i2Qt8NFgoJc3P9Fr2HT0Cdc7B6bwppHAyqthBRK/LasK5A1Hc7AAnUGayhdGQ96Bot8x6ZtaRty4SPOCo44Y40VrXKuvKrNWUnEiC7uDva51IxRHntGUc+rXWeJc7RqHKZkj98i8/7oR52HMcorEmFS
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Sep 2026 08:09:56.9972
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 405b2300-9a0d-4a53-d74f-08df0d80923d
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN3PEPF00022BD0.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY1PR12MB9626
+References: <20260907161938.1932355-1-usama.arif@linux.dev>
+In-Reply-To: <20260907161938.1932355-1-usama.arif@linux.dev>
+From: Yosry Ahmed <yosry@kernel.org>
+Date: Tue, 8 Sep 2026 01:10:25 -0700
+X-Gmail-Original-Message-ID: <CAO9r8zNr7jMYkWjaRYpQYkR8yQT3R5guV=2EXTfWBipAZ5kEqw@mail.gmail.com>
+X-Gm-Features: AcwNN1WdBn7Fr6APF4VR9MOEKeL7VFm43JjsPuRw9XMXiiE2ug9S5SNh0owgQu4
+Message-ID: <CAO9r8zNr7jMYkWjaRYpQYkR8yQT3R5guV=2EXTfWBipAZ5kEqw@mail.gmail.com>
+Subject: Re: [PATCH] mm: zswap: don't fail a large-folio swapin whose range is
+ not in zswap
+To: Usama Arif <usama.arif@linux.dev>
+Cc: Andrew Morton <akpm@linux-foundation.org>, chengming.zhou@linux.dev, hannes@cmpxchg.org, 
+	linux-kernel@vger.kernel.org, linux-mm@kvack.org, nphamcs@gmail.com, 
+	kernel-team@meta.com, stable@vger.kernel.org, Alexandre Ghiti <alex@ghiti.fr>, 
+	Longlong Xia <xialonglong@kylinos.cn>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-An upstream bridge is shared by every function below it, so taking it
-with pci_dev_trylock() makes the release-time reset fail whenever two
-functions under the same bridge are released at the same time.  One
-wins the trylock and resets; the others take the goto and are handed
-back to the next user without ever being reset.  Nothing is logged.
+On Mon, Sep 7, 2026 at 9:20=E2=80=AFAM Usama Arif <usama.arif@linux.dev> wr=
+ote:
+>
+> thp_swapin_suitable_orders() and shmem_swap_alloc_folio() sample
+> zswap_never_enabled() to decide whether a swapin may use a large folio.
+> zswap_load() samples the same one-way static key again once the read
+> reaches it.  Nothing serialises the two reads, and in between the task
+> allocates and pins a high-order folio, which can sleep.
+>
+> If zswap is enabled for the first time in that window, a large folio that
+> was correctly permitted reaches zswap_load(), which rejects every large
+> folio with -EINVAL.  swap_read_folio() treats anything other than -ENOENT
+> as "zswap handled it" and skips the backing-device read, so the folio
+> comes back unlocked and not uptodate: SIGBUS for an anonymous fault, -EIO
+> for shmem.  The data is intact on the swap device - it was written there
+> before zswap was ever enabled - and the not-uptodate folio stays in the
+> swap cache, so every retry of the fault fails the same way.  With
+> panic_on_warn the WARN takes the machine down rather than the task.
+>
+> Scan the range instead of rejecting the folio.  The caller has pinned
+> every slot before issuing the read, so zswap cannot start a store or a
+> writeback into the range and the scan is stable.  If nothing in the range
+> is in zswap it is all on the backing device: return -ENOENT and let
+> swap_read_folio() read it.
+>
+> A range that does have a slot in zswap is still refused, because zswap
+> stores large folios as order-0 entries and cannot reconstruct one.  That
+> stays reachable - a slot shared with another task can be stored inside
+> the same window - and refusing is correct, since the alternative is
+> returning the stale device copy.  Report it as -EIO rather than -EINVAL:
+> the request is valid, zswap just cannot serve it.  The only caller
+> distinguishes -ENOENT from everything else, so that part is a
+> documentation fix.
+>
+> Fixes: 242d12c98174 ("mm: support large folios swap-in for sync io device=
+s")
+> Cc: stable@vger.kernel.org
+> Co-developed-by: Alexandre Ghiti <alex@ghiti.fr>
+> Signed-off-by: Alexandre Ghiti <alex@ghiti.fr>
+> Signed-off-by: Usama Arif <usama.arif@linux.dev>
 
-This is easy to hit with SR-IOV, where all VFs of a device sit behind
-the same bridge.  Releasing just two VFs concurrently is already
-enough; which one wins the trylock is random between runs.
+Acked-by: Yosry Ahmed <yosry@kernel.org>
 
-Take the bridge lock blocking instead.  The lock order (bridge, then
-device) matches pci_bus_lock(), which takes both blocking.  The
-trylock on the device itself is left alone.
 
-Concurrent releases now serialise their resets, so a teardown of many
-functions under one bridge pays one FLR settling time per function.
-
-Fixes: 962ae6892d8b ("vfio/pci: Lock upstream bridge for vfio_pci_core_disable()")
-Cc: stable@vger.kernel.org
-Signed-off-by: YuanShang <YuanShang.Mao@amd.com>
----
-Hi Alex, Anthony,
-
-Sending this as an RFC because I would like to know whether the approach
-is acceptable before going further.
-
-I hit this with SR-IOV: all VFs of a device share one upstream bridge, so
-when several VFs are released at the same time only one of them wins the
-trylock and gets reset.  The rest silently skip the reset.  Two concurrent
-releases are enough to reproduce it here.
-
-My question is whether taking the bridge lock blocking is safe.  I have
-run this without problems, but I do not fully understand what the trylock
-on the bridge was protecting against -- 962ae6892d8b added it to silence
-the unlocked-SBR warning, and it is not obvious to me whether blocking
-there can deadlock.  If there is a path I am missing, I would rather hear
-it now.
-
-An alternative would be to keep the trylock but at least log when the
-reset is skipped, since today it is completely silent.
-
-Not yet tested under lockdep; I am setting that up.
-
- drivers/vfio/pci/vfio_pci_core.c | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/vfio/pci/vfio_pci_core.c b/drivers/vfio/pci/vfio_pci_core.c
-index 362c375a0579..8966a5bea406 100644
---- a/drivers/vfio/pci/vfio_pci_core.c
-+++ b/drivers/vfio/pci/vfio_pci_core.c
-@@ -790,8 +790,8 @@ void vfio_pci_core_disable(struct vfio_pci_core_device *vdev)
- 	 */
- 	if (vdev->reset_works) {
- 		bridge = pci_upstream_bridge(pdev);
--		if (bridge && !pci_dev_trylock(bridge))
--			goto out_restore_state;
-+		if (bridge)
-+			pci_dev_lock(bridge);
- 		if (pci_dev_trylock(pdev)) {
- 			if (!__pci_reset_function_locked(pdev))
- 				vdev->needs_reset = false;
-@@ -801,7 +801,6 @@ void vfio_pci_core_disable(struct vfio_pci_core_device *vdev)
- 			pci_dev_unlock(bridge);
- 	}
- 
--out_restore_state:
- 	pci_restore_state(pdev);
- out:
- 	pci_disable_device(pdev);
--- 
-2.25.1
-
+> ---
+>  mm/zswap.c | 58 ++++++++++++++++++++++++++++++++++++++++--------------
+>  1 file changed, 43 insertions(+), 15 deletions(-)
+>
+> diff --git a/mm/zswap.c b/mm/zswap.c
+> index 37f34e406c8e3..fd36ac38e9a1e 100644
+> --- a/mm/zswap.c
+> +++ b/mm/zswap.c
+> @@ -1571,6 +1571,32 @@ bool zswap_store(struct folio *folio)
+>         return ret;
+>  }
+>
+> +/**
+> + * zswap_is_present() - is any slot in [entry, entry + nr) in zswap?
+> + * @entry: base swap entry of the range
+> + * @nr: number of contiguous slots to check
+> + *
+> + * Context: The caller must keep the range pinned, otherwise the answer =
+can
+> + * change under it.
+> + * Return: true if at least one slot in the range is in zswap.
+> + */
+> +static bool zswap_is_present(swp_entry_t entry, unsigned int nr)
+> +{
+> +       pgoff_t offset =3D swp_offset(entry);
+> +       struct xarray *tree =3D swap_zswap_tree(entry);
+> +       unsigned long index =3D offset;
+> +
+> +       /*
+> +        * A pinned range is at most SWAPFILE_CLUSTER slots and is aligne=
+d to
+> +        * its own size, so one tree covers all of it and a single lookup=
+ is
+> +        * enough. Scanning only part of the range would report a false
+> +        * "absent" and let the caller read a stale copy from the device.
+> +        */
+> +       BUILD_BUG_ON(SWAPFILE_CLUSTER > ZSWAP_ADDRESS_SPACE_PAGES);
+> +
+> +       return xa_find(tree, &index, offset + nr - 1, XA_PRESENT);
+> +}
+> +
+>  /**
+>   * zswap_load() - load a folio from zswap
+>   * @folio: folio to load
+> @@ -1578,15 +1604,12 @@ bool zswap_store(struct folio *folio)
+>   * Return: 0 on success, with the folio unlocked and marked up-to-date, =
+or one
+>   * of the following error codes:
+>   *
+> - *  -EIO: if the swapped out content was in zswap, but could not be load=
+ed
+> - *  into the page due to a decompression failure. The folio is unlocked,=
+ but
+> - *  NOT marked up-to-date, so that an IO error is emitted (e.g. do_swap_=
+page()
+> - *  will SIGBUS).
+> - *
+> - *  -EINVAL: if the swapped out content was in zswap, but the page belon=
+gs
+> - *  to a large folio, which is not supported by zswap. The folio is unlo=
+cked,
+> - *  but NOT marked up-to-date, so that an IO error is emitted (e.g.
+> - *  do_swap_page() will SIGBUS).
+> + *  -EIO: if the swapped out content was in zswap but could not be hande=
+d
+> + *  back, either because decompression failed or because a slot in a
+> + *  large-folio range is still in zswap and zswap cannot reconstruct a l=
+arge
+> + *  folio from per-page entries. The folio is unlocked, but NOT marked
+> + *  up-to-date, so that an IO error is emitted (e.g. do_swap_page() will
+> + *  SIGBUS).
+>   *
+>   *  -ENOENT: if the swapped out content was not in zswap. The folio rema=
+ins
+>   *  locked on return.
+> @@ -1605,13 +1628,18 @@ int zswap_load(struct folio *folio)
+>                 return -ENOENT;
+>
+>         /*
+> -        * Large folios should not be swapped in while zswap is being use=
+d, as
+> -        * they are not properly handled. Zswap does not properly load la=
+rge
+> -        * folios, and a large folio may only be partially in zswap.
+> +        * A large folio can legitimately reach zswap_load() with its who=
+le
+> +        * range on the backing device, so scan the range rather than rej=
+ecting
+> +        * it outright. The caller has pinned every slot, so zswap cannot=
+ start
+> +        * a store or a writeback into the range while we look.
+>          */
+> -       if (WARN_ON_ONCE(folio_test_large(folio))) {
+> -               folio_unlock(folio);
+> -               return -EINVAL;
+> +       if (folio_test_large(folio)) {
+> +               if (WARN_ON_ONCE(zswap_is_present(swp,
+> +                                                 folio_nr_pages(folio)))=
+) {
+> +                       folio_unlock(folio);
+> +                       return -EIO;
+> +               }
+> +               return -ENOENT;
+>         }
+>
+>         entry =3D xa_load(tree, offset);
+> --
+> 2.53.0-Meta
+>
