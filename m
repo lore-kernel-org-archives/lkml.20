@@ -1,408 +1,211 @@
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+Received: from mail-qk2-f12.google.com (mail-qk2-f12.google.com [74.125.230.204])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75DD5563FB5
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 16:36:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60B5D583ACB
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 16:36:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.204
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788885389; cv=pass; b=rxunuG7YvI7fYgeOAuWOLjSfbO3r46b42UJy1SntsShOZyP3OOez+53j/8gab3+6yzEX7d7syj3GIpiQwmTIC4oM6vmXeiFXXDVpBvcziGrDd8r48Avd0QEtUt28Uzra/obXbPzpjLNGSvjR7DJWsEJc6Mo7WlrC2C78TIES7dQ=
+	t=1788885410; cv=pass; b=F7naL8gv+Y4DJB/iXVnKZmPHKl4SEOPiHFXityDqgOLkz6Fm31oPje2WC+TgvmP786+UDgXsDvCLqnIJlIwQqhHReIG9ucsQ1YzGgIV/NGTx961bkA5F9GBfYIp0yx1gY7/FVhth+aUFufHNHYB4GLKNriF2MvNElq3rylWTo4c=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788885389; c=relaxed/simple;
-	bh=lEBoRG2/h9gB2hK12UZam2uOCsmYfB1pjTSo33Y1C/c=;
+	s=arc-20240116; t=1788885410; c=relaxed/simple;
+	bh=2kpYBWl0KXefWYLIcQZz0qWhIXBa2vP5xaDAEBMBTgk=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=XlLweXKmuUbWM+SQagw/0bpjkhg7/bFkd15ym6C5D1WRozk//Z9dvij5xaPaZ2IYWWoMBjVhiSE5N3oPr1ToVfIpZjIUDcgCuCmllhKy0kphQwC22EKVgRgtH3iPvnssOYgEgWWT+Wsb4yQDuB9RR+9Ry7X7+6o4OA6XTo4/JiY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kWnF9a0h; arc=pass smtp.client-ip=209.85.128.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 To:Cc:Content-Type; b=kl1lZ/pmvyWkcV2gnHMqU/UTxzN7Gll81pk0Vgluo4WZZRYpAk1R78WXdSQ+WNU6kBjD4TCsgxa+oVzOZ5ZIQRg9jWh1SYwpHQQaie8OP084trbKNVFqjKN33FqOccLG/sT+vZuPbIsI4rPTV0Xf/haFrnaNIFs+FKQ+jXW0Ix8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=C4xhjiBY; arc=pass smtp.client-ip=74.125.230.204
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kWnF9a0h"
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-49556f97a9dso40893225e9.1
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 09:36:26 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788885384; cv=none;
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="C4xhjiBY"
+Received: by mail-qk2-f12.google.com with SMTP id d75a77b69052e-53012819c04so607261cf.0
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 09:36:48 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788885407; cv=none;
         d=google.com; s=arc-20260327;
-        b=GMzrWtzgG5PBmyv+8YezAtx1saAkYf3Y+2btBnMQOfWiY6G+rEpxBEnHZsWq/9Heso
-         XKwMo8Towt0I7JN8YUNN69brhfzMeqPtK1iRPOZWZPW9MCOKVGe7rJZUgC0aKiVH6yiW
-         x9Xv2UZt0TxPeTjRkk0LV21wjQxPIMuwCi2Y9yfPTSvde/zg2N15T2m7H7mnmRtmDM3r
-         Pyo4zwZrCKKodfDA5ORccplx8Ax3BiOWOSfE7RWp/89hHZPZa9TOtXkEBm9xtZni40Ke
-         2wSgce+TwEnickK/4fsXwe+D80nsBXOuBzEunyn5FikYnv0CXngqW7xxI00hRHv/Cnfp
-         QvNw==
+        b=WmqH9NFcVNVGV6Wq5Kh91l9AlVO/SD4b+q/YU2b4i6OPU53yXhTLJrdiWRnyQPt4t2
+         73LZwB1V6ERZg9EhX0ZidIDzSocxq0llD2oyg21VqTAMQbzYcjY1pSGVjEDg7MntXRc9
+         MJa2dYxymEP0fr/4cluY6B2oO/AsEMwHKcAgrXqT2NYjNYCnb4OnFdUwm7TdJsPWj9X8
+         FqE08038pzw1xWHqQ06NOXCxFFeLLaMlv5+Ml6A5rYueHOaltvdHvg0t0rqZQejABhXU
+         dvil+2P7+Nq4/mkRsE4vwdooeA7YRD+RHRfmxdnvJ9RtmG8LFjPlki2JRRaLlVQQwdvy
+         OXsw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=4Zr/BCHnDam4SH1NFfeVx9MdOiWK7PPMoeiEMtlXpgg=;
-        fh=ROcU08nuKDn/DmiaCvRvHom4yEA03PorYKzr3cZeEuc=;
-        b=Z3plfyArfwy3emfiAokx6S8qk+kYKGRyYNouCSdA5wrp8f8pHanGeNuCUf5pBuvEgv
-         V3BgCGbo13I/UFfVT0N4cDbs/G1m+hz+NFNgupZOlfKKdxHBMRPvYfbwpIIf4epmIBBm
-         KBi0NkbTtcMKDuYGmfM238nQhHvmN1Kzw9Ay/KiChWO1QFhqlxJV7TKp2XK1avbuC2iy
-         18MGsgaXt+iGFrCApEDsMl4ZXR/fuReDuLiMAfJYrW1vMbcQlM9pemasfPleFqzf2rHU
-         cyjvQ23dfG1aAWaKJ23uzCJq4HZQnDhhZunZOyFu6TUbQtLPfhKw4mFhqt27yN0cRCTW
-         gI1g==;
+        bh=Ar1cqiUGIhblAbeFXXUvhYbgZ/09secUyh9OrIqbTXI=;
+        fh=Zky5EiNfM8CGcbLlYxWSnskLK7I/pw4eJdPbg8M2lQQ=;
+        b=B1jaexl3fUS8vBMZDAgn0iMP+4AuJgOnxG4zZdMYFZtH9VFmg9+inpkFnbwAzQFwE2
+         3j17Xj8+E87SfquwZ7VUYR9ON9rqlo2MIWLmYaaql5ajcmDXoj8cyuDedPXjf0oU7zyk
+         roUHvWX+wHjugD7DbW4wCIpI47bNUD0Jig+N3DepGMYHElkiU7D0RX/KMjADCfekTLMg
+         la4INUaZ7Dc4ZnHmtbdbr+CK/mGoooMiK4Aobf2kKx5UyDDB/fTDdGaq2w2UgHhYUE++
+         5UnnBGvNr4QdOl1m6sTFvElumKIouGFUqh2vpuxpcFKUb2Sd8hYGsuQIbcXusl5vN/1T
+         BLYw==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788885384; x=1789490184; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1788885407; x=1789490207; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=4Zr/BCHnDam4SH1NFfeVx9MdOiWK7PPMoeiEMtlXpgg=;
-        b=kWnF9a0hEGMmpvEFLApUnMHHkwUkvJkQYRLAUHJ914sP22daG3j2PxVnkVK7M/BYWt
-         8AGcqG40osZ4cI5y4SIue5Lyinwnp5ytc3HNYNLnq1R9vqItk0TP3XfvZETtxqiJZg9u
-         eTEb3vMRw8gaL9CMiDzWmjXmtEplI8tg5u1GtokC0/B6qz7YZnlXNj8jAECEmYVvqKdo
-         qfQeuGxXu0HhgRyCAg3R6MmJSUHJLUpaLBUlNf8ymtd07pSvjHwdWU7ft9zaQhkej9Ki
-         iNd32zzgzvChp+0uqQP4VFFab5iAA30qrtgYxfx6GKMr7Qtexdtklwc5wiIlAlfir5gX
-         SuVA==
+        bh=Ar1cqiUGIhblAbeFXXUvhYbgZ/09secUyh9OrIqbTXI=;
+        b=C4xhjiBYgKl9K81hDkpHxRIhzR5h83VFZfBokdaj1GKk65AvCzVRyZ3VF3C/3pITdE
+         yIVji7wgw4F0Ko5/7TJd6LzuuX69+vsspxNPO+NuAMzIoa0YZTI+5wUSiMCxUDRPN5Nm
+         4FPaCwS1wSe6D7dnYZl1x53GtP2byurVFrSp8Rx2cEB0XMnxlRDF0vetgmYDDQv/Q4aM
+         zJZMLqG5f2hEQBVTL3s46hZ2nwQq7HUVg4872hoe7J481ViNfVxr4ER2Jt99viIiD2CQ
+         gYc2/VDKAIJfC3QwT/3c4jbfhPoGVS35JeNYbEOMzU6rdqBKIHJ+M+7sl2SJsudmI+3w
+         rtwg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788885384; x=1789490184;
+        d=1e100.net; s=20251104; t=1788885407; x=1789490207;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=4Zr/BCHnDam4SH1NFfeVx9MdOiWK7PPMoeiEMtlXpgg=;
-        b=BvP7CytZw9E8BfBTvBT1zOhnV4u8Xts+pBg1GHSRTyXfF7o5LN2zcXTpAARzrhpZct
-         T1EuPA6QURDn9/BUXkauu4pB2Gveu8ixvUwa90Hgwgs1Zh7zO04PMKYoMv39HONortPX
-         SVTeA0R240CPOj2h5gjcnAn2jROQnuQFkKD9csKfVG+tCnzX5pAPJEMYtZs7kuimjfur
-         4fZCFsx1zSK7qnVMMrwtDqHuRJPqv1bm8wbuw1dg8Hy9m3KcPu+eOGkzSz2fg9ves3B5
-         5wRSebb0cuKdI/ApjFbbsd+DW5vl5qoYLjRCMY/0O4I7Zm9D6Eb1d4pmbdggLeFVImwe
-         4CXg==
-X-Forwarded-Encrypted: i=1; AKwUvBz9pWocEtKgsIz68Lynnlw8JDD7qfCF9Q3tNtd2zs9dbrFH5m8572aieDYulGsaIpkp4TMsEJNU8GegFgA=@vger.kernel.org
-X-Gm-Message-State: AFuF++lTMNvesLwmj/crEFYDotDqfo49TR89evOnbn/SASbcWp2USYgd
-	zYdREgh/Stc0jvJAxSLK2yVvL0QnlZYAPo2bXbYmHUBTB31xkxOexiYkA0JIrZASM3tWdWyVq+/
-	1G+8OHfBYc5p+bXo0XyJdQ/3F0DMCnNs=
-X-Gm-Gg: AYBFou3MaW69rN73xt8LEPZfDFZ2p10JrND1f9BeixiG8ofOaGr4edJ/oUQnmDYoLH5
-	QL8mLqWZGgK3Ag9ND2Xm1rk5a+FmAiK6Ur3Tkvvjm1rP7F1r7daVmhsfiag4fvLr1Uqp26RYqC6
-	TDjaW5MfpQOzcBDdafmyIcgwV/GsLBqr+Ml5vZCKqa6mU0kxTH8dN1zMvkU1RC7Tyb8o7/vKyWE
-	oudQLRh6eATLK3iyRG5wcw5SlJh0Z+RdUt8VrrRe7J5OaNWhF5fh9EWNijdvqH0r0Hbxm6TN8Hj
-	fOREycJYEOFb9F9kZ56pUPLnWr72YxNE/pSQ9r7U+inPHXuc3YxRSfzazaY5C9vQ0GhlD3uVhCe
-	Q
-X-Received: by 2002:a05:600c:3145:b0:49d:1916:59c7 with SMTP id
- 5b1f17b1804b1-49d19165a7amr61456895e9.7.1788885384057; Tue, 08 Sep 2026
- 09:36:24 -0700 (PDT)
+        bh=Ar1cqiUGIhblAbeFXXUvhYbgZ/09secUyh9OrIqbTXI=;
+        b=iBWrJHpw8RHg7MeoPV8O4rBJc2hZG8BqAY6Alr9p37xTFJleJyolKKrlPHusY7ZB2t
+         hnCRwAtN3bCBWDKp5+UYzS3tmNvO3+bstK8GR9Lx8ErtrR64FnP0BUPiOKDTfmOadN+6
+         7NoUKZUvs3DiWqZDEZYZb+bg5VSO0Qt7MK+AFyoFagMn8mlDFy3ArHaX5e1+V0B2561h
+         47KCDT8vpuLmY3qGtskdLSjddbWLGHBnIuzs7D7dHfxcSi4qzMjlAOD3OCuWwODSrsSQ
+         SKFbfAtQrJZNAzrsQ6wEfdqAPt9J/Kg5pO9eXo1Hvifapvni+m21npSrtS74Y2e2PGHh
+         yREg==
+X-Forwarded-Encrypted: i=1; AKwUvBwCQZYz/SpPSk4EinFGDhV1n1NIytvFLQr6XvemVPW+oAW0CHeZB1c4WqjHJC4ye/N47Ge/oLsu7XrqMys=@vger.kernel.org
+X-Gm-Message-State: AFuF++mVbLNhm5OlZKZph0RjwaqgL2eXO1lL1Q0MhVLBkOMa7VF/m8IB
+	oremU+V2IhVanbcI4Qsz/g0klSea6oYDI1FkYduLgQZR5T4mXgiW4BA/a5gvFK/YHfCy72wd4Ss
+	sqW7r+YyxiV5EaecGHIDOM2Vd1aCf4LCmxyk0L3e6
+X-Gm-Gg: AYBFou2iZUUkS8OGYawGieP4K9rsKLMJod16vqyEvzUNh0e+OJj49GuQMspS3o0GtG4
+	rcUSkDnyLzCeUQEH77+Ul2KEUbFVozk1b3HC/P0/N4e72jTA8WWN0fOGH9CCxyZtOOC9sdNkPyL
+	qgxJswD9jxM/FYqvr6JRuEE2buadJwjq2/HCF8VJ85vJNDwvtd6gFCkW8optVP5uAAKjbNr46/f
+	Qd6PBh0g7JK4u3RNcK4x7TFEKVeTB58M404FKGTKCOn9qcNnMOCbxS2sX2f70vl5u3t+SkbFDEi
+	1wJ0abhgFriKoSwmBWOMaWGL5rMR4R3sGo3y6nu6Pw==
+X-Received: by 2002:ac8:6544:0:b0:52f:4a75:f840 with SMTP id
+ d75a77b69052e-530a3b5e4d4mr956091cf.9.1788885406535; Tue, 08 Sep 2026
+ 09:36:46 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <CAKEwX=MP=zuTnLT=coS_EpXe2KwXq=79yBnsEGXwcZZsW3S=Yw@mail.gmail.com>
- <CAMgjq7AHRzBsbmGOx0s=TQFBwcn=DEU1naR443sO6x+pJd6hAg@mail.gmail.com>
-In-Reply-To: <CAMgjq7AHRzBsbmGOx0s=TQFBwcn=DEU1naR443sO6x+pJd6hAg@mail.gmail.com>
-From: Nhat Pham <nphamcs@gmail.com>
-Date: Tue, 8 Sep 2026 09:36:12 -0700
-X-Gm-Features: AcwNN1Vi9M-_5AS5imWp6tHLc7BhYcF9rX-QthcMM81tAZyi-lnj_U6rqt_3bHk
-Message-ID: <CAKEwX=O8i+OsP6BJXNZNk07hveN9HDT+PoyMTAU6gOc-xp0Ppg@mail.gmail.com>
-Subject: Re: Path forward for Virtualized Swap?
-To: Kairui Song <ryncsn@gmail.com>
-Cc: Chris Li <chrisl@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>, 
-	Michal Hocko <mhocko@kernel.org>, Roman Gushchin <roman.gushchin@linux.dev>, 
-	Shakeel Butt <shakeel.butt@linux.dev>, Yosry Ahmed <yosry@kernel.org>, 
-	David Hildenbrand <david@kernel.org>, Muchun Song <muchun.song@linux.dev>, 
-	Kemeng Shi <shikemeng@huaweicloud.com>, Baoquan He <baoquan.he@linux.dev>, 
-	Barry Song <baohua@kernel.org>, YoungJun Park <youngjun.park@lge.com>, 
-	Chengming Zhou <chengming.zhou@linux.dev>, "Lorenzo Stoakes (Oracle)" <ljs@kernel.org>, 
-	"Liam R. Howlett" <liam@infradead.org>, "Vlastimil Babka (SUSE)" <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
-	=?UTF-8?Q?Suren_Baghdasaryan=EF=BF=BC?= <surenb@google.com>, 
-	Qi Zheng <qi.zheng@linux.dev>, Axel Rasmussen <axelrasmussen@google.com>, 
-	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, Rik van Riel <riel@surriel.com>, 
-	Gregory Price <gourry@gourry.net>, Wenchao Hao <haowenchao22@gmail.com>, 
-	Jonathan Corbet <corbet@lwn.net>, Hugh Dickins <hughd@google.com>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, Tejun Heo <tj@kernel.org>, 
-	=?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Kunwu Chan <kunwu.chan@linux.dev>, 
-	Meta kernel team <kernel-team@meta.com>, Linux Memory Management List <linux-mm@kvack.org>, 
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, linux-doc@vger.kernel.org, 
-	"open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)" <cgroups@vger.kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
-	Joshua Hahn <joshua.hahnjy@gmail.com>
+References: <20260804-iommu_contig_hint-v4-1-d7a47ed5db98@oss.qualcomm.com>
+ <CAE2F3rBQQEHsksOyE2ojQPbMd_vvFqaFMC2RzT0B6KkxMB5YgQ@mail.gmail.com>
+ <c84e61b1-785e-4a47-9082-c5111bf35fd4@oss.qualcomm.com> <CAE2F3rC80=ZpiHVtmRDU6f8g4AwV_RrJ-Zqr0Xi7zbUc0fsQog@mail.gmail.com>
+ <9c28300b-a17f-4324-b9d5-8fc800e4d794@oss.qualcomm.com> <CAE2F3rDdogf1jGsD2ekGqT7X692fFyqv=H-8iM5OTu8AdHHoJg@mail.gmail.com>
+In-Reply-To: <CAE2F3rDdogf1jGsD2ekGqT7X692fFyqv=H-8iM5OTu8AdHHoJg@mail.gmail.com>
+From: Daniel Mentz <danielmentz@google.com>
+Date: Tue, 8 Sep 2026 09:36:35 -0700
+X-Gm-Features: AcwNN1XrNENRtIESxOS2O_pA2bNb7D6VHVKhEtTbgLjPfFAgl7jg-nWJ8NnPV2M
+Message-ID: <CAE2F3rAeq_CPeaDxuh40v41v2f=68oD2TqK9DYSPKz9F74kqeg@mail.gmail.com>
+Subject: Re: [PATCH v4] iommu/io-pgtable-arm: Add support for contiguous hint bit
+To: Vijayanand Jitta <vijayanand.jitta@oss.qualcomm.com>, Jason Gunthorpe <jgg@ziepe.ca>
+Cc: Prakash Gupta <prakash.gupta@oss.qualcomm.com>, Will Deacon <will@kernel.org>, 
+	Robin Murphy <robin.murphy@arm.com>, "Joerg Roedel (AMD)" <joro@8bytes.org>, linux-arm-msm@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev, 
+	linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Sun, Sep 6, 2026 at 10:52=E2=80=AFPM Kairui Song <ryncsn@gmail.com> wrot=
-e:
-
-Hi Kairui,
-
-Thank you for the kind words and encouragement :) It means a lot
-coming from you.
-
-My main concern so far has been - it seems like every time I satisfied
-one of your guys' requirements, another pre-requisite is added to the
-list. I mean the performance regression and memory overhead concerns
-make a lot of sense, especially when vswap is non-optional. But now it
-just seems like we're delaying real use case for the fabled perfect
-swap system. It gets very exhausting trying to keep expanding the
-scope of this.
-
->
-> I asked Baoquan the same thing, see the "Why not make both args
-> optional" part:
->
-> https://lore.kernel.org/linux-mm/apaw_XmqnEcY8sv7@MiWiFi-R3L-srv/
->
-> Where I've ended up is that unbounded growth is a real concern. On a
-> host with no memcg limit (root cgroup, and most desktop and embedded
-> setups), an unlimited pool means usage can keep growing, with no
-> admin visible ceiling at all. I'm not attached to xswap's percent of RAM
-> knob specifically, but I do think some kind of bound makes sense.
-
-Technically speaking, virtual swap *is* bounded, i.e 8PB (xarray
-induced a limit to the number of clusters it can allocate). But more
-importantly, it's effectively capped by the backend it can take:
-zswap, swap cache, disk swap, etc.
-
-I'm not entirely certain this will be problem in practice...? Besides,
-we can always add new knobs if needs arise (especially since the old
-design still exists if unlimited swapping is somehow real), but if we
-started out with some knobs that turns out to be unnecessary or
-undesirable, removing them and/or educating users to be careful with
-using them is harder, in my opinion and experience deploying zswap
-across the fleet in the past 4 years.
-
->
-> > 2. Writeback support. Writeback is core functionality for zswap, not an
-> >    add-on, and a design needs to account for it from the start. This ca=
-me
-> >    up before, in the discussion around Chris' ghost swapfile RFC [17]: =
-for
-> >    a solution here to be acceptable, it has to work with the primary
-> >    usecase and support disk writeback. Without it, whatever zswap won't
-> >    take (incompressible pages especially) has nowhere to go, and cold
-> >    compressed data can never leave RAM.
->
-> Agreed completely, and I think this one is settled: whatever lands
-> has to support disk writeback in the end. Baoquan mentioned that
-> what he sent is just a foundation though. I know talking is cheap
-> but still, could it be combined with the writeback support from the
-> other side? Or am I missing anything here?
-
-I'm just very nervous about any design that doesn't quite take that
-into account and handwave it away into a follow-up :)
-
->
-> > 3. Cgroup charging behavior. vswap/xswap shouldn't be charged against t=
-he
-> >    swap usage counter. It's fundamentally a different resource from
-> >    physical swapfile space, and memory.swap.* should read 0 when nothin=
-g is
-> >    on disk [18]. I made the longer argument for this in [19].
->
-> I personally don't have a strong opinion on this. But I think this
-> needs an explicit decision from the group rather than being
-> inherited from whichever series merges first. Skipping the charge
-> when a device has a special flag isn't hard to do if the code
-> abstraction is done well, so this is more of a design decision
-> than a technical problem.
-
-I'm fine with discussing about this. I just want to point out that
-this is not something I snuck in :) This has been the behavior since
-probably the first or second RFC of the first design though, and in
-most of them, it is a front-and-centre patch of its own, not hushed
-away in one big patch. Folks have had 1.5 years to comment on it (and
-still not too late - nothing is merged yet!)
-
-I'd love to hear opinions from other zswap users regarding this :)
-
->
-> > 4. Data structure (xarray vs sparse vmalloc array). Even with xarray, v=
-swap
-> >    is already on par with or beating baseline. I like the sparse array
-> >    idea, but why are we landing an optimization before the feature itse=
-lf,
-> >    without any A/B data showing the difference matters?
->
-> This is where I'd push back a little. To be clear, my concern isn't the
-> size of the win, it's that VM_SPARSE isn't purely an optimization. It
-> changes the cluster/metadata layout and avoids RCU conventions,
-> could help avoid some future sleep while atomic limitations and
-> it's tangled with the initial size issue too. So bolting it on afterwards
-> could mean rewriting the parts of vswap that touch it and could be
-> costly some conflict in ideas. That's why I'd rather we agree on
-> it now, not that it has to land first.
-
-I don't think the current code differs significantly from the existing
-model, no?
-
-For the most part, RCU played quite nicely with the current swap code.
-Practically, it's just:
-
-1. If you have a reference to the swap entry, you can assume entry and
-the cluster owning it is safe.
-
-2. If you don't, then do not assume it's safe once you exit the rcu
-read section.
-
-What conflicts specifically do you have in mind here :)
-
->
-> Using VM_SPARSE does outsmart my earlier xarray suggestion :) There
-> is an interesting early benchmark from Baoquan, VM_SPARSE wasn't there
-> yet, but with it we can use clusters natively in the same way. It shows
-> about 20% latency cut and 10% throughput gain, which seems a major
-> improvement, and that's serial performance, not even mentioning
-> scalability yet:
-> https://lore.kernel.org/linux-mm/20260707073215.72183-1-baoquan.he@linux.=
-dev/
-
-I think a lot of these wins come from the fact that the zswap's xarray
-specifically is *really* bad in certain paths. For instance, in the
-free path (swap_range_free() -> zswap_invalidate()), there is no
-batching behavior, so we walk the tree from scratch for each entry
-rather than using an xas iterator for the entire batch. That goes away
-in the current vswap model, because the xarray manages cluster rather
-than entries, so you just do one tree walk + one flat array walk.
-
-You can see some performance numbers in my cover letter - it's
-promising on both micro benchmarks, and a production workload that I
-throw vswap on :) I've also done an ablative study, where I still let
-zswap and swapfile coupled, but only remove the xarray and replace it
-with the flat array in swapfile's cluster struct. I observe the same
-win, basically (especially on the usemem benchmark).
-
->
-> And it matters more than most micro-optimizations: under heavy
-> pressure many workloads spend less than half of system time in
-> compression itself, the rest is mm/swap. Swap has had a terrible
-> reputation for good reasons, and even with zswap/zram users
-> have been scared of the performance.
->
-> After the recent refactor and optimization we already noticed many
-> users can now run much heavier workloads using compressed memory only
-> or fast storages, which is a real breakthrough. Every chunk of
-> overhead we remove there unblocks another class of user from using
-> compressed memory as a "secondary memory".
-
-I don't necessarily disagree with any of the points you made here.
-FWIW, I like the vmalloc array idea too. I have actually put in work
-to review Baoquan's patch series, because I'm hopeful that it will be
-superior in the end (we're using this infra too so it helps us too :))
-
-I just want to re-iterate that:
-
-1. Vswap is already decently performant.
-
-2. We're not removing the old code, so no one will regress with vswap
-(they can just disable it for now). Optimization can be done on top of
-it after we land the use cases (which also unblock zswap usage for
-many parties who are capped by the storage limitations).
-
->
+On Sun, Aug 30, 2026 at 12:43=E2=80=AFPM Daniel Mentz <danielmentz@google.c=
+om> wrote:
+> > >>>> +/*
+> > >>>> + * Install num_entries leaf entries starting at ptep (index map_i=
+dx_start
+> > >>>> + * within the current table), tagging arm_lpae_num_cont()-sized g=
+roups with
+> > >>>> + * the contiguous hint where both idx and paddr are aligned to th=
+e group
+> > >>>> + * size. Entries in a misaligned group are installed without the =
+hint.
+> > >>>> + *
+> > >>>> + * idx and paddr both advance by block_size per entry, so their a=
+lignment
+> > >>>> + * relative to the group size is invariant across a run of entrie=
+s within
+> > >>>> + * this call: once a group qualifies (or fails to), every later w=
+hole group
+> > >>>> + * does too, up to num_entries. This merges each such run into a =
+single
+> > >>>> + * arm_lpae_init_pte() call instead of one call per group.
+> > >>>> + */
+> > >>>
+> > >>> Can you provide an example for when this function installs descript=
+ors
+> > >>> where the contiguous bit is only set on a subset of them. I would
+> > >>> assume that the contiguous bit is either set for all descriptors or
+> > >>> none of them.
+> > >>>
+> > >>
+> > >> That assumption doesn't hold in general -- it's only true when the
+> > >> map request happens to start and end on a cont_size boundary. For an
+> > >> arbitrary map_pages() call it usually doesn't.
+> > >
+> > > I believe you won't see arbitrary map_pages() calls. I understand tha=
+t
+> > > these calls are exclusively coming from __iommu_map_domain_pgtbl()
+> > > which uses iommu_pgsize() to determine optimal page sizes.
+> > >
+> > >> Example, 4K granule (num_cont =3D 16, cont_size =3D 64K),
+> > >> iova =3D paddr =3D 0x1000, pgcount =3D 34:
+> > >>
+> > >>    - idx 1..15  (off !=3D 0, misaligned prefix):        installed pl=
+ain
+> > >>    - idx 16..31 (off =3D=3D 0, paddr now 64K-aligned):     installed=
+ w/ CONT
+> > >>    - idx 32..34 (off =3D=3D 0, remaining < num_cont):      installed=
+ plain
+> > >
+> > > In the example you provided, I expect that you'll receive three
+> > > separate calls from __iommu_map_domain_pgtbl:
+> > >  * idx 1..15 with pgsize 4KB
+> > >  * one call with pgsize 64KB
+> > >  * idx 32..34 with pgsize 4KB
+> > >
+> > > If I took your argument further, I could argue that we'd also have to
+> > > check if we can put down a block mapping if iova =3D paddr =3D 0x0 an=
+d
+> > > pgcount =3D 512, but we're not doing that either.
+> > >
+> > > Could you provide the input parameters to the iommu_map() call that
+> > > resulted in the parameters you provided i.e. iova =3D paddr =3D 0x100=
+0,
+> > > pgcount =3D 34:
+> > >
 > >
-> > One thing I do want to be clear about: I'm glad other people care about
-> > this problem. Chris' ghost swapfile and Baoquan's xswap are both going
-> > after the same set of problems, and that's a good sign. It means this i=
-s
-> > real and shared, not something only Meta runs into.
+> > You're right -- for the iommu_map()/__iommu_map_domain_pgtbl() path, io=
+mmu_pgsize()
+> > already splits the request at the boundaries you describe before instal=
+l_leaf() ever
+> > sees it, so install_leaf() doesn't need to handle a mixed prefix/CONT-g=
+roup/suffix
+> > chunk for that caller.
 > >
-> > What's been harder is the shape of the engagement. Alternatives keep
-> > getting posted and pushed that don't cover all the requirements, while =
-this
-> > series sits without review. I don't think I'm owed anyone's interest in=
- the
-> > problems I care about. But I do think working code, with benchmarks and
-> > production exposure behind it, deserves a fair hearing next to in-progr=
-ess
-> > proposals.
+> > That said, install_leaf() is shared by other callers that reach it thro=
+ugh
+> > ops->map_pages() directly, without going through iommu_pgsize(). pantho=
+r_vm_map_pages()
+> > (drivers/gpu/drm/panthor/panthor_mmu.c) is one -- it allocates its io_p=
+gtable_ops via
+> > alloc_io_pgtable_ops(ARM_64_LPAE_S1, ...), same as any other LPAE consu=
+mer, but does its
+> > own chunking with a local get_pgsize() that only ever returns SZ_4K or =
+SZ_2M, with no
+> > notion of the 64K/32M CONT boundaries. That can hand install_leaf() exa=
+ctly the mixed
+> > iova=3Dpaddr=3D0x1000, pgcount=3D34 shape in a single call (panfrost's =
+map loop uses the same
+> > get_pgsize() and hits the same case). So the prefix/aligned-group/suffi=
+x handling in
+> > install_leaf() is still needed for that path.
 >
-> I'm sorry it has felt that way, and I don't want to hand wave it. For
-> what it's worth, I did review it, and I did think it could be merged
-> with some adjustments:
->
-> https://lore.kernel.org/linux-mm/CAMgjq7D4XsAD4NGDL7FC2kaYAQAP8PDJdn4bpzG=
-ZwXYtjEpJ6w@mail.gmail.com/#t
->
-> We were also discussing the limitation of the global cluster cache in
-> that thread, so I paused my other work for a while and posted the swap
-> queue series first. That one is orthogonal on purpose, and helps both
-> swap tier and vswap, it reduces the overhead enough to cancel out
-> the layering cost due to missing caching for either:
-> https://lore.kernel.org/linux-mm/20260829-swap-pcp-priq-v2-resend-0-68d3d=
-925578c@gmail.com/
-> (this is V2, V1 is earlier - thanks to Lian for keeping this going!)
+> Maybe other people can chime in here, but I feel, from an API
+> perspective, we should have only one way to make of use iopgtable. I
+> think we should just mandate that users honor the updated value for
+> pgtbl_cfg.pgsize_bitmap (and pgtbl_cfg.ias) after the
+> alloc_io_pgtable_ops() call and then choose page sizes appropriately.
+> Otherwise, we end up with two pieces of code in the kernel solving the
+> same problem. panthor_mmu won't be able to take advantage of the
+> contiguous bit until it gets updated accordingly, and that's ok.
 
-Ah that! I sort of tabled that as a nice-idea-but-still-optimization :P
+On this note, I want to point out that I tried something similar in
+2025 (see https://lore.kernel.org/linux-iommu/20250430231924.1481493-1-dani=
+elmentz@google.com/).
+The feedback I received from Jason at the time was:
 
-I'll spend some time thinking about the design and reviewing it. In
-the long run, it will get things more simple, but another thing that
-should not be a blocker, correct?
-
->
-> Then xswap appeared with the VM_SPARSE idea and exploring it seems
-> necessary because getting the cluster foundation right affects
-> everything built above where it went. Not because the vswap series
-> wasn't worth reviewing.
->
-> > So what I'm asking for: I'd like us to converge rather than keep two se=
-ries
-> > in flight. My preference is that we land vswap first, then build Baoqua=
-n's
-> > sparse array on top of it as an optimization. That gets the feature in,=
- and
-> > by then we'd have the A/B data to show whether the sparse array actuall=
-y
-> > beats the xarray.
-> >
-> > If you think that's the wrong order, I'd genuinely like to understand w=
-hy -
-> > after 17 months and 10 revisions I still don't have a clear picture of =
-the
-> > objection.
->
-> I fully agree we must converge. At the moment I don't think one can
-> can settle that alone as there are several of us reviewing both. I'll try
-> to be more concrete about what I think has to be agreed first.
->
-> The two interfaces aren't equivalent, xswap has its limitations, but a
-> couple of xswap's properties look genuinely better to me. Runtime
-> on/off rather than a boot parameter is better, more flexibility and
-
-I would also like to point out - I *do* have a runtime parameter in an
-older version of vswap (v3). There is also not a lot of engagement
-from folks in that version - no one expressed any interest in that
-runtime knob in particular. Only Johannes made the case that a boot
-parameter is superior, so I switched over. I think his reasoning makes
-sense at the time FWIW, and it also removes the need for CONFIG_VSWAP
-(which in turns remove a bunch of useless stubs - saving 100 LoCs), so
-I figure folks will prefer less code and less userspace decisions :)
-
-v3: https://lore.kernel.org/all/20260806184254.3790858-1-nphamcs@gmail.com/
-
-Regardless - do you have a specific use case in mind where a runtime
-knob would be useful?
-
-> doesn't conflict with what vswap is trying to do. Some other of these
-> differences involve design decisions rather than just surface knobs,
-> and those are the parts we're stuck with once they ship.
->
-> So a few current interface difference of vswap and xswap I've noticed are=
-:
->
->  - default size: somehow also tangled with VM_SPARSE, which
-> needs an initial virtual value. It's super cheap if not zero cost
-> (the only cost is occupying some vmalloc area, which is fine
-> I guess?). But we still have to pick a number, could be large
-> enough to satisfy everyone?
-
-8PB? ;)
-
-I think choosing a meaningful number that covers from O(dozen of GB)
-to O(terrabytes) scale machine, with different workload shapes, access
-patterns, memory compressibility, etc. is an unsolvable problem. If
-it's cheap, why don't we just max out?
-
->  - boot vs runtime toggle: I believe a runtime toggle is better. It
-> can still be tuned on boot via cmdline, but it offers the extra
-> ability to turn it on without modifying a base VM boot image or
-> kernel.
->  - growth / limits: as talked above.
->  - charging semantics
->  - there could be other longterm design decisions on top of these as
-> we talked in above.
->
-> Once these settle, I think the picture will be clean. Your writeback
-> logic and swap table integration are solid, while Baoquan's VM_SPARSE,
-> previous preparation with swap ops give us a structural foundation. A
-> clean long-term architecture means getting the core structure right,
-> let's try not treating this as a race between series.
-
-I've reached out to Baoquan as well, but I figured there's value in
-both discussions in big and small groups, and especially since there's
-a chance some of us might not be coming to LPC. Let's see what we come
-up with.
+"Wouldn't it be better to use the pgsize_bitmap and rely on the core
+code to indicate that a contiguous page size is being used, so it can
+trivially set the PTE bit without doing all this extra work?"
