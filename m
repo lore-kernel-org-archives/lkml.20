@@ -1,123 +1,79 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from inva020.nxp.com (inva020.nxp.com [92.121.34.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D75FA538D6F;
-	Tue,  8 Sep 2026 12:42:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E31653D0D3;
+	Tue,  8 Sep 2026 12:42:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=92.121.34.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788871340; cv=none; b=Ge16bh+ASgS8ULOq3er8SM2E+w76L0vhMa6aKGdWhJWbMnN5WtVX9KoGbAKNg+Xn6ueuyofWUL88EUH402nv7r8qWIfsQFh4zUh9LDCoIv2yX7Zd/MLWAoFyGDSmgCpnC7CBnpRjQETZZ3cXQl94xLIRYhuT1KGHK1UBn6Rf1pg=
+	t=1788871355; cv=none; b=JcfSs27/mPHWeUI6T7F+LUyNR0X8wLUSdC+JzIFg/8IpRVlf6xNMs2EdBxKxf4w2YXg7gtt4EhJE6zvSvTVEHDJGdDbjDvXwT/XS31iUJ3eESYS1Z/A+rIn+RWAishT5srCS5TsvQS3BvEpapFqDFBwLeu3+KINOyyOfMBknSyc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788871340; c=relaxed/simple;
-	bh=VGjT8yNKu9T3JwmloU5mS9DHacYk5CQ9txBTR2D1AMg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=YXJsouZ/eryINnckaXWTx1VE8UaAOBcZ0mlUcbVRaJd04DzYk3kltn5aGriRU1IHvpwdWsw7HIWbB9W6HHA4saUdWhVFgKn/YGt8qfh4IbCcfZJTEIQX4ycNzuzRPi0N2JgoxKfhhv3AlqD6lD5STRa5x5eE5d9eTAO4XQe4UEk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QIHh1z2h; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QIHh1z2h"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 494551F00A3A;
-	Tue,  8 Sep 2026 12:42:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788871338;
-	bh=Y6jk5OyEcqFWJOvwO61dpd5Psuv55kAUeibaILfDhBU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=QIHh1z2hHalV4r6vxxSmDOnm7gCcgpuCxZ3dHTtdGDsIuCCICO8a/8o4C1mR/Mffi
-	 asNh7uYzRNGnVdtkYAp4h+sLNq3LWzFinaEnNpvxBEsr2mwBfi6WLAX6aoCju/uPme
-	 HdqvboRN+pgrvpN1DPt+TPS2UdES5zqfzNTrr7MYswp8Bt8BQmwoGlCkW05PNpEwWk
-	 PbFqtA1lNSG4CvCPVf4b0yol5nGUjobO8FvQp/xSgia/BEkZFlNEnb7Mfs559vW8YF
-	 CQWhVJ4+BJAYcDMhh1bMb9onHhkYqJ7iyJQaepIagshhVG7Q6oIzq+Vk5iUNRLpJOm
-	 NWHI7sdZ+rbWA==
-Date: Tue, 8 Sep 2026 13:42:15 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Manush Prajwal <manushprajwal555@gmail.com>
-Cc: conor.dooley@microchip.com, daire.mcnamara@microchip.com,
-	alexandre.belloni@bootlin.com, linux-rtc@vger.kernel.org,
-	linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] rtc: mpfs: fix unchecked devm_clk_get() error pointer in
- probe()
-Message-ID: <20260908-karaoke-chrome-e1746c314d83@spud>
-References: <6a9d4b02.7d74b517.206c4c.75f8@mx.google.com>
+	s=arc-20240116; t=1788871355; c=relaxed/simple;
+	bh=6qCT5APCzY0OyYr0mc5qAIkaNGMtgovLSnJ/xkVonsg=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=PEYOQsYdJVwMIdmCTaJ1NtfW6WzLn+cpGkeAaX+F2qLNf2yLTgAdMuqqwD+8X3BtX5kbaNEN5tg+iZv0jc2BgoF5YF+K9w18KUheWXr96vO5iVaa5j9t3sEc//yp4/Ozf5q3mG2vUTkioEhF1EpzqaFnYmhdWetSKn4iIVrK0Jw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; arc=none smtp.client-ip=92.121.34.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
+Received: from inva020.nxp.com (localhost [127.0.0.1])
+	by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id 3DAAC1A004A;
+	Tue,  8 Sep 2026 14:32:30 +0200 (CEST)
+Received: from aprdc01srsp001v.ap-rdc01.nxp.com (aprdc01srsp001v.ap-rdc01.nxp.com [165.114.16.16])
+	by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id 03ACA1A0043;
+	Tue,  8 Sep 2026 14:32:30 +0200 (CEST)
+Received: from lsv031125.swis.in-blr01.nxp.com (lsv031125.swis.in-blr01.nxp.com [10.12.177.172])
+	by aprdc01srsp001v.ap-rdc01.nxp.com (Postfix) with ESMTP id 60BAE18000B6;
+	Tue,  8 Sep 2026 20:32:27 +0800 (+08)
+From: Shiv Prakash Gupta <shivprakash.gupta@nxp.com>
+To: andi.shyti@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	peda@lysator.liu.se,
+	linux-i2c@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: vikash.bansal@nxp.com,
+	priyanka.jain@nxp.com,
+	Shiv Prakash Gupta <shivprakash.gupta@nxp.com>
+Subject: [PATCH 0/2] i2c: mux: Add NXP PCA9641 I2C bus master arbiter
+Date: Tue,  8 Sep 2026 18:01:44 +0530
+Message-Id: <20260908123146.1839854-1-shivprakash.gupta@nxp.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="DyNf6KzfTVv227Ts"
-Content-Disposition: inline
-In-Reply-To: <6a9d4b02.7d74b517.206c4c.75f8@mx.google.com>
+Content-Transfer-Encoding: 8bit
+X-Virus-Scanned: ClamAV using ClamSMTP
 
---DyNf6KzfTVv227Ts
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+This series adds support for the NXP PCA9641 2-to-1 I2C bus master arbiter.
 
-On Sun, Sep 06, 2026 at 04:44:09PM +0530, Manush Prajwal wrote:
-> devm_clk_get(&pdev->dev, "rtcref")'s return value was passed straight
-> into clk_get_rate() without checking it for an error first, unlike the
-> "rtc" clock a few lines above which is correctly checked with
-> IS_ERR(). clk_get_rate() only guards against a NULL clk, not an error
-> pointer:
->=20
-> 	if (!clk)
-> 		return 0;
-> 	...
-> 	rate =3D clk_core_get_rate_recalc(clk->core);
->=20
-> so if devm_clk_get() ever returns an error pointer here (for example
-> ERR_PTR(-EPROBE_DEFER), which is the normal, expected outcome if the
-> clkcfg clock-provider this RTC depends on has not registered its
-> clocks yet by the time this driver probes), clk_get_rate() dereferences
-> that error pointer instead of returning 0, crashing instead of letting
-> probe defer.
->=20
-> Capture the clock in the existing 'clk' local and check it with
-> IS_ERR() before calling clk_get_rate(), matching the handling already
-> used for the "rtc" clock in this same function.
->=20
-> Signed-off-by: Manush Prajwal <manushprajwal555@gmail.com>
+The PCA9641 allows two upstream I2C masters to share a single downstream
+slave bus using a hardware lock/grant arbitration protocol. It provides
+dedicated interrupt outputs (INT0/INT1) per upstream master and a 16-bit
+inter-master mailbox.
 
-Fixes: 0b31d703598d ("rtc: Add driver for Microchip PolarFire SoC")
-CC: stable@vger.kernel.org
-Reviewed-by: Conor Dooley <conor.dooley@microchip.com>
+The driver supports two arbitration modes:
+- Interrupt mode: uses INT0/INT1 GPIO interrupt, with automatic fallback
+  to polling when no IRQ is configured
+- Polling mode: used when no interrupt is configured
 
-> ---
->  drivers/rtc/rtc-mpfs.c | 6 +++++-
->  1 file changed, 5 insertions(+), 1 deletion(-)
->=20
-> diff --git a/drivers/rtc/rtc-mpfs.c b/drivers/rtc/rtc-mpfs.c
-> index ece6de4a6..60596b0ea 100644
-> --- a/drivers/rtc/rtc-mpfs.c
-> +++ b/drivers/rtc/rtc-mpfs.c
-> @@ -256,8 +256,12 @@ static int mpfs_rtc_probe(struct platform_device *pd=
-ev)
->  		return ret;
->  	}
-> =20
-> +	clk =3D devm_clk_get(&pdev->dev, "rtcref");
-> +	if (IS_ERR(clk))
-> +		return PTR_ERR(clk);
-> +
->  	/* prescaler hardware adds 1 to reg value */
-> -	prescaler =3D clk_get_rate(devm_clk_get(&pdev->dev, "rtcref")) - 1;
-> +	prescaler =3D clk_get_rate(clk) - 1;
->  	if (prescaler > MAX_PRESCALER_COUNT) {
->  		dev_dbg(&pdev->dev, "invalid prescaler %lu\n", prescaler);
->  		return -EINVAL;
-> --=20
-> 2.46.2.windows.1
->=20
->=20
+Patch 1 adds the devicetree binding schema.
+Patch 2 adds the driver with Kconfig, Makefile, and MAINTAINERS entries.
 
---DyNf6KzfTVv227Ts
-Content-Type: application/pgp-signature; name=signature.asc
+Shiv Prakash Gupta (2):
+  dt-bindings: i2c: Add NXP PCA9641 I2C bus master arbiter
+  i2c: mux: Add NXP PCA9641 I2C bus master arbiter driver
 
------BEGIN PGP SIGNATURE-----
+ .../devicetree/bindings/i2c/nxp,pca9641.yaml  | 109 +++++
+ MAINTAINERS                                   |   7 +
+ drivers/i2c/muxes/Kconfig                     |  15 +
+ drivers/i2c/muxes/Makefile                    |   1 +
+ drivers/i2c/muxes/i2c-mux-pca9641.c           | 395 ++++++++++++++++++
+ 5 files changed, 527 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/i2c/nxp,pca9641.yaml
+ create mode 100644 drivers/i2c/muxes/i2c-mux-pca9641.c
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaqACowAKCRB4tDGHoIJi
-0uBvAQD7XBtH+8ICDp5mTLM2S+LcsHxvXWu9InFUV/5E2ZWWFwEAyXAL081i2Az8
-7c4LJDO4iy8sf9eNk/stTxBIE4O64QU=
-=hrpV
------END PGP SIGNATURE-----
-
---DyNf6KzfTVv227Ts--
+-- 
+2.34.1
