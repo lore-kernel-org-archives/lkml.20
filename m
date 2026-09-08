@@ -1,124 +1,163 @@
-Received: from mail-pg1-f174.google.com (mail-pg1-f174.google.com [209.85.215.174])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABB94492E23
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 22:59:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1989C492E3F;
+	Tue,  8 Sep 2026 23:00:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.9
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788908388; cv=none; b=N5+x/3C3B/akbogYFRLVh+5XVefq62MkWwWnZzoT1DRfNlN7AcwiSN2C9VzRia8813HtRHQcMy3cFU+geUgU9X+kRXEpTAxsZQlNbKCV/9GwlO9/+mJ44Zthr2bRK/oxvKcICO7UihL/FDVP9jF1SGqljlm8QDa/MCE8K8W+rFg=
+	t=1788908407; cv=none; b=TJaCM6AUyyL3WPVSn3XMuEyMPihQu8ZgzjENre0yQ0koK8ouYhJI5Mct3RPfMUqBeNydm5p17TW5t/ILQ2KEXGWVxQGPICPmyLJSuCI+BQ2QTrM/bgGkU/mlKj3oOHiMGaSIMurciWDG4eCdoYDwJOV7dRW0Ir1parQ10a4QhJ0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788908388; c=relaxed/simple;
-	bh=t+TOJ9eQ1Quf2t+eJx0wqvdgljwm7WcRyxNM1fEnmK8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=bpOskihykPQDFk2mdIdIlv/P0kRsY3So2gl0uP1uTUQI5oQ482G9HMhpa2JsrFPDy9w7j/FYkHBaqnTuU4faB0BPXFM4rJw6GNlUl9+KITUEGaEFlqo3yKYwtdgh07gy7MKrz+x1MUe6MVoTydUd2vW8JsATGxlmbyYzxAkWqyY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GzT9SM13; arc=none smtp.client-ip=209.85.215.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788908407; c=relaxed/simple;
+	bh=WykfuobmyroANxv66SmMUr8kbHPDqJcJUmas1hW0em8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=JBIES7ZeeMiCCwD9+DLiEXnF3OtLRMQ5Pek/Z2+ZzuLUTGZSevu9o2xflEr3EGWmcoAHYhEz22laLRIgSQOFOxYsWkyy9uipVeEJmgLCuBlNaCc+vKtDjbLHjOS/dM/Bg1yITiNQGH6+5o2/uXf+U95mnRC6CTsRadKB98jfgDY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=dG6cElcA; arc=none smtp.client-ip=192.198.163.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GzT9SM13"
-Received: by mail-pg1-f174.google.com with SMTP id 41be03b00d2f7-cc1d57602e8so4587712a12.3
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 15:59:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788908387; x=1789513187; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=t+TOJ9eQ1Quf2t+eJx0wqvdgljwm7WcRyxNM1fEnmK8=;
-        b=GzT9SM13dskqKNzu7lKjtWeymEnjBxQUNdvin5ehZVNpMbJ7lHEwf0IwiGrSiFPhXg
-         pyMPDcaSoyZC6MTDObtZKhmLnGkgccZjRU5OiK5NjRZVs/1XhNrdqlo4Bd8oEQVzwn6P
-         mUbb/fbRo4opLWH0HIrCaJj7qnM1w6CThmzYnGoBrDFFTyZJvimtS60N0BorRR0HsmCz
-         EPshzVP7MDMOvtc6KD3EyA6XIZWfIvAmIttxVHbZPmfg3B6SBaAgk4z00YpvyHYFLAqi
-         rMUx7s/lZp8RbiYWEkVG+Qj5puk8NmhCZAGmHjCrpc8yOIibU4e8GSppBWsFEtL4rjNy
-         9WDQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788908387; x=1789513187;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=t+TOJ9eQ1Quf2t+eJx0wqvdgljwm7WcRyxNM1fEnmK8=;
-        b=MfHS6YlOOfJfOGQhhy4I6UiWbmEUdQljwFqJBgMGjxSnGoOUxG9AqeJMXpKsEq5uXn
-         jtgaw55qwlelCoH8xK/65QaoXCrNP6WGj50RV2cIq+FMR5W0b3j0tFe1z3yXxf51w5cv
-         YxxNqFhrniu9sIxsVo/zY/FSwMGJc2dhm00Iuklq2BHrZXyeze6Q6fRCscBBxidlPgEJ
-         1zmSbGEjm5/fe1b+hUJTekpp1aBIpTjntkOBSCAzkKzDiFwe+aKrXTMS9pUKF3/D8YxV
-         s+ZMfu2VRkOBjugPxopomr/6wLyjjXO9Fcps5gvdtV0m6W6eg1ppT2qyQ1vTCxgsoJE6
-         kTCQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxoUOcNkzwv0whL25zmKhdncUMByncCR2myEGpqXS6Pd/7sz7Fsh/B+xEMDQj2qLrRAe25xqu3a/1hiKII=@vger.kernel.org
-X-Gm-Message-State: AFuF++n9QGpYRLtXxruCz1VnG2aBdQQGS71Vpjk7OheFKxWi0hY3qBKa
-	A/ygFbC91gtZGjTyqzDUh2wFuPNthgiKTYsBgdeaD+FQ+O7m/jNKkN7jBw7U30Yhwg==
-X-Gm-Gg: AYBFou17n5n9YGf0y9Dh9mqvRDbWfTwppoa/Ad7kb4xCJVv2GNLgho4sY17Jl3/SpGL
-	wiJPh/ETC2s2By3ueAd2H+FobvQkAmaXOAgCt2+sUBRUal7rF7CncdArj5hsgkABhqcR/UK/PSe
-	W6CVrHpumxawBUudV2zjUSyXMjcYKFURg75/YEqQQ+mPSkAIy2ltIvcJGYIdFo3dhhZ1rzUbrru
-	WaAo/h/G0xzGCpxdQEa8pPCZGSfBeLnxEh+SjAdUA8qz3m/iuLg3UWybvno7rNEmf0oXUmvIJcg
-	gZgGjJSPVJCaeRq5ZQAE0JPZobZV+YLY/JKXXpLG97jlPBJI33+9ajK1CYTt+Ne6OZEh8/f1yaQ
-	/Qsqc/48KwcgULK4XSNKmrF6femFg1p+zT+Zltk4DzvsMWa/8b0Ym79zMU9oBuVs3b32GlAj1cV
-	THEmIwLiFg0+HMEt3F2IGxeLUAa3TM69yAZBCVb8CE1cpXJWjEP8jLGzD6pYOUy32DeptlqeiB8
-	lZWYiR4a2MkJBzd
-X-Received: by 2002:a05:6a20:244a:b0:3cd:9f0b:f788 with SMTP id adf61e73a8af0-3da39d12327mr46169716637.12.1788908386855;
-        Tue, 08 Sep 2026 15:59:46 -0700 (PDT)
-Received: from ydg-Zenbook-14-UM3406GA ([2001:2d8:6467:d689:f6ea:9d29:b387:9ed5])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc464393760sm4897059a12.3.2026.09.08.15.59.44
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 08 Sep 2026 15:59:46 -0700 (PDT)
-From: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
-To: andrew@lunn.ch
-Cc: hkallweit1@gmail.com,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net] net: phy: dp83867: restore the LED polarity after a soft reset
-Date: Wed,  9 Sep 2026 07:59:41 +0900
-Message-ID: <20260908225941.105431-1-donggeunyoo.kernel@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <252b331b-0ae8-4248-bcfb-5c63d8c2b7fa@lunn.ch>
-References: <20260908114901.74637-1-donggeunyoo.kernel@gmail.com> <252b331b-0ae8-4248-bcfb-5c63d8c2b7fa@lunn.ch>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="dG6cElcA"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788908405; x=1820444405;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=WykfuobmyroANxv66SmMUr8kbHPDqJcJUmas1hW0em8=;
+  b=dG6cElcA4loIg/Fas/u3PE7GniM4duXCXxLlyfWFA1AWnNZnIhmH3rvG
+   IDDIQUu4iNRRflZMC8b4cwEAZnMyy87LXgLSeI0ZQ8LeCtnSDYZ+QNKAJ
+   Bb27Su7j+7d7MYrmq2Y1azjSVekmjaqeDjhCRmiRVsKZFVGcdID591DK7
+   Jj3MxQuz/qPbDYjwPO6XT+TxOFs1QtMDfajixDmJMc+PBuJHH4OtcCvof
+   dnbGqPT9GRJorpEum1oq0J+Rt4xsWqy03Q+RKQLiVPDgUISZYPFlI0KpR
+   s+29oSa5WD4Apa5aaswYdlRgNLgUOULcnZTKY6+oD5WiipttQEquPvNPz
+   Q==;
+X-CSE-ConnectionGUID: ID0E9RbySmW3xLb7aQvZQA==
+X-CSE-MsgGUID: i/HVIF2ZTmKy+OT5evmKkA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11900"; a="99987370"
+X-IronPort-AV: E=Sophos;i="6.25,269,1779174000"; 
+   d="scan'208";a="99987370"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Sep 2026 16:00:04 -0700
+X-CSE-ConnectionGUID: Jsts6cKgQZyRFSi+eiWWqg==
+X-CSE-MsgGUID: EjuGTvPTQCGTx9ker93pgQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,269,1779174000"; 
+   d="scan'208";a="269388295"
+Received: from vverma7-desk1.amr.corp.intel.com (HELO [10.125.111.130]) ([10.125.111.130])
+  by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Sep 2026 16:00:04 -0700
+Message-ID: <3d7152ba-5e41-4cff-9c96-08f77f60ede5@intel.com>
+Date: Tue, 8 Sep 2026 16:00:02 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Update on CPA fixes, x86/urgent and x86/mm
+To: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>,
+ Mike Rapoport <rppt@kernel.org>
+Cc: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+ Dave Hansen <dave.hansen@linux.intel.com>, linux-kernel@vger.kernel.org,
+ linux-tip-commits@vger.kernel.org, Jiri Slaby <jirislaby@kernel.org>,
+ "Kiryl Shutsemau (Meta)" <kas@kernel.org>,
+ "David Hildenbrand (Arm)" <david@kernel.org>, Will Deacon <will@kernel.org>,
+ David Carlier <devnexen@gmail.com>, Atish Patra <atishp@meta.com>,
+ Nikunj A Dadhania <nikunj@amd.com>, stable@vger.kernel.org, x86@kernel.org,
+ Ingo Molnar <mingo@kernel.org>
+References: <20260813-cpa-fixes-v2-1-39b4ff90f91d@kernel.org>
+ <178821524784.3717435.3293914321834699913.tip-bot2@tip-bot2>
+ <b2095df8-9991-4e65-9890-c34f8c206319@kernel.org> <apZ52DKlJIrpX6qq@gremlin>
+ <7fe0aee9-d1e9-419c-9ca6-c0160223d5dc@intel.com>
+ <ap_WIZwCPKB07nAf@kernel.org>
+ <54f55b19-4a42-4c5d-a6ec-979132e11ece@intel.com>
+ <5394f2d7-03e2-4aeb-a5da-60a0368340d9@kernel.org>
+ <cd92444e-777f-470a-9bc9-f64e5edf10e3@intel.com>
+From: Dave Hansen <dave.hansen@intel.com>
+Content-Language: en-US
+Autocrypt: addr=dave.hansen@intel.com; keydata=
+ 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
+In-Reply-To: <cd92444e-777f-470a-9bc9-f64e5edf10e3@intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Tue, Sep 08, 2026 at 04:14:58PM +0200, Andrew Lunn wrote:
-> What about the other bits in LEDCR2? dp83867_led_brightness_set()
-> might of been used to turn the LED on/off in order to show the state
-> of my caps lock key, etc.
+OK, so Linus pulled the x86/urgent fixes I sent earlier today. I've
+staged everything else. Here's an explanation for where that leaves the
+other x86 fixes.
 
-You're right. LEDCR2 is cleared by SW_RESET -- v1 already showed the
-polarity there is lost, and the DRV_EN/DRV_VAL on/off bits from
-led_brightness_set() live in the same register, so a manually driven LED
-loses its state too. Polarity-only was a partial fix.
+==== x86/urgent ====
 
-For v2 I'll shadow what the driver programs into LEDCR2 (value plus a
-written-bits mask, updated in the setters) and replay it from
-config_init(), which runs right after the soft reset. That restores both
-polarity and the software-driven on/off state. The runtime setters run
-under phydev->lock but the resume-path phy_init_hw() does not, so v2 will
-define how the shadow read is serialized against a concurrent setter
-rather than leaving it racy.
+x86/urgent has 5 urgent fixes in it. There are 4 that are CPA-related.
+These fix some use-after-free issues that have been blocking mm folks
+from making forward progress on some other features they're working on.
+So they're impacting real people. They're not new bugs, but they're
+annoying enough not to want to wait until the merge window:
 
-The function nibble in LEDCR1 is lost the same way. The DP83867IR/CR
-datasheet (Rev J) section 7.5.5.3 says the global software reset resets
-all internal circuits including the IEEE-defined and extended registers
-to defaults, and LEDCR1 (0x18) is an extended register, so SW_RESET
-clears it too. The netdev trigger only re-issues the function on its next
-set_baseline_state(), i.e. the next link or activity event, not on the
-reset, so an offloaded LED whose link stays down after a resume would sit
-at the reset-default function indefinitely -- the same failure this patch
-fixes, one register up. So v2 shadows and replays LEDCR1 as well:
-config_init() rewrites the last function the driver programmed, which is
-the trigger's own last intent, and the trigger's next update writes the
-identical value.
+      x86/mm/pat: Acquire init_mm write lock on collapse to avoid UAF
+      x86/mm/pat: Acquire init_mm read lock on attribute changes...
+      x86/mm/pat: Allocate split page tables as kernel page tables
+      x86/alternatives: Exclude text poking against change_page_attr()
 
-I did consider pushing this into phylib so every soft-resetting PHY would
-benefit. The core could reapply the DT polarity, and that alone would let
-aquantia drop its leds_active_low/high cache (61578f679378). But it can't
-restore the software-driven on/off state -- the core has no way to tell a
-software-driven LED from one offloaded to a hw trigger without reaching
-into the trigger's private state -- so that half stays in the driver
-regardless, and splitting the restore across two layers seemed worse than
-keeping it in one. So I dropped the core route and kept it all in the
-driver. I may well have missed a core mechanism that would change that; if
-so, let me know and I'll rework it.
+The other one is old as well, but it's actually causing user data loss.
+It's a relatively obscure set of features and requires heavy reclaim to
+trigger, which explains why it wasn't found for so long. But the side
+effects are rather nasty, so it needs fixing upstream now.
 
-Thanks,
-Donggeun
+      x86/mm: Fix user-space data loss with MADV_FREE and THP
+
+====== x86/mm ======
+
+x86/mm now has a single commit:
+
+      x86/mm/pat: Fix effective RW computation in ...
+
+But, being a bug fix for a bug detector, folks have bisected a
+"regression" to it:
+
+	https://lore.kernel.org/all/20260905044253.GA3816371@ax162/
+
+It is a great and very welcome bug report, but appears to be a
+false-positive. Rather than deal with a pile of these in Linus's tree,
+keeping this in x86/mm and getting it linux-next exposure for the coming
+weeks seems prudent.
+
+I hope this makes sense to everyone.
