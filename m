@@ -1,31 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01BB2548576;
-	Tue,  8 Sep 2026 15:28:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0215354DADA;
+	Tue,  8 Sep 2026 15:29:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788881350; cv=none; b=LydR8QK0wWN9EMmq0Pomrp7x1VbpEsz90FSyOwL7WAsEsWOwV7+7XfYTa0aBEeSSnwhhzY/7RFnUS8iHQGIlqcErNvvjIbyx/llicNzqG9FSuhFP10hWaw1CRAb0DV5+S0FGU3upZu+ipotRZDhcqNLH3eipdU8Jivkb7Y50JvE=
+	t=1788881363; cv=none; b=cjfjqoItV+QVqGyxbz8cLuYpCMIiS4eJWiIyYd9BmZnsRrSjoN+2GW2VRlNfhBiBH2jPgnPaR87Zxumgx0clQECzeaxFMKtDzTiER2kZAiqRmsyOxKh/GJHBV+ZZGU+C0DLWDTvD/EBjSgGhh56keuZl6K3xyBA2SwhJ3jQmJl0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788881350; c=relaxed/simple;
-	bh=vFfgjr6ltCBelkiWp2GoC1nGJ3emYI0GnknKdNkUWdY=;
+	s=arc-20240116; t=1788881363; c=relaxed/simple;
+	bh=EyzmGFlDKMEsRxHYd53yOAvAVgwzh65GygUkQWPKKr0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=OqRxpk0NWN8pL+3HoZHt1B/winKL9ETMAzTCWdUrvTDsEBGD3AtuHNiAk7DcxlvNr2JEBH+t9BBDUVFt9ZrPSt4RpJM9J74O+BR9rlOu3n2p9nTX95Ra63VTmuCEWMiebQv/Qiy07+oprW7YCrRGREME9uTHWdceUzO8VgMOM1k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RIQLr6Ac; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=NPAvxWXjFk2SsAbRVZMsmscxs9R5e/p9rlhVEanq1j3Ur5zhvW/K4kzcoksIEILvFKWMbf352B21EC9zS20oggvM0QJboyaR8s1hX79/JMn7IvVNnk/MNB1zOL8RoKEqINlRfTpg/nzXQ+sqm5yRFFQGk9py+EqMF8u7GeWg9UI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aQ5YccDh; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RIQLr6Ac"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 78F921F00A3E;
-	Tue,  8 Sep 2026 15:28:45 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aQ5YccDh"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D0B71F00AC4;
+	Tue,  8 Sep 2026 15:28:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788881334;
-	bh=B6MPXxVgkUk6FY+h8Jyr5b4zEhvKeVnYuus9oQC0Eyc=;
+	s=k20260515; t=1788881345;
+	bh=rgdOD5be0J4zQbzu0Ghb8ngpITCFzVUYepeFb30Q+B4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=RIQLr6Acl55qaF2GYejnmnw9Xe/62W286Tcb+npGet2lFUmSPok1OcOUKtMn744zZ
-	 JOB1RQeawdAmY9Xw6c/XAXrfJDwEwhs5eknNnFKeUV58nAukWYdYoPlJDeqJDZCS/k
-	 lscGKZqkb0e+6imYyik9DgmONoAO1K6dybV9drkTznk7htFkYDDzdBhDVLLYI0mtF/
-	 Bm0eJeAXNho6WYTW48Z65vZC65IEDVVVZcVjV9rpf5S887LZ34Mu93Ltf3GlQkei4O
-	 bNGTCFe8nMKij2Opp/VEmoME6aWjVTZUSpeezgCUTVG+JySOAuaD1fAOG0yhMoXLkD
-	 iIPTfOUURgiGA==
+	b=aQ5YccDhj5ffB19MzDc9OeCzFsODhpjmQwaw41Dj4SNl32YUOhVAG7z8+WSYOqIln
+	 bF49YKat+cZLI7O/lH8Kji3qXnpdSUa9srGh+i/tPjUC+yVS4qQqQXHtHk0duGkOAL
+	 OOvd9zDcWouhscvaOhltPlQ+c8Ltcdsc583A7D7Gb5bvIBmJhEalMxStyMVnbviFHf
+	 li7O/HE1rBZj3D0AQ9Tzqb0Z4MHx6VrEayMiIap24G/yq/7BkhQPjfP9zO+dlg4x+v
+	 4inN/LXHbHlNViw8Ly1GlcWd/ougOebqIRluA0z825vY08jqnb65+d5s5hII5iTF8c
+	 S6Rfveo5abbKA==
 From: Arnd Bergmann <arnd@kernel.org>
 To: Krzysztof Kozlowski <krzk@kernel.org>,
 	Alexandre Belloni <alexandre.belloni@bootlin.com>,
@@ -72,12 +72,17 @@ Cc: Drew Fustini <fustini@kernel.org>,
 	imx@lists.linux.dev,
 	linux-stm32@st-md-mailman.stormreply.com,
 	linux-omap@vger.kernel.org,
-	Ralph Siemsen <ralphs@netwinder.org>,
+	Ian Molton <spyro@f2s.com>,
+	Jens Axboe <axboe@kernel.dk>,
 	Helge Deller <deller@gmx.de>,
-	dri-devel@lists.freedesktop.org
-Subject: [PATCH 02/13] ARM: remove footbridge
-Date: Tue,  8 Sep 2026 17:27:52 +0200
-Message-ID: <20260908152808.3928630-3-arnd@kernel.org>
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	"Paul E. McKenney" <paulmck@kernel.org>,
+	linux-block@vger.kernel.org,
+	linux-serial@vger.kernel.org,
+	linux-fbdev@vger.kernel.org
+Subject: [PATCH 03/13] ARM: remove riscpc
+Date: Tue,  8 Sep 2026 17:27:53 +0200
+Message-ID: <20260908152808.3928630-4-arnd@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260908152808.3928630-1-arnd@kernel.org>
 References: <20260908152808.3928630-1-arnd@kernel.org>
@@ -91,221 +96,146 @@ Content-Transfer-Encoding: 8bit
 
 From: Arnd Bergmann <arnd@arndb.de>
 
-Footbridge was deprecated in 7.3 to be removed along with the other
-StrongARM platforms and most remaining board files.
+The Acorn Risc PC is the oldest still support Arm machine in the kernel,
+originally shipped with an ARMv3 ARM610 support in 1994, it later allowed
+faster StrongARM CPUs.
 
-The main machine here is the NetWinder, which was a popular Arm based
-desktop PC in the late 1990s and contributed to Arm's later success as
-an embedded Linux platform, but was discontinued over 25 years ago and
-is no longer all that useful.
+The main limitation here is the CPU bus that does not allow 16-bit
+wide data transfers and hence requires the kernel to be built with the
+-march=armv3 compiler option that was discontinued in gcc-9.
 
-I previously tried to convert this to devicetree in a sensible way but
-gave up due to the platform being too different from modern SoC based
-targets.
+As gcc-8 is barely supported for compiling the kernel, this one
+will not see another LTS kernel release, so remove it now.
 
 Cc: Russell King <linux@armlinux.org.uk>
-Cc: Ralph Siemsen <ralphs@netwinder.org>
+Cc: Ian Molton <spyro@f2s.com>
+Cc: Jens Axboe <axboe@kernel.dk>
 Cc: Helge Deller <deller@gmx.de>
-Cc: dri-devel@lists.freedesktop.org
+Cc: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: Karl Mehltretter <kmehltretter@gmail.com>
+Cc: "Paul E. McKenney" <paulmck@kernel.org>
+Cc: linux-block@vger.kernel.org
+Cc: linux-serial@vger.kernel.org
+Cc: linux-fbdev@vger.kernel.org
 Signed-off-by: Arnd Bergmann <arnd@arndb.de>
 ---
- Documentation/arch/arm/index.rst              |   1 -
- Documentation/arch/arm/netwinder.rst          |  85 --
- MAINTAINERS                                   |   8 -
- arch/arm/Kconfig                              |  17 +-
- arch/arm/Kconfig.debug                        |  27 +-
- arch/arm/Makefile                             |   2 -
- arch/arm/boot/bootp/Makefile                  |   1 -
- arch/arm/configs/footbridge_defconfig         | 114 ---
- arch/arm/configs/netwinder_defconfig          |  88 --
- arch/arm/include/asm/hardware/dec21285.h      | 138 ----
- arch/arm/include/asm/mach/pci.h               |  14 -
- arch/arm/include/debug/dc21285.S              |  41 -
- arch/arm/kernel/atags_parse.c                 |  18 -
- arch/arm/kernel/bios32.c                      |  12 -
- arch/arm/kernel/head.S                        |  10 -
- arch/arm/mach-footbridge/Kconfig              |  57 --
- arch/arm/mach-footbridge/Makefile             |  18 -
- arch/arm/mach-footbridge/common.c             | 280 -------
- arch/arm/mach-footbridge/common.h             |  15 -
- arch/arm/mach-footbridge/dc21285-timer.c      | 136 ---
- arch/arm/mach-footbridge/dc21285.c            | 360 --------
- arch/arm/mach-footbridge/dma-isa.c            | 230 ------
- arch/arm/mach-footbridge/ebsa285-pci.c        |  48 --
- arch/arm/mach-footbridge/ebsa285.c            | 124 ---
- .../mach-footbridge/include/mach/hardware.h   |  90 --
- arch/arm/mach-footbridge/include/mach/irqs.h  |  97 ---
- .../mach-footbridge/include/mach/isa-dma.h    |  18 -
- .../arm/mach-footbridge/include/mach/memory.h |  26 -
- .../mach-footbridge/include/mach/uncompress.h |  34 -
- arch/arm/mach-footbridge/isa-irq.c            | 177 ----
- arch/arm/mach-footbridge/isa-rtc.c            |  57 --
- arch/arm/mach-footbridge/isa-timer.c          |  36 -
- arch/arm/mach-footbridge/isa.c                |  94 ---
- arch/arm/mach-footbridge/netwinder-hw.c       | 772 ------------------
- arch/arm/mach-footbridge/netwinder-pci.c      |  62 --
- drivers/video/console/Kconfig                 |   6 +-
- drivers/video/console/dummycon.c              |   6 -
- drivers/video/fbdev/cyber2000fb.c             |  10 -
- 38 files changed, 12 insertions(+), 3317 deletions(-)
- delete mode 100644 Documentation/arch/arm/netwinder.rst
- delete mode 100644 arch/arm/configs/footbridge_defconfig
- delete mode 100644 arch/arm/configs/netwinder_defconfig
- delete mode 100644 arch/arm/include/asm/hardware/dec21285.h
- delete mode 100644 arch/arm/include/debug/dc21285.S
- delete mode 100644 arch/arm/mach-footbridge/Kconfig
- delete mode 100644 arch/arm/mach-footbridge/Makefile
- delete mode 100644 arch/arm/mach-footbridge/common.c
- delete mode 100644 arch/arm/mach-footbridge/common.h
- delete mode 100644 arch/arm/mach-footbridge/dc21285-timer.c
- delete mode 100644 arch/arm/mach-footbridge/dc21285.c
- delete mode 100644 arch/arm/mach-footbridge/dma-isa.c
- delete mode 100644 arch/arm/mach-footbridge/ebsa285-pci.c
- delete mode 100644 arch/arm/mach-footbridge/ebsa285.c
- delete mode 100644 arch/arm/mach-footbridge/include/mach/hardware.h
- delete mode 100644 arch/arm/mach-footbridge/include/mach/irqs.h
- delete mode 100644 arch/arm/mach-footbridge/include/mach/isa-dma.h
- delete mode 100644 arch/arm/mach-footbridge/include/mach/memory.h
- delete mode 100644 arch/arm/mach-footbridge/include/mach/uncompress.h
- delete mode 100644 arch/arm/mach-footbridge/isa-irq.c
- delete mode 100644 arch/arm/mach-footbridge/isa-rtc.c
- delete mode 100644 arch/arm/mach-footbridge/isa-timer.c
- delete mode 100644 arch/arm/mach-footbridge/isa.c
- delete mode 100644 arch/arm/mach-footbridge/netwinder-hw.c
- delete mode 100644 arch/arm/mach-footbridge/netwinder-pci.c
+ MAINTAINERS                                 |   20 -
+ arch/arm/Kconfig                            |   33 +-
+ arch/arm/Kconfig.debug                      |    8 +-
+ arch/arm/boot/bootp/Makefile                |    2 -
+ arch/arm/boot/compressed/Makefile           |    4 -
+ arch/arm/boot/compressed/font.c             |    2 -
+ arch/arm/boot/compressed/head.S             |    8 -
+ arch/arm/boot/compressed/ll_char_wr.S       |  131 ---
+ arch/arm/configs/rpc_defconfig              |  127 --
+ arch/arm/include/asm/ecard.h                |  219 ----
+ arch/arm/include/asm/hardware/ioc.h         |   69 --
+ arch/arm/include/asm/hardware/iomd.h        |  182 ---
+ arch/arm/include/asm/hardware/memc.h        |   23 -
+ arch/arm/include/asm/io.h                   |    5 +-
+ arch/arm/include/asm/memory.h               |    3 -
+ arch/arm/kernel/head-common.S               |   13 -
+ arch/arm/kernel/head.S                      |   12 -
+ arch/arm/lib/delay-loop.S                   |    4 -
+ arch/arm/mach-rpc/Kconfig                   |   24 -
+ arch/arm/mach-rpc/Makefile                  |    9 -
+ arch/arm/mach-rpc/dma.c                     |  393 -------
+ arch/arm/mach-rpc/ecard-loader.S            |   40 -
+ arch/arm/mach-rpc/ecard.c                   | 1146 -------------------
+ arch/arm/mach-rpc/ecard.h                   |   66 --
+ arch/arm/mach-rpc/fiq.S                     |   18 -
+ arch/arm/mach-rpc/floppydma.S               |   29 -
+ arch/arm/mach-rpc/include/mach/acornfb.h    |  137 ---
+ arch/arm/mach-rpc/include/mach/hardware.h   |   73 --
+ arch/arm/mach-rpc/include/mach/io.h         |   28 -
+ arch/arm/mach-rpc/include/mach/irqs.h       |   42 -
+ arch/arm/mach-rpc/include/mach/isa-dma.h    |   26 -
+ arch/arm/mach-rpc/include/mach/memory.h     |   32 -
+ arch/arm/mach-rpc/include/mach/uncompress.h |  181 ---
+ arch/arm/mach-rpc/io-acorn.S                |   28 -
+ arch/arm/mach-rpc/irq.c                     |  226 ----
+ arch/arm/mach-rpc/riscpc.c                  |  225 ----
+ arch/arm/mach-rpc/time.c                    |   97 --
+ arch/arm/mm/mmu.c                           |    2 +-
+ block/partitions/Kconfig                    |    7 -
+ drivers/tty/vt/keyboard.c                   |    2 +-
+ lib/fonts/font_acorn_8x8.c                  |    4 -
+ 41 files changed, 12 insertions(+), 3688 deletions(-)
+ delete mode 100644 arch/arm/boot/compressed/font.c
+ delete mode 100644 arch/arm/boot/compressed/ll_char_wr.S
+ delete mode 100644 arch/arm/configs/rpc_defconfig
+ delete mode 100644 arch/arm/include/asm/ecard.h
+ delete mode 100644 arch/arm/include/asm/hardware/ioc.h
+ delete mode 100644 arch/arm/include/asm/hardware/iomd.h
+ delete mode 100644 arch/arm/include/asm/hardware/memc.h
+ delete mode 100644 arch/arm/mach-rpc/Kconfig
+ delete mode 100644 arch/arm/mach-rpc/Makefile
+ delete mode 100644 arch/arm/mach-rpc/dma.c
+ delete mode 100644 arch/arm/mach-rpc/ecard-loader.S
+ delete mode 100644 arch/arm/mach-rpc/ecard.c
+ delete mode 100644 arch/arm/mach-rpc/ecard.h
+ delete mode 100644 arch/arm/mach-rpc/fiq.S
+ delete mode 100644 arch/arm/mach-rpc/floppydma.S
+ delete mode 100644 arch/arm/mach-rpc/include/mach/acornfb.h
+ delete mode 100644 arch/arm/mach-rpc/include/mach/hardware.h
+ delete mode 100644 arch/arm/mach-rpc/include/mach/io.h
+ delete mode 100644 arch/arm/mach-rpc/include/mach/irqs.h
+ delete mode 100644 arch/arm/mach-rpc/include/mach/isa-dma.h
+ delete mode 100644 arch/arm/mach-rpc/include/mach/memory.h
+ delete mode 100644 arch/arm/mach-rpc/include/mach/uncompress.h
+ delete mode 100644 arch/arm/mach-rpc/io-acorn.S
+ delete mode 100644 arch/arm/mach-rpc/irq.c
+ delete mode 100644 arch/arm/mach-rpc/riscpc.c
+ delete mode 100644 arch/arm/mach-rpc/time.c
 
-diff --git a/Documentation/arch/arm/index.rst b/Documentation/arch/arm/index.rst
-index a292b8ac41ce..17d6a5bbfc26 100644
---- a/Documentation/arch/arm/index.rst
-+++ b/Documentation/arch/arm/index.rst
-@@ -38,7 +38,6 @@ SoC-specific documents
-    marvell
-    microchip
- 
--   netwinder
-    nwfpe/index
- 
-    keystone/overview
-diff --git a/Documentation/arch/arm/netwinder.rst b/Documentation/arch/arm/netwinder.rst
-deleted file mode 100644
-index 8eab66caa2ac..000000000000
---- a/Documentation/arch/arm/netwinder.rst
-+++ /dev/null
-@@ -1,85 +0,0 @@
--================================
--NetWinder specific documentation
--================================
--
--The NetWinder is a small low-power computer, primarily designed
--to run Linux.  It is based around the StrongARM RISC processor,
--DC21285 PCI bridge, with PC-type hardware glued around it.
--
--Port usage
--==========
--
--=======  ====== ===============================
--Min      Max	Description
--=======  ====== ===============================
--0x0000   0x000f	DMA1
--0x0020   0x0021	PIC1
--0x0060   0x006f	Keyboard
--0x0070   0x007f	RTC
--0x0080   0x0087	DMA1
--0x0088   0x008f	DMA2
--0x00a0   0x00a3	PIC2
--0x00c0   0x00df	DMA2
--0x0180   0x0187	IRDA
--0x01f0   0x01f6	ide0
--0x0201		Game port
--0x0203		RWA010 configuration read
--0x0220   ?	SoundBlaster
--0x0250   ?	WaveArtist
--0x0279		RWA010 configuration index
--0x02f8   0x02ff	Serial ttyS1
--0x0300   0x031f	Ether10
--0x0338		GPIO1
--0x033a		GPIO2
--0x0370   0x0371	W83977F configuration registers
--0x0388   ?	AdLib
--0x03c0   0x03df	VGA
--0x03f6		ide0
--0x03f8   0x03ff	Serial ttyS0
--0x0400   0x0408	DC21143
--0x0480   0x0487	DMA1
--0x0488   0x048f	DMA2
--0x0a79		RWA010 configuration write
--0xe800   0xe80f	ide0/ide1 BM DMA
--=======  ====== ===============================
--
--
--Interrupt usage
--===============
--
--======= ======= ========================
--IRQ	type	Description
--======= ======= ========================
-- 0	ISA	100Hz timer
-- 1	ISA	Keyboard
-- 2	ISA	cascade
-- 3	ISA	Serial ttyS1
-- 4	ISA	Serial ttyS0
-- 5	ISA	PS/2 mouse
-- 6	ISA	IRDA
-- 7	ISA	Printer
-- 8	ISA	RTC alarm
-- 9	ISA
--10	ISA	GP10 (Orange reset button)
--11	ISA
--12	ISA	WaveArtist
--13	ISA
--14	ISA	hda1
--15	ISA
--======= ======= ========================
--
--DMA usage
--=========
--
--======= ======= ===========
--DMA	type	Description
--======= ======= ===========
-- 0	ISA	IRDA
-- 1	ISA
-- 2	ISA	cascade
-- 3	ISA	WaveArtist
-- 4	ISA
-- 5	ISA
-- 6	ISA
-- 7	ISA	WaveArtist
--======= ======= ===========
 diff --git a/MAINTAINERS b/MAINTAINERS
-index fd213c4bc257..4380d5660402 100644
+index 4380d5660402..6e8fe7640064 100644
 --- a/MAINTAINERS
 +++ b/MAINTAINERS
-@@ -2924,14 +2924,6 @@ S:	Maintained
- T:	git git://git.berlios.de/gemini-board
- F:	arch/arm/mm/*-fa*
+@@ -2350,12 +2350,6 @@ F:	Documentation/devicetree/bindings/display/arm,malidp.yaml
+ F:	Documentation/gpu/afbc.rst
+ F:	drivers/gpu/drm/arm/
  
--ARM/FOOTBRIDGE ARCHITECTURE
+-ARM MFM AND FLOPPY DRIVERS
+-M:	Ian Molton <spyro@f2s.com>
+-S:	Maintained
+-F:	arch/arm/include/asm/floppy.h
+-F:	arch/arm/mach-rpc/floppydma.S
+-
+ ARM PMU PROFILING AND DEBUGGING
+ M:	Will Deacon <will@kernel.org>
+ M:	Mark Rutland <mark.rutland@arm.com>
+@@ -3494,20 +3488,6 @@ F:	include/linux/soc/renesas/
+ N:	rcar
+ K:	\brenesas,
+ 
+-ARM/RISCPC ARCHITECTURE
 -M:	Russell King <linux@armlinux.org.uk>
 -L:	linux-arm-kernel@lists.infradead.org (moderated for non-subscribers)
 -S:	Maintained
 -W:	http://www.armlinux.org.uk/
--F:	arch/arm/include/asm/hardware/dec21285.h
--F:	arch/arm/mach-footbridge/
+-F:	arch/arm/include/asm/hardware/ioc.h
+-F:	arch/arm/include/asm/hardware/iomd.h
+-F:	arch/arm/include/asm/hardware/memc.h
+-F:	arch/arm/mach-rpc/
+-F:	drivers/net/ethernet/8390/etherh.c
+-F:	drivers/net/ethernet/i825xx/ether1*
+-F:	drivers/net/ethernet/seeq/ether3*
+-F:	drivers/scsi/arm/
 -
- ARM/FREESCALE IMX / MXC / LAYERSCAPE ARM ARCHITECTURE
- M:	Frank Li <Frank.Li@nxp.com>
- M:	Sascha Hauer <s.hauer@pengutronix.de>
+ ARM/Rockchip SoC support
+ M:	Heiko Stuebner <heiko@sntech.de>
+ L:	linux-arm-kernel@lists.infradead.org (moderated for non-subscribers)
 diff --git a/arch/arm/Kconfig b/arch/arm/Kconfig
-index 7f4c2973d630..c3d6b8abc815 100644
+index c3d6b8abc815..5770deca136d 100644
 --- a/arch/arm/Kconfig
 +++ b/arch/arm/Kconfig
 @@ -55,7 +55,7 @@ config ARM
  	select ARCH_WANT_LD_ORPHAN_WARN
  	select BINFMT_FLAT_ARGVP_ENVP_ON_STACK
  	select BUILDTIME_TABLE_SORT if MMU
--	select COMMON_CLK if !(ARCH_RPC || ARCH_FOOTBRIDGE)
-+	select COMMON_CLK if !ARCH_RPC
+-	select COMMON_CLK if !ARCH_RPC
++	select COMMON_CLK
  	select CLONE_BACKWARDS
  	select CPU_PM if SUSPEND || CPU_IDLE
  	select DCACHE_WORD_ACCESS if HAVE_EFFICIENT_UNALIGNED_ACCESS
@@ -313,1659 +243,1282 @@ index 7f4c2973d630..c3d6b8abc815 100644
  	select PCI_SYSCALL if PCI
  	select PERF_USE_VMALLOC
  	select RTC_LIB
--	select SPARSE_IRQ if !(ARCH_FOOTBRIDGE || ARCH_RPC)
-+	select SPARSE_IRQ if !ARCH_RPC
+-	select SPARSE_IRQ if !ARCH_RPC
++	select SPARSE_IRQ
  	select SYS_SUPPORTS_APM_EMULATION
  	select THREAD_INFO_IN_TASK
  	select TIMER_OF if OF
  	select HAVE_ARCH_VMAP_STACK if MMU && ARM_HAS_GROUP_RELOCS
  	select TRACE_IRQFLAGS_SUPPORT if !CPU_V7M
--	select USE_OF if !(ARCH_FOOTBRIDGE || ARCH_RPC)
-+	select USE_OF if !ARCH_RPC
+-	select USE_OF if !ARCH_RPC
++	select USE_OF
  	# Above selects are sorted alphabetically; please add new ones
  	# according to that.  Thanks.
  	help
-@@ -295,7 +295,6 @@ config PHYS_OFFSET
+@@ -277,25 +277,11 @@ config ARM_PATCH_PHYS_VIRT
+ 	  this feature (eg, building a kernel for a single machine) and
+ 	  you need to shrink the kernel to the minimal size.
+ 
+-config NEED_MACH_IO_H
+-	bool
+-	help
+-	  Select this when mach/io.h is required to provide special
+-	  definitions for this platform.  The need for mach/io.h should
+-	  be avoided when possible.
+-
+-config NEED_MACH_MEMORY_H
+-	bool
+-	help
+-	  Select this when mach/memory.h is required to provide special
+-	  definitions for this platform.  The need for mach/memory.h should
+-	  be avoided when possible.
+-
+ config PHYS_OFFSET
  	hex "Physical address of main memory" if MMU
  	depends on !ARM_PATCH_PHYS_VIRT || !AUTO_ZRELADDR
  	default DRAM_BASE if !MMU
--	default 0x00000000 if ARCH_FOOTBRIDGE
- 	default 0x10000000 if ARCH_OMAP1 || ARCH_RPC
+-	default 0x10000000 if ARCH_OMAP1 || ARCH_RPC
++	default 0x10000000 if ARCH_OMAP1
  	default 0xa0000000 if ARCH_PXA
  	default 0xc0000000 if ARCH_EP93XX
-@@ -338,7 +337,7 @@ config ARCH_MMAP_RND_BITS_MAX
+ 	default 0
+@@ -337,7 +323,7 @@ config ARCH_MMAP_RND_BITS_MAX
  
  config ARCH_MULTIPLATFORM
  	bool "Require kernel to be portable to multiple machines" if EXPERT
--	depends on MMU && !(ARCH_FOOTBRIDGE || ARCH_RPC)
-+	depends on MMU && !ARCH_RPC
+-	depends on MMU && !ARCH_RPC
++	depends on MMU
  	default y
  	help
  	  In general, all Arm machines can be supported in a single
-@@ -380,14 +379,10 @@ source "arch/arm/mach-davinci/Kconfig"
+@@ -429,8 +415,6 @@ source "arch/arm/mach-qcom/Kconfig"
  
- source "arch/arm/mach-digicolor/Kconfig"
+ source "arch/arm/mach-realtek/Kconfig"
  
--source "arch/arm/mach-dove/Kconfig"
+-source "arch/arm/mach-rpc/Kconfig"
 -
- source "arch/arm/mach-ep93xx/Kconfig"
+ source "arch/arm/mach-rockchip/Kconfig"
  
- source "arch/arm/mach-exynos/Kconfig"
+ source "arch/arm/mach-s3c/Kconfig"
+@@ -490,9 +474,6 @@ config ARCH_MPS2
+ 	  This platform is scheduled for removal in early 2027
  
--source "arch/arm/mach-footbridge/Kconfig"
+ # Definitions to make life easier
+-config ARCH_ACORN
+-	bool
 -
- source "arch/arm/mach-gemini/Kconfig"
+ config PLAT_ORION
+ 	bool
+ 	select CLKSRC_MMIO
+@@ -1191,7 +1172,7 @@ config ARCH_SELECT_MEMORY_MODEL
+ 	def_bool y
  
- source "arch/arm/mach-highbank/Kconfig"
-@@ -1199,7 +1194,7 @@ config ARCH_FLATMEM_ENABLE
- 	def_bool !ARCH_RPC
+ config ARCH_FLATMEM_ENABLE
+-	def_bool !ARCH_RPC
++	def_bool y
  
  config ARCH_SPARSEMEM_ENABLE
--	def_bool !ARCH_FOOTBRIDGE
-+	def_bool y
- 	select SPARSEMEM_STATIC if SPARSEMEM
- 
- config HIGHMEM
-@@ -1599,7 +1594,7 @@ config ARCH_DEFAULT_CRASH_DUMP
+ 	def_bool y
+@@ -1594,7 +1575,7 @@ config ARCH_DEFAULT_CRASH_DUMP
  
  config AUTO_ZRELADDR
  	bool "Auto calculation of the decompressed kernel image address" if !ARCH_MULTIPLATFORM
--	default !(ARCH_FOOTBRIDGE || ARCH_RPC)
-+	default !ARCH_RPC
+-	default !ARCH_RPC
++	default y
  	help
  	  ZRELADDR is the physical address where the decompressed kernel
  	  image will be placed. If AUTO_ZRELADDR is selected, the address
 diff --git a/arch/arm/Kconfig.debug b/arch/arm/Kconfig.debug
-index ad0feced4369..f2a80955b7a0 100644
+index f2a80955b7a0..56c090840c5a 100644
 --- a/arch/arm/Kconfig.debug
 +++ b/arch/arm/Kconfig.debug
-@@ -324,13 +324,6 @@ choice
- 		  Say Y here if you want the debug print routines to direct
- 		  their output to UART2 serial port on DaVinci DA8XX devices.
- 
--	config DEBUG_DC21285_PORT
--		bool "Kernel low-level debugging messages via footbridge serial port"
--		depends on FOOTBRIDGE
--		help
--		  Say Y here if you want the debug print routines to direct
--		  their output to the serial port in the DC21285 (Footbridge).
--
- 	config DEBUG_DIGICOLOR_UA0
- 		bool "Kernel low-level debugging messages via Digicolor UA0"
- 		depends on ARCH_DIGICOLOR
-@@ -346,14 +339,6 @@ choice
- 		  Say Y here if you want kernel low-level debugging support
- 		  on Cirrus Logic EP93xx based platforms.
- 
--	config DEBUG_FOOTBRIDGE_COM1
--		bool "Kernel low-level debugging messages via footbridge 8250 at PCI COM1"
--		depends on FOOTBRIDGE
--		select DEBUG_UART_8250
--		help
--		  Say Y here if you want the debug print routines to direct
--		  their output to the 8250 at PCI COM1.
--
- 	config DEBUG_GEMINI
- 		bool "Kernel low-level debugging messages via Cortina Systems Gemini UART"
- 		depends on ARCH_GEMINI
-@@ -1461,7 +1446,7 @@ config DEBUG_STM32_UART
+@@ -1446,7 +1446,7 @@ config DEBUG_STM32_UART
  config DEBUG_UART_FLOW_CONTROL
  	bool "Enable flow control (CTS) for the debug UART"
  	depends on DEBUG_LL
--	default y if DEBUG_FOOTBRIDGE_COM1 || DEBUG_GEMINI || ARCH_RPC
-+	default y if DEBUG_GEMINI || ARCH_RPC
+-	default y if DEBUG_GEMINI || ARCH_RPC
++	default y if DEBUG_GEMINI
  	help
  	  Some UART ports are connected to terminals that will use modem
  	  control signals to indicate whether they are ready to receive text.
-@@ -1476,7 +1461,6 @@ config DEBUG_LL_INCLUDE
- 	default "debug/at91.S" if DEBUG_AT91_UART
- 	default "debug/asm9260.S" if DEBUG_ASM9260_UART
- 	default "debug/clps711x.S" if DEBUG_CLPS711X_UART1 || DEBUG_CLPS711X_UART2
--	default "debug/dc21285.S" if DEBUG_DC21285_PORT
- 	default "debug/meson.S" if DEBUG_MESON_UARTAO
- 	default "debug/pl01x.S" if DEBUG_LL_UART_PL01X || DEBUG_UART_PL01X
- 	default "debug/exynos.S" if DEBUG_EXYNOS_UART
-@@ -1590,7 +1574,6 @@ config DEBUG_UART_PHYS
- 	default 0x4806e000 if DEBUG_OMAP2UART3 || DEBUG_OMAP4UART4
- 	default 0x49020000 if DEBUG_OMAP3UART3
- 	default 0x49042000 if DEBUG_OMAP3UART4
--	default 0x7c0003f8 if DEBUG_FOOTBRIDGE_COM1
- 	default 0x7f005000 if DEBUG_S3C64XX_UART && DEBUG_S3C_UART0
- 	default 0x7f005400 if DEBUG_S3C64XX_UART && DEBUG_S3C_UART1
- 	default 0x7f005800 if DEBUG_S3C64XX_UART && DEBUG_S3C_UART2
-@@ -1748,7 +1731,6 @@ config DEBUG_UART_VIRT
- 	default 0xfed64000 if DEBUG_RK29_UART1 || DEBUG_RK3X_UART2
- 	default 0xfed68000 if DEBUG_RK29_UART2 || DEBUG_RK3X_UART3
- 	default 0xfedc0000 if DEBUG_EP93XX
--	default 0xfee003f8 if DEBUG_FOOTBRIDGE_COM1
- 	default 0xfee20000 if DEBUG_NSPIRE_CLASSIC_UART || DEBUG_NSPIRE_CX_UART
- 	default 0xfec00000 if ARCH_IXP4XX && !CPU_BIG_ENDIAN
- 	default 0xfec00003 if ARCH_IXP4XX && CPU_BIG_ENDIAN
-@@ -1771,8 +1753,7 @@ config DEBUG_UART_VIRT
- config DEBUG_UART_8250_SHIFT
- 	int "Register offset shift for the 8250 debug UART"
- 	depends on DEBUG_LL_UART_8250 || DEBUG_UART_8250
--	default 0 if DEBUG_FOOTBRIDGE_COM1 || DEBUG_BCM_5301X || \
--		DEBUG_BCM_HR2
-+	default 0 if DEBUG_BCM_5301X || DEBUG_BCM_HR2
- 	default 3 if DEBUG_MSTARV7_PMUART
- 	default 2
+@@ -1516,7 +1516,7 @@ config DEBUG_UART_PL01X
  
-@@ -1798,7 +1779,7 @@ config DEBUG_UART_8250_PALMCHIP
+ # Compatibility options for 8250
+ config DEBUG_UART_8250
+-	def_bool ARCH_IXP4XX || ARCH_RPC
++	def_bool ARCH_IXP4XX
+ 
+ config DEBUG_UART_PHYS
+ 	hex "Physical base address of debug UART"
+@@ -1527,7 +1527,6 @@ config DEBUG_UART_PHYS
+ 	default 0x01f02800 if DEBUG_SUNXI_R_UART
+ 	default 0x02530c00 if DEBUG_KEYSTONE_UART0
+ 	default 0x02531000 if DEBUG_KEYSTONE_UART1
+-	default 0x03010fe0 if ARCH_RPC
+ 	default 0x07000000 if DEBUG_SUN9I_UART0
+ 	default 0x09530000 if DEBUG_STIH418_SBC_ASC0
+ 	default 0x10009000 if DEBUG_REALVIEW_STD_PORT || \
+@@ -1654,7 +1653,6 @@ config DEBUG_UART_VIRT
+ 	default 0xc881f000 if DEBUG_RV1108_UART2
+ 	default 0xc8821000 if DEBUG_RV1108_UART1
+ 	default 0xc8912000 if DEBUG_RV1108_UART0
+-	default 0xe0010fe0 if ARCH_RPC
+ 	default 0xe0824200 if DEBUG_AT91_SAMA7G5_FLEXCOM3
+ 	default 0xf0010000 if DEBUG_ASM9260_UART
+ 	default 0xf0100000 if DEBUG_DIGICOLOR_UA0
+@@ -1779,7 +1777,6 @@ config DEBUG_UART_8250_PALMCHIP
  config DEBUG_UNCOMPRESS
  	bool "Enable decompressor debugging via DEBUG_LL output"
  	depends on !ARCH_MULTIPLATFORM
--	depends on !(ARCH_FOOTBRIDGE || ARCH_RPC)
-+	depends on !ARCH_RPC
+-	depends on !ARCH_RPC
  	depends on DEBUG_LL && !DEBUG_OMAP2PLUS_UART && \
  		     (!DEBUG_TEGRA_UART || !ZBOOT_ROM) && \
  		     !DEBUG_BRCMSTB_UART && !DEBUG_SEMIHOSTING
-@@ -1808,7 +1789,7 @@ config DEBUG_UNCOMPRESS
+@@ -1789,7 +1786,6 @@ config DEBUG_UNCOMPRESS
  
  config UNCOMPRESS_INCLUDE
  	string
--	default "mach/uncompress.h" if ARCH_FOOTBRIDGE || ARCH_RPC
-+	default "mach/uncompress.h" if ARCH_RPC
+-	default "mach/uncompress.h" if ARCH_RPC
  	default "debug/uncompress.h"
  
  config EARLY_PRINTK
-diff --git a/arch/arm/Makefile b/arch/arm/Makefile
-index ea3da21202c8..f5bc9ad7f6f5 100644
---- a/arch/arm/Makefile
-+++ b/arch/arm/Makefile
-@@ -181,7 +181,6 @@ machine-$(CONFIG_ARCH_DAVINCI)		+= davinci
- machine-$(CONFIG_ARCH_DIGICOLOR)	+= digicolor
- machine-$(CONFIG_ARCH_DOVE)		+= dove
- machine-$(CONFIG_ARCH_EXYNOS)		+= exynos
--machine-$(CONFIG_ARCH_FOOTBRIDGE)	+= footbridge
- machine-$(CONFIG_ARCH_GEMINI)		+= gemini
- machine-$(CONFIG_ARCH_HIGHBANK)		+= highbank
- machine-$(CONFIG_ARCH_HISI)		+= hisi
-@@ -225,7 +224,6 @@ machine-$(CONFIG_PLAT_SPEAR)		+= spear
- 
- # legacy platforms provide their own mach/*.h headers globally,
- # these three are mutually exclusive
--machdirs-$(CONFIG_ARCH_FOOTBRIDGE)	+= arch/arm/mach-footbridge
- machdirs-$(CONFIG_ARCH_RPC)		+= arch/arm/mach-rpc
- KBUILD_CPPFLAGS += $(patsubst %,-I$(srctree)/%/include,$(machdirs-y))
- 
 diff --git a/arch/arm/boot/bootp/Makefile b/arch/arm/boot/bootp/Makefile
-index a1a1f4bec783..12c61684b97f 100644
+index 12c61684b97f..1e47bf10069d 100644
 --- a/arch/arm/boot/bootp/Makefile
 +++ b/arch/arm/boot/bootp/Makefile
-@@ -19,7 +19,6 @@ add_hex = $(shell printf 0x%x $$(( $(1) + $(2) )) )
+@@ -19,8 +19,6 @@ add_hex = $(shell printf 0x%x $$(( $(1) + $(2) )) )
  PARAMS_PHYS := $(call add_hex, $(PHYS_OFFSET), 0x100)
  
  # guess an initrd location if possible
--initrd_offset-$(CONFIG_ARCH_FOOTBRIDGE)	+= 0x00800000
- initrd_offset-$(CONFIG_ARCH_RPC)	+= 0x08000000
- INITRD_OFFSET := $(initrd_offset-y)
+-initrd_offset-$(CONFIG_ARCH_RPC)	+= 0x08000000
+-INITRD_OFFSET := $(initrd_offset-y)
  ifdef INITRD_OFFSET
-diff --git a/arch/arm/configs/footbridge_defconfig b/arch/arm/configs/footbridge_defconfig
+ INITRD_PHYS := $(call add_hex, $(PHYS_OFFSET), $(INITRD_OFFSET))
+ endif
+diff --git a/arch/arm/boot/compressed/Makefile b/arch/arm/boot/compressed/Makefile
+index d8d81ba741a2..32def10f5e03 100644
+--- a/arch/arm/boot/compressed/Makefile
++++ b/arch/arm/boot/compressed/Makefile
+@@ -25,10 +25,6 @@ endif
+ #
+ # Architecture dependencies
+ #
+-ifeq ($(CONFIG_ARCH_ACORN),y)
+-OBJS		+= ll_char_wr.o font.o
+-endif
+-
+ ifeq ($(CONFIG_CPU_XSCALE),y)
+ OBJS		+= head-xscale.o
+ endif
+diff --git a/arch/arm/boot/compressed/font.c b/arch/arm/boot/compressed/font.c
 deleted file mode 100644
-index 7fa556fb6cf4..000000000000
---- a/arch/arm/configs/footbridge_defconfig
+index 46a677649db4..000000000000
+--- a/arch/arm/boot/compressed/font.c
 +++ /dev/null
-@@ -1,114 +0,0 @@
+@@ -1,2 +0,0 @@
+-// SPDX-License-Identifier: GPL-2.0-only
+-#include "../../../../lib/fonts/font_acorn_8x8.c"
+diff --git a/arch/arm/boot/compressed/head.S b/arch/arm/boot/compressed/head.S
+index 845abffbc2d6..af579905b630 100644
+--- a/arch/arm/boot/compressed/head.S
++++ b/arch/arm/boot/compressed/head.S
+@@ -668,14 +668,6 @@ LC1:		.word	.L_user_stack_end - LC1	@ sp
+ .Linflated_image_size_offset:
+ 		.long	(input_data_end - 4) - .
+ 
+-#ifdef CONFIG_ARCH_RPC
+-		.globl	params
+-params:		ldr	r0, =0x10000100		@ params_phys for RPC
+-		mov	pc, lr
+-		.ltorg
+-		.align
+-#endif
+-
+ /*
+  * dcache_line_size - get the minimum D-cache line size from the CTR register
+  * on ARMv7.
+diff --git a/arch/arm/boot/compressed/ll_char_wr.S b/arch/arm/boot/compressed/ll_char_wr.S
+deleted file mode 100644
+index 1ec8cb2898b1..000000000000
+--- a/arch/arm/boot/compressed/ll_char_wr.S
++++ /dev/null
+@@ -1,131 +0,0 @@
+-/* SPDX-License-Identifier: GPL-2.0-only */
+-/*
+- *  linux/arch/arm/lib/ll_char_wr.S
+- *
+- *  Copyright (C) 1995, 1996 Russell King.
+- *
+- *  Speedups & 1bpp code (C) 1996 Philip Blundell & Russell King.
+- *
+- *  10-04-96	RMK	Various cleanups & reduced register usage.
+- *  08-04-98	RMK	Shifts re-ordered
+- */
+-
+-@ Regs: [] = corruptible
+-@       {} = used
+-@       () = do not use
+-
+-#include <linux/linkage.h>
+-#include <asm/assembler.h>
+-	.text
+-
+-LC0:	.word	LC0
+-	.word	bytes_per_char_h
+-	.word	video_size_row
+-	.word	acorndata_8x8
+-	.word	con_charconvtable
+-
+-/*
+- * r0 = ptr
+- * r1 = char
+- * r2 = white
+- */
+-ENTRY(ll_write_char)
+-	stmfd	sp!, {r4 - r7, lr}
+-@
+-@ Smashable regs: {r0 - r3}, [r4 - r7], (r8 - fp), [ip], (sp), [lr], (pc)
+-@
+-	/*
+-	 * calculate offset into character table
+-	 */
+-	mov	r1, r1, lsl #3
+-	/*
+-	 * calculate offset required for each row.
+-	 */
+-	adr	ip, LC0
+-	ldmia	ip, {r3, r4, r5, r6, lr}
+-	sub	ip, ip, r3
+-	add	r6, r6, ip
+-	add	lr, lr, ip
+-	ldr	r4, [r4, ip]
+-	ldr	r5, [r5, ip]
+-	/*
+-	 * Go to resolution-dependent routine...
+-	 */
+-	cmp	r4, #4
+-	blt	Lrow1bpp
+-	add	r0, r0, r5, lsl #3		@ Move to bottom of character
+-	orr	r1, r1, #7
+-	ldrb	r7, [r6, r1]
+-	teq	r4, #8
+-	beq	Lrow8bpplp
+-@
+-@ Smashable regs: {r0 - r3}, [r4], {r5 - r7}, (r8 - fp), [ip], (sp), {lr}, (pc)
+-@
+-Lrow4bpplp:
+-	ldr	r7, [lr, r7, lsl #2]
+-	mul	r7, r2, r7
+-	sub	r1, r1, #1			@ avoid using r7 directly after
+-	str	r7, [r0, -r5]!
+-	ldrb	r7, [r6, r1]
+-	ldr	r7, [lr, r7, lsl #2]
+-	mul	r7, r2, r7
+-	tst	r1, #7				@ avoid using r7 directly after
+-	str	r7, [r0, -r5]!
+-	subne	r1, r1, #1
+-	ldrbne	r7, [r6, r1]
+-	bne	Lrow4bpplp
+-	ldmfd	sp!, {r4 - r7, pc}
+-
+-@
+-@ Smashable regs: {r0 - r3}, [r4], {r5 - r7}, (r8 - fp), [ip], (sp), {lr}, (pc)
+-@
+-Lrow8bpplp:
+-	mov	ip, r7, lsr #4
+-	ldr	ip, [lr, ip, lsl #2]
+-	mul	r4, r2, ip
+-	and	ip, r7, #15			@ avoid r4
+-	ldr	ip, [lr, ip, lsl #2]		@ avoid r4
+-	mul	ip, r2, ip			@ avoid r4
+-	sub	r1, r1, #1			@ avoid ip
+-	sub	r0, r0, r5			@ avoid ip
+-	stmia	r0, {r4, ip}
+-	ldrb	r7, [r6, r1]
+-	mov	ip, r7, lsr #4
+-	ldr	ip, [lr, ip, lsl #2]
+-	mul	r4, r2, ip
+-	and	ip, r7, #15			@ avoid r4
+-	ldr	ip, [lr, ip, lsl #2]		@ avoid r4
+-	mul	ip, r2, ip			@ avoid r4
+-	tst	r1, #7				@ avoid ip
+-	sub	r0, r0, r5			@ avoid ip
+-	stmia	r0, {r4, ip}
+-	subne	r1, r1, #1
+-	ldrbne	r7, [r6, r1]
+-	bne	Lrow8bpplp
+-	ldmfd	sp!, {r4 - r7, pc}
+-
+-@
+-@ Smashable regs: {r0 - r3}, [r4], {r5, r6}, [r7], (r8 - fp), [ip], (sp), [lr], (pc)
+-@
+-Lrow1bpp:
+-	add	r6, r6, r1
+-	ldmia	r6, {r4, r7}
+-	strb	r4, [r0], r5
+-	mov	r4, r4, lsr #8
+-	strb	r4, [r0], r5
+-	mov	r4, r4, lsr #8
+-	strb	r4, [r0], r5
+-	mov	r4, r4, lsr #8
+-	strb	r4, [r0], r5
+-	strb	r7, [r0], r5
+-	mov	r7, r7, lsr #8
+-	strb	r7, [r0], r5
+-	mov	r7, r7, lsr #8
+-	strb	r7, [r0], r5
+-	mov	r7, r7, lsr #8
+-	strb	r7, [r0], r5
+-	ldmfd	sp!, {r4 - r7, pc}
+-
+-	.bss
+-ENTRY(con_charconvtable)
+-	.space	1024
+diff --git a/arch/arm/configs/rpc_defconfig b/arch/arm/configs/rpc_defconfig
+deleted file mode 100644
+index edb52d56f679..000000000000
+--- a/arch/arm/configs/rpc_defconfig
++++ /dev/null
+@@ -1,127 +0,0 @@
+-# CONFIG_LOCALVERSION_AUTO is not set
 -CONFIG_SYSVIPC=y
--CONFIG_BSD_PROCESS_ACCT=y
 -CONFIG_LOG_BUF_SHIFT=14
 -CONFIG_BLK_DEV_INITRD=y
 -CONFIG_EXPERT=y
--# CONFIG_HOTPLUG is not set
 -CONFIG_ARCH_MULTI_V4=y
 -# CONFIG_ARCH_MULTI_V7 is not set
--CONFIG_ARCH_FOOTBRIDGE=y
--CONFIG_ARCH_EBSA285_HOST=y
--CONFIG_ARCH_NETWINDER=y
--CONFIG_ATAGS=y
+-CONFIG_ARCH_RPC=y
+-CONFIG_CPU_SA110=y
 -CONFIG_FPE_NWFPE=y
--CONFIG_FPE_NWFPE_XP=y
 -# CONFIG_AEABI is not set
+-CONFIG_ATAGS=y
 -CONFIG_MODULES=y
+-CONFIG_MODULE_UNLOAD=y
 -CONFIG_PARTITION_ADVANCED=y
--CONFIG_ACORN_PARTITION=y
--CONFIG_ACORN_PARTITION_ADFS=y
+-CONFIG_BSD_DISKLABEL=y
 -CONFIG_NET=y
 -CONFIG_PACKET=y
 -CONFIG_UNIX=y
 -CONFIG_INET=y
 -CONFIG_IP_MULTICAST=y
--CONFIG_IP_PNP=y
--CONFIG_IP_PNP_BOOTP=y
--CONFIG_SYN_COOKIES=y
--# CONFIG_IPV6 is not set
--CONFIG_ATM=y
+-# CONFIG_INET_XFRM_MODE_TRANSPORT is not set
+-# CONFIG_INET_XFRM_MODE_TUNNEL is not set
+-# CONFIG_INET_XFRM_MODE_BEET is not set
+-# CONFIG_INET6_XFRM_MODE_TRANSPORT is not set
+-# CONFIG_INET6_XFRM_MODE_TUNNEL is not set
+-# CONFIG_INET6_XFRM_MODE_BEET is not set
 -CONFIG_PARPORT=y
 -CONFIG_PARPORT_PC=y
 -CONFIG_PARPORT_PC_FIFO=y
--CONFIG_PARPORT_1284=y
--CONFIG_PNP=y
--CONFIG_ISAPNP=y
--CONFIG_PARIDE=m
--CONFIG_PARIDE_PD=m
--CONFIG_PARIDE_PCD=m
--CONFIG_PARIDE_PF=m
--CONFIG_PARIDE_PT=m
--CONFIG_PARIDE_PG=m
--CONFIG_PARIDE_ATEN=m
--CONFIG_PARIDE_BPCK=m
--CONFIG_PARIDE_COMM=m
--CONFIG_PARIDE_DSTR=m
--CONFIG_PARIDE_FIT2=m
--CONFIG_PARIDE_FIT3=m
--CONFIG_PARIDE_EPAT=m
--CONFIG_PARIDE_EPIA=m
--CONFIG_PARIDE_FRIQ=m
--CONFIG_PARIDE_FRPW=m
--CONFIG_PARIDE_KBIC=m
--CONFIG_PARIDE_KTTI=m
--CONFIG_PARIDE_ON20=m
--CONFIG_PARIDE_ON26=m
+-CONFIG_BLK_DEV_FD=y
 -CONFIG_BLK_DEV_LOOP=m
--CONFIG_BLK_DEV_NBD=m
 -CONFIG_BLK_DEV_RAM=y
+-CONFIG_BLK_DEV_SD=y
+-CONFIG_CHR_DEV_ST=m
+-CONFIG_BLK_DEV_SR=y
+-CONFIG_CHR_DEV_SG=y
+-# CONFIG_BLK_DEV_BSG is not set
+-CONFIG_SCSI_CONSTANTS=y
+-CONFIG_SCSI_LOGGING=y
+-CONFIG_SCSI_ARXESCSI=m
+-CONFIG_SCSI_CUMANA_2=m
+-CONFIG_SCSI_EESOXSCSI=m
+-CONFIG_SCSI_POWERTECSCSI=y
+-CONFIG_SCSI_CUMANA_1=m
+-CONFIG_SCSI_OAK1=m
+-CONFIG_ATA=y
+-CONFIG_PATA_ICSIDE=y
+-CONFIG_PATA_PLATFORM=y
 -CONFIG_NETDEVICES=y
--CONFIG_NET_VENDOR_3COM=y
--CONFIG_VORTEX=y
--CONFIG_NET_PCI=y
--CONFIG_NE2K_PCI=y
+-CONFIG_ARM_ETHER1=y
+-CONFIG_ARM_ETHER3=y
+-CONFIG_ARM_ETHERH=y
 -CONFIG_PPP=m
--CONFIG_PPP_BSDCOMP=m
--CONFIG_PPP_DEFLATE=m
 -CONFIG_PPPOE=m
--CONFIG_PPP_ASYNC=m
--CONFIG_SLIP=m
--CONFIG_SLIP_COMPRESSED=y
--CONFIG_SLIP_SMART=y
--CONFIG_SLIP_MODE_SLIP6=y
--CONFIG_SERIAL_21285=y
--CONFIG_SERIAL_21285_CONSOLE=y
--CONFIG_SERIAL_NONSTANDARD=y
+-CONFIG_INPUT_EVDEV=y
+-# CONFIG_MOUSE_PS2 is not set
+-CONFIG_MOUSE_RISCPC=y
+-# CONFIG_SERIO_SERPORT is not set
+-CONFIG_LEGACY_PTY_COUNT=64
+-CONFIG_SERIAL_8250=y
+-CONFIG_SERIAL_8250_CONSOLE=y
+-CONFIG_SERIAL_8250_NR_UARTS=16
+-CONFIG_SERIAL_8250_RUNTIME_UARTS=8
+-CONFIG_SERIAL_8250_ACORN=y
 -CONFIG_PRINTER=m
--CONFIG_DS1620=y
--CONFIG_NWBUTTON=y
--CONFIG_NWBUTTON_REBOOT=y
--CONFIG_NWFLASH=m
--CONFIG_I2C=m
--CONFIG_WATCHDOG=y
--CONFIG_SOFT_WATCHDOG=y
--CONFIG_21285_WATCHDOG=m
--CONFIG_977_WATCHDOG=m
+-# CONFIG_HW_RANDOM is not set
+-CONFIG_I2C=y
+-CONFIG_I2C_CHARDEV=y
+-# CONFIG_HWMON is not set
 -CONFIG_FB=y
--CONFIG_FB_CYBER2000=y
+-CONFIG_FB_ACORN=y
+-CONFIG_FRAMEBUFFER_CONSOLE=y
+-CONFIG_LOGO=y
 -CONFIG_SOUND=m
--# CONFIG_USB_HID is not set
--CONFIG_USB=m
--CONFIG_USB_MON=m
--CONFIG_USB_PRINTER=m
--CONFIG_NEW_LEDS=y
--CONFIG_LEDS_CLASS=y
--CONFIG_LEDS_TRIGGERS=y
--CONFIG_LEDS_TRIGGER_TIMER=y
+-CONFIG_SOUND_PRIME=m
+-CONFIG_SOUND_OSS=m
+-CONFIG_SOUND_VIDC=m
+-# CONFIG_USB_SUPPORT is not set
+-CONFIG_RTC_CLASS=y
+-CONFIG_RTC_DRV_PCF8583=y
 -CONFIG_EXT2_FS=y
--CONFIG_AUTOFS_FS=y
--CONFIG_ISO9660_FS=m
+-CONFIG_EXT4_FS=y
+-CONFIG_AUTOFS_FS=m
+-CONFIG_ISO9660_FS=y
 -CONFIG_JOLIET=y
 -CONFIG_MSDOS_FS=m
 -CONFIG_VFAT_FS=m
--CONFIG_ADFS_FS=m
+-CONFIG_ADFS_FS=y
 -CONFIG_NFS_FS=y
--CONFIG_ROOT_NFS=y
--CONFIG_NFSD=m
--CONFIG_NLS=y
+-# CONFIG_ACORN_PARTITION_CUMANA is not set
+-# CONFIG_ACORN_PARTITION_EESOX is not set
 -CONFIG_NLS_CODEPAGE_437=m
+-CONFIG_NLS_CODEPAGE_737=m
+-CONFIG_NLS_CODEPAGE_775=m
 -CONFIG_NLS_CODEPAGE_850=m
 -CONFIG_NLS_CODEPAGE_852=m
+-CONFIG_NLS_CODEPAGE_855=m
+-CONFIG_NLS_CODEPAGE_857=m
+-CONFIG_NLS_CODEPAGE_860=m
+-CONFIG_NLS_CODEPAGE_861=m
+-CONFIG_NLS_CODEPAGE_862=m
+-CONFIG_NLS_CODEPAGE_863=m
+-CONFIG_NLS_CODEPAGE_864=m
+-CONFIG_NLS_CODEPAGE_865=m
+-CONFIG_NLS_CODEPAGE_866=m
+-CONFIG_NLS_CODEPAGE_869=m
+-CONFIG_NLS_CODEPAGE_874=m
+-CONFIG_NLS_ISO8859_8=m
+-CONFIG_NLS_ASCII=y
 -CONFIG_NLS_ISO8859_1=m
 -CONFIG_NLS_ISO8859_2=m
--CONFIG_NLS_ISO8859_15=m
--CONFIG_DEBUG_USER=y
-diff --git a/arch/arm/configs/netwinder_defconfig b/arch/arm/configs/netwinder_defconfig
-deleted file mode 100644
-index 77d4a2b5916b..000000000000
---- a/arch/arm/configs/netwinder_defconfig
-+++ /dev/null
-@@ -1,88 +0,0 @@
--CONFIG_SYSVIPC=y
--CONFIG_LOG_BUF_SHIFT=14
--CONFIG_EXPERT=y
--CONFIG_ARCH_MULTI_V4=y
--# CONFIG_ARCH_MULTI_V7 is not set
--CONFIG_ARCH_FOOTBRIDGE=y
--CONFIG_ARCH_NETWINDER=y
--# CONFIG_AEABI is not set
--CONFIG_ATAGS=y
--CONFIG_DEPRECATED_PARAM_STRUCT=y
--CONFIG_CMDLINE="root=0x801"
--CONFIG_FPE_NWFPE=y
--CONFIG_PARTITION_ADVANCED=y
--CONFIG_NET=y
--CONFIG_PACKET=y
--CONFIG_UNIX=y
--CONFIG_INET=y
--CONFIG_IP_PNP=y
--CONFIG_IP_PNP_DHCP=y
--CONFIG_IP_PNP_BOOTP=y
--CONFIG_IP_PNP_RARP=y
--# CONFIG_IPV6 is not set
--CONFIG_NETFILTER=y
--CONFIG_IP_NF_IPTABLES=y
--CONFIG_PARPORT=y
--CONFIG_PARPORT_PC=y
--CONFIG_PARPORT_PC_SUPERIO=y
--CONFIG_BLK_DEV_LOOP=y
--CONFIG_BLK_DEV_SD=y
--CONFIG_ATA=y
--CONFIG_PATA_WINBOND=y
--CONFIG_NETDEVICES=y
--CONFIG_MII=y
--CONFIG_NET_TULIP=y
--CONFIG_TULIP=y
--CONFIG_TULIP_MMIO=y
--CONFIG_NET_PCI=y
--CONFIG_NE2K_PCI=y
--CONFIG_MOUSE_SERIAL=y
--CONFIG_INPUT_MISC=y
--CONFIG_INPUT_UINPUT=y
--CONFIG_SERIAL_8250=y
--CONFIG_SERIAL_8250_CONSOLE=y
--CONFIG_PRINTER=y
--CONFIG_DS1620=y
--CONFIG_NWBUTTON=y
--CONFIG_NWBUTTON_REBOOT=y
--CONFIG_NWFLASH=y
--CONFIG_WATCHDOG=y
--CONFIG_977_WATCHDOG=y
--CONFIG_FB=y
--CONFIG_FB_CYBER2000=y
--CONFIG_FRAMEBUFFER_CONSOLE=y
--CONFIG_LOGO=y
--CONFIG_SOUND=y
--CONFIG_SOUND_PRIME=y
--CONFIG_SOUND_OSS=y
--CONFIG_SOUND_TRACEINIT=y
--CONFIG_SOUND_DMAP=y
--CONFIG_SOUND_YM3812=y
--CONFIG_SOUND_WAVEARTIST=y
--CONFIG_NEW_LEDS=y
--CONFIG_LEDS_CLASS=y
--CONFIG_LEDS_TRIGGERS=y
--CONFIG_LEDS_TRIGGER_CPU=y
--CONFIG_EXT2_FS=y
--CONFIG_ISO9660_FS=y
--CONFIG_JOLIET=y
--CONFIG_TMPFS=y
--CONFIG_NFS_FS=y
--CONFIG_NFS_V3=y
--CONFIG_NFS_V4=y
--CONFIG_ROOT_NFS=y
--CONFIG_NFSD=y
--CONFIG_SMB_FS=y
--CONFIG_NLS_CODEPAGE_437=y
--CONFIG_NLS_CODEPAGE_850=y
--CONFIG_NLS_CODEPAGE_852=y
--CONFIG_NLS_ISO8859_1=y
--CONFIG_NLS_ISO8859_2=y
--CONFIG_NLS_ISO8859_15=y
--CONFIG_NLS_UTF8=y
+-CONFIG_NLS_ISO8859_3=m
+-CONFIG_NLS_ISO8859_4=m
+-CONFIG_NLS_ISO8859_5=m
+-CONFIG_NLS_ISO8859_6=m
+-CONFIG_NLS_ISO8859_7=m
+-CONFIG_NLS_ISO8859_9=m
+-CONFIG_NLS_KOI8_R=m
 -CONFIG_FONTS=y
--CONFIG_FONT_8x8=y
 -CONFIG_FONT_8x16=y
+-CONFIG_FONT_ACORN_8x8=y
 -CONFIG_DEBUG_KERNEL=y
 -CONFIG_MAGIC_SYSRQ=y
 -CONFIG_DEBUG_USER=y
-diff --git a/arch/arm/include/asm/hardware/dec21285.h b/arch/arm/include/asm/hardware/dec21285.h
+-CONFIG_DEBUG_LL=y
+-CONFIG_DEBUG_LL_UART_8250=y
+diff --git a/arch/arm/include/asm/ecard.h b/arch/arm/include/asm/ecard.h
 deleted file mode 100644
-index 894f2a635cbb..000000000000
---- a/arch/arm/include/asm/hardware/dec21285.h
+index 7cbe001bf9cc..000000000000
+--- a/arch/arm/include/asm/ecard.h
 +++ /dev/null
-@@ -1,138 +0,0 @@
+@@ -1,219 +0,0 @@
+-/* SPDX-License-Identifier: GPL-2.0 */
+-/*
+- * arch/arm/include/asm/ecard.h
+- *
+- * definitions for expansion cards
+- *
+- * This is a new system as from Linux 1.2.3
+- *
+- * Changelog:
+- *  11-12-1996	RMK	Further minor improvements
+- *  12-09-1997	RMK	Added interrupt enable/disable for card level
+- *
+- * Reference: Acorns Risc OS 3 Programmers Reference Manuals.
+- */
+-
+-#ifndef __ASM_ECARD_H
+-#define __ASM_ECARD_H
+-
+-/*
+- * Currently understood cards (but not necessarily
+- * supported):
+- *                        Manufacturer  Product ID
+- */
+-#define MANU_ACORN		0x0000
+-#define PROD_ACORN_SCSI			0x0002
+-#define PROD_ACORN_ETHER1		0x0003
+-#define PROD_ACORN_MFM			0x000b
+-
+-#define MANU_ANT2		0x0011
+-#define PROD_ANT_ETHER3			0x00a4
+-
+-#define MANU_ATOMWIDE		0x0017
+-#define PROD_ATOMWIDE_3PSERIAL		0x0090
+-
+-#define MANU_IRLAM_INSTRUMENTS	0x001f
+-#define MANU_IRLAM_INSTRUMENTS_ETHERN	0x5678
+-
+-#define MANU_OAK		0x0021
+-#define PROD_OAK_SCSI			0x0058
+-
+-#define MANU_MORLEY		0x002b
+-#define PROD_MORLEY_SCSI_UNCACHED	0x0067
+-
+-#define MANU_CUMANA		0x003a
+-#define PROD_CUMANA_SCSI_2		0x003a
+-#define PROD_CUMANA_SCSI_1		0x00a0
+-
+-#define MANU_ICS		0x003c
+-#define PROD_ICS_IDE			0x00ae
+-
+-#define MANU_ICS2		0x003d
+-#define PROD_ICS2_IDE			0x00ae
+-
+-#define MANU_SERPORT		0x003f
+-#define PROD_SERPORT_DSPORT		0x00b9
+-
+-#define MANU_ARXE		0x0041
+-#define PROD_ARXE_SCSI			0x00be
+-
+-#define MANU_I3			0x0046
+-#define PROD_I3_ETHERLAN500		0x00d4
+-#define PROD_I3_ETHERLAN600		0x00ec
+-#define PROD_I3_ETHERLAN600A		0x011e
+-
+-#define MANU_ANT		0x0053
+-#define PROD_ANT_ETHERM			0x00d8
+-#define PROD_ANT_ETHERB			0x00e4
+-
+-#define MANU_ALSYSTEMS		0x005b
+-#define PROD_ALSYS_SCSIATAPI		0x0107
+-
+-#define MANU_MCS		0x0063
+-#define PROD_MCS_CONNECT32		0x0125
+-
+-#define MANU_EESOX		0x0064
+-#define PROD_EESOX_SCSI2		0x008c
+-
+-#define MANU_YELLOWSTONE	0x0096
+-#define PROD_YELLOWSTONE_RAPIDE32	0x0120
+-
+-#ifdef ECARD_C
+-#define CONST
+-#else
+-#define CONST const
+-#endif
+-
+-#define MAX_ECARDS	9
+-
+-struct ecard_id {			/* Card ID structure		*/
+-	unsigned short	manufacturer;
+-	unsigned short	product;
+-	void		*data;
+-};
+-
+-struct in_ecid {			/* Packed card ID information	*/
+-	unsigned short	product;	/* Product code			*/
+-	unsigned short	manufacturer;	/* Manufacturer code		*/
+-	unsigned char	id:4;		/* Simple ID			*/
+-	unsigned char	cd:1;		/* Chunk dir present		*/
+-	unsigned char	is:1;		/* Interrupt status pointers	*/
+-	unsigned char	w:2;		/* Width			*/
+-	unsigned char	country;	/* Country			*/
+-	unsigned char	irqmask;	/* IRQ mask			*/
+-	unsigned char	fiqmask;	/* FIQ mask			*/
+-	unsigned long	irqoff;		/* IRQ offset			*/
+-	unsigned long	fiqoff;		/* FIQ offset			*/
+-};
+-
+-typedef struct expansion_card ecard_t;
+-typedef unsigned long *loader_t;
+-
+-typedef struct expansion_card_ops {	/* Card handler routines	*/
+-	void (*irqenable)(ecard_t *ec, int irqnr);
+-	void (*irqdisable)(ecard_t *ec, int irqnr);
+-	int  (*irqpending)(ecard_t *ec);
+-	void (*fiqenable)(ecard_t *ec, int fiqnr);
+-	void (*fiqdisable)(ecard_t *ec, int fiqnr);
+-	int  (*fiqpending)(ecard_t *ec);
+-} expansioncard_ops_t;
+-
+-#define ECARD_NUM_RESOURCES	(6)
+-
+-#define ECARD_RES_IOCSLOW	(0)
+-#define ECARD_RES_IOCMEDIUM	(1)
+-#define ECARD_RES_IOCFAST	(2)
+-#define ECARD_RES_IOCSYNC	(3)
+-#define ECARD_RES_MEMC		(4)
+-#define ECARD_RES_EASI		(5)
+-
+-#define ecard_resource_start(ec,nr)	((ec)->resource[nr].start)
+-#define ecard_resource_end(ec,nr)	((ec)->resource[nr].end)
+-#define ecard_resource_len(ec,nr)	((ec)->resource[nr].end - \
+-					 (ec)->resource[nr].start + 1)
+-#define ecard_resource_flags(ec,nr)	((ec)->resource[nr].flags)
+-
+-/*
+- * This contains all the info needed on an expansion card
+- */
+-struct expansion_card {
+-	struct expansion_card  *next;
+-
+-	struct device		dev;
+-	struct resource		resource[ECARD_NUM_RESOURCES];
+-
+-	/* Public data */
+-	void __iomem		*irqaddr;	/* address of IRQ register	*/
+-	void __iomem		*fiqaddr;	/* address of FIQ register	*/
+-	unsigned char		irqmask;	/* IRQ mask			*/
+-	unsigned char		fiqmask;	/* FIQ mask			*/
+-	unsigned char  		claimed;	/* Card claimed?		*/
+-	unsigned char		easi;		/* EASI card			*/
+-
+-	void			*irq_data;	/* Data for use for IRQ by card	*/
+-	void			*fiq_data;	/* Data for use for FIQ by card	*/
+-	const expansioncard_ops_t *ops;		/* Enable/Disable Ops for card	*/
+-
+-	CONST unsigned int	slot_no;	/* Slot number			*/
+-	CONST unsigned int	dma;		/* DMA number (for request_dma)	*/
+-	CONST unsigned int	irq;		/* IRQ number (for request_irq)	*/
+-	CONST unsigned int	fiq;		/* FIQ number (for request_irq)	*/
+-	CONST struct in_ecid	cid;		/* Card Identification		*/
+-
+-	/* Private internal data */
+-	const char		*card_desc;	/* Card description		*/
+-	CONST loader_t		loader;		/* loader program */
+-	u64			dma_mask;
+-};
+-
+-void ecard_setirq(struct expansion_card *ec, const struct expansion_card_ops *ops, void *irq_data);
+-
+-struct in_chunk_dir {
+-	unsigned int start_offset;
+-	union {
+-		unsigned char string[256];
+-		unsigned char data[1];
+-	} d;
+-};
+-
+-/*
+- * Read a chunk from an expansion card
+- * cd : where to put read data
+- * ec : expansion card info struct
+- * id : id number to find
+- * num: (n+1)'th id to find.
+- */
+-extern int ecard_readchunk (struct in_chunk_dir *cd, struct expansion_card *ec, int id, int num);
+-
+-/*
+- * Request and release ecard resources
+- */
+-extern int ecard_request_resources(struct expansion_card *ec);
+-extern void ecard_release_resources(struct expansion_card *ec);
+-
+-void __iomem *ecardm_iomap(struct expansion_card *ec, unsigned int res,
+-			   unsigned long offset, unsigned long maxsize);
+-#define ecardm_iounmap(__ec, __addr)	devm_iounmap(&(__ec)->dev, __addr)
+-
+-extern const struct bus_type ecard_bus_type;
+-
+-#define ECARD_DEV(_d)	container_of((_d), struct expansion_card, dev)
+-
+-struct ecard_driver {
+-	int			(*probe)(struct expansion_card *, const struct ecard_id *id);
+-	void			(*remove)(struct expansion_card *);
+-	void			(*shutdown)(struct expansion_card *);
+-	const struct ecard_id	*id_table;
+-	unsigned int		id;
+-	struct device_driver	drv;
+-};
+-
+-#define ECARD_DRV(_d)	container_of((_d), struct ecard_driver, drv)
+-
+-#define ecard_set_drvdata(ec,data)	dev_set_drvdata(&(ec)->dev, (data))
+-#define ecard_get_drvdata(ec)		dev_get_drvdata(&(ec)->dev)
+-
+-int ecard_register_driver(struct ecard_driver *);
+-void ecard_remove_driver(struct ecard_driver *);
+-
+-#endif
+diff --git a/arch/arm/include/asm/hardware/ioc.h b/arch/arm/include/asm/hardware/ioc.h
+deleted file mode 100644
+index 6edd27fcd048..000000000000
+--- a/arch/arm/include/asm/hardware/ioc.h
++++ /dev/null
+@@ -1,69 +0,0 @@
 -/* SPDX-License-Identifier: GPL-2.0-only */
 -/*
-- *  arch/arm/include/asm/hardware/dec21285.h
+- *  arch/arm/include/asm/hardware/ioc.h
 - *
-- *  Copyright (C) 1998 Russell King
+- *  Copyright (C) Russell King
 - *
-- *  DC21285 registers
+- *  Use these macros to read/write the IOC.  All it does is perform the actual
+- *  read/write.
 - */
--#define DC21285_PCI_IACK		0x79000000
--#define DC21285_ARMCSR_BASE		0x42000000
--#define DC21285_PCI_TYPE_0_CONFIG	0x7b000000
--#define DC21285_PCI_TYPE_1_CONFIG	0x7a000000
--#define DC21285_OUTBOUND_WRITE_FLUSH	0x78000000
--#define DC21285_FLASH			0x41000000
--#define DC21285_PCI_IO			0x7c000000
--#define DC21285_PCI_MEM			0x80000000
+-#ifndef __ASMARM_HARDWARE_IOC_H
+-#define __ASMARM_HARDWARE_IOC_H
 -
 -#ifndef __ASSEMBLY__
--#include <mach/hardware.h>
--#define DC21285_IO(x)		((volatile unsigned long *)(ARMCSR_BASE+(x)))
--#else
--#define DC21285_IO(x)		(x)
--#endif
 -
 -/*
-- * The footbridge is programmed to expose the system RAM at 0xe0000000.
-- * The requirement is that the RAM isn't placed at bus address 0, which
-- * would clash with VGA cards.
+- * We use __raw_base variants here so that we give the compiler the
+- * chance to keep IOC_BASE in a register.
 - */
--#define BUS_OFFSET 0xe0000000
+-#define ioc_readb(off)		__raw_readb(IOC_BASE + (off))
+-#define ioc_writeb(val,off)	__raw_writeb(val, IOC_BASE + (off))
 -
--#define CSR_PCICMD		DC21285_IO(0x0004)
--#define CSR_CLASSREV		DC21285_IO(0x0008)
--#define CSR_PCICACHELINESIZE	DC21285_IO(0x000c)
--#define CSR_PCICSRBASE		DC21285_IO(0x0010)
--#define CSR_PCICSRIOBASE	DC21285_IO(0x0014)
--#define CSR_PCISDRAMBASE	DC21285_IO(0x0018)
--#define CSR_PCIROMBASE		DC21285_IO(0x0030)
--#define CSR_MBOX0		DC21285_IO(0x0050)
--#define CSR_MBOX1		DC21285_IO(0x0054)
--#define CSR_MBOX2		DC21285_IO(0x0058)
--#define CSR_MBOX3		DC21285_IO(0x005c)
--#define CSR_DOORBELL		DC21285_IO(0x0060)
--#define CSR_DOORBELL_SETUP	DC21285_IO(0x0064)
--#define CSR_ROMWRITEREG		DC21285_IO(0x0068)
--#define CSR_CSRBASEMASK		DC21285_IO(0x00f8)
--#define CSR_CSRBASEOFFSET	DC21285_IO(0x00fc)
--#define CSR_SDRAMBASEMASK	DC21285_IO(0x0100)
--#define CSR_SDRAMBASEOFFSET	DC21285_IO(0x0104)
--#define CSR_ROMBASEMASK		DC21285_IO(0x0108)
--#define CSR_SDRAMTIMING		DC21285_IO(0x010c)
--#define CSR_SDRAMADDRSIZE0	DC21285_IO(0x0110)
--#define CSR_SDRAMADDRSIZE1	DC21285_IO(0x0114)
--#define CSR_SDRAMADDRSIZE2	DC21285_IO(0x0118)
--#define CSR_SDRAMADDRSIZE3	DC21285_IO(0x011c)
--#define CSR_I2O_INFREEHEAD	DC21285_IO(0x0120)
--#define CSR_I2O_INPOSTTAIL	DC21285_IO(0x0124)
--#define CSR_I2O_OUTPOSTHEAD	DC21285_IO(0x0128)
--#define CSR_I2O_OUTFREETAIL	DC21285_IO(0x012c)
--#define CSR_I2O_INFREECOUNT	DC21285_IO(0x0130)
--#define CSR_I2O_OUTPOSTCOUNT	DC21285_IO(0x0134)
--#define CSR_I2O_INPOSTCOUNT	DC21285_IO(0x0138)
--#define CSR_SA110_CNTL		DC21285_IO(0x013c)
--#define SA110_CNTL_INITCMPLETE		(1 << 0)
--#define SA110_CNTL_ASSERTSERR		(1 << 1)
--#define SA110_CNTL_RXSERR		(1 << 3)
--#define SA110_CNTL_SA110DRAMPARITY	(1 << 4)
--#define SA110_CNTL_PCISDRAMPARITY	(1 << 5)
--#define SA110_CNTL_DMASDRAMPARITY	(1 << 6)
--#define SA110_CNTL_DISCARDTIMER		(1 << 8)
--#define SA110_CNTL_PCINRESET		(1 << 9)
--#define SA110_CNTL_I2O_256		(0 << 10)
--#define SA110_CNTL_I20_512		(1 << 10)
--#define SA110_CNTL_I2O_1024		(2 << 10)
--#define SA110_CNTL_I2O_2048		(3 << 10)
--#define SA110_CNTL_I2O_4096		(4 << 10)
--#define SA110_CNTL_I2O_8192		(5 << 10)
--#define SA110_CNTL_I2O_16384		(6 << 10)
--#define SA110_CNTL_I2O_32768		(7 << 10)
--#define SA110_CNTL_WATCHDOG		(1 << 13)
--#define SA110_CNTL_ROMWIDTH_UNDEF	(0 << 14)
--#define SA110_CNTL_ROMWIDTH_16		(1 << 14)
--#define SA110_CNTL_ROMWIDTH_32		(2 << 14)
--#define SA110_CNTL_ROMWIDTH_8		(3 << 14)
--#define SA110_CNTL_ROMACCESSTIME(x)	((x)<<16)
--#define SA110_CNTL_ROMBURSTTIME(x)	((x)<<20)
--#define SA110_CNTL_ROMTRISTATETIME(x)	((x)<<24)
--#define SA110_CNTL_XCSDIR(x)		((x)<<28)
--#define SA110_CNTL_PCICFN		(1 << 31)
--
--#define CSR_PCIADDR_EXTN	DC21285_IO(0x0140)
--#define CSR_PREFETCHMEMRANGE	DC21285_IO(0x0144)
--#define CSR_XBUS_CYCLE		DC21285_IO(0x0148)
--#define CSR_XBUS_IOSTROBE	DC21285_IO(0x014c)
--#define CSR_DOORBELL_PCI	DC21285_IO(0x0150)
--#define CSR_DOORBELL_SA110	DC21285_IO(0x0154)
--#define CSR_UARTDR		DC21285_IO(0x0160)
--#define CSR_RXSTAT		DC21285_IO(0x0164)
--#define CSR_H_UBRLCR		DC21285_IO(0x0168)
--#define CSR_M_UBRLCR		DC21285_IO(0x016c)
--#define CSR_L_UBRLCR		DC21285_IO(0x0170)
--#define CSR_UARTCON		DC21285_IO(0x0174)
--#define CSR_UARTFLG		DC21285_IO(0x0178)
--#define CSR_IRQ_STATUS		DC21285_IO(0x0180)
--#define CSR_IRQ_RAWSTATUS	DC21285_IO(0x0184)
--#define CSR_IRQ_ENABLE		DC21285_IO(0x0188)
--#define CSR_IRQ_DISABLE		DC21285_IO(0x018c)
--#define CSR_IRQ_SOFT		DC21285_IO(0x0190)
--#define CSR_FIQ_STATUS		DC21285_IO(0x0280)
--#define CSR_FIQ_RAWSTATUS	DC21285_IO(0x0284)
--#define CSR_FIQ_ENABLE		DC21285_IO(0x0288)
--#define CSR_FIQ_DISABLE		DC21285_IO(0x028c)
--#define CSR_FIQ_SOFT		DC21285_IO(0x0290)
--#define CSR_TIMER1_LOAD		DC21285_IO(0x0300)
--#define CSR_TIMER1_VALUE	DC21285_IO(0x0304)
--#define CSR_TIMER1_CNTL		DC21285_IO(0x0308)
--#define CSR_TIMER1_CLR		DC21285_IO(0x030c)
--#define CSR_TIMER2_LOAD		DC21285_IO(0x0320)
--#define CSR_TIMER2_VALUE	DC21285_IO(0x0324)
--#define CSR_TIMER2_CNTL		DC21285_IO(0x0328)
--#define CSR_TIMER2_CLR		DC21285_IO(0x032c)
--#define CSR_TIMER3_LOAD		DC21285_IO(0x0340)
--#define CSR_TIMER3_VALUE	DC21285_IO(0x0344)
--#define CSR_TIMER3_CNTL		DC21285_IO(0x0348)
--#define CSR_TIMER3_CLR		DC21285_IO(0x034c)
--#define CSR_TIMER4_LOAD		DC21285_IO(0x0360)
--#define CSR_TIMER4_VALUE	DC21285_IO(0x0364)
--#define CSR_TIMER4_CNTL		DC21285_IO(0x0368)
--#define CSR_TIMER4_CLR		DC21285_IO(0x036c)
--
--#define TIMER_CNTL_ENABLE	(1 << 7)
--#define TIMER_CNTL_AUTORELOAD	(1 << 6)
--#define TIMER_CNTL_DIV1		(0)
--#define TIMER_CNTL_DIV16	(1 << 2)
--#define TIMER_CNTL_DIV256	(2 << 2)
--#define TIMER_CNTL_CNTEXT	(3 << 2)
--
--
-diff --git a/arch/arm/include/asm/mach/pci.h b/arch/arm/include/asm/mach/pci.h
-index ea9bd08895b7..78f2318ed000 100644
---- a/arch/arm/include/asm/mach/pci.h
-+++ b/arch/arm/include/asm/mach/pci.h
-@@ -61,15 +61,6 @@ static inline void pci_common_init(struct hw_pci *hw)
- 	pci_common_init_dev(NULL, hw);
- }
- 
--/*
-- * Setup early fixed I/O mapping.
-- */
--#if defined(CONFIG_PCI)
--extern void pci_map_io_early(unsigned long pfn);
--#else
--static inline void pci_map_io_early(unsigned long pfn) {}
 -#endif
 -
- /*
-  * PCI controllers
-  */
-@@ -78,9 +69,4 @@ extern int iop3xx_pci_setup(int nr, struct pci_sys_data *);
- extern void iop3xx_pci_preinit(void);
- extern void iop3xx_pci_preinit_cond(void);
- 
--extern struct pci_ops dc21285_ops;
--extern int dc21285_setup(int nr, struct pci_sys_data *);
--extern void dc21285_preinit(void);
--extern void dc21285_postinit(void);
+-#define IOC_CONTROL	(0x00)
+-#define IOC_KARTTX	(0x04)
+-#define IOC_KARTRX	(0x04)
 -
- #endif /* __ASM_MACH_PCI_H */
-diff --git a/arch/arm/include/debug/dc21285.S b/arch/arm/include/debug/dc21285.S
+-#define IOC_IRQSTATA	(0x10)
+-#define IOC_IRQREQA	(0x14)
+-#define IOC_IRQCLRA	(0x14)
+-#define IOC_IRQMASKA	(0x18)
+-
+-#define IOC_IRQSTATB	(0x20)
+-#define IOC_IRQREQB	(0x24)
+-#define IOC_IRQMASKB	(0x28)
+-
+-#define IOC_FIQSTAT	(0x30)
+-#define IOC_FIQREQ	(0x34)
+-#define IOC_FIQMASK	(0x38)
+-
+-#define IOC_T0CNTL	(0x40)
+-#define IOC_T0LTCHL	(0x40)
+-#define IOC_T0CNTH	(0x44)
+-#define IOC_T0LTCHH	(0x44)
+-#define IOC_T0GO	(0x48)
+-#define IOC_T0LATCH	(0x4c)
+-
+-#define IOC_T1CNTL	(0x50)
+-#define IOC_T1LTCHL	(0x50)
+-#define IOC_T1CNTH	(0x54)
+-#define IOC_T1LTCHH	(0x54)
+-#define IOC_T1GO	(0x58)
+-#define IOC_T1LATCH	(0x5c)
+-
+-#define IOC_T2CNTL	(0x60)
+-#define IOC_T2LTCHL	(0x60)
+-#define IOC_T2CNTH	(0x64)
+-#define IOC_T2LTCHH	(0x64)
+-#define IOC_T2GO	(0x68)
+-#define IOC_T2LATCH	(0x6c)
+-
+-#define IOC_T3CNTL	(0x70)
+-#define IOC_T3LTCHL	(0x70)
+-#define IOC_T3CNTH	(0x74)
+-#define IOC_T3LTCHH	(0x74)
+-#define IOC_T3GO	(0x78)
+-#define IOC_T3LATCH	(0x7c)
+-
+-#endif
+diff --git a/arch/arm/include/asm/hardware/iomd.h b/arch/arm/include/asm/hardware/iomd.h
 deleted file mode 100644
-index 4ec0e5e31704..000000000000
---- a/arch/arm/include/debug/dc21285.S
+index 53006ba5350f..000000000000
+--- a/arch/arm/include/asm/hardware/iomd.h
 +++ /dev/null
-@@ -1,41 +0,0 @@
+@@ -1,182 +0,0 @@
 -/* SPDX-License-Identifier: GPL-2.0-only */
--/* arch/arm/mach-footbridge/include/mach/debug-macro.S
+-/*
+- *  arch/arm/include/asm/hardware/iomd.h
 - *
-- * Debugging macro include header
+- *  Copyright (C) 1999 Russell King
 - *
-- *  Copyright (C) 1994-1999 Russell King
-- *  Moved from linux/arch/arm/kernel/debug.S by Ben Dooks
--*/
+- *  This file contains information out the IOMD ASIC used in the
+- *  Acorn RiscPC and subsequently integrated into the CLPS7500 chips.
+- */
+-#ifndef __ASMARM_HARDWARE_IOMD_H
+-#define __ASMARM_HARDWARE_IOMD_H
 -
--#include <asm/hardware/dec21285.h>
 -
--#include <mach/hardware.h>
--	/* For EBSA285 debugging */
--		.equ	dc21285_high, ARMCSR_BASE & 0xff000000
--		.equ	dc21285_low,  ARMCSR_BASE & 0x00ffffff
+-#ifndef __ASSEMBLY__
 -
--		.macro	addruart, rp, rv, tmp
--		.if	dc21285_low
--		mov	\rp, #dc21285_low
--		.else
--		mov	\rp, #0
--		.endif
--		orr	\rv, \rp, #dc21285_high
--		orr	\rp, \rp, #0x42000000
--		.endm
+-/*
+- * We use __raw_base variants here so that we give the compiler the
+- * chance to keep IOC_BASE in a register.
+- */
+-#define iomd_readb(off)		__raw_readb(IOMD_BASE + (off))
+-#define iomd_readl(off)		__raw_readl(IOMD_BASE + (off))
+-#define iomd_writeb(val,off)	__raw_writeb(val, IOMD_BASE + (off))
+-#define iomd_writel(val,off)	__raw_writel(val, IOMD_BASE + (off))
 -
--		.macro	senduart,rd,rx
--		str	\rd, [\rx, #0x160]	@ UARTDR
--		.endm
--
--		.macro	busyuart,rd,rx
--1001:		ldr	\rd, [\rx, #0x178]	@ UARTFLG
--		tst	\rd, #1 << 3
--		bne	1001b
--		.endm
--
--		.macro	waituartcts,rd,rx
--		.endm
--
--		.macro	waituarttxrdy,rd,rx
--		.endm
-diff --git a/arch/arm/kernel/atags_parse.c b/arch/arm/kernel/atags_parse.c
-index 4ec591bde3df..9865ec7f90d9 100644
---- a/arch/arm/kernel/atags_parse.c
-+++ b/arch/arm/kernel/atags_parse.c
-@@ -69,24 +69,6 @@ static int __init parse_tag_mem32(const struct tag *tag)
- 
- __tagtable(ATAG_MEM, parse_tag_mem32);
- 
--#if defined(CONFIG_ARCH_FOOTBRIDGE) && defined(CONFIG_VGA_CONSOLE)
--static int __init parse_tag_videotext(const struct tag *tag)
--{
--	vgacon_screen_info.orig_x            = tag->u.videotext.x;
--	vgacon_screen_info.orig_y            = tag->u.videotext.y;
--	vgacon_screen_info.orig_video_page   = tag->u.videotext.video_page;
--	vgacon_screen_info.orig_video_mode   = tag->u.videotext.video_mode;
--	vgacon_screen_info.orig_video_cols   = tag->u.videotext.video_cols;
--	vgacon_screen_info.orig_video_ega_bx = tag->u.videotext.video_ega_bx;
--	vgacon_screen_info.orig_video_lines  = tag->u.videotext.video_lines;
--	vgacon_screen_info.orig_video_isVGA  = tag->u.videotext.video_isvga;
--	vgacon_screen_info.orig_video_points = tag->u.videotext.video_points;
--	return 0;
--}
--
--__tagtable(ATAG_VIDEOTEXT, parse_tag_videotext);
 -#endif
 -
- #ifdef CONFIG_BLK_DEV_RAM
- static int __init parse_tag_ramdisk(const struct tag *tag)
- {
-diff --git a/arch/arm/kernel/bios32.c b/arch/arm/kernel/bios32.c
-index ac0e890510da..6256b75f8285 100644
---- a/arch/arm/kernel/bios32.c
-+++ b/arch/arm/kernel/bios32.c
-@@ -582,15 +582,3 @@ resource_size_t pcibios_align_resource(void *data, const struct resource *res,
+-#define IOMD_CONTROL	(0x000)
+-#define IOMD_KARTTX	(0x004)
+-#define IOMD_KARTRX	(0x004)
+-#define IOMD_KCTRL	(0x008)
+-
+-#define IOMD_IRQSTATA	(0x010)
+-#define IOMD_IRQREQA	(0x014)
+-#define IOMD_IRQCLRA	(0x014)
+-#define IOMD_IRQMASKA	(0x018)
+-
+-#define IOMD_IRQSTATB	(0x020)
+-#define IOMD_IRQREQB	(0x024)
+-#define IOMD_IRQMASKB	(0x028)
+-
+-#define IOMD_FIQSTAT	(0x030)
+-#define IOMD_FIQREQ	(0x034)
+-#define IOMD_FIQMASK	(0x038)
+-
+-#define IOMD_T0CNTL	(0x040)
+-#define IOMD_T0LTCHL	(0x040)
+-#define IOMD_T0CNTH	(0x044)
+-#define IOMD_T0LTCHH	(0x044)
+-#define IOMD_T0GO	(0x048)
+-#define IOMD_T0LATCH	(0x04c)
+-
+-#define IOMD_T1CNTL	(0x050)
+-#define IOMD_T1LTCHL	(0x050)
+-#define IOMD_T1CNTH	(0x054)
+-#define IOMD_T1LTCHH	(0x054)
+-#define IOMD_T1GO	(0x058)
+-#define IOMD_T1LATCH	(0x05c)
+-
+-#define IOMD_ROMCR0	(0x080)
+-#define IOMD_ROMCR1	(0x084)
+-#ifdef CONFIG_ARCH_RPC
+-#define IOMD_DRAMCR	(0x088)
+-#endif
+-#define IOMD_REFCR	(0x08C)
+-
+-#define IOMD_FSIZE	(0x090)
+-#define IOMD_ID0	(0x094)
+-#define IOMD_ID1	(0x098)
+-#define IOMD_VERSION	(0x09C)
+-
+-#ifdef CONFIG_ARCH_RPC
+-#define IOMD_MOUSEX	(0x0A0)
+-#define IOMD_MOUSEY	(0x0A4)
+-#endif
+-
+-#ifdef CONFIG_ARCH_RPC
+-#define IOMD_DMATCR	(0x0C0)
+-#endif
+-#define IOMD_IOTCR	(0x0C4)
+-#define IOMD_ECTCR	(0x0C8)
+-#ifdef CONFIG_ARCH_RPC
+-#define IOMD_DMAEXT	(0x0CC)
+-#endif
+-
+-#ifdef CONFIG_ARCH_RPC
+-#define DMA_EXT_IO0	1
+-#define DMA_EXT_IO1	2
+-#define DMA_EXT_IO2	4
+-#define DMA_EXT_IO3	8
+-
+-#define IOMD_IO0CURA	(0x100)
+-#define IOMD_IO0ENDA	(0x104)
+-#define IOMD_IO0CURB	(0x108)
+-#define IOMD_IO0ENDB	(0x10C)
+-#define IOMD_IO0CR	(0x110)
+-#define IOMD_IO0ST	(0x114)
+-
+-#define IOMD_IO1CURA	(0x120)
+-#define IOMD_IO1ENDA	(0x124)
+-#define IOMD_IO1CURB	(0x128)
+-#define IOMD_IO1ENDB	(0x12C)
+-#define IOMD_IO1CR	(0x130)
+-#define IOMD_IO1ST	(0x134)
+-
+-#define IOMD_IO2CURA	(0x140)
+-#define IOMD_IO2ENDA	(0x144)
+-#define IOMD_IO2CURB	(0x148)
+-#define IOMD_IO2ENDB	(0x14C)
+-#define IOMD_IO2CR	(0x150)
+-#define IOMD_IO2ST	(0x154)
+-
+-#define IOMD_IO3CURA	(0x160)
+-#define IOMD_IO3ENDA	(0x164)
+-#define IOMD_IO3CURB	(0x168)
+-#define IOMD_IO3ENDB	(0x16C)
+-#define IOMD_IO3CR	(0x170)
+-#define IOMD_IO3ST	(0x174)
+-#endif
+-
+-#define IOMD_SD0CURA	(0x180)
+-#define IOMD_SD0ENDA	(0x184)
+-#define IOMD_SD0CURB	(0x188)
+-#define IOMD_SD0ENDB	(0x18C)
+-#define IOMD_SD0CR	(0x190)
+-#define IOMD_SD0ST	(0x194)
+-
+-#ifdef CONFIG_ARCH_RPC
+-#define IOMD_SD1CURA	(0x1A0)
+-#define IOMD_SD1ENDA	(0x1A4)
+-#define IOMD_SD1CURB	(0x1A8)
+-#define IOMD_SD1ENDB	(0x1AC)
+-#define IOMD_SD1CR	(0x1B0)
+-#define IOMD_SD1ST	(0x1B4)
+-#endif
+-
+-#define IOMD_CURSCUR	(0x1C0)
+-#define IOMD_CURSINIT	(0x1C4)
+-
+-#define IOMD_VIDCUR	(0x1D0)
+-#define IOMD_VIDEND	(0x1D4)
+-#define IOMD_VIDSTART	(0x1D8)
+-#define IOMD_VIDINIT	(0x1DC)
+-#define IOMD_VIDCR	(0x1E0)
+-
+-#define IOMD_DMASTAT	(0x1F0)
+-#define IOMD_DMAREQ	(0x1F4)
+-#define IOMD_DMAMASK	(0x1F8)
+-
+-#define DMA_END_S	(1 << 31)
+-#define DMA_END_L	(1 << 30)
+-
+-#define DMA_CR_C	0x80
+-#define DMA_CR_D	0x40
+-#define DMA_CR_E	0x20
+-
+-#define DMA_ST_OFL	4
+-#define DMA_ST_INT	2
+-#define DMA_ST_AB	1
+-
+-/*
+- * DMA (MEMC) compatibility
+- */
+-#define HALF_SAM	vram_half_sam
+-#define VDMA_ALIGNMENT	(HALF_SAM * 2)
+-#define VDMA_XFERSIZE	(HALF_SAM)
+-#define VDMA_INIT	IOMD_VIDINIT
+-#define VDMA_START	IOMD_VIDSTART
+-#define VDMA_END	IOMD_VIDEND
+-
+-#ifndef __ASSEMBLY__
+-extern unsigned int vram_half_sam;
+-#define video_set_dma(start,end,offset)				\
+-do {								\
+-	outl (SCREEN_START + start, VDMA_START);		\
+-	outl (SCREEN_START + end - VDMA_XFERSIZE, VDMA_END);	\
+-	if (offset >= end - VDMA_XFERSIZE)			\
+-		offset |= 0x40000000;				\
+-	outl (SCREEN_START + offset, VDMA_INIT);		\
+-} while (0)
+-#endif
+-
+-#endif
+diff --git a/arch/arm/include/asm/hardware/memc.h b/arch/arm/include/asm/hardware/memc.h
+deleted file mode 100644
+index 1d4ebe0a9678..000000000000
+--- a/arch/arm/include/asm/hardware/memc.h
++++ /dev/null
+@@ -1,23 +0,0 @@
+-/* SPDX-License-Identifier: GPL-2.0-only */
+-/*
+- *  arch/arm/include/asm/hardware/memc.h
+- *
+- *  Copyright (C) Russell King.
+- */
+-#define VDMA_ALIGNMENT	PAGE_SIZE
+-#define VDMA_XFERSIZE	16
+-#define VDMA_INIT	0
+-#define VDMA_START	1
+-#define VDMA_END	2
+-
+-#ifndef __ASSEMBLY__
+-extern void memc_write(unsigned int reg, unsigned long val);
+-
+-#define video_set_dma(start,end,offset)				\
+-do {								\
+-	memc_write (VDMA_START, (start >> 2));			\
+-	memc_write (VDMA_END, (end - VDMA_XFERSIZE) >> 2);	\
+-	memc_write (VDMA_INIT, (offset >> 2));			\
+-} while (0)
+-
+-#endif
+diff --git a/arch/arm/include/asm/io.h b/arch/arm/include/asm/io.h
+index e6bd9e79737c..c3661af2ca2a 100644
+--- a/arch/arm/include/asm/io.h
++++ b/arch/arm/include/asm/io.h
+@@ -207,16 +207,13 @@ void __iomem *pci_remap_cfgspace(resource_size_t res_cookie, size_t size);
+ /*
+  * Now, pick up the machine-defined IO definitions
+  */
+-#ifdef CONFIG_NEED_MACH_IO_H
+-#include <mach/io.h>
+-#else
+ #if IS_ENABLED(CONFIG_PCMCIA) || defined(CONFIG_PCI)
+ #define IO_SPACE_LIMIT	((resource_size_t)0xfffff)
+ #else
+ #define IO_SPACE_LIMIT ((resource_size_t)0)
+ #endif
++
+ #define __io(a)		__typesafe_io(PCI_IO_VIRT_BASE + ((a) & IO_SPACE_LIMIT))
+-#endif
  
- 	return start;
- }
--
--void __init pci_map_io_early(unsigned long pfn)
--{
--	struct map_desc pci_io_desc = {
--		.virtual	= PCI_IO_VIRT_BASE,
--		.type		= MT_DEVICE,
--		.length		= SZ_64K,
--	};
--
--	pci_io_desc.pfn = pfn;
--	iotable_init(&pci_io_desc, 1);
--}
+ /*
+  *  IO port access primitives
+diff --git a/arch/arm/include/asm/memory.h b/arch/arm/include/asm/memory.h
+index 7c2fa7dcec6d..e10363ebdd1f 100644
+--- a/arch/arm/include/asm/memory.h
++++ b/arch/arm/include/asm/memory.h
+@@ -20,9 +20,6 @@
+ #include <linux/types.h>
+ #include <linux/sizes.h>
+ 
+-#ifdef CONFIG_NEED_MACH_MEMORY_H
+-#include <mach/memory.h>
+-#endif
+ #include <asm/kasan_def.h>
+ 
+ /*
+diff --git a/arch/arm/kernel/head-common.S b/arch/arm/kernel/head-common.S
+index 42cae73fcc19..3cbbcdb63f7d 100644
+--- a/arch/arm/kernel/head-common.S
++++ b/arch/arm/kernel/head-common.S
+@@ -221,19 +221,6 @@ str_p2:	.asciz	").\n"
+ ENDPROC(__error_p)
+ 
+ __error:
+-#ifdef CONFIG_ARCH_RPC
+-/*
+- * Turn the screen red on a error - RiscPC only.
+- */
+-	mov	r0, #0x02000000
+-	mov	r3, #0x11
+-	orr	r3, r3, r3, lsl #8
+-	orr	r3, r3, r3, lsl #16
+-	str	r3, [r0], #4
+-	str	r3, [r0], #4
+-	str	r3, [r0], #4
+-	str	r3, [r0], #4
+-#endif
+ 1:	mov	r0, r0
+ 	b	1b
+ ENDPROC(__error)
 diff --git a/arch/arm/kernel/head.S b/arch/arm/kernel/head.S
-index f22c50d4bd41..b12fe41e579b 100644
+index b12fe41e579b..2ffaea2c4c9b 100644
 --- a/arch/arm/kernel/head.S
 +++ b/arch/arm/kernel/head.S
-@@ -347,16 +347,6 @@ __create_page_tables:
+@@ -347,18 +347,6 @@ __create_page_tables:
  	/* we don't need any serial debugging mappings */
  	ldr	r7, [r10, #PROCINFO_IO_MMUFLAGS] @ io_mmuflags
  #endif
--
--#if defined(CONFIG_ARCH_NETWINDER)
+-#ifdef CONFIG_ARCH_RPC
 -	/*
--	 * If we're using the NetWinder or CATS, we also need to map
--	 * in the 16550-type serial port for the debug messages
+-	 * Map in screen at 0x02000000 & SCREEN2_BASE
+-	 * Similar reasons here - for debug.  This is
+-	 * only for Acorn RiscPC architectures.
 -	 */
--	add	r0, r4, #0xff000000 >> (SECTION_SHIFT - PMD_ENTRY_ORDER)
--	orr	r3, r7, #0x7c000000
+-	add	r0, r4, #0x02000000 >> (SECTION_SHIFT - PMD_ENTRY_ORDER)
+-	orr	r3, r7, #0x02000000
+-	str	r3, [r0]
+-	add	r0, r4, #0xd8000000 >> (SECTION_SHIFT - PMD_ENTRY_ORDER)
 -	str	r3, [r0]
 -#endif
- #ifdef CONFIG_ARCH_RPC
- 	/*
- 	 * Map in screen at 0x02000000 & SCREEN2_BASE
-diff --git a/arch/arm/mach-footbridge/Kconfig b/arch/arm/mach-footbridge/Kconfig
+ #endif
+ #ifdef CONFIG_ARM_LPAE
+ 	sub	r4, r4, #0x1000		@ point to the PGD table
+diff --git a/arch/arm/lib/delay-loop.S b/arch/arm/lib/delay-loop.S
+index 33b08ca1c242..56f9eea56268 100644
+--- a/arch/arm/lib/delay-loop.S
++++ b/arch/arm/lib/delay-loop.S
+@@ -9,10 +9,6 @@
+ #include <asm/assembler.h>
+ #include <asm/delay.h>
+ 
+-#ifdef CONFIG_ARCH_RPC
+-		.arch	armv4
+-#endif
+-
+ 		.text
+ 
+ .LC0:		.word	loops_per_jiffy
+diff --git a/arch/arm/mach-rpc/Kconfig b/arch/arm/mach-rpc/Kconfig
 deleted file mode 100644
-index 96a74d447028..000000000000
---- a/arch/arm/mach-footbridge/Kconfig
+index 60b3823b690c..000000000000
+--- a/arch/arm/mach-rpc/Kconfig
 +++ /dev/null
-@@ -1,57 +0,0 @@
--# SPDX-License-Identifier: GPL-2.0-only
--menuconfig ARCH_FOOTBRIDGE
--	bool "FootBridge Implementations (DEPRECATED)"
+@@ -1,24 +0,0 @@
+-config ARCH_RPC
+-	bool "RiscPC (DEPRECATED)"
 -	depends on ARCH_MULTI_V4 && !(ARCH_MULTI_V4T || ARCH_MULTI_V5)
--	depends on !(ARCH_MOXART || ARCH_GEMINI || ARCH_SA1100)
--	depends on ATAGS
+-	depends on !(ARCH_FOOTBRIDGE || ARCH_SA1100 || ARCH_MOXART || ARCH_GEMINI)
+-	depends on !CC_IS_CLANG && GCC_VERSION < 90100 && GCC_VERSION >= 60000
 -	depends on CPU_LITTLE_ENDIAN
+-	depends on ATAGS
 -	depends on MMU
--	select ARCH_NO_SG_CHAIN
+-	select ARCH_ACORN
+-	select ARCH_MAY_HAVE_PC_FDC
 -	select CPU_SA110
--	select FOOTBRIDGE
+-	select FIQ
+-	select HAVE_PATA_PLATFORM
+-	select ISA_DMA_API
+-	select LEGACY_TIMER_TICK
+-	select NEED_MACH_IO_H
 -	select NEED_MACH_MEMORY_H
+-	select NO_IOPORT_MAP
 -	help
--	  Support for systems based on the DC21285 companion chip
--	  ("FootBridge"), used in the EBSA285 and the Rebel NetWinder.
+-	  On the Acorn Risc-PC, Linux can support the internal IDE disk and
+-	  CD-ROM interface, serial and parallel port, and the floppy drive.
 -
 -	  Support for these machines will go away in 2027,
 -	  unless there are any remaining users that speak up.
--
--if ARCH_FOOTBRIDGE
--
--config ARCH_EBSA285_HOST
--	bool "EBSA285 (host mode)"
--	select ARCH_EBSA285
--	select ISA
--	select ARCH_MAY_HAVE_PC_FDC
--	select FORCE_PCI
--	help
--	  Say Y here if you intend to run this kernel on the EBSA285 card
--	  in host ("central function") mode.
--
--	  Saying N will reduce the size of the Footbridge kernel.
--
--config ARCH_NETWINDER
--	bool "NetWinder"
--	select CLKEVT_I8253
--	select CLKSRC_I8253
--	select ISA
--	select FORCE_PCI
--	help
--	  Say Y here if you intend to run this kernel on the Rebel.COM
--	  NetWinder.  Information about this machine can be found at:
--
--	  <http://www.netwinder.org/>
--
--	  Saying N will reduce the size of the Footbridge kernel.
--
--# Footbridge support
--config FOOTBRIDGE
--	def_bool y
--	select ARCH_MIGHT_HAVE_PC_SERIO
--	select ISA_DMA_API
--
--config ARCH_EBSA285
--	bool
--
--endif
-diff --git a/arch/arm/mach-footbridge/Makefile b/arch/arm/mach-footbridge/Makefile
+diff --git a/arch/arm/mach-rpc/Makefile b/arch/arm/mach-rpc/Makefile
 deleted file mode 100644
-index 1553cc01b45c..000000000000
---- a/arch/arm/mach-footbridge/Makefile
+index 90a645a18444..000000000000
+--- a/arch/arm/mach-rpc/Makefile
 +++ /dev/null
-@@ -1,18 +0,0 @@
--# SPDX-License-Identifier: GPL-2.0
+@@ -1,9 +0,0 @@
+-# SPDX-License-Identifier: GPL-2.0-only
 -#
 -# Makefile for the linux kernel.
 -#
 -
 -# Object file lists.
 -
--obj-y			:= common.o isa-irq.o isa.o isa-rtc.o dma-isa.o
--
--pci-y			+= dc21285.o
--pci-$(CONFIG_ARCH_EBSA285) += ebsa285-pci.o
--pci-$(CONFIG_ARCH_NETWINDER) += netwinder-pci.o
--
--obj-$(CONFIG_ARCH_EBSA285) += ebsa285.o dc21285-timer.o
--obj-$(CONFIG_ARCH_NETWINDER) += netwinder-hw.o isa-timer.o
--
--obj-$(CONFIG_PCI)	+=$(pci-y)
--
-diff --git a/arch/arm/mach-footbridge/common.c b/arch/arm/mach-footbridge/common.c
+-obj-y	:=dma.o ecard.o ecard-loader.o fiq.o floppydma.o io-acorn.o irq.o \
+-	  riscpc.o time.o
+diff --git a/arch/arm/mach-rpc/dma.c b/arch/arm/mach-rpc/dma.c
 deleted file mode 100644
-index 85c598708c10..000000000000
---- a/arch/arm/mach-footbridge/common.c
+index 50e0f97afd75..000000000000
+--- a/arch/arm/mach-rpc/dma.c
 +++ /dev/null
-@@ -1,280 +0,0 @@
+@@ -1,393 +0,0 @@
 -// SPDX-License-Identifier: GPL-2.0-only
 -/*
-- *  linux/arch/arm/mach-footbridge/common.c
+- *  linux/arch/arm/mach-rpc/dma.c
 - *
-- *  Copyright (C) 1998-2000 Russell King, Dave Gilbert.
-- */
--#include <linux/module.h>
--#include <linux/types.h>
--#include <linux/mm.h>
--#include <linux/ioport.h>
--#include <linux/list.h>
--#include <linux/init.h>
--#include <linux/io.h>
--#include <linux/spinlock.h>
--#include <linux/dma-direct.h>
--#include <video/vga.h>
--
--#include <asm/page.h>
--#include <asm/irq.h>
--#include <asm/mach-types.h>
--#include <asm/setup.h>
--#include <asm/system_misc.h>
--#include <asm/hardware/dec21285.h>
--
--#include <asm/mach/irq.h>
--#include <asm/mach/map.h>
--#include <asm/mach/pci.h>
--
--#include "common.h"
--
--#include <mach/hardware.h>
--#include <mach/irqs.h>
--#include <asm/hardware/dec21285.h>
--
--static int dc21285_get_irq(void)
--{
--	void __iomem *irqstatus = (void __iomem *)CSR_IRQ_STATUS;
--	u32 mask = readl(irqstatus);
--
--	if (mask & IRQ_MASK_SDRAMPARITY)
--		return IRQ_SDRAMPARITY;
--
--	if (mask & IRQ_MASK_UART_RX)
--		return IRQ_CONRX;
--
--	if (mask & IRQ_MASK_DMA1)
--		return IRQ_DMA1;
--
--	if (mask & IRQ_MASK_DMA2)
--		return IRQ_DMA2;
--
--	if (mask & IRQ_MASK_IN0)
--		return IRQ_IN0;
--
--	if (mask & IRQ_MASK_IN1)
--		return IRQ_IN1;
--
--	if (mask & IRQ_MASK_IN2)
--		return IRQ_IN2;
--
--	if (mask & IRQ_MASK_IN3)
--		return IRQ_IN3;
--
--	if (mask & IRQ_MASK_PCI)
--		return IRQ_PCI;
--
--	if (mask & IRQ_MASK_DOORBELLHOST)
--		return IRQ_DOORBELLHOST;
--
--	if (mask & IRQ_MASK_I2OINPOST)
--		return IRQ_I2OINPOST;
--
--	if (mask & IRQ_MASK_TIMER1)
--		return IRQ_TIMER1;
--
--	if (mask & IRQ_MASK_TIMER2)
--		return IRQ_TIMER2;
--
--	if (mask & IRQ_MASK_TIMER3)
--		return IRQ_TIMER3;
--
--	if (mask & IRQ_MASK_UART_TX)
--		return IRQ_CONTX;
--
--	if (mask & IRQ_MASK_PCI_ABORT)
--		return IRQ_PCI_ABORT;
--
--	if (mask & IRQ_MASK_PCI_SERR)
--		return IRQ_PCI_SERR;
--
--	if (mask & IRQ_MASK_DISCARD_TIMER)
--		return IRQ_DISCARD_TIMER;
--
--	if (mask & IRQ_MASK_PCI_DPERR)
--		return IRQ_PCI_DPERR;
--
--	if (mask & IRQ_MASK_PCI_PERR)
--		return IRQ_PCI_PERR;
--
--	return 0;
--}
--
--static void dc21285_handle_irq(struct pt_regs *regs)
--{
--	int irq;
--	do {
--		irq = dc21285_get_irq();
--		if (!irq)
--			break;
--
--		generic_handle_irq(irq);
--	} while (1);
--}
--
--
--unsigned int mem_fclk_21285 = 50000000;
--
--EXPORT_SYMBOL(mem_fclk_21285);
--
--static int __init early_fclk(char *arg)
--{
--	mem_fclk_21285 = simple_strtoul(arg, NULL, 0);
--	return 0;
--}
--
--early_param("mem_fclk_21285", early_fclk);
--
--static int __init parse_tag_memclk(const struct tag *tag)
--{
--	mem_fclk_21285 = tag->u.memclk.fmemclk;
--	return 0;
--}
--
--__tagtable(ATAG_MEMCLK, parse_tag_memclk);
--
--/*
-- * Footbridge IRQ translation table
-- *  Converts from our IRQ numbers into FootBridge masks
-- */
--static const int fb_irq_mask[] = {
--	IRQ_MASK_UART_RX,	/*  0 */
--	IRQ_MASK_UART_TX,	/*  1 */
--	IRQ_MASK_TIMER1,	/*  2 */
--	IRQ_MASK_TIMER2,	/*  3 */
--	IRQ_MASK_TIMER3,	/*  4 */
--	IRQ_MASK_IN0,		/*  5 */
--	IRQ_MASK_IN1,		/*  6 */
--	IRQ_MASK_IN2,		/*  7 */
--	IRQ_MASK_IN3,		/*  8 */
--	IRQ_MASK_DOORBELLHOST,	/*  9 */
--	IRQ_MASK_DMA1,		/* 10 */
--	IRQ_MASK_DMA2,		/* 11 */
--	IRQ_MASK_PCI,		/* 12 */
--	IRQ_MASK_SDRAMPARITY,	/* 13 */
--	IRQ_MASK_I2OINPOST,	/* 14 */
--	IRQ_MASK_PCI_ABORT,	/* 15 */
--	IRQ_MASK_PCI_SERR,	/* 16 */
--	IRQ_MASK_DISCARD_TIMER,	/* 17 */
--	IRQ_MASK_PCI_DPERR,	/* 18 */
--	IRQ_MASK_PCI_PERR,	/* 19 */
--};
--
--static void fb_mask_irq(struct irq_data *d)
--{
--	*CSR_IRQ_DISABLE = fb_irq_mask[_DC21285_INR(d->irq)];
--}
--
--static void fb_unmask_irq(struct irq_data *d)
--{
--	*CSR_IRQ_ENABLE = fb_irq_mask[_DC21285_INR(d->irq)];
--}
--
--static struct irq_chip fb_chip = {
--	.irq_ack	= fb_mask_irq,
--	.irq_mask	= fb_mask_irq,
--	.irq_unmask	= fb_unmask_irq,
--};
--
--static void __init __fb_init_irq(void)
--{
--	unsigned int irq;
--
--	/*
--	 * setup DC21285 IRQs
--	 */
--	*CSR_IRQ_DISABLE = -1;
--	*CSR_FIQ_DISABLE = -1;
--
--	for (irq = _DC21285_IRQ(0); irq < _DC21285_IRQ(20); irq++) {
--		irq_set_chip_and_handler(irq, &fb_chip, handle_level_irq);
--		irq_clear_status_flags(irq, IRQ_NOREQUEST | IRQ_NOPROBE);
--	}
--}
--
--void __init footbridge_init_irq(void)
--{
--	set_handle_irq(dc21285_handle_irq);
--
--	__fb_init_irq();
--
--	if (machine_is_ebsa285())
--		/* The following is dependent on which slot
--		 * you plug the Southbridge card into.  We
--		 * currently assume that you plug it into
--		 * the right-hand most slot.
--		 */
--		isa_init_irq(IRQ_PCI);
--
--	if (machine_is_netwinder())
--		isa_init_irq(IRQ_IN3);
--}
--
--/*
-- * Common mapping for all systems.  Note that the outbound write flush is
-- * commented out since there is a "No Fix" problem with it.  Not mapping
-- * it means that we have extra bullet protection on our feet.
-- */
--static struct map_desc ebsa285_host_io_desc[] __initdata = {
--	{
--		.virtual	= ARMCSR_BASE,
--		.pfn		= __phys_to_pfn(DC21285_ARMCSR_BASE),
--		.length		= ARMCSR_SIZE,
--		.type		= MT_DEVICE,
--	},
--	{
--		.virtual	= PCIMEM_BASE,
--		.pfn		= __phys_to_pfn(DC21285_PCI_MEM),
--		.length		= PCIMEM_SIZE,
--		.type		= MT_DEVICE,
--	}, {
--		.virtual	= PCICFG0_BASE,
--		.pfn		= __phys_to_pfn(DC21285_PCI_TYPE_0_CONFIG),
--		.length		= PCICFG0_SIZE,
--		.type		= MT_DEVICE,
--	}, {
--		.virtual	= PCICFG1_BASE,
--		.pfn		= __phys_to_pfn(DC21285_PCI_TYPE_1_CONFIG),
--		.length		= PCICFG1_SIZE,
--		.type		= MT_DEVICE,
--	}, {
--		.virtual	= PCIIACK_BASE,
--		.pfn		= __phys_to_pfn(DC21285_PCI_IACK),
--		.length		= PCIIACK_SIZE,
--		.type		= MT_DEVICE,
--	},
--};
--
--void __init footbridge_map_io(void)
--{
--	iotable_init(ebsa285_host_io_desc, ARRAY_SIZE(ebsa285_host_io_desc));
--	pci_map_io_early(__phys_to_pfn(DC21285_PCI_IO));
--	vga_base = PCIMEM_BASE;
--}
--
--void footbridge_restart(enum reboot_mode mode, const char *cmd)
--{
--	if (mode == REBOOT_SOFT) {
--		/* Jump into the ROM */
--		soft_restart(0x41000000);
--	} else {
--		/*
--		 * Force the watchdog to do a CPU reset.
--		 *
--		 * After making sure that the watchdog is disabled
--		 * (so we can change the timer registers) we first
--		 * enable the timer to autoreload itself.  Next, the
--		 * timer interval is set really short and any
--		 * current interrupt request is cleared (so we can
--		 * see an edge transition).  Finally, TIMER4 is
--		 * enabled as the watchdog.
--		 */
--		*CSR_SA110_CNTL &= ~(1 << 13);
--		*CSR_TIMER4_CNTL = TIMER_CNTL_ENABLE |
--				   TIMER_CNTL_AUTORELOAD |
--				   TIMER_CNTL_DIV16;
--		*CSR_TIMER4_LOAD = 0x2;
--		*CSR_TIMER4_CLR  = 0;
--		*CSR_SA110_CNTL |= (1 << 13);
--	}
--}
-diff --git a/arch/arm/mach-footbridge/common.h b/arch/arm/mach-footbridge/common.h
-deleted file mode 100644
-index e12587db59c4..000000000000
---- a/arch/arm/mach-footbridge/common.h
-+++ /dev/null
-@@ -1,15 +0,0 @@
--/* SPDX-License-Identifier: GPL-2.0 */
--#include <linux/reboot.h>
--
--extern void footbridge_timer_init(void);
--extern void isa_timer_init(void);
--
--extern void isa_rtc_init(void);
--
--extern void footbridge_map_io(void);
--extern void footbridge_init_irq(void);
--
--extern void isa_init_irq(unsigned int irq);
--extern void footbridge_restart(enum reboot_mode, const char *);
--
--extern void footbridge_sched_clock(void);
-diff --git a/arch/arm/mach-footbridge/dc21285-timer.c b/arch/arm/mach-footbridge/dc21285-timer.c
-deleted file mode 100644
-index 2908c9ef3c9b..000000000000
---- a/arch/arm/mach-footbridge/dc21285-timer.c
-+++ /dev/null
-@@ -1,136 +0,0 @@
--// SPDX-License-Identifier: GPL-2.0
--/*
-- *  linux/arch/arm/mach-footbridge/dc21285-timer.c
+- *  Copyright (C) 1998 Russell King
 - *
-- *  Copyright (C) 1998 Russell King.
-- *  Copyright (C) 1998 Phil Blundell
+- *  DMA functions specific to RiscPC architecture
 - */
--#include <linux/clockchips.h>
--#include <linux/clocksource.h>
+-#include <linux/mman.h>
 -#include <linux/init.h>
 -#include <linux/interrupt.h>
--#include <linux/irq.h>
--#include <linux/sched_clock.h>
--
--#include <asm/irq.h>
--
--#include <asm/hardware/dec21285.h>
--#include <asm/mach/time.h>
--#include <asm/system_info.h>
--
--#include "common.h"
--
--static u64 cksrc_dc21285_read(struct clocksource *cs)
--{
--	return cs->mask - *CSR_TIMER2_VALUE;
--}
--
--static int cksrc_dc21285_enable(struct clocksource *cs)
--{
--	*CSR_TIMER2_LOAD = cs->mask;
--	*CSR_TIMER2_CLR = 0;
--	*CSR_TIMER2_CNTL = TIMER_CNTL_ENABLE | TIMER_CNTL_DIV16;
--	return 0;
--}
--
--static void cksrc_dc21285_disable(struct clocksource *cs)
--{
--	*CSR_TIMER2_CNTL = 0;
--}
--
--static struct clocksource cksrc_dc21285 = {
--	.name		= "dc21285_timer2",
--	.rating		= 200,
--	.read		= cksrc_dc21285_read,
--	.enable		= cksrc_dc21285_enable,
--	.disable	= cksrc_dc21285_disable,
--	.mask		= CLOCKSOURCE_MASK(24),
--	.flags		= CLOCK_SOURCE_IS_CONTINUOUS,
--};
--
--static int ckevt_dc21285_set_next_event(unsigned long delta,
--	struct clock_event_device *c)
--{
--	*CSR_TIMER1_CLR = 0;
--	*CSR_TIMER1_LOAD = delta;
--	*CSR_TIMER1_CNTL = TIMER_CNTL_ENABLE | TIMER_CNTL_DIV16;
--
--	return 0;
--}
--
--static int ckevt_dc21285_shutdown(struct clock_event_device *c)
--{
--	*CSR_TIMER1_CNTL = 0;
--	return 0;
--}
--
--static int ckevt_dc21285_set_periodic(struct clock_event_device *c)
--{
--	*CSR_TIMER1_CLR = 0;
--	*CSR_TIMER1_LOAD = (mem_fclk_21285 + 8 * HZ) / (16 * HZ);
--	*CSR_TIMER1_CNTL = TIMER_CNTL_ENABLE | TIMER_CNTL_AUTORELOAD |
--			   TIMER_CNTL_DIV16;
--	return 0;
--}
--
--static struct clock_event_device ckevt_dc21285 = {
--	.name			= "dc21285_timer1",
--	.features		= CLOCK_EVT_FEAT_PERIODIC |
--				  CLOCK_EVT_FEAT_ONESHOT,
--	.rating			= 200,
--	.irq			= IRQ_TIMER1,
--	.set_next_event		= ckevt_dc21285_set_next_event,
--	.set_state_shutdown	= ckevt_dc21285_shutdown,
--	.set_state_periodic	= ckevt_dc21285_set_periodic,
--	.set_state_oneshot	= ckevt_dc21285_shutdown,
--	.tick_resume		= ckevt_dc21285_set_periodic,
--};
--
--static irqreturn_t timer1_interrupt(int irq, void *dev_id)
--{
--	struct clock_event_device *ce = dev_id;
--
--	*CSR_TIMER1_CLR = 0;
--
--	/* Stop the timer if in one-shot mode */
--	if (clockevent_state_oneshot(ce))
--		*CSR_TIMER1_CNTL = 0;
--
--	ce->event_handler(ce);
--
--	return IRQ_HANDLED;
--}
--
--/*
-- * Set up timer interrupt.
-- */
--void __init footbridge_timer_init(void)
--{
--	struct clock_event_device *ce = &ckevt_dc21285;
--	unsigned rate = DIV_ROUND_CLOSEST(mem_fclk_21285, 16);
--
--	clocksource_register_hz(&cksrc_dc21285, rate);
--
--	if (request_irq(ce->irq, timer1_interrupt, IRQF_TIMER | IRQF_IRQPOLL,
--			"dc21285_timer1", &ckevt_dc21285))
--		pr_err("Failed to request irq %d (dc21285_timer1)", ce->irq);
--
--	ce->cpumask = cpumask_of(smp_processor_id());
--	clockevents_config_and_register(ce, rate, 0x4, 0xffffff);
--}
--
--static u64 notrace footbridge_read_sched_clock(void)
--{
--	return ~*CSR_TIMER3_VALUE;
--}
--
--void __init footbridge_sched_clock(void)
--{
--	unsigned rate = DIV_ROUND_CLOSEST(mem_fclk_21285, 16);
--
--	*CSR_TIMER3_LOAD = 0;
--	*CSR_TIMER3_CLR = 0;
--	*CSR_TIMER3_CNTL = TIMER_CNTL_ENABLE | TIMER_CNTL_DIV16;
--
--	sched_clock_register(footbridge_read_sched_clock, 24, rate);
--}
-diff --git a/arch/arm/mach-footbridge/dc21285.c b/arch/arm/mach-footbridge/dc21285.c
-deleted file mode 100644
-index e1b336624883..000000000000
---- a/arch/arm/mach-footbridge/dc21285.c
-+++ /dev/null
-@@ -1,360 +0,0 @@
--// SPDX-License-Identifier: GPL-2.0-only
--/*
-- *  linux/arch/arm/kernel/dec21285.c: PCI functions for DC21285
-- *
-- *  Copyright (C) 1998-2001 Russell King
-- *  Copyright (C) 1998-2000 Phil Blundell
-- */
--#include <linux/dma-map-ops.h>
--#include <linux/kernel.h>
--#include <linux/pci.h>
--#include <linux/interrupt.h>
--#include <linux/mm.h>
--#include <linux/slab.h>
--#include <linux/init.h>
--#include <linux/ioport.h>
--#include <linux/irq.h>
--#include <linux/io.h>
--#include <linux/spinlock.h>
--
--#include <asm/irq.h>
--#include <asm/mach/pci.h>
--#include <asm/hardware/dec21285.h>
--
--#define MAX_SLOTS		21
--
--#define PCICMD_ABORT		((PCI_STATUS_REC_MASTER_ABORT| \
--				  PCI_STATUS_REC_TARGET_ABORT)<<16)
--
--#define PCICMD_ERROR_BITS	((PCI_STATUS_DETECTED_PARITY | \
--				  PCI_STATUS_REC_MASTER_ABORT | \
--				  PCI_STATUS_REC_TARGET_ABORT | \
--				  PCI_STATUS_PARITY) << 16)
--
--extern int setup_arm_irq(int, struct irqaction *);
--
--static unsigned long
--dc21285_base_address(struct pci_bus *bus, unsigned int devfn)
--{
--	unsigned long addr = 0;
--
--	if (bus->number == 0) {
--		if (PCI_SLOT(devfn) == 0)
--			/*
--			 * For devfn 0, point at the 21285
--			 */
--			addr = ARMCSR_BASE;
--		else {
--			devfn -= 1 << 3;
--
--			if (devfn < PCI_DEVFN(MAX_SLOTS, 0))
--				addr = PCICFG0_BASE | 0xc00000 | (devfn << 8);
--		}
--	} else
--		addr = PCICFG1_BASE | (bus->number << 16) | (devfn << 8);
--
--	return addr;
--}
--
--static int
--dc21285_read_config(struct pci_bus *bus, unsigned int devfn, int where,
--		    int size, u32 *value)
--{
--	unsigned long addr = dc21285_base_address(bus, devfn);
--	u32 v = 0xffffffff;
--
--	if (addr)
--		switch (size) {
--		case 1:
--			asm volatile("ldrb	%0, [%1, %2]"
--				: "=r" (v) : "r" (addr), "r" (where) : "cc");
--			break;
--		case 2:
--			asm volatile("ldrh	%0, [%1, %2]"
--				: "=r" (v) : "r" (addr), "r" (where) : "cc");
--			break;
--		case 4:
--			asm volatile("ldr	%0, [%1, %2]"
--				: "=r" (v) : "r" (addr), "r" (where) : "cc");
--			break;
--		}
--
--	*value = v;
--
--	v = *CSR_PCICMD;
--	if (v & PCICMD_ABORT) {
--		*CSR_PCICMD = v & (0xffff|PCICMD_ABORT);
--		return -1;
--	}
--
--	return PCIBIOS_SUCCESSFUL;
--}
--
--static int
--dc21285_write_config(struct pci_bus *bus, unsigned int devfn, int where,
--		     int size, u32 value)
--{
--	unsigned long addr = dc21285_base_address(bus, devfn);
--	u32 v;
--
--	if (addr)
--		switch (size) {
--		case 1:
--			asm volatile("strb	%0, [%1, %2]"
--				: : "r" (value), "r" (addr), "r" (where)
--				: "cc");
--			break;
--		case 2:
--			asm volatile("strh	%0, [%1, %2]"
--				: : "r" (value), "r" (addr), "r" (where)
--				: "cc");
--			break;
--		case 4:
--			asm volatile("str	%0, [%1, %2]"
--				: : "r" (value), "r" (addr), "r" (where)
--				: "cc");
--			break;
--		}
--
--	v = *CSR_PCICMD;
--	if (v & PCICMD_ABORT) {
--		*CSR_PCICMD = v & (0xffff|PCICMD_ABORT);
--		return -1;
--	}
--
--	return PCIBIOS_SUCCESSFUL;
--}
--
--struct pci_ops dc21285_ops = {
--	.read	= dc21285_read_config,
--	.write	= dc21285_write_config,
--};
--
--static struct timer_list serr_timer;
--static struct timer_list perr_timer;
--
--static void dc21285_enable_error(struct timer_list *timer)
--{
--	timer_delete(timer);
--
--	if (timer == &serr_timer)
--		enable_irq(IRQ_PCI_SERR);
--	else if (timer == &perr_timer)
--		enable_irq(IRQ_PCI_PERR);
--}
--
--/*
-- * Warn on PCI errors.
-- */
--static irqreturn_t dc21285_abort_irq(int irq, void *dev_id)
--{
--	unsigned int cmd;
--	unsigned int status;
--
--	cmd = *CSR_PCICMD;
--	status = cmd >> 16;
--	cmd = cmd & 0xffff;
--
--	if (status & PCI_STATUS_REC_MASTER_ABORT) {
--		printk(KERN_DEBUG "PCI: master abort, pc=0x%08lx\n",
--			instruction_pointer(get_irq_regs()));
--		cmd |= PCI_STATUS_REC_MASTER_ABORT << 16;
--	}
--
--	if (status & PCI_STATUS_REC_TARGET_ABORT) {
--		printk(KERN_DEBUG "PCI: target abort: ");
--		pcibios_report_status(PCI_STATUS_REC_MASTER_ABORT |
--				      PCI_STATUS_SIG_TARGET_ABORT |
--				      PCI_STATUS_REC_TARGET_ABORT, 1);
--		printk("\n");
--
--		cmd |= PCI_STATUS_REC_TARGET_ABORT << 16;
--	}
--
--	*CSR_PCICMD = cmd;
--
--	return IRQ_HANDLED;
--}
--
--static irqreturn_t dc21285_serr_irq(int irq, void *dev_id)
--{
--	struct timer_list *timer = dev_id;
--	unsigned int cntl;
--
--	printk(KERN_DEBUG "PCI: system error received: ");
--	pcibios_report_status(PCI_STATUS_SIG_SYSTEM_ERROR, 1);
--	printk("\n");
--
--	cntl = *CSR_SA110_CNTL & 0xffffdf07;
--	*CSR_SA110_CNTL = cntl | SA110_CNTL_RXSERR;
--
--	/*
--	 * back off this interrupt
--	 */
--	disable_irq(irq);
--	timer->expires = jiffies + HZ;
--	add_timer(timer);
--
--	return IRQ_HANDLED;
--}
--
--static irqreturn_t dc21285_discard_irq(int irq, void *dev_id)
--{
--	printk(KERN_DEBUG "PCI: discard timer expired\n");
--	*CSR_SA110_CNTL &= 0xffffde07;
--
--	return IRQ_HANDLED;
--}
--
--static irqreturn_t dc21285_dparity_irq(int irq, void *dev_id)
--{
--	unsigned int cmd;
--
--	printk(KERN_DEBUG "PCI: data parity error detected: ");
--	pcibios_report_status(PCI_STATUS_PARITY | PCI_STATUS_DETECTED_PARITY, 1);
--	printk("\n");
--
--	cmd = *CSR_PCICMD & 0xffff;
--	*CSR_PCICMD = cmd | 1 << 24;
--
--	return IRQ_HANDLED;
--}
--
--static irqreturn_t dc21285_parity_irq(int irq, void *dev_id)
--{
--	struct timer_list *timer = dev_id;
--	unsigned int cmd;
--
--	printk(KERN_DEBUG "PCI: parity error detected: ");
--	pcibios_report_status(PCI_STATUS_PARITY | PCI_STATUS_DETECTED_PARITY, 1);
--	printk("\n");
--
--	cmd = *CSR_PCICMD & 0xffff;
--	*CSR_PCICMD = cmd | 1 << 31;
--
--	/*
--	 * back off this interrupt
--	 */
--	disable_irq(irq);
--	timer->expires = jiffies + HZ;
--	add_timer(timer);
--
--	return IRQ_HANDLED;
--}
--
--static int dc21285_pci_bus_notifier(struct notifier_block *nb,
--				    unsigned long action,
--				    void *data)
--{
--	if (action != BUS_NOTIFY_ADD_DEVICE)
--		return NOTIFY_DONE;
--
--	dma_direct_set_offset(data, PHYS_OFFSET, BUS_OFFSET, SZ_256M);
--
--	return NOTIFY_OK;
--}
--
--static struct notifier_block dc21285_pci_bus_nb = {
--	.notifier_call = dc21285_pci_bus_notifier,
--};
--
--int __init dc21285_setup(int nr, struct pci_sys_data *sys)
--{
--	struct resource *res;
--
--	res = kzalloc_objs(struct resource, 2);
--	if (!res) {
--		printk("out of memory for root bus resources");
--		return 0;
--	}
--
--	res[0].flags = IORESOURCE_MEM;
--	res[0].name  = "Footbridge non-prefetch";
--	res[1].flags = IORESOURCE_MEM | IORESOURCE_PREFETCH;
--	res[1].name  = "Footbridge prefetch";
--
--	allocate_resource(&iomem_resource, &res[1], 0x20000000,
--			  0xa0000000, 0xffffffff, 0x20000000, NULL, NULL);
--	allocate_resource(&iomem_resource, &res[0], 0x40000000,
--			  0x80000000, 0xffffffff, 0x40000000, NULL, NULL);
--
--	sys->mem_offset  = DC21285_PCI_MEM;
--
--	pci_add_resource_offset(&sys->resources, &res[0], sys->mem_offset);
--	pci_add_resource_offset(&sys->resources, &res[1], sys->mem_offset);
--
--	bus_register_notifier(&pci_bus_type, &dc21285_pci_bus_nb);
--
--	return 1;
--}
--
--#define dc21285_request_irq(_a, _b, _c, _d, _e) \
--	WARN_ON(request_irq(_a, _b, _c, _d, _e) < 0)
--
--void __init dc21285_preinit(void)
--{
--	unsigned int mem_size, mem_mask;
--
--	pcibios_min_mem = 0x81000000;
--
--	mem_size = (unsigned int)high_memory - PAGE_OFFSET;
--	for (mem_mask = 0x00100000; mem_mask < 0x10000000; mem_mask <<= 1)
--		if (mem_mask >= mem_size)
--			break;
--
--	/*
--	 * These registers need to be set up whether we're the
--	 * central function or not.
--	 */
--	*CSR_SDRAMBASEMASK    = (mem_mask - 1) & 0x0ffc0000;
--	*CSR_SDRAMBASEOFFSET  = 0;
--	*CSR_ROMBASEMASK      = 0x80000000;
--	*CSR_CSRBASEMASK      = 0;
--	*CSR_CSRBASEOFFSET    = 0;
--	*CSR_PCIADDR_EXTN     = 0;
--
--	printk(KERN_INFO "PCI: DC21285 footbridge, revision %02lX, in "
--		"central function mode\n", *CSR_CLASSREV & 0xff);
--
--	/*
--	 * Clear any existing errors - we aren't
--	 * interested in historical data...
--	 */
--	*CSR_SA110_CNTL	= (*CSR_SA110_CNTL & 0xffffde07) | SA110_CNTL_RXSERR;
--	*CSR_PCICMD = (*CSR_PCICMD & 0xffff) | PCICMD_ERROR_BITS;
--
--	timer_setup(&serr_timer, dc21285_enable_error, 0);
--	timer_setup(&perr_timer, dc21285_enable_error, 0);
--
--	/*
--	 * We don't care if these fail.
--	 */
--	dc21285_request_irq(IRQ_PCI_SERR, dc21285_serr_irq, 0,
--			    "PCI system error", &serr_timer);
--	dc21285_request_irq(IRQ_PCI_PERR, dc21285_parity_irq, 0,
--			    "PCI parity error", &perr_timer);
--	dc21285_request_irq(IRQ_PCI_ABORT, dc21285_abort_irq, 0,
--			    "PCI abort", NULL);
--	dc21285_request_irq(IRQ_DISCARD_TIMER, dc21285_discard_irq, 0,
--			    "Discard timer", NULL);
--	dc21285_request_irq(IRQ_PCI_DPERR, dc21285_dparity_irq, 0,
--			    "PCI data parity", NULL);
--
--	/*
--	 * Map our SDRAM at a known address in PCI space, just in case
--	 * the firmware had other ideas.  Using a nonzero base is
--	 * necessary, since some VGA cards forcefully use PCI addresses
--	 * in the range 0x000a0000 to 0x000c0000. (eg, S3 cards).
--	 */
--	*CSR_PCICSRBASE       = 0xf4000000;
--	*CSR_PCICSRIOBASE     = 0;
--	*CSR_PCISDRAMBASE     = BUS_OFFSET;
--	*CSR_PCIROMBASE       = 0;
--	*CSR_PCICMD = PCI_COMMAND_MEMORY | PCI_COMMAND_MASTER |
--		      PCI_COMMAND_INVALIDATE | PCICMD_ERROR_BITS;
--}
--
--void __init dc21285_postinit(void)
--{
--	register_isa_ports(DC21285_PCI_MEM, DC21285_PCI_IO, 0);
--}
-diff --git a/arch/arm/mach-footbridge/dma-isa.c b/arch/arm/mach-footbridge/dma-isa.c
-deleted file mode 100644
-index 937f5376d5e7..000000000000
---- a/arch/arm/mach-footbridge/dma-isa.c
-+++ /dev/null
-@@ -1,230 +0,0 @@
--// SPDX-License-Identifier: GPL-2.0-only
--/*
-- *  Copyright (C) 1999-2000 Russell King
-- *
-- *  ISA DMA primitives
-- *  Taken from various sources, including:
-- *   linux/include/asm/dma.h: Defines for using and allocating dma channels.
-- *     Written by Hennus Bergman, 1992.
-- *     High DMA channel support & info by Hannu Savolainen and John Boyd,
-- *     Nov. 1992.
-- *   arch/arm/kernel/dma-ebsa285.c
-- *   Copyright (C) 1998 Phil Blundell
-- */
--#include <linux/dma-map-ops.h>
--#include <linux/ioport.h>
--#include <linux/init.h>
 -#include <linux/dma-mapping.h>
 -#include <linux/io.h>
 -
+-#include <asm/page.h>
 -#include <asm/dma.h>
+-#include <asm/fiq.h>
+-#include <asm/irq.h>
+-#include <mach/hardware.h>
+-#include <linux/uaccess.h>
+-
 -#include <asm/mach/dma.h>
--#include <asm/hardware/dec21285.h>
+-#include <asm/hardware/iomd.h>
 -
--#define ISA_DMA_MASK		0
--#define ISA_DMA_MODE		1
--#define ISA_DMA_CLRFF		2
--#define ISA_DMA_PGHI		3
--#define ISA_DMA_PGLO		4
--#define ISA_DMA_ADDR		5
--#define ISA_DMA_COUNT		6
--
--static unsigned int isa_dma_port[8][7] = {
--	/* MASK   MODE   CLRFF  PAGE_HI PAGE_LO ADDR COUNT */
--	{  0x0a,  0x0b,  0x0c,  0x487,  0x087,  0x00, 0x01 },
--	{  0x0a,  0x0b,  0x0c,  0x483,  0x083,  0x02, 0x03 },
--	{  0x0a,  0x0b,  0x0c,  0x481,  0x081,  0x04, 0x05 },
--	{  0x0a,  0x0b,  0x0c,  0x482,  0x082,  0x06, 0x07 },
--	{  0xd4,  0xd6,  0xd8,  0x000,  0x000,  0xc0, 0xc2 },
--	{  0xd4,  0xd6,  0xd8,  0x48b,  0x08b,  0xc4, 0xc6 },
--	{  0xd4,  0xd6,  0xd8,  0x489,  0x089,  0xc8, 0xca },
--	{  0xd4,  0xd6,  0xd8,  0x48a,  0x08a,  0xcc, 0xce }
+-struct iomd_dma {
+-	struct dma_struct	dma;
+-	void __iomem		*base;		/* Controller base address */
+-	int			irq;		/* Controller IRQ */
+-	unsigned int		state;
+-	dma_addr_t		cur_addr;
+-	unsigned int		cur_len;
+-	dma_addr_t		dma_addr;
+-	unsigned int		dma_len;
 -};
 -
--static int isa_get_dma_residue(unsigned int chan, dma_t *dma)
+-#if 0
+-typedef enum {
+-	dma_size_8	= 1,
+-	dma_size_16	= 2,
+-	dma_size_32	= 4,
+-	dma_size_128	= 16
+-} dma_size_t;
+-#endif
+-
+-#define TRANSFER_SIZE	2
+-
+-#define CURA	(0)
+-#define ENDA	(IOMD_IO0ENDA - IOMD_IO0CURA)
+-#define CURB	(IOMD_IO0CURB - IOMD_IO0CURA)
+-#define ENDB	(IOMD_IO0ENDB - IOMD_IO0CURA)
+-#define CR	(IOMD_IO0CR - IOMD_IO0CURA)
+-#define ST	(IOMD_IO0ST - IOMD_IO0CURA)
+-
+-static void iomd_get_next_sg(struct iomd_dma *idma)
 -{
--	unsigned int io_port = isa_dma_port[chan][ISA_DMA_COUNT];
--	int count;
+-	unsigned long end, offset, flags = 0;
 -
--	count = 1 + inb(io_port);
--	count |= inb(io_port) << 8;
+-	if (idma->dma.sg) {
+-		idma->cur_addr = idma->dma_addr;
+-		offset = idma->cur_addr & ~PAGE_MASK;
 -
--	return chan < 4 ? count : (count << 1);
+-		end = offset + idma->dma_len;
+-
+-		if (end > PAGE_SIZE)
+-			end = PAGE_SIZE;
+-
+-		if (offset + TRANSFER_SIZE >= end)
+-			flags |= DMA_END_L;
+-
+-		idma->cur_len = end - TRANSFER_SIZE;
+-
+-		idma->dma_len -= end - offset;
+-		idma->dma_addr += end - offset;
+-
+-		if (idma->dma_len == 0) {
+-			if (idma->dma.sgcount > 1) {
+-				idma->dma.sg = sg_next(idma->dma.sg);
+-				idma->dma_addr = idma->dma.sg->dma_address;
+-				idma->dma_len = idma->dma.sg->length;
+-				idma->dma.sgcount--;
+-			} else {
+-				idma->dma.sg = NULL;
+-				flags |= DMA_END_S;
+-			}
+-		}
+-	} else {
+-		flags = DMA_END_S | DMA_END_L;
+-		idma->cur_addr = 0;
+-		idma->cur_len = 0;
+-	}
+-
+-	idma->cur_len |= flags;
+-}
+-
+-static irqreturn_t iomd_dma_handle(int irq, void *dev_id)
+-{
+-	struct iomd_dma *idma = dev_id;
+-	void __iomem *base = idma->base;
+-	unsigned int state = idma->state;
+-	unsigned int status, cur, end;
+-
+-	do {
+-		status = readb(base + ST);
+-		if (!(status & DMA_ST_INT))
+-			goto out;
+-
+-		if ((state ^ status) & DMA_ST_AB)
+-			iomd_get_next_sg(idma);
+-
+-		// This efficiently implements state = OFL != AB ? AB : 0
+-		state = ((status >> 2) ^ status) & DMA_ST_AB;
+-		if (state) {
+-			cur = CURA;
+-			end = ENDA;
+-		} else {
+-			cur = CURB;
+-			end = ENDB;
+-		}
+-		writel(idma->cur_addr, base + cur);
+-		writel(idma->cur_len, base + end);
+-
+-		if (status & DMA_ST_OFL &&
+-		    idma->cur_len == (DMA_END_S|DMA_END_L))
+-			break;
+-	} while (1);
+-
+-	state = ~DMA_ST_AB;
+-	disable_irq_nosync(irq);
+-out:
+-	idma->state = state;
+-	return IRQ_HANDLED;
+-}
+-
+-static int iomd_request_dma(unsigned int chan, dma_t *dma)
+-{
+-	struct iomd_dma *idma = container_of(dma, struct iomd_dma, dma);
+-
+-	return request_irq(idma->irq, iomd_dma_handle,
+-			   0, idma->dma.device_id, idma);
+-}
+-
+-static void iomd_free_dma(unsigned int chan, dma_t *dma)
+-{
+-	struct iomd_dma *idma = container_of(dma, struct iomd_dma, dma);
+-
+-	free_irq(idma->irq, idma);
 -}
 -
 -static struct device isa_dma_dev = {
@@ -1974,645 +1527,2056 @@ index 937f5376d5e7..000000000000
 -	.dma_mask		= &isa_dma_dev.coherent_dma_mask,
 -};
 -
--static void isa_enable_dma(unsigned int chan, dma_t *dma)
+-static void iomd_enable_dma(unsigned int chan, dma_t *dma)
 -{
--	if (dma->invalid) {
--		unsigned long address, length;
--		unsigned int mode;
--		enum dma_data_direction direction;
+-	struct iomd_dma *idma = container_of(dma, struct iomd_dma, dma);
+-	void __iomem *base = idma->base;
+-	unsigned int ctrl = TRANSFER_SIZE | DMA_CR_E;
 -
--		mode = (chan & 3) | dma->dma_mode;
--		switch (dma->dma_mode & DMA_MODE_MASK) {
--		case DMA_MODE_READ:
--			direction = DMA_FROM_DEVICE;
--			break;
--
--		case DMA_MODE_WRITE:
--			direction = DMA_TO_DEVICE;
--			break;
--
--		case DMA_MODE_CASCADE:
--			direction = DMA_BIDIRECTIONAL;
--			break;
--
--		default:
--			direction = DMA_NONE;
--			break;
--		}
--
--		if (!dma->sg) {
--			/*
--			 * Cope with ISA-style drivers which expect cache
--			 * coherence.
--			 */
--			dma->sg = &dma->buf;
--			dma->sgcount = 1;
--			dma->buf.length = dma->count;
--			dma->buf.dma_address = dma_map_single(&isa_dma_dev,
--				dma->addr, dma->count,
--				direction);
--		}
--
--		address = dma->buf.dma_address;
--		length  = dma->buf.length - 1;
--
--		outb(address >> 16, isa_dma_port[chan][ISA_DMA_PGLO]);
--		outb(address >> 24, isa_dma_port[chan][ISA_DMA_PGHI]);
--
--		if (chan >= 4) {
--			address >>= 1;
--			length >>= 1;
--		}
--
--		outb(0, isa_dma_port[chan][ISA_DMA_CLRFF]);
--
--		outb(address, isa_dma_port[chan][ISA_DMA_ADDR]);
--		outb(address >> 8, isa_dma_port[chan][ISA_DMA_ADDR]);
--
--		outb(length, isa_dma_port[chan][ISA_DMA_COUNT]);
--		outb(length >> 8, isa_dma_port[chan][ISA_DMA_COUNT]);
--
--		outb(mode, isa_dma_port[chan][ISA_DMA_MODE]);
--		dma->invalid = 0;
--	}
--	outb(chan & 3, isa_dma_port[chan][ISA_DMA_MASK]);
--}
--
--static void isa_disable_dma(unsigned int chan, dma_t *dma)
--{
--	outb(chan | 4, isa_dma_port[chan][ISA_DMA_MASK]);
--}
--
--static struct dma_ops isa_dma_ops = {
--	.type		= "ISA",
--	.enable		= isa_enable_dma,
--	.disable	= isa_disable_dma,
--	.residue	= isa_get_dma_residue,
--};
--
--static struct resource dma_resources[] = { {
--	.name	= "dma1",
--	.start	= 0x0000,
--	.end	= 0x000f
--}, {
--	.name	= "dma low page",
--	.start	= 0x0080,
--	.end 	= 0x008f
--}, {
--	.name	= "dma2",
--	.start	= 0x00c0,
--	.end	= 0x00df
--}, {
--	.name	= "dma high page",
--	.start	= 0x0480,
--	.end	= 0x048f
--} };
--
--static dma_t isa_dma[8];
--
--/*
-- * ISA DMA always starts at channel 0
-- */
--static int __init isa_dma_init(void)
--{
--	/*
--	 * Try to autodetect presence of an ISA DMA controller.
--	 * We do some minimal initialisation, and check that
--	 * channel 0's DMA address registers are writeable.
--	 */
--	outb(0xff, 0x0d);
--	outb(0xff, 0xda);
--
--	/*
--	 * Write high and low address, and then read them back
--	 * in the same order.
--	 */
--	outb(0x55, 0x00);
--	outb(0xaa, 0x00);
--
--	if (inb(0) == 0x55 && inb(0) == 0xaa) {
--		unsigned int chan, i;
--
--		for (chan = 0; chan < 8; chan++) {
--			isa_dma[chan].d_ops = &isa_dma_ops;
--			isa_disable_dma(chan, NULL);
--		}
--
--		outb(0x40, 0x0b);
--		outb(0x41, 0x0b);
--		outb(0x42, 0x0b);
--		outb(0x43, 0x0b);
--
--		outb(0xc0, 0xd6);
--		outb(0x41, 0xd6);
--		outb(0x42, 0xd6);
--		outb(0x43, 0xd6);
--
--		outb(0, 0xd4);
--
--		outb(0x10, 0x08);
--		outb(0x10, 0xd0);
+-	if (idma->dma.invalid) {
+-		idma->dma.invalid = 0;
 -
 -		/*
--		 * Is this correct?  According to my documentation, it
--		 * doesn't appear to be.  It should be:
--		 *  outb(0x3f, 0x40b); outb(0x3f, 0x4d6);
+-		 * Cope with ISA-style drivers which expect cache
+-		 * coherence.
 -		 */
--		outb(0x30, 0x40b);
--		outb(0x31, 0x40b);
--		outb(0x32, 0x40b);
--		outb(0x33, 0x40b);
--		outb(0x31, 0x4d6);
--		outb(0x32, 0x4d6);
--		outb(0x33, 0x4d6);
--
--		for (i = 0; i < ARRAY_SIZE(dma_resources); i++)
--			request_resource(&ioport_resource, dma_resources + i);
--
--		for (chan = 0; chan < 8; chan++) {
--			int ret = isa_dma_add(chan, &isa_dma[chan]);
--			if (ret)
--				pr_err("ISADMA%u: unable to register: %d\n",
--				       chan, ret);
+-		if (!idma->dma.sg) {
+-			idma->dma.sg = &idma->dma.buf;
+-			idma->dma.sgcount = 1;
+-			idma->dma.buf.length = idma->dma.count;
+-			idma->dma.buf.dma_address = dma_map_single(&isa_dma_dev,
+-				idma->dma.addr, idma->dma.count,
+-				idma->dma.dma_mode == DMA_MODE_READ ?
+-				DMA_FROM_DEVICE : DMA_TO_DEVICE);
 -		}
 -
--		request_dma(DMA_ISA_CASCADE, "cascade");
+-		idma->dma_addr = idma->dma.sg->dma_address;
+-		idma->dma_len = idma->dma.sg->length;
+-
+-		writeb(DMA_CR_C, base + CR);
+-		idma->state = DMA_ST_AB;
 -	}
 -
--	dma_direct_set_offset(&isa_dma_dev, PHYS_OFFSET, BUS_OFFSET, SZ_256M);
+-	if (idma->dma.dma_mode == DMA_MODE_READ)
+-		ctrl |= DMA_CR_D;
 -
+-	writeb(ctrl, base + CR);
+-	enable_irq(idma->irq);
+-}
+-
+-static void iomd_disable_dma(unsigned int chan, dma_t *dma)
+-{
+-	struct iomd_dma *idma = container_of(dma, struct iomd_dma, dma);
+-	void __iomem *base = idma->base;
+-	unsigned long flags;
+-
+-	local_irq_save(flags);
+-	if (idma->state != ~DMA_ST_AB)
+-		disable_irq(idma->irq);
+-	writeb(0, base + CR);
+-	local_irq_restore(flags);
+-}
+-
+-static int iomd_set_dma_speed(unsigned int chan, dma_t *dma, int cycle)
+-{
+-	int tcr, speed;
+-
+-	if (cycle < 188)
+-		speed = 3;
+-	else if (cycle <= 250)
+-		speed = 2;
+-	else if (cycle < 438)
+-		speed = 1;
+-	else
+-		speed = 0;
+-
+-	tcr = iomd_readb(IOMD_DMATCR);
+-	speed &= 3;
+-
+-	switch (chan) {
+-	case DMA_0:
+-		tcr = (tcr & ~0x03) | speed;
+-		break;
+-
+-	case DMA_1:
+-		tcr = (tcr & ~0x0c) | (speed << 2);
+-		break;
+-
+-	case DMA_2:
+-		tcr = (tcr & ~0x30) | (speed << 4);
+-		break;
+-
+-	case DMA_3:
+-		tcr = (tcr & ~0xc0) | (speed << 6);
+-		break;
+-
+-	default:
+-		break;
+-	}
+-
+-	iomd_writeb(tcr, IOMD_DMATCR);
+-
+-	return speed;
+-}
+-
+-static struct dma_ops iomd_dma_ops = {
+-	.type		= "IOMD",
+-	.request	= iomd_request_dma,
+-	.free		= iomd_free_dma,
+-	.enable		= iomd_enable_dma,
+-	.disable	= iomd_disable_dma,
+-	.setspeed	= iomd_set_dma_speed,
+-};
+-
+-static struct fiq_handler fh = {
+-	.name	= "floppydma"
+-};
+-
+-struct floppy_dma {
+-	struct dma_struct	dma;
+-	unsigned int		fiq;
+-};
+-
+-static void floppy_enable_dma(unsigned int chan, dma_t *dma)
+-{
+-	struct floppy_dma *fdma = container_of(dma, struct floppy_dma, dma);
+-	void *fiqhandler_start;
+-	unsigned int fiqhandler_length;
+-	struct pt_regs regs;
+-
+-	if (fdma->dma.sg)
+-		BUG();
+-
+-	if (fdma->dma.dma_mode == DMA_MODE_READ) {
+-		extern unsigned char floppy_fiqin_start, floppy_fiqin_end;
+-		fiqhandler_start = &floppy_fiqin_start;
+-		fiqhandler_length = &floppy_fiqin_end - &floppy_fiqin_start;
+-	} else {
+-		extern unsigned char floppy_fiqout_start, floppy_fiqout_end;
+-		fiqhandler_start = &floppy_fiqout_start;
+-		fiqhandler_length = &floppy_fiqout_end - &floppy_fiqout_start;
+-	}
+-
+-	regs.ARM_r9  = fdma->dma.count;
+-	regs.ARM_r10 = (unsigned long)fdma->dma.addr;
+-	regs.ARM_fp  = (unsigned long)FLOPPYDMA_BASE;
+-
+-	if (claim_fiq(&fh)) {
+-		printk("floppydma: couldn't claim FIQ.\n");
+-		return;
+-	}
+-
+-	set_fiq_handler(fiqhandler_start, fiqhandler_length);
+-	set_fiq_regs(&regs);
+-	enable_fiq(fdma->fiq);
+-}
+-
+-static void floppy_disable_dma(unsigned int chan, dma_t *dma)
+-{
+-	struct floppy_dma *fdma = container_of(dma, struct floppy_dma, dma);
+-	disable_fiq(fdma->fiq);
+-	release_fiq(&fh);
+-}
+-
+-static int floppy_get_residue(unsigned int chan, dma_t *dma)
+-{
+-	struct pt_regs regs;
+-	get_fiq_regs(&regs);
+-	return regs.ARM_r9;
+-}
+-
+-static struct dma_ops floppy_dma_ops = {
+-	.type		= "FIQDMA",
+-	.enable		= floppy_enable_dma,
+-	.disable	= floppy_disable_dma,
+-	.residue	= floppy_get_residue,
+-};
+-
+-/*
+- * This is virtual DMA - we don't need anything here.
+- */
+-static void sound_enable_disable_dma(unsigned int chan, dma_t *dma)
+-{
+-}
+-
+-static struct dma_ops sound_dma_ops = {
+-	.type		= "VIRTUAL",
+-	.enable		= sound_enable_disable_dma,
+-	.disable	= sound_enable_disable_dma,
+-};
+-
+-static struct iomd_dma iomd_dma[6];
+-
+-static struct floppy_dma floppy_dma = {
+-	.dma		= {
+-		.d_ops	= &floppy_dma_ops,
+-	},
+-	.fiq		= FIQ_FLOPPYDATA,
+-};
+-
+-static dma_t sound_dma = {
+-	.d_ops		= &sound_dma_ops,
+-};
+-
+-static int __init rpc_dma_init(void)
+-{
+-	unsigned int i;
+-	int ret;
+-
+-	iomd_writeb(0, IOMD_IO0CR);
+-	iomd_writeb(0, IOMD_IO1CR);
+-	iomd_writeb(0, IOMD_IO2CR);
+-	iomd_writeb(0, IOMD_IO3CR);
+-
+-	iomd_writeb(0xa0, IOMD_DMATCR);
+-
+-	/*
+-	 * Setup DMA channels 2,3 to be for podules
+-	 * and channels 0,1 for internal devices
+-	 */
+-	iomd_writeb(DMA_EXT_IO3|DMA_EXT_IO2, IOMD_DMAEXT);
+-
+-	iomd_dma[DMA_0].base	= IOMD_BASE + IOMD_IO0CURA;
+-	iomd_dma[DMA_0].irq	= IRQ_DMA0;
+-	iomd_dma[DMA_1].base	= IOMD_BASE + IOMD_IO1CURA;
+-	iomd_dma[DMA_1].irq	= IRQ_DMA1;
+-	iomd_dma[DMA_2].base	= IOMD_BASE + IOMD_IO2CURA;
+-	iomd_dma[DMA_2].irq	= IRQ_DMA2;
+-	iomd_dma[DMA_3].base	= IOMD_BASE + IOMD_IO3CURA;
+-	iomd_dma[DMA_3].irq	= IRQ_DMA3;
+-	iomd_dma[DMA_S0].base	= IOMD_BASE + IOMD_SD0CURA;
+-	iomd_dma[DMA_S0].irq	= IRQ_DMAS0;
+-	iomd_dma[DMA_S1].base	= IOMD_BASE + IOMD_SD1CURA;
+-	iomd_dma[DMA_S1].irq	= IRQ_DMAS1;
+-
+-	for (i = DMA_0; i <= DMA_S1; i++) {
+-		iomd_dma[i].dma.d_ops = &iomd_dma_ops;
+-
+-		ret = isa_dma_add(i, &iomd_dma[i].dma);
+-		if (ret)
+-			printk("IOMDDMA%u: unable to register: %d\n", i, ret);
+-	}
+-
+-	ret = isa_dma_add(DMA_VIRTUAL_FLOPPY, &floppy_dma.dma);
+-	if (ret)
+-		printk("IOMDFLOPPY: unable to register: %d\n", ret);
+-	ret = isa_dma_add(DMA_VIRTUAL_SOUND, &sound_dma);
+-	if (ret)
+-		printk("IOMDSOUND: unable to register: %d\n", ret);
 -	return 0;
 -}
--core_initcall(isa_dma_init);
-diff --git a/arch/arm/mach-footbridge/ebsa285-pci.c b/arch/arm/mach-footbridge/ebsa285-pci.c
+-core_initcall(rpc_dma_init);
+diff --git a/arch/arm/mach-rpc/ecard-loader.S b/arch/arm/mach-rpc/ecard-loader.S
 deleted file mode 100644
-index c3f280d08fa7..000000000000
---- a/arch/arm/mach-footbridge/ebsa285-pci.c
+index eb8ac0412da6..000000000000
+--- a/arch/arm/mach-rpc/ecard-loader.S
 +++ /dev/null
-@@ -1,48 +0,0 @@
--// SPDX-License-Identifier: GPL-2.0
+@@ -1,40 +0,0 @@
+-/* SPDX-License-Identifier: GPL-2.0-only */
 -/*
-- * linux/arch/arm/mach-footbridge/ebsa285-pci.c
+- *  linux/arch/arm/lib/ecard.S
 - *
-- * PCI bios-type initialisation for PCI machines
+- *  Copyright (C) 1995, 1996 Russell King
 - *
-- * Bits taken from various places.
+- * 27/03/03 Ian Molton Clean up CONFIG_CPU
 - */
+-#include <linux/linkage.h>
+-#include <asm/assembler.h>
+-
+-#define CPSR2SPSR(rt) \
+-		mrs	rt, cpsr; \
+-		msr	spsr_cxsf, rt
+-
+-@ Purpose: call an expansion card loader to read bytes.
+-@ Proto  : char read_loader(int offset, char *card_base, char *loader);
+-@ Returns: byte read
+-
+-ENTRY(ecard_loader_read)
+-		stmfd	sp!, {r4 - r12, lr}
+-		mov	r11, r1
+-		mov	r1, r0
+-		CPSR2SPSR(r0)
+-		mov	lr, pc
+-		mov	pc, r2
+-		ldmfd	sp!, {r4 - r12, pc}
+-
+-@ Purpose: call an expansion card loader to reset the card
+-@ Proto  : void read_loader(int card_base, char *loader);
+-@ Returns: byte read
+-
+-ENTRY(ecard_loader_reset)
+-		stmfd	sp!, {r4 - r12, lr}
+-		mov	r11, r0
+-		CPSR2SPSR(r0)
+-		mov	lr, pc
+-		add	pc, r1, #8
+-		ldmfd	sp!, {r4 - r12, pc}
+-
+diff --git a/arch/arm/mach-rpc/ecard.c b/arch/arm/mach-rpc/ecard.c
+deleted file mode 100644
+index 972465840548..000000000000
+--- a/arch/arm/mach-rpc/ecard.c
++++ /dev/null
+@@ -1,1146 +0,0 @@
+-// SPDX-License-Identifier: GPL-2.0-only
+-/*
+- *  linux/arch/arm/kernel/ecard.c
+- *
+- *  Copyright 1995-2001 Russell King
+- *
+- *  Find all installed expansion cards, and handle interrupts from them.
+- *
+- *  Created from information from Acorns RiscOS3 PRMs
+- *
+- *  08-Dec-1996	RMK	Added code for the 9'th expansion card - the ether
+- *			podule slot.
+- *  06-May-1997	RMK	Added blacklist for cards whose loader doesn't work.
+- *  12-Sep-1997	RMK	Created new handling of interrupt enables/disables
+- *			- cards can now register their own routine to control
+- *			interrupts (recommended).
+- *  29-Sep-1997	RMK	Expansion card interrupt hardware not being re-enabled
+- *			on reset from Linux. (Caused cards not to respond
+- *			under RiscOS without hard reset).
+- *  15-Feb-1998	RMK	Added DMA support
+- *  12-Sep-1998	RMK	Added EASI support
+- *  10-Jan-1999	RMK	Run loaders in a simulated RISC OS environment.
+- *  17-Apr-1999	RMK	Support for EASI Type C cycles.
+- */
+-#define ECARD_C
+-
+-#include <linux/module.h>
 -#include <linux/kernel.h>
--#include <linux/pci.h>
+-#include <linux/types.h>
+-#include <linux/sched.h>
+-#include <linux/sched/mm.h>
+-#include <linux/interrupt.h>
+-#include <linux/completion.h>
+-#include <linux/reboot.h>
+-#include <linux/mm.h>
+-#include <linux/slab.h>
+-#include <linux/proc_fs.h>
+-#include <linux/seq_file.h>
+-#include <linux/device.h>
 -#include <linux/init.h>
+-#include <linux/mutex.h>
+-#include <linux/kthread.h>
+-#include <linux/irq.h>
+-#include <linux/io.h>
 -
+-#include <asm/dma.h>
+-#include <asm/ecard.h>
+-#include <mach/hardware.h>
 -#include <asm/irq.h>
--#include <asm/mach/pci.h>
--#include <asm/mach-types.h>
+-#include <asm/mmu_context.h>
+-#include <asm/mach/irq.h>
+-#include <asm/tlbflush.h>
 -
--static int irqmap_ebsa285[] = { IRQ_IN3, IRQ_IN1, IRQ_IN0, IRQ_PCI };
+-#include "ecard.h"
 -
--static int ebsa285_map_irq(const struct pci_dev *dev, u8 slot, u8 pin)
+-struct ecard_request {
+-	void		(*fn)(struct ecard_request *);
+-	ecard_t		*ec;
+-	unsigned int	address;
+-	unsigned int	length;
+-	unsigned int	use_loader;
+-	void		*buffer;
+-	struct completion *complete;
+-};
+-
+-struct expcard_quirklist {
+-	unsigned short	 manufacturer;
+-	unsigned short	 product;
+-	const char	*type;
+-	void (*init)(ecard_t *ec);
+-};
+-
+-static ecard_t *cards;
+-static ecard_t *slot_to_expcard[MAX_ECARDS];
+-static unsigned int ectcr;
+-
+-static void atomwide_3p_quirk(ecard_t *ec);
+-
+-/* List of descriptions of cards which don't have an extended
+- * identification, or chunk directories containing a description.
+- */
+-static struct expcard_quirklist quirklist[] __initdata = {
+-	{ MANU_ACORN, PROD_ACORN_ETHER1, "Acorn Ether1" },
+-	{ MANU_ATOMWIDE, PROD_ATOMWIDE_3PSERIAL, NULL, atomwide_3p_quirk },
+-};
+-
+-asmlinkage extern int
+-ecard_loader_reset(unsigned long base, loader_t loader);
+-asmlinkage extern int
+-ecard_loader_read(int off, unsigned long base, loader_t loader);
+-
+-static inline unsigned short ecard_getu16(unsigned char *v)
 -{
--	if (dev->vendor == PCI_VENDOR_ID_CONTAQ &&
--	    dev->device == PCI_DEVICE_ID_CONTAQ_82C693)
--		switch (PCI_FUNC(dev->devfn)) {
--		case 1:	return 14;
--		case 2:	return 15;
--		case 3:	return 12;
+-	return v[0] | v[1] << 8;
+-}
+-
+-static inline signed long ecard_gets24(unsigned char *v)
+-{
+-	return v[0] | v[1] << 8 | v[2] << 16 | ((v[2] & 0x80) ? 0xff000000 : 0);
+-}
+-
+-static inline ecard_t *slot_to_ecard(unsigned int slot)
+-{
+-	return slot < MAX_ECARDS ? slot_to_expcard[slot] : NULL;
+-}
+-
+-/* ===================== Expansion card daemon ======================== */
+-/*
+- * Since the loader programs on the expansion cards need to be run
+- * in a specific environment, create a separate task with this
+- * environment up, and pass requests to this task as and when we
+- * need to.
+- *
+- * This should allow 99% of loaders to be called from Linux.
+- *
+- * From a security standpoint, we trust the card vendors.  This
+- * may be a misplaced trust.
+- */
+-static void ecard_task_reset(struct ecard_request *req)
+-{
+-	struct expansion_card *ec = req->ec;
+-	struct resource *res;
+-
+-	res = ec->slot_no == 8
+-		? &ec->resource[ECARD_RES_MEMC]
+-		: ec->easi
+-		  ? &ec->resource[ECARD_RES_EASI]
+-		  : &ec->resource[ECARD_RES_IOCSYNC];
+-
+-	ecard_loader_reset(res->start, ec->loader);
+-}
+-
+-static void ecard_task_readbytes(struct ecard_request *req)
+-{
+-	struct expansion_card *ec = req->ec;
+-	unsigned char *buf = req->buffer;
+-	unsigned int len = req->length;
+-	unsigned int off = req->address;
+-
+-	if (ec->slot_no == 8) {
+-		void __iomem *base = (void __iomem *)
+-				ec->resource[ECARD_RES_MEMC].start;
+-
+-		/*
+-		 * The card maintains an index which increments the address
+-		 * into a 4096-byte page on each access.  We need to keep
+-		 * track of the counter.
+-		 */
+-		static unsigned int index;
+-		unsigned int page;
+-
+-		page = (off >> 12) * 4;
+-		if (page > 256 * 4)
+-			return;
+-
+-		off &= 4095;
+-
+-		/*
+-		 * If we are reading offset 0, or our current index is
+-		 * greater than the offset, reset the hardware index counter.
+-		 */
+-		if (off == 0 || index > off) {
+-			writeb(0, base);
+-			index = 0;
 -		}
 -
--	return irqmap_ebsa285[(slot + pin) & 3];
+-		/*
+-		 * Increment the hardware index counter until we get to the
+-		 * required offset.  The read bytes are discarded.
+-		 */
+-		while (index < off) {
+-			readb(base + page);
+-			index += 1;
+-		}
+-
+-		while (len--) {
+-			*buf++ = readb(base + page);
+-			index += 1;
+-		}
+-	} else {
+-		unsigned long base = (ec->easi
+-			 ? &ec->resource[ECARD_RES_EASI]
+-			 : &ec->resource[ECARD_RES_IOCSYNC])->start;
+-		void __iomem *pbase = (void __iomem *)base;
+-
+-		if (!req->use_loader || !ec->loader) {
+-			off *= 4;
+-			while (len--) {
+-				*buf++ = readb(pbase + off);
+-				off += 4;
+-			}
+-		} else {
+-			while(len--) {
+-				/*
+-				 * The following is required by some
+-				 * expansion card loader programs.
+-				 */
+-				*(unsigned long *)0x108 = 0;
+-				*buf++ = ecard_loader_read(off++, base,
+-							   ec->loader);
+-			}
+-		}
+-	}
+-
 -}
 -
--static struct hw_pci ebsa285_pci __initdata = {
--	.map_irq		= ebsa285_map_irq,
--	.nr_controllers		= 1,
--	.ops			= &dc21285_ops,
--	.setup			= dc21285_setup,
--	.preinit		= dc21285_preinit,
--	.postinit		= dc21285_postinit,
--};
+-static DECLARE_WAIT_QUEUE_HEAD(ecard_wait);
+-static struct ecard_request *ecard_req;
+-static DEFINE_MUTEX(ecard_mutex);
 -
--static int __init ebsa285_init_pci(void)
+-/*
+- * Set up the expansion card daemon's page tables.
+- */
+-static void ecard_init_pgtables(struct mm_struct *mm)
 -{
--	if (machine_is_ebsa285())
--		pci_common_init(&ebsa285_pci);
+-	struct vm_area_struct vma = TLB_FLUSH_VMA(mm, VM_EXEC);
+-
+-	/* We want to set up the page tables for the following mapping:
+-	 *  Virtual	Physical
+-	 *  0x03000000	0x03000000
+-	 *  0x03010000	unmapped
+-	 *  0x03210000	0x03210000
+-	 *  0x03400000	unmapped
+-	 *  0x08000000	0x08000000
+-	 *  0x10000000	unmapped
+-	 *
+-	 * FIXME: we don't follow this 100% yet.
+-	 */
+-	pgd_t *src_pgd, *dst_pgd;
+-
+-	src_pgd = pgd_offset(mm, (unsigned long)IO_BASE);
+-	dst_pgd = pgd_offset(mm, IO_START);
+-
+-	memcpy(dst_pgd, src_pgd, sizeof(pgd_t) * (IO_SIZE / PGDIR_SIZE));
+-
+-	src_pgd = pgd_offset(mm, (unsigned long)EASI_BASE);
+-	dst_pgd = pgd_offset(mm, EASI_START);
+-
+-	memcpy(dst_pgd, src_pgd, sizeof(pgd_t) * (EASI_SIZE / PGDIR_SIZE));
+-
+-	flush_tlb_range(&vma, IO_START, IO_START + IO_SIZE);
+-	flush_tlb_range(&vma, EASI_START, EASI_START + EASI_SIZE);
+-}
+-
+-static int ecard_init_mm(void)
+-{
+-	struct mm_struct * mm = mm_alloc();
+-	struct mm_struct *active_mm = current->active_mm;
+-
+-	if (!mm)
+-		return -ENOMEM;
+-
+-	current->mm = mm;
+-	current->active_mm = mm;
+-	activate_mm(active_mm, mm);
+-	mmdrop_lazy_tlb(active_mm);
+-	ecard_init_pgtables(mm);
 -	return 0;
 -}
 -
--subsys_initcall(ebsa285_init_pci);
-diff --git a/arch/arm/mach-footbridge/ebsa285.c b/arch/arm/mach-footbridge/ebsa285.c
-deleted file mode 100644
-index 1cb7d674bc81..000000000000
---- a/arch/arm/mach-footbridge/ebsa285.c
-+++ /dev/null
-@@ -1,124 +0,0 @@
--// SPDX-License-Identifier: GPL-2.0
+-static int
+-ecard_task(void * unused)
+-{
+-	/*
+-	 * Allocate a mm.  We're not a lazy-TLB kernel task since we need
+-	 * to set page table entries where the user space would be.  Note
+-	 * that this also creates the page tables.  Failure is not an
+-	 * option here.
+-	 */
+-	if (ecard_init_mm())
+-		panic("kecardd: unable to alloc mm\n");
+-
+-	while (1) {
+-		struct ecard_request *req;
+-
+-		wait_event_interruptible(ecard_wait, ecard_req != NULL);
+-
+-		req = xchg(&ecard_req, NULL);
+-		if (req != NULL) {
+-			req->fn(req);
+-			complete(req->complete);
+-		}
+-	}
+-}
+-
 -/*
-- * linux/arch/arm/mach-footbridge/ebsa285.c
+- * Wake the expansion card daemon to action our request.
 - *
-- * EBSA285 machine fixup
+- * FIXME: The test here is not sufficient to detect if the
+- * kcardd is running.
 - */
--#include <linux/init.h>
--#include <linux/io.h>
--#include <linux/spinlock.h>
--#include <linux/slab.h>
--#include <linux/leds.h>
+-static void ecard_call(struct ecard_request *req)
+-{
+-	DECLARE_COMPLETION_ONSTACK(completion);
 -
--#include <asm/hardware/dec21285.h>
--#include <asm/mach-types.h>
+-	req->complete = &completion;
 -
--#include <asm/mach/arch.h>
+-	mutex_lock(&ecard_mutex);
+-	ecard_req = req;
+-	wake_up(&ecard_wait);
 -
--#include "common.h"
+-	/*
+-	 * Now wait for kecardd to run.
+-	 */
+-	wait_for_completion(&completion);
+-	mutex_unlock(&ecard_mutex);
+-}
 -
--/* LEDs */
--#if defined(CONFIG_NEW_LEDS) && defined(CONFIG_LEDS_CLASS)
--#define XBUS_AMBER_L	BIT(0)
--#define XBUS_GREEN_L	BIT(1)
--#define XBUS_RED_L	BIT(2)
--#define XBUS_TOGGLE	BIT(7)
+-/* ======================= Mid-level card control ===================== */
 -
--struct ebsa285_led {
--	struct led_classdev     cdev;
--	u8                      mask;
+-static void
+-ecard_readbytes(void *addr, ecard_t *ec, int off, int len, int useld)
+-{
+-	struct ecard_request req;
+-
+-	req.fn		= ecard_task_readbytes;
+-	req.ec		= ec;
+-	req.address	= off;
+-	req.length	= len;
+-	req.use_loader	= useld;
+-	req.buffer	= addr;
+-
+-	ecard_call(&req);
+-}
+-
+-int ecard_readchunk(struct in_chunk_dir *cd, ecard_t *ec, int id, int num)
+-{
+-	struct ex_chunk_dir excd;
+-	int index = 16;
+-	int useld = 0;
+-
+-	if (!ec->cid.cd)
+-		return 0;
+-
+-	while(1) {
+-		ecard_readbytes(&excd, ec, index, 8, useld);
+-		index += 8;
+-		if (c_id(&excd) == 0) {
+-			if (!useld && ec->loader) {
+-				useld = 1;
+-				index = 0;
+-				continue;
+-			}
+-			return 0;
+-		}
+-		if (c_id(&excd) == 0xf0) { /* link */
+-			index = c_start(&excd);
+-			continue;
+-		}
+-		if (c_id(&excd) == 0x80) { /* loader */
+-			if (!ec->loader) {
+-				ec->loader = kmalloc(c_len(&excd),
+-							       GFP_KERNEL);
+-				if (ec->loader)
+-					ecard_readbytes(ec->loader, ec,
+-							(int)c_start(&excd),
+-							c_len(&excd), useld);
+-				else
+-					return 0;
+-			}
+-			continue;
+-		}
+-		if (c_id(&excd) == id && num-- == 0)
+-			break;
+-	}
+-
+-	if (c_id(&excd) & 0x80) {
+-		switch (c_id(&excd) & 0x70) {
+-		case 0x70:
+-			ecard_readbytes((unsigned char *)excd.d.string, ec,
+-					(int)c_start(&excd), c_len(&excd),
+-					useld);
+-			break;
+-		case 0x00:
+-			break;
+-		}
+-	}
+-	cd->start_offset = c_start(&excd);
+-	memcpy(cd->d.string, excd.d.string, 256);
+-	return 1;
+-}
+-
+-/* ======================= Interrupt control ============================ */
+-
+-static void ecard_def_irq_enable(ecard_t *ec, int irqnr)
+-{
+-}
+-
+-static void ecard_def_irq_disable(ecard_t *ec, int irqnr)
+-{
+-}
+-
+-static int ecard_def_irq_pending(ecard_t *ec)
+-{
+-	return !ec->irqmask || readb(ec->irqaddr) & ec->irqmask;
+-}
+-
+-static void ecard_def_fiq_enable(ecard_t *ec, int fiqnr)
+-{
+-	panic("ecard_def_fiq_enable called - impossible");
+-}
+-
+-static void ecard_def_fiq_disable(ecard_t *ec, int fiqnr)
+-{
+-	panic("ecard_def_fiq_disable called - impossible");
+-}
+-
+-static int ecard_def_fiq_pending(ecard_t *ec)
+-{
+-	return !ec->fiqmask || readb(ec->fiqaddr) & ec->fiqmask;
+-}
+-
+-static expansioncard_ops_t ecard_default_ops = {
+-	ecard_def_irq_enable,
+-	ecard_def_irq_disable,
+-	ecard_def_irq_pending,
+-	ecard_def_fiq_enable,
+-	ecard_def_fiq_disable,
+-	ecard_def_fiq_pending
 -};
 -
 -/*
-- * The triggers lines up below will only be used if the
-- * LED triggers are compiled in.
+- * Enable and disable interrupts from expansion cards.
+- * (interrupts are disabled for these functions).
+- *
+- * They are not meant to be called directly, but via enable/disable_irq.
 - */
--static const struct {
--	const char *name;
--	const char *trigger;
--} ebsa285_leds[] = {
--	{ "ebsa285:amber", "cpu0", },
--	{ "ebsa285:green", "heartbeat", },
--	{ "ebsa285:red",},
+-static void ecard_irq_unmask(struct irq_data *d)
+-{
+-	ecard_t *ec = irq_data_get_irq_chip_data(d);
+-
+-	if (ec) {
+-		if (!ec->ops)
+-			ec->ops = &ecard_default_ops;
+-
+-		if (ec->claimed && ec->ops->irqenable)
+-			ec->ops->irqenable(ec, d->irq);
+-		else
+-			printk(KERN_ERR "ecard: rejecting request to "
+-				"enable IRQs for %d\n", d->irq);
+-	}
+-}
+-
+-static void ecard_irq_mask(struct irq_data *d)
+-{
+-	ecard_t *ec = irq_data_get_irq_chip_data(d);
+-
+-	if (ec) {
+-		if (!ec->ops)
+-			ec->ops = &ecard_default_ops;
+-
+-		if (ec->ops && ec->ops->irqdisable)
+-			ec->ops->irqdisable(ec, d->irq);
+-	}
+-}
+-
+-static struct irq_chip ecard_chip = {
+-	.name		= "ECARD",
+-	.irq_ack	= ecard_irq_mask,
+-	.irq_mask	= ecard_irq_mask,
+-	.irq_unmask	= ecard_irq_unmask,
 -};
 -
--static unsigned char hw_led_state;
--static void __iomem *xbus;
--
--static void ebsa285_led_set(struct led_classdev *cdev,
--		enum led_brightness b)
+-void ecard_enablefiq(unsigned int fiqnr)
 -{
--	struct ebsa285_led *led = container_of(cdev,
--			struct ebsa285_led, cdev);
+-	ecard_t *ec = slot_to_ecard(fiqnr);
 -
--	if (b == LED_OFF)
--		hw_led_state |= led->mask;
--	else
--		hw_led_state &= ~led->mask;
--	writeb(hw_led_state, xbus);
+-	if (ec) {
+-		if (!ec->ops)
+-			ec->ops = &ecard_default_ops;
+-
+-		if (ec->claimed && ec->ops->fiqenable)
+-			ec->ops->fiqenable(ec, fiqnr);
+-		else
+-			printk(KERN_ERR "ecard: rejecting request to "
+-				"enable FIQs for %d\n", fiqnr);
+-	}
 -}
 -
--static enum led_brightness ebsa285_led_get(struct led_classdev *cdev)
+-void ecard_disablefiq(unsigned int fiqnr)
 -{
--	struct ebsa285_led *led = container_of(cdev,
--			struct ebsa285_led, cdev);
+-	ecard_t *ec = slot_to_ecard(fiqnr);
 -
--	return hw_led_state & led->mask ? LED_OFF : LED_FULL;
+-	if (ec) {
+-		if (!ec->ops)
+-			ec->ops = &ecard_default_ops;
+-
+-		if (ec->ops->fiqdisable)
+-			ec->ops->fiqdisable(ec, fiqnr);
+-	}
 -}
 -
--static int __init ebsa285_leds_init(void)
+-static void ecard_dump_irq_state(void)
+-{
+-	ecard_t *ec;
+-
+-	printk("Expansion card IRQ state:\n");
+-
+-	for (ec = cards; ec; ec = ec->next) {
+-		const char *claimed;
+-
+-		if (ec->slot_no == 8)
+-			continue;
+-
+-		claimed = ec->claimed ? "" : "not ";
+-
+-		if (ec->ops && ec->ops->irqpending &&
+-		    ec->ops != &ecard_default_ops)
+-			printk("  %d: %sclaimed irq %spending\n",
+-			       ec->slot_no, claimed,
+-			       ec->ops->irqpending(ec) ? "" : "not ");
+-		else
+-			printk("  %d: %sclaimed irqaddr %p, mask = %02X, status = %02X\n",
+-			       ec->slot_no, claimed,
+-			       ec->irqaddr, ec->irqmask, readb(ec->irqaddr));
+-	}
+-}
+-
+-static void ecard_check_lockup(struct irq_desc *desc)
+-{
+-	static unsigned long last;
+-	static int lockup;
+-
+-	/*
+-	 * If the timer interrupt has not run since the last million
+-	 * unrecognised expansion card interrupts, then there is
+-	 * something seriously wrong.  Disable the expansion card
+-	 * interrupts so at least we can continue.
+-	 *
+-	 * Maybe we ought to start a timer to re-enable them some time
+-	 * later?
+-	 */
+-	if (last == jiffies) {
+-		lockup += 1;
+-		if (lockup > 1000000) {
+-			printk(KERN_ERR "\nInterrupt lockup detected - "
+-			       "disabling all expansion card interrupts\n");
+-
+-			desc->irq_data.chip->irq_mask(&desc->irq_data);
+-			ecard_dump_irq_state();
+-		}
+-	} else
+-		lockup = 0;
+-
+-	/*
+-	 * If we did not recognise the source of this interrupt,
+-	 * warn the user, but don't flood the user with these messages.
+-	 */
+-	if (!last || time_after(jiffies, last + 5*HZ)) {
+-		last = jiffies;
+-		printk(KERN_WARNING "Unrecognised interrupt from backplane\n");
+-		ecard_dump_irq_state();
+-	}
+-}
+-
+-static void ecard_irq_handler(struct irq_desc *desc)
+-{
+-	ecard_t *ec;
+-	int called = 0;
+-
+-	desc->irq_data.chip->irq_mask(&desc->irq_data);
+-	for (ec = cards; ec; ec = ec->next) {
+-		int pending;
+-
+-		if (!ec->claimed || !ec->irq || ec->slot_no == 8)
+-			continue;
+-
+-		if (ec->ops && ec->ops->irqpending)
+-			pending = ec->ops->irqpending(ec);
+-		else
+-			pending = ecard_default_ops.irqpending(ec);
+-
+-		if (pending) {
+-			generic_handle_irq(ec->irq);
+-			called ++;
+-		}
+-	}
+-	desc->irq_data.chip->irq_unmask(&desc->irq_data);
+-
+-	if (called == 0)
+-		ecard_check_lockup(desc);
+-}
+-
+-static void __iomem *__ecard_address(ecard_t *ec, card_type_t type, card_speed_t speed)
+-{
+-	void __iomem *address = NULL;
+-	int slot = ec->slot_no;
+-
+-	if (ec->slot_no == 8)
+-		return ECARD_MEMC8_BASE;
+-
+-	ectcr &= ~(1 << slot);
+-
+-	switch (type) {
+-	case ECARD_MEMC:
+-		if (slot < 4)
+-			address = ECARD_MEMC_BASE + (slot << 14);
+-		break;
+-
+-	case ECARD_IOC:
+-		if (slot < 4)
+-			address = ECARD_IOC_BASE + (slot << 14);
+-		else
+-			address = ECARD_IOC4_BASE + ((slot - 4) << 14);
+-		if (address)
+-			address += speed << 19;
+-		break;
+-
+-	case ECARD_EASI:
+-		address = ECARD_EASI_BASE + (slot << 24);
+-		if (speed == ECARD_FAST)
+-			ectcr |= 1 << slot;
+-		break;
+-
+-	default:
+-		break;
+-	}
+-
+-#ifdef IOMD_ECTCR
+-	iomd_writeb(ectcr, IOMD_ECTCR);
+-#endif
+-	return address;
+-}
+-
+-static int ecard_prints(struct seq_file *m, ecard_t *ec)
+-{
+-	seq_printf(m, "  %d: %s ", ec->slot_no, ec->easi ? "EASI" : "    ");
+-
+-	if (ec->cid.id == 0) {
+-		struct in_chunk_dir incd;
+-
+-		seq_printf(m, "[%04X:%04X] ",
+-			ec->cid.manufacturer, ec->cid.product);
+-
+-		if (!ec->card_desc && ec->cid.cd &&
+-		    ecard_readchunk(&incd, ec, 0xf5, 0)) {
+-			ec->card_desc = kmalloc(strlen(incd.d.string)+1, GFP_KERNEL);
+-
+-			if (ec->card_desc)
+-				strcpy((char *)ec->card_desc, incd.d.string);
+-		}
+-
+-		seq_printf(m, "%s\n", ec->card_desc ? ec->card_desc : "*unknown*");
+-	} else
+-		seq_printf(m, "Simple card %d\n", ec->cid.id);
+-
+-	return 0;
+-}
+-
+-static int ecard_devices_proc_show(struct seq_file *m, void *v)
+-{
+-	ecard_t *ec = cards;
+-
+-	while (ec) {
+-		ecard_prints(m, ec);
+-		ec = ec->next;
+-	}
+-	return 0;
+-}
+-
+-static struct proc_dir_entry *proc_bus_ecard_dir = NULL;
+-
+-static void ecard_proc_init(void)
+-{
+-	proc_bus_ecard_dir = proc_mkdir("bus/ecard", NULL);
+-	proc_create_single("devices", 0, proc_bus_ecard_dir,
+-			ecard_devices_proc_show);
+-}
+-
+-#define ec_set_resource(ec,nr,st,sz)				\
+-	do {							\
+-		(ec)->resource[nr].name = dev_name(&ec->dev);	\
+-		(ec)->resource[nr].start = st;			\
+-		(ec)->resource[nr].end = (st) + (sz) - 1;	\
+-		(ec)->resource[nr].flags = IORESOURCE_MEM;	\
+-	} while (0)
+-
+-static void __init ecard_free_card(struct expansion_card *ec)
 -{
 -	int i;
 -
--	if (!machine_is_ebsa285())
--		return -ENODEV;
+-	for (i = 0; i < ECARD_NUM_RESOURCES; i++)
+-		if (ec->resource[i].flags)
+-			release_resource(&ec->resource[i]);
 -
--	xbus = ioremap(XBUS_CS2, SZ_4K);
--	if (!xbus)
--		return -ENOMEM;
+-	kfree(ec);
+-}
 -
--	/* 3 LEDS all off */
--	hw_led_state = XBUS_AMBER_L | XBUS_GREEN_L | XBUS_RED_L;
--	writeb(hw_led_state, xbus);
+-static struct expansion_card *__init ecard_alloc_card(int type, int slot)
+-{
+-	struct expansion_card *ec;
+-	unsigned long base;
+-	int i;
 -
--	for (i = 0; i < ARRAY_SIZE(ebsa285_leds); i++) {
--		struct ebsa285_led *led;
+-	ec = kzalloc_obj(ecard_t);
+-	if (!ec) {
+-		ec = ERR_PTR(-ENOMEM);
+-		goto nomem;
+-	}
 -
--		led = kzalloc_obj(*led);
--		if (!led)
--			break;
+-	ec->slot_no = slot;
+-	ec->easi = type == ECARD_EASI;
+-	ec->irq = 0;
+-	ec->fiq = 0;
+-	ec->dma = NO_DMA;
+-	ec->ops = &ecard_default_ops;
 -
--		led->cdev.name = ebsa285_leds[i].name;
--		led->cdev.brightness_set = ebsa285_led_set;
--		led->cdev.brightness_get = ebsa285_led_get;
--		led->cdev.default_trigger = ebsa285_leds[i].trigger;
--		led->mask = BIT(i);
+-	dev_set_name(&ec->dev, "ecard%d", slot);
+-	ec->dev.parent = NULL;
+-	ec->dev.bus = &ecard_bus_type;
+-	ec->dev.dma_mask = &ec->dma_mask;
+-	ec->dma_mask = (u64)0xffffffff;
+-	ec->dev.coherent_dma_mask = ec->dma_mask;
 -
--		if (led_classdev_register(NULL, &led->cdev) < 0) {
--			kfree(led);
+-	if (slot < 4) {
+-		ec_set_resource(ec, ECARD_RES_MEMC,
+-				PODSLOT_MEMC_BASE + (slot << 14),
+-				PODSLOT_MEMC_SIZE);
+-		base = PODSLOT_IOC0_BASE + (slot << 14);
+-	} else
+-		base = PODSLOT_IOC4_BASE + ((slot - 4) << 14);
+-
+-#ifdef CONFIG_ARCH_RPC
+-	if (slot < 8) {
+-		ec_set_resource(ec, ECARD_RES_EASI,
+-				PODSLOT_EASI_BASE + (slot << 24),
+-				PODSLOT_EASI_SIZE);
+-	}
+-
+-	if (slot == 8) {
+-		ec_set_resource(ec, ECARD_RES_MEMC, NETSLOT_BASE, NETSLOT_SIZE);
+-	} else
+-#endif
+-
+-	for (i = 0; i <= ECARD_RES_IOCSYNC - ECARD_RES_IOCSLOW; i++)
+-		ec_set_resource(ec, i + ECARD_RES_IOCSLOW,
+-				base + (i << 19), PODSLOT_IOC_SIZE);
+-
+-	for (i = 0; i < ECARD_NUM_RESOURCES; i++) {
+-		if (ec->resource[i].flags &&
+-		    request_resource(&iomem_resource, &ec->resource[i])) {
+-			dev_err(&ec->dev, "resource(s) not available\n");
+-			ec->resource[i].end -= ec->resource[i].start;
+-			ec->resource[i].start = 0;
+-			ec->resource[i].flags = 0;
+-		}
+-	}
+-
+- nomem:
+-	return ec;
+-}
+-
+-static ssize_t irq_show(struct device *dev, struct device_attribute *attr, char *buf)
+-{
+-	struct expansion_card *ec = ECARD_DEV(dev);
+-	return sprintf(buf, "%u\n", ec->irq);
+-}
+-static DEVICE_ATTR_RO(irq);
+-
+-static ssize_t dma_show(struct device *dev, struct device_attribute *attr, char *buf)
+-{
+-	struct expansion_card *ec = ECARD_DEV(dev);
+-	return sprintf(buf, "%u\n", ec->dma);
+-}
+-static DEVICE_ATTR_RO(dma);
+-
+-static ssize_t resource_show(struct device *dev, struct device_attribute *attr, char *buf)
+-{
+-	struct expansion_card *ec = ECARD_DEV(dev);
+-	char *str = buf;
+-	int i;
+-
+-	for (i = 0; i < ECARD_NUM_RESOURCES; i++)
+-		str += sprintf(str, "%08x %08x %08lx\n",
+-				ec->resource[i].start,
+-				ec->resource[i].end,
+-				ec->resource[i].flags);
+-
+-	return str - buf;
+-}
+-static DEVICE_ATTR_RO(resource);
+-
+-static ssize_t vendor_show(struct device *dev, struct device_attribute *attr, char *buf)
+-{
+-	struct expansion_card *ec = ECARD_DEV(dev);
+-	return sprintf(buf, "%u\n", ec->cid.manufacturer);
+-}
+-static DEVICE_ATTR_RO(vendor);
+-
+-static ssize_t device_show(struct device *dev, struct device_attribute *attr, char *buf)
+-{
+-	struct expansion_card *ec = ECARD_DEV(dev);
+-	return sprintf(buf, "%u\n", ec->cid.product);
+-}
+-static DEVICE_ATTR_RO(device);
+-
+-static ssize_t type_show(struct device *dev, struct device_attribute *attr, char *buf)
+-{
+-	struct expansion_card *ec = ECARD_DEV(dev);
+-	return sprintf(buf, "%s\n", ec->easi ? "EASI" : "IOC");
+-}
+-static DEVICE_ATTR_RO(type);
+-
+-static struct attribute *ecard_dev_attrs[] = {
+-	&dev_attr_device.attr,
+-	&dev_attr_dma.attr,
+-	&dev_attr_irq.attr,
+-	&dev_attr_resource.attr,
+-	&dev_attr_type.attr,
+-	&dev_attr_vendor.attr,
+-	NULL,
+-};
+-ATTRIBUTE_GROUPS(ecard_dev);
+-
+-int ecard_request_resources(struct expansion_card *ec)
+-{
+-	int i, err = 0;
+-
+-	for (i = 0; i < ECARD_NUM_RESOURCES; i++) {
+-		if (ecard_resource_end(ec, i) &&
+-		    !request_mem_region(ecard_resource_start(ec, i),
+-					ecard_resource_len(ec, i),
+-					ec->dev.driver->name)) {
+-			err = -EBUSY;
 -			break;
 -		}
 -	}
 -
--	return 0;
+-	if (err) {
+-		while (i--)
+-			if (ecard_resource_end(ec, i))
+-				release_mem_region(ecard_resource_start(ec, i),
+-						   ecard_resource_len(ec, i));
+-	}
+-	return err;
+-}
+-EXPORT_SYMBOL(ecard_request_resources);
+-
+-void ecard_release_resources(struct expansion_card *ec)
+-{
+-	int i;
+-
+-	for (i = 0; i < ECARD_NUM_RESOURCES; i++)
+-		if (ecard_resource_end(ec, i))
+-			release_mem_region(ecard_resource_start(ec, i),
+-					   ecard_resource_len(ec, i));
+-}
+-EXPORT_SYMBOL(ecard_release_resources);
+-
+-void ecard_setirq(struct expansion_card *ec, const struct expansion_card_ops *ops, void *irq_data)
+-{
+-	ec->irq_data = irq_data;
+-	barrier();
+-	ec->ops = ops;
+-}
+-EXPORT_SYMBOL(ecard_setirq);
+-
+-void __iomem *ecardm_iomap(struct expansion_card *ec, unsigned int res,
+-			   unsigned long offset, unsigned long maxsize)
+-{
+-	unsigned long start = ecard_resource_start(ec, res);
+-	unsigned long end = ecard_resource_end(ec, res);
+-
+-	if (offset > (end - start))
+-		return NULL;
+-
+-	start += offset;
+-	if (maxsize && end - start > maxsize)
+-		end = start + maxsize;
+-	
+-	return devm_ioremap(&ec->dev, start, end - start);
+-}
+-EXPORT_SYMBOL(ecardm_iomap);
+-
+-static void atomwide_3p_quirk(ecard_t *ec)
+-{
+-	void __iomem *addr = __ecard_address(ec, ECARD_IOC, ECARD_SYNC);
+-	unsigned int i;
+-
+-	/* Disable interrupts on each port */
+-	for (i = 0x2000; i <= 0x2800; i += 0x0400)
+-		writeb(0, addr + i + 4);	
 -}
 -
 -/*
-- * Since we may have triggers on any subsystem, defer registration
-- * until after subsystem_init.
+- * Probe for an expansion card.
+- *
+- * If bit 1 of the first byte of the card is set, then the
+- * card does not exist.
 - */
--fs_initcall(ebsa285_leds_init);
+-static int __init ecard_probe(int slot, unsigned irq, card_type_t type)
+-{
+-	ecard_t **ecp;
+-	ecard_t *ec;
+-	struct ex_ecid cid;
+-	void __iomem *addr;
+-	int i, rc;
+-
+-	ec = ecard_alloc_card(type, slot);
+-	if (IS_ERR(ec)) {
+-		rc = PTR_ERR(ec);
+-		goto nomem;
+-	}
+-
+-	rc = -ENODEV;
+-	if ((addr = __ecard_address(ec, type, ECARD_SYNC)) == NULL)
+-		goto nodev;
+-
+-	cid.r_zero = 1;
+-	ecard_readbytes(&cid, ec, 0, 16, 0);
+-	if (cid.r_zero)
+-		goto nodev;
+-
+-	ec->cid.id	= cid.r_id;
+-	ec->cid.cd	= cid.r_cd;
+-	ec->cid.is	= cid.r_is;
+-	ec->cid.w	= cid.r_w;
+-	ec->cid.manufacturer = ecard_getu16(cid.r_manu);
+-	ec->cid.product = ecard_getu16(cid.r_prod);
+-	ec->cid.country = cid.r_country;
+-	ec->cid.irqmask = cid.r_irqmask;
+-	ec->cid.irqoff  = ecard_gets24(cid.r_irqoff);
+-	ec->cid.fiqmask = cid.r_fiqmask;
+-	ec->cid.fiqoff  = ecard_gets24(cid.r_fiqoff);
+-	ec->fiqaddr	=
+-	ec->irqaddr	= addr;
+-
+-	if (ec->cid.is) {
+-		ec->irqmask = ec->cid.irqmask;
+-		ec->irqaddr += ec->cid.irqoff;
+-		ec->fiqmask = ec->cid.fiqmask;
+-		ec->fiqaddr += ec->cid.fiqoff;
+-	} else {
+-		ec->irqmask = 1;
+-		ec->fiqmask = 4;
+-	}
+-
+-	for (i = 0; i < ARRAY_SIZE(quirklist); i++)
+-		if (quirklist[i].manufacturer == ec->cid.manufacturer &&
+-		    quirklist[i].product == ec->cid.product) {
+-			if (quirklist[i].type)
+-				ec->card_desc = quirklist[i].type;
+-			if (quirklist[i].init)
+-				quirklist[i].init(ec);
+-			break;
+-		}
+-
+-	ec->irq = irq;
+-
+-	/*
+-	 * hook the interrupt handlers
+-	 */
+-	if (slot < 8) {
+-		irq_set_chip_and_handler(ec->irq, &ecard_chip,
+-					 handle_level_irq);
+-		irq_set_chip_data(ec->irq, ec);
+-		irq_clear_status_flags(ec->irq, IRQ_NOREQUEST);
+-	}
+-
+-#ifdef CONFIG_ARCH_RPC
+-	/* On RiscPC, only first two slots have DMA capability */
+-	if (slot < 2)
+-		ec->dma = 2 + slot;
 -#endif
 -
--MACHINE_START(EBSA285, "EBSA285")
--	/* Maintainer: Russell King */
--	.atag_offset	= 0x100,
--	.video_start	= 0x000a0000,
--	.video_end	= 0x000bffff,
--	.map_io		= footbridge_map_io,
--	.init_early	= footbridge_sched_clock,
--	.init_irq	= footbridge_init_irq,
--	.init_time	= footbridge_timer_init,
--	.restart	= footbridge_restart,
--MACHINE_END
+-	for (ecp = &cards; *ecp; ecp = &(*ecp)->next);
 -
-diff --git a/arch/arm/mach-footbridge/include/mach/hardware.h b/arch/arm/mach-footbridge/include/mach/hardware.h
+-	*ecp = ec;
+-	slot_to_expcard[slot] = ec;
+-
+-	rc = device_register(&ec->dev);
+-	if (rc)
+-		goto nodev;
+-
+-	return 0;
+-
+- nodev:
+-	ecard_free_card(ec);
+- nomem:
+-	return rc;
+-}
+-
+-/*
+- * Initialise the expansion card system.
+- * Locate all hardware - interrupt management and
+- * actual cards.
+- */
+-static int __init ecard_init(void)
+-{
+-	struct task_struct *task;
+-	int slot, irqbase;
+-
+-	irqbase = irq_alloc_descs(-1, 0, 8, -1);
+-	if (irqbase < 0)
+-		return irqbase;
+-
+-	task = kthread_run(ecard_task, NULL, "kecardd");
+-	if (IS_ERR(task)) {
+-		printk(KERN_ERR "Ecard: unable to create kernel thread: %ld\n",
+-		       PTR_ERR(task));
+-		irq_free_descs(irqbase, 8);
+-		return PTR_ERR(task);
+-	}
+-
+-	printk("Probing expansion cards\n");
+-
+-	for (slot = 0; slot < 8; slot ++) {
+-		if (ecard_probe(slot, irqbase + slot, ECARD_EASI) == -ENODEV)
+-			ecard_probe(slot, irqbase + slot, ECARD_IOC);
+-	}
+-
+-	ecard_probe(8, 11, ECARD_IOC);
+-
+-	irq_set_chained_handler(IRQ_EXPANSIONCARD, ecard_irq_handler);
+-
+-	ecard_proc_init();
+-
+-	return 0;
+-}
+-
+-subsys_initcall(ecard_init);
+-
+-/*
+- *	ECARD "bus"
+- */
+-static const struct ecard_id *
+-ecard_match_device(const struct ecard_id *ids, struct expansion_card *ec)
+-{
+-	int i;
+-
+-	for (i = 0; ids[i].manufacturer != 65535; i++)
+-		if (ec->cid.manufacturer == ids[i].manufacturer &&
+-		    ec->cid.product == ids[i].product)
+-			return ids + i;
+-
+-	return NULL;
+-}
+-
+-static int ecard_drv_probe(struct device *dev)
+-{
+-	struct expansion_card *ec = ECARD_DEV(dev);
+-	struct ecard_driver *drv = ECARD_DRV(dev->driver);
+-	const struct ecard_id *id;
+-	int ret;
+-
+-	id = ecard_match_device(drv->id_table, ec);
+-
+-	ec->claimed = 1;
+-	ret = drv->probe(ec, id);
+-	if (ret)
+-		ec->claimed = 0;
+-	return ret;
+-}
+-
+-static void ecard_drv_remove(struct device *dev)
+-{
+-	struct expansion_card *ec = ECARD_DEV(dev);
+-	struct ecard_driver *drv = ECARD_DRV(dev->driver);
+-
+-	drv->remove(ec);
+-	ec->claimed = 0;
+-
+-	/*
+-	 * Restore the default operations.  We ensure that the
+-	 * ops are set before we change the data.
+-	 */
+-	ec->ops = &ecard_default_ops;
+-	barrier();
+-	ec->irq_data = NULL;
+-}
+-
+-/*
+- * Before rebooting, we must make sure that the expansion card is in a
+- * sensible state, so it can be re-detected.  This means that the first
+- * page of the ROM must be visible.  We call the expansion cards reset
+- * handler, if any.
+- */
+-static void ecard_drv_shutdown(struct device *dev)
+-{
+-	struct expansion_card *ec = ECARD_DEV(dev);
+-	struct ecard_driver *drv = ECARD_DRV(dev->driver);
+-	struct ecard_request req;
+-
+-	if (dev->driver) {
+-		if (drv->shutdown)
+-			drv->shutdown(ec);
+-		ec->claimed = 0;
+-	}
+-
+-	/*
+-	 * If this card has a loader, call the reset handler.
+-	 */
+-	if (ec->loader) {
+-		req.fn = ecard_task_reset;
+-		req.ec = ec;
+-		ecard_call(&req);
+-	}
+-}
+-
+-int ecard_register_driver(struct ecard_driver *drv)
+-{
+-	drv->drv.bus = &ecard_bus_type;
+-
+-	return driver_register(&drv->drv);
+-}
+-
+-void ecard_remove_driver(struct ecard_driver *drv)
+-{
+-	driver_unregister(&drv->drv);
+-}
+-
+-static int ecard_match(struct device *_dev, const struct device_driver *_drv)
+-{
+-	struct expansion_card *ec = ECARD_DEV(_dev);
+-	struct ecard_driver *drv = ECARD_DRV(_drv);
+-	int ret;
+-
+-	if (drv->id_table) {
+-		ret = ecard_match_device(drv->id_table, ec) != NULL;
+-	} else {
+-		ret = ec->cid.id == drv->id;
+-	}
+-
+-	return ret;
+-}
+-
+-const struct bus_type ecard_bus_type = {
+-	.name		= "ecard",
+-	.dev_groups	= ecard_dev_groups,
+-	.match		= ecard_match,
+-	.probe		= ecard_drv_probe,
+-	.remove		= ecard_drv_remove,
+-	.shutdown	= ecard_drv_shutdown,
+-};
+-
+-static int ecard_bus_init(void)
+-{
+-	return bus_register(&ecard_bus_type);
+-}
+-
+-postcore_initcall(ecard_bus_init);
+-
+-EXPORT_SYMBOL(ecard_readchunk);
+-EXPORT_SYMBOL(ecard_register_driver);
+-EXPORT_SYMBOL(ecard_remove_driver);
+-EXPORT_SYMBOL(ecard_bus_type);
+diff --git a/arch/arm/mach-rpc/ecard.h b/arch/arm/mach-rpc/ecard.h
 deleted file mode 100644
-index 985ad3a95671..000000000000
---- a/arch/arm/mach-footbridge/include/mach/hardware.h
+index 873dd3d9f274..000000000000
+--- a/arch/arm/mach-rpc/ecard.h
 +++ /dev/null
-@@ -1,90 +0,0 @@
+@@ -1,66 +0,0 @@
 -/* SPDX-License-Identifier: GPL-2.0-only */
 -/*
-- *  arch/arm/mach-footbridge/include/mach/hardware.h
+- *  ecard.h
 - *
-- *  Copyright (C) 1998-1999 Russell King.
+- *  Copyright 2007 Russell King
+- */
+-
+-/* Definitions internal to ecard.c - for it's use only!!
 - *
-- *  This file contains the hardware definitions of the EBSA-285.
+- * External expansion card header as read from the card
+- */
+-struct ex_ecid {
+-	unsigned char	r_irq:1;
+-	unsigned char	r_zero:1;
+-	unsigned char	r_fiq:1;
+-	unsigned char	r_id:4;
+-	unsigned char	r_a:1;
+-
+-	unsigned char	r_cd:1;
+-	unsigned char	r_is:1;
+-	unsigned char	r_w:2;
+-	unsigned char	r_r1:4;
+-
+-	unsigned char	r_r2:8;
+-
+-	unsigned char	r_prod[2];
+-
+-	unsigned char	r_manu[2];
+-
+-	unsigned char	r_country;
+-
+-	unsigned char	r_fiqmask;
+-	unsigned char	r_fiqoff[3];
+-
+-	unsigned char	r_irqmask;
+-	unsigned char	r_irqoff[3];
+-};
+-
+-/*
+- * Chunk directory entry as read from the card
+- */
+-struct ex_chunk_dir {
+-	unsigned char r_id;
+-	unsigned char r_len[3];
+-	unsigned long r_start;
+-	union {
+-		char string[256];
+-		char data[1];
+-	} d;
+-#define c_id(x)		((x)->r_id)
+-#define c_len(x)	((x)->r_len[0]|((x)->r_len[1]<<8)|((x)->r_len[2]<<16))
+-#define c_start(x)	((x)->r_start)
+-};
+-
+-typedef enum ecard_type {		/* Cards address space		*/
+-	ECARD_IOC,
+-	ECARD_MEMC,
+-	ECARD_EASI
+-} card_type_t;
+-
+-typedef enum {				/* Speed for ECARD_IOC space	*/
+-	ECARD_SLOW	 = 0,
+-	ECARD_MEDIUM	 = 1,
+-	ECARD_FAST	 = 2,
+-	ECARD_SYNC	 = 3
+-} card_speed_t;
+diff --git a/arch/arm/mach-rpc/fiq.S b/arch/arm/mach-rpc/fiq.S
+deleted file mode 100644
+index 087bdf4bc093..000000000000
+--- a/arch/arm/mach-rpc/fiq.S
++++ /dev/null
+@@ -1,18 +0,0 @@
+-/* SPDX-License-Identifier: GPL-2.0 */
+-#include <linux/linkage.h>
+-#include <asm/assembler.h>
+-#include <mach/hardware.h>
+-
+-	.equ	ioc_base_high, IOC_BASE & 0xff000000
+-	.equ	ioc_base_low, IOC_BASE & 0x00ff0000
+-
+-	.text
+-	.global	rpc_default_fiq_end
+-ENTRY(rpc_default_fiq_start)
+-	mov	r12, #ioc_base_high
+-	.if	ioc_base_low
+-	orr	r12, r12, #ioc_base_low
+-	.endif
+-	strb	r12, [r12, #0x38]	@ Disable FIQ register
+-	subs	pc, lr, #4
+-rpc_default_fiq_end:
+diff --git a/arch/arm/mach-rpc/floppydma.S b/arch/arm/mach-rpc/floppydma.S
+deleted file mode 100644
+index 6698b83050dc..000000000000
+--- a/arch/arm/mach-rpc/floppydma.S
++++ /dev/null
+@@ -1,29 +0,0 @@
+-/* SPDX-License-Identifier: GPL-2.0-only */
+-/*
+- *  linux/arch/arm/lib/floppydma.S
+- *
+- *  Copyright (C) 1995, 1996 Russell King
+- */
+-#include <linux/linkage.h>
+-#include <asm/assembler.h>
+-		.text
+-
+-		.global	floppy_fiqin_end
+-ENTRY(floppy_fiqin_start)
+-		subs	r9, r9, #1
+-		ldrbgt	r12, [r11, #-4]
+-		ldrble	r12, [r11], #0
+-		strb	r12, [r10], #1
+-		subs	pc, lr, #4
+-floppy_fiqin_end:
+-
+-		.global	floppy_fiqout_end
+-ENTRY(floppy_fiqout_start)
+-		subs	r9, r9, #1
+-		ldrbge	r12, [r10], #1
+-		movlt	r12, #0
+-		strble	r12, [r11], #0
+-		subsle	pc, lr, #4
+-		strb	r12, [r11, #-4]
+-		subs	pc, lr, #4
+-floppy_fiqout_end:
+diff --git a/arch/arm/mach-rpc/include/mach/acornfb.h b/arch/arm/mach-rpc/include/mach/acornfb.h
+deleted file mode 100644
+index 2bf18ab3d699..000000000000
+--- a/arch/arm/mach-rpc/include/mach/acornfb.h
++++ /dev/null
+@@ -1,137 +0,0 @@
+-/* SPDX-License-Identifier: GPL-2.0-only */
+-/*
+- *  arch/arm/mach-rpc/include/mach/acornfb.h
+- *
+- *  Copyright (C) 1999 Russell King
+- *
+- *  AcornFB architecture specific code
+- */
+-
+-#define acornfb_bandwidth(var) ((var)->pixclock * 8 / (var)->bits_per_pixel)
+-
+-static inline int
+-acornfb_valid_pixrate(struct fb_var_screeninfo *var)
+-{
+-	u_long limit;
+-
+-	if (!var->pixclock)
+-		return 0;
+-
+-	/*
+-	 * Limits below are taken from RISC OS bandwidthlimit file
+-	 */
+-	if (current_par.using_vram) {
+-		if (current_par.vram_half_sam == 2048)
+-			limit = 6578;
+-		else
+-			limit = 13157;
+-	} else {
+-		limit = 26315;
+-	}
+-
+-	return acornfb_bandwidth(var) >= limit;
+-}
+-
+-/*
+- * Try to find the best PLL parameters for the pixel clock.
+- * This algorithm seems to give best predictable results,
+- * and produces the same values as detailed in the VIDC20
+- * data sheet.
+- */
+-static inline u_int
+-acornfb_vidc20_find_pll(u_int pixclk)
+-{
+-	u_int r, best_r = 2, best_v = 2;
+-	int best_d = 0x7fffffff;
+-
+-	for (r = 2; r <= 32; r++) {
+-		u_int rr, v, p;
+-		int d;
+-
+-		rr = 41667 * r;
+-
+-		v = (rr + pixclk / 2) / pixclk;
+-
+-		if (v > 32 || v < 2)
+-			continue;
+-
+-		p = (rr + v / 2) / v;
+-
+-		d = pixclk - p;
+-
+-		if (d < 0)
+-			d = -d;
+-
+-		if (d < best_d) {
+-			best_d = d;
+-			best_v = v - 1;
+-			best_r = r - 1;
+-		}
+-
+-		if (d == 0)
+-			break;
+-	}
+-
+-	return best_v << 8 | best_r;
+-}
+-
+-static inline void
+-acornfb_vidc20_find_rates(struct vidc_timing *vidc,
+-			  struct fb_var_screeninfo *var)
+-{
+-	u_int div;
+-
+-	/* Select pixel-clock divisor to keep PLL in range */
+-	div = var->pixclock / 9090; /*9921*/
+-
+-	/* Limit divisor */
+-	if (div == 0)
+-		div = 1;
+-	if (div > 8)
+-		div = 8;
+-
+-	/* Encode divisor to VIDC20 setting */
+-	switch (div) {
+-	case 1:	vidc->control |= VIDC20_CTRL_PIX_CK;  break;
+-	case 2:	vidc->control |= VIDC20_CTRL_PIX_CK2; break;
+-	case 3:	vidc->control |= VIDC20_CTRL_PIX_CK3; break;
+-	case 4:	vidc->control |= VIDC20_CTRL_PIX_CK4; break;
+-	case 5:	vidc->control |= VIDC20_CTRL_PIX_CK5; break;
+-	case 6:	vidc->control |= VIDC20_CTRL_PIX_CK6; break;
+-	case 7:	vidc->control |= VIDC20_CTRL_PIX_CK7; break;
+-	case 8: vidc->control |= VIDC20_CTRL_PIX_CK8; break;
+-	}
+-
+-	/*
+-	 * With VRAM, the FIFO can be set to the highest possible setting
+-	 * because there are no latency considerations for other memory
+-	 * accesses. However, in 64 bit bus mode the FIFO preload value
+-	 * must not be set to VIDC20_CTRL_FIFO_28 because this will let
+-	 * the FIFO overflow. See VIDC20 manual page 33 (6.0 Setting the
+-	 * FIFO preload value).
+-	 */
+-	if (current_par.using_vram) {
+-		if (current_par.vram_half_sam == 2048)
+-			vidc->control |= VIDC20_CTRL_FIFO_24;
+-		else
+-			vidc->control |= VIDC20_CTRL_FIFO_28;
+-	} else {
+-		unsigned long bandwidth = acornfb_bandwidth(var);
+-
+-		/* Encode bandwidth as VIDC20 setting */
+-		if (bandwidth > 33334)		/* < 30.0MB/s */
+-			vidc->control |= VIDC20_CTRL_FIFO_16;
+-		else if (bandwidth > 26666)	/* < 37.5MB/s */
+-			vidc->control |= VIDC20_CTRL_FIFO_20;
+-		else if (bandwidth > 22222)	/* < 45.0MB/s */
+-			vidc->control |= VIDC20_CTRL_FIFO_24;
+-		else				/* > 45.0MB/s */
+-			vidc->control |= VIDC20_CTRL_FIFO_28;
+-	}
+-
+-	/* Find the PLL values */
+-	vidc->pll_ctl = acornfb_vidc20_find_pll(var->pixclock / div);
+-}
+-
+-#define acornfb_default_control()	(VIDC20_CTRL_PIX_VCLK)
+-#define acornfb_default_econtrol()	(VIDC20_ECTL_DAC | VIDC20_ECTL_REG(3))
+diff --git a/arch/arm/mach-rpc/include/mach/hardware.h b/arch/arm/mach-rpc/include/mach/hardware.h
+deleted file mode 100644
+index 6f197706f979..000000000000
+--- a/arch/arm/mach-rpc/include/mach/hardware.h
++++ /dev/null
+@@ -1,73 +0,0 @@
+-/* SPDX-License-Identifier: GPL-2.0-only */
+-/*
+- *  arch/arm/mach-rpc/include/mach/hardware.h
+- *
+- *  Copyright (C) 1996-1999 Russell King.
+- *
+- *  This file contains the hardware definitions of the RiscPC series machines.
 - */
 -#ifndef __ASM_ARCH_HARDWARE_H
 -#define __ASM_ARCH_HARDWARE_H
 -
--/*   Virtual      Physical	Size
-- * 0xff800000	0x40000000	1MB	X-Bus
-- * 0xff000000	0x7c000000	1MB	PCI I/O space
-- * 0xfe000000	0x42000000	1MB	CSR
-- * 0xfd000000	0x78000000	1MB	Outbound write flush (not supported)
-- * 0xfc000000	0x79000000	1MB	PCI IACK/special space
-- * 0xfb000000	0x7a000000	16MB	PCI Config type 1
-- * 0xfa000000	0x7b000000	16MB	PCI Config type 0
-- * 0xf9000000	0x50000000	1MB	Cache flush
-- * 0xf0000000	0x80000000	16MB	ISA memory
+-#include <mach/memory.h>
+-
+-/*
+- * What hardware must be present
 - */
+-#define HAS_IOMD
+-#define HAS_VIDC20
 -
--#define XBUS_SIZE		0x00100000
--#define XBUS_BASE		0xff800000
+-/* Hardware addresses of major areas.
+- *  *_START is the physical address
+- *  *_SIZE  is the size of the region
+- *  *_BASE  is the virtual address
+- */
+-#define RPC_RAM_SIZE		0x10000000
+-#define RPC_RAM_START		0x10000000
 -
--#define ARMCSR_SIZE		0x00100000
--#define ARMCSR_BASE		0xfe000000
+-#define EASI_SIZE		0x08000000	/* EASI I/O */
+-#define EASI_START		0x08000000
+-#define EASI_BASE		IOMEM(0xe5000000)
 -
--#define WFLUSH_SIZE		0x00100000
--#define WFLUSH_BASE		0xfd000000
+-#define IO_START		0x03000000	/* I/O */
+-#define IO_SIZE			0x01000000
+-#define IO_BASE			IOMEM(0xe0000000)
 -
--#define PCIIACK_SIZE		0x00100000
--#define PCIIACK_BASE		0xfc000000
+-#define SCREEN_START		0x02000000	/* VRAM */
+-#define SCREEN_END		0xdfc00000
+-#define SCREEN_BASE		0xdf800000
 -
--#define PCICFG1_SIZE		0x01000000
--#define PCICFG1_BASE		0xfb000000
+-#define UNCACHEABLE_ADDR	(FLUSH_BASE + 0x10000)
 -
--#define PCICFG0_SIZE		0x01000000
--#define PCICFG0_BASE		0xfa000000
+-/*
+- * IO Addresses
+- */
+-#define ECARD_EASI_BASE		(EASI_BASE)
+-#define VIDC_BASE		(IO_BASE + 0x00400000)
+-#define EXPMASK_BASE		(IO_BASE + 0x00360000)
+-#define ECARD_IOC4_BASE		(IO_BASE + 0x00270000)
+-#define ECARD_IOC_BASE		(IO_BASE + 0x00240000)
+-#define IOMD_BASE		(IO_BASE + 0x00200000)
+-#define IOC_BASE		(IO_BASE + 0x00200000)
+-#define ECARD_MEMC8_BASE	(IO_BASE + 0x0002b000)
+-#define FLOPPYDMA_BASE		(IO_BASE + 0x0002a000)
+-#define PCIO_BASE		(IO_BASE + 0x00010000)
+-#define ECARD_MEMC_BASE		(IO_BASE + 0x00000000)
 -
--#define PCIMEM_SIZE		0x01000000
--#define PCIMEM_BASE		0xf0000000
+-#define vidc_writel(val)	__raw_writel(val, VIDC_BASE)
 -
--#define XBUS_CS2		0x40012000
+-#define NETSLOT_BASE		0x0302b000
+-#define NETSLOT_SIZE		0x00001000
 -
--#define XBUS_SWITCH		((volatile unsigned char *)(XBUS_BASE + 0x12000))
--#define XBUS_SWITCH_SWITCH	((*XBUS_SWITCH) & 15)
--#define XBUS_SWITCH_J17_13	((*XBUS_SWITCH) & (1 << 4))
--#define XBUS_SWITCH_J17_11	((*XBUS_SWITCH) & (1 << 5))
--#define XBUS_SWITCH_J17_9	((*XBUS_SWITCH) & (1 << 6))
+-#define PODSLOT_IOC0_BASE	0x03240000
+-#define PODSLOT_IOC4_BASE	0x03270000
+-#define PODSLOT_IOC_SIZE	(1 << 14)
+-#define PODSLOT_MEMC_BASE	0x03000000
+-#define PODSLOT_MEMC_SIZE	(1 << 14)
+-#define PODSLOT_EASI_BASE	0x08000000
+-#define PODSLOT_EASI_SIZE	(1 << 24)
 -
--#define UNCACHEABLE_ADDR	(ARMCSR_BASE + 0x108)	/* CSR_ROMBASEMASK */
--
--
--/* PIC irq control */
--#define PIC_LO			0x20
--#define PIC_MASK_LO		0x21
--#define PIC_HI			0xA0
--#define PIC_MASK_HI		0xA1
--
--/* GPIO pins */
--#define GPIO_CCLK		0x800
--#define GPIO_DSCLK		0x400
--#define GPIO_E2CLK		0x200
--#define GPIO_IOLOAD		0x100
--#define GPIO_RED_LED		0x080
--#define GPIO_WDTIMER		0x040
--#define GPIO_DATA		0x020
--#define GPIO_IOCLK		0x010
--#define GPIO_DONE		0x008
--#define GPIO_FAN		0x004
--#define GPIO_GREEN_LED		0x002
--#define GPIO_RESET		0x001
--
--/* CPLD pins */
--#define CPLD_DS_ENABLE		8
--#define CPLD_7111_DISABLE	4
--#define CPLD_UNMUTE		2
--#define CPLD_FLASH_WR_ENABLE	1
--
--#ifndef __ASSEMBLY__
--extern raw_spinlock_t nw_gpio_lock;
--extern void nw_gpio_modify_op(unsigned int mask, unsigned int set);
--extern void nw_gpio_modify_io(unsigned int mask, unsigned int in);
--extern unsigned int nw_gpio_read(void);
--extern void nw_cpld_modify(unsigned int mask, unsigned int set);
--#endif
+-#define	EXPMASK_STATUS		(EXPMASK_BASE + 0x00)
+-#define EXPMASK_ENABLE		(EXPMASK_BASE + 0x04)
 -
 -#endif
-diff --git a/arch/arm/mach-footbridge/include/mach/irqs.h b/arch/arm/mach-footbridge/include/mach/irqs.h
+diff --git a/arch/arm/mach-rpc/include/mach/io.h b/arch/arm/mach-rpc/include/mach/io.h
 deleted file mode 100644
-index a5f41846ab9c..000000000000
---- a/arch/arm/mach-footbridge/include/mach/irqs.h
+index 8a8f28406691..000000000000
+--- a/arch/arm/mach-rpc/include/mach/io.h
 +++ /dev/null
-@@ -1,97 +0,0 @@
--/* SPDX-License-Identifier: GPL-2.0 */
+@@ -1,28 +0,0 @@
+-/* SPDX-License-Identifier: GPL-2.0-only */
 -/*
-- * arch/arm/mach-footbridge/include/mach/irqs.h
+- *  arch/arm/mach-rpc/include/mach/io.h
 - *
-- * Copyright (C) 1998 Russell King
-- * Copyright (C) 1998 Phil Blundell
+- *  Copyright (C) 1997 Russell King
 - *
-- * Changelog:
-- *  20-Jan-1998	RMK	Started merge of EBSA286, CATS and NetWinder
-- *  01-Feb-1999	PJB	ISA IRQs start at 0 not 16
+- * Modifications:
+- *  06-Dec-1997	RMK	Created.
 - */
--#include <asm/mach-types.h>
+-#ifndef __ASM_ARM_ARCH_IO_H
+-#define __ASM_ARM_ARCH_IO_H
 -
--#define NR_IRQS			36
--#define NR_DC21285_IRQS		16
+-#include <mach/hardware.h>
 -
--#define _ISA_IRQ(x)		(0 + (x))
--#define _ISA_INR(x)		((x) - 0)
--#define _DC21285_IRQ(x)		(16 + (x))
--#define _DC21285_INR(x)		((x) - 16)
+-#define IO_SPACE_LIMIT 0xffff
 -
 -/*
-- * This is a list of all interrupts that the 21285
-- * can generate and we handle.
+- * We need PC style IO addressing for:
+- *  - floppy (at 0x3f2,0x3f4,0x3f5,0x3f7)
+- *  - parport (at 0x278-0x27a, 0x27b-0x27f, 0x778-0x77a)
+- *  - 8250 serial (only for compile)
+- *
+- * These peripherals are found in an area of MMIO which looks very much
+- * like an ISA bus, but with registers at the low byte of each word.
 - */
--#define IRQ_CONRX		_DC21285_IRQ(0)
--#define IRQ_CONTX		_DC21285_IRQ(1)
--#define IRQ_TIMER1		_DC21285_IRQ(2)
--#define IRQ_TIMER2		_DC21285_IRQ(3)
--#define IRQ_TIMER3		_DC21285_IRQ(4)
--#define IRQ_IN0			_DC21285_IRQ(5)
--#define IRQ_IN1			_DC21285_IRQ(6)
--#define IRQ_IN2			_DC21285_IRQ(7)
--#define IRQ_IN3			_DC21285_IRQ(8)
--#define IRQ_DOORBELLHOST	_DC21285_IRQ(9)
--#define IRQ_DMA1		_DC21285_IRQ(10)
--#define IRQ_DMA2		_DC21285_IRQ(11)
--#define IRQ_PCI			_DC21285_IRQ(12)
--#define IRQ_SDRAMPARITY		_DC21285_IRQ(13)
--#define IRQ_I2OINPOST		_DC21285_IRQ(14)
--#define IRQ_PCI_ABORT		_DC21285_IRQ(15)
--#define IRQ_PCI_SERR		_DC21285_IRQ(16)
--#define IRQ_DISCARD_TIMER	_DC21285_IRQ(17)
--#define IRQ_PCI_DPERR		_DC21285_IRQ(18)
--#define IRQ_PCI_PERR		_DC21285_IRQ(19)
+-#define __io(a)		(PCIO_BASE + ((a) << 2))
 -
--#define IRQ_ISA_TIMER		_ISA_IRQ(0)
--#define IRQ_ISA_KEYBOARD	_ISA_IRQ(1)
--#define IRQ_ISA_CASCADE		_ISA_IRQ(2)
--#define IRQ_ISA_UART2		_ISA_IRQ(3)
--#define IRQ_ISA_UART		_ISA_IRQ(4)
--#define IRQ_ISA_FLOPPY		_ISA_IRQ(6)
--#define IRQ_ISA_PRINTER		_ISA_IRQ(7)
--#define IRQ_ISA_RTC_ALARM	_ISA_IRQ(8)
--#define IRQ_ISA_2		_ISA_IRQ(9)
--#define IRQ_ISA_PS2MOUSE	_ISA_IRQ(12)
--#define IRQ_ISA_HARDDISK1	_ISA_IRQ(14)
--#define IRQ_ISA_HARDDISK2	_ISA_IRQ(15)
--
--#define IRQ_MASK_UART_RX	(1 << 2)
--#define IRQ_MASK_UART_TX	(1 << 3)
--#define IRQ_MASK_TIMER1		(1 << 4)
--#define IRQ_MASK_TIMER2		(1 << 5)
--#define IRQ_MASK_TIMER3		(1 << 6)
--#define IRQ_MASK_IN0		(1 << 8)
--#define IRQ_MASK_IN1		(1 << 9)
--#define IRQ_MASK_IN2		(1 << 10)
--#define IRQ_MASK_IN3		(1 << 11)
--#define IRQ_MASK_DOORBELLHOST	(1 << 15)
--#define IRQ_MASK_DMA1		(1 << 16)
--#define IRQ_MASK_DMA2		(1 << 17)
--#define IRQ_MASK_PCI		(1 << 18)
--#define IRQ_MASK_SDRAMPARITY	(1 << 24)
--#define IRQ_MASK_I2OINPOST	(1 << 25)
--#define IRQ_MASK_PCI_ABORT	((1 << 29) | (1 << 30))
--#define IRQ_MASK_PCI_SERR	(1 << 23)
--#define IRQ_MASK_DISCARD_TIMER	(1 << 27)
--#define IRQ_MASK_PCI_DPERR	(1 << 28)
--#define IRQ_MASK_PCI_PERR	(1 << 31)
--
--/*
-- * Netwinder interrupt allocations
-- */
--#define IRQ_NETWINDER_ETHER10	IRQ_IN0
--#define IRQ_NETWINDER_ETHER100	IRQ_IN1
--#define IRQ_NETWINDER_VIDCOMP	IRQ_IN2
--#define IRQ_NETWINDER_PS2MOUSE	_ISA_IRQ(5)
--#define IRQ_NETWINDER_IR	_ISA_IRQ(6)
--#define IRQ_NETWINDER_BUTTON	_ISA_IRQ(10)
--#define IRQ_NETWINDER_VGA	_ISA_IRQ(11)
--#define IRQ_NETWINDER_SOUND	_ISA_IRQ(12)
--
--#define I8042_KBD_IRQ	IRQ_ISA_KEYBOARD
--#define I8042_AUX_IRQ	(machine_is_netwinder() ? IRQ_NETWINDER_PS2MOUSE : IRQ_ISA_PS2MOUSE)
--#define IRQ_FLOPPYDISK	IRQ_ISA_FLOPPY
--
--#define irq_canonicalize(_i)	(((_i) == IRQ_ISA_CASCADE) ? IRQ_ISA_2 : _i)
-diff --git a/arch/arm/mach-footbridge/include/mach/isa-dma.h b/arch/arm/mach-footbridge/include/mach/isa-dma.h
+-#endif
+diff --git a/arch/arm/mach-rpc/include/mach/irqs.h b/arch/arm/mach-rpc/include/mach/irqs.h
 deleted file mode 100644
-index b10731a1f66a..000000000000
---- a/arch/arm/mach-footbridge/include/mach/isa-dma.h
+index 0c3428fd9729..000000000000
+--- a/arch/arm/mach-rpc/include/mach/irqs.h
 +++ /dev/null
-@@ -1,18 +0,0 @@
--/* SPDX-License-Identifier: GPL-2.0 */
+@@ -1,42 +0,0 @@
+-/* SPDX-License-Identifier: GPL-2.0-only */
 -/*
-- *  arch/arm/mach-footbridge/include/mach/isa-dma.h
+- *  arch/arm/mach-rpc/include/mach/irqs.h
 - *
-- *  Architecture DMA routines
+- *  Copyright (C) 1996 Russell King
+- */
+-
+-#define IRQ_PRINTER		0
+-#define IRQ_BATLOW		1
+-#define IRQ_FLOPPYINDEX		2
+-#define IRQ_VSYNCPULSE		3
+-#define IRQ_POWERON		4
+-#define IRQ_TIMER0		5
+-#define IRQ_TIMER1		6
+-#define IRQ_IMMEDIATE		7
+-#define IRQ_EXPCARDFIQ		8
+-#define IRQ_HARDDISK		9
+-#define IRQ_SERIALPORT		10
+-#define IRQ_FLOPPYDISK		12
+-#define IRQ_EXPANSIONCARD	13
+-#define IRQ_KEYBOARDTX		14
+-#define IRQ_KEYBOARDRX		15
+-
+-#define IRQ_DMA0		16
+-#define IRQ_DMA1		17
+-#define IRQ_DMA2		18
+-#define IRQ_DMA3		19
+-#define IRQ_DMAS0		20
+-#define IRQ_DMAS1		21
+-
+-#define FIQ_FLOPPYDATA		0
+-#define FIQ_ECONET		2
+-#define FIQ_SERIALPORT		4
+-#define FIQ_EXPANSIONCARD	6
+-#define FIQ_FORCE		7
+-
+-/*
+- * This is the offset of the FIQ "IRQ" numbers
+- */
+-#define FIQ_START		64
+-
+-#define NR_IRQS			128
+diff --git a/arch/arm/mach-rpc/include/mach/isa-dma.h b/arch/arm/mach-rpc/include/mach/isa-dma.h
+deleted file mode 100644
+index d9c3af1ef718..000000000000
+--- a/arch/arm/mach-rpc/include/mach/isa-dma.h
++++ /dev/null
+@@ -1,26 +0,0 @@
+-/* SPDX-License-Identifier: GPL-2.0-only */
+-/*
+- *  arch/arm/mach-rpc/include/mach/isa-dma.h
 - *
-- *  Copyright (C) 1998,1999 Russell King
-- *  Copyright (C) 1998,1999 Philip Blundell
+- *  Copyright (C) 1997 Russell King
 - */
 -#ifndef __ASM_ARCH_DMA_H
 -#define __ASM_ARCH_DMA_H
 -
 -#define MAX_DMA_CHANNELS	8
 -
--#define DMA_FLOPPY		(2)
--#define DMA_ISA_CASCADE		(4)
+-#define DMA_0			0
+-#define DMA_1			1
+-#define DMA_2			2
+-#define DMA_3			3
+-#define DMA_S0			4
+-#define DMA_S1			5
+-#define DMA_VIRTUAL_FLOPPY	6
+-#define DMA_VIRTUAL_SOUND	7
+-
+-#define DMA_FLOPPY		DMA_VIRTUAL_FLOPPY
+-
+-#define IOMD_DMA_BOUNDARY	(PAGE_SIZE - 1)
 -
 -#endif /* _ASM_ARCH_DMA_H */
-diff --git a/arch/arm/mach-footbridge/include/mach/memory.h b/arch/arm/mach-footbridge/include/mach/memory.h
+-
+diff --git a/arch/arm/mach-rpc/include/mach/memory.h b/arch/arm/mach-rpc/include/mach/memory.h
 deleted file mode 100644
-index 9516877667d7..000000000000
---- a/arch/arm/mach-footbridge/include/mach/memory.h
+index a586eb31b18d..000000000000
+--- a/arch/arm/mach-rpc/include/mach/memory.h
 +++ /dev/null
-@@ -1,26 +0,0 @@
+@@ -1,32 +0,0 @@
 -/* SPDX-License-Identifier: GPL-2.0-only */
 -/*
-- *  arch/arm/mach-footbridge/include/mach/memory.h
+- *  arch/arm/mach-rpc/include/mach/memory.h
 - *
-- *  Copyright (C) 1996-1999 Russell King.
+- *  Copyright (C) 1996,1997,1998 Russell King.
 - *
 - *  Changelog:
 - *   20-Oct-1996 RMK	Created
-- *   31-Dec-1997 RMK	Fixed definitions to reduce warnings.
-- *   17-May-1998 DAG	Added __virt_to_bus and __bus_to_virt functions.
-- *   21-Nov-1998 RMK	Changed __virt_to_bus and __bus_to_virt to macros.
-- *   21-Mar-1999 RMK	Added PAGE_OFFSET for co285 architecture.
-- *			Renamed to memory.h
-- *			Moved PAGE_OFFSET and TASK_SIZE here
+- *   31-Dec-1997 RMK	Fixed definitions to reduce warnings
+- *   11-Jan-1998 RMK	Uninlined to reduce hits on cache
+- *   08-Feb-1998 RMK	Added __virt_to_bus and __bus_to_virt
+- *   21-Mar-1999 RMK	Renamed to memory.h
+- *		 RMK	Added TASK_SIZE and PAGE_OFFSET
 - */
 -#ifndef __ASM_ARCH_MEMORY_H
 -#define __ASM_ARCH_MEMORY_H
 -
 -/*
-- * Cache flushing area.
+- * Cache flushing area - ROM
 - */
--#define FLUSH_BASE		0xf9000000
+-#define FLUSH_BASE_PHYS		0x00000000
+-#define FLUSH_BASE		0xdf000000
 -
--#define FLUSH_BASE_PHYS		0x50000000
+-/*
+- * Sparsemem support.  Each section is a maximum of 64MB.  The sections
+- * are offset by 128MB and can cover 128MB, so that gives us a maximum
+- * of 29 physmem bits.
+- */
+-#define MAX_PHYSMEM_BITS	29
+-#define SECTION_SIZE_BITS	26
 -
 -#endif
-diff --git a/arch/arm/mach-footbridge/include/mach/uncompress.h b/arch/arm/mach-footbridge/include/mach/uncompress.h
+diff --git a/arch/arm/mach-rpc/include/mach/uncompress.h b/arch/arm/mach-rpc/include/mach/uncompress.h
 deleted file mode 100644
-index 28b577e29db3..000000000000
---- a/arch/arm/mach-footbridge/include/mach/uncompress.h
+index 1fbe7eb956fd..000000000000
+--- a/arch/arm/mach-rpc/include/mach/uncompress.h
 +++ /dev/null
-@@ -1,34 +0,0 @@
+@@ -1,181 +0,0 @@
 -/* SPDX-License-Identifier: GPL-2.0-only */
 -/*
-- *  arch/arm/mach-footbridge/include/mach/uncompress.h
+- *  arch/arm/mach-rpc/include/mach/uncompress.h
 - *
-- *  Copyright (C) 1996-1999 Russell King
+- *  Copyright (C) 1996 Russell King
 - */
--#include <asm/mach-types.h>
+-#define VIDMEM ((char *)SCREEN_START)
+- 
+-#include <linux/io.h>
+-#include <mach/hardware.h>
+-#include <asm/setup.h>
+-#include <asm/page.h>
+-
+-int video_size_row;
+-unsigned char bytes_per_char_h;
+-extern unsigned long con_charconvtable[256];
+-
+-struct param_struct {
+-	unsigned long page_size;
+-	unsigned long nr_pages;
+-	unsigned long ramdisk_size;
+-	unsigned long mountrootrdonly;
+-	unsigned long rootdev;
+-	unsigned long video_num_cols;
+-	unsigned long video_num_rows;
+-	unsigned long video_x;
+-	unsigned long video_y;
+-	unsigned long memc_control_reg;
+-	unsigned char sounddefault;
+-	unsigned char adfsdrives;
+-	unsigned char bytes_per_char_h;
+-	unsigned char bytes_per_char_v;
+-	unsigned long unused[256/4-11];
+-};
+-
+-static const unsigned long palette_4[16] = {
+-	0x00000000,
+-	0x000000cc,
+-	0x0000cc00,             /* Green   */
+-	0x0000cccc,             /* Yellow  */
+-	0x00cc0000,             /* Blue    */
+-	0x00cc00cc,             /* Magenta */
+-	0x00cccc00,             /* Cyan    */
+-	0x00cccccc,             /* White   */
+-	0x00000000,
+-	0x000000ff,
+-	0x0000ff00,
+-	0x0000ffff,
+-	0x00ff0000,
+-	0x00ff00ff,
+-	0x00ffff00,
+-	0x00ffffff
+-};
+-
+-#define palette_setpixel(p)	*(unsigned long *)(IO_START+0x00400000) = 0x10000000|((p) & 255)
+-#define palette_write(v)	*(unsigned long *)(IO_START+0x00400000) = 0x00000000|((v) & 0x00ffffff)
 -
 -/*
-- * Note! This could cause problems on the NetWinder
+- * params_phys is a linker defined symbol - see
+- * arch/arm/boot/compressed/Makefile
 - */
--#define DC21285_BASE ((volatile unsigned int *)0x42000160)
--#define SER0_BASE    ((volatile unsigned char *)0x7c0003f8)
+-extern __attribute__((pure)) struct param_struct *params(void);
+-#define params (params())
 -
--static inline void putc(char c)
+-#ifndef STANDALONE_DEBUG 
+-unsigned long video_num_cols;
+-unsigned long video_num_rows;
+-unsigned long video_x;
+-unsigned long video_y;
+-unsigned char bytes_per_char_v;
+-int white;
+-
+-/*
+- * This does not append a newline
+- */
+-static inline void putc(int c)
 -{
--	if (machine_is_netwinder()) {
--		while ((SER0_BASE[5] & 0x60) != 0x60)
--			barrier();
--		SER0_BASE[0] = c;
+-	extern void ll_write_char(char *, char c, char white);
+-	int x,y;
+-	char *ptr;
+-
+-	x = video_x;
+-	y = video_y;
+-
+-	if (c == '\n') {
+-		if (++y >= video_num_rows)
+-			y--;
+-	} else if (c == '\r') {
+-		x = 0;
 -	} else {
--		while (DC21285_BASE[6] & 8);
--		DC21285_BASE[0] = c;
+-		ptr = VIDMEM + ((y*video_num_cols*bytes_per_char_v+x)*bytes_per_char_h);
+-		ll_write_char(ptr, c, white);
+-		if (++x >= video_num_cols) {
+-			x = 0;
+-			if ( ++y >= video_num_rows ) {
+-				y--;
+-			}
+-		}
 -	}
+-
+-	video_x = x;
+-	video_y = y;
 -}
 -
 -static inline void flush(void)
@@ -2620,366 +3584,500 @@ index 28b577e29db3..000000000000
 -}
 -
 -/*
-- * nothing to do
+- * Setup for decompression
 - */
--#define arch_decomp_setup()
-diff --git a/arch/arm/mach-footbridge/isa-irq.c b/arch/arm/mach-footbridge/isa-irq.c
+-static void arch_decomp_setup(void)
+-{
+-	int i;
+-	struct tag *t = (struct tag *)params;
+-	unsigned int nr_pages = 0, page_size = PAGE_SIZE;
+-
+-	if (t->hdr.tag == ATAG_CORE) {
+-		for (; t->hdr.size; t = tag_next(t)) {
+-			if (t->hdr.tag == ATAG_VIDEOTEXT) {
+-				video_num_rows = t->u.videotext.video_lines;
+-				video_num_cols = t->u.videotext.video_cols;
+-				video_x = t->u.videotext.x;
+-				video_y = t->u.videotext.y;
+-			} else if (t->hdr.tag == ATAG_VIDEOLFB) {
+-				bytes_per_char_h = t->u.videolfb.lfb_depth;
+-				bytes_per_char_v = 8;
+-			} else if (t->hdr.tag == ATAG_MEM) {
+-				page_size = PAGE_SIZE;
+-				nr_pages += (t->u.mem.size / PAGE_SIZE);
+-			}
+-		}
+-	} else {
+-		nr_pages = params->nr_pages;
+-		page_size = params->page_size;
+-		video_num_rows = params->video_num_rows;
+-		video_num_cols = params->video_num_cols;
+-		video_x = params->video_x;
+-		video_y = params->video_y;
+-		bytes_per_char_h = params->bytes_per_char_h;
+-		bytes_per_char_v = params->bytes_per_char_v;
+-	}
+-
+-	video_size_row = video_num_cols * bytes_per_char_h;
+-	
+-	if (bytes_per_char_h == 4)
+-		for (i = 0; i < 256; i++)
+-			con_charconvtable[i] =
+-				(i & 128 ? 1 << 0  : 0) |
+-				(i & 64  ? 1 << 4  : 0) |
+-				(i & 32  ? 1 << 8  : 0) |
+-				(i & 16  ? 1 << 12 : 0) |
+-				(i & 8   ? 1 << 16 : 0) |
+-				(i & 4   ? 1 << 20 : 0) |
+-				(i & 2   ? 1 << 24 : 0) |
+-				(i & 1   ? 1 << 28 : 0);
+-	else
+-		for (i = 0; i < 16; i++)
+-			con_charconvtable[i] =
+-				(i & 8   ? 1 << 0  : 0) |
+-				(i & 4   ? 1 << 8  : 0) |
+-				(i & 2   ? 1 << 16 : 0) |
+-				(i & 1   ? 1 << 24 : 0);
+-
+-
+-	palette_setpixel(0);
+-	if (bytes_per_char_h == 1) {
+-		palette_write (0);
+-		palette_write (0x00ffffff);
+-		for (i = 2; i < 256; i++)
+-			palette_write (0);
+-		white = 1;
+-	} else {
+-		for (i = 0; i < 256; i++)
+-			palette_write (i < 16 ? palette_4[i] : 0);
+-		white = 7;
+-	}
+-
+-	if (nr_pages * page_size < 4096*1024) error("<4M of mem\n");
+-}
+-#endif
+diff --git a/arch/arm/mach-rpc/io-acorn.S b/arch/arm/mach-rpc/io-acorn.S
 deleted file mode 100644
-index 48c7b3efd555..000000000000
---- a/arch/arm/mach-footbridge/isa-irq.c
+index aa9bf0d771c0..000000000000
+--- a/arch/arm/mach-rpc/io-acorn.S
 +++ /dev/null
-@@ -1,177 +0,0 @@
--// SPDX-License-Identifier: GPL-2.0-only
+@@ -1,28 +0,0 @@
+-/* SPDX-License-Identifier: GPL-2.0-only */
 -/*
-- *  linux/arch/arm/mach-footbridge/irq.c
+- *  linux/arch/arm/lib/io-acorn.S
 - *
-- *  Copyright (C) 1996-2000 Russell King
+- *  Copyright (C) 1995, 1996 Russell King
 - *
-- *  Changelog:
-- *   22-Aug-1998 RMK	Restructured IRQ routines
-- *   03-Sep-1998 PJB	Merged CATS support
-- *   20-Jan-1998 RMK	Started merge of EBSA286, CATS and NetWinder
-- *   26-Jan-1999 PJB	Don't use IACK on CATS
-- *   16-Mar-1999 RMK	Added autodetect of ISA PICs
+- * 27/03/03 Ian Molton Clean up CONFIG_CPU
 - */
--#include <linux/ioport.h>
--#include <linux/interrupt.h>
--#include <linux/list.h>
+-#include <linux/linkage.h>
+-#include <linux/kern_levels.h>
+-#include <asm/assembler.h>
+-
+-		.text
+-		.align
+-
+-.Liosl_warning:
+-		.ascii	KERN_WARNING "insl/outsl not implemented, called from %08lX\0"
+-		.align
+-
+-/*
+- * These make no sense on Acorn machines.
+- * Print a warning message.
+- */
+-ENTRY(insl)
+-ENTRY(outsl)
+-		adr	r0, .Liosl_warning
+-		mov	r1, lr
+-		b	_printk
+diff --git a/arch/arm/mach-rpc/irq.c b/arch/arm/mach-rpc/irq.c
+deleted file mode 100644
+index dc29384b6ef8..000000000000
+--- a/arch/arm/mach-rpc/irq.c
++++ /dev/null
+@@ -1,226 +0,0 @@
+-// SPDX-License-Identifier: GPL-2.0
 -#include <linux/init.h>
+-#include <linux/list.h>
 -#include <linux/io.h>
--#include <linux/spinlock.h>
 -
 -#include <asm/mach/irq.h>
--
--#include <mach/hardware.h>
--#include <asm/hardware/dec21285.h>
+-#include <asm/hardware/iomd.h>
 -#include <asm/irq.h>
--#include <asm/mach-types.h>
+-#include <asm/fiq.h>
 -
--#include "common.h"
+-// These are offsets from the stat register for each IRQ bank
+-#define STAT	0x00
+-#define REQ	0x04
+-#define CLR	0x04
+-#define MASK	0x08
 -
--static void isa_mask_pic_lo_irq(struct irq_data *d)
--{
--	unsigned int mask = 1 << (d->irq & 7);
--
--	outb(inb(PIC_MASK_LO) | mask, PIC_MASK_LO);
--}
--
--static void isa_ack_pic_lo_irq(struct irq_data *d)
--{
--	unsigned int mask = 1 << (d->irq & 7);
--
--	outb(inb(PIC_MASK_LO) | mask, PIC_MASK_LO);
--	outb(0x20, PIC_LO);
--}
--
--static void isa_unmask_pic_lo_irq(struct irq_data *d)
--{
--	unsigned int mask = 1 << (d->irq & 7);
--
--	outb(inb(PIC_MASK_LO) & ~mask, PIC_MASK_LO);
--}
--
--static struct irq_chip isa_lo_chip = {
--	.irq_ack	= isa_ack_pic_lo_irq,
--	.irq_mask	= isa_mask_pic_lo_irq,
--	.irq_unmask	= isa_unmask_pic_lo_irq,
+-static const u8 irq_prio_h[256] = {
+-	 0, 8, 9, 8,10,10,10,10,11,11,11,11,10,10,10,10,
+-	12, 8, 9, 8,10,10,10,10,11,11,11,11,10,10,10,10,
+-	13,13,13,13,10,10,10,10,11,11,11,11,10,10,10,10,
+-	13,13,13,13,10,10,10,10,11,11,11,11,10,10,10,10,
+-	14,14,14,14,10,10,10,10,11,11,11,11,10,10,10,10,
+-	14,14,14,14,10,10,10,10,11,11,11,11,10,10,10,10,
+-	13,13,13,13,10,10,10,10,11,11,11,11,10,10,10,10,
+-	13,13,13,13,10,10,10,10,11,11,11,11,10,10,10,10,
+-	15,15,15,15,10,10,10,10,11,11,11,11,10,10,10,10,
+-	15,15,15,15,10,10,10,10,11,11,11,11,10,10,10,10,
+-	13,13,13,13,10,10,10,10,11,11,11,11,10,10,10,10,
+-	13,13,13,13,10,10,10,10,11,11,11,11,10,10,10,10,
+-	15,15,15,15,10,10,10,10,11,11,11,11,10,10,10,10,
+-	15,15,15,15,10,10,10,10,11,11,11,11,10,10,10,10,
+-	13,13,13,13,10,10,10,10,11,11,11,11,10,10,10,10,
+-	13,13,13,13,10,10,10,10,11,11,11,11,10,10,10,10,
 -};
 -
--static void isa_mask_pic_hi_irq(struct irq_data *d)
--{
--	unsigned int mask = 1 << (d->irq & 7);
--
--	outb(inb(PIC_MASK_HI) | mask, PIC_MASK_HI);
--}
--
--static void isa_ack_pic_hi_irq(struct irq_data *d)
--{
--	unsigned int mask = 1 << (d->irq & 7);
--
--	outb(inb(PIC_MASK_HI) | mask, PIC_MASK_HI);
--	outb(0x62, PIC_LO);
--	outb(0x20, PIC_HI);
--}
--
--static void isa_unmask_pic_hi_irq(struct irq_data *d)
--{
--	unsigned int mask = 1 << (d->irq & 7);
--
--	outb(inb(PIC_MASK_HI) & ~mask, PIC_MASK_HI);
--}
--
--static struct irq_chip isa_hi_chip = {
--	.irq_ack	= isa_ack_pic_hi_irq,
--	.irq_mask	= isa_mask_pic_hi_irq,
--	.irq_unmask	= isa_unmask_pic_hi_irq,
+-static const u8 irq_prio_d[256] = {
+-	 0,16,17,16,18,16,17,16,19,16,17,16,18,16,17,16,
+-	20,16,17,16,18,16,17,16,19,16,17,16,18,16,17,16,
+-	21,16,17,16,18,16,17,16,19,16,17,16,18,16,17,16,
+-	21,16,17,16,18,16,17,16,19,16,17,16,18,16,17,16,
+-	22,16,17,16,18,16,17,16,19,16,17,16,18,16,17,16,
+-	22,16,17,16,18,16,17,16,19,16,17,16,18,16,17,16,
+-	21,16,17,16,18,16,17,16,19,16,17,16,18,16,17,16,
+-	21,16,17,16,18,16,17,16,19,16,17,16,18,16,17,16,
+-	23,16,17,16,18,16,17,16,19,16,17,16,18,16,17,16,
+-	23,16,17,16,18,16,17,16,19,16,17,16,18,16,17,16,
+-	21,16,17,16,18,16,17,16,19,16,17,16,18,16,17,16,
+-	21,16,17,16,18,16,17,16,19,16,17,16,18,16,17,16,
+-	22,16,17,16,18,16,17,16,19,16,17,16,18,16,17,16,
+-	22,16,17,16,18,16,17,16,19,16,17,16,18,16,17,16,
+-	21,16,17,16,18,16,17,16,19,16,17,16,18,16,17,16,
+-	21,16,17,16,18,16,17,16,19,16,17,16,18,16,17,16,
 -};
 -
--static void isa_irq_handler(struct irq_desc *desc)
+-static const u8 irq_prio_l[256] = {
+-	 0, 0, 1, 0, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 3,
+-	 4, 0, 1, 0, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 3,
+-	 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5,
+-	 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5,
+-	 6, 6, 6, 6, 6, 6, 6, 6, 3, 3, 3, 3, 3, 3, 3, 3,
+-	 6, 6, 6, 6, 6, 6, 6, 6, 3, 3, 3, 3, 3, 3, 3, 3,
+-	 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5,
+-	 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5,
+-	 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7,
+-	 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7,
+-	 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7,
+-	 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7,
+-	 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7,
+-	 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7,
+-	 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7,
+-	 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7,
+-};
+-
+-static int iomd_get_irq_nr(void)
 -{
--	unsigned int isa_irq = *(unsigned char *)PCIIACK_BASE;
+-	int irq;
+-	u8 reg;
 -
--	if (isa_irq < _ISA_IRQ(0) || isa_irq >= _ISA_IRQ(16)) {
--		handle_bad_irq(desc);
--		return;
--	}
+-	/* get highest priority first */
+-	reg = readb(IOC_BASE + IOMD_IRQREQB);
+-	irq = irq_prio_h[reg];
+-	if (irq)
+-		return irq;
 -
--	generic_handle_irq(isa_irq);
+-	/* get DMA  */
+-	reg = readb(IOC_BASE + IOMD_DMAREQ);
+-	irq = irq_prio_d[reg];
+-	if (irq)
+-		return irq;
+-
+-	/* get low priority */
+-	reg = readb(IOC_BASE + IOMD_IRQREQA);
+-	irq = irq_prio_l[reg];
+-	if (irq)
+-		return irq;
+-	return 0;
 -}
 -
--static struct resource pic1_resource = {
--	.name	= "pic1",
--	.start	= 0x20,
--	.end	= 0x3f,
--};
--
--static struct resource pic2_resource = {
--	.name	= "pic2",
--	.start	= 0xa0,
--	.end	= 0xbf,
--};
--
--void __init isa_init_irq(unsigned int host_irq)
+-static void iomd_handle_irq(struct pt_regs *regs)
 -{
--	unsigned int irq;
+-	int irq;
 -
--	/*
--	 * Setup, and then probe for an ISA PIC
--	 * If the PIC is not there, then we
--	 * ignore the PIC.
--	 */
--	outb(0x11, PIC_LO);
--	outb(_ISA_IRQ(0), PIC_MASK_LO);	/* IRQ number		*/
--	outb(0x04, PIC_MASK_LO);	/* Slave on Ch2		*/
--	outb(0x01, PIC_MASK_LO);	/* x86			*/
--	outb(0xf5, PIC_MASK_LO);	/* pattern: 11110101	*/
+-	do {
+-		irq = iomd_get_irq_nr();
+-		if (irq)
+-			generic_handle_irq(irq);
+-	} while (irq);
+-}
 -
--	outb(0x11, PIC_HI);
--	outb(_ISA_IRQ(8), PIC_MASK_HI);	/* IRQ number		*/
--	outb(0x02, PIC_MASK_HI);	/* Slave on Ch1		*/
--	outb(0x01, PIC_MASK_HI);	/* x86			*/
--	outb(0xfa, PIC_MASK_HI);	/* pattern: 11111010	*/
+-static void __iomem *iomd_get_base(struct irq_data *d)
+-{
+-	void *cd = irq_data_get_irq_chip_data(d);
 -
--	outb(0x0b, PIC_LO);
--	outb(0x0b, PIC_HI);
+-	return (void __iomem *)(unsigned long)cd;
+-}
 -
--	if (inb(PIC_MASK_LO) == 0xf5 && inb(PIC_MASK_HI) == 0xfa) {
--		outb(0xff, PIC_MASK_LO);/* mask all IRQs	*/
--		outb(0xff, PIC_MASK_HI);/* mask all IRQs	*/
--	} else {
--		printk(KERN_INFO "IRQ: ISA PIC not found\n");
--		host_irq = (unsigned int)-1;
--	}
+-static void iomd_set_base_mask(unsigned int irq, void __iomem *base, u32 mask)
+-{
+-	struct irq_data *d = irq_get_irq_data(irq);
 -
--	if (host_irq != (unsigned int)-1) {
--		for (irq = _ISA_IRQ(0); irq < _ISA_IRQ(8); irq++) {
--			irq_set_chip_and_handler(irq, &isa_lo_chip,
+-	d->mask = mask;
+-	irq_set_chip_data(irq, (void *)(unsigned long)base);
+-}
+-
+-static void iomd_irq_mask_ack(struct irq_data *d)
+-{
+-	void __iomem *base = iomd_get_base(d);
+-	unsigned int val, mask = d->mask;
+-
+-	val = readb(base + MASK);
+-	writeb(val & ~mask, base + MASK);
+-	writeb(mask, base + CLR);
+-}
+-
+-static void iomd_irq_mask(struct irq_data *d)
+-{
+-	void __iomem *base = iomd_get_base(d);
+-	unsigned int val, mask = d->mask;
+-
+-	val = readb(base + MASK);
+-	writeb(val & ~mask, base + MASK);
+-}
+-
+-static void iomd_irq_unmask(struct irq_data *d)
+-{
+-	void __iomem *base = iomd_get_base(d);
+-	unsigned int val, mask = d->mask;
+-
+-	val = readb(base + MASK);
+-	writeb(val | mask, base + MASK);
+-}
+-
+-static struct irq_chip iomd_chip_clr = {
+-	.irq_mask_ack	= iomd_irq_mask_ack,
+-	.irq_mask	= iomd_irq_mask,
+-	.irq_unmask	= iomd_irq_unmask,
+-};
+-
+-static struct irq_chip iomd_chip_noclr = {
+-	.irq_mask	= iomd_irq_mask,
+-	.irq_unmask	= iomd_irq_unmask,
+-};
+-
+-extern unsigned char rpc_default_fiq_start, rpc_default_fiq_end;
+-
+-void __init rpc_init_irq(void)
+-{
+-	unsigned int irq, clr, set;
+-
+-	iomd_writeb(0, IOMD_IRQMASKA);
+-	iomd_writeb(0, IOMD_IRQMASKB);
+-	iomd_writeb(0, IOMD_FIQMASK);
+-	iomd_writeb(0, IOMD_DMAMASK);
+-
+-	set_fiq_handler(&rpc_default_fiq_start,
+-		&rpc_default_fiq_end - &rpc_default_fiq_start);
+-
+-	set_handle_irq(iomd_handle_irq);
+-
+-	for (irq = 0; irq < NR_IRQS; irq++) {
+-		clr = IRQ_NOREQUEST;
+-		set = 0;
+-
+-		if (irq <= 6 || (irq >= 9 && irq <= 15))
+-			clr |= IRQ_NOPROBE;
+-
+-		if (irq == 21 || (irq >= 16 && irq <= 19) ||
+-		    irq == IRQ_KEYBOARDTX)
+-			set |= IRQ_NOAUTOEN;
+-
+-		switch (irq) {
+-		case 0 ... 7:
+-			irq_set_chip_and_handler(irq, &iomd_chip_clr,
 -						 handle_level_irq);
--			irq_clear_status_flags(irq, IRQ_NOREQUEST | IRQ_NOPROBE);
--		}
+-			irq_modify_status(irq, clr, set);
+-			iomd_set_base_mask(irq, IOMD_BASE + IOMD_IRQSTATA,
+-					   BIT(irq));
+-			break;
 -
--		for (irq = _ISA_IRQ(8); irq < _ISA_IRQ(16); irq++) {
--			irq_set_chip_and_handler(irq, &isa_hi_chip,
+-		case 8 ... 15:
+-			irq_set_chip_and_handler(irq, &iomd_chip_noclr,
 -						 handle_level_irq);
--			irq_clear_status_flags(irq, IRQ_NOREQUEST | IRQ_NOPROBE);
+-			irq_modify_status(irq, clr, set);
+-			iomd_set_base_mask(irq, IOMD_BASE + IOMD_IRQSTATB,
+-					   BIT(irq - 8));
+-			break;
+-
+-		case 16 ... 21:
+-			irq_set_chip_and_handler(irq, &iomd_chip_noclr,
+-						 handle_level_irq);
+-			irq_modify_status(irq, clr, set);
+-			iomd_set_base_mask(irq, IOMD_BASE + IOMD_DMASTAT,
+-					   BIT(irq - 16));
+-			break;
+-
+-		case 64 ... 71:
+-			irq_set_chip(irq, &iomd_chip_noclr);
+-			irq_modify_status(irq, clr, set);
+-			iomd_set_base_mask(irq, IOMD_BASE + IOMD_FIQSTAT,
+-					   BIT(irq - 64));
+-			break;
 -		}
--
--		request_resource(&ioport_resource, &pic1_resource);
--		request_resource(&ioport_resource, &pic2_resource);
--
--		irq = IRQ_ISA_CASCADE;
--		if (request_irq(irq, no_action, 0, "cascade", NULL))
--			pr_err("Failed to request irq %u (cascade)\n", irq);
--
--		irq_set_chained_handler(host_irq, isa_irq_handler);
--
--		/*
--		 * On the NetWinder, don't automatically
--		 * enable ISA IRQ11 when it is requested.
--		 * There appears to be a missing pull-up
--		 * resistor on this line.
--		 */
--		if (machine_is_netwinder())
--			irq_modify_status(_ISA_IRQ(11),
--				IRQ_NOREQUEST | IRQ_NOPROBE, IRQ_NOAUTOEN);
 -	}
+-
+-	init_FIQ(FIQ_START);
 -}
--
--
-diff --git a/arch/arm/mach-footbridge/isa-rtc.c b/arch/arm/mach-footbridge/isa-rtc.c
+diff --git a/arch/arm/mach-rpc/riscpc.c b/arch/arm/mach-rpc/riscpc.c
 deleted file mode 100644
-index 237b828dd2f1..000000000000
---- a/arch/arm/mach-footbridge/isa-rtc.c
+index f70fb9c4b0cb..000000000000
+--- a/arch/arm/mach-rpc/riscpc.c
 +++ /dev/null
-@@ -1,57 +0,0 @@
--// SPDX-License-Identifier: GPL-2.0
--/*
-- *  arch/arm/mach-footbridge/isa-rtc.c
-- *
-- *  Copyright (C) 1998 Russell King.
-- *  Copyright (C) 1998 Phil Blundell
-- *
-- * CATS has a real-time clock, though the evaluation board doesn't.
-- *
-- * Changelog:
-- *  21-Mar-1998	RMK	Created
-- *  27-Aug-1998	PJB	CATS support
-- *  28-Dec-1998	APH	Made leds optional
-- *  20-Jan-1999	RMK	Started merge of EBSA285, CATS and NetWinder
-- *  16-Mar-1999	RMK	More support for EBSA285-like machines with RTCs in
-- */
--
--#define RTC_PORT(x)		(0x70+(x))
--#define RTC_ALWAYS_BCD		0
--
--#include <linux/init.h>
--#include <linux/mc146818rtc.h>
--#include <linux/io.h>
--
--#include "common.h"
--
--void __init isa_rtc_init(void)
--{
--	int reg_d, reg_b;
--
--	/*
--	 * Probe for the RTC.
--	 */
--	reg_d = CMOS_READ(RTC_REG_D);
--
--	/*
--	 * make sure the divider is set
--	 */
--	CMOS_WRITE(RTC_REF_CLCK_32KHZ, RTC_REG_A);
--
--	/*
--	 * Set control reg B
--	 *   (24 hour mode, update enabled)
--	 */
--	reg_b = CMOS_READ(RTC_REG_B) & 0x7f;
--	reg_b |= 2;
--	CMOS_WRITE(reg_b, RTC_REG_B);
--
--	if ((CMOS_READ(RTC_REG_A) & 0x7f) == RTC_REF_CLCK_32KHZ &&
--	    CMOS_READ(RTC_REG_B) == reg_b) {
--		/*
--		 * We have a RTC.  Check the battery
--		 */
--		if ((reg_d & 0x80) == 0)
--			printk(KERN_WARNING "RTC: *** warning: CMOS battery bad\n");
--	}
--}
-diff --git a/arch/arm/mach-footbridge/isa-timer.c b/arch/arm/mach-footbridge/isa-timer.c
-deleted file mode 100644
-index 723e3eae995d..000000000000
---- a/arch/arm/mach-footbridge/isa-timer.c
-+++ /dev/null
-@@ -1,36 +0,0 @@
--// SPDX-License-Identifier: GPL-2.0
--/*
-- *  linux/arch/arm/mach-footbridge/isa-timer.c
-- *
-- *  Copyright (C) 1998 Russell King.
-- *  Copyright (C) 1998 Phil Blundell
-- */
--#include <linux/clockchips.h>
--#include <linux/i8253.h>
--#include <linux/init.h>
--#include <linux/interrupt.h>
--#include <linux/irq.h>
--#include <linux/spinlock.h>
--#include <linux/timex.h>
--
--#include <asm/irq.h>
--#include <asm/mach/time.h>
--
--#include "common.h"
--
--static irqreturn_t pit_timer_interrupt(int irq, void *dev_id)
--{
--	struct clock_event_device *ce = dev_id;
--	ce->event_handler(ce);
--	return IRQ_HANDLED;
--}
--
--void __init isa_timer_init(void)
--{
--	clocksource_i8253_init();
--
--	if (request_irq(i8253_clockevent.irq, pit_timer_interrupt,
--			IRQF_TIMER | IRQF_IRQPOLL, "pit", &i8253_clockevent))
--		pr_err("Failed to request irq %d(pit)\n", i8253_clockevent.irq);
--	clockevent_i8253_init(false);
--}
-diff --git a/arch/arm/mach-footbridge/isa.c b/arch/arm/mach-footbridge/isa.c
-deleted file mode 100644
-index 84caccddce44..000000000000
---- a/arch/arm/mach-footbridge/isa.c
-+++ /dev/null
-@@ -1,94 +0,0 @@
+@@ -1,225 +0,0 @@
 -// SPDX-License-Identifier: GPL-2.0-only
 -/*
-- *  linux/arch/arm/mach-footbridge/isa.c
+- *  linux/arch/arm/mach-rpc/riscpc.c
 - *
-- *  Copyright (C) 2004 Russell King.
+- *  Copyright (C) 1998-2001 Russell King
+- *
+- *  Architecture specific fixups.
 - */
+-#include <linux/kernel.h>
+-#include <linux/tty.h>
+-#include <linux/delay.h>
+-#include <linux/pm.h>
 -#include <linux/init.h>
+-#include <linux/sched.h>
+-#include <linux/device.h>
 -#include <linux/serial_8250.h>
+-#include <linux/ata_platform.h>
+-#include <linux/io.h>
+-#include <linux/i2c.h>
+-#include <linux/reboot.h>
 -
--#include <asm/irq.h>
--#include <asm/hardware/dec21285.h>
+-#include <asm/elf.h>
+-#include <asm/mach-types.h>
+-#include <mach/hardware.h>
+-#include <asm/hardware/iomd.h>
+-#include <asm/page.h>
+-#include <asm/domain.h>
+-#include <asm/setup.h>
+-#include <asm/system_misc.h>
 -
--#include "common.h"
+-#include <asm/mach/map.h>
+-#include <asm/mach/arch.h>
+-#include <asm/mach/time.h>
 -
--static struct resource rtc_resources[] = {
--	[0] = {
--		.start	= 0x70,
--		.end	= 0x73,
--		.flags	= IORESOURCE_IO,
--	},
--	[1] = {
--		.start	= IRQ_ISA_RTC_ALARM,
--		.end	= IRQ_ISA_RTC_ALARM,
--		.flags	= IORESOURCE_IRQ,
+-extern void rpc_init_irq(void);
+-
+-unsigned int vram_size;
+-unsigned int memc_ctrl_reg;
+-unsigned int number_mfm_drives;
+-
+-static int __init parse_tag_acorn(const struct tag *tag)
+-{
+-	memc_ctrl_reg = tag->u.acorn.memc_control_reg;
+-	number_mfm_drives = tag->u.acorn.adfsdrives;
+-
+-	switch (tag->u.acorn.vram_pages) {
+-	case 512:
+-		vram_size += PAGE_SIZE * 256;
+-		fallthrough;	/* ??? */
+-	case 256:
+-		vram_size += PAGE_SIZE * 256;
+-		break;
+-	default:
+-		break;
+-	}
+-#if 0
+-	if (vram_size) {
+-		desc->video_start = 0x02000000;
+-		desc->video_end   = 0x02000000 + vram_size;
+-	}
+-#endif
+-	return 0;
+-}
+-
+-__tagtable(ATAG_ACORN, parse_tag_acorn);
+-
+-static struct map_desc rpc_io_desc[] __initdata = {
+- 	{	/* VRAM		*/
+-		.virtual	=  SCREEN_BASE,
+-		.pfn		= __phys_to_pfn(SCREEN_START),
+-		.length		= 	2*1048576,
+-		.type		= MT_DEVICE
+-	}, {	/* IO space	*/
+-		.virtual	=  (u32)IO_BASE,
+-		.pfn		= __phys_to_pfn(IO_START),
+-		.length		= 	IO_SIZE	 ,
+-		.type		= MT_DEVICE
+-	}, {	/* EASI space	*/
+-		.virtual	= (unsigned long)EASI_BASE,
+-		.pfn		= __phys_to_pfn(EASI_START),
+-		.length		= EASI_SIZE,
+-		.type		= MT_DEVICE
 -	}
 -};
 -
--static struct platform_device rtc_device = {
--	.name		= "rtc_cmos",
--	.id		= -1,
--	.resource	= rtc_resources,
--	.num_resources	= ARRAY_SIZE(rtc_resources),
+-static void __init rpc_map_io(void)
+-{
+-	iotable_init(rpc_io_desc, ARRAY_SIZE(rpc_io_desc));
+-
+-	/*
+-	 * Turn off floppy.
+-	 */
+-	writeb(0xc, PCIO_BASE + (0x3f2 << 2));
+-
+-	/*
+-	 * RiscPC can't handle half-word loads and stores
+-	 */
+-	elf_hwcap &= ~HWCAP_HALF;
+-}
+-
+-static struct resource acornfb_resources[] = {
+-	/* VIDC */
+-	DEFINE_RES_MEM(0x03400000, 0x00200000),
+-	DEFINE_RES_IRQ(IRQ_VSYNCPULSE),
 -};
 -
--static struct resource serial_resources[] = {
--	[0] = {
--		.start	= 0x3f8,
--		.end	= 0x3ff,
--		.flags	= IORESOURCE_IO,
+-static struct platform_device acornfb_device = {
+-	.name			= "acornfb",
+-	.id			= -1,
+-	.dev			= {
+-		.coherent_dma_mask = 0xffffffff,
 -	},
--	[1] = {
--		.start	= 0x2f8,
--		.end	= 0x2ff,
--		.flags	= IORESOURCE_IO,
+-	.num_resources		= ARRAY_SIZE(acornfb_resources),
+-	.resource		= acornfb_resources,
+-};
+-
+-static struct resource iomd_resources[] = {
+-	DEFINE_RES_MEM(0x03200000, 0x10000),
+-};
+-
+-static struct platform_device iomd_device = {
+-	.name			= "iomd",
+-	.id			= -1,
+-	.num_resources		= ARRAY_SIZE(iomd_resources),
+-	.resource		= iomd_resources,
+-};
+-
+-static struct resource iomd_kart_resources[] = {
+-	DEFINE_RES_IRQ(IRQ_KEYBOARDRX),
+-	DEFINE_RES_IRQ(IRQ_KEYBOARDTX),
+-};
+-
+-static struct platform_device kbd_device = {
+-	.name			= "kart",
+-	.id			= -1,
+-	.dev			= {
+-		.parent 	= &iomd_device.dev,
 -	},
+-	.num_resources		= ARRAY_SIZE(iomd_kart_resources),
+-	.resource		= iomd_kart_resources,
 -};
 -
 -static struct plat_serial8250_port serial_platform_data[] = {
 -	{
--		.iobase		= 0x3f8,
--		.irq		= IRQ_ISA_UART,
+-		.mapbase	= 0x03010fe0,
+-		.irq		= IRQ_SERIALPORT,
 -		.uartclk	= 1843200,
--		.regshift	= 0,
--		.iotype		= UPIO_PORT,
--		.flags		= UPF_BOOT_AUTOCONF | UPF_SKIP_TEST,
--	},
--	{
--		.iobase		= 0x2f8,
--		.irq		= IRQ_ISA_UART2,
--		.uartclk	= 1843200,
--		.regshift	= 0,
--		.iotype		= UPIO_PORT,
--		.flags		= UPF_BOOT_AUTOCONF | UPF_SKIP_TEST,
+-		.regshift	= 2,
+-		.iotype		= UPIO_MEM,
+-		.flags		= UPF_BOOT_AUTOCONF | UPF_IOREMAP | UPF_SKIP_TEST,
 -	},
 -	{ },
 -};
@@ -2990,946 +4088,269 @@ index 84caccddce44..000000000000
 -	.dev			= {
 -		.platform_data	= serial_platform_data,
 -	},
--	.resource		= serial_resources,
--	.num_resources		= ARRAY_SIZE(serial_resources),
 -};
 -
--static int __init footbridge_isa_init(void)
--{
--	int err = 0;
--
--	/* Personal server doesn't have RTC */
--	isa_rtc_init();
--	err = platform_device_register(&rtc_device);
--	if (err)
--		printk(KERN_ERR "Unable to register RTC device: %d\n", err);
--
--	err = platform_device_register(&serial_device);
--	if (err)
--		printk(KERN_ERR "Unable to register serial device: %d\n", err);
--	return 0;
--}
--
--arch_initcall(footbridge_isa_init);
-diff --git a/arch/arm/mach-footbridge/netwinder-hw.c b/arch/arm/mach-footbridge/netwinder-hw.c
-deleted file mode 100644
-index c024eefd4978..000000000000
---- a/arch/arm/mach-footbridge/netwinder-hw.c
-+++ /dev/null
-@@ -1,772 +0,0 @@
--// SPDX-License-Identifier: GPL-2.0
--/*
-- * linux/arch/arm/mach-footbridge/netwinder-hw.c
-- *
-- * Netwinder machine fixup
-- *
-- * Copyright (C) 1998, 1999 Russell King, Phil Blundell
-- */
--#include <linux/module.h>
--#include <linux/ioport.h>
--#include <linux/kernel.h>
--#include <linux/delay.h>
--#include <linux/init.h>
--#include <linux/io.h>
--#include <linux/spinlock.h>
--#include <linux/slab.h>
--#include <linux/leds.h>
--
--#include <asm/hardware/dec21285.h>
--#include <asm/mach-types.h>
--#include <asm/setup.h>
--#include <asm/system_misc.h>
--
--#include <asm/mach/arch.h>
--
--#include "common.h"
--
--#define IRDA_IO_BASE		0x180
--#define GP1_IO_BASE		0x338
--#define GP2_IO_BASE		0x33a
--
--/*
-- * Winbond WB83977F accessibility stuff
-- */
--static inline void wb977_open(void)
--{
--	outb(0x87, 0x370);
--	outb(0x87, 0x370);
--}
--
--static inline void wb977_close(void)
--{
--	outb(0xaa, 0x370);
--}
--
--static inline void wb977_wb(int reg, int val)
--{
--	outb(reg, 0x370);
--	outb(val, 0x371);
--}
--
--static inline void wb977_ww(int reg, int val)
--{
--	outb(reg, 0x370);
--	outb(val >> 8, 0x371);
--	outb(reg + 1, 0x370);
--	outb(val & 255, 0x371);
--}
--
--#define wb977_device_select(dev)	wb977_wb(0x07, dev)
--#define wb977_device_disable()		wb977_wb(0x30, 0x00)
--#define wb977_device_enable()		wb977_wb(0x30, 0x01)
--
--/*
-- * This is a lock for accessing ports GP1_IO_BASE and GP2_IO_BASE
-- */
--DEFINE_RAW_SPINLOCK(nw_gpio_lock);
--EXPORT_SYMBOL(nw_gpio_lock);
--
--static unsigned int current_gpio_op;
--static unsigned int current_gpio_io;
--static unsigned int current_cpld;
--
--void nw_gpio_modify_op(unsigned int mask, unsigned int set)
--{
--	unsigned int new_gpio, changed;
--
--	new_gpio = (current_gpio_op & ~mask) | set;
--	changed = new_gpio ^ current_gpio_op;
--	current_gpio_op = new_gpio;
--
--	if (changed & 0xff)
--		outb(new_gpio, GP1_IO_BASE);
--	if (changed & 0xff00)
--		outb(new_gpio >> 8, GP2_IO_BASE);
--}
--EXPORT_SYMBOL(nw_gpio_modify_op);
--
--static inline void __gpio_modify_io(int mask, int in)
--{
--	unsigned int new_gpio, changed;
--	int port;
--
--	new_gpio = (current_gpio_io & ~mask) | in;
--	changed = new_gpio ^ current_gpio_io;
--	current_gpio_io = new_gpio;
--
--	changed >>= 1;
--	new_gpio >>= 1;
--
--	wb977_device_select(7);
--
--	for (port = 0xe1; changed && port < 0xe8; changed >>= 1) {
--		wb977_wb(port, new_gpio & 1);
--
--		port += 1;
--		new_gpio >>= 1;
--	}
--
--	wb977_device_select(8);
--
--	for (port = 0xe8; changed && port < 0xec; changed >>= 1) {
--		wb977_wb(port, new_gpio & 1);
--
--		port += 1;
--		new_gpio >>= 1;
--	}
--}
--
--void nw_gpio_modify_io(unsigned int mask, unsigned int in)
--{
--	/* Open up the SuperIO chip */
--	wb977_open();
--
--	__gpio_modify_io(mask, in);
--
--	/* Close up the EFER gate */
--	wb977_close();
--}
--EXPORT_SYMBOL(nw_gpio_modify_io);
--
--unsigned int nw_gpio_read(void)
--{
--	return inb(GP1_IO_BASE) | inb(GP2_IO_BASE) << 8;
--}
--EXPORT_SYMBOL(nw_gpio_read);
--
--/*
-- * Initialise the Winbond W83977F global registers
-- */
--static inline void wb977_init_global(void)
--{
--	/*
--	 * Enable R/W config registers
--	 */
--	wb977_wb(0x26, 0x40);
--
--	/*
--	 * Power down FDC (not used)
--	 */
--	wb977_wb(0x22, 0xfe);
--
--	/*
--	 * GP12, GP11, CIRRX, IRRXH, GP10
--	 */
--	wb977_wb(0x2a, 0xc1);
--
--	/*
--	 * GP23, GP22, GP21, GP20, GP13
--	 */
--	wb977_wb(0x2b, 0x6b);
--
--	/*
--	 * GP17, GP16, GP15, GP14
--	 */
--	wb977_wb(0x2c, 0x55);
--}
--
--/*
-- * Initialise the Winbond W83977F printer port
-- */
--static inline void wb977_init_printer(void)
--{
--	wb977_device_select(1);
--
--	/*
--	 * mode 1 == EPP
--	 */
--	wb977_wb(0xf0, 0x01);
--}
--
--/*
-- * Initialise the Winbond W83977F keyboard controller
-- */
--static inline void wb977_init_keyboard(void)
--{
--	wb977_device_select(5);
--
--	/*
--	 * Keyboard controller address
--	 */
--	wb977_ww(0x60, 0x0060);
--	wb977_ww(0x62, 0x0064);
--
--	/*
--	 * Keyboard IRQ 1, active high, edge trigger
--	 */
--	wb977_wb(0x70, 1);
--	wb977_wb(0x71, 0x02);
--
--	/*
--	 * Mouse IRQ 5, active high, edge trigger
--	 */
--	wb977_wb(0x72, 5);
--	wb977_wb(0x73, 0x02);
--
--	/*
--	 * KBC 8MHz
--	 */
--	wb977_wb(0xf0, 0x40);
--
--	/*
--	 * Enable device
--	 */
--	wb977_device_enable();
--}
--
--/*
-- * Initialise the Winbond W83977F Infra-Red device
-- */
--static inline void wb977_init_irda(void)
--{
--	wb977_device_select(6);
--
--	/*
--	 * IR base address
--	 */
--	wb977_ww(0x60, IRDA_IO_BASE);
--
--	/*
--	 * IRDA IRQ 6, active high, edge trigger
--	 */
--	wb977_wb(0x70, 6);
--	wb977_wb(0x71, 0x02);
--
--	/*
--	 * RX DMA - ISA DMA 0
--	 */
--	wb977_wb(0x74, 0x00);
--
--	/*
--	 * TX DMA - Disable Tx DMA
--	 */
--	wb977_wb(0x75, 0x04);
--
--	/*
--	 * Append CRC, Enable bank selection
--	 */
--	wb977_wb(0xf0, 0x03);
--
--	/*
--	 * Enable device
--	 */
--	wb977_device_enable();
--}
--
--/*
-- * Initialise Winbond W83977F general purpose IO
-- */
--static inline void wb977_init_gpio(void)
--{
--	unsigned long flags;
--
--	/*
--	 * Set up initial I/O definitions
--	 */
--	current_gpio_io = -1;
--	__gpio_modify_io(-1, GPIO_DONE | GPIO_WDTIMER);
--
--	wb977_device_select(7);
--
--	/*
--	 * Group1 base address
--	 */
--	wb977_ww(0x60, GP1_IO_BASE);
--	wb977_ww(0x62, 0);
--	wb977_ww(0x64, 0);
--
--	/*
--	 * GP10 (Orage button) IRQ 10, active high, edge trigger
--	 */
--	wb977_wb(0x70, 10);
--	wb977_wb(0x71, 0x02);
--
--	/*
--	 * GP10: Debounce filter enabled, IRQ, input
--	 */
--	wb977_wb(0xe0, 0x19);
--
--	/*
--	 * Enable Group1
--	 */
--	wb977_device_enable();
--
--	wb977_device_select(8);
--
--	/*
--	 * Group2 base address
--	 */
--	wb977_ww(0x60, GP2_IO_BASE);
--
--	/*
--	 * Clear watchdog timer regs
--	 *  - timer disable
--	 */
--	wb977_wb(0xf2, 0x00);
--
--	/*
--	 *  - disable LED, no mouse nor keyboard IRQ
--	 */
--	wb977_wb(0xf3, 0x00);
--
--	/*
--	 *  - timer counting, disable power LED, disable timeouot
--	 */
--	wb977_wb(0xf4, 0x00);
--
--	/*
--	 * Enable group2
--	 */
--	wb977_device_enable();
--
--	/*
--	 * Set Group1/Group2 outputs
--	 */
--	raw_spin_lock_irqsave(&nw_gpio_lock, flags);
--	nw_gpio_modify_op(-1, GPIO_RED_LED | GPIO_FAN);
--	raw_spin_unlock_irqrestore(&nw_gpio_lock, flags);
--}
--
--/*
-- * Initialise the Winbond W83977F chip.
-- */
--static void __init wb977_init(void)
--{
--	request_region(0x370, 2, "W83977AF configuration");
--
--	/*
--	 * Open up the SuperIO chip
--	 */
--	wb977_open();
--
--	/*
--	 * Initialise the global registers
--	 */
--	wb977_init_global();
--
--	/*
--	 * Initialise the various devices in
--	 * the multi-IO chip.
--	 */
--	wb977_init_printer();
--	wb977_init_keyboard();
--	wb977_init_irda();
--	wb977_init_gpio();
--
--	/*
--	 * Close up the EFER gate
--	 */
--	wb977_close();
--}
--
--void nw_cpld_modify(unsigned int mask, unsigned int set)
--{
--	int msk;
--
--	current_cpld = (current_cpld & ~mask) | set;
--
--	nw_gpio_modify_io(GPIO_DATA | GPIO_IOCLK | GPIO_IOLOAD, 0);
--	nw_gpio_modify_op(GPIO_IOLOAD, 0);
--
--	for (msk = 8; msk; msk >>= 1) {
--		int bit = current_cpld & msk;
--
--		nw_gpio_modify_op(GPIO_DATA | GPIO_IOCLK, bit ? GPIO_DATA : 0);
--		nw_gpio_modify_op(GPIO_IOCLK, GPIO_IOCLK);
--	}
--
--	nw_gpio_modify_op(GPIO_IOCLK|GPIO_DATA, 0);
--	nw_gpio_modify_op(GPIO_IOLOAD|GPIO_DSCLK, GPIO_IOLOAD|GPIO_DSCLK);
--	nw_gpio_modify_op(GPIO_IOLOAD, 0);
--}
--EXPORT_SYMBOL(nw_cpld_modify);
--
--static void __init cpld_init(void)
--{
--	unsigned long flags;
--
--	raw_spin_lock_irqsave(&nw_gpio_lock, flags);
--	nw_cpld_modify(-1, CPLD_UNMUTE | CPLD_7111_DISABLE);
--	raw_spin_unlock_irqrestore(&nw_gpio_lock, flags);
--}
--
--static unsigned char rwa_unlock[] __initdata =
--{ 0x00, 0x00, 0x6a, 0xb5, 0xda, 0xed, 0xf6, 0xfb, 0x7d, 0xbe, 0xdf, 0x6f, 0x37, 0x1b,
--  0x0d, 0x86, 0xc3, 0x61, 0xb0, 0x58, 0x2c, 0x16, 0x8b, 0x45, 0xa2, 0xd1, 0xe8, 0x74,
--  0x3a, 0x9d, 0xce, 0xe7, 0x73, 0x39 };
--
--#ifndef DEBUG
--#define dprintk(x...)
--#else
--#define dprintk(x...) printk(x)
--#endif
--
--#define WRITE_RWA(r,v) do { outb((r), 0x279); udelay(10); outb((v), 0xa79); } while (0)
--
--static inline void rwa010_unlock(void)
--{
--	int i;
--
--	WRITE_RWA(2, 2);
--	mdelay(10);
--
--	for (i = 0; i < sizeof(rwa_unlock); i++) {
--		outb(rwa_unlock[i], 0x279);
--		udelay(10);
--	}
--}
--
--static inline void rwa010_read_ident(void)
--{
--	unsigned char si[9];
--	int i, j;
--
--	WRITE_RWA(3, 0);
--	WRITE_RWA(0, 128);
--
--	outb(1, 0x279);
--
--	mdelay(1);
--
--	dprintk("Identifier: ");
--	for (i = 0; i < 9; i++) {
--		si[i] = 0;
--		for (j = 0; j < 8; j++) {
--			int bit;
--			udelay(250);
--			inb(0x203);
--			udelay(250);
--			bit = inb(0x203);
--			dprintk("%02X ", bit);
--			bit = (bit == 0xaa) ? 1 : 0;
--			si[i] |= bit << j;
--		}
--		dprintk("(%02X) ", si[i]);
--	}
--	dprintk("\n");
--}
--
--static inline void rwa010_global_init(void)
--{
--	WRITE_RWA(6, 2);	// Assign a card no = 2
--
--	dprintk("Card no = %d\n", inb(0x203));
--
--	/* disable the modem section of the chip */
--	WRITE_RWA(7, 3);
--	WRITE_RWA(0x30, 0);
--
--	/* disable the cdrom section of the chip */
--	WRITE_RWA(7, 4);
--	WRITE_RWA(0x30, 0);
--
--	/* disable the MPU-401 section of the chip */
--	WRITE_RWA(7, 2);
--	WRITE_RWA(0x30, 0);
--}
--
--static inline void rwa010_game_port_init(void)
--{
--	int i;
--
--	WRITE_RWA(7, 5);
--
--	dprintk("Slider base: ");
--	WRITE_RWA(0x61, 1);
--	i = inb(0x203);
--
--	WRITE_RWA(0x60, 2);
--	dprintk("%02X%02X (201)\n", inb(0x203), i);
--
--	WRITE_RWA(0x30, 1);
--}
--
--static inline void rwa010_waveartist_init(int base, int irq, int dma)
--{
--	int i;
--
--	WRITE_RWA(7, 0);
--
--	dprintk("WaveArtist base: ");
--	WRITE_RWA(0x61, base & 255);
--	i = inb(0x203);
--
--	WRITE_RWA(0x60, base >> 8);
--	dprintk("%02X%02X (%X),", inb(0x203), i, base);
--
--	WRITE_RWA(0x70, irq);
--	dprintk(" irq: %d (%d),", inb(0x203), irq);
--
--	WRITE_RWA(0x74, dma);
--	dprintk(" dma: %d (%d)\n", inb(0x203), dma);
--
--	WRITE_RWA(0x30, 1);
--}
--
--static inline void rwa010_soundblaster_init(int sb_base, int al_base, int irq, int dma)
--{
--	int i;
--
--	WRITE_RWA(7, 1);
--
--	dprintk("SoundBlaster base: ");
--	WRITE_RWA(0x61, sb_base & 255);
--	i = inb(0x203);
--
--	WRITE_RWA(0x60, sb_base >> 8);
--	dprintk("%02X%02X (%X),", inb(0x203), i, sb_base);
--
--	dprintk(" irq: ");
--	WRITE_RWA(0x70, irq);
--	dprintk("%d (%d),", inb(0x203), irq);
--
--	dprintk(" 8-bit DMA: ");
--	WRITE_RWA(0x74, dma);
--	dprintk("%d (%d)\n", inb(0x203), dma);
--
--	dprintk("AdLib base: ");
--	WRITE_RWA(0x63, al_base & 255);
--	i = inb(0x203);
--
--	WRITE_RWA(0x62, al_base >> 8);
--	dprintk("%02X%02X (%X)\n", inb(0x203), i, al_base);
--
--	WRITE_RWA(0x30, 1);
--}
--
--static void rwa010_soundblaster_reset(void)
--{
--	int i;
--
--	outb(1, 0x226);
--	udelay(3);
--	outb(0, 0x226);
--
--	for (i = 0; i < 5; i++) {
--		if (inb(0x22e) & 0x80)
--			break;
--		mdelay(1);
--	}
--	if (i == 5)
--		printk("SoundBlaster: DSP reset failed\n");
--
--	dprintk("SoundBlaster DSP reset: %02X (AA)\n", inb(0x22a));
--
--	for (i = 0; i < 5; i++) {
--		if ((inb(0x22c) & 0x80) == 0)
--			break;
--		mdelay(1);
--	}
--
--	if (i == 5)
--		printk("SoundBlaster: DSP not ready\n");
--	else {
--		outb(0xe1, 0x22c);
--
--		dprintk("SoundBlaster DSP id: ");
--		i = inb(0x22a);
--		udelay(1);
--		i |= inb(0x22a) << 8;
--		dprintk("%04X\n", i);
--
--		for (i = 0; i < 5; i++) {
--			if ((inb(0x22c) & 0x80) == 0)
--				break;
--			mdelay(1);
--		}
--
--		if (i == 5)
--			printk("SoundBlaster: could not turn speaker off\n");
--
--		outb(0xd3, 0x22c);
--	}
--
--	/* turn on OPL3 */
--	outb(5, 0x38a);
--	outb(1, 0x38b);
--}
--
--static void __init rwa010_init(void)
--{
--	rwa010_unlock();
--	rwa010_read_ident();
--	rwa010_global_init();
--	rwa010_game_port_init();
--	rwa010_waveartist_init(0x250, 3, 7);
--	rwa010_soundblaster_init(0x220, 0x388, 3, 1);
--	rwa010_soundblaster_reset();
--}
--
--/*
-- * Initialise any other hardware after we've got the PCI bus
-- * initialised.  We may need the PCI bus to talk to this other
-- * hardware.
-- */
--static int __init nw_hw_init(void)
--{
--	if (machine_is_netwinder()) {
--		wb977_init();
--		cpld_init();
--		rwa010_init();
--	}
--	return 0;
--}
--
--__initcall(nw_hw_init);
--
--/*
-- * Older NeTTroms either do not provide a parameters
-- * page, or they don't supply correct information in
-- * the parameter page.
-- */
--static void __init
--fixup_netwinder(struct tag *tags, char **cmdline)
--{
--#ifdef CONFIG_ISAPNP
--	extern int isapnp_disable;
--
--	/*
--	 * We must not use the kernels ISAPnP code
--	 * on the NetWinder - it will reset the settings
--	 * for the WaveArtist chip and render it inoperable.
--	 */
--	isapnp_disable = 1;
--#endif
--}
--
--static void netwinder_restart(enum reboot_mode mode, const char *cmd)
--{
--	if (mode == REBOOT_SOFT) {
--		/* Jump into the ROM */
--		soft_restart(0x41000000);
--	} else {
--		local_irq_disable();
--		local_fiq_disable();
--
--		/* open up the SuperIO chip */
--		outb(0x87, 0x370);
--		outb(0x87, 0x370);
--
--		/* aux function group 1 (logical device 7) */
--		outb(0x07, 0x370);
--		outb(0x07, 0x371);
--
--		/* set GP16 for WD-TIMER output */
--		outb(0xe6, 0x370);
--		outb(0x00, 0x371);
--
--		/* set a RED LED and toggle WD_TIMER for rebooting */
--		outb(0xc4, 0x338);
--	}
--}
--
--/* LEDs */
--#if defined(CONFIG_NEW_LEDS) && defined(CONFIG_LEDS_CLASS)
--struct netwinder_led {
--	struct led_classdev     cdev;
--	u8                      mask;
+-static struct pata_platform_info pata_platform_data = {
+-	.ioport_shift		= 2,
 -};
 -
--/*
-- * The triggers lines up below will only be used if the
-- * LED triggers are compiled in.
-- */
--static const struct {
--	const char *name;
--	const char *trigger;
--} netwinder_leds[] = {
--	{ "netwinder:green", "heartbeat", },
--	{ "netwinder:red", "cpu0", },
+-static struct resource pata_resources[] = {
+-	DEFINE_RES_MEM(0x030107c0, 0x20),
+-	DEFINE_RES_MEM(0x03010fd8, 0x04),
+-	DEFINE_RES_IRQ(IRQ_HARDDISK),
 -};
 -
--/*
-- * The LED control in Netwinder is reversed:
-- *  - setting bit means turn off LED
-- *  - clearing bit means turn on LED
-- */
--static void netwinder_led_set(struct led_classdev *cdev,
--		enum led_brightness b)
--{
--	struct netwinder_led *led = container_of(cdev,
--			struct netwinder_led, cdev);
--	unsigned long flags;
--	u32 reg;
+-static struct platform_device pata_device = {
+-	.name			= "pata_platform",
+-	.id			= -1,
+-	.num_resources		= ARRAY_SIZE(pata_resources),
+-	.resource		= pata_resources,
+-	.dev			= {
+-		.platform_data	= &pata_platform_data,
+-		.coherent_dma_mask = ~0,	/* grumble */
+-	},
+-};
 -
--	raw_spin_lock_irqsave(&nw_gpio_lock, flags);
--	reg = nw_gpio_read();
--	if (b != LED_OFF)
--		reg &= ~led->mask;
--	else
--		reg |= led->mask;
--	nw_gpio_modify_op(led->mask, reg);
--	raw_spin_unlock_irqrestore(&nw_gpio_lock, flags);
+-static struct platform_device *devs[] __initdata = {
+-	&iomd_device,
+-	&kbd_device,
+-	&serial_device,
+-	&acornfb_device,
+-	&pata_device,
+-};
+-
+-static struct i2c_board_info i2c_rtc = {
+-	I2C_BOARD_INFO("pcf8583", 0x50)
+-};
+-
+-static int __init rpc_init(void)
+-{
+-	i2c_register_board_info(0, &i2c_rtc, 1);
+-	return platform_add_devices(devs, ARRAY_SIZE(devs));
 -}
 -
--static enum led_brightness netwinder_led_get(struct led_classdev *cdev)
+-arch_initcall(rpc_init);
+-
+-static void rpc_restart(enum reboot_mode mode, const char *cmd)
 -{
--	struct netwinder_led *led = container_of(cdev,
--			struct netwinder_led, cdev);
--	unsigned long flags;
--	u32 reg;
+-	iomd_writeb(0, IOMD_ROMCR0);
 -
--	raw_spin_lock_irqsave(&nw_gpio_lock, flags);
--	reg = nw_gpio_read();
--	raw_spin_unlock_irqrestore(&nw_gpio_lock, flags);
--
--	return (reg & led->mask) ? LED_OFF : LED_FULL;
+-	/*
+-	 * Jump into the ROM
+-	 */
+-	soft_restart(0);
 -}
 -
--static int __init netwinder_leds_init(void)
--{
--	int i;
+-void ioc_timer_init(void);
 -
--	if (!machine_is_netwinder())
--		return -ENODEV;
--
--	for (i = 0; i < ARRAY_SIZE(netwinder_leds); i++) {
--		struct netwinder_led *led;
--
--		led = kzalloc_obj(*led);
--		if (!led)
--			break;
--
--		led->cdev.name = netwinder_leds[i].name;
--		led->cdev.brightness_set = netwinder_led_set;
--		led->cdev.brightness_get = netwinder_led_get;
--		led->cdev.default_trigger = netwinder_leds[i].trigger;
--
--		if (i == 0)
--			led->mask = GPIO_GREEN_LED;
--		else
--			led->mask = GPIO_RED_LED;
--
--		if (led_classdev_register(NULL, &led->cdev) < 0) {
--			kfree(led);
--			break;
--		}
--	}
--
--	return 0;
--}
--
--/*
-- * Since we may have triggers on any subsystem, defer registration
-- * until after subsystem_init.
-- */
--fs_initcall(netwinder_leds_init);
--#endif
--
--MACHINE_START(NETWINDER, "Rebel-NetWinder")
--	/* Maintainer: Russell King/Rebel.com */
+-MACHINE_START(RISCPC, "Acorn-RiscPC")
+-	/* Maintainer: Russell King */
 -	.atag_offset	= 0x100,
--	.video_start	= 0x000a0000,
--	.video_end	= 0x000bffff,
 -	.reserve_lp0	= 1,
--	.reserve_lp2	= 1,
--	.fixup		= fixup_netwinder,
--	.map_io		= footbridge_map_io,
--	.init_irq	= footbridge_init_irq,
--	.init_time	= isa_timer_init,
--	.restart	= netwinder_restart,
+-	.reserve_lp1	= 1,
+-	.map_io		= rpc_map_io,
+-	.init_irq	= rpc_init_irq,
+-	.init_time	= ioc_timer_init,
+-	.restart	= rpc_restart,
 -MACHINE_END
-diff --git a/arch/arm/mach-footbridge/netwinder-pci.c b/arch/arm/mach-footbridge/netwinder-pci.c
+diff --git a/arch/arm/mach-rpc/time.c b/arch/arm/mach-rpc/time.c
 deleted file mode 100644
-index e8304392074b..000000000000
---- a/arch/arm/mach-footbridge/netwinder-pci.c
+index 9f8edcfe9357..000000000000
+--- a/arch/arm/mach-rpc/time.c
 +++ /dev/null
-@@ -1,62 +0,0 @@
--// SPDX-License-Identifier: GPL-2.0
+@@ -1,97 +0,0 @@
+-// SPDX-License-Identifier: GPL-2.0-only
 -/*
-- * linux/arch/arm/mach-footbridge/netwinder-pci.c
+- *  linux/arch/arm/common/time-acorn.c
 - *
-- * PCI bios-type initialisation for PCI machines
+- *  Copyright (c) 1996-2000 Russell King.
 - *
-- * Bits taken from various places.
+- *  Changelog:
+- *   24-Sep-1996	RMK	Created
+- *   10-Oct-1996	RMK	Brought up to date with arch-sa110eval
+- *   04-Dec-1997	RMK	Updated for new arch/arm/time.c
+- *   13=Jun-2004	DS	Moved to arch/arm/common b/c shared w/CLPS7500
 - */
--#include <linux/kernel.h>
--#include <linux/pci.h>
+-#include <linux/clocksource.h>
 -#include <linux/init.h>
+-#include <linux/interrupt.h>
+-#include <linux/irq.h>
+-#include <linux/io.h>
 -
--#include <asm/irq.h>
--#include <asm/mach/pci.h>
--#include <asm/mach-types.h>
+-#include <mach/hardware.h>
+-#include <asm/hardware/ioc.h>
 -
--/*
-- * We now use the slot ID instead of the device identifiers to select
-- * which interrupt is routed where.
-- */
--static int netwinder_map_irq(const struct pci_dev *dev, u8 slot, u8 pin)
+-#include <asm/mach/time.h>
+-
+-#define RPC_CLOCK_FREQ 2000000
+-#define RPC_LATCH DIV_ROUND_CLOSEST(RPC_CLOCK_FREQ, HZ)
+-
+-static u32 ioc_time;
+-
+-static u64 ioc_timer_read(struct clocksource *cs)
 -{
--	switch (slot) {
--	case 0:  /* host bridge */
--		return 0;
+-	unsigned int count1, count2, status;
+-	unsigned long flags;
+-	u32 ticks;
 -
--	case 9:  /* CyberPro */
--		return IRQ_NETWINDER_VGA;
+-	local_irq_save(flags);
+-	ioc_writeb (0, IOC_T0LATCH);
+-	barrier ();
+-	count1 = ioc_readb(IOC_T0CNTL) | (ioc_readb(IOC_T0CNTH) << 8);
+-	barrier ();
+-	status = ioc_readb(IOC_IRQREQA);
+-	barrier ();
+-	ioc_writeb (0, IOC_T0LATCH);
+-	barrier ();
+-	count2 = ioc_readb(IOC_T0CNTL) | (ioc_readb(IOC_T0CNTH) << 8);
+-	ticks = ioc_time + RPC_LATCH - count2;
+-	local_irq_restore(flags);
 -
--	case 10: /* DC21143 */
--		return IRQ_NETWINDER_ETHER100;
--
--	case 12: /* Winbond 553 */
--		return IRQ_ISA_HARDDISK1;
--
--	case 13: /* Winbond 89C940F */
--		return IRQ_NETWINDER_ETHER10;
--
--	default:
--		printk(KERN_ERR "PCI: unknown device in slot %s\n",
--			pci_name(dev));
--		return 0;
+-	if (count2 < count1) {
+-		/*
+-		 * The timer has not reloaded between reading count1 and
+-		 * count2, check whether an interrupt was actually pending.
+-		 */
+-		if (status & (1 << 5))
+-			ticks += RPC_LATCH;
+-	} else if (count2 > count1) {
+-		/*
+-		 * The timer has reloaded, so count2 indicates the new
+-		 * count since the wrap.  The interrupt would not have
+-		 * been processed, so add the missed ticks.
+-		 */
+-		ticks += RPC_LATCH;
 -	}
+-
+-	return ticks;
 -}
 -
--static struct hw_pci netwinder_pci __initdata = {
--	.map_irq		= netwinder_map_irq,
--	.nr_controllers		= 1,
--	.ops			= &dc21285_ops,
--	.setup			= dc21285_setup,
--	.preinit		= dc21285_preinit,
--	.postinit		= dc21285_postinit,
+-static struct clocksource ioctime_clocksource = {
+-	.read = ioc_timer_read,
+-	.mask = CLOCKSOURCE_MASK(32),
+-	.rating = 100,
 -};
 -
--static int __init netwinder_pci_init(void)
+-void __init ioctime_init(void)
 -{
--	if (machine_is_netwinder())
--		pci_common_init(&netwinder_pci);
--	return 0;
+-	ioc_writeb(RPC_LATCH & 255, IOC_T0LTCHL);
+-	ioc_writeb(RPC_LATCH >> 8, IOC_T0LTCHH);
+-	ioc_writeb(0, IOC_T0GO);
 -}
 -
--subsys_initcall(netwinder_pci_init);
-diff --git a/drivers/video/console/Kconfig b/drivers/video/console/Kconfig
-index 9f81af3506da..d8e3d307f50f 100644
---- a/drivers/video/console/Kconfig
-+++ b/drivers/video/console/Kconfig
-@@ -8,7 +8,6 @@ menu "Console display driver support"
- config VGA_CONSOLE
- 	bool "VGA text console" if EXPERT || !X86
- 	depends on ALPHA || X86 || \
--		(ARM && ARCH_FOOTBRIDGE) || \
- 		(MIPS && (MIPS_MALTA || SIBYTE_BCM112X || SIBYTE_SB1250 || SIBYTE_BCM1x80 || SNI_RM))
- 	select APERTURE_HELPERS if (DRM || FB || VFIO_PCI_CORE)
- 	default y
-@@ -36,7 +35,7 @@ config DUMMY_CONSOLE
- 
- config DUMMY_CONSOLE_COLUMNS
- 	int "Initial number of console screen columns"
--	depends on DUMMY_CONSOLE && !(ARCH_FOOTBRIDGE && VGA_CONSOLE)
-+	depends on DUMMY_CONSOLE
- 	default 160 if PARISC
- 	default 80
- 	help
-@@ -46,9 +45,8 @@ config DUMMY_CONSOLE_COLUMNS
- 
- config DUMMY_CONSOLE_ROWS
- 	int "Initial number of console screen rows"
--	depends on DUMMY_CONSOLE && !(ARCH_FOOTBRIDGE && VGA_CONSOLE)
-+	depends on DUMMY_CONSOLE
- 	default 64 if PARISC
--	default 30 if ARM
- 	default 25
- 	help
- 	  On PA-RISC, the default value is 64, which should fit a 1280x1024
-diff --git a/drivers/video/console/dummycon.c b/drivers/video/console/dummycon.c
-index 7d02470f19b9..48ebbc5bf6a8 100644
---- a/drivers/video/console/dummycon.c
-+++ b/drivers/video/console/dummycon.c
-@@ -18,15 +18,9 @@
-  *  Dummy console driver
-  */
- 
--#if defined(CONFIG_ARCH_FOOTBRIDGE) && defined(CONFIG_VGA_CONSOLE)
--#include <asm/vga.h>
--#define DUMMY_COLUMNS	vgacon_screen_info.orig_video_cols
--#define DUMMY_ROWS	vgacon_screen_info.orig_video_lines
--#else
- /* set by Kconfig. Use 80x25 for 640x480 and 160x64 for 1280x1024 */
- #define DUMMY_COLUMNS	CONFIG_DUMMY_CONSOLE_COLUMNS
- #define DUMMY_ROWS	CONFIG_DUMMY_CONSOLE_ROWS
--#endif
- 
- #ifdef CONFIG_FRAMEBUFFER_CONSOLE_DEFERRED_TAKEOVER
- /* These are both protected by the console_lock */
-diff --git a/drivers/video/fbdev/cyber2000fb.c b/drivers/video/fbdev/cyber2000fb.c
-index 5c7349722125..aa15c7be4fa5 100644
---- a/drivers/video/fbdev/cyber2000fb.c
-+++ b/drivers/video/fbdev/cyber2000fb.c
-@@ -1723,16 +1723,6 @@ static int cyberpro_pci_probe(struct pci_dev *dev,
- 	cfb->mclk_mult = cyber2000_grphr(EXT_MCLK_MULT, cfb);
- 	cfb->mclk_div  = cyber2000_grphr(EXT_MCLK_DIV, cfb);
- 
--#ifdef __arm__
--	/*
--	 * MCLK on the NetWinder and the Shark is fixed at 75MHz
--	 */
--	if (machine_is_netwinder()) {
--		cfb->mclk_mult = 0xdb;
--		cfb->mclk_div  = 0x54;
--	}
--#endif
+-static irqreturn_t
+-ioc_timer_interrupt(int irq, void *dev_id)
+-{
+-	ioc_time += RPC_LATCH;
+-	legacy_timer_tick(1);
+-	return IRQ_HANDLED;
+-}
 -
- 	err = cyberpro_common_probe(cfb);
- 	if (err)
- 		goto failed;
+-/*
+- * Set up timer interrupt.
+- */
+-void __init ioc_timer_init(void)
+-{
+-	WARN_ON(clocksource_register_hz(&ioctime_clocksource, RPC_CLOCK_FREQ));
+-	ioctime_init();
+-	if (request_irq(IRQ_TIMER0, ioc_timer_interrupt, 0, "timer", NULL))
+-		pr_err("Failed to request irq %d (timer)\n", IRQ_TIMER0);
+-}
+diff --git a/arch/arm/mm/mmu.c b/arch/arm/mm/mmu.c
+index 350f6dcc24cc..07c2fda4d422 100644
+--- a/arch/arm/mm/mmu.c
++++ b/arch/arm/mm/mmu.c
+@@ -1112,7 +1112,7 @@ static void __init fill_pmd_gaps(void)
+ #define fill_pmd_gaps() do { } while (0)
+ #endif
+ 
+-#if defined(CONFIG_PCI) && !defined(CONFIG_NEED_MACH_IO_H)
++#if defined(CONFIG_PCI)
+ static void __init pci_reserve_io(void)
+ {
+ 	struct static_vm *svm;
+diff --git a/block/partitions/Kconfig b/block/partitions/Kconfig
+index ce17e41451af..94e7df547e7a 100644
+--- a/block/partitions/Kconfig
++++ b/block/partitions/Kconfig
+@@ -19,13 +19,11 @@ config PARTITION_ADVANCED
+ 
+ config ACORN_PARTITION
+ 	bool "Acorn partition support" if PARTITION_ADVANCED
+-	default y if ARCH_ACORN
+ 	help
+ 	  Support hard disks partitioned under Acorn operating systems.
+ 
+ config ACORN_PARTITION_CUMANA
+ 	bool "Cumana partition support" if PARTITION_ADVANCED
+-	default y if ARCH_ACORN
+ 	depends on ACORN_PARTITION
+ 	help
+ 	  Say Y here if you would like to use hard disks under Linux which
+@@ -33,12 +31,10 @@ config ACORN_PARTITION_CUMANA
+ 
+ config ACORN_PARTITION_EESOX
+ 	bool "EESOX partition support" if PARTITION_ADVANCED
+-	default y if ARCH_ACORN
+ 	depends on ACORN_PARTITION
+ 
+ config ACORN_PARTITION_ICS
+ 	bool "ICS partition support" if PARTITION_ADVANCED
+-	default y if ARCH_ACORN
+ 	depends on ACORN_PARTITION
+ 	help
+ 	  Say Y here if you would like to use hard disks under Linux which
+@@ -46,7 +42,6 @@ config ACORN_PARTITION_ICS
+ 
+ config ACORN_PARTITION_ADFS
+ 	bool "Native filecore partition support" if PARTITION_ADVANCED
+-	default y if ARCH_ACORN
+ 	depends on ACORN_PARTITION
+ 	help
+ 	  The Acorn Disc Filing System is the standard file system of the
+@@ -56,7 +51,6 @@ config ACORN_PARTITION_ADFS
+ 
+ config ACORN_PARTITION_POWERTEC
+ 	bool "PowerTec partition support" if PARTITION_ADVANCED
+-	default y if ARCH_ACORN
+ 	depends on ACORN_PARTITION
+ 	help
+ 	  Support reading partition tables created on Acorn machines using
+@@ -64,7 +58,6 @@ config ACORN_PARTITION_POWERTEC
+ 
+ config ACORN_PARTITION_RISCIX
+ 	bool "RISCiX partition support" if PARTITION_ADVANCED
+-	default y if ARCH_ACORN
+ 	depends on ACORN_PARTITION
+ 	help
+ 	  Once upon a time, there was a native Unix port for the Acorn series
+diff --git a/drivers/tty/vt/keyboard.c b/drivers/tty/vt/keyboard.c
+index c41d850b29c6..9770c83aea74 100644
+--- a/drivers/tty/vt/keyboard.c
++++ b/drivers/tty/vt/keyboard.c
+@@ -1308,7 +1308,7 @@ static void kbd_bh(struct tasklet_struct *unused)
+ #if defined(CONFIG_X86) || defined(CONFIG_ALPHA) ||\
+     defined(CONFIG_MIPS) || defined(CONFIG_PPC) || defined(CONFIG_SPARC) ||\
+     defined(CONFIG_PARISC) || defined(CONFIG_SUPERH) ||\
+-    (defined(CONFIG_ARM) && defined(CONFIG_KEYBOARD_ATKBD) && !defined(CONFIG_ARCH_RPC))
++    (defined(CONFIG_ARM) && defined(CONFIG_KEYBOARD_ATKBD))
+ 
+ static inline bool kbd_is_hw_raw(const struct input_dev *dev)
+ {
+diff --git a/lib/fonts/font_acorn_8x8.c b/lib/fonts/font_acorn_8x8.c
+index 4ff52c79f8c4..ec2b1e463ab9 100644
+--- a/lib/fonts/font_acorn_8x8.c
++++ b/lib/fonts/font_acorn_8x8.c
+@@ -277,9 +277,5 @@ const struct font_desc font_acorn_8x8 = {
+ 	.height	= 8,
+ 	.charcount = 256,
+ 	.data	= acorndata_8x8.data,
+-#ifdef CONFIG_ARCH_ACORN
+-	.pref	= 20,
+-#else
+ 	.pref	= 0,
+-#endif
+ };
 -- 
 2.53.0
 
