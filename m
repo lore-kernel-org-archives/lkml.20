@@ -1,113 +1,162 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 963AB52379E;
-	Tue,  8 Sep 2026 23:43:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id C791A484236;
+	Tue,  8 Sep 2026 23:44:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788911021; cv=none; b=NTiyzGqRk2ytQsgS/NutXAFLvqJO8ChPn889b+mBn09zyU0lPofflQ0wR3YWA2YwVnbJreOs0ykT0U8IpmXknEQd521Jy935hl87INIOxlyNbAgT19xv2O9XyuH7rQzsRaHuyjMmJ1E0k7ci0zMAJTOblHLG6tBMmR1lHnnFtsE=
+	t=1788911095; cv=none; b=DTrc7XFKtKFHAR5ZWphv3k8QXjoT1LkyXN2ElLyWJFqmfAvRsaS9Tg731x/bq3Ba0NqUM8vA9h0xOk+zeaiWnyD+A5cj7xvN2/DI4UgHxYIU7wUq3lceWC0I0SG29SEncgsj2aZlV/NpW2J/csFKw87xZ5zpW8rvf0xfqZ5qo50=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788911021; c=relaxed/simple;
-	bh=H999UKy2iuT6K8CgwNJcVisePbX+7Xem5RN2cVdD5c0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=dkRwFRF82qLp3CHkvaPXfUBq+i9ngpLhlZ0H9tFmjgW//IcHP6FHVw+jSwwV2t56gcUGpf6zLu6KYmpHbu4YTeFNMsBDdG+/Mc2i5HfutRySrVl+f2+qjZ94lQg6m3PBpQBEHMVPxfrkYjF03tb+c9ViyJKfm9xntTvyqxBXObc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mOv/YVHW; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788911095; c=relaxed/simple;
+	bh=VeMzhWQ6IE68U3WO3O4kVsqDVBYXVw/9y69DWxi4g/0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=pXvfpvsS2B6nsmaGy1KnBoFQDaHDGyMiD3RVngkUrVX9P+dlllHGS2kXbdlP5B4twArDDULvnxZnM3fi8GKymVBKGAAjXG92tWKZ7xf7bR+rgWOnqlSeZjq3OKlXnELMflkzd5QqpQ37HYlw9UmqB/etxMiww+/P05VKYYlDm94=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=sKOzwmEB; arc=none smtp.client-ip=13.77.154.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mOv/YVHW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3EC071F00A3A;
-	Tue,  8 Sep 2026 23:43:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788911020;
-	bh=bTC3iSyF2tfahKD69KVMM+MNNO/UKZifg5yuXtJejmQ=;
-	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
-	b=mOv/YVHWssv7SlL3NRs15iDfBMqWENVXstipSTuZfYniXrL8HTO9PbjdMc6mcshS4
-	 Kb0f0FM7iIJuNo7b0qRcFjwU2omEvbEQm31WvVuATYPn56wpw8x8S7ton2SWe7Qx7u
-	 Qbc2lMZbekgGa7Ln4sUF8e0IT7F/KNPDEj09qgr7KK+212lTlfQ7tne93ejOyGHE2u
-	 ErC8Z5cs3BiklJ7A/Y6VlK5M+gxe9zG1KcpUyV9gG7VfmNvVFok6u0Rq1clch8q6L9
-	 xgAARo14RWPJJydxz33ciPMxHkIIiLflzCrx0Hr6fu3/48shqJ3T6ztJEnX61iREVf
-	 52aROnR7I+bqg==
-Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
-	id 032B1CE18F4; Tue,  8 Sep 2026 16:43:40 -0700 (PDT)
-Date: Tue, 8 Sep 2026 16:43:39 -0700
-From: "Paul E. McKenney" <paulmck@kernel.org>
-To: Kunwu Chan <kunwu.chan@gmail.com>
-Cc: jiangshanlai@gmail.com, josh@joshtriplett.org, rostedt@goodmis.org,
-	mathieu.desnoyers@efficios.com, rcu@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 08/13] srcutree: Forbid srcu_expedite_current() on atomic
- SRCU
-Message-ID: <b292e178-0158-41df-881d-d02b0f393c6c@paulmck-laptop>
-Reply-To: paulmck@kernel.org
-References: <20260907075829.2073224-1-kunwu.chan@linux.dev>
- <20260907075829.2073224-9-kunwu.chan@linux.dev>
+	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="sKOzwmEB"
+Received: from [192.168.0.88] (192-184-212-33.fiber.dynamic.sonic.net [192.184.212.33])
+	by linux.microsoft.com (Postfix) with ESMTPSA id 40BA820B7166;
+	Tue,  8 Sep 2026 16:44:12 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 40BA820B7166
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+	s=default; t=1788911053;
+	bh=P8fD+5o8YxUE5iDfnpfEVckIqMObSoRj7VJ+1ocXu8Y=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=sKOzwmEBhqCQgmpsX9iDct6oTbNDC8WVWCVhIuonMYsSgK4ZV7fd8M+wFxmpnaO3J
+	 jA8KHnWcqdb4nsPgxFmTqm8jEJ1Akr1b/s+qfLuUz0IrhACbSens8hJxvueNpX7Ym2
+	 XO8iQ9EQWC5kNtgGUq59n4hKxD4kOqMiCk+vYGF8=
+Message-ID: <8a526d96-c116-5e54-ebc1-941e12a08506@linux.microsoft.com>
+Date: Tue, 8 Sep 2026 16:44:51 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260907075829.2073224-9-kunwu.chan@linux.dev>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.13.1
+Subject: Re: [PATCH v5 4/5] iommu/hyperv: Add para-virtualized IOMMU support
+ for Hyper-V guest
+Content-Language: en-US
+To: Yu Zhang <zhangyu1@linux.microsoft.com>
+Cc: linux-kernel@vger.kernel.org, linux-hyperv@vger.kernel.org,
+ iommu@lists.linux.dev, linux-pci@vger.kernel.org,
+ linux-arch@vger.kernel.org, x86@kernel.org, wei.liu@kernel.org,
+ kys@microsoft.com, haiyangz@microsoft.com, decui@microsoft.com,
+ longli@microsoft.com, joro@8bytes.org, will@kernel.org,
+ robin.murphy@arm.com, bhelgaas@google.com, kwilczynski@kernel.org,
+ lpieralisi@kernel.org, mani@kernel.org, robh@kernel.org, arnd@arndb.de,
+ jgg@ziepe.ca, mhklinux@outlook.com, jacob.pan@linux.microsoft.com,
+ tgopinath@linux.microsoft.com, easwar.hariharan@linux.microsoft.com,
+ baolu.lu@linux.intel.com, suravee.suthikulpanit@amd.com, vasant.hegde@amd.com
+References: <20260904075512.174154-1-zhangyu1@linux.microsoft.com>
+ <20260904075512.174154-5-zhangyu1@linux.microsoft.com>
+ <af047ef8-91ef-7786-c230-25e28b1c8c04@linux.microsoft.com>
+ <re2lmz757bvtzbkylxtsj7zu2pjqz7ro752tcg7bpjaicuj6ml@mgsg6jnvgbyd>
+ <421b3805-5b90-dfc9-b84c-ee58969f5e36@linux.microsoft.com>
+ <mjwk6raf75lpd3wjotii5lnxmnlt4c474tu55ezrwsvr2rbfmx@krnwg7yoifes>
+From: Mukesh R <mrathor@linux.microsoft.com>
+In-Reply-To: <mjwk6raf75lpd3wjotii5lnxmnlt4c474tu55ezrwsvr2rbfmx@krnwg7yoifes>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Mon, Sep 07, 2026 at 03:58:24PM +0800, Kunwu Chan wrote:
-> From: Kunwu Chan <kunwu.chan@gmail.com>
+On 9/7/26 20:16, Yu Zhang wrote:
+> On Mon, Sep 07, 2026 at 02:08:35PM -0700, Mukesh R wrote:
+>> On 9/7/26 01:41, Yu Zhang wrote:
+>>> <snip>
+>>>
+>>>>> +{
+>>>>> +	u64 status;
+>>>>> +	u32 prefix;
+>>>>> +	unsigned long flags;
+>>>>> +	int ret;
+>>>>> +	struct pci_dev *pdev = to_pci_dev(dev);
+>>>>> +	struct hv_input_get_logical_device_property *input;
+>>>>> +	struct hv_output_get_logical_device_property *output;
+>>>>> +
+>>>>> +	ret = hv_pci_lookup_dev_id(pci_domain_nr(pdev->bus), &prefix);
+>>>>> +	if (ret)
+>>>>> +		return ret;
+>>>>> +
+>>>>> +	local_irq_save(flags);
+>>>>> +
+>>>>> +	input = *this_cpu_ptr(hyperv_pcpu_input_arg);
+>>>>> +	output = (struct hv_output_get_logical_device_property *)(input + 1);
+>>>>
+>>>> Any reason for not using pcpu output arg like we do in all other places?
+>>>> If there is a technical reason, please document it, otherwise when revisited
+>>>> in future for re-design, anyone looking at this will be confused and
+>>>> waste time investigating if there is anything different about this hypercall.
+>>>>
+>>>>
+>>>
+>>> Thank you, Mukesh. I had also incorrectly assumed that output required
+>>> a separate page, which is why the RFC included a separate output-page
+>>> allocation patch. Michael clarified during that review [1] that input
+>>> and output can share a page as long as their buffers do not overlap,
+>>> so I dropped that patch latter.
+>>
+>> They can share a page, but we don't enforce the sizes combined do
+>> not overflow a page, and that could be an issue in future. There is
 > 
-> srcu_expedite_current() has no early guard for atomic SRCU, so calling
-> it on an atomic srcu_struct leaks the expediting callback in
-> __call_srcu(), leaving ->srcu_ec_state stuck at SRCU_EC_PENDING.
-> 
-> Add the same WARN_ON_ONCE()-guarded early return used by the other
-> forbidden APIs, and list srcu_expedite_current() and srcu_barrier() in
-> synchronize_srcu_atomic()'s documentation.
-> 
-> Signed-off-by: Kunwu Chan <kunwu.chan@gmail.com>
+> The two hypercalls (HVCALL_GET_IOMMU_CAPABILITIES and
+> HVCALL_GET_LOGICAL_DEVICE_PROPERTY) each currently use only 40 bytes of
+> combined input and output. No concrete requirement has been identified
+> that would make either approach 4 KB. A hypothetical future expansion
+> is not sufficient reason to allocate another per-CPU page now.
 
-Excellent catch, thank you very much!!!  I have queued this to be folded
-into the original with attribution, all in the name of bisectability.
+Understood and obvious. But just like you are pointing at
+hv_pci_read_mmio(), someone could point at this and may not be using
+small structs. When almost all hyperalls use a certain way, that is
+the convention. I see that outpage is not always allocated for guest
+VMs, and if you don't wanna check if it is and just share intput page,
+that's fine. Like I said earlier, add a comment so that when one
+looks at redoing all hypercalls that use input and output page, this
+one doesn't get missed because they might think there is something
+special about this. It would be ludicrous on my part to suggest
+that we fix all hypercalls as part of this series.
 
-							Thanx, Paul
+In a nutshell, a simple comment like this would help:
 
-> ---
->  kernel/rcu/srcutree.c | 11 +++++++++--
->  1 file changed, 9 insertions(+), 2 deletions(-)
+         /*
+          * This hyperall has small input and output parameters. So to avoid
+          * checking if output page has been allocated, we just use the input
+          * page for output. Using the output page would also be correct.
+          */
+
+Thanks,
+-Mukesh
+
+
+>> a tool on the hyp side i believe to check that input and output struct
+>> sizes do not exceed page size.
+>>
+>> Also, both the input and output pages are pre-allocated, so there is no
+>> extra allocation (otherwise, we'd have changed all places by now). So
+>> it's better to just follow the convention we've so far just to avoid
+>> confusion during future redesign imo. We def need to revisit this in
+>> near/medium future for all hypercalls.
+>>
 > 
-> diff --git a/kernel/rcu/srcutree.c b/kernel/rcu/srcutree.c
-> index 74acd5645d4c..2d2a12f86115 100644
-> --- a/kernel/rcu/srcutree.c
-> +++ b/kernel/rcu/srcutree.c
-> @@ -1972,6 +1972,9 @@ static void srcu_expedite_current_cb(struct rcu_head *rhp)
->   * no current grace period, one might be created.  If the current grace
->   * period is currently sleeping, that sleep will complete before expediting
->   * will take effect.
-> + *
-> + * This function must not be invoked on srcu_struct structures that are
-> + * used with srcu_read_lock_atomic() and synchronize_srcu_atomic().
->   */
->  void srcu_expedite_current(struct srcu_struct *ssp)
->  {
-> @@ -1979,6 +1982,9 @@ void srcu_expedite_current(struct srcu_struct *ssp)
->  	bool needcb = false;
->  	struct srcu_data *sdp;
->  
-> +	// Atomic SRCU has no callbacks, so there is nothing to expedite.
-> +	if (WARN_ON_ONCE(ssp->srcu_reader_flavor == SRCU_READ_FLAVOR_ATOMIC))
-> +		return;
->  	migrate_disable();
->  	sdp = this_cpu_ptr(ssp->sda);
->  	raw_spin_lock_irqsave_sdp_contention(sdp, &flags);
-> @@ -2104,8 +2110,9 @@ static void srcu_advance_state(struct srcu_struct *ssp, bool is_atomic)
->   *
->   * If synchronize_srcu_atomic() is invoked on a given srcu_struct
->   * structure, then none of call_srcu(), synchronize_srcu(),
-> - * synchronize_srcu_expedited(), or start_poll_synchronize_srcu() may be
-> - * invoked on that same structure.
-> + * synchronize_srcu_expedited(), start_poll_synchronize_srcu(),
-> + * srcu_barrier(), or srcu_expedite_current() may be invoked on that
-> + * same structure.
->   *
->   * Because synchronize_srcu_atomic() is even more expedited than is
->   * synchronize_srcu_expedited(), there is no expedited counterpart to
-> -- 
-> 2.43.0
+> Well, output page is NOT pre-allocated ordinary child partitions. Please
+> see hv_output_page_exists() in hv_common.c.
+>                                                                                                                                                          
+> My RFC included a separate allocation because I had incorrectly assumed
+> that output required its own page. Like I mentioned earlier, this was
+> already discussed during the RFC review [1], and that allocation patch
+> was dropped following the discussion.
 > 
+> Using separate pages is NOT a *convention* either: hv_pci_read_mmio()
+> already places input and output in non-overlapping regions of the same
+> page.
+> 
+> We can certainly reassess which hypercalls need separate output pages
+> in a broader review. I would keep that separate from this series,
+> rather than reopen the RFC discussion without a concrete issue in
+> the current implementation.
+> 
+> [1] https://lore.kernel.org/all/SN6PR02MB4157C3EF6617A7BA4CA9E432D485A@SN6PR02MB4157.namprd02.prod.outlook.com/
+> 
+> B.R.
+> Yu
+
