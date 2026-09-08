@@ -1,205 +1,227 @@
-Received: from mail-pf1-f169.google.com (mail-pf1-f169.google.com [209.85.210.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D454379C3E
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 05:27:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC4012475F7;
+	Tue,  8 Sep 2026 05:30:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.2
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788845261; cv=none; b=KzZyjszFTVHyrjhxx+YfCkk8Xo2h7t5McYoV+xAbXfpWBOiXA9S6t5LhYhkJhPfaza/kk8swUkpE6BCG6qVFsPiPBPfscMXJy54t14QcGR9goBVsQSsKMP24qmpBnI1E2H21GDEy1O3YFA4Xie3HBSQr8T9/eCxy0iNxzlACTpA=
+	t=1788845418; cv=none; b=HOoczxajDnPPTKzAPPu8RBfhI/rvOV2Hy8PS+x7ELrQwSdM/fDCc5/zwmsp4FwUEywlHq48PlBlm2aWO+Gjvkh0VWUNzNSdW2vOthLcCr7KD0qkD6a3rL3jktBaiTp0gOr++yBkXKTfkJfPNJAYvIa3QeVBnJV4gX+8lsU79fYk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788845261; c=relaxed/simple;
-	bh=Og17tNfr1MSjCFANiTkltISsVC58pPAzd5pXj79CkxU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=us0deYUEjPmyuxfIAgHRSnuhBurkVmEZEh/z2mVLk2YfdkG3DXGv8EpBmRdutNpRmeb5cRcAy2YA/hj38j3lohECRWplpZyIqx9T7WAQJxvgq0/5rkgWBMlRqDe4siH8nGKnxY0EXNvrkBRyQJjL2BdHtkEnaoFaXe5cMEHZW7c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=l7JpBQHP; arc=none smtp.client-ip=209.85.210.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788845418; c=relaxed/simple;
+	bh=E6H2Y0ZwjLMFq5XqI2to9zCA8GhYxFW2g8SuFHNgAlM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=XBWGQ9FxGdpbzTXBKPJSNVuClcz3MbG3Fv+8siQip9Yt5lUAznbq/Clyqlc8mEC5lXQTnGiXTLYdIq1+pz3PGv/sh88tK1o9h7h4Zr6PwQ9GCjdk/Z/K/KlWuo9zSLgrTvpP5iG8f6fNfxw2GL0Y+JHXGcHp8Mb2IloS6Qkw66Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=PJGaDQ9c; arc=none smtp.client-ip=220.197.31.2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="l7JpBQHP"
-Received: by mail-pf1-f169.google.com with SMTP id d2e1a72fcca58-84e04df8c46so4594490b3a.2
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 22:27:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788845259; x=1789450059; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=8ThgDhRyE+Y72EBv7/U4oxOtCi6RtEmzsslCG/DRcvA=;
-        b=l7JpBQHP2vk6WBDHMcRbNgK6J/qmwni0n9s+ftc/g6ut/zo6aUSEQ4S0AD35ywi5hs
-         LvklrhDE3M7Exzsxn4UCAn2TT4M6PtYdfk9F4klqmOJaEJMj/Beo5pX5l1P9AmuJEZdF
-         MyapI0DL6iWZlTzYC3McI2BOC3BcwrE5tZLHvM3gulpTGYmryDW7UReN9jkYqpu861H9
-         Kzw5JSQ/h9ewM1fi6bOYl/dEyExm9d9SDnKp9an3FWlxmDsNCWl9/HIB3LRvBxQUODxc
-         bVxjvabZoyeJYVe0+c1loOwPl1IpyGZG9tytk/C8+ZiF4ZI3teiHjOoRDpPwR844lhjr
-         aawg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788845259; x=1789450059;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=8ThgDhRyE+Y72EBv7/U4oxOtCi6RtEmzsslCG/DRcvA=;
-        b=YjfK4v6R3uT41axrKfCCdD2XsQd7c2anm7n2xR4WzjLbudBqZqy34Tv93Cbb3xpl2c
-         x33Y/Qv+0McwFV9tyLRuL3x9zN4U+XON25Bkip2BXx+wpLN67bZZjgJpAfz1dt+xNohU
-         J8e8It2y+n6bitei2Fxxi4iHCuYhZDIxbxUZ+6uB8cA+Hm3xGDmgU9lxxM1JrGDOGtRd
-         Lw2bwmp6q4bB3lSs7mX2wtqPyB38Ry9c3aEVRPgrlXbA/OWvKGAakfw/1DjIlJTWrDB7
-         eiw1VvskzvdGX5NiWAnUMv7Y1nGsitF7NMDvt1zonkEgCwvAM7LCCWQWvYfMQXaAr+O+
-         /Lkg==
-X-Forwarded-Encrypted: i=1; AKwUvBxmah2+7eotVLuCKyUIMES1DUDYzgM3QF1Hd8gh1orhxmRrl3D6x0+aTzn++GPzF/rd7yJGO8xsSLuZ7TI=@vger.kernel.org
-X-Gm-Message-State: AFuF++n640xvV0V+UabYSvct0L3gip0b3L+vNoqSN7q1ryopLvon69v6
-	Ia7aDEuICXYOV4MT1HEOJUOcOiB94MBkkSmRqw3Qy7Cwe5pUbBJmPDb8
-X-Gm-Gg: AYBFou21VT84pHUhq9nf5DJYIVWfTxnxRTdzD0QeySaJL6UzbrPQkQkcfHfIPMj2aA+
-	ZtZXYJPo9gcPt/JdhUwDiJqRL39x+QXTGsEgsui6xwfahDCkOm7TKBUd9fvi3JSWe8tdeAX/xuL
-	ah1I5AcNnFQ68QQEPFDsWvI2zDeUrQs9eZ+zNZVtav4/Bx2iWeoSoRiZO2A99O5ObeBf6GUXa7g
-	rTrTEPxnJdcrXw7bS2GjKpM7Jx4YK8VDXyimeoKRP0QXl2JNxM3tSzETz/gx8SCYOaoz8swrKFO
-	z0TSQOKeT1i4XwrGTl2/EUaQNGt+vNFDPBDxIsvMeD4NtlgOzMIgTAF53RNrYtO3ncDzI1Oaz7D
-	36GKzpUL1JPp0j7gHzVcEW0TJA+f4KONGRUyOIwpWhHVuOozNcfoMJheoMtEBpgpxuNb+kejgJQ
-	oQwO9kJmzzXorGasWDqpflppsUPM5U1O8IHz4+M3KCjE0MPAisX3MirmRVy5Ht6aEuEDjbCaXK9
-	qImoca6J0mwwA==
-X-Received: by 2002:a05:6a21:3943:b0:3c4:1493:6822 with SMTP id adf61e73a8af0-3da3a0aa8cbmr44065672637.18.1788845258816;
-        Mon, 07 Sep 2026 22:27:38 -0700 (PDT)
-Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14340a69666sm11720586c88.9.2026.09.07.22.27.30
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 07 Sep 2026 22:27:38 -0700 (PDT)
-From: Hemanth Selam <hemanth.selam@gmail.com>
-To: "David S. Miller" <davem@davemloft.net>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	Bharat Bhushan <bbhushan2@marvell.com>,
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-	Chris Snook <chris.snook@gmail.com>,
-	Eric Dumazet <edumazet@google.com>,
-	Florian Fainelli <florian.fainelli@broadcom.com>,
-	GR-Linux-NIC-Dev@marvell.com,
-	Geetha sowjanya <gakula@marvell.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Jian Shen <shenjian15@huawei.com>,
-	Jijie Shao <shaojijie@huawei.com>,
-	Manish Chopra <manishc@marvell.com>,
-	Marcin Wojtas <marcin.s.wojtas@gmail.com>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Rahul Verma <rahulv@marvell.com>,
-	Ratheesh Kannoth <rkannoth@marvell.com>,
-	Russell King <linux@armlinux.org.uk>,
-	Shahed Shaikh <shshaikh@marvell.com>,
-	Shuah Khan <shuah@kernel.org>,
-	Simon Horman <horms@kernel.org>,
-	Subbaraya Sundeep <sbhatta@marvell.com>,
-	Sudarsana Kalluru <skalluru@marvell.com>,
-	Sunil Goutham <sgoutham@marvell.com>
-Cc: linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	linux-parisc@vger.kernel.org,
-	netdev@vger.kernel.org
-Subject: [PATCH net-next v3 10/10] net: dec: fix typos in comments
-Date: Tue,  8 Sep 2026 10:56:02 +0530
-Message-ID: <20260908052602.27497-11-hemanth.selam@gmail.com>
-X-Mailer: git-send-email 2.48.1
-In-Reply-To: <20260908052602.27497-1-hemanth.selam@gmail.com>
-References: <20260908052602.27497-1-hemanth.selam@gmail.com>
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="PJGaDQ9c"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
+	Content-Type; bh=CLHtLxmz/iAPi/ljlw5y0pPU0Y71gzdqBytuxZnbHFQ=;
+	b=PJGaDQ9c5DbKE0wEf9gxS8MFQbjKMP62y3NcKRy76meBWosXC85HamMDoQW142
+	sntu1I2ZtNfqiwb3Cf6G8b5HnrEpY+APgPYhvCmQ0pti8h2vhSTGHDgNiOgWThka
+	Xkx5+s8/v7H8DCqjbVUDK7zcQ66cb95ddXa8/O2MsSagw=
+Received: from [IPV6:2409:8900:1e93:d74:46a:b98a:2b32:6a19] (unknown [])
+	by gzga-smtp-mtada-g0-1 (Coremail) with SMTP id _____wA3YgJAnZ9qTDFdBQ--.20293S2;
+	Tue, 08 Sep 2026 13:29:37 +0800 (CST)
+Message-ID: <9b5a4c9a-447c-4510-8d95-40c552dcbb73@163.com>
+Date: Tue, 8 Sep 2026 13:29:36 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 1/3] ntfs: fix volume flag update races
+To: Hongling Zeng <zenghongling@kylinos.cn>, linkinjeon@kernel.org,
+ hyc.lee@gmail.com
+Cc: ntfs@lists.linux.dev, linux-kernel@vger.kernel.org,
+ zhongling0719@126.com, stable@vger.kernel.org
+References: <20260907070852.291323-1-zenghongling@kylinos.cn>
+ <20260907070852.291323-2-zenghongling@kylinos.cn>
+Content-Language: en-US
+From: liubaolin <liubaolin12138@163.com>
+In-Reply-To: <20260907070852.291323-2-zenghongling@kylinos.cn>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wA3YgJAnZ9qTDFdBQ--.20293S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW3WF4UZrWrAr4fCw1DGr1rZwb_yoW3JFyxpr
+	sayF9rKa1qyrnrWws7tw4IgF4S9348Gr48Cry7Jw1av3sIyr1UXF18K3WrZFnYyr97Ar1x
+	XFWUtrW5W3WUZFUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07U-Z2fUUUUU=
+X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbCwQH5xGqfnUFDTgAA3Z
 
-Fix misspellings in comments, found with scripts/checkpatch.pl using
-the misspelling list in scripts/spelling.txt.  Comments only, no code
-changes.
 
-Assisted-by: Cursor:claude-opus-5
-Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
----
- drivers/net/ethernet/dec/tulip/de2104x.c     | 2 +-
- drivers/net/ethernet/dec/tulip/interrupt.c   | 4 ++--
- drivers/net/ethernet/dec/tulip/media.c       | 2 +-
- drivers/net/ethernet/dec/tulip/tulip.h       | 4 ++--
- drivers/net/ethernet/dec/tulip/winbond-840.c | 2 +-
- 5 files changed, 7 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/net/ethernet/dec/tulip/de2104x.c b/drivers/net/ethernet/dec/tulip/de2104x.c
-index f38a10c79907..fa52e099409c 100644
---- a/drivers/net/ethernet/dec/tulip/de2104x.c
-+++ b/drivers/net/ethernet/dec/tulip/de2104x.c
-@@ -373,7 +373,7 @@ static void de_rx_err_acct (struct de_private *de, unsigned rx_tail,
- 		  rx_tail, status, len);
- 
- 	if ((status & 0x38000300) != 0x0300) {
--		/* Ingore earlier buffers. */
-+		/* Ignore earlier buffers. */
- 		if ((status & 0xffff) != 0x7fff) {
- 			netif_warn(de, rx_err, de->dev,
- 				   "Oversized Ethernet frame spanned multiple buffers, status %08x!\n",
-diff --git a/drivers/net/ethernet/dec/tulip/interrupt.c b/drivers/net/ethernet/dec/tulip/interrupt.c
-index 0a12cb9b3ba7..8c02771b28e4 100644
---- a/drivers/net/ethernet/dec/tulip/interrupt.c
-+++ b/drivers/net/ethernet/dec/tulip/interrupt.c
-@@ -177,7 +177,7 @@ int tulip_poll(struct napi_struct *napi, int budget)
- 			   pkt_len > 1518) {
- 			       if ((status & (RxLengthOver2047 |
- 					      RxWholePkt)) != RxWholePkt) {
--                                /* Ingore earlier buffers. */
-+                                /* Ignore earlier buffers. */
-                                        if ((status & 0xffff) != 0x7fff) {
-                                                if (tulip_debug > 1)
-                                                        dev_warn(&dev->dev,
-@@ -408,7 +408,7 @@ static int tulip_rx(struct net_device *dev)
- 		    pkt_len > 1518) {
- 			if ((status & (RxLengthOver2047 |
- 			     RxWholePkt))         != RxWholePkt) {
--				/* Ingore earlier buffers. */
-+				/* Ignore earlier buffers. */
- 				if ((status & 0xffff) != 0x7fff) {
- 					if (tulip_debug > 1)
- 						netdev_warn(dev,
-diff --git a/drivers/net/ethernet/dec/tulip/media.c b/drivers/net/ethernet/dec/tulip/media.c
-index 55d6fc99f40b..0c9694d2b38a 100644
---- a/drivers/net/ethernet/dec/tulip/media.c
-+++ b/drivers/net/ethernet/dec/tulip/media.c
-@@ -24,7 +24,7 @@
- 
- /* Read and write the MII registers using software-generated serial
-    MDIO protocol.  It is just different enough from the EEPROM protocol
--   to not share code.  The maxium data clock rate is 2.5 Mhz. */
-+   to not share code.  The maximum data clock rate is 2.5 Mhz. */
- #define MDIO_SHIFT_CLK		0x10000
- #define MDIO_DATA_WRITE0	0x00000
- #define MDIO_DATA_WRITE1	0x20000
-diff --git a/drivers/net/ethernet/dec/tulip/tulip.h b/drivers/net/ethernet/dec/tulip/tulip.h
-index 5e010e1fa6f7..e39e5c78d4cc 100644
---- a/drivers/net/ethernet/dec/tulip/tulip.h
-+++ b/drivers/net/ethernet/dec/tulip/tulip.h
-@@ -250,7 +250,7 @@ enum t21143_csr6_bits {
- 	csr6_ttm = (1<<22),  /* Transmit Threshold Mode, set for 10baseT, 0 for 100BaseTX */
- 	csr6_sf = (1<<21),   /* Store and forward. If set ignores TR bits */
- 	csr6_hbd = (1<<19),  /* Heart beat disable. Disables SQE function in 10baseT */
--	csr6_ps = (1<<18),   /* Port Select. 0 (defualt) = 10baseT, 1 = 100baseTX: can't be set */
-+	csr6_ps = (1<<18),   /* Port Select. 0 (default) = 10baseT, 1 = 100baseTX: can't be set */
- 	csr6_ca = (1<<17),   /* Collision Offset Enable. If set uses special algorithm in low collision situations */
- 	csr6_trh = (1<<15),  /* Transmit Threshold high bit */
- 	csr6_trl = (1<<14),  /* Transmit Threshold low bit */
-@@ -274,7 +274,7 @@ enum t21143_csr6_bits {
- 	csr6_om_int_loop = (1<<10), /* internal (FIFO) loopback flag */
- 	csr6_om_ext_loop = (1<<11), /* external (PMD) loopback flag */
- 	/* set both and you get (PHY) loopback */
--	csr6_fd = (1<<9),    /* Full duplex mode, disables hearbeat, no loopback */
-+	csr6_fd = (1<<9),    /* Full duplex mode, disables heartbeat, no loopback */
- 	csr6_pm = (1<<7),    /* Pass All Multicast */
- 	csr6_pr = (1<<6),    /* Promiscuous mode */
- 	csr6_sb = (1<<5),    /* Start(1)/Stop(0) backoff counter */
-diff --git a/drivers/net/ethernet/dec/tulip/winbond-840.c b/drivers/net/ethernet/dec/tulip/winbond-840.c
-index a5581f1d0141..be9199f55a8a 100644
---- a/drivers/net/ethernet/dec/tulip/winbond-840.c
-+++ b/drivers/net/ethernet/dec/tulip/winbond-840.c
-@@ -1188,7 +1188,7 @@ static int netdev_rx(struct net_device *dev)
- 			break;
- 		if ((status & 0x38008300) != 0x0300) {
- 			if ((status & 0x38000300) != 0x0300) {
--				/* Ingore earlier buffers. */
-+				/* Ignore earlier buffers. */
- 				if ((status & 0xffff) != 0x7fff) {
- 					dev_warn(&dev->dev,
- 						 "Oversized Ethernet frame spanned multiple buffers, entry %#x status %04x!\n",
--- 
-2.48.1
+在 2026/9/7 15:08, Hongling Zeng 写道:
+> ntfs_set_volume_flags() and ntfs_clear_volume_flags() both read
+> vol->vol_flags outside any lock to compute the new value before handing
+> it to ntfs_write_volume_flags(), which only takes ni->mrec_lock around
+> the actual write. The read-modify-write is therefore not atomic, and two
+> concurrent callers can lose an update: ntfs_sync_fs() may derive a
+> "clean" value from vol->vol_flags while a writer concurrently records an
+> error and sets VOLUME_IS_DIRTY; the locked write then silently
+> overwrites the freshly-set dirty bit. The on-disk volume looks clean
+> despite the recorded errors, so chkdsk will not run on the next mount
+> and corrupted metadata can persist.
+> 
+> Fix by moving the read-modify-write inside the mrec_lock: pass the bits
+> to set and to clear separately, and combine them with the current flag
+> state under the lock inside ntfs_write_volume_flags(). The set/clear
+> helpers pass only the bits to modify, not the complete flag state. The
+> bit manipulation is done on CPU-endian values, and the result is
+> converted back to little-endian before storing it. The wrappers keep
+> their signatures so callers are unchanged.
+> 
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
+> ---
+>   fs/ntfs/super.c | 63 +++++++++++++++++++++++++++++++++++--------------
+>   1 file changed, 45 insertions(+), 18 deletions(-)
+> 
+> diff --git a/fs/ntfs/super.c b/fs/ntfs/super.c
+> index 60d43339c590..ce159ae8169a 100644
+> --- a/fs/ntfs/super.c
+> +++ b/fs/ntfs/super.c
+> @@ -353,31 +353,45 @@ void ntfs_handle_error(struct super_block *sb)
+>   }
+>   
+>   /*
+> - * ntfs_write_volume_flags - write new flags to the volume information flags
+> + * ntfs_write_volume_flags - apply flag changes to the volume information flags
+>    * @vol:	ntfs volume on which to modify the flags
+> - * @flags:	new flags value for the volume information flags
+> + * @set_bits:	bits to set in the volume information flags
+> + * @clear_bits:	bits to clear in the volume information flags
+>    *
+>    * Internal function.  You probably want to use ntfs_{set,clear}_volume_flags()
+>    * instead (see below).
+>    *
+> - * Replace the volume information flags on the volume @vol with the value
+> - * supplied in @flags.  Note, this overwrites the volume information flags, so
+> - * make sure to combine the flags you want to modify with the old flags and use
+> - * the result when calling ntfs_write_volume_flags().
+> + * Combine @set_bits and @clear_bits with the current in-memory flag state and
+> + * write the result back.  The set/clear helpers pass only the bits to modify,
+> + * not the complete flag state.  The read-modify-write happens under
+> + * ni->mrec_lock so that concurrent set/clear operations cannot lose updates.
+> + * All bit manipulation is done on CPU-endian values, and the result is
+> + * converted back to little-endian before storing it.
+>    *
+>    * Return 0 on success and -errno on error.
+>    */
+> -static int ntfs_write_volume_flags(struct ntfs_volume *vol, const __le16 flags)
+> +static int ntfs_write_volume_flags(struct ntfs_volume *vol,
+> +		const __le16 set_bits, const __le16 clear_bits,
+> +		const bool skip_if_errors)
+>   {
+>   	struct ntfs_inode *ni = NTFS_I(vol->vol_ino);
+>   	struct volume_information *vi;
+>   	struct ntfs_attr_search_ctx *ctx;
+> +	u16 flags;
+>   	int err;
+>   
+> -	ntfs_debug("Entering, old flags = 0x%x, new flags = 0x%x.",
+> -			le16_to_cpu(vol->vol_flags), le16_to_cpu(flags));
+>   	mutex_lock(&ni->mrec_lock);
+> -	if (vol->vol_flags == flags)
+> +
+> +	if (skip_if_errors && NVolErrors(vol))
+> +		goto done;
+> +
+> +	flags = le16_to_cpu(vol->vol_flags);
+> +	flags |= le16_to_cpu(set_bits) & le16_to_cpu(VOLUME_FLAGS_MASK);
+> +	flags &= ~(le16_to_cpu(clear_bits) & le16_to_cpu(VOLUME_FLAGS_MASK));
+> +	ntfs_debug("Entering, old flags = 0x%x, new flags = 0x%x.",
+> +			le16_to_cpu(vol->vol_flags), flags);
+> +
+> +	if (le16_to_cpu(vol->vol_flags) == flags)
+>   		goto done;
+>   
+>   	ctx = ntfs_attr_get_search_ctx(ni, NULL);
+> @@ -393,7 +407,7 @@ static int ntfs_write_volume_flags(struct ntfs_volume *vol, const __le16 flags)
+>   
+>   	vi = (struct volume_information *)((u8 *)ctx->attr +
+>   			le16_to_cpu(ctx->attr->data.resident.value_offset));
+> -	vol->vol_flags = vi->flags = flags;
+> +	vol->vol_flags = vi->flags = cpu_to_le16(flags);
+>   	mark_mft_record_dirty(ctx->ntfs_ino);
+>   	ntfs_attr_put_search_ctx(ctx);
+>   done:
+> @@ -414,13 +428,14 @@ static int ntfs_write_volume_flags(struct ntfs_volume *vol, const __le16 flags)
+>    * @flags:	flags to set on the volume
+>    *
+>    * Set the bits in @flags in the volume information flags on the volume @vol.
+> + * The bits are combined with the current flag state under the lock in
+> + * ntfs_write_volume_flags(), so concurrent updates are not lost.
+>    *
+>    * Return 0 on success and -errno on error.
+>    */
+>   int ntfs_set_volume_flags(struct ntfs_volume *vol, __le16 flags)
+>   {
+> -	flags &= VOLUME_FLAGS_MASK;
+> -	return ntfs_write_volume_flags(vol, vol->vol_flags | flags);
+> +	return ntfs_write_volume_flags(vol, flags, 0, false);
+>   }
+Hi Hongling,
+    Doesn't the caller-side check still leave a race here? Several paths 
+in file.c and namei.c do:
+
+   	if (!(vol->vol_flags & VOLUME_IS_DIRTY))
+   		ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
+
+   If the check sees the dirty bit set and sync_fs clears it before the 
+metadata update, the caller skips setting it and the volume may be left 
+clean. Since ntfs_write_volume_flags() already checks for an unchanged 
+value under mrec_lock, should these callers invoke 
+ntfs_set_volume_flags() unconditionally?
+
+Thanks,
+Baolin.
+
+>   
+>   /*
+> @@ -429,14 +444,27 @@ int ntfs_set_volume_flags(struct ntfs_volume *vol, __le16 flags)
+>    * @flags:	flags to clear on the volume
+>    *
+>    * Clear the bits in @flags in the volume information flags on the volume @vol.
+> + * The bits are combined with the current flag state under the lock in
+> + * ntfs_write_volume_flags(), so concurrent updates are not lost.
+>    *
+>    * Return 0 on success and -errno on error.
+>    */
+>   int ntfs_clear_volume_flags(struct ntfs_volume *vol, __le16 flags)
+>   {
+> -	flags &= VOLUME_FLAGS_MASK;
+> -	flags = vol->vol_flags & cpu_to_le16(~le16_to_cpu(flags));
+> -	return ntfs_write_volume_flags(vol, flags);
+> +	return ntfs_write_volume_flags(vol, 0, flags, false);
+> +}
+> +
+> +/*
+> + * ntfs_clear_volume_dirty_if_no_errors - clear dirty bit if no errors exist
+> + * @vol:	ntfs volume whose dirty bit should be cleared
+> + *
+> + * Check NVolErrors() and clear VOLUME_IS_DIRTY under the same mrec_lock so
+> + * ntfs_sync_fs() cannot clear the dirty bit after a concurrent error has been
+> + * recorded.
+> + */
+> +static int ntfs_clear_volume_dirty_if_no_errors(struct ntfs_volume *vol)
+> +{
+> +	return ntfs_write_volume_flags(vol, 0, VOLUME_IS_DIRTY, true);
+>   }
+>   
+>   int ntfs_write_volume_label(struct ntfs_volume *vol, char *label)
+> @@ -1862,8 +1890,7 @@ static int ntfs_sync_fs(struct super_block *sb, int wait)
+>   		return 0;
+>   
+>   	/* If there are some dirty buffers in the bdev inode */
+> -	if (!NVolErrors(vol) &&
+> -	    ntfs_clear_volume_flags(vol, VOLUME_IS_DIRTY)) {
+> +	if (ntfs_clear_volume_dirty_if_no_errors(vol)) {
+>   		ntfs_warning(sb, "Failed to clear dirty bit in volume information flags.  Run chkdsk.");
+>   		err = -EIO;
+>   	}
 
