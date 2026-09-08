@@ -1,168 +1,127 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E2C3538D73;
-	Tue,  8 Sep 2026 14:29:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 667D654CF47;
+	Tue,  8 Sep 2026 14:30:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788877760; cv=none; b=NFCBY1sZ2u/OTIR0gRFUU/LWSRiN7CzgdBDJx1OozkdxsoIl6zJdJ8OQhXLfiBZWNAY1Vqft+gDfyXHIS7OlBo6lvbTAl+6QEPscEeLkdgGd+wSVzf7nt1/5Sj9yS8foBE0txUjGeMBJ4tQ5jK4JzJBIULbilH09XytIIOPClig=
+	t=1788877833; cv=none; b=qbDzcjOghtmGZagKSoXawLy2SdyEdx+eCFwmladXajGxBGepK/BBbcOO//twd1K7YUBEaCCHYHpQFggUoAYVI1lr7smMmzZpEeygk3vgO3ZzKf1q3qHWy+i8vqzJQGjUUto216PaxTPJPALnffwg1gjtQmdBSNT91zdqv5pfLpI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788877760; c=relaxed/simple;
-	bh=5V0Cw5Qhc4VFggEnMwC/ejRxL+INGZDaVd9TR2wLQoY=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=jwbVBNJh1l8Ueb9LXLke0dml30tjqT8KQbCVKtA1kWEXDXkgnWp7aK6NL9auc+ypTuNNy178sADyd8sJ7S9xbJliRTgf0bvXMJWKSzRcuzMTeBQHZiQgWh8pMstUekVEKT5Yi1C0P06aW51TmBhWQZRJhvC+U+aUwB1FR4/ypTw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=GPOm7smE; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1788877833; c=relaxed/simple;
+	bh=wqyLC1AyhutsDC++Y+iDAaGb/jipZ4w0gjZcXCMWoWM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=P+nTy85gcr/I8xragBy4OQ9BftTORzO5Mz7cznIUdeuWQ9Hi+N5U36jj5cLcT+9YEBpfFyShs8oVJPEuOZbGLWQNHQiTc8Gl9F7WtWg4A32C1XossxQnulNcYSGULBYbl2Ry4IIvmJxWUTM7CEWeBkq7P/+dXvmeriZzAnHsh4I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RLsG+ePv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="GPOm7smE"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 1BF504E41597;
-	Tue,  8 Sep 2026 14:29:00 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id DA5F3603C4;
-	Tue,  8 Sep 2026 14:28:59 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 2813B11C7AF4F;
-	Tue,  8 Sep 2026 16:28:50 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1788877738; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding; bh=LQ72/bwE87PZI8NiplH/juFfXWziTHdYYN6vw5Uubd0=;
-	b=GPOm7smEXgBYp1RioQ8yoppNqo4JR6IXrN7iJNWkhqVEchehSF6TTaqjUsaMhpTw038Jtt
-	nGlkNhX+4T/i2VGt6APJUVkvb4bquu0fj5joxHaEowRhSLKUYwzr+RHVOW5vMkpTfjF92i
-	xvmhycbOvgk79KyiTJO17knXPSD1VJVlmtqqxBep2w9x0+exl75bTWWWbYNUJYuhByK015
-	G3YF/vpbfdPda2ppUpg+WBJMOmhtUCDBvShTNLHax1e+nKfgbQa5T+pYcZWCgY2h0jQ3Ce
-	P9nYevjg5d/94EX+UMdvi5Letb1s975SRD0HMVC8pprf/us+EIHi8D9Ifi/aSw==
-From: "Miguel Gazquez (Schneider Electric)" <miguel.gazquez@bootlin.com>
-Date: Tue, 08 Sep 2026 16:28:48 +0200
-Subject: [PATCH 5.10.y] bpf: Enforce expected_attach_type for tailcall
- compatibility
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RLsG+ePv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4E5711F00A3A;
+	Tue,  8 Sep 2026 14:30:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788877826;
+	bh=W1fcP7/pBh9KdtEegdsKqPfiQ9bBYmCGdHpPYEo3xto=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=RLsG+ePvr3FjX3wQ6Fy+T38pvjKoC5pSHq11Uj/V5WKegnkmcAlGSriwspSUl02Vc
+	 9IIAMQIczl8YBeu1uSmr1BrVMOQNqUX+jF3G6KOnsM3r/YJ6lsKXU2iwwYfrwcr9ea
+	 ys3tByR95VJ6BhptNlWyccA5hb47KdnZY3zpAOInfuOKmI28tCEBTx+Zw9v6tGdjkl
+	 FF82MNV7/khA6CnYpot4aLAZuT95sKKyUX4V5fdnbz4KFif2expQYCDYXLN/Q2ewLK
+	 rKSAoc5nQqFlQR7l+PlxiaOzXj+h7fup7IGMMmlCp6oOq8dYM7QLSzz9KE95mYwIIK
+	 MuXIef5xL7sxg==
+Message-ID: <79548641-25f3-4ec3-a549-782fad168962@kernel.org>
+Date: Tue, 8 Sep 2026 16:30:17 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 0/8] mm/page_owner: Add PID/TGID/COMM and cgroup
+ filtering
+To: Zhen Ni <zhen.ni@easystack.cn>, Andrew Morton <akpm@linux-foundation.org>
+Cc: Lorenzo Stoakes <ljs@kernel.org>, "Liam R . Howlett"
+ <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
+ <rdunlap@infradead.org>, Brendan Jackman <brendan.jackman@linux.dev>,
+ Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>,
+ linux-mm@kvack.org, linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260907082620.2083838-1-zhen.ni@easystack.cn>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ xsFNBFXLn5EBEAC+zYvAFJxCBY9Tr1xZgcESmxVNI/0ffzE/ZQOiHJl6mGkmA1R7/uUpiCjJ
+ dBrn+lhhOYjjNefFQou6478faXE6o2AhmebqT4KiQoUQFV4R7y1KMEKoSyy8hQaK1umALTdL
+ QZLQMzNE74ap+GDK0wnacPQFpcG1AE9RMq3aeErY5tujekBS32jfC/7AnH7I0v1v1TbbK3Gp
+ XNeiN4QroO+5qaSr0ID2sz5jtBLRb15RMre27E1ImpaIv2Jw8NJgW0k/D1RyKCwaTsgRdwuK
+ Kx/Y91XuSBdz0uOyU/S8kM1+ag0wvsGlpBVxRR/xw/E8M7TEwuCZQArqqTCmkG6HGcXFT0V9
+ PXFNNgV5jXMQRwU0O/ztJIQqsE5LsUomE//bLwzj9IVsaQpKDqW6TAPjcdBDPLHvriq7kGjt
+ WhVhdl0qEYB8lkBEU7V2Yb+SYhmhpDrti9Fq1EsmhiHSkxJcGREoMK/63r9WLZYI3+4W2rAc
+ UucZa4OT27U5ZISjNg3Ev0rxU5UH2/pT4wJCfxwocmqaRr6UYmrtZmND89X0KigoFD/XSeVv
+ jwBRNjPAubK9/k5NoRrYqztM9W6sJqrH8+UWZ1Idd/DdmogJh0gNC0+N42Za9yBRURfIdKSb
+ B3JfpUqcWwE7vUaYrHG1nw54pLUoPG6sAA7Mehl3nd4pZUALHwARAQABzS5EYXZpZCBIaWxk
+ ZW5icmFuZCAoQ3VycmVudCkgPGRhdmlkQGtlcm5lbC5vcmc+wsGQBBMBCAA6AhsDBQkmWAik
+ AgsJBBUKCQgCFgICHgUCF4AWIQQb2cqtc1xMOkYN/MpN3hD3AP+DWgUCaYJt/AIZAQAKCRBN
+ 3hD3AP+DWriiD/9BLGEKG+N8L2AXhikJg6YmXom9ytRwPqDgpHpVg2xdhopoWdMRXjzOrIKD
+ g4LSnFaKneQD0hZhoArEeamG5tyo32xoRsPwkbpIzL0OKSZ8G6mVbFGpjmyDLQCAxteXCLXz
+ ZI0VbsuJKelYnKcXWOIndOrNRvE5eoOfTt2XfBnAapxMYY2IsV+qaUXlO63GgfIOg8RBaj7x
+ 3NxkI3rV0SHhI4GU9K6jCvGghxeS1QX6L/XI9mfAYaIwGy5B68kF26piAVYv/QZDEVIpo3t7
+ /fjSpxKT8plJH6rhhR0epy8dWRHk3qT5tk2P85twasdloWtkMZ7FsCJRKWscm1BLpsDn6EQ4
+ jeMHECiY9kGKKi8dQpv3FRyo2QApZ49NNDbwcR0ZndK0XFo15iH708H5Qja/8TuXCwnPWAcJ
+ DQoNIDFyaxe26Rx3ZwUkRALa3iPcVjE0//TrQ4KnFf+lMBSrS33xDDBfevW9+Dk6IISmDH1R
+ HFq2jpkN+FX/PE8eVhV68B2DsAPZ5rUwyCKUXPTJ/irrCCmAAb5Jpv11S7hUSpqtM/6oVESC
+ 3z/7CzrVtRODzLtNgV4r5EI+wAv/3PgJLlMwgJM90Fb3CB2IgbxhjvmB1WNdvXACVydx55V7
+ LPPKodSTF29rlnQAf9HLgCphuuSrrPn5VQDaYZl4N/7zc2wcWM7BTQRVy5+RARAA59fefSDR
+ 9nMGCb9LbMX+TFAoIQo/wgP5XPyzLYakO+94GrgfZjfhdaxPXMsl2+o8jhp/hlIzG56taNdt
+ VZtPp3ih1AgbR8rHgXw1xwOpuAd5lE1qNd54ndHuADO9a9A0vPimIes78Hi1/yy+ZEEvRkHk
+ /kDa6F3AtTc1m4rbbOk2fiKzzsE9YXweFjQvl9p+AMw6qd/iC4lUk9g0+FQXNdRs+o4o6Qvy
+ iOQJfGQ4UcBuOy1IrkJrd8qq5jet1fcM2j4QvsW8CLDWZS1L7kZ5gT5EycMKxUWb8LuRjxzZ
+ 3QY1aQH2kkzn6acigU3HLtgFyV1gBNV44ehjgvJpRY2cC8VhanTx0dZ9mj1YKIky5N+C0f21
+ zvntBqcxV0+3p8MrxRRcgEtDZNav+xAoT3G0W4SahAaUTWXpsZoOecwtxi74CyneQNPTDjNg
+ azHmvpdBVEfj7k3p4dmJp5i0U66Onmf6mMFpArvBRSMOKU9DlAzMi4IvhiNWjKVaIE2Se9BY
+ FdKVAJaZq85P2y20ZBd08ILnKcj7XKZkLU5FkoA0udEBvQ0f9QLNyyy3DZMCQWcwRuj1m73D
+ sq8DEFBdZ5eEkj1dCyx+t/ga6x2rHyc8Sl86oK1tvAkwBNsfKou3v+jP/l14a7DGBvrmlYjO
+ 59o3t6inu6H7pt7OL6u6BQj7DoMAEQEAAcLBfAQYAQgAJgIbDBYhBBvZyq1zXEw6Rg38yk3e
+ EPcA/4NaBQJonNqrBQkmWAihAAoJEE3eEPcA/4NaKtMQALAJ8PzprBEXbXcEXwDKQu+P/vts
+ IfUb1UNMfMV76BicGa5NCZnJNQASDP/+bFg6O3gx5NbhHHPeaWz/VxlOmYHokHodOvtL0WCC
+ 8A5PEP8tOk6029Z+J+xUcMrJClNVFpzVvOpb1lCbhjwAV465Hy+NUSbbUiRxdzNQtLtgZzOV
+ Zw7jxUCs4UUZLQTCuBpFgb15bBxYZ/BL9MbzxPxvfUQIPbnzQMcqtpUs21CMK2PdfCh5c4gS
+ sDci6D5/ZIBw94UQWmGpM/O1ilGXde2ZzzGYl64glmccD8e87OnEgKnH3FbnJnT4iJchtSvx
+ yJNi1+t0+qDti4m88+/9IuPqCKb6Stl+s2dnLtJNrjXBGJtsQG/sRpqsJz5x1/2nPJSRMsx9
+ 5YfqbdrJSOFXDzZ8/r82HgQEtUvlSXNaXCa95ez0UkOG7+bDm2b3s0XahBQeLVCH0mw3RAQg
+ r7xDAYKIrAwfHHmMTnBQDPJwVqxJjVNr7yBic4yfzVWGCGNE4DnOW0vcIeoyhy9vnIa3w1uZ
+ 3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
+ CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
+ qIws/H2t
+In-Reply-To: <20260907082620.2083838-1-zhen.ni@easystack.cn>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260908-cve-2025-40123-v1-1-be62451196fb@bootlin.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMyw6CMBCF4VchZ82QaaHcXsW40DrqsADSItEQ3
- t2Ky+8k598QJahE9NmGIKtGncYEk2fwz8v4ENJbMizbmjtuyK9CCY4qNrYk4barW3YNlxbpNAe
- 56/sInuAKw8UH5/8eX9dB/PKrYd+/Wi36/3oAAAA=
-X-Change-ID: 20260907-cve-2025-40123-e08968057032
-To: stable@vger.kernel.org, Alexei Starovoitov <ast@kernel.org>, 
- Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>, 
- Martin KaFai Lau <kafai@fb.com>, Song Liu <songliubraving@fb.com>, 
- Yonghong Song <yhs@fb.com>, John Fastabend <john.fastabend@gmail.com>, 
- KP Singh <kpsingh@kernel.org>, "David S. Miller" <davem@davemloft.net>, 
- Jakub Kicinski <kuba@kernel.org>, Jesper Dangaard Brouer <hawk@kernel.org>, 
- Andrey Ignatov <rdna@fb.com>
-Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, netdev@vger.kernel.org, 
- bpf@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Yinhao Hu <dddddd@hust.edu.cn>, Kaiyan Mei <M202472210@hust.edu.cn>, 
- Dongliang Mu <dzm91@hust.edu.cn>, Sasha Levin <sashal@kernel.org>, 
- "Miguel Gazquez (Schneider Electric)" <miguel.gazquez@bootlin.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788877730; l=4173;
- i=miguel.gazquez@bootlin.com; s=20250708; h=from:subject:message-id;
- bh=i0nrpJeTUlNnEvoKERik/V/VV4CvIxY4hKcVnixWGZw=;
- b=z9wX5y24mP4XRwy0YNfVpo5RNdvBNvc2EvOzmNLulLPeoqlM8ZA7ZWX6dvXYHvCGEEh9Yz2iE
- ee+leegl5fECaCeoHv4a/t45iL2+5W5EAmsBzhS9s1Xy3hE5FO9sUdA
-X-Developer-Key: i=miguel.gazquez@bootlin.com; a=ed25519;
- pk=k/2KI9jkmayaF0ghZ8QYUH9Wm/kFHDhl8QoZ0RHbr4w=
-X-Last-TLS-Session-Version: TLSv1.3
 
-From: Daniel Borkmann <daniel@iogearbox.net>
+On 9/7/26 10:26, Zhen Ni wrote:
+> This patch series adds process and memory cgroup filtering support to
+> page_owner. Following the previous series that introduced print_mode and
+> NUMA node filters:
+>   https://lore.kernel.org/linux-mm/20260707115411.1714314-1-zhen.ni@easystack.cn/
+> 
+> This series adds filtering capabilities to page_owner, allowing users to
+> filter output by specific processes and memory cgroups. Users can now
+> filter page_owner output by PID, TGID, COMM (with wildcard support), and
+> memory cgroup path. This makes page_owner debugging more focused and
+> efficient for tracking memory allocations in specific contexts.
+> 
+> Targeted filtering provides significant performance benefits on large memory
+> servers by reducing both execution time and output size. By filtering at the
+> kernel level before reading, only relevant page allocations are processed,
+> dramatically reducing the amount of data that needs to be handled in userspace.
 
-[ Upstream commit 4540aed51b12bc13364149bf95f6ecef013197c0 ]
+page_owner is used for debugging. Why do we have to add kernel code to make it
+faster?
 
-Yinhao et al. recently reported:
+How much faster are we talking about?
 
-  Our fuzzer tool discovered an uninitialized pointer issue in the
-  bpf_prog_test_run_xdp() function within the Linux kernel's BPF subsystem.
-  This leads to a NULL pointer dereference when a BPF program attempts to
-  deference the txq member of struct xdp_buff object.
+Or are there other limits to actually implementing it without kernel pre-filtering?
 
-The test initializes two programs of BPF_PROG_TYPE_XDP: progA acts as the
-entry point for bpf_prog_test_run_xdp() and its expected_attach_type can
-neither be of be BPF_XDP_DEVMAP nor BPF_XDP_CPUMAP. progA calls into a slot
-of a tailcall map it owns. progB's expected_attach_type must be BPF_XDP_DEVMAP
-to pass xdp_is_valid_access() validation. The program returns struct xdp_md's
-egress_ifindex, and the latter is only allowed to be accessed under mentioned
-expected_attach_type. progB is then inserted into the tailcall which progA
-calls.
+-- 
+Cheers,
 
-The underlying issue goes beyond XDP though. Another example are programs
-of type BPF_PROG_TYPE_CGROUP_SOCK_ADDR. sock_addr_is_valid_access() as well
-as sock_addr_func_proto() have different logic depending on the programs'
-expected_attach_type. Similarly, a program attached to BPF_CGROUP_INET4_GETPEERNAME
-should not be allowed doing a tailcall into a program which calls bpf_bind()
-out of BPF which is only enabled for BPF_CGROUP_INET4_CONNECT.
-
-In short, specifying expected_attach_type allows to open up additional
-functionality or restrictions beyond what the basic bpf_prog_type enables.
-The use of tailcalls must not violate these constraints. Fix it by enforcing
-expected_attach_type in __bpf_prog_map_compatible().
-
-Note that we only enforce this for tailcall maps, but not for BPF devmaps or
-cpumaps: There, the programs are invoked through dev_map_bpf_prog_run*() and
-cpu_map_bpf_prog_run*() which set up a new environment / context and therefore
-these situations are not prone to this issue.
-
-[ Fixed conflict, applied the changes to bpf_prog_array_compatible
-instead of __bpf_prog_map_compatible. Dropped the guard testing for
-BPF_MAP_TYPE_PROG_ARRAY as bpf_prog_array_compatible is only called on maps whose
-map_type is already BPF_MAP_TYPE_PROG_ARRAY, so the check was always true ]
-
-Fixes: 5e43f899b03a ("bpf: Check attach type at prog load time")
-Reported-by: Yinhao Hu <dddddd@hust.edu.cn>
-Reported-by: Kaiyan Mei <M202472210@hust.edu.cn>
-Reviewed-by: Dongliang Mu <dzm91@hust.edu.cn>
-Signed-off-by: Daniel Borkmann <daniel@iogearbox.net>
-Link: https://lore.kernel.org/r/20250926171201.188490-1-daniel@iogearbox.net
-Signed-off-by: Alexei Starovoitov <ast@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
-Signed-off-by: Miguel Gazquez (Schneider Electric) <miguel.gazquez@bootlin.com>
----
- include/linux/bpf.h | 1 +
- kernel/bpf/core.c   | 4 ++++
- 2 files changed, 5 insertions(+)
-
-diff --git a/include/linux/bpf.h b/include/linux/bpf.h
-index 5d5d0bc7ca50..fb213524ccac 100644
---- a/include/linux/bpf.h
-+++ b/include/linux/bpf.h
-@@ -876,6 +876,7 @@ struct bpf_array_aux {
- 		spinlock_t lock;
- 		enum bpf_prog_type type;
- 		bool jited;
-+		enum bpf_attach_type expected_attach_type;
- 	} owner;
- 	/* Programs with direct jumps into programs part of this array. */
- 	struct list_head poke_progs;
-diff --git a/kernel/bpf/core.c b/kernel/bpf/core.c
-index db613a97ee5f..c9b3fe8b250a 100644
---- a/kernel/bpf/core.c
-+++ b/kernel/bpf/core.c
-@@ -1795,10 +1795,14 @@ bool bpf_prog_array_compatible(struct bpf_array *array,
- 		 */
- 		array->aux->owner.type  = fp->type;
- 		array->aux->owner.jited = fp->jited;
-+		array->aux->owner.expected_attach_type = fp->expected_attach_type;
- 		ret = true;
- 	} else {
- 		ret = array->aux->owner.type  == fp->type &&
- 		      array->aux->owner.jited == fp->jited;
-+		if (ret &&
-+		    array->aux->owner.expected_attach_type != fp->expected_attach_type)
-+			ret = false;
- 	}
- 	spin_unlock(&array->aux->owner.lock);
- 	return ret;
-
----
-base-commit: 2a3da1f4966798b0b48ce302944ad356b2c98b5d
-change-id: 20260907-cve-2025-40123-e08968057032
-
-Best regards,
---  
-Miguel Gazquez (Schneider Electric) <miguel.gazquez@bootlin.com>
-
+David
