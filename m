@@ -1,34 +1,34 @@
 Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48CEE397339;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42A36397935;
 	Tue,  8 Sep 2026 06:33:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788849230; cv=none; b=tUHqu4rmq89raa4Kbh8cKSS4p6sR4GjcQ1L7+oZ0jQGZMdfCQSXnRwX5UFMXVaEzA7VW0Dx91GXFdLKyd8aCuDRdJd6FK1D0gHwSigjMaqNQnZtXZMWrAw6FwAY0t/g1jUkXeUlHz5vySQAzPj5WaEIsuTit3aSynp6tjpMtlvQ=
+	t=1788849231; cv=none; b=Foz048DbGcghW0C0Ed1PGllchJoX8sFfuiicLuOD3DWuRFrSLHa9RxJo3hcQAD1HVrH2Fg57BePJXAqn5i2404z/iLdlU2JGnSyFffs1OkYGFDZprM0Xkxok8eiIgTiOpUs9KPW+mnYKIblNZX9TR9sdNIhWobS7ftyeZvn5Bxc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788849230; c=relaxed/simple;
-	bh=+thg2XDSoZNWVkecGneALC7noetVEgXK5tnttNWV4Co=;
+	s=arc-20240116; t=1788849231; c=relaxed/simple;
+	bh=oExGHzPQkKVLZkggt/7Y71gxxJvvo3vKzwtYOseLfik=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=G7VDpr7jtO2jsqgcy3Hficpn1NpNvOt90MgeTFDHlxNNOhs2Ty+CAIC9Uv9hbkaDVwIwfaA96r2aY3bWjdIZPhG+pLcbdnCGpGiJE6NH2mR0ihlQSmF37Y2aNIdwke9TmbJPSEfc6hTqjdv7YRNRg9lgF7HHguoDGmrpCXGDuyc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=AP5QJqcI; arc=none smtp.client-ip=213.167.242.64
+	 In-Reply-To:To:Cc; b=FbeAPXX7bwm1x9Vk/wHNIS2jVln/EnmnKzfp9VmBtHDAuefzl5nvXN/0YtVnnpF2n7r7y33zAjlgMKtT4bmXdJkX0BKOD8G9sUIvqgpYMRhoq2sv7thatMcTRyOrNpKw9L4EoyG+RBR/jGUHBKINkCMJBRr8nAndiMiQDUBVmDQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=OHYwqqjX; arc=none smtp.client-ip=213.167.242.64
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="AP5QJqcI"
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="OHYwqqjX"
 Received: from [127.0.1.1] (91-158-153-178.elisa-laajakaista.fi [91.158.153.178])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 2F22A16F9;
-	Tue,  8 Sep 2026 08:32:05 +0200 (CEST)
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 5CEDF1583;
+	Tue,  8 Sep 2026 08:32:04 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
 	s=mail; t=1788849125;
-	bh=+thg2XDSoZNWVkecGneALC7noetVEgXK5tnttNWV4Co=;
+	bh=oExGHzPQkKVLZkggt/7Y71gxxJvvo3vKzwtYOseLfik=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=AP5QJqcIUV7conkY/6yhT85vbgz9aHkGaogE2WRz0HLtlAZafbMTN7DFevtEnWbi4
-	 kUeWz/fdzxlWNWdsqbNizQ0prfcgrromCQnZyDNTOMROXu1NrW9omTjlGxCroHnkfu
-	 OXMgiSH+bdRJw3ZlWxNmSkQ6euis8zjKHLjx0Gdg=
+	b=OHYwqqjXdFp9bhmX4B0Em39xclXv1x1nyR0/KyOVQShRw5c+4SxqnbsINAXO+8nbm
+	 M8PlsJ4W+ZFVorb/wXidByGPxvXg7yrGVyFT4usmjgrhjABPSRHm2A//Zg22lh7XiW
+	 oQ7rNXt9SxvCFwBV0hdli4tY8gja7pBloszOy5zI=
 From: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
-Date: Tue, 08 Sep 2026 09:33:11 +0300
-Subject: [PATCH v7 07/11] media: rcar-csi2: Add .get_frame_desc op
+Date: Tue, 08 Sep 2026 09:33:10 +0300
+Subject: [PATCH v7 06/11] media: rcar-isp: Switch to Streams API
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -37,7 +37,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260908-rcar-streams-v7-7-c406a2c2930f@ideasonboard.com>
+Message-Id: <20260908-rcar-streams-v7-6-c406a2c2930f@ideasonboard.com>
 References: <20260908-rcar-streams-v7-0-c406a2c2930f@ideasonboard.com>
 In-Reply-To: <20260908-rcar-streams-v7-0-c406a2c2930f@ideasonboard.com>
 To: =?utf-8?q?Niklas_S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>, 
@@ -49,133 +49,164 @@ Cc: linux-media@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
  Mauro Carvalho Chehab <mchehab+huawei@kernel.org>, 
  Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
  Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
- Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
+ Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>, 
+ Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3261;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4630;
  i=tomi.valkeinen+renesas@ideasonboard.com; h=from:subject:message-id;
- bh=+thg2XDSoZNWVkecGneALC7noetVEgXK5tnttNWV4Co=;
- b=owEBbQKS/ZANAwAIAfo9qoy8lh71AcsmYgBqn6w8r+Y47TbLr4AhBtAaMy4JlqCHg1oAVv9l4
- 2c048psziKJAjMEAAEIAB0WIQTEOAw+ll79gQef86f6PaqMvJYe9QUCap+sPAAKCRD6PaqMvJYe
- 9eSPD/41An3RnqjA6Ymu6bdPc3pi7ygLb/NV+gF26PlFOM9339hUXODCCU62+LeQCb+NcJZS39H
- FaeozWDJ0IdVjjWpb+n+4CSpodkryJAdAlUtY3nxukmScPj3DukWyKPcmhLeiM1wLzNYBt2DkXR
- DZ6u9kV0KqgEZuFREOTSBuSAFhYLDF8kbp83Un1bdvL0qwS3w9bY7R+x/p9+LmeEy6QfP2YFP3W
- 39GnBFZIdAZp/a2lWAfzNXU1jWwzcSlzlu6JK59vLal8Sy6A4a5bO+f5spGM2irGjrEYz1esz7/
- O/8oq+jtJgl5McNe5CG9kvE1QsJm4V/RZnqxv2xBHTaFw9n5IQrsoFhR7jlQPMt0S926aD5RLhh
- 23Tehg5vERlvocsIgPcnwXVYG7Sv2FYN1Vxkii61wGzG4MTIErDMF4lPcJ0eT8xex3/Nl1ye//4
- TgWX+0Uj2eETR197RPY0V6N8yp0HU6n2w/lmHx6sfhIE9o6aetInOkgObP8dEW2twprB4Ul/zpd
- 1RYXDWmpLRoinvIUs1vdyBHVdzuKUEd9IvVeytt4SoBYr1QdwvfKe9qzshFwZkLlGge8W7GzTlm
- zi1teed5CgDT3t7CZNYsju7DRufioQoUbo1WEQLg+/sZEU6dTLFIuzi9tKVoX0tBToH7TWr1j7H
- aWRFM+G/GmFiv9Q==
+ bh=oExGHzPQkKVLZkggt/7Y71gxxJvvo3vKzwtYOseLfik=;
+ b=owEBbQKS/ZANAwAIAfo9qoy8lh71AcsmYgBqn6w8SN3Lw1RONhVAybTXYHTScuM0N1Ac+efTt
+ 6bRq8cMVsmJAjMEAAEIAB0WIQTEOAw+ll79gQef86f6PaqMvJYe9QUCap+sPAAKCRD6PaqMvJYe
+ 9TyUEACm2A20okFBNgCnHvYB8J9be0kzesoK+t+dVKVXyCIJtS7XczrZ3EUMlVkqK463e3XXmjX
+ I7ck/kg4XVPx6kxTf7RsTAMZAir1QR8/GcXidThaedLSfZ7IJMMrxV2EqkTfG/A6W8Vf0sXw4+Q
+ L5ePuKw8SUJaWkCVQ+cnUXRuXexBFE4zSBbSUblQCCx8cgmFwxLHeT+//TEiMzHpTwAxHeHDvzB
+ GtO84z7xuVCydTYzpTTm45LiXi51KeIpPuobJmLfRQx+Di/HP0gQLgw+9ZkAEfGIXES6fv6YbNk
+ BaORswR/7D8RIDtYAJbvmalg3zG3LumRSsBKZMxql1kGRtUcl+tE8YCGqkrHoeSIsgSJHWbLo2C
+ CH2/vZRpfYOgPrhLnAbynr+UGjAiFpKuKy2ZtLRAwTFG9dTNjxzJM8JqgYCEPGR1hdF2cJNjy/h
+ rAtSC7ujjBUbbLVV7RhJfIxJVCTG5I2172dR8h6k3Y8BvuN8Dnp5RMeZX4S2uoAaAhIsifZtBi9
+ TbFQ1fYt3aeDwfy/oame05jOnJT1RqmD7yBpCHDO2S4RmimfSWWCNqfwFR+JrjdY693b5eizG/j
+ 0qhH+EOx88WaWlygFn4d1FFpo3f26JGi3KCjqE0BISzQrNU5sD16+qlgsw6w52iKCI/ek9eFtaV
+ Z+UC0gLFs7JQIOw==
 X-Developer-Key: i=tomi.valkeinen+renesas@ideasonboard.com; a=openpgp;
  fpr=C4380C3E965EFD81079FF3A7FA3DAA8CBC961EF5
 
-Add v4l2_subdev_pad_ops.get_frame_desc() implementation.
+Switch to Streams API with a single hardcoded route.
 
-We also implement a fallback for the case where the upstream subdevice
-does not implement .get_frame_desc. It assumes a single stream with VC =
-0 and DT based on the configured stream mbus format.
+For single-stream use case there should be no change in behavior.
 
+Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
 Reviewed-by: Niklas Söderlund <niklas.soderlund+renesas@ragnatech.se>
 Tested-by: Niklas Söderlund <niklas.soderlund+renesas@ragnatech.se>
 Signed-off-by: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
 ---
- drivers/media/platform/renesas/rcar-csi2.c | 77 ++++++++++++++++++++++++++++++
- 1 file changed, 77 insertions(+)
+ drivers/media/platform/renesas/rcar-isp/csisp.c | 69 ++++++++++++++++++++++---
+ 1 file changed, 62 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/media/platform/renesas/rcar-csi2.c b/drivers/media/platform/renesas/rcar-csi2.c
-index c064979003ed..7bff2fe8daad 100644
---- a/drivers/media/platform/renesas/rcar-csi2.c
-+++ b/drivers/media/platform/renesas/rcar-csi2.c
-@@ -1935,12 +1935,89 @@ static int rcsi2_set_pad_format(struct v4l2_subdev *sd,
- 	return 0;
- }
+diff --git a/drivers/media/platform/renesas/rcar-isp/csisp.c b/drivers/media/platform/renesas/rcar-isp/csisp.c
+index 97ddae942fe3..97465467d047 100644
+--- a/drivers/media/platform/renesas/rcar-isp/csisp.c
++++ b/drivers/media/platform/renesas/rcar-isp/csisp.c
+@@ -123,6 +123,17 @@ static const struct rcar_isp_format rcar_isp_formats[] = {
+ 	},
+ };
  
-+static int rcsi2_get_frame_desc_fallback(struct v4l2_subdev *sd,
-+					 unsigned int pad,
-+					 struct v4l2_mbus_frame_desc *fd)
-+{
-+	struct v4l2_subdev_route *route;
-+	const struct rcar_csi2_format *format;
-+	struct v4l2_subdev_state *state;
-+	struct v4l2_mbus_framefmt *fmt;
-+	int ret = 0;
++static const struct v4l2_mbus_framefmt risp_default_fmt = {
++	.width = 1920,
++	.height = 1080,
++	.code = MEDIA_BUS_FMT_RGB888_1X24,
++	.colorspace = V4L2_COLORSPACE_SRGB,
++	.field = V4L2_FIELD_NONE,
++	.ycbcr_enc = V4L2_YCBCR_ENC_DEFAULT,
++	.quantization = V4L2_QUANTIZATION_DEFAULT,
++	.xfer_func = V4L2_XFER_FUNC_DEFAULT,
++};
 +
-+	state = v4l2_subdev_lock_and_get_active_state(sd);
-+
-+	if (state->routing.num_routes != 1) {
-+		ret = -EINVAL;
-+		goto out;
-+	}
+ static const struct rcar_isp_format *risp_code_to_fmt(unsigned int code)
+ {
+ 	unsigned int i;
+@@ -216,13 +227,20 @@ static void risp_power_off(struct rcar_isp *isp)
+ 
+ static int risp_start(struct rcar_isp *isp, struct v4l2_subdev_state *state)
+ {
++	const struct v4l2_subdev_route *route;
+ 	const struct v4l2_mbus_framefmt *fmt;
+ 	const struct rcar_isp_format *format;
+ 	unsigned int vc;
+ 	u32 sel_csi = 0;
+ 	int ret;
+ 
+-	fmt = v4l2_subdev_state_get_format(state, RCAR_ISP_SINK);
++	if (state->routing.num_routes != 1)
++		return -EINVAL;
 +
 +	route = &state->routing.routes[0];
 +
-+	if (route->source_pad != pad) {
-+		ret = -EINVAL;
-+		goto out;
-+	}
-+
 +	fmt = v4l2_subdev_state_get_format(state, route->sink_pad,
 +					   route->sink_stream);
-+	if (!fmt) {
-+		ret = -EINVAL;
-+		goto out;
-+	}
-+
-+	format = rcsi2_code_to_fmt(fmt->code);
-+	if (!format) {
-+		ret = -EINVAL;
-+		goto out;
-+	}
-+
-+	fd->num_entries = 1;
-+	fd->type = V4L2_MBUS_FRAME_DESC_TYPE_CSI2;
-+	fd->entry[0].stream = route->source_stream;
-+	fd->entry[0].pixelcode = fmt->code;
-+	fd->entry[0].bus.csi2.vc = 0;
-+	fd->entry[0].bus.csi2.dt = format->datatype;
-+
-+out:
-+	v4l2_subdev_unlock_state(state);
-+
-+	return ret;
-+}
-+
-+static int rcsi2_get_frame_desc(struct v4l2_subdev *sd, unsigned int pad,
-+				struct v4l2_mbus_frame_desc *fd)
-+{
-+	struct rcar_csi2 *priv = sd_to_csi2(sd);
-+	int ret;
-+
-+	/*
-+	 * Providing a frame descriptor on the source pad only makes sense on
-+	 * Gen4. On Gen3 the CSI-2 IP is used to demux the CSI streams to each
-+	 * VIN instance, while on Gen4 this job is done by the Channel Selector
-+	 * of the ISP, and that needs the frame descriptors. So WARN if someone
-+	 * calls this on Gen3, as it indicates a driver bug.
-+	 */
-+	if (WARN_ON(!priv->info->use_isp))
-+		return -ENOTTY;
-+
-+	if (WARN_ON(pad != RCAR_CSI2_SOURCE_VC0))
+ 	if (!fmt)
+ 		return -EINVAL;
+ 
+@@ -341,7 +359,7 @@ static int risp_set_pad_format(struct v4l2_subdev *sd,
+ 			       struct v4l2_subdev_state *state,
+ 			       struct v4l2_subdev_format *format)
+ {
+-	struct v4l2_mbus_framefmt *framefmt;
++	struct v4l2_mbus_framefmt *fmt;
+ 
+ 	if (format->pad > RCAR_ISP_SINK)
+ 		return v4l2_subdev_get_fmt(sd, state, format);
+@@ -349,10 +367,20 @@ static int risp_set_pad_format(struct v4l2_subdev *sd,
+ 	if (!risp_code_to_fmt(format->format.code))
+ 		format->format.code = rcar_isp_formats[0].code;
+ 
+-	for (unsigned int i = 0; i < RCAR_ISP_NUM_PADS; i++) {
+-		framefmt = v4l2_subdev_state_get_format(state, i);
+-		*framefmt = format->format;
+-	}
++	/* Set sink format. */
++	fmt = v4l2_subdev_state_get_format(state, format->pad, format->stream);
++	if (!fmt)
 +		return -EINVAL;
 +
-+	ret = v4l2_subdev_get_frame_desc_passthrough(sd, pad, fd);
-+	if (ret == -ENOIOCTLCMD)
-+		ret = rcsi2_get_frame_desc_fallback(sd, pad, fd);
-+	return ret;
-+}
++	*fmt = format->format;
 +
- static const struct v4l2_subdev_pad_ops rcar_csi2_pad_ops = {
- 	.enable_streams = rcsi2_enable_streams,
- 	.disable_streams = rcsi2_disable_streams,
++	/* Propagate the format to the source pad. */
++	fmt = v4l2_subdev_state_get_opposite_stream_format(state, format->pad,
++							   format->stream);
++	if (!fmt)
++		return -EINVAL;
++
++	*fmt = format->format;
  
- 	.set_fmt = rcsi2_set_pad_format,
- 	.get_fmt = v4l2_subdev_get_fmt,
-+
-+	.get_frame_desc = rcsi2_get_frame_desc,
+ 	return 0;
+ }
+@@ -369,6 +397,32 @@ static const struct v4l2_subdev_ops rcar_isp_subdev_ops = {
+ 	.pad	= &risp_pad_ops,
  };
  
- static const struct v4l2_subdev_ops rcar_csi2_subdev_ops = {
++static int risp_init_state(struct v4l2_subdev *sd,
++			   struct v4l2_subdev_state *state)
++{
++	static struct v4l2_subdev_route routes[] = {
++		{
++			.sink_pad = RCAR_ISP_SINK,
++			.sink_stream = 0,
++			.source_pad = RCAR_ISP_PORT0,
++			.source_stream = 0,
++			.flags = V4L2_SUBDEV_ROUTE_FL_ACTIVE,
++		},
++	};
++
++	static const struct v4l2_subdev_krouting routing = {
++		.num_routes = ARRAY_SIZE(routes),
++		.routes = routes,
++	};
++
++	return v4l2_subdev_set_routing_with_fmt(sd, state, &routing,
++						&risp_default_fmt);
++}
++
++static const struct v4l2_subdev_internal_ops risp_internal_ops = {
++	.init_state = risp_init_state,
++};
++
+ /* -----------------------------------------------------------------------------
+  * Async handling and registration of subdevices and links
+  */
+@@ -541,11 +595,12 @@ static int risp_probe(struct platform_device *pdev)
+ 
+ 	isp->subdev.owner = THIS_MODULE;
+ 	isp->subdev.dev = &pdev->dev;
++	isp->subdev.internal_ops = &risp_internal_ops;
+ 	v4l2_subdev_init(&isp->subdev, &rcar_isp_subdev_ops);
+ 	v4l2_set_subdevdata(&isp->subdev, &pdev->dev);
+ 	snprintf(isp->subdev.name, sizeof(isp->subdev.name), "%s %s",
+ 		 KBUILD_MODNAME, dev_name(&pdev->dev));
+-	isp->subdev.flags = V4L2_SUBDEV_FL_HAS_DEVNODE;
++	isp->subdev.flags = V4L2_SUBDEV_FL_HAS_DEVNODE | V4L2_SUBDEV_FL_STREAMS;
+ 
+ 	isp->subdev.entity.function = MEDIA_ENT_F_VID_MUX;
+ 	isp->subdev.entity.ops = &risp_entity_ops;
 
 -- 
 2.43.0
