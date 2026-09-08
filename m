@@ -1,217 +1,142 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10DE7470EB6;
-	Tue,  8 Sep 2026 08:32:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.10
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C2C9478859
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 08:32:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788856327; cv=none; b=V4cchgEsNbSU0TeAXDVsHAElHSt1zJ7KofSrYZcd3iuRtNQNDKvBLMxD1L+04qRbJ8paOOJlOcvq5UoaT1mpvrOktxDVJ1MvaAd/R0trydJoMTlcNV/yAYwAsqYxW1n7YAmlgCiW++eOfT5EojhJFhWE9KkEoNwHjBGRd2WrrtI=
+	t=1788856361; cv=none; b=JzPbW6IPABlyrr4XQ1stVGZIikIBPIjXlop8d1mw2TZmy8wI94HvJ+Vkk1QptvS+iNcvmTBn6NnX2MX88fvoH+djCSJ7yZc2q7Eva1zuMDtsXWenXC+xxZK/reJjD2mZhzmljWjUm/gU/uJgKqcs2fX4NpLXSLEJnEvu+jIOqVw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788856327; c=relaxed/simple;
-	bh=nOT4Eoib7zA3suYgkaqyyF849Y+bZjaLnTlxfZH8Emg=;
+	s=arc-20240116; t=1788856361; c=relaxed/simple;
+	bh=X0LXiwd5Oi4KUYVcotrSCSQyQDEPeZH2ej0WcHSUWuw=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=jWC4n9BaU4+y5Rscs3R+v6JRwaM/57RHoM3UeEqEAZQAOF866uPQ01prynAWKXeVL+aT++EZrWHQUVQuIQKG6CdmzvUsVRpi7wy9XVZef9/WelYk3G6/8OjIR5ALVrbfnT4WEQ+LPSC4JK/o93MVsNdNvkP9KFvWfqXyyiQEqFw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=lExQIWbD; arc=none smtp.client-ip=192.198.163.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=P0il0rTEfJcLS5MNWQuPlcwIDuf9FDur/6N13hq9iKV90a35+ZzUR6TACZ0adbjEGeGPgFpb7WHPsGaHURCNhOPGPCW53FQsFzevi87Un3GSub1ysSptwW3RrbrsbGQr3SY9Uiq1JJ6Ntdma2b8xs0/oehA5cvj4pRmF18p6UXk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=IN8wbQe2; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=SNDk2oew; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="lExQIWbD"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788856326; x=1820392326;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=nOT4Eoib7zA3suYgkaqyyF849Y+bZjaLnTlxfZH8Emg=;
-  b=lExQIWbDrxBK5Flk/H90pE0DbSdAsKeN0Hs/Y6jg6RwGrxVKMZs4BQ4h
-   8eiUYrcouP70ajdcibQfvjqkFciFmYkk81OvQ5Dpz8XK/NCK/0mYTZhq1
-   LnoFCrcst/exTe5J38+Cp/PnSHOoCWEQPAEY2GLg0HuzNP5ElnrvOKYeE
-   5EbiWday+qevVno2xMzkE9p0F8FyQ0DX9xQZCmoiB7u9FqZhzG1hJHZEq
-   0Hd0S3KDzSoNTt8xmLxuHrir/mEZRaw40Nrh1ECMU3d0B3Gg0hd3ut6H0
-   yvtOTnCuYPkYtij0AyFr3fDHL13hUTCF4S1wcqwa2eHDD3j80JyLZ5XkB
-   A==;
-X-CSE-ConnectionGUID: xfFELfqfSwa8iH6IFt3UBQ==
-X-CSE-MsgGUID: FIBb6XvsQwq4bLk4wGuALQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11899"; a="100607205"
-X-IronPort-AV: E=Sophos;i="6.25,268,1779174000"; 
-   d="scan'208";a="100607205"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
-  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Sep 2026 01:32:05 -0700
-X-CSE-ConnectionGUID: L0vP5RY3Q8CzJ4V843MEdg==
-X-CSE-MsgGUID: s0OkRcE2TVSoxzUM3lwz2g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,268,1779174000"; 
-   d="scan'208";a="295832154"
-Received: from black.igk.intel.com ([10.91.253.5])
-  by fmviesa001.fm.intel.com with ESMTP; 08 Sep 2026 01:32:01 -0700
-Received: by black.igk.intel.com (Postfix, from userid 1001)
-	id A80BF99; Tue, 08 Sep 2026 10:32:00 +0200 (CEST)
-Date: Tue, 8 Sep 2026 10:32:00 +0200
-From: Mika Westerberg <mika.westerberg@linux.intel.com>
-To: Sven Peter <sven@kernel.org>
-Cc: Heikki Krogerus <heikki.krogerus@linux.intel.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Janne Grunau <j@jannau.net>,
-	Neal Gompa <neal@gompa.dev>,
-	Andreas Noever <andreas.noever@gmail.com>,
-	Mika Westerberg <westeri@kernel.org>,
-	Yehezkel Bernat <YehezkelShB@gmail.com>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Konrad Dybcio <konradybcio@kernel.org>, linux-usb@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH v2 13/22] thunderbolt: Add ring register accessors to
- tb_nhi_ops
-Message-ID: <20260908083200.GB106095@black.igk.intel.com>
-References: <20260906-b4-apple-soc-tbt-v2-0-1f80085f93fb@kernel.org>
- <20260906-b4-apple-soc-tbt-v2-13-1f80085f93fb@kernel.org>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="IN8wbQe2";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="SNDk2oew"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1788856359;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=bTs3CS9GCivYiUD3IVJLDYldRClQ2qkZlouxGAVv56E=;
+	b=IN8wbQe2Hmh3C5ITCgGOXYjTf5gb5PFJySXkxPbyxTCX+5J6VfLCabaP0PmG7dywPfoQqi
+	V1mv8XaIFOntMgQPhsaZLro3ZexAF5KK8LmEDKGucHa83JLwWaGrmZX6TpknnSy9wqnNg/
+	ZLMqOWJShdcHk3nx2yKSbgYHo/WuS4o=
+Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com
+ [209.85.221.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-92-76q1Uvl1PemCW1hzN8bS6w-1; Tue, 08 Sep 2026 04:32:38 -0400
+X-MC-Unique: 76q1Uvl1PemCW1hzN8bS6w-1
+X-Mimecast-MFC-AGG-ID: 76q1Uvl1PemCW1hzN8bS6w_1788856357
+Received: by mail-wr1-f71.google.com with SMTP id ffacd0b85a97d-48597bbd963so2378606f8f.2
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 01:32:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1788856357; x=1789461157; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=bTs3CS9GCivYiUD3IVJLDYldRClQ2qkZlouxGAVv56E=;
+        b=SNDk2oewi50OP12x0deMuM3z/iIvH+293o54x1oVq24iroR5Kopejqbf1gtxgcDjf5
+         yI3087vhQ7ydqVzlh3q3QA5971WHgowSF/3OUbMPCZS20b7dmcrS8zh/sjydvVAlO0pU
+         Xgsg/mzQnYeEvZEV6emhkpHxFhNGZaZCFDbEQUkDDBmWlrEpcFvIyWQuPP4rz+KmKAOK
+         6bDyyWffQXr2hzPuQ6IptVFwq5dndJIJcYJiK1KeFLLe42l54tgB0Q/62xZogZ1o1PIQ
+         LTS36zQm5qdf5gtgUDa0fq6pHAw3bbrafILm4+ih5sR+LLowW2SLUvI9qhUHUzmTZ2Bq
+         JPzQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788856357; x=1789461157;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=bTs3CS9GCivYiUD3IVJLDYldRClQ2qkZlouxGAVv56E=;
+        b=OTxtYYX+i4Beo9bQAxDkuFLfON3Jty6qd2TI/FlZ+yfigBgCc3lel0oMDblg2XCxTB
+         Wse+SyyS1p3WvUjFOghQ2TnQKQ5LZ0gtMbA9aVguSOf1E3BqT1Qm+x1QlyagMmtr3ls2
+         O/c46Ngr9r9aTgeur5XNHfTNxJlwJ7DgYCAC4pykvAZq/+WOGy+6z0PndN/hCf+Gn3H4
+         DZwbbr1mtAYKAlPZgOc0FIYmKF4/uKUslBlSeRJS5DCFCtpY4ixt4CGmoBsjZqbN9qUk
+         SZfkJb45INgofKXEfoGHjQ98jYSX9/ycL1alSQpl1RTedE7Sa1KeWGet/Ih0KVF/lU3O
+         zj+A==
+X-Forwarded-Encrypted: i=1; AKwUvBzjeVrMcYWZwf0DMKewB44VIn61MVmaPLwM3TILAlgYtoFdQhtdo51lop2dou6PyqK6DqM5DhwvBO0e+DQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++mm3F7B6f/Bti5P/0rte5Ou3+n4ZPfYm6B+q9AOkAGHirIPdOAd
+	dXgpoJ7C18+dZKMGHOxdLZAivImDLTaieSyodpmY1rufrebwO4+rbdMw/0th+2BNAho8NV96WpJ
+	SV7ADwGiO/j6TE/b8bivYRnCqt1WUxPsPv333BUZu+SkAj/M+vYmRbSDxKWnaa+SRiD7u2hBtZw
+	==
+X-Gm-Gg: AYBFou1t7inPYj+ncvrU6lZ0Mb/hUYjGnAD1DViDr3O40cn6701NC2pnASHRoQgkkGw
+	JJOdnsH1ldUAVtz5+F4xf584770wcaX9CTcWwXj8Qa4kSyYpEyo0DDhzybGVjZCT+KCw2/uwejY
+	D0RkBlbEsijAomTC4aJPKjl2d3cIAR6/BR51EjelJHlPZhV32MadSx8wDoA83po2m23LlZYaNt9
+	jUVg/yO66jwFrbQ8HEc1dZJro6uMSEL+AigfxKV7hVK+WxLIBsf3ZJ0cUu30z03KPdfUTPw4Y2c
+	aVfi6RFM0sd5U9SmDS39tYXEUyksgoQKAQ/4jLdUmlX5mbHGBEfHPeFViyOOIbWjoa2QgcLChHM
+	zunwRM/zTEn9SXDRWRxje8ec=
+X-Received: by 2002:a05:6000:4302:b0:485:96ac:5a96 with SMTP id ffacd0b85a97d-48596ac5acbmr31640621f8f.16.1788856356726;
+        Tue, 08 Sep 2026 01:32:36 -0700 (PDT)
+X-Received: by 2002:a05:6000:4302:b0:485:96ac:5a96 with SMTP id ffacd0b85a97d-48596ac5acbmr31640474f8f.16.1788856356160;
+        Tue, 08 Sep 2026 01:32:36 -0700 (PDT)
+Received: from redhat.com (IGLD-80-230-79-236.inter.net.il. [80.230.79.236])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-485883c5bc5sm37007020f8f.24.2026.09.08.01.32.34
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 08 Sep 2026 01:32:35 -0700 (PDT)
+Date: Tue, 8 Sep 2026 04:32:32 -0400
+From: "Michael S. Tsirkin" <mst@redhat.com>
+To: Arnd Bergmann <arnd@arndb.de>
+Cc: Linfeng Sun <linfeng.sun.dev@gmail.com>,
+	Jason Wang <jasowangio@gmail.com>,
+	Eugenio =?iso-8859-1?Q?P=E9rez?= <eperezma@redhat.com>,
+	virtualization@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] vduse: return compat ioctl results directly
+Message-ID: <20260908043143-mutt-send-email-mst@kernel.org>
+References: <20260908-fix-vduse_dev_compat_ioctl-v1-1-62264d9bfb8d@gmail.com>
+ <20260908035646-mutt-send-email-mst@kernel.org>
+ <ea3ba5cc-ae68-4c1d-a3a9-c2840a1cb9e7@app.fastmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260906-b4-apple-soc-tbt-v2-13-1f80085f93fb@kernel.org>
+In-Reply-To: <ea3ba5cc-ae68-4c1d-a3a9-c2840a1cb9e7@app.fastmail.com>
 
-Hi,
-
-On Sun, Sep 06, 2026 at 08:36:36PM +0200, Sven Peter wrote:
-> The ring descriptor and options registers are laid out differently on
-> the Apple NHI. Add optional tb_nhi_ops hooks for their base addresses
-> which fall back to the standard USB4 register layout when they are not
-> set.
+On Tue, Sep 08, 2026 at 10:08:46AM +0200, Arnd Bergmann wrote:
+> On Tue, Sep 8, 2026, at 09:57, Michael S. Tsirkin wrote:
+> > On Tue, Sep 08, 2026 at 03:31:51PM +0800, Linfeng Sun wrote:
+> >> The compat handler handles VDUSE_IOTLB_GET_FD and VDUSE_VQ_GET_INFO, but
+> >> then calls the native handler. Their different command sizes make native
+> >> dispatch return -ENOIOCTLCMD.
+> >> 
+> >> For GET_FD, this overwrites receive_fd()'s return value after the
+> >> descriptor is installed, leaking one fd per call. Return handled compat
+> >> results directly and use native dispatch only for other commands.
+> >> 
+> >> Fixes: 455a2a1af926 ("vduse: fix compat handling for VDUSE_IOTLB_GET_FD/VDUSE_VQ_GET_INFO")
+> >> Signed-off-by: Linfeng Sun <linfeng.sun.dev@gmail.com>
+> >
+> > indeed, I will apply.
 > 
-> Signed-off-by: Sven Peter <sven@kernel.org>
-> ---
->  drivers/thunderbolt/nhi.c | 32 ++++++++++++++++++++++++++------
->  drivers/thunderbolt/nhi.h |  6 ++++++
->  2 files changed, 32 insertions(+), 6 deletions(-)
+> The fix looks correct to me, thanks!
 > 
-> diff --git a/drivers/thunderbolt/nhi.c b/drivers/thunderbolt/nhi.c
-> index fc54ff7edfb9..1b1e4a12c744 100644
-> --- a/drivers/thunderbolt/nhi.c
-> +++ b/drivers/thunderbolt/nhi.c
-> @@ -179,19 +179,37 @@ void nhi_disable_interrupts(struct tb_nhi *nhi)
->  static void __iomem *ring_desc_base(struct tb_ring *ring)
->  {
->  	void __iomem *io = ring->nhi->iobase;
-> +
-
-Unintended change?
-
->  	io += ring->is_tx ? REG_TX_RING_BASE : REG_RX_RING_BASE;
->  	io += ring->hop * 16;
->  	return io;
->  }
->  
-> +static void __iomem *nhi_ring_desc_base(struct tb_ring *ring)
-> +{
-> +	if (ring->nhi->ops->ring_desc_base)
-> +		return ring->nhi->ops->ring_desc_base(ring);
-> +
-> +	return ring_desc_base(ring);
-> +}
-> +
->  static void __iomem *ring_options_base(struct tb_ring *ring)
->  {
->  	void __iomem *io = ring->nhi->iobase;
-> +
-
-Ditto here.
-
->  	io += ring->is_tx ? REG_TX_OPTIONS_BASE : REG_RX_OPTIONS_BASE;
->  	io += ring->hop * 32;
->  	return io;
->  }
->  
-> +static void __iomem *nhi_ring_options_base(struct tb_ring *ring)
-> +{
-> +	if (ring->nhi->ops->ring_options_base)
-> +		return ring->nhi->ops->ring_options_base(ring);
-> +
-> +	return ring_options_base(ring);
-
-This is better IMO. Although I think even better would be to populate
-nhi->ops for both the standard NHI and for Apple (and possibly others) and
-then we can just do:
-
-	ring->nhi->ops->ring_options_base(..)
-
-or with a wrapper like this that makes it slightly more readable.
-
-It does not need to be part of this series but wanted to mention here.
-
-> +}
-> +
->  static void ring_iowrite_cons(struct tb_ring *ring, u16 cons)
->  {
->  	/*
-> @@ -199,29 +217,31 @@ static void ring_iowrite_cons(struct tb_ring *ring, u16 cons)
->  	 * are ignored by the hardware so we can save one ioread32() by
->  	 * filling the read-only bits with zeroes.
->  	 */
-> -	iowrite32(cons, ring_desc_base(ring) + 8);
-> +	iowrite32(cons, nhi_ring_desc_base(ring) + 8);
->  }
->  
->  static void ring_iowrite_prod(struct tb_ring *ring, u16 prod)
->  {
->  	/* See ring_iowrite_cons() above for explanation */
-> -	iowrite32(prod << 16, ring_desc_base(ring) + 8);
-> +	iowrite32(prod << 16, nhi_ring_desc_base(ring) + 8);
->  }
->  
->  static void ring_iowrite32desc(struct tb_ring *ring, u32 value, u32 offset)
->  {
-> -	iowrite32(value, ring_desc_base(ring) + offset);
-> +	iowrite32(value, nhi_ring_desc_base(ring) + offset);
->  }
->  
->  static void ring_iowrite64desc(struct tb_ring *ring, u64 value, u32 offset)
->  {
-> -	iowrite32(value, ring_desc_base(ring) + offset);
-> -	iowrite32(value >> 32, ring_desc_base(ring) + offset + 4);
-> +	void __iomem *base = nhi_ring_desc_base(ring);
-> +
-> +	iowrite32(value, base + offset);
-> +	iowrite32(value >> 32, base + offset + 4);
->  }
->  
->  static void ring_iowrite32options(struct tb_ring *ring, u32 value, u32 offset)
->  {
-> -	iowrite32(value, ring_options_base(ring) + offset);
-> +	iowrite32(value, nhi_ring_options_base(ring) + offset);
->  }
->  
->  static bool ring_full(struct tb_ring *ring)
-> diff --git a/drivers/thunderbolt/nhi.h b/drivers/thunderbolt/nhi.h
-> index 4884c3f5a2b2..3a963b0b5b46 100644
-> --- a/drivers/thunderbolt/nhi.h
-> +++ b/drivers/thunderbolt/nhi.h
-> @@ -52,6 +52,10 @@ extern const struct dev_pm_ops nhi_pm_ops;
->   * @post_nvm_auth: hook to run after Thunderbolt 3 NVM authentication
->   * @request_ring_irq: NHI specific interrupt retrieval hook
->   * @release_ring_irq: NHI specific interrupt release hook
-> + * @ring_desc_base: NHI specific hook returning the ring descriptor registers.
-> + *		    If not set the standard USB4 NHI registers are used.
-> + * @ring_options_base: NHI specific hook returning the ring option registers.
-> + *		       If not set the standard USB4 NHI registers are used.
->   * @ring_interrupt_active: NHI specific hook to activate/deactivate the
->   *			   interrupt of a single ring. If not set the
->   *			   standard USB4 NHI registers are used.
-> @@ -70,6 +74,8 @@ struct tb_nhi_ops {
->  	void (*post_nvm_auth)(struct tb_nhi *nhi);
->  	int (*request_ring_irq)(struct tb_ring *ring, bool no_suspend);
->  	void (*release_ring_irq)(struct tb_ring *ring);
-> +	void __iomem *(*ring_desc_base)(struct tb_ring *ring);
-> +	void __iomem *(*ring_options_base)(struct tb_ring *ring);
->  	void (*ring_interrupt_active)(struct tb_ring *ring, bool active);
->  	bool (*is_present)(struct tb_nhi *nhi);
->  	int (*init_interrupts)(struct tb_nhi *nhi);
+> > But ... how was the original patch working then? Arnd, what gives?
 > 
-> -- 
-> 2.55.0
+> It looks I either broke it during refactoring from two functions
+> into one, or I just didn't do it right in the first place.
 > 
+> I did write in the extra patch text
+> 
+> | The code is directly copied from the native ioctl handler, but I
+> | did not test this with actual x86-32 userspace, so please review
+> | carefully.
+> 
+> but obviously should have caught this one myself since it is a much
+> less subtle bug than the one I was trying to fix in the first place.
+> 
+>       Arnd
+
+Should teach me not to apply untested code. No amount of
+careful review replaces testing)
+
+-- 
+MST
+
