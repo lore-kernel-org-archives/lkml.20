@@ -1,161 +1,181 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17C3F4AE138;
-	Tue,  8 Sep 2026 13:52:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF61F4A92D7;
+	Tue,  8 Sep 2026 13:52:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788875533; cv=none; b=QJNu2SAivldGRrWO68vYW6YhhzSR14qsCvB37Y/xyUD33dzbYHqJUIiGlAgiNd+Wb511oHlzr6/O26Zn4btt07FOcBLegZjTNiryZSaebrQ/WhnVuy72uyPLwE4fhVT4xJIg+GNj/338+cwlaqEyjMeoejDL+VPpgWttF+KcC0c=
+	t=1788875541; cv=none; b=OT7swWNJxtWN1hKPNCdUOKEMWm3wmrXDwjmi1rQGTP4/Z0jHfBMvsa+xR97Nj5W36Z7xL53Lm/o0+nJ/pH+LafkpN19CaPZeNCKxUM/v6UGgmiUKh9gfjAoDytKdzXinw8DkYzpyE4f7Jsn5H3mTDVbiExOMxdug9BVTZRHxC9A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788875533; c=relaxed/simple;
-	bh=Df8qXEo8UsnQNwgRqqCMUapr8nbkoYTbtsz3wYoOMFw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=DmEnX8VbDztjzTZLR3nXTz23igQB87Axz45mj7UYcA0MKkC5L+sfRC9Cu3KMhFk+KNgstSF6ZJjjtD3n9hlVs529E8xjNx4MU5LD4z3um2Il/WFow2GKDCPVoVUIeMAQZAqda0/ioLzU3BM4F+iY8sjbC8Fix9xa+5aBgd4ogpo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GyTqK3uB; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788875541; c=relaxed/simple;
+	bh=LgpzZwApGv4Mf3DVIQPh9CC2QnA5d+vuXcWDfFntOAg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=iUPObOhl8rlYJTmNRY3PAobOEQPY5HJvzSTFE3MDSwLQD6iCL7LCTIlqYYnFXoAyBdJ4fCn/Peysr4cI1gEx3ahZY+y/uUyflaGFaguS0IdBi/BdBEzsvjZq0jcW83vcbwpzXo51k0cAMsJv8H7fdYmkc8MQeiHGytcEOw7bzyE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OMph5lxd; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GyTqK3uB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2CDB11F00A3A;
-	Tue,  8 Sep 2026 13:52:00 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OMph5lxd"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4AC801F00A3F;
+	Tue,  8 Sep 2026 13:52:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788875520;
-	bh=jnCS9pXhim/eWcVp4OfT3e5HfVEzS4dxTYx15mUGx7s=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=GyTqK3uBYEYmXJviIwBtmA2VyVbmhAa5UC8WjRmVm+V/gskQgEiYidpBJoPglmL8p
-	 FB2lMbYuirXZAAJmflJhY7n9zD029aIFvqG78e3MkPlsz3aCNGecGzyHdn/OkmS8I6
-	 rCvPWZWqMsJH00LODKMp3BHjIypaqMtxUav1SorNNfg57tbw9hG9fTjloRuz7dmXwB
-	 5ztAZaEsxQI2Bs5T+AgPs/RirVdgAdPCGuhYWmHEbZa3yZ5V3hq/jXWQ8nV9HCD5I0
-	 rQvgOmUoGZ7DK7DI/fcbHYR+UrjtdvVv/uEeb5rUf/UJpiRs8W/3w3iawD6rZr4aCZ
-	 lryKtVQZpYJ0w==
-Received: from johan by xi.lan with local (Exim 4.99.4)
-	(envelope-from <johan@kernel.org>)
-	id 1x3wEv-00000001jBY-3XE6;
-	Tue, 08 Sep 2026 15:51:57 +0200
-Date: Tue, 8 Sep 2026 15:51:57 +0200
-From: Johan Hovold <johan@kernel.org>
-To: Adriano =?utf-8?Q?C=C3=B3rdova?= <adrianox@gmail.com>
-Cc: Ulf Hansson <ulfh@kernel.org>, linux-mmc@vger.kernel.org,
+	s=k20260515; t=1788875524;
+	bh=AChODC5AHZLUdfC+ioRgIkad6KpONv/acCA4JtBhMak=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=OMph5lxdwJPFP27MCU5ckrGtAumdEQ53z1H3ThxtpdEwMOOIpqKEJUuSpfL+ejXL4
+	 I/+huYYYGxVpn2d5Q1DcUtlw7rlZ2IU0C5KErJIsm2i2qYU/TAjg+Ta0otZloeIdm6
+	 GkPabVyGquEO4w29MHJui6yuNwFjVSfkIYMhy8YNxgZRoVQ9Tf80ks3n45prLoeMbu
+	 eEuMVzLrteuNpqsCd1daSvIEHkMg86PHi4ss2sRY5Fp2PGCan1Yo3j1TisitL9KGaf
+	 TD/okaz5/bW1iwY2fLJTnykbuw+EtfphToMcCVl1NOEthVd+0ZPUfLsrzcYaZQQoox
+	 WoxJLRbo8QQZQ==
+From: SJ Park <sj@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: Krishna Iyer <kiyer@crusoe.ai>,
+	SJ Park <sj@kernel.org>,
+	damon@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
-	syzbot+f312381a95cc080992fd@syzkaller.appspotmail.com,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] mmc: vub300: fix use-after-free in vub300 teardown
-Message-ID: <aqAS_dB3_whEBd0O@hovoldconsulting.com>
-References: <20260907151428.643841-1-adrianox@gmail.com>
- <ap-4khETBju3X8-T@hovoldconsulting.com>
- <CAMGU2hXrURUh3NknkgLnmyiJiEwEqZdDz3Ujy5tO8oqVMD9OJw@mail.gmail.com>
+	linux-mm@kvack.org
+Subject: [PATCH v3 2/3] mm/damon/ops-common: handle hugetlb folios in folio mkold/young rmap walkers
+Date: Tue,  8 Sep 2026 06:51:54 -0700
+Message-ID: <20260908135156.97481-3-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260908135156.97481-1-sj@kernel.org>
+References: <20260908135156.97481-1-sj@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAMGU2hXrURUh3NknkgLnmyiJiEwEqZdDz3Ujy5tO8oqVMD9OJw@mail.gmail.com>
 
-On Tue, Sep 08, 2026 at 10:28:06AM -0300, Adriano Córdova wrote:
-> El mar, 8 sept 2026 a las 4:26, Johan Hovold (<johan@kernel.org>) escribió:
-> >
-> > On Mon, Sep 07, 2026 at 12:14:28PM -0300, Adriano Cordova wrote:
-> > > Do not dereference mmc/vub300/udev after the final kref_put, because
-> > > it can release them via mmc_free_host()/usb_put_dev().
-> > >
-> > > Fixes: 8f4d20a71022 ("mmc: vub300: fix use-after-free on disconnect")
-> >
-> > This commit reverted a buggy change so if anything is broken here, this
-> > isn't the commit to blame.
-> >
-> > > Reported-by: syzbot+f312381a95cc080992fd@syzkaller.appspotmail.com
-> > > Link: https://syzkaller.appspot.com/bug?extid=f312381a95cc080992fd
-> > > Cc: stable@vger.kernel.org
-> > > Signed-off-by: Adriano Cordova <adrianox@gmail.com>
-> >
-> > Are you missing an Assisted-by tag?
+From: Krishna Iyer <kiyer@crusoe.ai>
 
-Again, are you using an LLM without disclosing it?
+damon_folio_mkold_one() and damon_folio_young_one() assume the folios
+they walk are mapped by normal PTEs or THP PMDs.  When the folio is a
+hugetlb folio, page_vma_mapped_walk() returns the huge PTE in pvmw.pte
+with its page table lock held, but the walkers treat it as a normal
+PTE: they read and age it with PAGE_SIZE-granularity helpers, which is
+wrong for huge PTEs (up to PUD level), and notify secondary MMUs for
+only PAGE_SIZE of the mapping.
 
-> > > ---
-> > >  drivers/mmc/host/vub300.c | 7 ++++---
-> > >  1 file changed, 4 insertions(+), 3 deletions(-)
-> > >
-> > > diff --git a/drivers/mmc/host/vub300.c b/drivers/mmc/host/vub300.c
-> > > index 2dae474dcd06..a1a6aa1aafdb 100644
-> > > --- a/drivers/mmc/host/vub300.c
-> > > +++ b/drivers/mmc/host/vub300.c
-> > > @@ -370,13 +370,14 @@ static void vub300_delete(struct kref *kref)
-> > >  {                            /* kref callback - softirq */
-> > >       struct vub300_mmc_host *vub300 = kref_to_vub300_mmc_host(kref);
-> > >       struct mmc_host *mmc = vub300->mmc;
-> > > +     struct usb_device *udev = vub300->udev;
-> > >
-> > >       usb_free_urb(vub300->command_out_urb);
-> > >       vub300->command_out_urb = NULL;
-> > >       usb_free_urb(vub300->command_res_urb);
-> > >       vub300->command_res_urb = NULL;
-> > > -     usb_put_dev(vub300->udev);
-> > >       mmc_free_host(mmc);
-> > > +     usb_put_dev(udev);
-> >
-> > This makes no sense at all as the driver data is freed by
-> > mmc_free_host().
-> 
-> mmc_free_host() only frees mmc (struct mmc_host) and vub300
-> (struct vub300_mmc_host), but the udev (struct usb_device, linked
-> as mmc->parent) is not freed by mmc_free_host() and has to be
-> freed separately.
-> 
-> But it cannot be freed before mmc_free_host(), because the kobject
-> cleanup code of mmc_host accesses it in mmc_host_classdev_release()
-> via host->parent->of_node.
+Add hugetlb branches to both walkers.  The mkold walker reuses
+damon_hugetlb_mkold(), which the virtual address space operations set
+has been using for hugetlb aging: it clears the young bit of the huge
+PTE via set_huge_pte_at() and calls mmu_notifier_clear_young() spanning
+the whole huge page size.  The young walker gets an equivalent new
+helper, damon_hugetlb_young(), which reads the huge PTE with
+huge_ptep_get() and consults the page idle flag and
+mmu_notifier_test_young() like the existing PTE branch.
 
-That's a bug in MMC core. It needs to hold a reference to the parent, or
-just store the id directly. 
+Locking mirrors what page_vma_mapped_walk() provides: the huge PTE's
+page table lock is held inside the walk, and for shared hugetlb
+mappings (the only ones subject to huge PMD sharing), rmap_walk_file()
+already holds i_mmap_rwsem, satisfying hugetlb_walk()'s locking
+requirements.
 
-And your LLM didn't put any of this in the commit message.
+This is currently dead code: both rmap walkers are only reachable
+through damon_get_folio(), which rejects hugetlb folios since they are
+not on the LRU lists.  A following commit will let the physical address
+space monitoring primitives opt in to hugetlb folios.
 
-> > >       /*
-> > >        * and hence also frees vub300
-> > >        * which is contained at the end of struct mmc
-> > > @@ -1794,8 +1795,8 @@ static void vub300_cmndwork_thread(struct work_struct *work)
-> > >                       construct_request_response(vub300, cmd);
-> > >                       vub300->resp_len = 0;
-> > >                       mutex_unlock(&vub300->cmd_mutex);
-> > > -                     kref_put(&vub300->kref, vub300_delete);
-> > >                       mmc_request_done(vub300->mmc, req);
-> > > +                     kref_put(&vub300->kref, vub300_delete);
-> >
-> > This order has been here since the driver was merged.
-> >
-> > >                       return;
-> > >               }
-> > >       }
-> > > @@ -1946,8 +1947,8 @@ static void vub300_mmc_request(struct mmc_host *mmc, struct mmc_request *req)
-> > >                   satisfy_request_from_offloaded_data(vub300, cmd)) {
-> > >                       cmd->error = 0;
-> > >                       mutex_unlock(&vub300->cmd_mutex);
-> > > -                     kref_put(&vub300->kref, vub300_delete);
-> > >                       mmc_request_done(mmc, req);
-> > > +                     kref_put(&vub300->kref, vub300_delete);
-> >
-> > Same here.
-> >
-> > So if this is wrong (it does look suspicious, but this driver is just a
-> > mess) then that's the commit to blame.
-> 
-> Hope is more clear now, it makes sense to me, and I think the Fixes:
-> tag is right.
+Link: https://lore.kernel.org/20260902025700.17975-3-kiyer@crusoe.ai
+Cc: Andrew Morton <akpm@linux-foundation.org>
+Assisted-by: Claude:claude-fable-5
+Signed-off-by: Krishna Iyer <kiyer@crusoe.ai>
+Reviewed-by: SJ Park <sj@kernel.org>
+Signed-off-by: SJ Park <sj@kernel.org>
+---
+ mm/damon/ops-common.c | 61 +++++++++++++++++++++++++++++++++----------
+ 1 file changed, 47 insertions(+), 14 deletions(-)
 
-No, these issues were there since the driver was merged, that is, they
-were introduced by commit 88095e7b473a ("mmc: Add new VUB300
-USB-to-SD/SDIO/MMC driver") in 2011. (And the of_node issue was
-introduced in 2021.)
-
-The broken devres change may or may not have masked them for a bit, but
-the revert is not the culprit here.
-
-> >
-> > >                       return;
-> > >               } else {
-> > >                       vub300->cmd = cmd;
-
-Johan
+diff --git a/mm/damon/ops-common.c b/mm/damon/ops-common.c
+index 995cc1f3b9f32..349e1604cc1b1 100644
+--- a/mm/damon/ops-common.c
++++ b/mm/damon/ops-common.c
+@@ -205,10 +205,15 @@ static bool damon_folio_mkold_one(struct folio *folio,
+ 
+ 	while (page_vma_mapped_walk(&pvmw)) {
+ 		addr = pvmw.address;
+-		if (pvmw.pte)
+-			damon_ptep_mkold(pvmw.pte, vma, addr);
+-		else
++		if (pvmw.pte) {
++			if (folio_test_hugetlb(folio))
++				damon_hugetlb_mkold(pvmw.pte, vma->vm_mm, vma,
++						addr);
++			else
++				damon_ptep_mkold(pvmw.pte, vma, addr);
++		} else {
+ 			damon_pmdp_mkold(pvmw.pmd, vma, addr);
++		}
+ 	}
+ 	return true;
+ }
+@@ -233,27 +238,55 @@ void damon_folio_mkold(struct folio *folio)
+ 
+ }
+ 
++#ifdef CONFIG_HUGETLB_PAGE
++static bool damon_hugetlb_young(pte_t *pte, struct vm_area_struct *vma,
++		unsigned long addr, struct folio *folio)
++{
++	pte_t entry = huge_ptep_get(vma->vm_mm, addr, pte);
++
++	return (pte_present(entry) && pte_young(entry)) ||
++		!folio_test_idle(folio) ||
++		mmu_notifier_test_young(vma->vm_mm, addr);
++}
++#else
++static bool damon_hugetlb_young(pte_t *pte, struct vm_area_struct *vma,
++		unsigned long addr, struct folio *folio)
++{
++	return false;
++}
++#endif	/* CONFIG_HUGETLB_PAGE */
++
++static bool damon_pte_young(pte_t *pte, struct vm_area_struct *vma,
++		unsigned long addr, struct folio *folio)
++{
++	pte_t entry = ptep_get(pte);
++
++	/*
++	 * PFN swap PTEs, such as device-exclusive ones, that actually map
++	 * pages are "old" from a CPU perspective. The MMU notifier takes care
++	 * of any device aspects.
++	 */
++	return (pte_present(entry) && pte_young(entry)) ||
++		!folio_test_idle(folio) ||
++		mmu_notifier_test_young(vma->vm_mm, addr);
++}
++
+ static bool damon_folio_young_one(struct folio *folio,
+ 		struct vm_area_struct *vma, unsigned long addr, void *arg)
+ {
+ 	bool *accessed = arg;
+ 	DEFINE_FOLIO_VMA_WALK(pvmw, folio, vma, addr, 0);
+-	pte_t pte;
+ 
+ 	*accessed = false;
+ 	while (page_vma_mapped_walk(&pvmw)) {
+ 		addr = pvmw.address;
+ 		if (pvmw.pte) {
+-			pte = ptep_get(pvmw.pte);
+-
+-			/*
+-			 * PFN swap PTEs, such as device-exclusive ones, that
+-			 * actually map pages are "old" from a CPU perspective.
+-			 * The MMU notifier takes care of any device aspects.
+-			 */
+-			*accessed = (pte_present(pte) && pte_young(pte)) ||
+-				!folio_test_idle(folio) ||
+-				mmu_notifier_test_young(vma->vm_mm, addr);
++			if (folio_test_hugetlb(folio))
++				*accessed = damon_hugetlb_young(pvmw.pte, vma,
++						addr, folio);
++			else
++				*accessed = damon_pte_young(pvmw.pte, vma,
++						addr, folio);
+ 		} else {
+ #ifdef CONFIG_TRANSPARENT_HUGEPAGE
+ 			pmd_t pmd = pmdp_get(pvmw.pmd);
+-- 
+2.47.3
