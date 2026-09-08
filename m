@@ -1,113 +1,107 @@
-Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BD80221DAE
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 00:54:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 085B72FBE;
+	Tue,  8 Sep 2026 00:57:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788828884; cv=none; b=DLfXoJnHdsFef+699JjWzPhyHrlpKarMbyy4bsJUI7LO36n5krk7wsFquKRQk4xlXXh+872gqEBe1ioVbmJhO0cuY2Ywp/S6vjQ9GVWGZNRcs8/9o2++1LUHAd+azRp46BOfqKNCvDNTGcr8iMTzL2MlRUeudVPWNog+nAjqOHE=
+	t=1788829052; cv=none; b=pfgoyF9BX8nAqQo0eMO1OjQsS2YEidYg/b9r3hLjUWVmKS/5pCXQXD3G8nyM+eMTAeVfnL5nm4tO5hSkg47PMZ4pxUlT0g3HPBG9c7wuzHHsDI8D29dt3smfPHYf4h2EQ7oFq4CgA3sL2RLpmXjkUdNg9D4z05VP1CeNf4NmYX4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788828884; c=relaxed/simple;
-	bh=LL4yx9+duTmRtmjdwBAKJocU9BFUfdnzRIlWU/h+eos=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=RXi+I1PQ2icVDmiDnFIMKahNqaNUQLVJyPHIG/XA16h4ieTEJ5M5cHbRx6+vXPzFKtZWKsaFMzDHfI8/t7UE9Ek8xII+sOE/6OHeF3ghK4so5VaXjPR1VM/W2VwLMXomGeryls6qzfZ++Kcp5p3xt/iKRa7Og5DrK6EAqu0O+v4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aVZ4VMWm; arc=none smtp.client-ip=209.85.221.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788829052; c=relaxed/simple;
+	bh=tgIPkqLL574nRd6uH/OdIE9pkw6UuV75K0iwBwebEZM=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=L4z1ufbFrR3yGwvmcbpLy4c69UPd/VGFmbt4CFu/YrMk5lvIS9Gyqlzep6buy2Qrk8sl+IwuH254QBC9piyrTF+afzII/l6YQ0e8eFAFCruZUqxaJJfSSTacLBtpUX2yEZddMn99fMcBFYDIQjuLYI/D/fmVn2XY6yC0Phx5B/g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jszKzdoa; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aVZ4VMWm"
-Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-4843efcbdb2so2208355f8f.2
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 17:54:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788828881; x=1789433681; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=YgASPrGb+YzXVqSHqBKJ2dk/XrU8XstjjU7gCc3yWNU=;
-        b=aVZ4VMWm/uxa66McIJA1uKK4fNddf64020o0NEjsiLW1t5uneeIbzvj7A708csxcQn
-         +3rZCTc7C+TyLMxLsZuNEv5gXhJgqkuRHd2YqGwPX6Ij/5Jkc5hh291lFf5+ELfdUDG9
-         qBxsrEN2pgVOPHnry5i2/XiCYehSl0VNBpEBCxwTYs74nNxgaPb4tmg7bDg0elJnnpxh
-         NEv4FM4NYKd9/bvPXTutEoIHPIEX5JkwcyKGLf8o+cYa/fTWOAFz4r7PqOJnC31QkhAv
-         yPJD+d9ltvRXrEXLKQCgT8z2OWMxItddCHjeXOclYsTk/Eh3/SXMs69b+vu2U5UDL9Sj
-         b3pQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788828881; x=1789433681;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=YgASPrGb+YzXVqSHqBKJ2dk/XrU8XstjjU7gCc3yWNU=;
-        b=EVMmK/kow6uRRTsWJI9Yk7Uhzd4J40OHXC7821xRKbpXkPxcH0WzAv08nA9rhjr3nH
-         nEaKCFBeDXyWmU05ghzDJR8sd5R6yyROXUCHPWRAbEZHk6YRntSnPxIOtOSDI75l7JoL
-         B7XdYnS3DDQ31b25d/+1xJzImPUQdezy2Sc7vCbkzIVxXbVqhGpwKlSywlup7TyO1dn4
-         UU7LVHlvNQJZxUsHTP056jIyE/MCnHJ+Fz2ry+yhZ7Soc/LcAFCdqCuV5bVReGCiTT5d
-         Qrt1yrWLIG6RzpuvdvOZdhU2nUhdWX76bU1aK7JlYxQPKE6S9IQ5/JOn6KX5Fk7mEr7x
-         yVKw==
-X-Forwarded-Encrypted: i=1; AKwUvByiKq9446vv5+PkdXO+5V+Hgi+Sz5zcP/F7bWCiLKujigA0waskgUYMebBBYSFSKQ4VNW8rlCiKSKFgmdQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++mpT1VYq7FdYyw9UPQdAdjJ1RxXKYEWKjId2/inlNlsMU2lVx7R
-	c4d4AXRoTw3Aoq/39Y1qbEFimXV8DMInRWs7DKw12xs+rUrEY+bCkStR
-X-Gm-Gg: AYBFou2H3AAC2MGvnaTFH998BbvlJVmFVeLEj7d4F5waKEVdSIdDCHMBzmKeaJZk21N
-	P0i08q3BEPUDD8oye4ihhHNRHkLlrroDhgU6QfWs2SYvABZc+MG5SK9zqEcr2jyHu9DYrfZebPj
-	j7ssyTcdaxJbiVe1Fcd1wXyBQbrLP4S26w0UW8Gjo3oq2xhKi0YFKcEWBslM4qm9NcUaVQLxU5Z
-	pqIc9VHIP5FinTnGYncT7IhsWlo+ZnqePUCgTRSCESJ+LHNWGYaD75LioFaYDMNFU1AdPXyADkI
-	BrB/+drfVCjGAyqkMmVFJ+yTyTycUI+pwboZHI1WdG8UwGkz7lyvb5mD9AYICvA1bE8JcvxVQ6f
-	oV1NdT8UXSh+7gGWZ/Gd3qZZobC62RFJITfPcnRl0+J6BcbXq+A2n/zMxZgPD5Gpg8aUJQ2vn9W
-	KW7nNMNvT1Vbp4Wns+eYsnNNLYJg2SgvgCh8EpGar2aqW7dzM+lZM+APnNuq/5DbVlyrwJoa5Ax
-	U/wk9+pUfIStXfQxpJ99f3NeUfLXHAEkwRQgqsHpLYqBTjv
-X-Received: by 2002:a05:600c:3b01:b0:49c:fa21:e73b with SMTP id 5b1f17b1804b1-49cfa21e86cmr213007455e9.17.1788828881004;
-        Mon, 07 Sep 2026 17:54:41 -0700 (PDT)
-Received: from dohko.chello.ie (188-141-5-72.dynamic.upc.ie. [188.141.5.72])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ce5563c6csm368908035e9.4.2026.09.07.17.54.39
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 07 Sep 2026 17:54:40 -0700 (PDT)
-From: David Carlier <devnexen@gmail.com>
-To: Jakub Kicinski <kuba@kernel.org>,
-	Simon Horman <horms@kernel.org>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	oss-drivers@corigine.com
-Cc: "David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Paolo Abeni <pabeni@redhat.com>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	David Carlier <devnexen@gmail.com>
-Subject: [PATCH] nfp: reject truncated hwinfo table
-Date: Tue,  8 Sep 2026 01:54:37 +0100
-Message-ID: <20260908005437.11004-1-devnexen@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jszKzdoa"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 44C3D1F00A3A;
+	Tue,  8 Sep 2026 00:57:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788829050;
+	bh=MYAjivpgE01XT5FVIerMOmRGhLGhfUaCEwoU29tcf6A=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=jszKzdoai+InfYmqoMr2Hwi6AkaxkKgAjPaC3XOlAocNZlFH+bleB4Na7aLPtFqCR
+	 4rXAx5+mVPHU4XkgFbq2SP7kHXIHgoI9WFvyxjKYMZEpsj6WaMphZH152XdM0smFj1
+	 n5S581LGPBGMNgj9PxBFK1AD3nzLKkPeKWKKZY5Juio+vPNCg9sQ4Ip0s3LiS43QO1
+	 QKxcrAXdRWFzj+HyYLOCI4rmevEe0lO45IUiivVithYOEQYwddkYYNG3oMetBmTbCa
+	 TIesKmw4l3TAxEETNXbZQdbxm88H1EKWjPJlT9oh0FVUR+RIMoUkP9feRGty1XH6FM
+	 a3N1hXD1wmoYQ==
+Date: Tue, 8 Sep 2026 01:57:23 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Terry Bowman <terry.bowman@amd.com>
+Cc: Dave Jiang <dave.jiang@intel.com>, Alison Schofield
+ <alison.schofield@intel.com>, Vishal Verma <vishal.l.verma@intel.com>,
+ Davidlohr Bueso <dave@stgolabs.net>, "Bjorn Helgaas" <bhelgaas@google.com>,
+ Dan Williams <djbw@kernel.org>, "Rafael J . Wysocki" <rafael@kernel.org>,
+ Jonathan Corbet <corbet@lwn.net>, <linux-cxl@vger.kernel.org>, Tony Luck
+ <tony.luck@intel.com>, Borislav Petkov <bp@alien8.de>, "Hanjun Guo"
+ <guohanjun@huawei.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, "Shuai
+ Xue" <xueshuai@linux.alibaba.com>, Len Brown <lenb@kernel.org>, Ira Weiny
+ <iweiny@kernel.org>, Li Ming <ming.li@zohomail.com>, Shuah Khan
+ <skhan@linuxfoundation.org>, Ben Cheatham <Benjamin.Cheatham@amd.com>,
+ Richard Cheng <icheng@nvidia.com>, Robert Richter <rrichter@amd.com>,
+ "Lukas Wunner" <lukas@wunner.de>, <linux-pci@vger.kernel.org>,
+ <linux-acpi@vger.kernel.org>, <linux-doc@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v20 2/9] PCI: Establish common CXL Port protocol error
+ flow
+Message-ID: <20260908015723.6d6ebd44@jic23-huawei>
+In-Reply-To: <20260902133933.2992457-3-terry.bowman@amd.com>
+References: <20260902133933.2992457-1-terry.bowman@amd.com>
+	<20260902133933.2992457-3-terry.bowman@amd.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-hwinfo_db_validate() only bounds db->size from above, so a firmware
-table advertising size < sizeof(*db) + sizeof(u32) makes the following
-"size -= sizeof(u32)" underflow and crc32_posix() read far out of
-bounds. Reject such tables before the subtraction.
+On Wed, 2 Sep 2026 08:39:26 -0500
+Terry Bowman <terry.bowman@amd.com> wrote:
 
-Fixes: 59a8474888e9 ("nfp: add hwinfo support")
-Assisted-by: Claude Opus 5 (Anthropic)
-Signed-off-by: David Carlier <devnexen@gmail.com>
----
- drivers/net/ethernet/netronome/nfp/nfpcore/nfp_hwinfo.c | 5 +++++
- 1 file changed, 5 insertions(+)
+> Establish a single CXL protocol error path shared by CXL Virtual
+> Hierarchy (VH) and Restricted CXL Host (RCH) topologies. AER dispatch in
+> handle_error_source() routes CXL protocol errors, gated by
+> is_cxl_error(), through the AER-CXL kfifo to a cxl_core consumer for
+> logging and recovery. Producer and consumer go live together so no CXL
+> error is silently dropped across a bisect.
+> 
+> is_cxl_error() expands from Endpoint-only to also cover Root Port,
+> Upstream Port, and Downstream Port. RCDs report on behalf of an upstream
+> RCH Downstream Port and instead reach the kfifo via
+> cxl_rch_handle_error().
+> 
+> For uncorrectable errors, cxl_proto_err_wait_for_empty() drains the CXL
+> plane (RAS read, panic policy, state clear) before pci_aer_handle_error()
+> drives PCIe recovery, so recovery does not tear down RAS iomaps while the
+> consumer is still reading them. Correctable errors run asynchronously.
+> 
+> Panic policy: cxl_do_recovery() panics on a confirmed UCE, and also when
+> the RAS registers cannot be mapped -- an unconfirmable UCE is treated
+> conservatively as fatal since CXL.mem coherency may be lost. A
+> mapped-but-clear status is logged as spurious with no panic.
+> 
+> to_ras_base() centralizes RAS base lookup (dport->regs.ras for
+> Root/Downstream Ports, port->regs.ras otherwise) and provides an
+> injection point for RAS status simulation during testing. The
+> cxl_cor_error_detected() AER callback is removed; correctable Endpoint
+> errors now route through the kfifo like every other CXL protocol error.
+> 
+> Update cxl_handle_rdport_errors() with locking to prevent dport from
+> being freed and RAS from being unmapped.
+> 
+> At this step cxl_handle_rdport_errors() still dispatches a single
+> severity per pass (matching the pre-series baseline). The following
+> patch, "cxl/ras: Handle RCH correctable and uncorrectable errors in one
+> pass", processes a simultaneously signalled CE and UCE together.
+> 
+> Co-developed-by: Dan Williams <djbw@kernel.org>
+> Signed-off-by: Dan Williams <djbw@kernel.org>
+> Signed-off-by: Terry Bowman <terry.bowman@amd.com>
+> 
+Reviewed-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
 
-diff --git a/drivers/net/ethernet/netronome/nfp/nfpcore/nfp_hwinfo.c b/drivers/net/ethernet/netronome/nfp/nfpcore/nfp_hwinfo.c
-index cfa4db5d3f85..30aad12fd062 100644
---- a/drivers/net/ethernet/netronome/nfp/nfpcore/nfp_hwinfo.c
-+++ b/drivers/net/ethernet/netronome/nfp/nfpcore/nfp_hwinfo.c
-@@ -136,6 +136,11 @@ hwinfo_db_validate(struct nfp_cpp *cpp, struct nfp_hwinfo *db, u32 len)
- 		return -EINVAL;
- 	}
- 
-+	if (size < sizeof(*db) + sizeof(u32)) {
-+		nfp_err(cpp, "Truncated hwinfo table, size %u\n", size);
-+		return -EINVAL;
-+	}
-+
- 	size -= sizeof(u32);
- 	crc = crc32_posix(db, size);
- 	if (crc != get_unaligned_le32(db->start + size)) {
--- 
-2.55.0
 
