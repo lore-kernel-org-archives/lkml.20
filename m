@@ -1,33 +1,21 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97D1B545DBA;
-	Tue,  8 Sep 2026 12:45:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF04B156661;
+	Tue,  8 Sep 2026 12:45:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788871530; cv=none; b=RMmWSK2jMyf4pKP9HgLUDUdvW5ORpP0PQHaoPT32QzGUE8Y2Q3ATWfwYPOZ3m0nluRkRZ8Zsqy21ByI5yQ0K74mDvZ4m7V/xC7Nw8p6MNUt9bY5ZSBg5CBpXuIdSKz1ACxH7WszCibTB/vMCO0zE0NbxK0+0X5Eaj6uDqKi611s=
+	t=1788871536; cv=none; b=DaSEu13zT9HJE90dx+oR2idDS4aow2UMdi4GLDfkOOVtnFErq88lgYIkPPvAFbT4mwA5be8ndQAjQIqYgKBRYPW22A6ECmQdzbj0wURhxipQa6J9PJ2PCAZNf0WryAq/MwagoinNpObSpI8aSg2wSq9HrEB01Q25npvzgdg4Oss=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788871530; c=relaxed/simple;
-	bh=btbAnW7XEqDU3rjY/DIUfd95J9aNMhneMrIssc+dwoo=;
+	s=arc-20240116; t=1788871536; c=relaxed/simple;
+	bh=6l7qd8nv0Mb1mC+hWYPI+BnhlS+jn0bTOqlQ6Q4C2vo=;
 	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=B18Sn1t4grZpdWHxQNy3ydyKWBXAFYODEXju1SVYuTR/aJg2zLXc2ThJTpP1J65aA7Yiox/xANruFkjI54Ti6xAZ+5lRnw4PYtZWD+zRCiWapPtCWGjxajj7Pj36pNIsNMDP+yxWb4Q8PNDigFcOe4ZXzROv8+E0BiF1aqSUnZc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MWV7C6jn; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MWV7C6jn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD5561F00A3D;
-	Tue,  8 Sep 2026 12:45:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788871528;
-	bh=04EVxR5ZHLejSpxL9okl2sx0iBZM//I6epK7VnSXHAU=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=MWV7C6jnIpDFmp+aUZHgz+3MZcL3gzJTBxyiE42g5ts/QOVcf+h2URuEMuORkQE0l
-	 0/V9K9UUlU7xPmBZgCIID2nyauymUgIK2PlqVKRh9gx9C0dYvoXA/6CC15DkmBp3UF
-	 too0Wc3YPFUjrmBxj/pgNhVkhsociENiyL54V65mGGRpe1BT/q+hiQF66cF7HHJhAi
-	 n7s71Sc6epOEHV7KZcVLn80Ovpt57w9VSxlU2pEoacISCH2G7fTsR59/LUyLwTPTwq
-	 iwBJU9QqXUKXXRFI0FGcquXNfal7ZxSRwqxKXuxmKfF5yyRMmOG8AWdoXcMgg/YYt0
-	 KzdvpYjq/uDmg==
-Subject: Re: [PATCH net-next v8 12/15] dpll: sit9531x: add support to get
- phase offset on the connected input pin
+	 Content-Type:MIME-Version; b=a1MfIR/5ptabKW05N9hcCkf0XHiVdi1UWqx/Amm6ZkQqGHnGxBdDDppoBPG048HWMaS83+7UGb8INdef5cQvmOZ31luoYRzB29ReaSqRnc6+9KaD35CBgZi3d9aRz1EOYqfAd3uY3JPoKcq8BaloflMmG1/RUj/PjubKv/mzVsM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D33A81F00A3E;
+	Tue,  8 Sep 2026 12:45:33 +0000 (UTC)
+Subject: Re: [PATCH net-next v8 15/15] dpll: sit9531x: allow the device tree
+ to override two board facts
 From: netdev-bot+sashiko@kernel.org
 To: arouhi@sitime.com
 Cc: jiri@resnulli.us, vadim.fedorenko@linux.dev,
@@ -35,10 +23,10 @@ Cc: jiri@resnulli.us, vadim.fedorenko@linux.dev,
  krzk+dt@kernel.org, conor+dt@kernel.org, cjubran@nvidia.com,
  Oleg.Zadorozhnyi@devoxsoftware.com, devicetree@vger.kernel.org,
  netdev@vger.kernel.org, linux-kernel@vger.kernel.org, kuba@kernel.org
-Date: Tue, 08 Sep 2026 12:45:26 +0000
-Message-ID: <178887152665.219967.3620325573196534009@kernel.org>
-In-Reply-To: <20260902214030.20955-13-arouhi@sitime.com>
-References: <20260902214030.20955-13-arouhi@sitime.com>
+Date: Tue, 08 Sep 2026 12:45:31 +0000
+Message-ID: <178887153173.219967.10560676348042858719@kernel.org>
+In-Reply-To: <20260902214030.20955-16-arouhi@sitime.com>
+References: <20260902214030.20955-16-arouhi@sitime.com>
 X-sashiko-severity: Medium
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
@@ -49,350 +37,235 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 7 potential
+Thank you for your contribution! Sashiko AI review found 4 potential
 issue(s) to consider:
 
-Critical: 0 · High: 0 · Medium: 4 · Low: 3
+Critical: 0 · High: 0 · Medium: 3 · Low: 1
 
-- [Medium] The TDC sample width is described three mutually inconsistent
-  ways by artifacts this patch adds.
-- [Medium] The callback's own comment states a hardware precondition it
-  neither creates nor checks: "the TDC compares against a signal the PLL…
-- [Medium] A transient I2C/regmap failure is converted into a fabricated,
-  successful phase-offset measurement of 0.
-- [Medium] The callback decides which pin owns the TDC sample from the
-  software cache `sitdev->chan[sitdpll->id].selected_ref`, but takes a…
-- [Low] The new kernel-doc for sit9531x_dpll_input_pin_phase_offset_get()
-  justifies its entire design decision (report the closed-loop residual,…
-- [Low] struct sit9531x_dpll_pin::phase_offset is declared `s64
-  phase_offset; /* picoseconds */` (drivers/dpll/sit9531x/dpll.h:35),…
-- [Low] sit9531x_phase_offset_read() documents the conversion as
-  `phase_diff (ps) = tdc_code * 1e12 / fvco` but implements `fvco_mhz =…
+- [Medium] sit9531x_parse_board_config()
+  (drivers/dpll/sit9531x/core.c:3193-3195) copies the DT array…
+- [Medium] Every failure path in the new sit9531x_parse_board_config()
+  (drivers/dpll/sit9531x/core.c:3166-3196) is silent, so a board that…
+- [Medium] The new parser accepts "sitime,pll-fvco" values with no
+  plausibility check (drivers/dpll/sit9531x/core.c:3171-3172),…
+- [Low] The commit message's justification for the new "sitime,pll-fvco"
+  DT property does not match the code it activates.
 
 --
 
-dpll: sit9531x: add support to get phase offset on the connected input pin
+dpll: sit9531x: allow the device tree to override two board facts
 
-This adds sit9531x_phase_offset_read() to sample the on-chip
-time-to-digital converter through the PLL debug window and convert the
-code to picoseconds, and wires it up as the input pin
-.phase_offset_get callback.  Pins that are not the PLL's selected
-reference report zero.
+The patch adds sit9531x_parse_board_config(), which reads two optional
+vendor properties at probe time: "sitime,pll-fvco" (per-PLL VCO frequency)
+and "sitime,output-pll-map" (per-output source PLL).  Absent both
+properties the driver keeps deriving Fvco from DIVN and reading the routing
+from the OUT_MAP registers.
 
-A few questions on the readback and on what gets reported to userspace.
+A few questions below, one about the changelog and three about the new
+parser.
+
+> dpll: sit9531x: allow the device tree to override two board facts
+>
+>     The VCO frequency is derived from the feedback divider, which is exact
+>     while the loop runs but not while a PLL sits in free-run with a divider
+>     the configuration never programmed; a board that knows its own VCO can
+>     state it.
+
+[Severity: Low]
+Is the free-run rationale here consistent with the code the property feeds?
+
+The kernel-doc above sit9531x_get_fvco() says the opposite about free-run:
+
+  * Fvco = Fref * DIVN, where DIVN comes from sit9531x_divn_static() and
+  * Fref = xtal_freq << doubler.  DIVN is the
+  * steady-state Fvco/Fref target programmed by the NVM blob and is
+  * authoritative in both free-run and sync modes; ...
+
+The override's own comment in sit9531x_get_fvco() and the binding text name
+INTSYNC, not free-run, as the case where the derivation does not reproduce
+the VCO:
+
+	/*
+	 * DT board-config override: some configs (e.g. an INTSYNC PLL)
+	 * run a VCO that Fref*DIVN does not reproduce.  When the board
+	 * supplies the measured VCO, use it verbatim.
+	 */
+
+Could the changelog name the configuration where Fref*DIVN actually fails?
+
+The changelog also says "Absent the properties the driver behaves exactly as
+before", which is accurate, but it does not mention that when the property
+is present sit9531x_output_freq_set() stops clamping Fvco to the per-PLL
+band:
+
+	} else if (!sitdev->pll_fvco[pll_idx]) {
+		if (fvco < fvco_min)
+			fvco = fvco_min;
+		else if (fvco > fvco_max)
+			fvco = fvco_max;
+	}
+
+Should that clamp bypass be called out, given this adds a permanent
+vendor-specific DT ABI?
 
 > diff --git a/drivers/dpll/sit9531x/core.c b/drivers/dpll/sit9531x/core.c
-> index c93578f3b750..f552a9c73796 100644
+> index c3d7c4851549..d75ac02047b5 100644
 > --- a/drivers/dpll/sit9531x/core.c
 > +++ b/drivers/dpll/sit9531x/core.c
-> @@ -1586,6 +1586,131 @@ int sit9531x_output_pulse_ctrl_set(struct sit9531x_dev *sitdev,
->  	return rc;
+> @@ -3158,6 +3158,43 @@ static u64 sit9531x_derive_clock_id(struct sit9531x_dev *sitdev)
+>  	return clkid;
 >  }
 >  
 > +/*
-> + * sit9531x_phase_offset_read - read phase difference via TDC
-> + * @phase_ps:	output phase difference in picoseconds
-> + *
-> + * Reads the Time-to-Digital Converter (TDC) 40-bit code from the
-> + * PLL page registers, then converts to picoseconds using the VCO
-> + * frequency: phase_diff = tdc_code / fvco.
-> + *
-> + * Caller must hold sitdev->multiop_lock.
+> + * Board-config overrides for fixed efuse/blob routing the chip registers do
+> + * not describe unambiguously.  Absent properties leave pll_fvco[] zeroed
+> + * (derive from DIVN) and out_pll_map_valid false (use the OUT_MAP registers).
 > + */
-
-[ ... ]
-
-> +	tdc_raw = 0;
+> +static void sit9531x_parse_board_config(struct sit9531x_dev *sitdev)
+> +{
+> +	u32 map[SIT9531X_MAX_OUTPUTS];
+> +	int n, i;
 > +
-> +	rc = sit9531x_read_pll_u8(sitdev, pll_idx,
-> +				  SIT9531X_PLL_REG_DBG_DATA_4, &v);
-> +	if (rc)
-> +		return rc;
-> +	sign = !!(v & BIT(SIT9531X_TDC_SIGN_BIT));
-> +	tdc_raw = (u64)(v & 0x07) << 32;
+> +	device_property_read_u64_array(sitdev->dev, "sitime,pll-fvco",
+> +				       sitdev->pll_fvco, SIT9531X_NUM_PLLS);
 
 [Severity: Medium]
-How wide is the TDC sample meant to be?  Three places in this patch
-disagree.
+Should the return value of this read be checked?
 
-The kernel-doc above says "Reads the Time-to-Digital Converter (TDC)
-40-bit code".
+device_property_read_u64_array() requires exactly SIT9531X_NUM_PLLS
+elements, so a property with 1..3 entries returns -EOVERFLOW and writes
+nothing.  pll_fvco[] then stays zero and sit9531x_get_fvco() silently falls
+back to the derivation:
 
-regs.h annotates the top byte as nine bits in an eight bit register:
+	if (pll_idx < SIT9531X_NUM_PLLS && sitdev->pll_fvco[pll_idx])
+		return sitdev->pll_fvco[pll_idx];
 
-	#define SIT9531X_PLL_REG_DBG_DATA_4		0xB9  /* [39:32] + sign */
+A board that states its VCO incorrectly is therefore indistinguishable from
+a board that states nothing, with nothing in dmesg.  Would a dev_warn() (or
+dev_err_probe()) on a non-zero return be preferable?
 
-And the code keeps three bits of that register and takes bit 3 as the
-sign (SIT9531X_TDC_SIGN_BIT == 3):
+[Severity: Medium]
+Can an out-of-range Fvco here silently misprogram DIVO?
 
-	sign = !!(v & BIT(SIT9531X_TDC_SIGN_BIT));
-	tdc_raw = (u64)(v & 0x07) << 32;
+The value is stored without any plausibility check, sit9531x_get_fvco()
+returns it verbatim, and sit9531x_output_freq_set() skips the band clamp
+for it, so fvco is no longer bounded by SIT9531X_FVCO_HIGHBAND_MAX.  DIVO
+is then only checked for zero:
 
-That assembles code[34:0], not code[39:0].  If the register annotation is
-the correct one, are magnitude bits [39:35] dropped here with no range
-check, so a large sample is scaled and published as an arbitrary
-DPLL_A_PIN_PHASE_OFFSET value instead of an error?
+	divo = div64_u64(fvco, frequency);
+	if (!divo)
+		return -EINVAL;
 
-The 0x07 is also the only unnamed field mask in a header that names every
-other field, which hides the width at the call site.  Could it get a
-define next to SIT9531X_TDC_SIGN_BIT?
+but it is packed into a 34-bit field with the upper bits masked away:
 
-[ ... ]
+	divo_bytes[4] = (divo >> 32) & 0x03;  /* only bits [1:0] */
 
+Before this patch fvco was always clamped to <= 7.8125 GHz, so divo stayed
+below 2^34 for any frequency >= 1 Hz and the mask could not lose anything.
+With an unclamped DT Fvco (say a units typo giving 69 GHz) and a low output
+rate reachable through the esync path, divo >= 2^34 is truncated, written,
+and committed by sit9531x_prg_commit() with a phase flush, while
+sitdev->out[out_idx].freq is cached from the untruncated divo and the call
+returns success.
+
+Would bounding the DT Fvco (and adding minimum/maximum to the schema, which
+currently states the bands only in prose), or rejecting divo >= BIT_ULL(34)
+instead of truncating, close that?
+
+> +
+> +	if (!device_property_present(sitdev->dev, "sitime,output-pll-map"))
+> +		return;
+> +
 > +	/*
-> +	 * Get VCO frequency for conversion.  Fvco==0 means DIVN is not
-> +	 * programmed (PLL unused on this board) -- skip silently rather
-> +	 * than spamming the log on every poll cycle.
+> +	 * Any 1..MAX_OUTPUTS length is accepted so the 8-output SiT95317 need
+> +	 * not pad to 12; variant detection has not run yet and entries past
+> +	 * the detected num_outputs are never indexed.  Trailing entries of a
+> +	 * short map must read as unmapped rather than 0 (== PLLA), which
+> +	 * would mark unrouted outputs active in sit9531x_out_state_fetch().
 > +	 */
-> +	fvco = sit9531x_get_fvco(sitdev, pll_idx);
-> +	if (!fvco) {
-> +		dev_dbg(sitdev->dev, "PLL%c: Fvco unknown, skip TDC\n",
-> +			'A' + pll_idx);
-> +		return -ENODEV;
-> +	}
+> +	memset(sitdev->out_pll_map, SIT9531X_OUT_PLL_UNMAPPED,
+> +	       sizeof(sitdev->out_pll_map));
+> +
+> +	n = device_property_count_u32(sitdev->dev, "sitime,output-pll-map");
+> +	if (n <= 0 || n > SIT9531X_MAX_OUTPUTS ||
+> +	    device_property_read_u32_array(sitdev->dev, "sitime,output-pll-map",
+> +					   map, n))
+> +		return;
+
+Related to the previous comment on silent failures: all three rejection
+cases here return with out_pll_map_valid still false and no diagnostic, so
+sit9531x_out_state_fetch() goes back to the OUT_MAP registers the board just
+declared wrong.
+
+Since the parse runs before sit9531x_read_variant_id() and
+sit9531x_match_variant(), n also cannot be compared against
+info->num_outputs.  A 12-output SiT95316 node carrying only 8 entries is
+accepted, outputs 8..11 stay SIT9531X_OUT_PLL_UNMAPPED, and four DPLL pins
+never appear to userspace even though the binding's minItems: 12
+conditional forbids that DT.  Would moving the parse after variant
+detection let the length be validated?
+
+> +
+> +	for (i = 0; i < n; i++)
+> +		sitdev->out_pll_map[i] = map[i];
+> +	sitdev->out_pll_map_valid = true;
+> +}
 
 [Severity: Medium]
-Is "Fvco==0 means DIVN is not programmed" the only case?  sit9531x_get_fvco()
-also returns 0 on any register read failure:
+Should the element values be validated before they are narrowed into the u8
+out_pll_map[]?
 
-	rc = sit9531x_divn_static(sitdev, pll_idx, &divn);
-	if (rc || divn <= 0)
-		return 0;
+The binding states the values exhaustively:
 
-	doubler = sit9531x_is_xo_doubler_enabled(sitdev);
-	if (doubler < 0)
-		return 0;
+    items:
+      enum: [0, 1, 2, 3, 255]
 
-So a single I2C NAK or timeout inside sit9531x_divn_static() ends up here
-as -ENODEV, and the caller turns that into a successful measurement:
+and the kernel-doc of struct sit9531x_dev repeats it:
 
-	if (rc == -ENODEV) {
-		dpin->phase_offset = 0;
-		*phase_offset = 0;
+ * @out_pll_map:	optional per-output source PLL (0-3, 0xff =
+ *			unmapped) from DT "sitime,output-pll-map"
+
+Neither is enforced at runtime, and out_pll_map_valid is set
+unconditionally.  Two results follow in sit9531x_out_state_fetch():
+
+	if (sitdev->out_pll_map_valid) {
+		u8 m = sitdev->out_pll_map[index];
+
+		if (m < SIT9531X_NUM_PLLS) {
+			out->pll_idx = m;
+			out->routed = true;
+			out->enabled = !muted;
+		} else {
+			out->pll_idx = 0;
+			out->routed = false;
+			out->enabled = false;
+		}
 		return 0;
 	}
 
-Does that make a bus error indistinguishable from "the loop residual is
-exactly 0 ps" on DPLL_A_PIN_PHASE_OFFSET?  The framework averages
-successive samples, so every failing poll would pull the average toward
-zero.
+An entry in 4..254 becomes "unmapped", so an output that is not muted loses
+its DPLL pin and userspace can no longer see, mute or retune a clock that is
+actively driving.
 
-Note also the asymmetry within this same function: the identical bus
-failure during the trigger and data reads is returned as an error, while
-the one inside sit9531x_get_fvco() becomes a reported value.  Would
-distinguishing "no DIVN programmed" from "read failed" (for example by
-having sit9531x_get_fvco() return an errno separately from the value) keep
-those two paths consistent?
+An entry >= 0x100 whose low byte is 0..3 (0x100, say) truncates to a
+valid-looking index, passes m < SIT9531X_NUM_PLLS, and marks the output
+routed on a PLL that does not drive it.  That index is then the driver's
+only routing model: it picks the VCO band in sit9531x_output_freq_set()
 
-> +
-> +	/*
-> +	 * phase_diff (seconds) = tdc_code / fvco
-> +	 * phase_diff (ps) = tdc_code * 1e12 / fvco
-> +	 *
-> +	 * To avoid 64-bit overflow:
-> +	 *   phase_ps = tdc_code * 1e6 / (fvco / 1e6)
-> +	 */
-> +	fvco_mhz = div64_u64(fvco, 1000000ULL);
-> +	if (!fvco_mhz)
-> +		return -EIO;
-> +
-> +	*phase_ps = div64_s64(tdc_signed * 1000000LL, (s64)fvco_mhz);
+	if (pll_idx == 1 || pll_idx == 3) {
+		/* PLLB, PLLD: high band */
+		fvco_min = SIT9531X_FVCO_HIGHBAND_MIN;
 
-[Severity: Low]
-The comment states the conversion as tdc_code * 1e12 / fvco, but the code
-truncates the denominator to whole MHz first.
+and selects the PLL passed to sit9531x_output_phase_flush(), which disturbs
+every output of that unrelated PLL.
 
-sit9531x_get_fvco() returns Hz derived from a fractional DIVN:
-
-	return mul_u64_u64_div_u64(fref, (u64)divn, SIT9531X_DIVN_SCALE);
-
-so a sub-MHz remainder is normal, and 2949120000 Hz becomes 2949 MHz here,
-about 40 ppm of scale error on every reported magnitude.
-
-Is the overflow concern real?  mul_u64_u64_div_u64() is already used twice
-in this file (sit9531x_get_fvco() and sit9531x_pll_ffo_ppt()) and would
-keep the exact Hz denominator:
-
-	*phase_ps = mul_u64_u64_div_u64(abs(tdc_signed), 1000000000000ULL, fvco);
-
-> +
-> +	return 0;
-> +}
-> +
->  /*
->   * sit9531x_ref_state_fetch - read input reference status from hardware
->   * @index:	logical input index
-> diff --git a/drivers/dpll/sit9531x/dpll.c b/drivers/dpll/sit9531x/dpll.c
-> index 76d7d7d21d3d..f813126077e1 100644
-> --- a/drivers/dpll/sit9531x/dpll.c
-> +++ b/drivers/dpll/sit9531x/dpll.c
-> @@ -528,6 +528,105 @@ sit9531x_dpll_input_pin_prio_set(const struct dpll_pin *pin, void *pin_priv,
->  	return 0;
->  }
->  
-> +/*
-> + * sit9531x_dpll_input_pin_phase_offset_get - phase offset of a reference
+Isn't that the same failure the 0xFF pre-fill comment above says it
+prevents ("would mark unrouted outputs active in
+sit9531x_out_state_fetch()")?  Would rejecting, or storing as
+SIT9531X_OUT_PLL_UNMAPPED with a warning, any entry that is neither
+< SIT9531X_NUM_PLLS nor SIT9531X_OUT_PLL_UNMAPPED cover both cases?
 
 [ ... ]
-
-> + * needs the digital loop filter held (and, on the 1PPS PLL, the automatic
-> + * phase- and frequency-lock helpers held off), which leaves the PLL
-> + * undisciplined until it is released.  A netlink read must not do that,
-> + * so the open-loop measurement lives behind a debugfs operation that owns
-> + * the freeze and restores it; it is not this callback.
-
-[Severity: Low]
-Where is that debugfs operation?  Searching the driver directory at the tip
-of the series, the only match for debugfs under drivers/dpll/sit9531x/ is
-this comment line itself, and the directory contains only Kconfig, Makefile,
-core.c/h, dpll.c/h, prop.c/h and regs.h.
-
-Since this sentence is the justification for reporting the closed-loop
-residual rather than the vendor's open-loop quantity, could it either point
-at code that exists or be reworded so the rationale can be checked?
-
-> + *
-> + * Precondition, which this callback cannot create: the TDC compares
-> + * against a signal the PLL drives, so a PLL driving no output with its
-> + * zero-delay buffer off has nothing to measure.  SiTime confirms this is
-> + * a property of the hardware rather than of their measurement script.
-> + * The script satisfies it by mapping a spare output and restarting the
-> + * PLL -- side effects that do not belong in a getter, so a reading taken
-> + * in that state is simply not meaningful.
-
-[Severity: Medium]
-If a reading taken in that state "is simply not meaningful", what stops it
-from being reported as a measurement?
-
-The callback only checks selected_ref and then reads unconditionally, and
-sit9531x_phase_offset_read() returns 0 regardless of whether the PLL drives
-any output, so whatever the debug window hands back is scaled and published
-as DPLL_A_PIN_PHASE_OFFSET with no extack warning.
-
-regs.h already defines SIT9531X_PLL_REG_ZDB0/ZDB1 with
-SIT9531X_PLL_ZDB_EN_BIT and SIT9531X_PLL_REG_OUT_MAP_HI/LO.  Could the
-getter test those and report zero (as it does for non-selected pins) when
-the precondition does not hold?
-
-The commit message does not mention the limitation at all; it says the
-small value "is the measurement, not an artefact of it".  Could the
-restriction be described there as well, so it is visible to anyone reading
-git history?
-
-[ ... ]
-
-> +	mutex_lock(&sitdev->multiop_lock);
-> +
-> +	/*
-> +	 * The on-chip TDC is a per-PLL resource that always measures the
-> +	 * phase difference between the VCO and the PLL's currently
-> +	 * selected reference; it cannot be pointed at an arbitrary input.
-> +	 * For any input that is not the active reference there is no
-> +	 * meaningful per-pin phase offset, so report 0 instead of the
-> +	 * active reference's value.
-> +	 */
-> +	if (sitdev->chan[sitdpll->id].selected_ref != dpin->id) {
-> +		mutex_unlock(&sitdev->multiop_lock);
-> +		dpin->phase_offset = 0;
-> +		*phase_offset = 0;
-> +		return 0;
-> +	}
-> +
-> +	rc = sit9531x_phase_offset_read(sitdev, sitdpll->id, &offset);
-> +	mutex_unlock(&sitdev->multiop_lock);
-
-[Severity: Medium]
-Can the pin the sample is attributed to differ from the pin the TDC
-actually measured?
-
-The ownership test uses the software cache chan[].selected_ref, whose only
-writer is sit9531x_chan_state_fetch() running from the periodic monitor
-work / threaded IRQ:
-
-	chan->selected_ref =
-		sit9531x_hw_src_input(input_sel & SIT9531X_PRIO_NIBBLE_MASK);
-
-The sample itself is live and always taken against whatever reference the
-PLL has selected at read time.  multiop_lock serialises access to the cache
-but does not stop the chip from switching reference on its own (LOS on the
-active input, revertive switchback).
-
-In the window between such a switch and the next cache refresh, would a
-dpll pin get on the previously selected pin pass the
-selected_ref == dpin->id test and publish the new reference's phase as the
-old pin's DPLL_A_PIN_PHASE_OFFSET, while the pin that is genuinely selected
-fails the test and reports exactly 0?
-
-Would reading the active-select register inside this same multiop_lock
-section, as sit9531x_chan_state_fetch() does, close that window?
-
-> +
-> +	/*
-> +	 * -ENODEV means the PLL has no programmed DIVN (unused on this
-> +	 * board); report phase_offset = 0 so a full pin-get dump does not
-> +	 * fail just because one DPLL is dormant.
-> +	 */
-> +	if (rc == -ENODEV) {
-> +		dpin->phase_offset = 0;
-> +		*phase_offset = 0;
-> +		return 0;
-> +	}
-> +	if (rc) {
-> +		NL_SET_ERR_MSG(extack, "TDC phase readback failed");
-> +		return rc;
-> +	}
-> +
-> +	/*
-> +	 * The ABI reports phase offset in units of 1/DPLL_PHASE_OFFSET_DIVIDER
-> +	 * picoseconds: the integer part of the attribute is the value divided
-> +	 * by the divider, the remainder is the fraction.  The TDC resolves one
-> +	 * VCO period (hundreds of picoseconds), so the fractional digits are
-> +	 * always zero here, but the magnitude still has to be scaled or every
-> +	 * reading would be reported a thousand times too small.
-> +	 */
-> +	offset *= DPLL_PHASE_OFFSET_DIVIDER;
-> +
-> +	dpin->phase_offset = offset;
-
-[Severity: Low]
-The value cached here is in ABI units (1/1000 ps), but the field it is
-stored in is documented as picoseconds:
-
-	s32				phase_adjust;	/* picoseconds */
-	s64				phase_offset;	/* picoseconds */
-
-The sibling phase_adjust really does hold picoseconds, since
-DPLL_A_PIN_PHASE_ADJUST has no divider, so the two identical unit comments
-now differ by a factor of 1000.  Nothing reads dpin->phase_offset today,
-but would it be worth either caching the unscaled value or fixing the
-comment to say 1/DPLL_PHASE_OFFSET_DIVIDER picoseconds?
-
-> +	*phase_offset = offset;
-> +	return 0;
-> +}
-> +
-
-[ ... ]
-
-> diff --git a/drivers/dpll/sit9531x/regs.h b/drivers/dpll/sit9531x/regs.h
-> index 251c98dc7cbe..aa60be243e6d 100644
-> --- a/drivers/dpll/sit9531x/regs.h
-> +++ b/drivers/dpll/sit9531x/regs.h
-> @@ -256,6 +256,42 @@
-
-[ ... ]
-
-> +#define SIT9531X_PLL_REG_DBG_DATA_3		0xB8  /* [31:24] */
-> +#define SIT9531X_PLL_REG_DBG_DATA_4		0xB9  /* [39:32] + sign */
-> +#define SIT9531X_PLL_REG_DBG_DATA_5		0xBA  /* [47:40] */
-
-[ ... ]
-
-> +/* Read code of the TDC phase tap, and the sign bit of its sample */
-> +#define SIT9531X_DBG_READ_CODE_TDC		69
-> +#define SIT9531X_TDC_SIGN_BIT		3
-
-These are the defines referenced in the sample-width question above.
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260902214030.20955-1-arouhi%40sitime.com
