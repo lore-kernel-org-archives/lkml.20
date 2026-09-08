@@ -1,119 +1,186 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mxb.seznam.cz (mxb.seznam.cz [77.75.76.89])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54CA14B488B
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 20:42:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.227.140
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788900141; cv=pass; b=U/9zgEUK7XNOCmLjMy+S771sgJO8Gl+26h9tNYQ5ykUgiciTc7g+vus2XRwCbVigONi9U1+7tF0Py01BZjdzzCeHZFN+cudA0fT4Cl8TOMEnsdkpjM/I26TxFyJSo5QVLwAzvY/JzwY3gFfP0TavtAPIsei+dkeUlZfV5mw8LbI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89F583BBFD4;
+	Tue,  8 Sep 2026 20:42:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=77.75.76.89
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788900141; cv=none; b=CueQyaLy8wB+9XPzX77Bv1J5z+5hE/i+QPdO+R2CoAiDl9x3BLMEFLUJokI4QvH6UJqvYE8HgJqGTx7/zeXv8lWSE7e/YU4GtC66hQL1iK9ij1oY5KZIBYpP2Sg3E/8FUQakUbIGD1v+dd/ZWC4YIx8WPol1gWZl5aVWOaJqTBc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788900141; c=relaxed/simple;
-	bh=YXw4xZ0v/Cxtbs8sJocHH1yAxpgZyNfN6cPwywVsllg=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=JmWI3z5vKjhe0AA0y689E6Y05VMt7rxd82r8KHMpYqZD0vtOXbQcmBYj1wLmdGilN0xQrxiLJnPbVfps0VHT13qwyGJD+9E/HP02zPzKK+7tFEn7MSYNnhODZ6Fi2eAUKAZ0iezzziZa46aC294cbAZaHkcVW5MHa13/Lfx4Sxk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IXYM8mcp; arc=pass smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	bh=/5aIl5jFxCxy/B89se+USEFS0yFI+8r5ReGtl+9mPKo=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=PqA1jrpN9Z9GU0fcsnS9HZwstXKkxEgDZd6V8u+nwwOm1pW+gZqgKCbKtqWqSTwBBgNLuxl7lQaDXsGJQFWYLidt6V7O2K4sbZWptaiBJheE8hdLi/g6ulbpzNx4uiXEyFurLXFzFl7BolZV8gB2v81juTzZBdIviI6i2Ddecvg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=podgorny.cz; spf=pass smtp.mailfrom=podgorny.cz; dkim=pass (2048-bit key) header.d=emailprofi.seznam.cz header.i=@emailprofi.seznam.cz header.b=NeuWlbR8; arc=none smtp.client-ip=77.75.76.89
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=podgorny.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=podgorny.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IXYM8mcp"
-Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-396672b2569so514113a91.3
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 13:42:20 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788900140; cv=none;
-        d=google.com; s=arc-20260327;
-        b=fgh/bihSPnTLpUyHggZylCTePoCBuw7FqthC+zaXuNRrB5FEpdVTwnnqWRWYKzl0Lc
-         NpWkig6evCHdErjqdVtboi9iBfXDf26ukJq37W7vKq9S6q2zCvUgSqTHqf+pu9ozqYD0
-         KIBpCtcSQLE8D852M+sO83Blt0dVdIWUFHEqapJ1u55qpSmyvhk9tjVQBBozfi+PXdZQ
-         lOaa/uiCJ2pwk7mByywdO/0VOXwDbsWULEP1KjixfZ2NfGnClFrA4+pLi5A0aQJVuUpE
-         01wk2FrLgMdhWqXHOxNOHcmXjrvuMcXfhQZcHV/w2l5hdxm0UCoskuZOXejti2Ea81W7
-         3NXg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=ZEaDFgx7MxTWxz3lTSDDdfLwOggUV17sJK/9fefp6L0=;
-        fh=B/pXi7f+su+/tncxaxDs5A+Qp5LyNfWa1iXNebyDkTY=;
-        b=T9D5PEZHa3rlXuD+iWb2yLeP7GqirraYuIWDNzYex5Ymuw/tRDfJtF8L8LgA29SIdX
-         g0aIuC8f/MrEPrnw28IwAwLJkd6d4uEWP9zsQT9wCIBE9lFkfoiFW6OGdb9MRKk4ufPE
-         Bm8HiikGw45pePs44QHTDNPkapkeYnAXZ1QmogPzVuiPO5RFGYpkiHUG659CIsN5LpOB
-         kvK/sq0/kTGjm3Zf9xUzGQ4sW/c4zZL3vssIrTVfij5Yv48EEzczpU/m6KvjUxSsVIqS
-         olM6hHVLDI4hsg3TVbxEUq/7Oy3iXZCf/lVpu9EiHnCiIpHs74uYD3/AyzSjHE9eglDp
-         v+ug==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788900140; x=1789504940; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ZEaDFgx7MxTWxz3lTSDDdfLwOggUV17sJK/9fefp6L0=;
-        b=IXYM8mcpNhyNz4YzUuAiVnm4sPVeUu16RtkboQc+nSoGYzUj5TeCcWe6juvXwMfEnj
-         Rgxqfh8R9dPgo0rBvnozKaDDoYWGbKmMANPaWDdC9i48BQMMzFYkyEEtI1f4BYJOGFyi
-         GlPXQ8wDKqoeBzajgrDnDqf5ODVXRhgcXs4vhrgP11+0UMnb8eEMyHc2wcpdgc7ZeYVk
-         Gn7U9PnMVDdSFrKZrUt6vYLgIuUwuEpLJMHvtDrj9gp0jfa1hji86O9zakLrUYYM6nut
-         Qk8JMvJHlls0r/pHbaIhn31ih/goj83to6basZK4u0I+4jiPbFYI8CWPVQA6LQ76GLY/
-         taqQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788900140; x=1789504940;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ZEaDFgx7MxTWxz3lTSDDdfLwOggUV17sJK/9fefp6L0=;
-        b=qkhi5QN0azStXK69RxSSzCiUU+oR7sD7VUTGfBGhzyMvn5BaeascqucaZUk4voSFc7
-         BqTbEl7UGs+v0bbt7FufVyhSglVQVU9bGBnzCIs6LQNJTChiLqu+oaDXZf8JChwqa8DQ
-         lAhhnMv3KMu78Xy5kvtcTPxS9iGpZu5Jn7NwedZ3Dx9kRkzwD9ff5Yg+ys7RpvMqdw/u
-         WV9P4FYXM7qAQ16Um7WLsgI9fPg7JHqZ12hkGJ0ofVrD8pGqiV8t1/AhJCB7E0+M9yB2
-         j7hd1WsaQn8yilyeoRP/VmmCCVGbU1kQ8c6NzLh2vfh+4mwXJkgwOQd4k+bwdIm25HSr
-         8uzQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwdm7iDOikQyfdcHpMvR2+KtT9wlTLnm5qqlSuFFv3wS05aT8fp29JDLzzz6pSCcDySFxSyRB6jFSut7WI=@vger.kernel.org
-X-Gm-Message-State: AFuF++ltQNS3qoHVv0a7wQArKr1rUsQkDSsqjD0nOpba97qOpWH2l2l+
-	pTFBiQhBgfVfrATjhc9lqrDBm1TagCnKGwh5Mb184x+uhbDG43KlUMClNsGDKTk7JdMsjirdck8
-	J677bjBbMcXOIV7awXUby2L4NvbTENs0=
-X-Gm-Gg: AYBFou2VZh7I3Tvd8GkfrEKQmhHm8HmeukGy15EGVRyzwf6XwGlsOSZV2MLTc0ZB1Is
-	YTv5OMw9iCIu0JxeRpiBG03sszLWI7DbfuriMyqEe8Ha6hM7jRkgcd/gwCiicya5pjNnDoRRp23
-	UbI3CgAIrkSTiI79fC+WGqOS84nLNQEUpezVdgfbQDpVgEs2PMN/Hy34Q0r1+010bLUI3tEKJAM
-	LVf/xq+agia2g3iG6alzgvn3xFU/ZFTwa5Zekof1bqYk9agZZNpjQDQTEb7BxlYQQCmZRin9Rq4
-	Ubf5ZeVUli+7wqvcrIsMSWfmqDGchUtD/Rw0jLSt9VYSwtHtQnJCqoKfLuAQGT7zC7FlwieajXm
-	isbbQc4rKUvGBjyNuaRuyKZfC9nFGZ+jZd8CKqfkumEMMMkGmFhgZd6jKjgJ9jWn7I8y7ByeUuI
-	ctMbONmP5oZtfe9rLKf+xI/waMzqO/jjZexgauSXYnwdYDJMbNylA=
-X-Received: by 2002:a17:90b:3a48:b0:38e:480b:99a5 with SMTP id
- 98e67ed59e1d1-39b3d5e53d5mr20657459a91.2.1788900139529; Tue, 08 Sep 2026
- 13:42:19 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=emailprofi.seznam.cz header.i=@emailprofi.seznam.cz header.b="NeuWlbR8"
+Received: from email.seznam.cz
+	by smtpc-mxb-7db765f675-b5z24
+	(smtpc-mxb-7db765f675-b5z24 [2a02:598:96:8a00::1200:50a])
+	id 4a064b52fc3ce64b4f89511a;
+	Tue, 08 Sep 2026 22:42:07 +0200 (CEST)
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=emailprofi.seznam.cz; s=szn1; t=1788900127;
+	bh=Fy7bapPJD1J8iJlC0ojXN9lkfoGJuyBA3BPYxUrIvFw=;
+	h=From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:To:Cc;
+	b=NeuWlbR8m6iRAvhT/3O1hgLRj6vL4I2fDy+sWhS9hTq+M5fv0qIcbHwr59xV/I/kB
+	 SQCGkWYIR6A1ZyCzeCH29Es4RAvtI1xi8HHKZrRElY/eNh1AJ8X1sXP+jm9Gblp67y
+	 JrT4vxn7IVnHcesKIbWIPCq2uEOPWCNebHMM/SsUpuNRJfmV9jDKXLtRmiU+9nPbkk
+	 0Vjyww+sDAIubWDYVdRGhhKJdCKOyEp5wjMMRHjuw5GOhuAgQozcxRdKVS9YHwvmS2
+	 Acc0+l7RupxbZMjExawxp2v1aEyTms543wq5dYh7cKFOZKYKEgIpva3Xjlzcq0Qbzg
+	 IFFgf5HUe7JLw==
+Received: from [192.168.31.57] ([2a01:9422:904:1ee:272:eeff:feab:4ab4])
+	by smtpd-relay-7887d69dc5-l222k (szn-email-smtpd/2.0.82) with ESMTPA
+	id 26cf6211-5c38-468e-91f2-4a1104d464cf;
+	Tue, 08 Sep 2026 22:41:39 +0200
+From: Radek Podgorny <radek@podgorny.cz>
+Date: Tue, 08 Sep 2026 22:41:38 +0200
+Subject: [PATCH v2] Bluetooth: put the peer's on-air address on air when we
+ cannot resolve
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260908203850.952156-1-mohamed.osama189110@gmail.com>
-In-Reply-To: <20260908203850.952156-1-mohamed.osama189110@gmail.com>
-From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Date: Tue, 8 Sep 2026 22:42:07 +0200
-X-Gm-Features: AcwNN1XAlwKznncSyvNy4CeitfiGGzd-Pc1KNtKCx7LJ-xn9WktXMBJqmxmI35U
-Message-ID: <CANiq72m_9_mSVZreLA1DAkhKfk6cpDf5AJ5zhENwoaosKy-Gxg@mail.gmail.com>
-Subject: Re: [PATCH] rust: print: document safety of printing functions
-To: Mohamed Osama <mohamed.osama189110@gmail.com>
-Cc: rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	ojeda@kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260908-for-upstream-le-connect-on-air-addr-v2-1-2ae9fa066ec8@podgorny.cz>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWNTQrCMBCFr1Jm7WAI2FqvIi4mydRGbFJmUimU3
+ t1UNw++x/vZQFkiK9yaDYQ/UWNOFeypAT9SejLGUBmssa3pzRWHLLjMWoRpwjejzymxL5gTUhS
+ kEKp0fUvc2osxHdSlWXiI6+/l/vizLu5Va8f0kXCkjE4o+fGwXMHEazlPpIUF9v0LzudTCqgAA
+ AA=
+X-Change-ID: 20260908-for-upstream-le-connect-on-air-addr-a796ae625007
+To: Marcel Holtmann <marcel@holtmann.org>, 
+ Luiz Augusto von Dentz <luiz.dentz@gmail.com>
+Cc: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>, 
+ linux-bluetooth@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Radek Podgorny <radek@podgorny.cz>
+X-Mailer: b4 0.15.2
 
-On Tue, Sep 8, 2026 at 10:38=E2=80=AFPM Mohamed Osama
-<mohamed.osama189110@gmail.com> wrote:
->
-> Signed-off-by: Mohamed Osama <mohamed.osama189110@gmail.com>
+An identity address only reaches a peer that is advertising an RPA if the
+controller resolves it on our behalf. Where it cannot, the host has to put
+the peer's on-air address on air itself.
 
-Welcome and thanks for the patch!
+hci_connect_le() still swaps the caller's identity address for the peer's
+cached RPA before creating the connection, but __hci_conn_add() resolves
+the RPA back to the identity address when it stores it, so the identity is
+what goes out. Storing the identity is right when the controller
+translates it on the way to the radio; without LL Privacy, or with this
+peer absent from the resolving list, nothing does.
 
-The kernel requires a commit message.
+A peer advertising an RPA cannot answer its identity address, so the
+attempt burns a full create-connection timeout. That is not merely a slow
+connect: a controller without extended scanning cannot scan while it is
+initiating, so every dead attempt also takes the scanner off the air for
+the whole timeout.
 
-In addition, please see (and maybe help review!) previous attempts:
+Measured on a CYW43438, which reports neither LL Privacy nor extended
+advertising (LE features 3f 00 00 08 00 00 00 00), against a peer
+advertising a resolvable private address the host holds the IRK for, with
+the connection requested on the peer's identity address:
 
-  https://lore.kernel.org/rust-for-linux/20260729175305.723486-1-cianmcguir=
-e167@gmail.com/
+  before: LE Create Connection to the identity address, public type
+          1.61s -> 22.07s, then LE Create Connection Cancel
+          LE Connection Complete: Unknown Connection Identifier (0x02)
+  after:  LE Create Connection to the peer's RPA, random type
+          LE Connection Complete: Success
 
-Finally, the commit message should have the right tags, and Cc all the
-maintainers and reviewers of the `RUST` subsystem from the
-`MAINTAINERS` file.
+Advertising reports reaching the host per second, same window, same five
+unrelated devices on the adapter:
 
-Cheers,
-Miguel
+  before   1s:2   [nothing from 2s through 21s]   22s:5  23s:3
+  after    0s:11 1s:5 2s:2 3s:5 4s:3 5s:4 ... 21s:2 22s:1 23s:2
+
+One dead connect costs twenty seconds of scanning for every device on the
+adapter, not just the one being dialled.
+
+Keep the RPA in conn->dst unless the controller will translate the
+identity address: address resolution enabled and the peer's identity
+actually programmed into the resolving list. Testing ll_privacy_capable()
+alone would not be enough: it reports the feature bit, not whether
+resolution is switched on and not whether this peer is in the list.
+Resolution is cleared with the other volatile flags on power-off and
+switched off again while suspend pauses scanning, and a peer's IRK is only
+programmed along the accept list path, so a direct-connect target, a peer
+without HCI_CONN_FLAG_ADDRESS_RESOLUTION, and one that did not fit in a
+full list are all absent from it.
+
+With the peer programmed, the identity address stays in conn->dst and the
+controller translates it: measured on an Intel controller, the host dials
+the identity and LE Enhanced Connection Complete reports Resolved Public
+with the peer's RPA in the separate peer resolvable private address field.
+With the peer absent from the list the same setup dials the RPA itself.
+
+Everything downstream already copes with an RPA in conn->dst: it is what
+every outgoing LE connection stored before 14b06c3a88f7, the connection
+complete event names the address that was dialled, and
+le_conn_complete_evt() resolves it back to the identity once the link is
+up. ISO links keep the unconditional conversion: they are created from an
+existing ACL or a periodic sync and never dial this address themselves.
+
+Fixes: 14b06c3a88f7 ("Bluetooth: HCI: Always use the identity address when initializing a connection")
+Assisted-by: Claude:claude-opus-5
+Assisted-by: Claude:claude-fable-5
+Signed-off-by: Radek Podgorny <radek@podgorny.cz>
+---
+Changes in v2:
+ - Move the address choice into __hci_conn_add() rather than translating
+   at the create-connection command builders, as suggested by Luiz. The
+   RPA that hci_connect_le() swaps in is simply kept when the controller
+   will not translate the identity address for us, which is how every
+   outgoing LE connection stored it before 14b06c3a88f7.
+ - Drop the "record when an IRK's RPA was last seen" patch, and with it
+   the freshness window and the smp_irk change. hci_find_irk_by_rpa()
+   already refreshes irk->rpa on every advertising report the host
+   resolves, so the cached address is as current as the scan that led to
+   the connect and no timestamp is needed.
+ - One patch instead of two, so no cover letter this time.
+ - Link to v1: https://lore.kernel.org/linux-bluetooth/20260908012048.3681904-2-radek@podgorny.cz/
+
+Per Documentation/process/generated-content.rst: this was developed with
+the help of the Claude coding assistant, as recorded in the Assisted-by
+trailer. The prompts described the misdirected create-connection, the
+btmon captures taken before and after, and Luiz's review of v1; the
+assistant was asked to locate where the dialled address is chosen and to
+draft the change and its commit message. The measurements, the hardware
+testing and the final wording are the author's own.
+---
+ net/bluetooth/hci_conn.c | 13 +++++++++++++
+ 1 file changed, 13 insertions(+)
+
+diff --git a/net/bluetooth/hci_conn.c b/net/bluetooth/hci_conn.c
+index 8de98af2fb58..c9466cb2c7c0 100644
+--- a/net/bluetooth/hci_conn.c
++++ b/net/bluetooth/hci_conn.c
+@@ -1023,6 +1023,19 @@ static struct hci_conn *__hci_conn_add(struct hci_dev *hdev, int type,
+ 		if (!hdev->le_mtu && hdev->acl_mtu < HCI_MIN_LE_MTU)
+ 			return ERR_PTR(-ECONNREFUSED);
+ 		irk = hci_get_irk(hdev, dst, dst_type);
++		/* An identity address only reaches a peer advertising an RPA
++		 * if the controller translates it. Unless address resolution
++		 * is enabled and this peer is programmed into the resolving
++		 * list, keep the RPA the peer is on air with;
++		 * le_conn_complete_evt() resolves it back once the link is
++		 * up.
++		 */
++		if (irk &&
++		    (!hci_dev_test_flag(hdev, HCI_LL_RPA_RESOLUTION) ||
++		     !hci_bdaddr_list_lookup_with_irk(&hdev->le_resolv_list,
++						      &irk->bdaddr,
++						      irk->addr_type)))
++			irk = NULL;
+ 		break;
+ 	case SCO_LINK:
+ 	case ESCO_LINK:
+
+---
+base-commit: 701ca71884b3d101fd25b7adbf972355056ef352
+change-id: 20260908-for-upstream-le-connect-on-air-addr-a796ae625007
+
+Best regards,
+--  
+Radek Podgorny <radek@podgorny.cz>
+
