@@ -1,221 +1,160 @@
-Received: from outbound.baidu.com (mx24.baidu.com [111.206.215.185])
-	by smtp.subspace.kernel.org (Postfix) with SMTP id 2F485538D85;
-	Tue,  8 Sep 2026 12:10:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=111.206.215.185
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08E5853446F
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 12:11:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788869436; cv=none; b=DqO/PITgUpmYfvkQ1c/n+QlBG3qD9G6VHnp3eV45q2QN6I3zeknrEy4NLMhAmT93cVGJlwH5WPOsDJmW3tjdY8J8YNCxaBglDkkqp4n8LiMpaK6bsoaDKmzaWUuFdb6QYD7wM2FAEam7x4H0tc1XoBrZd/5j2ywUWEEXh9U10rs=
+	t=1788869481; cv=none; b=g6TWzuX+l4ANuTKPrnVtO9xs6iB7grsWyPWtitd9HgeQzIOeGAN6mQ0iIrdHJICA7q+IDjpDVAp4nSs2sYJchodP0bGORA6Za/J3fl9QipJstPHLFECdEmtMeu1shSt7cwSS+LnnU1PdkqFp51o2Z7ghLGakwFKPnKJm5Fry3kk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788869436; c=relaxed/simple;
-	bh=kiBE1+g76z4qwzHwHU+V4b7I2l+21nG8jl2+rGPzT8c=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=NymHPVkzXIPc5fu5++aP+NSuFXGdJExgD0jaHSPrrwMAhvmMgLp8G/egLAft8ytE0LzAT9xZmmo4RGdy+Yi/WG72GDQsmpDQWkQWZlaWguDLmB73sowuLlmSlUDPXoZyHYJ0QLZbDZ5rPbqIDbKAt+f0B92AvIc9LaZI8bbERRw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=baidu.com; spf=pass smtp.mailfrom=baidu.com; dkim=pass (2048-bit key) header.d=baidu.com header.i=@baidu.com header.b=ixmrfraU; arc=none smtp.client-ip=111.206.215.185
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=baidu.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baidu.com
+	s=arc-20240116; t=1788869481; c=relaxed/simple;
+	bh=3hq1hCpYfFruAk9NwdwkNOcTA0yG+rhjKun45Ep62e4=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=YkYMCxmXjAh5zaJpiLzv/RBMSSdzUH6knVBCCQFWzub+JpGdsHUFuweJOl+7DSI4zI8AxAcilmbRUxM9wQMNzWFh6sy1tvnt03dQxIMyu7xu53v016v12C0lQAIBahNWkpTaVPjN9uED7To/GALbBOeJRi9bfOeL+rpspp3a1H8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=ugunq0fR; arc=none smtp.client-ip=209.85.128.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baidu.com header.i=@baidu.com header.b="ixmrfraU"
-X-MD-Sfrom: lirongqing@baidu.com
-X-MD-SrcIP: 172.31.50.47
-From: lirongqing <lirongqing@baidu.com>
-To: Paolo Bonzini <pbonzini@redhat.com>, Sean Christopherson
-	<seanjc@google.com>, <kvm@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-CC: Li RongQing <lirongqing@baidu.com>
-Subject: [PATCH] KVM: irqchip: allocate routing entries in chunks
-Date: Tue, 8 Sep 2026 20:01:33 +0800
-Message-ID: <20260908120133.2381-1-lirongqing@baidu.com>
-X-Mailer: git-send-email 2.17.1
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="ugunq0fR"
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-49954b88fffso33679355e9.0
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 05:11:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1788869464; x=1789474264; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=DbFI851Wc6QNNKR3nQbUG1a0fTB8uT4edMUZygEozxY=;
+        b=ugunq0fRufaLNO+bUusVzPYDVeZylkTeB3/IIDWgzoqRCNr0ewzcPZYSFU8HgmRRbF
+         KWAC/WGQlXplUoFUQc0/OjYkyaTq355D1DPdwklrWq6WLGBPFuY0Mj2Lj6BjOdPnpzMs
+         jcWR+XQRKI7HfUtyN5APa089jQ/1C0lqOo7CsXStiJ5iv7achFkXJ3N3iplYezrlCuhl
+         DhLHsPG01pocwGAiotSg+F5yUqN6MJ0cKq3D92d1NPm+cE0+kqkMIb2+CMXAY/oD2auI
+         QO4P8mkEmy7pPjN/jo/IPVX9/LTIvxAItpf9fGAlR4dBZdjosYv/chTvfEk9reYtESMW
+         FpEQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788869464; x=1789474264;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=DbFI851Wc6QNNKR3nQbUG1a0fTB8uT4edMUZygEozxY=;
+        b=sSduUsYADXD0xvAx9xaEZSYuOjksOQtX3jT53m5u5X1YytahbAm+5OTcWF9SnqlXl1
+         pijXLQRbzk9KQawxMkd+yAHU92UwJXJAdGmFXqN444EgtvpTHadYrZcMA9eVvTxQLufF
+         dt8jjW5jK5PUuGVs9jePo/mYFOseQiSdb80BSY/vU9pRW9jRiHYc8BI6/eolNqu1prTy
+         qSbn/eDuUnFVwHR/p+PW2LlYTEpfcx7MZ2lFo7pSy0BQn4sW//lvW/CI1YWx486yqVi3
+         d40A5azWAHG1FgCMsNuL8QwXPbiRZBkI35rDVghxL0dOuNIlSa0BxIlEkTxlclglEA+0
+         EtEw==
+X-Forwarded-Encrypted: i=1; AKwUvBzVUECGa3Rh02d6I9tPELoAZJh0ePOSs30UC7jaIxky3LMi6mTgyXk/NO12lhW/oqCtXlRh61tHGwkc9IE=@vger.kernel.org
+X-Gm-Message-State: AFuF++kJoxD+FJ8C9eOksV1NABd79u8Et/mcTp2lqaXwH6gFTDewp6pd
+	H5680cYcOig7KNZJ51SoTZhLH093dDwiN4EdaD7111ErzKx443Q00/QJSgTroIZmz8s=
+X-Gm-Gg: AYBFou0eMUYMH45ePcPf3cgzkHnIWXIqFIcY8OkQAUceFtYooHmpuiBfzNy4bic/XB8
+	Ge1iaoapv0hOuvZfxTEN78y/RvY2Pas8zPQA8JPM2SnQOyZL1QU8JVvsOZrK6Sq4QLK2J+aacIT
+	Qtg6osWE3d7rJxg2g5XZN6foz1z64uIAtLIq10FBVvxZaCzOW0b0lh7y987JAmgL2DlfKD/Jd+H
+	XtP3KHsCU3SWY/9YHqrS22OIZUpKfp9Evb6wXwr3c89KDkipwzZbuVd5uTd0Qdnr0TROKqQwblF
+	iyYilaIqJL7VQtxqnIFZG31V3pdW2BKOTeXukvdWGOr6BT1qKbd64tjXilWg8WSjy0EMYKWzLgi
+	kDsLdCnwgwFl3tCULevcdhwhRCGVgmrr1rqe8C+5Mx7mjt+Th+wUT1A+pv1mL901OlGQMEe2Wbz
+	35x40fXAhYS6wSB/Tah01vAn/gPp6lwJHE1RY6m0pPhGqa/svekrqvI1a7Oe6iKB5mn8hmw2wAv
+	vsx+hZ8vdTP3Ovwa4A2p/9pPAsRoILd0viixSp1SuuF
+X-Received: by 2002:a05:600c:46d5:b0:49c:fc6c:be06 with SMTP id 5b1f17b1804b1-49cfc6cc142mr239764675e9.29.1788869464167;
+        Tue, 08 Sep 2026 05:11:04 -0700 (PDT)
+Received: from ?IPV6:2a01:e0a:106d:1080:ea45:883b:8b89:b4e5? ([2a01:e0a:106d:1080:ea45:883b:8b89:b4e5])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cee7fec25sm553052685e9.13.2026.09.08.05.11.03
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 08 Sep 2026 05:11:03 -0700 (PDT)
+Message-ID: <4688bc5c-edc0-4f1c-8534-286364f03c78@linaro.org>
+Date: Tue, 8 Sep 2026 14:11:02 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
-X-ClientProxiedBy: bjkjy-exc6.internal.baidu.com (172.31.50.50) To
- bjkjy-exc3.internal.baidu.com (172.31.50.47)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=baidu.com;
-	s=selector1; t=1788868908;
-	bh=2xDETEACWh44ozaK44g8QqrbA8/wL3drFTvFddCxvNg=;
-	h=From:To:CC:Subject:Date:Message-ID:Content-Type;
-	b=ixmrfraUUjUBCru0y4x5Cvf5tknI2ABrUwcfCoyTG0ADp+DgqHb4anlqd8GtWyM2f
-	 q7C0+3iB54dLvBTq1nVUu84Xax5vXbZ2Gl/zskETRY56GyiibGGeBz7wliI/r++Suo
-	 V7HnZ+/OGUtGAYN15V3XuOowDRd3aO9kgiV0hQPwiA5e3zTeZBY8Q+XDWVV8Zymidh
-	 9vnRDWSNxF8vvaOaa7HRR/oD8vPeE5dN204fZbRxDnuIxl3m+RvMDLultG83cW2T6H
-	 9o3dq0N3QVAZinTSuwlcES076IAw/QUuMKj8kzFoibnbvRWwLHJHT06D4RuIhoeJH0
-	 JodYb1f0ph2dA==
+User-Agent: Mozilla Thunderbird
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH 1/3] drm/panel: ebbg-ft8719: Set prepare_prev_first
+To: david@ixit.cz, Joel Selvaraj <jo@jsfamily.in>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Sam Ravnborg <sam@ravnborg.org>, Marco Mattiolo <marco.mattiolo@hotmail.it>,
+ Linus Walleij <linusw@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ phone-devel@vger.kernel.org, Casey Connolly <casey.connolly@linaro.org>,
+ stable@vger.kernel.org
+References: <20260906-ebbg-ft8719-fixups-v1-0-4e846510cad1@ixit.cz>
+ <20260906-ebbg-ft8719-fixups-v1-1-4e846510cad1@ixit.cz>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <20260906-ebbg-ft8719-fixups-v1-1-4e846510cad1@ixit.cz>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-From: Li RongQing <lirongqing@baidu.com>
+On 9/6/26 15:19, David Heidelberg via B4 Relay wrote:
+> From: Casey Connolly <casey.connolly@linaro.org>
+> 
+> This corrects the host initialisation sequence so that we can send
+> DSI/DCS commands in prepare().
+> 
+> Cc: stable@vger.kernel.org
+> Fixes: b00de0e237da ("drm/panel: introduce ebbg,ft8719 panel")
+> Signed-off-by: Casey Connolly <casey.connolly@linaro.org>
+> Signed-off-by: David Heidelberg <david@ixit.cz>
+> ---
+>   drivers/gpu/drm/panel/panel-ebbg-ft8719.c | 2 ++
+>   1 file changed, 2 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/panel/panel-ebbg-ft8719.c b/drivers/gpu/drm/panel/panel-ebbg-ft8719.c
+> index fb9f9f42be4f2..1ab09c50a6306 100644
+> --- a/drivers/gpu/drm/panel/panel-ebbg-ft8719.c
+> +++ b/drivers/gpu/drm/panel/panel-ebbg-ft8719.c
+> @@ -193,16 +193,18 @@ static int ebbg_ft8719_probe(struct mipi_dsi_device *dsi)
+>   	ctx->dsi = dsi;
+>   	mipi_dsi_set_drvdata(dsi, ctx);
+>   
+>   	dsi->lanes = 4;
+>   	dsi->format = MIPI_DSI_FMT_RGB888;
+>   	dsi->mode_flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_VIDEO_BURST |
+>   			  MIPI_DSI_CLOCK_NON_CONTINUOUS;
+>   
+> +	ctx->panel.prepare_prev_first = true;
+> +
+>   	ret = drm_panel_of_backlight(&ctx->panel);
+>   	if (ret)
+>   		return dev_err_probe(dev, ret, "Failed to get backlight\n");
+>   
+>   	drm_panel_add(&ctx->panel);
+>   
+>   	ret = mipi_dsi_attach(dsi);
+>   	if (ret < 0) {
+> 
 
-kvm_set_irq_routing() allocates each routing entry separately, so
-a routing table with thousands of GSIs needs thousands of small
-allocations and frees, adding significant allocator overhead.
+Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
 
-Allocate the entries in chunks instead: each chunk holds up to
-PAGE_SIZE / sizeof(struct kvm_kernel_irq_routing_entry) entries, and
-the chunk pointers are kept in the routing table so that all entries
-are freed together when the table is released.
-
-Each chunk is capped at PAGE_SIZE instead of allocating one array for
-the whole table: with nr up to KVM_MAX_IRQ_ROUTES (4096), a single array
-would be a multi-page contiguous request, which is what tends to fail
-once memory is fragmented. Page-sized chunks stay on the normal kmalloc
-path, and a failed allocation only costs one chunk. The chunk pointer
-array uses kvzalloc_objs() and can fall back to vmalloc.
-
-The last chunk is sized to the number of entries actually left, so a
-table smaller than one chunk - the common case - allocates only what it
-needs.
-
-Measured with an eBPF probe on kvm_set_irq_routing() on an Intel EMR CPU:
-when a VM has a 2000+ entry routing table, the time spent in the function
-drops from about 700us to about 300us.
-
-Signed-off-by: Li RongQing <lirongqing@baidu.com>
----
- include/linux/kvm_host.h |  2 ++
- virt/kvm/irqchip.c       | 62 +++++++++++++++++++++++++++++++++++++++---------
- 2 files changed, 53 insertions(+), 11 deletions(-)
-
-diff --git a/include/linux/kvm_host.h b/include/linux/kvm_host.h
-index 03bfc92..83848d7 100644
---- a/include/linux/kvm_host.h
-+++ b/include/linux/kvm_host.h
-@@ -693,6 +693,8 @@ struct kvm_kernel_irq_routing_entry {
- struct kvm_irq_routing_table {
- 	int chip[KVM_NR_IRQCHIPS][KVM_IRQCHIP_NUM_PINS];
- 	u32 nr_rt_entries;
-+	u32 nr_entry_chunks;
-+	struct kvm_kernel_irq_routing_entry **entry_chunks;
- 	/*
- 	 * Array indexed by gsi. Each entry contains list of irq chips
- 	 * the gsi is connected to.
-diff --git a/virt/kvm/irqchip.c b/virt/kvm/irqchip.c
-index 462c706..044b831 100644
---- a/virt/kvm/irqchip.c
-+++ b/virt/kvm/irqchip.c
-@@ -18,6 +18,9 @@
- #include <linux/export.h>
- #include <trace/events/kvm.h>
- 
-+#define KVM_IRQ_ROUTING_ENTRIES_PER_CHUNK	\
-+	(PAGE_SIZE / sizeof(struct kvm_kernel_irq_routing_entry))
-+
- int kvm_irq_map_gsi(struct kvm *kvm,
- 		    struct kvm_kernel_irq_routing_entry *entries, int gsi)
- {
-@@ -107,12 +110,14 @@ static void free_irq_routing_table(struct kvm_irq_routing_table *rt)
- 		struct kvm_kernel_irq_routing_entry *e;
- 		struct hlist_node *n;
- 
--		hlist_for_each_entry_safe(e, n, &rt->map[i], link) {
-+		hlist_for_each_entry_safe(e, n, &rt->map[i], link)
- 			hlist_del(&e->link);
--			kfree(e);
--		}
- 	}
- 
-+	for (i = 0; i < rt->nr_entry_chunks; ++i)
-+		kfree(rt->entry_chunks[i]);
-+	kvfree(rt->entry_chunks);
-+
- 	kfree(rt);
- }
- 
-@@ -170,9 +175,11 @@ int kvm_set_irq_routing(struct kvm *kvm,
- 			unsigned nr,
- 			unsigned flags)
- {
-+	struct kvm_kernel_irq_routing_entry **chunks = NULL;
- 	struct kvm_irq_routing_table *new, *old;
- 	struct kvm_kernel_irq_routing_entry *e;
- 	u32 i, j, nr_rt_entries = 0;
-+	u32 nr_chunks;
- 	int r;
- 
- 	for (i = 0; i < nr; ++i) {
-@@ -183,6 +190,13 @@ int kvm_set_irq_routing(struct kvm *kvm,
- 
- 	nr_rt_entries += 1;
- 
-+	/*
-+	 * The chunks hold the routing entries, so they are sized by the number
-+	 * of entries passed in by the caller, not by nr_rt_entries, which is
-+	 * the size of the GSI map.
-+	 */
-+	nr_chunks = DIV_ROUND_UP(nr, KVM_IRQ_ROUTING_ENTRIES_PER_CHUNK);
-+
- 	new = kzalloc_flex(*new, map, nr_rt_entries, GFP_KERNEL_ACCOUNT);
- 	if (!new)
- 		return -ENOMEM;
-@@ -192,26 +206,54 @@ int kvm_set_irq_routing(struct kvm *kvm,
- 		for (j = 0; j < KVM_IRQCHIP_NUM_PINS; j++)
- 			new->chip[i][j] = -1;
- 
-+	r = -ENOMEM;
-+	if (nr_chunks) {
-+		chunks = kvzalloc_objs(*chunks, nr_chunks, GFP_KERNEL_ACCOUNT);
-+		if (!chunks)
-+			goto out;
-+
-+		new->entry_chunks = chunks;
-+		new->nr_entry_chunks = nr_chunks;
-+	}
-+
- 	for (i = 0; i < nr; ++i) {
-+		u32 idx = i / KVM_IRQ_ROUTING_ENTRIES_PER_CHUNK;
-+		u32 off = i % KVM_IRQ_ROUTING_ENTRIES_PER_CHUNK;
-+
- 		r = -ENOMEM;
--		e = kzalloc_obj(*e, GFP_KERNEL_ACCOUNT);
--		if (!e)
--			goto out;
-+		if (!chunks[idx]) {
-+			struct kvm_kernel_irq_routing_entry *chunk;
-+			/*
-+			 * A chunk is only entered at its first entry, so nr - i
-+			 * is the number of entries left for this chunk; the last
-+			 * chunk is short.
-+			 */
-+			u32 cnt = min_t(u32, nr - i,
-+					KVM_IRQ_ROUTING_ENTRIES_PER_CHUNK);
-+
-+			chunk = kzalloc_objs(*chunk, cnt, GFP_KERNEL_ACCOUNT);
-+			if (!chunk)
-+				goto out;
-+
-+			chunks[idx] = chunk;
-+		}
-+
-+		e = chunks[idx] + off;
- 
- 		r = -EINVAL;
- 		switch (ue->type) {
- 		case KVM_IRQ_ROUTING_MSI:
- 			if (ue->flags & ~KVM_MSI_VALID_DEVID)
--				goto free_entry;
-+				goto out;
- 			break;
- 		default:
- 			if (ue->flags)
--				goto free_entry;
-+				goto out;
- 			break;
- 		}
- 		r = setup_routing_entry(kvm, new, e, ue);
- 		if (r)
--			goto free_entry;
-+			goto out;
- 		++ue;
- 	}
- 
-@@ -228,8 +270,6 @@ int kvm_set_irq_routing(struct kvm *kvm,
- 	r = 0;
- 	goto out;
- 
--free_entry:
--	kfree(e);
- out:
- 	free_irq_routing_table(new);
- 
--- 
-2.9.4
-
+Thanks,
+Neil
