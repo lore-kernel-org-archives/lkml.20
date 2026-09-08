@@ -1,157 +1,89 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDC733A9618
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 15:12:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.227.140
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788880386; cv=pass; b=uXltPXr7k6W0M5yl92FDV8TOXJsNqZaZ+E2j1wW7N8CNZjy37Cozg+ymW75JKI5uNNoHcxR49TWj64cwiu0yblz6VeyYE2r6ytDQb72JbRMFPgvoU0KeNk7ysTbKfe2zWdFbuEqCG+MnDf+iM1psYY6rPswBw71NXOaWYLKJ+OU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788880386; c=relaxed/simple;
-	bh=h4V3qmSg9Cl3SBicqioBkg1pZFXj8Z00HAErU9xLdic=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=D5MbRItP3YVj5nhO7/m24A0gikRZobZgPg7LwXwEPuFHgjMZw8XBG5yJmDxE6wzdDCBGZrqhjVVAqrPJXEBwVtPYzluweuXT43EfYCbogPy2zYsYSlFAuGoqczCqbHdyHHBpK+K/1j6/xFyKeJWcKKcDSXO/WBvA8BQzjZ+Qw6k=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=C8hA5CSV; arc=pass smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="C8hA5CSV"
-Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2d6ff3aca07so266475ad.1
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 08:12:56 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788880372; cv=none;
-        d=google.com; s=arc-20260327;
-        b=jQFoJVU5kBwqV03kbBOo93JTwxRIFxRX1WyxZf0Em2JHznlMfTC1tbth/6SuEJR1j3
-         GegT6U0a+R3Nvpqmi08JVaB+ig2du+IR+l01H9MWonN2kV8EjMz2XUVTMGn6tLuhUDIl
-         s6QYx58mAHmuaax8xfAbRUb1rbP2MtFLsva9u7FuIQuu6eRllSsP8W+8A/4VXhProfzC
-         B9JrMwQ5drjvJHev/IH1Qla6hNYOh4u8maG73/kzB+2dSbNMKtca/AW3FAj6UMpcHRmK
-         2yWy+z/6y/ksLn10NjowDHgTDTgj/FrWSzMO4Tt7aV9LzZUAIRySbINpVlt8sHw3mw7X
-         6h3w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=BouDQyseTpgBscOBCF3a6wtMXmz3CzisSn6GhPbdwBA=;
-        fh=cfMpRBahjFNNZz2obx4ZeUWhvWQcqe7YUxrWjyUH+Nw=;
-        b=UR2e9VxmB8oywFJuWR6zsF9SHGEXVWQHUAYGyicEQpaHDiSj4yk7GbKg0NpKWgUb00
-         loJNT+8f2RthbWT37XfY0lLCO9szT8QvqbKYcY1dG+GXo/It5+NSPfWmRtBwVdRKVTm0
-         gRvTOixcdoy7bq/X8H1fG/JM3ZmgkdjG0dNHut5M6Fy1jiFA0aGfBLVJTwDcb32Ex8Ox
-         cZcKZ/w+UgMA2Xp7mZdeU1UcmG2DUaqSKu2kX5MF8W4SYRJeUW0xX4cxyPuJv5QF0ZN3
-         qRLN8T/WiRL/1aaP6Qh+OMBlYVbwy9M0FBs8Ya9lyXUkKZZna+rjhgXAy1BbnZNrzizf
-         0LNA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788880372; x=1789485172; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=BouDQyseTpgBscOBCF3a6wtMXmz3CzisSn6GhPbdwBA=;
-        b=C8hA5CSVxM/Z74ufDl36ekUeNsEHH0WhC055seX39waYfrIjxLVZ4VhECPL9nMmD/K
-         wLdIm0FQyh/deMhjU8aIUom//KEOY82WrXpdUbM7PBWESChmWZNeTyh8FOIkFGCQRHnH
-         V+QjdSgJVP6wZaBVd28laxSh8PhhsWvJvsV1HHj6qpe87nj4gtmmTAyZr3inkbnv59dk
-         wOlegio/ZYU86wJwwQ+16BwGPyXrbgX2sA2hLTvUfeuEIsqb2ZeILbC/KkOzbkRi7UCN
-         9IPPJlDqQt0j4OnW4uSgA5mN04rCsNt5IhBF0P9BZnrGSF/ksjVmbDiLioj2EAV5ji1F
-         g6Og==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788880372; x=1789485172;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=BouDQyseTpgBscOBCF3a6wtMXmz3CzisSn6GhPbdwBA=;
-        b=S8rP5ALDVkWZBYso37LjSabmuGFCDvpqjZZyXBOxjKIHB3Dj4k6VlJgfUtSxSYIK3j
-         5JBVGURTR14c7qODyWnPtAURk/YzU6dHSaN/67MKhrbNnD1KMA3QFzzM0gnxo20hnj4X
-         xD0phtDaN2Fii5+9s3OHVNvTiGkE0/yTslFcOV1pviURVGtELtvmZZ8u6UPJTIK/9ezl
-         Ro9qeiw1lyDSrawv6riaZfxrq9tfaUyE3zn67OLXmyfY2zhTEMui1ttRufUEOe8Bbuwe
-         lBLMLYKKkAdF73FBmBe2SptUD9xyzlviMGHzkWFDkm/DZsz1OAZlC4yNBrHSw7/NeUnN
-         fkJQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxQu/HW1ww5WXoCQgNkimNM7T75ilSzHxHNiue0MHAvS8mVMiqRH7/JcLNjT0gSA340flZH9N6SOxbEiIU=@vger.kernel.org
-X-Gm-Message-State: AFuF++k4Pzdqh6i/kyu1IMHdXMYIGjXAXzGPUsObxCjUilfxNKC4+5/M
-	aqbjGNQhq22nH0bkABAbwYvLD3wVg7QbC+ZpiC6NRmgZdnS+EneG/0EUWXQ4wjsL7QgfLDhK6tW
-	FZYN7iLzqZvx53sLJitSa12Ls/9yX5wrI86NJFVbF
-X-Gm-Gg: AYBFou2Fei5mwkZCpwEYW3SAFWFSC+wzG6aIIZ8nkNk8gTAEXUFIEPIge26TJjcgw4F
-	IpSP+FHilN5J91By5YHF9WkJv5CZrUTpq0hKpI29QXbzVPLpkj+tfclNIskN2hH3N926lzW7T/c
-	GJB2xe7crH7Ha24Twt2Ceb2lzbI+iFdpBTOzEAo7HerBhDtDDcEbmJs0372tv2Ytmtfoze28BPy
-	WWiATPwPH6mlCei0dQJ4kidpjNltv2f7a/R+f56DvSKqjXxdGhf4F1EZzSDLmyXOu7gyxCADb4y
-	u2ukhUw4E84QM22tANlaOVndAzf5Att41lH+TrZ4e8pxilJc4gw7VNFsOzOz24jYe6nZwdrF5QC
-	ex5nUtnOBy0L3/w==
-X-Received: by 2002:a17:902:c102:b0:2ca:4bb4:4bd with SMTP id
- d9443c01a7336-2db294d1416mr11909045ad.5.1788880371498; Tue, 08 Sep 2026
- 08:12:51 -0700 (PDT)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDAB2538D73
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 15:13:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788880440; cv=none; b=IjeuDBN6o7FLRBEoF2W6aQcTh1ABPjSHCwXtzw/mvMJblORfEUfMMaizacjzmWYFXmCj16EeGXYSfLKtbH8nd99S4G78Lkk5dmg4I2gBZVlO35ji0GXEHpjmDyD3rzcGFp3XXn9j0IcuNVZmkFVqCdq/BSvhp2DW3VkdbPEUHPw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788880440; c=relaxed/simple;
+	bh=LunjGKO7O7mBvE2kK/igMuhkYj3CTTqLwKlw4eujefg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=p/w1/K5W7SNnqwTGSNAiHqPfldR4WtltNkqanpkfjjSFKXogdakNJ+y/eDKNZ2NUUDMMIXlJvtHvvj1o6IBaixHnd8wOPH8NRCz+omgiAmr97rG6u3zQVoRdurkz/2bBgx5BTRfKltBA/vsP9SZchyTdWjgf4COySn6F67MLfHk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A33981F00A3E;
+	Tue,  8 Sep 2026 15:13:42 +0000 (UTC)
+Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
+	by mailfauth.ams.internal (Postfix) with ESMTP id 148E5198003A;
+	Tue,  8 Sep 2026 11:13:36 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-03.internal (MEProxy); Tue, 08 Sep 2026 11:13:40 -0400
+X-ME-Sender: <xms:HyagamyqoJnb88x48ecjkqXIGmM6yEPbqcGAYIx6iVL5eDsaFQ3LXg>
+    <xme:HyagajG8MXmdDl842GDAgIOTSD2UmzbGyztgBLHHurHcZuZAVYUq6Q8bQZKacXeb-
+    eOA9dEa4-_4bWGajdhDWV1wzzrppGYA3mJ0NsJmpPMvxMpO20tiBw0o>
+X-ME-Received: <xmr:Hyagam5nteqcoy7k3LNYIAwEhcE8zbEcVBK266qlXyk6xispleaxc2_Ic0I>
+X-ME-Proxy-Cause: dmFkZTESaxOuzeIzUb7pYu/ajwm5NhNWJYdY2isfBcty34gtQ6Pwe+s4eEC1fJrhTAlDdO
+    FjHnzt6qt8+lAGUIIoPiYqmucaikse38hNpvmfclkQ80xpW1bz1B30mB0R/gPss+tUZhCD
+    dhlSJbVDLxGJlVWEFFoHyV57MZKVealYI5QxIkjMaKYg9eaVh6DWitRUuM5e0wRcG0OHeG
+    zj34sza7Zd3kMEhvxdadwjuKuw8pk1EJDD/ELYCgoQxtsBMhKj7FU0km8PGhMhBTCGdNen
+    Yj8GNb/r0sex81mZbbJKFkA/4KEG++Z2tEyS42TvV65pyKzDLV5wGiwZtsazgv+shkl0Ez
+    vD1666cLVIAatJJTiVDaGSSplaVseKmtZxnqOWv+WihLIXEAddihbrJoOQw8MWuXcIkms1
+    vwgmqr4l7mJwVBNt4D3VrLoZftcH7pD5Vxb9ZbUrzN06dTd9rc2RtjQZlWWYwVD1qntiSX
+    WpxgwU/E9i3kZNx2brxAFOwvYigokqVdWF624PLRY7W8YlsMhGaBNo6zRrdWXwPI1rA0wi
+    fAHQQe875AGKOTamckeSDNCBjTIE99/cwvgvqKHrjsCA3y96T5D8kSc0hREhJYaFzKxcPS
+    ftzg4B7ziesyDeXJRLDKkDSPxL36vszm6QxrTgnHI/lsRtTz0gp4GsJy672Q
+X-ME-Proxy: <xmx:HyagaiUKGxmPD6t5weSMBzxOf6-h11xtoqJ321MFpRui5xu7zQW3pQ>
+    <xmx:HyagajJx8XhYdV-4vcrM4l5NrRks7bXuSu3SekOy98rBAuy5kdbQ2g>
+    <xmx:HyagaiQPf5dRCXNmY0V2nmS699ezPx_74Wcfwc19n51-2IAgK8lNVA>
+    <xmx:HyagamD6V60CMTJcpSLgMb0mBXzAOHC3_qHoVoLsY6vXfRX4PIDprg>
+    <xmx:Hyagao_SsIhbBnUnFa4Tg9b8SRmV-MvY5AWx9WynStj1LITq2diUMZrp>
+Feedback-ID: i10464835:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 8 Sep 2026 11:13:34 -0400 (EDT)
+Date: Tue, 8 Sep 2026 16:13:33 +0100
+From: Kiryl Shutsemau <kas@kernel.org>
+To: kasong@tencent.com
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>, 
+	Lorenzo Stoakes <ljs@kernel.org>, Zi Yan <ziy@nvidia.com>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, "Liam R. Howlett" <liam@infradead.org>, 
+	Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
+	Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
+	Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, Chris Li <chrisl@kernel.org>, 
+	Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, 
+	Barry Song <baohua@kernel.org>, Youngjun Park <youngjun.park@lge.com>, 
+	Yeoreum Yun <yeoreum.yun@arm.com>, Shivam Kalra <shivamkalra98@zohomail.in>, 
+	Kairui Song <ryncsn@gmail.com>
+Subject: Re: [PATCH v4 08/17] mm/huge_memory: move unmap and remap into the
+ split helpers
+Message-ID: <aqAmD9C1Y31F6ByT@thinkstation>
+References: <20260908-swap-thp-cleanup-v4-0-b532a3f20e71@tencent.com>
+ <20260908-swap-thp-cleanup-v4-8-b532a3f20e71@tencent.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260903215606.31633-1-hramamurthy@google.com> <923eefe9-141a-47b7-94c5-c91df94e66f6@redhat.com>
-In-Reply-To: <923eefe9-141a-47b7-94c5-c91df94e66f6@redhat.com>
-From: Harshitha Ramamurthy <hramamurthy@google.com>
-Date: Tue, 8 Sep 2026 08:12:40 -0700
-X-Gm-Features: AcwNN1W-djDon6i2Oxz6RcG_IKMBsvPvG6L-ePIXfRp75VFE_wdPCqR4Vyc6SXM
-Message-ID: <CAEAWyHdvav2Yd1qjt9Z+O0f5OAN3OKd1y9OPV=VuASLXYbUdpQ@mail.gmail.com>
-Subject: Re: [PATCH net-next v5 00/12] gve: AdminQ mode related refactors
-To: Paolo Abeni <pabeni@redhat.com>
-Cc: netdev@vger.kernel.org, joshwash@google.com, andrew+netdev@lunn.ch, 
-	davem@davemloft.net, edumazet@google.com, kuba@kernel.org, ast@kernel.org, 
-	daniel@iogearbox.net, hawk@kernel.org, john.fastabend@gmail.com, 
-	sdf@fomichev.me, jordanrhee@google.com, willemb@google.com, nktgrg@google.com, 
-	maolson@google.com, thostet@google.com, jacob.e.keller@intel.com, 
-	debarghyak@google.com, kees@kernel.org, bpf@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, przemyslaw.kitszel@intel.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260908-swap-thp-cleanup-v4-8-b532a3f20e71@tencent.com>
 
-On Tue, Sep 8, 2026 at 3:09=E2=80=AFAM Paolo Abeni <pabeni@redhat.com> wrot=
-e:
->
-> On 9/3/26 11:55 PM, Harshitha Ramamurthy wrote:
-> > This series is preparing the driver for the addition of a new control
-> > plane mode(MailboxQ) by commonizing and reusing as much code as possibl=
-e.
-> > MailboxQ is a new control plane infrastructure which uses mailbox queue=
-s.
-> > This is a new control plane to communicate with the device when the dri=
-ver
-> > is running on bare-metal instances as well as newer versions of the dev=
-ice.
-> >
-> > This series contains 2 main changes to the gve driver's existing contro=
-l
-> > plane(AdminQ):
-> > 1) refactor some initialization/teardown path methods to make it work f=
-or
-> >    both control planes.
-> > 2) add gve_ctrl_ops structure to the driver for various control plane
-> >    operations
-> >
-> > The refactors are mainly around the init, reset and recover paths so th=
-at
-> > functionalities could be moved into the control ops like 'set_num_queue=
-s',
-> > 'set_num_ntfy_blks' etc.
-> >
-> > This patch series only sets the control ops for AdminQ mode. This is
-> > intended as a preparation for adding MailboxQ mode in upcoming series
-> > which will add the new control plane infrastructure and then introduce
-> > the corresponding control ops for MailboxQ mode.
-> >
-> > The entire list of future patches can be found here for reference:
-> > https://github.com/hramamurthy12/linux/commits/gve-mailbox-queues/
-> Imho the 'medium' severity issues raised by clashiko on patches 1 should
-> be addressed in this same series.
->
+On Tue, Sep 08, 2026 at 02:12:12AM +0800, Kairui Song via B4 Relay wrote:
+> From: Kairui Song <kasong@tencent.com>
+> 
+> To prepare for further cleanup, move the unmap/remap handling from
+> __folio_split() into the split helpers.  Only anon folios need to
+> be remapped, so remap_page() is now only called for anon splits and
+> the anon check in remap_page() is redundant and can be removed.
+> 
+> Reviewed-by: Zi Yan <ziy@nvidia.com>
+> Reviewed-by: Yeoreum Yun <yeoreum.yun@arm.com>
+> Signed-off-by: Kairui Song <kasong@tencent.com>
 
-Will fix in v6.
+Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
 
-> Please note that you are supposed to act on sashiko reviews, see commit
-> c82ff94592fb68f529afe63ca7f5ddb7dae4ba83. Lacking such feedback, I'll
-> tend to err on the safe side - i.e. requesting a new revision.
-
-Acknowledged.
-
-Thanks,
-Harshitha
-
->
-> /P
->
+-- 
+  Kiryl Shutsemau / Kirill A. Shutemov
