@@ -1,143 +1,152 @@
-Received: from mail-pf1-f176.google.com (mail-pf1-f176.google.com [209.85.210.176])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C5F25908A8
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 17:25:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5851C58FD1D;
+	Tue,  8 Sep 2026 17:25:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788888350; cv=none; b=VWN3xHSzpdj0ZNt8gVCdbkxQK15S36R+Ki7IX1oeC73Dhwp/JBgjqyd9rCm/vNkarmVOf89k6/JhfrulKP4kcIHZSTjIBkx/nLZxIUsXG5jqynqNnEoeoMflNffjb6Iv/sq6vbTcPTzjYcly6KL4C7S8jA2M3vSXOnx/W6xQ9EE=
+	t=1788888359; cv=none; b=osPuUEpH4YgZ4iUXSCcO63Xd1yU2XzZeraEICPzKoLqY3FJLnDzs6K7wiwasi6U8sGx+3UokZornMJCQNF59gbogxJMjVflVCzs/EmgXVub+DXKdOrmWkUo+ZZ76A0mi/o+J7afxeh8mA6AHDGMZs6yiwhvNZQ55FaJ2Y32iLaQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788888350; c=relaxed/simple;
-	bh=wvUTcCBQZzKDbM9i8CICMan82jk+je7iizDWRvrhU0U=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=FVPaGr5P0iu/rOozoIJmEky+vBGcfjjd1cRt9OGFGVqDXkSjnhYkmniNDWG4jDidLyoaRwrtf7qMhQFwYgyg8GDwkQwrI78OFOQ2BVVkdAkJSyPHl3y+Q4Nba7Mvs40Gg/DnpKDNMUpFJtDzms+lx0oaMQDKgQok2mQzIwxybLU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=p11BosEJ; arc=none smtp.client-ip=209.85.210.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788888359; c=relaxed/simple;
+	bh=KV+P1GR5UC9sJ0F+5QY1pcXLH4BWW4rPFQTylAnrHpY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Y9xshNQ+GA9B76Nj6h0nswQ6QZ7aH0VA8FI9vwwWTkr3PUVND7qPaojvWCk97SBuANQYPqaR4NPzmvkeWF58KVs1XBWsU1WaTLkm6ts3nUgJrOCKvhyaBjkwHmAxrfJKqFW5lSawzxw4RD2SsSksZb39V4Xd02yGbCFyEauknYY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZD+IPPTd; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="p11BosEJ"
-Received: by mail-pf1-f176.google.com with SMTP id d2e1a72fcca58-84830c774a0so4735477b3a.1
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 10:25:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788888349; x=1789493149; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=fYdCGwR2PPQ+VhuIDyakmIiYQ5Y15ZgMmXSqFF9HOCc=;
-        b=p11BosEJFD1WFsDES+xPhAEn1LU3fMdO3JLMHZt2a+Hd+PZaBAnxQ2VMBl/lA81Rv7
-         HTu6h6qNb3mjHOqVqPghdQ0FxgnLXSeTvBzg1IF+6eCSDbaSFATJCzjNBDxaom/MHMwA
-         a86gnkNbUwlcaAx8/Z5KGv0qCa7F+Sdm5ZvIlwHS6B5gZC/jLImC3EyHH1jLBFSt2KtV
-         UowaDMVl6KngwpXj4j1pSF6sugHac8mnWv2FTtQizvRqF6SItOeZTq4sggeHssd9xUUh
-         ie82KAo4SK7dKGBZu3tufh4lxesW2aR/XKTftLLisCK370GpgPxjiJ1L7NQIaelbeA4a
-         0cGg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788888349; x=1789493149;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=fYdCGwR2PPQ+VhuIDyakmIiYQ5Y15ZgMmXSqFF9HOCc=;
-        b=ielrRN1NxUV/Q1BGask7xOQkeQy1yRndneY55wPyG2hn/xCDve/Q++28J6HRIjJ6DV
-         mr3uQe9QTRXhz2zDWMu1BHP95OAw2aQxEGtrp+s9TIucUj+wJpND+k7tgAGhJorscPxp
-         YomiF79lkyYE0O8T1WjAFP5Co+RwlAH61JYjbcVtiUMV4Jp8/BEU8uXfktv/gm55SNwK
-         NdHVn+EPuxXg+VcK9A1Aip9T7+ejwRU2XY0n0QjTuXvC1fIudP/tak+Q08KpK/ijXoKV
-         XMbHU2z7rVb1lDR8dkoNMdDkxPskjIDeyjZalei1UVf49S3TY2x/8f4rcSyY0AP5PoRd
-         5XuQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzmOifBYoYcOp5btHgsJB/08EqYDxQIvGGzsebqXZplHKAJoPWLcUGsuoARyaPLcV5Qdwmw1oPcsCLqcYs=@vger.kernel.org
-X-Gm-Message-State: AFuF++mJldAZM8XjPnv9xL3oXcuyPAdx/uvY7QUbnRCPQ5np5LLCb/hD
-	iVHFGutnepwbmBDdOgtD+uISfIMhJ8xIQ+l0N9YNT4RJgPovWNIoH1PB
-X-Gm-Gg: AYBFou2YFMpw3Z2v31zc0InYlo8o9ZeIFfwYqxIBSFwaKG3XODST6H2HMwIB9ge6WWK
-	4f0ZLiAX2Ud4xA2DDC2kRuXK8ZovzyLRmA3p3jE4G0hky0JHQr2mlh7JYIpGt5STELhMpSySc+Z
-	DQQ2uYReXL8H6cVkd3CIRTuCQaydYxNdUHYuuolDwJVK4dNxMy6ngqF09jsyttZtD1JKuso14Ga
-	1hi/jXMvnwGt8co3sD4O7UX5tbblhM3ZRz00JrF1S7bybi0jorJ6YaFgyxFLdIZEjafM5FCXfnf
-	t7aIz8ndZQKiRIj0IgajiCLLnlUY0QmdZ13HKm89nxK/McILBy6CQ+4TP2BHcEZEvHlCJMlsBA+
-	GJ5XcTrw2dDR9mIzGbQiCvE4oEQTnq7Gd5+oRnr1xk9Bx29aEwDXEcidopJ+sF9HORzQ2B6Hqv4
-	wqIClPrG944jXT8YtIp1AHKlVNrpF+Ja1xALMK3pGx3RPruq6v3+Fj6fHaS88=
-X-Received: by 2002:a05:6a20:bea6:b0:3bf:7e2a:e874 with SMTP id adf61e73a8af0-3da39b5c429mr46679411637.1.1788888348747;
-        Tue, 08 Sep 2026 10:25:48 -0700 (PDT)
-Received: from ubuntu.. ([2405:201:8026:213e:43ae:bf76:d99a:e5ff])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33688cfc714sm19297176eec.20.2026.09.08.10.25.42
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 08 Sep 2026 10:25:48 -0700 (PDT)
-From: mdshahid03@gmail.com
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: Marcelo Schmitt <marcelo.schmitt1@gmail.com>,
-	David Lechner <dlechner@baylibre.com>,
-	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Ray Jui <rjui@broadcom.com>,
-	Scott Branden <sbranden@broadcom.com>,
-	bcm-kernel-feedback-list@broadcom.com,
-	linux-iio@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Mohammad Shahid <mdshahid03@gmail.com>
-Subject: [PATCH v4 6/6] iio: adc: bcm_iproc_adc: use devm-managed IIO device registration
-Date: Tue,  8 Sep 2026 22:53:59 +0530
-Message-ID: <20260908172359.30003-7-mdshahid03@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260908172359.30003-1-mdshahid03@gmail.com>
-References: <20260908172359.30003-1-mdshahid03@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZD+IPPTd"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7EBC11F00A3A;
+	Tue,  8 Sep 2026 17:25:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788888358;
+	bh=nScoxQtdxykKU9QZOPMgNZaJVcGJcoE6oBnNk2LcKH4=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=ZD+IPPTdaHsyN1+Rt6vgGjcGaTkRi5iZfksMqNBL3XwnEaLW/TB7QwEHrWH4Rdg9+
+	 U4Xfu02g6fNnXi9N6jsC4fVnSoykBdLEXu31+uXN0GI+EML0+6qkwFMMWJ/ZdyivP2
+	 +ngE8A9dG4NENHyZukoZuVqKeLCbUgYSCpLTuATcux/AeLW/7rAachagGUWEZ8Gao7
+	 eh8DMixyRxZ78ytFFaVk7/F/8jx2U/BvkII7h14glZR9sRr7DBdyaZwtbb2HQIRBWR
+	 Fzj7DXhDroa4CKw/W0hNAuldGsjqv/eL+UGIrcBpS36J6zkTM1nuwF2vbFoIqUSuwG
+	 T/ZiKjk1J7mXw==
+Message-ID: <fecc9c2f-c083-406a-b6a1-55b0b0d2798a@kernel.org>
+Date: Tue, 8 Sep 2026 19:25:53 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird Beta
+Subject: Re: [PATCH net] tcp: fix data-race in tcp_recv_should_stop
+Content-Language: fr
+To: quanyeyang@proton.me, Eric Dumazet <edumazet@google.com>,
+ Neal Cardwell <ncardwell@google.com>, Kuniyuki Iwashima <kuniyu@google.com>,
+ "David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
+ Geliang Tang <geliang@kernel.org>, Mat Martineau <martineau@kernel.org>
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260908-mptcp-sk-err-net-v1-1-da71aaec9afd@proton.me>
+From: Matthieu Baerts <matttbe@kernel.org>
+Autocrypt: addr=matttbe@kernel.org; keydata=
+ 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
+ lzVbFe7fduHbABmYz9cefQpO7wDE/Q==
+Organization: NGI0 Core
+In-Reply-To: <20260908-mptcp-sk-err-net-v1-1-da71aaec9afd@proton.me>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-From: Mohammad Shahid <mdshahid03@gmail.com>
+Hi Quanye,
 
-Use devm_iio_device_register() to automatically unregister the IIO
-device when the device is detached.
+Thank you for this patch.
 
-This removes the manual iio_device_unregister() call and makes the
-iproc_adc_remove() callback unnecessary.
+On 08/09/2026 04:59, Quanye Yang via B4 Relay wrote:
+> From: Quanye Yang <quanyeyang@proton.me>
+> 
+> BUG: KCSAN: data-race in do_recvmmsg / mptcp_recvmsg
+> 
+> read-write (marked) to 0xffff8880134d391c of 4 bytes by task 2619 on cpu 1:
+>  instrument_atomic_read_write include/linux/instrumented.h:113 [inline]
+>  sock_error include/net/sock.h:2565 [inline]
+>  do_recvmmsg+0x50c/0x580 net/socket.c:3049
+>  __sys_recvmmsg net/socket.c:3144 [inline]
+>  __do_sys_recvmmsg net/socket.c:3167 [inline]
+>  __se_sys_recvmmsg net/socket.c:3160 [inline]
+>  __x64_sys_recvmmsg+0x161/0x180 net/socket.c:3160
+>  x64_sys_call+0x19c7/0x1ca0 arch/x86/include/generated/asm/syscalls_64.h:300
+>  do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+>  do_syscall_64+0xde/0x3d0 arch/x86/entry/syscall_64.c:84
+>  entry_SYSCALL_64_after_hwframe+0x77/0x7f
+> 
+> read to 0xffff8880134d391c of 4 bytes by task 2620 on cpu 0:
+>  tcp_recv_should_stop include/net/tcp.h:3086 [inline]
+>  mptcp_recvmsg+0x54d/0xd50 net/mptcp/protocol.c:2466
+>  inet_recvmsg+0x204/0x210 net/ipv4/af_inet.c:894
+>  sock_recvmsg_nosec net/socket.c:1151 [inline]
+>  sock_recvmsg+0x11a/0x140 net/socket.c:1173
+>  ____sys_recvmsg+0x14b/0x3c0 net/socket.c:2933
+>  ___sys_recvmsg+0x116/0x160 net/socket.c:2975
+>  __sys_recvmsg net/socket.c:3008 [inline]
+>  __do_sys_recvmsg net/socket.c:3014 [inline]
+>  __se_sys_recvmsg net/socket.c:3011 [inline]
+>  __x64_sys_recvmsg+0xeb/0x160 net/socket.c:3011
+>  x64_sys_call+0x1319/0x1ca0 arch/x86/include/generated/asm/syscalls_64.h:48
+>  do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+>  do_syscall_64+0xde/0x3d0 arch/x86/entry/syscall_64.c:84
+>  entry_SYSCALL_64_after_hwframe+0x77/0x7f
+> 
+> value changed: 0x0000006b -> 0x00000000
+> 
+> Reported by Kernel Concurrency Sanitizer on:
+> CPU: 0 UID: 0 PID: 2620 Comm: syz.2.33 Not tainted 7.2.0-g39d4f32c5d53 #76 PREEMPT(full)
+> Hardware name: QEMU Ubuntu 26.04 PC (i440FX + PIIX, 1996), BIOS 1.17.0-debian-1.17.0-1ubuntu1 04/01/2014
 
-Signed-off-by: Mohammad Shahid <mdshahid03@gmail.com>
----
- drivers/iio/adc/bcm_iproc_adc.c | 15 +--------------
- 1 file changed, 1 insertion(+), 14 deletions(-)
+Just to avoid some confusions, this has been reported by MPTCP syzkaller
+instances, not by Syzbot. So just not to have people trying to get more
+details on the wrong website:
 
-diff --git a/drivers/iio/adc/bcm_iproc_adc.c b/drivers/iio/adc/bcm_iproc_adc.c
-index 9881a3104c26..ca81e0edd24d 100644
---- a/drivers/iio/adc/bcm_iproc_adc.c
-+++ b/drivers/iio/adc/bcm_iproc_adc.c
-@@ -523,7 +523,6 @@ static int iproc_adc_probe(struct platform_device *pdev)
- 		return -ENOMEM;
- 
- 	adc_priv = iio_priv(indio_dev);
--	platform_set_drvdata(pdev, indio_dev);
- 
- 	ret = devm_mutex_init(dev, &adc_priv->mutex);
- 	if (ret)
-@@ -571,18 +570,7 @@ static int iproc_adc_probe(struct platform_device *pdev)
- 	indio_dev->channels = iproc_adc_iio_channels;
- 	indio_dev->num_channels = ARRAY_SIZE(iproc_adc_iio_channels);
- 
--	ret = iio_device_register(indio_dev);
--	if (ret)
--		return dev_err_probe(dev, ret, "iio_device_register failed\n");
--
--	return 0;
--}
--
--static void iproc_adc_remove(struct platform_device *pdev)
--{
--	struct iio_dev *indio_dev = platform_get_drvdata(pdev);
--
--	iio_device_unregister(indio_dev);
-+	return devm_iio_device_register(dev, indio_dev);
- }
- 
- static const struct of_device_id iproc_adc_of_match[] = {
-@@ -593,7 +581,6 @@ MODULE_DEVICE_TABLE(of, iproc_adc_of_match);
- 
- static struct platform_driver iproc_adc_driver = {
- 	.probe = iproc_adc_probe,
--	.remove = iproc_adc_remove,
- 	.driver = {
- 		.name = "iproc-static-adc",
- 		.of_match_table = iproc_adc_of_match,
+Reported-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
+Closes: https://github.com/multipath-tcp/mptcp_net-next/issues/632
+
+Cheers,
+Matt
 -- 
-2.43.0
+Sponsored by the NGI0 Core fund.
 
