@@ -1,74 +1,63 @@
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DDB14E3762
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 12:05:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E3245335A7;
+	Tue,  8 Sep 2026 12:05:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788869127; cv=none; b=AIHNYSYu10yQIF/9kPZv4rR0P5DdmdXZJtAiwnlaRRRqT7m7BUvAMErfqtTosttqaBpQtBa/jqHhCyaCzseP4UX/qkgi9OQp/aGmPuOcTozQHpbP9lBKt2Xq/YZUVbFpS277OP4F4uL5owN8AssuFkzJa2t50jMaX/B1bFnFGCQ=
+	t=1788869130; cv=none; b=VAd6w7nCAkzKeFgci0YrkrKgZJzAZZSoskI+qSI0ind/LHJ5OrZss/IqfkkrUMWgu4g/69yTkTwTmNlJDzwrb7GIbzGNlP3FKPDQp9qLVHcnP+XK0pRLU6aNw6VaBAu58mH26Xd7Em1tE1+WIDq10nSZ+7M7T1cjewD4pfHa0AI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788869127; c=relaxed/simple;
-	bh=DE3utOlU8enhMCeMv0x5ACam0SDsoyX2DVF3FJK632E=;
+	s=arc-20240116; t=1788869130; c=relaxed/simple;
+	bh=DUBZyFChKXUcT9DUKLwE2m1oiUU1CB9FzxjTJVf1Mds=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Ks3yrF8vUZVDzv473K/8OSVjaFTC/tm4xv0IFZ6lKcstmFUGQkoxx4/JyJzWIt5xYHMcEe882kdnyyzH8hx8nA+0xTeD3jkuVEXWkTdNQzW1OGD2ckXnCAGx0Vs33QsK4bWtUEUX5CSlk9qqsVsC7ci9OLwNFsySCQPQxinmbvU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=FxN0WXFC; arc=none smtp.client-ip=209.85.128.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=IER/h1Oj14ALTNaCpnTje1aYByDJ7qsSPncTCzc6zTApNw+IfLbX7GHC5jxQoKmlVCUKO2NNzw7faxau2qUzLzp/SCIPh10t6PbuPJY/EtE/wpveqzLgKAie5rTs+N+PVt8SW+q08UqUKYdVLpgSUqJZ5sN5ISw6DVEQtnVBFfk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=kcyfGyd4; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="FxN0WXFC"
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-49b0d78a801so45755915e9.2
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 05:05:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1788869121; x=1789473921; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=C6gMrsDr3O2AhrIFNyV2FMFs0i+sTtOGoTHAK2qARBk=;
-        b=FxN0WXFCprc50AAoJfy5Pxuriv7kLYeFFBdAkQ02Mq+hXkF+CSjuuwylieA5OEdB7x
-         nDoL+FAn5lZs1eY4HVrDYtNxCsTReS9XzHMvJuL69HXfuomrkuXvByFrt9OrJ9HyGRIx
-         mXFi/21mamLpAFYtov299YsxQ6Q0vAnD5UTpaYcUGiERaqjxksFSCi7SdaMvlLJk6D+0
-         kl2Aka8Z8GgLSvpZauEwQXzOu47X+KKWfYQSxFq1l3BtTud6X54KWB+ufEhaMMKaNbul
-         fIc4rhDbvNAvqWxN+dPHrBmldx0Ye2GHe6oPnMnbNuF9FN9fdMBJrbcabgRiLS8NCEe9
-         AS8A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788869121; x=1789473921;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=C6gMrsDr3O2AhrIFNyV2FMFs0i+sTtOGoTHAK2qARBk=;
-        b=phQJLGE3UsiMoKJzlbYb0hjwcpgQAGcnpkkIuh60DW3c6bU9BnCRjEXBTLUL5x9sV3
-         rhQNeiTIcNuSoFnQu6jm0TRIwDVgZCtpeIGJ8lHk/iM3kYG0DvT2ZyGyx4ddY1z+Wq3u
-         2TO/3OeVwI2UNltAARXrp1Kuap5hL5JbCEIMpFKXhW8qvPVVkxyFEhVjb7eO1jjsu4iF
-         +W1IF5rEhgMlrB+gJ9si1wflrhYZe4esOkHI2KW1MReUDlQSySOA3SB6BOhQB/A5nQlB
-         nNTlh7E6dpmFcueiK+8JqK2UsmGwVd5esL6OWbTAar+g4epQe/N8Tmw1n51982DhHFNK
-         /svA==
-X-Forwarded-Encrypted: i=1; AKwUvBw2IhVNkwnjI6TpZuClhOWGHIFpTWzbMYaJ+edVf+ZJ10GzipXSH2OcajOKLVb4ha3IvDK4Lz6cnAaPQqo=@vger.kernel.org
-X-Gm-Message-State: AFuF++nqT3YyrnS5kyVBcFT33yKpwlWo4p9yjbOOXb45NLYKa4j8vd72
-	+YfpkE111Xz86S6loc0Jkf8A4RjuDGVR73/xtdcsaUEVflLUKnctOMPFhi8PTiTDsm4=
-X-Gm-Gg: AYBFou1+MYHAxU8SXM43sNplfxgi/JcozLJqx05biTqFs1MFVgFVvVDVKEHLVknDFoz
-	7Ir6yX0yzh23GWBdGdkCTMLxuY+MqQWxocYHyG6GpKTz94xwrrJAf08EArYk0N4QombYFfRk1Q6
-	3hLapFSDrC2GO+/xwlikXTqboOtSynAr4cAJB2qAJXtOtftuh+3ak8VPTsEMq/UbfER4EmVjJER
-	7vxtAaMke2yUsfqyIb63BNz23V8oyxif5tv874qiLcr2zgAxHO510Vf5qFhDQmeyDpHYAL162dt
-	QkBf06R0H3K1+eA0U7ef+u5hqzccEvPU3TlDfdkMXygmVTcCyNK4I3sKxH00qLeh54WaYyQmktp
-	fJ1ZQRg9daeJcf6di0UxDVfGE8WCVsBxYF+zodODs2MabcrqhedMMRLeSD+vBUqdwlPXeGLl3Yv
-	Lvx9dgVWUOIXyG7keNnkPvP5pFH1VDrc/+7y9DKuQ20yS8OiVfVAc=
-X-Received: by 2002:a05:600d:4444:20b0:49c:fc6c:be0a with SMTP id 5b1f17b1804b1-49cfc6cc001mr188498935e9.33.1788869120745;
-        Tue, 08 Sep 2026 05:05:20 -0700 (PDT)
-Received: from pathway ([176.114.240.130])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cf755c22esm390140355e9.0.2026.09.08.05.05.18
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 08 Sep 2026 05:05:19 -0700 (PDT)
-Date: Tue, 8 Sep 2026 14:05:17 +0200
-From: Petr Mladek <pmladek@suse.com>
-To: Harry Hsu <x90613@gmail.com>, jpoimboe@kernel.org, mbenes@suse.cz,
-	joe.lawrence@redhat.com
-Cc: jikos@kernel.org, live-patching@vger.kernel.org, shuah@kernel.org,
-	song@kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/5] livepatch: Fail object initialization on duplicate
- patched function
-Message-ID: <ap_5_Qh3h_6YN8PE@pathway>
-References: <20260908120149.299352-1-pmladek@suse.com>
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="kcyfGyd4"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=+jN0CNGpu++wz2OfmG24unVE3E/eSCf8Ige67pFhPRQ=; b=kcyfGyd4ICgVZ6ZnWgMnZy1xZy
+	bAeUh6YAcYwtOhIFyrnHUaUCx/GfbEeLINs4dYI1r3PV4T3pGz5j+NXTJzYSwbFN0SM5umxz0Vz8S
+	nxYlgvQwf6NeEfleHhjjmomgAWWltSsAznr3shmYd8/HLDm/L1/N1o69aYuFM3SYZxg8=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1x3uZ7-003sY9-UJ; Tue, 08 Sep 2026 14:04:41 +0200
+Date: Tue, 8 Sep 2026 14:04:41 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Ratheesh Kannoth <rkannoth@marvell.com>
+Cc: Hemanth Selam <hemanth.selam@gmail.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	Bharat Bhushan <bbhushan2@marvell.com>,
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+	Chris Snook <chris.snook@gmail.com>,
+	Eric Dumazet <edumazet@google.com>,
+	Florian Fainelli <florian.fainelli@broadcom.com>,
+	GR-Linux-NIC-Dev@marvell.com, Geetha sowjanya <gakula@marvell.com>,
+	Jakub Kicinski <kuba@kernel.org>, Jian Shen <shenjian15@huawei.com>,
+	Jijie Shao <shaojijie@huawei.com>,
+	Manish Chopra <manishc@marvell.com>,
+	Marcin Wojtas <marcin.s.wojtas@gmail.com>,
+	Paolo Abeni <pabeni@redhat.com>, Rahul Verma <rahulv@marvell.com>,
+	Russell King <linux@armlinux.org.uk>,
+	Shahed Shaikh <shshaikh@marvell.com>, Shuah Khan <shuah@kernel.org>,
+	Simon Horman <horms@kernel.org>,
+	Subbaraya Sundeep <sbhatta@marvell.com>,
+	Sudarsana Kalluru <skalluru@marvell.com>,
+	Sunil Goutham <sgoutham@marvell.com>,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org, linux-parisc@vger.kernel.org,
+	netdev@vger.kernel.org
+Subject: Re: [PATCH net-next v3 07/10] net: marvell: fix typos in comments
+Message-ID: <326477d4-a04e-4797-93f1-831bfb91ccb4@lunn.ch>
+References: <20260908052602.27497-1-hemanth.selam@gmail.com>
+ <20260908052602.27497-8-hemanth.selam@gmail.com>
+ <ap-elz1ObdxcutDv@rkannoth-OptiPlex-7090>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -77,61 +66,26 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260908120149.299352-1-pmladek@suse.com>
+In-Reply-To: <ap-elz1ObdxcutDv@rkannoth-OptiPlex-7090>
 
-Hi there,
+On Tue, Sep 08, 2026 at 11:05:19AM +0530, Ratheesh Kannoth wrote:
+> On 2026-09-08 at 10:55:59, Hemanth Selam (hemanth.selam@gmail.com) wrote:
+> > Fix misspellings in comments, found with scripts/checkpatch.pl using
+> > the misspelling list in scripts/spelling.txt.  Comments only, no code
+> > changes.
+> >
+> 
+> For below files
+> 
+> >  drivers/net/ethernet/marvell/octeontx2/af/npc.h         | 4 ++--
+> >  drivers/net/ethernet/marvell/octeontx2/af/rvu_nix.c     | 2 +-
+> >  drivers/net/ethernet/marvell/octeontx2/nic/cn10k.c      | 2 +-
+> >  drivers/net/ethernet/marvell/octeontx2/nic/otx2_dcbnl.c | 2 +-
+> 
+> Reviewed-by: Ratheesh Kannoth <rkannoth@marvell.com>
 
-please, ignore this mail. I am re-sending the series with v4 in the
-subject. I am sorry for rumor.
+For the rest of them:
 
-Best Regards,
-Petr
+Reviewed-by: Andrew Lunn <andrew@lunn.ch>
 
-On Tue 2026-09-08 14:01:44, Petr Mladek wrote:
-> This is v4 of the patch failing object initialization when it patches
-> the same underlying function twice through two aliased symbols
-> (functions sharing one address) in the same object.
-> 
-> Changes against [v3]:
-> 
->   + Add selftest for livepatching aliased symbols [Song, Harry]
-> 
->   + Only partially revert relocations when failing inside
->     klp_apply_object_relocs() [Sashiko]
-> 
->   + Cleanup changes made by klp_init_object_loaded() for failing
->     patch on another failures in klp_module_coming() [Sashiko]
-> 
-> Changes against [v2]:
-> 
->   + Clarify comments and the commit message [Miroslav]
-> 
->   + Cleanup when klp_init_object_loaded() fails [Sashiko]
-> 
-> 
-> [v2] https://lore.kernel.org/r/20260823060734.58443-1-x90613@gmail.com
-> [v3] https://lore.kernel.org/r/20260830173343.52759-1-x90613@gmail.com
-> 
-> 
-> Harry Hsu (2):
->   livepatch: Fail object initialization on duplicate patched function
->   selftests/livepatch: Test rejection of aliased symbols in one object
-> 
-> Petr Mladek (3):
->   livepatch: Move code for updating livepatch object relocations
->   livepatch: Clear relocations when klp_apply_object_relocs() fails
->   livepatch: Clean up klp_init_object_loaded() when fails
-> 
->  kernel/livepatch/core.c                       | 137 ++++++++++++------
->  tools/testing/selftests/livepatch/Makefile    |   3 +-
->  .../testing/selftests/livepatch/test-alias.sh |  81 +++++++++++
->  .../selftests/livepatch/test_modules/Makefile |   4 +-
->  .../test_modules/test_klp_alias_patch.c       |  62 ++++++++
->  .../test_modules/test_klp_alias_target.c      |  48 ++++++
->  6 files changed, 285 insertions(+), 50 deletions(-)
->  create mode 100755 tools/testing/selftests/livepatch/test-alias.sh
->  create mode 100644 tools/testing/selftests/livepatch/test_modules/test_klp_alias_patch.c
->  create mode 100644 tools/testing/selftests/livepatch/test_modules/test_klp_alias_target.c
-> 
-> -- 
-> 2.55.0
+    Andrew
