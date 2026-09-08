@@ -1,121 +1,90 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACEF6339382
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 17:32:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4538357C72A;
+	Tue,  8 Sep 2026 17:33:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788888729; cv=none; b=Nxgccbzf3/ZIwz1I8ALve+4zfGoxGnqTpaRXv/81EidtA57RSjn/1mWkQyskFd9lWHSAuoDyzEg6vHvzbzMAY00SDdy/QOZEzlsL6oeNAoPPBvRUlgOTsCPdSDeDgVSsLEoR21xA99CFYpADbNRZoIDriOLU5C+vQ+bp10zPnH4=
+	t=1788888809; cv=none; b=AdSPLKIhfqyHozERdbp8SvFkwb9W+82YMBa2mM1rOHrXNvEHMEkCOYPg/sAnTaFuKNhdLZqcQYpjhGOvMlA+sEJRMzBOQ64sQs0EMORWC/tfR45yCGf14bs/dR8Vr+TMG70PaHjuGSvSH2Dzw/d19c/rwcdZ59DTMTA1j/o/9W8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788888729; c=relaxed/simple;
-	bh=6JIlt6oRgX4aHn0hVogF9w/JbTbSr9xxJ3EQWLN9Xyw=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=X0M7F+plniQveMqF+DgLuUusHTrAuoFe4rXpGPxD+U1MCH4FgP6OTYNcF6rP8wnKuu7HcszAZL3OUiDAHlUNRgHDqft7Q0wKj9IETLf8g1D75Ms/O6z8AEqwiQ+tBkkXOUt8tqPfffCy8yCYfDmM+t2YU/kTx510epjk6ToXmfU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=iK6w6z2j; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1788888809; c=relaxed/simple;
+	bh=riLQM3jCIOgbEO5KBT4ODeM6PgUKNGMntzBwTchICro=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=t5hgsZM62hdMbd6xC0nPOZeTvvudONAdyL52YMfzqGzadhtIgwPZjM7/uGzpLmBetK7nEX8t6H33kvkXDNi1Sxy/HtfKtBv8ehZSU8ys4lGhwNKgUMwKCEYoCNPmJVipjjvvqPRB4ItPpQQ1HGgcfq5aX4BPSwGpT2idTbDaINg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PXmxoRyR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="iK6w6z2j"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1788888726;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=4WtaTTgBItQ8IiXr6AeflHG0tfmvAFO+w6dYKY9XneI=;
-	b=iK6w6z2j91xSbQ/0sCyFNrnClNgE4mxMM/GlYtpxBOGWJM7BQhT6dbNBKQtjrPHJMqdgvf
-	RFQoeXQq4xSPKaogk7OV3b8Ss4U5MPNeNrZya6VKD4j3H4/uZHktKM9SUyqcb1giL5R0iK
-	WuQADr1CMoDxvtvG3Mecjh6RZgXHv94=
-Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-636-YsE4fdhvOGibw2HS6bTNYw-1; Tue,
- 08 Sep 2026 13:32:03 -0400
-X-MC-Unique: YsE4fdhvOGibw2HS6bTNYw-1
-X-Mimecast-MFC-AGG-ID: YsE4fdhvOGibw2HS6bTNYw_1788888719
-Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id C15A31954117;
-	Tue,  8 Sep 2026 17:31:58 +0000 (UTC)
-Received: from fweimer-oldenburg.csb.redhat.com (headnet03.pony-001.prod.iad2.dc.redhat.com [10.2.32.114])
-	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 54AE91800346;
-	Tue,  8 Sep 2026 17:31:53 +0000 (UTC)
-From: Florian Weimer <fweimer@redhat.com>
-To: Olivier Dion <odion@efficios.com>
-Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,  Peter Zijlstra
- <peterz@infradead.org>,  "Paul E. McKenney" <paulmck@kernel.org>,  Boqun
- Feng <boqun@kernel.org>,  LKML <linux-kernel@vger.kernel.org>,  Thomas
- Gleixner <tglx@kernel.org>,  Dmitry Vyukov <dvyukov@google.com>,  David
- Matlack <dmatlack@google.com>,  Marco Elver <elver@google.com>,  Sean
- Christopherson <seanjc@google.com>,  Wei Liu <wei.liu@kernel.org>,
-  Mathias Stearn <mathias@mongodb.com>,  Chris Kennelly
- <ckennelly@google.com>,  Blake Oler <blake.oler@mongodb.com>,  Rich Felker
- <dalias@libc.org>,  Matthew Wilcox <willy@infradead.org>,  Greg
- Kroah-Hartman <gregkh@linuxfoundation.org>,  Carlos O'Donell
- <codonell@redhat.com>
-Subject: Re: [RFC PATCH 1/5] rseq: uapi: add rseq operation definitions
-In-Reply-To: <874ifzwx3e.fsf@laura> (Olivier Dion's message of "Tue, 08 Sep
-	2026 12:01:57 -0400")
-References: <20260828153349.8061-1-odion@efficios.com>
-	<20260828153349.8061-2-odion@efficios.com>
-	<lhua4q28z30.fsf@oldenburg.str.redhat.com> <874ifzwx3e.fsf@laura>
-Date: Tue, 08 Sep 2026 19:31:50 +0200
-Message-ID: <lhuy0dbd4zd.fsf@oldenburg.str.redhat.com>
-User-Agent: Gnus/5.13 (Gnus v5.13)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PXmxoRyR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 448A91F00A3A;
+	Tue,  8 Sep 2026 17:33:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788888807;
+	bh=gSEqPWuWBmJeAqSai2THiLWUXlpw8Oc1Y/w0Xu2Fv2k=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=PXmxoRyRIS4G0lsCUZSlW69zAipYeJ1iW0foLItYUp9vnnoBXRpEj0mC8waUUuWE9
+	 EH/7sZbwoyBFc+S7fwbliYn9Lit7JBN8M4E3Xx7jtx1edRjeV2QTWcSOdjbpV3ijhJ
+	 mCa6rkk60LPKoF2q0Lp6u8uONLS/E+HpYXT55SHjs7+u8mSXVKQ7hui9em05NTgru6
+	 bSTJBLkGfGPXGUs4I6IbvEYtOAaWUs/xHScXU7bmmuv0xG095ERRHPVF/kp24E3Swv
+	 jrjnwz10S5GenAGAnQGhmE0Ha30OLTq6amUYl13aqToRJB+POefMu5klqlmKILOhoG
+	 XK3309awkivng==
+Date: Tue, 8 Sep 2026 10:33:26 -0700
+From: Jakub Kicinski <kuba@kernel.org>
+To: "Daniel Zahka" <daniel.zahka@gmail.com>
+Cc: <patchwork-bot+netdevbpf@kernel.org>, <willemdebruijn.kernel@gmail.com>,
+ <davem@davemloft.net>, <edumazet@google.com>, <pabeni@redhat.com>,
+ <horms@kernel.org>, <andrew+netdev@lunn.ch>, <netdev@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH net-next 0/4] psp: make tx key ops optional for drivers
+Message-ID: <20260908103326.7b240216@kernel.org>
+In-Reply-To: <DL9ZTV87UI2A.2QIEPTDS2ROKA@gmail.com>
+References: <20260903-psp-prep-v1-0-d47e9c4c375d@gmail.com>
+	<178882561539.3212362.10949911837502586488.git-patchwork-notify@kernel.org>
+	<DL9ZTV87UI2A.2QIEPTDS2ROKA@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-* Olivier Dion:
-
->> Would it be possible to use actual CPU instructions running in userspace
->> for this?  I assume not because it's not possible to restore the
->> register contents.
+On Tue, 08 Sep 2026 10:09:56 -0400 Daniel Zahka wrote:
+> On Mon Sep 7, 2026 at 8:00 PM EDT, patchwork-bot+netdevbpf wrote:
+> > On Thu, 03 Sep 2026 18:33:58 -0700 you wrote:  
+> >> This is the first of two series which together implement rekeying PSP
+> >> protected tcp connections. Here are both series together on github:
+> >> https://github.com/danieldzahka/linux/commits/psp-rekey-split/
+> >> 
+> >> This first series is mostly non-functional changes, except for the minor
+> >> difference that netdevsim driver implements tx key ops. Its tx key ops
+> >> were basically NOPs, and in the future PSP core can subsume the assoc
+> >> counting that it was doing.
 >
-> Well I had in mind another solution, albeit some might find it ugly but
-> I think it does have the merit to be explored.
->
-> Basically, instead of doing all the operations in the kernel, we could
-> setup something akin to a signal handler by pushing a frame on the
-> userspace stack and resuming the execution of the thread into that
-> "handler".  Userspace is now responsible of everything, including
-> returning to the original IP.
+> Thanks. I think applying was the right move, but I would like to
+> highlight something that sashiko flagged on patch 4, as I think it will
+> need to be addressed with its own series. The hazard is preexisting and
+> much broader than the way sashiko talks about it. 
 
-On mere context switch (not signal delivery), I don't think the kernel
-assumes that there is a valid stack pointer.  These scheme would change
-that.  This would be fine for managed code, but this scheme has to work
-with arbitrary code that reassigns registers temporarily.
+Ugh, yes, the complaint was sort of besides the point so Clashiko
+has dropped it. But the problem behind it is real.
 
-(We had a longjmp on POWER for a while that corrupted the stack pointer
-temporarily, and that was visible only upon signal delivery, not regular
-context switch.)
+> The high level idea is that netdev core should probably take extra care
+> to make sure users of sk_validate_xmit_skb (psp and ktls) cannot clobber
+> what each other has set for that callback. In the case of psp vs. ktls,
+> there are probably fundamental reasons why these should be kept mutually
+> exclusive and their uapis should reject attempts to transition between
+> them.
+> 
+> More generally however, any offloads wishing to claim
+> sk_validate_xmit_skb should be considered mutually exclusive, and netdev
+> core may benefit from a generic system to enforce ownership. That would
+> help in case another user of sk_validate_xmit_skb comes along later.
 
-> For example, there is a CPU-stride variant of the reset operation.  I
-> dabble with this operation to cache a TLS that is global-dynamic into a
-> per-cpu cache.  Thus, making a TLS global-dynamic access as fast as a
-> TLS initial-exec.
+There could also be confusion about the meaning of the decrypted bit in
+the skb. Off the top of my head Rx TLS is shared between offload and
+non-offload so SW TLS Rx ingesting a PSP packet may think that it was
+TLS decrypted today. We should reject any TLS+PSP, not just
+validate_xmit.
 
-I don't think this can work?  The problem with global-dynamic TLS is
-that it can't be a single memory block (it may have to grow).  Even
-if the access path changes, we can't relocate the memory because
-TLS objects must live in the linear address space.
-
-We can do away with the current complicated scheme in glibc and use an
-array of arrays, where the inner arrays follow an exponential growth
-policy (for size and alignment).  That would still have dependent loads,
-but would be quite a bit faster than our current global-dynamic scheme.
-
-  New TLS allocator for glibc
-  <https://conf.gnu-tools-cauldron.org/opo25/talk/LQTU3G/>
-
-(Sadly still not implemented.)
-
-Thanks,
-Florian
-
+Both setup paths are under socket lock so it's a relatively
+straightforward fix? 
