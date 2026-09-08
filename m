@@ -1,204 +1,129 @@
-Received: from mail-vs1-f42.google.com (mail-vs1-f42.google.com [209.85.217.42])
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CA31156661
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 12:03:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.217.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3824F4FC8D3
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 12:03:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788868989; cv=none; b=SBEr9sLyvliMlLKunxYwt02h4r6LjRoTDqsOCjLDKfIPUK/m12gOkdV1L6GTY0W6+7qLc/iF55zTuPYMsmGwDKpb0TyFHekKXC1sx6PmJqRNq2XJ1nNzlHa/f9WYrl3rg+qGwhDNYO7MulvHAryiCCuaBuZL6QwSfeLbKT6e08w=
+	t=1788869020; cv=none; b=l538aiz+6fugeeM+hIPnxJ4dVhNMe1i7m7HPJC9q0/uLeAsyiryf+W9jqxX9cNj0SovTqS8tvCnCOZltIsjWUTigdJZ+pylPY5XOVgY0yTcvPUnsd4bHR5hgn1BIaEsXwWqwI6l+4QwObVceGQSCC5AToGihDzqcP70BTD9hLFs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788868989; c=relaxed/simple;
-	bh=1KjGT4jEmlgZm57thkTt2U42w8uocIKFVbOmxzSyT6E=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=j/0gIfAT1Sjuk9rbzYHCGydQyLItssuICfeFQtMlunUC4WjX9uKDig1vcS00+243KnpRQ7oNzVZqx7euorG+BW6LrVLp6Vpv8fIe2XN3kSkGBjR+0BiLirD+vLqsFOQlViyHvL2KdJW2uF95fRUM7B6UcFJH8kgX6LnGCSeK9qI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.217.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-vs1-f42.google.com with SMTP id ada2fe7eead31-7466771f1caso1403006137.0
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 05:03:06 -0700 (PDT)
+	s=arc-20240116; t=1788869020; c=relaxed/simple;
+	bh=+ea3yYnkWvkYggstAtARXqN3w6KyrKQX3QazvOPZjRQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=I2CD2XS8bx/7R8LLEK5XTdCvOyL7/qC48j4kRRJKRm2tMPVqfHi3ECGviVaVk7nM2vq8Ksh2PwVOS959yh9H4AgZ2NANHBi0tyvyLB2W1ZJ3l0mBCY4UimwJi6fReK7CPTm+C8JdM5IoWkGAlubwLB+QXVQNFpOlGrmtng1oEp4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=NXGWoYsh; arc=none smtp.client-ip=209.85.128.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="NXGWoYsh"
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-49b0d78a801so45734185e9.2
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 05:03:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1788869015; x=1789473815; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=487eRbWP9lyEU/S8kmCpSA9mRITwOfBc17qyoaa0o10=;
+        b=NXGWoYsh+I7RR8u52Hc0QMYO0PZPvZLYmyTNkLrQu15Cyult60KzvTgXyMDtwCPNFI
+         BkS+OH10pWUxW7tGFVL/dNMYVjAsB0kd/48sJz4H7GnZD46PyubPQ8oxrL3MhkyoCap4
+         mLmCKpik4D0Jz9M7Q94a84HzdtTEoPgnzEOmiTJxDQ52iSZAJV0K42767BsyT1M+AEcW
+         ebB7n42uoMqlUSeH7lmsY5MY4LAHZMpoToj5MvDNd2A12u92tKP2THTQfElbXKRpbeup
+         MAg1wOI9D2lhB9yhsV4rjktZS+WPk/IkH13vkurml/U1e2oYxq/FQKijKzG4/P9u7T/2
+         jbEA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788868984; x=1789473784;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=2ewf6TAC6datJbrIguz8TlCYfKFGg/5aYhxsRPBSYo4=;
-        b=jKRqF7xPksBWLQLlxHS3MMpeogQ2QVmmDg9azEMnkikvYAgsu7C3zlwXx3febXbnui
-         N3QsmPVy1ZDrlakPgzn4IoxYfuzyaXqPj5mfMwkoGH2W6OPDikaLmtzB4CkHHwkAg5/e
-         A8aWt0TYlyqgjK43MDuJc2cJ8fP0rSCNg1N2pLMw9X0rcIujwJ7/ETBIjGX9E2GOgqtR
-         h+kG6NzzN6+UgTdGu2lNxjwF61tIhV0S2oeB1nlMsY5HAZq8DfYG3LuwBLduEnvUqlNG
-         Uv1kj8dSbJMEl0tB9AZWZ1ZbebwAwgmcXJXoFHxcZZY/B36wP7h/OYXReIFqT4Foy7BR
-         0yQw==
-X-Forwarded-Encrypted: i=1; AKwUvBx2oU/gM+ZZUx5AiRNbKlZUaF+QVqqAMQYRq86rw5fKZ/XHwAh1dX/iD8mQYsKmEaNc+0OB2xn+Qci6RCE=@vger.kernel.org
-X-Gm-Message-State: AFuF++m8QzrTbf8E1vOL99ny9P+rOX2BHbokL/VrUB3v4qddTFcjc9MY
-	5fvwplW430G1b4jXS7tVZ8RgznRcqAtnR1/3IkHjBugmOJ9Tt43sUswfQbsyfqPr
-X-Gm-Gg: AYBFou1u4sOCos7Zjy4cpYBItD4XzFfN5wUOFjchxezN+58AcUNvVuci5i1tj0TgJBD
-	hcsAOW1iZu0cY4K27Phxk8+PQJoa27g0d4BhX8SfYDL3SvlpigbeG/CF0l5cCbdWajzgdLAxfOl
-	LER7+v6VtKCQYQg74bZX0o+wT1laoGkhFtbVbse9Ymy+2vX5f0rKJp740iAJ2WUJBQRvQPCXSTm
-	9lvOwVtYbtyL2/zjzA6zwdqM02D0yT/Z8oXADGgNXvAi5dqZRkdmq1kyQ9r5ijh0nnr2FVAumF+
-	qd2vRrcT8BquTvUlKUiy5BoLXZ9xJX8pq8IzAF0lN8jo+fW54qxL9dWr9NkabSUf0dMTQZG2bNj
-	eDjBvHDnf3jXrDGxfIAIA3HxgMkeNO72iOM+RC2Mz2babWG4fA2Vaj6pIMsoKEfqzrMnQ7yhbfp
-	CfQE49mKCGaZCMRXF5nl2B0A3eWQ4OBcOMDZmhlSdcDTEpPm5lXVz2fLOnlBF4T6od4vmfUZ4W6
-	2Oh5X4QmIraFTTvrMvWqine7LCfBg==
-X-Received: by 2002:a05:6102:554a:b0:785:c39b:6a1 with SMTP id ada2fe7eead31-78a4a8bb304mr9960997137.6.1788868983985;
-        Tue, 08 Sep 2026 05:03:03 -0700 (PDT)
-Received: from mail-vk1-f178.google.com (mail-vk1-f178.google.com. [209.85.221.178])
-        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-78a478ad217sm8307744137.2.2026.09.08.05.03.03
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 08 Sep 2026 05:03:03 -0700 (PDT)
-Received: by mail-vk1-f178.google.com with SMTP id 71dfb90a1353d-5c6559620e3so1915252e0c.1
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 05:03:03 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBy1VZfZsw9qiq5z06e61ICJZoK3KtBSLXlMR8rHITvgZUpokGVcI5RD+UJ8k6bmkaC/ScjzJmgRga0v/0A=@vger.kernel.org
-X-Received: by 2002:a05:6122:2187:b0:5c1:25d4:e29c with SMTP id
- 71dfb90a1353d-5c7ed0b2b83mr13290597e0c.0.1788868982949; Tue, 08 Sep 2026
- 05:03:02 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1788869015; x=1789473815;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=487eRbWP9lyEU/S8kmCpSA9mRITwOfBc17qyoaa0o10=;
+        b=NFdEYvRDXghgdc0lW2Gj4ZQfUg3Nrx+1HMwXP4BxgDpwPvIqXQ5mBaCp0o1R7UCKLA
+         OJHGoAa2+VveOsmRDdS2dFhvencBF0Soojbs5EbOi14qhQuy0m5V6gN8FB7MiQsGJxUE
+         WdCGRGpFb3jxdAw42QKy3xXceqDsY9dRDO8pTcXuJSM0ID5R89xNmDrA6KmPiLlWuvwA
+         9F7mdAEyP5kTxCD4MfSexquMjTlhQ5NxDXvw106lIj4t53/RRAlIIUy4GtztrJ68y33c
+         MX0xbhftSaiZvPV0n/DsNY8PcS1xQepUdLhgdbZYrTLdOWg5DcxahnKO9NbpQPZfUaSc
+         5cjw==
+X-Forwarded-Encrypted: i=1; AKwUvBwjEkBCf6Bngamn3GtM/7O+0Dmu+evk/PwTOsQAXIoONzNs1JX5uGw7wNkVh11VQ0lbVuhvJqYY57kM3bw=@vger.kernel.org
+X-Gm-Message-State: AFuF++mN6HUzpjVpH+LZn47CXrdY2z4rKGxZ1DPdIWV+X9OMhWlIJe4k
+	C4WUvDncEvdd3RIKwQMZHqbmOmCBeqqzCWjsx5yiF6Te40CG3vWyRm+0ZQoLS3iK46s=
+X-Gm-Gg: AYBFou1Gt3aKOV1ZByf657uFeUTjc1axrH61QZz5zCNRRUmoM/a1L+qb+E+OEFQvB0M
+	+/SOXVO36R3iFOl0wbd75T5wgBSDcIcmRcSRYFTND99LB5YOf4VM8S+EA6dcmy8UocYuzKnUeB+
+	x/PEmqIIQ9HVdrbS/GDi/XwSowgn5H9p7mgILYxyHEz5KLOLkSnz5ZCcyyMK90ndYb1/ZUunM3q
+	dtbd/Pv2eda2pceUtTmsn5//P07B8aWYjd0rGX/Q8EPBgDdSW3SEOjMZpxnMTkoPsZpZ7vgW9Z/
+	o/GjryxAnFsYQbeoHySSsV0j/hhI17eUst7itxNZNB8sR7JxrGuUAYCj9oVhJY/PZkKp+9dNeBS
+	OrPAIWCh/nPpzFvkORvwtRJsMtmr0kx8P7RoA/C7aQceVtTbUGfWipqr4bUQBsCTHQhXDVwqUrT
+	6awgeOv7zBuVD2gu1KvdAcuEQ4qfgm7WkIhBDvPQ0XUGkwgcVnZX8=
+X-Received: by 2002:a05:600c:190d:b0:49d:72d:9ba3 with SMTP id 5b1f17b1804b1-49d072d9bccmr190553905e9.14.1788869014574;
+        Tue, 08 Sep 2026 05:03:34 -0700 (PDT)
+Received: from pathway ([176.114.240.130])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-485883a9234sm35538164f8f.14.2026.09.08.05.03.33
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 08 Sep 2026 05:03:33 -0700 (PDT)
+From: Petr Mladek <pmladek@suse.com>
+To: Harry Hsu <x90613@gmail.com>,
+	jpoimboe@kernel.org,
+	mbenes@suse.cz,
+	joe.lawrence@redhat.com
+Cc: jikos@kernel.org,
+	live-patching@vger.kernel.org,
+	shuah@kernel.org,
+	song@kernel.org,
+	linux-kernel@vger.kernel.org,
+	Petr Mladek <pmladek@suse.com>
+Subject: [PATCH v4 0/5] livepatch: Fail object initialization on duplicate patched function
+Date: Tue,  8 Sep 2026 14:03:20 +0200
+Message-ID: <20260908120325.299649-1-pmladek@suse.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260808025724.131943-1-marek.vasut+renesas@mailbox.org>
-In-Reply-To: <20260808025724.131943-1-marek.vasut+renesas@mailbox.org>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Tue, 8 Sep 2026 14:02:51 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdWvLX7OZSkfEBA34wKtnoZ4asB6rWFJiLa=2+=fezqsCA@mail.gmail.com>
-X-Gm-Features: AcwNN1Ut5SdzvrXN_MrghHd3UEoZOGWpEZlnNMWeOIWmWWDEytJDRzefIJak2-I
-Message-ID: <CAMuHMdWvLX7OZSkfEBA34wKtnoZ4asB6rWFJiLa=2+=fezqsCA@mail.gmail.com>
-Subject: Re: [PATCH] arm64: dts: renesas: sparrow-hawk: Add overlay for
- WaveShare 2CH CANFD HAT
-To: Marek Vasut <marek.vasut+renesas@mailbox.org>
-Cc: linux-arm-kernel@lists.infradead.org, Conor Dooley <conor+dt@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Magnus Damm <magnus.damm@gmail.com>, 
-	Rob Herring <robh@kernel.org>, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-renesas-soc@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-Hi Marek,
+This is v4 of the patch failing object initialization when it patches
+the same underlying function twice through two aliased symbols
+(functions sharing one address) in the same object.
 
-On Sat, 8 Aug 2026 at 04:57, Marek Vasut
-<marek.vasut+renesas@mailbox.org> wrote:
-> Add a DT overlay to bind the WaveShare 2-Channel Isolated CAN FD
-> Expansion HAT on the Retronix R-Car V4H Sparrow Hawk board.
->
-> Current device link is at https://www.waveshare.com/2-ch-can-fd-hat.htm
->
-> Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
+Changes against [v3]:
 
-Thanks for your patch!
+  + Add selftest for livepatching aliased symbols [Song, Harry]
 
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/renesas/r8a779g3-sparrow-hawk-ws-2ch-canfd.dtso
+  + Only partially revert relocations when failing inside
+    klp_apply_object_relocs() [Sashiko]
 
-> +&{/} {
-> +       /* Fixed clock dedicated to SPI CAN on 2-CH CAN FD HAT */
-> +       clk_can0: clk-ws-2ch-canfd0 {
-> +               compatible = "fixed-clock";
-> +               #clock-cells = <0>;
-> +               clock-frequency = <40000000>;
-> +       };
-> +
-> +       clk_can1: clk-ws-2ch-canfd1 {
-> +               compatible = "fixed-clock";
-> +               #clock-cells = <0>;
-> +               clock-frequency = <40000000>;
-> +       };
-> +
-> +       /*
-> +        * SPI_1 is operated as GPIO SPI, because MSIOF5 can not be
-> +        * muxed on the pins allocated for SPI_1 on this CANFD HAT.
-> +        */
-> +       spi-ws-2ch-canfd {      /* SPI_1 */
-> +               #address-cells = <1>;
-> +               #size-cells = <0>;
-> +               compatible = "spi-gpio";
+  + Cleanup changes made by klp_init_object_loaded() for failing
+    patch on another failures in klp_module_coming() [Sashiko]
 
-Please list the "compatible" property first (everywhere).
+Changes against [v2]:
 
-> +               sck-gpios = <&gpio0 10 0>;              /* CN7 pin 40 */
-> +               miso-gpios = <&gpio0 9 0>;              /* CN7 pin 35 */
-> +               mosi-gpios = <&gpio0 12 0>;             /* CN7 pin 38 */
-> +               cs-gpios = <&gpio2 13 GPIO_ACTIVE_LOW>; /* CN7 pin 12 */
-> +               num-chipselects = <1>;
-> +
-> +               can@0 {
-> +                       compatible = "microchip,mcp2518fd";
-> +                       clocks = <&clk_can1>;
-> +                       /* CN7 pin 18 */
-> +                       interrupts-extended = <&gpio1 25 IRQ_TYPE_EDGE_FALLING>;
+  + Clarify comments and the commit message [Miroslav]
 
-Datasheet says active low, so IRQ_TYPE_LEVEL_LOW.
+  + Cleanup when klp_init_object_loaded() fails [Sashiko]
 
-> +                       reg = <0>;
 
-Please list the "reg" property second (everywhere).
+[v2] https://lore.kernel.org/r/20260823060734.58443-1-x90613@gmail.com
+[v3] https://lore.kernel.org/r/20260830173343.52759-1-x90613@gmail.com
 
-> +                       spi-max-frequency = <20000000>;
-> +               };
-> +       };
-> +};
-> +
-> +&msiof0 {      /* SPI_0 */
-> +       #address-cells = <1>;
-> +       #size-cells = <0>;
-> +       pinctrl-0 = <&msiof0_pins>;
-> +       pinctrl-names = "default";
-> +       status = "okay";
-> +
-> +       /*
-> +        * Native MSIOF chipselect does not work with MCP2518FD
-> +        * because MCP251xFD driver needs to keep the chipselect
-> +        * line asserted between transfers. This requirement is
-> +        * fulfilled only by using GPIO chipselect.
-> +        */
-> +       cs-gpios = <&gpio1 8 GPIO_ACTIVE_LOW>;
-> +
-> +       can@0 {
-> +               compatible = "microchip,mcp2518fd";
-> +               clocks = <&clk_can0>;
 
-Please insert a comment "/* CN7 pin 22 */".
+Harry Hsu (2):
+  livepatch: Fail object initialization on duplicate patched function
+  selftests/livepatch: Test rejection of aliased symbols in one object
 
-> +               interrupts-extended = <&gpio1 26 IRQ_TYPE_EDGE_FALLING>;
+Petr Mladek (3):
+  livepatch: Move code for updating livepatch object relocations
+  livepatch: Clear relocations when klp_apply_object_relocs() fails
+  livepatch: Clean up klp_init_object_loaded() when fails
 
-IRQ_TYPE_LEVEL_LOW.
-
-> +               reg = <0>;
-> +               spi-max-frequency = <20000000>;
-> +       };
-> +};
-> +
-> +&pfc {
-> +       msiof0_pins: spi-ws-2ch-canfd0 {        /* SPI_0 */
-
-Node name should be "msiof0".
-
-> +               groups = "msiof0_clk", "msiof0_txd", "msiof0_rxd";
-> +               function = "msiof0";
-> +       };
-> +};
-> +
-> +/*
-> + * PWM1 uses PWM1_B pin configuration for pin GP2_13. This conflicts
-> + * with SPI_1 CE_1 signal which is also on pin GP2_13. Disable PWM1
-> + * in case this hat is in use.
-> + */
-> +&pwm1 {
-> +       status = "disabled";
-> +};
-
-Please move this node disabling pwm1 to the top, for compatibility
-with dynamic DT overlays.
-
-The rest LGTM.
-
-Gr{oetje,eeting}s,
-
-                        Geert
+ kernel/livepatch/core.c                       | 137 ++++++++++++------
+ tools/testing/selftests/livepatch/Makefile    |   3 +-
+ .../testing/selftests/livepatch/test-alias.sh |  81 +++++++++++
+ .../selftests/livepatch/test_modules/Makefile |   4 +-
+ .../test_modules/test_klp_alias_patch.c       |  62 ++++++++
+ .../test_modules/test_klp_alias_target.c      |  48 ++++++
+ 6 files changed, 285 insertions(+), 50 deletions(-)
+ create mode 100755 tools/testing/selftests/livepatch/test-alias.sh
+ create mode 100644 tools/testing/selftests/livepatch/test_modules/test_klp_alias_patch.c
+ create mode 100644 tools/testing/selftests/livepatch/test_modules/test_klp_alias_target.c
 
 -- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+2.55.0
 
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
