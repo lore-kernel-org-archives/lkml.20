@@ -1,62 +1,79 @@
-Received: from mail-oa1-f69.google.com (mail-oa1-f69.google.com [209.85.160.69])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 491237E0E4
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 00:30:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.69
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1EEE1E9919;
+	Tue,  8 Sep 2026 00:31:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788827457; cv=none; b=ay08KqE9MpJr48sNKr2glDaHmAy7BK24y/9vhISgsO56erFfaHYSgdeIZEXlidEFsN+Y4soaO0TZolwca7VqVSUwPWt6JOgzEJFoMWigit6Wzyd+xpmkDnSFZpHlKlo0fSpWOkeDavvIloJPApJpLLU6AIo/X/osIO8+GS1XPm8=
+	t=1788827470; cv=none; b=cueqawQcXHEwJ1gMztihiI7uB2eBZ53SvS2gxqUHqFSXShB9X45zoOsHNbIf+uCpZK69GGOifdvgxRJ1W4z1+keJdQyRprbzU086PJfV3excMjLmGeQEg0tjPc7sMSXUSANyPX1kBJkhQ+GFsKraiE4cQpFStgkfHNOQmR5zbgc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788827457; c=relaxed/simple;
-	bh=y+46E9JeT04g3AYfqqOVfFUGX60+OVDg4IVbBTkBVng=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=q+Fguv2fpf/VzpsukIXTRafclHPqhaH1SLwzjvekd5sJh56dvM7LqLeTQK/pilBBlPuVa//K9IifgyyES5fHsPX4We1XZBQcd6EUrpCUuBXdXv88GSMUhOzFb1fsB5RtsexXAXcdmzutj4FZR5O8kPa0guxjSHAdBzL+ufHeIBk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.160.69
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oa1-f69.google.com with SMTP id 586e51a60fabf-469debb527fso2755983fac.1
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 17:30:56 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788827455; x=1789432255;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=y+46E9JeT04g3AYfqqOVfFUGX60+OVDg4IVbBTkBVng=;
-        b=sgu7kJnAZ1SQd/wjeGMAmktRdMdchmpmfJ1G2wJa7FwzAFf4dHm+I4rpmlfz5b8VEA
-         Ybveb3vssBbuMcBehojoN+xChNk+cUlJuSIrGg1UhSmOBLe6WnfGQPuPSE9E1tEVJg3M
-         ZIRNwLYYn8diRgEDmer2rL9iWkv43sXSUlSl2BU5z+shmbNuvkDbbaggO9nr7bc0UqZG
-         6u2NUItUxIudjaUz0lPQvSGoH6dQOUThHEWjprnBm9qgNZyTFRtRTTeVng1urjEDdeZf
-         dQ3iyCgP8iRfVAFMBLpN3WD7JbwX5cF1EM7i5fXQsfGA/PXcLioA2hJiUjKZs5GM69EQ
-         os1g==
-X-Gm-Message-State: AFuF++m/zZl8P4VNGgw7BjGGzNoz4DSWxgWfwxGYlVNduM9GxKTBpnGp
-	mXccaR9R9IG9I9EsFtGLheQUVK2Y74LxqZAaY6Y9/sq+edcDwcxPCr13Taxx8mc4btb4VmjCOZI
-	EhzRnEElvHtKyHvn8G13mjK1Mv8cYvhSGqZwOdc9pcVq33wvEqxGAp3GtTEU=
+	s=arc-20240116; t=1788827470; c=relaxed/simple;
+	bh=3elVu73JVCNVQ45mmZkedKeCq4Wm6TJSv1pkF7XlsJo=;
+	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc; b=r2m+KOE/tOHIclUW6FMMg3LWrHwxLhPg7DxpVzM4ru5wORuSVYxEZ5sccQUcAv4cwTZihpoCuR0xAieizNoHTRumwu7ks6nYwcwTycnzzWRy6hLi/qgyj5ILoVBFIkn9C6djLle5BiYu81s6ta1sJF3JHeKEbfuJ6SV7UAPtmts=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UBumuRHJ; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UBumuRHJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A13201F00A3D;
+	Tue,  8 Sep 2026 00:31:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788827469;
+	bh=zj4uIOsknu4mFc4QWbb5E+NrNKepcztoMg49+nbVDJ4=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=UBumuRHJQM2idU/918ra5oUlcyif69v96nSip7JQXqFeFnwD0iQu4XjxeARHAsHau
+	 DMowL1/bMmPBedyr4Y0RUUzS43bBdiBAzUyd+lDRL6ZXCDg8Ih6dmUZ4YoegSS2yf5
+	 Ya4eQTLZ5cT5tjvhqanWOI6I8Ai2/cKTU2KlrZZoJkRuPuLEY2H0H/h4Kp+42zg305
+	 rZBimavGb0A10sXvmkejvLDpAK+CIxUmvjg1mcMeh/JDXZsy7vWWelVQSpYeHrvoL2
+	 d5Xm2N3Jiavz9mM1GxixxERbnCd9Nowrhn6g7ZmdpJD0py4e65PKSRz9+vPhpPzekm
+	 VbtHHk/vjJMMA==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id D0D4339E8A5B;
+	Tue,  8 Sep 2026 00:30:09 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:168f:b0:6b0:4199:3cc4 with SMTP id
- 006d021491bc7-6b6fea84e5dmr20067358eaf.27.1788827455252; Mon, 07 Sep 2026
- 17:30:55 -0700 (PDT)
-Date: Mon, 07 Sep 2026 17:30:55 -0700
-In-Reply-To: <6a9443c1.a8e469d2.cbf3.5609.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6a9f573f.6e6c5f9e.28f11f.0000.GAE@google.com>
-Subject: Forwarded: cx231xx: retry I2C length fix test on v7.3-rc2
-From: syzbot <syzbot+ddccc0c0dbc0a38ffccb@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH] net: ethernet: ti: davinci_mdio: Drop commas after match
+ table sentinels
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <178882740838.3220068.8746690241801565022.git-patchwork-notify@kernel.org>
+Date: Tue, 08 Sep 2026 00:30:08 +0000
+References: 
+ <e481b6de46cecc6ea604ae165272c667274cc621.1788437140.git.geert+renesas@glider.be>
+In-Reply-To: 
+ <e481b6de46cecc6ea604ae165272c667274cc621.1788437140.git.geert+renesas@glider.be>
+To: Geert Uytterhoeven <geert+renesas@glider.be>
+Cc: s-vadapalli@ti.com, rogerq@kernel.org, andrew+netdev@lunn.ch,
+ davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+ linux-omap@vger.kernel.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org
 
-For archival purposes, forwarding an incoming command email to
-linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com.
+Hello:
 
-***
+This patch was applied to netdev/net-next.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
 
-Subject: cx231xx: retry I2C length fix test on v7.3-rc2
-Author: jcperdomo100@gmail.com
+On Thu,  3 Sep 2026 14:06:47 +0200 you wrote:
+> It does not make sense to have a comma after a sentinel, as any new
+> elements must be added before the sentinel.
+> 
+> Signed-off-by: Geert Uytterhoeven <geert+renesas@glider.be>
+> ---
+>  drivers/net/ethernet/ti/davinci_mdio.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
 
-#syz test: https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
-df2908090cda368b01ff43709f51890076c56157
+Here is the summary with links:
+  - net: ethernet: ti: davinci_mdio: Drop commas after match table sentinels
+    https://git.kernel.org/netdev/net-next/c/615bcbb822cb
+
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
+
