@@ -1,217 +1,171 @@
-Received: from mail-vk1-f178.google.com (mail-vk1-f178.google.com [209.85.221.178])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4359534478
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 13:31:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16FC3563298
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 13:31:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788874299; cv=none; b=rOs1VZdlk/iw5OyTIQx2se7FS+xotueYZHUSSydqq6oJsi64XE2Q31TO8laAsuSl2WB5UazzVSx0cSp50muWSWZs4XVXBVcqmnaBCz/8aRavkk03Md93z2WRg0pQyqU1qFxrRMaJXeqH9p1dySQEBXQys5J2Agm7H7lowh2pagU=
+	t=1788874297; cv=none; b=rSCRZetpwpWo5v9CanbANSy/+On6+ZIB/O2G1FnhVbstpZ+soKlI2qCi6WadisO4247tKw9edPPndpREmBbxzG4OFLpH8vqXAf62mqTxClwPuBydnKVNZ3t1CV4iwpL4yO5+Vcm/Xs6PRyU6kZQK/hXm5k9GOGEyjfT7Mpv9swA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788874299; c=relaxed/simple;
-	bh=yu9OZgfKfzPNFzxIZHgRFCy5pcqiTq5Wq62oensSFpw=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=dVsQyMtQce7mlBKlxGINZUOdXvgM2HQ/tRvbwqmEKmpehMcgxRpdzBh8IlWpqRgIYRFeiEBkWOH3/AiMayf9zxYs9CYyGEPchxdGiPRN70Jmcw0R6LzwsiCuWxlssxfr8qSAxY2H9Z4fwMQWaGzZ8XZDrZF8m5UAZ1iN31AOHNU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.221.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-vk1-f178.google.com with SMTP id 71dfb90a1353d-5bfc54558d5so6132238e0c.0
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 06:31:27 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788874284; x=1789479084;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=EwjnLI9Ep/r7gZDtAe178FX2I6j4lZ75aWazhYEJCj8=;
-        b=jfcy3fZTukE0sDKtBey4FIEnf2zCZC8Rc930MbPxyFONGl+aoSFXl0keCCrlCHouhk
-         I81v1iucYiXwVGfhVZkJqiSRDsqWKeDnU+8UPJdu2JU4yxtxDWQsCgp8Sh48grz/XJKn
-         Ho2dhf/1R2dvTEHhqP+32/GWnBNJ9VL7+pX69/JzKFTfpi+UyYBomNaWwAWBRMaoymOs
-         xqfxQVFbj7xO88mRRrxgPIhXM+wOLVjqU0T0lhK4R1ebX0B6BymSSVeoPGfRA02ov9aO
-         fsw/ZIx0fEUE+4nSwNcgobS4dEiTyOnRhAwwAoUtnPx6bT/HwDBBr4EKq4HbOURvfv0U
-         9Lpg==
-X-Forwarded-Encrypted: i=1; AKwUvBw1NexZUbh/CD7n1wHE+OLn3DwJEAAEQ16bqlhznDMhKay+Gp+pfJlugD5A3MTdek6K9MjZ6Bq013dVf2Y=@vger.kernel.org
-X-Gm-Message-State: AFuF++mmVi6huWHLldku8SGjzN+YYrHB2uddT1zb96qKiNjvU75E2TiQ
-	KdMUG/Byj7wQB21X2yzAqnH0DgbnUIV1JR5YddZFsbNGEYMk6pnMC4zbsNQVh8rY
-X-Gm-Gg: AYBFou2EkOaBchg32oXSEz0Ypp2s8gtfnJlk9X6TOr64ODQSzRYrrpntHXBGyY6S9Ru
-	JNGJUXhwZ/hCLWVmhYM3GiDhnNCM1j1mxSn6Xd2fCLApcysYhpSpBVLYtmTtSfY3jBG7sU+lKMn
-	1kven1pVK49eX56E0nz1p7pXE9Em4ZzoAopElnXgzf3Etwmadei8D7hhBfzjCjl/3gjlaaolIQf
-	wlbVYInW3fFkV0v1OUgxUVAI34POcqJcjs4HgyBCBQcbb6gz2chrqmEJK+1Lj7ETh6eKhGdmp+y
-	AUj2uatNjA9akuWa23unqw/XFTMziCrHIbUAmOYyKih02IRpFF47+dGqcnWkv3gn2s3/sP8J/LH
-	+kArakbD+P2Ydg20TjH3YbwdrfvRTu+XXQfR75YD0VholJLtJwCklC2a4Te0Of4WllqlguZb7gv
-	42KMmWtvhDrL8cbK2p0jV0PTuiqxsFgKPvCjxZsFkEU4UT2aM2H8+JmuoOalLPrDXGKyhpiSuzZ
-	3GqTnVnFpJtVRGe+v2AG1DChTRVLlH1EOakOyUdzdCgfbDb
-X-Received: by 2002:a05:6122:6b83:10b0:5c7:c898:9817 with SMTP id 71dfb90a1353d-5c7dcf71bf6mr7537441e0c.7.1788874284313;
-        Tue, 08 Sep 2026 06:31:24 -0700 (PDT)
-Received: from mail-vs1-f47.google.com (mail-vs1-f47.google.com. [209.85.217.47])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5c7ec35d85fsm10073365e0c.12.2026.09.08.06.31.21
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 08 Sep 2026 06:31:22 -0700 (PDT)
-Received: by mail-vs1-f47.google.com with SMTP id ada2fe7eead31-78a66ef3468so2264228137.0
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 06:31:21 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBw+HMcJ256p3zKHyE9ZCvJEawHAv5N5CFe0qejQT4jPzHRsdRusIIyayz0QX5+3PdnhdoU6jWfPpmWWoyk=@vger.kernel.org
-X-Received: by 2002:a67:fe50:0:b0:78a:5bc0:4b7b with SMTP id
- ada2fe7eead31-78a5bc06bd8mr4345758137.21.1788874281039; Tue, 08 Sep 2026
- 06:31:21 -0700 (PDT)
+	s=arc-20240116; t=1788874297; c=relaxed/simple;
+	bh=Ka8lArvdDS0XqOpgdDmGFHcaj1D7gKWmNYMqT3uuuLI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=mQyWkusEIGtSQbag7hF87Ke4THDl3SeSss4TJ2DoyP9aIWI3JBjztovjBJFWtjruHOcq5JSTRjLTSrr5PjcR97JY/6vjajySslRNpsoD8KsdYaSwXA9gavuGVDQXpEmYbmJGXjr7+/fBP2qMMfBIbwSCwcHkj7MuLcUF5AIzI0E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=KcW3+qxT; arc=none smtp.client-ip=192.198.163.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="KcW3+qxT"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788874275; x=1820410275;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=Ka8lArvdDS0XqOpgdDmGFHcaj1D7gKWmNYMqT3uuuLI=;
+  b=KcW3+qxTlsH6uOP/PQ9DHrTW5iwbP822e310SUTR+gyICNlXnjNx9gKU
+   CxZNIUr+/9krM+lOnARy6ZxDsJoq9yDho/W93GPHGwEgknYJyNvnjg8ZO
+   cb7zh1zeVNUvZk9D6HiZN+UeqlBebjpf2T4Bj5jufPJ17dqW4BqeavsPC
+   B9OqSyh4q60PL7aJX8U4rWacdc4oJiT3qpmOtF/+ey3hNQ/TmwsVMfYlq
+   BsyRtbWk9uExtJRayMR2DTYWmS+LYZ/OekoBYdQh7qkCeAPJLQdUqcGu2
+   7b6vMvl4cRBv6kfJKCJ0hkMprLXnBARE9jzwQnzYtp7OMa7XRvrNEEnpU
+   g==;
+X-CSE-ConnectionGUID: gkVjmfbARpyshnoUrbdHzg==
+X-CSE-MsgGUID: xJf+xnVwQ6qrZLbdyun/1A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11899"; a="93096532"
+X-IronPort-AV: E=Sophos;i="6.25,269,1779174000"; 
+   d="scan'208";a="93096532"
+Received: from orviesa010.jf.intel.com ([10.64.159.150])
+  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Sep 2026 06:31:13 -0700
+X-CSE-ConnectionGUID: xO7XYgh2RfihgJ5fkCasYw==
+X-CSE-MsgGUID: 6mk0me+gSSuz9RbbdmrXxA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,269,1779174000"; 
+   d="scan'208";a="269671453"
+Received: from xiaolu.sh.intel.com ([10.239.146.103])
+  by orviesa010.jf.intel.com with ESMTP; 08 Sep 2026 06:31:11 -0700
+From: Xiao Lu <xiaolu.xie@intel.com>
+To: maarten.lankhorst@linux.intel.com,
+	mripard@kernel.org,
+	tzimmermann@suse.de,
+	airlied@gmail.com,
+	simona@ffwll.ch
+Cc: dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	Xiao Lu <xiaolu.xie@intel.com>
+Subject: [PATCH] drm/dp_mst: Track allocated_pbn from ALLOCATE_PAYLOAD down-reply
+Date: Tue,  8 Sep 2026 21:28:44 +0800
+Message-ID: <20260908132844.2309047-1-xiaolu.xie@intel.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260826174854.199139-1-biju.das.jz@bp.renesas.com> <20260826174854.199139-14-biju.das.jz@bp.renesas.com>
-In-Reply-To: <20260826174854.199139-14-biju.das.jz@bp.renesas.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Tue, 8 Sep 2026 15:31:09 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdWKpWtp6dXe_1qk+GuV-n065LjHNQBGGEfsOfVz9_T1+w@mail.gmail.com>
-X-Gm-Features: AcwNN1UocVhmKEZQcX_zmxc5OTroh0qtOuTM2DsW1-WXkXKuXnRy_MiHk8uuF0s
-Message-ID: <CAMuHMdWKpWtp6dXe_1qk+GuV-n065LjHNQBGGEfsOfVz9_T1+w@mail.gmail.com>
-Subject: Re: [PATCH v3 13/13] arm64: dts: renesas: Add LVDS overlay for RZ/G3L
- SMARC EVK with ITE6263
-To: Biju <biju.das.au@gmail.com>
-Cc: Magnus Damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Biju Das <biju.das.jz@bp.renesas.com>, linux-renesas-soc@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-Hi Biju,
+The DP MST ALLOCATE_PAYLOAD sideband message returns the payload bandwidth actually allocated by the branch in the allocated_pbn field of the down-reply. That value may differ from the requested PBN when an intermediate branch applies its own constraints, so the source should keep track of it instead of only relying on the local request.
 
-On Wed, 26 Aug 2026 at 19:49, Biju <biju.das.au@gmail.com> wrote:
-> From: Biju Das <biju.das.jz@bp.renesas.com>
->
-> Add a Device Tree overlay (r9a08g046l48-smarc-lvds-ite6263.dtso) for the
-> RZ/G3L (R9A08G046) SMARC EVK board to support LVDS-to-HDMI output via the
-> ITE 6263 HDMI transmitter.
->
-> The overlay enables the LVDS controller and the display unit (DU/LCDC),
-> and configures the ITE6263 on I2C2.
->
-> Update the Makefile to build the overlay as both a standalone .dtbo and
-> a composite .dtb (base DTB + overlay).
->
-> Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
+Store the allocated_pbn returned by the ALLOCATE_PAYLOAD down-reply sideband message and use the larger of requested PBN and allocated PBN for the MST bandwidth limit checks. Also carry the value across dependent atomic commits and clear it when releasing the payload, matching the lifetime of the remote allocation state.
 
-Thanks for your patch!
+Signed-off-by: Xiao Lu <xiaolu.xie@intel.com>
+---
+ drivers/gpu/drm/display/drm_dp_mst_topology.c | 17 ++++++++++++-----
+ include/drm/display/drm_dp_mst_helper.h       | 10 ++++++++++
+ 2 files changed, 22 insertions(+), 5 deletions(-)
 
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/renesas/r9a08g046l48-smarc-lvds-ite6263.dtso
-> @@ -0,0 +1,104 @@
-> +// SPDX-License-Identifier: GPL-2.0
+diff --git a/drivers/gpu/drm/display/drm_dp_mst_topology.c b/drivers/gpu/drm/display/drm_dp_mst_topology.c
+index 7ce9e2127..86a42c5e2 100644
+--- a/drivers/gpu/drm/display/drm_dp_mst_topology.c
++++ b/drivers/gpu/drm/display/drm_dp_mst_topology.c
+@@ -3120,6 +3120,7 @@ drm_dp_get_last_connected_port_and_mstb(struct drm_dp_mst_topology_mgr *mgr,
+ 
+ static int drm_dp_payload_send_msg(struct drm_dp_mst_topology_mgr *mgr,
+ 				   struct drm_dp_mst_port *port,
++				   struct drm_dp_mst_atomic_payload *payload,
+ 				   int id,
+ 				   int pbn)
+ {
+@@ -3166,10 +3167,14 @@ static int drm_dp_payload_send_msg(struct drm_dp_mst_topology_mgr *mgr,
+ 	 */
+ 	ret = drm_dp_mst_wait_tx_reply(mstb, txmsg);
+ 	if (ret > 0) {
+-		if (txmsg->reply.reply_type == DP_SIDEBAND_REPLY_NAK)
++		if (txmsg->reply.reply_type == DP_SIDEBAND_REPLY_NAK) {
+ 			ret = -EINVAL;
+-		else
++		} else {
++			if (payload)
++				payload->allocated_pbn =
++					txmsg->reply.u.allocate_payload.allocated_pbn;
+ 			ret = 0;
++		}
+ 	}
+ 	kfree(txmsg);
+ fail_put:
+@@ -3285,7 +3290,7 @@ static int drm_dp_create_payload_to_remote(struct drm_dp_mst_topology_mgr *mgr,
+ 	if (!port)
+ 		return -EIO;
+ 
+-	ret = drm_dp_payload_send_msg(mgr, port, payload->vcpi, payload->pbn);
++	ret = drm_dp_payload_send_msg(mgr, port, payload, payload->vcpi, payload->pbn);
+ 	drm_dp_mst_topology_put_port(port);
+ 	return ret;
+ }
+@@ -3298,7 +3303,7 @@ static void drm_dp_destroy_payload_at_remote_and_dfp(struct drm_dp_mst_topology_
+ 
+ 	/* it's okay for these to fail */
+ 	if (payload->payload_allocation_status == DRM_DP_MST_PAYLOAD_ALLOCATION_REMOTE) {
+-		drm_dp_payload_send_msg(mgr, payload->port, payload->vcpi, 0);
++		drm_dp_payload_send_msg(mgr, payload->port, NULL, payload->vcpi, 0);
+ 		payload->payload_allocation_status = DRM_DP_MST_PAYLOAD_ALLOCATION_DFP;
+ 	}
+ 
+@@ -4575,6 +4580,7 @@ int drm_dp_atomic_release_time_slots(struct drm_atomic_commit *state,
+ 	drm_dbg_atomic(mgr->dev, "[MST PORT:%p] TU %d -> 0\n", port, payload->time_slots);
+ 	if (!payload->delete) {
+ 		payload->pbn = 0;
++		payload->allocated_pbn = 0;
+ 		payload->delete = true;
+ 		if (payload->vcpi > 0)
+ 			topology_state->payload_mask &= ~BIT(payload->vcpi - 1);
+@@ -4670,6 +4676,7 @@ void drm_dp_mst_atomic_wait_for_dependencies(struct drm_atomic_commit *state)
+ 			new_payload = drm_atomic_get_mst_payload_state(new_mst_state,
+ 								       old_payload->port);
+ 			new_payload->vc_start_slot = old_payload->vc_start_slot;
++			new_payload->allocated_pbn = old_payload->allocated_pbn;
+ 			new_payload->payload_allocation_status =
+ 							old_payload->payload_allocation_status;
+ 		}
+@@ -5352,7 +5359,7 @@ drm_dp_mst_atomic_check_port_bw_limit(struct drm_dp_mst_port *port,
+ 			return -EINVAL;
+ 		}
+ 
+-		pbn_used = payload->pbn;
++		pbn_used = max(payload->pbn, payload->allocated_pbn);
+ 	} else {
+ 		pbn_used = drm_dp_mst_atomic_check_mstb_bw_limit(port->mstb,
+ 								 state,
+diff --git a/include/drm/display/drm_dp_mst_helper.h b/include/drm/display/drm_dp_mst_helper.h
+index 27658bfb5..1a9430a62 100644
+--- a/include/drm/display/drm_dp_mst_helper.h
++++ b/include/drm/display/drm_dp_mst_helper.h
+@@ -572,6 +572,16 @@ struct drm_dp_mst_atomic_payload {
+ 	int time_slots;
+ 	/** @pbn: The payload bandwidth for this payload */
+ 	int pbn;
++	/**
++	 * @allocated_pbn: The payload bandwidth actually confirmed by the
++	 * branch device in the ALLOCATE_PAYLOAD reply. Each MST branch along
++	 * the path overrides this field to the maximum of the requested and
++	 * its own constrained value, so the value received by the source
++	 * reflects the tightest bottleneck along the entire path.
++	 * Used instead of @pbn for bandwidth limit checks so that the source
++	 * accounts for any per-hop adjustments made by intermediate branches.
++	 */
++	int allocated_pbn;
+ 
+ 	/** @delete: Whether or not we intend to delete this payload during this atomic commit */
+ 	bool delete : 1;
+-- 
+2.43.0
 
-Any chance this can be "(GPL-2.0-only OR BSD-2-Clause)", like all
-already existing arch/arm64/boot/dts/renesas/r9a08g046* files?
-
-> +/*
-> + * Device Tree overlay for the RZ/G3L SMARC EVK with ITE6263
-> + * connected to LVDS and LCDC enabled.
-> + *
-> + * Copyright (C) 2026 Renesas Electronics Corp.
-> + */
-> +
-> +/dts-v1/;
-> +/plugin/;
-> +
-> +#include <dt-bindings/gpio/gpio.h>
-> +#include <dt-bindings/interrupt-controller/arm-gic.h>
-> +#include <dt-bindings/pinctrl/renesas,r9a08g046-pinctrl.h>
-> +
-> +&{/} {
-> +       lvds-to-hdmi-out {
-> +               compatible = "hdmi-connector";
-> +               type = "d";
-> +
-> +               port {
-> +                       lvds_to_hdmi_con_out: endpoint {
-> +                               remote-endpoint = <&it6263_out>;
-> +                       };
-> +               };
-
-No DDC?
-
-> +       };
-> +
-> +       reg_1v8: regulator-1v8 {
-> +               compatible = "regulator-fixed";
-> +               regulator-name = "fixed-1.8V";
-> +               regulator-min-microvolt = <1800000>;
-> +               regulator-max-microvolt = <1800000>;
-> +               regulator-boot-on;
-> +               regulator-always-on;
-> +       };
-> +
-> +       reg_3v3: regulator-3v3 {
-> +               compatible = "regulator-fixed";
-> +               regulator-name = "fixed-3.3V";
-> +               regulator-min-microvolt = <3300000>;
-> +               regulator-max-microvolt = <3300000>;
-> +               regulator-boot-on;
-> +               regulator-always-on;
-> +       };
-
-Any specific reason you cannot just reuse the existing &reg_1p8v
-and &reg_3p3v?
-
-> +};
-> +
-> +&du {
-> +       status = "okay";
-> +};
-> +
-> +&i2c2 {
-> +       #address-cells = <1>;
-> +       #size-cells = <0>;
-> +
-> +       it6263: it6263@4c {
-
-hdmi@4c
-
-> +               compatible = "ite,it6263";
-> +               reg = <0x4c>;
-> +               data-mapping = "vesa-24";
-> +               ivdd-supply = <&reg_1v8>;
-> +               ovdd-supply = <&reg_3v3>;
-> +               txavcc18-supply = <&reg_1v8>;
-> +               txavcc33-supply = <&reg_3v3>;
-> +               pvcc1-supply = <&reg_1v8>;
-> +               pvcc2-supply = <&reg_1v8>;
-> +               avcc-supply = <&reg_3v3>;
-> +               anvdd-supply = <&reg_1v8>;
-> +               apvdd-supply = <&reg_1v8>;
-> +
-> +               ports {
-> +                       #address-cells = <1>;
-> +                       #size-cells = <0>;
-> +
-> +                       port@0 {
-> +                               reg = <0>;
-> +                               bridge_in: endpoint {
-> +                                       remote-endpoint = <&lvds_out>;
-> +                               };
-> +                       };
-> +
-> +                       port@2 {
-> +                               reg = <2>;
-> +                               it6263_out: endpoint {
-> +                                       remote-endpoint = <&lvds_to_hdmi_con_out>;
-> +                               };
-> +                       };
-> +               };
-
-No audio?
-
-> +       };
-> +};
-
-The rest LGTM.
-
-Gr{oetje,eeting}s,
-
-                        Geert
-
---
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
