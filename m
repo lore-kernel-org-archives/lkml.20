@@ -1,65 +1,65 @@
-Received: from mail-yx1-f48.google.com (mail-yx1-f48.google.com [74.125.224.48])
+Received: from mail-yx2-f12.google.com (mail-yx2-f12.google.com [74.125.224.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B90D3D75AD
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 21:05:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E140D4307AA
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 21:05:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788901505; cv=none; b=kQOkG+fmbbMGss5YGnFRaGhkyW3teq+ee3uiarv1pJruIAYq/8ZTNkezV8ZCp4ZQxU9zNKmfAS7Gp/SiIe72dRWUDWYpTpTc1Uify/kPyIy5YniaSz3+sTBd5UjyD/gVyeJ2RiHhjcVMLPDOEtQFF6Opl/DAA307MIirKpDZ8xU=
+	t=1788901506; cv=none; b=Z5BWjXc7fAForXKncc7TjlLbFm36rLb2Rf63QHyJYnINHxiz77GZEH59CaXTAMv/HfxVCi+uy/cn8dEkUkIRoWByDJwp0P1d8z/bcuH0fg3oRIo1ggXOXKdusvhjj/bIUlq6+4+8v3XVdhMSmk5+rN/TSioaIrk3TaDD7aRU4Lc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788901505; c=relaxed/simple;
-	bh=KQ9TioCk7IAXoYKsbOf3mo0CBYIbu2RGH/UJt8EFt/M=;
+	s=arc-20240116; t=1788901506; c=relaxed/simple;
+	bh=JS4es041X9iQ3ww+X8OGRBNQHXimqemFhijw7rmEypM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=UAvfN9NPnxWbenXgTg11G2ADJcC0sYL9LQUldmWk7BoCmkFXKszA4J3s8wRzh3iHQEnqlJlp6h7Q4HK1I877An+R5FuTtvvGXoZR0bJQ0u6rcV8rXEd6UzSYUAeS57HT2THunGfudnrLjbMDuqwTDvDx/ENHD/1msOhduMbAu10=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com; spf=pass smtp.mailfrom=dubeyko.com; dkim=pass (2048-bit key) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.b=t7yO1YTc; arc=none smtp.client-ip=74.125.224.48
+	 MIME-Version; b=hyCnY7EacWknq8/XTWVUA7qIJns5T8vXbTl5SNnXtCqK5tXejboE7kqnw3Vhki1w8W26cR6g+V0CObPHrGWD+oPFmTWDtO/KD1aRSwAkDtTltsS3S1v76gHjgs2ZYAy1/OYW0eereA4EvJ7xp1JyAUtpea12DY4uFuagQTDDwlE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com; spf=pass smtp.mailfrom=dubeyko.com; dkim=pass (2048-bit key) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.b=TgnpThmI; arc=none smtp.client-ip=74.125.224.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dubeyko.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.b="t7yO1YTc"
-Received: by mail-yx1-f48.google.com with SMTP id 956f58d0204a3-66fc2844f0eso5274499d50.1
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 14:05:03 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.b="TgnpThmI"
+Received: by mail-yx2-f12.google.com with SMTP id 956f58d0204a3-66e4aae3147so507252d50.1
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 14:05:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=dubeyko-com.20251104.gappssmtp.com; s=20251104; t=1788901502; x=1789506302; darn=vger.kernel.org;
+        d=dubeyko-com.20251104.gappssmtp.com; s=20251104; t=1788901504; x=1789506304; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Hss3hwS5MmprOQZWPrR8lu4oaz0ib++0UrLxiJhoUVs=;
-        b=t7yO1YTc4AtG8rnpyV+YzwuDQ1ANE1oSCBzp9xrmZ0oDoLaPmqdQPAA1Y1eDGKx1Jn
-         BjR1lN8HdsRc2J30tHHUZguq6sTyAzcLwd0qsXKNzRkKBPL0Yfkldw5U5Q73YMlysiw8
-         HFTOeoUpiWeN7Ty7iOwL3wIKIcIvnxKUsmzgXA9t5W0hkfVmqdNb+sXQ8NuSi/CysLcx
-         Jdr9CQyix3lhO7PLSkeTSWn46jlRnks/gHUHIGTkR9Lo496SfaJ9r6FkgVmTFJ/LfbZ6
-         5aP1OgkPhYUDUj6dHFuGQQpuMMzZf9YsnvQEw/UcIweEVsnJ2JEOGItoW+EMLPa0RChr
-         CqpA==
+        bh=+JM2TitCUkHWsoHev5+SihBzZ6SFDmIJWRE6hX8zY3w=;
+        b=TgnpThmIp23oMAZm0vH2L2u1SQYiCA//G0VpRSYTlS16DNKXch4r6QhrGo3uSE3Ufs
+         nxUuHLG9DJIRA+Yl+c5Xjbz5wTCfJCAbak4Ytx8TAFn/xM0hulguYLvgc5qXRJ/uJ+qf
+         vmfOS0pWqTCfZiLdvQKZK3Q+lV4ffTiYD7AXsX+3Zc8biT2eSToycgqbelMqLygq+VMP
+         GNqyxbT0ZtoFGEZx4ZqhVod0IQljxG7KkP/An7DZGfiTTHFa3Afj5wxmBOiffaEmX/Tg
+         07NJtibWDpsTRQDf2xEfiNTRruB4JX2BF19sfeV6qpImGNuj5htNVBlFb/tTh6986v70
+         y4yg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788901502; x=1789506302;
+        d=1e100.net; s=20251104; t=1788901504; x=1789506304;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Hss3hwS5MmprOQZWPrR8lu4oaz0ib++0UrLxiJhoUVs=;
-        b=A1fLHX4npU3yi3voT8YS2qkIG7XzSfDDgH8EpGlZCsMjnM0x3k9v8uNeHjXGIIazS5
-         g0kCUtoMoY80GtvKARII3pZMLagJKSQBbC89x0MDoo8Jm6WOoRszk8fHPUwtexV6Mb7K
-         3h2l9D0Xs4//vAS+rZc0SWXyhGtNeGRLoDFKV2V60YLLReFNmA9WfT8zzZO5ZPwYayvT
-         r3QALsYay+2KJLKUl9WSgsEy9aIpvKhrKivbOeHnLOlwZ9KZA4yMBz+psv7+NlgNTVWG
-         uoY8y7TZnWS9pVsBuclRgM6S1aOvpz6A9qUvSGn69fCyFSiKLJENlGWwVgo1+yuOQ4ke
-         LhCA==
-X-Forwarded-Encrypted: i=1; AKwUvBypINgmSlCXKJdwGZ6Enr1mbdl0efsW0wXtgHysoNFesuSSUkuOh5lpgJ+ICYGyNuqlm6kSGLeAdbp9hZs=@vger.kernel.org
-X-Gm-Message-State: AFuF++n0YITi5KPnYrwynXHpkECB3UqtQGx1lH/G9GGoAoMHLUzCEMNI
-	ply5qvD0ESEMZvIda9p17dc0xvtfIFWWnqGPnmbMNc8xFf+Jl05p+29keLjxm6a5jNM=
-X-Gm-Gg: AYBFou3EufTT9MVdqsedFgzysL8nmleYFUjTCyJqFmkaKFxNU6SYhEyDO3TcL4wYrnL
-	TIK9ZX4ZF5P4w4rorwjFSxFzaMuE1eDLuEV3b+tTrcJYY0DXOg1jG/UE8iSpwXBDMCRQdOoCuo/
-	GyYP1UhEDbucDIRsO48LaVLAxmbamiEaLAWbRVFWGWtv+Nya6rUt4nUZ9j5bnX0LkaQLoFn2N9N
-	vigkbY71pEIs16gq952nTJB7nfdEYuojBBv6yVVZkuWVxS2qecZOSaiD1lc2fGYHvsJg1J0Id0H
-	oZ9ncGD2ffLvm9KKlLJCJMBkBvqzep7UP5eg9j9v3dEDpaGXMLRmVQ6VytG/MfwNGRvJuqbrCaU
-	ZAThykUkFgWg2/BKrJr9oxChgtLSFLPn32MFUaGL3vRJAol0lkjbyJnJ6SO1nh3SVHWI237Rjxa
-	f4Z2R+YZR6qK+QISCFqAqIdxhewosiH2a/BZ5nJXRp4PC8bKxfD8KhNFaT4XlGaQcer1ax/ETHz
-	8dz0brGjytuYeFCbFwk3akg1dOsvzcxy7FJ1kXpbJKMtg7JtjrkQuE+FPg7RQtkv82GuWUdljp0
-	TVwyvhYpyZ6OjPBg
-X-Received: by 2002:a05:690e:138a:b0:66f:c323:2bbb with SMTP id 956f58d0204a3-66fc32335f3mr7152359d50.74.1788901502034;
-        Tue, 08 Sep 2026 14:05:02 -0700 (PDT)
+        bh=+JM2TitCUkHWsoHev5+SihBzZ6SFDmIJWRE6hX8zY3w=;
+        b=oiN/A+lMmfVE0bY7ydcIWinQHOcSax/1KpxXe0Xs3R2WG1GPae/c2U5Ot0XWcJGfDU
+         QHsa30Jh3Y9cSIPIlgx/0vJzso7TB1l9FKuqeEeuDSZxg9q6p+TFX64YN04rn/o0mIJg
+         ww/e7N1S9UsUlTvMUO+pGhlSwuk9eedCRxHW4mYwqQYyQOkqJ7nFU4Im3bNQ8s84G1MM
+         zM0izmiJP26wccvFsR8hFTbr/3mAGKb+PSlRWbeVkI/zbM/Yg1qUl2IWmmzVZG8igvod
+         vCv9rIEt9udSEjaSGndjqjcaLOpVKhES/i190pAcsKo+rx64gztjBGdWXMK7vab/vkrf
+         uwbA==
+X-Forwarded-Encrypted: i=1; AKwUvByKNFM6Kv8g/mys4hPTvFuZnlKDJvs9pHjXplWziZuuqC1v3RRzxFe07lFHPxZ0irWhFyPyGjk1w1CNMmU=@vger.kernel.org
+X-Gm-Message-State: AFuF++kdxnsX2ZzoYKcOvUDxNzNJsykesSCCvc0co1+v4+e3mvMp/J7N
+	DlYWP/w92No0IrZrj4BVVBTrWDGU917GaK/uRsSe+KRDIHfKEnViz2nCeOjLplZD9tk=
+X-Gm-Gg: AYBFou364ktXqb2Kg4maVecjvMMCGmmADkb6RDCUaTIIiYuFQL1eQUZKkfL6+xI4GZF
+	I5V0x8s4SaqmxVXad9cW0tya/mwP/fuG1RGBkIROTqa7NIOYypI5LKqQMmr+Ng64QHek2gjHwXj
+	bWDiiG/vCRA8aS7Uy5jXIa0JYp+BTDqHcD40kKD+a3x51lWqoTWcH+suezQgxtV6SxzSZNRrExV
+	yTuSfNqZ6PNxycwEip5Y4ciDTQHx0DGrYyyY2+l6zNm+2TrKCmF7/yXXMrinVLlSZDkfjsS9Xr3
+	z/he385c82Nyi6tGNKf0j9G5Nvuom6cOCLB0ZE0L6VPQcBNlTlVi1QoubDp5RLGojnIPXeMHky3
+	KizS+ZRszprrbgOv+8kbeXLGKrTnBYX07c0PGlFMTu99+QIbwtcowr49gF3OlQy/6gwkE3ZwMJn
+	lvAiM6h1vL1i95zxZ3PJnTJ6hzTJCkMsNzp0CEr+mt6ljd73kdYqy7bBxiVpthXCsXpMHQICWlb
+	D3gpSNw+Y6FdvMJjA9wK1GG4qyfKWKcgLWJaQYIV+UNkallpepWjkQMhBp9+CQzW64cslaypOWX
+	Nxlj4M7s4sI+foT1
+X-Received: by 2002:a05:690e:80d:10b0:66d:1a61:5c6 with SMTP id 956f58d0204a3-671036edcbbmr515226d50.29.1788901503692;
+        Tue, 08 Sep 2026 14:05:03 -0700 (PDT)
 Received: from pop-os.attlocal.net ([2600:1700:6476:1430:1eca:212:86d0:4e87])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-66fb495eccesm11078129d50.18.2026.09.08.14.05.00
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-66fb495eccesm11078129d50.18.2026.09.08.14.05.02
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 08 Sep 2026 14:05:01 -0700 (PDT)
+        Tue, 08 Sep 2026 14:05:03 -0700 (PDT)
 From: Viacheslav Dubeyko <slava@dubeyko.com>
 To: glaubitz@physik.fu-berlin.de,
 	frank.li@vivo.com,
@@ -71,9 +71,9 @@ Cc: linux-fsdevel@vger.kernel.org,
 	brauner@kernel.org,
 	djwong@kernel.org,
 	Viacheslav Dubeyko <slava@dubeyko.com>
-Subject: [PATCH v3 2/7] hfsplus: rework hfsplus_get_block() logic
-Date: Tue,  8 Sep 2026 14:04:43 -0700
-Message-ID: <20260908210448.296772-3-slava@dubeyko.com>
+Subject: [PATCH v3 3/7] hfsplus: take the bitmap page lock for allocate/free
+Date: Tue,  8 Sep 2026 14:04:44 -0700
+Message-ID: <20260908210448.296772-4-slava@dubeyko.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260908210448.296772-1-slava@dubeyko.com>
 References: <20260908210448.296772-1-slava@dubeyko.com>
@@ -85,216 +85,133 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Split the extent-lookup/allocate logic out of hfsplus_get_block() into
-a new hfsplus_map_extent(), which reports the mapping as
-(dblock, max_blocks, balloc) instead of filling in a buffer_head.
-hfsplus_get_block() becomes a thin wrapper around it for the
-buffer_head-based callers (B-tree metadata, symlinks).
+The hfsplus_block_allocate() and hfsplus_block_free() kmap
+the allocation bitmap's pages and modify their bits in place
+under sbi->alloc_mutex, but without holding the page lock.
+That leaves the read-modify-write of the bitmap bits
+unprotected against a concurrent writeback of the same page,
+which can read a partially-updated bitmap word or race with
+the dirty-bit update.
 
-No functional change to the existing buffer_head path. This is
-preparation for the iomap-based regular file I/O path added in a
-later patch, which will call hfsplus_map_extent() directly.
-
+Signed-off-by: Viacheslav Dubeyko <slava@dubeyko.com>
 cc: Christoph Hellwig <hch@lst.de>
 cc: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
 cc: Yangtao Li <frank.li@vivo.com>
 cc: linux-fsdevel@vger.kernel.org
-Reviewed-by: Christoph Hellwig <hch@lst.de>
-Signed-off-by: Viacheslav Dubeyko <slava@dubeyko.com>
 ---
- fs/hfsplus/extents.c    | 118 +++++++++++++++++++++++++++++-----------
- fs/hfsplus/hfsplus_fs.h |   2 +
- 2 files changed, 87 insertions(+), 33 deletions(-)
+v2
+Christoph Hellwig has detected that taking the page lock around
+the kmap/modify/kunmap section is not enough on its own:
+writeback drops the page lock before the write actually completes,
+so a mutator that only waits on the lock can still start rewriting
+a page whose old contents are still in flight to the device.
+Mark the allocation file's mapping with mapping_set_stable_writes()
+and call folio_wait_stable() right after taking the page lock in
+both functions, so a mutator also waits out any writeback that was
+already in progress when it acquired the lock.
 
-diff --git a/fs/hfsplus/extents.c b/fs/hfsplus/extents.c
-index eb7c11524d18..ffd52ad8867c 100644
---- a/fs/hfsplus/extents.c
-+++ b/fs/hfsplus/extents.c
-@@ -48,18 +48,29 @@ static void hfsplus_ext_build_key(hfsplus_btree_key *key, u32 cnid,
- 	key->ext.pad = 0;
- }
- 
--static u32 hfsplus_ext_find_block(struct hfsplus_extent *ext, u32 off)
-+/*
-+ * hfsplus_ext_find_block() - find contiguous sequence of block
-+ *
-+ * Find the disk allocation block for 'off' within an 8-entry
-+ * extent record, and the number of further allocation blocks
-+ * that are contiguous with it in the same extent entry.
-+ */
-+static u32 hfsplus_ext_find_block(struct hfsplus_extent *ext, u32 off,
-+				 u32 *dblock)
- {
- 	int i;
- 	u32 count;
- 
--	for (i = 0; i < 8; ext++, i++) {
-+	for (i = 0; i < HFSPLUS_FORK_EXTENT_COUNT; ext++, i++) {
- 		count = be32_to_cpu(ext->block_count);
--		if (off < count)
--			return be32_to_cpu(ext->start_block) + off;
-+		if (off < count) {
-+			*dblock = be32_to_cpu(ext->start_block) + off;
-+			return count - off;
-+		}
- 		off -= count;
+v3
+Matthew Wilcox recommended to use folio_wait_writeback()
+instead of folio_wait_stable().
+---
+ fs/hfsplus/bitmap.c | 18 ++++++++++++++++++
+ 1 file changed, 18 insertions(+)
+
+diff --git a/fs/hfsplus/bitmap.c b/fs/hfsplus/bitmap.c
+index 1b3af8c87cad..30178ea47362 100644
+--- a/fs/hfsplus/bitmap.c
++++ b/fs/hfsplus/bitmap.c
+@@ -39,6 +39,8 @@ int hfsplus_block_allocate(struct super_block *sb, u32 size,
+ 		start = size;
+ 		goto out;
  	}
- 	/* panic? */
-+	*dblock = 0;
- 	return 0;
- }
- 
-@@ -68,7 +79,7 @@ static int hfsplus_ext_block_count(struct hfsplus_extent *ext)
- 	int i;
- 	u32 count = 0;
- 
--	for (i = 0; i < 8; ext++, i++)
-+	for (i = 0; i < HFSPLUS_FORK_EXTENT_COUNT; ext++, i++)
- 		count += be32_to_cpu(ext->block_count);
- 	return count;
- }
-@@ -225,37 +236,46 @@ static int hfsplus_ext_read_extent(struct inode *inode, u32 block)
- 	return res;
- }
- 
--/* Get a block at iblock for inode, possibly allocating if create */
--int hfsplus_get_block(struct inode *inode, sector_t iblock,
--		      struct buffer_head *bh_result, int create)
-+/*
-+ * hfsplus_map_extent() - find or allocate a sequence of allocation blocks
-+ *
-+ * Looks up the allocation block at 'ablock' for inode, extending the
-+ * file (via hfsplus_file_extend(), in clump_blocks-sized chunks) when
-+ * 'create' is set and 'ablock' lies beyond the current allocation.
-+ *
-+ * On success, *dblock is the disk allocation block backing 'ablock',
-+ * and *max_blocks is the number of further allocation blocks that are
-+ * contiguous with it (i.e. the remaining length of the extent entry
-+ * that contains 'ablock'), which may be smaller than the whole file's
-+ * remaining allocation when the fork is fragmented across several
-+ * extent entries. If a new extent had to be allocated to satisfy the
-+ * request, *balloc (when non-NULL) is set to true.
-+ */
-+int hfsplus_map_extent(struct inode *inode, u32 ablock, int create,
-+			u32 *dblock, u32 *max_blocks, bool *balloc)
- {
--	struct super_block *sb = inode->i_sb;
--	struct hfsplus_sb_info *sbi = HFSPLUS_SB(sb);
- 	struct hfsplus_inode_info *hip = HFSPLUS_I(inode);
--	int res = -EIO;
--	u32 ablock, dblock, mask;
--	sector_t sector;
--	int was_dirty = 0;
-+	int was_dirty;
-+	int res;
- 
--	/* Convert inode block to disk allocation block */
--	ablock = iblock >> sbi->fs_shift;
-+	if (balloc)
-+		*balloc = false;
- 
--	if (iblock >= hip->fs_blocks) {
-+	if (ablock >= hip->alloc_blocks) {
- 		if (!create)
--			return 0;
--		if (iblock > hip->fs_blocks)
- 			return -EIO;
--		if (ablock >= hip->alloc_blocks) {
--			res = hfsplus_file_extend(inode, false);
--			if (res)
--				return res;
--		}
--	} else
--		create = 0;
-+		res = hfsplus_file_extend(inode, false);
-+		if (res)
-+			return res;
-+		if (balloc)
-+			*balloc = true;
-+	}
- 
- 	if (ablock < hip->first_blocks) {
--		dblock = hfsplus_ext_find_block(hip->first_extents, ablock);
--		goto done;
-+		*max_blocks = hfsplus_ext_find_block(hip->first_extents,
-+						     ablock,
-+						     dblock);
-+		return 0;
++	lock_page(page);
++	folio_wait_writeback(page_folio(page));
+ 	pptr = kmap_local_page(page);
+ 	curr = pptr + (offset & (PAGE_CACHE_BITS - 1)) / 32;
+ 	i = offset % 32;
+@@ -75,6 +77,7 @@ int hfsplus_block_allocate(struct super_block *sb, u32 size,
+ 			curr++;
+ 		}
+ 		kunmap_local(pptr);
++		unlock_page(page);
+ 		offset += PAGE_CACHE_BITS;
+ 		if (offset >= size)
+ 			break;
+@@ -84,6 +87,8 @@ int hfsplus_block_allocate(struct super_block *sb, u32 size,
+ 			start = size;
+ 			goto out;
+ 		}
++		lock_page(page);
++		folio_wait_writeback(page_folio(page));
+ 		curr = pptr = kmap_local_page(page);
+ 		if ((size ^ offset) / PAGE_CACHE_BITS)
+ 			end = pptr + PAGE_CACHE_BITS / 32;
+@@ -98,6 +103,9 @@ int hfsplus_block_allocate(struct super_block *sb, u32 size,
+ 	start = offset + (curr - pptr) * 32 + i;
+ 	if (start >= size) {
+ 		hfs_dbg("bitmap full\n");
++		kunmap_local(pptr);
++		unlock_page(page);
++		start = size;
+ 		goto out;
  	}
- 
- 	if (inode->i_ino == HFSPLUS_EXT_CNID)
-@@ -274,11 +294,44 @@ int hfsplus_get_block(struct inode *inode, sector_t iblock,
- 		mutex_unlock(&hip->extents_lock);
- 		return -EIO;
- 	}
--	dblock = hfsplus_ext_find_block(hip->cached_extents,
--					ablock - hip->cached_start);
-+	*max_blocks = hfsplus_ext_find_block(hip->cached_extents,
-+					     ablock - hip->cached_start,
-+					     dblock);
- 	mutex_unlock(&hip->extents_lock);
- 
--done:
-+	if (was_dirty)
-+		mark_inode_dirty(inode);
-+
-+	return 0;
-+}
-+
-+/* Get a block at iblock for inode, possibly allocating if create */
-+int hfsplus_get_block(struct inode *inode, sector_t iblock,
-+		      struct buffer_head *bh_result, int create)
-+{
-+	struct super_block *sb = inode->i_sb;
-+	struct hfsplus_sb_info *sbi = HFSPLUS_SB(sb);
-+	struct hfsplus_inode_info *hip = HFSPLUS_I(inode);
-+	u32 ablock, dblock, mask, max_blocks;
-+	sector_t sector;
-+	int res;
-+
-+	/* Convert inode block to disk allocation block */
-+	ablock = iblock >> sbi->fs_shift;
-+
-+	if (iblock >= hip->fs_blocks) {
-+		if (!create)
-+			return 0;
-+		if (iblock > hip->fs_blocks)
-+			return -EIO;
-+	} else
-+		create = 0;
-+
-+	res = hfsplus_map_extent(inode, ablock, create, &dblock, &max_blocks,
-+				  NULL);
-+	if (res)
-+		return res;
-+
- 	hfs_dbg("ino %llu, iblock %llu - dblock %u\n",
- 		inode->i_ino, (long long)iblock, dblock);
- 
-@@ -292,9 +345,8 @@ int hfsplus_get_block(struct inode *inode, sector_t iblock,
- 		hip->phys_size += sb->s_blocksize;
- 		hip->fs_blocks++;
- 		inode_add_bytes(inode, sb->s_blocksize);
--	}
--	if (create || was_dirty)
- 		mark_inode_dirty(inode);
-+	}
- 	return 0;
- }
- 
-diff --git a/fs/hfsplus/hfsplus_fs.h b/fs/hfsplus/hfsplus_fs.h
-index 1e5b58e6a13f..67586382269b 100644
---- a/fs/hfsplus/hfsplus_fs.h
-+++ b/fs/hfsplus/hfsplus_fs.h
-@@ -436,6 +436,8 @@ int hfsplus_ext_cmp_key(const hfsplus_btree_key *k1,
- int hfsplus_ext_write_extent(struct inode *inode);
- int hfsplus_get_block(struct inode *inode, sector_t iblock,
- 		      struct buffer_head *bh_result, int create);
-+int hfsplus_map_extent(struct inode *inode, u32 ablock, int create,
-+			u32 *dblock, u32 *max_blocks, bool *balloc);
- int hfsplus_free_fork(struct super_block *sb, u32 cnid,
- 		      struct hfsplus_fork_raw *fork, int type);
- int hfsplus_file_extend(struct inode *inode, bool zeroout);
+ 	/* do any partial u32 at the start */
+@@ -128,6 +136,7 @@ int hfsplus_block_allocate(struct super_block *sb, u32 size,
+ 		}
+ 		set_page_dirty(page);
+ 		kunmap_local(pptr);
++		unlock_page(page);
+ 		offset += PAGE_CACHE_BITS;
+ 		page = read_mapping_page(mapping, offset / PAGE_CACHE_BITS,
+ 					 NULL);
+@@ -135,6 +144,8 @@ int hfsplus_block_allocate(struct super_block *sb, u32 size,
+ 			start = size;
+ 			goto out;
+ 		}
++		lock_page(page);
++		folio_wait_writeback(page_folio(page));
+ 		pptr = kmap_local_page(page);
+ 		curr = pptr;
+ 		end = pptr + PAGE_CACHE_BITS / 32;
+@@ -152,6 +163,7 @@ int hfsplus_block_allocate(struct super_block *sb, u32 size,
+ 	*curr = cpu_to_be32(n);
+ 	set_page_dirty(page);
+ 	kunmap_local(pptr);
++	unlock_page(page);
+ 	*max = offset + (curr - pptr) * 32 + i - start;
+ 	sbi->free_blocks -= *max;
+ 	hfsplus_mark_mdb_dirty(sb);
+@@ -185,6 +197,8 @@ int hfsplus_block_free(struct super_block *sb, u32 offset, u32 count)
+ 	page = read_mapping_page(mapping, pnr, NULL);
+ 	if (IS_ERR(page))
+ 		goto kaboom;
++	lock_page(page);
++	folio_wait_writeback(page_folio(page));
+ 	pptr = kmap_local_page(page);
+ 	curr = pptr + (offset & (PAGE_CACHE_BITS - 1)) / 32;
+ 	end = pptr + PAGE_CACHE_BITS / 32;
+@@ -216,9 +230,12 @@ int hfsplus_block_free(struct super_block *sb, u32 offset, u32 count)
+ 			break;
+ 		set_page_dirty(page);
+ 		kunmap_local(pptr);
++		unlock_page(page);
+ 		page = read_mapping_page(mapping, ++pnr, NULL);
+ 		if (IS_ERR(page))
+ 			goto kaboom;
++		lock_page(page);
++		folio_wait_writeback(page_folio(page));
+ 		pptr = kmap_local_page(page);
+ 		curr = pptr;
+ 		end = pptr + PAGE_CACHE_BITS / 32;
+@@ -232,6 +249,7 @@ int hfsplus_block_free(struct super_block *sb, u32 offset, u32 count)
+ out:
+ 	set_page_dirty(page);
+ 	kunmap_local(pptr);
++	unlock_page(page);
+ 	sbi->free_blocks += len;
+ 	hfsplus_mark_mdb_dirty(sb);
+ 	mutex_unlock(&sbi->alloc_mutex);
 -- 
 2.43.0
 
