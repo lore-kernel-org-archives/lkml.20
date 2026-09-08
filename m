@@ -1,159 +1,124 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
+Received: from fhigh-b4-smtp.messagingengine.com (fhigh-b4-smtp.messagingengine.com [202.12.124.155])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B73833A901C;
-	Tue,  8 Sep 2026 08:09:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 209023A784F
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 08:09:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.155
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788854946; cv=none; b=uNOfQT3l6rgahOxxziphWOEpDLlU9FkrJ7p49gxOb8Mr5sFfq8XJJLjrf1DBG11cy1vPFnm2S+l9viuNp1b6CC5pSl9vHGzJdcn3UOouOCfw3zG+x4TeLU2gQzjLdKNisYaBuAnshxe+j02VyKjwozGZkp2onbIxtvIas4xW4Ic=
+	t=1788854955; cv=none; b=SMdNWV7y8edUjF+lmIQ9YPMwLbVRNLRL8c80UK5pbv7vay9Wruq+SfAhXVeh0bkKfdaa28FULLAkSPyxhqssfRjWHnG2ekJ59o8jalz+z+fS9s35H3o+T+q9nIAWC9we00XQC/KgCVU2f+8SMF0A44Gwz/7JKK49kRQX6TjzMNg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788854946; c=relaxed/simple;
-	bh=Pz4s/OkkJdrwX3L3b9G9j+92YEGxFvKWRVYgPeVfoIk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=WXviJ3srY5LN2ie7YHEe7JEnYuzuIYXtIPx6169Zr10OhquAE23xd2MN546tHPo5i+ZRvdlqSm01wGJriXwN9EuxWBC6PvKvRr4DAp/P/9Ifrpj9halgaAWZknCuf0sAiwu97h7WQV+Yiy0dB1Dds+NwBKx9ck2w+cxzCLRa1Is=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=cdrUxvfj; arc=none smtp.client-ip=198.175.65.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1788854955; c=relaxed/simple;
+	bh=dTUl62Kvvwt2iA0jmSAM0I0mwQYi1Do7nzl5TFIuOkA=;
+	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
+	 Subject:Content-Type; b=n4u79bbjC4d5zn/LPpsQcZVjfPzNwcj887RoHblnPVMbTRaux5CyyjI4wOOr9IduyLjceLAhOWyYzkvZgGQySlTy2L6C5cf+hYKgL/xkv+LOTd+uHtMYL8pJ2l7ZaJPpT2r+Nh13dkfj3XcfVuIJeJkzUD57K3jE7pOIDslsiSw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de; spf=pass smtp.mailfrom=arndb.de; dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b=CHxwwz0s; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=vzS2YoE7; arc=none smtp.client-ip=202.12.124.155
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="cdrUxvfj"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788854945; x=1820390945;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=Pz4s/OkkJdrwX3L3b9G9j+92YEGxFvKWRVYgPeVfoIk=;
-  b=cdrUxvfj66YcQ5+IBDfWEY0cTX1m6yd4i1sMJlYzDpoxAbRz4Ae61Lpo
-   TSTIb/uPHbIAG4Tm9uGMnh+2cw/Hfm2AFLLlFnb4zIIg1n4dRdZxmbUSA
-   Oe1+3kgZelUkdPfrxx2kzO6AwbRu96gIMl2uYDSeWarUx0WIqBNfLU85w
-   M31osRGfi8XZuCjF21H8+cztafoh3ALgV0XAZLJReK43Shzgcd4V/UOAf
-   zmoISULNwn83Vqn+X3oVye6eKiMQRKE54m0Kd3hxDa0CAWe1LXGZoC2Eg
-   fkeyx5sZpc0Qtmj6DhD6RgdiKbd0LG+hrZS4JgQX782l5UGqqOpnsJVv7
-   Q==;
-X-CSE-ConnectionGUID: g3AxdscvRzy+ceqAWVUlcA==
-X-CSE-MsgGUID: PQe7+rx1SQK50/LmkxTbSw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11899"; a="100771329"
-X-IronPort-AV: E=Sophos;i="6.25,268,1779174000"; 
-   d="scan'208";a="100771329"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
-  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Sep 2026 01:09:05 -0700
-X-CSE-ConnectionGUID: kCeffEvVQ/KHlW6WfeAo5Q==
-X-CSE-MsgGUID: 2dwkh/uRShOLteCW5P3xvA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,268,1779174000"; 
-   d="scan'208";a="266577821"
-Received: from ettammin-mobl2.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.120])
-  by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Sep 2026 01:09:02 -0700
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id 6A05511FA3A;
-	Tue, 08 Sep 2026 11:09:04 +0300 (EEST)
-Date: Tue, 8 Sep 2026 11:09:04 +0300
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-Cc: Philippe Baetens <philippebaetens@gmail.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Kieran Bingham <kieran.bingham@ideasonboard.com>,
-	Jai Luthra <jai.luthra@ideasonboard.com>,
-	linux-media@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 2/2] media: i2c: mira016: Add driver for Mira016
-Message-ID: <ap_CoB5YL2rKAuCy@kekkonen.localdomain>
-References: <20260904-mira016-v2-0-1dcf7b3a807e@ideasonboard.com>
- <20260904-mira016-v2-2-1dcf7b3a807e@ideasonboard.com>
- <ap3M0h2S6EFpuC2T@kekkonen.localdomain>
- <ap5n7OyZrI0KzzN-@zed>
- <ap561H8xYJvjZsRa@kekkonen.localdomain>
- <ap6ALNC8Q0M-Oo51@zed>
+	dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b="CHxwwz0s";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="vzS2YoE7"
+Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
+	by mailfhigh.stl.internal (Postfix) with ESMTP id 56E587A0104;
+	Tue,  8 Sep 2026 04:09:09 -0400 (EDT)
+Received: from ams-imap-03 ([10.64.2.23])
+  by ams-compute-02.internal (MEProxy); Tue, 08 Sep 2026 04:09:10 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm3; t=1788854948;
+	 x=1788941348; bh=LZo30iPxueLhaEWqWjWy7wIdR3qwNxI+4VleF/3GMuI=; b=
+	CHxwwz0sTLz0k4JTDAir0E4LWkmAABV40cTbw0iHVtpW3jH26m9XhmhZgK0DcJVQ
+	3AO8q8rT5R4btuZsvUXga1Af7V2hgTufdVHCpB6C+uviqFvxonm/+LhmtVHLPvC7
+	LuN5fX3scXykkocuy4xZjxRwTWN5PdmwKlQ29GrItRbkNChjXskdvGpL01t+rgPk
+	Q//MiteFc/irdpoDbM4Ko48zgRPkNudKn8u9ywO/bkCJnQ7W74h9/Pt1VuSQp47O
+	xTWb2xozavabsaafUjI4EKIwZ7LaFf9XDFSCBoBrwI5xE1aTWzTeE6+adEpAnE7I
+	+7VXEzu7NEN+3g0008p7pQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1788854948; x=
+	1788941348; bh=LZo30iPxueLhaEWqWjWy7wIdR3qwNxI+4VleF/3GMuI=; b=v
+	zS2YoE7cg1tx+2385UdfQIw1XoQERXgtrB+SQEXZ1l24rm8o2leYZ7bsGukD3sqN
+	XM81FfoXUj8f1KeFkEo3fJRLgpCm8K24Veyw7rOmq548EghdcixBHC0YaF2GJ0Rf
+	aEl/YJrKsREsJKNgl9Fp6wMN3sG5w2uBNfDUG8FBe8mo+1AuitSdxQmcNIFr9XoK
+	ETwFlb3m2n9Ts7n4SJvsw6uniOj6I+mYFjHTQSdZleAqLc4HwdUgeJEDm0n9xMdw
+	6X27+0hF47UAbGzwiz88MNfqn+Q+d7nHQyR9wm/oB2QLHG8ryDqVlDre4bP4sJlH
+	nlK7BDPg1hNGuVmW9HzHw==
+X-ME-Sender: <xms:osKfakv1s0Cj3FdCYlIyLvQu87BLX9JMhxuzNYSkd9IghrBjrhAO6Q>
+    <xme:osKfasSms0E7ULU2ZjtHN9fGbBsRJz1Yl30maUHn0RTIDPGtuwTywCKQtAIqfxw_x
+    31g6my2zQEpVWI_YBnzXh8xdAn72bxIygAs2ToaRFVmDB57wVrtmoPD>
+X-ME-Proxy-Cause: dmFkZTF2ejYEg7vU73wlHTaeZh8Z3R3H4y/Jp6pMlwGiasL4kvZUon27hKxkM8hw6/mQ04
+    hY9MTmaHW5g1hnqDrzYUkr3504WI2mRVE6UyQ7saF0RlX+KO0nRU3sXzqRybSsGT8ett0I
+    7Y/fgXJvd+KIhMDxKAnRu9N7pWMnW7bnY8/bFGLEHyabbhSQNjjSK/NBdZGsRmyGoJfmz2
+    BDHGnqh0/IDmY6VHu/sBhYj/9R2RYJmTKAqHcmXkTl4zMolRTtabcARJKvE63DYHGN/dPB
+    ewd+cB9i9akIN/9eRe7JlioQOAlW3zYTNlwkAaX3xmBVBG1FJ4fL6mhp9MdfF01A2psVV7
+    EDBTOtO6yQkX9Ypy1BP3GXAip22yoc9496CW78lbDAJPZL59D/c4zvhiJGcSd8iiYw2bXs
+    dr8eJrBNfSHMl/uUtI8L2MovZZUstFTlB+PGJ3nOdqs/zPwbxCYhPotcVfvWV7E6tOrD0H
+    aqbPePLYFQcih9vwhU6yZlt8JKFr2LYloh5X4q4k6GHfWyErnuBCH59n/imcNWmum2rfVU
+    QCG1JLVX6RpLURTW/LufaXkK/zXm8Sgz7WCvxrSoXYHUAh4v4RHCXcq5mIBH/JqxrPU9Kf
+    6A8Kvguyml2dVBxi5ZRenM//rU20TnabwmGCCcGs8j1BB1W+VzD9t6D1YifQ
+X-ME-Proxy: <xmx:o8KfagM8Lk4oGiM5PdoQEo-99gtl-RS6XNHnHer8gwkMBnleBlIhWw>
+    <xmx:o8Kfah5ejk8n0N1O-qQraN-54ChxKX2S91wmJr33PuE2qGUjl3I85g>
+    <xmx:o8KfamR93Z0hvwuau9cNxXACeLr-AEVyeFfH93CDqR-m1Mn6WCQdnA>
+    <xmx:o8KfauA_9IT7jrffeHNvF5XMJjoer-m_L4oM8qlkjzZGrlrRk2Q-3w>
+    <xmx:pMKfaszjhBKrkEHB0bxsf84nU0D8lU3qJUY3VZnfO22E6_oRkV2RtUYt>
+Feedback-ID: i56a14606:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+	id 830B032A0078; Tue,  8 Sep 2026 04:09:06 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <ap6ALNC8Q0M-Oo51@zed>
+X-ThreadId: AWdwJ18nw8go
+Date: Tue, 08 Sep 2026 10:08:46 +0200
+From: "Arnd Bergmann" <arnd@arndb.de>
+To: "Michael S. Tsirkin" <mst@redhat.com>,
+ "Linfeng Sun" <linfeng.sun.dev@gmail.com>
+Cc: "Jason Wang" <jasowangio@gmail.com>,
+ =?UTF-8?Q?Eugenio_P=C3=A9rez?= <eperezma@redhat.com>,
+ virtualization@lists.linux.dev, linux-kernel@vger.kernel.org
+Message-Id: <ea3ba5cc-ae68-4c1d-a3a9-c2840a1cb9e7@app.fastmail.com>
+In-Reply-To: <20260908035646-mutt-send-email-mst@kernel.org>
+References: <20260908-fix-vduse_dev_compat_ioctl-v1-1-62264d9bfb8d@gmail.com>
+ <20260908035646-mutt-send-email-mst@kernel.org>
+Subject: Re: [PATCH] vduse: return compat ioctl results directly
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 
-Hi Jacopo,
+On Tue, Sep 8, 2026, at 09:57, Michael S. Tsirkin wrote:
+> On Tue, Sep 08, 2026 at 03:31:51PM +0800, Linfeng Sun wrote:
+>> The compat handler handles VDUSE_IOTLB_GET_FD and VDUSE_VQ_GET_INFO, but
+>> then calls the native handler. Their different command sizes make native
+>> dispatch return -ENOIOCTLCMD.
+>> 
+>> For GET_FD, this overwrites receive_fd()'s return value after the
+>> descriptor is installed, leaking one fd per call. Return handled compat
+>> results directly and use native dispatch only for other commands.
+>> 
+>> Fixes: 455a2a1af926 ("vduse: fix compat handling for VDUSE_IOTLB_GET_FD/VDUSE_VQ_GET_INFO")
+>> Signed-off-by: Linfeng Sun <linfeng.sun.dev@gmail.com>
+>
+> indeed, I will apply.
 
-On Mon, Sep 07, 2026 at 11:16:41AM +0200, Jacopo Mondi wrote:
-> > > > > +static int mira016_set_ctrl(struct v4l2_ctrl *ctrl)
-> > > > > +{
-> > > > > +	struct mira016 *mira016 =
-> > > > > +		container_of(ctrl->handler, struct mira016, ctrl_handler);
-> > > > > +	struct i2c_client *client = v4l2_get_subdevdata(&mira016->sd);
-> > > > > +	struct v4l2_subdev_state *state;
-> > > > > +	struct v4l2_rect *crop;
-> > > > > +	int ret = 0;
-> > > > > +
-> > > > > +	state = v4l2_subdev_get_locked_active_state(&mira016->sd);
-> > > > > +	crop = v4l2_subdev_state_get_crop(state, 0);
-> > > > > +
-> > > > > +	if (ctrl->id == V4L2_CID_VBLANK) {
-> > > > > +		s32 exposure_max = crop->height + ctrl->val
-> > > > > +				 - MIRA016_FRAME_INTEGRATION_DIFF;
-> > > > > +		s32 exposure_def = min(exposure_max,
-> > > > > +				       mira016->exposure->val);
-> > > > > +
-> > > > > +		ret = __v4l2_ctrl_modify_range(mira016->exposure,
-> > > > > +					       mira016->exposure->minimum,
-> > > > > +					       exposure_max,
-> > > > > +					       mira016->exposure->step,
-> > > > > +					       exposure_def);
-> > > > > +		if (ret)
-> > > > > +			return ret;
-> > > > > +	}
-> > > > > +
-> > > > > +	if (!pm_runtime_get_if_in_use(&client->dev))
-> > > > > +		return 0;
-> > > > > +
-> > > > > +	switch (ctrl->id) {
-> > > > > +	case V4L2_CID_EXPOSURE:
-> > > > > +		ret = mira016_write_exposure_reg(mira016, ctrl->val);
-> > > > > +		break;
-> > > > > +	case V4L2_CID_VBLANK:
-> > > > > +		ret = mira016_write_frame_duration_reg(mira016, state, ctrl->val);
-> > > > > +		break;
-> > > >
-> > > > Is hblank part of the register lists?
-> > > >
-> > >
-> > > These sensors (there will hopefully be more supported by this driver)
-> > > do not have a real horizontal blanking.
-> > >
-> > > Their line length is expressed by a time base multipled by a line
-> > > length which doesn't directly depend on the pixel width but rather on
-> > > the ADC and PHY timings.
-> > >
-> > > You could expand the line duration by increasing the time base, but I
-> > > wouldn't go there and use VBLANK only to control the frame duration.
-> > >
-> > > As you can see the HBLANK control is registered with  fixed value of
-> > > 0.
-> >
-> > How does control frame rate then? If HBLANK is zero, the frame rate is
-> > undefined, isn't it?
-> >
-> 
-> Why do you think so ?
-> 
-> The row_timing is the product of the time base (in usec) multiplied by
-> the row length expressed in time base cycles (see mira016_trow_psec()
-> and how seq_time_base and row_length are calculated).
-> 
-> VBLANK is still controllable, and you can vary the frame rate by
-> changing the vblank.
-> 
-> What have am I missing ?
+The fix looks correct to me, thanks!
 
-Using only vertical blanking value to control the frame rate is fine, but
-the correct HBLANK value is still needed by the user space to be able to
-set the frame rate.
+> But ... how was the original patch working then? Arnd, what gives?
 
--- 
-Regards,
+It looks I either broke it during refactoring from two functions
+into one, or I just didn't do it right in the first place.
 
-Sakari Ailus
+I did write in the extra patch text
+
+| The code is directly copied from the native ioctl handler, but I
+| did not test this with actual x86-32 userspace, so please review
+| carefully.
+
+but obviously should have caught this one myself since it is a much
+less subtle bug than the one I was trying to fix in the first place.
+
+      Arnd
