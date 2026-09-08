@@ -1,36 +1,40 @@
-Received: from mta0.migadu.com (out-238.mta0.migadu.com [91.218.175.238])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from canpmsgout07.his.huawei.com (canpmsgout07.his.huawei.com [113.46.200.222])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58363372B58
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 09:10:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.238
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFA694FC8CB
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 09:10:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.222
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788858627; cv=none; b=ZaGsoxgVmAaS5wzlB9v13QUlpG7RuD0ejhgqaB8zjSzGV2JiNDI2LHLNwRnpHbq4/COGr0d3uzv7DLwhC2XpvxFxM1ONVjgzNzipFHwWO3TaLNSi34ILAOmXxaoxnI+7JqfhB0EayEehN65v/5cZoxEvuDlLXivBR4NQbBZZYCk=
+	t=1788858649; cv=none; b=YWBQq7Sk04d7ogXtGRzvCvPuJdUsySXJzDx4PD+0lXWYrWd0ONfKQ9VWEcpZTfrRmfZSCJtKHs4MlS/SWidU++NGvoj8vQ7ZMWrIFkFCxPYuJjAZl3TUVsZ6FKAqZgce/h+sE1B+j1TtcQxo5fZDUrmUvckq9S6s+07ZRc+g6Yk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788858627; c=relaxed/simple;
-	bh=cEdVml3tdgAFLckXNxgJNh/xEbh5hOuVY3ofUnolJE8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=NkzsljtoTTNVhiaylVUt1rpBv6WSbgMF1tHSbeiBsTfEXo7P89r9DGiOcMBpfFIzkCa8GjGv2xIGjSVSSy7EnzCAOzBNLG1CzeGn+bG/yFnyaeigvGsZ7YYpTFNQ9OcydGaJsEUvooFQ2jN6s/qPULz6K+uEcLvIoTd+bs7BnG4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=mGDZGI/7; arc=none smtp.client-ip=91.218.175.238
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1788858649; c=relaxed/simple;
+	bh=kpbmkS7Kn9Fe5bFNuPA50A2+us3zYSnVRKbNbOgUF6c=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=NgHo1XRqWpoz9l6HmZnY4g36x5iw8MRtAtwmb990+Wnw+CAmveW6XUTeR+IEpJH+wskDUuIS0YjVmEH36dNBYvUnKBqmrhFW0cp9Lua5LXPCvRBost38+S30kKZSTGhbv5zrr+gF4rQNxRlQ7+J1RXazy3g2Ks/6ufl7cpfC0X0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=AmEyBD5j; arc=none smtp.client-ip=113.46.200.222
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="mGDZGI/7"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=cEdVml3tdgAFLckXNxgJNh/xEbh5hOuVY3ofUnolJE8=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788858622; v=1; x=1789463422;
- b=mGDZGI/7eho1oCAMQAFP5k6uHKGxgtsXd8LnWYLumuY0XG6E3ohGh1nh84Ajwve1i36GIUJ5
- xuVzopiEDE5v2i0feRjZit/lC2rr588yofYX/0UqHdOYARgBKi9wA3XH2/JPiktRm8IcZNigfLt
- FhI87zwu4LEy/18YBbZVaA40=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 375bf685a1d0cbc9;
-	Tue, 08 Sep 2026 09:10:05 +0000
-X-Mizu-Trace-ID: 375bf685a1d0cbc9
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <f2f1f7e4-539f-4385-a28b-1fde074cdeca@linux.dev>
-Date: Tue, 8 Sep 2026 17:09:58 +0800
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="AmEyBD5j"
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=sShEmy1XuzfNNWN3+4kC09Nfe5OSu2vtRKrpboDP/5I=;
+	b=AmEyBD5jV7g6LrGvy2qZh3W5SPD/whMxLAr7Bz1vlW98e9Ku/4oTeU37m9gDGfltTLZCDiiEH
+	rweT38ZOn7PffvjnZFeGI6cBf1ikvyEB/AQQ8PJTg/Iwd7/DqHP9u3+evIOgeT1KKEOoHSshTsd
+	js6UCb4Y5BAuAUEDENWwTUA=
+Received: from mail.maildlp.com (unknown [172.19.162.92])
+	by canpmsgout07.his.huawei.com (SkyGuard) with ESMTPS id 4hfHv81fr9zLlTC;
+	Tue,  8 Sep 2026 16:59:48 +0800 (CST)
+Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
+	by mail.maildlp.com (Postfix) with ESMTPS id E825440586;
+	Tue,  8 Sep 2026 17:10:41 +0800 (CST)
+Received: from [10.67.109.254] (10.67.109.254) by
+ kwepemk200008.china.huawei.com (7.202.194.74) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Tue, 8 Sep 2026 17:10:41 +0800
+Message-ID: <a7f78676-4b01-436f-9fef-dbabae849c45@huawei.com>
+Date: Tue, 8 Sep 2026 17:10:40 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -38,221 +42,109 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 09/11] mm/sparse-vmemmap: drop the extra tail page from
- device DAX reservation
-To: Muchun Song <songmuchun@bytedance.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- David Hildenbrand <david@kernel.org>, Oscar Salvador <osalvador@suse.de>,
- Madhavan Srinivasan <maddy@linux.ibm.com>,
- Michael Ellerman <mpe@ellerman.id.au>, Jonathan Corbet <corbet@lwn.net>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- linuxppc-dev@lists.ozlabs.org, linux-doc@vger.kernel.org,
- Muchun Song <muchun.song@linux.dev>, Lorenzo Stoakes <ljs@kernel.org>,
- Mike Rapoport <rppt@kernel.org>, Nicholas Piggin <npiggin@gmail.com>,
- Christophe Leroy <chleroy@kernel.org>, Randy Dunlap <rdunlap@infradead.org>
-References: <20260908030335.96549-1-songmuchun@bytedance.com>
- <20260908030335.96549-10-songmuchun@bytedance.com>
-From: Qi Zheng <qi.zheng@linux.dev>
-In-Reply-To: <20260908030335.96549-10-songmuchun@bytedance.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH 11/19] arm64: smp: Use generic HOTPLUG_SPLIT_STARTUP
+ machinery for CPU onlining
+To: Will Deacon <will@kernel.org>, <linux-arm-kernel@lists.infradead.org>
+CC: <linux-kernel@vger.kernel.org>, Thomas Gleixner <tglx@kernel.org>, Catalin
+ Marinas <catalin.marinas@arm.com>, Borislav Petkov <bp@alien8.de>, Lorenzo
+ Pieralisi <lpieralisi@kernel.org>, Mark Rutland <mark.rutland@arm.com>, David
+ Woodhouse <dwmw@amazon.co.uk>, Peter Zijlstra <peterz@infradead.org>, Marc
+ Zyngier <maz@kernel.org>
+References: <20260907164024.17164-1-will@kernel.org>
+ <20260907164024.17164-12-will@kernel.org>
+From: Jinjie Ruan <ruanjinjie@huawei.com>
+In-Reply-To: <20260907164024.17164-12-will@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: kwepems200002.china.huawei.com (7.221.188.68) To
+ kwepemk200008.china.huawei.com (7.202.194.74)
 
 
 
-On 9/8/26 11:03 AM, Muchun Song wrote:
-> The device DAX vmemmap population still reserves one extra tail vmemmap
-> page after the head page.
+在 2026/9/8 0:40, Will Deacon 写道:
+> In preparation for enabling parallel bringup of secondary CPUs on arm64,
+> take the baby step of moving from HOTPLUG_CORE_SYNC_FULL to
+> HOTPLUG_SPLIT_STARTUP.
 > 
-> Drop that extra reservation and let the shared tail page cover all tail
-> vmemmap pages after the head page, so DAX follows the same reservation
-> model as HugeTLB.
+> Rework the cpu_die_early() path to use a private cpumask, otherwise
+> clearing the incoming CPU from the present mask in the 'kick' stage will
+> prevent the hotplug stage machine from progressing and
+> arch_cpuhp_cleanup_kick_cpu() will not be called.
 > 
-> This reduces the reserved vmemmap pages for optimized DAX mappings to
-> one and removes the now-unneeded first-tail population from the generic
-> and powerpc paths to simplify the code as well.
-> 
-> Signed-off-by: Muchun Song <songmuchun@bytedance.com>
+> Signed-off-by: Will Deacon <will@kernel.org>
 > ---
->   arch/powerpc/mm/book3s64/radix_pgtable.c | 46 ++----------------------
->   include/linux/mm.h                       |  3 +-
->   mm/mm_init.c                             |  2 +-
->   mm/sparse-vmemmap.c                      | 13 ++-----
->   4 files changed, 7 insertions(+), 57 deletions(-)
-
-Looks like sashiko's response [1] is a false positive.
-
-[1]. 
-https://sashiko.dev/#/patchset/20260908030335.96549-1-songmuchun%40bytedance.com
-
-__SetPageReserved() in vmemmap_shared_tail_page() marks the struct page
-entries stored inside the shared vmemmap backing page, i.e. the metadata
-templates that later represent DEV-DAX tail pages. It does not mark the
-struct page of the backing page itself.
-
-On hot-remove, free_vmemmap_pages() is called with pte_page(*pte), which
-is the backing page. That page is not reserved, so the teardown goes
-through __free_pages(), not free_reserved_pages().
-
-Right?
-
-If so:
-
-Acked-by: Qi Zheng <qi.zheng@linux.dev>
-
-Thanks,
-Qi
-
+>  arch/arm64/Kconfig           | 2 +-
+>  arch/arm64/include/asm/smp.h | 1 +
+>  arch/arm64/kernel/smp.c      | 9 +++++----
+>  3 files changed, 7 insertions(+), 5 deletions(-)
 > 
-> diff --git a/arch/powerpc/mm/book3s64/radix_pgtable.c b/arch/powerpc/mm/book3s64/radix_pgtable.c
-> index 831c231a4a18..e7e751c48dd2 100644
-> --- a/arch/powerpc/mm/book3s64/radix_pgtable.c
-> +++ b/arch/powerpc/mm/book3s64/radix_pgtable.c
-> @@ -1218,39 +1218,6 @@ int __meminit radix__vmemmap_populate(unsigned long start, unsigned long end, in
->   	return 0;
->   }
->   
-> -static pte_t * __meminit radix__vmemmap_populate_address(unsigned long addr, int node,
-> -							 struct vmem_altmap *altmap,
-> -							 struct page *reuse)
-> -{
-> -	pgd_t *pgd;
-> -	p4d_t *p4d;
-> -	pud_t *pud;
-> -	pmd_t *pmd;
-> -	pte_t *pte;
-> -
-> -	pgd = pgd_offset_k(addr);
-> -	p4d = p4d_offset(pgd, addr);
-> -	pud = vmemmap_pud_alloc(p4d, node, addr);
-> -	if (!pud)
-> -		return NULL;
-> -	pmd = vmemmap_pmd_alloc(pud, node, addr);
-> -	if (!pmd)
-> -		return NULL;
-> -	if (pmd_leaf(*pmd))
-> -		/*
-> -		 * The second page is mapped as a hugepage due to a nearby request.
-> -		 * Force our mapping to page size without deduplication
-> -		 */
-> -		return NULL;
-> -	pte = vmemmap_pte_alloc(pmd, node, addr);
-> -	if (!pte)
-> -		return NULL;
-> -	radix__vmemmap_pte_populate(pmd, addr, node, NULL, NULL);
-> -	vmemmap_verify(pte, node, addr, addr + PAGE_SIZE);
-> -
-> -	return pte;
-> -}
-> -
->   int __meminit vmemmap_populate_compound_pages(unsigned long start_pfn,
->   					      unsigned long start,
->   					      unsigned long end, int node,
-> @@ -1297,7 +1264,7 @@ int __meminit vmemmap_populate_compound_pages(unsigned long start_pfn,
->   		if (!pte_none(*pte)) {
->   			/*
->   			 * This could be because we already have a compound
-> -			 * page whose VMEMMAP_RESERVE_NR pages were mapped and
-> +			 * page whose retained vmemmap page was mapped and
->   			 * this request fall in those pages.
->   			 */
->   			next = addr + PAGE_SIZE;
-> @@ -1318,16 +1285,7 @@ int __meminit vmemmap_populate_compound_pages(unsigned long start_pfn,
->   					return -ENOMEM;
->   				vmemmap_verify(pte, node, addr, addr + PAGE_SIZE);
->   
-> -				/*
-> -				 * Populate the tail pages vmemmap page
-> -				 * It can fall in different pmd, hence
-> -				 * vmemmap_populate_address()
-> -				 */
-> -				pte = radix__vmemmap_populate_address(addr + PAGE_SIZE, node, NULL, NULL);
-> -				if (!pte)
-> -					return -ENOMEM;
-> -
-> -				next = addr + 2 * PAGE_SIZE;
-> +				next = addr + PAGE_SIZE;
->   				continue;
->   			}
->   
-> diff --git a/include/linux/mm.h b/include/linux/mm.h
-> index a2ebe87e7654..969594074fd2 100644
-> --- a/include/linux/mm.h
-> +++ b/include/linux/mm.h
-> @@ -5167,7 +5167,6 @@ static inline void vmem_altmap_free(struct vmem_altmap *altmap,
->   }
->   #endif
->   
-> -#define VMEMMAP_RESERVE_NR	2
->   #ifdef CONFIG_ARCH_WANT_OPTIMIZE_DAX_VMEMMAP
->   static inline bool __vmemmap_can_optimize(struct vmem_altmap *altmap,
->   					  struct dev_pagemap *pgmap)
-> @@ -5187,7 +5186,7 @@ static inline bool __vmemmap_can_optimize(struct vmem_altmap *altmap,
->   	 * For vmemmap optimization with DAX we need minimum 2 vmemmap
->   	 * pages. See layout diagram in Documentation/mm/vmemmap_dedup.rst
->   	 */
-> -	return !altmap && (nr_vmemmap_pages > VMEMMAP_RESERVE_NR);
-> +	return !altmap && (nr_vmemmap_pages > VMEMMAP_OPTIMIZATION_PAGES);
->   }
->   /*
->    * If we don't have an architecture override, use the generic rule
-> diff --git a/mm/mm_init.c b/mm/mm_init.c
-> index 7a2e58d631c2..629420a83891 100644
-> --- a/mm/mm_init.c
-> +++ b/mm/mm_init.c
-> @@ -1056,7 +1056,7 @@ static inline unsigned long compound_nr_pages(unsigned long pfn,
->   	if (!section_vmemmap_optimizable(ms))
->   		return pgmap_vmemmap_nr(pgmap);
->   
-> -	return VMEMMAP_RESERVE_NR * (PAGE_SIZE / sizeof(struct page));
-> +	return VMEMMAP_OPTIMIZATION_PAGES * (PAGE_SIZE / sizeof(struct page));
->   }
->   
->   static void __ref memmap_init_compound(struct page *head,
-> diff --git a/mm/sparse-vmemmap.c b/mm/sparse-vmemmap.c
-> index 0201877a7f80..e655d9d1348f 100644
-> --- a/mm/sparse-vmemmap.c
-> +++ b/mm/sparse-vmemmap.c
-> @@ -136,7 +136,6 @@ int __meminit section_nr_vmemmap_pages(unsigned long pfn, unsigned long nr_pages
->   {
->   	const struct mem_section *ms = __pfn_to_section(pfn);
->   	const int order = section_order(ms);
-> -	const int vmemmap_pages = pgmap ? VMEMMAP_RESERVE_NR : VMEMMAP_OPTIMIZATION_PAGES;
->   	const unsigned long pages_per_compound = 1UL << order;
->   
->   	VM_WARN_ON_ONCE(!IS_ALIGNED(pfn | nr_pages, PAGES_PER_SUBSECTION));
-> @@ -147,13 +146,13 @@ int __meminit section_nr_vmemmap_pages(unsigned long pfn, unsigned long nr_pages
->   
->   	if (order < PFN_SECTION_SHIFT) {
->   		VM_WARN_ON_ONCE(!IS_ALIGNED(pfn | nr_pages, pages_per_compound));
-> -		return vmemmap_pages * nr_pages / pages_per_compound;
-> +		return VMEMMAP_OPTIMIZATION_PAGES * nr_pages / pages_per_compound;
->   	}
->   
->   	VM_WARN_ON_ONCE(!IS_ALIGNED(pfn | nr_pages, PAGES_PER_SECTION));
->   
->   	if (IS_ALIGNED(pfn, pages_per_compound))
-> -		return vmemmap_pages;
-> +		return VMEMMAP_OPTIMIZATION_PAGES;
->   
->   	return 0;
->   }
-> @@ -521,17 +520,11 @@ static int __meminit vmemmap_populate_compound_pages(unsigned long start_pfn,
->   		if (!pte)
->   			return -ENOMEM;
->   
-> -		/* Populate the tail pages vmemmap page */
-> -		next = addr + PAGE_SIZE;
-> -		pte = vmemmap_populate_address(next, node, NULL, -1, flags);
-> -		if (!pte)
-> -			return -ENOMEM;
-> -
->   		/*
->   		 * Reuse the shared page for the rest of tail pages
->   		 * See layout diagram in Documentation/mm/vmemmap_dedup.rst
->   		 */
-> -		next += PAGE_SIZE;
-> +		next = addr + PAGE_SIZE;
->   		rc = vmemmap_populate_range(next, last, node, NULL,
->   					    page_to_pfn(page), flags);
->   		if (rc)
+> diff --git a/arch/arm64/Kconfig b/arch/arm64/Kconfig
+> index 89d1f0f2269c..fd8cf792b7fd 100644
+> --- a/arch/arm64/Kconfig
+> +++ b/arch/arm64/Kconfig
+> @@ -230,7 +230,7 @@ config ARM64
+>  	select HAVE_SYSCALL_TRACEPOINTS
+>  	select HAVE_KPROBES
+>  	select HAVE_KRETPROBES
+> -	select HOTPLUG_CORE_SYNC_FULL
+> +	select HOTPLUG_SPLIT_STARTUP
+>  	select HOTPLUG_SMT if HOTPLUG_CPU
+>  	select IRQ_DOMAIN
+>  	select IRQ_FORCED_THREADING
+> diff --git a/arch/arm64/include/asm/smp.h b/arch/arm64/include/asm/smp.h
+> index fe343c30d620..7b986a6a765b 100644
+> --- a/arch/arm64/include/asm/smp.h
+> +++ b/arch/arm64/include/asm/smp.h
+> @@ -89,6 +89,7 @@ asmlinkage void secondary_start_kernel(void);
+>  struct secondary_data {
+>  	struct task_struct *task;
+>  	long status;
+> +	cpumask_t cpu_died_early_mask;
+>  };
+>  
+>  extern struct secondary_data secondary_data;
+> diff --git a/arch/arm64/kernel/smp.c b/arch/arm64/kernel/smp.c
+> index 00362ed6e1ab..c5e9d5d5e003 100644
+> --- a/arch/arm64/kernel/smp.c
+> +++ b/arch/arm64/kernel/smp.c
+> @@ -62,7 +62,7 @@
+>   * so we need some other way of telling a new secondary core
+>   * where to place its SVC stack
+>   */
+> -struct secondary_data secondary_data;
+> +struct secondary_data secondary_data = {};
+>  /* Number of CPUs which aren't online, but looping in kernel text. */
+>  static int cpus_stuck_in_kernel;
+>  
+> @@ -108,7 +108,7 @@ static int boot_secondary(unsigned int cpu, struct task_struct *idle)
+>  	return -EOPNOTSUPP;
+>  }
+>  
+> -int __cpu_up(unsigned int cpu, struct task_struct *idle)
+> +int arch_cpuhp_kick_ap_alive(unsigned int cpu, struct task_struct *idle)
+>  {
+>  	int ret;
+>  
+> @@ -146,6 +146,8 @@ void arch_cpuhp_cleanup_kick_cpu(unsigned int cpu, bool is_alive)
+>  		cpus_stuck_in_kernel++;
+>  		break;
+>  	case CPU_KILL_ME:
+> +		if (cpumask_test_cpu(cpu, &secondary_data.cpu_died_early_mask))
+> +			set_cpu_present(cpu, false);
+
+Reviewed-by: Jinjie Ruan <ruanjinjie@huawei.com>
+
+>  		if (!op_cpu_kill(cpu)) {
+>  			pr_crit("CPU%u: died during early boot\n", cpu);
+>  			break;
+> @@ -406,8 +408,7 @@ void __noreturn cpu_die_early(void)
+>  
+>  	pr_crit("CPU%d: will not boot\n", cpu);
+>  
+> -	/* Mark this CPU absent */
+> -	set_cpu_present(cpu, 0);
+> +	cpumask_set_cpu(cpu, &secondary_data.cpu_died_early_mask);
+>  
+>  	if (IS_ENABLED(CONFIG_HOTPLUG_CPU)) {
+>  		update_cpu_boot_status(CPU_KILL_ME);
 
