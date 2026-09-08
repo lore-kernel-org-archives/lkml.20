@@ -1,117 +1,81 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C23042F12AC
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 23:01:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38D2846A61C;
+	Tue,  8 Sep 2026 23:02:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788908492; cv=none; b=nwkVXptrcDGXr3qZ3+dkYwjJyLHuAxsEMqF7WYc8xA/Os1agQYklGPaZmRhur3rHfcg7fuirvN0wQVP5vDMfdwO1Hhym1G+RAzspy0umQy6gc4w1DlQftEirPSOQPrweJdikpOq7OhPU1tPMCS+aAkCqc6ZSnwkw7EDVzHr3Nd4=
+	t=1788908523; cv=none; b=k2ZAj7ftueew3RkOzsx0o0+Th4LZkexK4qzmunPOd/EzhdXZhJnAk3ucURr7ocRUUw6imejmT/ToS1a81JoiFDtlDilAfNTSTiIInrX1EqI8iGEERqyfJnoyXlcdBeI9jxxjXj3f9AmwEqd9JFCgOqNt9OIW5lcMZogxbQnreJU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788908492; c=relaxed/simple;
-	bh=Rm8WX1xe0DoMo3D1FxDrPDxfUykAkXe8SqdtbTEnEMc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=bFC7QsZoaTSYa8/F0pOdDbSosPn5fSy8gLE680A1p4CZ8VaZaoKylyaLsqg4U94CHN6u5mEbwreTWqNfvwaYBD//EEJU+gDWOY4JH4xYFW503f9sDU1ke+3GIHmx9VajYw9oBWAkgnOp1ghjglBcmysJRMcN1Ic4XyrUtNgD7bw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=bqBRpioF; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1788908523; c=relaxed/simple;
+	bh=qLVm+fSIWjyAB2W8I8Kyp1kL5m36X4yBvFi2GQagBKM=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=frZfhWK7KVc5hl/jgw0T7FRiaRSTs/NlrVmH6LEslAQWoHZSAp4JhpuCdyvJ5I3f0mR4t0epsV+eYXdE9Cpjyz8ZsweGycQUpUMyUrHwJ6D0IS6W/7sp/DPeV1xQxa/jKwlPiCtSMAVj8dxFkX7O/u5EsORn8DSu0K61MMXD2dk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mFRFxbTT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="bqBRpioF"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1788908490;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ynGziBWrLSR0Afz+gjEtlGctM5W9fhdVmYGZfqUKAWg=;
-	b=bqBRpioF/p2yGLrpStYs32RatGuWOayQdfYA9GXz6Hl+u21I6EKvaz4fQ+TmHlypJ/lVxe
-	fvmEbzBjmtJgB8LDQDzej0Q/rFGVn+pUFj0R1RaCJzZi5dtYBQsCAEoLtRPa3nKOfrMWF5
-	/lgSVJHMyAn+9jtDEs8OlzL4ZZak608=
-Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-443-VtrH7BDWNuGsHVzfItdtHQ-1; Tue,
- 08 Sep 2026 19:01:24 -0400
-X-MC-Unique: VtrH7BDWNuGsHVzfItdtHQ-1
-X-Mimecast-MFC-AGG-ID: VtrH7BDWNuGsHVzfItdtHQ_1788908482
-Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 795F81954AD4;
-	Tue,  8 Sep 2026 23:01:21 +0000 (UTC)
-Received: from fedora (headnet05.pony-001.prod.iad2.dc.redhat.com [10.2.32.117])
-	by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with SMTP id 585551800347;
-	Tue,  8 Sep 2026 23:01:16 +0000 (UTC)
-Received: by fedora (nbSMTP-1.00) for uid 1000
-	oleg@redhat.com; Wed,  9 Sep 2026 01:01:21 +0200 (CEST)
-Date: Wed, 9 Sep 2026 01:01:15 +0200
-From: Oleg Nesterov <oleg@redhat.com>
-To: Bill Wendling <morbo@google.com>
-Cc: Christian Brauner <brauner@kernel.org>,
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
-	Bradley Morgan <brads@mainlining.org>,
-	Thomas =?iso-8859-1?Q?Wei=DFschuh?= <thomas.weissschuh@linutronix.de>,
-	Kees Cook <kees@kernel.org>, Aleksa Sarai <cyphar@cyphar.com>,
-	Jan Kara <jack@suse.cz>, Nathan Chancellor <nathan@kernel.org>,
-	Miguel Ojeda <ojeda@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
-	Nicolas Schier <nsc@kernel.org>, Gary Guo <gary@garyguo.net>,
-	Alice Ryhl <aliceryhl@google.com>,
-	Douglas Anderson <dianders@chromium.org>,
-	Anand Moon <linux.amoon@gmail.com>,
-	codemender-patching+linux@google.com, linux-kernel@vger.kernel.org,
-	linux-hardening@vger.kernel.org
-Subject: Re: [PATCH v5 1/2] userns: Add __counted_by_ptr attribute to struct
- uid_gid_map
-Message-ID: <aqCTfVdDOy5ZOx6c@redhat.com>
-References: <20260823125155.1136740-3-morbo@google.com>
- <20260908222734.3048684-1-morbo@google.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mFRFxbTT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E96181F00A3A;
+	Tue,  8 Sep 2026 23:02:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788908522;
+	bh=Cr7QisnbyrPTLrMRZdqHp9na3t0p/BhYiqKv9pr7wGc=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=mFRFxbTTfHpMZ0uIYIxIny91ER+mvrAHW/mgPldul9bWX2WWmgYhciQ9a0UW9slmU
+	 zGizR7wemBjsgsxGPg8Ja6Tk3r2jov3C2i74agVOMHCNMd/5CffQ3YsYNiBR3YC4mg
+	 MKO8IAKjflqlXyz+p+Hm9XCgyak+Oupbtn0X0qgIMt6pcZ20GobZuIY4lPqcObmQP0
+	 yjam0gNhx6Hj69O9uou/qOAp6OHUFDBr4NZr5poczjHOfJbidDUWHylCjqbLQtpgkI
+	 GxNG1r7MmDIVKLl/pcb7tXtvQA5KdGhvJg8qPVxDcfQX3nglpnNQkwDfwfo+j2Ohfq
+	 DZc1LiREUCwJw==
+Date: Wed, 9 Sep 2026 00:01:58 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: alistair23@gmail.com
+Cc: linux-pci@vger.kernel.org, Jonathan.Cameron@huawei.com, djbw@kernel.org,
+ rust-for-linux@vger.kernel.org, lukas@wunner.de, alistair@alistair23.me,
+ linux-cxl@vger.kernel.org, bhelgaas@google.com, akpm@linux-foundation.org,
+ linux-kernel@vger.kernel.org, gary@garyguo.net, ojeda@kernel.org,
+ benno.lossin@proton.me, a.hindborg@kernel.org, wilfred.mallawa@wdc.com,
+ tmgross@umich.edu, boqun.feng@gmail.com, bjorn3_gh@protonmail.com,
+ alex.gaynor@gmail.com, aliceryhl@google.com, Alistair Francis
+ <alistair.francis@wdc.com>
+Subject: Re: [PATCH v3 10/21] PCI/TSM: Rename pf0 to host
+Message-ID: <20260909000158.78ffa790@jic23-huawei>
+In-Reply-To: <20260901010347.2614656-11-alistair.francis@wdc.com>
+References: <20260901010347.2614656-1-alistair.francis@wdc.com>
+	<20260901010347.2614656-11-alistair.francis@wdc.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260908222734.3048684-1-morbo@google.com>
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On 09/08, Bill Wendling wrote:
->
-> We can add the __counted_by_ptr attribute to the 'forward' and 'reverse'
-> pointer fields of 'struct uid_gid_map', which are counted by
-> 'nr_extents'.
+On Tue,  1 Sep 2026 11:03:36 +1000
+alistair23@gmail.com wrote:
 
-Since I am CC'ed again... (thanks btw)
+> From: Alistair Francis <alistair.francis@wdc.com>
+> 
+> Rename pci_tsm_pf0 to pci_tsm_host (and rename variables and function
+> names from pf0 to host) as part of converting pci_tsm_host
+> to be any device that knows how to speak any of CMA, IDE, or
+> TDISP.
 
-Personally, I am not a huge fan of __counted_by_ptr, at least in this
-particular case. But 1/2 looks technically correct, I think it doesn't
-hurt ;)
+I'm not against the change, but I would like at least one example of
+'what' other type of device you plan to use this for.
 
-So, FWIW
+vf or something else?
 
-Reviewed-by: Oleg Nesterov <oleg@redhat.com>
-
-
-> --- a/kernel/user_namespace.c
-> +++ b/kernel/user_namespace.c
-> @@ -809,13 +809,17 @@ static int insert_extent(struct uid_gid_map *map, struct uid_gid_extent *extent)
->  		map->reverse = NULL;
->  	}
->
-> -	if (map->nr_extents < UID_GID_MAP_MAX_BASE_EXTENTS)
-> -		dest = &map->extent[map->nr_extents];
-> +	/*
-> +	 * nr_extents must be updated before the extent and forward arrays are
-> +	 * accessed, otherwise KSAN will assert an out-of-bounds error.
-> +	 */
-> +	map->nr_extents++;
-
-Yes, but perhaps the comment should be more explicit...
-I mean, something like
-
-	... otherwise KSAN ... because of __counted_by_ptr(nr_extents)
-
-Nevermind, this is just a minor/subjective nit.
-
-Oleg.
-
+> 
+> This commit just renames the functions and provides no functional
+> change. That will happen in the next commit.
+> 
+> Signed-off-by: Alistair Francis <alistair.francis@wdc.com>
+> ---
+>  drivers/crypto/ccp/sev-dev-tio.h |  4 +-
+>  drivers/crypto/ccp/sev-dev-tsm.c | 12 ++---
+>  drivers/pci/tsm.c                | 84 ++++++++++++++++----------------
+>  include/linux/pci-tsm.h          | 18 ++++---
+>  4 files changed, 61 insertions(+), 57 deletions(-)
+> 
