@@ -1,227 +1,148 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FA21538D9B
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 15:49:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1E7956B862
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 15:49:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788882556; cv=none; b=bA6S/tsfmUBpvnN7coKDocdE7fqA4ACrgWZOf+xpEvaN27gulW1PePTTXZCtOx9T0yWnN8BNVC6VeZdtPS1jwGO/gf4cNQEGJQNobE6JBa2jw3Ffb7bg32LWtaA2c84TA9HqwZoveb5ftDp5WJA0i/+q5rUjDTBhJy176LGUb90=
+	t=1788882565; cv=none; b=tbwETEwAFSZalgMNZfHnQf53YZBbTfCv3sMiu2QhVc/LuHTxtSEg/DRlGKbW8x3ZxTNbC0t7rG5SvkTYPeEPJuO/qGmquaJ2Oemaj0Hx/R7D4FlhS/A164HPrOlKjgyVOs6poTVSvOVbZffIMww7MHceHksbRk4q3tkNOEL5rLk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788882556; c=relaxed/simple;
-	bh=oLRRWVQaJunuo2Pn1JyDUPmY5bk9k09Er8msNBqYKr4=;
+	s=arc-20240116; t=1788882565; c=relaxed/simple;
+	bh=NvXaLJ8XX12qjNKy10UGOlJMw5CJBdQbfWQAZkF63Rk=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=glTm1Zhetsap44r9ImkXgHTUpSpdWs5QfygYD3aM1pN2QVZQVuJkZEyuGsazH+7uK0pE6iOgDbV9M1Pe6TdEKH0u8777oWCHZHvs158AEDY1TeNUxuxny1/AZDwoh4oHEBzBPxNz4bfETJo3/p3DVJcUFvXH3o9mhw0ItlZbKBc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=MNWX1qtY; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=czjfzEr+; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=rhmPWSUgLhg5+H1j+UmUsLgn1M3hsKH6PRFWTsUj3X20bqfMGEhk2hrrgrskr2t9LAGOob9t2qtC/va4RNlsnLl7wjOUuNapvAve+EwWAaIQiWDVtuMLCtngT2ZCDizVf7wJ4LU95YHoenpeSQQLKZ4Oyi8xOLMX51gHjG7cF7c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=Hz9AgQz2; arc=none smtp.client-ip=209.85.128.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="MNWX1qtY";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="czjfzEr+"
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 688Fe30C3614102
-	for <linux-kernel@vger.kernel.org>; Tue, 8 Sep 2026 15:49:12 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	uL3C6X92i3vnucRFu6eOOeXdI3jvIqfwUfDfb0dF6jE=; b=MNWX1qtY6ooLU0Kz
-	yUoaIGny/nQtxaIuLcdFZcplNomrPDveZVAEa2EoAwYpGegeWrC+UDyX8UyqhGru
-	yJqv/wlimM3IdBlFPrqHvGr2Ywd1keoyWgSI/6Rkrq5vGBS6NUeyDJgbx86mGypz
-	f/1F2sQjjvwkiA+PnQ1cJZie2vKhTku8Fd0rboSF8i+o/BPSUPkPi2Xys2665QMo
-	Vu6/wvWNm9SiYCFZyTTHbjlagH/XQs4Jjit8GnXeXelskYQlDFu6RoUGnAdEIIYs
-	5V3Le4DH/mparl9K61MzAuq5SBuH3yqFEgLtWTAPD4Jbb74QJBDgTdFREZYv3JK6
-	EKOvng==
-Received: from mail-vs1-f72.google.com (mail-vs1-f72.google.com [209.85.217.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gjagujxj4-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 15:49:12 +0000 (GMT)
-Received: by mail-vs1-f72.google.com with SMTP id ada2fe7eead31-738627c7908so1009305137.2
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 08:49:12 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="Hz9AgQz2"
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-49b8eeb3ff2so45518815e9.2
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 08:49:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788882549; x=1789487349; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=uL3C6X92i3vnucRFu6eOOeXdI3jvIqfwUfDfb0dF6jE=;
-        b=czjfzEr+JRP2VLTw38wnaVZufdK7UNyZjh19NH38iW2u02rd3B0SYnC3StGgs4qyoF
-         CYuJQ3TfhpvGYA/ftjdmNAyDLSD8C9Mm9oBx+3vAnsdW3foaPJ+vpIOSnS8hMLkfJXvS
-         J9NPhVPAnyDT86xnp2PI0D7P+SknBkk/kChnUUPUkxWojiYUheVt+tKECijjVMncsxdF
-         cs8AW++/1cNaf/+wtCt1qE3e91+y92dx6F7gP8kuUQK7ZKyQaD8fvx4bBKBn7VOLi3Gg
-         3n2qA2syV3fJnnKWBvytdO1kyMcRMZ1aK2hVgJ2zqbsxCGQRDsAtbtaFpTFOrx2nBrXq
-         oeNA==
+        d=baylibre.com; s=google; t=1788882560; x=1789487360; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=NvXaLJ8XX12qjNKy10UGOlJMw5CJBdQbfWQAZkF63Rk=;
+        b=Hz9AgQz2Y1ogAqZvvy8CP8nnh0trgkKhisN4Votf9DyD58GRkKs1NFp4TpJrQvBOda
+         WVO5pj4k/DwRQQQFH6RU4YH5poeON48jO1m4or5+WlzJM7NRb63bWabxdlW7+iRh6//E
+         ikbxNTGDuRst+RspsrsBjEIkuxadf4+BJy/IYuj5lKLz44dqvtD5fDtwP4y8824Pr549
+         +3045seFsjFLeg7tcj3JMIjhLMx0ibwfin7ppnmfOy8gpT9p50T4jT1awk9hc3RS4Pr2
+         FQbPcZiUcXQh0K5iQPHDWcrzWBuQINUIbgqoC3Oto4AgkF9J22JQ80hS++zZ3C3tOj7S
+         3E+g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788882549; x=1789487349;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=uL3C6X92i3vnucRFu6eOOeXdI3jvIqfwUfDfb0dF6jE=;
-        b=PmBHMjz60HUEADmEQz/9mEqVBraHfSX0MCHYgAAdoxwYmJPYwnu/5vj1bVgA/mfJIF
-         kipGEdKDAY+OBhBdnsfJKEN9uVQLXdpS4Kyfb0XYJNXhzqpJfWR7f/tGMdiFf9g5UZk4
-         db67N5lbU6fpDg84y51bROHrYrlQJCU3dPdatBVFcV0ajmeRhr10eNQnszQP7nSnD0xz
-         +t8QtqQUU5AxEQ0MkJUA+XeM6hLSY3v36rQugFE2HcahWwQrI/v9FhXOX/Wk8tYhTPhF
-         K45Eo9NF3QZN5/bWLZfEnHCuDSzlBIgXsip+mJVLSn98e+6Dq/zbYb2Wtdvqn9G1NznE
-         i2vg==
-X-Forwarded-Encrypted: i=1; AKwUvBz1cMOLrzFKvZwKASWbHT4YFqR2PZVEU9P0U7eMVhMtAV2Z1Kfk1zA8YtXBr+2re0D/GXpdRgXdwe6GGxg=@vger.kernel.org
-X-Gm-Message-State: AFuF++kmjazRRN4TMj7gvKXyzSC8ZR7ynA6va3dKGyRpV3D7NX49mC7S
-	1/6CNNkgsVd/H7JraPADm70ytvGXhU9ER85l/qvE4E2oGFZvD2YDwGHDoXJnKSQ99odpJpkxo4q
-	dXLohpARnUAufdAd4pzmEk8qq7vcN7cKFpFgOo6GbEJ1D05WLv9wkDhhy/MfSVlUhhRE=
-X-Gm-Gg: AYBFou0fM5mzFQir6rlc76NxTnkXE/fHeBtH3Us93/wQCZ26npEbnNr24xr/FPJo44g
-	gkUSlFs2kPcSCbzWoHtAN0/gr1+eZK6CXDjx3u1P0bJwyW40Y8Mm/r8eGk7xv24eJQBdXAAsaEU
-	b8ZS26qYDPOWytSIkzvbsYQ3GhMsfNISOCoVzwLincqYRkLipXj/sV88ewLNGUk80lcPy+E8JjB
-	uwyio8GQ+O/4ioi9IGvSa9AnqbeEBFVKUw916ztV1fMkjSsQDRWL09pB6yArxy7TAY1iIePBJ5A
-	6Nz19n6k+QgoQ4ldqVX6pcKKY13aWrcK4GS32uhj/8z6mlBZhQRnyV5XhGTy4C+QaeF/x8aajLz
-	Jzy+YRTWmx7GVEdc8DldbzsKbAOD87bea8016nvbeC32FaEM10YFaUkOXVB0VyLb3eIUE3/GfbZ
-	Y4vt/gC7npYe10
-X-Received: by 2002:a05:6102:8697:10b0:784:5883:9cc4 with SMTP id ada2fe7eead31-78f75e026b4mr32262137.11.1788882548604;
-        Tue, 08 Sep 2026 08:49:08 -0700 (PDT)
-X-Received: by 2002:a05:6102:8697:10b0:784:5883:9cc4 with SMTP id ada2fe7eead31-78f75e026b4mr32251137.11.1788882548074;
-        Tue, 08 Sep 2026 08:49:08 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b74cbfdfd7sm2648080e87.75.2026.09.08.08.49.04
+        d=1e100.net; s=20251104; t=1788882560; x=1789487360;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=NvXaLJ8XX12qjNKy10UGOlJMw5CJBdQbfWQAZkF63Rk=;
+        b=IX6Hg3H0VHsOevW8nDIrMSWhC53bu7E02VgpYAfqHDt9vdvTdu72eaWxy+QQAL02U5
+         3eSEJLBUUC680SUciYAuw8Bf0+HtffHj9bi10uhW6RohgLSyUvd1UjPNJ+/VRboLUDgf
+         7UECUXMgGVmoKgmSelvxRy6+mXbaagK+nc7RQgWqN2dzTt+ZBCaAExv5SrJHJc7EO1x0
+         x+4QQfVC4if5oJt3vwAfoyORNpJt0FnuxuaZh0XzObP+fvmhDR3pcjEXzcSD5n/w3xD2
+         dBdCLkfnZ7SVOgTuZVubbPdeTXHPl4R3c06BHxY5P7M7S6Hx/pfEVAUvx2Ot5E3fIX3e
+         D3bg==
+X-Forwarded-Encrypted: i=1; AKwUvBwibczJXyCvkPLdvgNDqy6I+2fm4DI7xGCTJL1j2aKQOlOH+eAmQLJRcs0uWfCAU7v0Frl0XNjkkLT52Uc=@vger.kernel.org
+X-Gm-Message-State: AFuF++m8r+I1yQUU0YBTC5+ssyX5/2StcU+36JBnARANpnEswS53VgQ6
+	SKl7NVRSQHkrT8Ygg7X3dhP665RPHkXTXRn/l4/RESTyHilVu0jEbzeGYuMxJgEmXpM=
+X-Gm-Gg: AYBFou1GG1b1HpBRJAG49S7V1KHeupmHYPR9C5UvOZRmE0iHpba+Q/XIlyK0P0hzuoJ
+	px4IJFw/+dzIm4FMQK2vnl++yCBPe6u/7AnUk9+LE+FNdU9VRKsuCS+DAmMsefQLcHQSWKlkCi2
+	qBy2HD1VB0lOhQo+g0oXNZzGoCdL7RrVhJSd97HjzmAC2xAezP5+VkdlrIvLCf2B0IcpJh4Ambo
+	lJka1cMNFkwt/9INMHphzD7ndMO+gZctNg2OtkgzJMHcGh8uU3LK1nfEpmUrDokJQzebcqfEvNS
+	NwGkgKKTCQFUVGwqR++iPyLU/A21AVtNPDBMMMnjRuyt/4GRiavkO6gpMKsruqPabAZDG1NxqQA
+	vDNOuqRDp4fd2qOyfB1kQjOrUfCQKbrsuKd3GpdGUC88XdpQs+kGd2E9PbNKCdyeqU1Lciv0eK+
+	+u2+Zoi+ip47ExqLiTHH0XhLvaZcr3Iq5OZ9mDB2ZcbrCj27WIzfRTbz/HP5m/iJ55zC8WQXTvV
+	yWIt33G2KGR1Stdtk/2oJfDzp1o7gKRJzPVz6QwAMu2glW+Xpc=
+X-Received: by 2002:a05:600c:6089:b0:49c:fa21:e73f with SMTP id 5b1f17b1804b1-49cfa21e8b9mr260172975e9.21.1788882559651;
+        Tue, 08 Sep 2026 08:49:19 -0700 (PDT)
+Received: from localhost (p200300f65f19a9042cc2680c1f1bf2f5.dip0.t-ipconnect.de. [2003:f6:5f19:a904:2cc2:680c:1f1b:f2f5])
+        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-49cee6024a8sm509571355e9.6.2026.09.08.08.49.18
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 08 Sep 2026 08:49:06 -0700 (PDT)
-Date: Tue, 8 Sep 2026 18:49:03 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Connor Abbott <cwabbott0@gmail.com>
-Cc: rob.clark@oss.qualcomm.com, Sean Paul <sean@poorly.run>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Akhil P Oommen <akhilpo@oss.qualcomm.com>,
-        Dmitry Baryshkov <lumag@kernel.org>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Jessica Zhang <jesszhan0024@gmail.com>,
-        Marijn Suijten <marijn.suijten@somainline.org>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
-        freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] drm/msm/adreno: keep the GPU timestamp monotonic across
- power collapse
-Message-ID: <6s7mwjzglv5slukj73glmshe4gwfyh6cvimxyeyn6l4r46lkpv@74mpfroj23xi>
-References: <20260828-b4-adreno-timestamp-v1-1-273525da144c@oss.qualcomm.com>
- <CACu1E7GGdxTOsn+MRDT+7Guhjs-DDkZVx0Yet=RTxgQ4CNCKhw@mail.gmail.com>
- <CACSVV00BtmA0CotRucd8jG=cQLQw0YmLKEkTOV70qHBx=sG0sA@mail.gmail.com>
- <fl5uoffoh3gyod3f6jxgze33ut4jj4ttmgivtyoa5oykbt2aqp@rkktjz4yh4ll>
- <CACSVV03ShOw8D8d-5gDPYdzH3_Hp7EMz2CdfA3x08pCKAtw57g@mail.gmail.com>
- <CACu1E7H9KsUU=dV+iwQPOOX62+V8S5xstFf2LXhzeE7oSb3V4A@mail.gmail.com>
- <xq2q6jazk2a5atfthzwktn7qhrinxg4duhdxg22qrutgdycbwb@47nosxhcqloz>
+        Tue, 08 Sep 2026 08:49:18 -0700 (PDT)
+Date: Tue, 8 Sep 2026 17:49:17 +0200
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
+To: Borislav Petkov <bp@alien8.de>
+Cc: Jonathan Cameron <jic23@kernel.org>, 
+	David Laight <david.laight.linux@gmail.com>, linux-iio@vger.kernel.org, Nicolas Pitre <nico@fluxnic.net>, 
+	Ingo Molnar <mingo@redhat.com>, Thomas Gleinxer <tglx@linutronix.de>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, Andrew Morton <akpm@linux-foundation.org>, 
+	linux-kernel@vger.kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
+	Peter Zijlstra <peterz@infradead.org>, rodrigo.alencar@analog.com
+Subject: Re: [PATCH 0/2] x86: Use "er" asm constriant for add/sub
+Message-ID: <aqAtRgouK7DyDlpJ@monoceros>
+References: <20260803094702.3852-1-david.laight.linux@gmail.com>
+ <11o7545n-7569-3p9r-1q77-8nor8513r6n1@syhkavp.arg>
+ <20260803163955.627bdd3f@pumpkin>
+ <20260823233536.30b984ed@jic23-huawei>
+ <20260901175101.1e059ac8@jic23-huawei>
+ <20260907231444.7fa2d116@jic23-huawei>
+ <20260908033216.GAap-BwAmBqoVDUbMK@fat_crate.local>
+ <ap_cLN807bC56OBU@monoceros>
+ <20260908152127.GCaqAn9zI09T7qvMhH@fat_crate.local>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="6b4jpeub6k6vc2an"
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <xq2q6jazk2a5atfthzwktn7qhrinxg4duhdxg22qrutgdycbwb@47nosxhcqloz>
-X-Authority-Analysis: v=2.4 cv=TqLWQjXh c=1 sm=1 tr=0 ts=6aa02e78 cx=c_pps
- a=DUEm7b3gzWu7BqY5nP7+9g==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22 a=EUspDBNiAAAA:8
- a=pGLkceISAAAA:8 a=hDB9YrpZ_UtSDjAhP4kA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=-aSRE8QhW-JAV6biHavz:22
-X-Proofpoint-GUID: ataoMAkXQMdB10s2rOWxAJAuC1V8ceAj
-X-Proofpoint-ORIG-GUID: ataoMAkXQMdB10s2rOWxAJAuC1V8ceAj
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA4MDE3MCBTYWx0ZWRfXx5K/U9Fkhfwl
- Hop7V/lgj/NMTLMHwWsWN48zu09CBua0Li7JUvTk3FZc8OBoAxfMcEtcpF/hVgeMTNs+gaCZUOO
- g3uq7L1mHX6ChblesFx2mDuD7YuO7xk=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA4MDE3MCBTYWx0ZWRfX742B05r7VBp5
- qymHi4yYcIOxGrscOPBPh57YpaAoMHXiTHAyuXjdcOkUY9HvXPUvcYeqjU4HBIEpJ+0BBguHEmJ
- Tm+nVsRGhKEdr9Wf6Iks5vOcJ5rXUiRk87L7mgPdwWqkQj6Lydqfxx9AQeU32IvwmnvI+SKBKoT
- T/BrA2779JttQNVbGW1P2sWl/Pl2XnXAVYdXoibFMJWMyiZJgqi7gFrms+pz1fhIewkWLNdQv/F
- YmYAC4CD2ptoG12udW/zn0FNDcA7dTValeqj738oS58MTJYDxY3cix10RSYQoFuIKfqPH/P/Z4h
- 4MmSWouzj2N/cLeooEufzsZ1E+FxP/xv8asDxU8DguDKe5xJMrB/omJNHqHJuVfVo5TLZTroWhS
- fNI/xhmKHTw8YcnaDPV/tybidYdxVJZzPYV19Miju37sCfdww22qO+ZCGNybleFJrj+OReqxZyD
- PK0vUQz72zfOrQyYCgA==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-08_03,2026-09-08_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 adultscore=0 bulkscore=0 lowpriorityscore=0 spamscore=0
- phishscore=0 malwarescore=0 clxscore=1015 impostorscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609080170
+In-Reply-To: <20260908152127.GCaqAn9zI09T7qvMhH@fat_crate.local>
 
-On Tue, Sep 08, 2026 at 06:26:22PM +0300, Dmitry Baryshkov wrote:
-> On Tue, Sep 08, 2026 at 11:09:17AM -0400, Connor Abbott wrote:
-> > On Tue, Sep 8, 2026 at 10:51 AM Rob Clark <rob.clark@oss.qualcomm.com> wrote:
-> > >
-> > > On Tue, Sep 8, 2026 at 4:41 AM Dmitry Baryshkov
-> > > <dmitry.baryshkov@oss.qualcomm.com> wrote:
-> > > >
-> > > > On Mon, Sep 07, 2026 at 04:20:43PM -0700, Rob Clark wrote:
-> > > > > On Thu, Aug 27, 2026 at 9:07 PM Connor Abbott <cwabbott0@gmail.com> wrote:
-> > > > > >
-> > > > > > On Thu, Aug 27, 2026 at 7:13 PM Dmitry Baryshkov
-> > > > > > <dmitry.baryshkov@oss.qualcomm.com> wrote:
-> > > > > > >
-> > > > > > > The always-on counter behind MSM_PARAM_TIMESTAMP sits in the GPU power
-> > > > > > > domain on a4xx, a5xx and the GMU-less a6xx parts, so it restarts from
-> > > > > > > zero whenever the GPU is powered up again and the timestamp reported to
-> > > > > > > userspace jumps backwards. On an a702 six reads three seconds apart all
-> > > > > > > land in the 500..1200 tick range, stepping backwards twice, and on an
-> > > > > > > a530 the OpenCL device timer conformance test fails because
-> > > > > > > clGetDeviceAndHostTimer() returns an end time below the start time.
-> > > > > > >
-> > > > > > > Save the counter in the suspend path of the affected generations, while
-> > > > > > > the GPU is still powered, and add the accumulated ticks to the value
-> > > > > > > reported to userspace.
-> > > > > >
-> > > > > > This is useless because the entire point of clGetDeviceAndHostTimer()
-> > > > > > (and the similar thing in Vulkan) is to match what the GPU itself
-> > > > > > returns, and now you've broken that by adding an offset.
-> > > > >
-> > > > > Just to clarify, the timestamp needs to match what UMD reads directly
-> > > > > from hw in various different ways (timestamp queries, shader_clock,
-> > > > > etc)..
-> > > > >
-> > > > > If we can _restore_ the value (ie. write the hw reg) on resume, that
-> > > > > would be ok.. but it doesn't look possible.
-> > > >
-> > > > Yes, a quick check shows that all relevant registers are write-ignore.
-> > > >
-> > > > > Otherwise I guess we need
-> > > > > some scheme where an offset value is stored in memory somewhere, and
-> > > > > some coordination with userspace to add the offset in various
-> > > > > different paths.  But the kernel shouldn't be adding the offset to
-> > > > > what it returns to userspace itself.
-> > > >
-> > > > Ack, thanks for the explanation. I tried to match what kgsl was doing.
-> > > > It reads the GPU timers directly from the GPU, but for the CPU timers it
-> > > > reads the value from KGSL driver which accumulates the offset.
-> > > >
-> > > > If I understand you correctly, we need to export the offset to the
-> > > > userspace via some extra page (like vdso) and let Mesa read it. Correct?
-> > >
-> > > Yeah, it doesn't look like there is an existing GPU_READONLY && !APRIV
-> > > BO we could re-use, so I think we need to create a new global (TTBR1)
-> > > "vdso" BO which is read-only to the GPU but otherwise accessible to
-> > > IB1+, along w/ MSM_PARAM_VDSO for UMD to query the address of this BO.
-> > > (And update msm_mapping test in igt to validate that it is read-only.)
-> > >
-> > > (I'm not married to the name "vdso" but not creative enough this
-> > > morning to think of something better)
-> > >
-> > > I'm a bit curious if kgsl handles this differently.. maybe there is
-> > > something I'm missing.  But somehow timestamps need to agree between
-> > > what is read on the GPU and what is read on CPU.
-> > >
-> > > BR,
-> > > -R
-> > 
-> > I think the kgsl timestamp offset stuff was only added for the new
-> > A750+ CX GMU counter which is not read-only. We do need to port that
-> > over to drm/msm. If the offset is applied for older GPUs, it's
-> > probably another case of kgsl not bothering to keep support for older
-> > GPUs in newer branches.
-> 
-> I've been looking at the kgsl drivers from msm-3.18 / 4.4 as those
-> kernels targeted MSM8996/98.
 
-If I understand correctly, for those GPUs glGetInteger64v(GL_TIMESTAMP)
-reads the ALWAYSON perf counter through IOCTL_KGSL_PERFCOUNTER_READ. The
-perfcounters are all saved on suspend and summed towards the current
-value read from HW.
+--6b4jpeub6k6vc2an
+Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH 0/2] x86: Use "er" asm constriant for add/sub
+MIME-Version: 1.0
 
--- 
-With best wishes
-Dmitry
+On Tue, Sep 08, 2026 at 08:21:27AM -0700, Borislav Petkov wrote:
+> On Tue, Sep 08, 2026 at 12:02:42PM +0200, Uwe Kleine-K=F6nig wrote:
+> > While x86 usually goes through tip and none of the x86 maintainers
+> > commented before Jonathan applied,
+>=20
+> You mean it is easy to spot every question to x86 maintainers in the aval=
+ance
+> of mails?
+
+No, there was no hidden offence, I only meant what I wrote.
+
+> > So I suggest to do the practical thing and pull Jonathan's branch into =
+tip.
+> > Technically that doesn't make a difference (apart from maybe branch vs =
+tag
+> > preferences).
+>=20
+> It does make a difference when the merge window comes and we have to
+> synchronize when to send what. And we send tip stuff very early.
+
+I don't see what you mean. If both the tip tree and the iio tree
+contain the same commit (with or without a tag on it), it doesn't matter
+who created that and when and in which repo it appeared first. The first
+to send it to Linus makes it new for him and all later PRs using it only
+introduce the follow-up commits. So if you pull Jonathan's branch you
+still can send the branch/tag that contains it whenever you like
+independant of when Jonathan sends out his PR.
+
+Best regards
+Uwe
+
+--6b4jpeub6k6vc2an
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmqgLnsACgkQj4D7WH0S
+/k6TZAf9EWeswDG88WfiHU0bRcF3TfKqDvtzBdrMBaWqBA/XdZPwMZ91rgV46awN
+DSZfuf+GRJEkOETf/teIP66h1IcwJgTeZTs5qmNNoqrvR4l4T8NQcPJSzXYj7eHy
+YfLEaH5Ty/wWn4YVd+IOxKztY8Wr52cGnYncjXlQJG8i1CCNuI9EZsS5JONlfE3+
+i6/B+eX0xhS4BzlaNEZ3bOed5LEi1OZbmp8CvB8O5HWWTEE+nQ2Jp+EJLE/gPeSx
+Uy/FHZox1F5V9SLGZ9LVAzSc9ko4/DWWte+PrnONJrAG6r/CzSQTE3/CS84oa3XI
+aKbDejMthtfZHoVDYkFMYprzYk8CYg==
+=lhmo
+-----END PGP SIGNATURE-----
+
+--6b4jpeub6k6vc2an--
