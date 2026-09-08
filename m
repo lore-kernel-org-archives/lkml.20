@@ -1,94 +1,114 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EF65568FCA;
-	Tue,  8 Sep 2026 19:54:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8BC053CA99;
+	Tue,  8 Sep 2026 19:54:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788897257; cv=none; b=PKXX1TwZQv+I1jkqXewSxfvXujZjszN5uuA7sU2edqqTL1ku77caDYxyU9jQSq4ipmri0x8ytG1GoWfpD6pyF/IgZhnpYY1dNFOtLrfiLK94jKpiSyrwGb80ZwQnfUT1GJoWexOftK4+G5eYyEYHDhLVH+PMV1NS8g+u1N8TfNM=
+	t=1788897276; cv=none; b=ktilVVFhjSRcbK3NXYLqICXRTpUhbz4ezannZi7BoveZP+agbwCQ63KSVE/EfNQtbbLHDQjYas5LADmA7w1nY3wflXPsOc0UXzjdpV4mklXm2ugCJg0F2ybSZ/NUx0ucspk2oFW1YXWp+fpDaztrjsHSycAE+I6M48zt2XZZoLE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788897257; c=relaxed/simple;
-	bh=r6iL8ELqsmiTu5om7d2qrMatsi6x/FM3xADBBjqseUY=;
+	s=arc-20240116; t=1788897276; c=relaxed/simple;
+	bh=Flbhl/Ms581u8W+uqWmb2VOIObc8q/cyF2hSiCvhFEs=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ZN71gFhxyTnFqNXYMOjNbrb0adPIyijGppPFf8MQQOoi3LbzN44v/5yFor9yqqVboXfQ6xGcDUiZs+OXCHFmzLqgvJntqTeqBRwXBb/8LEpMpLfxJAmyzlURrM9oj3S6bh7yV/opw/QKxYspHILowxUEVdFGKSZFIilNnXAxXsA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gKCj8rfj; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=JzLMP8+yKKOcxX23QbOPJ8VRisSC8yEBFUWyfTGKPUnB1OuZ67qDBAmTnTPXAGusx1IUmAqfJ/r6DaRFewZaPORRQ4SV6EpQ3yNS4CgQdV24NsxsgAE/HWMRjdyu8cvIQcTbErgIrWTizwQqRbaDYQ/Q8NW5+Ey9kolSsnAl/s4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eZtpQZ2m; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gKCj8rfj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C85801F00A3A;
-	Tue,  8 Sep 2026 19:54:12 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eZtpQZ2m"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 183A81F00A3A;
+	Tue,  8 Sep 2026 19:54:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788897256;
-	bh=PDUXNiEVNeBnSzhK8gGUjhQ7dxK5w69wRZKzTskX+QI=;
+	s=k20260515; t=1788897275;
+	bh=eJaaRz4MsyrOVh6YnV0YRCgCp5Qj4xEbBmQuv65GUYs=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=gKCj8rfjkVDSyA7Xo2RbbGRWQdNrqiwG/MNrZyrkI0ebzaG201CYgOFQS6Li3WsBP
-	 ateGXu/b2CtB/qbVzfxYLj5TP+O1sG5lIU1fS9QniKiF4nEb2EJ92gBgmh8VH6wCOS
-	 35aSkpRgG+F0Hr52H1K6xjLYEDzc1yqkZf8j2l8Xp55ikKXEyPFIRMCiRmGkxPCrid
-	 23Uq7mFQeUp9KToO8BvjqFlHfKlYHpd8hGW1mQeXhuk4pwCIZc1M/NChI1NOsY8dd/
-	 F2ZmpC3e3jOGETAkt7L1whsexdo7Qcp+7gXxWL7TX3PU+fCM/Ew/kBSF/4vX7xkM14
-	 FjRR5owhluUGA==
-Date: Tue, 8 Sep 2026 20:54:10 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Harendra Gautam <harendra.gautam@oss.qualcomm.com>
-Cc: Srinivas Kandagatla <srini@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
+	b=eZtpQZ2mYf15Akpd8onnJM5irfg/WdW38TXlJO3HzDjUpr/VCKE87stPMjojlHXNz
+	 5nX7vFy7TQ1STo1GzJseSMJK4hqN8jQPcFjeyANjSZYbqc7sL7nMsWMydPMJr6khr4
+	 JM3LfmCtwSfIfwU3rYcYK/8jcYNcU89JGIQzyeIZb0enxzLdXaC+lEAv3RvoF1ozvT
+	 aafXPZOLk35Bn43nA7bO5OFMrTSpnv3YaPnSzYRKEaLTuP0NtnPdCBEs1YQEHmdulZ
+	 ASx1nmLY/NmTzNrGS2m1KLD2VZS1wmeboa4qHOv4rv3L37Me8iqaa7NqOI6tKB+FSC
+	 fx56cq6O7A+ew==
+Date: Tue, 8 Sep 2026 20:54:26 +0100
+From: Sudeep Holla <sudeep.holla@kernel.org>
+To: Arnd Bergmann <arnd@kernel.org>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	Sudeep Holla <sudeep.holla@kernel.org>,
+	Linus Walleij <linusw@kernel.org>,
+	Russell King <linux@armlinux.org.uk>,
+	Drew Fustini <fustini@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
+	Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+	Liviu Dudau <liviu.dudau@arm.com>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Vladimir Zapolskiy <vz@mleia.com>, Stefan Agner <stefan@agner.ch>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Aaro Koskinen <aaro.koskinen@iki.fi>,
+	Andreas Kemnade <andreas@kemnade.info>,
+	Kevin Hilman <khilman@baylibre.com>,
+	Roger Quadros <rogerq@kernel.org>, Tony Lindgren <tony@atomide.com>,
+	Nicolas Ferre <nicolas.ferre@microchip.com>,
+	Claudiu Beznea <claudiu.beznea@tuxon.dev>,
+	Andrew Lunn <andrew@lunn.ch>,
+	Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
+	Gregory Clement <gregory.clement@bootlin.com>,
+	Robert Jarzmik <robert.jarzmik@free.fr>,
+	Kristoffer Ericson <kristoffer.ericson@gmail.com>,
+	Ethan Nelson-Moore <enelsonmoore@gmail.com>,
+	Geert Uytterhoeven <geert@linux-m68k.org>,
+	Alexander Sverdlin <alexander.sverdlin@siemens.com>,
+	Shawn Guo <shawnguo@kernel.org>,
+	Karl Mehltretter <kmehltretter@gmail.com>,
+	"David Hildenbrand (Arm)" <david@kernel.org>,
+	Nicolas Pitre <npitre@baylibre.com>, linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	devicetree@vger.kernel.org, imx@lists.linux.dev,
+	linux-stm32@st-md-mailman.stormreply.com,
+	linux-omap@vger.kernel.org,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
-	linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-	Sarath Ganapathiraju <sarath.ganapathiraju@oss.qualcomm.com>,
-	Kumar Anurag Singh <kumar.singh@oss.qualcomm.com>,
-	Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
-Subject: Re: [PATCH v5 00/10] ASoC: qcom: Add QAIF driver for Shikra audio
- platform
-Message-ID: <5e6d52cb-53f6-4af2-b1f6-d894d8dcca9e@sirena.org.uk>
-References: <20260907-b4-qaif-shikra-audio-v5-0-6d8ad9ba5c9f@oss.qualcomm.com>
+	Andi Shyti <andi.shyti@kernel.org>, linux-i2c@vger.kernel.org
+Subject: Re: [PATCH 11/13] ARM: versatile: remove mps2 support
+Message-ID: <20260908-interesting-primitive-squirrel-afcd7e@sudeepholla>
+References: <20260908152808.3928630-1-arnd@kernel.org>
+ <20260908152808.3928630-12-arnd@kernel.org>
+ <20260908-nuthatch-of-utter-peace-68ead7@sudeepholla>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="neULH4pMwo+5JkXC"
-Content-Disposition: inline
-In-Reply-To: <20260907-b4-qaif-shikra-audio-v5-0-6d8ad9ba5c9f@oss.qualcomm.com>
-X-Cookie: The world is not octal despite DEC.
-
-
---neULH4pMwo+5JkXC
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
+In-Reply-To: <20260908-nuthatch-of-utter-peace-68ead7@sudeepholla>
 
-On Mon, Sep 07, 2026 at 05:39:25PM +0530, Harendra Gautam wrote:
-> This series introduces the Qualcomm Audio Interface (QAIF) driver for
-> the Shikra audio platform.
+On Tue, Sep 08, 2026 at 08:49:09PM +0100, Sudeep Holla wrote:
+> On Tue, Sep 08, 2026 at 05:28:01PM +0200, Arnd Bergmann wrote:
+> > From: Arnd Bergmann <arnd@arndb.de>
+> > 
+> > The Arm mps2 platform is the reference implementation for Arm
+> > microcontrollers and is useful for testing but not expected to be used
+> > as a production device.
+> > 
+> > With all the Cortex-M based products gone, there is no longer a need
+> > for a reference platform either, so remove it as well.
+> > 
+> > Cc: Liviu Dudau <liviu.dudau@arm.com>
+> > Cc: Sudeep Holla <sudeep.holla@kernel.org>
+> 
+> Acked-by: Sudeep Holla <sudeep.holla@kernel.org>
+> 
+> While at it, should we also remove
+> 
+> drivers/tty/serial/mps2-uart.c and related Makefile/Kconfig entries ?
+> 
 
->   qaif-platform.c: PCM platform component. Handles DMA buffer allocation
->   (dma_alloc_pages()), PCM ops (open/close/hw_params/prepare/trigger/
->   pointer/mmap/copy), table-driven two-level IRQ dispatch with
->   period-elapsed notification, and component suspend/resume across power
->   collapse.
+My initial search was incomplete(used _MPS2_ instead of _MPS2).
+We also have timer/clocksource driver:
 
-I didn't notice the suspend/resume support in the series?
+drivers/clocksource/mps2-timer.c
 
---neULH4pMwo+5JkXC
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqgZ+EACgkQJNaLcl1U
-h9A5fAf8C1o3YWCBTxV6dSvy5g9u9Q3mYD4jWiCpACfXRsbL+wfuv1jIPjQADaEu
-Gs6dfOnIES66sBA6Fq+6y5KtBrV5fHP5xYerb7lQQtddLVMo0Y1bA0Tps8gqUaMi
-R/4Y4Ai8o++rl7LpsCCRziA1gSTZrPGEtWqsc91YO/XBUbNpwWRDYSjrD3PsydZP
-0ngTV3QTqPJ9vRyPRBpqQo1NXq5sPsLNRXVl+jKyMeUQ6+fL7q3myKqPV4qYpxPk
-KPKxbsau23iF2LR+yFxyXhEjZ1LNRqK6Wvo8oTfpXppW8QXrZyjdrE6PsEAr3fWk
-tyc6HnTMiYuAY1QeM3YeUhWDonGMKg==
-=fLZ8
------END PGP SIGNATURE-----
-
---neULH4pMwo+5JkXC--
+-- 
+Regards,
+Sudeep
