@@ -1,238 +1,130 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0502A5908CB;
-	Tue,  8 Sep 2026 17:07:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88DA15921F1
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 17:07:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788887263; cv=none; b=uCaNRVUFxVH9jV8na94uw/KyjpoB84JnX7IkeZED+OqCMifQNqLAy2g+on3wCGX1HLI6663qfNky2LoYThKPr7dnnDnjxUt/VoPSeQTDPbrjw9Kovvt2SUspnbYFw6+gS7iSfqvYqHNrJDqzZsBKiRvJ02jSfEXF1wbbIsqyNrE=
+	t=1788887269; cv=none; b=H1Nem3lSSAKijbIyNLAlAvRVKfe/SQZQy5j+I6JkprgMnfky5ylCmEfz6xBBsvjADAVyyQI/XCibfDrl5TTOIIglJEuO+oZ5tsiWL1/Z4wHKnCtH27JOGkl4zV0332Th4KQpDZe/QIR1sJqnZi374AKYSXJ46rill5LSUaYY1Bg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788887263; c=relaxed/simple;
-	bh=7jybtTARDbLiDN7g47KofFv0D/a1zezV6RwS8xfnTWk=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=UFLNWI/lDDWV5YLLPNmKbVAogD5ELvHwBA2fsU8Qbw1uR9qZyHnQiSb2Ux3LLtONrbZLYRwwFiXbXmR2xiLXgrPtQrMS+fy09YpkeiwHsV6J723yusAHdOpfnnKKz0dIe88NtoAXKaC5SuGNSV6/FFla/EMGF7JD/W0PUVamRvU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TgnlZN/o; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788887269; c=relaxed/simple;
+	bh=dVKIiNAEgVbAcUmEZV6u+JTcPDwaNXloRQ0M0HcerBs=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=AYu4vcKrXOHuJF58EI00LXMYDMVl9p+Qg0hKU/6G0x9pRdEal+29oo7p6EmQElIS3T/16Ez6WSTvRmcwZqopiZcA7mTLg9XI91VV6lEOVgXUlklekVVPrvh1lTVW9zx6jl9uKyszSnODkRdWlkmnNi1l13TWpFITNoMpEOYLCm4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KE5+0h/x; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TgnlZN/o"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 268BD1F00A3A;
-	Tue,  8 Sep 2026 17:07:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788887261;
-	bh=zdNtkBOLC/SAMyuh+w73NAqwDKO7Dz8z8s85TF2kyro=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=TgnlZN/ok5ROunEpXsd9pVV6ur12Pl/ioBV5q9Y859TM6QGlXGVyitkXPsUmVKr81
-	 zIh/oQlEn+iFBeNHgkMnPifdZHegN5Ey8aNw77V5E7/gxVPKd7pfEidK+cb0R/FJs/
-	 dQzuWFTjoB3wWSTlW+yzTnN261+kzy8gn6xm//dEOuayV8CCPizY/TTMXqGtlcacOO
-	 Yrp6OGxw2tJrDszKfpllBWKJdmBc8vmgEHfalIvLU0Ysuiqx9cxPguEpi/thqtPNvK
-	 BdBwdsZ1bdYkXq+pxEpWMK3UKygz/lvk3tbV3zRxFAOOzsltDswPngEyTy+Xwn2T6m
-	 ycAGQ1MLcUpXQ==
-Subject: Re: [PATCH v4 net] octeontx2-pf: reset HTB scheduler topology before
- freeing queues
-From: netdev-bot+sashiko@kernel.org
-To: rkannoth@marvell.com
-Cc: davem@davemloft.net, hkelam@marvell.com, linux-kernel@vger.kernel.org,
- naveenm@marvell.com, netdev@vger.kernel.org, sgoutham@marvell.com,
- andrew+netdev@lunn.ch, edumazet@google.com, kuba@kernel.org,
- pabeni@redhat.com
-Date: Tue, 08 Sep 2026 17:07:40 +0000
-Message-ID: <178888726063.219967.8664029829834628993@kernel.org>
-In-Reply-To: <20260903020533.3068041-1-rkannoth@marvell.com>
-References: <20260903020533.3068041-1-rkannoth@marvell.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KE5+0h/x"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49cd5462b69so673865e9.1
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 10:07:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788887265; x=1789492065; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=BMGCVsS43Or0QvhvusoStvupM2eWy3k0/84tq8T1pu0=;
+        b=KE5+0h/xg2nIeR0racTO0uBPAclzV6M5seTz+/krE9UjKk6jtj+OEbBBn09mQcWpW9
+         9Kzq2IDufE+2fEGmJ1nLeRA6Ea9co4nkz2+/j/0VK00tvWNaxPv47TAwAjL1YcxIsvgb
+         4fU/JTNWv485v+qYrOj94l4MiQNmVXrLrc3pneUvFY+WqUw0tiTlwXP2+2dPREIPRNQI
+         3vn9ULVI7XN+TTJqAj9tg5mqFZWPRchVxp2pbDVndlcEgcpPjPrqimIu3rddODNEbHlw
+         TX4ncPcVssjn5Z+XIdSCYoU3v8xbZ3rjEpGBse6ikpe5tJJZRHFKHuPN6b1WE34w6DZu
+         3jiw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788887265; x=1789492065;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=BMGCVsS43Or0QvhvusoStvupM2eWy3k0/84tq8T1pu0=;
+        b=EUJnyYC0eyL8r5dsEkXzQ6AeSjQqlH8dl1Y6iVsJDzLx9gfENw/rM/nxNT+isEThHa
+         q5iPKcWycEPjbk32BjoEVOvD72kNK2GN1XvWizJosTXPZtJ5Lhh/saEPikYEgZM1FKla
+         zPKNiQKXWoHFPSxl2Jcr2OssRn+o294gm84y+kem8X9gO1jamql3uPQbNTqlUt+MhdS1
+         Td/N2G1sVp73nrwWQvkfKSgZajNYoPU+Y04ArGmF9RLtJvALFv1HjQ0X2+Iy1GrZmIvQ
+         YM5zbQelfPnZrqkKZwLTiyCU7xw6HbvmNPsx1/Ndv+oNzkGIQr9ZPE4Yr1f+xn5rta9u
+         DknQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzAnfJfFtsZnon6bDSvAlcMv+uK47KmpsuNWQ8OE0r/4h8yru8byGdRliwPLFffnn5roak06xgEQ9znzRY=@vger.kernel.org
+X-Gm-Message-State: AFuF++lk1+lbW+q0dn1k3zWV0Fid3eGZz+T9tCD1qPjvG2q/3YP8wQ/U
+	cz6WpsRlSNMvnJ9vsmZeB/2B6xmVbon08SbqW38rQwbsWwLappRGaTgH
+X-Gm-Gg: AYBFou2I5qvC5ULaFApqZ1bQQ1Qb2vdCzWqL8EVM776JIscJ1Xt8NoxTsNNV2VxzaVh
+	hTd4QI8KOgjhISXttage6ukxAdqnK+do9+sib2My2jYjVi+XNHbJrj7/bANdVjckxdGRLDHYS2X
+	m8+Fkoaa49jcLl3+DOBxuAVUnznPs0FejyDlG3F1g0SrkqHknUkWaN/2VyornOpHVD754UvK7nY
+	o1dFY8H62FUxSkL1EzSbJdnO3yagJ8MLDi7763JpHl6V0EaRsCLsZitwaQgW2Iav/k8p+F3jYu1
+	xsOqmpFWvp5gx6zLEYk2QZTmWtavi3g4F9c1DuNiyg/4LRI3K5/4Hg6G20bttWWDiGnjxUxFNsg
+	s+H3r9uJ/zWQO4P/ODrtx9bNIg45HPMaRM4A01YHjqRHpKuj/9Krxuxzy104PP2Sxy1BZX0Mny4
+	vzlIAvHnaHOdNmKpNuw3er2YmO2GS8UR8yKP2Zljd5EFTbSKjMfBEliIth42TeZUeLg+H9Wleef
+	vV7MUUq76+ineevGRUJZ/hjoXMVF+4OZv0O+7PlJtouOSH7HQuu5q8UFsnsttvx2m5R4mwiXa8w
+	FXGA/RcipjZxpWp8Uaekjso4ivHDcFjUnQZTUZXhm0Kafg/G3BcYLiMrK7TNegeAC10Cneo9xmk
+	aETK50Q==
+X-Received: by 2002:a05:600c:3f05:b0:49c:e1f1:3dd5 with SMTP id 5b1f17b1804b1-49d1f223e83mr13800115e9.4.1788887264353;
+        Tue, 08 Sep 2026 10:07:44 -0700 (PDT)
+Received: from workstation ([85.186.165.159])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cfd3f815bsm304804615e9.4.2026.09.08.10.07.42
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 08 Sep 2026 10:07:44 -0700 (PDT)
+From: =?UTF-8?q?=C8=98tefan=20Ghe=C8=9Bu?= <stefanghetu9@gmail.com>
+To: Liam Girdwood <lgirdwood@gmail.com>,
+	Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+	Bard Liao <yung-chuan.liao@linux.intel.com>,
+	Daniel Baluta <daniel.baluta@nxp.com>,
+	Mark Brown <broonie@kernel.org>
+Cc: Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+	Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
+	Vijendar Mukunda <Vijendar.Mukunda@amd.com>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	sound-open-firmware@alsa-project.org,
+	linux-sound@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	=?UTF-8?q?=C8=98tefan=20Ghe=C8=9Bu?= <stefanghetu9@gmail.com>
+Subject: [PATCH] ASoC: SOF: imx: Prevent stack OOB read in DSP panic dump
+Date: Tue,  8 Sep 2026 20:07:40 +0300
+Message-ID: <20260908170740.276800-1-stefanghetu9@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider:
+Commit 58bb5081cba1 ("ASoC: SOF: Xtensa: dump ar registers to restore
+call stack") added a shared Xtensa helper that iterates over a flexible
+array of AR registers (`ar[]`) controlled by `plat_hdr.numaregs`.
 
-Critical: 0 · High: 1 · Medium: 1 · Low: 0
+While Intel IPC4 allocates dynamic storage for the AR block, the i.MX
+IPC3 path reads the oops message into a stack-allocated struct without
+backing storage for `ar[]`, while leaving `numaregs` unvalidated. This
+causes a stack out-of-bounds read when printing a DSP panic.
 
-- [High] Incomplete fix: the stale-TOPOLOGY bug class the commit claims
-  to close stays reachable through the AF's bulk release path.
-- [Medium] Set/reset asymmetry at the aggregation level: HTB offload
-  programs NIX_AF_TL1X_TOPOLOGY (PRIO_ANCHOR/RR_PRIO) on the shared per-…
+Clear `numaregs` to 0 on i.MX since the AR block is not fetched or
+supported on this platform, preventing unsafe out-of-bounds memory
+accesses in the shared Xtensa helper.
 
---
+Fixes: 58bb5081cba1 ("ASoC: SOF: Xtensa: dump ar registers to restore call stack")
+Signed-off-by: Ștefan Ghețu <stefanghetu9@gmail.com>
+---
+ sound/soc/sof/imx/imx-common.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-octeontx2-pf: reset HTB scheduler topology before freeing queues
-
-This adds otx2_qos_reset_schq_topology() and otx2_qos_free_hw_schq() so
-that NIX_AF_TL{4,3,2}X_TOPOLOGY is zeroed before each QoS scheduler queue
-is handed back to the AF during HTB hierarchy teardown and cfg rollback.
-The aggregation level (TL1) is intentionally skipped.
-
-> diff --git a/drivers/net/ethernet/marvell/octeontx2/nic/qos.c b/drivers/net/ethernet/marvell/octeontx2/nic/qos.c
-> index 69c0911e28e9..f160b1618efa 100644
-> --- a/drivers/net/ethernet/marvell/octeontx2/nic/qos.c
-> +++ b/drivers/net/ethernet/marvell/octeontx2/nic/qos.c
-> @@ -235,13 +235,63 @@ static int otx2_qos_txschq_set_parent_topology(struct otx2_nic *pfvf,
->  	return rc;
->  }
->  
-> +static int otx2_qos_reset_schq_topology(struct otx2_nic *pfvf, u16 lvl,
-> +					u16 schq)
-> +{
-> +	struct mbox *mbox = &pfvf->mbox;
-> +	struct nix_txschq_config *cfg;
-> +	int rc;
-> +
-> +	if (lvl < NIX_TXSCH_LVL_TL4 || lvl >= NIX_TXSCH_LVL_TL1)
-> +		return 0;
-
-[Severity: Medium]
-Should the TL1 case be handled here too, or at least commented in the
-code?  otx2_qos_txschq_set_parent_topology() does program TL1:
-
-	else if (parent->level == NIX_TXSCH_LVL_TL1)
-		cfg->reg[0] = NIX_AF_TL1X_TOPOLOGY(parent->schq);
-
-	cfg->regval[0] = (u64)parent->prio_anchor << 32;
-	cfg->regval[0] |= ((parent->child_dwrr_prio != OTX2_QOS_DEFAULT_PRIO) ?
-			    parent->child_dwrr_prio : 0)  << 1;
-
-and for a PF the HTB root sits at that level, in otx2_qos_alloc_root():
-
-	if (!is_otx2_vf(pfvf->pcifunc)) {
-		node->level = NIX_TXSCH_LVL_TL1;
-
-so otx2_qos_txschq_push_cfg_tl() -> otx2_qos_txschq_set_parent_topology()
-writes NIX_AF_TL1X_TOPOLOGY with the HTB prio_anchor, which is the base
-index of the contiguous TL2 child block.
-
-On tc qdisc del, otx2_qos_root_destroy() -> otx2_qos_destroy_node() ->
-otx2_qos_free_hw_cfg() calls otx2_qos_free_hw_schq(pfvf, node->level,
-node->schq) with node->level == NIX_TXSCH_LVL_TL1, which takes the early
-return above.
-
-Does anything else restore the default TL1 topology while the interface
-stays up?  nix_txschq_free_one() early-returns for lvl >=
-hw->cap.nix_tx_aggr_lvl, nix_reset_tx_schedule() has no TL1 case, and
-nix_tl1_default_cfg() declines to reprogram once the PF has configured
-TL1:
-
-	/* Skip if PF has already done the config */
-	if (TXSCH_MAP_FLAGS(pfvf_map[schq]) & NIX_TXSCHQ_CFG_DONE)
-		return;
-	rvu_write64(rvu, blkaddr, NIX_AF_TL1X_TOPOLOGY(schq),
-		    (TXSCH_TL1_DFLT_RR_PRIO << 1));
-
-The only writer of the default TL1 value appears to be
-otx2_txschq_config():
-
-	req->reg[1] = NIX_AF_TL1X_TOPOLOGY(schq);
-	req->regval[1] = hw->txschq_aggr_lvl_rr_prio << 1;
-
-which runs at interface open rather than on TC_HTB_DESTROY.  So after HTB
-teardown with the link up, the shared TL1 keeps a PRIO_ANCHOR pointing at
-TL2 indices that were just returned to the AF's block-wide TL2 pool and
-may be re-allocated to another function.
-
-The commit message says TL1 "is not freed back to the AF by
-nix_txschq_free_one()", which rules out re-allocating TL1 itself, but does
-it cover the residual anchor pointing into recycled TL2 indices?  Whether
-the TL1 arbiter can act on such a stale anchor depends on hardware
-semantics that are not visible from the tree, so this may be harmless in
-practice, but the set/reset asymmetry looks worth spelling out in the code
-rather than only in the changelog.
-
-> +
-> +	mutex_lock(&mbox->lock);
-> +
-> +	cfg = otx2_mbox_alloc_msg_nix_txschq_cfg(mbox);
-> +	if (!cfg) {
-> +		mutex_unlock(&mbox->lock);
-> +		return -ENOMEM;
-> +	}
-> +
-> +	cfg->lvl = lvl;
-> +	cfg->num_regs = 1;
-> +
-> +	if (lvl == NIX_TXSCH_LVL_TL4)
-> +		cfg->reg[0] = NIX_AF_TL4X_TOPOLOGY(schq);
-> +	else if (lvl == NIX_TXSCH_LVL_TL3)
-> +		cfg->reg[0] = NIX_AF_TL3X_TOPOLOGY(schq);
-> +	else if (lvl == NIX_TXSCH_LVL_TL2)
-> +		cfg->reg[0] = NIX_AF_TL2X_TOPOLOGY(schq);
-> +
-> +	cfg->regval[0] = 0;
-> +
-> +	rc = otx2_sync_mbox_msg(mbox);
-> +
-> +	mutex_unlock(&mbox->lock);
-> +
-> +	return rc;
-> +}
-> +
-> +static void otx2_qos_free_hw_schq(struct otx2_nic *pfvf, u16 lvl, u16 schq)
-> +{
-> +	int err;
-> +
-> +	err = otx2_qos_reset_schq_topology(pfvf, lvl, schq);
-
-[Severity: High]
-Does this cover the case where the AF, not the driver, releases the QoS
-queues?  The reset only runs on the driver's explicit per-schq frees, but
-nix_txschq_free() in af/rvu_nix.c returns the same TL4/TL3/TL2 indices to
-the shared pool with only PARENT and SCHEDULE cleared:
-
-	nix_reset_tx_schedule(rvu, blkaddr, lvl, schq);
-	rvu_free_rsrc(&txsch->schq, schq);
-	txsch->pfvf_map[schq] = TXSCH_MAP(0, NIX_TXSCHQ_FREE);
-
-and nix_reset_tx_schedule() writes TLxX_PARENT and TLxX_SCHEDULE only, so
-TOPOLOGY (PRIO_ANCHOR/RR_PRIO) stays programmed.
-
-That path is reachable while an HTB qdisc is still offloaded, for example
-on a function reset (echo 1 > /sys/bus/pci/devices/<bdf>/reset) or a VF
-FLR from a passthrough guest:
-
-rvu_flr_handler() -> rvu_blklf_teardown() -> rvu_nix_lf_teardown() ->
-nix_txschq_free()
-
-In that case otx2_qos_free_hw_schq() never runs, so the state the commit
-message describes ("PRIO_ANCHOR/RR_PRIO settings can survive in the
-shared scheduler pool and affect later allocations") is unchanged.
-
-The allocation side also looks unsanitized.  nix_txschq_alloc() resets
-linkcfg, shaping and schedule for every newly allocated schq:
-
-	nix_reset_tx_linkcfg(rvu, blkaddr, lvl, schq);
-	nix_reset_tx_shaping(rvu, blkaddr, nixlf, lvl, schq);
-	nix_reset_tx_schedule(rvu, blkaddr, lvl, schq);
-
-but not TOPOLOGY, and otx2_txschq_config() never writes TOPOLOGY for
-TL2/TL3/TL4, so a new owner inherits whatever anchor was left behind.
-
-Would adding the TLxX_TOPOLOGY register to nix_reset_tx_schedule() be a
-better place for this?  That would cover free_one, TXSCHQ_FREE_ALL, FLR
-and allocation-time inheritance for all AF clients under rvu->rsrc_lock,
-and the driver-side helper added here would not be needed.
-
-> +	if (err)
-> +		netdev_warn(pfvf->netdev,
-> +			    "QoS: failed to reset topology for schq %u at level %u: %d\n",
-> +			    schq, lvl, err);
-> +
-> +	otx2_txschq_free_one(pfvf, lvl, schq);
-> +}
-> +
->  static void otx2_qos_free_hw_node_schq(struct otx2_nic *pfvf,
->  				       struct otx2_qos_node *parent)
->  {
->  	struct otx2_qos_node *node;
->  
->  	list_for_each_entry_reverse(node, &parent->child_schq_list, list)
-> -		otx2_txschq_free_one(pfvf, node->level, node->schq);
-> +		otx2_qos_free_hw_schq(pfvf, node->level, node->schq);
->  }
-
-[ ... ]
-
+diff --git a/sound/soc/sof/imx/imx-common.c b/sound/soc/sof/imx/imx-common.c
+index 7a03c8cc5dd4..436fe49246ba 100644
+--- a/sound/soc/sof/imx/imx-common.c
++++ b/sound/soc/sof/imx/imx-common.c
+@@ -34,6 +34,7 @@ void imx8_get_registers(struct snd_sof_dev *sdev,
+ 
+ 	/* first read registers */
+ 	sof_mailbox_read(sdev, offset, xoops, sizeof(*xoops));
++	xoops->plat_hdr.numaregs = 0;
+ 
+ 	/* then get panic info */
+ 	if (xoops->arch_hdr.totalsize > EXCEPT_MAX_HDR_SIZE) {
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260903020533.3068041-1-rkannoth%40marvell.com
+2.53.0
+
