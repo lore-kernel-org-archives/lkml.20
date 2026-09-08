@@ -1,188 +1,140 @@
-Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com [209.85.218.43])
+Received: from mta0.migadu.com (out-23.mta0.migadu.com [91.218.175.23])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98D003A901C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 301E13AA9E2
 	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 08:08:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.43
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788854890; cv=pass; b=nAwpasZvLxVlIr+6Km6hjw5EjkyasjVO7gUFEEgnbzY5rIFjV7K/1L4WBP+KVpTUv6bx6GyDdZX3TfnbKEGUa78pOZU4YxjZsQRmLQbOmcl8FLTXsGBFXBDuuaW8hOM3/O7XcL5lTdOrJ8K3kNj6aFdqD1QHduX+MVpB6fElzwg=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788854890; c=relaxed/simple;
-	bh=tXGbdgcqzz4CAJeru5w2V89eLrYgFnhR0h4hmZG/qUg=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=JRgdF31uBhabJbHorUiTO+ttIkDHc/sm6yyCvg6UGZAUoClaFbS8F7KNLDnZHlzkD63/W5/QOQR8yhcDXSrfxOqsJn9YdtH+Rp6oawWAxLmEAXlrce7pk6vumjXC6JHRJQULPGXeuiT2udI+O+sANsmqCeOKhOJR+hf8aHtw5Yo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ludBNOlo; arc=pass smtp.client-ip=209.85.218.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.23
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788854892; cv=none; b=pTi6aaA1UxfgATDKgfIO+rnl8YEZerm27FSxFSZHuh+zER3J8lbon+STdsgKkaQtwPinrEAvjNpGn9hhDQ1L325T+FWIDUzQM0vsVADwGQhyA+oxat/g9m9wS6sPlkLtn0XP2qM97xj79kx0FQP/cY5YXOsg3DSGF8cLXM6UCtc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788854892; c=relaxed/simple;
+	bh=17Qpr2HZAfjTf+fUY0bEYiBsyBtJXKQkXqw9F9jXj84=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=BqWhU9cprP341NymGWUGAsNo4aZozegq915BHFZA7RKM/BPg01pJrVplNIxab6edFrMnsyxEnxxHZvw0agUNPY6JPIH2WH0DCfa8UanhGkxCfppASvslTxA+wVvHZq4sFPuJH798+tuq99/xlek7sj5kTt2tJM0cblzFc2ptx6w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=YhKPa69D; arc=none smtp.client-ip=91.218.175.23
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ludBNOlo"
-Received: by mail-ej1-f43.google.com with SMTP id a640c23a62f3a-c250a2bc3b3so494046266b.2
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 01:08:08 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788854887; cv=none;
-        d=google.com; s=arc-20260327;
-        b=XiOGPf5Fu1qVyLrOkXTP/GohYleyu++iBtBey1WrhWyci5ksr73gvMXYyKA3dJq144
-         qua0eTYnN4AEgdBNSYvIqMFsBjKj140S19FcdJjJfdkFkZc1Nxk8UkCCrvtXwPaF9WGH
-         vsnynlvnv0p0lvlXIsmMFNylZGEpMasuOPcxsiZ6j9FOiPHXQrLIFV89rPhDIe8mBZn+
-         yuAOiz3zTqWAo4NaGlHH4eUcgEkuMTwuzUHF3M7K+vwIqYkopdAAiWcU/x87CaMEy1t9
-         ijyvIZMAL2GIDs4cioHVpQfpoeQYg6ZRcMA+QX8kpezJkkShd45KG58m7OLQ9ksZeAJc
-         4aEw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=sa6upqADQlqR/MmaNL6A6E6rZ+XVW/lKGKReqxKXRig=;
-        fh=l6jLuk5c/J5ab+9rT+MbXO1QrN04ok333Q9diHZfESM=;
-        b=avAVj/D3yo7q6eLvHCQt54og47LEffIksHk0crDz4oNvxrvCWlkrYOoP+7yEOg4aew
-         dVYSALjdUTPaMCZ1JAzhFZSmdxo3Mj2YcjkN5BGRIC2CIYahXEMV8Cwa5I3+0B8KsT5Y
-         5U4qe3SPeJ4Nu8kyCfrhc7iNvaZSUAZZmo7EQIXTCmqyd/PNInAjv5qorraxzJ11InoQ
-         cLpH7/6dlP1iOVmgLQsya1cNFSHwrbCSlNrKA0Xzy4jWYghHVxt85N0Yi72rOiQ/4r+J
-         Y+zUr38Acb4N7xQvONT3bqDX0jFFABun+JhaNA8gLGQG5E0q8T1IQKQMTCH0I1jz3q+2
-         diLg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788854887; x=1789459687; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=sa6upqADQlqR/MmaNL6A6E6rZ+XVW/lKGKReqxKXRig=;
-        b=ludBNOloWCYsKmGBwbyjEB7iHpzPOQ3dJGazMLGksLvgB9tqpSjkhZZxa985so1aH2
-         3pJ3E9pb+nDj7A45X1dK6twrpqjolQedV5+W2jH7IoQ4KLzQ0rbLmzPr9+uI6A1PNEtX
-         2wgEyZyI7usjpevhUo0cA4xM5Gmq+onUCT+74Xk8jAh2emolxJtBeaKcq/x35AuJWGnN
-         kDddntYipUOWh5Ovm/s0zRY8XKgWlUgAQVKd2iL++fYQDzJICt/CIWxZjj9T5Vx8EERN
-         IRW2R7mbL1ehStJfxSr0MTvtL1hoDMwWyezFCc5QL/0XwDy3Eu6QQTCV4A/Ri5V3yx10
-         K+Sg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788854887; x=1789459687;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=sa6upqADQlqR/MmaNL6A6E6rZ+XVW/lKGKReqxKXRig=;
-        b=Vrjm/duR/XUzS0hqcBeVKpEiy0L0izWZbed2K0536e+b1ZlGeQLUt7bPJ8eoKW8ICJ
-         +0gyANPnQs4UBcpu8xpID0SuX/iOhI15YmTL+l1BVEodUv2kJwE+E2cgTXG/2ZvNDW0+
-         1i3hRXb6wMgjz0pMj0EVT5csX3XOUtFf1JvW+bQiXBrv5O3RAcGgBTPEF50QkztF0SDw
-         0GfH66i5K0CookS2hPgxNTMKEpsS9RvUp3p1f0zlk0ZrK0oWbkstSW45R6iich3V4++g
-         2TDEl8hZ6aPtJfjEbUYyxNKGUb58xH+Ae0KMQ+/9/H5OSTNsWSu5GT9NRpDzddNm14p0
-         dtsQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwMOYDxI4ESn37uPeUqko9bG7emlKXVvJPnivL9iTJ1Oss5xllXhBt22mCvkGXxJX/2YEra99eGwGMvHes=@vger.kernel.org
-X-Gm-Message-State: AFuF++ki3DLU8SlyUCwCfuOx8Lof7kk9rpj2F+8CdEBV36WYZmku2tUr
-	/H1jB6p7VMuXpidPGn21ie0B2los6do6+zWu/A/KLob6UzOS51iefUOv97PPMoTuXA06vm1S1gv
-	nxiWoMojx9EkJ4IIRXBKaHrF1wOa4Fi0=
-X-Gm-Gg: AYBFou3vurc2okOWmgEtD5t33OvXd0/uEtmBaGCBgY9UoofA1irV14hpbp1ePkpKrFw
-	Q7Fe2ciHxvvQ1fRgdVrlgoJ/x4OccxzsFJWQwH4WFg7tGw+bGRE3bCrFg4h5Oi32ivBDYQ7E0SA
-	nMMs9lX5AWrONicY6d4ANy4dDsgZK2yAFsOl+A21+noOF6oYflBW4Hh59IA8JPuU+fOBQXYAMZt
-	Rhe9maKIBE8ruYbm2ODeV5T7y0wiNCvP3/v8bGUyWF1BvKtBa9GXXR/RqPit3KaOBFnqstn0WKQ
-	hKv7MXMA8gU0IMPgfKRGgm/pUQSD8DAb+VJEvGYyDVeb8lAKL6j7v/9dP0VKi8mcfgZn0EZmXcP
-	dheJ+BHfDOQ==
-X-Received: by 2002:a17:906:8d89:b0:c24:c250:a6b5 with SMTP id
- a640c23a62f3a-c260c993a9amr1051714266b.12.1788854886462; Tue, 08 Sep 2026
- 01:08:06 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="YhKPa69D"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=17Qpr2HZAfjTf+fUY0bEYiBsyBtJXKQkXqw9F9jXj84=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788854886; v=1; x=1789459686;
+ b=YhKPa69DdS5qZIl1G+SGZx4cR2YVxx0k6mS3QpgPwciPPwYelLamurWlQsD5W+ZQZsA6u7g1
+ IrmvqGHkQNvFrE/Bum+vIYjfi6jVrBlqGmZYwySvi8xOekOZMLm8guERo+N5LfGFU7f0zQoNeR8
+ M36VdzpZO26Hl6or04k7N/xM=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id f75abea937d6cb6f;
+	Tue, 08 Sep 2026 08:08:06 +0000
+X-Mizu-Trace-ID: f75abea937d6cb6f
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <a44c1e4d-e9a8-4df3-aa25-20875cd4d30e@linux.dev>
+Date: Tue, 8 Sep 2026 16:07:48 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <9fbb6bf2-70ae-4d49-9221-751d28dcfd1a@redhat.com>
- <o6cnjqy4ivjqaj4n5xphstfnk5jznufaygwmfkm2gyixqgfump@7fc6c6h6d5if> <28f144f8-431d-4c3a-a362-56083bb77541@redhat.com>
-In-Reply-To: <28f144f8-431d-4c3a-a362-56083bb77541@redhat.com>
-From: Mateusz Guzik <mjguzik@gmail.com>
-Date: Tue, 8 Sep 2026 10:07:53 +0200
-X-Gm-Features: AcwNN1V1vd5mVM1XveYVMiH3ACcL2s2pHzLcWY3GJUvl9XLSZ31SO_QV5_aeSjk
-Message-ID: <CAGudoHFJne0q+dnjYdXOyDKEfu_zZ71_z+kSiUPiHWG7jCBw-Q@mail.gmail.com>
-Subject: Re: [PATCH RFC] fs: cache-align lock_class_keys in struct file_system_type
-To: Eric Sandeen <sandeen@redhat.com>
-Cc: linux-fsdevel <linux-fsdevel@vger.kernel.org>, linux-kernel@vger.kernel.org, 
-	Christian Brauner <brauner@kernel.org>, David Howells <dhowells@redhat.com>, lkp@intel.com, 
-	oe-lkp@lists.linux.dev, Alexander Viro <aviro@redhat.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH bpf v2 2/3] tcp: Skip cond_resched() in
+ inet_csk_listen_stop() under BPF context
+To: Kuniyuki Iwashima <kuniyu@google.com>, bot+bpf-ci@kernel.org
+Cc: bpf@vger.kernel.org, daniel@iogearbox.net, john.fastabend@gmail.com,
+ sdf@fomichev.me, martin.lau@linux.dev, ast@kernel.org, andrii@kernel.org,
+ eddyz87@gmail.com, memxor@gmail.com, song@kernel.org,
+ yonghong.song@linux.dev, jolsa@kernel.org, emil@etsalapatis.com,
+ ihor.solodrai@linux.dev, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, ncardwell@google.com,
+ shuah@kernel.org, aditi.ghag@isovalent.com, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
+ martin.lau@kernel.org, mason@kernel.org
+References: <20260906074135.185212-3-jiayuan.chen@linux.dev>
+ <0aa6425f9e8f32705ae827f6325b29079234c3f3d0c7b2cdefba3e5b50432766@mail.kernel.org>
+ <CAAVpQUBztYDHyiCN1fnhdxCPv_5AZ09yCMQfNW96SzZyw0LhHA@mail.gmail.com>
+From: Jiayuan Chen <jiayuan.chen@linux.dev>
+In-Reply-To: <CAAVpQUBztYDHyiCN1fnhdxCPv_5AZ09yCMQfNW96SzZyw0LhHA@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-While I'm not convinced spending time on the resulting bug is
-worthwhile, with the arrival of sashiko I think you should rebase &
-resend -- it very well might just point out the problem with 0 human
-effort.
 
-On Tue, Dec 30, 2025 at 11:45=E2=80=AFPM Eric Sandeen <sandeen@redhat.com> =
-wrote:
+On 9/8/26 7:34 AM, Kuniyuki Iwashima wrote:
+> On Sun, Sep 6, 2026 at 1:23 AM <bot+bpf-ci@kernel.org> wrote:
+>>> tcp: Skip cond_resched() in inet_csk_listen_stop() under BPF context
+>>>
+>>> bpf_sock_destroy() runs from the tcp iterator, under rcu_read_lock(). If
+>>> the sock is a listener that still has children in its accept queue,
+>>> tcp_abort() ends up in inet_csk_listen_stop() and the cond_resched()
+>>> there trips the debug check:
+>>>
+>>> BUG: sleeping function called from invalid context at net/ipv4/inet_connection_sock.c:1523
+>>> in_atomic(): 0, irqs_disabled(): 0, non_block: 0, pid: 628, name: test_progs
+>>> preempt_count: 0, expected: 0
+>>> RCU nest depth: 1, expected: 0
+>>> locks held by test_progs/628: 3, last CPU#3:
+>>>   #0: ffff8881158cee18 (&p->lock){+.+.}-{4:4}, at: bpf_seq_read+0x56/0x1210
+>>>   #1: ffff8881106bb858 (sk_lock-AF_INET6){+.+.}-{0:0}, at: bpf_iter_tcp_seq_show+0x32b/0x4b0
+>>>   #2: ffffffffb435af20 (rcu_read_lock){....}-{1:3}, at: bpf_iter_run_prog+0x46b/0xde0
+>>> CPU: 3 UID: 0 PID: 628 Comm: test_progs Tainted: G        W           7.2.0+ #65 PREEMPT
+>>> Tainted: [W]=WARN
+>>> Call Trace:
+>>>   <TASK>
+>>>   dump_stack_lvl+0xc1/0xf0
+>>>   dump_stack+0x10/0x20
+>>>   __might_resched+0x3d2/0x610
+>>>   inet_csk_listen_stop+0x7b/0xbf0
+>>>   tcp_abort+0x23b/0x3b0
+>>>   bpf_sock_destroy+0xfc/0x140
+>>>   bpf_prog_448133d24601754f_iter_tcp6_server+0x81/0x8a
+>>>   bpf_iter_run_prog+0x538/0xde0
+>>>   bpf_iter_tcp_seq_show+0x26b/0x4b0
+>>>   bpf_seq_read+0x424/0x1210
+>>>   vfs_read+0x197/0xe40
+>>>   ksys_read+0x119/0x240
+>>>   __x64_sys_read+0x72/0xc0
+>>>   x64_sys_call+0x647/0x27e0
+>>>   do_syscall_64+0xe5/0x610
+>>>   entry_SYSCALL_64_after_hwframe+0x76/0x7e
+>>> RIP: 0033:0x7fad39b28aca
+>>> RSP: 002b:00007ffc381c61c0 EFLAGS: 00000246 ORIG_RAX: 0000000000000000
+>>> RAX: ffffffffffffffda RBX: 00007ffc381c6a88 RCX: 00007fad39b28aca
+>>> RDX: 0000000000000032 RSI: 00007ffc381c6250 RDI: 0000000000000014
+>>> RBP: 00007ffc381c61e0 R08: 0000000000000000 R09: 0000000000000000
+>>> R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000003
+>>> R13: 0000000000000000 R14: 000055f077c1bbb0 R15: 00007fad3a0f3000
+>>>   </TASK>
+>>>
+>>> The commit that added the kfunc already guards lock_sock() in tcp_abort()
+>>> and udp_abort() with has_current_bpf_ctx(), but missed the listener path.
+>>> Do the same for the cond_resched(), it can't reschedule there anyway.
+>>>
+>>> Fixes: 4ddbcb886268 ("bpf: Add bpf_sock_destroy kfunc")
+>>> Signed-off-by: Jiayuan Chen <jiayuan.chen@linux.dev>
+>> Is the justification "it can't reschedule there anyway" accurate?
+>>
+>> With CONFIG_PREEMPT_DYNAMIC=y booted with preempt=none or preempt=voluntary,
+>> cond_resched() expands to __cond_resched() which can actually reschedule.
+>> The splat in the commit message confirms preempt_count is 0 while RCU nest
+>> depth is 1. With preempt_count==0, should_resched(0) can be true and
+>> __cond_resched() will call preempt_schedule_common() for a real reschedule.
+>>
+>> Additionally, in configurations with CONFIG_PREEMPT_RCU=n where
+>> rcu_read_lock() is preempt_disable(), __cond_resched() falls through to
+>> rcu_all_qs() which calls rcu_qs() to report a quiescent state from inside
+>> an RCU read-side critical section. That's a correctness problem beyond just
+>> the debug check.
+>>
+>> So the call can either reschedule (PREEMPT_DYNAMIC none/voluntary) or report
+>> a bogus quiescent state (non-preemptible RCU). Could the justification be
+>> reworded to explain that the loop runs inside the iterator's RCU read-side
+>> critical section and must not reschedule or report a quiescent state there?
+>> The code change itself is correct and matches the existing pattern in
+>> tcp_abort() and udp_abort().
+> or maybe simply remove cond_resched(), hoping 7dadeaa6e851 would
+> resolve the scheduling issue.
 >
-> On 12/30/25 4:04 PM, Mateusz Guzik wrote:
-> > On Tue, Dec 30, 2025 at 03:07:10PM -0600, Eric Sandeen wrote:
-> >> LKP reported that one of their tests was failing to even boot with my
-> >> "old mount API code" removal patch. The test was booting an i386 kerne=
-l
-> >> under QEMU, with lockdep enabled. Rather than a functional failure, it
-> >> seemed to have been slowed to a crawl and eventually timed out.
-> >>
-> >> I narrowed the problem down to the removal of the ->mount op from
-> >> file_system_type, which changed structure alignment and seems to have
-> >> caused cacheline issues with this structure. Annotating the alignment
-> >> fixes the problem for me.
-> >>
-> >> Reported-by: kernel test robot <oliver.sang@intel.com>
-> >> Closes: https://lore.kernel.org/oe-lkp/202512230315.1717476b-lkp@intel=
-.com
-> >> Fixes: 51a146e05 ("fs: Remove internal old mount API code")
-> >> Signed-off-by: Eric Sandeen <sandeen@redhat.com>
-> >> ---
-> >>
-> >> RFC because I honestly don't understand why this should be so critical=
-,
-> >> especially the structure was not explicitly (or even very well) aligne=
-d
-> >> before. I would welcome insights from folks who are smarter than me!
-> >>
-> >> diff --git a/include/linux/fs.h b/include/linux/fs.h
-> >> index 9949d253e5aa..b3d8cad15de1 100644
-> >> --- a/include/linux/fs.h
-> >> +++ b/include/linux/fs.h
-> >> @@ -2279,7 +2279,7 @@ struct file_system_type {
-> >>      struct file_system_type * next;
-> >>      struct hlist_head fs_supers;
-> >>
-> >> -    struct lock_class_key s_lock_key;
-> >> +    struct lock_class_key s_lock_key ____cacheline_aligned;
-> >>      struct lock_class_key s_umount_key;
-> >>      struct lock_class_key s_vfs_rename_key;
-> >>      struct lock_class_key s_writers_key[SB_FREEZE_LEVELS];
-> >>
-> >
-> > There is no way is about cacheline bouncing. According to the linked
-> > thread the test vm has only 2 vcpus:
-> >> test machine: qemu-system-i386 -enable-kvm -cpu SandyBridge -smp 2 -m =
-4G
-> >
-> > Even if the vcpu count was in hundreds and the ping pong was a problem =
-it
-> > still would not have prevented bootup.
->
-> Fair enough, it really didn't make sense to me.
->
-> > Instead something depends on the old layout for correctness.
->
-> If I add ->mount back to the /end/ of the structure, it boots fine again,
-> so I guess nothing is expecting specific offsets within the structure
-> at least.
->
-> (If I turn off lockdep in the kernel config, it boots fine again too,
-> FWIW.)
->
-> > By any chance is this type-punned somewhere?
->
-> I don't think so...
->
-> > While I can't be bothered to investigate, I *suspect* the way to catch
-> > this would patch out all of the lock_class_key vars & uses and boot wit=
-h
-> > KMSAN (or was it KASAN?). Or whatever mechanism which can tell the
-> > access is oob.
->
-> Can't do KASAN or KMSAN on i386, AFAIK. :(
->
-> I suppose I could try such things on x86_64 just in case something shows
-> up...
->
-> Thanks!
->
-> -Eric
->
+
+Good suggestion. cond_resched has become old practice under 
+CONFIG_PREEMPT_LAZY
+
