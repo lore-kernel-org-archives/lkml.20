@@ -1,157 +1,98 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vk1-f169.google.com (mail-vk1-f169.google.com [209.85.221.169])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A1E04A99D9;
-	Tue,  8 Sep 2026 09:05:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D5424E56F7
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 09:05:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788858342; cv=none; b=XYf0q33+py/0FvUkE/QKsA7UXuJSwrHX1ywDO2dSoIv8JHr3akDrZDiyhZB9EtNYWiErxvrFm0wZlzufVPA8g7RCxMg3W8aPw/CXbTBRoTZjsUiVCRzjxnmq6eSFWi2jgo3pw4QlpKysq/tr1lUAFnM0lPAWzDxJ9Zw9gdtHNgk=
+	t=1788858354; cv=none; b=au20eL1OJj9wXNVadheZkWnIVrifZvAGkWAcMtQ5G5GXmyeSCX6WCa/5s/uY72HYB4caXiLp0h9dpZmdgXjKJQUOObJQCaazbeQqmhHaV4hUM9+a+gwh9+HOc3AzgVuur7f/cCq+aog/BJimKujowlvWBXtKdhGcYUcPV+czgmo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788858342; c=relaxed/simple;
-	bh=m5Z0dnOwtdaj+Ji9M30PnHmJ4+TlyYI0QV2127NqB7k=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=i/BT0xkXENFFbOntfeYCkZ5K4EgSA/aFazc/yo1NdFiK69F92JLB3mkV8PZnbAckORETvhb7myLzyIjYSPt8bxUvv4T13cEZUzKgzk+8z9gaPGMmWbq5EOQs1zHHsg7UId5T96XwPeHkAlaSd9Myb3VW7ys4y7MoYE0xj2NMTH8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4536C1F00A3A;
-	Tue,  8 Sep 2026 09:05:37 +0000 (UTC)
-Message-ID: <799c3128-cf43-4a64-a8c8-3f6695bbf424@kernel.org>
-Date: Tue, 8 Sep 2026 11:05:34 +0200
+	s=arc-20240116; t=1788858354; c=relaxed/simple;
+	bh=qENNEDqTfSxOEMOZqWtlSya5/dlWse6hSfPNt8qgY38=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=pRiwixCi4/LyXOqAV7Oj9QbyQKsb43Hk6zDWJ7zQ2+cddNlD+CsPyNPYT1K8/TEquUiqAbXLEtRjNn0tni0t5zQAz0tl5xJGAC06lqa6SSfwswdq4M8VrOZN6T4XUDCa8NaU0xsb7U0jFDmsO93Vi2ktU4FDi3VYzD121SArDGM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.221.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-vk1-f169.google.com with SMTP id 71dfb90a1353d-5c2c46a428eso3490195e0c.2
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 02:05:52 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788858352; x=1789463152;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=A2RG0cKt2fiedWBmPN2R9LrrqHBfbGuuDFwRG5wsY+8=;
+        b=AjsJrhP5JNUpPQY3ngOlI27kP8pwXT9mBxbN4/AcM+uhpCdRg/x57mI50LAhoOobEP
+         a59pPMRaD21CTnrJnOyTDbJ+rRnVzy5Mbfmw1UMF7iRT63vhPnLORvnNjYYOAyaYvPpY
+         N90NNmEMW6lVx4XGJMelK711PS5FxwI9f1NDTP90sE5SfLy4vETM5wqRPnZa+Hw8ksjb
+         2vx/5m/nYLRPoS6QdRe5xr678m3s7MDH2NaXBYT6K6hVjmVxWMYb1DMoMTMyYyQRFn2x
+         KsLuEkO9Jnc1bQ3EBoPD873mbkJ1NZRzefyeuc4+f/WVDMoXRcl3mwOmpxveiGdh87oS
+         2I9g==
+X-Forwarded-Encrypted: i=1; AKwUvBwh77MP7UB5zY2rZMeJorwAcczPPshWIU7fnRxcn77M59/nslHWZr7sewufVRg0GYXA+kTGyM8jE7tLUkI=@vger.kernel.org
+X-Gm-Message-State: AFuF++nAcQGITScUMqqtPUWHOBQqXOzs4FtjhYH9Cc+O9jASaim5R0OZ
+	Mf2wEvTsR1yAr+1JtLmSa+uMhty5LdeApXWVZNnzQNSss7tJUqY8tg5HkhAmgUCY
+X-Gm-Gg: AYBFou1uOMf7LvBaV+SpErAeL2ro/CMZWbr8yzCDgMeZItSR+DR5gYpUa1Vf3a5zvc8
+	rwC3FdpRFSpRBNwbLhmh3PT5MSYxlMYDSq3BWk0330mVBn2xeuuwxGjoaWrnMXXBjgSbNhCnG5b
+	YLMUeiZKB5wM5pzQSgotajCa4Qh48lcSScuPexPsA1CnlK+M3O5RaB+3zCrjp5lYqyYO5EzNBIy
+	2XWDs61spwoC7Hjf2GvzrDz/AwAgo3hyFQy472y+X25u+RfLN8b8gCPJWZ8Otb9UsZ+4rL7/nYx
+	mf0o+4lmtJrdq/hn/nCbpkad5ACKx3wZQzoDfbbLmVgs9lEdL8JLbVjRBFbp5y8oRqswdZIW//W
+	4zOcSTxamO9kbUWsmSOqQBEqF5iP2X1e+JmT+zQhxsUPeM8+abdDmyXNJr/sZrcuxh5if6iD42b
+	sCnRQGlXc76ClUCxJvR+L5ZnDIe3zrpte8BXdKBa1QcuiKklqmDF/t9jWcL/6pEUnQ+ZTFMoGmI
+	MT8Z14WC2JnYs4nVJHuBLurIpYsl2ljNCTh
+X-Received: by 2002:a05:6122:1d08:b0:5c7:98a9:cf95 with SMTP id 71dfb90a1353d-5c7ed603f9dmr14546112e0c.4.1788858351833;
+        Tue, 08 Sep 2026 02:05:51 -0700 (PDT)
+Received: from mail-vs1-f50.google.com (mail-vs1-f50.google.com. [209.85.217.50])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5c7ec1ef771sm9325736e0c.3.2026.09.08.02.05.51
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 08 Sep 2026 02:05:51 -0700 (PDT)
+Received: by mail-vs1-f50.google.com with SMTP id ada2fe7eead31-746d77537f8so2604008137.0
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 02:05:51 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvByxQezsv+296IJW1k4xx1ZtE3LjeFIXRTVrLACQo8tJOlTG+Y6BuL67IfgNvxdVVrQiz3lERmbOZ0IiqEM=@vger.kernel.org
+X-Received: by 2002:a05:6102:54a8:b0:785:c960:ff85 with SMTP id
+ ada2fe7eead31-78a4a8e5299mr11703243137.7.1788858350778; Tue, 08 Sep 2026
+ 02:05:50 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/7] arm64: dts: qcom: IdeaCentre Mini 01Q8X10 Hamoa +
- Purwa
-To: Mostafa Saleh <smostafa@google.com>, jens.glathe@oldschoolsolutions.biz
-Cc: Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260905-x1-ideacentre-mini-prettify-v1-0-9a87882973bb@oldschoolsolutions.biz>
- <ap_PdUrwLIVGJ3oG@google.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <ap_PdUrwLIVGJ3oG@google.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20260817185700.322370-1-cosmin-gabriel.tanislav.xa@renesas.com> <20260817185700.322370-2-cosmin-gabriel.tanislav.xa@renesas.com>
+In-Reply-To: <20260817185700.322370-2-cosmin-gabriel.tanislav.xa@renesas.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Tue, 8 Sep 2026 11:05:39 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdVRtHVn_Xr8LgnUwYgQJ7nMYLPA0_psoe2Ovb6784YL5w@mail.gmail.com>
+X-Gm-Features: AcwNN1VaOQFPsjNEjqZlOpJmCYxPCszYgVUjW-z18bFw1ijCstg7Yj1NvjUamz0
+Message-ID: <CAMuHMdVRtHVn_Xr8LgnUwYgQJ7nMYLPA0_psoe2Ovb6784YL5w@mail.gmail.com>
+Subject: Re: [PATCH 1/7] pinctrl: renesas: rzt2h: fix used_irqs indexing in
+ clear path
+To: Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>
+Cc: Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
+	linux-renesas-soc@vger.kernel.org, linux-gpio@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On 08/09/2026 11:03, Mostafa Saleh wrote:
-> Hi Jens,
-> 
-> On Sat, Sep 05, 2026 at 11:28:55AM +0200, Jens Glathe via B4 Relay wrote:
->> The IdeaCentre Mini 01Q8X10 (board 91B6) ships with two SoCs: Hamoa
->> (X1E80100), already upstream, and Purwa (X1P42100 / X1-26-100). Same
->> chassis, different silicon. Stubble and the DTB loader need distinct
->> compatibles.
->>
->> This series splits the board description into
->> x1-lenovo-ideacentre-mini-01q8x10.dtsi and adds thin leaves. Each SKU
->> keeps lenovo,ideacentre-mini-01q8x10 as fallback:
->>
->>   lenovo,hamoa-ideacentre-mini-01q8x10, lenovo,ideacentre-mini-01q8x10,
->>   qcom,x1e80100
->>
->>   lenovo,purwa-ideacentre-mini-01q8x10, lenovo,ideacentre-mini-01q8x10,
->>   qcom,x1p42100
->>
->> No qcom_scm change; the fallback is already on the allowlist.
->>
->> The remaining patches fix the common DTSI for both boxes:
->>
->> - Build the Hamoa EL2 DTB like the other Hamoa boards.
->> - Second M.2 3V3 is PMC8380_3 GPIO5, not TLMM18. A 2 s startup delay
->>   is required or pcie3 fails to probe. always-on is a hack until there
->>   is a real M.2 power sequencer.
->> - sound-name-prefix on the three DP ports. Enable lpass_vamacro: no
->>   onboard mics, but it provides fsgen for tx_macro and rx_macro.
->> - usb_mp port 1 is not populated (no PTN3222 @ 0x4f). USB-C is
->>   usb_1_ss0; rear Type-A is usb_mp port 0 behind a Genesys hub.
->>
->> The Genesys hub is left undescribed.
->>
->> UCM [1] and AudioReach [2] topology for these devices are online, too.
->>
->> Tested on:
->> - IdeaCentre Mini 01Q8X10, Purwa (X1-26-100), 91B6
->> - Hamoa: compile-tested only
->>
->> [1]: https://github.com/alsa-project/alsa-ucm-conf/pull/843
->> [2]: https://github.com/linux-msm/audioreach-topology/pull/74
->>
->> Assisted-by: Grok 4.5 (xAI)
->> Signed-off-by: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
->> ---
->> Jens Glathe (7):
->>       dt-bindings: arm: qcom: Distinguish IdeaCentre Mini 01Q8X10 SKUs
->>       arm64: dts: qcom: Split IdeaCentre Mini into a common DTSI
->>       arm64: dts: qcom: Add Purwa IdeaCentre Mini 01Q8X10
->>       arm64: dts: qcom: ideacentre-mini: Build the Hamoa EL2 DTB
->>       arm64: dts: qcom: ideacentre-mini: Fix the second M.2 3V3 rail
->>       arm64: dts: qcom: ideacentre-mini: Wire up DP sound names and VA macro
->>       arm64: dts: qcom: ideacentre-mini: Drop the unused USB MP port
->>
->>  Documentation/devicetree/bindings/arm/qcom.yaml    |   11 +-
->>  arch/arm64/boot/dts/qcom/Makefile                  |    8 +-
->>  .../qcom/hamoa-lenovo-ideacentre-mini-01q8x10.dts  | 1188 +-------------------
->>  .../qcom/purwa-lenovo-ideacentre-mini-01q8x10.dts  |   42 +
->>  .../qcom/x1-lenovo-ideacentre-mini-01q8x10.dtsi    | 1185 +++++++++++++++++++
->>  5 files changed, 1246 insertions(+), 1188 deletions(-)
->> ---
->> base-commit: af5f12805e5cefa4fe68d6127c7e1fb78cd5535c
-> 
-> This series does not apply to ToT nor I can find this base-commit
-> in it.
+On Mon, 17 Aug 2026 at 20:58, Cosmin Tanislav
+<cosmin-gabriel.tanislav.xa@renesas.com> wrote:
+> struct rzt2h_pinctrl::used_irqs is supposed to be indexed based on the
+> parent IRQ number. Do the translation using rzt2h_gpio_irq_map and
+> clear it properly.
+>
+> Cc: stable@kernel.org
+> Fixes: 829dde3369a9 ("pinctrl: renesas: rzt2h: Add GPIO IRQ chip to handle interrupts")
+> Signed-off-by: Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>
 
-It's a public/standard commit, next.
+Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+i.e. will queue in renesas-pinctrl for v7.4.
 
-What is ToT in upstream development?
+Gr{oetje,eeting}s,
 
-Best regards,
-Krzysztof
+                        Geert
+
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
