@@ -1,47 +1,47 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 955DE595741;
-	Tue,  8 Sep 2026 17:55:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BD76581244;
+	Tue,  8 Sep 2026 17:56:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788890151; cv=none; b=g3MjabnamNW2pBxlCBzwH7Yomf0z3ZJfA/VAvM1MrC725ia1zgAXClIj3xAGWNXvfABXxjLgQDjKkvJITAyJ7gpI7ScrPOgielbbM1402F4XkZtzOlw4SlOlZQDHRn/g/cJ8n4ptX66tq6xbAOCHVfxeuOwMKqqcYI6ZDJB4f8U=
+	t=1788890217; cv=none; b=Mr9mHznhTlHh0WHR4d/Gj3bDdpHlRvRxQO/jQget/Soe0EyxjhC+r2B9fukG4JrS2UXB+xqCLBAGYoCFNhbcKc16TAr0j7VebV2k+PHDe2hhuDLTpL/mDz6619417EGP151ZouzflHiTlNfqpLHPv8lORFT5u8rR5K4wwA5+TGE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788890151; c=relaxed/simple;
-	bh=pL6X4+H1HRTFmUzZquYoWA+vA8llL1b++q+IS0wt0WI=;
+	s=arc-20240116; t=1788890217; c=relaxed/simple;
+	bh=k3jSdgnbL5LvBC8GXl/H4R9qhk5svWd3V6MyFuObhUE=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=d74ad904+97IJlOLl2ra3XGilB561OxR3DXzWXAKOfIw8aOAX+LIPE/7SYU40ZRf66OQOaad/crFdFsvBPhFDxjTmWuv0tWW2bZR4Saq+SBOXV0XCHrvbaybuj9ya0//hXAAhojxvZHEQvjuXvITY/ylfJyRClHggZPej07mrPY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=g+V0cbt5; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=UcUkFOztXBdde/R6n2QjbuS9nr8dDjzhm9bkV8GhigGyVRm4E12D2HQO+qGfGu9agWsRd0dDrQwtFNkNRHyGAxLZ8JzFU5i169pvrdGM4uL+7cpkcsJKpP5uUcoYuoEO3cUD5IKJBaoGHPEJ4npUpFKeR/Yra8Pr9Nnj432udPo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MCR5T3ug; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="g+V0cbt5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1401F1F00A3F;
-	Tue,  8 Sep 2026 17:55:47 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MCR5T3ug"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 54D961F00A3A;
+	Tue,  8 Sep 2026 17:56:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788890150;
-	bh=pL6X4+H1HRTFmUzZquYoWA+vA8llL1b++q+IS0wt0WI=;
+	s=k20260515; t=1788890215;
+	bh=k3jSdgnbL5LvBC8GXl/H4R9qhk5svWd3V6MyFuObhUE=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=g+V0cbt5sBZBlmAMr/pNoSfTcKuLf+bTaAO0EfRVEahoujoy8PKW/BitkIQUOEn2G
-	 UYfRIzngOCn1suV4qvSncou5CbW6Zo2ybdumlrzt5vTxMUuB1s9/kqSvizee/YGa+t
-	 KhJxtOEhsmnEgOlAakGffdhU2IT7ntzv/F38kXl+0YjfoH1kCQBtnCxJwvJwxNN0eO
-	 avONiEJ12MWbYNOO6fz9kmg+sVtIap1T/xnSch91mADPah6LbTLiZZqNQA5cFlYZRz
-	 OG9MtTBdsdNany5CxlAXqYdSgbYwtq7dZ93r0GnnN2PMSVkHZ9jHhoxTUSBJSXwn0i
-	 nSZk762E2rzAg==
-Date: Tue, 8 Sep 2026 18:55:46 +0100
+	b=MCR5T3ug3ogPL0IrNrVo72MWGWIY1CA9c5kINyRxx0jaUzvEgFt/fv7Z9i5VJzOa0
+	 j4aGiYDceRUzHWPvg/QxXjOHvU10uyJRc1AYOUlU6X61WgVrSBhv68zt6yi5yo5GY8
+	 owJ1C5NmpGfZr8awAGK/5TJYXcfBcsGLQFdBGEJ18paDYS43f9oQVQoRQAjzTYh4BC
+	 y0pNJGoN2yYjSZ5VbvN+xdqmPCIyV1XAkxj2QGQRtOUWZT5SFhiy8hVY2jOShketuP
+	 Xye8BM6H3XWky726vCFJSqIt1/68eFsj+0cl3RazMPIlfJwZLr7ldm8TQHCdeLeNeG
+	 /kto8pO0QYXeQ==
+Date: Tue, 8 Sep 2026 18:56:51 +0100
 From: Conor Dooley <conor@kernel.org>
-To: Oleg Keri <okerixx@gmail.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Hans de Goede <hansg@kernel.org>,
-	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-	Guenter Roeck <linux@roeck-us.net>, linux-arm-msm@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	platform-driver-x86@vger.kernel.org, linux-hwmon@vger.kernel.org
-Subject: Re: [PATCH 1/2] dt-bindings: embedded-controller: add Lenovo Yoga
- Slim 7x Gen 11 EC
-Message-ID: <20260908-duke-carry-344cf89b213b@spud>
-References: <20260908091752.5508-1-okerixx@gmail.com>
- <20260908091752.5508-2-okerixx@gmail.com>
+To: Petar Stepanovic <pstepanovic@axiado.com>
+Cc: Akhila Kavi <akavi@axiado.com>,
+	Prasad Bolisetty <pbolisetty@axiado.com>,
+	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <ukleinek@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Harshit Shah <hshah@axiado.com>,
+	linux-pwm@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	openbmc@lists.ozlabs.org
+Subject: Re: [PATCH v4 1/2] dt-bindings: pwm: add Axiado AX3000 PWM
+Message-ID: <20260908-pesticide-creative-6185ca4971e9@spud>
+References: <20260908-axiado-ax3000-pwm-v4-0-19a03671cd5b@axiado.com>
+ <20260908-axiado-ax3000-pwm-v4-1-19a03671cd5b@axiado.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -49,26 +49,26 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="xXLwQtLx5yICgUWa"
+	protocol="application/pgp-signature"; boundary="kFlJqgktNAXA6FxP"
 Content-Disposition: inline
-In-Reply-To: <20260908091752.5508-2-okerixx@gmail.com>
+In-Reply-To: <20260908-axiado-ax3000-pwm-v4-1-19a03671cd5b@axiado.com>
 
---xXLwQtLx5yICgUWa
+--kFlJqgktNAXA6FxP
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 
 Acked-by: Conor Dooley <conor.dooley@microchip.com>
 pw-bot: not-applicable
 
---xXLwQtLx5yICgUWa
+--kFlJqgktNAXA6FxP
 Content-Type: application/pgp-signature; name=signature.asc
 
 -----BEGIN PGP SIGNATURE-----
 
-iHQEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaqBMIgAKCRB4tDGHoIJi
-0ubLAP9ImlOvimLhhhAqHp+sx/Yi9jZkYeJ8jkhv0ewec/8hNgD45RIi2wUn4YuM
-Q6YZq3Y5ScDe8nCvyjC+EtD7gYSCCQ==
-=oUob
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaqBMYwAKCRB4tDGHoIJi
+0mf7AP9iW5keEM1nmOylKZgW02slNGlrttLScQ5pyEVZQL9NxwEA7+4S6lfDL6fB
+sJf9uC3qpk4vYAvdb0oCNDo4HdaxOg4=
+=VFZT
 -----END PGP SIGNATURE-----
 
---xXLwQtLx5yICgUWa--
+--kFlJqgktNAXA6FxP--
