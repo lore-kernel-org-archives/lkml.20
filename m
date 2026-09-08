@@ -1,184 +1,76 @@
-Received: from mail-vs1-f48.google.com (mail-vs1-f48.google.com [209.85.217.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FCED517BD4
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 09:25:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.217.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B5044A0910
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 09:25:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788859542; cv=none; b=tbb6eskyq6W3GMhjhXTBXegrowCEdhtTK9h9CP30zf7QC8kNhJYsBvkDz2UBORmnvarH3ofAvo5Cm9upRO5yk3w9SztPYyVcIb1L/8OJVZw10o9h4lR1+A79CPBloYZeQxv/NAPCliMqK++ySrDqc7Re3AUYI5t9AJcqbttg8+Q=
+	t=1788859555; cv=none; b=rYKhMfLL+qwdxTiabGYAA8nOgyoWzbLql6HYGiL8PsuP/ka7mKykyjRtbksGzDZ3yJTo+Dr+9PF8KPO5HvaKC1pCIoXjJBf2v/bIylLkyfkWuoe8dFV4kmwzayshj/KCsOd0Mlwq9K7bZv7Xo0e30iosJQKjUI8DD+Jz9CQO41M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788859542; c=relaxed/simple;
-	bh=dElApXNmnOgx2LivlVvzaqjoFojUK7t4I4aO8fOopz0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=pvu7ikSZJw9ozgY+hPL+lGDZWotgkLQuPtSJ4Dj07SXgjYHeMZT1owx94k/kM1VEOge9BNzfs8VRbRCuOQBu8kSQNjXBfJ8ALxMcLj8Tc+9QH8aMDxmt2EST8SyP1FjnEtZ0zeprl2fqsDjKKMMhygzzkj8Uy4drIsV+WU+nwUg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.217.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-vs1-f48.google.com with SMTP id ada2fe7eead31-783d429d0cfso3129910137.3
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 02:25:41 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788859540; x=1789464340;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=uNDZ4Z9RQ9wXrVcNuo/xPMTuBK+T4DwJPmnnzMm2S6s=;
-        b=sT65OWC/jEMLZires1lvhpmWNFFPgPZCiKu5+He2euCLjntpYL3lburAJRDPqdXA1c
-         S/8XWmM2QO6K5q5OKXbU1PHcqYI1uwrVpNHVGQkFdouNfmPlGVGOZxUKt2XtIrZ5tEOP
-         W7lu+bXSM2KZK4ib9xALmbFKQiYEyzOKGPW+ZHhMS/QrW8Mzc5RGwODAHHZKpM2Pzfc7
-         3xbNXB7EI3LNpw8JrKSueb5/5MsqNqhD/3ACAVmEygLKJ6D28tic+Sqc/19CvWmczdqD
-         scC0Ac+xE1fd2Aw/wG+ZYhqzeDdIguogOhkpuccRjEKLadyx5ion8Ze9/+sRKZ6pJPOU
-         lzoQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwXyPrrXJoFmEW45KHUmiTd7RMwZGogi5ba7ZAfogi50cj1M6ReCHaW4NlRnLLuWa+umVVu03nVl1lq3EA=@vger.kernel.org
-X-Gm-Message-State: AFuF++noWOICQIH2ZCUgAe1mn1XSQKc2KHDeLcP/WjFyW28wR8Yru9+L
-	ZXFXmJXBz2f1AU2eSX6qzKjxErELFmo9oMbjNhZ2W56YJCv0fQBwsWk7aOUTFnPH
-X-Gm-Gg: AYBFou0tRTfZybbR9FB0Cd++MYf233LuzWCBq/IVdco0uEvQcs1lsac0rBAAXseX0KZ
-	WMW7oRxxa2li74IRYf9kM1vK6TFGCA6qivYUS92P7OPLcEyr59cgvC0QTUzkv4LA8Qvs/nb9HSz
-	Pjl0HAfR90ba4FExiUXhrGY4NtQdS6k4Gvn70gZnbBzuT1PPbCQOCyh+aoQC9d6q5XX2y+iLbcD
-	iFFyuddqD4bqJkBIR60QBVzD9+Bqm7e5O6e9k8GfoAlXByg720oXDQL35+iGhsKb7n9T8ywcoq9
-	tRN/0SRw0Ypxejf/KBliHBPr6dwU1+ctpbYucidl2jl5ChryIUvSSF4TOgbd/xU7IU8Fx/JigUg
-	o/NtyWs4ku1B/BZR8ePIRti12XKTVp+/CDL9OiHsJtVDhHkvk1aIg2Hnf9TfRfjaqES5PWTyw37
-	elN3cbIadBQedg8Jnn7ScUEldDdLvprsfHV8pCGxy738jlMpaXNyajg0NXzuI5p61tww2Jlvr9F
-	hgH4aCKI5bMUyqTvOo5adLOlw==
-X-Received: by 2002:a05:6102:290a:b0:785:f288:c23 with SMTP id ada2fe7eead31-78a4a918bdfmr11549974137.3.1788859540350;
-        Tue, 08 Sep 2026 02:25:40 -0700 (PDT)
-Received: from mail-vs1-f41.google.com (mail-vs1-f41.google.com. [209.85.217.41])
-        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-9808eec7c37sm8980955241.13.2026.09.08.02.25.39
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 08 Sep 2026 02:25:39 -0700 (PDT)
-Received: by mail-vs1-f41.google.com with SMTP id ada2fe7eead31-783d429d0cfso3129895137.3
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 02:25:39 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxC+1zKp5aBWSV+3E4sjVD/LxOWfWQ++BsY7Ol9eVw64oBrlFuDKXcp48Hff4x2U6wH9GPicxywOBsbQ5c=@vger.kernel.org
-X-Received: by 2002:a05:6102:e0d:b0:789:5b58:e105 with SMTP id
- ada2fe7eead31-78a4a90fdd3mr12719938137.2.1788859539059; Tue, 08 Sep 2026
- 02:25:39 -0700 (PDT)
+	s=arc-20240116; t=1788859555; c=relaxed/simple;
+	bh=k3As73wHNbT59b6kCc/0IegpIzyMcHJMqFAaJru+v9Q=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=P4FvvnqAQ93S6eLdjx749/tP7WOZ4R7EFdPecZGPDnZifH13XaevRqLKgmn6VgTPnZJ5zSzofyDJc5aaLjWGDWY9SIvPG0QvyVHradp3qyEByY9kyYEMPGH1M8qsLra+zcGM/mD5HB2IEechPEFTh7s9gzsnueFwsdMwKkI+B6o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DGEIzbQZ; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DGEIzbQZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 92CB61F00A3A;
+	Tue,  8 Sep 2026 09:25:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788859553;
+	bh=EIjb+8qA0AOLbrUigbrFdsr7Bi7xUORUq9H//Gsw4uU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=DGEIzbQZ+aPgK3MYWRjjK08/6SvQLu58K4JBVmBFiUqScBXqCi9GHoevigvsyfB4G
+	 JfeNxKWVQC74+SAmTkV0A4a30ebmw9xXXEVjlPlrfZtrIaLcaWn1Wnju9BRCzK40Mf
+	 fz+JDUGCYWIYbMUrF/UzDzffKEyhJlf88rXs8VrZ5CYwfmvsE0EWh6iAdAxz7ROSlY
+	 R8PJMSwbBp2YNMUcfcb0sRazaYGegWmfnscXC87EW8FwSvET56XtCyekmPPjpPsMcX
+	 uAPrdHc/BekDrHKWcYJZ4Uuhaaq26PsvcKtsbQ05xlS1L6FEYSWowg2ccuw3C7U1jq
+	 2DIWv0rHrjLFw==
+Date: Tue, 8 Sep 2026 10:25:49 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: syzbot <syzbot+c6879dc677a017f0a21b@syzkaller.appspotmail.com>
+Cc: akpm@linux-foundation.org, jannh@google.com, liam@infradead.org, 
+	linux-kernel@vger.kernel.org, linux-mm@kvack.org, pfalcato@suse.de, 
+	syzkaller-bugs@googlegroups.com, vbabka@kernel.org
+Subject: Re: [syzbot] [mm?] WARNING in vma_add_pgoff
+Message-ID: <ap_Uke89Q9LWoaoK@gremlin>
+References: <20260907192517.564ea15aa8c9d47669b3a81f@linux-foundation.org>
+ <6a9f8bc6.f614420e.2bf292.0005.GAE@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260817185700.322370-1-cosmin-gabriel.tanislav.xa@renesas.com> <20260817185700.322370-3-cosmin-gabriel.tanislav.xa@renesas.com>
-In-Reply-To: <20260817185700.322370-3-cosmin-gabriel.tanislav.xa@renesas.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Tue, 8 Sep 2026 11:25:27 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdX+PArWcN9Xc5UiErWNUeGDEVoM6DoLgZQJOQHav9GZ+w@mail.gmail.com>
-X-Gm-Features: AcwNN1USGKMY7TKVnAkjjakrGwhuoyRY6EMfvN47yRnI9dkrkdtdSzBeKR52XOc
-Message-ID: <CAMuHMdX+PArWcN9Xc5UiErWNUeGDEVoM6DoLgZQJOQHav9GZ+w@mail.gmail.com>
-Subject: Re: [PATCH 2/7] pinctrl: renesas: rzt2h: restore correct pin mode on
- IRQ free
-To: Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>
-Cc: Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
-	linux-renesas-soc@vger.kernel.org, linux-gpio@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <6a9f8bc6.f614420e.2bf292.0005.GAE@google.com>
 
-Hi Cosmin,
-
-Thanks for your patch!
-
-On Mon, 17 Aug 2026 at 20:58, Cosmin Tanislav
-<cosmin-gabriel.tanislav.xa@renesas.com> wrote:
-> rzt2h_gpio_irq_domain_free() calls rzt2h_pinctrl_set_gpio_en() with
-> false leaving the pin in interrupt function instead of returning it to
-> GPIO mode.
-
-OK....
-
-> Pass true to rzt2h_pinctrl_set_gpio_en() to take the pin out of
-> interrupt function after we're done using it as an IRQ.
+On Mon, Sep 07, 2026 at 09:15:02PM -0700, syzbot wrote:
+> Hello,
 >
-> rzt2h_pinctrl_set_pfc_mode() switches the pin to Hi-Z, losing the
-> previous PM value.
+> syzbot has tested the proposed patch and the reproducer did not trigger any issue:
 >
-> Save the PM value before switching to Hi-Z, and restore it after the
-> IRQ is freed.
+> Reported-by: syzbot+c6879dc677a017f0a21b@syzkaller.appspotmail.com
+> Tested-by: syzbot+c6879dc677a017f0a21b@syzkaller.appspotmail.com
 
-Why is it a problem if the pin is in Hi-Z after the interrupt has been freed?
-Isn't that the right state for an unused pin?
+Yup there we are :)
+
+Why is this constantly duplicating I wonder...
 
 >
-> Cc: stable@kernel.org
-> Fixes: 829dde3369a9 ("pinctrl: renesas: rzt2h: Add GPIO IRQ chip to handle interrupts")
-> Signed-off-by: Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>
-
-> --- a/drivers/pinctrl/renesas/pinctrl-rzt2h.c
-> +++ b/drivers/pinctrl/renesas/pinctrl-rzt2h.c
-
-> @@ -170,6 +171,25 @@ static int rzt2h_validate_pin(struct rzt2h_pinctrl *pctrl, unsigned int offset)
->         return (pincfg & BIT(pin)) ? 0 : -EINVAL;
->  }
+> Tested on:
 >
-> +static u8 rzt2h_pin_read_pm(struct rzt2h_pinctrl *pctrl, u8 port, u8 pin)
-> +{
-> +       u16 reg = rzt2h_pinctrl_readw(pctrl, port, PM(port));
-> +
-> +       return field_get(PM_PIN_MASK(pin), reg);
-> +}
-> +
-> +static void rzt2h_pin_write_pm(struct rzt2h_pinctrl *pctrl, u8 port, u8 pin, u8 pm)
-> +{
-> +       u16 reg;
-> +
-> +       guard(raw_spinlock_irqsave)(&pctrl->lock);
-> +
-> +       reg = rzt2h_pinctrl_readw(pctrl, port, PM(port));
-> +       reg &= ~PM_PIN_MASK(pin);
-> +       reg |= (u16)pm << (pin * 2);
-
-General remark: the need for this cast is one reason why function
-parameters should use "unsigned int" instead of u8.  The other reason is
-that the compiler may add code to mask the parameters to 8 bits,
-depending on the CPU architecture.
-
-> +       rzt2h_pinctrl_writew(pctrl, port, reg, PM(port));
-> +}
-> +
->  static void rzt2h_pinctrl_set_gpio_en(struct rzt2h_pinctrl *pctrl,
->                                       u8 port, u8 pin, bool en)
->  {
-> @@ -1023,16 +1043,23 @@ static int rzt2h_gpio_child_to_parent_hwirq(struct gpio_chip *gc,
->         struct rzt2h_pinctrl *pctrl = gpiochip_get_data(gc);
->         u8 port = RZT2H_PIN_ID_TO_PORT(child);
->         u8 pin = RZT2H_PIN_ID_TO_PIN(child);
-> -       u8 parent_irq;
-> +       u8 parent_irq, irq_idx;
+> commit:         35b0fb39 mm/mremap: reset unfaulted VMA page offset fo..
+> git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
+> console output: https://syzkaller.appspot.com/x/log.txt?x=15e13af9580000
+> kernel config:  https://syzkaller.appspot.com/x/.config?x=56ed23170c168d4c
+> dashboard link: https://syzkaller.appspot.com/bug?extid=c6879dc677a017f0a21b
+> compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
+> userspace arch: arm64
 >
->         parent_irq = rzt2h_gpio_irq_map[child];
->         if (parent_irq < RZT2H_INTERRUPTS_START)
->                 return -EINVAL;
->
-> -       if (test_and_set_bit(parent_irq - RZT2H_INTERRUPTS_START,
-> -                            pctrl->used_irqs))
-> +       irq_idx = parent_irq - RZT2H_INTERRUPTS_START;
-> +       if (test_and_set_bit(irq_idx, pctrl->used_irqs))
->                 return -EBUSY;
->
-> +       /*
-> +        * rzt2h_pinctrl_set_pfc_mode() sets PM to Hi-Z before switching to the
-> +        * interrupt function, losing the previous PM value.
-> +        * Save it so it can be restored when the IRQ is freed.
-> +        */
-> +       pctrl->saved_pm[irq_idx] = rzt2h_pin_read_pm(pctrl, port, pin);
-> +
->         rzt2h_pinctrl_set_pfc_mode(pctrl, port, pin, PFC_FUNC_INTERRUPT);
+> Note: no patches were applied.
+> Note: testing is done by a robot and is best-effort only.
 
-If rzt2h_pinctrl_set_pfc_mode() would return the old PM value, you
-could drop rzt2h_pin_read_pm(), and write:
-
-    pctrl->saved_pm[irq_idx] = rzt2h_pinctrl_set_pfc_mode(pctrl, port, pin,
-                                                     PFC_FUNC_INTERRUPT);
-
->
->         *parent = parent_irq;
-
-Gr{oetje,eeting}s,
-
-                        Geert
-
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+--
+Cheers, Lorenzo
