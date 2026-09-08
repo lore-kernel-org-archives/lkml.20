@@ -1,400 +1,127 @@
-Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f226.google.com (mail-pf1-f226.google.com [209.85.210.226])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3945159C967;
-	Tue,  8 Sep 2026 18:18:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EB6A58494E
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 18:19:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.226
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788891540; cv=none; b=WeBzlqXGB8EBWKJcHMFNvxNhSnnhMdm+aiY09SsMbfUQonAiKoLho5IVWxGkbGB4qDnKgEJeojulbWYazoN/GDJRq5RTyGJdL9q+SchbGibBVHBY8maqW4+trVji78YKB9T+2kNh6PxZyPeHiu7WU0Pf2OA3ErdBMdeINvoh/sM=
+	t=1788891601; cv=none; b=ZLYVOOTAXHIu8R7SPZJk7r5WxEwdPE1/V++Keh5N0pSbh9Z/DM5oB462xjnBplg2QkJ1NKfs2x/z2xJfNOC9cp+yikctpaXV3rRXsIFlxF74htIhLcgDpcqhYInItE+2MAKdCy/E+whaLGKtLx/kKgJfe7+rgTLuWGSH0M8WV8c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788891540; c=relaxed/simple;
-	bh=wCuMIk7/Ii9ESltb3bVTeEtiSvYe4RJc4F4Uz/QEaCo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=UV88hVSgFj5xG5HQMgXnsS10+ZBxuzciI6rHih7lyzFRvtHH821HCZXUZcON/LIs4aom1gWC8cy48McH8V38GSJvALI9w9sWlGpkuEDTBdADyp44ZnTdwy2w69NoKw1loikwvyIpl/4qWBAt83L0LSKojqkAZpoUH912vi6mRTo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=Luj6RHCd; arc=none smtp.client-ip=198.137.202.133
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	s=arc-20240116; t=1788891601; c=relaxed/simple;
+	bh=qiDv62Xva9oTEOsugrQNk034VmUQViPUM+ER9vte+0M=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=Xo5ufdHqLK3IoXk3oGDaUMPMF6BhKwF6d+vd1ofBE/jlUZb3a8ZsW1pM8EWo7Vv/nHQwSprWwNq1VuS5r7InXhNYasRh/w1OM0FP7naMbh5ERuqm7n3r4TzLBf5eyHtyrSWmaNjKRF2U91krdvwPkZDeg68/IEQY/Wd60MrirpE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=purestorage.com; spf=pass smtp.mailfrom=purestorage.com; dkim=pass (2048-bit key) header.d=purestorage.com header.i=@purestorage.com header.b=MBC+6B7S; arc=none smtp.client-ip=209.85.210.226
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=purestorage.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=purestorage.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="Luj6RHCd"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=bombadil.20210309; h=In-Reply-To:Content-Type:MIME-Version
-	:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=Li/ybmICa60a36A5BNtThplp6R00X6RYCrxbOUvrWvU=; b=Luj6RHCddO2eLmRGq1mFZIXKPY
-	uFHiwRUEke2ZBWZ7XJ42jcIpuOUZ8tYkRkT8ZgUc7Je4qIzqxSs47vni975PywKADIIY6tv3iArhi
-	WOAW4XrekF0VnyUSEOxqYzZe6oP1agV/v2opf+TqB/t0Re52dxJ270OKQTcJTVNALiCsnJvKUs7D/
-	7g5OUra4oLYtrk14Bl1WPZP4I2EYgby1WE2nr2Ya9ca9Fnp54+/KVwDJagFm3kGBeEtY4f85ZZBoV
-	RhPhrGtZBok50Rt8frrCOgWFvlgdE+sscBqOAJMd1HoaU41x8lqyFZ1PavwlQ/M7oUsNoT65qrHr5
-	qsv1Dbxg==;
-Received: from [38.23.173.23] (helo=localhost)
-	by bombadil.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1x40PF-00000009xMy-3Xbw;
-	Tue, 08 Sep 2026 18:18:54 +0000
-Date: Tue, 8 Sep 2026 14:18:51 -0400
-From: "Liam R. Howlett" <liam@infradead.org>
-To: Suren Baghdasaryan <surenb@google.com>
-Cc: akpm@linux-foundation.org, ljs@kernel.org, vbabka@kernel.org, 
-	david@redhat.com, willy@infradead.org, jannh@google.com, paulmck@kernel.org, 
-	pfalcato@suse.de, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	linux-fsdevel@vger.kernel.org
-Subject: Re: [PATCH v2 5/5] selftests/proc: add /proc/pid/smaps_rollup
- tearing tests
-Message-ID: <5tivjbxj2nqcgebjxx2lp4lymduaslocdbdibgain6pxtpec5f@dvgvxuod4byt>
-References: <20260907063918.3432401-1-surenb@google.com>
- <20260907063918.3432401-6-surenb@google.com>
+	dkim=pass (2048-bit key) header.d=purestorage.com header.i=@purestorage.com header.b="MBC+6B7S"
+Received: by mail-pf1-f226.google.com with SMTP id d2e1a72fcca58-86309e1a213so1140044b3a.0
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 11:19:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=purestorage.com; s=google2022; t=1788891599; x=1789496399; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=sL+3R8dC0d/UZInnr5kKfu/nnPuO6yeb+usfGZ1iKxk=;
+        b=MBC+6B7SJE2MTZmfhk9bEWf4QBxPSOF6/qNJq2g2akOwSrN48PCRVzCOaXe9oZF3+s
+         VhRWC8L4NCa0bBMC37F11G9iKTfHnz8/t2Pk8bOa6f++hhIFbuYYAT3Xi7Tck/fCZ2Pd
+         4YZy5GtV4tWLuFFa6B17LZM+6U2Jady0Hkpk4VNorRfHAp1fW0rQEm31cihC2ZhYNYsz
+         50AIQbaKJM/2HbGl+6pPIWLA/7CqhnEcn0xADVG6M5fUBYIA4lBTHEeM9EUVeTP2Aj8c
+         IvWFXfdyASPes+4ghgC9m3lLLfiGP3PgoHLPgHsYb+zYsdirApEeSCk0XXQi0BDe/A+3
+         h3Pg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788891599; x=1789496399;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=sL+3R8dC0d/UZInnr5kKfu/nnPuO6yeb+usfGZ1iKxk=;
+        b=iG4usRXNMtgHEvxxAGfO2mJ3o2pYxAD2h5IxBXjXWOVWIdaXb5DKxK4IdETFvzZmKT
+         oRMZyK5wgAzQh8ZJ/uDFJhEJT79Dod9eBXXjRMt+7EEL7rf/KJztXvJXsbnce3vFJYzE
+         Jl7aKOJZtSlI6oViPyTcR8vcZrpQgOIQmgHfFjEIejl6kzjRsFPt+duO9jcsRbOgAqiq
+         wNhyKqO9/KL0NKApMQdNXn5PqqO08BwFPBdl5+AkVCsyNHa/HdV/F4nGrvKrNIunogAI
+         QM/8ctlS65PBEmByqBIhhkXQtpY25d3xBnMvB9AXalapa/o6GVijgS+VAbNHtgRW4i+l
+         zFFg==
+X-Forwarded-Encrypted: i=1; AKwUvBwGQB25X9cDMiJox8L8bySa3wmt/178v5+KrflqvGfgvdvNKcuwl6Oh17RVbgX9kCuqUEAbshstiFignVg=@vger.kernel.org
+X-Gm-Message-State: AFuF++lthdgXcmoqz4GUP1KWdboLr2RVApwaTnb2Mszemoyj1Oe4zLXP
+	I3hvRa/eXdLEbNkypzXckFg8s+kmbYRn22BpyOP3SNdlmrhdW3JsmEccMC1phjy90WHx78hd/hz
+	EgPl3x/NTA/URQvh4T7yO7ZVf6z+Hlk9s4ZKX
+X-Gm-Gg: AYBFou0Og/X9PilZWsHm6lu3I77DAqb18JBKQg+ilw5EQMW4u30bGhJ+A31B9iLCzM8
+	Jtq9422TVb/WAmpWY6n63JQVY4yGeGCbGhmFIzDO0/CMMwxz0wLbU+bsouPT0B2rnGRCd5gZLUQ
+	aksdDO8Kw8SuC5sK+clyNlUMLohb0YI1ryB9mFi09wCkQevsHx9o8RHds0INKOPjzRahQIZ3cYZ
+	DNQ1GZGr+i1rEVNWiU10KxUDebygycXoEvWds1TS270m3i3clVbJqzMtlRMnBDlE5dWHy+pe6/a
+	K3Gzoeaw9GAjSWYMgQVHDyEOxoDc9X/iNNL5zJkbqD1nyOOAtuZNNFvymmrL4g2Y6OEn7YmqUBT
+	bajtLRm2N57Pdn6tnwoYDsmXSIHQD1Hue+0AlzA==
+X-Received: by 2002:a05:6a00:9286:b0:84f:77cc:63cd with SMTP id d2e1a72fcca58-8616a06be4amr42617120b3a.17.1788891598814;
+        Tue, 08 Sep 2026 11:19:58 -0700 (PDT)
+Received: from c14-smtp-2023.dev.purestorage.com ([208.88.158.128])
+        by smtp-relay.gmail.com with ESMTPS id 41be03b00d2f7-cc45542b998sm2714294a12.8.2026.09.08.11.19.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 08 Sep 2026 11:19:58 -0700 (PDT)
+X-Relaying-Domain: purestorage.com
+Received: from irdv-tmenninger.dev.purestorage.com (irdv-tmenninger.dev.purestorage.com [10.32.149.15])
+	by c14-smtp-2023.dev.purestorage.com (Postfix) with ESMTPS id A822234041D;
+	Tue,  8 Sep 2026 11:19:27 -0700 (PDT)
+From: tmenninger@purestorage.com
+To: Chuck Lever <cel@kernel.org>
+Cc: Trond Myklebust <trondmy@kernel.org>,
+	Anna Schumaker <anna@kernel.org>,
+	Tejun Heo <tj@kernel.org>,
+	Lai Jiangshan <jiangshanlai@gmail.com>,
+	linux-nfs@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Eric Badger <ebadger@everpuredata.com>,
+	Jon Curley <jcurley@everpuredata.com>
+Subject: Re: [PATCH RFC 6/8] SUNRPC: Reduce rpciod workqueue contention
+Date: Tue,  8 Sep 2026 18:19:27 +0000
+Message-Id: <20260908181927.783442-1-tmenninger@purestorage.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <425864a2-3276-4c16-a861-32defe5e04e2@slotpi15m67>
+References: <425864a2-3276-4c16-a861-32defe5e04e2@slotpi15m67>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260907063918.3432401-6-surenb@google.com>
+Content-Transfer-Encoding: 8bit
 
-On 26/09/06 11:39PM, Suren Baghdasaryan wrote:
-> During tearing tests, smaps_rollup Pss* metrics should stay constant.
-> Extend /proc/pid/smaps tearing tests to also check for smaps_rollup
-> consistency.
-> 
-> Signed-off-by: Suren Baghdasaryan <surenb@google.com>
+I reran the matrix. I'm at a loss for why, but I can no longer reproduce
+the "bad" throughput with cache_shard. I saw that a few times last week.
+Furthermore, the "bad" throughput is now a 10% degradation rather than 50%.
+Nevertheless, it's still reliably reproducible when CQs all stack on NUMA 0
+and using smt affinity_scope.
 
-Acked-by: Liam R. Howlett (Oracle) <liam@infradead.org>
+Patches 1-2 alone do not reproduce it across 5 trials where 3 of them fell
+32/0 and 2 fell 17/15 on NUMA 0/1. All had full, unchanged throughput.
 
-> ---
->  tools/testing/selftests/proc/proc-maps-race.c | 187 +++++++++++++++++-
->  1 file changed, 182 insertions(+), 5 deletions(-)
-> 
-> diff --git a/tools/testing/selftests/proc/proc-maps-race.c b/tools/testing/selftests/proc/proc-maps-race.c
-> index 415eccb70468..8d00d7db1c65 100644
-> --- a/tools/testing/selftests/proc/proc-maps-race.c
-> +++ b/tools/testing/selftests/proc/proc-maps-race.c
-> @@ -80,6 +80,61 @@ enum maps_file {
->  
->  struct vma_modifier_info;
->  
-> +enum smaps_rollup_stat {
-> +	Rss,
-> +	Pss,
-> +	Pss_Dirty,
-> +	Pss_Anon,
-> +	Pss_File,
-> +	Pss_Shmem,
-> +	Shared_Clean,
-> +	Shared_Dirty,
-> +	Private_Clean,
-> +	Private_Dirty,
-> +	Referenced,
-> +	Anonymous,
-> +	KSM,
-> +	LazyFree,
-> +	AnonHugePages,
-> +	ShmemPmdMapped,
-> +	FilePmdMapped,
-> +	Shared_Hugetlb,
-> +	Private_Hugetlb,
-> +	Swap,
-> +	SwapPss,
-> +	Locked,
-> +	RollupFieldCount
-> +};
-> +
-> +static const char *smaps_rollup_stat_names[RollupFieldCount] = {
-> +	"Rss",
-> +	"Pss",
-> +	"Pss_Dirty",
-> +	"Pss_Anon",
-> +	"Pss_File",
-> +	"Pss_Shmem",
-> +	"Shared_Clean",
-> +	"Shared_Dirty",
-> +	"Private_Clean",
-> +	"Private_Dirty",
-> +	"Referenced",
-> +	"Anonymous",
-> +	"KSM",
-> +	"LazyFree",
-> +	"AnonHugePages",
-> +	"ShmemPmdMapped",
-> +	"FilePmdMapped",
-> +	"Shared_Hugetlb",
-> +	"Private_Hugetlb",
-> +	"Swap",
-> +	"SwapPss",
-> +	"Locked",
-> +};
-> +
-> +struct smaps_rollup_stats {
-> +	unsigned long values[RollupFieldCount];
-> +};
-> +
->  FIXTURE(proc_maps_race)
->  {
->  	struct vma_modifier_info *mod_info;
-> @@ -91,6 +146,7 @@ FIXTURE(proc_maps_race)
->  	enum maps_file maps_file;
->  	int shared_mem_size;
->  	int skip_pages;
-> +	int rollup_fd;
->  	int page_size;
->  	int vma_count;
->  	bool verbose;
-> @@ -132,12 +188,12 @@ struct vma_modifier_info {
->  	void *child_mapped_addr[];
->  };
->  
-> -static bool read_page(FIXTURE_DATA(proc_maps_race) *self,
-> +static bool read_page(FIXTURE_DATA(proc_maps_race) *self, int fd,
->  		      struct page_content *page)
->  {
->  	ssize_t  bytes_read;
->  
-> -	bytes_read = read(self->maps_fd, page->data, self->page_size);
-> +	bytes_read = read(fd, page->data, self->page_size);
->  	if (bytes_read <= 0)
->  		return false;
->  
-> @@ -175,7 +231,7 @@ static int locate_containing_page(FIXTURE_DATA(proc_maps_race) *self,
->  		char *curr_pos;
->  		char *end_pos;
->  
-> -		if (!read_page(self, &self->page1))
-> +		if (!read_page(self, self->maps_fd, &self->page1))
->  			return -1;
->  
->  		curr_pos = self->page1.data;
-> @@ -205,10 +261,11 @@ static bool read_two_pages(FIXTURE_DATA(proc_maps_race) *self)
->  		return false;
->  
->  	for (int i = 0; i < self->skip_pages; i++)
-> -		if (!read_page(self, &self->page1))
-> +		if (!read_page(self, self->maps_fd, &self->page1))
->  			return false;
->  
-> -	return read_page(self, &self->page1) && read_page(self, &self->page2);
-> +	return read_page(self, self->maps_fd, &self->page1) &&
-> +	       read_page(self, self->maps_fd, &self->page2);
->  }
->  
->  static void copy_line(const char *line_start, const char *line_end,
-> @@ -317,6 +374,61 @@ static bool read_boundary_lines(FIXTURE_DATA(proc_maps_race) *self,
->  		      &first_line->end_addr) == 2;
->  }
->  
-> +static bool parse_smaps_rollup(FIXTURE_DATA(proc_maps_race) *self,
-> +			       struct smaps_rollup_stats *stats)
-> +{
-> +	unsigned int dev_maj, dev_min, inode;
-> +	unsigned long start, end, offs;
-> +	unsigned long value;
-> +	char name[32], perm[5];
-> +	char *curr_pos;
-> +	char *end_pos;
-> +	char *line_end;
-> +
-> +	if (lseek(self->rollup_fd, 0, SEEK_SET) < 0)
-> +		return false;
-> +
-> +	if (!read_page(self, self->rollup_fd, &self->page1))
-> +		return false;
-> +
-> +	curr_pos = self->page1.data;
-> +	end_pos = self->page1.data + self->page1.size;
-> +
-> +	line_end = strchr(curr_pos, '\n');
-> +	if (!line_end)
-> +		return false;
-> +
-> +	if (sscanf(curr_pos, "%lx-%lx %4s %lx %u:%u %u %31s",
-> +		&start, &end, perm, &offs, &dev_maj, &dev_min, &inode, name) != 8)
-> +		return false;
-> +
-> +	if (strcmp(name, "[rollup]"))
-> +		return false;
-> +
-> +	for (int stat = 0; stat < ARRAY_SIZE(smaps_rollup_stat_names); stat++) {
-> +		int len;
-> +
-> +		curr_pos = line_end + 1;
-> +		if (curr_pos >= end_pos)
-> +			return false;
-> +
-> +		line_end = strchr(curr_pos, '\n');
-> +		if (!line_end)
-> +			return false;
-> +
-> +		if (sscanf(curr_pos, "%31s %lu kB", name, &value) != 2)
-> +			return false;
-> +
-> +		len = strlen(name);
-> +		if (name[len - 1] != ':' || strncmp(name, smaps_rollup_stat_names[stat], len - 1))
-> +			return false;
-> +
-> +		stats->values[stat] = value;
-> +	}
-> +
-> +	return true;
-> +}
-> +
->  /* Thread synchronization routines */
->  static void wait_for_state(struct vma_modifier_info *mod_info, enum test_state state)
->  {
-> @@ -397,6 +509,41 @@ static bool print_boundaries_on(bool condition, const char *title,
->  	return condition;
->  }
->  
-> +static void print_smaps_rollup_stats(const char *title, FIXTURE_DATA(proc_maps_race) *self,
-> +				     struct smaps_rollup_stats *stats)
-> +{
-> +	printf("%s", title);
-> +	for (int stat = 0; stat < ARRAY_SIZE(smaps_rollup_stat_names); stat++)
-> +		printf("%64s %lu kB\n", smaps_rollup_stat_names[stat], stats->values[stat]);
-> +}
-> +
-> +static bool cmp_smaps_rollup_stat(struct smaps_rollup_stats *s1,
-> +				  struct smaps_rollup_stats *s2,
-> +				  enum smaps_rollup_stat stat)
-> +{
-> +	return s1->values[stat] == s2->values[stat];
-> +}
-> +
-> +static bool compare_smaps_rollup(FIXTURE_DATA(proc_maps_race) *self,
-> +				 struct smaps_rollup_stats *expected,
-> +				 struct smaps_rollup_stats *actual)
-> +{
-> +	/*
-> +	 * Clean/dirty metrics might change but Pss-related ones
-> +	 * should stay constant.
-> +	 */
-> +	if (cmp_smaps_rollup_stat(expected, actual, Pss) &&
-> +	    cmp_smaps_rollup_stat(expected, actual, Pss_Anon) &&
-> +	    cmp_smaps_rollup_stat(expected, actual, Pss_File) &&
-> +	    cmp_smaps_rollup_stat(expected, actual, Pss_Shmem))
-> +		return true;
-> +
-> +	print_smaps_rollup_stats("Expected stats:", self, expected);
-> +	print_smaps_rollup_stats("Actual stats:", self, actual);
-> +
-> +	return false;
-> +}
-> +
->  static void report_test_start(const char *name, bool verbose)
->  {
->  	if (verbose)
-> @@ -572,6 +719,7 @@ FIXTURE_SETUP(proc_maps_race)
->  	unsigned long first_map_addr;
->  	unsigned long last_map_addr;
->  	unsigned long duration_sec;
-> +	char rollup_fname[32];
->  	char fname[32];
->  
->  	self->page_size = (unsigned long)sysconf(_SC_PAGESIZE);
-> @@ -649,6 +797,9 @@ FIXTURE_SETUP(proc_maps_race)
->  		break;
->  	case SMAPS:
->  		sprintf(fname, "/proc/%d/smaps", self->pid);
-> +		sprintf(rollup_fname, "/proc/%d/smaps_rollup", self->pid);
-> +		self->rollup_fd = open(rollup_fname, O_RDONLY);
-> +		ASSERT_NE(self->rollup_fd, -1);
->  		break;
->  	default:
->  		ksft_exit_fail();
-> @@ -711,6 +862,8 @@ FIXTURE_TEARDOWN(proc_maps_race)
->  	for (int i = 0; i < self->vma_count; i++)
->  		munmap(self->mod_info->child_mapped_addr[i], self->page_size);
->  	close(self->maps_fd);
-> +	if (self->maps_file == SMAPS)
-> +		close(self->rollup_fd);
->  	waitpid(self->pid, &status, 0);
->  	munmap(self->mod_info, self->shared_mem_size);
->  }
-> @@ -723,6 +876,7 @@ TEST_F(proc_maps_race, test_maps_tearing_from_split)
->  	struct line_content split_first_line;
->  	struct line_content restored_last_line;
->  	struct line_content restored_first_line;
-> +	struct smaps_rollup_stats orig_stats;
->  
->  	wait_for_state(mod_info, SETUP_READY);
->  
-> @@ -736,6 +890,8 @@ TEST_F(proc_maps_race, test_maps_tearing_from_split)
->  	report_test_start("Tearing from split", self->verbose);
->  	ASSERT_TRUE(capture_mod_pattern(self, &split_last_line, &split_first_line,
->  					&restored_last_line, &restored_first_line));
-> +	if (self->maps_file == SMAPS)
-> +		ASSERT_TRUE(parse_smaps_rollup(self, &orig_stats));
->  
->  	/* Now start concurrent modifications for self->duration_sec */
->  	signal_state(mod_info, TEST_READY);
-> @@ -799,6 +955,11 @@ TEST_F(proc_maps_race, test_maps_tearing_from_split)
->  				     vma_end == self->last_line.end_addr) ||
->  				    (vma_start == split_first_line.start_addr &&
->  				     vma_end == split_first_line.end_addr));
-> +		} else {
-> +			struct smaps_rollup_stats stats;
-> +
-> +			ASSERT_TRUE(parse_smaps_rollup(self, &stats));
-> +			ASSERT_TRUE(compare_smaps_rollup(self, &orig_stats, &stats));
->  		}
->  		clock_gettime(CLOCK_MONOTONIC_COARSE, &end_ts);
->  		end_test_iteration(&end_ts, self->verbose);
-> @@ -817,6 +978,7 @@ TEST_F(proc_maps_race, test_maps_tearing_from_resize)
->  	struct line_content shrunk_first_line;
->  	struct line_content restored_last_line;
->  	struct line_content restored_first_line;
-> +	struct smaps_rollup_stats orig_stats;
->  
->  	wait_for_state(mod_info, SETUP_READY);
->  
-> @@ -830,6 +992,8 @@ TEST_F(proc_maps_race, test_maps_tearing_from_resize)
->  	report_test_start("Tearing from resize", self->verbose);
->  	ASSERT_TRUE(capture_mod_pattern(self, &shrunk_last_line, &shrunk_first_line,
->  					&restored_last_line, &restored_first_line));
-> +	if (self->maps_file == SMAPS)
-> +		ASSERT_TRUE(parse_smaps_rollup(self, &orig_stats));
->  
->  	/* Now start concurrent modifications for self->duration_sec */
->  	signal_state(mod_info, TEST_READY);
-> @@ -880,6 +1044,11 @@ TEST_F(proc_maps_race, test_maps_tearing_from_resize)
->  			ASSERT_TRUE(vma_start == self->last_line.start_addr &&
->  				    (vma_end - vma_start == self->page_size * 3 ||
->  				     vma_end - vma_start == self->page_size));
-> +		} else {
-> +			struct smaps_rollup_stats stats;
-> +
-> +			ASSERT_TRUE(parse_smaps_rollup(self, &stats));
-> +			ASSERT_TRUE(compare_smaps_rollup(self, &orig_stats, &stats));
->  		}
->  		clock_gettime(CLOCK_MONOTONIC_COARSE, &end_ts);
->  		end_test_iteration(&end_ts, self->verbose);
-> @@ -898,6 +1067,7 @@ TEST_F(proc_maps_race, test_maps_tearing_from_remap)
->  	struct line_content remapped_first_line;
->  	struct line_content restored_last_line;
->  	struct line_content restored_first_line;
-> +	struct smaps_rollup_stats orig_stats;
->  
->  	wait_for_state(mod_info, SETUP_READY);
->  
-> @@ -911,6 +1081,8 @@ TEST_F(proc_maps_race, test_maps_tearing_from_remap)
->  	report_test_start("Tearing from remap", self->verbose);
->  	ASSERT_TRUE(capture_mod_pattern(self, &remapped_last_line, &remapped_first_line,
->  					&restored_last_line, &restored_first_line));
-> +	if (self->maps_file == SMAPS)
-> +		ASSERT_TRUE(parse_smaps_rollup(self, &orig_stats));
->  
->  	/* Now start concurrent modifications for self->duration_sec */
->  	signal_state(mod_info, TEST_READY);
-> @@ -963,6 +1135,11 @@ TEST_F(proc_maps_race, test_maps_tearing_from_remap)
->  				     vma_end - vma_start == self->page_size * 3) ||
->  				    (vma_start == self->last_line.start_addr + self->page_size &&
->  				     vma_end - vma_start == self->page_size));
-> +		} else {
-> +			struct smaps_rollup_stats stats;
-> +
-> +			ASSERT_TRUE(parse_smaps_rollup(self, &stats));
-> +			ASSERT_TRUE(compare_smaps_rollup(self, &orig_stats, &stats));
->  		}
->  		clock_gettime(CLOCK_MONOTONIC_COARSE, &end_ts);
->  		end_test_iteration(&end_ts, self->verbose);
-> -- 
-> 2.55.0.979.g7e5102b832-goog
-> 
+Patches 3-8 do reproduce it (as well as the full 1-8): throughput dips by
+10% when all CQs fall on NUMA 0. Another behavior that I'm seeing again is,
+within the same run, toggling affinity_scope to cache_shard fully restores
+throughput, then back to smt and the throughput falls again.
+
+The mpstat results, CPU idle times:
+
+                        All NUMA 0          17/15 Split
+    aggregate           20%                 70%
+    CPU 0-23,48-71      0-2%                60-80%
+    CPU 24-47,72-95     40-46%              70-90%
+
+This shape is generally consistent among all three patch subsets: patches
+1-2, patches 3-8, and patches 1-8. All of these are without modifying
+affinity_scope for the respective defaults.
+
+For patches 3-8 I reran the same experiment but captured mpstat on each
+segment of smt -> cache_shard -> smt, on a run where all CQs were on NUMA
+0, all idle times again:
+
+                        smt         cache_shard     smt
+    aggregate           15%         32%             19%
+    CPU 0-23,48-71      0-1%        6-9%            0-2%
+    CPU 24-47,72-95     28-32%      55-61%          35-40%
+
+I've also seen all CQs land on NUMA 1, which seems less common than NUMA 0,
+but the same behavior appears there with the node roles reversed.
+
+Would there be a downside to using WQ_AFFN_CACHE_SHARD here instead of
+WQ_AFFN_SMT?
