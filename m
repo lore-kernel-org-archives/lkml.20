@@ -1,209 +1,474 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D8B65947E6;
-	Tue,  8 Sep 2026 22:31:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=198.175.65.15
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788906694; cv=fail; b=heaag2U986H7mhv4VHtNoDk4iOauxj+X4REg9wAS/2Dj5siEI8pDiBXBYIBfWv6Zd/MgyQa77hUvTs+GGuERd+B1Yqae01j2aMzcNuIKR02ZKINtpVeKb0WmXCmjDa33GXnEEhs7mk9vCOlxpF+liQjTi/9GVvio0vPgsui0HUY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788906694; c=relaxed/simple;
-	bh=j9wPR8sfCrKkzzyuI5vRIYvJsu53+LT354v/PpL2yzI=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=iv//WmvPMV9L8acuChLH8uAlq2tgfvpcMdzF0dAFGkXqRkI3iAfZg0GyNdvNXsgr1M7eEB26L8V9p2FW0J/x5g3hCAyW9VFkWWw3XkTmwRaWEwBHspmWJ8eao6KABjuNpWTkEjBGtulZy8I8m832AOaiLgyOarXzuEv2Os9yfoE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=UrYU/vFJ; arc=fail smtp.client-ip=198.175.65.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7E9B456B87D;
+	Tue,  8 Sep 2026 22:32:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788906767; cv=none; b=D6doZEo3qRfDDLc/xLsb4IWJSmka48m03s5PjUQi6n6PbH0emO4pqB7oRzjc9qcFdeogAmh91WdYBbDkVeqRaC5FQOxrMv+jK2Fc1wjYIhhjcdc3yJVTOR6dIAASF3nyr3ws63Dtta4arUVpsYtaQ1P2tliKP9o9+HqgKK0Sczk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788906767; c=relaxed/simple;
+	bh=285pUrJxX7SPGnneOHk7WSYOk3Ev+t2K6itdNEygxGQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=M4KU6XOAKgQfUf1Jl2ST4Gvz09FWJMmBRwjeEykeIpttcYu9RXnRm93WvYZPNjmYDbFwGueJiRD4IShXsonQFzMME2Ai2QcPemn/wN984lDcwWimRNSz+mA5qkfZu+9us6v8FS68VE7ty8e6kZDlXj5z0MSmEfZV5NEUCbxyRrQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=RJ0CQqQ6; arc=none smtp.client-ip=13.77.154.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="UrYU/vFJ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788906690; x=1820442690;
-  h=from:to:cc:subject:date:message-id:references:
-   in-reply-to:content-id:content-transfer-encoding:
-   mime-version;
-  bh=j9wPR8sfCrKkzzyuI5vRIYvJsu53+LT354v/PpL2yzI=;
-  b=UrYU/vFJacrloBdwgJPB4YxDddy2dkji5d+KIjJU7hv96HQ66eR1u533
-   TABTrtgAsivQzlfDcvixAi34p+QxiJ6omIDwyrS3BTQOOsgyP+za5k0Tv
-   GFeL672APkDOPuAp5xNVcTMzYP8E2f3bquR4QcxECH8oHIRhRd1wZk3wP
-   pQkp8rvU4QsOaZYtpCpgy5q3DMj6bpmrRMInt+8CHSYeJLh6VqDpM9iQq
-   w/t4ZZj4F/IWNIh7M/mD17zct2lswHJZBvp6XBPnwBOn36VklDUGSF1VV
-   YdoeO2zBk/mcCDAHpPeevOK/7gQXMN1VtJpbpaoncUKlvCBpN23RXmdSn
-   g==;
-X-CSE-ConnectionGUID: svTsrdYdSLm/8vXZstibDw==
-X-CSE-MsgGUID: k0f2dGfnS9mKYXigzorMag==
-X-IronPort-AV: E=McAfee;i="6800,10657,11900"; a="93019847"
-X-IronPort-AV: E=Sophos;i="6.25,269,1779174000"; 
-   d="scan'208";a="93019847"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
-  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Sep 2026 15:31:29 -0700
-X-CSE-ConnectionGUID: 8HkO26PGQs+WWx2Y/FMYhg==
-X-CSE-MsgGUID: 7yLAjvJGR1anFxwo5PiRPg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,269,1779174000"; 
-   d="scan'208";a="296071237"
-Received: from fmsmsx903.amr.corp.intel.com ([10.18.126.92])
-  by fmviesa001.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Sep 2026 15:31:29 -0700
-Received: from FMSMSX901.amr.corp.intel.com (10.18.126.90) by
- fmsmsx903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Tue, 8 Sep 2026 15:31:28 -0700
-Received: from fmsedg902.ED.cps.intel.com (10.1.192.144) by
- FMSMSX901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46 via Frontend Transport; Tue, 8 Sep 2026 15:31:28 -0700
-Received: from CH1PR05CU001.outbound.protection.outlook.com (52.101.193.13) by
- edgegateway.intel.com (192.55.55.82) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Tue, 8 Sep 2026 15:31:28 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=nJucSjC7Ib3Tt8GCdcQWgXcNaOIRxO7MGqJHXqeOfj3DbSm333oN4eh791xpT3Iw8VjWp8Q+ds4QBXOQTTLwO/kIpk7p3Wfdhm108XvOhWJ0a4TxU8aS7qelYGYH3EQgoU5dnHVfWQ8JbSnu7MsAOcGrd42am7jWSPQVVx+0HZ68zNllH3tjqyDw3T9nBIdq9IsTfhpOc2GOX5DCm7EI6oJi0JS3Kei2v3oxXkX5R4XhelVhUfB4dDjToP/0JpMSHJWA/3ryeonuEA5DROi8LdSNOHe2ZZI9IidMmvxhJhoZsRbGIHiyY9KqyUi3g1rZMlQV8nRvzl8AGNwiZ3uf0Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=j9wPR8sfCrKkzzyuI5vRIYvJsu53+LT354v/PpL2yzI=;
- b=QK67f4XaFBUR455VHsSmqNPhd8ezjiRWOwbX7aFZ/VIigN2tGDrFXVk+1ZQLvBz7c1avU9hzBM3r+6s6CdgYpyZ3jCHOFZuUm6sPfLJB3qjITJNOOXq6JzLo3PmR+L3oKgkhM87zcdPx9Cx/HgwROk9l/M7p21o5Jr55HIQXKMs+8A0PDDyu6arRQf4g/af4+ufnx8/B+oAbieMd/cLQNrvL23gfYpu29ypVUE6q8/LLiaWmkM1Yie4GKloZvSr8Y2xvPG4BLAUC6H9VrH4KrY3vmj6hfP1tAmIpkHDqT3iE68tyMyQ+QOS1zvYzP6sLKnGUFs7eZT9Y2BK3RX/VMw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Received: from PH7PR11MB6771.namprd11.prod.outlook.com (2603:10b6:510:1b5::20)
- by PH8PR11MB6730.namprd11.prod.outlook.com (2603:10b6:510:1c6::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.15; Tue, 8 Sep
- 2026 22:31:25 +0000
-Received: from PH7PR11MB6771.namprd11.prod.outlook.com
- ([fe80::effa:162e:c9c9:a1b4]) by PH7PR11MB6771.namprd11.prod.outlook.com
- ([fe80::effa:162e:c9c9:a1b4%4]) with mapi id 15.21.0406.005; Tue, 8 Sep 2026
- 22:31:24 +0000
-From: "Edgecombe, Rick P" <rick.p.edgecombe@intel.com>
-To: "dedekind1@gmail.com" <dedekind1@gmail.com>, "kvm@vger.kernel.org"
-	<kvm@vger.kernel.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "binbin.wu@linux.intel.com"
-	<binbin.wu@linux.intel.com>
-CC: "Gao, Chao" <chao.gao@intel.com>, "seanjc@google.com" <seanjc@google.com>,
-	"dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>, "kas@kernel.org"
-	<kas@kernel.org>, "Li, Xiaoyao" <xiaoyao.li@intel.com>, "pbonzini@redhat.com"
-	<pbonzini@redhat.com>, "andrew.cooper3@citrix.com"
-	<andrew.cooper3@citrix.com>, "nik.borisov@suse.com" <nik.borisov@suse.com>
-Subject: Re: [PATCH v3 0/4] KVM: TDX: Validate directly configurable CPUID
- bits
-Thread-Topic: [PATCH v3 0/4] KVM: TDX: Validate directly configurable CPUID
- bits
-Thread-Index: AQHdNdIhqH6lArRWVEmiaZbi1C7mgLbFNg+AgAAh2wA=
-Date: Tue, 8 Sep 2026 22:31:24 +0000
-Message-ID: <58c185c82658819454a9950f37c6424226a098bb.camel@intel.com>
-References: <20260827031837.2863609-1-binbin.wu@linux.intel.com>
-	 <32b51faabf60f6e87d9fdebbf2c3fe5a45fbff1c.camel@gmail.com>
-In-Reply-To: <32b51faabf60f6e87d9fdebbf2c3fe5a45fbff1c.camel@gmail.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-user-agent: Evolution 3.44.4-0ubuntu2.1 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PH7PR11MB6771:EE_|PH8PR11MB6730:EE_
-x-ms-office365-filtering-correlation-id: 290aedfe-b4bb-4406-3787-08df0df8ea9d
-x-ld-processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230040|7416014|366016|376014|23010399003|1800799024|38070700021|10067099003|4143699003|56012099006|11063799006|22082099003|18002099003;
-x-microsoft-antispam-message-info: IoMUCF4kdP2BGcp9xJpoxdZyZSNPTGHeiMPVvGTBoca+Gi/fR1BylvksM0V6SPZ3AE84iMivW4BrPmXpsYDct2yzfLqG3SwwTQCIU8gaylIyAgXMYd5cOI62QUDS1y89z4qZJ4z9qFTP/w8VHhdCYB4Z6t3uvV+vk1olZw/p22CDh5/VDTkOBesSPIfgY5i2Gtt1Iv7e9ynfUGvxlZqXIXEd7MHyCeoC4FPc5zMJrLooi7ajZw4rDU7F8ubSqY+0w0hJg6gTwo6kIu95mpoKR44wjBBp2ElU0Q63nAJQfDSjx7I0f5TZR4b7mInNHUsOq6FlceMIDnVIqbdThClgbsmx+b+S637eohlrZNIPOv2DXLUxp8hVYaetPuxj64+8G0lGIBhdmS1dtaEsTquW2TmagCo8m0I6xN9zclZ/f5UjhUymCAivWI7XpT8F00fg/YZy5I/QwgZ+OQHUkrxlmz3TaFF6PE5IsJGLMdJ3N5/9QgiLPaboFhlK0s8PjryMBJFFmXG0b/C0g21Hip797TrkOhikFA8B4M8XSF239HAI1l/IGkjPRYx4vzxdLu4BF8WEWN/OESLWmdr6HlTTvNT/6VGbGc7kUQ0f6u9S3QDs0V2Mj4MpbGxdC3ZmVIDKqV+jIdoyrCL6ss9vxmLchT0Nlk7eqhFyidnSKr52qZYZnJ4vWQNh/rBJshdxknt2TVOE+UmsDSsN+pioUjfKa8TA9HYdfo+1SELE4WIu69w=
-x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR11MB6771.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(366016)(376014)(23010399003)(1800799024)(38070700021)(10067099003)(4143699003)(56012099006)(11063799006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?c3h5ZmllRlFxVno1Zm1YbE1UMXdCc083MmVXNUJHWlR3bVFJbHJSQU0zWXBJ?=
- =?utf-8?B?UEU5N1NuRW5xdEFLcmdwYVdTUjZZSUZ4MVZ2cXRaY3hNY2pGc1MxZTVxcys3?=
- =?utf-8?B?OCtzWUhhdC9tQTZxOFVDdW5Vc2hCMDF6RVJDek80TDlEV1lHL1lMQjF0NVhE?=
- =?utf-8?B?TTkzRXFSa2tJOXh3aVprUVhMQXhJV1NJemtOVVlocUx1UGVSRUdyWGEwdjRx?=
- =?utf-8?B?N1lLZlp6SisxR0FQdVlkRm1oejR2MzNGYnBDN1dzT3FFaXN6WFpXaStzNndo?=
- =?utf-8?B?NFYxZittVVFhL3kwU2xoaU1tYStpZE9PZEFOdjlnNmMvMTFWdDlqdnNDL1JH?=
- =?utf-8?B?VFlpR2JtcEc4YSsvcXlya0V5TThkbC9wR2xiQ2w1dm82dzNjN2dOclZDZE9D?=
- =?utf-8?B?bFUxN0llMUx5NFlST1AwZzhhdkNWWXRvOUx4anlTM1pzdCtPUnZ0RVdCSkh6?=
- =?utf-8?B?QlRka0NhUnVxaC9QY0dGWFMreGdpSFRsQ25WejRHM3pFNCs5TDZBTzRKY0tB?=
- =?utf-8?B?alhGZGNvczJ4WWtlZXFuRFZTV0MwMHR6bW5kL0xucXQyYXhJazRoMzRXWEgv?=
- =?utf-8?B?V2xWaXhkdXFHeU5tcENJVzVybTdnUTdOb0tibHZHVWhJZHo5YVdpd1FxeXRZ?=
- =?utf-8?B?WE1vanB5d2JuL1ZSZ2xiY0JlYktpYkg1TTUrUmp1UFJITnlua2JtZjQzWDcw?=
- =?utf-8?B?am1jWkJoOEd2dUtFSFlVRjZIMW9QTHdwWTZuNE13K0VVbVBhamk3VlpSY0JH?=
- =?utf-8?B?WDcxOVZjcm4wZVBHM29odU1rSUd4aVkyaEpETzloMXdQSk9VUGVIOVJxQkFz?=
- =?utf-8?B?eXFIbGdHSU9JZTI2WWt6a2VxNUZvTmxGRVRLYUxXM0VhTVVuem5rMHdoVXNZ?=
- =?utf-8?B?TUorMXhUcnRhTHhqMEE3WWpZWitKcXZsbkE4QjVMK2JKaTFsT1k2U2M4SDNQ?=
- =?utf-8?B?RGJTYVFUbUk5VWwvcnZTSGxMb2ZMUlROdEM2Tm1WVkJEVjE0MEY0djVvaDNG?=
- =?utf-8?B?Q2VVWm1jYS9iNzYxTFBJR1E1bGU0cEtXcmpRUGRLUm9xOFVDRU5oUUhxTjd6?=
- =?utf-8?B?K1lrTlhybHduMlkrNmZSNzBvQktHSXlUTFcrc1RaUEJWWTE4WTVDVnVNNFhY?=
- =?utf-8?B?cnF3dC8xS3dxZy9hcC9hQmt6MDZwNEI0a1NJZDVHQXN6RUVyejB2dEVRRFkx?=
- =?utf-8?B?bFJmMTMrUW9SdlpUaEtxTE1DdjFXalo2aGNoWkRPanVFWHExblkyeE5OdTg5?=
- =?utf-8?B?VXhIa0NDZEwvNzQxeTdydGlhUlZRbXFJeG82ODc5QU1VV0lLVkNOaGtnckZm?=
- =?utf-8?B?bmMrK0NXSm1rWGtwTWNCUTlXRzgrdVFmVlhtbEUzSFluNVB2ZGYreGxreTdm?=
- =?utf-8?B?dld1Ylh3ZVFMMkY1VFZpZjBTQjZLbGlkallzUWg4a2Z0QjV6T2NPS00zS0ND?=
- =?utf-8?B?RVMyWEFZSUd5VXFZZ1ZMSG50SzkyN0Q5R0ExeW5hOWN0bm9kdk5MQmlmZWYw?=
- =?utf-8?B?WnF5ejNISFdyS3N0Z3hBZ2pRZGZucG9GMjEyVWkxZFBRcjlZTmh6SlAxczlD?=
- =?utf-8?B?R1pxQjd4RmlpbDM3MWo1UGVJNlVDM1NROGFibmlaMndJc0FpYjUrN0V1cStu?=
- =?utf-8?B?TitMUm5CSjB4R3g1Wm9vb21uMTNqbnJFSUt3ck5wb0FEMmMvL2RwQlQzZW5C?=
- =?utf-8?B?UlNmQldOa2xycGF1MVlZeE04MHhkVUxpWWxML1l2L1BseWVQQkE5WVNIMDl4?=
- =?utf-8?B?cFVxNGFxekd4ajRmU0YvbldLdG41ZmF2N1pTcklZVXhRbFZWNWMwOVEwejZ6?=
- =?utf-8?B?Q1c3TGQ2NmtlajUxZG1xYkdPRU5zdm0zMExncU5jNC9mKzBmclJDNTRzY2Zq?=
- =?utf-8?B?bmRJeWpNQUI3WGhROXNLOWg3L2Z4NGZXOUpMWm1ZaHdVWEVxMVd5RTZDTnB2?=
- =?utf-8?B?WDRUTTZoWXpqOEthYUEwbTJtWXZnVk95dTNEV09mUlhZd29OejJ0RUl1M0Ny?=
- =?utf-8?B?N2UxMFUxQ3Q0aStHRlQvNDl5SW9sM08zeVk4SXZUODBrcXAweHJ5VG1uS2pD?=
- =?utf-8?B?bFFwYXk1dzhxRXVXQ3oyaWRtc0ZYd3FwQnlmNmFkdXB4cEZ4aDNWeXNCRVV4?=
- =?utf-8?B?U0p3T2FMVFNybXU5NHM3bFFWaFcrSEZLY3VSK2xLTHJMbzJoWllyaUZlVzFx?=
- =?utf-8?B?Sllpd0ZGcmh1ZTFHdGZoUTJTL1loc3FkbkJKOHRpN3N4bkJwRUJ5Y3d4STVW?=
- =?utf-8?B?bFcwc0NmeGlZbmhJUnJGV2dhMjBQd3U0cU1ya2VreGw3WmdkblBaRzU5aTJZ?=
- =?utf-8?B?TVJ2QTFtZ056L0t6VEJzSy9VR0QreFVRYXA5bWdhbndYc093OE14MnVYVGxJ?=
- =?utf-8?Q?/rPmRduRb/CmklYg=3D?=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <37E030EB9E32AC4D90C89E35EE712655@namprd11.prod.outlook.com>
-Content-Transfer-Encoding: base64
+	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="RJ0CQqQ6"
+Received: from [192.168.0.88] (192-184-212-33.fiber.dynamic.sonic.net [192.184.212.33])
+	by linux.microsoft.com (Postfix) with ESMTPSA id 76E3B20B7128;
+	Tue,  8 Sep 2026 15:32:00 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 76E3B20B7128
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+	s=default; t=1788906720;
+	bh=NEMvveQgtPa7RYU7R5053wVJWAgYuyZGnqLjiZNBkpc=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=RJ0CQqQ6M2fSy4nT6XP8qaltkEON7yEksvTyzDXNBW5CzvbzGMiVBSihvwfcS5vo/
+	 EL+ZgZLJ6478WMN09PvtezR13ad3D6HvI8T97SGG7pNMjlcUADEMM8ZrRMV3VId8To
+	 gf9YQzMZ5HIA2CiL9aUqhp0oeB95OIpcleuCE7VQ=
+Message-ID: <f5836bf1-1baf-68c2-4ac7-b1a6459069ad@linux.microsoft.com>
+Date: Tue, 8 Sep 2026 15:32:39 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked: k8o4q4En0bxj5TEA1B4cYZgzkL0WC4DHvfFzsvoWtp3bul3CZeni7TcR0bYNLlCpT3asZOlmloWOuG2Wwz8U7h6KPifZTvwDbMDHQGW/+3qZAYTXxYb6oKm6koQo35ZMgWtka8auewrs2Q8ymtfHPfFs73YbrX8dkkRqSqajLO2HGIPlNr3LqCxWDu6CqIskTiMB5uC/LGr+B/snKEGgpWaYGHskBj108luZvTA4YwsxgRxGla/4yfNIhTixJsQdpZqdHY0nNzV8aOwRAuhN3xIIzvItnYOuBhflguBkET8uHBDDGHl/BpwsaF/AmRVtieZbkVYVGubOGK2I2HFljQ==
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR11MB6771.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 290aedfe-b4bb-4406-3787-08df0df8ea9d
-X-MS-Exchange-CrossTenant-originalarrivaltime: 08 Sep 2026 22:31:24.9066
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: QwGhWVuP+435Jgr0onOrCw6LG8ckEnjFPIpenEq2GYTU+Pwo75gOb9aPUvIRdc/kPgRpYF/kxaRa9mIBB7Lhvz2mh3r3me0ZMjT/hbM7LGU=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR11MB6730
-X-OriginatorOrg: intel.com
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.13.1
+Subject: Re: [PATCH V1 2/3] mshv: Redesign hypervisor memory deposit logic
+Content-Language: en-US
+To: Michael Kelley <mhklinux@outlook.com>,
+ "linux-hyperv@vger.kernel.org" <linux-hyperv@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Cc: "kys@microsoft.com" <kys@microsoft.com>,
+ "wei.liu@kernel.org" <wei.liu@kernel.org>
+References: <20260908021340.2548924-1-mrathor@linux.microsoft.com>
+ <20260908021340.2548924-3-mrathor@linux.microsoft.com>
+ <SN6PR02MB4157AB63EF3BA9E3BC560E19D4B12@SN6PR02MB4157.namprd02.prod.outlook.com>
+From: Mukesh R <mrathor@linux.microsoft.com>
+In-Reply-To: <SN6PR02MB4157AB63EF3BA9E3BC560E19D4B12@SN6PR02MB4157.namprd02.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-T24gVHVlLCAyMDI2LTA5LTA4IGF0IDIzOjMwICswMzAwLCBBcnRlbSBCaXR5dXRza2l5IHdyb3Rl
-Og0KPiAqKkRpc2NsYWltZXIqKjogSSBhbSBuZXcgdG8gS1ZNIGFuZCBURFgsIHN0aWxsIGxlYXJu
-aW5nLCBsZXQgbWUga25vdyBpZg0KPiBzb21lwqBvZiBteSBjb21tZW50cyBhcmUgb2ZmLg0KPiAN
-Cj4gDQouLi4NCj4gDQo+IFNvIG1heWJlIHRoZSB3YXkgdG8gZ28gaXMgdG8ganVzdCBmb2xsb3cg
-J21zcl9wcmVzZXJ2YXRpb24ucGRmJyBhbmQNCj4gYWRqdXN0IHRoZSBhbGxvd2xpc3Q/IEkgZmlu
-ZCB0aGlzIGFwcHJvYWNoIHNhZmUgYW5kIGFjY2VwdGFibGUuDQoNCldlIGFyZSBraW5kIG9mIGRp
-c2N1c3Npbmcgd2hhdCByZWNvbW1lbmRhdGlvbnMgd2Ugc2hvdWxkIGdpdmUgYWJvdXQgaG93DQpt
-c3JfcHJlc2VydmF0aW9uLnBkZiBzaG91bGQgYmUgZGVmaW5lZCBmb3IgbmV3IENQVUlEIGJpdCBi
-YXNlZCBmZWF0dXJlcy4gU28NCnNheWluZyB0byBmb2xsb3cgbXNyX3ByZXNlcnZhdGlvbi5wZGYg
-aXMgc2VsZiByZWZlcmVudGlhbC4NCg0KQWdhaW4sIHBsZWFzZSBkbyBub3QgdHJlYXQgdGhlIFRE
-WCBzcGVjcyBhcyBzb21ldGhpbmcgdG8gYmUgaGFuZGVkIGRvd24gYW5kDQoiZm9sbG93ZWQiLiBJ
-IHRoaW5rIHRoaXMgaXMgc29tZXRoaW5nIHRvIGdldCB1c2VkIHRvIGZvciBURFguIEkgbWVhbiwg
-dXBzdHJlYW0NCm5ldmVyIHdhbnRzIHRvIGFkYXB0IHRvIHBsYXRmb3JtIGFyY2ggdGhhdCBmaXRz
-IGF3a3dhcmRseSwgYnV0IGl0J3MgZXZlbiB0b3VnaGVyDQp0byBzd2FsbG93IHdoZW4gdGhlIGFy
-Y2ggaXMgbW9zdGx5IFNXIGRlZmluZWQuIEFuZCBmdXJ0aGVyLCB0aGUgcGVvcGxlIHdvcmtpbmcN
-Cm9uIHRoZSBURFggYXJjaCB3YW50IHRvIGhlYXIgc3VjaCByZXF1aXJlbWVudHMgZnJvbSB1cHN0
-cmVhbS4NCg0KDQpIZXJlLCB0aGUgdGhpbmcgdG8gZGlzY3VzcyBpcyBob3cgVERYIHNob3VsZCBk
-ZWZpbmUgbmV3IGZlYXR1cmVzIHRoYXQgd2lsbA0KY2xvYmJlciBob3N0IHN0YXRlIChlLmcuIGJp
-dHMgdGhhdCB3b3VsZCBhcHBlYXIgaW4gbXNyX3ByZXNlcnZhdGlvbi5wZGYgYXMgbm90DQpiZWlu
-ZyBwcmVzZXJ2ZWQpLg0KDQpUaGVyZSBoYXZlIGJlZW4gc2V2ZXJhbCBQVUNLIGRpc2N1c3Npb25z
-IG9uIHRoZSBwcm9ibGVtIHRoaXMgc2VyaWVzIGlzIHRhY2tsaW5nLA0KYW5kIGFjdHVhbGx5IHNl
-dmVyYWwgYXR0ZW1wdHMgdG8gc29sdmUgdGhlIHByb2JsZW0gZHVyaW5nIHRoZSBiYXNlIHNlcmll
-cy4gTW9yZQ0KcmVjZW50bHkgYSBob3N0IGNsb2JiZXJpbmcgY29udHJvbCB3YXMgcHJvcG9zZWQg
-dGhhdCBhdHRlbXB0ZWQgdG8gbWFrZSBpdCBzYWZlLA0KYnV0IGl0IHdhcyBub3QgYWNjZXB0ZWQu
-IFRoYXQgcHJvcG9zYWwgYnJvdWdodCB1cCB0aGUgdG9waWMgb2Ygd2hldGhlciBoYXZpbmcNCnNl
-bGVjdCBzdGF0ZXMgY2xvYmJlcmVkIHdhcyBhY3R1YWxseSBhbiB1bnByb3ZlbiBvcHRpbWl6YXRp
-b24uDQoNCk5vdyB0aGF0IHdlIGFyZSBtb3ZpbmcgYmFjayB0byBhbiBhbGxvdyBsaXN0IHR5cGUg
-c29sdXRpb24sIHdoYXQgZ3VpZGFuY2Ugc2hvdWxkDQp3ZSBnaXZlIG9uIHRoaXMgb3RoZXIgc3Vy
-ZmFjZWQgdG9waWMuIFNpbmNlIFREWCBzaGFyZXMgc29tZSBzYXZlL3Jlc3RvcmUgbG9naWMNCndp
-dGggbm9ybWFsIFZNcywgd2Ugc2hvdWxkIGhhdmUgaXQgd29yayB3ZWxsIHdpdGggdGhhdCBjb2Rl
-LiBTbyBmb3JnZXR0aW5nIGFib3V0DQp0aGUgcGVyZm9ybWFuY2Ugb3B0aW1pemF0aW9uIHF1ZXN0
-aW9uLCBob3cgdG8gaGF2ZSBpdCB3b3JrIGluIGEgc2Vuc2libGUgd2F5DQp3aXRoIHRoZSBzaGFy
-ZWQgY29kZSBwYXRocy4NCg0K
+On 9/8/26 11:02, Michael Kelley wrote:
+> From: Mukesh R <mrathor@linux.microsoft.com> Sent: Monday, September 7, 2026 7:14 PM
+>>
+>> The current memory deposit implementation has a few issues and bugs:
+>>   o It is very slow
+>>   o Contiguous range requirement is broken, and is critical bug
+>>   o An incorrect assumption is made that contiguous memory size would
+>>     always be power of 2.
+> 
+> Is this HV_MAX_CONTIGUOUS_ALLOCATION_PAGES? That value is
+> defined as a constant in hvhdk_mini.h. So is there a possibility that
+> the constant will change in the future, or in some new variation of
+> the overall environment?
+
+Yes, I was told it could change in future. It is also not guaranteed to
+be power of 2 (even tho it is currently).
+
+>>   o Two pages are allocated, only one is really needed. This adds to
+>>     overhead.
+>>   o For a 512 page deposit, the allocation is split into two: one for 511
+>>     and second for 1. Thus, an order 9 allocation never happens. A
+>>     contiguous 2M range, if possible, significantly improves performance
+>>     in the hypervisor.
+>>   o Since a page is already allocated to collect the frames, there is
+>>     not really a need to use per cpu input page, and hence avoid local
+>>     irq disable.
+>>   o In hv_call_deposit_pages(), in case of error, under err_free_allocations
+>>     label, all pages are freed without checking status to see if some pages
+>>     were deposited. This is a critical bug as it would free pages that hyp
+>>     may be using.
+>>
+>> All of above is addressed by:
+>>   o Allocate 2M by default, this is the recommendation from the hypervisor
+>>     team, and greatly improves performance.
+> 
+> Can you be more specific about "improves performance"? Is the
+> improvement on the guest side, or on the hypervisor side? And what's
+> the key leverage point in improving performance, regardless of which
+> side? It might be helpful to record this for future reference to prevent
+> a change from being made that unknowingly hurts the key leverage
+> point.
+
+Well, overall improvement I'd say. Lesser HV_STATUS_INSUFFICIENT_MEMORY
+means lesser interruptions means faster non-deposit hypercalls. With
+larger deposits, it will not come back as often with insufficient memory.
+If it only uses 1M say out of the 2, next time it will reuse the remaining
+meg before coming back and asking for more. IOW, incomplete hypercalls
+repeatedly coming back asking for more ram add lot of overhead.
+Eg. the guest setup part reduces from 8 sec to 1 sec with this, I
+don't have further breakdown of which ioctls.
+
+>>   o Always start with a full 2M range allocation, thus getting contiguous if
+>>     available. In cases where possible, the deposits are much faster.
+> 
+> Is this faster because the hypervisor can consume the pages faster
+> if they are contiguous?
+
+I didn't ask but my guess is that it can map 2M page in its page
+tables, so all the benefits of large pages: faster L2 mapping, less
+tlb overhead, etc..
+
+>>   o Allocate only one page in the deposit function and collect 511 pfns
+>>     there. Just use a local variable for last pfn.
+>>   o Use the page as input to hypercall. Since this page is locally allocated,
+>>     irq disable can be avoided helping speed up the deposit.
+>>   o Fix the physical contiguous memory requirement.
+>>   o Lastly, remove pre-deposits hv_call_create_vp() and
+>>     hv_call_initialize_partition() as they were removed internally while
+>>     ago, most likely because they didn't help much.
+>>
+>> Signed-off-by: Mukesh R <mrathor@linux.microsoft.com>
+>> ---
+>>   drivers/hv/hv_proc.c           | 198 +++++++++++++++++++++++++++++----
+>>   drivers/hv/mshv_root_hv_call.c |  10 +-
+>>   include/asm-generic/mshyperv.h |   5 -
+>>   3 files changed, 179 insertions(+), 34 deletions(-)
+>>
+>> diff --git a/drivers/hv/hv_proc.c b/drivers/hv/hv_proc.c
+>> index 57864bb5bcd8..0ebede0bc8b4 100644
+>> --- a/drivers/hv/hv_proc.c
+>> +++ b/drivers/hv/hv_proc.c
+>> @@ -9,6 +9,184 @@
+>>   #include <linux/export.h>
+>>   #include <asm/mshyperv.h>
+>>
+>> +#define HV_DEPOSIT_MAX 512
+>> +#define HV_DEPOSIT_INP_MAX ((HV_HYP_PAGE_SIZE -  \
+>> +	offsetof(struct hv_deposit_memory, gpa_page_list)) / sizeof(u64))
+>> +
+>> +/*
+>> + * Allocate free pages for deposit to hypervisor. pfna[] must be large enough
+>> + * to hold HV_DEPOSIT_INP_MAX (511) pages. If num_pages is 512, return last
+>> + * pfn in lastpfn. If @single, then it must be a single allocation (not split
+>> + * over multiple contiguous ranges).
+>> + *
+>> + * Returns: number of pages allocated or -ENOMEM
+>> + */
+>> +static int hv_alloc_dep_pages(int node, u64 *pfna, u64 *lastpfnp, int num_pages,
+>> +			      bool single)
+>> +{
+>> +	struct page *page;
+>> +	int num_allocd, count = 0;
+>> +
+>> +	/* Published ABI, enforce its immutability. */
+>> +	BUILD_BUG_ON(HV_DEPOSIT_INP_MAX != 511);
+>> +
+>> +	if (num_pages > HV_DEPOSIT_MAX ||
+>> +	    (num_pages == HV_DEPOSIT_MAX && lastpfnp == NULL))
+>> +		return -EINVAL;
+>> +
+>> +	while (num_pages) {
+>> +		/* Find highest order we can actually allocate */
+>> +		int order = 31 - __builtin_clz(num_pages);
+> 
+> Outside of the kernel source file da9062-regulator.c and the definition
+> of fls(), there are only about 14 direct uses of __builtin_clz() in the
+> kernel. By contrast fls() is used more than 700 times. Using __builtin_clz()
+> works, but you might consider using fls() instead just to be on the more
+> common path.
+
+Well, i just used things from existing code in the current function
+hv_call_deposit_pages()...  So, it's not new code. Frankly, i don't
+want to risk changing something that works unless it is necessary.
+
+>> +		gfp_t gfp_flags = GFP_KERNEL;
+>> +
+>> +		if (!single)
+>> +			gfp_flags |= __GFP_NOWARN;
+>> +
+>> +		while (1) {
+>> +			page = alloc_pages_node(node, gfp_flags, order);
+>> +			if (page || order == 0 || single)
+>> +				break;
+>> +
+>> +			order--;
+>> +		}
+>> +
+>> +		if (page == NULL)
+> 
+> Nit: I've always thought kernel style has a slight preference for "!page"
+> instead of "page == NULL". And indeed, a few lines above you test
+> just "page". Not a big deal, but when there are inconsistencies I wonder
+> if there's a reason ....
+
+My aging eyes and brain prefer (x == NULL) :)... Earlier one  is existing
+line from previous code.
+
+>> +			break;
+>> +
+>> +		split_page(page, order);
+>> +		num_allocd = 1 << order;
+>> +		num_pages -= num_allocd;
+>> +
+>> +		while (num_allocd && count < HV_DEPOSIT_INP_MAX) {
+>> +			pfna[count++] = page_to_pfn(page++);
+>> +			num_allocd--;
+>> +		}
+>> +
+>> +		if (num_allocd-- && count == HV_DEPOSIT_INP_MAX) {
+>> +			*lastpfnp = page_to_pfn(page);
+>> +			count++;
+>> +			break;
+>> +		}
+>> +	}
+>> +
+>> +	return count ? count : -ENOMEM;
+>> +}
+>> +
+>> +/*
+>> + * Deposit memory in the hypervisor. Even if @contiguous is false, a contiguous
+>> + * 2M worth of pfns is utmost desired for performance reasons. But short of
+>> + * that, we deposit whatever contiguous chunks we can get. If @contiguous is
+>> + * true, then the entire range has to be physically contiguous. Note, in that
+>> + * case, upon withdrawl, hypervisor could return any page in between the range,
+>> + * so we must split that also. Lastly, HV_MAX_CONTIGUOUS_ALLOCATION_PAGES is
+>> + * not guaranteed to always be power of 2.
+>> + */
+>> +static int hv_call_deposit_pages(int node, u64 partition_id, bool contiguous)
+>> +{
+>> +	struct hv_deposit_memory *hc_input;
+>> +	int i, rc, num_pages;
+>> +	u64 status, *pfna, lastpfn = 0;
+>> +	bool trunc_extra = false;
+>> +
+>> +	BUILD_BUG_ON(HV_MAX_CONTIGUOUS_ALLOCATION_PAGES > HV_DEPOSIT_MAX);
+>> +
+>> +	if (contiguous) {
+>> +		num_pages = roundup_pow_of_two(
+>> +				 HV_MAX_CONTIGUOUS_ALLOCATION_PAGES);
+>> +		trunc_extra = num_pages != HV_MAX_CONTIGUOUS_ALLOCATION_PAGES;
+>> +	} else {
+>> +		num_pages = HV_DEPOSIT_MAX;
+>> +	}
+>> +
+>> +	hc_input = (struct hv_deposit_memory *)get_zeroed_page(GFP_KERNEL);
+> 
+> Mike Rapoport has a kernel-wide effort underway to replace
+> __get_free_page() with kmalloc() and get_zeroed_page() with kzalloc().
+> See [1] for one example of the many patches he has submitted. The
+> commit message has a short explanation. Going with kzalloc() here
+> would probably avoid a future change.
+
+There might be places where a get_page may not be strictly needed, but
+in this case we do for the hypercall (we use it as input page), and
+this hypercall can go upto exactly one page. I don't think an operating
+system can ever get away without having a get_page() api :). kmalloc()
+could add an aligntment parameter, but it would just call get_page
+anyways for page aligned requests.
+
+Thanks for the review, BTW, sashiko found a bug where wrong status is
+used in an error case, so I'll be sending another version.
+
+Thanks,
+-Mukesh
+
+> [1] https://lore.kernel.org/lkml/20260830-tty-v1-1-0cbe6170649b@kernel.org/
+> 
+>> +	if (hc_input == NULL)
+>> +		return -ENOMEM;
+>> +
+>> +	hc_input->partition_id = partition_id;
+>> +	pfna = hc_input->gpa_page_list;
+>> +
+>> +	rc = hv_alloc_dep_pages(node, pfna, &lastpfn, num_pages, contiguous);
+>> +	if (rc < 0)
+>> +		goto out_free;
+>> +
+>> +	num_pages = rc;
+>> +	if (num_pages > HV_DEPOSIT_INP_MAX)
+>> +		num_pages = HV_DEPOSIT_INP_MAX;
+>> +
+>> +	if (contiguous && trunc_extra) {
+>> +		for (i = HV_MAX_CONTIGUOUS_ALLOCATION_PAGES; i < num_pages; i++)
+>> +			__free_page(pfn_to_page(pfna[i]));
+>> +
+>> +		if (lastpfn) {
+>> +			__free_page(pfn_to_page(lastpfn));
+>> +			lastpfn = 0;
+>> +		}
+>> +
+>> +		num_pages = HV_MAX_CONTIGUOUS_ALLOCATION_PAGES;
+>> +	}
+>> +
+>> +	/* We are not using hyperv_pcpu_input_arg, so no need to disable */
+> 
+> "disable interrupts"?
+> 
+>> +
+>> +	status = hv_do_rep_hypercall(HVCALL_DEPOSIT_MEMORY, num_pages,
+>> +				     0, hc_input, NULL);
+>> +	if (!hv_result_success(status))
+>> +		goto err_free_dep_pages;
+>> +
+>> +	if (lastpfn) {
+>> +		hc_input->gpa_page_list[0] = lastpfn;
+>> +		status = hv_do_rep_hypercall(HVCALL_DEPOSIT_MEMORY, 1, 0,
+>> +					     hc_input, NULL);
+> 
+> So if a full 2 MiB contiguous is allocated, it's OK to deposit the
+> first 511 pages and then do a 2nd hypercall to deposit the last
+> page? Does the hypervisor figure out that the 2 MiB is contiguous
+> and map it with a single 2 MiB PTE to get the mapping perf benefit?
+> I realize there's not any other choice given the limitation of 1 page
+> of hypercall input, but I just wondered.
+> 
+>> +
+>> +		if (!hv_result_success(status)) {
+>> +			if (contiguous)
+>> +				goto err_free_dep_pages;
+>> +
+>> +			/* We deposited lot earlier, so give it a go */
+>> +			__free_page(pfn_to_page(lastpfn));
+>> +		}
+>> +	}
+>> +
+>> +	free_page((unsigned long)hc_input);
+>> +	return 0;
+>> +
+>> +err_free_dep_pages:
+>> +	hv_status_err(status, "\n");
+>> +	rc = hv_result_to_errno(status);
+>> +
+>> +	for (i = hv_repcomp(status); i < num_pages; i++)
+>> +		__free_page(pfn_to_page(pfna[i]));
+>> +	if (lastpfn)
+>> +		__free_page(pfn_to_page(lastpfn));
+>> +
+>> +out_free:
+>> +	free_page((unsigned long)hc_input);
+>> +	return rc;
+>> +}
+>> +
+>> +int hv_deposit_memory_node(int node, u64 pt_id, u64 hv_status)
+>> +{
+>> +	int result = hv_result(hv_status);
+>> +	bool contiguous = false;
+>> +
+>> +	if (result == HV_STATUS_INSUFFICIENT_ROOT_MEMORY ||
+>> +	    result == HV_STATUS_INSUFFICIENT_CONTIGUOUS_ROOT_MEMORY) {
+>> +		if (!hv_root_partition()) {
+>> +			hv_status_err(hv_status,
+>> +				      "Unexpected root memory deposit\n");
+>> +			return -EINVAL;
+>> +		}
+>> +
+>> +		pt_id = HV_PARTITION_ID_SELF;
+>> +	}
+>> +
+>> +	if (result == HV_STATUS_INSUFFICIENT_CONTIGUOUS_MEMORY ||
+>> +	    result == HV_STATUS_INSUFFICIENT_CONTIGUOUS_ROOT_MEMORY)
+>> +		contiguous = true;
+>> +
+>> +	return hv_call_deposit_pages(node, pt_id, contiguous);
+>> +}
+>> +EXPORT_SYMBOL_GPL(hv_deposit_memory_node);
+>> +
+>>   /*
+>>    * See struct hv_deposit_memory. The first u64 is partition ID, the rest
+>>    * are GPAs.
+>> @@ -109,12 +287,6 @@ static int hv_call_deposit_pages_old(int node, u64 partition_id, u32 num_pages)
+>>   	return ret;
+>>   }
+>>
+>> -int hv_call_deposit_pages(int node, u64 partition_id, u32 num_pages)
+>> -{
+>> -	return hv_call_deposit_pages_old(node, partition_id, num_pages);
+>> -}
+>> -EXPORT_SYMBOL_GPL(hv_call_deposit_pages);
+>> -
+>>   static int __maybe_unused hv_deposit_memory_node_old(int node, u64 partition_id, u64 hv_status)
+>>   {
+>>   	u32 num_pages = 1;
+>> @@ -144,12 +316,6 @@ static int __maybe_unused hv_deposit_memory_node_old(int node, u64 partition_id,
+>>   	return hv_call_deposit_pages_old(node, partition_id, num_pages);
+>>   }
+>>
+>> -int hv_deposit_memory_node(int node, u64 partition_id, u64 hv_status)
+>> -{
+>> -	return hv_deposit_memory_node_old(node, partition_id, hv_status);
+>> -}
+>> -EXPORT_SYMBOL_GPL(hv_deposit_memory_node);
+>> -
+>>   bool hv_result_needs_memory(u64 status)
+>>   {
+>>   	switch (hv_result(status)) {
+>> @@ -212,14 +378,6 @@ int hv_call_create_vp(int node, u64 partition_id, u32 vp_index, u32 flags)
+>>   	unsigned long irq_flags;
+>>   	int ret = 0;
+>>
+>> -	/* Root VPs don't seem to need pages deposited */
+>> -	if (partition_id != hv_current_partition_id) {
+>> -		/* The value 90 is empirically determined. It may change. */
+>> -		ret = hv_call_deposit_pages(node, partition_id, 90);
+>> -		if (ret)
+>> -			return ret;
+>> -	}
+>> -
+>>   	do {
+>>   		local_irq_save(irq_flags);
+>>
+>> diff --git a/drivers/hv/mshv_root_hv_call.c b/drivers/hv/mshv_root_hv_call.c
+>> index cb55d4d4be2e..b8d199f95299 100644
+>> --- a/drivers/hv/mshv_root_hv_call.c
+>> +++ b/drivers/hv/mshv_root_hv_call.c
+>> @@ -15,8 +15,6 @@
+>>   #include "mshv_root.h"
+>>
+>>   /* Determined empirically */
+>> -#define HV_INIT_PARTITION_DEPOSIT_PAGES 208
+>> -#define HV_MAP_GPA_DEPOSIT_PAGES	256
+>>   #define HV_UMAP_GPA_PAGES		512
+>>
+>>   #define HV_PAGE_COUNT_2M_ALIGNED(pg_count) (!((pg_count) & (0x200 - 1)))
+>> @@ -140,11 +138,6 @@ int hv_call_initialize_partition(u64 partition_id)
+>>
+>>   	input.partition_id = partition_id;
+>>
+>> -	ret = hv_call_deposit_pages(NUMA_NO_NODE, partition_id,
+>> -				    HV_INIT_PARTITION_DEPOSIT_PAGES);
+>> -	if (ret)
+>> -		return ret;
+>> -
+>>   	do {
+>>   		status = hv_do_fast_hypercall8(HVCALL_INITIALIZE_PARTITION,
+>>   					       *(u64 *)&input);
+>> @@ -248,8 +241,7 @@ static int hv_do_map_gpa_hcall(u64 partition_id, u64 gfn, u64 page_struct_count,
+>>   		completed = hv_repcomp(status);
+>>
+>>   		if (hv_result_needs_memory(status)) {
+>> -			ret = hv_call_deposit_pages(NUMA_NO_NODE, partition_id,
+>> -						    HV_MAP_GPA_DEPOSIT_PAGES);
+>> +			ret = hv_deposit_memory(partition_id, status);
+>>   			if (ret)
+>>   				break;
+>>
+>> diff --git a/include/asm-generic/mshyperv.h b/include/asm-generic/mshyperv.h
+>> index bf601d67cecb..c16abaecb65e 100644
+>> --- a/include/asm-generic/mshyperv.h
+>> +++ b/include/asm-generic/mshyperv.h
+>> @@ -345,7 +345,6 @@ static inline bool hv_parent_partition(void)
+>>
+>>   bool hv_result_needs_memory(u64 status);
+>>   int hv_deposit_memory_node(int node, u64 partition_id, u64 status);
+>> -int hv_call_deposit_pages(int node, u64 partition_id, u32 num_pages);
+>>   int hv_call_add_logical_proc(int node, u32 lp_index, u32 acpi_id);
+>>   int hv_call_notify_all_processors_started(void);
+>>   bool hv_lp_exists(u32 lp_index);
+>> @@ -360,10 +359,6 @@ static inline int hv_deposit_memory_node(int node, u64 partition_id, u64 status)
+>>   {
+>>   	return -EOPNOTSUPP;
+>>   }
+>> -static inline int hv_call_deposit_pages(int node, u64 partition_id, u32 num_pages)
+>> -{
+>> -	return -EOPNOTSUPP;
+>> -}
+>>   static inline int hv_call_add_logical_proc(int node, u32 lp_index, u32 acpi_id)
+>>   {
+>>   	return -EOPNOTSUPP;
+>> --
+>> 2.51.2.vfs.0.1
+>>
+
