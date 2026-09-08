@@ -1,235 +1,218 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from OS0P286CU010.outbound.protection.outlook.com (mail-japanwestazon11011011.outbound.protection.outlook.com [40.107.74.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CAD055C1C5
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 13:13:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788873210; cv=none; b=hqLMIVnvCbHYFGjE7QUO3Q1qRkLuuk3W76kJt0BvG+OgK0B3yluzb5F2qgcV9od0YsMe6EViT0I+fu+9i7n+zUHoMLVe7j5gZuKkO9/I6ZFKmFwpAMycXkIp3W0KjcTwk9n9IKSPLuk7LAUpxlzTkPTpIhztMNPQUMhDGzgsmzw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788873210; c=relaxed/simple;
-	bh=O4eWR/JZXniI+aAyv6RxYHMmagr/ohwcESr9x210uog=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=FvxYfwG3XV5W7Uee2Dm8kckoaa8xXFapAaicn3Y0hiMhmXp8l9n4kKlczuEaJH2HSHQ6SyKu+bVAqBhpa71u6AqjcaRRzKWIbnFC3bNvUpIHyLQxsi4x5Vwc61U2CriRkqUIXrgN1jHU0bif2GpwIaUbMx1UnBVbBs55fBhbCr8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=JmcVEQhT; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=CZzx0YyG; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4406559CB4;
+	Tue,  8 Sep 2026 13:13:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.74.11
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788873212; cv=fail; b=oY0VY6WDRr/Lp3LJITZBtNoPH4FgaLOa9qMeQh2zvY15gtNOAbj72OjUomGv/N3fFXK9E2t5AnP3PB2atWbntn8OdiNsIXMgXpMRl6g3nWRcPGyK8GAwTLD3XasdUeP6AtUhL87yyrIKOFSX+gCSn+P3vWDvD1EHehiTI0v5xc4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788873212; c=relaxed/simple;
+	bh=uzgImhQKY0YfMNnY9MRd8UE/opwzEzBWUmINAb/hte4=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=Nbmjw68li/7Hif4HMO4FUfFmiErp0LCxjGiZ02fj74Zs+/qoQfZ+ln4DkMiYHr2n4+jM2MSah4IPXNab2vjX307Y2YUFKWR942hsAQR2P12s9MMweOsDAYXkfBG/vA2wvfnDnlZYkCCpBXawVocIJCv8cPeAyhJR/cGrcC+VfVM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=renesas.com; spf=pass smtp.mailfrom=renesas.com; dkim=pass (1024-bit key) header.d=renesas.com header.i=@renesas.com header.b=hilaCJsu; arc=fail smtp.client-ip=40.107.74.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=renesas.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=renesas.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="JmcVEQhT";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="CZzx0YyG"
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 688CkmqK2506695
-	for <linux-kernel@vger.kernel.org>; Tue, 8 Sep 2026 13:13:19 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=1ORZ0DU7gdTxBLmd5domb93b
-	jts+JyOZJlFH7aI4M5g=; b=JmcVEQhTCjIF51uHnasykLN6uOSl5V4kIHwHvPk8
-	FSWtLcx1Y2R59hxniQXE+Gq++vAZzZfvydE8P/acM9upqP+0TfmUZbnPJC7lJjs3
-	sYhWCFTdsClNayrm52psoGOzwX6JPFK8b2X2PcO1QkbMua7gBOjaVp+LlQun1jye
-	+lONabZHtQ0Up4oPDPXnV5LPrBy6bUd+ivO4kqIKQFGMw4HDWSlGjy2slHeqoYJq
-	uB4Uef/cwxUR11gR+Jl4oNTocNoSOTNy9rvcFe+5JXxPfTOX22577neLOcpuOAm7
-	Ag0vMZc/IfUdOyUJCqPB1MLYELFk65kqUZJHE91syuFiIA==
-Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com [209.85.215.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gjcvuhn2s-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 13:13:18 +0000 (GMT)
-Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-cc1c62f0d60so6002581a12.1
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 06:13:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788873198; x=1789477998; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=1ORZ0DU7gdTxBLmd5domb93bjts+JyOZJlFH7aI4M5g=;
-        b=CZzx0YyGMo3pfk3jLIHitkHT6R+HDaJvsosJ3RsHEH4Dfp4yy6IoPPhzRVoAgAia21
-         2eB7DEcozR3mmrMMFVOyOmCsAclEiypEPVHQRoi13mZsPw/K49CuV5Wm0qD6i+G7Qhpz
-         jQ1JtGcYEMcxjrIEyBZu+SWl7wlSrmE4Pr6RNSmNujgPCBftnCtSxm9XPkkmJhTmDwyL
-         rJizJuWreHNfWiK5Hl8vawQZTsNW62O1M4ysWkmyS/yeULlKiUtFFaSqX9XuvCLXA/Yd
-         K1K5TMudRDzsP6rjUT7vPX8Ku/ElAMzs08gzibUkjALnkhT5h5LjdJOsoptE7e/V/4sY
-         WDlg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788873198; x=1789477998;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=1ORZ0DU7gdTxBLmd5domb93bjts+JyOZJlFH7aI4M5g=;
-        b=fnpSvv4u/ArF/2kbITGSmlGXm10EDEyY658H1yFxlH+TrPkRyjFfSqlzl05HwEd4HK
-         o2KzKmNfEyJgqMHmZJoubbPl65qsNbNWSZ6CgUqPIFBxtWePan0ty9jrzjAmWfNj6gC6
-         PMHHT/QRRiUmc/Knce0vZE5jdRo5OlkyLOJ2+KaITR9Mq0UaW0IVob1UXcqKzpiMRLJz
-         AVFMt+M98a7O5JR3vdr+2TxGdLuSJl13PXL7J5Xbt15Z6VPidH39KE3x0L7uR6MhsrGg
-         ZBMiB8ycAUO5cxXVsZPJOwixCvyxKyFMKDfAwh5gtBJvqMZ2QdBrfKPEMav87s+FKGno
-         JRdA==
-X-Forwarded-Encrypted: i=1; AKwUvBx5SSNIV7+5/7z6fHLQymq+791xIMKV53qJ8Kj8iavsrvOsHswO2TM8sx0zZgm/qz3Q5yZcnHKIWVVZqQM=@vger.kernel.org
-X-Gm-Message-State: AFuF++lvzgk1mgI/nYbi1m/giaw/vBegqSpRI5IcZgOw6Y1z4mQQ6HMv
-	PyG5eEHZC0ntig8wm39pAeQrnxIXV/ZC9bUvJVSy+YzxqjubjFDkJV+44hS/h4oDCr8/Uq/W7vg
-	LmVyZxcAp2TEPhQFx8Vo0JRZ9FFh80bbLTZxuvFxrjEQF4xTaSUfkgMwZGdc4IfPREr4=
-X-Gm-Gg: AYBFou1uGIMWI/mMuiAG9OfMMLnWFhhUOfLBsY93CPY0EMQegE0Pw0QDuxnpmDD42MD
-	6EKXKb4pnadJXB4szqvkCfaDRoU7JcKoteQGEGgiSiDZ/0i3+7GnjbGGApWqa33jWFfu3a2LIS5
-	WwsCpAHxXvYZuKK0z4YJZNNrvW1h2He1N9LrQ/MCJn2TqEC/s2Aq+cPBFbu6kExQEKzXCqNjcan
-	ptnc18yhkZmgQD/gmgJxp7f7FCQdh3VbPXPjpJD7JVqhrU50LRRe+EmgTxM96ssl375BWMNuyQu
-	4H3RF3Z1m1hiGvqPHnIfPV/KUXbL5HG424iWBDJnjRhpa8R8LCzvTOvwQPnCU521zTRQeqfcV6p
-	SPXy5VX3ccGpmPSKixCkXN4u4Mf6Tyw==
-X-Received: by 2002:a05:6a21:3117:b0:3cd:61d5:f342 with SMTP id adf61e73a8af0-3da39d147b5mr45941809637.9.1788873198112;
-        Tue, 08 Sep 2026 06:13:18 -0700 (PDT)
-X-Received: by 2002:a05:6a21:3117:b0:3cd:61d5:f342 with SMTP id adf61e73a8af0-3da39d147b5mr45941710637.9.1788873197460;
-        Tue, 08 Sep 2026 06:13:17 -0700 (PDT)
-Received: from hu-kamalw-hyd.qualcomm.com ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339b314cfcsm36266788eec.19.2026.09.08.06.13.12
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 08 Sep 2026 06:13:16 -0700 (PDT)
-Date: Tue, 8 Sep 2026 18:43:09 +0530
-From: Kamal Wadhwa <kamal.wadhwa@oss.qualcomm.com>
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, broonie@kernel.org,
-        robh@kernel.org
-Cc: Saikiran <bjsaikiran@gmail.com>, broonie@kernel.org,
-        monish.chunara@oss.qualcomm.com, jishnu.prakash@oss.qualcomm.com,
-        nitin.rawat@oss.qualcomm.com,
-        Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>,
-        lgirdwood@gmail.com, andersson@kernel.org, konrad.dybcio@kernel.org,
-        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
-        robh@kernel.org, krzk+dt@kernel.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH v3 0/2] regulator: qcom-rpmh: Add off-on-delay support
-Message-ID: <3pybhkqdvve2ct6burnhav3utis6nljz7ncheqcrs7v55ullz4@nek57empeoca>
-References: <20260127190211.14312-1-bjsaikiran@gmail.com>
- <20260515111647.qg75thdvcbvvjpoi@hu-kamalw-hyd.qualcomm.com>
- <06a264d0-6a14-4b71-b783-82b771f04411@oss.qualcomm.com>
- <oa3okt7mdhoqmrebwim5yswarbcacbmhpwfvqbhtv6ib3cwrwi@ddox6mw3uhmy>
- <0d4fa333-df22-42b9-b9c2-ccb43ac4fac3@oss.qualcomm.com>
+	dkim=pass (1024-bit key) header.d=renesas.com header.i=@renesas.com header.b="hilaCJsu"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=upTmGUMnTwytdwgXDuCmOEioqfoLto9M++hqlnBQYdOtHX7+SxVeg7SGGtiv6xv/FvNpioiyeEfAGM6xe9LRoa7l1pKzm9stB/viNhk/uavwg/68jqPMrqVquhdwzJwFmloaIS/MU3Kzf70DffWiicdJY7S7npcNgjGBSdQZe7d0eDCeNyBwWWZB2UTYUNGyP/eiLCFiqebU7HrwlPm0wCy+fXAw41252X0Wyzu9Hx2prO8WqCfDTUg1HH2mzERMaD4+6T1WhjtLNY1ZqNw+it3uk7fLZA0RbICE4hqUnDnnHILxSveBUfeiS1xt4wXCn2Xg6nM3yBAw31xZ+zLHFQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=bxPwIWZxysW2N0sv00HrZF3vGysduBjd7bpdIdJklR4=;
+ b=R/bfPNQ5/RZ4P1PXiYnJC99BoBagTW+lt9D8xCKwCIIBgwgUjJhHa/GjW7eL/pIwVVkZCfhwvxwe05YXAJAdP7bsUM/4TZfa7JfTI8uXVmgsKvOZRl/qg95qx7NMEy8AmsbE2GJPa0i59v/cLklvcJGZFJ+QtVR5WdQtE4LAOrpCeySXJLHVXG9pD8srAaB31vBbZKr/ua7t/oB+zD5LjpwBXQfgJsKBbfB8KA1na+iHK/Gt3SVLmulim7NPG7wFdWE3tLE2+VtvYEH5tKbEjDEUNN5ZV/roO35WMu9ECFv1EYSL7Rup8SA6AdrgZa82+1JTm48qk2TNs4/JAouwXg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=renesas.com; dmarc=pass action=none header.from=renesas.com;
+ dkim=pass header.d=renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=bxPwIWZxysW2N0sv00HrZF3vGysduBjd7bpdIdJklR4=;
+ b=hilaCJsu6Bsc4WbLasHgF/xK9V9IOQrWnNlXmzwIBik0YVSGGl8TJL5bsp51ecPQlJaba+x+FCzSHLfE1lCq+++7z0ZbWxoGovbGQPX/T+le7o/2g19mIS0yoka2JFK9L/Yg0GwCv8phpO2I0JAB0ZVgUEPuWIOxCWrqzitEXmo=
+Received: from TYRPR01MB15619.jpnprd01.prod.outlook.com
+ (2603:1096:405:29b::10) by TYCPR01MB11899.jpnprd01.prod.outlook.com
+ (2603:1096:400:38c::8) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.15; Tue, 8 Sep
+ 2026 13:13:22 +0000
+Received: from TYRPR01MB15619.jpnprd01.prod.outlook.com
+ ([fe80::a68f:5c9:9de8:4fa4]) by TYRPR01MB15619.jpnprd01.prod.outlook.com
+ ([fe80::a68f:5c9:9de8:4fa4%3]) with mapi id 15.21.0406.005; Tue, 8 Sep 2026
+ 13:13:22 +0000
+From: Cosmin-Gabriel Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>
+To: geert <geert@linux-m68k.org>
+CC: Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>,
+	"linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>,
+	"linux-gpio@vger.kernel.org" <linux-gpio@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"stable@kernel.org" <stable@kernel.org>
+Subject: RE: [PATCH 4/7] pinctrl: renesas: rzt2h: fix reading pin value in IRQ
+ function
+Thread-Topic: [PATCH 4/7] pinctrl: renesas: rzt2h: fix reading pin value in
+ IRQ function
+Thread-Index: AQHdLnphGKO1zzMM4EueHC4thk/rjrbEk5mAgAAlxuA=
+Date: Tue, 8 Sep 2026 13:13:22 +0000
+Message-ID:
+ <TYRPR01MB1561923FCDFBC721F326FEE6985B12@TYRPR01MB15619.jpnprd01.prod.outlook.com>
+References: <20260817185700.322370-1-cosmin-gabriel.tanislav.xa@renesas.com>
+ <20260817185700.322370-5-cosmin-gabriel.tanislav.xa@renesas.com>
+ <CAMuHMdUHAXzRiODL9hphVTjqKOHNVUe8cOygXESWF6_r7Ou2yw@mail.gmail.com>
+In-Reply-To:
+ <CAMuHMdUHAXzRiODL9hphVTjqKOHNVUe8cOygXESWF6_r7Ou2yw@mail.gmail.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=renesas.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: TYRPR01MB15619:EE_|TYCPR01MB11899:EE_
+x-ms-office365-filtering-correlation-id: b5e3468b-3412-4518-d905-08df0daaf559
+x-ld-processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|23010399003|366016|1800799024|376014|10067099003|3023799007|22082099003|18002099003|11063799006|56012099006|4143699003|38070700021;
+x-microsoft-antispam-message-info:
+ CGpHcMxa/kSsdGUf1gs1HU+Z61XEc0DFVEi2Luc/l6d+SbHx3yXmDWZ+YddJaTJaZ3mWJ1BQZcXMXBXSIjTH7lAbukcn5oNU1ZlO+esNG6KpU28TOFMWnTyfIzheLF4DqV3MSXwXAWPZAZtkLU2AY6ismTLRP8ZkaKcCrFY5DGxvHCXXuBnssDCwC9XtVdWmla96lR5vig/zB74AJep3XjWxDX79yYqo/rDkMC9OAmUr6BDt+D7/asPyvKo1XBUEn6Uo8QTnAuBP1PQqEhspu7MkZxnOYcxbQUIysC58z0dA0D9U2GNjYzDxCAOaLGSL1kL7vsPM/l5Orne4irq75HBIKT28tZ++egdW/Wc2N+1iBMTqAOknl93aOKTWM35TkTeSmFOpOxLJu+b1ZtLkfWnY86PQCuqelJB+PnGFF0YbQ2n4GxeQKYnEyhlRBn89iE/XmVQoVQ72JeD0MskV5GRYTDtK+D2eLAJx6FEFaHrwe6nfeugggY3Sq4WXxq08qHttfrBfNmPc5AmF/2XIQvU/SGhuG015LiNNZFE7PaAqZex7wTf7VmQfys24ubY630mfNppawNe5z6EqGzcEltXmf5gFd+AIslBtHKYWZQrrImo+rvIHFO3R/Q5zoaa+aL6aCkNF51iEBeaamM+QA/SePqkm9eK90OFNPucQIFUbkb90xJrcBSsfCJyNfe4xzasjeHorzMvTmVsa9Aa652oogPVn6PY1EukQ3yq0LQ8=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYRPR01MB15619.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(1800799024)(376014)(10067099003)(3023799007)(22082099003)(18002099003)(11063799006)(56012099006)(4143699003)(38070700021);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?egzHlbTlcTFAP27k8Ii9ywwlx9qiWsABaXic0X2IM1YPc9myJCzqEAcwlIG0?=
+ =?us-ascii?Q?H2CmCdL2sTGUj/hTTmP/tzOSagUTdwhfsCqnIuCRTP6mWcMEjXLwa04ZMH6j?=
+ =?us-ascii?Q?RPiOBfuoCh0E746hQXTCwYQaNb7D1DGtsHQ/Hsz/wiTA07nkQWCTjkqLpCZO?=
+ =?us-ascii?Q?lfvPYRRGqaooQZRUe53fKKGGFpnVWdH3GqB3vVocCWznWkge0CF/LmolTire?=
+ =?us-ascii?Q?H4fbBFnJgSSEWn0SLw/lIRW+3iQ55NPRTPYFbxJukQzWeKN7ZX5u47AHrrti?=
+ =?us-ascii?Q?jyK9f9W8tZwjq6KMLt/TGaRm/DQ9dE9IrakWV4MBql235mCAXuDugkXY8oCJ?=
+ =?us-ascii?Q?J44RODgyxOzD8G/Q9K9X6f8qLxoR9LSaDZE+Cxkm2p7pSF2Jinj93zr/Hgd7?=
+ =?us-ascii?Q?WLrk38M+Bmi5TJQU/WWK2H87mjI1G2G3HbP59MyuI3iNQTtU/G5qGWgvUpQv?=
+ =?us-ascii?Q?URM8BDoZjPJOftNWdCqrD7xLMSsNi7jO6A/Aii7wQG+mE2QJWeIFeDt+/qfg?=
+ =?us-ascii?Q?Jd4TWNT1xP2q0Mft6kf3gvSsTGkY9TQ9s40/lKg7XzE76Dk6C8f9QjNh48LN?=
+ =?us-ascii?Q?aOgODiOiltWGbqpxx6OlFuCGXDZa9qhMsvOwM88cqXw+cIoHfTbXOTTaeUK0?=
+ =?us-ascii?Q?hecVFo3K97FAmq4Rh5a15+6/bqd5CBej1uVnRcS2cUTUCiULXM2bcJA27sgB?=
+ =?us-ascii?Q?/7mOc10Y4k3Tet3YYaW3C3ATGLNPQDi4MLfijiZz3XFV98z8TpL4gTmzXhro?=
+ =?us-ascii?Q?rXxskY1bkn+pr2zi4afjiY30I5/+BiVYrq7kfbGc6tQU2m5wo0+DVtSy283x?=
+ =?us-ascii?Q?BOjSFLUYFiMN/093xSh2ZQQNlWNF4eaJeDxXmfU0wjNNhCoHiLExafd4hKn2?=
+ =?us-ascii?Q?lzBJgUYvHjjIjUuBhPqoXEhcGTkc4hHm6syaVObFx1wiEY4X4xyiTFXN5Z/H?=
+ =?us-ascii?Q?pnZD92IQ+s1qb8WJjqGMdKNqTDxIVQijFmlhZdNY6luxyHXBUnfCQlh2CGBO?=
+ =?us-ascii?Q?V5Cr9JEdDx3EpSBYm5LisMhrLGQeHOiBWQT2AHjG5bTy65XDrbgkkrjKt7OC?=
+ =?us-ascii?Q?qASh5YowN5T5z9I/UMAZiwRE/Vvxh0wBWbb+5LGcsLbnPR8iDaIO5HjYgcwL?=
+ =?us-ascii?Q?kWUn3IRT3xAilr1JJTxTQoe9agGvIxcORcu0tVauO33YpC4L0eJ4YzNTRJn0?=
+ =?us-ascii?Q?lHy3xX9jOOvbuRev25npf7BjY2YVZzJZK9k1uIvO96iIO5C7H8oFtVC+Wy3V?=
+ =?us-ascii?Q?RBTntTzTqSy5tOLD+8wC9HoFnvWQcouW3w3rPQci1DJS34jhUO/HmvRDRNTP?=
+ =?us-ascii?Q?iXTskvO93IaatZF8C0a+dSuNX+Jrz8BC/t0Y4zUfboM86CNi0+vz/s9L7syY?=
+ =?us-ascii?Q?qbLclbwb/mZ8onUZcc05TzmMfp6Rug/vLnS8QCAZDntxriFrj6IQjXuGp/rW?=
+ =?us-ascii?Q?/cGsOOFXbgaEQOqlD5fg6bBh232eMrW7KvncezomiOWXdqzqWDoQDqTud3DT?=
+ =?us-ascii?Q?l/qdv4511XwCZxj796s9bZXVVSS5seaRj5V3X8t//t40PuooMXmMb4o3/zqI?=
+ =?us-ascii?Q?+WdAFKx0lEohCrUylVCLid2yBnu8P04l6ukXqoByd2PS+GfptmJH6lLk13yt?=
+ =?us-ascii?Q?E5DxzRV3IHz9nss2lyE/rx2EWNyMnqN61Rb4OVLb6doU3l/Am/btuJHrNyQd?=
+ =?us-ascii?Q?PBgHz/E85ePPrcuu1CHKIz8juHZX63uvI0lhDSHnerK8Fy9sIChlpUHBtfgZ?=
+ =?us-ascii?Q?nYhoDo/mlm8faGeUAgc345MMuVYABUVALywFlkexCDFKAmD+iRFK?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <0d4fa333-df22-42b9-b9c2-ccb43ac4fac3@oss.qualcomm.com>
-X-Authority-Analysis: v=2.4 cv=ePkjSnp1 c=1 sm=1 tr=0 ts=6aa009ee cx=c_pps
- a=oF/VQ+ItUULfLr/lQ2/icg==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=VwQbUJbxAAAA:8 a=bvrmFQN2d7YouEhKHLAA:9 a=CjuIK1q_8ugA:10
- a=3WC7DwWrALyhR5TkjVHa:22
-X-Proofpoint-GUID: vHSseRIfCkZ-OZBddlTZwrtFfCqNKVBF
-X-Proofpoint-ORIG-GUID: vHSseRIfCkZ-OZBddlTZwrtFfCqNKVBF
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA4MDE0MSBTYWx0ZWRfXwkv2vQM2p0Jr
- KXKN30CiSF8w0t7j3BQx1cdi0qUjX8+qKnEnj6hAbXzAIGJWvWKa1p+FG99xDbCmbe54ErifYAi
- Rgw+ySM4GxHa3wv0Oa5tCblqE5S9SSsfZWfhj17+Dm58LzIABimplyrrvNL36kWlPROYeAWlzsi
- /js4qm/URA4UbPiYUnBiJo+FPnMiMMaGRF/fUAi68eEoRuivG6gIJLY/ERN6C8YLdK+i6Z0HsLW
- e90O9i1jejd0fe7m1E01PowreD9zPClHNB7UqALcWdcSAnM2sJJCMAU0uc6ZH+OQNzDVE9fpgVM
- B/lthgzkUt6/aArc+CrMMIWPy3KboNqpQ5dzhrsF8VhXOBzhY6JTjK5C9AlQlo5KFRwJr4OgbzI
- yX0Bvavcu4N94ORqxrVv8eMwPeqAdZY8hqnQ3tg+ke3+7CD7An+5BlUEYJKVFFCII8gpKZ4+XTW
- ghAS7UWYDo8tYjbWB3A==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA4MDE0MSBTYWx0ZWRfX49wR2nit30Bp
- 81I8Oe30psX32HePeTzzjMg5zcE7+9zhx7k/gferdhQmPtfDooE+WlsmKTEDuMRejZywPB8CWCH
- vlNcbAfij2iEe1DFG6I5+xKuIHiEwnE=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-08_02,2026-09-08_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 malwarescore=0 clxscore=1015 suspectscore=0 priorityscore=1501
- impostorscore=0 phishscore=0 adultscore=0 lowpriorityscore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609080141
+X-OriginatorOrg: renesas.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: TYRPR01MB15619.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b5e3468b-3412-4518-d905-08df0daaf559
+X-MS-Exchange-CrossTenant-originalarrivaltime: 08 Sep 2026 13:13:22.1276
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 264pLrw79xW7PgisNjBNTnbl72lpWGxtdgVPaSV3Uutqta1SZ1clegkjrFb0KpnxqaoraPLr07PFRyqhOHGzhMkCAm0cUAoexP8kwJsdga7rCaRsB7d8wmoj4Uv11Bkr
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYCPR01MB11899
 
-On Mon, Jun 29, 2026 at 02:13:00PM +0200, Konrad Dybcio wrote:
-> On 6/25/26 12:16 AM, Kamal Wadhwa wrote:
-> > On Tue, Jun 16, 2026 at 01:48:50PM +0200, Konrad Dybcio wrote:
-> >> On 5/15/26 1:16 PM, Kamal Wadhwa wrote:
-> >>> On Wed, Jan 28, 2026 at 12:32:09AM +0530, Saikiran wrote:
-> >>>> This series adds support for the standard `regulator-off-on-delay-us`
-> >>>> property to the Qualcomm RPMh regulator driver and updates the
-> >>>> corresponding Device Tree bindings.
-> >>>>
-> >>>> Motivation:
-> >>>> On the Lenovo Yoga Slim 7x (Snapdragon X Elite), the camera regulators
-> >>>> (LDO1, LDO3, LDO7) have large bulk capacitors and rely on passive discharge.
-> >>>> When these regulators are disabled, the voltage decays very slowly. If
-> >>>> re-enabled too quickly, the sensor experiences a brownout and fails to
-> >>>> initialize.
-> >>>>
-> >>>> Verification:
-> >>>> I verified that the core `drivers/regulator/of_regulator.c` does not
-> >>>> currently parse `regulator-off-on-delay-us` in `of_get_regulation_constraints()`.
-> >>>> Therefore, the driver must parse this property explicitly and populate
-> >>>> `rdesc->off_on_delay` so the regulator core can enforce the constraint.
-> >>>>
-> >>>> Changes in v3:
-> >>>> - Added Patch 1/2: Update DT bindings to allow `regulator-off-on-delay-us`
-> >>>>   for `qcom,rpmh-regulator` (Requested by Mark Brown).
-> >>>> - Updated Patch 2/2: Refined commit message to explicitly mention the
-> >>>>   passive discharge and bulk capacitor mechanism on the Yoga Slim 7x
-> >>>>   (Requested by Mark Brown).
-> >>>>
-> >>>> Changes in v2:
-> >>>> - Moved the motivation/context from the cover letter into the commit
-> >>>>   message of the driver patch.
-> >>>>
-> >>>> Saikiran (2):
-> >>>>   dt-bindings: regulator: qcom,rpmh: Allow regulator-off-on-delay-us
-> >>>>   regulator: qcom-rpmh: Add support for regulator-off-on-delay-us
-> >>>
-> >>> Hi Mark, Bjorn, Konrad and all,
-> >>>
-> >>> We have another UFS issue on QCS8300 RB4 EVK, where it seems this patch is
-> >>> helping.
-> >>>
-> >>> Issue is seen 2/10 reboots and it happens in the UFS probe defer path:
-> >>>
-> >>> 1. UFS probe takes regulator handle for VCC(vreg_l8a) of UFS host controller.
-> >>> 2. UFS probe enables the regulator
-> >>> 3. UFS probe defers (due to some other dependency un-related to regulator)
-> >>> 4. UFS regulator disabled on probe exit
-> >>> 5. UFS re-attempts probe and re-enables the regulator
-> >>> 6. UFS init sequence runs -> UFS NOP OUT command failed (no shell) 
-> >>>
-> >>> Issue Log:
-> >>>
-> >>> [    6.583836] ufshcd-qcom 1d84000.ufs: ufshcd_verify_dev_init: NOP OUT failed -11
-> >>> [    6.592780] ufshcd-qcom 1d84000.ufs: ufshcd_async_scan failed: -11
-> >>>
-> >>> NOTE
-> >>> - Issue is not seen in first probe attempt, because UFS regulators are left ON
-> >>>   from bootloader, which gives enough time between rail turn ON and UFS init
-> >>>   sequence start.  However in issue case, it seems re-probe is happening too
-> >>>   fast, which causes init sequence to fail and UFS brownouts (similar to camera
-> >>>   sensor case)
-> >>>
-> >>> - Also, we compared this board with other RBxx EVK boards for UFS rail, it
-> >>>   seems that this board has more caps on the VCC regulator, as the board is
-> >>>   designed to have both EMMC and UFS, and we have DT option to pick one of them.
-> >>>
-> >>>   So for EMMC those extra caps were added and they are impacting rampup on VCC.
-> >>>
-> >>> Since this is not entirely a UFS part issue, but a board design constraint, it
-> >>> seems better if we handle this in the regulator side itself, as adding it in the
-> >>> UFS driver may not be acceptable from UFS reviewers.
-> >>>
-> >>> Please share your opinion, if this seems to be good reason to accept this patch?
-> >>
-> >> Is that board in production already, or is that something that can be fixed?
-> > 
-> > yes, it cannot be fixed in HW, as the board is already in production.
-> 
-> Re-reading this thread, RobH's worry here:
-> 
-> https://lore.kernel.org/all/20260129174829.GA1324020-robh@kernel.org/
-> 
-> seems to be misguided - AFAICU this property would be set on each
-> regulator separately, not globally for all regulators under a given
-> PMIC - is that right?
+> From: Geert Uytterhoeven <geert@linux-m68k.org>
+> Sent: Tuesday, September 8, 2026 12:56 PM
+>=20
+> Hi Cosmin,
+>=20
+> On Mon, 17 Aug 2026 at 20:58, Cosmin Tanislav
+> <cosmin-gabriel.tanislav.xa@renesas.com> wrote:
+> > rzt2h_gpio_get() only reports a level for pins in input or output mode
+> > and returns -EINVAL otherwise. When a pin is requested as an interrupt
+> > it is switched to IRQ function and its I/O mode is set to Hi-Z, so its
+> > value can no longer be read.
+> >
+> > gpiolib calls gpiod_get_value_cansleep() to determine the edge's
+> > direction when a line is watched with GPIO_V2_LINE_FLAG_EDGE_BOTH.
+> > Non-zero values are translated to a rising edge, zero to a falling edge=
+.
+> >
+> > Since gpiod_get_value_cansleep() ends up calling rzt2h_gpio_get() which
+> > returns -EINVAL when the pin is in IRQ function, every edge is reported
+> > as rising.
+> >
+> > When using the IRQ function, the input buffers are enabled and the PINm
+> > registers reflect the live state of the input.
+> >
+> > Report the input level even when the pin is used as an IRQ.
+> >
+> > Cc: stable@kernel.org
+> > Fixes: 829dde3369a9 ("pinctrl: renesas: rzt2h: Add GPIO IRQ chip to han=
+dle interrupts")
+> > Signed-off-by: Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>
+>=20
+> Thanks for your patch!
+>=20
+> > --- a/drivers/pinctrl/renesas/pinctrl-rzt2h.c
+> > +++ b/drivers/pinctrl/renesas/pinctrl-rzt2h.c
+> > @@ -171,6 +171,23 @@ static int rzt2h_validate_pin(struct rzt2h_pinctrl=
+ *pctrl, unsigned int offset)
+> >         return (pincfg & BIT(pin)) ? 0 : -EINVAL;
+> >  }
+> >
+> > +static bool rzt2h_pin_mode_is_peripheral(struct rzt2h_pinctrl *pctrl, =
+u8 port, u8 bit)
+> > +{
+> > +       return rzt2h_pinctrl_readb(pctrl, port, PMC(port)) & BIT(bit);
+> > +}
+> > +
+> > +static u8 rzt2h_pin_read_pfc(struct rzt2h_pinctrl *pctrl, u8 port, u8 =
+pin)
+> > +{
+> > +       u64 reg64 =3D rzt2h_pinctrl_readq(pctrl, port, PFC(port));
+> > +
+> > +       return field_get(PFC_PIN_MASK(pin), reg64);
+> > +}
+> > +
+> > +static bool rzt2h_pin_read_input(struct rzt2h_pinctrl *pctrl, u8 port,=
+ u8 bit)
+> > +{
+> > +       return rzt2h_pinctrl_readb(pctrl, port, PIN(port)) & BIT(bit);
+> > +}
+> > +
+> >  static u8 rzt2h_pin_read_pm(struct rzt2h_pinctrl *pctrl, u8 port, u8 p=
+in)
+> >  {
+> >         u16 reg =3D rzt2h_pinctrl_readw(pctrl, port, PM(port));
+> > @@ -847,6 +864,13 @@ static int rzt2h_gpio_get(struct gpio_chip *chip, =
+unsigned int offset)
+> >         u8 bit =3D RZT2H_PIN_ID_TO_PIN(offset);
+> >         u16 reg;
+> >
+> > +       if (rzt2h_pin_mode_is_peripheral(pctrl, port, bit)) {
+> > +               if (rzt2h_pin_read_pfc(pctrl, port, bit) =3D=3D PFC_FUN=
+C_INTERRUPT)
+>=20
+> Section 17.4.5 ("PINm : Port m Input Register (m =3D 00 to 35)") states:
+>=20
+>    "The PINm register is valid not only for general I/O mode (PMCn =3D 0b=
+)
+>     but also when peripheral function is selected (PMCn =3D 1b) and it wo=
+rks
+>     as input."
+>=20
+> this is not limited to PFC_FUNC_INTERRUPT, so I think you can drop
+> this check?
+>=20
 
-Yes, this is per-regulator and not globally applied.
-
-> 
-> In that case, I see no real downside in allowing that, especially given
-> it would/should be used sparingly and only in cases like you mentioned
-> where the board has some quirks
-
-yes. we can use this sparingly for such board issues.
-
-@Mark, @Rob - can you please comment if you think this is acceptable?
-
-> 
-> Konrad
+Ack.
