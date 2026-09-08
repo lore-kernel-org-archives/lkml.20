@@ -1,357 +1,226 @@
-Received: from mailout1n.rrzn.uni-hannover.de (mailout1n.rrzn.uni-hannover.de [130.75.2.107])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14F4A52BE5D;
-	Tue,  8 Sep 2026 11:27:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=130.75.2.107
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 414F452ED31;
+	Tue,  8 Sep 2026 11:29:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788866884; cv=none; b=pG6lvmzJzioCtZ19hyDylJ69Gycs1FwVfIAwAK6u/42XUP/oBUPwszvCQ4/zpRkR0XRHeAxUIHarOZmCxyXZm2OW3BxrEDMrMIUOBxuKr1C8FY+ARPMzygM9nAY27vgYs3tdvLS/lW9yTyJAD5ala9d5KzDvyahgH+BtsVTHoas=
+	t=1788866975; cv=none; b=tc+gz0jtlg6Qf6UeBN33QDGLsKOORffOLv8vNQWvu9D0vqM+pUzGkisiS0bJAc+UTFXjwS3g11oqjDa6G4AvsvZ5mnIssgz2RWArdkf25LIMqlVCO2zJXrO2aG8irWJsK8iSOxVkJqs2tVTuz/D5n4o3LyzEaR117y3ITNj8VVI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788866884; c=relaxed/simple;
-	bh=VcIxxv6slkv1OxSvzGA9rxW19CEqGVmwm0V7fqV+eI4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Xaul5cwE2CZ1zGSEwG+XCt91sIjtUL5uFW1rlz2LXDfe3Bb5E6CO3Fk4kwI6eKYMru8oRuqxL1W5wseK25KA9adzhHswDnQAcBxdn0BUy1sKG1FglJftoy0TsnYmweyRXPEKKWOS6vVSlMsUbkA7Rx2SZN1t+u6fnzuBbuMWesY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ikt.uni-hannover.de; spf=pass smtp.mailfrom=ikt.uni-hannover.de; dkim=pass (2048-bit key) header.d=uni-hannover.de header.i=@uni-hannover.de header.b=eMAmUQrS; arc=none smtp.client-ip=130.75.2.107
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ikt.uni-hannover.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ikt.uni-hannover.de
+	s=arc-20240116; t=1788866975; c=relaxed/simple;
+	bh=DJJ3y4HWUdHg21fDTQuBvRfNxO5F30ksapo9ZwKGzO4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=SgJ+qervmYWrMYxg0LJ+0/PFUi71RJiEwt0q8tua4P4MChlTsrSHfvA4h6j0iz/GjQqw5dgZKNYkrVU7DhbcMbMxMi+OdTC2uRT4ZvUfXMKCE9DxzGT6goJ4AxGfEdxlqAs/ciyHmuK5Xw9twTHqCdoLVzDIOHwn+2Y5nDfiLBU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UaGEuylv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=uni-hannover.de header.i=@uni-hannover.de header.b="eMAmUQrS"
-Received: from [172.23.180.109] (gateway.ikt.uni-hannover.de [130.75.73.1])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mailout1n.rrzn.uni-hannover.de (Postfix) with ESMTPSA id ADFE7F3F;
-	Tue,  8 Sep 2026 13:22:21 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=uni-hannover.de;
-	s=2024all; t=1788866542;
-	bh=VcIxxv6slkv1OxSvzGA9rxW19CEqGVmwm0V7fqV+eI4=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=eMAmUQrSorUOu9LdCjF4mIG2A1Tp5n27nSWto0Tf/riU3NlyH0FNEypnrHjjVM2Lg
-	 60h4ymSprxhfHKjgqh2N1ApAlAIDLgWzCT7p/eiCHY8xH6V6pCdAHrtP/oAvHwYCOq
-	 c5uX7xhrjYwc2NzChmGQUFFyBi3EhIwqhL9bvEvu2eq3adL2pCpPNTjW4kkZhg3hr/
-	 5Rb0Wl79e0vmyOtzGHTWceJKCQtI1orbSTh/EBgBWjLof8U2eBMjQ4oPUKWABskXjk
-	 b3W0yOfkmEj1tttxdy2+z1sMvQaAjLCLmS419qWlE013563kbHq1NXEY3o2zEzuVJb
-	 +9140cO5yvowg==
-Message-ID: <cee2e4d2-3a0f-46d2-9607-b72eb95f785f@ikt.uni-hannover.de>
-Date: Tue, 8 Sep 2026 13:22:21 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UaGEuylv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DD8561F00A3A;
+	Tue,  8 Sep 2026 11:28:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788866953;
+	bh=wrZchMHbuIO6XXck0lzWb4MFVBIJqfPNOjZp2CkiLAo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=UaGEuylvnKTadsfjaS7bvwU33xN2v3VvG9wjjwlcHZzqg4jRyqMpEEdO03+MvqeIM
+	 0cduj0er10VqGiGsJx7yjqifKpSllSZ3vK2y8omgzwmD0GHCZufWGZlTXVUWUiJ1V9
+	 ryqufjLkVU0NIOGHntM/W5uaFdDur34HOl0mDF/iX8gW88SDJFV9ZGxssqTmrANwpQ
+	 ynMdPQCgyGQbU6JnCqU5u6mlf0Svv7YVwvZzUogSUfvbxLoYO7+FDhTi6mBmpO9DWp
+	 jokGL7RYOK/KgBIS1bsW+dwWJav2y/DtDFT7YQL4WN6vyefxcqOuYZ/U9v7ZU8r1QK
+	 2OBX8O/r781rA==
+Date: Tue, 8 Sep 2026 12:28:51 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Suren Baghdasaryan <surenb@google.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, "Liam R. Howlett" <liam@infradead.org>, 
+	Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
+	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
+	Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, Guo Ren <guoren@kernel.org>, 
+	Brian Cain <bcain@kernel.org>, Geert Uytterhoeven <geert@linux-m68k.org>, 
+	Dinh Nguyen <dinguyen@kernel.org>, Simon Schuster <schuster.simon@siemens-energy.com>, 
+	Jonas Bonn <jonas@southpole.se>, Stefan Kristiansson <stefan.kristiansson@saunalahti.fi>, 
+	Stafford Horne <shorne@gmail.com>, Yoshinori Sato <ysato@users.sourceforge.jp>, 
+	Rich Felker <dalias@libc.org>, John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>, 
+	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
+	Russell King <linux@armlinux.org.uk>, Vineet Gupta <vgupta@kernel.org>, 
+	Michal Simek <monstr@monstr.eu>, Chris Zankel <chris@zankel.net>, 
+	Max Filippov <jcmvbkbc@gmail.com>, Will Deacon <will@kernel.org>, 
+	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin <npiggin@gmail.com>, 
+	Peter Zijlstra <peterz@infradead.org>, "David S. Miller" <davem@davemloft.net>, 
+	Andreas Larsson <andreas@gaisler.com>, Richard Henderson <richard.henderson@linaro.org>, 
+	Matt Turner <mattst88@gmail.com>, Magnus Lindholm <linmag7@gmail.com>, 
+	Catalin Marinas <catalin.marinas@arm.com>, Mark Rutland <mark.rutland@arm.com>, 
+	Huacai Chen <chenhuacai@kernel.org>, WANG Xuerui <kernel@xen0n.name>, 
+	Thomas Bogendoerfer <tsbogend@alpha.franken.de>, "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>, 
+	Helge Deller <deller@gmx.de>, Madhavan Srinivasan <maddy@linux.ibm.com>, 
+	Michael Ellerman <mpe@ellerman.id.au>, "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, 
+	Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
+	Alexander Gordeev <agordeev@linux.ibm.com>, Christian Borntraeger <borntraeger@linux.ibm.com>, 
+	Sven Schnelle <svens@linux.ibm.com>, Richard Weinberger <richard@nod.at>, 
+	Anton Ivanov <anton.ivanov@cambridgegreys.com>, Johannes Berg <johannes@sipsolutions.net>, 
+	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
+	Arnd Bergmann <arnd@arndb.de>, Vlastimil Babka <vbabka@kernel.org>, 
+	Mike Rapoport <rppt@kernel.org>, Michal Hocko <mhocko@suse.com>, Jason Gunthorpe <jgg@ziepe.ca>, 
+	John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, linux-csky@vger.kernel.org, linux-hexagon@vger.kernel.org, 
+	linux-m68k@lists.linux-m68k.org, linux-openrisc@vger.kernel.org, linux-sh@vger.kernel.org, 
+	linux-riscv@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
+	linux-snps-arc@lists.infradead.org, linux-arch@vger.kernel.org, sparclinux@vger.kernel.org, 
+	linux-alpha@vger.kernel.org, loongarch@lists.linux.dev, linux-mips@vger.kernel.org, 
+	linux-parisc@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, linux-s390@vger.kernel.org, 
+	linux-um@lists.infradead.org, Hugh Dickins <hughd@google.com>, Qi Zheng <qi.zheng@linux.dev>
+Subject: Re: [PATCH 05/12] mm: enable MMU_GATHER_RCU_TABLE_FREE for arc,
+ microblaze, xtensa
+Message-ID: <ap_xXoS5XDqJ0mgU@gremlin>
+References: <20260901-rcu-pagetable-freeing-v1-0-5456a81c8212@kernel.org>
+ <20260901-rcu-pagetable-freeing-v1-5-5456a81c8212@kernel.org>
+ <CAJuCfpESe_BXihJh-8FhjQVKzsSpnS4zdMgg3e59byJTc8QViA@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: Re: [PATCHv5 net-next] tcp: Add TCP ROCCET congestion control
- module.
-To: Eric Dumazet <edumazet@google.com>
-Cc: "David S. Miller" <davem@davemloft.net>, David Ahern
- <dsahern@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
- Neal Cardwell <ncardwell@google.com>, Kuniyuki Iwashima <kuniyu@google.com>,
- linux-kernel@vger.kernel.org, netdev@vger.kernel.org, fmancera@suse.de,
- ebiggers@kernel.org, bpf@vger.kernel.org, Tim Fuechsel <t.fuechsel@gmx.de>
-References: <apWz9rPcGMgYCKOR@volt-roccet-vm>
- <CANn89iKaXghXPHTQU1sQdNEyfT3RA5AR_gY9+FrhKx59GUVOBQ@mail.gmail.com>
-Content-Language: de-DE
-From: Lukas Prause <lukas.prause@ikt.uni-hannover.de>
-In-Reply-To: <CANn89iKaXghXPHTQU1sQdNEyfT3RA5AR_gY9+FrhKx59GUVOBQ@mail.gmail.com>
-Content-Type: multipart/signed; protocol="application/pkcs7-signature"; micalg=sha-512; boundary="------------ms030801050306050308000503"
-X-Virus-Scanned: clamav-milter 0.103.9 at mailout1n
-X-Virus-Status: Clean
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAJuCfpESe_BXihJh-8FhjQVKzsSpnS4zdMgg3e59byJTc8QViA@mail.gmail.com>
 
-This is a cryptographically signed message in MIME format.
-
---------------ms030801050306050308000503
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-
-Hi Eric,
-thank you for the review. On a few points, I=E2=80=99d have some comments=
-=2E We
-think that this AI review is, at some point, a little bit misleading.
-We are using the cong_control functionality to implement stricter packet
-pacing than the default value.
-With this, we aim to implement our own alternative to PRR.
-
-> 1. Concurrency data race on module parameters in socket init
-> ------------------------------------------------------------
-> In roccettcp_init():
->     param_check(true);
->     param_precompute();
+On Mon, Sep 07, 2026 at 02:07:37PM -0700, Suren Baghdasaryan wrote:
+> On Tue, Sep 1, 2026 at 4:06 AM Lorenzo Stoakes (ARM) <ljs@kernel.org> wrote:
+> >
+> > Each of these architectures directly free page tables without routing these
+> > changes through tlb_remove_ptdesc().
+> >
+> > The use of tlb_remove_ptdesc() is required for
+> > CONFIG_MMU_GATHER_RCU_TABLE_FREE to correctly free page tables under RCU,
+> > so simply update these architectures to use these functions.
+> >
+> > Since none of the architectures share page tables or do anything unusual,
+> > nothing complicated is required here.
+> >
+> > Therefore this is simply a mechanical change - convert __pud_free_tlb(),
+> > __pmd_free_tlb() and __pte_free_tlb() to use tlb_remove_ptdesc() as
+> > required.
+> >
+> > At the point this is in place, all mmu_gather page table freeing is
+> > performed under RCU, and thus MMU_GATHER_RCU_TABLE_FREE is selected for
+> > each architecture.
+> >
+> > This forms part of an overall effort to switch every architecture to this
+> > mode.
+> >
+> > Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> > ---
+> >  arch/arc/Kconfig                      | 1 +
+> >  arch/arc/include/asm/pgalloc.h        | 6 +++---
+> >  arch/microblaze/Kconfig               | 1 +
+> >  arch/microblaze/include/asm/pgalloc.h | 2 +-
+> >  arch/xtensa/Kconfig                   | 1 +
+> >  arch/xtensa/include/asm/tlb.h         | 2 +-
+> >  6 files changed, 8 insertions(+), 5 deletions(-)
+> >
+> > diff --git a/arch/arc/Kconfig b/arch/arc/Kconfig
+> > index 2ed7186c81c5..7a7542b61823 100644
+> > --- a/arch/arc/Kconfig
+> > +++ b/arch/arc/Kconfig
+> > @@ -47,6 +47,7 @@ config ARC
+> >         select HAVE_SYSCALL_TRACEPOINTS
+> >         select IRQ_DOMAIN
+> >         select LOCK_MM_AND_FIND_VMA
+> > +       select MMU_GATHER_RCU_TABLE_FREE
+> >         select MODULES_USE_ELF_RELA
+> >         select OF
+> >         select OF_EARLY_FLATTREE
+> > diff --git a/arch/arc/include/asm/pgalloc.h b/arch/arc/include/asm/pgalloc.h
+> > index dfae070fe8d5..9b6c37f92e97 100644
+> > --- a/arch/arc/include/asm/pgalloc.h
+> > +++ b/arch/arc/include/asm/pgalloc.h
+> > @@ -72,7 +72,7 @@ static inline void p4d_populate(struct mm_struct *mm, p4d_t *p4dp, pud_t *pudp)
+> >         set_p4d(p4dp, __p4d((unsigned long)pudp));
+> >  }
+> >
+> > -#define __pud_free_tlb(tlb, pmd, addr)  pud_free((tlb)->mm, pmd)
+> > +#define __pud_free_tlb(tlb, pmd, addr)  tlb_remove_ptdesc((tlb), virt_to_ptdesc(pmd))
+> >
+> >  #endif
+> >
+> > @@ -83,10 +83,10 @@ static inline void pud_populate(struct mm_struct *mm, pud_t *pudp, pmd_t *pmdp)
+> >         set_pud(pudp, __pud((unsigned long)pmdp));
+> >  }
+> >
+> > -#define __pmd_free_tlb(tlb, pmd, addr)  pmd_free((tlb)->mm, pmd)
+> > +#define __pmd_free_tlb(tlb, pmd, addr)  tlb_remove_ptdesc((tlb), virt_to_ptdesc(pmd))
+> >
+> >  #endif
+> >
+> > -#define __pte_free_tlb(tlb, pte, addr)  pte_free((tlb)->mm, pte)
+> > +#define __pte_free_tlb(tlb, pte, addr)  tlb_remove_ptdesc((tlb), page_ptdesc(pte))
+> >
+> >  #endif /* _ASM_ARC_PGALLOC_H */
+> > diff --git a/arch/microblaze/Kconfig b/arch/microblaze/Kconfig
+> > index 484ebb3baedf..af7e821e96c1 100644
+> > --- a/arch/microblaze/Kconfig
+> > +++ b/arch/microblaze/Kconfig
+> > @@ -41,6 +41,7 @@ config MICROBLAZE
+> >         select PCI_SYSCALL if PCI
+> >         select CPU_NO_EFFICIENT_FFS
+> >         select MMU_GATHER_NO_RANGE
+> > +       select MMU_GATHER_RCU_TABLE_FREE
+> >         select SPARSE_IRQ
+> >         select ZONE_DMA
+> >         select TRACE_IRQFLAGS_SUPPORT
+> > diff --git a/arch/microblaze/include/asm/pgalloc.h b/arch/microblaze/include/asm/pgalloc.h
+> > index 084a8a0dc239..ffee6a009219 100644
+> > --- a/arch/microblaze/include/asm/pgalloc.h
+> > +++ b/arch/microblaze/include/asm/pgalloc.h
+> > @@ -25,7 +25,7 @@ extern void __bad_pte(pmd_t *pmd);
+> >
+> >  extern pte_t *pte_alloc_one_kernel(struct mm_struct *mm);
+> >
+> > -#define __pte_free_tlb(tlb, pte, addr) pte_free((tlb)->mm, (pte))
+> > +#define __pte_free_tlb(tlb, pte, addr) tlb_remove_ptdesc((tlb), page_ptdesc(pte))
+> >
+> >  #define pmd_populate(mm, pmd, pte) \
+> >                         (pmd_val(*(pmd)) = (unsigned long)page_address(pte))
+> > diff --git a/arch/xtensa/Kconfig b/arch/xtensa/Kconfig
+> > index f2f9cd9cde50..33c4caee30e2 100644
+> > --- a/arch/xtensa/Kconfig
+> > +++ b/arch/xtensa/Kconfig
+> > @@ -55,6 +55,7 @@ config XTENSA
+> >         select HAVE_VIRT_CPU_ACCOUNTING_GEN
+> >         select IRQ_DOMAIN
+> >         select LOCK_MM_AND_FIND_VMA
+> > +       select MMU_GATHER_RCU_TABLE_FREE if MMU
 >
-> Both functions mutate global static variables (beta, bic_scale,
-beta_scale,
-> cube_rtt_scale, cube_factor) that are marked __read_mostly.
-> Calling this in roccettcp_init() on every socket creation causes
-unsynchronized
-> concurrent writes across CPUs. Furthermore, param_check() calls pr_err(=
-) /
-> pr_info(), which will spam the kernel log on every connection creation
-if an
-> invalid parameter was configured.
+> And MMU is required because NOMMU does not perform mmu_gather
+> operations, same as in the previous patch? If so, maybe make a note of
+> it in the changelog?
+
+Right yup. Will update!
+
 >
-> Global scale factors should only be precomputed at module init time
-> (roccettcp_register), or validated using kernel_param_ops.
-I agree with you. We will fix that.
+> >         select MODULES_USE_ELF_RELA
+> >         select PERF_USE_VMALLOC
+> >         select TRACE_IRQFLAGS_SUPPORT
+> > diff --git a/arch/xtensa/include/asm/tlb.h b/arch/xtensa/include/asm/tlb.h
+> > index 8c3ceb427018..6fb7b78154f6 100644
+> > --- a/arch/xtensa/include/asm/tlb.h
+> > +++ b/arch/xtensa/include/asm/tlb.h
+> > @@ -16,7 +16,7 @@
+> >
+> >  #include <asm-generic/tlb.h>
+> >
+> > -#define __pte_free_tlb(tlb, pte, address)      pte_free((tlb)->mm, pte)
+> > +#define __pte_free_tlb(tlb, pte, address)      tlb_remove_ptdesc((tlb), page_ptdesc(pte))
+> >
+> >  void check_tlb_sanity(void);
+> >
+> >
+> > --
+> > 2.55.0
+> >
 
-> 2. Bypassing PRR and broken loss recovery via .cong_control
-> ----------------------------------------------------------
-> By defining .cong_control =3D roccet_control, TCP core completely deleg=
-ates
-> congestion control and skips PRR (tcp_cwnd_reduction()).
->
-> However, in roccet_control():
->     if (!ca->is_in_recovery)
->         roccettcp_cong_avoid(sk, ack, rs->acked_sacked);
->
-> During recovery (TCP_CA_Recovery), ROCCET does nothing to regulate cwnd=
- or
-> clock out retransmissions according to RFC 6937. Unless you have a full=
-
-> custom recovery engine (like BBR), you should stick to .cong_avoid so t=
-he
-> stack handles PRR and loss recovery properly.
-If we are in recovery we still do packet pacing to 100 percent of the
-cwnd instead of 120.
-
-> 3. Broken .ssthresh callback and ignored ECN (TCP_CA_CWR)
-> ---------------------------------------------------------
-> roccettcp_ssthresh() simply returns tp->snd_ssthresh without
-recalculation:
->     static u32 roccettcp_ssthresh(struct sock *sk)
->     {
->         return tcp_sk(sk)->snd_ssthresh;
->     }
->
-> The recalculation was moved to roccettcp_state(..., TCP_CA_Recovery).
-> This breaks the TCP stack contract:
-> a) tcp_init_cwnd_reduction() initializes PRR state using the return
-value of
->    icsk_ca_ops->ssthresh(sk). Returning the unreduced ssthresh
-corrupts PRR.
-> b) When ECN CE marks arrive, tcp_enter_cwr() transitions to TCP_CA_CWR
-and calls
->    icsk_ca_ops->ssthresh(sk). Since roccettcp_state() only checks for
-Loss and
->    Recovery, TCP_CA_CWR is completely ignored. Consequently, neither
-ssthresh
->    nor cwnd is ever reduced on ECN.
-We are not using the PRR from the TCP stack, because we are implementing
-cong_control.
-I agree that ECNs are ignored here. We will fix that.
-
-> 4. Congestion avoidance starvation in ORBITER
-> ---------------------------------------------
-> In roccettcp_cong_avoid():
->     send =3D tp->snd_nxt - ca->interval_snd_seq_start;
->     received =3D tp->snd_una - ca->interval_una_seq_start;
->     send_more_than_acked =3D
->         send > received + ((tcp_snd_cwnd(tp) * tp->mss_cache) / 100);
->     ...
->     if (!tcp_is_cwnd_limited(sk) || send_more_than_acked)
->         return;
->
-> During steady-state transmission, the in-flight byte count (send -
-received)
-> is approximately cwnd * mss. This is ~100x larger than the 1% guard spa=
-ce
-> ((cwnd * mss) / 100). Thus, send_more_than_acked evaluates to true on
-almost
-> every ACK, returning before bictcp_update() or tcp_cong_avoid_ai() can
-run.
-> Window growth in congestion avoidance is completely starved.
-That is not true. Here we are monitoring the bytes sent and received
-over a time interval of 5 RTT
-
-> 5. curr_min_rtt poisoning and premature slow-start exit
-> -------------------------------------------------------
-> In roccettcp_reset(), ca->curr_rtt is 0 and ca->curr_min_rtt is ~0U.
-> In update_min_rtt():
->     if (ca->curr_rtt < ca->curr_min_rtt) {
->         ca->curr_min_rtt =3D max(ca->curr_rtt, 1);
->         ...
->
-> If an ACK arrives before an RTT sample is collected (e.g.
-sample->rtt_us <=3D 0),
-> ca->curr_rtt is 0. ca->curr_min_rtt is set to max(0, 1) =3D 1 us.
-> Because 1 us is smaller than any real path RTT, ca->curr_min_rtt
-remains stuck
-> at 1 us.
-> Then in update_srrtt():
->     u32 rrtt =3D div_u64(100 * (u64)(ca->curr_rtt - ca->curr_min_rtt),
->                        ca->curr_min_rtt);
-> For a 20 ms RTT (20000 us), rrtt evaluates to 1,999,900. curr_srrtt
-immediately
-> exceeds sr_rtt_upper_bound and terminates slow start on the very first
-sample.
-That could be a problem, and we will implement a fix for it.
-
-> 6. Perpetual min-RTT probe loop
-> -------------------------------
-> In roccet_min_rtt_probe(), when the probe finishes:
->     ca->probe_min_rtt_until =3D 0;
->     ca->state =3D ORBITER;
->
-> ca->next_min_rtt_probe is not updated when exiting the probe. If no
-new lower
-> RTT was found during the probe, next_min_rtt_probe remains in the past.=
-
-> On the next ACK, after(now, ca->next_min_rtt_probe) immediately
-evaluates to
-> true, trapping the flow in a continuous probe loop and repeatedly
-halving cwnd
-> down to TCP_INIT_CWND.
-That is not true. Every time a new minimum RTT is found, we calculate
-ca->next_min_rtt_probe, and before we enter probing, the current minimum
-RTT is set to u32 max.
-This means the next RTT is the new minimum RTT.
-
-> 7. 71-minute timestamp wrap and permanent DRAIN state
-> -----------------------------------------------------
-> now is calculated via jiffies_to_usecs(tcp_jiffies32), which wraps ever=
-y
-> ~71.5 minutes (2^32 us).
->
-> In roccet_control():
->     else if ((s32)now - ca->roccet_last_event_time_us <=3D 100 *
-USEC_PER_MSEC)
->         ca->state =3D DRAIN;
->
-> ca->roccet_last_event_time_us is initialized to 0. When bit 31 of now
-is set
-> (for 35.7 minutes out of every 71.5 minutes), (s32)now is negative, so
-> (s32)now - 0 is negative and always <=3D 100000. Newly created
-connections during
-> that 35-minute window will immediately enter and remain permanently
-stuck in
-> DRAIN state.
->
-> Also, before() and after() from <net/tcp.h> are sequence number compari=
-son
-> macros (32-bit TCP seqno), not time comparison macros.
-This is a problem, and we will fix it.
-In the past, we got a hint that we should use the before and after
-macros here.
-
-> 8. Re-implementing tcp_update_pacing_rate()
-> -------------------------------------------
-> roccet_control() duplicates the pacing rate calculation from
-tcp_input.c and
-> hardcodes 100% pacing instead of honoring sysctl_tcp_pacing_ca_ratio.
-If you
-> switch to .cong_avoid, the core stack will manage pacing updates
-automatically.
-We do this as an alternative to PRR with stricter pacing.
-
-> 9. Coding style & formatting
-> ----------------------------
-> - Declarations after statements (ISO C90 violations) in roccettcp_init(=
-),
->   update_srrtt(), roccettcp_acked(), and roccettcp_register().
-> - C++ style comments (//) instead of /* ... */ in multiple places.
-> - Commented-out dead code: //WRITE_ONCE(sk->sk_pacing_rate, 0);
-> - Typos in comments ("sRrTT", "probeing", "has was idle", "defer", etc.=
-)
->   and references to non-existent struct fields ("curr_min_rtt_timed.rtt=
-").
-Of course, we will correct that.
-
---------------ms030801050306050308000503
-Content-Type: application/pkcs7-signature; name="smime.p7s"
-Content-Transfer-Encoding: base64
-Content-Disposition: attachment; filename="smime.p7s"
-Content-Description: S/MIME Cryptographic Signature
-
-MIAGCSqGSIb3DQEHAqCAMIACAQExDzANBglghkgBZQMEAgMFADCABgkqhkiG9w0BBwEAAKCC
-DTswggZEMIIELKADAgECAhAV+a5sqo0u1NNveH8e3HsBMA0GCSqGSIb3DQEBCwUAMG8xCzAJ
-BgNVBAYTAkdSMTcwNQYDVQQKDC5IZWxsZW5pYyBBY2FkZW1pYyBhbmQgUmVzZWFyY2ggSW5z
-dGl0dXRpb25zIENBMScwJQYDVQQDDB5IQVJJQ0EgQ2xpZW50IFJTQSBSb290IENBIDIwMjEw
-HhcNMjUwMTAzMTExMzA4WhcNMzkxMjMxMTExMzA3WjBjMQswCQYDVQQGEwJHUjE3MDUGA1UE
-CgwuSGVsbGVuaWMgQWNhZGVtaWMgYW5kIFJlc2VhcmNoIEluc3RpdHV0aW9ucyBDQTEbMBkG
-A1UEAwwSR0VBTlQgUy9NSU1FIFJTQSAxMIIBojANBgkqhkiG9w0BAQEFAAOCAY8AMIIBigKC
-AYEAq7hur/5vIqMejblfPfZgGY75auSZz5SZ9x1dIIjvJrDBT0lIwQcAAoABJomkuv0kDK36
-2UH+uf9JrOdLBjiKkEh99HQPmT+d1+Ijnnd1aAjiL+2Q4aU16P/snITYJL2ROU46zqmDkdoO
-nCqMCEKSN74gHKDmApYfqXO8wmjmNA62wYHarp7lxgrBr0sk4BxHyKq52z0sWyxsdIy5V1K5
-OOkCNwYupZ9b74LRhelYP5SieNDqU0S6IpQOasVz5IS0vDnqVi2ni67Gbgtb8dBKzH6gbAwG
-ppHoeEFDcvJ042Oxtxt6BGolkUmguyfAgeisRqDjhQi+NfNgkDH81OLBV0eV07twS9axwNvJ
-AtH2SgGiWKrYeuBgVCzs1DFT7sws1KHyLrOdZU0hJQSDfoz/8jwFmXhWoPvQQuWEoo3uvH6L
-sHAo53aDF1aAUmGQ/JC72j7zZH16leJFuWj+t2TK/7YEVHtWluA9TOdx2Lz/SHh0/+pAVicD
-4N/QUWPuBhzPAgMBAAGjggFmMIIBYjASBgNVHRMBAf8ECDAGAQH/AgEAMB8GA1UdIwQYMBaA
-FKDWBz1eJPd7oEQuJFINGaorBJGnMFAGCCsGAQUFBwEBBEQwQjBABggrBgEFBQcwAoY0aHR0
-cDovL2NydC5oYXJpY2EuZ3IvSEFSSUNBLUNsaWVudC1Sb290LTIwMjEtUlNBLmNlcjBEBgNV
-HSAEPTA7MDkGBFUdIAAwMTAvBggrBgEFBQcCARYjaHR0cDovL3JlcG8uaGFyaWNhLmdyL2Rv
-Y3VtZW50cy9DUFMwHQYDVR0lBBYwFAYIKwYBBQUHAwIGCCsGAQUFBwMEMEUGA1UdHwQ+MDww
-OqA4oDaGNGh0dHA6Ly9jcmwuaGFyaWNhLmdyL0hBUklDQS1DbGllbnQtUm9vdC0yMDIxLVJT
-QS5jcmwwHQYDVR0OBBYEFOuyLzv9rgLMKkQGXSXNHRIiaLBHMA4GA1UdDwEB/wQEAwIBhjAN
-BgkqhkiG9w0BAQsFAAOCAgEAO964RfbcPCuTKAq2wXsOZxMaaLxITbSOYkt7RMxPw3CzU2qm
-kTQALKbVqC1jUiNQWbkxZpsb8hy9FOHywH1xFmANAypks0Iuh+ovhqP90oFcfhvAfYxV2M0c
-Gga9mTKFHP+QET7HW9pZdyWFZAw5fmdW9Ex+IQmJii0w/sozzwhpVn0OQYkkRV+2ydRa68JZ
-S2NqAPpdaWoseM2X4u5+Jn+H2UO9paobX+ht91K2Ch8xzfREv4RLqBgpHBmkIDVygXNdXsKf
-DHy2hOXxtF6oI1d7ErPGWoBxFc86aUqQlC6pEjb3ug24w+eg1kJj7IufHJ3iRm67Rdw5M1Ol
-WMzxu+DwAKqFJhqes0OL/NOJOTuDCb0bIfVfjl8U0Y0QWCkhoCmNPZQQu6QM6Y/XxnALgRB4
-drA8kip98wSZQmbqptE8oac2ZzLKCHiJlTdBuREsundnpBXdahMSrJ/mYv2pMZLpYkbrkvyh
-orDVeH9t0a5UgPIFqGl8/ZzakJ3RQfr7HvdGur0YWU6KNWvY5BK8qHMRM0b3XtK9xREIGEyc
-hAVReodDIhjrR4fWmjpa006r/UrmSk4bpKrVFVzTYsSK3jy4ri1ExVQp6RI6Ou4ZdbfwOYCu
-I9wweMjpVBuqNzRKrVU/Pvp57gUzm4u+JJRkdioMOoxZrwsUiYr2KIojwTcwggbvMIIFV6AD
-AgECAhBPXyBI3o2lCNUEcHAwcrzzMA0GCSqGSIb3DQEBCwUAMGMxCzAJBgNVBAYTAkdSMTcw
-NQYDVQQKDC5IZWxsZW5pYyBBY2FkZW1pYyBhbmQgUmVzZWFyY2ggSW5zdGl0dXRpb25zIENB
-MRswGQYDVQQDDBJHRUFOVCBTL01JTUUgUlNBIDEwHhcNMjUwNzAxMTEyODQ0WhcNMjcwNzAx
-MTEyODQ0WjCB7TELMAkGA1UEBhMCREUxFjAUBgNVBAgMDU5pZWRlcnNhY2hzZW4xODA2BgNV
-BAoML0dvdHRmcmllZCBXaWxoZWxtIExlaWJuaXogVW5pdmVyc2l0YWV0IEhhbm5vdmVyMREw
-DwYDVQRhDAhHT1ZERStOSTEPMA0GA1UEBAwGUHJhdXNlMRcwFQYDVQQqDA5MdWthcyBKb2hh
-bm5lczEeMBwGA1UEAwwVTHVrYXMgSm9oYW5uZXMgUHJhdXNlMS8wLQYJKoZIhvcNAQkBFiBs
-dWthcy5wcmF1c2VAaWt0LnVuaS1oYW5ub3Zlci5kZTCCAiIwDQYJKoZIhvcNAQEBBQADggIP
-ADCCAgoCggIBAMCey8Cfa8UVWdHPBu0eKmLN1vBp98X8mwtdWPoWASp77Ce8g8ta0f6y3XAY
-6W8+gSrb0etZO/P5vxjus9CSVr9QQQr+AHLx9I2iuurzNoZ4Tq1NYLpfPbsI2xlXnTP7YJcx
-kOo2x743dIAP3rkY5LJsccmU+Nw/Cdfmk0Nl1rFYvguj7rjkxVoB0wVnVCgiFeqMWhPVfN1m
-iEElmkqZcf30z+lkq6yN7WKVPhw9Me8BBkr6uGJqa1QuQRS8sJswjFkXtIrHHdAuHwhHLm4U
-cPYWQlWwY+sAa2CkT9cvMAxa24jHabaJjCTfAQ/cB/9qrBEbw82XWB6CX51gxoKe36AjHiL5
-Xdz3eaFvZF/zmUR8OC58M2KObBrZwmBgmbAal0BpfU6EmB0+FaVO54iqb4gKOb9mHGa8Q4o5
-qDJwumTaY+1ALd1sUu/XkGbLE6P9PcLXxA4DjjpUD93LALpG70e20POlYVGIo1/P8zA5GDlG
-XLQhvdxZMOMS/c9AxtBxNy4QGlJETzHwQkLs9XK5PxyWUXvCYdnHXhHsFnaQi0OB45+3ve88
-jI6ayFVUxvirAdwEJLmo0tqzkFL+G4dKmujaoeCnP/mV+Yam9PS1wC/E9tMMrgP+f6htKCzJ
-a+R/jl7nuo9gB7b2vdgZa8luFPL9GifWK3QvEwycpZ5DPKZfAgMBAAGjggGSMIIBjjAfBgNV
-HSMEGDAWgBTrsi87/a4CzCpEBl0lzR0SImiwRzBKBggrBgEFBQcBAQQ+MDwwOgYIKwYBBQUH
-MAKGLmh0dHA6Ly9jcnQuaGFyaWNhLmdyL0hBUklDQS1HRUFOVC1TTUlNRS1SMS5jZXIwKwYD
-VR0RBCQwIoEgbHVrYXMucHJhdXNlQGlrdC51bmktaGFubm92ZXIuZGUwYwYDVR0gBFwwWjAJ
-BgdngQwBBQMCMAgGBgQAj3oBAzBDBg0rBgEEAYHPEQEBAgQCMDIwMAYIKwYBBQUHAgEWJGh0
-dHBzOi8vcmVwby5oYXJpY2EuZ3IvZG9jdW1lbnRzL0NQUzAdBgNVHSUEFjAUBggrBgEFBQcD
-AgYIKwYBBQUHAwQwPwYDVR0fBDgwNjA0oDKgMIYuaHR0cDovL2NybC5oYXJpY2EuZ3IvSEFS
-SUNBLUdFQU5ULVNNSU1FLVIxLmNybDAdBgNVHQ4EFgQUa+4u0KVjTBoRRNYzCyDqQHvvkGkw
-DgYDVR0PAQH/BAQDAgWgMA0GCSqGSIb3DQEBCwUAA4IBgQCNMzZAFmerRlElJ/YZ1KmKt3FB
-QH37XjUYYDlmx8a+zw+THQI8uxBUBVFulpxD6eCZ9VT4hEznAV8CeAyg+FZ3m8gHUoMF7Ge9
-tAej/iH1nHLXRt8SEnwwfpICAVPoZT32hf9gmu1sxlaxKPb+dO7e8eoQoFRTlWOIoYtf5+dN
-1PXsLEcyQEx9RnJZeDjyZmN5HtcAxMzCzAm7otP+YLXCVi8OiQM2ytcCaBKKrtc1tYlrJpl+
-8ot2YfbvAAF0TPc0Mj4xOZ1a4CtqAIOWmuKynK5jO4tbMEbN5S/+oFihm5as0MeeMVECLcT6
-wHinSGM2ALMC2Vxw3nzL/7v1H+GxVlGM91bLRCCFxYPKr/lnVu6GqLHNZpWUVjXTw4pfANY4
-HPBK7tDWqfrNVPKJlk0YFUK0M6i/5AFwgcHK1bv/4hwMi9VdXIXsB/OPeHa9D5t+/WkBqk3F
-ZM/GjOWPhKUjVHdgByoq5M6qbxBNQLQWZg+jUa2KPshqEfwudiTA/IgxggXFMIIFwQIBATB3
-MGMxCzAJBgNVBAYTAkdSMTcwNQYDVQQKDC5IZWxsZW5pYyBBY2FkZW1pYyBhbmQgUmVzZWFy
-Y2ggSW5zdGl0dXRpb25zIENBMRswGQYDVQQDDBJHRUFOVCBTL01JTUUgUlNBIDECEE9fIEje
-jaUI1QRwcDByvPMwDQYJYIZIAWUDBAIDBQCgggMfMBgGCSqGSIb3DQEJAzELBgkqhkiG9w0B
-BwEwHAYJKoZIhvcNAQkFMQ8XDTI2MDkwODExMjIyMVowTwYJKoZIhvcNAQkEMUIEQO4Mh4TC
-6Mb8NqXpDh2CAIqP9naj2o5hsaRNC0mxuB8y6Q7qHqQMVfBvj4B42KzveyC/1dP4hw3BxM6Y
-Wm419p8wgYYGCSsGAQQBgjcQBDF5MHcwYzELMAkGA1UEBhMCR1IxNzA1BgNVBAoMLkhlbGxl
-bmljIEFjYWRlbWljIGFuZCBSZXNlYXJjaCBJbnN0aXR1dGlvbnMgQ0ExGzAZBgNVBAMMEkdF
-QU5UIFMvTUlNRSBSU0EgMQIQT18gSN6NpQjVBHBwMHK88zCBiAYLKoZIhvcNAQkQAgsxeaB3
-MGMxCzAJBgNVBAYTAkdSMTcwNQYDVQQKDC5IZWxsZW5pYyBBY2FkZW1pYyBhbmQgUmVzZWFy
-Y2ggSW5zdGl0dXRpb25zIENBMRswGQYDVQQDDBJHRUFOVCBTL01JTUUgUlNBIDECEE9fIEje
-jaUI1QRwcDByvPMwggF+BgkqhkiG9w0BCQ8xggFvMIIBazALBglghkgBZQMEAS4wCwYJYIZI
-AWUDBAEaMAsGCWCGSAFlAwQBBjALBglghkgBZQMEASowCwYJYIZIAWUDBAECMAoGCCqGSIb3
-DQMHMA0GCCqGSIb3DQMCAgEFMA0GCCqGSIb3DQMCAgEFMAcGBSsOAwIHMA0GCCqGSIb3DQMC
-AgEFMAcGBSsOAwIaMAsGCWCGSAFlAwQCATALBglghkgBZQMEAgIwCwYJYIZIAWUDBAIDMAsG
-CWCGSAFlAwQCBDALBglghkgBZQMEAgcwCwYJYIZIAWUDBAIIMAsGCWCGSAFlAwQCCTALBglg
-hkgBZQMEAgowCwYJKoZIhvcNAQEBMAsGCSuBBRCGSD8AAjAIBgYrgQQBCwAwCAYGK4EEAQsB
-MAgGBiuBBAELAjAIBgYrgQQBCwMwCwYJK4EFEIZIPwADMAgGBiuBBAEOADAIBgYrgQQBDgEw
-CAYGK4EEAQ4CMAgGBiuBBAEOAzANBgkqhkiG9w0BAQEFAASCAgByYUrqHhiUbhJX67E7yxRl
-Gfs1SSIFZGaoN+s59ESFx3t2K2qHreNSnvmy5gwxZKEMaSeYEA3aLzG2B+liqIzb2cx4Gm2X
-qGhx3aBPa3tmYqyKhsQCiwyQKaGqH4fbaYP3hhIPz0Osq4e066Wj5m+QIOeDmVTdA15O6/qb
-2o3XW3onepGyquI+9z3Fve/zAVrZPdOpuR4mWYuFiBgnsCbLLHKmt9R8E1P6G0gvFrgfV2aH
-HcJ/hvNd3LjzOYbfBgCJIbPHZ69v7wHjfdE8XQA+f6HZipBgpHf7B1BbMhy6o3UhLSyAc6UO
-uQUvRZoEl1S4DxnbivaxjSNelagM1pjTPOHKimmK7lvnvnlhIHwokoJY6XSToB+aRouAsHGT
-DtoMDYmW/YzVZUVNCdgqGSuf5f+1oIjhz3N5M3LmEePON7yxZM+izI8twW4d5fGwVhvbxTZm
-EihpY0DgsJM3vX577oXFoABgCmXDSKGb65jjflnsotm7z5B+3RgOVVPHRdRBMXF/xWNJ6Bdp
-lfGOTZymOq8flkgmAEi2gPAprpMxhNxFqvKC+Sx63mBGkCh4QmbE+DuQlCP/Nflvj4uuTuu4
-1ILgIqbe6m+a4/GCsEGKGL0+9OwPXhRe7WdD7oEDOp4ZOjyBC3ayn5T01AOE6vSiZQsIkpYw
-K2B1L8K1bGqhLwAAAAAAAA==
---------------ms030801050306050308000503--
+--
+Cheers, Lorenzo
