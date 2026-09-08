@@ -1,40 +1,32 @@
-Received: from canpmsgout02.his.huawei.com (canpmsgout02.his.huawei.com [113.46.200.217])
+Received: from out30-110.freemail.mail.aliyun.com (out30-110.freemail.mail.aliyun.com [115.124.30.110])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 262FC3A5E71
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 07:53:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.217
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2B1639658D
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 07:53:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.110
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788854014; cv=none; b=H0r5dZJB1jX8MzgBjDYcbF73MVQhO4QwR1HZpXAmv3CaBhABWDcxnrROVLFgqA6wjJObTv34DvemBzZkIXJ2M4ojNrMvgYkD5PVX8rMghYYCgVvxQdhQpZVZAqVuXDbzZ60k2eTncOEs0eaPRbzm6VdU826Efqn0YwhaC8e1dmA=
+	t=1788854018; cv=none; b=X3HK1AT6ldBdEQfXmKQsDx+cy2XGF3+FCKArKOZPzXsmT1PoXPJHvRUs22Qf09DbLajwQ6tk5eDFqvLKsvWTEgeqDG72+wZ+5eckNYJ+FxA6cR+kfT3NYOVc5KTeW1lZZ1O6uNTjIo7kRMsFfiklJMpDF38jxIvpetZLwv/THOc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788854014; c=relaxed/simple;
-	bh=hcpVV2fsjFJ9iVxy/n/1+HmsN3SKPeS9RFLwHncS4MQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=VrwoOLzWXEPj+DGs0w7ELBqQ4twts+fZtbe2X9AVebN3np7oXQB2vvkBl1LuoWMOCQDbcsuWMoS0M4ax/Kl71mlSvkecjuIRPR7+2j7SWP5i7Krm7z7Eh+6jXufp8FoGvrDBCBD6cGm74sPhmg3VRuZnhQh3J0UEwcBlHl5e1Jw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=rdphmNXi; arc=none smtp.client-ip=113.46.200.217
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	s=arc-20240116; t=1788854018; c=relaxed/simple;
+	bh=PkPwGX13b8caTho2L/mj/eyuJv/Wn7rCHF4/MaU9rkE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=DxKh8NRPvINFJ2bc76xj6b/4cRlwwxkOvIVXKh3ZXwSre6GfCl7W5od7cPoW7x2J9/xRzc1XZxjk1WczoCa2BGDB0Swkviqwnu2sUgDrnUiUoED2V7ADXj5jpQJ4ByD/0eSULA4khcF/kx09e3VNLMDOnq2QVIrtEkD5EcAm990=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=trM5oV9j; arc=none smtp.client-ip=115.124.30.110
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="rdphmNXi"
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=LLp5MpbKRZcQy5kIiW+rVCn3SKCXVFaiVdq9xrOItaA=;
-	b=rdphmNXi90D+3lsmnxg58VtVlzJJcX0L0ASUSawkWkwzeDG5yQnArgfm7LgVpGovSzwOMEi3D
-	k90h4SKzB3LyZjpuhuwyoguBh2Ym6Ur8jNJHSQqSw77k9wBogpsPrLf5bnjB6Lcw1r5oWri5qPl
-	E9tkMKFZiIZT74wxSNj8bgU=
-Received: from mail.maildlp.com (unknown [172.19.162.223])
-	by canpmsgout02.his.huawei.com (SkyGuard) with ESMTPS id 4hfG9n6Bm0zcb3H;
-	Tue,  8 Sep 2026 15:42:21 +0800 (CST)
-Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
-	by mail.maildlp.com (Postfix) with ESMTPS id 65D4640561;
-	Tue,  8 Sep 2026 15:53:18 +0800 (CST)
-Received: from [10.67.109.254] (10.67.109.254) by
- kwepemk200008.china.huawei.com (7.202.194.74) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Tue, 8 Sep 2026 15:53:17 +0800
-Message-ID: <01fefdd7-f007-4ac8-93f0-5267dddae451@huawei.com>
-Date: Tue, 8 Sep 2026 15:53:16 +0800
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="trM5oV9j"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1788854013; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
+	bh=/m0UGCD1rNVi71mlkVc+SVKZMBJRDxUcU5AjaBUwxy8=;
+	b=trM5oV9jwWhBV8bFjMKGmIq/SQqkBpujf2rF0UEfcy5mggYn4ryIDP0QrOT9Nc0t81AbAeqArjE5M5Ohx1IQLpV+zfolfsqF2Qyof2T864AmdOGh71MYUwcsUF9f9dtJ7yB3uHv2uZ7AMMM/qzrmR4ehJ9WBtZztW/bOdkEuF38=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R851e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033032089153;MF=baolin.wang@linux.alibaba.com;NM=1;PH=DS;RN=17;SR=0;TI=SMTPD_---0XAamhBZ_1788854011;
+Received: from 30.74.144.127(mailfrom:baolin.wang@linux.alibaba.com fp:SMTPD_---0XAamhBZ_1788854011 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Tue, 08 Sep 2026 15:53:32 +0800
+Message-ID: <ccb8e121-bf5b-4bb4-a9de-fb5290998ddd@linux.alibaba.com>
+Date: Tue, 8 Sep 2026 15:53:31 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -42,182 +34,159 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 06/19] arm64: smp: Tidy up cpuinfo init and cpufeature
- updates
-To: Will Deacon <will@kernel.org>, <linux-arm-kernel@lists.infradead.org>
-CC: <linux-kernel@vger.kernel.org>, Thomas Gleixner <tglx@kernel.org>, Catalin
- Marinas <catalin.marinas@arm.com>, Borislav Petkov <bp@alien8.de>, Lorenzo
- Pieralisi <lpieralisi@kernel.org>, Mark Rutland <mark.rutland@arm.com>, David
- Woodhouse <dwmw@amazon.co.uk>, Peter Zijlstra <peterz@infradead.org>, Marc
- Zyngier <maz@kernel.org>
-References: <20260907164024.17164-1-will@kernel.org>
- <20260907164024.17164-7-will@kernel.org>
-From: Jinjie Ruan <ruanjinjie@huawei.com>
-In-Reply-To: <20260907164024.17164-7-will@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [PATCH] mm: mglru: clear the reference counter for rejected
+ folios
+To: Baoquan He <baoquan.he@linux.dev>
+Cc: Barry Song <baohua@kernel.org>, akpm@linux-foundation.org,
+ kasong@tencent.com, qi.zheng@linux.dev, shakeel.butt@linux.dev,
+ axelrasmussen@google.com, yuanchu@google.com, weixugc@google.com,
+ hannes@cmpxchg.org, david@kernel.org, mhocko@kernel.org, ljs@kernel.org,
+ ridong.chen@linux.dev, hebaoquan@kylinos.cn, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org
+References: <8e4db9a298c5ea6ccb192e274caed5b96f0cf022.1788751143.git.baolin.wang@linux.alibaba.com>
+ <ap9zPPughaSlfXM2@fedora>
+ <CAGsJ_4wn5ArqhG9w7gJY7X4G+Lg6=1teCb70dzPdN0k+5H8MbQ@mail.gmail.com>
+ <67d9bbcf-2991-4867-8afb-14bad1cebf8d@linux.alibaba.com>
+ <31494361-406e-4874-8a2c-2c6f5cee5321@linux.alibaba.com>
+ <ap-yQOH0pni-mfdf@fedora>
+From: Baolin Wang <baolin.wang@linux.alibaba.com>
+In-Reply-To: <ap-yQOH0pni-mfdf@fedora>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: kwepems200002.china.huawei.com (7.221.188.68) To
- kwepemk200008.china.huawei.com (7.202.194.74)
 
 
 
-在 2026/9/8 0:40, Will Deacon 写道:
-> Populating the 'cpuinfo_arm64' structure during CPU bringup and
-> subsequently checking/updating cpufeature structures is slightly
-> convoluted and differs unnecessarily between the boot CPU and secondary
-> CPUs.
+On 9/8/26 2:59 PM, Baoquan He wrote:
+> On 09/08/26 at 12:01pm, Baolin Wang wrote:
+>>
+>>
+>> On 9/8/26 11:03 AM, Baolin Wang wrote:
+>>>
+>>>
+>>> On 9/8/26 10:34 AM, Barry Song wrote:
+>>>> On Tue, Sep 8, 2026 at 10:30 AM Baoquan He <baoquan.he@linux.dev> wrote:
+>>>>>
+>>>>> Hi Baolin,
+>>>>>
+>>>>> On 09/07/26 at 11:25am, Baolin Wang wrote:
+>>>>> ......snip...
+>>>>>> diff --git a/mm/vmscan.c b/mm/vmscan.c
+>>>>>> index 40d3f1b48a74..42c0a09938ab 100644
+>>>>>> --- a/mm/vmscan.c
+>>>>>> +++ b/mm/vmscan.c
+>>>>>
+>>>>> Well, this seems to be based on Andrew's mm-new branch. I usually track
+>>>>> mm-unstable branch. Maybe the subject should be marked as below?
+>>>>> [PATCH mm-new] mm: mglru: clear the reference counter for rejected
+>>>
+>>> ACK.
+>>>
+>>>>>
+>>>>>> @@ -5021,10 +5021,11 @@ static int evict_folios(unsigned
+>>>>>> long nr_to_scan, struct lruvec *lruvec,
+>>>>>>                 }
+>>>>>>
+>>>>>>                 /* don't add rejected folios to the oldest generation */
+>>>>>> -             if (lru_gen_folio_seq(lruvec, folio, false) ==
+>>>>>> min_seq[type]) {
+>>>>>> -                     folio_set_lru_refs(folio, 0);
+>>>>>> +             if (lru_gen_folio_seq(lruvec, folio, false) ==
+>>>>>> min_seq[type])
+>>>>>>                         folio_set_active(folio);
+>>>>>> -             }
+>>>>>> +
+>>>>>> +             /* See the comments on LRU_REFS_FLAGS */
+>>>>>> +             folio_set_lru_refs(folio, 0);
+>>>>>
+>>>>> This looks like a great catch, while the code change could bring issue.
+>>>>>
+>>>>> Because move_folios_to_lru() relies on folios' flags to decide their new
+>>>>> generation. You just cleared it before move_folios_to_lru(). This is no
+>>>>> problem for rejected folios that are determined to be put into the
+>>>>> oldest generation. But for those rejected folios that are determined to
+>>>>> be promoted, this could be wrong. E.g currently gen window is 4, and a
+>>>>> folio is referenced, lru_gen_folio_seq() decides its new gen as 1, which
+>>>>> is the 2nd oldest generation. While folio_set_lru_refs(folio, 0) clear
+>>>>> referenced bit, this causes it being put into the oldest generation in
+>>>>> move_folios_to_lru(), this is not expected.
+>>>
+>>> Yes. As I discussed with Barry earlier, lru_gen_folio_seq() also needs
+>>> to be reconsidered regarding whether it should rely on PG_referenced
+>>> [1].
+>>>
+>>> For commit 6cbdd9726fb5, we didn't discuss the impact on rejected folios
+>>> either. Before commit 6cbdd9726fb5, if rejected folios did not have
+>>> PG_active set by shrink_folio_list(), evict_folios() would set PG_active
+>>> on these rejected folios.
+>>>
+>>> [1] https://lore.kernel.org/linux-mm/20260901220430.79810-1-
+>>> baohua@kernel.org/
+>>>
+>>>> The original code looks quite weird. It even prioritizes folios
+>>>> that won't be promoted by `PG_active`. Do we need to change all
+>>>> the cases just to call `PG_active`?
 > 
-> Rework the code so that cpuinfo_store_cpu() is used to populate the
-> 'cpuinfo_arm64' structure for each CPU, with secondary CPUs then calling
-> update_cpu_features() to update the global view of the available
-> features. This allows us to internalise the 'boot_cpu_data' in
-> cpufeature.c and paves the way for parallelising the ID register probing
-> during bring-up of secondary CPUs.
+> I would agree if we can. While I have one concern. A rejected folio that
+> should have gone into the oldest generation is now being promoted to the
+> 2nd newest generation. In the original code, referenced folio is only
+> being promoted to the next gen. I even think this is not a bug, but Yu
+
+That's not quite true. Before commit 6cbdd9726fb5, a rejected referenced 
+folio was also put back to the 2nd youngest gen.
+
+> Zhao intentionally did it: the coldest folio is moved to 2nd newest gen,
+> referenced folio (hot folio) is moved to new gen but carries the referenced
+> bit. Both of them seems to be treated somewhat equally.
 > 
-> Signed-off-by: Will Deacon <will@kernel.org>
-> ---
->  arch/arm64/include/asm/cpu.h   |  7 +++----
->  arch/arm64/kernel/cpufeature.c | 21 +++++++++++++++++----
->  arch/arm64/kernel/cpuinfo.c    | 11 -----------
->  arch/arm64/kernel/smp.c        |  3 ++-
->  4 files changed, 22 insertions(+), 20 deletions(-)
+> To me, I would rather move both of them to the next gen, while keep their
+> refs untouched.
+
+IMHO, I strongly recommend not doing this, and that's exactly the 
+motivation behind my patch. Because this is also being treated as a 
+promotion, it should behave like folio_inc_gen() or folio_update_gen() 
+and clear the refs after promotion. I think this is a fundamental 
+principle of promotion. Otherwise, ref-based promotion is already 
+completely broken.
+
+Next, I also plan to clean up refs in lru_gen_set_refs() as discussed 
+with Barry.
+
+>>> Yes. Regarding this concern, I plan to change back to the original
+>>> behavior:
+>>>
+>>>       /* See the comments on LRU_REFS_FLAGS */
+>>>       folio_set_lru_refs(folio, 0);
+>>>
+>>>       /* don't add rejected folios to the oldest generation */
+>>>       if (lru_gen_folio_seq(lruvec, folio, false) == min_seq[type])
+>>>           folio_set_active(folio);
+>>>
+>>> What do you think?
+>>
+>> Just FYI, after above changes, the performance improvement on zram is no
+>> longer obvious either. I think this also answers Kairui's earlier question
+>> about why I saw a performance improvement (which seems related to commit
+>> 6cbdd9726fb5). Also, there is no obvious performance regression either.
 > 
-> diff --git a/arch/arm64/include/asm/cpu.h b/arch/arm64/include/asm/cpu.h
-> index 3c008821219c..733178520c45 100644
-> --- a/arch/arm64/include/asm/cpu.h
-> +++ b/arch/arm64/include/asm/cpu.h
-> @@ -73,11 +73,10 @@ struct cpuinfo_arm64 {
->  DECLARE_PER_CPU(struct cpuinfo_arm64, cpu_data);
->  
->  void cpuinfo_store_cpu(void);
-> -void __init cpuinfo_store_boot_cpu(void);
->  
-> -void __init init_cpu_features(struct cpuinfo_arm64 *info);
-> -void update_cpu_features(int cpu, struct cpuinfo_arm64 *info,
-> -				 struct cpuinfo_arm64 *boot);
-> +void __init init_cpu_features(void);
+> Hi Baolin,
+> 
+> Not sure if it's convenient to do a little more testing in your side.
+> E.g rejected folios are moved to next gen, but not clearing their flags.
 
-init_cpu_features() now only used in cpufeature.c, we can remove this
-declaration and make it static in cpufeature.c.
+I'm not sure what you mean by "next gen" here. If you mean the 2nd 
+oldest gen, I actually tested that too, that is, clearing refs after 
+move_folios_to_lru(), and there wasn't any noticeable performance impact 
+either (but the code was a bit hacky, so I didn't go with this approach).
 
-> +void update_cpu_features(int cpu);
-> +
->  bool gmid_el1_accessible(const struct cpuinfo_arm64 *info);
->  
->  #endif /* __ASM_CPU_H */
-> diff --git a/arch/arm64/kernel/cpufeature.c b/arch/arm64/kernel/cpufeature.c
-> index 32102c3912fa..33279a264145 100644
-> --- a/arch/arm64/kernel/cpufeature.c
-> +++ b/arch/arm64/kernel/cpufeature.c
-> @@ -117,6 +117,7 @@ EXPORT_SYMBOL(system_cpucaps);
->  static struct arm64_cpu_capabilities const __ro_after_init *cpucap_ptrs[ARM64_NCAPS];
->  
->  DECLARE_BITMAP(boot_cpucaps, ARM64_NCAPS);
-> +static struct cpuinfo_arm64 boot_cpu_data;
->  
->  /*
->   * arm64_use_ng_mappings must be placed in the .data section, otherwise it
-> @@ -1205,11 +1206,19 @@ bool gmid_el1_accessible(const struct cpuinfo_arm64 *info)
->  	return mte >= ID_AA64PFR1_EL1_MTE_MTE2;
->  }
->  
-> -void __init init_cpu_features(struct cpuinfo_arm64 *info)
-> +void __init init_cpu_features(void)
->  {
-
-Maybe rename to init_boot_cpu_features() ?
-
-
-Otherwise LGTM
-Reviewed-by: Jinjie Ruan <ruanjinjie@huawei.com>
-
-> +	struct cpuinfo_arm64 *info = &per_cpu(cpu_data, 0);
-> +
->  	/* Before we start using the tables, make sure it is sorted */
->  	sort_ftr_regs();
->  
-> +	/*
-> +	 * We keep a copy of the boot CPU registers so that physical hotplug
-> +	 * of CPU 0 can still be properly checked.
-> +	 */
-> +	boot_cpu_data = *info;
-> +
->  	init_cpu_ftr_reg(SYS_CTR_EL0, info->reg_ctr);
->  	init_cpu_ftr_reg(SYS_DCZID_EL0, info->reg_dczid);
->  	init_cpu_ftr_reg(SYS_CNTFRQ_EL0, info->reg_cntfrq);
-> @@ -1404,12 +1413,14 @@ static int update_32bit_cpu_features(int cpu, struct cpuinfo_32bit *info,
->   * non-boot CPU. Also performs SANITY checks to make sure that there
->   * aren't any insane variations from that of the boot CPU.
->   */
-> -void update_cpu_features(int cpu,
-> -			 struct cpuinfo_arm64 *info,
-> -			 struct cpuinfo_arm64 *boot)
-> +void update_cpu_features(int cpu)
->  {
-> +	struct cpuinfo_arm64 *boot, *info;
->  	int taint = 0;
->  
-> +	boot = &boot_cpu_data;
-> +	info = per_cpu_ptr(&cpu_data, cpu);
-> +
->  	/*
->  	 * The kernel can handle differing I-cache policies, but otherwise
->  	 * caches should look identical. Userspace JITs will make use of
-> @@ -3978,6 +3989,8 @@ static void __init setup_boot_cpu_capabilities(void)
->  
->  void __init setup_boot_cpu_features(void)
->  {
-> +	init_cpu_features();
-> +
->  	/*
->  	 * Initialize the indirect array of CPU capabilities pointers before we
->  	 * handle the boot CPU.
-> diff --git a/arch/arm64/kernel/cpuinfo.c b/arch/arm64/kernel/cpuinfo.c
-> index 45c63f3d75c5..b423301a13cc 100644
-> --- a/arch/arm64/kernel/cpuinfo.c
-> +++ b/arch/arm64/kernel/cpuinfo.c
-> @@ -31,7 +31,6 @@
->   * values depending on configuration at or after reset.
->   */
->  DEFINE_PER_CPU(struct cpuinfo_arm64, cpu_data);
-> -static struct cpuinfo_arm64 boot_cpu_data;
->  
->  static inline const char *icache_policy_str(int l1ip)
->  {
-> @@ -531,14 +530,4 @@ void cpuinfo_store_cpu(void)
->  {
->  	struct cpuinfo_arm64 *info = this_cpu_ptr(&cpu_data);
->  	__cpuinfo_store_cpu(info);
-> -	update_cpu_features(smp_processor_id(), info, &boot_cpu_data);
-> -}
-> -
-> -void __init cpuinfo_store_boot_cpu(void)
-> -{
-> -	struct cpuinfo_arm64 *info = &per_cpu(cpu_data, 0);
-> -	__cpuinfo_store_cpu(info);
-> -
-> -	boot_cpu_data = *info;
-> -	init_cpu_features(&boot_cpu_data);
->  }
-> diff --git a/arch/arm64/kernel/smp.c b/arch/arm64/kernel/smp.c
-> index ff045080ca1b..f4cabf9e19e6 100644
-> --- a/arch/arm64/kernel/smp.c
-> +++ b/arch/arm64/kernel/smp.c
-> @@ -235,6 +235,7 @@ asmlinkage notrace void secondary_start_kernel(void)
->  	 * Log the CPU info before it is marked online and might get read.
->  	 */
->  	cpuinfo_store_cpu();
-> +	update_cpu_features(cpu);
->  	store_cpu_topology(cpu);
->  
->  	/*
-> @@ -455,7 +456,7 @@ void __init smp_prepare_boot_cpu(void)
->  	 */
->  	set_my_cpu_offset(per_cpu_offset(smp_processor_id()));
->  
-> -	cpuinfo_store_boot_cpu();
-> +	cpuinfo_store_cpu();
->  	setup_boot_cpu_features();
->  
->  	/* Conditionally switch to GIC PMR for interrupt masking */
+> Then we can at least know which one is more efficient on yout testing
+> platform.
+> 
+> coldest folio      referenced folio
+> ---------------------------------------------
+> max_gen -1         next gen + referenced kept
+> max_gen -1         max_gen -1
+> next_gen           next gen + referenced kept
+> 
+> Thanks
+> Baoquan
 
