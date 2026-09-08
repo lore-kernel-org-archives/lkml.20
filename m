@@ -1,139 +1,97 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E58DA33120E;
-	Tue,  8 Sep 2026 06:00:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60B9B23E334;
+	Tue,  8 Sep 2026 06:01:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788847242; cv=none; b=bVwfoOapPDPHq7RuYRg4m3RYxrluWGJCe2Ryv9dKAju6x/r6Ybf2vUBxuaAfyRa1Z7PYinOXFYPtPXjeeR2g2Eh0lcGoHzMhc+9MBWc6zS/a4ssbn1lyXFMttv23ez+VP6eP344ugdvUXNgKieMlGToUi56woQ4FO34ByArIK+Y=
+	t=1788847264; cv=none; b=SBMj/ULC3+9IbNBJI27XXAOqNIEIHv4ufJg5LsSqM6TIqh3GAFAyQeqgU652QTRmu/pqr0rG9SZd1iuGh5dRv4/klJdDpBbRLbE1AQ5UwRQg51Z+y9FH99VCrfP27kUePCUko4f8LnfFAocXygajowdHuviSa2b0gXwnRg/o/rA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788847242; c=relaxed/simple;
-	bh=ECMEijpuiP02MSLfInysi2EZix0M+5fozPoUASmaT+I=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=OdL2cUR2DheGSyck9Jr0JX5/eCyrLfVwCBttztoB2OsEgMLhCaFAbLGe4crhgSaxw5jZ4P+HYM1E+fkxdrZNTZn3oUFOYzvVNG+nAZO1j+2UMIl3kEhraLU9PHHOixV2mKlmRIYY9DCAJhhsmchxU0loL3SDO9zy9ggn0dYMTfI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=mP+NOydg; arc=none smtp.client-ip=117.135.210.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1788847264; c=relaxed/simple;
+	bh=dP7PTSIqr+PUylng0LNaTf+XvZfMQ1DUZ+WGex+fVBU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Zn4JQdG4JFNOvWQDVPp/QZOBRiwgWwt4SGVYOEKtCycU5TFF6UC5CLEaLVL3FXFXENkt2Kytq7XkhjpZKQh3MCX+MmyTxPpUzL9Kfm9vOhhlYtL2mV3hgSVy4CelBU8nUNjCmtI6M3dXouWt6pDpicD1XHD7WHTvjClSUey2Gfs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=KL2M8MXH; arc=none smtp.client-ip=198.137.202.133
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="mP+NOydg"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=1Y
-	Ohb3D73/8SdyecCiPhE4vQmQl1qBOdVYxBb3ICr88=; b=mP+NOydgwCA/j2md0M
-	pdnX7VH0oUSz5zrWzegbQgreh5L1x5Y5Ltgy6svop/x3GyDGtXOCy/vH1F6rRyzu
-	bd6rkkf8O57jsV8EbOUipz9uUSWdL5f5VnVQyOTuEOy5ebjeAgE4vAM3MIuFc/WO
-	Qgxxi/QVM8XeMpEpCMOzww0pc=
-Received: from localhost.localdomain (unknown [])
-	by gzga-smtp-mtada-g1-4 (Coremail) with SMTP id _____wBHOVhSpJ9qyCC7BQ--.30517S2;
-	Tue, 08 Sep 2026 13:59:47 +0800 (CST)
-From: oushixiong1025@163.com
-To: Matthew Brost <matthew.brost@intel.com>
-Cc: Danilo Krummrich <dakr@kernel.org>,
-	Philipp Stanner <phasta@kernel.org>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	Shixiong Ou <oushixiong@kylinos.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH v4] drm/sched: Create a fake device for KUnit tests
-Date: Tue,  8 Sep 2026 13:59:41 +0800
-Message-Id: <20260908055941.351486-1-oushixiong1025@163.com>
-X-Mailer: git-send-email 2.25.1
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="KL2M8MXH"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+	Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
+	Message-ID:Sender:Reply-To:Content-ID:Content-Description;
+	bh=UdN27yuarFJ0bS6RZN4qrHEQI6SbOy4cMG40wpZ62V0=; b=KL2M8MXHvjrx5fgGwmm7ZEEQKh
+	nqS5WzlK0dCIcTetr0hiJo/XTEFKRck8OwZpNkqGc4MDp3xjeZfbwim0XvpYxbxWn/23UHdw8UYE6
+	tqoJyNURI49wNqflHfO6ofAKwTycKaahYsF2BH1KUjMzx+g5r5Q3iJGHdXGzb+buXUAP8Fi37YkLX
+	bTfUgfASYTCK20HI6bfb7MCINfcBkSOwuuM2sTHtDp1IaEFAgITpaWz5e1i3MPArJ3G1CdkSoWSuu
+	ANxMIo/PMhGfjv25wLeu2Er0blhZ1jbx21gkOn2NmyMpF1ptXQaPlQTXaLNbm8C4Tfmnj5s7RfVxO
+	0HQLivIA==;
+Received: from [50.53.43.113] (helo=[192.168.254.34])
+	by bombadil.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1x3ot7-000000087Ke-1m4N;
+	Tue, 08 Sep 2026 06:00:57 +0000
+Message-ID: <a33355f3-3295-4aab-8e37-b176d477ddc4@infradead.org>
+Date: Mon, 7 Sep 2026 23:00:56 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wBHOVhSpJ9qyCC7BQ--.30517S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxGFW5ur1fJrW5Cr17WFW3Wrg_yoW5Wr1rpF
-	WkXFWYgrWrtrZFg3y3ua95XFyfGwsrA3yxKr1kX34a9F1qgFyfJr17KrW3t347ArWDZFWS
-	q3Z0gw47Gr4jyw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jnL05UUUUU=
-X-CM-SenderInfo: xrxvxxx0lr0wirqskqqrwthudrp/xtbC4RO-zmqfpFNyzwAA38
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH iwl-next v2 0/4] intel: fix typos in comments
+To: Hemanth Selam <hemanth.selam@gmail.com>,
+ Tony Nguyen <anthony.l.nguyen@intel.com>,
+ Przemek Kitszel <przemyslaw.kitszel@intel.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Simon Horman <horms@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>, intel-wired-lan@lists.osuosl.org
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-doc@vger.kernel.org
+References: <20260907095446.27290-1-hemanth.selam@gmail.com>
+Content-Language: en-US
+From: Randy Dunlap <rdunlap@infradead.org>
+In-Reply-To: <20260907095446.27290-1-hemanth.selam@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-From: Shixiong Ou <oushixiong@kylinos.cn>
 
-The DRM scheduler KUnit tests pass NULL for the dev field in
-drm_sched_init_args, which NULL-pointer dereferences in the drm_sched_job
-trace event via dev_name() on sched->dev.
 
-Give the mock scheduler a device with kunit_device_register(), which is
-also cleaned up at test exit. A per-function counter keeps the device
-names unique, since some tests create several mock schedulers.
+On 9/7/26 2:54 AM, Hemanth Selam wrote:
+> Comment typos across the Intel ethernet drivers, split per driver.  Found with scripts/checkpatch.pl using the
+> misspelling list in scripts/spelling.txt.  Comments only, no code
+> changes.
+> 
+> v1 went out with a bare [PATCH] and a "net:" subject prefix.  As
+> maintainer-netdev.rst asks, v2 designates the patches to a tree, and
+> each subject now names the component it touches instead of "net:".  The
+> series is rebased onto that tree; the diff is unchanged.
+> 
+> v1: https://lore.kernel.org/all/20260907064528.6602-1-hemanth.selam@gmail.com/
+> 
+> 
+> Hemanth Selam (4):
+>   i40e: fix typos in comments
+>   ice: fix typos in comments
+>   ixgbevf: fix typo "enble" in comment
+>   Documentation/eth/intel: fix repeated words in comments
+> 
+>  Documentation/networking/device_drivers/ethernet/intel/i40e.rst | 2 +-
+>  Documentation/networking/device_drivers/ethernet/intel/iavf.rst | 2 +-
+>  drivers/net/ethernet/intel/i40e/i40e_common.c                   | 2 +-
+>  drivers/net/ethernet/intel/i40e/i40e_ethtool.c                  | 2 +-
+>  drivers/net/ethernet/intel/ice/ice.h                            | 2 +-
+>  drivers/net/ethernet/intel/ice/ice_main.c                       | 2 +-
+>  drivers/net/ethernet/intel/ice/ice_sriov.c                      | 2 +-
+>  drivers/net/ethernet/intel/ixgbevf/ixgbevf_main.c               | 2 +-
+>  8 files changed, 8 insertions(+), 8 deletions(-)
 
-Fixes: 5a99350794fe ("drm/sched: Add scheduler unit testing infrastructure and some basic tests")
-Cc: stable@vger.kernel.org
-Signed-off-by: Shixiong Ou <oushixiong@kylinos.cn>
-Acked-by: Maxime Ripard <mripard@kernel.org>
+For the series:
 
----
-v3->v4:
-  - Initialize the instance counter explicitly
+Acked-by: Randy Dunlap <rdunlap@infradead.org>
 
-v2->v3:
-  - Start the mock scheduler device numbering at 0, using
-    instance++ instead of ++instance
-
-v1->v2:
-  - Switch from faux_device_create() to kunit_device_register(), which also
-    cleans the device up automatically at test exit (Maxime Ripard)
-  - Build the device name on top of args.name (Philipp Stanner)
-  - Make the instance counter a static unsigned int local to
-    drm_mock_sched_new() (Philipp Stanner)
-  - Add a Fixes: tag and Cc: stable for the NULL dev dereference
-
- drivers/gpu/drm/scheduler/tests/mock_scheduler.c | 11 ++++++++
- 1 file changed, 11 insertions(+)
-
-diff --git a/drivers/gpu/drm/scheduler/tests/mock_scheduler.c b/drivers/gpu/drm/scheduler/tests/mock_scheduler.c
-index 8e9ae7d980eb..12dc61f56192 100644
---- a/drivers/gpu/drm/scheduler/tests/mock_scheduler.c
-+++ b/drivers/gpu/drm/scheduler/tests/mock_scheduler.c
-@@ -1,6 +1,8 @@
- // SPDX-License-Identifier: GPL-2.0
- /* Copyright (c) 2025 Valve Corporation */
- 
-+#include <kunit/device.h>
-+
- #include "sched_tests.h"
- 
- /*
-@@ -288,6 +290,7 @@ static const struct drm_sched_backend_ops drm_mock_scheduler_ops = {
-  */
- struct drm_mock_scheduler *drm_mock_sched_new(struct kunit *test, long timeout)
- {
-+	static unsigned int instance = 0;
- 	struct drm_sched_init_args args = {
- 		.ops		= &drm_mock_scheduler_ops,
- 		.num_rqs	= DRM_SCHED_PRIORITY_COUNT,
-@@ -297,11 +300,19 @@ struct drm_mock_scheduler *drm_mock_sched_new(struct kunit *test, long timeout)
- 		.name		= "drm-mock-scheduler",
- 	};
- 	struct drm_mock_scheduler *sched;
-+	struct device *dev;
-+	char name[64];
- 	int ret;
- 
- 	sched = kunit_kzalloc(test, sizeof(*sched), GFP_KERNEL);
- 	KUNIT_ASSERT_NOT_NULL(test, sched);
- 
-+	snprintf(name, sizeof(name), "%s-%u", args.name, instance++);
-+	dev = kunit_device_register(test, name);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, dev);
-+
-+	args.dev = dev;
-+
- 	ret = drm_sched_init(&sched->base, &args);
- 	KUNIT_ASSERT_EQ(test, ret, 0);
- 
+thanks.
 -- 
-2.43.0
-
-No virus found
-		Checked by Hillstone Network AntiVirus
-
+~Randy
