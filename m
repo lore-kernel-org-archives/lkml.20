@@ -1,34 +1,35 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1D11395AF6;
-	Tue,  8 Sep 2026 11:24:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A07251A743;
+	Tue,  8 Sep 2026 11:24:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788866694; cv=none; b=Ar6Byh9sZ16j58QPLIrNWROln5PH3mgqq+vbfJHcVrBV6HCbN7RFHd6yAQwVudFCrNnlxkSWBN1uySVRXsjmsglAO/D1+ErK5JN+mUPOKbJPZrgx8gh8D2gzH2EJeSianT6xAtY4F7K4IAfG9aNqql+2mVWZz/I9dY2ubgeQnq0=
+	t=1788866703; cv=none; b=rz8U2xYPmVffH3fnfLup6elXYlXErcd5ftiGW5+Jbc6I8YwLE98pvYgU3wSBy3zyownUHkfqCSvR7aqA7N90ojZm7nOJKMvkQsaDPBRBhJeJL1j5+h2IQZabbKCHYGZbHcfhXpOS9LU4JzuGL5BJ3vjD5sv5wlsYD9y46zIoVSk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788866694; c=relaxed/simple;
-	bh=QmSOJwju5TfiPg8slA7VLmMjfjzHO2fnrvsHpTcasuQ=;
+	s=arc-20240116; t=1788866703; c=relaxed/simple;
+	bh=A0bJ64HW79psSPlOLCnw7EMt+8G8UJeBpFvBmWrksO0=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=B7jiT9QZO82xyBKKhIG/P0FBJeYeGhEnWZA+4YSD8b1pgmMScA8NNMWk18UDJsGDu4MgjYhxlFoDqKfLVIi2IVYxL+NfXF5t77qxTkm2bv535c1VR/vA5x3naezwlquBOhwzRA7ZmRWI0Kh5d6iK/T5SZX2tsNLaVVvaMVvIFQM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Kt/T3D8X; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:To:Cc; b=qkhK5YycPCvJyQJ3TL8eujAAa/LSREyo+5WYNes+acgRr6/r9qHk8QYuaW8+1uPFvVdgRGab6yL/tMgYdxO7AZd1EvDYEnYFMF5vUuv5SgKPs2JSkcm1kVb4vw9U5UunBjncEeE6IAhCo5rrRVCN/VX1ES7brCyD05X1cgu4avU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=J2vGBeCe; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Kt/T3D8X"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 485D01F00A3D;
-	Tue,  8 Sep 2026 11:24:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="J2vGBeCe"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3BDD01F00A3E;
+	Tue,  8 Sep 2026 11:24:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788866683;
-	bh=SN9pBsYau6XqA12Xdl8N5Dmjue89SDbE0U+vn84I9OA=;
+	s=k20260515; t=1788866689;
+	bh=QpNjJERy5W0kZ4sRAK5DqssDq5giEzAZ8nJVAHeIm7A=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=Kt/T3D8XZpEzIO2N4iiHbSPlr4ezP2rFGrKhB8FxNGJUjNIAUpTwD9HB2w4fSdRXB
-	 3d+G27lYP0VS4+TljcJccGORudcFm1kPDdz4/OEvCSMQ06hhm/tILmG6tXjv+fSxQy
-	 zMCIcl9up+LoaF/s+i3mqtqISioFKy9/BCXkdOX0OrxdQ5lfZVcnYbTsAy7l10FKw/
-	 DsKUhaVgrSL3QWN6+1haOn5hhpXGYybvQCKtSVfLx1qeHkhsUox0Tr1QG2JXGHkIYg
-	 UC6y/zN+LsXyYlH9dSgiyaqdJXFBbTQor3lMoBMTACgjNNtY5Gk5lqMhdnzWFhkCEo
-	 7x8z0YQX9TC/Q==
+	b=J2vGBeCewZOhjQLLB49PJxkgMpsXWdqjwH7GKarj61WbzSCS1NNO2oOQt9HIjm5rp
+	 u4jBuYPhwsTKgB+LY7E6DrAtdeh0+kGQ3XDJWk7P0/J2tjJsGgcohsLg2gKViHhNlT
+	 HMFNoovZtWaYxqigrBGQwQWaruFMVFkX1H2eaxW0fwKlrWxRnCV4nN7oni97TZAioY
+	 TJLnyC7f2dfjBY0gWgs6vUpEXWkx3E/1Lw5j5O3IVuGxhkpAd11PqQ5sOuK9XCZAMg
+	 QITnixPPxa7aTS1r4Rlbke1xMxw/oZ1ABhd2RJT4b5lDuWyN1TlNRdT8lQKtXXYMWZ
+	 0BYDV6/5X6ROQ==
 From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Date: Tue, 08 Sep 2026 12:23:38 +0100
-Subject: [PATCH v2 1/6] mm: move drivers/char/mem.c to mm/char-mem.c
+Date: Tue, 08 Sep 2026 12:23:39 +0100
+Subject: [PATCH v2 2/6] mm: implement file_is_dev_zero() to uniquely
+ identify /dev/zero
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -37,7 +38,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260908-map-private-dev-zero-v2-1-acc7b5625305@kernel.org>
+Message-Id: <20260908-map-private-dev-zero-v2-2-acc7b5625305@kernel.org>
 References: <20260908-map-private-dev-zero-v2-0-acc7b5625305@kernel.org>
 In-Reply-To: <20260908-map-private-dev-zero-v2-0-acc7b5625305@kernel.org>
 To: Arnd Bergmann <arnd@arndb.de>, 
@@ -54,118 +55,113 @@ Cc: linux-kernel@vger.kernel.org, linux-mm@kvack.org,
  linux-fsdevel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
  "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3650; i=ljs@kernel.org;
- h=from:subject:message-id; bh=QmSOJwju5TfiPg8slA7VLmMjfjzHO2fnrvsHpTcasuQ=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLLmfyjcdzyWeZOE6yTvbwKf+P1jDhiwHK17HsCu8FHw7
- pSpHKH/OkpZGMS4GGTFFFmefxHfHyQSNq/zgr8bzBxWJpAhDFycAjCR+cGMDA1rKx8/uvU/ObR5
- C9+U0lkqDLvK95be62aedsT4ueG2cysYGXrNlfuezn9pcvO5e9qxW+tsvDTsSzwdDZrzPZyFtWf
- fZwMA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2988; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=A0bJ64HW79psSPlOLCnw7EMt+8G8UJeBpFvBmWrksO0=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLLmfyjcGSSo1Re24du3VUcC7M8aau83dRc+0TDx5cfHI
+ VMDs27xdpSyMIhxMciKKbI8/yK+P0gkbF7nBX83mDmsTCBDGLg4BWAihUEM/+PWJrT9WRQRY19Q
+ ZWlws69zynZdjsJ7BoFxXr+urndleM7w36O0/4+4w8YDU5d/DppydP6UKZdnc2258yTK5umRjr+
+ Nq3kB
 X-Developer-Key: i=ljs@kernel.org; a=openpgp;
  fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 
-The memory character driver implements several mm-specific features and is
-always compiled into the kernel, so move it to mm/ where it belongs.
+To lay the foundation for a future change that converts
+MAP_PRIVATE-/dev/zero mappings to be truly anonymous, add the ability to
+uniquely identify these mappings.
 
-Among other things the driver implements /dev/mem which provides raw access
-to physical memory, and /dev/zero which either allows mapping of a shmem
-region (if mapped with MAP_SHARED) or, uniquely, anonymous memory (if
-mapped MAP_PRIVATE).
+With the memory character device now part of mm/ this is trivially
+achievable through a file_is_dev_zero() predicate that simply tests that
+the file operation hooks are zero_fops.
 
-This change lays the foundations to allow MAP_PRIVATE-/dev/zero to be
-mapped precisely the same as anonymous memory is mapped as currently it is
-an edge case within mm.
-
-Also update a couple of comments that reference 'drivers/char/mem.c' to
-reference 'mm/char-mem.c'.
+Also update userland VMA tests to expose file_is_dev_zero() and provide
+a stub zero_fops for testing.
 
 Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-Acked-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
 Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 ---
- MAINTAINERS                         | 4 ++--
- drivers/char/Makefile               | 2 +-
- mm/Makefile                         | 3 ++-
- drivers/char/mem.c => mm/char-mem.c | 2 +-
- mm/shmem.c                          | 2 +-
- 5 files changed, 7 insertions(+), 6 deletions(-)
+ mm/char-mem.c                   | 13 +++++++++++++
+ mm/internal.h                   |  3 +++
+ tools/testing/vma/include/dup.h |  7 +++++++
+ tools/testing/vma/shared.c      |  9 +++++++++
+ 4 files changed, 32 insertions(+)
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 2133aec4a200..ebadf4cef076 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -17272,7 +17272,7 @@ F:	Documentation/ABI/testing/sysfs-kernel-mm-memory-tiers
- F:	Documentation/ABI/testing/sysfs-kernel-mm-numa
- F:	Documentation/admin-guide/mm/
- F:	Documentation/mm/
--F:	drivers/char/mem.c
-+F:	mm/char-mem.c
- F:	include/linux/cma.h
- F:	include/linux/dmapool.h
- F:	include/linux/ioremap.h
-@@ -17477,7 +17477,7 @@ L:	linux-mm@kvack.org
- S:	Maintained
- W:	http://www.linux-mm.org
- T:	git git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
--F:	drivers/char/mem.c
-+F:	mm/char-mem.c
- F:	include/trace/events/mmap.h
- F:	fs/proc/task_mmu.c
- F:	fs/proc/task_nommu.c
-diff --git a/drivers/char/Makefile b/drivers/char/Makefile
-index a46d7bf7c4c8..bb3bf66937b3 100644
---- a/drivers/char/Makefile
-+++ b/drivers/char/Makefile
-@@ -3,7 +3,7 @@
- # Makefile for the kernel character device drivers.
- #
- 
--obj-y				+= mem.o random.o
-+obj-y				+= random.o
- obj-$(CONFIG_TTY_PRINTK)	+= ttyprintk.o
- obj-y				+= misc.o
- obj-$(CONFIG_TEST_MISC_MINOR)	+= misc_minor_kunit.o
-diff --git a/mm/Makefile b/mm/Makefile
-index e7245cb88c66..2a3ec53d62ee 100644
---- a/mm/Makefile
-+++ b/mm/Makefile
-@@ -55,7 +55,8 @@ obj-y			:= filemap.o mempool.o oom_kill.o fadvise.o \
- 			   mm_init.o percpu.o slab_common.o \
- 			   compaction.o show_mem.o \
- 			   interval_tree.o list_lru.o workingset.o \
--			   debug.o gup.o mmap_lock.o vma_init.o $(mmu-y)
-+			   debug.o gup.o mmap_lock.o vma_init.o char-mem.o \
-+			   $(mmu-y)
- 
- # Give 'page_alloc' its own module-parameter namespace
- page-alloc-y := page_alloc.o
-diff --git a/drivers/char/mem.c b/mm/char-mem.c
-similarity index 99%
-rename from drivers/char/mem.c
-rename to mm/char-mem.c
-index 63253d1de5d7..d2e575545044 100644
---- a/drivers/char/mem.c
+diff --git a/mm/char-mem.c b/mm/char-mem.c
+index d2e575545044..e53e89e6ddd8 100644
+--- a/mm/char-mem.c
 +++ b/mm/char-mem.c
-@@ -1,6 +1,6 @@
- // SPDX-License-Identifier: GPL-2.0
- /*
-- *  linux/drivers/char/mem.c
-+ *  mm/char-mem.c
-  *
-  *  Copyright (C) 1991, 1992  Linus Torvalds
-  *
-diff --git a/mm/shmem.c b/mm/shmem.c
-index 255d69ebceba..c92ed17dbc4a 100644
---- a/mm/shmem.c
-+++ b/mm/shmem.c
-@@ -2981,7 +2981,7 @@ unsigned long shmem_get_unmapped_area(struct file *file,
- 			sb = file_inode(file)->i_sb;
- 		} else {
- 			/*
--			 * Called directly from mm/mmap.c, or drivers/char/mem.c
-+			 * Called directly from mm/mmap.c, or mm/char-mem.c
- 			 * for "/dev/zero", to create a shared anonymous object.
- 			 */
- 			if (IS_ERR(shm_mnt))
+@@ -31,6 +31,8 @@
+ #include <linux/uaccess.h>
+ #include <linux/security.h>
+ 
++#include "internal.h"
++
+ #define DEVMEM_MINOR	1
+ #define DEVPORT_MINOR	4
+ 
+@@ -707,6 +709,17 @@ static const struct memdev {
+ #endif
+ };
+ 
++/**
++ * file_is_dev_zero() - is the specified @file associated with the /dev/zero
++ * driver?
++ * @file: File to test.
++ * Returns: true if it is, false otherwise.
++ */
++bool file_is_dev_zero(const struct file *file)
++{
++	return file && file->f_op == &zero_fops;
++}
++
+ static int memory_open(struct inode *inode, struct file *filp)
+ {
+ 	int minor;
+diff --git a/mm/internal.h b/mm/internal.h
+index e16f1250b25c..5d474e5f7709 100644
+--- a/mm/internal.h
++++ b/mm/internal.h
+@@ -1638,4 +1638,7 @@ static inline bool can_spin_trylock(void)
+ 	return true;
+ }
+ 
++/* char-mem.c */
++bool file_is_dev_zero(const struct file *file);
++
+ #endif	/* __MM_INTERNAL_H */
+diff --git a/tools/testing/vma/include/dup.h b/tools/testing/vma/include/dup.h
+index 57046d8ac81d..0d1a2ac88922 100644
+--- a/tools/testing/vma/include/dup.h
++++ b/tools/testing/vma/include/dup.h
+@@ -1641,3 +1641,10 @@ static inline pgoff_t linear_anon_page_index(const struct vm_area_struct *vma,
+ 
+ 	return pgoff;
+ }
++
++extern const struct file_operations zero_fops;
++
++static inline bool file_is_dev_zero(const struct file *file)
++{
++	return file && file->f_op == &zero_fops;
++}
+diff --git a/tools/testing/vma/shared.c b/tools/testing/vma/shared.c
+index 4a39c9d50489..8c4826499f40 100644
+--- a/tools/testing/vma/shared.c
++++ b/tools/testing/vma/shared.c
+@@ -12,6 +12,15 @@ const struct vm_operations_struct vma_dummy_vm_ops;
+ struct anon_vma dummy_anon_vma;
+ struct task_struct __current;
+ 
++static int mmap_zero_prepare(struct vm_area_desc *desc)
++{
++	return 0;
++}
++
++const struct file_operations zero_fops = {
++	.mmap_prepare = mmap_zero_prepare,
++};
++
+ struct vm_area_struct *alloc_vma(struct mm_struct *mm,
+ 		unsigned long start, unsigned long end,
+ 		pgoff_t pgoff, vma_flags_t vma_flags)
 
 -- 
 2.55.0
