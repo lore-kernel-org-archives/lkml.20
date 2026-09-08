@@ -1,127 +1,184 @@
-Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
+Received: from canpmsgout05.his.huawei.com (canpmsgout05.his.huawei.com [113.46.200.220])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4C363A1D05;
-	Tue,  8 Sep 2026 11:56:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E21C52FE2F
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 11:56:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.220
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788868603; cv=none; b=h/2UnmVnDCTSiN0enT4nabsNKawBvBVQbIufo2/ZxUmxhx6ESQd5JoiS10ig5njqQaZ01+hJqsOmF3I+FcT6GcMgFArAqofHZ0fuUWQEU0kXhC4eSk/uYe028Kz4F4ryWMbTtE9CcGBM8lpnjszaQfgF8noEEEJg6NhGwFfJgh4=
+	t=1788868608; cv=none; b=gJdUW2wyORPcCifT5QUqG2SmOyUorVXrqc33kMPqBb05mu5DYtPLDRtxuEOq+z87Ims/VorjKJe42T1T9lx8i9SxG1M0oNY9Cu62KWO/RnzupXTIhOWcI2OBy4I6B7mxJ6lDx2RHKOZZ9IDg+NCTQUHrYk//tcuwsbJQ2PMGImw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788868603; c=relaxed/simple;
-	bh=hIXMu7VU543C5Aw2s+U1JIXfcEKqYnSmUqqOkmBcGmc=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ezJgTWJ3E+VZtBXzzViXWCMw2Z+bXXH3ZdktS5+xOVwNHEXMQNYo1JnFXVwkPQYSbhFAD9bqkbOh7vrqa7xkwfIV5aVj2skbiqqmIMdX8XK9+82yPaN3OCWFeETKzy51K0kkF9OcJWoMoQ4Gty1WxVRp0MBqTVUxxtXnsaRmb4Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=Mrt19+H8; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=SQLx3Gh1; arc=none smtp.client-ip=80.241.56.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	s=arc-20240116; t=1788868608; c=relaxed/simple;
+	bh=uPLSf82zbBlygFL3HL3vP2GeWXlVCMLrTfSQGiyNrOc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=nERkmZ1lLGeRVefKV+3rCr/YPlzm5vxFQiWl8ILO/aTw7ClPlg58OnDXe2jktixeJv506Coa7adNrFMqm2VY7NpWnnLyR7rZAacQzMYNGfKOKl0nAwWdaBw/HerPn1p7l3Bpydz/x4WewrDeOfdAkAeRqTK8DyUYBRU0u7z2JK8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=Tu69EZne; arc=none smtp.client-ip=113.46.200.220
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="Mrt19+H8";
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="SQLx3Gh1"
-Received: from smtp202.mailbox.org (smtp202.mailbox.org [IPv6:2001:67c:2050:b231:465::202])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4hfMq537XYzMlGQ;
-	Tue, 08 Sep 2026 13:56:33 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1788868593;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=Rc3f0b6JALEUQytgIZPa7NtSat7l2lPyA6Q0PggfoN4=;
-	b=Mrt19+H8dmwUc2patyXDMxybd0eLPk+HEc8wXzlUFe8EtEIwBgZ5NJyjRxKnHsWKK5/ok6
-	cQBxR/4xW7Kfb31Cm2xQmeyl05DcJr7rjT3kcOGN/uF0QlsajQbgimstqDw0KSoL0frWkA
-	rPGgckuaLvP4eTF/mtsY2yBipdbzlF/NNJLNj+WVOmdkIo2DKQiKb7ZUf6YfbYqDAoE5nG
-	Kxy1BUUW2f76hvi7iZv+RgvoCySTnYL5h2KH2bh7Niyz20fqZGJuXu0gqc/IKuH6A/oRea
-	u8QPvxsk4o2gRKK39dTQCUMJw+k7xEK7SOfWao6XuB8p6661BKzf28vsW+E7ZA==
-Authentication-Results: outgoing_mbo_mout;
-	dkim=pass header.d=mailbox.org header.s=mail20150812 header.b=SQLx3Gh1;
-	spf=pass (outgoing_mbo_mout: domain of manuelebnerli@mailbox.org designates 2001:67c:2050:b231:465::202 as permitted sender) smtp.mailfrom=manuelebnerli@mailbox.org
-From: Manuel Ebner <manuelebnerli@mailbox.org>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1788868591;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=Rc3f0b6JALEUQytgIZPa7NtSat7l2lPyA6Q0PggfoN4=;
-	b=SQLx3Gh1s1sQiVDdVZ1HxghTcr4xz0T0DRACs8DQV+jfn9WOWewWNDaWlOsB79aj5HXQTk
-	47Mbo8kj7L1p6NXXV7CwulzhM1ZADHgk1Pf3HiHYmKCYZGfhPzN675T+qldPB8BSOOkexu
-	a06wWh+ayGFLJX0dzagA6yG1JALtXNPf04vxEm/zxMKCY1FFknlOoKE02V+RmCiP5KVrV1
-	q3V7VkCT/t6/rFP2cg8jG6Lvpg06XD+boQKMhdes8tqqfLvJ08O3KG7PQ6a7lneCtG/5C7
-	sHeVfZgQvkaNNcjXRFrwr+ScEt/GCCvzGJR9YJb3BSyFGlkTaG0PhyqXRrBHBA==
-To: Henk Vergonet <Henk.Vergonet@gmail.com>,
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>
-Cc: Manuel Ebner <manuelebnerli@mailbox.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	linux-input@vger.kernel.org,
-	linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v4] Input: yealink.rst: Fix wording, quotation and typo
-Date: Tue,  8 Sep 2026 13:55:50 +0200
-Message-ID: <20260908115551.1345764-2-manuelebnerli@mailbox.org>
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="Tu69EZne"
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=+j/MnMfgl5YfKGf8KV9trVnwU4KSAH6tcUBXA36ZRyg=;
+	b=Tu69EZneji2bZO3n1COp941uNwvSjyaroq6xQgPPlxu4aI/h3e7PU+DNWuYKY6KSBkwcofBqb
+	y7z6uObYITH1mvO8Xp4YDvEM3uJHPg4/uGzhjQKjiJT3MWOdQ/WyE2e8JkwawBn9SFcTnIBBSxj
+	p3clmNr4SYM29rRAvijtrQg=
+Received: from mail.maildlp.com (unknown [172.19.162.144])
+	by canpmsgout05.his.huawei.com (SkyGuard) with ESMTPS id 4hfMZJ2HwFz12LHf;
+	Tue,  8 Sep 2026 19:45:28 +0800 (CST)
+Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
+	by mail.maildlp.com (Postfix) with ESMTPS id 15F1E40538;
+	Tue,  8 Sep 2026 19:56:41 +0800 (CST)
+Received: from [10.67.109.254] (10.67.109.254) by
+ kwepemk200008.china.huawei.com (7.202.194.74) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Tue, 8 Sep 2026 19:56:40 +0800
+Message-ID: <1e5fc39a-4e32-44e4-b3d0-33504bcec6e0@huawei.com>
+Date: Tue, 8 Sep 2026 19:56:39 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 13/19] arm64: cpu_ops: Introduce get_secondary_cpu_ops()
+To: Will Deacon <will@kernel.org>, <linux-arm-kernel@lists.infradead.org>
+CC: <linux-kernel@vger.kernel.org>, Thomas Gleixner <tglx@kernel.org>, Catalin
+ Marinas <catalin.marinas@arm.com>, Borislav Petkov <bp@alien8.de>, Lorenzo
+ Pieralisi <lpieralisi@kernel.org>, Mark Rutland <mark.rutland@arm.com>, David
+ Woodhouse <dwmw@amazon.co.uk>, Peter Zijlstra <peterz@infradead.org>, Marc
+ Zyngier <maz@kernel.org>
+References: <20260907164024.17164-1-will@kernel.org>
+ <20260907164024.17164-14-will@kernel.org>
+From: Jinjie Ruan <ruanjinjie@huawei.com>
+In-Reply-To: <20260907164024.17164-14-will@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-X-MBO-RS-META: yebo7f9egk9rbk1aa6ze4t8uj376m9r4
-X-MBO-RS-ID: 899faebc50bdf9fee7d
-X-Rspamd-Queue-Id: 4hfMq537XYzMlGQ
+X-ClientProxiedBy: kwepems100001.china.huawei.com (7.221.188.238) To
+ kwepemk200008.china.huawei.com (7.202.194.74)
 
-Improve readability.
 
-Signed-off-by: Manuel Ebner <manuelebnerli@mailbox.org>
-Reviewed-by: Randy Dunlap <rdunlap@infradead.org>
-Tested-by: Randy Dunlap <rdunlap@infradead.org>
----
-[v4]
- fix quotation
 
-[v3]
- https://lore.kernel.org/all/20260906095502.1116994-2-manuelebnerli@mailbox.org/
- fix wording
- droped white-space fixes
+在 2026/9/8 0:40, Will Deacon 写道:
+> Introduce get_secondary_cpu_ops() to retrieve a pointer to the
+> 'cpu_operations' structure for the non-boot CPUs and use it instead of
+> get_cpu_ops() where we are dealing with secondary CPUs.
+> 
+> This is a pre-requisite for enabling parallel CPU bring-up.
+> 
+> Signed-off-by: Will Deacon <will@kernel.org>
+> ---
+>  arch/arm64/include/asm/cpu_ops.h |  1 +
+>  arch/arm64/kernel/cpu_ops.c      |  5 +++++
+>  arch/arm64/kernel/smp.c          | 19 +++++++------------
+>  3 files changed, 13 insertions(+), 12 deletions(-)
+> 
+> diff --git a/arch/arm64/include/asm/cpu_ops.h b/arch/arm64/include/asm/cpu_ops.h
+> index a444c8915e88..cd298a8710d8 100644
+> --- a/arch/arm64/include/asm/cpu_ops.h
+> +++ b/arch/arm64/include/asm/cpu_ops.h
+> @@ -48,6 +48,7 @@ struct cpu_operations {
+>  
+>  int __init init_cpu_ops(int cpu);
+>  extern const struct cpu_operations *get_cpu_ops(int cpu);
+> +extern const struct cpu_operations *get_secondary_cpu_ops(void);
+>  
+>  static inline void __init init_bootcpu_ops(void)
+>  {
+> diff --git a/arch/arm64/kernel/cpu_ops.c b/arch/arm64/kernel/cpu_ops.c
+> index eacfb88a0c0c..7d183ca31dc8 100644
+> --- a/arch/arm64/kernel/cpu_ops.c
+> +++ b/arch/arm64/kernel/cpu_ops.c
+> @@ -127,3 +127,8 @@ const struct cpu_operations *get_cpu_ops(int cpu)
+>  
+>  	return NULL;
+>  }
+> +
+> +const struct cpu_operations *get_secondary_cpu_ops(void)
+> +{
+> +	return cpu_ops;
+> +}
+> diff --git a/arch/arm64/kernel/smp.c b/arch/arm64/kernel/smp.c
+> index c5e9d5d5e003..2e98a92eb764 100644
+> --- a/arch/arm64/kernel/smp.c
+> +++ b/arch/arm64/kernel/smp.c
+> @@ -100,7 +100,7 @@ static inline int op_cpu_kill(unsigned int cpu)
+>   */
+>  static int boot_secondary(unsigned int cpu, struct task_struct *idle)
+>  {
+> -	const struct cpu_operations *ops = get_cpu_ops(cpu);
+> +	const struct cpu_operations *ops = get_secondary_cpu_ops();
+>  
+>  	if (ops->cpu_boot)
+>  		return ops->cpu_boot(cpu);
+> @@ -220,7 +220,7 @@ asmlinkage notrace void secondary_start_kernel(void)
+>  	 */
+>  	check_local_cpu_capabilities();
+>  
+> -	ops = get_cpu_ops(cpu);
+> +	ops = get_secondary_cpu_ops();
+>  	if (ops->cpu_postboot)
+>  		ops->cpu_postboot();
+>  
+> @@ -327,7 +327,7 @@ int __cpu_disable(void)
+>  
+>  static int op_cpu_kill(unsigned int cpu)
+>  {
+> -	const struct cpu_operations *ops = get_cpu_ops(cpu);
+> +	const struct cpu_operations *ops = get_secondary_cpu_ops();
+>  
+>  	/*
+>  	 * If we have no means of synchronising with the dying CPU, then assume
+> @@ -368,7 +368,7 @@ void arch_cpuhp_cleanup_dead_cpu(unsigned int cpu)
+>  void __noreturn cpu_die(void)
+>  {
+>  	unsigned int cpu = smp_processor_id();
+> -	const struct cpu_operations *ops = get_cpu_ops(cpu);
+> +	const struct cpu_operations *ops = get_secondary_cpu_ops();
+>  
+>  	idle_task_exit();
+>  
+> @@ -492,7 +492,7 @@ static int __init smp_cpu_setup(int cpu)
+>  	if (init_cpu_ops(cpu))
+>  		return -ENODEV;
+>  
+> -	ops = get_cpu_ops(cpu);
+> +	ops = get_secondary_cpu_ops();
+>  	if (ops->cpu_init(cpu))
+>  		return -ENODEV;
+>  
+> @@ -776,7 +776,7 @@ void __init smp_init_cpus(void)
+>  
+>  void __init smp_prepare_cpus(unsigned int max_cpus)
+>  {
+> -	const struct cpu_operations *ops;
+> +	const struct cpu_operations *ops = get_secondary_cpu_ops();
+>  	unsigned int cpu;
+>  	int err;
+>  
+> @@ -802,10 +802,6 @@ void __init smp_prepare_cpus(unsigned int max_cpus)
+>  		if (cpu == 0)
+>  			continue;
+>  
+> -		ops = get_cpu_ops(cpu);
+> -		if (!ops)
+> -			continue;
+> -
 
-[v2]
- https://lore.kernel.org/all/20260905063335.792618-2-manuelebnerli@mailbox.org/
- add ']' instead of remove '[' as randy suggested
- fix a couple more issues in the file
+Reviewed-by: Jinjie Ruan <ruanjinjie@huawei.com>
 
-[v1]
- https://lore.kernel.org/all/20260904121026.759218-3-manuelebnerli@mailbox.org/
----
- Documentation/input/devices/yealink.rst | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
-
-diff --git a/Documentation/input/devices/yealink.rst b/Documentation/input/devices/yealink.rst
-index bb5a1aafe..53191a3c8 100644
---- a/Documentation/input/devices/yealink.rst
-+++ b/Documentation/input/devices/yealink.rst
-@@ -120,9 +120,10 @@ Reading /sys/../lineX will return the format string with its current value.
- Writing to /sys/../lineX will set the corresponding LCD line.
- 
-  - Excess characters are ignored.
-- - If less characters are written than allowed, the remaining digits are
-+ - If fewer characters than allowed are written, the remaining digits are
-    unchanged.
-- - The tab '\t'and '\n' char does not overwrite the original content.
-+ - The tab ``\t`` and newline ``\n`` characters do not overwrite the original
-+   content.
-  - Writing a space to an icon will always hide its content.
- 
-   Example::
-@@ -205,7 +206,7 @@ Troubleshooting
- :Q: Module yealink compiled and installed without any problem but phone
-     is not initialized and does not react to any actions.
- :A: If you see something like:
--    hiddev0: USB HID v1.00 Device [Yealink Network Technology Ltd. VOIP USB Phone
-+    hiddev0: USB HID v1.00 Device [Yealink Network Technology Ltd. VOIP USB Phone]
-     in dmesg, it means that the hid driver has grabbed the device first. Try to
-     load module yealink before any other usb hid driver. Please see the
-     instructions provided by your distribution on module configuration.
--- 
-2.54.0
+>  		err = ops->cpu_prepare(cpu);
+>  		if (err)
+>  			continue;
+> @@ -1341,8 +1337,7 @@ bool smp_crash_stop_failed(void)
+>  static bool have_cpu_die(void)
+>  {
+>  #ifdef CONFIG_HOTPLUG_CPU
+> -	int any_cpu = raw_smp_processor_id();
+> -	const struct cpu_operations *ops = get_cpu_ops(any_cpu);
+> +	const struct cpu_operations *ops = get_secondary_cpu_ops();
+>  
+>  	if (ops && ops->cpu_die)
+>  		return true;
 
