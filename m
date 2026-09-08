@@ -1,113 +1,110 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 944A3347BD9;
-	Tue,  8 Sep 2026 10:36:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 356BE43DA26;
+	Tue,  8 Sep 2026 10:36:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.14
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788863766; cv=none; b=rZ1YJGyVBSimBa5IxvYnm7kfRUKgZn5+ApbSb0yGVcwmm+Rcot+S8vLQJs4oMwm83F+IXqd0a3QV0/Jwd7Z9eZkpwFa1pEFoC/vdMdZ1TIeE9X+UOHv1rYNTqPjoyraSwhndjzcEtRBTvnKCFVTyDQhONrhlcc25ejFAeb5ZICw=
+	t=1788863796; cv=none; b=Xpr6QjFFnScpFJUXzX6x0juGLohRMfgkkB7O56vQSDrgZQikyp2yrAdOU32kJ8EScx/qWZvKGhzWlLshkS3JOYHQaB2i4uXEXOW83csBXUKOBrC0NF7I7rP2wTRgwlXym+QeZGGbyFiNOGV38+BBFRqtYsmQ+h4QGNWrl7fjBho=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788863766; c=relaxed/simple;
-	bh=gIqJ+r0/JTqKMlIxO4T7rjLwha3sIS4wwumLA9Fjz0Q=;
+	s=arc-20240116; t=1788863796; c=relaxed/simple;
+	bh=PxI5zvn+71UM5Yd+E1ab+n7WXUOO9kjov2qj2+d4q7U=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=J4FYfS7QjrWfkKKp7cDaaeJ0Fqc1HKsWVKBnvLZ6SC+pBAjYMksinCsfyPR94u3X0r8YMWDvAw0p1Op/Mk/BG5yEmU5H+BPRsrIRhDQU5jm8iRzKkqCjjrt7wF6/4xStdwKFiGOtfE0pCAwGZv+HEH3cv5I3iznTns2yVJnGAIw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=dFYdSanN; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=LrpEF8V/Pt97sKAnMQWJ2DWc3ngaHggQUy6Bqv+FZieWXvFWtEBrei4OuVyqEexCPpiXi8jR33C6ChjOfo99oNaUwIJz/RCHRBYR2yCDw5i30xCz5BdmDVmFy5zNewVGFzNuRLhaw5UNy4WdYipaoeP4mti9QFsHdrUCzLSMuHs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Oyno4xHW; arc=none smtp.client-ip=198.175.65.14
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="dFYdSanN"
-Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 14C83C13;
-	Tue,  8 Sep 2026 12:34:27 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1788863667;
-	bh=gIqJ+r0/JTqKMlIxO4T7rjLwha3sIS4wwumLA9Fjz0Q=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=dFYdSanNszm4WP3+cZc5f5+demQxtvyYYtDs623mv2WRLZduMim31Tvm4aCJ0htIm
-	 QJJtnhXo4tUwcGzy3ahx+E7SdFh6Jwpu2odowiYqhg611TmE+OnqtQnwICWwv9aSm5
-	 xl7eCrdupQs5VhWsx/NOC9fPJGEFc8yNlWLr/7jo=
-Date: Tue, 8 Sep 2026 13:36:00 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: Xiaolei Wang <xiaoleiwangxiaolei@gmail.com>, hverkuil+cisco@kernel.org,
-	mehdi.djait@linux.intel.com, u.kleine-koenig@baylibre.com,
-	jacopo@jmondi.org, p.zabel@pengutronix.de,
-	ezequiel@vanguardiasur.com.ar, mchehab+samsung@kernel.org,
-	festevam@gmail.com, linux-media@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Oyno4xHW"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788863794; x=1820399794;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=PxI5zvn+71UM5Yd+E1ab+n7WXUOO9kjov2qj2+d4q7U=;
+  b=Oyno4xHW3aQSncldFXVD75JOQnKv5Nfwnw5TJQcpYyzNWwvkgWvDKx9l
+   /qp78O486mtpEHks3HSAzwvjtkuaykvc6gaJIPpuM6fTi7zf44xtg/0pk
+   qUpcnlP5eDz6XMvHX9eZYlSSD/cGTEQ9gfF7aHkKJtZ9MO1g23GU8UL37
+   aLOrxDWH9IFGfhMwPIn3geRTIxMeRjgAsn8UUK5jZ5M5csUWfRu8Kzr+M
+   gkPMiinsIufMDL82uYDor8FKphrNfQywlZslWDAoMkXSukntS68JdTRKH
+   a7p7jgzHkbRUblxVtWGpLoW9au7bBwCiImoIBKF2vB6BQuUkjQ++RWdxD
+   g==;
+X-CSE-ConnectionGUID: Hs8pof4yShWQZYaRav9b9Q==
+X-CSE-MsgGUID: ycQUOSRgQVWrPbBB5B5CEw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11899"; a="93126163"
+X-IronPort-AV: E=Sophos;i="6.25,268,1779174000"; 
+   d="scan'208";a="93126163"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Sep 2026 03:36:34 -0700
+X-CSE-ConnectionGUID: TuvDnmkVSr+FB6eKcdh/cA==
+X-CSE-MsgGUID: 0Nd3SmNYSrGBwMdfU4ycZQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,268,1779174000"; 
+   d="scan'208";a="275090326"
+Received: from smoticic-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.92])
+  by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Sep 2026 03:36:31 -0700
+Date: Tue, 8 Sep 2026 13:36:27 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Esben Haabendal <esben@geanix.com>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	Lars-Peter Clausen <lars@metafoo.de>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Martin Kepplinger <martink@posteo.de>,
+	Sean Nyekjaer <sean@geanix.com>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Martin Kepplinger <martin.kepplinger@theobroma-systems.com>,
+	Christoph Muellner <christoph.muellner@theobroma-systems.com>,
+	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] media: i2c: ov5645: Fix CSI-2 CRC errors on RK3576 after
- init sequence
-Message-ID: <20260908103600.GF1672293@killaraus.ideasonboard.com>
-References: <20260826085432.1482348-1-xiaoleiwangxiaolei@gmail.com>
- <ap_gCH1AnciFIEoa@kekkonen.localdomain>
+Subject: Re: [PATCH v8 6/9] iio: accel: mma8452: Add comment block for struct
+ mma8452_data
+Message-ID: <ap_lK_0HR6BotZrG@ashevche-desk.local>
+References: <20260907-mma8452-open-drain-v8-0-c17407e22118@geanix.com>
+ <20260907-mma8452-open-drain-v8-6-c17407e22118@geanix.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <ap_gCH1AnciFIEoa@kekkonen.localdomain>
+In-Reply-To: <20260907-mma8452-open-drain-v8-6-c17407e22118@geanix.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Tue, Sep 08, 2026 at 01:14:32PM +0300, Sakari Ailus wrote:
-> On Wed, Aug 26, 2026 at 08:54:32AM +0000, Xiaolei Wang wrote:
-> > On the RK3576 platform, after ov5645_global_init_setting completes and
-> > before stream on, the CSI host reports a high rate of CRC errors:
-> > 
-> >   MIPI_CSI2 ERR1:0x1000000 (crc,vc: 0)
-> > 
-> > These errors occur exclusively in the window between init completion and
-> > stream on. Once preview starts and the sensor outputs valid HS data, no
-> > further CRC errors are observed.
-> > 
-> > Commit 092e8eb90a7d ("media: i2c: ov5645: Fix power sequence") reworked
-> > the power sequence to properly enter LP-11 during power-up. As part of
-> > this change, the SYSTEM_CTRL0_STOP (0x42) write in s_power() was replaced
-> > with usleep_range(500, 1000), leaving the sensor in wake state (0x3008 =
-> > 0x02) from init through to s_stream. Reverting this commit resolves the
-> > CRC errors, confirming it as the triggering change.
-> > 
-> > Restore the power-down state after init by appending { 0x3008, 0x42 } to
-> > the end of ov5645_global_init_setting[]. This powers down the sensor core
-> > after MIPI configuration is complete, while keeping the MIPI PHY active in
-> > LP-11. The sensor is then woken up only at s_stream time.
-> > 
-> > This preserves all LP-11 compliance improvements from
-> > commit 092e8eb90a7d ("media: i2c: ov5645: Fix power sequence") while
-> > eliminating the CRC errors on RK3576.
-> > 
-> > Fixes: 092e8eb90a7d ("media: i2c: ov5645: Fix power sequence")
-> > Signed-off-by: Xiaolei Wang <xiaoleiwangxiaolei@gmail.com>
-> > ---
-> >  drivers/media/i2c/ov5645.c | 3 ++-
-> >  1 file changed, 2 insertions(+), 1 deletion(-)
-> > 
-> > diff --git a/drivers/media/i2c/ov5645.c b/drivers/media/i2c/ov5645.c
-> > index c772ef6e51d2..be85e0155b81 100644
-> > --- a/drivers/media/i2c/ov5645.c
-> > +++ b/drivers/media/i2c/ov5645.c
-> > @@ -351,7 +351,8 @@ static const struct reg_value ov5645_global_init_setting[] = {
-> >  	{ 0x3008, 0x02 },
-> >  	{ OV5645_IO_MIPI_CTRL00, 0x40 },
-> >  	{ OV5645_MIPI_CTRL00, 0x24 },
-> > -	{ OV5645_PAD_OUTPUT00, 0x70 }
-> > +	{ OV5645_PAD_OUTPUT00, 0x70 },
-> > +	{ 0x3008, 0x42 }
+On Mon, Sep 07, 2026 at 04:51:01PM +0200, Esben Haabendal wrote:
+> The struct mma8452_data is central for this driver, and it makes sense to
+> have a description of the fields in it to make it easier to work with the
+> driver.
 
-While at it, please use the register macro.
+...
 
-> Is the earlier write of 0x3008 still appropriate?
+> +/**
+> + * struct mma8452_data - IIO device private data structure
+> + * @client:			the I2C client object
+> + * @lock:			mutex for synchronziation of register
+> + *				read-modify-write and holding chip in STANDBY
+> + *				mode while writing to registers
+> + * @orientation:		mounting matrix, flipped axis etc
+> + * @chip_info:			chip specific data
+> + * @vdd_reg:			reference to VDD regulator
+> + * @vddio_reg:			reference to VDDIO regulator
+> + * @buffer:			triggered buffer
+> + * @sleep_val:			time in ms to sleep while waiting for drdy
+> + * @ctrl_reg1:			CTRL_REG1 register shadow value
+> + * @data_cfg:			DATA_CFG register shadow value
+> + * @open_drain:			true for irq pin in open-drain mode
+> + */
 
-There are four earlier writes of register 0x3008. The whole
-initialization sequence likely needs a cleanup. It's not clear why
-software suspend needs to be disabled briefly during initialization.
-
-> >  };
-> >  
-> >  static const struct reg_value ov5645_setting_sxga[] = {
+Have you tried to generate *.html and *.pdf out of this? Does rendering look
+okay in both cases?
 
 -- 
-Regards,
+With Best Regards,
+Andy Shevchenko
 
-Laurent Pinchart
+
