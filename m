@@ -1,70 +1,65 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C3534F053A;
-	Tue,  8 Sep 2026 09:53:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7353A4B0499;
+	Tue,  8 Sep 2026 09:53:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788861196; cv=none; b=j5YSRrTgbT3WcZIX8kanHLpE5/WfLQp7Lvs/LBroEGiojNGjt0rnqqQrrDB4hshyfJMRkDYLP/NlOOXjHi4Zen7D2/t3puDRAVFSnd1jBGBWeN1CD2Jaql4nAcq1blE/X90svW3K6BCtRcewJM7JpmXPKiQIaJClHzP5ZFTVxRM=
+	t=1788861224; cv=none; b=KimlaD+PsjkM3SwIpf2n3aYpejCTRYKTLjPE2dDbM3YUueFKKTG1znT/sgAdvVP1f2Za1SHUAsIbgfySFvYDhb+MhZXQe6AH8CRiuCg3pLQi7kWMPXkvtCKaGYg9BFwTtuRTmm5iYDkqvQI+mlSnmRx7HoL+k3sDSFQpdbGLpyU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788861196; c=relaxed/simple;
-	bh=p9/5KufxlmCRc0Rb58wv0o00EWYQnTi6RlDqH/f1C7s=;
-	h=Message-ID:Date:From:To:Subject:In-Reply-To:References:Cc; b=FYlh9URxMqObCwWCsuO5QieudB9kXSMoXyO8D7zGcsJBkwqNXbZh7gdZKWqX9Knej8zcR48+p+4VZsIolykIZTEM2oi+fKD0UrEc8MFLk/P3EdEoPz0+9QY359wktGYGncW8vO7zTrQCvdIPJbvisH/cqtipao8EM9VYhu3g+YU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OQbJYS0r; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788861224; c=relaxed/simple;
+	bh=1bYPTTBJE4EIqut0Ao5jC56iCKbH8RRYeo09NvHSfMY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=AR1AN6op12f1BgpG+dXZsHn4O+tsFy+0AwclHgUXpFs9hwpxwt33w5o1guZRlu5LCYSxSGKIwD5rKi3TWe3PgQTo7bL2bO+E+siAn4sdbkI5w6hufA9hwwCjG8VODq/PVI55C10U92CEv9dLsOBrd9yXgOuaQ0A2HW76kkqtOxY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EQxxhwEW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OQbJYS0r"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EF4A91F00A3A;
-	Tue,  8 Sep 2026 09:53:13 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EQxxhwEW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 166441F00A3A;
+	Tue,  8 Sep 2026 09:53:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788861194;
-	bh=6r6FK2ldE1DBGZWHW8Lq4ye4RQylsVurmE4OZ7oMsQ0=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc;
-	b=OQbJYS0rq9/0PwrUixs0rFOKNvMTlvZZCW23RMMNGRHPBMRueu9MZhAuDL4efqHe0
-	 hqrHWz0AajIufXy7KYlkHMH5brbbMvpOpDjPGPu/PPLhODkAFDiwh1WaGDhX3+MBhO
-	 6s3MJuwY78ik25i6qfF+dEcyA3Bly9+gQfA30IfypvbRfTWly3Fx7x964behRnKRUj
-	 1V1lscDB/WzhbkUoqcJGXqegCCXQ2M7sO7q3E+1wOnSgLtF2DVIgw6Uvp0uaX3Rh6M
-	 /Txn44sovOu2LlPxavCj5WqAashE/DLsXsRqXSSIrtv/mgRFC7NWY2ceAyoNzA7v+G
-	 IdqC8b2NwgYVw==
-Message-ID: <b906ecb04f597dcc08e7343588d14015@kernel.org>
-Date: Tue, 08 Sep 2026 09:53:11 +0000
-From: "Maxime Ripard" <mripard@kernel.org>
-To: "Cristian Ciocaltea" <cristian.ciocaltea@collabora.com>
-Subject: Re: [PATCH v11 25/74] drm/display: bridge_connector: Switch to
- .force_ctx() connector helper
-In-Reply-To: <20260901-dw-hdmi-qp-scramb-v11-25-bc12954a0688@collabora.com>
-References: <20260901-dw-hdmi-qp-scramb-v11-25-bc12954a0688@collabora.com>
-Cc: dri-devel@lists.freedesktop.org, kernel@collabora.com, linux-arm-kernel@lists.infradead.org, linux-fbdev@vger.kernel.org, linux-kernel@vger.kernel.org, linux-rockchip@lists.infradead.org, linux-sunxi@lists.linux.dev, "Algea
- Cao" <algea.cao@rock-chips.com>, "Andrzej Hajda" <andrzej.hajda@intel.com>, "Andy
- Yan" <andy.yan@rock-chips.com>, "Chen-Yu Tsai" <wens@kernel.org>, "Daniel
- Stone" <daniels@collabora.com>, "Dave Stevenson" <dave.stevenson@raspberrypi.com>, "David
- Airlie" <airlied@gmail.com>, "Dmitry Baryshkov" <lumag@kernel.org>,
- =?utf-8?b?SGVpa28gU3TDvGJuZXI=?= <heiko@sntech.de>, "Helge Deller" <deller@gmx.de>, "Jernej
- Skrabec" <jernej.skrabec@gmail.com>, "Jonas Karlman" <jonas@kwiboo.se>, "Laurent
- Pinchart" <Laurent.pinchart@ideasonboard.com>, "Liu Ying" <victor.liu@nxp.com>, "Luca
- Ceresoli" <luca.ceresoli@bootlin.com>, "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>, "Maxime
- Ripard" <mripard@kernel.org>, =?utf-8?b?TWHDrXJhIENhbmFs?= <mcanal@igalia.com>, "Neil
- Armstrong" <neil.armstrong@linaro.org>, "Phong LE" <ple@baylibre.com>, "Raphael
- Gallais-Pou" <rgallaispou@gmail.com>, "Raspberry Pi Kernel Maintenance" <kernel-list@raspberrypi.com>, "Robert
- Foss" <rfoss@kernel.org>, "Samuel Holland" <samuel@sholland.org>, "Sandy
- Huang" <hjc@rock-chips.com>, "Simona Vetter" <simona@ffwll.ch>, "Thomas
- Zimmermann" <tzimmermann@suse.de>
-Content-Transfer-Encoding: 7bit
+	s=k20260515; t=1788861223;
+	bh=KAFabMVi0Pgmm1WEMfCrCU3N7GlwVdKzwoJnEuEF+do=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=EQxxhwEWxRl3taSy5kHVHMXlRMGqgFbAR7fxHhm/n3RFcVrtLvXztK9A41ZxXBlb/
+	 7ikqmh14APZmCAWErb4HkDSmph59D97CitojF7ma7EIIm55blAY5Npo6iupzFV8hgg
+	 djTty7CRaXkMquwiQLto8Oa+SQfHKfTmpT+fyyCzVi5xUwxVxCFVYrg+US4QRVa1pK
+	 eJgB3d8K9zL3nULVtIXMn18BJkZp6e0sCp6J7gGayTyhmpr3/nSRoe72ZiskKy1gzy
+	 8jFAJsqzOORxwbIalrmxJjCO2drMqkq8YIKUep/c6xvCLlbrdyu+pJr0QPW9rD+whq
+	 pyt7REOSohN+g==
+Date: Tue, 8 Sep 2026 11:53:38 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Satya Priya <quic_c_skakit@quicinc.com>, 
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, Bartosz Golaszewski <brgl@kernel.org>, 
+	Dhruvin Rajpura <dhruvin.rajpura@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org, linux-rtc@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] dt-bindings: rtc: qcom-pm8xxx: Document PMM8654AU RTC
+Message-ID: <20260908-witty-sapphire-mamba-1e5cc7@quoll>
+References: <20260904074541.590485-1-shengchao.guo@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260904074541.590485-1-shengchao.guo@oss.qualcomm.com>
 
-On Tue, 1 Sep 2026 21:50:49 +0300, Cristian Ciocaltea wrote:
-> Turn drm_bridge_connector_force() into a .force_ctx() implementation and
-> hand the acquire context over to
-> drm_atomic_helper_connector_hdmi_force_ctx(), so that the HDMI connector
-> framework can reset the CRTC to recover the SCDC state when the sink
-> reconnects while the display pipeline is active.
+On Fri, Sep 04, 2026 at 03:45:41PM +0800, Shawn Guo wrote:
+> Document Qualcomm PMM8654AU PMIC RTC which is compatible with PMK8350
+> RTC.
 > 
-> [ ... ]
+> Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+> ---
+>  Documentation/devicetree/bindings/rtc/qcom-pm8xxx-rtc.yaml | 3 +++
+>  1 file changed, 3 insertions(+)
+> 
 
-Reviewed-by: Maxime Ripard <mripard@kernel.org>
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-Thanks!
-Maxime
+Best regards,
+Krzysztof
+
