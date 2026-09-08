@@ -1,189 +1,79 @@
-Received: from mta0.migadu.com (out-34.mta0.migadu.com [91.218.175.34])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.toke.dk (mail.toke.dk [45.145.95.4])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6217D51121B
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 09:25:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.34
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCAE2503BDE;
+	Tue,  8 Sep 2026 09:25:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.145.95.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788859504; cv=none; b=ddVOao50tcznhUzJOEozQweZVCbpAsP5vEj9FPNsIodFqf1qlyQf0Z33epd7Y5mkc8sHzyYFyJpw3VtkR3/Dah0LjTo9GqrONa4PRyMicufOgBsPnxwfNEoKUAQVP8kaCxNVWpCTbjYTsTRjit0AcFZz5FU3OE9Mxi5ogdy6gH8=
+	t=1788859508; cv=none; b=Y0ucNqhfxHayFDSSDHNN51H7/o813xgvXij7as3UciJFhbn/9UtLPNNoKS0+WDK/lYNSHPkAjYczFvyveXy0e3gZUAHUcUVU6/l8jP+U3X+gvuwYmnJDl1gFrefLtZPGjBjbgtQDTs35yUKEnjyS6/3pQPbQzwPxMgNVr2bLg8c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788859504; c=relaxed/simple;
-	bh=V8xaXgzY9XllyFlk89eNgFUoQBothzQGCS5P6ix37Rs=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=a4iia36x3o0uyH8Qtc6e22aY1NMCpKf8JMWv+2zwjek4ISHCUk6K/+o4z/5luHXdeq6wEFUdn6Ae1wio/8o1XDNAIP1HXwG9pzal1RsQMKJ0J0s/D5ruIdNzhu8/O+104+2Mq0OpQACKoYyB0AhG8p4MkJIzwa/jgy33HzMW6nE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=ZXrStVWc; arc=none smtp.client-ip=91.218.175.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="ZXrStVWc"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=V8xaXgzY9XllyFlk89eNgFUoQBothzQGCS5P6ix37Rs=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788859500; v=1; x=1789464300;
- b=ZXrStVWcA3ndDiMkvoP1jRCdp6khiCSvLxqJQtV0bJSJXkDh7dplec02Hh3J74eirFw9qVTX
- Fr+I/qtdJokdbU6KeuRo+ARA5whnojtoFuT39dL4j6CF9iYGRc1no8E646e6rYWoOrCTLdqkzFe
- kleMGcbeSGp2aQtOJ7vhkcMg=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 73556141def5d3fb;
-	Tue, 08 Sep 2026 09:25:00 +0000
-X-Mizu-Trace-ID: 73556141def5d3fb
-X-Migadu-Flow: FLOW_OUT
-From: Hao Ge <hao.ge@linux.dev>
-To: Luis Chamberlain <mcgrof@kernel.org>,
-	Petr Pavlu <petr.pavlu@suse.com>,
-	Daniel Gomez <da.gomez@kernel.org>,
-	Sami Tolvanen <samitolvanen@google.com>,
-	Aaron Tomlin <atomlin@atomlin.com>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Hao Ge <hao.ge@linux.dev>,
-	Andrew Morton <akpm@linux-foundation.org>
-Cc: linux-modules@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org,
-	Sashiko <sashiko-bot@kernel.org>,
-	stable@vger.kernel.org
-Subject: [PATCH v9 1/4] alloc_tag: move release_module_tags() above reserve_module_tags()
-Date: Tue,  8 Sep 2026 17:24:09 +0800
-Message-Id: <20260908092412.115953-2-hao.ge@linux.dev>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20260908092412.115953-1-hao.ge@linux.dev>
-References: <20260908092412.115953-1-hao.ge@linux.dev>
+	s=arc-20240116; t=1788859508; c=relaxed/simple;
+	bh=xnIwvgCs9q5EgM25zXBqII6HE4rh3StqZvZ8755QyiU=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=p7KNWdzLqSqVG/MmqCSyMHefJ/ZYwXO2idYFxOCuJYZCrriDBcNd3Ka4SabaL/G7fAVyYjyXhnCQm1Byvpb02g1cE9OWSf9VXVB4npkB6xXXC6nAil1n7nB07Fq7lfbZggVwZSGnEI8bWloeTGR67OG4hGVkivKB/XEw/XiEBB8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=toke.dk; spf=pass smtp.mailfrom=toke.dk; arc=none smtp.client-ip=45.145.95.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=toke.dk
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=toke.dk
+Authentication-Results: mail.toke.dk; dkim=none
+From: Toke =?utf-8?Q?H=C3=B8iland-J=C3=B8rgensen?= <toke@toke.dk>
+To: Thomas Fourier <fourier.thomas@gmail.com>
+Cc: Thomas Fourier <fourier.thomas@gmail.com>, Kalle Valo
+ <kvalo@kernel.org>, "open list:QUALCOMM ATHEROS ATH9K WIRELESS DRIVER"
+ <linux-wireless@vger.kernel.org>, open list <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH net] wifi: ath9k: Fix potential spin_lock() before
+ spin_lock_init()
+In-Reply-To: <20260804080913.67985-2-fourier.thomas@gmail.com>
+References: <20260804080913.67985-2-fourier.thomas@gmail.com>
+Date: Tue, 08 Sep 2026 11:25:01 +0200
+X-Clacks-Overhead: GNU Terry Pratchett
+Message-ID: <87pkyof636.fsf@toke.dk>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
-release_module_tags() is a cleanup helper. reserve_module_tags() can
-also fail after storing the reservation in the maple tree, in which
-case it should call release_module_tags() to undo it. Move the helper
-above reserve_module_tags() so no forward declaration is needed.
+Thomas Fourier <fourier.thomas@gmail.com> writes:
 
-No functional change.
+> The function ath9k_init_wmi() initializes wmi->wmi_lock. It is called in
+> ath9k_htc_probe_device(), and the priv->initialized flag is set.
+> However, the ath9k_wmi_event_tasklet takes the lock before checking the
+> priv->initialized flag, so the lock may not be initialized before
+> being taken.  This could be the case, for example, if the spin_lock_init()
+> is reordered with tasklet_setup() in ath9k_init_wmi() by the compiler or
+> CPU.
+>
+> There is a write memory barrier before setting the priv->initialized,
+> but no corresponding read memory barrier is used after checking the
+> flag.
+>
+> Move priv->initialized at the start of ath9k_wmi_event_tasklet() and
+> add a corresponding read memory barrier.
+>
+> Fixes: 24355fcb0d4c ("wifi: ath9k: delay all of ath9k_wmi_event_tasklet() until init is complete")
+> Signed-off-by: Thomas Fourier <fourier.thomas@gmail.com>
+> ---
+>  drivers/net/wireless/ath/ath9k/wmi.c | 15 +++++++++------
+>  1 file changed, 9 insertions(+), 6 deletions(-)
+>
+> diff --git a/drivers/net/wireless/ath/ath9k/wmi.c b/drivers/net/wireless/ath/ath9k/wmi.c
+> index 284e8c13b043..df4a3a625536 100644
+> --- a/drivers/net/wireless/ath/ath9k/wmi.c
+> +++ b/drivers/net/wireless/ath/ath9k/wmi.c
+> @@ -146,6 +146,15 @@ void ath9k_wmi_event_tasklet(struct tasklet_struct *t)
+>  	unsigned long flags;
+>  	u16 cmd_id;
+>  
+> +	/* Check if ath9k_htc_probe_device() completed. */
+> +	if (!data_race(priv->initialized))
+> +		return;
 
-Fixes: 4835f747d3ed ("alloc_tag: support for page allocation tag compression")
-Fixes: 0f9b685626da ("alloc_tag: populate memory for module tags as needed")
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Cc: stable@vger.kernel.org
-Acked-by: Suren Baghdasaryan <surenb@google.com>
-Signed-off-by: Hao Ge <hao.ge@linux.dev>
----
- mm/alloc_tag.c | 92 +++++++++++++++++++++++++-------------------------
- 1 file changed, 46 insertions(+), 46 deletions(-)
+Moving this out of the loop changes behaviour: Before, the loop would
+keep spinning waiting for initialisation, now we just exit. I don't see
+any guarantee that we'll come back here, so this has the risk of
+stalling things. We'll need to re-schedule the tasklet before returning
+if we're moving the check here.
 
-diff --git a/mm/alloc_tag.c b/mm/alloc_tag.c
-index b1d48532a25a..e7a79116ad81 100644
---- a/mm/alloc_tag.c
-+++ b/mm/alloc_tag.c
-@@ -843,6 +843,52 @@ static int vm_module_tags_populate(void)
- 	return 0;
- }
- 
-+static void release_module_tags(struct module *mod, bool used)
-+{
-+	MA_STATE(mas, &mod_area_mt, module_tags.size, module_tags.size);
-+	struct alloc_tag *start_tag;
-+	struct alloc_tag *end_tag;
-+	struct module *val;
-+
-+	mas_lock(&mas);
-+	mas_for_each_rev(&mas, val, 0)
-+		if (val == mod)
-+			break;
-+
-+	if (!val) /* module not found */
-+		goto out;
-+
-+	if (!used)
-+		goto release_area;
-+
-+	start_tag = (struct alloc_tag *)(module_tags.start_addr + mas.index);
-+	end_tag = (struct alloc_tag *)(module_tags.start_addr + mas.last);
-+	if (!clean_unused_counters(start_tag, end_tag)) {
-+		struct alloc_tag *tag;
-+
-+		for (tag = start_tag; tag <= end_tag; tag++) {
-+			struct alloc_tag_counters counter;
-+
-+			if (!tag->counters)
-+				continue;
-+
-+			counter = alloc_tag_read(tag);
-+			pr_info("%s:%u module %s func:%s has %llu allocated at module unload\n",
-+				tag->ct.filename, tag->ct.lineno, tag->ct.modname,
-+				tag->ct.function, counter.bytes);
-+		}
-+	} else {
-+		used = false;
-+	}
-+release_area:
-+	mas_store(&mas, used ? &unloaded_mod : NULL);
-+	val = mas_prev_range(&mas, 0);
-+	if (val == &prepend_mod)
-+		mas_store(&mas, NULL);
-+out:
-+	mas_unlock(&mas);
-+}
-+
- static void *reserve_module_tags(struct module *mod, unsigned long size,
- 				 unsigned int prepend, unsigned long align)
- {
-@@ -930,52 +976,6 @@ static void *reserve_module_tags(struct module *mod, unsigned long size,
- 	return (struct alloc_tag *)(module_tags.start_addr + offset);
- }
- 
--static void release_module_tags(struct module *mod, bool used)
--{
--	MA_STATE(mas, &mod_area_mt, module_tags.size, module_tags.size);
--	struct alloc_tag *start_tag;
--	struct alloc_tag *end_tag;
--	struct module *val;
--
--	mas_lock(&mas);
--	mas_for_each_rev(&mas, val, 0)
--		if (val == mod)
--			break;
--
--	if (!val) /* module not found */
--		goto out;
--
--	if (!used)
--		goto release_area;
--
--	start_tag = (struct alloc_tag *)(module_tags.start_addr + mas.index);
--	end_tag = (struct alloc_tag *)(module_tags.start_addr + mas.last);
--	if (!clean_unused_counters(start_tag, end_tag)) {
--		struct alloc_tag *tag;
--
--		for (tag = start_tag; tag <= end_tag; tag++) {
--			struct alloc_tag_counters counter;
--
--			if (!tag->counters)
--				continue;
--
--			counter = alloc_tag_read(tag);
--			pr_info("%s:%u module %s func:%s has %llu allocated at module unload\n",
--				tag->ct.filename, tag->ct.lineno, tag->ct.modname,
--				tag->ct.function, counter.bytes);
--		}
--	} else {
--		used = false;
--	}
--release_area:
--	mas_store(&mas, used ? &unloaded_mod : NULL);
--	val = mas_prev_range(&mas, 0);
--	if (val == &prepend_mod)
--		mas_store(&mas, NULL);
--out:
--	mas_unlock(&mas);
--}
--
- static int load_module(struct module *mod, struct codetag *start, struct codetag *stop)
- {
- 	/* Allocate module alloc_tag percpu counters */
--- 
-2.25.1
-
+-Toke
