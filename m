@@ -1,113 +1,92 @@
-Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com [210.118.77.11])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFBFC52ED2C
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 14:32:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.118.77.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D747C52ED2C;
+	Tue,  8 Sep 2026 14:33:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788877933; cv=none; b=HwsbPlMP4KFXpWVTHucqjE9sJ3kgFmh6hq1JPGLHBAfU20EvAYzrgRtKTM4npjQI5fYyhEesaj9Lz4PJQ8CoTE3ry1PWRSq/mlkfoty3+6nuNgaQ1T5G/Mv0m3DCVPSkSRBHdTpIFKrr6KGXPfoWhQkedNhTIDEJQBIEEChMnsI=
+	t=1788878017; cv=none; b=taHTwayKrLXF3yEixX0ocqtwJRmAbmbvITurV0KPtc/5qpFC4EaefB8kgwtOaJM9AJQJ6H+bHYoXNhh86m46dpYUUkWV8/Sr4ajBBcTUCaft5qYiP43meIgJzXHlOdEQgimTfTjg84miYD8weKqY0jLFh9sh46tEHwbpYCqMxsQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788877933; c=relaxed/simple;
-	bh=sGPpsw82Ut1ivvODV3WzDRDtKI8Iqx39jJUwTNNuOXk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:From:In-Reply-To:
-	 Content-Type:References; b=ogZIIxS6d+8puFmydplq5Dj0+/vDT0499PkbnZJVAbazhJCUj4uoqSBDZsFTefiFEsjRkcBYICnSER7M7iD0izdOzOmsZwJHDPWH5vD+V83MguDcXLDFj9S6hnEVNCQX0/+HX7kDx1QqXBzf2z0ev44fVblbWtS9xvqI6UaIf68=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=i0LGIgBk; arc=none smtp.client-ip=210.118.77.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="i0LGIgBk"
-Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
-	by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id 20260908143200euoutp01183b46118e8c60f89d1d2d781039bf96~TXv27Ef_X2771727717euoutp010
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 14:32:00 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com 20260908143200euoutp01183b46118e8c60f89d1d2d781039bf96~TXv27Ef_X2771727717euoutp010
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1788877920;
-	bh=lxtxfoc1BqZ88KyMks903H98cbnt9NYyBmm/eirjOBE=;
-	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
-	b=i0LGIgBk76feutSX6aONa1B0ZMfdK9tjEzLqFCPaCYHK9M/5WEYFL9oExD6BAI7+2
-	 IK36iKanvR7tQcjUwH1W/V8CLNb8Jk3LoOwyA2CWXBFEaqO+EspLK6Ps72+a4Oc1zc
-	 t2z9LF9ASNWtdnCfciz5bNxbUSmO/ZaWBryxjk+8=
-Received: from eusmtip1.samsung.com (unknown [203.254.199.221]) by
-	eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
-	20260908143200eucas1p2f8f2902d780e0d3eaf96c351854b9124~TXv2PhgXT1078710787eucas1p27;
-	Tue,  8 Sep 2026 14:32:00 +0000 (GMT)
-Received: from [106.210.134.192] (unknown [106.210.134.192]) by
-	eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
-	20260908143158eusmtip194054021f33b6656c3f5ba4327c89852~TXv0uyMB30480504805eusmtip19;
-	Tue,  8 Sep 2026 14:31:58 +0000 (GMT)
-Message-ID: <fc0bc0c2-59ca-40b9-9d98-d5aebebeb4a3@samsung.com>
-Date: Tue, 8 Sep 2026 16:31:57 +0200
+	s=arc-20240116; t=1788878017; c=relaxed/simple;
+	bh=hg5HOedH0VT2kuJxh85hrVEba0JlCtOgEQLgr00dUhI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=POfFN2ndXbuFtXFNRKrRvkkmMMRoEt/++2zFQfI7RUjpk59lKR56GTIn6296o4WACnwCtTatxZGJAQ8MGl64BqdGHychCn3aXZQAuKb827CM98Qvq22iLvSmSSkLoB9qQspjedz+GxVMoIDfEO1M3OF79DQ9kaCLPDei3JLiS8U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CF0701F00A3E;
+	Tue,  8 Sep 2026 14:33:02 +0000 (UTC)
+Message-ID: <1ef2c31d-6ad5-46cd-98ca-0f31485cf8c1@kernel.org>
+Date: Tue, 8 Sep 2026 16:32:59 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Betterbird (Windows)
-Subject: Re: [PATCH] x86/mm: Don't force unencrypted DMA for IOMMU-backed
- devices
-To: Michael Kelley <mhklinux@outlook.com>, "Aneesh Kumar K.V (Arm)"
-	<aneesh.kumar@kernel.org>, "x86@kernel.org" <x86@kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"iommu@lists.linux.dev" <iommu@lists.linux.dev>
-Cc: Dave Hansen <dave.hansen@linux.intel.com>, Andy Lutomirski
-	<luto@kernel.org>, Peter Zijlstra <peterz@infradead.org>, Thomas Gleixner
-	<tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov
-	<bp@alien8.de>, "H . Peter Anvin" <hpa@zytor.com>, Mostafa Saleh
-	<smostafa@google.com>, "Alexander.Deucher@amd.com"
-	<Alexander.Deucher@amd.com>, "Thomas.Lendacky@amd.com"
-	<Thomas.Lendacky@amd.com>, "Vasant.Hegde@amd.com" <Vasant.Hegde@amd.com>,
-	Timo Witte <timo.witte@gmail.com>
-Content-Language: en-US
-From: Marek Szyprowski <m.szyprowski@samsung.com>
-In-Reply-To: <SN6PR02MB41571F1762544B6157C475BFD4B12@SN6PR02MB4157.namprd02.prod.outlook.com>
-Content-Transfer-Encoding: 7bit
-X-CMS-MailID: 20260908143200eucas1p2f8f2902d780e0d3eaf96c351854b9124
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-RootMTR: 20260908142502eucas1p10e6dff3598a25b81016dbc981b80c288
-X-EPHeader: CA
-X-CMS-RootMailID: 20260908142502eucas1p10e6dff3598a25b81016dbc981b80c288
-References: <20260908113232.247457-1-aneesh.kumar@kernel.org>
-	<CGME20260908142502eucas1p10e6dff3598a25b81016dbc981b80c288@eucas1p1.samsung.com>
-	<SN6PR02MB41571F1762544B6157C475BFD4B12@SN6PR02MB4157.namprd02.prod.outlook.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 02/24] x86/elf, um/x86/elf: Move relocation constants
+ to UAPI
+To: Borislav Petkov <bp@alien8.de>,
+ =?UTF-8?Q?Thomas_Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>
+Cc: Paul Walmsley <paul.walmsley@sifive.com>,
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
+ Alexandre Ghiti <alex@ghiti.fr>, Nathan Chancellor <nathan@kernel.org>,
+ Nick Desaulniers <nick.desaulniers+lkml@gmail.com>,
+ Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
+ Andy Lutomirski <luto@kernel.org>,
+ Vincenzo Frascino <vincenzo.frascino@arm.com>, Kees Cook <kees@kernel.org>,
+ Ingo Molnar <mingo@redhat.com>, Dave Hansen <dave.hansen@linux.intel.com>,
+ x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>,
+ Richard Weinberger <richard@nod.at>,
+ Anton Ivanov <anton.ivanov@cambridgegreys.com>,
+ Johannes Berg <johannes@sipsolutions.net>,
+ Russell King <linux@armlinux.org.uk>,
+ Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
+ Madhavan Srinivasan <maddy@linux.ibm.com>,
+ Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>,
+ Huacai Chen <chenhuacai@kernel.org>, WANG Xuerui <kernel@xen0n.name>,
+ Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
+ Alexander Gordeev <agordeev@linux.ibm.com>,
+ Christian Borntraeger <borntraeger@linux.ibm.com>,
+ Sven Schnelle <svens@linux.ibm.com>,
+ Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+ Miguel Ojeda <ojeda@kernel.org>, Alex Gaynor <alex.gaynor@gmail.com>,
+ Gary Guo <gary@garyguo.net>, =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?=
+ <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>,
+ Andreas Hindborg <a.hindborg@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
+ Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>,
+ Thomas Gleixner <tglx@kernel.org>, Boqun Feng <boqun@kernel.org>,
+ Nicolas Schier <nsc@kernel.org>, linux-riscv@lists.infradead.org,
+ linux-kernel@vger.kernel.org, llvm@lists.linux.dev, linux-mm@kvack.org,
+ linux-um@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ linuxppc-dev@lists.ozlabs.org, loongarch@lists.linux.dev,
+ linux-s390@vger.kernel.org, linux-mips@vger.kernel.org,
+ rust-for-linux@vger.kernel.org, linux-kbuild@vger.kernel.org,
+ Jan Stancek <jstancek@redhat.com>, Arnaldo Carvalho de Melo
+ <acme@redhat.com>, Alexandre Ghiti <alexghiti@rivosinc.com>
+References: <20260908-vdso-absolute-reloc-v5-0-3a93791af1cf@linutronix.de>
+ <20260908-vdso-absolute-reloc-v5-2-3a93791af1cf@linutronix.de>
+ <20260908135513.GAaqATwXHcQD7plnH-@fat_crate.local>
+Content-Language: fr-FR
+From: "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>
+In-Reply-To: <20260908135513.GAaqATwXHcQD7plnH-@fat_crate.local>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On 08.09.2026 16:24, Michael Kelley wrote:
-> From: Aneesh Kumar K.V (Arm) <aneesh.kumar@kernel.org> Sent: Tuesday, September 8, 2026 4:33 AM
->> Commit 8277a12d0d60 ("dma-pool: track decrypted atomic pools and select
->> them via attrs") exposed an issue with force_dma_unencrypted() on
->> systems using host memory encryption.
+
+
+Le 08/09/2026 à 15:55, Borislav Petkov a écrit :
+> On Tue, Sep 08, 2026 at 08:33:36AM +0200, Thomas Weißschuh wrote:
+>> These constants are useful for cross-platform userspace, for example to
+>> process ELF files during kernel cross-compilation.
 >>
->> force_dma_unencrypted() checks whether the device DMA mask can address
->> the encryption bit and, if not, requires DMA allocations to use
->> unencrypted memory. However, this check is not applicable when the
->> device is using the IOMMU. In that case, the device DMA mask constrains
->> the IOVA seen by the device, not the backing physical address, so it
->> does not need to cover the C-bit.
->>
->> This currently causes dma_alloc_attrs() to set
->> __DMA_ATTR_ALLOC_CC_SHARED for such devices. iommu_dma_alloc() does not
->> support that attribute and rejects the allocation, causing DMA
->> allocations to fail.
->>
->> Do not force DMA allocations to be unencrypted when the device is using
->> the IOMMU. This allows the IOMMU to map the encrypted physical pages as
->> before and avoids incorrectly requesting CC_SHARED allocations.
->>
->> Fixes: 8277a12d0d60 ("dma-pool: track decrypted atomic pools and select them via attrs")
->> Reported-by: Timo Witte <timo.witte@gmail.com>
->> Link: https://lore.kernel.org/all/CANB4YXR7h8V5Xp=MXVZeSdvw9UiriSagp=E+ju5RRDNghoPHLQ@mail.gmail.com
-> There seems to be something wrong with this link. Just viewing the
-> email thread in lore.kernel.org shows a [not found] error in the thread.
+>> Move them from the kernel-private architecture-specific header to the UAPI.
+> 
+> Why UAPI?
+> 
+> Why not include/linux/ ?
+> 
 
-Indeed, this one works better:
+I guess because on some architectures it is already in UAPI, see for 
+instance powerpc in patch 5 ?
 
-https://lore.kernel.org/all/CANB4YXS=Nf-co3t8eMHtqrW4sn=1BDcP6o=EoTrgZm0WYMYTyw@mail.gmail.com/
-
-I will amend it while applying, but I want give everyone some time for comments.
-
-Best regards
--- 
-Marek Szyprowski, PhD
-Samsung R&D Institute Poland
-
+Christophe
