@@ -1,91 +1,87 @@
-Received: from mx0b-0002e601.pphosted.com (mx0b-0002e601.pphosted.com [148.163.154.28])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 005DB3A9618;
-	Tue,  8 Sep 2026 15:03:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.154.28
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788879791; cv=fail; b=j0XrE6ePPjfRbWOErxkNbZwxubTlPn3hlFEehE66+goRFXLjSEbGTg31Ja7RnThDVfgJ/XKVnGOA3RHcEWEJht78nabQKRo9RWasuKHEvy+RZevj8Lke8Nudsblfp+EeZ1eG4hWOw/0rvO95cZ9vLxglMhgfafW20QfQw1YfP3g=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788879791; c=relaxed/simple;
-	bh=rKsppWxheYrcA8uV2Bjx2m2e+4tQ3YFQzYHCIOaZatU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=QnOqRA6CwOpms9VQ030En4a3qrBB7g7M2xi6DenEKdlF/Md6uqDZL8Ye5BpalL5MIdei6P87U28FKJd8xeevPw8fKR9YB7GT79CUttu/kWu3ec83ZPiCUtJSKpUoA8uMLUZPXELdu/745pNH5kCwqPg47EhpWtac8eDBKy+i3bI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b=WviY8D6C; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=n+AGKRS2; arc=fail smtp.client-ip=148.163.154.28
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38B3A5476F1
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 15:04:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788879893; cv=none; b=I+SdT6gA16r2VXp7bpyfQJn6VfwopnYHaUPdJu1ZGpuKNWxo2rLQS81dCwG0C+uKj7/A+I4bcMG2SKIKUL1wbxaNZU2HY/6FD9pJmehISjJ5/GKPeTRdqaK/bKemlhuooeJSIlqFA+3y8KMxPmDYvUW/jy6w4WNVD2gN+nCNu0o=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788879893; c=relaxed/simple;
+	bh=/ot3bEfw5n53CkqAonvZddrjr4a61Tw39SIgkb+Vx+Q=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ZFtHDSp/bz0MzfZ+V6pXHZDnxDN66P5Ku5anc2IOhxkwWmeXrJ8TEFJIQurEuttZUt2H55Manz8vkUzaVlh/Ns3hnKDDzproxaOufGY3f0iACr/QhZiaRq/jG08Gtp+BqLe1OYJxqT8v9CDh7HfHXBDwfEuEqN1vpQ+7mn4HsUo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=gpT+GGs1; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=g8mSC90W; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b="WviY8D6C";
-	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="n+AGKRS2"
-Received: from pps.filterd (m0374956.ppops.net [127.0.0.1])
-	by mx0b-0002e601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 688ElRE81845025;
-	Tue, 8 Sep 2026 10:02:22 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=
-	proofpoint-05-2026; bh=aKEDJbqKw2mkdJN1kzZaLR0tX/9VayQsnKxG7ofcJ
-	7w=; b=WviY8D6CZuFmEPFyE/h14fCG+wCXA2+D/v4qCBN3qq7ab8i4rCY0rKMAR
-	IMYTTqjfe7Ybv3WzhrSBwiFLwbZtq+z46p9zJVpLjGVmtpPvC4Enhm9P+O2Vk+jF
-	Wd2o23y6+Lc4Zes/YFUuSopFED8jfkSuFVo9U+GkKZWYelsywyVwH3nnccnFLrRv
-	xyhXaYFTfiT3nf+HSs+tqwObSU87acOZf0VY+xNrGpp30rkbqxvoySmaWj/xqfPk
-	B/wM66eku3XkO0IEiFxQKQRwE7kaNSyUJ0HsM0s0QA9CttEUFuz/LEgz5dwgaP42
-	2CUJus6KOAIOwFSeGOUeAXPEwpZsg==
-Received: from ch4pr04cu002.outbound.protection.outlook.com (mail-northcentralusazon11013040.outbound.protection.outlook.com [40.107.201.40])
-	by mx0b-0002e601.pphosted.com (PPS) with ESMTPS id 4gj940mc3y-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Tue, 08 Sep 2026 10:02:21 -0500 (CDT)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=LaoScmQ8Fm5udCYgcWeBnC3ZdS+9vGC4RnsEgH4O2X9OokfP7LMcv/5PbjnecB72T/qQxmeUqNGPf59krUupFMLOERkTHCvRKzZd7ldqCSdHQPBOWACIJ6RXYBHW7c+uqVdZkR6AxloyrJYJLOkPIvlhIxwE4i3PTyFcTe1m/agwI0m1yO30aY/h59andPmLcmE/eciXnP3BEFR6TevKchCS4U8iWAD7pRzlu+g8ZoXTrgqVQ+GkN3PNK85YeTKNui6Q6KWDsfXUbMca5RYnhGgdtDuyGaXY8HoVMtecYl4nJclRSl4DJlbEK0ld5H0Idsii4W3SfTSnkKkIB+U6jg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=aKEDJbqKw2mkdJN1kzZaLR0tX/9VayQsnKxG7ofcJ7w=;
- b=nCY81W3dFtWLhqUImJio/QTnUs7jtf+M/jJho00WbQizssncu4lDco1UShbNrGYFRGK0vIfXOcmBowIPhtN8PGNbILqxuq47NkbMibJE1epz85+op+0MhaaIciwqJwBh0XkLL58/dkOZtmaAXMZ6yZx9pQwttQ18ji6GMGkty6JlE4tLHa4AnGOk7fF72CJznmS8T7smVgIbubGlOdIyNpsUX72B7HsN/ywKbCwYnsiY7xr3DMf0PZ2LgNz05ryxgHOnpnhK3XuM0yLCTrUV7FNbBK89Tfw2URqCTD8BN6t+5bSSy6o8SMlm3olVPZgFcaWDnZ7qRREgI8SLNB6XvQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 198.47.23.194) smtp.rcpttodomain=lists.infradead.org smtp.mailfrom=ti.com;
- dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=aKEDJbqKw2mkdJN1kzZaLR0tX/9VayQsnKxG7ofcJ7w=;
- b=n+AGKRS2Beno6PO2nFCisi4nnzhoHUl6KcxDSR6JWstxKmhgHA/pNlVIEMPKdonp40Soes4zhfWTeWk4g76NgyE34QG+UuteU2Bd2DWql1DwZGyn/mwdLfBHSg0VMSpvi9zisyUIKi/AkQaoEaJyHt2sKmyXlmL2ht0B+qezh7Y=
-Received: from CH2PR14CA0039.namprd14.prod.outlook.com (2603:10b6:610:56::19)
- by PH5PR10MB997708.namprd10.prod.outlook.com (2603:10b6:510:39c::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.7; Tue, 8 Sep 2026
- 15:02:19 +0000
-Received: from BN2PEPF000044AC.namprd04.prod.outlook.com
- (2603:10b6:610:56:cafe::36) by CH2PR14CA0039.outlook.office365.com
- (2603:10b6:610:56::19) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.15 via Frontend Transport; Tue, 8
- Sep 2026 15:02:19 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.23.194)
- smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
- action=none header.from=ti.com;
-Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
- 198.47.23.194 as permitted sender) receiver=protection.outlook.com;
- client-ip=198.47.23.194; helo=lewvzet200.ext.ti.com; pr=C
-Received: from lewvzet200.ext.ti.com (198.47.23.194) by
- BN2PEPF000044AC.mail.protection.outlook.com (10.167.243.107) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.406.5 via Frontend Transport; Tue, 8 Sep 2026 15:02:17 +0000
-Received: from DLEE206.ent.ti.com (157.170.170.90) by lewvzet200.ext.ti.com
- (10.4.14.103) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 8 Sep
- 2026 10:01:33 -0500
-Received: from DLEE200.ent.ti.com (157.170.170.75) by DLEE206.ent.ti.com
- (157.170.170.90) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 8 Sep
- 2026 10:01:32 -0500
-Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DLEE200.ent.ti.com
- (157.170.170.75) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45 via Frontend
- Transport; Tue, 8 Sep 2026 10:01:32 -0500
-Received: from [10.249.33.213] ([10.249.33.213])
-	by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 688F1V1K2679453;
-	Tue, 8 Sep 2026 10:01:32 -0500
-Message-ID: <1185fd5a-864e-48e3-a0ef-f96e51502e40@ti.com>
-Date: Tue, 8 Sep 2026 10:01:31 -0500
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="gpT+GGs1";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="g8mSC90W"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 688F1K7p3320440
+	for <linux-kernel@vger.kernel.org>; Tue, 8 Sep 2026 15:04:46 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	y2IJKD/wc07ehSuWDkX+So12eTaGvIek1NA45XQQAOU=; b=gpT+GGs10MCSsy78
+	7HmXhE6f4W0TM8Q2WVlz0dLOBmyWITlcXiLSMZMgz6NWBUgK7XgIUfLbjZqRSqe2
+	e2+TJzXDyQ9Yujk/BeUbBwqZwfL11Gt2v5SzeeDTaQeBWkGOFjaNngY1k6narjCJ
+	MkoRDTGXnyrwFpXFj7XiwJV0mBtD0OOtR3T4KO0Y5fSuKs/BgKH7dD3ciA1O124z
+	Qn3CQBB1YwK9r9XEICXmbXLeTZsI4YfxzfHBRDtZHRIMyqD2IacFCun1AxfDtD+Y
+	MB4lMmMjB8I8ZY/kx7pxbdrrxWHn/w48b8C3VnJx0Vj+S3oLz02bf+lu1Ucs0deF
+	0t3dkA==
+Received: from mail-ot1-f72.google.com (mail-ot1-f72.google.com [209.85.210.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gj1rwm5qr-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 15:04:46 +0000 (GMT)
+Received: by mail-ot1-f72.google.com with SMTP id 46e09a7af769-7f36427abfdso6151517a34.3
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 08:04:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1788879885; x=1789484685; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=y2IJKD/wc07ehSuWDkX+So12eTaGvIek1NA45XQQAOU=;
+        b=g8mSC90WC2jYnSLws0VQvKA+/+p27SSlwGb98lSiwCteWLYtiEqjflfAeN/rCOe7tG
+         hIAbR7xslnQ6j3A2rJ5PyXP9qDdLF8rt2YyxWgj9ZKskH7AGC5PjeGqduMMp3QeujYMR
+         XVz4QvLWWYf1Or3toly5RwRHDwJnC9apt1Jqc7/cJW4TMG0EI8XJA5qXd1ucF18KTVxF
+         Iss0kYt6dl/ob8yy41UbSTn18FSyd9XKNmX463Td+eVUlPpkelSOHq30f6HiQ0iV92TO
+         b18aQ7ivLL6Ha9gUHAw10/cmLONUtfVb0zr7opODTzPsw8lx0tNPavH3PLbDjQi3B+Te
+         1JCA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788879885; x=1789484685;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=y2IJKD/wc07ehSuWDkX+So12eTaGvIek1NA45XQQAOU=;
+        b=LCF3FpNP7YBj78aLQGRDRIVEG/s10TwBCp+RVCmy1i+LIfQiHMehgW9YAwwzH1OTEN
+         tYiY6mGwBcrz5H7BqPuNnj/B0RPpSew5bH83EYShFct9cEaQ3vtBjm74BQJ8AQtFc/FQ
+         eNqdKG34kSGwP+EnVSU9/Ed4k3boaq5AD5mASh8LXYhsuz9m/f+bl6X4RdhZ3Uwf8gHn
+         2f1BNGNnkYVyrH6pv1N+g8kMjFg3W9+yZoqRp0JRHF98A5/wCVhcpkhNQWeEzi+sDkU2
+         drUnipA1gxz0DFzhvTe10Wp2OSiyRV2bLgy9yWwkomewYthQg+PVt/sF0KsVDhXXzOIu
+         6X8w==
+X-Forwarded-Encrypted: i=1; AKwUvBwSnwE16sdqJPhPRLYhtiSuUTGk946F0RkHeYGI41YL5CsTKkm7MP0NWQrMDaTp7c0PM0GVYXIQYMSCELI=@vger.kernel.org
+X-Gm-Message-State: AFuF++n0YkW7Xy5QogrgWi9lH7KWRpE//XN/vG4DOGD+Je12ZNd/nTVg
+	cnZkH2wiXQC0jo+oMfv1g+s7BJ1bkZashWpDYIsRhlcDiQLdG3gtgWasYrcvGFXQx6ZLo2ZNAid
+	2+0EzJSEJiM720JK+JjCPxcEkVrBUj3wtoVzoDqyrknw2yaHmpRXzEEUQ80AYrBlaWLs0x8MwIZ
+	M=
+X-Gm-Gg: AYBFou0UsaygBndeHK3Yf983we5PyNhacBxGpFQIYx5qU22d2OwZMXAErCU6NGiQVKD
+	2MNBk+NFzmLP/dY0A7pVvaoHtvbGXHlUiY+FTjrw6Z02pByJmfBoGQgnCEViV2ae1sBu9ZbL+nJ
+	C9VlrMUqBKl0LbeMG7c5svs7cslKckK+5ohz8gTDb3b8WfZD8/uK/FrN8RgUlSeL4IM43TxNsTA
+	2hxTIta37s5vYYqnMTw2xHssDzK/hyASuElj57IpiQDK8SwlTh63yd7YyzH+PD1suRUZUM/0wGS
+	eFy3vHN7ZSlHZo7tUmJeGxTdEXooPBGX69ruFuo/7v1FLAj0QlQpA7ccBotYqMftQ6oiVL6DiTp
+	M0nTx1G3BVvj04litoiljBiWTbVk9SPTVKR/tEbNMH+gqf8g/VRHJE0xX+5SG
+X-Received: by 2002:a05:6820:1515:b0:6b7:46fc:1d9 with SMTP id 006d021491bc7-6b746fc02damr16325284eaf.56.1788879885095;
+        Tue, 08 Sep 2026 08:04:45 -0700 (PDT)
+X-Received: by 2002:a05:6820:1515:b0:6b7:46fc:1d9 with SMTP id 006d021491bc7-6b746fc02damr16325213eaf.56.1788879884446;
+        Tue, 08 Sep 2026 08:04:44 -0700 (PDT)
+Received: from [10.227.105.111] (i-global254.qualcomm.com. [199.106.103.254])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339aa33e96sm36456508eec.12.2026.09.08.08.04.43
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 08 Sep 2026 08:04:43 -0700 (PDT)
+Message-ID: <a5534789-351d-402c-b7a0-bdd98b68fcd3@oss.qualcomm.com>
+Date: Tue, 8 Sep 2026 08:04:42 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -93,182 +89,214 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next v2 2/9] net: phy: dp83867: add regulator supply
- management
-To: Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>,
-        Andrew Lunn
-	<andrew+netdev@lunn.ch>,
-        "David S. Miller" <davem@davemloft.net>,
-        "Eric
- Dumazet" <edumazet@google.com>,
-        Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
-	<pabeni@redhat.com>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski
-	<krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Andrew Lunn
-	<andrew@lunn.ch>,
-        Heiner Kallweit <hkallweit1@gmail.com>,
-        Russell King
-	<linux@armlinux.org.uk>,
-        Richard Cochran <richardcochran@gmail.com>,
-        "Bjorn
- Andersson" <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Alexandre Torgue <alexandre.torgue@foss.st.com>,
-        Giuseppe Cavallaro
-	<peppe.cavallaro@st.com>,
-        Jose Abreu <joabreu@synopsys.com>,
-        "Maxime
- Chevallier" <maxime.chevallier@bootlin.com>,
-        Maxime Coquelin
-	<mcoquelin.stm32@gmail.com>
-CC: <netdev@vger.kernel.org>, <devicetree@vger.kernel.org>,
-        <linux-kernel@vger.kernel.org>, <linux-arm-msm@vger.kernel.org>,
-        <linux-stm32@st-md-mailman.stormreply.com>,
-        <linux-arm-kernel@lists.infradead.org>
-References: <20260908-shikra_ethernet-v2-0-bbe3389d0652@oss.qualcomm.com>
- <20260908-shikra_ethernet-v2-2-bbe3389d0652@oss.qualcomm.com>
+Subject: Re: [PATCH net] ath9k_htc: fix possibly missing barrier in
+ ath9k_htc_rxep()
+To: Thomas Fourier <fourier.thomas@gmail.com>
+Cc: stable@vger.kernel.org,
+        =?UTF-8?Q?Toke_H=C3=B8iland-J=C3=B8rgensen?=
+ <toke@toke.dk>,
+        Tetsuo Handa <penguin-kernel@i-love.sakura.ne.jp>,
+        "open list:QUALCOMM ATHEROS ATH9K WIRELESS DRIVER"
+ <linux-wireless@vger.kernel.org>,
+        open list <linux-kernel@vger.kernel.org>
+References: <20260803104424.25880-1-fourier.thomas@gmail.com>
+From: Jeff Johnson <jeff.johnson@oss.qualcomm.com>
 Content-Language: en-US
-From: Andrew Davis <afd@ti.com>
-In-Reply-To: <20260908-shikra_ethernet-v2-2-bbe3389d0652@oss.qualcomm.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF000044AC:EE_|PH5PR10MB997708:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0df34c8c-89ad-4fc4-1824-08df0dba2c91
-X-LD-Processed: e5b49634-450b-4709-8abb-1e2b19b982b7,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|7416014|82310400026|1800799024|36860700016|23010399003|921020|10067099003|4143699003|56012099006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	1koDmkv2jjnW8cZbrGMQOz33+8sA2sBDKBeRlr/MbHd/A/iJJ/iGiWUiC3jWsvyDcJrFffG5eCrl6TOaFgdfOVzwJMBLzmE3qsIOaMfDYkNYE4hUprps42PRCRxjCvGkdpz6DN5aIs4Wu4Q7+OYOEFmSwCgs0yWtlzZfbF0212vIo9Uy9fHM0qyTtBatGs8PTuW5aKGm6t/z2Zt/WwRLmHeY3cwSuRcNuUhNMjtZy7rYQFdZlLWx/LOCiKDYpHdi3wjs5IP3TOJCDuYkIf0W44GbsPTa6WGnpGiQEPMc6dJ3l+o/bhZ9iHzCtoNjP7c+Cl8cX3qVdCDdC6GdfF4lCPjOcf0lWPEeDpj5q1ft+YZmdLMUurK09JQxJpRJ0bpOiaVD3VBNLJ/Bl+fnkQ/4bfyOK8CYd3hhkgyTIpsApl9Mr3PHlJq6QCFv2Dj0RE2vATT63OF15x/Zf6uH90rVGgRSW0Bt0C9v4aYh3k59e7Q/c8IsO/1F3h9yEbAzyZcS8Jif0nGbAnB+qnXrvPuVSo29E61/uk+8LfJOTLr0ugroRpqFKGrqkx7kJtQBOgJHX95jdSUA1wQLr9E+P2gRjEtMJ64qLy1xnjByhvwYl0LzH8WQo7hGBpUrgfrxqWI4laWdTIuOBdi/x4PzPjlW0DT9RRLTscQC4ftBygoIC/WXj1S+0w3siA2uTJxDeFwtgKVy7ZhFPKHtisip+luk8IQ5Qfm8Bz12HlZmbuQzqNmLGwCXqZiA+IVMqDIRYjb7
-X-Forefront-Antispam-Report:
-	CIP:198.47.23.194;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:lewvzet200.ext.ti.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(7416014)(82310400026)(1800799024)(36860700016)(23010399003)(921020)(10067099003)(4143699003)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	XUskg4ByaoIGqPaIohTGWsVv6SPWSxLlEM4QUlhBJYDydRDPDl1FXHAE468Z/P1FEjmS5aFSAFAiaYVaZsIXRcn3kE7bsya47gGhrJMIT29Np/ZmUS/8dH5A+h4tAMdZCYGpyPqLL2aetJgJ1UQ3RhIlCSDIYjGPAUfU4/ZHsCneW56Pa033fzkEm8uJ4O37fCHnr+C4CTlc8OaqX6xeSwkT5Pcj4BYsbFqNU+s/4XQcU0QgxRYowAlbK3zlHfnV4aHFbbXsznD8R5k/IXb48k/MlrVuQYcDtRv+6Dqx4//s9lkt9uvwoIkKrMHHd1sgg4DTYxl2jmv+nByA1Fi50sI3vXUVq5S+1HaggDWQswP9CAebIVdQAfJbg5SAXpkfSKrVWxcK5WQpFjIAQFs0rRD847ofk70Z1UkcBdw9bhyytNrseiz3lNs19JZ/haVz
-X-Exchange-RoutingPolicyChecked:
-	AvtyFG4MxTFJutaP/oxdYJdn3wXSVB3F52MCgTNVvvnzA+WCgtSUJ/MSXHxCMy6EykgN8vbuEsz/dwOnaNZE53qliruPGZ3nQWHFMQoTePfm2a73+zf90Xn4op2elRORS7f427rbPdBXcmFnHQfAhRs/e2wcQ9sXxAPU08wa4IwYPyjLj6uDCyiv8z3afIV0iTMpRw2CycLdX0Bws0frVs1/Yges9CY08W3yrY0ISsn9zfg1obun/3xK5ESbF+j42E7d+DPkFe7s4oJpkxghl1UMkqDKbJ+oMUOc3KMvanjoeSElHAntFaNDuhvz4NzFVFMajvTi29+BxgpPZK7Udg==
-X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Sep 2026 15:02:17.1536
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0df34c8c-89ad-4fc4-1824-08df0dba2c91
-X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.23.194];Helo=[lewvzet200.ext.ti.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN2PEPF000044AC.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH5PR10MB997708
-X-Proofpoint-ORIG-GUID: XMG1I85HXWetDkM4E6OQ9FYzMstB0col
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA4MDE2MiBTYWx0ZWRfX94a2WVQYQrEh
- yELRTBmXbprMBFSJGs7+I1NBBwAIBTwtqzB+AJVFmyfbucttoVJcR3pheivjgGlTdoiy+ppjPTR
- vbFW39Y946q5K5uwZn2fUQEMKUZBS7LM+ZRu/8XwxPKtQiniNGAN2krj8l2TdBfF/yAPMdSgaep
- 8af/yjj4QOoh5y3j+9OMDV5BsZfLUG/0ivM1j8Jsib8BKjGtBt+rP+i77rceiy6GU0lM82n9+Yi
- 9eYEwjv4THhIhkx0sanAvLlSUHdcMN0Wsz16ysan8oQj9q+MuNH3q9zVzUmDrUqjJnKM60g5gp1
- meULWNtZOQ4qFOVsX4B5Aa4/jcTTCt8GjlzDs7e4kNxvopTENO6EfmWWurZMPd9Bpe5alwc61qw
- Ne3LvcIRB+zws9l3BGa2sUHHcaAOguKuCddVdT4r2BzuTonPu+iXYOyFcLhemA3+IPWcoX1ldWh
- M696eYS40/5WBFo3Zdw==
-X-Authority-Analysis: v=2.4 cv=UrNT8ewB c=1 sm=1 tr=0 ts=6aa0237d cx=c_pps
- a=dJs83p8YoJtII+u9Eez95A==:117 a=WotqVVQAdb04rnGuttW3Kw==:17
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
- a=s63m1ICgrNkA:10 a=V5UXEbMT0ywA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=Z8NIEmU8O1QQgoT56wFK:22 a=jwouBfj2j3NM8CExmVVE:22 a=EUspDBNiAAAA:8
- a=sozttTNsAAAA:8 a=Tc_FYgHOodJxOJMde3UA:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-GUID: XMG1I85HXWetDkM4E6OQ9FYzMstB0col
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA4MDE2MiBTYWx0ZWRfX3TJdiIpujT2G
- dbD22072JkbBpJj9O3eYabCo7jLd17DAiEO05A0Thsq8PQanvid7dHonILvtSreTbwKClFlCgbe
- 6HxZj28+9zvzFYLs8eMRtOjhYKuCURA=
+In-Reply-To: <20260803104424.25880-1-fourier.thomas@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Authority-Analysis: v=2.4 cv=Ga8nWwXL c=1 sm=1 tr=0 ts=6aa0240e cx=c_pps
+ a=+3WqYijBVYhDct2f5Fivkw==:117 a=JYp8KDb2vCoCEuGobkYCKw==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=VwQbUJbxAAAA:8 a=pGLkceISAAAA:8 a=IsJrftOSqqLFh19Q65YA:9 a=3ZKOabzyN94A:10
+ a=QEXdDO2ut3YA:10 a=eYe2g0i6gJ5uXG_o6N4q:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA4MDE2MiBTYWx0ZWRfXxgmfwJXA7beU
+ 7V4PMvmGDES7OVzABmQqk1WqJmFPy6bPvXWugl94HKdrkoINx8NtZanKeJfyta2/cTB2T4hXw33
+ qS016nl8RLXzqYog+trV0dFhvNyvtoxB2EqFXGbyRgR7ft33JsRMLibo7dyu5fyBTju/PBXRAFo
+ MA26acTrdxReRBrHDz7kZ1Em0cPcHyHkHgksJOLJlzG8oyPoEPWRCovS91gWYJ/iPpuHP9rVENV
+ 29ZhdVp0Jopy/9tETlCNO4vHIOpDxjN4j3Jb63WdFQGzX0W1hBSDn3UGDt/VV4bqgyMZHdJ3dOk
+ Tg3+WeswqNQmwyLTIXxklu+wGLCeY3TEzppXap/mlRQ/jxTgMysdTF8Cjq6z06COVM5V61u/oE0
+ lYo5OXwuqKL7/F2T6674YvwmbyKvmDPfGb8ISP+dSgLJJ/rjU/BWXnN/IVX8prI9SLIhvCt4bFt
+ MbVWs2opFUXaRPpIspg==
+X-Proofpoint-ORIG-GUID: rhkxFYlXN6_PL5kYC2v0Bixyj-_LZY8j
+X-Proofpoint-GUID: rhkxFYlXN6_PL5kYC2v0Bixyj-_LZY8j
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA4MDE2MiBTYWx0ZWRfX118BuVkEphkX
+ yeth7G8xUHtNArG0JrL9lmKmyf6se+GJsZE4hC6iD0WBi/qlfPX8gKNnOIz60LYAzBrT+eL1wVx
+ Fp8usxYXXgz7rMDBi9XaZDPvC7LqsGM=
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-09-08_03,2026-09-08_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 impostorscore=0 adultscore=0 lowpriorityscore=0 phishscore=0
- spamscore=0 clxscore=1011 suspectscore=0 priorityscore=1501 bulkscore=0
+ malwarescore=0 phishscore=0 suspectscore=0 clxscore=1015 impostorscore=0
+ bulkscore=0 spamscore=0 lowpriorityscore=0 priorityscore=1501 adultscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609080162
 
-On 9/7/26 3:23 PM, Mohd Ayaan Anwar wrote:
-> Some embedded board designs use GPIO-controlled regulators for the
-> DP83867 power rails. Add dp83867_power_on() to enable all four supply
-> domains at probe time. Absent supplies are silently skipped, so boards
-> that do not describe them are unaffected.
+On 8/3/2026 3:44 AM, Thomas Fourier wrote:
+> ath9k_rx_init() initialises the rx buffer and its lock then calls a
+> memory barrier and then sets the priv->rx.initialized flag. However,
+> ath9k_htc_rxep() reads that flag and imidiatly takes the lock. This may
+
+s/imidiatly/immediately/
+
+> cause the lock to be taken while not fully initialized.
 > 
-> When any supply is newly enabled the driver sleeps for 200 ms before
-> returning.  This satisfies the post power-up stabilisation requirement
-> mentioned in section 6.6 of the DP83867E/IS/CS datasheet.
+> Add a barrier to prevent speculative read of the lock before checking
+> the initized flag.
+
+s/initized/initialized/ (or initialised)
+
 > 
-> Signed-off-by: Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>
+> Fixes: b0ec7e55fce6 ("ath9k_htc: fix NULL pointer dereference at ath9k_htc_rxep()")
+> Cc: <stable@vger.kernel.org>
+> Signed-off-by: Thomas Fourier <fourier.thomas@gmail.com>
 > ---
->   drivers/net/phy/dp83867.c | 33 +++++++++++++++++++++++++++++++++
->   1 file changed, 33 insertions(+)
+>  drivers/net/wireless/ath/ath9k/htc_drv_txrx.c | 6 ++++++
+>  1 file changed, 6 insertions(+)
 > 
-> diff --git a/drivers/net/phy/dp83867.c b/drivers/net/phy/dp83867.c
-> index 88255e92b4cdbd6da2e2c1d10f9c72348d28dbc3..dbeee7cad6f0cbfeb127bfd28f43ee2a16c78879 100644
-> --- a/drivers/net/phy/dp83867.c
-> +++ b/drivers/net/phy/dp83867.c
-> @@ -15,6 +15,7 @@
->   #include <linux/etherdevice.h>
->   #include <linux/bitfield.h>
->   #include <linux/nvmem-consumer.h>
-> +#include <linux/regulator/consumer.h>
->   
->   #include <dt-bindings/net/ti-dp83867.h>
->   
-> @@ -719,9 +720,41 @@ static int dp83867_resume(struct phy_device *phydev)
->   	return 0;
->   }
->   
-> +static int dp83867_power_on(struct phy_device *phydev)
-> +{
-> +#ifdef CONFIG_OF
-> +	static const char * const supply_names[] = {
-> +		"vdda-2p5", "vdd-1p0", "vdda-1p8", "vddio",
-> +	};
-> +	struct device *dev = &phydev->mdio.dev;
-> +	u32 count = 0;
-> +	int i, ret;
+> diff --git a/drivers/net/wireless/ath/ath9k/htc_drv_txrx.c b/drivers/net/wireless/ath/ath9k/htc_drv_txrx.c
+> index bed7ea2425a0..97d61f3f0aad 100644
+> --- a/drivers/net/wireless/ath/ath9k/htc_drv_txrx.c
+> +++ b/drivers/net/wireless/ath/ath9k/htc_drv_txrx.c
+> @@ -1145,6 +1145,12 @@ void ath9k_htc_rxep(void *drv_priv, struct sk_buff *skb,
+>  	if (!data_race(priv->rx.initialized))
+>  		goto err;
+>  
+> +	/*
+> +	 * Make sure all the ath9k_rx_init() memory writes are visible before
+> +	 * proceeding.
+> +	 */
+> +	smp_rmb();
 > +
-> +	for (i = 0; i < ARRAY_SIZE(supply_names); i++) {
-> +		ret = devm_regulator_get_enable_optional(dev, supply_names[i]);
+>  	spin_lock_irqsave(&priv->rx.rxbuflock, flags);
+>  	list_for_each_entry(tmp_buf, &priv->rx.rxbuf, list) {
+>  		if (!tmp_buf->in_process) {
 
-Would be nice to have an API for getting all regulators without needing to
-manually list all of their names, since we don't really care about them
-individually. The of_regulator_bulk_get_all() is close but it would need
-a "get_enable" variant, plus _optional, then made into a devm_ version.. :)
+I decided to run this though my review agent, which has the following analysis:
 
-Well until such a thing comes along this looks fine,
+### Overview
 
-Acked-by: Andrew Davis <afd@ti.com>
+The parent commit `b0ec7e55fce6` added an `initialized` flag guarded by
+`smp_wmb()` (writer) + `data_race()` (reader) to prevent `ath9k_htc_rxep()`
+from operating before `ath9k_rx_init()` completes. This patch argues that the
+reader side is missing a corresponding `smp_rmb()` barrier, allowing the CPU
+to speculatively read `rxbuflock` (and related structures) before the
+`initialized` flag check is confirmed.
 
-> +		if (!ret)
-> +			count++;
-> +		else if (ret != -ENODEV)
-> +			return dev_err_probe(dev, ret,
-> +					     "failed to enable %s supply\n",
-> +					     supply_names[i]);
-> +	}
-> +
-> +	/* Datasheet section 6.6 suggests a 200ms post power-up stabilization */
-> +	if (count)
-> +		fsleep(200000);
-> +#endif
-> +	return 0;
-> +}
-> +
->   static int dp83867_probe(struct phy_device *phydev)
->   {
->   	struct dp83867_private *dp83867;
-> +	int ret;
-> +
-> +	ret = dp83867_power_on(phydev);
-> +	if (ret)
-> +		return ret;
->   
->   	dp83867 = devm_kzalloc(&phydev->mdio.dev, sizeof(*dp83867),
->   			       GFP_KERNEL);
-> 
+### Correctness Analysis — **This is the central question**
 
+The claim is that without `smp_rmb()`, the CPU can read `rxbuflock` before
+the flag check. This deserves careful scrutiny.
+
+**The actual memory ordering concern:**
+
+In `ath9k_rx_init()`:
+```c
+spin_lock_init(&priv->rx.rxbuflock);   // writes to rxbuflock struct
+list_add_tail(...);                     // writes to rxbuf list
+smp_wmb();                              // store barrier
+priv->rx.initialized = true;           // flag store
+```
+
+In `ath9k_htc_rxep()` (before this patch):
+```c
+if (!data_race(priv->rx.initialized))  // flag load (unordered)
+    goto err;
+spin_lock_irqsave(&priv->rx.rxbuflock, ...);  // acquires lock
+```
+
+**Problem with the patch's reasoning:**
+
+The `data_race()` annotation means this read is intentionally not ordered —
+it is a deliberate racy read. For the `smp_wmb()`/`smp_rmb()` pairing to
+work, the flag load must itself be an acquiring/ordered read. `data_race()`
+is not `READ_ONCE()` and does not constitute the load half of a barrier pair.
+
+**The correct fix** would be to replace `data_race(priv->rx.initialized)`
+with `smp_load_acquire(&priv->rx.initialized)` and drop the `smp_wmb()` on
+the writer side in favor of `smp_store_release()`. That gives a proper
+acquire/release pair. Or, simpler: replace both the `smp_wmb()` + plain store
+with `smp_store_release()`, and replace the `data_race()` read with
+`smp_load_acquire()`.
+
+Adding `smp_rmb()` after `data_race()` is also questionable because on
+architectures with weak ordering (e.g., ARM64), the `data_race()` load of
+`initialized` can still be observed as `true` via a stale/forwarded value
+while the `smp_rmb()` fence only prevents reordering of subsequent loads
+relative to *prior* loads — but the load that matters (the flag) was
+already done without ordering guarantees.
+
+**In practice on x86:** The `smp_rmb()` compiles to a no-op (x86 TSO provides
+load/load ordering). The concern is real only on weakly-ordered architectures
+(ARM64, POWER). There `data_race()` + `smp_rmb()` is not a sound barrier pair.
+
+### Specific Issues
+
+1. **Wrong primitives for the problem.** The correct idiom for "publish a
+data structure, then set a flag that a reader checks before using the
+structure" is:
+   - Writer: `smp_store_release(&priv->rx.initialized, true)` (replaces
+`smp_wmb()` + plain store)
+   - Reader: `if (!smp_load_acquire(&priv->rx.initialized)) goto err;`
+(replaces `data_race()` + separate `smp_rmb()`)
+
+This is the standard kernel pattern (see
+`Documentation/memory-barriers.txt`, "RELEASE-ACQUIRE" pairing). The
+`data_race()` annotation is semantically wrong here — it indicates "I know
+this is racy and accept it", not "do an ordered load."
+
+2. **`data_race()` semantics mismatch.** `data_race()` suppresses KCSAN
+warnings but is not a substitute for `READ_ONCE()` and provides no ordering.
+The comment in `b0ec7e55fce6` used `data_race()` to suppress KCSAN since this
+is a benign early-exit check — but that means `smp_rmb()` after it has no
+memory ordering contract to stand on.
+
+
+I ran the above through another LLM instance to check the analysis:
+
+Issue 1 + 2 (barrier primitive mismatch) — Partially valid, but the framing is
+overstated.
+
+The reviewer's core claim: data_race() + smp_rmb() is not a sound barrier
+pair. This deserves scrutiny.
+
+data_race() is purely a KCSAN annotation — it disables the KCSAN
+instrumentation and compiles down to a plain C load. On ARM64, the sequence as
+patched is:
+
+ldr    w0, [initialized]     // data_race() → plain load
+cbz    w0, goto_err           // branch
+dmb    ishld                  // smp_rmb()
+ldr    x1, [rxbuflock]       // spin_lock_irqsave
+
+The dmb ishld prevents loads after it from being observed before loads before
+it in program order. Since ldr [initialized] is before the dmb ishld and ldr
+[rxbuflock] is after it, the ordering holds on ARM64 in practice. The
+conditional branch plus smp_rmb() does close the window.
+
+However, the reviewer is correct that the idiom is non-idiomatic and
+semantically contradictory:
+
+- data_race() explicitly declares "this is an intentional race / unordered
+access" — which contradicts using it as the ordered-flag-read half of a
+barrier pair.
+- The standard kernel idiom for "publish-then-flag / check-flag-then-use" is
+smp_store_release() + smp_load_acquire().
+
+Verdict: Valid, but the stronger "technically unsound" characterization is
+debatable. The right fix is to replace both primitives for clarity and idiom
+compliance, not because smp_rmb() alone is provably broken with a conditional
+branch preceding it.
+
+The reviewer's recommended fix is correct:
+
+/* ath9k_rx_init() — writer side, replaces smp_wmb() + plain store */
+smp_store_release(&priv->rx.initialized, true);
+
+/* ath9k_htc_rxep() — reader side, replaces data_race() + smp_rmb() */
+if (!smp_load_acquire(&priv->rx.initialized))
+    goto err;
+/* no separate smp_rmb() needed */
+
+So my question: Are there any flaws with that analysis?
