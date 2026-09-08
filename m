@@ -1,202 +1,189 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F908337107;
-	Tue,  8 Sep 2026 03:43:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6EA19314A9E;
+	Tue,  8 Sep 2026 03:52:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788838994; cv=none; b=CoP1E0KM2ptPSXN/JIbHwU26//x4STEHZXlj+xSANjfLdhLtDfaPwj56ptDaGwoCxcik54bFi+69UXAfTLyWMNPzMu6fBGey2nmwlCz51N0jtNfZkAoAUV9Dh/Btygkn3LR3J8fUgxy6mRsgMc/HJhbYB9EiB9Th7ats7q2LJuU=
+	t=1788839565; cv=none; b=CYou6MptbQr1N+4dknS0iFjHc9L4mWB4WJraLs6r8MNn/xuFRMvbJ6DPYSdgWmiPnu52WRC9R71WShK3KcL7aspejacQTY5J4RxA4cyIIHKAjQVRFyGnd+vwPLT2fWaa6ruV9AsNdPcO/VmpnStyynAOF7AeJ5lbY7/YKPq/O1o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788838994; c=relaxed/simple;
-	bh=JoCZbJNkQGnYIF9nt1EBJe2RNrAzxhRowkT+SPptSUs=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=Eg+GvipwfA1Dvc1jjZIRU2hpB714s2d08jPePm/ZGvNtbhbk+NDNtjIVSt0tilne+BLmG75gqsbIk1NF+KxjBDonTZ9n9xodOWYobRVqP3UlAnboiktg13w12+PY8AMWjUIglXLdrdfcuaq5aauqGH9tc/Wzj7z1gcVBlELlxsg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dSUKC9/Q; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dSUKC9/Q"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 98A141F00A3A;
-	Tue,  8 Sep 2026 03:43:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788838983;
-	bh=bEYfxCvOTYpsKc+p1y96lsApMRpaSU0NyNDjzJEVjGc=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=dSUKC9/QthhdLJb/Ok+NaQCgz42O7EQrDRru2Tk/ipOcEY4dC2OfcG8riUN5aOYPR
-	 gfOCDViBGgbtLHj/YxMWLdYKBQsOOkaIwevZP23Kjd5R4t2L2yC8E4QRLMqr5vrfhR
-	 0m3BlW5fS+6xIIWT9aNw+QcJHPdHPjlYtxQsnArUgADEsXcWK5/aQK7RctzqF6ICK/
-	 P1Rrl1S4Ql8V0l6pzUMMCC3XaLnDtcfDysK9fifmiyw9P6Dz49Pg3fS1KK7avgrotA
-	 5HDhWpTCySKnXFW3Ux4zXE0TeLusiV1T+ALsZ/XUmOltRQeF6hx7mIn5cydfnVt1YC
-	 kjh1NO00ELnIA==
-Subject:
- Re: [PATCH net v2] usbnet: fix smp_processor_id() use in preemptible context
-From: netdev-bot+sashiko@kernel.org
-To: omermetekaya0@gmail.com
-Cc: netdev@vger.kernel.org, oneukum@suse.com, andrew+netdev@lunn.ch,
- davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
- linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
- syzbot+04cd90bb99c6ef81a65d@syzkaller.appspotmail.com
-Date: Tue, 08 Sep 2026 03:43:02 +0000
-Message-ID: <178883898204.219967.14658814972021382191@kernel.org>
-In-Reply-To: <20260905224553.595766-1-omermetekaya0@gmail.com>
-References: <20260905224553.595766-1-omermetekaya0@gmail.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	s=arc-20240116; t=1788839565; c=relaxed/simple;
+	bh=tNM9k4wL7LDX/cy1e0ADPnamNjVN5oQ4REEUdBzChrg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=t8VZLCRZHizx97q9lYZkFYFC8bI/r6f+mayGS4dQaYSABMYVj1g7SVw5Xqcz9JnezsVpGPSwZgopaNxNRzRuOkhWvgUl3Xe/oRXrn/kjFr+knCbINOIT0SR7Uc8BK1r8Iz1Xtl9ucbC1MOqzqIYe0S+L3sQphqUDTRsZZbftm3M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; arc=none smtp.client-ip=13.77.154.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microsoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
+Received: by linux.microsoft.com (Postfix, from userid 1202)
+	id 9605820B7128; Mon,  7 Sep 2026 20:52:04 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 9605820B7128
+From: Long Li <longli@microsoft.com>
+To: Long Li <longli@microsoft.com>,
+	Long Li <longli@kernel.org>,
+	Konstantin Taranov <kotaranov@microsoft.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	"David S . Miller" <davem@davemloft.net>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Eric Dumazet <edumazet@google.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	Leon Romanovsky <leon@kernel.org>,
+	Haiyang Zhang <haiyangz@microsoft.com>,
+	"K . Y . Srinivasan" <kys@microsoft.com>,
+	Wei Liu <wei.liu@kernel.org>,
+	Dexuan Cui <decui@microsoft.com>,
+	shradhagupta@linux.microsoft.com,
+	Simon Horman <horms@kernel.org>,
+	ernis@linux.microsoft.com,
+	stephen@networkplumber.org,
+	shirazsaleem@microsoft.com
+Cc: netdev@vger.kernel.org,
+	linux-rdma@vger.kernel.org,
+	linux-hyperv@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net-next v5 1/4] net: mana: track when the HWC has been handed to the PF
+Date: Mon,  7 Sep 2026 20:51:55 -0700
+Message-ID: <20260908035201.402424-2-longli@microsoft.com>
+X-Mailer: git-send-email 2.43.7
+In-Reply-To: <20260908035201.402424-1-longli@microsoft.com>
+References: <20260908035201.402424-1-longli@microsoft.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider:
+Track possible PF queue ownership with setup_active for HWC reinit.
+Set it before submitting ESTABLISH_HWC. Cleanup now attempts DESTROY_HWC
+after submitted setup failures even before MAX_NUM_CQS arrives, adding
+potentially tens of seconds of polling. Resources are still freed if
+teardown fails.
 
-Critical: 0 · High: 0 · Medium: 2 · Low: 0
+Signed-off-by: Long Li <longli@microsoft.com>
+---
+Changes in v5 (v4 -> v5):
+ - Describe additional teardown attempts and polling after setup failure.
+ - Clarify the flag's context lifetime and setup precondition.
+ - Shorten comments; no executable changes from v4.
 
-- [Medium] The commit message's premise is only true for one of the two
-  changed sites, and the Fixes: tag is provably wrong.
-- [Medium] The patch replaces the arch-tuned u64_stats irqsave helpers
-  with an unconditional local_irq_save()/local_irq_restore() pair around…
+Changes in v4 (standalone net-next rework after the v3 split):
+ - Introduce this dedicated handover-tracking preparation patch.
+ - Set the submission flag inside mana_smc_setup_hwc() and use it as the
+   cleanup gate, including setup failures before MAX_NUM_CQS arrives.
+ - Do not carry the separate net series' teardown-failure resource retention.
 
---
+Changes in v3 (historical net fixes-only posting):
+ - Handover tracking remained in the teardown-safety patch (5/6).
+ - That patch dropped pcie_flr() recovery and retained resources after
+   failed teardown. Those changes are not part of this preparation patch.
 
-usbnet: fix smp_processor_id() use in preemptible context
+Changes in v2 (v1 -> v2):
+ - Handover tracking remained part of teardown-safety patch 5/7.
+ - No separate preparation patch was posted.
 
-This patch moves the this_cpu_ptr() lookup of dev->net->tstats inside a
-local_irq_save()/local_irq_restore() region in usbnet_skb_return() and
-tx_complete(), and switches the u64_stats writers from the irqsave
-helpers to the plain begin/end variants.
+v1:
+ - The combined series introduced setup_active in teardown-safety patch 5/7.
 
-Closes: https://syzkaller.appspot.com/bug?extid=04cd90bb99c6ef81a65d
+ drivers/net/ethernet/microsoft/mana/hw_channel.c  | 14 +++++++-------
+ drivers/net/ethernet/microsoft/mana/shm_channel.c |  8 +++++++-
+ include/net/mana/hw_channel.h                     |  3 +++
+ include/net/mana/shm_channel.h                    |  2 +-
+ 4 files changed, 18 insertions(+), 9 deletions(-)
 
-Two questions on the changelog first:
-
->     usbnet_skb_return() and tx_complete() call this_cpu_ptr() before
->     disabling IRQs, which triggers a BUG when running with PREEMPT_FULL:
-
-[Severity: Medium]
-Is the "usbnet_skb_return()" half of that sentence reachable?  Every
-caller I can find already runs with preemption disabled.
-
-rx_process() -> usbnet_skb_return() is only reached from usbnet_bh(),
-which is either the dev->delay timer callback:
-
-	timer_setup(&dev->delay, usbnet_bh, 0);
-
-or run from usbnet_bh_work() queued on the BH workqueue:
-
-	queue_work(system_bh_wq, &dev->bh_work);
-
-and BH work items execute from workqueue_softirq_action(), i.e. softirq
-context.  The minidriver ->rx_fixup() call sites (asix_common.c,
-cdc_ncm.c, rndis_host.c, cx82310_eth.c, lg-vl600.c, ...) are all invoked
-from that same rx_process() context.
-
-The one remaining caller explicitly disables BH around the loop:
-
-	local_bh_disable();
-	clear_bit(EVENT_RX_PAUSED, &dev->flags);
-
-	while ((skb = skb_dequeue(&dev->rxq_pause)) != NULL) {
-		usbnet_skb_return(dev, skb);
-	...
-
-That leaves tx_complete(), which really can run in preemptible task
-context when the HCD does not use HCD_BH and usb_hcd_giveback_urb()
-completes "in the caller's context".  Would it make sense to describe the
-change as a tx_complete() fix, or is there an RX path that reaches
-usbnet_skb_return() with preemption enabled?
-
->     Fixes: 43daa96b166c ("usbnet: Stop RX Q on MTU change")
-
-[Severity: Medium]
-Does this Fixes: tag point at the right commit?  43daa96b166c is from
-2016 and only added usbnet_pause_rx()/usbnet_resume_rx() calls to
-usbnet_change_mtu() plus an EVENT_RX_PAUSED test in usbnet_bh(); it never
-touched the stats code.  git blame on the pre-patch tx_complete() block
-shows:
-
-  af0c351cc34857 (Heiner Kallweit 2020-11-10) struct pcpu_sw_netstats *stats64 = this_cpu_ptr(dev->net->tstats);
-  2695578b896aea (Eric Dumazet   2018-03-05) flags = u64_stats_update_begin_irqsave(&stats64->syncp);
-
-Should the tag name af0c351cc34857 instead, so that stable backports land
-in trees that actually contain the code being changed?
-
-> diff --git a/drivers/net/usb/usbnet.c b/drivers/net/usb/usbnet.c
-> index a19ecf718f36a..6a48f38e105d4 100644
-> --- a/drivers/net/usb/usbnet.c
-> +++ b/drivers/net/usb/usbnet.c
-> @@ -338,10 +338,13 @@ void usbnet_skb_return(struct usbnet *dev, struct sk_buff *skb)
->  	if (skb->protocol == 0)
->  		skb->protocol = eth_type_trans(skb, dev->net);
->  
-> -	flags = u64_stats_update_begin_irqsave(&stats64->syncp);
-> +	local_irq_save(flags);
-> +	stats64 = this_cpu_ptr(dev->net->tstats);
-> +	u64_stats_update_begin(&stats64->syncp);
->  	u64_stats_inc(&stats64->rx_packets);
->  	u64_stats_add(&stats64->rx_bytes, skb->len);
-> -	u64_stats_update_end_irqrestore(&stats64->syncp, flags);
-> +	u64_stats_update_end(&stats64->syncp);
-> +	local_irq_restore(flags);
-
-[Severity: Medium]
-Does this add a hardirq-off window on 64-bit where there was none?  In
-include/linux/u64_stats_sync.h the 64-bit branch is:
-
-	static inline void __u64_stats_update_begin(struct u64_stats_sync *syncp) { }
-	static inline void __u64_stats_update_end(struct u64_stats_sync *syncp) { }
-	static inline unsigned long __u64_stats_irqsave(void) { return 0; }
-
-so u64_stats_update_begin_irqsave() masked nothing on 64-bit, while
-local_irq_save() masks unconditionally.  usbnet_skb_return() runs once
-per received packet, so this looks like a new per-packet interrupts-off
-region for all 64-bit builds, PREEMPT_RT included.
-
-The changelog describes it as ordering only:
-
->     Fix by saving IRQs first with local_irq_save(), then calling
->     this_cpu_ptr() and using the non-irqsave variants of u64_stats
->     update helpers, since IRQs are already disabled at that point.
-
-Since only preemption/migration needs to be suppressed to make
-this_cpu_ptr() legal, would get_cpu_ptr()/put_cpu_ptr() around the
-existing u64_stats_update_begin_irqsave()/u64_stats_update_end_irqrestore()
-pair work here?  That keeps IRQ masking on 32-bit only, and matches the
-core helper dev_sw_netstats_rx_add() in include/linux/netdevice.h:
-
-	struct pcpu_sw_netstats *tstats = this_cpu_ptr(dev->tstats);
-
-	u64_stats_update_begin(&tstats->syncp);
-
-usbnet_resume_rx() already uses local_bh_disable() for the same purpose,
-which would be another option.
-
-> @@ -1298,13 +1301,16 @@ static void tx_complete(struct urb *urb)
->  	struct usbnet		*dev = entry->dev;
->  
->  	if (urb->status == 0) {
-> -		struct pcpu_sw_netstats *stats64 = this_cpu_ptr(dev->net->tstats);
-> +		struct pcpu_sw_netstats *stats64;
->  		unsigned long flags;
->  
-> -		flags = u64_stats_update_begin_irqsave(&stats64->syncp);
-> +		local_irq_save(flags);
-> +		stats64 = this_cpu_ptr(dev->net->tstats);
-> +		u64_stats_update_begin(&stats64->syncp);
->  		u64_stats_add(&stats64->tx_packets, entry->packets);
->  		u64_stats_add(&stats64->tx_bytes, entry->length);
-> -		u64_stats_update_end_irqrestore(&stats64->syncp, flags);
-> +		u64_stats_update_end(&stats64->syncp);
-> +		local_irq_restore(flags);
-
-[Severity: Medium]
-Same question for the TX completion path: this site is the one that can
-genuinely be entered preemptibly, but would get_cpu_ptr()/put_cpu_ptr()
-plus the existing irqsave helpers be enough, rather than disabling
-interrupts on every successful TX completion on 64-bit?
-
-[ ... ]
-
+diff --git a/drivers/net/ethernet/microsoft/mana/hw_channel.c b/drivers/net/ethernet/microsoft/mana/hw_channel.c
+index 263e7c4e2934186af037be4c80350a6e322b6771..88e92e94e2e90ff31ca6710a7e9b8e34b5fa191c 100644
+--- a/drivers/net/ethernet/microsoft/mana/hw_channel.c
++++ b/drivers/net/ethernet/microsoft/mana/hw_channel.c
+@@ -683,7 +683,7 @@ static int mana_hwc_establish_channel(struct gdma_context *gc, u16 *q_depth,
+ 				 cq->mem_info.dma_handle,
+ 				 rq->mem_info.dma_handle,
+ 				 sq->mem_info.dma_handle,
+-				 eq->eq.msix_index);
++				 eq->eq.msix_index, &hwc->setup_active);
+ 	if (err)
+ 		return err;
+ 
+@@ -815,13 +815,13 @@ void mana_hwc_destroy_channel(struct gdma_context *gc)
+ 	if (!hwc)
+ 		return;
+ 
+-	/* gc->max_num_cqs is set in mana_hwc_init_event_handler(). If it's
+-	 * non-zero, the HWC worked and we should tear down the HWC here.
+-	 */
+-	if (gc->max_num_cqs > 0) {
+-		mana_smc_teardown_hwc(&gc->shm_channel, false);
+-		gc->max_num_cqs = 0;
++	if (hwc->setup_active) {
++		if (!mana_smc_teardown_hwc(&gc->shm_channel, false))
++			hwc->setup_active = false;
++		else
++			dev_err(hwc->dev, "Failed to tear down HWC\n");
+ 	}
++	gc->max_num_cqs = 0;
+ 
+ 	if (hwc->txq)
+ 		mana_hwc_destroy_wq(hwc, hwc->txq);
+diff --git a/drivers/net/ethernet/microsoft/mana/shm_channel.c b/drivers/net/ethernet/microsoft/mana/shm_channel.c
+index d21b5db06e5092d82249fb1053d07f65aa38490c..3cf6a9f8e32c4ff5e5423fc950e88082941e21a8 100644
+--- a/drivers/net/ethernet/microsoft/mana/shm_channel.c
++++ b/drivers/net/ethernet/microsoft/mana/shm_channel.c
+@@ -129,9 +129,12 @@ void mana_smc_init(struct shm_channel *sc, struct device *dev,
+ 	sc->base = base;
+ }
+ 
++/* Requires no outstanding HWC handover. *submitted records possible PF
++ * ownership, including when setup fails after submission.
++ */
+ int mana_smc_setup_hwc(struct shm_channel *sc, bool reset_vf, u64 eq_addr,
+ 		       u64 cq_addr, u64 rq_addr, u64 sq_addr,
+-		       u32 eq_msix_index)
++		       u32 eq_msix_index, bool *submitted)
+ {
+ 	union smc_proto_hdr *hdr;
+ 	u16 all_addr_h4bits = 0;
+@@ -144,6 +147,8 @@ int mana_smc_setup_hwc(struct shm_channel *sc, bool reset_vf, u64 eq_addr,
+ 	int err;
+ 	int i;
+ 
++	*submitted = false;
++
+ 	/* Ensure VF already has possession of shared memory */
+ 	err = mana_smc_poll_register(sc->base, false);
+ 	if (err) {
+@@ -229,6 +234,7 @@ int mana_smc_setup_hwc(struct shm_channel *sc, bool reset_vf, u64 eq_addr,
+ 	/* Write 256-message buffer to shared memory (final 32-bit write
+ 	 * triggers HW to set possession bit to PF).
+ 	 */
++	*submitted = true;
+ 	dword = (u32 *)shm_buf;
+ 	for (i = 0; i < SMC_APERTURE_DWORDS; i++)
+ 		writel(*dword++, sc->base + i * SMC_BASIC_UNIT);
+diff --git a/include/net/mana/hw_channel.h b/include/net/mana/hw_channel.h
+index 16feb39616c1bead1a043b3fadc2e18a90651516..befa09674ce5614a955441e75e480a21aa8695fb 100644
+--- a/include/net/mana/hw_channel.h
++++ b/include/net/mana/hw_channel.h
+@@ -199,6 +199,9 @@ struct hw_channel_context {
+ 	u32 pf_dest_vrcq_id;
+ 	u32 hwc_timeout;
+ 
++	/* PF may own the queue mappings; state lasts only for this context. */
++	bool setup_active;
++
+ 	struct hwc_caller_ctx *caller_ctx;
+ };
+ 
+diff --git a/include/net/mana/shm_channel.h b/include/net/mana/shm_channel.h
+index dbabcfb95daf3e87b39a657e3a5f23a1508d4f31..e96387d795259d52aeec7b3fe0981825d90a3822 100644
+--- a/include/net/mana/shm_channel.h
++++ b/include/net/mana/shm_channel.h
+@@ -20,7 +20,7 @@ void mana_smc_init(struct shm_channel *sc, struct device *dev,
+ 
+ int mana_smc_setup_hwc(struct shm_channel *sc, bool reset_vf, u64 eq_addr,
+ 		       u64 cq_addr, u64 rq_addr, u64 sq_addr,
+-		       u32 eq_msix_index);
++		       u32 eq_msix_index, bool *submitted);
+ 
+ int mana_smc_teardown_hwc(struct shm_channel *sc, bool reset_vf);
+ 
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260905224553.595766-1-omermetekaya0%40gmail.com
+2.43.0
