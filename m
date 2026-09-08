@@ -1,91 +1,111 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lf2-f12.google.com (mail-lf2-f12.google.com [74.125.229.204])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26B893B6C14
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 20:35:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DFE23B9922
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 20:35:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.204
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788899736; cv=none; b=V5pchR6qFERnhtueIoXZkT2KInQy8dIVVci9/Qzf2IOGEBpw1OS1u5/UWTdDLV9Yh7tZp5BR6pDWvEQUjzSCoUDlQh/lxHsQ3wmWraPKb7hvAvoHIDltIhbvEyc5NFu1gvp+X3wpm+oOhhue8S7w+wMYxM3I3h3yq/48lV+32OY=
+	t=1788899743; cv=none; b=J9EiWV2LIskjhJte5uMlFM+gSy56Bs7F6JmoQmvv6W4wlcO1ODHF2fkMsrMTXbpWwIlwqEwuWK4fS9k7NMI7aPLZbgImlWcpgHSM8F0HTrV8tOFWazEcvvNgVvxCz9rHEHK9r85OfW3E0sW8ybyrOBGvqFEOqSQrXE12VWt/ND4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788899736; c=relaxed/simple;
-	bh=dmuom4KhB+a1iF3KDGhN98dp9tB1+TbVBU6QMt8s5wI=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=owijZgwUxZ0piDBB7y/1Q4/QXHDJ8b5haxuhaTMNFaBWwzB23liIlb2xHxYQ6UR2XN/yoTZBw1e7nZfYCIep7jqwkkI12I+pHsR4n6avPEOyIX7MdCx5r5KQzD6RlmPkFtL1NEF7ESIgFqayZ0EHelKwEwdCMJE81NAv8+tGWGo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ODVc1Tu6; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788899743; c=relaxed/simple;
+	bh=/0AQ7DYEym0GpAXvWQSi2Y+HfDJ4FzU52T5IBs7jeQ4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=e9VmNuux/NNx1aHe/nbbZ64G785wkXY8XHJK5KcaCAYWAgSysfPSt60I6d4XYkAxLjL86BVpTFK8eADhtV/7yUpwZyPMdUR4wLk1W4NqG+BAE0Bfiqybh83wsoGrogjb43Ob2pcnEe7GZL9HrjmByNQagVvjlD/W+HIqYJHJbGM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Z7mPDVRd; arc=none smtp.client-ip=74.125.229.204
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ODVc1Tu6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D5EE81F00A3D
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 20:35:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788899734;
-	bh=dmuom4KhB+a1iF3KDGhN98dp9tB1+TbVBU6QMt8s5wI=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=ODVc1Tu6KscBT4/FXgn0LB+fn/KLN1seHZy6qmsWp5Jx7mE5B0f9fc0sKCrXBLSeG
-	 xTIOO33rAwX9iu6pQUxxyloB1yW107BUc68gidH1UyGN9kdTdlC6+k1NEueTlKdkde
-	 c/OX/sDMbQ4uJ85xtbM0ZEFqObvmci7jQMbpmTBhtCNfV8jwT9zCElxwlsGF6jioJp
-	 umAGt9qLrS/6ujpcDDMLYuJw08TbxnBobVfqp9Ml9tJGm456bJvMCCP5RbLPWL9L5T
-	 c5xjHOdeA/KDLHC+n9eXIUfn2kQq/IqsrZZz6VIFyqIyDCbOSEPiRkAMoGiQBgJCot
-	 7cl//8O9uPwKQ==
-Received: by mail-lf1-f41.google.com with SMTP id 2adb3069b0e04-5b2b92065ffso4530497e87.1
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 13:35:34 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzoB0DpUb4mYVMCOt+PoXt3ychsHCqrc3SF6HrD+I3Ox1lrCMvVJ3DqwsMpF5MtP6ZAtqOTilz2yQZf5CU=@vger.kernel.org
-X-Gm-Message-State: AFuF++nozP9z46M42D63FjUg7QfbesmUw4ao7uD+cndDSMvQk8yTvSdQ
-	CqMQ0gMMCrGSctIT+mS5XPLLv1QpXj+pVc/nxXsc4nayrrcHCIW3OB9gbpbX1cRXOiNEFODyxC/
-	5YBnk+rl9IIsXmKEBDp3GGpGa6KjfXcU=
-X-Received: by 2002:a05:6512:3f0e:b0:5b5:e86f:3550 with SMTP id
- 2adb3069b0e04-5b616eed114mr4995073e87.9.1788899733518; Tue, 08 Sep 2026
- 13:35:33 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Z7mPDVRd"
+Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b5e4f1e023so636106e87.0
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 13:35:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788899740; x=1789504540; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=/0AQ7DYEym0GpAXvWQSi2Y+HfDJ4FzU52T5IBs7jeQ4=;
+        b=Z7mPDVRdu0ZE79UsRd7v/EatZbXs4QijpE5QOK8F3hKCtb+HBP/+U0Gp/o5tfCcBjW
+         jDAytLkCATiEGmwoO03QReingM5CmuZEfQlUcXpvziNJUP6WwtDik3qTfNwhWJh2KoPS
+         MN91qi1+BgoqQGXLV/9/QFaCnu04zgYc+hK217ngtBBh5+NWVuSYvPbj5j2RUw/BFH8t
+         8+Ejx5QIM69nilRlrnfuB9EB8slBkIIZiuOAnLNOjekfPFFdUChhQdwJyFxw2RwZnsfa
+         yTLluUaD341+WlveFD0+g7mgOTPFcR47l/sz9cBSbcjZqPFFaa/6Ktr3yb1Gl21tJmtO
+         FBnw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788899740; x=1789504540;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=/0AQ7DYEym0GpAXvWQSi2Y+HfDJ4FzU52T5IBs7jeQ4=;
+        b=lAj78ZV4Muw06ycgVelD6+DTUdxbNCe8C4L+gc4ZyRTCpCEO1Qxc9F3GThjaWRukyk
+         JqFUB0u5nlgCAruZytemunBW4dbdiTjAEgFgOGXNpx/Tfqxz5yYMut+1kVXdBFMfQwtL
+         3VgN+F6U8TS2IssPUQGq5t44e38XmH5ZbUwdmhWZPpnziBEIkt07B8UPYOdAQbFVJu7D
+         MLEHzu1y9s67AQF8W2vGCFRLluPne5mayuvf571Zys7BkzAQFNUdBcytqo6hVPA3FauI
+         yDGDKQpGUOfQqrNQEWh2DhpVo+agMrj2eEv1k7kxiQ1zj7TRI3q6/vfNATBfWr5tzvOW
+         UKgw==
+X-Forwarded-Encrypted: i=1; AKwUvBzDC47peXVWu3aFplbfGHEvjkyE9u/ztnanWW7QpmFCHLs1pNhsiaEQ/I2n3n/HCiwax7AAnm4/opoHUDs=@vger.kernel.org
+X-Gm-Message-State: AFuF++nREKRcPWzietPrdt/axi5YurfUqgsSFkqeVEaELyxSZ2WZHayN
+	mAXJi2Js1B0R+DyU6Le4ZNt3u0DoFHfoL9P1sf5FcjH8VvzQf13ImSo=
+X-Gm-Gg: AYBFou315HZ7xYjLK0oElVPfos2d0+OcqmTwRp3NReAMBCs/eIH4uRIw8WO0vzS6PA3
+	aYYPfbye228gjyma1kNtKHtAdTBDvmAtNrW2ivRxkK1Q1nyVfQJDptnbS4+s327KJ0hw81gbFuq
+	v07LRpOektYCaDKmBrGLNCFMOM1jpVsZpa6k7y6Uizg2FRySTrvb0RaYhlx1/64b4KwsX26FcVP
+	M5/khwCgY7ZNbPqarzNqrJ5MHQvuQsIK3LJqtfr40svJeC7dvVp5+ZrfCGbIM/awYGH55P2wlkA
+	tcYdaDn2eVo+CntkYz4TP8lMH6qAYhqUysnQ1itV+WNSRLtlqHQmVvXc8rqYDxl4HTGuETC2Cn1
+	ORGMhlAdvyMjBe5B9OCKUSsly5LUQYsMDNtQEg9cCKapDvWx8gKa63F71M+UJ96kNBRYAeOVGPo
+	fKtUmzR6reU1UGYpHa9FCp1M5KxsFut9jYr/L77xb/hdkF8hVPPDfC06v8D9Jil9pRbf1DiMSKM
+	8JZBx8mOEfzRbLxvn9E3K7RL9HBGHBsT8RCewwW08M0jhVKWD+mU5oDdn+zllyQwMREGQ==
+X-Received: by 2002:a05:6512:3d02:b0:5b6:10bc:b865 with SMTP id 2adb3069b0e04-5b75c925643mr1603725e87.19.1788899740122;
+        Tue, 08 Sep 2026 13:35:40 -0700 (PDT)
+Received: from insciwin.localdomain (224.105.88.34.bc.googleusercontent.com. [34.88.105.224])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b6166384aasm3352409e87.0.2026.09.08.13.35.37
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 08 Sep 2026 13:35:39 -0700 (PDT)
+From: Dmitrii Tulnov <tulnov.dl@gmail.com>
+To: Julian Braha <julianbraha@gmail.com>
+Cc: Nathan Chancellor <nathan@kernel.org>,
+	Nicolas Schier <nsc@kernel.org>,
+	Peter Korsgaard <jacmet@uclibc.org>,
+	"Yann E. MORIN" <yann.morin.1998@free.fr>,
+	linux-kbuild@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] kconfig: reject malformed KCONFIG_PROBABILITY values
+Date: Tue,  8 Sep 2026 23:35:36 +0300
+Message-ID: <20260908203536.4-1-tulnov.dl@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <ce0786a7-e48d-4d7b-b601-86a598bb03d1@gmail.com>
+References: <20260907194536.37-1-tulnov.dl@gmail.com> <ce0786a7-e48d-4d7b-b601-86a598bb03d1@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260908174403.420507-1-kuncy7@gmail.com>
-In-Reply-To: <20260908174403.420507-1-kuncy7@gmail.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Tue, 8 Sep 2026 22:35:21 +0200
-X-Gmail-Original-Message-ID: <CAD++jLnzzEsjB476rkC9TyMG7ZiP8Ou1jBy70G_89Z0nrgk3cw@mail.gmail.com>
-X-Gm-Features: AcwNN1XEHE4YjpmHKQ6UPV8OOAuOMn_3eO0GedRom7s1gWieUX8u4geTCwvQOgk
-Message-ID: <CAD++jLnzzEsjB476rkC9TyMG7ZiP8Ou1jBy70G_89Z0nrgk3cw@mail.gmail.com>
-Subject: Re: [PATCH net v2] net: dsa: realtek: rtl8365mb: wait out the full
- chip reset time
-To: Stanislaw Pal <kuncy7@gmail.com>
-Cc: Linus Walleij <linus.walleij@linaro.org>, =?UTF-8?Q?Alvin_=C5=A0ipraga?= <alsi@bang-olufsen.dk>, 
-	Andrew Lunn <andrew@lunn.ch>, Vladimir Oltean <olteanv@gmail.com>, 
-	"David S . Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, netdev@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Tue, Sep 8, 2026 at 7:44=E2=80=AFPM Stanislaw Pal <kuncy7@gmail.com> wro=
-te:
+Hi Julian,
 
-> The reset bit clears well before the RTL8365MB/RTL8367S has finished its
-> internal bring-up, so configuring it right away makes register writes to
-> blocks that are not up yet get lost. The switch is then left half
-> configured: the CPU port link comes up and the switch still transmits
-> towards the CPU, but nothing the CPU sends is ever forwarded - no MIB TX
-> counter moves on any user port, while the MAC reports every frame as
-> transmitted without errors.
->
-> The driver already documents the 1 s reset time the chip needs and polls
-> with a 1 s timeout, but stops waiting as soon as the bit clears. Sleep
-> out the remainder of that second instead, measured from the reset write,
-> so the total wait stays at 1 s regardless of how long the poll took.
->
-> Seen on a TP-Link Archer AX55 v1 (IPQ5018 + RTL8367S, 2.5G HSGMII trunk)
-> on roughly three out of four boots. Unbinding and rebinding the driver
-> always fixed it at runtime. With this patch: 6 out of 6 clean boots.
->
-> Fixes: 4af2950c50c8 ("net: dsa: realtek-smi: add rtl8365mb subdriver for =
-RTL8365MB-VC")
-> Signed-off-by: Stanislaw Pal <kuncy7@gmail.com>
+Thank you for the review and for the welcome.
 
-Interesting fix, with an interesting optimization of the reset
-deadline. I like it.
-Reviewed-by: Linus Walleij <linusw@kernel.org>
+> It would be good to note here that 'KCONFIG_PROBABILITY=50' (without
+> the '%') should be 25:25:50 instead.
 
-Yours,
-Linus Walleij
+You're right. The v2 commit message now states explicitly that
+KCONFIG_PROBABILITY=50 gives tristate y/m/n probabilities of 25%/25%/50%.
+The regression test compares the equivalent inputs 50 and 50:25:25 across
+20 fixed seeds.
+
+> I disagree with allowing the leading whitespace and sign.
+
+Agreed. Leading whitespace and signs are now warning-only because they are
+accepted by strtol() but outside Kconfig's documented XX:XX:XX format.
+
+> I would prefer to make this a warning for now, and then promote this to an
+> error later assuming nobody complains.
+
+The v2 implementation warns about malformed syntax while retaining the
+existing parsing behavior for compatibility. Numeric range violations remain
+errors.
+
+Thank you again for taking the time to review this.
+
+Best regards,
+Dmitrii
