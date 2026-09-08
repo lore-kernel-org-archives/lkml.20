@@ -1,79 +1,125 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC08A55C336
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 19:59:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788897551; cv=none; b=tbJVWUC0ROafb1gqlMGjvyIbUY7Jv8zj+sakagTyWb2b4kN/ULyIeFZxoMTd4NDBJ4+6DHva/HOSoBAyLGuLMlXCPeXhrDq15sy1IRB6caAyEmTeY9H7Yueq+0J0Dm6Djg4Cm7g9msH4u0xthjB280C03f9rkdl4Vj9BwhWANP8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788897551; c=relaxed/simple;
-	bh=TwiOw2MUxO/1asrszwPZCwfC+KlktHPLMfTZSCooL0I=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=jlJf1UnZFYpeVsCsPCWUL4jTr4XygJtgIt5wl3ndnms/sScZQkGhUcWZx3znzt/BLS21HlBuTT2EI0TWTWkJgQLsP1H4kP+xSWGgR8Mh8Scoo6FiU8EkNfAJ7tf/1u/6PM9xlhpuiBvoKLIHlYR3qmr3htwCfl2B9Um5ZQYs9Lo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RplUWoqH; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09DF9583AB4
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 19:59:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.227.140
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788897575; cv=pass; b=V1C7ElhITsTtQJJvaP42yvf4P31dLU9zl3L1EeiVSrxWD3qNfUa2DYYrWY8+J2bgYZognQ33I//UcOFNNfMEAPB0m2l8xixMgvfUY6UfDKlxVSyEOZdyiZSzGCNJMtjgiCV1rjI6uVO0sfSlZFF+wusXjxFC7pDJs7npuKawH0Q=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788897575; c=relaxed/simple;
+	bh=DcQuradJJQuqIQy3eOyKV4Bhq3ZNEMuO/29imkKSf4o=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=AIdE1IPk40fxL8TyjCBbq0EO0m4bu1taSVVovH2GEsF/LVIaXKDiHEo7nMkC7yXPjmQHxEal+1cC9fgzAKqIZrkVXzxw1JpA4ZuxPtTQwUKIfyKrI1XZYyzcEI/Ydyxl2K1o+fzc8KdBzxgTZLRm/PypWN/YD6ydkMyANlJCcYU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mRZeJdvw; arc=pass smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RplUWoqH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6088C1F00A3A;
-	Tue,  8 Sep 2026 19:59:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788897549;
-	bh=wwsTLPSXpbgPa5EM9nw2ZxHsxM8nj96DOKEohHwv5s0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=RplUWoqHCzYy0DGGAm6wyAXKUeiWmD8JfC/p5iNk8tJN1l/NzXXV76TohSsP/GDnM
-	 KZv9Xn5wU7WuggB9z1mu10FSu8Gf0Hv4tnQm2Tdpgk4kM1f6xO1hWVs8Dq+uXJgFCH
-	 Frnefumnc5X/2/0YT4cYUMk6rtvRxnFU3ctKqB4W7kwCH0Mbjv3b0q37KnL2JBbaSh
-	 RRyvCf8UIH2lt2/prmFkXHgjaVuALIGUXAlHlHes2ENDZ4m/jhTNQnv1UDZAtokOO+
-	 3LYehBAG+ah9RLzfYzhwKoP2nX2BDGhnHCaWL3nHhse91w8pjeS3DVegMD67iS7qdv
-	 EoY+x42gsLlXg==
-Date: Tue, 8 Sep 2026 13:59:08 -0600
-From: Keith Busch <kbusch@kernel.org>
-To: Yifei Chu <Chuyf26@linux.alibaba.com>
-Cc: axboe@kernel.dk, hch@lst.de, sagi@grimberg.me, roys@lightbitslabs.com,
-	yhlee@isslab.korea.ac.kr, linux-nvme@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] nvme-tcp: reject C2HData for a non-read command
-Message-ID: <aqBpDGHdRAAyAI4u@kbusch-mbp>
-References: <178730451245.442148.11684394617763960186@linux.alibaba.com>
- <20260822014037.1978918-1-yhlee@isslab.korea.ac.kr>
- <0a6b07e8-3ea6-4458-95eb-4a63b6108823@grimberg.me>
- <178842720109.1034236.7954869548413684234@linux.alibaba.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mRZeJdvw"
+Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-396673bd281so869530a91.1
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 12:59:33 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788897573; cv=none;
+        d=google.com; s=arc-20260327;
+        b=OR4nbJ1b6VqY2l+1Fa3PpKB7c7PkIxtbrAJe6jAAB2ZD6ruAt953sIfKZZy275fWPd
+         bV6lJLAiKXpHzS+t9vAeDdFreb+R91zI7mqpYQHG2F+DED3Cjaq1A3MkWNMwteGs0V6k
+         2V3VsAFInTcfm+hud/EGFtHB2fJyze3AONxr1FBGYZPQhvE1I5a4BWyAoDTEL6zthAIf
+         hJeoHqNeULro+klenvJL1bAEFiZYAAR0W/OiEiBh7vevQQGUU09D8XAQ10sT/Ujw98wk
+         J1nejwOxCfIdP1ZJLxCE8JOSOhekDS/MdBAjKXpO3PggwuUuVYg8ecdM9JnVrSVNzcB0
+         7Gpw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=EA6VJj3uj11HfKzs2Men39fPqqbTFVz4Jj43+Ofeu94=;
+        fh=zF5kSNFV1AuH2o9cIzohuKJLhPuYzxwBnXkoq18Br60=;
+        b=Z4YbingFxV2mzp3Z8DF/GFHRCoaX3jOVdji8ljDhTNA0OUckOIYR0WUNyxz7zfMKps
+         DVmDdvw4VO8z9CDq2M5sTPcjwPYB0rszEQWPx8hTG891gj5CI2xkO8pskNnyviRD/BdA
+         hYPba/Y6qUFBxYRXh0jU4PQ31gTvplAQjSMLwDnUcJoHhnb9fwqo0fDhbjJpriOFNjlc
+         5f+mMnqttqbIze3JBmmi4OpVKlkKFUuaqzhZSTs0Bza2L/zr0ROpovk2apIo8jOGdHSM
+         ih6U2YIgUXDKbl/a12ZnZftpidWj2sqCQpaf+SAc7lkLx1A8AItDmNyPKGuxC7Mbr0ui
+         +Bpw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788897573; x=1789502373; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=EA6VJj3uj11HfKzs2Men39fPqqbTFVz4Jj43+Ofeu94=;
+        b=mRZeJdvwzBTcE25lzEfoPqeZ/CqpYODMlf/cjrVYVLPXdAKw9UoM1ThoVK+F5/xCgp
+         rGNHQ9BU9OiEEuvplh7lLwiDjvZX5UAOnOtvOLGChpBXiu7WVmnZhjp+ePEHtFPE3tJg
+         mATuVtTaPonRWrsihOa4CNvg7/J5fTPIT56xR7tlWr95H895PXJmceDHH5tpyPj5dc+o
+         8i/eLrYLH3O/tJNzofDblhegP/6al1TGhJxaNaSiG/BvlJx0b5fPoZkoO95aAKJtGV/h
+         O95kntfp6KRfQNVOWEkmyVyOz076TAOKO16zMwF36ft+a7hG0HtMmRip5SxVthIX+CnW
+         +1fw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788897573; x=1789502373;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=EA6VJj3uj11HfKzs2Men39fPqqbTFVz4Jj43+Ofeu94=;
+        b=sOjt30nI3doUEEngwIosL3QHYa1IY7s5Su5f78PLxOnAwyHEhthzOhM0R0OdX/ZThh
+         ZD1paSsDWtqi8omEx7JxX0UnVgHC7rmNu7HCU6yGMrr5L5AQPKBMRiSArXNEC5GIfMT+
+         puLFET1cUEi/bxAe7qsrZUBEXVMvpUs2cBasKT7TR1XQUARhn9WwXUqLcX9d+tMr8DBe
+         Jnzy/xU4KD+wtJRL8ohXg5TDN0VVYR976BfYxtJ4rCBtJ0yiZT4LChvuDeyBGU692hRN
+         7yGrhuJE1Pvd/kQZZCKt7YxluYjt5NTkz7b5qmoPC19qvmXe0FjhEMrjU+5y2H+7/EFP
+         xLBg==
+X-Forwarded-Encrypted: i=1; AKwUvBzzTVduQ0M6ZzYSY7hZQkaU8nMd0wy7f8WRYQ72Fn5AOkDhb6pRCdLBtzAJwXagxOhmLqe426YU7orf19Y=@vger.kernel.org
+X-Gm-Message-State: AFuF++kwuwYtbUXgUhCQvD05DVQz/HSYJgUj1p4ZquGzupa/00xtgfzv
+	IKiVkrjdhQSE9sWVjxFQBmhKP76mlr/RB60p0eDW2pIiepcMetH5SUCQI2MIKJbsWZMMjJQvwoH
+	Pef4M2FSJaMRGd5urQ6CRzHJa4OUOgB0=
+X-Gm-Gg: AYBFou0HtAeLrrx5EZN47ZOccXznVmo8fVxSCiA7HDvztRUdUdOJknr3iJlvqruVg/F
+	mrc7Xi5tXq9/sRdVrb93a0yCGUuZ3TbjBcymxASonUTthW5amFxMK7j7sL5voBJrozb1iXyCoh7
+	25YZkCy6QoBXtcU449xeC3xTyNlq9YKXc7slMMgrAW2zNQnKDbCfTOFUE7mOQmA9DwoMtVe0Kw4
+	C8NbKNQTBaqHWpvDiHcdtY+Almendr/JrJB56HQDZuH65e7dnmnSuSMDjQ0AvTS7o9LSxNCa5tP
+	grefeNTe/s5+hlt9f4GlV45SWkqPhNcBH+iPh/CP4VUzjgPbX6kfFwgPQIh6LhRLJkpkjKfJG0A
+	HXAADHxnw5IZGtNTLOsAj8iPEXKEvccG8gyAiNjmciSu4l/oFk1cc6S887PZ7HMs3FxzdrWRWBB
+	m1tnOH3A0vJG9eddkZv4BFUTheABGolgLDNpbXDwbn
+X-Received: by 2002:a17:90b:1d83:b0:398:bad2:c10 with SMTP id
+ 98e67ed59e1d1-39b3d85c011mr21904473a91.6.1788897573126; Tue, 08 Sep 2026
+ 12:59:33 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <178842720109.1034236.7954869548413684234@linux.alibaba.com>
+References: <20260908080604.34070-1-1239989762@qq.com> <20260908092624.63350-1-1239989762@qq.com>
+ <tencent_DEBD9FED1CD8FC1625D8EBEFEEC3EE7A0405@qq.com>
+In-Reply-To: <tencent_DEBD9FED1CD8FC1625D8EBEFEEC3EE7A0405@qq.com>
+From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Date: Tue, 8 Sep 2026 21:59:19 +0200
+X-Gm-Features: AcwNN1W1ixlmDUMcGjjuM4E8fj7zx1Mzofm53MZn3V50s9jujYSJ7LULEMxHfsA
+Message-ID: <CANiq72nBueaioDwo5d6=mHWjjJSLO74EvK+28OMtKYH=XNh0UA@mail.gmail.com>
+Subject: Re: [PATCH v2 1/2] rust: make unsafe_precondition_assert! const compatible
+To: JX <1239989762@qq.com>
+Cc: Miguel Ojeda <ojeda@kernel.org>, Danilo Krummrich <dakr@kernel.org>, Boqun Feng <boqun@kernel.org>, 
+	Gary Guo <gary@garyguo.net>, =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+	Daniel Almeida <daniel.almeida@collabora.com>, Tamir Duberstein <tamird@kernel.org>, 
+	Alexandre Courbot <acourbot@nvidia.com>, =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+	Lorenzo Stoakes <ljs@kernel.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	"Liam R . Howlett" <liam@infradead.org>, Uladzislau Rezki <urezki@gmail.com>, rust-for-linux@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, Sep 03, 2026 at 05:20:01PM +0800, Yifei Chu wrote:
-> A malicious or buggy controller can send C2HData PDUs in response to a
-> WRITE command.  nvme_tcp_handle_c2h_data() accepts them as long as the
-> request has payload bytes and a current bio, which is true for writes,
-> so the receive path ends up copying the incoming data into the
-> request's iterator.  That iterator was initialized from rq_data_dir(rq)
-> in nvme_tcp_init_iter(), i.e. ITER_SOURCE for a write, and
-> _copy_to_iter() refuses to copy into a source iterator: it triggers its
-> WARN_ON_ONCE() and returns 0, the short copy fails with -EFAULT, and
-> the connection is torn down into error recovery.  The write never
-> completes: every reconnect reissues it and a malicious target answers
-> with C2HData again, keeping the controller in a permanent
-> reset/reconnect loop.  With panic_on_warn this is an outright crash.
-> 
-> C2HData carries data transferred from the controller to the host and
-> is only valid for commands that read data from the device; write data
-> travels host to controller in H2CData PDUs solicited by R2T.  This was
-> reproduced against a target modified to reply to a WRITE with C2HData:
-> the host logs
-> 
->     WARNING: CPU: 0 PID: ... at lib/iov_iter.c _copy_to_iter
->     Workqueue: nvme_tcp_wq nvme_tcp_io_work [nvme_tcp]
-> 
-> and the controller cycles through reset/reconnect without the write
-> ever completing.
+On Tue, Sep 8, 2026 at 11:26=E2=80=AFAM JX <1239989762@qq.com> wrote:
+>
+> Signed-off-by: JX <1239989762@qq.com>
 
-This is already closed:
+Thanks for the patch!
 
-https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit?id=f83af377c148f6ad94b41c0e8313f12adf45e1c1
+The kernel requires a "known identity" for the Signed-off-by -- please see:
+
+  https://docs.kernel.org/process/submitting-patches.html#sign-your-work-th=
+e-developer-s-certificate-of-origin
+
+(The thread in lore.kernel.org shows unknown messages and v1's cover
+letter was separate -- I would suggest sending the patches with
+`git-send-email` or `b4` and using a new thread for each version -- I
+hope that helps!).
+
+Cheers,
+Miguel
