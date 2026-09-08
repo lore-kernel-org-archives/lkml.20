@@ -1,102 +1,108 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC8642C0269
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 13:36:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 650E4545D8E
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 13:36:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788874599; cv=none; b=A9/n88M5kDvd9lq/cmi4ccHYuL4D7deH/57RYVxV90Ep7FKB42btXrQfw3dfmpKixEF7c2Req/LceBsjh2QjZ4g7dA3FWc/pejSb07m/32wd4yTkX6VoO9WL6whYjR8iSOITVix3wTuYSkj9rqi1KlQeiGWT3vkLG91MftbsXvg=
+	t=1788874614; cv=none; b=OQvMv8PpRs/PH9DJbfRF4x6hKnUG/Q0c1weBbW+2dUllQs3OOixPu3P9tOrVOOMVsrk+1jK6g/l91OJpEyt4IT+CKVpBF7nUoGtpDivRtQtnsauzKgnkV8QizgkFPvd6/45VBymQCkSMzB5+L09DcOS691RiNIdNVLrVPXDiB0k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788874599; c=relaxed/simple;
-	bh=vkSrwpgV5JMC0Es79U5v7Gmcys29XZ3okUYq0XQB02Q=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=lxOPs7x8G+iu5pE3EkK9FPRfMxaUZqt/H5JNvYkFpdd831Ugf70Uu9xU/gDHsquSdDjfSsNuMwWiLGdsmv2Tx/8ryWah1DIP4DmGrJCZD7E6m341ynpFGQnU+BqnGGIQTi0laACssb5KpgS+1eYFqXGJg8Tp6WAIlgwxAqMYVO4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Oxj0WBH+; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Oxj0WBH+"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49cd5faa1cfso904935e9.0
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 06:36:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788874589; x=1789479389; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=vkSrwpgV5JMC0Es79U5v7Gmcys29XZ3okUYq0XQB02Q=;
-        b=Oxj0WBH+29wp0G3wF1o87hJZmLiWjwK3IDaxK4rkcs5g4yih0V5XYMWckjuYdlp3Wx
-         GiF3vLW0q1QFXfAZ5LC8vBEAt6DXR4o7KSv8PW7Od7Uz3wbf60YK0/E2trWIHW920DkK
-         dyh/1B7yuniqlYqbZYSLmWbyqOHw4k7NUfSjtccYsHG1L3xFpEvck7bOzRNpyIwX73oa
-         //3VPpBRfL3AS0p/ZUC8HuyZBFb4/HuSzfDHrggWq4EnBnlCetevfzplhuFQf0xocwWv
-         HkoTN5jc2/TX7GCSiv6FkyMCM/AP+wMZLwFnxOZwhEascGZ/ZcRWZWWv1G6GY1cVoLRZ
-         rQXQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788874589; x=1789479389;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=vkSrwpgV5JMC0Es79U5v7Gmcys29XZ3okUYq0XQB02Q=;
-        b=ML21aGgorASNFDY/DT+ex4ewQHkpqygjuJ8Y/EIMRjKUb8DyFBAnE3FKlzs8t3jZdm
-         9zLk1IMb8kqyz+HsqRl8AlFViyl6UPm1pcTU+NFLOz3JDm9Pif1+SBdHIiVLO8loSN3R
-         yMUFKB9geV+p7AsT8jzxSJb5Wdd/wUkPjR4tyrVrA2vkepYmHcki+a2LNHpfrA8hNlR2
-         GcxxlJ4wG5SJYlhS78PHU1Bb1GCSfux/kUru1aLieA/4BmPW56k6FdBDdyni7IFC5yf0
-         0IPySTyNC0DSHhCVp0jJh+IKDECS3K2RrFDWBE8wRYYRi3gV15/ykC8jVSJcuZpJPPxS
-         0nzw==
-X-Forwarded-Encrypted: i=1; AKwUvByxWVWhlDGsJjzSOZMZ+8jaSgNZYdE58glv5Ar/X7QT6AK9miFjmPomSgy3gpGP/gh8KEa2t2nyVwNGp8I=@vger.kernel.org
-X-Gm-Message-State: AFuF++l8M5AnXH6XhvpCwpbBCp+K6hDLaHyoLGi2Rxzrvtqj6jh6hci6
-	GZkdvhQ57dKBdTWpoLZiIzF4r4ugUKn1fDYhaN703nl6f+BOh49sXtMVsE9QnqyC
-X-Gm-Gg: AYBFou3LIWmNIGtVduoX7gVCTHIbcBi9R14oIpTF3VB2BkNGlYvedkHwOVSMVyBBQtU
-	fViCZqOlr+APA7+n03zFHP39nVRArAiqIUp8KdHo8eSqWFJpg6o1O8UmHNoIiW6HVlB+Yb3rVjm
-	c5M0OzX1xwB2JWejmPK4EFnnE/Dib/og6XP8bZfueUE6WXBWeI1/MpnA474RDTeKyWzeaiHfnxu
-	mH9iXju+WhpLTkYWd0QmJkWcEtsurJ0sIuGaA5FxTdIlKLm9Km6mV3yzsuz/IDZfOH6wEQEew0/
-	hMAISDydIBM/pYP7rK1W3XTdx1hOAQW12K8p/oCzR2dUlDbwlz0PoKtVqKYjcEmqWH3BhxFc6Tk
-	FkfsEuLjw2R5f2aPCRFccWcwCoWSxx/i76qNAG94LQ0wzQl8zVVYPvMSrSWI9NfWBdwZphW326D
-	P0DI+jow9QKdY6XjW0VRfE0SKKshc7ZbeSsIfT6uOVmuyEyY7ZflmZ2H1hnN6DOF4SUw8zOnHMX
-	y/FGUndP15yfgYerQ5Qy0mE4y/ay5d83OoYutMEXBOGiKDx+wxSEjYrbFsrRJ046BXm
-X-Received: by 2002:a05:600c:8b2e:b0:49c:cbf4:572b with SMTP id 5b1f17b1804b1-49d01dcc1fdmr181152325e9.2.1788874588385;
-        Tue, 08 Sep 2026 06:36:28 -0700 (PDT)
-Received: from OrangePi5-Plus.BB-HOME (20014C4E1B825D0079B84A36A788F67A.dsl.pool.telekom.hu. [2001:4c4e:1b82:5d00:79b8:4a36:a788:f67a])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cfd3f815bsm293320765e9.4.2026.09.08.06.36.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 08 Sep 2026 06:36:28 -0700 (PDT)
-From: Igor Paunovic <royalnet026@gmail.com>
-To: Frank Zhang <rmxpzlb@gmail.com>,
-	Sebastian Reichel <sebastian.reichel@collabora.com>
-Cc: Igor Paunovic <royalnet026@gmail.com>,
-	Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
-	Detlev Casanova <detlev.casanova@collabora.com>,
-	dmitry.baryshkov@oss.qualcomm.com,
-	heiko@sntech.de,
-	jonas@kwiboo.se,
-	jernej.skrabec@gmail.com,
-	neil.armstrong@linaro.org,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5] drm/bridge: dw-hdmi-qp: Guard clear_audio_infoframe when PHY is down
-Date: Tue,  8 Sep 2026 15:35:12 +0200
-Message-ID: <20260908133513.9302-1-royalnet026@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <ap_3zjRWm5-RXKKx@venus>
-References: <20260908070220.41574-1-rmxpzlb@gmail.com> <ap_3zjRWm5-RXKKx@venus>
+	s=arc-20240116; t=1788874614; c=relaxed/simple;
+	bh=4glOVeulBFDIQV+U/gsQ4wFkaeohRD9SwaXlHEmJYdo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=tLxAQVPRBQh+lBegjPtqhy3QUmlYTsrOrD6QfTHj3UnnhUZFY3UxxStY49lKBZb9JLSsbanLrN52aMyb4MVHlMSd77/36GzLJnmbkc8RVwuwB7XAdsuPQrlzA858Uz8GsMhuScQxmPV70KdruorKjpG3z5uQiLAahSbyjEx0onw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B716C1F00A3A;
+	Tue,  8 Sep 2026 13:36:45 +0000 (UTC)
+Date: Tue, 8 Sep 2026 14:36:39 +0100
+From: Will Deacon <will@kernel.org>
+To: linux-arm-kernel@lists.infradead.org
+Cc: linux-kernel@vger.kernel.org, Thomas Gleixner <tglx@kernel.org>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Jinjie Ruan <ruanjinjie@huawei.com>,
+	Mark Rutland <mark.rutland@arm.com>,
+	David Woodhouse <dwmw@amazon.co.uk>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Marc Zyngier <maz@kernel.org>
+Subject: Re: [PATCH 19/19] arm64: smp: Harden parallel CPU bringup against
+ broken PSCI firmware
+Message-ID: <aqAPZ59D_tfN6wUQ@willie-the-truck>
+References: <20260907164024.17164-1-will@kernel.org>
+ <20260907164024.17164-20-will@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260907164024.17164-20-will@kernel.org>
 
-Hi Frank, Sebastian,
+On Mon, Sep 07, 2026 at 05:40:22PM +0100, Will Deacon wrote:
+> Since firmware has occasionally been known to get things wrong, harden
+> our parallel CPU bringup code against a PSCI implementation that passes
+> the CPU_ON argument to an incorrect CPU.
+> 
+> The primary CPU writes the MPIDR of the incoming CPU to the end of its
+> task stack and this is then checked against the MPIDR_EL1 register
+> during early kernel entry. A mismatch is reported via the existing
+> failure reporting mechanism and the CPU is not brought online.
+> 
+> Suggested-by: David Woodhouse <dwmw@amazon.co.uk>
+> Signed-off-by: Will Deacon <will@kernel.org>
+> ---
+>  arch/arm64/include/asm/smp.h    |  4 +++-
+>  arch/arm64/kernel/asm-offsets.c |  1 +
+>  arch/arm64/kernel/head.S        | 39 ++++++++++++++++++++++++++++-----
+>  arch/arm64/kernel/smp.c         | 11 ++++++++--
+>  4 files changed, 46 insertions(+), 9 deletions(-)
 
-Just so the tag is not lost when the split goes away: what I tested and
-what my Tested-by is about is the tmds_char_rate check on the path that
-runs from hdmi_codec_shutdown(), not the introduction of the second
-function. With ftrace I confirmed the check is what stops the register
-access, so folding it back into the original function as Sebastian
-suggests does not change anything I measured, and the tag applies to
-that form as well.
+[...]
 
-If you would still rather have it re-tested on the simplified version,
-send v6 and I will run the same reproducer and confirm.
+> diff --git a/arch/arm64/kernel/head.S b/arch/arm64/kernel/head.S
+> index bec4bc1b12db..56deeb9673d6 100644
+> --- a/arch/arm64/kernel/head.S
+> +++ b/arch/arm64/kernel/head.S
+> @@ -192,11 +192,21 @@ SYM_CODE_END(preserve_boot_args)
+>  	 * its location in the task stack. We reserve the entire pt_regs space
+>  	 * for consistency with user tasks and kthreads.
+>  	 */
+> -	.macro	init_cpu_task tsk, tmp1, tmp2
+> +	.macro	init_cpu_task tsk, tmp1, tmp2, check_mpidr=
+>  	msr	sp_el0, \tsk
+>  
+>  	ldr	\tmp1, [\tsk, #TSK_STACK]
+> -	add	sp, \tmp1, #THREAD_SIZE
+> +	mov	sp, \tmp1
+> +	.ifnb	\check_mpidr
+> +	mov_q	\tmp1, MPIDR_HWID_BITMASK
+> +	mrs	\tmp2, mpidr_el1
+> +	and	\tmp2, \tmp2, \tmp1
+> +	ldr	\tmp1, [sp]
+> +	sub	\tmp1, \tmp1, \tmp2
+> +	cbnz	\tmp1, __cpu_secondary_broken_psci_arg
+> +	.endif
+> +
+> +	add	sp, sp, #THREAD_SIZE
+>  	sub	sp, sp, #PT_REGS_SIZE
+>  
+>  	stp	xzr, xzr, [sp, #S_STACKFRAME]
+> @@ -401,11 +411,12 @@ SYM_FUNC_START_LOCAL(__secondary_switched)
+>  	cbnz	x2, 1f
+>  	adr_l	x0, secondary_data
+>  	ldr	x2, [x0, #CPU_BOOT_TASK]
+> -	cbz	x2, __secondary_too_slow
+> -
+> -1:
+>  	init_cpu_task x2, x1, x3
+> -
+> +	cbnz	x2, 2f
+> +	b	__secondary_too_slow
 
-Igor
+Bah, Sashiko points out that this is too late, as x2 has already been
+dereferenced on the non-PSCI 0.2+ path. I'll rework this for v2.
+
+Will
