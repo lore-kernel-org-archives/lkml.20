@@ -1,530 +1,254 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from PNYPR01CU001.outbound.protection.outlook.com (mail-centralindiaazon11020078.outbound.protection.outlook.com [52.101.225.78])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03C4A367293;
-	Tue,  8 Sep 2026 09:02:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788858184; cv=none; b=ZE6CRP8MhNNdJ1zUuQHWkNOe1GWPW6pmsFeYy91M3BIq7g2dQfUW9qfFejVlof+qMnvtEdU6Z+TPOP0Bbu2+opo8+AvGAGeS7TMaddKUrn87nGv8N88vxueBuzgLZ4zmkSrDWFrzv5bH7aBzdSobBsGyDngcNKRMxYCN3r+Mohs=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788858184; c=relaxed/simple;
-	bh=kFHaZPH4QcFEdtzshas9XSQJpfjPiRL63FA7dR8+40E=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Gfge/FLvYkGirwoM9JTvI2IdygOPU+l/FbH9X0ZVNme6IhYkvv+DWEO+NHa6voEG4fss9z68RSlydH+uqF03ZfxaXLW4OxvIRewjuPMyiFKssYDh1TBGOXaeHnkFoUF43K1nap2DCb5GXaIWxY0zz7bSSrTeyoc5ifI/+6orfqk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IyUkaGqQ; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 541994B04B2;
+	Tue,  8 Sep 2026 09:03:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.225.78
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788858201; cv=fail; b=dWa45y9GR6bKjvyfpakORwoWyuKIjg3d835CqOKCaWC24tW+hR7iRqXU2ftfGNPGOPQ+cJBiLRKzX16Y7tnHzKW0801Lcf3p1NfVySNkqvVFWII6V7IJzS0ufVnHGv+rlJfDfnMQ9dZbjZ6NSJGAeXOryXjiTjO4Ov9Kt5Vk23c=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788858201; c=relaxed/simple;
+	bh=JM2Sd8fbJH3nRVkAZrVIVxpBe7Ck3PfOwFFL5i9pFSs=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=Ru/2inKC77PjlJTr6EPoo7SmR4LhYPEcDolG5tqTJVVEPxME70TONTJCTYv7bA36Hcvvr+tatxV8ZVnycoTXXyCpcEev4ApVl9mRWBeD854ReHCj4Q5M5/EwaFnVIu4SfJYuONxzkBKK+SadpZZM96Ay01EWbjarfVOCRwzswws=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=siliconsignals.io; spf=pass smtp.mailfrom=siliconsignals.io; dkim=fail (0-bit key) header.d=siliconsignals.io header.i=@siliconsignals.io header.b=MsMxFZXW reason="key not found in DNS"; arc=fail smtp.client-ip=52.101.225.78
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=siliconsignals.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=siliconsignals.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IyUkaGqQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7D9CD1F00A3A;
-	Tue,  8 Sep 2026 09:02:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788858177;
-	bh=fZXUGV/bDmksbtNqbbZfwRkQDYuubdGTVF52RLff4uQ=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=IyUkaGqQy3oYKsn41lh0K9Psu0+YDY4LVlJ9po/x9pHsC1uxOsrxQgMyAyqpve1KL
-	 v5W/BGmj6v+f2wvh3SL6co7Rp4A7B6/PimelH7u6ircFKIfJREykxb4QnMeeRPLlXy
-	 RIjWn7pzsYhQXnrVSNaFgTWKaADXUa1c8iJwuh4jDWnDURk1myDgd0SavOqwPcvFCZ
-	 WHHsumpPmsi6AgfLlr90Z1siV2cN9vZTd/UVg/JAAIOiMN8qsr7I+N30o9QSqsHYE3
-	 dvWTcRW+ds5iW0GNQBvt7kgdBUWlF552th6WdezTTpnyny10yLUiViGwmf0LSYdMIB
-	 cOGhkOkH+68yA==
-Message-ID: <758848ef-df21-460e-a977-650429cebb48@kernel.org>
-Date: Tue, 8 Sep 2026 11:02:37 +0200
+	dkim=fail reason="key not found in DNS" (0-bit key) header.d=siliconsignals.io header.i=@siliconsignals.io header.b="MsMxFZXW"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=GiTcjxgGvPabOMEX6NxWB86B+A4c62O0Vs3kDQVI5gg+Wdwpit9ZRITMRfx0EobnCUsF++FfeVzE6Uu3tZY2o803ZSx82rPBFth3G2ZHyUbsq6VWIPYgX38HN/t4kBBjxyrQPHlW3vC+n7zUL7HjRhLXw1vEqQYRhLbvP+Hs5PzctZOoYw6e/KITZC5MxmVmh5KHdzhbFDvfwtpOhdjEwjxoN65rf4IEXCRXrosMu5K99JFmJGu/9dZfBSvN18JuCsTVzu5LjBqU9TIIVe/0VwZW2eTybrJuJmKha59WQnPRlarW9fLaaWhlvITdnTTuJ0N+7hTRlU0JU4iJ9AqRpg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=t/H1+yeCI/3wbAWPtj9lO6p6W/KSbd9Gz4l5CXA97aM=;
+ b=wcLixsrSXufMgYURYzLUsJrJFJIVTEO2J/MZW59+PvEgxouHsAFLhNOiAXeRxoSsUnkXHl9C+KVmYjdg78Mzz+or1nXz4RFuSVqFiqWhpMabt8Mvbv5apKsJqMUUqua7OPIlDglA7BGX0VjYWDRS6RkbfYDhpVgIfSblKOnVVEIJKeGoKsh5xUT7aEsMpl/9Bi38RlZiv8jzMasr7MFEkcNZ59UrDEhmYYkui+k+FozZ+7o7ST0NGfVyPDu+fZi0ccSqaOr09RjQ5B5TvquSD/+muj71900emWfPUdTC5Og8KYEnM7CF9MU95Hskos8xNfatmrPJExMk6IripRcZQA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=siliconsignals.io; dmarc=pass action=none
+ header.from=siliconsignals.io; dkim=pass header.d=siliconsignals.io; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=siliconsignals.io;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=t/H1+yeCI/3wbAWPtj9lO6p6W/KSbd9Gz4l5CXA97aM=;
+ b=MsMxFZXWZ3uYvsQmyEWMP8WpfXj7oZcvN66rhRMBOr5avE5xq//EPK9Or1F0bOrWHSp95NkW4OSfHOuShz7mteZk+6iFA/HG1pWkENXsIcEIwiA1wMirLQUS23rkfrb3z+/OHyNSdoN7aCQyEeF9ltrAmpQHY6kg/N5WgFEYKcMqniVs6IND0mtxMrJ3Y3+SdfFaRunpwbj851zuXVjvPtcx+XD7K01Fe/P3p6AJoxkgCt8Wst0bEY+xaSLP1X0pJ7Hk+T5sgibBfmezbpUaRnEBqDlIZo7XMv1YcSDTfwMsLWjdxoUnVaFtu68623vB4Y1newMLzca1VXe5AS7x7w==
+Received: from MA0P287MB2178.INDP287.PROD.OUTLOOK.COM (2603:1096:a01:11e::14)
+ by PN2P287MB1126.INDP287.PROD.OUTLOOK.COM (2603:1096:c01:135::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.7; Tue, 8 Sep 2026
+ 09:03:10 +0000
+Received: from MA0P287MB2178.INDP287.PROD.OUTLOOK.COM
+ ([fe80::f8da:c075:cde1:e167]) by MA0P287MB2178.INDP287.PROD.OUTLOOK.COM
+ ([fe80::f8da:c075:cde1:e167%7]) with mapi id 15.21.0382.014; Tue, 8 Sep 2026
+ 09:03:10 +0000
+From: Elgin Perumbilly <elgin.perumbilly@siliconsignals.io>
+To: "sakari.ailus@linux.intel.com" <sakari.ailus@linux.intel.com>
+CC: Tarang Raval <tarang.raval@siliconsignals.io>, Mauro Carvalho Chehab
+	<mchehab@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
+	<krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Hans Verkuil
+	<hverkuil+cisco@kernel.org>, Hans de Goede <johannes.goede@oss.qualcomm.com>,
+	Himanshu Bhavani <himanshu.bhavani@siliconsignals.io>, Walter Werner
+ Schneider <contact@schnwalter.eu>, Kate Hsuan <hpa@redhat.com>, Yemike
+ Abhilash Chandra <y-abhilashchandra@ti.com>, Svyatoslav Ryhel
+	<clamor95@gmail.com>, "linux-media@vger.kernel.org"
+	<linux-media@vger.kernel.org>, "devicetree@vger.kernel.org"
+	<devicetree@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v5 0/2] media: i2c: Add os02g10 camera sensor driver
+Thread-Topic: [PATCH v5 0/2] media: i2c: Add os02g10 camera sensor driver
+Thread-Index: AQHdDspl9ppXmum65ESzuXKgK/RNX7aCoL++gAtqjtqANrh+Bw==
+Date: Tue, 8 Sep 2026 09:03:10 +0000
+Message-ID:
+ <MA0P287MB2178A6EBE37DEB29AEF632C388B12@MA0P287MB2178.INDP287.PROD.OUTLOOK.COM>
+References: <20260708110949.31313-1-elgin.perumbilly@siliconsignals.io>
+ <MA0P287MB2178B8563D434B18699EFBD188CB2@MA0P287MB2178.INDP287.PROD.OUTLOOK.COM>
+ <MA0P287MB2178DE6EB4C9E675B9F967DD88D42@MA0P287MB2178.INDP287.PROD.OUTLOOK.COM>
+In-Reply-To:
+ <MA0P287MB2178DE6EB4C9E675B9F967DD88D42@MA0P287MB2178.INDP287.PROD.OUTLOOK.COM>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+msip_labels:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=siliconsignals.io;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: MA0P287MB2178:EE_|PN2P287MB1126:EE_
+x-ms-office365-filtering-correlation-id: 13b8250d-02f4-4980-df76-08df0d88017f
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|366016|1800799024|376014|7416014|23010399003|38070700021|6133799003|3023799007|10067099003|4143699003|56012099006|5023799004|22082099003|18002099003;
+x-microsoft-antispam-message-info:
+ PIu4ZA3DVqGB6jkl+3mnkA5DYSDzpq5iKWdyXt89hXmrvH3B63v/ND25v9XrmBTgs57xs7nycWyGfYhzZ4V5uVS0/9bnU7EA87ggsNYabcmB8WAI2cEBCMHxx+tzQ+M423XBO7x4bp4LbRRwZxlAoNMH6+ocFf4Eq8YXDQkHVb1jK+kmQm1F3+6BP4F08YKy6rhlkW+h6+N0uhkaf7ydK60KwVYZs9RwewViU53uV86pgMzfpuy6rXBAd9IW5JcjuKuIXJ7LkteArz1PEggCUdc7Qv7IWBHvxd+DMTiLma03rDJifHH7WLi/i3xiwL9AKnwlEZxCmvmWXPit+YobEBKKKsKiN7A/N+MvQA7Z9QsG/I2Qa1TzOzzOibKBOGzYt7kKa1caCItTn6x3dkb1g1NAAZ99RWoO1SKICqpFE9EQpNrc5W0faJsHigCffYJnkZsnr/upcO0rIxGtOzOo/v1IlDQLZRaPfe+Sc4VPWz9IWPw9PexqUv70Eitrm7pUcNHsRYrH1GH2egEU56KaDCVDHSW9wauKpOlQrhvxVVv+3K1SWGfQV/qhLMWdG0aEUQDN/XyFz19tTaYDdMBdcAGr59U9RS3Svud5egiUlJ8QCb8ym/ixx/090cKs1XsDlfxPtCmCt27G5x73s4FYtBQVYFCpKnVE4PZmCQ2rRL353nlJxB9YWoHBsuZWxiPH7wz8G686xWvaP/j4+UmMYusCfPzhH//IP+qDDXIHK2Y=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MA0P287MB2178.INDP287.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(7416014)(23010399003)(38070700021)(6133799003)(3023799007)(10067099003)(4143699003)(56012099006)(5023799004)(22082099003)(18002099003);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?iso-8859-1?Q?pGVYlOAWYme149ELRZQGv56ANwJaKjNSfT++MHmen9bSx89Uz9ulB3KIOU?=
+ =?iso-8859-1?Q?Bc1r/sBOdZA/sQXcZv5k8XoYmmpN+JP/KoDSeHiwhGFTO+9k35Mr05cpZN?=
+ =?iso-8859-1?Q?vSy61wH7vRMATPajSDH2xybh/E4rXNNnhLLK4Gmpvk5F4yplfkpkYBnuUM?=
+ =?iso-8859-1?Q?wJRtVT3qTA7kFQaHK3Lp30J5n7dAWS600f7CErV7HdqApQYC4pMOqWqDzF?=
+ =?iso-8859-1?Q?DAH2jIgezfuUraUNVbyv8V1HXwA4x59NulZvTpCTWbQpgS9FXS/91Wq43w?=
+ =?iso-8859-1?Q?Ad+7PaYcQuOQbb89kfNp8jJSlRFZUx1R6dBkBVj2ohiaz91/dFKbLgOTVR?=
+ =?iso-8859-1?Q?cbR84szMtsx7W/z52BvXNuHoDHHeGEo6m/16zu7EfxV5udqqGDQqKmWSxJ?=
+ =?iso-8859-1?Q?aWn05kXTRX+t2KxjdK0hYuVd1LwqZccIWJsW38Tejuba79Ua0MArRjx8rF?=
+ =?iso-8859-1?Q?ZsM+5k3hyk90QtFJESVgLP7pGcsH06rd6OXxaKtFpMTUsMmAr+zNkomExz?=
+ =?iso-8859-1?Q?SqICQmUKmcPJidls9+Vm+cJ2HBwZ5Vztab088LHXIaiwweUVyXXHfyv5FK?=
+ =?iso-8859-1?Q?As/AgaSb6zC/6pf7EZQfjw3VYAwgjXuPW9DMJRxgP6O2hNCtF0iSTXstN2?=
+ =?iso-8859-1?Q?kxeTVM+I62Wa+webv9QJr0M5/8i7EsQeaDGYZNAB730nxcVHZfFCisnMAn?=
+ =?iso-8859-1?Q?ph9S3fAAPA3Lao0EvpHayJNpSICoZBkgk9GQTC2ZmPgkvDxJQw8ROPOkpt?=
+ =?iso-8859-1?Q?UxZ3iyUJGPYgXAap7HdSS02NU80NFvWyF2a6ktUoEedIL/l3EeAs1323+M?=
+ =?iso-8859-1?Q?VPojDQi4uTVg7ukCurT+gZ4V4XZvYQNzOc9D/WWm6ZJV2/6WB3HyXuCXz8?=
+ =?iso-8859-1?Q?g/0FeHTAYo+kn9ksYZ7kNkD4ySETy75n2ii3ZxtLtVo+82PMEzWYQSMZ/b?=
+ =?iso-8859-1?Q?qSJjWyRpsW1jPcBYHAQFPKr/uYs+AXTDi0eHfgyW0Zx/CNg3VMsPYco6Sp?=
+ =?iso-8859-1?Q?AO7/WmOS/CyRgWUz8Gnmfypvq+E2FkRbVYCuQocGjo/ds9ZmHe5t9hxrCZ?=
+ =?iso-8859-1?Q?V3z/zZPqEhPkjdYb0pS0cblEkVqesarhkRsl1EHrx3CCHJBtgePUuRdBzH?=
+ =?iso-8859-1?Q?dJsdkhKtHkSDLsOWVJ3E4KQFAWc9gb/SOn7V9auIN9i7KAcf9XFbL++xCe?=
+ =?iso-8859-1?Q?zGCV6Zols0DYj2K9N0179rfsL6Z4hPHPT3xxB5kSzfiGw5xlYUhDJRNPfh?=
+ =?iso-8859-1?Q?OuCTUfl+JxnU39Asshj4lpHJIVNJieh5ZUA+f8wgSHZ8kfsYP0qZkx2OJH?=
+ =?iso-8859-1?Q?tvEdJs2S6jAj0rkTGjQxmv5k04XCnrOXT07tsq14c6h+ZojLFQDV0Q9fWS?=
+ =?iso-8859-1?Q?1Olqh5Xi/rriM1Rjs1vE/7Ag7xO41opaNXQVYZOc+zQd3+oLoKAajZhHqP?=
+ =?iso-8859-1?Q?uiIE0lD8aCN1+jQyYo+uwKhZ+hn+naMaLenZpG1v8pvoDFSKA40/5eIKQP?=
+ =?iso-8859-1?Q?DRJLa8XwtoK8E0TdTWSBz5yksedt5cfCrEg5s7WU6L0K9NidquGfk7pI0r?=
+ =?iso-8859-1?Q?qA4BhVT0WsgR4On64jZt2U3RXqLcIbQMwzrqgv6n30um+CjUeP00WuPsOe?=
+ =?iso-8859-1?Q?GyqLb+FjSinMWMZk+M4H8qQyjXvAtNnexDUTdPmn2l07OdCGxRxtfgcURX?=
+ =?iso-8859-1?Q?fImmZk2esSM6wcp9DVeG7fXiA9RLe6h6QXRj/matr480ziVc9mlO9SMon4?=
+ =?iso-8859-1?Q?KiGa4PT69qOK3ufNcrdwuV84ey91UCO3injjoBEU5KLLAJshhqZ9n4F61S?=
+ =?iso-8859-1?Q?4n1T1sKBmE6/+P5RcMJDAfYLz8t16IU=3D?=
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 05/24] powerpc/elf: Move relocation constants to UAPI
-To: =?UTF-8?Q?Thomas_Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>,
- Paul Walmsley <paul.walmsley@sifive.com>, Palmer Dabbelt
- <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
- Alexandre Ghiti <alex@ghiti.fr>, Nathan Chancellor <nathan@kernel.org>,
- Nick Desaulniers <nick.desaulniers+lkml@gmail.com>,
- Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
- Andy Lutomirski <luto@kernel.org>,
- Vincenzo Frascino <vincenzo.frascino@arm.com>, Kees Cook <kees@kernel.org>,
- Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
- Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
- "H. Peter Anvin" <hpa@zytor.com>, Richard Weinberger <richard@nod.at>,
- Anton Ivanov <anton.ivanov@cambridgegreys.com>,
- Johannes Berg <johannes@sipsolutions.net>,
- Russell King <linux@armlinux.org.uk>,
- Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
- Madhavan Srinivasan <maddy@linux.ibm.com>,
- Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>,
- Huacai Chen <chenhuacai@kernel.org>, WANG Xuerui <kernel@xen0n.name>,
- Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
- Alexander Gordeev <agordeev@linux.ibm.com>,
- Christian Borntraeger <borntraeger@linux.ibm.com>,
- Sven Schnelle <svens@linux.ibm.com>,
- Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
- Miguel Ojeda <ojeda@kernel.org>, Alex Gaynor <alex.gaynor@gmail.com>,
- Gary Guo <gary@garyguo.net>, =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?=
- <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>,
- Andreas Hindborg <a.hindborg@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
- Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>,
- Thomas Gleixner <tglx@kernel.org>, Boqun Feng <boqun@kernel.org>,
- Nicolas Schier <nsc@kernel.org>
-Cc: linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org,
- llvm@lists.linux.dev, linux-mm@kvack.org, linux-um@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, linuxppc-dev@lists.ozlabs.org,
- loongarch@lists.linux.dev, linux-s390@vger.kernel.org,
- linux-mips@vger.kernel.org, rust-for-linux@vger.kernel.org,
- linux-kbuild@vger.kernel.org, Jan Stancek <jstancek@redhat.com>,
- Arnaldo Carvalho de Melo <acme@redhat.com>,
- Alexandre Ghiti <alexghiti@rivosinc.com>
-References: <20260908-vdso-absolute-reloc-v5-0-3a93791af1cf@linutronix.de>
- <20260908-vdso-absolute-reloc-v5-5-3a93791af1cf@linutronix.de>
-Content-Language: fr-FR
-From: "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>
-In-Reply-To: <20260908-vdso-absolute-reloc-v5-5-3a93791af1cf@linutronix.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+X-OriginatorOrg: siliconsignals.io
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: MA0P287MB2178.INDP287.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-Network-Message-Id: 13b8250d-02f4-4980-df76-08df0d88017f
+X-MS-Exchange-CrossTenant-originalarrivaltime: 08 Sep 2026 09:03:10.1442
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 7ec5089e-a433-4bd1-a638-82ee62e21d37
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: fWCdT/nWSGmLjBhi38aqfkrZMMCZCsHlnMAhSF0ze77HkjSwSnV6LR7M85qL6jRoWel/jJARLxBMUn3vWOXznIl/8vtMg7e06Vagp2cgZJze+vOPqe/EXk0wOQV+pp7Q
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PN2P287MB1126
 
-
-
-Le 08/09/2026 à 08:33, Thomas Weißschuh a écrit :
-> These constants are useful for cross-platform userspace, for example to
-> process ELF files during kernel cross-compilation.
-> 
-> Move them from the kernel-private architecture-specific header to the UAPI.
-> 
-> Signed-off-by: Thomas Weißschuh <thomas.weissschuh@linutronix.de>
-
-Reviewed-by: Christophe Leroy (CS GROUP) <chleroy@kernel.org>
-
-> ---
->   arch/powerpc/include/uapi/asm/elf.h | 201 ------------------------------------
->   include/uapi/linux/elf-r.h          | 201 ++++++++++++++++++++++++++++++++++++
->   2 files changed, 201 insertions(+), 201 deletions(-)
-> 
-> diff --git a/arch/powerpc/include/uapi/asm/elf.h b/arch/powerpc/include/uapi/asm/elf.h
-> index a5377f494fa3..aba921b8249a 100644
-> --- a/arch/powerpc/include/uapi/asm/elf.h
-> +++ b/arch/powerpc/include/uapi/asm/elf.h
-> @@ -17,78 +17,6 @@
->   #include <asm/cputable.h>
->   #include <asm/auxvec.h>
->   
-> -/* PowerPC relocations defined by the ABIs */
-> -#define R_PPC_NONE		0
-> -#define R_PPC_ADDR32		1	/* 32bit absolute address */
-> -#define R_PPC_ADDR24		2	/* 26bit address, 2 bits ignored.  */
-> -#define R_PPC_ADDR16		3	/* 16bit absolute address */
-> -#define R_PPC_ADDR16_LO		4	/* lower 16bit of absolute address */
-> -#define R_PPC_ADDR16_HI		5	/* high 16bit of absolute address */
-> -#define R_PPC_ADDR16_HA		6	/* adjusted high 16bit */
-> -#define R_PPC_ADDR14		7	/* 16bit address, 2 bits ignored */
-> -#define R_PPC_ADDR14_BRTAKEN	8
-> -#define R_PPC_ADDR14_BRNTAKEN	9
-> -#define R_PPC_REL24		10	/* PC relative 26 bit */
-> -#define R_PPC_REL14		11	/* PC relative 16 bit */
-> -#define R_PPC_REL14_BRTAKEN	12
-> -#define R_PPC_REL14_BRNTAKEN	13
-> -#define R_PPC_GOT16		14
-> -#define R_PPC_GOT16_LO		15
-> -#define R_PPC_GOT16_HI		16
-> -#define R_PPC_GOT16_HA		17
-> -#define R_PPC_PLTREL24		18
-> -#define R_PPC_COPY		19
-> -#define R_PPC_GLOB_DAT		20
-> -#define R_PPC_JMP_SLOT		21
-> -#define R_PPC_RELATIVE		22
-> -#define R_PPC_LOCAL24PC		23
-> -#define R_PPC_UADDR32		24
-> -#define R_PPC_UADDR16		25
-> -#define R_PPC_REL32		26
-> -#define R_PPC_PLT32		27
-> -#define R_PPC_PLTREL32		28
-> -#define R_PPC_PLT16_LO		29
-> -#define R_PPC_PLT16_HI		30
-> -#define R_PPC_PLT16_HA		31
-> -#define R_PPC_SDAREL16		32
-> -#define R_PPC_SECTOFF		33
-> -#define R_PPC_SECTOFF_LO	34
-> -#define R_PPC_SECTOFF_HI	35
-> -#define R_PPC_SECTOFF_HA	36
-> -
-> -/* PowerPC relocations defined for the TLS access ABI.  */
-> -#define R_PPC_TLS		67 /* none	(sym+add)@tls */
-> -#define R_PPC_DTPMOD32		68 /* word32	(sym+add)@dtpmod */
-> -#define R_PPC_TPREL16		69 /* half16*	(sym+add)@tprel */
-> -#define R_PPC_TPREL16_LO	70 /* half16	(sym+add)@tprel@l */
-> -#define R_PPC_TPREL16_HI	71 /* half16	(sym+add)@tprel@h */
-> -#define R_PPC_TPREL16_HA	72 /* half16	(sym+add)@tprel@ha */
-> -#define R_PPC_TPREL32		73 /* word32	(sym+add)@tprel */
-> -#define R_PPC_DTPREL16		74 /* half16*	(sym+add)@dtprel */
-> -#define R_PPC_DTPREL16_LO	75 /* half16	(sym+add)@dtprel@l */
-> -#define R_PPC_DTPREL16_HI	76 /* half16	(sym+add)@dtprel@h */
-> -#define R_PPC_DTPREL16_HA	77 /* half16	(sym+add)@dtprel@ha */
-> -#define R_PPC_DTPREL32		78 /* word32	(sym+add)@dtprel */
-> -#define R_PPC_GOT_TLSGD16	79 /* half16*	(sym+add)@got@tlsgd */
-> -#define R_PPC_GOT_TLSGD16_LO	80 /* half16	(sym+add)@got@tlsgd@l */
-> -#define R_PPC_GOT_TLSGD16_HI	81 /* half16	(sym+add)@got@tlsgd@h */
-> -#define R_PPC_GOT_TLSGD16_HA	82 /* half16	(sym+add)@got@tlsgd@ha */
-> -#define R_PPC_GOT_TLSLD16	83 /* half16*	(sym+add)@got@tlsld */
-> -#define R_PPC_GOT_TLSLD16_LO	84 /* half16	(sym+add)@got@tlsld@l */
-> -#define R_PPC_GOT_TLSLD16_HI	85 /* half16	(sym+add)@got@tlsld@h */
-> -#define R_PPC_GOT_TLSLD16_HA	86 /* half16	(sym+add)@got@tlsld@ha */
-> -#define R_PPC_GOT_TPREL16	87 /* half16*	(sym+add)@got@tprel */
-> -#define R_PPC_GOT_TPREL16_LO	88 /* half16	(sym+add)@got@tprel@l */
-> -#define R_PPC_GOT_TPREL16_HI	89 /* half16	(sym+add)@got@tprel@h */
-> -#define R_PPC_GOT_TPREL16_HA	90 /* half16	(sym+add)@got@tprel@ha */
-> -#define R_PPC_GOT_DTPREL16	91 /* half16*	(sym+add)@got@dtprel */
-> -#define R_PPC_GOT_DTPREL16_LO	92 /* half16*	(sym+add)@got@dtprel@l */
-> -#define R_PPC_GOT_DTPREL16_HI	93 /* half16*	(sym+add)@got@dtprel@h */
-> -#define R_PPC_GOT_DTPREL16_HA	94 /* half16*	(sym+add)@got@dtprel@ha */
-> -
-> -/* keep this the last entry. */
-> -#define R_PPC_NUM		95
-> -
->   
->   #define ELF_NGREG	48	/* includes nip, msr, lr, etc. */
->   #define ELF_NFPREG	33	/* includes fpscr */
-> @@ -166,133 +94,4 @@ typedef elf_vrreg_t elf_vrregset_t32[ELF_NVRREG32];
->   typedef elf_fpreg_t elf_vsrreghalf_t32[ELF_NVSRHALFREG];
->   #endif
->   
-> -/* PowerPC64 relocations defined by the ABIs */
-> -#define R_PPC64_NONE    R_PPC_NONE
-> -#define R_PPC64_ADDR32  R_PPC_ADDR32  /* 32bit absolute address.  */
-> -#define R_PPC64_ADDR24  R_PPC_ADDR24  /* 26bit address, word aligned.  */
-> -#define R_PPC64_ADDR16  R_PPC_ADDR16  /* 16bit absolute address. */
-> -#define R_PPC64_ADDR16_LO R_PPC_ADDR16_LO /* lower 16bits of abs. address.  */
-> -#define R_PPC64_ADDR16_HI R_PPC_ADDR16_HI /* high 16bits of abs. address. */
-> -#define R_PPC64_ADDR16_HA R_PPC_ADDR16_HA /* adjusted high 16bits.  */
-> -#define R_PPC64_ADDR14 R_PPC_ADDR14   /* 16bit address, word aligned.  */
-> -#define R_PPC64_ADDR14_BRTAKEN  R_PPC_ADDR14_BRTAKEN
-> -#define R_PPC64_ADDR14_BRNTAKEN R_PPC_ADDR14_BRNTAKEN
-> -#define R_PPC64_REL24   R_PPC_REL24 /* PC relative 26 bit, word aligned.  */
-> -#define R_PPC64_REL14   R_PPC_REL14 /* PC relative 16 bit. */
-> -#define R_PPC64_REL14_BRTAKEN   R_PPC_REL14_BRTAKEN
-> -#define R_PPC64_REL14_BRNTAKEN  R_PPC_REL14_BRNTAKEN
-> -#define R_PPC64_GOT16     R_PPC_GOT16
-> -#define R_PPC64_GOT16_LO  R_PPC_GOT16_LO
-> -#define R_PPC64_GOT16_HI  R_PPC_GOT16_HI
-> -#define R_PPC64_GOT16_HA  R_PPC_GOT16_HA
-> -
-> -#define R_PPC64_COPY      R_PPC_COPY
-> -#define R_PPC64_GLOB_DAT  R_PPC_GLOB_DAT
-> -#define R_PPC64_JMP_SLOT  R_PPC_JMP_SLOT
-> -#define R_PPC64_RELATIVE  R_PPC_RELATIVE
-> -
-> -#define R_PPC64_UADDR32   R_PPC_UADDR32
-> -#define R_PPC64_UADDR16   R_PPC_UADDR16
-> -#define R_PPC64_REL32     R_PPC_REL32
-> -#define R_PPC64_PLT32     R_PPC_PLT32
-> -#define R_PPC64_PLTREL32  R_PPC_PLTREL32
-> -#define R_PPC64_PLT16_LO  R_PPC_PLT16_LO
-> -#define R_PPC64_PLT16_HI  R_PPC_PLT16_HI
-> -#define R_PPC64_PLT16_HA  R_PPC_PLT16_HA
-> -
-> -#define R_PPC64_SECTOFF     R_PPC_SECTOFF
-> -#define R_PPC64_SECTOFF_LO  R_PPC_SECTOFF_LO
-> -#define R_PPC64_SECTOFF_HI  R_PPC_SECTOFF_HI
-> -#define R_PPC64_SECTOFF_HA  R_PPC_SECTOFF_HA
-> -#define R_PPC64_ADDR30          37  /* word30 (S + A - P) >> 2.  */
-> -#define R_PPC64_ADDR64          38  /* doubleword64 S + A.  */
-> -#define R_PPC64_ADDR16_HIGHER   39  /* half16 #higher(S + A).  */
-> -#define R_PPC64_ADDR16_HIGHERA  40  /* half16 #highera(S + A).  */
-> -#define R_PPC64_ADDR16_HIGHEST  41  /* half16 #highest(S + A).  */
-> -#define R_PPC64_ADDR16_HIGHESTA 42  /* half16 #highesta(S + A). */
-> -#define R_PPC64_UADDR64     43  /* doubleword64 S + A.  */
-> -#define R_PPC64_REL64       44  /* doubleword64 S + A - P.  */
-> -#define R_PPC64_PLT64       45  /* doubleword64 L + A.  */
-> -#define R_PPC64_PLTREL64    46  /* doubleword64 L + A - P.  */
-> -#define R_PPC64_TOC16       47  /* half16* S + A - .TOC.  */
-> -#define R_PPC64_TOC16_LO    48  /* half16 #lo(S + A - .TOC.).  */
-> -#define R_PPC64_TOC16_HI    49  /* half16 #hi(S + A - .TOC.).  */
-> -#define R_PPC64_TOC16_HA    50  /* half16 #ha(S + A - .TOC.).  */
-> -#define R_PPC64_TOC         51  /* doubleword64 .TOC. */
-> -#define R_PPC64_PLTGOT16    52  /* half16* M + A.  */
-> -#define R_PPC64_PLTGOT16_LO 53  /* half16 #lo(M + A).  */
-> -#define R_PPC64_PLTGOT16_HI 54  /* half16 #hi(M + A).  */
-> -#define R_PPC64_PLTGOT16_HA 55  /* half16 #ha(M + A).  */
-> -
-> -#define R_PPC64_ADDR16_DS      56 /* half16ds* (S + A) >> 2.  */
-> -#define R_PPC64_ADDR16_LO_DS   57 /* half16ds  #lo(S + A) >> 2.  */
-> -#define R_PPC64_GOT16_DS       58 /* half16ds* (G + A) >> 2.  */
-> -#define R_PPC64_GOT16_LO_DS    59 /* half16ds  #lo(G + A) >> 2.  */
-> -#define R_PPC64_PLT16_LO_DS    60 /* half16ds  #lo(L + A) >> 2.  */
-> -#define R_PPC64_SECTOFF_DS     61 /* half16ds* (R + A) >> 2.  */
-> -#define R_PPC64_SECTOFF_LO_DS  62 /* half16ds  #lo(R + A) >> 2.  */
-> -#define R_PPC64_TOC16_DS       63 /* half16ds* (S + A - .TOC.) >> 2.  */
-> -#define R_PPC64_TOC16_LO_DS    64 /* half16ds  #lo(S + A - .TOC.) >> 2.  */
-> -#define R_PPC64_PLTGOT16_DS    65 /* half16ds* (M + A) >> 2.  */
-> -#define R_PPC64_PLTGOT16_LO_DS 66 /* half16ds  #lo(M + A) >> 2.  */
-> -
-> -/* PowerPC64 relocations defined for the TLS access ABI.  */
-> -#define R_PPC64_TLS		67 /* none	(sym+add)@tls */
-> -#define R_PPC64_DTPMOD64	68 /* doubleword64 (sym+add)@dtpmod */
-> -#define R_PPC64_TPREL16		69 /* half16*	(sym+add)@tprel */
-> -#define R_PPC64_TPREL16_LO	70 /* half16	(sym+add)@tprel@l */
-> -#define R_PPC64_TPREL16_HI	71 /* half16	(sym+add)@tprel@h */
-> -#define R_PPC64_TPREL16_HA	72 /* half16	(sym+add)@tprel@ha */
-> -#define R_PPC64_TPREL64		73 /* doubleword64 (sym+add)@tprel */
-> -#define R_PPC64_DTPREL16	74 /* half16*	(sym+add)@dtprel */
-> -#define R_PPC64_DTPREL16_LO	75 /* half16	(sym+add)@dtprel@l */
-> -#define R_PPC64_DTPREL16_HI	76 /* half16	(sym+add)@dtprel@h */
-> -#define R_PPC64_DTPREL16_HA	77 /* half16	(sym+add)@dtprel@ha */
-> -#define R_PPC64_DTPREL64	78 /* doubleword64 (sym+add)@dtprel */
-> -#define R_PPC64_GOT_TLSGD16	79 /* half16*	(sym+add)@got@tlsgd */
-> -#define R_PPC64_GOT_TLSGD16_LO	80 /* half16	(sym+add)@got@tlsgd@l */
-> -#define R_PPC64_GOT_TLSGD16_HI	81 /* half16	(sym+add)@got@tlsgd@h */
-> -#define R_PPC64_GOT_TLSGD16_HA	82 /* half16	(sym+add)@got@tlsgd@ha */
-> -#define R_PPC64_GOT_TLSLD16	83 /* half16*	(sym+add)@got@tlsld */
-> -#define R_PPC64_GOT_TLSLD16_LO	84 /* half16	(sym+add)@got@tlsld@l */
-> -#define R_PPC64_GOT_TLSLD16_HI	85 /* half16	(sym+add)@got@tlsld@h */
-> -#define R_PPC64_GOT_TLSLD16_HA	86 /* half16	(sym+add)@got@tlsld@ha */
-> -#define R_PPC64_GOT_TPREL16_DS	87 /* half16ds*	(sym+add)@got@tprel */
-> -#define R_PPC64_GOT_TPREL16_LO_DS 88 /* half16ds (sym+add)@got@tprel@l */
-> -#define R_PPC64_GOT_TPREL16_HI	89 /* half16	(sym+add)@got@tprel@h */
-> -#define R_PPC64_GOT_TPREL16_HA	90 /* half16	(sym+add)@got@tprel@ha */
-> -#define R_PPC64_GOT_DTPREL16_DS	91 /* half16ds*	(sym+add)@got@dtprel */
-> -#define R_PPC64_GOT_DTPREL16_LO_DS 92 /* half16ds (sym+add)@got@dtprel@l */
-> -#define R_PPC64_GOT_DTPREL16_HI	93 /* half16	(sym+add)@got@dtprel@h */
-> -#define R_PPC64_GOT_DTPREL16_HA	94 /* half16	(sym+add)@got@dtprel@ha */
-> -#define R_PPC64_TPREL16_DS	95 /* half16ds*	(sym+add)@tprel */
-> -#define R_PPC64_TPREL16_LO_DS	96 /* half16ds	(sym+add)@tprel@l */
-> -#define R_PPC64_TPREL16_HIGHER	97 /* half16	(sym+add)@tprel@higher */
-> -#define R_PPC64_TPREL16_HIGHERA	98 /* half16	(sym+add)@tprel@highera */
-> -#define R_PPC64_TPREL16_HIGHEST	99 /* half16	(sym+add)@tprel@highest */
-> -#define R_PPC64_TPREL16_HIGHESTA 100 /* half16	(sym+add)@tprel@highesta */
-> -#define R_PPC64_DTPREL16_DS	101 /* half16ds* (sym+add)@dtprel */
-> -#define R_PPC64_DTPREL16_LO_DS	102 /* half16ds	(sym+add)@dtprel@l */
-> -#define R_PPC64_DTPREL16_HIGHER	103 /* half16	(sym+add)@dtprel@higher */
-> -#define R_PPC64_DTPREL16_HIGHERA 104 /* half16	(sym+add)@dtprel@highera */
-> -#define R_PPC64_DTPREL16_HIGHEST 105 /* half16	(sym+add)@dtprel@highest */
-> -#define R_PPC64_DTPREL16_HIGHESTA 106 /* half16	(sym+add)@dtprel@highesta */
-> -#define R_PPC64_TLSGD		107
-> -#define R_PPC64_TLSLD		108
-> -#define R_PPC64_TOCSAVE		109
-> -
-> -#define R_PPC64_REL24_NOTOC	116
-> -#define R_PPC64_ENTRY		118
-> -
-> -#define R_PPC64_PCREL34		132
-> -#define R_PPC64_GOT_PCREL34	133
-> -
-> -#define R_PPC64_REL16		249
-> -#define R_PPC64_REL16_LO	250
-> -#define R_PPC64_REL16_HI	251
-> -#define R_PPC64_REL16_HA	252
-> -
-> -/* Keep this the last entry.  */
-> -#define R_PPC64_NUM		253
-> -
->   #endif /* _UAPI_ASM_POWERPC_ELF_H */
-> diff --git a/include/uapi/linux/elf-r.h b/include/uapi/linux/elf-r.h
-> index cf931fc05afa..0d0dfaa7c724 100644
-> --- a/include/uapi/linux/elf-r.h
-> +++ b/include/uapi/linux/elf-r.h
-> @@ -113,4 +113,205 @@
->   
->   #define R_AARCH64_RELATIVE		1027
->   
-> +/* PowerPC relocations defined by the ABIs */
-> +#define R_PPC_NONE		0
-> +#define R_PPC_ADDR32		1	/* 32bit absolute address */
-> +#define R_PPC_ADDR24		2	/* 26bit address, 2 bits ignored.  */
-> +#define R_PPC_ADDR16		3	/* 16bit absolute address */
-> +#define R_PPC_ADDR16_LO		4	/* lower 16bit of absolute address */
-> +#define R_PPC_ADDR16_HI		5	/* high 16bit of absolute address */
-> +#define R_PPC_ADDR16_HA		6	/* adjusted high 16bit */
-> +#define R_PPC_ADDR14		7	/* 16bit address, 2 bits ignored */
-> +#define R_PPC_ADDR14_BRTAKEN	8
-> +#define R_PPC_ADDR14_BRNTAKEN	9
-> +#define R_PPC_REL24		10	/* PC relative 26 bit */
-> +#define R_PPC_REL14		11	/* PC relative 16 bit */
-> +#define R_PPC_REL14_BRTAKEN	12
-> +#define R_PPC_REL14_BRNTAKEN	13
-> +#define R_PPC_GOT16		14
-> +#define R_PPC_GOT16_LO		15
-> +#define R_PPC_GOT16_HI		16
-> +#define R_PPC_GOT16_HA		17
-> +#define R_PPC_PLTREL24		18
-> +#define R_PPC_COPY		19
-> +#define R_PPC_GLOB_DAT		20
-> +#define R_PPC_JMP_SLOT		21
-> +#define R_PPC_RELATIVE		22
-> +#define R_PPC_LOCAL24PC		23
-> +#define R_PPC_UADDR32		24
-> +#define R_PPC_UADDR16		25
-> +#define R_PPC_REL32		26
-> +#define R_PPC_PLT32		27
-> +#define R_PPC_PLTREL32		28
-> +#define R_PPC_PLT16_LO		29
-> +#define R_PPC_PLT16_HI		30
-> +#define R_PPC_PLT16_HA		31
-> +#define R_PPC_SDAREL16		32
-> +#define R_PPC_SECTOFF		33
-> +#define R_PPC_SECTOFF_LO	34
-> +#define R_PPC_SECTOFF_HI	35
-> +#define R_PPC_SECTOFF_HA	36
-> +
-> +/* PowerPC relocations defined for the TLS access ABI.  */
-> +#define R_PPC_TLS		67 /* none	(sym+add)@tls */
-> +#define R_PPC_DTPMOD32		68 /* word32	(sym+add)@dtpmod */
-> +#define R_PPC_TPREL16		69 /* half16*	(sym+add)@tprel */
-> +#define R_PPC_TPREL16_LO	70 /* half16	(sym+add)@tprel@l */
-> +#define R_PPC_TPREL16_HI	71 /* half16	(sym+add)@tprel@h */
-> +#define R_PPC_TPREL16_HA	72 /* half16	(sym+add)@tprel@ha */
-> +#define R_PPC_TPREL32		73 /* word32	(sym+add)@tprel */
-> +#define R_PPC_DTPREL16		74 /* half16*	(sym+add)@dtprel */
-> +#define R_PPC_DTPREL16_LO	75 /* half16	(sym+add)@dtprel@l */
-> +#define R_PPC_DTPREL16_HI	76 /* half16	(sym+add)@dtprel@h */
-> +#define R_PPC_DTPREL16_HA	77 /* half16	(sym+add)@dtprel@ha */
-> +#define R_PPC_DTPREL32		78 /* word32	(sym+add)@dtprel */
-> +#define R_PPC_GOT_TLSGD16	79 /* half16*	(sym+add)@got@tlsgd */
-> +#define R_PPC_GOT_TLSGD16_LO	80 /* half16	(sym+add)@got@tlsgd@l */
-> +#define R_PPC_GOT_TLSGD16_HI	81 /* half16	(sym+add)@got@tlsgd@h */
-> +#define R_PPC_GOT_TLSGD16_HA	82 /* half16	(sym+add)@got@tlsgd@ha */
-> +#define R_PPC_GOT_TLSLD16	83 /* half16*	(sym+add)@got@tlsld */
-> +#define R_PPC_GOT_TLSLD16_LO	84 /* half16	(sym+add)@got@tlsld@l */
-> +#define R_PPC_GOT_TLSLD16_HI	85 /* half16	(sym+add)@got@tlsld@h */
-> +#define R_PPC_GOT_TLSLD16_HA	86 /* half16	(sym+add)@got@tlsld@ha */
-> +#define R_PPC_GOT_TPREL16	87 /* half16*	(sym+add)@got@tprel */
-> +#define R_PPC_GOT_TPREL16_LO	88 /* half16	(sym+add)@got@tprel@l */
-> +#define R_PPC_GOT_TPREL16_HI	89 /* half16	(sym+add)@got@tprel@h */
-> +#define R_PPC_GOT_TPREL16_HA	90 /* half16	(sym+add)@got@tprel@ha */
-> +#define R_PPC_GOT_DTPREL16	91 /* half16*	(sym+add)@got@dtprel */
-> +#define R_PPC_GOT_DTPREL16_LO	92 /* half16*	(sym+add)@got@dtprel@l */
-> +#define R_PPC_GOT_DTPREL16_HI	93 /* half16*	(sym+add)@got@dtprel@h */
-> +#define R_PPC_GOT_DTPREL16_HA	94 /* half16*	(sym+add)@got@dtprel@ha */
-> +
-> +/* keep this the last entry. */
-> +#define R_PPC_NUM		95
-> +
-> +/* PowerPC64 relocations defined by the ABIs */
-> +#define R_PPC64_NONE    R_PPC_NONE
-> +#define R_PPC64_ADDR32  R_PPC_ADDR32  /* 32bit absolute address.  */
-> +#define R_PPC64_ADDR24  R_PPC_ADDR24  /* 26bit address, word aligned.  */
-> +#define R_PPC64_ADDR16  R_PPC_ADDR16  /* 16bit absolute address. */
-> +#define R_PPC64_ADDR16_LO R_PPC_ADDR16_LO /* lower 16bits of abs. address.  */
-> +#define R_PPC64_ADDR16_HI R_PPC_ADDR16_HI /* high 16bits of abs. address. */
-> +#define R_PPC64_ADDR16_HA R_PPC_ADDR16_HA /* adjusted high 16bits.  */
-> +#define R_PPC64_ADDR14 R_PPC_ADDR14   /* 16bit address, word aligned.  */
-> +#define R_PPC64_ADDR14_BRTAKEN  R_PPC_ADDR14_BRTAKEN
-> +#define R_PPC64_ADDR14_BRNTAKEN R_PPC_ADDR14_BRNTAKEN
-> +#define R_PPC64_REL24   R_PPC_REL24 /* PC relative 26 bit, word aligned.  */
-> +#define R_PPC64_REL14   R_PPC_REL14 /* PC relative 16 bit. */
-> +#define R_PPC64_REL14_BRTAKEN   R_PPC_REL14_BRTAKEN
-> +#define R_PPC64_REL14_BRNTAKEN  R_PPC_REL14_BRNTAKEN
-> +#define R_PPC64_GOT16     R_PPC_GOT16
-> +#define R_PPC64_GOT16_LO  R_PPC_GOT16_LO
-> +#define R_PPC64_GOT16_HI  R_PPC_GOT16_HI
-> +#define R_PPC64_GOT16_HA  R_PPC_GOT16_HA
-> +
-> +#define R_PPC64_COPY      R_PPC_COPY
-> +#define R_PPC64_GLOB_DAT  R_PPC_GLOB_DAT
-> +#define R_PPC64_JMP_SLOT  R_PPC_JMP_SLOT
-> +#define R_PPC64_RELATIVE  R_PPC_RELATIVE
-> +
-> +#define R_PPC64_UADDR32   R_PPC_UADDR32
-> +#define R_PPC64_UADDR16   R_PPC_UADDR16
-> +#define R_PPC64_REL32     R_PPC_REL32
-> +#define R_PPC64_PLT32     R_PPC_PLT32
-> +#define R_PPC64_PLTREL32  R_PPC_PLTREL32
-> +#define R_PPC64_PLT16_LO  R_PPC_PLT16_LO
-> +#define R_PPC64_PLT16_HI  R_PPC_PLT16_HI
-> +#define R_PPC64_PLT16_HA  R_PPC_PLT16_HA
-> +
-> +#define R_PPC64_SECTOFF     R_PPC_SECTOFF
-> +#define R_PPC64_SECTOFF_LO  R_PPC_SECTOFF_LO
-> +#define R_PPC64_SECTOFF_HI  R_PPC_SECTOFF_HI
-> +#define R_PPC64_SECTOFF_HA  R_PPC_SECTOFF_HA
-> +#define R_PPC64_ADDR30          37  /* word30 (S + A - P) >> 2.  */
-> +#define R_PPC64_ADDR64          38  /* doubleword64 S + A.  */
-> +#define R_PPC64_ADDR16_HIGHER   39  /* half16 #higher(S + A).  */
-> +#define R_PPC64_ADDR16_HIGHERA  40  /* half16 #highera(S + A).  */
-> +#define R_PPC64_ADDR16_HIGHEST  41  /* half16 #highest(S + A).  */
-> +#define R_PPC64_ADDR16_HIGHESTA 42  /* half16 #highesta(S + A). */
-> +#define R_PPC64_UADDR64     43  /* doubleword64 S + A.  */
-> +#define R_PPC64_REL64       44  /* doubleword64 S + A - P.  */
-> +#define R_PPC64_PLT64       45  /* doubleword64 L + A.  */
-> +#define R_PPC64_PLTREL64    46  /* doubleword64 L + A - P.  */
-> +#define R_PPC64_TOC16       47  /* half16* S + A - .TOC.  */
-> +#define R_PPC64_TOC16_LO    48  /* half16 #lo(S + A - .TOC.).  */
-> +#define R_PPC64_TOC16_HI    49  /* half16 #hi(S + A - .TOC.).  */
-> +#define R_PPC64_TOC16_HA    50  /* half16 #ha(S + A - .TOC.).  */
-> +#define R_PPC64_TOC         51  /* doubleword64 .TOC. */
-> +#define R_PPC64_PLTGOT16    52  /* half16* M + A.  */
-> +#define R_PPC64_PLTGOT16_LO 53  /* half16 #lo(M + A).  */
-> +#define R_PPC64_PLTGOT16_HI 54  /* half16 #hi(M + A).  */
-> +#define R_PPC64_PLTGOT16_HA 55  /* half16 #ha(M + A).  */
-> +
-> +#define R_PPC64_ADDR16_DS      56 /* half16ds* (S + A) >> 2.  */
-> +#define R_PPC64_ADDR16_LO_DS   57 /* half16ds  #lo(S + A) >> 2.  */
-> +#define R_PPC64_GOT16_DS       58 /* half16ds* (G + A) >> 2.  */
-> +#define R_PPC64_GOT16_LO_DS    59 /* half16ds  #lo(G + A) >> 2.  */
-> +#define R_PPC64_PLT16_LO_DS    60 /* half16ds  #lo(L + A) >> 2.  */
-> +#define R_PPC64_SECTOFF_DS     61 /* half16ds* (R + A) >> 2.  */
-> +#define R_PPC64_SECTOFF_LO_DS  62 /* half16ds  #lo(R + A) >> 2.  */
-> +#define R_PPC64_TOC16_DS       63 /* half16ds* (S + A - .TOC.) >> 2.  */
-> +#define R_PPC64_TOC16_LO_DS    64 /* half16ds  #lo(S + A - .TOC.) >> 2.  */
-> +#define R_PPC64_PLTGOT16_DS    65 /* half16ds* (M + A) >> 2.  */
-> +#define R_PPC64_PLTGOT16_LO_DS 66 /* half16ds  #lo(M + A) >> 2.  */
-> +
-> +/* PowerPC64 relocations defined for the TLS access ABI.  */
-> +#define R_PPC64_TLS		67 /* none	(sym+add)@tls */
-> +#define R_PPC64_DTPMOD64	68 /* doubleword64 (sym+add)@dtpmod */
-> +#define R_PPC64_TPREL16		69 /* half16*	(sym+add)@tprel */
-> +#define R_PPC64_TPREL16_LO	70 /* half16	(sym+add)@tprel@l */
-> +#define R_PPC64_TPREL16_HI	71 /* half16	(sym+add)@tprel@h */
-> +#define R_PPC64_TPREL16_HA	72 /* half16	(sym+add)@tprel@ha */
-> +#define R_PPC64_TPREL64		73 /* doubleword64 (sym+add)@tprel */
-> +#define R_PPC64_DTPREL16	74 /* half16*	(sym+add)@dtprel */
-> +#define R_PPC64_DTPREL16_LO	75 /* half16	(sym+add)@dtprel@l */
-> +#define R_PPC64_DTPREL16_HI	76 /* half16	(sym+add)@dtprel@h */
-> +#define R_PPC64_DTPREL16_HA	77 /* half16	(sym+add)@dtprel@ha */
-> +#define R_PPC64_DTPREL64	78 /* doubleword64 (sym+add)@dtprel */
-> +#define R_PPC64_GOT_TLSGD16	79 /* half16*	(sym+add)@got@tlsgd */
-> +#define R_PPC64_GOT_TLSGD16_LO	80 /* half16	(sym+add)@got@tlsgd@l */
-> +#define R_PPC64_GOT_TLSGD16_HI	81 /* half16	(sym+add)@got@tlsgd@h */
-> +#define R_PPC64_GOT_TLSGD16_HA	82 /* half16	(sym+add)@got@tlsgd@ha */
-> +#define R_PPC64_GOT_TLSLD16	83 /* half16*	(sym+add)@got@tlsld */
-> +#define R_PPC64_GOT_TLSLD16_LO	84 /* half16	(sym+add)@got@tlsld@l */
-> +#define R_PPC64_GOT_TLSLD16_HI	85 /* half16	(sym+add)@got@tlsld@h */
-> +#define R_PPC64_GOT_TLSLD16_HA	86 /* half16	(sym+add)@got@tlsld@ha */
-> +#define R_PPC64_GOT_TPREL16_DS	87 /* half16ds*	(sym+add)@got@tprel */
-> +#define R_PPC64_GOT_TPREL16_LO_DS 88 /* half16ds (sym+add)@got@tprel@l */
-> +#define R_PPC64_GOT_TPREL16_HI	89 /* half16	(sym+add)@got@tprel@h */
-> +#define R_PPC64_GOT_TPREL16_HA	90 /* half16	(sym+add)@got@tprel@ha */
-> +#define R_PPC64_GOT_DTPREL16_DS	91 /* half16ds*	(sym+add)@got@dtprel */
-> +#define R_PPC64_GOT_DTPREL16_LO_DS 92 /* half16ds (sym+add)@got@dtprel@l */
-> +#define R_PPC64_GOT_DTPREL16_HI	93 /* half16	(sym+add)@got@dtprel@h */
-> +#define R_PPC64_GOT_DTPREL16_HA	94 /* half16	(sym+add)@got@dtprel@ha */
-> +#define R_PPC64_TPREL16_DS	95 /* half16ds*	(sym+add)@tprel */
-> +#define R_PPC64_TPREL16_LO_DS	96 /* half16ds	(sym+add)@tprel@l */
-> +#define R_PPC64_TPREL16_HIGHER	97 /* half16	(sym+add)@tprel@higher */
-> +#define R_PPC64_TPREL16_HIGHERA	98 /* half16	(sym+add)@tprel@highera */
-> +#define R_PPC64_TPREL16_HIGHEST	99 /* half16	(sym+add)@tprel@highest */
-> +#define R_PPC64_TPREL16_HIGHESTA 100 /* half16	(sym+add)@tprel@highesta */
-> +#define R_PPC64_DTPREL16_DS	101 /* half16ds* (sym+add)@dtprel */
-> +#define R_PPC64_DTPREL16_LO_DS	102 /* half16ds	(sym+add)@dtprel@l */
-> +#define R_PPC64_DTPREL16_HIGHER	103 /* half16	(sym+add)@dtprel@higher */
-> +#define R_PPC64_DTPREL16_HIGHERA 104 /* half16	(sym+add)@dtprel@highera */
-> +#define R_PPC64_DTPREL16_HIGHEST 105 /* half16	(sym+add)@dtprel@highest */
-> +#define R_PPC64_DTPREL16_HIGHESTA 106 /* half16	(sym+add)@dtprel@highesta */
-> +#define R_PPC64_TLSGD		107
-> +#define R_PPC64_TLSLD		108
-> +#define R_PPC64_TOCSAVE		109
-> +
-> +#define R_PPC64_REL24_NOTOC	116
-> +#define R_PPC64_ENTRY		118
-> +
-> +#define R_PPC64_PCREL34		132
-> +#define R_PPC64_GOT_PCREL34	133
-> +
-> +#define R_PPC64_REL16		249
-> +#define R_PPC64_REL16_LO	250
-> +#define R_PPC64_REL16_HI	251
-> +#define R_PPC64_REL16_HA	252
-> +
-> +/* Keep this the last entry.  */
-> +#define R_PPC64_NUM		253
-> +
->   #endif /* _UAPI_LINUX_ELF_R_H */
-> 
-
+Hi Sakari,=0A=
+=0A=
+>Hi Sakari,=0A=
+>=0A=
+>>Hi Sakari,=0A=
+>>=0A=
+>>>The following features are supported:=0A=
+>>>- Manual exposure and gain control support.=0A=
+>>>- vblank/hblank control support.=0A=
+>>>- vflip/hflip control support=0A=
+>>>- Test pattern control support.=0A=
+>>>- mode support 1920 x 1080 @ 30 fps, SBGGR10=0A=
+>>>=0A=
+>>>The driver is tested on mainline branch v7.0-rc2 on IMX8MP Debix Model a=
+.=0A=
+>>>=0A=
+>>>v4l2-compliance 1.31.0-5387, 64 bits, 64-bit time_t=0A=
+>>>v4l2-compliance SHA: 5508bc4301ac 2025-08-25 08:14:22=0A=
+>>>=0A=
+>>>Compliance test for device /dev/v4l-subdev3:=0A=
+>>>=0A=
+>>>Driver Info:=0A=
+>>>        Driver version   : 7.0.0=0A=
+>>>        Capabilities     : 0x00000000=0A=
+>>>        Client Capabilities: 0x0000000000000002=0A=
+>>>interval-uses-which=0A=
+>>>Required ioctls:=0A=
+>>>        test VIDIOC_SUDBEV_QUERYCAP: OK=0A=
+>>>        test invalid ioctls: OK=0A=
+>>>=0A=
+>>>Allow for multiple opens:=0A=
+>>>        test second /dev/v4l-subdev3 open: OK=0A=
+>>>        test VIDIOC_SUBDEV_QUERYCAP: OK=0A=
+>>>        test for unlimited opens: OK=0A=
+>>>=0A=
+>>>Debug ioctls:=0A=
+>>>        test VIDIOC_LOG_STATUS: OK (Not Supported)=0A=
+>>>=0A=
+>>>Input ioctls:=0A=
+>>>        test VIDIOC_G/S_TUNER/ENUM_FREQ_BANDS: OK (Not Supported)=0A=
+>>>        test VIDIOC_G/S_FREQUENCY: OK (Not Supported)=0A=
+>>>        test VIDIOC_S_HW_FREQ_SEEK: OK (Not Supported)=0A=
+>>>        test VIDIOC_ENUMAUDIO: OK (Not Supported)=0A=
+>>>        test VIDIOC_G/S/ENUMINPUT: OK (Not Supported)=0A=
+>>>        test VIDIOC_G/S_AUDIO: OK (Not Supported)=0A=
+>>>        Inputs: 0 Audio Inputs: 0 Tuners: 0=0A=
+>>>=0A=
+>>>Output ioctls:=0A=
+>>>        test VIDIOC_G/S_MODULATOR: OK (Not Supported)=0A=
+>>>        test VIDIOC_G/S_FREQUENCY: OK (Not Supported)=0A=
+>>>        test VIDIOC_ENUMAUDOUT: OK (Not Supported)=0A=
+>>>        test VIDIOC_G/S/ENUMOUTPUT: OK (Not Supported)=0A=
+>>>        test VIDIOC_G/S_AUDOUT: OK (Not Supported)=0A=
+>>>        Outputs: 0 Audio Outputs: 0 Modulators: 0=0A=
+>>>=0A=
+>>>Input/Output configuration ioctls:=0A=
+>>>        test VIDIOC_ENUM/G/S/QUERY_STD: OK (Not Supported)=0A=
+>>>        test VIDIOC_ENUM/G/S/QUERY_DV_TIMINGS: OK (Not Supported)=0A=
+>>>        test VIDIOC_DV_TIMINGS_CAP: OK (Not Supported)=0A=
+>>>        test VIDIOC_G/S_EDID: OK (Not Supported)=0A=
+>>>=0A=
+>>>Control ioctls:=0A=
+>>>        test VIDIOC_QUERY_EXT_CTRL/QUERYMENU: OK=0A=
+>>>        test VIDIOC_QUERYCTRL: OK=0A=
+>>>        test VIDIOC_G/S_CTRL: OK=0A=
+>>>        test VIDIOC_G/S/TRY_EXT_CTRLS: OK=0A=
+>>>        test VIDIOC_(UN)SUBSCRIBE_EVENT/DQEVENT: OK=0A=
+>>>        test VIDIOC_G/S_JPEGCOMP: OK (Not Supported)=0A=
+>>>        Standard Controls: 12 Private Controls: 0=0A=
+>>>=0A=
+>>>Format ioctls:=0A=
+>>>        test VIDIOC_ENUM_FMT/FRAMESIZES/FRAMEINTERVALS: OK (Not Supporte=
+d)=0A=
+>>>        test VIDIOC_G/S_PARM: OK (Not Supported)=0A=
+>>>        test VIDIOC_G_FBUF: OK (Not Supported)=0A=
+>>>        test VIDIOC_G_FMT: OK (Not Supported)=0A=
+>>>        test VIDIOC_TRY_FMT: OK (Not Supported)=0A=
+>>>        test VIDIOC_S_FMT: OK (Not Supported)=0A=
+>>>        test VIDIOC_G_SLICED_VBI_CAP: OK (Not Supported)=0A=
+>>>        test Cropping: OK (Not Supported)=0A=
+>>>        test Composing: OK (Not Supported)=0A=
+>>>        test Scaling: OK (Not Supported)=0A=
+>>>=0A=
+>>>Codec ioctls:=0A=
+>>>        test VIDIOC_(TRY_)ENCODER_CMD: OK (Not Supported)=0A=
+>>>        test VIDIOC_G_ENC_INDEX: OK (Not Supported)=0A=
+>>>        test VIDIOC_(TRY_)DECODER_CMD: OK (Not Supported)=0A=
+>>>=0A=
+>>>Buffer ioctls:=0A=
+>>>        test VIDIOC_REQBUFS/CREATE_BUFS/QUERYBUF: OK (Not Supported)=0A=
+>>>        test CREATE_BUFS maximum buffers: OK=0A=
+>>>        test VIDIOC_REMOVE_BUFS: OK=0A=
+>>>        test VIDIOC_EXPBUF: OK (Not Supported)=0A=
+>>>        test Requests: OK (Not Supported)=0A=
+>>>        test blocking wait: OK (Not Supported)=0A=
+>>>=0A=
+>>>Total for device /dev/v4l-subdev3: 46, Succeeded: 46, Failed: 0, Warning=
+s: 0=0A=
+>>=0A=
+>>Could you please have a look at this patch series and let me know your th=
+oughts ?=0A=
+>>=0A=
+>>Best Regards,=0A=
+>>Elgin=0A=
+>=0A=
+>Just following up on the os02g10 patch series.=0A=
+>Is there any blocker preventing it from being merged, or anything I need t=
+o address?=0A=
+>=0A=
+>Best Regards,=0A=
+>Elgin=0A=
+=0A=
+Just following up once again on the OS02G10 patch series. Could you please =
+let me know if you had a chance to review it?=0A=
+=0A=
+Best Regards,=0A=
+Elgin=0A=
