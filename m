@@ -1,91 +1,116 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-243.mta1.migadu.com [95.215.58.243])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4354A5427EB;
-	Tue,  8 Sep 2026 13:50:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50893529412
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 13:51:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.243
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788875441; cv=none; b=sXPOhvnfNPPOQ/sS9hhQclsPnhboqEcW6P4Jka9Ns7Fie5J4BXfzcUiP/jf2ajFUQN7AECHcWgFjcQy6J/uk2CQgFzSpinDOYcH4pvoa+pDqDbHfezYZF8YKlsHV9L7ugzK9FjbwIgG2MZJbbA3TAq+blZT50kcFqWh5ay95GDw=
+	t=1788875477; cv=none; b=rtSQBQAvnKhjvZOd97DtdxfgVebhwOA5RMvXhydjqMWGOz3tq59KFFK/nkJiY7fF353deu2ZZB8ux3df3UMqZS9ynVUpynK0YsTXOABhONEZjkxudI+Iz2t/CaNOsD85C0PP6Pp8+EQaGNTXmK4Y1/gDqdjQ+VbLftbDMy8xNCw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788875441; c=relaxed/simple;
-	bh=Jd+NtUA5mJ/AsggN7py4RFbrmv4DJVUcbKJ9FoxdVM8=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=UIFxbT3UJlGhSuZ/tro2i4sVNYrEv1y+HsmY8y7k7OLNzFo2kGsZeBuXYb2UGL93Lh/ddWpXlJoGbUjiNOZNfB1aWsEdeph2feCop6SYr/vZ8eyFkJFUAY1dNKXGFhL5n6xFRPg7TCmCaEI1yPEzsuY0x6ggafuEoVGWPv9Ltog=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lSJwv7Mb; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788875477; c=relaxed/simple;
+	bh=yAkATAbOR8BHFyRFOsELRt+fYAiuqFYEVcejaIN9a/4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=rmGn8HLVrd+5KPK8QbX8tQRZ5Or0M20XOAvDP3zvRZka0jkMBoQn35ZqfB/6Id5go7RNxN2yNOKLz5BeDdeijeqIlZHEJEjmWY5XHR1sen6AXAY02R3eDyVes0VjG00S1PTelEdQ6u5TpcmE3dHBwOjx1+EgEeIcqhaLJngEjS0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=oPb63NSV; arc=none smtp.client-ip=95.215.58.243
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lSJwv7Mb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC82C1F00A3A;
-	Tue,  8 Sep 2026 13:50:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788875428;
-	bh=Ypcd7yY7vmcX83+gZqkee0+O9dXiuC/9T0z33M3cUFk=;
-	h=Date:From:To:Cc:Subject;
-	b=lSJwv7Mb7mimvTKptRb6W953vcSK3IIZLRxcmOkNbU+und+J8o1WzUuqRCxHEuQoy
-	 P1B1UPrZX+4g2Lwhk+NWQR8H6ru91mt1Wj487PKX61+hO1/Ebb3MGsDjm9vkcEJpA5
-	 w2GAyUh1S9BP7VuOuAxpwTVRPhQJpqBTPWkIKgJfOiRyUmqo3FK5qLe5QS0PGh0Zzy
-	 iQezruoWh0tKakmKSsUVt5Wq/J0nUfTWVthMa1ul3S2ZljKrxBmhEbOksp0vQKTvNb
-	 0UECf7r24gUqP9wjbP3UcPjk5mvHwdG8QUPX0AMCRl62UQKseL4i/v8DeP0AIatV/v
-	 MXQEvQZ8QC1cQ==
-Date: Tue, 8 Sep 2026 14:50:23 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Dave Airlie <airlied@redhat.com>, DRI <dri-devel@lists.freedesktop.org>,
-	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
-	Ivaylo Dimitrov <ivo.g.dimitrov.75@gmail.com>
-Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-	Linux Next Mailing List <linux-next@vger.kernel.org>
-Subject: linux-next: build failure after merge of the drm tree
-Message-ID: <aqASn9YDPLpu_vb0@sirena.org.uk>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="oPb63NSV"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=yAkATAbOR8BHFyRFOsELRt+fYAiuqFYEVcejaIN9a/4=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788875468; v=1; x=1789480268;
+ b=oPb63NSVAM1cGM61r3OUh0VWBaMubfLs+kPoSFk9e7+oGzj0ePEgc9bgB4asCYi5sHCcAaRP
+ NWU8SJVHohPq/gjzQJUeOcCbNOIBmYtjjS1THrf3uAfm1tPHWli2HKeC0gJ2P3EHcJW3c6I9wGm
+ 3jlBD3YJb4AtNxO//+Wiblz4=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 73574c6019326117;
+	Tue, 08 Sep 2026 13:51:08 +0000
+X-Mizu-Trace-ID: 73574c6019326117
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <13fefc5b-7148-48aa-95a6-7f64cf7c66d5@linux.dev>
+Date: Tue, 8 Sep 2026 21:50:48 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="rlzMlQ66gZljiiQn"
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 3/3] selftests/mm: init page sizes early in
+ pagemap_ioctl test
+To: linux-mm@kvack.org, linux-kselftest@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Cc: akpm@linux-foundation.org, david@kernel.org, ljs@kernel.org,
+ liam@infradead.org, vbabka@kernel.org, rppt@kernel.org, surenb@google.com,
+ mhocko@suse.com, shuah@kernel.org, gourry@gourry.net
+References: <20260908134117.84405-1-zenghui.yu@linux.dev>
+ <20260908134405.84448-1-zenghui.yu@linux.dev>
+Content-Language: en-US
+From: Zenghui Yu <zenghui.yu@linux.dev>
+In-Reply-To: <20260908134405.84448-1-zenghui.yu@linux.dev>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
+On 9/8/26 9:44 PM, Zenghui Yu wrote:
+> From: "Zenghui Yu (Huawei)" <zenghui.yu@linux.dev>
+> 
+> Initialize page_size and hpage_size before calling init_uffd(),
+> hugetlb_setup_default(), etc.  That won't fix anything, but it is safer and
+> saner to get these globals set up before doing other things.
+> 
+> While at it, drop the page_size parameter of transact_test(), which is
+> actually unnecessary.
+> 
+> Suggested-by: Andrew Morton <akpm@linux-foundation.org>
 
---rlzMlQ66gZljiiQn
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+See https://lore.kernel.org/20260628111329.9cfcd9c67925869307020aba@linux-foundation.org/ .
 
-Hi all,
-
-After merging the drm tree, today's linux-next build (x86_64 allmodconfig)
-failed like this:
-
-/tmp/next/build/sound/soc/ti/omap-hdmi.c:408:6: error: no member named 'card' in 'struct hdmi_audio_data'
-  408 |         ad->card = card;
-      |         ~~  ^
-
-Caused by commit
-
-   699e5975e2a53 (drm/omap: Report HDMI hotplug events to the ASoC HDMI codec)
-
-which has been generating the exact same build failure in drm-misc since
-this time last week (it looks like the promised fix finally appeared
-there today, though there's yet another build failure in there behind
-it).  Please take a look at your processes here, there is something
-messed up if not only does it take a week to get what should be a fairly
-trivial build issue addressed but the build issue gets sent upstream
-unfixed in that period, comfortably after it was reported.
-
-I have used the tree from next-20260907 instead.
-
---rlzMlQ66gZljiiQn
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqgEp8ACgkQJNaLcl1U
-h9CJLwf8D5Jj48mie3CTsq1qlg6Aua5XtQrNuAT+gsXGwprFZ+T+tpMa7HmwAspk
-O5drF2SX62eNilqcleFjsuoavMPONgAhzEBpkULE5lR0icPLlRaJDn+KENhGFV5c
-FoMSp6jLw4AxC00kNGPvKhjBOFcbZ0NGrurQrHAkyMSqnJ2plE8vA8HnGwlbogYo
-JDb51kpROcjTb0Px2KguzWiPvL5ffEJ51FFvjDeP6MJ+6PlGsz0hfQU4h9ageb7k
-wYEDUjw+i3WK7xm1UqXjRMhN0iYIog3BViYkSBesF0amoO/iLbd3LWJQN9UKZ4t2
-XlyiWvoYvjLTUugjehzgz9EZ7U1mIw==
-=KlRh
------END PGP SIGNATURE-----
-
---rlzMlQ66gZljiiQn--
+> Signed-off-by: Zenghui Yu (Huawei) <zenghui.yu@linux.dev>
+> ---
+>  tools/testing/selftests/mm/pagemap_ioctl.c | 10 +++++-----
+>  1 file changed, 5 insertions(+), 5 deletions(-)
+> 
+> diff --git a/tools/testing/selftests/mm/pagemap_ioctl.c b/tools/testing/selftests/mm/pagemap_ioctl.c
+> index 1a87b7483316..d9a4fb782ecf 100644
+> --- a/tools/testing/selftests/mm/pagemap_ioctl.c
+> +++ b/tools/testing/selftests/mm/pagemap_ioctl.c
+> @@ -1489,7 +1489,7 @@ static void *thread_proc(void *mem)
+>  	return NULL;
+>  }
+>  
+> -static void transact_test(int page_size)
+> +static void transact_test(void)
+>  {
+>  	unsigned int i, count, extra_pages;
+>  	unsigned int c;
+> @@ -1653,6 +1653,9 @@ int main(int __attribute__((unused)) argc, char *argv[])
+>  
+>  	ksft_print_header();
+>  
+> +	page_size = getpagesize();
+> +	hpage_size = read_pmd_pagesize();
+> +
+>  	if (init_uffd())
+>  		ksft_exit_skip("Failed to initialize userfaultfd\n");
+>  
+> @@ -1661,9 +1664,6 @@ int main(int __attribute__((unused)) argc, char *argv[])
+>  
+>  	ksft_set_plan(119);
+>  
+> -	page_size = getpagesize();
+> -	hpage_size = read_pmd_pagesize();
+> -
+>  	pagemap_fd = open(PAGEMAP, O_RDONLY);
+>  	if (pagemap_fd < 0)
+>  		ksft_exit_fail_msg("Failed to open " PAGEMAP "\n");
+> @@ -1823,7 +1823,7 @@ int main(int __attribute__((unused)) argc, char *argv[])
+>  	mprotect_tests();
+>  
+>  	/* 13. Transact test */
+> -	transact_test(page_size);
+> +	transact_test();
+>  
+>  	/* 14. Sanity testing */
+>  	sanity_tests();
