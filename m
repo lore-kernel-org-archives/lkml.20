@@ -1,199 +1,281 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F117F318EC4
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 07:45:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=192.198.163.19
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788853528; cv=fail; b=J9UPg5mettjWEIw+0j7XV/3S3O6aDGtXe2gUF2TQ1ZfBkG/+tRwFQdPL66fV+V3Y5vNF0GLs+UopFJDp2/Yjs9zNvfHhS3ISK02Mnp6DBmCnumd7lbWVnz7KZEQKkcpOu3P6spKMVfk7FUUeoFczGyKrTFti/JXwrLkH6n70Bg0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788853528; c=relaxed/simple;
-	bh=utu1dCR3Tv5UmIbiEKw3fENJ3syleMMP6ygRZwcpTvE=;
-	h=Message-ID:Date:Subject:To:CC:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=S2QadMLHoO3PDma6q9NXfI17PnXPRMJjeK67LrKaS514k/qW5JQF7I4goGSKyfSWN+BP5GRtePv1Uu5EN+eBgjolYZjn8KVoKAf2bvBX5APolVOv5ZicnzwN4v8rckrw5Oec0Z7EYudgH4XnKDUtJTNw6h0+0tpC/hPQibtqzGQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=L5YN53Ud; arc=fail smtp.client-ip=192.198.163.19
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF3FD39E9DE
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 07:45:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788853547; cv=none; b=oQk6u5IjE6flLe/VCdlQ+VUFkN5cXQtI446gHzbg86qo+i+dRrClsAlVF4NoCtOlh97O+WfAfRz4qXbndztKy0kvn6kpR4W4pIIMR3xT9nyr4AS6r1yMLIuJtyUqazx9GQD+BMSF7zI8FV2uE1YGHyGZpe7BhqDhakHoj70HhIE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788853547; c=relaxed/simple;
+	bh=MYJ8QuS9dJHlh3zGd4Jjmjuv7oAWC7r/tOj6ovNMei0=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
+	 In-Reply-To:Content-Type; b=JowBQlOoBJbYqlgx+loAEiUnrmQp9Ihx+FiYN2j1p13vYmKmRKjiQHzt49QgHlB9ZHbmg+gNfOjjo1N4RKq+brF51QHye1fdmLVVt+DMs2gj2GBPBPEesT9h156kRaEucyzThXPYngnLzMSDxSOSk25gdG9VANuuDL6BahSpteI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=meyDObDd; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=YEHGqRBc; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="L5YN53Ud"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788853527; x=1820389527;
-  h=message-id:date:subject:to:cc:references:from:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=utu1dCR3Tv5UmIbiEKw3fENJ3syleMMP6ygRZwcpTvE=;
-  b=L5YN53Ud8BLBZQx5Y7286Hz/3GQV9PzUUKQPM6ZqphiRo8Gcsieqro3K
-   Gn5ZWPLKAgYSnn3QzcNmVpOespcmjnr7ClxI7qwTpWxx7t2vZMDdv6z9i
-   6B3ynckGYrW17b4XCJ1phuv75IWSDbtvZfnWqVeMne0YQthGnB4knuAX4
-   UJL802du+kdNDOPSUSLkzGauWb3l5kFSSyDZVdiZDQ8VUgKrcYfiJAPCI
-   7AK0OoFnmvuwfA3fqMd5nNGbZ8kJKXjU7lRmN9vm/9gxxFO86NoOL1ZTS
-   onHR8tA5FovsYolYaqNHIyrRqzDIwM60fSI/tqgK7ggWNRJlA0NSmhO5M
-   g==;
-X-CSE-ConnectionGUID: wSktFwjBRh+mGgaiToQFGg==
-X-CSE-MsgGUID: We4pjXyEQaCrevhaynxRwg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11899"; a="88183114"
-X-IronPort-AV: E=Sophos;i="6.25,268,1779174000"; 
-   d="scan'208";a="88183114"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
-  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Sep 2026 00:45:26 -0700
-X-CSE-ConnectionGUID: GjPhwxd1T+ytq3gTxsinsQ==
-X-CSE-MsgGUID: 1CfltM+zTZyKYFMVkzb/Kw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,268,1779174000"; 
-   d="scan'208";a="264722449"
-Received: from orsmsx902.amr.corp.intel.com ([10.22.229.24])
-  by fmviesa009.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Sep 2026 00:45:26 -0700
-Received: from ORSMSX903.amr.corp.intel.com (10.22.229.25) by
- ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Tue, 8 Sep 2026 00:45:25 -0700
-Received: from ORSEDG903.ED.cps.intel.com (10.7.248.13) by
- ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46 via Frontend Transport; Tue, 8 Sep 2026 00:45:25 -0700
-Received: from CY3PR05CU001.outbound.protection.outlook.com (40.93.201.51) by
- edgegateway.intel.com (134.134.137.113) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Tue, 8 Sep 2026 00:45:24 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=po83W1FytXKLEjh8CvoDJf+LPMI8imN9BOPg8a3czb1p1umxD4ZTdokT+ZEog13rIgJy7eXD1ZAGT0Ol8FFNVjSL3O9zqUnJNek87v8j+aiua3YKdFhcOKnDH99e9FwgM/0RI2UdPh9Dbt/bRZUaQ82tOgp9sg/Ge2e3Sa75YSe/mnIulFQIc9tugC0xLbZlsWT6vJsw6Yn0kX/xhknqv+FELL8ZlhV3MY4isUTetMpH9OtGcD4JCt5Zz8LFJ3o4vEodsQy0PMhsvVQs/viyLj0UczUi1pcU5C9Q1yZ4kJqHOVdsbNqnGN/dieC/E+siZ3wh/f/bhhreKL4TXWaP5A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=pVymlzWQ8tsM0FSqxJuZIafGFA6NwbhHFAnh0omBRVs=;
- b=UGGwC3e6y4lobC8R3tHx41E02J7VlgnC3WUHW9PJy9O4EozJjKqzpEN8eDzsHSxQFW+fjV+DvBT2LSfdj85WzRiBqAta4xSA2L2Y6mpwLgEzyiOXvNkZ74AXFm2dnZwiye/lYl0uMTxlhF0lOJ+6bHOvDRM9JADeLKtZrd4EKQ9cPtHj2thUVqb6YVX3JyMi3AvTNXAfh9a3WdU60BTFh6KbXZf3Ylusb4Vu6qwCqqjXSNPtU8Kwsc3oBZVu1nnkHDQM7bUpJ32LFYcTtu9EFkcyMYWaxmg5paiGCw65PM0QO2xXrSdFC8cfmqZsrpDv8305fZqIuysIgCubtSTB6w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from DM4PR11MB6020.namprd11.prod.outlook.com (2603:10b6:8:61::19) by
- SA2PR11MB4844.namprd11.prod.outlook.com (2603:10b6:806:f9::6) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.406.7; Tue, 8 Sep 2026 07:45:17 +0000
-Received: from DM4PR11MB6020.namprd11.prod.outlook.com
- ([fe80::3058:1480:e4ac:5765]) by DM4PR11MB6020.namprd11.prod.outlook.com
- ([fe80::3058:1480:e4ac:5765%4]) with mapi id 15.21.0406.005; Tue, 8 Sep 2026
- 07:45:17 +0000
-Message-ID: <d3d06a7d-1353-4007-9b05-80a2177266d6@intel.com>
-Date: Tue, 8 Sep 2026 15:45:08 +0800
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/2] sched/cache: Drive cache task tick from execution
- context
-To: Hui Su <sh_def@163.com>
-CC: <peterz@infradead.org>, <kprateek.nayak@amd.com>, <mingo@redhat.com>,
-	<tim.c.chen@linux.intel.com>, <juri.lelli@redhat.com>,
-	<vincent.guittot@linaro.org>, <dietmar.eggemann@arm.com>,
-	<rostedt@goodmis.org>, <bsegall@google.com>, <mgorman@suse.de>,
-	<vschneid@redhat.com>, <jstultz@google.com>, <linux-kernel@vger.kernel.org>
-References: <20260904085244.799276-1-sh_def@163.com>
- <20260904085244.799276-3-sh_def@163.com>
-Content-Language: en-US
-From: "Chen, Yu C" <yu.c.chen@intel.com>
-In-Reply-To: <20260904085244.799276-3-sh_def@163.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: TP0P295CA0038.TWNP295.PROD.OUTLOOK.COM
- (2603:1096:910:4::11) To DM4PR11MB6020.namprd11.prod.outlook.com
- (2603:10b6:8:61::19)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="meyDObDd";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="YEHGqRBc"
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6886M50Q2072898
+	for <linux-kernel@vger.kernel.org>; Tue, 8 Sep 2026 07:45:44 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	vjCdleB62PQ5+3oSfJm6THWjJHXQHO2Cei/sEBlVgJo=; b=meyDObDdxg1onozh
+	BTIfrgJw9Bf20bmpFLWeHyZoqdWL8TX8jZKczZ2pE6krABotoKHevESc6wzTBOzl
+	OAwYrON/e3Pl7RsZxRn/C14fZyu4VRBSt3xnJLQHdwXsh88S9DC5l9GiZmPVa8hA
+	eT3Vm7Xv/6RxHAs66hv7XBakFwk2uRVloSq8Bl9hzR6PEnOgqphhTOHN2EUHNvJq
+	MqXXrISTRFOLQnXj5HCjf2dsYwA1yuMoVHaaoTwJGFlGxGn9AsLUQL4zxmYGCj/X
+	DkfS9JacTTbaF9b8B28tcXEN5zSj37ztLWzdNQWA+CbGZVik/3TZUBGHipETto+C
+	bV2gbQ==
+Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com [209.85.215.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ghsfymdm6-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 07:45:44 +0000 (GMT)
+Received: by mail-pg1-f197.google.com with SMTP id 41be03b00d2f7-cc42a07d04aso4637900a12.1
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 00:45:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1788853543; x=1789458343; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=vjCdleB62PQ5+3oSfJm6THWjJHXQHO2Cei/sEBlVgJo=;
+        b=YEHGqRBcBcdowYeghmqS0KR/PddShzQCfUrDW9T8rNvAOVSypnoSj6A83LxedMtrYh
+         YKIs4i6/TBkEJE26KrW4Odj3JpXn40cHjHqr9V7SfhLIEOrDwyMGYhMdIn2naMqlFpDe
+         +pLjsN4rnGs+4L818Ng6FkuCQhwRGZ86WkYk1EBFMM0zV422XwqUDOIkNaLHzwMNb3Lf
+         WRtgMfc4slq+oMi6YALGCIAVJEnxbJJ6FvWjML/lUMCELSi7zg1FrML/doltA1N8VO19
+         fSHk9ULQhm7tRk4xcqbf4Xs8RE1aaWRXQrAKgc4LGfNRyuKtlrj5HWsAJTh6kALWv+QP
+         ujXQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788853543; x=1789458343;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=vjCdleB62PQ5+3oSfJm6THWjJHXQHO2Cei/sEBlVgJo=;
+        b=mUvWAS1aP8EUdPHevzD/C4Djn2/Y+KP2bqwtLuIYDprxN79MgnSEehfPY4HqXfowvm
+         +sj/nw6kUkeaCNN4qNEZmG40SdKU1LkP9y2PXhhhZzGPtd+HWWoTmw0CTdttnwIwR6Vi
+         /PfxbEAyaXt2dL9WZmU8wIB23hQaf5RHJvObCfzU6x0Yzh8BT3vuYI1Xn7OA/ufg2NQ8
+         fwcWBR0j5G7rdQSeG0e3anss6GvWNb58sJ/1NoXAVGQPoQuUhEhkYjBZAt89lKrCTefq
+         og4okGLcSVuzTeOlz8CduyqilL5bp2jwfHE20cO9QpK7AIEZQxD7LVBZB1p0b9Yvy/MB
+         Xn7g==
+X-Forwarded-Encrypted: i=1; AKwUvBzSHreI22JOSE5Wf7xHaFIy8+0Oy3o3YrdCPiqjqp8Z9vktWdpbU6KeYb1JZHlbY37w7uhJIp88DPDZnVY=@vger.kernel.org
+X-Gm-Message-State: AFuF++khTp6dRybKD/lbA3UVTX5J77lJYrwjjzYYHSqfLcAaA+F/Vbu+
+	vrUrDmgh/3CK7+ujklUMyHdY/MpBmdJ6zFNypQkQuCv9+RueM/Hbq1fejN4VtVs6TVAS+RdApZ0
+	ZLjNVuToPKN84vkqRgCJKYOefnYz0qL4xW6ipcT2AqIoVNwKM4SWhdrY/0dppXxSV2pU=
+X-Gm-Gg: AYBFou0cQccVsyD6q4OSPJNih4EEt+zQY9UF6egcH4VKY1YHX7Itsfdi17CoToAyY7R
+	OXQOtXyH6dbIGtg1Dg83VceBfdjRFaKcSCqIpvqTaQjklHmn57l2YpLTkmgI/+2SgGk1V+f1qLg
+	7pG4qS+w5S6zWaECF7u3TT+kWhx3EXiA42yqdvBMmjYlYhNfCDqb2aUbCJMEoMmPghzWYP+PlnB
+	8aSjPI6w3EHJtWx1yky7OsGLrc/VPKoxAOCC3+3F1cXLTecRLS+XbA+Cf5B8yIOPY7iQSYh61++
+	pUGmGKRWl8UiXinFRl4CUkgc702ozdIJMBr+Pgh89ekZ7XPv7G9HY3o636yE8Xak9rTeeoiwSXi
+	liCUCvcHGimXZZldX3Rth1OYAtwyiEw==
+X-Received: by 2002:a17:90b:1e03:b0:398:b17b:3bd2 with SMTP id 98e67ed59e1d1-39b260dda6emr38832006a91.4.1788853543389;
+        Tue, 08 Sep 2026 00:45:43 -0700 (PDT)
+X-Received: by 2002:a17:90b:1e03:b0:398:b17b:3bd2 with SMTP id 98e67ed59e1d1-39b260dda6emr38831975a91.4.1788853542891;
+        Tue, 08 Sep 2026 00:45:42 -0700 (PDT)
+Received: from [10.219.57.226] ([202.46.23.19])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-336c2571039sm14719241eec.25.2026.09.08.00.45.33
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 08 Sep 2026 00:45:42 -0700 (PDT)
+Message-ID: <a3b73723-9522-40da-806a-643093b1b227@oss.qualcomm.com>
+Date: Tue, 8 Sep 2026 13:15:32 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR11MB6020:EE_|SA2PR11MB4844:EE_
-X-MS-Office365-Filtering-Correlation-Id: 508cc484-4577-464c-757e-08df0d7d2003
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|23010399003|7416014|376014|366016|1800799024|4143699003|10067099003|6133799003|11063799006|5023799004|56012099006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: zl08C8EIIPzh3JsaTc3OC6XB5yI8wbnua3RL6pVGaxNvB2D5Xjb6gkzNdN7n1ynr1Ebf0O4sOIP3+vow0SIhOBghMXtGS+MFx32ercOjMV9AnpDthZ2rXT5OSiCB0AxZSs7UXVQrRIhTI3LHtQ3bdhU0rEkib1+G1boWa3SPApl92TZMop49clMSB8z+pF++fjuBq/aX+tEHXcNXhceMUHHvdLLSvb1YFQjbtaV0baZlo5v+mE3tL6QuXU3nQCKIsmjc5f2/kLbue12416leCbkI+BgX2QjXhTVB7WRcPKJgTC19wvqrSQRde17fzUzUp5NWf6EXfBOd2IVWQbN2O0yBnbbdVAjJEKR+0x/n18bcuqQPqWm2G/LIFLIfmiW+SZAfYTQpMZRcLvNlsbFYJUygo7Fskha32QorFdeT6xt+BHvdSj6/sclr9M+rnDsKRbue6VB9EUte7B+RuB7pfHm1Cg/9EhM68kWnUk2BQIzoAjBK0kDDQWe3dzOmALO/sKLVGqVkPyIENsRIZOk5rVDol0L1yEx7bBc1tnJsM+kn0te2mpFqxtoR76CSZ/tDJb43YTN6OdPqyIJT2Sw7j/7qAtkHRSA+xhk9sWWnRafpI1Xve6jGD51XOkOzRWYNoaqhUMrfpLfK2yCkTZ38LjIZRbRAgod4/uvoYNsL6x0=
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR11MB6020.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(376014)(366016)(1800799024)(4143699003)(10067099003)(6133799003)(11063799006)(5023799004)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?eEh6ZE5JZktTMXNJc3ZEbmVSc3hwTWNJOHUzazIwSEhrbGh4SWd6QTRKOVVx?=
- =?utf-8?B?M0c5bDFaWEhkbEJkb3V5bWtwRE5CdVhRbE5nWWRvSG0rZHNRSStuTFMrYkVK?=
- =?utf-8?B?aGJTMSt1alBpakJlKzJHcFhXRnc1WEVOMkxOUVoyVUNYM3oyRjFNVkRmRllW?=
- =?utf-8?B?QWt4M3lTNzFJcTN5V1czM3hUdlExd1QxRUdBd2h5T3NncnNSQVpDZkdSMXJO?=
- =?utf-8?B?UUI4OGVBeUNrKys5Mm1KMjlnY1AwTitxRWhIMUswMmY0RmE3YTFjV2xKdHRm?=
- =?utf-8?B?K0ZCbmhScnVqSGg2dWxoakdxVGtxMGc5dHVnNmpRb0cvSWtpUE5RL3ZiOUdJ?=
- =?utf-8?B?eVhBQjc3V3pPL1U5ZTB1bTBVTzNRQjJMdDJGK041b0J1Z0hYdlVaVGVHL3la?=
- =?utf-8?B?NGwzdXhXT1R3WWU0TEZGaWpYTHBmU3NLajR6TGpJZk9LcjVCTXpuWlhVTGEr?=
- =?utf-8?B?OEUrRHNpK0tpYWhHNEdVU2F3Y01lVkRKVk92b2ptc201RFUyTFZVRWFQMXdl?=
- =?utf-8?B?VnVPN0gwc2N2UGpKSDNNWGt1alRsRGhadzhTN3hnUEJWUGR5SDZQZE8zY3Zw?=
- =?utf-8?B?TUVsM3pHZ3VWa24ra0lpOHpoT2RhZ2YvSkZiQ0hHazJ3YUhPSnJzWHVySmor?=
- =?utf-8?B?YVM3NlR0UzRYQ2RiNVp6c216Y2M3cTFsQ3hJbWlOSERPd2haM1F0Zmg5NHFp?=
- =?utf-8?B?bkNHWGtLaEJndHF6V0ZrbjQ1QWRocWJEMnJGY2RpTWJadWZZb0hmQXQvTUhV?=
- =?utf-8?B?anB6eFEzME1iN1F6OHpmU3FUZWFTT3hVak4rVVN5UzdTY3hZWU9kMzcrTHBP?=
- =?utf-8?B?NnpkV0lBdllQTFJBeGVoOFc3dUhRTlEzWHNsZzR2bzlYeE1yZm1GdC8vNS9h?=
- =?utf-8?B?aEpkK2psM05UUHV5aS9QTzZpSExJLzZSYW1qSEthR2FqWFl0RGxIcFBib0VM?=
- =?utf-8?B?TTBYWFVwaTJ3QzBGUzNsUFNyNkxQRktkdnJ4UkhmeW9mcmtJenprckpvaHVU?=
- =?utf-8?B?Y0lEdzN4UTFNQVBvVFhXZDNMWjNyWE1TWng1SzhXcFo0V2prRVZHTGhha0wv?=
- =?utf-8?B?YzlsUVVmYzJnT0swQ0FxZzh5MVVjS1FQSldpZ1VvYUx6eFBUYU9FaU15LzZH?=
- =?utf-8?B?YVl5SHBHMGVGQ0pzc2k1SEk4dWRsbjdQbDVHOWhaOElLQ1RhaStxQVUvbWVo?=
- =?utf-8?B?aE1mdkp1ZHh4MlJSbXl0ZG9WOFM3RVlJT1lUeHIvditrUXZXMHdsNjVaNU42?=
- =?utf-8?B?bE00QThFUTY0NDFldWh5VWhpbkRUOEN0TENUaGoyTDc3YTRvMHpqZEZVbmN4?=
- =?utf-8?B?cllJY3BrSGZhR2FtUzJWUlZ1WVllbmQ5aU41NTM2a2FvdUNLWDRFQlFMdTA3?=
- =?utf-8?B?MnBIeU12MnFwbzFWOFRVbWRDcllzQ21XbU1mMnRmYXcyaDVxQWFWU0JldGhy?=
- =?utf-8?B?bktNbnJtZU13Q1ZyT1R3d1FnMFk1cm43RUc2K0x0WHdybGFDM3JVMUFRM0Nx?=
- =?utf-8?B?eW1abjkxVjB0ZGRpTnIvMXA4aW1hQ3NmS2tucHdtbkpaSGp3U0xCMGRwcS9v?=
- =?utf-8?B?MXZNc0FDbDAxSGFRZ0lyU3JiWCtQdWJPL28yOHdseEZyK3luSURxNHJBcDJD?=
- =?utf-8?B?bTQ4cUxiaHZDZE1iTmZlK00zWERYQkZ4UmJVenp5Qm5rR3ROSEhOUkR5Vkpk?=
- =?utf-8?B?UEUyempTY3ZRNGxJSEpGai9KdjExekNISUdWNnJZRWtjdjUxaUR2RWFDcHh0?=
- =?utf-8?B?dGl3QkhLTTR6SFJJcExVUjlhZ1ROSzU4S0FTS0M0RUd6bUM0ekR0SFI1NWwv?=
- =?utf-8?B?ZTVBT3V5Y1VzaHhjdkpXVW5zNGdVclZXSFRycnlWcEd1NlFDM1k5N3V3SWNa?=
- =?utf-8?B?bmlmVmxwM3M0OGl4emFlVXl2Sjdqc3NyZFczUHRPWVpGUGdvVVRXbGgwWkli?=
- =?utf-8?B?UXVQaVgrQldIcW5JalRaOGJTR2tVeFBBRHdmMUF5dEgyQVpSNHg1dGo3S1dp?=
- =?utf-8?B?TURDK2pQTWhWRXJnVUI2K2toOHdiQkh2bktNY1RVdGFoWnJPSUZORWYzbjdE?=
- =?utf-8?B?elJpN0pud0RYYlBrdEd4Q05tT1lRN1JWZEhJVGxsWjJ4TjRMV3F1ZXl0cXhv?=
- =?utf-8?B?QjRwSzhGaXVCanJnMU11Z0plSjRFbi9JVjd4VmgyRVRqT0hrUy9NTzVYSFJY?=
- =?utf-8?B?N2xtOVV1ckducDBTRFhaL1NkMVFjSnN0aG01ZmxmcFRWdVpYU0ZnQUNxRFRz?=
- =?utf-8?B?bXlqSzRqcGVpTkhFck5CTVhsN3BSWFBHbG5NWFprODlJTDF0eWhLelVoVUdS?=
- =?utf-8?B?RXRHWWZybHE4VWhoaGR4S3pwUnBFbHpMSURIanZWaVhoVlJ5dlRlZz09?=
-X-Exchange-RoutingPolicyChecked: VVyE/JJB5hCX+VykedOvf03QQN2rI0dNIrZn025ih+rN6Slgp9xvPz0FUtlDd7q7G6F3BMJAzfG0YA0KczIhyn0miqKGc2jT0Cr2ANm7BHcpQrgsH92A1hdxrSJmO7j3vTZXdeakcXKfM4/hV03+6JVNcX5dfTny2fjakxCN3F1c7uoCqn1FVI4bKwuqhJvgBKGUeWlW/9cjP53s84v6ZLKpgfo90gn14HlRF6gRzdWTN/saWplRGt7VoZzW+w8M9c5pnmKW7ht1d1u85TjMJeKIp4uPHTzfTc6fv2klmUyQ7qRI3mU7fDMfTvjh/GnmEEzLZ6V81QpO/aGMiubK0w==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 508cc484-4577-464c-757e-08df0d7d2003
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR11MB6020.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Sep 2026 07:45:17.2490
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: CMWJQcdXISM55KHV/8NX2jwX0/+FKNy5JWIGyUykcQioLvzmFXzs/KGjTfbCryNomSav/wXZgapc4ff7ADplqw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA2PR11MB4844
-X-OriginatorOrg: intel.com
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 03/15] accel/qda: Add initial QDA DRM accelerator
+ driver
+From: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Oded Gabbay <ogabbay@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+        Shuah Khan <skhan@linuxfoundation.org>,
+        Randy Dunlap
+ <rdunlap@infradead.org>,
+        Nathan Chancellor <nathan@kernel.org>,
+        Nick Desaulniers <ndesaulniers@google.com>,
+        Bill Wendling
+ <morbo@google.com>,
+        Justin Stitt <justinstitt@google.com>,
+        "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
+        Robin Murphy <robin.murphy@arm.com>,
+        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+        Maxime Ripard <mripard@kernel.org>,
+        Thomas Zimmermann <tzimmermann@suse.de>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Sumit Semwal <sumit.semwal@linaro.org>,
+        =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+        Bharath Kumar <quic_bkumar@quicinc.com>,
+        Chenna Kesava Raju <quic_chennak@quicinc.com>,
+        srinivas.kandagatla@oss.qualcomm.com, linux-kernel@vger.kernel.org,
+        dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, llvm@lists.linux.dev,
+        iommu@lists.linux.dev, linux-media@vger.kernel.org,
+        linaro-mm-sig@lists.linaro.org
+References: <20260817-qda-v2-v2-0-69a02e9090d4@oss.qualcomm.com>
+ <20260817-qda-v2-v2-3-69a02e9090d4@oss.qualcomm.com>
+ <81708487-89ce-4cd5-b39a-2989bdce6088@kernel.org>
+ <3476b5c3-7983-4994-a901-3d7d8bd75255@oss.qualcomm.com>
+ <4ef74e14-8433-4619-ac97-62868c8799d1@kernel.org>
+ <g5orcvzjbwww27vwcsxl3ehrek6lvznxptd7jutifoiuicjnm6@iqq2pus6omsl>
+ <a642833b-f22a-4bea-8a20-0debc47e1895@kernel.org>
+ <4xcyqqrqbvgxojfcmnpwbi2uqk5tvhts52l6sxetltcgb7mo75@lfsgfoq4npz3>
+ <59aa182d-1b4c-4bdc-a1d5-e76cc9c88ed9@kernel.org>
+ <c806d7c5-98f8-4b0b-9d00-969e1917a8e4@oss.qualcomm.com>
+Content-Language: en-US
+In-Reply-To: <c806d7c5-98f8-4b0b-9d00-969e1917a8e4@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: tLmeQ4V_rq8dbpWUZdIgb0bjOPXBlP6s
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA4MDA3OCBTYWx0ZWRfX2hRIg4RL4nv+
+ +/LtDgJfy09CyVdfqQzle3NzdTCl988Ni9ka6xUz0BvhYTZLBN+/PvhjcXFs0LUadixA56siGlJ
+ fXK+++PBQ2br+NEYkQYq/WzHiXI1iqwHiyTVfKY/E6d2F7KfzRU8F/+9crYRpMJc8ClAyC+E9vV
+ tt3roQVFQdd2X30qPlK55Yp+f1k2XiAetovixZNJlU44fDvPhcQwn+oLNZau5XfprLOJcQheo0C
+ OipRp51dP93CEGZat6ayqBkRbeWvNiy7rCjRW4W33EG+stA/Az4/zgKOIAU8gGrVBeqNZIsqtJw
+ ojk95L/bu7ujiE+/wbhYRfWvyuw7rjAzdWcd/S1bGz2Exx62YC+QUU7ILyZ3LRSy5ENCjjI/WXa
+ dxUmAm6VmyenQvGOJmG2DPiXFaRJ9tbL9RltpCFN8csqt+beXtzhRw1ds+FZJHxI8VCF5U0kblq
+ 0fuwipl6WxnHC2NEIuQ==
+X-Proofpoint-GUID: tLmeQ4V_rq8dbpWUZdIgb0bjOPXBlP6s
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA4MDA3OCBTYWx0ZWRfXyGd5dgz1OdQI
+ 5kQ/fqXaTa6kuiekwzLArtyFxSNs+Yr+zESkZlgGgM4DLIZh0hasUt1UdMzfoOo9wgNtMrrUeXK
+ a7++JGMjpVT0wmQ9woI/ZBpu58Y11I8=
+X-Authority-Analysis: v=2.4 cv=AduB2XXG c=1 sm=1 tr=0 ts=6a9fbd28 cx=c_pps
+ a=rz3CxIlbcmazkYymdCej/Q==:117 a=j4ogTh8yFefVWWEFDRgCtg==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
+ a=wP88gyHQT0P6k6tIFBAA:9 a=QEXdDO2ut3YA:10 a=bFCP_H2QrGi7Okbo017w:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-08_01,2026-09-07_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 lowpriorityscore=0 spamscore=0 bulkscore=0 adultscore=0
+ phishscore=0 clxscore=1015 suspectscore=0 priorityscore=1501 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609080078
 
-On 9/4/2026 4:52 PM, Hui Su wrote:
-> Cache-aware scheduling accounts CPU runtime to the mm of the task
-> actually executing. update_se() passes the execution task to
-> account_mm_sched() for this purpose.
+On 31-08-2026 20:28, Ekansh Gupta wrote:
+> On 20-08-2026 19:01, Krzysztof Kozlowski wrote:
+>> On 20/08/2026 12:07, Dmitry Baryshkov wrote:
+>>> On Thu, Aug 20, 2026 at 11:07:45AM +0200, Krzysztof Kozlowski wrote:
+>>>>>>>>
+>>>>>>>> Device node with this compatible is already populated, so this looks
+>>>>>>>> simply wrong or you are adding a duplicated driver.
+>>>>>>>>
+>>>>>>>> That's a no-go, you are supposed to work with existing drivers and grow
+>>>>>>>> them.
+>>>>>>> I'll bring the discussion again here, there was a discussion to move the
+>>>>>>> driver to accel subsystem if we want to support new features/uAPI
+>>>>>>> changes. Please read [1],[2] threads. The intention is to replace
+>>>>>>> fastrpc driver with QDA eventually.
+>>>>>>
+>>>>>> None of them address the problem. You want to grow fastrpc into user of
+>>>>>> dmabuf? So you move it from misc to here.
+>>>>>
+>>>>> It's not as easy and nice, so I think in this case it's better to repeat
+>>>>
+>>>> I disagree. The existing fastrpc driver is not that complicated. It's
+>>>> actually moderate amount of code, much less than Venus was (~7 times less).
+>>>>
+>>>> It easily can grow to support two interfaces and the only difficulty is
+>>>> how to manage these two interfaces simultaneously or exclusively, e.g.
+>>>> opening first one disables the second.
+>>>
+>>> I see the point here.
+>>>
+>>> Would it be acceptable if we add QDA support only on the new platforms
+>>> (e.g. via the SoC-specific compat), provide QDA for those platforms,
+>>> and, once it reaches complete API and feature parity, we remove the old
+>>> fastrpc driver, migrati old platforms.
+>>
+>> The problem with this approach is that we have no guarantees that it
+>> will reach feature parity in respect of old interface, thus old driver
+>> might stay forever. If we agree for duplicated driver, contributors have
+>> no incentives to support old approach.
+> That's a fair concern. Let me lay out the sequence we have in mind and
+> then the concrete reasons parity is not optional for us.
 > 
-> With proxy execution, however, sched_tick() invokes task_tick() for the
-> scheduling context in rq->donor. task_tick_cache() is currently called
-> from task_tick_fair(), so it is skipped when a fair task executes on
-> behalf of an RT or deadline donor.
+> The plan is staged. QDA is enabled first on new platforms, where there
+> is no existing userspace to migrate and the new UAPI can be exercised
+> properly. In parallel we close the remaining feature gaps against
+> fastrpc. Once parity is reached we migrate the older platforms onto QDA
+> and remove drivers/misc/fastrpc.c. The end state is one driver, not two.
 > 
-> In that case account_mm_sched() continues to advance runtime accounting
-> for rq->curr, while task_tick_cache() does not advance the corresponding
-> mm scan epoch. Once the epoch becomes stale, account_mm_sched() can
-> invalidate the mm's preferred LLC.
+> On why parity will actually happen: the DSP firmware is not changing.
+> Both drivers implement the same base protocol against the same firmware
+> image, so the feature set is defined by that firmware interface, not by
+> what we feel like implementing. For QDA to support a feature at all it
+> has to implement the same protocol operations fastrpc already does.
+> Parity is a property of the interface rather than of contributor enthusiasm.
 > 
-> Move cache tick handling into sched_tick_exec_ctx(), alongside NUMA tick
-> handling, and run it when the execution context is a fair task. Use the
-> same helper from sched_tick() and sched_tick_remote() so both tick paths
-> handle the execution context consistently.
+> Other than the base protocol, there are some features(daemons,
+> capability, session sharing) that exist in fastrpc for performance etc.
+> but are not yet part of QDA. We want to implement them properly rather
+> than port them across as they stand.
 > 
-> Keep the remaining task_tick_fair() bookkeeping with its task argument,
-> since misfit, overutilized, and core scheduling state belong to the
-> scheduling context.
+> The remaining question is how fastrpc can actually be removed once
+> parity exists, without breaking existing userspace. That needs a
+> compatibility path, and it is a deliverable we are committed to rather
+> than an afterthought. For that, we need to settle is whether that path
+> is a userspace shim in the library, an in-kernel translation layer
+> exposing the legacy device nodes, or a hybrid. We evaluated an in-kernel
+> shim during v1 and hit constraints around constructing per-client
+> drm_file contexts from outside the DRM core, so the approach is still
+> open. I'll come back with a concrete proposal, and it will land before
+> fastrpc is removed rather than after.
 > 
-> Fixes: df0d98475954 ("sched/cache: Introduce infrastructure for cache-aware load balancing")
-> Suggested-by: Tim Chen <tim.c.chen@linux.intel.com>
-> Signed-off-by: Hui Su <sh_def@163.com>
+>>
+>> Much better is to refine the old driver, gradually adding new features
+>> while maintaining old stuff. This is the only way we can force
+>> contributors to actively work on minimizing duplicate parts.
+>>
+> I believe you are suggesting we bring the new features we are developing
+> with DRM core utilities into the fastrpc driver. I don't think the two
+> interfaces can share one driver, though, and it isn't a question of code
+> size.
+> 
+> fastrpc is a miscdevice: it accepts raw DMA-BUF fds as arguments and
+> tracks buffers in its own per-file lists, with the fd itself being the
+> buffer identity visible to the DSP. QDA is a drm_driver whose buffers
+> are GEM objects in a per-drm_file handle namespace, with PRIME used for
+> import and the GEM handle being the identity. These are two different
+> buffer ownership models, and neither can be expressed on the other's
+> file type.
+> 
+> Supporting both from one driver therefore means carrying both models
+> simultaneously: two IOCTL surfaces, two buffer lifetimes, two teardown
+> paths, and a memory manager that has to serve both. That is two drivers
+> sharing a directory rather than one driver with two interfaces, and I
+> think it would be harder to review, and harder to eventually untangle,
+> than a separate driver with a stated removal plan.
+> 
+> There is also a positive reason for being in the accel subsystem rather
+> than misc. We can build on existing DRM infrastructure instead of
+> reimplementing it: GEM for buffer management, the device and file
+> lifecycle, and the debug infrastructure. It also positions us for work
+> we have planned around scheduling, drm_gpuvm, etc. Over time this should
+> mean less driver-specific code, not more.
+> 
+> I'll restructure the cover letter so the staged rollout, the
+> compatibility path and the eventual removal of drivers/misc/fastrpc.c
+> are stated properly.
+> 
+> If after this you still want to add or change anything, please let me know.
+> 
+> Thanks,
+> Ekansh> Best regards,
 
-Thanks for the fix,
+Gentle ping on this thread. Wanted to check if there's any update on the
+compatible string and coexistence question above, since it's currently
+blocking respin.
 
-Reviewed-by: Chen Yu <yu.c.chen@intel.com>
+Thanks,
+Ekansh
 
-thanks,
-Chenyu
+>> Krzysztof
+> 
+
