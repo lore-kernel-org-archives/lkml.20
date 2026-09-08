@@ -1,27 +1,27 @@
-Received: from dggsgout12.his.huawei.com (dggsgout12.his.huawei.com [45.249.212.56])
+Received: from dggsgout11.his.huawei.com (dggsgout11.his.huawei.com [45.249.212.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15D79558213;
-	Tue,  8 Sep 2026 13:05:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.249.212.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6446D5476F8;
+	Tue,  8 Sep 2026 13:05:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.249.212.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788872750; cv=none; b=gOpyJKCXa6rzj/UIMr5XX8qedujuMXoiFW2OSqmN1Vk15ira52NcRPfTX0ZgeKdM6EpTNC4gKzyykW+nqrFVh9C5fBubJ7TVQN11vrgs/CtfzQ9WyTPh/R+GmoB3bAFCHAaUzKdJXLrYhMxJHtYwPsiQnv/QtKSm/Y/TFQRYYZQ=
+	t=1788872749; cv=none; b=E1DC/fpvj7EwISdtxmPEDeP0w5H/LPusjfH7ZkyXr+mUXiUds/xHRHtQHz8MQTPTfUvTghjwYp+rh44EtF80WLb0PnF5HGMB3m5qn/unxjcNNuO+5YWqODPO9lKsir0ZvAFJZ7EXcv3sgxk7dbEWV+AFEYDVmncI4FKOSRPv2Ig=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788872750; c=relaxed/simple;
-	bh=082KIMFqE+/uvlHTdBvoMV9qFKfen+dk73/eqLUYMKs=;
+	s=arc-20240116; t=1788872749; c=relaxed/simple;
+	bh=CcK+4nFWsUiyZbQZ7UMqjjrWJ1Hdg+cSYuZQxqhCf5U=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=SzChI1iuiaUp/OhNMpV2iq0/0xDzpO81Wh8uKlib/6ak0S6zUrRpZGLZeNisB3VEiy17X3vx4HrDezOocnY6y6Dv8KkDO07u+29MocKR44RUt9vUIX00vnVWX7hZ8vmn1nl6VjdGEC9D5c+lsRcNbmDeEcMww4fzbzr+wEIQJhI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com; spf=pass smtp.mailfrom=huaweicloud.com; arc=none smtp.client-ip=45.249.212.56
+	 MIME-Version; b=dSP2m0g3Khp7bGHgorhbFZbvAeUdR8jiwMx2QVg8Lpsb6N0U8eOiX1TtTB38kKYfZL3qXBVYHrLSHd1EZcCEI34KI/D+v76qX6lb5am3cTjtw0QXW6BqJoTq29nkQX0u/5slR6ppIAAqvcHcARN52MJp6wa8R/mIfoRwzYXFhJQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com; spf=none smtp.mailfrom=huaweicloud.com; arc=none smtp.client-ip=45.249.212.51
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huaweicloud.com
-Received: from mail.maildlp.com (unknown [172.19.163.177])
-	by dggsgout12.his.huawei.com (SkyGuard) with ESMTPS id 4hfPLs2bclzKHN6r;
-	Tue,  8 Sep 2026 21:05:41 +0800 (CST)
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=huaweicloud.com
+Received: from mail.maildlp.com (unknown [172.19.163.198])
+	by dggsgout11.his.huawei.com (SkyGuard) with ESMTPS id 4hfPKv3zy1zYQw1m;
+	Tue,  8 Sep 2026 21:04:51 +0800 (CST)
 Received: from mail02.huawei.com (unknown [10.116.40.75])
-	by mail.maildlp.com (Postfix) with ESMTP id A7DF740590;
-	Tue,  8 Sep 2026 21:05:42 +0800 (CST)
+	by mail.maildlp.com (Postfix) with ESMTP id 108054057E;
+	Tue,  8 Sep 2026 21:05:43 +0800 (CST)
 Received: from huawei.com (unknown [10.67.174.45])
-	by APP2 (Coremail) with UTF8SMTPA id Syh0CgDHLUoeCKBqX3XjBA--.22748S7;
+	by APP2 (Coremail) with UTF8SMTPA id Syh0CgDHLUoeCKBqX3XjBA--.22748S11;
 	Tue, 08 Sep 2026 21:05:42 +0800 (CST)
 From: Tengda Wu <wutengda@huaweicloud.com>
 To: Namhyung Kim <namhyung@kernel.org>,
@@ -44,9 +44,9 @@ Cc: Peter Zijlstra <peterz@infradead.org>,
 	linux-kernel@vger.kernel.org,
 	llvm@lists.linux.dev,
 	Tengda Wu <wutengda@huaweicloud.com>
-Subject: [PATCH v5 05/26] perf annotate: Normalize arch__dwarf_regnum() error return values
-Date: Tue,  8 Sep 2026 13:05:08 +0000
-Message-Id: <07d3cce3cb8561c07d7c77deac81eb9ab0540ccb.1788872630.git.wutengda@huaweicloud.com>
+Subject: [PATCH v5 09/26] perf annotate-arm64: Implement extract_op_location() callback
+Date: Tue,  8 Sep 2026 13:05:12 +0000
+Message-Id: <73c9999d6089cd754ec5df65d1cca97ce3797b8d.1788872630.git.wutengda@huaweicloud.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <cover.1788872630.git.wutengda@huaweicloud.com>
 References: <cover.1788872630.git.wutengda@huaweicloud.com>
@@ -57,53 +57,281 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:Syh0CgDHLUoeCKBqX3XjBA--.22748S7
-X-Coremail-Antispam: 1UD129KBjvdXoWrKw1rAr1kKw4xtFWDCFWkXrb_yoWfuFg_u3
-	WxtF1Utr18JrZ7tasFkFyrCryxJFy5ZrWxGry7Ga47ZFyfGr17tFWqyrn5G3yrGayUtrnI
-	yw1kXrWxZr429jkaLaAFLSUrUUUU1b8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUIcSsGvfJTRUUUbpxYFVCjjxCrM7AC8VAFwI0_Wr0E3s1l1xkIjI8I6I8E6xAIw20E
-	Y4v20xvaj40_Wr0E3s1l1IIY67AEw4v_Jr0_Jr4l82xGYIkIc2x26280x7IE14v26r126s
-	0DM28IrcIa0xkI8VCY1x0267AKxVW5JVCq3wA2ocxC64kIII0Yj41l84x0c7CEw4AK67xG
-	Y2AK021l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14
-	v26F4UJVW0owA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AK
-	xVW0oVCq3wAaw2AFwI0_Jrv_JF1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2
-	IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jrv_JF1lYx0Ex4A2jsIE14v26r1j6r4U
-	McvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I64
-	8v4I1lFIxGxcIEc7CjxVA2Y2ka0xkIwI1lc7CjxVAaw2AFwI0_Wrv_ZF1lc7CjxVAKzI0E
-	Y4vE52x082I5MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I
-	8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVW8ZVWr
-	XwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26ryj6F1UMIIF0xvE2Ix0cI8IcVCY1x
-	0267AKxVWxJr0_GcWlIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v2
-	6F4j6r4UJwCI42IY6I8E87Iv6xkF7I0E14v26F4UJVW0obIYCTnIWIevJa73UjIFyTuYvj
-	4E73dUUUUUU
+X-CM-TRANSID:Syh0CgDHLUoeCKBqX3XjBA--.22748S11
+X-Coremail-Antispam: 1UD129KBjvJXoWxKF1kXw1kCrWfAFyUKw45Jrb_yoW3Cry7pr
+	4Uu34rtr1UJwsIqw4Svrs8Wr15Cw4Ika4qgrW3CwnIyFsavFyfW3Wxta4a9FyrJrZxX3yj
+	yrsYvr48Xr17GaDanT9S1TB71UUUUUJqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUHCb4IE77IF4wAFF20E14v26rWj6s0DM7CY07I20VC2zVCF04k2
+	6cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28IrcIa0xkI8VA2jI8067AKxVWUAV
+	Cq3wA2048vs2IY020Ec7CjxVAFwI0_Xr0E3s1l8cAvFVAK0II2c7xJM28CjxkF64kEwVA0
+	rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVW7JVWDJwA2z4x0Y4vE2Ix0cI8IcVCY1x0267
+	AKxVWxJr0_GcWl84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAF
+	wI0_GcCE3s1ln4kS14v26r1Y6r17M2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4
+	xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1Y6r17McIj6I8E87Iv67AKxVWUJVW8
+	JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20V
+	AGYxC7M4IIrI8v6xkF7I0E8cxan2IY04v7MxkF7I0En4kS14v26rWY6Fy7MxkF7I0Ew4C2
+	6cxK6c8Ij28IcwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c
+	02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_GFv_
+	WrylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVW5JVW7JwCI42IY6xIIjxv20xvEc7
+	CjxVAFwI0_Cr1j6rxdMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AK
+	xVWxJVW8Jr1lIxAIcVC2z280aVCY1x0267AKxVWxJr0_GcJvcSsGvfC2KfnxnUUI43ZEXa
+	7xRxnoUUUUUUU==
 X-CM-SenderInfo: pzxwv0hjgdqx5xdzvxpfor3voofrz/
 
-arch__dwarf_regnum() returns inconsistent error values: early path
-returns -1 while the main lookup returns -ENOENT/-EINVAL from
-get_dwarf_regnum(). Callers only check for -1, so genuine failures
-can slip through.
+Implement the extract_op_location() callback for the arm64 architecture
+to handle its specific assembly syntax and addressing modes.
 
-Normalize all failures to -1 to match the callers' expectation.
+The extractor handles:
+1. Immediate operands (e.g., '#0x10' or '#0xc600, lsl #16').
+2. Memory references with diverse addressing modes:
+   - Signed offset: [base{, #imm|reg}]
+   - Pre-index: [base, #imm]!
+   - Post-index: [base], #imm|reg
+3. Multi-register operands and primary/secondary register extraction.
+4. Register extension specifiers (e.g., uxtw, sxtx) and shift amounts
+   for shifted/extended operands.
 
-Suggested-by: Shuai Xue <xueshuai@linux.alibaba.com>
+With this callback in place, 'perf annotate' can now resolve memory
+locations and register types on arm64, marking the initial enablement
+of data type profiling for this architecture.
+
 Signed-off-by: Tengda Wu <wutengda@huaweicloud.com>
 ---
- tools/perf/util/annotate.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ .../perf/util/annotate-arch/annotate-arm64.c  | 127 ++++++++++++++++++
+ tools/perf/util/annotate.h                    |  61 +++++++++
+ 2 files changed, 188 insertions(+)
 
-diff --git a/tools/perf/util/annotate.c b/tools/perf/util/annotate.c
-index df70e95a8470..f3d17d153b67 100644
---- a/tools/perf/util/annotate.c
-+++ b/tools/perf/util/annotate.c
-@@ -2492,7 +2492,7 @@ static int arch__dwarf_regnum(const struct arch *arch, const char *str)
- 
- 	reg = get_dwarf_regnum(regname, arch->id.e_machine, arch->id.e_flags);
- 	free(regname);
--	return reg;
-+	return reg < 0 ? -1 : reg;
+diff --git a/tools/perf/util/annotate-arch/annotate-arm64.c b/tools/perf/util/annotate-arch/annotate-arm64.c
+index a7595a954cfa..d8a5904359b1 100644
+--- a/tools/perf/util/annotate-arch/annotate-arm64.c
++++ b/tools/perf/util/annotate-arch/annotate-arm64.c
+@@ -316,6 +316,132 @@ static const struct ins_ops *arm64__associate_instruction_ops(struct arch *arch,
+ 	return ops;
  }
  
- /*
++static enum annotated_ext_type arm64__check_ext_type(const char *op)
++{
++	if (!strncmp(op, "uxtb", 4)) return PERF_EXT_UXTB;
++	if (!strncmp(op, "uxth", 4)) return PERF_EXT_UXTH;
++	if (!strncmp(op, "uxtw", 4)) return PERF_EXT_UXTW;
++	if (!strncmp(op, "uxtx", 4)) return PERF_EXT_UXTX;
++	if (!strncmp(op, "sxtb", 4)) return PERF_EXT_SXTB;
++	if (!strncmp(op, "sxth", 4)) return PERF_EXT_SXTH;
++	if (!strncmp(op, "sxtw", 4)) return PERF_EXT_SXTW;
++	if (!strncmp(op, "sxtx", 4)) return PERF_EXT_SXTX;
++
++	return PERF_EXT_NONE;
++}
++
++static enum annotated_shift_type arm64__check_shift_type(const char *op)
++{
++	if (!strncmp(op, "lsl", 3)) return PERF_SHIFT_LSL;
++	if (!strncmp(op, "lsr", 3)) return PERF_SHIFT_LSR;
++	if (!strncmp(op, "asr", 3)) return PERF_SHIFT_ASR;
++	if (!strncmp(op, "ror", 3)) return PERF_SHIFT_ROR;
++
++	return PERF_SHIFT_NONE;
++}
++
++static void extract_op_location_arm64(const struct arch *arch,
++				      struct disasm_line *dl __maybe_unused,
++				      const char *op_str, int op_idx __maybe_unused,
++				      struct annotated_op_loc *op_loc)
++{
++	const char *s = op_str;
++	char *p = NULL;
++
++	if (op_str == NULL)
++		return;
++
++	/*
++	 * Handle immediate operand.
++	 * e.g., "#0xc600" -> offset = 0xc600, imm = true
++	 *
++	 * After parsing, check for post-modifiers like "lsl #16", which
++	 * typically occur in instructions such as movk, movz, movn, etc.
++	 */
++	if (*s == arch->objdump.imm_char) {
++		op_loc->offset = strtol(s + 1, &p, 0);
++		if (p && p != s + 1) {
++			op_loc->imm = true;
++			s = p;
++		}
++		goto check_modifiers;
++	}
++
++	/*
++	 * Handle memory references, identify arm64 specific addressing modes.
++	 * Reference: Arm Architecture Reference Manual
++	 *            (DDI 0487), Chapter C1.3.3: Load/store addressing modes.
++	 */
++	if (*s == arch->objdump.memory_ref_char) {
++		op_loc->mem_ref = true;
++
++		p = strchr(s, ']');
++		if (p == NULL)
++			return;
++
++		/* Pre-index: [base, #imm]! */
++		if (p[1] == '!')
++			op_loc->addr_mode = PERF_AAM_PRE_INDEX;
++		/* Post-index: [base], #imm|reg */
++		else if (p[1] == ',' &&
++			 (strchr(p + 1, arch->objdump.imm_char) ||
++			  arm64__is_reg(skip_spaces(p + 2))))
++			op_loc->addr_mode = PERF_AAM_POST_INDEX;
++		/* Signed offset: [base{, #imm|reg}] */
++		else
++			op_loc->addr_mode = PERF_AAM_SIGNED_OFFSET;
++
++		s++;
++	}
++
++	/* Extract the primary register */
++	op_loc->reg1 = arch__dwarf_regnum(arch, s);
++	if (op_loc->reg1 == -1)
++		return;
++
++	/* Move to the next operand field, if present */
++	s = strchr(s, ',');
++	if (s == NULL)
++		return;
++	s = skip_spaces(s + 1);
++
++	/* Extract secondary register or immediate offset */
++	if (op_loc->multi_regs)
++		op_loc->reg2 = arch__dwarf_regnum(arch, s);
++	else if (*s == arch->objdump.imm_char)
++		op_loc->offset = strtol(s + 1, NULL, 0);
++
++check_modifiers:
++	/*
++	 * Look for a following shift or extension modifier:
++	 *   ", lsl #3"   -> extend_type = PERF_EXT_NONE,
++	 *                   shift_type = PERF_SHIFT_LSL, amount = 3
++	 *   ", uxtw #3"  -> extend_type = PERF_EXT_UXTW,
++	 *                   shift_type = PERF_SHIFT_LSL, amount = 3
++	 *   ", uxtw"     -> extend_type = PERF_EXT_UXTW,
++	 *                   shift_type = PERF_SHIFT_LSL, amount = 0
++	 */
++	s = strchr(s, ',');
++	if (s == NULL)
++		return;
++	s = skip_spaces(s + 1);
++
++	op_loc->extend_type = arm64__check_ext_type(s);
++	op_loc->shift_type = arm64__check_shift_type(s);
++	/* ARM64 extended operands are implicitly shifted by LSL. */
++	if (op_loc->extend_type != PERF_EXT_NONE)
++		op_loc->shift_type = PERF_SHIFT_LSL;
++
++	/* Parse shift amount if present */
++	op_loc->amount = 0;
++	if (op_loc->extend_type != PERF_EXT_NONE ||
++	    op_loc->shift_type != PERF_SHIFT_NONE) {
++		s = strchr(s, arch->objdump.imm_char);
++		if (s)
++			op_loc->amount = (u8)strtol(s + 1, NULL, 0);
++	}
++}
++
+ const struct arch *arch__new_arm64(const struct e_machine_and_e_flags *id,
+ 				   const char *cpuid __maybe_unused)
+ {
+@@ -334,6 +460,7 @@ const struct arch *arch__new_arm64(const struct e_machine_and_e_flags *id,
+ 	arch->objdump.memory_ref_char	  = '[';
+ 	arch->objdump.imm_char		  = '#';
+ 	arch->associate_instruction_ops   = arm64__associate_instruction_ops;
++	arch->extract_op_location	  = extract_op_location_arm64;
+ 
+ 	/* bl, blr */
+ 	err = regcomp(&arm->call_insn, "^blr?$", REG_EXTENDED);
+diff --git a/tools/perf/util/annotate.h b/tools/perf/util/annotate.h
+index 11b6e4780c02..f0ff4b7e8a28 100644
+--- a/tools/perf/util/annotate.h
++++ b/tools/perf/util/annotate.h
+@@ -500,6 +500,10 @@ int arch__dwarf_regnum(const struct arch *arch, const char *str);
+  * @reg2: Second register in the operand
+  * @offset: Memory access offset in the operand
+  * @segment: Segment selector register
++ * @addr_mode: Addressing mode, only valid if @mem_ref is true
++ * @extend_type: Operand extension type (enum annotated_ext_type)
++ * @shift_type: Operand shift type (enum annotated_shift_type)
++ * @amount: Number of bits to shift
+  * @mem_ref: Whether the operand accesses memory
+  * @multi_regs: Whether the second register is used
+  * @imm: Whether the operand is an immediate value (in offset)
+@@ -509,6 +513,10 @@ struct annotated_op_loc {
+ 	int reg2;
+ 	int offset;
+ 	u8 segment;
++	u8 addr_mode;
++	u8 extend_type;
++	u8 shift_type;
++	u8 amount;
+ 	bool mem_ref;
+ 	bool multi_regs;
+ 	bool imm;
+@@ -532,6 +540,59 @@ enum annotated_x86_segment {
+ 	INSN_SEG_X86_SS,
+ };
+ 
++/*
++ * ARM64 addressing modes for memory operations.
++ *
++ * [Xn, #imm]  -> SIGNED_OFFSET  (base + offset, base unchanged)
++ * [Xn, #imm]! -> PRE_INDEX      (base += offset, then access)
++ * [Xn], #imm  -> POST_INDEX     (access, then base += offset)
++ */
++enum annotated_addr_mode {
++	PERF_AAM_NONE = 0,
++
++	PERF_AAM_SIGNED_OFFSET,
++	PERF_AAM_PRE_INDEX,
++	PERF_AAM_POST_INDEX,
++};
++
++/*
++ * ARM64 register extension types.
++ * UXT* = zero-extend, SXT* = sign-extend.
++ * B=8bit, H=16bit, W=32bit, X=64bit.
++ *
++ * Example: UXTW = zero-extend 32-bit Wn to 64-bit Xn
++ */
++enum annotated_ext_type {
++	PERF_EXT_NONE = 0,
++
++	PERF_EXT_UXTB,
++	PERF_EXT_UXTH,
++	PERF_EXT_UXTW,
++	PERF_EXT_UXTX,
++	PERF_EXT_SXTB,
++	PERF_EXT_SXTH,
++	PERF_EXT_SXTW,
++	PERF_EXT_SXTX,
++};
++
++/*
++ * ARM64 operand shift types.
++ * LSL = logical shift left.
++ * LSR = logical shift right.
++ * ASR = arithmetic shift right.
++ * ROR = rotate right.
++ *
++ * Example: LSL #3 = shift the operand left by 3 bits.
++ */
++enum annotated_shift_type {
++	PERF_SHIFT_NONE = 0,
++
++	PERF_SHIFT_LSL,
++	PERF_SHIFT_LSR,
++	PERF_SHIFT_ASR,
++	PERF_SHIFT_ROR,
++};
++
+ /**
+  * struct annotated_insn_loc - Location info of instruction
+  * @ops: Array of location info for source and target operands
 -- 
 2.34.1
 
