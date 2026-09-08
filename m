@@ -1,112 +1,87 @@
-Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [160.30.148.35])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 190B05505C8;
-	Tue,  8 Sep 2026 14:51:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=160.30.148.35
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1444552920;
+	Tue,  8 Sep 2026 14:51:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788879082; cv=none; b=aZU3xsGdgx1WSbNgzDJys1rToq9LqX1iAwsvM6MJugDDblHsJtXJ8f721efAWvPowXKCtVIy7TdvIkVECbKViHGnyoOTOGGAwRtq9r14iN9H9gxv0OU6Biql891yCswE4PFS61ZtZKPDyWoa7AgLvdy2OTIa2hW+RWcFX3Ky2d4=
+	t=1788879109; cv=none; b=G8rnTk81LqzBmDaB7gFmJvIQVMbS8S8B4eRiQEJE1AVzDa57tZ2AUdS/20cmnJeLKp/NAsVVpJTi43o7S5y0Qa56sXxGmjSr3tARVmEgh3PCZyz2qVXrTGt093W3+U1NuFeJWdHOa3s7s6nOuJ3SC5f3u1qjsJ4sIwwrtaYcvzU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788879082; c=relaxed/simple;
-	bh=Nfk9JEwo70bwHGDlZdjGP1hRIyqKW1ZZjVz0jUb29eE=;
-	h=Message-ID:Date:Mime-Version:From:To:Cc:Subject:Content-Type; b=r7XCxVoimOqYH6jnfm2flyGren5DLaHQ95vl2sgmCxJk41cTPSPzdKsv2qomHU4Q4CqNkR5wmuIitM9GNpjHSL0dMPAoReXsOplpuTT41qe4zltgs0SPeGiPXbMYAYTvs0uoxVuRhea/gsWo+HhHNZOKhd+7ShZbXPboNghvF1M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn; spf=pass smtp.mailfrom=zte.com.cn; arc=none smtp.client-ip=160.30.148.35
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
-Received: from mse-fl2.zte.com.cn (unknown [10.5.228.133])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mxhk.zte.com.cn (FangMail) with ESMTPS id 4hfRhN3tHvz8XrrJ;
-	Tue, 08 Sep 2026 22:51:00 +0800 (CST)
-Received: from xaxapp02.zte.com.cn ([10.88.97.241])
-	by mse-fl2.zte.com.cn with SMTP id 688EoqNg024546;
-	Tue, 8 Sep 2026 22:50:53 +0800 (+08)
-	(envelope-from wang.yaxin@zte.com.cn)
-Received: from mapi (xaxapp02[null])
-	by mapi (Zmail) with MAPI id mid32;
-	Tue, 8 Sep 2026 22:50:56 +0800 (CST)
-X-Zmail-TransId: 2afa6aa020d0d0f-60043
-X-Mailer: Zmail v1.0
-Message-ID: <20260908225056266qjyBORsOReFvHLEQ3NKtR@zte.com.cn>
-Date: Tue, 8 Sep 2026 22:50:56 +0800 (CST)
+	s=arc-20240116; t=1788879109; c=relaxed/simple;
+	bh=DDb3B+lCZQ8XfFJ78ls6+s3lsapUdWh5T7sKrZqoriQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=QbPR9Mzu8W8fLfyz/KWhIo0w0AqnX02ARiR+a1v3N4ErIYQn/SaKCHRKqejJXoVrXZoh1wkeHSt4wGptL/qYITbWoUOg2zytdMLFhxcp2m26WrSBvKaw/6mLBQFCt8Xx2FObI7bJukAHclfgN+MxHwazI4BO0O92W57x8Rs5iI8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gbHDg+F7; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gbHDg+F7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DD2E61F00A3A;
+	Tue,  8 Sep 2026 14:51:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788879100;
+	bh=5HhwnTeHEt+NjdQZ0IEPNu7Xi23jc3U/hYhWJffOVLY=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=gbHDg+F7o02qr1+zS/Ce/1wGsbRYhWnb9S5/cNXzn6LUnGYfnuDTth5KZAYMF/ONO
+	 /6yxAPiuddWLk5FN7T5fQ+Xh9NKmAXDohX/0mdnjjhOF5uzETeXg1dH0MjBJNpsQ7N
+	 R1s2H+Uv0se7TarcsK+bV0ylmU54WH/OfiSZt3voHpMXzSkfs3hDJRXiaoMvTF2I20
+	 BstKpmA9bcchQ7JWreVjAd2MO7F8jZPaB6zeBd75Y/iWJ48w6rRepNd3ErNiDmkn+Y
+	 WuMn39iuoHUKlE3ExBcS68b416nm8s7bRMOcqDTrIImqBimpvzrpqLEIhqcWOXeKVJ
+	 lt1JsJdC7NwoQ==
+From: SJ Park <sj@kernel.org>
+To: SJ Park <sj@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+	Liew Rui Yan <aethernet65535@gmail.com>,
+	stable@vger.kernel.org,
+	damon@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org
+Subject: Re: [PATCH v3] mm/damon/core: fix unconditionally skip last region
+Date: Tue,  8 Sep 2026 07:51:32 -0700
+Message-ID: <20260908145133.105111-1-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260908134739.96919-1-sj@kernel.org>
+References: 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-From: <wang.yaxin@zte.com.cn>
-To: <akpm@linux-foundation.org>, <fan.yu9@zte.com.cn>,
-        <yang.yang29@zte.com.cn>, <thomas.weissschuh@linutronix.de>
-Cc: <corbet@lwn.net>, <linux-kernel@vger.kernel.org>,
-        <linux-doc@vger.kernel.org>, <xu.xin16@zte.com.cn>,
-        <wang.yaxin@zte.com.cn>
-Subject: =?UTF-8?B?W1BBVENIIDAvMyB2NF0gZGVsYXl0b3A6IGFkZCBkZWxheSBtYXgsIHRpbWVzdGFtcCBhbmQgc29ydGluZyBmb3IgdG9wIGxhdGVuY3kgYW5hbHlzaXPCoA==?=
-Content-Type: text/plain;
-	charset="UTF-8"
-X-MAIL:mse-fl2.zte.com.cn 688EoqNg024546
-X-TLS: YES
-X-ENVELOPE-SENDER: wang.yaxin@zte.com.cn
-X-SOURCE-IP: 10.5.228.133 unknown Tue, 08 Sep 2026 22:51:00 +0800
-X-CLEAN: YES
-X-Fangmail-Anti-Spam-Filtered: true
-X-Fangmail-MID-QID: 6AA020D4.000/4hfRhN3tHvz8XrrJ
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-From: Wang Yaxin <wang.yaxin@zte.com.cn>
+On Tue,  8 Sep 2026 06:47:38 -0700 SJ Park <sj@kernel.org> wrote:
 
-Previously delaytop only showed average delays. This patch adds:
+> From: Liew Rui Yan <aethernet65535@gmail.com>
+> 
+> Once quota set, the charge_{target,addr}_from unconditionally skips and
+> resets at the last region of the tracked target, so the last region can
+> be skipped even when it has not been processed.
+> 
+> Example:
+> 
+>     1. Target has 2 regions: R1 (0-100 bytes) and R2 (100-200 bytes).
+>     2. Quota is configured to process only 100 bytes per window.
+>     3. Window 1: Processes R1 (0-100).  Quota is full.  charge_{target,
+>        addr}_from is saved at (Target, 100).
+>     4. Window 2: The loop reaches R2.  Because R2 is
+>        damon_last_region(t), the old code unconditionally returns true,
+>        skipping R2 entirely and resetting the charge_{target,addr}_from.
+> 
+>     Result: R2 is permanently skipped even though it has never been
+>     processed.
+> 
+> However, it is important to note that this is a very minor issue.  This
+> is because it is triggered only when the previous window saved/kept
+> charge_{target,addr}_from, and in the next window, all regions except
+> the last region were skipped by damos_skip_charged_region().
+> 
+> Fix this by only resets the charge_{target,addr}_from when last region
+> is reached, only skips when it applied or cannot split.
 
-1. delay_max fields to track the maximum delay value for each delay type
-   (cpu, blkio, irq, swapin, freepages, thrashing, compact, wpcopy)
-   per task.
+Sashiko found a pre-existing issue that I'm separately working on.  It is no
+blocker for this patch.
 
-2. The -t/--type option displays only the specified delay type with avg/max
-   values side by side, allowing focused analysis:
-     delaytop -t cpu    # Show only CPU delay with avg/max
-     delaytop -t wpcopy # Show Copy-on-Write delay with avg/max
 
-3. Wall-clock timestamp when each maximum delay occurred, displayed in the
-   MAX_TIMESTAMP column when using -t/--type option. This enables:
-   - Identifying the time when a process experienced an abnormal delay max
-   - Correlating delay max across multiple processes at the same timestamp
-   - Cross-referencing with logs, traces, or other metrics at that time
+Thanks,
+SJ
 
-4. When using -t/--type option, tasks are sorted by maximum delay value in
-   descending order (largest delay first), enabling quick identification of
-   top N processes with highest delay spikes.
-
-Signed-off-by: Wang Yaxin <wang.yaxin@zte.com.cn>
-
-v3->v4:
-[patch 3/3]
-1. Fix ReST syntax errors (indentation, list formatting) that triggered
-warnings when running 'make htmldocs'. No content changes are made.
-
-v2->v3:
-[patch 1/3]
-1. fix get_field_by_name() MODE_TYPE filter breaking --sort for non-type fields
-2. zero-init stats struct and cap memcpy size in netlink response parsing
-3. fix compare_tasks() count field read as unsigned long long for 32-bit safety
-
-[patch 2/3]
-1. fix 32-bit time_t overflow check to use max representable value instead of (time_t)-1
-2. fix gmtime() pointer aliasing by assigning timespec64 tv_sec to local time_t
-
-[patch 3/3]
-1. fixed Y2038 overflow false negative in format_kernel_timespec()
-2. switched to localtime_r() with stack `struct tm` for thread safety.
-
-Wang Yaxin (3):
-  delaytop: add delay max for delaytop
-  delaytop: add timestamp of delay max
-  delaytop: sort by max delay to highlight top latency processes
-
- Documentation/accounting/delay-accounting.rst |  87 ++++--
- Documentation/sphinx/maintainers_include.py   |   2 +-
- tools/accounting/delaytop.c                   | 286 +++++++++++++++---
- tools/accounting/getdelays.c                  |   5 +
- 4 files changed, 319 insertions(+), 61 deletions(-)
-
--- 
-2.47.1
+[...]
