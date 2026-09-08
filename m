@@ -1,142 +1,140 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C6E3517BB1;
-	Tue,  8 Sep 2026 09:21:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 594BD1A6811;
+	Tue,  8 Sep 2026 09:21:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788859299; cv=none; b=SpYPMlon1EiOeq/aTyonO42r4Z7taVd/rYvWqWHc4JQsfFBmgedeDWJT+uP7naFVIzFrAFdPmVWZnpLD8xbl6NnCuJff8zMlxcCCQqKNNeBY/zpGL0foe6Vauvc5jggeNpUpzgZb6h/hynI9xDpHzeHXNG5chGuHYRapa5VLx18=
+	t=1788859320; cv=none; b=ru1Atm7jAZPCPYeWuR2DEaDO39Mfd0gqmkWviLCJ08Uz+crAQeAVuPAeQNhnE7Rl5hz7zPuATjzsZj4Z4/BQXmOOCNeus2h9Z0d4786yoM2U3WERDO7bXgD0g0YRzN5d3yMoOP0/UWLzEZaSCNOdY3lCl4IbXKOWKN8EWqYWHZE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788859299; c=relaxed/simple;
-	bh=jj+PS8mIGq7R+aPe/TMmaXmThH9/QJR/Jtfs6ZhpmY0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=WX706hLkqOD+jqTF4byM4BoYl07dpb84q7Na8xMbSYEoa81tJdcOzOpbtOdDnzRZopgVy/Ma+tqsUp37UObe9TAh+VTEkUGRXfqOkJn2dBRrRHydH4K+CeQgqPbB9+o4vpjsx5wmA1zK14gsnJ/khEpyA0NHij7kVw/BNXPZ24A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Xn9XtBCz; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788859320; c=relaxed/simple;
+	bh=cbzkP+UYnNAHcLX7mr1OdaawPQAm0XvDJnTZSas9abA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=qeAYh5XxclNPX0pNwqadq289/wjWDAS1DjsbXMDQC97tN4bfzWTzaOKXsI4vuznWMkhd0NzPQxEQpK7OWybulZXHW8IWgYKH2GzaftH4mQcImtLzXa2IdNwwj+yxewkFAURyKge97++STV6Mgf7SBjwItsXrEzloAiu4XfL9K3U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=nBAJb68C; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Xn9XtBCz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 36E861F00A3A;
-	Tue,  8 Sep 2026 09:21:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788859298;
-	bh=4k7jM/SARicUfiyID/Zb58FTA6TVrqfjgQqXrSbBJmY=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=Xn9XtBCzNs8WX9mak5mpG8XRdy2i0zrbMydZ5LMlt1Qe6xYAL3LuxfUX8Atn2wQI5
-	 1axnL/wqewpo705igfKNy8cNCn9+Zo3sUO5bgJKNWeixiHCJ40tMpOcHYPd0ztKnwc
-	 thks3bDKvUFN5YfpBP21ImCqeVd4BuB9bshirgyOkT8qYPLl5IHF7GtOgYNVJtKM5z
-	 OWEfgEV7HLlzD0xSV0FLDhASxeMC0R5k+YiWCZlY18vuOZyNV5jOxZq4lBnvbHCbuK
-	 MWgRGux7fP8nPYbQvR4llwvXew14x5qlJam3L6qpRO9Kd3dID9dgWciFsi7Ok948U+
-	 EV4LzEuy2wGQQ==
-Message-ID: <9a27f318-2ab0-4f5e-8e87-daaa85dbc297@kernel.org>
-Date: Tue, 8 Sep 2026 11:21:20 +0200
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="nBAJb68C"
+Received: from ideasonboard.com (mob-109-113-65-131.net.vodafone.it [109.113.65.131])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 364C5981;
+	Tue,  8 Sep 2026 11:20:20 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1788859220;
+	bh=cbzkP+UYnNAHcLX7mr1OdaawPQAm0XvDJnTZSas9abA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=nBAJb68CZfYfVFSJvBeITMi8imJ1gdTigtnqYeaNenEBuzg0CWRbhU6K/INH9zRpg
+	 /JqZXM/TG+6S4NPe0pBUo3834BBa/G8LC7eFWwAhrFUtoXuK1A0hJWAOnM25k4/Mdj
+	 YyAcMxDZY3JhEcYNxYWrMA0PtJ3UFQN4j31sIdIk=
+Date: Tue, 8 Sep 2026 11:21:51 +0200
+From: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+To: Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
+	Philippe Baetens <philippebaetens@gmail.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Kieran Bingham <kieran.bingham@ideasonboard.com>, 
+	Jai Luthra <jai.luthra@ideasonboard.com>, linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 2/2] media: i2c: mira016: Add driver for Mira016
+Message-ID: <ap_TUa3D0-ZGnrXy@zed>
+References: <20260904-mira016-v2-0-1dcf7b3a807e@ideasonboard.com>
+ <20260904-mira016-v2-2-1dcf7b3a807e@ideasonboard.com>
+ <ap3M0h2S6EFpuC2T@kekkonen.localdomain>
+ <ap5n7OyZrI0KzzN-@zed>
+ <ap-1tDtGCWGc9Hvs@zed>
+ <ap_DfdHTa0cQe1LH@kekkonen.localdomain>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 16/24] powerpc/elf: Add 32-bit REL16 relocation
- definitions
-To: =?UTF-8?Q?Thomas_Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>,
- Paul Walmsley <paul.walmsley@sifive.com>, Palmer Dabbelt
- <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
- Alexandre Ghiti <alex@ghiti.fr>, Nathan Chancellor <nathan@kernel.org>,
- Nick Desaulniers <nick.desaulniers+lkml@gmail.com>,
- Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
- Andy Lutomirski <luto@kernel.org>,
- Vincenzo Frascino <vincenzo.frascino@arm.com>, Kees Cook <kees@kernel.org>,
- Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
- Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
- "H. Peter Anvin" <hpa@zytor.com>, Richard Weinberger <richard@nod.at>,
- Anton Ivanov <anton.ivanov@cambridgegreys.com>,
- Johannes Berg <johannes@sipsolutions.net>,
- Russell King <linux@armlinux.org.uk>,
- Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
- Madhavan Srinivasan <maddy@linux.ibm.com>,
- Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>,
- Huacai Chen <chenhuacai@kernel.org>, WANG Xuerui <kernel@xen0n.name>,
- Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
- Alexander Gordeev <agordeev@linux.ibm.com>,
- Christian Borntraeger <borntraeger@linux.ibm.com>,
- Sven Schnelle <svens@linux.ibm.com>,
- Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
- Miguel Ojeda <ojeda@kernel.org>, Alex Gaynor <alex.gaynor@gmail.com>,
- Gary Guo <gary@garyguo.net>, =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?=
- <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>,
- Andreas Hindborg <a.hindborg@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
- Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>,
- Thomas Gleixner <tglx@kernel.org>, Boqun Feng <boqun@kernel.org>,
- Nicolas Schier <nsc@kernel.org>
-Cc: linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org,
- llvm@lists.linux.dev, linux-mm@kvack.org, linux-um@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, linuxppc-dev@lists.ozlabs.org,
- loongarch@lists.linux.dev, linux-s390@vger.kernel.org,
- linux-mips@vger.kernel.org, rust-for-linux@vger.kernel.org,
- linux-kbuild@vger.kernel.org, Jan Stancek <jstancek@redhat.com>,
- Arnaldo Carvalho de Melo <acme@redhat.com>,
- Alexandre Ghiti <alexghiti@rivosinc.com>
-References: <20260908-vdso-absolute-reloc-v5-0-3a93791af1cf@linutronix.de>
- <20260908-vdso-absolute-reloc-v5-16-3a93791af1cf@linutronix.de>
-Content-Language: fr-FR
-From: "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>
-In-Reply-To: <20260908-vdso-absolute-reloc-v5-16-3a93791af1cf@linutronix.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <ap_DfdHTa0cQe1LH@kekkonen.localdomain>
 
+Hi Sakari
 
+On Tue, Sep 08, 2026 at 11:12:45AM +0300, Sakari Ailus wrote:
+> On Tue, Sep 08, 2026 at 09:17:15AM +0200, Jacopo Mondi wrote:
+> > Hi Sakari
+> >
+> > On Mon, Sep 07, 2026 at 09:45:16AM +0200, Jacopo Mondi wrote:
+> > > Hi Sakari, thanks for the review
+> > >
+> >
+> > [snip]
+> >
+> > > > > +
+> > > > > +static int mira016_parse_endpoint(struct device *dev, struct mira016 *mira016)
+> > > > > +{
+> > > > > +	struct fwnode_handle *endpoint __free(fwnode_handle) = NULL;
+> > > > > +	struct v4l2_fwnode_endpoint ep_cfg = {
+> > > > > +		.bus_type = V4L2_MBUS_CSI2_DPHY
+> > > > > +	};
+> > > > > +
+> > > > > +	endpoint = fwnode_graph_get_endpoint_by_id(dev_fwnode(dev), 0, 0, 0);
+> > > > > +	if (v4l2_fwnode_endpoint_alloc_parse(endpoint, &ep_cfg))
+> > > > > +		return dev_err_probe(dev, -EINVAL, "Failed to parse endpoint\n");
+> > > >
+> > > > Don't mask error codes! Just return the error code returned by
+> > > > v4l2_fwnode_endpoint_alloc_parse().
+> > > >
+> > >
+> > > With PTR_ERR() I presume
+> > >
+> > > > > +
+> > > > > +	/*
+> > > > > +	 * Link frequencies: the driver supports a single link frequency,
+> > > > > +	 * no need to check bitmap after this call.
+> > > > > +	 */
+> > > > > +	if (v4l2_link_freq_to_bitmap(dev, ep_cfg.link_frequencies,
+> > > > > +				     ep_cfg.nr_of_link_frequencies,
+> > > > > +				     mira016_link_freqs,
+> > > > > +				     ARRAY_SIZE(mira016_link_freqs),
+> > > > > +				     &mira016->link_freq_bitmap)) {
+> > > >
+> > > > Ditto.
+> > > >
+> > > > > +		v4l2_fwnode_endpoint_free(&ep_cfg);
+> > > > > +		return -EINVAL;
+> > > > > +	}
+> > > > > +
+> > > > > +	/* TODO: Implement D-PHY configuration to support continuous clock. */
+> > > > > +	if (!(ep_cfg.bus.mipi_csi2.flags & V4L2_MBUS_CSI2_NONCONTINUOUS_CLOCK)) {
+> > > > > +		v4l2_fwnode_endpoint_free(&ep_cfg);
+> > > >
+> > > > Instead of callind v4l2_fwnode_endpoint_free() here and above, I'd add a
+> > > > label for error handling.
+> > > >
+> > >
+> > > ack
+> >
+> > I'll actually backtrack on this.
+> >
+> > Sashiko pointed out that mixing gotos and cleanups is probably not a good idea
+> > and this time, the bot is right.
+>
+> I'm not quite sure what you mean. The general practice is that if error
+> handling is trivial and there's only a single location to unwind something,
+> you should do it on the site. In more complex cases use labels and gotos.
+> That's what we have here. (There are of course more complicated cases where
+> it's not that simple, but this isn't what we're discussing here.)
 
-Le 08/09/2026 à 08:33, Thomas Weißschuh a écrit :
-> These are used by userspace and are necessary for the vdsocheck tool.
-> They share the numbers with their 64-bit variants.
-> 
-> Also update the copy in tools/ so they can be used by vdsocheck.
-> 
-> Signed-off-by: Thomas Weißschuh <thomas.weissschuh@linutronix.de>
+include/linux/cleanup.h
 
-Reviewed-by: Christophe Leroy (CS GROUP) <chleroy@kernel.org>
+ * Lastly, given that the benefit of cleanup helpers is removal of
+ * "goto", and that the "goto" statement can jump between scopes, the
+ * expectation is that usage of "goto" and cleanup helpers is never
+ * mixed in the same function. I.e. for a given routine, convert all
+ * resources that need a "goto" cleanup to scope-based cleanup, or
+ * convert none of them.
 
-> ---
->   include/uapi/linux/elf-r.h       | 7 ++++++-
->   tools/include/uapi/linux/elf-r.h | 7 ++++++-
->   2 files changed, 12 insertions(+), 2 deletions(-)
-> 
-> diff --git a/include/uapi/linux/elf-r.h b/include/uapi/linux/elf-r.h
-> index 72fc9045a5d4..170888422400 100644
-> --- a/include/uapi/linux/elf-r.h
-> +++ b/include/uapi/linux/elf-r.h
-> @@ -182,8 +182,13 @@
->   #define R_PPC_GOT_DTPREL16_HI	93 /* half16*	(sym+add)@got@dtprel@h */
->   #define R_PPC_GOT_DTPREL16_HA	94 /* half16*	(sym+add)@got@dtprel@ha */
->   
-> +#define R_PPC_REL16		249
-> +#define R_PPC_REL16_LO		250
-> +#define R_PPC_REL16_HI		251
-> +#define R_PPC_REL16_HA		252
-> +
->   /* keep this the last entry. */
-> -#define R_PPC_NUM		95
-> +#define R_PPC_NUM		253
->   
->   /* PowerPC64 relocations defined by the ABIs */
->   #define R_PPC64_NONE    R_PPC_NONE
-> diff --git a/tools/include/uapi/linux/elf-r.h b/tools/include/uapi/linux/elf-r.h
-> index 72fc9045a5d4..170888422400 100644
-> --- a/tools/include/uapi/linux/elf-r.h
-> +++ b/tools/include/uapi/linux/elf-r.h
-> @@ -182,8 +182,13 @@
->   #define R_PPC_GOT_DTPREL16_HI	93 /* half16*	(sym+add)@got@dtprel@h */
->   #define R_PPC_GOT_DTPREL16_HA	94 /* half16*	(sym+add)@got@dtprel@ha */
->   
-> +#define R_PPC_REL16		249
-> +#define R_PPC_REL16_LO		250
-> +#define R_PPC_REL16_HI		251
-> +#define R_PPC_REL16_HA		252
-> +
->   /* keep this the last entry. */
-> -#define R_PPC_NUM		95
-> +#define R_PPC_NUM		253
->   
->   /* PowerPC64 relocations defined by the ABIs */
->   #define R_PPC64_NONE    R_PPC_NONE
-> 
+I take it as "do not mix gotos and cleanups"
 
+As the 2 cleanup paths are trivial, I would rather do not mix the two.
+
+>
+> --
+> Sakari Ailus
+>
