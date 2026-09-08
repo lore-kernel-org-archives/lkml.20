@@ -1,150 +1,96 @@
-Received: from mail-vs2-f12.google.com (mail-vs2-f12.google.com [74.125.227.12])
+Received: from sonic304-21.consmr.mail.ne1.yahoo.com (sonic304-21.consmr.mail.ne1.yahoo.com [66.163.191.147])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAB0F52BE58
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 11:18:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2702052B1E0
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 11:18:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=66.163.191.147
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788866297; cv=none; b=FtfkdtEP6PO6KcbgEfSBAnq1zhkL+1hUxo2zwLvlWY9Cdpt66rNTOGd8kxzWQ2RDe5Ydr0vBj41W3wLq85sAE2G1LEL59qRWFp1WyOk/LzvFk1pV6vgCNxd84OcfbAAqnv+EE2OmwnQu6MxlXcn+q7vac0n5M9rTg7HbxlO2Fcc=
+	t=1788866309; cv=none; b=ROUIM3b6an1yhaBtwERckQwhxr9vjjolfWqGy2dyLCN3zf+J3irS8aURgklSEircUN8GyIxBJ5d+TEMbYbtUuGp+UdbscsovQZBvKtsmlkvdtB8caFrI4a0pFOgsTzu4iY8H/Z79OhG+8TC39x8m0NY1O8LSDwalO2JPb+MXrRw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788866297; c=relaxed/simple;
-	bh=lX4V4yjGtJ3+RS/BGcYcxwkRKomux7igTneZYQSAgkc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=nrMIIKgbfRb3Yx+FV5yaEVIf74GPxvKW2bwDXASjAN9PhnPw3kY8Z6/87rPQDYVKPNs3dly4Pw2CzhsphycKtws0kZGJKoDR/tKxiHd0MnpQ9ZaKOG/N/nZU9PD8o1vR6BoFt+BkW8nERj//S9HJNljL559xMh3mnTTQjKc9K64=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Ev51L5fQ; arc=none smtp.client-ip=74.125.227.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788866309; c=relaxed/simple;
+	bh=LjH1faTnVVN5uMetA4uwbCmCsTumX7kxFH0HtObW7RY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=vBvUUw0cgukX8QgfjJB3JGLek+zHv3xxDlcF1jKyHNCCOggOEta/MbuHZPFvyWQZeqB9FQ4CrOqQ2xH3gmuWYcsmb9VFmtlA7iRZgRu62pICbK59GQvBAtJe9HBQkgihp/nfx4fepqvdnz51A8uc0QW4z4lO2DsK1L4lAJL+pGM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com; spf=pass smtp.mailfrom=yahoo.com; dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b=gf+WBWfd; arc=none smtp.client-ip=66.163.191.147
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ev51L5fQ"
-Received: by mail-vs2-f12.google.com with SMTP id 71dfb90a1353d-5c7e8a17839so146074e0c.1
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 04:18:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788866289; x=1789471089; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=GR+PLOaTo7otsU9ebeTCa7DS4PdH9ick+Ld4KYL7p5E=;
-        b=Ev51L5fQhBYYIGN6xLOPTjQv2rczFfFrLSkgYA1zlP+NvHJeUiMcMlsXyzfdMjIuug
-         qi/2p63yTzEHx/yuLXk0+liIKi/sJJ00tahgoMkTK3cYf2BQvxQMrBpF8O0hwWEyAQp3
-         4zLhamEHuSf6eOKN91tEESfm4+TZ76A80jaQ++vikrXjvj3lCb2d/HUTirPHcySQi4nW
-         CGs1OfWDebNOHdjoy3WrXLKpva/gSjP2Nffj59XMmwsG32r756xGxmVkpxZYEBPYFjjM
-         BtlD4zDMCR58x/3zwCqUMdhxxA3XyyxG9TBFtrfOi5x9dg14r+0peT2POdlRdKDtTPqw
-         Mz1g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788866289; x=1789471089;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=GR+PLOaTo7otsU9ebeTCa7DS4PdH9ick+Ld4KYL7p5E=;
-        b=FGJi1WArM+ffzqhW/RX2A1sVJWRLpXWw1rUX6kMUdrcxDyvTip+YxOja6ZiOLBSHCe
-         jHTCmy9UuxgRAZwhMdcPHf2YsyvSPYvbwuJqCbBYdyTX+IvRliAcIrjcaq7i5mQRjwxr
-         nb5eq3F9j9H7vIFiitLkgafDnHr/mNMcAYXfnVgsGcOjvI4rYO1O0HisYJLyieIk7uw8
-         EyUouwg89qLgD0bO/yQGP+ITn1Bsj/iIxroaIC8tBcQpPaqnNP5mo7CRst8sZdXLmAQ9
-         08M7aI9wiWIKz4oDG12yZ8lmHuyie3ICuEBv40kctCDAh/YvIXVIaHAYRonzey1pfF/6
-         V72Q==
-X-Forwarded-Encrypted: i=1; AKwUvBx7wTwu/sNyn2Z58ve/sT8F/3HXJOILCrN+tGQvBphFErhHUwJUuDTavofuS33ph1dSC4GAz/uxdYJZpSA=@vger.kernel.org
-X-Gm-Message-State: AFuF++lmYTSV3hIhUY0NMqlRToI5RQPoaOCnAGj6zoVeYo0jjkHWM9Gh
-	803XK73pcN0tPMo12pcHBSaTkKWlmiIIwrXSoNZkVH9fVeMmr3g4kUma
-X-Gm-Gg: AYBFou3g3EivNDrJdeOLTuGZFOmtXVRYFa9XlV3C5gkSURX0f1wvLQVGjFtwUrxmP4n
-	mDoUKstllE6D+7u9lrHTiTqrjkfMepJw0x24FuKMcKii43tMEkCNNB3Lgt7AnpGzuIsCml+JBeG
-	mf7L/OKqFW4P78OTMbtYXmhgNELa6a2fCbyMbwsHTJdCJpAxfdzupm/kNo8s2BSF+vFIvlEqPfv
-	NYzMLqq2B736rkaHSv7RtsKk/JWXL5USqQmSX480jLpOU2MJvHowjY8fujOW0zwjgr9Z99mJwUI
-	KF14/BrPl4WLKtIIcKLkOz+b3mdAX1XZZeC2Ads4ZSGwV6APTiOJFPKq3YOVVxYigqOtlZiV4Ic
-	2C94DdzvmmEIxtVap8gZ869xfdMXV5DjdGPWPAX5DW4bjOluiT0or/oSbOlu+j11qiXi5VyT9RB
-	NltatQwecGC7mEslyCx8pQgzLuW3fALf2vhlKNYjh76IPGXryBWoHF9lFC337swJObyeSoc3gpL
-	WDQSA==
-X-Received: by 2002:a05:6102:c8d:b0:789:ec0f:3a03 with SMTP id ada2fe7eead31-78dd1a1cb33mr1540702137.4.1788866288632;
-        Tue, 08 Sep 2026 04:18:08 -0700 (PDT)
-Received: from leonardoc-nb ([67.159.246.222])
-        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-78a47a76487sm8467503137.5.2026.09.08.04.18.04
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 08 Sep 2026 04:18:08 -0700 (PDT)
-Date: Tue, 8 Sep 2026 08:17:57 -0300
-From: Leonardo Costa <leoreis.costa@gmail.com>
-To: "Kumar, Udit" <u-kumar1@ti.com>
-Cc: nm@ti.com, vigneshr@ti.com, kristo@kernel.org, robh@kernel.org, 
-	krzk+dt@kernel.org, conor+dt@kernel.org, linux-arm-kernel@lists.infradead.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Leonardo Costa <leonardo.costa@toradex.com>
-Subject: Re: [PATCH 1/1] arm64: dts: ti: k3-am69-aquila: Add Toradex DSI to
- LVDS adapter with the 10.1" V2 display
-Message-ID: <kumbe27i7a632rthuruthpt6z65aszivylj2u7cdkeqecx3zgd@vi27clpphsq3>
-References: <20260803173705.2268792-1-leoreis.costa@gmail.com>
- <20260803173705.2268792-2-leoreis.costa@gmail.com>
- <29aaa2ec-c1fe-4f60-a6d1-f8c797587986@ti.com>
+	dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b="gf+WBWfd"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1788866298; bh=YRUBlZ8dLqp9JSfEYU3LqyguQG5ZgeUgfnh64Fsjygs=; h=Date:Subject:To:Cc:References:From:In-Reply-To:From:Subject:Reply-To; b=gf+WBWfd9pS3ixIK0ZCNrZa4aua8tGhu3dvQJOIOs9yL+v58zctqp1x8ORMSjRbOjFmju3k5DWD8cpVkcjkjh0RCaKrN6h8KIo2fd/qRkKPKZPVlJ3vByrLVDHpxEynD2L+F5KRaLkckZ9e5hn9RruyqI7FmRs9hEf8SOhbSXM0Vv6oAfg0H4ERlHN0eMaAZaFtm15tDbeTMs+bTT9Ra6OGfAweTYY8hT/T7465cCGlpHe0zSHqgwmbsdtqjksWbaE3cBdwpd4L6aPj0Wx6dhaqdZtw29BT23NMFThM2Wl6mZVpZ3Cd0nUQGkwjVvi2xkacPy7rvq9/sKLp/VCq1QA==
+X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1788866298; bh=BO3nbZVVC/Q6WnfyDxtqxYZPIi85mZ6jnJBT8ZaJWy9=; h=X-Sonic-MF:Date:Subject:To:From:From:Subject; b=LEj2HvK5U0pbAsUXC+6X0Xwwdjb5AvXnvxtcnI2FweL8JJMbXl9r5VZWyqkzo9ketCm+h8uzxQksEA4q28ysUAYN0LexZFdgFGrGpOMcocJ4EXyxc/zA1vQ6nfIOn3jcYbC03dtmbQ8OAHP/bq9YD5auLp3F4765zq5oEcY5e15JmtuKObm4TkT3Ywo48n1LHIl/WpY9A72dpB7IR8g5fYCuSoLEz48kVN+V8OjX4rGsSDUvNvj/UOF0MbwKYYaRsKzlsDZMq+dgRkxsIu5sKVNEfTZgmXwu//AXFSUgiCw8PfiXnTmUHRkpYp0O/UdvcsIRwKUPkEsjEtB6/We7yQ==
+X-YMail-OSG: gmPyFQoVM1kc06WG4qbxndFv7A0iv9Zvs3kCG56zD6fXv0_RPErM.KJ2_Y03wTK
+ P2DhEW7IyNdWPB1oZZUSd30nh9bY18etlCM7_76lo4eQPD8pRW5GjFvkb43LVq5L9xej2o7xEFuW
+ GEJfkZ9aSs8Ze_o3MZXQ3oiGd9K6q7WrFgqp8HdYS8ka2aPZhu9Zhu.l8SCSETpSuI_GwXLa4sel
+ Hc932i4trMUWVfSNlsIjRqNgiJ6k71EiWKqRMh5jR.1lilDP4hK00_t_rgl7wHlY3r98SjxxpfwY
+ Z_yTwWje_ia9mdz11bFrFPlDWVoomvIF0c80uMZTlytwRcgKQIX9u1H0k.bI3SLPL1Y1L6mvRM8y
+ 7BT16SikZrVBBTOZSehD6E4AIRN6NfpSIhDHq24VgqJtEr7nhQxIqJjmDekQb0pbOHu8HquYI.8O
+ eoAv3HW8HuHBSSlc7n2xrUbZY1d05D1lOmaJfTNzr3eqUHt00Fcuq47BsgwVZgn.riCUy4oHxvU9
+ 6EKJAnfT0Jggz2tW7wSZb167xC9ENpm0xe72ti3bfMEqcj7rekZHcsHN3Jo9M15f5dyq5Fv3Lvx5
+ fNbNLjN0OTAvmO2j3yx1lB1R7d.BrM3m7Jp4I42SFt.H_8JkCBGP7vk_MXPSma72HOWbMb2w8TAH
+ Z0xKYGUK9iNFY6422ZnUCERqA8PpFjpgj53A1KZ5t_zBw_6yF3tTbMYP1GtX122zluBJBuRBiYxm
+ kFzpCl5drZcwBBrHFb9nkOr20KJv105U2HKaGzGVVEjsF3Qp.l8VbHdxACFzNk4n7Ei0exRs97S7
+ hKLUywdg__q0dy3xOF9geMZwOn.PdntHq2dRweZ_vA3XH1FhpXD_qnVXAy3imyiX4v8D_QhUa9Vs
+ JmwhrOeCAzS5joDHI0ZbJOzaOQsz617LirTFoWCdJYZWMaCMCXAKXzRpqLHvYvBrxL04g0ib9NU8
+ AVMbAkttrVustmuJjLpDX3b0627711vkp0s_KRb5Q3vJW1GMNPYl9ls8YilSTeAZVlB5i_sny3Uo
+ RNNbzC_jfjwcPdhjMo.j7ffSnXG0rI1zqgNPZ1AJHyU6Tg16Hf9Z4IR0m6T1irvaUG..TlnOFvkZ
+ XkVpajROJxhPGUPaEemA5paAzCfrPUPrzmmgo4zAn631YjykEMjibnOBFqfTQ9_xm5wnA2FbvKVn
+ AtCmAGmyV0KExIcv28plPUwH6OkeJG.oxIK2S6n5pMHD5g6ZGWzdYkYt9TyhrnD1KCV0c0UOtiDR
+ qFsjLTFDAfqZgzEzDOHh8Ev9L06Kd8XDanoUqHsT1WQuQfbMAo68yLRUrT_IHQTbrDMj8mUp.rBz
+ oc4V8jP6AlsMWNmjBUu.wPgIWB.whZ0O0yJ_0rn2ALs_IICsK_twRzlZspNETtapVUhv13kZSiwO
+ tuPptpvjkGSHKLGkrdHiFi_ftp3TH9NU0PKabUa8FsHj0u3amhnh2LFyw0BWz937Efd2xoRsm._t
+ Xp71I.OaC2y_nGRNuRng0kUgU5a9kWZnXdOXj9klDGAf6mb81d1fnnq_kE6T24HTjyjukjDdhFHf
+ 34ZzZb4ZPENmfrXtc6w9hVA4bL_WDWxDEynJFaQnJxsgCV0VVHGl4pCJb0JdGH79JH0XWoRN8q7.
+ hY_8ClVK.xU1wbwdNEA3LiRlIXpTmM9PeaGScduhnqJSgaPU8XT0bNjQ7UhYQqCk39WDWwitK9bl
+ l4QG1VCdv6G0BCk1v9JQdayL69rN02EX8DColnqBHh5xA_dLyqQEc3MkDMEjLLr7VmUAeMC8lb6V
+ _euX37AQEbeLinN4OMz5v6SdK8p8lPQLgln12ezgahZQTVstRdtVwVQDCTF8rmxJMOrWwu_C8TId
+ J1_Og3za0k4VKJaB2HGi0hdkifQ9.DiG3RtwFGYNfCpHX4aZ6tnXjOBX2.CVagHMW5pJ_HYMI_gX
+ s.WSVbRBOOILhzoJM.bx0sdRJlchiadweeK2Rh7NR9HstKOlqc0gab4IuHa8Tgk62Nx7ULVrA2pj
+ 0mf0Zohdr5O1ngPpkdhyAs1DOjschcAoJu69OdFeX2VXok.kQSICNl3yJxSS06mNcV9d0XRnn0PB
+ vJi87.4yCkaqBkGqNAnl7xV60IXjwEpdq4qyNlmoQexBx28vlR90idZvj5QlaRR2ZsFdFh.Fz8Br
+ GSuQTtxRTzFjrdPWQGubTiBKCVio0UQlsxCBN8NIhZkBC33EvWRqzhIi.ccyJYO_1gB64i7TPYHo
+ 3_6rOZxWP0Nnj08CpC0uyxC.vLi5Av8mtXvDQ6SH.lgEqLDwumzsCWrV.uxkoBup8dr8zcgH8_7r
+ 0WL4eaSR.
+X-Sonic-MF: <namiltd@yahoo.com>
+X-Sonic-ID: a489773e-6412-4553-977e-0a5fc5d1ab86
+Received: from sonic.gate.mail.ne1.yahoo.com by sonic304.consmr.mail.ne1.yahoo.com with HTTP; Tue, 8 Sep 2026 11:18:18 +0000
+Received: by hermes--production-ir2-cddf86dcf-rk2hx (Yahoo Inc. Hermes SMTP Server) with ESMTPA ID 0f3422411e7bf53728402e6080428f01;
+          Tue, 08 Sep 2026 10:57:34 +0000 (UTC)
+Message-ID: <11b0c7d4-4e77-42a8-9528-6dacafd3e251@yahoo.com>
+Date: Tue, 8 Sep 2026 12:57:34 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <29aaa2ec-c1fe-4f60-a6d1-f8c797587986@ti.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4] clk: qcom: ipq-cmn-pll: keep the CMN block bus clocks
+ enabled
+To: Stanislaw Pal <kuncy7@gmail.com>, Bjorn Andersson <andersson@kernel.org>,
+ Stephen Boyd <sboyd@kernel.org>, Michael Turquette <mturquette@baylibre.com>
+Cc: Jie Luo <jie.luo@oss.qualcomm.com>, Georg Seema <georgseema@gmail.com>,
+ Brian Masney <bmasney@redhat.com>, linux-arm-msm@vger.kernel.org,
+ linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20260805193638.15327-1-kuncy7@gmail.com>
+ <20260813093351.178419-1-kuncy7@gmail.com>
+Content-Language: pl
+From: Mieczyslaw Nalewaj <namiltd@yahoo.com>
+In-Reply-To: <20260813093351.178419-1-kuncy7@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Mailer: WebService/1.1.26460 mail.backend.jedi.jws.acl:role.jedi.acl.token.atz.jws.hermes.yahoo
 
-Hi Udit,
+Hi Stephen, Bjorn,
 
-On Sun, Sep 06, 2026 at 10:49:52AM +0530, Kumar, Udit wrote:
-> Hi Leonardo
-> 
-> On 8/3/2026 11:04 PM, Leonardo Costa wrote:
-> > From: Leonardo Costa <leonardo.costa@toradex.com>
-> > 
-> > Add a device tree overlay for the Toradex DSI to LVDS Adapter with the
-> > Toradex Capacitive Touch Display 10.1" LVDS V2. The adapter connects to the
-> > Aquila DSI_1 interface. It is based on the Texas Instruments SN65DSI84
-> > DSI-to-LVDS bridge and drives an Opto Logic SCX1001511GGC49 10.1" WXGA TFT
-> > LCD LVDS panel. Touch input is provided by an ILITEK ILI251x capacitive
-> > touch controller.
-> > 
-> > Link: https://developer.toradex.com/hardware/accessories/add-ons/dsi-lvds-adapter
-> > Link: https://developer.toradex.com/hardware/accessories/displays/capacitive-touch-display-101inch-lvds
-> > Signed-off-by: Leonardo Costa <leonardo.costa@toradex.com>
-> > ---
-> >  arch/arm64/boot/dts/ti/Makefile               |   5 +
-> >  ...dsi-to-lvds-v2-panel-cap-touch-10inch.dtso | 153 ++++++++++++++++++
-> >  2 files changed, 158 insertions(+)
-> >  create mode 100644 arch/arm64/boot/dts/ti/k3-am69-aquila-dsi-to-lvds-v2-panel-cap-touch-10inch.dtso
-> > 
-> > diff --git a/arch/arm64/boot/dts/ti/Makefile b/arch/arm64/boot/dts/ti/Makefile
-> > index f4d109ef6798a..8a59fc597aede 100644
-> > --- a/arch/arm64/boot/dts/ti/Makefile
-> > +++ b/arch/arm64/boot/dts/ti/Makefile
-> > @@ -218,6 +218,7 @@ dtb-$(CONFIG_ARCH_K3) += k3-am69-aquila-dev.dtb
-> > [..]
-> > +
-> > +	panel-lvds-bridge {
-> > +		compatible = "optologic,scx1001511ggc49", "panel-lvds";
-> 
-> > +		backlight = <&backlight_pwm3>;
-> > +		data-mapping = "vesa-24";
-> > +		height-mm = <136>;
-> > +		width-mm = <217>;
-> > +
-> > +		panel-timing {
-> > +			clock-frequency = <70000000>;
-> 
-> Looking at
-> https://lore.kernel.org/linux-arm-kernel/20260623195741.495734-1-leoreis.costa@gmail.com/T/#mc4ed25e5253da6dc635fd3eddc317dac8f447f3e
-> 
-> 
-> you are using three different clock-freq 69500000, 64500000 and
-> 70000000 here.
-> Could add some comment here, why freq is adjusted.
+Just a quick ping regarding this series. The discussion between 
+Stanislaw and Qualcomm (Jie Luo) has been fully settled in late August. 
+It was proven that handling this on the UNIPHY side is not possible due 
+to the early stage of the watchdog reset.
 
-It's for the same reason as the 69500000 clock frequency in the Verdin
-AM62 patch. In general the DSI to LVDS bridge requires longer horizontal
-porch and sync values than the typical values for the display, and we
-intend to use the values on this patch in the general case when the
-bridge is used. The reason why the frequency here (70000000) is
-different from the Verdin AM62 one (69500000) is because we found that
-that 70000000, along with the other timing values, work more
-consistently with the bridge across our modules, the ones on the Verdin
-AM62 ended up being a first iteration.
+Are there any remaining concerns, or can this v4 be picked up for the 
+next cycle?
 
-I'll add a comment explaining the difference from the native LVDS values
-in the v2 patch.
+Mieczyslaw Nalewaj<namiltd@yahoo.com>
 
-Kind regards,
-Leonardo
+
