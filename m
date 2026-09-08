@@ -1,172 +1,142 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26DE8526A85;
-	Tue,  8 Sep 2026 12:07:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.7
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6EC7538D7B
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 12:08:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788869291; cv=none; b=FdmlTzJFFquAniWVblKO51+GWSjzBAKedU+0pvE8KteUvRb+wBBGpnPFE8X5zSNOM60DsoXmjBdFWF0nEQ35FanABAvvLPgxNBNvjwfOe+TMRJVD/zzQMsbtYt81b67vyIqXpZ83Mu1GUMWOmKJS0SRUdzsYlzXAv79XsymI3cE=
+	t=1788869304; cv=none; b=o+Ro0HQr4oFGhm9qNMUri5ZZb2NNVDRiklWxz1Kni4bF+ZOiaJsaTA/ceSl4WA/XH9FAsq5ocvgkRkcj9papWhq/qebHU0wuthGoVdjfpoerIYsYNJon5pARALHvCwSpIImgtrMLrSY8/BGlvUoZ1k5TGLWIY9KPQHFclNntgLs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788869291; c=relaxed/simple;
-	bh=nY/f36e4XCBpBx5q/CWt81lKze9qX8oQl+TRB/FvkTs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=LoY3oqtTOzLHxKkTFK49TwUVhMoa339IH26qhkQ3ASt5uTtVmd1S14AJGVm0uP2pYe87Kp5Ge0e+FbzpwhLWxLXgEpzhC+XEhQYK2/CyJ0O4WWTmATUhEe/cIJgkybhF5/egSoLlC4tC7aOoPmzTissgNsWw/UWyjNXngWVTN+I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Hb35ncvK; arc=none smtp.client-ip=192.198.163.7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1788869304; c=relaxed/simple;
+	bh=JHMWfsW5CyNQs5sLAnfEG7ermVzW+vcIzePTWPMKrvk=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=GY2To8iaqtIsQl4R8mLX5wOh87avPZz3fg+kmwEhJf/y6vekRqHKDM/HzIjgbUpjRbtl8SGyaBnulFHUU90y582sH2x+E4MKIFGwJd6iy1wVL4ZAEBwdkXkE0NseuKED9F0/ZGqooSvlKB6JKEJyTOTXcPGZBr55BWDh9VF8neg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WfY94E6h; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Hb35ncvK"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788869282; x=1820405282;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=nY/f36e4XCBpBx5q/CWt81lKze9qX8oQl+TRB/FvkTs=;
-  b=Hb35ncvK12XJLhsrM9hI6n2EhjQE44/EMsJmBaKO5NVE58ZzfjNLjpu/
-   VSdz6m8KupLFFbjHvwcsd8bcq3tFmvNgevGEIgef53q0q5TxdQR/bByho
-   VsdnHC0w5rxRCBdPt9KBy7BvIhWV7pLJNFb7Zc60qTOYCshA8nUZF45FJ
-   o1PRDLvrYxDdIvt/U/cH5SpvGewESFDkoLNjzQ8Ep+O3kt9ZvxHwqGtRa
-   w/R9OAuIaBv3pihirVvr2O7bb5Jgfi38OzyEMCGxGfR41UEMKrUimxeRg
-   OuJ2ntS4/AAlzw4XueAVcXLr3L9hzxGenhLIVSEZK35OKlU0b8OiDVZSx
-   Q==;
-X-CSE-ConnectionGUID: 9GRQVngTQeWRxFOet64O8w==
-X-CSE-MsgGUID: I4j3WyeyTNq4UBwSwYzVTg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11899"; a="114808210"
-X-IronPort-AV: E=Sophos;i="6.25,268,1779174000"; 
-   d="scan'208";a="114808210"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
-  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Sep 2026 05:07:54 -0700
-X-CSE-ConnectionGUID: aBvCWuEhSdG7xqg4PMl2eg==
-X-CSE-MsgGUID: VDjQnp8RRumfORIpT2bbvw==
-X-ExtLoop1: 1
-Received: from black.igk.intel.com ([10.91.253.5])
-  by fmviesa003.fm.intel.com with ESMTP; 08 Sep 2026 05:07:50 -0700
-Received: by black.igk.intel.com (Postfix, from userid 1008)
-	id BC6F499; Tue, 08 Sep 2026 14:07:49 +0200 (CEST)
-Date: Tue, 8 Sep 2026 14:07:49 +0200
-From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-To: Sven Peter <sven@kernel.org>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Janne Grunau <j@jannau.net>,
-	Neal Gompa <neal@gompa.dev>,
-	Andreas Noever <andreas.noever@gmail.com>,
-	Mika Westerberg <westeri@kernel.org>,
-	Yehezkel Bernat <YehezkelShB@gmail.com>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Konrad Dybcio <konradybcio@kernel.org>, linux-usb@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH v2 02/22] usb: typec: Represent USB4 on the Type-C bus
-Message-ID: <ap_6lY1fBb5L6VaO@black.igk.intel.com>
-References: <20260906-b4-apple-soc-tbt-v2-0-1f80085f93fb@kernel.org>
- <20260906-b4-apple-soc-tbt-v2-2-1f80085f93fb@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WfY94E6h"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CDE5C1F00A3E
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 12:08:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788869291;
+	bh=e1BflZLG/y41ig4kA0DqIwNP4dQBVnCs0NJUnHjdC2Q=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=WfY94E6hZptpfHeIcig8Cl9DDaeMftQRo5GISPOT1MzoYNk4nv1/Fkv2bjdsfcNAA
+	 ENFYR8DIuJUV/EYAdMMcB5g8PUP2nmTxJrMogLgM1XbATM3ZTRtbCibR9lLDllOR/i
+	 ndymrHKR+p1JrhfW5YTHT7HIUENRpEoJUQsMWXtmu6cWn5UEhp89qWZ1geqAwxiTgf
+	 nxemDOB2mm08RgDO2RCtg8qowe4hKQTgQUvHtxgZv2ECt8Jt/PZXmvsvaEKxaiyE0Q
+	 DRhed6AkUn1qEcDtda/I9LsVHVlfb+25zWP40rc4fuga1AsZXdPtskxnuzcf3LQjMg
+	 qv/YgQLJeprNQ==
+Received: by mail-vk1-f171.google.com with SMTP id 71dfb90a1353d-59b074ec7ceso2106835e0c.1
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 05:08:11 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxuf45S9JEGtpIL2frgtonlKfOVIP8mlKfaR8Q/e96ldHE/LUkGBQkGZEVwhfTYgCvFeQHxgiqmsHe+ICA=@vger.kernel.org
+X-Gm-Message-State: AFuF++npV4eNkH/ehVdMU257siW6a1o9Pj4ryVpqfiMLqxMQOxyET8pU
+	5r97Ihcxcjln1lAExbm7QBSK5Gcd0brvI9FOuYF6CnioLlRDl1cFDOafoMDWKH5q4VGoeAi1nb1
+	tD60n7IGf5t512UhJPm8lZ80+QxEZtOQ=
+X-Received: by 2002:a05:6122:32cc:b0:5bd:aba5:3830 with SMTP id
+ 71dfb90a1353d-5c7ed0c4c20mr15328463e0c.0.1788869291010; Tue, 08 Sep 2026
+ 05:08:11 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260906-b4-apple-soc-tbt-v2-2-1f80085f93fb@kernel.org>
+References: <20260908043124.53175-1-mario.limonciello@amd.com>
+In-Reply-To: <20260908043124.53175-1-mario.limonciello@amd.com>
+From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Date: Tue, 8 Sep 2026 14:07:01 +0200
+X-Gmail-Original-Message-ID: <CAJZ5v0iMjdmjEoHFB8W3Do_qqLqfuJJYA-R_rGG3qhZBEekuiQ@mail.gmail.com>
+X-Gm-Features: AcwNN1WaDQywLkU6MV1NZpHwLD3dHl8GMTPwTm6V5Fc_2wQqMaGrHpaJvnSmK3I
+Message-ID: <CAJZ5v0iMjdmjEoHFB8W3Do_qqLqfuJJYA-R_rGG3qhZBEekuiQ@mail.gmail.com>
+Subject: Re: [PATCH v2] ACPI: utils: Ignore leading root scope prefix in
+ string _UID match
+To: Mario Limonciello <mario.limonciello@amd.com>
+Cc: "Rafael J . Wysocki" <rafael@kernel.org>, Saket Dumbre <saket.dumbre@intel.com>, 
+	Len Brown <lenb@kernel.org>, 
+	"open list:ACPI COMPONENT ARCHITECTURE (ACPICA)" <linux-acpi@vger.kernel.org>, 
+	"open list:ACPI COMPONENT ARCHITECTURE (ACPICA)" <acpica-devel@lists.linux.dev>, open list <linux-kernel@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Sun, Sep 06, 2026 at 08:36:25PM +0200, Sven Peter wrote:
-> USB4 technically isn't alternate mode and entered using the EUDO and has
-> no SVID or Discover Modes Response. We can still represent it like an
-> altmode on the Type-C bus though by adding a mode kind. Exclude the USB4
-> modes from any SVID-specific operations and driver binding, but allow
-> consumers to observe their state through notifications.
-> 
-> Like for other altmodes, expose the USB4 mode to sysfs: Add a mode_kind
-> to be able to differentiate and then expose the EUDO, make the USB4
-> active state read-only since we only represent firmware-negotiated USB4
-> modes and omit anything that only applies to SVID-specific altmodes.
-> 
-> Signed-off-by: Sven Peter <sven@kernel.org>
+On Tue, Sep 8, 2026 at 6:32=E2=80=AFAM Mario Limonciello
+<mario.limonciello@amd.com> wrote:
+>
+> Firmware may express an ACPI namespace path used as a _UID with or
+> without the leading root scope character ('\'). For example, an AMD
+> IVRS IVHD ACPI HID device entry may carry a character UID of
+> "\_SB.MHSP" while the corresponding device's _UID evaluates to
+> "_SB.MHSP" (or vice versa).  This semantic difference is due to how
+> Windows PnP enumerates and uses devices.
+>
+> acpi_str_uid_match() compared the two strings verbatim, so such
+> entries failed to match on the UID even though they refer to the same
+> object. In the AMD IOMMU case (get_acpihid_device_id()) this caused
+> the exact HID+UID match to be missed and the code to fall through to
+> the HID-only path, spuriously raising a FW_BUG.
+>
+> Skip a single leading '\' on either string before comparing so that
+> paths that differ only by the root scope prefix are treated as a
+> match. The integer _UID path is unaffected.
+>
+> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
 > ---
-> Hope it's fine to add you as the contact for the sysfs documentation,
-> happy to add myself otherwise though.
+> v2:
+>  * Add kdoc
+>  * Make sure the string is at least two characters long to normalize
 > ---
->  Documentation/ABI/testing/sysfs-bus-typec | 36 ++++++++++++++
->  drivers/usb/typec/bus.c                   | 67 ++++++++++++++++++++-----
->  drivers/usb/typec/class.c                 | 83 +++++++++++++++++++++++++++----
->  drivers/usb/typec/mode_selection.c        |  6 ++-
->  include/linux/usb/typec.h                 | 20 +++++++-
->  include/linux/usb/typec_altmode.h         | 10 +++-
->  6 files changed, 193 insertions(+), 29 deletions(-)
-> 
-> diff --git a/Documentation/ABI/testing/sysfs-bus-typec b/Documentation/ABI/testing/sysfs-bus-typec
-> index 205d9c91e2e1..524bbcbadf64 100644
-> --- a/Documentation/ABI/testing/sysfs-bus-typec
-> +++ b/Documentation/ABI/testing/sysfs-bus-typec
-> @@ -12,6 +12,35 @@ Description:
->  
->  		Valid values are boolean.
->  
-> +		For USB4 mode devices this attribute is read-only. On a port it
-> +		indicates whether USB4 support is enabled; on a partner it reports
-> +		whether USB4 is active. USB4 entry and exit are controlled by the
-> +		port controller. Partner state changes notify this attribute and
-> +		generate KOBJ_CHANGE uevents.
-> +
-> +What:		/sys/bus/typec/devices/.../mode_kind
-> +Date:		September 2026
-> +Contact:	Heikki Krogerus <heikki.krogerus@linux.intel.com>
-> +Description:
-> +		Read-only protocol kind represented by this mode device:
-> +		"altmode" for an SVID-specific alternate mode, or "usb4" for
-> +		USB4 negotiated using Enter_USB.
-> +
-> +		USB4 devices do not expose svid, mode, vdo, or priority
-> +		attributes, or the legacy modeN attribute group. USB4 partner
-> +		uevents contain MODE_KIND=usb4 instead of SVID, MODE, and
-> +		MODALIAS variables.
-> +
-> +What:		/sys/bus/typec/devices/.../eudo
-> +Date:		September 2026
-> +Contact:	Heikki Krogerus <heikki.krogerus@linux.intel.com>
-> +Description:
-> +		Read-only Enter_USB Data Object (EUDO), formatted as
-> +		0x followed by eight hexadecimal digits. Present only on USB4
-> +		partner mode devices, not on ports or SVID-specific alternate
-> +		modes. USB4 cable information is encoded in the EUDO; there are
-> +		no USB4 cable plug mode devices.
-> +
->  What:		/sys/bus/typec/devices/.../description
->  Date:		July 2018
->  Contact:	Heikki Krogerus <heikki.krogerus@linux.intel.com>
-> @@ -36,6 +65,8 @@ Description:
->  		the mode index is not assigned, identifying the alternate mode
->  		must be done with either mode VDO or the description.
->  
-> +		This attribute is not present on USB4 mode devices.
-> +
->  What:		/sys/bus/typec/devices/.../svid
->  Date:		July 2018
->  Contact:	Heikki Krogerus <heikki.krogerus@linux.intel.com>
-> @@ -43,9 +74,14 @@ Description:
->  		The Standard or Vendor ID (SVID) assigned by USB-IF for this
->  		alternate mode.
->  
-> +		This attribute is not present on USB4 mode devices.
-> +
->  What:		/sys/bus/typec/devices/.../vdo
->  Date:		July 2018
->  Contact:	Heikki Krogerus <heikki.krogerus@linux.intel.com>
->  Description:
->  		Shows the VDO in hexadecimal returned by Discover Modes command
->  		for this mode.
-> +
-> +		This attribute is not present on USB4 mode devices. USB4 partner
-> +		mode devices expose the EUDO in the eudo attribute.
+>  include/acpi/acpi_bus.h | 20 +++++++++++++++++++-
+>  1 file changed, 19 insertions(+), 1 deletion(-)
+>
+> diff --git a/include/acpi/acpi_bus.h b/include/acpi/acpi_bus.h
+> index a10a591c18b23..cfc3c8a21cb8e 100644
+> --- a/include/acpi/acpi_bus.h
+> +++ b/include/acpi/acpi_bus.h
+> @@ -826,11 +826,29 @@ static inline bool acpi_dev_hid_match(struct acpi_d=
+evice *adev, const char *hid2
+>         return hid1 && hid2 && !strcmp(hid1, hid2);
+>  }
+>
+> +/**
+> + * acpi_str_uid_match - Compare ACPI string _UID values
+> + * @adev: ACPI device providing the primary _UID
+> + * @uid2: Secondary _UID string to check against
+> + *
+> + * Returns true when both _UID strings match after optionally removing a
+> + * leading root scope character ('\') when the string contains additiona=
+l
+> + * characters. Returns false if either _UID is missing or differs after =
+the
+> + * normalization.
+> + */
 
-USB4 needs to have its own device type. The USB4 mode should not
-expose things like svid and the vdo at all. And the USB4 mode
-registration should be done with a dedicated API IMO.
+I'd rather update the existing kerneldoc comments of
+acpi_dev_uid_match() than add a new one here.
 
-Thanks,
+You can say something like this in there:
 
--- 
-heikki
+"If both the UID in @adev and @uid2 are strings, they are compared
+after optionally skipping a leading backslash ('\') when the given
+string contains additional characters."
+
+>  static inline bool acpi_str_uid_match(struct acpi_device *adev, const ch=
+ar *uid2)
+>  {
+>         const char *uid1 =3D acpi_device_uid(adev);
+>
+> -       return uid1 && uid2 && !strcmp(uid1, uid2);
+> +       if (!uid1 || !uid2)
+> +               return false;
+> +
+> +       if (*uid1 =3D=3D '\\' && uid1[1])
+> +               uid1++;
+> +       if (*uid2 =3D=3D '\\' && uid2[1])
+> +               uid2++;
+> +
+> +       return !strcmp(uid1, uid2);
+>  }
+>
+>  static inline bool acpi_int_uid_match(struct acpi_device *adev, u64 uid2=
+)
+> --
+> 2.43.0
+>
