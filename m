@@ -1,121 +1,156 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 595B44D2ED7;
-	Tue,  8 Sep 2026 09:04:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11D314A64C7
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 09:04:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788858297; cv=none; b=QHLlWPEmLTYuwgxipA9HTrb607zDzx7WDOX2Z/7KLvoGqEXQHGNfXaXFKwpO2lheoSNPRm+fDdkwP7E8+XRDq1lHhNTgNWvy8PXvxVmTN+3x/9n+FDMLKixPeotWfLFoXuroW82aKLpvTs+yacUp8dE3KrbqtCN9RbtC4fFGLUA=
+	t=1788858299; cv=none; b=MEBH037rYPZzmmqM4pHQjLRsqOzpFXUyafE6fL5BWAVDJ0jH+RbtlSBYeJ7ZrD7efmtIOCd1R7YgOxx8PJ678KtEc6EOigmg7W7iGjeb71XXN855x93oNDu/dnZ2E6kzjHdpXn27JEGC8MuecOg9lsv7Oauvab5ywYmeEsEMGHQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788858297; c=relaxed/simple;
-	bh=Vx1+49obiewOl79639DZmF1wkibxkyCTID+ViVIiLj4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=T9ySsi252c2+5Km1VPaJSL3NLIcI7PUUdOPwG024Vnd75rDPFnDygCK2bp9OBlQKWsvZUCK1I0HX1BIhOLYOIjjibfdo5ioWWV1qcQpFirhRQj1AupfjlqPPR7mn4OwRn1yLYL+cbW1Wkz4zNypQFM1fnS8ZbJt6I9AiyK+5Kp0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CFYpoiSP; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788858299; c=relaxed/simple;
+	bh=YhduCODJr21RV/qnoWSb4NuDoadYla4kv0KPFaGd77U=;
+	h=From:To:Subject:Date:Message-ID:MIME-Version; b=kANrgQPclNSjiCa81XzNGD9SideHqkvyPKM/too8xJ1WAo+TlTNIUFqUYAPGxjVPXUKA1s+v76kjcoS1xO5Xq4uVSEOaRxQ+tR+kZtkO82mxs3f9W0fT430iEMIL4LQ5h99lLFkGmPT3La2XquaJf3LHJdu1Wg80f4hLsmgTMk4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mBIp8wXl; arc=none smtp.client-ip=209.85.221.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CFYpoiSP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5B39E1F00A3A;
-	Tue,  8 Sep 2026 09:04:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788858295;
-	bh=c6uWSG7TONdZIgB8zJx1aIyc4MlIdIcgiOHUki77mf0=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=CFYpoiSPQy2NDLOjj8XnhJAYn0T2smT3Snkl/DiwvG+nMXd0D8xDfu/KSZMYoobY/
-	 5nCwJWkTMWFbAQoSnC5sYoNX/S+ZOVOcnsRh74CrLBxEhcr3FmjL2/r8H3yEygETx2
-	 OibZHemzsRvYIXc7OKvAtcNFdCfLGZuNmc9Q5NmTmBykzAOxAOqXMTuzZVSlq8vpfI
-	 DAJaEwDHT0ntAcWGHnhzwGKtwigyCPjILr0D0E+e3IE9HwjtuXWKU1tEB8s0pA3ssX
-	 FmAcotCs69g6VOtQkHBss2PuR/dzVmTq4M4luJU9Rb1OShlDYlJin6Xaa31einVSZ5
-	 e7xsfn/SWjFJA==
-Message-ID: <9a0bd113-56c2-47ce-89b7-64afa8453f79@kernel.org>
-Date: Tue, 8 Sep 2026 11:04:49 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mBIp8wXl"
+Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-4858be8b509so1926970f8f.0
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 02:04:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788858296; x=1789463096; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:to
+         :from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=eIZ+kUaFwJKaLRLpyngmxMQG27w+758uZsHUvhX4A7o=;
+        b=mBIp8wXl563j46M+dFAPSnYa+XJA0zpsHpagMwwGsOLN3+2kXcZfVSaKyp4/KldzUT
+         aoe/abkDH51pIsoFMGR1hKSzoKNtyCalx7WUqusOzmMv6A86APuLKbxXJh91gxy7iCdY
+         v5VqG98HEUd5bKGQrPoTNfxTAPI+vvXLt9+3YDONpL1u8zft7/IFiEQfZYPZZlzWfE2a
+         JxRk39mVNsd+Rul5AUby6n5/LYyAiVxjPesWNKUEXt+qiSU3JQWf2MwJpHrQcR2FPtus
+         qTTgSwtAkJUOJDHZUkOvUe+XoxHjEUyBirx84eRFBwVAm+Sj5gGLQbt7kKCFvuKsBGtR
+         F+ow==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788858296; x=1789463096;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:to
+         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=eIZ+kUaFwJKaLRLpyngmxMQG27w+758uZsHUvhX4A7o=;
+        b=GVIjsPxEPRcePNbl+O0nhNucF9GVRZgSc2heJsUE2eQunWp0QW6RsVbTQZ215MAoXv
+         vDVIkVgmnn8hHZ2gqNa71hayioOAi54Z/KSwu06PBXGcejgyuf6xnjQlvJ2H0eciKYHD
+         s4r/Qw+qHseXODID7CDCbM6YNTOq5fZI7dY73FXaZTKVFid+YanxhBVt6JTPAq8Q6ERB
+         bC5i2xVspUb6LfOFokjCo2edqXOD+XjZW/SGtkAMaKlpCsmbJaQhGjdBKScrfsPdGmlq
+         I6fn4/bg5rTXao8omVsiy2X50iyIXe8UqrRSTUYUBxfUh6NwUAoKeI0lHD3TS8/DS1LT
+         AzVg==
+X-Forwarded-Encrypted: i=1; AKwUvByjielrh0eT/1lqF03hlZwZrugJf+mHiMzynSs51jTJASmYJ4cFo6sA42mbObs/EWeINJeGRzK5G5i2I5w=@vger.kernel.org
+X-Gm-Message-State: AFuF++lxDHaYxqlJSq5JUo6rQpySNxhuGU1A9Px235fJJZmAnJPTHJ0Q
+	+y+tMGZvZCQwcapeYKclaxMk1RLYAs/sY59dmlgoOfWkbOSmJaiWZQ0x
+X-Gm-Gg: AYBFou10PLzKGPKmPHggfzBfzjE6sVPBrn+/Sv8Qjo9wFAxVO/kaw0LMTE8Yc5BqGwq
+	4XsfDfPb2FPXw/MpysVfdT9p1FCuyOU0XYO7gNRaNSXCtNkfjRnsJ+9Sc4Ei8RjBbBIXQLiRcXQ
+	Vsr+CqXmeSuPq0kBm82+c4s4ZSTtVw9/8biktTJ5PbKhcu7YEYfYsCjcB86es8+Tx+kBdswW5MW
+	cBnolFQhTVaisZ1UjHaDTDMJg2YL7j2PF/z2lDG+G+HmVcx1HeJg8Z0p7MYoDd9Nm6/ILoFnr9H
+	AXMq3ibm8xZqmZ0ELT7vdyhOU/a+5Z04ORqctXCo/xC/bGFKVBQRZG5wsdumunU61uahqFmo4wF
+	WKNlDncU14EDAe+SPkGDyyu3KqguCE64LRW1N0DQF99tuKGkkQzecHodX7tMArTHLgVo27y5GbA
+	bCKxtJHwLwgtdlDqihTuNtX050EPC58HHrn9ZSN6WykQpsNMRsvtZrokQpI3DWQGfxPTshheyOo
+	sV1KTognm3YDa4cevC3+93IgFXYEmuH+/Cm6W0yQjKR/DLpHzup
+X-Received: by 2002:a05:6000:2602:b0:485:8c16:a33b with SMTP id ffacd0b85a97d-4858c16a5b3mr26273747f8f.48.1788858295822;
+        Tue, 08 Sep 2026 02:04:55 -0700 (PDT)
+Received: from Ansuel-XPS24.localdomain (host-79-26-252-140.retail.telecomitalia.it. [79.26.252.140])
+        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-485881353e8sm34767945f8f.1.2026.09.08.02.04.53
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 08 Sep 2026 02:04:55 -0700 (PDT)
+From: Christian Marangi <ansuelsmth@gmail.com>
+To: Christian Marangi <ansuelsmth@gmail.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Cyril Chao <Cyril.Chao@mediatek.com>,
+	Darren Ye <darren.ye@mediatek.com>,
+	Rosen Penev <rosenp@gmail.com>,
+	Daniel Golle <daniel@makrotopia.org>,
+	bui duc phuc <phucduc.bui@gmail.com>,
+	linux-sound@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org
+Subject: [PATCH v6 0/5] ASoC: Add support for Airoha AN7581
+Date: Tue,  8 Sep 2026 11:04:42 +0200
+Message-ID: <20260908090448.3332-1-ansuelsmth@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/7] dt-bindings: arm: qcom: Distinguish IdeaCentre Mini
- 01Q8X10 SKUs
-To: jens.glathe@oldschoolsolutions.biz, Bjorn Andersson
- <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260905-x1-ideacentre-mini-prettify-v1-0-9a87882973bb@oldschoolsolutions.biz>
- <20260905-x1-ideacentre-mini-prettify-v1-1-9a87882973bb@oldschoolsolutions.biz>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20260905-x1-ideacentre-mini-prettify-v1-1-9a87882973bb@oldschoolsolutions.biz>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 05/09/2026 11:28, Jens Glathe via B4 Relay wrote:
-> From: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
-> 
-> The Lenovo IdeaCentre Mini 01Q8X10 exists on both X1E80100 (Hamoa) and
-> X1P42100 (Purwa). A single two-entry compatible cannot tell those
-> device trees apart.
-> 
-> Move the board out of the generic X1E80100 enum and document two
-> three-entry lists:
-> 
->   lenovo,hamoa-ideacentre-mini-01q8x10, lenovo,ideacentre-mini-01q8x10,
->   qcom,x1e80100
-> 
->   lenovo,purwa-ideacentre-mini-01q8x10, lenovo,ideacentre-mini-01q8x10,
->   qcom,x1p42100
-> 
-> Assisted-by: Grok 4.5 (xAI)
-> Signed-off-by: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
-> ---
+Add all the patch and documentation to support Airoha AN7581
+sound driver.
 
+The card follows similar implementation with Mediatek with
+the codec present on i2c but with a simplified implementation
+register wise and additional frequency supported.
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Changes v6:
+- Fix PCM probe allocation logic
+- Split driver patch to dedicated PCM/ETDM patch and machine driver
+Changes v5:
+- Address comments from bot
+- Better handle concurrent irq status bit
+- Protect enable etdm
+- Add Review tag for documentation patch
+- Address formal comments from Cezary
+Changes v4:
+- Improve Documentation YAML
+- Move IRQ regmap to mtk_base_afe_irq
+- Use mutex for user tracking in ETDM
+- Register IRQ after memif allocation
+- Address suggestion from bot
+Changes v3:
+- Major fix to the ETDM code
+- Add duplex support
+- Improve Kconfig setup
+- Rework and improve YAML schema
+Changes v2:
+- Fix wrong edit in MAINTAINERS file
 
-Best regards,
-Krzysztof
+Christian Marangi (5):
+  ASoC: dt-bindings: Add Airoha AN7581 AFE Sound card
+  ASoC: dt-bindings: Add Airoha AN7581 AFE with WM8960 Codec schema
+  ASoC: mediatek: common: permit to provide dedicated regmap for irq
+  ASoC: airoha: Add AFE driver for Airoha AN7581
+  ASoC: airoha: Add machine driver for Airoha AN7581
+
+ .../bindings/sound/airoha,an7581-afe.yaml     |  41 ++
+ .../bindings/sound/airoha,an7581-wm8960.yaml  |  71 +++
+ MAINTAINERS                                   |   8 +
+ sound/soc/mediatek/Kconfig                    |  27 +-
+ sound/soc/mediatek/Makefile                   |   1 +
+ sound/soc/mediatek/an7581/Makefile            |   9 +
+ sound/soc/mediatek/an7581/an7581-afe-common.h |  49 ++
+ sound/soc/mediatek/an7581/an7581-afe-pcm.c    | 515 ++++++++++++++++++
+ sound/soc/mediatek/an7581/an7581-dai-etdm.c   | 433 +++++++++++++++
+ sound/soc/mediatek/an7581/an7581-reg.h        | 114 ++++
+ sound/soc/mediatek/an7581/an7581-wm8960.c     | 161 ++++++
+ sound/soc/mediatek/common/mtk-afe-fe-dai.c    |  14 +-
+ sound/soc/mediatek/common/mtk-base-afe.h      |   2 +
+ 13 files changed, 1439 insertions(+), 6 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/sound/airoha,an7581-afe.yaml
+ create mode 100644 Documentation/devicetree/bindings/sound/airoha,an7581-wm8960.yaml
+ create mode 100644 sound/soc/mediatek/an7581/Makefile
+ create mode 100644 sound/soc/mediatek/an7581/an7581-afe-common.h
+ create mode 100644 sound/soc/mediatek/an7581/an7581-afe-pcm.c
+ create mode 100644 sound/soc/mediatek/an7581/an7581-dai-etdm.c
+ create mode 100644 sound/soc/mediatek/an7581/an7581-reg.h
+ create mode 100644 sound/soc/mediatek/an7581/an7581-wm8960.c
+
+-- 
+2.53.0
+
