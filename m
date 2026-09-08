@@ -1,220 +1,96 @@
-Received: from mta-65-226.siemens.flowmailer.net (mta-65-226.siemens.flowmailer.net [185.136.65.226])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com [209.85.214.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A5194A4986
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 10:30:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.136.65.226
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA6E14A2A79
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 10:31:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788863444; cv=none; b=ph93SU6GTJDMg6sCkBNwB9CSD8ilhnyK/GrRc7yW1I6Av7flUOuInVN+olKiiE8SEBToUKmb+XK0wCFIJ5TKKfgKR9co3WncvR0e1yJ7AcseanvJ2qRDmk5WPfn4rhytdzy6Y5RxV+jRfDYH1CqKTfAycrvK6+UYJIEFHhw0Ewk=
+	t=1788863494; cv=none; b=TyPiQgZXT+LzweozsrDPruHcAqQGr4gRBtJ4OcFMWynNTZa8dfmUk9nlMFCO6BsNNla46gatYTTxclZnR2ugA6CnsmhrR2TBaT3lUUavBumLFe2ZRebV0KuIUzPlD/qrXC1Yxu82a0nmKAFIMd+q9clij7stwp7nEc5T9tPqW0Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788863444; c=relaxed/simple;
-	bh=jejD5tyHD+z+dFavnE/bAo22Ic9KsttO0SUR1aWI41g=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=WpLUaw/IZoqoVFz+ZC57YcDqmfPRGq2brjToagGClpdpDbT+v3XmEFpffi0yOnDJ4EPFYwTJyUg8jpy9iRcsUvv/AwfnJoDY7XbL/LvIej/95VJtYdpJX2iRbKBorCqNlxhEHiAIzFWS4QZ72ZOsh94Qc+w3nt3RhHLovk79pNs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=siemens.com; spf=pass smtp.mailfrom=rts-flowmailer.siemens.com; dkim=pass (2048-bit key) header.d=siemens.com header.i=alexander.sverdlin@siemens.com header.b=TO+DTXp1; arc=none smtp.client-ip=185.136.65.226
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=siemens.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rts-flowmailer.siemens.com
+	s=arc-20240116; t=1788863494; c=relaxed/simple;
+	bh=A6304mBG6FGQ/fDwUs64kFcv0me8rAoRLEcQnUU7XNI=;
+	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=OCLzCczXQoQqukIHq0voIRxrGG70hIpgBFN5G+mXI1l9VE+IykB4mrCQc+218LRJwrAEb+Z+fI1wixlcebTiAih+fC9bFSskg3c8nVpMVNstrXYX2HS9VULwX9voH3TZTYtr627F/4qArogfp1H7qtK/a1Jrwhhf+z20159ZVzo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SXMnl04J; arc=none smtp.client-ip=209.85.214.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=siemens.com header.i=alexander.sverdlin@siemens.com header.b="TO+DTXp1"
-Received: by mta-65-226.siemens.flowmailer.net with ESMTPSA id 20260908103033ff29ba2643000207a5
-        for <linux-kernel@vger.kernel.org>;
-        Tue, 08 Sep 2026 12:30:33 +0200
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; s=fm2;
- d=siemens.com; i=alexander.sverdlin@siemens.com;
- h=Date:From:Subject:To:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:Cc;
- bh=cXsBg++g0XcgxWjL4j+nuGi4c1iZjskX4TzBJMIyIXg=;
- b=TO+DTXp1rJrg4wQ6BfWrWlOgCi3lH2TOcxiLBFRbiO+8KzG7Vy6kIt6InfyDSgwFD6tOCy
- TRBmJE9K0FC3R570hr57cDUZNmfYyHV+15VqrN+1A/nsToQBhsrPAcxA+ILO3b1goprxsHvj
- /uPdndBh+3xLW92u/W9EYb5/ou5SvMflNH22/otJqjnYVdEfXgus555tQ2VyFGYtM8IPtWH7
- BinXDAHbDqd/qcXtOKRQdkEO3dhCNeguJFNwQETepFc3Zp81xflb56bAVLFHV0NXywgKOlm3
- /EtGFtm8ud0vy1CbWviftz3Z3FmdhOg58SoQ3a6ZCdi9rBPiK3UzkjWQ==;
-From: "A. Sverdlin" <alexander.sverdlin@siemens.com>
-To: netdev@vger.kernel.org
-Cc: Alexander Sverdlin <alexander.sverdlin@siemens.com>,
-	Daniel Golle <daniel@makrotopia.org>,
-	Hauke Mehrtens <hauke@hauke-m.de>,
-	Andrew Lunn <andrew@lunn.ch>,
-	Vladimir Oltean <olteanv@gmail.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Russell King <linux@armlinux.org.uk>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2] net: dsa: mxl-gsw1xx: deassert internal PHY resets before MDIO registration
-Date: Tue,  8 Sep 2026 12:30:28 +0200
-Message-ID: <20260908103030.4032992-1-alexander.sverdlin@siemens.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SXMnl04J"
+Received: by mail-pl1-f170.google.com with SMTP id d9443c01a7336-2d71ae3455aso70331565ad.1
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 03:31:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788863493; x=1789468293; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:date:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Qn71u/aHB6JMlwJXjbL0v7QfP4FTsu1/7iGvG4jLTdM=;
+        b=SXMnl04Jt7GS4VlhXGFe8jlWIVwqk6OYJAc6J1gIs4m5+/alQ+PV5fTkbhdtVm6EWU
+         9ZzXsN5hnZ7SgByvA1E7w2fVwaebQsSTwuCtFAqRS+/E8+LnpvlNs9RGrufL5Jlkv+6C
+         y2GELT8u2IPgO5gwVSr9Q4YPvufMnsBZ1QNPvLK8R9E1r33yFcIkXOHT3z+fNZeTk9gb
+         aSW5idlOuCsquafCAW/mBktvjoRtRxH1fSojTVMpK4+wgrP9L3R7oo3k5IYTvaRHkCVw
+         e7ckUISqv/1ZIzRrScrcJ0ijz1di95V0cDVST/qw150+GwDjtIAAlRUGQDGTheuBnPEX
+         h7kw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788863493; x=1789468293;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Qn71u/aHB6JMlwJXjbL0v7QfP4FTsu1/7iGvG4jLTdM=;
+        b=ZgO05cN9SyE7kwJoVb19gOMRjRj57YzuD7Ec01A7wLoqDUPQ3JHJe53j6Qwi4ulRkq
+         4FHIqcIimd99+S1Dn7jINsO1jL4MryojZT+aTcdMUJcqLWMqXPcNDWQ9nwNFmT+D30ZY
+         epVLNDfdgwmcYQnZnLja9Jp3prveS0eXeFQN7nLargkREUm83znl7AynjNLZIe1Qm6kC
+         8cnJcytFcoKCj6CJ8vJ6IdLJUuYsrUz+illPpEmD3VDRGqfBRI1Pg8HR6uPDi56CGOC6
+         saon+Zki/9ID3IHy2lTWAju6kzCE3n9nNgOsb4IHKkeSsjPHgPJsvuE+TD/Y2cs4MefS
+         rsKw==
+X-Forwarded-Encrypted: i=1; AKwUvBxHi8F7nGGbW37uiucGpdTg6PCgbiDLlKyw6Iw9IsqqhTCb1rDsSBESRQEc930aR4ArUUAASuUnJrKr6Ec=@vger.kernel.org
+X-Gm-Message-State: AFuF++l2hVyCW28tQjpOlz6AC2xCwd3DS3KycpM3e1IieE4tGZUjbD9a
+	dNLG0MNVRhQcOAKh4nankh+HeB/+nYJRn3BE/iWfmv7jDG6gPl4Rco9y
+X-Gm-Gg: AYBFou0g2QD/17ATA3OVvYaGd1D7g2fX0WDpc5+89mHoi9i+CFw5iHz2A074/2hgBK5
+	m7nN28YskmyJ9H7DbNg6JezJRoBXRtSQdNGpi9vMAE469RpwCuA3jOaq89vjXM4NnqXeFTqYf2o
+	hYCF4x4YivHpTq/2Ki98XJeLSB5+1TnMqdzSF0idnx/NGPYufEDBwwgXMBvNiKK8Q7lzqS7PDwF
+	+7b/tBMm5+TUuk9y3D0gzXGFmKgx+MDjE3ZVNYstUgrKCJuagdDwe2cSetlRh396MqKWVO3wFSn
+	qRXdTtEiVTbBGfJL0Q0cR6UvruqcxFWUJ9OqMJiI9TeVp8Pc9otyxY59i9AfOkGj1JTsoQTw7oh
+	9Xdpi0xjgVNed9/+QrVMbiY9TgOQP35K67HVNtM0OxhWZw6+WbsE++n9DSAsJIequUPNMR/M+Vz
+	ze+oVmjVRTyt6TwpYty6S376HOeEnyRta/M7W8Nzi3v3/Rdv60pXRRnZGxJF7DVff5gmki8fkYz
+	XBYIERyPEBxJ5D7B3J3mwqgsAR18U8jSyOmzVI/oyvgS8F5h2E=
+X-Received: by 2002:a17:90b:5344:b0:38e:4f41:83df with SMTP id 98e67ed59e1d1-39b261e0f14mr42744964a91.15.1788863493014;
+        Tue, 08 Sep 2026 03:31:33 -0700 (PDT)
+Received: from nxpwireless-Inspiron-14-Plus-7440 (114-25-99-144.dynamic-ip.hinet.net. [114.25.99.144])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2db1495a0b2sm55767935ad.28.2026.09.08.03.31.30
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 08 Sep 2026 03:31:32 -0700 (PDT)
+From: Jeff Chen <chunfan.chen@gmail.com>
+X-Google-Original-From: Jeff Chen <jeff.chen_1@nxp.com>
+Date: Tue, 8 Sep 2026 18:31:27 +0800
+To: Linmao Li <lilinmao@kylinos.cn>
+Cc: Francesco Dolcini <francesco@dolcini.it>,
+	Johannes Berg <johannes@sipsolutions.net>,
+	linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH wireless-next 3/3] wifi: nxpwifi: zero the channel
+ statistics array
+Message-ID: <ap/j/0/eVoq3E1nl@nxpwireless-Inspiron-14-Plus-7440>
+References: <20260813082315.1390321-1-lilinmao@kylinos.cn>
+ <20260813082315.1390321-4-lilinmao@kylinos.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Flowmailer-Platform: Siemens
-Feedback-ID: 519:519-456497:519-21489:flowmailer
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260813082315.1390321-4-lilinmao@kylinos.cn>
 
-From: Alexander Sverdlin <alexander.sverdlin@siemens.com>
-
-When the switch is bootstrapped with PS_NOWAIT = 0, the internal PHYs
-default to a held-in-reset state. The driver previously only worked with
-PS_NOWAIT = 1 where PHYs are released from reset automatically.
-
-Deassert the PHY reset lines via the RST_REQ register before the MDIO bus
-is registered, so that PHY IDs can be read during bus scan. Only release
-PHYs for ports that have a phy-handle in the device tree, so unused ports
-do not consume power. A single 300ms delay after deasserting all needed
-resets ensures the PHYs are ready for MDIO communication (refer to Intel
-XWAY, Maxlinear GPY111 datasheets or the Lantiq counterpart of the driver).
-
-Signed-off-by: Alexander Sverdlin <alexander.sverdlin@siemens.com>
----
-Changelog:
-v2:
-- Reverse Christmas tree.
-v1:
-- https://lore.kernel.org/all/20260901165049.672446-1-alexander.sverdlin@siemens.com/
-
- drivers/net/dsa/lantiq/lantiq_gswip.h        |  2 +
- drivers/net/dsa/lantiq/lantiq_gswip_common.c | 10 +++++
- drivers/net/dsa/lantiq/mxl-gsw1xx.c          | 43 ++++++++++++++++++++
- drivers/net/dsa/lantiq/mxl-gsw1xx.h          |  1 +
- 4 files changed, 56 insertions(+)
-
-diff --git a/drivers/net/dsa/lantiq/lantiq_gswip.h b/drivers/net/dsa/lantiq/lantiq_gswip.h
-index bc3686faad0d6..7af828577c27d 100644
---- a/drivers/net/dsa/lantiq/lantiq_gswip.h
-+++ b/drivers/net/dsa/lantiq/lantiq_gswip.h
-@@ -261,6 +261,8 @@ struct gswip_hw_info {
- 	const struct gswip_pce_microcode (*pce_microcode)[];
- 	size_t pce_microcode_size;
- 	enum dsa_tag_protocol tag_protocol;
-+
-+	int (*setup)(struct dsa_switch *ds);
- 	void (*phylink_get_caps)(struct dsa_switch *ds, int port,
- 				 struct phylink_config *config);
- 	struct phylink_pcs *(*mac_select_pcs)(struct phylink_config *config,
-diff --git a/drivers/net/dsa/lantiq/lantiq_gswip_common.c b/drivers/net/dsa/lantiq/lantiq_gswip_common.c
-index 0e8eedf64d3a3..61624f251aeb3 100644
---- a/drivers/net/dsa/lantiq/lantiq_gswip_common.c
-+++ b/drivers/net/dsa/lantiq/lantiq_gswip_common.c
-@@ -689,6 +689,16 @@ static int gswip_setup(struct dsa_switch *ds)
- 	 */
- 	regmap_write(priv->mdio, GSWIP_MDIO_MDC_CFG0, 0x0);
+On Thu, Aug 13, 2026 at 04:23:15 PM +0800, Linmao Li wrote:
+> adapter->chan_stats comes from vmalloc(), which does not clear the
+> memory, and nxpwifi_cfg80211_dump_survey() reads it as soon as user
+> space asks for survey data.  For the entries no scan has filled in, a
+> non-zero cca_scan_dur passes the validity check and stale bytes are
+> reported to user space as noise, time and time_busy.
+> 
+> Use kcalloc() instead.  The array holds two entries per supported
+> channel, small enough not to need vmalloc(), and the two callers change
+> to kfree() accordingly.
  
-+	/* GSW1xx will wake up the PHYs here, so it makes sense that it happens
-+	 * after the auto-polling deactivation above, but before the MDIO bus
-+	 * registration below
-+	 */
-+	if (priv->hw_info->setup) {
-+		err = priv->hw_info->setup(ds);
-+		if (err)
-+			return err;
-+	}
-+
- 	/* Configure the MDIO Clock 2.5 MHz */
- 	regmap_write_bits(priv->mdio, GSWIP_MDIO_MDC_CFG1, 0xff, 0x09);
- 
-diff --git a/drivers/net/dsa/lantiq/mxl-gsw1xx.c b/drivers/net/dsa/lantiq/mxl-gsw1xx.c
-index 347e16e9fdc1f..f4b3322181417 100644
---- a/drivers/net/dsa/lantiq/mxl-gsw1xx.c
-+++ b/drivers/net/dsa/lantiq/mxl-gsw1xx.c
-@@ -13,6 +13,7 @@
- #include <linux/delay.h>
- #include <linux/jiffies.h>
- #include <linux/module.h>
-+#include <linux/of.h>
- #include <linux/of_device.h>
- #include <linux/of_mdio.h>
- #include <linux/phy/phy-common-props.h>
-@@ -588,6 +589,44 @@ static void gsw150_phylink_get_caps(struct dsa_switch *ds, int port,
- 	gsw1xx_phylink_get_lpi_caps(config);
- }
- 
-+static int gsw1xx_setup(struct dsa_switch *ds)
-+{
-+	struct gsw1xx_priv *priv = container_of(ds->priv, struct gsw1xx_priv, gswip);
-+	struct gswip_priv *gswip_priv = ds->priv;
-+	struct device_node *phy_np;
-+	u32 phy_reset_mask = 0;
-+	struct dsa_port *dp;
-+	int ret;
-+
-+	dsa_switch_for_each_user_port(dp, ds) {
-+		struct phylink_config cfg = {};
-+
-+		/* Is there an internal PHY on this port? */
-+		gswip_priv->hw_info->phylink_get_caps(ds, dp->index, &cfg);
-+		if (!test_bit(PHY_INTERFACE_MODE_INTERNAL, cfg.supported_interfaces))
-+			continue;
-+
-+		/* Will the PHY be really used? */
-+		phy_np = of_parse_phandle(dp->dn, "phy-handle", 0);
-+		if (!phy_np)
-+			continue;
-+
-+		of_node_put(phy_np);
-+		phy_reset_mask |= GSW1XX_RST_REQ_PHY(dp->index);
-+	}
-+
-+	if (!phy_reset_mask)
-+		return 0;
-+
-+	/* Deassert resets only for PHYs referenced by active ports */
-+	ret = regmap_clear_bits(priv->shell, GSW1XX_SHELL_RST_REQ, phy_reset_mask);
-+	if (ret)
-+		return ret;
-+	msleep(300);
-+
-+	return 0;
-+}
-+
- static struct phylink_pcs *gsw1xx_phylink_mac_select_pcs(struct phylink_config *config,
- 							 phy_interface_t interface)
- {
-@@ -829,6 +868,7 @@ static const struct gswip_hw_info gsw12x_data = {
- 		[GSW1XX_MII_PORT] = GSWIP_MII_PCDU0,
- 		[GSW1XX_MII_PORT + 1 ... GSWIP_MAX_PORTS - 1] = -1,
- 	},
-+	.setup			= gsw1xx_setup,
- 	.mac_select_pcs		= gsw1xx_phylink_mac_select_pcs,
- 	.phylink_get_caps	= &gsw1xx_phylink_get_caps,
- 	.supports_2500m		= true,
-@@ -851,6 +891,7 @@ static const struct gswip_hw_info gsw140_data = {
- 		[GSW1XX_MII_PORT] = GSWIP_MII_PCDU0,
- 		[GSW1XX_MII_PORT + 1 ... GSWIP_MAX_PORTS - 1] = -1,
- 	},
-+	.setup			= gsw1xx_setup,
- 	.mac_select_pcs		= gsw1xx_phylink_mac_select_pcs,
- 	.phylink_get_caps	= &gsw1xx_phylink_get_caps,
- 	.supports_2500m		= true,
-@@ -873,6 +914,7 @@ static const struct gswip_hw_info gsw141_data = {
- 		[GSW1XX_MII_PORT] = GSWIP_MII_PCDU0,
- 		[GSW1XX_MII_PORT + 1 ... GSWIP_MAX_PORTS - 1] = -1,
- 	},
-+	.setup			= gsw1xx_setup,
- 	.mac_select_pcs		= gsw1xx_phylink_mac_select_pcs,
- 	.phylink_get_caps	= gsw1xx_phylink_get_caps,
- 	.port_setup		= gsw1xx_port_setup,
-@@ -894,6 +936,7 @@ static const struct gswip_hw_info gsw150_data = {
- 		[5] = 1,
- 		[6] = 11,
- 	},
-+	.setup			= gsw1xx_setup,
- 	.phylink_get_caps	= gsw150_phylink_get_caps,
- 	/* There is only a single RGMII_SLEW_CFG register in GSW150 and it is
- 	 * unknown if RGMII slew configuration affects both RGMII ports
-diff --git a/drivers/net/dsa/lantiq/mxl-gsw1xx.h b/drivers/net/dsa/lantiq/mxl-gsw1xx.h
-index caa8f1008587a..a7976a5988bd8 100644
---- a/drivers/net/dsa/lantiq/mxl-gsw1xx.h
-+++ b/drivers/net/dsa/lantiq/mxl-gsw1xx.h
-@@ -110,6 +110,7 @@
- #define GSW1XX_SHELL_BASE			0xfa00
- #define  GSW1XX_SHELL_RST_REQ			0x01
- #define   GSW1XX_RST_REQ_SGMII_SHELL		BIT(5)
-+#define   GSW1XX_RST_REQ_PHY(p)			BIT(p)
- #define  GSW1XX_SHELL_MANU_ID			0x10
- #define   GSW1XX_SHELL_MANU_ID_PNUML		GENMASK(15, 12)
- #define   GSW1XX_SHELL_MANU_ID_MANID		GENMASK(11, 1)
--- 
-2.55.0
-
+Reviewed-by: Jeff Chen <jeff.chen_1@nxp.com>
