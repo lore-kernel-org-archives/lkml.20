@@ -1,77 +1,56 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+Received: from mta0.migadu.com (out-41.mta0.migadu.com [91.218.175.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAF00327BFB
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 03:41:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1237C355814
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 03:41:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788838900; cv=none; b=oDruHOgOBrNAYeQuyqaMwcidqxInTynTchITaiLMZtqG9p4uLA99+fo3EvVw8MWGapSSsPnU3YBeDvCgVblFYVYW6nYMLsm5li6VyFD/j7H8r9s5HW+n5ZY2CoBqyMlSkHaq+Qc+mZu8oN741kqe6LJvnjsHErvGRhCsxIqQ++8=
+	t=1788838905; cv=none; b=o0EiinzyyGuIee2zNRh3KbLtq/zCSIPBLjRHLlWtwXRdgKC2UWWZFqpqsz7EjC5OVfz8kIoBjXJYsxapxPx9IdwaZsVEogALfZZCAp2wxB+wrkrkCT6aIcwvQ8dJ+mupmSYp3cfmqFcbfi43M+FOVZnxK5AheOGGPKf8zLrIIik=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788838900; c=relaxed/simple;
-	bh=RVYRuLJLoWEYUIPzk5QlE8xyUNB5ZMc142ZXcNtg7dw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=awKdA+tGCtAY3xm6Qc1nZdeQTk97yhKVDubOhnPAIV5o7etLW0twFiqdgSqXjdVvrqio3EWSMB1eWBd1SFhKciARQz82XqHUiXJUs1U8DbHz3/FeKMe/kDMzCAfXDFYs3Mx04BzzTcWL6TwMjyqG99b0k45pdkYxH/qIVaAVhEY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CwmKmpZp; arc=none smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788838905; c=relaxed/simple;
+	bh=nz77HtyT1E9SAWjePbr3tA2EChE5CYUU4QmxpcLu6z0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Moe4HWA6BO36Iwl9KRgw3qLBn4uGr9LqRno/RdzkQ4pMvFUIvUs7JctmCpYdO3WbuZ+HluTVkstq72ytVANC8pXeWThp2Z7Wj0u1NB6lezdqxm78Eh3Aax2jqrkeA3Xjek4ilikRrx+ppmWklNFM6kXZjsb4XfQLr3q/fhkkBEs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=aPWfvkUy; arc=none smtp.client-ip=91.218.175.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CwmKmpZp"
-Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2d6ff2f2c4dso3773795ad.0
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 20:41:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788838883; x=1789443683; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=RVYRuLJLoWEYUIPzk5QlE8xyUNB5ZMc142ZXcNtg7dw=;
-        b=CwmKmpZpidPWgTNUtHz9iVDSvoogM3OZQrY86EgrqKkljwNsoio7DFJ5BbPllzYr90
-         QvY4Nf+OqiS28JJn9auBFqFpp5TZWxkghBBrd5bgu4/WTTLWNJ2ua/OMMGnVB6b87fhr
-         hx7ky/Aw2Y7GpqJAz3yySKwE7odAnnm6BOWDe2gNL4G1k+9mwfZSLd5ZbUEjXiwuW4rq
-         fCGpkvPTD6tW7Gy3NvcUklW86CGQlA6drmpSTURUHbKN5sIxTKS+8f3yCBHJY95cn3mc
-         y8RuDC+Xpi184wU5YC0qs0ykYSr5a1KNR3pSOwCP6ilrOGR2Nxn7v7N5sz1yZf32fZ+c
-         WoSg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788838883; x=1789443683;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=RVYRuLJLoWEYUIPzk5QlE8xyUNB5ZMc142ZXcNtg7dw=;
-        b=iw3wPc93d9/Fh1ZFivDhm40H9adhOtGJxLMMYRio9GkpElk1BksA3kQ94PVc4DFHvH
-         c6NMXaOvGpwNAplq3K9PP1ib8MpVaf1DSDjdaHfpWR8/cWvj8uYExCWsoLrwn03aVh1g
-         22OLEe3Mf2DHC67ojAxiJ9X6efuVBMy3E/4cXNKSSNBoAr9f1jXM4DItU8PIMQK0ngRf
-         EatGINi9ypJhRRVBoU0ieSJxKgAd1nivcn/a8LlIYzzpiUKjGg+DjJAZCYXR85OzzfGm
-         A6Lw09vRm3aRk+EYcPzbjnXMZOsAJUnAyCcq8cpfZ/6llwtDxeHekfw7HAm3cRiZux6N
-         DQAg==
-X-Forwarded-Encrypted: i=1; AKwUvBxrX3QQlGdqsihxNiwUl5JtfSQBBsvRxaYjt7WalPeGcXGEjxsNuVxQaMSof4sQyDo25IzWgZuORWU0rbU=@vger.kernel.org
-X-Gm-Message-State: AFuF++lgzbCNlZTd+qmuRX0C1EpAgZ+IdVrcAqZ1+BiUact+WPoihzLl
-	rQKHTYfWA11AKKJkYcedkPLWkdADgqKZu224hMZpFrp7WzgOUcjAuD2wPH50ASUs
-X-Gm-Gg: AYBFou2yD9XTbLKE9UXfV14OJYdd2ZedCbrCLQE8s2Jk7xY1/F8tMpAD37buONEUEZA
-	c/4cBnwvsP1nwpiT0AK2BjH5E5+OvDuDj/ZS5niGMag/RCTGBpNluiK6TQ3yce0E4oVqYvj3dkX
-	JPVtcqDlgwsQk1lXvK+tn4jKQrUqO3ak0UT58HChZN9zA7951oNeCrzp+NOzCv/3nqqpEgspvHF
-	rU5Ly8yvxu4e8dvLzLCmHA/ngXd+cby1UM9LqrtxMSg5ECopnGR1UFVAoSZ+kZA7dty6xfoF0ae
-	d6b/uLO74xioKQwnI0ljPCu452lhoM9V8kstbwYWHhx17VPgFEG9pcjewqixSkSw3q/1DIAGoLW
-	nsUgumZBCmWrQF/SvGJr3V2l2BpIXJF9AIPdPw6amJ+LIfTs3pjgMeY8YeDhwFWkzCiAJq1YUtp
-	ZAcfJOu8Wa6MDCGF/wxV4s/aYq8g/hwMHb26n/uLWM3G5MB72nYJ//qBGBVDM1RI0ydVPBlxJUq
-	YnFas39ryQFPaUA+B37J8+0UpLE18DNIT6MNPvI
-X-Received: by 2002:a17:90b:2801:b0:38f:aa76:88b with SMTP id 98e67ed59e1d1-39b3d7d056fmr17645951a91.4.1788838883266;
-        Mon, 07 Sep 2026 20:41:23 -0700 (PDT)
-Received: from cachyos-aura ([45.112.148.105])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3369856a9f7sm13696442eec.5.2026.09.07.20.41.19
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 07 Sep 2026 20:41:22 -0700 (PDT)
-From: Navon John Lukose <navonjohnlukose@gmail.com>
-To: Johannes Berg <johannes@sipsolutions.net>,
-	linux-wireless@vger.kernel.org
-Cc: Miri Korenblit <miriam.rachel.korenblit@intel.com>,
-	Bjorn Helgaas <helgaas@kernel.org>,
-	Emmanuel Grumbach <emmanuel.grumbach@intel.com>,
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="aPWfvkUy"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=nz77HtyT1E9SAWjePbr3tA2EChE5CYUU4QmxpcLu6z0=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788838889; v=1; x=1789443689;
+ b=aPWfvkUyXzY8VsxxwbswTIE7mQi0QqNICMmJpbd2tXskxvLDZKEOYQx3vgi5se5zLSKwuWmE
+ jPGflZ0Aya0Eg3IzmXnW2TfS8dEpng4zMiT24uJurJO2O42/blZVzDhX5Zijq2p9LbneGDCHQLl
+ 9ccgDzalSG/ZZxcAalDMQPGo=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta12.migadu.com with ESMTPS id 074fc28e9a8b36e4;
+	Tue, 08 Sep 2026 03:41:29 +0000
+X-Mizu-Trace-ID: 074fc28e9a8b36e4
+X-Migadu-Flow: FLOW_OUT
+From: Hui Zhu <hui.zhu@linux.dev>
+To: Johannes Weiner <hannes@cmpxchg.org>,
+	Michal Hocko <mhocko@kernel.org>,
+	Roman Gushchin <roman.gushchin@linux.dev>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	Muchun Song <muchun.song@linux.dev>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	David Hildenbrand <david@kernel.org>,
+	Qi Zheng <qi.zheng@linux.dev>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Kairui Song <kasong@tencent.com>,
+	Barry Song <baohua@kernel.org>,
+	Axel Rasmussen <axelrasmussen@google.com>,
+	Yuanchu Xie <yuanchu@google.com>,
+	Wei Xu <weixugc@google.com>,
+	cgroups@vger.kernel.org,
+	linux-mm@kvack.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH wireless v2 1/3] wifi: iwlwifi: pcie: don't infer CSME presence from a failed read
-Date: Tue,  8 Sep 2026 09:11:16 +0530
-Message-ID: <20260908034116.416258-1-navonjohnlukose@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <60a8acf1adc0d2acc5c558c4cc791d01421f6b92.camel@sipsolutions.net>
-References: <20260831130332.323549-1-navonjohnlukose@gmail.com> <20260831130332.323549-2-navonjohnlukose@gmail.com> <20260901154828.GA1879052@bhelgaas> <20260901161736.GA1883420@bhelgaas> <1a2c11d47b27dfd8a246300ac158d25cef5abf35.camel@sipsolutions.net> <20260906230022.148733-1-navonjohnlukose@gmail.com> <60a8acf1adc0d2acc5c558c4cc791d01421f6b92.camel@sipsolutions.net>
+Cc: Hui Zhu <zhuhui@kylinos.cn>
+Subject: [PATCH v4 0/4] mm: workingset: fix the shadow node budget under MGLRU
+Date: Tue,  8 Sep 2026 11:41:10 +0800
+Message-ID: <cover.1788837625.git.zhuhui@kylinos.cn>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -80,21 +59,95 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Fair enough, and sorry. I should have said this up front.
+From: Hui Zhu <zhuhui@kylinos.cn>
 
-English is not my first language, and I used an LLM to look up commit
-hashes and to rewrite parts of these mails. I see how that looks on a
-list, and that you want to disengage here.
+Commit 7404bd37cfbe ("mm: workingset: use lruvec_lru_size() to get the
+number of lru pages") broke the workingset shadow node budget under
+MGLRU: lruvec_lru_size() reads mz->lru_zone_size, which MGLRU never
+maintains, so count_shadow_nodes() sees the evictable LRU lists as
+empty and the shadow shrinker reclaims eviction tokens almost as fast
+as they are created, losing thrashing protection.
 
-The work is mine. I hit the D3cold failure on my own machine, did the ACPI
-and Ghidra digging to find why the reset never gets armed, wrote the
-patches and tested them here. I assume I should have written the mails in
-my own words here, sorry if I violated any policies.
+Patch 1 extends the dying-mcg stat redirection (previously cgroup v1
+only) to all hierarchies, addressing the reparenting race that motivated
+7404bd37cfbe.
 
-If any of the technical points in that reply were actually wrong, I would
-still like to know, since I would rather fix the patches than defend them.
-But I understand if you would rather leave it.
+Patch 2 then switches count_shadow_nodes() back to
+lruvec_page_state_local(), which both classic LRU and MGLRU maintain.
 
-Sorry for wasting your time.
+Patch 3 recovers the performance.  Patch 1 added an unconditional
+rcu_read_lock() to the stat update fast path; patch 3 checks
+memcg_is_dying() first and takes the RCU lock only on the rare dying
+path.
 
-Navon
+Patch 4 closes an accounting gap that patch 2 makes visible: on cgroup
+v2, reparent_state_local() never moves the dying memcg's
+non-hierarchical lruvec stats to the parent, so the parent receives
+the uncharges without the matching charges and its state_local
+underflows.  Patch 4 reparents those stats, mirroring cgroup v1.
+
+Performance testing
+===================
+
+The test script and the raw results are available at [1].
+
+Environment: 10-vCPU QEMU guest, 8 GiB RAM, cgroup v2; 7 runs per
+configuration, medians reported.  Workloads:
+
+  w1-anon-churn: single-threaded anon fault/charge loop in a memcg
+                 (MADV_DONTNEED + re-fault, no reclaim).  Every touch
+                 is a real fault with charge and memcg stat updates,
+                 so it stresses exactly the fast path patch 1 changes.
+  w2-file-churn: file read loop under memory.high pressure
+                 (reclaim-bound, noisier).
+  w3-reparent:   reparent accounting sanity check.
+
+w1-anon-churn (pages/s):
+
+                 classic LRU          MGLRU
+base             4393028              4377122
+patches 1-2      4385996   (-0.2%)    4352887   (-0.6%)
+patches 1-3      4381832   (-0.3%)    4377053   (+0.0%)
+
+w2-file-churn (MB/s):
+
+                 classic LRU          MGLRU
+base             8277                 8226
+patches 1-2      8226      (-0.6%)    8123      (-1.3%)
+patches 1-3      8157      (-1.4%)    8294      (+0.8%)
+
+w3-reparent passed on all kernels.
+
+The small overhead visible with patches 1-2 comes from the redirection
+added by patch 1; patch 3 brings w1 back to the base level in both LRU
+configurations.  The remaining differences are within run-to-run noise.
+Patch 4 only touches the memcg offline path and is not exercised by
+these workloads.
+
+[1] https://gist.github.com/teawater/32f373ec41d185d840455eb167321a5a
+
+Changelog:
+v4:
+According to the comments of Andrew, Fix "follow-up patch" to
+"preceding patch" in the commit message to match the reordered series.
+According to the comments of Sashiko, add patch 4 to reparent the
+non-hierarchical lruvec stats on cgroup v2 to fixing the state_local
+underflow.
+v3:
+According to the comments of Shakeel, reorder the series per review,
+add Fixes/Cc stable and the user-visible impact to patch 1.
+
+Hui Zhu (4):
+  mm: memcg: redirect stats updates of dying memcgs for all hierarchies
+  mm: workingset: use lruvec_page_state_local() to count lru pages
+  mm: memcg: skip the RCU lock when the memcg is not dying
+  mm: memcg: reparent non-hierarchical lruvec stats on cgroup v2
+
+ mm/memcontrol-v1.h |  5 ++--
+ mm/memcontrol.c    | 72 +++++++++++++++++++++++++---------------------
+ mm/workingset.c    |  5 ++--
+ 3 files changed, 45 insertions(+), 37 deletions(-)
+
+-- 
+2.43.0
+
