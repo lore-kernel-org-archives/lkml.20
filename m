@@ -1,55 +1,90 @@
-Received: from dggsgout11.his.huawei.com (dggsgout11.his.huawei.com [45.249.212.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE2D85505F8;
-	Tue,  8 Sep 2026 13:05:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.249.212.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9BF55505F3
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 13:05:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788872751; cv=none; b=r9alpJ5UAJbQoAKtYSFdcBqn11/ynjrejtplza3OTUChvoGKrFNKNJNesUgGA9axglpzT5Liy3/7WCx8zgA28YhsFSdYX+yrBcrtR4UhqehEr47s3trLtVltx+XIM4WcvPQdhV0cazsbu3QXwMPkMGtNQl2SYXyI51FGrdOz3wU=
+	t=1788872752; cv=none; b=nJxWSyLAkbmhlDZSyjiCSr1/zKgJP53Jz/mFObdSQhDuQC4FOo4K27pz/31xF8q9f53MEJvUIQbVXNQUGHq9a8Bct+3Q9FS97Xxe/8wKLxwPOmv+pSi1RM5nUroH5pRh9WHTimR+P0X2OJAbYWhjBL7lmbem6A4MoqZQdlDHxnY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788872751; c=relaxed/simple;
-	bh=wd+DkufeoDIg/aUt79AXXStJz/ZyyMUYtSQv9wF8JXM=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=Gd1idV6KaujK4sIQE10WSDA5TcyBt/47MzU6W90nC97IQJUiVV0kuvdtwVQHpGf6gARv7vXsuLCW7FnxDZUIHNnCaJ0f+1/hMGgqmEhXiALGW12e2PwMIrVVDsdc1YLpn92/rP0CbvOev7ZCkbtwyOPBhVHbm38adc3cydVK+G8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com; spf=pass smtp.mailfrom=huaweicloud.com; arc=none smtp.client-ip=45.249.212.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huaweicloud.com
-Received: from mail.maildlp.com (unknown [172.19.163.198])
-	by dggsgout11.his.huawei.com (SkyGuard) with ESMTPS id 4hfPKv4rk5zYQw6L;
-	Tue,  8 Sep 2026 21:04:51 +0800 (CST)
-Received: from mail02.huawei.com (unknown [10.116.40.75])
-	by mail.maildlp.com (Postfix) with ESMTP id 2DF2540578;
-	Tue,  8 Sep 2026 21:05:43 +0800 (CST)
-Received: from huawei.com (unknown [10.67.174.45])
-	by APP2 (Coremail) with UTF8SMTPA id Syh0CgDHLUoeCKBqX3XjBA--.22748S12;
-	Tue, 08 Sep 2026 21:05:42 +0800 (CST)
-From: Tengda Wu <wutengda@huaweicloud.com>
-To: Namhyung Kim <namhyung@kernel.org>,
-	james.clark@linaro.org,
-	xueshuai@linux.alibaba.com,
-	Adrian Hunter <adrian.hunter@intel.com>
-Cc: Peter Zijlstra <peterz@infradead.org>,
-	leo.yan@linux.dev,
-	Li Huafei <lihuafei1@huawei.com>,
-	Ian Rogers <irogers@google.com>,
-	Kim Phillips <kim.phillips@arm.com>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Arnaldo Carvalho de Melo <acme@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Bill Wendling <morbo@google.com>,
-	Nick Desaulniers <nick.desaulniers+lkml@gmail.com>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Zecheng Li <zli94@ncsu.edu>,
-	linux-perf-users@vger.kernel.org,
+	s=arc-20240116; t=1788872752; c=relaxed/simple;
+	bh=Go39NKKMwkuXXP/SejpjyZo/TgbX2bfpHuiP0B8nCjc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=mXhKRv14UWVYOZgxiyRt7a09Dar2LHYqKgZfQVHVWXC+oaHWDu5DskssOt1BVeKqsBERPeNuXwcWN8jwQdtRvFgrQV6t1CVEePCW+Udws3PM/yGAIf1RLoaUevIq9q5qcD9mdk/CNiY7lK5m29lfWDGwPrDmHpHtyiSxTxEM+2w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=NrC+l5QQ; arc=none smtp.client-ip=209.85.128.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="NrC+l5QQ"
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-49ccfae359fso40713775e9.3
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 06:05:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1788872745; x=1789477545; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=piB6olxsDjTKBBKWtT/80MoIuyo/txOuxpczb55KJIY=;
+        b=NrC+l5QQzZzDbvV6/pkfTnXgMK0XcSkJnoytyNbe7501PmrJanyoeAjdRO1fdwf4Ll
+         67IDRbN1G+sVWuaAd1KB2BSXS+zy2GRvqkwg2e/sN9dxiGBYuL/qIfGkt0DahOEt1el0
+         MxdEls46Qbj+M/bd8F1PDJCZhbhOsv50FbzaWeJuUjvSHsw5gEMjEQn08JdFrMZtIzAZ
+         BKIOHHZ25Mm6PD7co3sSdOXVJ9cmvlP3wDGtNmwlDYrIfXO/v26LidRKeDzjPHNzLzg4
+         rTVqy6krhRLImqWFjEuj7dyKgnOU6pbV87DzNWsWY1+x22upFloQh7qWk22OW7WSEbL+
+         VuaA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788872745; x=1789477545;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=piB6olxsDjTKBBKWtT/80MoIuyo/txOuxpczb55KJIY=;
+        b=X0vyjlCylBbVisWsGE1vGtKe3dxVLwiyb12z8ptEshLW+sI0U1dkLkZQ7LyPNtZoJv
+         j/VZxvy3hnJtiy3LnC+OIRczYMvQ+HSUGmeCad/NiIxUBT8HvUqJucTPcc3VBU0A7V8p
+         nBwAVRXyENBPXNCn+/KPq5fPLMZzHPj+ZcV86sxMQxPPQ1+vScim9qRg3D9Bi5Rfb8mW
+         I1TgF0w1lkscsEQ3z6mJkWlMef6K7gLGkWDmGKBFoXPC5dgb4G/xlTkYyPIq9LYiX0mJ
+         dgOmV0DdHcgnFbuLbaT8kxcitLQwUdzkVfHGLIh8TLJplAWNFI3CR3kYQNTigoa1iN8z
+         b6cw==
+X-Forwarded-Encrypted: i=1; AKwUvBwn69Y41BK1+fPbJZDfjaKXz0M3sg5Rr+QVQwnIY+ihylm8yvlk4yVVqTkwkFbnZeaBpXfQLLHlbVXPgdo=@vger.kernel.org
+X-Gm-Message-State: AFuF++k82fKPNBmvIChtzyKZB2kS1MMznQFc5HSZbdoYAbzKIpevdsgu
+	iiqPXgl/OZqdH6tiVSXHUDZ44knTl0N0BSeAB8VcBe0c+23ekJAIL3KLaFvfR0iilU4=
+X-Gm-Gg: AYBFou3pjyZyyFGiafiv+kaNdEwjEV1uNo/gvG5thzvRrr8bh2Vy9rDOP0ItARDGna6
+	8kW05sSMJNlwEm8yy+IxUWFrLL85Nd6thCit21uZSyxQh9Uuu2HVtdV+uPp6NC8Yy7xXmGSaYpP
+	zni1gfKXYV/OrI5jdVqkEX6LWLUZ+l0VraMZ+zTh3w/pMrh3694jO3DvXUTWMhtd0flYekeY9vh
+	4EmJMJHQNRyP87hTl6Qnyypr2RqsIGSgH8l2wb4+NjRpK5CFejOt8/IwQmhvtD7ci+KTTzQOgM/
+	xqGlzg1LabOS4NeT7xLbZJsZCOci4JcCvbmcU5w8fB/1wo+PI2UOQxll4seZRe2p5clsWY+Gp71
+	8zyKd6jgqANBn0CqefXGM+rDXxrVIm7+7B579pGfMmCFztGp3zy1vI1Lk1DxpaJwpgQJBdKE+za
+	rQThp6swPtUCEfncOBnQrFq9jJWE42tBiCIT7HobJJyxWI+WYg8Rwb5w7Xeg==
+X-Received: by 2002:a05:600c:1914:b0:499:60bf:c6f7 with SMTP id 5b1f17b1804b1-49cf8269fdfmr280303225e9.13.1788872744932;
+        Tue, 08 Sep 2026 06:05:44 -0700 (PDT)
+Received: from localhost ([82.145.119.95])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ce554d52esm335275315e9.3.2026.09.08.06.05.43
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 08 Sep 2026 06:05:43 -0700 (PDT)
+From: Andrea della Porta <andrea.porta@suse.com>
+To: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
+	linux-pwm@vger.kernel.org,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Florian Fainelli <florian.fainelli@broadcom.com>,
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+	Andrea della Porta <andrea.porta@suse.com>,
+	devicetree@vger.kernel.org,
+	linux-rpi-kernel@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
-	llvm@lists.linux.dev,
-	Tengda Wu <wutengda@huaweicloud.com>
-Subject: [PATCH v5 10/26] perf annotate: Default to --itrace=i1i for data type profiling
-Date: Tue,  8 Sep 2026 13:05:13 +0000
-Message-Id: <a30bf174539765875129c06381932702934fd0c9.1788872630.git.wutengda@huaweicloud.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <cover.1788872630.git.wutengda@huaweicloud.com>
-References: <cover.1788872630.git.wutengda@huaweicloud.com>
+	Naushir Patuck <naush@raspberrypi.com>,
+	Stanimir Varbanov <svarbanov@suse.de>,
+	mbrugger@suse.com,
+	Sean Young <sean@mess.org>,
+	Julian Braha <julianbraha@gmail.com>,
+	"Gary Guo" <gary@garyguo.net>,
+	Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+Cc: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: [PATCH v8 1/3] dt-bindings: pwm: Add Raspberry Pi RP1 PWM controller
+Date: Tue,  8 Sep 2026 15:09:12 +0200
+Message-ID: <ee0aa89faa14e0073f1271693bae28678652998b.1788872294.git.andrea.porta@suse.com>
+X-Mailer: git-send-email 2.51.0
+In-Reply-To: <cover.1788872294.git.andrea.porta@suse.com>
+References: <cover.1788872294.git.andrea.porta@suse.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -57,210 +92,94 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:Syh0CgDHLUoeCKBqX3XjBA--.22748S12
-X-Coremail-Antispam: 1UD129KBjvJXoW3JFy5ZrykXF4kZw1kXr4Utwb_yoW3Zrykpr
-	nxCr9rKwnxXr4rKwnIyF4UZF1Yk34rXFyY9r1YkF4rA3yxur9rtFyxtr15tFW3Xw1DC3sI
-	vws09wn8Za1rZaDanT9S1TB71UUUUUJqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUHCb4IE77IF4wAFF20E14v26rWj6s0DM7CY07I20VC2zVCF04k2
-	6cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28IrcIa0xkI8VA2jI8067AKxVWUAV
-	Cq3wA2048vs2IY020Ec7CjxVAFwI0_Xr0E3s1l8cAvFVAK0II2c7xJM28CjxkF64kEwVA0
-	rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVW7JVWDJwA2z4x0Y4vE2Ix0cI8IcVCY1x0267
-	AKxVWxJr0_GcWl84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAF
-	wI0_GcCE3s1ln4kS14v26r1Y6r17M2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4
-	xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1Y6r17McIj6I8E87Iv67AKxVWUJVW8
-	JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20V
-	AGYxC7M4IIrI8v6xkF7I0E8cxan2IY04v7MxkF7I0En4kS14v26rWY6Fy7MxkF7I0Ew4C2
-	6cxK6c8Ij28IcwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c
-	02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_GFv_
-	WrylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVW5JVW7JwCI42IY6xIIjxv20xvEc7
-	CjxVAFwI0_Cr1j6rxdMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AK
-	xVWxJVW8Jr1lIxAIcVC2z280aVCY1x0267AKxVWxJr0_GcJvcSsGvfC2KfnxnUUI43ZEXa
-	7xRxnoUUUUUUU==
-X-CM-SenderInfo: pzxwv0hjgdqx5xdzvxpfor3voofrz/
 
-ARM SPE-based sampling can synthesize multiple events on a single
-instruction, as shown below. This would affect data type profiling
-statistics:
+From: Naushir Patuck <naush@raspberrypi.com>
 
-  Available samples
-  0 arm_spe_0/ts_enable=1,pa_enable=1,load_filter=1,store_filter=1,min_latency=30/
-  0 dummy:u
-  84K l1d-miss
-  95K l1d-access
-  77K llc-miss
-  58K llc-access
-  9K tlb-miss
-  108K tlb-access
-  0 branch
-  13K remote-access
-  108K memory
-  108K instructions
+Add the devicetree binding documentation for the PWM
+controller found in the Raspberry Pi RP1 chipset.
 
-While 'perf report' provides an interactive menu for users to select a
-specific event to prevent duplicate counting, 'perf annotate' lacks such
-a mechanism. Consequently, it counts all instructions across these
-overlapping events, which inflates the profile and distorts the data
-type statistics.
-
-Although using the '--itrace' option can work around this issue (e.g.:
-perf annotate --data-type --stdio --itrace=i1i), it is inconvenient for
-users to specify this explicitly every time.
-
-To address this, introduce itrace_synth_opts.default_single_event_per_ip.
-Set this field to true when data type profiling is enabled and the user
-has not explicitly specified an itrace option. In itrace_synth_opts__set_default(),
-use this flag to default to synthesizing at most one event per IP (equivalent
-to --itrace=i1i) to prevent duplicate sample counts.
-
-Signed-off-by: Tengda Wu <wutengda@huaweicloud.com>
+Signed-off-by: Naushir Patuck <naush@raspberrypi.com>
+Co-developed-by: Stanimir Varbanov <svarbanov@suse.de>
+Signed-off-by: Stanimir Varbanov <svarbanov@suse.de>
+Signed-off-by: Andrea della Porta <andrea.porta@suse.com>
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 ---
- tools/perf/builtin-annotate.c |  8 ++++++++
- tools/perf/util/arm-spe.c     |  5 ++++-
- tools/perf/util/auxtrace.c    | 12 ++++++++++--
- tools/perf/util/auxtrace.h    |  7 ++++++-
- tools/perf/util/cs-etm.c      |  2 +-
- tools/perf/util/intel-bts.c   |  2 +-
- tools/perf/util/intel-pt.c    |  3 ++-
- 7 files changed, 32 insertions(+), 7 deletions(-)
+ .../bindings/pwm/raspberrypi,rp1-pwm.yaml     | 66 +++++++++++++++++++
+ 1 file changed, 66 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/pwm/raspberrypi,rp1-pwm.yaml
 
-diff --git a/tools/perf/builtin-annotate.c b/tools/perf/builtin-annotate.c
-index 69cb72b2082a..d5b66893c47c 100644
---- a/tools/perf/builtin-annotate.c
-+++ b/tools/perf/builtin-annotate.c
-@@ -873,6 +873,14 @@ int cmd_annotate(int argc, const char **argv)
- 	annotate.session = perf_session__new(&data, &annotate.tool);
- 	if (IS_ERR(annotate.session))
- 		return PTR_ERR(annotate.session);
-+	/*
-+	 * Hardware tracing (e.g., ARM SPE) may synthesize multiple events per
-+	 * instruction. When data type profiling is enabled, default to synthesizing
-+	 * at most one event (equivalent to --itrace=i1i) to prevent skewed
-+	 * statistics.
-+	 */
-+	if (annotate.data_type && !itrace_synth_opts.set)
-+		itrace_synth_opts.default_single_event_per_ip = true;
- 
- 	annotate.session->itrace_synth_opts = &itrace_synth_opts;
- 
-diff --git a/tools/perf/util/arm-spe.c b/tools/perf/util/arm-spe.c
-index 401aab529309..ae7a5e9c3892 100644
---- a/tools/perf/util/arm-spe.c
-+++ b/tools/perf/util/arm-spe.c
-@@ -2029,7 +2029,10 @@ int arm_spe_process_auxtrace_info(union perf_event *event,
- 	if (session->itrace_synth_opts && session->itrace_synth_opts->set) {
- 		spe->synth_opts = *session->itrace_synth_opts;
- 	} else {
--		itrace_synth_opts__set_default(&spe->synth_opts, false);
-+		struct itrace_synth_opts *opts = session->itrace_synth_opts;
-+		bool single_event_per_ip = opts ? opts->default_single_event_per_ip : false;
+diff --git a/Documentation/devicetree/bindings/pwm/raspberrypi,rp1-pwm.yaml b/Documentation/devicetree/bindings/pwm/raspberrypi,rp1-pwm.yaml
+new file mode 100644
+index 0000000000000..be020583fd0ba
+--- /dev/null
++++ b/Documentation/devicetree/bindings/pwm/raspberrypi,rp1-pwm.yaml
+@@ -0,0 +1,66 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/pwm/raspberrypi,rp1-pwm.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
 +
-+		itrace_synth_opts__set_default(&spe->synth_opts, false, single_event_per_ip);
- 		/* Default nanoseconds period not supported */
- 		spe->synth_opts.period_type = PERF_ITRACE_PERIOD_INSTRUCTIONS;
- 		spe->synth_opts.period = 1;
-diff --git a/tools/perf/util/auxtrace.c b/tools/perf/util/auxtrace.c
-index aa749e1c3036..ed2113190785 100644
---- a/tools/perf/util/auxtrace.c
-+++ b/tools/perf/util/auxtrace.c
-@@ -1478,8 +1478,15 @@ s64 perf_event__process_auxtrace(const struct perf_tool *tool __maybe_unused,
- #define PERF_ITRACE_MAX_LAST_BRANCH_SZ		1024
- 
- void itrace_synth_opts__set_default(struct itrace_synth_opts *synth_opts,
--				    bool no_sample)
-+				    bool no_sample, bool single_event_per_ip)
- {
-+	if (single_event_per_ip) {
-+		synth_opts->instructions = true;
-+		synth_opts->period_type = PERF_ITRACE_PERIOD_INSTRUCTIONS;
-+		synth_opts->period = 1;
-+		return;
-+	}
++title: Raspberry Pi RP1 PWM controller
 +
- 	synth_opts->branches = true;
- 	synth_opts->transactions = true;
- 	synth_opts->ptwrites = true;
-@@ -1582,7 +1589,8 @@ int itrace_do_parse_synth_opts(struct itrace_synth_opts *synth_opts,
- 
- 	if (!str) {
- 		itrace_synth_opts__set_default(synth_opts,
--					       synth_opts->default_no_sample);
-+					       synth_opts->default_no_sample,
-+					       synth_opts->default_single_event_per_ip);
- 		return 0;
- 	}
- 
-diff --git a/tools/perf/util/auxtrace.h b/tools/perf/util/auxtrace.h
-index 6947f3f284c0..5012bead1b92 100644
---- a/tools/perf/util/auxtrace.h
-+++ b/tools/perf/util/auxtrace.h
-@@ -65,6 +65,10 @@ enum itrace_period_type {
-  * struct itrace_synth_opts - AUX area tracing synthesis options.
-  * @set: indicates whether or not options have been set
-  * @default_no_sample: Default to no sampling.
-+ * @default_single_event_per_ip: Default to synthesizing at most 1 event per IP
-+ *                               (equivalent to --itrace=i1i). Used by commands
-+ *                               like 'perf annotate --data-type' to avoid duplicate
-+ *                               sample counts for a single instruction.
-  * @inject: indicates the event (not just the sample) must be fully synthesized
-  *          because 'perf inject' will write it out
-  * @instructions: whether to synthesize 'instructions' events
-@@ -117,6 +121,7 @@ enum itrace_period_type {
- struct itrace_synth_opts {
- 	bool			set;
- 	bool			default_no_sample;
-+	bool			default_single_event_per_ip;
- 	bool			inject;
- 	bool			instructions;
- 	bool			cycles;
-@@ -622,7 +627,7 @@ int itrace_do_parse_synth_opts(struct itrace_synth_opts *synth_opts,
- int itrace_parse_synth_opts(const struct option *opt, const char *str,
- 			    int unset);
- void itrace_synth_opts__set_default(struct itrace_synth_opts *synth_opts,
--				    bool no_sample);
-+				    bool no_sample, bool single_event_per_ip);
- 
- size_t perf_event__fprintf_auxtrace_error(union perf_event *event, FILE *fp);
- void perf_session__auxtrace_error_inc(struct perf_session *session,
-diff --git a/tools/perf/util/cs-etm.c b/tools/perf/util/cs-etm.c
-index 114b3cd2da49..2d1ab34f7b6b 100644
---- a/tools/perf/util/cs-etm.c
-+++ b/tools/perf/util/cs-etm.c
-@@ -3626,7 +3626,7 @@ int cs_etm__process_auxtrace_info_full(union perf_event *event,
- 		etm->synth_opts = *session->itrace_synth_opts;
- 	} else {
- 		itrace_synth_opts__set_default(&etm->synth_opts,
--				session->itrace_synth_opts->default_no_sample);
-+				session->itrace_synth_opts->default_no_sample, false);
- 		etm->synth_opts.callchain = false;
- 		etm->synth_opts.thread_stack = session->itrace_synth_opts->thread_stack;
- 	}
-diff --git a/tools/perf/util/intel-bts.c b/tools/perf/util/intel-bts.c
-index 02df3e460489..4c9cca3acb6c 100644
---- a/tools/perf/util/intel-bts.c
-+++ b/tools/perf/util/intel-bts.c
-@@ -877,7 +877,7 @@ int intel_bts_process_auxtrace_info(union perf_event *event,
- 		bts->synth_opts = *session->itrace_synth_opts;
- 	} else {
- 		itrace_synth_opts__set_default(&bts->synth_opts,
--				session->itrace_synth_opts->default_no_sample);
-+				session->itrace_synth_opts->default_no_sample, false);
- 		bts->synth_opts.thread_stack =
- 				session->itrace_synth_opts->thread_stack;
- 	}
-diff --git a/tools/perf/util/intel-pt.c b/tools/perf/util/intel-pt.c
-index 9d6628169fd9..8c21c9f52d57 100644
---- a/tools/perf/util/intel-pt.c
-+++ b/tools/perf/util/intel-pt.c
-@@ -4463,7 +4463,8 @@ int intel_pt_process_auxtrace_info(union perf_event *event,
- 	} else {
- 		struct itrace_synth_opts *opts = session->itrace_synth_opts;
- 
--		itrace_synth_opts__set_default(&pt->synth_opts, opts->default_no_sample);
-+		itrace_synth_opts__set_default(&pt->synth_opts,
-+					opts->default_no_sample, false);
- 		if (!opts->default_no_sample && !opts->inject) {
- 			pt->synth_opts.branches = false;
- 			pt->synth_opts.callchain = true;
++maintainers:
++  - Naushir Patuck <naush@raspberrypi.com>
++  - Andrea della Porta <andrea.porta@suse.com>
++  - Stanimir Varbanov <svarbanov@suse.de>
++
++allOf:
++  - $ref: pwm.yaml#
++
++description: |
++  The PWM peripheral is a flexible waveform generator with a
++  variety of operational modes. It has the following features:
++   - four independent output channels
++   - 32-bit counter widths
++   - Seven output generation modes
++   - Optional per-channel output inversion
++   - Optional duty-cycle data FIFO with DMA support
++   - Optional sigma-delta noise shaping engine
++  Serves as a fan speed provider to other nodes for a PWM-connected
++  fan.
++
++properties:
++  compatible:
++    const: raspberrypi,rp1-pwm
++
++  reg:
++    maxItems: 1
++
++  clocks:
++    maxItems: 1
++
++  "#pwm-cells":
++    const: 3
++
++  dmas:
++    maxItems: 1
++    description: |
++      Phandle to the DMA controller and the channel specifier for
++      the duty-cycle FIFO.
++
++  dma-names:
++    items:
++      - const: tx
++
++required:
++  - compatible
++  - reg
++  - clocks
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    pwm@98000 {
++      compatible = "raspberrypi,rp1-pwm";
++      reg = <0x98000 0x100>;
++      clocks = <&rp1_clocks 17>;
++      #pwm-cells = <3>;
++    };
 -- 
-2.34.1
+2.35.3
 
