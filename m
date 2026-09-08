@@ -1,281 +1,167 @@
-Received: from mx0b-00364e01.pphosted.com (mx0b-00364e01.pphosted.com [148.163.139.74])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi2-f7.google.com (mail-oi2-f7.google.com [74.125.231.199])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 534D12F619D
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 01:20:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.139.74
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9623E2DE709
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 01:21:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788830416; cv=none; b=kgx675GYt6zOEypV8Vzs7YwLq7gFgs0nvxF8XeKSFCvkFz92nsJLWnIqPxQYZ7s53c7WqMIK+/aRSEdmMyVhHFalhotJZ79eaRXD2ni4yhBCjuVkwUWkZGnBiiPfB27lAMYni9DRmBO8FAjvg5g8yYePnwqU5yntKfqEsLqVULg=
+	t=1788830489; cv=none; b=JFvZvwdpsXcspDrZ1aKQqH7M6Hx3sqYDdFxh0Bys9cmIQkrE0X4IuXsMetfy+03NLxKhWDw3TGhzLz3yCX7YDkkZ7HvZ23w9n8QvGsX5XYQzPmzi6JhwGvRfdP0u9gvFDc2s17so0LtTX645xqDXzpTdf+Maiqj+ubXJkSda06g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788830416; c=relaxed/simple;
-	bh=5BX7b0Fn4lrAd8IzUqTtxpVtKEO9oMmcmNEguv7W6EA=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=qsxlgqVj4jgjfDN+QxbvXO6meEM08m3VH4luN6K8RyYWJLDD09nr0op5qwry+g0iGzl7YCQ9PJWxkanO6lOZxCsALqRGiZHQQEVi6yC4XQE7ILibsB2DHaGOab1O2W+QxVHJ0pSeWkMSH8GmTLKmfP19ljdjHGSInrPIbhhYTaY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=columbia.edu; spf=pass smtp.mailfrom=columbia.edu; dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b=tx3d9fPp; dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b=qgtcN+uq; arc=none smtp.client-ip=148.163.139.74
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=columbia.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=columbia.edu
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b="tx3d9fPp";
-	dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b="qgtcN+uq"
-Received: from pps.filterd (m0167075.ppops.net [127.0.0.1])
-	by mx0b-00364e01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6880ueGA3744237
-	for <linux-kernel@vger.kernel.org>; Mon, 7 Sep 2026 21:20:02 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=columbia.edu; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pps01; bh=UA6N
-	JYZg/aPbQbH6BdIy9bC46w35+B3geZZbPXF04I4=; b=tx3d9fPpP9MyTAJ8o/DN
-	9j8cQ8R9SOWgA+s0xZUaYIdrvTF67MiCjsLKdyQFRGrfzxomupjtZzF0sWVj3PsQ
-	4NhZ7CaVI9aoNQfJ527RZRR9l0q6Q41a731/2apeIqtdTz8chQGLnPpwN+c+XneD
-	5i8CH+nrh0f7ytnUJUi1V996enL+sQ01TgxHPnc2MVtb29tX5BPBNMdM3B4LcQCz
-	kip83siWg8c+JOohV8LeYDeejTYV3BrRZHcM9cuBLKrGS0kNtqmwLquIYNl50uFg
-	7GSVR5MjSUJCPUoQFNtvnh7rZQhHQ5o1DE80W65TAIC5kg5pMf3nAGxqgLe7w47f
-	2Q==
-Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com [209.85.160.199])
-	by mx0b-00364e01.pphosted.com (PPS) with ESMTPS id 4gj4b995a5-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 21:20:02 -0400 (EDT)
-Received: by mail-qt1-f199.google.com with SMTP id d75a77b69052e-5308af39ab3so14692901cf.2
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 18:20:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=columbia.edu; s=lionmail; t=1788830402; x=1789435202; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=UA6NJYZg/aPbQbH6BdIy9bC46w35+B3geZZbPXF04I4=;
-        b=qgtcN+uqzGCzBvtDZreq8vm/tvEEe3NdNSxv+aULtWCpJ1hl6B7Xn8F08DO0DX3nsh
-         X0EIcUVF16rvS0mIT0p4voCXMY78bpZk8Law0x5rjVN38NZDpVMVGwfEeMRP4zGGTw7G
-         ge3TwJTAwGIqGDrL9Zil5HJ4drh4F6T9beC1TOMGsizA6G1UESDkl5c22eoiygrzkahf
-         NA7M91daDMvf0pkG9SP7KLrALhHZj1csRWgc8cpwoUaAuTADlMQYuERG8aTXpTZ6WF7U
-         EYrde21nKFlsf3RubkNPep0HZBfp9tO9Fqw/xsaADSHCbbZh77TEd7m8yO4f+RQu1n3o
-         i4aw==
+	s=arc-20240116; t=1788830489; c=relaxed/simple;
+	bh=5zT4sF2jCjYpsuSxYEnTY/3MK0x0xywUcP6NuyidrRo=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=gYrb84IsK5113dU+wK41d0IXYFq0ecFSIRP25fqgRbj1Wjyp3am76AcVGOXgQKykkz7FfO4RPK5pZiwCc5VxwhOxLEV1QQbYRFs+laZX4sPRaXBbR2SgToO4YO1aPp80BYc2FA6jdk+M0n/WH5oQ4ipyqB61IMicxuEDYGBxwh4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.199
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi2-f7.google.com with SMTP id 5614622812f47-4b38bf64bfcso1697430b6e.0
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 18:21:25 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788830402; x=1789435202;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
+        d=1e100.net; s=20251104; t=1788830485; x=1789435285;
+        h=content-type:to:from:subject:message-id:date:mime-version
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=UA6NJYZg/aPbQbH6BdIy9bC46w35+B3geZZbPXF04I4=;
-        b=Qh3yxNuhIuZyyFdpOb9g+ADvfDl7lLKmUEmqQ6Od4uxgFIuWRC5ifeTBNJwCfaT7qT
-         BZfpx++WOisO69JQ7ke1EzZtGznl54aK5ZLHSQPtdWqQZ+TtWGKYu+Z7o1caEuTnQWdX
-         jl93bDp+cD0qapmC393SheDrXkzwuNoSkWkz2MY81XiixgyKAopUoeOXa+6ms8qLLjgv
-         EkxiGqsFG5bCff+jP9Y+Uj9csu0EwSFEYMOtpUlHiBWrBFfTQ28gXUFfymfCUeAEgZm1
-         Jsbymw4z0OTP7i/xEAIjygEHlddilJSTRLa3EEEa83Ir80+wHzdpR3hJj1SEPtxDeB/j
-         SRsg==
-X-Forwarded-Encrypted: i=1; AKwUvBxXFOy3Q2OmVljAlnmW5bNIs5M9jg15Sv5JeJKQllzD0iPYgLzNGf2p2tU/nWJgNlg95Tj8TknuR+k0QYg=@vger.kernel.org
-X-Gm-Message-State: AFuF++nePHQ5Gk5XbkEeiIbVelC3HODk/BerlsBELqlh78bIZXiGbqQD
-	hCr1EGFUyy0wkKMMGZQZDij2DK3rRqJ3pb1zE2oqViVDveEE9Krm8EqEOoO124U/GFKdmiXDygZ
-	Myu2EMV0nhrKr4g3nzptysP3w1pB6ZEoyYtIcLqiUR9IS16VHUmoubZnZSmzrQhYu6NRppb2Q
-X-Gm-Gg: AYBFou0D2zfI++Ho/pnWvqFowwjXFObRumVAXooalEwpcMSsNwQT/prFiq1DhDQpuXS
-	R0Wa+72rG8oNUjKN+MLU6AYTicaI9QzLI6VUOOsYbPTGavlz7iLdi4Qrc6kk9y5rzZ0Ru2mn0DU
-	bFFuMIMIuX5NWWnVkwt+ngGu3JOl+wMuD+K9pQXg9pCg5UmWJnLb2nK3e6iQJpIec8sbavhfQvr
-	cI0/BjMvzXLatbM3uXr/RO7O220iBJetsxUYnFowdoGe7RqjQbHftI6oswL38KwR9q6VcHPEXO/
-	p1m60uwsnE8V6cnq7k85u1Wv3EPXyDU66lb7Ors9fDCeKtti8VcYOU27dUoznhBglUu9BtVMxzH
-	DPSn+jybQ36XqQIqmrsTq2d+hau0+GwvxhQtBA3bz8e2wkJleVig=
-X-Received: by 2002:a05:622a:2509:b0:530:50d7:e5b7 with SMTP id d75a77b69052e-530546bdd01mr355760861cf.9.1788830401799;
-        Mon, 07 Sep 2026 18:20:01 -0700 (PDT)
-X-Received: by 2002:a05:622a:2509:b0:530:50d7:e5b7 with SMTP id d75a77b69052e-530546bdd01mr355760281cf.9.1788830401335;
-        Mon, 07 Sep 2026 18:20:01 -0700 (PDT)
-Received: from [127.0.1.1] (dyn-160-39-33-242.dyn.columbia.edu. [160.39.33.242])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91040694543sm104322656d6.33.2026.09.07.18.20.00
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 07 Sep 2026 18:20:00 -0700 (PDT)
-From: Tal Zussman <tz2294@columbia.edu>
-Date: Mon, 07 Sep 2026 21:19:28 -0400
-Subject: [PATCH 13/15] btrfs: remove the free space inode special cases
- from the COW paths
+        bh=wj4LB9nxthiGiSxJ3o+Z6kc/vLG2la/KudYqRMk2urw=;
+        b=V8JSrj6SkCx0N05e9s0/z7gtCNOUIqxwtzMzC+1pnuw6yjil7cDJefauZLL7d+uoe5
+         RJ7Rg0Qc35GCBgY04CUvi6CebNYT97Zce0TOFFvwXEdqOFS6MYJYX1uynDKHmHg1U+mW
+         5QYRgEqyrBGhnXgqOfB52wjc3SYVM1kjNQwNaoqyMARVUIIZjoSwsDLM0UzFtSRzSpN/
+         E8ASTwim9/YeTiPvBEDl/7gpSKVkkm6VJ6EGhg2ung9g6NOGUh5/nJJSGeYT5d8xWtOf
+         XZ8Nj5HIO72YYj95oHqMG0xY3Ey0j1W7BU9wKeUj3DSmzPV2h8ddobYQOrQhDI15h1XD
+         HA9Q==
+X-Forwarded-Encrypted: i=1; AKwUvBxJH582xAtAfVoPnRkdk366btqQzSNAyV9gfpQfApvoCH2+cAdNPPpBWjRhUBTXNxbxWRz+kkUeOrGv+CI=@vger.kernel.org
+X-Gm-Message-State: AFuF++mKC6PFdU3U6b9GIMmqwJfC4dCXL8O2FcqCuA1JDnS0AlW6JYsi
+	g45Q0x497BRzTzwbDP4F/RUypuef8k7Ts8Q9JcA9TEsHcjHHPaxz3+NszBkSHaEXfpozARvLMSO
+	gi1d3dVXLKcvLe/2wDHSiNN6KOH4PzmCgQHSUBVdQB1QNIy27apNLdqa9uDc=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260907-btrfs-remove-v1-space-cache-v1-13-5f9a5ba352a7@columbia.edu>
-References: <20260907-btrfs-remove-v1-space-cache-v1-0-5f9a5ba352a7@columbia.edu>
-In-Reply-To: <20260907-btrfs-remove-v1-space-cache-v1-0-5f9a5ba352a7@columbia.edu>
-To: David Sterba <dsterba@suse.com>, Chris Mason <mason@kernel.org>,
-        Qu Wenruo <wqu@suse.com>
-Cc: linux-btrfs@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Tal Zussman <tz2294@columbia.edu>
-X-Mailer: b4 0.17-dev-db0b7
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788830387; l=5995;
- i=tz2294@columbia.edu; s=20250528; h=from:subject:message-id;
- bh=5BX7b0Fn4lrAd8IzUqTtxpVtKEO9oMmcmNEguv7W6EA=;
- b=pV5+cJu0SIlo7XQ51kCvxqXHXnQZygQaRxMBYy9ISJDYOhpHtYQY3Lm9Mx90ymliJmAI9SzE+
- nexBfs+A68JCp+0qf9pvHjOwOj0vjHvaMjatZ0YIJeyAigThjldphJd
-X-Developer-Key: i=tz2294@columbia.edu; a=ed25519;
- pk=BIj5KdACscEOyAC0oIkeZqLB3L94fzBnDccEooxeM5Y=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA4MDAxMiBTYWx0ZWRfX4l/fdxHHiIIG
- tOK5kMVaCFG7yM3Wp5Qqfx4a9RJylgQ788S+NCreFYU2vbDyOZ684ltsFDdZOERwTUST8+qbF8k
- AI7jHtdD4umCT6nZUoQb+GZKeT6nqLjbNtEUqSeAP8hxpqjxDZHarCT51VMiUezfMGJw+SC+cnT
- TEbriEu54otdGO/j6Ye8vUQrQKJYgPNUcmI6SSmJIlb440b86FJrNy2at7v0pTRBl+lRMmbBGEa
- BqWhzbH37Uu2bCtftPhn10knddT1jeils8lAOipPrLfi/M2nWmOAGjzn4+WbyeUsJSEPurM2HFS
- yRwXC0pPYdRzyTYlIvWkhI3NjRDaFFQyQfMj6TXdu6+fSXjKVuyKeUAJfct34mVRFk/eFLMZvao
- MTtt1aJbzCyRC16gW/FtM0IulCiQZWu/kFAviIMbpX/Y1R2a2nchkvKM4OQVJ1ffZZPQ+CWNtLT
- YhsDer9Zg/IWZXe6oIg==
-X-Proofpoint-GUID: NhvmSHG42q3IOT4D3gyPygIHt8RY9Zvm
-X-Proofpoint-ORIG-GUID: NhvmSHG42q3IOT4D3gyPygIHt8RY9Zvm
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA4MDAxMiBTYWx0ZWRfX+U2JfoHPsefn
- oZQYSeHAoK837CcSqyBrec3PGNWtpcfKuUFY10weGIrkQIeejuq8OwlpsiVmNNMYdsBmO7E5eYR
- OC2xn8tFhcRu5mSlZipw+QGRRqExI0XBeqSs/qI6yeUOZgmOw5JB
-X-Authority-Analysis: v=2.4 cv=Yos/gYYX c=1 sm=1 tr=0 ts=6a9f62c2 cx=c_pps
- a=WeENfcodrlLV9YRTxbY/uA==:117 a=GaPK54s0Se3oFqK5NkZy0g==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=x7bEGLp0ZPQA:10 a=A0y_DWxS2BwA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=Da8U98TiO7q1upZEImrf:22 a=HpS3TJQ9O3Ob1ozEcmik:22
- a=2oXXyLKhFp2WroVMdz4A:9 a=QEXdDO2ut3YA:10 a=kacYvNCVWA4VmyqE58fU:22
-X-Proofpoint-Virus-Version: vendor=nai engine=6900 definitions=11899
- signatures=596817
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=10 spamscore=0 phishscore=0 bulkscore=10 lowpriorityscore=10
- malwarescore=0 clxscore=1015 priorityscore=1501 suspectscore=0 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609080012
+X-Received: by 2002:a05:6820:211:b0:6b7:83d6:2926 with SMTP id
+ 006d021491bc7-6b783d62ecamr12022027eaf.41.1788830484812; Mon, 07 Sep 2026
+ 18:21:24 -0700 (PDT)
+Date: Mon, 07 Sep 2026 18:21:24 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6a9f6314.6e6c5f9e.28f11f.0001.GAE@google.com>
+Subject: [syzbot] [fs?] BUG: unable to handle kernel NULL pointer dereference
+ in getname_kernel
+From: syzbot <syzbot+6c46a179b56c651c4c96@syzkaller.appspotmail.com>
+To: a.hindborg@kernel.org, leitao@debian.org, linux-fsdevel@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-Free space inodes are never written anymore, so drop the special cases
-for them in cow_file_range(), fallback_to_cow(),
-can_nocow_file_extent() and btrfs_finish_one_ordered().
+Hello,
 
-Assisted-by: Claude:claude-fable-5-1
-Signed-off-by: Tal Zussman <tz2294@columbia.edu>
+syzbot found the following issue on:
+
+HEAD commit:    73ae59e97596 Merge tag 'erofs-for-7.3-rc1-2' of git://git...
+git tree:       https://kernel.googlesource.com/pub/scm/linux/kernel/git/torvalds/linux master
+console output: https://syzkaller.appspot.com/x/log.txt?x=12e13125580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=c35e49327a11721f
+dashboard link: https://syzkaller.appspot.com/bug?extid=6c46a179b56c651c4c96
+compiler:       aarch64-linux-gnu-gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+userspace arch: arm64
+syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=100ae749580000
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=16e13125580000
+
+Downloadable assets:
+disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/fa3fbcfdac58/non_bootable_disk-73ae59e9.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/aa44bfbf1645/vmlinux-73ae59e9.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/ec41058a1639/Image-73ae59e9.gz.xz
+
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+6c46a179b56c651c4c96@syzkaller.appspotmail.com
+
+nvmet: adding nsid 1 to subsystem testsubsys
+Unable to handle kernel NULL pointer dereference at virtual address 0000000000000000
+Mem abort info:
+  ESR = 0x0000000096000006
+  EC = 0x25: DABT (current EL), IL = 32 bits
+  SET = 0, FnV = 0
+  EA = 0, S1PTW = 0
+  FSC = 0x06: level 2 translation fault
+Data abort info:
+  ISV = 0, ISS = 0x00000006, ISS2 = 0x00000000
+  CM = 0, WnR = 0, TnD = 0, TagAccess = 0
+  GCS = 0, Overlay = 0, DirtyBit = 0
+user pgtable: 4k pages, 52-bit VAs, pgdp=00000000437b3a80
+[0000000000000000] pgd=0800000053c32403, p4d=0800000053721403, pud=0800000049146403, pmd=0000000000000000
+Internal error: Oops: 0000000096000006 [#1]  SMP
+Modules linked in:
+CPU: 1 UID: 0 PID: 3633 Comm: syz.2.17 Tainted: G        W           syzkaller #0 PREEMPT 
+Tainted: [W]=WARN
+Hardware name: linux,dummy-virt (DT)
+pstate: 61402009 (nZCv daif +PAN -UAO -TCO +DIT -SSBS BTYPE=--)
+pc : __pi_strlen+0x14/0x150 arch/arm64/lib/strlen.S:87
+lr : __fortify_strlen include/linux/fortify-string.h:218 [inline]
+lr : do_getname_kernel+0x20/0x12c fs/namei.c:260
+sp : ffff800089c2bb60
+x29: ffff800089c2bb60 x28: fbf0000003fa8000 x27: 0000000000000000
+x26: 0000000000000000 x25: 0000000000000000 x24: fcf0000008b7db00
+x23: f3f00000067df000 x22: 0000000000000000 x21: 0000000000000000
+x20: 00000000fffffff1 x19: 0000000000020002 x18: 0000000000000000
+x17: 0000000000000000 x16: 0000000000000000 x15: 00000000200004c0
+x14: 0000000000000000 x13: 0000000000000000 x12: 0000000000000000
+x11: 0000000000000000 x10: 0000000000000000 x9 : 0000000000000078
+x8 : 0101010101010101 x7 : fcf0000008b7db08 x6 : fdf0000013703002
+x5 : fdf0000013703002 x4 : 0000000000000000 x3 : fbf0000003fa8000
+x2 : 0000000000000000 x1 : 0000000000000000 x0 : 0000000000000000
+Call trace:
+ __pi_strlen+0x14/0x150 arch/arm64/lib/strlen.S:86 (P)
+ getname_kernel+0x14/0x20 fs/namei.c:289
+ class_filename_kernel_constructor include/linux/fs.h:2586 [inline]
+ filp_open+0x34/0x104 fs/open.c:1391
+ nvmet_file_ns_enable+0x38/0xfc drivers/nvme/target/io-cmd-file.c:41
+ nvmet_ns_enable+0x12c/0x1e0 drivers/nvme/target/core.c:596
+ nvmet_ns_enable_store+0x64/0xd4 drivers/nvme/target/configfs.c:737
+ flush_write_buffer fs/configfs/file.c:207 [inline]
+ configfs_write_iter+0xc4/0x128 fs/configfs/file.c:229
+ new_sync_write fs/read_write.c:595 [inline]
+ vfs_write+0x244/0x36c fs/read_write.c:687
+ ksys_write+0x70/0x108 fs/read_write.c:739
+ __do_sys_write fs/read_write.c:750 [inline]
+ __se_sys_write fs/read_write.c:747 [inline]
+ __arm64_sys_write+0x18/0x24 fs/read_write.c:747
+ __invoke_syscall arch/arm64/kernel/syscall.c:35 [inline]
+ invoke_syscall+0x54/0x10c arch/arm64/kernel/syscall.c:49
+ el0_svc_common.constprop.0+0x40/0xe0 arch/arm64/kernel/syscall.c:121
+ do_el0_svc+0x1c/0x34 arch/arm64/kernel/syscall.c:140
+ el0_svc+0x38/0x1fc arch/arm64/kernel/entry-common.c:758
+ el0t_64_sync_handler+0xa0/0xe4 arch/arm64/kernel/entry-common.c:777
+ el0t_64_sync+0x1a4/0x1a8 arch/arm64/kernel/entry.S:590
+Code: 92400c04 b200c3e8 f100009f 5400088c (a9400c02) 
+---[ end trace 0000000000000000 ]---
+----------------
+Code disassembly (best guess):
+   0:	92400c04 	and	x4, x0, #0xf
+   4:	b200c3e8 	mov	x8, #0x101010101010101     	// #72340172838076673
+   8:	f100009f 	cmp	x4, #0x0
+   c:	5400088c 	b.gt	0x11c
+* 10:	a9400c02 	ldp	x2, x3, [x0] <-- trapping instruction
+
+
 ---
- fs/btrfs/inode.c | 58 +++++++++++++++-----------------------------------------
- 1 file changed, 15 insertions(+), 43 deletions(-)
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
 
-diff --git a/fs/btrfs/inode.c b/fs/btrfs/inode.c
-index 5e4ecd1fe194..137d2c1d9c97 100644
---- a/fs/btrfs/inode.c
-+++ b/fs/btrfs/inode.c
-@@ -1366,11 +1366,6 @@ static noinline int cow_file_range(struct btrfs_inode *inode,
- 		goto out_unlock;
- 	}
- 
--	if (btrfs_is_free_space_inode(inode)) {
--		ret = -EINVAL;
--		goto out_unlock;
--	}
--
- 	num_bytes = ALIGN(end - start + 1, blocksize);
- 	num_bytes = max(blocksize,  num_bytes);
- 	ASSERT(num_bytes <= btrfs_super_total_bytes(fs_info->super_copy));
-@@ -1680,7 +1675,6 @@ static int fallback_to_cow(struct btrfs_inode *inode,
- 			   struct folio *locked_folio, const u64 start,
- 			   const u64 end)
- {
--	const bool is_space_ino = btrfs_is_free_space_inode(inode);
- 	const bool is_reloc_ino = btrfs_is_data_reloc_root(inode->root);
- 	const u64 range_bytes = end + 1 - start;
- 	struct extent_io_tree *io_tree = &inode->io_tree;
-@@ -1713,23 +1707,22 @@ static int fallback_to_cow(struct btrfs_inode *inode,
- 	 *    extent_clear_unlock_delalloc()) the bytes_may_use counter of the
- 	 *    data space info, which we incremented in the step above.
- 	 *
--	 * If we need to fallback to cow and the inode corresponds to a free
--	 * space cache inode or an inode of the data relocation tree, we must
--	 * also increment bytes_may_use of the data space_info for the same
--	 * reason. Space caches and relocated data extents always get a prealloc
--	 * extent for them, however scrub or balance may have set the block
--	 * group that contains that extent to RO mode and therefore force COW
--	 * when starting writeback.
-+	 * If we need to fallback to cow and the inode is in the data relocation
-+	 * tree, we must also increment bytes_may_use of the data space_info for
-+	 * the same reason. Relocated data extents always get a prealloc extent,
-+	 * however scrub or balance may have set the block group that contains
-+	 * that extent to RO mode and therefore force COW when starting
-+	 * writeback.
- 	 */
- 	btrfs_lock_extent(io_tree, start, end, &cached_state);
- 	count = btrfs_count_range_bits(io_tree, &range_start, end, range_bytes,
- 				       EXTENT_NORESERVE, false, NULL);
--	if (count > 0 || is_space_ino || is_reloc_ino) {
-+	if (count > 0 || is_reloc_ino) {
- 		u64 bytes = count;
- 		struct btrfs_fs_info *fs_info = inode->root->fs_info;
- 		struct btrfs_space_info *sinfo = fs_info->data_sinfo;
- 
--		if (is_space_ino || is_reloc_ino)
-+		if (is_reloc_ino)
- 			bytes = range_bytes;
- 
- 		spin_lock(&sinfo->lock);
-@@ -1794,7 +1787,6 @@ static int can_nocow_file_extent(struct btrfs_path *path,
- 				 struct btrfs_inode *inode,
- 				 struct can_nocow_file_extent_args *args)
- {
--	const bool is_freespace_inode = btrfs_is_free_space_inode(inode);
- 	struct extent_buffer *leaf = path->nodes[0];
- 	struct btrfs_root *root = inode->root;
- 	struct btrfs_file_extent_item *fi;
-@@ -1807,8 +1799,7 @@ static int can_nocow_file_extent(struct btrfs_path *path,
- 	bool nowait = path->nowait;
- 
- 	/* If there are pending snapshots for this root, we must do COW. */
--	if (args->writeback_path && !is_freespace_inode &&
--	    atomic_read(&root->snapshot_force_cow))
-+	if (args->writeback_path && atomic_read(&root->snapshot_force_cow))
- 		goto out;
- 
- 	fi = btrfs_item_ptr(leaf, path->slots[0], struct btrfs_file_extent_item);
-@@ -1857,7 +1848,6 @@ static int can_nocow_file_extent(struct btrfs_path *path,
- 
- 	ret = btrfs_cross_ref_exist(inode, key->offset - args->file_extent.offset,
- 				    args->file_extent.disk_bytenr, path);
--	WARN_ON_ONCE(ret > 0 && is_freespace_inode);
- 	if (ret != 0)
- 		goto out;
- 
-@@ -1892,7 +1882,6 @@ static int can_nocow_file_extent(struct btrfs_path *path,
- 	ret = btrfs_lookup_csums_list(csum_root, io_start,
- 				      io_start + args->file_extent.num_bytes - 1,
- 				      NULL, nowait);
--	WARN_ON_ONCE(ret > 0 && is_freespace_inode);
- 	if (ret != 0)
- 		goto out;
- 
-@@ -3203,6 +3192,7 @@ int btrfs_finish_one_ordered(struct btrfs_ordered_extent *ordered_extent)
- 	int compress_type = 0;
- 	int ret = 0;
- 	u64 logical_len = ordered_extent->num_bytes;
-+	u64 unwritten_start;
- 	bool truncated = false;
- 	bool clear_reserved_extent = true;
- 	unsigned int clear_bits = 0;
-@@ -3364,29 +3354,11 @@ int btrfs_finish_one_ordered(struct btrfs_ordered_extent *ordered_extent)
- 		if (ret)
- 			btrfs_mark_ordered_extent_error(ordered_extent);
- 
--		/*
--		 * Drop extent maps for the part of the extent we didn't write.
--		 *
--		 * We have an exception here for the free_space_inode, this is
--		 * because when we do btrfs_get_extent() on the free space inode
--		 * we will search the commit root.  If this is a new block group
--		 * we won't find anything, and we will trip over the assert in
--		 * writepage where we do ASSERT(em->block_start !=
--		 * EXTENT_MAP_HOLE).
--		 *
--		 * Theoretically we could also skip this for any NOCOW extent as
--		 * we don't mess with the extent map tree in the NOCOW case, but
--		 * for now simply skip this if we are the free space inode.
--		 */
--		if (!btrfs_is_free_space_inode(inode)) {
--			u64 unwritten_start = start;
--
--			if (truncated)
--				unwritten_start += logical_len;
--
--			btrfs_drop_extent_map_range(inode, unwritten_start,
--						    end, false);
--		}
-+		/* Drop extent maps for the part of the extent we didn't write. */
-+		unwritten_start = start;
-+		if (truncated)
-+			unwritten_start += logical_len;
-+		btrfs_drop_extent_map_range(inode, unwritten_start, end, false);
- 
- 		/*
- 		 * If the ordered extent had an IOERR or something else went
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
 
--- 
-2.39.5
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
 
+If you want syzbot to run the reproducer, reply with:
+#syz test: git://repo/address.git branch-or-commit-hash
+If you attach or paste a git patch, syzbot will apply it before testing.
+
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
+
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
+
+If you want to undo deduplication, reply with:
+#syz undup
