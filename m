@@ -1,97 +1,140 @@
-Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f180.google.com (mail-pg1-f180.google.com [209.85.215.180])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60B9B23E334;
-	Tue,  8 Sep 2026 06:01:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1F3525EF87
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 06:01:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788847264; cv=none; b=SBMj/ULC3+9IbNBJI27XXAOqNIEIHv4ufJg5LsSqM6TIqh3GAFAyQeqgU652QTRmu/pqr0rG9SZd1iuGh5dRv4/klJdDpBbRLbE1AQ5UwRQg51Z+y9FH99VCrfP27kUePCUko4f8LnfFAocXygajowdHuviSa2b0gXwnRg/o/rA=
+	t=1788847277; cv=none; b=sWd1Sh/G6CckKJEt6YvMMzlR7PU4TiBsByM7uxjl0f+2gWbCLz9K1VCvTz5fZCVr3kppAuWrEJ7Snx+GO3cjplFIzQI510gcr9DNu+ini1fXTbGWGk1teoaB8yWY3Bt5fOocmCuRJs4PF/bSbua/ldmjUXmwgJAWGMEIYgd0k9k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788847264; c=relaxed/simple;
-	bh=dP7PTSIqr+PUylng0LNaTf+XvZfMQ1DUZ+WGex+fVBU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Zn4JQdG4JFNOvWQDVPp/QZOBRiwgWwt4SGVYOEKtCycU5TFF6UC5CLEaLVL3FXFXENkt2Kytq7XkhjpZKQh3MCX+MmyTxPpUzL9Kfm9vOhhlYtL2mV3hgSVy4CelBU8nUNjCmtI6M3dXouWt6pDpicD1XHD7WHTvjClSUey2Gfs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=KL2M8MXH; arc=none smtp.client-ip=198.137.202.133
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	s=arc-20240116; t=1788847277; c=relaxed/simple;
+	bh=4z6HMDyADD337DTmrscEfhf2b78PnKSq/MtQuserv6k=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=RLPwf/6ime/4l6YC++a0c9o/VEOn/eUQmgGIpbcTrahN7oX0KICJ0qOq0otcrRkCNLZ9Zu3a0tfXUkeZ4jDIW57Fk83zTosd84fXB2AKYZlUapdZj3kYx/O5P7RIsbI2ssDPNYPnd+b6LLuLYZj2WHv2H95yfWyE6avaSaafMiQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=d2AI5J1A; arc=none smtp.client-ip=209.85.215.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="KL2M8MXH"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
-	Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
-	Message-ID:Sender:Reply-To:Content-ID:Content-Description;
-	bh=UdN27yuarFJ0bS6RZN4qrHEQI6SbOy4cMG40wpZ62V0=; b=KL2M8MXHvjrx5fgGwmm7ZEEQKh
-	nqS5WzlK0dCIcTetr0hiJo/XTEFKRck8OwZpNkqGc4MDp3xjeZfbwim0XvpYxbxWn/23UHdw8UYE6
-	tqoJyNURI49wNqflHfO6ofAKwTycKaahYsF2BH1KUjMzx+g5r5Q3iJGHdXGzb+buXUAP8Fi37YkLX
-	bTfUgfASYTCK20HI6bfb7MCINfcBkSOwuuM2sTHtDp1IaEFAgITpaWz5e1i3MPArJ3G1CdkSoWSuu
-	ANxMIo/PMhGfjv25wLeu2Er0blhZ1jbx21gkOn2NmyMpF1ptXQaPlQTXaLNbm8C4Tfmnj5s7RfVxO
-	0HQLivIA==;
-Received: from [50.53.43.113] (helo=[192.168.254.34])
-	by bombadil.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1x3ot7-000000087Ke-1m4N;
-	Tue, 08 Sep 2026 06:00:57 +0000
-Message-ID: <a33355f3-3295-4aab-8e37-b176d477ddc4@infradead.org>
-Date: Mon, 7 Sep 2026 23:00:56 -0700
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="d2AI5J1A"
+Received: by mail-pg1-f180.google.com with SMTP id 41be03b00d2f7-ca7c1176317so3407350a12.1
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 23:01:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788847273; x=1789452073; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=rud7AzWXfFmh/miZcM84Tl0yKLFLgZncbdvuv1vQA1g=;
+        b=d2AI5J1AgI94gkUjhLOm16/wanbNP3AeK/h79pObhbkNp3vAQjBBEl93quks6Feh5n
+         8mjpx+nuCMwbUR+RRpNr3ebonyJjTOwN3GAdQlDpuGkSa7kdQ+xzHYTZDiB41fE2RiWc
+         YDsGm4GDTmJea7kOeTXqNaw0/sG8N2+a5ElXOncbCYAaY+GFSGQvQCZrJjHES2vHIjl7
+         6Vr2StmmmRxZ2FdUYZ9/mEJ4Z24jG+0lJa270bqVjleVMuyWjjJTRoxYao8U/2FSNMbQ
+         5j27Vy9h774LCypEzXSFA3LQyMUOzcf8jDtzAhni/CpXGdPdQvOBHr77z4bBE2d7wDwJ
+         ms7Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788847273; x=1789452073;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=rud7AzWXfFmh/miZcM84Tl0yKLFLgZncbdvuv1vQA1g=;
+        b=OZzYor8C/nNIZzi97PrzRWFMxdqZIx/XvqQIZ1jA6+5Sjezm4yP8MsZZpQ9lGeDibb
+         f7/o3ayhjs8pou/+FuR7x5JyJNHA9TYWJZrwwu00uNiFeLnJW3RwrOeWmiCQCYpxSfQF
+         N+5HwbGja1EHKbul4NbX/v9nJd+7IMX7J2RkuNv+yUtkC9P4iG8T2baAoTRlQXjt1CwO
+         I6F/2I5AH17R44I4VuuhfyS9cAgyHxk15aZPjUv/WCrvi5nufExULGi4oRRcOpPAX0kt
+         fNLg/oDbSsav0zF4okIAPlLgorHheFoUWZW4N6I7u4q0W6F6zXvlKw7JsKQx44aFO892
+         idVA==
+X-Forwarded-Encrypted: i=1; AKwUvByHs1EVvvld3xbglDhCWFPnsUUSKHU/WkFLuFzN5Fm2aAKIWSuDQHq+f9CXfZqxKG0J2B8IERLt+rfB5FA=@vger.kernel.org
+X-Gm-Message-State: AFuF++lXA8TyM54set1gXWyzkYx55Vr59MCPunH6gW2cdVfwBYz2uXXf
+	b2+6ba0J/IW9VOQQVYsWl1VKIkWtVx32vzgyV+hAWLfPS259AZYu9ecF
+X-Gm-Gg: AYBFou1v+3PVSAgEMCzmti+WfLHLSN9F70eTbUkaF8zF61Q17IKOihWJkoeq/qQlZpw
+	DsOdKwLZ+nM3+zBj9YVw5T6zcO9jefmhNX4GIp3HrHwpfjYwPNyk9DZ6g/M8sn8UcLWXgJqiiLq
+	kvvEzulD5ERJSCBM0d5PUd8kjgl3MNMtwQeUiUfkq3oe8TaLi7PgyATT36K4B/Bfn+td5iuOzQ9
+	k4d4jEwinZtqZV4ool2zy/qGmo9FEev84qTaQrI36VvV2JrLeulqhPBROYVH2jb1hSIjW7LvK2H
+	YcmHq6DqQJ3i0uk7NQMBexbbTTnj9JfIzuXV+QnAsISvuTLAxCpwvEXh7tTElZ8Y9d09kycRUzy
+	THLJXiMTXj284B6xYF5Ya5nKWBDgo9GCjErDSkAvALsUkZVZnDOhbZvRiC6eTUVMwA3MayTjtmz
+	XW5BRrpHqgs2+57suJ1Z9Cwkie8Laz1MFVJ8A4KXMQvD/XSVBAGJUGOUdJayscWZgg1A0L+PU4p
+	g2608Xf6h8eWdmKKRQBF5wYX/hIv+v1YmYDr1P7q4OmMIshnU6pdJ4I7Ix4ZBWobqlCRNg2Ze6b
+	oZmfvHbfuCrHUkLFp+OaSpNh6g2oX6dhzVNIiEoqBo3I59cy+g==
+X-Received: by 2002:a05:6a21:d84:b0:3d2:2011:d184 with SMTP id adf61e73a8af0-3da3a096045mr45740365637.14.1788847273403;
+        Mon, 07 Sep 2026 23:01:13 -0700 (PDT)
+Received: from ryzen.lan ([2601:644:8000:7a86::e34])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc455485c25sm4850041a12.26.2026.09.07.23.01.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 07 Sep 2026 23:01:12 -0700 (PDT)
+From: Rosen Penev <rosenp@gmail.com>
+To: linux-mtd@lists.infradead.org
+Cc: Miquel Raynal <miquel.raynal@bootlin.com>,
+	Richard Weinberger <richard@nod.at>,
+	Vignesh Raghavendra <vigneshr@ti.com>,
+	linux-kernel@vger.kernel.org (open list)
+Subject: [PATCHv2] mtd: rawnand: fsl_ifc: allocate shared ctrl with devm_kzalloc
+Date: Mon,  7 Sep 2026 23:01:11 -0700
+Message-ID: <20260908060111.41244-1-rosenp@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH iwl-next v2 0/4] intel: fix typos in comments
-To: Hemanth Selam <hemanth.selam@gmail.com>,
- Tony Nguyen <anthony.l.nguyen@intel.com>,
- Przemek Kitszel <przemyslaw.kitszel@intel.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Simon Horman <horms@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>, intel-wired-lan@lists.osuosl.org
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-doc@vger.kernel.org
-References: <20260907095446.27290-1-hemanth.selam@gmail.com>
-Content-Language: en-US
-From: Randy Dunlap <rdunlap@infradead.org>
-In-Reply-To: <20260907095446.27290-1-hemanth.selam@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
+Allocate the shared fsl_ifc_nand_ctrl structure against the controller
+device, which outlives all NAND child devices, so it is freed
+automatically.  This drops the manual kfree() and the broken chip
+counter that was decremented in remove() but never incremented
+anywhere, leaking the structure and leaving the freed pointer in
+ctrl->nand on re-probe.
 
+Assisted-by: opencode:big-pickle
+Signed-off-by: Rosen Penev <rosenp@gmail.com>
+---
+ v2: rebase.
+ drivers/mtd/nand/raw/fsl_ifc_nand.c | 15 ++-------------
+ 1 file changed, 2 insertions(+), 13 deletions(-)
 
-On 9/7/26 2:54 AM, Hemanth Selam wrote:
-> Comment typos across the Intel ethernet drivers, split per driver.  Found with scripts/checkpatch.pl using the
-> misspelling list in scripts/spelling.txt.  Comments only, no code
-> changes.
-> 
-> v1 went out with a bare [PATCH] and a "net:" subject prefix.  As
-> maintainer-netdev.rst asks, v2 designates the patches to a tree, and
-> each subject now names the component it touches instead of "net:".  The
-> series is rebased onto that tree; the diff is unchanged.
-> 
-> v1: https://lore.kernel.org/all/20260907064528.6602-1-hemanth.selam@gmail.com/
-> 
-> 
-> Hemanth Selam (4):
->   i40e: fix typos in comments
->   ice: fix typos in comments
->   ixgbevf: fix typo "enble" in comment
->   Documentation/eth/intel: fix repeated words in comments
-> 
->  Documentation/networking/device_drivers/ethernet/intel/i40e.rst | 2 +-
->  Documentation/networking/device_drivers/ethernet/intel/iavf.rst | 2 +-
->  drivers/net/ethernet/intel/i40e/i40e_common.c                   | 2 +-
->  drivers/net/ethernet/intel/i40e/i40e_ethtool.c                  | 2 +-
->  drivers/net/ethernet/intel/ice/ice.h                            | 2 +-
->  drivers/net/ethernet/intel/ice/ice_main.c                       | 2 +-
->  drivers/net/ethernet/intel/ice/ice_sriov.c                      | 2 +-
->  drivers/net/ethernet/intel/ixgbevf/ixgbevf_main.c               | 2 +-
->  8 files changed, 8 insertions(+), 8 deletions(-)
-
-For the series:
-
-Acked-by: Randy Dunlap <rdunlap@infradead.org>
-
-thanks.
+diff --git a/drivers/mtd/nand/raw/fsl_ifc_nand.c b/drivers/mtd/nand/raw/fsl_ifc_nand.c
+index a88ac2cfaccd..4c2d95461c2e 100644
+--- a/drivers/mtd/nand/raw/fsl_ifc_nand.c
++++ b/drivers/mtd/nand/raw/fsl_ifc_nand.c
+@@ -50,7 +50,6 @@ struct fsl_ifc_nand_ctrl {
+ 	unsigned int index;	/* Pointer to next byte to 'read'	*/
+ 	unsigned int oob;	/* Non zero if operating on OOB data	*/
+ 	unsigned int eccread;	/* Non zero for a full-page ECC read	*/
+-	unsigned int counter;	/* counter for the initializations	*/
+ 	unsigned int max_bitflips;  /* Saved during READ0 cmd		*/
+ };
+ 
+@@ -1033,15 +1032,13 @@ static int fsl_ifc_nand_probe(struct platform_device *dev)
+ 
+ 	mutex_lock(&fsl_ifc_nand_mutex);
+ 	if (!fsl_ifc_ctrl_dev->nand) {
+-		ifc_nand_ctrl = kzalloc_obj(*ifc_nand_ctrl);
++		ifc_nand_ctrl = devm_kzalloc(fsl_ifc_ctrl_dev->dev, sizeof(*ifc_nand_ctrl),
++					     GFP_KERNEL);
+ 		if (!ifc_nand_ctrl) {
+ 			mutex_unlock(&fsl_ifc_nand_mutex);
+ 			return -ENOMEM;
+ 		}
+ 
+-		ifc_nand_ctrl->read_bytes = 0;
+-		ifc_nand_ctrl->index = 0;
+-		ifc_nand_ctrl->addr = NULL;
+ 		fsl_ifc_ctrl_dev->nand = ifc_nand_ctrl;
+ 
+ 		nand_controller_init(&ifc_nand_ctrl->controller);
+@@ -1121,14 +1118,6 @@ static void fsl_ifc_nand_remove(struct platform_device *dev)
+ 	nand_cleanup(chip);
+ 
+ 	fsl_ifc_chip_remove(priv);
+-
+-	mutex_lock(&fsl_ifc_nand_mutex);
+-	ifc_nand_ctrl->counter--;
+-	if (!ifc_nand_ctrl->counter) {
+-		fsl_ifc_ctrl_dev->nand = NULL;
+-		kfree(ifc_nand_ctrl);
+-	}
+-	mutex_unlock(&fsl_ifc_nand_mutex);
+ }
+ 
+ static const struct of_device_id fsl_ifc_nand_match[] = {
 -- 
-~Randy
+2.55.0
+
