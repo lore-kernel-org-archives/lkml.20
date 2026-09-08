@@ -1,33 +1,36 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id C60F4509EF1;
-	Tue,  8 Sep 2026 09:49:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mta0.migadu.com (out-213.mta0.migadu.com [91.218.175.213])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60569509EF1
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 09:49:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.213
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788860980; cv=none; b=iU5jUxLBCeeKSJLkFqemVdGxRDx5S/PY8bfH31aG4k1Bnhs9SujRpLcBM021EqsOvPBzQ1odVCZN8zuSJfjdtkEvvqUGM2UuCIExz8xsYPQq/P8AGQrovaMK5laczlvHz6mtyTgVfEwBUk31ErrzNKlcAyqNPxnj3hic9RVs330=
+	t=1788860987; cv=none; b=TSLTTS2GqB0cpu4mWMwQX8/xqi9XukHA9WHC0d0ZzficI2ac3hew9O1Cnx36M+AfstBup5tB+xruT/nuCd9eaPyGeUtwpPJ4SR6vF5Y3cuGpW8+/NXKKH1SFcmprgF7VfZEaeHcjG0Uix7Xms2pCvbk0efKLxh8VmEF3m2PqgLE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788860980; c=relaxed/simple;
-	bh=kJteEwoT3OdITFopCoesbDyojoKuGSBp7kslVKQdQY0=;
+	s=arc-20240116; t=1788860987; c=relaxed/simple;
+	bh=XjCBQfB5c95x0PN2WIgKnXxwCw4fmBfLkIw/36nsHMU=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=LrIf7Wc0ugBN9c9wixRsfRgS1Daci+yhm5C+ONyGVKSd94sI8ZVsOx9geuRMXOeKnH2242ZOmAYCdicYGU5TRU9sVRmO9scMZrOJwRI0jMNL00Xso9vsHSLHt66B5B13B+yrPQOU85+6SlxKFwXkdYS17sKvYKWxwzVBLbPRvIY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=bnEijS8U; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	 In-Reply-To:Content-Type; b=KUTr9OVzlIbWapzRFFyF467FzV0KoMcH7EtJ8cnLLh7uCYL9mcEPVujvlZMMWkIVcW4fEF4UKYfHUEf3RjYa8oiPMrjodqiTq3glaG/r+T2ZEpxVKhYoa35KTaWWu/ifsMYMw6/xGX3Wj4dns6bOXBnBfYP5zajQNLodNDzgS7A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=WsVhbKYY; arc=none smtp.client-ip=91.218.175.213
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="bnEijS8U"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 5AE741476;
-	Tue,  8 Sep 2026 02:49:33 -0700 (PDT)
-Received: from [10.2.197.99] (ewhatever.cambridge.arm.com [10.2.197.99])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 685AE3F7B4;
-	Tue,  8 Sep 2026 02:49:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1788860977; bh=kJteEwoT3OdITFopCoesbDyojoKuGSBp7kslVKQdQY0=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=bnEijS8UoORGgws4/gA0W4HiONlIvwJMlSXD8OSU/r3dg/eT6i8+aRl9HfVheUaUS
-	 jvbmdRo2tL2vQpBZlOOwEVT3bN917GE2o282Fo2hN0lkk+zG8H03BMgZ26A3d4piwM
-	 cNK8rOVVEt5zZV461cpirSw+FvdQcp6Aynp4+T4M=
-Message-ID: <7c8b3430-e233-486e-b4fd-3c1f5d05d97d@arm.com>
-Date: Tue, 8 Sep 2026 10:49:32 +0100
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="WsVhbKYY"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=XjCBQfB5c95x0PN2WIgKnXxwCw4fmBfLkIw/36nsHMU=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788860983; v=1; x=1789465783;
+ b=WsVhbKYYWIuIfm5Vobdzcq1liMaudpbzGlXZqR6ZHsdmJ1tGU6uZBAEOyuPJs7DxljcXez4J
+ oleKHz2WzTj4bmJETLZLVZsyM2pm+vi/EvoJwiktEK29yYOPY7c+FtGVcXo86QxRHZZe+SvuTNJ
+ yR8ASaOxy10AH9CvkAn5B91Y=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 18a49419a59823a6;
+	Tue, 08 Sep 2026 09:49:40 +0000
+X-Mizu-Trace-ID: 18a49419a59823a6
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <9acf2cd9-b808-42f0-bc86-7ffcaac965a0@linux.dev>
+Date: Tue, 8 Sep 2026 17:50:33 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -35,126 +38,65 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v17 2/7] firmware: arm_rmm: Check for RMI support at init
-To: Gavin Shan <gshan@redhat.com>, kvm@vger.kernel.org, kvmarm@lists.linux.dev
-Cc: maz@kernel.org, will@kernel.org, catalin.marinas@arm.com,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- steven.price@arm.com, aneesh.kumar@kernel.org, oupton@kernel.org,
- joey.gouly@arm.com, tabba@google.com, yuzenghui@huawei.com,
- linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com,
- sdonthineni@nvidia.com, alpergun@google.com, fj0570is@fujitsu.com,
- WeiLin.Chang@arm.com, lpieralisi@kernel.org, enju.kohei@fujitsu.com
-References: <20260907095942.1140734-1-suzuki.poulose@arm.com>
- <20260907095942.1140734-3-suzuki.poulose@arm.com>
- <25894d08-0fec-4dcd-9d5e-e8270ff9d26c@redhat.com>
+Subject: Re: [PATCH v2] module: fix lost error code from codetag_load_module()
+To: Daniel Gomez <da.gomez@kernel.org>
+Cc: Luis Chamberlain <mcgrof@kernel.org>, Petr Pavlu <petr.pavlu@suse.com>,
+ Sami Tolvanen <samitolvanen@google.com>, Aaron Tomlin <atomlin@atomlin.com>,
+ Suren Baghdasaryan <surenb@google.com>,
+ Andrew Morton <akpm@linux-foundation.org>, linux-modules@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>,
+ Bradley Morgan <brads@mainlining.org>, stable@vger.kernel.org
+References: <20260827030503.49171-1-hao.ge@linux.dev>
+ <20260907213815.0-da.gomez@kernel.org>
 Content-Language: en-US
-From: Suzuki K Poulose <suzuki.poulose@arm.com>
-In-Reply-To: <25894d08-0fec-4dcd-9d5e-e8270ff9d26c@redhat.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+From: Hao Ge <hao.ge@linux.dev>
+In-Reply-To: <20260907213815.0-da.gomez@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On 08/09/2026 07:46, Gavin Shan wrote:
-> Hi Suzuki,
+Hi Daniel
+
+
+On 2026/9/8 03:42, Daniel Gomez wrote:
 > 
-> On 9/7/26 7:59 PM, Suzuki K Poulose wrote:
->> From: Steven Price <steven.price@arm.com>
+> 
+> On 2026-08-27T11:05:03+08:00, Hao Ge <hao.ge@linux.dev> wrote:
+>> If codetag_load_module() fails, err is not set to reflect the failure
+>> and load_module() returns 0 after the module has been torn down.
 >>
->> Query the RMI version number and check if it is a compatible version.
->> The first two feature registers are read and exposed for future code to
->> use.
+>> Also, if the module is a livepatch, mod->klp_info allocated by
+>> copy_module_elf() leaks on this error path. Free it via a new
+>> livepatch_cleanup label.
 >>
->> Signed-off-by: Steven Price <steven.price@arm.com>
->> Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>
-
-...
-
->> diff --git a/drivers/firmware/arm_rmm/rmi.c b/drivers/firmware/ 
->> arm_rmm/rmi.c
->> new file mode 100644
->> index 0000000000000..008a783407b4e
->> --- /dev/null
->> +++ b/drivers/firmware/arm_rmm/rmi.c
->> @@ -0,0 +1,101 @@
->> +// SPDX-License-Identifier: GPL-2.0
->> +/*
->> + * Copyright (C) 2023-2026 ARM Ltd.
->> + */
->> +
->> +#include <linux/cpufeature.h>
->> +#include <linux/memblock.h>
->> +#include <linux/arm-rmi-cmds.h>
->> +#include <linux/slab.h>
->> +
->> +#include <asm/memory.h>
->> +#include <asm/pgtable-hwdef.h>
->> +
->> +/* Currently only the first 2 registers are used by Linux */
->> +#define RMI_FEAT_REG_COUNT    2
->> +static __ro_after_init unsigned long 
->> rmi_feat_reg_cache[RMI_FEAT_REG_COUNT];
->> +
+>> Fixes: 044d2aee6c57 ("alloc_tag: handle module codetag load errors as module load failures")
+>> Reported-by: Sashiko <sashiko-bot@kernel.org>
+>> Suggested-by: Petr Pavlu <petr.pavlu@suse.com>
+>> Reviewed-by: Bradley Morgan <brads@mainlining.org>
+>> Cc: stable@vger.kernel.org
+>> Signed-off-by: Hao Ge <hao.ge@linux.dev>
 > 
-> I would drop RMI_FEAT_REG_COUNT and use ARRAY_SIZE(rmi_feat_reg_cache) 
-> in the code.
-> Besides, __ro_after_init is usually put at the last the declaration.
-> 
-> static unsigned long rmi_feat_reg_cache[RMI_FEAT_REG_COUNT] 
-> __ro_after_init;
-> 
->> +unsigned long rmi_feat_reg(unsigned long id)
->> +{
->> +    if (WARN_ON(id >= RMI_FEAT_REG_COUNT))
->> +        return 0;
->> +
->> +    return rmi_feat_reg_cache[id];
->> +}
->> +EXPORT_SYMBOL_GPL(rmi_feat_reg);
->> +
-> 
-> I would suggest to rename 'id' to 'index' since it represents the feature
-> register index instead of feature register ID.
-> 
-> unsigned long rmi_feat_reg(unsigned long index)
-> {
->     :
-> }
-> EXPORT_SYMBOL_GPL(rmi_feat_reg);
+> We need the unwind from codetag_unload_module() as reported by sashiko.
 > 
 
+Thanks for you review.
 
->> +/*
->> + * Note arm64_init_rmi() must be called before kvm_init_rmi() 
->> otherwise KVM
->> + * will not support realm guests. subsys_initcall() is called before
->> + * module_init() (used for KVM) so this is OK.
->> + */
->> +subsys_initcall(arm64_init_rmi);
->> diff --git a/include/linux/arm-rmi-cmds.h b/include/linux/arm-rmi-cmds.h
->> new file mode 100644
->> index 0000000000000..2fb1f7f86d71e
+I skipped it because alloc_tag is the only codetag type and it
+already cleans up after itself.
 
->> +static inline int rmi_features(unsigned long index, unsigned long *out)
->> +{
->> +    struct arm_smccc_res res;
->> +
->> +    arm_smccc_1_1_invoke(SMC_RMI_FEATURES, index, &res);
->> +
->> +    if (res.a0 == RMI_SUCCESS && out)
->> +        *out = res.a1;
->> +
->> +    return res.a0;
->> +}
->> +
+With a second codetag type the problem Sashiko reported could indeed
+be triggered.
+
+My thinking at the time was to do it in codetag itself, as a separate patch,
+since it feels odd to unload something whose load just failed.
+
+Happy to hear your thoughts on this.
+
+Thanks
+Best Regards
+Hao
+     
+> With that,
 > 
-> We needn't expose rmi_features() through include/linux/arm-rmi-cmds.h 
-> since it's
-> used for once in rmi.c::rmi_read_features(). I would suggest to drop it 
-> by combining
-> the code with that function.
-
-Thanks for the review, I will address them in the next version.
-
-Cheers
-Suzuki
-
-
+> Reviewed-by: Daniel Gomez <da.gomez@samsung.com>
+> 
+> 
