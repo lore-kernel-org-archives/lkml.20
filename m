@@ -1,132 +1,103 @@
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79A163AA9E2
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 20:24:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C15F73AA9E2;
+	Tue,  8 Sep 2026 20:24:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788899048; cv=none; b=jbhZ3gEkgTebh9vmXn9x83dyE/dTARIEIGICL0rG2ByNk23lplAxx7CCIVQRme2FGuUMxhatzqBQ/U+p/s38I4/w8EmC4fjyz01ea3s6D3wK9WjmtKpktpYhIUCHA9cnQrIr+sRp79uzaUhuLhzVUnciOqytbDCoeCsGVoDHTBY=
+	t=1788899074; cv=none; b=Ed+sqmEhk7E0dSCcuI1suf4FxCBZpAW9iGnlpqGTbusvqj5qL0B9t8dkv8Eo9MCXL+4QSsDIefYWe9nD4NoJ+ms565jAk+lAWeWU4pbbfBhS+WCJmO+iSPX4UMQC6pADqWactF8kdV7gxqNrG8p5EDMf7PuK0grlaLf7l1wheWQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788899048; c=relaxed/simple;
-	bh=fHmN0IfbJYKRxXiKNbPwjI+pza8hAMD/vlghiSxGeGk=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=D8Mxf4+94Rxw8qSug2kEdnk7n2D2H0ONQ090UAl3GPQyHH9jwxzzSGqyWFRhHFc+NKOIt5F8uKivx6U4tr7ie2qPsCr+ACDOxgVScn8Pt/6vqch3jER3V15D4lUTc7j/8sQy7YwZIkKtDc1UeMblh+lqaHWQgjyqWYyI8EWFNbg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XAcP3aMb; arc=none smtp.client-ip=209.85.128.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788899074; c=relaxed/simple;
+	bh=34UMiWTgxcFBqUNYh11YSBmRYxGFZiGVkCLTRzlNjdY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=gcfLeWrjauxpQB6KKPZmdWgLpPaN5mx9fLz0yoLnz5YDGV0399Hhms9wiXKYcy75na1Xaag1cwB06rs8Hyz3GpwLOYzqJnsLTnzq4fatMbNFXxvAmd1Uk8oLsKXxN6nuTQXJhiRf1UVEgfiiH0ruZ3LioJD0KZNGPn5qKmPWKqU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=n13BLIwJ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XAcP3aMb"
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-49b392ccaacso74938355e9.2
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 13:24:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788899045; x=1789503845; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=1MqNm2QyW+y3V2DcOMpwDww7mcE4W2SOM19bQm3wPcg=;
-        b=XAcP3aMbFY0oqYaXg5+6JcijyGHd64C0DK2vHxUwVvBgXtcx5TONIhTDNewvy5eF9z
-         2sR5N50OpFDFwOV+onVm7Pn44Me1P8UFi/zh54NmUOSG/vyNab9enjOcqAw62qHz8GnT
-         K8i4P4Bff/BZGwPGgQT9HONsdXvOtyms2tDjszAf+WOjhTWgvu1389E+bV+61Fx9Ehch
-         eG4H/qNNsliMNG/Tib9LSy3ov3D7PmbvldQZIgNjmsIhKRhvXHGpMfwERhf2rjOBhNEm
-         iZGoJyc86Zh8+I4TA63q2B2IW5VImh/6oYuNp6l+DCIIwkBxwLQgWkqO3cf9K574v7Ek
-         C1zw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788899045; x=1789503845;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=1MqNm2QyW+y3V2DcOMpwDww7mcE4W2SOM19bQm3wPcg=;
-        b=l+Tw+XYqWsh0DyVBHHi8HQnr6aU0K36aCk8nU0zLKyjhDQ87x9S7OFwDDgKWXAZ4H3
-         o8ljCu9RLD/bn1vWI8vVpiTz9iGGWrCvHMbhdpsXvzctwuWRJdIUKUSvFYg2K0RFCIrm
-         l8JKONMRNo++WmvpO/pPf+gohuwH5x6Drt1xZ30h059E4w5NX1vTY4zlgb10V7zfQmq2
-         Gdkh8SV4zkCQY75kZU2OHaoJqTk7lbA4xLtSgGK6FrRkyfn2Hz2l09FMte4IQPBXon4H
-         gAjy7ku0UTD00UMbFKKCqRYzPc2cYgoyoxMPsjXW69tPQKQqflovAX/hzhdXtv/R/HgA
-         SV0g==
-X-Forwarded-Encrypted: i=1; AKwUvBxyr74n+fANC3wURiZSG6GUmDldFT9UlYKaMBfX5bM4CMfNftsst9/M9aiINVr+n3fboIOc5ThqWE2HJwM=@vger.kernel.org
-X-Gm-Message-State: AFuF++lN9Xuzp6aRtCwpnqcSoFEyW5AEmn1rpvcwdAchgx59F5OyVkaF
-	MJEgMwN2qrKwBs6iB0vkwA5mbs/WWwRxav7Os3xEN25HPsMnWjptYavN
-X-Gm-Gg: AYBFou1UuspmD4JlHGiOzJx4SRrpqczx8EYdbal8OqjgH/4JsHsbU92BV4IBRSH6NtL
-	MmxZqzNLUmfW8fMMiUzV7IJfkKnJstU4rXj3DHo9C+cVNyYAbiU48x3vupDZgDACthgoG5q0O3n
-	3oGtq2t/QkesrZmDnRKz/nY40KSIqnQPbC6a5pptKwZeywlNJ3pSVQtUsUT0LdYbVXSec0fYcGz
-	x+lG7fc9vJoqZveA7CvbuKKyxgSa1WZuzJaECbR5kITBJ0JEtkq4Xy9qlvjAC/cfWI+sDVkvQfn
-	UulO+EKEuG5EBs2x5xRYQ6cfzXFXkW8Dqh5MqylqykA7isOUaCqqjZh3gP3nlqPbogw/PpxWGBS
-	aKu4u5BQwlBe0J3fhBKsA6VGHyEVUNWjQTKpU42qLLnSyWD3iDgD/KQBjbyE6NjXrdYhOmNzLId
-	FUxfS7GWUxFDmZ7qdYJAz0aqry59vMJ0nqeonDbq97qft8JsG3x9WgtH8nA1AXKvyUICtHVmtM5
-	DeiACxgtSGI0yOPdBw+Nrya0/zC
-X-Received: by 2002:a05:600d:8498:20b0:49c:cee0:f383 with SMTP id 5b1f17b1804b1-49cf828c65amr222198055e9.16.1788899044466;
-        Tue, 08 Sep 2026 13:24:04 -0700 (PDT)
-Received: from [192.168.0.253] (5403F394.catv.pool.telekom.hu. [84.3.243.148])
-        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-49cf7703cc7sm418324665e9.4.2026.09.08.13.24.03
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 08 Sep 2026 13:24:03 -0700 (PDT)
-From: Gabor Juhos <j4g8y7@gmail.com>
-Date: Tue, 08 Sep 2026 22:23:55 +0200
-Subject: [PATCH] spi: spi-qpic-snand: remove interim 'dev_data' variable
- from qcom_spi_probe()
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="n13BLIwJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B5FF31F00A3A;
+	Tue,  8 Sep 2026 20:24:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788899073;
+	bh=UX81FKHggDlYBKlQeaoEzIUHgB632Ksy7gdLpHI4rVY=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=n13BLIwJUvc/OQ5IesL7KDPLWb0H+mPh8H9Cy3ItVDb5BGON0ikp86TlzyYX7EaHR
+	 3ePPwGuAnceTgnPER+uk8XpmI9RTdqctlshgC29YgNuiZoHhZ6cEP+/0mjsHF69Ycf
+	 fAzuq0xDMnj/rJWwi0U5PqMfFrXX2cvN5v00YNvIzIxhQ8zWM7c/mhX+QnTAtBBpWT
+	 ZU3jSm49HKaF6HjrwQPDrlsh9Iu1Ay1CKpMuvfpXfdKokzTGCbUyAt5OMjwatkpsk7
+	 C3IpYx6T0VZoqFUM+e10ISLdebrmDk17Ae3XUifqAczThEmuBjdWAFZsCtA/SO67AN
+	 bIxrG97DoV5qg==
+Message-ID: <1b51428b-5dcd-4fdc-8f4e-d16ab14426a1@kernel.org>
+Date: Tue, 8 Sep 2026 22:24:27 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260908-qpic-snand-drop-dev_data-var-v1-1-147d3fab6c48@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MwQqDMAwA0F+RnBfIylC3XxljhCZqLrVLRxHEf
- 7d4fJe3Q1E3LfDqdnCtVmxNDfdbB3HhNCuaNEOg0NOTRvxli1gSJ0HxNaNo/Qr/GSs7Tr0OD4q
- RQhigFdl1su3q35/jOAFXsgszbgAAAA==
-X-Change-ID: 20260908-qpic-snand-drop-dev_data-var-f6e740cc0227
-To: Mark Brown <broonie@kernel.org>
-Cc: linux-spi@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Gabor Juhos <j4g8y7@gmail.com>
-X-Mailer: b4 0.14.3
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 11/22] thunderbolt: Find Apple VSE capability during
+ startup
+To: Joshua Peisach <jpeisach@ubuntu.com>
+Cc: Konrad Dybcio <konradybcio@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ linux-usb@vger.kernel.org, Neal Gompa <neal@gompa.dev>,
+ Janne Grunau <j@jannau.net>, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Yehezkel Bernat <YehezkelShB@gmail.com>,
+ Mika Westerberg <westeri@kernel.org>,
+ Andreas Noever <andreas.noever@gmail.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>, asahi@lists.linux.dev,
+ Rob Herring <robh@kernel.org>,
+ Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+ linux-arm-kernel@lists.infradead.org,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+References: <20260906-b4-apple-soc-tbt-v2-0-1f80085f93fb@kernel.org>
+ <20260906-b4-apple-soc-tbt-v2-11-1f80085f93fb@kernel.org>
+ <DL94J88RKZ3S.2EX69YJ6JOX4P@ubuntu.com>
+Content-Language: en-US
+From: Sven Peter <sven@kernel.org>
+In-Reply-To: <DL94J88RKZ3S.2EX69YJ6JOX4P@ubuntu.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-The dev_data variable in the qcom_spi_probe() function is only used
-to temporarily store a pointer of the device specific data before that
-value gets assigned to 'snandc->props'. Remove the interim variable
-and use 'snandc->props' directly instead in order to simplify the code.
 
-No functional changes.
 
-Signed-off-by: Gabor Juhos <j4g8y7@gmail.com>
----
- drivers/spi/spi-qpic-snand.c | 7 ++-----
- 1 file changed, 2 insertions(+), 5 deletions(-)
+On 9/7/26 15:38, Joshua Peisach wrote:
+> On Sun Sep 6, 2026 at 2:36 PM EDT, Sven Peter wrote:
+>> Only Apple Silicon host routers have the Apple vendor-specific extended
+>> capability. Look it up when the software connection manager starts and
+>> store its offset in the root switch.
+>>
+>> The Apple NHI driver can then use the stored offset when programming
+>> cable information without searching the router capabilities itself.
+>>
+>> Signed-off-by: Sven Peter <sven@kernel.org>
+>> ---
+>>  drivers/thunderbolt/tb.c      | 4 ++++
+>>  drivers/thunderbolt/tb.h      | 2 ++
+>>  drivers/thunderbolt/tb_regs.h | 1 +
+>>  3 files changed, 7 insertions(+)
+>>
+>> diff --git a/drivers/thunderbolt/tb.c b/drivers/thunderbolt/tb.c
+>> index bf1c192ec10a..d2832323cc36 100644
+>> --- a/drivers/thunderbolt/tb.c
+>> +++ b/drivers/thunderbolt/tb.c
+>> @@ -3025,6 +3025,10 @@ static int tb_start(struct tb *tb, bool reset)
+>>          return dev_err_probe(tb->nhi->dev, PTR_ERR(tb->root_switch),
+>>                       "failed to allocate host router\n");
+>>
+>> +    ret = tb_switch_find_vse_cap(tb->root_switch, TB_VSE_CAP_APPLE);
+>> +    if (ret > 0)
+>> +        tb->root_switch->cap_vsec_apple = ret;
+>> +
+>
+> Nitpick: I *think* based on the surrounding code that this can be
+> simplified to "if (ret)"
+>
 
-diff --git a/drivers/spi/spi-qpic-snand.c b/drivers/spi/spi-qpic-snand.c
-index 61b1f2eb19ce..9eafaea74f6b 100644
---- a/drivers/spi/spi-qpic-snand.c
-+++ b/drivers/spi/spi-qpic-snand.c
-@@ -1585,7 +1585,6 @@ static int qcom_spi_probe(struct platform_device *pdev)
- 	struct qpic_spi_nand *qspi;
- 	struct qpic_ecc *ecc;
- 	struct resource *res;
--	const void *dev_data;
- 	int ret;
- 
- 	ecc = devm_kzalloc(dev, sizeof(*ecc), GFP_KERNEL);
-@@ -1613,14 +1612,12 @@ static int qcom_spi_probe(struct platform_device *pdev)
- 	snandc->qspi->ctlr = ctlr;
- 	snandc->qspi->ecc = ecc;
- 
--	dev_data = of_device_get_match_data(dev);
--	if (!dev_data) {
-+	snandc->props = of_device_get_match_data(dev);
-+	if (!snandc->props) {
- 		dev_err(&pdev->dev, "failed to get device data\n");
- 		return -ENODEV;
- 	}
- 
--	snandc->props = dev_data;
--
- 	snandc->core_clk = devm_clk_get_enabled(dev, "core");
- 	if (IS_ERR(snandc->core_clk))
- 		return PTR_ERR(snandc->core_clk);
 
----
-base-commit: cb2ad3c020579bf51fb0d702db9cf64af9698377
-change-id: 20260908-qpic-snand-drop-dev_data-var-f6e740cc0227
+No, ret < 0 is an error and if something goes wrong cap_vsec_apple must 
+remain zero and not whatever errno tb_switch_find_vse_cap returned.
 
-Best regards,
--- 
-Gabor Juhos <j4g8y7@gmail.com>
+
+Sven
 
