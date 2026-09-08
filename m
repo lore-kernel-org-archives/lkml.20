@@ -1,73 +1,58 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 504AA3AE1B1;
-	Tue,  8 Sep 2026 07:58:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E1733A59A2;
+	Tue,  8 Sep 2026 07:59:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788854298; cv=none; b=gzGFRxiDagN6PlQ+mtE8kN/vIZE9Bb/iq2snDXFdag4fee959cRUOk1vSHqZKg/zTXME0D7uBThMCBda6r2ynXtd5Ym6f6vPnNXVQ9P7Mj036/DmGAkEpRT4VewuuBCImlvLyjMSkRons10JP2vAeMNdCKFJuKoaqMKzOktGd+k=
+	t=1788854346; cv=none; b=OD+yYSBbJCXdG/oqanz4PAOflX01j6iJHBP9XKFg/IWylRcLx5l1yWfbXYd406C7jEHr6SEZ2XjN/RCaM7wo96wt7+igiaHU/tbclaL1mjP4OJhanSDh1Pvlormautzf8anz2r3Sk3nONx2H0PgHGj9wagBYF4NsnKoA3CQoOvQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788854298; c=relaxed/simple;
-	bh=ZYptAyBu6KFFO7ApF0ix66fm88V2Y3sp/RqwAC6MXEA=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=CzfIAh/lhIbefCoEIAG4bRvWHJneYwUqRnHJMBoetZfRb/gcDOTqexBzViq2HE4egBJZ/nDyTYGn3ZCxexN/Fpd1jr/7/b5cL6lutdWQrLWAuLutAxtSA5ZkcuQ4lrmXVR0qAg8jguDQQCMD2wN+RZEoaScSlSJWXviS/+1qirg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=PlTgIwTF; arc=none smtp.client-ip=192.198.163.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1788854346; c=relaxed/simple;
+	bh=eTPH2gRiVebDTV6aKVpwEgVBwge2OxSkNnddqJrGw4Y=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=dtJan9HowHkvgTzleYYACVij8JqpFjlkvTeGHubB80WHNq72x6kwnwwbPlIcu2MjCAvaoanGme6b1F7yAb4lnIB28L5lVtPId1mswYKBGCMFECJ4r996EHkgX4/Z0qsBW7lMndrRLuSntnGTB4D2/zb2oPlwCwWVBBaOEOfI/kM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Pva6ijvn; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="PlTgIwTF"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788854296; x=1820390296;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=ZYptAyBu6KFFO7ApF0ix66fm88V2Y3sp/RqwAC6MXEA=;
-  b=PlTgIwTF7d00RWk0CeMFcwDcFn1FCxKcC2/xVF+wew0VWrrg9qJnaFPx
-   8N8+WUkdYJY8cK1tEOYTdo/YgD5RdzF5uXvC++W8O7cqohd8yP4ywQKgS
-   ilJcbQ4Mpt0AND3xG3jats6eiyKEqoDvyg+oGWXflsGnCll57TjBYBzDS
-   lGx7rKzZw2fRk7o+yI7WIiyPJYBZQ6JW1809+0jfdcFL+psSKPAABMj7P
-   k2qHr7EBEHIMJL2OtSh99s6QAvmkrJMi9+vxXZxkfmMgPC5GhqSLfaRv7
-   tJ3R3yishlGK4GoDEjxbyrLsivoWL/Yquo5pGALFVUQaPk3Gpm51aQR7z
-   g==;
-X-CSE-ConnectionGUID: EXVEwtc7SCi9J7DcR7zWkw==
-X-CSE-MsgGUID: EveBE7M5QPC7SEoYnfcp8g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11899"; a="91758447"
-X-IronPort-AV: E=Sophos;i="6.25,268,1779174000"; 
-   d="scan'208";a="91758447"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
-  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Sep 2026 00:58:16 -0700
-X-CSE-ConnectionGUID: ZjLgEWb+TYCLa7tCCTrwjQ==
-X-CSE-MsgGUID: z8i8DElBT/y6R2cxTsku/g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,268,1779174000"; 
-   d="scan'208";a="266576245"
-Received: from spr.sh.intel.com ([10.112.229.196])
-  by fmviesa006.fm.intel.com with ESMTP; 08 Sep 2026 00:58:11 -0700
-From: Dapeng Mi <dapeng1.mi@linux.intel.com>
-To: Peter Zijlstra <peterz@infradead.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Arnaldo Carvalho de Melo <acme@kernel.org>,
-	Namhyung Kim <namhyung@kernel.org>,
-	Ian Rogers <irogers@google.com>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Andi Kleen <ak@linux.intel.com>,
-	Eranian Stephane <eranian@google.com>
-Cc: linux-kernel@vger.kernel.org,
-	linux-perf-users@vger.kernel.org,
-	Dapeng Mi <dapeng1.mi@intel.com>,
-	Zide Chen <zide.chen@intel.com>,
-	Falcon Thomas <thomas.falcon@intel.com>,
-	Xudong Hao <xudong.hao@intel.com>,
-	Dapeng Mi <dapeng1.mi@linux.intel.com>,
-	Gennady Kupava <gennady.kupava@gmail.com>,
-	Ravi Bangoria <ravi.bangoria@amd.com>
-Subject: [PATCH 2/2] perf/x86: Disable precise sampling for PERF_SAMPLE_STACK_USER
-Date: Tue,  8 Sep 2026 15:51:02 +0800
-Message-Id: <20260908075102.540715-2-dapeng1.mi@linux.intel.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Pva6ijvn"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6886M92S1521684;
+	Tue, 8 Sep 2026 07:59:02 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=sB7QvgSPFsSgcjLwMoUSMi1kjCgw5FLJoFZ
+	OuoxL674=; b=Pva6ijvnjFE2xGb6X6VcId+Mbeun3+qxg0ZsNl/J7IZsAd/r3WY
+	aA1phAzXxvCyEJk09D+ne9gTeM065+whIiiLev3qHkjreMcmY5g4tUJgJaeLo2Jy
+	0pFmVgmmOX+ZMLDWswv1AzgM5ReyreHwmiVrARBdQcsZTN7UjFS10kuH+7rZQDDO
+	mBeLLDUS55dUhGvnC9GjQa6WMaFeV+Y0UPn1Q75r80KMuhuMkLhT5wY/gTmnTFA8
+	XEAIorUnv0gK080yYVfCs7OarMrlV+lzqxaEi3Rn7iTy/0L+FMuoBwjrDjYvNS+s
+	lxTUUTCwolTnaaodJ5/ZcQNiLKIPBTgWFjg==
+Received: from apblrppmta01.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gj077jnjj-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Tue, 08 Sep 2026 07:59:02 +0000 (GMT)
+Received: from pps.filterd (apblrppmta01.qualcomm.com [127.0.0.1])
+	by APBLRPPMTA01.qualcomm.com (8.18.1.11/8.18.1.11) with ESMTP id 6887ww2Y1372042;
+	Tue, 8 Sep 2026 07:58:58 GMT
+Received: from hu-devc-hyd-u22-c.qualcomm.com (hu-ks5-hyd.qualcomm.com [10.147.255.18])
+	by APBLRPPMTA01.qualcomm.com (PPS) with ESMTPS id 6887wwYr1372036
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Tue, 08 Sep 2026 07:58:58 +0000 (GMT)
+Received: by hu-devc-hyd-u22-c.qualcomm.com (Postfix, from userid 4763723)
+	id AB2C8667; Tue,  8 Sep 2026 13:28:56 +0530 (+0530)
+From: Karthik S <karthik.s@oss.qualcomm.com>
+To: Bartosz Golaszewski <brgl@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Karthik S <karthik.s@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org, linux-gpio@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [PATCH v1 0/2] pinctrl: qcom: Add QCS615 LPASS LPI pinctrl support
+Date: Tue,  8 Sep 2026 13:28:52 +0530
+Message-Id: <20260908075854.3015560-1-karthik.s@oss.qualcomm.com>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260908075102.540715-1-dapeng1.mi@linux.intel.com>
-References: <20260908075102.540715-1-dapeng1.mi@linux.intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -75,86 +60,55 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-QCInternal: smtphost
+X-QCInternal: smtphost
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA4MDA4MiBTYWx0ZWRfX+PcgXWB8fUa8
+ CFTFrhuDwU7L6+qv6eRrwQE4ExHmEBQmNkje2zwRgvuftSJFxodpxWDKTesdGwGmzny1MPtvfLS
+ xnuCFJOPTYiYiqvhtAmLulbT3XfSYqfqsZzCaWBFC7UgI+1kw2Thp/2vwkxO/D4TGGcw+aCDFBv
+ QJXU+SunDh7cH9L+HcqAlUwLTDZ1Gjgumik2kgXg5UpzcFfts/yeULswuJlzBN7drGlHa1BMw5a
+ zklGURANla2pUqZnm5sVTNgdqjiDWiqe5kh7wAQTV6nLSFfeReHrh+XbjVkqda5EhKUC7IhODbm
+ /v/VMt+Ja4Z093oum851zs3YZVwx7PtWrQ4AUjPYy4htRt0FYAXwepSpjirnDx2L9ltLE1D0FFg
+ /yl3Rcnm9wKvk+gQHE4z2EUZYmVMgcX0xhDaAJhRP0MaNhFThmIMrW/RNdjvoKHN1+XhbfTq8oF
+ 5cYYyeOFYZxI7UMr1CQ==
+X-Authority-Analysis: v=2.4 cv=Xbe5Co55 c=1 sm=1 tr=0 ts=6a9fc046 cx=c_pps
+ a=Ou0eQOY4+eZoSc0qltEV5Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+ a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=yx91gb_oNiZeI1HMLzn7:22 a=PqG24b8GdM_TS5kaKxcA:9
+X-Proofpoint-ORIG-GUID: nnr6COARgPmiKIGrbte3NZT_ETCMiyBd
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA4MDA4MiBTYWx0ZWRfX5xgvUf+crKv3
+ Xjx/8tS2SvpAoFp64nmy7k0ClWdNIWn9VsHcovZPp8OpBgY8X2FrkUp2T1sFNV6xJpcmiLjS/Vv
+ E97pUxtzU4a5YW16knuG+lBx/aWaDU0=
+X-Proofpoint-GUID: nnr6COARgPmiKIGrbte3NZT_ETCMiyBd
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-08_01,2026-09-07_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 impostorscore=0 lowpriorityscore=0 clxscore=1011 adultscore=0
+ suspectscore=0 priorityscore=1501 spamscore=0 bulkscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609080082
 
-PERF_SAMPLE_STACK_USER needs to return the user stack and user registers
-to user space when the PMI exits. Since the skid from the PEBS/IBS sample
-and PMI delivery, the PEBS/IBS register snapshot (especially IP/SP/BP)
-can diverge from the user stack at PMI return. That mismatch breaks DWARF
-unwinding.
+This series adds LPASS (Low Power Audio SubSystem) LPI (Low Power
+Island) pinctrl support for Qualcomm QCS615 SoC.
 
-Precise sampling provides no benefit in this case, so disable PEBS/IBS
-precise sampling and allow only PMI-based sampling when
-PERF_SAMPLE_STACK_USER is requested.
+The LPASS LPI TLMM is a dedicated pin controller for audio pins
+on QCS615 which supports 32 GPIOs (gpio0-gpio31) with mux functions
+for i2s1, dmic1, dmic2 and spkr_i2s_mclk_a.
 
-Reported-by: Gennady Kupava <gennady.kupava@gmail.com>
-Closes: https://lore.kernel.org/all/CAPu-DQqF0aF6=GS8Z6KKWeeX_V5LiXeKU_rJQZC+uGg8zuTPNw@mail.gmail.com/
-Cc: Ravi Bangoria <ravi.bangoria@amd.com>
-Fixes: c5ebcedb566e ("perf: Add ability to attach user stack dump to sample")
-Signed-off-by: Dapeng Mi <dapeng1.mi@linux.intel.com>
----
- arch/x86/events/amd/ibs.c    |  3 +++
- arch/x86/events/core.c       |  3 +++
- arch/x86/events/perf_event.h | 19 +++++++++++++++++++
- 3 files changed, 25 insertions(+)
+Karthik S (2):
+  dt-bindings: pinctrl: qcom: Add QCS615 LPASS LPI pinctrl bindings
+  pinctrl: qcom: Add qcs615 lpass lpi pinctrl driver
 
-diff --git a/arch/x86/events/amd/ibs.c b/arch/x86/events/amd/ibs.c
-index 3531f9c23b8c..c67b659d64e2 100644
---- a/arch/x86/events/amd/ibs.c
-+++ b/arch/x86/events/amd/ibs.c
-@@ -327,6 +327,9 @@ static int perf_ibs_init(struct perf_event *event)
- 	if (has_branch_stack(event))
- 		return -EOPNOTSUPP;
- 
-+	if (!x86_pmu_allow_sample_user_stack(event, true))
-+		return -EINVAL;
-+
- 	/* handle exclude_{user,kernel} in the IRQ handler */
- 	if (event->attr.exclude_host || event->attr.exclude_guest ||
- 	    event->attr.exclude_idle)
-diff --git a/arch/x86/events/core.c b/arch/x86/events/core.c
-index 8b3ea0adb965..ceb5038d7565 100644
---- a/arch/x86/events/core.c
-+++ b/arch/x86/events/core.c
-@@ -594,6 +594,9 @@ int x86_pmu_hw_config(struct perf_event *event)
- 		/* There's no sense in having PEBS for non sampling events: */
- 		if (!is_sampling_event(event))
- 			return -EINVAL;
-+
-+		if (!x86_pmu_allow_sample_user_stack(event, false))
-+			return -EINVAL;
- 	}
- 	/*
- 	 * check that PEBS LBR correction does not conflict with
-diff --git a/arch/x86/events/perf_event.h b/arch/x86/events/perf_event.h
-index 71ed5b2acea2..9fbcf2bcef51 100644
---- a/arch/x86/events/perf_event.h
-+++ b/arch/x86/events/perf_event.h
-@@ -1274,6 +1274,25 @@ static inline bool is_counter_pair(struct hw_perf_event *hwc)
- 	return hwc->flags & PERF_X86_EVENT_PAIR;
- }
- 
-+static inline bool
-+x86_pmu_allow_sample_user_stack(struct perf_event *event, bool ibs)
-+{
-+	if (!(event->attr.sample_type & PERF_SAMPLE_STACK_USER))
-+		return true;
-+
-+	/*
-+	 * PERF_SAMPLE_STACK_USER needs to return the user stack and
-+	 * user registers to user space when the PMI exits. Since the skid
-+	 * from the PEBS/IBS sample and PMI delivery, the PEBS/IBS register
-+	 * snapshot (especially IP/SP/BP) can diverge from the user stack
-+	 * at PMI return. That mismatch breaks DWARF unwinding.
-+	 *
-+	 * Therefore, disable precise sampling for PERF_SAMPLE_STACK_USER
-+	 * and permit only PMI-based sampling for this case.
-+	 */
-+	return !(event->attr.precise_ip || ibs);
-+}
-+
- static inline void __x86_pmu_enable_event(struct hw_perf_event *hwc,
- 					  u64 enable_mask)
- {
+ .../qcom,qcs615-lpass-lpi-pinctrl.yaml        | 114 +++++++++++
+ arch/arm64/configs/defconfig                  |   1 +
+ drivers/pinctrl/qcom/Kconfig                  |  10 +
+ drivers/pinctrl/qcom/Makefile                 |   1 +
+ .../pinctrl/qcom/pinctrl-qcs615-lpass-lpi.c   | 185 ++++++++++++++++++
+ 5 files changed, 311 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/pinctrl/qcom,qcs615-lpass-lpi-pinctrl.yaml
+ create mode 100644 drivers/pinctrl/qcom/pinctrl-qcs615-lpass-lpi.c
+
 -- 
 2.34.1
 
