@@ -1,282 +1,314 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazon11010031.outbound.protection.outlook.com [52.101.193.31])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A408F51A752
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 09:28:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788859687; cv=none; b=dkRlglg2lPqaTg0CVeWIUSYBMHXTNI77ODdQRAZUZDggZa8jnsYRqyQ5vyxkvm6pgd2bMi0cccf79h2aJ18CRYBQelkqDSQouVNSkq9JE6LXs/lCpYWeo2H9pLFyFiMsk4QQyZiRHtvvWHZId6vm3IA4d+/ydSI/hr1NVjHOklA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788859687; c=relaxed/simple;
-	bh=e978EXWIA4sXTr97huLawpOgX8082ymb9e+2dGNjw5M=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=IzTiZQiBO/dM05Zktpu4w+MnPkCf7PGoIvjw36pCF/oJXmsfzhYPG9tN0oAhvqNIpywU/EUcClQPcyF5+l5ZTtAx4jWzga7iEZ5HClqcWVMYdoytxs5fddFKXQ2jVThXZQjg/BwsHidJzI6M0W1IcvrVPaZwo5TN+SQr2ZSYkuk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=IDuIpTTD; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=OoB9sqhn; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4BEE51A752
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 09:28:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.193.31
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788859696; cv=fail; b=ITx7U5yI2OL89DfTllPGfHXagelJS9dm6y8ECaRB+HCeZdTqEgV+EdDMsOR0Uj1OmTtr16efhvfDBqzF7aMycXRb3ypu9n8WUlN/e6u0CBg7yEkBBScknT4gYI6TzaIWw6F1zVK1Ul/KP670tx4HWgg2hZFr3hboDapM4QtBP/I=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788859696; c=relaxed/simple;
+	bh=xvLPOgnNjAkwj0KgqtX/bCMTtpk55uFVRQ0hahkQpE8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=kS1GJhBQwRqRcyf7C7Pya+3Ap6cwi7g7C/gTiKqa8uwSlrXumh78+dnzl8OjIm3goDXW69axHNrfz0e3Ik+nzPf3S+ZFY112zS9i1bQKJG9KG2cYGbrxq6WhEOHHBC6Cklez8EZ2IkBRoZcx38mgKag04Ku15ehCsKw9Vk6rOdA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=R/8avkH7; arc=fail smtp.client-ip=52.101.193.31
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="IDuIpTTD";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="OoB9sqhn"
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6886M4DI2979395
-	for <linux-kernel@vger.kernel.org>; Tue, 8 Sep 2026 09:28:05 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=qcppdkim1; bh=xQ5AnXapuDmwQthGbSeXpd
-	B6HyiT025OD5a5rgt3h+I=; b=IDuIpTTDT2iBrJo3NF3irTMMKpCHE7YD8YHlr5
-	6VUacu/rh+6fudiycQJzvjxhR7mjrCAcHYxPBsv0NlinrNFcB/j9W2Dbhbe3wHuv
-	AYpPRmRI53IGMkMe1So+1y4u1/B0nq8kX1ZWBfhijsU4WqeTKyQA5v3g86yfmg4G
-	1NVH4DSX6ybRnsg0WPTID3ijy7cTqLNLZBTPsfahWvsyrUb8PsTpyarRObrrA7WT
-	sU3hQ2g9sury0eAUYSsluQQa1jpAw0L1z9m6jWpFHBDHuUGniXsHKl2NY6JmrISH
-	5TovdCVEjbmRElSYF8DryQi8QRHAKUw+mQVTOxVjLysj4i2Q==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ghuykc5gf-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 09:28:04 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-92e4f946461so789990385a.2
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 02:28:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788859684; x=1789464484; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=xQ5AnXapuDmwQthGbSeXpdB6HyiT025OD5a5rgt3h+I=;
-        b=OoB9sqhn7JRo9Zhbft6zzwY6hS1YbMI0eMADV40ZA2b5sKPUi5DRezZlQTCI0bBG8C
-         uVS4vilkagvYSI6c+gcorYh59rQNFRvinGPGf0mZHw1EjD2WJ46RY+9V0pCwrgE5yEfy
-         okZOLFUO751QTV4uIvKXmDXNmNMloR1fZ6SB2N+Hy0mqgZ8EHXUgcAyw+pqkjV7dTGyU
-         JhEdzQYA3WHTbnS8K9GZUjA/rR4LHB9QO9nzNnnQlVOYy6ZQg7XRXoaZtQXtuv1d5RQ7
-         u5THSS2T/7gAUSSxaJZlNoxYWmW1v3/y7NtEVq3zAQCco/wJvwc5UYAAtYqAqbIl9bKX
-         FRsw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788859684; x=1789464484;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=xQ5AnXapuDmwQthGbSeXpdB6HyiT025OD5a5rgt3h+I=;
-        b=TrYT2PEkv1yrL1cnCXZJBpoltcBkNDgIqFsrX8t2d2E/as2x6YHq4ZHHldDng+L5my
-         sq2+gqmH0tT4bLXtMNgUN3jl467rOpnx4diPJc6vW/4j9nwZYYUH9k1PpOP6QImTLYkK
-         50ThjcXTS+V1GpmXKqnjIz2TW8yzAeOuuIHQ1A5CcVCMDof65aFKT3Egx61zU8N7oLEq
-         Tmg9qS6Ru5CGoswYoBQHu9tM5JTwENEku5u7DxjCHzhrFpTwQNhPZ/TuJuYl5Y35276X
-         NV1gV00ikotscK/glBrC7cmHMoJqB+VjxZMbCqNbUTc/4C5hKBWz231oPrBLETOSPDKd
-         +4oQ==
-X-Forwarded-Encrypted: i=1; AKwUvBznpbBdYALkJas5r9E0+B1pren182Mzc0ZdBmPB2Do4wdKgLq0f1RyEK0BTqFfkLwoia9w+U1/ym3Zxq1k=@vger.kernel.org
-X-Gm-Message-State: AFuF++l34tJ01iYqPZv5Do/+FVh5CpBMy5foVqwZoQ8BRsiNzSixBdLi
-	T0COCb268EA5npy7ttIyQqB4kcQWdhc/8tuJgz+hCeHRrBBnwPp+K7L2DGVzWN0FMNt11tSPZbo
-	GSR2naLnj+GqxcdU/FwOugqz8268UX7Gis87j/cvoJeKx+cucDiv5ae5ALm5SZ+wD+JY=
-X-Gm-Gg: AYBFou0XGEkH/ptRUkTUhkZxtn7IQygsspFmwgQGx+dn0s1cQQxlkEyLOB6e+OMec7L
-	RzQQaXFZgGk082Uhsnb0+7i108kWud8Kg6JL9tXZbfK5p7YWQOesf/H+pO3WTQvhoDShOLoxhUp
-	8CIPgilYPfgHow6cXSkiX1mRMfLu1RJVL2P4KGcV7yYkBIymQ+8rMsAtNc/kilJwhcKES8iCPoZ
-	C/7MBXoSQp8LeSOfZ8QXaRWgn81i84fUS5Wrazgrf420u8lag4C12thTYeT2aKUesazdH1pHbOb
-	Yuo5CIWnV393fAOQ48p/tlh0g26kfu+oy6i76EtYJEmlkpKI4UyPhcFm22Bc1sxj6Vff1l+Fnn+
-	almKMj/ZzBPO6UAQW1weXEHKOoSIf
-X-Received: by 2002:a05:620a:4875:b0:936:8840:427f with SMTP id af79cd13be357-93980328a11mr2689596485a.4.1788859683665;
-        Tue, 08 Sep 2026 02:28:03 -0700 (PDT)
-X-Received: by 2002:a05:620a:4875:b0:936:8840:427f with SMTP id af79cd13be357-93980328a11mr2689592385a.4.1788859683082;
-        Tue, 08 Sep 2026 02:28:03 -0700 (PDT)
-Received: from brgl-qcom.local ([2a01:cb1d:dc:7e00:79a2:f118:df09:fe51])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cfbdacc45sm349714825e9.11.2026.09.08.02.28.01
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 08 Sep 2026 02:28:02 -0700 (PDT)
-From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Date: Tue, 08 Sep 2026 11:27:46 +0200
-Subject: [PATCH] soc: fsl: qe: drop GPIOD_FLAGS_BIT_NONEXCLUSIVE
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="R/8avkH7"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ilUMqqrceItyvCGMI6GJmX6oJg73Ih5AtO5U1x0yssKwFxjNJOi3Fm/TJOXB+6SLPUWhDWC1ECWUj7N8H6XnII6sR0+DwqM6vLjCEsCdJXq5+rteheH6uf/X7w0DwJh3XIofW2xKsdbc9IEqiMOAeaSei+a2mLXPE1rL2STjVFGComeQqRWE8EUcOBpOdDmb9K2Y+F3Ykq94MwYNcY5bmS9PnWU1JM/lTu+nU0T8foiLk1lX06UMRKE/lsX0tJYz/yLPBGasKkqeRqZD/8es0aIWMUxvTWM2DflVFYGeMK5BOh/4haSKdXbSoFKwpuFRCnx3+m6ZBxSaRQjm+NtIlA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=fgIodrbaaqyYD8MsjIJ2MF+1KHaT7fMcPxXXpK0kPKY=;
+ b=AueRAtUnPggq64QiqIbaTraLxe39kDX0vPcuKHA8Cx6+8z/1jelpmjuhIDjeV3Shxf7Jx84edFpdPDfPhknzK/X9zmh/zFAQuAzA73M5js5P6YwBeJkTiEbeJnKRHaowR6RVatOl919yFDYtW7fX1eCzqZMNAc9IYuj0kWitgG6K/8rMsa2O6mTXheHFx3C4InOsbg9rXSsc9bA+EIZXeTPofNC1RUrna/fnRGyLLDiS8QiOB/o3Gcso0zWWT0cwVHjX6YP4AnNM3YFyVGtpfz15t6czhv8sPQJ+BwfevW0Ee7g+70wl1XZME0qNcxUrYsKsyi6ynLklSF5zus3P5Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=fgIodrbaaqyYD8MsjIJ2MF+1KHaT7fMcPxXXpK0kPKY=;
+ b=R/8avkH7WfoV8WV2dS4jj4GMc8kz0Mg5d6HXbltnnMDehZbaJUZ9ddNWIgzSUgd5IrR8OM4Akqc0DngfRhWRFjiIG2jieAj5n5IerF+Ht4OPzKdMs9Au37fIn1HQSyFWDAEE5J2C91b/ufsQ9DwRSFuMApjz7Pph+hfp2yifmrhfr+Q0yTS2y+EC+FMR5ZhvWU4Ug/zF4EE4bFLeYBTbfGzxQvcNcdoW/yzKKi9xKJAX9f6ROUcPAjE+6WoiHWTP4GgaI1UrYqb9HR1Immmi1g/xYGnRGNSefA/P+J76epg7hrMne0z6KweoGmJA2KD+/7e35LXFdoPPyZOTMb1YdQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DM6PR12MB4827.namprd12.prod.outlook.com (2603:10b6:5:1d6::14)
+ by DS4PR12MB733313.namprd12.prod.outlook.com (2603:10b6:8:50e::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.7; Tue, 8 Sep 2026
+ 09:28:09 +0000
+Received: from DM6PR12MB4827.namprd12.prod.outlook.com
+ ([fe80::6261:3040:864b:159c]) by DM6PR12MB4827.namprd12.prod.outlook.com
+ ([fe80::6261:3040:864b:159c%5]) with mapi id 15.21.0382.014; Tue, 8 Sep 2026
+ 09:28:08 +0000
+Date: Tue, 8 Sep 2026 11:28:00 +0200
+From: Andrea Righi <arighi@nvidia.com>
+To: K Prateek Nayak <kprateek.nayak@amd.com>
+Cc: Tejun Heo <tj@kernel.org>, David Vernet <void@manifault.com>,
+	Changwoo Min <changwoo@igalia.com>,
+	John Stultz <jstultz@google.com>, Ingo Molnar <mingo@redhat.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
+	Valentin Schneider <vschneid@redhat.com>,
+	Christian Loehle <christian.loehle@arm.com>,
+	David Dai <david.dai@linux.dev>, Emil Tsalapatis <etsal@meta.com>,
+	Lee Trager <ltrager@nvidia.com>, Richard Cheng <icheng@nvidia.com>,
+	Koba Ko <kobak@nvidia.com>, Aiqun Yu <aiqun.yu@oss.qualcomm.com>,
+	sched-ext@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 02/18] sched/core: Dequeue waking proxy donors before
+ reset
+Message-ID: <ap_VIJdG80ZZ_8D0@gpd4>
+References: <20260831134338.1531664-1-arighi@nvidia.com>
+ <20260831134338.1531664-3-arighi@nvidia.com>
+ <3d4116ff-0634-4ab6-be24-0bd2c68f1698@amd.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <3d4116ff-0634-4ab6-be24-0bd2c68f1698@amd.com>
+X-ClientProxiedBy: MI1P293CA0010.ITAP293.PROD.OUTLOOK.COM (2603:10a6:290:2::7)
+ To DM6PR12MB4827.namprd12.prod.outlook.com (2603:10b6:5:1d6::14)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260908-usb-fhci-drop-gpio-nonexclusive-v1-1-8e405dc67874@oss.qualcomm.com>
-X-B4-Tracking: v=1; b=H4sIABHVn2oC/x3NwQqDMAyA4VeRnBeIbs66VxEPLkYNSFsaKoL47
- is7fpf/v8AkqRh8qguSHGoafEH9qIC3ya+COhdDQ82beuow2xeXjRXnFCKuUQP64OXkPZsegq1
- 7ccuO3PQkKJWYZNHzfxjG+/4B8MoRJHEAAAA=
-X-Change-ID: 20260907-usb-fhci-drop-gpio-nonexclusive-584c5c808a30
-To: Qiang Zhao <qiang.zhao@nxp.com>,
-        "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        Linus Walleij <linusw@kernel.org>,
-        Bartosz Golaszewski <brgl@kernel.org>
-Cc: linuxppc-dev@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org,
-        linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org,
-        linux-gpio@vger.kernel.org,
-        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5039;
- i=bartosz.golaszewski@oss.qualcomm.com; h=from:subject:message-id;
- bh=e978EXWIA4sXTr97huLawpOgX8082ymb9e+2dGNjw5M=;
- b=owEBbQKS/ZANAwAKAQWdLsv/NoTDAcsmYgBqn9UYmHVJfDtsLbAHMyEmW5VQCD+WP9drTn2DY
- AcGBHo39UOJAjMEAAEKAB0WIQSR5RMt5bVGHXuiZfwFnS7L/zaEwwUCap/VGAAKCRAFnS7L/zaE
- w9tfD/9kbyaVWzykBOKPu+CBlGh1AiRvifpabM2JsEGENIXivb7FefAWZOoT8QEnHrIIZObwq/5
- fpsbf7Dl0zV754tbqWvoUKs9j76lidy1OGe3AG2WuIt8BLKXwFOaqrBqi9Qtlwa6AKBm6FoIbQM
- H9rEBskiyvJkNu++hVDq3kwTGyDH2BlGnwyIMAew6esPJoS1KzhrzlSnTNvfJfdRzdWJjNsWhnp
- 7pljZKS/GU0mATdh4pXPZlv1eCcFFj9xypUVwRyd6FyhyGtf13ZM+qGjwYZVWCaU2GQiYkQcSdC
- arBhhDHyFJWexzeZXvE8ndOYT7q6Z7wwUXvDcebEN1aMmcsilnlD4jGM2etJ45XbskWjFwtAxlD
- gvfTNnbmg9udfGHeWstwt2kt4oh2CDJznp4xuMn+p+kQNlyrn7VdLM1nKaT724m0Rj2Wa/lTZyc
- DzeaRRCCmOq1nuRhJp3s/SWWvGYDNdKSUZyuCBKd1DrxYptp9xMrdHG7vNBw3IEnTTTtoGKCxdh
- sklyMapEBIVXc2rdJJtRIF7fXgRp5VqzW8MaQm3D2ocB370fZKXncEYzc7/V69mDPZErQbn5kPi
- 6sTDiZ/jY/ONBjNPql+1Hm517jQrhl7H3EZdNMmxWIwnAqdVZ5iEUjSaTuq6XQmRHIAxzpJiINP
- 7H96kj5/CoBUaMA==
-X-Developer-Key: i=bartosz.golaszewski@oss.qualcomm.com; a=openpgp;
- fpr=169DEB6C0BC3C46013D2C79F11A72EA01471D772
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA4MDA5OSBTYWx0ZWRfX5JZQw/zszSAy
- p5a3Y/cwltMVkqLjMAF2wTPFQYsQpOst7bhUZxIV2OEWL+vFLVlQ3RnWY4A53e3Dr4b1cRSHoFY
- vFjI9TjOEthgXjb6fRoZOy5QHSlJ6FE=
-X-Proofpoint-GUID: s-Waf_xft6nNfz4c_aDr5TI6pQ4sUP75
-X-Authority-Analysis: v=2.4 cv=ObSoyBTY c=1 sm=1 tr=0 ts=6a9fd524 cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22 a=EUspDBNiAAAA:8
- a=buOPlMvk26ltgJ9tiNoA:9 a=QEXdDO2ut3YA:10 a=IoWCM6iH3mJn3m4BftBB:22
-X-Proofpoint-ORIG-GUID: s-Waf_xft6nNfz4c_aDr5TI6pQ4sUP75
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA4MDA5OSBTYWx0ZWRfX9XgVaTezjWlX
- iDR5Ow69jDFbnK4FkQRGpA1Y822DIP1TLdEakUAqWLcYtBGiv7LArRpegXI5TeQPmSf+sRFoVCU
- +fjOcHBgeHf8TIjXeW0EZKr9DZDZqL4t6QggY+t8zv4XlE/Q3cshpnoNkpNs8igNaYxTPFS9hfW
- AJTGb8lNMSgwG77RqL8gPZP62A3wGXJvL6hMclcjD7DIohAq7EXDWavwruAfAP2K5ga1TZzrYPD
- slNpJtrpUFdKKrl+voENY7JMvV4MVdQ2x0MKjnRxgtwTKQ/XRF0ib/bAJvqaXJs1AnkVhSgTiET
- yjpCOvIJeDx6Z05g8RoxEO0f3Ugrw47k6P8p2dozxtnpD7L4JPWbmsuqqwYqfaQ4toacQw1kx/s
- ONzFsxVZb+aExK50ENWLHU3d4Z9NeoXYxbakuDLlEd/MuiuxTdZ3uY4Eo2VDZbQtuAhHEC/uwJj
- H72HHZHjTDyhYYo1hMQ==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-08_01,2026-09-07_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 lowpriorityscore=0 impostorscore=0 adultscore=0 phishscore=0
- priorityscore=1501 malwarescore=0 clxscore=1015 bulkscore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609080099
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM6PR12MB4827:EE_|DS4PR12MB733313:EE_
+X-MS-Office365-Filtering-Correlation-Id: b4e6c29d-923f-4eb4-9f3c-08df0d8b7ea2
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|366016|1800799024|376014|7416014|10067099003|6133799003|18002099003|22082099003|4143699003|11063799006|5023799004|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	54FJtXzWAfOcF1sUaVAMlPQ50koGf5Wbk9UqRmeewyFo10bEswC7dpHpyqgz7Co2MhqsNue/aUV1ys80QrP0Hy9oMUfbSOs+7vbSDx3l9REJSU/vSQ0ksI5hNX3Zb0IKx70A0KKMs1QJncLMunzR6uu1g3h30VJ9Sv8i01l2TwSGcvOKa1HgOlPGXgxEjZYUO2OBa+r3R8oWu3qIFV5n9cweyEG7k6TdyM89xbJjxeTtqu98+U+kpKO7ewg1d+8lCTalQ4E5+SP2vsM/n7HXO0M7QSDyPvJaNHMGKmLHQun3oL2hm9ez/i5WSJXA4+yuWCcH7YH9pe34NwqBiu/WrHzZPKCSeOtIcnElmuuc3it6Swqh3tKo22IppD9QVgnlOJXJpgqxJTsXkruDp29W1jdOdnLvbCSbQk81DHZWri+YkUzKNzlznvBdkI1ck+IbRnBA+iZigKWwdNrHSko/zc7PSjL/nyjqLDwXC06HzztN3LtgU/iHmMJwgvhqrJugjgx5ut2fuofaYgcnIqAUEgLoW/e2GZ0RXIjaA+j4lbqq0fuT/QQyMLUaTYZM1GcBFs7BLifKC56o5K9LaJdYKUX5yC039uZGvY1ccVuqtxRxAfcqycNYLEMoHZjBR5kKDQcH6VRLNr9e2ioiv/CKMGFP5cb1Pe9+x84O8htYVYM=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM6PR12MB4827.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(1800799024)(376014)(7416014)(10067099003)(6133799003)(18002099003)(22082099003)(4143699003)(11063799006)(5023799004)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?YLCmPi/cE5FzoJqu1kiaaLedcrjuLBRslG5eongn4mm9sSb6PxJUM/Il/Hsf?=
+ =?us-ascii?Q?DBwYioB8wcGz+KMdtJq+P7Huu44JMDxm8UU4vG9IOMWfhrCS6xreMmuCq9IL?=
+ =?us-ascii?Q?ZTERvxm8+6NeHswczzIcjJmZDUu/h1ClPpKSlNh2bAkUl6tioI+xJAXNFFDP?=
+ =?us-ascii?Q?pts7lNU1UZA2wJnHKI2v9zkxqkVUyEQ9ySxRu+1sXVKC9oyjCpdbXEa1rAro?=
+ =?us-ascii?Q?+6xBxrqyjjLPAVTlxue98ccHzVaJ5qFMlJtvYXOdDTQvvKHOx9Od0gYzy1xN?=
+ =?us-ascii?Q?2XxX8P+/r1I73x5bmZ04fNriOJ8y3a8Z2KwHLgvM6/WPt480T6BMMCWilya/?=
+ =?us-ascii?Q?tla4NsmCEdOZkBhJWqjov3uVTAv/C4nW/B8/g6cBEFUE1L3n4qe6pRVAXzIs?=
+ =?us-ascii?Q?e+IMMuwjIDnmoaTjtJ/AuA7ecd9ME5VgoqlcWPRnikRq7Qjpzg+eY5ZpnO6W?=
+ =?us-ascii?Q?JpGLd/4M3F7rocBOfosQlKGCDbstjiY42wF/Zyl8A1Ta5xag7H8RXu3iwWU/?=
+ =?us-ascii?Q?oM78VWdSaG4w0BVCX7bblWcfCeIPNLJjXH/xtNL4otZiS4HEOjM/fhmgyQnO?=
+ =?us-ascii?Q?U0vffstK05V9bixdZyevAcezffKLjEwHjhQDIDtbSbhoyu107gX0uL2m05s0?=
+ =?us-ascii?Q?enZ19aBJaV6yDTjcWt0grpHQHPbCLxXVbk7plc/IMFwwInTwyhYL85IvdlfK?=
+ =?us-ascii?Q?8R55t1Q5o5gsPESOAV2MyknpuR9VtZVl4kF/E1SQeEJdIj+UtBU5EcUozja9?=
+ =?us-ascii?Q?bV0xEYuEYrMMCI5sAOvqKrBpeYB1X+jH4bqJRO8c443l7Hk+U4S+LI/vplmK?=
+ =?us-ascii?Q?jfBkxok5b4iBLVd1p1ghTXlv7TLWdIrSFo97u73lhslDsUJDF/F6wS5nM+V2?=
+ =?us-ascii?Q?Hz/aQCW4Z+fD+d9vvw75JeMGFmjYCDVS1QbGO7PD6aWQZ6u45erTcVLoxnNM?=
+ =?us-ascii?Q?vTMGhjhVFNBHsvaPVgx48DCiTYX83fEPyj58XL6LUzrhg7T9wqcGkEk7aUe0?=
+ =?us-ascii?Q?xRwTk0egwdSIuyVzlDavCJi8IqWIyHPaJXbQqT9mM9Er3JOU+DdCqmlbH04Z?=
+ =?us-ascii?Q?ApWUPkzAJT6s/VDT2Y+nj2xtPzjPxwb/zarHiMBtOYGwC5ShTUSVY5RLIk49?=
+ =?us-ascii?Q?pwANNzWoyWYWlK0V+j/cf+h+BkNID1C9zbWsC+rfoGREN7JMoSJsfuCa2wId?=
+ =?us-ascii?Q?U4Ym7QUi/OOfwW/pfvwXOxdyN8pZGEltmqJiSKSbwuvTWqyiH5+TyuA05okh?=
+ =?us-ascii?Q?IwpLNevNLPaIn+02pN3l24VJuPbuyVZjf2maStRLiKwBtZHnx9dAI2BR5StU?=
+ =?us-ascii?Q?YD4MxeyM4Iq1tTERi6bxIZ9P4+2vDAl9ffhY5TEXiBREl9jSV20LiMlsBFqp?=
+ =?us-ascii?Q?2rWxLAjd2O0S8a7/D0m0CFUNvldSqT+JdVsj8uiXe1jr19K91V0XgSE75zkA?=
+ =?us-ascii?Q?VQSSwZLTfYHXIO0CWHZwmq7NKjekeHdrrnFkvKgD3AwEAhWv4NgscoTXbWe7?=
+ =?us-ascii?Q?//qsjHg1fU/uKmP/aYr549/SQG765dkKSuJaqKFLmkOXGh10PCUVu8mHzGrL?=
+ =?us-ascii?Q?DO/Gab4iW4mQHOKguaUl3ffO5WEOKnN1x8ux2ohzRmpZJuoIQivu666WSnB4?=
+ =?us-ascii?Q?kZKEHC742P8q7K2csVb+vyYBFY4qj3sBLcXx37/kaPU53N2Y8oknQ0Ax2j2h?=
+ =?us-ascii?Q?2I40xsb7AztoXRVWrLRPaQIN+qHuR4L+jK2lgGq5yw0xIy51R1Y0hJu44Ja7?=
+ =?us-ascii?Q?Sp6Sd6KJwg=3D=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b4e6c29d-923f-4eb4-9f3c-08df0d8b7ea2
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4827.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Sep 2026 09:28:08.8398
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: lcD+aEz219WW7+QBNxRrlQaIGixWWRgiMGEGzr58gL5gbLMplldBrUrGFpO5c0Ef2JWO1ru0cY8e+/5UYnMwxg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS4PR12MB733313
 
-The GPIOD_FLAGS_BIT_NONEXCLUSIVE flag for gpiod_get() is deprecated. For
-actually shared GPIOs, it should be replaced by using the functionality
-provided by gpio-shared-proxy. The Freescale QUICC Engine GPIO driver
-uses it as a workaround to access the GPIO descriptor already requested
-by the caller of qe_pin_request() in order to access the private GPIO
-chip data.
+Hi Prateek,
 
-As the existing comment itself states, the user already requested this
-GPIO and the only user in tree is the FHCI USB driver which does in fact
-request it, we can safely modify the function to take the *exclusive*
-GPIO descriptor as argument and stop using the deprecated flag.
+On Tue, Sep 01, 2026 at 10:54:44AM +0530, K Prateek Nayak wrote:
+> Hello Andrea,
+> 
+> On 8/31/2026 7:12 PM, Andrea Righi wrote:
+> > proxy_needs_return() resets an active donor while holding blocked_lock.
+> > proxy_reset_donor() invokes scheduling-class callbacks, adding an
+> > unnecessary raw-spinlock nesting. It also presents the waking donor to
+> > put_prev_task() as still runnable immediately before block_task()
+> > removes it from the runqueue.
+> 
+> Is that an issue for scx?
 
-Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
----
- drivers/soc/fsl/qe/gpio.c   | 29 +++++++----------------------
- drivers/usb/host/fhci-hcd.c |  2 +-
- include/soc/fsl/qe/qe.h     |  6 ++++--
- 3 files changed, 12 insertions(+), 25 deletions(-)
+Yes. When a proxy-migrated donor wakes while it's still rq->donor,
+proxy_needs_return() has to reset the rq's donor before clearing the task's
+generic on_rq state and returning it through the full wakeup path.
 
-diff --git a/drivers/soc/fsl/qe/gpio.c b/drivers/soc/fsl/qe/gpio.c
-index 5cd59cfbf22fa68d39ad00b8f73ad389ac8860a3..5a3a1d5df669b1e0a084a0ebfd2aef91e15f126e 100644
---- a/drivers/soc/fsl/qe/gpio.c
-+++ b/drivers/soc/fsl/qe/gpio.c
-@@ -196,18 +196,17 @@ struct qe_pin {
- /**
-  * qe_pin_request - Request a QE pin
-  * @dev:	device to get the pin from
-- * @index:	index of the pin in the device tree
-+ * @gpiod:	GPIO descriptor associated with this pin
-  * Context:	non-atomic
-  *
-  * This function return qe_pin so that you could use it with the rest of
-  * the QE Pin Multiplexing API.
-  */
--struct qe_pin *qe_pin_request(struct device *dev, int index)
-+struct qe_pin *qe_pin_request(struct device *dev, struct gpio_desc *gpiod)
- {
-+	struct gpio_device *gdev;
- 	struct qe_pin *qe_pin;
- 	struct gpio_chip *gc;
--	struct gpio_desc *gpiod;
--	int gpio_num;
- 	int err;
- 
- 	qe_pin = kzalloc_obj(*qe_pin);
-@@ -216,34 +215,20 @@ struct qe_pin *qe_pin_request(struct device *dev, int index)
- 		return ERR_PTR(-ENOMEM);
- 	}
- 
--	/*
--	 * Request gpio as nonexclusive as it was likely reserved by the
--	 * caller, and we are not planning on controlling it, we only need
--	 * the descriptor to the to the gpio chip structure.
--	 */
--	gpiod = gpiod_get_index(dev, NULL, index,
--			        GPIOD_ASIS | GPIOD_FLAGS_BIT_NONEXCLUSIVE);
--	err = PTR_ERR_OR_ZERO(gpiod);
--	if (err)
--		goto err0;
--
--	gc = gpiod_to_chip(gpiod);
--	gpio_num = desc_to_gpio(gpiod);
--	/* We no longer need this descriptor */
--	gpiod_put(gpiod);
--
--	if (WARN_ON(!gc)) {
-+	gdev = gpiod_to_gpio_device(gpiod);
-+	if (WARN_ON(!gdev)) {
- 		err = -ENODEV;
- 		goto err0;
- 	}
- 
-+	gc = gpio_device_get_chip(gdev);
- 	qe_pin->controller = gpiochip_get_data(gc);
- 	/*
- 	 * FIXME: this gets the local offset on the gpio_chip so that the driver
- 	 * can manipulate pin control settings through its custom API. The real
- 	 * solution is to create a real pin control driver for this.
- 	 */
--	qe_pin->num = gpio_num - gc->base;
-+	qe_pin->num = desc_to_gpio(gpiod) - gc->base;
- 
- 	if (!fwnode_device_is_compatible(gc->fwnode, "fsl,mpc8323-qe-pario-bank")) {
- 		dev_dbg(dev, "%s: tried to get a non-qe pin\n", __func__);
-diff --git a/drivers/usb/host/fhci-hcd.c b/drivers/usb/host/fhci-hcd.c
-index 71e785f445a30e116a9cb421d417deaf24389174..d572f0c1dffaf3a40b2fe4326ba8ab021fefb986 100644
---- a/drivers/usb/host/fhci-hcd.c
-+++ b/drivers/usb/host/fhci-hcd.c
-@@ -643,7 +643,7 @@ static int of_fhci_probe(struct platform_device *ofdev)
- 	}
- 
- 	for (j = 0; j < NUM_PINS; j++) {
--		fhci->pins[j] = qe_pin_request(dev, j);
-+		fhci->pins[j] = qe_pin_request(dev, fhci->gpiods[j]);
- 		if (IS_ERR(fhci->pins[j])) {
- 			ret = PTR_ERR(fhci->pins[j]);
- 			dev_err(dev, "can't get pin %d: %d\n", j, ret);
-diff --git a/include/soc/fsl/qe/qe.h b/include/soc/fsl/qe/qe.h
-index 8f967d15e479792219333264c2a463d26e5edae9..7f0e4165c3b0cafdf401be20862aa1bf28047102 100644
---- a/include/soc/fsl/qe/qe.h
-+++ b/include/soc/fsl/qe/qe.h
-@@ -24,6 +24,7 @@
- #include <linux/types.h>
- 
- struct device;
-+struct gpio_desc;
- 
- #define QE_NUM_OF_SNUM	256	/* There are 256 serial number in QE */
- #define QE_NUM_OF_BRGS	16
-@@ -193,12 +194,13 @@ static inline int par_io_data_set(u8 port, u8 pin, u8 val) { return -ENOSYS; }
-  */
- struct qe_pin;
- #ifdef CONFIG_QE_GPIO
--extern struct qe_pin *qe_pin_request(struct device *dev, int index);
-+extern struct qe_pin *qe_pin_request(struct device *dev, struct gpio_desc *gpiod);
- extern void qe_pin_free(struct qe_pin *qe_pin);
- extern void qe_pin_set_gpio(struct qe_pin *qe_pin);
- extern void qe_pin_set_dedicated(struct qe_pin *pin);
- #else
--static inline struct qe_pin *qe_pin_request(struct device *dev, int index)
-+static inline struct qe_pin *
-+qe_pin_request(struct device *dev, struct gpio_desc *gpiod)
- {
- 	return ERR_PTR(-ENOSYS);
- }
+proxy_reset_donor() calls put_prev_set_next_task(), which invokes
+put_prev_task_scx() for an EXT donor. If this happens before the
+scheduling-class dequeue, SCX_TASK_QUEUED and is_blocked are still set, so
+put_prev_task_scx() re-enqueues the donor through scx_do_enqueue_task() and the
+following block_task() immediately dequeues it again.
 
----
-base-commit: af5f12805e5cefa4fe68d6127c7e1fb78cd5535c
-change-id: 20260907-usb-fhci-drop-gpio-nonexclusive-584c5c808a30
+I can clarify this sched_ext-specific ordering better in the patch description.
 
-Best regards,
--- 
-Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+> 
+> > Split block_task() so the waking donor can first be dequeued from its
+> > scheduling class. Release blocked_lock, dequeue the donor while its
+> > generic on_rq state still prevents migration, replace all donor
+> > references, and only then complete the generic runqueue removal. This
+> > follows the normal sleep ordering and avoids transiently re-enqueuing
+> > the waking donor.
+> > 
+> > This is a preparatory change to support proxy execution with sched_ext.
+> > 
+> > Signed-off-by: Andrea Righi <arighi@nvidia.com>
+> > ---
+> >  kernel/sched/core.c | 30 +++++++++++++++++++++++-------
+> >  1 file changed, 23 insertions(+), 7 deletions(-)
+> > 
+> > diff --git a/kernel/sched/core.c b/kernel/sched/core.c
+> > index 5817d1a4cea2c..237d216382f46 100644
+> > --- a/kernel/sched/core.c
+> > +++ b/kernel/sched/core.c
+> > @@ -2252,7 +2252,8 @@ void deactivate_task(struct rq *rq, struct task_struct *p, int flags)
+> >  	dequeue_task(rq, p, flags);
+> >  }
+> >  
+> > -static void block_task(struct rq *rq, struct task_struct *p, unsigned long task_state)
+> > +static bool dequeue_block_task(struct rq *rq, struct task_struct *p,
+> > +			       unsigned long task_state)
+> >  {
+> >  	int flags = DEQUEUE_NOCLOCK;
+> >  
+> > @@ -2273,9 +2274,15 @@ static void block_task(struct rq *rq, struct task_struct *p, unsigned long task_
+> >  	 *
+> >  	 * Where __schedule() and ttwu() have matching control dependencies.
+> >  	 *
+> > -	 * After this, schedule() must not care about p->state any more.
+> > +	 * Once the caller invokes __block_task(), schedule() must not care about
+> > +	 * p->state any more.
+> >  	 */
+> > -	if (dequeue_task(rq, p, DEQUEUE_SLEEP | flags))
+> > +	return dequeue_task(rq, p, DEQUEUE_SLEEP | flags);
+> > +}
+> > +
+> > +static void block_task(struct rq *rq, struct task_struct *p, unsigned long task_state)
+> > +{
+> > +	if (dequeue_block_task(rq, p, task_state))
+> >  		__block_task(rq, p);
+> >  }
+> >  
+> > @@ -3774,6 +3781,9 @@ static inline void proxy_reset_donor(struct rq *rq)
+> >   */
+> >  static inline bool proxy_needs_return(struct rq *rq, struct task_struct *p)
+> >  {
+> > +	bool reset_donor = false;
+> > +	bool dequeued;
+> > +
+> >  	/*
+> >  	 * Typically per __set_task_cpu(), task_cpu(p) == p->wake_cpu.
+> >  	 *
+> > @@ -3797,11 +3807,17 @@ static inline bool proxy_needs_return(struct rq *rq, struct task_struct *p)
+> >  		if (task_current(rq, p))
+> >  			return false;
+> >  
+> > -		/* If we're return migrating the rq->donor, switch it out for idle */
+> > -		if (task_current_donor(rq, p))
+> > -			proxy_reset_donor(rq);
+> > +		reset_donor = task_current_donor(rq, p);
+> 
+> nit.
+> 
+> Since proxy_needs_return() holds the rq_lock, you can check this outside
+> the blocked_lock safely, even after the dequeue. There is no need to
+> stash "reset_donor".
 
+Agreed, rq->donor is stable while the rq lock is held, so this can use
+task_current_donor(rq, p) directly after dequeue_block_task() and remove
+reset_donor.
+
+> 
+> >  	}
+> > -	block_task(rq, p, TASK_WAKING);
+> > +
+> > +	dequeued = dequeue_block_task(rq, p, TASK_WAKING);
+> > +
+> > +	/* Keep on_rq set until all donor references have been replaced. */
+> > +	if (reset_donor)
+> > +		proxy_reset_donor(rq);
+> 
+> Since TASK_WAKING is guaranteed to block the task by adding
+> DEQUEUE_SPECIAL, you can just move the proxy_reset_donor() bit out the
+> blocked lock and keep everything else the same right?
+
+We still need to perform the sched-class dequeue before proxy_reset_donor().
+
+If proxy_reset_donor() runs first, put_prev_task_scx() sees the donor with
+SCX_TASK_QUEUED and is_blocked still set and reenqueues it through
+scx_do_enqueue_task(). Then the following block_task() dequeues it again.
+
+> 
+> I'm not sure I understand "transiently re-enqueuing the waking donor"
+> bit. How is that possible if we just do:
+> 
+>     /* __task_rq_lock is held throughout. */
+> 
+>     if (task_current_donor(rq, p))
+>         proxy_reset_donor(rq, p);
+> 
+>     block_task(rq, p, TASK_WAKING);
+
+And the transient reenqueue happens inside proxy_reset_donor():
+
+  proxy_reset_donor()
+    put_prev_set_next_task()
+      put_prev_task_scx()
+        scx_do_enqueue_task()
+          ops.enqueue()
+
+__clear_task_blocked_on() clears the blocked_on relationship, but p->is_blocked
+remains set until ttwu_do_wakeup(). As SCX_TASK_QUEUED is also still set,
+put_prev_task_scx() takes its retained-blocked-donor path.
+
+The subsequent block_task() would then immediately undo that enqueue.
+
+> Is the split because dequeue_task_scx() needs a correct rq->donor
+> reference or does ext requires dequeue_task_scx() to be called
+> before doing put_prev_task_scx() always?
+
+Both are aspects of the same ordering requirement here.
+
+dequeue_task_scx() must run with rq->donor == p so it recognizes p as the
+current scheduling context, emits the appropriate stopping transition and clears
+SCX_TASK_QUEUED. Then put_prev_task_scx() can run as part of proxy_reset_donor()
+without placing the blocked donor back into a DSQ or calling ops.enqueue()
+again.
+
+And this is specific to resetting a retained donor, it's not a general
+requirement that dequeue_task_scx() always precede put_prev_task_scx().
+
+I'll remove the unnecessary reset_donor variable and expand the comment to make
+this ordering more explicit.
+
+Thanks!
+-Andrea
+
+> 
+> > +
+> > +	if (dequeued)
+> > +		__block_task(rq, p);
+> >  	return true;
+> >  }
+> >  #else /* !CONFIG_SCHED_PROXY_EXEC */
+> 
+> -- 
+> Thanks and Regards,
+> Prateek
+> 
