@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E99D4E379B;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33AE74E2348;
 	Tue,  8 Sep 2026 09:41:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788860516; cv=none; b=HWbnkRHNCj3lyI19g9V6OVG9ctsmTJxDxHVDcpXsSLPuS7SXILEYZqnXs9Kh1MW7utlxyfG9ytW6mSrYrM/LbEi2Q8OI33kxKEGYnUwY9Vn3QaUDjI92YQ6y3/4Rpw7zMNba4NC8+9y/QzVjae6quzhIBlt5gHRFfT7Jbj3lCkk=
+	t=1788860516; cv=none; b=DiAyfpUtVDHZVjZBCqhgJKRdQuSmelHM06792SwAMFbdCG82m/aigGtpa8yEzqvC4HlPaH+4jrjptq6LB0Drw6mYUDuCsZlsdTC4ks1sRRB2lwB01SVbVZB7AmO83VJ+3sQWseC5ZHdhsA/D0xfWW1nw+EtMwukYbin5+x+u3T8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788860516; c=relaxed/simple;
-	bh=vUrdouI6geIRrhvl7FMUbnySUDBs0we9z3aR5YMU6zs=;
+	bh=XJ6yOYRHmExtgCBY9qgx0PWkSsgAEmtcH8En113ot5M=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=MGZKnJIL+Goz7oPX7AHsPGLDytf3vU5Y9JsiEeOtIA9YNsSgRww5E2PLQBFbIbl1Yh8+OngFNszvzDF1W3fS9Tn9rELXUAWDHjzURKvq/LR4BGFk0Z7MW4INZg0yy4zUUX9JTvvsnheFD2Lkpf0qKqtQS47NEOaQ9NLnZh3XV30=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JKhqAIjw; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=SJqaRbZ0kB7D9W4zwqdlOdIJFOAP1tg8vNE6JtCX95T1SOyMVo/Vzaw6WWZUc1gINjbtgXwnBMu5JIwyPPq3E1CjfSVE8JyomT9YgvG2mOoJF2kIx7dwhRw+/OFdaDgeeCYJpx+E9I5TYDuf8yoBQ60lAnR54HXgUkORGHsXbBU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mN6/eogA; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JKhqAIjw"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 0194AC4AF0D;
-	Tue,  8 Sep 2026 09:41:56 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mN6/eogA"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id E9085C2BD04;
+	Tue,  8 Sep 2026 09:41:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1788860516;
-	bh=vUrdouI6geIRrhvl7FMUbnySUDBs0we9z3aR5YMU6zs=;
+	bh=XJ6yOYRHmExtgCBY9qgx0PWkSsgAEmtcH8En113ot5M=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=JKhqAIjw/3Novblg8urc1LS9uF6ZHOnbMnXARtaAduLCNUkAOGFeul8TpXFw7e6te
-	 3eBvaeHhsKQz6RcWMOr+p/ZkzzsaCB0UTJCDiaNXtck9OhJroioI9TXX5GVQGW+cEo
-	 sbWgtXPrixcx7NpNmiG7ffWJjkK9gMkXkSW2FRdX95HZL0t0OQ6YkX8+/N63PFg0GK
-	 ElVzjsolP+Jq0apJGPxpj+UNIZq0i2frZAenJ5/m+cZO8/4sHKosRyJKXE5FKW9Pwe
-	 c7wS4ebC1mt6puS/kaAe/hsNcyOnnwnX0zLm9xJuNe+hGi1d4rBYOwfmOiAI7imBcK
-	 h4ef08ZM+Rzjg==
+	b=mN6/eogAkZbzqjvWFtEatTPOr9Qhv3XpQaWOJtJ/NUeeVmPyNp1H3VMIZdlEEnrsL
+	 0FFHkFXlEtvohsZ4VuSjF37S39i2Hgv38VC/szstDP2FdkVNN2PNMJqKXnJS46b0/2
+	 C876uV8YKabqt4HjZ3Bsmt2DeDnjVzfqW+wMure1s4zwKJi8CUi5220pJJFwQSZUgn
+	 P5c+Rp1Y5phdoxmKw7lxoosQ1UW93X6xyXlJP/c30+UqnXKa0V89xkjtYWlZ35HjGl
+	 AnsGBxP+JG+ureHDmR4LWqecM7nthxM8+rm9A70bUyBe2/kypNQesPWiXXbTseoU/m
+	 nsTaqNoduuDOw==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E2475C79FAD;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id CDB46C79F82;
 	Tue,  8 Sep 2026 09:41:55 +0000 (UTC)
 From: George Moussalem via B4 Relay <devnull+george.moussalem.outlook.com@kernel.org>
-Date: Tue, 08 Sep 2026 13:40:57 +0400
-Subject: [PATCH v4 04/13] phy: qualcomm: qcom-uniphy-pcie-usb3-28lp: Drop
- unused phy_to_dw_phy macro
+Date: Tue, 08 Sep 2026 13:40:56 +0400
+Subject: [PATCH v4 03/13] phy: qualcomm: qcom-uniphy-pcie-usb3-28lp: Remove
+ unused of_device.h header file
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -41,7 +41,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260908-ipq5018-usb3-v4-4-b789702f0695@outlook.com>
+Message-Id: <20260908-ipq5018-usb3-v4-3-b789702f0695@outlook.com>
 References: <20260908-ipq5018-usb3-v4-0-b789702f0695@outlook.com>
 In-Reply-To: <20260908-ipq5018-usb3-v4-0-b789702f0695@outlook.com>
 To: Vinod Koul <vkoul@kernel.org>, 
@@ -63,11 +63,11 @@ Cc: linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
  linux-usb@vger.kernel.org, Stanislaw Pal <kuncy7@gmail.com>, 
  George Moussalem <george.moussalem@outlook.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788860513; l=847;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788860512; l=932;
  i=george.moussalem@outlook.com; s=20250321; h=from:subject:message-id;
- bh=IZ/hjxmEdOnTJTDZazw9P78aJ5AEBePKGFMJqAXOe5s=;
- b=94b2fzvuiH7G5zZammgV57trIIoPK4mwZqfHv2tpEyLyAeIpxfo/xe/+DsS2EFQY4eRxD2v08
- ZWuehp9sx54DjPwk2XmsfBYVjKTaJMsL7x8hSrAFF2Qjl/52zzElgX5
+ bh=x3YqnFvnYn/dCrkEKgaRYBlPO+FYsf46oEelUL8OnI4=;
+ b=Z6muUtm7Pdr7gd25BHnn0SL9Th8zJf9BxGrRZH5VgkYh2/tMv5XhZmJAPRCmqvBuDxz/w+rx7
+ WgQl+YY1RUxBzyjyoufuWzTS/Um6a2gcF4t1xVvhHpS5BPvxiYxzuHR
 X-Developer-Key: i=george.moussalem@outlook.com; a=ed25519;
  pk=/PuRTSI9iYiHwcc6Nrde8qF4ZDhJBlUgpHdhsIjnqIk=
 X-Endpoint-Received: by B4 Relay for george.moussalem@outlook.com/20250321
@@ -77,28 +77,28 @@ Reply-To: george.moussalem@outlook.com
 
 From: George Moussalem <george.moussalem@outlook.com>
 
-Remove the unused phy_to_dw_phy() helper macro which is not referenced
-anywhere in the driver.
+Drop the unused of_device.h header file as the of_device_get_match_data
+declaration was moved to of.h in below commit:
+commit 82174a0a9c5c ("of: Move of_device_get_match_data() declaration")
 
 Tested-by: Stanislaw Pal <kuncy7@gmail.com>
 Signed-off-by: George Moussalem <george.moussalem@outlook.com>
 ---
- drivers/phy/qualcomm/phy-qcom-uniphy-pcie-usb3-28lp.c | 2 --
- 1 file changed, 2 deletions(-)
+ drivers/phy/qualcomm/phy-qcom-uniphy-pcie-usb3-28lp.c | 1 -
+ 1 file changed, 1 deletion(-)
 
 diff --git a/drivers/phy/qualcomm/phy-qcom-uniphy-pcie-usb3-28lp.c b/drivers/phy/qualcomm/phy-qcom-uniphy-pcie-usb3-28lp.c
-index b9ca6c1c177b..0256183fbcbd 100644
+index 53512db90eb3..b9ca6c1c177b 100644
 --- a/drivers/phy/qualcomm/phy-qcom-uniphy-pcie-usb3-28lp.c
 +++ b/drivers/phy/qualcomm/phy-qcom-uniphy-pcie-usb3-28lp.c
-@@ -72,8 +72,6 @@ struct qcom_uniphy {
- 	int lanes;
- };
- 
--#define phy_to_dw_phy(x)	container_of((x), struct qcom_uniphy, phy)
--
- static const struct qcom_uniphy_regs ipq5018_pcie_regs[] = {
- 	{
- 		.offset = SSCG_CTRL_REG_4,
+@@ -10,7 +10,6 @@
+ #include <linux/io.h>
+ #include <linux/mfd/syscon.h>
+ #include <linux/module.h>
+-#include <linux/of_device.h>
+ #include <linux/of.h>
+ #include <linux/phy/phy.h>
+ #include <linux/platform_device.h>
 
 -- 
 2.53.0
