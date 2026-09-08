@@ -1,84 +1,60 @@
-Received: from mail-pj2-f1.google.com (mail-pj2-f1.google.com [74.125.227.129])
+Received: from mta1.migadu.com (out-72.mta1.migadu.com [95.215.58.72])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27BBB3612F8
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 03:41:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.129
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 388AB3559E1
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 03:41:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788838913; cv=none; b=lBot2N0g3ccr1kZmldcNax6bof7PvpNlNAtocNmMfhWbD/bRCyWkA7drWnbe9B4VYm2x8hKWV2K7hJP7FZUl3uq44v0k7Lof0Yz71hwm/LtcFjb6BGh5lvRN87MTICgo0FHVBVnhEIiRPtWViCXgRAEr2qURmu9ZuFrSSJbpmNE=
+	t=1788838920; cv=none; b=m2jMWthKB0Z75UIIsO/hJHV99HNAG/UlNMrzWArwHJJ/Rq44wL67eomJERjHS1QpmJclZ1h1y5AZswRuyClPlHfxQ1KvqaerJ5Q60ybJi24seu3E4+z//TKtxgpL6qKMlnF4saiTS8ec3pBK5bldnEe8MZ1pp+Skm6oyDSOGDgw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788838913; c=relaxed/simple;
-	bh=QdkH1sPnplYF6Fo3zBu8sx+rSVQr006cwjiCJc5/pmI=;
+	s=arc-20240116; t=1788838920; c=relaxed/simple;
+	bh=48OIeErQYrhkpbuOIqiS9L91aRSY0G25gCPRWoMJaKs=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=DML1xoor9t9iykWLmDLOByerbMWYbbTeYhEVELsGn+q2gz+arsfwejFgSu6QkQlV+05AztDFyH5EkWCfV0hHpSkqRypUj4DWC7iFxsR9VRLZpU4MeUHunI16cq9gKFQu+L0IQhgkWiw+iKQ+eFCDUAkqurXKtNw8JeRSeh3yU9U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YZvt7WS/; arc=none smtp.client-ip=74.125.227.129
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 MIME-Version; b=Os2a1gx+wIjXmJq5o82LCIRF/AvuNAItwnOtK357XlKOL7JMOjY2hOZL736mPp7iv81hM8ZkCb2eDOabJ1NWAqHq+qNpE7CaZHYh9WSjJjHl+xEkI62oiwRWIUh90lIgaigxgkorTqzZa12DhbNdQor3GKWFCQ9U31RU7Gnk5Xw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=NLe3FZ7+; arc=none smtp.client-ip=95.215.58.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YZvt7WS/"
-Received: by mail-pj2-f1.google.com with SMTP id d9443c01a7336-2dae660f31bso27718655ad.1
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 20:41:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788838894; x=1789443694; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=THA2lQIDtN1IMSLerCBySjfz7rEAuxrQfCu6ehzIHp8=;
-        b=YZvt7WS/kKG+JPZ5uDZxg0GabMQ6ijuvwA0X9IDjZbeISE39Zo1E+bPFyeqDn8JyQW
-         l30SjXA6gs/IBn9S1Mz4jkWBYmimO2GfY6Bgby6eGme7fjLg+/lB+/m07iC0hZ203hBc
-         Zvy2wjqrT6HHyzHFWmk09gBFP7zVX+DU3dQ3hYE2mXeSm6LkPNRNMQwLQ55i73VYskU6
-         HrBVfDV7hWz+06pZx1VlfZu9JRkJeXIZEjYz5iVM8rytLakPx6idjiGln/A7Gh6orr10
-         hOZt3j4ABLBp3qeGJN9jh5jJV7fvl2u5nxgQNiUPnV+GHudM5jmDvmUrfQkAqD5UFwk/
-         b92w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788838894; x=1789443694;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=THA2lQIDtN1IMSLerCBySjfz7rEAuxrQfCu6ehzIHp8=;
-        b=Z/w4IOKIlibZxb3jUKneGjGU02tegtq+rUYjcmLLjIzfO1vWzOQ065DiSzQq7m1Cwh
-         x/0I/WYye1a2BK5BviovRhCrCChZ+Ld7bPEcyFtvI8BpDdkAmXh0MKAlB1rQXK1wO7O5
-         jImRv3EQ+pH7RK2y0ZPW/5md+kvgDAJuwXi1MyXKaiUD2Rgb9e7i/xRNClrr6/t7kpuG
-         sg97kTp/++LCJqpSMXUxQm61YTDQyKiSaiXhhKXPPC2/CWqX490Y3xEDGcs1X6boY/Mg
-         hTt77Nv3ykWrX8y9UrbPggMNpxy6fC/ubBiTRK3Z9ZJX4hAfOOBC8f0bMTwA/gCiqgvU
-         Y+cQ==
-X-Forwarded-Encrypted: i=1; AKwUvBy5xAtyo73wqIaBCoatKjjtYe+87rzbmXr1wfx59UYwwDNcLlKc6zhEN+S9dKj2/NftqmVqEdcNLDSu9cc=@vger.kernel.org
-X-Gm-Message-State: AFuF++lADHypI7KNrnnBouQQzeUJ9DpQSKzXBSfyqdwaAQU51/o/qBmq
-	GC7DTuRse05fAVc7YSKD372NDQLclBcoyW8ooLCBmOh4zepxMpBON9Z/
-X-Gm-Gg: AYBFou2ll78srkoRGvDKsGE57x2D32w8lDaRAt7Ypiy3vyYXPjBnIvNe/yOa/yzo0Oh
-	rlfqmw2uiGyZ54mW/sHFjwocqw/9dxVlIbi04qN0oPlW0qZ0oSBbVj0PW+r48etROy0SaTuXm3i
-	CeNX7TauzzcwnK9bxUpZtjV6o61I96vwEUj53WSmCuZZhK0MmvtaeeJy0EB3LwluValBu0YDkzg
-	Ik4t+tF0DPHsEDVHVNRHV626ZZzlVi8mdmC4kWi+9781UQSaM3xvSnnRN7EZ96N+3DWJvjqd51U
-	GT5IyOEBvPESKJNcSWFXU0heuJt+Vd4Rkh2bqV3rkoxbRy6y+798ALXvoE7xY1XKfPtT27gAMh6
-	m4XInP6KbDftHTWuZD8U8Bcb3ERGHfVYhEVsx112Ya8L6O5pd8JLXq7zOVHJUzyZ6H9Pvvaw+Tc
-	OYYOzB6wAh+ixnU3tD43tpYqouOAbrOifMMDvD/3R0VMutgoFPVgBWRmvm0LMPLCGDh8H9Pbn09
-	wWf1pzOp7Kac3r1YLhi2LEPYw==
-X-Received: by 2002:a17:903:26cc:b0:2db:56da:6a0b with SMTP id d9443c01a7336-2db56da6ebbmr159927625ad.13.1788838893763;
-        Mon, 07 Sep 2026 20:41:33 -0700 (PDT)
-Received: from nzzhao-ThinkCentre-M760t.mioffice.cn ([43.224.245.179])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2db149ccf2esm51691435ad.73.2026.09.07.20.41.30
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 07 Sep 2026 20:41:33 -0700 (PDT)
-From: Nanzhe Zhao <nzzhao.sigma@gmail.com>
-X-Google-Original-From: Nanzhe Zhao <zhaonanzhe@xiaomi.com>
-To: Daeho Jeong <daeho43@gmail.com>
-Cc: linux-f2fs-devel@lists.sourceforge.net,
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="NLe3FZ7+"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=48OIeErQYrhkpbuOIqiS9L91aRSY0G25gCPRWoMJaKs=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788838895; v=1; x=1789443695;
+ b=NLe3FZ7+kyHAfxxejboKegFHJddLVkrGkMVpODeH+9bijIBT0h7NKm3az5F08um5Zyg23BBV
+ WkDlK+1iJVk9+fFrAoTNhUaZmrTgq/f0GFysMLVdZAKaTkBPzFb92JV8+OokKf91e9/EpTN9j4M
+ 8vK0VsoG+ESuw8C4vr4vlm2Y=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta12.migadu.com with ESMTPS id bc731f78d792f31d;
+	Tue, 08 Sep 2026 03:41:34 +0000
+X-Mizu-Trace-ID: bc731f78d792f31d
+X-Migadu-Flow: FLOW_OUT
+From: Hui Zhu <hui.zhu@linux.dev>
+To: Johannes Weiner <hannes@cmpxchg.org>,
+	Michal Hocko <mhocko@kernel.org>,
+	Roman Gushchin <roman.gushchin@linux.dev>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	Muchun Song <muchun.song@linux.dev>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	David Hildenbrand <david@kernel.org>,
+	Qi Zheng <qi.zheng@linux.dev>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Kairui Song <kasong@tencent.com>,
 	Barry Song <baohua@kernel.org>,
-	Juan Yescas <jyescas@google.com>,
-	Pengfei Li <lipengfei28@xiaomi.com>,
-	Dev Jain <Dev.Jain@arm.com>,
-	linux-kernel@vger.kernel.org,
-	David Hildenbrand <David.Hildenbrand@arm.com>,
-	Bo Zhang <zhangbo56@xiaomi.com>,
-	Kalesh Singh <kaleshsingh@google.com>,
-	Jaegeuk Kim <jaegeuk@kernel.org>,
-	Ryan Roberts <Ryan.Roberts@arm.com>
-Subject: Re: [f2fs-dev] [PATCH 01/14] f2fs: extend folio state for large folio write path
-Date: Tue,  8 Sep 2026 11:41:26 +0800
-Message-ID: <20260908034126.3251396-1-zhaonanzhe@xiaomi.com>
+	Axel Rasmussen <axelrasmussen@google.com>,
+	Yuanchu Xie <yuanchu@google.com>,
+	Wei Xu <weixugc@google.com>,
+	cgroups@vger.kernel.org,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org
+Cc: Hui Zhu <zhuhui@kylinos.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH v4 1/4] mm: memcg: redirect stats updates of dying memcgs for all hierarchies
+Date: Tue,  8 Sep 2026 11:41:11 +0800
+Message-ID: <c1ef4ef6a84cac479e573f4423b734dc8176f7d5.1788837625.git.zhuhui@kylinos.cn>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <CACOAw_zD_a32UCJZ+F7zD61o0K8QAh7QKJVuag4fm98qWy7SRQ@mail.gmail.com>
-References: <CACOAw_zD_a32UCJZ+F7zD61o0K8QAh7QKJVuag4fm98qWy7SRQ@mail.gmail.com>
+In-Reply-To: <cover.1788837625.git.zhuhui@kylinos.cn>
+References: <cover.1788837625.git.zhuhui@kylinos.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -87,25 +63,88 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On Thu, 27 Aug 2026 13:51:06 -0700, Daeho Jeong wrote:
-> ...
->> +	ffs = kzalloc(struct_size(ffs, state, BITS_TO_LONGS(2 * nr_subpages)),
->> +			GFP_NOIO | __GFP_NOFAIL);
+From: Hui Zhu <zhuhui@kylinos.cn>
 
-I think I can use f2fs_kmalloc() with __GFP_ZERO here, so that I can
-exercise the failure path with FAULT_KMALLOC injection during debugging?
+get_non_dying_memcg_start() redirects the stat updates of a dying memcg to
+its closest non-dying ancestor, but only on cgroup v1; on cgroup v2 the
+stats keep being accounted to the dying memcg itself.
 
-diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
---- a/fs/f2fs/data.c
-+++ b/fs/f2fs/data.c
-@@ -2616,5 +2616,7 @@
--	ffs = kzalloc(struct_size(ffs, state, BITS_TO_LONGS(2 * nr_subpages)),
--			GFP_NOIO | __GFP_NOFAIL);
-+	ffs = f2fs_kmalloc(F2FS_F_SB(folio),
-+			struct_size(ffs, state, BITS_TO_LONGS(2 * nr_subpages)),
-+			GFP_NOFS | __GFP_ZERO);
-+	if (!ffs)
-+		return NULL;
+A later patch in this series restores lruvec_page_state_local() in
+count_shadow_nodes() to fix the broken workingset shadow node budget
+under MGLRU.  count_shadow_nodes() is the only reader of those
+non-hierarchical state_locals on cgroup v2: when a memcg is offlined,
+its pages are reparented to the ancestor but their stat updates keep
+being accounted to the dying memcg, so count_shadow_nodes() computes a
+wrong shadow node budget and workingset thrashing protection is lost.
+This is user visible as premature reclaim of hot page cache and
+degraded performance under memory pressure.  Apply the redirection to
+all hierarchies to fix this.
 
-Thanks,
-Nanzhe Zhao
+Offlining is rare, so the added cost on the stat update fast path is
+limited to an rcu_read_lock() and a css_is_dying() check; the upward
+walk happens only while a memcg is dying.
+
+Fixes: 7404bd37cfbe ("mm: workingset: use lruvec_lru_size() to get the number of lru pages")
+Cc: stable@vger.kernel.org
+Signed-off-by: Hui Zhu <zhuhui@kylinos.cn>
+Acked-by: Shakeel Butt <shakeel.butt@linux.dev>
+---
+ mm/memcontrol.c | 30 +++++-------------------------
+ 1 file changed, 5 insertions(+), 25 deletions(-)
+
+diff --git a/mm/memcontrol.c b/mm/memcontrol.c
+index 1271d390b617e..ace9fe2b46084 100644
+--- a/mm/memcontrol.c
++++ b/mm/memcontrol.c
+@@ -845,20 +845,14 @@ static long memcg_state_val_in_pages(int idx, long val)
+ 	return val < 0 ? -res : res;
+ }
+ 
+-#ifdef CONFIG_MEMCG_V1
+ /*
+- * Used in mod_memcg_state() and mod_memcg_lruvec_state() to avoid race with
+- * reparenting of non-hierarchical state_locals.
++ * Used in mod_memcg_state() and mod_memcg_lruvec_state() to avoid race
++ * with reparenting of non-hierarchical state_locals.  Offlining a
++ * memcg is rare, so do the redirection for all cgroup hierarchies.
+  */
+-static inline struct mem_cgroup *get_non_dying_memcg_start(struct mem_cgroup *memcg,
+-							   bool *rcu_locked)
++static inline struct mem_cgroup *
++get_non_dying_memcg_start(struct mem_cgroup *memcg, bool *rcu_locked)
+ {
+-	/* Rebinding can cause this value to be changed at runtime */
+-	if (cgroup_subsys_on_dfl(memory_cgrp_subsys)) {
+-		*rcu_locked = false;
+-		return memcg;
+-	}
+-
+ 	rcu_read_lock();
+ 	*rcu_locked = true;
+ 
+@@ -870,22 +864,8 @@ static inline struct mem_cgroup *get_non_dying_memcg_start(struct mem_cgroup *me
+ 
+ static inline void get_non_dying_memcg_end(bool rcu_locked)
+ {
+-	if (!rcu_locked)
+-		return;
+-
+ 	rcu_read_unlock();
+ }
+-#else
+-static inline struct mem_cgroup *get_non_dying_memcg_start(struct mem_cgroup *memcg,
+-							   bool *rcu_locked)
+-{
+-	return memcg;
+-}
+-
+-static inline void get_non_dying_memcg_end(bool rcu_locked)
+-{
+-}
+-#endif
+ 
+ static void __mod_memcg_state(struct mem_cgroup *memcg,
+ 			      enum memcg_stat_item idx, long val)
+-- 
+2.43.0
+
