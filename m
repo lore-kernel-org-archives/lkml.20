@@ -1,131 +1,137 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A0FB37AA70
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 06:35:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D9EB388E62
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 06:36:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788849344; cv=none; b=syqJkBU2Hcv201K4u4q5mv6tVgJ0rmMcQovojrjkm8rsQQz6bULbfvVicC8xaAWoen/NimUdFOwnhURyuJE2y1bSmNvGzCSYBmTGn14CnAD7LBKXunRzcJLfFHR4v6f+GNXHg2ATQvVmiTrKgA4JL/55RhdKxiwaNwd40qZbqOQ=
+	t=1788849419; cv=none; b=WTFJkp1neiCEI1dXcWRMquJ1npbVm42t9ALEuNhogI8SC2JDAooo2KIIoXT0pkPoL6FdIcz4r3m4jmdHBPcJE6W7ZB/nHmxRqG9T3IjuQqB4Q9M1new8OrCJ9NNbm3WyZT/iGLtIVrEHALMRR8fcPRCaPnPwHrgJvtML6UC6M6Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788849344; c=relaxed/simple;
-	bh=VcsRTcR7UvmGPi3UVltnJ8Mvdqg2EXaylPcDLJc0IKg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=mhpXHDu/XX6dqHkD6RV6G9UNXNxy1cFAxnIeRewHsXm9OB6ztbkkEX9/wq2vPv9X2KjScMlWJ1X7p9ngcqmH2sbZ/i14RliivoQmFq/eBq7mVrdnTGUp3pzK7Uj4X5g93vcFTXj4f4WElWeDCBamf+NWI8KUlhLWuIj1nmSOwRQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=M/z53wOB; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1788849419; c=relaxed/simple;
+	bh=86bR2fjDOyZrBl/MkYtR05D2x/2su6RiP+C8nGmCZEU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=jVxJ7C83qgUvhv0XQZLPnOCquInMm9AXTOfRTXrNl71S2IW5vbBlo4lPOTzbVrG+OFHCA8qZtFFi2uS0nZ1cLCJ/mE9pXdJN2EwU741ZRxNTobHQr+5Urj2pe9a+xTwM74KZTvaINtfOcZczdtPiCSec8X5SZhnA2BvDz2pUqxM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DrAmBSUv; arc=none smtp.client-ip=209.85.216.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="M/z53wOB"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1788849342;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=VcsRTcR7UvmGPi3UVltnJ8Mvdqg2EXaylPcDLJc0IKg=;
-	b=M/z53wOBWG1sspxgw7DxuUess2BnGptjtWMs4Nxax6FL6a/YK9PyeXgZy7n+buYWdJXw4a
-	K0p85DQCUxh1sN9xz0Lt/X9nYUM4FsKTo0skyQv1smJ0HFdDghwGcArmhzRlyioj2bS1iK
-	luNuSd0mo12gQM24Ou/R7kzH7YBvYzI=
-Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-271-1sG3jvg3MiK2a5xYuG_qMg-1; Tue,
- 08 Sep 2026 02:35:38 -0400
-X-MC-Unique: 1sG3jvg3MiK2a5xYuG_qMg-1
-X-Mimecast-MFC-AGG-ID: 1sG3jvg3MiK2a5xYuG_qMg_1788849337
-Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 920641954222;
-	Tue,  8 Sep 2026 06:35:36 +0000 (UTC)
-Received: from fedora (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with SMTP id A93311955F08;
-	Tue,  8 Sep 2026 06:35:17 +0000 (UTC)
-Received: by fedora (nbSMTP-1.00) for uid 1000
-	oleg@redhat.com; Tue,  8 Sep 2026 08:35:36 +0200 (CEST)
-Date: Tue, 8 Sep 2026 08:35:16 +0200
-From: Oleg Nesterov <oleg@redhat.com>
-To: K Prateek Nayak <kprateek.nayak@amd.com>
-Cc: Gregory Price <gourry@gourry.net>, Ye Liu <ye.liu@linux.dev>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Ingo Molnar <mingo@redhat.com>, Will Deacon <will@kernel.org>,
-	Boqun Feng <boqun@kernel.org>,
-	"Paul E. McKenney" <paulmck@kernel.org>,
-	Frederic Weisbecker <frederic@kernel.org>,
-	Neeraj Upadhyay <neeraj.upadhyay@kernel.org>,
-	Joel Fernandes <joelagnelf@nvidia.com>,
-	Josh Triplett <josh@joshtriplett.org>,
-	Uladzislau Rezki <urezki@gmail.com>,
-	Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Josh Poimboeuf <jpoimboe@kernel.org>, Ye Liu <liuye@kylinos.cn>,
-	Michal Hocko <mhocko@suse.com>, mic@digikod.net, david@kernel.org,
-	linmiaohe@huawei.com, nao.horiguchi@gmail.com, gnoack3000@gmail.com,
-	ljs@kernel.org, sj@kernel.org, rientjes@google.com,
-	shakeel.butt@linux.dev, xu.xin16@zte.com.cn,
-	chengming.zhou@linux.dev, tony.luck@intel.com,
-	reinette.chatre@intel.com, x86@kernel.org, paul@paul-moore.com,
-	jmorris@namei.org, serge@hallyn.com, pavel@kernel.org,
-	lance.yang@linux.dev, pmladek@suse.com, longman@redhat.com,
-	mathieu.desnoyers@efficios.com, jiangshanlai@gmail.com,
-	qiang.zhang@linux.dev, dietmar.eggemann@arm.com, bsegall@google.com,
-	mgorman@suse.de, vschneid@redhat.com, mark.rutland@arm.com,
-	Dave.Martin@arm.com, james.morse@arm.com, babu.moger@amd.com,
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org,
-	linux-pm@vger.kernel.org, rcu@vger.kernel.org,
-	linux-trace-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org,
-	linux-security-module@vger.kernel.org
-Subject: Re: [PATCH v2 5/8] kernel: convert process/thread iterators to
- for_each_*_rculock
-Message-ID: <ap-spMNyMvYFga5k@redhat.com>
-References: <20260907081334.1152889-1-ye.liu@linux.dev>
- <20260907081334.1152889-6-ye.liu@linux.dev>
- <ap7dC-LWNaoPYJvv@gourry-fedora-PF4VCD3F>
- <ap76-0-hN6CAcYXX@redhat.com>
- <ap8mgnpE7D4TTrno@gourry-fedora-PF4VCD3F>
- <ap8yoW37GY17pHYS@redhat.com>
- <e618ace1-6a8b-42c5-8a97-44b39dd1a7c7@amd.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DrAmBSUv"
+Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-38dc4553f62so3990173a91.0
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 23:36:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788849417; x=1789454217; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Xm1rxSc0BVfymKk4bSWdt2MAj/JI/30d2pnBXYKFQig=;
+        b=DrAmBSUv9f/CgkpoR8QWNL+IPX9qrDgMd9HR5KVGr7V8JwCZ21KaWbQlHIp6RpZBpM
+         fQmEEcvAv+eI1GJMrss6Jq8mVAPRsVCIyN72L97s53X9A4vP1JOetQAhf4eG2vFO0rvU
+         sQN3RTNH4KPDf0vXlj677qkCSYtsGjw0MKKwjZrbSDi5aypTR1rDWhDYYPUyigVGy4Ax
+         E0DOsWpXrosrvDxZWc8RSysDEirsUWKvW51nZyUJKLBX8eWc3JoQb6GwGAFBWpod5AuT
+         8rezLkEfDnwJUaTYHKMbtVUOn4Mv1tjnk+evonugMwj96v0+x4D80pK/4LpAafEzENIk
+         TSmQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788849418; x=1789454218;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Xm1rxSc0BVfymKk4bSWdt2MAj/JI/30d2pnBXYKFQig=;
+        b=LLCBuKJBVDxrRDC/uwuOGD0+ICnGEVSYfz47kFk2LC65cDt4cbmN1nbOfwvV5ml6re
+         M2iI54qZMM0C0kNz7DLBTvU0iruZPcQqJKzlstCjI/uSbpiZPX1q7MZw2lsXFSlrIUK4
+         VdyLGSsp6MCceP5+PclQm1nEe+0+gHrCVwHuqbCKmQHMkdcrato7nsQ3sW0JuLcogs8v
+         p9T9yR+flQdxMcWh1amRLwPySHxEq6m782vjSseo/218lS7A3NbA5GyYC7g1ql2JR1UP
+         CwwuAqGtq2F5S+MXzuZBXUJ4rbPkJEpOTEkvmDuVJ6LnWtXlMhr/xq57DnwqY1KAX5EJ
+         ABBg==
+X-Forwarded-Encrypted: i=1; AKwUvBxXev+xtg6dr8rL8T9Qy1x9Ts/BW53ESniYC1NVzRGE9PiB0sMJUhPtHv3/woWs2XPUrE4Orfq8TkFOaag=@vger.kernel.org
+X-Gm-Message-State: AFuF++kjIQnw5SPH/RfBPEyKkZqOUlusdgk08jrnpXtCgDEWKm88MdR4
+	TPYbRmY/hso7pxLdlWhrdho/HOtiJ15JO9/w9YttfEbNIj0R5a9eFfbPv7R0RwrZkHU=
+X-Gm-Gg: AYBFou3um08nMiTFsa9CIWUHeOHZeMIlvuRPOB+dyKDi7XFarr++STj6q6iz3g1rgBS
+	2io6qutYCx+Bj8LiXpbEsDRvPzN8yRx/di96bHLJdtxerwpsMVLvmrZmtxZcQLioezJKjBPc2UZ
+	pSAIgQHts7LAsWkIEw55eklYeXXRMcGjWCBjpRMwTlHNeN8JLnggBzBrWwPZ1yVEYpigjPXfwA5
+	p64whNJbu1z/UTk7PAD5V+jG7YsxrPOjvoSWuaNphjaS/khiNxvyBcmyX6SOhkMSAJcBqooTZGM
+	NK75wC2IRd7NFn2xV8eKEcg4KdXhv9Ug/t5McPL82Kx9kx/jxUkbhrDC6RYME4rZaKQ/H21UtRw
+	bEkVLaPc2//L1KfTJGLCC54XJYMrrTWls4k7iXXkRuUTAozOHRQxHkwGrQBeTiRN4GG5T+9uNAU
+	Z2gmiacuIqmff83XQvNbGPeSWGmOPkfGGoHPa9zXonbgri+lXY2o8WNBe7OIyfzCsWkyNkRaZnn
+	5sICmg=
+X-Received: by 2002:a17:90b:1a8f:b0:398:d2a0:87ff with SMTP id 98e67ed59e1d1-39b26101029mr40740639a91.1.1788849416965;
+        Mon, 07 Sep 2026 23:36:56 -0700 (PDT)
+Received: from kernel.tail6741c6.ts.net ([185.220.238.35])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b4b72f62esm18814349a91.5.2026.09.07.23.36.53
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 07 Sep 2026 23:36:56 -0700 (PDT)
+From: Kunwu Chan <kunwu.chan@gmail.com>
+To: sj@kernel.org,
+	akpm@linux-foundation.org
+Cc: lianux.mm@gmail.com,
+	damon@lists.linux.dev,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	Kunwu Chan <kunwu.chan@gmail.com>
+Subject: [PATCH] mm/damon/tests/core-kunit: improve nr_samples_per_aggr test isolation
+Date: Tue,  8 Sep 2026 14:36:35 +0800
+Message-ID: <20260908063635.2208922-1-kunwu.chan@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <e618ace1-6a8b-42c5-8a97-44b39dd1a7c7@amd.com>
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
+Content-Transfer-Encoding: 8bit
 
-On 09/08, K Prateek Nayak wrote:
->
-> On 9/8/2026 3:24 AM, Oleg Nesterov wrote:
-> >> This might be my - admittedly shallow - understanding of scoped_guard,
-> >> but does scoped guard handle goto correctly?
-> >
-> > Yes, it does,
-> >
-> >> and why it's generally discouraged to mix cleanup.h and goto.
-> >
-> > Hmm, why? I didn't know...
->
-> Apparently older GCC would allow subtle bugs with cleanup + goto to slip
-> by but clang has always caught those bugs and refused to compile so as
-> long as clang builds are happy, things should be good.
->
-> Here is an older explanation from Peter:
-> https://lore.kernel.org/lkml/20260327154136.GL3739106@noisy.programming.kicks-ass.net/
+The damon_nr_samples_per_aggr() test sets both intervals to zero,
+which exercises two different fallback paths at once.
 
-Ah, but in this case the code is buggy, "goto unregister" jumps
-into the scope of __free.
+Use separate compound initializers for each case so that each case
+tests one fallback path independently. Also make the overflow case
+use an explicit non-zero sample interval so that it does not depend
+on the zero sample interval fallback.
 
-Anyway, I agree that mixing cleanup and goto can make the code
-confusing or buggy, but this particular case still looks fine
-to me...
+Signed-off-by: Kunwu Chan <kunwu.chan@gmail.com>
+---
+ mm/damon/tests/core-kunit.h | 19 +++++++++++++++----
+ 1 file changed, 15 insertions(+), 4 deletions(-)
 
-Oleg.
+diff --git a/mm/damon/tests/core-kunit.h b/mm/damon/tests/core-kunit.h
+index c01e6a75cad..ff23208c181 100644
+--- a/mm/damon/tests/core-kunit.h
++++ b/mm/damon/tests/core-kunit.h
+@@ -627,12 +627,20 @@ static void damon_test_set_regions(struct kunit *test)
+ 
+ static void damon_test_nr_samples_per_aggr(struct kunit *test)
+ {
+-	struct damon_attrs attrs = {
++	struct damon_attrs attrs;
++
++	/* Zero sample interval is treated as one. */
++	attrs = (struct damon_attrs){
+ 		.sample_interval = 0,
+-		.aggr_interval = 0,
++		.aggr_interval = 5000,
+ 	};
++	KUNIT_EXPECT_EQ(test, damon_nr_samples_per_aggr(&attrs), 5000);
+ 
+-	/* Zero aggregation interval doesn't cause division by zero */
++	/* Zero samples per aggregation is treated as one. */
++	attrs = (struct damon_attrs){
++		.sample_interval = 5000,
++		.aggr_interval = 0,
++	};
+ 	KUNIT_EXPECT_EQ(test, damon_nr_samples_per_aggr(&attrs), 1);
+ 
+ 	/*
+@@ -640,7 +648,10 @@ static void damon_test_nr_samples_per_aggr(struct kunit *test)
+ 	 * overflow
+ 	 */
+ 	if (ULONG_MAX > UINT_MAX) {
+-		attrs.aggr_interval = (unsigned long)UINT_MAX + 1;
++		attrs = (struct damon_attrs){
++			.sample_interval = 1,
++			.aggr_interval = (unsigned long)UINT_MAX + 1,
++		};
+ 		KUNIT_EXPECT_EQ(test, damon_nr_samples_per_aggr(&attrs),
+ 				UINT_MAX);
+ 	}
+
+base-commit: d118502628f8b673be9023db8bdf878f64a7ed45
+-- 
+2.43.0
 
