@@ -1,211 +1,408 @@
-Received: from mail-lf1-f50.google.com (mail-lf1-f50.google.com [209.85.167.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [160.30.148.35])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 650ED556BAF
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 14:52:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A144455C1D8;
+	Tue,  8 Sep 2026 14:53:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=160.30.148.35
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788879155; cv=none; b=QWsY+4THtRue5w8wiZG0OPMeUD6W2BLDX+Vhvrno8Wmq7S4H0Llps8gPi/Oa6TD2oitOODCgLrAdJm2pp2ronnf+VaPUS4ztbxooIumzhI6lLL4r6qRYzvJEWbBiqgh+uR7+sjhm6tAgYnQLoSVDLwIb2nM0JPVu8BXyG6S0ch4=
+	t=1788879201; cv=none; b=qjfy7B98U8S3aP1w8Zk3UvhQpbEZgN2HbsE2KRlGGqqXZnqV4hxWOFAikXqpBsbLfWtTQNedtI/NhL6Xlf38YUI5Krj7LSrq4/D6rzk4ft9G9frVlRfKQF4ZU3cBoLHUk38QnbXwlE7lv9A7xuayUoZmgnIfWZVk/Lu9h7os7jg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788879155; c=relaxed/simple;
-	bh=4WAg6LcX24a7qSuqahhS14LF7mLL6eBCnJ8iXgc0XHI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=n4me572Ag1HFPUQovpaEOm0BllDayBoxmAPnHchZ7QvcQc/+FAfYLK3C3oAf0+ptWVbDkHNgyCa1GNFV0vW8OZvkGYpFJtMI7NbUfwK7EZFfB6pAMXmUiHQpaeaNTmQ7ZKb/E1G4AxHA7XA6zt6YF81Rl03IJgCvanH+WaN1ebk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OVyfaTqz; arc=none smtp.client-ip=209.85.167.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OVyfaTqz"
-Received: by mail-lf1-f50.google.com with SMTP id 2adb3069b0e04-5b4aa47bc97so3532908e87.2
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 07:52:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788879147; x=1789483947; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=rZY078INwnXidXnS1tAhSBI29huMveMJ63auEB3fPKc=;
-        b=OVyfaTqzQl2FWJpqqMmALQbsEYueECQOy4bPFndf3XlkQvHKyDeS8YLJZlG6ZJ5CTY
-         mcjRQpVo75XXzjpctAlDChUAY4AcN4oBcEl09M/Tfo/cInIMT8ZenfLjhlI2Lv7YvPR+
-         heq6sW6kPUO5dEgz1aSe8Twvj8AH4HeYh83CkhoO51djTIuaQr0PDApPx4AFXK58Ivcb
-         biXV2Ca/LhcP4+6d81+1ie8a31L068wml+0Y8yNEprQsxrA3H1AgjcrC6fbLGxbK8b+n
-         QuvyFImtIuOENgdCJhCEb0KpzHsXZF+NgkBLtV0Crkey5Gd5M5wvYQbzIxrU3uS63KcI
-         8VaA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788879147; x=1789483947;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=rZY078INwnXidXnS1tAhSBI29huMveMJ63auEB3fPKc=;
-        b=JsLS3OvazX9ZvFmg+WzYv4ceiXnPIulDM2sGErBjGO49fdWjvWJ93yZ2S6RBdxaZ3u
-         X9XNGGY0lDQVGu02AYFGI1swmh/bjkgIdJfhJFkbOJ1f15wbYfXeZkpNx64D/T0NXyIN
-         eGGO1cKJHaDhLlexDz1dV0qjOklzq3lzsDxdZ2tPQXx+fJ5D3MDJGZWtp5xSu2Fwk+63
-         CtKD+jB3DIIedDrSpFr+pR3rjv6yYScsBbwjCkuVnX9UHJtJUZZ9Z/Z/uuYA53BF76sI
-         YrMYhVPBDez+UamsttC96ehV3Co/JdXs8L4SxesubhwWyAhbHLyoIQU4edRNwhFXzCj7
-         GLpQ==
-X-Forwarded-Encrypted: i=1; AKwUvByToTt7uOmpB3BlkWW/v2jy6ySgea8hvekPum2I3YpAi+areQSgXsWHJMUml30kQi58tsdo2DsjBOgPGRs=@vger.kernel.org
-X-Gm-Message-State: AFuF++mnmijzfwpVI9Uq9Lupbfcxo2jsTolv2cAR/G87VnfuUQJQ/MvZ
-	+/hNuOWF8b2CXVileyly9phe8pvJP++F37Wn27K201zJ87ISWhtMF20=
-X-Gm-Gg: AYBFou1FsicvUroZAzH5UYeqpQ4NG37Qk9zAdINz2Ue58zVLYO/3BrWcZ6HUUhNJQVS
-	jFpb1s7H76gGPQ7XzV7Qa5aRjqBcJhcTVEt5+Vo9KizizKX67RLe8y4okgTHQ+Q06eD0wCuJn2C
-	2rS9WuBzrpesXYF11OocgUYLXshU2+ShxsU5qGDn21H4lfL6A90NSjhzK3oEOELXsSM2jRVTF8C
-	Q9udVAll1CZpbWP9DdMIVc0DCVc5plhijGX5fAKXwOE5hZPLyC9V7tYD1cGPSHe9FsvP1TeXKbl
-	lu3NpSbRNhl3IU5PuBv/o5GjoUAHyQCVwZUJmG/m4aF9ik+kSwMrqmXDQmkOCTed0azg09sbNbp
-	kflZbrmBEYbaCAaf853hTouiNkOIHm5JVz2A40zqBYvPY8k41LSJ9xS9At9RPtfl99dOkplL3mF
-	n2ZvfvP5792DCJ0dxCQZcP8Ih9sx8hMm5jShc+eP4Bkepa3bb3eqXHBAi8QBL/9TIajWQqAgiWn
-	gfF97hkMnnSCaYCHHHrYlVUvwrteGaGfypIKcfB/TScuq9y7pA=
-X-Received: by 2002:a05:6512:130b:b0:5b6:183c:5c90 with SMTP id 2adb3069b0e04-5b6183c5d6amr4728496e87.46.1788879146726;
-        Tue, 08 Sep 2026 07:52:26 -0700 (PDT)
-Received: from i-UX410UAR.lan (broadband-95-84-141-211.ip.moscow.rt.ru. [95.84.141.211])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b6166ecf24sm3215891e87.16.2026.09.08.07.52.23
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 08 Sep 2026 07:52:24 -0700 (PDT)
-From: Vladislav Karmanov <vladislav.karmanov.dev@gmail.com>
-To: netdev@vger.kernel.org
-Cc: andrew@lunn.ch,
-	daniel@makrotopia.org,
-	dqfext@gmail.com,
-	SkyLake.Huang@mediatek.com,
-	hkallweit1@gmail.com,
-	linux@armlinux.org.uk,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	matthias.bgg@gmail.com,
-	angelogioacchino.delregno@collabora.com,
-	arinc.unal@arinc9.com,
-	sean.wang@mediatek.com,
-	olteanv@gmail.com,
-	yangshiji66@outlook.com,
-	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org,
-	Vladislav Karmanov <vladislav.karmanov.dev@gmail.com>
-Subject: [PATCH net v4] net: phy: mediatek-ge: disable EEE on the MT7530 PHY
-Date: Tue,  8 Sep 2026 17:52:13 +0300
-Message-ID: <20260908145213.3976508-1-vladislav.karmanov.dev@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	s=arc-20240116; t=1788879201; c=relaxed/simple;
+	bh=hlaWaZ+02zAYIBBZGkaJxCerolTNdu47CDHZpNfApwc=;
+	h=Message-ID:In-Reply-To:References:Date:Mime-Version:From:To:Cc:
+	 Subject:Content-Type; b=Zmb3bwNLyFTlCLMavzOkmHEfWxFQ6Dtn0oFy4n8BG7dHRo5xCVVLOi74lZC7kbvHOYcSThR8dPKjY6pJbZgVUg6tgUGARml0jzVujcCvMb/0BDSZ5CCNH/UBtlFgBTN80o1uqwBzQ4EfCGCMJsMW6QwPzcEwV1rHhPVEiMCTnQc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn; spf=pass smtp.mailfrom=zte.com.cn; arc=none smtp.client-ip=160.30.148.35
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
+Received: from mse-fl2.zte.com.cn (unknown [10.5.228.133])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mxhk.zte.com.cn (FangMail) with ESMTPS id 4hfRkk2F44z8XrrM;
+	Tue, 08 Sep 2026 22:53:02 +0800 (CST)
+Received: from xaxapp04.zte.com.cn ([10.99.98.157])
+	by mse-fl2.zte.com.cn with SMTP id 688EqvUn025078;
+	Tue, 8 Sep 2026 22:52:57 +0800 (+08)
+	(envelope-from wang.yaxin@zte.com.cn)
+Received: from mapi (xaxapp05[null])
+	by mapi (Zmail) with MAPI id mid32;
+	Tue, 8 Sep 2026 22:52:59 +0800 (CST)
+X-Zmail-TransId: 2afc6aa0214b48b-527cc
+X-Mailer: Zmail v1.0
+Message-ID: <202609082252590056C6i0NZqu0yxz63nLlV2X@zte.com.cn>
+In-Reply-To: <20260908225056266qjyBORsOReFvHLEQ3NKtR@zte.com.cn>
+References: 20260908225056266qjyBORsOReFvHLEQ3NKtR@zte.com.cn
+Date: Tue, 8 Sep 2026 22:52:59 +0800 (CST)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+From: <wang.yaxin@zte.com.cn>
+To: <wang.yaxin@zte.com.cn>
+Cc: <akpm@linux-foundation.org>, <fan.yu9@zte.com.cn>,
+        <yang.yang29@zte.com.cn>, <thomas.weissschuh@linutronix.de>,
+        <corbet@lwn.net>, <linux-kernel@vger.kernel.org>,
+        <linux-doc@vger.kernel.org>, <xu.xin16@zte.com.cn>
+Subject: =?UTF-8?B?W1BBVENIIDEvMyB2NF0gZGVsYXl0b3A6IGFkZCBkZWxheSBtYXggZm9yIGRlbGF5dG9w?=
+Content-Type: text/plain;
+	charset="UTF-8"
+X-MAIL:mse-fl2.zte.com.cn 688EqvUn025078
+X-TLS: YES
+X-ENVELOPE-SENDER: wang.yaxin@zte.com.cn
+X-SOURCE-IP: 10.5.228.133 unknown Tue, 08 Sep 2026 22:53:02 +0800
+X-CLEAN: YES
+X-Fangmail-Anti-Spam-Filtered: true
+X-Fangmail-MID-QID: 6AA0214E.000/4hfRkk2F44z8XrrM
 
-The MT7530 internal GE PHY advertises EEE by hardware default, but its
-EEE support is defective: with EEE advertised, some link partners fail
-to establish a stable link. On a 2-pair (4-wire) cable where both ends
-advertise gigabit, 1000BASE-T training cannot succeed, and instead of
-falling back to 100 Mbps the port loops, so no link or DHCP lease is
-ever obtained. MediaTek confirms the hardware is the root cause (Landen
-Chao, 2021): "EEE of the 10-year-old MT7530 internal gephy has many IOT
-problems, so it is recommended to disable its EEE."
+From: Wang Yaxin <wang.yaxin@zte.com.cn>
 
-mtk_gephy_config_init() used to clear the EEE advertisement early, but
-commit af3b4b0e59de ("net: phy: mediatek-ge: do not disable EEE
-advertisement") removed that on the rationale that the DSA subdriver
-already performs an early disable. That holds for MT7531, whose
-mt7531_setup() clears MDIO_AN_EEE_ADV on each switch PHY, but not for
-the MT7530 PHY: neither the MT7621 integrated switch nor the dedicated
-MT7530 IC ever had such a loop, so removing it left those boards
-without any working early EEE disable and the link flapping came back.
+Previously delaytop only showed average delays. Add delay_max fields to
+track the maximum delay value for each delay type (cpu, blkio, irq, swapin,
+freepages, thrashing, compact, wpcopy) per task.
 
-Since the broken hardware is the PHY, fix it in the PHY driver so it
-covers all users of this PHY, integrated in a switch or standalone:
+This provides a global view of all tasks' delay spikes, which is essential
+for identifying processes that experienced brief but significant latency
+events that would be hidden by average-only metrics.
 
-  - clear MDIO_AN_EEE_ADV in probe(), as early as possible, before
-    anything can negotiate EEE with the link partner;
-  - clear it again in config_init() and call phy_disable_eee() there.
-    config_init() is what phy_init_hw() replays after a PHY reset, when
-    the register is back at its EEE-advertising hardware default, and
-    it runs after of_set_phy_eee_broken() in phy_probe(), so the
-    eee_disabled_modes mask survives and neither phylib nor userspace
-    can re-enable EEE. dp83867 disables broken EEE from config_init()
-    the same way.
+The -t/--type option displays only the specified delay type with avg/max
+values side by side, allowing focused analysis:
+  delaytop -t cpu    # Show only CPU delay with avg/max
+  delaytop -t wpcopy    # Show Copy-on-Write delay with avg/max
 
-Auto-negotiation then falls back to a stable 100 Mbps link instead of
-looping at gigabit. Tested on ASUS RT-AX53U (MT7621): with a 2-pair
-cable on the WAN port, a single clean 100 Mbps link comes up and a
-DHCP lease is obtained, where the unpatched driver loops.
-
-Fixes: af3b4b0e59de ("net: phy: mediatek-ge: do not disable EEE advertisement")
-Suggested-by: Andrew Lunn <andrew@lunn.ch>
-Signed-off-by: Vladislav Karmanov <vladislav.karmanov.dev@gmail.com>
+Signed-off-by: Wang Yaxin <wang.yaxin@zte.com.cn>
 ---
-Changes in v4 (addressing the sashiko review of v3):
+ tools/accounting/delaytop.c | 165 ++++++++++++++++++++++++++++--------
+ 1 file changed, 131 insertions(+), 34 deletions(-)
 
-- phy_disable_eee() called from probe() was undone later in the same
-  phy_probe() flow for PHYs with an of_node: of_set_phy_eee_broken()
-  zeroes eee_disabled_modes after ->probe has already run, leaving
-  userspace able to re-enable EEE through ethtool.
-- The probe()-time MDIO_AN_EEE_ADV clear was not replayed by
-  phy_init_hw() after a PHY reset, leaving the register at its
-  EEE-advertising hardware default.
-- Keep the probe()-time advertisement clear -- it also feeds an empty
-  advertisement back into genphy_c45_read_eee_adv() during phy_probe()
-  -- and move the durable disable to config_init(), which runs after
-  of_set_phy_eee_broken() and is the callback phy_init_hw() replays
-  after resets. This is the placement dp83867 uses for the same kind
-  of quirk.
-- The Reviewed-by/Acked-by given for v3 are not carried over: the
-  placement is what changed, so they need a fresh look.
+diff --git a/tools/accounting/delaytop.c b/tools/accounting/delaytop.c
+index 0a863dfeae8a..29b0fff1d4a0 100644
+--- a/tools/accounting/delaytop.c
++++ b/tools/accounting/delaytop.c
+@@ -75,13 +75,21 @@
+ 	{#name, #cmd, \
+ 	offsetof(struct task_info, name##_delay_total), \
+ 	offsetof(struct task_info, name##_count), \
++	offsetof(struct task_info, name##_delay_max), \
+ 	modes}
+-#define END_FIELD {NULL, 0, 0}
++#define SORT_FIELD_NO_MAX(name, cmd, modes) \
++	{#name, #cmd, \
++	offsetof(struct task_info, name##_delay_total), \
++	offsetof(struct task_info, name##_count), \
++	0, \
++	modes}
++#define END_FIELD {NULL, 0, 0, 0, 0, 0}
 
-v3: https://lore.kernel.org/netdev/20260904202800.3410838-1-vladislav.karmanov.dev@gmail.com/
-v2: https://lore.kernel.org/netdev/20260820202844.1821687-1-vladislav.karmanov.dev@gmail.com/
-v1: https://lore.kernel.org/netdev/20260818182829.1580811-1-vladislav.karmanov.dev@gmail.com/
+ /* Display mode types */
+ #define MODE_TYPE_ALL	(0xFFFFFFFF)
+ #define MODE_DEFAULT	(1 << 0)
+ #define MODE_MEMVERBOSE	(1 << 1)
++#define MODE_TYPE	(1 << 2)	/* Display specific type with avg/max */
 
- drivers/net/phy/mediatek/mtk-ge.c | 29 ++++++++++++++++++++++++++
- 1 file changed, 29 insertions(+)
+ /* PSI statistics structure */
+ struct psi_stats {
+@@ -108,20 +116,28 @@ struct task_info {
+ 	char command[TASK_COMM_LEN];
+ 	unsigned long long cpu_count;
+ 	unsigned long long cpu_delay_total;
++	unsigned long long cpu_delay_max;
+ 	unsigned long long blkio_count;
+ 	unsigned long long blkio_delay_total;
++	unsigned long long blkio_delay_max;
+ 	unsigned long long swapin_count;
+ 	unsigned long long swapin_delay_total;
++	unsigned long long swapin_delay_max;
+ 	unsigned long long freepages_count;
+ 	unsigned long long freepages_delay_total;
++	unsigned long long freepages_delay_max;
+ 	unsigned long long thrashing_count;
+ 	unsigned long long thrashing_delay_total;
++	unsigned long long thrashing_delay_max;
+ 	unsigned long long compact_count;
+ 	unsigned long long compact_delay_total;
++	unsigned long long compact_delay_max;
+ 	unsigned long long wpcopy_count;
+ 	unsigned long long wpcopy_delay_total;
++	unsigned long long wpcopy_delay_max;
+ 	unsigned long long irq_count;
+ 	unsigned long long irq_delay_total;
++	unsigned long long irq_delay_max;
+ 	unsigned long long mem_count;
+ 	unsigned long long mem_delay_total;
+ };
+@@ -141,6 +157,7 @@ struct field_desc {
+ 	const char *cmd_char;	/* Interactive command */
+ 	unsigned long total_offset; /* Offset of total delay in task_info */
+ 	unsigned long count_offset; /* Offset of count in task_info */
++	unsigned long max_offset;  /* Offset of max delay in task_info */
+ 	size_t supported_modes; /* Supported display modes */
+ };
 
-diff --git a/drivers/net/phy/mediatek/mtk-ge.c b/drivers/net/phy/mediatek/mtk-ge.c
-index 73d9b72..96d8ac5 100644
---- a/drivers/net/phy/mediatek/mtk-ge.c
-+++ b/drivers/net/phy/mediatek/mtk-ge.c
-@@ -62,10 +62,38 @@ static void mtk_gephy_config_init(struct phy_device *phydev)
- 		       FIELD_PREP(MTK_MCC_NEARECHO_OFFSET_MASK, 0x3));
+@@ -153,6 +170,7 @@ struct config {
+ 	int monitor_pid;		/* Monitor specific PID */
+ 	char *container_path;	/* Path to container cgroup */
+ 	const struct field_desc *sort_field;	/* Current sort field */
++	const struct field_desc *type_field;	/* Type field for -t option */
+ 	size_t display_mode;	/* Current display mode */
+ };
+
+@@ -164,15 +182,15 @@ static int task_count;
+ static int running = 1;
+ static struct container_stats container_stats;
+ static const struct field_desc sort_fields[] = {
+-	SORT_FIELD(cpu,		c,	MODE_DEFAULT),
+-	SORT_FIELD(blkio,	i,	MODE_DEFAULT),
+-	SORT_FIELD(irq,		q,	MODE_DEFAULT),
+-	SORT_FIELD(mem,		m,	MODE_DEFAULT | MODE_MEMVERBOSE),
+-	SORT_FIELD(swapin,	s,	MODE_MEMVERBOSE),
+-	SORT_FIELD(freepages,	r,	MODE_MEMVERBOSE),
+-	SORT_FIELD(thrashing,	t,	MODE_MEMVERBOSE),
+-	SORT_FIELD(compact,	p,	MODE_MEMVERBOSE),
+-	SORT_FIELD(wpcopy,	w,	MODE_MEMVERBOSE),
++	SORT_FIELD(cpu,		c,	MODE_DEFAULT | MODE_TYPE),
++	SORT_FIELD(blkio,	i,	MODE_DEFAULT | MODE_TYPE),
++	SORT_FIELD(irq,		q,	MODE_DEFAULT | MODE_TYPE),
++	SORT_FIELD_NO_MAX(mem,	m,	MODE_DEFAULT | MODE_MEMVERBOSE),
++	SORT_FIELD(swapin,	s,	MODE_MEMVERBOSE | MODE_TYPE),
++	SORT_FIELD(freepages,	r,	MODE_MEMVERBOSE | MODE_TYPE),
++	SORT_FIELD(thrashing,	t,	MODE_MEMVERBOSE | MODE_TYPE),
++	SORT_FIELD(compact,	p,	MODE_MEMVERBOSE | MODE_TYPE),
++	SORT_FIELD(wpcopy,	w,	MODE_MEMVERBOSE | MODE_TYPE),
+ 	END_FIELD
+ };
+ static int sort_selected;
+@@ -265,6 +283,7 @@ static void usage(void)
+ 	"  -p, --pid=PID            Monitor only the specified PID\n"
+ 	"  -C, --container=PATH     Monitor the container at specified cgroup path\n"
+ 	"  -s, --sort=FIELD         Sort by delay field (default: cpu)\n"
++	"  -t, --type=FIELD         Display only specified delay type with avg/max\n"
+ 	"  -M, --memverbose         Display memory detailed information\n");
+ 	exit(0);
  }
- 
-+static int mt7530_phy_probe(struct phy_device *phydev)
+@@ -283,6 +302,7 @@ static void parse_args(int argc, char **argv)
+ 		{"processes", required_argument, 0, 'P'},
+ 		{"sort", required_argument, 0, 's'},
+ 		{"container", required_argument, 0, 'C'},
++		{"type", required_argument, 0, 't'},
+ 		{"memverbose", no_argument, 0, 'M'},
+ 		{0, 0, 0, 0}
+ 	};
+@@ -292,6 +312,7 @@ static void parse_args(int argc, char **argv)
+ 	cfg.iterations = 0;
+ 	cfg.max_processes = 20;
+ 	cfg.sort_field = &sort_fields[0];	/* Default sorted by CPU delay */
++	cfg.type_field = NULL;				/* No type field by default */
+ 	cfg.output_one_time = 0;
+ 	cfg.monitor_pid = 0;	/* 0 means monitor all PIDs */
+ 	cfg.container_path = NULL;
+@@ -300,7 +321,7 @@ static void parse_args(int argc, char **argv)
+ 	while (1) {
+ 		int option_index = 0;
+
+-		c = getopt_long(argc, argv, "hd:n:p:oP:C:s:M", long_options, &option_index);
++		c = getopt_long(argc, argv, "hd:n:p:oP:C:s:t:M", long_options, &option_index);
+ 		if (c == -1)
+ 			break;
+
+@@ -363,9 +384,32 @@ static void parse_args(int argc, char **argv)
+
+ 			cfg.sort_field = field;
+ 			break;
++		case 't':
++			if (strlen(optarg) == 0) {
++				fprintf(stderr, "Error: empty type field\n");
++				exit(1);
++			}
++
++			field = get_field_by_name(optarg);
++			/* Show available fields if invalid option provided */
++			if (!field || !(field->supported_modes & MODE_TYPE)) {
++				fprintf(stderr, "Error: invalid type field '%s'\n", optarg);
++				display_available_fields(MODE_TYPE);
++				exit(1);
++			}
++
++			cfg.type_field = field;
++			cfg.display_mode = MODE_TYPE;
++			break;
+ 		case 'M':
+ 			cfg.display_mode = MODE_MEMVERBOSE;
+-			cfg.sort_field = get_field_by_name("mem");
++			/* Find first field supporting MODE_MEMVERBOSE for sorting */
++			for (field = sort_fields; field->name != NULL; field++) {
++				if (field->supported_modes & MODE_MEMVERBOSE) {
++					cfg.sort_field = field;
++					break;
++				}
++			}
+ 			break;
+ 		default:
+ 			fprintf(stderr, "Try 'delaytop --help' for more information.\n");
+@@ -690,7 +734,12 @@ static void fetch_and_fill_task_info(int pid, const char *comm)
+ 			nested_len = NLA_PAYLOAD(na->nla_len);
+ 			while (nested_len > 0) {
+ 				if (nested->nla_type == TASKSTATS_TYPE_STATS) {
+-					memcpy(&stats, NLA_DATA(nested), sizeof(stats));
++					size_t payload_len = NLA_PAYLOAD(nested->nla_len);
++
++					memset(&stats, 0, sizeof(stats));
++					if (payload_len > sizeof(stats))
++						payload_len = sizeof(stats);
++					memcpy(&stats, NLA_DATA(nested), payload_len);
+ 					if (task_count < MAX_TASKS) {
+ 						tasks[task_count].pid = pid;
+ 						tasks[task_count].tgid = pid;
+@@ -699,20 +748,28 @@ static void fetch_and_fill_task_info(int pid, const char *comm)
+ 						tasks[task_count].command[TASK_COMM_LEN - 1] = '\0';
+ 						SET_TASK_STAT(task_count, cpu_count);
+ 						SET_TASK_STAT(task_count, cpu_delay_total);
++						SET_TASK_STAT(task_count, cpu_delay_max);
+ 						SET_TASK_STAT(task_count, blkio_count);
+ 						SET_TASK_STAT(task_count, blkio_delay_total);
++						SET_TASK_STAT(task_count, blkio_delay_max);
+ 						SET_TASK_STAT(task_count, swapin_count);
+ 						SET_TASK_STAT(task_count, swapin_delay_total);
++						SET_TASK_STAT(task_count, swapin_delay_max);
+ 						SET_TASK_STAT(task_count, freepages_count);
+ 						SET_TASK_STAT(task_count, freepages_delay_total);
++						SET_TASK_STAT(task_count, freepages_delay_max);
+ 						SET_TASK_STAT(task_count, thrashing_count);
+ 						SET_TASK_STAT(task_count, thrashing_delay_total);
++						SET_TASK_STAT(task_count, thrashing_delay_max);
+ 						SET_TASK_STAT(task_count, compact_count);
+ 						SET_TASK_STAT(task_count, compact_delay_total);
++						SET_TASK_STAT(task_count, compact_delay_max);
+ 						SET_TASK_STAT(task_count, wpcopy_count);
+ 						SET_TASK_STAT(task_count, wpcopy_delay_total);
++						SET_TASK_STAT(task_count, wpcopy_delay_max);
+ 						SET_TASK_STAT(task_count, irq_count);
+ 						SET_TASK_STAT(task_count, irq_delay_total);
++						SET_TASK_STAT(task_count, irq_delay_max);
+ 						set_mem_count(&tasks[task_count]);
+ 						set_mem_delay_total(&tasks[task_count]);
+ 						task_count++;
+@@ -777,14 +834,14 @@ static int compare_tasks(const void *a, const void *b)
+ 	const struct task_info *t2 = (const struct task_info *)b;
+ 	unsigned long long total1;
+ 	unsigned long long total2;
+-	unsigned long count1;
+-	unsigned long count2;
++	unsigned long long count1;
++	unsigned long long count2;
+ 	double avg1, avg2;
+
+ 	total1 = *(unsigned long long *)((char *)t1 + cfg.sort_field->total_offset);
+ 	total2 = *(unsigned long long *)((char *)t2 + cfg.sort_field->total_offset);
+-	count1 = *(unsigned long *)((char *)t1 + cfg.sort_field->count_offset);
+-	count2 = *(unsigned long *)((char *)t2 + cfg.sort_field->count_offset);
++	count1 = *(unsigned long long *)((char *)t1 + cfg.sort_field->count_offset);
++	count2 = *(unsigned long long *)((char *)t2 + cfg.sort_field->count_offset);
+
+ 	avg1 = average_ms(total1, count1);
+ 	avg2 = average_ms(total2, count2);
+@@ -794,6 +851,26 @@ static int compare_tasks(const void *a, const void *b)
+ 	return 0;
+ }
+
++/* Get delay values for a specific field */
++static void get_field_delay_values(const struct task_info *task, const struct field_desc *field,
++				   double *avg_ms, double *max_ms)
 +{
-+	/* The MT7530 internal GE PHY has broken EEE: with EEE advertised,
-+	 * some link partners fail to establish a stable link (on a 2-pair
-+	 * cable, 1000BASE-T training fails and the port loops instead of
-+	 * falling back). MediaTek recommends disabling EEE on this PHY.
-+	 * Clear the advertisement as early as possible, before anything
-+	 * can negotiate EEE with the link partner.
-+	 */
-+	return phy_write_mmd(phydev, MDIO_MMD_AN, MDIO_AN_EEE_ADV, 0);
++	unsigned long long total, count, max;
++
++	if (!field || !field->max_offset) {
++		*avg_ms = 0;
++		*max_ms = 0;
++		return;
++	}
++
++	total = *(unsigned long long *)((char *)task + field->total_offset);
++	count = *(unsigned long long *)((char *)task + field->count_offset);
++	*avg_ms = average_ms(total, count);
++
++	max = *(unsigned long long *)((char *)task + field->max_offset);
++	*max_ms = (double)max / 1000000.0;  /* Convert nanoseconds to milliseconds */
 +}
 +
- static int mt7530_phy_config_init(struct phy_device *phydev)
+ /* Sort tasks by selected field */
+ static void sort_tasks(void)
  {
-+	int ret;
+@@ -847,7 +924,12 @@ static void get_container_stats(void)
+ 	while (nl_len > 0) {
+ 		if (na->nla_type == CGROUPSTATS_TYPE_CGROUP_STATS) {
+ 			/* Get the cgroupstats structure */
+-			memcpy(&stats, NLA_DATA(na), sizeof(stats));
++			size_t payload_len = NLA_PAYLOAD(na->nla_len);
 +
- 	mtk_gephy_config_init(phydev);
- 
-+	/* The probe() clear alone is not durable: phy_init_hw() replays only
-+	 * ->config_init after a PHY reset, with the register back at its
-+	 * EEE-advertising hardware default, and phy_probe() zeroes
-+	 * eee_disabled_modes (of_set_phy_eee_broken()) after ->probe already
-+	 * ran. Clear the advertisement again and mark EEE disabled, so that
-+	 * neither phylib nor userspace can re-enable it; dp83867 disables
-+	 * broken EEE from config_init() the same way.
-+	 */
-+	ret = phy_write_mmd(phydev, MDIO_MMD_AN, MDIO_AN_EEE_ADV, 0);
-+	if (ret)
-+		return ret;
++			memset(&stats, 0, sizeof(stats));
++			if (payload_len > sizeof(stats))
++				payload_len = sizeof(stats);
++			memcpy(&stats, NLA_DATA(na), payload_len);
+
+ 			/* Fill container stats */
+ 			container_stats.nr_sleeping = stats.nr_sleeping;
+@@ -950,29 +1032,44 @@ static void display_results(int psi_ret)
+ 	suc &= BOOL_FPRINT(out, "Top %d processes (sorted by %s delay):\n",
+ 			cfg.max_processes, get_name_by_field(cfg.sort_field));
+
+-	suc &= BOOL_FPRINT(out, "%8s  %8s  %-17s", "PID", "TGID", "COMMAND");
+-	if (cfg.display_mode == MODE_MEMVERBOSE) {
+-		suc &= BOOL_FPRINT(out, "%8s %8s %8s %8s %8s %8s\n",
+-			"MEM(ms)", "SWAP(ms)", "RCL(ms)",
+-			"THR(ms)", "CMP(ms)", "WP(ms)");
+-		suc &= BOOL_FPRINT(out, "-----------------------");
+-		suc &= BOOL_FPRINT(out, "-----------------------");
+-		suc &= BOOL_FPRINT(out, "-----------------------");
+-		suc &= BOOL_FPRINT(out, "---------------------\n");
++	if (cfg.display_mode == MODE_TYPE && cfg.type_field) {
++		/* Display mode for -t option: show only specified type with avg/max */
++		suc &= BOOL_FPRINT(out, "%8s  %8s  %-17s %12s %12s\n",
++			"PID", "TGID", "COMMAND",
++			"AVG(ms)", "MAX(ms)");
++		suc &= BOOL_FPRINT(out, "----------------------------------------------------\n");
+ 	} else {
+-		suc &= BOOL_FPRINT(out, "%8s %8s %8s %8s\n",
+-			"CPU(ms)", "IO(ms)", "IRQ(ms)", "MEM(ms)");
+-		suc &= BOOL_FPRINT(out, "-----------------------");
+-		suc &= BOOL_FPRINT(out, "-----------------------");
+-		suc &= BOOL_FPRINT(out, "--------------------------\n");
++		suc &= BOOL_FPRINT(out, "%8s  %8s  %-17s", "PID", "TGID", "COMMAND");
++		if (cfg.display_mode == MODE_MEMVERBOSE) {
++			suc &= BOOL_FPRINT(out, "%8s %8s %8s %8s %8s %8s\n",
++				"MEM(ms)", "SWAP(ms)", "RCL(ms)",
++				"THR(ms)", "CMP(ms)", "WP(ms)");
++			suc &= BOOL_FPRINT(out, "-----------------------");
++			suc &= BOOL_FPRINT(out, "-----------------------");
++			suc &= BOOL_FPRINT(out, "-----------------------");
++			suc &= BOOL_FPRINT(out, "---------------------\n");
++		} else {
++			suc &= BOOL_FPRINT(out, "%8s %8s %8s %8s\n",
++				"CPU(ms)", "IO(ms)", "IRQ(ms)", "MEM(ms)");
++			suc &= BOOL_FPRINT(out, "-----------------------");
++			suc &= BOOL_FPRINT(out, "-----------------------");
++			suc &= BOOL_FPRINT(out, "--------------------------\n");
++		}
+ 	}
+
+ 	count = task_count < cfg.max_processes ? task_count : cfg.max_processes;
+
+ 	for (i = 0; i < count; i++) {
+-		suc &= BOOL_FPRINT(out, "%8d  %8d  %-15s",
++		suc &= BOOL_FPRINT(out, "%8d  %8d  %-17s",
+ 			tasks[i].pid, tasks[i].tgid, tasks[i].command);
+-		if (cfg.display_mode == MODE_MEMVERBOSE) {
++		if (cfg.display_mode == MODE_TYPE && cfg.type_field) {
++			double avg_ms, max_ms;
 +
-+	phy_disable_eee(phydev);
++			get_field_delay_values(&tasks[i], cfg.type_field, &avg_ms, &max_ms);
 +
- 	/* Increase post_update_timer */
- 	phy_write_paged(phydev, MTK_PHY_PAGE_EXTENDED_3,
- 			MTK_PHY_RG_LPI_PCS_DSP_CTRL_REG11, 0x4b);
-@@ -100,6 +128,7 @@ static struct phy_driver mtk_gephy_driver[] = {
- 	{
- 		PHY_ID_MATCH_EXACT(MTK_GPHY_ID_MT7530),
- 		.name		= "MediaTek MT7530 PHY",
-+		.probe		= mt7530_phy_probe,
- 		.config_init	= mt7530_phy_config_init,
- 		/* Interrupts are handled by the switch, not the PHY
- 		 * itself.
++			suc &= BOOL_FPRINT(out, "%12.2f %12.2f\n",
++				avg_ms, max_ms);
++		} else if (cfg.display_mode == MODE_MEMVERBOSE) {
+ 			suc &= BOOL_FPRINT(out, DELAY_FMT_MEMVERBOSE,
+ 				TASK_AVG(tasks[i], mem),
+ 				TASK_AVG(tasks[i], swapin),
 -- 
-2.43.0
+2.47.1
