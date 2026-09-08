@@ -1,63 +1,63 @@
-Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com [209.85.216.43])
+Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com [209.85.216.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FBF45293E3
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 23:56:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD11A52E049
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 23:56:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788911780; cv=none; b=WmRm99TUWZ8TWz3kGK4lvP3CFLZBLKLeRYtzh2QDU6sD7Q6cSUZ7Z1Xc3PZLXPgb26CB8m8TyNPaAHi/Zf5ZW7y7uxSD9l1f68Xa35sEquftdn2MaGfbfU+j1XzsjUOPOl5QLOfI+RTXQzl9GoJa+ywmI46V2XnfXWRNLkvbNIs=
+	t=1788911785; cv=none; b=O5eDrNL03Hkx+SVzay1F+nohH+lnGng0lk7beclRBFMBz3vQIKEOlWQIRokf3MPvImnFc+B7Q+aTu12aENMN4+tb6NF5x229No78A250v3cJd0On09NEgR2mjpUs5FSC2OFDMa2yzg6YDVDsQ+rrDSGi11+vu2qF9L75mT8LS8E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788911780; c=relaxed/simple;
-	bh=si5BYHD1bgTq9wAEa6AMnCCukVlsdAfPGs0qEMKVd/c=;
+	s=arc-20240116; t=1788911785; c=relaxed/simple;
+	bh=txHUBulABd3m0OF7Y53+6fpuw2qvy7g4Ft1wH9BXuaY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=QL6B3lggRoXRlL3WZ5DxjFI1YwDZzzgyLF0O9GpeTXFvAzYHL4NQjkvGLkC2FFhU9ZpPFj3rdwPCpgMJ4p5fvIBo1QPQS0VzfyhI8wLLviNuSnfwwXe6DbnJdB8rtXW2vx2zCu0N2buZBAp9s7oSpNNuYpBA9bTZSEjGqbKp4HA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=W3gYmVQx; arc=none smtp.client-ip=209.85.216.43
+	 MIME-Version; b=RITvjEn2eaEVFCZzFd0OKSE89ExugDUt5C3elJnfx/9Wp69gABAABCoDCiooAxNUVa5yVnOJSnTyCt3IfMz33Zi4yeCHF1E5lvkFKmixagAosVjaX6fQNFyDGY+X6PoVf3tTnrkUhokWAjHkO1c8F+Mx3HrsEMrnCCi/QQoLyS0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=reWDPeYz; arc=none smtp.client-ip=209.85.216.53
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="W3gYmVQx"
-Received: by mail-pj1-f43.google.com with SMTP id 98e67ed59e1d1-398c1101c1bso5001148a91.1
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 16:56:17 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="reWDPeYz"
+Received: by mail-pj1-f53.google.com with SMTP id 98e67ed59e1d1-398c1101c1bso5001201a91.1
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 16:56:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788911777; x=1789516577; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788911782; x=1789516582; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=QBBeCRmmKGr22yzadVUWGqqdMcGSRhOtpXbO4fwPhxw=;
-        b=W3gYmVQxr73Gz10pCbHo1og8G7nHQ58/oBtzSDwmz7uZysPjoNPbXF3AqB2sNChI6I
-         2VHkdNMw9MSEHKCQxVQPCbpMiTDK4oOFQCu1TuHqK7UiU31zV7nZx8lIf224OCK8fbV4
-         0dJCYFD5pp0vC8FJ+KpGUbhYZIRt9ygFzlXSFblVG/j/WBn6W25axcN2aZ1Pa3tkTcJy
-         RfgfcLBUT58bfKs75mUaFl0Z5AjepznMBmxG41S8CJNUEu4aOQgDIAU2hH9/KV21Q1SN
-         YylJy5jW+yOR/Y7gOxWc0GAqjVt2FW0GAF2AK1cBAgnu0S8kwRCLEUo+O7txEnYFkf+g
-         IW0g==
+        bh=uKqFigUfUBeSnFW0KPe67v5MSiJ+XREL1Pj3ehWoLGc=;
+        b=reWDPeYz1olcvrwsK4GM1hVXP0yH9gXK+vsemTSiiarqx/1EzHAtIuxLi+9GdArHJ8
+         vDliPIpgXh4S9svqN2frJm8QeGMibPl/PTmLKo2GTm5y2z6WibEsUS8Wr3kFpf7v0Gio
+         aHXDgIEJQXN3aSVxbQOvCgX66VOwaC0Q6sY7xk6sUzVWBOlBbH4Vc09oh3QHv1SeKa7V
+         ca5DFgz3LpUgPqLtmamsrwb/PUR2/RbKWQCmtkNojp0gbBBlkmNrTcHyn1y1Sz/jPGL7
+         2Bs9OvBcXCqB9SbCv9kn1sSYChY+/m0zZtuclVuG0ay45iPpgfOwEa2haLxcHcKyOKN5
+         ft6w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788911777; x=1789516577;
+        d=1e100.net; s=20251104; t=1788911782; x=1789516582;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=QBBeCRmmKGr22yzadVUWGqqdMcGSRhOtpXbO4fwPhxw=;
-        b=gar3U2TbxyHYnqLCkpayiA6R39ylw9EbID0X/NFUdxKaJiVYAMzYvDYxDjbq8nt+jS
-         C8s3UEm3258nImHWlUsJIzhO/G3FCPWFQq/5I+jRgDBmqGCHUo7GOmapT+EirVuw3uLL
-         4BYNHc5GwoCeRF28STGMDFs8VhoOhF9TB/EYoxkXKKjNlm+fCvEoZFU+ud/uVrcdEHwi
-         8DpPS78axYnqapdsqi+vmiUKa7tHFsFA6o8SeUNiTJJdc/paCiRC68/kfvP0dccJOy0W
-         wIuqT2i5VfMHdAWwD0W6cNYlhc8GtY0qA9ngrUr/kYaBroVhWfBkV/0Hr3+emcH6ZeIP
-         40vw==
-X-Forwarded-Encrypted: i=1; AKwUvBymW+XBUUAGCmyPHxZ8ZyyXowLuqcJGXPI1fuV2R0WQlykZ9HRwEs+OXd+obHjdLUvLiHVC6o4YVmTcOM4=@vger.kernel.org
-X-Gm-Message-State: AFuF++mqXMAqd0k3wdnS7UTaUU386ZPDl3MMe7cMW6h4JesbrJaRlehk
-	fcd2//04dBMm8aExcHzxYNzXr1/y49hG+vTFvvyBLJ4n6GhzmY5Am5DJ
-X-Gm-Gg: AYBFou2+GoaXzoA97rJKeTcEUG0YEvjejpy/FZrQg4c3Pjj1QVipzMR70TNAAZ2y14J
-	qzVCKI3QKgcwob8nFqNz1aKyS6YzAzhRCh+SJO/r3PdqhtknFwdJxbKlH9IYPfGD8ClwY5g/Bby
-	B05TFgCPzqo+1avh5BJtdNqhOFgFIhk55qQyyZHVWgbfyzcVXy4Q3k+sGIPSYBFvTuYZo2eoPYo
-	Bo5o8r7TxZwx2ZcJL9JoHNkA3+qzM+KN+bA1hHy9EnykZaysFv4om+4kZ1nYpkyMVorfaV095X2
-	tmZlZ/5c9I28u2I9iduzNScV9AvlMXEWtpUszbcj2v1QX+ydayi1i+pI/9Ek6BrH3LyWCfSnst0
-	VtlfSp0c9h5cxQxigdFYO3+/Kb+Pu4pLoIjDvh0V2RDxnyIWwBsr46y2KghRP5DNadyD6ZyabGo
-	3hUR/N/tix3IZXGBg5Bx5lmngOtOy6+/LwLaqasjuZp491chCV81C/0/g=
-X-Received: by 2002:a17:90a:fc47:b0:398:9c0c:7c72 with SMTP id 98e67ed59e1d1-39b2627fe24mr43834873a91.25.1788911776798;
-        Tue, 08 Sep 2026 16:56:16 -0700 (PDT)
-Received: from localhost ([2a03:2880:9ff:64::])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339b608409sm44492157eec.21.2026.09.08.16.56.16
+        bh=uKqFigUfUBeSnFW0KPe67v5MSiJ+XREL1Pj3ehWoLGc=;
+        b=Cf0kEdOnuSK3OWu1W1bCUrlrOtRlkNTh7YyHbkHkOSit4wTQbjY1kvSNcdSI7lDeRF
+         WYpnO+SZUbEMBbi7iABqVbxbjBkwIeUxV5b2VBRD7oOFynVxqTFsXc1Gl+ovL6Jqy6vQ
+         ityYB3alujYxqn0XmNX1z36RT9zY6Gzo80ou1yhGeTa7dUFzQW2OpAO8agCw/layhmaU
+         cDz+o5aLLuAQ3b6RFOUy28FyymFrGsmrvTSxsInolhKUKLeyHmrTk31CViLATPv18p2a
+         uLvNvH6JXPs5qWBuqP8901H1NoW6YPG6EActSc4qQLK9mcEhBlD+s++89/W1e2m97MgJ
+         EcSQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzLu7ZbIAincW1hFvauLQ+leh3zBJS7+givTqD/a08C5o4EpmkC/5iMLlKNH58gXen7g6orlwztNVjAyQM=@vger.kernel.org
+X-Gm-Message-State: AFuF++lI8QiTTj3vCEekvhfhBJlGqDgNksXvvvOJLuJYmHSp44z5NinI
+	9U/egU4Qpn1mhFZWhShKTTQq2H4Ljyix9ndumbO3pzIAHYz9Y4B/2rrt
+X-Gm-Gg: AYBFou0mSgQON5OlDegJmxIGDhzkOk7VTsHm2cXGuhQUj57boja/c8DPzwbTIbQn+yP
+	C+1R1zPlUCJdJVsh0yY+HZ5ig0W1lRPuK3LxyILG8IqTF4lJ0jUsdV0LDnNlF0dQi6ipETCNFjl
+	1iTp7tlmnMpd2QTFBka29m4HHg+fpyD+kDv50CfTd7jZP6GM8GPJ7n0hNLUYhM2/IrBWZ/j0O9G
+	Y2K9iSWg9SfHuaABK9xoRbOj/myNWqlt42m0np40d9r3UwuzAD4Tap8N/zUcLtseVEcQEu5KD4U
+	LInVh7IqS6kZWt4rL1WRbGuFhFFa1b6qFb2Z3Fdoqv1AA/vBKZjXMuMUwV6rlOGnBWAoX0ZLkvj
+	Obg542QefBK9Ptj9ShHd75YaaxmJXez5nUqHefsZtLddZgovzR+CNtUsKIMMTThzS4qo/Gdo5VB
+	VtqRVWvNFthwOvmaBmbXwelgancgqotQObfEV1GrSfDzEjPjjfO5Bjsbg=
+X-Received: by 2002:a17:90b:3809:b0:396:4dfb:5890 with SMTP id 98e67ed59e1d1-39b260d333amr48826313a91.2.1788911781836;
+        Tue, 08 Sep 2026 16:56:21 -0700 (PDT)
+Received: from localhost ([2a03:2880:9ff:6b::])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-143243767e1sm33162529c88.6.2026.09.08.16.56.21
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 08 Sep 2026 16:56:16 -0700 (PDT)
+        Tue, 08 Sep 2026 16:56:21 -0700 (PDT)
 From: Ziyang Men <ziyang.meme@gmail.com>
 To: Shuah Khan <shuah@kernel.org>,
 	Tejun Heo <tj@kernel.org>,
@@ -88,9 +88,9 @@ Cc: Viktor Malik <vmalik@redhat.com>,
 	bpf@vger.kernel.org,
 	llvm@lists.linux.dev,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v4 1/4] selftests: add shared lib.bpf.mk to build BPF progs and skeletons
-Date: Tue,  8 Sep 2026 16:55:49 -0700
-Message-ID: <20260908235552.2610256-2-ziyang.meme@gmail.com>
+Subject: [PATCH v4 4/4] selftests/sched_ext: build BPF schedulers via the shared lib.bpf.mk
+Date: Tue,  8 Sep 2026 16:55:52 -0700
+Message-ID: <20260908235552.2610256-5-ziyang.meme@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260908235552.2610256-1-ziyang.meme@gmail.com>
 References: <20260908235552.2610256-1-ziyang.meme@gmail.com>
@@ -102,367 +102,230 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The libbpf + bpftool + vmlinux.h + BPF-object + skeleton build tool-chain
-is currently duplicated across tools/testing/selftests/{bpf,sched_ext,
-hid}/, each carrying ~100-140 lines of near-identical Makefile.  As more
-subsystems grow BPF-based selftests, the duplication scales poorly.
+sched_ext carries its own ~130 lines of libbpf + bpftool + vmlinux.h +
+BPF-object + skeleton build machinery.  Replace it with an include of the
+shared tools/testing/selftests/lib.bpf.mk, making sched_ext the third
+in-tree consumer of that fragment, after selftests/cgroup and
+selftests/hid.
 
-This patch adds tools/testing/selftests/lib.bpf.mk, a single includable
-fragment that provides the whole chain end-to-end.
+All generated skeletons and subskeletons keep the same public API, and
+the runner is built and linked the same way.
 
-To use: set BPF_SRCS and OVERRIDE_TARGETS := 1 before including ../lib.mk
-(so lib.mk's default link rule is suppressed), then include ../lib.bpf.mk
-and list $(BPF_SKELS) and $(BPFOBJ) as prerequisites of the test binary,
-e.g.,:
-
-    BPF_SRCS         := progs/foo.bpf.c
-    TEST_GEN_PROGS   := foo_test
-    OVERRIDE_TARGETS := 1
-    include ../lib.mk
-    include ../lib.bpf.mk
-    $(OUTPUT)/foo_test: foo_test.c $(BPF_SKELS) $(BPFOBJ)
-            $(call bpf_link,$@,$<)
-
-This eases adding BPF-based selftests in other directories, such as
-cgroup.
-
-Suggested-by: Shakeel Butt <shakeel.butt@linux.dev>
 Suggested-by: Eduard Zingerman <eddyz87@gmail.com>
 Suggested-by: Mykola Lysenko <mykolal@meta.com>
 Assisted-by: Claude:claude-opus-5
 Signed-off-by: Ziyang Men <ziyang.meme@gmail.com>
 ---
- tools/testing/selftests/lib.bpf.mk | 321 +++++++++++++++++++++++++++++
- 1 file changed, 321 insertions(+)
- create mode 100644 tools/testing/selftests/lib.bpf.mk
+ tools/testing/selftests/sched_ext/Makefile | 149 ++++-----------------
+ 1 file changed, 26 insertions(+), 123 deletions(-)
 
-diff --git a/tools/testing/selftests/lib.bpf.mk b/tools/testing/selftests/lib.bpf.mk
-new file mode 100644
-index 000000000000..f27cd1889e7f
---- /dev/null
-+++ b/tools/testing/selftests/lib.bpf.mk
-@@ -0,0 +1,321 @@
-+# SPDX-License-Identifier: GPL-2.0
-+#
-+# Build BPF programs and skeletons for selftests.
-+#
-+# Use it from a test Makefile like this:
-+#
-+#     BPF_SRCS         := foo.bpf.c bar.bpf.c
-+#     TEST_GEN_PROGS   := foo_test
-+#     OVERRIDE_TARGETS := 1              # set before lib.mk
-+#     include ../lib.mk
-+#     include ../lib.bpf.mk
-+#
-+#     $(OUTPUT)/foo_test: foo_test.c $(BPF_SKELS) $(BPFOBJ)
-+#         $(call bpf_link,$@,$<)
-+#
-+# Depend on $(BPFOBJ) to relink the test when libbpf.a changes.
-+#
-+# Options to set before including lib.bpf.mk:
-+#   BPF_PROG_EXT     - source ending; default .bpf.c. Use .c for progs/foo.c.
-+#   BPF_EXTRA_HDRS   - more headers needed by the BPF objects.
-+#   BPF_EXTRA_CFLAGS - more flags for compiling BPF programs.
-+#   BPF_SKEL_EXT     - skeleton header ending; default .skel.h. Must end in
-+#                      skel.h.
-+#   BPF_GEN_SUBSKEL  - also create a subskeleton header when set.
-+#   BPF_OBJ_DIR      - folder for BPF objects; default $(OUTPUT).
-+#   BPF_SKEL_DIR     - folder for skeleton headers; default $(OUTPUT).
-+#
-+# Set output directories that use $(OUTPUT) after including lib.mk.
-+#
-+# BPF_CFLAGS may be replaced after this include. Generated names use the source
-+# stem without its directory.
-+#
-+# Include lib.mk first. This file defines the BPF build variables and bpf_link,
-+# extends all, CFLAGS and EXTRA_CLEAN, and enables .DELETE_ON_ERROR.
-+
-+include $(top_srcdir)/tools/scripts/Makefile.arch	# ARCH / SRCARCH / HOSTARCH
-+
-+# Remove partial files written directly to $@.
-+.DELETE_ON_ERROR:
-+
-+# Match the libbpf and bpftool host compiler to LLVM=.
-+ifneq ($(LLVM),)
-+HOSTCC ?= $(LLVM_PREFIX)clang$(LLVM_SUFFIX)
-+HOSTLD ?= $(LLVM_PREFIX)ld.lld$(LLVM_SUFFIX)
-+else
-+HOSTCC ?= gcc
-+HOSTLD ?= ld
-+endif
-+CLANG  ?= clang
-+
-+ifneq ($(V),1)
-+lib_bpf_submake_extras := feature_display=0
-+endif
-+
-+# Match selftests/bpf debug and release optimization.
-+OPT_FLAGS ?= $(if $(RELEASE),-O2,-O0)
-+
-+# ---- files and tools ------------------------------------------------------
-+# Use one full path. Different forms of the same -I path can change BTF order.
-+lib_bpf_tools_dir         := $(abspath $(top_srcdir)/tools)
-+lib_bpf_dir               := $(lib_bpf_tools_dir)/lib/bpf
-+lib_bpf_tools_include_dir := $(lib_bpf_tools_dir)/include
-+lib_bpf_bpftool_dir       := $(lib_bpf_tools_dir)/bpf/bpftool
-+lib_bpf_api_dir           := $(lib_bpf_tools_include_dir)/uapi
-+lib_bpf_sources           := $(wildcard $(lib_bpf_dir)/*.[ch] \
-+					       $(lib_bpf_dir)/Makefile)
-+lib_bpf_header_sources    := $(filter %.h,$(lib_bpf_sources)) \
-+				     $(lib_bpf_api_dir)/linux/bpf.h
-+# Keep these names for callers which add their own BPF flags or dependencies.
-+BPFDIR     := $(lib_bpf_dir)
-+APIDIR     := $(lib_bpf_api_dir)
-+
-+# Keep private build files under $(OUTPUT) for both in-tree and O= builds.
-+lib_bpf_scratch_dir := $(OUTPUT)/tools
-+lib_bpf_build_dir   := $(lib_bpf_scratch_dir)/build
-+lib_bpf_include_dir := $(lib_bpf_scratch_dir)/include
-+# INCLUDE_DIR is also used by callers that replace BPF_CFLAGS.
-+INCLUDE_DIR := $(lib_bpf_include_dir)
-+BPFOBJ      := $(lib_bpf_build_dir)/libbpf/libbpf.a
-+
-+# Cross builds use a separate native libbpf for bpftool.
-+ifneq ($(CROSS_COMPILE)$(filter-out $(HOSTARCH),$(SRCARCH)),)
-+lib_bpf_host_build_dir   := $(lib_bpf_build_dir)/host
-+lib_bpf_host_scratch_dir := $(OUTPUT)/host-tools
-+else
-+lib_bpf_host_build_dir   := $(lib_bpf_build_dir)
-+lib_bpf_host_scratch_dir := $(lib_bpf_scratch_dir)
-+endif
-+lib_bpf_host_obj := $(lib_bpf_host_build_dir)/libbpf/libbpf.a
-+DEFAULT_BPFTOOL  := $(lib_bpf_host_scratch_dir)/sbin/bpftool
-+BPFTOOL          ?= $(DEFAULT_BPFTOOL)
-+
-+# Reuse target USERCFLAGS only when bpftool shares the target libbpf.
-+ifeq ($(BPFOBJ),$(lib_bpf_host_obj))
-+lib_bpf_host_user_cflags := $(USERCFLAGS)
-+endif
-+
-+# ---- find vmlinux BTF -----------------------------------------------------
-+VMLINUX_BTF_PATHS ?= $(if $(O),$(O)/vmlinux)				\
-+		     $(if $(KBUILD_OUTPUT),$(KBUILD_OUTPUT)/vmlinux)	\
-+		     $(top_srcdir)/vmlinux				\
-+		     /sys/kernel/btf/vmlinux				\
-+		     /boot/vmlinux-$(shell uname -r)
-+VMLINUX_BTF ?= $(abspath $(firstword $(wildcard $(VMLINUX_BTF_PATHS))))
-+# Delay missing-vmlinux errors so "make clean" still works.
-+lib_bpf_vmlinux_deps := $(if $(VMLINUX_H),$(VMLINUX_H),$(VMLINUX_BTF) $(BPFTOOL))
-+
-+# ---- compiler flags -------------------------------------------------------
-+# Find the normal system headers that Clang omits with --target=bpf. Put them
-+# last with -idirafter so they cannot replace project headers.
-+define lib_bpf_get_sys_includes
-+$(shell $(1) $(2) -v -E - </dev/null 2>&1 \
-+	| sed -n '/<...> search starts here:/,/End of search list./{ s| \(/.*\)|-idirafter \1|p }') \
-+$(shell $(1) $(2) -dM -E - </dev/null | grep '__riscv_xlen ' | awk '{printf("-D__riscv_xlen=%d -D__BITS_PER_LONG=%d", $$3, $$3)}') \
-+$(shell $(1) $(2) -dM -E - </dev/null | grep '__loongarch_grlen ' | awk '{printf("-D__BITS_PER_LONG=%d", $$3)}') \
-+$(shell $(1) $(2) -dM -E - </dev/null | grep -E 'MIPS(EL|EB)|_MIPS_SZ(PTR|LONG) |_MIPS_SIM |_ABI(O32|N32|64) ' | awk '{printf("-D%s=%s ", $$2, $$3)}')
-+endef
-+ifneq ($(CROSS_COMPILE),)
-+lib_bpf_clang_target_arch = --target=$(notdir $(CROSS_COMPILE:%-=%))
-+endif
-+# Find the system include flags once and reuse them.
-+CLANG_SYS_INCLUDES := $(call lib_bpf_get_sys_includes,$(CLANG),$(lib_bpf_clang_target_arch))
-+
-+lib_bpf_is_little_endian := $(shell $(CC) -dM -E - </dev/null | \
-+				    grep 'define __BYTE_ORDER__ __ORDER_LITTLE_ENDIAN__')
-+MENDIAN := $(if $(lib_bpf_is_little_endian),-mlittle-endian,-mbig-endian)
-+
-+# Use BPF CPU v3 when Clang supports it. Otherwise use v2.
-+lib_bpf_clang_cpu := $(shell $(CLANG) --target=bpf -mcpu=help 2>&1 | \
-+			     grep -q 'v3' && echo v3 || echo v2)
-+
-+# Accept anonymous struct and union members in vmlinux.h.
-+BPF_CFLAGS = -g -Wall -Werror -D__TARGET_ARCH_$(SRCARCH) $(MENDIAN)	\
-+	     -I$(INCLUDE_DIR) -I$(APIDIR)				\
-+	     -std=gnu11							\
-+	     -fno-strict-aliasing					\
-+	     -fms-extensions -Wno-microsoft-anon-tag			\
-+	     -Wno-compare-distinct-pointer-types			\
-+	     $(CLANG_SYS_INCLUDES) $(BPF_EXTRA_CFLAGS)
-+
-+# $1 = source, $2 = object. -MMD -MP tracks non-system headers.
-+define lib_bpf_build_rule
-+	$(call msg,CLNG-BPF,,$2)
-+	$(Q)$(CLANG) $(BPF_CFLAGS) -O2 --target=bpf -mcpu=$(lib_bpf_clang_cpu) \
-+		-MMD -MP -c $1 -o $2
-+endef
-+
-+# ---- output folders -------------------------------------------------------
-+BPF_OBJ_DIR  ?= $(OUTPUT)
-+BPF_SKEL_DIR ?= $(OUTPUT)
-+# Reject empty directories before cleanup globs can reach the filesystem root.
-+ifeq ($(strip $(BPF_OBJ_DIR)),)
-+$(error lib.bpf.mk: BPF_OBJ_DIR is empty; set it after "include ../lib.mk")
-+endif
-+ifeq ($(strip $(BPF_SKEL_DIR)),)
-+$(error lib.bpf.mk: BPF_SKEL_DIR is empty; set it after "include ../lib.mk")
-+endif
-+
-+# ---- build folders --------------------------------------------------------
-+lib_bpf_make_dirs := $(sort $(lib_bpf_build_dir)/libbpf			\
-+			    $(lib_bpf_host_build_dir)/libbpf		\
-+			    $(lib_bpf_host_build_dir)/bpftool		\
-+			    $(lib_bpf_include_dir)			\
-+			    $(filter-out $(OUTPUT),$(BPF_OBJ_DIR) $(BPF_SKEL_DIR)))
-+$(lib_bpf_make_dirs):
-+	$(call msg,MKDIR,,$@)
-+	$(Q)mkdir -p $@
-+
-+# ---- target libbpf --------------------------------------------------------
-+# Pass unexported toolchain settings and build PIC for PIE test binaries.
-+# libbpf consumes USERCFLAGS through EXTRA_CFLAGS.
-+$(BPFOBJ): $(lib_bpf_sources) $(lib_bpf_api_dir)/linux/bpf.h \
-+	   | $(lib_bpf_build_dir)/libbpf
-+	$(Q)$(MAKE) $(lib_bpf_submake_extras) -C $(lib_bpf_dir) \
-+		    OUTPUT=$(lib_bpf_build_dir)/libbpf/ \
-+		    ARCH=$(ARCH) CROSS_COMPILE=$(CROSS_COMPILE) CC="$(CC)"     \
-+		    EXTRA_CFLAGS='-g $(OPT_FLAGS) -fPIC $(EXTRA_CFLAGS) $(USERCFLAGS)' \
-+		    DESTDIR=$(lib_bpf_scratch_dir) prefix= all install_headers
-+
-+# ---- host libbpf, only when the target differs ----------------------------
-+ifneq ($(BPFOBJ),$(lib_bpf_host_obj))
-+$(lib_bpf_host_obj): $(lib_bpf_sources) $(lib_bpf_api_dir)/linux/bpf.h \
-+		| $(lib_bpf_host_build_dir)/libbpf
-+	$(Q)$(MAKE) $(lib_bpf_submake_extras) -C $(lib_bpf_dir) \
-+		    ARCH= CROSS_COMPILE= \
-+		    OUTPUT=$(lib_bpf_host_build_dir)/libbpf/ \
-+		    CC="$(HOSTCC)" LD="$(HOSTLD)" \
-+		    EXTRA_CFLAGS='-g $(OPT_FLAGS) $(EXTRA_CFLAGS)' \
-+		    DESTDIR=$(lib_bpf_host_scratch_dir) prefix= all install_headers
-+endif
-+
-+# ---- host bpftool ---------------------------------------------------------
-+$(DEFAULT_BPFTOOL): $(wildcard $(lib_bpf_bpftool_dir)/*.[ch] \
-+				 $(lib_bpf_bpftool_dir)/Makefile) \
-+		    $(lib_bpf_host_obj) | $(lib_bpf_host_build_dir)/bpftool
-+	$(Q)$(MAKE) $(lib_bpf_submake_extras) -C $(lib_bpf_bpftool_dir) \
-+		    ARCH= CROSS_COMPILE= CC="$(HOSTCC)" LD="$(HOSTLD)" \
-+		    EXTRA_CFLAGS='-g $(OPT_FLAGS) $(EXTRA_CFLAGS) $(lib_bpf_host_user_cflags)' \
-+		    EXTRA_LDFLAGS='$(EXTRA_LDFLAGS)'		  \
-+		    OUTPUT=$(lib_bpf_host_build_dir)/bpftool/	  \
-+		    LIBBPF_OUTPUT=$(lib_bpf_host_build_dir)/libbpf/ \
-+		    LIBBPF_DESTDIR=$(lib_bpf_host_scratch_dir)/	  \
-+		    prefix= DESTDIR=$(lib_bpf_host_scratch_dir)/ install-bin
-+
-+# ---- build vmlinux.h ------------------------------------------------------
-+lib_bpf_vmlinux_h     := $(INCLUDE_DIR)/vmlinux.h
-+lib_bpf_vmlinux_stamp := $(INCLUDE_DIR)/vmlinux.h.stamp
-+
-+# Preserve vmlinux.h's timestamp when its contents do not change.
-+ifeq ($(wildcard $(lib_bpf_vmlinux_h)),)
-+# Regenerate if the header is missing but its stamp remains.
-+.PHONY: $(lib_bpf_vmlinux_stamp)
-+endif
-+
-+# Use an order-only edge so the stamp's mtime does not propagate.
-+$(lib_bpf_vmlinux_h): | $(lib_bpf_vmlinux_stamp) ;
-+
-+$(lib_bpf_vmlinux_stamp): $(lib_bpf_vmlinux_deps) | $(INCLUDE_DIR)
-+ifeq ($(VMLINUX_H),)
-+	$(call msg,GEN,,$(lib_bpf_vmlinux_h))
-+	$(Q)test -n "$(VMLINUX_BTF)" || { \
-+		echo "lib.bpf.mk: no vmlinux at any of \"$(VMLINUX_BTF_PATHS)\"" >&2; \
-+		exit 1; }
-+	$(Q)$(BPFTOOL) btf dump file $(VMLINUX_BTF) format c > $@.tmp
-+else
-+	$(call msg,CP,,$(lib_bpf_vmlinux_h))
-+	$(Q)cp "$(VMLINUX_H)" $@.tmp
-+endif
-+	$(Q)cmp -s $@.tmp $(lib_bpf_vmlinux_h) || mv $@.tmp $(lib_bpf_vmlinux_h)
-+	$(Q)rm -f $@.tmp
-+	$(Q)touch $@
-+
-+# ---- BPF objects and skeletons --------------------------------------------
-+BPF_PROG_EXT ?= .bpf.c
-+# Each source must end with BPF_PROG_EXT so Make can remove that ending.
-+lib_bpf_bad_srcs := $(filter-out %$(BPF_PROG_EXT),$(BPF_SRCS))
-+ifneq ($(lib_bpf_bad_srcs),)
-+$(error lib.bpf.mk: BPF_SRCS entries must end in $(BPF_PROG_EXT): $(lib_bpf_bad_srcs))
-+endif
-+lib_bpf_stems := $(patsubst %$(BPF_PROG_EXT),%,$(notdir $(BPF_SRCS)))
-+# The stem becomes the skeleton's C name; reject dots and hyphens.
-+lib_bpf_bad_stems := $(strip $(foreach s,$(lib_bpf_stems),			\
-+			$(if $(findstring .,$(s))$(findstring -,$(s)),$(s))))
-+ifneq ($(lib_bpf_bad_stems),)
-+$(error lib.bpf.mk: BPF_SRCS basenames must not contain '.' or '-': $(lib_bpf_bad_stems))
-+endif
-+# Output names omit directories, so reject duplicate stems.
-+ifneq ($(words $(lib_bpf_stems)),$(words $(sort $(lib_bpf_stems))))
-+$(error lib.bpf.mk: BPF_SRCS has colliding basenames: $(BPF_SRCS))
-+endif
-+BPF_SKEL_EXT    ?= .skel.h
-+lib_bpf_subskel_ext := $(patsubst %skel.h,%subskel.h,$(BPF_SKEL_EXT))
-+# Keep skeleton suffixes distinct and cleanup globs narrow.
-+ifeq ($(lib_bpf_subskel_ext),$(BPF_SKEL_EXT))
-+$(error lib.bpf.mk: BPF_SKEL_EXT must end in skel.h: $(BPF_SKEL_EXT))
-+endif
-+BPF_OBJS  := $(addprefix $(BPF_OBJ_DIR)/,$(addsuffix .bpf.o,$(lib_bpf_stems)))
-+BPF_SKELS := $(addprefix $(BPF_SKEL_DIR)/,$(addsuffix $(BPF_SKEL_EXT),$(lib_bpf_stems)))
-+ifneq ($(BPF_GEN_SUBSKEL),)
-+BPF_SUBSKELS := $(addprefix $(BPF_SKEL_DIR)/,$(addsuffix $(lib_bpf_subskel_ext),$(lib_bpf_stems)))
-+endif
-+
-+# Use per-source rules to avoid changing normal .c lookup.
-+# Track source headers before BPFOBJ installs their updated copies.
-+define lib_bpf_obj_rule
-+$(BPF_OBJ_DIR)/$(patsubst %$(BPF_PROG_EXT),%,$(notdir $(1))).bpf.o: $(1)	\
-+		$(BPF_EXTRA_HDRS) $(lib_bpf_header_sources)			\
-+		$(INCLUDE_DIR)/vmlinux.h | $(BPF_OBJ_DIR) $(BPFOBJ)
-+	$$(call lib_bpf_build_rule,$$<,$$@)
-+endef
-+$(foreach src,$(BPF_SRCS),$(eval $(call lib_bpf_obj_rule,$(src))))
-+
-+# Generate both headers together so either missing target rebuilds the pair.
-+lib_bpf_skel_targets := $(BPF_SKEL_DIR)/%$(BPF_SKEL_EXT)
-+ifneq ($(BPF_GEN_SUBSKEL),)
-+lib_bpf_skel_targets += $(BPF_SKEL_DIR)/%$(lib_bpf_subskel_ext)
-+endif
-+
-+# Link three times and require the final two objects to match.
-+$(lib_bpf_skel_targets): $(BPF_OBJ_DIR)/%.bpf.o $(BPFTOOL) | $(BPF_SKEL_DIR)
-+	$(call msg,GEN-SKEL,,$(BPF_SKEL_DIR)/$*$(BPF_SKEL_EXT))
-+	$(Q)$(BPFTOOL) gen object $(<:.o=.linked1.o) $<
-+	$(Q)$(BPFTOOL) gen object $(<:.o=.linked2.o) $(<:.o=.linked1.o)
-+	$(Q)$(BPFTOOL) gen object $(<:.o=.linked3.o) $(<:.o=.linked2.o)
-+	$(Q)diff $(<:.o=.linked2.o) $(<:.o=.linked3.o)
-+	$(Q)$(BPFTOOL) gen skeleton $(<:.o=.linked3.o) name $* > $(BPF_SKEL_DIR)/$*$(BPF_SKEL_EXT)
-+ifneq ($(BPF_GEN_SUBSKEL),)
-+	$(Q)$(BPFTOOL) gen subskeleton $(<:.o=.linked3.o) name $* > $(BPF_SKEL_DIR)/$*$(lib_bpf_subskel_ext)
-+endif
-+	$(Q)rm -f $(<:.o=.linked1.o) $(<:.o=.linked2.o) $(<:.o=.linked3.o)
-+
-+# Read the header dependencies written by -MMD.
-+-include $(BPF_OBJS:.o=.d)
-+
-+# ---- values for the test Makefile -----------------------------------------
-+# Add the installed libbpf/vmlinux.h directory and the skeleton directory.
-+CFLAGS += -I$(INCLUDE_DIR) -I$(BPF_SKEL_DIR)
-+
-+# Add target zstd when found by the target pkg-config.
-+PKG_CONFIG ?= $(CROSS_COMPILE)pkg-config
-+BPF_LDLIBS := $(BPFOBJ) -lelf -lz
-+ifneq ($(shell $(PKG_CONFIG) --exists libzstd 2>/dev/null && echo y),)
-+BPF_LDLIBS += -lzstd
-+endif
-+
-+# Add skeletons after lib.mk defines all.
-+all: $(BPF_SKELS) $(BPF_SUBSKELS)
-+
-+# The skeleton already embeds each BPF object in the test binary. To install the
-+# objects separately, add TEST_GEN_FILES += $(BPF_OBJS).
-+
-+# $1 = binary, $2 = test source. Use the same compile and link flags as lib.mk.
-+define bpf_link
-+	$(call msg,BINARY,,$1)
-+	$(Q)$(CC) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) $(TARGET_ARCH) $2 \
-+		$(BPF_LDLIBS) $(LDLIBS) -o $1
-+endef
-+
-+EXTRA_CLEAN += $(sort $(lib_bpf_scratch_dir) $(lib_bpf_host_scratch_dir)) \
-+	       $(addprefix $(BPF_OBJ_DIR)/,*.bpf.o *.bpf.d *.linked*.o)	\
-+	       $(addprefix $(BPF_SKEL_DIR)/,*$(BPF_SKEL_EXT) *$(lib_bpf_subskel_ext))
+diff --git a/tools/testing/selftests/sched_ext/Makefile b/tools/testing/selftests/sched_ext/Makefile
+index 5d2dffca0e91..856fe7dea685 100644
+--- a/tools/testing/selftests/sched_ext/Makefile
++++ b/tools/testing/selftests/sched_ext/Makefile
+@@ -14,48 +14,29 @@ CURDIR := $(abspath .)
+ REPOROOT := $(abspath ../../../..)
+ TOOLSDIR := $(REPOROOT)/tools
+ LIBDIR := $(TOOLSDIR)/lib
+-BPFDIR := $(LIBDIR)/bpf
+ TOOLSINCDIR := $(TOOLSDIR)/include
+-BPFTOOLDIR := $(TOOLSDIR)/bpf/bpftool
+-APIDIR := $(TOOLSINCDIR)/uapi
+ GENDIR := $(REPOROOT)/include/generated
+ GENHDR := $(GENDIR)/autoconf.h
+-SCXTOOLSDIR := $(TOOLSDIR)/sched_ext
+ SCXTOOLSINCDIR := $(TOOLSDIR)/sched_ext/include
+ 
+-OUTPUT_DIR := $(OUTPUT)/build
+-OBJ_DIR := $(OUTPUT_DIR)/obj
+-INCLUDE_DIR := $(OUTPUT_DIR)/include
+-BPFOBJ_DIR := $(OBJ_DIR)/libbpf
+-SCXOBJ_DIR := $(OBJ_DIR)/sched_ext
+-BPFOBJ := $(BPFOBJ_DIR)/libbpf.a
+-LIBBPF_OUTPUT := $(OBJ_DIR)/libbpf/libbpf.a
+-
+-DEFAULT_BPFTOOL := $(OUTPUT_DIR)/host/sbin/bpftool
+-HOST_OBJ_DIR := $(OBJ_DIR)/host/bpftool
+-HOST_LIBBPF_OUTPUT := $(OBJ_DIR)/host/libbpf/
+-HOST_LIBBPF_DESTDIR := $(OUTPUT_DIR)/host/
+-HOST_DESTDIR := $(OUTPUT_DIR)/host/
+-
+-VMLINUX_BTF_PATHS ?= $(if $(O),$(O)/vmlinux)					\
+-		     $(if $(KBUILD_OUTPUT),$(KBUILD_OUTPUT)/vmlinux)		\
+-		     ../../../../vmlinux					\
+-		     /sys/kernel/btf/vmlinux					\
+-		     /boot/vmlinux-$(shell uname -r)
+-VMLINUX_BTF ?= $(abspath $(firstword $(wildcard $(VMLINUX_BTF_PATHS))))
+-ifeq ($(VMLINUX_BTF),)
+-$(error Cannot find a vmlinux for VMLINUX_BTF at any of "$(VMLINUX_BTF_PATHS)")
+-endif
++# Build scheduler skeletons and subskeletons with the shared BPF rules.
++BPF_SRCS        := $(wildcard *.bpf.c)
++BPF_SKEL_EXT    := .bpf.skel.h
++BPF_GEN_SUBSKEL := 1
++# Preserve the existing build/ layout.
++BPF_OBJ_DIR  := $(OUTPUT)/build/obj/sched_ext
++BPF_SKEL_DIR := $(OUTPUT)/build/include
++SCXOBJ_DIR   := $(BPF_OBJ_DIR)
+ 
+-BPFTOOL ?= $(DEFAULT_BPFTOOL)
++include ../lib.bpf.mk
+ 
+ ifneq ($(wildcard $(GENHDR)),)
+   GENFLAGS := -DHAVE_GENHDR
+ endif
+ 
+ CFLAGS += -g -O2 -rdynamic -pthread -Wall -Werror $(GENFLAGS)			\
+-	  -I$(INCLUDE_DIR) -I$(GENDIR) -I$(LIBDIR)				\
+-	  -I$(TOOLSINCDIR) -I$(APIDIR) -I$(CURDIR)/include -I$(SCXTOOLSINCDIR)
++	  -I$(GENDIR) -I$(LIBDIR) -I$(TOOLSINCDIR) -I$(APIDIR)			\
++	  -I$(CURDIR)/include -I$(SCXTOOLSINCDIR)
+ 
+ # Silence some warnings when compiled with clang
+ ifneq ($(LLVM),)
+@@ -64,102 +45,26 @@ endif
+ 
+ LDFLAGS = -lelf -lz -lpthread -lzstd
+ 
+-IS_LITTLE_ENDIAN = $(shell $(CC) -dM -E - </dev/null |				\
+-			grep 'define __BYTE_ORDER__ __ORDER_LITTLE_ENDIAN__')
+-
+-# Get Clang's default includes on this system, as opposed to those seen by
+-# '-target bpf'. This fixes "missing" files on some architectures/distros,
+-# such as asm/byteorder.h, asm/socket.h, asm/sockios.h, sys/cdefs.h etc.
+-#
+-# Use '-idirafter': Don't interfere with include mechanics except where the
+-# build would have failed anyways.
+-define get_sys_includes
+-$(shell $(1) $(2) -v -E - </dev/null 2>&1 \
+-	| sed -n '/<...> search starts here:/,/End of search list./{ s| \(/.*\)|-idirafter \1|p }') \
+-$(shell $(1) $(2) -dM -E - </dev/null | grep '__riscv_xlen ' | awk '{printf("-D__riscv_xlen=%d -D__BITS_PER_LONG=%d", $$3, $$3)}')
+-endef
+-
+-ifneq ($(CROSS_COMPILE),)
+-CLANG_TARGET_ARCH = --target=$(notdir $(CROSS_COMPILE:%-=%))
+-endif
+-
+-CLANG_SYS_INCLUDES = $(call get_sys_includes,$(CLANG),$(CLANG_TARGET_ARCH))
+-
+-BPF_CFLAGS = -g -D__TARGET_ARCH_$(SRCARCH)					\
+-	     $(if $(IS_LITTLE_ENDIAN),-mlittle-endian,-mbig-endian)		\
++# Preserve the scheduler-specific flags; the shared recipe adds target flags.
++BPF_CFLAGS = -g -D__TARGET_ARCH_$(SRCARCH) $(MENDIAN)				\
+ 	     -I$(CURDIR)/include -I$(CURDIR)/include/bpf-compat			\
+ 	     -I$(INCLUDE_DIR) -I$(APIDIR) -I$(SCXTOOLSINCDIR)			\
+ 	     -I$(REPOROOT)/include						\
+-	     $(CLANG_SYS_INCLUDES) 						\
++	     $(CLANG_SYS_INCLUDES)						\
+ 	     -Wall -Wno-compare-distinct-pointer-types				\
+ 	     -Wno-incompatible-function-pointer-types				\
+ 	     -Wno-microsoft-anon-tag						\
+ 	     -fms-extensions							\
+-	     -O2 -mcpu=v3
+-
+-# sort removes libbpf duplicates when not cross-building
+-MAKE_DIRS := $(sort $(OBJ_DIR)/libbpf $(OBJ_DIR)/libbpf				\
+-	       $(OBJ_DIR)/bpftool $(OBJ_DIR)/resolve_btfids			\
+-	       $(HOST_OBJ_DIR) $(INCLUDE_DIR) $(SCXOBJ_DIR))
+-
+-$(MAKE_DIRS):
+-	$(call msg,MKDIR,,$@)
+-	$(Q)mkdir -p $@
+-
+-$(BPFOBJ): $(wildcard $(BPFDIR)/*.[ch] $(BPFDIR)/Makefile)			\
+-	   $(APIDIR)/linux/bpf.h						\
+-	   | $(OBJ_DIR)/libbpf
+-	$(Q)$(MAKE) $(submake_extras) -C $(BPFDIR) OUTPUT=$(OBJ_DIR)/libbpf/	\
+-		    ARCH=$(ARCH) CC="$(CC)" CROSS_COMPILE=$(CROSS_COMPILE)	\
+-		    EXTRA_CFLAGS='-g -O0 -fPIC'					\
+-		    DESTDIR=$(OUTPUT_DIR) prefix= all install_headers
+-
+-$(DEFAULT_BPFTOOL): $(wildcard $(BPFTOOLDIR)/*.[ch] $(BPFTOOLDIR)/Makefile)	\
+-		    $(LIBBPF_OUTPUT) | $(HOST_OBJ_DIR)
+-	$(Q)$(MAKE) $(submake_extras)  -C $(BPFTOOLDIR)				\
+-		    ARCH= CROSS_COMPILE= CC=$(HOSTCC) LD=$(HOSTLD)		\
+-		    EXTRA_CFLAGS='-g -O0'					\
+-		    OUTPUT=$(HOST_OBJ_DIR)/					\
+-		    LIBBPF_OUTPUT=$(HOST_LIBBPF_OUTPUT)				\
+-		    LIBBPF_DESTDIR=$(HOST_LIBBPF_DESTDIR)			\
+-		    prefix= DESTDIR=$(HOST_DESTDIR) install-bin
+-
+-$(INCLUDE_DIR)/vmlinux.h: $(VMLINUX_BTF) $(BPFTOOL) | $(INCLUDE_DIR)
+-ifeq ($(VMLINUX_H),)
+-	$(call msg,GEN,,$@)
+-	$(Q)$(BPFTOOL) btf dump file $(VMLINUX_BTF) format c > $@
+-else
+-	$(call msg,CP,,$@)
+-	$(Q)cp "$(VMLINUX_H)" $@
+-endif
+-
+-$(SCXOBJ_DIR)/%.bpf.o: %.bpf.c $(INCLUDE_DIR)/vmlinux.h	| $(BPFOBJ) $(SCXOBJ_DIR)
+-	$(call msg,CLNG-BPF,,$(notdir $@))
+-	$(Q)$(CLANG) $(BPF_CFLAGS) -target bpf -c $< -o $@
++	     $(BPF_EXTRA_CFLAGS)
+ 
+-$(INCLUDE_DIR)/%.bpf.skel.h: $(SCXOBJ_DIR)/%.bpf.o $(INCLUDE_DIR)/vmlinux.h $(BPFTOOL) | $(INCLUDE_DIR)
+-	$(eval sched=$(notdir $@))
+-	$(call msg,GEN-SKEL,,$(sched))
+-	$(Q)$(BPFTOOL) gen object $(<:.o=.linked1.o) $<
+-	$(Q)$(BPFTOOL) gen object $(<:.o=.linked2.o) $(<:.o=.linked1.o)
+-	$(Q)$(BPFTOOL) gen object $(<:.o=.linked3.o) $(<:.o=.linked2.o)
+-	$(Q)diff $(<:.o=.linked2.o) $(<:.o=.linked3.o)
+-	$(Q)$(BPFTOOL) gen skeleton $(<:.o=.linked3.o) name $(subst .bpf.skel.h,,$(sched)) > $@
+-	$(Q)$(BPFTOOL) gen subskeleton $(<:.o=.linked3.o) name $(subst .bpf.skel.h,,$(sched)) > $(@:.skel.h=.subskel.h)
++EXTRA_CLEAN += $(OUTPUT)/build
+ 
+ ################
+ # C schedulers #
+ ################
+ 
+-override define CLEAN
+-	rm -rf $(OUTPUT_DIR)
+-	rm -f $(TEST_GEN_PROGS)
+-endef
+-
+-# Every testcase takes all of the BPF progs are dependencies by default. This
+-# allows testcases to load any BPF scheduler, which is useful for testcases
+-# that don't need their own prog to run their test.
+-all_test_bpfprogs := $(foreach prog,$(wildcard *.bpf.c),$(INCLUDE_DIR)/$(patsubst %.c,%.skel.h,$(prog)))
++# Build every scheduler before each test.
++all_test_bpfprogs := $(BPF_SKELS)
+ 
+ auto-test-targets :=			\
+ 	create_dsq			\
+@@ -195,24 +100,22 @@ auto-test-targets :=			\
+ testcase-targets := $(addsuffix .o,$(addprefix $(SCXOBJ_DIR)/,$(auto-test-targets)))
+ 
+ $(SCXOBJ_DIR)/runner.o: runner.c | $(SCXOBJ_DIR) $(BPFOBJ)
+-	$(CC) $(CFLAGS) -c $< -o $@
++	$(call msg,CC,,$@)
++	$(Q)$(CC) $(CFLAGS) -c $< -o $@
+ 
+ # Create all of the test targets object files, whose testcase objects will be
+ # registered into the runner in ELF constructors.
+-#
+-# Note that we must do double expansion here in order to support conditionally
+-# compiling BPF object files only if one is present, as the wildcard Make
+-# function doesn't support using implicit rules otherwise.
+ $(testcase-targets): $(SCXOBJ_DIR)/%.o: %.c $(SCXOBJ_DIR)/runner.o $(all_test_bpfprogs) | $(SCXOBJ_DIR)
+-	$(eval test=$(patsubst %.o,%.c,$(notdir $@)))
+-	$(CC) $(CFLAGS) -c $< -o $@
++	$(call msg,CC,,$@)
++	$(Q)$(CC) $(CFLAGS) -c $< -o $@
+ 
+ $(SCXOBJ_DIR)/util.o: util.c | $(SCXOBJ_DIR)
+-	$(CC) $(CFLAGS) -c $< -o $@
++	$(call msg,CC,,$@)
++	$(Q)$(CC) $(CFLAGS) -c $< -o $@
+ 
+ $(OUTPUT)/runner: $(SCXOBJ_DIR)/runner.o $(SCXOBJ_DIR)/util.o $(BPFOBJ) $(testcase-targets)
+-	@echo "$(testcase-targets)"
+-	$(CC) $(CFLAGS) -o $@ $^ $(LDFLAGS)
++	$(call msg,BINARY,,$@)
++	$(Q)$(CC) $(CFLAGS) -o $@ $^ $(LDFLAGS)
+ 
+ .DEFAULT_GOAL := all
+ 
 -- 
 2.53.0-Meta
 
