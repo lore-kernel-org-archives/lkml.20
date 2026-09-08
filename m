@@ -1,359 +1,116 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E21E25476F4
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 13:07:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12E4B4B0498
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 13:07:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788872872; cv=none; b=GyKh9oUvYmiCsEQbwPM/e6OceYOfIE5Sfj0yykGXf9SDL4L/wyox3NigW6++7g2VQQ53jPOlhYj4HzKXPPhcs/dniK4T/scmHPxMw7gKo41bq9HvT+zwRNx7OBZgkGmdRIF6au4T7EepFY2zTsH+JhNE9TzvXVLQvjMd6SmKnLs=
+	t=1788872881; cv=none; b=qwkECqKZm99APpBZNsaI0vB//1NhrS+UUYl6QMq3znosD9UVRSLMp88vQfJJ13ZLmfmQbVnruZg6dx5+EylmWK/r63vHeM5hW7JYRw2wRVYBCBRnrdxmRidWqwwE3LDsvIwLWJ59WaIM7y/+ckT4rNOY/Kxfjls6yFJ526LTzRY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788872872; c=relaxed/simple;
-	bh=SFtsMYl8ag5priaTl+1mjjLlkXcl7uW+IjuGk3R8J7c=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=qtDmCegfVHKkeppOPzOI7Z1aSXHjIswPgWtO/sSIWwddp1Qy30pwtJd77Etm6OE2qJa3Ni8k6cvxECQFMMTDul3L7JjAfb/sdzAnsHcEGCeZRQp/+fLS1VMR50NjnUjfaKTb/G4ClgBqOIB/DLb2VfWInqVmkEgCIBl5juB12PA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4DC201F00A3A;
-	Tue,  8 Sep 2026 13:07:48 +0000 (UTC)
-Date: Tue, 8 Sep 2026 14:07:27 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Jisheng Zhang <jszhang@kernel.org>
-Cc: Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	Andrey Ryabinin <ryabinin.a.a@gmail.com>,
-	Alexander Potapenko <glider@google.com>,
-	Andrey Konovalov <andreyknvl@gmail.com>,
-	Dmitry Vyukov <dvyukov@google.com>,
-	Vincenzo Frascino <vincenzo.frascino@arm.com>,
-	linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org,
-	kasan-dev@googlegroups.com
-Subject: Re: [PATCH v2 4/5] riscv: RISCV_ISA_SV48 and RISCV_ISA_SV57 under
- NONPORTABLE
-Message-ID: <20260908-deflector-degree-ceca18036811@spud>
-References: <20260907151437.7603-1-jszhang@kernel.org>
- <20260907151437.7603-5-jszhang@kernel.org>
- <20260907-backless-theatrics-f19e489bc63f@spud>
- <ap-FtoTqMCnNACJN@xhacker>
+	s=arc-20240116; t=1788872881; c=relaxed/simple;
+	bh=cw2N3W41LXIl6pSddh/dl3HNjG7u1Myg/bxOr7qfT6s=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=iqOyFW3zqw0kjLNAvtDZ7gN2ySzfCGI8VL2jgzhLgFCri695cvTw4UQpUW9EBEfrmKUcgLGHnnIaKhOYuPIfSku6SfJso2I77ETjElQpH+DxAWOdU9P947o5DzKsGJlQH4IuD1sTtvJhv7q837DWjm4Ui2tYDA6WlX0WbBw08Vo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BWlF5NOj; arc=none smtp.client-ip=209.85.128.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BWlF5NOj"
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-49d05d51553so24761725e9.2
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 06:07:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788872878; x=1789477678; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Cc+P01fTvqlQKKHP8oo+eSTRJiBil/x3iDFvTP+c3Tw=;
+        b=BWlF5NOjRo77e25eNBABnQaCIu8Hwcy3l4eaxOIDunZ3G/QOrArB1kRyq0GcoEdTwc
+         5Q14rHIIEzAcRe+cz08DS4QV92pGM+iYQfWpEE6PqW0GDDxmEVTAsjVNXuHUXooQPKrN
+         tTV48eARuxS6QidGiRwFRLKB9MjQWGfUI1ktaq4pEmtyg5Se/78sKgZyxgYytQb0z1s+
+         mZZrAV+LiqoG0BMwekf85kErhIu5jea7XAFhf+IHKhNzxKpUUgiHXd6P4EsR8bet3L4J
+         cCJ1n1yBqSENWeCdLy0RTdziVkCFPBwONaQ8BKSAWeVUlXRoa66Ln08QdfyGqH1hWQte
+         CcwQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788872878; x=1789477678;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Cc+P01fTvqlQKKHP8oo+eSTRJiBil/x3iDFvTP+c3Tw=;
+        b=DhV6KTBnS+aNwFO9jPh+mf/tjciF8v1VaAZrXEahzMHBlZvVMjRuNDr17QtyVxiDZx
+         SijDs6LZGB+8wjL8yB4lXYQJv6rG+3DChV6MmavqgLUNZWjiR3y8iF/yaaEMQZxsgjtm
+         IBHoqPHU+kWGenze0VDpXdRYpCdeIXsnMDBPBB6iDIeAdL2MADCvlag3wFo1VM/2rTeo
+         zLR/mzGch8+P+9fYyyon32G22Z5jZpLQTdkNG3MYaggtnJqdLgzGO1Xc3RwEGEl7uoo8
+         zrxvUGWEAM5OsS0a63TPW3ORBv+oGLULdhjNvzBXk5eDvbkvKY8rcN4MXGgdJmFf32Nr
+         /gFA==
+X-Forwarded-Encrypted: i=1; AKwUvBwUzURYVKndO5PC5D9h83JIZNlz+EZYxU0WQMLI8FKG9WWnjV3BDtArrJ4kgPoaCScevCLAmI82Lb6n/Do=@vger.kernel.org
+X-Gm-Message-State: AFuF++mT0yqarFgKQITyGQlmzUkFOSxI8qf42EcPQn4Y1BoomRmRABaY
+	8dHYvO3PY2cbKSHnH3f1vILW4rDO2mXXkk0c98FPkdnJNyiJfjchQizQFtJMlUz4TTUuDA==
+X-Gm-Gg: AYBFou2i/+Qjq/bqj8AqJaveAzNrO+U2W8zPxqqnxP97g2iPLplp7BJP9N/2tXhFp5D
+	RgRFRsO778EOE0VkQ1JpfqJ8cwkiBy1j7QuCUe3GY+Fsr4TqhyC6A5EELew6uje+I2POwX8XIT6
+	KQQnrkYKt2T3pQPQP1urt1/KyqhwrGzWakZPWB0I6nwF7Db+z3FY32GRxsyyWZIzi2vdoBcboe+
+	keV2uHtp+K03ZQJ4TkZpURhBqNnZRGI32BEedKX1ZxpaEfIrtECzgXwFQe4P01CrFqox4IIlhVH
+	oeAURyNVE4t3Fl3kyzxC/fUzxiI0vK+eFtJ3tve+R6Nh3GtV2kAFzYsrRRS9b5n/Qh2+UiQmqPi
+	WP7S724U4v6JgKLftj67W/J3txIYt8x7KX29d9/HL+PkJKpMDnQta1oSOPSKcQ07j3GwO3+V2J9
+	jSeP7qRJxa6gWrbupkscpa1uY+tns4M565ER3bwt+xXqVrLqdDMjnilMIviaY8jV9KYbh62xgW5
+	sQMfQqLEjW0v0jXdWvx06Of+6S5iJvG4ev//2QlHf/t
+X-Received: by 2002:a05:600c:4744:b0:49c:fc6e:a3e0 with SMTP id 5b1f17b1804b1-49cfc6ea75amr279617375e9.31.1788872877979;
+        Tue, 08 Sep 2026 06:07:57 -0700 (PDT)
+Received: from localhost.localdomain (mob-31-26-103-238.net.vodafone.it. [31.26.103.238])
+        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-4859162f354sm28884165f8f.20.2026.09.08.06.07.56
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 08 Sep 2026 06:07:57 -0700 (PDT)
+From: Oleg Keri <okerixx@gmail.com>
+To: Lee Jones <lee@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Guru Das Srinagesh <linux@gurudas.dev>
+Cc: linux-arm-msm@vger.kernel.org,
+	mfd@lists.linux.dev,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 0/2] mfd: qcom-pm8008: support PMICs with no interrupt line
+Date: Tue,  8 Sep 2026 15:07:43 +0200
+Message-ID: <20260908130745.2545-1-okerixx@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="ojkIykMDr8vtsB1t"
-Content-Disposition: inline
-In-Reply-To: <ap-FtoTqMCnNACJN@xhacker>
+Content-Transfer-Encoding: 8bit
 
---ojkIykMDr8vtsB1t
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+The camera PMIC on the Lenovo Yoga Slim 7x Gen 11 (Qualcomm Snapdragon X2
+Elite, glymur) has no interrupt line routed on the board. That is not a
+wiring omission - the part has no INT pin brought out in this design, and
+the sensor resets are driven from TLMM instead.
 
-On Tue, Sep 08, 2026 at 11:49:10AM +0800, Jisheng Zhang wrote:
-> On Mon, Sep 07, 2026 at 05:21:11PM +0100, Conor Dooley wrote:
-> > On Mon, Sep 07, 2026 at 11:14:36PM +0800, Jisheng Zhang wrote:
-> > > In last commit, we have optimized the pgtable_l4|l5_enabled with isa
-> > > extension alternative mechanism, thus a typical access_ok(addr, 1);
-> > > is compiled as:
-> > >=20
-> > > ffffffff8001dd30:	1141                	addi	sp,sp,-16
-> > > ffffffff8001dd32:	e022                	sd	s0,0(sp)
-> > > ffffffff8001dd34:	e406                	sd	ra,8(sp)
-> > > ffffffff8001dd36:	0800                	addi	s0,sp,16
-> > > ffffffff8001dd38:	00000013          	nop
-> > > ffffffff8001dd3c:	02a0006f          	j	ffffffff8001dd66 <foo+0x3e>
-> > > ffffffff8001dd40:	60a2                	ld	ra,8(sp)
-> > > ffffffff8001dd42:	6402                	ld	s0,0(sp)
-> > > ffffffff8001dd44:	57fd                	li	a5,-1
-> > > ffffffff8001dd46:	83a1                	srli	a5,a5,0x8
-> > > ffffffff8001dd48:	00a7b533          	sltu	a0,a5,a0
-> > > ffffffff8001dd4c:	00154513          	xori	a0,a0,1
-> > > ffffffff8001dd50:	0141                	addi	sp,sp,16
-> > > ffffffff8001dd52:	8082                	ret
-> > > ...
-> > > ffffffff8001dd64:	bfe1                	j	ffffffff8001dd3c <foo+0x14>
-> > > ffffffff8001dd66:	0180006f          	j	ffffffff8001dd7e <foo+0x56>
-> > > ffffffff8001dd6a:	60a2                	ld	ra,8(sp)
-> > > ffffffff8001dd6c:	6402                	ld	s0,0(sp)
-> > > ffffffff8001dd6e:	57fd                	li	a5,-1
-> > > ffffffff8001dd70:	83c5                	srli	a5,a5,0x11
-> > > ffffffff8001dd72:	00a7b533          	sltu	a0,a5,a0
-> > > ffffffff8001dd76:	00154513          	xori	a0,a0,1
-> > > ffffffff8001dd7a:	0141                	addi	sp,sp,16
-> > > ffffffff8001dd7c:	8082                	ret
-> > > ffffffff8001dd7e:	60a2                	ld	ra,8(sp)
-> > > ffffffff8001dd80:	6402                	ld	s0,0(sp)
-> > > ffffffff8001dd82:	57fd                	li	a5,-1
-> > > ffffffff8001dd84:	83e9                	srli	a5,a5,0x1a
-> > > ffffffff8001dd86:	00a7b533          	sltu	a0,a5,a0
-> > > ffffffff8001dd8a:	00154513          	xori	a0,a0,1
-> > > ffffffff8001dd8e:	0141                	addi	sp,sp,16
-> > > ffffffff8001dd90:	8082                	ret
-> > >=20
-> > > As can be seen, different branches for SV39/SV48/SV57 are still there,
-> > > since access_ok() sits at hot code path, why not reduce the code size
-> > > to optimize to make the instruction cache happy?
-> > >=20
-> > > Introduce RISCV_ISA_SV48 and RISCV_ISA_SV57 under NONPORTABLE, so that
-> > > the embedded platforms can choose the best option themselves, while
-> > > still keep the feature of unified one kernel Image for all SV39, SV48
-> > > and SV57.
-> > >=20
-> > > Before the patch, vmlinux built with pure RISCV64 defconfig
-> > >    text    data     bss     dec     hex filename
-> > > 13439437   6790446  483221 20713104 13c0e90 /tmp/old/vmlinux
-> > >=20
-> > > After the patch, vmlinux built with pure RISCV64 defconfig:
-> > >    text    data     bss     dec     hex filename
-> > > 13314445   6787934  466837 20569216 139dc80 /tmp/new/vmlinux
-> > >=20
-> > > .text section is reduced by 122KB!
-> > >=20
-> > > And after the patch, typical access_ok(addr, 1) is compiled as:
-> > > ffffffff8001809a:	1141                	addi	sp,sp,-16
-> > > ffffffff8001809c:	e022                	sd	s0,0(sp)
-> > > ffffffff8001809e:	e406                	sd	ra,8(sp)
-> > > ffffffff800180a0:	0800                	addi	s0,sp,16
-> > > ffffffff800180a2:	00000013          	nop
-> > > ffffffff800180a6:	60a2                	ld	ra,8(sp)
-> > > ffffffff800180a8:	6402                	ld	s0,0(sp)
-> > > ffffffff800180aa:	4785                	li	a5,1
-> > > ffffffff800180ac:	179a                	slli	a5,a5,0x26
-> > > ffffffff800180ae:	00f53533          	sltu	a0,a0,a5
-> > > ffffffff800180b2:	0141                	addi	sp,sp,16
-> > > ffffffff800180b4:	8082                	ret
-> > >=20
-> > > only 12 instruction!! For refernece, before the patch, the access(add=
-r,
-> > > 1) needs 32 instructions.
-> > >=20
-> > > Signed-off-by: Jisheng Zhang <jszhang@kernel.org>
-> > > ---
-> > >  arch/riscv/Kconfig                  | 24 ++++++++++++++++++++++++
-> > >  arch/riscv/include/asm/pgtable-64.h | 12 ++++++++++++
-> > >  arch/riscv/mm/init.c                | 10 ++++++++++
-> > >  3 files changed, 46 insertions(+)
-> > >=20
-> > > diff --git a/arch/riscv/Kconfig b/arch/riscv/Kconfig
-> > > index e9476b8cbeb0..4cdb1e3f34be 100644
-> > > --- a/arch/riscv/Kconfig
-> > > +++ b/arch/riscv/Kconfig
-> > > @@ -602,6 +602,30 @@ config RISCV_ISA_SSQOSID
-> > >  	  cache partitioning scheme and use the MCID to track how much
-> > >  	  cache a process, or a group of processes, is using.
-> > > =20
-> > > +config RISCV_ISA_SV48
-> > > +	bool "Page-Based 48-bit Virtual-Memory System"
-> > > +	depends on 64BIT && NONPORTABLE
-> > > +	default y
-> >=20
-> > I don't understand how you've got this set up here.
-> > If this is genuinely non-portable, then you should not set the default =
-to
-> > enabled. However, I'm not really sure that this is actually non-portable
-> > at all....
-> >=20
-> > > +	help
-> > > +	  Add support for the Page-Based 48-bit Virtual-Memory System.
-> > > +
-> > > +	  Enable this option for systems for which a 39-bit virtual address
-> > > +	  space is insufficient. But if 39-bit is enough, disabling this
-> > > +	  option will result in smaller kernel size and slighly better
-> > > +	  performance.
-> > > +
-> > > +config RISCV_ISA_SV57
-> > > +	bool "Page-Based 57-bit Virtual-Memory System"
-> > > +	depends on 64BIT && NONPORTABLE
-> > > +	default y
-> > > +	help
-> > > +	  Add support for the Page-Based 57-bit Virtual-Memory System.
-> > > +
-> > > +	  Enable this option for systems for which a 48-bit virtual address
-> > > +	  space is insufficient. But if 48-bit is enough, disabling this
-> > > +	  option will result in smaller kernel size and slighly better
-> > > +	  performance.
-> > > +
-> > >  config RISCV_ISA_SVPBMT
-> > >  	bool "Svpbmt extension support for supervisor mode page-based memor=
-y types"
-> > >  	depends on 64BIT && MMU
-> > > diff --git a/arch/riscv/include/asm/pgtable-64.h b/arch/riscv/include=
-/asm/pgtable-64.h
-> > > index 7e30ec0e9f6c..f2d29da93eea 100644
-> > > --- a/arch/riscv/include/asm/pgtable-64.h
-> > > +++ b/arch/riscv/include/asm/pgtable-64.h
-> > > @@ -16,21 +16,33 @@ extern bool _pgtable_l5_enabled;
-> > >  #ifdef USE_EARLY_PGTABLE_LEVELS
-> > >  static __always_inline bool pgtable_l5_enabled(void)
-> > >  {
-> > > +	if (IS_ENABLED(CONFIG_NONPORTABLE) && !IS_ENABLED(CONFIG_RISCV_ISA_=
-SV57))
-> > > +		return false;
-> > > +
-> > >  	return _pgtable_l5_enabled;
-> > >  }
-> > > =20
-> > >  static __always_inline bool pgtable_l4_enabled(void)
-> > >  {
-> > > +	if (IS_ENABLED(CONFIG_NONPORTABLE) && !IS_ENABLED(CONFIG_RISCV_ISA_=
-SV48))
-> > > +		return false;
-> > > +
-> > >  	return _pgtable_l4_enabled;
-> > >  }
-> > >  #else
-> > >  static __always_inline bool pgtable_l4_enabled(void)
-> > >  {
-> > > +	if (IS_ENABLED(CONFIG_NONPORTABLE) && !IS_ENABLED(CONFIG_RISCV_ISA_=
-SV48))
-> > > +		return false;
-> > > +
-> > >  	return riscv_has_extension_likely(RISCV_ISA_EXT_SV48);
-> > >  }
-> > > =20
-> > >  static __always_inline bool pgtable_l5_enabled(void)
-> > >  {
-> > > +	if (IS_ENABLED(CONFIG_NONPORTABLE) && !IS_ENABLED(CONFIG_RISCV_ISA_=
-SV57))
-> > > +		return false;
-> > > +
-> > >  	return riscv_has_extension_likely(RISCV_ISA_EXT_SV57);
-> > >  }
-> > >  #endif
-> >=20
-> > ...because the code here won't enable sv57 etc if not supported...
-> >=20
-> > > diff --git a/arch/riscv/mm/init.c b/arch/riscv/mm/init.c
-> > > index 2a2402d79bc4..90bb85c5f167 100644
-> > > --- a/arch/riscv/mm/init.c
-> > > +++ b/arch/riscv/mm/init.c
-> > > @@ -844,6 +844,16 @@ static __init void set_satp_mode(uintptr_t dtb_p=
-a)
-> > > =20
-> > >  	kernel_map.page_offset =3D PAGE_OFFSET_L5;
-> > > =20
-> > > +	/* Fall back to Sv48 if Sv57 is unsupported on non-portable systems=
- */
-> > > +	if (IS_ENABLED(CONFIG_NONPORTABLE) && !IS_ENABLED(CONFIG_RISCV_ISA_=
-SV57) &&
-> > > +			satp_mode_limit =3D=3D 0)
-> > > +		satp_mode_limit =3D SATP_MODE_48;
-> >=20
-> > ...and neither does the code here.
-> >=20
-> > > Introduce RISCV_ISA_SV48 and RISCV_ISA_SV57 under NONPORTABLE, so that
-> > > the embedded platforms can choose the best option themselves, while
-> > > still keep the feature of unified one kernel Image for all SV39, SV48
-> > > and SV57.
-> >=20
-> > NONPORTABLE is what you're meant to depend on when the kernel that gets
-> > built cannot run on platforms without the feature.
->=20
-> The reason I put these two Kconfig options under NONPORTABLE is: all
-> distributions won't enable NONPORTABLE for their defconfig, and I guess
-> the distributions want to kept unified one kernel Image for all SV39,
-> SV48 and SV57.
->=20
-> I have no preference whether move them out of NONPORTABLE or not.
+The part is a PM8010; this board describes it with the qcom,pm8008
+compatible, which is what binds the driver touched here.
 
-Oh right I think I made a mistake in my understanding of what's going on
-here.
+qcom-pm8008 currently requires an interrupt: the binding marks it required
+and the driver fails probe without one, so the PMIC cannot be described at
+all on such a board even though everything it provides - the regulators -
+works fine without interrupts.
 
-If you turn on NONPORTABLE (but not these new options) then you only get
-sv39 support. I think what you should do to make the behaviour of these
-options clearer is invert them.
+Patch 1 relaxes the binding, patch 2 makes the driver treat the interrupt
+as optional and skip the regmap-irq chip when it is absent. Boards that do
+wire the interrupt are unaffected.
 
-e.g. something like RISCV_ISA_NO_SV57 and RISCV_ISA_NO_SV48. These would
-then depend on NONPORTABLE and be default n.
+Tested on a Lenovo Yoga Slim 7x Gen 11 (DMI 83QR, "Yoga Slim 7 14Q8Y11"),
+where this PMIC powers an OV08X40 sensor.
 
---- a/arch/riscv/include/asm/pgtable-64.h
-+++ b/arch/riscv/include/asm/pgtable-64.h
-@@ -16,21 +16,33 @@ extern bool _pgtable_l5_enabled;
- #ifdef USE_EARLY_PGTABLE_LEVELS
- static __always_inline bool pgtable_l5_enabled(void)
- {
-+	if (IS_ENABLED(CONFIG_RISCV_ISA_NO_SV57))
-+		return false;
-+
- 	return _pgtable_l5_enabled;
- }
-=20
- static __always_inline bool pgtable_l4_enabled(void)
- {
-+	if (IS_ENABLED(CONFIG_RISCV_ISA_SV48))
-+		return false;
-+
- 	return _pgtable_l4_enabled;
- }
- #else
- static __always_inline bool pgtable_l4_enabled(void)
- {
-+	if (IS_ENABLED(CONFIG_RISCV_ISA_NO_SV48))
-+		return false;
-+
- 	return riscv_has_extension_likely(RISCV_ISA_EXT_SV48);
- }
-=20
- static __always_inline bool pgtable_l5_enabled(void)
- {
-+	if (IS_ENABLED(CONFIG_RISCV_ISA_NO_SV57))
-+		return false;
-+
- 	return riscv_has_extension_likely(RISCV_ISA_EXT_SV57);
- }
- #endif
-diff --git a/arch/riscv/mm/init.c b/arch/riscv/mm/init.c
-index 2a2402d79bc4..90bb85c5f167 100644
---- a/arch/riscv/mm/init.c
-+++ b/arch/riscv/mm/init.c
-@@ -844,6 +844,16 @@ static __init void set_satp_mode(uintptr_t dtb_pa)
-=20
- 	kernel_map.page_offset =3D PAGE_OFFSET_L5;
-=20
-+	/* Fall back to Sv48 if Sv57 is unsupported on non-portable systems */
-+	if (IS_ENABLED(CONFIG_RISCV_ISA_NO_SV57) &&
-+			satp_mode_limit =3D=3D 0)
-+		satp_mode_limit =3D SATP_MODE_48;
-+
-+	/* Fall back to Sv39 if Sv48 is unsupported on non-portable systems */
-+	if (IS_ENABLED(CONFIG_RISCV_ISA_NO_SV48) &&
-+			satp_mode_limit =3D=3D SATP_MODE_48)
-+		satp_mode_limit =3D SATP_MODE_39;
+The DT change that describes this PMIC is not part of this series; it lands
+with the board DTS, which is being upstreamed separately.
 
+Oleg Keri (2):
+  dt-bindings: mfd: qcom,pm8008: make the interrupt line optional
+  mfd: qcom-pm8008: support PMICs with no interrupt line
 
-I think that code's behaviour is a bit easier to understand and the
-options become more obvious in terms of what they do.
+ .../devicetree/bindings/mfd/qcom,pm8008.yaml  |  7 +--
+ drivers/mfd/qcom-pm8008.c                     | 52 ++++++++++++-------
+ 2 files changed, 38 insertions(+), 21 deletions(-)
 
-Cheers,
-Conor.
+-- 
+2.55.0
 
-> >=20
-> > > +
-> > > +	/* Fall back to Sv39 if Sv48 is unsupported on non-portable systems=
- */
-> > > +	if (IS_ENABLED(CONFIG_NONPORTABLE) && !IS_ENABLED(CONFIG_RISCV_ISA_=
-SV48) &&
-> > > +			satp_mode_limit =3D=3D SATP_MODE_48)
-> > > +		satp_mode_limit =3D SATP_MODE_39;
-> > > +
-> > >  	if (satp_mode_limit =3D=3D SATP_MODE_48) {
-> > >  		disable_pgtable_l5();
-> > >  	} else if (satp_mode_limit =3D=3D SATP_MODE_39) {
-> > > --=20
-> > > 2.53.0
-> > >=20
->=20
->=20
-
---ojkIykMDr8vtsB1t
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaqAIjgAKCRB4tDGHoIJi
-0ujyAQCZNoXS59tkNOfPdsRIOypha8CXUfSjoDRvXEOwPyUC6QEAxDOY6wDvGO4o
-1/mnqss4ThrJQf7gj3lCaaSfA1pRhwg=
-=gepE
------END PGP SIGNATURE-----
-
---ojkIykMDr8vtsB1t--
+base-commit: df2908090cda368b01ff43709f51890076c56157
