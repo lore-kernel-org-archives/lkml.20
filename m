@@ -1,200 +1,109 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D71F33859C3
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 07:38:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id DA70438D006
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 07:39:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.242.206.163
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788853106; cv=none; b=VinguSXTB6YLUTNUxmpWfkvbD127JmmZ2q1mxuI1dAs4iEcbWHe8AR7RPhx7lhxu0gEuOHgKTJyiu6fHpsbmBF0hJv/XekgYdqWlrng+5sjYrrRh/wSXfTaAdfssQZzR5ibEjdbyd7EvJaFx+75KnnkMz1PefjJukAIIOWvl4hE=
+	t=1788853158; cv=none; b=Jh2cGNe8FKrrhgSuxbAbUMPyW0pHNyBLE3Djlb4BMmVGdqul72N9BM4TodEtqFpFwOUFhDlHsh2gciDzAaXh4iHuHMJiEcqva5Q9SCXTtfkebuXWVutnRsaYkvYkZou3mxd0LKJ2b0fBjFyjW19TOr8hkOfkItxLsG1Lefof+rY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788853106; c=relaxed/simple;
-	bh=IBYPM4gS2ibae2Tkf2AXKkiQurwxQJzEd5l6rSV9/YU=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=bJO/CSrNjY5mDAzj5XNpEPh1VnJpe359dna508FRKJo9wSRNj2K/87h9hh0om5otSqW8diC3GLesbwxaCuoXLM+yAvlvOKjGnWC9r9RY/9T7TPN89B1jIGtDGRxNQEvWtMtJeIF3BYyfFTGPSjEzVlWK3e7bdEfQ5F4fAz8FLKo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kqS2RlKe; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kqS2RlKe"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 25BDF1F00A3A;
-	Tue,  8 Sep 2026 07:38:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788853103;
-	bh=/kSqH1rN9n/9GtXKzCM0V84VdAyIIJGiJDMXHLS4jlE=;
-	h=Date:From:To:Cc:In-Reply-To:References:Subject;
-	b=kqS2RlKeEEjcRYMQLdn4gM0YZvQ+h8TrNibP1S0WQQHCAJBPvtdcafU+hURXpqV4a
-	 psLrxLYyi3pxKwfoO3CUH4DSJWUd/2S0X3XMRWdeE+nRxKtCz9Ah3Ze9bmmt3RXyZI
-	 TLkFB2so8HIFNSTlzlRu3w+Y1cyiEMU9rdVp4kJrsQmKmZp45znq8BYsutT9cOO2Ws
-	 y1Pq7DnY9tCOKw0aStIYZXAGcqLdL/BUe9WVLGxXNpi3EgCifUp3tl38T2Rtjmqs1C
-	 tDLfttwhzHHcDthlp0TVjqXHHEnsC2oQcRpTQhNvWM+w4om2Wh4y8mHCyc9+OHpGMB
-	 my0wZGY23vRFg==
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailfauth.ams.internal (Postfix) with ESMTP id 8D11D198003A;
-	Tue,  8 Sep 2026 03:38:21 -0400 (EDT)
-Received: from ams-imap-11 ([10.64.2.31])
-  by ams-compute-02.internal (MEProxy); Tue, 08 Sep 2026 03:38:21 -0400
-X-ME-Sender: <xms:bLufalAaQFh12jYoGOafVF2xOM0hBoJ9BWVYVI4SBJyUeoDE3qrj2g>
-    <xme:bLufauXnPahEqL3YvnlhXw99v2-OlbbnkYOadFYt7NxQgPsmnu4AL2PhZS8boyFjb
-    OzOElfonkzFUUctiasT8j1Bdd2k8-zYzeL6H2DTu3616IN2KgVXW9oc>
-X-ME-Proxy-Cause: dmFkZTEced+ul679K3YgLYg9btfbuog+ZXQNrZVY0yYbBHzgy//3EHi4gblYcDzjPWAl0I
-    QnF1ra6uZmBhvWIVd/FIGYdvsLIWziSzFvu0lQRlOO6dfq1y5cqE9ZzXugQwrS7f7ecqrc
-    3HpkcNj7vMWPr5ycNKcw1FOlpuus3KCSs/tDqr3rGFFuWJpbbLoSMustknK0GUcoN4tdRD
-    +P+HIKaUPTG3fjWuqQrsG/Idbforq0nj6QnKo7KVsOsKUoEudz9LPewKIZ9yvA4lvZqnyW
-    a6pPecG7FvjX4OG5VdvG5Ck9YNTKT4UExvknk6lte56saC3b4uW2CILWtfkkVcjRpn0+HY
-    /JSy+O2RkdSbHPPy2UcmqItFLJYn/picrW79HRV4JgtEW6tJdWb1/BWTGPyLiA8b9eQbSg
-    7PGmZpRX/pD5ggaQIie0w8HrzDmyY9jLcCKEKAu6FPRU7MCChR0mZSdTuXvcatltAxnJEJ
-    +PhJ3FsaWl9BlqIpBst6XTGDwyzHV3sQ7ExouR8NN77uapFPya3CMBXaqNchQ2CZQ//R3R
-    QIch5VRRO20SPhRO33BFZKRpNuFwx5mEZwXmPKe5zqbazJyH6G171vPtmFmAz6ex0XhxVm
-    lmY8HYF/GRWq1/Kg2FV9H1y3C1ftlXpLuqx87msdylYlqm+GUfxeACPVrb/g
-X-ME-Proxy: <xmx:bbufamr4nbbgZ17QWdZyX8FzkG5shrHL1DZRrBxKt-ilmZrECQ8VVw>
-    <xmx:bbufagFPwOqvqgEQbPLv9fzG7YtdOeFx4q3ffixv40gtDTcHSti91w>
-    <xmx:bbufauucs_VldCCdjMoC6ItfI8XoHvb9EYGY5xXv49n9dhDC7mBpzA>
-    <xmx:bbufaqXYRYr-2T2ot47Tu2hfyH6nRlIQqRt_Th0SBUqcnHFCZ_NrJg>
-    <xmx:bbufaiEPkBFdf379bWI1YvSp63EQMKRzikqEmE6f57ptSbcLwjyIqsR8>
-Feedback-ID: ice86485a:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id 19FD0F8007A; Tue,  8 Sep 2026 03:38:20 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	s=arc-20240116; t=1788853158; c=relaxed/simple;
+	bh=dEb+aLy3u3BijpcnfQZEEQWczVw14PtEPSi7ZSnMsJc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=IrBHnzfgNQHIAdl9aFYrh2tOW3LMmU+uZ1GY56MfC914LWqfEk+Un4OYj848PVv8Prd0dc0+8cR2W5dswuiRIoJ6v7hwJvN5lq8HfcqyjyAQqPhFbPmYOtiEGl2Ckm9mXZUEX/rHnI5s4CAfvSn4K1td/kjDTTJ6YkjwumLAUAE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn; spf=pass smtp.mailfrom=loongson.cn; arc=none smtp.client-ip=114.242.206.163
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
+Received: from loongson.cn (unknown [123.138.236.242])
+	by gateway (Coremail) with SMTP id _____8DxpvChu59qKbgJAA--.28130S3;
+	Tue, 08 Sep 2026 15:39:13 +0800 (CST)
+Received: from linux.localdomain (unknown [123.138.236.242])
+	by front1 (Coremail) with SMTP id qMiowJAx1cybu59qhQ4dAA--.34427S2;
+	Tue, 08 Sep 2026 15:39:07 +0800 (CST)
+From: Tiezhu Yang <yangtiezhu@loongson.cn>
+To: Huacai Chen <chenhuacai@kernel.org>
+Cc: Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+	loongarch@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2] LoongArch: Remove arch-specific __smp_mb__{before,after}_atomic()
+Date: Tue,  8 Sep 2026 15:39:06 +0800
+Message-ID: <20260908073906.31781-1-yangtiezhu@loongson.cn>
+X-Mailer: git-send-email 2.42.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Tue, 08 Sep 2026 09:37:59 +0200
-From: "Ard Biesheuvel" <ardb@kernel.org>
-To: "Vincent Mailhol" <mailhol@kernel.org>,
- "Ilias Apalodimas" <ilias.apalodimas@linaro.org>
-Cc: linux-kernel@vger.kernel.org, linux-efi@vger.kernel.org
-Message-Id: <33a38234-c46b-41bf-838f-db0beec8b1cf@app.fastmail.com>
-In-Reply-To: <20260906-efi_stub_bli-v3-1-e7dc0d6b8fcd@kernel.org>
-References: <20260906-efi_stub_bli-v3-1-e7dc0d6b8fcd@kernel.org>
-Subject: Re: [PATCH v3] efi/libstub: add initial Boot Loader Interface support
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:qMiowJAx1cybu59qhQ4dAA--.34427S2
+X-CM-SenderInfo: p1dqw3xlh2x3gn0dqz5rrqw2lrqou0/
+X-Coremail-Antispam: 1Uk129KBj93XoWxXw47tr17Cr1UKF1xtF1kWFX_yoW5Gr15pF
+	WxCrn7KFWkWF48Jw1Dt3WUuw13J3yvkrW7XrWFgFykuw1qgryUJr4xWr43uFyUAan5WFyS
+	vrZYv34Ykas8JacCm3ZEXasCq-sJn29KB7ZKAUJUUUU5529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUUkFb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVWxJVW8Jr1l84ACjcxK6I8E87Iv6xkF7I0E14v2
+	6r4UJVWxJr1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqjxCEc2xF0cIa020Ex4CE44I27w
+	Aqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jw0_WrylYx0Ex4A2jsIE
+	14v26r4j6F4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwIxGrwCF04k20xvY0x
+	0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E
+	7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_JF0_Jw1lIxkGc2Ij64vIr41lIxAIcV
+	C0I7IYx2IY67AKxVWUCVW8JwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF
+	04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7
+	CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x07josjUUUUUU=
 
-Hi Vincent,
+When running the BPF selftest "test_progs -t timer_lockup" on a LoongArch
+machine, the kernel intermittently experiences soft lockups and panics in
+hrtimer_cancel().
 
-On Sun, 6 Sep 2026, at 23:52, Vincent Mailhol wrote:
-> The Boot Loader Interface (BLI) [1] defines EFI variables that expose
-> boot loader state to the running OS. LoaderInfo identifies the boot
-> loader, while LoaderDevicePartUUID records the GPT partition UUID of
-> the partition containing it.
->
-> LoaderDevicePartUUID is used, for example, by systemd-gpt-auto-generat=
-or
-> [2] to identify the disk the boot loader was launched from and
-> automatically detect and mount partitions on it.
->
-> GRUB [3] and systemd-boot [4] populate these variables, but when the
-> kernel is started directly by EFI firmware, there is no conventional
-> external boot loader to provide them. In that case, because the EFI st=
-ub
-> performs the boot loader role, it should provide the variables itself.
->
-> Use LoaderInfo as a sentinel: if it is already set by an earlier boot
-> stage or cannot be set, bail out. Otherwise, populate the other BLI
-> variables.
->
-> Parse the loaded image device path, extract the GUID signature from its
-> GPT HD() node and publish it under the Linux loader entry vendor GUID =
-as
-> the volatile LoaderDevicePartUUID EFI variable.
->
-> Install the efi_bli_set_variables() hook in both the generic efi-stub.c
-> path and the x86-specific x86-stub.c path.
->
-> [1] The Boot Loader Interface
-> Link: https://systemd.io/BOOT_LOADER_INTERFACE/
->
-> [2] systemd-gpt-auto-generator
-> Link:=20
-> https://www.freedesktop.org/software/systemd/man/latest/systemd-gpt-au=
-to-generator.html
->
-> [3] GRUB -- =C2=A716.2 bli
-> Link:=20
-> https://www.gnu.org/software/grub/manual/grub/html_node/bli_005fmodule=
-.html
->
-> [4] systemd -- systemd-boot UEFI Boot Manager
-> Link: https://github.com/systemd/systemd/blob/main/docs/BOOT.md?plain=3D=
-1#L102
->
-> Signed-off-by: Vincent Mailhol <mailhol@kernel.org>
-> ---
-> Changes in v3:
->
->   - Populate LoaderInfo in addition to LoaderDevicePartUUID.
->
->   - Use LoaderInfo as the provider-level sentinel before setting BLI v=
-ariables.
->
->   - Drop CONFIG_EFI_STUB_BLI and enable the feature unconditionally.
->
->   - Use the libstub %pUl formatter instead of local GUID string conver=
-sion.
->
->   - Mode type definitions to efi.h and add enums for the EFI HD()
->     partition format and signature type fields.
->
->   - Reintroduce the NULL check on image to resolve the sashiko finding:
->    =20
-> https://sashiko.dev/#/patchset/20260903-efi_stub_bli-v2-1-dbf7ba915117=
-%40kernel.org
->
-> - Link to v2:=20
-> https://patch.msgid.link/20260903-efi_stub_bli-v2-1-dbf7ba915117@kerne=
-l.org
->
-> Changes in v2:
->
->   - Add CONFIG_EFI_STUB_BLI to make the BLI feature optional.
->
->   - Use static storage for GUID initializers. This reduces the size by
->     about 10% compared to v1.
->
->   - Remove the redundant NULL check on image.
->
->   - Move the nibble-to-ASCII-hex conversion out of efi_bli_guid_to_str=
-()
->     into the new efi_bli_nibble_to_hex().
->
->   - Rename variables to be closer to the EFI specification.
->
-> Link to v1:=20
-> https://lore.kernel.org/r/20260725-efi_stub_bli-v1-1-966e4748077f@kern=
-el.org
-> ---
-> This patch depends on series "efi/libstub: Avoid UTF-16 conversion
-> busywork" from Ard.
->
-> Link:=20
-> https://lore.kernel.org/all/20260906130817.1151961-9-ardb@kernel.org/
-> Link:=20
-> https://git.kernel.org/pub/scm/linux/kernel/git/ardb/linux.git/log/?h=3D=
-efi-libstub-native-utf16
->
-> Bloat-o-meter results on drivers/firmware/efi/libstub/lib.a before and
-> after this patch on x86_64 with gcc 15.3.0:
->
->   add/remove: 4/0 grow/shrink: 1/0 up/down: 770/0 (770)
->   Function                                     old     new   delta
->   efi_bli_set_variables                          -     636    +636
->   loader_info                                    -      90     +90
->   loader_entry_guid                              -      16     +16
->   device_path_guid                               -      16     +16
->   efi_stub_entry                              4180    4192     +12
->   Total: Before=3D29436, After=3D30206, chg +2.62%
-> ---
->  drivers/firmware/efi/libstub/Makefile   |  2 +-
->  drivers/firmware/efi/libstub/bli.c      | 87 ++++++++++++++++++++++++=
-+++++++++
->  drivers/firmware/efi/libstub/efi-stub.c |  1 +
->  drivers/firmware/efi/libstub/efistub.h  |  2 +
->  drivers/firmware/efi/libstub/x86-stub.c |  1 +
->  include/linux/efi.h                     | 22 +++++++++
->  6 files changed, 114 insertions(+), 1 deletion(-)
->
+The root cause is that bpf_timer_cancel() relies on smp_mb__after_atomic()
+to provide a full data barrier after a relaxed atomic_inc() to ensure the
+proper store-load ordering before performing lockless dependency checks on
+weakly-ordered architectures such as LoongArch, but the current definition
+of smp_mb__after_atomic() is a plain compiler barrier.
 
-Reviewed-by: Ard Biesheuvel <ardb@kernel.org>
+This allows a subsequent read to bypass the prior write due to store-load
+reordering, enabling concurrent CPUs to simultaneously bypass the software
+deadlock detection, enter hrtimer_cancel(), and then trigger a severe ABBA
+deadlock in the hrtimer core.
 
-I'll pick this up once the prerequisites are in place.
+Moreover, there are hundreds of smp_mb__after_atomic() call sites across
+the core kernel (kernel/, drivers/, mm/, net/, fs/) that currently lack
+necessary full data barriers on LoongArch, which have potential risks.
+
+To comply with the LKMM specification, fix this by removing the incorrect
+arch-specific definition of __smp_mb__after_atomic(), so that this macro
+can automatically fall back to the generic definition in asm-generic that
+maps to __smp_mb() and emits the required hardware DBAR instruction. While
+at it, do the same thing for __smp_mb__before_atomic().
+
+With this patch, the BPF timer_lockup selftest was stressed for 1 million
+consecutive loops on a physical LoongArch machine without encountering any
+further lockups.
+
+Reported-by: Vincent Li <vincent.mc.li@gmail.com>
+Closes: https://lore.kernel.org/loongarch/CAK3+h2xOSEZUHhou7N2cRL-aGrZCNSm45g+P7thObMe+fpgYCA@mail.gmail.com/
+Fixes: 46859ac8af52 ("LoongArch: Add multi-processor (SMP) support")
+Cc: stable@vger.kernel.org
+Signed-off-by: Tiezhu Yang <yangtiezhu@loongson.cn>
+---
+ arch/loongarch/include/asm/barrier.h | 3 ---
+ 1 file changed, 3 deletions(-)
+
+diff --git a/arch/loongarch/include/asm/barrier.h b/arch/loongarch/include/asm/barrier.h
+index 4b663f197706..84c6d739119d 100644
+--- a/arch/loongarch/include/asm/barrier.h
++++ b/arch/loongarch/include/asm/barrier.h
+@@ -57,9 +57,6 @@
+ #define __WEAK_LLSC_MB		"			\n"
+ #endif
+ 
+-#define __smp_mb__before_atomic()	barrier()
+-#define __smp_mb__after_atomic()	barrier()
+-
+ /**
+  * array_index_mask_nospec() - generate a ~0 mask when index < size, 0 otherwise
+  * @index: array element index
+-- 
+2.42.0
+
