@@ -1,55 +1,55 @@
-Received: from mail-oa1-f70.google.com (mail-oa1-f70.google.com [209.85.160.70])
+Received: from mail-oo1-f72.google.com (mail-oo1-f72.google.com [209.85.161.72])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4ABFD3769F4
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 04:34:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.70
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D390204C31
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 04:34:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788842083; cv=none; b=qoSEtCOAaZ8uMGXQyGPWMClZ2zivWITTdqQuQIjBWpQ3EYFNdnRMjjySMtchAta/Ep9VoggPl5YDtbkIAbmDayY/nhth5F6hDMHn/JqiorZgAjcqb+dXkUQTqmYn9MIrjs17/Bq5LQPnAIBHKUurU7yHKuQL1+lINbCp1JLS8hc=
+	t=1788842084; cv=none; b=kJ69cL4IJuFvl5l5jbYZR79hqbAg8FypTXfhTcOCSZc+0RxtSMz5W1Oax33vDZYQy1DPID2FuIUX1Tp6f6/fUWkdW9uilw4Bu8IotWwPUvJeap7lQZbjSvm/7KFErpPsTSgGDBLqBSFgzWv8UmlTftX7zpGZ3HjOC6Y7uVfoIIM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788842083; c=relaxed/simple;
-	bh=GpJ13KDRv1KtlmyYw9gNXVJEXhFgdRO5bHwPuyUvWYE=;
+	s=arc-20240116; t=1788842084; c=relaxed/simple;
+	bh=zYqFe0NRBz1fFvs4TdBDdowJAswYqgLWUgvYLXwpNC0=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=gOh6zWaP4Q4wrkIExu2WbYZ2KTvqZ+MGIHDkS3lQTmH0sXzBDId2FXebt5rFiTPApsuOHUJaDOYOoTJc3Vejx7En12CFNVNAh3Kb2mHoH8Cm6sssebU7mIyIcxYvNyEvlks7HalUwKM2vGCpsRkduAsUnEL84Hqw7lD1Nni1kFI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--avagin.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=gfNQz837; arc=none smtp.client-ip=209.85.160.70
+	 To:Cc:Content-Type; b=lqQRmOa+c2xFf25NumlkSAdFiJ9LHeSkV+lf7INASIq1jOVGnBSih7cP1fBtVHJX8fhWJ7DnN3QDQb5Up8ptm+SAeqUM0+nWT/GOz46raUZ2q4JF981Mfpqhpr7uZvRXkbTA84/t1YJ5on1fqVOfmddYj08dlfHd7Uv48bu7X5w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--avagin.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=OOz5lS9x; arc=none smtp.client-ip=209.85.161.72
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--avagin.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="gfNQz837"
-Received: by mail-oa1-f70.google.com with SMTP id 586e51a60fabf-4519ef1babeso2778627fac.2
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 21:34:37 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="OOz5lS9x"
+Received: by mail-oo1-f72.google.com with SMTP id 006d021491bc7-6b1abf73d1fso2120220eaf.3
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 21:34:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788842076; x=1789446876; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1788842077; x=1789446877; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=my0QXM+ikv9/PpCYzgn4TQ3ElcvYhNy4NwT6XgTRAzE=;
-        b=gfNQz837a7l80YZeMwWSB+qSejnyEpCY+y93xb17HWuAogBBMo3Ua1UNaOVjhdf04l
-         E4UupdXf3+5l5ON6mczu6iO0K7MktOWE8ADwIfTOnjcrneXD24Yyrq4kYA7zOWmUx86X
-         dU0Sm8sywO4yL7O61w9W7NcCAP6I2IVceQSzxAwqW6VGxPb3YnPcyLbBtcfo6gu4MrKb
-         +wMouzfju7W9GAnLG0PbSfOQXutwki+MduelNeLWE8DX7oJpw10w38O693HDYDGgBYcO
-         6Ug2XzUndZv5NNNX/EkcxqWM9rntCpBsjgNStYh3Cxa0k3e8wLN2stvYDczguK4aidZI
-         Z7xQ==
+        bh=XY3hQ0xzaAWy4M5qAqcF3UMax0jVDeGWrrn7UI3joc0=;
+        b=OOz5lS9x1z64s7Ixl2d1IUMiHWbVjacMq0zp0uWYdzXZ6vqxfC300X/dodFI7WwcVZ
+         6VyuWJfSVIeVJ4IXyjXts2XR/sLR57sZh0/PNO4+7nAlCAqVo5eUskCiZDN3YXyx9LHl
+         gRoA2/7+yAyY8tn/gLHpBiWnK/gjpVFpi/sZDRuh7FvymHrzG1oVxDlOwldtr1QIEgWN
+         EXl8/nndVmh3BHQzMXrzDNDtPGc+fwez1s2U5QlRmA32GsdpNS4FtCA3xchxTceK0x1p
+         +PfBQy+SMQGkEH3bi9iIBZyDzGTlv+7hVbFStV2gyRHvXvMFZFUgK4OHcoCUloGWwAi4
+         RbNw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788842076; x=1789446876;
+        d=1e100.net; s=20251104; t=1788842077; x=1789446877;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=my0QXM+ikv9/PpCYzgn4TQ3ElcvYhNy4NwT6XgTRAzE=;
-        b=dGoQyVKF40ZJSUbzk+tPvbVzVZh3tGIHfiXsNOG4dELLhAou1tOnunMgNHWT+hQQrq
-         VWGOpqSHmUEOEJPZz3GzahXiloizlOR3Am6eDIEcyRncRaDXqGihnKvGtHfh6GUM0B81
-         YCeYONUjKi4cpixaobg4cCv/9KQB6r0yqK8cj3BSFAFb2mGcRx5ujRM8zar47p1OzN4a
-         59gy63TZCuQnimC1lABc8nzgydbBUmtnoSymQAU55XROFOBHi3vemC2gUaQgl9wBUEP3
-         s/c0DGIRAnh8D3nUWTriQtQHaWcftLkoscmR0rVcf0JLPKqY7kkqFLiAE2cstcxph9mN
-         Vk9A==
-X-Gm-Message-State: AFuF++lMl9ry8vN2QHKMPpUd6UJ0ae+ivqSmDmf2WzDy9Hs8077uvVed
-	Mf1Ue+g+8jE8YZ73L6um/TXJjnFhWv5VAmf97JpzixGpLNHAvb0QwA0spwQJwWFHd6vyn94Pdrm
-	3gaKP9g==
-X-Received: from ilex16.prod.google.com ([2002:a05:6e02:6290:b0:50b:2126:7461])
- (user=avagin job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6820:211:b0:6aa:ed21:6c95
- with SMTP id 006d021491bc7-6b6f7e6daa7mr14676398eaf.0.1788842075735; Mon, 07
- Sep 2026 21:34:35 -0700 (PDT)
-Date: Tue,  8 Sep 2026 04:34:26 +0000
+        bh=XY3hQ0xzaAWy4M5qAqcF3UMax0jVDeGWrrn7UI3joc0=;
+        b=FFiOWdhyf5Umh4MmEyd+huiKoKslcMhmjwLzulQ0Lx/4jep9OTNS2oEkTWaAuO7Faa
+         xM2BQwaSI3rcYAzUD2Md8pSmKULtwfAvcKqwlYHn637bqAKlx0EMinB6RnO9QzdJUqBF
+         AaRuijvLJNuI1uuNnrLYg1+917RU9C6GhWYzDZW8ext32dGy65aW8CalF3r914gHHuW+
+         MbdnBbP4j7AMeOnKecLwUQFIa6f+BBLlHpj+Bp+ktsqWTdoaTtSuij5JTYkaFA8F+R3T
+         pZlRQtqbEa5cTaiXdubF5OWeah2oKP+sf/Dgz+1izyn8W7MEFkJGZOfkUXFjYd96AZfq
+         YEWw==
+X-Gm-Message-State: AFuF++mMILH3WgwsyHHDdxvFJQzywEEZQq0eyNa3FGPTdLpMPee9/iFl
+	UFDamnPfGznx+CnkRZ8xsTkYvyT0kn63ce/NYanNAlrhoGWIrVkQwpd43c6Istr4uBsyIIt5jfn
+	8XdlSQg==
+X-Received: from ilsd9.prod.google.com ([2002:a05:6e02:509:b0:505:fb7c:de7d])
+ (user=avagin job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6820:4dee:b0:6b7:8396:f3d5
+ with SMTP id 006d021491bc7-6b78396f81amr12890637eaf.55.1788842076754; Mon, 07
+ Sep 2026 21:34:36 -0700 (PDT)
+Date: Tue,  8 Sep 2026 04:34:27 +0000
 In-Reply-To: <20260908043427.1842515-1-avagin@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -59,8 +59,8 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 References: <20260908043427.1842515-1-avagin@google.com>
 X-Mailer: git-send-email 2.55.0.979.g7e5102b832-goog
-Message-ID: <20260908043427.1842515-7-avagin@google.com>
-Subject: [PATCH 6/7] x86/fpu: Pre-fault only required size of xstate buffer
+Message-ID: <20260908043427.1842515-8-avagin@google.com>
+Subject: [PATCH 7/7] selftests/x86: Add tests for signal frame FPU portability
 From: Andrei Vagin <avagin@google.com>
 To: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
 	"Chang S. Bae" <chang.seok.bae@intel.com>
@@ -70,149 +70,378 @@ Cc: linux-kernel@vger.kernel.org, criu@lists.linux.dev,
 	"H. Peter Anvin" <hpa@zytor.com>
 Content-Type: text/plain; charset="UTF-8"
 
-The kernel previously used the default task FPU state size (user_size)
-to fault in the user buffer when restoring FPU registers from a signal
-frame. This can lead to attempting to fault in memory past the end of
-the actual frame if the frame was smaller than the default size.
+Add a new selftest tools/testing/selftests/x86/sigframe_fpu_portability.c
+to verify signal frame portability and consistency when the xstate size
+is shrunk:
 
-Introduce consistency checks to calculate the actual required size for
-the features enabled in the xfeatures mask, ensure that the provided
-xstate_size is sufficient, and shrink it to the actual required size.
-Use this validated size to fault in the user buffer.
+- test_valid_shrunk_xstate_size: Verifies that the kernel correctly
+  restores the xstate context from a signal frame where xstate_size has
+  been manually shrunk to only cover active features, as long as the
+  FP_XSTATE_MAGIC2 marker is correctly placed. This simulates migrating
+  a process created on a host with fewer xstate features to a host with
+  more features.
 
-Keep the strict check that the provided xstate_size does not exceed the
-default user_size for now.
+- test_invalid_shrunk_xstate_size: Verifies that the kernel rejects
+  (via SIGSEGV) a signal frame where xstate_size is smaller than required
+  by the enabled features in the xfeatures mask.
 
 Reviewed-by: Alexander Mikhalitsyn <alexander@mihalicyn.com>
-Reviewed-by: Chang S. Bae <chang.seok.bae@intel.com>
 Signed-off-by: Andrei Vagin <avagin@google.com>
 ---
- arch/x86/kernel/fpu/signal.c | 38 +++++++++++++++++++++++++++---------
- arch/x86/kernel/fpu/xstate.c |  2 +-
- arch/x86/kernel/fpu/xstate.h |  2 ++
- 3 files changed, 32 insertions(+), 10 deletions(-)
+ tools/testing/selftests/x86/Makefile          |   5 +-
+ .../selftests/x86/sigframe_fpu_portability.c  | 246 ++++++++++++++++++
+ tools/testing/selftests/x86/xstate.c          |  12 -
+ tools/testing/selftests/x86/xstate.h          |  20 ++
+ 4 files changed, 270 insertions(+), 13 deletions(-)
+ create mode 100644 tools/testing/selftests/x86/sigframe_fpu_portability.c
 
-diff --git a/arch/x86/kernel/fpu/signal.c b/arch/x86/kernel/fpu/signal.c
-index d686d5f7f3d0..452ebef88511 100644
---- a/arch/x86/kernel/fpu/signal.c
-+++ b/arch/x86/kernel/fpu/signal.c
-@@ -29,7 +29,8 @@ static inline bool check_xstate_in_sigframe(struct fxregs_state __user *buf_fx,
- {
- 	int min_xstate_size = sizeof(struct fxregs_state) +
- 			      sizeof(struct xstate_header);
--	void __user *fpstate = buf_fx;
-+	struct fpstate *fpstate = x86_task_fpu(current)->fpstate;
-+	void __user *buf = buf_fx;
- 	unsigned int magic2;
+diff --git a/tools/testing/selftests/x86/Makefile b/tools/testing/selftests/x86/Makefile
+index 434065215d12..72071deda978 100644
+--- a/tools/testing/selftests/x86/Makefile
++++ b/tools/testing/selftests/x86/Makefile
+@@ -19,7 +19,8 @@ TARGETS_C_32BIT_ONLY := entry_from_vm86 test_syscall_vdso unwind_vdso \
+ 			test_FCMOV test_FCOMI test_FISTTP \
+ 			vdso_restorer
+ TARGETS_C_64BIT_ONLY := fsgsbase sysret_rip syscall_numbering \
+-			corrupt_xstate_header amx lam test_shadow_stack avx apx
++			corrupt_xstate_header amx lam test_shadow_stack avx apx \
++			sigframe_fpu_portability
+ # Some selftests require 32bit support enabled also on 64bit systems
+ TARGETS_C_32BIT_NEEDED := ldt_gdt ptrace_syscall
  
- 	if (__copy_from_user(fx_sw, &buf_fx->sw_reserved[0], sizeof(*fx_sw)))
-@@ -38,8 +39,8 @@ static inline bool check_xstate_in_sigframe(struct fxregs_state __user *buf_fx,
- 	/* Check for the first magic field and other error scenarios. */
- 	if (fx_sw->magic1 != FP_XSTATE_MAGIC1 ||
- 	    fx_sw->xstate_size < min_xstate_size ||
--	    fx_sw->xstate_size > x86_task_fpu(current)->fpstate->user_size ||
--	    fx_sw->xstate_size > fx_sw->extended_size)
-+	    fx_sw->xstate_size > fpstate->user_size ||
-+	    fx_sw->extended_size < fx_sw->xstate_size + FP_XSTATE_MAGIC2_SIZE)
- 		goto err_setfx;
- 
- 	/*
-@@ -48,11 +49,27 @@ static inline bool check_xstate_in_sigframe(struct fxregs_state __user *buf_fx,
- 	 * fpstate layout with out copying the extended state information
- 	 * in the memory layout.
- 	 */
--	if (__get_user(magic2, (__u32 __user *)(fpstate + fx_sw->xstate_size)))
-+	if (__get_user(magic2, (__u32 __user *)(buf + fx_sw->xstate_size)))
- 		return false;
-+	if (unlikely(magic2 != FP_XSTATE_MAGIC2))
-+		goto err_setfx;
- 
--	if (likely(magic2 == FP_XSTATE_MAGIC2))
--		return true;
-+	if (fx_sw->xstate_size != fpstate->user_size ||
-+	    fx_sw->xfeatures != fpstate->user_xfeatures) {
-+		unsigned int xsize;
-+		u64 xfeatures;
+@@ -138,3 +139,5 @@ $(OUTPUT)/avx_64: CFLAGS += -mno-avx -mno-avx512f
+ $(OUTPUT)/amx_64: EXTRA_FILES += xstate.c
+ $(OUTPUT)/avx_64: EXTRA_FILES += xstate.c
+ $(OUTPUT)/apx_64: EXTRA_FILES += xstate.c
 +
-+		/* Calculate size of enabled features only. */
-+		xfeatures = fx_sw->xfeatures & fpstate->user_xfeatures;
++$(OUTPUT)/sigframe_fpu_portability_64: CFLAGS += -mno-avx -mno-avx512f
+diff --git a/tools/testing/selftests/x86/sigframe_fpu_portability.c b/tools/testing/selftests/x86/sigframe_fpu_portability.c
+new file mode 100644
+index 000000000000..5ddab44a0369
+--- /dev/null
++++ b/tools/testing/selftests/x86/sigframe_fpu_portability.c
+@@ -0,0 +1,246 @@
++// SPDX-License-Identifier: GPL-2.0-only
++#define _GNU_SOURCE
++#include <stdio.h>
++#include <signal.h>
++#include <string.h>
++#include <sys/ucontext.h>
++#include <stdlib.h>
++#include <stdint.h>
++#include <stdbool.h>
++#include <cpuid.h>
++#include <unistd.h>
++#include <sys/syscall.h>
++#include <stddef.h>
++#include <setjmp.h>
 +
-+		xsize = xstate_calculate_size(xfeatures, false);
-+		if (fx_sw->xstate_size < xsize)
-+			return false;
++#include "helpers.h"
++#include "xstate.h"
 +
-+		fx_sw->xstate_size = xsize;
++#ifndef FP_XSTATE_MAGIC2_SIZE
++#define FP_XSTATE_MAGIC2_SIZE	sizeof(FP_XSTATE_MAGIC2)
++#endif
++
++/*
++ * This test verifies the FPU portability and consistency of the signal frame.
++ *
++ * - test_valid_shrunk_xstate_size:
++ *   Verifies that the kernel restores state from a frame with xstate_size
++ *   shrunk to only include active features.
++ *
++ * - test_invalid_shrunk_xstate_size:
++ *   Verifies that the kernel rejects a frame if xstate_size is too small for
++ *   the features enabled in xfeatures.
++ */
++
++#define SIGFRAME_XSTATE_HDR_OFFSET	512
++#define XSTATE_SSE_ONLY_SIZE	(SIGFRAME_XSTATE_HDR_OFFSET + XSAVE_HDR_SIZE)
++#define XFEATURE_MASK_FPSSE	((1 << XFEATURE_FP) | (1 << XFEATURE_SSE))
++
++static uint32_t ymm_offset;
++static uint32_t xstate_size_ymm;
++static pid_t self_pid;
++
++/* Use a raw syscall instead of raise() to avoid clobbering FPU registers. */
++static inline void raw_raise(int sig)
++{
++	register long rax asm("rax") = SYS_kill;
++	register long rdi asm("rdi") = self_pid;
++	register long rsi asm("rsi") = sig;
++
++	asm volatile ("syscall"
++		      : "+r" (rax)
++		      : "r" (rdi), "r" (rsi)
++		      : "rcx", "r11", "memory");
++}
++
++/*
++ * Avoid using printf() in signal handlers as it is not
++ * async-signal-safe.
++ */
++#define SIGNAL_BUF_LEN 1024
++static char sig_err_buf[SIGNAL_BUF_LEN];
++
++static void sig_print(const char *msg)
++{
++	int left = SIGNAL_BUF_LEN - strlen(sig_err_buf) - 1;
++
++	strncat(sig_err_buf, msg, left);
++}
++
++
++static void check_avx_support(void)
++{
++	struct xstate_info xstate;
++	uint32_t eax, ebx, ecx, edx;
++
++	/* Check CPUID.01H:ECX.OSXSAVE[bit 27] before calling xgetbv to avoid #UD */
++	__cpuid(1, eax, ebx, ecx, edx);
++	if (!(ecx & (1 << 27)))
++		ksft_exit_skip("OSXSAVE not enabled by OS\n");
++
++	/* Check XCR0[2] (YMM) is enabled by OS */
++	if (!(xgetbv(0) & (1 << XFEATURE_YMM)))
++		ksft_exit_skip("AVX (YMM) not enabled in XCR0\n");
++
++	xstate = get_xstate_info(XFEATURE_YMM);
++	if (!xstate.size)
++		ksft_exit_skip("AVX not supported by hardware\n");
++
++	ymm_offset = xstate.xbuf_offset;
++	xstate_size_ymm = xstate.xbuf_offset + xstate.size;
++}
++
++#define TEST_YMMH_VAL (0x5656565656565656UL)
++
++__attribute__((target("avx")))
++static void read_ymm0(uint64_t *v)
++{
++	asm volatile ("vmovdqu %%ymm0, %0" : "=m"  (*(char (*)[32])v));
++}
++
++__attribute__((target("avx")))
++static void write_ymm0(uint64_t *v)
++{
++	asm volatile ("vmovdqu %0, %%ymm0" : : "m"  (*(char (*)[32])v));
++}
++
++static void __handle_shrunk_xstate_size(int sig, siginfo_t *si, void *ucp, bool valid_size)
++{
++	ucontext_t *uc = ucp;
++	void *fp = uc->uc_mcontext.fpregs;
++	struct _fpx_sw_bytes *sw;
++	struct xsave_buffer *xbuf;
++	uint64_t xfeatures, *ymmh_p;
++
++	if (!fp) {
++		sig_print("fpregs is NULL\n");
++		return;
 +	}
 +
-+	return true;
- err_setfx:
- 	/*
- 	 * The fallback to FX-only state is used to preserve backward
-@@ -277,7 +294,8 @@ static int __restore_fpregs_from_user(void __user *buf, u64 task_xfeatures,
-  * Attempt to restore the FPU registers directly from user memory.
-  * Pagefaults are handled and any errors returned are fatal.
-  */
--static bool restore_fpregs_from_user(void __user *buf, u64 xrestore_mask, bool fx_only)
-+static bool restore_fpregs_from_user(void __user *buf, u64 xrestore_mask,
-+				     bool fx_only, size_t xstate_size)
- {
- 	struct fpu *fpu = x86_task_fpu(current);
- 	int ret;
-@@ -311,7 +329,7 @@ static bool restore_fpregs_from_user(void __user *buf, u64 xrestore_mask, bool f
- 		if (ret != X86_TRAP_PF)
- 			return false;
++	sw = get_fpx_sw_bytes(fp);
++	if (sw->magic1 != FP_XSTATE_MAGIC1) {
++		sig_print("magic1 is not valid\n");
++		return;
++	}
++
++	xbuf = (struct xsave_buffer *)fp;
++
++	/*
++	 * Both test cases shrink the frame to contain only AVX (FP + SSE + YMM).
++	 * If valid_size is true, set xstate_size to match the enabled features.
++	 * If valid_size is false, set xstate_size too small (SSE only), which
++	 * the kernel must reject.
++	 */
++	if (valid_size)
++		sw->xstate_size = xstate_size_ymm;
++	else
++		sw->xstate_size = XSTATE_SSE_ONLY_SIZE;
++
++	xfeatures = get_xstatebv(xbuf);
++	xfeatures &= XFEATURE_MASK_FPSSE | (1 << XFEATURE_YMM);
++	set_xstatebv(xbuf, xfeatures);
++	set_fpx_sw_bytes_features(fp, xfeatures);
++
++	*(uint32_t *)(fp + sw->xstate_size) = FP_XSTATE_MAGIC2;
++
++	if (valid_size) {
++		ymmh_p = (uint64_t *)(fp + ymm_offset);
++		ymmh_p[0] = TEST_YMMH_VAL;
++		ymmh_p[1] = TEST_YMMH_VAL + 1;
++	}
++
++	/* clear everything after MAGIC2. */
++	if (sw->xstate_size + FP_XSTATE_MAGIC2_SIZE < sw->extended_size)
++		memset(fp + sw->xstate_size + FP_XSTATE_MAGIC2_SIZE, 0,
++		       sw->extended_size - sw->xstate_size - FP_XSTATE_MAGIC2_SIZE);
++}
++
++static void handle_valid_shrunk_xstate_size(int sig, siginfo_t *si, void *ucp)
++{
++	__handle_shrunk_xstate_size(sig, si, ucp, true);
++}
++
++static void handle_invalid_shrunk_xstate_size(int sig, siginfo_t *si, void *ucp)
++{
++	__handle_shrunk_xstate_size(sig, si, ucp, false);
++}
++
++static void test_valid_shrunk_xstate_size(void)
++{
++	uint64_t v[4] = {0, 0, 0, 0};
++
++	sig_err_buf[0] = 0;
++	sethandler(SIGUSR1, handle_valid_shrunk_xstate_size, 0);
++
++	v[0] = 0x1111111111111111ULL;
++	v[1] = 0x2222222222222222ULL;
++	v[2] = 0x3333333333333333ULL;
++	v[3] = 0x4444444444444444ULL;
++	write_ymm0(v);
++
++	raw_raise(SIGUSR1);
++	v[0] = v[1] = v[2] = v[3] = 0;
++	read_ymm0(v);
++
++	if (sig_err_buf[0])
++		ksft_test_result_fail("%s\n", sig_err_buf);
++	else if (v[2] == TEST_YMMH_VAL && v[3] == (TEST_YMMH_VAL + 1))
++		ksft_test_result_pass("YMM state restored correctly from shrunk frame\n");
++	else
++		ksft_test_result_fail(
++				"Got upper bits: 0x%lx 0x%lx (expected %lx %lx)\n",
++			       v[2], v[3], TEST_YMMH_VAL, TEST_YMMH_VAL + 1);
++
++	clearhandler(SIGUSR1);
++}
++
++static sigjmp_buf segv_jmpbuf;
++
++static void handle_segv(int sig, siginfo_t *si, void *ucp)
++{
++	siglongjmp(segv_jmpbuf, 1);
++}
++
++static void test_invalid_shrunk_xstate_size(void)
++{
++	uint64_t v[4] = {0, 0, 0, 0};
++
++	sig_err_buf[0] = 0;
++	sethandler(SIGUSR1, handle_invalid_shrunk_xstate_size, 0);
++	sethandler(SIGSEGV, handle_segv, 0);
++
++	if (sigsetjmp(segv_jmpbuf, 1) == 0) {
++		v[0] = 0x1111111111111111ULL;
++		v[1] = 0x2222222222222222ULL;
++		v[2] = 0x3333333333333333ULL;
++		v[3] = 0x4444444444444444ULL;
++		write_ymm0(v);
++
++		raw_raise(SIGUSR1);
++		sig_print("Inconsistent size was NOT rejected\n");
++	}
++
++	clearhandler(SIGUSR1);
++	clearhandler(SIGSEGV);
++
++	if (sig_err_buf[0])
++		ksft_test_result_fail("%s\n", sig_err_buf);
++	else
++		ksft_test_result_pass("Inconsistent size correctly rejected\n");
++}
++
++int main(void)
++{
++	ksft_print_header();
++	ksft_set_plan(2);
++
++	self_pid = getpid();
++
++	check_avx_support();
++
++	test_valid_shrunk_xstate_size();
++	test_invalid_shrunk_xstate_size();
++
++	ksft_finished();
++	return 0;
++}
+diff --git a/tools/testing/selftests/x86/xstate.c b/tools/testing/selftests/x86/xstate.c
+index 97fe4bd8bc77..0ab577157cd7 100644
+--- a/tools/testing/selftests/x86/xstate.c
++++ b/tools/testing/selftests/x86/xstate.c
+@@ -34,18 +34,6 @@
+ 	 (1 << XFEATURE_XTILEDATA) |	\
+ 	 (1 << XFEATURE_APX))
  
--		if (!fault_in_readable(buf, fpu->fpstate->user_size))
-+		if (!fault_in_readable(buf, xstate_size))
- 			goto retry;
- 		return false;
- 	}
-@@ -501,8 +519,10 @@ bool fpu__restore_sig(void __user *buf, int ia32_frame)
+-static inline uint64_t xgetbv(uint32_t index)
+-{
+-	uint32_t eax, edx;
+-
+-	asm volatile("xgetbv" : "=a" (eax), "=d" (edx) : "c" (index));
+-	return eax + ((uint64_t)edx << 32);
+-}
+-
+-static inline uint64_t get_xstatebv(struct xsave_buffer *xbuf)
+-{
+-	return *(uint64_t *)(&xbuf->header);
+-}
  
- 		fx_only = !fx_sw_user.magic1;
- 		xrestore_mask = fx_sw_user.xfeatures;
-+		size = fx_sw_user.xstate_size;
- 	} else {
- 		xrestore_mask = XFEATURE_MASK_FPSSE;
-+		size = fpu->fpstate->user_size;
- 	}
+ static struct xstate_info xstate;
  
- 	if (ia32_fxstate) {
-@@ -512,7 +532,7 @@ bool fpu__restore_sig(void __user *buf, int ia32_frame)
- 	}
+diff --git a/tools/testing/selftests/x86/xstate.h b/tools/testing/selftests/x86/xstate.h
+index 6ee816e7625a..eedf0cab7ccb 100644
+--- a/tools/testing/selftests/x86/xstate.h
++++ b/tools/testing/selftests/x86/xstate.h
+@@ -3,6 +3,8 @@
+ #define __SELFTESTS_X86_XSTATE_H
  
- 	/* Restore the FPU registers directly from user memory. */
--	success = restore_fpregs_from_user(buf_fx, xrestore_mask, fx_only);
-+	success = restore_fpregs_from_user(buf_fx, xrestore_mask, fx_only, size);
- out:
- 	if (unlikely(!success))
- 		fpu__clear_user_states(fpu);
-diff --git a/arch/x86/kernel/fpu/xstate.c b/arch/x86/kernel/fpu/xstate.c
-index fe0a29f599d2..4fe148338382 100644
---- a/arch/x86/kernel/fpu/xstate.c
-+++ b/arch/x86/kernel/fpu/xstate.c
-@@ -587,7 +587,7 @@ static bool __init check_xstate_against_struct(int nr)
- 	return true;
+ #include <stdint.h>
++#include <stdlib.h>
++#include <string.h>
+ 
+ #include "kselftest.h"
+ 
+@@ -94,6 +96,14 @@ static inline void xrstor(struct xsave_buffer *xbuf, uint64_t rfbm)
+ 		     : : "D" (xbuf), "a" (rfbm_lo), "d" (rfbm_hi));
  }
  
--static unsigned int xstate_calculate_size(u64 xfeatures, bool compacted)
-+unsigned int xstate_calculate_size(u64 xfeatures, bool compacted)
- {
- 	unsigned int topmost, offset, i;
- 
-diff --git a/arch/x86/kernel/fpu/xstate.h b/arch/x86/kernel/fpu/xstate.h
-index 38a2862f09d3..c73cf2444de6 100644
---- a/arch/x86/kernel/fpu/xstate.h
-+++ b/arch/x86/kernel/fpu/xstate.h
-@@ -55,6 +55,8 @@ extern int copy_sigframe_from_user_to_xstate(struct task_struct *tsk, const void
- extern void fpu__init_cpu_xstate(void);
- extern void fpu__init_system_xstate(unsigned int legacy_size);
- 
-+extern unsigned int xstate_calculate_size(u64 xfeatures, bool compacted);
++static inline uint64_t xgetbv(uint32_t index)
++{
++	uint32_t eax, edx;
 +
- extern void __user *get_xsave_addr_user(struct xregs_state __user *xsave, int xfeature_nr);
++	asm volatile("xgetbv" : "=a" (eax), "=d" (edx) : "c" (index));
++	return eax + ((uint64_t)edx << 32);
++}
++
+ #define CPUID_LEAF_XSTATE		0xd
+ #define CPUID_SUBLEAF_XSTATE_USER	0x0
  
- static inline u64 xfeatures_mask_supervisor(void)
+@@ -160,6 +170,11 @@ static inline void set_xstatebv(struct xsave_buffer *xbuf, uint64_t bv)
+ 	*(uint64_t *)(&xbuf->header) = bv;
+ }
+ 
++static inline uint64_t get_xstatebv(struct xsave_buffer *xbuf)
++{
++	return *(uint64_t *)(&xbuf->header);
++}
++
+ /* See 'struct _fpx_sw_bytes' at sigcontext.h */
+ #define SW_BYTES_OFFSET		464
+ /* N.B. The struct's field name varies so read from the offset. */
+@@ -175,6 +190,11 @@ static inline uint64_t get_fpx_sw_bytes_features(void *buffer)
+ 	return *(uint64_t *)(buffer + SW_BYTES_BV_OFFSET);
+ }
+ 
++static inline void set_fpx_sw_bytes_features(void *buffer, uint64_t features)
++{
++	*(uint64_t *)(buffer + SW_BYTES_BV_OFFSET) = features;
++}
++
+ static inline void set_rand_data(struct xstate_info *xstate, struct xsave_buffer *xbuf)
+ {
+ 	int *ptr = (int *)&xbuf->bytes[xstate->xbuf_offset];
 -- 
 2.55.0.979.g7e5102b832-goog
 
