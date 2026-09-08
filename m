@@ -1,103 +1,66 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C1D5583ACF;
-	Tue,  8 Sep 2026 17:03:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8BA557C71F
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 17:04:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=82.195.75.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788887024; cv=none; b=TXRcLLVnD5RJCJW1ifDVEWYFONfMyoMVCScHC//HTBHGz5Vprex/rP2FGVxi8LoihEaukvqL5ZVydAs1Pcf/kokTT1mX1WjBBjoxqnY6ZqmwmlYoq7LRpESvuQDDOtju6xp4AIbT8OQnH5ZpwPni6FOveWdfkGRe/RDCES1y2nU=
+	t=1788887046; cv=none; b=ppBv565JKvHwNxr32QW1thp+yMzB4WPlmY1RSpML/fsXNXcJp9ybFO897WuZyesp5J/6r8WtdxFJLleS6iqraeovvkLVtKfpwuM5hKWwcyx12kGgKC0Qm0HAy7QLvvQXxMsjlGQli3LY+IJrVNZCslWeNEkDZZO4r46CoOKekvc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788887024; c=relaxed/simple;
-	bh=3BQMzu3ugMZ6g4f160YwvxH0HvU2r7QQo94h7vyc/xY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=W3kXslrNMti+RmFsEBxbZxsZ2mnjXzzPqy5YPl+aM36Aeq5LxWZKzxxrqO+190BEr+HUQUQssq9aS9PYQ6WYr5iHjjCUREOkwsBhbksgLutI5KYrMe0p7HT89Rsitq4JEOGCKee5mWUqiUePU0gp0RoMRW5YTlnlGdQDRenBf10=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IMazRXlC; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788887046; c=relaxed/simple;
+	bh=NUstzROOlzd5cJ1YGQAba342BKPBETjC8P2leo0YHX4=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=Fnzcob/nVCDKeayn5QkdVejePR9/9XRsbvhHPb84aBBf0Is8OMlXv0WZadYQNq8AyY6vp6zkRzLyEo0LOI9NX9g6TRI0LXqMXzxNCPQ8eKXXS0XHwE/DZb2vZLJoUVAqP6m7wZfPWME54pEb2W9GfYy2/azJTuRoCUrn1p1LPbk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org; spf=pass smtp.mailfrom=debian.org; dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b=eUnrGat3; arc=none smtp.client-ip=82.195.75.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IMazRXlC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C86511F00A3A;
-	Tue,  8 Sep 2026 17:03:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788887022;
-	bh=3BQMzu3ugMZ6g4f160YwvxH0HvU2r7QQo94h7vyc/xY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=IMazRXlCaqgQX/aCRM6oEinu5o4VhEXbaRsGKfVa7dfe3CwGtpPW/lWboJ2rxcfR4
-	 mzfzJqgM3DiPrJtLHkXzu+HDoL83YHUGc+ezqjTQ/60G5rBzvJbj3siEPLrqhkxZGP
-	 9TklLIo785KtX7en0AyhVTBq6n484T7ibMUJHfWKw+5X11op4OVAYkWscXaquLl9bw
-	 n81UVBDrtAaoIJI+iMa2LXS21h/Lz2NOpOqTa4AaVXpKmC68apT7fWTKI8/1GSWnNt
-	 laBS3xTjafNm6NvlRWWPCw37+9ujYom3POQRdKbR7zleuhOS+JJx9y4keR5oFRpGcm
-	 5dpByqvubTuog==
-Date: Tue, 8 Sep 2026 18:03:38 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Bartosz Golaszewski <brgl@kernel.org>
-Cc: devicetree@vger.kernel.org, Linus Walleij <linusw@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Peter Robinson <pbrobinson@gmail.com>,
-	"open list:GPIO SUBSYSTEM" <linux-gpio@vger.kernel.org>,
-	open list <linux-kernel@vger.kernel.org>,
-	Rosen Penev <rosenp@gmail.com>
-Subject: Re: [PATCH] dt-bindings: gpio: pca95xx: add onnn,pca9655 compatible
-Message-ID: <20260908-applaud-dallying-9027d7a8a598@spud>
-References: <20260905000919.155694-1-rosenp@gmail.com>
- <20260907-unnamable-geography-d04f61df0fe5@spud>
- <CAMRc=MdHUpmoFDtmXdbXnbS+_4ffBQcFLo9XjdO=jMom+getpg@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b="eUnrGat3"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
+	s=smtpauto.stravinsky; h=X-Debian-User:Content-Transfer-Encoding:Content-Type
+	:MIME-Version:Date:Message-Id:Subject:References:In-Reply-To:Cc:To:From:
+	Reply-To:Content-ID:Content-Description;
+	bh=JkU8rFKjwuh1oubimQB+pXSYyPI3aIXqVbtZJlapYoc=; b=eUnrGat3CvODt5hvzqdcgrMTlM
+	6w/EV3pPeTarHD7jhON+zaew3gBBe8I1QNpKfqpySKP92OuvPZNMiH8/WVe5aXUAz2e3LNltKq1bi
+	IDzh1zEzb+YJkiUA9o8jeT1fqboyn1k1EFj1MoLEAhfr84dL+5M8ncHG820LGgpR2M6Y8FDEZBz5f
+	s6nt++MwubFmtmAiYlbb96fZQsPX+coLg5r9KRvPjKgS6j7Ly41tYs+c6RJuk6d/Meqggeum75HO/
+	atvDz+qzHCPpGbHvRa7VrphqEU5WutCrPC36h4RGs9gmKvaFZv2OkdczHDAXgemltB1u1JzCOENtk
+	lsa0BI5g==;
+Received: from authenticated-user
+	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+	(Exim 4.96)
+	(envelope-from <leitao@debian.org>)
+	id 1x3zEg-002Qi1-2A;
+	Tue, 08 Sep 2026 17:03:55 +0000
+From: Breno Leitao <leitao@debian.org>
+To: Andreas Hindborg <a.hindborg@kernel.org>, Hemanth Selam <hemanth.selam@gmail.com>
+Cc: linux-kernel@vger.kernel.org
+In-Reply-To: <20260904122927.34360-1-hemanth.selam@gmail.com>
+References: <20260904122927.34360-1-hemanth.selam@gmail.com>
+Subject: Re: [PATCH] configfs: fix typo "atleast" in comment
+Message-Id: <178887539296.4090214.4881963185536964624.b4-ty@b4>
+Date: Tue, 08 Sep 2026 06:49:52 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="3vjiUG8PBMbT8beL"
-Content-Disposition: inline
-In-Reply-To: <CAMRc=MdHUpmoFDtmXdbXnbS+_4ffBQcFLo9XjdO=jMom+getpg@mail.gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Debian-User: leitao
 
---3vjiUG8PBMbT8beL
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
 
-On Tue, Sep 08, 2026 at 12:37:21AM -0700, Bartosz Golaszewski wrote:
-> On Mon, 7 Sep 2026 18:54:12 +0200, Conor Dooley <conor@kernel.org> said:
-> > On Fri, Sep 04, 2026 at 05:09:19PM -0700, Rosen Penev wrote:
-> >> The pca9655 is the On Semi variant of the pca9555 16-bit I2C GPIO
-> >> expander and is register-compatible with it. The addition of the
-> >> compatible in the driver missed the documentation update.
-> >
-> > The commit message makes it sound like this device should use a
-> > fallback. Why doesn't it? Either it should, or the commit message needs
-> > an update.
-> > pw-bot: changes-requested
-> >
->=20
-> Actually commit 6d49b3a0f351 ("gpio: pca953x: Add support for the On Semi
-> pca9655") added this compatible to the driver back in 2021 but it had rem=
-ained
-> undocumented until now. Unfortunately there's no denying I signed off on =
-it. :(
+On Fri, 04 Sep 2026 17:59:25 +0530, Hemanth Selam wrote:
+> Correct "atleast" to "at least", reported by scripts/checkpatch.pl using
+> the misspelling list in scripts/spelling.txt.  Only touches comments, no
+> code changes.
 
-Ye, but if patches like this appear for things that were undocumented
-but ended up in drivers we still try to get the bindings correct when
-they do show up. The commit message is basically telling me that this patch
-is wrong and that a fallback to the pca9555 should be used. There's no
-impact on the driver, so I don't see any harm in getting the binding
-right.
+Applied, thanks!
 
-> This commit should probably contain a Fixes: tag pointing at this commit.
+[1/1] configfs: fix typo "atleast" in comment
+      https://git.kernel.org/pub/scm/linux/kernel/git/leitao/linux.git/commit/?id=9ed3e6fb6d29
 
-Perhaps, but I'm not convinced that binding patches should ever have
-Fixes tags citing drivers.
-
---3vjiUG8PBMbT8beL
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaqA/6gAKCRB4tDGHoIJi
-0kG2AQDOo/oX8jcsUDelIaVes9qwAh5b9nS4DBsp1+sHCdAoEAD/ZQJ89Wz4fHJA
-yf0QrlvhwkaD4bsXqsxmJuI7vruffw4=
-=8wzL
------END PGP SIGNATURE-----
-
---3vjiUG8PBMbT8beL--
+Best regards,
+-- 
+Breno Leitao <leitao@debian.org>
