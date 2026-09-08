@@ -1,229 +1,170 @@
-Received: from va-2-114.ptr.blmpb.com (va-2-114.ptr.blmpb.com [209.127.231.114])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazolkn19010021.outbound.protection.outlook.com [52.103.33.21])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC39357C9F
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 03:25:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.231.114
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788837910; cv=none; b=q/N+lo7HB0GJr/9CcJ8+1gOdziJpOWhqrzhJZGjl683OA8DKuynIGfrsFvyTASL53OVXYgYeXrCpH2EW7BaJofn1nS94xuTDinCBRJA1h2Z+uT4MIOYndlL9ri+cFcpeX92L1Usf6VavR2sb0dhNR4rcnUyDW3dpAgsuxSy8T2A=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788837910; c=relaxed/simple;
-	bh=EeOHWA/uz2on4QaoEb543EhpLFsgPbddAgUp7QPAoV4=;
-	h=To:Cc:Date:Message-Id:References:From:Subject:In-Reply-To:
-	 Content-Type:Mime-Version; b=g9DXxezhBGvOIoJyV86GSffqu9+QavE0MkW1yPGV32Qm8WmrLIQinwi7tLVmTeYIm4Ed2Y9uCGPS69ggr/TitX4V7StxCELIMd3JKHvtYpotc1XBKYYi4lSsETbRn932/pbOuNv7mrY9Xn87blrgiET3E6Hf6EI7vZMa9Q/1xjg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=jcPGHiyz; arc=none smtp.client-ip=209.127.231.114
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD99157C9F;
+	Tue,  8 Sep 2026 03:26:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.103.33.21
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788837989; cv=fail; b=cq35nZOITaw900ETGB/StFmDhEagnHxQoJUO2tQB4WW7Mp2u7iXbUIYVyWde4CP0ma/XuW61/UphxeTNX8o4cg1nTQ/09FTPgnoa43HabVzfS6zdy338xxRcw+6VKv1SQUGXexzynig8jBINhg/NLoO5PXLYcnMf0UJWKVxAu3M=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788837989; c=relaxed/simple;
+	bh=p3n9b6TtH82OOeqN16QAdctR/As+SPZkkT/Z/6bIcUg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=rkIQu/26394xOUWGkcKuuwlJZyQ3cio09h8S1x8eRfbd6FjjLL6IBLTuN1ueIW3LPyNI7eeKMuTuzStgLbYK8Wl3Temv7h47KemINR1VmfZYiB0YCYARtNn5MGpum/C2Wpp7ls7dm6qfMlKKbjD4f3cnyjn+EpXBG7QMQOTipDM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hotmail.co.uk; spf=pass smtp.mailfrom=hotmail.co.uk; dkim=pass (2048-bit key) header.d=HOTMAIL.CO.UK header.i=@HOTMAIL.CO.UK header.b=FhvbBdBs; arc=fail smtp.client-ip=52.103.33.21
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hotmail.co.uk
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hotmail.co.uk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="jcPGHiyz"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=2212171451; d=bytedance.com; t=1788837905; h=from:subject:
- mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
- mime-version:in-reply-to:message-id;
- bh=4BEbrlj73U5B9IMw8FD0WKET6Y4SVezy7GRLjv6u1WQ=;
- b=jcPGHiyz2eV2SqDS+BmH2K+Tm8P5QuKR8vHqmVpMgKH5ldyaHrTediVZDw0YYnC1zrWI+l
- blVfsZCfy/DnLjJvTmR1GZlc8Kwc3xClWVnvJQG3nQZIYIZ3Y2zmyjFDksMHvIQBO9JWAv
- aBxWJTHva5YGUr9EAQkPAJwyQ+2QokFctB54lLbG9JFxqRC1PK3hZgTjXQOI99wzMSG9S2
- nrruLkouHwmHVb9RjvIA8MhRG0UHGu0yyzldHAAW+S/iRktC2YRi8MUvX6BuwpRlMnGIk7
- 6rsHj07fr5HPAJH6zG2IiBgEdqZgUz8Vp8Hv9FQTUGUQ7qoq/0aigCUKwX6ayg==
-X-Mailer: git-send-email 2.20.1
-To: "Alexander Viro" <viro@zeniv.linux.org.uk>, 
-	"Christian Brauner" <brauner@kernel.org>, "Jan Kara" <jack@suse.cz>
-Cc: "Tejun Heo" <tj@kernel.org>, "Jens Axboe" <axboe@kernel.dk>, 
-	<linux-fsdevel@vger.kernel.org>, <linux-kernel@vger.kernel.org>, 
-	"Xin Yin" <yinxin.x@bytedance.com>
-Date: Tue,  8 Sep 2026 11:23:52 +0800
-Message-Id: <dce170b76e9501d555b0af70cc8c45c248577400.1788836830.git.yinxin.x@bytedance.com>
-Content-Transfer-Encoding: 7bit
-References: <cover.1788836830.git.yinxin.x@bytedance.com>
-From: "Xin Yin" <yinxin.x@bytedance.com>
-Subject: [PATCH v1 2/2] writeback: snapshot foreign flush pages
-X-Lms-Return-Path: <lba+26a9f800f+992ea9+vger.kernel.org+yinxin.x@bytedance.com>
-In-Reply-To: <cover.1788836830.git.yinxin.x@bytedance.com>
+	dkim=pass (2048-bit key) header.d=HOTMAIL.CO.UK header.i=@HOTMAIL.CO.UK header.b="FhvbBdBs"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=lfIeWhDzma7OqTW79R7DVU39Vqbi58SZGPDZN7DMSLqEbhghsidQi5P5aBtSobmOkN4YulVO0GMPs8ipTWXJyfFm0teqOKK4Y0gx1yrK2thKN6/OrktsQGY08dk1LyABNjrNM20gij0VtiHCWAmPaMHYS1rav9DYfLe7Uf/5YcO4dymmHHN5u5CdnBq9ThgvpJ33W9j7wEkve8HpHpagzlpQFgGqZzBgPJDk88tLOUSyIODnKA7cy9guGX+thXDD0MbcLd1XJl1eOoFrmpRXzg1DhiEutEUMCSFC74Ny+brLqqUf7fsP5ZVrXwBkSiQdZJYHRGt0YPk44wUhXi7H9Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=JYvEy1+85mtPLOOGemaabsH9jBeixK8M/HicGJ2rgL8=;
+ b=EMzyn1TJCkl8bARCjsBucO+Eu5JiDLTjgQbTwwok28gzRm3nBFfHItaB7bmrf7rKZUzJpebWIx8K7XtrMrINLWMfOcgVe/DdbG/NtgRg9aWiWk3GDvbIUp/ebve1nXjB37i2vJ35m2WN7z6fPOCCaywjRhYMwg8/VtgohIynuPEv4aRa6okvKCBB3KNtSld34DYXEZdDHl+ylUPunh7Dzq6YaEuB0f21jpCpmKto9+Zw3FtatCGb44+gXsolYRMm6pa1ZCbtP4HYYvvLbLkaWjh4ruJqzsV1Rqc0psdls78D2RHHOd8GWlDuMyMdEDPa7xrrH0d/YmEeDE2pkSE0zA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=HOTMAIL.CO.UK;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=JYvEy1+85mtPLOOGemaabsH9jBeixK8M/HicGJ2rgL8=;
+ b=FhvbBdBsyEfPwhvUEgKviMTv3+cI710Q7ND3QrN0Sltj7imDlNqIuL5zsnpntYynPqhOXslvJ2cfbyp/xPPRYwxgr98pevsbIaDniz93jLPgcunsIxHOTfK4Xn/RjYhYb0ompzXCcr8+bfcNC8Ts+/NcQLqtmgRSBHMWC/Xode6Cn45W6kViOyLN/nhH44lEKc9+wpNCIUKxwO0eOoy/uuyeZj7Jua39Ao3SUYog6grAbK5Qv3GHAAosNaKHYxfpmpDJfn4IbevMc7S46u8B1Tmk/ZTnPWAp51MZ9ejuWbrXnki9DurClWJ0msu29xh9XMuLSKjrWCe7YyCd9dLYQw==
+Received: from PAXP251MB0010.EURP251.PROD.OUTLOOK.COM (2603:10a6:102:1d9::15)
+ by DU0P251MB0697.EURP251.PROD.OUTLOOK.COM (2603:10a6:10:329::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.15; Tue, 8 Sep
+ 2026 03:26:24 +0000
+Received: from PAXP251MB0010.EURP251.PROD.OUTLOOK.COM
+ ([fe80::fb91:30d8:e31d:1f35]) by PAXP251MB0010.EURP251.PROD.OUTLOOK.COM
+ ([fe80::fb91:30d8:e31d:1f35%4]) with mapi id 15.21.0382.014; Tue, 8 Sep 2026
+ 03:26:24 +0000
+From: Aamir Ahmed <elb12345@hotmail.co.uk>
+To: Felix Fietkau <nbd@nbd.name>,
+	Lorenzo Bianconi <lorenzo@kernel.org>,
+	Ryder Lee <ryder.lee@mediatek.com>
+Cc: Aamir Ahmed <elb12345@hotmail.co.uk>,
+	Shayne Chen <shayne.chen@mediatek.com>,
+	Sean Wang <sean.wang@mediatek.com>,
+	linux-wireless@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] wifi: mt76: mt7996: validate TLV length in mt7996_mcu_ie_countdown()
+Date: Tue,  8 Sep 2026 04:26:20 +0100
+Message-ID:
+ <PAXP251MB0010F4199498BAE6B474D845C8B12@PAXP251MB0010.EURP251.PROD.OUTLOOK.COM>
+X-Mailer: git-send-email 2.53.0.windows.1
+In-Reply-To: <AS8P251MB0001CCE8D1BEE1F330D9E57AC8B22@AS8P251MB0001.EURP251.PROD.OUTLOOK.COM>
+References: <AS8P251MB0001CCE8D1BEE1F330D9E57AC8B22@AS8P251MB0001.EURP251.PROD.OUTLOOK.COM>
 Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: LO0P265CA0015.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:355::6) To PAXP251MB0010.EURP251.PROD.OUTLOOK.COM
+ (2603:10a6:102:1d9::15)
+X-Microsoft-Original-Message-ID:
+ <20260908032621.124902-1-elb12345@hotmail.co.uk>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-X-Original-From: Xin Yin <yinxin.x@bytedance.com>
+MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PAXP251MB0010:EE_|DU0P251MB0697:EE_
+X-MS-Office365-Filtering-Correlation-Id: adb8a546-8dda-4e49-a980-08df0d58f5fc
+X-Microsoft-Antispam:
+	BCL:0;ARA:14566002|24021099003|55001999006|25031999004|23021999003|37011999003|2604032031799003|51005399006|8060799015|15080799012|5072599009|19110799012|6090799003|25010399006|40105399003|2607281247196008|3412199025|26104999009|440099028|1710799026;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?eWtJejNwM0NsTHBTYVlSSUxkYzB1WWU5bkxGWHc2dXdXNFNSRk5DRjAvUE03?=
+ =?utf-8?B?YlFTTFlSeEdSMVNtcFd0dFhuNExlMzdUR0R5OVZtRmNidHdOMTFIWVpmcklQ?=
+ =?utf-8?B?NnlJTG13dnJOQ1JVY0F1OWw2Q3pyNjJ1QmFjT0w3aC8xNk9CRHpYaXNxbVRI?=
+ =?utf-8?B?bzJZa3hHVmV2aDhEMGd0aFM4NHozeEMrbHBXTlUvWmFacGdVaGhkcFVkWGJ2?=
+ =?utf-8?B?cm5uRjhHMTIxV0ozbCtYTU1XNnBad014d0tnZ2RwZHUvcE5SS21wODcrdWN5?=
+ =?utf-8?B?Y1VhUU84QUcyRVpOWlEwc1c1QlhnaUtzNnhLUFpCejRLOHlqSDRucnhOREla?=
+ =?utf-8?B?TmE5ZUZBOGNrdmpQTTUzZFhUUkJaU2xXRk8zaXhKdjQzL1hVOEFpUXNpYkxE?=
+ =?utf-8?B?TC8yaG9zOFlVdHdqaGVEUFJkREtvL002MTJRWnZzT2N5WTJnZUxiVGdRWGkx?=
+ =?utf-8?B?ZXQ1dzdUWUR2TnZ6R29XTHQrWWZYKzF2cm9XWU5UL3NlajFnU0dRd0QwSitC?=
+ =?utf-8?B?RW8rblpJOUQ4OFlEOXJZQ0JiUXhjUlZ1bnhueHJoSlFXTy9BMlVjZUE3bkFu?=
+ =?utf-8?B?ejhaNG90OTNTQW1JYnFGbStpVHpFQVluRTYzeG51NnZWY3NuWm05SDh0a2dv?=
+ =?utf-8?B?RDJwSjdhdVQ2cDUzMUFMVzJIRXcwbWtxU1pHSXNSSzNXZlppZVF3aVM1Q0h6?=
+ =?utf-8?B?TWhseDhha25sRTNYUWNzcHY1M04yQzJhOWh5clMwOEc0Ky9ib20zN04rSnFy?=
+ =?utf-8?B?ZGl0alcwbzlkdmU0TlhpZGtlVHI0VnNqcDVFdGdqZHR2WTRNdmZCTFZkWTcr?=
+ =?utf-8?B?dXhVeWRHNXpLMndKQms0ZGZ3M1FJSE1XN1g4SGFYTU0xeGFmZEFsaWdaL2Jh?=
+ =?utf-8?B?SE5rRU8zQmlxeGpvRStWMlE3QzRuNllaRUJ4bncyTVoxeURqUGhVLzBROTdV?=
+ =?utf-8?B?RHZQekc0VnhVMGZLOXNPdVZKK2t1YjVEUmkyOHhHN3pEb3htdE9hRUdSdEJW?=
+ =?utf-8?B?QWhwenRnRnVPVUQxVStNR2wzZGxYcEEvZSthN0g2UTQ5UEpING1JQVhuYVQ5?=
+ =?utf-8?B?NG9GNjJUYjd3UFVzVXE2SGNMRzJadm5KL00wdHNWV1A3VE9VWHRnR1Y0WVpP?=
+ =?utf-8?B?WjkvSDRVNVpQTEp2dnozYUo5czREektTSllVazJnVGdzUGR4Q2IvVDlmUkhp?=
+ =?utf-8?B?WTdVTng0bXJCeHRkaDNFTG5JUWR6ODdObFNabnNMdlcvNlJ4T29xNnBLVENs?=
+ =?utf-8?B?V2RVcmlQelV6K24rWS8zMTVzM21uU0t3eXpRTEY4Ynp4VGE1SzQ5N01lM3VP?=
+ =?utf-8?B?eUYzTExabUZQSjhaWUNHUjZSZzRFcUU5Smw2bnZ1enhQaFcyWGZYNXBOd1Ru?=
+ =?utf-8?B?dWlMci83Y2FsUndrQmpXaFBjME1hTmxMb1R0RlJWZ2I5SG8rajFtSFYreFdm?=
+ =?utf-8?B?bkhOK0dRVW9lSXZHRXQ1SGJsSmh5KzZUTGcvKytDanN4OGZISWZQbitwc3l6?=
+ =?utf-8?B?VEQ2VU9ockJINGtXUXk3c1NPcExqcnhsNG0xZGFqVy9PQ0lhSWRyMnduaTEz?=
+ =?utf-8?B?d3J6UT09?=
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?Tk4wd24ybEJ0K0dUdWR4MUF6QTJjUlRubzZQdXZGcFlHeHRvMXZ5RjNHemdJ?=
+ =?utf-8?B?SXJ1RjFTL3FhcTVsZDhxTlNqRDVqUGRoZFB5ejQ1Ni9mb1kzd3dVYVBZcCsr?=
+ =?utf-8?B?OXh4YnRvTUhYY3pDRlVjU0F6M25Tbnk3WDdmU1hVWTYrSGU1VXJyNnEwTmp4?=
+ =?utf-8?B?TG82NlhEYmRXRUswcG9ySUV1cm1mWmFmK2RMME0zT1lNZ1pJTTF5TnAxQlVW?=
+ =?utf-8?B?Wm1HOEx3bEQ1Uy8zbGx2TUR0R2QzbGJpYWVCcitOcUxEdzdJclFxYzcvM28w?=
+ =?utf-8?B?VHlWajVDNUZ6VnY2RTBQb21COHB5cVFoblpsb1hhUGxMS1lhOXh5cGI5NlQy?=
+ =?utf-8?B?djBkeUQ4VXBUSS9DRlkxZk5JazRXN3YwVTZQN3E0ZGxNMXM3YVhZcTYreDVZ?=
+ =?utf-8?B?eTlOa2x6SDVNWGlVbTBzdUo3aVo0RWlDdnlDSlpUTlQzRTNMU2RSYlRkeHQw?=
+ =?utf-8?B?ZUVPRnl5S25jemxFR2tuZFdPbkxxdlBoS29QalFaWkxYMXFYZmZRY01jeVk3?=
+ =?utf-8?B?eVhtemhHZjRnTVVYS1JPRk4rcVMrclMrRmJVVzV4c1FHSHQ3QStCM2pVemlj?=
+ =?utf-8?B?VVNIVjNqenQ4Rll5cFpmS0dwU3BFbTJWTUs3SUtZK0lBUE9xK09paVdCRk9s?=
+ =?utf-8?B?OFhDczNPL3JvSHlydHc3MWx3UkNxUEduTGp1djdJODFZamJCNDF2LzhJVlU1?=
+ =?utf-8?B?YjlVVWRTcmZVci9lK3pRM3pzUGZ2REU2Z2Q1akkvZERYSDhPUTdNM0plYnph?=
+ =?utf-8?B?ZDE2d0FJOGhRNDZLNXowRWk2VlJtZGcwOFhHLy81c3lvWnZvNkZ4SnBjSG5N?=
+ =?utf-8?B?bGp0UFNBc21LUFBleWlMZEdtTDE5S3FpakpMKzJ0VGoweWt2T1BYNEVFN3Nv?=
+ =?utf-8?B?ckk1ZmU1UThoeFN0dkZvaWI3dG1WVVhmZG9lQTcyb3dVU1NOem9DNzdhWTU4?=
+ =?utf-8?B?a1JPZHVHVStlUEJtc3BZQlJVR2pMbk5HL0NjT3ZSQWt4MHVCR2lBVjdtZ0hl?=
+ =?utf-8?B?MDRmM0pvRjQyWkFSaWM1N25hbFI5UStaV3c3OU5yU2xTbURTSGJQZi9DYndW?=
+ =?utf-8?B?YjljQjNOZVpibUo5d2VBSGUrM3c1Tyt5UytZU1htekVxNGEvbVdrSTAzeCtr?=
+ =?utf-8?B?S0E4L2x1aEwxZ1d0anc0SlNZL2xvZWZkWG9Vb0podk8yUlBlcmFITmRqT0Rq?=
+ =?utf-8?B?cFExKzRjOXdxaHYwVjVuZDNud1Awa2swejVZcU9tb0hZN3pDVVVVWk40dHhh?=
+ =?utf-8?B?bGVreS94eHdra011VDdVVDBpOU92dk1SaGJSajMxS3BRSEt2YkZieGVsZi9z?=
+ =?utf-8?B?VUxtRk9abG5PcmdyRUFrcFhPODNlNCtKK1N3YXpIckQyTnFaM3RqRlNvZEho?=
+ =?utf-8?B?RjY1VTh1V0hUeUsrL3Y3N1BaUzJQREswKzlIQnVIVTZ6OHZ6RFhLZTZueHJO?=
+ =?utf-8?B?eEgyQURldVd3RUV6c1VTN205UjhJOHFpeUxBaW1lU2ZwSmpnVndNOU1rVWdE?=
+ =?utf-8?B?ckRsV09iWjNTNVgvZzRURVlBeHllRVdXUyttQ2RCY2lxM1BocHhLZExUbVNG?=
+ =?utf-8?B?MWVhYWZSTWJxdmh5UWd6aUdXZ3BiN1JCVndIL1MraS9PU1R2bWs2OXQvNnov?=
+ =?utf-8?B?YXFmSy9Xb3loNUI2cThwRG1jU05MM1J6alZ6bXhzVzY5ZkQwbEZLaFA2WTFW?=
+ =?utf-8?B?a1YyMllQb0Q0QlJiSkZXejhZcUtsd2hzZGduRWFXdWEyTnBPN0kyN3ZsMzQr?=
+ =?utf-8?B?ZHk4bHpGVlFFOHFhUjlQa0J3dDJTbFZpWncrMWZTQWM1dkRSUFVzRWRxc0dj?=
+ =?utf-8?B?VXgwbm1udWdqOHhBYzBkSEdMS1hHNHhHWkcvdFpLRkFFVzBTMUt1aWZZK3Fj?=
+ =?utf-8?B?OHJGY0RSV2dScHQyb2wxR0pqT1RQVWR3dUZONUM5MkNSeXVaMGN4K214Z1Rz?=
+ =?utf-8?Q?U9OlfKT+MTUl7o0hbwDGQ5Dj0H2tGDgc?=
+X-OriginatorOrg: sct-15-20-9412-3-msonline-outlook-fe3f5.templateTenant
+X-MS-Exchange-CrossTenant-Network-Message-Id: adb8a546-8dda-4e49-a980-08df0d58f5fc
+X-MS-Exchange-CrossTenant-AuthSource: PAXP251MB0010.EURP251.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Sep 2026 03:26:24.8697
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
+	00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU0P251MB0697
 
-WB_REASON_FOREIGN_FLUSH is best-effort writeback for foreign dirtying. It
-should write pages that are already visible to the target wb, but should
-not keep extending the same work with pages dirtied while the work is
-running.
+Please drop this patch - there is no bug here.
 
-Make foreign flushes use tagged writeback while preserving WB_SYNC_NONE
-semantics. Use the remaining work budget as the per-inode chunk, so a
-tagged pass is not truncated to the normal periodic chunk and a large
-inode still cannot exceed the finite work budget.
+The existing loop condition already covers every byte the body reads:
 
-Queue b_dirty only once for each foreign-flush work. Later passes only
-retry b_more_io inodes skipped due to I_SYNC, and the work exits once
-b_io and b_more_io are drained. If the budget is consumed, redirty the
-inode instead of requeueing it to b_more_io so the same work cannot loop
-on a continuously dirtied inode.
+	while (data + sizeof(*tlv) < tail && le16_to_cpu(tlv->len)) {
 
-Do not refresh dirtied_when for foreign flushes; later dirtying should be
-handled by later foreign, kupdate, or background writeback.
+struct tlv is 4 bytes and omac_idx is the first byte of struct
+mt7996_mcu_countdown_notify, so tag, len and omac_idx all lie at
+data..data + 4, strictly below tail. A length smaller than the header
+re-parses at a shifted offset but stays in bounds and still advances
+the cursor, and a length past the end fails the condition and ends the
+loop. The zero-length case is already excluded.
 
-Fixes: 97b27821b485 ("writeback, memcg: Implement foreign dirty flushing")
-Signed-off-by: Xin Yin <yinxin.x@bytedance.com>
----
- fs/fs-writeback.c         | 57 ++++++++++++++++++++++++++++++---------
- include/linux/writeback.h |  1 +
- 2 files changed, 45 insertions(+), 13 deletions(-)
+The mt7925 commit I referenced fixed a zero-length hang, which does
+not apply here.
 
-diff --git a/fs/fs-writeback.c b/fs/fs-writeback.c
-index 7c2340a5dead..6c5d1c85b6f8 100644
---- a/fs/fs-writeback.c
-+++ b/fs/fs-writeback.c
-@@ -40,6 +40,7 @@ struct wb_writeback_work {
- 	struct super_block *sb;
- 	enum writeback_sync_modes sync_mode;
- 	unsigned int tagged_writepages:1;
-+	unsigned int for_foreign_flush:1;
- 	unsigned int for_kupdate:1;
- 	unsigned int range_cyclic:1;
- 	unsigned int for_background:1;
-@@ -1174,6 +1175,12 @@ int cgroup_writeback_by_id(u64 bdi_id, int memcg_id,
- 	if (work) {
- 		work->nr_pages = dirty;
- 		work->sync_mode = WB_SYNC_NONE;
-+		/*
-+		 * Foreign flushes should write a snapshot of dirty pages without
-+		 * chasing concurrent dirtiers, but still honor the finite target
-+		 * wb budget calculated above.
-+		 */
-+		work->for_foreign_flush = 1;
- 		work->range_cyclic = 1;
- 		work->reason = reason;
- 		work->done = done;
-@@ -1553,18 +1560,21 @@ static int move_expired_inodes(struct list_head *delaying_queue,
-  *                                           +--> dequeue for IO
-  */
- static void queue_io(struct bdi_writeback *wb, struct wb_writeback_work *work,
--		     unsigned long dirtied_before)
-+		     unsigned long dirtied_before, bool queue_dirty)
- {
--	int moved;
-+	int moved = 0;
- 	unsigned long time_expire_jif = dirtied_before;
- 
- 	assert_spin_locked(&wb->list_lock);
- 	list_splice_init(&wb->b_more_io, &wb->b_io);
--	moved = move_expired_inodes(&wb->b_dirty, &wb->b_io, dirtied_before);
--	if (!work->for_sync)
--		time_expire_jif = jiffies - dirtytime_expire_interval * HZ;
--	moved += move_expired_inodes(&wb->b_dirty_time, &wb->b_io,
--				     time_expire_jif);
-+	if (queue_dirty) {
-+		moved = move_expired_inodes(&wb->b_dirty, &wb->b_io,
-+					    dirtied_before);
-+		if (!work->for_sync)
-+			time_expire_jif = jiffies - dirtytime_expire_interval * HZ;
-+		moved += move_expired_inodes(&wb->b_dirty_time, &wb->b_io,
-+					     time_expire_jif);
-+	}
- 	if (moved)
- 		wb_io_lists_populated(wb);
- 	trace_writeback_queue_io(wb, work, dirtied_before, moved);
-@@ -1651,11 +1661,13 @@ static void requeue_inode(struct inode *inode, struct bdi_writeback *wb,
- 
- 	/*
- 	 * Sync livelock prevention. Each inode is tagged and synced in one
--	 * shot. If still dirty, it will be redirty_tail()'ed below.  Update
--	 * the dirty time to prevent enqueue and sync it again.
-+	 * shot for WB_SYNC_ALL or unbudgeted tagged writeback. If still dirty,
-+	 * it will be redirty_tail()'ed below. Update the dirty time to prevent
-+	 * enqueue and sync it again.
- 	 */
- 	if ((inode_state_read(inode) & I_DIRTY) &&
--	    (wbc->sync_mode == WB_SYNC_ALL || wbc->tagged_writepages))
-+	    (wbc->sync_mode == WB_SYNC_ALL ||
-+	     (wbc->tagged_writepages && !wbc->for_foreign_flush)))
- 		inode->dirtied_when = jiffies;
- 
- 	if (wbc->pages_skipped) {
-@@ -1678,6 +1690,7 @@ static void requeue_inode(struct inode *inode, struct bdi_writeback *wb,
- 		 * sometimes bales out without doing anything.
- 		 */
- 		if (wbc->nr_to_write <= 0 &&
-+		    !wbc->for_foreign_flush &&
- 		    !inode_dirtied_after(inode, dirtied_before)) {
- 			/* Slice used up. Queue for next turn. */
- 			requeue_io(inode, wb);
-@@ -1918,6 +1931,8 @@ static long writeback_chunk_size(struct super_block *sb,
- 	 *                   (quickly) tag currently dirty pages
- 	 *                   (maybe slowly) sync all tagged pages
- 	 */
-+	if (work->for_foreign_flush)
-+		return work->nr_pages;
- 	if (work->sync_mode == WB_SYNC_ALL || work->tagged_writepages)
- 		return LONG_MAX;
- 
-@@ -1943,7 +1958,9 @@ static long writeback_sb_inodes(struct super_block *sb,
- {
- 	struct writeback_control wbc = {
- 		.sync_mode		= work->sync_mode,
--		.tagged_writepages	= work->tagged_writepages,
-+		.tagged_writepages	= work->tagged_writepages ||
-+					  work->for_foreign_flush,
-+		.for_foreign_flush	= work->for_foreign_flush,
- 		.for_kupdate		= work->for_kupdate,
- 		.for_background		= work->for_background,
- 		.for_sync		= work->for_sync,
-@@ -2141,7 +2158,7 @@ static long writeback_inodes_wb(struct bdi_writeback *wb, long nr_pages,
- 	blk_start_plug(&plug);
- 	spin_lock(&wb->list_lock);
- 	if (list_empty(&wb->b_io))
--		queue_io(wb, &work, jiffies);
-+		queue_io(wb, &work, jiffies, true);
- 	__writeback_inodes_wb(wb, &work);
- 	spin_unlock(&wb->list_lock);
- 	blk_finish_plug(&plug);
-@@ -2202,6 +2219,13 @@ static long wb_writeback(struct bdi_writeback *wb,
- 
- 		spin_lock(&wb->list_lock);
- 
-+		if (queued && work->for_foreign_flush &&
-+		    list_empty(&wb->b_io) &&
-+		    list_empty(&wb->b_more_io)) {
-+			spin_unlock(&wb->list_lock);
-+			break;
-+		}
-+
- 		trace_writeback_start(wb, work);
- 		if (list_empty(&wb->b_io)) {
- 			/*
-@@ -2217,7 +2241,14 @@ static long wb_writeback(struct bdi_writeback *wb,
- 			} else if (work->for_background)
- 				dirtied_before = jiffies;
- 
--			queue_io(wb, work, dirtied_before);
-+			/*
-+			 * After the initial queue_io() pass, a foreign flush may
-+			 * still have I_SYNC-skipped inodes on b_more_io.  Move
-+			 * those back to b_io without selecting another batch from
-+			 * b_dirty.
-+			 */
-+			queue_io(wb, work, dirtied_before,
-+				 !work->for_foreign_flush || !queued);
- 			queued = true;
- 		}
- 		if (work->sb)
-diff --git a/include/linux/writeback.h b/include/linux/writeback.h
-index e530112c4b3a..096f0963d104 100644
---- a/include/linux/writeback.h
-+++ b/include/linux/writeback.h
-@@ -59,6 +59,7 @@ struct writeback_control {
- 	unsigned for_kupdate:1;		/* A kupdate writeback */
- 	unsigned for_background:1;	/* A background writeback */
- 	unsigned tagged_writepages:1;	/* tag-and-write to avoid livelock */
-+	unsigned for_foreign_flush:1;	/* foreign dirty flushing */
- 	unsigned range_cyclic:1;	/* range_start is cyclic */
- 	unsigned for_sync:1;		/* sync(2) WB_SYNC_ALL writeback */
- 	unsigned unpinned_netfs_wb:1;	/* Cleared I_PINNING_NETFS_WB */
--- 
-2.20.1
+Regards,
+Aamir Ahmed
