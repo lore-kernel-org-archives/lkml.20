@@ -1,70 +1,126 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 568DB43C7DF;
-	Tue,  8 Sep 2026 11:47:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FAFB531AFA;
+	Tue,  8 Sep 2026 11:47:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788868058; cv=none; b=pOBAi4AprglfyOG9gXMsoj8vT/kbyZ/3xwyplH2cRw2POGz1eMq52X0E5JWb8aOn8+xuhqfPZ3SEbV4/DI1ZUzgpFJJX9qlQgHf9KGK8JvCVXJ2QlALHmPrbTRDl+VmBS2yY7SXoF9K/Sh7UhHcTxjWquWMZ3PjD3zTws+zvKBA=
+	t=1788868070; cv=none; b=tlb4iwTvfA01Z309tzNSCiTZlYJbeq61lB7xWfSE13+nMTjF1/DR8LrPhuR0yU6IcLg4HmtKmgg7pGJDdEAdx/Nk2oWXXaH/6qmdQdVtp2EH/KHKT//+bFKx/kOha4+CfRRoGraVDCuNxe5mEkqnVkuh7YSipqS4avlcwHJAsjE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788868058; c=relaxed/simple;
-	bh=jHjgRuvJii1Bau73xGMjyOwhz5kB9xMj+SOMIY58n7E=;
-	h=Message-ID:Date:From:To:Subject:In-Reply-To:References:Cc; b=M9uuS6nRH23XFvyShYFwjgBRkk91fD3pru+V8EP0dc4B/Osurt82tWHyIP7iItq4R0hCDZonP0oPgrzr9u/y2vWr7+/D+uvNDsynDWNzSs3feJapTkrTvCHYz5De3Rx3JIg1Bp9l6dD3D5ovrMdno9NejU4aL9i7Xb+K68eG+dg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dQJYVkOa; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dQJYVkOa"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D4EF1F00A3A;
-	Tue,  8 Sep 2026 11:47:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788868048;
-	bh=Jhp7GY07oWtgx4+eRD3D6AU0jdo5ZC0oQmnbdRp7qjQ=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc;
-	b=dQJYVkOaLFUmuGJ3y9t87rV+WC6JytC0cDe6qJEfWf0rE6hPIAJzgfjjdn/mcBZpH
-	 jxZFTfhyo71BxY+KjCcP/FtyitayNTieBC0r6K80L27le2OeLRPUT3sLGUngMp+WZL
-	 sMrEaq+lcbduBKa3M/kv4gvFNeW892shI51zriF1MFx/QQKOIemR9KZ2HkZyLGfa2a
-	 l6AIpLZtErjv03s8DD5Q97NxlRh7zboFqfdelA0SEmGZ49HA5/gn38o7zsMRDpb6Rl
-	 nCCUre2QXd3B0SB5bJM1ch6Jct7iOC5ASKgITk3p4lJSw+Ve4a52o16DL5a7AbaQTI
-	 Vo3NPWY8pUYFQ==
-Message-ID: <26dc7e8210bbcc26f57f5b15dcab269e@kernel.org>
-Date: Tue, 08 Sep 2026 11:47:24 +0000
-From: "Maxime Ripard" <mripard@kernel.org>
-To: "Cristian Ciocaltea" <cristian.ciocaltea@collabora.com>
-Subject: Re: [PATCH v11 60/74] drm/tests: edid: Fix conformity for 4K
- RGB/YUV 340MHz EDID
-In-Reply-To: <20260901-dw-hdmi-qp-scramb-v11-60-bc12954a0688@collabora.com>
-References: <20260901-dw-hdmi-qp-scramb-v11-60-bc12954a0688@collabora.com>
-Cc: dri-devel@lists.freedesktop.org, kernel@collabora.com, linux-arm-kernel@lists.infradead.org, linux-fbdev@vger.kernel.org, linux-kernel@vger.kernel.org, linux-rockchip@lists.infradead.org, linux-sunxi@lists.linux.dev, "Algea
- Cao" <algea.cao@rock-chips.com>, "Andrzej Hajda" <andrzej.hajda@intel.com>, "Andy
- Yan" <andy.yan@rock-chips.com>, "Chen-Yu Tsai" <wens@kernel.org>, "Daniel
- Stone" <daniels@collabora.com>, "Dave Stevenson" <dave.stevenson@raspberrypi.com>, "David
- Airlie" <airlied@gmail.com>, "Dmitry Baryshkov" <lumag@kernel.org>,
- =?utf-8?b?SGVpa28gU3TDvGJuZXI=?= <heiko@sntech.de>, "Helge Deller" <deller@gmx.de>, "Jernej
- Skrabec" <jernej.skrabec@gmail.com>, "Jonas Karlman" <jonas@kwiboo.se>, "Laurent
- Pinchart" <Laurent.pinchart@ideasonboard.com>, "Liu Ying" <victor.liu@nxp.com>, "Luca
- Ceresoli" <luca.ceresoli@bootlin.com>, "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>, "Maxime
- Ripard" <mripard@kernel.org>, =?utf-8?b?TWHDrXJhIENhbmFs?= <mcanal@igalia.com>, "Neil
- Armstrong" <neil.armstrong@linaro.org>, "Phong LE" <ple@baylibre.com>, "Raphael
- Gallais-Pou" <rgallaispou@gmail.com>, "Raspberry Pi Kernel Maintenance" <kernel-list@raspberrypi.com>, "Robert
- Foss" <rfoss@kernel.org>, "Samuel Holland" <samuel@sholland.org>, "Sandy
- Huang" <hjc@rock-chips.com>, "Simona Vetter" <simona@ffwll.ch>, "Thomas
- Zimmermann" <tzimmermann@suse.de>
-Content-Transfer-Encoding: 7bit
+	s=arc-20240116; t=1788868070; c=relaxed/simple;
+	bh=++woBxbEp8FeJXyX9tMK5GQg3lyipQ4CNgAhUvfu8sM=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=mCH9EZ0ey5hCPk0maW1ds655x6mE6EUuTamTrQArFnv158u7vZNV3WZq5riZxMZGY6apqL0SwiyOzC9Izgd+b9DluO5uN/F7Wbs0X5SPH0FY0tDPUFwcqektzy9lmHUQ5yI3iFFRmEcjTySNtdCUS3K7dpCqyXcmH1nYYV8KeYI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: 13744e6aab7b11f19a56ed5b684f684d-20260908
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:80f685ad-a047-42e3-b59d-b0b5e667b6dc,IP:0,U
+	RL:0,TC:0,Content:0,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
+	:release,TS:25
+X-CID-META: VersionHash:7db8b62,CLOUDID:8b99c4c8146374f9c0cb6e7b2a90143a,BulkI
+	D:nil,BulkQuantity:0,SF:81|82|102|850|865|898,TC:nil,Content:0|15|50|99,ED
+	M:5,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0
+	,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 13744e6aab7b11f19a56ed5b684f684d-20260908
+X-User: xiaopei01@kylinos.cn
+Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <xiaopei01@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 1116746207; Tue, 08 Sep 2026 19:47:32 +0800
+From: Pei Xiao <xiaopei01@kylinos.cn>
+To: dlemoal@kernel.org,
+	cassel@kernel.org,
+	linux-ide@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: Pei Xiao <xiaopei01@kylinos.cn>
+Subject: [PATCH v2 1/2] ata: pata_parport: pin the protocol module before device_register()
+Date: Tue,  8 Sep 2026 19:47:27 +0800
+Message-Id: <a809d2489e5b20e890801b52852942abc6aae799.1788867690.git.xiaopei01@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <cover.1788867690.git.xiaopei01@kylinos.cn>
+References: <cover.1788867690.git.xiaopei01@kylinos.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Tue, 1 Sep 2026 21:51:24 +0300, Cristian Ciocaltea wrote:
-> The test EDID added by commit 54a5f1c4d5f8 ("drm/tests: hdmi: Provide
-> EDID supporting 4K@30Hz with RGB/YUV") fails 'edid-decode --check'
-> (v1.33.0) with the following issues:
-> 
->   Warnings:
-> 
-> [ ... ]
+pi_init_one() calls device_register() before try_module_get(). Between
+these two calls the device is already visible but the module is not
+pinned yet, so an unload in this window leaves pi->proto dangling:
 
-Reviewed-by: Maxime Ripard <mripard@kernel.org>
+    pi_init_one()                       rmmod -f <proto>
+    --------------------------------------------------------
+    device_register(&pi->dev)
+         device visible on the bus
+                                           module memory freed
+         pi->proto = pr        <- writes into freed memory / dangles
+         try_module_get(...)   <- too late, module already gone
 
-Thanks!
-Maxime
+Take the module reference before registering the device, and drop it
+on the device_register() failure path.
+
+Fixes: 246a1c4c6b7f ("ata: pata_parport: add driver (PARIDE replacement)")
+Signed-off-by: Pei Xiao <xiaopei01@kylinos.cn>
+---
+changes in v2:
+1.remove out_unreg_dev: label
+---
+ drivers/ata/pata_parport/pata_parport.c | 14 +++++++++-----
+ 1 file changed, 9 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/ata/pata_parport/pata_parport.c b/drivers/ata/pata_parport/pata_parport.c
+index cf81a6128f55..046ab7e3adbc 100644
+--- a/drivers/ata/pata_parport/pata_parport.c
++++ b/drivers/ata/pata_parport/pata_parport.c
+@@ -509,6 +509,14 @@ static struct pi_adapter *pi_init_one(struct parport *parport,
+ 		return NULL;
+ 	}
+ 
++	pi->proto = pr;
++
++	if (!try_module_get(pi->proto->owner)) {
++		kfree(pi);
++		ida_free(&pata_parport_bus_dev_ids, id);
++		return NULL;
++	}
++
+ 	/* set up pi->dev before pi_probe_unit() so it can use dev_printk() */
+ 	pi->dev.parent = pata_parport_bus;
+ 	pi->dev.bus = &pata_parport_bus_type;
+@@ -517,15 +525,12 @@ static struct pi_adapter *pi_init_one(struct parport *parport,
+ 	pi->dev.id = id;
+ 	dev_set_name(&pi->dev, "pata_parport.%u", pi->dev.id);
+ 	if (device_register(&pi->dev)) {
++		module_put(pi->proto->owner);
+ 		put_device(&pi->dev);
+ 		/* pata_parport_dev_release will do ida_free(dev->id) and kfree(pi) */
+ 		return NULL;
+ 	}
+ 
+-	pi->proto = pr;
+-
+-	if (!try_module_get(pi->proto->owner))
+-		goto out_unreg_dev;
+ 	if (pi->proto->init_proto && pi->proto->init_proto(pi) < 0)
+ 		goto out_module_put;
+ 
+@@ -568,7 +573,6 @@ static struct pi_adapter *pi_init_one(struct parport *parport,
+ 		pi->proto->release_proto(pi);
+ out_module_put:
+ 	module_put(pi->proto->owner);
+-out_unreg_dev:
+ 	device_unregister(&pi->dev);
+ 	/* pata_parport_dev_release will do ida_free(dev->id) and kfree(pi) */
+ 	return NULL;
+-- 
+2.25.1
+
