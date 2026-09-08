@@ -1,27 +1,27 @@
-Received: from dggsgout11.his.huawei.com (dggsgout11.his.huawei.com [45.249.212.51])
+Received: from dggsgout12.his.huawei.com (dggsgout12.his.huawei.com [45.249.212.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64DF4559C98;
-	Tue,  8 Sep 2026 13:05:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.249.212.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7849A55C1A1;
+	Tue,  8 Sep 2026 13:05:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.249.212.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788872758; cv=none; b=XSh3FP6U13Va4dzfMbqWQvNX8zDWojMld6o7SvvjQNEYRWIdyTuzG7Em+yo72MY5v872qqAPN8u+8z6ctLsX8jdXi6lXxO8D6IwdbGFVgBHSKAny/PgHpsYDR6lFDj27mbHox0xJdncKc/9ZWFX7kE1F0ImMAJpKgKY2P/y05+g=
+	t=1788872761; cv=none; b=pDIJ4ZCnIFypu459JkKM1NYqw2ql3qpY+/s4A1Y/LN+T5nL9ZYrt6pP31BR+1d2WceM0UlSlJW8qZpjNLmc0D1weXGa/Oc5DbSSitMz7T3ftLaWFg0/NKvtcaanv5bhVG0iry8ml8HpKCuojmP02kG72d7XnZOW1rZqa25ysyTM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788872758; c=relaxed/simple;
-	bh=1bXA1nM5G4aqYlvvbGGSrTGVguxKNxLbbeNYtScRjNE=;
+	s=arc-20240116; t=1788872761; c=relaxed/simple;
+	bh=WiVkJiyLDFCwqUT2Y/Uaz10t53zYqOC8o/b/TybqJis=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=cIcvqtJUqnb18N0r+AMldvBgo1/W2feOMEQFATVRZhcSYJngskYO7vhEoevfh78W3GzETxLFySa+UJh9AzbMnkREciU3VDVQWsnL7/Hyoz9JGumwyWNKhQDrSZQxIWd/V6kBqXNFGX6/LUiXTkjHg+9/NpY7xXEBcDp/6fxzeGE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com; spf=pass smtp.mailfrom=huaweicloud.com; arc=none smtp.client-ip=45.249.212.51
+	 MIME-Version; b=vDjEKDTe6jHidtaLLTd/HN5sE3Nk62IKS5rEFOA2ApfL5DsiWk6jIjC0w2Hg/dhmiyK3WTQbljwX0iGYgvJAMjmIGnfG2Ku9XnH7FuOVuJ2v8YL3M9qH0ywpRq+ZX2dFXQ51kyzTQszPD6/zG0dNqq8vEyo4JxxWMZmFz7YS0bQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com; spf=pass smtp.mailfrom=huaweicloud.com; arc=none smtp.client-ip=45.249.212.56
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huaweicloud.com
-Received: from mail.maildlp.com (unknown [172.19.163.198])
-	by dggsgout11.his.huawei.com (SkyGuard) with ESMTPS id 4hfPKw5mTZzYQwB0;
-	Tue,  8 Sep 2026 21:04:52 +0800 (CST)
+Received: from mail.maildlp.com (unknown [172.19.163.170])
+	by dggsgout12.his.huawei.com (SkyGuard) with ESMTPS id 4hfPLt3VgczKHN8r;
+	Tue,  8 Sep 2026 21:05:42 +0800 (CST)
 Received: from mail02.huawei.com (unknown [10.116.40.75])
-	by mail.maildlp.com (Postfix) with ESMTP id 5027740573;
-	Tue,  8 Sep 2026 21:05:44 +0800 (CST)
+	by mail.maildlp.com (Postfix) with ESMTP id CD9F74056E;
+	Tue,  8 Sep 2026 21:05:43 +0800 (CST)
 Received: from huawei.com (unknown [10.67.174.45])
-	by APP2 (Coremail) with UTF8SMTPA id Syh0CgDHLUoeCKBqX3XjBA--.22748S25;
+	by APP2 (Coremail) with UTF8SMTPA id Syh0CgDHLUoeCKBqX3XjBA--.22748S20;
 	Tue, 08 Sep 2026 21:05:43 +0800 (CST)
 From: Tengda Wu <wutengda@huaweicloud.com>
 To: Namhyung Kim <namhyung@kernel.org>,
@@ -44,9 +44,9 @@ Cc: Peter Zijlstra <peterz@infradead.org>,
 	linux-kernel@vger.kernel.org,
 	llvm@lists.linux.dev,
 	Tengda Wu <wutengda@huaweicloud.com>
-Subject: [PATCH v5 23/26] perf annotate-arm64: Support 'add' instruction tracking
-Date: Tue,  8 Sep 2026 13:05:26 +0000
-Message-Id: <f562a5e0bf612867a6ddcde891f1582b4fcf61eb.1788872630.git.wutengda@huaweicloud.com>
+Subject: [PATCH v5 18/26] perf annotate-data: Expand type_state_reg imm_value to u64
+Date: Tue,  8 Sep 2026 13:05:21 +0000
+Message-Id: <288e59160bf51e04ba6112676bf8315279635d13.1788872630.git.wutengda@huaweicloud.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <cover.1788872630.git.wutengda@huaweicloud.com>
 References: <cover.1788872630.git.wutengda@huaweicloud.com>
@@ -57,159 +57,74 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:Syh0CgDHLUoeCKBqX3XjBA--.22748S25
-X-Coremail-Antispam: 1UD129KBjvJXoWxXw15Xw1fJw1UJrWkurWruFg_yoWrtr4kpF
-	ZFk34UWws2yrsFgrs3JFWfXr9akwsrGr1jkr98XwsayFW3trn5Ka93KrW2vFW5Gr93Cw13
-	tw4DKrs3Xw42kaUanT9S1TB71UUUUUJqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUHmb4IE77IF4wAFF20E14v26rWj6s0DM7CY07I20VC2zVCF04k2
+X-CM-TRANSID:Syh0CgDHLUoeCKBqX3XjBA--.22748S20
+X-Coremail-Antispam: 1UD129KBjvJXoWxJr18try5GrW7ZF1DCr4kZwb_yoW8Cw43p3
+	90k347Gw15Wr4YgrnxtFWrXFyS9F13Za4fGryYgw1fZFWSqFn3tFyIqrWYyFW8W3s7Cw1U
+	JwnYgr4Dt3ykGaUanT9S1TB71UUUUUJqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUHGb4IE77IF4wAFF20E14v26rWj6s0DM7CY07I20VC2zVCF04k2
 	6cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28IrcIa0xkI8VA2jI8067AKxVWUAV
 	Cq3wA2048vs2IY020Ec7CjxVAFwI0_Xr0E3s1l8cAvFVAK0II2c7xJM28CjxkF64kEwVA0
 	rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVW7JVWDJwA2z4x0Y4vE2Ix0cI8IcVCY1x0267
-	AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AK
-	xVW0oVCq3wAaw2AFwI0_Jrv_JF1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2
-	IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jrv_JF1lYx0Ex4A2jsIE14v26r1j6r4U
-	McvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I64
-	8v4I1lFIxGxcIEc7CjxVA2Y2ka0xkIwI1lc7CjxVAaw2AFwI0_Wrv_ZF1lc7CjxVAKzI0E
-	Y4vE52x082I5MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I
-	8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVW8ZVWr
-	XwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26F1j6w1UMIIF0xvE2Ix0cI8IcVCY1x
-	0267AKxVW0oVCq3wCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_
-	Cr0_Gr1UMIIF0xvEx4A2jsIEc7CjxVAFwI0_GcCE3sUvcSsGvfC2KfnxnUUI43ZEXa7xRx
-	noUUUUUUU==
+	AKxVWxJr0_GcWl84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAF
+	wI0_GcCE3s1ln4kS14v26r1Y6r17M2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4
+	xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1Y6r17McIj6I8E87Iv67AKxVWUJVW8
+	JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20V
+	AGYxC7M4IIrI8v6xkF7I0E8cxan2IY04v7MxkF7I0En4kS14v26rWY6Fy7MxkF7I0Ew4C2
+	6cxK6c8Ij28IcwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c
+	02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_GFv_
+	WrylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVW7JVWDJwCI42IY6xIIjxv20xvEc7
+	CjxVAFwI0_Cr1j6rxdMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AK
+	xVWxJVW8Jr1lIxAIcVC2z280aVCY1x0267AKxVW0oVCq3bIYCTnIWIevJa73UjIFyTuYvj
+	4E73dUUUUUU
 X-CM-SenderInfo: pzxwv0hjgdqx5xdzvxpfor3voofrz/
 
-Extend update_insn_state_arm64() to track 'add' instructions for
-structure member address calculation.
+The arm64 'adrp + add/ldr' instruction pair involves global variable address
+calculation and passing, which requires storing the 64-bit address in
+type_state_reg. Currently, there is no field in type_state_reg that can
+hold such an address. The most likely candidate for reuse is imm_value,
+but it is defined as u32, which limits the size of values it can carry.
 
-Unlike x86, the arm64 'add' instruction has an extra base register among
-its source operands. Therefore, in terms of propagating the data type,
-it is essentially performing a 'mov', except that before the 'mov', it
-first needs to be updated by adding the offset or reg2.
-
-A real-world example is shown below:
-
-  ffff80008001c9a8 <flush_ptrace_hw_breakpoint>:
-  ffff80008001c9c4:  add  x19, x0, #0xeb8   // x0 (task_struct*) + 0xeb8 -> x19
-* ffff80008001c9d0:  ldr  x0, [x19]
-
-Before this commit, the type flow broke at the 'add' instruction,
-leaving the subsequent load with no type information:
-
-  chk [28] reg19 offset=0 ok=0 kind=0 cfa : no type information
-  final result: no type information
-
-After this commit, the tracker correctly follows the member address
-calculation:
-
-  var [0] reg0 offset 0 type='struct task_struct*'
-  add [1c] address of 0xeb8(reg0) -> reg19 type='struct task_struct*'
-  chk [28] reg19 offset=0 ok=1 kind=1 (struct task_struct*) : Good!
-  found by insn track: 0(reg19) type-offset=0xeb8
-  final result: type='struct task_struct'
+To address this, expand imm_value from u32 to u64. Also update related
+compilation warnings and fix the sign-extension issue introduced by this
+change.
 
 Signed-off-by: Tengda Wu <wutengda@huaweicloud.com>
 ---
- .../perf/util/annotate-arch/annotate-arm64.c  | 72 ++++++++++++++++++-
- 1 file changed, 70 insertions(+), 2 deletions(-)
+ tools/perf/util/annotate-arch/annotate-x86.c | 4 ++--
+ tools/perf/util/annotate-data.h              | 2 +-
+ 2 files changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/tools/perf/util/annotate-arch/annotate-arm64.c b/tools/perf/util/annotate-arch/annotate-arm64.c
-index 2f8bedf583c1..e237b9142684 100644
---- a/tools/perf/util/annotate-arch/annotate-arm64.c
-+++ b/tools/perf/util/annotate-arch/annotate-arm64.c
-@@ -864,6 +864,72 @@ static void update_mov_insn_state(struct type_state *state,
- 	pr_debug_type_name(&tsr->type, tsr->kind);
- }
+diff --git a/tools/perf/util/annotate-arch/annotate-x86.c b/tools/perf/util/annotate-arch/annotate-x86.c
+index aa381d25a63b..f5e40cef08ab 100644
+--- a/tools/perf/util/annotate-arch/annotate-x86.c
++++ b/tools/perf/util/annotate-arch/annotate-x86.c
+@@ -536,11 +536,11 @@ static void update_insn_state_x86(struct type_state *state,
  
-+static void update_add_insn_state(struct type_state *state,
-+				  struct data_loc_info *dloc,
-+				  struct disasm_line *dl,
-+				  struct annotated_op_loc *src,
-+				  struct annotated_op_loc *dst)
-+{
-+	struct type_state_reg *tsr;
-+	struct type_state_reg src_tsr;
-+	u32 insn_offset = dl->al.offset;
-+	int sreg = src->reg1;
-+	int dreg = dst->reg1;
-+	int reg_offset;
-+
-+	if (!has_reg_type(state, dreg))
-+		return;
-+
-+	tsr = &state->regs[dreg];
-+	tsr->copied_from = -1;
-+
-+retry:
-+	if (!has_reg_type(state, sreg) || !state->regs[sreg].ok) {
-+		invalidate_reg_state(tsr);
-+		return;
-+	}
-+
-+	src_tsr = state->regs[sreg];
-+
-+	if (arch_get_reg_offset(dloc->arch, src, sreg, state, false, &reg_offset))
-+		goto try_other_reg;
-+
-+	if (src_tsr.kind == TSR_KIND_CONST) {
-+		tsr->kind = src_tsr.kind;
-+		tsr->imm_value = src_tsr.imm_value + reg_offset;
-+		tsr->offset = 0;
-+		tsr->ok = src_tsr.ok;
-+
-+		pr_debug_dtp("add [%x] imm %#x(reg%d) -> reg%d\n",
-+			     insn_offset, reg_offset, sreg, dreg);
-+		return;
-+	}
-+
-+	if (src_tsr.kind == TSR_KIND_POINTER ||
-+	    (src_tsr.kind == TSR_KIND_TYPE &&
-+	     dwarf_tag(&src_tsr.type) == DW_TAG_pointer_type)) {
-+		tsr->type = src_tsr.type;
-+		tsr->kind = src_tsr.kind;
-+		tsr->imm_value = src_tsr.imm_value;
-+		tsr->offset = src_tsr.offset + reg_offset;
-+		tsr->ok = src_tsr.ok;
-+
-+		pr_debug_dtp("add [%x] address of %#x(reg%d) -> reg%d",
-+			     insn_offset, reg_offset, sreg, dreg);
-+		pr_debug_type_name(&tsr->type, tsr->kind);
-+		return;
-+	}
-+
-+try_other_reg:
-+	/* Try another register if any */
-+	if (src->multi_regs && src->reg1 != src->reg2 && sreg != src->reg2 &&
-+	    !(src->extend_type || src->shift_type)) {
-+		sreg = src->reg2;
-+		goto retry;
-+	}
-+	invalidate_reg_state(tsr);
-+}
-+
- static void update_insn_state_arm64(struct type_state *state,
- 				    struct data_loc_info *dloc, Dwarf_Die *cu_die,
- 				    struct disasm_line *dl)
-@@ -930,7 +996,7 @@ static void update_insn_state_arm64(struct type_state *state,
- 	 * prevent stale type info from propagating to subsequent instructions.
- 	 */
- 	if (has_reg_type(state, dst->reg1) && !dst->mem_ref &&
--	    strcmp(dl->ins.name, "mov") &&
-+	    strcmp(dl->ins.name, "add") && strcmp(dl->ins.name, "mov") &&
- 	    !is_standard_load_insn(dl->ins.name)) {
- 		pr_debug_dtp("%s [%x] invalidate reg%d",
- 			     dl->ins.name, insn_offset, dst->reg1);
-@@ -943,8 +1009,10 @@ static void update_insn_state_arm64(struct type_state *state,
- 		return;
- 	}
+ 		if (src->imm) {
+ 			tsr->kind = TSR_KIND_CONST;
+-			tsr->imm_value = src->offset;
++			tsr->imm_value = (s64)src->offset;
+ 			tsr->offset = 0;
+ 			tsr->ok = true;
  
-+	if (!strcmp(dl->ins.name, "add"))
-+		update_add_insn_state(state, dloc, dl, src, dst);
- 	/* Register to register or imm value to register transfers */
--	if (!strcmp(dl->ins.name, "mov"))
-+	else if (!strcmp(dl->ins.name, "mov"))
- 		update_mov_insn_state(state, dl, src, dst);
- 	/* Memory to register transfers */
- 	else if (is_standard_load_insn(dl->ins.name))
+-			pr_debug_dtp("mov [%x] imm=%#x -> reg%d\n",
++			pr_debug_dtp("mov [%x] imm=%#"PRIx64" -> reg%d\n",
+ 				     insn_offset, tsr->imm_value, dst->reg1);
+ 			return;
+ 		}
+diff --git a/tools/perf/util/annotate-data.h b/tools/perf/util/annotate-data.h
+index e6ca47e25e04..3bce63e23a58 100644
+--- a/tools/perf/util/annotate-data.h
++++ b/tools/perf/util/annotate-data.h
+@@ -173,7 +173,7 @@ extern struct annotated_data_stat ann_data_stat;
+  */
+ struct type_state_reg {
+ 	Dwarf_Die type;
+-	u32 imm_value;
++	u64 imm_value;
+ 	/*
+ 	 * The offset within the struct that the register points to.
+ 	 * A value of 0 means the register points to the beginning.
 -- 
 2.34.1
 
