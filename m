@@ -1,101 +1,245 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com [209.85.214.177])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E8C7357D0B
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 03:55:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52B8E3515D6
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 03:55:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788839764; cv=none; b=KgwKYalQRnKhCIOQP8HTuEzV0k9Db2cZFXMZHb/c1t8RFsX6hk5Be6ajb99pccPq0vOu9dpqkQHVJdZjN/A0wnxG4mi/hQ3jojk6wb3wU2g8KQDRFI2rWJ067wqG1NhMIrzZpqAj+WIA//38AFXpdsvdZ8kynozC2EJI/IO3fPs=
+	t=1788839763; cv=none; b=QR45RnY9zx3H96fOSBa67wKSuIHVu9UBQBllTGYxgKF0v+3i5feAfrj6v3oO/t2lvX8RFPeQ1VJzTFEZqn/OAKyPQYodsvdzQcVAOHi72A9WT1GmFNdjr+Y5e5K7M93XtSjgysCSDOkWWE2DFN9gHB2KymWuV877gzFl+cszj8w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788839764; c=relaxed/simple;
-	bh=+XFEwQ3kI1ngJ+wfUxxFlSph3TOVCYG8HfdnCFic6NM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=nxWSAvHMdp8CpANHeRZ0rR1Nj+rC28b99oXPfhvkCEa4pmlgCUOlBT3X3k1wVIjuqf08I3A3sjpyZ5/G+Q8JD0JWgKxRDqgdQwibc111rIIKZKU/tZJmDMqPVIUnTr5ukT/+FYq9DJwgRnLl2zVnhizRtCOstb82ipRgy4a5T5E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LNos+MKc; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788839763; c=relaxed/simple;
+	bh=UpwULMAQfCTXXueNplwRdhKskZCu2AP4fUjs6O0OI6Y=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=C+CrsLe0H8LquvQkjhgrOxejVgJsb4KoEkaTsSKuMsFE1RfIgzHkUzo7GisH9uBEbflDfvzv1JuYjepfomr8Ss+16FnnJGC+y9LOygiyvfn3IdMFvA6IfPIGjSeTO5uZLbo2oViX+ZlgoFptqfHlhvKH4IefGd4ks+ksK9QiYQs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=APC513oH; arc=none smtp.client-ip=209.85.214.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LNos+MKc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 07F4C1F00A3A;
-	Tue,  8 Sep 2026 03:55:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788839756;
-	bh=R0ctmnURbfF1jhA+WdoNmvVL13yO/rBUKyBio3eC778=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=LNos+MKcLezGnUD2SYPmGwoSzWVCG2L6wUaryMRgXYcoZXan2cPQawTc25mB8jhEW
-	 waNvgZlZhvn1C7xcWyz9domfw7U3n92IiJ/4mdgp/KqG6eL6QlMEdDTdNSCKkkPg/z
-	 1Xbs3NaU7dtnSVaojJtpL7bkD1TG+BI8ctzFle/KRoTvgdWvwXIVRtOfS9WO8sSbgq
-	 ulqybM65fXy/cSv65BFLpa3JVbYzc5mAMAoBjIMMe0YwVunaBHdbuOKKw7IFiLx0CL
-	 ooRU+mx6ZhvIKXJFIEgZ8jaX4zDJxdLW4Z7mVmDJTq0zmjtYQnpWHK8v20Fwd1tinS
-	 LR8Z5reatLAWQ==
-Date: Tue, 8 Sep 2026 11:36:08 +0800
-From: Jisheng Zhang <jszhang@kernel.org>
-To: Karl Mehltretter <kmehltretter@gmail.com>
-Cc: Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] riscv: fix load_unaligned_zeropad() fixup for RV32
-Message-ID: <ap-CqOtyN9qvWHOb@xhacker>
-References: <20260907190750.26303-1-kmehltretter@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="APC513oH"
+Received: by mail-pl1-f177.google.com with SMTP id d9443c01a7336-2d6f9e2f681so44740065ad.3
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 20:55:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788839752; x=1789444552; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=PPQzWxuhw7pZTs+zszzFmSn4KI/x61XrCe5D1SPsyZk=;
+        b=APC513oHcMgoG0pBd4QQdjGIchbs8RGCghmNylhuUzJlP7e5v3a0IJ3kch+cMwDVbt
+         G2R7UbM5KeWhaqnCL+JGVWCWwCKJDcDcQaB+f0Jb/OmRrx+eT5kJTpYJ0SDwL3xd2K0v
+         DT6VduHgnY7L12mpYj5kxeVGRb0gCHcIMVDGrVb9fjTF8/DEXBGvJgNR6pB0rcz2GXh1
+         hYKZR4bfaojpbeiMWWu+HEMmy+ol0OvvN387QVgzXVfw/URh9SnzAHPSmkQXJpo5zRPs
+         ZM615mNj8BkAs1tAGj1Ne97MXlFtJDKLW6Ln2vtKEb/XA83+U2C7jvJnaK5+cA+DRVg/
+         /Z1g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788839752; x=1789444552;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=PPQzWxuhw7pZTs+zszzFmSn4KI/x61XrCe5D1SPsyZk=;
+        b=bq6Z9tNsmTpEshUNJIjhS3MClM+Q2kPRTg4G/LZyE7MvSaaDPqcTZZrZHSazPkhHq/
+         LQVhw4K06oF0Elt+t6uSPcsy5o5++bYzbSOMrUuq1v4aD2XxO/n5kYQGHcGzCuukFWUW
+         RHk/5d4UcpZkPqVE251Qf1qsm5HoXhy3Uadkr7JclB4RX1s78pG6KuixOx7llb6DXbNz
+         dxRPacg3OBvyNzcc2EGn0ZbnxnlSfXA610BChmGvPPX590LNkx1VvVMroSGuf84rfPBN
+         pvRcwVoQ2eaeuVCUPej9g2dwEYS4Ra/rwmuEu7rpPPjxWjnw3/HxX7VufTXxts9MbyYn
+         h4Eg==
+X-Forwarded-Encrypted: i=1; AKwUvBxtbR6kjO2THgdpViecyCNMhBTAQtKctINgFahfslLnxHXg6qvLLwMdJpbE/cN+i7wQjRfK9g0yGfR7Zbo=@vger.kernel.org
+X-Gm-Message-State: AFuF++lPdhlP7Px33HiwbwWyE4NCSyrskJDcMUGy7JIC+qZu7W3xopBA
+	OHBKMPZkGUfuF4K7xsmywOQCYpJZK57j4Tv/1ey7n7DAl04hYv66dfQoGANO/A==
+X-Gm-Gg: AYBFou0eq1HZ5NDgbCJ07uZxw9amXVUkCnZDBQNMebVYQVMQibEtcIYSHUWlxeBpFzi
+	bFkHh1A+hhsMsHVgTTs+jaWTZB3F2JgHdT9/RzgjCjYsDtR0UIqpZSft9JHUBXlOs5dk/7FpEo0
+	BP4sSvf7OPQHak6zR6p7PM/ZGk80VF+HXWlx0xf5wXiqA1FQPm5/AdayBbv+WUpqhXwohOKM0Tw
+	GjrGeMUJZ80cxkTEZVlTwondgtsFCzgxdCdJ2VS/YTDpujV3ANZxzGLzHuNhIN3EbiRzjwRYKp5
+	fV3663J07s0+Hd5b1tJ7ksfgBVgDsEeh+uNnDYtsy7+agMykkY04eKE2p8SE1udTz6M/T4hmfMN
+	bUJ4p6C/Wc4OxjGIey+910sOXOdGjJL5GPUQcrYL1AmAcRVip1UPh2Ffhdu6msLrfkRYGGnRK5J
+	MznMCy4fieZrioT9Z3tjgCpjlq9eBZ87goLOcVz3g7kTToGJTMk/9cLYcVYE3URJ6jY+rpSQjJX
+	sCgIiA3sIM30l65Vt2bVuxd
+X-Received: by 2002:a17:902:fdab:b0:2d9:599e:df95 with SMTP id d9443c01a7336-2db122edaa3mr386816705ad.3.1788839752025;
+        Mon, 07 Sep 2026 20:55:52 -0700 (PDT)
+Received: from qiwenjie-ThinkCentre-M760t.mioffice.cn ([43.224.245.241])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2db14aeaf74sm51899295ad.81.2026.09.07.20.55.47
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 07 Sep 2026 20:55:51 -0700 (PDT)
+From: Wenjie Qi <qwjhust@gmail.com>
+X-Google-Original-From: Wenjie Qi <qiwenjie@xiaomi.com>
+To: jaegeuk@kernel.org,
+	chao@kernel.org
+Cc: linux-f2fs-devel@lists.sourceforge.net,
+	linux-kernel@vger.kernel.org,
+	hch@lst.de,
+	jack@suse.cz,
+	axboe@kernel.dk,
+	tz2294@columbia.edu,
+	baohua@kernel.org,
+	linux-block@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org,
+	linux-mm@kvack.org,
+	qiwenjie@xiaomi.com,
+	qwjhust@gmail.com
+Subject: [PATCH v5 0/2] f2fs: enable buffered RWF_DONTCACHE
+Date: Tue,  8 Sep 2026 11:55:41 +0800
+Message-ID: <cover.1788795700.git.qiwenjie@xiaomi.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <cover.1788438786.git.qiwenjie@xiaomi.com>
+References: <cover.1788438786.git.qiwenjie@xiaomi.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260907190750.26303-1-kmehltretter@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Mon, Sep 07, 2026 at 09:07:50PM +0200, Karl Mehltretter wrote:
-> The fixup for load_unaligned_zeropad() runs when REG_L crosses into an
-> unmapped page. REG_L is lw on RV32 and ld on RV64, but the fixup assumes
-> an 8-byte load: it rounds the address down to 8 bytes and derives the
-> shift from three address bits.
-> 
-> On RV32, a load starting in the last three bytes of a mapped page selects
-> the word four bytes earlier and shifts it by 40, 48, or 56 bits, more than
-> the register width. The caller gets earlier bytes instead of the string
-> tail followed by zeroes. This affects RV32 MMU kernels built with
-> RISCV_EFFICIENT_UNALIGNED_ACCESS=y, which selects DCACHE_WORD_ACCESS
-> and lets dcache name hashing and comparison and strscpy() use this
-> path.
-> 
-> Derive the alignment and offset masks from sizeof(data) instead of a fixed
-> 8. This makes RV32 use the correct source word. RV64 code is unchanged: the
-> complete extable.o is byte-for-byte identical before and after.
-> 
-> Fixes: d0fdc20b0429 ("riscv: select DCACHE_WORD_ACCESS for efficient unaligned access HW")
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+This series enables buffered RWF_DONTCACHE on F2FS for sustained one-pass
+streaming writes, where retaining the written data can displace more useful
+cache.
 
-Reviewed-by: Jisheng Zhang <jszhang@kernel.org>
+Patch 1 marks dropbehind write bios with BIO_COMPLETE_IN_TASK. Normal and
+dropbehind folios may share otherwise mergeable IPU and OPU bios; the flag
+is set monotonically when a dropbehind folio joins an existing bio. The
+block layer owns deferral from unsafe completion contexts.
 
-> ---
-> Tested on RV32 QEMU virt/TCG with a KUnit guard-page test. Before, the last
-> three offsets returned fill bytes from the previous word (0xa5, 0xa5a5, and
-> 0xa5a5a5) instead of the string tail (0x44, 0x4433, and 0x443322), and the
-> suite failed. After, all three cases and the suite passed.
-> 
-> Built full RV32 Images for both sides with GCC 15.2.0. The complete RV64
-> extable.o is byte-for-byte identical before and after the change.
-> 
->  arch/riscv/mm/extable.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/arch/riscv/mm/extable.c b/arch/riscv/mm/extable.c
-> index dd1530af3ef1..e252eba55ede 100644
-> --- a/arch/riscv/mm/extable.c
-> +++ b/arch/riscv/mm/extable.c
-> @@ -68,8 +68,8 @@ ex_handler_load_unaligned_zeropad(const struct exception_table_entry *ex,
->  
->  	addr = regs_get_gpr(regs, reg_addr * sizeof(unsigned long));
->  
-> -	offset = addr & 0x7UL;
-> -	addr &= ~0x7UL;
-> +	offset = addr & (sizeof(data) - 1);
-> +	addr &= ~(sizeof(data) - 1);
->  
->  	data = *(unsigned long *)addr >> (offset * 8);
->  
-> -- 
-> 2.53.0
+Patch 2 passes FGP_DONTCACHE to the F2FS buffered write folio lookup,
+advertises FOP_DONTCACHE, and handles internal write_begin callers that
+pass a NULL kiocb.
+
+Tests were run on a Xiaomi phone with 10.7 GiB of kernel-visible memory,
+running Android 16 and Linux 6.12.69 with 4 KiB pages. /data used F2FS.
+
+The performance test wrote exactly 64 GiB per run at 4 KiB,
+8 KiB, 16 KiB, 32 KiB, 64 KiB, 128 KiB, 256 KiB, 512 KiB, and 1 MiB.
+Two counterbalanced rounds ran ascending normal-first and descending
+dontcache-first. Values below are equal-weight means of both runs; N=2.
+The pwritev2() writer models the streaming workload; it does not show that
+an unchanged Android application already issues RWF_DONTCACHE.
+
+Android remained active with displays off. Each run started after a cache
+reset and at least 120 seconds of cooldown. Throughput and one-second
+kswapd0/global-memory samples cover the write loop.
+
+Write-loop throughput was:
+
+          normal MiB/s              dontcache MiB/s
+ I/O      r1       r2      mean      r1       r2      mean     change
+ 4K      946.28   935.74   941.01   291.36   309.31   300.33   -68.08%
+ 8K     1077.05  1105.84  1091.45   477.79   479.79   478.79   -56.13%
+ 16K    1126.84  1118.49  1122.67   643.40   652.06   647.73   -42.30%
+ 32K    1150.62  1036.33  1093.48   762.24   751.45   756.84   -30.79%
+ 64K    1144.80  1163.82  1154.31   852.11   851.19   851.65   -26.22%
+ 128K   1166.29  1162.84  1164.57   867.47   865.05   866.26   -25.61%
+ 256K   1153.61  1172.78  1163.19   895.53   885.33   890.43   -23.45%
+ 512K   1173.61  1197.34  1185.48   903.09   903.01   903.05   -23.82%
+ 1M     1126.22  1154.59  1140.41   850.74   894.60   872.67   -23.48%
+
+Average kswapd0 CPU and average global Cached were:
+
+ I/O      kswapd0 CPU, normal/DC        Cached MiB, normal/DC
+ 4K             18.45% / 0%                 4830.15 / 686.56
+ 8K             21.60% / 0%                 4862.35 / 591.48
+ 16K            22.75% / 0%                 4905.47 / 625.07
+ 32K            22.05% / 0%                 4945.82 / 561.59
+ 64K            23.46% / 0%                 4920.77 / 639.78
+ 128K           23.16% / 0%                 4971.37 / 693.26
+ 256K           23.68% / 0%                 4956.93 / 668.60
+ 512K           24.25% / 0%                 4972.22 / 663.92
+ 1M             22.01% / 0%                 5001.09 / 705.30
+
+Other global memory means were:
+
+          MemAvailable MiB       Dirty MiB          Writeback MiB
+ I/O       normal / DC          normal / DC          normal / DC
+ 4K      6513.08 / 6382.31     640.48 / 33.93       37.94 / 0.09
+ 8K      6560.77 / 6529.33     690.89 / 43.57       40.84 / 0.54
+ 16K     6587.46 / 6519.94     789.16 / 62.67       61.58 / 4.64
+ 32K     6571.95 / 6566.74     850.48 / 69.14       67.69 / 9.24
+ 64K     6600.64 / 6559.89    856.97 / 134.28      59.60 / 16.19
+ 128K    6627.03 / 6465.10    873.68 / 137.57      60.57 / 41.50
+ 256K    6615.58 / 6541.09    885.98 / 158.15      61.25 / 29.57
+ 512K    6625.52 / 6534.41    900.65 / 139.07      63.65 / 30.35
+ 1M      6677.09 / 6539.89    909.70 / 187.56      51.58 / 33.46
+
+          Active(file) MiB      Inactive(file) MiB
+ I/O       normal / DC             normal / DC
+ 4K       279.57 / 264.13         4426.38 / 183.12
+ 8K       262.32 / 260.97         4472.62 / 182.19
+ 16K      392.09 / 252.95         4392.78 / 195.82
+ 32K      254.30 / 248.44         4554.18 / 187.34
+ 64K      252.73 / 244.94         4545.40 / 267.28
+ 128K     322.02 / 243.95         4530.63 / 298.91
+ 256K     245.47 / 240.02         4586.64 / 303.92
+ 512K     254.75 / 232.05         4591.17 / 288.27
+ 1M       238.88 / 233.64         4638.81 / 341.00
+
+Dontcache left zero target-file pages resident at every size. Normal
+retained about 1.19--1.24 million pages. Normal runs incurred roughly
+15.6 million kswapd page scans and steals per run, while dontcache recorded
+zero. Direct scan and allocation-stall deltas were zero in both modes.
+
+A controlled explicit-dontcache model issued 64 KiB writes for 120 seconds
+at 64, 128, and 256 MiB/s. Both modes sustained all three rates in both
+rounds with no final schedule overrun. Between 0.02% and 0.41% of writes
+completed late, with a maximum schedule lag of 3.3--6.0 ms. Dontcache left
+zero target pages resident. This was a controlled model, not an unchanged
+Xiaomi application.
+
+Buffered read throughput was:
+
+ I/O       normal MiB/s   dontcache MiB/s   change
+ 4K          1825.50          1695.10        -7.14%
+ 8K          1901.46          1847.96        -2.81%
+ 16K         1941.60          1872.55        -3.56%
+ 32K         1960.95          1905.92        -2.81%
+ 64K         1951.35          1886.54        -3.32%
+ 128K        1960.03          1915.82        -2.26%
+ 256K        1976.01          1900.41        -3.83%
+ 512K        1973.31          1911.24        -3.15%
+ 1M          2230.91          2007.82       -10.00%
+
+Dontcache left zero source pages resident in all measured read runs.
+
+The normal-I/O control showed read-throughput differences of +0.67%,
+-0.90%, and -2.58%, and write-throughput differences of -1.75%, +0.33%,
+and +2.33%, at 4 KiB, 64 KiB, and 1 MiB respectively.
+
+As a separate memory-pressure supplement, I tested F2FS on x86-64 QEMU
+with the F2FS images backed by the host NVMe. Each run issued a 1-GiB
+homogeneous sequential write using 8-KiB or 1-MiB I/O. Normal and
+dontcache each ran in three counterbalanced rounds with
+memory.max=255852544, memory.swap.max=0, and formal tracing was disabled.
+Values below are medians of three completed runs.
+
+ I/O    N done  D done   MiB/s N/D        memcg MiB N/D
+ 8 KiB  3/3    3/3      236.259/227.634  160.867/2.075
+ 1 MiB  3/3    3/3      222.232/859.805  155.178/9.098
+
+ I/O    scan N/D            steal N/D
+ 8 KiB  270,821/0           201,227/0
+ 1 MiB  344,267/0           201,013/0
+
+Scan is the number of pages examined by reclaim, while steal is the number
+of pages successfully reclaimed. memcg MiB is average memory.current.
+
+At 8 KiB, dontcache throughput was 3.65% lower. The paired changes were
+-12.7%, +65.8%, and -3.65%, so the direction was not stable. At 1 MiB,
+dontcache throughput was 286.90% higher, and all three paired changes were
+positive: +96.1%, +257.8%, and +295.8%. Average memory.current decreased by
+98.71% at 8 KiB and 94.14% at 1 MiB. Dontcache recorded zero scan and steal
+in both profiles.
+
+Changes since v4:
+
+- allow normal and dropbehind folios to share write bios, following iomap,
+  and set BIO_COMPLETE_IN_TASK when a dropbehind folio joins an existing
+  bio;
+- handle internal write_begin callers that pass a NULL kiocb;
+- add QEMU memory-pressure and mixed-bio measurements.
+
+Wenjie Qi (2):
+  f2fs: complete dropbehind write bios in task context
+  f2fs: enable buffered RWF_DONTCACHE
+
+ fs/f2fs/data.c | 15 ++++++++++++---
+ fs/f2fs/file.c |  2 +-
+ 2 files changed, 13 insertions(+), 4 deletions(-)
+
+-- 
+2.43.0
