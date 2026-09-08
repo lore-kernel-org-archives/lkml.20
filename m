@@ -1,35 +1,46 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8587739E9CF;
-	Tue,  8 Sep 2026 06:33:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD81439B94C;
+	Tue,  8 Sep 2026 06:33:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788849234; cv=none; b=Qp7BpuvrSiaDAivilUaaq6+ZZ8ih3REQmLeNVu+dtE3V+EeFdde1RWGlBA7ylVd64igVTAS2wZvce4Dy1hA+zOQUdU74hCZgG4PT/CSFpUzhLn/Ltdfh9y2GPLsik8wzNJD5tIMByvqaiyrQLTn0siaCQLvPvrsZO3B9Kex6QEw=
+	t=1788849234; cv=none; b=SPkprZLCqWH6E1AJfYWayhzWKrluPz3n20uG2ZYdSceqNOcwCT3bTz+2hh4hNjsMS6pVSgMQw7T9o0CGZ4SIVYZ7LApebrXuzayWQuW8UnSbBD0aBGN+RJ8BdA6gUH6+NR5M//Aexc4dEKGG6nj7dXn3KMZs3YFWhHOReQTIB0g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788849234; c=relaxed/simple;
-	bh=aK/p6GIryzKqvxFx9+qgKNwbn+I5Mz5M38VNWYm5ouk=;
+	bh=1i3Et1Jffcz0JOiDRayZilcvn94+w8pBUDpHzT1KG5A=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=K13i2P2h61Tc7dygAKBmWsobmkCEaeZKMLCM2jH08pfaXenbkjFz+y6FpkFfztUCK0iKHsSeUml8CLmPfEOoA6JAE7z9IlMGfpEeI3BjGsf0BnKP7ql7CThZAvo3lLkVdlWkbq+PeWkpYGO/RJOgJi3V3ushUFXd9dBvMFEtIgg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=egCNGbx2; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	 In-Reply-To:To:Cc; b=XANo7TFHh71/GXqKgAuFc8FtTbFNn0y2qj5T5BPF2eduxlzGUG26miDrFSf+HqHGgJ7t8tP4mSIZTzub0QPHlJLYruUfejRDfQK2OCcaZn5Jmu9Zh+Jed+Z0U6SUnKHBxLUOs4ov69aoxNAADMlzY0rrgNywHUalGlbd6CwzHKM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=CwOxcB8A; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=UvUYKzc7; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="egCNGbx2"
-Received: from [127.0.1.1] (91-158-153-178.elisa-laajakaista.fi [91.158.153.178])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id F0E72C25;
-	Tue,  8 Sep 2026 08:32:05 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1788849126;
-	bh=aK/p6GIryzKqvxFx9+qgKNwbn+I5Mz5M38VNWYm5ouk=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=egCNGbx2uTNMUwM1pw2RatRvt4iXUvP84VYpinS/z4lYSdPKsff3Uq61ZsvOllM3Z
-	 469Z5kQvkmDSABdYov4QPvw5FQoxdWJ+ZYJ7fH2JN9mpbyh9sF4yC72xz7G7HdJpqz
-	 oHapQ2a29fxhd1xmPGpYPtP7qj0Kv3TmYZafLThU=
-From: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
-Date: Tue, 08 Sep 2026 09:33:12 +0300
-Subject: [PATCH v7 08/11] media: rcar-isp: Call get_frame_desc to find out
- VC & DT
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="CwOxcB8A";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="UvUYKzc7"
+From: =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1788849229;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=fTryvsBgAeqTDNlupTdhz6+byj4x0uN8hxYjIi8mWPU=;
+	b=CwOxcB8AhS+rAzoxJxOQZHdTCbx79N6KAe69evSjNQbl8+rQOeBnH057j6GmLbV1DALhq8
+	17U86cF62BuTdyueeDeto2D3eKopssoZOXhfcShRfEm5vXV6EqTT598jVyGbc2eORkyLVh
+	OrwoiGkQRnDZ5E3ZEV6tw1/gABJPNjg4OfwRNlUx3ukssHhmiUBD9qEjMNgBfiYtN8PegH
+	fJT8dIULNkNCSoAbP1VkL7AglDnc0gE8QsTSkJtq+4VoaJqGXcwtWw3SUrOnTednE0pAqq
+	eJlyWNdWyLf6mcTMJcSduvMoo3qm72MxPilwuvS8hVqXRSHO5+8hOKLulZ6+Tg==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1788849229;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=fTryvsBgAeqTDNlupTdhz6+byj4x0uN8hxYjIi8mWPU=;
+	b=UvUYKzc74oAN8gP1sKHkjA19TUNUTqCMuc0TKrdtCmkCKri8UrtRvdSUSmYYYqwSID6op/
+	x/iNcRKTPUHvcBDw==
+Date: Tue, 08 Sep 2026 08:33:38 +0200
+Subject: [PATCH v5 04/24] arm64: elf: Move relocation constants to UAPI
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -38,192 +49,194 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260908-rcar-streams-v7-8-c406a2c2930f@ideasonboard.com>
-References: <20260908-rcar-streams-v7-0-c406a2c2930f@ideasonboard.com>
-In-Reply-To: <20260908-rcar-streams-v7-0-c406a2c2930f@ideasonboard.com>
-To: =?utf-8?q?Niklas_S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: linux-media@vger.kernel.org, linux-renesas-soc@vger.kernel.org, 
- linux-kernel@vger.kernel.org, 
- =?utf-8?q?Niklas_S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>, 
- Mauro Carvalho Chehab <mchehab+huawei@kernel.org>, 
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
- Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
- Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5108;
- i=tomi.valkeinen+renesas@ideasonboard.com; h=from:subject:message-id;
- bh=aK/p6GIryzKqvxFx9+qgKNwbn+I5Mz5M38VNWYm5ouk=;
- b=owEBbQKS/ZANAwAIAfo9qoy8lh71AcsmYgBqn6w9BIvBKl9jgh6fgcbRvvg/tnbvt6r+G4Fd/
- 4vUH0StDECJAjMEAAEIAB0WIQTEOAw+ll79gQef86f6PaqMvJYe9QUCap+sPQAKCRD6PaqMvJYe
- 9aErEACGwz5ZMnwNDIO85Tmus121uiLqR9WninH+7XIfLtx171nF4ED72ckNw9AfyWYEU2powsb
- m0cDG4fqJXWXUNHio+30tg6om4Yl253F/cY4vBoRMRT/TyMlZ9wYmUFbvlubREeXgsMp576Q5/E
- rmnqFYI2VjoXviCHKdb7lPZDJ/LTo2iiJNt7VOqKVs1urkh+uiHvaSNwC8GVX252g3xA3AXjROW
- uMU+j49HSPYlx1ZaAT8vEMZ2KtRAPkrZHnZ8hripPyVWTCO5Zc4tBN6g5+9JhkkUc2uwNWI6Uoa
- 1I5mThLKW4YF5gSWth0UfP9Of/B3Z+59E+AfNmYJ/GOoAASC3Hgt/FeVkec0wWLeE4+pzYUBZ6M
- +Ui+LIGUbCCBo0QMc5VQ8s2jQ129zkzVB+84hWVTMsEAO2AmRR9qXskdOhHDZicTwEaDdApW9db
- wEie235PaTjTBNSOxX3RLJFO2MF0eVk5tPtkg65MgWJcZOiUSEK068SSgmhITU+Toh2rNlOUMOD
- 2aygpo7RXkI5bSuVQyT4nOM55NILpspMnoYpLYd4MRL+QyvQV3fdaLZdQgB6o9QPzIcC0NFX9nL
- ApxUnsjsZQQXM6tSgQslvl88Si9uWnIPdcTm7ujBUDgODiw57G6/Fpc/BAT7vx3EP9Q4ZWbyas6
- GPmm4TNq1HTGQxA==
-X-Developer-Key: i=tomi.valkeinen+renesas@ideasonboard.com; a=openpgp;
- fpr=C4380C3E965EFD81079FF3A7FA3DAA8CBC961EF5
+Message-Id: <20260908-vdso-absolute-reloc-v5-4-3a93791af1cf@linutronix.de>
+References: <20260908-vdso-absolute-reloc-v5-0-3a93791af1cf@linutronix.de>
+In-Reply-To: <20260908-vdso-absolute-reloc-v5-0-3a93791af1cf@linutronix.de>
+To: Paul Walmsley <paul.walmsley@sifive.com>, 
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+ Alexandre Ghiti <alex@ghiti.fr>, Nathan Chancellor <nathan@kernel.org>, 
+ Nick Desaulniers <nick.desaulniers+lkml@gmail.com>, 
+ Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, 
+ Andy Lutomirski <luto@kernel.org>, 
+ Vincenzo Frascino <vincenzo.frascino@arm.com>, Kees Cook <kees@kernel.org>, 
+ Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+ Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
+ "H. Peter Anvin" <hpa@zytor.com>, Richard Weinberger <richard@nod.at>, 
+ Anton Ivanov <anton.ivanov@cambridgegreys.com>, 
+ Johannes Berg <johannes@sipsolutions.net>, 
+ Russell King <linux@armlinux.org.uk>, 
+ Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
+ Madhavan Srinivasan <maddy@linux.ibm.com>, 
+ Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>, 
+ Huacai Chen <chenhuacai@kernel.org>, WANG Xuerui <kernel@xen0n.name>, 
+ Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
+ Alexander Gordeev <agordeev@linux.ibm.com>, 
+ Christian Borntraeger <borntraeger@linux.ibm.com>, 
+ Sven Schnelle <svens@linux.ibm.com>, 
+ Thomas Bogendoerfer <tsbogend@alpha.franken.de>, 
+ Miguel Ojeda <ojeda@kernel.org>, Alex Gaynor <alex.gaynor@gmail.com>, 
+ Gary Guo <gary@garyguo.net>, 
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+ Danilo Krummrich <dakr@kernel.org>, Thomas Gleixner <tglx@kernel.org>, 
+ Christophe Leroy <chleroy@kernel.org>, Boqun Feng <boqun@kernel.org>, 
+ Nicolas Schier <nsc@kernel.org>
+Cc: linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ llvm@lists.linux.dev, linux-mm@kvack.org, linux-um@lists.infradead.org, 
+ linux-arm-kernel@lists.infradead.org, linuxppc-dev@lists.ozlabs.org, 
+ loongarch@lists.linux.dev, linux-s390@vger.kernel.org, 
+ linux-mips@vger.kernel.org, rust-for-linux@vger.kernel.org, 
+ linux-kbuild@vger.kernel.org, Jan Stancek <jstancek@redhat.com>, 
+ Arnaldo Carvalho de Melo <acme@redhat.com>, 
+ Alexandre Ghiti <alexghiti@rivosinc.com>, 
+ =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788849226; l=4332;
+ i=thomas.weissschuh@linutronix.de; s=20240209; h=from:subject:message-id;
+ bh=1i3Et1Jffcz0JOiDRayZilcvn94+w8pBUDpHzT1KG5A=;
+ b=gk9oLI1obuvHKDYtmwIh7hRv/wNktDBEtLCnmMT6kMIL5ciJHyu+C7IEaeVwMOyG2DE4YvlNZ
+ Q87Mb3y4KJ2C8RfQ2jmI4dzP+9h+ated8T54tLF6WOAYZo1VDmVkg+O
+X-Developer-Key: i=thomas.weissschuh@linutronix.de; a=ed25519;
+ pk=pfvxvpFUDJV2h2nY0FidLUml22uGLSjByFbM6aqQQws=
 
-Call get_frame_desc to find out VC & DT, instead of hardcoding the VC
-routing and deducing the DT based on the mbus format.
+These constants are useful for cross-platform userspace, for example to
+process ELF files during kernel cross-compilation.
 
-Reviewed-by: Niklas Söderlund <niklas.soderlund+renesas@ragnatech.se>
-Tested-by: Niklas Söderlund <niklas.soderlund+renesas@ragnatech.se>
-Signed-off-by: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
+Move them from the kernel-private architecture-specific header to the UAPI.
+
+Signed-off-by: Thomas Weißschuh <thomas.weissschuh@linutronix.de>
 ---
- drivers/media/platform/renesas/rcar-isp/csisp.c | 110 ++++++++++++++++--------
- 1 file changed, 74 insertions(+), 36 deletions(-)
+ arch/arm64/include/asm/elf.h | 54 --------------------------------------------
+ include/uapi/linux/elf-r.h   | 52 ++++++++++++++++++++++++++++++++++++++++++
+ 2 files changed, 52 insertions(+), 54 deletions(-)
 
-diff --git a/drivers/media/platform/renesas/rcar-isp/csisp.c b/drivers/media/platform/renesas/rcar-isp/csisp.c
-index 97465467d047..6480f6a2a435 100644
---- a/drivers/media/platform/renesas/rcar-isp/csisp.c
-+++ b/drivers/media/platform/renesas/rcar-isp/csisp.c
-@@ -41,6 +41,9 @@
- #define ISPCS_DT_CODE03_EN0				BIT(7)
- #define ISPCS_DT_CODE03_DT0(dt)				((dt) & 0x3f)
+diff --git a/arch/arm64/include/asm/elf.h b/arch/arm64/include/asm/elf.h
+index cfdf4c5ac08b..43f3763807a2 100644
+--- a/arch/arm64/include/asm/elf.h
++++ b/arch/arm64/include/asm/elf.h
+@@ -13,60 +13,6 @@
+ #include <asm/ptrace.h>
+ #include <asm/user.h>
  
-+/* ISP has 12 channels, of which channels 4 to 11 are connected to VINs */
-+#define ISPCS_NUM_CHANNELS	12
-+
- struct rcar_isp_format {
- 	u32 code;
- 	unsigned int datatype;
-@@ -225,31 +228,82 @@ static void risp_power_off(struct rcar_isp *isp)
- 	pm_runtime_put(isp->dev);
- }
- 
--static int risp_start(struct rcar_isp *isp, struct v4l2_subdev_state *state)
-+static int risp_configure_routing(struct rcar_isp *isp,
-+				  struct v4l2_subdev_state *state)
- {
--	const struct v4l2_subdev_route *route;
--	const struct v4l2_mbus_framefmt *fmt;
--	const struct rcar_isp_format *format;
--	unsigned int vc;
--	u32 sel_csi = 0;
-+	struct v4l2_mbus_frame_desc source_fd;
-+	struct v4l2_subdev_route *route;
- 	int ret;
- 
--	if (state->routing.num_routes != 1)
--		return -EINVAL;
-+	ret = v4l2_subdev_call(isp->remote, pad, get_frame_desc,
-+			       isp->remote_pad, &source_fd);
-+	if (ret)
-+		return ret;
- 
--	route = &state->routing.routes[0];
-+	/* Clear the channel registers */
-+	for (unsigned int ch = 0; ch < ISPCS_NUM_CHANNELS; ++ch) {
-+		risp_write_cs(isp, ISPCS_FILTER_ID_CH_REG(ch), 0);
-+		risp_write_cs(isp, ISPCS_DT_CODE03_CH_REG(ch), 0);
-+	}
- 
--	fmt = v4l2_subdev_state_get_format(state, route->sink_pad,
--					   route->sink_stream);
--	if (!fmt)
--		return -EINVAL;
-+	for_each_active_route(&state->routing, route) {
-+		struct v4l2_mbus_frame_desc_entry *source_entry = NULL;
-+		const struct rcar_isp_format *format;
-+		const struct v4l2_mbus_framefmt *fmt;
-+		unsigned int i;
-+		u8 vc, dt, ch;
-+		u32 v;
-+
-+		for (i = 0; i < source_fd.num_entries; i++) {
-+			if (source_fd.entry[i].stream == route->sink_stream) {
-+				source_entry = &source_fd.entry[i];
-+				break;
-+			}
-+		}
-+
-+		if (!source_entry) {
-+			dev_err(isp->dev,
-+				"Failed to find source frame desc entry for stream\n");
-+			return -EPIPE;
-+		}
-+
-+		vc = source_entry->bus.csi2.vc;
-+		dt = source_entry->bus.csi2.dt;
-+		/* Channels 4 - 11 go to VIN */
-+		ch = route->source_pad - 1 + 4;
-+
-+		fmt = v4l2_subdev_state_get_format(state, route->sink_pad,
-+						   route->sink_stream);
-+		if (!fmt)
-+			return -EINVAL;
-+
-+		format = risp_code_to_fmt(fmt->code);
-+		if (!format) {
-+			dev_err(isp->dev, "Unsupported bus format\n");
-+			return -EINVAL;
-+		}
-+
-+		/* VC Filtering */
-+		risp_write_cs(isp, ISPCS_FILTER_ID_CH_REG(ch), BIT(vc));
- 
--	format = risp_code_to_fmt(fmt->code);
--	if (!format) {
--		dev_err(isp->dev, "Unsupported bus format\n");
--		return -EINVAL;
-+		/* DT Filtering */
-+		risp_write_cs(isp, ISPCS_DT_CODE03_CH_REG(ch),
-+			      ISPCS_DT_CODE03_EN0 | ISPCS_DT_CODE03_DT0(dt));
-+
-+		/* Proc mode */
-+		v = risp_read_cs(isp, ISPPROCMODE_DT_REG(dt));
-+		v |= ISPPROCMODE_DT_PROC_MODE_VCn(vc, format->procmode);
-+		risp_write_cs(isp, ISPPROCMODE_DT_REG(dt), v);
- 	}
- 
-+	return 0;
-+}
-+
-+static int risp_start(struct rcar_isp *isp, struct v4l2_subdev_state *state)
-+{
-+	u32 sel_csi = 0;
-+	int ret;
-+
- 	ret = risp_power_on(isp);
- 	if (ret) {
- 		dev_err(isp->dev, "Failed to power on ISP\n");
-@@ -263,25 +317,9 @@ static int risp_start(struct rcar_isp *isp, struct v4l2_subdev_state *state)
- 	risp_write_cs(isp, ISPINPUTSEL0_REG,
- 		      risp_read_cs(isp, ISPINPUTSEL0_REG) | sel_csi);
- 
--	/* Configure Channel Selector. */
--	for (vc = 0; vc < 4; vc++) {
--		u8 ch = vc + 4;
--		u8 dt = format->datatype;
+-/*
+- * AArch64 static relocation types.
+- */
 -
--		risp_write_cs(isp, ISPCS_FILTER_ID_CH_REG(ch), BIT(vc));
--		risp_write_cs(isp, ISPCS_DT_CODE03_CH_REG(ch),
--			      ISPCS_DT_CODE03_EN3 | ISPCS_DT_CODE03_DT3(dt) |
--			      ISPCS_DT_CODE03_EN2 | ISPCS_DT_CODE03_DT2(dt) |
--			      ISPCS_DT_CODE03_EN1 | ISPCS_DT_CODE03_DT1(dt) |
--			      ISPCS_DT_CODE03_EN0 | ISPCS_DT_CODE03_DT0(dt));
--	}
+-/* Miscellaneous. */
+-#define R_AARCH64_NONE			256
 -
--	/* Setup processing method. */
--	risp_write_cs(isp, ISPPROCMODE_DT_REG(format->datatype),
--		      ISPPROCMODE_DT_PROC_MODE_VCn(3, format->procmode) |
--		      ISPPROCMODE_DT_PROC_MODE_VCn(2, format->procmode) |
--		      ISPPROCMODE_DT_PROC_MODE_VCn(1, format->procmode) |
--		      ISPPROCMODE_DT_PROC_MODE_VCn(0, format->procmode));
-+	ret = risp_configure_routing(isp, state);
-+	if (ret)
-+		return ret;
+-/* Data. */
+-#define R_AARCH64_ABS64			257
+-#define R_AARCH64_ABS32			258
+-#define R_AARCH64_ABS16			259
+-#define R_AARCH64_PREL64		260
+-#define R_AARCH64_PREL32		261
+-#define R_AARCH64_PREL16		262
+-
+-/* Instructions. */
+-#define R_AARCH64_MOVW_UABS_G0		263
+-#define R_AARCH64_MOVW_UABS_G0_NC	264
+-#define R_AARCH64_MOVW_UABS_G1		265
+-#define R_AARCH64_MOVW_UABS_G1_NC	266
+-#define R_AARCH64_MOVW_UABS_G2		267
+-#define R_AARCH64_MOVW_UABS_G2_NC	268
+-#define R_AARCH64_MOVW_UABS_G3		269
+-
+-#define R_AARCH64_MOVW_SABS_G0		270
+-#define R_AARCH64_MOVW_SABS_G1		271
+-#define R_AARCH64_MOVW_SABS_G2		272
+-
+-#define R_AARCH64_LD_PREL_LO19		273
+-#define R_AARCH64_ADR_PREL_LO21		274
+-#define R_AARCH64_ADR_PREL_PG_HI21	275
+-#define R_AARCH64_ADR_PREL_PG_HI21_NC	276
+-#define R_AARCH64_ADD_ABS_LO12_NC	277
+-#define R_AARCH64_LDST8_ABS_LO12_NC	278
+-
+-#define R_AARCH64_TSTBR14		279
+-#define R_AARCH64_CONDBR19		280
+-#define R_AARCH64_JUMP26		282
+-#define R_AARCH64_CALL26		283
+-#define R_AARCH64_LDST16_ABS_LO12_NC	284
+-#define R_AARCH64_LDST32_ABS_LO12_NC	285
+-#define R_AARCH64_LDST64_ABS_LO12_NC	286
+-#define R_AARCH64_LDST128_ABS_LO12_NC	299
+-
+-#define R_AARCH64_MOVW_PREL_G0		287
+-#define R_AARCH64_MOVW_PREL_G0_NC	288
+-#define R_AARCH64_MOVW_PREL_G1		289
+-#define R_AARCH64_MOVW_PREL_G1_NC	290
+-#define R_AARCH64_MOVW_PREL_G2		291
+-#define R_AARCH64_MOVW_PREL_G2_NC	292
+-#define R_AARCH64_MOVW_PREL_G3		293
+-
+-#define R_AARCH64_RELATIVE		1027
+-
+ /*
+  * These are used to set parameters in the core dumps.
+  */
+diff --git a/include/uapi/linux/elf-r.h b/include/uapi/linux/elf-r.h
+index 001884641e77..cf931fc05afa 100644
+--- a/include/uapi/linux/elf-r.h
++++ b/include/uapi/linux/elf-r.h
+@@ -61,4 +61,56 @@
+ #define R_ARM_THM_MOVW_PREL_NC	49
+ #define R_ARM_THM_MOVT_PREL	50
  
- 	/* Start ISP. */
- 	risp_write_cs(isp, ISPSTART_REG, ISPSTART_START);
++/* AArch64 static relocation types */
++
++/* Miscellaneous. */
++#define R_AARCH64_NONE			256
++
++/* Data. */
++#define R_AARCH64_ABS64			257
++#define R_AARCH64_ABS32			258
++#define R_AARCH64_ABS16			259
++#define R_AARCH64_PREL64		260
++#define R_AARCH64_PREL32		261
++#define R_AARCH64_PREL16		262
++
++/* Instructions. */
++#define R_AARCH64_MOVW_UABS_G0		263
++#define R_AARCH64_MOVW_UABS_G0_NC	264
++#define R_AARCH64_MOVW_UABS_G1		265
++#define R_AARCH64_MOVW_UABS_G1_NC	266
++#define R_AARCH64_MOVW_UABS_G2		267
++#define R_AARCH64_MOVW_UABS_G2_NC	268
++#define R_AARCH64_MOVW_UABS_G3		269
++
++#define R_AARCH64_MOVW_SABS_G0		270
++#define R_AARCH64_MOVW_SABS_G1		271
++#define R_AARCH64_MOVW_SABS_G2		272
++
++#define R_AARCH64_LD_PREL_LO19		273
++#define R_AARCH64_ADR_PREL_LO21		274
++#define R_AARCH64_ADR_PREL_PG_HI21	275
++#define R_AARCH64_ADR_PREL_PG_HI21_NC	276
++#define R_AARCH64_ADD_ABS_LO12_NC	277
++#define R_AARCH64_LDST8_ABS_LO12_NC	278
++
++#define R_AARCH64_TSTBR14		279
++#define R_AARCH64_CONDBR19		280
++#define R_AARCH64_JUMP26		282
++#define R_AARCH64_CALL26		283
++#define R_AARCH64_LDST16_ABS_LO12_NC	284
++#define R_AARCH64_LDST32_ABS_LO12_NC	285
++#define R_AARCH64_LDST64_ABS_LO12_NC	286
++#define R_AARCH64_LDST128_ABS_LO12_NC	299
++
++#define R_AARCH64_MOVW_PREL_G0		287
++#define R_AARCH64_MOVW_PREL_G0_NC	288
++#define R_AARCH64_MOVW_PREL_G1		289
++#define R_AARCH64_MOVW_PREL_G1_NC	290
++#define R_AARCH64_MOVW_PREL_G2		291
++#define R_AARCH64_MOVW_PREL_G2_NC	292
++#define R_AARCH64_MOVW_PREL_G3		293
++
++#define R_AARCH64_RELATIVE		1027
++
+ #endif /* _UAPI_LINUX_ELF_R_H */
 
 -- 
-2.43.0
+2.55.0
 
