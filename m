@@ -1,78 +1,69 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 428BC531B11;
-	Tue,  8 Sep 2026 11:47:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 020C44CCDC7;
+	Tue,  8 Sep 2026 11:47:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788868070; cv=none; b=YOsQV6rX9Vbt3iYcLnkd0fmwmdr9IlXJUQ0Vs4cql1ym/DNEyfPykkSUFOm7ETUy9PaBdw4YPFkzHy9BL4svKk3vQbbHDIUug5ky1GrbrlZKvffEZN0RAyGk6z9Q4U1EgmqJa4v5Qq/eHsLJGwYYmsE0UPOjc1ZLNfmDXxFJ1Cc=
+	t=1788868080; cv=none; b=T1DQqBJsMVLGTd4cKDTzaor95mJPnULfXdablyjDcO8EbkldKVB7n6kQv/6zNTPphE16GsD5oYNUJpRyogEtbLda/hGJo+cXt95MgyJ0LOUz0RswnFnmMcCjHKwyPP0Zz0wF+prmKvzpt7gR49j+vBeFbB+vMhtTptLP10dxA2M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788868070; c=relaxed/simple;
-	bh=1U+N1Ns/Lf9TvGJixS7NaMGSRzmp2O8ivTkY/Pzdl6w=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=AfHTn/8MFJICd6sOi10GfcvBwJay+8fT4YXIc8e/IcLZQC8OAhq9+niRKEkuGEyEV5ANOgIhlQeCmPgld+wrsd6Z6nn8s4n/r++VzxdbXNBpGkH4xmvXEqRsnSaYrO5/P/D0CLi3BjrQ4yKb0pkzZQ7+nzYFORKb9mcYRUbgJ6o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: 13502bf2ab7b11f19a56ed5b684f684d-20260908
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:b0082c63-06c8-4f86-8041-e79ea5e7efc4,IP:0,U
-	RL:0,TC:0,Content:0,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
-	:release,TS:25
-X-CID-META: VersionHash:7db8b62,CLOUDID:43031b9f34de78c825aeb3e2470fff37,BulkI
-	D:nil,BulkQuantity:0,SF:102|850|865|898,TC:nil,Content:0|15|50|99,EDM:5,IP
-	:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,
-	LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 13502bf2ab7b11f19a56ed5b684f684d-20260908
-X-User: xiaopei01@kylinos.cn
-Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <xiaopei01@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 215187228; Tue, 08 Sep 2026 19:47:31 +0800
-From: Pei Xiao <xiaopei01@kylinos.cn>
-To: dlemoal@kernel.org,
-	cassel@kernel.org,
-	linux-ide@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: Pei Xiao <xiaopei01@kylinos.cn>
-Subject: [PATCH v2 0/2] ata: pata_parport: fix UAF on protocol module unload
-Date: Tue,  8 Sep 2026 19:47:26 +0800
-Message-Id: <cover.1788867690.git.xiaopei01@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
+	s=arc-20240116; t=1788868080; c=relaxed/simple;
+	bh=MMS9ycnEFoV860wmEcOmm/CkFmLwrL1OPG0OCwnHV38=;
+	h=Message-ID:Date:From:To:Subject:In-Reply-To:References:Cc; b=J7RdAm96OSrLeU8lcPhEhsTa0qdoff6vGnzA7kjsU9RC/u0Wz+ceEzJZjicwb0osfBaKsmsZ1HUwHY0NW/43lZo7DzCl5ORkIM9f01oq9Bc2u+auvMsSiO5skvnBIiyNHRW0BxpCygfST0YotiH75pc5rEjuLJMOK/96zKWaP60=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Zrwask4N; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Zrwask4N"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6594A1F00A3D;
+	Tue,  8 Sep 2026 11:47:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788868069;
+	bh=tFqlxS0VAJUS1eYBmNpsy+dfqGlk6k7GW17X4HTW28c=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc;
+	b=Zrwask4N3j51yTltiB/mAq4qaOdIeMraUZsUz5Ls8bSfm7rcPvdE1RKC4nsb2ec3r
+	 SHKYRO7l2cVsLvKvwr7aAv6tqdshJRerMmC+kdkjk1yet+kY5czRmLjXIeHQK70y4p
+	 JkRs3Vsy0kK1W1xcDm0uOq0Rh2t51tEVYzZ220IlX2o6xjmgDL5RJQWaAuRq5wucv8
+	 rzzImm1aqyGT37N4xIGW3yBv0/gaNUmU51JqCVG5+VBUZFUE+QtVz/EsoM8fGqRS+/
+	 MYjYz1E/Yjr2yEevd/KD/VMzK3s2nXeEntc5tdJhy87XkeYLIFj9T8WNUoRIQWSzVC
+	 sLgUXq0Xtxfbw==
+Message-ID: <3f8b2fbfcaf3185caf8a833375b335a5@kernel.org>
+Date: Tue, 08 Sep 2026 11:47:45 +0000
+From: "Maxime Ripard" <mripard@kernel.org>
+To: "Cristian Ciocaltea" <cristian.ciocaltea@collabora.com>
+Subject: Re: [PATCH v11 61/74] drm/tests: bridge: Set supported HDMI version
+In-Reply-To: <20260901-dw-hdmi-qp-scramb-v11-61-bc12954a0688@collabora.com>
+References: <20260901-dw-hdmi-qp-scramb-v11-61-bc12954a0688@collabora.com>
+Cc: dri-devel@lists.freedesktop.org, kernel@collabora.com, linux-arm-kernel@lists.infradead.org, linux-fbdev@vger.kernel.org, linux-kernel@vger.kernel.org, linux-rockchip@lists.infradead.org, linux-sunxi@lists.linux.dev, "Algea
+ Cao" <algea.cao@rock-chips.com>, "Andrzej Hajda" <andrzej.hajda@intel.com>, "Andy
+ Yan" <andy.yan@rock-chips.com>, "Chen-Yu Tsai" <wens@kernel.org>, "Daniel
+ Stone" <daniels@collabora.com>, "Dave Stevenson" <dave.stevenson@raspberrypi.com>, "David
+ Airlie" <airlied@gmail.com>, "Dmitry Baryshkov" <lumag@kernel.org>,
+ =?utf-8?b?SGVpa28gU3TDvGJuZXI=?= <heiko@sntech.de>, "Helge Deller" <deller@gmx.de>, "Jernej
+ Skrabec" <jernej.skrabec@gmail.com>, "Jonas Karlman" <jonas@kwiboo.se>, "Laurent
+ Pinchart" <Laurent.pinchart@ideasonboard.com>, "Liu Ying" <victor.liu@nxp.com>, "Luca
+ Ceresoli" <luca.ceresoli@bootlin.com>, "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>, "Maxime
+ Ripard" <mripard@kernel.org>, =?utf-8?b?TWHDrXJhIENhbmFs?= <mcanal@igalia.com>, "Neil
+ Armstrong" <neil.armstrong@linaro.org>, "Phong LE" <ple@baylibre.com>, "Raphael
+ Gallais-Pou" <rgallaispou@gmail.com>, "Raspberry Pi Kernel Maintenance" <kernel-list@raspberrypi.com>, "Robert
+ Foss" <rfoss@kernel.org>, "Samuel Holland" <samuel@sholland.org>, "Sandy
+ Huang" <hjc@rock-chips.com>, "Simona Vetter" <simona@ffwll.ch>, "Thomas
+ Zimmermann" <tzimmermann@suse.de>
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-This series fixes use-after-free issues in pata_parport when a protocol
-module goes away while pi_adapter devices created by it are still
-attached.
+On Tue, 1 Sep 2026 21:51:25 +0300, Cristian Ciocaltea wrote:
+> Bridges using DRM_BRIDGE_OP_HDMI are now expected to also provide a
+> supported HDMI version.  This is not yet enforced, but will become
+> mandatory once the migration to the new HDMI connector initialization API
+> is completed.
+>=20
+>=20
+> [ ... ]
 
-Patch 1 pins the protocol module before the device becomes visible.
-Previously try_module_get() ran after device_register(), so a forced
-module unload in between left pi->proto dangling from the moment the
-device appeared on the bus.
+Reviewed-by: Maxime Ripard <mripard@kernel.org>
 
-Patch 2 makes pata_parport_unregister_driver() tear down all adapters
-using the protocol. Without this, the rollback path of a multi-protocol
-module init (e.g. kbic registering k951 then k971) left the devices of
-the already-registered protocol alive while the module loader freed the
-module memory; removing such a dangling device later crashed in
-pi_disconnect() dereferencing pi->proto->disconnect.
-
-Pei Xiao (2):
-  ata: pata_parport: pin the protocol module before device_register()
-  ata: pata_parport: unregister devices on protocol unregister
-
- drivers/ata/pata_parport/pata_parport.c | 28 ++++++++++++++++++++-----
- 1 file changed, 23 insertions(+), 5 deletions(-)
-
--- 
-2.25.1
-
+Thanks!
+Maxime
