@@ -1,54 +1,46 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2352246788;
-	Tue,  8 Sep 2026 00:54:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE70A25B0A4;
+	Tue,  8 Sep 2026 00:54:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788828863; cv=none; b=S9bxTaduK+M4372QEhAOax8bqWFp0MELz93O5EUInECWHw4oq796wbQtvUwnozY/yC7FjL1/jSP2x+Xa5CtRvyv5QzBTYqJcWMLmAlcRKEDXoVxGDfhhQdRDpnzazBKodX0x+CVMWe01iE9Mn0v+fSIn3t+HOgekQMgpGDEBSPc=
+	t=1788828871; cv=none; b=pG33Xh1rbBPurdMSKxoFMNBwFIfUqcdSbqGChPcVNz1QDVSFe7pYkTcAeSxtvKvFIcfQ81z1Do7A6Bd06lT3njwe/o/5KvBz90w6RGb2p+sLG4uBUY61eycyYRdQNGDVUTjbbAlepqUGCr0atJnSu+ZmU6FFpm7WT27hlzcJbTw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788828863; c=relaxed/simple;
-	bh=dfXKCZCTrmMHEIP1fMUzUgoaFjNRQ6/hGTnzpk3CbK4=;
+	s=arc-20240116; t=1788828871; c=relaxed/simple;
+	bh=urulPs8xBZRa9mR605svBohkXrC+2ywLOWlEwd7aLio=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=radpBkiWNg61udhFRQV2EnSzHDSllCIlkXDdyxUMhHX7q9Y5gjecRWz6bfAa4ThA04/I+vB6ZRUQeqxSMA4ajQC4w6Ezy1QFm3kSGQU5BU0+e+hgmohO3LKo0psH913fHf7+fwHbO598xppTEyq/YVdg9Y2LKR6fDCW9Uxj+TJU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nGTLK5jp; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=aTGgfMSOd44j3pdknWjPSe/0cHtchp3QLezjin5/EGQk7TUUOR59/Kf7oce0xNf0UBUllv0XZc1uGfSBPlLvgoQzXRkvlH0ZkLSNLygsSXjCg8QQm1ce0r3xaIiLsoXpw+CnHQgEEr9QCTGvtiVqlw7JFVeBiddzFgfJBYS9v2Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gU3DDjSZ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nGTLK5jp"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B4CBF1F00A3D;
-	Tue,  8 Sep 2026 00:54:20 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gU3DDjSZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B84F61F00A3E;
+	Tue,  8 Sep 2026 00:54:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788828862;
-	bh=QGb1T+uTZL9spTdO1wQjRhLL/Tbb8sVQgAMxCyYo4rI=;
+	s=k20260515; t=1788828867;
+	bh=Ierh7BhA2lugTrhu1M2fPcGnIA8C1lQpCJ7l8fML2Og=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=nGTLK5jprqkqqscsE9aDoRoInUVKSe1IsnfCr6glOEUgaiwT22LCPaUlZfbOTvQ6R
-	 8k8ps1PZK9saMNBbMsv9LS83SOm7kxf8ywfgPawT8BqoYcrAUNnyRPGidghNrC/GoW
-	 ZjVZdGxsAJG+Q3yCr5jicjJx5vICE2OOaY49bH768pvKAOpNy++mXYtOSvgmMdlp4h
-	 a7hkcZkwbofaAoxa6gFYI3pGBsefPZgGXUstxaKB6e1LU9McHcX9i6CvbwmaWomjkA
-	 6fYqG3PsVwma4VYEO+O3DWKChDz3J6S/qBmxDbxHsjFztdkZbE9UZNaSk5VonQcXbx
-	 fdjwSh5heJLXQ==
+	b=gU3DDjSZXGq1mOfr5DM/su/E4acdAwZWMLXCK/tshvmvQwcWy6vM4EEuY82HQSIcf
+	 O1GbAb+kxBuT+jzLKA7iDuG1PnzMyrnbjagKCYd7o/SJYJX/Q2HErBR+fhqVHDp8bz
+	 oAfoNkQfYgl0e+mbsRsnSMtEmK6oNbKWUn2hSfjiWvEMwj01FNo11ZMyL+YfKigCOP
+	 Hlclh9DNlXR3SzoP8bx+HgA3VpVebEQMmSWCUeowK3Ssk1her97V2p2BCJiw+Xlxkz
+	 kBP9M4Jz9H94gMdvZQqq+w4Q0ifLhSBX0GwipgMG+jxMK1XLzhz4We70a4evajAcUq
+	 C4hh/XhQz+llg==
 From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	David Stevens <dlstevens@us.ibm.com>,
-	Cong Wang <amwang@redhat.com>,
-	Nikolay Aleksandrov <razor@blackwall.org>,
-	Ido Schimmel <idosch@nvidia.com>
+To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Vadim Fedorenko <vadim.fedorenko@linux.dev>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"Miguel Gazquez (Schneider Electric)" <miguel.gazquez@bootlin.com>
-Subject: Re: [PATCH 6.1.y] vxlan: use pskb_network_may_pull() for transmit path header pulls
-Date: Mon,  7 Sep 2026 20:53:54 -0400
-Message-ID: <2026-09-07-daily-reply-0015-vxlan-6-1@kernel.org>
+	Miguel Garcia <miguelgarciaroman8@gmail.com>,
+	dmitry.torokhov@gmail.com,
+	gregkh@linuxfoundation.org,
+	pengpeng@iscas.ac.cn,
+	linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 6.1.y] Input: aiptek - validate raw macro indices before updating state
+Date: Mon,  7 Sep 2026 20:53:58 -0400
+Message-ID: <2026-09-07-daily-reply-0019-aiptek-6-1@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260907-cve-2026-74474-v1-1-58df9a9a245b@bootlin.com>
-References: <20260907-cve-2026-74474-v1-1-58df9a9a245b@bootlin.com>
+In-Reply-To: <20260907184959.1567893-1-miguelgarciaroman8@gmail.com>
+References: <20260907184959.1567893-1-miguelgarciaroman8@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -57,11 +49,19 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> In vxlan_xmit(), arp_reduce(), and vxlan_mdb_entry_skb_get(), pskb_may_pull() was
-> being called to verify the availability of network layer headers (ARP, IPv6/ND,
-> IP/IPv6 MDB keys).
+> Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
+> Link: https://patch.msgid.link/20260329001711.88076-1-pengpeng@iscas.ac.cn
+> [dtor: fix macro fallback in report 5s to use -1]
+> Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+> (cherry picked from commit 95dffe32a66cbed07fbfa7afed39d56d5014e04f)
+> Signed-off-by: Miguel Garcia <miguelgarciaroman8@gmail.com>
 
-Queued for 6.1, thanks.
+This is upstream 95dffe32a66c ("Input: aiptek - validate raw macro indices
+before updating state"), authored by Pengpeng Hou and adapted by Dmitry
+Torokhov. Your diff matches it byte-for-byte. Before I queue it under your
+Signed-off-by, can you confirm your relationship to this submission (sending on
+Pengpeng's/Dmitry's behalf, or an independent resubmission)? Want to get the
+attribution right before it goes in.
 
 -- 
 Thanks,
