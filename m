@@ -1,208 +1,165 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66CEB3290DB
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 06:18:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9150337AA9C
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 06:19:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788848310; cv=none; b=TxYG+zeYrQyOvRPPcWdc0k857M5dFB7DNIfd9huCju3BaYF31veOdtqddNbash8Vuzx2CA8F+v9rtel6+kpL+QK1YoYBTh9eGTiG9k+q/OrZx1+DhKAST5BqMSIwxsIOLWHeof32H3PJ4wNbQjhifL9WLsP9c5Z8Kn4iUgHGY1Q=
+	t=1788848366; cv=none; b=lJOUkbWwPaSx92Rr4uMqYE3MQOEo/VyLddxjq0iUU0GPZGBUiLTHlgcaLtyheSyWMBiWwF02905oIaQvvrKv9WfDau24aaH+gevzaR25eGT3T0JMEVoPVZ8/YsIbC/5VvbH2mOXWENH0wsCuB4MWKLuB4h+jb9DIuOhA9Y5gm78=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788848310; c=relaxed/simple;
-	bh=0vkb45uA+f1IecX8p6Fn//JP/tyBGpSwpx6m5DP9MwQ=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=X1v5O0B8zDyMYPJaapXNRguEim33726wiL5EGcObp+JpEdCjPl7LYAlNx+outHeq8+bF5xYeY58ghmDN/oDdlsQwd58q8fHO8KdIicAsR3+C1oDFfKhZSVwzYMHWUNaMzffoI6xFnhg2j75ufiSMoNP0ZkF+3p0155ccLBtX9Vk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=PYoWSoj2; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Q2+tzKGj; arc=none smtp.client-ip=205.220.168.131
+	s=arc-20240116; t=1788848366; c=relaxed/simple;
+	bh=GG7G+9T2Oo1QKtwlAlwwLqKDet634AxeiXNEgqyA6mE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=TQnzCcs7bXnJxEjfiWXI0xwwQPs84ApfL9pVdspmKWF27065KMI/I5woOwVg5eSN4hqBQkeQqQ8aI5bmRfuarSAWaAvie2Nis6xsWKSUO64N+BAcEkxSneCLYwhPaSAghWxK0tEJ48h0JO4qsVAuoNf/VtqC/cDwAI6ZRwcgSR8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=CZWjWtvg; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=OGo6dN9O; arc=none smtp.client-ip=205.220.180.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="PYoWSoj2";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Q2+tzKGj"
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 687NlMcv2132553
-	for <linux-kernel@vger.kernel.org>; Tue, 8 Sep 2026 06:18:28 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="CZWjWtvg";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="OGo6dN9O"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 687NmBtJ681987
+	for <linux-kernel@vger.kernel.org>; Tue, 8 Sep 2026 06:19:24 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=qcppdkim1; bh=nqBXrvv1RYaPwCQj7BRN37
-	7mYup6Ff7fzyJcboTfiN8=; b=PYoWSoj2pXhhQm6ApjggiKMv7gYTMiux4Ckc1l
-	lW2pmLCXE0VqJMPEdTyjN7G8T1q9h0lvxaIWDIPLezfAJ/4bFSvYCK/iIsCAZX0R
-	GR2v0CnL1n3xTbXo+yVurutZT/NnFx3ckKkDstlHtjCJpH1I1FzJYHsQId1rFrQy
-	M1yWwGy0a126L6RKJeS+Fa9FwcjQrrq16gvUXeSq+OoSXZednIP5/vfXcaxP/BJR
-	21AQHoVHAk42dGLR1Cx50pFZvsH6BZKwyZxdJROb7yV8EK+3SZ9WJlmKWwINkCVK
-	ZLQOye4YnPHC59MKE2e6zYFxCxoXw/xEtZ6VX+AXMr+y3gsw==
-Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ghuykbbyt-1
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	GG7G+9T2Oo1QKtwlAlwwLqKDet634AxeiXNEgqyA6mE=; b=CZWjWtvgTB1ecmzk
+	kEU5K3FZaJ96nVZgvlQm1brKVcKbfztNoSBCOgwJBhxeFnrtmeG6m3LATHUdUYqw
+	g7jUqu/uOOAI3nwekpNOV0AMJyBCTEWQAYsh4WlnBRX2BjuKTm2xJoVtQ80vl+Af
+	ow0Vq8vQSpqsP9kGqKETsXejVsoNNZNIkOzN8LScczEHYp/NGrmeqOsAH13EesLp
+	NgVIXoi/r8IJaasqQpdm6aaR1WNhcURFNd4DouujhtZ57+p0oFtArNPutlpA8qyH
+	tL/1e7UGt/FDiaYP2NEydZaWWKZUxzTDxG9U7kNFtPbifaRdFpmV71kN0jtozX/8
+	/Lq0jw==
+Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gj077j8fm-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 06:18:28 +0000 (GMT)
-Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-398d292eac1so8855959a91.1
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 23:18:28 -0700 (PDT)
+	for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 06:19:23 +0000 (GMT)
+Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-396b9ef3070so6588582a91.3
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 23:19:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788848308; x=1789453108; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=nqBXrvv1RYaPwCQj7BRN377mYup6Ff7fzyJcboTfiN8=;
-        b=Q2+tzKGjD2lNvhcxCzZoW1TIKNiz+6TcmGxONmfNyGnS0riT2vr/E78VfvmqIrJj9K
-         iUO/+V9nKv5xEIL23Aj42NaEoBWSrBNjFRgQzfkcvarz8BgK3rpknPik1A3O4UysWsAI
-         LnlnsdXME/KlUp8WOVOXDN1I/6+PwC0k5Vlzek86r2xzoSfn/HrOjHOFFwWG/4vudkLK
-         hYOc9tR2z46tYCd2T5eyfTkiuGXifwqi9GMz+wkvkhYT04H/6pEM+jSdQoMwNCY/jMNn
-         kjeSr4UbdI6E8vQTNHF5OW3UKpGuq4mGxOH/FtbVQtNzh4uXozc8cuKRMBUqcho5OPDy
-         oePQ==
+        d=oss.qualcomm.com; s=google; t=1788848363; x=1789453163; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=GG7G+9T2Oo1QKtwlAlwwLqKDet634AxeiXNEgqyA6mE=;
+        b=OGo6dN9Ob8HZmmLJbvlWZUYq62xaASgGahNuonyxqwexYVhSQM3GfNjdpCJzwENskE
+         B6+89C0yrQr6FmiRQyk/CHPkuyS0exTH72hA81Q6hLbrpl3pTifoJaLGc//LAthLdrfn
+         0sNIf6YpH/BB51UNPTAJmA5pDQ+Lg+yBQeLlCHvXP5IoVgUtZV4GGh1tZvziAgZznlKG
+         UrEg6StBz6ahBT9H+CHMhNsQQy8XQhXnLNi+t46IAIIH31NFWff8y5bjId3xVveqNHh/
+         h5gBO6ShUIKxb1NfDd5FsQ5+i9Gi/0b5WG2MGoO6nYfkZ6jfuGlhXxzWCl9K8+wt82hy
+         I9Lg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788848308; x=1789453108;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=nqBXrvv1RYaPwCQj7BRN377mYup6Ff7fzyJcboTfiN8=;
-        b=FXTvB6TTgE7f15v/AiWV3N8v7BAxG6k13sV53/n70gO7wPSjNGH8ueg8Hx3nGMMWuD
-         TCqCVb7uOeEkBI1xpe6uA9Y/De1hs9pkEUj3IAb1omEx88+PBFZ7Oe5N+mxcYE12t9j6
-         KJTkvGJejACkCb7qSyPu3nRts5KchiZC+9p9jiqLFc+ReJTAc10O4I/g03kMQK5TCYwl
-         N3mFcHz51cbr0PVbtXr/dhGU5hr8KUE9wS11e2ci2uA+b4Ke9JI4S+37Eu7DRiaRqQiF
-         eAM1ds0MRYP8QU1hkyrHSUj1wduZbTuFQxOZ3HzMcIKyyBByQUqXocHOhqLrwK8Dk7nu
-         NRxQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzLFQYnQMMT2i7T/qf7WChmk3Xm+/qfxQ82vRkOlJwEvDi+DBYOS67orJOhAzLzjRz3nxbl+TuolF1w4z8=@vger.kernel.org
-X-Gm-Message-State: AFuF++l0J9wLum41b+PhCyVYktQsI9n2LWpYCW82wakZrfurtvI/xjDq
-	ZcYBS1bidS1Z/0tm+nRHtgTjQPfmlIRMEUxqFEZlVJ17UNPavH+l3jSSYSW05E0xfjqpJ0bBv8g
-	9PPt6bnFgvXHFpa8v6mpbfvYN6BAkaff9u2I+0VxNKOSZlUPKXtPibA5LWWg5gMaTQ8Y=
-X-Gm-Gg: AYBFou34oSsw9vhlGnWga0cR5Zl2yJlaUXlO/X2n/JMWxIq523ieKLxYrR2wuVfwJuI
-	k2ZeMKcsi6XOgI2kcZQF5XlMI7BQWx6Yoy8AUdQpOl5QC+nfPwfWUVB/4fJVGIoVD6+6YUWH4NC
-	AB/TZBQinIpkqHgxVn7fsipuoHppcWnfL0nykhtL25J9JJKpXbceffdnNr6CerMca575vzKD6g/
-	AAq0xaDvt56U3098NSW65QU//ifhPcnrFhyWysH+EOjpdl6RpUJbdcmzoYjcUnclANiL/sP1mU8
-	g+VJe/dxGfHcG0pSl4pMNjWkPzea1Mvo/++fYu3iybGWFMK8x/4s9KyCXCSP8W306fOVs98Vsyf
-	anj3hip7oN7MwVl//Cqfkp2O/YQ==
-X-Received: by 2002:a17:90b:55cf:b0:396:b918:c2a with SMTP id 98e67ed59e1d1-39b261b1a52mr45423777a91.12.1788848307797;
-        Mon, 07 Sep 2026 23:18:27 -0700 (PDT)
-X-Received: by 2002:a17:90b:55cf:b0:396:b918:c2a with SMTP id 98e67ed59e1d1-39b261b1a52mr45423727a91.12.1788848307279;
-        Mon, 07 Sep 2026 23:18:27 -0700 (PDT)
-Received: from hu-sumk-hyd.qualcomm.com ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1432435648esm38764157c88.5.2026.09.07.23.18.23
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 07 Sep 2026 23:18:26 -0700 (PDT)
-From: Sumit Kumar <sumit.kumar@oss.qualcomm.com>
-Date: Tue, 08 Sep 2026 11:48:22 +0530
-Subject: [PATCH v2] pci: designware: Set DMA_BYPASS bit in outbound IATU
- CTRL2 register
+        d=1e100.net; s=20251104; t=1788848363; x=1789453163;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=GG7G+9T2Oo1QKtwlAlwwLqKDet634AxeiXNEgqyA6mE=;
+        b=a2X0AfsxtP6fHEa3doB0+ulGySoqAZMs9aWqL42dG6YxAnsY1JKzU554rf95aOtZ5s
+         noUOxME43P4PnJtP2v/UZVbrEa99sT1othy8JPrIMWS+W57blXw+4hC50uHJhdk8y037
+         7js8SWZ2L1F62PINLbXMIKi/xUe6PMVGspxeAxKU6KFPi/q/XzGFFSp0+HucR+KPNyHy
+         YzJA8T+iBXJnO72FVCUrYyEG++5tAH6yNANAeCxvMr+kvATqG7gf+orIHNxnU3End9T6
+         WjKHqMG62WtqiBd0cBbjAEJfrZCEACVFA9nUP4Jd6qiP1ubXCwUuceYsAUTne0e+MTHf
+         nY1Q==
+X-Forwarded-Encrypted: i=1; AKwUvBwtJS3AsbaFWwbZu8qL+ygWcIciZoK7IBj1BQ4jgDDNcjsDxsod4inoNbDGe/KiS+q3e4Xyp59nExFrwH8=@vger.kernel.org
+X-Gm-Message-State: AFuF++nc5N2RWUHohhhTo6mI30XwTPxP88+mLgA0A5+jGJTKWWY0ptJ8
+	zCva5aCHzt17XZWdNNWcpOePmDmOmtbyBYC6CT2P5pXw387afrV61e1Yd/0V8APoH8HrFq13TzV
+	YeR4Eyc+XZW6YHgP8i8+uxw+tJxUINvn8Yc7aOBTi2MBrVUaGJdsJml1wdR5osdku1so=
+X-Gm-Gg: AYBFou0PVyedoRbioeYhGslIt17s1WXCJsX0IFu5jzqxCc4h40YM/wpFbLb12kIy+u1
+	T/BvM/McOvVz6XxAwrctGQkjXo7nVf/prnzQK0OF/g0WDuFsK3VbD3/JqZiMhVVjhfkbAEOgPy6
+	PNChtz6Hzp83IldhGhrWfe3Xo3HHZKQqVjeQEQOuOUWcONV79j3EsCMUhLQGLluYn6lyxN9aBUb
+	7vZInVgkIIllEZOXIYTTwd3CA6HGwCP8aq9lOom0oatbTDidGwTDVSNHMQBVjTjL6pp4MB5eEyZ
+	S469F6qH6z5kJ3cvOq7D1YLNI0rjOSsyWUIYaX6dh3Ap7XOedE7Hh/DwsF0LTfsrv24h5hiw2p8
+	EKhZTOFrkymz71/8iePgedicX2wcOJA==
+X-Received: by 2002:a17:90a:e703:b0:398:e969:87ef with SMTP id 98e67ed59e1d1-39b2629926dmr42480945a91.24.1788848362820;
+        Mon, 07 Sep 2026 23:19:22 -0700 (PDT)
+X-Received: by 2002:a17:90a:e703:b0:398:e969:87ef with SMTP id 98e67ed59e1d1-39b2629926dmr42480891a91.24.1788848362367;
+        Mon, 07 Sep 2026 23:19:22 -0700 (PDT)
+Received: from [10.217.216.255] ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1433171a97esm32885817c88.12.2026.09.07.23.19.19
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 07 Sep 2026 23:19:21 -0700 (PDT)
+Message-ID: <43009f4c-55c8-4f82-9efe-b72747f68cc5@oss.qualcomm.com>
+Date: Tue, 8 Sep 2026 11:49:17 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260908-dma_bypass-v2-1-c3c81d408c0c@oss.qualcomm.com>
-X-B4-Tracking: v=1; b=H4sIAK2on2oC/22MQQ6CMBBFr0JmbUkpCpWV9zDETEuRSYRiR4mE9
- O5W1m5+8n7y3gbsAjmGJtsguIWY/JRAHTKwA053J6hLDEqqSmpViW7Em1lnZBbGmF6jtGfsa0j
- CHFxPnz12bRMPxC8f1r29FL/3b2YpRCFKPJWdrY/aOnXxzPnzjQ/rxzFPA22M8Qsimff3qwAAA
- A==
-X-Change-ID: 20260826-dma_bypass-bbbf8a0c9af7
-To: Jingoo Han <jingoohan1@gmail.com>, Manivannan Sadhasivam <mani@kernel.org>,
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] pci: designware: Set DMA_BYPASS bit in outbound IATU
+ CTRL2 register
+To: Manivannan Sadhasivam <mani@kernel.org>,
+        Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
+Cc: Jingoo Han <jingoohan1@gmail.com>,
         Lorenzo Pieralisi <lpieralisi@kernel.org>,
-        =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-        Rob Herring <robh@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>
-Cc: linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Sumit Kumar <sumit.kumar@oss.qualcomm.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788848303; l=3163;
- i=sumit.kumar@oss.qualcomm.com; s=20250409; h=from:subject:message-id;
- bh=0vkb45uA+f1IecX8p6Fn//JP/tyBGpSwpx6m5DP9MwQ=;
- b=4nGNOTQPE33vcPSpAvAcgyZUyyraOpcxnsHpPSw2ZMCEXniZH1i9O+XKVh4/wgzdQZSr3oc4E
- +PqKejPn/ZcBOgO3TCwwX0yk15D9n17RDVfl/wjI7XCOK9pDG9SEyjd
-X-Developer-Key: i=sumit.kumar@oss.qualcomm.com; a=ed25519;
- pk=3cys6srXqLACgA68n7n7KjDeM9JiMK1w6VxzMxr0dnM=
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA4MDA2NyBTYWx0ZWRfX756UBLldacdr
- e5EjTfJb7m5siewMc03iM4RGhfoWbBv72W17gGnxP2MWA6Qvn0Cuom1oy+dwExZrCWqcgzfZq5W
- 9VhaQgE/5vWz8I2Ag/aqUFGlKQW/5YI=
-X-Proofpoint-GUID: enH1ex2_L9abM_3jv5mMpm6s1RuoUszY
-X-Authority-Analysis: v=2.4 cv=ObSoyBTY c=1 sm=1 tr=0 ts=6a9fa8b4 cx=c_pps
- a=RP+M6JBNLl+fLTcSJhASfg==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+        =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+        Rob Herring <robh@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
+        linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260826-dma_bypass-v1-1-3a53dc748ce2@oss.qualcomm.com>
+ <mivyhgl3axsebyqktjqqglqgra3ptx4q3u5a3ybudmnxigvdqy@tn5sga4z45cu>
+ <1fe0ff27-abc6-4813-a4a8-8bf8ca92b91a@oss.qualcomm.com>
+ <ycyc7cm4y6s4nmez3aojdenqikh35eqvk2ady2azbiyghbbg4v@r3dzmymx2xuf>
+Content-Language: en-US
+From: Sumit Kumar <sumit.kumar@oss.qualcomm.com>
+In-Reply-To: <ycyc7cm4y6s4nmez3aojdenqikh35eqvk2ady2azbiyghbbg4v@r3dzmymx2xuf>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA4MDA2NyBTYWx0ZWRfX4KIjCzI3cyKX
+ ixq2dwsuVzcEUHq9TfMVAoscs3LxORLA1rvg5XUSc7i7yXyeuz6bn3uzlSWEfo1WYMu5SaaPJ/f
+ mg0YNtWLKz8CwhuIQ0TZsi/QRdOi5FFR+VbEDzPoWIvPvMU4k7ZcxuakadA/bZ22cuQuBl6xbDa
+ 7zkeL5IC/1YDKSVWqzZtyyOP8DHCV6Tgo9tMA7SsfUgAyHxdAgzS4vPf7MeCqjfecw9f/tWmdKW
+ zNBVPBicR01+zJnveCcEB6ARH/sgS9W9/c9m3vtSwJ+NUVv1UIggrEjDtmIkqjofQ4j2PDEcpuw
+ wHZhpylHOgHeRIN21sXVisS3Z+Uk+RpkAoYqX2LRejXcpFW6k2kPEAT+3nQn/SBNfKIljSuW0xJ
+ YOYoC5PazrDSvKC2FMaTwUYX+BhzU6BISBPDGnFo9cAhs75hfEVYjHm6oy1BeIAh1GE/suv54Yd
+ nhPw6cpHDPDfYGJN8kA==
+X-Authority-Analysis: v=2.4 cv=Xbe5Co55 c=1 sm=1 tr=0 ts=6a9fa8eb cx=c_pps
+ a=0uOsjrqzRL749jD1oC5vDA==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
  a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=12MQry4_jSufYgdODo0A:9 a=QEXdDO2ut3YA:10
- a=iS9zxrgQBfv6-_F4QbHw:22
-X-Proofpoint-ORIG-GUID: enH1ex2_L9abM_3jv5mMpm6s1RuoUszY
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA4MDA2NyBTYWx0ZWRfXwyEEOHGixjN2
- ROFmdFSPBOQUYQ5TNrvYtw/ExakqgXMOGyGWssTDithDd1UNhp/YJX81GChxVvEpjZlxgLznzOH
- PAE0VJzC0IxrU20TTXBRyLRiPfI9GbajthqsUAQ6hUtw0S6Kr1hNUkzb3d7o5eOORL7z6Oxz+EE
- +AFR36b15CgcI03kbAJen3/k+7QJJBFLXFcL8indHrhXHGK4n8wF/TC4q61drNwVMFLsHUXwFll
- QZuYro82vh2BeV9n4P7UrYazfBNloM6LXP4RSdEFBexBl5RW8nNSf2T1IzHxUIL4Oo7w3wwBdIq
- g6rZ8e6bB5hoIS0HRIKcNZlL7+vZOsaA/S3QLh3QMwC8FNFR74PlMnedRAkcnHuLGlg4YHOXcJH
- 14rqqJHIowIDUxg1o2YFc4LoleEYupZ9NpDTi/yR53SyyAswccZfTXOamC9HueF5I7lcSZ215Sf
- WnLu8Ou/aS9q0rmyp0w==
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
+ a=YUdBlht9uQjFYAMZ6iUA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=mQ_c8vxmzFEMiUWkPHU9:22
+X-Proofpoint-ORIG-GUID: iEZYYMPvnw5qu0q0Tffjz3UgPE5tXM4V
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA4MDA2NyBTYWx0ZWRfX40uDB4EmPNOi
+ Jy3n69/tTnq+ndZVEhmMfbr7OCPDUFZ/q5iEepLNV5LsQ9l0wQmzmgd1e0X0GeI6i1xiBr5JC5D
+ 2XH3YFLviGiGbBAH02Db6P5Mmyy8zX8=
+X-Proofpoint-GUID: iEZYYMPvnw5qu0q0Tffjz3UgPE5tXM4V
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-09-07_07,2026-09-07_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 lowpriorityscore=0 impostorscore=0 adultscore=0 phishscore=0
- priorityscore=1501 malwarescore=0 clxscore=1015 bulkscore=0 spamscore=0
+ malwarescore=0 impostorscore=0 lowpriorityscore=0 clxscore=1015 adultscore=0
+ suspectscore=0 priorityscore=1501 spamscore=0 bulkscore=0 phishscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609080067
 
-An outbound iATU region matches any local (AXI/application-side)
-address that falls within its Base/Limit window and rewrites it to
-the PCIe-side address programmed in that region's Target Address
-Registers before the transaction goes out on the link. This matching
-does not distinguish CPU-initiated transactions from ones issued by
-the internal DMA engine (eDMA/HDMA).
 
-Example: outbound region 0 is programmed with Base/Limit covering
-local addresses 0x8000_0000-0x8000_0FFF and Target 0x1_0000_0000, for
-CPU-initiated accesses. The DMA engine is later given a descriptor
-whose destination is the host address 0x8000_0080, which happens to
-fall inside region 0's Base/Limit range. The iATU matches the DMA
-transaction against region 0 too and rewrites it to 0x1_0000_0080
-instead of passing 0x8000_0080 through unchanged. The transaction
-then lands on the wrong host address, causing data corruption or an
-IOMMU fault when the rewritten address has no valid mapping.
 
-Set the DMA_BYPASS bit (bit 27) in PCIE_ATU_REGION_CTRL2 when
-programming outbound iATU regions so only CPU/AXI-initiated
-transactions are matched against the region; DMA engine transactions
-bypass the translation and go out on the PCIe link with their
-original address.
-
-Signed-off-by: Sumit Kumar <sumit.kumar@oss.qualcomm.com>
----
-pci: designware: Set DMA_BYPASS in outbound IATU to prevent HDMA
-interception
----
-Changes in v2:
-- Rewrote the commit message according to suggestion(Mani).
-- Link to v1: https://lore.kernel.org/r/20260826-dma_bypass-v1-1-3a53dc748ce2@oss.qualcomm.com
----
- drivers/pci/controller/dwc/pcie-designware.c | 2 ++
- drivers/pci/controller/dwc/pcie-designware.h | 1 +
- 2 files changed, 3 insertions(+)
-
-diff --git a/drivers/pci/controller/dwc/pcie-designware.c b/drivers/pci/controller/dwc/pcie-designware.c
-index 593388f29bdd48381cb04710f445042aaf2be29f..9297d0e607e3a1caaeb585b23742f9a29607b7f2 100644
---- a/drivers/pci/controller/dwc/pcie-designware.c
-+++ b/drivers/pci/controller/dwc/pcie-designware.c
-@@ -577,6 +577,8 @@ int dw_pcie_prog_outbound_atu(struct dw_pcie *pci,
- 		/* The data-less messages only for now */
- 		val |= PCIE_ATU_INHIBIT_PAYLOAD | atu->code;
- 	}
-+	if (dw_pcie_ver_is_ge(pci, 460A))
-+		val |= PCIE_ATU_DMA_BYPASS;
- 	dw_pcie_writel_atu_ob(pci, atu->index, PCIE_ATU_REGION_CTRL2, val);
- 
- 	/*
-diff --git a/drivers/pci/controller/dwc/pcie-designware.h b/drivers/pci/controller/dwc/pcie-designware.h
-index 0735ae94092404bc2976af67a58f6842cc5e5c50..668a5ba1c6f59aef1aaf15566b77a649bd282ce0 100644
---- a/drivers/pci/controller/dwc/pcie-designware.h
-+++ b/drivers/pci/controller/dwc/pcie-designware.h
-@@ -201,6 +201,7 @@
- #define PCIE_ATU_ENABLE			BIT(31)
- #define PCIE_ATU_BAR_MODE_ENABLE	BIT(30)
- #define PCIE_ATU_CFG_SHIFT_MODE_ENABLE	BIT(28)
-+#define PCIE_ATU_DMA_BYPASS		BIT(27)
- #define PCIE_ATU_INHIBIT_PAYLOAD	BIT(22)
- #define PCIE_ATU_FUNC_NUM_MATCH_EN      BIT(19)
- #define PCIE_ATU_LOWER_BASE		0x008
-
----
-base-commit: 45c13f3f9e3bb15fd89ff2864c6f627a3b4b4229
-change-id: 20260826-dma_bypass-bbbf8a0c9af7
-
-Best regards,
--- 
-Sumit Kumar <sumit.kumar@oss.qualcomm.com>
-
+On 9/2/2026 9:47 PM, Manivannan Sadhasivam wrote:
+> On Wed, Sep 02, 2026 at 08:44:57PM +0530, Krishna Chaitanya Chundru wrote:
+>>
+>> On 9/2/2026 7:37 PM, Manivannan Sadhasivam wrote:
+>>> On Wed, Aug 26, 2026 at 02:41:20PM +0530, Sumit Kumar wrote:
+>>>> Outbound IATU apertures are configured with local device-side addresses.
+>>>> When DMA engine transactions use destination addresses which fall within
+>>>> an outbound IATU aperture range, they get unintentionally translated by
+>>>> the IATU, causing the wrong address to be sent on the PCIe link.
+>>>> This results in data corruption or IOMMU errors at the host if the
+>>>> translated address is not mapped.
+>>>>
+>>> Why are you using the same device address in both DMA and iATU mapping? This
+>>> sounds like a mapping problem that you should fix instead.
+>> issue happens, when host address(DMA destination address) matches with the
+>> internal iova address programmed in iATU src address.
+>> As we can cannot address in both,  we need to program iATU in DMA bypass mode,
+>> so DMA transcations will not go through iATU window.
+>>
+> This needs to be explained clearly in the commit message with an example
+> matching the DWC terminologies such as 'Target Address Registers'.
+>
+> - Mani
+>
+updated in v2.
+- Sumit
