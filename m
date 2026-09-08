@@ -1,132 +1,102 @@
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from hr2.samba.org (hr2.samba.org [144.76.82.148])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 169B056511A
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 16:16:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3837656329D;
+	Tue,  8 Sep 2026 16:16:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=144.76.82.148
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788884186; cv=none; b=rVxUteADjHTO2IFuCkA8S+ON8s47Wpn2AZoqQfo7be/K7XXbsO+VzDGlmVhHS0Sg0R/kgU2xoads9Ti7QOk9L/NB4R1R8OKwI6PVK0aaHscpXj6Dk1iayDIt0SlJqgdDMdo641Ou7ebTJg3EFpr7smABboYvt8F8s5L09QxOn/U=
+	t=1788884188; cv=none; b=tMaJ+XIomtPHauUDSneedQX6UNJDHJv7x36k2UfPHhvDC0aBNxMM0z28pJ6l9uvFeGwBQT+88WUsEtuOke4Kow4NjXVyssMFVq6jrQzW4kKCsHSeK4+Rp1Pz/5J+H6c4lFC+nV+JxDCyIc/QqREppHEWQ+eUH2QlPQyJFBbrolY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788884186; c=relaxed/simple;
-	bh=CGZhEJ2/tDWk+P71VLdAS5cNFu0IAU6zV03Cwlzkac8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=EX0kDPXftaVCmZ5EU6JZ43NAp+aRueiXydtWRnt6jFT/R8WGSvKEdRqhNAaJQ0V2hv5P0I98AWeK3t2VggwAnjlld/FHXfNGnHhQciKkPFTRFe0BmyyoJil5Q9GUU5MUGMhoNgKtY1uxwOQ5aU/P+ZcZ6IKZKjqJPUzEeHhYSwg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AqYKK2Uo; arc=none smtp.client-ip=209.85.128.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788884188; c=relaxed/simple;
+	bh=Un2gg66X2C1FjvpljLa+7yi1kP9r6vlyqZ/rKCKiujo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Y2VcJL7XHYcAHk7DiSFK0xb7Le9J02ntqrU2d4fnrXsnQjH3ETbdO2/1YMgrl30R7dAJBEwSgHqEjoylpt7lny5oZgyq1M0j+Iei2JTnf2UYePwTwJTTwCdl3MhOKFzoTRlq4Foj/g6KjTUb3t7b4CwriYijF3bWoZqHoB7Kph0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=samba.org; spf=pass smtp.mailfrom=samba.org; dkim=pass (3072-bit key) header.d=samba.org header.i=@samba.org header.b=guK6vPqE; arc=none smtp.client-ip=144.76.82.148
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=samba.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samba.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AqYKK2Uo"
-Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-49b8eeb3ff2so45803435e9.2
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 09:16:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788884182; x=1789488982; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=aW1yDnVQMbshAqUi9NqbYxbv2XerDdqOEtxHNL3um4w=;
-        b=AqYKK2UoO8a1IsUtaRfW5epIFS6SxscA/cxnXXf2GF6nulMREIGBCriLXiCU9iqgWj
-         crEnykrsexBxaD9B1lQWXIcur3i/EZp/UdX6mtlN95Wg4IB5EOUVoJJoRqveZeHEi3AY
-         LrYoNJH8wmOvC9oJVo5W9PfdrEOO61EK5g5C4I9ILnG/RnR8aDYpvL0kxxjjHPCD5KSU
-         0paghXsjR4Pd9YvcZVcYZJcFWbYBc+Tsz3lkx9uG4NyB1u/UOcBPrXE1wba4FRLV96ak
-         d9ipf8vNGLmJTV21Tb5mjmOPNWXe34v9drQwgaB7EZfdBQ/9tc5DFTi6Fc6/qy2wM7HY
-         5TGQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788884182; x=1789488982;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=aW1yDnVQMbshAqUi9NqbYxbv2XerDdqOEtxHNL3um4w=;
-        b=Oocp4HWNqyd57KbZC4pauJNLgtuayaEY5qS8lcfYtJpcGKOhyIcyx23y8fwQdiIg7Q
-         FqpYyLU9G4FrOrdikjI00NheYljO4lpJsbvFFhdN/R3oJFQkA20mJ2xLavZWxMbuBRwZ
-         o+rrhSWCluYwQ3IO0F6gVdPq8X+5b8YQ44te3UmnB7jqA2FaZN9i+wUsJUSrpiwmmwkU
-         qD55O4emhlwV0GlrplrUCO4G2QsbhySY/UM1boRJUXHgFk2xq4bJ9V0PRGoxgA5FhNYx
-         11ZLZkbYdjFA3NfrpSc5ARRhHkbit1ZYxv7RMVoX++pKteEEEbRFwloDTNACN5eZ17iB
-         sOpA==
-X-Forwarded-Encrypted: i=1; AKwUvBzX5eRMpcZBAtNmb49K/kzyz/wAu/7SSbLevFcu48FGjLgWApyzjxzm0Wo4THHsliSBtU3pls6jzSasD9s=@vger.kernel.org
-X-Gm-Message-State: AFuF++knnshBoSTyW5Cg79lbYyStv9bddUhEC7caeqK1Ic3vzAxMP3RI
-	5HZGAQix+eFOKGgUE823sCBxOVGdQ2wJrmfQxqMSd+iD3mqdj9KK/b8=
-X-Gm-Gg: AYBFou3yyBCorhzOfCuljC0dXJmhd/9eQBIZ1szmDXcGo3TYamZRFeQZHvOkuc7UUHZ
-	hgmfA7La0A0Rf/xpZQR1UXo0mN8D1pCmKpXda8aDBg117FFC95dY1Byy1P78RxYU2EDyazkF3RU
-	/ytqnLV9p8nrkAM8clEuUnhfpD66ntT8mPn/QT8rvnpdTNZRiCWsd91mxef/uvajbwL3/nwteZD
-	6zzWRBghMRzxaXyFLH1N3OIvcnNeRmZRH2Kbrf2T4yD3S6hdS7MZYkolwvk1dSJr0kFa9rnDFlm
-	bXHBrVRmut55g5mHJQNZ0TbQV7Z0Xy3pHRusy0mg8sYQQilkj59ZGrU9xATA3/1tbsGsA5HqCyI
-	r8/nLV7T2mJlzujSx+QbDeSbzo7NzxcgZQZBpi6lLmYC4uvUb8OlTD12hq8CgXpqXTFbQxqUpUN
-	Hbx2xoHF6C96aoR7LR1NdWyFXpfTbzxMq4g7CTuGqigKXlBNZd2JkL1WWB2gpg5Hx471FBhw2TL
-	wDGdlq9qPyA3AohTd7u0pxuN+aeZntZi2bkPtpn3eWznwiikA==
-X-Received: by 2002:a05:600c:190b:b0:49c:fa21:e743 with SMTP id 5b1f17b1804b1-49cfa21e92amr288183415e9.25.1788884182199;
-        Tue, 08 Sep 2026 09:16:22 -0700 (PDT)
-Received: from latitude7275 (84.124.213.91.dyn.user.ono.com. [84.124.213.91])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ce4761dd1sm341499735e9.0.2026.09.08.09.16.21
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 08 Sep 2026 09:16:21 -0700 (PDT)
-From: "D. Manresa" <dmanresa@gmail.com>
-To: Lee Jones <lee@kernel.org>
-Cc: Thierry Chatard <tchatard@gmail.com>,
-	Andy Shevchenko <andriy.shevchenko@intel.com>,
-	Hans de Goede <hansg@kernel.org>,
-	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Daniel Scally <dan.scally@ideasonboard.com>,
-	linux-kernel@vger.kernel.org,
-	platform-driver-x86@vger.kernel.org,
-	linux-media@vger.kernel.org
-Subject: [PATCH] mfd: intel-lpss: add Dell Latitude 7275 to the resource conflict quirk
-Date: Tue,  8 Sep 2026 18:16:29 +0200
-Message-ID: <20260908161629.335223-1-dmanresa@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260831160754.9857-2-tchatard@gmail.com>
-References: <20260831160754.9857-2-tchatard@gmail.com>
+	dkim=pass (3072-bit key) header.d=samba.org header.i=@samba.org header.b="guK6vPqE"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=samba.org;
+	s=42; h=From:Cc:To:Date:Message-ID;
+	bh=sMKuAn+LSmWxYC97uq00amy3h7wNVI3iis7OY64EHJM=; b=guK6vPqEEKQRj9ffc0geJ/Sk6t
+	wrZjO3OgANZcm/opG7KT1n/H7J0OqdgmUmVxueAsjMX3omI5UO+Gzj2hYfbIT0OGvC/B467peCcKB
+	7p3W/UEVur4PgS0k9lBbZ3qTIFALCW1HMvhYTT60oqvqdSvBAhiD6VK2WqHth83ijmfsovooyKear
+	f4yBGJzgkKUtTUrRgyOEgbuZz4uttBsfenuV1atc1Jup6GKZey5zVP3vZY2rucez8SOQp2W+u8Nmh
+	1T62A+YwnXKqwDaF6d8DjpbNGUXC6MqodC9BX3eUvpfW/iGFKGQuyhLrCCcWIHa+NVQzbPfw/5ruC
+	WWRq9s+ri++GJE0MhRh8sbheHOToK4kXN3LZLKI91+SRY/s972PPiiEFUrNKUnQzkBYDdBscUlNrS
+	uK0WPHfmHDadIktu4nZdegQWmA/RFZ+8iHF4OOKN2mUAj+NBjPN9c3cQ0AvMxnc/brYu8PVJFCiPo
+	p9QRWeyxAu8qEtF+JFXDtBPb;
+Received: from [127.0.0.2] (localhost [127.0.0.1])
+	by hr2.samba.org with esmtpsa (TLS1.3:ECDHE_SECP256R1__ECDSA_SECP256R1_SHA256__CHACHA20_POLY1305:256)
+	(Exim)
+	id 1x3yUg-00000000QdZ-38xP;
+	Tue, 08 Sep 2026 16:16:23 +0000
+Message-ID: <c46d2974-04fa-4f49-a9ec-43ac8c1dd4db@samba.org>
+Date: Tue, 8 Sep 2026 18:16:21 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/2] smbdirect: don't hang on netdev reconfiguration
+To: Ammar Ratnani <ammrat13@gmail.com>, linux-rdma@vger.kernel.org
+Cc: Leon Romanovsky <leon@kernel.org>, Jason Gunthorpe <jgg@ziepe.ca>,
+ Namjae Jeon <linkinjeon@kernel.org>, Paulo Alcantara <pc@manguebit.org>,
+ Tom Talpey <tom@talpey.com>, linux-cifs@vger.kernel.org,
+ samba-technical@lists.samba.org, linux-kernel@vger.kernel.org,
+ Ammar Ratnani <aratnani@nvidia.com>, Kechen Lu <kechenl@nvidia.com>,
+ Mithun Maragiri <mmaragiri@nvidia.com>
+References: <20260908154454.10966-1-ammrat13@gmail.com>
+Content-Language: en-US
+From: Stefan Metzmacher <metze@samba.org>
+In-Reply-To: <20260908154454.10966-1-ammrat13@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-The Dell Latitude 7275 2-in-1 has the same BIOS bug as the Latitude 5285:
-the ACPI GEXP device declares an OperationRegion (BAR0) on the GNVS
-variable SB04 and the I2C4 controller (INT3446) builds its _CRS from that
-same variable, so intel_lpss_acpi fails to bind the controller with
--EBUSY and the front camera sensor (OV5670, INT3479) is never registered
-unless acpi_enforce_resources=lax is passed.
+Hi Ammar,
 
-Add the machine to the DMI table so QUIRK_IGNORE_RESOURCE_CONFLICTS is
-applied to INT3446 on it as well.
+thanks for the fixes!
+I let the rdma maintainers comment on the patches in detail,
+but it's good to fix these problems where they happen.
 
-Assisted-by: Claude Code:claude-fable-5-1
-Signed-off-by: D. Manresa <dmanresa@gmail.com>
----
-Applies on top of "mfd: intel-lpss: add resource conflict quirk for Dell
-Latitude 5285" from Thierry Chatard's v10 series [1]. Thierry, feel free
-to fold this into v11 instead if you prefer.
+> When I mount a CIFS share using SMB Direct over RoCEv2, I observe a kernel
+> thread hang if I "configure" its slave network device by taking its link
+> down and bringing it back up. Attempting to just `ls` the mount point in
+> this state gives EHOSTDOWN.
+> 
+> I believe the following is the root-cause of the hang: When the link is
+> taken down, the corresponding GID Table Entry is marked as pending deletion
+> and has its slave ndev set to NULL. All sends on RDMA connections still
+> using that GID Table Entry fail at MAD creation. SMB Direct eventually
+> detects this and tries to disconnect / reconnect to recover. Unfortunately,
+> disconnecting requires successfully sending either a DREQ or a DREP. Since
+> neither of them even post, the connection remains in the RDMA_CM_CONNECT
+> state, and no callback moves it out. The SMB Direct layer never gets the
+> RDMA_CM_EVENT_DISCONNECTED it's waiting for, and hangs.
+> 
+> Fix this in the CMA. If we call `rdma_disconnect` on a connected connection
+> and we fail to send both a DREP and a DREQ; disconnect, and thereby send
+> the `RDMA_CM_EVENT_DISCONNECTED` event to SMB Direct.
+> 
+> I tested this change in QEMU using RXE. I ran Ubuntu 26.04.1 with a
+> mainline kernel. On commit 9f0346dcbea3 ("Merge tag 'driver-core-7.3-rc2'
+> of git://git.kernel.org/pub/scm/linux/kernel/git/driver-core/driver-core"),
+> I reproduce the hang. With this patch applied, SMB Direct immediately
+> disconnects and reconnects when the slave device is brought down then up.
+> Listing and reading files from the mount point also work afterwards.
+> 
+> Artifacts for reproducing the hang and testing my fix are available at
+> 
+>      https://github.com/ammrat13/linux-cifs
+Given you have some automation to reproduce it I'm
+wondering if you could also test the iwarp case, see
+https://lore.kernel.org/linux-rdma/20260805000159.321645-2-yunseong.kim@est.tech/
 
-The conflict was verified in the 7275 DSDT (BIOS 1.18.0): GEXP has
-OperationRegion (BAR0, SystemMemory, SB04, 0x0208) and INT3446._CRS
-returns LCRS (SMD4, SB04, SIR4). With acpi_enforce_resources=lax, which
-has the same effect as the quirk, the controller binds and the camera
-works with the board data from "platform/x86: int3472: Add TPS68470 board
-data for Dell Latitude 7275" [2]. The distribution kernel here builds
-intel-lpss-acpi in, so this exact patch has not been run yet.
+That was reported as fix for ksmbd, but I guess it
+will also happen for the case your're seeing with rxe.
+And your fixes are likely also good for ksmbd.
 
-[1] https://lore.kernel.org/linux-media/20260831160754.9857-2-tchatard@gmail.com/
-[2] https://lore.kernel.org/platform-driver-x86/20260908161445.334910-1-dmanresa@gmail.com/
-
- drivers/mfd/intel-lpss-acpi.c | 6 ++++++
- 1 file changed, 6 insertions(+)
-
---- a/drivers/mfd/intel-lpss-acpi.c
-+++ b/drivers/mfd/intel-lpss-acpi.c
-@@ -191,6 +191,12 @@ static const struct dmi_system_id intel_lpss_quirk_dmi[] = {
- 			DMI_EXACT_MATCH(DMI_PRODUCT_NAME, "Latitude 5285"),
- 		},
- 	},
-+	{
-+		.matches = {
-+			DMI_EXACT_MATCH(DMI_SYS_VENDOR, "Dell Inc."),
-+			DMI_EXACT_MATCH(DMI_PRODUCT_NAME, "Latitude 7275"),
-+		},
-+	},
- 	{ }
- };
- 
+Thanks!
+metze
