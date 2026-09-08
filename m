@@ -1,221 +1,235 @@
-Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com [209.85.218.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from esa8.hc1455-7.c3s2.iphmx.com (esa8.hc1455-7.c3s2.iphmx.com [139.138.61.253])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AF17388369
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 07:29:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.43
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788852595; cv=pass; b=AUF3INCIIjNt/xe+IJRDHjvlRd2IX1/f83+3uQ4jnG0o6C76w4z10kq6OMh2oUz/yAlozSLXAgmXNiHDv08eClr560y7NK3S0AzcXJf3GIZnIRpvp/enLRlN9I1G2GZ3S8gXtxDQGEmWrc6MVG+NYamS3SNz8FHSVW/cVeQ3vmI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788852595; c=relaxed/simple;
-	bh=T08rrPud2VipHJSVCcS3NiZ+LpFrS/HS4Ee9JZRN76c=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=qwxNzbzhwLq3de9KZsJAc/x5o74pm6/3zZsTYLn4x/NCm/XB3JALyWE2g4/uBRtki1dz00O5IYHMM452U1yYDvFZvbmUj0A1giLsROc405ILcAvuOuA4GMhGWyy7MMXa5h35tqsCGie+9xiO8rYD6o5lKYEV07BbM6tQ12b8wvo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FdLFx1on; arc=pass smtp.client-ip=209.85.218.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C46E30EF68;
+	Tue,  8 Sep 2026 07:31:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=139.138.61.253
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788852682; cv=none; b=GpE9bwmmyA8ArUbgjHKAiRyzHZpFOhPMUWgMxQpUk6XUmR2sGcrd02BrA28YVimg230FTHmLetFPFEmKIUFNKG63jZorO0Y4c4+gxca4v+nkaWt3KQcaHykvfOWjXxyECTviJ/5vEEYufQQ1vsabTgQ+dWa/8A/elij2h8FAwgg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788852682; c=relaxed/simple;
+	bh=8+quB6EjKOoEa1ZHF+bZNfsyz8/M/RI5EzR+EzA9+cI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ISCg80MYA81V7nmqKTc6aUJGp2a/n5OOysBj4gogHPZizR+3bovD4nCvXOAQlLJ/c6NXX/tq44DaCU+2qXOJq36qpmgOlIu7kBR9vk9amfWqzUOihj58US+62b6GN+Zar2/dLThNnLkWA2gebFhAef4SDIJ5NB1f89Sa/JB24Hk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=fujitsu.com; spf=pass smtp.mailfrom=fujitsu.com; dkim=pass (2048-bit key) header.d=fujitsu.com header.i=@fujitsu.com header.b=GXjftrs3; arc=none smtp.client-ip=139.138.61.253
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=fujitsu.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fujitsu.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FdLFx1on"
-Received: by mail-ej1-f43.google.com with SMTP id a640c23a62f3a-c1670dad7a8so652500666b.3
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 00:29:52 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788852591; cv=none;
-        d=google.com; s=arc-20260327;
-        b=B/jAotKlUOwCgoAmUh8QzbrGm6OaFcbO/DEDjnxcK1ze2NHrKRRjrLdqpmBIAgyDuW
-         9253zhNbaYbHjAfLOdcjgrz2vYmvP6NwsSddj7Kun97iJ1TjEqT/hke9B5xZMMl0Dk7M
-         XT1PXMfo0/NYPqM62hcuXyfbUGprGEPa8F9LTQhdYEJkwx/iBykaZpmfCVHWKMRs3Fsu
-         GiHD9WRfGjhFfYkXfmjlqP0v9qgFVpevB5FDG6O3DbW8RoToHsKlrRrSfvldzo8elxEk
-         e6eeDnD0blhlDxbitprtVSKA7G95oGJwT+3+e6FmjMs56KiqtPdm9Ysq60LEaGAHYYPT
-         AVpA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=TKfQxZ3gyiwirNDj+FitYX1gJJkSzXez9jKvYCt/Fto=;
-        fh=h6Duur9o0Le/JmzDlz0bk8zqgD0xxAme5sJVDI8VK3k=;
-        b=XB7BDBvBVzdkT3vteT7iabr0r08O5uYQBADcytwwFHqy6vbkqoQbqDggeaC/zaMSxm
-         m8aFBhOq0tLr6OHlbj/AfAUBGKOWfPwPaLSrE577B5dznkjZ+s8vjtWgeGB99dXSnKEw
-         efglaGsBpXmcBssHIz/TFBlPJVVCi5R33AEm97GNcXJgf6DuF5A3w5tbCvXVquJvLFT7
-         uj6CeTjEl1zEeoevrfq8j3npaCXwjSnOQ7PW6RuLx9ckwPfwRIjNOkcwtl52ZI1Sh7Ra
-         erBubSfSMI9Fqes+SYAIyYlyoz46GwbI/iZPe3f5M7AZosea9Ubg4z/brXGPAzoyGceM
-         saPw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788852591; x=1789457391; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=TKfQxZ3gyiwirNDj+FitYX1gJJkSzXez9jKvYCt/Fto=;
-        b=FdLFx1onVZurzB5wI31jRDhriIFyVON5GlJJCWl2ESSbdYUM8EO0xqPnjp9VQa17tk
-         p1oHoN6qKZmp9YEjkYj58Ivd4Hz/OxFPWh6/vLAZZhBlCzpIBOhycb1UFu+9ub1LGBAy
-         G+qJ8MOnDXEYlDPKyVUjkJJs/1kRfe0XZ02RUmmubxYY5Ue6FA/agVp5JrHQ0KwMLlJ7
-         1HzN4JGNmEN5bdh64pyeXpWLahBA7fR7uRKBSFxFC89v/A6pp6bEpW260rDKXlcOfmKK
-         nMwE5Zrxzm/HO3/4RzV7XzH020GzDd5oVLylDZCVxyYlh3riebaP81ZzURbtR2QCLj2b
-         Z8gQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788852591; x=1789457391;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=TKfQxZ3gyiwirNDj+FitYX1gJJkSzXez9jKvYCt/Fto=;
-        b=gPnNjK9r3tBOc1rTXH7CNAkaHWCr6L8n4Ph7ydLleIhPXFFbpYAt80061E7xLPh5G4
-         ohxDBz82bS0cyw6MeEaKCY4Pob/DB0GA+tubzOD7dgjlFq+NkbajYaEXvNU90g+dmSjC
-         yOkXth0uGyt0S2Hkkni3pwQ6o+Zvl+uYDY7uZG//oV7cj2jao5/8ARYiN9nLMNfuMYZw
-         uwQ1qiP8yM4q82qXkpfTMd9yvGsiQvEhlwYa/y+70njWiGMowRVn0XsTIZppsNJLiaOb
-         gV3WlQ1MElnFOnvnrq28ITLuepng8jM7wc9cFyaxZZcJjSjaJVdsuFEtRpJng7tg0vcj
-         hLiQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxhwiq2qfco44X3D7p9gmy3demT+ploqpyjC5FE5FbWFAc1qHG1jnWGoU0R7sL604wdE7+SIE6UF8nsDTo=@vger.kernel.org
-X-Gm-Message-State: AFuF++mVHncmFerSDC4H3ZaQl5pFSUR4RHosW9ePka2HX5QICHvx1r9j
-	km/xovHEN+xvTc4hzsic4WAy3BRMeQSx9+AuD/xHF8QnFgGnrYqZlnRpGdlbZgIoafiz9P1ha+0
-	9CmFZ1Xp6Ovam2jVWnxxRNmWpte3MKsc=
-X-Gm-Gg: AYBFou3lfZpagzBIWIXf9aiWc29nq6Bzh93SALMg4GwDYNFTOLQD2k8q2qcMePVZLYG
-	Hn2sKbT7maDBwsTpWbtBkVBAQFB75WiNVQNhDHJSXVIBrAkJP1UEiWWPx2BGfgugMce1pYv5QJU
-	AFEkWMWJ0liOkO+xSKV0NNj/8GgdQHNQSZuPkdrQhlr0D9n4jeBVGlhEWMSqMxbwuCz9zpyNW6o
-	anJOEpCYeaKrKYmVjXF0W070DiJ+HbGR/vwFpfIt+IbnuinWO6Jl5ggnd6Z01ohT2iO4DOUu9/2
-	etn0OPAmeRNVvdD/1xQqSom1GNehMPyp84cKtG4f3Kfgk8VQSoc8OvdBvEiaVrTuCUL+b6n7t0w
-	lb5U=
-X-Received: by 2002:a17:907:3f15:b0:c1c:2007:298e with SMTP id
- a640c23a62f3a-c260cb450c9mr1089341266b.24.1788852590630; Tue, 08 Sep 2026
- 00:29:50 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=fujitsu.com header.i=@fujitsu.com header.b="GXjftrs3"
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=fujitsu.com; i=@fujitsu.com; q=dns/txt; s=fj2;
+  t=1788852684; x=1820388684;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=8+quB6EjKOoEa1ZHF+bZNfsyz8/M/RI5EzR+EzA9+cI=;
+  b=GXjftrs302h0Ganvwjmd/69WazLRY7n1KmcDrfFu+BD2G8+fSzZ0h26W
+   PYpKSMYEf2C2pfIVVAvyHiSohec61hkWpA3FbqWiI+unS8JR6X2nKi+1M
+   6YZubX48VqxvVddr5lNPIwrbufLiH21QB2G7nU5lmTC9jm75qcfF4nMqQ
+   5X6OVNqX97zs7lcoezq8LjpI0VVTY6Z/gRPmY5VK98cJqQ6vgz6MNu7ll
+   C90P9BNPRPEKLccpe/Ep2gbx7WCF+P78c4hoael6+e78gS3iulRbknmL+
+   02BWPn66Xb8OZdRy2wkLJ8yntaO2UWqvUWbFPTjdZb0D6g5d5F9LhFwa6
+   w==;
+X-CSE-ConnectionGUID: Kq+p6d2DSVaqos5cKrIXcg==
+X-CSE-MsgGUID: ruYD2ve8RGGyGwTN235FrA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11899"; a="242278686"
+X-IronPort-AV: E=Sophos;i="6.25,268,1779116400"; 
+   d="scan'208";a="242278686"
+Received: from gmgwnl01.global.fujitsu.com ([52.143.17.124])
+  by esa8.hc1455-7.c3s2.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Sep 2026 16:31:17 +0900
+Received: from az2nlsmgm2.o.css.fujitsu.com (unknown [10.150.26.202])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by gmgwnl01.global.fujitsu.com (Postfix) with ESMTPS id 1FA801C000AE;
+	Tue,  8 Sep 2026 07:31:13 +0000 (UTC)
+Received: from az2uksmom2.o.css.fujitsu.com (unknown [10.151.22.203])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by az2nlsmgm2.o.css.fujitsu.com (Postfix) with ESMTPS id BE6DB1C002FF;
+	Tue,  8 Sep 2026 07:31:12 +0000 (UTC)
+Received: from FCCLS0092175.localdomain (unknown [10.9.15.163])
+	by az2uksmom2.o.css.fujitsu.com (Postfix) with SMTP id 4C91114000F7;
+	Tue,  8 Sep 2026 07:31:05 +0000 (UTC)
+Date: Tue, 8 Sep 2026 16:30:57 +0900
+From: Kohei Enju <enju.kohei@fujitsu.com>
+To: Suzuki K Poulose <suzuki.poulose@arm.com>
+Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev, maz@kernel.org, 
+	will@kernel.org, catalin.marinas@arm.com, linux-kernel@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, steven.price@arm.com, aneesh.kumar@kernel.org, oupton@kernel.org, 
+	gshan@redhat.com, joey.gouly@arm.com, tabba@google.com, yuzenghui@huawei.com, 
+	linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com, sdonthineni@nvidia.com, 
+	alpergun@google.com, fj0570is@fujitsu.com, WeiLin.Chang@arm.com, 
+	lpieralisi@kernel.org, Mathieu Poirier <mathieu.poirier@linaro.org>
+Subject: Re: [PATCH v17 0/7] firmware: arm_rmm: Add RMM v2.0 base RMI support
+Message-ID: <ap-4lPkYzogPqs_V@FCCLS0092175.localdomain>
+References: <20260907095942.1140734-1-suzuki.poulose@arm.com>
+ <ap-C6NLnxuWWTMzi@FCCLS0092175.localdomain>
+ <f65216f6-cb7b-4b76-a7cc-79b332db2bd8@arm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260905-memcg-swapcache-stats-fix-v4-1-d3626d305d4f@tencent.com>
-In-Reply-To: <20260905-memcg-swapcache-stats-fix-v4-1-d3626d305d4f@tencent.com>
-From: Kairui Song <ryncsn@gmail.com>
-Date: Tue, 8 Sep 2026 15:29:14 +0800
-X-Gm-Features: AcwNN1WWN5Imx29M9KWwho3-Z5IQKifWJ1tJ__QZC48lfB_vyWmh-z7xUMM4azM
-Message-ID: <CAMgjq7B8ALDN1wUvFeJhPnkg8R7w6G=KzbGeO6BnCGMh_cVWJQ@mail.gmail.com>
-Subject: Re: [PATCH v4] mm/memcg: clear folio memcg after changing per memcg stats
-To: bingfangguo@tencent.com
-Cc: Andrew Morton <akpm@linux-foundation.org>, Chris Li <chrisl@kernel.org>, 
-	Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>, 
-	Baoquan He <baoquan.he@linux.dev>, Barry Song <baohua@kernel.org>, 
-	Youngjun Park <youngjun.park@lge.com>, Qi Zheng <qi.zheng@linux.dev>, 
-	Shakeel Butt <shakeel.butt@linux.dev>, Axel Rasmussen <axelrasmussen@google.com>, 
-	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
-	Johannes Weiner <hannes@cmpxchg.org>, David Hildenbrand <david@kernel.org>, Michal Hocko <mhocko@kernel.org>, 
-	Lorenzo Stoakes <ljs@kernel.org>, Bingfang Guo <bfguo@icloud.com>, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <f65216f6-cb7b-4b76-a7cc-79b332db2bd8@arm.com>
 
-On Sun, Sep 6, 2026 at 3:34=E2=80=AFAM Bingfang Guo via B4 Relay
-<devnull+bingfangguo.tencent.com@kernel.org> wrote:
->
-> From: Bingfang Guo <bingfangguo@tencent.com>
->
-> I notice extremely high swapcached count in the per memcg level
-> memory.stat when running tests with cgroupv1 setup by swapping pages in
-> and out.  It seems that the counter never gets decreased so the value is
-> rather useless and confusing to users reading it. So I think fixing it
-> so that the value can reflect the actual swapcache usage correctly could
-> be helpful.
->
-> __memcg1_swapout() transfers the memsw charge of a folio to its swap
-> entry and clears folio->memcg_data as part of that.  In the vmscan
-> swapout path it runs before __swap_cache_del_folio(), which then
-> decrements the swapcache stats through lruvec_stat_mod_folio().  Since
-> folio->memcg_data has already been cleared, folio_memcg() returns NULL
-> and the NR_SWAPCACHE decrement only updates the node-level counter
-> instead of the memcg's lruvec, leaking the per-memcg swapcache count.
->
-> Move the __memcg1_swapout() call into __swap_cache_del_folio(), after
-> the NR_FILE_PAGES and NR_SWAPCACHE updates but before
-> __swap_cache_do_del_folio() removes the folio from the swap cache.  This
-> keeps the stats attributed to the folio's memcg while still recording
-> the swap cgroup with a valid folio->swap.  Add a swapout parameter so
-> the plain swap_cache_del_folio() path is left unchanged.
->
-> Fixes: 2732acda82c9 ("mm, swap: use swap cache as the swap in synchronize=
- layer")
-> Signed-off-by: Bingfang Guo <bingfangguo@tencent.com>
-> ---
+On 09/08 06:46, Suzuki K Poulose wrote:
+> Hi Kohei-San
+> 
+> Linaro is best suited to answer this. I have Cc'ed Mathieu (and
+> Lorenzo), who may be able to help you here.
 
-...
+Thank you for pointing me in the right direction and Ccing Mathieu and
+Lorenzo. 
+I'll wait for their response.
 
-> diff --git a/mm/swap_state.c b/mm/swap_state.c
-> index 305877e1f4d7..38916ea96ac5 100644
-> --- a/mm/swap_state.c
-> +++ b/mm/swap_state.c
-> @@ -306,21 +306,28 @@ static void __swap_cache_do_del_folio(struct swap_c=
-luster_info *ci,
->   * @folio: The folio.
->   * @entry: The first swap entry that the folio corresponds to.
->   * @shadow: shadow value to be filled in the swap cache.
-> + * @swapout: whether this operation swaps out the folio.
-
-This reads a bit strange, I think you mean "whether this folio is
-being reclaimed after swapout".
-
->   *
->   * Removes a folio from the swap cache and fills a shadow in place.
->   * This won't put the folio's refcount. The caller has to do that.
->   *
->   * Context: Caller must ensure the folio is locked and in the swap cache
->   * using the index of @entry, and lock the cluster that holds the entrie=
-s.
-> + * If @swapout is set, the folio should be in reclaim path and IRQs
-> + * should be disabled.
->   */
->  void __swap_cache_del_folio(struct swap_cluster_info *ci, struct folio *=
-folio,
-> -                           swp_entry_t entry, void *shadow)
-> +                           swp_entry_t entry, void *shadow, bool swapout=
-)
->  {
->         unsigned long nr_pages =3D folio_nr_pages(folio);
->
-> -       __swap_cache_do_del_folio(ci, folio, entry, shadow);
->         node_stat_mod_folio(folio, NR_FILE_PAGES, -nr_pages);
->         lruvec_stat_mod_folio(folio, NR_SWAPCACHE, -nr_pages);
-> +
-> +       if (swapout)
-> +               __memcg1_swapout(folio, ci);
-> +
-> +       __swap_cache_do_del_folio(ci, folio, entry, shadow);
->  }
->
->  /**
-> @@ -339,7 +346,7 @@ void swap_cache_del_folio(struct folio *folio)
->         swp_entry_t entry =3D folio->swap;
->
->         ci =3D swap_cluster_lock(__swap_entry_to_info(entry), swp_offset(=
-entry));
-> -       __swap_cache_del_folio(ci, folio, entry, NULL);
-> +       __swap_cache_del_folio(ci, folio, entry, NULL, false);
->         swap_cluster_unlock(ci);
->
->         folio_ref_sub(folio, folio_nr_pages(folio));
-> diff --git a/mm/vmscan.c b/mm/vmscan.c
-> index 245f68c75b28..29bced43b0ce 100644
-> --- a/mm/vmscan.c
-> +++ b/mm/vmscan.c
-> @@ -755,8 +755,7 @@ static int __remove_mapping(struct address_space *map=
-ping, struct folio *folio,
->
->                 if (reclaimed && !mapping_exiting(mapping))
->                         shadow =3D workingset_eviction(folio, target_memc=
-g);
-> -               __memcg1_swapout(folio, ci);
-> -               __swap_cache_del_folio(ci, folio, swap, shadow);
-> +               __swap_cache_del_folio(ci, folio, swap, shadow, true);
->                 swap_cluster_unlock_irq(ci);
->         } else {
->                 void (*free_folio)(struct folio *);
->
-> ---
-> base-commit: b5529903123d9535bcf74386c1f4e185e8632dd9
-> change-id: 20260828-memcg-swapcache-stats-fix-1beef3dc3afb
->
-> Best regards,
-> --
-> Bingfang Guo <bingfangguo@tencent.com>
->
-
-Other than that this looks good!
-
-Acked-by: Kairui Song <kasong@tencent.com>
+> 
+> On 08/09/2026 05:09, Kohei Enju wrote:
+> > Hi Suzuki,
+> > 
+> > On 09/07 10:59, Suzuki K Poulose wrote:
+> > > This series adds the generic firmware layer for talking to the Realm
+> > > Management Monitor (RMM), as specified by the RMM v2.0-bet3
+> > > specification[1]. It is the first part of the Arm CCA host support that
+> > > was previously posted as part of the larger KVM series.
+> > > 
+> > > The split allows this RMM support to be used as a base for other work,
+> > > including Aneesh's PCI IDE support with Arm CCA RMM as the TSM,
+> > >   without depending on the KVM Realm support that will follow as separate
+> > >   series. (See more on that below)
+> > > 
+> > > The series adds:
+> > > 
+> > >   * The RMI SMC definitions and direct-call wrappers.
+> > > 
+> > >   * RMM discovery and version checks during firmware init.
+> > > 
+> > >   * RMM host configuration, including the host page size.
+> > > 
+> > >   * Stateful RMI Operation (SRO) infrastructure for commands which the RMM
+> > >     can complete across multiple SMC calls while requesting or returning
+> > >     memory to the host.
+> > > 
+> > >   * Verification that granule tracking is available at fine granularity.
+> > >     Fine-grained tracking allows each granule in the system to be tracked
+> > >     independently, which is required before individual granules can be
+> > >     delegated. A future series will add support for dynamically supplying
+> > >     memory to the RMM for this tracking.
+> > > 
+> > >   * Support for fully firmware-managed systems, where the Granule Protection
+> > >     Tables for memory regions are allocated and managed by firmware. RMM v2.0
+> > >     also allows dynamic GPT creation on demand; support for that will be added
+> > >     in a later series.
+> > > 
+> > >   * Wrappers for the RMI commands that are used for managing the "Realm VM"
+> > >     lifecycle. This is added in to make it easier for the on-going KVM support
+> > >     to evolve in parallel pieces.
+> > > 
+> > > If the platform firmware cannot manage the granule tracking or the GPTs, we
+> > > bail out and deactivate the RMM, reclaiming any memory that we have donated.
+> > > 
+> > > The RMM v2.0 spec introduces Stateful RMI Operations (SROs), which allow
+> > > the RMM to complete an operation over several SMC calls while requesting
+> > > or returning memory to the host. This allows interrupts to be handled in
+> > > the middle of an operation and lets the RMM dynamically allocate memory
+> > > for internal tracking purposes. For example, RMI_REC_CREATE no longer
+> > > needs auxiliary granules to be provided up front, and can instead
+> > > request memory during the operation.
+> > > 
+> > > This series applies on v7.3-rc1 and a branch is available at [2]. The KVM
+> > > CCA support that builds on this series is available at [3] as an integration
+> > > branch. The KVM support depends on guest-memfd-in-place conversion support v12
+> > > from Ackerley [4], we plan to split that into parts, which apply cleanly on
+> > > v7.3-rcx without any dependency and is in progress. This will be made available
+> > > as soon as it is ready. Until then [3] shows how this base series enables KVM
+> > > CCA support. You may find the tf-RMM [5] and kvmtool support [6] below.
+> > > 
+> > > [1] RMM spec : https://support.arm.com/documentation/den0137/2-0bet3/
+> > > [2] This series: https://gitlab.arm.com/linux-arm/linux-cca.git cca/cca-host/fw_rmm/v17
+> > > [3] KVM CCA v17 integration branch: https://gitlab.arm.com/linux-arm/linux-cca.git cca/cca-host/kvm-integration/v17
+> > > [4] Gmem inplace conversion https://github.com/googleprodkernel/linux-cc/tree/guest_memfd-inplace-conversion-v12
+> > > [5] TF-RMM https://git.trustedfirmware.org/TF-RMM/tf-rmm.git main (commit: 134266ae)
+> > 
+> > I understand that QEMU-virt is not intended to model a realistic
+> > production platform and that QEMU-SBSA is generally preferred. However,
+> > I sometimes use QEMU-virt to test functionality quickly because it runs
+> > slightly faster than QEMU-SBSA.
+> > 
+> > I tested this series with QEMU-virt and found that RMM initialization
+> > failed during boot:
+> > 
+> >    [...]
+> >    INFO:    BL31: Initializing RMM
+> >    INFO:    RMM init start.
+> >    ERROR:   RMM init failed: -8
+> >    WARNING: BL31: RMM initialization failed
+> > 
+> > The following TF-A revision was used:
+> >    https://git.trustedfirmware.org/TF-A/trusted-firmware-a.git master (38269bb)
+> > 
+> > After investigating, I found that the failure was caused by the lack of
+> > a plat_rmmd_reserve_memory() implementation for the QEMU-virt platform
+> > in TF-A. Adding an implementation equivalent to the QEMU-SBSA one
+> > resolved the issue:
+> >      https://git.trustedfirmware.org/plugins/gitiles/TF-A/trusted-firmware-a.git/+/9d594743aa4d4e8160cdf025ea7538041648972c
+> > 
+> > Is QEMU virt still intended to be supported as an RME emulation
+> > platform? In particular, is this functionality simply not implemented
+> > yet, or is there a reason why RME support is not planned for QEMU virt?
+> > 
+> > If this is not the appropriate place to discuss this, please let me
+> 
+> Mathieu, Lorenzo,
+> 
+> Over to you folks :-)
+> 
+> Cheers
+> Suzuki
+> 
+> 
+> > know :)
+> > 
+> > Thanks,
+> > Kohei
+> > 
+> > > [6] kvmtool https://gitlab.arm.com/linux-arm/kvmtool-cca.git cca/kvm-v17
+> > > 
+> > > Known issues: RMMv2.0
+> > >   * RmiOpMemDonateReq:count (Uint14) is incompatible with RmiAddrRangeDesc4KB
+> > >    (Uint10) and RmiAddrRangeDesc16KB (Uint12). i.e., a larger contiguous request
+> > >    may not be satisfiable by the host. Arm is aware of this defect and a spec fix
+> > >    is in progress.
+> > > 
+> > > 
+> > > Steven Price (7):
+> > >    firmware: arm_rmm: Add SMC definitions for calling the RMM
+> > >    firmware: arm_rmm: Check for RMI support at init
+> > >    firmware: arm_rmm: Configure the RMM with the host's page size
+> > >    firmware: arm_rmm: Add support for SRO
+> > >    firmware: arm_rmm: Activate the RMM
+> > >    firmware: arm_rmm: Ensure the RMM has GPT entries for memory
+> > >    firmware: arm_rmm: Add wrappers for Realm related RMI commands
+> > > 
+> > >   arch/arm64/Kconfig                |   1 +
+> > >   arch/arm64/kernel/cpufeature.c    |   1 +
+> > >   drivers/firmware/Kconfig          |   1 +
+> > >   drivers/firmware/Makefile         |   1 +
+> > >   drivers/firmware/arm_rmm/Kconfig  |  26 +
+> > >   drivers/firmware/arm_rmm/Makefile |   2 +
+> > >   drivers/firmware/arm_rmm/rmi.c    | 819 ++++++++++++++++++++++++++++++
+> > >   include/linux/arm-rmi-cmds.h      | 678 +++++++++++++++++++++++++
+> > >   include/linux/arm-smccc-rmi.h     | 494 ++++++++++++++++++
+> > >   9 files changed, 2023 insertions(+)
+> > >   create mode 100644 drivers/firmware/arm_rmm/Kconfig
+> > >   create mode 100644 drivers/firmware/arm_rmm/Makefile
+> > >   create mode 100644 drivers/firmware/arm_rmm/rmi.c
+> > >   create mode 100644 include/linux/arm-rmi-cmds.h
+> > >   create mode 100644 include/linux/arm-smccc-rmi.h
+> > > 
+> > > -- 
+> > > 2.43.0
+> > > 
+> 
