@@ -1,192 +1,149 @@
-Received: from out30-110.freemail.mail.aliyun.com (out30-110.freemail.mail.aliyun.com [115.124.30.110])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2B1639658D
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 07:53:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.110
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03FEE39D6D5;
+	Tue,  8 Sep 2026 07:54:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788854018; cv=none; b=X3HK1AT6ldBdEQfXmKQsDx+cy2XGF3+FCKArKOZPzXsmT1PoXPJHvRUs22Qf09DbLajwQ6tk5eDFqvLKsvWTEgeqDG72+wZ+5eckNYJ+FxA6cR+kfT3NYOVc5KTeW1lZZ1O6uNTjIo7kRMsFfiklJMpDF38jxIvpetZLwv/THOc=
+	t=1788854062; cv=none; b=SbfuqqDQXScxqWIRdhIYgb8UzvKbPKo8lCMuBOYmXFQKaipEqNv8fTDblaX9fmTlGijhXE0NP0/HwKLIPFlmI51ktUBhR9jpU62OHn6OxJk+h4UN479pOHsrIJa6IaTAKJbaaOV/mzjJ0ya43HjgiVWUZfsGN6/dogmlzwgt9uI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788854018; c=relaxed/simple;
-	bh=PkPwGX13b8caTho2L/mj/eyuJv/Wn7rCHF4/MaU9rkE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=DxKh8NRPvINFJ2bc76xj6b/4cRlwwxkOvIVXKh3ZXwSre6GfCl7W5od7cPoW7x2J9/xRzc1XZxjk1WczoCa2BGDB0Swkviqwnu2sUgDrnUiUoED2V7ADXj5jpQJ4ByD/0eSULA4khcF/kx09e3VNLMDOnq2QVIrtEkD5EcAm990=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=trM5oV9j; arc=none smtp.client-ip=115.124.30.110
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	s=arc-20240116; t=1788854062; c=relaxed/simple;
+	bh=fkkDRb9iPNoDQ4BpJHf32cdtnBXQT9Lrjp/pNe/O+fI=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=jx11ogmuQLg0RBLz5IeEwoTHPO205AUP4U1V3hKNRWA2dH5w0tTuuutQCrKDwXhmlpYzjiEKB1hBuoWPrbkJxAmhV/6J0HQ7rUuO+zj/MKXJC/J5klOl79GbvhDodgcnsxApbs0MLjle9OoAtRRvQiTThal/K08Xk9eAKru+67I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PCw8grLa; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="trM5oV9j"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1788854013; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
-	bh=/m0UGCD1rNVi71mlkVc+SVKZMBJRDxUcU5AjaBUwxy8=;
-	b=trM5oV9jwWhBV8bFjMKGmIq/SQqkBpujf2rF0UEfcy5mggYn4ryIDP0QrOT9Nc0t81AbAeqArjE5M5Ohx1IQLpV+zfolfsqF2Qyof2T864AmdOGh71MYUwcsUF9f9dtJ7yB3uHv2uZ7AMMM/qzrmR4ehJ9WBtZztW/bOdkEuF38=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R851e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033032089153;MF=baolin.wang@linux.alibaba.com;NM=1;PH=DS;RN=17;SR=0;TI=SMTPD_---0XAamhBZ_1788854011;
-Received: from 30.74.144.127(mailfrom:baolin.wang@linux.alibaba.com fp:SMTPD_---0XAamhBZ_1788854011 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Tue, 08 Sep 2026 15:53:32 +0800
-Message-ID: <ccb8e121-bf5b-4bb4-a9de-fb5290998ddd@linux.alibaba.com>
-Date: Tue, 8 Sep 2026 15:53:31 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PCw8grLa"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BB82A1F00A3A;
+	Tue,  8 Sep 2026 07:54:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788854060;
+	bh=L1qEmTcOVOuSfD/klU2LHmtkM0DYfjcpcZLFwOyJ1M4=;
+	h=From:Subject:Date:To:Cc;
+	b=PCw8grLazHz8vtMr0TuSOLZilQ1rshOeMLiWWBggiD2BxNIWjugFVPV3ej6ckWqNK
+	 vGpWu5ifOeMvQSbaX+4+DNfTxaeMIR+x43+Ugw+Z3n+O37Qm7T5Ie8QoLnsLR7uasj
+	 YQwTGR8kdE2GqkvFH8qLaMhrZuKTXL0IqCQ2TmLUh0OdFD3WRsOfNVGq8ziC/O5a6N
+	 ri0Zstk9d69zrurKu7yENnuR1K6CUAT75deP6TdCKTAnDd6dTdty68xCCR9s+10HHV
+	 H+FGMMuoZh5scNluaAEPwALBko7SeAKJGjaetUJxt44GPuqGyd0ei7W04tPMkx+p1W
+	 K1Ae1VhOPazsg==
+From: Konrad Dybcio <konradybcio@kernel.org>
+Subject: [PATCH v5 0/5] USB4 mode programming for QMMPHY on X1E
+Date: Tue, 08 Sep 2026 09:54:04 +0200
+Message-Id: <20260908-topic-usb4phy-v5-0-73aac69578ef@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] mm: mglru: clear the reference counter for rejected
- folios
-To: Baoquan He <baoquan.he@linux.dev>
-Cc: Barry Song <baohua@kernel.org>, akpm@linux-foundation.org,
- kasong@tencent.com, qi.zheng@linux.dev, shakeel.butt@linux.dev,
- axelrasmussen@google.com, yuanchu@google.com, weixugc@google.com,
- hannes@cmpxchg.org, david@kernel.org, mhocko@kernel.org, ljs@kernel.org,
- ridong.chen@linux.dev, hebaoquan@kylinos.cn, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org
-References: <8e4db9a298c5ea6ccb192e274caed5b96f0cf022.1788751143.git.baolin.wang@linux.alibaba.com>
- <ap9zPPughaSlfXM2@fedora>
- <CAGsJ_4wn5ArqhG9w7gJY7X4G+Lg6=1teCb70dzPdN0k+5H8MbQ@mail.gmail.com>
- <67d9bbcf-2991-4867-8afb-14bad1cebf8d@linux.alibaba.com>
- <31494361-406e-4874-8a2c-2c6f5cee5321@linux.alibaba.com>
- <ap-yQOH0pni-mfdf@fedora>
-From: Baolin Wang <baolin.wang@linux.alibaba.com>
-In-Reply-To: <ap-yQOH0pni-mfdf@fedora>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3XNQW7DIBAF0KtErEsEGAxk1XtEWcAw1FRNcI1tN
+ Yp89+J0kaqpNyN96c/7N1JwSFjIYXcjA86ppHypQb3sCHTu8oY0hZqJYKJlihs65j4BnYqXfXe
+ laFsuovKOMUPqTz9gTF9373j6yWXy7wjjiqyNLpUxD9f74MzX3pY9c8qo5sEIDdIGcK+5lP3n5
+ D4gn8/7esg6MYsHosUTIiqigg1BcWkR9AbS/EIa9hdpKgIQWdTorPFqA5EPxIgnRFbEIdggwDc
+ 8tv8gy7J8A0/tXV6SAQAA
+X-Change-ID: 20260518-topic-usb4phy-e9612f5ba008
+To: Vinod Koul <vkoul@kernel.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, 
+ Manivannan Sadhasivam <mani@kernel.org>
+Cc: linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org, 
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ usb4-upstream@oss.qualcomm.com, 
+ Raghavendra Thoorpu <rthoorpu@qti.qualcomm.com>, 
+ Mika Westerberg <westeri@kernel.org>, Sven Peter <sven@kernel.org>, 
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
+ Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+ Abel Vesa <abel.vesa@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788854054; l=3119;
+ i=konrad.dybcio@oss.qualcomm.com; s=20230215; h=from:subject:message-id;
+ bh=fkkDRb9iPNoDQ4BpJHf32cdtnBXQT9Lrjp/pNe/O+fI=;
+ b=EWeICC/b875dRogbIAADlm50H5+HF0KAPMSMsqHh2oDxqhgGzl0nye9hFSKOaGV5slYz7eltW
+ pHoQtURq+UZAZ0r4vMVpuKku0KURDjrPgmYFVyQRj1wPmA/Puq/0QZw
+X-Developer-Key: i=konrad.dybcio@oss.qualcomm.com; a=ed25519;
+ pk=iclgkYvtl2w05SSXO5EjjSYlhFKsJ+5OSZBjOkQuEms=
 
+The USB43DP QMP PHY, as the name suggests, supports USB4 in addition to
+DP/USB. This series provides the necessary plumbing to switch to that
+mode of operation on hamoa/purwa.
 
+This is achieved by exposing a third `struct phy *` for the USB4 sub-
+PHY, which will be toggled by the USB4 router driver, living within the
+Thunderbolt framework, which will be posted separately.
 
-On 9/8/26 2:59 PM, Baoquan He wrote:
-> On 09/08/26 at 12:01pm, Baolin Wang wrote:
->>
->>
->> On 9/8/26 11:03 AM, Baolin Wang wrote:
->>>
->>>
->>> On 9/8/26 10:34 AM, Barry Song wrote:
->>>> On Tue, Sep 8, 2026 at 10:30 AM Baoquan He <baoquan.he@linux.dev> wrote:
->>>>>
->>>>> Hi Baolin,
->>>>>
->>>>> On 09/07/26 at 11:25am, Baolin Wang wrote:
->>>>> ......snip...
->>>>>> diff --git a/mm/vmscan.c b/mm/vmscan.c
->>>>>> index 40d3f1b48a74..42c0a09938ab 100644
->>>>>> --- a/mm/vmscan.c
->>>>>> +++ b/mm/vmscan.c
->>>>>
->>>>> Well, this seems to be based on Andrew's mm-new branch. I usually track
->>>>> mm-unstable branch. Maybe the subject should be marked as below?
->>>>> [PATCH mm-new] mm: mglru: clear the reference counter for rejected
->>>
->>> ACK.
->>>
->>>>>
->>>>>> @@ -5021,10 +5021,11 @@ static int evict_folios(unsigned
->>>>>> long nr_to_scan, struct lruvec *lruvec,
->>>>>>                 }
->>>>>>
->>>>>>                 /* don't add rejected folios to the oldest generation */
->>>>>> -             if (lru_gen_folio_seq(lruvec, folio, false) ==
->>>>>> min_seq[type]) {
->>>>>> -                     folio_set_lru_refs(folio, 0);
->>>>>> +             if (lru_gen_folio_seq(lruvec, folio, false) ==
->>>>>> min_seq[type])
->>>>>>                         folio_set_active(folio);
->>>>>> -             }
->>>>>> +
->>>>>> +             /* See the comments on LRU_REFS_FLAGS */
->>>>>> +             folio_set_lru_refs(folio, 0);
->>>>>
->>>>> This looks like a great catch, while the code change could bring issue.
->>>>>
->>>>> Because move_folios_to_lru() relies on folios' flags to decide their new
->>>>> generation. You just cleared it before move_folios_to_lru(). This is no
->>>>> problem for rejected folios that are determined to be put into the
->>>>> oldest generation. But for those rejected folios that are determined to
->>>>> be promoted, this could be wrong. E.g currently gen window is 4, and a
->>>>> folio is referenced, lru_gen_folio_seq() decides its new gen as 1, which
->>>>> is the 2nd oldest generation. While folio_set_lru_refs(folio, 0) clear
->>>>> referenced bit, this causes it being put into the oldest generation in
->>>>> move_folios_to_lru(), this is not expected.
->>>
->>> Yes. As I discussed with Barry earlier, lru_gen_folio_seq() also needs
->>> to be reconsidered regarding whether it should rely on PG_referenced
->>> [1].
->>>
->>> For commit 6cbdd9726fb5, we didn't discuss the impact on rejected folios
->>> either. Before commit 6cbdd9726fb5, if rejected folios did not have
->>> PG_active set by shrink_folio_list(), evict_folios() would set PG_active
->>> on these rejected folios.
->>>
->>> [1] https://lore.kernel.org/linux-mm/20260901220430.79810-1-
->>> baohua@kernel.org/
->>>
->>>> The original code looks quite weird. It even prioritizes folios
->>>> that won't be promoted by `PG_active`. Do we need to change all
->>>> the cases just to call `PG_active`?
-> 
-> I would agree if we can. While I have one concern. A rejected folio that
-> should have gone into the oldest generation is now being promoted to the
-> 2nd newest generation. In the original code, referenced folio is only
-> being promoted to the next gen. I even think this is not a bug, but Yu
+Find more details in the individual commit messages. Tested on a
+X1E80100 CRD.
 
-That's not quite true. Before commit 6cbdd9726fb5, a rejected referenced 
-folio was also put back to the 2nd youngest gen.
+No external dependencies.
 
-> Zhao intentionally did it: the coldest folio is moved to 2nd newest gen,
-> referenced folio (hot folio) is moved to new gen but carries the referenced
-> bit. Both of them seems to be treated somewhat equally.
-> 
-> To me, I would rather move both of them to the next gen, while keep their
-> refs untouched.
+Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+---
+Changes in v5:
+- Reabse on next-20260907 (NOP)
+- By popular demand, wrap a comment at 80 lines
+- Link to v4: https://patch.msgid.link/20260820-topic-usb4phy-v4-0-aec9d2cb31f6@oss.qualcomm.com
 
-IMHO, I strongly recommend not doing this, and that's exactly the 
-motivation behind my patch. Because this is also being treated as a 
-promotion, it should behave like folio_inc_gen() or folio_update_gen() 
-and clear the refs after promotion. I think this is a fundamental 
-principle of promotion. Otherwise, ref-based promotion is already 
-completely broken.
+Changes in v4:
+- Rebase on next-20260820
+- Rename phy-tbt.h to phy-thunderbolt.h
+- Add missing error unrolling in usb4 phy_init()
+- Rename usb4phy_init_count to usb4_init_count
+- Refactor the submode acceptance logic in usb4 phy_set_mode()
+- Pick up tags
+- Link to v3: https://patch.msgid.link/20260730-topic-usb4phy-v3-0-ccf0f7ea98b5@oss.qualcomm.com
 
-Next, I also plan to clean up refs in lru_gen_set_refs() as discussed 
-with Barry.
+Changes in v3:
+- Fix up assisted-by tag
+- Pick up tags
+- Link to v2: https://patch.msgid.link/20260728-topic-usb4phy-v2-0-5d9dd5149ec7@oss.qualcomm.com
 
->>> Yes. Regarding this concern, I plan to change back to the original
->>> behavior:
->>>
->>>       /* See the comments on LRU_REFS_FLAGS */
->>>       folio_set_lru_refs(folio, 0);
->>>
->>>       /* don't add rejected folios to the oldest generation */
->>>       if (lru_gen_folio_seq(lruvec, folio, false) == min_seq[type])
->>>           folio_set_active(folio);
->>>
->>> What do you think?
->>
->> Just FYI, after above changes, the performance improvement on zram is no
->> longer obvious either. I think this also answers Kairui's earlier question
->> about why I saw a performance improvement (which seems related to commit
->> 6cbdd9726fb5). Also, there is no obvious performance regression either.
-> 
-> Hi Baolin,
-> 
-> Not sure if it's convenient to do a little more testing in your side.
-> E.g rejected folios are moved to next gen, but not clearing their flags.
+Changes in v2:
+- Massage the bindings to only allow the p2rr2p clock on Hamoa
+- Pick up tags
+- Rebase (nop)
+- Link to v1: https://patch.msgid.link/20260518-topic-usb4phy-v1-0-71d827c49dca@oss.qualcomm.com
 
-I'm not sure what you mean by "next gen" here. If you mean the 2nd 
-oldest gen, I actually tested that too, that is, clearing refs after 
-move_folios_to_lru(), and there wasn't any noticeable performance impact 
-either (but the code was a bit hacky, so I didn't go with this approach).
+To: Vinod Koul <vkoul@kernel.org>
+To: Neil Armstrong <neil.armstrong@linaro.org>
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+To: Bjorn Andersson <andersson@kernel.org>
+To: Konrad Dybcio <konradybcio@kernel.org>
+To: Manivannan Sadhasivam <mani@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org
+Cc: linux-phy@lists.infradead.org
+Cc: devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
 
-> Then we can at least know which one is more efficient on yout testing
-> platform.
-> 
-> coldest folio      referenced folio
-> ---------------------------------------------
-> max_gen -1         next gen + referenced kept
-> max_gen -1         max_gen -1
-> next_gen           next gen + referenced kept
-> 
-> Thanks
-> Baoquan
+---
+Konrad Dybcio (5):
+      dt-bindings: phy: qcom,qmp-usb3-dp: Extend X1E description for USB4
+      phy: core: Define TBT phy_mode
+      phy: qualcomm: qmp-combo: Add preliminary USB4 support
+      phy: qualcomm: qmp-combo: Add USB4/TBT3 configuration data for Hamoa
+      arm64: dts: qcom: hamoa: Extend QMPPHY description for USB4
+
+ .../phy/qcom,sc8280xp-qmp-usb43dp-phy.yaml         |  55 +-
+ arch/arm64/boot/dts/qcom/hamoa.dtsi                |  18 +-
+ drivers/phy/qualcomm/phy-qcom-qmp-combo.c          | 602 ++++++++++++++++++---
+ drivers/phy/qualcomm/phy-qcom-qmp-pcs-aon-v6.h     |   2 +
+ drivers/phy/qualcomm/phy-qcom-qmp-pcs-usb-v6.h     |  15 +
+ .../phy/qualcomm/phy-qcom-qmp-qserdes-txrx-v6_n4.h |  45 ++
+ include/dt-bindings/phy/phy-qcom-qmp.h             |   1 +
+ include/linux/phy/phy-thunderbolt.h                |  14 +
+ include/linux/phy/phy.h                            |   2 +
+ 9 files changed, 661 insertions(+), 93 deletions(-)
+---
+base-commit: 944a035ecca915ae947905dcfb03f2b9dc6d032c
+change-id: 20260518-topic-usb4phy-e9612f5ba008
+
+Best regards,
+--  
+Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
