@@ -1,314 +1,207 @@
-Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazon11010031.outbound.protection.outlook.com [52.101.193.31])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com [209.85.216.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4BEE51A752
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 09:28:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.193.31
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788859696; cv=fail; b=ITx7U5yI2OL89DfTllPGfHXagelJS9dm6y8ECaRB+HCeZdTqEgV+EdDMsOR0Uj1OmTtr16efhvfDBqzF7aMycXRb3ypu9n8WUlN/e6u0CBg7yEkBBScknT4gYI6TzaIWw6F1zVK1Ul/KP670tx4HWgg2hZFr3hboDapM4QtBP/I=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788859696; c=relaxed/simple;
-	bh=xvLPOgnNjAkwj0KgqtX/bCMTtpk55uFVRQ0hahkQpE8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=kS1GJhBQwRqRcyf7C7Pya+3Ap6cwi7g7C/gTiKqa8uwSlrXumh78+dnzl8OjIm3goDXW69axHNrfz0e3Ik+nzPf3S+ZFY112zS9i1bQKJG9KG2cYGbrxq6WhEOHHBC6Cklez8EZ2IkBRoZcx38mgKag04Ku15ehCsKw9Vk6rOdA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=R/8avkH7; arc=fail smtp.client-ip=52.101.193.31
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A2B74F30FD
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 09:28:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.45
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788859730; cv=none; b=FYW92GlFK7uUtpf9k0EzwwE63embwvrZJRYadvHGp24OACsBYRhl4wD1nnbKm1UyxCFUDwaKDqOk9zCoCSC6NgOqAqEdgE+joXSaMBXMG5rD5M4vLduId+3JfVO4FFGh4338I3lUCTcpH5QonvJTT98nBPIO/X+jAQRQTYwE5kQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788859730; c=relaxed/simple;
+	bh=F0xUuzXHZyymxqAvs1Si8mOhaBzzUTC8YR4HB1fYGyA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=AdCxTKOKlxEhoQ/T6A2m64jrFEVTnZZMvbaD8VwdiawIhHkfIpmiiuHQ0ZRg7LBPnil8aQDjgW7USmiICIB8ACC8cn3aCr4OQBF8BbkbuS+Q0Hswv3ve/XP95VAtbA44fkGSLc9klwSHY20Nb0TKKNxqBTs79WLkKMsgAvN6I1U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BiE5wHGN; arc=none smtp.client-ip=209.85.216.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="R/8avkH7"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ilUMqqrceItyvCGMI6GJmX6oJg73Ih5AtO5U1x0yssKwFxjNJOi3Fm/TJOXB+6SLPUWhDWC1ECWUj7N8H6XnII6sR0+DwqM6vLjCEsCdJXq5+rteheH6uf/X7w0DwJh3XIofW2xKsdbc9IEqiMOAeaSei+a2mLXPE1rL2STjVFGComeQqRWE8EUcOBpOdDmb9K2Y+F3Ykq94MwYNcY5bmS9PnWU1JM/lTu+nU0T8foiLk1lX06UMRKE/lsX0tJYz/yLPBGasKkqeRqZD/8es0aIWMUxvTWM2DflVFYGeMK5BOh/4haSKdXbSoFKwpuFRCnx3+m6ZBxSaRQjm+NtIlA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=fgIodrbaaqyYD8MsjIJ2MF+1KHaT7fMcPxXXpK0kPKY=;
- b=AueRAtUnPggq64QiqIbaTraLxe39kDX0vPcuKHA8Cx6+8z/1jelpmjuhIDjeV3Shxf7Jx84edFpdPDfPhknzK/X9zmh/zFAQuAzA73M5js5P6YwBeJkTiEbeJnKRHaowR6RVatOl919yFDYtW7fX1eCzqZMNAc9IYuj0kWitgG6K/8rMsa2O6mTXheHFx3C4InOsbg9rXSsc9bA+EIZXeTPofNC1RUrna/fnRGyLLDiS8QiOB/o3Gcso0zWWT0cwVHjX6YP4AnNM3YFyVGtpfz15t6czhv8sPQJ+BwfevW0Ee7g+70wl1XZME0qNcxUrYsKsyi6ynLklSF5zus3P5Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=fgIodrbaaqyYD8MsjIJ2MF+1KHaT7fMcPxXXpK0kPKY=;
- b=R/8avkH7WfoV8WV2dS4jj4GMc8kz0Mg5d6HXbltnnMDehZbaJUZ9ddNWIgzSUgd5IrR8OM4Akqc0DngfRhWRFjiIG2jieAj5n5IerF+Ht4OPzKdMs9Au37fIn1HQSyFWDAEE5J2C91b/ufsQ9DwRSFuMApjz7Pph+hfp2yifmrhfr+Q0yTS2y+EC+FMR5ZhvWU4Ug/zF4EE4bFLeYBTbfGzxQvcNcdoW/yzKKi9xKJAX9f6ROUcPAjE+6WoiHWTP4GgaI1UrYqb9HR1Immmi1g/xYGnRGNSefA/P+J76epg7hrMne0z6KweoGmJA2KD+/7e35LXFdoPPyZOTMb1YdQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DM6PR12MB4827.namprd12.prod.outlook.com (2603:10b6:5:1d6::14)
- by DS4PR12MB733313.namprd12.prod.outlook.com (2603:10b6:8:50e::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.7; Tue, 8 Sep 2026
- 09:28:09 +0000
-Received: from DM6PR12MB4827.namprd12.prod.outlook.com
- ([fe80::6261:3040:864b:159c]) by DM6PR12MB4827.namprd12.prod.outlook.com
- ([fe80::6261:3040:864b:159c%5]) with mapi id 15.21.0382.014; Tue, 8 Sep 2026
- 09:28:08 +0000
-Date: Tue, 8 Sep 2026 11:28:00 +0200
-From: Andrea Righi <arighi@nvidia.com>
-To: K Prateek Nayak <kprateek.nayak@amd.com>
-Cc: Tejun Heo <tj@kernel.org>, David Vernet <void@manifault.com>,
-	Changwoo Min <changwoo@igalia.com>,
-	John Stultz <jstultz@google.com>, Ingo Molnar <mingo@redhat.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
-	Valentin Schneider <vschneid@redhat.com>,
-	Christian Loehle <christian.loehle@arm.com>,
-	David Dai <david.dai@linux.dev>, Emil Tsalapatis <etsal@meta.com>,
-	Lee Trager <ltrager@nvidia.com>, Richard Cheng <icheng@nvidia.com>,
-	Koba Ko <kobak@nvidia.com>, Aiqun Yu <aiqun.yu@oss.qualcomm.com>,
-	sched-ext@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 02/18] sched/core: Dequeue waking proxy donors before
- reset
-Message-ID: <ap_VIJdG80ZZ_8D0@gpd4>
-References: <20260831134338.1531664-1-arighi@nvidia.com>
- <20260831134338.1531664-3-arighi@nvidia.com>
- <3d4116ff-0634-4ab6-be24-0bd2c68f1698@amd.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <3d4116ff-0634-4ab6-be24-0bd2c68f1698@amd.com>
-X-ClientProxiedBy: MI1P293CA0010.ITAP293.PROD.OUTLOOK.COM (2603:10a6:290:2::7)
- To DM6PR12MB4827.namprd12.prod.outlook.com (2603:10b6:5:1d6::14)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BiE5wHGN"
+Received: by mail-pj1-f45.google.com with SMTP id 98e67ed59e1d1-398a5aad413so3333885a91.3
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 02:28:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788859728; x=1789464528; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=1cMT7fKgP+zuYY8ESvwdYk2VGfHp7bRIw/gwcfnHbX4=;
+        b=BiE5wHGNM+hVDxq96Nnjd3Gk3QLb1uS62tEBTtmNpBy2GqL0k3hDnz6lv7oLkySlkv
+         6Z/TkLhh6LwJDbxcDZYqxdGlvfVIJIFJCk9KNNaPTODZVmJ/xCJeWcT21iEAlybc3GM1
+         vWzAs7xqgIJqo08Rco/hHZRp5lfkOM/FWXnVOm09a9zNpi4qYaWLKCIo4KhepLe6kq/D
+         JwyN5zB4cLcZIf1//mV4uppT6ljKa+mrJe+/aFSvQ9YnxzML0tOPoWiSPb1nQnLyNgHf
+         XOYOaPubFfy8AUqd/IGIBsqx2aeFWREklHcsOwn6t0X2oZbTiNgBJHbco0WmXaolh1R6
+         TGxA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788859728; x=1789464528;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=1cMT7fKgP+zuYY8ESvwdYk2VGfHp7bRIw/gwcfnHbX4=;
+        b=dA/xjmgQSSMPqCjZKqF7QZidJtvX7PFmef3K+oV/poMsMAKC+V7nrOnogRWT8zEmD2
+         BTGkSUs/RTyKwC80p8Khqiq80xEzYdBcB6FCrWuWc/cOmVzTWPBHOuaVlrHFqlb4G6zY
+         mysS3wyXXLWnBD4cxjyZPhiyaqhAbqP9HImWVCLH/5t1rD2ulDN8495pjwdFoH+HXDSW
+         P3zzZ/RiO4uHa7/tZ+KuR48kAs0Bq3EJq+ibCCNu1zSMU9bNml/QJlkdZHp+8Tox+v8J
+         J/ILvs1kgV5vf1LgAuQOVtqc+MrB9KTUfcmj7ovfsP+dgcHtvfT7PsLdzrj0wL3GTbfL
+         koUg==
+X-Forwarded-Encrypted: i=1; AKwUvBzHoCdEh5iZA9jdwaYhqie06xC7RNDbbwXD8w/nNOIoKBW2HOZ6fKdl338/Qq5BAM4okHMK7C5LpVmxCkY=@vger.kernel.org
+X-Gm-Message-State: AFuF++k4ZPa1mOhj8NlniiwEiNztCMVNCjUHMqc6+LLyZJ0/gYhGYli0
+	1leFvz49ZE64UoMLxvKliMLQjiP/4Bum7eKkmT2IM6Do8fGMq2dRT3Bb
+X-Gm-Gg: AYBFou2hYGptKgF0qge6vJXbH59ie3SHC+uWEalM3uiNZBiNbKKehZCO5aXr0u080Rt
+	ex7oyPzLwTIf0plN1lvFsrTGlXBtac3TxkUOxfCtZZ/hDPK80O6hQrW2YcpqmHP9EQnNR4CSA75
+	AJ2Edegfe6bKSCDlRfoxOkd+tgsKQA1C/jcC/WHt/ebb1wOZLFxxAS23lpikQxcisK06oeXcSZ1
+	sY0vNfTk5ymD9dfbucfCC1k3eA0bCy3sVEkGPvbcphlNfnuzya4LOy4eedEKlmS+0hzObJ79TJo
+	BCAZ21bqkkH198geUGEXVr9XNW9fVcoiAZTD21AyvY+DbcjgjgTh2O54whcwAlJioySLGDqwEGG
+	vDWKAXAoe4nselscMM5a+L+QkAGqXUAxj2hVazTicqd30RTcx8jyukAdzVX/4cn09iQo5kKJlkn
+	ggAtohP/rYj34+g3ikRdsBCLL9Fs/pOCSMTJGcOO0w4DhPLP0V/oG+N9MINM/qSISjtQ3k0aGBr
+	S04/rm4sXeQppCEskLJHXEfuxCuSV4KfTaJRkQRKKTqEwmwMFIrF0kGaCHt+9E=
+X-Received: by 2002:a17:90b:394e:b0:37f:fd1f:d30f with SMTP id 98e67ed59e1d1-39b26272d76mr43048844a91.12.1788859727665;
+        Tue, 08 Sep 2026 02:28:47 -0700 (PDT)
+Received: from localhost.localdomain (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b08c39227sm32109846a91.9.2026.09.08.02.28.44
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 08 Sep 2026 02:28:47 -0700 (PDT)
+From: Joey Lu <a0987203069@gmail.com>
+To: zhengxingda@iscas.ac.cn,
+	maarten.lankhorst@linux.intel.com,
+	mripard@kernel.org,
+	tzimmermann@suse.de,
+	airlied@gmail.com,
+	simona@ffwll.ch,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org
+Cc: ychuang3@nuvoton.com,
+	schung@nuvoton.com,
+	yclu4@nuvoton.com,
+	dri-devel@lists.freedesktop.org,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Joey Lu <a0987203069@gmail.com>
+Subject: [PATCH v6 0/6] drm/verisilicon: add Nuvoton MA35D1 DCU Lite support
+Date: Tue,  8 Sep 2026 17:28:34 +0800
+Message-ID: <20260908092840.225220-1-a0987203069@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6PR12MB4827:EE_|DS4PR12MB733313:EE_
-X-MS-Office365-Filtering-Correlation-Id: b4e6c29d-923f-4eb4-9f3c-08df0d8b7ea2
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|366016|1800799024|376014|7416014|10067099003|6133799003|18002099003|22082099003|4143699003|11063799006|5023799004|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	54FJtXzWAfOcF1sUaVAMlPQ50koGf5Wbk9UqRmeewyFo10bEswC7dpHpyqgz7Co2MhqsNue/aUV1ys80QrP0Hy9oMUfbSOs+7vbSDx3l9REJSU/vSQ0ksI5hNX3Zb0IKx70A0KKMs1QJncLMunzR6uu1g3h30VJ9Sv8i01l2TwSGcvOKa1HgOlPGXgxEjZYUO2OBa+r3R8oWu3qIFV5n9cweyEG7k6TdyM89xbJjxeTtqu98+U+kpKO7ewg1d+8lCTalQ4E5+SP2vsM/n7HXO0M7QSDyPvJaNHMGKmLHQun3oL2hm9ez/i5WSJXA4+yuWCcH7YH9pe34NwqBiu/WrHzZPKCSeOtIcnElmuuc3it6Swqh3tKo22IppD9QVgnlOJXJpgqxJTsXkruDp29W1jdOdnLvbCSbQk81DHZWri+YkUzKNzlznvBdkI1ck+IbRnBA+iZigKWwdNrHSko/zc7PSjL/nyjqLDwXC06HzztN3LtgU/iHmMJwgvhqrJugjgx5ut2fuofaYgcnIqAUEgLoW/e2GZ0RXIjaA+j4lbqq0fuT/QQyMLUaTYZM1GcBFs7BLifKC56o5K9LaJdYKUX5yC039uZGvY1ccVuqtxRxAfcqycNYLEMoHZjBR5kKDQcH6VRLNr9e2ioiv/CKMGFP5cb1Pe9+x84O8htYVYM=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM6PR12MB4827.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(1800799024)(376014)(7416014)(10067099003)(6133799003)(18002099003)(22082099003)(4143699003)(11063799006)(5023799004)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?YLCmPi/cE5FzoJqu1kiaaLedcrjuLBRslG5eongn4mm9sSb6PxJUM/Il/Hsf?=
- =?us-ascii?Q?DBwYioB8wcGz+KMdtJq+P7Huu44JMDxm8UU4vG9IOMWfhrCS6xreMmuCq9IL?=
- =?us-ascii?Q?ZTERvxm8+6NeHswczzIcjJmZDUu/h1ClPpKSlNh2bAkUl6tioI+xJAXNFFDP?=
- =?us-ascii?Q?pts7lNU1UZA2wJnHKI2v9zkxqkVUyEQ9ySxRu+1sXVKC9oyjCpdbXEa1rAro?=
- =?us-ascii?Q?+6xBxrqyjjLPAVTlxue98ccHzVaJ5qFMlJtvYXOdDTQvvKHOx9Od0gYzy1xN?=
- =?us-ascii?Q?2XxX8P+/r1I73x5bmZ04fNriOJ8y3a8Z2KwHLgvM6/WPt480T6BMMCWilya/?=
- =?us-ascii?Q?tla4NsmCEdOZkBhJWqjov3uVTAv/C4nW/B8/g6cBEFUE1L3n4qe6pRVAXzIs?=
- =?us-ascii?Q?e+IMMuwjIDnmoaTjtJ/AuA7ecd9ME5VgoqlcWPRnikRq7Qjpzg+eY5ZpnO6W?=
- =?us-ascii?Q?JpGLd/4M3F7rocBOfosQlKGCDbstjiY42wF/Zyl8A1Ta5xag7H8RXu3iwWU/?=
- =?us-ascii?Q?oM78VWdSaG4w0BVCX7bblWcfCeIPNLJjXH/xtNL4otZiS4HEOjM/fhmgyQnO?=
- =?us-ascii?Q?U0vffstK05V9bixdZyevAcezffKLjEwHjhQDIDtbSbhoyu107gX0uL2m05s0?=
- =?us-ascii?Q?enZ19aBJaV6yDTjcWt0grpHQHPbCLxXVbk7plc/IMFwwInTwyhYL85IvdlfK?=
- =?us-ascii?Q?8R55t1Q5o5gsPESOAV2MyknpuR9VtZVl4kF/E1SQeEJdIj+UtBU5EcUozja9?=
- =?us-ascii?Q?bV0xEYuEYrMMCI5sAOvqKrBpeYB1X+jH4bqJRO8c443l7Hk+U4S+LI/vplmK?=
- =?us-ascii?Q?jfBkxok5b4iBLVd1p1ghTXlv7TLWdIrSFo97u73lhslDsUJDF/F6wS5nM+V2?=
- =?us-ascii?Q?Hz/aQCW4Z+fD+d9vvw75JeMGFmjYCDVS1QbGO7PD6aWQZ6u45erTcVLoxnNM?=
- =?us-ascii?Q?vTMGhjhVFNBHsvaPVgx48DCiTYX83fEPyj58XL6LUzrhg7T9wqcGkEk7aUe0?=
- =?us-ascii?Q?xRwTk0egwdSIuyVzlDavCJi8IqWIyHPaJXbQqT9mM9Er3JOU+DdCqmlbH04Z?=
- =?us-ascii?Q?ApWUPkzAJT6s/VDT2Y+nj2xtPzjPxwb/zarHiMBtOYGwC5ShTUSVY5RLIk49?=
- =?us-ascii?Q?pwANNzWoyWYWlK0V+j/cf+h+BkNID1C9zbWsC+rfoGREN7JMoSJsfuCa2wId?=
- =?us-ascii?Q?U4Ym7QUi/OOfwW/pfvwXOxdyN8pZGEltmqJiSKSbwuvTWqyiH5+TyuA05okh?=
- =?us-ascii?Q?IwpLNevNLPaIn+02pN3l24VJuPbuyVZjf2maStRLiKwBtZHnx9dAI2BR5StU?=
- =?us-ascii?Q?YD4MxeyM4Iq1tTERi6bxIZ9P4+2vDAl9ffhY5TEXiBREl9jSV20LiMlsBFqp?=
- =?us-ascii?Q?2rWxLAjd2O0S8a7/D0m0CFUNvldSqT+JdVsj8uiXe1jr19K91V0XgSE75zkA?=
- =?us-ascii?Q?VQSSwZLTfYHXIO0CWHZwmq7NKjekeHdrrnFkvKgD3AwEAhWv4NgscoTXbWe7?=
- =?us-ascii?Q?//qsjHg1fU/uKmP/aYr549/SQG765dkKSuJaqKFLmkOXGh10PCUVu8mHzGrL?=
- =?us-ascii?Q?DO/Gab4iW4mQHOKguaUl3ffO5WEOKnN1x8ux2ohzRmpZJuoIQivu666WSnB4?=
- =?us-ascii?Q?kZKEHC742P8q7K2csVb+vyYBFY4qj3sBLcXx37/kaPU53N2Y8oknQ0Ax2j2h?=
- =?us-ascii?Q?2I40xsb7AztoXRVWrLRPaQIN+qHuR4L+jK2lgGq5yw0xIy51R1Y0hJu44Ja7?=
- =?us-ascii?Q?Sp6Sd6KJwg=3D=3D?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b4e6c29d-923f-4eb4-9f3c-08df0d8b7ea2
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4827.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Sep 2026 09:28:08.8398
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: lcD+aEz219WW7+QBNxRrlQaIGixWWRgiMGEGzr58gL5gbLMplldBrUrGFpO5c0Ef2JWO1ru0cY8e+/5UYnMwxg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS4PR12MB733313
+Content-Transfer-Encoding: 8bit
 
-Hi Prateek,
+This series adds support for the Verisilicon DCUltraLite display
+controller as integrated in the Nuvoton MA35D1 SoC.
 
-On Tue, Sep 01, 2026 at 10:54:44AM +0530, K Prateek Nayak wrote:
-> Hello Andrea,
-> 
-> On 8/31/2026 7:12 PM, Andrea Righi wrote:
-> > proxy_needs_return() resets an active donor while holding blocked_lock.
-> > proxy_reset_donor() invokes scheduling-class callbacks, adding an
-> > unnecessary raw-spinlock nesting. It also presents the waking donor to
-> > put_prev_task() as still runnable immediately before block_task()
-> > removes it from the runqueue.
-> 
-> Is that an issue for scx?
+The Verisilicon DC driver and its DT binding were originally written by
+Icenowy Zheng <zhengxingda@iscas.ac.cn> for the T-Head TH1520 SoC, which
+carries a DC8200 IP block.  The present series builds on that foundation
+with gratitude to Icenowy for the original work.
 
-Yes. When a proxy-migrated donor wakes while it's still rq->donor,
-proxy_needs_return() has to reset the rq's donor before clearing the task's
-generic on_rq state and returning it through the full wakeup path.
+The DCUltraLite is a different variant in the DC IP family.  While the two
+IPs share a broadly similar register layout, a number of differences
+prevent the existing driver from working on the MA35D1 without
+modification:
 
-proxy_reset_donor() calls put_prev_set_next_task(), which invokes
-put_prev_task_scx() for an EXT donor. If this happens before the
-scheduling-class dequeue, SCX_TASK_QUEUED and is_blocked are still set, so
-put_prev_task_scx() re-enqueues the donor through scx_do_enqueue_task() and the
-following block_task() immediately dequeues it again.
+  - No CONFIG_EX commit path: the DC8200 staging registers
+    (FB_CONFIG_EX, FB_TOP_LEFT, FB_BOTTOM_RIGHT, FB_BLEND_CONFIG,
+    PANEL_CONFIG_EX) are absent.  The DCUltraLite uses enable (bit 0) and
+    reset (bit 4) bits in FB_CONFIG for direct framebuffer updates, and
+    requires a per-frame VALID bit toggle (FB_CONFIG bit 3) to latch
+    configuration changes.
 
-I can clarify this sched_ext-specific ordering better in the patch description.
+  - No PANEL_START register: panel output begins when
+    PANEL_CONFIG.RUNNING is set; the DC8200 multi-display sync start
+    register at 0x1CCC does not exist.
 
-> 
-> > Split block_task() so the waking donor can first be dequeued from its
-> > scheduling class. Release blocked_lock, dequeue the donor while its
-> > generic on_rq state still prevents migration, replace all donor
-> > references, and only then complete the generic runqueue removal. This
-> > follows the normal sleep ordering and avoids transiently re-enqueuing
-> > the waking donor.
-> > 
-> > This is a preparatory change to support proxy execution with sched_ext.
-> > 
-> > Signed-off-by: Andrea Righi <arighi@nvidia.com>
-> > ---
-> >  kernel/sched/core.c | 30 +++++++++++++++++++++++-------
-> >  1 file changed, 23 insertions(+), 7 deletions(-)
-> > 
-> > diff --git a/kernel/sched/core.c b/kernel/sched/core.c
-> > index 5817d1a4cea2c..237d216382f46 100644
-> > --- a/kernel/sched/core.c
-> > +++ b/kernel/sched/core.c
-> > @@ -2252,7 +2252,8 @@ void deactivate_task(struct rq *rq, struct task_struct *p, int flags)
-> >  	dequeue_task(rq, p, flags);
-> >  }
-> >  
-> > -static void block_task(struct rq *rq, struct task_struct *p, unsigned long task_state)
-> > +static bool dequeue_block_task(struct rq *rq, struct task_struct *p,
-> > +			       unsigned long task_state)
-> >  {
-> >  	int flags = DEQUEUE_NOCLOCK;
-> >  
-> > @@ -2273,9 +2274,15 @@ static void block_task(struct rq *rq, struct task_struct *p, unsigned long task_
-> >  	 *
-> >  	 * Where __schedule() and ttwu() have matching control dependencies.
-> >  	 *
-> > -	 * After this, schedule() must not care about p->state any more.
-> > +	 * Once the caller invokes __block_task(), schedule() must not care about
-> > +	 * p->state any more.
-> >  	 */
-> > -	if (dequeue_task(rq, p, DEQUEUE_SLEEP | flags))
-> > +	return dequeue_task(rq, p, DEQUEUE_SLEEP | flags);
-> > +}
-> > +
-> > +static void block_task(struct rq *rq, struct task_struct *p, unsigned long task_state)
-> > +{
-> > +	if (dequeue_block_task(rq, p, task_state))
-> >  		__block_task(rq, p);
-> >  }
-> >  
-> > @@ -3774,6 +3781,9 @@ static inline void proxy_reset_donor(struct rq *rq)
-> >   */
-> >  static inline bool proxy_needs_return(struct rq *rq, struct task_struct *p)
-> >  {
-> > +	bool reset_donor = false;
-> > +	bool dequeued;
-> > +
-> >  	/*
-> >  	 * Typically per __set_task_cpu(), task_cpu(p) == p->wake_cpu.
-> >  	 *
-> > @@ -3797,11 +3807,17 @@ static inline bool proxy_needs_return(struct rq *rq, struct task_struct *p)
-> >  		if (task_current(rq, p))
-> >  			return false;
-> >  
-> > -		/* If we're return migrating the rq->donor, switch it out for idle */
-> > -		if (task_current_donor(rq, p))
-> > -			proxy_reset_donor(rq);
-> > +		reset_donor = task_current_donor(rq, p);
-> 
-> nit.
-> 
-> Since proxy_needs_return() holds the rq_lock, you can check this outside
-> the blocked_lock safely, even after the dequeue. There is no need to
-> stash "reset_donor".
+  - Different IRQ registers: DISP_IRQ_STA at 0x147C / DISP_IRQ_EN at
+    0x1480, versus the DC8200's TOP_IRQ_ACK at 0x0010 / TOP_IRQ_EN at
+    0x0014.
 
-Agreed, rq->donor is stable while the rq lock is held, so this can use
-task_current_donor(rq, p) directly after dequeue_block_task() and remove
-reset_donor.
+  - Simpler clock topology: the MA35D1 clock controller gates the core,
+    AXI and AHB clocks with a single bit, so the devicetree supplies the
+    same clock phandle for all three; only the pixel clock is distinct.
+    No second output port is present, so no pix1 clock is needed either.
 
-> 
-> >  	}
-> > -	block_task(rq, p, TASK_WAKING);
-> > +
-> > +	dequeued = dequeue_block_task(rq, p, TASK_WAKING);
-> > +
-> > +	/* Keep on_rq set until all donor references have been replaced. */
-> > +	if (reset_donor)
-> > +		proxy_reset_donor(rq);
-> 
-> Since TASK_WAKING is guaranteed to block the task by adding
-> DEQUEUE_SPECIAL, you can just move the proxy_reset_donor() bit out the
-> blocked lock and keep everything else the same right?
+  - Single display output: no per-output indexing beyond index 0 is
+    needed.
 
-We still need to perform the sched-class dequeue before proxy_reset_donor().
+  - Hardware-discoverable identity: the DCUltraLite exposes chip identity
+    registers whose model field reads 0x0 (revision 0x5560,
+    customer_id 0x305), allowing the existing vs_fill_chip_identity()
+    path to identify the variant purely through register reads.
 
-If proxy_reset_donor() runs first, put_prev_task_scx() sees the donor with
-SCX_TASK_QUEUED and is_blocked still set and reenqueues it through
-scx_do_enqueue_task(). Then the following block_task() dequeues it again.
+Patch 1 adds the nuvoton,ma35d1-dcu compatible to the verisilicon,dc DT
+binding and relaxes the top-level clock/reset item counts so per-variant
+allOf/if blocks can constrain each compatible's actual topology.
 
-> 
-> I'm not sure I understand "transiently re-enqueuing the waking donor"
-> bit. How is that possible if we just do:
-> 
->     /* __task_rq_lock is held throughout. */
-> 
->     if (task_current_donor(rq, p))
->         proxy_reset_donor(rq, p);
-> 
->     block_task(rq, p, TASK_WAKING);
+Patch 2 adds the register-level macros needed by the DC8000 ops.
 
-And the transient reenqueue happens inside proxy_reset_donor():
+Patches 3-4 introduce the driver changes in two logical steps: the
+vs_dc_funcs hardware ops vtable with DC8200 ops extracted into
+vs_dc8200.c, and the DC8000 ops in vs_dc8000.c.  Patch 5 adds the
+DCUltraLite HWDB entry that gates hardware recognition once all support
+is in place.
 
-  proxy_reset_donor()
-    put_prev_set_next_task()
-      put_prev_task_scx()
-        scx_do_enqueue_task()
-          ops.enqueue()
+Patch 6 adds the Kconfig dependency on ARCH_MA35, placed last because it
+is only meaningful after the HWDB entry is added.
 
-__clear_task_blocked_on() clears the blocked_on relationship, but p->is_blocked
-remains set until ttwu_do_wakeup(). As SCX_TASK_QUEUED is also still set,
-put_prev_task_scx() takes its retained-blocked-donor path.
+All patches have been tested on Nuvoton MA35D1 hardware.
 
-The subsequent block_task() would then immediately undo that enqueue.
+Changes from v5:
+  - [dt-bindings] Renamed the patch from "generalize for single-output
+    variants" to "add support for nuvoton,ma35d1-dcu", since the binding
+    topology itself isn't being generalised, only a new compatible is
+    being added.
+  - [dt-bindings] Moved clocks/clock-names minItems to 4 and
+    resets/reset-names minItems to 1 at the top level (the lowest count
+    any variant needs), instead of overriding both minItems and maxItems
+    redundantly inside each allOf/if block.
+  - [dt-bindings] Kept the thead,th1520-dc8200 allOf/if block, tightening
+    it back up to minItems: 5 (clocks) / minItems: 3 (resets), since the
+    outer constraint is now looser than what that compatible requires.
+  - [dt-bindings] Dropped the nuvoton,ma35d1-dcu clock-names/reset-names
+    item overrides entirely: the devicetree will supply all four clocks
+    (core, axi, ahb, pix0) and the one core reset in the same order the
+    top-level schema already expects, so only maxItems: 4 / maxItems: 1
+    are needed to cap the count.
+  - [dt-bindings] Dropped the redundant "required: resets/reset-names"
+    sub-blocks, now that resets/reset-names are unconditionally required
+    at the top level (landed separately by Icenowy Zheng).
+  - [driver] Dropped "make axi and ahb clocks optional" entirely: since
+    the devicetree will always supply distinct axi/ahb clock properties
+    (sharing the core clock's phandle), vs_dc_probe() keeps treating them
+    as mandatory via devm_clk_get_enabled(), same as core and pix0.
+  - [driver] Added drm_WARN_ONCE() in both vs_dc8200_irq_ack() and
+    vs_dc8000_irq_ack() to flag any hardware IRQ bit that doesn't
+    translate to a known VSDC_IRQ_* definition.
 
-> Is the split because dequeue_task_scx() needs a correct rq->donor
-> reference or does ext requires dequeue_task_scx() to be called
-> before doing put_prev_task_scx() always?
+Joey Lu (6):
+  dt-bindings: display: verisilicon,dc: add support for
+    nuvoton,ma35d1-dcu
+  drm/verisilicon: add register-level macros for DC8000
+  drm/verisilicon: introduce per-variant hardware ops table
+  drm/verisilicon: add DC8000 (DCUltraLite) display controller support
+  drm/verisilicon: add DCUltraLite chip identity to HWDB
+  drm/verisilicon: extend Kconfig to support ARCH_MA35 platforms
 
-Both are aspects of the same ordering requirement here.
+ .../bindings/display/verisilicon,dc.yaml      |  44 +++++++
+ drivers/gpu/drm/verisilicon/Kconfig           |   2 +-
+ drivers/gpu/drm/verisilicon/Makefile          |   2 +-
+ drivers/gpu/drm/verisilicon/vs_bridge.c       |  20 +--
+ drivers/gpu/drm/verisilicon/vs_crtc.c         |  38 +++++-
+ drivers/gpu/drm/verisilicon/vs_crtc_regs.h    |   1 +
+ drivers/gpu/drm/verisilicon/vs_dc.c           |   9 +-
+ drivers/gpu/drm/verisilicon/vs_dc.h           |  33 +++++
+ drivers/gpu/drm/verisilicon/vs_dc8000.c       |  92 +++++++++++++
+ drivers/gpu/drm/verisilicon/vs_dc8200.c       | 121 ++++++++++++++++++
+ drivers/gpu/drm/verisilicon/vs_drm.c          |   5 +-
+ drivers/gpu/drm/verisilicon/vs_drm.h          |   8 ++
+ drivers/gpu/drm/verisilicon/vs_hwdb.c         |  14 ++
+ drivers/gpu/drm/verisilicon/vs_hwdb.h         |   6 +
+ .../gpu/drm/verisilicon/vs_primary_plane.c    |  32 +----
+ .../drm/verisilicon/vs_primary_plane_regs.h   |   3 +
+ 16 files changed, 375 insertions(+), 55 deletions(-)
+ create mode 100644 drivers/gpu/drm/verisilicon/vs_dc8000.c
+ create mode 100644 drivers/gpu/drm/verisilicon/vs_dc8200.c
 
-dequeue_task_scx() must run with rq->donor == p so it recognizes p as the
-current scheduling context, emits the appropriate stopping transition and clears
-SCX_TASK_QUEUED. Then put_prev_task_scx() can run as part of proxy_reset_donor()
-without placing the blocked donor back into a DSQ or calling ops.enqueue()
-again.
+-- 
+2.43.0
 
-And this is specific to resetting a retained donor, it's not a general
-requirement that dequeue_task_scx() always precede put_prev_task_scx().
-
-I'll remove the unnecessary reset_donor variable and expand the comment to make
-this ordering more explicit.
-
-Thanks!
--Andrea
-
-> 
-> > +
-> > +	if (dequeued)
-> > +		__block_task(rq, p);
-> >  	return true;
-> >  }
-> >  #else /* !CONFIG_SCHED_PROXY_EXEC */
-> 
-> -- 
-> Thanks and Regards,
-> Prateek
-> 
