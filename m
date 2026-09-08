@@ -1,93 +1,89 @@
-Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com [209.85.216.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 747B42F6596
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 18:48:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9B9357C72E;
+	Tue,  8 Sep 2026 18:52:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788893317; cv=none; b=AHU2bq+Mn94c2rF6vsoMiPgU6efJuI6jwxAynG/+faUdXo7F7WWyUptkZVip/8r0vdMZyCVaD/fPKRm+XBd4E8ZMZ9EVT+amUUhyQqwOBF4Nb8PVNMxyY04UOviSwuR+jGpEtdS7sy4xB8CF8sE9ny3k5zE04lVPmC3/tWJZGzM=
+	t=1788893563; cv=none; b=eiZVdWPxo6+/i5OrXkAzdqfX6lfzcI1en9dBKRulxQAXIuMk8CJUkHpafTvmaB5gAwLFlQm9P7kZCNOu3hwmoyptDJXbf7r9Nom9s2bQx01MF25uAGKlhfbPPG9/03qqvrzyDGuZjieTQ8vA/tBJxw2b3SQFzYzuLf1p1LNUH6s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788893317; c=relaxed/simple;
-	bh=3BUQ40Te82zxUOd3nT7N9CSpWi8Fb7EeAV0xm/rLncI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=TOnq8R/B30PUOGcr/aLFSJ6bbnVvxQ4NaaZ7phpyOKwYmaPw2WxGLnKy3dvoJc1DRG1vlp9m8WHqxB8s3I9c2zV9xq1deZxGgyXePMrRWbwf5R9yRLTRR2pohIT7FlxI0xg+nSNmQbRJxTmtoE66Mc16JWHQsLwUvrtRU92B9yE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=niQ/237R; arc=none smtp.client-ip=209.85.216.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788893563; c=relaxed/simple;
+	bh=utfaVtlGd7u5D4EQV6l5xEQC/ZWecWLHb/s4NJCNk1A=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Y5sUXMjdI21zvH0yeeY8JtIy7IHer0kSF02AtpZESAHsZm6fDUeJM4MAVotSpb1HbebMwyT/5cqfejIhXD4rRMcAC07qcebZIU6RjjbXv+HshnDDF7NV3tumem1kYF/KTQzz5gzF9SkrG2gDCOi2gT08UEX8j5Gz/dkY7/Lgdl8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ieq4JLaR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="niQ/237R"
-Received: by mail-pj1-f45.google.com with SMTP id 98e67ed59e1d1-3964e480f76so5715968a91.1
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 11:48:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788893311; x=1789498111; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=3BUQ40Te82zxUOd3nT7N9CSpWi8Fb7EeAV0xm/rLncI=;
-        b=niQ/237RcqlNGguFrJCJ63NeFz3PsVXJiR469lDbIE1fCNLpfWhpCNkGOZF5x0heds
-         tE5dce2OWLAwkeEl+DQcObTZNEcs5o7qFXHq60hcUtbKOsvWnZpNXlDjywXUccHC+83g
-         t+156mVkmO+lexXIyhZ5VJjBI14dRyAPoOlxLXLUc3t+FJqQQ/P7N+Qi0RSXrECgWtrh
-         ncUexYHPYm2MrrSoI996fZzCGT8juAvLBgXBAlsdWDTozIBAl0e9Q/fjEdGh8gFdulJd
-         BS+TpFLjCIJyuHCXaeFkqhWHJQAMHYDKHpcChXBq40ORdcpfTn+GDAUMBgYe/gL8Kj1T
-         kPxw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788893311; x=1789498111;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=3BUQ40Te82zxUOd3nT7N9CSpWi8Fb7EeAV0xm/rLncI=;
-        b=hacyQwRQKSus1cGnHGEddY/HXdLR6GMlVEj2jThIb9g9dNqt3KStskmJaxKp66mQ4c
-         /CzpHciznRlP2vsV0lR+MZHmOi7XKItSM33aBHRzsKe26AypvhUSKkk5MZZ62VoGbCrP
-         f6RfUIx+ANjuvhfojzdPTz7BKTLZ0pYNRDi9TRD1MoMQd7VvX4gSvYIgXkJ1HO6VGpns
-         fv27AKDL4s2EE/0SqrrIGDJFGYCy9cqVUEcnWWUmj5fFsnjDvKyBZvJP2poiipoj140C
-         SF4PNw/jst954laHxRQtf/kgZr5gNT6XogAfc38VjgHyu9/nmjrM16zr4B6BnQXOT756
-         7PfQ==
-X-Forwarded-Encrypted: i=1; AKwUvByFdAO9Gq4IEA8ngXpphQEYlEsDL217XSdl+MD0hYvTnBR1cpkjJXnYv+fBaTifpC/QqqqV16vn6TAQYI0=@vger.kernel.org
-X-Gm-Message-State: AFuF++nYiBf6y6juQk4mEiCZrO2km6S+RDzrB5IVir/xy0RS+cjaZfaY
-	EzN156T0fYVdZZK76aKQ+gktTPwDDUhSBSXuOB3dia25oZMe0TqloGz1
-X-Gm-Gg: AYBFou1bAwWju4EI0s4ItwsS68emwJU7zCpVFR4sc58ryXmubBdWOgIFKs8jpaJSZkJ
-	pvG5VWloUXq/obIS5gFmCuXX+l2+9xd4sCArq3cW2VIlm/HakBp+rjR69l/NkmKK8wHg3gs8TLu
-	Nh8PhJZ1TQc8yGMzl9XjkQhBMS3Q+S89pcaDtyLlZyRD52v+bTow1+xKRXYyMxka/28QDlEodFS
-	zDkLdxyXNS47kxkIPzWqU1l+tV5ILrquwub6hCs90GBgj4ef8uDESW3jp89LFRkq43P9wlELYtE
-	1+nm/pFjctc1fQPsi0VNwx6Bcdaare+MWcVEOnLmcuHxTKmrLjWf2LwxozmcDaBdPL1RRkMDoAl
-	tpxAUR6LfN3BQQIY8mCdfuz54+7nlhjX1DhGf3z8ci8thoBv087CHlRYd8CxISj3sJC0sw8CFEZ
-	hA3WFC6+wNbpob4mIDn4LeqablWo4JuZhlwJapuhqS+cG0g329S5fzEq5gxfmydo6Gs3dBR2Uml
-	NtYP88yLiDnkA==
-X-Received: by 2002:a17:90a:dfd0:b0:396:61f1:da5c with SMTP id 98e67ed59e1d1-39b260de667mr45639850a91.4.1788893310969;
-        Tue, 08 Sep 2026 11:48:30 -0700 (PDT)
-Received: from sergio-82n7.fritz.box ([23.162.40.92])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339b8f44d7sm37254955eec.22.2026.09.08.11.48.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 08 Sep 2026 11:48:30 -0700 (PDT)
-From: Sergio Melas <sergiomelas@gmail.com>
-To: Guenter Roeck <linux@roeck-us.net>
-Cc: linux-hwmon@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Sergio Melas <sergiomelas@gmail.com>
-Subject: Re: [PATCH v2] hwmon: (yogafan) Update reference database and contributors for new models
-Date: Tue,  8 Sep 2026 20:48:13 +0200
-Message-ID: <20260908184813.2353047-1-sergiomelas@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <32638fb3-4f3f-4798-a166-3cf1efe0c424@roeck-us.net>
-References: <32638fb3-4f3f-4798-a166-3cf1efe0c424@roeck-us.net>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ieq4JLaR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B2CE51F00A3D;
+	Tue,  8 Sep 2026 18:52:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788893561;
+	bh=DOKPmpWRmdDBglqf84YkB3HAz/fgt7fFnGQ4z3lV4J8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Ieq4JLaRtlT92Yg0dCEjo4VFE7X1234dNn5s2zUPIZ7NiNXSGmSkQQFccLQBYWHhr
+	 RYN3F1nROxCUN1B3nbU1qcvdS/fARGMxeXIBC0M3xsXKUfhNOP0y0lBj7ZuD80FyrO
+	 YYD7Eni5KPI+8MP7nSsd/ANAyvZKOVnW4XlIQFXohh/yW3P/gwqVMp9XgrgrpIWGrM
+	 Kvwmv2mW3Zn7/utqqBEybj89h+2cbzaTqGwYaRW9WfZl62QybKty/KBfX+89QKf8dg
+	 YhnfVAqb1MqfylRhqRxXbuWa/SWl5KK5X12z097zGYHnCehSs1UY4qQ+WS+B8L/Nly
+	 Fclmqr2A1t+eA==
+Date: Tue, 8 Sep 2026 19:52:36 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Cezary Rojewski <cezary.rojewski@intel.com>
+Cc: phucduc.bui@gmail.com, Liam Girdwood <lgirdwood@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+	Kees Cook <kees@kernel.org>,
+	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+	Trevor Wu <trevor.wu@mediatek.com>,
+	Douglas Anderson <dianders@chromium.org>,
+	linux-sound@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org, linux-kernel@vger.kernel.org,
+	Matthias Brugger <matthias.bgg@gmail.com>
+Subject: Re: [PATCH 3/7] ASoC: mediatek: mt8188: mt8188-afe-clk: Propagate
+ regmap update errors
+Message-ID: <a88fbf17-faac-4902-bd39-ff0a616a7d2d@sirena.org.uk>
+References: <20260907120310.135693-1-phucduc.bui@gmail.com>
+ <20260907120310.135693-4-phucduc.bui@gmail.com>
+ <e011cd74-7c5a-4cd1-b412-ad11765ad11c@intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="JWy8Wwp5/yGMiUOU"
+Content-Disposition: inline
+In-Reply-To: <e011cd74-7c5a-4cd1-b412-ad11765ad11c@intel.com>
+X-Cookie: The world is not octal despite DEC.
 
-Hi Guenter,
 
-Understood. My apologies, I misinterpreted your feedback and split the
-documentation thinking you wanted it strictly isolated from the driver changes.
+--JWy8Wwp5/yGMiUOU
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Since the driver patch is already in, please either apply this documentation
-update as-is to keep things in sync, or let me know if I should drop it
-and bundle it with the next patch set.
+On Tue, Sep 08, 2026 at 07:49:00PM +0200, Cezary Rojewski wrote:
 
-Thanks,
-Sergio
+> I'd expect someone from Mediatek to verify this.  While I agree with the
+> change, some drivers follow "ignore register update result" arch and,
+> what was previously ignored will now cause basic operations to fail.
 
-Signed-off-by: Sergio Melas <sergiomelas@gmail.com>
+We don't really get any review from Mediatek, AngeloGioacchino used to
+try to cover things but it seems he got busy recently :(
+
+--JWy8Wwp5/yGMiUOU
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqgWXMACgkQJNaLcl1U
+h9Ccvgf9Ggr9gv/6qkfKjZsgCMk8lQLLYxhJ/1oG28aS2ODQznEVI0n/o3onhTSp
+9sWz6l6XoSuTlM0+U+89WVv2HZFTcs0wsaA+pE+OGa7diIQxlVE2+V5AgbbdLPHJ
+h5Lhk2fB/Qubw+9taoXc8pT2Jmt/L89dCkVTgysWcDBJ+t0/2zhRB5YHSrsYiqbQ
+fgbnFPbf6JVIOqaCm20N1AAPm0cqbXi3+/TAqVmuHXpIOccFDiy/NrwG5BZj2JDk
+LySiLFKawdzJBIRjeP9EO46fau/vwCeJQbtsD0qdS4HAzi2FAtj+WZGjwS2Y9kJf
+Muc8BwBg69bA6BnfHttIdruciJ41Bw==
+=1Y36
+-----END PGP SIGNATURE-----
+
+--JWy8Wwp5/yGMiUOU--
