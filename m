@@ -1,136 +1,80 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CC2953D0AE;
-	Tue,  8 Sep 2026 12:38:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38C8753D0BA;
+	Tue,  8 Sep 2026 12:41:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788871128; cv=none; b=qldK5tkAdig7pc0YLvDXyz0MQsn7yQHtFilYVDwYFs03cy4s59tXK6ZpttYjelpYxpz44vhC9eHj8d3UH6ntQKlV/LJEv9BM7I9SGE5wnzrsrJiuOlqPSad5RHtc6o5O6mZKnmiI76+uveqJqF2Bf1KuGC/VB1TqZzzqBXI0KdM=
+	t=1788871285; cv=none; b=ZIQeAQPyYsV4uGCkRNf7RmDrF/CouZ1czi8gIKquRkfKeYMRkieVUOro7hP42663QEtavSnydkRSlV8tnA0bV9r7hosnskOGgAAutTNghlEDtXETTH/HpQVNx3LU/4NV1bARUGB2GJNkElE9RGPmaC3pBHarad3k7J/ADHh800k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788871128; c=relaxed/simple;
-	bh=LconcLIYxLMpRPe1qsgaSQNp6+UlnNRm53XEGj2Qv3M=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=CVPdO6m6pbmyPUCeqC1Wby042GHpa9sxXUjn2gyIWe0Vqw0WGwAQyC0Vrm/wVgPzz/5cNp31SF0wj9OPOfDEZV//19mClIrDUJ+6f2A/2UYOwOe6ZwCrO47jy8nporOrOZhdOdoht2mtESiwcGfQWzbz9cbb6iQRNa+boY69LWk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RujEipcD; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788871285; c=relaxed/simple;
+	bh=C11eIH1axoSmA4Nw0j+f6lVJQjSHEnEG1moY1x/Gh7w=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=V1/iBf37XbwC9Zg3V6kdws2sG2JLkMR9flwJfCitK3/1V5bxRUACwUp6GzaGvt7Adf4jzDbj/p40YIlIqClLe718Br1rkinSygLzv9topSVa7z68A9msJywZ6+Hh/QoPZmPDg0GZuCq+Mr47qxMfXKxNOZBEHoKSEZ//Pteg5fE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OfOdU1Ub; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RujEipcD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C7F31F00A3A;
-	Tue,  8 Sep 2026 12:38:43 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OfOdU1Ub"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B2691F00A3D;
+	Tue,  8 Sep 2026 12:41:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788871127;
-	bh=fY14K9jk30Jrb6+u7e+f1I2SecfbVWLG2CSKPUhXInI=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=RujEipcDEg/FCA174vxG8rgLdPncusl4HTzzr2yjAaMI1b+cxe4wRSI/Sp1HbPwoB
-	 fY820jq4QhzoOte2FDnbWzxohbWTFoXYQuM/xd5YbqCBT0Swgxd2cNkbr/6ALrazCD
-	 +4CrNOV9nJe7vuy+DrwI3hjFp0CAT+oZplErdjVuHRpYeytfE0km+YNxw3KAAd2ifg
-	 0k9JSsX+4sPrnWu95zYTI2TPZsW1jNxz890N2LJibA/gQU8sP6ahGX5n1YMpIFiVnF
-	 6tO+7hjF8bL7K4jaT6iSbGSwhcllCVDF0T/1NFKDT/t27cwfPI++oFc3P7Cr+lZS58
-	 Kn4Z7QfE8d/Nw==
-Message-ID: <0f15df3b-b4ac-41f5-9470-08bc69bbdebe@kernel.org>
-Date: Tue, 8 Sep 2026 14:38:40 +0200
+	s=k20260515; t=1788871283;
+	bh=L/DVZwU8m5QrP45hct4JLM28dfypJCWXqw1hSAF2t9s=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=OfOdU1UbC3xfZcSDqaNlkCC2jBte+kUPnZ2X3ar+Jx1LuA5tGaZpd72cohfJhnsQb
+	 rfGwpznhtHFPVC8KOzzKXEmCTIfRbO8wiFy4g6lPrc48I4pjvIzwMqDM5fX0Qe8mHm
+	 7uzAg706TO7TUiL58/LwsaqBf0fHkSOERswkhakGf0h+7cZJySqcs/dgOT2dnijVpL
+	 jxcOdvRbCy5+sqflFgIc8YprB7fH8G/svwJ7k+4vP3LhFoDbA8xVtK6j0ZNo01TvLW
+	 cxD1f+B9iSBcraJm22QDOMbn9/nsLX07C3gK3dkIyB+W3p5EQPjcVDafjYxuZ5FeC/
+	 4O5qabpUoCawQ==
+Date: Tue, 8 Sep 2026 13:41:19 +0100
+From: Simon Horman <horms@kernel.org>
+To: Ivy Lopez <skunkolee@gmail.com>
+Cc: ionut@badula.org, andrew+netdev@lunn.ch, davem@davemloft.net,
+	edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] net: starfire: fix ioaddr sign-extension causing
+ ioremap() failure
+Message-ID: <20260908124119.GW40544@horms.kernel.org>
+References: <20260819083731.GL265046@horms.kernel.org>
+ <20260907225748.167279-1-skunkolee@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] selftests/mm: fix size truncation in pagemap_ioctl test
-To: Zenghui Yu <zenghui.yu@linux.dev>
-Cc: linux-mm@kvack.org, linux-kselftest@vger.kernel.org,
- linux-kernel@vger.kernel.org, akpm@linux-foundation.org, ljs@kernel.org,
- liam@infradead.org, vbabka@kernel.org, rppt@kernel.org, surenb@google.com,
- mhocko@suse.com, shuah@kernel.org
-References: <20260907135613.68692-1-zenghui.yu@linux.dev>
- <9a21fc3c-1ca9-42a3-a044-6421f20341f6@kernel.org>
- <df053a08-6c9a-4e56-9ba5-bdfbf930331b@linux.dev>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <df053a08-6c9a-4e56-9ba5-bdfbf930331b@linux.dev>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260907225748.167279-1-skunkolee@gmail.com>
 
-On 9/8/26 13:22, Zenghui Yu wrote:
-> On 9/7/26 11:22 PM, David Hildenbrand (Arm) wrote:
->> On 9/7/26 15:56, Zenghui Yu wrote:
->>> From: "Zenghui Yu (Huawei)" <zenghui.yu@linux.dev>
->>>
->>> On arm64 with 64K base pages, the huge page size is 512 MiB, and
->>> hpage_unit_tests() builds a 5 GiB range (10 * 512 MiB) for its tests.  This
->>> exceeds the range of the int size parameters of gethugepage(),
->>> wp_addr_range() and pagemap_ioctl().  The implicit truncation to 1 GiB
->>> makes gethugepage() allocate a too small buffer, while the callers keep
->>> operating on the original 5 GiB range, resulting in spurious failures or
->>> SIGSEGV.
->>>
->>> Change those size parameters to size_t.
->>>
->>> Fixes: 46fd75d4a3c9 ("selftests: mm: add pagemap ioctl tests")
->>> Assisted-by: GLM-5.3 OpenCode
->>> Signed-off-by: Zenghui Yu (Huawei) <zenghui.yu@linux.dev>
->>> ---
->>
->> Looking at pagemap_ioctl.c ... I think most functions should actually be "static".
+On Mon, Sep 07, 2026 at 04:57:48PM -0600, Ivy Lopez wrote:
+> ioaddr is declared as a signed long, but is assigned the result of
+> pci_resource_start(), which returns an unsigned resource_size_t.
+> On configurations where the BAR address has its high bit set, the
+> value sign-extends when passed to ioremap(), producing a bogus
+> 64-bit address and causing device probe to fail:
 > 
-> Yup.
+>   ioremap: invalid physical address fffffffffe480000
+>   starfire 0000:08:04.0: cannot Remap 0x80000 @ 0xfe480000, aborting
 > 
->> Using size_t is ok. But then we should also change "unsigned long long mem_size"
->> to size_t, no?
->>
->> Also, in wp_free() we are suddenly using "long size". In pagemap_ioc() we're
->> also still using "int len".
->>
->> Can we consistently use one type please?
+> Change ioaddr to resource_size_t, matching both the return type of
+> pci_resource_start() and the type ioremap() expects for its physical
+> address argument, rather than unsigned long, which is not guaranteed
+> to be wide enough on all configurations. Switch the associated error
+> print to %pa accordingly.
 > 
-> Yes we can.  This patch adopts a minimal fix for this specific issue.
+> Link: https://bugzilla.kernel.org/show_bug.cgi?id=198035
+> Signed-off-by: Ivy Lopez <skunkolee@gmail.com>
+> ---
+> v2: use resource_size_t instead of unsigned long, and switch the
+>     error print to %pa, per Simon Horman's review.
 
-Right, but for this selftest in particular we don't need a minimal fix. :)
+In general this change looks good to me.
+But unfortunately it does not apply against net-next.
+
+Please rebase.
 
 -- 
-Cheers,
+pw-bot: changes-requested
 
-David
+...
