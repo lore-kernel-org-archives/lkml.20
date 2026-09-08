@@ -1,105 +1,108 @@
-Received: from mta1.migadu.com (out-110.mta1.migadu.com [95.215.58.110])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from out162-62-58-211.mail.qq.com (out162-62-58-211.mail.qq.com [162.62.58.211])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 797CA3876CD
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 08:06:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.110
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AF543A9616;
+	Tue,  8 Sep 2026 08:06:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.62.58.211
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788854802; cv=none; b=tHwnqcDgVTgrknYgslYEfxI7gUqIhSEsFuR7iBkyEsmm93U4/6UzmHXEpUxbqlzJai53ymqDxBotfqhKWj7n27pOgUcMq7xDhnqZ59Tgj8uesxJuiKCDBxQRtEkzSziGCxBWZyF36BVT5AXHMBBb12B83qCQmprvPuLZev03qeE=
+	t=1788854807; cv=none; b=R7KuTalXGfvUfYykcuP0tfihWBAL3yd0ApBerfYaS6J0RrCjIIcuF0MAREGeZ1JCewgT1QR/2ncqy4TTxoZVqBPU1T6oUwTYb5HCI6jKzSyvDZ8rNhjpAXYFN9uYoLtjF6U1+ZsN8CF2ih47jdZQpqbuQjDZFRqBIL8+7grOyR0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788854802; c=relaxed/simple;
-	bh=X40NbP2VG3ynlCJ/mMCdKpCJsDLmQc6h9+cTEAWmcsE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=YRC4Al3DSqfzR5+yGBLOh4VsVxL9zzzyhCKhSJnmlaKLVlw78dZ4TSDBG2t0OATet1lMfdsq1+bqIkWwn1cOHqMNN6xmXLgKwmkTqUX9awcgoBaQL6kFZEkeIEIEDTurfwMnF15dEVvoG58psY5yKs/8YECfkEfB+CwvV7cxBwM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=rhOU4HRn; arc=none smtp.client-ip=95.215.58.110
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1788854807; c=relaxed/simple;
+	bh=2xqmYT9HDXnhzbfJRGQf79SeIwwTFyFfKijTt7HmlJg=;
+	h=Message-ID:From:To:Cc:Subject:Date:MIME-Version; b=o5HwV4bzJKCueX8Aa9yiczZq+l3yZVj4w2SiJbQ+pP7+ORtOBWdg/jjuRW7BQaGF4/A/S1oTtbYjeOPwwHjbbFIPEiFo2o/e2qlIYpmLUMRobD90jfE3v6JbGxHnpNRajeu8Zs0Wt/CavseNliFKitXNBx352kDa3LFbPy9Xt4w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=L7Ed/hK3; arc=none smtp.client-ip=162.62.58.211
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="rhOU4HRn"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=X40NbP2VG3ynlCJ/mMCdKpCJsDLmQc6h9+cTEAWmcsE=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788854798; v=1; x=1789459598;
- b=rhOU4HRngGezHIaW5x1C9VMF6X3WhwLxpat1O7zmmH9O4aG8TCmW1Gaj7bAe8B8Zh47Dypac
- kQAuW2o1qxlLKHUSUH+LOHgXRoOOV8gi9YpxWIR1xe07x+N+yAA95ST+pV7T20Yzyu5DtACkdwO
- d4VbrmqGO0yfLHqtVyurJnUc=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id d13c9dd9c39d3850;
-	Tue, 08 Sep 2026 08:06:38 +0000
-X-Mizu-Trace-ID: d13c9dd9c39d3850
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <adbffefd-b921-48b5-b0dc-a5f4c26d0838@linux.dev>
-Date: Tue, 8 Sep 2026 10:03:34 +0200
+	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="L7Ed/hK3"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1788854792; bh=98YyOZdshhn5cPZjXVwyFbNEDVw72Ziv/YVFEcGoRpw=;
+	h=From:To:Cc:Subject:Date;
+	b=L7Ed/hK3+qnS4oGV6uXVbV0GmF63+DNoDaJsqF8bEhvhG6UKfOKB7vbcBUya1xJ3C
+	 wBxA37Q0FS1iRrTVfG7Ik4KKMXJS0+G5MuYekKMwZQhBhMBwHACeZS+UADdn1Ms0ed
+	 0yoL9Nb2NsHwCIhc4yVQXogwYLj9MqtbNAYY9z1A=
+Received: from localhost.localdomain ([106.114.216.75])
+	by newxmesmtplogicsvrsza73-0.qq.com (NewEsmtp) with SMTP
+	id 185190A2; Tue, 08 Sep 2026 16:06:05 +0800
+X-QQ-mid: xmsmtpt1788854765tzqwk7xsr
+Message-ID: <tencent_4E077A13DB36F0C12D69B0E89FD5C7DCB506@qq.com>
+X-QQ-XMAILINFO: MDbayGdXPuoeCWl6JLYX9iT4KFyTP4BOAs/TVgRKNN3qePWHPHaM937c3cEOSw
+	 gEMzJx/6L0E7pc5TUef1oNNef8p7TaBjvKrF/RuJOmrVTIfaCeOvmZsFPvB4VWh+NPBfHW4fgepG
+	 S6epI4g9XYvj4k/+LmAenIn3SD3b9iRPLZvagISGUTONATkxU5qyPFCMfm4JsBb0XgXlTy/q9vCo
+	 8/fK7IyZfwNAZ0OxnohE1BC1b/AwTwihBMIDg+s5YnHRwW/Dcm+jV5XOVBY2qNw6cgv9CsuY6ep4
+	 nRjBqW0Hm2/1f+8Pf3DXf9Z+afrT6Z+8X242hTZExMcHQ55yxCsXQaEbvd3Dc8khKuGiMfCEAPZr
+	 ieljfu7Y1LaAbkjoziq4Pyy/WhJsMPKviVlue5loH0++WvQ5ct/bF0wAtI+0w5lLguC4Z2HxvMyu
+	 VsOj3K/d2KxEVYcEQbKpvfRizlwHH/YBm7eeieFn/gfkt7iqmI3iPDjqoHkyp47F6fXqUWbwHQpJ
+	 c0MetieAU+beo4icbzmRAwcvEgkvWE1NQz0kRg+vZO1ZhTDUed1wZqwfJ89Uath6NGCXr7znISJu
+	 Xh7Uk9rtMje7g2C/cHgOlp5/lkAaINsUBLr0aRolBhdmMUTiIgZ/DIsDd7vn0R6HNSXMD1fYclhq
+	 3/i3bYf9+7tbKMbohOSHSpnz3e1Kr1uHAH/sksflln8/pV50hni8IFgYS4FeMIW8/d+lHAD4aZoG
+	 Gxg24rfVWjcAPJm5OLRp5jJaTRYier+zr0iHxs/jfTkzDqSoOStepPP6qGjTvx8/DtDKiegJo5dU
+	 aURyrXNwvP8uLzycmv/1cJrxJ+BGEdbvBl+RLhy5rmZKZoT4YVmgwUub6mJRqCEmfT0tUVFfmyUq
+	 sLfJVN0MgpLUlOkg/Cf5GXwnfYKZl6dP3FPmwJBR6mlGt55gi1YmAmFKavc4mAYsFfG5PNwW3x5w
+	 31rpAyfDZpEf3q3EkVNhkopDgb1AtKeIK2m2L2W/LfRW1YSMw8fZB2lR1EK1GsW/lQJKSBlI4VwI
+	 UeZGQSNDtKrzCvvmaRglCV4Y9uKxmWtlYsiyEt3J03e0+ZpB2o
+X-QQ-XMRINFO: M/715EihBoGS47X28/vv4NpnfpeBLnr4Qg==
+From: JX <1239989762@qq.com>
+To: Miguel Ojeda <ojeda@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>
+Cc: Boqun Feng <boqun@kernel.org>,
+	Gary Guo <gary@garyguo.net>,
+	=?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
+	Benno Lossin <lossin@kernel.org>,
+	Andreas Hindborg <a.hindborg@kernel.org>,
+	Alice Ryhl <aliceryhl@google.com>,
+	Trevor Gross <tmgross@umich.edu>,
+	Daniel Almeida <daniel.almeida@collabora.com>,
+	Tamir Duberstein <tamird@kernel.org>,
+	Alexandre Courbot <acourbot@nvidia.com>,
+	=?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	"Liam R . Howlett" <liam@infradead.org>,
+	Uladzislau Rezki <urezki@gmail.com>,
+	rust-for-linux@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 0/2] rust: add unsafe precondition assertions to Vec length helpers
+Date: Tue,  8 Sep 2026 16:06:01 +0800
+X-OQ-MSGID: <20260908080604.34070-1-1239989762@qq.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 2/2] ASoC: sdw_utils: add tac5272 support
-To: Niranjan Holalu Yogendra <niranjan.hy@ti.com>, linux-sound@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org, broonie@kernel.org,
- ckeepax@opensource.cirrus.com, lgirdwood@gmail.com, perex@perex.cz,
- tiwai@suse.com, cezary.rojewski@intel.com, peter.ujfalusi@linux.intel.com,
- yung-chuan.liao@linux.intel.com, kai.vehmanen@linux.intel.com,
- baojun.xu@ti.com, shenghao-ding@ti.com, sandeepk@ti.com, v-hampiholi@ti.com
-References: <20260908032757.389-1-niranjan.hy@ti.com>
- <20260908032757.389-2-niranjan.hy@ti.com>
-Content-Language: en-US
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>
-In-Reply-To: <20260908032757.389-2-niranjan.hy@ti.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 9/8/26 05:27, Niranjan Holalu Yogendra wrote:
-> From: Niranjan H Y <niranjan.hy@ti.com>
-> 
->  Update soundiwre utils to support tac5272 which is
-> UAJ only variant.
-> 
-> Signed-off-by: Niranjan H Y <niranjan.hy@ti.com>
-> Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
+The safety requirements of `Vec::inc_len` and `Vec::dec_len` are
+currently checked with `debug_assert!`. Convert them to
+`unsafe_precondition_assert!` so violations are reported consistently
+with other unsafe precondition failures.
 
-this one looks fine.
+The first patch makes the no-message form of
+`unsafe_precondition_assert!` usable from const functions. This is
+needed by `Vec::inc_len`, which is const, and avoids runtime formatting
+when the diagnostic consists only of the stringified condition.
 
-Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>
+The second patch converts both Vec length helpers.
 
-> ---
->  sound/soc/sdw_utils/soc_sdw_utils.c | 21 +++++++++++++++++++++
->  1 file changed, 21 insertions(+)
-> 
-> diff --git a/sound/soc/sdw_utils/soc_sdw_utils.c b/sound/soc/sdw_utils/soc_sdw_utils.c
-> index 88031238c..ab0132031 100644
-> --- a/sound/soc/sdw_utils/soc_sdw_utils.c
-> +++ b/sound/soc/sdw_utils/soc_sdw_utils.c
-> @@ -81,6 +81,27 @@ static const struct snd_kcontrol_new rt700_controls[] = {
->  };
->  
->  struct asoc_sdw_codec_info codec_info_list[] = {
-> +	{
-> +		.vendor_id = 0x0102,
-> +		.part_id = 0x5272,
-> +		.name_prefix = "tac5272",
-> +		.dais = {
-> +			{
-> +				/* UAJ only - no speaker or DMIC */
-> +				.direction = {true, true},
-> +				.dai_name = "tac5xx2-aif3",
-> +				.component_name = "tac5272",
-> +				.dai_type = SOC_SDW_DAI_TYPE_JACK,
-> +				.dailink = {SOC_SDW_JACK_OUT_DAI_ID, SOC_SDW_JACK_IN_DAI_ID},
-> +				.controls = generic_jack_controls,
-> +				.num_controls = ARRAY_SIZE(generic_jack_controls),
-> +				.widgets = generic_jack_widgets,
-> +				.num_widgets = ARRAY_SIZE(generic_jack_widgets),
-> +				.rtd_init = asoc_sdw_ti_sdca_jack_rtd_init,
-> +			},
-> +		},
-> +		.dai_num = 1,
-> +	},
->  	{
->  		.vendor_id = 0x0102,
->  		.part_id = 0x5572,
+The series has been checked with:
+
+  make rustfmtcheck
+  make CLIPPY=1 rust/kernel.o
+  make rusttest
+  make rustdoc
+
+JX (2):
+  rust: make unsafe_precondition_assert! const compatible
+  rust: alloc: use unsafe_precondition_assert! in Vec length helpers
+
+ rust/kernel/alloc/kvec.rs |  7 ++++---
+ rust/kernel/safety.rs     | 10 +++++++++-
+ 2 files changed, 13 insertions(+), 4 deletions(-)
+
+
+base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+-- 
+2.54.0
 
