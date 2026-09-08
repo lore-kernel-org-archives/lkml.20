@@ -1,75 +1,82 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BA2254A7ED;
-	Tue,  8 Sep 2026 14:06:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B47E655930E;
+	Tue,  8 Sep 2026 14:07:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788876409; cv=none; b=XMYlIYCBrdRP8ir5bMKiziklbJVWe41NQ3zw6MU5/e5VeI+6Yl+IF7TLtSetqn+NgpfZf6yTjVA9Ej9hLYMyz8IXr2uLVlNLzS+98WQpk+uEzHt7mjIf+v+FzW1pqC77AZTLN4VyqJqrxlzJEx1j1b8qoi4mSMzu6fpew73DYR4=
+	t=1788876438; cv=none; b=UubNf3QJHjhPX7w4PRyhCWug9f6zMg3DvAmAQgojq4bCbA7iFZKqk7FBVhvgXmpQ06So5xIIq0WEO2Dv70gFEUEUn0FQSf3mkXKjeathhs2TAfnRbSkg60h8tTnNFu6T8w1mOa2SrxGaT5CdYxOZxRukrtvbesLpTOww34DWCVY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788876409; c=relaxed/simple;
-	bh=nlw1n+Qam30svdA8271imhkhM/aU9BWN0kxR+6LiA4g=;
+	s=arc-20240116; t=1788876438; c=relaxed/simple;
+	bh=A6ErJUzN/3d+hkswBOGN9aGW81VCvFSDRXx4S8LOvGg=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=unSXcL71fJoE6oPKhhOxlCH0jeLOK0ChWiZr27d4jHmwG6w5ASncpmE6kazmzr3+qy1WKvmLBNtHUwMBRHkeK5Wd/EJFUZij7kU+eUfa7XbpF5mhsg5xh5KEY/XMnT+0axE/n66P66BWkuKn5Q2RHx9Gv0zqtX6wTTO5k2EO8EE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=ptz0uxC9; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="ptz0uxC9"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=ZAV6al87b/Jcv3+638F2PpIExIpheZIpC5LDyk7c2l4=; b=ptz0uxC9Lwk4karYcKY7az9XDF
-	CG0MMpwWc7/3UjFuwQ3T8xzDZRqDOeaC5y/Wz9s95bRFwuyjcKfrAXytWxXW2tieozYKAbHuZADOn
-	Q0pyf8dogCyd3zsKRHzeHFQnZDsOxdS4BxnQ548ZZQvTXpv5pAp9sSBqkeSgBzYGT+aM=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1x3wSc-003uQZ-KZ; Tue, 08 Sep 2026 16:06:06 +0200
-Date: Tue, 8 Sep 2026 16:06:06 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
-Cc: hkallweit1@gmail.com, davem@davemloft.net, edumazet@google.com,
-	kuba@kernel.org, pabeni@redhat.com, linux@armlinux.org.uk,
-	daniel@makrotopia.org, o.rempel@pengutronix.de,
-	netdev@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH net v3 2/3] net: phy: dp83td510: handle the active-high
- LED polarity mode
-Message-ID: <42c4c477-8fcd-41b6-ba6d-e0ab382b01e8@lunn.ch>
-References: <20260908105959.70453-1-donggeunyoo.kernel@gmail.com>
- <20260908105959.70453-3-donggeunyoo.kernel@gmail.com>
+	 Content-Type:Content-Disposition:In-Reply-To; b=sUU8piQ44cvFjCswUfrX447hiNWyMI4cCDsZ6Xbzqk7IFGAL4BoVwSEO8gWynS//AXvwj4y8kybT6QqPhd6T6FuoxNQT/8XWM+6oLCOdoHklQXZ9ph+IXJxDgx6Vu/YEaqQaXrjDypkHOtxyaUouWUHgpGdbrnlDhbEClxm112A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EBBFB1F00A3D;
+	Tue,  8 Sep 2026 14:07:00 +0000 (UTC)
+Date: Tue, 8 Sep 2026 15:06:28 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Simona Vetter <simona.vetter@ffwll.ch>,
+	Intel Graphics <intel-gfx@lists.freedesktop.org>,
+	DRI <dri-devel@lists.freedesktop.org>,
+	Alex Huang <Alex.Huang2@amd.com>,
+	Mario Limonciello <superm1@kernel.org>
+Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+	Linux Next Mailing List <linux-next@vger.kernel.org>
+Subject: Re: linux-next: build failure after merge of the drm-misc tree
+Message-ID: <5d3de44a-c382-4ce6-8f52-62696e67fcd0@sirena.org.uk>
+References: <aqAVSgsypMch2c0v@sirena.org.uk>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="lOeEdv7AiO3TZxIk"
+Content-Disposition: inline
+In-Reply-To: <aqAVSgsypMch2c0v@sirena.org.uk>
+X-Cookie: The heart is wiser than the intellect.
+
+
+--lOeEdv7AiO3TZxIk
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260908105959.70453-3-donggeunyoo.kernel@gmail.com>
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, Sep 08, 2026 at 07:59:58PM +0900, Donggeun Yoo wrote:
-> dp83td510_led_polarity_set() only recognizes PHY_LED_ACTIVE_LOW, so
-> PHY_LED_ACTIVE_HIGH falls through to the default case and returns -EINVAL.
-> of_phy_led() propagates the error, of_phy_leds() drops the LEDs registered
-> so far and passes it on, and phy_probe() returns it. A device tree marking
-> a DP83TD510 LED as 'active-high', which leds/common.yaml allows and
-> ethernet-phy.yaml references for led@N nodes, thus leaves the mdio device
-> unbound, so phy_attach_direct() falls back to the genphy driver, which
-> cannot drive this 10BASE-T1L single-mode PHY, so the interface has no
-> usable link.
-> 
-> The callback initializes polarity to DP83TD510E_LED_POLARITY(index), which
-> is the active-high setting, so the request is already satisfied and only
-> the case label is missing.
-> 
-> Cc: stable@vger.kernel.org
-> Fixes: 5b281fe7e396 ("net: phy: dp83td510: introduce LED framework support")
-> Assisted-by: Claude:claude-fable-5
-> Signed-off-by: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+On Tue, Sep 08, 2026 at 03:01:50PM +0100, Mark Brown wrote:
+> Hi all,
+>=20
+> After merging the drm-misc tree, today's linux-next build (x86_64
+> allmodconfig) failed like this:
+>=20
+> ERROR: modpost: drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/tests/amd=
+gpu_dm_connector_test.ko: symbol 'parse_hdmi_amd_vsdb' undefined!
+>=20
+> Caused by commit
+>=20
+>    65198b3d0738 (drm/amd/display: Use HDMI FreeSync range from common EDI=
+D parser)
 
-Reviewed-by: Andrew Lunn <andrew@lunn.ch>
+Sorry, that should be f65198b3d07389afdcb48e4ad00fea2aded95dfd.
 
-    Andrew
+> I have continued to use the version from next-20260831 instead.
+
+
+
+--lOeEdv7AiO3TZxIk
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqgFmMACgkQJNaLcl1U
+h9DHlgf/bWfZ0Bc/2mHhv2tpOgPyltTb5KGNuzhTCET0U2SXgPR82UeHYmsnUBCF
+fT2zq3X3e4Q5MWIWcGElfhJ1F7m24HK9ZAHjRqdsV4+rZt7smt1C2oJDfbRa3/i6
+e/E7RcBk4x16bTBHFf+83uw5GRZ+JSB8YGu7UHlAoNJOQ1KfHXAV0LAWsqr/PNpU
+TBHMEpnf+K06ArjafUUXDSiVN2sClsyRiBr/hMXaRlUwFhcVfjfvT7YPKi2HxiNm
+27Jhv9hK7/Eo3vz9Ud+kGd8Z+8kAZHlkB5hE5ewn833JVjk05JxSeej9R/XdTLqY
+Oems2SAKeHZW5+ktGduJHrQzaKQQyw==
+=ic3F
+-----END PGP SIGNATURE-----
+
+--lOeEdv7AiO3TZxIk--
