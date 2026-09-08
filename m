@@ -1,81 +1,163 @@
-Received: from out-utut-a220.jellyfish.systems (out-utut-a220.jellyfish.systems [198.177.127.220])
+Received: from mail-vs1-f48.google.com (mail-vs1-f48.google.com [209.85.217.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FA4F4EE847
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 09:56:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.177.127.220
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F03674EA365
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 09:56:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.217.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788861384; cv=none; b=fhJTv9zn/cTYgIwRDdBq3Va+1qihs4gFlkcN2JTRxptL4Bvr63aPydBftjDi+o6a7rD3S4LISen1m7ybYNkvLI3eW6oTTt7bBlN8/BcGQrU20paoLrALEztgdreyaYt6+1322XInn1xYHyhFIeCZRKSVQelPjxMWxz+9UE7kobs=
+	t=1788861386; cv=none; b=UZZ3im8y+W6N+tEJOZd4duQo/11U9r6kBs8CnQrw/VRQ2o+0s6dIWgOXGJY9k924U7SMeELM3Cp7jFp7WZmrXDjRfEeVl/+I+dgzCoawgQM++OUokjJHY92AbCbnFyvvcuw1w1XKwFH3yAk0XtboGcAcb96fHgONALudbtaL6tI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788861384; c=relaxed/simple;
-	bh=vex2Z7sk6yPXZz+/u0iVKmqeypvzt3JwnfHpdqCuCKE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=C4FoW/fnSumUfWAzcPxykBJgQqD2FMx61CgChHQvJUvSG8muiG8wXQsDfyUNto36amTanoOVCQrtpzpTmPjRtyhjRSPVbWu45dCdCj1Lo50fgByThzdrgPyoJBtN8M/pXblfiTnRDNxVN1SRl1kMPB/v5FihUUq5OE9ZLrx8Qis=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tychen.cc; spf=pass smtp.mailfrom=tychen.cc; dkim=pass (2048-bit key) header.d=tychen.cc header.i=@tychen.cc header.b=DOSSsjQb; arc=none smtp.client-ip=198.177.127.220
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tychen.cc
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tychen.cc
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tychen.cc header.i=@tychen.cc header.b="DOSSsjQb"
-Received: from fedora (unknown [69.5.53.41])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mail.spacemail.com (Postfix) with ESMTPSA id 4hfK820ZX1z2xMb;
-	Tue, 08 Sep 2026 09:56:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tychen.cc;
-	s=spacemail; t=1788861366;
-	bh=vex2Z7sk6yPXZz+/u0iVKmqeypvzt3JwnfHpdqCuCKE=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=DOSSsjQbdN/z7OIrg9U4fpJf+gF27UzsoJU7SIiwOhePNsP9hOIH86Lq+YwzYyOIO
-	 V4KfB4V+Bhll4ZQO1ogTvJvzoT7ZRHwTNgsI86SQhrBeDapcQmGAMyKMMBCqrvS007
-	 amy3q1tRlGoCXBWnrXRjUSYw7g/Zq9c8c3aY2RWt/NSgOiouCO635eY8gtr+1N9odD
-	 iPNSteugwez7jHnBRGzfz9sg8BJ5oiiXmfqdJrXrrvj8qED0IiwG2skeCve5hi43+p
-	 RXs4wFCE0Tvi3R9zXQJCq6dWQwq6U+7moCHBlAvOhDNS1cVKBM7go4U3cqVXOfbNel
-	 TVdyyeY3r9rcw==
-From: Tianyi Chen <hi@tychen.cc>
-To: Andrew Morton <akpm@linux-foundation.org>,
-	David Hildenbrand <david@kernel.org>
-Cc: shuah@kernel.org,
-	linux-mm@kvack.org,
-	linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	jsavitz@redhat.com,
-	hi@tychen.cc
-Subject: Re: [PATCH RESEND] selftests/mm: Exit on invalid command-line options
-Date: Tue,  8 Sep 2026 17:55:34 +0800
-Message-ID: <178886112560.138404.1757557703285138272.mm-cli-review-reply@tychen.cc>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <519ef70a-679c-455f-ba5f-3841730873a4@kernel.org>
-References: <20260906135444.749144-1-hi@tychen.cc> <519ef70a-679c-455f-ba5f-3841730873a4@kernel.org>
+	s=arc-20240116; t=1788861386; c=relaxed/simple;
+	bh=NXZNmgvu0XequOW0h/JSVE4Z5uMg/YTzszCCImTyPlw=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=ko7QcKUetIGBFq4l99D7p0k/O2U0TFLlG+E41pqXDhGT7HVWEt4dWRyCqqzeWKzmFnUASe/fxLuBGh5i5i++giP+VwgTpAkVVD/P5wxYB+hBE1mTA8Ncz4uOxD7YZsCzcWeYjys3Gv/xhHeSc9puvYjIRwbWklR+zE6D3ZcrVxQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.217.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-vs1-f48.google.com with SMTP id ada2fe7eead31-782df51b4c1so3266259137.3
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 02:56:24 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788861384; x=1789466184;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=Frf4CDKY0g6g3QawhbxdAbsjmWIQZS7SHxphY7Ve0uc=;
+        b=iq9N7K6YvWfs1FER4roKTwCzVDm9m5KLCIpTGaC+2/YQxz5kXiKP2LVHNz9bp7Bmha
+         a1in6jBtL7mADSpDW0PkGIVPF4g42Kw5jdNDYi+/U9JwnRKpT75zBeLnGm+F3LQZkFoO
+         /gToxyrJeEgmjMM+NhFeQuGZkZsyXzvKDVnFVwFFtJD7V/+r+f6R8lWoXTaKYxs2ZkoY
+         x+ZDl/f9yGps60UWYxZdm2P+RwiirrzbGYY2eulGhxtOYPN2foz2NYsF3PrbJk51qW/z
+         qVrfBdlitKGYnn/31gWV7R84Dd14u9WwneDDZ1XQBWq3YMhXeFHW5O+P4+v/MdaJk+yQ
+         zoOg==
+X-Forwarded-Encrypted: i=1; AKwUvByr9V4Q8LdbPqcdHduBKZNRhZmp7FeJXwLUMPwE121YctAONEkcRa6T5WI6tyviPrem6sW2PKNfKakn28I=@vger.kernel.org
+X-Gm-Message-State: AFuF++kBKG/2I5bLbMF9Bb40IM21umRliTtU5/uvO9jgUfpsFw4i8yaQ
+	ahJTQFcOJ0JetK1XWuNxmldPkvIgdIBjysC1Q2Vntw4i1NsNKtlneSZPRO9DqrUI
+X-Gm-Gg: AYBFou0BoZDkwcc9H5YTQP199T1P+6D9XvYioQp9YRtEdNCCJtk5H527PeeJPGPFYY4
+	rtin/pgVUf18o3oefT5u1yQS5O9OYwX7CgeytTxZcCbE3I8vWmi4QT1ZH5qv8nnT/P7sKimgDuc
+	FihdgDkjC0aoczlReDCXEEWyZIY23O3VYxQm57kgbmmnXS1612EoLPhLf6kp8hDkUs1EpPyC/FT
+	PV3Beh4wrCObBWEhMx3BC06Vs5FsNjQwtYjQBvXvaRON8oK/TvzCoIgars+xFpcg7MWmkbruWW2
+	KKVtlbSfnHKph2pxh2H8j5NzpnsOIBEad/HmEuue/oM9x/CH/qCjcaQNEwuHwhKcnERKaRKwh9J
+	yWfM4PraESAfxKemY+ppm5nXpNlD6T/s711HMKEkkxO0MxuF5w1i+ildUuajKa4+kCUZO7lcpVZ
+	hECEVei9RzxfBk5qREznJ5z7RNoMwUOZdC9RztiOvOz6b1s1q16zjmhhLCxBAD3qs4v3sK0zi0a
+	Z4jQGCC+D5nMHXUw1OjSe3yXiGzhRv9K5dc
+X-Received: by 2002:a05:6102:a4f:b0:789:3bbf:2dd7 with SMTP id ada2fe7eead31-78a4a4d00a7mr12648322137.0.1788861383771;
+        Tue, 08 Sep 2026 02:56:23 -0700 (PDT)
+Received: from mail-vs1-f53.google.com (mail-vs1-f53.google.com. [209.85.217.53])
+        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-98280a3aeb3sm1008978241.12.2026.09.08.02.56.23
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 08 Sep 2026 02:56:23 -0700 (PDT)
+Received: by mail-vs1-f53.google.com with SMTP id ada2fe7eead31-746d77537f8so2623143137.0
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 02:56:23 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwkLvc0K+6djAD1KMrxEN1gLl49mJkjcFZxEZ63OnUsd9+cmmCshXoYh2LKOO5TQOI+iPfyU7sJSotjbnk=@vger.kernel.org
+X-Received: by 2002:a05:6102:6b03:b0:77b:ae7:1bba with SMTP id
+ ada2fe7eead31-78a4a72eac3mr12923163137.3.1788861383206; Tue, 08 Sep 2026
+ 02:56:23 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Envelope-From: hi@tychen.cc
+References: <20260817185700.322370-1-cosmin-gabriel.tanislav.xa@renesas.com> <20260817185700.322370-5-cosmin-gabriel.tanislav.xa@renesas.com>
+In-Reply-To: <20260817185700.322370-5-cosmin-gabriel.tanislav.xa@renesas.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Tue, 8 Sep 2026 11:56:11 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdUHAXzRiODL9hphVTjqKOHNVUe8cOygXESWF6_r7Ou2yw@mail.gmail.com>
+X-Gm-Features: AcwNN1V3nOK0dJ3UvwLd7mgfKmiEg244M-OC0mkyJDzXDnUsNESnG0OLJvnPvSU
+Message-ID: <CAMuHMdUHAXzRiODL9hphVTjqKOHNVUe8cOygXESWF6_r7Ou2yw@mail.gmail.com>
+Subject: Re: [PATCH 4/7] pinctrl: renesas: rzt2h: fix reading pin value in IRQ function
+To: Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>
+Cc: Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
+	linux-renesas-soc@vger.kernel.org, linux-gpio@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Thanks for pointing these out.
+Hi Cosmin,
 
-Unknown categories were not validated, and an explicitly empty -t
-argument fell back to the default selection. A missing -t argument is
-covered by getopts error handling. I have extended the first patch to
-reject empty and unknown selections before setup, while preserving the
-default behavior when -t is omitted. Validation uses the existing category
-list in usage(), so there is no second category list to keep synchronized.
+On Mon, 17 Aug 2026 at 20:58, Cosmin Tanislav
+<cosmin-gabriel.tanislav.xa@renesas.com> wrote:
+> rzt2h_gpio_get() only reports a level for pins in input or output mode
+> and returns -EINVAL otherwise. When a pin is requested as an interrupt
+> it is switched to IRQ function and its I/O mode is set to Hi-Z, so its
+> value can no longer be read.
+>
+> gpiolib calls gpiod_get_value_cansleep() to determine the edge's
+> direction when a line is watched with GPIO_V2_LINE_FLAG_EDGE_BOTH.
+> Non-zero values are translated to a rising edge, zero to a falling edge.
+>
+> Since gpiod_get_value_cansleep() ends up calling rzt2h_gpio_get() which
+> returns -EINVAL when the pin is in IRQ function, every edge is reported
+> as rising.
+>
+> When using the IRQ function, the input buffers are enabled and the PINm
+> registers reflect the live state of the input.
+>
+> Report the input level even when the pin is used as an IRQ.
+>
+> Cc: stable@kernel.org
+> Fixes: 829dde3369a9 ("pinctrl: renesas: rzt2h: Add GPIO IRQ chip to handle interrupts")
+> Signed-off-by: Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>
 
-The ptrace_scope setup was indeed outside the category check. I have added
-a separate patch to run it only when memfd_secret is selected and its
-executable is present. The behavior when that test is selected is unchanged.
+Thanks for your patch!
 
-The v2 two-patch series and focused validation details are here:
-https://lore.kernel.org/r/178886112560.138404.1278745290043112298.mm-cli-v2-0@tychen.cc
+> --- a/drivers/pinctrl/renesas/pinctrl-rzt2h.c
+> +++ b/drivers/pinctrl/renesas/pinctrl-rzt2h.c
+> @@ -171,6 +171,23 @@ static int rzt2h_validate_pin(struct rzt2h_pinctrl *pctrl, unsigned int offset)
+>         return (pincfg & BIT(pin)) ? 0 : -EINVAL;
+>  }
+>
+> +static bool rzt2h_pin_mode_is_peripheral(struct rzt2h_pinctrl *pctrl, u8 port, u8 bit)
+> +{
+> +       return rzt2h_pinctrl_readb(pctrl, port, PMC(port)) & BIT(bit);
+> +}
+> +
+> +static u8 rzt2h_pin_read_pfc(struct rzt2h_pinctrl *pctrl, u8 port, u8 pin)
+> +{
+> +       u64 reg64 = rzt2h_pinctrl_readq(pctrl, port, PFC(port));
+> +
+> +       return field_get(PFC_PIN_MASK(pin), reg64);
+> +}
+> +
+> +static bool rzt2h_pin_read_input(struct rzt2h_pinctrl *pctrl, u8 port, u8 bit)
+> +{
+> +       return rzt2h_pinctrl_readb(pctrl, port, PIN(port)) & BIT(bit);
+> +}
+> +
+>  static u8 rzt2h_pin_read_pm(struct rzt2h_pinctrl *pctrl, u8 port, u8 pin)
+>  {
+>         u16 reg = rzt2h_pinctrl_readw(pctrl, port, PM(port));
+> @@ -847,6 +864,13 @@ static int rzt2h_gpio_get(struct gpio_chip *chip, unsigned int offset)
+>         u8 bit = RZT2H_PIN_ID_TO_PIN(offset);
+>         u16 reg;
+>
+> +       if (rzt2h_pin_mode_is_peripheral(pctrl, port, bit)) {
+> +               if (rzt2h_pin_read_pfc(pctrl, port, bit) == PFC_FUNC_INTERRUPT)
 
-The real mmap and memfd_secret tests passed in the guest. The configuration
-write check used a disposable file at the sysctl path because that kernel
-does not enable Yama; it verifies the script's gating, not Yama enforcement.
+Section 17.4.5 ("PINm : Port m Input Register (m = 00 to 35)") states:
 
-Thanks,
-Tianyi
+   "The PINm register is valid not only for general I/O mode (PMCn = 0b)
+    but also when peripheral function is selected (PMCn = 1b) and it works
+    as input."
+
+this is not limited to PFC_FUNC_INTERRUPT, so I think you can drop
+this check?
+
+> +                       return rzt2h_pin_read_input(pctrl, port, bit);
+> +
+> +               return -EINVAL;
+> +       }
+> +
+>         reg = rzt2h_pinctrl_readw(pctrl, port, PM(port));
+>         reg = (reg >> (bit * 2)) & PM_MASK;
+>         if (reg & PM_INPUT)
+
+Gr{oetje,eeting}s,
+
+                        Geert
+
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
