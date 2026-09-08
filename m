@@ -1,126 +1,154 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97D701A6835;
-	Tue,  8 Sep 2026 16:31:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE72D57D21C;
+	Tue,  8 Sep 2026 16:31:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788885061; cv=none; b=X/T7hGK6xyP8zbDfX0lkeDHg5G1lPXEexjr42sQGySRg82Ux0+fO3+5FNNkmm+bRUO174BqqmirnZeqtte/r/5amLCe0Fr6WemIVtPu8ISMlfuQwJ/n1k+jBQgM6ZWsAXpx71CvWiB0jv5kwgNYVvnbPCl4qB+cR1j831glh1lk=
+	t=1788885066; cv=none; b=Siin7r8t4gtmHKinQzFnVYZwbuuyo5bz8fiReO4fZ7iIbhPlAFRQzxyDGRKsaIuK/UFNyHGYqFwHKKFofnlF3ODrOXO643lK4ALnTNY3veTVSHzk8oxihKYuNP7Yie7CQlCzVY99PSxaP2KAvE90BQBnWHECJaoI/Sx+37TK+Oc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788885061; c=relaxed/simple;
-	bh=5Ec4aSY7o3k0sKM9wWHt9rsFs5lO16AT9ABnU8TGsao=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=nYEF/kspaEt5XuQQHZ/1lNL67sHz2BbEiueTUX8dGhLnNTsIlCqVBNuqz/38ghV9yduUuBQbknmLHQlXTFWyd2oYMokqqqwM25ivL31xTKEYjHaUTK5ohJGj+F9cJsW006NKE7WNfJKVtqWaHjKuXZgszK4xG3wHn9gHvZs03t4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JJhwsDAz; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788885066; c=relaxed/simple;
+	bh=bGn8i1OhR4NzVDBtOFVJ+lCCJ8UAyNqLkfbCH6OsOso=;
+	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
+	 MIME-Version:Content-Type; b=OF2ccCgi8J9uKa8Dy6A/N5uCIrDkUCnndoiIk0uL7DZQHa1aTxvfx9TjD+pldOn5vLAqoM/y9AKJG1cI67GjBlB5ZJX+gpp2xHEBJMT7NIwSRkAHskdzpvaQGY4KC7V7ASAIMi70lFqcn0aaeb6IwX3PUMTN63/tlnRfZyUgtxA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=RadlQ+/+; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=eGU56dZX; arc=none smtp.client-ip=5.75.144.95
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JJhwsDAz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 687791F00A3A;
-	Tue,  8 Sep 2026 16:30:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788885060;
-	bh=PbREINwiHzdfOIDyvzXmpqXBcn2ufYLyhPRpYbuszSY=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=JJhwsDAzdDYYBuw+OjApzid/DL+uKEvAJ2ThGvEQEp2/vT/ZgMLMANci4KhIZVs+q
-	 KJIDDQQEyY89H+5OdaSGpu84eRh3LwQimAoVYTdEGIr2HH6/9L/SixMgZ/eRkkp52m
-	 HbFatySDrHgffwcdSMmR1TKgUfv7D8u8QNU9vBBvQDD5ag/tdudXWiBGWJIgqhyP20
-	 DUX/YejlKToKQSDWX24HIZrv5PvbQhTnV/ykAxojd5wB18HHVIGHuG5DUbmadoVHmP
-	 tLQYD8brxV8cRvpS+E2sUT9aaSJuO4XG6dBrT5eWlTQggVrvOdfVg8KQSmvc6cdwZ6
-	 xhu0OCpOAfQuQ==
-Message-ID: <da0f5ac1-c9a6-40d4-b67d-3c35fab0f428@kernel.org>
-Date: Tue, 8 Sep 2026 18:30:50 +0200
+	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="RadlQ+/+";
+	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="eGU56dZX"
+DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1788885061; bh=bB2A2CmRYj4yWv0J3yg4LxL
+	tDCGTJFbmG06nLK9kbSU=; b=RadlQ+/+XWhScXCMfrLlmQaJufi/8O4A5s358XbOVhVtrM/GVG
+	wQIfTNQiKM2HzTc9nKEBoE7N1qrhW4vgtFMTrY7VZxGolAK2FHGvxbP3r5ZX3WPGq9RRxqrsqfU
+	farqOnfcOgoCXdEr2eDO1P0P1DpsLQ5swXR7JNcNc45IHznf3xUXtOT7zxqIpQjBx52ZttwbihY
+	Imt/HiQuJr/j+ImUzjSZEOlwwXYjfRdXTRgvwr0NjGrDA2yWdcRwRxgN6IhFGA+BtqB8RwduKEW
+	JoY1sjEV6EBdoxBALrfXshSqYTkZh45Wdl8Hve76UuDtqQ9aDRhlW2ck8qbeqAJ1ddg==;
+DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1788885061; bh=bB2A2CmRYj4yWv0J3yg4LxL
+	tDCGTJFbmG06nLK9kbSU=; b=eGU56dZXBUv+uiOcm3nZtodw2wjSmijheRPZsm/m2aV8EhF99T
+	o34MdK4Tdnfimw3EHfEovJRboMe7MV+KTpBg==;
+Date: Tue, 08 Sep 2026 17:31:02 +0100
+From: Bradley Morgan <brads@mainlining.org>
+To: paulmck@kernel.org, "Paul E. McKenney" <paulmck@kernel.org>,
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+CC: linux-kernel@vger.kernel.org, kernel test robot <yi1.lai@intel.com>,
+ Boqun Feng <boqun@kernel.org>, rcu@vger.kernel.org, lkmm@lists.linux.dev
+Subject: Re: [PATCH] hazptr: handle NULL address in hazptr_detach
+In-Reply-To: <da21c929-cd85-4ecb-8976-5948f080b6e7@paulmck-laptop>
+References: <20260908152228.4154-1-mathieu.desnoyers@efficios.com> <E8BCA0DB-FB79-4348-BB0D-229E8B550D91@mainlining.org> <7e574430-c77e-4ba9-aab0-cdaed40f788f@efficios.com> <da21c929-cd85-4ecb-8976-5948f080b6e7@paulmck-laptop>
+Message-ID: <2BC0384F-1DE7-4277-845A-7D567B77A653@mainlining.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 03/25] mm/fbatch: temporarily disable lazyfree and
- mlock+munlock batching
-Content-Language: en-US
-To: Hugh Dickins <hughd@google.com>, Andrew Morton <akpm@linux-foundation.org>
-Cc: Ackerley Tng <ackerleytng@google.com>,
- Alexander Viro <viro@zeniv.linux.org.uk>,
- Baolin Wang <baolin.wang@linux.alibaba.com>, Barry Song <baohua@kernel.org>,
- Binbin Wu <binbin.wu@linux.intel.com>, Christian Brauner
- <brauner@kernel.org>, Christoph Hellwig <hch@lst.de>,
- Christoph Lameter <cl@gentwo.org>, Claudio Imbrenda
- <imbrenda@linux.ibm.com>, David Hildenbrand <david@kernel.org>,
- JP Kobryn <jp.kobryn@linux.dev>, Jan Kara <jack@suse.cz>,
- Jens Axboe <axboe@kernel.dk>, Johannes Weiner <hannes@cmpxchg.org>,
- Kairui Song <ryncsn@gmail.com>, Kiryl Shutsemau <kas@kernel.org>,
- Lance Yang <lance.yang@linux.dev>, Leonardo Bras <leobras.c@gmail.com>,
- Lorenzo Stoakes <ljs@kernel.org>, Marcelo Tosatti <mtosatti@redhat.com>,
- Matthew Wilcox <willy@infradead.org>,
- Mel Gorman <mgorman@techsingularity.net>, Miaohe Lin <linmiaohe@huawei.com>,
- Michal Hocko <mhocko@suse.com>, Minchan Kim <minchan@kernel.org>,
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
- Peter Zijlstra <peterz@infradead.org>, Qi Zheng <qi.zheng@linux.dev>,
- Rik van Riel <riel@surriel.com>,
- Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
- Shakeel Butt <shakeel.butt@linux.dev>, Suren Baghdasaryan
- <surenb@google.com>, Yang Shi <yang@os.amperecomputing.com>,
- Yu Zhao <yuzhao@google.com>, Zach O'Keefe <zokeefe@google.com>,
- Zi Yan <ziy@nvidia.com>, linux-block@vger.kernel.org,
- linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-mm@kvack.org
-References: <14a16945-529b-8bc0-ab38-3ea97e54e223@google.com>
- <9593975e-8732-999a-73d1-37fd332eb840@google.com>
-From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
-Autocrypt: addr=vbabka@kernel.org; keydata=
- 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
-In-Reply-To: <9593975e-8732-999a-73d1-37fd332eb840@google.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: 8bit
 
-On 8/24/26 15:58, Hugh Dickins wrote:
-> It will not matter if we occasionally get activation or deactivation
-> wrong; but a mistaken lazyfree (MADV_FREE) would likely cause dataloss.
-> So disable its batching while reworking the per-cpu fbatch handling,
-> then re-enable it with more thought afterwards.
-> 
-> Similarly disable mlock+munlock batching temporarily: they will need
-> some redesign before re-enabling. Just insert one disabling line for
-> now, leaving the rest of the code as it was, for consideration later.
-> 
-> Signed-off-by: Hugh Dickins <hughd@google.com>
+On 8 September 2026 17:22:09 BST, "Paul E. McKenney" <paulmck@kernel.org>
+wrote:
+>On Tue, Sep 08, 2026 at 11:29:31AM -0400, Mathieu Desnoyers wrote:
+>> On 2026-09-08 11:24, Bradley Morgan wrote:
+>> > On 8 September 2026 16:22:14 BST, Mathieu Desnoyers
+>> > <mathieu.desnoyers@efficios.com> wrote:
+>> > > When hazptr_acquire loads a NULL pointer, it sets:
+>> > > 
+>> > > - slot_item->slot.addr = NULL,
+>> > > - slot_item->ctx.ctx = ctx
+>> > > - ctx->slot = slot
+>> > > 
+>> > > And it returns NULL.
+>> > > 
+>> > > Then hazptr_detach is called on this ctx, it will act on the ctx as
+>if
+>> > > needed to be promoted to backup slot, even though it has a NULL
+>addr.
+>> > > 
+>> > > Looking at what hazptr_note_context_switch() does before promoting
+>> > > to backup slot, it checks for a NULL slot->addr, which is exactly
+>> > > what is missing from hazptr_detach.
+>> > > 
+>> > > With this in place there would be no need to explicitly check the
+>> > > hazptr_acquire() return value before calling hazptr_detach().
+>> > > 
+>> > > hazptr_release() has a early return check for NULL addr as well, so
+>it
+>> > > makes sense that detach does an early return (no-op) similarly.
+>> > > 
+>> > 
+>> > You shall kill me for this!!
+>> > 
+>> > Could you perhaps do a splat in ze commit description pls?
+>> 
+>> The splat is available at the "Closes" URL below. I'm not sure whether
+>> we should duplicate this verbose information ?
+>> 
+>> Paul ?
+>
+>I am fine either way, as long as the information is reasonably easily
+>accessible.  Which is the case either way.  ;-)
+>
+>							Thanx, Paul
+>
 
-Reviewed-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
+Hi, what do you reckon, do you wanna merge it?
 
+I can co develop hazptr if u want, it's school season for me but oh well.
+Commit to Linux anyway!
+
+>> Thanks,
+>> 
+>> Mathieu
+>> 
+>> > 
+>> > 
+>> > > Fixes: 6357ec235c59 ("hazptrtorture: Fix hazptr ownership issue")
+>> > > Reported-by: kernel test robot <yi1.lai@intel.com>
+>> > > Closes:
+>https://lore.kernel.org/oe-lkp/202608130915.62b53936-lkp@intel.com
+>> > > Signed-off-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+>> > > Reviewed-by: Bradley Morgan <brads@mainlining.org>
+>> > > Cc: Paul E. McKenney <paulmck@kernel.org>
+>> > > Cc: Boqun Feng <boqun@kernel.org>
+>> > > Cc: Bradley Morgan <brads@mainlining.org>
+>> > > Cc: <rcu@vger.kernel.org>
+>> > > Cc: <lkmm@lists.linux.dev>
+>> > > ---
+>> > > include/linux/hazptr.h | 4 +++-
+>> > > 1 file changed, 3 insertions(+), 1 deletion(-)
+>> > > 
+>> > > diff --git a/include/linux/hazptr.h b/include/linux/hazptr.h
+>> > > index 43122c5673bd..d1670121947a 100644
+>> > > --- a/include/linux/hazptr.h
+>> > > +++ b/include/linux/hazptr.h
+>> > > @@ -160,10 +160,12 @@ void hazptr_detach(struct hazptr_ctx *ctx)
+>> > > 	struct hazptr_slot *slot;
+>> > > 
+>> > > 	guard(preempt)();
+>> > > +	slot = ctx->slot;
+>> > > +	if (!slot->addr)
+>> > > +		return;
+>> > > #ifdef CONFIG_HAZPTR_DEBUG
+>> > > 	ctx->detach_task = ctx->detach_cpu = true;
+>> > > #endif
+>> > > -	slot = ctx->slot;
+>> > > 	if (unlikely(hazptr_slot_is_backup(ctx, slot)))
+>> > > 		return;
+>> > > 	hazptr_promote_to_backup_slot(ctx, slot);
+>> > > 
+>> > 
+>> > --- Thanks!
+>> >
+>https://lore.kernel.org/all/EE579805-42F2-4C58-B752-F28779EEB717@grrlz.net/
+>> 
+>> 
+>> -- 
+>> Mathieu Desnoyers
+>> EfficiOS Inc.
+>> https://www.efficios.com
+
+--- Thanks!
+https://lore.kernel.org/all/EE579805-42F2-4C58-B752-F28779EEB717@grrlz.net/
