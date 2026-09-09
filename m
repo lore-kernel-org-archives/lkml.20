@@ -1,62 +1,64 @@
 Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 894E83E40F8
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 10:59:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 917AA52ED3B
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 10:59:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788951547; cv=none; b=X9SNRD586LEYHUi5PXNsx9MwNPUG4KPFLlg2B977Y7RSo4+KnUGEG6WLj3WkOExVeAYPIi129fGtgbGfxrp5eT4bzPuwgkq1/BWgVGMLaZzAEDfWtfi4IM0pi+84PvKLNuUYHG3+Ff695HIls+1KEtsKB77kdCshF9c34up0T6A=
+	t=1788951555; cv=none; b=UoXlnZNuFmiYNwIln0LNXTAVAPx2PQZEHULtD4pKkL1dzyRq6JVcW4z7nemx/66Pir+eqsxQSjojZN4PyySRonaAYns7rkPAB1CfclFwhgaySA/ltR2Sg9OuObY16smSltVb273BXaarzgx3g2BulzccrnFosa/Z53tst6pKViM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788951547; c=relaxed/simple;
-	bh=4Vy7iCU1CgqFSSdv1w1DyOsEsjJTdKZdwzEZqZ/Sd9c=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=agETnK3ry3WoGwBAw1EOdLxTW5edSf6aLsFiurO4n24e4E7bagptx18yWaIowgs+2Knz8FXmby4xztVGQt6JWNijcxXXFbwdvJtIpWr3cfjk3AgoEMwzwtcC1kKeocEbnCr2WiOFe603OGT0cj92mwUFtIWE/rOoSPtg6Q9mD+k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Q07HEbkR; arc=none smtp.client-ip=74.125.227.140
+	s=arc-20240116; t=1788951555; c=relaxed/simple;
+	bh=RUO35p/hYiz3qwtxTqHtL1pfFhUUTjGTSPmbomopvYE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=fzLblxtHZzsVNzWm26KChnEeO4UaZwRMXlopAFSDjy89RPyINp4UsZ4TGQ6sF6pEi+YVpJv7MXZimFTnPMF5hTfSal9pF2WprbGnynsuiFb2QIQUPIngXq3G/L42ZkNX1RHkdOyIhTKaRAn0KbgSgLkbKyhMCEvf4Du1T7Dhulk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pAL2d1U7; arc=none smtp.client-ip=74.125.227.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Q07HEbkR"
-Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2d90ba1d807so701015ad.3
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 03:59:03 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pAL2d1U7"
+Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2d747ed9865so439295ad.1
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 03:59:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788951543; x=1789556343; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=w5NEHCHglzkgR6my1ufRSHRRxBZJOd3es2NtylTtqCw=;
-        b=Q07HEbkRr2O1iblXqHRLuGt11dsz83/dDkZJqgi0UXap4pgsclwIR5ABzjLq+9Uuok
-         4jTBNKKs7EOXjAeGbEf+Z8ZHx54qpzM/gq7gzWhSV2JyFEA7+rWxH9KJCW2pSDIr9Jgg
-         XYz/xaR9PLJwjbOEceDss3JwzogI9Diggirs85bjKBT1sb/2LbWePJyycZXkPk/B21tE
-         WFx/7Na0mAZ7Cfp5ptefG97iSsG9PkLfQqTw9q0qxk4afKK6Z9odIRo1nWMA/XfXxWZR
-         7unSSKwTKDK4KnfsaHJmmemJl+LNaC3D6MihH2fgK86dyyykFgPHRuz7FDX8sqD368sL
-         bjCg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788951543; x=1789556343;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1788951546; x=1789556346; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=w5NEHCHglzkgR6my1ufRSHRRxBZJOd3es2NtylTtqCw=;
-        b=CNkuprbVwVm96EJEJ0PR9EEYEDx4CuX7JvY5L6PsrQDZilTDZOA9DBc6iQ6Be5h+kC
-         IERI1gVApaDMHOPq4YJTuLGYEjr4wo+zt4GYB8gNgDkGo0aReCsGCz48VFg6JbX2Wgr1
-         R9aXhjAoyzLMHOXLFz1fnIULSEKNed90lME79wC4/sds/Us5fZA9gRBN2PjhLwJ1FEkP
-         PUDutkUlcP5U/GbGm8TkacQiINQr5+Q4ol7Df8QTf7MGoem+UYPQx0nA/no7jw4Pvqi5
-         yhACNk79JMuwvXgMoSsW0TE2uoXfK58sHF32mxYcoIv5ImeRV/Z21eUo2hBnQvA5Re/Y
-         sOcw==
-X-Forwarded-Encrypted: i=1; AKwUvBwF6WrAZAPqn9rsK+HXXy760PFMT47NZQEjVlWDICTtLkMAvkF4JVCW0wHY48BPSKWQ1ZE8GGQ8GWxaZLM=@vger.kernel.org
-X-Gm-Message-State: AFuF++makb9lqCLLP5KQ6UvPNMGj0qAaWD2zyIA6zCZxDVcN+HoHnyNi
-	wBz4QVfaZlOWFxqRP5/aURdAF3emi3GZGmfOjRa8KCT0SPXxjKhe32yf
-X-Gm-Gg: AYBFou1Ghl3Vp+C5c5uF1wA5BxDWUsTqQKOgCb9Th1QDDnoug3+RPcDrkYha+UR17lx
-	kVTjRie2bsuq0YFJ685H5p3DiRa+NTu44hVnD7UjU+Usx2Jwua//4UdZ0xG+4GJ+PEWJ4/ezkbZ
-	vAT+Om9qcBSGaLSiNCd77OoDIhA0uGKIMVgPjDvSGVrfJgwAQtS9rlk5iU3lqtpAutpYWcJHJDS
-	2SKquK0T5ZG87d7O2h6djkJ27HW41zpRY2MyOR/4q7fq+4LwE7fgqk6lNY2HPIP20tun9Nwcj5J
-	zn8K7X4/ySMCD85f2+hFunPubblyOMZ7c//ucOf6dpS7asUTeHVq+2BtleKQ1rD5LMXmdqZ7Mne
-	pHF5UNOP+12olzB3Qx+TjX4y+b2wU0oRlkdBGDcgNS3U55sU2S9AJ9qym2SLSa0sePOYPMBuXfz
-	tjCvZvaurq23pU3TcfqaDCdFJkxd4GMgdYbm5C5LV+wDCqyUs49g6xlKyA/kNMCp9QKUcho1eHU
-	Q==
-X-Received: by 2002:a17:903:174e:b0:2d8:d4d1:313d with SMTP id d9443c01a7336-2dd07cae8afmr7110755ad.20.1788951543301;
-        Wed, 09 Sep 2026 03:59:03 -0700 (PDT)
+        bh=xc+Wze03aW10ioVYI+L7Um/7DBQSw6qOvq0My2EOj7U=;
+        b=pAL2d1U7NU7o638SSBc1SQN94sq2D6jVKwm5Erqoeu5qN0jftc6svVQgdfICIZLXSr
+         3ZVPEik/4pbJhzBvsMH+8kIHabOVLGA4KE6h0M2HUr/dGbjq0aLRAjlO0kTmn3PiBGGX
+         u23JgQcH7Ji6azaaZ0rsYq2TUdI6odmt4fxVsqDXMHR5LVCAIvJeaV7uwZk6vOFrvbcG
+         INfe6xaMhtqf+tH4745oRbCjrkjq5ZaScZ7GaFTFK2Q2rFwS9ZE0+4MWjGS1l1rOWH/m
+         qpSNEQDafwUq71mChxqEZqVU6X/y17VDnTCv38bv5/00ZVDmQ5rRB36x45bmPv4lEn11
+         aJvQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788951546; x=1789556346;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=xc+Wze03aW10ioVYI+L7Um/7DBQSw6qOvq0My2EOj7U=;
+        b=V/zIa93i6Ry0nPQmdS5q4Vj5EvDur55fw4AFQDD/khkZOS1mrzjYK3Y0xazWQ2KHyp
+         fTIu7pkBnDlfkl86qhD5rYkdL29ubk5wjTQilJ40+dxuKn36BG9FYA9dtptjE6wFttee
+         +O28OtloVu9gF7Fh+lpCVXnY2fXU/mwKsRucBGMlDVShcyFxewkAebElB0hQNH2zhjYD
+         BsPVsJu9AQDO1tcOXI6mg2ipAjqv1lgCRsY84mCIOQA5wmJ5igsWphgUlYMJajGchOWz
+         T2CArIPIsVLcdT9x2gukJMgB/v+sckw+iOIskmxqhTNnBLwz5JGw+9xCw431p9Vwm82A
+         4NEg==
+X-Forwarded-Encrypted: i=1; AKwUvByQyMLR3z17XSZz12uLBFHKSIkcKHE0Tdb1SsJ/fwP6RoUbflWWLO0Y5agVBFp4Ehbu0hy9uppgWXWdXUM=@vger.kernel.org
+X-Gm-Message-State: AFuF++njviQpHUo/Dx0L7M3V8PsuQle5fy9h4xZ9znJJIJ/qVcQ+ZxcQ
+	1uWiv08ir041td7wBH0mu2Y/A3+SMbea3mf7hxGG3BllRlLOrUIWrhIk
+X-Gm-Gg: AYBFou3TNE+jdQJJgXbK+XzLRQkpZmu//iX8qC4+HeZu7mC07yCZBedtPd/bxwAchjh
+	gN/BNE8ztCoRhMGySGmz41lcmZhlhyd6QghwSQk5yDDZrz307T7yYc1yLQjKtZa/6yDY1IuiQPJ
+	7YHgqnEXmGxBoQpwPe7raA05ypPyxTaxWICg2LnOklDHcbEH7hbGKDghgr4xRe0Q6gXBA1EBqRX
+	X01FMSOb1MY07wzSdCgfOaQIdKLQy6T/UtHRzRg08vFp9idgkG/pGPKEnLiQ86CAx5qgoixyblz
+	k9Sq+9MKcZ/TDGpTZapZqZdIDSVhJvGLthEBSC8GVpVP/K8nlVr/6YWZ2K2e/RdPSH6Qvn6JeL9
+	ipGM1VBrS+AMQJDuDVGjD3onLtpvInv96hQWOmtIFPkxN+cMk4rZIBNIrBGd9vHtYtQK9t4wJuR
+	lPO+GjPx3odd1F0bVCqu/Lyhsd2lSQGrGF0UnAUMVnrL/g5vR3REz+HFZdSDXIRs2M5GLDwTN0+
+	OrYPD45ScSM
+X-Received: by 2002:a17:903:2ac5:b0:2d8:d4d1:3139 with SMTP id d9443c01a7336-2dd07a911f8mr7078825ad.16.1788951546098;
+        Wed, 09 Sep 2026 03:59:06 -0700 (PDT)
 Received: from adriano.lan ([2803:9810:3d22:1608:e46d:9e65:1b2a:35eb])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339af25062sm68395973eec.16.2026.09.09.03.59.00
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339af25062sm68395973eec.16.2026.09.09.03.59.03
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 09 Sep 2026 03:59:02 -0700 (PDT)
+        Wed, 09 Sep 2026 03:59:05 -0700 (PDT)
 From: Adriano Cordova <adrianox@gmail.com>
 To: Ulf Hansson <ulfh@kernel.org>
 Cc: Stephen Boyd <swboyd@chromium.org>,
@@ -64,11 +66,14 @@ Cc: Stephen Boyd <swboyd@chromium.org>,
 	linux-mmc@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Adriano Cordova <adrianox@gmail.com>,
+	syzbot+f312381a95cc080992fd@syzkaller.appspotmail.com,
 	stable@vger.kernel.org
-Subject: [PATCH v3 1/2] mmc: vub300: fix use-after-free in vub300 teardown
-Date: Wed,  9 Sep 2026 07:58:55 -0300
-Message-ID: <20260909105856.129733-1-adrianox@gmail.com>
+Subject: [PATCH v3 2/2] mmc: core: don't dereference parent when releasing host index
+Date: Wed,  9 Sep 2026 07:58:56 -0300
+Message-ID: <20260909105856.129733-2-adrianox@gmail.com>
 X-Mailer: git-send-email 2.51.0
+In-Reply-To: <20260909105856.129733-1-adrianox@gmail.com>
+References: <20260909105856.129733-1-adrianox@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -77,52 +82,66 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The request-completion paths call the final kref_put() before
-mmc_request_done(). Dropping the last reference can free the host via
-vub300_delete() -> mmc_free_host(), and mmc_request_done() then reads
-the freed host.
+mmc_host_classdev_release() reads host->parent->of_node to decide
+whether to free the IDA slot, but mmc_alloc_host() does not guarantee
+that the parent outlives the host (only devm_mmc_alloc_host() does).
+So the vub300 driver can release its parent usb_device before
+the host, resulting in a use-after-free.
 
-Call mmc_request_done() before the final kref_put() so the host is
-still valid.
+Put the alias decision in host->index_is_alias at allocation time,
+while the parent is still valid, and use it at release time.
 
-Fixes: 88095e7b473a ("mmc: Add new VUB300 USB-to-SD/SDIO/MMC driver")
+Fixes: 10252bae863d ("mmc: core: Don't allocate IDA for OF aliases")
+Reported-by: syzbot+f312381a95cc080992fd@syzkaller.appspotmail.com
+Link: https://syzkaller.appspot.com/bug?extid=f312381a95cc080992fd
 Assisted-by: opencode: deepseek v4 flash
 Cc: stable@vger.kernel.org
 Signed-off-by: Adriano Cordova <adrianox@gmail.com>
 ---
 Changes since v1:
   - Added Assisted-by tag
+  - put alias decision in host->index_is_alias
 Changes since v2:
   - Split patch into two logical patches
   - Corrected the Fixes: tag
 
- drivers/mmc/host/vub300.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/mmc/core/host.c | 3 ++-
+ include/linux/mmc/host.h | 1 +
+ 2 files changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/mmc/host/vub300.c b/drivers/mmc/host/vub300.c
-index 2dae474dcd06..c87c54aa0e99 100644
---- a/drivers/mmc/host/vub300.c
-+++ b/drivers/mmc/host/vub300.c
-@@ -1794,8 +1794,8 @@ static void vub300_cmndwork_thread(struct work_struct *work)
- 			construct_request_response(vub300, cmd);
- 			vub300->resp_len = 0;
- 			mutex_unlock(&vub300->cmd_mutex);
--			kref_put(&vub300->kref, vub300_delete);
- 			mmc_request_done(vub300->mmc, req);
-+			kref_put(&vub300->kref, vub300_delete);
- 			return;
- 		}
+diff --git a/drivers/mmc/core/host.c b/drivers/mmc/core/host.c
+index b7ce3137d452..542bb033c6da 100644
+--- a/drivers/mmc/core/host.c
++++ b/drivers/mmc/core/host.c
+@@ -67,7 +67,7 @@ static void mmc_host_classdev_release(struct device *dev)
+ {
+ 	struct mmc_host *host = cls_dev_to_mmc_host(dev);
+ 	wakeup_source_unregister(host->ws);
+-	if (of_alias_get_id(host->parent->of_node, "mmc") < 0)
++	if (!host->index_is_alias)
+ 		ida_free(&mmc_host_ida, host->index);
+ 	kfree(host);
+ }
+@@ -538,6 +538,7 @@ struct mmc_host *mmc_alloc_host(int extra, struct device *dev)
  	}
-@@ -1946,8 +1946,8 @@ static void vub300_mmc_request(struct mmc_host *mmc, struct mmc_request *req)
- 		    satisfy_request_from_offloaded_data(vub300, cmd)) {
- 			cmd->error = 0;
- 			mutex_unlock(&vub300->cmd_mutex);
--			kref_put(&vub300->kref, vub300_delete);
- 			mmc_request_done(mmc, req);
-+			kref_put(&vub300->kref, vub300_delete);
- 			return;
- 		} else {
- 			vub300->cmd = cmd;
+ 
+ 	host->index = index;
++	host->index_is_alias = (alias_id >= 0);
+ 
+ 	dev_set_name(&host->class_dev, "mmc%d", host->index);
+ 	host->ws = wakeup_source_register(NULL, dev_name(&host->class_dev));
+diff --git a/include/linux/mmc/host.h b/include/linux/mmc/host.h
+index ba84f02c2a10..165d24104d3c 100644
+--- a/include/linux/mmc/host.h
++++ b/include/linux/mmc/host.h
+@@ -356,6 +356,7 @@ struct mmc_host {
+ 	struct device		*parent;
+ 	struct device		class_dev;
+ 	int			index;
++	bool			index_is_alias;
+ 	const struct mmc_host_ops *ops;
+ 	struct mmc_pwrseq	*pwrseq;
+ 	unsigned int		f_min;
 -- 
 2.51.0
 
