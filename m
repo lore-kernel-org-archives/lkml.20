@@ -1,176 +1,166 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f175.google.com (mail-pg1-f175.google.com [209.85.215.175])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C4E35908C4;
-	Wed,  9 Sep 2026 21:11:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BEB95908C9
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 21:12:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788988312; cv=none; b=PwVDR8ZTgTTLXfvpHiAo5h5/vD9UnlXM8Fg5uqoOndvoDEqlm05Bg0BQXFMgBSCFzIQ2ErZCRuci6FOrI8/F2zJWMfoXwFg+OzdaSA2aPw3iBbZe3CaFYPDGCsGBhsMmc1C8kD5s+q/fWPBMX7T1AAbcxKH1y1EdqIxiVqgTa8o=
+	t=1788988343; cv=none; b=WAPQrJVOGdb6yEdFVTgSfOlEwzPLmyj+Jv5yGkWoPZvTULamW9/rHWaOsVGW//BSEJrxtgZeW/CC2yzVdBM5CxsTWIAoPMnYTPXdTqmCRcRpv6KiIchpLQXvlGLRGKh/l8j5SPN8PpBGIgPvRbkfXsKrNqQDlmisrc14O0AGni4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788988312; c=relaxed/simple;
-	bh=wUsyydvqlSxhrWWkZG6+z9QLnSiaZppJEC2Pfwa8GIw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=mMcxH9Dhcg1PRvUrkCUUiDH4mhRt7m5NzFfkX1HP5SR/borILdYojlQ106jTAzvfswX707uzjtC4IFFzZMzxuxecyXAmGJZcwT6Qom0wiivs3ZrLxjoyO1QujBCcc/LmHBSk04HbgtFwrlpnW2p1OWDcf3t/IQq2n07ZTYLnLVc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Fn5+C6TH; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788988343; c=relaxed/simple;
+	bh=lsJH/m1wwMGY3Tdn1zmWxqy3WlMlbk6ChjZYpxUGVoY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=XjcY988UksNjvhcwJvzNraGYRRlbYdUJDe1HV8ufZ6mYKLl3w4H0n6QEDYEQmednVhpNE4fTmGw4g6Ba/Jr+wZHrAVUE3xPPkGmY+RXZGG+2CXqxScKilRV4bxGYoMgrrEIDw/noXdKc4DKIiEuz5uD/BqyjcEF4MbU0ve5CV6A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=s5Trg4VS; arc=none smtp.client-ip=209.85.215.175
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Fn5+C6TH"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 88E8C1F000FF;
-	Wed,  9 Sep 2026 21:11:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788988311;
-	bh=ww0GWOMaIDMkIstrfwnKekmdrrjKu4hZ61lEZfdiCV8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Fn5+C6THd11og+szfJWQG3Jp6lmwJzwtK7q0fN26A7ZPqdial8FPzMbTXmgBsGuMA
-	 bsOX56MForiodh4ga6LRVyvG818flwJS1eBXp+zs9WFWBBKniVOA7soC6/n1FY1vmY
-	 sUWE7XJghC+KOrfQXJ1NrTQT2FFf9LoG2k2cvl4sH731xHZEicr0/+FgvYPXLMYQs8
-	 /fETUZyyv2GZgyWPRGmo8d8B6J3/pkKn7GnaPeTlQTy7XZHnAsN5zmXufWi95bawf4
-	 QQFOxJYwWsyWfFbo9FfPprAg7PYsrwbb629GVFGt5s6N/h7x7Y41LNj0f//Ur0FKFI
-	 DSRwhQlKie8ow==
-Date: Thu, 10 Sep 2026 00:11:47 +0300
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: Srish Srinivasan <ssrish@linux.ibm.com>
-Cc: linux-integrity@vger.kernel.org, keyrings@vger.kernel.org,
-	James.Bottomley@hansenpartnership.com, zohar@linux.ibm.com,
-	linux-kernel@vger.kernel.org, linux-security-module@vger.kernel.org,
-	nayna@linux.ibm.com, rnsastry@linux.ibm.com
-Subject: Re: [PATCH] keys/trusted/tpm2: Validate TPM2_Create object sizes
- separately
-Message-ID: <aqHLkyUewMrTr1wB@kernel.org>
-References: <20260902114340.268698-1-ssrish@linux.ibm.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="s5Trg4VS"
+Received: by mail-pg1-f175.google.com with SMTP id 41be03b00d2f7-cc4902427c1so253149a12.1
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 14:12:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788988341; x=1789593141; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=u495ibL0ejeSjktkIJ/W4ElwT//FuX3YHoHh4p8PAXg=;
+        b=s5Trg4VSzO5/hVmDqRO/N5qJpuYhhB7yql21kib/w71oEqY8cHVZ0s3rqgW1MmoSoI
+         q5OqM9mc8vS9xA2r26zrp0+l/FBTvi86xw7L0OFV1JFR2dn71vXVmSUXJedyvOI3pGXk
+         CX/PgLPu+/J+CAjqhc9DCzPiVoB6oD4QRrg9zKIAScgfwHsznUxxhmLG4PFkELkYm5Az
+         xQcEQJ/qb/oQK5u4AcmWTjoZzRl5Z3oNCewBz0cMFRE/gDgVxzvO/ETq8tyNGhMp/7R+
+         bsKoL/ALutNci89O5QzyoTKOavAuzYvehlps0metk8CqVfKoGS/f2WYrlRovt58AP0J8
+         fxkQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788988341; x=1789593141;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=u495ibL0ejeSjktkIJ/W4ElwT//FuX3YHoHh4p8PAXg=;
+        b=aw8DKaAsGI/0zlYHbXfXh8TeNhNjYdV/cbHMYTS31Ij4JYlE9+UDMbB86kvTwOZNZY
+         zBfX8eKjijoL/FK+nSfSOIcmTt9nmXe39W41LqRw958J5RGVuxqJPkR5WOKNkRw/RFOj
+         ytnErBLzdfWEtp15vhQKMDnkr4ax6ni3rCxyi0p2SEPBDcZ4qL0WGe+TBuJUaWeH2aLo
+         CX8pWaGX4rl/3cvsKeyz5/jfptUmZmqCkHvafp8hR5SvtmBp/stTAhzesSMycz2T44OK
+         oqu+aGcUVnKeuwXCD7Br5WkiyNJXQQwezEPRFQEodRSVfweqPLzWqt+A6ViN/K23wpG1
+         D6WQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzAwT9nkT90lBgAxPk4dZgHE4L+jtsoMqnYvpIuvCS2AKW/ziaUu36EYYblJxuC4fpFDpu7LkcB5QMmU08=@vger.kernel.org
+X-Gm-Message-State: AFuF++kaJIpqJou1vY43fdAeMXbDqR/efDVpnFW2XVU/ZDmK5p61Ep7s
+	43/cEku6r0xgNLLjdocxUl0gPAoKXdej+5aqEhIcYsH0vzSj9thsFSJLnoBU9w==
+X-Gm-Gg: AYBFou3hgKwUeZ/spNrcelWfK6apV4xLtL8vmD89kADfsgmfhEnCpbKnv0SkXop1a2T
+	KEbOut6s+ONkkHR1Y6zNUkVfgK7jukkEi/Xu1r5uZxgM6SXNCKPnNSvEYgiVCpJ9+VbN0LsXq4I
+	2Q6ZsoQcC12XPuPnG23yAqIvgnqzTBs4Jnp9Ruv6mbMf0IveIhoRw2Bh+NjqbovZ3vv97yqT25C
+	jmGdxGvplxv+T4cEKW/S1Z0/GT8fCwkP+TvoYa1bAZgLAwFTlO0a5TLwD5w3ShQrBjBdv4bSRRT
+	EBZ8P4NebqEZc1scwZIePcDTuEMhlWBvu9Ap4MN9jQFR62zw6eStJOD0HOs/IQLXho6t9dSw9jQ
+	fVBBm+iz7V3m6GBEJ2XeIK0Yz87eC+CtPiOk/Cme0AjezuqINCvpVPd8XTE/uRZ1TRE2pmDzQIo
+	JfncK8xoz1yxFxuJZxxwwv1or5S1Sb9M/1pkKEOAiaWKODy6mCflHyeWgBUpchMT2cwDzSEefFZ
+	Kq4Jdh6MnNS4K6prVHqCOOIC7X2DtbRa2WgeZLC3aq65PxDiqTW7jcosyum2Baut3xYm6nfhqGg
+	7a1CotpxhDS/p5hg7IDaxVHkpfKdzDAXjZTLEf/UYxwiYltX
+X-Received: by 2002:a05:6a20:258b:b0:3bf:b7e8:68ab with SMTP id adf61e73a8af0-3dad26bda32mr1323463637.2.1788988341177;
+        Wed, 09 Sep 2026 14:12:21 -0700 (PDT)
+Received: from ryzen.lan ([2601:644:8000:7a86::e35])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc46b4cd51esm6000615a12.2.2026.09.09.14.12.19
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 09 Sep 2026 14:12:20 -0700 (PDT)
+From: Rosen Penev <rosenp@gmail.com>
+To: linux-crypto@vger.kernel.org
+Cc: Christian Marangi <ansuelsmth@gmail.com>,
+	Antoine Tenart <atenart@kernel.org>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
+	"David S. Miller" <davem@davemloft.net>,
+	linux-kernel@vger.kernel.org (open list)
+Subject: [PATCH] crypto: eip93: fix IRQ teardown ordering in remove path
+Date: Wed,  9 Sep 2026 14:12:18 -0700
+Message-ID: <20260909211218.15388-1-rosenp@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260902114340.268698-1-ssrish@linux.ibm.com>
+Content-Transfer-Encoding: 8bit
 
-On Wed, Sep 02, 2026 at 05:13:40PM +0530, Srish Srinivasan wrote:
-> TPM2_Create returns outPrivate, outPublic, creationData, creationHash and
-> creationTicket in its response parameter area. However, only outPrivate and
-> outPublic are included in the trusted key blob. The size of the blob is
-> therefore not determined by the size of the complete response parameter
-> area.
-> 
-> tpm2_seal_trusted() currently compares the size of the complete response
-> parameter area against MAX_BLOB_SIZE. This can reject a valid response
-> when the remaining response outputs cause the entire response parameter
-> area to exceed MAX_BLOB_SIZE, even though the outPrivate and outPublic
-> TPM2B structures consumed by tpm2_key_encode() remain small enough to be
-> encoded in the key blob.
-> 
-> This is observed when creating larger trusted keys using an swtpm TPM 2.0
-> emulator backed by libtpms.
-> 
-> For example, requesting a 113-byte key succeeds, 114 fails.
-> 
-> ~$ keyctl add trusted trusted_key1 "new 113 keyhandle=0x81000001" @u
-> 520504613
-> ~$ keyctl add trusted trusted_key2 "new 114 keyhandle=0x81000001" @u
-> add_key: Argument list too long
-> ~$
-> 
-> Remove the MAX_BLOB_SIZE check on the complete response parameter area.
-> Instead, use the response length passed to tpm2_key_encode() to validate
-> that the outPrivate and outPublic TPM2B structures are fully contained
-> in the response before accessing them.
-> 
-> Previously, a response parameter area larger than MAX_BLOB_SIZE was
-> rejected with -E2BIG before ASN.1 encoding. With this change, if the
-> resulting encoded blob does not fit in payload->blob, the error returned by
-> asn1_encode_sequence() is propagated instead.
-> 
-> Signed-off-by: Srish Srinivasan <ssrish@linux.ibm.com>
-> ---
->  security/keys/trusted-keys/trusted_tpm2.c | 47 +++++++++++++++++++----
->  1 file changed, 39 insertions(+), 8 deletions(-)
-> 
-> diff --git a/security/keys/trusted-keys/trusted_tpm2.c b/security/keys/trusted-keys/trusted_tpm2.c
-> index 67225dd562a9..efb016a6d4b8 100644
-> --- a/security/keys/trusted-keys/trusted_tpm2.c
-> +++ b/security/keys/trusted-keys/trusted_tpm2.c
-> @@ -24,24 +24,54 @@ static int tpm2_key_encode(struct trusted_key_payload *payload,
->  			   u8 *src, u32 len)
->  {
->  	const int SCRATCH_SIZE = PAGE_SIZE;
-> -	u8 *scratch = kmalloc(SCRATCH_SIZE, GFP_KERNEL);
-> -	u8 *work = scratch, *work1;
-> -	u8 *end_work = scratch + SCRATCH_SIZE;
-> +	u8 *scratch;
-> +	u8 *work, *work1;
-> +	u8 *end_work;
->  	u8 *priv, *pub;
-> -	u16 priv_len, pub_len;
-> +	u32 priv_len, pub_len;
->  	int ret;
->  
-> -	priv_len = get_unaligned_be16(src) + 2;
-> +	/*
-> +	 * TPM2_Create Response Parameters:
-> +	 *
-> +	 * outPrivate
-> +	 * outPublic
-> +	 * creationData
-> +	 * creationHash
-> +	 * creationTicket
-> +	 *
-> +	 * Validate outPrivate and outPublic against the response parameter
-> +	 * length before accessing them.
-> +	 */
+Switch from devm_request_threaded_irq() to request_threaded_irq() so
+that free_irq() can be called at the correct position in the remove
+path.  Move the IRQ registration after tasklet_init() in probe to
+ensure the tasklet is ready before the handler can fire.
 
-Please remove this comment. It is only an annoyance.
+Reorder eip93_cleanup() to:
+  1. disable device interrupts (HW)
+  2. free_irq() - synchronizes and removes the handler
+  3. tasklet_kill() - safe, no new IRQs can arrive
 
-> +	if (len < sizeof(__be16))
-> +		return -EFAULT;
-> +
-> +	priv_len = get_unaligned_be16(src);
-> +	if (priv_len > len - sizeof(__be16))
-> +		return -EFAULT;
-> +
-> +	priv_len += sizeof(__be16);
->  	priv = src;
->  
-> +	if (len - priv_len < sizeof(__be16))
-> +		return -EFAULT;
-> +
->  	src += priv_len;
->  
-> -	pub_len = get_unaligned_be16(src) + 2;
-> +	pub_len = get_unaligned_be16(src);
-> +	if (pub_len > len - priv_len - sizeof(__be16))
-> +		return -EFAULT;
-> +
-> +	pub_len += sizeof(__be16);
->  	pub = src;
->  
-> +	scratch = kmalloc(SCRATCH_SIZE, GFP_KERNEL);
->  	if (!scratch)
->  		return -ENOMEM;
->  
-> +	work = scratch;
-> +	end_work = scratch + SCRATCH_SIZE;
-> +
->  	work = asn1_encode_oid(work, end_work, tpm2key_oid,
->  			       asn1_oid_len(tpm2key_oid));
->  
-> @@ -335,10 +365,11 @@ int tpm2_seal_trusted(struct tpm_chip *chip,
->  		goto out;
->  
->  	blob_len = tpm_buf_read_u32(buf, &offset);
-> -	if (blob_len > MAX_BLOB_SIZE || buf->flags & TPM_BUF_INVALID) {
-> -		rc = -E2BIG;
-> +	if (buf->flags & TPM_BUF_INVALID) {
-> +		rc = -EFAULT;
->  		goto out;
->  	}
-> +
->  	if (buf->length - offset < blob_len) {
->  		rc = -EFAULT;
->  		goto out;
-> -- 
-> 2.53.0
-> 
+The previous order (tasklet_kill before interrupt disable) could race:
+an IRQ arriving after tasklet_kill() would schedule the already-killed
+tasklet.  With devm_request_threaded_irq(), free_irq() ran after the
+remove callback returned, leaving the handler registered while device
+state was being torn down.
 
-BR, Jarkko
+Assisted-by: opencode:big-pickle
+Signed-off-by: Rosen Penev <rosenp@gmail.com>
+---
+ .../crypto/inside-secure/eip93/eip93-main.c   | 27 ++++++++++++-------
+ 1 file changed, 18 insertions(+), 9 deletions(-)
+
+diff --git a/drivers/crypto/inside-secure/eip93/eip93-main.c b/drivers/crypto/inside-secure/eip93/eip93-main.c
+index e62785952b0d..4cfddfd1935b 100644
+--- a/drivers/crypto/inside-secure/eip93/eip93-main.c
++++ b/drivers/crypto/inside-secure/eip93/eip93-main.c
+@@ -395,12 +395,16 @@ static int eip93_desc_init(struct eip93_device *eip93)
+ 
+ static void eip93_cleanup(struct eip93_device *eip93)
+ {
+-	tasklet_kill(&eip93->ring->done_task);
+-
+-	/* Clear/ack all interrupts before disable all */
++	/* Stop HW from asserting IRQ first */
+ 	eip93_irq_clear(eip93, EIP93_INT_ALL);
+ 	eip93_irq_disable(eip93, EIP93_INT_ALL);
+ 
++	/* Synchronize and unregister the IRQ handler */
++	free_irq(eip93->irq, eip93);
++
++	/* No new IRQs can arrive - safe to kill the tasklet */
++	tasklet_kill(&eip93->ring->done_task);
++
+ 	writel(0, eip93->base + EIP93_REG_PE_CLOCK_CTRL);
+ 
+ 	eip93_desc_free(eip93);
+@@ -430,12 +434,6 @@ static int eip93_crypto_probe(struct platform_device *pdev)
+ 	if (eip93->irq < 0)
+ 		return eip93->irq;
+ 
+-	ret = devm_request_threaded_irq(eip93->dev, eip93->irq, eip93_irq_handler,
+-					NULL, IRQF_ONESHOT,
+-					dev_name(eip93->dev), eip93);
+-	if (ret)
+-		return ret;
+-
+ 	ret = eip93_desc_init(eip93);
+ 	if (ret)
+ 		return ret;
+@@ -448,6 +446,11 @@ static int eip93_crypto_probe(struct platform_device *pdev)
+ 	spin_lock_init(&eip93->ring->idr_lock);
+ 	idr_init(&eip93->ring->crypto_async_idr);
+ 
++	ret = request_threaded_irq(eip93->irq, eip93_irq_handler, NULL,
++				   IRQF_ONESHOT, dev_name(eip93->dev), eip93);
++	if (ret)
++		goto err_free_tasklet;
++
+ 	algo_flags = readl(eip93->base + EIP93_REG_PE_OPTION_1);
+ 
+ 	eip93_initialize(eip93, algo_flags);
+@@ -472,6 +475,12 @@ static int eip93_crypto_probe(struct platform_device *pdev)
+ 		 readl(eip93->base + EIP93_REG_PE_OPTION_0));
+ 
+ 	return 0;
++
++err_free_tasklet:
++	idr_destroy(&eip93->ring->crypto_async_idr);
++	tasklet_kill(&eip93->ring->done_task);
++	eip93_desc_free(eip93);
++	return ret;
+ }
+ 
+ static void eip93_crypto_remove(struct platform_device *pdev)
+-- 
+2.55.0
+
