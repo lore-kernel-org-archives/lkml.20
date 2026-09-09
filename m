@@ -1,141 +1,147 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29A5654A7E7
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 16:01:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18F8654A7E7;
+	Wed,  9 Sep 2026 16:01:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788969707; cv=none; b=sz8xUmBm5ne4Ju4jkm6mMEaUHTsgBD7MkLiEdal3mOW3GcJGZcjlRs+k4DB4EjDF7bNiFlrXwi7GznTXuHylSrp28do/q2Tld8iZNa4y9dmCDJf/wGEcFIj/fhScZMiUqGawoG4xuYq5yqzgLi2+h8HHRr4pARLhbiN5LxXaDEU=
+	t=1788969712; cv=none; b=TNXwpht0+QGcjUudkZz2htsRA0cGTSoNuVOzmSTg1KAUCxOfFsvAs8aY8G0V6SO9B32EP174v47l/NECst0tDaMHGdXI112/Olc2HFliYLxLw1B2vHiKtXLD2BO4o1RshAetKddCJQ/ya188uv3BRr5lkVobJYiWBMowA7RUwzc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788969707; c=relaxed/simple;
-	bh=YEBjBW7ZQ8lRJ1cxPS2oC6saYhsYFUETZ1kabLc/JHc=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=tPWJTEmDvXaBObnPNVRtXtbvtJRqdpIkOfbpNWt5ETrnZG8zeWBW5te8qZho8TRkSegrX90bJfBP3Z6U1/WpkOapCZ4f8S1zTZn4hWnreUjM17dijlg9HhheOyIV+Hd1jSPajU9MKmkmPQSXCSLUCF35Mh5yv5SOYMwJAf9CrdY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=Q9Qb29R2; arc=none smtp.client-ip=74.125.225.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	s=arc-20240116; t=1788969712; c=relaxed/simple;
+	bh=x+wNB4YAvun4OnvxjY0BRElQYfJzAYdDORRux8Afbm8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=MJkt3+XPBvMTJX7rwUmMDWs9Rx1PhyDrkz6AxP1fgJU2ZcEDwFyW37ExLnhokxInyws2IxZtTGoIlC5LOg4daWbKdziQimWJ/kcyYKExinq+3ASyiKhu2Kj5iyYwze5hvd931347IcGlXdX3DmmKN0+eBIQfEO3SlkVxBCbk6Zo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bPO2z0RN; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="Q9Qb29R2"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-48435bcf9d9so569113f8f.1
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 09:01:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1788969704; x=1789574504; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=EmyV/DBd0HhNzGdblZ2Da89S6yCLZ2ddzSwyXNnbqP0=;
-        b=Q9Qb29R2Adgxgmwnz/Srt3CthAVnIcZXk9VhUSCZPsj64rYFk5+YxzHy/ruu8nj//c
-         annogvTi9RWQDMBUAlwHVogAOIm2ahJEmfRmiQEW14AqinfnsG9FKcvIZ+v3xZ6NF7Mo
-         TrGKJpL9oLRSSWGb+OsEaorxVdN20uoTBebAVUt/69LQ3IrUaiEmQnr+M3+hIKUMitZx
-         6T0LnxnO0cIVaGZF7xtTRzJIIkBXtiMbPj9uxz8n3w7562yRCppOZ+84pdOeA1eizS/U
-         61lck2ZYAfq0dLGTebr38u+BNekdtRRtR4p7j6ZkhLLEN4fx9NxLccuV5Mh1H2AhoMfC
-         CEIg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788969704; x=1789574504;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=EmyV/DBd0HhNzGdblZ2Da89S6yCLZ2ddzSwyXNnbqP0=;
-        b=RgieHipUfc6lueJgvBs5/arXBKjRtDqu3o29eOWpVxEq7axIqpqTI6n72PWEY8XZDD
-         7OUDnksserRwbzOaw4lT+CrDfD2Jw3sW5Xomcxci+pNge4oFwy3IZQCezYupqhT0wKev
-         xFBODVzTH8tWSkEZsf4gVe6boDEfQ4IncSreJDGrFm92ITKdna5K2qDd8q0AOoECaqZj
-         MZ1FPPbQIzoXD2vlb9lqsXQqHPt7o80c/GurKnOeSbD5MnkCse8SQceBGE2f0LiSHodw
-         ymSWige6h0zszgxQVEWlKHdRgaKgzi67YUk23iqimxHUUspHLuhoC0n3s+ZG75i0tKMx
-         JVig==
-X-Forwarded-Encrypted: i=1; AKwUvByALJkiaTg71lSEGsUOvkxvVLdpT1vLxnYyRovOpr/xUSgFw+pZhrKP/SSjMM5PLT4hA0R7AL7md6nAerg=@vger.kernel.org
-X-Gm-Message-State: AFuF++nVktBxK/QKqqvCbd8cCExeysrKAZIP4cJKstdKZ3xCrr/Bv4ZT
-	ecXRA6qzpvtHHob/Rldce7V6FUJ8Zl7Ky3nNkNkwjRIRnNKjLTFwHR252NSNjij5mqHoA615EOi
-	WhpHOfvzxSg==
-X-Gm-Gg: AYBFou3qhWKXGaA++dgAbmE7Amryc/DBc38eQyEFLH0kPr1p0w7saguhOWU7dfghefS
-	l8JYTuf6RqVof8xJQF1RfmsRz7mrqqiqQwNlUBc2ZFOsv4rWA9Zc58TUNNHWhWXHQ0cXmV7dfFy
-	sSeiWSgn5FNKYT/5pQE8Ol8wglFW/6X2Z+dGvFpSqXHNI9MJ2ph9TRmTxvO0tBqJMJUXNQ2Zh+Z
-	yti/O8gryiHe1U905iw6hOI1SdMVsqeiUXa6biq48yTAMw+uOM5BN9Yu+lZKVqueHrOUPiubFaW
-	0qVcM8N20xyn6lkL5PxF9nK+yF8WLb3nSkLIJ5L+iiMDl+BS6jMdqGnT55mQsBDmBoLU/+zqhQD
-	nvGYm3Vue20qNIrHq4229YQNidgtJ4CE9iSnWH3j+0OT5HxFeNFj989VwkDUAu2e1ieUpcOCBuU
-	tg+jlUKLYptzxujV6xpHsE5vMk9HlLnaeknGJjKymwuDngfpfYjzQwRgsXdDmZkyX5Po9AmcxUx
-	UMksCY4X6IVsPS04+5UmraiQD3/NZWQM09I8K8xV6WlSoQ=
-X-Received: by 2002:a05:6000:40e1:b0:485:b0bb:38a3 with SMTP id ffacd0b85a97d-485b0bb3ac2mr3570567f8f.6.1788969704228;
-        Wed, 09 Sep 2026 09:01:44 -0700 (PDT)
-Received: from nicolas.morey.ovh (lfbn-ann-1-199-252.w86-200.abo.wanadoo.fr. [86.200.161.252])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-485883acd33sm44865981f8f.18.2026.09.09.09.01.43
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 09 Sep 2026 09:01:43 -0700 (PDT)
-From: Nicolas Morey <nmorey@suse.com>
-To: Zhu Yanjun <zyjzyj2000@gmail.com>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	Leon Romanovsky <leon@kernel.org>,
-	Tristan Madani <tristmd@gmail.com>,
-	linux-rdma@vger.kernel.org (open list:SOFT-ROCE DRIVER (rxe)),
-	linux-kernel@vger.kernel.org (open list)
-Cc: Nicolas Morey <nmorey@suse.com>,
-	Zhu Yanjun <yanjun.zhu@linux.dev>
-Subject: [PATCH v2] RDMA/rxe: Use validated num_sge in local buffer
-Date: Wed,  9 Sep 2026 18:01:31 +0200
-Message-ID: <20260909160132.1491248-1-nmorey@suse.com>
-X-Mailer: git-send-email 2.54.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bPO2z0RN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CE5691F00A3A;
+	Wed,  9 Sep 2026 16:01:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788969710;
+	bh=bhcglVIg8zXwSbsWI5h+bfoKubERpLnIudVPxLA0UXE=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=bPO2z0RN/ugIIn93vzjrYlhlc2+pGIpRrg5dV5Kj/x+S6uhDNu0gQ2Tflt0XBK6NZ
+	 jDcXvHPqx1BBKEOrsn47W7//Qk0M439jzhJpDgsxOwCD3kA+BWBWKG/0jn2cnDg4Ib
+	 b7cH3RBinpH2xiv24FnxMbSnohKTLg7YKmDTL0zHGuQBmV3vDDHRdBW8nioUBR2Two
+	 heDpq9ffJlY5U4/hXC3UGIszHmT+RXWbw1ja5L3l7kYf1okUEI2IxyE6+Bta+MsGca
+	 PD1BDBVM/FNAIg5rwx9A4TI6cKScsTTkLCgkXAamR1T877nPjhNQIcmGlnqavyLUz8
+	 jQaRJZ24rjmqA==
+Message-ID: <c910f084-07f8-4264-a33e-ee29b65bee87@kernel.org>
+Date: Wed, 9 Sep 2026 18:01:30 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v12 09/45] KVM: guest_memfd: Stub in ability to enable
+ in-place shared<=>private conversion
+To: ackerleytng@google.com, aik@amd.com, andrew.jones@linux.dev,
+ binbin.wu@linux.intel.com, brauner@kernel.org, chao.p.peng@linux.intel.com,
+ jmattson@google.com, jthoughton@google.com, michael.roth@amd.com,
+ oupton@kernel.org, pankaj.gupta@amd.com, qperret@google.com,
+ rick.p.edgecombe@intel.com, rientjes@google.com, shivankg@amd.com,
+ steven.price@arm.com, willy@infradead.org, wyihan@google.com,
+ yan.y.zhao@intel.com, forkloop@google.com, pratyush@kernel.org,
+ suzuki.poulose@arm.com, aneesh.kumar@kernel.org, liam@infradead.org,
+ Paolo Bonzini <pbonzini@redhat.com>, Sean Christopherson
+ <seanjc@google.com>, Thomas Gleixner <tglx@kernel.org>,
+ Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
+ Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+ "H. Peter Anvin" <hpa@zytor.com>, Steven Rostedt <rostedt@goodmis.org>,
+ Masami Hiramatsu <mhiramat@kernel.org>,
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ Shuah Khan <shuah@kernel.org>, Vishal Annapurve <vannapurve@google.com>,
+ Andrew Morton <akpm@linux-foundation.org>, Chris Li <chrisl@kernel.org>,
+ Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>,
+ Nhat Pham <nphamcs@gmail.com>, Barry Song <baohua@kernel.org>,
+ Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>,
+ Wei Xu <weixugc@google.com>, Youngjun Park <youngjun.park@lge.com>,
+ Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>,
+ Kiryl Shutsemau <kas@kernel.org>, Baoquan He <baoquan.he@linux.dev>,
+ Jason Gunthorpe <jgg@ziepe.ca>, John Hubbard <jhubbard@nvidia.com>,
+ Peter Xu <peterx@redhat.com>, tarunsahu@google.com,
+ Randy Dunlap <rdunlap@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ Fuad Tabba <fuad.tabba@linux.dev>
+Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-trace-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
+ linux-kselftest@vger.kernel.org, linux-mm@kvack.org,
+ linux-coco@lists.linux.dev, Xiaoyao Li <xiaoyao.li@intel.com>
+References: <20260830-gmem-inplace-conversion-v12-0-85e5fd25252a@google.com>
+ <20260830-gmem-inplace-conversion-v12-9-85e5fd25252a@google.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20260830-gmem-inplace-conversion-v12-9-85e5fd25252a@google.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-For both SRQ and non-SRQ receive paths, the WQE is copied into a local
-buffer to provide a kernel-owned, validated copy. While calculating the
-memcpy size from the validated num_sge prevents overflow during the
-copy, memcpy() itself still copies num_sge from shared memory.
+On 8/31/26 02:25, Ackerley Tng via B4 Relay wrote:
+> From: Sean Christopherson <seanjc@google.com>
+> 
+> Stub in global variable to enable in-place guest_memfd private<=>shared
+> memory conversion, which will eventually be exposed to userspace via a
+> module param, and wire up the __kvm_is_private_gfn() static call to the
+> guest_memfd version when in-place conversion is enabled, i.e. when gmem is
+> the sole authority on private vs. shared memory.
+> 
+> Cc: Fuad Tabba <tabba@google.com>
+> Cc: Xiaoyao Li <xiaoyao.li@intel.com>
+> Signed-off-by: Sean Christopherson <seanjc@google.com>
+> Co-developed-by: Ackerley Tng <ackerleytng@google.com>
+> Signed-off-by: Ackerley Tng <ackerleytng@google.com>
+> ---
 
-A concurrent userspace modification before or during memcpy() leaves
-an unvalidated num_sge in the local buffer, leading to potential
-out-of-bounds reads in rxe_resp_check_length() and copy_data() causing:
+Reviewed-by: David Hildenbrand (Arm) <david@kernel.org>
 
-  BUG: KASAN: slab-out-of-bounds in rxe_receiver+0x8109/0x9ec0 [rdma_rxe]
-  Read of size 4 at addr ffff88812c4867f8 by task kworker/u9:6/361
-  Workqueue: rxe_wq do_work [rdma_rxe]
-  Call Trace:
-   rxe_receiver+0x8109/0x9ec0 [rdma_rxe]
-   do_work+0x149/0x610 [rdma_rxe]
-   process_one_work+0x726/0x10a0
-
-  The buggy address belongs to the object at ffff88812c486000
-   which belongs to the cache kmalloc-part-13-2k of size 2048
-  The buggy address is located 0 bytes to the right of
-   allocated 2040-byte region [ffff88812c486000, ffff88812c4867f8)
-
-Explicitly assign the validated num_sge to the local buffer after the
-copy to prevent this race.
-
-Fixes: 22b8fbded65b ("RDMA/rxe: Fix TOCTOU heap overflow in get_srq_wqe")
-Fixes: d6ab440240a0 ("RDMA/rxe: Copy WQE to local buffer in non-SRQ receive path")
-Reviewed-by: Zhu Yanjun <yanjun.zhu@linux.dev>
-Signed-off-by: Nicolas Morey <nmorey@suse.com>
----
-v1 -> v2:
- - Added KASAN call trace to the commit log
- - Collected Reviewed-by tag.
-
- drivers/infiniband/sw/rxe/rxe_resp.c | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/drivers/infiniband/sw/rxe/rxe_resp.c b/drivers/infiniband/sw/rxe/rxe_resp.c
-index 02b16e2b49b8..cd51042857d6 100644
---- a/drivers/infiniband/sw/rxe/rxe_resp.c
-+++ b/drivers/infiniband/sw/rxe/rxe_resp.c
-@@ -288,6 +288,7 @@ static enum resp_states get_srq_wqe(struct rxe_qp *qp)
- 	}
- 	size = sizeof(*wqe) + num_sge * sizeof(struct rxe_sge);
- 	memcpy(&qp->resp.srq_wqe, wqe, size);
-+	qp->resp.srq_wqe.wqe.dma.num_sge = num_sge;
- 
- 	qp->resp.wqe = &qp->resp.srq_wqe.wqe;
- 	queue_advance_consumer(q, QUEUE_TYPE_FROM_CLIENT);
-@@ -328,6 +329,7 @@ static enum resp_states rxe_get_recv_wqe(struct rxe_qp *qp)
- 	}
- 	size = sizeof(*wqe) + num_sge * sizeof(struct rxe_sge);
- 	memcpy(&qp->resp.srq_wqe, wqe, size);
-+	qp->resp.srq_wqe.wqe.dma.num_sge = num_sge;
- 
- 	qp->resp.wqe = &qp->resp.srq_wqe.wqe;
- 	return RESPST_CHK_LENGTH;
 -- 
-2.54.0
+Cheers,
 
+David
