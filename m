@@ -1,34 +1,34 @@
-Received: from canpmsgout09.his.huawei.com (canpmsgout09.his.huawei.com [113.46.200.224])
+Received: from canpmsgout07.his.huawei.com (canpmsgout07.his.huawei.com [113.46.200.222])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA153538D76;
-	Wed,  9 Sep 2026 11:28:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.224
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3516D53D0DE;
+	Wed,  9 Sep 2026 11:28:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.222
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788953338; cv=none; b=Iu8IsAHnAPDMovX2RxiuDTjW8DVZxlxZSDt7MqYIFBT/k7r2fQnFV2TJcC5fYfttkS3J0lhh/Ts7W2OTyN78M9Ki9w6eGHu4z5tHoxy9EBboiHebRWZrBVn0elzZ1drSDmqVSk2urgoueskcZ0ZiorIhc4CrKuelJu6rQLQhwTQ=
+	t=1788953338; cv=none; b=jfiU0cd3NOtgc+xrPU35PBCU6YvBiFfpen5DGyj0J3xXVG+WNpJfnpVZ2bppCcgz7OLIJq0cOzmWWWA39DQ+jIFDxpT6zoyf7d0yc1vEM/VXq36zCUyNHebMMgPP3A8J2jVIU4VqW/UmRcpm22AN60nUGnhyxmxhdeT0IVBy3d4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788953338; c=relaxed/simple;
-	bh=z7rx8ko1Hjnl3eyotsb+7SjBItkzdkQghXn+hraHrPU=;
+	bh=BpQIGUUS9Q2MZxF+Ij/RSMWvaL88RNqmR6AyzVlftvc=;
 	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=PG08QhvHI6r63tZHAqOjABRGZ1CbLBRDrY89cxWrvwXN94dt7VmVaRTFF5n4q35/sJgV99800xPBVvGv8Rwi9JIxxKWzvKmtWX6vrabE2QbC7nsbeIsUUfV/3TfxASLjobY7MQbRnrEuROyn/QbGJxHSPMQ4XUlGyubHvzFgHQI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=XmWSwMOi; arc=none smtp.client-ip=113.46.200.224
+	 MIME-Version:Content-Type; b=FhUmsWMcSm8LfVvT1M9Cg3hJz8npieejd0G2b3NgUDjH4wBmCgl0emlifgIcQjiAJbu0dr0H7RlhxwZ+gG3eX8iZJ+87cHJX+RRWf1PUyp55R38uCteM8OGx/PWat+/ztKuc9dtItKoCDKdIfcSr86LM2HWTPCQTugYrFUa12z4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=zhiUsmRC; arc=none smtp.client-ip=113.46.200.222
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="XmWSwMOi"
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="zhiUsmRC"
 dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
 	c=relaxed/relaxed; q=dns/txt;
 	h=From;
-	bh=e+lX/tryefGyf3o/T2qlYaAE2kLFzNu3tYBSnkPNQYQ=;
-	b=XmWSwMOiwZnk+xqLuA8Y0r6GMinDcoFeCBlsohRhwg1eCWraQ+TVTx9eorBjIgXT8KYvavdP8
-	fNDlesP7DTxhTtOy9aCNv3Cu7v+/vHkQqMrFFNZpbhxrx31t6b9cJ9SvSM3ot8Zu3MvrdDOCjbL
-	9NdRoFZ/Du/k46jy2f5iv/A=
-Received: from mail.maildlp.com (unknown [172.19.163.200])
-	by canpmsgout09.his.huawei.com (SkyGuard) with ESMTPS id 4hfyw61YLWz1cyQh;
+	bh=8BfcLFJ8lq/NfCoBy8hEaePQL1LvldhZQMPiZxqeFMI=;
+	b=zhiUsmRCm+bKfQXLQuuzodR4Vp/mfG5XLNLw4O2bx57QztbpHjqsIc7sZKU9TrELEar8VKSSq
+	Z/shpttIVq9INF4gKOQQlfhXI0ChVkt9lWh/OlQxb1ycp3nIBMUTz4usy7ZGXbHvZaNFYj7VHoV
+	E9RR8bnG03Va0UU+V1SHR4Y=
+Received: from mail.maildlp.com (unknown [172.19.162.92])
+	by canpmsgout07.his.huawei.com (SkyGuard) with ESMTPS id 4hfyw611bmzLlX8;
 	Wed,  9 Sep 2026 19:17:58 +0800 (CST)
 Received: from kwepemf100015.china.huawei.com (unknown [7.202.181.14])
-	by mail.maildlp.com (Postfix) with ESMTPS id EBC114055B;
-	Wed,  9 Sep 2026 19:28:51 +0800 (CST)
+	by mail.maildlp.com (Postfix) with ESMTPS id 8058040586;
+	Wed,  9 Sep 2026 19:28:52 +0800 (CST)
 Received: from dggphicprd10024.huawei.com (10.243.6.112) by
  kwepemf100015.china.huawei.com (7.202.181.14) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
@@ -42,9 +42,9 @@ To: <tony.luck@intel.com>, <bp@alien8.de>, <ardb@kernel.org>,
 CC: <yangzhuohao1@huawei.com>, <douzhaolei@huawei.com>,
 	<zouyipeng@huawei.com>, <wangbing6@huawei.com>, <nixiaoming@huawei.com>,
 	<liuwenliang@huawei.com>
-Subject: [PATCH v4 1/3] RAS: Fix inverted context info bounds check in ARM processor errors
-Date: Wed, 9 Sep 2026 19:28:30 +0800
-Message-ID: <20260909112832.805314-2-liuwenliang@huawei.com>
+Subject: [PATCH v4 2/3] RAS: Fix out-of-bounds read when tracing arm_event
+Date: Wed, 9 Sep 2026 19:28:31 +0800
+Message-ID: <20260909112832.805314-3-liuwenliang@huawei.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260909112832.805314-1-liuwenliang@huawei.com>
 References: <20260909112832.805314-1-liuwenliang@huawei.com>
@@ -59,35 +59,73 @@ Content-Type: text/plain
 X-ClientProxiedBy: kwepems200002.china.huawei.com (7.221.188.68) To
  kwepemf100015.china.huawei.com (7.202.181.14)
 
-Commit 87880af2d24e ("APEI/GHES: ARM processor Error: don't go past
-allocated memory") added bounds checks for malformed ARM processor
-error records but contained a bug:
+The vsei_len < 0 error path did not verify the pei_len and ctx_len.
+When vsei_len is negative, section_length is too small to hold the
+full record, yet pei_len and ctx_len were derived from
+err_info_num/context_info_num and may describe regions beyond the
+(long)err .. err + section_length buffer. To prevent trace_arm_event
+from reading past the allocated record, sanitize the parameters:
+recalculate ctx_len and pei_len based on section_length, limit them,
+and set the corresponding pointers to NULL and lengths to 0 when
+there is no remaining space.
 
-  In log_arm_hw_error(), the ctx_info bounds check is inverted. The
-  condition "sz + (long)ctx_info - (long)err >= err->section_length"
-  adds ctx_info->size when the context header is already past the end
-  of the section instead of when it is within bounds. So change the
-  comparison to <=.
+pei_len and ctx_len become s32 so that the recalculated lengths can
+be checked for negative values.
 
-Fixes: 87880af2d24e ("APEI/GHES: ARM processor Error: don't go past allocated memory")
+Fixes: 05954511b73e ("RAS: Report all ARM processor CPER information to userspace")
 Signed-off-by: Abbott Liu <liuwenliang@huawei.com>
 ---
- drivers/ras/ras.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/ras/ras.c | 22 ++++++++++++++++++----
+ 1 file changed, 18 insertions(+), 4 deletions(-)
 
 diff --git a/drivers/ras/ras.c b/drivers/ras/ras.c
-index 03df3db62334..2540538a16a8 100644
+index 2540538a16a8..085fe2d980e5 100644
 --- a/drivers/ras/ras.c
 +++ b/drivers/ras/ras.c
-@@ -74,7 +74,7 @@ void log_arm_hw_error(struct cper_sec_proc_arm *err, const u8 sev)
- 	for (n = 0; n < err->context_info_num; n++) {
- 		sz = sizeof(struct cper_arm_ctx_info);
+@@ -58,10 +58,10 @@ void log_arm_hw_error(struct cper_sec_proc_arm *err, const u8 sev)
+ 	struct cper_arm_err_info *err_info;
+ 	struct cper_arm_ctx_info *ctx_info;
+ 	u8 *ven_err_data;
+-	u32 ctx_len = 0;
++	s32 ctx_len = 0;
+ 	int n, sz, cpu;
+ 	s32 vsei_len;
+-	u32 pei_len;
++	s32 pei_len;
+ 	u8 *pei_err, *ctx_err;
  
--		if (sz + (long)ctx_info - (long)err >= err->section_length)
-+		if (sz + (long)ctx_info - (long)err <= err->section_length)
- 			sz += ctx_info->size;
+ 	pei_len = sizeof(struct cper_arm_err_info) * err->err_info_num;
+@@ -87,14 +87,28 @@ void log_arm_hw_error(struct cper_sec_proc_arm *err, const u8 sev)
+ 		pr_warn(FW_BUG "section length is too small\n");
+ 		pr_warn(FW_BUG "firmware-generated error record is incorrect\n");
+ 		vsei_len = 0;
++		ven_err_data = NULL;
++
++		ctx_len = err->section_length - (sizeof(struct cper_sec_proc_arm) + pei_len);
++		if (ctx_len < 0) {
++			ctx_len = 0;
++			ctx_err = NULL;
++
++			pei_len = err->section_length - sizeof(struct cper_sec_proc_arm);
++			if (pei_len < 0) {
++				pei_len = 0;
++				pei_err = NULL;
++			}
++		}
++	} else {
++		ven_err_data = (u8 *)ctx_info;
+ 	}
+-	ven_err_data = (u8 *)ctx_info;
  
- 		ctx_info = (struct cper_arm_ctx_info *)((long)ctx_info + sz);
+ 	cpu = GET_LOGICAL_INDEX(err->mpidr);
+ 	if (cpu < 0)
+ 		cpu = -1;
+ 
+-	trace_arm_event(err, pei_err, pei_len, ctx_err, ctx_len,
++	trace_arm_event(err, pei_err, (u32)pei_len, ctx_err, (u32)ctx_len,
+ 			ven_err_data, (u32)vsei_len, sev, cpu);
+ }
+ 
 -- 
 2.43.0
 
