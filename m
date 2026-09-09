@@ -1,31 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A891B5540AB;
-	Wed,  9 Sep 2026 13:13:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BA6E550DC3;
+	Wed,  9 Sep 2026 13:13:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788959591; cv=none; b=M8cjE/0ID9ACUEHw7WEEqrYHmOpRezWD7OIgdoBJiF3BFtODHvDk05qafqLYiJXre484aXuX0OP8PGR7x6KxTjpO2BXAKjuj6x7BnRIazX61Xn9OhUW4G+3TCweDyqHuSYaYry0ONUmf/mmGGmtn4Ovkk4qrI8nttzkSoiYzfIA=
+	t=1788959593; cv=none; b=LrLbiOqkfMA1vbEBh1bZiBs2kLK2kr412lGLgLFTqu5ZAC0Rx2Fb4Jxald1NxIWr3Zt3CDZemKUT267rnhk5A8bAH+Ymsq6AkuxS4jDIv6qcP6dKKeadujEOK0eMpSPPKMh4U5F/wamH4s1V5yGVquBlyquu2dyaJBcAuGSumPs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788959591; c=relaxed/simple;
-	bh=Cco0eLYO5xHXTcrEHeQMkw1fFhGetnR/HOL25tY05Hc=;
+	s=arc-20240116; t=1788959593; c=relaxed/simple;
+	bh=/flwUTsnBb5pJV3uqQagfzKUQZrYrmEI2hn3JX4TTTM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=C7aJlc1lgzUZp6Qmj2vLsz4BPHaWp4RlBgZEqtYLbjTgbqugNDW7kRCM2FnYlhQE1h1cNvngkHGoJQjnWW1AX6KrCSQkuiXVTcsjRnxLhhoByXu1r/puFr3IB02LzzqhIVDRfnY9dKu6XLjTSDQgbG0C8TS5ao5cBdVHQIre5+g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OabBCNAE; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=Xmr9DCZk3eW3nJU+OaF9pfnEifkrnTSYIXd2FigqCVWCySm05+x3/sCy1oVcXiUkjy+ppgeCl0GGoFSLb0mC/iduSwxRroqIfwKIjxRgBbbIWKTwuIUhAcr6fRYCr73E6YqtqjNO81aMydOqkHJMx6+DdIlzBLwYKfmVPpbd8eo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Od30AXtH; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OabBCNAE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E0FA1F00A3F;
-	Wed,  9 Sep 2026 13:13:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Od30AXtH"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7469F1F00A3A;
+	Wed,  9 Sep 2026 13:13:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788959590;
-	bh=exrp9sOpIrw8gCLYhyGLzFm16RZmIHh9nMD7AtHeshY=;
+	s=k20260515; t=1788959591;
+	bh=Iw3up/37K0JEJR2NToWqFDiwdxlhN8ItBMVuaFF4dA8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=OabBCNAEx8zSE+TP2oDCidL0efN3Oy7t7e7v9T4Azc3+UhgIwGKm6KxJKZwVGqHi1
-	 5I+8gQ9CHwYydhf0Ix6bPUzni23iNb8iDirKCHPs9MIIHyZOl9lz5nJgTuTy7dbIGF
-	 prauwfrLO68//1scK40MV1dmX+x7Z+YcjrTR+7h07B2HvE8Eu2cOaPB5Jn7oO5zA/u
-	 77lLXzkUC2iXwj+YS8LqdnuMwJNuezTRFbYNv89ZgMnEwpopKtd1yrftippGhvnzZb
-	 gFtq3gI/jkVfWCrRFR54USf13QSZMWV1n0RcJM2Rtgrg6NW76FHFrxDEp1dUzJSlRt
-	 TV2Wj3RHQIQjw==
+	b=Od30AXtHNUifWmX7eMgpGUrLzJN9FL5ljuc4bOxHNSaGNLtqdfx7pS3f4vd39LHIQ
+	 0flGungmeL6eBAFnTgdUlhTlyHvVdQFhWjrEK+rBv3rJ7v13A2AVqhlGitYO0nmegE
+	 Gi3LWlVOdw+6D4vOwL6oxexvgOwMH43PquinI+Jdtr0yaotRA/zsKIEdo5j3Vtk3Dv
+	 CUUgBWM+NLSBHuCjFSFSqTpN0oPxkBIW6tbJ1+xeTenzRyic2Eh/pOpBp9mJ6yunTT
+	 M/co4W8A95aTnPr9KgXy+ecRP/OWHJp0qKvSTSbU4sR0wOfIMb7LIjSDvDjZG9j33H
+	 gqoAyXKvwhviA==
 From: Dinh Nguyen <dinguyen@kernel.org>
 To: bp@alien8.de,
 	tony.luck@intel.com
@@ -34,9 +34,9 @@ Cc: dinguyen@kernel.org,
 	linux-edac@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCHv4 1/4] EDAC/altera: Do not allow driver unbinding
-Date: Wed,  9 Sep 2026 08:12:50 -0500
-Message-ID: <20260909131253.2158486-2-dinguyen@kernel.org>
+Subject: [PATCHv4 3/4] EDAC/altera: Fix code leak on dci allocation failure
+Date: Wed,  9 Sep 2026 08:12:52 -0500
+Message-ID: <20260909131253.2158486-4-dinguyen@kernel.org>
 X-Mailer: git-send-email 2.42.0.411.g813d9a9188
 In-Reply-To: <20260909131253.2158486-1-dinguyen@kernel.org>
 References: <20260909131253.2158486-1-dinguyen@kernel.org>
@@ -48,97 +48,36 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The EDAC driver must remain bound; unbinding and re-binding it would erase
-active system memory.
+sashiko reports: If devres_open_group() fails, the function returns -ENOMEM
+without freeing the dci structure allocated earlier with edac_device_alloc_ctl_info().
 
-Remove the .remove functions because they will not ever get used.
+Free the dci structure if devres_open_group() fails.
 
-Fixes: 588cb03ea208 ("EDAC, altera: Add Arria10 L2 Cache ECC handling")
+Fixes: c3eea1942a16 ("EDAC, altera: Add Altera L2 cache and OCRAM support")
 Cc: stable@vger.kernel.org
 Signed-off-by: Dinh Nguyen <dinguyen@kernel.org>
 ---
 v4: rebased to edac-urgent
-v3: simplify commit messsage
+v3: No changes
 v2: reworked v1 to include only true sashiko hits
 ---
- drivers/edac/altera_edac.c | 25 ++++---------------------
- 1 file changed, 4 insertions(+), 21 deletions(-)
+ drivers/edac/altera_edac.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
 diff --git a/drivers/edac/altera_edac.c b/drivers/edac/altera_edac.c
-index 68846f583eeef..fe501c89dd0dc 100644
+index d8a3438fb5f44..4b289b90186f9 100644
 --- a/drivers/edac/altera_edac.c
 +++ b/drivers/edac/altera_edac.c
-@@ -453,15 +453,6 @@ static int altr_sdram_probe(struct platform_device *pdev)
- 	return res;
- }
+@@ -1517,7 +1517,9 @@ static int altr_portb_setup(struct altr_edac_device_dev *device)
+ 	*altdev = *device;
  
--static void altr_sdram_remove(struct platform_device *pdev)
--{
--	struct mem_ctl_info *mci = platform_get_drvdata(pdev);
--
--	edac_mc_del_mc(&pdev->dev);
--	edac_mc_free(mci);
--	platform_set_drvdata(pdev, NULL);
--}
--
- /*
-  * If you want to suspend, need to disable EDAC by removing it
-  * from the device tree or defconfig.
-@@ -481,13 +472,13 @@ static const struct dev_pm_ops altr_sdram_pm_ops = {
+ 	if (!devres_open_group(device->edac->dev, altr_portb_setup, GFP_KERNEL))
++		edac_device_free_ctl_info(dci);
+ 		return -ENOMEM;
++	}
  
- static struct platform_driver altr_sdram_edac_driver = {
- 	.probe = altr_sdram_probe,
--	.remove = altr_sdram_remove,
- 	.driver = {
- 		.name = "altr_sdram_edac",
- #ifdef CONFIG_PM
- 		.pm = &altr_sdram_pm_ops,
- #endif
- 		.of_match_table = altr_sdram_ctrl_of_match,
-+		.suppress_bind_attrs = true,
- 	},
- };
- 
-@@ -517,6 +508,7 @@ static struct platform_driver altr_edac_driver = {
- 	.driver = {
- 		.name = "socfpga_ecc_manager",
- 		.of_match_table = altr_edac_of_match,
-+		.suppress_bind_attrs = true,
- 	},
- };
- module_platform_driver(altr_edac_driver);
-@@ -803,22 +795,12 @@ static int altr_edac_device_probe(struct platform_device *pdev)
- 	return res;
- }
- 
--static void altr_edac_device_remove(struct platform_device *pdev)
--{
--	struct edac_device_ctl_info *dci = platform_get_drvdata(pdev);
--	struct altr_edac_device_dev *drvdata = dci->pvt_info;
--
--	debugfs_remove_recursive(drvdata->debugfs_dir);
--	edac_device_del_device(&pdev->dev);
--	edac_device_free_ctl_info(dci);
--}
--
- static struct platform_driver altr_edac_device_driver = {
- 	.probe =  altr_edac_device_probe,
--	.remove = altr_edac_device_remove,
- 	.driver = {
- 		.name = "altr_edac_device",
- 		.of_match_table = altr_edac_device_of_match,
-+		.suppress_bind_attrs = true,
- 	},
- };
- module_platform_driver(altr_edac_device_driver);
-@@ -2214,6 +2196,7 @@ static struct platform_driver altr_edac_a10_driver = {
- 	.driver = {
- 		.name = "socfpga_a10_ecc_manager",
- 		.of_match_table = altr_edac_a10_of_match,
-+		.suppress_bind_attrs = true,
- 	},
- };
- module_platform_driver(altr_edac_a10_driver);
+ 	/* Update PortB specific values */
+ 	altdev->edac_dev_name = ecc_name;
 -- 
 2.42.0.411.g813d9a9188
 
