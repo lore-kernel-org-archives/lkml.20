@@ -1,97 +1,108 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A93E566C70
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 14:28:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60453582B9C
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 14:28:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788964125; cv=none; b=W+UvnxKk2YZW3GrjQ9lyykacNclMWgGH0angquYfT5xIQWT4pQGg50qLqlNxpghQBpG3FYmZ0/SzXhkMSgU9gDW5NFLdKqQd2Fy0kkIVV7Mf91BvGV2LFNn5Mgnhn3bytTMAxZsj66dTfbl9tCFDTWOl/7X/Lj8lQOrzaM9REIs=
+	t=1788964127; cv=none; b=hFSBy+xLY152bFWMfNBxfHEoyuaNjUSUrhJAQjx6ytDeWF0nEpnofhqSVYoljDlyJu7bISqlAzsFg/qwPYVUBSmDzhsGNWTc0cIbyjYkcrgy/R3mTc0u50td2w3e1CcZ6/8FRxPbg1wey9QDTiXwdoU4TtkfLx6JDHHxKm86AYc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788964125; c=relaxed/simple;
-	bh=stadVtBCp6wk6pQ883aHgpti5/i/VdTdCNSizlaXdF0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=I6AZZMk5Z8hy7zUFGdzWKMVxzRLZN09d85hIqL3rEg6+/cSKHjR3ceqnkjg8gx5R+gJZCOdMaChIAXjLPH0ITuz09kBGmaMpY6Nu17XhmM6EE0T3Mw+hCq3ktGUDyrmvkd4B9dSzuM+AGB2gZt89GVYGOD3UPRjFDmGUgc6r9Wc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ld4iCOtJ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788964127; c=relaxed/simple;
+	bh=oj01JFfB6AavahYppTc9T4EaPEzdF+98Q38ewNDpUTY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=fesLdwIG7s+LZZMSajIt7N+W8i6h+xHbr1i/Wrm1/wg5V1KYQisziv8X5zF6o9M0LrbaUTxxJT1AohPCNGeGJTaQn/PoFsEa5kDZIwU4+ae1jO/8OXW/BzsmiDI1f15ZcQ1Zok+wtLjgs7k+v/YbUxTd8AIpqFV0cZ1kH5oO1OM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Z7QMs4Ri; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ld4iCOtJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 098761F00A3D
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 14:28:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Z7QMs4Ri"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9FED01F00A3A;
+	Wed,  9 Sep 2026 14:28:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788964124;
-	bh=stadVtBCp6wk6pQ883aHgpti5/i/VdTdCNSizlaXdF0=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=ld4iCOtJuGXAEhSM3K6eujG0sqPNWOp8/i4ICSZ0WmaFMo12ZOs4+jbFcNS0HVI7H
-	 5q+dIOyrlVagh8R2nw7gwU34YJflAeToJ2NYiZ3AVcz6scxy8mKIBZZVHHYcQBvq9U
-	 e4JrDKGN6iN5m5Pb3cjFJs4nIAsjeSksX5KLlhu5LJNag7ByX6DeoRVJgpk9NPNvCL
-	 Qm42x+cWmHCvYE0CXuL1ai0XHBLooWB6jarVzG7Gqs21ySwi5AIlClqy4pJy9qjdWz
-	 Wl9vLGdgU0JeZZx4SkhbD0YHIfIidwKaM2q9vqu2hbwhUub92nq48DJHmvNjtjtzgY
-	 eEXe4XOvwfnwA==
-Received: by mail-lr2-f12.google.com with SMTP id 38308e7fff4ca-3a4c427d9cdso2421071fa.0
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 07:28:43 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBymsUS4fBVl7Au1xcwKapftLQI/HzP6oSNBGJSzyA4AbaXRT8AFDuB3CbakO5o7xSYx+iaTtM+2VkfmPiw=@vger.kernel.org
-X-Gm-Message-State: AFuF++mOhAC1ukZim+AUwSFqoneiLKfuXQw51FktppTijrYMgc0wXHsG
-	ofc++59vT9YhJQ+/MaUrS4fQQxH83Tw2WNmDeoXJquAnQeLzqgvN3HMKUp8eOfmhrxk192UFfKL
-	O+QNhSGS+HApalcp9DCTKPDMXSQL4bRg=
-X-Received: by 2002:a2e:8a86:0:b0:3a3:52a7:39ee with SMTP id
- 38308e7fff4ca-3a58d33e018mr4441811fa.1.1788964122291; Wed, 09 Sep 2026
- 07:28:42 -0700 (PDT)
+	s=k20260515; t=1788964126;
+	bh=oj01JFfB6AavahYppTc9T4EaPEzdF+98Q38ewNDpUTY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Z7QMs4RiqWS030pqfJQFKcD4kpDjcDp9BD5a+akwoYLqcUihHv+wSZ6QhT0us4Ivx
+	 na8itMh1dn35cgoDZE7Z6YvcVVOtBzcXk9tDFNZs6aaQFijXwVCnTmpplCq3jQrp69
+	 Zm0FQd/eFwcb2/eXBhnoPHXpIEtOl58BkbyXyLiZLpzsqLzBcyLOu8bF69rvZIZcU7
+	 HoeL79Z/qDBO3qBe/fQnhB5yOR1wgneYTr9XlTk/T5lqf4IBT5Xpyg5aQSMY3IkQ11
+	 tstkpmU9RfUkygK+f1e+l4DfhNj4l46RU299qS29x4XBWbzJ1ZhHeTlajAMluRH4Gl
+	 /KdgW/jOcGFxw==
+Date: Wed, 9 Sep 2026 16:28:42 +0200
+From: Maxime Ripard <mripard@kernel.org>
+To: Jani Nikula <jani.nikula@linux.intel.com>
+Cc: Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Thomas Zimmermann <tzimmermann@suse.de>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	Andrzej Hajda <andrzej.hajda@intel.com>, Neil Armstrong <neil.armstrong@linaro.org>, 
+	Robert Foss <rfoss@kernel.org>, Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+	Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+	Jessica Zhang <jesszhan0024@gmail.com>, Linus Walleij <linusw@kernel.org>, 
+	Inki Dae <inki.dae@samsung.com>, Jagan Teki <jagan@amarulasolutions.com>, 
+	Marek Szyprowski <m.szyprowski@samsung.com>, Albert Esteve <aesteve@redhat.com>, 
+	Anusha Srivatsa <asrivats@redhat.com>, Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+	Hui Pu <Hui.Pu@gehealthcare.com>, Ian Ray <ian.ray@gehealthcare.com>, 
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+	Ville =?utf-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
+Subject: Re: [PATCH RFC v2 05/19] drm/panel: embed a drm_bridge into every
+ drm_panel
+Message-ID: <aqFsTzyf1YbQkh6W@houat>
+References: <20260903-drm-bridge-every-panel-v2-0-2ab8ee24538e@bootlin.com>
+ <20260903-drm-bridge-every-panel-v2-5-2ab8ee24538e@bootlin.com>
+ <678ddef7e56703d9adffff5c490d4857af515343@intel.com>
+ <aqEqx0zBQgmUgwqL@houat>
+ <3efb06a30baae6ba1bfcf2be449bf207a30f674d@intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260806233817.622975-1-W_Armin@gmx.de> <f2f17b0d-22a1-4a57-895b-318bb50456f3@gmx.de>
- <CAJZ5v0j4EAZnrEA3Z7EKX5fdfhTWYbb=f0rOPnLsz5zaEMguGQ@mail.gmail.com> <dec5d721-8bc5-4be3-81cf-16b63829cbf0@gmx.de>
-In-Reply-To: <dec5d721-8bc5-4be3-81cf-16b63829cbf0@gmx.de>
-From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Date: Wed, 9 Sep 2026 16:27:32 +0200
-X-Gmail-Original-Message-ID: <CAJZ5v0j67n7N-Eogik3njKV92E=FyW33bTvg6FnVfiT_AqwXug@mail.gmail.com>
-X-Gm-Features: AcwNN1X4VP570iJuqr7naYH5b5DhHROwqgRYiMXybiki5ac9psZhgAOp68PshzE
-Message-ID: <CAJZ5v0j67n7N-Eogik3njKV92E=FyW33bTvg6FnVfiT_AqwXug@mail.gmail.com>
-Subject: Re: [PATCH] ACPI: battery: Fix bogus cycle count values on systems
- without _BIX
-To: Armin Wolf <W_Armin@gmx.de>
-Cc: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>, lenb@kernel.org, linux-acpi@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, wse@tuxedocomputers.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: multipart/signed; micalg=pgp-sha384;
+	protocol="application/pgp-signature"; boundary="xvg2t2buvlbvtces"
+Content-Disposition: inline
+In-Reply-To: <3efb06a30baae6ba1bfcf2be449bf207a30f674d@intel.com>
+
+
+--xvg2t2buvlbvtces
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH RFC v2 05/19] drm/panel: embed a drm_bridge into every
+ drm_panel
+MIME-Version: 1.0
 
-On Tue, Sep 1, 2026 at 10:18=E2=80=AFPM Armin Wolf <W_Armin@gmx.de> wrote:
->
-> Am 01.09.26 um 22:16 schrieb Rafael J. Wysocki (Intel):
->
-> > On Tue, Sep 1, 2026 at 10:11=E2=80=AFPM Armin Wolf <W_Armin@gmx.de> wro=
-te:
-> >> Am 07.08.26 um 01:38 schrieb Armin Wolf:
-> >>
-> >>> Devices supporting only the legacy _BIF ACPI control method cannot
-> >>> know the cycle count of the associated battery, so cycle_count always
-> >>> remains 0. Claiming support for POWER_SUPPLY_PROP_CYCLE_COUNT on
-> >>> such devices can thus mislead userspace applications and prevents
-> >>> power supply extensions from supplying correct cycle count values.
-> >>>
-> >>> Fix this by not claiming support for POWER_SUPPLY_PROP_CYCLE_COUNT
-> >>> on devices without _BIX.
-> >> Any thoughts on this? I tested it on my device, and so far everything =
-seems
-> >> to work flawlessly.
-> > It looks good overall, but it is quite substantial, which is why it
-> > didn't make it into 7.3-rc1.
-> >
-> > I'm planning to apply it for 7.4.
->
-> Alright, that works for me.
+On Wed, Sep 09, 2026 at 05:02:58PM +0300, Jani Nikula wrote:
+> On Wed, 09 Sep 2026, Maxime Ripard <mripard@kernel.org> wrote:
+> > I really wish i915 was at least *trying* to fit within the larger model
+> > basically everybody else uses. I understand that it's a large
+> > undertaking and regression prone and everything, but I'm also concerned
+> > about having the "we can't because of i915" or "supported by everybody
+> > else but i915" on a regular basis now.
+>=20
+> Okay, let's hear it, please name a few things where i915 is alone in
+> doing something bonkers that amd, radeon, nouveau also don't do, and
+> what would be the changes that would bring i915 closer to everybody
+> else?
 
-And so applied.
+Where did I say "bonkers"?
 
-Sashiko has a comment on the _BIX failing case:
+But since you're asking, because it doesn't implement .reset, we had that
+conversation this week for
 
-https://sashiko.dev/#/patchset/20260806233817.622975-1-W_Armin%40gmx.de
+https://lore.kernel.org/r/20260908-drm-reset-state-flag-v3-0-905570f387a4@k=
+ernel.org
 
-but this can be addressed on top of the current patch IMV.
+Maxime
 
-If you think that it's worth addressing, please send a follow-up one for th=
-at.
+--xvg2t2buvlbvtces
+Content-Type: application/pgp-signature; name="signature.asc"
 
-Thanks!
+-----BEGIN PGP SIGNATURE-----
+
+iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCaqFtDwAKCRAnX84Zoj2+
+doBSAX46K8ejTapIIYk/SeycKWdQwI0tlzsXrMG+ZW7UOhK2h/7KaVEyj4ZDsGjK
+dz9VoPgBfAiC3uX8Vw2zw6OMzOZKaidwZ1GSyeGkNSFBaiRnGT6VYthRJkFjw6Kp
+CxhOEjtOwg==
+=l7Kh
+-----END PGP SIGNATURE-----
+
+--xvg2t2buvlbvtces--
