@@ -1,92 +1,129 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71F6352ED5D;
-	Wed,  9 Sep 2026 11:10:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 387B253444A;
+	Wed,  9 Sep 2026 11:10:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788952231; cv=none; b=tPYw+/e0SizRxdhRL4YA17GBVhlPHlBtL3oVMyJLHBImYfyt+ABAd11q8LLlAgbNNbEWmulJ3V2ljPDadIINnvqLD8U4GM93V4RMpEXBn3BxTuh+uo5j9f2FVT05cC/CL5kiTbiJJNA0NSCEmjeBBqBdYIg5E4Ma5Z0xJ59tcrk=
+	t=1788952231; cv=none; b=pHTq43FPPopGr9KrV5IqJoxUYIjyCN4mm9UejrPkSpm++cCRsLfiTPsYS4HAcTZSTjKVNyrSaY9frtJt+D6cSCIHtu9S/La4k0MZBFS/ZKgubIqE/Mwd8WZlPOdNwrAVSTRy1SLSifhG9qKQ2TeOmgfPnzJN0EcUceFgqpWaL5M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788952231; c=relaxed/simple;
-	bh=cuwUkj2O7mRYSLohTaTJ7WLNaF7OOF9Ap2sARWIBf3M=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=pKAHCBOaNxTh2jDUzRrSf/etXPKo4AAS5X3GUREdLNx4E2xwEgd3Ona0lO3uZ22+GtgFNySQm3QLJWoF0LS7Xzx32A9w28gOTv/P5hfYmo/DAzb0lFUY0H9EawljQ5RAzVPDxCzarIUHN3n6R4Z4T2al0kh91l7K7ml9VqeWy70=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XR5fOd7Y; arc=none smtp.client-ip=100.103.45.18
+	bh=wfAjG3xc4WD+14QS2bjYrzcPuHZ1rp3d4zj4V0Qov5A=;
+	h=From:To:Subject:Date:Message-ID:MIME-Version; b=VvcAEVLKr3m1DD9S1FJ3vnNPXtVqsot/8rtjyOUf8gYifhXOK73vjLo7bDLeGN2sW9JHQeUMM6nONbqdhUBTPFYWpoKVCGOhTRCKGZ5V1b4ZvMTtTdiBdx+GiXqboJvzEHJCYzv9qsEQSK4c5F7DR5tgTXxZJtsZ900l+WgHvnQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OyHPLpzh; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XR5fOd7Y"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8BB901F00AC4;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OyHPLpzh"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6BBF31F00A3D;
 	Wed,  9 Sep 2026 11:10:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1788952229;
-	bh=GaJryd49s3a+qE5VmccUw8O8+mpT2/H9esENmSLtHv0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=XR5fOd7Yf7Dqp9W7U2Mp0NwtZJUWyliuVX2cyIcak29kWW3/rbkc+GXO0hILEeodq
-	 m68jDB0i8Mq0di0aSusQ2wW5/z8YXkLm68ApWYsPb8xEmYekLbO96kD0cTpp8wUg06
-	 nXnEmGt52kZEgoMfbWIUxVkbxEtJ8zRbaNUsIMn07mYNi5wxk313YonpGesoLW4EJG
-	 gNPMwdbdyywlykwzl4hbelMssF3QihpjZRmL/oRE2WuFyUTxez9u04PKKwoHeR7+yj
-	 hIINXK86+7p95bZXI7QVtDgfXVV++T7NlHNn39gw7oiXn/C/PDpX84V8I7Ul43Bd0b
-	 w28HfyQYkDCPQ==
-Date: Wed, 9 Sep 2026 08:10:26 -0300
-From: Arnaldo Carvalho de Melo <acme@kernel.org>
-To: Ian Rogers <irogers@google.com>
-Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
-	Namhyung Kim <namhyung@kernel.org>, Jiri Olsa <jolsa@kernel.org>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	James Clark <james.clark@linaro.org>,
-	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v1] perf stat: Avoid uninitialized memory read on error
-Message-ID: <aqE-ol3L6kXfSOYr@x2>
-References: <20260908220720.564614-1-irogers@google.com>
+	bh=MuTYkpEO+OAvSgW8nQ1UXafGJKttePgWaVsiZWUwXB4=;
+	h=From:To:Subject:Date;
+	b=OyHPLpzhoo38GcvuV/StwErnULHiW2qKE52YRx2k4YavF2dcFhKhCmCTb7TsBeKrd
+	 aNiL249qXYr154FK8FfdZCisbnGDhTmAc/XJG6WRLCfUmmuS6SOQkvaSNRqILT+IJU
+	 R5jNDD2yjTDmMk7Yybp8Z6qYaZEwyrUGf5jjNOcdcrXGnmXVAdSTAm3AcLX/SP5EIR
+	 ++Q5/NzbHDXhHNpCf83RXxbMOCrLeEM3n+Py5pi2AFY6HjqNF+AhCUcXZtvCQLs771
+	 caA39Hty6189lj3PRa9oklYzR0HmtPLzfBMywzeNpOySKOFfldpJNr3JC/9WTCZBUC
+	 pUydRNWTMe1fA==
+From: Lee Jones <lee@kernel.org>
+To: lee@kernel.org,
+	Marcel Holtmann <marcel@holtmann.org>,
+	Johan Hedberg <johan.hedberg@gmail.com>,
+	Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
+	Brian Gix <brian.gix@intel.com>,
+	linux-bluetooth@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2 1/1] Bluetooth: mgmt: Dequeue pending mesh_send_sync entries on cancel
+Date: Wed,  9 Sep 2026 11:10:20 +0000
+Message-ID: <20260909111021.2322753-1-lee@kernel.org>
+X-Mailer: git-send-email 2.55.0.1007.g17ff1f9808-goog
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260908220720.564614-1-irogers@google.com>
+Content-Transfer-Encoding: 8bit
 
-On Tue, Sep 08, 2026 at 03:07:20PM -0700, Ian Rogers wrote:
-> If has_supported_counters fails then msg was passed to ui__error
-> regardless of whether an error was written into msg leading to reading
-> uninitialized memory. Avoid this by always terminating msg at
-> initialization.
-> 
-> Opportunistically reduce the scope of msg to make its use clearer.
+In send_cancel(), pending mesh_tx objects are removed from the
+hdev->mesh_pending list and freed via mesh_send_complete().  However, if
+a mesh transmission was already queued onto hdev->cmd_sync_work_list via
+mesh_next(), the queued entry retains a raw pointer to mesh_tx.
 
-Thanks, applied to perf-tools-next, for v7.4.
+When hci_cmd_sync_work later processes the entry, it attempts to execute
+mesh_send_sync and its destroy callback mesh_send_start_complete using
+the already freed mesh_tx pointer, leading to a use-after-free.
 
-- Arnaldo
+Fix this by invoking hci_cmd_sync_dequeue() for mesh_send_sync on the
+target mesh_tx before completing it.  If the entry is found and dequeued,
+its destroy callback will complete and free the object; otherwise,
+mesh_send_complete() is called directly.
+
+Additionally, ensure the transmission queue advances after cancellation
+or errors.  In mesh_send_start_complete(), call mesh_next() on error
+unless err is -ECANCELED, because hci_cmd_sync_dequeue() holds
+hdev->cmd_sync_work_lock and calling mesh_next() synchronously would
+deadlock.  Instead, advance the queue in send_cancel() once the lock is
+released and if no transmission is in progress.
+
+Fixes: b338d91703fa ("Bluetooth: Implement support for Mesh")
+Signed-off-by: Lee Jones <lee@kernel.org>
+---
+
+v1 -> v2:
+  - Advance mesh queue in send_cancel() once cmd_sync_work_lock is released
+  - Advance mesh queue on error in mesh_send_start_complete(), skipping -ECANCELED to avoid self-deadlock
+
+ net/bluetooth/mgmt.c | 19 +++++++++++++++----
+ 1 file changed, 15 insertions(+), 4 deletions(-)
+
+diff --git a/net/bluetooth/mgmt.c b/net/bluetooth/mgmt.c
+index 0b2d130e492c..55ccf9b714af 100644
+--- a/net/bluetooth/mgmt.c
++++ b/net/bluetooth/mgmt.c
+@@ -2290,6 +2290,8 @@ static void mesh_send_start_complete(struct hci_dev *hdev, void *data, int err)
+ 		hci_dev_clear_flag(hdev, HCI_MESH_SENDING);
+ 		/* Send Complete Error Code for handle */
+ 		mesh_send_complete(hdev, mesh_tx, false);
++		if (err != -ECANCELED)
++			mesh_next(hdev, NULL, 0);
+ 		return;
+ 	}
  
-> Fixes: c9a8c343ef2f ("perf stat: When no events, don't report an error if there is none")
-> Signed-off-by: Ian Rogers <irogers@google.com>
-> ---
->  tools/perf/builtin-stat.c | 4 +++-
->  1 file changed, 3 insertions(+), 1 deletion(-)
-> 
-> diff --git a/tools/perf/builtin-stat.c b/tools/perf/builtin-stat.c
-> index c50cf230f16e..37752d6bfef4 100644
-> --- a/tools/perf/builtin-stat.c
-> +++ b/tools/perf/builtin-stat.c
-> @@ -777,7 +777,6 @@ static int __run_perf_stat(int argc, const char **argv, int run_idx)
->  	int interval = stat_config.interval;
->  	int times = stat_config.times;
->  	int timeout = stat_config.timeout;
-> -	char msg[BUFSIZ];
->  	unsigned long long t0, t1;
->  	struct evsel *counter;
->  	size_t l;
-> @@ -908,6 +907,9 @@ static int __run_perf_stat(int argc, const char **argv, int run_idx)
->  		}
->  	}
->  	if (!has_supported_counters && !stat_config.null_run) {
-> +		char msg[BUFSIZ];
-> +
-> +		msg[0] = '\0';
->  		if (open_err) {
->  			evsel__open_strerror(evlist__first(evsel_list), &target, open_err,
->  					     msg, sizeof(msg));
-> -- 
-> 2.55.0.979.g7e5102b832-goog
-> 
+@@ -2399,20 +2401,29 @@ static int send_cancel(struct hci_dev *hdev, void *data)
+ 		do {
+ 			mesh_tx = mgmt_mesh_next(hdev, cmd->sk);
+ 
+-			if (mesh_tx)
+-				mesh_send_complete(hdev, mesh_tx, false);
++			if (mesh_tx) {
++				if (!hci_cmd_sync_dequeue(hdev, mesh_send_sync,
++							  mesh_tx, NULL))
++					mesh_send_complete(hdev, mesh_tx, false);
++			}
+ 		} while (mesh_tx);
+ 	} else {
+ 		mesh_tx = mgmt_mesh_find(hdev, cancel->handle);
+ 
+-		if (mesh_tx && mesh_tx->sk == cmd->sk)
+-			mesh_send_complete(hdev, mesh_tx, false);
++		if (mesh_tx && mesh_tx->sk == cmd->sk) {
++			if (!hci_cmd_sync_dequeue(hdev, mesh_send_sync,
++						  mesh_tx, NULL))
++				mesh_send_complete(hdev, mesh_tx, false);
++		}
+ 	}
+ 
+ 	mgmt_cmd_complete(cmd->sk, hdev->id, MGMT_OP_MESH_SEND_CANCEL,
+ 			  0, NULL, 0);
+ 	mgmt_pending_free(cmd);
+ 
++	if (!hci_dev_test_flag(hdev, HCI_MESH_SENDING))
++		mesh_next(hdev, NULL, 0);
++
+ 	return 0;
+ }
+ 
+-- 
+2.55.0.1007.g17ff1f9808-goog
+
