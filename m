@@ -1,95 +1,155 @@
-Received: from relay.hostedemail.com (smtprelay0014.hostedemail.com [216.40.44.14])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06ACF56E060;
-	Wed,  9 Sep 2026 13:34:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.14
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1BEE566C5C;
+	Wed,  9 Sep 2026 13:34:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788960854; cv=none; b=tnAvgkcRUguD7S3guLb46oSeYT3rCrczbHWKrkqNJa6gIe4VnWWHasGl5feXzgCNjpnQEvrfzG1HbyL9rkXC35J1BNUUZY3c+qdWt/11vFzfXbUDPiNMwT07w2Br4V8yzlM+hvBNDXceGcenyldl0JVH0NerWx9k7C00qyLj9PY=
+	t=1788960854; cv=none; b=PDxhLdSP9pqkeqE/+cT5ej8VB7/nykrTQxXIXQQKNyaZqnYhmLfaOkWHVuGvZ+xK4SlC+wlwHgMgT/EkSQXal7Q37QhrAXv9z9Z1kBejDN9wNnXH+D29Dmc5izAcDRhCRcbTqTmSowDcRjPkEs/9o3W6XcUvzjHHccpNmeNO0Zg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788960854; c=relaxed/simple;
-	bh=OrvYllrBK2goq5sx/36LbcZn+tW1SCL9FKnNbBJmgls=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=u9yRRPPpNgCMEeQx7k8TEAO1c/X8ni9//vt3MH5ZA7umQmvOA+0OsPW6yuILD9qTvUOtMr/jLSS0DJBYW50bJSvCQEjXSp2VEdnWB4pcVZGaAThi2y+nGfZ0SkdeJjiVJ8+ZmVa9nxNE8bLjL+Sm3YuAGQgXNsIKcO1AvJwA8QE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b=WqDZFr9u; arc=none smtp.client-ip=216.40.44.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
+	bh=vj5TwCzhlLxvUe7A+Bx3R9PGajolUon6lM6RJzWmxHU=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=YLZOWFqeG1xa3swSyD0db8My0AI62kWsFxsSaSJpJGL04GRtYR1CK+UY01LyyGx9pWLyCFvJL4qSR1un54TXODYOT5JOiUHGnBRXUaa8CvlcmpZvQNSGsSLU5z0Ymq4FzCWqIVYdZJx0FRj8FvL+dAC3vxCLHS24K8X4wPnQwEk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VKETAwhb; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b="WqDZFr9u"
-Received: from omf01.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay08.hostedemail.com (Postfix) with ESMTP id 2B0D1140202;
-	Wed,  9 Sep 2026 13:34:10 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf01.hostedemail.com (Postfix) with ESMTPA id 225736000C;
-	Wed,  9 Sep 2026 13:34:08 +0000 (UTC)
-Date: Wed, 9 Sep 2026 09:35:24 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: Vladimir Murzin <vladimir.murzin@arm.com>
-Cc: paulmck@kernel.org, Chunfeng Yun <chunfeng.yun@mediatek.com>, Greg
- Kroah-Hartman <gregkh@linuxfoundation.org>, linux-usb@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [BUG/PATCH] drivers/usb/mtu3: Work around mtu3_log_ep
- double-indirection issue
-Message-ID: <20260909093524.249c2a1a@gandalf.local.home>
-In-Reply-To: <aae79c1c-8738-4b97-b1b9-d82d19d82d49@arm.com>
-References: <a3ee0655-d818-48e0-84d1-475e6c16c991@paulmck-laptop>
-	<d7bb2cf4-11c3-468c-8749-99cc408299c7@arm.com>
-	<b6c621eb-6d20-4e00-ac05-af122b630ca5@paulmck-laptop>
-	<aae79c1c-8738-4b97-b1b9-d82d19d82d49@arm.com>
-X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VKETAwhb"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D97AA1F00A3A;
+	Wed,  9 Sep 2026 13:34:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788960852;
+	bh=Vwf3XHFmLke+N9soz5HJtjy5W6jvA8C1cmDilLBFR0E=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=VKETAwhbvv+EK0Gm31QFMYaYfrQJ2PkX9WiTurdg0GqN2atlcsKeEnI2LT69seS1g
+	 ckmzVzkRoynOrvTlgBNzG1vsWAhQRsMuS1a7vuZYSDXafGxdgK9TNpx4ebCVmVAjM1
+	 xDU1YFvqp0/x0rO09WvuApW6ngX9ZKM5Vkq7BQ8v35OA/CBlRB5ViylH9nulLN/f29
+	 5dnXJYPV5oRwG4/vm/WSmAWMIcDVIe38hgrg+TvfeE1NJrKE8c5xy9uZKJTJnaRbyS
+	 OkQib97F1RX0R0/WJwLRKYGE5XY9OxKPJH/UsYWzVYILEjG7UPdcd15Pipp0iFaPrd
+	 GcwqJZUYV2Rxw==
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Date: Wed, 09 Sep 2026 15:32:55 +0200
+Subject: [PATCH 02/12] mm/sparse: refactor sparse_sections_init()
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Stat-Signature: rnd4j1prtbzncwyiixer7thtxi9wiujf
-X-Rspamd-Server: rspamout08
-X-Rspamd-Queue-Id: 225736000C
-X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
-X-Session-ID: U2FsdGVkX18VMknN6uc21btZSgsWKOeAnPYKLCAHB7U=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=5ggOQs90efSn462XtyiL/osgnkDwSr26I6y3yG1sBZc=; b=WqDZFr9uO+FnJAh9UealHRgeOBXoVVGPts3E4Kmc20vBD42tWF8vkeIonqGDVQm2bjGi/ksHra6VtC2xqdX7P1KqQy0CiI5gu9k0xxWqbuKrIwV/PyrC5rYBwlzAndqHQx28uX0T34luf/QBE0cwRBdUBLlrZKdWw4IglJhePvM=
-X-HE-Tag: 1788960848-985795
-X-HE-Meta: U2FsdGVkX1+Jcl39xj4Cy7PAKTWsN5gXEKO2psDx7x6EuRK+7AcdjaASvffsrCa3fGC2f8QJVigCvVcwZuBxyQBJij821bINXbUYpgu/4DZgryJIYJX58eoi5y+kyanDheWAJvT32HkW2TPqI2uwwzlVZVSbb+qAHf7BRqAuqgHd6vfJYjyh1OW1Z4yN5ofAOg+L2EKa4LCI6/FMQIkZmho+45mPZKDRRcoi596Pl1/hVFWGXgZjoBC6y7fpP8NWE8eZn7cJF1tyRGGzvmIQ4iRrurIsceps9nPbboCATMd8JP5c9bAorHWPNwjtwKeyBCR0q3pOaZrmz/cAZd+eNcraaV1x3dei7sCmEafG7GtCEOzFexrqX19OPksh36p6pRjDLUMnU3/+GVnxAYgHLWefwhzphbdjebWBvsJPNUSL53H9em0ZNw9T94o+c8qi
+Message-Id: <20260909-b4-sparsemem_cleanups-v1-2-008fc8d579fe@kernel.org>
+References: <20260909-b4-sparsemem_cleanups-v1-0-008fc8d579fe@kernel.org>
+In-Reply-To: <20260909-b4-sparsemem_cleanups-v1-0-008fc8d579fe@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
+ Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
+ Kairui Song <kasong@tencent.com>, Qi Zheng <qi.zheng@linux.dev>, 
+ Shakeel Butt <shakeel.butt@linux.dev>, Barry Song <baohua@kernel.org>, 
+ Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
+ Wei Xu <weixugc@google.com>, Baoquan He <baoquan.he@linux.dev>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ Brendan Jackman <brendan.jackman@linux.dev>, 
+ Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>, 
+ Oscar Salvador <osalvador@suse.de>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ "Rafael J. Wysocki" <rafael@kernel.org>, Danilo Krummrich <dakr@kernel.org>, 
+ Jan Kiszka <jan.kiszka@siemens.com>, Kieran Bingham <kbingham@kernel.org>
+Cc: linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
+ linux-cxl@vger.kernel.org, driver-core@lists.linux.dev, 
+ linux-fsdevel@vger.kernel.org, "David Hildenbrand (Arm)" <david@kernel.org>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2859; i=david@kernel.org;
+ h=from:subject:message-id; bh=vj5TwCzhlLxvUe7A+Bx3R9PGajolUon6lM6RJzWmxHU=;
+ b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLIWJmg1TG/wTlyzoPKR2TK/dRFzncSdjcw5bZd5zM1//
+ dqqsVqxo5SFQYyDQVZMkSUo+L7By5fraqvd+Jhh5rAygQxh4OIUgInwTWD4ny5++k5Jx/wO5uki
+ oZopr+4wct0S4XQ8sunwR2f+wENn5RgZrr9oaQteGlzRdT11x6xTOw1nq7yNDpm/IaqT039Ki3U
+ fNwA=
+X-Developer-Key: i=david@kernel.org; a=openpgp;
+ fpr=1BD9CAAD735C4C3A460DFCCA4DDE10F700FF835A
 
-On Wed, 9 Sep 2026 11:31:28 +0100
-Vladimir Murzin <vladimir.murzin@arm.com> wrote:
+memory_present() really identifies+prepares all early sections so the
+initialization in sparse_init() can properly iterating them to
+initialize metadata.
 
-> I've done a little bit massaging and here is what worked for me
-> 
-> 
-> diff --git a/drivers/usb/mtu3/mtu3_trace.h b/drivers/usb/mtu3/mtu3_trace.h
-> index 89870175d635..4d4bae25fa1f 100644
-> --- a/drivers/usb/mtu3/mtu3_trace.h
-> +++ b/drivers/usb/mtu3/mtu3_trace.h
-> @@ -224,6 +224,7 @@ DECLARE_EVENT_CLASS(mtu3_log_ep,
->                 __field(unsigned int, flags)
->                 __field(unsigned int, direction)
->                 __field(struct mtu3_gpd_ring *, gpd_ring)
-> +               __field(dma_addr_t, gpd_ring_dma)
->         ),
->         TP_fast_assign(
->                 __assign_str(name);
-> @@ -235,12 +236,13 @@ DECLARE_EVENT_CLASS(mtu3_log_ep,
->                 __entry->flags = mep->flags;
->                 __entry->direction = mep->is_in;
->                 __entry->gpd_ring = &mep->gpd_ring;
-> +               __entry->gpd_ring_dma = mep->gpd_ring.dma;
->         ),
->         TP_printk("%s: type %s maxp %d slot %d mult %d burst %d ring %p/%pad flags %c:%c%c%c:%c",
->                 __get_str(name), usb_ep_type_string(__entry->type),
->                 __entry->maxp, __entry->slot,
->                 __entry->mult, __entry->maxburst,
-> -               __entry->gpd_ring, &__entry->gpd_ring->dma,
-> +               __entry->gpd_ring, &__entry->gpd_ring_dma,
->                 __entry->flags & MTU3_EP_ENABLED ? 'E' : 'e',
->                 __entry->flags & MTU3_EP_STALL ? 'S' : 's',
->                 __entry->flags & MTU3_EP_WEDGE ? 'W' : 'w',
+Let's just inline memory_present() into sparse_sections_init() and
+cleaning up the code a bit while at it: make it clear that we are operating
+on pfns.
 
-LGTM,
+Note that we call set_section_nid() now only if the section
+was not already created earlier. Now, there is no more inconsistency
+between what we (temporarily) store in ms->section_mem_map and what
+we store in our section->nid array.
 
-Reviewed-by: Steven Rostedt <rostedt@goodmis.org>
+Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+---
+ mm/sparse.c | 41 +++++++++++++++++------------------------
+ 1 file changed, 17 insertions(+), 24 deletions(-)
 
--- Steve
+diff --git a/mm/sparse.c b/mm/sparse.c
+index 6a6d258862904..36e3d854febc5 100644
+--- a/mm/sparse.c
++++ b/mm/sparse.c
+@@ -179,22 +179,27 @@ static inline unsigned long first_present_section_nr(void)
+ 	return next_present_section_nr(-1);
+ }
+ 
+-/* Record a memory area against a node. */
+-static void __init memory_present(int nid, unsigned long start, unsigned long end)
++void __init sparse_sections_init(void)
+ {
+-	unsigned long pfn;
++	unsigned long pfn, start_pfn, end_pfn;
++	int i, nid;
++
++	sparse_extreme_init();
+ 
+-	start &= PAGE_SECTION_MASK;
+-	mminit_validate_memmodel_limits(&start, &end);
+-	for (pfn = start; pfn < end; pfn += PAGES_PER_SECTION) {
+-		unsigned long section_nr = pfn_to_section_nr(pfn);
+-		struct mem_section *ms;
++	for_each_mem_pfn_range(i, MAX_NUMNODES, &start_pfn, &end_pfn, &nid) {
++		start_pfn &= PAGE_SECTION_MASK;
++		mminit_validate_memmodel_limits(&start_pfn, &end_pfn);
+ 
+-		sparse_index_init(section_nr, nid);
+-		set_section_nid(section_nr, nid);
++		for (pfn = start_pfn; pfn < end_pfn; pfn += PAGES_PER_SECTION) {
++			unsigned long section_nr = pfn_to_section_nr(pfn);
++			struct mem_section *ms;
+ 
+-		ms = __nr_to_section(section_nr);
+-		if (!ms->section_mem_map) {
++			sparse_index_init(section_nr, nid);
++			ms = __nr_to_section(section_nr);
++			if (ms->section_mem_map)
++				continue;
++
++			set_section_nid(section_nr, nid);
+ 			ms->section_mem_map = sparse_encode_early_nid(nid) |
+ 							SECTION_IS_ONLINE;
+ 			__section_mark_present(ms, section_nr);
+@@ -202,18 +207,6 @@ static void __init memory_present(int nid, unsigned long start, unsigned long en
+ 	}
+ }
+ 
+-/* Initialize memory section metadata for all system memory. */
+-void __init sparse_sections_init(void)
+-{
+-	unsigned long start, end;
+-	int i, nid;
+-
+-	sparse_extreme_init();
+-
+-	for_each_mem_pfn_range(i, MAX_NUMNODES, &start, &end, &nid)
+-		memory_present(nid, start, end);
+-}
+-
+ #ifndef CONFIG_SPARSEMEM_VMEMMAP
+ struct page __init *__populate_section_memmap(unsigned long pfn,
+ 		unsigned long nr_pages, int nid, struct vmem_altmap *altmap,
+
+-- 
+2.43.0
+
