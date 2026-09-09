@@ -1,117 +1,249 @@
-Received: from va-1-113.ptr.blmpb.com (va-1-113.ptr.blmpb.com [209.127.230.113])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C470331E844
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 17:08:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.230.113
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84B33357D0D
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 17:08:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788973726; cv=none; b=gBh05zTNlssQKAZzhWI3bI8Z0OKTyOxUEZfWm+uO3SGyzgldq2WzaRihKhp1xoI+tacFjNoeg/KUqcNkMMM+Sl6o8VvO1tfYWf/4hs40c9RPx55OwCfqg3W3vUmAqXiez9Xe3AhJUxCR2ZCoinKWfP8fY4EZ/w2KI1PusL+7k3g=
+	t=1788973728; cv=none; b=KNk+o37dRFmIWSX0uO6cRmjgnfaisI26FbhH/mU5GKWqBNZ7wMKPq6jpBgLF+qLjn3dEe7TmBK0nHPpAsBpqSxFn65DCBiyOZ3u+uWtnns/8OepZp8Nx1/jBNOH8NEiOm+u818KLsISMKhAWr4a4BpZWPPrr8p/h9uAQlHqwiNU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788973726; c=relaxed/simple;
-	bh=QZCW093E+D2nyI4UShEAXdlYzP5jckeOAUOyoHz6sC8=;
-	h=Message-Id:Cc:Mime-Version:To:From:Date:Subject:Content-Type; b=iW4QpIhZndNv35XkOzB5pns3kbHypMkq7HGyUZBp4kvmanfTQoCm3HJwwwP1+CTKuRySE7HPUoWebaxWfCXQapl26+1W0iRYq2QCh8XEBeBJtWf0CIw8L10ZjdTO9xQ7W+GVlu+DcAFw9L5a9D7tNNm2xI7QFZ8RUEt5VEdoP+c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=or1ptU6l; arc=none smtp.client-ip=209.127.230.113
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
+	s=arc-20240116; t=1788973728; c=relaxed/simple;
+	bh=a2Q00hhq8FgtKObRRTGE/RZijDxUqzAGqRWDuS9C4jw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Kt8fZd07AriK3zvSXfeFaOwOaSQ9JNEnRtVpA5xPwij3mIercYH5gRYyhKU8ae9M8UbpMBHK0gyuQzUrNcsWkDYcX0cUfw2WmJHIyixjQujAc9h92Le0f0L39fx43gCkdTflhtN44sNh/7u4E5BjvWwFruzYhn/q2LiKY7DtpEo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=daU+XEpv; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=PrByy8gB; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="or1ptU6l"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=2212171451; d=bytedance.com; t=1788973718; h=from:subject:
- mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
- mime-version:in-reply-to:message-id;
- bh=ot3K2X/2YloRfCtV/mf2YWkwpChF9fDwu+aBl2Z5A1s=;
- b=or1ptU6lS/RuguvviKTmbORttXj1lBM5wzw0G+y9YkzVD2l08GwatYjRkv7lFG+EWb9JRR
- Z4rQy7jUurAMX8Dk2hj3dk6MZIECBBamyrKxysWltjrGbz4YEURwjqBxmn5jGzNQB2ZiU8
- Vz41HIzvHmzleZLE0FbVbdIG63Uf0qZNQhVisQFYBlEz8xqqU5ZhTQ4ub9f2Q0RayXxrni
- QiqjOSaBcynhGh0ZXoPNl0Y0LS/3FHf3euhvMpo3SoilOWGLJJUzzxcDmu/LdP2UVmMkPt
- 6QEIQ5fGObtKD6z8erFZzHj2QhHqzmdVs8lXcul27OQtAPrkeHtxcuVh+Ti9Aw==
-Message-Id: <20260909170833.5663-1-zhujia.zj@bytedance.com>
-X-Lms-Return-Path: <lba+26aa19295+97a8af+vger.kernel.org+zhujia.zj@bytedance.com>
-Cc: <linux-fsdevel@vger.kernel.org>, <linux-kernel@vger.kernel.org>, 
-	"Jia Zhu" <zhujia.zj@bytedance.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="daU+XEpv";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="PrByy8gB"
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 689H76RS1899424
+	for <linux-kernel@vger.kernel.org>; Wed, 9 Sep 2026 17:08:45 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=G1YWjulGrHQXzMx6OGl6R6Sv
+	TvcP7k1AMvCnp6YruR8=; b=daU+XEpvUaNWTAd7+b1SU8Ge0rZiT+O08N4gzT16
+	GAEJfsSPMr46R0FtmLfAxckUf2f75A4bdPaMxyqfiZmge+YYxT5wh7AIHoWP9+/s
+	Y2kq1Goc/+rdh0ejzvWMaKzjLr41xAtSuEyLdL0AqKmiuFhb6jO7xxTxCC9Jdp9Y
+	+NTgeYQ/fwaCLBVvv12wUHBQUIkus23c/FEr3ihrNAEEpqoF22M67zUXNTorLOvE
+	cFjfkntCrHhcIP3AvvzxsiYgmRQWqoIHjVpMkxdnLYoGvMpVwRYNGOznlbe1yZeO
+	oXySDHwPKkPojs+Psp5VvQgKqyIhCnV7NbITKGX8OofBFw==
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gk77vhcr5-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 17:08:45 +0000 (GMT)
+Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-934963b2bc0so1195359785a.3
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 10:08:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1788973724; x=1789578524; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=G1YWjulGrHQXzMx6OGl6R6SvTvcP7k1AMvCnp6YruR8=;
+        b=PrByy8gBN0MVRXf40zjA5ww3zhbjNpwspB0hMUgvfZ7qwYlGEjZe5cfwCsSNW1CxYE
+         aRvvteNXMl6Kt4Gxe9N/ZcD4PojofPc4JYVNfnihh9XAarmx4IWhp9wu/MCrLopc5QTV
+         ukLABfkstbzQ5YBygC+wgI1+wK+JZ3LJfHPqsB4M30e8VXyYdWvxGZpMOfYbD7UIetxj
+         N4lHP/XCNO2LBW6aMq+pwv1hKRRz9kYvB78/ZYEpnulDotCiXZz7v97haQJYtPhs+5H5
+         O2Xbwi1CGSN3KrxQOPHtrgvtW4y57zoyrgLFk0uI4QSR/ZjNQT8qm629hkK/dbBh7nfg
+         aQvw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788973724; x=1789578524;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=G1YWjulGrHQXzMx6OGl6R6SvTvcP7k1AMvCnp6YruR8=;
+        b=VKgXlcIbdiXVLQ6uNZzV91GsdUqq+bJo1XsXLV6MASaYYGzekQbrB4GzusnVsQVf4i
+         9Tob4NmeuE9RMlp83yF9eeH/vj+83mtdPxvGuwnB7+zFKgJHcjTcq2kUNY5jU+fkkeJ/
+         m308sAzYb0LdFAYZ+xJ4dWTxJdj3dj/GZSsbm28LNhERRMF/re5VkbnkG+WzgBzBKGxv
+         vt19HrSuH4xRhwpv0/7t2e6YEe8+JF0lWTCb4X3/xJW/s+xmak3VztRuV6x2grh5MLwS
+         rZ01wevmd4SVMU8NtguTRrVZsdyrYIiN8c+fuCq0wbJKqqYFM+Td968SeHHfSnpSoBRW
+         QNsg==
+X-Forwarded-Encrypted: i=1; AKwUvBzRmshGejRd0wS5YYXzahdnyM4aeDUG99BfsWSzScLvUion5zj03wiZs293UHpqu3xXCakz5i0pczHnwh0=@vger.kernel.org
+X-Gm-Message-State: AFuF++ljvguDVsJcKOmBv1AfU/UEKy0ZPJlpQissoEMU4I5CJrOZEk88
+	Pg+dMbyrkhoFSPutyJhYDw9PD4MRkMdJf64HoLZZlDm49kGRXxEmsPzGSXSLNOj71pO6QxLSTSL
+	T/AT2IXygpSpupzx/ttkneygBAI/ncJ4OnqwV5UF0xyBjnZVFuJMmU/iaK8IEZLia6jc=
+X-Gm-Gg: AYBFou2zSmz2S9Z6SztNbZSHlHvExXEPOuTTvB4ZmdcK8AHMkfAkySJ70zQJisI2/px
+	LgU2hhkQqBGmcQ5ND0kfr4VRHqekgftJ2qyCJxwi1xlBwhKtKKEUe6Ruq1TM0U9iLL9RmDriJV+
+	YeTbRw/EQ+kOoWm2cEe49vOxYbrikgUYcellT/5bygeN4+Pv9LnYPmH04vyrS8CHliKETpkl3Ce
+	lzY+bzwOZgb5DEaAZPVsw7h0OWh/0GNm7ewMope8fP/XdlY5vwpxrxJFYCYilf6qe+aNT3mAus6
+	CyRFZCutG47MFMEX1IpwR8jV145SnYSpk1zdWhf7Osgjaoa67nB6+ZlxF3RqG01Aq0TxzQXUxKW
+	9vrFtm/UUQXzkvw==
+X-Received: by 2002:a05:620a:d89:b0:938:39e7:725 with SMTP id af79cd13be357-939c94a60ecmr1014704985a.32.1788973724283;
+        Wed, 09 Sep 2026 10:08:44 -0700 (PDT)
+X-Received: by 2002:a05:620a:d89:b0:938:39e7:725 with SMTP id af79cd13be357-939c94a60ecmr1014685785a.32.1788973723191;
+        Wed, 09 Sep 2026 10:08:43 -0700 (PDT)
+Received: from localhost ([188.216.77.92])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49d26c1bfc1sm5185045e9.4.2026.09.09.10.08.41
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 09 Sep 2026 10:08:42 -0700 (PDT)
+Date: Wed, 9 Sep 2026 19:08:41 +0200
+From: Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>
+To: Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
+        "David S. Miller" <davem@davemloft.net>,
+        Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+        Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Andrew Davis <afd@ti.com>,
+        Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>,
+        Russell King <linux@armlinux.org.uk>,
+        Richard Cochran <richardcochran@gmail.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Alexandre Torgue <alexandre.torgue@foss.st.com>,
+        Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+        Jose Abreu <joabreu@synopsys.com>,
+        Maxime Chevallier <maxime.chevallier@bootlin.com>,
+        Maxime Coquelin <mcoquelin.stm32@gmail.com>, netdev@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org,
+        linux-stm32@st-md-mailman.stormreply.com,
+        linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH net-next v2 2/9] net: phy: dp83867: add regulator supply
+ management
+Message-ID: <aqGSmVslLLsp7tJu@lore-desk>
+References: <20260908-shikra_ethernet-v2-0-bbe3389d0652@oss.qualcomm.com>
+ <20260908-shikra_ethernet-v2-2-bbe3389d0652@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-To: <jack@suse.cz>, <amir73il@gmail.com>
-From: "Jia Zhu" <zhujia.zj@bytedance.com>
-Date: Thu, 10 Sep 2026 01:08:33 +0800
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
-Subject: [PATCH] fsnotify: avoid unrelated mark reaper waits during group teardown
-Content-Transfer-Encoding: 7bit
-X-Original-From: Jia Zhu <zhujia.zj@bytedance.com>
-Content-Type: text/plain; charset=UTF-8
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="c9IX8H6zKLOh4Z/N"
+Content-Disposition: inline
+In-Reply-To: <20260908-shikra_ethernet-v2-2-bbe3389d0652@oss.qualcomm.com>
+X-Authority-Analysis: v=2.4 cv=GKk41ONK c=1 sm=1 tr=0 ts=6aa1929d cx=c_pps
+ a=50t2pK5VMbmlHzFWWp8p/g==:117 a=WpTaRW6qxYHRGzLzQsVYzg==:17
+ a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22 a=EUspDBNiAAAA:8
+ a=Tc_FYgHOodJxOJMde3UA:9 a=CjuIK1q_8ugA:10 a=eESnzHPFhmDI2KvGUDgA:9
+ a=IoWCM6iH3mJn3m4BftBB:22
+X-Proofpoint-ORIG-GUID: Rwil0yK2fjyi2HX7T0NldcyC8X8fFrAW
+X-Proofpoint-GUID: Rwil0yK2fjyi2HX7T0NldcyC8X8fFrAW
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA5MDE5MSBTYWx0ZWRfX1BJBJH5YuuVD
+ 5QN95xFIsmogN8Djy3aT2a+IKej3drvJL3rN6gWAfurVDMiHop6glqipwUFzI5BrVADa+D9v50L
+ C62VMpbcrM40E1XwIFVEMHsV3RvuidQ=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA5MDE5MSBTYWx0ZWRfX+LYDudRE9xBw
+ VNfhRAmhalb3DNzXyndTJB1y0mZyg0St0XMmMrENDdu3kPeIDQ+5VqLEm+KYVmjHOLnXDA52d10
+ cZRSR3FAJlEyku8YsZm73qoZMZ7d//lwADKvD6jcpiUmQG2/6Qw3cd7jFuBXuZrhHAAn1Xos/kn
+ uyE8mIOrBwRVAjwV1EoGC2zr6PKyTUEXKL3fH8S163L9HUN1mHVUO/exiNODAaNRolOYAXHBOCo
+ dBvLxIviuisKlL0bFNd6GNHJIyDjMdvG/7dFXhHygCGch/9QEEmrSJY/9BUGUYsIy59ltcoX1DS
+ hg9gUsXM+5QZ0mgm36uTRWSY+UlRBAwoX0uy5tTgNV3PlLW2BkFPzQwBlmmbI+8/ENO/6qqN7Ko
+ a0n1j0GKbm7h0vvtexII6x307iz/mbYSwU/lsOYdfIyREQvX7qJSydbZaDJCNFBEhzy49j4DddU
+ 8W7myFgcoqcO4X+0blQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-08_03,2026-09-09_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 impostorscore=0 bulkscore=0 spamscore=0 clxscore=1015
+ suspectscore=0 phishscore=0 priorityscore=1501 adultscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609090191
 
-fsnotify_destroy_group() unconditionally flushes the global mark reaper,
-so an empty inotify instance can hang on unrelated reclamation during
-close or task exit:
+--c9IX8H6zKLOh4Z/N
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-  do_exit
-    __fput
-      inotify_release
-        fsnotify_destroy_group
-          fsnotify_wait_marks_destroyed
-            __flush_work
+> Some embedded board designs use GPIO-controlled regulators for the
+> DP83867 power rails. Add dp83867_power_on() to enable all four supply
+> domains at probe time. Absent supplies are silently skipped, so boards
+> that do not describe them are unaffected.
+>=20
+> When any supply is newly enabled the driver sleeps for 200 ms before
+> returning.  This satisfies the post power-up stabilisation requirement
+> mentioned in section 6.6 of the DP83867E/IS/CS datasheet.
+>=20
+> Signed-off-by: Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>
 
-Skip the flush when only the closing reference remains, allowing teardown
-to finish without waiting for unrelated SRCU readers.
+Acked-by: Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>
 
-Verified in QEMU: empty groups and groups whose marks have been reclaimed
-exit while an unrelated SRCU reader remains held; groups with pending
-reclamation still wait.
+> ---
+>  drivers/net/phy/dp83867.c | 33 +++++++++++++++++++++++++++++++++
+>  1 file changed, 33 insertions(+)
+>=20
+> diff --git a/drivers/net/phy/dp83867.c b/drivers/net/phy/dp83867.c
+> index 88255e92b4cdbd6da2e2c1d10f9c72348d28dbc3..dbeee7cad6f0cbfeb127bfd28=
+f43ee2a16c78879 100644
+> --- a/drivers/net/phy/dp83867.c
+> +++ b/drivers/net/phy/dp83867.c
+> @@ -15,6 +15,7 @@
+>  #include <linux/etherdevice.h>
+>  #include <linux/bitfield.h>
+>  #include <linux/nvmem-consumer.h>
+> +#include <linux/regulator/consumer.h>
+> =20
+>  #include <dt-bindings/net/ti-dp83867.h>
+> =20
+> @@ -719,9 +720,41 @@ static int dp83867_resume(struct phy_device *phydev)
+>  	return 0;
+>  }
+> =20
+> +static int dp83867_power_on(struct phy_device *phydev)
+> +{
+> +#ifdef CONFIG_OF
+> +	static const char * const supply_names[] =3D {
+> +		"vdda-2p5", "vdd-1p0", "vdda-1p8", "vddio",
+> +	};
+> +	struct device *dev =3D &phydev->mdio.dev;
+> +	u32 count =3D 0;
+> +	int i, ret;
+> +
+> +	for (i =3D 0; i < ARRAY_SIZE(supply_names); i++) {
+> +		ret =3D devm_regulator_get_enable_optional(dev, supply_names[i]);
 
-Signed-off-by: Jia Zhu <zhujia.zj@bytedance.com>
----
- fs/notify/group.c | 26 +++++++++++++++-----------
- 1 file changed, 15 insertions(+), 11 deletions(-)
+nit: I guess it easier to read if you do something like:
 
-diff --git a/fs/notify/group.c b/fs/notify/group.c
-index b56d1c1d9644a..052a419ee52a6 100644
---- a/fs/notify/group.c
-+++ b/fs/notify/group.c
-@@ -46,6 +46,7 @@ void fsnotify_group_stop_queueing(struct fsnotify_group *group)
-  * the group reference.
-  * Note that another thread calling fsnotify_clear_marks_by_group() may still
-  * hold a ref to the group.
-+ * The caller must hold a reference and exclude new marks.
-  */
- void fsnotify_destroy_group(struct fsnotify_group *group)
- {
-@@ -67,19 +68,22 @@ void fsnotify_destroy_group(struct fsnotify_group *group)
- 	 */
- 	wait_event(group->notification_waitq, !atomic_read(&group->user_waits));
- 
--	/*
--	 * Wait until all marks get really destroyed. We could actually destroy
--	 * them ourselves instead of waiting for worker to do it, however that
--	 * would be racy as worker can already be processing some marks before
--	 * we even entered fsnotify_destroy_group().
--	 */
--	fsnotify_wait_marks_destroyed();
-+	/* Even detached marks hold a group reference until final destruction. */
-+	if (refcount_read(&group->refcnt) == 1) {
-+		/*
-+		 * Pair the refcount read and this barrier with the release
-+		 * decrement in fsnotify_put_group() (refcount_dec_and_test()),
-+		 * ordering mark destruction before subsequent group teardown.
-+		 */
-+		smp_mb();
-+	} else {
-+		fsnotify_wait_marks_destroyed();
-+	}
- 
- 	/*
--	 * Since we have waited for fsnotify_mark_srcu in
--	 * fsnotify_mark_destroy_list() there can be no outstanding event
--	 * notification against this group. So clearing the notification queue
--	 * of all events is reliable now.
-+	 * Mark destruction waits for fsnotify_mark_srcu, so there can be no
-+	 * outstanding event notification against this group. Clearing the
-+	 * notification queue of all events is reliable now.
- 	 */
- 	fsnotify_flush_notify(group);
- 
--- 
-2.20.1
+		if (ret !=3D -ENODEV)
+			return dev_err_probe();
+
+		count +=3D !ret;
+
+> +		if (!ret)
+> +			count++;
+> +		else if (ret !=3D -ENODEV)
+> +			return dev_err_probe(dev, ret,
+> +					     "failed to enable %s supply\n",
+> +					     supply_names[i]);
+> +	}
+> +
+> +	/* Datasheet section 6.6 suggests a 200ms post power-up stabilization */
+> +	if (count)
+> +		fsleep(200000);
+> +#endif
+> +	return 0;
+> +}
+> +
+>  static int dp83867_probe(struct phy_device *phydev)
+>  {
+>  	struct dp83867_private *dp83867;
+> +	int ret;
+> +
+> +	ret =3D dp83867_power_on(phydev);
+> +	if (ret)
+> +		return ret;
+> =20
+>  	dp83867 =3D devm_kzalloc(&phydev->mdio.dev, sizeof(*dp83867),
+>  			       GFP_KERNEL);
+>=20
+> --=20
+> 2.34.1
+>=20
+>=20
+
+--c9IX8H6zKLOh4Z/N
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQTquNwa3Txd3rGGn7Y6cBh0uS2trAUCaqGSmQAKCRA6cBh0uS2t
+rNquAQC5wJNUN95Ep26s8XtzLNRj4JBV+qFthkyWqQAnIRtBTgEA+pcM+Wip2fRN
+UHB7AACiMwvDdjPTHaF37W2hm07h/g0=
+=eyly
+-----END PGP SIGNATURE-----
+
+--c9IX8H6zKLOh4Z/N--
