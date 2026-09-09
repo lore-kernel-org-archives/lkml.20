@@ -1,161 +1,129 @@
-Received: from mail-qk2-f12.google.com (mail-qk2-f12.google.com [74.125.230.204])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail-43166.protonmail.ch (mail-43166.protonmail.ch [185.70.43.166])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D9E93655FD
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 17:15:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.204
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788974139; cv=pass; b=siQ5nr8eKMfv+bkwiEX6TpJZsnKUchZcfiL9v21GGet9/9aSLjPAEbVBz2p35a8/1lGLb6nbBRlyrXuIFtsA3UsdSoEsj2GMhPnwz2hg1/uFgBywg9UyEBRC+ru6hbC1Y9U4Zwlmps4GL08E4HV1fu1wmLRdx4rfrEoFjVwEa9M=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788974139; c=relaxed/simple;
-	bh=1YAIaeDyLVpEvvzFwuUJMbazAMt3NzSDWCDFujkL5lc=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=t/OPT+AeeSKcIqmNhVfhCbP48nWO0jiq1MzoUhgAXEU6l95Y4p23JrRPVppwQsiqFwI13bmosTXJ9+k3D9pnFRpGUjHKio7f6zsChgh22ITLe2NtJ8PQHlmCSDRWL+mLlrmhPPNj2dzuqBgJC2Uzo91gKnl1hPmbmgOvn+GHlXU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=HbY3TdbX; arc=pass smtp.client-ip=74.125.230.204
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2228367285
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 17:15:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.166
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788974166; cv=none; b=PihxmSrjYya3WSZjsN+I7DS6eFKD/8G0Ndn61tTl3FZ+3BP5ZaSCzbp+zI1GEhE2M0ydAvQ/RfsTDhKdRYKrsrohnCFA9b7/oqAz0F9Xkd2oWoGJHWhNUkkrOPWLxN83XNIVSO72pSr6yYXg6DaM2XtL2J7k9lI6OvyH+DV3Dxs=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788974166; c=relaxed/simple;
+	bh=xWXtKGWdmQ8QZm6ej3clulDuAowXlokzszgvbjYxdLk=;
+	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=j4StSin9C2Jk0rZB5TakxsBq1h+hZRfDGHwZvKf/RWj73f2W2srjss9ih/c4O67Uj9HJ7dgEFXlezrHHDYrYUzcp/yxiyoD8LsagbOhCAIYlIjgH1gS2GzDFMaJj8g7ySlf+Z8M+YIzt5fjvp8LGzKzy42WXi+bRKOVkHw77XE0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=er64flnC; arc=none smtp.client-ip=185.70.43.166
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="HbY3TdbX"
-Received: by mail-qk2-f12.google.com with SMTP id d75a77b69052e-5306706e89dso329891cf.1
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 10:15:38 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788974137; cv=none;
-        d=google.com; s=arc-20260327;
-        b=P/3/hW7t0LTXGieiGB2BulzV4Z54dlW9oauWu5raCobuYUswS29Ts2RK2Bzk9Rj4H3
-         pqZXnUhKmzSf1d+oiti/WLJ3E9SHFKHlRvKNRYVyzaC9+hGAPEcq9w9l7QpYvLN03rlR
-         rLzB1iXgO8jygKjUDBfB1t3mpSvENLyGhHA2/PN2w9uXOVbgXZYf2ymOVa4yq2hvZNOC
-         7ZlFavpfb2m61/a8L4d+uEAoDqiH0BpS3p848Oc6YjXaiUeRlKOyNARByln2vHlueeAO
-         NV9vIwmKQQDDQ9x7100F8ED391bUms537L4N51UcSW12mxmth+zPZ/Yc7f0/msw0hq0S
-         SPhA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=mKUmBDe2b4FLQdJcR20tHldduUrJACzKAwyQg26uG2s=;
-        fh=Dj2Zdysf5evjSjZejltw3JejLm358iwOaQ2dR8sUaZM=;
-        b=mEveNEk0O7ARXhM9NXtso5p9r6kLvGverSzZIg278sx5Kb6gMsb299rMoHhlHijA63
-         WDXS/OavyqNcaMgeYYHusLXZMojGxzITie6ap8W7XfA9ZlQItQrSCluR+Mueoxbt89aM
-         SPvHbJR8JXHXh0E0h/6aGpXeTXmwUndv/SogZxPOjTABrfhao8DvLMswlW9HiPjEBRWd
-         0vtmqAtFB/J6WlyAr5ZSe0KQ0f8KUP8puLcQOrh9gWP7kVftDG4mL5IBoOjFL47Hw9L+
-         j5nie4OaKjyVW26KJJz2TwhFrsR27Vvk3OWIiyOnKD6QWXpgIIsPDcNve3ik4Rpk7Uud
-         DmhQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788974137; x=1789578937; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=mKUmBDe2b4FLQdJcR20tHldduUrJACzKAwyQg26uG2s=;
-        b=HbY3TdbXh1HeDA1CISRM4vFgBbshMEJ3Y41MetmpizeACtcBFvrnZ42fCa9kRsD4Yy
-         1nq49pEpk9a9R7roEUh04FoZyRnL2UY9tUOCtzRkPFxxq5DC/yj5VHvuqWDZ6ylzKTov
-         st8IaztaYCk8hGWmc/IC6wda/nUzsp1Zr2lBekrthUV/mj6pbio6ylScmUI/qyDDWp2r
-         H6O5BcgnCS3YHlvVCrS/+Q8b0yMKZR74q5FO/aNdBR0HoD1zepE8Lar1oheT9iawpvM9
-         01x2ghk4163U0s/6GRxybf4YAdDJHeE/d4foFb61WDP4WST7Epq38O0FNKjpspvhdP27
-         cKBg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788974137; x=1789578937;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=mKUmBDe2b4FLQdJcR20tHldduUrJACzKAwyQg26uG2s=;
-        b=cBB2CxD6wO4XVgC0Hy/6wfFkfEXJatXjUVclB5cfqsVzjYxFLk6s9zz7rM6/NiWx7Y
-         a+ARAVVV7cf0QtIzwIslr2uQWG0m0qVBM4yJrGmOR8VNE2x5NTcWsVSVn+O/m7aO6sy9
-         5Cy6H2f/rOsQvKgZt+j2U0rND0bo0ixobrK+RnZHOYax5yCy1YEFL2Vt076XX0IXHjQh
-         xuxzEIibwF0NJvLx3Lv8AWASqON/D6FDuul7n91ilPTq6s3iQYj8eE0dMjXINa+r6YA3
-         jdZeISPjMlUhZq7grwbueP3XPkcOghdPf0j0S1wGD2qOng2Uz9n/U4vPDhVYHyQcWpPB
-         c/fQ==
-X-Forwarded-Encrypted: i=1; AKwUvBz0K7vHX74ZxJF4DnyLfxTSrpYQTpOypf0XhuOH/1oGT6H1wsTcscmdvhRFFkQvQSfDq5hUcIdMoHiVyLs=@vger.kernel.org
-X-Gm-Message-State: AFuF++niNl079KQGL5N6n4+kk3x2wwxp8hQQS3b4MlRizknLiJcz7S/v
-	0gUNRxJwCcmDwa1Vm7lz+oASuOT7awleHsV1pBLiwPCbpiOCduyZeZMQKi591Q2Z8LBPluusHZ5
-	005m5S/Vj2Cw0hPAT7AYgmTPNe6dLxteVNywAFedY
-X-Gm-Gg: AYBFou0NrgtYLZHlfPWr2XipgHedJ10jaHje6xeDp17I14nbGN0/nWguDDZzKoMVmg/
-	IEVng/YWVtJmKjc5d7KC/jS8HyFPRQ/H2rDoYJRAQGyIvj6IY8KT0UdHQNc1weMBu44RjhSKFHr
-	QC8OTJPGqwXlVlWaSN1n5xn28DJe/yfdBGintDJl6ztv8NyiSI247PyZtAC9PHBZmV7NnQe3kYq
-	fa/IEmXRT8mmxPlFZ+5LCakvixo/hLjWqnmerAzQfVCsUgetaQPSnVLdN3fCE6mA67D0VUMykFu
-	QliRh/GwLko4rVcMU8e19uFLxXJY4nLR5YsW011OjTiwJwsYKNL5NnR6K9J/bfQGzDYz
-X-Received: by 2002:a05:622a:a1b:b0:530:5ed7:50f0 with SMTP id
- d75a77b69052e-530a5f51176mr89211cf.13.1788974135518; Wed, 09 Sep 2026
- 10:15:35 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="er64flnC"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+	s=protonmail; t=1788974157; x=1789233357;
+	bh=LEAYYFgYThiRq91QJKAhbIRFiL81kF5zd0S9oW+jhQ8=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=er64flnC2lVVUOeFOdmSzfbnXe67aIMFx8WsF2ITMlmKJ7vwQd9DR2HzyvZcgtPcQ
+	 yc7ihFNMNffipOhuUgsOMPK1Dsa62LgsshQXJ1IRs+cmkHkHjS8Dp4AXfrslURKjy4
+	 WP57cVY6Bf4x45kcNaBS2VlOqXJW6j4EqIJUJe4B7hvRUsf9PYqIaOqiXpar42VRbz
+	 0K8vlKX8WZx5oqrXu5e+xty9zJqtX3ZYDv84LlkllTEEG3k79sWKayP783uBONVmaS
+	 grv8VM01Cj30NTBUetYTAcoye4Tl9oyvFLqRAH/FTcU8GQxw7HZW50bvbIWZaXF70e
+	 rvIczGZ/z45BA==
+Date: Wed, 09 Sep 2026 17:15:54 +0000
+To: "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>
+From: contectforbusiness@proton.me
+Cc: "rmfrfs@gmail.com" <rmfrfs@gmail.com>, "johan@kernel.org" <johan@kernel.org>, "elder@kernel.org" <elder@kernel.org>, "greybus-dev@lists.linaro.org" <greybus-dev@lists.linaro.org>, "linux-staging@lists.linux.dev" <linux-staging@lists.linux.dev>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "dan.carpenter@linaro.org" <dan.carpenter@linaro.org>
+Subject: [PATCH] staging: greybus: camera: fix potential overflow in debugfs buffers
+Message-ID: <cfUNtu1Qjzp-pieopsMQtanXUJTuVi9kZQ14w2f_jp55EwWn7Pnu5EwFUNI2vAWw1vWe3jD7Mz4IK6t1iZLQLE1fEnjfYfQdBV8tZF6Q4aM=@proton.me>
+Feedback-ID: 147676893:user:proton
+X-Pm-Message-ID: 45626d177c5d4aa395e076f30182ebe97f362473
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260907063918.3432401-1-surenb@google.com> <20260907063918.3432401-3-surenb@google.com>
- <4964f874-3f3c-464c-9977-0d004f6ffdbd@kernel.org>
-In-Reply-To: <4964f874-3f3c-464c-9977-0d004f6ffdbd@kernel.org>
-From: Suren Baghdasaryan <surenb@google.com>
-Date: Wed, 9 Sep 2026 10:15:24 -0700
-X-Gm-Features: AcwNN1WWr8U2hfUDprfzdhTtlvlOsxUFMQbj8KtH7xWoq0JQsfsSVRf58XyzXHk
-Message-ID: <CAJuCfpFJHNq_iCHuzDC0a8CT-AsPLHgnZ0=hVAvVhax_Q6GjOQ@mail.gmail.com>
-Subject: Re: [PATCH v2 2/5] proc/task_mmu: remove unnecessary inlines in
- function definitions
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: akpm@linux-foundation.org, liam@infradead.org, ljs@kernel.org, 
-	vbabka@kernel.org, willy@infradead.org, jannh@google.com, paulmck@kernel.org, 
-	pfalcato@suse.de, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	linux-fsdevel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-On Wed, Sep 9, 2026 at 10:07=E2=80=AFAM David Hildenbrand (Arm)
-<david@kernel.org> wrote:
->
-> On 9/7/26 08:39, Suren Baghdasaryan wrote:
-> > It was pointed out in the previous reviews of this code that many
-> > functions are specified as inline, which is unnecessary as the compile
-> > can make that decision by itself. Cleanup these definitions.
-> >
-> > No functional change intended.
-> >
-> > Signed-off-by: Suren Baghdasaryan <surenb@google.com>
-> > ---
-> >  fs/proc/task_mmu.c | 32 ++++++++++++++++----------------
-> >  1 file changed, 16 insertions(+), 16 deletions(-)
-> >
-> > diff --git a/fs/proc/task_mmu.c b/fs/proc/task_mmu.c
-> > index 2f500d639db5..9908ba32f180 100644
-> > --- a/fs/proc/task_mmu.c
-> > +++ b/fs/proc/task_mmu.c
-> > @@ -130,7 +130,7 @@ static void release_task_mempolicy(struct proc_maps=
-_private *priv)
-> >  }
-> >  #endif
-> >
-> > -static inline int lock_ctx_mm(struct proc_maps_locking_ctx *lock_ctx)
-> > +static int lock_ctx_mm(struct proc_maps_locking_ctx *lock_ctx)
-> >  {
-> >       int ret =3D mmap_read_lock_killable(lock_ctx->mm);
-> >
-> > @@ -140,7 +140,7 @@ static inline int lock_ctx_mm(struct proc_maps_lock=
-ing_ctx *lock_ctx)
-> >       return ret;
-> >  }
-> >
-> > -static inline void unlock_ctx_mm(struct proc_maps_locking_ctx *lock_ct=
-x)
-> > +static void unlock_ctx_mm(struct proc_maps_locking_ctx *lock_ctx)
-> >  {
-> >       mmap_read_unlock(lock_ctx->mm);
-> >       lock_ctx->mmap_locked =3D false;
-> > @@ -177,7 +177,7 @@ static struct vm_area_struct *get_next_vma(struct p=
-roc_maps_private *priv,
-> >       return vma;
-> >  }
-> >
-> > -static inline bool fallback_to_mmap_lock(struct proc_maps_private *pri=
-v,
-> > +static bool fallback_to_mmap_lock(struct proc_maps_private *priv,
-> >                                        loff_t pos)
->
-> If you touch these, please convert them to two-tab indent.
+The debugfs buffers in gb_camera (data[PAGE_SIZE], length) are written
+with sprintf without any bounds checking. The four places in
+gb_camera_debugfs_capabilities, gb_camera_debugfs_configure_streams and
+gb_camera_debugfs_flush do:
 
-Ack. I didn't realize that's the preferred formatting.
+  buffer->length +=3D sprintf(buffer->data + buffer->length, ...);
+  buffer->length =3D sprintf(buffer->data, ...);
 
->
-> --
-> Cheers,
->
-> David
->
+If the formatted data ever grows (e.g., more streams, larger hex dump)
+or if length is already close to PAGE_SIZE, this will overrun the
+PAGE_SIZE buffer and corrupt memory. The driver is debugfs-only so
+the impact is limited, but it is still a real bug and the pattern is
+repeated in multiple places.
+
+Fix it by using scnprintf with the remaining size:
+
+  scnprintf(buffer->data + buffer->length, PAGE_SIZE - buffer->length, ...)
+  scnprintf(buffer->data, PAGE_SIZE, ...)
+
+This is the standard way to write to a fixed-size buffer in the
+kernel. It guarantees we never write past PAGE_SIZE and will truncate
+instead of overrunning, which is safe for debugfs output. The return
+value still accumulates in length, which matches the existing use with
+simple_read_from_buffer (it will just show truncated output rather
+than corrupting).
+
+I checked that this exact conversion has not been proposed before:
+the recent greybus conversions to sysfs_emit (light.c, gbphy.c) and
+fbtft/vme_tsi148 scnprintf patches do not touch camera.c at all,
+and a search of lore for "gb_camera_debugfs" shows no prior patch
+for these four sprintf sites.
+
+No functional change for normal sizes, just makes the code safe if
+the buffer ever fills up.
+
+Signed-off-by: Vaibhav Agarwal <contectforbusiness@proton.me>
+---
+ drivers/staging/greybus/camera.c | 10 ++++++----
+ 1 file changed, 6 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/staging/greybus/camera.c b/drivers/staging/greybus/cam=
+era.c
+index 62b55bb28..efc83ceff 100644
+--- a/drivers/staging/greybus/camera.c
++++ b/drivers/staging/greybus/camera.c
+@@ -890,7 +890,8 @@ static ssize_t gb_camera_debugfs_capabilities(struct gb=
+_camera *gcam,
+ =09for (i =3D 0; i < size; i +=3D 16) {
+ =09=09unsigned int nbytes =3D min_t(unsigned int, size - i, 16);
+=20
+-=09=09buffer->length +=3D sprintf(buffer->data + buffer->length,
++=09=09buffer->length +=3D scnprintf(buffer->data + buffer->length,
++=09=09=09=09  PAGE_SIZE - buffer->length,
+ =09=09=09=09=09  "%*ph\n", nbytes, caps + i);
+ =09}
+=20
+@@ -973,12 +974,13 @@ static ssize_t gb_camera_debugfs_configure_streams(st=
+ruct gb_camera *gcam,
+ =09if (ret < 0)
+ =09=09goto done;
+=20
+-=09buffer->length =3D sprintf(buffer->data, "%u;%u;", nstreams, flags);
++=09buffer->length =3D scnprintf(buffer->data, PAGE_SIZE, "%u;%u;", nstream=
+s, flags);
+=20
+ =09for (i =3D 0; i < nstreams; ++i) {
+ =09=09struct gb_camera_stream_config *stream =3D &streams[i];
+=20
+-=09=09buffer->length +=3D sprintf(buffer->data + buffer->length,
++=09=09buffer->length +=3D scnprintf(buffer->data + buffer->length,
++=09=09=09=09  PAGE_SIZE - buffer->length,
+ =09=09=09=09=09  "%u;%u;%u;%u;%u;%u;%u;",
+ =09=09=09=09=09  stream->width, stream->height,
+ =09=09=09=09=09  stream->format, stream->vc,
+@@ -1046,7 +1048,7 @@ static ssize_t gb_camera_debugfs_flush(struct gb_came=
+ra *gcam,
+ =09if (ret < 0)
+ =09=09return ret;
+=20
+-=09buffer->length =3D sprintf(buffer->data, "%u", req_id);
++=09buffer->length =3D scnprintf(buffer->data, PAGE_SIZE, "%u", req_id);
+=20
+ =09return len;
+ }
