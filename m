@@ -1,179 +1,117 @@
-Received: from mail-yx1-f42.google.com (mail-yx1-f42.google.com [74.125.224.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp-relay-internal-0.canonical.com (smtp-relay-internal-0.canonical.com [185.125.188.122])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A11B4349AD
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 10:03:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C44749F109
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 10:05:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.125.188.122
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788948222; cv=none; b=L09R0atabjUrMv82G1zhk4JqYANfGoZ9HJqnYG+nQpt+cWMbYCrr28EPrqy2aCOkzbuLTD8+YGzWLkrIlCkETincBHEn9TgPBBWaO88Vtq0/wOdxvVsUxneU7IsADv+mi8s35fMOW7K2u5RlbGHldi5iJSgrYYFlJHjk1UgbZ8Y=
+	t=1788948310; cv=none; b=CkIDkRl3g4kR2X1eovN+eBqtT7fSoSKrPCUL2viFnFcWVhWSJEqxIkbQS+oAwoMshAv1IS0GfrmwlFZWl3zGj996OExVho+UNBFAioSc5SIRyYVYGDBRixM8vSkWzEn9Ru8UVJyQlr2lbaB/vROLap7y1306WZF5+gUny2A8LIQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788948222; c=relaxed/simple;
-	bh=haV5ijKKeNFA+cVGf0/itoGu5pSxbzf5S7kuITcT64g=;
-	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=b4rHqQQm5Gq7VBycMFxFVmLWu3gctvj15Qjfn0UmGz56vh78ao9hPYqZQJm7zuS2BRP847d0L75v/K8zP3R7JNUWdWQj6V/JFawsOtlC0oDBRG3EWGweMmqlWP/XSXE8HLC9qqdgNSd2ENECga9LNdc/UUjYcW3knLB/MGQT7sM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=SE9CepmM; arc=none smtp.client-ip=74.125.224.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	s=arc-20240116; t=1788948310; c=relaxed/simple;
+	bh=ispYBB5sEcTKbtVy3MNVY1blcRMOieKTmsbt+otEJQE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=PlDibDU4JygVzN3jbGY/w53JvU1MeAkSADUpRSJVR3Wt1GwDaXwGS5dHhhpChqfNpCX123VldPniTA4QJaMljAmNrQOvvdBSSaPaYTRJ7IV5Kuc5kdeECv9yTodPeOKjLVrBBQUI/tL8GnNwQgrcm1FjZbJuApW5XIs0oMfM1j4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=canonical.com; spf=pass smtp.mailfrom=canonical.com; dkim=pass (4096-bit key) header.d=canonical.com header.i=@canonical.com header.b=c8dljIe4; arc=none smtp.client-ip=185.125.188.122
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=canonical.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=canonical.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="SE9CepmM"
-Received: by mail-yx1-f42.google.com with SMTP id 956f58d0204a3-66d258d1effso743758d50.2
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 03:03:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788948217; x=1789553017; darn=vger.kernel.org;
-        h=content-type:mime-version:references:message-id:in-reply-to:subject
-         :cc:to:from:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=OZLYBDT0mJ+F0yYdyxDNynq3EZCGij4ebq9WOsT9s4c=;
-        b=SE9CepmMPaMBUxXW9zwLm5VleuwwDDnZs5aoA/3cHA99HTqzSrYaHCkyA4mwA0PaUO
-         IW56pnPa4ZrK+KgkGF/gJABWCv9tL04f3tg9ZUtLbcMKg3ecVXVPkn3uzAIM5s4jv07Z
-         Vny3d6oSrB0xtGUwknVbuMY5gVK61X8YO6EMFddtk3wzY+GhS07f9q1teS1N9M7V5EHv
-         Pyn65qz1PJd0JxOg2kHxsdM3ffsGUJs/pJH1br5Xd6Jaeci4tYTxdpdXl0VHPe5flF5F
-         RMdUJ0CTitLvnvLhcnpKwz70fcXNQs3ZUKTZ9zUCCC8Ltp1XJ/diErqyIK+pXhI+TqCx
-         Qehg==
+	dkim=pass (4096-bit key) header.d=canonical.com header.i=@canonical.com header.b="c8dljIe4"
+Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com [209.85.221.71])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id 65B523F784
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 10:05:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
+	s=20251003; t=1788948305;
+	bh=Ne0O7Jrbbh35lHn6AVgsM7/xJO5tCKCdyIfi82Y0KOw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type;
+	b=c8dljIe4ZZMHX1u4S5lNwDz5WUuE7F0oEb90tBdy39DubmEtasvOqHqHj1j7YhUqf
+	 H8QyOXx1viEKcj1EebaGlpcJNLMq+5WJT/oI0VCWkBfNo4J7teHXkGZp+nnkXG6jDA
+	 2iMZ3kjcRS+9/S6h/dps3BWRFyd2u45GUqdFkF8ihKrQkSY0IDxDAfkLGC20rKJU0R
+	 EATR9vNZMYdNdpOtfv9g/urg2ATj6hTXklyFwzRfppbNbPuWr0u1Zrsvi0lLLmh63c
+	 fZ0MzvoNU0cl4rh7s+Yyrz1snH2ayNIceYL25WKGngPq2ny0rVb8nWZkeZW5J5Fykj
+	 DOQAHt90WwKSwAxe8pUqGAqj8BGtbVvHaCqAT4ULGkdmAsuHXLOweas3fa46deoU1Q
+	 XWlf1iGFolUOXuVWm+pU/hffKweIa1wHgyfdSojo25oGb+pZxJGXwaOQP74/5LGnUa
+	 q+0W4AQkVumUp62FvVzgtKjUfukjqqJfdhhwhT5/m7AgLGDiTp2XRNCgQJqJWAnPhG
+	 yeOlnhQBxVlX9abewkiYemopnty8bh6mZAjVjXkgQzbFbkHmpFYscaYDVQ6HHJrTEk
+	 47z4U92zhPdK4j8jQ3mp+T7hxoKd3E2CvbGwuAOfmbQHN/aB20AVxfYW5LtjzmtFn4
+	 jfA6LJVi5jDXkG0fSBmb+33c=
+Received: by mail-wr1-f71.google.com with SMTP id ffacd0b85a97d-47f6e8b5996so4816021f8f.2
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 03:05:05 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788948217; x=1789553017;
-        h=content-type:mime-version:references:message-id:in-reply-to:subject
-         :cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20251104; t=1788948304; x=1789553104;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=OZLYBDT0mJ+F0yYdyxDNynq3EZCGij4ebq9WOsT9s4c=;
-        b=NO45AlAvNm8izexX/bhoU+P4Vm99eDAP5Dq5l7075ceKDqrR2kTZTLMhMPY/PC+tkk
-         dh8WHKsN/s84SfBUFAtOVyJuko4K3jPgdHeJQZQRWz87tOQqvUZHsBPlvGtAngyZ6IlG
-         3i2qV3imnCLpSs4o0k9WevziQ/9XGgeWvtXZFLH3tv9ciSUDtyXa0JPA1CNSd28LTlwZ
-         Yxfnd6j3FAlB0lwCSQM8j+R+wJEhGhuatYWQDo68/zMAZ3+J5iZrU0/UJnIyqD8z9lVD
-         ut+jie976yO/2MHs4bfDoyzRavVZ1mwv2216hnX8qLdAZsauW6RpxPYSkjNHlLiXiCgn
-         AAYQ==
-X-Forwarded-Encrypted: i=1; AKwUvBx5os0T4DavJO6Z6u2SaTu+27fZ+rXSghWKWQo757vAKtCwCLmwZEFcAIs5v7vp7RVDHKdESMkJ41/Y42U=@vger.kernel.org
-X-Gm-Message-State: AFuF++kyhNXtqQqjvab9UKKwvktqmFS/q2YGJeIA2h5W0P0zJqxBfDJE
-	PdRW/DNeD5V1x2BnXHeYhW48zfxsuwR4kuxLHAdWVoPZlmkLWiJaMj3l3WN/QmzybA==
-X-Gm-Gg: AYBFou0MJP9WIQO3bs+liL3FzI+3DonjgrJWZ8NR9PaBaSTQXV7ZaBuwBpzCyvEn2XU
-	2+q3tcLf5lDwxX37qof0w9AWRsgg0SdsOn6Ue8Mi9zGtOjea4Pw63zBYcmVspo+hBGXiv5RHWoJ
-	2vs8SnfW6LGCvR0oDR1S4TaysoWIRD8Y7Z1FY8W2ZVpei6Zc85BSYsq+NlP7md8t1UJMfYutvjS
-	VxkXCgDyUjcHLahkQlxSWusDGKSIJK1KRFGWIaMSJFaKSJONQHQF6+d0V6HhoJpo40UfF/Q9HK9
-	WbdROaM0gn80pgzz/8H4O1ZZfFSJJHABDZMOF4zI3AEd8Pcs7Bq0bBXXdxs2uX0S7KkL0oV3qVh
-	lUPInviw9pxli/8nkGx5v1fFMWYzFx94VinuEbXng8Q1VeOzWHAjAeYMfZV/dCM6l7X3F6reDE/
-	2sE8jq7OVXODTnK/Geb4yHo+Tgo2DJ225YWf0MpSEBw5M3yf/e+J3AROeGNPcccAxp4yZWdVHbj
-	wYBu/6jsHC+RJ8KIT299qsjp6lg/qiOWQjahuZ52KEisrMQ3uPxY9wF4nmDXdmAl9+S1w==
-X-Received: by 2002:a05:690e:4384:b0:66f:8b35:dedd with SMTP id 956f58d0204a3-66fb58f2dd2mr7477525d50.6.1788948216887;
-        Wed, 09 Sep 2026 03:03:36 -0700 (PDT)
-Received: from darker.attlocal.net (172-10-233-147.lightspeed.sntcca.sbcglobal.net. [172.10.233.147])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-66fb48ee9easm11934983d50.8.2026.09.09.03.03.31
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 09 Sep 2026 03:03:35 -0700 (PDT)
-Date: Wed, 9 Sep 2026 03:03:30 -0700 (PDT)
-From: Hugh Dickins <hughd@google.com>
-To: Andrew Morton <akpm@linux-foundation.org>
-cc: Ackerley Tng <ackerleytng@google.com>, 
-    Alexander Viro <viro@zeniv.linux.org.uk>, Alexandre Ghiti <alex@ghiti.fr>, 
-    Baolin Wang <baolin.wang@linux.alibaba.com>, 
-    Barry Song <baohua@kernel.org>, Binbin Wu <binbin.wu@linux.intel.com>, 
-    Christian Brauner <brauner@kernel.org>, Christoph Hellwig <hch@lst.de>, 
-    Christoph Lameter <cl@gentwo.org>, 
-    Claudio Imbrenda <imbrenda@linux.ibm.com>, 
-    David Hildenbrand <david@kernel.org>, JP Kobryn <jp.kobryn@linux.dev>, 
-    Jan Kara <jack@suse.cz>, Jens Axboe <axboe@kernel.dk>, 
-    Johannes Weiner <hannes@cmpxchg.org>, Kairui Song <ryncsn@gmail.com>, 
-    Kiryl Shutsemau <kas@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
-    Leonardo Bras <leobras.c@gmail.com>, Lorenzo Stoakes <ljs@kernel.org>, 
-    Marcelo Tosatti <mtosatti@redhat.com>, 
-    Matthew Wilcox <willy@infradead.org>, 
-    Mel Gorman <mgorman@techsingularity.net>, 
-    Miaohe Lin <linmiaohe@huawei.com>, Michal Hocko <mhocko@suse.com>, 
-    Minchan Kim <minchan@kernel.org>, Muchun Song <muchun.song@linux.dev>, 
-    Oscar Salvador <osalvador@suse.de>, Peter Zijlstra <peterz@infradead.org>, 
-    Qi Zheng <qi.zheng@linux.dev>, Rik van Riel <riel@surriel.com>, 
-    Sebastian Andrzej Siewior <bigeasy@linutronix.de>, 
-    Shakeel Butt <shakeel.butt@linux.dev>, 
-    Suren Baghdasaryan <surenb@google.com>, 
-    Vlastimil Babka <vbabka@kernel.org>, 
-    Yang Shi <yang@os.amperecomputing.com>, Yu Zhao <yuzhao@google.com>, 
-    Zach O'Keefe <zokeefe@google.com>, Zi Yan <ziy@nvidia.com>, 
-    linux-block@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
-    linux-kernel@vger.kernel.org, linux-mm@kvack.org
-Subject: [PATCH v2 11/26] mm/fbatch: remove migration's PAGE_WAS_MLOCKED
- lru_add_drain()
-In-Reply-To: <e28f9a94-4339-f8ac-8301-6be3c9b5b7ce@google.com>
-Message-ID: <e13a7f3e-0629-5602-603e-af01624a2887@google.com>
-References: <e28f9a94-4339-f8ac-8301-6be3c9b5b7ce@google.com>
+        bh=Ne0O7Jrbbh35lHn6AVgsM7/xJO5tCKCdyIfi82Y0KOw=;
+        b=liOgPl8a3jfOAOYOzLzP4jMsR/LaMgaKLjb2mkTjMh4VEfjz1MAa6ksuYLlAPQDykS
+         4yoYOY8H6LSSyO0EJSN6+yrYm+zuRyG2OIx9n35XNcgwyRHGo1myXesDQF2vcH9ZXMd3
+         2kMlXaOHlDLzt5FASoCzUac8wFgyFXCT488GeimPPrQvOJtKEh8s96FNZ2qu8vTncxy0
+         Fj40+Ag1m/iGxlGLD/7rGxBtBsCmUmk2udKTHObJWxNZYmazhqpIOUTyIaJEjhVad6WL
+         aULZsfRhWc1Ivi+DPmUOLPpUkZQTe5+yPh/4czWs7lsN9WEhb3WXPtVkakJoUX5UqZUH
+         GAVQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwcsl2ZKDb5gk0ADSL/Csf10fg34ZCeJoag39N0yF0XtFgshSeazF22im/mluscr6nTIxSycj7MoEMIf74=@vger.kernel.org
+X-Gm-Message-State: AFuF++mDxm6MQwnFYwZmGJqYcKG3SguSlovoUrtk4CgsAo3jnf9Y1kSa
+	PP1mN06cvoGkg3uOWf854sV8MEiawxzDJOrufSLwP2o52+PoQb61AwIafWEEEL7ObA4wDkK1vWg
+	LM3OCD5ECHJLalKJGEcPfKrMiL/Hg3ysjobIE0qonTHG6EvrVlON43RcsXtRFpJKVhku5DjIUd2
+	cQ0vgBIw==
+X-Gm-Gg: AYBFou1IqZ5KEL5fYVMxQ4Slsj6GA2pTC5hh3nSYwrkME3j6GEp9DXfUrfchfA71k/p
+	/OM6POo+WdoM9DAq0lNmHG0zUfU/kSynlKNVdaf7nBGVKC4TrHylHkyJl90NY5tUiUWklPGhtDm
+	N5yKRKCmAcKOh/4bYKIflrLF5c+l0KZifW8COU9qAFQiDSwG+2dmQ0EPQir+8l6hwG5nhMqY3qJ
+	g5D2AVe0L8HaYwB+qbIvudmwOqmMwIw9XshzvwWSzuL6Qp9J3cerejB82r5nHIXQW2xxIyB0h/y
+	lcrys7nHnXWN6WTIh5UXOSU/0XdRwBSRROokhQlvWCyE3IvJGlPnEKvKSI7oPoPdJwCHYQTGcV+
+	iFsXGn8RdVHzLQ61jQVNPGX+LWzg2xMWKJiMpLAi2SNlb/DIYjOMrINRyo24T0ROK64r+LS/N3T
+	+i5QDX0pi0ZTcE/zwf9Z/gWGvsxw4RJ003pcwEBsT5bUfrm+YUYe0IIFqEF59vrTAsbwN5y3WD8
+	W5sD2hsSwo=
+X-Received: by 2002:a05:6000:228a:b0:485:8c16:a331 with SMTP id ffacd0b85a97d-4858c16a578mr30841001f8f.38.1788948304409;
+        Wed, 09 Sep 2026 03:05:04 -0700 (PDT)
+X-Received: by 2002:a05:6000:228a:b0:485:8c16:a331 with SMTP id ffacd0b85a97d-4858c16a578mr30840951f8f.38.1788948303969;
+        Wed, 09 Sep 2026 03:05:03 -0700 (PDT)
+Received: from ?IPV6:2a01:cb06:c054:d70d:4174:4522:1a58:40cc? (2a01cb06c054d70d417445221a5840cc.ipv6.abo.wanadoo.fr. [2a01:cb06:c054:d70d:4174:4522:1a58:40cc])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-485883953cfsm35849463f8f.13.2026.09.09.03.05.01
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 09 Sep 2026 03:05:02 -0700 (PDT)
+Message-ID: <1940bd28-3dda-4a03-a8b9-37fd0731282a@canonical.com>
+Date: Wed, 9 Sep 2026 12:05:00 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] selftests/powerpc/tm: Fix tcheck() reading uninitialised
+ CR value
+To: "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+ Venkat <venkat88@linux.ibm.com>
+Cc: linuxppc-dev@lists.ozlabs.org, maddy@linux.ibm.com, mpe@ellerman.id.au,
+ npiggin@gmail.com, shuah@kernel.org, linux-kselftest@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260907215420.1258678-1-thibault.ferrante@canonical.com>
+ <4206CE63-979B-4464-BECE-F89D0B1BDC91@linux.ibm.com>
+ <d80d892c-8505-4530-a23f-e3b6daf72d03@kernel.org>
+Content-Language: en-US
+From: Thibault Ferrante <thibault.ferrante@canonical.com>
+In-Reply-To: <d80d892c-8505-4530-a23f-e3b6daf72d03@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-A welcome side-effect of mm/mlock.c's mod_mlock_count() succeeding on
-folios on the per-cpu lru_add fbatch, is that migrate_folio_move() no
-longer has to lru_add_drain() before remove_migration_ptes() restores
-a PAGE_WAS_MLOCKED mlock_count: so remove PAGE_WAS_MLOCKED altogether.
+On 09/09/2026 10:56, Christophe Leroy (CS GROUP) wrote:
+>>> diff --git a/tools/testing/selftests/powerpc/tm/tm.h b/tools/testing/selftests/powerpc/tm/tm.h
+>>> index c03c6e778876..6024ce4ba6ff 100644
+>>> --- a/tools/testing/selftests/powerpc/tm/tm.h
+>>> +++ b/tools/testing/selftests/powerpc/tm/tm.h
+>>> @@ -105,8 +105,12 @@ static inline bool failure_is_nesting(void)
+>>> static inline int tcheck(void)
+>>> {
+>>> long cr;
+>>> - asm volatile ("tcheck 0" : "=r"(cr) : : "cr0");
+>>> - return (cr >> 28) & 4;
+>>> + asm volatile("tcheck 0;"
+> 
+> Why not use cr7 instead of using cr0 and doing cr >> 28 below ?
 
-(Re the "We would like to do something similar for the old page, when
-unsuccessful" comment above it: that may be easier now, but involve
-some rearrangement: not researched, so just leave the comment as is.)
-
-However: it was uncommon before, for isolate_migratepages_block() to
-meet a folio on LRU, with suitable refcount, marked mlocked but not yet
-unevictable: so that got missed when sysctl_compact_unevictable_allowed
-should not allow it. But now it's a more common case, so check if the
-folio will become unevictable, by using !folio_evictable() instead.
-
-That is more expensive than testing mlocked and unevictable bits: but
-it is consistent with the decision made once the fbatch gets drained,
-and is_inaccessible further down depends on the right is_unevictable.
-Optimize those checks better if they show a regression in practice.
-
-Signed-off-by: Hugh Dickins <hughd@google.com>
----
- mm/compaction.c | 2 +-
- mm/migrate.c    | 8 +-------
- 2 files changed, 2 insertions(+), 8 deletions(-)
-
-diff --git a/mm/compaction.c b/mm/compaction.c
-index 9e045a90ba21..1290b9170cb2 100644
---- a/mm/compaction.c
-+++ b/mm/compaction.c
-@@ -1113,7 +1113,7 @@ isolate_migratepages_block(struct compact_control *cc, unsigned long low_pfn,
- 		if (!folio_test_lru(folio))
- 			goto isolate_fail_put;
- 
--		is_unevictable = folio_test_unevictable(folio);
-+		is_unevictable = !folio_evictable(folio);
- 
- 		/* Compaction might skip unevictable pages but CMA takes them */
- 		if (!(mode & ISOLATE_UNEVICTABLE) && is_unevictable)
-diff --git a/mm/migrate.c b/mm/migrate.c
-index 1939d6ed19c9..364015cbef33 100644
---- a/mm/migrate.c
-+++ b/mm/migrate.c
-@@ -1147,8 +1147,7 @@ static int move_to_new_folio(struct folio *dst, struct folio *src,
-  */
- enum {
- 	FOLIO_WAS_MAPPED = BIT(0),
--	FOLIO_WAS_MLOCKED = BIT(1),
--	FOLIO_OLD_STATES = FOLIO_WAS_MAPPED | FOLIO_WAS_MLOCKED,
-+	FOLIO_OLD_STATES = FOLIO_WAS_MAPPED,
- };
- 
- static void __migrate_folio_record(struct folio *dst,
-@@ -1258,8 +1257,6 @@ static int migrate_folio_unmap(new_folio_t get_new_folio,
- 		folio_lock(src);
- 	}
- 	locked = true;
--	if (folio_test_mlocked(src))
--		old_folio_state |= FOLIO_WAS_MLOCKED;
- 
- 	if (folio_test_writeback(src)) {
- 		/*
-@@ -1410,9 +1407,6 @@ static int migrate_folio_move(free_folio_t put_new_folio, unsigned long private,
- 	 * isolated from the unevictable LRU: but this case is the easiest.
- 	 */
- 	folio_add_lru(dst);
--	if (old_folio_state & FOLIO_WAS_MLOCKED)
--		lru_add_drain();
--
- 	if (old_folio_state & FOLIO_WAS_MAPPED)
- 		remove_migration_ptes(src, dst, 0);
- 
--- 
-2.51.0
-
+That would work, but that's not consistent with other asm in selftest/powerpc: tbegin./tend./tabort. and vas_paste() all target cr0 and shift as needed.
