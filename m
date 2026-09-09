@@ -1,305 +1,298 @@
-Received: from CH5PR02CU005.outbound.protection.outlook.com (mail-northcentralusazon11012031.outbound.protection.outlook.com [40.107.200.31])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6EFF550DB2;
-	Wed,  9 Sep 2026 14:48:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.200.31
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788965313; cv=fail; b=m6SmUxSOI1ZLIkAXfMG5TQ/cu0orcYLWXUBDQ7313fH/AGffCAQb5Pdh9OnqnwooJZkjoFuE6hPI1NZ0Z+wOTPwZTEQYJPW49FMSzRVnTuhB89gAgH0h5bW2cA/oOc2V27qCi/nV1rUGcFJxdUWM25QoreQDjj3iAmI3c2FZqD4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788965313; c=relaxed/simple;
-	bh=aYUIUlmxhaMhY+RnHZON+8ZvAbAWrnDe3Ch+XSvXJ54=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=qzL5VO5KLBMLYKHmfqX64glRHLGwRf1ZkS4zYSaz8bX5rXwJDsC3T+lCKeBmFLRqQIq/Sb72pmBIl1YGWSg2wYPlRIMOK4Ur4fefe2s6g6BoywoSXM4DVr7aRjmJj6UFqXOkbwd4pxsJcLJVbKMpRMHxH5skasf3yqpLY5Nrl7g=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=uGE6BNwQ; arc=fail smtp.client-ip=40.107.200.31
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B505B2EB874;
+	Wed,  9 Sep 2026 14:49:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788965371; cv=none; b=sfSHi8WhjIPhuUlLyyv32NF2G9+qXATmmvMZ8kfguQHKpqu9MoXKAmdqBmu2xyW6wctaAYfk11LTJED2Uv+Yt7ZbvHtKFDLraeJuinI0pvx30z+L7RfDXtjY0DvjYJNXpvUKREkbwGqMTo4w7I6mTKj5+ydEN4A4noLAR853pU4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788965371; c=relaxed/simple;
+	bh=0+jxatOJkTKz0Z36TjwcFYNxrqZtDXkyMFYR1moq7wM=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=A1eq/xFw7kiP6rcAvCTIB//vpStDrdjQSX89TGg/1wwHT9rfoPOpIaUY8nMghbeJYcAkj+AR+ZOim6l+8RyLJCAMv7PdZQgSVHpezGbnqQF06ggfMhejjkcKMzs/DQanybN385on9xZWTmu/RDsyfc6HEp5B658H2FkHwdQ1qtU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TV0GyHbd; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="uGE6BNwQ"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=DNEu/CEF5RzvyJSrrW9OQUs+hEO/GO8tw6iShtYLkmLTsDK/NHSuxv7flyV+8e5jDAzemqd6Vj0d3SPa+IwZ7H+UXLXYBJSYUgolZImLBBIzAio9o8Mm4G912vslhjdjj2ia2RWLCrfmnDPZB/XIH+4LrclsDj5+2GTkUR+3c/W69CFiJmWVoIYqtcVa5xHv5FO+IZZIeyOVoCBECD3LhOVaiQ6xxikVWNA3DwkX2uquj6PS66RhHc+2dkJ8Z2Vr6xXgMKSytip8F2lsnNTKLufIFGqDjv3ZD1Mwigge+iB0n/ch7WLd8TuF0I383haeoMgL51h7BQU2OXGeBPSJ/g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=3PaKJDXf1CdCLll5w/H0cIiqsEtxn1GDr+VgVQGTUTk=;
- b=BX2+ISy/alIe2RIYl1SEl0KI8vead9ecFBIMvN7pCMzc4EAeyjdMpGZNEQaMrex9inoZhG+FZWVJHubiUm/WKsrLmJxnlQYZJjyODXsXSU1DOgJT+zQ3lWnCREqlJFHBPLmaZ9VY44yKNUno53TqbvU7sS3ZyoFahVRvtPznQuGYn/reWZoX9l81FQra+ffZCSyLL+asM/Vgnof6rLE6IoQqrwsG6Y/tRD7ka2UTlWTEyUaemzkhBSg3NQAeMpNurxmbvnZwN3jZQjX9IRcLmuPAHxt8q5RH/+KySc7606vDn36gzRezERJs79V4VikhRMG6nQygZpZOSLW93sGJfw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3PaKJDXf1CdCLll5w/H0cIiqsEtxn1GDr+VgVQGTUTk=;
- b=uGE6BNwQhF1bEB/3dw25ddxdOn/rP7QGhFVykYprWIjyisPw5+uPRBG3lt8/+E4RRvwrtKLluclaird6eUG+uvF9nM2Ev7xc3LancJw5KZdhA+eohBhLU+9F19vbVLTYzrLp/cO7P9isHyDwEb7/gQAssJAhGJsxHVYwU/tKjzc7ZrXKdcTU1hw8ySSbdTPRwvjEYQV7LQ7YlcA3R2QKwwRWa91hCWiMrTg5WYedV5CzwYguUEk0LJR17vILXPgrvz1k8g9FNZFgljs5aoHIrwfZe0tzSPwiS2a1CEy6G18mo0cxRgI2/cHoedSaq52vOuph62dmOayriKBy1qF7yQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from IA0PR12MB8374.namprd12.prod.outlook.com (2603:10b6:208:40e::7)
- by CY5PR12MB6406.namprd12.prod.outlook.com (2603:10b6:930:3d::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.8; Wed, 9 Sep 2026
- 14:48:19 +0000
-Received: from IA0PR12MB8374.namprd12.prod.outlook.com
- ([fe80::d85f:4c87:ae84:3f16]) by IA0PR12MB8374.namprd12.prod.outlook.com
- ([fe80::d85f:4c87:ae84:3f16%5]) with mapi id 15.21.0406.007; Wed, 9 Sep 2026
- 14:48:19 +0000
-From: Zi Yan <ziy@nvidia.com>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: "Matthew Wilcox (Oracle)" <willy@infradead.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- Muchun Song <muchun.song@linux.dev>, Lorenzo Stoakes <ljs@kernel.org>,
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>, Baolin Wang <baolin.wang@linux.alibaba.com>,
- Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
- Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
- Gregory Price <gourry@gourry.net>, Ying Huang <ying.huang@linux.alibaba.com>,
- Alistair Popple <apopple@nvidia.com>, Johannes Weiner <hannes@cmpxchg.org>,
- Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>,
- Kairui Song <kasong@tencent.com>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, Baoquan He <baoquan.he@linux.dev>,
- Pasha Tatashin <pasha.tatashin@soleen.com>,
- Pratyush Yadav <pratyush@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
- Jan Kara <jack@suse.cz>, Steven Rostedt <rostedt@goodmis.org>,
- Masami Hiramatsu <mhiramat@kernel.org>, Dave Young <ruirui.yang@linux.dev>,
- Shuah Khan <skhan@linuxfoundation.org>,
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- kexec@lists.infradead.org, linux-doc@vger.kernel.org,
- linux-fsdevel@vger.kernel.org, linux-trace-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 14/14] mm/page-flags: remove PG_private
-Date: Wed, 09 Sep 2026 10:48:17 -0400
-X-Mailer: MailMate (3.0r7028)
-Message-ID: <1BF58667-A9AE-48AA-BA04-F02FB6D5ECF4@nvidia.com>
-In-Reply-To: <d8e9b629-4198-4281-a3b2-d54445201fd2@kernel.org>
-References: <20260907-remove-pg_private-v3-0-6ae22f9d9272@nvidia.com>
- <20260907-remove-pg_private-v3-14-6ae22f9d9272@nvidia.com>
- <d8e9b629-4198-4281-a3b2-d54445201fd2@kernel.org>
-Content-Type: text/plain
-Content-Transfer-Encoding: quoted-printable
-X-MS-Reactions: disallow
-X-ClientProxiedBy: BL1PR13CA0268.namprd13.prod.outlook.com
- (2603:10b6:208:2ba::33) To IA0PR12MB8374.namprd12.prod.outlook.com
- (2603:10b6:208:40e::7)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TV0GyHbd"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 80A4C1F00A3D;
+	Wed,  9 Sep 2026 14:49:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788965369;
+	bh=Kcc1zwfb6ErZoIcCaGyi/utsNG8G7ufybP3WOFJTiEw=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=TV0GyHbd25UEcoqz6ZWhLSAW9W5O139pA2tmxm0zZ+NMKRduKHBwG76bDDK89RR4c
+	 rYghjHH5RVZTAHH1vQr1zByLsO80Tch69X8+2joX8td0lxj42m+/jgbQInrFs8q4HL
+	 xnkxpFejhiURdTb0M5SfFrmPE77G9kiOaaYQj7+pIq4XX5K0/13mKN9TUF/CgVGcFh
+	 HrSRuvauwfwB9JlvYPStwJYyZO/YwkN8VM2q6qcMRkDoN4bFGAsvKAj/EhCr8A/hBk
+	 ujwU4jqXKl+iuAp2qErX9+E2p8ldKOJdlv5FGyeElAhq5PHeausvWpR0kz3nkWjbJP
+	 qHROtHm1KcA4g==
+Subject: Re: [PATCH net] netlink: render SCM_CREDENTIALS pid in the receiver's
+ pid namespace
+From: netdev-bot+sashiko@kernel.org
+To: maoyixie.tju@gmail.com
+Cc: davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+ pabeni@redhat.com, kuniyu@google.com, horms@kernel.org,
+ alexander@mihalicyn.com, brauner@kernel.org, adobriyan@openvz.org,
+ akpm@linux-foundation.org, leitao@debian.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Date: Wed, 09 Sep 2026 14:49:27 +0000
+Message-ID: <178896536799.219967.8543805128620693752@kernel.org>
+In-Reply-To: <20260904144636.3443342-1-maoyixie.tju@gmail.com>
+References: <20260904144636.3443342-1-maoyixie.tju@gmail.com>
+X-sashiko-severity: Critical
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: IA0PR12MB8374:EE_|CY5PR12MB6406:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3e36a449-7863-40ee-247c-08df0e816332
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|23010399003|366016|7416014|376014|6133799003|10067099003|11063799006|4143699003|56012099006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	gHZkhrlo2Dlduo0qqPNmk/ck3tigfa+qdshlTz7N2T84ki59fqAvUfQ9nIOYdID6QeikvgIzFjXmU7qNjxPh1uE8A1/j6cWDuTE67SnYLd4SyJQ8HACc/ON+AOe40O1WVQuWIU5bxzfmWmfMNgr03SCoyFYPiO6VQJsZ+t6tO9JDfg3/RQb6byplfL3wL1W+OfuHdo9oVw+t8HpQmWTbuyy0rKhMWq4Bi6VqzQf76hiToqjM2FqKZTN7blcqEvyOdjl5fi7oq4mhOsX+Qz+W4cqNCg3CSZLJKNted3Xxfpm4+ODfq1FG8LE+AJ066D+Gj7j9bPUC2imPqyCf8wkfBoZkTKe8NLkhz/ywZMZZKaprdlO8skU5shOcPUusWUcR7MaZ+5Qlu2WeWF9im/s3fzw+EC5/JPoO9oInmuVVQZvJ/nuPEDkL8Spcbkymc1CEz/lup/uCUe0lBoDNJlDjmij4fDppvxgUEvgT9J4s67YtoKQMk8HZbpovl0Iduiie+VwbY8na3+SAcPl5NLf+UN/pjs8Scnl6HRmjQYZOGVLSCl6PQ1MynXBcHg2WaygYXm27TvFraTPH9L74uFRFTE+gChxwhEYbJ7aFwK5QALVPY9SoJuLAGNS0FPxitBKckPipfMwyrlXbaHeziK9q3ZfQH03pOEMdjgGNpiqz0Zg=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR12MB8374.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(366016)(7416014)(376014)(6133799003)(10067099003)(11063799006)(4143699003)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?an0bGcgXOM433sgRgHC/KNPbThso0gxMPGb6WtE/97slExf2aXADK8QAKBk3?=
- =?us-ascii?Q?zzACDFClnNoPQzoshnfJzHzkFazmE0gIzNl5cEF1JaQSp2WLm45io8nFwRRf?=
- =?us-ascii?Q?5o/xdJBN6pSVBMJbjkAm14W/j5XUHzDhhezdA9LgZmXtZ6E0tPWaedoGm3V0?=
- =?us-ascii?Q?h8sMm2a8788suGTcuSL5VaPjQOuQyEIhqTOv28EjMpd7bUZQQeSEv8wmxnM+?=
- =?us-ascii?Q?QbvKREp3sX8ONRD+3Qd7GAvUw66UflWJ3t+yIoviaAaDrWkDkEumoKVhH8PJ?=
- =?us-ascii?Q?4cOPWqtrZ5In/IXBhTWyBqyIiY9dWXmIJk8h3ZtjcoQLoX/fu/ckQ6X1r6as?=
- =?us-ascii?Q?P1XPq0t4Uo4vuAvbNQNKPGU8zLQFRGM8nrHmijNYjjtpuOTVvWfBI7JtKcC5?=
- =?us-ascii?Q?Eu8tDle9xsoWIS4RqXgSWhmUcaTBfnMczYfSQwM/wQ/+WIeFlsWpDSwNEdnN?=
- =?us-ascii?Q?COSF1R1kzSa9gMiHyXAz2vz+L5tY7xK02F/OUDFRTH2pvZpcrpt23sn0cyQ7?=
- =?us-ascii?Q?wjdozUTfyJNrbsawXMviXeoH+mwsWC+t1fT5f1HX8gqJkxgNXlf0zhDQ2CFX?=
- =?us-ascii?Q?e/ePOQNUG+ZzujrxWg1szfJTS9rGQg53tI1PEcKJYZ21yEIOzPewHUVChdka?=
- =?us-ascii?Q?69mXPZj5qEHS1/uJv5wdOMn0wpmRfZn//sm3QUPSzq55/9RafkwScVRr542U?=
- =?us-ascii?Q?wv1XqTo4YvUrxhA8M9CoQuCgYg14sUDNCCNrAHlm/IRnnFCzckteXfHIhF/5?=
- =?us-ascii?Q?dxEOnUeorsl+Sd17G9Faw3GgYJXZ0eW4BWHFCqQnLm4KPXIAzmz3w1p+oPja?=
- =?us-ascii?Q?yzXwyICIl2zgPCXwcAa91J9Q+rD+8d/IMPav01PiRASHdYBpfCT9GoZ2+vXV?=
- =?us-ascii?Q?j+a+y3y/6t0UATzx35BBln8xcB1LLDcHr2pbZ8r108o+UNEVCCrCWz18q+Dp?=
- =?us-ascii?Q?h0YXcm0KpZsnoGANeyJ6f1xe9h39VPp02m19/vt08snIZGAGx2t0OEpjctKj?=
- =?us-ascii?Q?tn2DhzaPsN/GM2UFwWjC4JzBonvlq8fyTCCnydw0MZB2Nsk/veFDp2jY39/o?=
- =?us-ascii?Q?aB8V6fuEWAKcnHF9j1a/+28e/XKAsR4J9+cAH7S0DGDMrOJ8ZgJVC9g+t3Ll?=
- =?us-ascii?Q?i2lnqGxaOkcF3QpAkBXt1xtu7Po3HZq9PvDu6bais+d56mHTaav7YRyKlkET?=
- =?us-ascii?Q?0IJ/wgGWBTvSQ9Bl/KWPz9unnTwq7exmyslmMwUCQH6wye+WHhT/3avCFFsu?=
- =?us-ascii?Q?ANmatDHksyPhO41qUDSZpmS8V317ZYsDu2R+Os42tnInM940kZsUsHOnf9we?=
- =?us-ascii?Q?RHMaeL4ye3BCzYf/XcqidSXOuNAGFNMVFt/2nqjC/teO3teDqtaGAj7uF4lu?=
- =?us-ascii?Q?rosdEnVrbkqmsBLT5jVNGV+CRoqrSvpusUuM8v1Whp1l+sF+hXg1EvpAKzOs?=
- =?us-ascii?Q?yTL7lSTrCFnb+l17zLcDQxUiQfPHDiQX76QcjmLKPkm5OepM+J5AMIHo+ny6?=
- =?us-ascii?Q?aZBf9WyKticT5KRJ6mAJnz6X54SLTZnR5632dHr7QHOD/7KZ6vddz5Nsu19f?=
- =?us-ascii?Q?yrzEOsb+QgMzuR3P9yrquuzrj4v4Apx2AhnwU8UXRLNAfPon1S4wjGz+nPvu?=
- =?us-ascii?Q?MNOUekqvjU0huUtfx13VU1HxZd6Yqn2e2drPkbmOwusRleAFpwR5yOvIPNbh?=
- =?us-ascii?Q?ZwtBmG+4rx9DEOgodiaO66NbMJ1yj2ZtpQlByQTBYEupTjTe?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3e36a449-7863-40ee-247c-08df0e816332
-X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8374.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Sep 2026 14:48:18.9376
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: pxgnQgbxOAG0LjhgRcQQOrnaJ02IgYw92HStHGX0usgVEjMN4HnukJVwoZCCi2bz
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6406
 
-On 9 Sep 2026, at 10:31, David Hildenbrand (Arm) wrote:
+Thank you for your contribution! Sashiko AI review found 3 potential
+issue(s) to consider:
 
-> On 9/8/26 04:56, Zi Yan wrote:
->> folio->private !=3D NULL indicates a folio carries private data, repla=
-cing
->> PG_private. All PG_private users are converted. Remove PG_private and
->> reserve the space as __PG_folio for future use.
->>
->> __DEF_PAGEFLAG_NAME() is added to show __PG_folio.
->>
->> Also update files in Documentation. hugetlbfs_reserv.rst is outdated a=
-nd
->> left unchanged. It should be rewritten.
->>
->> Assisted-by: Claude:claude-opus-4-8
->> Assisted-by: Codex:gpt-5
->> Signed-off-by: Zi Yan <ziy@nvidia.com>
->> To: Andrew Morton <akpm@linux-foundation.org>
->> To: Baoquan He <baoquan.he@linux.dev>
->> To: Mike Rapoport <rppt@kernel.org>
->> To: Pasha Tatashin <pasha.tatashin@soleen.com>
->> To: Pratyush Yadav <pratyush@kernel.org>
->> To: Jonathan Corbet <corbet@lwn.net>
->> To: "Matthew Wilcox (Oracle)" <willy@infradead.org>
->> To: Jan Kara <jack@suse.cz>
->> To: David Hildenbrand <david@kernel.org>
->> To: Steven Rostedt <rostedt@goodmis.org>
->> To: Masami Hiramatsu <mhiramat@kernel.org>
->> Cc: Dave Young <ruirui.yang@linux.dev>
->> Cc: Shuah Khan <skhan@linuxfoundation.org>
->> Cc: Lorenzo Stoakes <ljs@kernel.org>
->> Cc: "Liam R. Howlett" <liam@infradead.org>
->> Cc: Vlastimil Babka <vbabka@kernel.org>
->> Cc: Suren Baghdasaryan <surenb@google.com>
->> Cc: Michal Hocko <mhocko@suse.com>
->> Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
->> Cc: kexec@lists.infradead.org
->> Cc: linux-doc@vger.kernel.org
->> Cc: linux-kernel@vger.kernel.org
->> Cc: linux-fsdevel@vger.kernel.org
->> Cc: linux-mm@kvack.org
->> Cc: linux-trace-kernel@vger.kernel.org
->> ---
->>  Documentation/admin-guide/kdump/vmcoreinfo.rst |  2 +-
->>  Documentation/filesystems/vfs.rst              |  6 +++---
->>  include/linux/page-flags.h                     | 19 ++---------------=
+Critical: 1 · High: 0 · Medium: 1 · Low: 1
+
+- [Critical] Storing destructor-needed data (struct pid *) in skb->cb
+  violates SKB Control Block Lifetime rules.
+- [Medium] The new reference-counting scheme leaves a dangling `struct
+  pid *` inside a live skb and then unconditionally re-acquires a…
+- [Low] The three comments this patch adds to document its new borrowed-
+  pid reference scheme contain two verifiably false statements about the…
+
 --
->>  include/trace/events/mmflags.h                 |  3 ++-
->>  kernel/vmcore_info.c                           |  1 -
->>  5 files changed, 8 insertions(+), 23 deletions(-)
->>
->> diff --git a/Documentation/admin-guide/kdump/vmcoreinfo.rst b/Document=
-ation/admin-guide/kdump/vmcoreinfo.rst
->> index 7663c610fe901..5f1df6d080508 100644
->> --- a/Documentation/admin-guide/kdump/vmcoreinfo.rst
->> +++ b/Documentation/admin-guide/kdump/vmcoreinfo.rst
->> @@ -325,7 +325,7 @@ NR_FREE_PAGES
->>  On linux-2.6.21 or later, the number of free pages is in
->>  vm_stat[NR_FREE_PAGES]. Used to get the number of free pages.
->>
->> -PG_lru|PG_private|PG_swapcache|PG_swapbacked|PG_hwpoison|PG_head_mask=
 
->> +PG_lru|PG_swapcache|PG_swapbacked|PG_hwpoison|PG_head_mask
->>  ---------------------------------------------------------------------=
------
->>
->>  Page attributes. These flags are used to filter various unnecessary f=
-or
->> diff --git a/Documentation/filesystems/vfs.rst b/Documentation/filesys=
-tems/vfs.rst
->> index d3a93eec3945f..dec7816303c6a 100644
->> --- a/Documentation/filesystems/vfs.rst
->> +++ b/Documentation/filesystems/vfs.rst
->> @@ -649,8 +649,8 @@ Writeback.
->>
->>  The first can be used independently to the others.  The VM can try to=
+netlink: render SCM_CREDENTIALS pid in the receiver's pid namespace
 
->>  release clean pages in order to reuse them.  To do this it can call
->> -->release_folio on clean folios with the private
->> -flag set.  Clean pages without PagePrivate and with no external refer=
-ences
->> +->release_folio on clean folios with folio->private set. Clean pages
->> +without folio->private set and with no external references
->>  will be released without notice being given to the address_space.
->
-> This reads like it would belong into patch #13?
->
->>
->>  To achieve this functionality, pages need to be placed on an LRU with=
+The patch carries the sender's struct pid in NETLINK_CB so that
+netlink_recvmsg() can translate it into the reader's pid namespace with
+scm_set_cred(), instead of copying the sender-rendered u32. The reference
+is taken in netlink_skb_set_owner_r() and dropped in
+netlink_skb_destructor().
 
->> @@ -674,7 +674,7 @@ filemap_fdatawait_range, to wait for all writeback=
- to complete.
->>
->>  An address_space handler may attach extra information to a page,
->>  typically using the 'private' field in the 'struct page'.  If such
->> -information is attached, the PG_Private flag should be set.  This wil=
-l
->> +information is attached, non-NULL 'private' field will
->
-> Same here?
->
-> Likely this could have been restructured to cause less head scratches. =
-I'd
-> expect any documentation that refers to PG_private to get removed befor=
-e finally
-> removing the bit.
->
-> Not the end of the world, just a bit confusing while reviewing.
+> diff --git a/include/linux/netlink.h b/include/linux/netlink.h
+> index 882e9c1b6c1dc..26266754e27c1 100644
+> --- a/include/linux/netlink.h
+> +++ b/include/linux/netlink.h
+> @@ -30,6 +30,15 @@ struct netlink_skb_parms {
+>  	struct sock		*sk;
+>  	bool			nsid_is_set;
+>  	int			nsid;
+> +	/*
+> +	 * Sender's struct pid.  netlink_sendmsg() stores a borrowed pointer
+> +	 * taken from its own scm_cookie.  netlink_skb_set_owner_r() takes a
+> +	 * reference when it takes ownership of the skb for a receiver, and
+> +	 * netlink_skb_destructor() drops that reference.  A clone starts out
+> +	 * borrowing again, because __skb_clone() clears both skb->sk and
+> +	 * skb->destructor.  NULL for a kernel generated skb.
+> +	 */
+> +	struct pid		*pid;
+>  };
+>  
+>  #define NETLINK_CB(skb)		(*(struct netlink_skb_parms*)&((skb)->cb))
+> diff --git a/net/netlink/af_netlink.c b/net/netlink/af_netlink.c
+> index e6b1d9758c9c9..170d90d472a0d 100644
+> --- a/net/netlink/af_netlink.c
+> +++ b/net/netlink/af_netlink.c
+> @@ -379,13 +379,24 @@ static void netlink_skb_destructor(struct sk_buff *skb)
+>  
+>  		skb->head = NULL;
+>  	}
+> -	if (skb->sk != NULL)
+> +	if (skb->sk) {
+> +		/*
+> +		 * The reference is held for as long as skb->sk is set, taken
+> +		 * in netlink_skb_set_owner_r() and dropped here.  The pointer
+> +		 * is left in place: do_one_broadcast() orphans an skb one
+> +		 * listener owned and hands it to the next, which takes its
+> +		 * own reference, and the sender's scm_cookie keeps the pid
+> +		 * alive across the whole broadcast.
+> +		 */
+> +		put_pid(NETLINK_CB(skb).pid);
+>  		sock_rfree(skb);
+> +	}
+>  }
+>  
+>  static void netlink_skb_set_owner_r(struct sk_buff *skb, struct sock *sk)
+>  {
+>  	WARN_ON(skb->sk != NULL);
+> +	NETLINK_CB(skb).pid = get_pid(NETLINK_CB(skb).pid);
+>  	skb->sk = sk;
+>  	skb->destructor = netlink_skb_destructor;
+>  	sk_mem_charge(sk, skb->truesize);
 
-Yeah, I will fold the document changes into the corresponding code change=
- patches.
+[Severity: Critical]
+NETLINK_CB() is just an overlay on skb->cb, the 48-byte scratch
+area that every layer an skb passes through is allowed to reuse.
+Until now netlink only parked plain values and one non-refcounted
+struct sock *sk there, so a clobbered cb cost at most wrong
+metadata. After this patch the cb holds the *only* reference to a
+struct pid for as long as the skb is owned by a receiver, and
+netlink_skb_destructor() consumes it. If anything rewrites those
+eight bytes between netlink_skb_set_owner_r() and the destructor
+running, put_pid() executes refcount_dec_and_test() and
+kmem_cache_free() on whatever now sits at that offset; the mirror
+case, cb overwritten before the destructor, silently leaks the pid.
+Storing destructor-needed state in skb->cb is the pattern the
+networking guidance calls out precisely because the read side runs
+long after the write side.
 
->
->>  cause various VM routines to make extra calls into the address_space
->>  handler to deal with that data.
->>
->> diff --git a/include/linux/page-flags.h b/include/linux/page-flags.h
->> index ce7fccd90367b..7b7783c0a5216 100644
->> --- a/include/linux/page-flags.h
->> +++ b/include/linux/page-flags.h
->> @@ -44,10 +44,6 @@
->>   * Consequently, PG_reserved for a page mapped into user space can in=
-dicate
->>   * the zero page, the vDSO, MMIO pages or device memory.
->>   *
->> - * The PG_private bitflag is set on pagecache pages if they contain f=
-ilesystem
->> - * specific data (which is normally at page->private). It can be used=
- by
->> - * private allocations for its own usage.
->> - *
->>   * During initiation of disk I/O, PG_locked is set. This bit is set b=
-efore I/O
->>   * and cleared when writeback _starts_ or when read _completes_. PG_w=
-riteback
->>   * is set before writeback starts and cleared when it finishes.
->> @@ -105,7 +101,7 @@ enum pageflags {
->>  	PG_owner_2,		/* Owner use. If pagecache, fs may use */
->>  	PG_arch_1,
->>  	PG_reserved,
->> -	PG_private,		/* If pagecache, has fs-private data */
->> +	__PG_folio,		/* Do not use: reserved for folio identification */
->
-> Do we really have to annotate it with __PG_folio ? I'd just keep it sim=
-ple and
-> have the comment. That also avoids __DEF_PAGEFLAG_NAME just for this us=
-e case.
->
-> (sorry if this was discussed in previous review rounds)
+What establishes the invariant that the cb is untouched for that
+whole window? For an skb parked in a netlink socket's
+sk_receive_queue I believe nothing else writes cb, but the patch
+adds no assertion or comment saying that, and netlink skbs do get
+handed to other code: __netlink_deliver_tap_skb() clones into
+dev_queue_xmit(), and netlink_skb_clone() callers such as
+nl_fib_input() and nfnetlink_rcv_batch() pass clones on. Those
+clones copy the pointer verbatim through __copy_skb_header() while
+__skb_clone() clears skb->sk and skb->destructor, so today no
+put_pid() runs on them - the safety comes from the clone never
+being re-owned, not from anything the new code enforces.
+netlink_skb_set_owner_r() does get_pid() on whatever byte pattern
+it finds in the cb, with no way to tell a live pointer from
+leftovers.
 
-No one complained about this yet. :)
+Could the reference be tied to something with a defined lifetime
+instead? Taking it in netlink_sendmsg() when the cb is written, and
+dropping it on every skb-free path rather than only when skb->sk
+happens to be set, would at least make the ownership match the
+skb's lifetime rather than the sk/destructor pairing. If keeping
+the pointer in cb is the intent, please state in the commit message
+which paths may see an skb with a live pid in NETLINK_CB and why no
+layer on those paths rewrites cb offset 40.
 
-I do this because I do not want to change PG_* values after PG_private af=
-ter
-PG_private is removed. And they will be changed back to their original va=
-lues
-when I add PG_folio. That PG_* value churn might be a headache for kdump?=
+Unrelated but adjacent: adding a pointer makes struct
+netlink_skb_parms fill the cb exactly on 64-bit. Did you check it
+against the BUILD_BUG_ON in netlink_proto_init(), and is leaving
+zero slack in a shared scratch area something we want to do for a
+stable backport?
 
-If I add PG_folio the last page flag, it can be a one-time change though.=
+[Severity: Medium]
+Is it intentional to leave the pointer in the control block after
+put_pid(), given that netlink_skb_set_owner_r() then does get_pid() on
+whatever it finds there without any validation?
 
+The drop-then-re-acquire window exists in tree, in do_one_broadcast():
 
-Best Regards,
-Yan, Zi
+	if (p->skb2 == NULL) {
+		if (skb_shared(p->skb)) {
+			p->skb2 = skb_clone(p->skb, p->allocation);
+		} else {
+			p->skb2 = skb_get(p->skb);
+			/*
+			 * skb ownership may have been set when
+			 * delivered to a previous socket.
+			 */
+			skb_orphan(p->skb2);
+		}
+	}
+
+skb_orphan() runs netlink_skb_destructor(), which drops the reference the
+previous listener took, and the next listener re-increments the same
+pointer through netlink_broadcast_deliver()->netlink_skb_set_owner_r().
+
+The only thing keeping that get_pid() off a freed struct pid is a
+reference in a different stack frame, scm.pid in netlink_sendmsg(),
+released by scm_destroy() after both netlink_broadcast() and
+netlink_unicast() have returned. Nothing in the exported entry points
+(netlink_unicast(), netlink_broadcast(), netlink_broadcast_filtered())
+expresses or checks that invariant, and skb_clone()/skb_copy()/
+netlink_skb_clone() copy the cb, and therefore the bare pid pointer,
+verbatim via __copy_skb_header(). netlink_trim() has the same shape: it
+clones a shared skb and consume_skb()s the source before the clone is
+re-owned, guarded only by the WARN_ON(skb->sk != NULL) above.
+
+I could not construct a path that is live today: other senders use freshly
+allocated skbs whose cb is zeroed, and the netlink_skb_clone() users I
+looked at, nl_fib_input() and nfnetlink_rcv_batch(), run synchronously
+while the origin skb still owns its reference. Still, would setting
+
+	NETLINK_CB(skb).pid = NULL;
+
+after put_pid() be preferable? A re-owned skb would then report pid 0,
+which is the value the changelog already describes as acceptable for
+"unknown". Alternatively, taking the reference at send time the way
+unix_scm_to_skb() does would match what the changelog says is being
+imitated.
+
+> @@ -1880,6 +1891,13 @@ static int netlink_sendmsg(struct socket *sock, struct msghdr *msg, size_t len)
+>  	NETLINK_CB(skb).dst_group = dst_group;
+>  	NETLINK_CB(skb).creds	= scm.creds;
+>  	NETLINK_CB(skb).flags	= netlink_skb_flags;
+> +	/*
+> +	 * Borrowed here.  scm_destroy() below drops the scm_cookie's own
+> +	 * reference, and every delivery in between is synchronous, so the
+> +	 * pointer stays valid until netlink_skb_set_owner_r() takes a
+> +	 * reference of its own.
+> +	 */
+> +	NETLINK_CB(skb).pid	= scm.pid;
+>  
+>  	err = -EFAULT;
+>  	if (memcpy_from_msg(skb_put(skb, len), msg, len)) {
+
+[ ... ]
+
+> @@ -1971,7 +1989,15 @@ static int netlink_recvmsg(struct socket *sock, struct msghdr *msg, size_t len,
+>  		netlink_cmsg_listen_all_nsid(sk, msg, skb);
+>  
+>  	memset(&scm, 0, sizeof(scm));
+> -	scm.creds = *NETLINK_CREDS(skb);
+> +	/*
+> +	 * Render the sender's pid in the reader's pid namespace, the way
+> +	 * unix_skb_to_scm() does through scm_set_cred().  A NULL pid gives 0,
+> +	 * so a control block that lost its reference reports "unknown" rather
+> +	 * than the sender's own untranslated number.  scm_recv() below drops
+> +	 * the reference taken here on both of its paths.
+> +	 */
+> +	scm_set_cred(&scm, NETLINK_CB(skb).pid, NETLINK_CREDS(skb)->uid,
+> +		     NETLINK_CREDS(skb)->gid);
+
+[Severity: Low]
+Two of the comments this patch adds seem to describe a model the code does
+not implement.
+
+First, this comment says "A NULL pid gives 0, so a control block that lost
+its reference reports 'unknown'". Which code produces that NULL? The
+destructor added a few lines above states the opposite and keeps the
+pointer:
+
+	/*
+	 * ... The pointer
+	 * is left in place: do_one_broadcast() orphans an skb one
+	 * listener owned and hands it to the next, ...
+	 */
+	put_pid(NETLINK_CB(skb).pid);
+
+So a control block that "lost its reference" holds a stale non-NULL
+pointer, not NULL, and scm_set_cred() would call get_pid()/pid_vnr() on
+it. Should the two comments be reconciled?
+
+Second, the netlink_sendmsg() comment says "every delivery in between is
+synchronous". Does that hold for the tap path?
+
+	__netlink_deliver_tap_skb()
+		nskb = skb_clone(skb, GFP_ATOMIC);
+		...
+		ret = dev_queue_xmit(nskb);
+
+__skb_clone() copies the full 48-byte cb, so the borrowed pid pointer
+comes along while nskb->sk and nskb->destructor are cleared and no
+reference is taken. dev_queue_xmit() can then leave the clone in an
+AF_PACKET receive queue via dev_queue_xmit_nit(), or in a qdisc attached
+to the nlmon device with transmission deferred to net_tx_action(), both of
+which can outlive sendmsg() and the scm_destroy() that drops the sender's
+only reference. The escaping copy is not overwritten by those layers,
+since qdisc_skb_cb and PACKET_SKB_CB stay within the first ~28 bytes of
+cb while pid sits at cb offset 40 on 64-bit.
+
+No current consumer dereferences that escaped pointer, so this is a
+comment accuracy question rather than a runtime bug, but the prose
+invariant is what a later change would build on. Would it be clearer to
+state the invariant that actually holds, namely that an skb only reaches
+netlink_recvmsg() after netlink_skb_set_owner_r() gave it its own
+reference, and that while borrowed the liveness comes solely from the
+scm_cookie on netlink_sendmsg()'s stack?
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260904144636.3443342-1-maoyixie.tju%40gmail.com
