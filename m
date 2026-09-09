@@ -1,106 +1,137 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com [209.85.128.70])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3237D5476D9
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 11:55:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB77F48F020
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 11:55:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.70
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788954953; cv=none; b=a0SGBKE8YKTxxx+DYAlH97p+NFwOYD1KpsVctFxpdCVqxAwW2wv3vmyLbcfzzjRHAeto3Q70NtlrfpQFGKEMXVl4eOS3kpwl9ELl0bqf6PRZRKp/d6RvzAKXmJoYof+cLOHzjBM8kHpllsk29foouOTluekIVFWba76e0HzLsJs=
+	t=1788954958; cv=none; b=MkQqTmS5jEG6sy0WQqAv22wGnnDUeSi2ecb4GEm65mMGlG4m1CJhPg0aQbHWxr68PHNnELuGfOc7UqR1QA1SWQyjvRhTNuqZWNuVu9oxp89O8ONL5NMS8snq3rk5LoJLQlBsgxY3xPfiGnU7OV+YIJYkoF5kYGb0VG/Nm/fO5nU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788954953; c=relaxed/simple;
-	bh=YA+a6CCA1zWdQPcieNEuLQ0mIwRn0Ck7WsDOY4ql94Y=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=EGJ27JzlMVrZe2bAxBnM0kuvGauszIk2OCqq8KrXuf12VO9BY1dUUDzu1hbRjXRB25b8XmkRyvQXPtP/b/Y/xfcSMsU5LVkZbOc722LbKqMegM/uAcr278PWfIElWuXWNBW1cPnzDTJcuWsyvQooPnWXNUbH0FRZa1QmI6mR0Do=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=e+jFvZta; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1788954958; c=relaxed/simple;
+	bh=+s6urL61TI3QuNQQQm3SsKlhTUTTfyRdv4trL2AMgH8=;
+	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=bFyAe3URDPql3JKMxifEhaKo5qaY1olEMX8hxCPeERUCV1K9EHiKw1cIDv7fae3ZZH011LaBnMrROHI9BK0xQAYTIKsXq86FVuLbRY9j2bzhysZCcDFOYR2LCixYN1h8KmEeKK0QvtBWaV09FSxOz5fGHYdnJGxKRNMcf+NzShQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--ardb.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=C7M1Krbo; arc=none smtp.client-ip=209.85.128.70
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--ardb.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="e+jFvZta"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1788954951;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=FeWcXK9/x+ZPPaC++IgCQ9jS/VWtgj79RgI0CVq94cU=;
-	b=e+jFvZtaXjEKd4bRzwRtCsJtd2piOzBIaPHrHKlJcrSYJVRuIgk2fnFRxhIW4T4+2VroGZ
-	GrXknkzCC2xnCEWupdK+4K4wv6lCMw+W/AlOkQxYpCJx0VzBHXqF0CQepJI/j6c91UUG+A
-	YMhY5SboXuoLSXWPf1JpLA5C0AeNp1c=
-Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-416-XppBFvCKMm-g7oxw0FdvVQ-1; Wed,
- 09 Sep 2026 07:55:47 -0400
-X-MC-Unique: XppBFvCKMm-g7oxw0FdvVQ-1
-X-Mimecast-MFC-AGG-ID: XppBFvCKMm-g7oxw0FdvVQ_1788954944
-Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id EEFA519541AC;
-	Wed,  9 Sep 2026 11:55:43 +0000 (UTC)
-Received: from thuth-p1g4.redhat.corp (headnet05.pony-001.prod.iad2.dc.redhat.com [10.2.32.117])
-	by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id B5571195608D;
-	Wed,  9 Sep 2026 11:55:37 +0000 (UTC)
-From: Thomas Huth <thuth@redhat.com>
-To: Eric Biggers <ebiggers@kernel.org>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	"David S. Miller" <davem@davemloft.net>,
-	"Jason A. Donenfeld" <Jason@zx2c4.com>,
-	Ard Biesheuvel <ardb@kernel.org>,
-	James Bottomley <James.Bottomley@HansenPartnership.com>,
-	Jarkko Sakkinen <jarkko@kernel.org>,
-	Mimi Zohar <zohar@linux.ibm.com>,
-	David Howells <dhowells@redhat.com>,
-	Paul Moore <paul@paul-moore.com>,
-	James Morris <jmorris@namei.org>,
-	"Serge E. Hallyn" <serge@hallyn.com>
-Cc: linux-crypto@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	linux-integrity@vger.kernel.org,
-	keyrings@vger.kernel.org,
-	linux-security-module@vger.kernel.org
-Subject: [PATCH v2 09/13] security: keys: trusted: always clear the hmac_sha1_ctx before returning
-Date: Wed,  9 Sep 2026 13:54:45 +0200
-Message-ID: <20260909115455.157093-10-thuth@redhat.com>
-In-Reply-To: <20260909115455.157093-1-thuth@redhat.com>
-References: <20260909115455.157093-1-thuth@redhat.com>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="C7M1Krbo"
+Received: by mail-wm1-f70.google.com with SMTP id 5b1f17b1804b1-490a767b782so46034545e9.2
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 04:55:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1788954955; x=1789559755; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=dsT4MeBzNzxyKb8kQsFfPkCd78D7/G9jUBv70WOR9oo=;
+        b=C7M1Krbor1pRqx6bvcfkNT7ZtAM4pwAfJy+yMDaoqelH5/Way8/xj+uhH3LWZxU8oV
+         H/T9I61ukqvzR+/ZkbaG/C3yxM2cw/R8b89SdAmjv5877i8B+mEdpfWTknr9DzVjG5Ba
+         0Nsa/5fTw8ATXbhUfzPmRkbVzfZqHBdpIEJZ3meRR8ViX1zNTsYdAK33fBIjuZ7Wh3GW
+         5Ouhfi8womRB/ABTyol8bGnTyYTVDpevjVkg2rkg50/M/vD8oDYGaR5shZLXeJWL5q5V
+         4Dkqd0m1Dv4fsSlxsAGZsr4ShhjaQMktwRmiXIGemdgAzRReZaK5kJjGKvkXkwIXuAiM
+         yKZQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788954955; x=1789559755;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=dsT4MeBzNzxyKb8kQsFfPkCd78D7/G9jUBv70WOR9oo=;
+        b=YtX5aoAIBQoDCK6iavdbzgDP+zhfdXFh6gckTh8VNr38l1fajxCG8s8fzatJPcQ8Hh
+         2x9zA0uazTH5ATPj/StQmPIcw+S7DDIWpr4LuWxfFWsT2rUdWUPFVc91S0BaIKNKDlj0
+         rCz+pIscY+g6F4iK4yOspXjh4x2iJ+CF62vY5GI2N/ADbqfV20U4UrBnnynYXeef51QB
+         TPZN+SeGTZk9+PqIB3LWh6rDqzCBLErAqeWZp60AYn8ilcHezS/W/Tl99pYLjN8x67Ra
+         NdB2QJm2Xx0YoxB+Z6FB6jXHBxlM3LPtqAx83IMhvktaHCjeIs+OXOtgelMJHHmUSC/x
+         jciw==
+X-Gm-Message-State: AFuF++lW+oYLi44lTKxr4IvOR7MtqIxb4wqxl76NfbyzAonfaWsYd4d+
+	cXigIOQLXfoa8m15n6XUEI+mpwTgZYwW+T0Vv0pIzs4Db+ZTdYfmw/0eTcLslCA8lFZiOlwADQ=
+	=
+X-Received: from wmpo40.prod.google.com ([2002:a05:600c:33a8:b0:49b:9117:59e6])
+ (user=ardb job=prod-delivery.src-stubby-dispatcher) by 2002:a05:600c:548d:b0:49d:15b9:2a2a
+ with SMTP id 5b1f17b1804b1-49d15b92b2bmr138733315e9.10.1788954954931; Wed, 09
+ Sep 2026 04:55:54 -0700 (PDT)
+Date: Wed,  9 Sep 2026 13:55:31 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
+Mime-Version: 1.0
+X-Developer-Key: i=ardb@kernel.org; a=openpgp; fpr=F43D03328115A198C90016883D200E9CA6329909
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2969; i=ardb@kernel.org;
+ h=from:subject; bh=95TEXlWKF0+ARGLoRCunFRPLtfVwZQVfFlqKtvTcQnw=;
+ b=owGbwMvMwCVmkMcZplerG8N4Wi2JIWuhpzEv95ENe069uSD96m/H5zkxUxbFMt44oZ27/rxW1
+ YcnG9P9O0pZGMS4GGTFFFkEZv99t/P0RKla51myMHNYmUCGMHBxCsBEPpQx/NNb8fZeac997YPG
+ 1UfXKaeITQmYLpJsFNfXGLD37/GQixIM/8P2ngycPXFR6fEJZWb3lKQmPetg3vzrj6RiRH3EwdM CTIwA
+X-Mailer: git-send-email 2.55.0.1003.g10538fe699-goog
+Message-ID: <20260909115530.1924665-12-ardb+git@google.com>
+Subject: [PATCH v2 00/10] efi/libstub: Avoid UTF-16 conversion busywork
+From: Ard Biesheuvel <ardb+git@google.com>
+To: linux-efi@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org, Ard Biesheuvel <ardb@kernel.org>, 
+	Vincent Mailhol <mailhol@kernel.org>, x86@kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Clear the hmac_sha1_ctx structure via __cleanup(hmac_sha1_zeroize_ctx)
-to make sure that the function does not leak sensitive data on the stack
-when returning without calling hmac_sha1_final().
+From: Ard Biesheuvel <ardb@kernel.org>
 
-Reviewed-by: Jarkko Sakkinen <jarkko@kernel.org>
-Signed-off-by: Thomas Huth <thuth@redhat.com>
----
- security/keys/trusted-keys/trusted_tpm1.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+The EFI libstub performs some redundant conversions between UTF-16 and
+UTF-8 and back again, which includes dealing with surrogate pairs, which
+UEFI implementations themselves simply ignore.
 
-diff --git a/security/keys/trusted-keys/trusted_tpm1.c b/security/keys/trusted-keys/trusted_tpm1.c
-index bf0bf7f369705..e5a904b5c1946 100644
---- a/security/keys/trusted-keys/trusted_tpm1.c
-+++ b/security/keys/trusted-keys/trusted_tpm1.c
-@@ -101,7 +101,7 @@ static inline void dump_tpm_buf(unsigned char *buf)
- static int TSS_rawhmac(unsigned char *digest, const unsigned char *key,
- 		       unsigned int keylen, ...)
- {
--	struct hmac_sha1_ctx hmac_ctx;
-+	struct hmac_sha1_ctx hmac_ctx __cleanup(hmac_sha1_zeroize_ctx);
- 	va_list argp;
- 	unsigned int dlen;
- 	unsigned char *data;
+So drop all the homegrown code, and use the existing UCS-2 (== UTF-16
+without surrogate pairs) library code where conversion to UTF-8 is
+actually needed (the kernel command line).
+
+The remaining handling involves the EFI console, which supports wide
+characters natively, so just use those directly.
+
+Changes since v1 [0]:
+- drop size limit from ucs2_strscpy() instead of just the WARN()
+- suppress modinfo sections from ucs2_string when __DISABLE_EXPORTS is
+  defined
+- allow the input limit and max output size to be passed separately to
+  ucs2_to_utf8()
+- reimplement efi_convert_cmdline() to optimize the common case, and
+  only process the input character by character if its size exceeds
+  COMMAND_LINE_SIZE
+- use memcpy() to avoid strscpy() semantics in handling of %ls
+- incorporate Vincent's patch (which inspired this work) for
+  completeness
+	
+Cc: Vincent Mailhol <mailhol@kernel.org>
+Cc: x86@kernel.org
+
+[0] https://lore.kernel.org/all/20260906130817.1151961-9-ardb@kernel.org
+
+Ard Biesheuvel (9):
+  x86/boot: Drop pointless re-implementation of panic()
+  lib/ucs2_string: Drop arbitrary input size limit and associated WARN()
+  lib/ucs2_string: Suppress modinfo when __DISABLE_EXPORTS is set
+  lib/ucs2_string: Split out ucs2_as_utf8_l() taking a separate limit
+  efi/libstub: Use ucs2_string library for UTF-16 to UTF-8 conversion
+  efi/libstub: Avoid efi_puts() for compile time constant strings
+  efi/libstub: Output UTF-16 directly from vsnprintf()
+  efi/libstub: Add support for printing human readable GUIDs
+  efi/libstub: Add efi_snprintf() to construct wide strings
+
+Vincent Mailhol (1):
+  efi/libstub: add initial Boot Loader Interface support
+
+ arch/x86/boot/compressed/error.c               |  19 ---
+ arch/x86/boot/compressed/error.h               |   1 -
+ arch/x86/boot/compressed/mem.c                 |   2 +-
+ drivers/firmware/efi/libstub/Makefile          |   3 +-
+ drivers/firmware/efi/libstub/bli.c             |  87 ++++++++++++
+ drivers/firmware/efi/libstub/efi-stub-helper.c | 100 +++++--------
+ drivers/firmware/efi/libstub/efi-stub.c        |   1 +
+ drivers/firmware/efi/libstub/efistub.h         |   8 +-
+ drivers/firmware/efi/libstub/gop.c             |   6 +-
+ drivers/firmware/efi/libstub/printk.c          |  95 ++-----------
+ drivers/firmware/efi/libstub/vsprintf.c        | 150 +++++++-------------
+ drivers/firmware/efi/libstub/x86-stub.c        |   1 +
+ include/linux/efi.h                            |  22 +++
+ include/linux/ucs2_string.h                    |  11 +-
+ lib/ucs2_string.c                              |  10 +-
+ 15 files changed, 241 insertions(+), 275 deletions(-)
+ create mode 100644 drivers/firmware/efi/libstub/bli.c
+
 -- 
-2.55.0
+2.55.0.1003.g10538fe699-goog
 
