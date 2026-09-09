@@ -1,192 +1,105 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D73A4F30EB
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 11:15:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34740385D7B
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 11:15:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788952520; cv=none; b=ftVirD3GxbT7LhLZ8++DgCY5rW2ZThiuwGnQbCg/Neifb1yDOW+XbwWAUlbMoj9ivU7hxjmPVT5FK80/elQWtTSTgpMWEjWkcKy+SMlxxhzBr3va3wEQu1RwHGPkXrtMmTQJu4ZAqCyDQAdBEL3vMnXun3LeuxC7NoHGcDTE8P0=
+	t=1788952535; cv=none; b=ATSfenCIqIaYl/3qOIERovMeCNbb7jdzKywrTQEAhtzn35iecsTv4f8cziuVhYCbLlo2pSqwZGkBsmPmDQY/TxRsBCypaHZZbz0YB2cXElKx4caE8GFHo35d858LER/v8XKSYxBhk0M/mqX3KMyqgGoisilc0dGGL0y9QHxPx1k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788952520; c=relaxed/simple;
-	bh=BOKYqUln8EQzlkZtnYZeIfKT2lDSbwiR9MwSykmYTMg=;
-	h=From:In-Reply-To:References:To:Cc:Subject:MIME-Version:
-	 Content-Type:Date:Message-ID; b=JuU40X6uxJJf2py1eJ5kelHC3tEDJryE6cuckWvY7r5Ab4RjgKkX0jDKNuZKCsPWk5p5raHuHtH6l7CL9BiOve3zMTwbNOuCP4ptGIFB8Lwkzm0RUY8IPHpwInDwRZgTHkQKUexqx21i/LrvH4/yWqIu7RDrgp6K3lGPzGehDXA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=WdD5hTHj; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1788952535; c=relaxed/simple;
+	bh=snlMqwyYUafP7d/pSIwvzXmTqJKkpO3QnYy28S7ZydE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=YexzZwjvmvhpT9Z05y0CxHe5VLEBGu9tOXFzzU3dNIckdl0NT0u4mfVAguTVw8Clky0Qhcd866KRmjeR7AJsPGQwYpRzTrJaGYyCkTuE9UbpSHB7tVv/ZQ6C5/sx0qRJi2ySkP72RJOyTKEZ8WvzUsI+YhZ5acCjGoDsSy/D9DM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=konsulko.com; spf=pass smtp.mailfrom=konsulko.com; dkim=pass (1024-bit key) header.d=konsulko.com header.i=@konsulko.com header.b=Gf9qvHpn; arc=none smtp.client-ip=209.85.128.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=konsulko.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=konsulko.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="WdD5hTHj"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1788952516;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=FD4MZ+85OAGIRur4qtfRpT71ya2ywh4k2+CQUSEmgmw=;
-	b=WdD5hTHj6/M+twFzWJwKCYmlToL6NCdQ28kTMNq4uJR0COoNiUechSiGb2bxFPjqi9jlGO
-	LnpkPHqrP5lWlKl8juRRXY/YPzq7ZAFgx0VTXy/YsAlIQPYJgV36j/RXVLxDtFBKhC9HJs
-	M0xpAUp5m64elfvIlSdzN7n4hx5IIAE=
-Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-168-DcC2FFztMwSxkFoe42I7vA-1; Wed,
- 09 Sep 2026 07:15:15 -0400
-X-MC-Unique: DcC2FFztMwSxkFoe42I7vA-1
-X-Mimecast-MFC-AGG-ID: DcC2FFztMwSxkFoe42I7vA_1788952514
-Received: from mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.95])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id BB1BF19540CF;
-	Wed,  9 Sep 2026 11:15:13 +0000 (UTC)
-Received: from warthog.procyon.org.uk (unknown [10.44.32.158])
-	by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 39E7041D;
-	Wed,  9 Sep 2026 11:15:10 +0000 (UTC)
-Organization: Red Hat UK Ltd. Registered Address: Red Hat UK Ltd, Amberley
-	Place, 107-111 Peascod Street, Windsor, Berkshire, SI4 1TE, United
-	Kingdom.
-	Registered in England and Wales under Company Registration No. 3798903
-From: David Howells <dhowells@redhat.com>
-In-Reply-To: <a385053c-1c4a-4060-a3bb-befa007ddb33@redhat.com>
-References: <a385053c-1c4a-4060-a3bb-befa007ddb33@redhat.com>
-To: sorenson@redhat.com
-Cc: dhowells@redhat.com, Paulo Alcantara <pc@manguebit.org>,
-    Jeff Layton <jlayton@kernel.org>, linux-fsdevel@vger.kernel.org,
-    netfs@lists.linux.dev, CIFS <linux-cifs@vger.kernel.org>,
-    linux-kernel@vger.kernel.org
-Subject: Re: netfs_read_gaps(): aliased sink folio makes the read destination unreadable, SIGBUS on cifs with signing
+	dkim=pass (1024-bit key) header.d=konsulko.com header.i=@konsulko.com header.b="Gf9qvHpn"
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4995b0343c1so80140685e9.3
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 04:15:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=konsulko.com; s=google; t=1788952531; x=1789557331; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=LoxuaA9JpWMgU56nq3M5cvSZAVoUseUX/nhRtKSz29E=;
+        b=Gf9qvHpnH/OqfJzTCcCsBTaoRO2wcXlhi8Y3dVYcEKPUs4IjhcC5rPR/sOMoPeSYpB
+         PAJpQvyTy+0XY4oLjbslzMIHueeRPyFo/HQwyDYI2lKNHEpNdV+vRUxTMUxfNQOkvqi8
+         V3mvsuVfBESLa0jgRVkO1GwTR4+MicvuURk2Y=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788952531; x=1789557331;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=LoxuaA9JpWMgU56nq3M5cvSZAVoUseUX/nhRtKSz29E=;
+        b=Flru3qGRANW1VUSDkpK72f9OefP8m9rYnXmUJIk/90sLKzCm44IixiouwqTvNQspCO
+         fIs6UN+p5vypJtuDuIPGVBZW311tJ8M+PPMLfpfPhUukLQlCKeWVHW8OyDJ8yU1KO1qt
+         8TrtFD7DKzhhHv1GpVHp5wR0Tt57lsh1I4j3Y9UTc/j/oygOscKqn9JfDcx11bysZWrc
+         Y7OlIF8BN2p6ZfExy2ZVgz7ixNiuSl65ZI69t4v1PD7IKD5QXvkyqrNnLc4gWYtohDCr
+         9F9cDduVAd5QBRebaWmKWQA/ACdjvAnP2XQ8teI9YaAHCbapBFhoCnFwN+BvDzwyFDPS
+         H2NA==
+X-Gm-Message-State: AFuF++mDZQoRuhL7D15DBLuVlOiwk7iVXPBk25El6FRkwONofNmsaXTc
+	VQyTiE+YQJvUSrsbh5T81NBc/0OFKLwpXY2FclBS/BnBO6QKNhNc61pwucGiomwWspShZsfaGLK
+	hPei9
+X-Gm-Gg: AYBFou3qRAsCrZhUMA6qCkEsAgiRe8BXv+iGkVF3Ho+XjKM6KT+Px54I/xkdZ5z5bPP
+	qjQqKDqP9biGlIIjAxRDQaxcvJixAV+6uhQknZESc/9+AY7mv3HTXBolDRmnIoNpkBy6TaFFxgN
+	4W76VZHB9GJ0VClKIrzkz0BRzuPn/dkgLcgGfMVwXKFVdlaP4ss3J4rZIdfNpuD8Fi5jz5FieUW
+	hEwozsWCbXldKApGG/QaspYPgEOPxqlWGHulNgVaetKki6KTa6TSEe8KGMoHay1oIFa1PVx+wcS
+	q5rogAlHHPIMnn4LBs9puMJ8RBCiODf2gJzCUIe1fTipxIhEejSg+casDtsTVmnmpxj1lHMwjfS
+	n/Jq/eufTVs10n/ig3K/p3w+17N92DnByxXRT3/KaMH0Uc1iUXtY7RMwhLMbmaAaW9moqmtM7zG
+	aycDxkUR56JB58WXnvOF1GzxhrUK3L8CVVDuHyaGXvBpnXfY38OXNUS0KkDfamkBMiJgxbLTMXH
+	97/DfOQnIVfEWpz
+X-Received: by 2002:a05:600c:1551:b0:49c:fa21:1c89 with SMTP id 5b1f17b1804b1-49cfa211d5fmr340935015e9.30.1788952531125;
+        Wed, 09 Sep 2026 04:15:31 -0700 (PDT)
+Received: from tone.k.g (lan.nucleusys.com. [92.247.61.126])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49d20fce7a7sm107391915e9.4.2026.09.09.04.15.30
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 09 Sep 2026 04:15:30 -0700 (PDT)
+From: Petko Manolov <petko.manolov@konsulko.com>
+To: linux-kernel@vger.kernel.org
+Cc: devicetree@vger.kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	dinguyen@kernel.org,
+	Petko Manolov <petko.manolov@konsulko.com>
+Subject: [PATCH v3 0/3] ARM: dts: draeger: Add socfpga devicetree for Draeger's M48 board.
+Date: Wed,  9 Sep 2026 14:15:08 +0300
+Message-ID: <20260909111513.2259643-1-petko.manolov@konsulko.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-ID: <1714045.1788952509.1@warthog.procyon.org.uk>
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 09 Sep 2026 12:15:09 +0100
-Message-ID: <1714046.1788952509@warthog.procyon.org.uk>
-X-Scanned-By: MIMEDefang 3.6 on 10.30.177.95
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hi Frank,
+Adding the device trees for “Dräger M48 on NXP i.MX6 (Q) and Intel/Altera
+SoCFPGA Cyclone V” board variant.  It has both (the SoC and FPGA) on the same
+carrier and they are cross-monitoring each other.
 
-Can you try this?  It can be triggered manually with something like:
+This is the SoCFPGA devicetree part.
 
-   xfs_io -c "w 100 100" -c "r 0 4096" /xfstest.test/foo
+Changes in v3:
 
-David
----
-commit 60314c47d9ccce8e7da23e1754e7defb70a234ee
-Author: David Howells <dhowells@redhat.com>
-Date:   Wed Sep 9 11:36:30 2026 +0100
+  - add Draeger AG in devicetree/bindings/vendor-prefixes.yaml
+  - separate binding changes from the actual devicetree patch
+  - remove "earlyprintk" from the boot arguments
 
-    netfs: Fix netfs_read_gaps() to use separate sink folios
-    =
+Petko Manolov (3):
+  Add Draeger AG as a vendor
+  Add Draeger's M48 board to the SoCFPGA family.
+  Add socfpga devicetree for Draeger's M48 board.
 
-    Fix netfs_read_gaps() to use separate folios rather than re-using a si=
-ngle
-    sink folio to discard the unwanted data so that cifs checksum checking=
- sees
-    all the data that was fetched.
-    =
+ .../devicetree/bindings/arm/altera.yaml       |   1 +
+ .../devicetree/bindings/vendor-prefixes.yaml  |   2 +
+ arch/arm/boot/dts/intel/socfpga/Makefile      |   1 +
+ .../socfpga/socfpga_cyclone5_draeger_m48.dts  | 129 ++++++++++++++++++
+ 4 files changed, 133 insertions(+)
+ create mode 100644 arch/arm/boot/dts/intel/socfpga/socfpga_cyclone5_draeger_m48.dts
 
-    Reported-by: Frank Sorenson <sorenson@redhat.com>
-    Closes: https://lore.kernel.org/r/a385053c-1c4a-4060-a3bb-befa007ddb33=
-@redhat.com/
-    Signed-off-by: David Howells <dhowells@redhat.com>
-    cc: Paulo Alcantara <pc@manguebit.org>
-    cc: Namjae Jeon <linkinjeon@kernel.org>
-    cc: netfs@lists.linux.dev
-    cc: linux-cifs@vger.kernel.org
-    cc: linux-fsdevel@vger.kernel.org
-    Fixes: ee4cdf7ba857 ("netfs: Speed up buffered reading")
-
-diff --git a/fs/netfs/buffered_read.c b/fs/netfs/buffered_read.c
-index 424df70a5c30..64eb64c475a9 100644
---- a/fs/netfs/buffered_read.c
-+++ b/fs/netfs/buffered_read.c
-@@ -482,15 +482,14 @@ static int netfs_read_gaps(struct file *file, struct=
- folio *folio)
- 	struct netfs_group *group =3D netfs_folio_group(folio);
- 	struct netfs_folio *finfo =3D netfs_folio_info(folio);
- 	struct netfs_inode *ctx =3D netfs_inode(mapping->host);
--	struct folio *sink =3D NULL;
- 	struct bio_vec *bvec;
- 	unsigned int from =3D finfo->dirty_offset;
- 	unsigned int to =3D from + finfo->dirty_len;
--	unsigned int off =3D 0, i =3D 0;
-+	unsigned int off =3D 0;
- 	size_t flen =3D folio_size(folio);
- 	size_t nr_bvec =3D flen / PAGE_SIZE + 2;
- 	size_t part;
--	int ret;
-+	int ret, i =3D 0, sink_from =3D -1, sink_to =3D -1;
- =
-
- 	_enter("%lx", folio->index);
- =
-
-@@ -515,24 +514,23 @@ static int netfs_read_gaps(struct file *file, struct=
- folio *folio)
- 	if (!bvec)
- 		goto discard;
- =
-
--	sink =3D folio_alloc(GFP_KERNEL, 0);
--	if (!sink) {
--		kfree(bvec);
--		goto discard;
--	}
--
- 	trace_netfs_folio(folio, netfs_folio_trace_read_gaps);
- =
-
--	rreq->direct_bv =3D bvec;
--	rreq->direct_bv_count =3D nr_bvec;
- 	if (from > 0) {
- 		bvec_set_folio(&bvec[i++], folio, from, 0);
- 		off =3D from;
- 	}
-+	sink_from =3D i;
- 	while (off < to) {
-+		struct folio *sink =3D folio_alloc(GFP_KERNEL, 0);
-+
-+		if (!sink)
-+			goto discard;
- 		part =3D min_t(size_t, to - off, PAGE_SIZE);
--		bvec_set_folio(&bvec[i++], sink, part, 0);
-+		bvec_set_folio(&bvec[i], sink, part, 0);
- 		off +=3D part;
-+		sink_to =3D i;
-+		i++;
- 	}
- 	if (to < flen)
- 		bvec_set_folio(&bvec[i++], folio, flen - to, to);
-@@ -553,8 +551,10 @@ static int netfs_read_gaps(struct file *file, struct =
-folio *folio)
- 		folio_mark_uptodate(folio);
- 	}
- =
-
--	if (sink)
--		folio_put(sink);
-+	if (sink_to >=3D 0)
-+		for (; sink_from <=3D sink_to; sink_from++)
-+			folio_unlock(bvec_folio(&bvec[sink_from]));
-+	kfree(bvec);
- 	folio_unlock(folio);
- 	netfs_put_request(rreq, netfs_rreq_trace_put_return);
- 	return ret < 0 ? ret : 0;
-@@ -563,6 +563,10 @@ static int netfs_read_gaps(struct file *file, struct =
-folio *folio)
- 	netfs_put_failed_request(rreq);
- alloc_error:
- 	folio_unlock(folio);
-+	if (sink_to >=3D 0)
-+		for (; sink_from <=3D sink_to; sink_from++)
-+			folio_unlock(bvec_folio(&bvec[sink_from]));
-+	kfree(bvec);
- 	return ret;
- }
- =
+-- 
+2.47.3
 
