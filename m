@@ -1,79 +1,152 @@
-Received: from sipsolutions.net (s3.sipsolutions.net [168.119.38.16])
+Received: from calculus.sigma-star.at (calculus.sigma-star.at [188.245.196.96])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B687A3546E9;
-	Wed,  9 Sep 2026 05:53:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=168.119.38.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A81E32692C
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 05:57:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.245.196.96
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788933198; cv=none; b=WpT3vkBkBhqGQHmGio5t3FNTylrnbRPVeLkU/O8x71ZHXmv6dPw8L7I7LUpxKvSlp51mjlbpMLXJdrBvweU/G/Gp+P7qrzhKmq4tnEwR/odu2ZDxNn97pmD620IU1SclvRUJAIL0CgbdzFeGK/DMklpEKY/bVGU5TQsXhnhwZXo=
+	t=1788933435; cv=none; b=hVo/Z6xPRZEU7HjEiSQHqFS1W02H+8plbqZGIp0praoo+ezJPZVRisN4+/d4nUgu4A8ZKHr8IjC2vDB8bC812FBE8wtJ/GYSWEDRzIMNWF0xHS1GHywgOiI0WX0YBiIn62ISykgqy4IG2Iial83Wr0IS8vnBWCT+ihFkGLYaQsY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788933198; c=relaxed/simple;
-	bh=/Mhe+TGwpITJ5l85bZCjeSMXVvHI6Gxgg3Z+in9G8gQ=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=n2lTeV+DaJWnLiZRgVnyUchQaE4xo9yW6NGq0xIj6+ubX9S6FacG2zSQPddk/axwZusj1Y/7hYzZQJ5z+mwlS0pyP1oOxmpqSl3HqnjQPi17xMGK8I0xFaiCQ+ArOjtuOVFeoBXqD8iEGw6d0XL5fJ5uCT2jy4xivy/zUNRgxCc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=permerror header.from=sipsolutions.net; spf=pass smtp.mailfrom=sipsolutions.net; dkim=pass (2048-bit key) header.d=sipsolutions.net header.i=@sipsolutions.net header.b=pTQTZV0r; arc=none smtp.client-ip=168.119.38.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=permerror header.from=sipsolutions.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sipsolutions.net
+	s=arc-20240116; t=1788933435; c=relaxed/simple;
+	bh=KBpCU5mUECoICF7/mD3T59GCthW5BE7Atyh/Us1Kb6c=;
+	h=From:To:Cc:Subject:Message-ID:In-Reply-To:References:Date:
+	 MIME-Version:Content-Type; b=qm8HHi0oW71zbpFcS5BRZdECAPNzko/xNJKzEytNoDvAe40/yFc4nfVPh4qJ3KYWx54dNWFxFDLIgvtCRgkmJnbE3CZdTn+Ad72Kyldx8PfuJCzC4mkKGJTL2wC+aht4KXWrswd1VNjjdllsg4iIJlH1YYuxF6V2woG4hsR5t9I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nod.at; spf=fail smtp.mailfrom=nod.at; dkim=permerror (0-bit key) header.d=nod.at header.i=@nod.at header.b=lNv2D6Y4; dkim=pass (2048-bit key) header.d=nod.at header.i=@nod.at header.b=Op7jwH+G; arc=none smtp.client-ip=188.245.196.96
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nod.at
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nod.at
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sipsolutions.net header.i=@sipsolutions.net header.b="pTQTZV0r"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=sipsolutions.net; s=mail; h=MIME-Version:Content-Transfer-Encoding:
-	Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender
-	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-To:
-	Resent-Cc:Resent-Message-ID; bh=/Mhe+TGwpITJ5l85bZCjeSMXVvHI6Gxgg3Z+in9G8gQ=;
-	t=1788933196; x=1790142796; b=pTQTZV0rbo7EvBjTgPY0sVuLjB/mcsc1yvaPlgebPIYLl5V
-	88Q0CXFT4ySMSo+aZ0ta6FfvrP6M08vv7i8n+wJ5WAZIzgHiiy6wM0Z+tt35Wwgu/uIM3TNhHy7mz
-	K7oAu8IhKGJtUCMhLe3NlPiv20DesTpaNc/GfR1ps1G5K6H/KLh32lI2jLtecEYitikk+wZtvyUJf
-	8lhP01nK1sqj4PZSo2CG8a2/cD7Z+hmjD2wFH7qytiwE8sGQrFPtyXBLhOtPStfC5kV99ccVA95XI
-	tJeP4V9pNxofWcBZTlmdo5V6JREyH+aSMUN8tHrQWuw8z4hC4e1ujxzwUFwg9tNQ==;
-Received: by sipsolutions.net with esmtpsa (TLS1.3:ECDHE_X25519__ECDSA_SECP256R1_SHA256__AES_256_GCM:256)
-	(Exim 4.98.2)
-	(envelope-from <johannes@sipsolutions.net>)
-	id 1x4BF8-00000007djD-0drd;
-	Wed, 09 Sep 2026 07:53:10 +0200
-Message-ID: <e9b36721c9e2b0b24c89c2e1b5b03b17c438f30c.camel@sipsolutions.net>
-Subject: Re: [PATCH RESEND wireless-next 00/18] wifi: Add Seamless Mobility
- Domain (SMD) AP support
-From: Johannes Berg <johannes@sipsolutions.net>
-To: Jeff Johnson <jeff.johnson@oss.qualcomm.com>, Jakub Kicinski
-	 <kuba@kernel.org>
-Cc: Pooventhiran G <pooventhiran.g@oss.qualcomm.com>, "David S . Miller"
-	 <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Paolo Abeni
-	 <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
-	linux-kernel@vger.kernel.org, netdev@vger.kernel.org, 
-	linux-wireless@vger.kernel.org
-Date: Wed, 09 Sep 2026 07:53:09 +0200
-In-Reply-To: <e7089219-ed02-4288-a678-660a52289e61@oss.qualcomm.com>
-References: <20260908-smd-v1-0-9fd2d876a1fb@oss.qualcomm.com>
-	 <20260908125017.0fb226c5@kernel.org>
-	 <404004c4c97bf776077685b7ec33a14fa777cd70.camel@sipsolutions.net>
-	 <80266eb9666d6106110d998cb6330868da55bf59.camel@sipsolutions.net>
-	 <20260908132004.29176fec@kernel.org>
-	 <0e950f7f0c3f5a2c1f6476e255716b09876624f4.camel@sipsolutions.net>
-	 <e7089219-ed02-4288-a678-660a52289e61@oss.qualcomm.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
+	dkim=permerror (0-bit key) header.d=nod.at header.i=@nod.at header.b="lNv2D6Y4";
+	dkim=pass (2048-bit key) header.d=nod.at header.i=@nod.at header.b="Op7jwH+G"
+DKIM-Signature: v=1; a=ed25519-sha256; s=v1-ed25519-20260901; d=nod.at; c=relaxed/relaxed; r=y;
+	h=Date:Message-ID:Subject:To:From; t=1788933426; bh=zooWrDic3EPT3oe8Inni1HE
+	n8KnOqLyrt6oR8Ewuy1k=; b=lNv2D6Y48BIlqBOWJJFrJKDK/Dm1DSi78dfiVS4csylvMbyNYl
+	Y24/ltardYaoeBJBi0iAJG3uwl+8Xc+5tEBA==;
+DKIM-Signature: v=1; a=rsa-sha256; s=v1-rsa-20260901; d=nod.at; c=relaxed/relaxed; r=y;
+	h=Date:Message-ID:Subject:To:From; t=1788933426; bh=zooWrDic3EPT3oe8Inni1HE
+	n8KnOqLyrt6oR8Ewuy1k=; b=Op7jwH+GMdefyjSBvPqcvl+jjtcQ4hg8gOd1cu6C3fOTj+YeAX
+	ixSg39MgmQzZ0ondU2VNUco506B5X07AlDEhEbiMuskroG9D/J6sIL9iuOP2CltFk0aVO0VE2/u
+	MuqTVxUJsKOSAJSvcUwIAD+mfKSG8aDX3+zIsCQwag0gJPUw/2lg6uJdwZzj3tYJa+zRv7EC3WG
+	drxlN+n8LE0AE/rqpcsoQbFv5JPpsh/s0oV5FTj/iSASnn4mQwJPIZzcgqA1DjwmeXN/dFpE7Ap
+	U/QJ7+Ec0P96j0yvB8JSWbwRtNS9hkdvxMVi7Tp5mYY34B/kHTz5zCJCMSbYhfR1JeA==;
+From: "Richard Weinberger" <richard@nod.at>
+To: <sashiko-reviews@lists.linux.dev>, 
+	"Lucas Jeffrey" <luquijeffrey@gmail.com>, <dwmw2@infradead.org>
+Cc: <linux-mtd@lists.infradead.org>, <linux-kernel@vger.kernel.org>, 
+	<syzbot+3a8099322b09d8d073d1@syzkaller.appspotmail.com>
+Subject: =?us-ascii?Q?AW:_[PATCH]_jffs:_initialize_inocache_to_NULL_when?=
+	=?us-ascii?Q?_initializing_a_jffs2=5Finode=5Finfo?=
+Message-ID: <mttoruf5.55d3678c-d0ad-4a15-98a0-5ea7ec0d7e8d@nod.at>
+In-Reply-To: <20260909025407.7494D1F00A3A@smtp.kernel.org>
+References: <20260909023955.1642244-1-luquijeffrey@gmail.com>
+	<20260909025407.7494D1F00A3A@smtp.kernel.org>
+Date: Wed, 9 Sep 2026 05:57:06 +0000
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-malware-bazaar: not-scanned
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, 2026-09-08 at 17:20 -0700, Jeff Johnson wrote:
+Lucas,
+
+Am Wed, Sep 9, 2026, 04:54 schrieb sashiko-bot@kernel.org:
+> Thank you for your contribution! Sashiko AI review found 1 potential issue=
+(s) to consider:
 >=20
-> Apologies for the AI-like commit messages. Those are at my prompting sinc=
-e I
-> want these patches to be understandable by folks who may not know or
-> understand the underlying details of SMD roaming so I requested they cont=
-ain
-> enough detail that referencing the spec should not be necessary.
+> Pre-existing issues:
+> - [Critical] Double free of `f->target` on early VFS failure paths due to =
+uninitialized slab memory.
+> --
 >=20
-> AFAIK none of this code is AI generated.
+> commit 9fd2012cfec1b8d15df193fea97deabda99aa5e5
+> Author: Lucas Jeffrey <luquijeffrey@gmail.com>
+>=20
+> jffs: initialize inocache to NULL when initializing a jffs2_inode_info
+>=20
+> When a jffs2_inode_info is allocated via new_inode(), due to memory reuse =
+it
+> can retain stale values from its previous use.
+>=20
+> If the new jffs2_inode_info object allocated retains an old reference to a
+> freed inocache, the function jffs2_new_inode may crash if either
+> jffs2_init_acl_pre or jffs2_do_new_inode returns an error value because
+> when calling iput() with the inode it will eventually attempt to free agai=
+n
+> the inocache.
+>=20
+> Reported-by: syzbot+3a8099322b09d8d073d1@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=3D3a8099322b09d8d073d1
+> Signed-off-by: Lucas Jeffrey <luquijeffrey@gmail.com>
+>=20
+> > diff --git a/fs/jffs2/os-linux.h b/fs/jffs2/os-linux.h
+> > index 86ab014a349c5..40f17218a276b 100644
+> > --- a/fs/jffs2/os-linux.h
+> > +++ b/fs/jffs2/os-linux.h
+> > @@ -52,6 +52,7 @@ static inline void jffs2_init_inode_info(struct jffs2_=
+inode_info *f)
+> >  {
+> >  	f->highest_version =3D 0;
+> >  	f->fragtree =3D RB_ROOT;
+> > +	f->inocache =3D NULL;
+> >  	f->metadata =3D NULL;
+> >  	f->dents =3D NULL;
+> >  	f->target =3D NULL;
+>=20
+> [Severity: Critical]
+> This isn't a bug introduced by this patch, but doesn't f->target suffer fr=
+om
+> a similar issue due to uninitialized slab memory on early VFS failure path=
+s?
+>=20
+> When the VFS allocates a new inode via jffs2_alloc_inode() in
+> fs/jffs2/super.c, the object is returned from the SLAB cache without
+> __GFP_ZERO. It retains stale values from its previous lifecycle, including
+> a dangling pointer in f->target, because jffs2_free_inode() frees f->targe=
+t
+> but does not nullify it.
+>=20
+> JFFS2 defers initializing f->target =3D NULL to jffs2_init_inode_info(), w=
+hich
+> is called after VFS initialization completes. If the VFS fails early (e.g.=
+,
+> inode_init_always() fails due to an LSM memory allocation, or iget_locked(=
+)
+> in fs/inode.c encounters a hash collision race and drops the newly allocat=
+ed
+> inode), the VFS destroys the inode via jffs2_free_inode() before JFFS2 eve=
+r
+> initializes it.
+>=20
+> This causes a double free when kfree(f->target) executes again on the
+> dangling pointer:
+>=20
+> fs/jffs2/super.c:jffs2_free_inode() {
+> 	...
+> 	kfree(f->target);
+> 	kmem_cache_free(jffs2_inode_cachep, f);
+> }
+>=20
+> Userspace can reliably trigger the iget_locked() hash collision race by
+> performing concurrent lookups (e.g., stat() or open()) on the same
+> non-resident inode:
+>=20
+> fs/inode.c:iget_locked() {
+> 	...
+> 	if (unlikely(test_bit(__I_NEW, &inode->i_state))) {
+> 		/* Uhhuh, somebody else created the same inode under us... */
+> 		spin_unlock(&inode_hash_lock);
+> 		destroy_inode(inode);
+> 	...
+> }
+>=20
+> Would it be safer to zero these fields in jffs2_alloc_inode() or ensure
+> jffs2_free_inode() nullifies them before returning the object to the slab
+> cache?
 
-Did you read it? The comments (in patch 1 we were talking about) are
-also all clearly generated.
+I think this is a legit bug pointed out by Sashiko.
+Do you want to double check and (if needed) fix it?
 
-johannes
+Thanks,
+//richard
