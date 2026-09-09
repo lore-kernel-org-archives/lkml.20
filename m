@@ -1,147 +1,126 @@
-Received: from m16.mail.126.com (m16.mail.126.com [220.197.31.6])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 258213AB5C7
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 11:46:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.6
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF3BD48F01A
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 11:47:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788954422; cv=none; b=R1QGrm012P6Ip6GOs3i1UCQjXyiSPJeKaKoXRGHvkt0PVd3Wh9RoihSLleJoTfFgPW1qbwR5gILznXmNOfX+1TJwLvd5UIBrTCIJfKGmwc2QbEh4GfMHYXM1DM8bWbeY32tY107kNIrjV4+gJdsKi+2Jz9kOQWF/vEnHtDIMKZg=
+	t=1788954457; cv=none; b=UrIN2Q0k2/2sltYlKHuqHt96b+KrtQ8qvt4lTFWx0gmH1JsW+6tE1XMuskswWhL2t1E7VuDStuLLZ3EKjXJq6zCXZJFAFQBChCr9C5rKDmpvVYCKzslnNxKQo8SgfR2zDbX/UYHeHwmJjTprNbhou/vSlLDMFECaLMLvD9P9Pug=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788954422; c=relaxed/simple;
-	bh=94SVdijHsAHHz7+IiLjB2kWR3+z6uPbwoWl/Rtfrsd4=;
-	h=Message-ID:Date:From:MIME-Version:To:CC:Subject:References:
-	 In-Reply-To:Content-Type; b=XqireJDrvNMBDoC8zX7Y/Ovb8QgcBYao//raQLZnuaiGGPzCYtl/221x7bp6kOlMxoTQ4dTWcqJpQAdPwsCh8r4fDJv9QYmNrw2KqCm8WZCorX1OPl+70edx/Qqzv2YmEc0lWlbcr3Y39tDjUarSjFl7yxJ6cYhNSIqUxgGt8Gg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com; spf=pass smtp.mailfrom=126.com; dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b=nM1aNr1X; arc=none smtp.client-ip=220.197.31.6
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=126.com
+	s=arc-20240116; t=1788954457; c=relaxed/simple;
+	bh=9H9sRGfp1ZaqJ3S1urVyd0m8mUDJ79HN5v6laHL1394=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=camy5lsb/2AjfxRFE4exePK39s3/SMWazG73HV3ew2aPS8BcQYAcEJKn00j2afl9lBEcS+2mNNnGbN26PUzJOjkLfcIpVn1H+RNpzIUB8wc1uZzgm6ElXeGt7KVan85mnfk7OUNDAG+n1DMsnap+KXTa7ML333zVWRROi0EWdpg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=O4pxxQMO; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b="nM1aNr1X"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
-	s=s110527; h=Message-ID:Date:From:MIME-Version:To:Subject:
-	Content-Type; bh=qyk1vUzPyUv2JdSJQ49+NGBwt2bdTTz+hVPctRD8n0g=;
-	b=nM1aNr1XrD0EqyCFE32YjNDJqF5DRoXhKGQJGb2vEQbe9tWBeVUyxxfViBvcSQ
-	z1cwgzRb/nc2LJ0P3q5C/G66W2swUcu7ymGtsiMnejL1LHh5ClU+caiQAugMkDWD
-	rWgOsXlQ8odrL0fihx3N9Xr6q10ytE9MTOhIwLfG6MofQ=
-Received: from localhost.localdomain (unknown [])
-	by gzga-smtp-mtada-g0-3 (Coremail) with SMTP id _____wD3XwcAR6FqdgWiAw--.10221S2;
-	Wed, 09 Sep 2026 19:46:09 +0800 (CST)
-Message-ID: <6AA146E0.4050805@126.com>
-Date: Wed, 09 Sep 2026 19:45:36 +0800
-From: Hongling Zeng <zhongling0719@126.com>
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:31.0) Gecko/20100101 Thunderbird/31.2.0
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="O4pxxQMO"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49cd38e0e5dso1416715e9.2
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 04:47:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1788954454; x=1789559254; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=TIfeIpZ4OJ7Fe6X5EWfuqkVso3+rNzjQrB57cPZXMxU=;
+        b=O4pxxQMO41+iz3VtN/jJVBbJttTgikeiSsv4Ggre72YYrMJ/tDXZ7mOeUN6dOkq6/E
+         E7K0POFY+g45BGV0o17tEoN6NdZr10gTj6YAMXZIuOIPudeASHrRG+J16oT9fCt53AcH
+         gzUqXV4qixX9YI8unNjt9tgolDR5HE8ZvF9XlGYcReqGQQRNMp9DS+Kre8P60QrAnSWE
+         PnauPaWZ9WjN+FEHpxU5nlP4rx3EqBNsD26OKsTY4dJ4fpwMWRI0VflSIbEdmqLEgJge
+         ycZ4y7DuqRIty1H8x1gArtr5vLmagNSOvd+HWjf0sykbdAw9LWjGMbySmEfvU/QWZof2
+         ff6A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788954454; x=1789559254;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=TIfeIpZ4OJ7Fe6X5EWfuqkVso3+rNzjQrB57cPZXMxU=;
+        b=SbTm8HtZ1V9ydl4pAZQb1bxDqBwuDPUlBaVc1AHLPEcg1vZY3DRpL3xA8wWFGJ1aM8
+         +B3AgV4sCbSZf24TOTxSqt3pl2s1ONJ5rioEVMb3xqcvaZEXny78Gicm22qRwOKb4IUk
+         S4lI17nlPv0aInR/RUX9eSlS9MuyvKKWOEMmD9OJb10SpRkr+AH4MifD1hYIi3h86fQv
+         ELtUNXGEaC4MOqq1gkMCD0KvZi8dDzqGZ+laZ+Rtobt9dg5dSlwmdb8bVlvJNGF53ApP
+         sqQL5HbGHVZVoCXvHinmV11X5HfJ6DAsQrljYXSGzRAFOsEiqgJsu5coh3UT87FAx9l4
+         q5vw==
+X-Forwarded-Encrypted: i=1; AKwUvByc8WbwGhvEI1PXsUV5ph8xUN43K5scyqYlfVlEjztxzMMgWO97COFMZtiNA3+AO02wmEzYvd8fwNO2Gp8=@vger.kernel.org
+X-Gm-Message-State: AFuF++lIgBkcKOT4tb7+0pZjlGuukR7rL48vgFS1Osq7qgrg+j8e6FSl
+	mC0ymzafLM+rfCWFu8wjrb5/r0OkanKSxlMAoeUZuv0hJstjZBW8B1WpBB3p3R95z+U=
+X-Gm-Gg: AYBFou1hoMT3zO3CUuOG4Svu0ipGUjFB87d+jtb+5cMOt4rfOfCX02L88jXbgExYzMK
+	AOw7s7sElG8LZsE2Cp3GZ9yTUN7WBYy9vrLdODCdVjv020rKGY0gV3x3LBjWgwEkwvbT2F36jiR
+	zpWC9LH5GTGz+cYztsWRIPf8eAEpAk/qXp7L3FDlFiNTHzZaA/Vq9QcpFR9XisfF5gjzTNaEune
+	7pgWnUiNFBIfZ58sAga/MvuJuGryvXTiRC17Q6XB7/iN5GVMZ7GvXMkHT5pl+96OpoMHlk1WPmz
+	iugrRiHStIw7zlN+9UQNwGaBr6Qhad2DewbrtP0oANmLmVWoPsQcwiVsXR1MjAupd11vwgGzS8k
+	KFZ+di573ZIykYy7/R472nuYaF+EH6w9Ca+ospDjrIVnhsI9s9U30t4r+8SmlptemA8whkrnKQA
+	qixlmCVUitsSCuwl4ahZetbpEj1mj/WNAXSOcZWzwBwJMTwLHDeB3xI1kQsbvipodSED4GnqvHR
+	EQMnj4K6m1uSDJaOfen8cmIdDTUQTjwmJ8=
+X-Received: by 2002:a05:600c:5307:b0:49c:f617:7cf with SMTP id 5b1f17b1804b1-49d25871d73mr12852825e9.0.1788954454028;
+        Wed, 09 Sep 2026 04:47:34 -0700 (PDT)
+Received: from ?IPV6:2a07:de40:8100:0:89a9:fd0e:583d:4a53? ([2001:af0:8000:1409:193:86:92:181])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cf7740d44sm1017732865e9.15.2026.09.09.04.47.32
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 09 Sep 2026 04:47:33 -0700 (PDT)
+Message-ID: <eef32841-26f1-4ea3-9915-67a60ec2752c@suse.com>
+Date: Wed, 9 Sep 2026 13:47:32 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-To: Manivannan Sadhasivam <mani@kernel.org>, 
- Hongling Zeng <zenghongling@kylinos.cn>
-CC: vkoul@kernel.org, neil.armstrong@linaro.org, johan@kernel.org, 
- kishon@kernel.org, rogerq@ti.com, linux-phy@lists.infradead.org, 
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v6 3/4] phy: ti-pipe3: Fix EPROBE_DEFER handling for clock
-  resources
-References: <20260619030214.1779043-1-zenghongling@kylinos.cn> <20260619030214.1779043-4-zenghongling@kylinos.cn> <m7mr6dgayt7kpibs632cb2bpvwxrj66vmscusqgpn47apcvrpq@di3nclql65bd>
-In-Reply-To: <m7mr6dgayt7kpibs632cb2bpvwxrj66vmscusqgpn47apcvrpq@di3nclql65bd>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3XwcAR6FqdgWiAw--.10221S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxAFWrGFyfuFyxGF15AF1rCrg_yoW5KrWxpF
-	s8G3WYyFyvyrWkGwsxXr1fX3WSyw1xKF4UGrWYgw1rZF13XF1kCFW3Kr4rWFy8CrWkuw4S
-	y3WUX3Z0ka4DuaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07j4Q6LUUUUU=
-X-CM-SenderInfo: x2kr0wpolqwiqxrzqiyswou0bp/xtbBrgHUpWqhRwFmaQAA3c
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v9 4/4] module: allocate codetag sections before the
+ regular module layout
+To: Hao Ge <hao.ge@linux.dev>
+Cc: Luis Chamberlain <mcgrof@kernel.org>, Daniel Gomez <da.gomez@kernel.org>,
+ Sami Tolvanen <samitolvanen@google.com>, Aaron Tomlin <atomlin@atomlin.com>,
+ Suren Baghdasaryan <surenb@google.com>,
+ Andrew Morton <akpm@linux-foundation.org>, linux-modules@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-mm@kvack.org,
+ Sashiko <sashiko-bot@kernel.org>, stable@vger.kernel.org
+References: <20260908092412.115953-1-hao.ge@linux.dev>
+ <20260908092412.115953-5-hao.ge@linux.dev>
+Content-Language: en-US
+From: Petr Pavlu <petr.pavlu@suse.com>
+In-Reply-To: <20260908092412.115953-5-hao.ge@linux.dev>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
+On 9/8/26 11:24 AM, Hao Ge wrote:
+> Whether a codetag section goes to the codetag region is decided by
+> layout_sections() and asked again in move_module(). A concurrent
+> load can shut profiling down in between, and move_module() then
+> copies the section to offset 0 of its regular destination,
+> overwriting whatever is there.
+> 
+> Decide and allocate in one pass, before the layout. Allocation
+> errors fail the load. On a tag area overflow profiling is already
+> disabled, so -EAGAIN makes the section fall back to regular module
+> data and the module still loads. The reservation is released and
+> module_tags.size rolled back, so a concurrent load which already
+> passed needs_section_mem() does not skip vm_module_tags_populate()
+> 
+> An SHT_NOBITS codetag section is zeroed explicitly, the tag area
+> pages are not zeroed on allocation.
+> 
+> When profiling was toggled off the overflow check did not run, a
+> module could load with more tags than the page flags can address,
+> and re-enabling profiling then silently corrupted /proc/allocinfo.
+> The check no longer depends on mem_alloc_profiling_enabled().
+> 
+> Based on a patch by Petr Pavlu [1].
+> 
+> Fixes: 4835f747d3ed ("alloc_tag: support for page allocation tag compression")
+> Reported-by: Sashiko <sashiko-bot@kernel.org>
+> Link: https://lore.kernel.org/all/499bb60c-c6e3-43a3-bd92-95a0567ece5e@suse.com/ [1]
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Hao Ge <hao.ge@linux.dev>
 
-在 2026年09月09日 15:52, Manivannan Sadhasivam 写道:
-> On Fri, Jun 19, 2026 at 11:02:13AM +0800, Hongling Zeng wrote:
->> ti_pipe3_get_clk() has two issues with -EPROBE_DEFER error handling:
->>
->> 1. When devm_clk_get() for sysclk fails, the function returns -EINVAL
->>     instead of propagating the actual error code. This masks -EPROBE_DEFER
->>     to -EINVAL, breaking the probe deferral mechanism and causing permanent
->>     driver initialization failure on systems with non-deterministic probe
->>     ordering.
->>
->> 2. For SATA PHY refclk, the function ignores all errors to support older
->>     DTBs missing the refclk property. However, this incorrectly ignores
->>     -EPROBE_DEFER as well, causing the driver to proceed without waiting
->>     for the clock provider to become available.
->>
->> Fix both issues:
->> - Return PTR_ERR(phy->sys_clk) instead of -EINVAL to propagate all
->>    error codes including -EPROBE_DEFER
->> - Use devm_clk_get_optional() for SATA refclk to handle optional
->>    clocks while propagating -EPROBE_DEFER and other errors
->>
->> Fixes: a70143bbef6b ("drivers: phy: usb3/pipe3: Adapt pipe3 driver to Generic PHY Framework")
->> Fixes: 7f33912d2978 ("phy: ti-pipe3: Fix SATA across suspend/resume")
->> Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
->>
->> ---
->> Change in v4:
->>   -Merge refclk leak fix and EPROBE_DEFER fix into a single patch
->>   -Use devm_clk_get_optional() for SATA refclk
->>   -Drop manual -ENOENT handling
->>   -Ensure error paths are fully symmetric
->> ---
->> Change in v5:
->>   -Add Fix ignored clock enable return value in init patch
->> ---
->> Change in v6:
->>   -Fix all clock leak paths comprehensively:
->>   -PCIe syscon update failure path
->>   -SATA DPLL lock check path (also fix incorrect return logic)
->>   -SATA errata path in ti_pipe3_exit()
->> ---
->>   drivers/phy/ti/phy-ti-pipe3.c | 20 +++++++++++++-------
->>   1 file changed, 13 insertions(+), 7 deletions(-)
->>
->> diff --git a/drivers/phy/ti/phy-ti-pipe3.c b/drivers/phy/ti/phy-ti-pipe3.c
->> index 2d36fe4c4218..9ec228c2a940 100644
->> --- a/drivers/phy/ti/phy-ti-pipe3.c
->> +++ b/drivers/phy/ti/phy-ti-pipe3.c
->> @@ -608,14 +608,20 @@ static int ti_pipe3_get_clk(struct ti_pipe3 *phy)
->>   	struct clk *clk;
->>   	struct device *dev = phy->dev;
->>   
->> -	phy->refclk = devm_clk_get(dev, "refclk");
->> +	/*
->> +	 * refclk is optional for SATA PHY to support older DTBs, but
->> +	 * required for other modes. Use devm_clk_get_optional() for SATA
->> +	 * which returns NULL for -ENOENT, allowing us to propagate all
->> +	 * other errors including -EPROBE_DEFER.
->> +	 */
->> +	if (phy->mode == PIPE3_MODE_SATA)
->> +		phy->refclk = devm_clk_get_optional(dev, "refclk");
->> +	else
->> +		phy->refclk = devm_clk_get(dev, "refclk");
->> +
->>   	if (IS_ERR(phy->refclk)) {
->>   		dev_err(dev, "unable to get refclk\n");
->> -		/* older DTBs have missing refclk in SATA PHY
->> -		 * so don't bail out in case of SATA PHY.
->> -		 */
->> -		if (phy->mode != PIPE3_MODE_SATA)
->> -			return PTR_ERR(phy->refclk);
->> +		return PTR_ERR(phy->refclk);
-> As Sashiko noted, you need to switch to dev_err_probe() here and below to avoid
-> printing error during probe deferral.
->
-> - Mani
->
-Hi Mani,
+This looks ok to me from the module loader's perspective.
 
-Thanks for your review and for pointing out the issues.
+Reviewed-by: Petr Pavlu <petr.pavlu@suse.com>
 
-I have addressed the reported problems in v7, including restoring the
-original `return ret` in the SATA PLL-locked path and cleaning up the
-clock error paths. The updated v7 patch series has been sent.
-
-I would appreciate it if you could review the new version when you have
-time.
-
+-- 
 Thanks,
-Hongling
-
+Petr
