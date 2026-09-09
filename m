@@ -1,76 +1,77 @@
-Received: from fhigh-b1-smtp.messagingengine.com (fhigh-b1-smtp.messagingengine.com [202.12.124.152])
+Received: from fout-b2-smtp.messagingengine.com (fout-b2-smtp.messagingengine.com [202.12.124.145])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6FC835DA4A;
-	Wed,  9 Sep 2026 19:51:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.152
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D51D3CAA54;
+	Wed,  9 Sep 2026 19:51:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.145
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788983498; cv=none; b=MoVMQnIoLLZvLY9BQ66/CCFG+q85i0rnG3BhIMCzH/c9oaD6lFotUygBs0ATtGhKWyDKubN0+SHSqWqIX/shj1En9dAo6TzC5/gJ/Kj+Q6VMXu4T6yjCL8iD092GEWAIkRKgbVAxzmpqkJuKSWXdnYvHRdJ4RBT2JGzs+HqKZlk=
+	t=1788983499; cv=none; b=E2nJ6Rxb420Vcec+JORdGxrujQYB/sf/CkYbF1BEkXe5e8TcNqfOTRrFhh3ewZIcZsU2e/hoJQtBhY7tTf5FHbs+A6iQAFiXCQW/luolCjCuX8c85bDj0RZQLX/9Kal8OU04oIk+N/oTxEac118JMDEqBfjltUZmvvG2d2afXEA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788983498; c=relaxed/simple;
-	bh=1LhBJ66w1k8GNfrsaXMA5+HvLgA6hwVpIRDgp3cGSDc=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=V4/rZNPg/nhQPzgYzBvK9baw/1Yc8Nua+bviRAIZDL/INzpc0NaDMBm6AeoJVmmDv899iydKb/T/8999LAeJmE4tRTc7atojrUxY/TPQlC4MhyCKoKKQH5FAGuvLOc8YpW6F8GuNziCc7cESDnklysJSd7DII4egM/AztOfZaPc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fastmail.com; spf=pass smtp.mailfrom=fastmail.com; dkim=pass (2048-bit key) header.d=fastmail.com header.i=@fastmail.com header.b=RqRB/h0H; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=gxs1QaTJ; arc=none smtp.client-ip=202.12.124.152
+	s=arc-20240116; t=1788983499; c=relaxed/simple;
+	bh=DEZX7yB5hvGm3kzuhsLGPVm3T+hGf3MNeV/sibLg9bo=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=G3+CDydSC48m4/Mh63tLV9UA5W1so9MYqzFWkIDy+zdjHLGq+J5MiBl80pqu2vqHlTceW+N2RuVxjTXbOAcWzeQF4EJPSL2h5MWJQu9t3wRzWxydoZv2vjAsEp6T9AYsUS2Epd54fA9v++Je0VSextIVrZaz16O3i/m/9d8OCsg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fastmail.com; spf=pass smtp.mailfrom=fastmail.com; dkim=pass (2048-bit key) header.d=fastmail.com header.i=@fastmail.com header.b=Mu3yInhg; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=R75cZC3y; arc=none smtp.client-ip=202.12.124.145
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fastmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fastmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fastmail.com header.i=@fastmail.com header.b="RqRB/h0H";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="gxs1QaTJ"
-Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
-	by mailfhigh.stl.internal (Postfix) with ESMTP id 9E1897A0075;
-	Wed,  9 Sep 2026 15:51:34 -0400 (EDT)
+	dkim=pass (2048-bit key) header.d=fastmail.com header.i=@fastmail.com header.b="Mu3yInhg";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="R75cZC3y"
+Received: from phl-compute-09.internal (phl-compute-09.internal [10.202.2.49])
+	by mailfout.stl.internal (Postfix) with ESMTP id 424821D0006B;
+	Wed,  9 Sep 2026 15:51:37 -0400 (EDT)
 Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-06.internal (MEProxy); Wed, 09 Sep 2026 15:51:34 -0400
+  by phl-compute-09.internal (MEProxy); Wed, 09 Sep 2026 15:51:37 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fastmail.com; h=
 	cc:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:message-id:mime-version:reply-to
-	:subject:subject:to:to; s=fm1; t=1788983494; x=1789069894; bh=Te
-	9pUtz8HHvJio0zOcSIK+7k4siPDoYwlTXA189ndtk=; b=RqRB/h0HHpLuGhYbEE
-	BV9fWqwdZccr2N3Lq6+PEGzLvMbWMoQhLwfRi0XT7GhbQKRgeF/XXOo3teHEsJqi
-	kFNZdJi6bWKoaG5YciykRyMkzdfteLXWAcWX33OxDzzNSomE6+v4iB5e2Iy1QtIY
-	BfWPnxVHqV/PRj4X3y5hB04ssAWHuzoF8mA95d9NCUG5NJ4Vb5915lRfVuAv2zW5
-	C7UbsiK3mOizcXlfoSOQPzNKzJWLNtI7v8/wiVcDUBWo2ID4BnI3x8mPhzWJy5df
-	XDm4SNPDIs2o3gqmM3I5fFQCy9wsUjQvdkDEpAJQgvCm+IjE8o7DJ0HRPU40yM8T
-	l76A==
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1788983497;
+	 x=1789069897; bh=yqUaOTYpRUdIsvweYNWO62QWWSoFqMe5Y9Qks7f38qE=; b=
+	Mu3yInhgGL1ZzvtTXp/8Ygiz+HkAs5O26j5Qty7QNlPTsQZtyGjgsayaYXwundVd
+	5C9V7Uuy/syV+NqT83JeQVbkFiCjVGB6O/Oxq6CNTTzk1OcPv2HsCx0q8EiXT8mp
+	IJNBqS7rHItvUizdU1ulYh+8w5huRm43jU9HrnG8ozLV1qMT/BKqDWHg8txI1ByN
+	16KjuqyIVU7SygL38wCtYmLrI6ezzg/gB+5kycKOE3qQGCAE7mG3ZmNkK2bLpDWi
+	lZvGNcjxyM8vzIQG1dYS5dfzrFulqcYhlMPAS3UHrjU9xFH/upc+5/0TEei1YTcO
+	naw67yW5Q0i6aY4KrzCjKA==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	messagingengine.com; h=cc:cc:content-transfer-encoding
 	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:message-id:mime-version:reply-to:subject
-	:subject:to:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
-	fm1; t=1788983494; x=1789069894; bh=Te9pUtz8HHvJio0zOcSIK+7k4siP
-	DoYwlTXA189ndtk=; b=gxs1QaTJbQyumEVnzjXq4xNMhHWWFduEoW5EY+T9nccV
-	BgXO4fapUMrWiPrhSNqAOhFDzXpw94r6u9eEBe/DenM1r4Ky0F443dgRL5FUYkvH
-	Wbqh+pPi4mgRNMkZ5f8mzpvfzPNe2onBcfhcyuD4Oiy3hWTUB5XVi9Td9qHHGFRO
-	5Xh7Tf74NaLmdmpLq4r+QZKnobju+IzQbVuAMIV4ZP732gHL7c5WYiK3Acnv2hWK
-	xC1qsjMyQDKqG0+XjSyO8qcXX5jMOwrTDx+C4vHPPBFezlPBjZxuW718AtNfj5v7
-	I5PBHjK5nsABXex/6iEKGOyC7ULOw4H9sjQDkPIIpA==
-X-ME-Sender: <xms:xrihaiyR1RdqoNHwivDhb0tD-31Ap9w1NFYGYX3qNdAUR7lEThULgg>
-    <xme:xrihamdoXsVVXvOBNHN9TKwoZ23xMoAlxK8q5RqBAOglnDt6rjdOn0P5thoYxU2Nh
-    cTETtoVUgEuXObfQlGHznth23cFi38L7IiCmUT3U3IG87iBed3F25F3>
-X-ME-Received: <xmr:xrihav6_bfVWpqIHmTz-3d33kJ1cpeEFymUSeaAXWsvSDf9oBjQWP_lbDgV7cGHq>
-X-ME-Proxy-Cause: dmFkZTFstriRpVOIzBLSQs0vKiuKLiGzVnASIcLfUyR+LMtT9K4QQkPigvZSe4eIWtHcOK
-    oTsUtKEkjjP0goX8ueiEWaxuzoai23k1jE5gQHkJfnlzZsCtducPKXV0N+lbRH+igkQXCd
-    VT/R6dIF+ub6C6WXaN2AtCctEyOj7isnkxxACqHgMwlCCbv1cHyTjKGg01+iHN9Umw4yK7
-    bDtqnNbYNnhh1NEiPub2l9mBZhWNvVCw/8DekLNHevxgWAOLh/asU+H6gtU7E4DUCHmBZ0
-    8LoBnnEodgh7rIzGS8lEklyIf4mW2/mXR6tx8uerqxY3JZjZY+tkzQfpFAFnWY+F+CyDsW
-    QwYw9mJxY9uHHlsovKKubHSS70FixIlEw6WA67mvKlRfIomh2iv261UbCLavupBNTrKUp5
-    D7T3i4vrmdMCao/mm6YUFj1wJZwyMKg2kqO370rLYACHevNRXLGxrX4FQfrea4EbKnkM5M
-    6GsGz0Kd7CERlilNd5CDwhTcARk3CNPcACuIyRZF/qR6+mmUUMy1a/5kss08sES1yblSjz
-    R471JvPHnrHhupMSvmnKJBX3K6WyqyXXr3UCiuiF+7CLszW4tcyRQaNW6RL258GYBxyXL/
-    2mEqoyuOD6p6OT/lJIIW1mOVA6/AaP5dSGAIyxpOcXe/HYHGA8vTRAU89Opg
-X-ME-Proxy: <xmx:xrihajJ52b507iSQc915NzWreSSjyP8ni69pGEk3Yt7BGdeBzoQz7g>
-    <xmx:xrihavzJ4bJsP4A7fe4q4ujvF1ldas-Xkp5-XjE8nvEJ_G-ZXRaNuQ>
-    <xmx:xrihajI70LhWT6q30WnrE0iRBQEv50G4TO1r1yEtWqwZWMOcez14bA>
-    <xmx:xrihamU7u4PlXXuaytMLNKBZELcqJGv3Z1i_m0qSzshXOCft0t1NaA>
-    <xmx:xrihalL1QxnBC6syIFUyGCuOzQXgevjzVgNpcNq6Zz7kBlyBpfNMmwW_>
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1788983497; x=
+	1789069897; bh=yqUaOTYpRUdIsvweYNWO62QWWSoFqMe5Y9Qks7f38qE=; b=R
+	75cZC3yAvX5sgg9+QgMEf/sxEY1PcBDGqG5StcEBWJJW3WXNpPcrpldlV2JshU9K
+	e1ctlYhXqfloW0jZg+qG2f9sSqURnoPp/xagr4qtmBEKiRnguwajOU+pL3FgfHzk
+	8ZbST+oS4Q7Elk97QdacSkCe7PTXFlSOy5/3ytueHYT02QE154h5pH3Zq5kP8KWT
+	av3CYRWtFkiSyqP2whpba2nHZ979Uh8cIATX2WtgDWM19/aONpx63BqUc8iBhEq6
+	KR06bZRohDG00TY9igcO2VlbewCFwcqPCpDSy5nIkk5EgUy3BIVT8IocB/9OThtG
+	6/BUcKRXoDIVFTPjAlBzg==
+X-ME-Sender: <xms:yLihapMxdqJkLXyawGycFWzLFYxya5xSA29_wDgJ9AsLcKxeiiaiPQ>
+    <xme:yLihakI-00xQNDxB3WdTif1rkWoqF788p_Prlh2wP0TEunmJ8MwLAv4Ksaj6NfoAP
+    6FAPRBAqjPvz0EQEMoaWcNkAEH7lU8EzIVXTD9dKXowJG6BNBJOg05u>
+X-ME-Received: <xmr:yLihaj2QM6q3-iQTPmfaq1Wd7gc2BxFYN3Gh-P5PV6bRR-DsqpPeyATyjgRCi1vz>
+X-ME-Proxy-Cause: dmFkZTEFYHVvCfwx4U8YgfEMH7BMorVr8L3QnVJJv9/D+0cn8YaEFJEd9DvtB2eKhSnml2
+    r1D4RAmLjpVhD2pdi5C/LqxCwGeSFV/6uvRt+FDpgJInpteK7lX7NH3zL9mFMl9RWk29g9
+    z0BgnWdxt5b9tLr864MkzteR+YtZ17YAh/GPMuSAZJGVOzLKb1GhmO4hFwcYwbqAVUxUfT
+    KixY5MutYW7h2xjR37QK+GPpi+YUwaS1njB+2XEffZuAgWY2q0jKqBXmXe5zJO8n+eCOe3
+    7qQqNNGfoDtPGVKwCBfkUdDMMx59hcSY5ovdOo4PjUcIBCt1hPaxUWwhL/GeYi3dXaY5CR
+    qgivfGxRrCzZjZcQ7SGqsVk6oSHaMqsRy4BAZEK/EdguEw4bgeho4Wr56xqNpGHYvouN8Y
+    wUDW1zdLOB1E4/BpxwvUBb4PE0ziYo2N5RuqfEzFd2/0JKGFASv9EF6HleMcZLOgGDq6ea
+    T79RIuWKTzjGTuQCNPt7FMx7c9KVyKtyCtYkmgRap9ZDK1cFyO8Rfb+zAxqensxAZzc9D5
+    C9viY9ZaFCVWLX7wnB6cIa7eWxD9xh/ZcN7UhBYhv2VhsB8FHNb9oHKPJPeTQsI5M/c2Zi
+    yKIprEDeS6s1c5eLbFSwbFwbsIF3DDlnBUP3cUjFWj/AUWF+5kOqGykE4JCA
+X-ME-Proxy: <xmx:yLihagW-PwxamDSUX3Yy4A1q_1msALksLN3vQSLQJT7yqVjlQsQj3g>
+    <xmx:yLihatOpxvU_kcAbW8PeMDl69ReLAjU6qKqkPoQ6WgmLYRrA30zBCA>
+    <xmx:yLihar2zkqHDU1bQqyLYgbeAeSnyubpP2xRMBz_skx5Q39u7AWkWIA>
+    <xmx:yLihapRw-QBlJOSVQKNoyo802ATstZXBNdu7FfyUTE33C2raXcuwog>
+    <xmx:ybihao1Zylo-i8iWmdL4VAKxNw6ZrLV7Ufm7m9bwurqzt2qLFr-o-sTy>
 Feedback-ID: i80b64ba7:Fastmail
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 9 Sep 2026 15:51:33 -0400 (EDT)
+ 9 Sep 2026 15:51:36 -0400 (EDT)
 From: Juanlu Herrero <juanlu@fastmail.com>
-Subject: [PATCH net-next v7 0/6] selftests: net: make iou-zcrx tests
- multithreaded
-Date: Wed, 09 Sep 2026 14:51:22 -0500
-Message-Id: <20260909-iou-zcrx-v7-0-6b5d48a2a922@fastmail.com>
+Date: Wed, 09 Sep 2026 14:51:24 -0500
+Subject: [PATCH net-next v7 2/6] selftests: net: remove unused variable in
+ process_recvzc()
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -79,64 +80,45 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWMQQqDMBQFryJv3Q9RigavUrrQ9LX9XURJooSKd
- 2+sy2GG2RAZlBF9tSFw1aiTL9BdKrj34F8UfRRGY5rW2LoTnRb5upCFlte2NnYwo0PJ58Cn5v/
- qBs8knjnhfpq4jB+6dJyw7z8hCSMBdgAAAA==
-X-Change-ID: 20260817-iou-zcrx-e8e46108a0bc
+Message-Id: <20260909-iou-zcrx-v7-2-6b5d48a2a922@fastmail.com>
+References: <20260909-iou-zcrx-v7-0-6b5d48a2a922@fastmail.com>
+In-Reply-To: <20260909-iou-zcrx-v7-0-6b5d48a2a922@fastmail.com>
 To: dw@davidwei.uk, netdev@vger.kernel.org
 Cc: io-uring@vger.kernel.org, linux-kselftest@vger.kernel.org, 
  linux-kernel@vger.kernel.org, kuba@kernel.org, asml.silence@gmail.com, 
  pabeni@redhat.com, shuah@kernel.org, juanlu@fastmail.com
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1990; i=juanlu@fastmail.com;
- h=from:subject:message-id; bh=1LhBJ66w1k8GNfrsaXMA5+HvLgA6hwVpIRDgp3cGSDc=;
- b=owGbwMvMwCWW/91SPSt7w03G02pJDFkLdxzunee1K+AdX8eTWa+Eq+yUXApDUwXfhZllKK3Z/
- O1YoF9Wx0QWBjEuBksxRRaPlyItGlMrGu+qRgjCzGFlAhkiLdLAAAQsDHy5iXmlRjpGeqbahnqG
- RjoGOsYMXJwCMNX35jMy7LNQmaobb7/ZUsl3VeWy5Wmh6WbalyXFZ29VMNmwqnCiMcP/8nNMRVv
- 6fe33Jx/fONk6X756UnJM5YmvVw/d3S7AElXFCgA=
+X-Developer-Signature: v=1; a=openpgp-sha256; l=901; i=juanlu@fastmail.com;
+ h=from:subject:message-id; bh=DEZX7yB5hvGm3kzuhsLGPVm3T+hGf3MNeV/sibLg9bo=;
+ b=owGbwMvMwCWW/91SPSt7w03G02pJDFkLdxzZNimMf9OaSdbpn35WyS64aqbNk2Jz57xDhdW37
+ X+Z6u/t65jIwiDGxWAppsji8VKkRWNqReNd1QhBmDmsTCBDpEUaGICAhYEvNzGv1EjHSM9U21DP
+ 0EjHQMeYgYtTAKb60CeG/zGTlwpN+LI/3DfU61mzHOMaZa6w8phtql71XHGr1hoFrWT4X9Olu7e
+ t0l1OfkKEruAi4T261jdP74/ebuO6orU5Pz+EAQA=
 X-Developer-Key: i=juanlu@fastmail.com; a=openpgp;
  fpr=48E9148428957881DD2558116FF739276A6BB0D9
 
-This series extends the iou-zcrx selftests to be multithreaded while
-preserving existing single-threaded tests.
-
-Patches 1 and 2 are prep fixes/cleanups. Patch 3 refactors the server's
-global state. Patches 4 and 5 add the multithreaded client and server.
-Finally, patch 6 adds the python side multithreaded test case.
-
-Changes since v6:
-- moving listen() after workers have registered their zcrx ifqs
-  (Sashiko, Paolo, Bobby)
-- worker verifies its own connections received the fully payload (to
-  deal with the 0 connection per worker case passing (Sashiko, Paolo)
-
-v6: https://lore.kernel.org/all/20260831-iou-zcrx-v6-0-02d1d012f0fd@fastmail.com/
-v5: https://lore.kernel.org/all/20260814012348.46958-1-juanlu@fastmail.com/
-v4: https://lore.kernel.org/netdev/20260729221825.42773-1-juanlu@fastmail.com/
-v3: https://lore.kernel.org/netdev/20260722203950.58550-1-juanlu@fastmail.com/
-v2: https://lore.kernel.org/netdev/cover.1776444379.git.juanlu@fastmail.com/
-v1: https://lore.kernel.org/netdev/20260408163816.2760-1-juanlu@fastmail.com/
+Remove the unused `sqe` variable in preparation for the multiqueue rss
+selftest changes to process_recvzc() in the following commits.
 
 Assisted-by: Claude:claude-opus-4-8
 Signed-off-by: Juanlu Herrero <juanlu@fastmail.com>
 ---
-Juanlu Herrero (6):
-      selftests: net: fix get_refill_ring_size() to use its local variable
-      selftests: net: remove unused variable in process_recvzc()
-      selftests: net: refactor server state into struct thread_ctx
-      selftests: net: add multithread client support to iou-zcrx
-      selftests: net: add multithread server support to iou-zcrx
-      selftests: net: add rss_multiqueue test variant to iou-zcrx
+ tools/testing/selftests/drivers/net/hw/iou-zcrx.c | 1 -
+ 1 file changed, 1 deletion(-)
 
- tools/testing/selftests/drivers/net/hw/Makefile    |   7 +-
- tools/testing/selftests/drivers/net/hw/iou-zcrx.c  | 422 +++++++++++++++------
- tools/testing/selftests/drivers/net/hw/iou-zcrx.py |  50 ++-
- 3 files changed, 347 insertions(+), 132 deletions(-)
----
-base-commit: 548b86839f7fb819a4d6c83b71c73ec378d24275
-change-id: 20260817-iou-zcrx-e8e46108a0bc
+diff --git a/tools/testing/selftests/drivers/net/hw/iou-zcrx.c b/tools/testing/selftests/drivers/net/hw/iou-zcrx.c
+index df6b62204343..c6dbd0ad5368 100644
+--- a/tools/testing/selftests/drivers/net/hw/iou-zcrx.c
++++ b/tools/testing/selftests/drivers/net/hw/iou-zcrx.c
+@@ -269,7 +269,6 @@ static void process_recvzc(struct io_uring *ring, struct io_uring_cqe *cqe)
+ 	unsigned rq_mask = rq_ring.ring_entries - 1;
+ 	struct io_uring_zcrx_cqe *rcqe;
+ 	struct io_uring_zcrx_rqe *rqe;
+-	struct io_uring_sqe *sqe;
+ 	uint64_t mask;
+ 	char *data;
+ 	ssize_t n;
 
-Best regards,
---  
-Juanlu Herrero
+-- 
+2.50.1
 
