@@ -1,45 +1,60 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail.cjdns.fr (mail.cjdns.fr [5.135.140.105])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA39557D22E;
-	Wed,  9 Sep 2026 14:10:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B37D52B1FF;
+	Wed,  9 Sep 2026 14:11:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.135.140.105
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788963053; cv=none; b=EMms945fegKOEDSsEkovQ8Azc+tebJ6TBfwgHvaN/b8GNoXDC5IfePHs3g7HpJlN30NVxxgMZhZyUoegP/pAiUYsy8MuFD7IPlcEk/rrKJguEv/6ckE2Ng053qujeGG6zS/MMuX3YrqAGdohFjhA7udsuZcid2SyiQemn/INmA0=
+	t=1788963084; cv=none; b=ZYVc4bNaGpaKUC9Y0IJHa+r/j4Y3PTO02jeKpXsx351CUUaU9CgHRTJm5ZuflrUbn3U6GQC2V3tbZT9cHl5+GW8qcuF/JhchZTbcuxEI5M7ZISWKzsg7Dqd+jNX33ZRoLV6Ek76P0bXzJcvtq8vVLWsGIAgnQRu06b71gwonJtY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788963053; c=relaxed/simple;
-	bh=ZgibdlYM3tl5BTcEFpMhi4IiQYjmjdqNhDir7a1veQE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=bVE+agUCnKFhtVAiutI2RIPrbXK0n0cSvgpcoGlsdGxslTyYadC0pMUgsRcVsxSvBjIBjCLDYJbu1fhk7354a7dYWh1gd4k0ZgjMcOxN8dFzUhJe4QMZP8oIbxVTmsLn/HIJ5j7pzYzNGaG9uAxb9h6Q3EvF5lhabdzQAUs3eCs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=R1mlK8DV; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788963084; c=relaxed/simple;
+	bh=em9lEzcQ17j77nlA5ULbhP+JQpXBNU+/2cH/TEM6/vM=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=icESTv3TMAN1wux9dFfSUSBFbE5HML5WkhiG+rFX+t+T6iA2BN0t0+zVLo7JelQD3LF9BEuFQXCMWSVdj54zGp1H1m8ezK4yFU4x36uHXaFvtjXSN5da/bOyTpOaGnJKCzLxFFsHj0vDZxdFKYLgHmVzFLGjQLQAyRHD3CggL2Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr; spf=pass smtp.mailfrom=cjdns.fr; dkim=pass (2048-bit key) header.d=cjdns.fr header.i=@cjdns.fr header.b=V0Bl0Pyn; arc=none smtp.client-ip=5.135.140.105
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cjdns.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="R1mlK8DV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 78B101F00A3D;
-	Wed,  9 Sep 2026 14:10:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788963052;
-	bh=B1G0RE11rFuDv8wSwFJPMwA6T59xz3vA91P/lORF3w8=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=R1mlK8DVE2PwiOkw+/PXbEwPI21LrBP20p7j9w8UB8vjSkz4wNAMoCcNY3JqrVsab
-	 2tsWexYVhqmjeQc3ujZWA6SYioFZC4WB+fjA0OOa/M62Ch59BRMZb9/XiGSDYxPugr
-	 uDSsjGy0qnDN/EFRxKLPOk9NAV4BSbMCrDIJxvpq3NwjJKhjH6//MfgCj2i5+8oHni
-	 /eNwclIaDsuUgH4qTdf4+RgartRtTRGnmtI0Iwv0ATTX1O5US6KLMcIuG1EgenBPPv
-	 sLJWWSVOc0OOrw5aXPSjAnZa/WhBuM7Iir0l8BfPQ6m0hOcvC/O5QR8346dGR6OyII
-	 fVyUXLgzv7utA==
-From: SJ Park <sj@kernel.org>
-To: Kunwu Chan <kunwu.chan@gmail.com>
-Cc: SJ Park <sj@kernel.org>,
-	akpm@linux-foundation.org,
-	damon@lists.linux.dev,
-	linux-mm@kvack.org,
+	dkim=pass (2048-bit key) header.d=cjdns.fr header.i=@cjdns.fr header.b="V0Bl0Pyn"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 2E5023F4CFF;
+	Wed,  9 Sep 2026 16:03:56 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cjdns.fr; s=dkim;
+	t=1788962643; h=from:subject:date:message-id:to:cc:mime-version:
+	 content-transfer-encoding; bh=xLi0wt5EgiuhG354z8EC8PK2vbC5Ize9fBnpPsOtAkc=;
+	b=V0Bl0Pynw325ad30OOqtsTgd1yy+X9jSaAEch0YTYZ+H/IqpjOLcVkvGjn5vlvzjYG0Twp
+	322UmHarUlALPu8E3kVfVPMrfbyAIpKBxegkb/jPhDalfwID+SMImaFC/aJVgrDK90qb+z
+	MgNZYpZ1DJmU44bxby8v0DBpww2hinmM2ilAy2ToniI7xCSqS/L4TwjKMXN3TVep1s4L+l
+	hw8IBhFHsTVVXmywRbcr4bKY8QTSu/wiD0w8QiE1RYBPE4Y2OnZROBSSgDAva18/149yAc
+	HESXKlEaH4dpQ3puhNxjqTaPcmvM4fMwBpMelP4SL9UtDBKFAV6hM5AYL+h80w==
+From: Caleb James DeLisle <cjd@cjdns.fr>
+To: netdev@vger.kernel.org
+Cc: andrew@lunn.ch,
+	olteanv@gmail.com,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	matthias.bgg@gmail.com,
+	angelogioacchino.delregno@collabora.com,
+	chester.a.unal@arinc9.com,
+	daniel@makrotopia.org,
+	linux@armlinux.org.uk,
+	arinc.unal@arinc9.com,
+	Landen.Chao@mediatek.com,
+	dqfext@gmail.com,
+	sean.wang@mediatek.com,
+	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Lian Wang <lianux.mm@gmail.com>
-Subject: Re: [PATCH v2] mm/damon/tests/core-kunit: improve nr_samples_per_aggr test isolation
-Date: Wed,  9 Sep 2026 07:10:44 -0700
-Message-ID: <20260909141045.105514-1-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260909070711.2448346-1-kunwu.chan@gmail.com>
-References: 
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org,
+	naseefkm@gmail.com,
+	b.larsson@gmx.com,
+	Caleb James DeLisle <cjd@cjdns.fr>
+Subject: [PATCH net-next 0/7] net: dsa: mt7530: support EcoNet EN751221
+Date: Wed,  9 Sep 2026 14:03:39 +0000
+Message-Id: <20260909140346.2861572-1-cjd@cjdns.fr>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -47,34 +62,57 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Wed,  9 Sep 2026 15:07:11 +0800 Kunwu Chan <kunwu.chan@gmail.com> wrote:
+The EcoNet EN751221 has a unique switch configuration. Every chip made
+with an EN751221 die has at least one on-die MT7530 that is MMIO based.
+This switch has 3x 10/100 ports and 1x gigabit port.
 
-> Test the zero sample interval case with a non-zero aggregation
-> interval, and keep the zero/zero case to cover the zero-result
-> fallback.
-> 
-> Also make the overflow case use an explicit sample interval so that
-> it does not depend on the zero sample interval fallback.
+Some popular chip packages such as the EN7513G and EN7526G have another
+MT7530 implemented as a multi-chip-module that connects to port 5 of
+the on-die switch and is controlled via the MDIO controller integrated
+in the on-die MT7530.
 
-Thank you for improving the test.  This looks good to me :)
+In this configurations, the upstream switch is put into a "passthrough"
+mode in which all traffic is forwarded between port 5 and port 6
+without altering its DSA tags.
 
-> 
-> Signed-off-by: Kunwu Chan <kunwu.chan@gmail.com>
-> Reviewed-by: Lian Wang <lianux.mm@gmail.com>
+Furthermore, since the DSA core does not call mt753x_setup until all
+switches are present, and the downstream switch only becomes available
+when the upstream switch has configured its MDIO controller, the MDIO
+controller setup on MMIO implementations must be done before
+mt753x_setup, or else it will never complete.
 
-Reviewed-by: SJ Park <sj@kernel.org>
+Finally, the on-die switch and the MCM switch connect via a TRGMII link
+which requires calibration. In order to calibrate this, PLL adjustment
+must be possible on the on-die switch, necessitating changes to the
+core_(set|clear|write|rmw) functions to support MMIO implementations.
 
-This patch is applied to damon/next [1] tree.  If this patch is not added to
-mm.git in short term (~1 week?), I will ask mm.git maintainer (Andrew Morton)
-to pick this.  So, no action from your side is needed for now.  If it seems I
-also forgot doing that or you cannot wait for my action, please feel free to
-directly ask that to Andrew.
+Solve all of these issues, add the TRGMII calibration, and add support
+for both switches.
 
-[1] https://origin.kernel.org/doc/html/latest/mm/damon/maintainer-profile.html#scm-trees
+Since this patchset will probably be subject to some discussion, please
+consider accepting any patches that are non-controversial since it will
+make future re-submissions easier.
 
+Thanks!
 
-Thanks,
-SJ
+Caleb James DeLisle (7):
+  net: dsa: mt7530: get ctrl phy addr using a function
+  dt-bindings: net: dsa: mediatek,mt7530: add passthrough mode
+  net: dsa: mediatek: add support for passthrough mode
+  net: dsa: mediatek: support PLL setup on MMIO MT7530
+  net: dsa: mediatek: support MDIO switch downstream of MMIO switch
+  dt-bindings: net: dsa: mediatek,mt7530: add econet,en751221
+  net: dsa: mediatek: support EN751221 switch
 
-[...]
+ .../bindings/net/dsa/mediatek,mt7530.yaml     |  50 +-
+ drivers/net/dsa/mt7530-mdio.c                 |   1 +
+ drivers/net/dsa/mt7530-mmio.c                 |   8 +-
+ drivers/net/dsa/mt7530.c                      | 575 ++++++++++++++++--
+ drivers/net/dsa/mt7530.h                      |  46 +-
+ 5 files changed, 628 insertions(+), 52 deletions(-)
+
+-- 
+2.39.5
+
