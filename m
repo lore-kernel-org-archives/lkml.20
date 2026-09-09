@@ -1,228 +1,172 @@
-Received: from mail-yx2-f12.google.com (mail-yx2-f12.google.com [74.125.224.140])
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E03C14B7158
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 10:12:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE34F4349BA
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 10:14:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788948766; cv=none; b=gTxZTmhnoY5/Fl4E7rrKXt6l3q9NeXs3uYafigNviju2wWgnMDjTHLOmnph2tnbROl3d1+sY54if7qob3a5+qSmuigkI+cgtZXeBzeF+eX5otdrOwTTe8zoFg4MFTh/fcGPDT7+jvs3xujseSIXIb0nGfMHFFyFx218H4APC/qM=
+	t=1788948849; cv=none; b=PVgwwtakF++NwEOK7sHV7rkFpRN2FXPYu6iqp3qUqF6jICGYdkMrrhb2RduO+mkW6W13v9+HS9AxM8kUzyHoqx2oA7N5SHWKGK2N9y0YhUG/+7x4BydZgVsumZLB0rAFl2PSBVUXRmM/L4IRMUc5DRes1V/CI0yID3hihbwhg6U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788948766; c=relaxed/simple;
-	bh=veK2eDLRVGTOGqy7tLB4YUJ+s0qY+28Zl0Q1bFSRbiU=;
-	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=hwiLy1s1XVkv6VLQyJhBX25Q9aveBHQ7qfRzx8eS3rvFpK8TBC1NIX0x5SZpkPdgZl0P/PYAf7BxrjFlysuwx3Yz46kE5JopdDBb3V8e7GYcYoHcmVOzA66LmIAVGZ6sHtM0ehLgPJEtwKBdhCk8Ak7iayC5/9zjGeASR/wN7aM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=mO/6uVOR; arc=none smtp.client-ip=74.125.224.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	s=arc-20240116; t=1788948849; c=relaxed/simple;
+	bh=8wkVR54HKtCmvT4epnFFfFoh7l/x4A5Z8r0EQJHwXbo=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=c4u5XjhxrruttHyZYtKSXr36TH+xXgUPKuVZ+B/0gO98Tp/h6VNvLOb/kYCxp7tAlSZaY1TqWuv7Dfms5QYBrmJRUERB5XFh36Ev2LkK7QglQRBrTi4cvftasmT/BWYoT+9ljYHlVX7frb++YCBxsNetZMWBcfIOV3uoCcI9fq4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=e0mmCYgB; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="mO/6uVOR"
-Received: by mail-yx2-f12.google.com with SMTP id 956f58d0204a3-66e4aa8e6bdso1184847d50.1
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 03:12:43 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="e0mmCYgB"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912d37b5so5165045e9.2
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 03:14:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788948763; x=1789553563; darn=vger.kernel.org;
-        h=content-type:mime-version:references:message-id:in-reply-to:subject
-         :cc:to:from:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=bX03VdslkeGAuZnZEXnLni54ZZj7BtxRxhR+YMJ/+OA=;
-        b=mO/6uVOR1LytX7R1AEc6xw8mKUHiLBuvD5LchX2wHlRXdFmIoI4MoQqBIbTy3bwHsG
-         e3bYpTA+zqhbhomqadUhQdNsmOwpbaTEq+uYRATB7A1Qr6wARQfIEuPVUv6ViDBN6vnH
-         R+2rLRJ1GxMHIGCVzzJ4eC4qT1F7Yz8mL9CpvJWRwI6BrI1iQoYbS7pe4dFCIWjh9mK4
-         bvqg8H9QnJYjNhSjxmYLHm7zzbaRmYyW18RyqmYlq2jBDh/04Jnqa8mPYKpC8b6EuzLL
-         poiC5S0mXDQQbJ/bhIDYdrY0kd77QsDbdZOR47LIIAwn6pjezMNckQtuUDwwI9ZJi4Aj
-         IhUA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788948763; x=1789553563;
-        h=content-type:mime-version:references:message-id:in-reply-to:subject
-         :cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1788948841; x=1789553641; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=bX03VdslkeGAuZnZEXnLni54ZZj7BtxRxhR+YMJ/+OA=;
-        b=MP6Kn85jbIuWp5eQw4ChB2Vtj9wLOR7/SdBkcZDq6VW4p6NWxWjEe4iyUGGmxVOYO4
-         fqdWbeUYCQBfDmfGVjGzyYabTWSvSsXndv25hMm5xHP5xX6jpvzdOfT6/imKU/ex5Ede
-         awmUH4MdGyqyHV3ZfsDdQ6SgwfLxnRQ+YH63ZXolzwm7da15OeQUAdZXGou7s5Iyc877
-         lmXnf6+7J4SZmKK0TM0nFUMDiCa2dJOmhafDI2VwVWtvfKZHC2mNESii1KsKdUFJfmEr
-         MU6I62cmeiUSq5Qnh7Ccw/2Ilhgm8JhCeCXAysv0FUUF8a0iIlNIag8ncXXpP0icZG4C
-         h8YQ==
-X-Forwarded-Encrypted: i=1; AKwUvByi+8nY+98ko2voAQHgwizwY1X+Hmb3m238wlJpY3BJRZiBFNhFN7zWCXOpmDrKXlDsU/X3/rtGkkI3xLE=@vger.kernel.org
-X-Gm-Message-State: AFuF++mh6yc8AwWrvezpT7iohHSsMKMZtwiaUOA/BlO9k65CY0/mLYKU
-	tqmzarj1xAQ89bBt9R6f/zhdD2H0cKEbUPhN/v6AwIR7DPRQJSqK6d4JGIkhA6Gf2w==
-X-Gm-Gg: AYBFou2DIaDehW02DNXXqbpct71R6wzDRrC/HIw50LZvlRjAu0YFxboTKt6X3oVm61A
-	DuR19bLWl0dArTBCvvJ/EXsl29BYewU3mknKj8e+LievF+Q9lJ+LuKD93sVbFtVHx8Kb3M8Ml6X
-	Zomw/sjG0e8MUl416pMHo79rbtUYr+3Eu9Zlz9lJGCqmynBT19WIGtPea/2P5N+PjbbcadPOj6D
-	SB+Cm7Jq9sbpvdqoF4XRMfFEe9HOePlik5yBzQAxF4sI+5c5wdMWofyFaL84ywK/4ZRItCq4p2q
-	yJjR0q+LOMhJxqPJKcExDEfRnd7jvTOtYeq0DsAwZikoRCPud7N0vdOSgn6vAl2IqYPRTHHZOZd
-	HTrP3KmI6kg/o6cWCBOQ91KrTMBX1pZUwOCvj3MaXIO4Styb6t0GgbHqSiNnnBXq9a4SBIxHbx5
-	6R9coUlsz1oLCGE3DoCiIsrRbEkIeLAheUzbz1Sd1CrOLPc9X6gRMwu11PzkKZy2GWG5uzo37YL
-	ojdTARP/Tf6SpC7q2Nc9DU2mhSp1QiyvEAOvpj4Qw7HPpND4neU/OBCdxI=
-X-Received: by 2002:a05:690e:1243:b0:66f:d290:6336 with SMTP id 956f58d0204a3-670f4914bc5mr2669673d50.10.1788948762060;
-        Wed, 09 Sep 2026 03:12:42 -0700 (PDT)
-Received: from darker.attlocal.net (172-10-233-147.lightspeed.sntcca.sbcglobal.net. [172.10.233.147])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-670febedc44sm2574235d50.11.2026.09.09.03.12.37
+        bh=L3wFqSlIV4kXpf46Lk+RTfPnzO0CcPwpy1/grqIwRVw=;
+        b=e0mmCYgByrZO++YUpPtjPuHNXiRbLqqCuD7lmAJx+/bIix8YVQifSIM+AYJ3LazzO3
+         FuBGLWCXjBTPMt/nxM7o/0DxTAZ6HLuZMRzSbxPz5f0384J+kNaDFmZzdi8Q7ZolZCSp
+         RnKMVlk2md7ub6P73TMruid7fbe467pow52qMrphIhbATVKv54J/h9GwsVGLdK6BePhG
+         C3+VIUaaQXdx9TBu6jySmi5YvUYr+8dnllVo7cLal8/kVKtjvVnX1YQwgnsXJGUv1mgs
+         wIh9oUuMyOCmF78vzNqeUY7FTJ661989MYTyqDB/SidRIlmj8i5aVPIRhM9YTrYzDlRT
+         MB8g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788948841; x=1789553641;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=L3wFqSlIV4kXpf46Lk+RTfPnzO0CcPwpy1/grqIwRVw=;
+        b=KLwA15rZLEHEK25+18y1K4aHW7X6iaNBwJvUlebJW5HPsrMHPMwvr7NbWS418K1Zph
+         EifKN15Jf7fBVX0OzKpYm5ncPzpPKvN/I+3hV7+witB33Zm9Ow9PfO+fOxTqRoWf9qUY
+         27ArFUUb/GzxkXFth8b76yt3VX/lnvJXj94HEc9L4OPnqtf1Rs2O6LpHl5cZsg0q5DgY
+         I4o71QDfQ+17Zpj9vn2bZW0o0CphZjEHCEfCacUvZDQ9c//yCjgTi05vVLAhiCMowbio
+         nQOefJQLO4X1hLkXcZiOrGNM82AJb+U9qiCDDXe1a01R2YIQoxkbGAhq0aQpbQ1WuMUU
+         kaFg==
+X-Forwarded-Encrypted: i=1; AKwUvByKA4skP2sT0PJ9wEUi7vzaslSi6lPvL1WjCmJcEdFKdoFJIvYr/YVn+dJ9Re8/HZapg+bYILOHoNBK6BU=@vger.kernel.org
+X-Gm-Message-State: AFuF++l0I3oY9f+92Nz/723hFVN9fSpB6CI0S/22jbo8fbjecQYZFIP3
+	K6tjjwqgNbiz4U4hCrYAaUYr+kuNNwGsMpq5k+AwKpKhSvLJgX5EWS8i
+X-Gm-Gg: AYBFou0LYtxp4vM4cyVKCNWx49Chu/MP+9F0nRdnqgLJ5JeUoRe3MjTkN03kdLxejM/
+	lUR7QD9wXoqM3Dg2m/kFiMb4dBrYOh6Ug1hTsD7Wq/Xgn1fGSQH2N1d3umtb6EL2Yir36/tjBdW
+	KwBxlFcauozRsyRquOA+IFY8D63zMBHzQjUwmikKcnFe66Lm28pOd9NDsKs4aTqOz5YmDBzvOOP
+	+HC6Bgwpz6DCZK7urwJq84p+VSPXr9n0PCy4InIlOu80LUn18brdCpbqPamxFX3J26UyGupuvam
+	86CNOXUXc55XWROU2J0+Ijdl2WN6pJNLD8XurVftlpucK1/tcIsJchdnSk4iqet5wsHpwh6HaRX
+	k23rOh5ZiavAmZS5gHQGUke50VWoLFbHaeAafkiLmn4y42ZNHwv3HCtLAyMlTStc4XvL8GBHZQh
+	kEkbWTFeK0kCP2zUrjjGd3A2tmgtWgWQA2p3tRqgKEqvb7c2WeUbrqUmW2kxV7k12TWHAB1GVWJ
+	Fj+eDEMw4mAyyB4W0Ct
+X-Received: by 2002:a05:600c:3b1f:b0:49d:5ff:f408 with SMTP id 5b1f17b1804b1-49d1f37bb1bmr82227985e9.15.1788948840941;
+        Wed, 09 Sep 2026 03:14:00 -0700 (PDT)
+Received: from VivoBook-ASUS-X712UA-M712UA.lan ([2a00:f44:c51:e108:e113:5dfd:782e:8bfa])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49d0af538d0sm336040765e9.8.2026.09.09.03.13.59
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 09 Sep 2026 03:12:41 -0700 (PDT)
-Date: Wed, 9 Sep 2026 03:12:36 -0700 (PDT)
-From: Hugh Dickins <hughd@google.com>
-To: Andrew Morton <akpm@linux-foundation.org>
-cc: Ackerley Tng <ackerleytng@google.com>, 
-    Alexander Viro <viro@zeniv.linux.org.uk>, Alexandre Ghiti <alex@ghiti.fr>, 
-    Baolin Wang <baolin.wang@linux.alibaba.com>, 
-    Barry Song <baohua@kernel.org>, Binbin Wu <binbin.wu@linux.intel.com>, 
-    Christian Brauner <brauner@kernel.org>, Christoph Hellwig <hch@lst.de>, 
-    Christoph Lameter <cl@gentwo.org>, 
-    Claudio Imbrenda <imbrenda@linux.ibm.com>, 
-    David Hildenbrand <david@kernel.org>, JP Kobryn <jp.kobryn@linux.dev>, 
-    Jan Kara <jack@suse.cz>, Jens Axboe <axboe@kernel.dk>, 
-    Johannes Weiner <hannes@cmpxchg.org>, Kairui Song <ryncsn@gmail.com>, 
-    Kiryl Shutsemau <kas@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
-    Leonardo Bras <leobras.c@gmail.com>, Lorenzo Stoakes <ljs@kernel.org>, 
-    Marcelo Tosatti <mtosatti@redhat.com>, 
-    Matthew Wilcox <willy@infradead.org>, 
-    Mel Gorman <mgorman@techsingularity.net>, 
-    Miaohe Lin <linmiaohe@huawei.com>, Michal Hocko <mhocko@suse.com>, 
-    Minchan Kim <minchan@kernel.org>, Muchun Song <muchun.song@linux.dev>, 
-    Oscar Salvador <osalvador@suse.de>, Peter Zijlstra <peterz@infradead.org>, 
-    Qi Zheng <qi.zheng@linux.dev>, Rik van Riel <riel@surriel.com>, 
-    Sebastian Andrzej Siewior <bigeasy@linutronix.de>, 
-    Shakeel Butt <shakeel.butt@linux.dev>, 
-    Suren Baghdasaryan <surenb@google.com>, 
-    Vlastimil Babka <vbabka@kernel.org>, 
-    Yang Shi <yang@os.amperecomputing.com>, Yu Zhao <yuzhao@google.com>, 
-    Zach O'Keefe <zokeefe@google.com>, Zi Yan <ziy@nvidia.com>, 
-    linux-block@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
-    linux-kernel@vger.kernel.org, linux-mm@kvack.org
-Subject: [PATCH v2 15/26] mm/fbatch: remove shake_folio() shake_page() from
- memory-failure
-In-Reply-To: <e28f9a94-4339-f8ac-8301-6be3c9b5b7ce@google.com>
-Message-ID: <29067356-073c-2c36-a78b-7d7d4920aae3@google.com>
-References: <e28f9a94-4339-f8ac-8301-6be3c9b5b7ce@google.com>
+        Wed, 09 Sep 2026 03:14:00 -0700 (PDT)
+From: Stanislaw Pal <kuncy7@gmail.com>
+To: Luiz Angelo Daros de Luca <luizluca@gmail.com>
+Cc: Linus Walleij <linusw@kernel.org>,
+	Andrew Lunn <andrew@lunn.ch>,
+	Vladimir Oltean <olteanv@gmail.com>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	=?UTF-8?q?Alvin=20=C5=A0ipraga?= <alvin.sipraga@analog.com>,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net v2] net: dsa: realtek: rtl8365mb: wait out the full chip reset time
+Date: Wed,  9 Sep 2026 12:13:55 +0200
+Message-ID: <20260909101355.25660-1-kuncy7@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <CAJq09z4qBz+poVQR3tEQzB-_4se5ka76Xq1mwEM0RvEnTuGLNw@mail.gmail.com>
+References: <CAJq09z4qBz+poVQR3tEQzB-_4se5ka76Xq1mwEM0RvEnTuGLNw@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 8bit
 
-shake_folio()'s lru_add_drain_all() no longer serves a purpose, now that
-the per-cpu fbatch references are gone. Are the retries in get_any_page()
-then still useful? Not obvious, so keep them.
+Hi Luiz,
 
-Signed-off-by: Hugh Dickins <hughd@google.com>
-Acked-by: Miaohe Lin <linmiaohe@huawei.com>
----
- mm/hwpoison-inject.c |  1 -
- mm/internal.h        |  1 -
- mm/memory-failure.c  | 38 +-------------------------------------
- 3 files changed, 1 insertion(+), 39 deletions(-)
+Thanks - all three points are fair, and the first one I owe you a
+correction on.
 
-diff --git a/mm/hwpoison-inject.c b/mm/hwpoison-inject.c
-index a11222572f97..9eab4b7d25b2 100644
---- a/mm/hwpoison-inject.c
-+++ b/mm/hwpoison-inject.c
-@@ -118,7 +118,6 @@ static int hwpoison_inject(void *data, u64 val)
- 	if (!hwpoison_filter_enable)
- 		goto inject;
- 
--	shake_folio(folio);
- 	/*
- 	 * This implies unable to support non-LRU pages except free page.
- 	 */
-diff --git a/mm/internal.h b/mm/internal.h
-index 40bd128a58ae..6700fff13675 100644
---- a/mm/internal.h
-+++ b/mm/internal.h
-@@ -1171,7 +1171,6 @@ static inline bool node_reclaim_enabled(void)
-  */
- #ifdef CONFIG_MEMORY_FAILURE
- int unmap_poisoned_folio(struct folio *folio, unsigned long pfn, bool must_kill);
--void shake_folio(struct folio *folio);
- typedef int hwpoison_filter_func_t(struct page *p);
- void hwpoison_filter_register(hwpoison_filter_func_t *filter);
- void hwpoison_filter_unregister(void);
-diff --git a/mm/memory-failure.c b/mm/memory-failure.c
-index a8b03e2920ba..d0abbe13447e 100644
---- a/mm/memory-failure.c
-+++ b/mm/memory-failure.c
-@@ -310,30 +310,6 @@ static int kill_proc(struct to_kill *tk, unsigned long pfn, int flags)
- 	return ret;
- }
- 
--/*
-- * Unknown page type encountered. Try to check whether it can turn PageLRU by
-- * lru_add_drain_all.
-- */
--void shake_folio(struct folio *folio)
--{
--	if (folio_test_hugetlb(folio))
--		return;
--	/*
--	 * TODO: Could shrink slab caches here if a lightweight range-based
--	 * shrinker will be available.
--	 */
--	if (folio_test_slab(folio))
--		return;
--
--	lru_add_drain_all();
--}
--EXPORT_SYMBOL_GPL(shake_folio);
--
--static void shake_page(struct page *page)
--{
--	shake_folio(page_folio(page));
--}
--
- static unsigned long dev_pagemap_mapping_shift(struct vm_area_struct *vma,
- 		unsigned long address)
- {
-@@ -1459,10 +1435,8 @@ static int get_any_page(struct page *p, unsigned long flags)
- 			 * We raced with (possibly temporary) unhandlable
- 			 * page, retry.
- 			 */
--			if (pass++ < GET_PAGE_MAX_RETRY_NUM) {
--				shake_page(p);
-+			if (pass++ < GET_PAGE_MAX_RETRY_NUM)
- 				goto try_again;
--			}
- 			ret = -EIO;
- 			goto out;
- 		}
-@@ -1477,7 +1451,6 @@ static int get_any_page(struct page *p, unsigned long flags)
- 		 */
- 		if (pass++ < GET_PAGE_MAX_RETRY_NUM) {
- 			put_page(p);
--			shake_page(p);
- 			count_increased = false;
- 			goto try_again;
- 		}
-@@ -1627,7 +1600,6 @@ static bool hwpoison_user_mappings(struct folio *folio, struct page *p,
- 	LIST_HEAD(tokill);
- 	bool unmap_success;
- 	bool forcekill;
--	bool mlocked = folio_test_mlocked(folio);
- 
- 	/*
- 	 * Here we are interested only in user-mapped pages, so skip any
-@@ -1658,13 +1630,6 @@ static bool hwpoison_user_mappings(struct folio *folio, struct page *p,
- 		pr_err("%#lx: failed to unmap page (folio mapcount=%d)\n",
- 		       pfn, folio_mapcount(folio));
- 
--	/*
--	 * try_to_unmap() might put mlocked page in lru cache, so call
--	 * shake_page() again to ensure that it's flushed.
--	 */
--	if (mlocked)
--		shake_folio(folio);
--
- 	/*
- 	 * Now that the dirty bit has been propagated to the
- 	 * struct page and all unmaps done we can decide if
-@@ -2554,7 +2519,6 @@ int memory_failure(unsigned long pfn, int flags)
- 	 * The check (unnecessarily) ignores LRU pages being isolated and
- 	 * walked by the page reclaim code, however that's not a big loss.
- 	 */
--	shake_folio(folio);
- 
- 	folio_lock(folio);
- 
--- 
-2.51.0
 
+The power supply
+----------------
+
+That July message was too broadly worded, and I should have followed up
+in that thread rather than leaving it as the last word.
+
+What the A/B/A established still holds, but for a narrower fault than I
+claimed. The July signature was link up at 2.5G/Full with 326 FCS errors
+and 326 drop events on the switch's CPU-facing port; swapping the supply
+made it go away and putting the old one back brought it straight back.
+I have no reason to doubt that part.
+
+What I got wrong was declaring the cold-start problem closed. On the new
+supply the board later came up broken again, several times, with a
+different signature: no FCS errors, no drop events, no CRC or symbol
+errors anywhere - the switch simply never forwards what the CPU sends,
+and the MIB TX counters on the user ports stay at zero. A power cycle or
+a driver re-probe clears it. That is the failure these patches address,
+and it happens on a supply that is not faulty.
+
+So: two faults, one supply-related and settled, one not. I conflated
+them in July.
+
+
+Why unbind/rebind always works
+------------------------------
+
+I do not have a measurement that settles this, so treat what follows as
+a hypothesis.
+
+At rebind the chip has been powered for minutes or hours, so whatever
+internal power-on sequence it runs is long finished; the driver's reset
+then only restarts the register blocks, and they come back quickly. From
+cold, the reset lands while that power-on initialisation is still in
+progress, and the two overlap. That would explain why the extra wait
+only ever matters on the first probe after power-on, and why every warm
+path - rebind, reboot, sysupgrade - is clean regardless.
+
+It also fits your RTL8367R observation: if the reset bit reflects the
+register-level reset rather than the completion of the internal boot,
+then how much slack there is after the bit clears is a property of the
+part, and a driver that keys off the bit alone is relying on that slack
+being zero.
+
+
+The deadline arithmetic
+-----------------------
+
+I have no attachment to the implementation, but I would rather not
+change it on my own judgement here, because you and Linus have landed on
+opposite sides: he reviewed this version specifically liking the
+deadline optimisation, and you would rather see the complexity gone.
+
+If you two settle on the simple form I will send a v3 with
+
+	msleep(RTL8365MB_CHIP_RESET_TIME_MS);
+
+up front and a single read of RTL8365MB_CHIP_RESET_HW_MASK afterwards,
+returning -ETIMEDOUT if it is still set. Total probe time is the same
+either way; what the current version buys is only that a chip whose poll
+already took the full second does not wait twice, which on reflection is
+not worth the arithmetic if it reads as complexity to the people
+maintaining this.
+
+
+Numbers
+-------
+
+One thing I should be straight about: the "one cold boot in seven"
+figure was measured with both patches applied together, so it does not
+attribute the failures to either one on its own. Johan raised the same
+point on the OpenWrt PR. I am running per-arm cold-boot counts now -
+neither patch, 714-01 alone, both - on the only board I have that
+reproduces this, and I will report the counts when I have enough boots
+for them to mean anything. If 714-01 alone turns out to be sufficient,
+the second patch should be dropped rather than respun.
+
+Best regards,
+Stanislaw
