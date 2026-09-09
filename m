@@ -1,104 +1,136 @@
-Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
+Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E6CF58FD1C
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 20:42:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FA083C108F
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 20:43:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788986575; cv=none; b=oMqDaSZfdn3YrXUKie7HjoU5Lp2VAIJSZV1uUyFT6uHY/0ae+GzoixXTojJ8CPm90iDTbPZCZGNQ2eSq2I/IaK/IlL0Lgr12qAlUy+Pyd5nr7mnOju0sAQmCN0xmWEkGj9Oqfw8cOXCV52aWiIEQtFl/PKTzYOXznk3NPSl0uns=
+	t=1788986610; cv=none; b=sS4lKC8wKeP1D+G9zSvnOzJb7I8vt3qPrzCzvI2SpNJ6SccSIGhM2WhFhbSHtVMGSC3DY4kBFEt4oeccAs6vUhraopaIEWh5xqHZKVYbA1nXn66FR43p11RknEn/Cot3lE/5DEZCMO53MdKwhdDq0Hmdem16s5IJ+XeFikANp+4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788986575; c=relaxed/simple;
-	bh=E7DWEF6kIazrc+lVVClekzdOah7P641Dc3PJ2nRN9Vs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Hmrn7EbioWXvTjQrOSxDleQg5HpQls7ihJVLpOFMvPivjnsiiIm5L14nsEZ9aS+l0xpvZYhbeNDcChjyLE8DBTBuMiKy9tzkSkhxTCRdgz+VQCFJibS7fTyx3OKqWsxmbFKNx4hoEgSf2gzcXeKHUOUuH1YWCj+153lmQ1W8zmE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bzutj+q1; arc=none smtp.client-ip=209.85.214.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788986610; c=relaxed/simple;
+	bh=ms+wPxxykgLhoZIPeEqV1SUNEDq6O/wPxWyQ2fNzuOA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=XFblQF1sbExXi1E6ReF8iu1/XMBwdu4Uu8yhDfPMYD3qcE4ZwRDHk0tCw4YQBWUfKwX1g1FUCwkShMLpvAoXmE9u07LLkOihMUM/SDB5jttJ4BioNgSckUuMfPrVJXIKHIVIOvykBO6UfyoUDrVnREPurfdwRp2V9Egz6oUEROc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lex.la; spf=pass smtp.mailfrom=lex.la; dkim=pass (2048-bit key) header.d=lex.la header.i=@lex.la header.b=am39DyZ5; arc=none smtp.client-ip=209.85.221.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lex.la
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lex.la
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bzutj+q1"
-Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-2dcff8f44f2so15075255ad.1
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 13:42:51 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=lex.la header.i=@lex.la header.b="am39DyZ5"
+Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-48589798dbbso5194840f8f.3
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 13:43:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788986569; x=1789591369; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=WShcmBXFwgNzgoPR80LHtqAmSPW10etwWYZcOuhMszU=;
-        b=bzutj+q1Fppr+Gt9UeN9vABv3gUmz1FwFsm//AkzqFB/cJoa5l/wuPpFwLHMwc+Wib
-         nDgppEui6tU5k3BWZfuv60DElJ+ybZaXpmcQUV7Ja89RhWUqhFIBm9C5CPeFUPD/aTvh
-         P+ocq3ccwaPJ77XXCx3Gwm74BHkgd+iQReOKa+5FOItmOE/WaOsRXLHyVy/C0yfmk5BM
-         8yJEzdpi9Okz0ydZYilSs2cbv6Gnguaxw72tzxF48pcu/Chua1Cas4kqqjbSTzRLzjIq
-         DmNUJmDrURL75lZA0VeWNmLmUWPAumCwZuslZjpTWgVmjlUNwt2axVVAO/ZQG9KFBseo
-         NOAA==
+        d=lex.la; s=google; t=1788986594; x=1789591394; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=0MCT7Y2OFjhcDKKihQE5DUJP52LKyDCkCXjyba/ItNY=;
+        b=am39DyZ5bpMeXNn/GKFma2YAv0wQ7iOBY6EiZSDBjgVlL2BFzvjynz5WjHSSp6WJDx
+         vINt9mbwhWnE/gzo0WpJMr9aJRIrg5J2/IpqLPcAR2WvWD1ZLgO7DeGgP6JiWBt6Eayf
+         mvmKu+L9amaBXOmSQq9xGD5q75//Pw4g7A+fTrrUlycXSstclYg/xV31S8fWUd4wJKnV
+         qsAN5FSrPqF9qa37bAjF5OamAXhWIFAOgE37+s6AzvMiYhMnYGtU1AqKX8DdzUwN+YuV
+         lA6Y+IU4OtPFdFOcKeawKIzmNJ6D+UFNXjn8qRW/JE88ecU/S3us5fH8tx9mheHiSpTg
+         1P/A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788986569; x=1789591369;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=WShcmBXFwgNzgoPR80LHtqAmSPW10etwWYZcOuhMszU=;
-        b=DHfXDDSjsqhcomMpqOjEYUkp4k8v2Zh3dmIa1E8Ih2yhKe9dNnDx6W3/FhtCMXz+MI
-         Mhyu6Fg068K+CS14GRJhKSpkqRdQ8Igk9cdoNXt2uclFNeGQ93AGnOufkyNFirqN++W2
-         hDO9SIqGoAuqB/OTvBMuefHowPf+TIgdfnbH9lPKB+2yXLR9KLe/cA9CPZ0aDK0d0Hpo
-         ceXaTiamI61YHonO9hUTay93BOlIA77sSwOSYuF72lZPaEPZzGgT/N2/99WxqH5cQoJH
-         Jjv7cwhsi2AU+MDnnOsaP1RfJNgrDxafec7iFh5FDL73fGLeuGR6NBGU/e0Hk6Aa4TyA
-         ZoMA==
-X-Forwarded-Encrypted: i=1; AKwUvBxB+pv30Cfzn7Pb7Pz+y95nCdVGjQMKzoODrN6T3XSm5XTHnKOHT3bURWpsyKRgp6gaIbgsxswbc10J37I=@vger.kernel.org
-X-Gm-Message-State: AFuF++lfFS25bhCNi1ljS0uX7bIMB+Ofa7WfnlLXdpu8xt3FEfJInJkc
-	qOwN9DuKsHUDf0BVKGZ+BgKbDF3QSWOnEozhHfYkM883QcFz+7x1cFx7
-X-Gm-Gg: AYBFou02u0U4jT3xMDie+ret2DKtqbcn07/dvUzH+f5v3Rb4obaNOC+UPgPHQL1MR6o
-	8Ne4ZCsjs7sIxRqosAda8YJY38wKqxrAzkDli7GRiBAXeIczcYv9+hdwwA3rrCG31HWjXddb5s9
-	/NVmV3/cCZ+Pk5JiEu+OtzTUKtOe6zqd6LxdNz4/XLL6suK6R8+KLD1GyrnNisdLF4PTtehtIRQ
-	PjeeA9VkVisoLDhJS/mGJvdGLyCksQz3DBU09Z57icrDlv9I6EK/q6d/Dgy8AMam3oio8tVGJOZ
-	/sSb0cySRDHlMT0Wl/vvFtgycY9gF5lT6PsQKAiYKNr8CREzFPIRUkFEZcNIc3BayZdpVRbH6cY
-	Y2XWPorOfnMEAhlP3F1UWZdJ4RfJlz3lq5e6v98rbUOyUclwa4MYUvKGd1zi4rkUegCkj9eMeIG
-	LezvD9bmG+MzXfhFeGTVd7EWuS79YDG1Ny9Hw1O+6UYdu5RYxUi2O6TSRrjfyOcD2dkuM2NKIL8
-	taeZvHCfAdt
-X-Received: by 2002:a17:90b:2f46:b0:396:6344:3b63 with SMTP id 98e67ed59e1d1-39b260de5c6mr59642710a91.2.1788986569020;
-        Wed, 09 Sep 2026 13:42:49 -0700 (PDT)
-Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d774197c4sm1220340a91.8.2026.09.09.13.42.48
+        d=1e100.net; s=20251104; t=1788986594; x=1789591394;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=0MCT7Y2OFjhcDKKihQE5DUJP52LKyDCkCXjyba/ItNY=;
+        b=bVQ9u1AlyBMw7PhiNG43gEtnCYV/ZlmZ5A+ERYNP0i7EX2ZJLpJ/ECFBC8TZIjT4OQ
+         UqCI9s6zrBOrZNkkuRd/IsJNDfKyYWYqIg7d03rbFRv9w1pKxe2bjTd7JJ8oucv0aCxf
+         5in+XagaNrpc1Gt3njopDd+hX7Rxu10yaRM0IJ47hZ7GKnl+LWbfd6CdkIp2noF1tyUj
+         OB4yQAUCFpRD+vc0rSUt9TEFRxiCQGjw8eQfdaYpEtgUpGren21YspRG1xneINhUA4RB
+         KoN3j8pg0fHaCM2SDyjZ+RjWHdKmuEc0kbTmk61B0ru8rbPeR+vg+qUBLnGHg4kSNmDp
+         XkLA==
+X-Forwarded-Encrypted: i=1; AKwUvBxS8efnMmvhcLgI6Gk2dDzBQbPvNWZiIRhmzbOaJpaNDtf9VOBKF2dkMZwJQ9YLTl1VkePHA9Lo8pi2548=@vger.kernel.org
+X-Gm-Message-State: AFuF++nh2LNl1UnDkaqhcFxkAxSqXqU3D1Yxz1T3xG1JUuav0Xyu2g96
+	PyywVF+7b6MyrK+g2WUd9vmohYomQ/pE3iDsqbLP+fztyowQdeE01Bp0IXnmSYLZiBU=
+X-Gm-Gg: AYBFou2b40y2ZYmvcY9G9BkaAk4n6ereVjmd44pxOsZ36Oc47cufEYtELex/IMCslWB
+	2hqKA+TvcH1LGOP4cGemsBY6LRiFfmsTbiaNlAV4n6b/463PRilEUYWiL8IuUhqus0UbYKChLt4
+	WNQrNhoLievc5eQ8Gc+CuJVkS13lckHACpkVCaQfwGE/P1lxu1RmfHP1jSqrcZha/bpNQqOEqLK
+	+p0Roqrw70zc6oUt4IVhY7eTk0+XM78ZLpVe0uRpVq05yovOX9Rjo4NgegGE/75yN/AqQyifEMK
+	nDZuIdrOj3nZCXiUWJO53VW+AzKB/tOb8d/35ZqqriHuVgPvWgzB2Bn9Fv678/U7UlWuvYKYbHn
+	W2Bzg+iR73MhgUUJQO5wS9iqRfvAguamPL8MdKdqMtN0bx5LGV+5vZwTlMw+sXhExVQxfgXRVPi
+	TSO3XCK0AjUi3i7RY90K1xqrdZ4Q+8EcnOyem1Ufz2KdSwGd6mtg==
+X-Received: by 2002:a05:6000:1785:b0:485:91ac:434f with SMTP id ffacd0b85a97d-48591ac44a5mr29197734f8f.16.1788986594389;
+        Wed, 09 Sep 2026 13:43:14 -0700 (PDT)
+Received: from remote-01 ([84.17.55.229])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4858e239862sm40693606f8f.9.2026.09.09.13.43.13
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 09 Sep 2026 13:42:48 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Date: Wed, 9 Sep 2026 13:42:47 -0700
-From: Guenter Roeck <linux@roeck-us.net>
-To: Zakariya Hadrami <zkh@mailbox.org>
-Cc: Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Sean Wang <sean.wang@mediatek.com>,
-	Wim Van Sebroeck <wim@linux-watchdog.org>,
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org, devicetree@vger.kernel.org,
-	linux-watchdog@vger.kernel.org, zkh1@proton.me,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: Re: [PATCH v4 1/4] dt-bindings: watchdog: mediatek: Add MT8127
-Message-ID: <6a212071-3b1a-4dcd-8d9c-8df6352813b9@roeck-us.net>
-References: <20260909-mt8127-amazon-ford-basic-v4-0-e9af5c420ab1@mailbox.org>
- <20260909-mt8127-amazon-ford-basic-v4-1-e9af5c420ab1@mailbox.org>
+        Wed, 09 Sep 2026 13:43:14 -0700 (PDT)
+From: Aleksei Sviridkin <f@lex.la>
+To: andrew@lunn.ch,
+	hkallweit1@gmail.com,
+	linux@armlinux.org.uk
+Cc: olteanv@gmail.com,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Aleksei Sviridkin <f@lex.la>
+Subject: [PATCH net v7 2/2] net: phy: take the interrupt back from the bus on detach
+Date: Wed,  9 Sep 2026 20:43:06 +0000
+Message-ID: <20260909204306.2374562-3-f@lex.la>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260909204306.2374562-1-f@lex.la>
+References: <20260909204306.2374562-1-f@lex.la>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260909-mt8127-amazon-ford-basic-v4-1-e9af5c420ab1@mailbox.org>
+Content-Transfer-Encoding: 8bit
 
-On Wed, Sep 09, 2026 at 09:38:00PM +0200, Zakariya Hadrami wrote:
-> From: Zakariya Hadrami <zkh@mailbox.org>
-> 
-> Add entry for MT8127 SoC's watchdog which is compatible with MT6589's
-> one.
-> 
-> Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-> Signed-off-by: Zakariya Hadrami <zkh@mailbox.org>
+A PHY whose own driver is a module on a filesystem that is not mounted
+when the MAC probes gets the generic driver first. phy_probe() replaces
+phydev->irq with PHY_POLL because that driver has no interrupt support,
+nothing puts it back, and the PHY polls for the rest of the uptime once
+its real driver takes over.
 
-Applied.
+Take the number back in phy_detach(), from mdiobus->irq[], which is
+where phy_device_create() seeded phydev->irq from and where the bus that
+described the interrupt still holds it. Detach is the end of every bind
+cycle, so this covers the two substitutions phy_attach_direct() makes as
+well as the one in phy_probe(), without any of them having to record
+anything.
 
-Thanks,
-Guenter
+Doing it here rather than from phy_remove() keeps a single writer on the
+rtnl side. phy_attach_direct() is what reads the number back and decides
+whether to request an interrupt, and it holds no lock against the driver
+core, so a restore driven by an unbind would be racing that decision
+rather than ordered against it.
+
+A bus whose driver writes only phydev->irq and never the table is not
+covered, because the table then holds PHY_POLL and there is nothing to
+take back; lan78xx, smsc95xx and sxgbe are in that position today and
+registering the interrupt with the bus is theirs to do.
+
+Assisted-by: LLM
+Signed-off-by: Aleksei Sviridkin <f@lex.la>
+---
+ drivers/net/phy/phy_device.c | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/drivers/net/phy/phy_device.c b/drivers/net/phy/phy_device.c
+index 94b2e85e00a3..84e2da81dbd3 100644
+--- a/drivers/net/phy/phy_device.c
++++ b/drivers/net/phy/phy_device.c
+@@ -1969,6 +1969,11 @@ void phy_detach(struct phy_device *phydev)
+ 		phydev->is_genphy_driven = 0;
+ 	}
+ 
++	/* Whatever this attachment did to the interrupt, the bus that
++	 * described it still knows the number. Take it back from there.
++	 */
++	phydev->irq = phydev->mdio.bus->irq[phydev->mdio.addr];
++
+ 	/* Assert the reset signal */
+ 	phy_device_reset(phydev, 1);
+ 
+-- 
+2.53.0
+
