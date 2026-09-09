@@ -1,145 +1,262 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+Received: from mta0.migadu.com (out-223.mta0.migadu.com [91.218.175.223])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBEC3242D65
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 13:07:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B83454B1CB
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 13:08:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.223
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788959268; cv=none; b=RdMhbgUuJntKXTM1jTYE2XEdjeN923kV8mMuxkilVCVxUV2vVkDjZOj1YFXNfBQ+7lHrLYKChY0RrY2Vv3qZ74Xaih+/5UWzcqCmzsh3fgD3wCcBpRS1M3gT2QS708eMB1fSdBXPhcUnU3Pr+6GlA/T6sGBDccuCHjynKGVc1Ow=
+	t=1788959306; cv=none; b=XkV7xZziLtw4MtpZ/kyoWIxXIBi0vt2lgkbofjcF/3ZQiWPZGDWSPFBtP0/OSvBi4b1/kTG3O4gPj4fjtW6Th9wCv4gb20em3hFewyZvKdUCYsFtJF5vpyH0z/c8ECQlZww0VpHKpwOioG00t5agbKWKigalcipOXk+GbY4BWks=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788959268; c=relaxed/simple;
-	bh=E/My9ncjedyj86RSIW4IqQNhl5mZctXdRI+O7IRN0Xg=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=t+9pzUCf+PPv2E6Xxde7hIi+4nH1Owm7lD9DDonPk3zthd8yvpchWw87LBOmVniP6m04NZ6C18vURSR45LUW/ulqjNvigxJnVsbJwbTcRZnfPvYYtItgFyToCaIoET1K6FaTiYPx2epSOYUpAV7+64oU6o3VpQl99damC2KduGo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=glOVeoF+; arc=none smtp.client-ip=74.125.225.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1788959306; c=relaxed/simple;
+	bh=VhlFjNAgQI2Jtqxdp11XUFniGZMKsYGwyqeIsjbkGdA=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
+	 In-Reply-To:Content-Type; b=GuEOZH4X/6+DFo88whzUGHy8Z5Av7utdH63gkkM7gbhklgNCl7PG8CjB8zy2aktHociy9bMym0/jvQZujRqTmsIZqx15gOlYsErlyB6MIWLHgjw4BFx1mIqptNTuenRQRMUlj3KV2jAxT/nXRCv382gJ8lR5exEJhpDoWYC4It8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=SqpWv98C; arc=none smtp.client-ip=91.218.175.223
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="glOVeoF+"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-48434392b02so177294f8f.3
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 06:07:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1788959263; x=1789564063; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=vhQ8dnMMSXYBO5z0OmAAA57hjGRa0PP2+u3YEd9RJZE=;
-        b=glOVeoF+Do9INs0Bh5wRgoEoLThg7VvB9q5V1DCGf1TXftcmg5fmiOgZrw6+eBIvZD
-         c8PhsmEl42lFWW++d9i+c0R9aoTAFyxC2AMmMuhao+DqZ4eaVYzR8O/+kLqe+UhJv0y6
-         nIA5CDbwlvxTZHiwqkKicpsBFwwEqZwE1xgYUtgWjKNWJMQr1ymtyj5NeLNFDlyy85zU
-         vP57XIjgCpPd31tVFb8e1Cxbf9wFBfvrMmHzOJE+xVQzVu5EUILF54WkS+H/l5h2XSHt
-         7Ss88wJX2J4NBj7U3/HlqaBuycp0KbzuZUup/PNdoxMHW/xsMFrg1Gv0fjwjsXOrrrz3
-         0d+Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788959263; x=1789564063;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=vhQ8dnMMSXYBO5z0OmAAA57hjGRa0PP2+u3YEd9RJZE=;
-        b=ggdHAWdZLHdJUuBB1EhGgUx29MBQelOKdK4O3CeqVAbqlw4KKNfRGCezc+w8lUf0bn
-         LtV+wlb2qQ4CP7EZwa+x8MbZj6rr2USJ+qMsaIJ+RgE5TfKcVIhKoyns2KwcjCU/5+1B
-         6GymFtU+LQbskuu7ffLAvt+0a6Kuq4+t2MdJeBn7mpIMjX7E5lgAco09vN3vbReh3nV0
-         OiJKzs24rmOqdozDsWBxQV71+USBzEpzC2z+FihBk4wbTk8GCdsnvRk8JG4JQGPQnOdJ
-         A9dstNmNuvshtpY9ou0PKoTwX6kEpw6Xhn582zQYRklWL7kZYMvsllUnN9IIvxVopaB3
-         1CdA==
-X-Forwarded-Encrypted: i=1; AKwUvByyibYlHgUg4z5XKq+LiZHWIWnz6h69LkMUv2ehJ/aoYCWmlDNVDWXXjEhdDkMtsCeVDm3aEN091iqclN4=@vger.kernel.org
-X-Gm-Message-State: AFuF++nC+k6OQkQ+je/8OO3G0n+jsofShhJqnYWKf8QjZ3ikpeKO8ee3
-	D8qA0GShMCTFDZ0K7mejXzL2PfRFbJ17xChPT+lR0By8nMbj0JEGl3YqFsKrw8TbakM=
-X-Gm-Gg: AYBFou2LNyfTQ2/MPL6SCidEyHjc8mQ6wYHsPdIAfX3MJlVWZr//chhS0v8Ws6raWDi
-	7YmEKmBfuK8VQvi/h+br8AyAdGQ96PaKnkJwDq3ykdswGJpTqeyv3DPFQDOD3GkeW7O4pLMARTQ
-	NkrkVmLZZ5ZylM6oTuzrxI6XXyfeuPJjfgUCXrAm3lxTcumDbKMsjVrWsRShS42Yv+vRn8cMQzu
-	PN0v8IrOtKdLoDJetoTroTWpEzOpjbiVgWjKrreUbtovYMZz4rZjD+qFWU0dS1QoLZS4QnVBvIw
-	NsSE/sVeHMFbjeUCydX6MdtEcCM3aJSWl38OKs/mu5NQbVrOISVfdzj4DL3a9IGfZU9UzZ7DnNa
-	vq3Y/uxp4Jrxeem+paqC4hkMhLogLvNNclywnS/Ath8B5D5SHmHl0eB/zM+dWDnO6qxoj1NzH5X
-	zU2SyzBUbQXOXHANT8kTViXiMCITbFF9CZ9FHAZntKq/kU6fJfWfmQGJMVRznk5Ys8U/fsCEw0L
-	EcBXrIOzrFbxdUJggo=
-X-Received: by 2002:a05:6000:4801:b0:482:f61c:7cdd with SMTP id ffacd0b85a97d-485ba5ac39bmr3264342f8f.4.1788959263366;
-        Wed, 09 Sep 2026 06:07:43 -0700 (PDT)
-Received: from arrakeen.starnux.net ([2a01:e0a:106d:1080:52eb:f6ff:feb3:451a])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-485883927a3sm34031175f8f.11.2026.09.09.06.07.42
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 09 Sep 2026 06:07:42 -0700 (PDT)
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Date: Wed, 09 Sep 2026 15:07:38 +0200
-Subject: [PATCH v2 2/2] drm/msm/a6xx: Use CX AO Counter register for
- timestamp on a750 GPUs
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="SqpWv98C"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=VhlFjNAgQI2Jtqxdp11XUFniGZMKsYGwyqeIsjbkGdA=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788959301; v=1; x=1789564101;
+ b=SqpWv98C61R76bJ0zUrMa/dUYoDYli14Cu7Sz2NGtXopPX3r0MU39mdYsfsxVAcN0nIXkHZB
+ iDpYgU6xxC+1nMXUk9M4EJPCHIPpCUSVYrqxdZ4RPhIqRh0+meNClDCpRd33JuUrmJn0ZAzk0IJ
+ KsweRhAgxCuHVDoM9FQKa/ME=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 25b253702b94a6c9;
+	Wed, 09 Sep 2026 13:08:21 +0000
+X-Mizu-Trace-ID: 25b253702b94a6c9
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <7dbba23e-5530-43c4-9c44-20108cd0cef5@linux.dev>
+Date: Wed, 9 Sep 2026 21:08:09 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260909-topic-sm8650-gmu-a750-timestamp-reg-v2-2-091d74958951@linaro.org>
-References: <20260909-topic-sm8650-gmu-a750-timestamp-reg-v2-0-091d74958951@linaro.org>
-In-Reply-To: <20260909-topic-sm8650-gmu-a750-timestamp-reg-v2-0-091d74958951@linaro.org>
-To: Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>, 
- Konrad Dybcio <konradybcio@kernel.org>, 
- Akhil P Oommen <akhilpo@oss.qualcomm.com>, 
- Dmitry Baryshkov <lumag@kernel.org>, 
- Abhinav Kumar <abhinav.kumar@linux.dev>, 
- Jessica Zhang <jesszhan0024@gmail.com>, 
- Marijn Suijten <marijn.suijten@somainline.org>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Neil Armstrong <neil.armstrong@linaro.org>
-X-Mailer: b4 0.15.1
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1668;
- i=neil.armstrong@linaro.org; h=from:subject:message-id;
- bh=E/My9ncjedyj86RSIW4IqQNhl5mZctXdRI+O7IRN0Xg=;
- b=owEBbQKS/ZANAwAKAXfc29rIyEnRAcsmYgBqoVobWagEdlOIJeGoAoJPEc+PsgA62XSekFt8u4+f
- NGykKkOJAjMEAAEKAB0WIQQ9U8YmyFYF/h30LIt33NvayMhJ0QUCaqFaGwAKCRB33NvayMhJ0UCLD/
- 9/68Amb6nPQBbNDUn9tZp6XTD/MFUbly5GKO4KLPe49oaJZW+c11rEhm1ovfjdxqDfpQJAlPlCwPmS
- Kmh9meLsu/ducAS2/94ZtoCdvB5+Mcoc1xj6vIn16ieX9NwWKXEYAMhmbW2om58IJDCBEjzxmNoHqQ
- 5BWLqRWAKUOmD2xmyVml87hCBuQVD2esSDtvqdLHp97IaN8QwyFaH9edtkrvfjCEg4sQZ9MiHOSp8G
- qKTDYb5LLaxBRY3Njsj9AbLvaEe8aVJfOJWhAGhcsS7g+76oOVyPKUrgX5UD//WNcSLL10mKLpU2kG
- PZzyQGIMPbdAA5eqVUBdtMHwTvBcdcuh01t8PPOYtx3fIoUtsowBTgD5R8xOWerK5NbJX/de4tT4QB
- RCthPJqJnkTJJiL77e15WuBNsw/3jSHenieNdSHspCz2L/T3OdvJMR4iDkJlM/o/HyfbESFv8qHR2U
- O+igVfLnjGS/02pmHwPA3/QpwD8kSOH4/mv/Yr4vsvCoiS/+HpaxB4cK/VSRRTMeKWM2YfZFQ3Mvi2
- SISu9F+RSk4krwGgYk+unRMxsVypJRcFsHGAFpQYByz3lMeFTx66cgpjt+Wjm78U7fAyAmXk+xLaj7
- 1bQM2lmU9+QPTZPgKPGqLL+/BN5ef4DyvRHgnnEyd15DS8eT5FdCWmuGn7dg==
-X-Developer-Key: i=neil.armstrong@linaro.org; a=openpgp;
- fpr=89EC3D058446217450F22848169AB7B1A4CFF8AE
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v9 3/4] module: introduce SH_ENTSIZE_STANDALONE for
+ separately allocated sections
+From: Hao Ge <hao.ge@linux.dev>
+To: Petr Pavlu <petr.pavlu@suse.com>
+Cc: Luis Chamberlain <mcgrof@kernel.org>, Daniel Gomez <da.gomez@kernel.org>,
+ Sami Tolvanen <samitolvanen@google.com>, Aaron Tomlin <atomlin@atomlin.com>,
+ Suren Baghdasaryan <surenb@google.com>,
+ Andrew Morton <akpm@linux-foundation.org>, linux-modules@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-mm@kvack.org,
+ Sashiko <sashiko-bot@kernel.org>, stable@vger.kernel.org
+References: <20260908092412.115953-1-hao.ge@linux.dev>
+ <20260908092412.115953-4-hao.ge@linux.dev>
+ <76b5edbb-8231-41d0-9e7b-f965af13c324@suse.com>
+ <ec3f14f0-cebe-460f-9df7-537f49d70afd@linux.dev>
+Content-Language: en-US
+In-Reply-To: <ec3f14f0-cebe-460f-9df7-537f49d70afd@linux.dev>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-The a750 uses the GMU CX AO Counters instead of the GMU_ALWAYS_ON_COUNTER
-register on A6xx and other A7xx GPUs, use it when running a A750 GPU.
 
-The GMU_ALWAYS_ON_COUNTER at offset 0x1f888 doesn't seem to exist
-on the SM8650 A750 GMU and returns 0, but the CX AO counter at offset
-0x1f880 returns some proper timestamp data.
+On 9/9/26 20:47, Hao Ge wrote:
+> Hi Petr
+>
+>
+> On 9/9/26 19:30, Petr Pavlu wrote:
+>> On 9/8/26 11:24 AM, Hao Ge wrote:
+>>> SHF_ALLOC means, per the ELF spec, that a section occupies memory
+>>> during process execution. Some module sections occupy memory
+>>> outside the regular module layout, for example the percpu section
+>>> with its per-CPU allocations. The loader currently excludes such
+>>> a section from the layout by clearing its SHF_ALLOC, which
+>>> overloads the flag with a loader-internal meaning.
+>>> apply_relocations() needs a special case for the section, and
+>>> find_sec(".data..percpu") returns different results before and
+>>> after layout_and_allocate().
+>>>
+>>> Introduce SH_ENTSIZE_STANDALONE to mark sections with a separate
+>>> allocation. The percpu section is its first user. layout_sections()
+>>> and move_module() skip marked sections, and apply_relocations() goes
+>>> back to testing only SHF_ALLOC. Based on a patch by Petr Pavlu [1].
+>>>
+>>> .data..percpu keeps SHF_ALLOC, so it would now show up under
+>>> /sys/module/*/sections/. The section has one instance per CPU and no
+>>> single address to report, and the entry never existed before, so
+>>> skip it in add_sect_attrs(). add_notes_attrs() indexes its attrs[]
+>>> array and skips it too. No functional change otherwise.
+>>>
+>>> Fixes: 4835f747d3ed ("alloc_tag: support for page allocation tag 
+>>> compression")
+>>> Reported-by: Sashiko <sashiko-bot@kernel.org>
+>>> Link: 
+>>> https://lore.kernel.org/all/499bb60c-c6e3-43a3-bd92-95a0567ece5e@suse.com/ 
+>>> [1]
+>>> Suggested-by: Petr Pavlu <petr.pavlu@suse.com>
+>>> Cc: stable@vger.kernel.org
+>>> Signed-off-by: Hao Ge <hao.ge@linux.dev>
+>>> ---
+>>> [...]
+>>> diff --git a/kernel/module/kallsyms.c b/kernel/module/kallsyms.c
+>>> index 0fc11e45df9b..49190deae61e 100644
+>>> --- a/kernel/module/kallsyms.c
+>>> +++ b/kernel/module/kallsyms.c
+>>> @@ -76,7 +76,7 @@ static char elf_type(const Elf_Sym *sym, const 
+>>> struct load_info *info)
+>>>   }
+>>>     static bool is_core_symbol(const Elf_Sym *src, const Elf_Shdr 
+>>> *sechdrs,
+>>> -               unsigned int shnum, unsigned int pcpundx)
+>>> +               unsigned int shnum)
+>>>   {
+>>>       const Elf_Shdr *sec;
+>>>       enum mod_mem_type type;
+>>> @@ -86,11 +86,6 @@ static bool is_core_symbol(const Elf_Sym *src, 
+>>> const Elf_Shdr *sechdrs,
+>>>           !src->st_name)
+>>>           return false;
+>>>   -#ifdef CONFIG_KALLSYMS_ALL
+>>> -    if (src->st_shndx == pcpundx)
+>>> -        return true;
+>>> -#endif
+>>> -
+>>>       sec = sechdrs + src->st_shndx;
+>>>       type = sec->sh_entsize >> SH_ENTSIZE_TYPE_SHIFT;
+>>>       if (!(sec->sh_flags & SHF_ALLOC)
+>>> @@ -131,8 +126,7 @@ void layout_symtab(struct module *mod, struct 
+>>> load_info *info)
+>>>       /* Compute total space required for the core symbols' strtab. */
+>>>       for (ndst = i = 0; i < nsrc; i++) {
+>>>           if (i == 0 || is_livepatch_module(mod) ||
+>>> -            is_core_symbol(src + i, info->sechdrs, info->hdr->e_shnum,
+>>> -                   info->index.pcpu)) {
+>>> +            is_core_symbol(src + i, info->sechdrs, 
+>>> info->hdr->e_shnum)) {
+>>>               strtab_size += strlen(&info->strtab[src[i].st_name]) + 1;
+>>>               ndst++;
+>>>           }
+>>> @@ -199,8 +193,7 @@ void add_kallsyms(struct module *mod, const 
+>>> struct load_info *info)
+>>>       for (ndst = i = 0; i < kallsyms->num_symtab; i++) {
+>>>           kallsyms->typetab[i] = elf_type(src + i, info);
+>>>           if (i == 0 || is_livepatch_module(mod) ||
+>>> -            is_core_symbol(src + i, info->sechdrs, info->hdr->e_shnum,
+>>> -                   info->index.pcpu)) {
+>>> +            is_core_symbol(src + i, info->sechdrs, 
+>>> info->hdr->e_shnum)) {
+>>>               ssize_t ret;
+>>>                 mod->core_kallsyms.typetab[ndst] =
+>> FTR These changes in kernel/module/kallsyms.c have a conflict with the
+>> series "Ignore local labels and mapping symbols during module load" [1],
+>> which is currently queued on modules-next, but it should be
+>> straightforward to resolve.
+>>
+>>> diff --git a/kernel/module/sysfs.c b/kernel/module/sysfs.c
+>>> index 01c65d608873..f64170344e69 100644
+>>> --- a/kernel/module/sysfs.c
+>>> +++ b/kernel/module/sysfs.c
+>>> @@ -62,6 +62,15 @@ static void free_sect_attrs(struct 
+>>> module_sect_attrs *sect_attrs)
+>>>       kfree(sect_attrs);
+>>>   }
+>>>   +/*
+>>> + * .data..percpu has a separate allocation per CPU and no single
+>>> + * address to report.
+>>> + */
+>>> +static bool sect_visible(const struct load_info *info, unsigned int i)
+>>> +{
+>>> +    return !sect_empty(&info->sechdrs[i]) && i != info->index.pcpu;
+>>> +}
+>>> +
+>>>   static int add_sect_attrs(struct module *mod, const struct 
+>>> load_info *info)
+>>>   {
+>>>       struct module_sect_attrs *sect_attrs;
+>>> @@ -72,7 +81,7 @@ static int add_sect_attrs(struct module *mod, 
+>>> const struct load_info *info)
+>>>         /* Count loaded sections and allocate structures */
+>>>       for (i = 0; i < info->hdr->e_shnum; i++)
+>>> -        if (!sect_empty(&info->sechdrs[i]))
+>>> +        if (sect_visible(info, i))
+>>>               nloaded++;
+>>>       sect_attrs = kzalloc_flex(*sect_attrs, attrs, nloaded);
+>>>       if (!sect_attrs)
+>>> @@ -92,7 +101,7 @@ static int add_sect_attrs(struct module *mod, 
+>>> const struct load_info *info)
+>>>       for (i = 0; i < info->hdr->e_shnum; i++) {
+>>>           Elf_Shdr *sec = &info->sechdrs[i];
+>>>   -        if (sect_empty(sec))
+>>> +        if (!sect_visible(info, i))
+>>>               continue;
+>>>           sysfs_bin_attr_init(sattr);
+>>>           sattr->attr.name =
+>>> @@ -181,7 +190,7 @@ static int add_notes_attrs(struct module *mod, 
+>>> const struct load_info *info)
+>>>         nattr = &notes_attrs->attrs[0];
+>>>       for (loaded = i = 0; i < info->hdr->e_shnum; ++i) {
+>>> -        if (sect_empty(&info->sechdrs[i]))
+>>> +        if (!sect_visible(info, i))
+>>>               continue;
+>>>           if (info->sechdrs[i].sh_type == SHT_NOTE) {
+>>>               sysfs_bin_attr_init(nattr);
+>> add_notes_attrs() has two sect_empty() calls. Both should be changed to
+>> sect_visible().
+>
+>
+> I kept this part unmodified to preserve the loop's original intent.
+>
+> This loop counts SHT_NOTE sections.
+>
+> SHT_NOTE refers to ELF note sections, which hold non-executable
+>
+> metadata such as build ID and ABI info.
+>
+> I wonder if we could keep the current implementation.
+>
+> As noted in the comment above, the top part counts SHT_NOTE sections
+>
+> and allocates structures, while the lower logic handles control of 
+> node attributes.
+>
+>
+> WDYT?
+>
+>
 
-Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
----
- drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 12 +++++++++---
- 1 file changed, 9 insertions(+), 3 deletions(-)
+Sorry, I've reconsidered this. I think changing it to sect_visible would 
+be better.
 
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-index f9de9329dee3..081e79ea4652 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
-@@ -23,9 +23,15 @@ static u64 a6xx_gmu_get_timestamp(struct msm_gpu *gpu)
- 	u64 count_hi, count_lo, temp;
- 
- 	do {
--		count_hi = gmu_read(&a6xx_gpu->gmu, REG_A6XX_GMU_ALWAYS_ON_COUNTER_H);
--		count_lo = gmu_read(&a6xx_gpu->gmu, REG_A6XX_GMU_ALWAYS_ON_COUNTER_L);
--		temp = gmu_read(&a6xx_gpu->gmu, REG_A6XX_GMU_ALWAYS_ON_COUNTER_H);
-+		if (adreno_is_a750_family(adreno_gpu)) {
-+			count_hi = gmu_read(&a6xx_gpu->gmu, REG_A7XX_GMU_CX_AO_COUNTER_H);
-+			count_lo = gmu_read(&a6xx_gpu->gmu, REG_A7XX_GMU_CX_AO_COUNTER_L);
-+			temp = gmu_read(&a6xx_gpu->gmu, REG_A7XX_GMU_CX_AO_COUNTER_H);
-+		} else {
-+			count_hi = gmu_read(&a6xx_gpu->gmu, REG_A6XX_GMU_ALWAYS_ON_COUNTER_H);
-+			count_lo = gmu_read(&a6xx_gpu->gmu, REG_A6XX_GMU_ALWAYS_ON_COUNTER_L);
-+			temp = gmu_read(&a6xx_gpu->gmu, REG_A6XX_GMU_ALWAYS_ON_COUNTER_H);
-+		}
- 	} while (unlikely(count_hi != temp));
- 
- 	return (count_hi << 32) | count_lo;
+sect_visible stands for the count of externally visible note attributes, 
+so the code
 
--- 
-2.34.1
+above and below can align with each other.
 
+
+Sorry for the noise.
+
+
+I'll rebase onto modules-next, apply this change and push a new revision.
+
+I'll also add your Reviewed-by tag.
+
+
+Thanks
+
+Best Regards
+
+Hao
+
+
+> Thanks
+>
+> Best Regards
+>
+> Hao
+>
+>>
+>> With this fixed, the patch looks ok to me. Feel free to add:
+>>
+>> Reviewed-by: Petr Pavlu <petr.pavlu@suse.com>
+>>
+>> [1] 
+>> https://lore.kernel.org/linux-modules/20260820125007.22943-1-yangtiezhu@loongson.cn/
+>>
