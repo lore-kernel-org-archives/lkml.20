@@ -1,128 +1,148 @@
-Received: from fraori-sdnproxy-3.icoremail.net (fraori-sdnproxy-3.icoremail.net [132.226.202.154])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id A061738E8BF;
-	Wed,  9 Sep 2026 05:36:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=132.226.202.154
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CBE830BB8D;
+	Wed,  9 Sep 2026 05:37:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788932198; cv=none; b=R1UB4tLuo7RNvQru3fL5gamPBtYPQLYpfXY5Sw3cWKfsVJiMIcLxcubCoEMHLtL3K3YTtYBkXkg9iJyB9Fy4XQWMcMsoG8Bi2JhHngg93YMmE4OGyY8yhD0kx8xacsdllry2JENAzVLlNUEBgpUPuFZgSIwu1x6ss8+REAhsyYs=
+	t=1788932226; cv=none; b=Jw3/FD+Z12VaLSYWTzABVovCBGB3CKJGqWlNW9/Fxx0fk9Z5mjRg7hojPlvCwVDiD68BuCZBZaWVBJy7tXNtkcmJDfQbpYWn4121vB7SLhUcBhUnlmZtUIx9HC2Mwqp2gmeIwoVaa7PI4t/4Z89dc6G5NMRJV+h3LYnCR2gUis0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788932198; c=relaxed/simple;
-	bh=rgGWLedxe/mWsnYMx03SHV/cfBhLegC5cNoIFhI+uac=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=djnFWP506EY+Sp+AiRj/WEoGWpuzyA8Jl7ZqPqSQf1dlGgG4Lt75zd0/sqsSxHUDhXsyfTWctP8i0Sjs/frrDQXfgriMOPdU7/iwdvgWZNyDf2LddWMuCCjgzZWYEWEFEaHaX/9xSc8Kzernns2DCA/gwYJ0Omhl6lXIo673us8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=132.226.202.154
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
-Received: from zju.edu.cn (unknown [10.98.66.117])
-	by mtasvr (Coremail) with SMTP id _____wAH4X1L8KBqy_MBAQ--.32620S3;
-	Wed, 09 Sep 2026 13:36:12 +0800 (CST)
-Received: from localhost.localdomain (unknown [10.98.66.117])
-	by mail-app4 (Coremail) with SMTP id zi_KCgDnGDBK8KBq8CGoAw--.35214S2;
-	Wed, 09 Sep 2026 13:36:10 +0800 (CST)
-From: Fan Wu <fanwu01@zju.edu.cn>
-To: mripard@kernel.org
-Cc: dave.stevenson@raspberrypi.com,
-	mcanal@igalia.com,
-	kernel-list@raspberrypi.com,
-	maarten.lankhorst@linux.intel.com,
-	tzimmermann@suse.de,
-	airlied@gmail.com,
-	simona@ffwll.ch,
-	eric@anholt.net,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Fan Wu <fanwu01@zju.edu.cn>
-Subject: [PATCH] drm/vc4: drain the hangcheck timer and works on V3D unbind
-Date: Wed,  9 Sep 2026 05:35:09 +0000
-Message-Id: <20260909053509.657074-1-fanwu01@zju.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1788932226; c=relaxed/simple;
+	bh=IshiAGA28kVJe42YrlFwDD8RK0AbDrQXiQinug776TM=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=YLnGNudZVHV6pAwc4vrjRE4XnFKU2BtnhYl7rLOhO1pTqZ4F2UQNksPzEv3c8aZ5qGSg0Pgx4O/hgpUh7otXJphPiK1uf8cD/fyENfeqWhWvC7g7zMKc/rTMdzHAosHNSHudOC+kHBt/ONlDBU9W0sJtjw10UduuzHisy3g6egI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=ejUlElb5; arc=none smtp.client-ip=211.75.126.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="ejUlElb5"
+X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 6895ah2rB326064, This message is accepted by code: ctloc85258
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
+	t=1788932204; bh=IshiAGA28kVJe42YrlFwDD8RK0AbDrQXiQinug776TM=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:MIME-Version;
+	b=ejUlElb5esNCBrwn9snepaRT5Q5Io/4hVuAXY4zOdBjPd4DuI6lV5DcO0ABk+s9B8
+	 x1nT+WvPR5y7YRbISem8wfyCJloJqXfKpxFjxZ1wx1QklwWGC4lXlhGsAuIXJGsD/w
+	 Be+92ytn0yPfLGfa4Z7+nrAb7IHIacmK40RBhumiAsF6Itb7jhhLF05D126JHDqglJ
+	 3QdXy+vGdMBK0awy20GRB1sF7rjZvEckuaUUOy2UxsBEr7jaa5GctR7A/iTy+ZZzSk
+	 SZ+jacKFiqZ01CFOXJNNWm6vHQTqICkeYQc9VgR0/llNQr1E924IFQdvtsT9Scl9r7
+	 3l8rn3WhE3F6g==
+Received: from mail.realtek.com (rtkexhmbs04.realtek.com.tw[10.21.1.54])
+	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 6895ah2rB326064
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Wed, 9 Sep 2026 13:36:44 +0800
+Received: from RTKEXHMBS01.realtek.com.tw (172.21.6.40) by
+ RTKEXHMBS04.realtek.com.tw (10.21.1.54) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.43; Wed, 9 Sep 2026 13:36:43 +0800
+Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
+ RTKEXHMBS01.realtek.com.tw (172.21.6.40) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.43; Wed, 9 Sep 2026 13:36:42 +0800
+Received: from RTKEXHMBS06.realtek.com.tw ([::1]) by
+ RTKEXHMBS06.realtek.com.tw ([fe80::126f:59ad:658:674d%10]) with mapi id
+ 15.02.2562.043; Wed, 9 Sep 2026 13:36:42 +0800
+From: Ping-Ke Shih <pkshih@realtek.com>
+To: Luka Gejak <luka.gejak@linux.dev>, "linux-wireless@vger.kernel.org"
+	<linux-wireless@vger.kernel.org>
+CC: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "Michael
+ Straube" <straube.linux@gmail.com>, Bitterblue Smith
+	<rtl8821cerfe2@gmail.com>, Peter Robinson <pbrobinson@gmail.com>, "Hans de
+ Goede" <johannes.goede@oss.qualcomm.com>
+Subject: RE: [PATCH v9 4/6] wifi: rtw88: sdio: track free TX pages and OQT
+ credits for RTL8723BS
+Thread-Topic: [PATCH v9 4/6] wifi: rtw88: sdio: track free TX pages and OQT
+ credits for RTL8723BS
+Thread-Index: AQHdOQ+tujcloACDt0ancBmQ7iNVjbbA0nqAgANYMgCAAYCvkA==
+Date: Wed, 9 Sep 2026 05:36:42 +0000
+Message-ID: <6a59823f69d140b1a6c44d475f5b93bd@realtek.com>
+References: <20260831061144.18631-1-luka.gejak@linux.dev>
+ <20260831061144.18631-5-luka.gejak@linux.dev>
+ <d4a8b1203ee0402483269a31ad4d6dd2@realtek.com>
+ <DL9Y9KGJKWIT.26GHPWWWG0WFV@linux.dev>
+In-Reply-To: <DL9Y9KGJKWIT.26GHPWWWG0WFV@linux.dev>
+Accept-Language: en-US, zh-TW
+Content-Language: zh-TW
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zi_KCgDnGDBK8KBq8CGoAw--.35214S2
-X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
-X-CM-DELIVERINFO: =?B?/TeuFgXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
-	sfnXz+g1OQfMo27QHy5TwQyZwfdQ11pk717IchTpzFSURcVSijrRuNKLDtryceijmISBFH
-	tRa/3CMSLNfM+754Feup9E6mavGmQbzmcFsnzP86
-X-Coremail-Antispam: 1Uk129KBj93XoW7Cr1rCrW3Aw48JFW3CrW5XFc_yoW5Jr17pF
-	sxCFZ0qrWkWFW3t3sxZ3Z7ZFyrAw4rtry7GFy29w42kwnIyryrKFyqk34YgFyDJayDWrW3
-	tFsxJ3909Fy5A3gCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUUPjb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Cr1j6rxdM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v2
-	6rxl6s0DM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6x
-	kI12xvs2x26I8E6xACxx1l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v2
-	6r1Y6r17McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2
-	Ij64vIr41lF7xvr2IYc2Ij64vIr40E4x8a64kEw24lFIxGxcIEc7CjxVA2Y2ka0xkIwI1l
-	42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJV
-	WUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAK
-	I48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F
-	4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY
-	6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjxU7rcfUUUUU
 
-The hangcheck timer, which every submitted job arms and which queues
-reset_work once a job stops making progress, and the job_done_work,
-which the render-done interrupt queues to release completed jobs, are
-never drained at teardown: vc4_irq_disable() cancels only
-overflow_mem_work, and vc4_gem_destroy() runs from the drm-managed
-release, after vc4_v3d_unbind() has already uninstalled the V3D
-interrupt and cleared vc4->v3d.
-
-A timer still armed by then reads V3D registers through the NULL
-vc4->v3d pointer, and late callbacks run on the vc4_dev embedding
-them after it has been freed.
-
-Drain them in vc4_v3d_unbind(): shut the hangcheck timer down and
-cancel reset_work before the interrupt is taken down, because
-vc4_irq_reset() in a straggler reset re-enables it, then cancel
-job_done_work once no source is left, before vc4->v3d is cleared.
-
-This issue was found by an in-house static analysis tool.
-
-Fixes: d5b1a78a772f ("drm/vc4: Add support for drawing 3D frames.")
-Cc: stable@vger.kernel.org # 6.13+: vc4->gen does not exist on older trees
-Assisted-by: Codex:gpt-5.6
-Co-developed-by: Song Li <songl@zju.edu.cn>
-Signed-off-by: Song Li <songl@zju.edu.cn>
-Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
----
- drivers/gpu/drm/vc4/vc4_v3d.c | 11 +++++++++++
- 1 file changed, 11 insertions(+)
-
-diff --git a/drivers/gpu/drm/vc4/vc4_v3d.c b/drivers/gpu/drm/vc4/vc4_v3d.c
-index f32410420d3e..11d4df3164b4 100644
---- a/drivers/gpu/drm/vc4/vc4_v3d.c
-+++ b/drivers/gpu/drm/vc4/vc4_v3d.c
-@@ -9,6 +9,7 @@
- #include <linux/component.h>
- #include <linux/platform_device.h>
- #include <linux/pm_runtime.h>
-+#include <linux/timer.h>
- 
- #include <drm/drm_print.h>
- 
-@@ -497,8 +498,18 @@ static void vc4_v3d_unbind(struct device *dev, struct device *master,
- 	struct drm_device *drm = data;
- 	struct vc4_dev *vc4 = to_vc4_dev(drm);
- 
-+	/* Kill the timer, then reset_work: vc4_irq_reset() re-enables it. */
-+	if (vc4->gen == VC4_GEN_4) {
-+		timer_shutdown_sync(&vc4->hangcheck.timer);
-+		cancel_work_sync(&vc4->hangcheck.reset_work);
-+	}
-+
- 	vc4_irq_uninstall(drm);
- 
-+	/* Nothing can queue job_done_work any more; drain it. */
-+	if (vc4->gen == VC4_GEN_4)
-+		cancel_work_sync(&vc4->job_done_work);
-+
- 	/* Disable the binner's overflow memory address, so the next
- 	 * driver probe (if any) doesn't try to reuse our old
- 	 * allocation.
-
+DQpMdWthIEdlamFrIDxsdWthLmdlamFrQGxpbnV4LmRldj4gd3JvdGU6DQo+IE9uIFN1biBTZXAg
+NiwgMjAyNiBhdCA0OjIyIEFNIENFU1QsIFBpbmctS2UgU2hpaCB3cm90ZToNCj4gWy4uLl0NCj4g
+PiBJZiB0aGUgX19za2JfcGFkZCgpIGlzIG5lY2Vzc2FyeSBmb3Igb3JpZ2luYWwgKGdlbmVyaWMp
+IHBhcnQsIHBsZWFzZQ0KPiA+IGFkZCBhbm90aGVyIHBhdGNoIHRvIGZpeCBpdC4gKHNlZSBiZWxv
+dyBjb21tZW50KQ0KPiBbLi4uXQ0KPiA+IFdoeSBkb2Vzbid0IHJ0d19zZGlvX3dyaXRlX3BvcnRf
+Z2VuZXJpYygpIG5lZWQgX19za2JfcGFkKCkgYXMgd2VsbD8NCj4gPiBJcyB0aGVyZSBhbiBleGlz
+dGluZyBwcm9ibGVtIGJ5IG9yaWdpbmFsPw0KPiANCj4gVGhlcmUgaXMuIHJ0d19zZGlvX3dyaXRl
+X3BvcnQoKSByb3VuZHMgdGhlIHRyYW5zZmVyIHVwIHdpdGgNCj4gc2Rpb19hbGlnbl9zaXplKCkg
+YW5kIHBhc3NlcyB0aGF0IGxlbmd0aCB0byBzZGlvX21lbWNweV90b2lvKCkgd2hpbGUgdGhlDQo+
+IHNrYiBzdGlsbCBob2xkcyBvbmx5IHNrYi0+bGVuIGJ5dGVzLCBzbyBiZXR3ZWVuIG9uZSBhbmQg
+NTExIGJ5dGVzIGZyb20NCj4gcGFzdCB0aGUgZW5kIG9mIHRoZSBmcmFtZSBnZXQgdHJhbnNtaXR0
+ZWQuIFdoZXRoZXIgdGhhdCBzdGF5cyBpbnNpZGUgdGhlDQo+IHNrYidzIGFsbG9jYXRpb24gZGVw
+ZW5kcyBvbiBob3cgbXVjaCB0YWlscm9vbSBpdCBoYXBwZW5zIHRvIGhhdmUuDQo+IA0KPiBJdCBn
+ZXRzIGl0cyBvd24gcGF0Y2gsIG5vIGNoaXAgY29uZGl0aW9uOg0KPiANCj4gICB3aWZpOiBydHc4
+ODogc2RpbzogemVybyB0aGUgcGFkZGluZyBhZGRlZCB0byBhIFRYIHRyYW5zZmVyDQoNCldpbGwv
+c2hvdWxkIHlvdSBhZGQgdGhpcyBpbiB2MTAgb3IgdjExIGJlZm9yZSB5b3VyIHBhdGNoIDQvNj8N
+Cg0KQXMgeW91ciB2MTAgZGlkbid0IGdldCByYW4gYnkgTklQQSBiZWNhdXNlIG9mIFsxXSwgeW91
+IGNhbiBzZW5kIHYxMCB3aXRoDQpSRVNFTkQgb3IganVzdCBzZW5kIHYxMSAoaW5jbHVkaW5nIHRo
+ZSBhZGRpdGlvbmFsIG9uZSkuDQoNCihUbyBhbnN3ZXIgdGhlIG9yZGVyaW5nIHBvaW50IHF1ZXN0
+aW9uIGJlbG93LikgSSBwcmVmZXIgdG8gaGF2ZSB0aGUgcGF0Y2gNCmluIGFkdmFuY2UsIGZvciB0
+d28gcmVhc29ucy4gT25lIGlzIHRvIGJhY2twb3J0IGVhc2llciwgYW5kIGFub3RoZXIgaXMgdG8N
+CmNsZWFyIHRvIGtub3cgaXQgaXMgZXhpc3RpbmcgcHJvYmxlbS4NCg0KWzFdIGh0dHBzOi8vbG9y
+ZS5rZXJuZWwub3JnL2xpbnV4LXdpcmVsZXNzL2ZlMGQ4YTNjMjk1MWMwNTFiMzIxOTAyNTgyZWFm
+OTVmMjMwYTc1NGQuY2FtZWxAc2lwc29sdXRpb25zLm5ldC9ULyN1DQoNCj4gDQo+ID4gQXMgd2Ug
+aGF2ZSBzZGlvX3NldF9ibG9ja19zaXplKHNkaW9fZnVuYywgUlRXX1NESU9fQkxPQ0tfU0laRSks
+DQo+ID4gY2FuIGhlcmUgdXNlIHNkaW9fYWxpZ25fc2l6ZSgpIHRvIGdldCB0aGUgd3JpdF9zaXpl
+Pw0KPiANCj4gWWVzLCBhbmQgdjEwIGRvZXMuIEkgY2hlY2tlZCBpdCBpcyByZWFsbHkgdGhlIHNh
+bWUgcmF0aGVyIHRoYW4gb25seQ0KPiBsb29raW5nIHRoZSBzYW1lOiBvbiB0aGlzIGNhcmQgc2Rp
+b19hbGlnbl9zaXplKCkgbWF0Y2hlcyB0aGUgb3BlbiBjb2RlZA0KPiByb3VuZGluZyBhdCB0aGUg
+YmxvY2sgYm91bmRhcmllcywgYW5kIG92ZXIgYSBmdWxsIHNlc3Npb24gaXQgYWdyZWVkIG9uDQo+
+IGV2ZXJ5IGZyYW1lLCA4MDAwMCBvZiB0aGVtIHdpdGggbm8gZGlmZmVyZW5jZS4NCj4gDQo+IEl0
+IGlzIGVxdWl2YWxlbnQgYmVjYXVzZSB0aGUgY2FyZCByZXBvcnRzIG11bHRpIGJsb2NrIHN1cHBv
+cnQgYW5kIGEgNTEyDQo+IGJ5dGUgYmxvY2sgc2l6ZSwgd2hpY2ggcHV0cyB0aGUgYnl0ZSBtb2Rl
+IGxpbWl0IGF0IDUxMi4gV2l0aG91dCB0aG9zZQ0KPiB0d28gcHJvcGVydGllcyBzZGlvX2FsaWdu
+X3NpemUoKSBmYWxscyBpbnRvIGNodW5rZWQgYnl0ZSB0cmFuc2ZlcnMgdGhhdA0KPiBhcmUgbm90
+IGJsb2NrIG11bHRpcGxlcywgc28gdGhlIGVxdWl2YWxlbmNlIGlzIGEgcHJvcGVydHkgb2YgdGhp
+cyBjYXJkDQo+IGFuZCBob3N0IHJhdGhlciB0aGFuIHNvbWV0aGluZyB1bmNvbmRpdGlvbmFsLiBJ
+dCBpcyBzdGlsbCB0aGUgcmlnaHQgY2FsbDoNCj4gaXQgaXMgdGhlIGNvcmUgaGVscGVyIGFuZCBp
+dCBpcyB3aGF0IHRoZSBnZW5lcmljIHBhdGggYWxyZWFkeSB1c2VzLg0KDQpJbiB2MTAsIHRoZSBi
+ZWdpbm5pbmcgb2YgcnR3X3NkaW9fd3JpdGVfcG9ydF84NzIzYnMoKSBhbmQNCnJ0d19zZGlvX3dy
+aXRlX3BvcnRfZ2VuZXJpYyBiZWNvbWUgdGhlIHNpbWlsYXIuIEFuZA0KSSB0aGluayAnIHR4c2l6
+ZSA9IHJvdW5kX3VwKHNrYi0+bGVuLCA0KTsnIGlzIG5vdCBuZWNlc3NhcnkgdG8NCnJ0d19zZGlv
+X3dyaXRlX3BvcnRfODcyM2JzKCkgYmVjYXVzZSBpdCBpcyA1MTItYnl0ZSBhbGlnbmVkLg0KDQpU
+aGVyZWZvcmUsIHlvdSBjYW4gZG8gdGhlIHNhbWUgdGhpbmcgaW4gcnR3X3NkaW9fd3JpdGVfcG9y
+dCgpIGFuZCB0aGVuDQpjYWxsIA0KICAgIHJ0d19zZGlvX3dyaXRlX3BvcnRfODcyM2JzKCkNCm9y
+DQogICAgcnR3X3NkaW9fd3JpdGVfcG9ydF9nZW5lcmljKCkNCmJ5IGNvbmRpdGlvbi4gDQoNCj4g
+DQo+ID4gSSB0aGluayB3cml0ZV9zaXplIG11c3QgYmUgbGFyZ2Ugb3IgZXF1YWwgdG8gc2tiLT5s
+ZW4sIHJpZ2h0Pw0KPiA+IFRoZXJlZm9yZSwgZGVjbGFyZSBzaXplX3QgcGFkX3NpemUgYXQgdG9w
+IG9mIGZ1bmN0aW9uLCBhbmQgdGhlbg0KPiBbLi4uXQ0KPiA+IEkgdGhpbmsgdGhpcyBpcyBlYXNp
+ZXIgdG8gcmVhZC4NCj4gDQo+IFlvdSBhcmUgcmlnaHQgdGhhdCBpdCBjYW4gbmV2ZXIgYmUgbmVn
+YXRpdmUuIFRoZSB3aG9sZSBibG9jayBpcyBnb25lIGluDQo+IHYxMCB3aXRoIHRoZSBwYWRkaW5n
+LCBzbyB0aGUgcXVlc3Rpb24gZG9lcyBub3QgYXJpc2UgYW55IG1vcmUsIGJ1dCBpdA0KPiB3b3Vs
+ZCBoYXZlIGJlZW4gdGhlIGJldHRlciBzaGFwZS4NCg0KV2lsbCB0aGlzIGJlIG5lZWRlZCBieSB0
+aGUgYWRkaXRpb25hbCBwYXRjaA0KDQogICAid2lmaTogcnR3ODg6IHNkaW86IHplcm8gdGhlIHBh
+ZGRpbmcgYWRkZWQgdG8gYSBUWCB0cmFuc2ZlciI/DQoNCj4gDQo+ID4gSW4gdGhpcyBwYXRjaHNl
+dCwgeW91IGFkZCBtYW55IGNvbW1lbnRzLiBQbGVhc2UgcmV2aWV3IHRoZW0gYWNyb3NzIHdob2xl
+DQo+ID4gcGF0Y2hzZXQgdG8gc2VlIGlmIHRoZXkgYWN0dWFsbHkgbmVlZC4gTGlrZSB0aGlzIG9u
+ZSwgZG8geW91IHRoaW5rIHRoZSBjb2RlDQo+ID4gY2FuJ3QgZXhwbGFpbiBpdHNlbGY/DQo+IA0K
+PiBJIHdlbnQgdGhyb3VnaCB0aGUgc2VyaWVzIGFuZCByZW1vdmVkIHJlZHVuZGFudCBjb21tZW50
+czogdjEwIGFkZHMgNjIgY29tbWVudA0KPiBsaW5lcyB3aGVyZSB2OSBhZGRlZCAxMDMuDQo+IA0K
+PiBXaGF0IEkga2VwdCBpcyB0aGUgdGhpbmdzIHRoZSBjb2RlIGNhbm5vdCBzaG93OiB3aGljaCBw
+YWdlIHBvb2wgYSBxdWV1ZQ0KPiBkcmF3cyBmcm9tIGFuZCBob3cgdGhhdCB3YXMgbWVhc3VyZWQg
+b24gaGFyZHdhcmUsIHdoeSB0aGUgY291bnRlcnMgYXJlDQo+IGF0b21pY190LCB3aHkgb25seSB0
+aGUgZGVmaW5lZCBpbnRlcnJ1cHQgc3RhdHVzIGJpdHMgYXJlIGFja25vd2xlZGdlZCwNCj4gYW5k
+IHRoZSB0d28gcGxhY2VzIHdoZXJlIGFuIHNrYiBoYXMgYWxyZWFkeSBiZWVuIGhhbmRlZCBvbiBh
+bmQgbXVzdCBub3QNCj4gYmUgdG91Y2hlZC4gVHdvIG1vcmUgYXJlIHRoZXJlIGJlY2F1c2UgdGhl
+eSB3ZXJlIGFza2VkIGZvciBpbiBlYXJsaWVyDQo+IHJldmlldzogdGhlIGNvbW1lbnQgaW4gcGF0
+Y2ggMiBhbmQgdGhlIG1vZF9kZWxheWVkX3dvcmsoKSBvbmUgaW4gcGF0Y2ggNi4NCj4gU2F5IHRo
+ZSB3b3JkIGlmIGFueSBvZiB0aG9zZSBzaG91bGQgZ28gdG9vLg0KDQpJIHdpbGwgY2hlY2sgdGhp
+cyBieSB2MTEsIGJlY2F1c2UgSSdkIGxpa2UgeW91IGNhbiBoYXZlIHYxMSB3aXRoDQoNCiAgMS4g
+IndpZmk6IHJ0dzg4OiBzZGlvOiB6ZXJvIHRoZSBwYWRkaW5nIGFkZGVkIHRvIGEgVFggdHJhbnNm
+ZXIiDQogIDIuIG1vdmUgdGhlIHNhbWUgYmVnaW5uaW5nIG9mIHJ0d19zZGlvX3dyaXRlX3BvcnRf
+ODcyM2JzKCkNCiAgICAgYW5kIHJ0d19zZGlvX3dyaXRlX3BvcnRfZ2VuZXJpYygpIHRvIHJ0d19z
+ZGlvX3dyaXRlX3BvcnQoKQ0KDQpJcyBpdCBva2F5IHRvIHlvdT8NCg0KUGluZy1LZQ0KDQo=
