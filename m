@@ -1,103 +1,105 @@
-Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [13.76.78.106])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id B8CF145D5FE;
-	Wed,  9 Sep 2026 08:41:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.76.78.106
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 923D644A3F7
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 08:41:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788943276; cv=none; b=ZnaBDbtvN23axewUX9+3Oivsvw01an5AEyeiPE0IITwZQFzNfjulaYKeITGdkOUiGdLHJoa4NHugVEbWHn/pRMMoJNc5aVW4o6Ix7y9P1LuUSiwwpAwNGE6gvD1dFUG//HcktCTgf5uje5Mf/F9jZ0x/6PUkUs9qEhLLuwjVLys=
+	t=1788943302; cv=none; b=IyRftpJ8sWjRA/IRym4ChB9NdlV8Da6raQcZCjbgAuYdHud4buLkuVGRyBy5zPucW/RE5Xma6Btqel7i9EL/tUFsEJ0XX+9s42qMQ4Q6Jkm2qlVEsBK7fwvlDjLzfAjS7uK57CQvrhaZaA5QU+lrmWuS0Zs6UUMvs0qmXl2oi8U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788943276; c=relaxed/simple;
-	bh=Y8iA6Fiz8QY+ZgktH2vQIkFtb3SPK4PSqEnSMNZOUEk=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=FG5q2f2w2YLIqiue7d/RUa8f+k7MQ4xYKcTRQrIkwv1paKg1QcLqysi31pTP1Fw8By8UFwrwtDCuZeFHEdSvjPDHymU/WzOz51YiJzEjLEgNo+vTdMK+nKAn1N3xfuEQEX/wGn2TxkkB994+vXJcElsmxAZ1sgaS/V5kG7Dthts=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=13.76.78.106
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
-Received: from zju.edu.cn (unknown [10.98.66.117])
-	by mtasvr (Coremail) with SMTP id _____wCXrnyaG6Fqdp8CAQ--.8542S3;
-	Wed, 09 Sep 2026 16:40:59 +0800 (CST)
-Received: from localhost.localdomain (unknown [10.98.66.117])
-	by mail-app2 (Coremail) with SMTP id zC_KCgBn1cqZG6FqljFmBA--.11181S2;
-	Wed, 09 Sep 2026 16:40:57 +0800 (CST)
-From: Fan Wu <fanwu01@zju.edu.cn>
-To: linux-serial@vger.kernel.org
-Cc: alcooperx@gmail.com,
-	bcm-kernel-feedback-list@broadcom.com,
-	jirislaby@kernel.org,
-	gregkh@linuxfoundation.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Fan Wu <fanwu01@zju.edu.cn>
-Subject: [PATCH] serial: 8250_bcm7271: fix use-after-free in brcmuart_remove()
-Date: Wed,  9 Sep 2026 08:40:02 +0000
-Message-Id: <20260909084002.686911-1-fanwu01@zju.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1788943302; c=relaxed/simple;
+	bh=i4D6oDdQR9zjZBe5MpqOj5e3KMbINWWPSHrcK8rJ6uY=;
+	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=c5ffnvwXV/+EPtGpm+gE09UhPvX3wr69LYs5M2Y8qK37VJsTGi/kjxUEMAn4J+W14qbIxzFRoSf4Rkgov+022M0ALUXZ05OX/E74wPq0qpNRLaK8nJezFqCz2gLIAGZ4ACldX54Tc4GAetR/OpLKZqKGxbNsjl8IutWsQofmIdg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YEcgmrUD; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YEcgmrUD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E22BD1F00A3A;
+	Wed,  9 Sep 2026 08:41:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788943301;
+	bh=dN+S+OLQ3E9fR3RU3W4nKI6yEw9xqFk69o8z5jA3CAI=;
+	h=Date:Cc:Subject:To:References:From:In-Reply-To;
+	b=YEcgmrUDQ8a7hmaBKlZ6pZV2G8K6w2s5oBXaWStivF/sVH71YkwrU+ThV8DyyGoVC
+	 vXIXBEIQJntc8gDbbQA0s/MEBtSg91Q0G/10nKTMkw/NCKknBp7OIzVrXqQ8RL6cWy
+	 nnfMTMa1KM9ltcqhw74y+fQnTIh4C9ztf63mu6nQTYRaDStINLJSJ1gNLj2yf+iCnY
+	 w25Bqfd0/NjXjz0Pht5nBrxYx2Aj3JqBBA+GQKNnWj5BIAtBPM19e08Key5A1tpxQP
+	 yLrIhcordk4QvyrGhFUr5n52e6uayyMyENDji4+kqqx70LLQ38lu1U3yZPwPHxGafE
+	 nnR83ub6Q4vkA==
+Message-ID: <01e67f12-f759-492a-a332-3c9d5d4c7fdf@kernel.org>
+Date: Wed, 9 Sep 2026 16:41:37 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zC_KCgBn1cqZG6FqljFmBA--.11181S2
-X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
-X-CM-DELIVERINFO: =?B?JZYZzAXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
-	sfncGSG+szpQCInt5Y8rbJUI0SzGvKHTkIqPEVt2kH8gAE2wK6Fo8W8PgIw8IymqmnAz1c
-	M+wx7e5bJWgfD3Ju96ip9E6mavGmQbzmcFsnzP86
-X-Coremail-Antispam: 1Uk129KBj93XoW7CF4UXrWxXF18JF1ftry7Arc_yoW8Cr43pw
-	srta4qyryqgF17t3WDuan8ZFyUZa93XFy7uF97C3y3ZFnIyFyrKrWYgFyYyFWUCryvq3Wa
-	yF18J3yUuFW5AFcCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUU9Gb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AK
-	xVW0oVCq3wAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc804V
-	CY07AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AK
-	xVWUJVWUGwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48Icx
-	kI7VAKI48JM4x0Y48IcxkI7VAKI48G6xCjnVAKz4kxMxAIw28IcxkI7VAKI48JMxC20s02
-	6xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_Jr
-	I_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v2
-	6r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj4
-	0_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8
-	JrUvcSsGvfC2KfnxnUUI43ZEXa7IU86c_DUUUUU==
+User-Agent: Mozilla Thunderbird
+Cc: chao@kernel.org, linux-f2fs-devel@lists.sourceforge.net,
+ Barry Song <baohua@kernel.org>, Juan Yescas <jyescas@google.com>,
+ Pengfei Li <lipengfei28@xiaomi.com>, Dev Jain <Dev.Jain@arm.com>,
+ linux-kernel@vger.kernel.org, David Hildenbrand <David.Hildenbrand@arm.com>,
+ Bo Zhang <zhangbo56@xiaomi.com>, Kalesh Singh <kaleshsingh@google.com>,
+ Jaegeuk Kim <jaegeuk@kernel.org>, Ryan Roberts <Ryan.Roberts@arm.com>
+Subject: Re: [f2fs-dev] [PATCH 03/14] f2fs: support regular file buffered
+ writes
+To: Nanzhe Zhao <nzzhao.sigma@gmail.com>
+References: <83fe187e-e3e8-4328-bbbf-a6751873b9e0@kernel.org>
+ <20260907130313.2626386-1-zhaonanzhe@xiaomi.com>
+Content-Language: en-US
+From: Chao Yu <chao@kernel.org>
+In-Reply-To: <20260907130313.2626386-1-zhaonanzhe@xiaomi.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-brcmuart_handle_irq() starts priv->hrt to work around a receive-timeout
-quirk of the 8250 core when hardware flow control is enabled; the timer
-callback brcmuart_hrtimer_func() dereferences priv.
+On 9/7/26 21:03, Nanzhe Zhao wrote:
+> On Thu, 27 Aug 2026 16:56:53 +0800, Chao Yu wrote:
+>> +	/* Wait for pending drops back to bias which indicates all bio have completed. */
+>> +	while (READ_ONCE(ffs->read_pages_pending) != 1)
+>> +		f2fs_io_schedule_timeout(DEFAULT_SCHEDULE_TIMEOUT);
+>>
+>> Suspect there will be potential performance issue, as timeout interval
+>> is large.
+>>
+>> Looks hacky.
+> 
+> Thanks for the review.
+> 
+> Maybe we can switch this to an event-driven wait instead:
+> 
+> --- a/fs/f2fs/data.c
+> +++ b/fs/f2fs/data.c
+> @@ includes
+>  	#include <linux/fiemap.h>
+> +	#include <linux/wait_bit.h>	/* wait_var_event_io / wake_up_var */
+>  	#include <linux/iomap.h>
+> @@ f2fs_submit_page_read_sync()
+> -	/* Wait for pending drops back to bias which indicates all bio have completed. */
+> -	while (READ_ONCE(ffs->read_pages_pending) != 1)
+> -		f2fs_io_schedule_timeout(DEFAULT_SCHEDULE_TIMEOUT);
+> +	/* Wait until all bios have completed (pending drops back to our bias). */
+> +	wait_var_event_io(&ffs->read_pages_pending,
+> +			  READ_ONCE(ffs->read_pages_pending) == 1);
+> @@ f2fs_finish_read_bio()
+>  			ffs->read_pages_pending -= nr_pages;
+>  			finished = !ffs->read_pages_pending;
+>  			spin_unlock_irqrestore(&ffs->state_lock, flags);
+> +
+> +			/* Wake f2fs_submit_page_read_sync() waiters (if any). */
+> +			wake_up_var(&ffs->read_pages_pending);
+>  		}
+> 
+> However, this requires an extra wake_up_var(&ffs->read_pages_pending)
+> in f2fs_finish_read_bio(). I'm not sure whether adding an extra
+> wake-up in the completion callback is a good practice - what do you
+> think?
 
-brcmuart_remove() cancels the hrtimer before it unregisters the port, so
-a receive-timeout interrupt that arrives in between re-arms the timer.
-After devm frees priv, the callback runs on freed memory.
+Sure, IMO, stability has higher priority, we can tune this later if it
+takes much time.
 
-Unregister the port before cancelling the hrtimer.
-serial8250_unregister_port() shuts the port down and frees its IRQ, so
-brcmuart_handle_irq() can no longer restart the timer, and the final
-hrtimer_cancel() drains any timer that was armed before or during the
-unregister.
+Thanks,
 
-This issue was found by an in-house static analysis tool.
-
-Fixes: 41a469482de2 ("serial: 8250: Add new 8250-core based Broadcom STB driver")
-Cc: stable@vger.kernel.org
-Assisted-by: Codex:gpt-5.6
-Co-developed-by: Song Li <songl@zju.edu.cn>
-Signed-off-by: Song Li <songl@zju.edu.cn>
-Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
----
- drivers/tty/serial/8250/8250_bcm7271.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/tty/serial/8250/8250_bcm7271.c b/drivers/tty/serial/8250/8250_bcm7271.c
-index 742004d63c6f..60c7d5c9100c 100644
---- a/drivers/tty/serial/8250/8250_bcm7271.c
-+++ b/drivers/tty/serial/8250/8250_bcm7271.c
-@@ -1123,8 +1123,8 @@ static void brcmuart_remove(struct platform_device *pdev)
- 	struct brcmuart_priv *priv = platform_get_drvdata(pdev);
-
- 	debugfs_remove_recursive(priv->debugfs_dir);
--	hrtimer_cancel(&priv->hrt);
- 	serial8250_unregister_port(priv->line);
-+	hrtimer_cancel(&priv->hrt);
- 	brcmuart_free_bufs(&pdev->dev, priv);
- 	if (priv->dma_enabled)
- 		brcmuart_arbitration(priv, 0);
+> 
+> Thanks,
+> Nanzhe
 
