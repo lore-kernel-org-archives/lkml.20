@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B24F387581
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 12:48:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9C6F3D967A
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 12:49:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788958133; cv=none; b=e2nMDZShkwOIFA6+HVGem6IYB3sze72TFDMg5HtOdEgzWDAhHNhrEbfImtxMpV5A/2CwRdTQqdRxPfaV3Qqs/jXwL6jSuq2l4SP9OBAM/ul1IbwfYnSaG6/HfvA7hnmNsDKGUcHREkK+ncvF+Eerwfs2somXQ08P99cN9keodb4=
+	t=1788958145; cv=none; b=PHLjbTRpuOR0ZPEXPnbQsGopPUvYYHw5k0X7xxLmvAYw/mox6dzYuCKBSegMhDfQqQGllMcG+dh0r3z/AddfkGjJb1PWBWu+bGfhG3lalLDpI5TftX9DszW0DQteCpZBu//chmRfZubfkkb7l06c+PwZ/rpvIcIobFYqvEi3fpo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788958133; c=relaxed/simple;
-	bh=e/Nag92nZTjdwfpcKUgAqMj8KUapM71SrSSRRqmo1E0=;
+	s=arc-20240116; t=1788958145; c=relaxed/simple;
+	bh=mzbcbjNcDnG7b1cMtDPYgMYpmGnleVU0pOD4fqhwAGE=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=AD475hBg0VauBfPLKVXBPJ3DTb96s1MalzeG2cKW13t808puxRK7FK0ERPtIRx/q8nWOd6qB8tMyS+BoGWE+a/KUuvGE4WwqT4A8NXulNdHy0GFDo0O75uBFrkNrBLVZUHvY+6xxsCeAx3yEWklk5hGtuRLseHv47E4Hf6tSy3s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NVevUqrf; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=TG3r4c/J9BPnRuHdhMaNRtS9Qasgf5JaJ7VguBhZXXfowTyrXKMtQF2PX8iBBW6cTPLKyGGlfozIu1lr3yOmcV6Nmwz2XkGimvH/xr6eOFsy0doZMiZ7B20MUUeVb9xYcpCiaYwg5oD9LgUI2y7F7y5KGTnqs1VavJND1QKZeU4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ihpsg7zT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NVevUqrf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C6AD11F00A3A;
-	Wed,  9 Sep 2026 12:48:47 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ihpsg7zT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4AA2C1F00A3A;
+	Wed,  9 Sep 2026 12:48:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788958131;
-	bh=WiiAwtPF6Pku3MR8Pkjyi8U+d6UdSbkK4PO/kbMV8OQ=;
+	s=k20260515; t=1788958143;
+	bh=UeqpL36l3dlEIn9tPEeks2LG3oiHF6m9Q3Dm+vsjlY0=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=NVevUqrfuep5jObjd5o/zvYSPczEA7v7+UvplrdxdXCtSfnFwpi4z1WPkFyaLIWY0
-	 eDC4IcRjsOMO+wWGoMwArnhEAuCe6WwQdH3uukrUDOoIZGgK9+tLoFoQjdedi54r0q
-	 No6g/T9QZvdUGbrcdaLmX/UNnyOZN/qPHv8JMNuMODiVI3D5UYQkCc8l3oPIXN85eA
-	 O1P8QhR/jP1MQxFUX2h0VY2WEEmJVGBs0hsaDbTPPPTZ5AHfMMNCz7dawF4ClEuXr8
-	 A1YjORvfwzsnm+wkP6jJ/Pg3PFf4SePyCVT3V/3C3HpZAMmEJOPsixBxbO2AWrQw5Q
-	 Iu3VRVH3VjZ5g==
-Message-ID: <e6335c78-a20a-4024-8980-097a922eb257@kernel.org>
-Date: Wed, 9 Sep 2026 14:48:45 +0200
+	b=ihpsg7zTtPBvi4+Os8u/1ED3tUrdC9elm20t4ZSzvBE9Bkx4e6b7G1ij7jXXses4N
+	 2P5PWnIJ7hACkVVCEhrCtdfGv1nIq8YAOhgwcd+wgfkpib0lD1YcLByZ7rgA5qOppM
+	 70MsqMVlNj4SfK5N/oZQ0WexzasmdicY9pWcO5mU31Q5E6d7+WH/OMoMbKv56uhqfr
+	 oShcWJy2lXM7w/ywj0JU41Hr8OoM4FxpTgq7iiZEWvb4eNwcvsUgLkBwQ27HL/INuX
+	 2YSSUzuIbpCilwu21fzlQsl/3MYNNg7Lzv0aymQKMIqSljSl+P2XyhINnen+7hbBrJ
+	 TYkY3cgk4OjIg==
+Message-ID: <83a8743b-9cbb-42a5-9ff5-718297916a76@kernel.org>
+Date: Wed, 9 Sep 2026 14:48:54 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -35,20 +35,28 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 09/17] mm/sparse: initialize memory sections earlier
-To: Muchun Song <muchun.song@linux.dev>
-Cc: Muchun Song <songmuchun@bytedance.com>,
- Andrew Morton <akpm@linux-foundation.org>, Oscar Salvador
- <osalvador@suse.de>, Mike Rapoport <rppt@kernel.org>,
- Vlastimil Babka <vbabka@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
- Michal Hocko <mhocko@suse.com>, David Laight <david.laight.linux@gmail.com>,
- "Liam R . Howlett" <liam@infradead.org>,
- Suren Baghdasaryan <surenb@google.com>, Qi Zheng <qi.zheng@linux.dev>,
- linux-mm@kvack.org, linux-kernel@vger.kernel.org
-References: <20260825084608.47437-1-songmuchun@bytedance.com>
- <20260825084608.47437-10-songmuchun@bytedance.com>
- <a2016390-28ce-4199-a063-d2e9101dacab@kernel.org>
- <E54037CE-6CE6-41AB-A525-8BDCE55996AC@linux.dev>
+Subject: Re: [PATCH v3 06/14] f2fs: stop using PG_private
+To: Tal Zussman <tz2294@columbia.edu>
+Cc: Zi Yan <ziy@nvidia.com>, "Matthew Wilcox (Oracle)" <willy@infradead.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Muchun Song <muchun.song@linux.dev>, Lorenzo Stoakes <ljs@kernel.org>,
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>, Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
+ Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
+ Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
+ Gregory Price <gourry@gourry.net>, Ying Huang
+ <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>,
+ Johannes Weiner <hannes@cmpxchg.org>, Qi Zheng <qi.zheng@linux.dev>,
+ Shakeel Butt <shakeel.butt@linux.dev>, Kairui Song <kasong@tencent.com>,
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ Jaegeuk Kim <jaegeuk@kernel.org>, Chao Yu <chao@kernel.org>,
+ linux-f2fs-devel@lists.sourceforge.net
+References: <20260907-remove-pg_private-v3-0-6ae22f9d9272@nvidia.com>
+ <20260907-remove-pg_private-v3-6-6ae22f9d9272@nvidia.com>
+ <e5792e81-e8a5-42e1-aafe-58dc603f4968@kernel.org>
+ <178889163877.1334491.3646957026033534678.b4-reply@b4>
 From: "David Hildenbrand (Arm)" <david@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=david@kernel.org; keydata=
@@ -95,27 +103,99 @@ Autocrypt: addr=david@kernel.org; keydata=
  3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
  CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
  qIws/H2t
-In-Reply-To: <E54037CE-6CE6-41AB-A525-8BDCE55996AC@linux.dev>
+In-Reply-To: <178889163877.1334491.3646957026033534678.b4-reply@b4>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-
+On 9/8/26 20:20, Tal Zussman wrote:
+> On 2026-09-08 17:47 +0200, David Hildenbrand (Arm) wrote:
+>> On 9/8/26 04:56, Zi Yan wrote:
+>>> f2fs sets its PAGE_PRIVATE_* flags in page->private and checking
+>>> page->private != NULL is equivalent to checking PG_private. Change
+>>> PagePrivate() to page_private(). Meanwhile, in set_page_private_##name(),
+>>> page->private is first set to 0/NULL before an PAGE_PRIVATE_* flag is set,
+>>> but it can cause confusion when PG_private is removed and
+>>> page->private != NULL is used instead. Change it to initialize
+>>> page->private to PAGE_PRIVATE_NOT_POINTER instead and retain the original
+>>> semantics.
+>>>
+>>> It prepares for a future commit that removes PG_private.
+>>>
+>>> No functional change intended.
+>>>
+>>> Assisted-by: Claude:claude-opus-4-8
+>>> Assisted-by: Codex:gpt-5
+>>> To: Jaegeuk Kim <jaegeuk@kernel.org>
+>>> To: Chao Yu <chao@kernel.org>
+>>> Cc: linux-f2fs-devel@lists.sourceforge.net
+>>> Cc: linux-kernel@vger.kernel.org
+>>> Acked-by: Usama Arif <usama.arif@linux.dev>
+>>> Acked-by: Chao Yu <chao@kernel.org>
+>>> Signed-off-by: Zi Yan <ziy@nvidia.com>
+>>> ---
+>>>  fs/f2fs/f2fs.h | 8 ++++----
+>>>  1 file changed, 4 insertions(+), 4 deletions(-)
+>>>
+>>> diff --git a/fs/f2fs/f2fs.h b/fs/f2fs/f2fs.h
+>>> index 9940a6cecf1a2..2f7ab5888b078 100644
+>>> --- a/fs/f2fs/f2fs.h
+>>> +++ b/fs/f2fs/f2fs.h
+>>> @@ -2691,7 +2691,7 @@ static inline bool folio_test_f2fs_##name(const struct folio *folio)	\
+>>>  }									\
+>>>  static inline bool page_private_##name(struct page *page) \
+>>>  { \
+>>> -	return PagePrivate(page) && \
+>>> +	return page_private(page) && \
+>>>  		test_bit(PAGE_PRIVATE_NOT_POINTER, &page_private(page)) && \
+>>>  		test_bit(PAGE_PRIVATE_##flagname, &page_private(page)); \
+>>>  }
+>>> @@ -2710,9 +2710,9 @@ static inline void folio_set_f2fs_##name(struct folio *folio)		\
+>>>  }									\
+>>>  static inline void set_page_private_##name(struct page *page) \
+>>>  { \
+>>> -	if (!PagePrivate(page)) \
+>>> -		attach_page_private(page, (void *)0); \
+>>> -	set_bit(PAGE_PRIVATE_NOT_POINTER, &page_private(page)); \
+>>> +	if (!page_private(page)) \
+>>> +		attach_page_private(page, \
+>>> +				(void *)BIT(PAGE_PRIVATE_NOT_POINTER)); \
+>>>  	set_bit(PAGE_PRIVATE_##flagname, &page_private(page)); \
+>>>  }
+>>
+>> Very weird interface. Why do we even need the page-based interface still?
+>>
+>> $ git grep -E "(set|clear)_page_private"
+>> compress.c:             clear_page_private_gcing(cc->rpages[i]);
+>> compress.c:                     set_page_private_gcing(cc->rpages[i]);
+>> compress.c:             clear_page_private_gcing(cic->rpages[i]);
+>> f2fs.h:static inline void set_page_private_##name(struct page *page) \
+>> f2fs.h:static inline void clear_page_private_##name(struct page *page) \
+>>
+>> Seeing code like:
+>>
+>> clear_page_private_gcing(cc->rpages[i]);
+>> if (folio_test_writeback(page_folio(cc->rpages[i])))
+>> 	end_page_writeback(cc->rpages[i]);
+>>
+>> Makes me wonder whether we can just use the folio helper instead?
+>>
+>> In f2fs_iget(), we enable large folios only when !f2fs_compressed_file(inode).
+>>
+>> So naive me would assume that we can just get rid of the
+>> set_page_private_/clear_page_private_ stuff entirely.
+>>
 > 
->>
->> I have patches to get rid of __section_mark_present() and just set them all to
->> SECTION_IS_EARLY|SECTION_IS_ONLINE such that we can just iterate early sections
->> and get rid of that PRESENT monstrosity.
->>
->> Apart from that LGTM, even though I don't particularly enjoy splitting us now
->> having two init entry points
->>
->> sparse_init
-> 
-> Maybe this one should be sparse_memmap_init? If yes, it could be another separate
-> cleanup patch.
+> I have a WIP series of ~30 patches converting much of the remaining page
+> users in f2fs (including the below) to folios. Still have to do some
+> testing and clean it up, but hoping to send it out in the next couple of
+> weeks (in the hopes of eliminating some more folio_compat.c functions by
+> next cycle...)
 
-It does way more than that. In my patches I factor some of sparse_init out and
-call it sparse_metadata_init() -- memmap and usemap.
+Indeed best to wait a bit before flooding -mm even more, it's rather a lot at
+this point.
+
+In the context of this series, it would be great if you could review whether the
+diff I proposed would get the job done, thanks!
 
 -- 
 Cheers,
