@@ -1,39 +1,39 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 966412C21FD
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 01:36:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 390CD2F90E0
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 01:36:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788917796; cv=none; b=MquwhAEwo+1QWM5jtrtFTjIDfq3OnuZO6DkGVeQGb6oE5Oe3YfVRbBM4CdNIzm+6jPv3hLOTX5Ad+sTZVENm+DZZfZ4sZoGx3J2+TCS42pqmKuAndfHyiI07w4fXpqmJGQnFnGTDHW8clVgVM2eD3EJII4eTFGcHLQ/8C/cgplo=
+	t=1788917797; cv=none; b=mO6v6gA5TDxSGYRqUIOSLi8/8kH9RraIAjDvNPHXmAegi9aar1VtvXueh1Y3n4UJEwBMiBm4HrYmjr5xK/YCFaDpuqHmq0Sp6pAwHUxI+3H05p1QDkPN8r2oELur5nik0YRqO+a5P/LJydGlBBZ2nBh0fILEX0kKmIF89Kqyb4I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788917796; c=relaxed/simple;
-	bh=AgCZm0HfsMNllRxUTgmhqHMHg8cf0R9KqYd3JMCYZhk=;
+	s=arc-20240116; t=1788917797; c=relaxed/simple;
+	bh=qacsqJwA2pPXgCCm3zpi/f+vUTFjxtmE9XzDG38Ds0g=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=YC9Z46QkeNXPufXkhiynAwkI7LW85DQzr+JLSKKWNUKvKikfG1/4Xjb0IqE+Q9jZlwXd1sXM/j36OP3NBCC4hqgBz3t+78pJE2YrArpa2NU1WwVKBw1o7dBjWiJk03XPXjUeDQs+g+KdRkXpT3UlnQpECzpRfstogD7MovP2i1A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CdnZef10; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=USjVgxiuoTKWSYKgfQBOnzMnE8/+rQ+C6zNv970mKcOPLJehjEdDBm+SkWONGXpNXrDGWjKg5+1weM+WZm+VAEJR5NA3blOLWUZZHIdPmcPWi4F22vgIRE4iJby23GXFDsJ1Bh0BtUrLWtzQtpyiF0nfqxZmZ0ZKfqvw32nw+rY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=M5CK88mO; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CdnZef10"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E2A71F00A3E;
-	Wed,  9 Sep 2026 01:36:33 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="M5CK88mO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AA5B81F00AC4;
+	Wed,  9 Sep 2026 01:36:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788917794;
-	bh=b8qj0z1aNkswL3Omwmi1z5sO5jypIhGVErmWjvY4l3I=;
+	s=k20260515; t=1788917795;
+	bh=ltvgpC+nMnPE/iQAztVfrc8xC7sSszBpHSlZ/oBovFQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=CdnZef1019ttwzjiOwtDPE0pwVtc4Gbewm8yUYuN94of0ZKjWXwSPovLrqx1aiqgL
-	 +5/DXWzX3gBtSmtgKLy8dZQWMkQ/ODsxME9Be/BthUmrxN5x5xXlF208WdxUPZM/wC
-	 Ih1ozqOQvPVCP0POu5G2hObmkoHMNTUbpugszxXPgGH7Vgbwsg32SJKS34iOdoI5AP
-	 m/8vZWnRe/RdVV8WL69rUVGxMlqc3X763Ra2gzwapil3fNDzNJ6vyJQXawIRUPr7VI
-	 JYbnMOJL82rZP9nnV/yzolMytTyp833pP8cjt/pFVFRjPFmTs3QoiAOXLI02alQl3c
-	 J07UpF3AJtAbg==
+	b=M5CK88mOZtNkELgxKn5yEO+4q0RRP5jqVciHPs4ZOwxBIJCbmEMxdRkV1//A6KGnb
+	 uzHstXruzzngP+o43f2HpVXyB4GynlAj+ce+QeBgyC0i2yYBblgoCtQ0VEr/hcmTsG
+	 eYGlbuuDW4uJ2XkKGnboWgyeBU2lvBJXnm7QGQ81sV19A/VNHFSbvjgnENyJ/9HJ15
+	 w74pcUwDGloR/awjWoEmVMuaw/u00yS/YvS7x/Jkw1W662ZWG0k9s1y0Q0n3cWg9cP
+	 lg02QQwKM5lsHYKF33n3tU4mua2hnlp2YC5cbNpQYRJhsZTdeB1xNFc4lbbPA069Fn
+	 dOuWSyTVaWSLA==
 From: Chao Yu <chao@kernel.org>
 To: jaegeuk@kernel.org
 Cc: linux-f2fs-devel@lists.sourceforge.net,
 	linux-kernel@vger.kernel.org,
 	Chao Yu <chao@kernel.org>
-Subject: [PATCH v6 02/12] f2fs: cache: initialize meta cache
-Date: Wed,  9 Sep 2026 09:36:01 +0800
-Message-ID: <20260909013611.3418568-3-chao@kernel.org>
+Subject: [PATCH v6 03/12] f2fs: cache: introduce shrinker
+Date: Wed,  9 Sep 2026 09:36:02 +0800
+Message-ID: <20260909013611.3418568-4-chao@kernel.org>
 X-Mailer: git-send-email 2.55.0.979.g7e5102b832-goog
 In-Reply-To: <20260909013611.3418568-1-chao@kernel.org>
 References: <20260909013611.3418568-1-chao@kernel.org>
@@ -47,108 +47,170 @@ Content-Transfer-Encoding: 8bit
 
 From: Chao Yu <chao@kernel.org>
 
-This patch introduces meta_blocks in f2fs_sb_info structure, initializes
-and destroys the meta cache during filesystem mount and unmount.
+This patch integrates the metadata cache into the F2FS memory shrinker
+subsystem to reclaim clean, unreferenced cached blocks under memory
+pressure.
 
-It also introduces helper wrappers for meta cache operation.
+It implements f2fs_shrink_cache() using a 3-phase cache reclamin method:
+1. isolate clean entries from lru list
+2. truncate from radix tree under lock
+3. splice un-reclaimed entries back
+
+And hooks the new interface into f2fs_shrink_count() and f2fs_shrink_scan().
 
 Signed-off-by: Chao Yu <chao@kernel.org>
 ---
- fs/f2fs/cache.h | 12 ++++++++++++
- fs/f2fs/data.c  |  3 +++
- fs/f2fs/f2fs.h  |  3 +++
- fs/f2fs/super.c | 10 +++++++++-
- 4 files changed, 27 insertions(+), 1 deletion(-)
+ fs/f2fs/cache.c    | 89 ++++++++++++++++++++++++++++++++++++++++++++++
+ fs/f2fs/cache.h    |  3 ++
+ fs/f2fs/shrinker.c | 12 +++++++
+ 3 files changed, 104 insertions(+)
 
+diff --git a/fs/f2fs/cache.c b/fs/f2fs/cache.c
+index 473b8c272ffb..5524c0c81c83 100644
+--- a/fs/f2fs/cache.c
++++ b/fs/f2fs/cache.c
+@@ -533,3 +533,92 @@ void f2fs_destroy_cache(struct f2fs_cached_block_list *cache)
+ 	f2fs_put_cache(entry, true);
+ 	goto next;
+ }
++
++static unsigned long f2fs_do_shrink_cache(struct f2fs_cached_block_list *cache,
++						unsigned long nr_to_scan)
++{
++	struct f2fs_cached_block *entry, *next;
++	LIST_HEAD(dispose_list);
++	LIST_HEAD(keep_list);
++	unsigned long freed = 0;
++	unsigned long scanned = 0;
++
++	/* Phase 1: Isolate candidate entries from LRU list into dispose_list */
++	spin_lock(&cache->list_lock);
++	list_for_each_entry_safe(entry, next, &cache->lru_list, list) {
++		if (scanned >= cache->num_entries)
++			break;
++		if (scanned++ >= nr_to_scan)
++			break;
++
++		/* If accessed, give it a second chance to rotate to tail */
++		if (f2fs_cache_test_and_clear_referenced(entry)) {
++			list_move_tail(&entry->list, &cache->lru_list);
++			continue;
++		}
++
++		if (f2fs_cache_test_dirty(entry) ||
++		    f2fs_cache_test_writeback(entry) ||
++		    f2fs_cache_test_locked(entry))
++			continue;
++
++		if (f2fs_cache_refcount(entry) != 1)
++			continue;
++
++		list_move_tail(&entry->list, &dispose_list);
++	}
++	spin_unlock(&cache->list_lock);
++
++	/* Phase 2: Process isolated candidates one by one */
++	while (1) {
++		spin_lock(&cache->list_lock);
++		entry = list_first_entry_or_null(&dispose_list,
++						struct f2fs_cached_block, list);
++		if (!entry) {
++			spin_unlock(&cache->list_lock);
++			break;
++		}
++		f2fs_cache_get(entry);
++		list_move_tail(&entry->list, &keep_list);
++		spin_unlock(&cache->list_lock);
++
++		if (!f2fs_trylock_cache(entry)) {
++			f2fs_put_cache(entry, false);
++			continue;
++		}
++
++		/* the entry has been truncated */
++		if (!entry->cache) {
++			f2fs_put_cache(entry, true);
++			continue;
++		}
++		/*
++		 * at least there are shrinker, radix tree and another user
++		 * has referenced the entry.
++		 */
++		if (f2fs_cache_refcount(entry) >= 3) {
++			f2fs_put_cache(entry, true);
++			continue;
++		}
++
++		f2fs_do_truncate_cache(entry, false);
++
++		if (f2fs_put_cache(entry, true))
++			freed++;
++	}
++
++	/* Phase 3: Splice un-reclaimed entries back onto cache->lru_list */
++	if (!list_empty(&keep_list)) {
++		spin_lock(&cache->list_lock);
++		list_splice_tail(&keep_list, &cache->lru_list);
++		spin_unlock(&cache->list_lock);
++	}
++
++	return freed;
++}
++
++unsigned long f2fs_shrink_cache(struct f2fs_sb_info *sbi,
++					unsigned long nr_to_scan)
++{
++	return f2fs_do_shrink_cache(META_CACHE(sbi), nr_to_scan);
++}
 diff --git a/fs/f2fs/cache.h b/fs/f2fs/cache.h
-index 3c902cbae5b3..6408f8cb5723 100644
+index 6408f8cb5723..d5aa89d59474 100644
 --- a/fs/f2fs/cache.h
 +++ b/fs/f2fs/cache.h
-@@ -193,4 +193,16 @@ void f2fs_truncate_cache(struct f2fs_cached_block *entry, bool drop_dirty);
- void f2fs_drop_cache_range(struct f2fs_cached_block_list *cache,
- 		unsigned long start, unsigned long len, bool drop_dirty);
+@@ -205,4 +205,7 @@ void f2fs_stop_cache_wb_thread(struct f2fs_sb_info *sbi);
+ #define f2fs_truncate_meta_caches(sbi, start, len)	\
+ 	f2fs_drop_cache_range(META_CACHE(sbi), start, len, true)
  
-+int f2fs_start_cache_wb_thread(struct f2fs_sb_info *sbi);
-+void f2fs_stop_cache_wb_thread(struct f2fs_sb_info *sbi);
-+
-+#define META_CACHE(sbi)		(&(sbi)->meta_blocks)
-+
-+#define f2fs_find_meta_cache(sbi, blkaddr)		\
-+	f2fs_find_cache(META_CACHE(sbi), blkaddr)
-+#define f2fs_invalidate_meta_caches(sbi, start, len)	\
-+	f2fs_drop_cache_range(META_CACHE(sbi), start, len, false)
-+#define f2fs_truncate_meta_caches(sbi, start, len)	\
-+	f2fs_drop_cache_range(META_CACHE(sbi), start, len, true)
++unsigned long f2fs_shrink_cache(struct f2fs_sb_info *sbi,
++				unsigned long nr_to_scan);
 +
  #endif /* _LINUX_F2FS_CACHE_H */
-diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
-index d9fe1bba75d6..7b7f7be3f0ed 100644
---- a/fs/f2fs/data.c
-+++ b/fs/f2fs/data.c
-@@ -669,6 +669,9 @@ static bool __has_merged_page(struct f2fs_sb_info *sbi, struct bio *bio,
- 	if (!inode && !folio && !ino)
- 		return true;
+diff --git a/fs/f2fs/shrinker.c b/fs/f2fs/shrinker.c
+index e3e0a7e89406..baa09bc63585 100644
+--- a/fs/f2fs/shrinker.c
++++ b/fs/f2fs/shrinker.c
+@@ -37,6 +37,11 @@ static unsigned long __count_extent_cache(struct f2fs_sb_info *sbi,
+ 				atomic_read(&eti->total_ext_node);
+ }
  
-+	if (f2fs_is_cache_bio(bio))
-+		return false;
++static unsigned long __count_cache(struct f2fs_sb_info *sbi)
++{
++	return META_CACHE(sbi)->num_entries;
++}
 +
- 	bio_for_each_folio_all(fi, bio) {
- 		struct folio *target = fi.folio;
+ unsigned long f2fs_shrink_count(struct shrinker *shrink,
+ 				struct shrink_control *sc)
+ {
+@@ -68,6 +73,9 @@ unsigned long f2fs_shrink_count(struct shrinker *shrink,
+ 		/* count free nids cache entries */
+ 		count += __count_free_nids(sbi);
  
-diff --git a/fs/f2fs/f2fs.h b/fs/f2fs/f2fs.h
-index 81f1bcc58cd3..8bce5cc2b09a 100644
---- a/fs/f2fs/f2fs.h
-+++ b/fs/f2fs/f2fs.h
-@@ -2107,6 +2107,9 @@ struct f2fs_sb_info {
- #ifdef CONFIG_DEBUG_LOCK_ALLOC
- 	struct lock_class_key cp_global_sem_key;
- #endif
++		/* count generic cache entries */
++		count += __count_cache(sbi);
 +
-+	/* f2fs internal cache */
-+	struct f2fs_cached_block_list meta_blocks;
- };
+ 		spin_lock(&f2fs_list_lock);
+ 		p = p->next;
+ 		mutex_unlock(&sbi->umount_mutex);
+@@ -120,6 +128,10 @@ unsigned long f2fs_shrink_scan(struct shrinker *shrink,
+ 		if (freed < nr)
+ 			freed += f2fs_try_to_free_nids(sbi, nr - freed);
  
- /* Definitions to access f2fs_sb_info */
-diff --git a/fs/f2fs/super.c b/fs/f2fs/super.c
-index f96abecb3c55..f6ac2a56b0da 100644
---- a/fs/f2fs/super.c
-+++ b/fs/f2fs/super.c
-@@ -2094,6 +2094,8 @@ static void f2fs_put_super(struct super_block *sb)
- 	iput(sbi->meta_inode);
- 	sbi->meta_inode = NULL;
- 
-+	f2fs_destroy_cache(META_CACHE(sbi));
++		/* shrink generic cache entries */
++		if (freed < nr)
++			freed += f2fs_shrink_cache(sbi, nr - freed);
 +
- 	/* Should check the page counts after dropping all node/meta pages */
- 	for (i = 0; i < NR_COUNT_TYPE; i++) {
- 		if (!get_pages(sbi, i))
-@@ -5261,12 +5263,16 @@ static int f2fs_fill_super(struct super_block *sb, struct fs_context *fc)
- 	if (err)
- 		goto free_percpu;
- 
-+	err = f2fs_init_cache(sbi, META_CACHE(sbi), F2FS_META_CACHE);
-+	if (err)
-+		goto free_page_array_cache;
-+
- 	/* get an inode for meta space */
- 	sbi->meta_inode = f2fs_iget(sb, F2FS_META_INO(sbi));
- 	if (IS_ERR(sbi->meta_inode)) {
- 		f2fs_err(sbi, "Failed to read F2FS meta data inode");
- 		err = PTR_ERR(sbi->meta_inode);
--		goto free_page_array_cache;
-+		goto free_meta_cache;
- 	}
- 
- 	err = f2fs_get_valid_checkpoint(sbi);
-@@ -5594,6 +5600,8 @@ static int f2fs_fill_super(struct super_block *sb, struct fs_context *fc)
- 	make_bad_inode(sbi->meta_inode);
- 	iput(sbi->meta_inode);
- 	sbi->meta_inode = NULL;
-+free_meta_cache:
-+	f2fs_destroy_cache(META_CACHE(sbi));
- free_page_array_cache:
- 	f2fs_destroy_page_array_cache(sbi);
- free_percpu:
+ 		spin_lock(&f2fs_list_lock);
+ 		p = p->next;
+ 		list_move_tail(&sbi->s_list, &f2fs_list);
 -- 
 2.49.0
 
