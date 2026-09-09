@@ -1,313 +1,87 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C3EE13959D
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 05:19:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 235093546E5
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 05:24:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788931189; cv=none; b=nmOq5qB/N9f7uL92ZdDVUYWCLL/BMXrVfZD3KHAUb4aFsGq7WmK0RkZ5E7o+poUh/2IRgO7Qs0YyabjzlLiJzHuPtwm762+Sg4KJp/GQI20ALmT78wPf7XWwbvhHGAXV0OUEZkyzwEkmpjHhdbGavMt3Z9Msp0nz5PHLql+Im3Y=
+	t=1788931494; cv=none; b=CG1zlfBV6NUJVOcz9FwEXUh7ryUAjUD1fFX6NIbWfM4+dM8LP03LB6MZc9vmZiZK1d4BpfNtd4LwKQ72H0BEQ7090dUqD1Jq9CZAdgr1qiU6iKkaqh3nCMHS7FHSo9cudWCguCsZY4uB6cdb31wVbyUmb4MSn2+wQiI1lWuPxO4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788931189; c=relaxed/simple;
-	bh=arygm4FIO39SuPAaP6RqAQmAV105kPGbyzGy0mnMLig=;
-	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
-	 Message-Id:References:To; b=VQAxpTPgN5elntneOhY57NQiwSJHEMRl0B+sAOkQQtMawj8zOudYMxgLndHidqsYbSDVKguoJ2mxMMVUV4zm1ch5Y0caaj8ato2pPinKdxwrUe/hf5NEOqMcfZqicElzk0UsuH/zdRZExaglWB/s47gsq8iNXC6AR0UGvvh6Evo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=tj1gxfou; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1788931494; c=relaxed/simple;
+	bh=H4G9CkscD/oOxO5n+mSyd4C19vjSZpszhCK1nTAND9k=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=cFZkzvoDzlHyXbdr/ZabXv+/uGVxSAaCcSIWfCulDUjtP1A3bBfr/U9I0gUBWOjAVYqinGTAEpSamOsGxSE4rpgNm4PzfKIIjvj+CFrDYwGEEs1jIkQdasSTolQXOOqQnpa2/J2Zczecgr4JSUQUxKnQog59TFyNc1UnVoeFWeg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=R3xMhQXi; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="tj1gxfou"
-Received: from pps.filterd (m0356516.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 688N1XaY2126133;
-	Wed, 9 Sep 2026 05:19:40 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=npl5tr
-	J+DUTQUQBvMupvJv9QS8VKg7CkXwUz0MxgOqg=; b=tj1gxfouQA/Y9UsId5EvDR
-	MbYUh1/Ny1R1RR5i0XfHlJ0nHrmA24kfeQ+jxnvgpJaAERDrd1G0tlxH2FgyR4ku
-	xiEmGLj7FChfO33ovkfOPN6bvmNFf5mZD5KDoaeBTVFrQtA0G4+NP/9XC7wQgu/L
-	7v7EiQ61lBndbJ+iANyQPPvt2LZ9lmAv9bFUYe0ZzXXH1gt60u+tPz7WEqxIta8Q
-	zJ42sCS1SyViWTNpZcfy9cFD8yiXJ8yZ9mBxdeYyRoaBJCSSAzBWWTlvjE14P9ut
-	ZM40yWlEfQLE2k8IFcsEE5C4hdiSWpzA5ZHb9wih7bj9oIXx37gLF3Q9XxjDKkgA
-	==
-Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4ggbj8bepq-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 09 Sep 2026 05:19:39 +0000 (GMT)
-Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma11.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 6895BL7N020707;
-	Wed, 9 Sep 2026 05:19:38 GMT
-Received: from smtprelay07.dal12v.mail.ibm.com ([172.16.1.9])
-	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4gh03yg5kt-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 09 Sep 2026 05:19:38 +0000 (GMT)
-Received: from smtpav06.dal12v.mail.ibm.com (smtpav06.dal12v.mail.ibm.com [10.241.53.105])
-	by smtprelay07.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6895JcGr7865046
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Wed, 9 Sep 2026 05:19:38 GMT
-Received: from smtpav06.dal12v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 7385A58055;
-	Wed,  9 Sep 2026 05:19:38 +0000 (GMT)
-Received: from smtpav06.dal12v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 75BB658043;
-	Wed,  9 Sep 2026 05:19:36 +0000 (GMT)
-Received: from smtpclient.apple (unknown [9.123.0.173])
-	by smtpav06.dal12v.mail.ibm.com (Postfix) with ESMTPS;
-	Wed,  9 Sep 2026 05:19:36 +0000 (GMT)
-Content-Type: text/plain;
-	charset=utf-8
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="R3xMhQXi"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6451F1F00A3A;
+	Wed,  9 Sep 2026 05:24:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788931492;
+	bh=fTwmembWulALuJ+oSUQaZjAZLiSxf9G75gTaYNdeONU=;
+	h=Date:From:Subject:To:Cc:References:In-Reply-To;
+	b=R3xMhQXiej9PLY9sKsP6oqMJfHd18O23R8yGBcfXwgXyV/NyhYAWrsA0Obixny48m
+	 nQR3Uxh5ohlyVT9ef6Gpzaiclyuu22lcfRBDHgtOZHPBH60zgIvki4f42LXTMdMddT
+	 cX0Hl9LCgCTjVi/3asfoJoKJcHn+Jcd4zEcb7QGk16GrhYD+UdHeqvPex1i3IOBCdD
+	 slDJffP5EJcspeYPQoxKMyjw0l92qAGjl24wp6KJUFpibUnGylRIZ7fbai2dQgxfEf
+	 qEEFGdYVInbNmQ/wrvigzRe+DVfz6xFrJhngHfd7zZmp8jypJmds7X206AAG8qQl1k
+	 F/SUgvj8WMo9g==
+Message-ID: <31a3ede9-3861-4837-a821-91cca14dd450@kernel.org>
+Date: Wed, 9 Sep 2026 10:54:48 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3864.600.51.1.1\))
-Subject: =?utf-8?Q?Re=3A_=5Bmainline=5D_powerpc/TM=3A_Unexpected_TM_Bad_Th?=
- =?utf-8?Q?ing_during_core_dump_on_POWER9_=287=2E1=E2=80=91rc1=29?=
-From: Venkat <venkat88@linux.ibm.com>
-In-Reply-To: <DC72ED6B-156C-4EEB-A32B-2F5629F5AC00@linux.ibm.com>
-Date: Wed, 9 Sep 2026 10:49:23 +0530
-Cc: linuxppc-dev <linuxppc-dev@lists.ozlabs.org>,
-        LKML <linux-kernel@vger.kernel.org>,
-        Christophe Leroy <christophe.leroy@csgroup.eu>
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <439365B6-D0F8-4AB9-ABA5-020FDB50F523@linux.ibm.com>
-References: <364996ce-aba2-4213-8d20-7dd481b43fe6@linux.ibm.com>
- <d18c4a14-c26f-460e-a04f-2998bc4e9e25@linux.ibm.com>
- <DC72ED6B-156C-4EEB-A32B-2F5629F5AC00@linux.ibm.com>
-To: Madhavan Srinivasan <maddy@linux.ibm.com>, thibault.ferrante@canonical.com
-X-Mailer: Apple Mail (2.3864.600.51.1.1)
-X-TM-AS-GCONF: 00
-X-Proofpoint-GUID: 6W99u9_9eivxwB10KtA-eCKaokS0PlJD
-X-Proofpoint-ORIG-GUID: 6W99u9_9eivxwB10KtA-eCKaokS0PlJD
-X-Authority-Analysis: v=2.4 cv=RNCD2Yi+ c=1 sm=1 tr=0 ts=6aa0ec6b cx=c_pps
- a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=5KLPUuaC_9wA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22 a=Y2IxJ9c9Rs8Kov3niI8_:22
- a=VwQbUJbxAAAA:8 a=DfNHnWVPAAAA:8 a=VnNF1IyMAAAA:8 a=QC0v0_FW1Z5KRakCRfEA:9
- a=QEXdDO2ut3YA:10 a=rjTVMONInIDnV1a_A2c_:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA5MDA1NSBTYWx0ZWRfX61JqqdB7BjZh
- /0FLaEodGXhMSqu0pv16a2uxVb5YeWZ6E34cRp4Lgksa0YORiozXJQ/Tn5o53h9SzN2J1sK1G4b
- VjBXm6+z8DmtlCtGd7mC3yA0Zke3wZw=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA5MDA1NSBTYWx0ZWRfX6gIBOmrlv1o8
- RcR94wbCozJTF4JW+S9GrSSLOltbn8K+siVwnx3qLEA5iOL6O/MQ+pTBodgeC9zgQ8S6bc2mxoo
- PY36ioPvj2zVviAsQEQpz8ERBOEoGbAQhh+RTyl3fTBsubwtC5UDbmwyK9dQcGXkJOcrbGZbNry
- ug8bwn0IdGNZRGFWJU4MbFB2MrR+u2s3czWxdsObecOHbIJcval4e7iPDoAb5iPMo+YJT7bl6Dq
- JOMkhTEy9+A4KW+I7Cma3YqwPdXcxDZ3m0ZECjXyikqFSqgMfVIp6qiyRDBBV3Vo6vnGsm1Wt/Q
- Vpucjmutt+hMV0YqVQ0guNtByoAUll+OMkRibKxnFcihI+Kf1vQcZ3DhlNQSmixEAsvNNsQPtDM
- u7hM7kJ1dYUOH5TEXL5nPVDcU3THWx+b9+tVo7sEPhcrmXIBVkVNzCVftSTNv+ZH2p+ZFH42MuJ
- MzGwZYc+gp6O1+XAUFw==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-08_03,2026-09-08_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 lowpriorityscore=0 bulkscore=0 clxscore=1011 spamscore=0
- impostorscore=0 adultscore=0 phishscore=0 suspectscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609090055
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+From: Vineet Gupta <vgupta@kernel.org>
+Subject: Re: [PATCH] arc: kernel: Fix clk reference leak in show_cpuinfo()
+To: blaze <1466528493@qq.com>, vgupta@kernel.org
+Cc: linux-snps-arc@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <tencent_0F7ECDD4429624B3213BD758BED2F788490A@qq.com>
+Content-Language: en-US
+In-Reply-To: <tencent_0F7ECDD4429624B3213BD758BED2F788490A@qq.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
+On 9/9/26 10:12 AM, blaze wrote:
+> In show_cpuinfo(), clk_get() acquires a reference to the CPU clock, but
+> clk_put() is never called to release it. Since show_cpuinfo() is the
+> seq_file show callback for /proc/cpuinfo, this causes a clock reference
+> count leak every time /proc/cpuinfo is read.
+>
+> The frequency is extracted via clk_get_rate() into a local variable, so
+> the clock reference can be safely released immediately after.
+>
+> Fix this by calling clk_put(cpu_clk) right after clk_get_rate().
 
+Thx for the fix and right on time as I was queuing up changes.
 
-> On 9 Sep 2026, at 9:29=E2=80=AFAM, Venkat <venkat88@linux.ibm.com> =
-wrote:
->=20
->=20
->=20
->> On 15 May 2026, at 10:59=E2=80=AFAM, Venkat Rao Bagalkote =
-<venkat88@linux.ibm.com> wrote:
->>=20
->>=20
->> On 28/04/26 5:48 pm, Venkat Rao Bagalkote wrote:
->>> Greetings!!
->>>=20
->>> IBM CI has reported a kernel crash while running =
-selftests/powerpc/signal on a POWER9 pSeries system.
->>>=20
->>> I attempted to reproduce this issue manually, but was not successful =
-so far.
->>=20
->> I=E2=80=99m now able to reproduce this issue reliably and =
-consistently. The reproduction steps are simple:
->>=20
->> Run selftests/powerpc/signal
->>=20
->=20
-> This issue is still present in 7.3-rc2 as well. Please let me know, if =
-it=E2=80=99s invalid bug, I will make appropriate changes to my CI set =
-up.
->=20
-> This is blocking for me.
+Acked-by: Vineet Gupta <vgupta@kernel.org>
 
-With this patch, signal selftests are running fine.
+Thx,
+-Vineet
 
-=
-https://lore.kernel.org/all/20260907215420.1258678-1-thibault.ferrante@can=
-onical.com/
-
-Regards,
-Venkat.
->=20
-> Traces:
->=20
-> [12689.799298] Unexpected TM Bad Thing exception at c00000000000dbac =
-(msr 0x8000000302a03031) tm_scratch=3D800000010280b033
-> [12689.799318] Oops: Unrecoverable exception, sig: 6 [#1]
-> [12689.799323] LE PAGE_SIZE=3D64K MMU=3DHash  SMP NR_CPUS=3D8192 NUMA =
-pSeries
-> [12689.799330] Modules linked in: nvram(E) rpadlpar_io(E) rpaphp(E) =
-bonding(E) tls(E) rfkill(E) nft_fib_inet(E) nft_fib_ipv4(E) =
-nft_fib_ipv6(E) nft_fib(E) nft_reject_inet(E) nf_reject_ipv4(E) =
-nf_reject_ipv6(E) nft_reject(E) nft_ct(E) nft_chain_nat(E) hvcs(E) =
-hvcserver(E) pseries_rng(E) sg(E) vmx_crypto(E) drm(E) fuse(E) =
-drm_panel_orientation_quirks(E) xfs(E) nvme_tcp(E) nvme_fabrics(E) =
-nvme_core(E) sr_mod(E) sd_mod(E) cdrom(E) ibmvscsi(E) ibmveth(E) =
-scsi_transport_srp(E) dm_mirror(E) dm_region_hash(E) dm_log(E) dm_mod(E)
-> [12689.799397] CPU: 0 UID: 0 PID: 1159004 Comm: sigfuz Tainted: G      =
-      E       7.3.0-rc2-next-20260907 #1 PREEMPT=20
-> [12689.799405] Tainted: [E]=3DUNSIGNED_MODULE
-> [12689.799408] Hardware name: IBM,8375-42A POWER9 (architected) =
-0x4e0202 0xf000005 of:IBM,FW950.80 (VL950_131) hv:phyp pSeries
-> [12689.799414] NIP:  c00000000000dbac LR: c0000000008657f0 CTR: =
-0000000000000046
-> [12689.799419] REGS: c00000002e86fd60 TRAP: 0700   Tainted: G          =
-  E        (7.3.0-rc2-next-20260907)
-> [12689.799425] MSR:  8000000302a03031 =
-<SF,VEC,VSX,FP,ME,IR,DR,LE,TM[SE]>  CR: 48004840  XER: 00000000
-> [12689.799444] CFAR: c00000000000da68 IRQMASK: 0=20
-> [12689.799444] PACATMSCRATCH: 800000010280b033=20
-> [12689.799444] GPR00: 0000000000000000 c000000050ff7590 =
-c000000001ba8100 c0000003ccf6dd00=20
-> [12689.799444] GPR04: c00000031027dd00 0000000000010000 =
-0000000000000000 0000000000002300=20
-> [12689.799444] GPR08: 0000000000000000 0000000000000000 =
-0000000000000000 0000000000000000=20
-> [12689.799444] GPR12: 0000000000000000 c0000000030d0000 =
-0000000000000000 0000000000000000=20
-> [12689.799444] GPR16: 0000000000000000 0000000000000000 =
-0000000000000000 0000000000000000=20
-> [12689.799444] GPR20: 0000000000000000 0000000000000000 =
-0000000000000000 c000000045beab00=20
-> [12689.799444] GPR24: 0000000000000000 0000000000000001 =
-c00c000000f33d80 0000000010010000=20
-> [12689.799444] GPR28: c00000004575fe00 c000000050ff7b38 =
-0000000010000000 c00c000000c409c0=20
-> [12689.799507] NIP [c00000000000dbac] =
-interrupt_return_srr_kernel+0x15c/0x18c
-> [12689.799518] LR [c0000000008657f0] dump_user_range+0x100/0x570
-> [12689.799525] Call Trace:
-> [12689.799529] [c000000050ff7690] [c0000000008657f0] =
-dump_user_range+0x100/0x570
-> [12689.799536] [c000000050ff7770] [c00000000085aefc] =
-elf_core_dump+0x52c/0x5c0
-> [12689.799545] [c000000050ff7980] [c000000000864a20] =
-coredump_write+0xe0/0x410
-> [12689.799552] [c000000050ff7a10] [c000000000864e10] =
-do_coredump.constprop.0+0xc0/0x4e0
-> [12689.799559] [c000000050ff7af0] [c00000000086558c] =
-vfs_coredump+0x35c/0x4c0
-> [12689.799565] [c000000050ff7c30] [c000000000256808] =
-get_signal+0x918/0xad0
-> [12689.799573] [c000000050ff7d20] [c000000000021ba8] =
-do_signal+0x78/0x330
-> [12689.799582] [c000000050ff7dc0] [c0000000014f6d48] =
-irqentry_exit+0x358/0x990
-> [12689.799589] [c000000050ff7e20] [c00000000002f554] =
-program_check_exception+0xd4/0x100
-> [12689.799596] [c000000050ff7e50] [c000000000009b2c] =
-program_check_common_virt+0x3bc/0x3c0
-> [12689.799604] ---- interrupt: 700 at 0x10001e8c
-> [12689.799610] NIP:  0000000010001e8c LR: 0000000010001e74 CTR: =
-00007fffba290590
-> [12689.799615] REGS: c000000050ff7e80 TRAP: 0700   Tainted: G          =
-  E        (7.3.0-rc2-next-20260907)
-> [12689.799620] MSR:  8000000302a0f033 =
-<SF,VEC,VSX,EE,PR,FP,ME,IR,DR,RI,LE,TM[SE]>  CR: 240044a0  XER: 00000000
-> [12689.799640] CFAR: 00007fffba2905bc IRQMASK: 0=20
-> [12689.799640] PACATMSCRATCH: 800000010280b033=20
-> [12689.799640] GPR00: 0000000010001e74 00007fffa2fdd3c0 =
-0000000010027f00 0000000022bde198=20
-> [12689.799640] GPR04: 00007fffa2fdd384 00007fffba48004c =
-00007fffba480090 00007fffba480048=20
-> [12689.799640] GPR08: 00000001457bc331 0000000022bde198 =
-0000000000000000 0000000022bde198=20
-> [12689.799640] GPR12: 00007fffba290590 00007fffa2fe68e0 =
-0000000000000000 00007fffa2fdf1e0=20
-> [12689.799640] GPR16: 0000000000000000 00007fffa2fdf8e0 =
-0000000000000720 0000000000000000=20
-> [12689.799640] GPR20: 0000000000000000 00007fffba580000 =
-000000000080e9e0 00007fffa27d0000=20
-> [12689.799640] GPR24: 0000000000000001 00007ffff129f3a0 =
-0000000000000000 00007fffa2fde8f8=20
-> [12689.799640] GPR28: 000000000000000a 0000000000000000 =
-00000000100201bc 000000000011af5c=20
-> [12689.799703] NIP [0000000010001e8c] 0x10001e8c
-> [12689.799707] LR [0000000010001e74] 0x10001e74
-> [12689.799711] ---- interrupt: 700
-> [12689.799714] Code: 7c8903a6 7ca103a6 f8010020 e8410040 e8610048 =
-e8810050 e8a10058 40c6001c 7ccff120 e8c10060 e8010030 e8210038 =
-<4c000024> 48000000 7ccff120 f92d0080=20
-> [12689.799736] ---[ end trace 0000000000000000 ]---
->=20
-> Regards,
-> Venkat.
->> Regards,
->>=20
->> Venkat.
->>=20
->>>=20
->>> Below are the details of the crash as reported by CI.
->>>=20
->>> Crash Details:
->>>=20
->>> [ 9798.880148] Unexpected TM Bad Thing exception at c00000000000dbac
->>>              (msr 0x8000000302a03031) tm_scratch=3D800000010280b033
->>> [ 9798.880160] Oops: Unrecoverable exception, sig: 6 [#1]
->>> [ 9798.880165] LE PAGE_SIZE=3D64K MMU=3DHash SMP NR_CPUS=3D8192 NUMA =
-pSeries
->>> [ 9798.880173] Modules linked in: nvram(E) rpadlpar_io(E) rpaphp(E) =
-...
->>> [ 9798.880233] CPU: 8 UID: 0 PID: 1039530 Comm: sigfuz
->>>              Tainted: G            E       7.1.0-rc1 #1 PREEMPT
->>> [ 9798.880245] Hardware name: IBM,8375-42A POWER9 (architected)
->>>              hv:phyp pSeries
->>> [ 9798.880251] NIP:  c00000000000dbac LR: 0000000010001e58
->>> [ 9798.880262] MSR:  8000000302a03031 =
-<SF,VEC,VSX,FP,ME,IR,DR,LE,TM[SE]>
->>>=20
->>>=20
->>> Call Trace:
->>>=20
->>>=20
->>> NIP [c00000000000dbac] interrupt_return_srr_kernel+0x15c/0x18c
->>> Call Trace:
->>> tm_reclaim_thread
->>> flush_tmregs_to_thread
->>> vsr_get
->>> regset_get_alloc
->>> fill_thread_core_info.isra.0
->>> fill_note_info
->>> elf_core_dump
->>> coredump_write
->>> do_coredump
->>> vfs_coredump
->>> get_signal
->>> do_signal
->>> do_notify_resume
->>> interrupt_exit_user_prepare_main
->>> interrupt_exit_user_prepare
->>> interrupt_return_srr_user
->>>=20
->>>=20
->>> Please let me know if further details are required.
->>>=20
->>>=20
->>> If you happen to fix this issue, please add below tag.
->>>=20
->>> Reported-by: Venkat Rao Bagalkote <venkat88@linux.ibm.com>
->>>=20
->>>=20
->>>=20
->>> Regards,
->>>=20
->>> Venkat.
-
+> Fixes: 98f2892607c5 ("ARC: [cpuinfo] Add clk info in /proc/cpuinfo")
+> Signed-off-by: blaze<1466528493@qq.com>
+> ---
+>   arch/arc/kernel/setup.c | 1 +
+>   1 file changed, 1 insertion(+)
+>
+> diff --git a/arch/arc/kernel/setup.c b/arch/arc/kernel/setup.c
+> index 0000000..1111111 100644
+> --- a/arch/arc/kernel/setup.c
+> +++ b/arch/arc/kernel/setup.c
+> @@ -593,6 +593,7 @@ static int show_cpuinfo(struct seq_file *m, void *v)
+>   				   cpu_id);
+>   	} else {
+>   		freq = clk_get_rate(cpu_clk);
+> +		clk_put(cpu_clk);
+>   	}
+>   	if (freq)
+>   		seq_printf(m, "CPU speed\t: %lu.%02lu Mhz\n",
+> --
+> 2.43.0
+>
 
