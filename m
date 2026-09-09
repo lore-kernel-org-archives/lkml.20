@@ -1,71 +1,111 @@
-Received: from mail-ot1-f72.google.com (mail-ot1-f72.google.com [209.85.210.72])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 462BF364926
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 06:53:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02A2C382F13;
+	Wed,  9 Sep 2026 06:53:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788936788; cv=none; b=ZuDdkzf8WykcVAAJ0/iMigUUKwfhUe1WOMDNuaLJUdpYI6tiY4cHSdhKR3G9HkPgpnT7ySQJ/SUnIfAxy/SEAfi9cymJD6TVg68jOGUwhnDXe8uGvRJ8fTMTuhrAAHRlxYffWbJDocPI7GWGtRzC/HQNOgzhmrOnaILRoxpzqLA=
+	t=1788936809; cv=none; b=hhyhQWmMHVPIAGfY6WekcJGN9KIHqxenM4dWXccMcRkuJFA8raqP4zDp37OG1yn7KmSxEN88A87RCVGX0M8rIAmD+10rqv2wQDhREJEFJA0PmkEaRNl+v8n69ceHJvGrxYjVBlhJWYXIVL1JrQqmlcowJZAT4QxyqMzv91aoICU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788936788; c=relaxed/simple;
-	bh=q5qTIgNIWreuOtsNeEtXgMzrPkas/zv79hnuxiI9R5I=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=cX0t13jwfWZgckC9AYGtETK8nd8p9R5wuXOo951tRX3zda53wXxZsoq2a0p3c/ZOpkQYntvLPK6hqFsGKfnNuqQEL2R0kfqRM03x3TfbtrjI1uV0Gc7MMZwcwhBTIyiCfsHrFtxb3fxnzU+z5RxZjw2TvYPhKB5ROHopZMZnODo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.210.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-ot1-f72.google.com with SMTP id 46e09a7af769-7eb6a8c61deso4796217a34.3
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 23:53:05 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788936785; x=1789541585;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=zr0kB5YhInO7HTrJvw+diTV99j/JZWoZidJz6UTlE2s=;
-        b=GQ2zQRnvZFS9+QUNTOsbNn3Dk7nLeRE/EC9uATMOoNsecBn0jiY83ma3HSPvtPYrBH
-         zDkMf3aqfyhQfsPA3DvkE/TdmX2i/CaH1KTqyDpJ4yY/OoKjy9NMakjvBc8iM5zyuUxj
-         yWuxYRQ3H7saTjlXh0rfdAOdBjUsDu1jKrHm46UUwujC2Q+jK4l03Ue/pgIoZit6By4c
-         4xdQjerSpiz2Zh8KopDTu1vInXVz49ce16EBlO3T2vI+y99UV+6FoxIR+UAc9J66ukX+
-         fgPn0u+d+B54HYhoeFU4QsSoAVPi96ZvGojXO4ZtaDhJdSZ538025DEAgojrjlEm4jhE
-         TkeA==
-X-Gm-Message-State: AFuF++lGV0VH8fEn4Tpud2HcEDAF2lScIY2+zI/HqHgip7gWlpRbcOz2
-	OPxfPNaZT5fR+Ed2f2kHjO22Tw086rlrxni3ZNfLPI0cVlF/2LMITvs29eI5k4F8o5OZu65TkqE
-	oZvmhifD03al2KBoNBj1JL0O3hszXOMUA2IPgfDOZWCFThf2ftFAcSW/eqeE=
+	s=arc-20240116; t=1788936809; c=relaxed/simple;
+	bh=YOVDnEGVN2m35o+yeMdH4SJbA8GpCPWOBsXNd9D//Gw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=JZJf6jE6MHRHurOobO/WcpRj1/3+Oma9KlKsri4WWz3weQjrW8SiXyJFvrTXstsPIGEZ9ZlIUvA9chXonR2Uz3cm/5C3jnKUNn56xp+zWg9Tg2IqLcksNpRYxdfbXymOy+8cET2fVXFupIi04fjPee/FQBhVIbGJdtuciiFNLJw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QWqJfPP9; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QWqJfPP9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 92AA41F00A3A;
+	Wed,  9 Sep 2026 06:53:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788936807;
+	bh=gVoTzg8k2Q2SdIEsXVnrd6PG+iB9TcVYJpotfyeESyA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=QWqJfPP9wSJKqWZSre+6MLR3q8Ud/lIIrdGTm+eohTFO9aLsD0OXAog8P5ttprR2t
+	 fNcZobcs0zx76JKxWABElw4SabTl8Z+3xTZ/7eVlLcoJV0YvUZTirDJU/IvU8QNSaX
+	 RvJ5ufsQ8bkmQdqu6RVfYDUxq9n6FdeRiqeoa0tCf38uzMoaZHA+95wbUaxZ0c2JoT
+	 /2tThLazsXGbwLLbVhxghctYeQ7An2M7Y1HrIuomj01uCqszXDZvf8SVvxVeKhDs/T
+	 bJWQPakd2zfsmunhTo2+Za9YFUfYYSGk2vToTvUlYBkamt0nhO8GNQgczC+fll6ABo
+	 /+CSn6vaCV0GA==
+Received: from johan by xi.lan with local (Exim 4.99.4)
+	(envelope-from <johan@kernel.org>)
+	id 1x4CBQ-00000001onS-3Xcw;
+	Wed, 09 Sep 2026 08:53:24 +0200
+Date: Wed, 9 Sep 2026 08:53:24 +0200
+From: Johan Hovold <johan@kernel.org>
+To: Yogesh Gaur <yogeshgaur.83@gmail.com>
+Cc: Ulf Hansson <ulfh@kernel.org>, linux-mmc@vger.kernel.org,
+	linux-kernel@vger.kernel.org, Runyu Xiao <runyu.xiao@seu.edu.cn>,
+	Guangshuo Li <lgs201920130244@gmail.com>,
+	Tony Olech <tony.olech@elandigitalsystems.com>,
+	Chris Ball <cjb@laptop.org>,
+	syzbot+f4a0159ce6802a0a4774@syzkaller.appspotmail.com,
+	syzbot+1ee4f3b9228e35f14677@syzkaller.appspotmail.com
+Subject: Re: [PATCH] mmc: vub300: never tear the host down from the
+ inactivity timer
+Message-ID: <aqECZPhDe_elcG5P@hovoldconsulting.com>
+References: <20260908165050.1930-1-yogeshgaur.83@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a4a:e914:0:b0:6b3:5c73:2188 with SMTP id
- 006d021491bc7-6b6faee2713mr19198311eaf.5.1788936785130; Tue, 08 Sep 2026
- 23:53:05 -0700 (PDT)
-Date: Tue, 08 Sep 2026 23:53:05 -0700
-In-Reply-To: <20260909063239.6950-1-syedtayyabfarooq08@gmail.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6aa10251.f81106d8.285f0a.000c.GAE@google.com>
-Subject: Re: [syzbot] [usb?] KASAN: slab-use-after-free Read in vhci_shutdown_connection
-From: syzbot <syzbot+31117fde582fe6a0cd62@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org, syedtayyabfarooq08@gmail.com, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260908165050.1930-1-yogeshgaur.83@gmail.com>
 
-Hello,
+On Tue, Sep 08, 2026 at 10:20:50PM +0530, Yogesh Gaur wrote:
+> vub300_probe() takes a second kref reference on behalf of the inactivity
+> timer and arms it:
+> 
+> 	kref_init(&vub300->kref);
+> 	...
+> 	kref_get(&vub300->kref);
+> 	timer_setup(&vub300->inactivity_timer,
+> 		    vub300_inactivity_timer_expired, 0);
+> 	vub300->inactivity_timer.expires = jiffies + HZ;
+> 	add_timer(&vub300->inactivity_timer);
+> 
+> and expects the timer to release that reference from its own expiry
+> function, once it observes that vub300->interface has been cleared:
+> 
+> 	if (!vub300->interface) {
+> 		kref_put(&vub300->kref, vub300_delete);
+> 	} else if (vub300->cmd) {
+> 
+> That is wrong in both directions, because the expiry function runs in
+> softirq context.
+> 
+> If the timer happens to hold the last reference, the kref_put() runs
+> vub300_delete() -> mmc_free_host() -> cancel_delayed_work_sync(), which
+> sleeps. The ->probe() error path arranges exactly that: it clears
+> ->interface and drops only its own reference, leaving the timer armed
+> and owning the last one.
+> 
+> 	BUG: sleeping function called from invalid context at kernel/workqueue.c:4487
+> 	in_atomic(): 1, irqs_disabled(): 0, non_block: 0, pid: 191, name: kworker/0:2
+> 	Call Trace:
+> 	 <IRQ>
+> 	 __might_resched.cold+0x1ec/0x232 kernel/sched/core.c:9197
+> 	 __cancel_work_sync kernel/workqueue.c:4487 [inline]
+> 	 cancel_delayed_work_sync+0xb8/0xf0 kernel/workqueue.c:4568
+> 	 mmc_free_host+0x19/0x30 drivers/mmc/core/host.c:700
+> 	 vub300_delete drivers/mmc/host/vub300.c:379 [inline]
+> 	 kref_put include/linux/kref.h:65 [inline]
+> 	 vub300_inactivity_timer_expired drivers/mmc/host/vub300.c:747
+> 	 call_timer_fn+0x11f/0x610 kernel/time/timer.c:1745
+> 	 </IRQ>
 
-syzbot has tested the proposed patch and the reproducer did not trigger any issue:
+> Fixes: 88095e7b473a ("mmc: Add new VUB300 USB-to-SD/SDIO/MMC driver")
+> Reported-by: syzbot+f4a0159ce6802a0a4774@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=f4a0159ce6802a0a4774
+> Reported-by: syzbot+1ee4f3b9228e35f14677@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=1ee4f3b9228e35f14677
+> Signed-off-by: Yogesh Gaur <yogeshgaur.83@gmail.com>
 
-Reported-by: syzbot+31117fde582fe6a0cd62@syzkaller.appspotmail.com
-Tested-by: syzbot+31117fde582fe6a0cd62@syzkaller.appspotmail.com
+You forgot to add an Assisted-by tag.
 
-Tested on:
+Several people have already proposed (LLM generated) fixes for this.
+Please search the lists.
 
-commit:         893e1178 Merge tag 'x86_urgent_for_7.3-rc3' of git://g..
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=13474601580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=ec55b50193b453ea
-dashboard link: https://syzkaller.appspot.com/bug?extid=31117fde582fe6a0cd62
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-patch:          https://syzkaller.appspot.com/x/patch.diff?x=167b4601580000
-
-Note: testing is done by a robot and is best-effort only.
+Johan
