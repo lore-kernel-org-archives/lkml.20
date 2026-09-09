@@ -1,64 +1,64 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com [209.85.214.175])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D34A3AD53F
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 19:06:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 534D23AEF2E
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 19:06:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788980778; cv=none; b=a91j6j9x+mM+uU/EQcyGxivmflOzLwtUarQKnRWqGaNSn//slFD6MPCJ5Ds5QHna196hlKpvdUiLuBEdAJi1jqKmpZLUg8/beMjIPZkxW/i4EKENa9E9yOZvqVk4nnNvRJH5x6DF9Zaa8vYdpWcRyJyZPxltTFzR9+hFadBwho0=
+	t=1788980781; cv=none; b=b6gqsB4dm1x+tJPV5I2w1FJ7vhY/N/y0MHnoPDIRz0B2n1g4++fo8z/TK7OTBPppXroccWUsl521kFHVEolq1bchECThz9+ap0iQeAOn+BMTw4uJ2rgFl2WIt7DXtpne9h1I7W/LGNnKHY9Q45GtNkDaTYoJZcMc3a3A33Qi82I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788980778; c=relaxed/simple;
-	bh=AA1XKuFsWbOGhsqN5VhG4cOUMQCdMAYYicvgwb2LxKs=;
+	s=arc-20240116; t=1788980781; c=relaxed/simple;
+	bh=ZH7EisBsqh3RraTtw+YauM8M5TzkSbFw2ggz/xHw/wg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=m9RmeT9XUswQQJALzsL+VfAW6jGdUDeW1E2gA3WwoxHOftqFj3ZeaZYysgOZrWX2gg7N+QgSKZ9KuKjGdQPs9QeKf8JFAJ6cwgt+r7WMQ5r6/cXYAvtWuHdwk/q/AHRMw4ckyLeJOTxd7aBiRPReveSCg12u3MJQ9h/tz9OAQrg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SUwTzPaN; arc=none smtp.client-ip=74.125.227.140
+	 MIME-Version; b=M6J4+QgkQEZBw4VIAdCjdHW8abjTSyp9bBffx/0oJmC4a/tdeuDKquKrDFmS3w3QU05rOIBqz2tEhB0PLHwdKXQZIx8uTpdDvIxjF8HNWVc/G/j+JLb6pZTBYaJfwTnCko/+69zyJy5L371dpi2SMbHjS1fOcO450brIUtJ7IvM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DG1uzRrB; arc=none smtp.client-ip=209.85.214.175
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SUwTzPaN"
-Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2db1ca06b03so10699325ad.0
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 12:06:16 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DG1uzRrB"
+Received: by mail-pl1-f175.google.com with SMTP id d9443c01a7336-2d71d1cc8b2so47744375ad.1
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 12:06:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788980776; x=1789585576; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788980779; x=1789585579; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=bk+YtOMCSmx0TWEmBa1/4a0coFcVyJrJnWGNi0NAeBU=;
-        b=SUwTzPaNK/6JY4fYojzcjkV9k9/cbl+6oYyD2/+x+x06OJyZi3RaWy3mqK3kkm/1Nb
-         noaJEylP/wSoMa0CvY8fujp5tCTgHrUpOBiBzuWVB8VAj48PgdjQpvRegae84agvmXg/
-         Qsggzk/A2XpfL8CCvDhu1TZNHY5QpLrAotz6969GJryUS9uV5AShH2NVMUXaeGL5bjIP
-         F2NiHtPZshT//TF/ar9Zw64Eet5NU731a6K807oI/D5QESiWLBSYlTq6aKQz6fRNbMNC
-         vOCWUdfSnKPSFeZvB1CbcxP6TEeFE1VnSPZS1pz6Ga2m2SYFrIO/ALtKmqrB2/yX6gSd
-         r8vw==
+        bh=NRvc0Djm57SNFg95c8EgKAjqZ4dz9mEW4R04D0OlHVY=;
+        b=DG1uzRrB103K7VHowZDWP0WdFswPVzDxc1IJlm7DblVacI1WFhbncE+YZggRqCid37
+         gd/7M5IcwNAEHfGTS/gKrDIhNEEHfIrCChHkNNBMUlwjvAyZVJ3TKDemYQ2iDAx0a7Q/
+         PvP7CCFERMHHMoYaavPTjmgNZuPRHWCR7KhCfk4S6BvNd7pOzUqYRk0uu4S0cVoU10M3
+         +dCANzZfcti9N1GaeCGcUT7wZs9nN8DkVdD6TZIOrJ/N5Djr6YAjb0p7PvPXwcieDQbx
+         ZTj+RhBGKKVBC+goTUHyAzAfsZs4G+2gWJYWQMrEuFgACMO74JwIu40V+oICOVTlx5As
+         k7vA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788980776; x=1789585576;
+        d=1e100.net; s=20251104; t=1788980779; x=1789585579;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=bk+YtOMCSmx0TWEmBa1/4a0coFcVyJrJnWGNi0NAeBU=;
-        b=bkJStI/22DtAlEKbuqPQ/184PiE9Fwf0l8k6iXu/Er8K7JXBJpgfhU9lnT1Gn1Lyna
-         srbXxjiVCzEP0q+Faoh3SyZF4q/zRe5c7a83pFgA86zkdGTZ3CSQWsbNnef6KfAV5OPs
-         qtfGOOHApdP83xCP5Nk6TqqBWjgqH0Ml7yy+Z/M3gx2GTwP88PPYlnGe0cv1DnaGpu1u
-         fVSXLkoqIMkYIFJh/D6CJRIwDG5WCbYitgiOTUbXPQFHfoNVRz1kFwr3LdyUKci4QJIq
-         xBNQjMIZt5n/GvHshVxWeX5z+2CQBNqfdF5y6xYJ7XdGPFVBDc+CpFgIsYgdHKKnWgh+
-         mUwA==
-X-Forwarded-Encrypted: i=1; AKwUvBz6veujUE2d5E/RYL7wGuKavjqB7U4fgjGznlqwHjPYn+SY78GVYYYotiJ9QNwtTT1MZQJbAiS8quL848c=@vger.kernel.org
-X-Gm-Message-State: AFuF++l5FR7frTbE4Doh/uUEgMxDG0T1zwQqXu0JoFynx1y9HJTKhP8k
-	xV0ILyTnV1kJ4TGiTrIuH/KQRiSCao+q5/bNcATKg1usjXsxf04Sunn8
-X-Gm-Gg: AYBFou3w5CVSufshE6HEjbHKaF1EKd3vJSIGxLsIOBVVRLvIDrtxE++TiSEKBEQLqm+
-	/4gzngbiLZ5nm2jZP6+03Gz66eiuqXT8Qnmfp4hGvzZLnBhc/oActGv7PUFaYfmGLG9jinp2bwx
-	2ctRBk6LExsvcsXnBon8VXYFBoY/LP/U0L3yqmLnZNaqRDs2UKqPEDNK1YRJhNkzOg6sEhj5xc6
-	ErRGGQHZIuKLUOlUGDYUvnIkOL3jdf6wR5DAghwh3Yvpy9qs/hwBivq78tA13ky0iSe001NOJ2n
-	EOZdfwFwmjEMz7uV2XGG6/Lcqnw9aHPZkq36ZHiCN4H8xp396cfb9+AtqmAv8GEwHS5LwY+umzE
-	ig5q6czrVIBrIgwcEX4qOMD0yth49Df8+32724WF1lWhQRCDlDL0dwfZMXnEjt4Rzlx4+QGM+w1
-	poeGatyGcswuKL2iAnd5cAJHXRH4SJUCcmEwqvVns9xrJV16pxQZ7EXDDwZc1BsDBHLodgHv15y
-	6I3jRGLhgSYwl/iJA9yIN1o
-X-Received: by 2002:a17:902:f68c:b0:2cf:7db9:e13e with SMTP id d9443c01a7336-2dd0e8c12bamr6879465ad.3.1788980775465;
-        Wed, 09 Sep 2026 12:06:15 -0700 (PDT)
+        bh=NRvc0Djm57SNFg95c8EgKAjqZ4dz9mEW4R04D0OlHVY=;
+        b=XsjFxW1TuPBGjYFoK7I+g09yCWiYURruqGK6MLmdzf02sE9xB7rsAFoe2ggof6j4lW
+         jxXTkPrGZtQHqZTpGSK/4Rj26/o8GL3kX1O6WRpLIbEbAalhyRws4RqFOHpeYHd+wd5u
+         K0abr2WsaLxPvtYeOFvgwaITV9uCyTbyYLB0FAfECrKMiGVgqlIDzZ6Bbl+hQesR7y83
+         O+CVhujbId4cov3a/36KdS1xvMK+jFXf2s/zPe4P3OSHZ2FJ1BkXNwfVn4a9EJnT43zT
+         gqRtftTmr5mzuiRmnvIofKAI/tWKdcmvko79raHg3xv0d+11+ooCjKQA3JmoCuL9mj/u
+         /2Jw==
+X-Forwarded-Encrypted: i=1; AKwUvBzKXmpOUS2ZPVoNB7CLY8fmMJqDsAvPw3MQ5eKKPR9QMVdK4GQwaAA5XhNlFkEbKFa7qoPX7QFhSgI2Nqc=@vger.kernel.org
+X-Gm-Message-State: AFuF++mQSdHzw6VpFKL83LE5vv1QlR2JZrM7BAB1/wT6e+mhI8hDri6A
+	uUVLVheufe+BihCIrgcBd9+cuLnHjfveQt8TxbP/Ee/FUZM6ytILktEU
+X-Gm-Gg: AYBFou3A0JXiaPVUBDVsLVy7pofvhWV1hM+M7kHgi2YZpLkNECDfVl1eizHIGn6DalD
+	2q3/2242P0ggLVOA/75EP3Lq79u1fdWq6YdHJPHdYJyBcTYnoh+wgN++72ujeoAZcrGQk5LqXfU
+	WfgRWLqf4kuNNrD9+ucAesNAwt1G+OwLC8uwDKFQHcUDbH32MY+0llKbH1vKwxpl43oOceAoQIB
+	7JXdOn6fQpd66OV6+ujxECTjMC1+rTVgFpJMQ5kRWtQBk+WYSn3+lYmwvTt1sy2oVvIAoHNLzly
+	49PWivZybgcZQL6vTVY+7tJEYMnevQBl+ERwBkGa6Mk12DCbNyOqfNWm3X8yPuG8jaQF4Df9GLc
+	jm2LF9OPCyM1+u9SKNIovtwN5tw5u+uxgB1+sZ4IbYZxhD/f+VrO4KJg90TapTLRaJS6HUCjSPz
+	qpI9/9q3xTuvOO+QmirgarNuT1JcmGAsyXCF8WI4+q4GhuHCdtBn1RGTBmd1+sym2MCLbEk01EP
+	hzSF0fWPVCBlENI8F50Pta9Hk3bkRdoUns=
+X-Received: by 2002:a17:902:c94d:b0:2dc:e272:bf27 with SMTP id d9443c01a7336-2dce272c0f6mr79705445ad.13.1788980778445;
+        Wed, 09 Sep 2026 12:06:18 -0700 (PDT)
 Received: from d.home.yangfl.dn42 ([2a09:bac1:76a0:d30::4d0:7b])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dcffa9827dsm13988515ad.66.2026.09.09.12.06.12
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dcffa9827dsm13988515ad.66.2026.09.09.12.06.15
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 09 Sep 2026 12:06:15 -0700 (PDT)
+        Wed, 09 Sep 2026 12:06:18 -0700 (PDT)
 From: David Yang <mmyangfl@gmail.com>
 To: netdev@vger.kernel.org
 Cc: David Yang <mmyangfl@gmail.com>,
@@ -70,9 +70,9 @@ Cc: David Yang <mmyangfl@gmail.com>,
 	Paolo Abeni <pabeni@redhat.com>,
 	Russell King <linux@armlinux.org.uk>,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH net-next 5/7] net: dsa: motorcomm: Hoist port_to_priv helper into chip.h
-Date: Thu, 10 Sep 2026 03:05:33 +0800
-Message-ID: <20260909190541.466476-6-mmyangfl@gmail.com>
+Subject: [PATCH net-next 6/7] net: dsa: motorcomm: Split MDIO bus module
+Date: Thu, 10 Sep 2026 03:05:34 +0800
+Message-ID: <20260909190541.466476-7-mmyangfl@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260909190541.466476-1-mmyangfl@gmail.com>
 References: <20260909190541.466476-1-mmyangfl@gmail.com>
@@ -84,113 +84,675 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-yt921x_poll_mib() open-codes the same container_of_const() expression
-that leds.c defines as to_yt921x_priv(). Move the macro to chip.h as
-yt921x_port_to_priv() so both files use one definition.
+Split it in order to be used in other modules.
 
 Signed-off-by: David Yang <mmyangfl@gmail.com>
 ---
- drivers/net/dsa/motorcomm/chip.c |  3 +--
- drivers/net/dsa/motorcomm/chip.h |  3 +++
- drivers/net/dsa/motorcomm/leds.c | 14 ++++++--------
- 3 files changed, 10 insertions(+), 10 deletions(-)
+ drivers/net/dsa/motorcomm/Makefile   |   1 +
+ drivers/net/dsa/motorcomm/chip.c     | 269 +-------------------------
+ drivers/net/dsa/motorcomm/chip.h     |  21 --
+ drivers/net/dsa/motorcomm/mdio_bus.c | 278 +++++++++++++++++++++++++++
+ drivers/net/dsa/motorcomm/mdio_bus.h |  37 ++++
+ 5 files changed, 317 insertions(+), 289 deletions(-)
+ create mode 100644 drivers/net/dsa/motorcomm/mdio_bus.c
+ create mode 100644 drivers/net/dsa/motorcomm/mdio_bus.h
 
+diff --git a/drivers/net/dsa/motorcomm/Makefile b/drivers/net/dsa/motorcomm/Makefile
+index aeb12cb91f93..f7cce7eabbb8 100644
+--- a/drivers/net/dsa/motorcomm/Makefile
++++ b/drivers/net/dsa/motorcomm/Makefile
+@@ -2,4 +2,5 @@
+ obj-$(CONFIG_NET_DSA_YT921X) += yt921x.o
+ yt921x-objs := chip.o
+ yt921x-$(CONFIG_NET_DSA_YT921X_LEDS) += leds.o
++yt921x-objs += mdio_bus.o
+ yt921x-objs += smi.o
 diff --git a/drivers/net/dsa/motorcomm/chip.c b/drivers/net/dsa/motorcomm/chip.c
-index 0635359787db..beeb08f2b000 100644
+index beeb08f2b000..85a31389050b 100644
 --- a/drivers/net/dsa/motorcomm/chip.c
 +++ b/drivers/net/dsa/motorcomm/chip.c
-@@ -603,9 +603,8 @@ static void yt921x_poll_mib(struct work_struct *work)
- {
- 	struct yt921x_port *pp = container_of_const(work, struct yt921x_port,
- 						    mib_read.work);
--	struct yt921x_priv *priv = (void *)(pp - pp->index) -
--				   offsetof(struct yt921x_priv, ports);
- 	unsigned long delay = YT921X_STATS_INTERVAL_JIFFIES;
-+	struct yt921x_priv *priv = yt921x_port_to_priv(pp);
- 	int port = pp->index;
- 	int res;
+@@ -27,6 +27,7 @@
  
+ #include "chip.h"
+ #include "leds.h"
++#include "mdio_bus.h"
+ #include "smi.h"
+ 
+ struct yt921x_mib_desc {
+@@ -271,274 +272,6 @@ static const struct yt921x_reg_ops yt921x_reg_ops_mdio = {
+ 
+ /* TODO: SPI/I2C */
+ 
+-static int yt921x_intif_wait(struct yt921x_priv *priv)
+-{
+-	u32 val = 0;
+-
+-	return yt921x_reg_wait(priv, YT921X_INT_MBUS_OP, YT921X_MBUS_OP_START,
+-			       &val);
+-}
+-
+-static int
+-yt921x_intif_read(struct yt921x_priv *priv, int port, int reg, u16 *valp)
+-{
+-	struct device *dev = to_device(priv);
+-	u32 mask;
+-	u32 ctrl;
+-	u32 val;
+-	int res;
+-
+-	res = yt921x_intif_wait(priv);
+-	if (res)
+-		return res;
+-
+-	mask = YT921X_MBUS_CTRL_PORT_M | YT921X_MBUS_CTRL_REG_M |
+-	       YT921X_MBUS_CTRL_OP_M;
+-	ctrl = YT921X_MBUS_CTRL_PORT(port) | YT921X_MBUS_CTRL_REG(reg) |
+-	       YT921X_MBUS_CTRL_READ;
+-	res = yt921x_reg_update_bits(priv, YT921X_INT_MBUS_CTRL, mask, ctrl);
+-	if (res)
+-		return res;
+-	res = yt921x_reg_write(priv, YT921X_INT_MBUS_OP, YT921X_MBUS_OP_START);
+-	if (res)
+-		return res;
+-
+-	res = yt921x_intif_wait(priv);
+-	if (res)
+-		return res;
+-	res = yt921x_reg_read(priv, YT921X_INT_MBUS_DIN, &val);
+-	if (res)
+-		return res;
+-
+-	if ((u16)val != val)
+-		dev_info(dev,
+-			 "%s: port %d, reg 0x%x: Expected u16, got 0x%08x\n",
+-			 __func__, port, reg, val);
+-	*valp = (u16)val;
+-	return 0;
+-}
+-
+-static int
+-yt921x_intif_write(struct yt921x_priv *priv, int port, int reg, u16 val)
+-{
+-	u32 mask;
+-	u32 ctrl;
+-	int res;
+-
+-	res = yt921x_intif_wait(priv);
+-	if (res)
+-		return res;
+-
+-	mask = YT921X_MBUS_CTRL_PORT_M | YT921X_MBUS_CTRL_REG_M |
+-	       YT921X_MBUS_CTRL_OP_M;
+-	ctrl = YT921X_MBUS_CTRL_PORT(port) | YT921X_MBUS_CTRL_REG(reg) |
+-	       YT921X_MBUS_CTRL_WRITE;
+-	res = yt921x_reg_update_bits(priv, YT921X_INT_MBUS_CTRL, mask, ctrl);
+-	if (res)
+-		return res;
+-	res = yt921x_reg_write(priv, YT921X_INT_MBUS_DOUT, val);
+-	if (res)
+-		return res;
+-	res = yt921x_reg_write(priv, YT921X_INT_MBUS_OP, YT921X_MBUS_OP_START);
+-	if (res)
+-		return res;
+-
+-	return yt921x_intif_wait(priv);
+-}
+-
+-static int yt921x_mbus_int_read(struct mii_bus *mbus, int port, int reg)
+-{
+-	struct yt921x_priv *priv = mbus->priv;
+-	u16 val;
+-	int res;
+-
+-	if (port >= YT921X_PORT_NUM)
+-		return U16_MAX;
+-
+-	mutex_lock(&priv->reg_lock);
+-	res = yt921x_intif_read(priv, port, reg, &val);
+-	mutex_unlock(&priv->reg_lock);
+-
+-	if (res)
+-		return res;
+-	return val;
+-}
+-
+-static int
+-yt921x_mbus_int_write(struct mii_bus *mbus, int port, int reg, u16 data)
+-{
+-	struct yt921x_priv *priv = mbus->priv;
+-	int res;
+-
+-	if (port >= YT921X_PORT_NUM)
+-		return -ENODEV;
+-
+-	mutex_lock(&priv->reg_lock);
+-	res = yt921x_intif_write(priv, port, reg, data);
+-	mutex_unlock(&priv->reg_lock);
+-
+-	return res;
+-}
+-
+-static int
+-yt921x_mbus_int_init(struct yt921x_priv *priv, struct device_node *mnp)
+-{
+-	struct device *dev = to_device(priv);
+-	struct mii_bus *mbus;
+-	int res;
+-
+-	mbus = devm_mdiobus_alloc(dev);
+-	if (!mbus)
+-		return -ENOMEM;
+-
+-	mbus->name = "YT921x internal MDIO bus";
+-	snprintf(mbus->id, MII_BUS_ID_SIZE, "%s", dev_name(dev));
+-	mbus->priv = priv;
+-	mbus->read = yt921x_mbus_int_read;
+-	mbus->write = yt921x_mbus_int_write;
+-	mbus->parent = dev;
+-	mbus->phy_mask = (u32)~GENMASK(YT921X_PORT_NUM - 1, 0);
+-
+-	res = devm_of_mdiobus_register(dev, mbus, mnp);
+-	if (res)
+-		return res;
+-
+-	priv->mbus_int = mbus;
+-
+-	return 0;
+-}
+-
+-static int yt921x_extif_wait(struct yt921x_priv *priv)
+-{
+-	u32 val = 0;
+-
+-	return yt921x_reg_wait(priv, YT921X_EXT_MBUS_OP, YT921X_MBUS_OP_START,
+-			       &val);
+-}
+-
+-static int
+-yt921x_extif_read(struct yt921x_priv *priv, int port, int reg, u16 *valp)
+-{
+-	struct device *dev = to_device(priv);
+-	u32 mask;
+-	u32 ctrl;
+-	u32 val;
+-	int res;
+-
+-	res = yt921x_extif_wait(priv);
+-	if (res)
+-		return res;
+-
+-	mask = YT921X_MBUS_CTRL_PORT_M | YT921X_MBUS_CTRL_REG_M |
+-	       YT921X_MBUS_CTRL_TYPE_M | YT921X_MBUS_CTRL_OP_M;
+-	ctrl = YT921X_MBUS_CTRL_PORT(port) | YT921X_MBUS_CTRL_REG(reg) |
+-	       YT921X_MBUS_CTRL_TYPE_C22 | YT921X_MBUS_CTRL_READ;
+-	res = yt921x_reg_update_bits(priv, YT921X_EXT_MBUS_CTRL, mask, ctrl);
+-	if (res)
+-		return res;
+-	res = yt921x_reg_write(priv, YT921X_EXT_MBUS_OP, YT921X_MBUS_OP_START);
+-	if (res)
+-		return res;
+-
+-	res = yt921x_extif_wait(priv);
+-	if (res)
+-		return res;
+-	res = yt921x_reg_read(priv, YT921X_EXT_MBUS_DIN, &val);
+-	if (res)
+-		return res;
+-
+-	if ((u16)val != val)
+-		dev_info(dev,
+-			 "%s: port %d, reg 0x%x: Expected u16, got 0x%08x\n",
+-			 __func__, port, reg, val);
+-	*valp = (u16)val;
+-	return 0;
+-}
+-
+-static int
+-yt921x_extif_write(struct yt921x_priv *priv, int port, int reg, u16 val)
+-{
+-	u32 mask;
+-	u32 ctrl;
+-	int res;
+-
+-	res = yt921x_extif_wait(priv);
+-	if (res)
+-		return res;
+-
+-	mask = YT921X_MBUS_CTRL_PORT_M | YT921X_MBUS_CTRL_REG_M |
+-	       YT921X_MBUS_CTRL_TYPE_M | YT921X_MBUS_CTRL_OP_M;
+-	ctrl = YT921X_MBUS_CTRL_PORT(port) | YT921X_MBUS_CTRL_REG(reg) |
+-	       YT921X_MBUS_CTRL_TYPE_C22 | YT921X_MBUS_CTRL_WRITE;
+-	res = yt921x_reg_update_bits(priv, YT921X_EXT_MBUS_CTRL, mask, ctrl);
+-	if (res)
+-		return res;
+-	res = yt921x_reg_write(priv, YT921X_EXT_MBUS_DOUT, val);
+-	if (res)
+-		return res;
+-	res = yt921x_reg_write(priv, YT921X_EXT_MBUS_OP, YT921X_MBUS_OP_START);
+-	if (res)
+-		return res;
+-
+-	return yt921x_extif_wait(priv);
+-}
+-
+-static int yt921x_mbus_ext_read(struct mii_bus *mbus, int port, int reg)
+-{
+-	struct yt921x_priv *priv = mbus->priv;
+-	u16 val;
+-	int res;
+-
+-	mutex_lock(&priv->reg_lock);
+-	res = yt921x_extif_read(priv, port, reg, &val);
+-	mutex_unlock(&priv->reg_lock);
+-
+-	if (res)
+-		return res;
+-	return val;
+-}
+-
+-static int
+-yt921x_mbus_ext_write(struct mii_bus *mbus, int port, int reg, u16 data)
+-{
+-	struct yt921x_priv *priv = mbus->priv;
+-	int res;
+-
+-	mutex_lock(&priv->reg_lock);
+-	res = yt921x_extif_write(priv, port, reg, data);
+-	mutex_unlock(&priv->reg_lock);
+-
+-	return res;
+-}
+-
+-static int
+-yt921x_mbus_ext_init(struct yt921x_priv *priv, struct device_node *mnp)
+-{
+-	struct device *dev = to_device(priv);
+-	struct mii_bus *mbus;
+-	int res;
+-
+-	mbus = devm_mdiobus_alloc(dev);
+-	if (!mbus)
+-		return -ENOMEM;
+-
+-	mbus->name = "YT921x external MDIO bus";
+-	snprintf(mbus->id, MII_BUS_ID_SIZE, "%s@ext", dev_name(dev));
+-	mbus->priv = priv;
+-	/* TODO: c45? */
+-	mbus->read = yt921x_mbus_ext_read;
+-	mbus->write = yt921x_mbus_ext_write;
+-	mbus->parent = dev;
+-
+-	res = devm_of_mdiobus_register(dev, mbus, mnp);
+-	if (res)
+-		return res;
+-
+-	priv->mbus_ext = mbus;
+-
+-	return 0;
+-}
+-
+ /* Read and handle overflow of 32bit MIBs. MIB buffer must be zeroed before. */
+ static int yt921x_read_mib(struct yt921x_priv *priv, int port)
+ {
 diff --git a/drivers/net/dsa/motorcomm/chip.h b/drivers/net/dsa/motorcomm/chip.h
-index dd121ef2cbf5..b9a9e9d22d4b 100644
+index b9a9e9d22d4b..21132a147d6b 100644
 --- a/drivers/net/dsa/motorcomm/chip.h
 +++ b/drivers/net/dsa/motorcomm/chip.h
-@@ -1004,6 +1004,9 @@ struct yt921x_priv {
- 	struct yt921x_acl_blk *acl_blks[YT921X_ACL_BLK_NUM];
- };
+@@ -243,27 +243,6 @@ enum yt921x_speed {
+ #define   YT9218_SYS_CLK_167M				0
+ #define   YT921X_SYS_CLK_143M				1
  
-+#define yt921x_port_to_priv(pp) \
-+	container_of_const((pp), struct yt921x_priv, ports[(pp)->index])
+-#define YT921X_EXT_MBUS_OP		0x6a000
+-#define YT921X_INT_MBUS_OP		0xf0000
+-#define  YT921X_MBUS_OP_START			BIT(0)
+-#define YT921X_EXT_MBUS_CTRL		0x6a004
+-#define YT921X_INT_MBUS_CTRL		0xf0004
+-#define  YT921X_MBUS_CTRL_PORT_M		GENMASK(25, 21)
+-#define   YT921X_MBUS_CTRL_PORT(x)			FIELD_PREP(YT921X_MBUS_CTRL_PORT_M, (x))
+-#define  YT921X_MBUS_CTRL_REG_M			GENMASK(20, 16)
+-#define   YT921X_MBUS_CTRL_REG(x)			FIELD_PREP(YT921X_MBUS_CTRL_REG_M, (x))
+-#define  YT921X_MBUS_CTRL_TYPE_M		GENMASK(11, 8)  /* wild guess */
+-#define   YT921X_MBUS_CTRL_TYPE(x)			FIELD_PREP(YT921X_MBUS_CTRL_TYPE_M, (x))
+-#define   YT921X_MBUS_CTRL_TYPE_C22			YT921X_MBUS_CTRL_TYPE(4)
+-#define  YT921X_MBUS_CTRL_OP_M			GENMASK(3, 2)  /* wild guess */
+-#define   YT921X_MBUS_CTRL_OP(x)			FIELD_PREP(YT921X_MBUS_CTRL_OP_M, (x))
+-#define   YT921X_MBUS_CTRL_WRITE			YT921X_MBUS_CTRL_OP(1)
+-#define   YT921X_MBUS_CTRL_READ				YT921X_MBUS_CTRL_OP(2)
+-#define YT921X_EXT_MBUS_DOUT		0x6a008
+-#define YT921X_INT_MBUS_DOUT		0xf0008
+-#define YT921X_EXT_MBUS_DIN		0x6a00c
+-#define YT921X_INT_MBUS_DIN		0xf000c
+-
+ #define YT921X_PORTn_EGR(port)		(0x100000 + 4 * (port))
+ #define  YT921X_PORT_EGR_TPID_CTAG_M		GENMASK(5, 4)
+ #define   YT921X_PORT_EGR_TPID_CTAG(x)			FIELD_PREP(YT921X_PORT_EGR_TPID_CTAG_M, (x))
+diff --git a/drivers/net/dsa/motorcomm/mdio_bus.c b/drivers/net/dsa/motorcomm/mdio_bus.c
+new file mode 100644
+index 000000000000..ba70343f3f33
+--- /dev/null
++++ b/drivers/net/dsa/motorcomm/mdio_bus.c
+@@ -0,0 +1,278 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
++/*
++ * Copyright (c) 2026 David Yang
++ */
 +
- static inline int ethtool_speed_to_yt921x(int speed)
- {
- 	switch (speed) {
-diff --git a/drivers/net/dsa/motorcomm/leds.c b/drivers/net/dsa/motorcomm/leds.c
-index 87a6b9cf6068..dd5b3684250d 100644
---- a/drivers/net/dsa/motorcomm/leds.c
-+++ b/drivers/net/dsa/motorcomm/leds.c
-@@ -12,8 +12,6 @@
- #define to_yt921x_led(led_cdev) \
- 	container_of_const((led_cdev), struct yt921x_led, cdev)
- #define to_yt921x_port(led) ((led)->port)
--#define to_yt921x_priv(pp) \
--	container_of_const((pp), struct yt921x_priv, ports[(pp)->index])
- #define to_device(priv) ((priv)->ds.dev)
- 
- static u32 yt921x_led_regaddr(struct yt921x_priv *priv, int port, int group)
-@@ -321,7 +319,7 @@ yt921x_cled_brightness_set_blocking(struct led_classdev *led_cdev,
- {
- 	struct yt921x_led *led = to_yt921x_led(led_cdev);
- 	struct yt921x_port *pp = to_yt921x_port(led);
--	struct yt921x_priv *priv = to_yt921x_priv(pp);
-+	struct yt921x_priv *priv = yt921x_port_to_priv(pp);
- 	int res;
- 
- 	mutex_lock(&priv->reg_lock);
-@@ -337,7 +335,7 @@ yt921x_cled_blink_set(struct led_classdev *led_cdev, unsigned long *delay_on,
- {
- 	struct yt921x_led *led = to_yt921x_led(led_cdev);
- 	struct yt921x_port *pp = to_yt921x_port(led);
--	struct yt921x_priv *priv = to_yt921x_priv(pp);
-+	struct yt921x_priv *priv = yt921x_port_to_priv(pp);
- 	int res;
- 
- 	mutex_lock(&priv->reg_lock);
-@@ -353,7 +351,7 @@ yt921x_cled_hw_control_get_device(struct led_classdev *led_cdev)
- {
- 	struct yt921x_led *led = to_yt921x_led(led_cdev);
- 	struct yt921x_port *pp = to_yt921x_port(led);
--	struct yt921x_priv *priv = to_yt921x_priv(pp);
-+	struct yt921x_priv *priv = yt921x_port_to_priv(pp);
- 	struct dsa_port *dp;
- 
- 	dp = dsa_to_port(&priv->ds, pp->index);
-@@ -374,7 +372,7 @@ yt921x_cled_hw_control_is_supported(struct led_classdev *led_cdev,
- {
- 	struct yt921x_led *led = to_yt921x_led(led_cdev);
- 	struct yt921x_port *pp = to_yt921x_port(led);
--	struct yt921x_priv *priv = to_yt921x_priv(pp);
-+	struct yt921x_priv *priv = yt921x_port_to_priv(pp);
- 
- 	if (yt921x_led_trigger_is_supported(priv, pp->index, led->group, flags))
- 		return 0;
-@@ -386,7 +384,7 @@ yt921x_cled_hw_control_get(struct led_classdev *led_cdev, unsigned long *flagsp)
- {
- 	struct yt921x_led *led = to_yt921x_led(led_cdev);
- 	struct yt921x_port *pp = to_yt921x_port(led);
--	struct yt921x_priv *priv = to_yt921x_priv(pp);
-+	struct yt921x_priv *priv = yt921x_port_to_priv(pp);
- 	int res;
- 
- 	mutex_lock(&priv->reg_lock);
-@@ -401,7 +399,7 @@ yt921x_cled_hw_control_set(struct led_classdev *led_cdev, unsigned long flags)
- {
- 	struct yt921x_led *led = to_yt921x_led(led_cdev);
- 	struct yt921x_port *pp = to_yt921x_port(led);
--	struct yt921x_priv *priv = to_yt921x_priv(pp);
-+	struct yt921x_priv *priv = yt921x_port_to_priv(pp);
- 	int res;
- 
- 	mutex_lock(&priv->reg_lock);
++#include <linux/of_mdio.h>
++
++#include "chip.h"
++#include "mdio_bus.h"
++#include "smi.h"
++
++#define to_device(priv) ((priv)->ds.dev)
++
++static int yt921x_intif_wait(struct yt921x_priv *priv)
++{
++	u32 val = 0;
++
++	return yt921x_reg_wait(priv, YT921X_INT_MBUS_OP, YT921X_MBUS_OP_START,
++			       &val);
++}
++
++static int
++yt921x_intif_read(struct yt921x_priv *priv, int port, int reg, u16 *valp)
++{
++	struct device *dev = to_device(priv);
++	u32 mask;
++	u32 ctrl;
++	u32 val;
++	int res;
++
++	res = yt921x_intif_wait(priv);
++	if (res)
++		return res;
++
++	mask = YT921X_MBUS_CTRL_PORT_M | YT921X_MBUS_CTRL_REG_M |
++	       YT921X_MBUS_CTRL_OP_M;
++	ctrl = YT921X_MBUS_CTRL_PORT(port) | YT921X_MBUS_CTRL_REG(reg) |
++	       YT921X_MBUS_CTRL_READ;
++	res = yt921x_reg_update_bits(priv, YT921X_INT_MBUS_CTRL, mask, ctrl);
++	if (res)
++		return res;
++	res = yt921x_reg_write(priv, YT921X_INT_MBUS_OP, YT921X_MBUS_OP_START);
++	if (res)
++		return res;
++
++	res = yt921x_intif_wait(priv);
++	if (res)
++		return res;
++	res = yt921x_reg_read(priv, YT921X_INT_MBUS_DIN, &val);
++	if (res)
++		return res;
++
++	if ((u16)val != val)
++		dev_info(dev,
++			 "%s: port %d, reg 0x%x: Expected u16, got 0x%08x\n",
++			 __func__, port, reg, val);
++	*valp = (u16)val;
++	return 0;
++}
++
++static int
++yt921x_intif_write(struct yt921x_priv *priv, int port, int reg, u16 val)
++{
++	u32 mask;
++	u32 ctrl;
++	int res;
++
++	res = yt921x_intif_wait(priv);
++	if (res)
++		return res;
++
++	mask = YT921X_MBUS_CTRL_PORT_M | YT921X_MBUS_CTRL_REG_M |
++	       YT921X_MBUS_CTRL_OP_M;
++	ctrl = YT921X_MBUS_CTRL_PORT(port) | YT921X_MBUS_CTRL_REG(reg) |
++	       YT921X_MBUS_CTRL_WRITE;
++	res = yt921x_reg_update_bits(priv, YT921X_INT_MBUS_CTRL, mask, ctrl);
++	if (res)
++		return res;
++	res = yt921x_reg_write(priv, YT921X_INT_MBUS_DOUT, val);
++	if (res)
++		return res;
++	res = yt921x_reg_write(priv, YT921X_INT_MBUS_OP, YT921X_MBUS_OP_START);
++	if (res)
++		return res;
++
++	return yt921x_intif_wait(priv);
++}
++
++static int yt921x_mbus_int_read(struct mii_bus *mbus, int port, int reg)
++{
++	struct yt921x_priv *priv = mbus->priv;
++	u16 val;
++	int res;
++
++	if (port >= YT921X_PORT_NUM)
++		return U16_MAX;
++
++	mutex_lock(&priv->reg_lock);
++	res = yt921x_intif_read(priv, port, reg, &val);
++	mutex_unlock(&priv->reg_lock);
++
++	if (res)
++		return res;
++	return val;
++}
++
++static int
++yt921x_mbus_int_write(struct mii_bus *mbus, int port, int reg, u16 data)
++{
++	struct yt921x_priv *priv = mbus->priv;
++	int res;
++
++	if (port >= YT921X_PORT_NUM)
++		return -ENODEV;
++
++	mutex_lock(&priv->reg_lock);
++	res = yt921x_intif_write(priv, port, reg, data);
++	mutex_unlock(&priv->reg_lock);
++
++	return res;
++}
++
++int yt921x_mbus_int_init(struct yt921x_priv *priv, struct device_node *mnp)
++{
++	struct device *dev = to_device(priv);
++	struct mii_bus *mbus;
++	int res;
++
++	mbus = devm_mdiobus_alloc(dev);
++	if (!mbus)
++		return -ENOMEM;
++
++	mbus->name = "YT921x internal MDIO bus";
++	snprintf(mbus->id, MII_BUS_ID_SIZE, "%s", dev_name(dev));
++	mbus->priv = priv;
++	mbus->read = yt921x_mbus_int_read;
++	mbus->write = yt921x_mbus_int_write;
++	mbus->parent = dev;
++	mbus->phy_mask = (u32)~GENMASK(YT921X_PORT_NUM - 1, 0);
++
++	res = devm_of_mdiobus_register(dev, mbus, mnp);
++	if (res)
++		return res;
++
++	priv->mbus_int = mbus;
++
++	return 0;
++}
++
++static int yt921x_extif_wait(struct yt921x_priv *priv)
++{
++	u32 val = 0;
++
++	return yt921x_reg_wait(priv, YT921X_EXT_MBUS_OP, YT921X_MBUS_OP_START,
++			       &val);
++}
++
++static int
++yt921x_extif_read(struct yt921x_priv *priv, int port, int reg, u16 *valp)
++{
++	struct device *dev = to_device(priv);
++	u32 mask;
++	u32 ctrl;
++	u32 val;
++	int res;
++
++	res = yt921x_extif_wait(priv);
++	if (res)
++		return res;
++
++	mask = YT921X_MBUS_CTRL_PORT_M | YT921X_MBUS_CTRL_REG_M |
++	       YT921X_MBUS_CTRL_TYPE_M | YT921X_MBUS_CTRL_OP_M;
++	ctrl = YT921X_MBUS_CTRL_PORT(port) | YT921X_MBUS_CTRL_REG(reg) |
++	       YT921X_MBUS_CTRL_TYPE_C22 | YT921X_MBUS_CTRL_READ;
++	res = yt921x_reg_update_bits(priv, YT921X_EXT_MBUS_CTRL, mask, ctrl);
++	if (res)
++		return res;
++	res = yt921x_reg_write(priv, YT921X_EXT_MBUS_OP, YT921X_MBUS_OP_START);
++	if (res)
++		return res;
++
++	res = yt921x_extif_wait(priv);
++	if (res)
++		return res;
++	res = yt921x_reg_read(priv, YT921X_EXT_MBUS_DIN, &val);
++	if (res)
++		return res;
++
++	if ((u16)val != val)
++		dev_info(dev,
++			 "%s: port %d, reg 0x%x: Expected u16, got 0x%08x\n",
++			 __func__, port, reg, val);
++	*valp = (u16)val;
++	return 0;
++}
++
++static int
++yt921x_extif_write(struct yt921x_priv *priv, int port, int reg, u16 val)
++{
++	u32 mask;
++	u32 ctrl;
++	int res;
++
++	res = yt921x_extif_wait(priv);
++	if (res)
++		return res;
++
++	mask = YT921X_MBUS_CTRL_PORT_M | YT921X_MBUS_CTRL_REG_M |
++	       YT921X_MBUS_CTRL_TYPE_M | YT921X_MBUS_CTRL_OP_M;
++	ctrl = YT921X_MBUS_CTRL_PORT(port) | YT921X_MBUS_CTRL_REG(reg) |
++	       YT921X_MBUS_CTRL_TYPE_C22 | YT921X_MBUS_CTRL_WRITE;
++	res = yt921x_reg_update_bits(priv, YT921X_EXT_MBUS_CTRL, mask, ctrl);
++	if (res)
++		return res;
++	res = yt921x_reg_write(priv, YT921X_EXT_MBUS_DOUT, val);
++	if (res)
++		return res;
++	res = yt921x_reg_write(priv, YT921X_EXT_MBUS_OP, YT921X_MBUS_OP_START);
++	if (res)
++		return res;
++
++	return yt921x_extif_wait(priv);
++}
++
++static int yt921x_mbus_ext_read(struct mii_bus *mbus, int port, int reg)
++{
++	struct yt921x_priv *priv = mbus->priv;
++	u16 val;
++	int res;
++
++	mutex_lock(&priv->reg_lock);
++	res = yt921x_extif_read(priv, port, reg, &val);
++	mutex_unlock(&priv->reg_lock);
++
++	if (res)
++		return res;
++	return val;
++}
++
++static int
++yt921x_mbus_ext_write(struct mii_bus *mbus, int port, int reg, u16 data)
++{
++	struct yt921x_priv *priv = mbus->priv;
++	int res;
++
++	mutex_lock(&priv->reg_lock);
++	res = yt921x_extif_write(priv, port, reg, data);
++	mutex_unlock(&priv->reg_lock);
++
++	return res;
++}
++
++int yt921x_mbus_ext_init(struct yt921x_priv *priv, struct device_node *mnp)
++{
++	struct device *dev = to_device(priv);
++	struct mii_bus *mbus;
++	int res;
++
++	mbus = devm_mdiobus_alloc(dev);
++	if (!mbus)
++		return -ENOMEM;
++
++	mbus->name = "YT921x external MDIO bus";
++	snprintf(mbus->id, MII_BUS_ID_SIZE, "%s@ext", dev_name(dev));
++	mbus->priv = priv;
++	/* TODO: c45? */
++	mbus->read = yt921x_mbus_ext_read;
++	mbus->write = yt921x_mbus_ext_write;
++	mbus->parent = dev;
++
++	res = devm_of_mdiobus_register(dev, mbus, mnp);
++	if (res)
++		return res;
++
++	priv->mbus_ext = mbus;
++
++	return 0;
++}
+diff --git a/drivers/net/dsa/motorcomm/mdio_bus.h b/drivers/net/dsa/motorcomm/mdio_bus.h
+new file mode 100644
+index 000000000000..261a71c637f5
+--- /dev/null
++++ b/drivers/net/dsa/motorcomm/mdio_bus.h
+@@ -0,0 +1,37 @@
++/* SPDX-License-Identifier: GPL-2.0-or-later */
++/*
++ * Copyright (c) 2026 David Yang
++ */
++
++#ifndef _YT_MDIO_BUS_H
++#define _YT_MDIO_BUS_H
++
++#include <linux/of.h>
++
++#define YT921X_EXT_MBUS_OP		0x6a000
++#define YT921X_INT_MBUS_OP		0xf0000
++#define  YT921X_MBUS_OP_START			BIT(0)
++#define YT921X_EXT_MBUS_CTRL		0x6a004
++#define YT921X_INT_MBUS_CTRL		0xf0004
++#define  YT921X_MBUS_CTRL_PORT_M		GENMASK(25, 21)
++#define   YT921X_MBUS_CTRL_PORT(x)			FIELD_PREP(YT921X_MBUS_CTRL_PORT_M, (x))
++#define  YT921X_MBUS_CTRL_REG_M			GENMASK(20, 16)
++#define   YT921X_MBUS_CTRL_REG(x)			FIELD_PREP(YT921X_MBUS_CTRL_REG_M, (x))
++#define  YT921X_MBUS_CTRL_TYPE_M		GENMASK(11, 8)  /* wild guess */
++#define   YT921X_MBUS_CTRL_TYPE(x)			FIELD_PREP(YT921X_MBUS_CTRL_TYPE_M, (x))
++#define   YT921X_MBUS_CTRL_TYPE_C22			YT921X_MBUS_CTRL_TYPE(4)
++#define  YT921X_MBUS_CTRL_OP_M			GENMASK(3, 2)  /* wild guess */
++#define   YT921X_MBUS_CTRL_OP(x)			FIELD_PREP(YT921X_MBUS_CTRL_OP_M, (x))
++#define   YT921X_MBUS_CTRL_WRITE			YT921X_MBUS_CTRL_OP(1)
++#define   YT921X_MBUS_CTRL_READ				YT921X_MBUS_CTRL_OP(2)
++#define YT921X_EXT_MBUS_DOUT		0x6a008
++#define YT921X_INT_MBUS_DOUT		0xf0008
++#define YT921X_EXT_MBUS_DIN		0x6a00c
++#define YT921X_INT_MBUS_DIN		0xf000c
++
++struct yt921x_priv;
++
++int yt921x_mbus_int_init(struct yt921x_priv *priv, struct device_node *mnp);
++int yt921x_mbus_ext_init(struct yt921x_priv *priv, struct device_node *mnp);
++
++#endif
 -- 
 2.53.0
 
