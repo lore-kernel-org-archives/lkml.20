@@ -1,235 +1,162 @@
-Received: from mail.avm.de (mail.avm.de [212.42.244.94])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mout.gmx.net (mout.gmx.net [212.227.17.20])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8353556BA1;
-	Wed,  9 Sep 2026 15:50:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.42.244.94
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD53E563297;
+	Wed,  9 Sep 2026 15:52:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.17.20
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788969041; cv=none; b=T0ufzPhO6r/mE94afG3s5d/SXcegL4K0m0ssjaxtuoEhPLZxfn6qrb3rTZitWeeX+qcAtlSt713dUZbAidn0z0S9eN9i2U08jquFy4Um7lhxfs0MfcRqGJUKvfa6jA10J7NAcUe88FNVbuNZAxiOc8RiFq+IE6d6OTywSE87Bqw=
+	t=1788969142; cv=none; b=hxIw3TYWRp3NUs+pw3cnx7Agv1lsZ2S817VuINiIRGILuVM7xwHWXfcVktP4IHhLCEqDKX47tu4d2Mgb27SWWlqF6I8ahk3qE1cF5gPBzKoF7jdCDFXckXqBhLaUUbgpB2fUxqPbE56+v6QnU0TbGP9bw/5UVrmP3CTrmbwl+eQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788969041; c=relaxed/simple;
-	bh=LqBQ9RCZWmkZ1w31q/klK3NOgGoEtUX3UlKGrYnFi0M=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=BborVGNifDCe2osDIvvWs9ABcIRnFGBzzl5ZJQkiyRRDTFtnXkRLS+5WuhwNjsLiJ4dBsaUv7WN7SpVbOKjaw1c1ZjEI4BT5YHAcDILDVT/qtEqaSHFOexqIxLckLamDPXQaZZq2c75GRU8G3GLkY8jFXnAeD+NzwFr4ej8mpVo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fritz.com; spf=pass smtp.mailfrom=fritz.com; dkim=pass (2048-bit key) header.d=fritz.com header.i=@fritz.com header.b=LQE01HXD; arc=none smtp.client-ip=212.42.244.94
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fritz.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fritz.com
+	s=arc-20240116; t=1788969142; c=relaxed/simple;
+	bh=SSebE+ST6hsckt7BsoZWaCrfWED87E2Ve65oZGO3YSg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=BgSUV7RE987LC6eM1lc4aoagqpRVkyVGzGelNuQ8JsuujFcscmCEm6lRlpHGZJkAr/9VVHJJao9ADKyrrtfEiODlMHTWRIV08CtCp98kgG5oe8K6wCekq3M3Sa1lGNx4C8tpPrMUtFHw2piMvpRYj5fZ2p/DnANrk9OVvGNrYCc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de; spf=pass smtp.mailfrom=gmx.de; dkim=pass (2048-bit key) header.d=gmx.de header.i=rwarsow@gmx.de header.b=ZCJfA6QM; arc=none smtp.client-ip=212.227.17.20
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmx.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fritz.com header.i=@fritz.com header.b="LQE01HXD"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=fritz.com; s=mail;
-	t=1788969026; bh=LqBQ9RCZWmkZ1w31q/klK3NOgGoEtUX3UlKGrYnFi0M=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=LQE01HXDl15hpX77X1BngZEktl5EEsxTLs5FtlisTxv7PkvI7+k/zoI46O8AI+NAA
-	 Bk7npWIs1FXzziq1yyJkrcftWioXfwUSFzAG+Dl0T2NCjGLbw8DpnM7fkGPHPLmKWc
-	 f7O3ljAd9oHxhMwWRKSoPXxGKm1SXdDFSPErWMs8s7PZop6+5CnGNzukjzoGd7+p3D
-	 6t1U6CVlaJHDqhduKgeFDY+ddSMnXo6qD6fes0QXMAkUrfYe6LLpYKsscfsqeezOkJ
-	 8gKo7EmMr5tWg6fWE6yn7T18FaY3+nGICr159pAye4goQWblmLym+A97e6pu7cGDX/
-	 rCLvtaEwiDBdg==
-Received: from [2001:bf0:244:244::78] (helo=mail.avm.de)
-	by mail.avm.de with ESMTP (eXpurgate 4.57.1)
-	(envelope-from <n.schier@fritz.com>)
-	id 6aa18042-8182-7f0000032729-7f00000189ca-1
-	for <multiple-recipients>; Wed, 09 Sep 2026 17:50:26 +0200
-Received: from mail-auth.fritz.com (unknown [IPv6:2001:bf0:244:244::78])
-	by mail.avm.de (Postfix) with ESMTPS;
-	Wed,  9 Sep 2026 17:50:26 +0200 (CEST)
-Date: Wed, 9 Sep 2026 17:50:25 +0200
-From: Nicolas Schier <n.schier@fritz.com>
-To: jim.cromie@gmail.com
-Cc: Jason Baron <jbaron@akamai.com>, Shuah Khan <shuah@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Arnd Bergmann <arnd@arndb.de>, Luis Chamberlain <mcgrof@kernel.org>,
-	Petr Pavlu <petr.pavlu@suse.com>,
-	Daniel Gomez <da.gomez@kernel.org>,
-	Sami Tolvanen <samitolvanen@google.com>,
-	Aaron Tomlin <atomlin@atomlin.com>,
-	Jonathan Corbet <corbet@net.net>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Nathan Chancellor <nathan@kernel.org>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Pavel Machek <pavel@kernel.org>, Len Brown <lenb@kernel.org>,
-	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
-	dri-devel@lists.freedesktop.org, linux-arch@vger.kernel.org,
-	linux-modules@vger.kernel.org, linux-doc@vger.kernel.org,
-	linux-kbuild@vger.kernel.org, linux-pm@vger.kernel.org
-Subject: Re: [PATCH v9 15/39] kbuild, dyndbg: Clean up builtin module-name
- ambiguities
-Message-ID: <20260909-primitive-nano-hound-8ee2aa@l-nschier-aarch64>
-References: <20260908-dd-cmap-part2-clean-v9-0-3a3f621f4a10@gmail.com>
- <20260908-dd-cmap-part2-clean-v9-15-3a3f621f4a10@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmx.de header.i=rwarsow@gmx.de header.b="ZCJfA6QM"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
+	s=s31663417; t=1788969120; x=1789573920; i=rwarsow@gmx.de;
+	bh=SSebE+ST6hsckt7BsoZWaCrfWED87E2Ve65oZGO3YSg=;
+	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
+	 References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:cc:content-transfer-encoding:
+	 content-type:date:from:message-id:mime-version:reply-to:subject:
+	 to;
+	b=ZCJfA6QMO/uxLPYoMc3J/jPyu/ecO007BVbArew0SxSP5g8Nxgta4Ac19lxMJ5Yt
+	 V0u8HGdAiXyKBrdBzQ86S9i15RFJD4W1AvvETLtSiL/6/zyJGNnTHXojKM02/ykU+
+	 97HPNwWdLiOWRnUFgr6uiMLnygLTHSJw3F9jFZUeXGVLH4fQkwyDng3pzQgPhKYpv
+	 0D0+KXPXubMDEYQjuAJkQLSxMOp/SUYpkqtjEKvjpavU53IuA0q7W6Ri5dbyxXuBQ
+	 oTURnQOIFrHAwecV3ztty85POO5z778FByl2B5EhtlxjjIbbTrRGbmN4psZr//kEO
+	 XeVRoUV8nD/f+uJYbg==
+X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
+Received: from client.hidden.invalid by mail.gmx.net (mrgmx104
+ [212.227.17.168]) with ESMTPSA (Nemesis) id 1MVeI8-1xEL2B2qm4-00Y3G8; Wed, 09
+ Sep 2026 17:51:59 +0200
+Message-ID: <510dc2b8-175a-4606-a36b-df46ae4fd6e4@gmx.de>
+Date: Wed, 9 Sep 2026 17:51:57 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="gxR88jqO9rNjCGhR"
-Content-Disposition: inline
-In-Reply-To: <20260908-dd-cmap-part2-clean-v9-15-3a3f621f4a10@gmail.com>
-Organization: FRITZ! Technology GmbH
-x-ms-reactions: disallow
-X-purgate-ID: 149429::1788969026-45F91CAC-7D6342DD/0/0
-X-purgate-type: clean
-X-purgate-size: 5293
-X-purgate: This mail is considered clean (visit https://www.eleven.de for further information)
-X-purgate: clean
-X-pfmilter: host: postfix-mx-03  mail-id: 84D9DA0454  external: no
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 7.2 000/556] 7.2.5-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, conor@kernel.org,
+ hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
+ sr@sladewatkins.com
+References: <20260909134230.441546314@linuxfoundation.org>
+From: Ronald Warsow <rwarsow@gmx.de>
+Content-Language: de-DE, en-US
+In-Reply-To: <20260909134230.441546314@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Provags-ID: V03:K1:ubfoJgG5xRkXvMIXBAmulopwWI84MGSDrGxSdG6/y1GrvtpE/F0
+ chcT6bLULSHlFQ8WezCsSjtY9Mb6SlyW1lNYqwYcqGIWdrVgVa0RVawxok7n0a8h+xKYhVz
+ fnCsfApfq72eKFbX6InxBJXBGljMgQqpc1uixHB78QhUXc9NKriM56Z0YNkS59yiMzr8skf
+ Zn82xeGnPSRJ2SMNQxfAA==
+X-Spam-Flag: NO
+UI-OutboundReport: notjunk:1;M01:P0:AUr6VetZ5FQ=;bWFfuvahG9lD4Jbh+088CsddyOW
+ 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
+ LqAkYvnNzsWtGCR3EqY=
 
+Hi
 
---gxR88jqO9rNjCGhR
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+kernel build / boot test on x86_64 (Intel).
 
-On Tue, Sep 08, 2026 at 06:55:11PM -0600, Jim Cromie via B4 Relay wrote:
-[...]
+No regressions here.
 
-> diff --git a/Documentation/admin-guide/dynamic-debug-howto.rst b/Document=
-ation/admin-guide/dynamic-debug-howto.rst
-> index 9c2f096ed1d8..99bbae37d34e 100644
-> --- a/Documentation/admin-guide/dynamic-debug-howto.rst
-> +++ b/Documentation/admin-guide/dynamic-debug-howto.rst
-[...]
-> @@ -161,17 +161,21 @@ file
->  	file kernel/freezer.c	# ie column 1 of control file
->  	file drivers/usb/*	# all callsites under it
->  	file inode.c:start_*	# parse :tail as a func (above)
-> -	file inode.c:1-100	# parse :tail as a line-range (above)
-> +	file inode.c:1-100	# parse :tail as a line-range (below)
-> =20
->  module
-> -    The given string is compared against the module name
-> -    of each callsite.  The module name is the string as
-> -    seen in ``lsmod``, i.e. without the directory or the ``.ko``
-> -    suffix and with ``-`` changed to ``_``.  Examples::
-> -
-> -	module sunrpc
-> -	module nfsd
-> -	module drm*	# both drm, drm_kms_helper
-> +    The query string is compared against the subsystem module name of
-> +    each callsite, as shown in the control file, or its simple name.
-> +    The simple module name is the string as seen in ``lsmod``,
-> +    i.e. without the directory or the ``.ko`` suffix and with ``-``
-> +    changed to ``_``.
-> +    Examples::
-> +
-> +        module nfsd        # simple modname (as from lsmod)
-> +	module init/main   # subsystem modname (as in control file)
-> +	module */main	   # any subsystem ending in main
-> +        module main	   # simple modname, selects same as above
-> +	module drm*	   # both drm, drm_kms_helper
+Thanks
 
-The five lines above have mixed indentation, please switch them all to=20
-one tab (no spaces).
-
-
-[...]
-> diff --git a/scripts/Makefile.lib b/scripts/Makefile.lib
-> index 0a4fdd8bd975..e129c4d10ed8 100644
-> --- a/scripts/Makefile.lib
-> +++ b/scripts/Makefile.lib
-> @@ -23,6 +23,32 @@ modname_flags  =3D -DKBUILD_MODNAME=3D$(call name-fix,=
-$(modname)) \
->  		 -D__KBUILD_MODNAME=3D$(call name-fix-token,$(modname))
->  modfile_flags  =3D -DKBUILD_MODFILE=3D$(call stringify,$(modfile))
-> =20
-> +# Dynamic debug subsystem modname with clean heuristic and override supp=
-ort
-> +dd_modname_override =3D $(strip $(firstword $(DD_MODNAME_$(target-stem).=
-o) \
-> +					  $(DD_MODNAME)))
-> +dd_obj :=3D $(strip $(filter-out .,\
-> +		$(patsubst drivers/%,%,\
-> +		$(patsubst arch/$(SRCARCH)/%,%,\
-> +		$(patsubst arch/%/,%,$(obj))))))
-
-May it become problematic if there is a conflict with
-
-  arch/sh/drivers/dma/*
-  arch/sh/drivers/pci/*
-
-vs.
-
-  drivers/dma/*
-  drivers/pci/*
-
-?
-
-
-> +dd_modname_default =3D $(strip $(if $(filter $(notdir $(obj)),$(__modnam=
-e)),\
-> +			 $(__modname),\
-> +			 $(if $(filter main core common util init snapshot \
-> +				       process,$(__modname)),\
-> +			     $(dd_obj),\
-> +			     $(if $(word 2,$(__modname)),\
-> +				 $(dd_obj),\
-> +				 $(if $(dd_obj),$(dd_obj),$(__modname))))))
-
-This looks quite complex.  I _think_ this should be equivalent, but=20
-perhaps a bit more simple to maintenance:
-
-dd_modname_default =3D \
-    $(or \
-	$(filter $(notdir obj), $(__modname)), \
-	$(filter-out main core common util init snapshot process, $(__modname)), \
-	$(dd_obj)))
-
-(Removed $(strip) and the last $(__modname) fallback as both are already=20
-in definition of 'dd_modname'.)
-
-What do you think?
-
-> +dd_modname =3D $(strip $(or $(dd_modname_override),\
-> +			  $(dd_modname_default),\
-> +			  $(__modname)))
-> +dd-name-subst =3D $(subst $(comma),_,$(subst -,_,$(strip $1)))
-> +dd-name-fix-token =3D $(subst $(space),_,$(call dd-name-subst,$1))
-> +dd_tok =3D $(call dd-name-fix-token,$(dd_modname))
-> +dd_modname_flags =3D $(if $(dd_modname),\
-> +	-DKBUILD_DD_MODNAME=3D$(call stringify,$(dd_tok)))
-> +
-> +modfile_flags +=3D $(dd_modname_flags)
-
-dd-name-subst and dd-name-fix-token are not needed, dd_modname_flags is=20
-used only once and can be folded:
-
-
-dd_tok =3D $(call name-fix,$(subst $(space),_,$(dd_modname)))
-
-modfile_flags +=3D $(if (dd_modname), -DKBUILD_DD_MODNAME=3D$(dd_tok))
-
-
-
-
---=20
-Nicolas
-
---gxR88jqO9rNjCGhR
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCAAdFiEEDv+Fiet06YHnC6RpiMa8nIiabbgFAmqhgDoACgkQiMa8nIia
-bbiidg/7BYG8ZijzqT3j/cWBGDMsLVNjmGdVCS+irPEL1k9mLd2hBdS6CYcSE73Y
-sDq7YXv3sI9JJncvwWrWmhkc843HIu5Tlv4/pEGlrrjS3yTVSBioMa0Kah4/bPFP
-JzseiIg4yvMAPkvXQOCEx2OEVD54hlgGb+EzOe80Ls1jV5zLuwZl8g9g8XSJATw9
-5BBmQSaw38Glox7/s4tcAM3/wUfr4aU1cxHWVw07b/Xuie5Q66TfGFMPIJg8likY
-6i0HFY0zHNx4KnMZb08FUXzAK5RfSPo0QVuq8TZHS/xT0TQxc39jncFfxJJqOuAR
-JYWvYpWRwSgNtpJX7IM/u6ug1sXTSY8TWDMsH/7NC/qNnFo3ryhMzNdomtWYmbvy
-Pi8vqRfbwYVZuA53U2T/TYMZibt3lP7HzXd9Z8Y9fa84d0rEOmWC1UJgdnlIfsqY
-AQWuFQLjwgFzdqjN0C25HtTm4AD/ks+Ekopxl5WFUjpk0ybWB6K8nkW3T7yLp16N
-BKmKKnXZ8A/lH7X6PicqKI6k71OXvgjB7mCkoh7ccUsCmG8qVBGr4FZ0eSb+C7Oi
-YOBvFciA2TeYzjxI/6bHBHWwdFNDoUKu25kzxQNcHtNryBaj4SBORYyNS9NhuC1+
-OZy1sgU6zRhtfNVLK8uR8/iAPE93+YKwD8hWSgRGAoGc4v5O9HM=
-=uK5f
------END PGP SIGNATURE-----
-
---gxR88jqO9rNjCGhR--
+Tested-by: Ronald Warsow <rwarsow@gmx.de>
