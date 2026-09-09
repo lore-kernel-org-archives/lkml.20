@@ -1,264 +1,117 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2F555505DA;
-	Wed,  9 Sep 2026 14:58:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 902AC5867DD
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 14:58:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788965922; cv=none; b=qvp9+RuD1sF4+7f2TJYkICvLXQTO44g1/yHUWqIHPI9Kvwbs0oDyYA94IqWjGjdhWIB26GRdIOMge4XzgwC6di17Mh06/TOLHktgYOxOLLuDVL9yeaKi+X2rViLlV4hurvD5fux6jrKqfnrxM+TBfoWxz6qnefRwbNxP2CSgoaI=
+	t=1788965929; cv=none; b=GSquHevsOKRDx6/7iPhfdk8bgVQXZwrs+45ItUKWMCxrq8oKptnp1hgo7Giu0QSxUxNmycgoEPJOu562WXuRujOB369dA7T14QZQDDoYEcHrHE6X1TTHp1x3fzctaTQQoc6O8vQjSyHC727sPBQbcVatbX+BQI5LHfkA8oCoKeM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788965922; c=relaxed/simple;
-	bh=0yaTXefau6y6rHVWH8usVQPIZ41fmlDXbOuXug6fu7c=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=kHdykptPIBVTYuWXKKg+CWZMcivz8Msqyr8ZZUjCzSpoOJq05MUizm+F76+xfnKxlzqQRmV10KTa1s1v2gp3jsqR0kthdtJJAZc3Qrw2STDJVtRFqPuMHBdeNY7Bq0mgNe5f0mmbvUxBP24mHmuQdVMS9i0DLzktjMuYHRoPjys=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VYgPN2yV; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788965929; c=relaxed/simple;
+	bh=B7ORsixADnuoEnV1y+wk0R19TAH/p4NoYe9f4Iyx3fg=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=OTUDwF8cXIOSG3249aRgG3KeZrUexpAfaVfkZfArzpWp31h2fIKqVqI4xje9MmPjDckZabkypvG4V7u4wJlkF4SoGQSJHXJu9NamLKjkXslynigHKVnxfapZVGJIlr0RdCK/OEW34SMhJx9tvw7qLIpRxhH4MjbdMDLOk1K8ZGs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZOzAkLWG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VYgPN2yV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8BAD11F00A3A;
-	Wed,  9 Sep 2026 14:58:36 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZOzAkLWG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3916D1F00A3E
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 14:58:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788965918;
-	bh=mNvIpoPsF8qUmPCxd/oWc2+HrEn6dfVtI6P5Ayu0kdU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=VYgPN2yVLSQjzL4LOOyixO94Us0qj/b1yz29GnE+WR4Yo01qGGknaqZ4jhxL4kknI
-	 lSbHOzXK8fg5ByWSHOfqTgyEuWTvYP7UOg0f8/ThWCzEi+Nwe/PMLWS6e1E/oFTfjo
-	 FhAc3POB7NIdKhl1ltsdISTSqRnyrZlJRvP/sRhzNJ3jvmj3QzctnXOAqoTJT1dUxt
-	 ZeTFGy08paQSG/psByoC65pAAGAVgwabSlBvRJA+8oiD4VWmkpqthMtgWSQbvAAp0D
-	 1WRLct6tn4e8TbFDznKb5C3e/bYWAGs6AKrRJrPurUZDupVkYSaHaWUyGRvq3ptMtP
-	 6ri0q9BnQRZUQ==
-Date: Wed, 9 Sep 2026 10:58:34 -0400
-From: Namhyung Kim <namhyung@kernel.org>
-To: Tengda Wu <wutengda@huaweicloud.com>
-Cc: james.clark@linaro.org, xueshuai@linux.alibaba.com,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	Peter Zijlstra <peterz@infradead.org>, leo.yan@linux.dev,
-	Li Huafei <lihuafei1@huawei.com>, Ian Rogers <irogers@google.com>,
-	Kim Phillips <kim.phillips@arm.com>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Arnaldo Carvalho de Melo <acme@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>, Bill Wendling <morbo@google.com>,
-	Nick Desaulniers <nick.desaulniers+lkml@gmail.com>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Zecheng Li <zli94@ncsu.edu>, linux-perf-users@vger.kernel.org,
-	linux-kernel@vger.kernel.org, llvm@lists.linux.dev
-Subject: Re: [PATCH v5 04/26] perf annotate-arm64: Handle load and store
- instructions
-Message-ID: <aqF0GuN0pJ83YAob@google.com>
-References: <cover.1788872630.git.wutengda@huaweicloud.com>
- <37f13e322f75aa96f9cb8b71f401c9911523f8c5.1788872630.git.wutengda@huaweicloud.com>
+	s=k20260515; t=1788965928;
+	bh=5EnwTFIFCw2iLU4TD+HjqWQfN8cIErcK8cG39xcxPCE=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=ZOzAkLWGO3afPNnywGBT7HTafXTpuhNiFXc5X5x723ppAtWFvVNKfKPFvAZd4Y786
+	 NX+43UQvDC6Wfg8Axo2rx4g+QI2/QCJ8+ePabfpoyi5tTvoxwD+WIUTg+2ndBdVP3m
+	 pviODkGrGxHs/L4VrWto/aLRtDGi2jdCK98Zz9EbMmCltNEyx/McvNeHpsYxaVm9Cr
+	 5zUXkyQ6IYXjf2Hpz8qBEGurylOOvvBci2zlk3D0u/Z4Sn18O12XaUiGmHvNyC/mmi
+	 dZBKOoaTGwOXV2Yg8qeSf0tg1VZovf38FPB2U+vQunH9b+g+cOa5f/ah1H0H4d5ajE
+	 Bg81tKy97KVVw==
+Received: by mail-lf1-f44.google.com with SMTP id 2adb3069b0e04-5b7674fcb26so775168e87.3
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 07:58:48 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxt+tof3ijgzQxqTQ6zazqnVcZoSJcDD4u1t1mkYO57D3QTVJ3zKflHL6SJxPoVGJ0H6GD0OwoftscTDXI=@vger.kernel.org
+X-Gm-Message-State: AFuF++mkQSeMzn41tWh59S/h73q9KSB90MCxjBYqiEu60r99NjkUCI8+
+	lgWS+n23O+tP0X45zk/9Sdn4TE8D0kYoRQD31FYz7BKG4k83mCQlHxHAxxQtxfur92NdNn+8GmL
+	uTxUYRxAgnopp0GYd/7StoinRUAMpNGo=
+X-Received: by 2002:a05:6512:b82:b0:5b6:183c:5c84 with SMTP id
+ 2adb3069b0e04-5b6183c5d18mr6806077e87.34.1788965926539; Wed, 09 Sep 2026
+ 07:58:46 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <37f13e322f75aa96f9cb8b71f401c9911523f8c5.1788872630.git.wutengda@huaweicloud.com>
+References: <20260820031253.1636952-1-triet.hoang.dev@gmail.com> <CAJZ5v0hBR1Y+exJN0gg1L5GqjMwxLUPu+GWHHJzbLctoFLFNCA@mail.gmail.com>
+In-Reply-To: <CAJZ5v0hBR1Y+exJN0gg1L5GqjMwxLUPu+GWHHJzbLctoFLFNCA@mail.gmail.com>
+From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Date: Wed, 9 Sep 2026 16:57:36 +0200
+X-Gmail-Original-Message-ID: <CAJZ5v0i0HVptViJ67Uq5V9+NNKbWgVTcnYBA3NBf-7ta84-OVQ@mail.gmail.com>
+X-Gm-Features: AcwNN1U9Uyzv8Vp_BBLeUjafqUQ0vnz9aBThd3Q6OIWh8ZjwGLiQZxnlwBT6BpM
+Message-ID: <CAJZ5v0i0HVptViJ67Uq5V9+NNKbWgVTcnYBA3NBf-7ta84-OVQ@mail.gmail.com>
+Subject: Re: [PATCH] ACPI: AC: use DEFINE_SIMPLE_DEV_PM_OPS
+To: Triet Hoang <triet.hoang.dev@gmail.com>
+Cc: linux-acpi@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, Sep 08, 2026 at 01:05:07PM +0000, Tengda Wu wrote:
-> Add ldst_ops to handle load and store instructions in order to parse
-> the data types and offsets associated with PMU events for memory access
-> instructions. There are many variants of load and store instructions in
-> arm64, making it difficult to match all of these instruction names
-> completely. Therefore, only the instruction prefixes are matched. The
-> prefix 'ld|st' covers most of the memory access instructions, 'cas|swp'
-> matches atomic instructions, and 'prf' matches memory prefetch
-> instructions.
-> 
-> Signed-off-by: Li Huafei <lihuafei1@huawei.com>
-> Signed-off-by: Tengda Wu <wutengda@huaweicloud.com>
+On Wed, Sep 9, 2026 at 4:44=E2=80=AFPM Rafael J. Wysocki (Intel)
+<rafael@kernel.org> wrote:
+>
+> On Thu, Aug 20, 2026 at 5:12=E2=80=AFAM Triet Hoang <triet.hoang.dev@gmai=
+l.com> wrote:
+> >
+> > Convert the deprecated SIMPLE_DEV_PM_OPS
+> > to DEFINE_SIMPLE_DEV_PM_OPS
+> >
+> > Also use pm_sleep_ptr() when assigning the ops to the driver.
+> > This allows the removal of the ifdef CONFIG_PM_SLEEP.
+> >
+> > Signed-off-by: Triet Hoang <triet.hoang.dev@gmail.com>
+> > ---
+> >  drivers/acpi/ac.c | 6 ++----
+> >  1 file changed, 2 insertions(+), 4 deletions(-)
+> >
+> > diff --git a/drivers/acpi/ac.c b/drivers/acpi/ac.c
+> > index f19d6dd43473..eef0c8e32d73 100644
+> > --- a/drivers/acpi/ac.c
+> > +++ b/drivers/acpi/ac.c
+> > @@ -239,7 +239,6 @@ static int acpi_ac_probe(struct platform_device *pd=
+ev)
+> >         return 0;
+> >  }
+> >
+> > -#ifdef CONFIG_PM_SLEEP
+> >  static int acpi_ac_resume(struct device *dev)
+> >  {
+> >         struct acpi_ac *ac =3D dev_get_drvdata(dev);
+> > @@ -253,9 +252,8 @@ static int acpi_ac_resume(struct device *dev)
+> >
+> >         return 0;
+> >  }
+> > -#endif
+>
+> And the function above is going to be unused when CONFIG_PM_SLEEP is
+> unset, causing the compiler to complain AFAICS.
 
-Reviewed-by: Namhyung Kim <namhyung@kernel.org>
+Scratch this, but you should mention in the changelog that the file is
+going to contain dead code for CONFIG_PM_SLEEP after this change.
 
-Thanks,
-Namhyung
+And I'm not really sure if I like that.
 
-> ---
->  .../perf/util/annotate-arch/annotate-arm64.c  | 140 ++++++++++++++++++
->  1 file changed, 140 insertions(+)
-> 
-> diff --git a/tools/perf/util/annotate-arch/annotate-arm64.c b/tools/perf/util/annotate-arch/annotate-arm64.c
-> index 151184210691..a7595a954cfa 100644
-> --- a/tools/perf/util/annotate-arch/annotate-arm64.c
-> +++ b/tools/perf/util/annotate-arch/annotate-arm64.c
-> @@ -14,6 +14,7 @@ struct arch_arm64 {
->  	struct arch arch;
->  	regex_t call_insn;
->  	regex_t jump_insn;
-> +	regex_t ldst_insn; /* load and store instruction */
->  };
->  
->  static bool arm64__is_reg(const char *op)
-> @@ -170,6 +171,130 @@ static const struct ins_ops arm64_mov_ops = {
->  	.scnprintf = arm64_mov__scnprintf,
->  };
->  
-> +static bool arm64__insn_is_target_on_right(const char *ins_name)
-> +{
-> +	/*
-> +	 * Store instructions write to the memory operand on the right,
-> +	 * unlike standard syntax where the target is the left operand.
-> +	 */
-> +	return !strncmp(ins_name, "st", 2);
-> +}
-> +
-> +/*
-> + * This function is used to parse arm64 load/store instructions into
-> + * instruction operands.
-> + *
-> + * Typical instructions and their parsing logic:
-> + *
-> + * 1. Immediate offset:
-> + *    ldr   x2, [x0]                -> target="x2", source="[x0]"
-> + *    ldr   x2, [x0, #24]           -> target="x2", source="[x0, #24]"
-> + *    ldp   x19, x20, [sp, #16]     -> target="x19, x20", source="[sp, #16]"
-> + *
-> + * 2. Pre-index addressing:
-> + *    stp   x29, x30, [sp, #-64]!   -> target="[sp, #-64]!", source="x29, x30"
-> + *
-> + * 3. Post-index addressing:
-> + *    str   x1, [x0], #8            -> target="[x0], #8", source="x1"
-> + *    ldr   w1, [x21], #4           -> target="w1", source="[x21], #4"
-> + *    ldp   x29, x30, [sp], #32     -> target="x29, x30", source="[sp], #32"
-> + *
-> + * 4. Register offset / extension:
-> + *    ldr   x0, [x1, w0, sxtw #3]   -> target="x0", source="[x1, w0, sxtw #3]"
-> + *    ldr   x0, [x1, x0, lsl #3]    -> target="x0", source="[x1, x0, lsl #3]"
-> + *
-> + * 5. Atomic operations:
-> + *    cas   w3, w1, [x0]            -> target="w3, w1", source="[x0]"
-> + *    swp   x3, x0, [x2]            -> target="x3, x0", source="[x2]"
-> + *
-> + * 6. Prefetch memory:
-> + *    prfm  pstl1strm, [x4]         -> target="pstl1strm", source="[x4]"
-> + *
-> + * 7. PC-relative loads (No bracket found):
-> + *    ldr   x0, ffff800080f40c68 <__kvm_nvhe_$d>  -> Fallback to default parser
-> + *
-> + * Parsing strategy:
-> + * Use the '[' bracket as the boundary to split the operands into left
-> + * and right sides. For non-store instructions, the left side is the
-> + * target and the right side is the source. For store instructions, the
-> + * roles are reversed.
-> + */
-> +static int arm64_ldst__parse(const struct arch *arch, struct ins_operands *ops,
-> +			     struct map_symbol *ms, struct disasm_line *dl)
-> +{
-> +	char *raw, *s, *left, *right;
-> +	int ret = -1;
-> +
-> +	raw = rstrip_space_and_comment(ops->raw, arch->objdump.comment_char);
-> +	if (!raw)
-> +		return -1;
-> +
-> +	s = strchr(raw, arch->objdump.memory_ref_char);
-> +	if (!s) {
-> +		/* Fallback to default parser for PC-relative loads. */
-> +		free(raw);
-> +		return arm64_mov__parse(arch, ops, ms, dl);
-> +	}
-> +
-> +	right = strdup(s);
-> +	if (!right)
-> +		goto out_free_raw;
-> +
-> +	while (s > raw && *s != ',')
-> +		--s;
-> +
-> +	if (s == raw)
-> +		goto out_free_right;
-> +
-> +	*s = '\0';
-> +	left = strdup(raw);
-> +	*s = ',';
-> +	if (!left)
-> +		goto out_free_right;
-> +
-> +	free(raw);
-> +
-> +	if (arm64__insn_is_target_on_right(dl->ins.name)) {
-> +		ops->source.raw = left;
-> +		ops->source.mem_ref = false;
-> +
-> +		ops->target.raw = right;
-> +		ops->target.mem_ref = true;
-> +	} else {
-> +		ops->source.raw = right;
-> +		ops->source.mem_ref = true;
-> +
-> +		ops->target.raw = left;
-> +		ops->target.mem_ref = false;
-> +	}
-> +
-> +	ops->source.multi_regs = arm64__check_multi_regs(arch, ops->source.raw);
-> +	ops->target.multi_regs = arm64__check_multi_regs(arch, ops->target.raw);
-> +
-> +	return 0;
-> +
-> +out_free_right:
-> +	free(right);
-> +out_free_raw:
-> +	free(raw);
-> +	return ret;
-> +}
-> +
-> +static int arm64_ldst__scnprintf(const struct ins *ins, char *bf, size_t size,
-> +				 struct ins_operands *ops, int max_ins_name)
-> +{
-> +	if (arm64__insn_is_target_on_right(ins->name))
-> +		return scnprintf(bf, size, "%-*s %s", max_ins_name, ins->name, ops->raw);
-> +
-> +	return scnprintf(bf, size, "%-*s %s, %s", max_ins_name, ins->name,
-> +			 ops->target.raw, ops->source.name ?: ops->source.raw);
-> +}
-> +
-> +static struct ins_ops arm64_ldst_ops = {
-> +	.parse	   = arm64_ldst__parse,
-> +	.scnprintf = arm64_ldst__scnprintf,
-> +};
-> +
->  static const struct ins_ops *arm64__associate_instruction_ops(struct arch *arch, const char *name)
->  {
->  	struct arch_arm64 *arm = container_of(arch, struct arch_arm64, arch);
-> @@ -180,6 +305,8 @@ static const struct ins_ops *arm64__associate_instruction_ops(struct arch *arch,
->  		ops = &jump_ops;
->  	else if (!regexec(&arm->call_insn, name, 2, match, 0))
->  		ops = &call_ops;
-> +	else if (!regexec(&arm->ldst_insn, name, 2, match, 0))
-> +		ops = &arm64_ldst_ops;
->  	else if (!strcmp(name, "ret"))
->  		ops = &ret_ops;
->  	else
-> @@ -205,6 +332,7 @@ const struct arch *arch__new_arm64(const struct e_machine_and_e_flags *id,
->  	arch->objdump.comment_char	  = '/';
->  	arch->objdump.skip_functions_char = '+';
->  	arch->objdump.memory_ref_char	  = '[';
-> +	arch->objdump.imm_char		  = '#';
->  	arch->associate_instruction_ops   = arm64__associate_instruction_ops;
->  
->  	/* bl, blr */
-> @@ -218,8 +346,20 @@ const struct arch *arch__new_arm64(const struct e_machine_and_e_flags *id,
->  	if (err)
->  		goto out_free_call;
->  
-> +	/*
-> +	 * The ARM64 architecture has many variants of load/store instructions.
-> +	 * It is quite challenging to match all of them completely. Here, we
-> +	 * only match the prefixes of these instructions.
-> +	 */
-> +	err = regcomp(&arm->ldst_insn, "^(ld|st|cas|prf|swp)",
-> +		      REG_EXTENDED);
-> +	if (err)
-> +		goto out_free_jump;
-> +
->  	return arch;
->  
-> +out_free_jump:
-> +	regfree(&arm->jump_insn);
->  out_free_call:
->  	regfree(&arm->call_insn);
->  out_free_arm:
-> -- 
-> 2.34.1
-> 
+> > -static SIMPLE_DEV_PM_OPS(acpi_ac_pm, NULL, acpi_ac_resume);
+> > +static DEFINE_SIMPLE_DEV_PM_OPS(acpi_ac_pm, NULL, acpi_ac_resume);
+> >
+> >  static void acpi_ac_remove(struct platform_device *pdev)
+> >  {
+> > @@ -270,7 +268,7 @@ static struct platform_driver acpi_ac_driver =3D {
+> >         .driver =3D {
+> >                 .name =3D "ac",
+> >                 .acpi_match_table =3D ac_device_ids,
+> > -               .pm =3D &acpi_ac_pm,
+> > +               .pm =3D pm_sleep_ptr(&acpi_ac_pm),
+> >         },
+> >  };
+> >
+> > --
+> > 2.53.0
+> >
