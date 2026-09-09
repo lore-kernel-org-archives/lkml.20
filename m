@@ -1,273 +1,301 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk2-f12.google.com (mail-qk2-f12.google.com [74.125.230.204])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94582344DAE;
-	Wed,  9 Sep 2026 21:50:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788990652; cv=none; b=i3ZIasxM+nJirrx9pMuB3BzOXQPGPnMKYOsvQfuqW4RPMAnk00wYbclE5u9uUv+fS4HtGQ79hDXRbjX49K1oUUn0rRkYx0tooPZ7/DWT1y2HItcHu5e1eQWzD0sGyy4U2HeLcRQupmXw0RYVtdA0QTaF/QUnfUQ4Ex9ejuhNwqs=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788990652; c=relaxed/simple;
-	bh=pDid7rjntruX2H4VEdeeqsdi59XnWiUaYIdYa5Jg+pg=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=hF+Xt/JYng9wU6Cz9FtSzAFw49GGzsEUwybajdRCFG2KVkDvzCDq0J8BaN4nzWOwqA+XdZAFqfVDmewVUBLws1BvUDFXhEVOZ4VQ7amaBWyv4Qli1ifl4gWhyBv+xsnoEUyyIDpmws0UU6JD1gjKR5/7io3vDCKu0IftQbYvHHo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IKXBB2OX; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1DB13F3293
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 21:51:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.204
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788990686; cv=pass; b=QkcbAUVGlqf401zR7KOGb71cdXg1tgUaR0it1rDuIvqiQ/dLzUOkypSiBnp4Nn4qEpKWkBPVvsOWq5CaP+UgqMKP8GTaQE88MZr3EZ8JdJ/QwgltONZ90wC7B6hk/XwIz4QaNdRSkjV40/jiR9q2v7y8+jaGT1VtSCXKzeemArI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788990686; c=relaxed/simple;
+	bh=oGSL5ZNrRrIcFVKDXpFvslxtC08mY6cmJRWkDCy+QXM=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=KzZCuPZ44wVnQKirEoyiXRK/YiAg6+d8fEbPgdvtfDDyk8nZHv10U92EhxM07C1dUUzkzAsafo3Pli/J2oAn5NjDg6UgfvjIsiEarinyI2xH+tweEWh7mey2hzBVctQSv4Xy5/Ty7skUg0GYd6YbP0SvnO7uIaEnQ4iTPk7rYUg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=INHOTf6u; arc=pass smtp.client-ip=74.125.230.204
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IKXBB2OX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5613E1F000FF;
-	Wed,  9 Sep 2026 21:50:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788990648;
-	bh=SBgTT3VIWig+VgekORUqrYlktN0bs73d9DwAiyf9MpQ=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=IKXBB2OXUFUgcjdpMoqQuDCznorx5HEjNfzuxwg9G7zxBN/vvAtnxrGii/tp1m0iM
-	 Szz0AQgsCXLF6PAA9fWdr13BTpGnWc/g5mS06ztymMdfyiz0F5wop/yVjPELhmxSPA
-	 prdC2qlgVw6ykcasFwrYpVeF9k0qCJYOJEGzuxFoY+nCrTj5f/SnIovAElGXxS2bIe
-	 YMBaS+7Eumu63/XbChQY1wSHGBf/deJVcHNtFHFEIyTNcPpLrblGa21mLlZPxmWfev
-	 Z168gTCHoNwscwDgQ+70FTj4azjPfVNLNuOQW3OfmVW3SCxdZkYR7InFHKnkCxCBdq
-	 5j8E2PVPkf95g==
-Subject:
- Re: [PATCH v2] net: stmmac: clear dma_conf in __stmmac_open error path
-From: netdev-bot+sashiko@kernel.org
-To: zhaojinming@uniontech.com
-Cc: maxime.chevallier@bootlin.com, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
- mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com, horms@kernel.org,
- ansuelsmth@gmail.com, Jose.Abreu@synopsys.com, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Date: Wed, 09 Sep 2026 21:50:46 +0000
-Message-ID: <178899064691.219967.12835853245703806626@kernel.org>
-In-Reply-To: =?utf-8?q?=3C20260904-fix-stmmac-mtu-change-use-after-free-v2-1?=
- =?utf-8?q?-91e680476921=40uniontech=2Ecom=3E?=
-References: =?utf-8?q?=3C20260904-fix-stmmac-mtu-change-use-after-free-v2-1-?=
- =?utf-8?q?91e680476921=40uniontech=2Ecom=3E?=
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="INHOTf6u"
+Received: by mail-qk2-f12.google.com with SMTP id d75a77b69052e-530411c7ee1so38741cf.0
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 14:51:23 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788990682; cv=none;
+        d=google.com; s=arc-20260327;
+        b=B9NNv3fFq5R2/kmQZjJI1x6Hxfs7ftQJvmIK05PCEgiWM5pMnQlqTWRUzF9WfjrHRi
+         FBRULFKxXcYrOeX4HnPKK+l0M8h/pBkgZv16JifcczQabJKnSfX+9mVH0k11VBuW6GdW
+         wS7gxHP0OzaJI+quWzinn5G9aa3oCVqbtLxbvKllY4JvXjYtOlf9pKYycognOXVqo4UR
+         3840F0iOCb38xr+s7mOzjK+nh8N+TAGQoumX7Y6cEhW7uP3OjOAKobtUMD7qEXWhOfkJ
+         uz8XkgFAmw9XpaeBHrmMdeoQoOyV+zDyyqIfIvFeRyY/e0iiOGOni3GVxyvKdxt33K3D
+         Fsnw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=A7p9WWZeWPUSCEcOXg2XJofz7nmB+pP1oglnGvljEvQ=;
+        fh=t0/Q/IJZSuTjGReTcuDe+406nrl7TDExvLdvdfNQUrg=;
+        b=P6uVGXAVlOJxENndLdmcaCsAEXFWFVk+qns0ld6PN13cnIN+lyLAb4GUHka3/JGxT8
+         m63jSbNiCLwyj8JC+asSQz6Mm2hA9B+nN3OpgZce983E1lhUO4T53Xwt0sxn5L3xLVC7
+         Ne240H5ZGxx8ON5eUleoH7r3S/0Jjqp7X75/YvzHd72W7JRm+igEaL0CL7TB141IqQNJ
+         2ue8dwhmXsbu+GLz+Ac9XXoKd4gV902d1pOuk54kR0l9j6oy48X1TzsNAeImN+aVVkdG
+         arswhHmagLT7TIeRWtqmml+a4JKn4f/cAfrEO+FxYhdxyif6LsDxVS8+wnsCgYSz4TvM
+         PCgQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1788990682; x=1789595482; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=A7p9WWZeWPUSCEcOXg2XJofz7nmB+pP1oglnGvljEvQ=;
+        b=INHOTf6uLKoiWJE3oMLPAjRFPBnVSFPLK96SgWFMRvdLwdQPHOaj7NMol0W5A4gsBk
+         MtKqMbavARKgLFzrJNr2Gz+l2KWKvKuaw8uqe325ilHZSgV66q5RhxYlpUgPQHD4LZSd
+         zeo2x1BL83ZWGwxgog2FZBOeDrXiqcSx8+2AhsLrC0x5kHhIkJNENhrt1vPONtKaZzz4
+         iq80jUXeeP8ysHvgDDAbf0amAInA3CAGc7bi2iaSnfCCpZdHtjmoEMchEjTuBTFMKwxa
+         vrb/PoOt5uRYbh6A3HIO7F3JSCOJ9zK1/Kr0VfRh6hc45a2uGyB2oVehqnUOS0Y0BoDQ
+         T6kA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788990682; x=1789595482;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=A7p9WWZeWPUSCEcOXg2XJofz7nmB+pP1oglnGvljEvQ=;
+        b=qPfZh05xKQG0Vnd91706A0wvEqsEm35shA+c+Fv1WoZGQ0dp00wBjYAXuznFIzAOV0
+         b1UvBAV82AoOpqoAljZuPppre4OaDXqk0k4vaLPBxeeVSkHt5OB2Mbofr6APscngpb0i
+         +TU/Ej7wuxyvxH4HK0ywSGby3g1h+AmIIrUU+7BBg4fKumIjmzFwyjb6byrn6G1FLoW1
+         Nmzhvonra19jzrl2IZbRKMHJXGsJIGYhpkszO9BSZqkJw0vS3/PUCR0FgQdUqlNurgPZ
+         1uXjsDGcPsnDMU+6axr1nIJ0YZo8uhJmq+DXw1/jyvFecukIwOVUmPjXxG+SyHhrXprJ
+         Y/+Q==
+X-Forwarded-Encrypted: i=1; AKwUvBzMXZis0sKPnh0wZwYv6/XBGsSrvZ5gpz6foYVuhun/E6T2q5Y5x+8CSO0TtMffBvI4B9EP+3yJNapZqrU=@vger.kernel.org
+X-Gm-Message-State: AFuF++nHyMmJaxsRpSJyRD74/rrTOiVMjo+ffHewMZIp9XTeqK/dUHMA
+	BKmp+09PG7B4eiqarUM643I/KXw6V5nI4dcpFTWnRyfN1t/mYaE+KTKCMI+KTp22LxBnhmYXvwR
+	FuABeL/0eGperxcPJMhzImnD1HLHlIlkXHQZp0kh8
+X-Gm-Gg: AYBFou1azZ5LV5RP6TuSH2Zbwj3wlLv5zNdahMblMqyl2H3XkMUET6PrnfRtunbkfHb
+	3CFGVL6nEeUN7qJZtpEOT5u7paKmDqrZZGxx6Nkarmi8/8K5ls1S9tS6pamSOektZ5tdUR3KzkI
+	WyOPkwD8kObk5mKyEbBcHjrMWqxGps+TxV1Rkj1hoUzODDtajuwwWz+xgv4imRdfVbdiuZklVM3
+	AsWKJ7nXNYeKU2MpBax2ijJlMXwPx2vQ2tXFo6yL0K9nR/OFc5kzJhw34rKjIKfLYoR87zqiUGh
+	ZLrULNWswU5L/gDhsYOxiQcV7wVia2GmrR9zxjSY6G2Xtf4if2Xjjy/U5A==
+X-Received: by 2002:ac8:7f81:0:b0:52e:1e8:21f4 with SMTP id
+ d75a77b69052e-530b62adb08mr929301cf.5.1788990680995; Wed, 09 Sep 2026
+ 14:51:20 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+References: <20260907063918.3432401-1-surenb@google.com> <20260907063918.3432401-4-surenb@google.com>
+ <4825a2fe-f064-45d7-a7c9-e98de7efe86c@kernel.org> <CAJuCfpFL_g7tELjT8p8ExM3tX_v2gNDM9rRKwwefPV_KW=fHfA@mail.gmail.com>
+ <8e643f51-a47f-428e-9443-678326288fa6@kernel.org>
+In-Reply-To: <8e643f51-a47f-428e-9443-678326288fa6@kernel.org>
+From: Suren Baghdasaryan <surenb@google.com>
+Date: Wed, 9 Sep 2026 14:51:09 -0700
+X-Gm-Features: AcwNN1WhVGNfB-pxrRcwKFTO2y3J4tLY_kHnkGoYanjTzogNBsN7pKUja62KieY
+Message-ID: <CAJuCfpEYdj=u0wczKRrsB8uDkbSzPy+hrsCo9TW9-3J3r3p0xQ@mail.gmail.com>
+Subject: Re: [PATCH v2 3/5] proc/task_mmu: remove special-casing of
+ smap_gather_stats() start parameter
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: akpm@linux-foundation.org, liam@infradead.org, ljs@kernel.org, 
+	vbabka@kernel.org, willy@infradead.org, jannh@google.com, paulmck@kernel.org, 
+	pfalcato@suse.de, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	linux-fsdevel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 4 potential
-issue(s) to consider:
+On Wed, Sep 9, 2026 at 12:16=E2=80=AFPM David Hildenbrand (Arm)
+<david@kernel.org> wrote:
+>
+> On 9/9/26 20:28, Suren Baghdasaryan wrote:
+> > On Wed, Sep 9, 2026 at 10:16=E2=80=AFAM David Hildenbrand (Arm)
+> > <david@kernel.org> wrote:
+> >>
+> >> On 9/7/26 08:39, Suren Baghdasaryan wrote:
+> >>> smap_gather_stats() interprets its start parameter to mean vma->vm_st=
+art
+> >>> when it's set to 0. Eliminate this special interpretation and pass
+> >>> vma->vm_start explicitly when needed.
+> >>>
+> >>> Since smap_gather_stats() operates within a single VMA, we can replac=
+e
+> >>> walk_page_vma()/walk_page_range() calls with walk_page_range_vma()
+> >>> which is simpler and also can be called while holding per-VMA lock.
+> >>>
+> >>> No functional change intended.
+> >>>
+> >>> Suggested by: Lorenzo Stoakes <ljs@kernel.org>
+> >>> Signed-off-by: Suren Baghdasaryan <surenb@google.com>
+> >>> ---
+> >>>  fs/proc/task_mmu.c | 40 ++++++++++++++++++++++------------------
+> >>>  1 file changed, 22 insertions(+), 18 deletions(-)
+> >>>
+> >>> diff --git a/fs/proc/task_mmu.c b/fs/proc/task_mmu.c
+> >>> index 9908ba32f180..3351decd1172 100644
+> >>> --- a/fs/proc/task_mmu.c
+> >>> +++ b/fs/proc/task_mmu.c
+> >>> @@ -1246,20 +1246,27 @@ get_smaps_shmem_walk_ops(struct proc_maps_pri=
+vate *priv)
+> >>>       return &smaps_shmem_walk_vma_lock_ops;
+> >>>  }
+> >>>
+> >>> -/*
+> >>> - * Gather mem stats from @vma with the indicated beginning
+> >>> - * address @start, and keep them in @mss.
+> >>> +/**
+> >>> + * smap_gather_stats() - Gather mem stats from @vma.
+> >>> + * @priv: proc maps private state.
+> >>> + * @vma: The VMA to gather stats for.
+> >>> + * @mss: The accumulated stats.
+> >>> + * @start: The address from which to start.
+> >>>   *
+> >>> - * Use vm_start of @vma as the beginning address if @start is 0.
+> >>> + * This gathers stats for the whole of the VMA unless the lock was d=
+ropped
+> >>> + * and VMA grew or got merged and we found it again, in which case w=
+e only
+> >>> + * gather stats for the remainder of the VMA range.
+> >>>   */
+> >>>  static void smap_gather_stats(struct proc_maps_private *priv,
+> >>>                             struct vm_area_struct *vma,
+> >>> -                           struct mem_size_stats *mss, unsigned long=
+ start)
+> >>> +                           struct mem_size_stats *mss,
+> >>> +                           unsigned long start)
+> >>>  {
+> >>>       const struct mm_walk_ops *ops =3D get_smaps_walk_ops(priv);
+> >>> +     const bool is_partial =3D start > vma->vm_start;
+> >>>
+> >>>       /* Invalid start */
+> >>> -     if (start >=3D vma->vm_end)
+> >>> +     if (start < vma->vm_start || start >=3D vma->vm_end)
+> >>>               return;
+> >>>
+> >>>       if (vma =3D=3D get_gate_vma(priv->lock_ctx.mm))
+> >>> @@ -1279,20 +1286,17 @@ static void smap_gather_stats(struct proc_map=
+s_private *priv,
+> >>>                * Unless we know that the shmem object (or the part ma=
+pped by
+> >>>                * our VMA) has no swapped out pages at all.
+> >>>                */
+> >>> -             unsigned long shmem_swapped =3D shmem_swap_usage(vma);
+> >>> +             const unsigned long shmem_swapped =3D shmem_swap_usage(=
+vma);
+> >>> +             const bool shared_or_ro =3D vma_test(vma, VMA_SHARED_BI=
+T) ||
+> >>> +                                       !vma_test(vma, VMA_WRITE_BIT)=
+;
+> >>>
+> >>> -             if (!start && (!shmem_swapped || (vma->vm_flags & VM_SH=
+ARED) ||
+> >>> -                                     !(vma->vm_flags & VM_WRITE))) {
+> >>> +             if (!is_partial && (!shmem_swapped || shared_or_ro))
+> >>>                       mss->swap +=3D shmem_swapped;
+> >>> -             } else {
+> >>> +             else
+> >>>                       ops =3D get_smaps_shmem_walk_ops(priv);
+> >>> -             }
+> >>
+> >> Horrible, horrible code, really. But not your fault :)
+> >>
+> >> I think we can just make the shared_or_ro less odd by just checking fo=
+r cow
+> >> mappings (as described in the comment).
+> >>
+> >>         const bool is_cow =3D vma_is_cow_mapping(vma);
+> >>
+> >> ...
+> >>
+> >>         if (is_partial || (shmem_swapped && is_cow))
+> >>                 ops =3D get_smaps_shmem_walk_ops(priv);
+> >>         else
+> >>                 mss->swap +=3D shmem_swapped;
+> >>
+> >> That's almost in a form that I could understand what's happening.
+> >
+> > Hmm. So, are you saying that !is_cow always implies shared_or_ro? Or
+> > maybe you are stating that vma_is_cow_mapping() was the actual intent
+> > here?
+>
+> So the comment says:
+>
+> "For private writable mappings, we might have COW pages that  .."
+>
+> Which translates to:
+>
+>         private writable =3D=3D vma_is_cow_mapping()
 
-Critical: 0 · High: 2 (1) · Medium: 2 · Low: 0
+Ok, just want to make sure I'm not missing something subtle.
 
-- [High] The new `memset(&priv->dma_conf, 0, sizeof(priv->dma_conf))` at
-  drivers/net/ethernet/stmicro/stmmac/stmmac_main.c:4193 also zeroes the…
-- [High] On the `irq_error` path the MAC and all DMA channels are already
-  running, but the unwind never stops them, so the descriptor rings the…
-- [Medium] The new memset() at stmmac_main.c:4193 also wipes the per-TX-
-  queue TBS state in `priv->dma_conf.tx_queue[].tbs` (STMMAC_TBS_EN /…
-- [Medium] The whole-struct clear at stmmac_main.c:4193 also erases
-  persistent user configuration held in `priv->dma_conf.dma_rx_size` /…
+>
+> >
+> > shared_or_ro =3D VMA_SHARED_BIT || !VMA_WRITE_BIT
+> >
+> > is_cow =3D !VMA_SHARED_BIT && VMA_MAYWRITE_BIT
+> > !is_cow =3D VMA_SHARED_BIT || !VMA_MAYWRITE_BIT
+> >
+> > so, !is_cow would impy shared_or_ro only if !VMA_MAYWRITE_BIT always
+> > implies !VMA_WRITE_BIT. But I think it's possible to have a VMA that
+> > has VMA_WRITE_BIT but not VMA_MAYWRITE_BIT, right?
+>
+> VMA_WRITE should imply VMA_MAYWRITE
 
-Pre-existing issues:
-- [High] After a failed reopen the driver leaves every NAPI instance
-  disabled while the netdevice stays logically running, and the next…
+Ah, good to know.
 
---
+>
+> (in sanitize_fault_flags() we even disallow write faults entirely if VM_M=
+AYWRITE
+> is missing)
 
-net: stmmac: clear dma_conf in __stmmac_open error path
+I see.
 
-This adds a memset of priv->dma_conf on the error paths of
-__stmmac_open(), so that the struct no longer points at the descriptor
-resources the callers free after a failed open.  A few questions about
-what else that whole-struct clear erases, and about the state the failed
-open leaves behind.
+>
+> For example, a
+> > driver can create such a VMA to allow writing to the VMA but to lock
+> > its content once mprotect(PROT_READ) gets called.
+>
+> I don't think that would be valid for a driver to do. But it wouldn't mat=
+ter
+> here because
+>
+>         shmem_mapping(vma->vm_file->f_mapping)
 
-Link to v1: https://lore.kernel.org/r/20260903-fix-stmmac-mtu-change-use-after-free-v1-1-c81dc7d6d18a@uniontech.com
+I was obviously overthinking this :)
 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> index 24656b35350b1..4369e64faf9f8 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> @@ -4190,6 +4190,7 @@ static int __stmmac_open(struct net_device *dev,
->  
->  	stmmac_release_ptp(priv);
->  init_error:
-> +	memset(&priv->dma_conf, 0, sizeof(priv->dma_conf));
-       ^^^^^^
+>
+>
+> I think we could simplify the comment as well to:
+>
+> diff --git a/fs/proc/task_mmu.c b/fs/proc/task_mmu.c
+> index e671b4fd8dedd..4b7e7089cafa7 100644
+> --- a/fs/proc/task_mmu.c
+> +++ b/fs/proc/task_mmu.c
+> @@ -1303,12 +1303,10 @@ static void smap_gather_stats(struct proc_maps_pr=
+ivate
+> *priv,if (is_partial || (shmem_swapped && is_cow))
+>
+>         if (vma->vm_file && shmem_mapping(vma->vm_file->f_mapping)) {
+>                 /*
+> -                * For shared or readonly shmem mappings we know that all
+> -                * swapped out pages belong to the shmem object, and we c=
+an
+> -                * obtain the swap value much more efficiently. For priva=
+te
+> -                * writable mappings, we might have COW pages that are
+> -                * not affected by the parent swapped out pages of the sh=
+mem
+> -                * object, so we have to distinguish them during the page=
+ walk.
+> +                * In CoW mappings, we might have anon folios that are
+> +                * independent of the shmem object. So fallback to the le=
+ss
+> +                * efficient mechanism in such mappings.
+> +                *
 
-[Severity: High]
-Can this memset turn the per-queue txtimer hrtimers into invalid ones?
+Sounds good. Will update.
 
-The struct hrtimer txtimer lives inside priv->dma_conf.tx_queue[], and on
-the irq_error path stmmac_init_coalesce() has already initialized them:
-
-  struct stmmac_tx_queue *tx_q = &priv->dma_conf.tx_queue[chan];
-  ...
-  hrtimer_setup(&tx_q->txtimer, stmmac_tx_timer, CLOCK_MONOTONIC,
-                HRTIMER_MODE_REL);
-
-After the memset those timers are all-zero, so timer->base is NULL.  Every
-teardown path walks them unconditionally, in __stmmac_release(),
-stmmac_suspend() and stmmac_xdp_release():
-
-  for (chan = 0; chan < priv->plat->tx_queues_to_use; chan++)
-          hrtimer_cancel(&priv->dma_conf.tx_queue[chan].txtimer);
-
-and hrtimer_cancel() -> hrtimer_try_to_cancel() -> hrtimer_active() has no
-NULL check:
-
-  base = READ_ONCE(timer->base);
-  seq = raw_read_seqcount_begin(&base->seq);
-
-A failed reopen in stmmac_change_mtu() just returns the error, so the
-interface stays IFF_UP and the next ip link set down, suspend or XDP
-attach reaches those zeroed timers.
-
-The commit message says the memset leaves "the state consistent regardless
-of the caller" - but priv->dma_conf is the live object all of those paths
-dereference.  Would it be better to invalidate only the freed resource
-pointers, or to leave the timers alone, rather than clearing the whole
-struct?
-
-[Severity: Medium]
-Does this also drop the per-queue TBS state?
-
-tc_setup_etf() in stmmac_tc.c keeps the ETF/launch-time offload state
-only in priv->dma_conf:
-
-  if (!(priv->dma_conf.tx_queue[qopt->queue].tbs & STMMAC_TBS_AVAIL))
-          return -EINVAL;
-
-  if (qopt->enable)
-          priv->dma_conf.tx_queue[qopt->queue].tbs |= STMMAC_TBS_EN;
-
-and the loop at the top of __stmmac_open() exists to carry that bit across
-a reopen:
-
-  for (int i = 0; i < priv->plat->tx_queues_to_use; i++)
-          if (priv->dma_conf.tx_queue[i].tbs & STMMAC_TBS_EN)
-                  dma_conf->tx_queue[i].tbs = priv->dma_conf.tx_queue[i].tbs;
-
-After the memset both STMMAC_TBS_EN and STMMAC_TBS_AVAIL are gone while
-the etf qdisc is still installed, so a following tc ... etf call returns
--EINVAL.
-
-On the next successful open stmmac_setup_dma_desc() re-derives only AVAIL
-from plat->tx_queues_cfg[].tbs_en and stmmac_hw_setup() re-arms the
-hardware:
-
-  int enable = tx_q->tbs & STMMAC_TBS_AVAIL;
-
-  stmmac_enable_tbs(priv, priv->ioaddr, enable, chan);
-
-but stmmac_xmit() only programs the launch time when tx_q->tbs &
-STMMAC_TBS_EN.  Does that mean launch times are silently ignored from
-then on, with no error reported anywhere?
-
-[Severity: Medium]
-The same clear erases the ring geometry the user configured through
-ethtool -G.  stmmac_reinit_ringparam() stores it directly in the struct
-being zeroed:
-
-  priv->dma_conf.dma_rx_size = rx_size;
-  priv->dma_conf.dma_tx_size = tx_size;
-
-  if (netif_running(dev))
-          ret = stmmac_open(dev);
-
-and stmmac_setup_dma_desc() reads it back, treating 0 as "never
-configured":
-
-  dma_conf->dma_tx_size = priv->dma_conf.dma_tx_size;
-  dma_conf->dma_rx_size = priv->dma_conf.dma_rx_size;
-
-  if (!dma_conf->dma_tx_size)
-          dma_conf->dma_tx_size = DMA_DEFAULT_TX_SIZE;
-  if (!dma_conf->dma_rx_size)
-          dma_conf->dma_rx_size = DMA_DEFAULT_RX_SIZE;
-
-So after ethtool -G followed by a failed ip link set up,
-stmmac_get_ringparam() reports rx_pending 0 / tx_pending 0 - a value
-stmmac_set_ringparam() itself rejects as below DMA_MIN_RX_SIZE /
-DMA_MIN_TX_SIZE - and the next successful open quietly allocates default
-sized rings.  Is losing the configured sizes intended here?
-
-There is a second consumer: stmmac_xdp_open() uses priv->dma_conf in
-place without recomputing the sizes or dma_buf_sz:
-
-  ret = alloc_dma_desc_resources(priv, &priv->dma_conf);
-  ...
-  ret = init_dma_desc_rings(dev, &priv->dma_conf, GFP_KERNEL);
-
-Would a zeroed conf describe zero-length rings to the hardware there?
-
-[Severity: High]
-This isn't a bug introduced by this patch, but it affects the same
-failure path the commit message says it makes consistent, so it seems
-worth raising here: after a failed reopen, NAPI is left disabled while
-netif_running() is still true, and the next teardown calls napi_disable()
-on it again.
-
-stmmac_change_mtu() calls __stmmac_release() (which runs
-stmmac_disable_all_queues() -> __stmmac_disable_all_queues() ->
-napi_disable() per queue) and then __stmmac_open().  NAPI is re-enabled
-only on the success path:
-
-  stmmac_enable_all_queues(priv);
-  netif_tx_start_all_queues(priv->dev);
-
-so both error labels return with NAPI disabled.  napi_disable_locked()
-in net/core/dev.c leaves the state bits set and a second call waits on
-them:
-
-  while (val & (NAPIF_STATE_SCHED | NAPIF_STATE_NPSVC)) {
-          usleep_range(20, 200);
-          val = READ_ONCE(n->state);
-  }
-
-Nothing clears those bits because napi_enable() is never called, so does
-the following ip link set down, suspend, stmmac_xdp_release(),
-stmmac_reinit_ringparam() or stmmac_reset_subtask() hang there while
-holding rtnl_lock?
-
-If that is the case, the release-side unwind never reaches the
-free_dma_desc_resources() the commit message describes, so does the
-memset on its own actually make the post-failure state safe?
-
->  	return ret;
->  }
->  
-
-[Severity: High]
-One more question about the same error path: are the DMA engines still
-running when the callers free the rings?
-
-stmmac_hw_setup() programs every channel with the new dma_conf ring
-addresses, enables MAC Rx/Tx, and ends with:
-
-  /* Start the ball rolling... */
-  stmmac_start_all_dma(priv);
-
-If stmmac_request_irq() then fails, the irq_error path only does
-phylink_stop(), the per-queue hrtimer_cancel() loop and
-stmmac_release_ptp() - there is no stmmac_stop_all_dma().  Compare
-__stmmac_release(), which stops the engines first:
-
-  /* Stop TX/RX DMA and clear the descriptors */
-  stmmac_stop_all_dma(priv);
-
-  /* Release and free the Rx/Tx resources */
-  free_dma_desc_resources(priv, &priv->dma_conf);
-
-Both callers of __stmmac_open() free immediately after the failure, for
-example in stmmac_change_mtu():
-
-  free_dma_desc_resources(priv, dma_conf);
-  kfree(dma_conf);
-
-Can the Rx DMA engine keep writing incoming frames into those unmapped
-and freed descriptors and buffers?  After a failed MTU change the
-interface stays IFF_UP, so nothing else stops the engines.  Should the
-error path stop the DMA and disable the MAC instead of (or in addition
-to) clearing priv->dma_conf?
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260904-fix-stmmac-mtu-change-use-after-free-v2-1-91e680476921%40uniontech.com
+>                  * Unless we know that the shmem object (or the part mapp=
+ed by
+>                  * our VMA) has no swapped out pages at all.
+>                  */
+>
+> --
+> Cheers,
+>
+> David
