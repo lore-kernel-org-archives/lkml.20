@@ -1,370 +1,165 @@
-Received: from mail-qk1-f228.google.com (mail-qk1-f228.google.com [209.85.222.228])
+Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 034BF48EC7E
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 22:29:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.228
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0926549BD9A
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 22:29:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.71
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788992968; cv=none; b=dBrLft2B3a4SNcEuZ0qxmdKq9VLUkL0JZto+QamcTtXKn0tly/KAwgDekjwL7XkVi2I75WRh0+r5raSim+6j0S1CBcdveldiyWFALaV51RNNlAeE2UxKA0TdkZWiMuqNO/CxlkM8VNFkxJSgjFEyCWyY4MB0Ytamt2tchL/WGlg=
+	t=1788992977; cv=none; b=UIw/GDKIqMXsYhkfOx6usUvusvz7XjAARbr8WLR7iXQBQlgTnW6El4Z9sNCLKJIhSye5Zj+GGKpufQtgEdwSNSOUvVQnVnoagVUY1dJyCR61WLPGNly9LOkFO1z29W4/zYqGfBA7Kc7Hu/t/fcSkhZh6Pu0ghdpUNKmI7vTBqIM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788992968; c=relaxed/simple;
-	bh=B911PpGVigFDT/lyg40PRj0j9/EeMB1ax4L+zlh+iVQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=nYz0aFSDDsHnRVBWgK4XT3kMLIwJacsaF0JwL7VMqjzp3LCcZ1tlqQ45fVE6XRbPOedFCWCmmBKR9BnvrgwJ+jJyKsTDWc222ZpZ8/EadFFzAG8vrrth39f8qwhqeaVrEF0dl6Ws64ncT5GajeY7e0tbz0XUJKUuaH5AazPXBcA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=purestorage.com; spf=pass smtp.mailfrom=purestorage.com; dkim=pass (2048-bit key) header.d=purestorage.com header.i=@purestorage.com header.b=apqMWr8y; arc=none smtp.client-ip=209.85.222.228
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=purestorage.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=purestorage.com
+	s=arc-20240116; t=1788992977; c=relaxed/simple;
+	bh=ZV6Mh6j+3Oal9AupKdhwuwolXUKq6vHqqrWhfLQuh5I=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=EK6r1BMCx+h3gyIg5in7mVwSy2c2lvYZmEKDcdKr/iO4MPHSa0kT5bXTlNvZ2egTVuKrUpN3mQ5F+YiK1RxWs17jG8WbU9/lTqF3QjweoeuLovceA0L7c2j4SsS7etd+6lS5wwRazRH4RpqqcQTDUKJSoy18tcxWBiFs70Gj11s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=p2zOvSa7; arc=none smtp.client-ip=209.85.216.71
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=purestorage.com header.i=@purestorage.com header.b="apqMWr8y"
-Received: by mail-qk1-f228.google.com with SMTP id af79cd13be357-937690ef0c4so8063385a.2
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 15:29:11 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="p2zOvSa7"
+Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-3968bb86fb7so7909441a91.2
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 15:29:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=purestorage.com; s=google2022; t=1788992944; x=1789597744; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=SaILBiW8UVywRg2XqjSRQl5ll5pe+zqen2OGZ/aVaeY=;
-        b=apqMWr8y1QBmToJJeRZK+n/Q15/jkVnTxyLCjlN3RF4ozMIBzobUxoXqUrnjYF7CDK
-         dSp/1OJc+tPjgV9r5TDfEG8A02MQh3xkbsEDBfA3YUJH/QOkkH9lgXUaVqD3X+uRvfbY
-         JX8DxUvPk4OrX5aMOA2pOV9RYnXIlc2/j9euHcDsfkFDAfAUUEYkDBZRn9A9y09g7YK+
-         Ca+bna2H7ALrQNLLLU/q9GKtY28TImhEHRDqe+sPQhlAapFIBymueDBcFQ8t5I6FcYuT
-         dFTiU9W6LyGSTyM2aSGOR5wBfjul9sAZeQ0N7+9UZ2iBxnnSgb2q0ReE9Bp7ckqMUWcK
-         U6Gw==
+        d=google.com; s=20251104; t=1788992964; x=1789597764; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=7eyMhrUmuo9vm1PIzya+RISiwkOlHJHTI6TE5UtYn+g=;
+        b=p2zOvSa7qBa4M94Uy8LuMIGgeCmqcNZhmZbXhgpyMkzSoVkDYajtZUbmWQmAESH40N
+         oqAQiCrSHDQG4zn1SwDGhj/U34rkZIJ5BoVK6nocdKLl4HwOwDn6ahYXi8++9QoXXBlK
+         Bzjek9nqoG4E5oC7Ub2z0pkayWmky4k8NiqbmYOGzeg2+cZef6JkON0ajv7uKMvcTKRG
+         fbjfcaQhvHqHFxP0m7I7D7luMtvM/wyNjoojg4G880WieXSh4Nusps6xMmJH0n6qpEeh
+         9iTLYHWhZq3mJEfiKYPqrji9P+dhWafG31hfYn0b673Jcbx9kHqXzMKOOpj3phBVJ6YT
+         FOTQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788992944; x=1789597744;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=SaILBiW8UVywRg2XqjSRQl5ll5pe+zqen2OGZ/aVaeY=;
-        b=OQsY8FAGwmE8n6SfUX0yghYClT+K074yRQB4zsc3TmJrM3ZaUJFGAwyQ30ST4XcF6p
-         Nsn/XdgVSKgTfP3jisuezq5yC7PPj2UbD5DeL4iLyT+iZEObvFkbidloNmKQmFtFsHBL
-         8nsl3qvCW8/4zZXIYo/qwmk3lXhxIs8o9+9ss+UmhUfLFqGvb9i0ED6mSLo+PnZiAwfv
-         7Qaq/0l4lJTGBLEGHbVko6CziO3zG+F1Ll09Ez2kXxNuStkCWJ27rrk/v+++7aimzqLU
-         rmSB87kdBpFPlMOjizEeAf2sqjuwPiT6BIaP88gZJ9kLRsZAlp1kwuBJu25LCoLiYbND
-         zieA==
-X-Forwarded-Encrypted: i=1; AKwUvBz/X7IHhBG1F/L6JDC76rJWq9+rhgKapwNRGqASuwR7wGuPUAqgVgff/8Ebw8Y9WTUQ/1zGxUgjNLMlXdU=@vger.kernel.org
-X-Gm-Message-State: AFuF++kYk2UqoX5RDhvTpIFlwjU4rtfGGZ3VnO4Q2W/Eu3HhxBkXFqKT
-	nrSvDk5H1xOUwj+LnfIzwiJphlwJbjTiY6A1a9J65db93C4CUUDfiiAfF/gnPcKusCDk3lMJgwx
-	6pj7ceC3YKcL28b7uKWIljMibuCa0aueXhXoCMlTUajdKJ0zqxl2s
-X-Gm-Gg: AYBFou3+NtGxjqCVKhDUPzk2FUdisMAKUh2+vUzZCQGS45H6i5RkNw7PjTlxr9uSoHg
-	mxCbm9YZBA5FdYBTbB7509GMalrqrOu08eEOKYXapt/Qxo6ZtDqcV6JLVJB1Bwb9b1lX/v5Qmz8
-	XjDBwVGgwNK6fN9fYiRBgT14j3XPhO3p6JfYsrnnTKLugMoks13gUiSY4vohTAAzXceIOPe3Cj/
-	NWA01YLutnJSnrNL3lV3SR4Ke/7WmbmhOn7r/bLOligNwhhkrNno4FXbqG8iwMtyQPTttwUf6L4
-	+k/XmKGBu4KRgs8qr0WaV5ruCs9ZVY1YVivtNeEMw1p1+r7ZNI2aCP+IP69ieNkuiw04jWoFrBz
-	79keYIjhbaXnrWZC7nw==
-X-Received: by 2002:a05:620a:e85:b0:939:94c4:b799 with SMTP id af79cd13be357-93994c4b856mr1986140585a.5.1788992944190;
-        Wed, 09 Sep 2026 15:29:04 -0700 (PDT)
-Received: from c7-smtp-2026.dev.purestorage.com ([2620:125:9017:12:36:3:6:0])
-        by smtp-relay.gmail.com with ESMTPS id af79cd13be357-939981ed680sm140542785a.3.2026.09.09.15.29.04
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 09 Sep 2026 15:29:04 -0700 (PDT)
-X-Relaying-Domain: purestorage.com
-Received: from dev-csander.dev.purestorage.com (dev-csander.dev.purestorage.com [10.112.12.104])
-	by c7-smtp-2026.dev.purestorage.com (Postfix) with ESMTP id 8F14E402A4;
-	Wed,  9 Sep 2026 16:29:03 -0600 (MDT)
-Received: by dev-csander.dev.purestorage.com (Postfix, from userid 1557716354)
-	id 8CB61E40322; Wed,  9 Sep 2026 16:29:03 -0600 (MDT)
-From: Caleb Sander Mateos <csander@purestorage.com>
-To: Jens Axboe <axboe@kernel.dk>,
-	Keith Busch <kbusch@kernel.org>,
-	Christoph Hellwig <hch@lst.de>,
-	Sagi Grimberg <sagi@grimberg.me>
-Cc: io-uring@vger.kernel.org,
-	linux-nvme@lists.infradead.org,
-	linux-block@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Caleb Sander Mateos <csander@purestorage.com>
-Subject: [PATCH 5/6] io_uring/cmd: support fixed buffer for metadata
-Date: Wed,  9 Sep 2026 16:28:35 -0600
-Message-ID: <20260909222836.2475352-6-csander@purestorage.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260909222836.2475352-1-csander@purestorage.com>
-References: <20260909222836.2475352-1-csander@purestorage.com>
+        d=1e100.net; s=20251104; t=1788992964; x=1789597764;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=7eyMhrUmuo9vm1PIzya+RISiwkOlHJHTI6TE5UtYn+g=;
+        b=VHWsQFAEFWVRbDFA2C820Fk1DZoA0Bi+Hrgpwih+BqUHk6Pvt6KIYXRe5e6xjvlT9i
+         LNV6flDfDcV148N66iYyAEKnr25++VUhYHykoo8AJfUMYnoVZgEUX3jqivDF9bGxVuBG
+         HUNNZ9cLWaosXoddYLRvD/va5yYNP8qCcCTnpX4SIjwlUu42bNmqjGOD+ydQKsN2pQQF
+         tqwuvbO5FEmPXHeA0tjWQGg5t/ZVCp5v5K5Jb/HNtCp8eb0WDYkmuYPcr5YZIUpoco6c
+         lrq5pGDnn1VPtiBbd2zWOTHlcWNAG3ETx0nNM0FrDMBTwxLONEYzU4yfG/T7MdBCOeI/
+         1ang==
+X-Forwarded-Encrypted: i=1; AKwUvBxljMQg4GRh1zHzrNpOUd1o/ppRH9IH0EzlTE24D9r5YiM6Adkj9RCbsECyCXjrv/ssajD4AerUlY7Uzu8=@vger.kernel.org
+X-Gm-Message-State: AFuF++k/DR7POoceDuJZRqbx2lIiSqR8ThSDnapnKTC/tMc+K/Dqi+Ja
+	IB74EwHyF7akajsWI8pyVNXQc/D2kxxF5P8VqocCYDlFpAMJHyDIASq8H4o5Ow8ZMsU7YtlTJAt
+	cQIMSFQ==
+X-Received: from pjbmj18.prod.google.com ([2002:a17:90b:3692:b0:39b:a309:1626])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:1a88:b0:38f:efed:5448
+ with SMTP id 98e67ed59e1d1-39b2619138bmr53743124a91.8.1788992963477; Wed, 09
+ Sep 2026 15:29:23 -0700 (PDT)
+Date: Wed, 9 Sep 2026 15:29:22 -0700
+In-Reply-To: <9abeed40-bcdc-48d9-8cbb-cb87154bb9f6@intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+References: <20260827031837.2863609-1-binbin.wu@linux.intel.com>
+ <20260827031837.2863609-2-binbin.wu@linux.intel.com> <55488b92-66a8-45e5-ad0f-8fed63ce1187@intel.com>
+ <a30741f8-b99b-4f36-80a5-4688c2578d99@linux.intel.com> <6b565572-b316-4e86-906d-f150c896fe21@intel.com>
+ <84891108-55be-48c1-9993-c730a5334d5b@linux.intel.com> <cfe57e67-49ce-47d7-b20b-a29e23fe16d4@intel.com>
+ <d8012e9acbe3c733b082c87fdbe9f229a8f7750c.camel@intel.com> <9abeed40-bcdc-48d9-8cbb-cb87154bb9f6@intel.com>
+Message-ID: <aqHdwkOFVR4XoS2M@google.com>
+Subject: Re: [PATCH v3 1/4] KVM: TDX: Track configurable CPUID bits allowed by KVM
+From: Sean Christopherson <seanjc@google.com>
+To: Xiaoyao Li <xiaoyao.li@intel.com>
+Cc: Rick P Edgecombe <rick.p.edgecombe@intel.com>, "kvm@vger.kernel.org" <kvm@vger.kernel.org>, 
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
+	"binbin.wu@linux.intel.com" <binbin.wu@linux.intel.com>, "kas@kernel.org" <kas@kernel.org>, 
+	"pbonzini@redhat.com" <pbonzini@redhat.com>, "nik.borisov@suse.com" <nik.borisov@suse.com>, 
+	Chao Gao <chao.gao@intel.com>, 
+	"dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>, 
+	"andrew.cooper3@citrix.com" <andrew.cooper3@citrix.com>
+Content-Type: text/plain; charset="us-ascii"
 
-Allow a "metadata" io_uring fixed buffer to be imported by uring_cmds in
-addition to the existing data buffer node. NVMe passthrough requests
-will use the new buffer node for their metadata buffers if requested.
+On Thu, Sep 10, 2026, Xiaoyao Li wrote:
+> On 9/9/2026 5:13 AM, Edgecombe, Rick P wrote:
+> >>>> In the end, they might be disallowed to be configured to TDs because KVM
+> >>>> doesn't allow them for VMX VMs. This is also the point I want to discuss.
+> >>>> Do we really want to make such restriction that KVM cannot enable/allow a
+> >>>> feature for TDs unless KVM first enables/allows it for VMX VMs? What's
+> >>>> reason behind it?
+> >>> Sean mentioned it that "generally speaking, KVM shouldn't allow features
+> >>> that KVM doesn't support for non-TDX VMs" in
+> >>> https://lore.kernel.org/kvm/aj1fi_0SBxMK5WOB@google.com/
+> >> For existing features, it might make some sense. But for new features, I
+> >> don't think so. It defines the enabling order for new features that we must
+> >> enable a feature for non-TDX VMs first and then TDs. And people might want
+> >> to bypass this rule by abusing the TDX_CFG_EXTRA_F() when only one line of
+> >> TDX_CFG_EXTRA_F() is enough to enable a feature for TDs but more effort
+> >> required to enable it for non-TDX VMs.
+> >>
+> >> Maybe I miss somthing. I would like to see stronger reasons for such decision.
+> > I think "generally speaking" means, it's not a hard rule.
 
-Provide a function io_uring_cmd_import_fixed_metadata() analogous to
-io_uring_cmd_import_fixed() that initializes an iov_iter for a user
-address range contained within a fixed buffer. The buffer node is stored
-in previously unused space in struct io_uring_cmd so it can be reused if
-imported multiple times and released once the uring_cmd completes.
+Ya.
+ 
+> > As for why to prefer it, I think we would normally want regulars VMs and TDs to
+> > work similarly. Especially those that have some of the virtualization handled by
+> > KVM. But TDX module's behavior of a feature can conform to KVM's only if KVM's
+> > already exists. Take for example split lock detection. The normal VM KVM support
+> > initially went through several iterations of design. Separately, TDX ended up
+> > with a different solution. Imagine if we had enabled the TDX arch one, before
+> > solving the general KVM problems. Then we would end up with two different
+> > behaviors, or a worse KVM behavior as it tries to conform to TDX module's
+> > behavior.
+> > 
+> > So we need to at least solve a feature at that level before deciding KVM's
+> > handling of it. This could be done while enabling the feature for TDX only, but
+> > often would involve solving the problems for normal VMs too. In the end, it's
+> > the generic KVM behavior that needs to be solved before enabling the feature.
+> > 
+> > Ideally we could consider normal VM and TD at the same time. I expect we will
+> > start doing that after this series is in place. Not a hard rule, but a norm.
 
-Whereas a fixed data buffer is indicated by io_uring_sqe's
-uring_cmd_flags bit IORING_URING_CMD_FIXED and buf_index, how the fixed
-metadata buffer is specified is left up to the uring_cmd implementation.
+Eh, I'm with Xiaoyao.  Yeah, *ideally* we'd magically enable everything everywhere
+all at once.  In reality, different VM types are going to support features at
+different times.  More importantly, as Xiaoyao points out below in #1, unless we
+enable everyting in a single patch, which is probably a terrible idea in most cases,
+we'll still end up with staged/progressive enabling, i.e. we still need to have
+patches that selectively enable and advertise a feature only for the VM types
+that actually support the feature.
 
-io_get_buf_node() is split out of io_find_buf_node() and moved to rsrc.h
-so it can be reused for the metadata buffer. io_import_fixed() is made
-extern so it can be called from uring_cmd.c, and io_rsrc_node is passed
-instead of io_mapped_ubuf so uring_cmd.c doesn't have to reach into
-io_rsrc_node.
+This is all quite similar to Intel and AMD feature enabling being done at different
+times.  The biggest difference is that Intel and AMD are mutually exclusive and
+so KVM_GET_SUPPORTED_CPUID always reports the correct information, but TDX already
+provides KVM_TDX_CAPABILITIES, so AFAICT we still get accurate reporting for TDX,
+just in a slightly different way.
 
-Signed-off-by: Caleb Sander Mateos <csander@purestorage.com>
----
- include/linux/io_uring/cmd.h | 12 +++++++++++-
- io_uring/rsrc.c              | 28 +++++++++++-----------------
- io_uring/rsrc.h              | 17 +++++++++++++++++
- io_uring/uring_cmd.c         | 30 +++++++++++++++++++++++++++++-
- 4 files changed, 68 insertions(+), 19 deletions(-)
+> I don't think "split lock detection" is a good example. We are discussing
+> virtualizing a feature, or allowing a feature to be exposed to non-TDX and TDX
+> guests. While "split lock detection" is not a virtualizable feature and how KVM
+> handles it is all about how KVM fixes the architectural flaw of it.
 
-diff --git a/include/linux/io_uring/cmd.h b/include/linux/io_uring/cmd.h
-index 2e4368d611ee..6df5f3bf5628 100644
---- a/include/linux/io_uring/cmd.h
-+++ b/include/linux/io_uring/cmd.h
-@@ -16,11 +16,11 @@ struct io_uring_cmd {
- 	struct file	*file;
- 	const struct io_uring_sqe *sqe;
- 	u32		cmd_op;
- 	u32		flags;
- 	u8		pdu[32]; /* available inline for free use */
--	u8		unused[8];
-+	struct io_rsrc_node *metadata_node;
- };
- 
- #define io_uring_sqe128_cmd(sqe, type)	({					\
- 	BUILD_BUG_ON(sizeof(type) > ((2 * sizeof(struct io_uring_sqe)) -	\
- 				     offsetof(struct io_uring_sqe, cmd)));	\
-@@ -68,10 +68,14 @@ int io_uring_cmd_import_fixed(u64 ubuf, unsigned long len, int rw,
- int io_uring_cmd_import_fixed_vec(struct io_uring_cmd *ioucmd,
- 				  const struct iovec __user *uvec,
- 				  size_t uvec_segs,
- 				  int ddir, struct iov_iter *iter,
- 				  unsigned issue_flags);
-+int io_uring_cmd_import_fixed_metadata(struct io_uring_cmd *ioucmd,
-+				       u16 buf_index, u64 ubuf, size_t len,
-+				       int ddir, struct iov_iter *iter,
-+				       unsigned int issue_flags);
- 
- /*
-  * Completes the request, i.e. posts an io_uring CQE and deallocates @ioucmd
-  * and the corresponding io_uring request.
-  *
-@@ -125,10 +129,16 @@ static inline int io_uring_cmd_import_fixed_vec(struct io_uring_cmd *ioucmd,
- 						int ddir, struct iov_iter *iter,
- 						unsigned issue_flags)
- {
- 	return -EOPNOTSUPP;
- }
-+static inline int io_uring_cmd_import_fixed_metadata(
-+	struct io_uring_cmd *ioucmd, u16 buf_index, u64 ubuf, size_t len,
-+	int ddir, struct iov_iter *iter, unsigned int issue_flags)
-+{
-+	return -EOPNOTSUPP;
-+}
- static inline void __io_uring_cmd_done(struct io_uring_cmd *cmd,
- 				       unsigned issue_flags)
- {
- }
- static inline void __io_uring_cmd_do_in_task(struct io_uring_cmd *ioucmd,
-diff --git a/io_uring/rsrc.c b/io_uring/rsrc.c
-index 174f74cbbf60..4bd69803c470 100644
---- a/io_uring/rsrc.c
-+++ b/io_uring/rsrc.c
-@@ -1134,14 +1134,14 @@ static int io_import_kbuf(int ddir, struct iov_iter *iter,
- 	iov_iter_bvec(iter, ddir, imu->bvec, imu->nr_bvecs, count);
- 	iov_iter_advance(iter, offset);
- 	return 0;
- }
- 
--static int io_import_fixed(int ddir, struct iov_iter *iter,
--			   struct io_mapped_ubuf *imu,
--			   u64 buf_addr, size_t len)
-+int io_import_fixed(int ddir, struct iov_iter *iter, struct io_rsrc_node *node,
-+		    u64 buf_addr, size_t len)
- {
-+	struct io_mapped_ubuf *imu = node->buf;
- 	const struct bio_vec *bvec;
- 	size_t folio_mask;
- 	unsigned nr_segs;
- 	size_t offset;
- 	int ret;
-@@ -1189,28 +1189,22 @@ static int io_import_fixed(int ddir, struct iov_iter *iter,
- }
- 
- inline struct io_rsrc_node *io_find_buf_node(struct io_kiocb *req,
- 					     unsigned issue_flags)
- {
--	struct io_ring_ctx *ctx = req->ctx;
- 	struct io_rsrc_node *node;
- 
- 	if (req->flags & REQ_F_BUF_NODE)
- 		return req->buf_node;
--	req->flags |= REQ_F_BUF_NODE;
- 
--	io_ring_submit_lock(ctx, issue_flags);
--	node = io_rsrc_node_lookup(&ctx->buf_table, req->buf_index);
--	if (node) {
--		node->refs++;
--		req->buf_node = node;
--		io_ring_submit_unlock(ctx, issue_flags);
--		return node;
--	}
--	req->flags &= ~REQ_F_BUF_NODE;
--	io_ring_submit_unlock(ctx, issue_flags);
--	return NULL;
-+	node = io_get_buf_node(req, req->buf_index, issue_flags);
-+	if (!node)
-+		return NULL;
-+
-+	req->flags |= REQ_F_BUF_NODE;
-+	req->buf_node = node;
-+	return node;
- }
- 
- int io_import_reg_buf(struct io_kiocb *req, struct iov_iter *iter,
- 			u64 buf_addr, size_t len, int ddir,
- 			unsigned issue_flags)
-@@ -1218,11 +1212,11 @@ int io_import_reg_buf(struct io_kiocb *req, struct iov_iter *iter,
- 	struct io_rsrc_node *node;
- 
- 	node = io_find_buf_node(req, issue_flags);
- 	if (!node)
- 		return -EFAULT;
--	return io_import_fixed(ddir, iter, node->buf, buf_addr, len);
-+	return io_import_fixed(ddir, iter, node, buf_addr, len);
- }
- 
- static int io_buffer_acct_cloned_hpages(struct io_ring_ctx *ctx,
- 					struct io_mapped_ubuf *imu)
- {
-diff --git a/io_uring/rsrc.h b/io_uring/rsrc.h
-index eacfdb70f203..277e2007803d 100644
---- a/io_uring/rsrc.h
-+++ b/io_uring/rsrc.h
-@@ -4,10 +4,11 @@
- 
- #include <linux/bvec.h>
- #include <linux/io_uring_types.h>
- #include <linux/lockdep.h>
- #include <linux/uio.h>
-+#include "io_uring.h"
- 
- #define IO_VEC_CACHE_SOFT_CAP		256
- 
- enum {
- 	IORING_RSRC_FILE		= 0,
-@@ -64,10 +65,12 @@ void io_free_rsrc_node(struct io_ring_ctx *ctx, struct io_rsrc_node *node);
- void io_rsrc_data_free(struct io_ring_ctx *ctx, struct io_rsrc_data *data);
- int io_rsrc_data_alloc(struct io_rsrc_data *data, unsigned nr);
- 
- struct io_rsrc_node *io_find_buf_node(struct io_kiocb *req,
- 				      unsigned issue_flags);
-+int io_import_fixed(int ddir, struct iov_iter *iter, struct io_rsrc_node *node,
-+		    u64 buf_addr, size_t len);
- int io_import_reg_buf(struct io_kiocb *req, struct iov_iter *iter,
- 			u64 buf_addr, size_t len, int ddir,
- 			unsigned issue_flags);
- int io_import_reg_vec(int ddir, struct iov_iter *iter,
- 			struct io_kiocb *req, struct iou_vec *vec,
-@@ -100,10 +103,24 @@ static inline struct io_rsrc_node *io_rsrc_node_lookup(struct io_rsrc_data *data
- 	if (index < data->nr)
- 		return data->nodes[array_index_nospec(index, data->nr)];
- 	return NULL;
- }
- 
-+static inline struct io_rsrc_node *
-+io_get_buf_node(const struct io_kiocb *req, u16 buf_index, unsigned issue_flags)
-+{
-+	struct io_ring_ctx *ctx = req->ctx;
-+	struct io_rsrc_node *node;
-+
-+	io_ring_submit_lock(ctx, issue_flags);
-+	node = io_rsrc_node_lookup(&ctx->buf_table, buf_index);
-+	if (node)
-+		node->refs++;
-+	io_ring_submit_unlock(ctx, issue_flags);
-+	return node;
-+}
-+
- static inline void io_put_rsrc_node(struct io_ring_ctx *ctx, struct io_rsrc_node *node)
- {
- 	lockdep_assert_held(&ctx->uring_lock);
- 	if (!--node->refs)
- 		io_free_rsrc_node(ctx, node);
-diff --git a/io_uring/uring_cmd.c b/io_uring/uring_cmd.c
-index 3d5d8b5f4ebb..e4b384094392 100644
---- a/io_uring/uring_cmd.c
-+++ b/io_uring/uring_cmd.c
-@@ -25,19 +25,25 @@ void io_cmd_cache_free(const void *entry)
- 
- static void io_req_uring_cleanup(struct io_kiocb *req, unsigned int issue_flags)
- {
- 	struct io_uring_cmd *ioucmd = io_kiocb_to_cmd(req, struct io_uring_cmd);
- 	struct io_async_cmd *ac = req->async_data;
-+	struct io_ring_ctx *ctx = req->ctx;
- 
- 	if (issue_flags & IO_URING_F_UNLOCKED)
- 		return;
- 
-+	if (ioucmd->metadata_node) {
-+		io_put_rsrc_node(ctx, ioucmd->metadata_node);
-+		ioucmd->metadata_node = NULL;
-+	}
-+
- 	io_alloc_cache_vec_kasan(&ac->vec);
- 	if (ac->vec.nr > IO_VEC_CACHE_SOFT_CAP)
- 		io_vec_free(&ac->vec);
- 
--	if (io_alloc_cache_put(&req->ctx->cmd_cache, ac)) {
-+	if (io_alloc_cache_put(&ctx->cmd_cache, ac)) {
- 		ioucmd->sqe = NULL;
- 		io_req_async_data_clear(req, REQ_F_NEED_CLEANUP);
- 	} else {
- 		io_vec_free(&ac->vec);
- 	}
-@@ -194,10 +200,11 @@ int io_uring_cmd_prep(struct io_kiocb *req, const struct io_uring_sqe *sqe)
- 	if (!ac)
- 		return -ENOMEM;
- 	if (ac->vec.iovec)
- 		req->flags |= REQ_F_NEED_CLEANUP;
- 	ioucmd->sqe = sqe;
-+	ioucmd->metadata_node = NULL;
- 	return 0;
- }
- 
- /*
-  * IORING_SETUP_SQE128 contexts allocate twice the normal SQE size for each
-@@ -303,10 +310,31 @@ int io_uring_cmd_import_fixed_vec(struct io_uring_cmd *ioucmd,
- 	return io_import_reg_vec(ddir, iter, req, &ac->vec, uvec_segs,
- 				 issue_flags);
- }
- EXPORT_SYMBOL_GPL(io_uring_cmd_import_fixed_vec);
- 
-+int io_uring_cmd_import_fixed_metadata(struct io_uring_cmd *ioucmd,
-+				       u16 buf_index, u64 ubuf, size_t len,
-+				       int ddir, struct iov_iter *iter,
-+				       unsigned int issue_flags)
-+{
-+	struct io_rsrc_node *buf_node = ioucmd->metadata_node;
-+
-+	if (!buf_node) {
-+		struct io_kiocb *req = cmd_to_io_kiocb(ioucmd);
-+
-+		buf_node = io_get_buf_node(req, buf_index, issue_flags);
-+		if (!buf_node)
-+			return -EFAULT;
-+
-+		req->flags |= REQ_F_NEED_CLEANUP;
-+		ioucmd->metadata_node = buf_node;
-+	}
-+	return io_import_fixed(ddir, iter, buf_node, ubuf, len);
-+}
-+EXPORT_SYMBOL_GPL(io_uring_cmd_import_fixed_metadata);
-+
- void io_uring_cmd_issue_blocking(struct io_uring_cmd *ioucmd)
- {
- 	struct io_kiocb *req = cmd_to_io_kiocb(ioucmd);
- 
- 	io_queue_iowq(req);
--- 
-2.55.0
+Yep.  If there are actual decisions to be made, versus simply adhering to the
+architecture, then we'll need to incorporate the needs/abilities of flavors of
+VMs KVM supports.  But for feature virtualization where right vs. wrong is
+dictated by hardware specs, there really isn't anything we can do in KVM to affect
+the guest-visible behavior (beyond things like performance characteristics, but
+those aren't ABI in any case).
 
+> Generally, I agree with your point that we need to think at higher level before
+> KVM deciding to support virtualizing a feature. But after the generic level
+> consideration is done, there can be different orders:
+> 
+> 1. allow a feature for non-TDX VMs and TDs at same time. i.e., in one patch or
+> in a single series.
+> 
+> 2. allow a feature for non-TDX VMs first and then TDs. This can be due to by
+> that time TDX's spec for the feature has not been defined/finalized.
+> 
+> 3. allow a feature for TDs first and then non-TDX VMs. This can be due to it
+> requires more effort/patches to support virtualizing a feature for non-TDX VMs.
+> 
+> Usually allowing a feature for TDs requires far less efforts than for non-TDX
+> VMs, because most of the virtualization work is done by TDX module. E.g., for
+> TDs, KVM usually only needs to add code to restore the host states that are not
+> restored by TDX module. However for non-TDX VMs, KVM needs to do more: emulate
+> the architectural behavior of the MSRs, context switch states, and the nested
+> handling, etc. It's likely that a series to enable a feature for non-TDX VMs
+> spends several Linux releases to finally get merged. Making TDX support depends
+> on it seems not that necessary.
