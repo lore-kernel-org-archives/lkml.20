@@ -1,211 +1,455 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+Received: from mail-pj2-f1.google.com (mail-pj2-f1.google.com [74.125.227.129])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7495C2C21DF
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 01:39:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D28BC2E736A
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 01:39:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.129
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788917951; cv=none; b=Tk+8cygpE5CHVzht265kMZBq3npyyZfkY5GKCf4bBXBqGsb7JEelYHoWPtc/uHTvy6SK0uK8QCZJFFSggeJiUqUKMXOflG7NlpZawFjOgc90fsisUVyJC+2ZTzVekVYFLUM0vh8uLQ9WUwM/o0DInLykoZu+1anOYCkrzFvJuaU=
+	t=1788917999; cv=none; b=piLuin5PtKGDpR18u8E7V/yuUKIPin5dwRa8vBvGWHtytrJgyoiApqL0OicajzEwP2Hxk9eKh/VokHBRDjHDNTeiyXUOJXRa9nRi8W6PYJwpOUUvfTB+7Op7FP89i6pA4mwdqfqmhoNxmAp/usWXDGUDrJeiA4A6pRQbE6JBSqk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788917951; c=relaxed/simple;
-	bh=uFmm40Xs4VDVXZUID/cKKi+mu0jp9rrDcS1RS1Ac/R8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=o206+SzSTgBBs068OY1v7/sXBzqAqXS3NnCu7PirjNFqUA+SVQmNS6C3ZqFwMgqN2eXapzH+Oe/pPtbefM5iX+UOBfyBlVXM+E0rgOmeN3MSDzVmqPHLXYl2RmLSAJOmeFWJNa3mApvnW7pm57r9Y2pFuihYs8IJKa6l5Emmb5A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Cv7VYrLF; arc=none smtp.client-ip=74.125.227.140
+	s=arc-20240116; t=1788917999; c=relaxed/simple;
+	bh=/v3aot4tN6dMR++tQRZbQuW8pFdfkH35K8lemMWxNbw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=uPjybQGJb5vF17O45yrMM6g1TtaFRj1lI5Oh7KcdksBITX/m+A9wFzScoS14+AazbXN4jDm2aM96AAbDTNQNwAhqV38DrNWGnmmQtyHO+iUdipN4Ok8Oru02UK3nRM/YEvcqGAdYDkJ+vFeXRhptkiFWqk8FqefQg2udEqWX5jo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=I+Ce66Rr; arc=none smtp.client-ip=74.125.227.129
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Cv7VYrLF"
-Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-39666e7c9efso578450a91.3
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 18:39:10 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="I+Ce66Rr"
+Received: by mail-pj2-f1.google.com with SMTP id d9443c01a7336-2dae660f31bso35637975ad.1
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 18:39:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788917950; x=1789522750; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=JjI4DgjlDDON3NUoadRh7LpaMb/RUtoIPEQT63OcGFI=;
-        b=Cv7VYrLFEyYGgePryZM3yGJJwo5yTxjsa4MEYPONongxfPY4cMQZesbMuQmZSN+phC
-         wFugKYt51/2x41jkdu5Nza6XAAtJWQyDX1PKILaSktuo1r4UfxsgQG+mtAvqgrSCp9To
-         EQ4H5KL8/MgtDmN+Iw8dy5W/Uwhdf0u3GekgsmahK/FydOdkjit+C9mEyWjoFH1kOIZf
-         0B6Q3WCGRu/6THfkfZdQ30SjGUUKbU8dPtu9FVT+wWegVgO+RIryquuRC+gZLd2fc1C2
-         IfaWZ0jbvg8HVt+MAgiM4Kyunl8VF6obbRdB5g5WQyXrnux9lD/2xl+3Dtu1MXXVeVfG
-         Lusw==
+        d=gmail.com; s=20251104; t=1788917997; x=1789522797; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=uSFtGGGcYJsTpJMCffAGX5T1+grywHvvw/WB/JJ1UOc=;
+        b=I+Ce66RrJkF2uvxPG3/I6W6SWWhDv4CF8GUZBFbo5v1qcm3/cGe/Ay3E9od/+3tji5
+         imqIy6g9R/lhfVslseQ0BIpk/bgxjJV0D3k7pmTgcPHJZwQSed0d1epom0cJ3vFt3Ob9
+         mEayg7thQyJlUqWNHQxXj7zlrFzVsMU6oBB2IisdZ0s5kGnycuwJMPTEgHb/Y2ZCGipj
+         SrYDQNm4vedL3lmrBeCn6oRWiiz+o7b0FYbDf4QZgD5zrKrZgWvRmuQQ0+XM8GwG6aSw
+         qybPUkYrgFsPDfesRIys620biT7SpLgi1js6pg2JrkLx6iX4OSEAiUYA1dcNXTeHlcUW
+         K/9A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788917950; x=1789522750;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=JjI4DgjlDDON3NUoadRh7LpaMb/RUtoIPEQT63OcGFI=;
-        b=H47/aSm4gEI5C9OE7mZ7OWCM0OQuk99s1O/VnZ0psOWn51TG6Qp3zWR813BPCfApRq
-         6fP+l729uW2blCju10ZX6rEpOzO9bd2XUq60Qk7C3vKmC3RjalMfbq4Ymsyp68iQIQjq
-         Mj7bXJ+h3z2/V7ILrc73TH0554lG6SuzHI6u6NwrW3wVZPw9V99c3a1+tTwWz8bmL0+L
-         atWyYAANqDFOaHBSmX3jxVCGgN8UAxOZtWd6/gynd17tJQ9jpB5+7tZbOL8LuLHN3Kux
-         n5mpRCH6MAhtksIAGFLYiptFi8/9AawV+4FnWrdbFPfKo/CX4Rlkg4X5qZCHY4DokFva
-         vhAA==
-X-Forwarded-Encrypted: i=1; AKwUvBzSfIb5O9XOHJKexE3AGLPq9xkmopgkI9eC2NTk4FvElj1XLDXgJrtr7Yl5cK2SAlhZW65czWTCvs0HDa4=@vger.kernel.org
-X-Gm-Message-State: AFuF++nrVW596EJmPaKrLqf3vQnhgcs4xs2mKYzC+YPI4+FHXp6m3c5s
-	cREDITzpjKbzQ8lCCwNfyQTahYugz3W6cnPxI36FJSl2H1HxMH/MeP8G
-X-Gm-Gg: AYBFou2CbIy9JXPWIAzLRpr/WMH6VeXckiX6+vtQ4wGNKnpxutTZP8pDbvajQQj9ivt
-	ugRpXgESukdF8tm3jahju0DDnF+8uY03GcIIBxOsJe01TLPQ0EyOuyNKOJnWwb2UO0eJyLrmIP6
-	2XXm0m7+dmcUbCNR/gieSsCnkoyCPzGBHGFz1P6iG7ZlroFvNpmIpMc1MdhB3aTYzZQe01MY2n9
-	jwrx55Y8JNxLRMdnwl670gQgVcuDNl5LzYThHQVDkNl0+X9MK7K787VokCsMxQ4S6C+QXWbPQn2
-	RWtx6Gmlu3ZfRVl6grr6yazNoJNEDJy5UoJdh2Ih7Et/zQ+c4vroWuI0kC1Fomf9nw16OQoignq
-	mhkLOhtr5S8aiZawCw8P2Iv3JXUiUjdLdjYWRs76dcxq7IDvHCkIB1QTKyIwrHxVJ6NAXEkzRF0
-	IFyMw+A8c5jc21n/8pAapwqpWRNxcLiRNFqSOvrYIyb4MAqG0H/AFq/OF8vqsmJ266Tt/WOdmji
-	eczbrzsuZicjYIIVbtgKbj/ta4LXeJ7KkkrLsHdRA==
-X-Received: by 2002:a17:90b:384d:b0:398:bac0:238e with SMTP id 98e67ed59e1d1-39b3d8377camr26729792a91.6.1788917949644;
-        Tue, 08 Sep 2026 18:39:09 -0700 (PDT)
-Received: from [192.168.0.203] (2607-8700-5500-a805-0000-0000-0000-0002.16clouds.com. [2607:8700:5500:a805::2])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33688cfc714sm21198511eec.20.2026.09.08.18.38.58
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 08 Sep 2026 18:39:08 -0700 (PDT)
-Message-ID: <395cded7-4f9f-47ff-810e-41bed3f8a068@gmail.com>
-Date: Wed, 9 Sep 2026 09:38:46 +0800
+        d=1e100.net; s=20251104; t=1788917997; x=1789522797;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=uSFtGGGcYJsTpJMCffAGX5T1+grywHvvw/WB/JJ1UOc=;
+        b=X87G5xShfwAgneBJo7Z0K0epbbZ5tlNthvy/JZTXbP/OoL2W6VG350kDUmRZOAHnYJ
+         97HXJBnmhgPucBHD3zozDcuOsLloqR54Cre0p5Wa5dlTUiJQfJnAb2po+ur7KZwh+UDv
+         aByRNdMP1mLlKPQlOgW8BljIJu5EjkaxcS7KKgz8f5yYMPSdL0t7iCfQuxTRivumJSyC
+         TTf+7mkrf+YOZcXMtw1VS2oUsOicOXww5qs4d+RGr2TUSIPbwpP5ykmMpzWmBh21n1/j
+         lgZ11sM+hCr0Xk8NlLx0NHKBXdKee+8wGGWWHPvx6miZmi888+67y5YHfO8264AT+7FG
+         yE4A==
+X-Forwarded-Encrypted: i=1; AKwUvByVo+Y6NndFodBHXBnfkKLS8q/gTd1K93Cy7CpbtZyDWx5vFBPYL77IpS10Cmkvae4NOw+fQ6qX7gRY6V8=@vger.kernel.org
+X-Gm-Message-State: AFuF++mHdP5vaQS/e36siDHkRlCgDhKzMIV9Y+PL1BXRoEE2QBowGg2k
+	tkQEBjG/Xyi160EXTYCkA+BmHczSOIruPPCjrAbjcPBmbrPvKic3CA6GPhVS06AE
+X-Gm-Gg: AYBFou0rkaNIQWynZwg6PSckR315a0SeZliVjCs5wp68TwsNQzRFKGjJFywXiFQHQo0
+	B4gs1D5067R1SbX+4PkKNg42fkiYFtXj++abpdcsJAfEicARNYPXpsb6n8O5lZdQGC7zB6bLiUQ
+	9j3uM9bUNTcVhAXKbuijR15Lyr8vEtihZtQ63njal90RRaSJZReswxuvZlh4kYZEAPUe1+7iPMS
+	D9Ghp9uIzEjgVd7UGhYCn4msa6dKs7MtqVGdXQUjfdkCriRq85Mh6Jg080S3h+8J1SQ5+XcfY8a
+	Uz7lu2KXwllfloi2bOSCL8RFx70MpOXIfH2PEX3ATudouj1zocc3sRLu7vIumYN4W45FQAXOw0t
+	G6fEvpBIZqKpCyfoLbNUx7kEctRP3dzovKjzs/06mWvKZjdKYE/8dNdjeyLSwD30fv3Tc2YB7Hl
+	tICHZuSQ2WqkiEoOlZPoSjbP1nAJbQBtPtUarQgkmGNY4udhVRL7qT1S3/IPV3axyu
+X-Received: by 2002:a05:6a20:72a0:b0:3c3:8d86:9855 with SMTP id adf61e73a8af0-3dabb068e5amr3640982637.7.1788917996941;
+        Tue, 08 Sep 2026 18:39:56 -0700 (PDT)
+Received: from localhost ([2a03:2880:2ff:47::])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc464393760sm4991145a12.3.2026.09.08.18.39.56
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 08 Sep 2026 18:39:56 -0700 (PDT)
+Date: Tue, 8 Sep 2026 18:39:50 -0700
+From: Stanislav Fomichev <sdf.kernel@gmail.com>
+To: Mina Almasry <almasrymina@google.com>
+Cc: Hengbin Zhang <uqbarz@gmail.com>, netdev@vger.kernel.org, 
+	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Taehee Yoo <ap420073@gmail.com>, 
+	Bobby Eshleman <bobbyeshleman@meta.com>, linux-kernel@vger.kernel.org
+Subject: Re: [BUG] net: devmem: TX dma-buf binding UAF on netdev-genl socket
+ close
+Message-ID: <aqC4XSt7JrrTv4sG@devvm7509.cco0.facebook.com>
+References: <20260908043115.216613-1-uqbarz@gmail.com>
+ <aqBFxdzPnFmW36_J@devvm7509.cco0.facebook.com>
+ <CAHS8izPN6P4=CKFZkowo+t2tx=nu5Q8JjVdZ=_c3eMrMG=9LxA@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5] drm/bridge: dw-hdmi-qp: Guard clear_audio_infoframe
- when PHY is down
-To: Sebastian Reichel <sebastian.reichel@collabora.com>
-Cc: royalnet026@gmail.com, Laurent.pinchart@ideasonboard.com,
- airlied@gmail.com, andrzej.hajda@intel.com, luca.ceresoli@bootlin.com,
- cristian.ciocaltea@collabora.com, daniels@collabora.com,
- detlev.casanova@collabora.com, dmitry.baryshkov@oss.qualcomm.com,
- heiko@sntech.de, jernej.skrabec@gmail.com, jonas@kwiboo.se,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org,
- neil.armstrong@linaro.org, rfoss@kernel.org, simona@ffwll.ch,
- tzimmermann@suse.de, macromorgan@hotmail.com,
- dri-devel@lists.freedesktop.org, stable@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260908070220.41574-1-rmxpzlb@gmail.com>
- <ap_3zjRWm5-RXKKx@venus>
-Content-Language: en-US
-From: Frank Zhang <rmxpzlb@gmail.com>
-In-Reply-To: <ap_3zjRWm5-RXKKx@venus>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAHS8izPN6P4=CKFZkowo+t2tx=nu5Q8JjVdZ=_c3eMrMG=9LxA@mail.gmail.com>
 
-On 9/8/26 20:10, Sebastian Reichel wrote:
-> Hi,
+On 09/08, Mina Almasry wrote:
+> On Tue, Sep 8, 2026 at 10:35 AM Stanislav Fomichev <sdf.kernel@gmail.com> wrote:
+> >
+> > On 09/08, Hengbin Zhang wrote:
+> > > Hi all,
+> > >
+> > > Up front: I'm not a kernel developer, just someone who reads net code on
+> > > the side, so please bear with me if I get some terminology or conventions
+> > > wrong.  I found this issue while looking at the netmem/devmem code, and
+> > > with some help from AI tooling I managed to reproduce it in QEMU and
+> > > manually confirm the crash — I do believe it's a real bug.  Still, treat
+> > > the analysis below as my best guess rather than a certainty.  Thanks a lot
+> > > for taking the time to review this!
+> > >
+> > > One-line summary
+> > > ================
+> > >
+> > > A TX (DMA_TO_DEVICE) dma-buf binding created with NETDEV_CMD_BIND_TX stores
+> > > binding->dev without taking a netdev reference and never registers itself
+> > > with any RX queue of the device.  When the bound device is unregistered and
+> > > freed while the owning netlink socket is still open, closing the socket
+> > > makes netdev_nl_sock_priv_destroy() call netdev_hold()/netdev_lock() on the
+> > > already freed net_device -> use-after-free.  Confirmed with KASAN and by a
+> > > real page fault / kernel panic on the same code path (log below).
+> > >
+> > > Environment
+> > > ===========
+> > >
+> > > - Kernel: v7.3.0-rc1-00515-g9f0346dcbea3 (commit 9f0346dcbea3), x86_64,
+> > >   with KASAN enabled; relevant config knobs are in the reproducer README
+> > >   (link below).
+> > > - Test setup: QEMU (TCG) guest, initramfs only.  The kernel image has one
+> > >   local, test-only addition: a small stub PCI driver (source in the
+> > >   reproducer link below).  No core net code was modified.
+> > >
+> > > Steps to reproduce
+> > > ==================
+> > >
+> > > I reproduced this in a QEMU guest.  QEMU cannot emulate any of the in-tree
+> > > NETMEM_TX_DMA devices (bnxt/mlx5/gve/fbnic are real NICs), so I wrote a
+> > > tiny test-only stub PCI driver (source in the reproducer link below) that
+> > > provides the same device-side properties: a net_device with
+> > > netmem_tx = NETMEM_TX_DMA and a DMA-capable parent.  The bug lives in core
+> > > net code, not in the driver, so this scenario should equally apply to real
+> > > hardware — e.g. binding TX on a real netmem-TX NIC, then removing/unbinding
+> > > that NIC while the netlink socket stays open.
+> > >
+> > > 1. Build the stub driver from the gist into the kernel (CONFIG_STUBNET=y)
+> > >    or as a module, boot the guest with "-device edu".
+> > > 2. Boot with the static "init" program from the gist (repro.c, run as
+> > >    PID 1 in an initramfs).  It performs, in order:
+> > >    a. DMA_HEAP_IOCTL_ALLOC on /dev/dma_heap/system -> dmabuf fd;
+> > >    b. NETDEV_CMD_BIND_TX on the stub device (ifindex + dmabuf fd) and keeps
+> > >       the netlink socket open; BIND_TX succeeds and returns a dmabuf id;
+> > >    c. writes "1" to /sys/bus/pci/devices/<bdf>/remove, i.e. unregisters and
+> > >       FREES the stub net_device (refcount drops to 1 in netdev_run_todo);
+> > >    d. closes the netlink socket.
+> > > 3. Expected: closing the socket cleanly tears the binding down.
+> > >    Actual: use-after-free, see log below.  On a kernel without KASAN the
+> > >    same path takes a page fault and panics (second log excerpt below), so
+> > >    this is not a KASAN-only artifact.
+> > >
+> > > KASAN log
+> > > =========
+> > >
+> > >   stub0 ifindex = 2
+> > >   dmabuf fd = 4
+> > >   netdev family id=20 version=1
+> > >   nl got: type=20 ... genl cmd=15 plen=8      <- BIND_TX ok (dmabuf id)
+> > >   writing 1 to /sys/bus/pci/devices/0000:00:04.0/remove
+> > >   stub0 gone (unregistered); net_device should now be freed
+> > >   === CLOSING NETLINK SOCKET (expect UAF in netdev_hold) ===
+> > >   [   43.895794] BUG: KASAN: slab-use-after-free in
+> > >              netdev_nl_sock_priv_destroy+0x196/0x1c0
+> > >   [   43.896434] Read of size 8 at addr ffff888002f06580 by task init/1
+> > >   Call Trace:
+> > >    netdev_nl_sock_priv_destroy+0x196/0x1c0
+> > >    genl_release+0xee/0x190
+> > >    netlink_release+0x715/0x13a0
+> > >    __sock_release+0xa1/0x260
+> > >    sock_close+0x10/0x20
+> > >    __x64_sys_close+0x78/0xd0
+> > >   Allocated by task 1:
+> > >    __kvmalloc_node_noprof+0x202/0x5b0
+> > >    alloc_netdev_mqs+0x7e/0x1270
+> > >    stubnet_probe+0x120/0x3c0
+> > >   Freed by task 1:
+> > >    kfree+0x127/0x3b0
+> > >    device_release+0xc8/0x240
+> > >    kobject_put+0x101/0x1e0
+> > >    netdev_run_todo+0x5a5/0xd70
+> > >    unregister_netdev+0x104/0x180
+> > >    stubnet_remove+0x3f/0x60
+> > >    pci_device_remove+0xa6/0x180
+> > >    remove_store+0xcc/0xe0
+> > >   The buggy address belongs to the object ... which belongs to the cache
+> > >   kmalloc-4k of size 4096; freed 4096-byte region [ffff888002f06000,
+> > >   ffff888002f07000).
+> > >
+> > > The kernel then continued in the same function and faulted for real:
+> > >
+> > >   [   43.905270] BUG: unable to handle page fault for address: ffff8880b0ef9000
+> > >   [   43.927189] RIP: 0010:netdev_nl_sock_priv_destroy+0xad/0x1c0
+> > >   ...
+> > >   [   43.938987] Kernel panic - not syncing: Fatal exception
+> > >
+> > > Analysis
+> > > ========
+> > >
+> > > The flaw is a four-step chain: BIND_TX stores a raw net_device pointer
+> > > without taking a reference; TX bindings never populate bound_rxqs; the
+> > > unregister cleanup that clears binding->dev only matches RX queues; so when
+> > > the socket is closed after the device was unregistered and freed,
+> > > netdev_nl_sock_priv_destroy() runs netdev_hold()/netdev_lock() on the freed
+> > > net_device.
+> > >
+> > > 1) Binding creation - raw pointer, no reference (net/core/devmem.c,
+> > >    net_devmem_bind_dmabuf(), DMA_TO_DEVICE = TX path):
+> > >
+> > >     binding->dev = dev;              // raw store, NO netdev_hold()
+> > >     xa_init_flags(&binding->bound_rxqs, XA_FLAGS_ALLOC);
+> > >     // TX path never calls net_devmem_bind_dmabuf_to_queue()
+> > >     // -> bound_rxqs stays EMPTY; the unregister cleanup (which matches
+> > >     //    queues) cannot see this binding
+> > >
+> > > 2) Device unregister - the only binding->dev clearing point is RX-only:
+> > >
+> > >     // net/core/dev.c:12395 dev_memory_provider_uninstall()
+> > >     for (i = 0; i < dev->real_num_rx_queues; i++)
+> > >             __netif_mp_uninstall_rxq(&dev->_rx[i], &dev->_rx[i].mp_params);
+> > >             // scans the device's OWN RX queues only -> TX binding invisible
+> > >
+> > >     // net/core/devmem.c:537 mp_dmabuf_devmem_uninstall() - the ONLY place
+> > >     // that clears binding->dev:
+> > >     WRITE_ONCE(binding->dev, NULL);  // reached only when a bound queue is
+> > >                                      // uninstalled (RX-only); never fires
+> > >                                      // for TX bindings
+> > >
+> > > 3) Free - the binding contributes zero references (net/core/dev.c):
+> > >
+> > >     // netdev_wait_allrefs_any()/netdev_run_todo()
+> > >     if (netdev_refcnt_read(dev) == 1)    // no holder left; the binding holds
+> > >                                          // no reference either
+> > >             free_netdev(dev);            // net_device freed while the socket
+> > >                                          // and its binding are still alive
+> > >
+> > > 4) Socket close - teardown on freed memory (net/core/netdev-genl.c:1445,
+> > >    netdev_nl_sock_priv_destroy()):
+> > >
+> > >     dev = binding->dev;              // RX: NULL (cleared in step 2);
+> > >                                      // TX: dangling
+> > >     if (!dev) { unbind; continue; }  // safe branch - never taken for TX
+> > >     netdev_hold(dev, ...);           // UAF #1: refcount/tracker increment on
+> > >                                      // the freed net_device
+> > >     netdev_lock(dev);                // UAF #2: mutex on freed memory
+> > >
+> > > Full reproducer materials (stub driver source, trigger program, build/run
+> > > README and the complete serial log):
+> > > https://gist.github.com/hharryz/119f067937448ac6e30eb31e7f08dc5a
+> > >
+> > > I'd be happy to keep testing, digging deeper into the analysis, and trying
+> > > to put together a possible fix if that helps.  Thanks a lot for your time!
+> >
+> > Hmm, this looks legit, I don't think we have a proper test for this
+> > condition :-/ I can try to take a stab unless someone else volunteers.
 > 
-> On Tue, Sep 08, 2026 at 03:02:20PM +0800, Frank Zhang wrote:
->> The following panic was observed during system reboot:
->>
->> Kernel panic - not syncing: Asynchronous SError Interrupt
->> CPU: 6 UID: 1000 PID: 2348 Comm: pipewire ... 7.0.5+ #4 PREEMPT(full)
->> Call trace:
->>   ...
->>   regmap_update_bits_base+0x70/0xa8
->>   dw_hdmi_qp_bridge_clear_audio_infoframe+0x3c/0x58 [dw_hdmi_qp]
->>   drm_bridge_connector_clear_audio_infoframe+0x2c/0x48 [drm_display_helper]
->>   ...
->>   dw_hdmi_qp_audio_disable+0x28/0xa8 [dw_hdmi_qp]
->>   drm_bridge_connector_audio_shutdown+0x38/0x68 [drm_display_helper]
->>   drm_connector_hdmi_audio_shutdown+0x28/0x40 [drm_display_helper]
->>   hdmi_codec_shutdown+0x60/0x90 [snd_soc_hdmi_codec]
->>   ...
->>   snd_pcm_release_substream+0xcc/0x120 [snd_pcm]
->>   snd_pcm_release+0x4c/0xc0 [snd_pcm]
->>   ...
->>
->> The root cause is pipewire tries to close the HDMI audio device after
->> atomic_disable(), which sets tmds_char_rate to 0 and disables the PHY.
->>
->> In this case, dw_hdmi_qp_audio_disable() will call
->> dw_hdmi_qp_bridge_clear_audio_infoframe(), accessing register without
->> checking tmds_char_rate.
->>
->> Guard the register access in drm_display_helper callback function with
->> tmds_char_rate check.
->>
->> Fixes: fd0141d1a8a2 ("drm/bridge: synopsys: Add audio support for dw-hdmi-qp")
->> Cc: stable@vger.kernel.org
->> Signed-off-by: Frank Zhang <rmxpzlb@gmail.com>
->>
->> ---
->> Changes in v2:
->> - Move drm_atomic_helper_connector_hdmi_clear_audio_infoframe() inside
->>    the if (hdmi->tmds_char_rate) of dw_hdmi_qp_audio_disable().
->> - Link to v1: https://lore.kernel.org/all/20260416093150.13853-1-rmxpzlb@gmail.com/
->>
->> Changes in v3:
->> - Add a tmds_char_rate guard in clear_audio_infoframe path.
->> - Decouple write_audio_infoframe from clear_audio_infoframe.
->> - Balance the PKTSCHED_AMD_TX_EN bit enable/disable.
->> - Link to v2: https://lore.kernel.org/all/20260418101936.7731-1-rmxpzlb@gmail.com/
->>
->> Changes in v4:
->> - Update panic stack on 7.0.5
->> - Link to v3: https://lore.kernel.org/all/20260423081514.15444-1-rmxpzlb@gmail.com/
->>
->> Changes in v5:
->> - Reuse the origin dw_hdmi_qp_bridge_clear_audio_infoframe and add
->>    tmds_char_rate guard in new callback function.
->> - Link to v4: https://lore.kernel.org/all/20260512103153.8861-1-rmxpzlb@gmail.com/
->> ---
->>   drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c | 14 ++++++++++++--
->>   1 file changed, 12 insertions(+), 2 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
->> index 1c214a8e6dc2..8729783d4eb6 100644
->> --- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
->> +++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
->> @@ -880,7 +880,7 @@ static int dw_hdmi_qp_bridge_clear_spd_infoframe(struct drm_bridge *bridge)
->>   	return 0;
->>   }
->>   
->> -static int dw_hdmi_qp_bridge_clear_audio_infoframe(struct drm_bridge *bridge)
->> +static int __dw_hdmi_qp_bridge_clear_audio_infoframe(struct drm_bridge *bridge)
->>   {
->>   	struct dw_hdmi_qp *hdmi = bridge->driver_private;
->>   
->> @@ -893,6 +893,16 @@ static int dw_hdmi_qp_bridge_clear_audio_infoframe(struct drm_bridge *bridge)
->>   	return 0;
->>   }
->>   
->> +static int dw_hdmi_qp_bridge_clear_audio_infoframe(struct drm_bridge *bridge)
->> +{
->> +	struct dw_hdmi_qp *hdmi = bridge->driver_private;
->> +
->> +	if (hdmi->tmds_char_rate > 0)
->> +		return __dw_hdmi_qp_bridge_clear_audio_infoframe(bridge);
->> +
->> +	return 0;
->> +}
->> +
->>   static void dw_hdmi_qp_write_pkt(struct dw_hdmi_qp *hdmi, const u8 *buffer,
->>   				 size_t start, size_t len, unsigned int reg)
->>   {
->> @@ -987,7 +997,7 @@ static int dw_hdmi_qp_bridge_write_audio_infoframe(struct drm_bridge *bridge,
->>   {
->>   	struct dw_hdmi_qp *hdmi = bridge->driver_private;
->>   
->> -	dw_hdmi_qp_bridge_clear_audio_infoframe(bridge);
->> +	__dw_hdmi_qp_bridge_clear_audio_infoframe(bridge);
+> Yes I'll volunteer to clean up my mess :P
 > 
-> Why? Having the extra tmds_char_rate check being done here is not a
-> problem except for some extra instructions. Considering this is
-> definetly not a hot path, introducing the extra function is not
-> worth the trouble. Just patch the original function to add the check
-> resulting in a nice and simple 2 lines fix and you are done.
-Add tmds_char_rate check in the original function 
-`dw_hdmi_qp_bridge_clear_audio_infoframe` discussed in v1, Detlev 
-Casanova recommend no need to check for tmds_char_rate in every
-dw_hdmi_qp_bridge_clear_audio_infoframe() call.>
->>   
->>   	/*
->>   	 * AUDI_CONTENTS0: { RSV, HB2, HB1, RSV }
->> -- 
->> 2.55.0
->>
+> My pet LLM suggested this not-yet-tested change:
+> https://termbin.com/e4d2. It's trying to detect if there is a tx
+> binding attached to the netdev at unregister time and clears it.
 > 
-> Greetings,
-> 
-> -- Sebastian
+> Let me try to understand the bug report and try to repro + verify it
+> etc, but Hengbin, thank you for the report and if it's easy for you to
+> test this fix please try to. Thanks!
 
+It's a netdev removal before closing a socket with a bound tx. The
+following down below consistently triggers it with fbnic qemu. Thinking
+maybe we should add it to the selftests?
+
+
+diff --git a/tools/testing/selftests/drivers/net/hw/devmem.py b/tools/testing/selftests/drivers/net/hw/devmem.py
+index 82c11ffc4add..643f891b468d 100755
+--- a/tools/testing/selftests/drivers/net/hw/devmem.py
++++ b/tools/testing/selftests/drivers/net/hw/devmem.py
+@@ -1,11 +1,136 @@
+ #!/usr/bin/env python3
+ # SPDX-License-Identifier: GPL-2.0
+ 
++import fcntl
++import json
++import os
++import socket
++import struct
++import time
+ from os import path
++
+ from devmem_lib import (setup_test, run_rx, run_tx, run_tx_chunks, run_rx_hds,
+                         run_rx_large_niov)
+ from lib.py import ksft_run, ksft_exit, ksft_disruptive
+-from lib.py import NetDrvEpEnv
++from lib.py import cmd, defer, wait_file
++from lib.py import ksft_eq, KsftFailEx, KsftSkipEx
++from lib.py import NetdevFamily, NetDrvEpEnv, NlError
++
++
++UDMABUF_DEV = "/dev/udmabuf"
++# UDMABUF_CREATE, _IOW('u', 0x42, struct udmabuf_create)
++UDMABUF_CREATE = (1 << 30) | (24 << 16) | (ord('u') << 8) | 0x42
++UDMABUF_SIZE = 1 << 20
++
++KEEP_ADDR_ON_DOWN = "/proc/sys/net/ipv6/conf/{}/keep_addr_on_down"
++
++
++def _udmabuf_alloc(size):
++    if not path.exists(UDMABUF_DEV):
++        raise KsftSkipEx("Test requires udmabuf")
++
++    memfd = os.memfd_create("devmem-tx", os.MFD_ALLOW_SEALING)
++    try:
++        os.ftruncate(memfd, size)
++        fcntl.fcntl(memfd, fcntl.F_ADD_SEALS, fcntl.F_SEAL_SHRINK)
++        with open(UDMABUF_DEV, "rb") as dev:
++            create = bytearray(struct.pack("IIQQ", memfd, 0, 0, size))
++            dmabuf_fd = fcntl.ioctl(dev.fileno(), UDMABUF_CREATE, create)
++    except OSError as exc:
++        os.close(memfd)
++        raise KsftSkipEx(f"Test requires udmabuf: {exc}") from exc
++
++    return dmabuf_fd, memfd
++
++
++def _pci_dev(cfg):
++    dev_link = f"/sys/class/net/{cfg.ifname}/device"
++    if not path.exists(dev_link):
++        raise KsftSkipEx("Test requires a device which can be unregistered")
++
++    bdf = path.basename(path.realpath(dev_link))
++    if not path.exists(f"/sys/bus/pci/devices/{bdf}"):
++        raise KsftSkipEx("Test requires a PCI device")
++
++    driver = path.basename(path.realpath(f"{dev_link}/driver"))
++    if not path.exists(f"/sys/bus/pci/drivers/{driver}"):
++        raise KsftSkipEx("Test requires a PCI driver which can be unbound")
++
++    return bdf, driver
++
++
++def _pci_unbind(bdf, driver):
++    with open(f"/sys/bus/pci/drivers/{driver}/unbind", "w",
++              encoding="utf-8") as fp:
++        fp.write(bdf)
++
++
++def _pci_bind(bdf, driver):
++    if path.exists(f"/sys/bus/pci/devices/{bdf}/driver"):
++        return
++    with open(f"/sys/bus/pci/drivers/{driver}/bind", "w",
++              encoding="utf-8") as fp:
++        fp.write(bdf)
++
++
++def _netdev_by_pci(bdf):
++    for name in os.listdir("/sys/class/net"):
++        dev_link = f"/sys/class/net/{name}/device"
++        if not path.exists(dev_link):
++            continue
++        if path.basename(path.realpath(dev_link)) == bdf:
++            return name
++    return None
++
++
++def _netdev_config_get(cfg):
++    link = json.loads(cmd(f"ip -j addr show dev {cfg.ifname}").stdout)[0]
++    addrs = [addr for addr in link.get("addr_info", [])
++             if addr.get("scope") == "global" and not addr.get("dynamic")]
++
++    try:
++        with open(KEEP_ADDR_ON_DOWN.format(cfg.ifname), encoding="utf-8") as fp:
++            keep_addr = fp.read().strip()
++    except OSError:
++        keep_addr = None
++
++    return {"addrs": addrs, "keep_addr_on_down": keep_addr}
++
++
++def _netdev_wait(cfg, bdf, deadline=30):
++    end = time.monotonic() + deadline
++    while True:
++        ifname = _netdev_by_pci(bdf)
++        if ifname:
++            cfg.ifname = ifname
++            cfg.ifindex = socket.if_nametoindex(ifname)
++            return
++        if time.monotonic() > end:
++            raise KsftFailEx(f"{bdf} did not come back after driver rebind")
++        time.sleep(0.1)
++
++
++def _netdev_config_restore(cfg, config, bdf):
++    _netdev_wait(cfg, bdf)
++
++    cmd(f"ip link set dev {cfg.ifname} up", fail=False)
++
++    link = json.loads(cmd(f"ip -j addr show dev {cfg.ifname}").stdout)[0]
++    present = {addr["local"] for addr in link.get("addr_info", [])}
++    for addr in config["addrs"]:
++        if addr["local"] in present:
++            continue
++        nodad = " nodad" if addr["family"] == "inet6" else ""
++        cmd(f"ip addr add {addr['local']}/{addr['prefixlen']} "
++            f"dev {cfg.ifname}{nodad}", fail=False)
++
++    if config["keep_addr_on_down"] is not None:
++        with open(KEEP_ADDR_ON_DOWN.format(cfg.ifname), "w",
++                  encoding="utf-8") as fp:
++            fp.write(config["keep_addr_on_down"])
++
++    wait_file(f"/sys/class/net/{cfg.ifname}/carrier",
++              lambda x: x.strip() == "1", deadline=15)
+ 
+ 
+ @ksft_disruptive
+@@ -36,12 +161,45 @@ from lib.py import NetDrvEpEnv
+     run_rx_large_niov(cfg)
+ 
+ 
++@ksft_disruptive
++def check_tx_bind_dev_unreg(cfg) -> None:
++    """Close a TX dmabuf binding after its device was unregistered."""
++    dmabuf_fd, memfd = _udmabuf_alloc(UDMABUF_SIZE)
++    defer(os.close, memfd)
++    defer(os.close, dmabuf_fd)
++
++    netdevnl = NetdevFamily()
++    defer(netdevnl.close)
++    try:
++        netdevnl.bind_tx({"ifindex": cfg.ifindex, "fd": dmabuf_fd})
++    except NlError as exc:
++        raise KsftSkipEx(f"Test requires netmem TX support: {exc}") from exc
++
++    bdf, driver = _pci_dev(cfg)
++
++    defer(_netdev_config_restore, cfg, _netdev_config_get(cfg), bdf)
++    defer(_pci_bind, bdf, driver)
++
++    _pci_unbind(bdf, driver)
++    netdevnl.close()
++
++    _pci_bind(bdf, driver)
++    _netdev_wait(cfg, bdf)
++
++    probe = NetdevFamily()
++    defer(probe.close)
++    ksft_eq(probe.dev_get({"ifindex": cfg.ifindex})["ifindex"], cfg.ifindex,
++            "netdev-genl broken after unbinding from a freed netdev")
++
++
+ def main() -> None:
+     """Run the devmem test cases."""
+     with NetDrvEpEnv(__file__) as cfg:
+         setup_test(cfg, path.abspath(path.dirname(__file__) + "/ncdevmem"))
+         ksft_run([check_rx, check_tx, check_tx_chunks, check_rx_hds,
+-                  check_rx_large_niov],
++                  check_rx_large_niov,
++                  # check_tx_bind_dev_unreg re-creates the netdev, keep it last
++                  check_tx_bind_dev_unreg],
+                  args=(cfg,))
+     ksft_exit()
+ 
