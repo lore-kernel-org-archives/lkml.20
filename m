@@ -1,211 +1,255 @@
-Received: from mail-24417.protonmail.ch (mail-24417.protonmail.ch [109.224.244.17])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76A6A3BE15E;
-	Wed,  9 Sep 2026 19:36:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF4A33BED79
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 19:37:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788982602; cv=none; b=PUNmpQJolxv9tlWVsu+UulcgbAJ6VHn0ZJXXHEe2FqNyyXpvSeMV6GSnTTUE6gkvVxTFnY5sSDGt8/0gdpRhyokjvHUNCBDLfBbde6LSH5Nt1/UG/QqxMLfnAwk0WtwY7NZRy+xGO3Jvy+KVknlyomYCbLSZREQllVj/vr93IRg=
+	t=1788982651; cv=none; b=DNsLRcQbm3mk/iQFGYrM8SGvQemXi9o+6GounjfcTC/GilqSM82gMuokNl1xJPyKnLu2Q7y7WQ0sBF0ksa2GYwoZwa47LkIcyE07zpsNVORNqybhaNv0fWp2mF73dxq6bgczVv8UuOWEAfQZipRr/o1fWH8Td8W+jKViedWS03c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788982602; c=relaxed/simple;
-	bh=Brn9UsmeZcOHEg7IPxw+OE2/r0wiwiPueNOPtHUccWo=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=rCk3/MhXyA2HOwlET1i4US4b7JY7DSI9DM8BUKd0iae7633doaq9SpyncOR7tHZwTNMKTAgHVmxyQaZg/aAwOKQmHWz2B1o3xtuhDuz6x6+kmSDSDZ1l9nYVfp1BvwVfFak2RM4v+MmbFrk9qu7OHcjrF9fF03Qj7RnlfKnjQxk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=Yv94Yltm; arc=none smtp.client-ip=109.224.244.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
+	s=arc-20240116; t=1788982651; c=relaxed/simple;
+	bh=W6elITVW+fgqHlsz574xVSedWEx1ljCkHQGGPON+6dA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=FKzxlbgVAoBMvLMtbZbiI6ZFZLnN/TuuzTgpeJFU0l9MtrZFh6/yubgbBS1gbQM7iYXvtYAisbyKxOZ4QWNURcvzUwbC5w4pA3Af4wjAb6UyWkdxNjZc/+gNYql91dSBGlipRqPTKCPf7fqrtcypwbFyInc61rCGNPzUiOVlnfk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jSlz83Sg; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="Yv94Yltm"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1788982597; x=1789241797;
-	bh=1VB/5fBF+6fCvzEcKosRW4Y6zhDsxzDvm5nqAnirrtU=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=Yv94YltmvNAGlugQmtMsZLVipY7gUKqwK7JsumYCAx7LZxdQ2rnHFX9BBvvM/LwcZ
-	 E7HlYI2tFW8KBTSkXz+k9MFQfCF5rk+ijaZmfH1wVrMuUZV60fHLqswRpkr7t0K8GM
-	 Iy1LIfH00sZVkpBzOwdSV8I8nt0DH5C5UfbQucLqkNQn2eHT0XfJgx/5rUMh9AGubg
-	 AU05ndZodXqFyGS4h8n+XmNfus3rh5WY9VQvYvRqTaTmt9r571+pErSI2ewPFCmz28
-	 tLep9ysv7mCuJRzX1l9LKcpRh9ubPGaIC5pk5h1raCaUgBA9s5RTNXlRCXwX5swA+z
-	 SXb/7AWWCWG3A==
-Date: Wed, 09 Sep 2026 19:36:34 +0000
-To: Sakari Ailus <sakari.ailus@linux.intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Andre Gilerson <andre.gilerson@gmail.com>, Dan Scally <dan.scally@ideasonboard.com>
-From: Sergey Lebedev <lsa.uz@pm.me>
-Cc: Hans de Goede <hansg@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, German <germanpapulindez@gmail.com>, sashiko-bot@kernel.org, linux-media@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/3] media: i2c: Add Sony IMX681 sensor driver
-Message-ID: <20260909193627.85987-1-lsa.uz@pm.me>
-In-Reply-To: <20260909174240.80023-3-lsa.uz@pm.me>
-References: <20260909174240.80023-1-lsa.uz@pm.me> <20260909174240.80023-3-lsa.uz@pm.me>
-Feedback-ID: 113843758:user:proton
-X-Pm-Message-ID: 5d20dc286984e4fc5602d598cdbc58419d0d6cf9
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jSlz83Sg"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49cd6185db7so15413655e9.1
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 12:37:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788982646; x=1789587446; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=g0uOGw37DdE82nU6QUlJPa/gKDAK3HdlyhewoX5a9k8=;
+        b=jSlz83SgvXKlNYn4ZYygcu7NmKRFIOgCuVePzFHygumIc/S8jbGEBt5lvcx0hAvpgS
+         /jvZtd+dqslGSngyZjjecXrtbZmiHOCzMB+o88eq6uOVLl4w03HVnx2KqQtEpv0WfNzq
+         Onuuzq5IBssGT2J7Bw8teZcafDYuvvEHwxWFegwUapd4fVJI+4yKIs0YdM5Jbprd/iDU
+         LvuNqRYnldwSRI0/3j2nXBFvghgsFzTT6Gp6IAUirswqjb3cbhtcPpxkVj/S9Tji1UJ+
+         VjR6UanDcRPGcqmIkdEl3s6AuHMyrw5SsK8hH7MYconpLR8ArIU7IGty2lXdRCT0fC+Q
+         P/dg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788982646; x=1789587446;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=g0uOGw37DdE82nU6QUlJPa/gKDAK3HdlyhewoX5a9k8=;
+        b=j/w94/e9iultt+ZsLA8nD/IoNLGLOegqb3BGe96Si9y4zAG6TgBRDwlcONqWZD0ELX
+         /C9/Us6mpB3UYUAQTVCDN0bG6uh9QyQyfvypVtHc47EazYAL9UuTDxVadPaCu19d/KWi
+         PUfnarHF1A9//gCARt/F1aTjzKcDFgw9rNY5YusNBGTF91GN5t/nNlQBh9ZHlv4YRFji
+         Clq4p8yvPKrrOiaM1/3GVnozs4fR2QBJ7zGHGkmXI8fpNLwRWxXOWMTiVV1aq669zuFL
+         G4VCzxi1klJqeMwQLaPA9oK9CWqEwcWvSIRB9nC9ndpOWDBcq18kksZ7Wmx+ZwtzlZLa
+         /k5A==
+X-Forwarded-Encrypted: i=1; AKwUvByaW5lNaj+uTObKA0IGoBZwGQcpPJ9pA/COj7aSgNNSGue1j0RW0/EExTExlmq4MDNCfByNKwrHohrt8EM=@vger.kernel.org
+X-Gm-Message-State: AFuF++lY4v6vKY+s88D0GGYZ6ZYSrN8ZPNK4hNXuNSn3EU6baGKD5qET
+	Qn6fO4QA5wWzrrgkmxe8lvHQmhfsFKksEZFR7TUclfqG/UJnL0pm19Bb
+X-Gm-Gg: AYBFou35Q1ckUi78bGjMvCJMZRKcRRF09q1qBjIRiX96Q5udmrNCfURbsYg3bcGU1Vd
+	P2Jgp1gJFGN6FI4qxZSPMtwFeksQztcWwyvhiGFsBjA2zb9ht7Zw9EshUnlDIotNcGk0drCB1jf
+	lHh9t2Cjg9B7JfXcMK0L2WNqgw9YwJeB5djNBSkMAsFx1CJQgr75NGABklX7eohehgVwYk+PjUr
+	he/8P1Lp4MwyHxxn6PKp+Wiht2Cu0bRucXj0WbaX/RdsDMqvpNlvCzgCbWDvCKJrI8cUXB2wEva
+	1EJgvPg3l3T5P99et/8g8ICotKmNnOplselK6kgs/oukWLsF7TKErQgNn0USSUOkxgfqjkU/+MJ
+	admMs0rFaWZB3+9Gxjpnj3ChPDqBBekRu+K2ERXDc4a+bLdj/ubiy9IS+FPfgWpbZ2A7pSZTn0V
+	4sTCAbQUQvZg2+qlrN9NzY62TYG1l24pb4qWutaqBhaaCz809qhxOFShehnn0Cpu5ttue4RUxxD
+	3bJV6ky5AJKG4srB3a3wa3Cw6aUeXyIOFf0dLk4p5jriZutg7iFkSfreF3V+jmEDLMIOOHh+jMK
+	5OsfnBS5aw==
+X-Received: by 2002:a05:600c:c4b8:b0:49c:f13e:e52 with SMTP id 5b1f17b1804b1-49d26dcbc5emr9770855e9.15.1788982645812;
+        Wed, 09 Sep 2026 12:37:25 -0700 (PDT)
+Received: from iku.Home ([2a06:5906:61b:2d00:d357:e592:d56c:d3b5])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49d26be64a5sm13123995e9.6.2026.09.09.12.37.25
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 09 Sep 2026 12:37:25 -0700 (PDT)
+From: Prabhakar <prabhakar.csengg@gmail.com>
+X-Google-Original-From: Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+To: Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: linux-renesas-soc@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	dmaengine@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	Prabhakar <prabhakar.csengg+renesas@gmail.com>,
+	Biju Das <biju.das.jz@bp.renesas.com>,
+	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Subject: [RFC PATCH 0/3] soc: renesas: Add address extension support for RZ/V2H
+Date: Wed,  9 Sep 2026 20:36:36 +0100
+Message-ID: <20260909193640.8069-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-Thank you - four of the five are real, and I have checked each against the
-patch rather than agreeing on sight. All four are fixed in v2, which follow=
-s
-this message. The author is away until 28 September, so v2 comes from me; w=
-here
-a fix reverses something he wrote deliberately I have said so and given the
-reasoning rather than leaving the question hanging for three weeks.
+From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 
-Confirmed
-=3D=3D=3D=3D=3D=3D=3D=3D=3D
+Hi all,
 
-1. devm_regulator_bulk_get() ignored. probe() logs a dev_dbg and continues,=
- and
-   imx681_power_on() then calls regulator_bulk_enable() on an array nothing
-   filled in. Your use-after-free reading is the sharper one and it holds:
-   _regulator_bulk_get() unwinds with "while (--i >=3D 0)
-   regulator_put(consumers[i].consumer)" and leaves the pointers where they
-   are, so a get that fails partway puts freed regulators into supplies[]
-   rather than NULLs. The likely failure is -EPROBE_DEFER, which is ordinar=
-y.
-   On this machine INT3472 hands out dummies so the get succeeds, which is
-   exactly why testing did not find it. v2 makes it fatal, via dev_err_prob=
-e(),
-   which is also the right handling for the -EPROBE_DEFER case.
+This series adds support for the SYS_AOF (Address Offset Function)
+address extension mechanism on RZ/V2H, and enables it for the SDHI
+internal DMAC so SD/eMMC DMA buffers are no longer confined to the
+low 4 GiB of physical memory.
 
-2. pm_runtime_get_if_active(). It returns 1, 0, or a negative errno, and
-   "if (!...)" only catches the 0. An error therefore falls through to issu=
-e
-   I2C to a possibly-suspended sensor and then pm_runtime_put()s a referenc=
-e it
-   never took. v2 tests it as "if (pm_runtime_get_if_active(dev) <=3D 0)". =
-The
-   kerneldoc is explicit that on -EINVAL "the usage_count will remain
-   unmodified", so the put is unbalanced and not merely redundant.
+Background
+==========
 
-3. Missing pm_runtime_put_noidle() on the probe error path. The reference
-   taken by pm_runtime_get_noresume() is never released, and
-   pm_runtime_set_suspended() is called while it is still held. v2 adds it =
-at
-   error_pm.
+RZ/V2H contains bus masters (SDHI, USB, GBETH, VCD, DSI, LCDC, ISP,
+DMAC, ...) that can only generate a 32-bit address on their own
+bus. The SYS controller's SYS_AOFn registers let bits [31:30] of the
+address such a master issues select one of four independently
+configurable 6-bit fields; the selected field supplies the
+corresponding upper bits ([34:30] or [35:30]) actually driven onto
+the AXI interconnect, with bits [29:0] passed straight through. This
+splits each master's native 4 GiB space into four relocatable 1 GiB
+windows, letting it reach a 35-bit (DDR0/DDR1) or 36-bit (+PCIe0/
+PCIe1) physical address space. See RZ/V2H Group Hardware User's
+Manual, Figure 1.7-2 and Sections 1.7.3.2 and 4.3.3.2.88-90,
+reproduced here in text form:
 
-Not a bug, and I think demonstrably so
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+                     +--------------------+
+                     |       Master       |
+                     |  32-bit address    |
+                     |      [31:0]        |
+                     +----------+---------+
+                                |
+              +-----------------+-------------------+
+              | bits [31:30]                        | bits [29:0]
+              | select field                        | passed through
+              v                                     |
+    +---------------------------------+             |
+    |         SYS_AOFn register       |             |
+    |  +------+------+------+------+  |             |
+    |  | Reg3 | Reg2 | Reg1 | Reg0 |  |             |
+    |  |  11  |  10  |  01  |  00  |  |             |
+    |  +--+---+--+---+--+---+--+---+  |             |
+    +-----|------|------|------|------+             |
+          +------+------+------+ supplies           |
+                     |    [35:30] or [34:30]        |
+                     v                              v
+              +-------------------------------------+
+              |          AXI interconnect           |
+              |        35- or 36-bit address        |
+              +--------------------+----------------+
+                                   |
+                                   v
+     +-----------------------------------------------------+
+     |               Physical address space                |
+     |  F_FFFF_FFFFh +-----------------------------------+ |
+     |               |          PCIe1 - 23 GiB           | |
+     |  A_4000_0000h +-----------------------------------+ |
+     |               |          PCIe0 - 24 GiB           | |
+     |  4_4000_0000h +-----------------------------------+ |
+     |               |           DDR1 - 8 GiB            | |
+     |  2_4000_0000h +-----------------------------------+ |
+     |               |           DDR0 - 8 GiB            | |
+     |  0_4000_0000h +-----------------------------------+ |
+     |               |  SRAM, peripheral, xSPI - 1 GiB   | |
+     |  0_0000_0000h +-----------------------------------+ |
+     +-----------------------------------------------------+
 
-The NULL-state dereference in imx681_set_pad_format(). The subdev core reac=
-hes
-.set_fmt through v4l2_subdev_call_state_active(), which always supplies a
-state, and the drivers around it agree: imx415, imx355, ov02c10 and ov08x40
-all call v4l2_subdev_state_get_format(state, ...) with no NULL check betwee=
-n
-them. If the core can hand a NULL state to .set_fmt then this is a
-subsystem-wide problem rather than one driver's, and I would rather hear th=
-at
-from a maintainer than paper over it here.
+     Four 1 GiB windows, each independently redirectable to
+     any 1 GiB-aligned target above; 35-bit-limited masters
+     must keep bit [5] of every field clear (1.7.3.2.1).
 
-The gain clash, which is the interesting one
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+In case the image isnt formatted correctly please refer the link
+https://raw.githubusercontent.com/prabhakarlad/img/refs/heads/main/Screenshot%202026-08-12%20162004.png
 
-Correct, and worse than it looks. The analogue handler writes
-IMX681_REG_DIGITAL_GAIN on *every* call, not only above code 960: above 960=
- it
-writes the spillover it computed, and at or below 960 it writes the 1.0x it
-initialised the local to. V4L2_CID_DIGITAL_GAIN writes the same register
-directly. So setting digital gain to 4x and then moving analogue gain anywh=
-ere
-at all puts 1x back into 0x020E - no error returned, and the DIGITAL_GAIN
-control still reporting 4x.
+Without this, SDHI (and other masters in the same category) are
+limited to buffers in the low 4 GiB.
 
-The v1 cover asked whether the range should be split honestly between the t=
-wo
-controls. I have stopped asking and done it, because the two turn out to be=
- one
-question: clustering would stop the controls overwriting each other, but it
-would then need an invented rule for what analogue 1020 together with digit=
-al
-2x means, and there is no honest answer - they are two names for one regist=
-er.
-So v2 advertises ANALOGUE_GAIN as 0..960, the 1x..16x the analogue stage
-actually does, and DIGITAL_GAIN owns 0x020E alone.
+Approach
+========
 
-Measured rather than argued, by reading 0x020E over i2c while the sensor
-streams. It has to be while streaming: at stream start
-__v4l2_ctrl_handler_setup() applies the controls in creation order, analogu=
-e
-before digital, so digital wins and the clash is invisible. It bites a live=
- AE
-loop, which is the case that matters.
+Rather than hardcoding SYS_AOFn programming per board, this series
+derives it from the devicetree dma-ranges property already used to
+describe DMA address translation:
 
-                                     v1 module     v2 module
-  start                              0x0100        0x0100
-  after digital_gain =3D 4x            0x0400        0x0400
-  after analogue_gain 500 -> 700     0x0100  <--   0x0400
-  DIGITAL_GAIN control reads         1024          1024
+ - Patch 1 adds generic AOF parsing/programming infrastructure to
+   the rz-sysc driver. Each SoC lists its AOF-capable masters as
+   (MMIO base, SYS_AOFn index, address width) tuples; at probe time,
+   the driver walks "simple-bus" wrapper nodes carrying a dma-ranges
+   property, matches the wrapped device against that table by MMIO
+   base, and programs the corresponding SYS_AOFn fields directly
+   from the dma-ranges translation. Devices with status = "disabled"
+   are skipped. Malformed or out-of-range entries (misaligned,
+   exceeding the master's own 4 GiB space, or requiring bit [5] on a
+   35-bit-limited master) are rejected.
 
-Both modules were built from the same tree and swapped with rmmod/insmod, s=
-o
-nothing but the driver differs between the columns. The last row is the poi=
-nt:
-the control reports 4x in both, and in v1 the register disagrees with it
-silently.
+ - Patch 2 moves the SDHI nodes in r9a09g057.dtsi into per-instance
+   simple-bus wrapper nodes with a default, no-op (DDR0-targeting)
+   dma-ranges -- no functional change for boards that don't further
+   override it.
 
-For Andre, on your return
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+ - Patch 3 demonstrates a non-default window on the RZ/V2H EVK:
+   SDHI1's dma-ranges is pointed at an 8-12 GiB DDR1 window, backed
+   by a restricted-dma-pool reserved-memory region so buffers handed
+   to SDHI1 are guaranteed to physically land inside the range the
+   programmed SYS_AOF17 fields can actually reach.
 
-Two of these touch choices that look deliberate in your code, so they are y=
-ours
-to overrule.
+Boards that do not override an SDHI instance's dma-ranges see no
+functional change: the default wrapper mapping added in patch 3 is
+an identity remap onto DDR0's native address.
 
-The regulator handling. Your comment says "Continue without regulators -
-INT3472 may handle power", and v2 makes that failure fatal instead. My read=
-ing
-is that the get does not fail for supplies the firmware leaves undescribed =
-- it
-hands out dummies, which is where this machine's "supply dvdd not found, us=
-ing
-dummy regulator" comes from, and the camera still probes with the change in
-place. If you wrote the comment because you had actually seen the get fail =
-on
-some machine, then I have removed a workaround you needed: say so and it go=
-es
-back in v3.
+Trade-offs
+==========
 
-The gain range. I have split it rather than holding v2 for three weeks:
-ANALOGUE_GAIN stops at 960 and no longer touches the digital register. Your=
- own
-define carried the comment "combined analog+digital", and V4L2 has no contr=
-ol
-meaning combined gain, so I believe this is what the ABI asks for - but it =
-is
-your design and you can have it back in v3.
+- Attaching a restricted-dma-pool to a device makes every DMA transfer
+for that device bounce unconditionally (is_swiotlb_force_bounce()),
+regardless of whether the buffer's physical address would otherwise
+have been directly usable.
+- Each master will require a restricted-dma-pool.
 
-And one you did not ask for: the series lists you as M: for SONY IMX681 in
-MAINTAINERS. That is the convention for a driver's author, but it is also a
-standing obligation to everyone who reports a bug against it later, so it
-should be your choice and not mine. It is already in v2 because leaving a n=
-ew
-driver with no maintainer entry is worse; say the word and it becomes me, o=
-r
-both of us.
+Testing
+=======
 
-I ran an independent review of the same file before writing this, and it fo=
-und
-the same four and nothing else.
+Tested on the RZ/V2H EVK (r9a09g057h44-rzv2h-evk) with SDHI1 remapped
+to an 8-12 GiB DDR1 window, running repeated large-file dd read/write
+and mmc_test against an SD card, with no functional errors observed.
+While running mmc_test a loss of ~4% was seen for read/write tests as
+the mmc_test module allocated the memory using GFP_DMA flag.
 
-One thing worth saying plainly, since v1's cover letter listed its testing =
-at
-some length. That list - applies to media/next, correct authorship under gi=
-t
-am, checkpatch, dt_binding_check, a W=3D1 build, booted on the hardware wit=
-h the
-camera streaming - would not have found a single one of these four. They li=
-ve
-on error paths this board never takes and in a control interaction that nee=
-ds
-both controls driven while streaming. Testing that the happy path works is =
-not
-review, and I should not have been as satisfied with that list as I was.
+This series does not yet cover the remaining AOF-capable masters
+(USB, GBETH, VCD/DSI/LCDC/ISP, DMAC channels).
 
-Sergey
+Request for feedback
+=====================
+The ~4% loss above comes from restricted-dma-pool's unconditional
+bounce policy (is_swiotlb_force_bounce()): every SDHI transfer is
+copied through the pool, even when the source buffer's physical
+address would already have been usable without any copy at all.
+This is a direct consequence of using restricted-dma-pool as the
+correctness mechanism for a device whose real addressing constraint
+doesn't map onto the flat dma_mask/dma-ranges model the generic DMA
+layer otherwise assumes.
+
+Before optimizing this further, I'd like inputs on whether
+restricted-dma-pool is the right tool here. Suggestions and pointers
+to prior art for similar SoC address-extension/aperture hardware would
+be very welcome.
+
+Thanks for reviewing.
+
+Cheers,
+Prabhakar
+
+Lad Prabhakar (3):
+  soc: renesas: rz-sysc: Configure AOF registers from dma-ranges
+  arm64: dts: renesas: r9a09g057: Move SDHI nodes into bus nodes
+  arm64: dts: renesas: r9a09g057h44-rzv2h-evk: Move SDHI1 dma range from
+    8-12 GiB
+
+ arch/arm64/boot/dts/renesas/r9a09g057.dtsi    | 123 +++++++++++-------
+ .../dts/renesas/r9a09g057h44-rzv2h-evk.dts    |  16 +++
+ drivers/soc/renesas/r9a09g057-sys.c           |   9 ++
+ drivers/soc/renesas/rz-sysc.c                 | 118 +++++++++++++++++
+ drivers/soc/renesas/rz-sysc.h                 |  22 ++++
+ 5 files changed, 240 insertions(+), 48 deletions(-)
+
+-- 
+2.55.0
 
