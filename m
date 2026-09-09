@@ -1,125 +1,234 @@
-Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com [209.85.214.178])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B89FF455612
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 08:01:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CBD74457DE;
+	Wed,  9 Sep 2026 08:01:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788940900; cv=none; b=TXTyoajf7vMnPvgsVyu4LI+fNR8v7RKgouqPMLN323H13YhqmhHuukaxgeAl9X7QESWbA6eiVkx8G8MQ7V4bKq2jGCrAEdQej79BOWO/7kG0iM/B7W6Wefw3pHe0H3yTMRU1nRtgWL1f7f9tBEL7hvsPeI0kTB45ldIynbVTfK0=
+	t=1788940899; cv=none; b=LBD+jZFsidEwt+LldzPugs9Vdm+vJa5yXsWyO2TihVuyOiFl1QwlKI7Kdm02UlCTpUOPZ6U6bl4Y342OJSxWdz0cnNnMIYWvj47HnBiTAVeU8J52U88p0jOkbGQUP7v+zEupGo0fr0FVLQxkMJi0OMtEAWzSCfvoGpBeBr28yDo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788940900; c=relaxed/simple;
-	bh=BwkTq+kWcanD6pJH1odrel9/Fm5+LJ3h9fF3o0OWkg0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=FnXf6mPwn+RTO3+BndllPe4I5imMQw4J9zZ8pWCj8tUDDmFDyDho7YVUzBG+4oM/Esl42sdpMLSRAsbZFt3WW8tOOnx2cV8XJXI7oRq19/7quQCjuiJWx5Im3gZaNNGUo839QWhdQzv23EWB2PSJ6/w1JytzLH1B7fRokOKdoMg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SMzoZhbX; arc=none smtp.client-ip=209.85.214.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788940899; c=relaxed/simple;
+	bh=Azkq80u6Zs11HEEIgD0144Bvb9O8pd/EXTnXNViG0nM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=iWy1lhN7pgzxcCcuQGwXQKxZYW2Q/Z9HrfaIvn5BXZVDyQVLm7X0K5uhq0/xUQAvvD8eHYAIQIHwyumZySpRGYW3nuMlwlE25bkZoRO09HYHQ+IqZwxmMjORziz6w0K7Nnjoh18L4JlgCSLh9ehmxG2GJx2z6SzOfWZHjjndovw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=j27fhShv; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=rAiVPu6p; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=tHZ+68w/; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=litFSRiF; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SMzoZhbX"
-Received: by mail-pl1-f178.google.com with SMTP id d9443c01a7336-2db3305f94fso44835165ad.0
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 01:01:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788940898; x=1789545698; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=f8CIem4P/Or0F4qZW5iNmZjHo/TZnFkGYTym/tguf0U=;
-        b=SMzoZhbXIj1aAu0PFPJCbyp4M62Yk1egqty6uxR5no94af+5xzBFYvA1qUtHS+Zkje
-         AUtacs4pbkh+lOepQs7tpskXGkPRQIMNIZ6bJ1cZxoS3+wRnQqnkrYLcCeQ483ZdOke2
-         VVp5JoDL7ap1VLDSp+zGKIb2529QrGUvqi5WTCVC4K08CBWZFEOI6cs2DOXEEla435Zg
-         vuxfCgUBisb8p1ga2sMdGAa0NpioLT1IHFN6kuW7+Shaq+8Bmgy1/HjF7XvfR9XEay6W
-         21Ki7S0FqrqbV5osdk/iRGDQDOEX5dxDhHPYGQ7XX6UhruOyYLlkeZqnYHvEYpOZ1vmf
-         ZUJQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788940898; x=1789545698;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=f8CIem4P/Or0F4qZW5iNmZjHo/TZnFkGYTym/tguf0U=;
-        b=ZNSyy7eYQ+dHqJRycXRGtvZTHNgOUcrC144itvPYLNgB8/+ilN7XIcmtyAIKUJdDNX
-         s8Keo/CIapif6WoPdEhUNLHheX8eDeibgxtMcNrbG6Ify9E7psIRGfTnfZgAMR/Mrck+
-         bBZZs40GGIipnit3cWBeSEVIiUKHzdmR2K4g0Rw5PVS/GFEdnwJsHceU2FaHPK+DtxDt
-         WvqtjD/itwsjJrIKKYIFEfThAtwP8osuZnUeYpgSzBfoRtU4KgX+B97SRuEKDGvzRR+g
-         qFdxUkzantLDyuLNPDXwqmjDckEz+Vr3K7354MDDHaVOHzsbYt3RFHlKvof4cm2lxaMP
-         /hnQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwg+tOkJn2xtcPAd28Xc5ZNOglprjUcfCfZRDcMunm9URXNUfcTN7+NrbeP37nWLvKvgkNPR6nqoLpjm3o=@vger.kernel.org
-X-Gm-Message-State: AFuF++mr49cAPvaicS7HYDGjXgo2V6oejrGLSVJ5t40PGtwsgxZtgwh4
-	cV5vmTP4YqgYpH9bal/TBiByFQl/vMnbUX+1FgmwLiZZ3fMEeAr7eIIV
-X-Gm-Gg: AYBFou0R33u1XWWZtA9WYrIGQsZS2DxAwlM6sz8cOzmynWzSLvVlknBYwRqeTZkahYw
-	dHU3EFRnXgAfJpl+Qw/y6aKi6bd/Gww8K//LOZNOvTmD3PQd6q7NsIasOQb8KUqBAJ35MpQW1dq
-	pLGy8V64TjWJxMT9HhgpB/fg1GNsb/KEarxcvMEie48zACCV6ONW/6OVCJFgpArnngB5IAMDWZ/
-	BodqIqTQCuyz4r6/6gFpDbq0gXu5eEZemWRnAbWwBrrXcR5XytOx9Q5f8WiGAts/MvJJUijcSbL
-	oJocwtY71myHry0OTOnVPLBUwCnTJdtSO0WJ47V+OlUcqegTdhbYkvOAKXi09njqGBeEbH1u3Xa
-	jE4SzwsFalRIqCtS/WBeC9shYXG8o+CGeeMRWVWA4HTqp8oC0zhJEAQ5XMzhI4QU1k60Bru74qa
-	aG0/hLJ+fT+f0czU1zDKoq5EF9ayDzml5UfCA3GuZysidimBRyFmvZO0Qz2MHuWhxIxIGLyw==
-X-Received: by 2002:a17:90b:4b90:b0:38e:49c0:75a7 with SMTP id 98e67ed59e1d1-39b2610f2fbmr47242447a91.8.1788940897733;
-        Wed, 09 Sep 2026 01:01:37 -0700 (PDT)
-Received: from localhost ([2001:19f0:8000:3e6e:5400:6ff:fe38:3d01])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b08d0d7e8sm38584020a91.16.2026.09.09.01.01.36
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 09 Sep 2026 01:01:37 -0700 (PDT)
-Date: Wed, 9 Sep 2026 16:01:05 +0800
-From: Inochi Amaoto <inochiama@gmail.com>
-To: Troy Mitchell <troy.mitchell@linux.spacemit.com>, 
-	Inochi Amaoto <inochiama@gmail.com>, Jingoo Han <jingoohan1@gmail.com>, 
-	Manivannan Sadhasivam <mani@kernel.org>, Lorenzo Pieralisi <lpieralisi@kernel.org>, 
-	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Bjorn Helgaas <bhelgaas@google.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
-	Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
-	Alexandre Ghiti <alex@ghiti.fr>, Frank Li <Frank.Li@nxp.com>, Niklas Cassel <cassel@kernel.org>, 
-	Sherry Sun <sherry.sun@nxp.com>, Arnd Bergmann <arnd@arndb.de>, 
-	Christian Bruel <christian.bruel@foss.st.com>, Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>, 
-	Senchuan Zhang <zhangsenchuan@eswincomputing.com>, Alex Elder <elder@riscstar.com>, 
-	Xincheng Zhang <zhangxincheng@ultrarisc.com>, Randolph Lin <randolph@andestech.com>, 
-	Siddharth Vadapalli <s-vadapalli@ti.com>, Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
-	Vidya Sagar <vidyas@nvidia.com>, Neil Armstrong <neil.armstrong@linaro.org>, 
-	Danilo Krummrich <dakr@kernel.org>, 
-	Uwe =?utf-8?Q?Kleine-K=C3=B6nig_=28The_Capable_Hub=29?= <u.kleine-koenig@baylibre.com>, Pengpeng Hou <pengpeng@iscas.ac.cn>, 
-	Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>, Gustavo Pimentel <gustavo.pimentel@synopsys.com>
-Cc: linux-pci@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org, spacemit@lists.linux.dev, 
-	Yixun Lan <dlan@gentoo.org>, Longbin Li <looong.bin@gmail.com>
-Subject: Re: [PATCH v5 5/6] dt-bindings: PCI: spacemit: Introduce Spacemit K3
- PCIe host controller
-Message-ID: <aqESLh8EO77U2nWQ@inochi.infowork>
-References: <20260907112606.465778-1-inochiama@gmail.com>
- <20260907112606.465778-6-inochiama@gmail.com>
- <DL93W9G65JL4.SW643T11BP8O@linux.spacemit.com>
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="j27fhShv";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="rAiVPu6p";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="tHZ+68w/";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="litFSRiF"
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 5308A1F7AF;
+	Wed,  9 Sep 2026 08:01:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1788940890; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=V+w6mHfMv7ALo2DRy+HOaCZ0lsuSiiOBsrZzxBKyKAw=;
+	b=j27fhShvgAohUMfs8OwK3hesxgv/nJpbEf9u4Dft7c0wKiycToXgr9AIDoMlyWmtWUbgAS
+	Jk+v1GMSDpWx37aCG/ErjIHWvomw2tV7yNGLhAjJsrq3ZKwfYYqrDuyzHTKNQWmGy+fIHq
+	lbWU1e0uL7cHZNEV97HBn4xZuwBfGG4=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1788940890;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=V+w6mHfMv7ALo2DRy+HOaCZ0lsuSiiOBsrZzxBKyKAw=;
+	b=rAiVPu6plSd7Zy67NELRDMXUGW0kJsTVWUJW3ENJPX86AYoZTcnnVZSj64aggPNahKAgy6
+	E+riASYvOlIpCfCA==
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b="tHZ+68w/";
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=litFSRiF
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1788940885; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=V+w6mHfMv7ALo2DRy+HOaCZ0lsuSiiOBsrZzxBKyKAw=;
+	b=tHZ+68w/PpQ5aX2RKeT7BtD2CGvGXPZspFfjx24b2gWaEmmGb5/bPv+y08J7pK+EB+vZmF
+	uoLmfM8ovodRWFHtQriMjSnLAEO5YeV2DXxCyNP1HR5wfKuxKe+v7HxVi9mKzy9iUa0GtK
+	MwaJhDA+vLpw/gsZA1xpndzhXiu7bjY=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1788940885;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=V+w6mHfMv7ALo2DRy+HOaCZ0lsuSiiOBsrZzxBKyKAw=;
+	b=litFSRiFgfgWm4xB9HTHLoC46sB3724Rigpz/RTt8nF2O+/Nh1v2Q+Qlxkocu28Lt149UU
+	dTGYYKQHPaPB7/CA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id BDA121352C;
+	Wed,  9 Sep 2026 08:01:24 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id JEkJLVQSoWqzGQAAD6G6ig
+	(envelope-from <tzimmermann@suse.de>); Wed, 09 Sep 2026 08:01:24 +0000
+Message-ID: <2642740a-b894-47bd-b26e-cabdaa14d8b8@suse.de>
+Date: Wed, 9 Sep 2026 10:01:23 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <DL93W9G65JL4.SW643T11BP8O@linux.spacemit.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] rust/drm/gem: initialize callbacks with
+ ..pin_init::zeroed()
+To: Klara Modin <klarasmodin@gmail.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Danilo Krummrich <dakr@kernel.org>,
+ Alice Ryhl <aliceryhl@google.com>
+Cc: Miguel Ojeda <ojeda@kernel.org>, Alex Deucher
+ <alexander.deucher@amd.com>, Mukul Joshi <mukul.joshi@amd.com>,
+ Felix Kuehling <felix.kuehling@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Thorsten Leemhuis <linux@leemhuis.info>,
+ Manuel Ebner <manuelebner@mailbox.org>, Gary Guo <gary@garyguo.net>,
+ dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <20260908175427.47207-1-klarasmodin@gmail.com>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <20260908175427.47207-1-klarasmodin@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Spam-Score: -4.51
+X-Rspamd-Queue-Id: 5308A1F7AF
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Spam-Level: 
+X-Rspamd-Action: no action
+X-Spamd-Result: default: False [-4.51 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FREEMAIL_TO(0.00)[gmail.com,ffwll.ch,kernel.org,google.com];
+	RCPT_COUNT_TWELVE(0.00)[17];
+	MIME_TRACE(0.00)[0:+];
+	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	ARC_NA(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	RCVD_TLS_ALL(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,suse.de:mid,leemhuis.info:email,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,garyguo.net:email,suse.com:url];
+	URIBL_BLOCKED(0.00)[suse.de:dkim,suse.de:mid,suse.com:url,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,garyguo.net:email,leemhuis.info:email];
+	DKIM_TRACE(0.00)[suse.de:+]
+X-Spam-Flag: NO
 
-On Mon, Sep 07, 2026 at 09:08:28PM +0800, Troy Mitchell wrote:
-> On Mon, Sep 7, 2026 at 07:26:04PM +0800, Inochi Amaoto wrote:
-> > @@ -14,26 +14,29 @@ description: >
-> >    PCIe IP.  The controller uses the DesignWare built-in MSI interrupt
-> >    controller, and supports 256 MSIs.
-> >  
-> > -allOf:
-> > -  - $ref: /schemas/pci/snps,dw-pcie.yaml#
-> > -
-> >  properties:
-> >    compatible:
-> > -    const: spacemit,k1-pcie
-> > +    enum:
-> > +      - spacemit,k1-pcie
-> > +      - spacemit,k3-pcie
-> >  
-> 
-> Please update the title and description to cover K3 as well. They still describe
-> only K1.
-> 
->                                             - Troy
+Hi
 
-Right, I forgot this. Thanks for the reminder.
+Am 08.09.26 um 19:54 schrieb Klara Modin:
+> When the commit b67d2d039f64 ("drm/gem: Add callback for when handle
+> count goes to 0") added the handle_free callback, it did not update the
+> rust abstraction, which will cause a build failure when that is enabled.
+> Rather than just adding another None initializer, use
+> ..pin_init::zeroed() to make all unlisted callbacks None, and remove the
+> existing None-initializations.
+>
+> Fixes: b67d2d039f64 ("drm/gem: Add callback for when handle count goes to 0")
+> Reported-by: Thorsten Leemhuis <linux@leemhuis.info>
+> Closes: https://lore.kernel.org/all/aaef18cd-ab55-4fb8-8563-ca3a5ea9cbc6@leemhuis.info
+> Suggested-by: Gary Guo <gary@garyguo.net>
+> Signed-off-by: Klara Modin <klarasmodin@gmail.com>
 
-Regards,
-Inochi
+Please see my bug report at [1].  This patch fixes half of it. I still get
+
+error[E0063]: missing field `handle_free` in initializer of 
+`drm_gem_object_funcs`
+    --> /home/tzimmermann/Projekte/linux/rust/kernel/drm/gem/shmem.rs:130:52
+     |
+130 |     const VTABLE: bindings::drm_gem_object_funcs = 
+bindings::drm_gem_object_funcs {
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ missing `handle_free`
+
+error: aborting due to 1 previous error
+
+[1] 
+https://lore.kernel.org/dri-devel/CANiq72mUW5d1dOQDgpYjuKoUaZAi-im7j3v30Wd4KTDznmM9zw@mail.gmail.com/T/#r8f10eefc91d3bbce58869433b8258882c2d19ff5
+
+Best regards
+Thomas
+
+
+
+> ---
+>   rust/kernel/drm/gem/mod.rs | 12 +-----------
+>   1 file changed, 1 insertion(+), 11 deletions(-)
+>
+> diff --git a/rust/kernel/drm/gem/mod.rs b/rust/kernel/drm/gem/mod.rs
+> index 80d8f524f9d5..af8274134a71 100644
+> --- a/rust/kernel/drm/gem/mod.rs
+> +++ b/rust/kernel/drm/gem/mod.rs
+> @@ -266,18 +266,8 @@ impl<T: DriverObject, Ctx: DeviceContext> Object<T, Ctx> {
+>           free: Some(Self::free_callback),
+>           open: Some(open_callback::<T>),
+>           close: Some(close_callback::<T>),
+> -        print_info: None,
+> -        export: None,
+> -        pin: None,
+> -        unpin: None,
+> -        get_sg_table: None,
+> -        vmap: None,
+> -        vunmap: None,
+> -        mmap: None,
+> -        status: None,
+>           vm_ops: core::ptr::null_mut(),
+> -        evict: None,
+> -        rss: None,
+> +        ..pin_init::zeroed()
+>       };
+>   
+>       /// Returns the `Device` that owns this GEM object.
+
+-- 
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Jochen Jaser, Andrew McDonald, (HRB 36809, AG Nürnberg)
+
+
