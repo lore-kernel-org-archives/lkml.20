@@ -1,87 +1,73 @@
-Received: from mail-pf1-f176.google.com (mail-pf1-f176.google.com [209.85.210.176])
+Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CA523B995F
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 06:47:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FCEE3B42FB
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 06:47:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788936462; cv=none; b=QOkc++XqVg+Ws1Nsu3uUQm+CCTeGowFHQz95/a94lgwDWh6k1NFokLhOUsSTA10ghp961KrVLpjsYSOzgQBvoo2nIv+1sWjeWIpM2P1AR5+dhrhbVtJMOuAB0roAHzVfm85gaj/UKtVrIFXq457AVzuubrCSgo60FTirrHFb1DE=
+	t=1788936470; cv=none; b=pLYdze54uh49Y43FbatI5GgsQqhG1gfLt5YQO2DIQTCfcsy30muuT8ECXG3a7VzWhpCDWeTCgznCKwVo9soMVgJMsIYT31xiD+aaetHaUZvbPiD1ABXYFut0DPsNdObx982FZDxdLlI2X3tsUzXif9EbsqY2MJS7U/zP/kEB1Cs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788936462; c=relaxed/simple;
-	bh=QjPDfY8HUX1aMlWrIqvKTmWKvq6qJTUY69IkdKukLbA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=UDGaq9ltajnsAEXXlCJr6mcxvDAzMpNxkzTS3zhwnMDEfzqFAR5pHfZbQfrQJGUKqAp/idu0yBTZIUENJLQwnj7QrcNzfoCSuOoj6tt3yxNfPo6bbnx6eFPrlUryHLQwIbifsMcvsLBxTgW/exMvwwna39pYcsb79Cdql8DcOnQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Ht8GHM8k; arc=none smtp.client-ip=209.85.210.176
+	s=arc-20240116; t=1788936470; c=relaxed/simple;
+	bh=o8E3Y97/uq7/nE5aPAcgxU0XNcCxSrIZSYmd9j2OSmQ=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=XjwKjWSAx15Xwca5a45kCy1iOrPktSr2jXaaaDYWzj8Qd+wuwL161HqpidXBh9QA7V0plcJiAwG9cJKPtdn0XgBb+4R6aHwMmxs1FE29FWR1jQBW3LAly+liIKum4AQS+Hud44kfZzjkpgCaA/4Io2Qi1+WEVCftd9rcy5EvpIE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AFSSmdnH; arc=none smtp.client-ip=209.85.221.50
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ht8GHM8k"
-Received: by mail-pf1-f176.google.com with SMTP id d2e1a72fcca58-84eb992a881so4013598b3a.2
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 23:47:38 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AFSSmdnH"
+Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-482e067e908so4346132f8f.2
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 23:47:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788936457; x=1789541257; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=PiRADsgEtjb9wVO+PPwZjDl9Sb9Qx/bxeGIV39F6Vss=;
-        b=Ht8GHM8kcaXBEG0QxVEtgfiuhS0iaygTSQePwS5WNk+r81xJGHZbkPqUy787LO8/ah
-         OZSJ5lMdF8x3a8lR6KbnNb6I1+u8MHU0k++FjmMz0byrl4QNrTwZeBGuIjHDW5bk4VQM
-         NUaX986xhZr8nN6Wt3KaQbnIU538oH5QgSxIufiX1pLOr09C2hrh1UPKxr5XAbhDPUpe
-         jQly3hE9A8vCSL2frAg1MwqV9HhsTkCr3ykR3Nh8EThvUTqhp6fUytARzkhhmgqhB0De
-         vM0Af3QZN9kzPCjpC8pa7oViH1O9sRArn1sWMNmjMvkfh7QHnool7MBCoV6XFcZhEXpG
-         Q+pQ==
+        d=gmail.com; s=20251104; t=1788936462; x=1789541262; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=mOCQAP6K7d2SeDC/l7CuDRVi41UuAMHdzhXPewwMtn8=;
+        b=AFSSmdnH0UpLuRXjKo5pt/BrgFkLnAavG+8qLhQEMwimICRqkWiszP/TdB9up1v9Ma
+         K0+Y7V1e/CivaW5OJN6FkhBSmD+7a0ojGTHX//KLnLOayU3g0Urkbzpksu8XCOWsDZot
+         6BOffL1QqV3562xDjrGGeepc6lqVAb4XkbGzB/M26XFDAlqzi1mWX57hlpEmqwQmPG1j
+         hYqjjE3oIQnCn18QrzPol2kqxry7KPg9eddz8mttnb8ihRHqVwbGytMfBu9f0nDVLIEk
+         nVC3IhPGbOy3Smdyy6X2sB9nSu231I5PWaa9zKjTpIFdjPuh2t7kcMdKEQc+9FJ5uFug
+         yXGA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788936457; x=1789541257;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=PiRADsgEtjb9wVO+PPwZjDl9Sb9Qx/bxeGIV39F6Vss=;
-        b=XDQUoLuR83bjUnajHqV5z6NU9SgecSXzYuN7FtUrwp7aeKyz8iKOBMp27pB1HvzgS0
-         uI1XlbgNnh/pWt/dXbMwuVXy3hZ1WWMLzd5jgD9pfPKMNkAVjdUfkZIy5c0MBAV5Y4Qj
-         Xl2iQLkJUjBYW2pliD4riz8FWHf/wtrNl9tz+andMmmqdhX+tFS//7q/1HzCfxoXcm1G
-         dfL+NBtM5Sm+Pa11sH56s9ONvt8aF9qNkZX9aIlUYVvFO/21KJ2XHUO9DcTV6L0iwOaW
-         4wnF2RlVJPCNBwOrW1jIJOZ+DFJY2OICp8vO0/wTevuqLIPe3wtGEdeQy5mzXerAuNV+
-         dgWA==
-X-Forwarded-Encrypted: i=1; AKwUvBxx7m7053v0bdfgpBf7Xiagtb2r8gEQ4/rO7TBu1NOwNidFBCpZ1bCPQ7urnMxvVf3Vkmz7n8VeYVcr4GA=@vger.kernel.org
-X-Gm-Message-State: AFuF++nddFNPNs35D7XsBR2dfb+BYgx/menFJYENZUzVbCodlIc/miI5
-	gB28waJo9kZuKQ9wzUdYXgy2dUtzhPtw0fpqxfqXN6nHwaRZdkn2LasM
-X-Gm-Gg: AYBFou1rykUSs7TwnlfeW+tShvPcqC7DqZvc8YG5J6oeZkUNXqKh07V/XwtiDVJi32Y
-	MjYmg4iNEgGABUknVpLEK3yj0if3EfozGvxF9sAAakbwtcK4Yqk8Ndwej39jVYMq57pRo3ccWFz
-	qekdP6MgPwcwJDs5lCwxDOI5Za+voVdBuOYspsHpr99w1vIl4lg5zoRkYwTMxq7osoDIrd19w1k
-	fSNqOufy2hAsjP6qQ7HbY7oNoaJg1bkMWltmcHZsxd7cai6ie4P/Hj8XhCVF5b12B5fQ8FPIyXD
-	c5fBd+jyDfGIEeXV8boqQHSWe6/i3ZJKgcWokKCMsEH6At18fvZFdusGivl9y+JyOGEdwVWAh6B
-	+ItRMkRCYMQfnBvhes3p3yKwXT5Ev3ZapCqqhKZjDMFEBuyYzyEFRuD/ofIFOcq05kDb5lwtnAT
-	BunI81GxpDL2N8gGNxxOqNJbmBbnKrC6kdpDQ8HhfJKNXac3YLaZrNNUFWM9FSeD5IXFHDfuXPm
-	Yeza02RbHFx0QPx/IJnwTTZa2ZsVwu/HcfMdt6AsMvSzVi8TScrdqElz3MWLLddA6mU8dGzhazS
-	ww/J8h9fde54frQ=
-X-Received: by 2002:a05:6a00:17a9:b0:857:7317:cff4 with SMTP id d2e1a72fcca58-8616a867724mr47261170b3a.21.1788936456799;
-        Tue, 08 Sep 2026 23:47:36 -0700 (PDT)
-Received: from phuc-desktop.. ([183.91.15.56])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-86152045e8dsm6406973b3a.20.2026.09.08.23.47.33
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 08 Sep 2026 23:47:36 -0700 (PDT)
-From: phucduc.bui@gmail.com
-To: Wei Fang <wei.fang@nxp.com>,
-	Frank Li <frank.li@nxp.com>,
-	Shenwei Wang <shenwei.wang@nxp.com>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
-	Simon Horman <horms@kernel.org>,
-	davem@davemloft.net,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Richard Cochran <richardcochran@gmail.com>,
-	Stephen Boyd <swboyd@chromium.org>,
-	imx@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	netdev@vger.kernel.org,
-	bui duc phuc <phucduc.bui@gmail.com>
-Subject: [PATCH net v5 2/2] net: fec: Handle optional IRQ lookup errors correctly
-Date: Wed,  9 Sep 2026 13:47:12 +0700
-Message-ID: <20260909064712.22539-2-phucduc.bui@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260909064712.22539-1-phucduc.bui@gmail.com>
-References: <20260909064712.22539-1-phucduc.bui@gmail.com>
+        d=1e100.net; s=20251104; t=1788936462; x=1789541262;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=mOCQAP6K7d2SeDC/l7CuDRVi41UuAMHdzhXPewwMtn8=;
+        b=ir9hPIcOxXSloeSihwhwkvEuxMTRVEqj9eGCMDBsb2mblB5NUe7SCgJI2BiYf3qtWw
+         6JSlLi75K25orPgdPyJvKQcDlWXR1w9tSSmJ8qLlZDYGrwlAaBDHnpRag3LeE8jtX5wC
+         y+sYmr6017gGsSBVeYTg7puyrjumpOqIcQjJiGlfUOBHiuQU2E8ySaqzQb51h7LYYGyB
+         tdQGvIID0N1oO7PS9q59dRsz43rkxN5qutPblQEsv6rmb6KXwKN6S0SFoRAeRj2JMiFT
+         go9I+NSV6baTz7MPQxkwoMhzAHFqiPK0z4kKHvr7Lf+fryZJLbWKvPVgclpgwSU4lDaO
+         v/PQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwI60Dr71IWws73ElfWb9xLVTNMGmKlBFpKklCl6ZmGHasSim7Sp/XEqNXukzTGY4rag/pVnYS2MhWNOmA=@vger.kernel.org
+X-Gm-Message-State: AFuF++mRdqYEm6K0afvUZxPBNhE6PoPSnrYM0awFDIvKWmgWXdPCpvxa
+	VBKJYcL6t4I+cMLuHFZpa1p4a85A4TNeGCcwVBWvLO76tzCzXsfjZYAX
+X-Gm-Gg: AYBFou0I6Y4s7bX1k9GRpMMdBJuhfIHXBBiFCz1DbUkbbXMa4H6e4Jt/K/gZb75yxLW
+	y0QXxSsjxJPMwCo0U5aMyAmodD/vU1W6v6UpBu8S9l++hj0iDaeXlWxk5oaBMlV6CNclOUBEMkb
+	iowVfme5X4NK2d9yrhXlcoFQnmhYuaNk6eJOZueu0zaE1UlH+m55ybCuXimsB6IlnW/K3t1VNIY
+	l4DsBVuE7soXO2NTBbxVHOmxyAZAVywYpA8YE/4PP18d4IcTrlefJXA0H/vABBfXkIHQ9NNlSdi
+	5o5ugpuVNF3gvt8F2IsFd5oENGzSfHMu0YEtrYTaRi8Rq9+4BGmPy1f5rBe+Jks5IfoBmlS6j84
+	QNE5nmlDT1pbNTQWt2PN0ud9sz+8aXxkKgNdOBLT5y3UVtEs1ysNccU8MXfsO6IadqWAsGVvGKi
+	ca+ByshyhYWsQKvVJ9CJFYchO4hnvZsANdweGeS05ex6JHV5uOLrjiGaKuTiREl7X/+n/WM/fOl
+	mdmkXyE/MvDwDlj35yVDxA3kqyjxkzrYwDVmOtd+Wwv08b+nVTJI6/UAqR5Cmb8e4YEygLH/R+w
+	QtaF8enel93QUD+D94eJBxO5KP/vhYfzSzPd1LGP1dTYRJNF8Vzn
+X-Received: by 2002:a5d:5f51:0:b0:485:8a46:704b with SMTP id ffacd0b85a97d-4858a467215mr30855337f8f.29.1788936461723;
+        Tue, 08 Sep 2026 23:47:41 -0700 (PDT)
+Received: from MacBook-Pro-von-Karl.localdomain (dynamic-095-114-212-219.95.114.pool.telefonica.de. [95.114.212.219])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-485885b7bfasm42216264f8f.29.2026.09.08.23.47.40
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Tue, 08 Sep 2026 23:47:41 -0700 (PDT)
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: Sebastian Reichel <sre@kernel.org>
+Cc: Karl Mehltretter <kmehltretter@gmail.com>,
+	Linus Walleij <linus.walleij@linaro.org>,
+	linux-pm@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] power: supply: Fix maintenance charge table kernel-doc
+Date: Wed,  9 Sep 2026 08:46:23 +0200
+Message-Id: <20260909064623.90737-1-kmehltretter@gmail.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -90,49 +76,38 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: bui duc phuc <phucduc.bui@gmail.com>
+struct power_supply_maintenance_charge_table contains
+charge_safety_timer_minutes, but its kernel-doc describes
+safety_timer_minutes. This leaves the real member undescribed and adds a
+nonexistent member to the generated documentation.
 
-Handle errors from platform_get_irq_byname_optional() explicitly while
-preserving the existing fallback to platform_get_irq() when the named IRQ
-is not available.
+Use the member's actual name.
 
-Propagate errors other than -ENXIO from the optional IRQ lookup instead
-of silently falling back to the indexed IRQ lookup.
-
-In particular, silently ignoring -EPROBE_DEFER can cause the driver to
-continue probing instead of deferring as required.
-
-Fixes: 3b56be218f65 ("net: fec_main: Use platform_get_irq_byname_optional() to avoid error message")
-Signed-off-by: bui duc phuc <phucduc.bui@gmail.com>
+Fixes: d72ce7d32478 ("power: supply: ab8500: Standardize maintenance charging")
+Assisted-by: LLM
+Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
 ---
- drivers/net/ethernet/freescale/fec_main.c | 11 ++++++++---
- 1 file changed, 8 insertions(+), 3 deletions(-)
+ include/linux/power_supply.h | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/net/ethernet/freescale/fec_main.c b/drivers/net/ethernet/freescale/fec_main.c
-index c6e29b5c2abb..f7636f23d1eb 100644
---- a/drivers/net/ethernet/freescale/fec_main.c
-+++ b/drivers/net/ethernet/freescale/fec_main.c
-@@ -5397,12 +5397,17 @@ fec_probe(struct platform_device *pdev)
- 	for (i = 0; i < irq_cnt; i++) {
- 		snprintf(irq_name, sizeof(irq_name), "int%d", i);
- 		irq = platform_get_irq_byname_optional(pdev, irq_name);
--		if (irq < 0)
--			irq = platform_get_irq(pdev, i);
--		if (irq < 0) {
-+		if (irq < 0 && irq != -ENXIO) {
- 			ret = irq;
- 			goto failed_irq;
- 		}
-+		if (irq == -ENXIO) {
-+			irq = platform_get_irq(pdev, i);
-+			if (irq < 0) {
-+				ret = irq;
-+				goto failed_irq;
-+			}
-+		}
- 		ret = devm_request_irq(&pdev->dev, irq, fec_enet_interrupt,
- 				       0, pdev->name, ndev);
- 		if (ret)
+diff --git a/include/linux/power_supply.h b/include/linux/power_supply.h
+index e749d2189335..95d3bc42ea17 100644
+--- a/include/linux/power_supply.h
++++ b/include/linux/power_supply.h
+@@ -414,9 +414,9 @@ struct power_supply_vbat_ri_table {
+  * @charge_voltage_max_uv: maintenance charging voltage that is usually a bit
+  *   lower than the constant_charge_voltage_max_uv. We can apply this settings
+  *   charge_current_max_ua until we get back up to this voltage.
+- * @safety_timer_minutes: maintenance charging safety timer, with an expiry
+- *   time in minutes. We will only use maintenance charging in this setting
+- *   for a certain amount of time, then we will first move to the next
++ * @charge_safety_timer_minutes: maintenance charging safety timer, with an
++ *   expiry time in minutes. We will only use maintenance charging in this
++ *   setting for a certain amount of time, then we will first move to the next
+  *   maintenance charge current and voltage pair in respective array and wait
+  *   for the next safety timer timeout, or, if we reached the last maintencance
+  *   charging setting, disable charging until we reach
+
+base-commit: 893e11787f78e43b534e252249ac3fff4d1333f8
 -- 
-2.43.0
-
+2.53.0
