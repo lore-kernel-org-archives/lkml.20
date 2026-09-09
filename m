@@ -1,334 +1,266 @@
-Received: from mail-ot1-f45.google.com (mail-ot1-f45.google.com [209.85.210.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62B4E4915A7
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 08:31:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1428F49550A
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 08:31:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788942679; cv=none; b=OemhOqf68bJyKwZdGzcMrixI2AOb4MEeBxheIlTxeMxRt26PG5g5dhiZeemQJK6gmmEKm6fzVKtWJdv5bNILqgMg5YdmA2RHtfH0X+puIc9qBhLGFrmoeGOCe3TKYIEla0mitdbKc9v2+uYGdSCPhhWpvxCljZ8MR4f0SKKYHxY=
+	t=1788942681; cv=none; b=aNx0PW9aOqoHVIcumfm6PQJZVxgAjtgUOQKOT76deqloRs0QHYWOtpnTZGQCGGWaByTegDEzZ+U2j4ULOc5P2Qz+RHBzdSrDqWG1OHi+EuWbiEwiowXKuWs1NH1OQTj5AiLuKx28M19uWDsxTe7jEJbKlM2557kWJxmOBeWasEI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788942679; c=relaxed/simple;
-	bh=yZNKja0Z9caXLLme/IdLs4HeW5UUaQuGdtowtZBClj8=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=oJqWoFIjUMOXMlTulrsZSiwAWvDS2xiZ4VwLpoWqf9tRjL1LM7ptPY5U3HYb5BUln95lkct2SZ6txER9fce6Wi4vNBc1VA7Nxt65V/0/OrAkLBGaP0mfVwONLThY+Cinnk4vg6n4uKbxY5q+a/MRc3sWkQrD9N0iN7sI8pnQe+I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Flr/SHl2; arc=none smtp.client-ip=209.85.210.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788942681; c=relaxed/simple;
+	bh=rZ8DjkKmBHedyIDcWayVpq5SOsoVmYxXX7VB04WSCkw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=hQwCQi4CagHoOPWXozAv1VMeIgmVHHL/XSZKl+c96WTEBJGi+t0WMSZI/1iPYW0vGv/b0RqUocYxalB91L2CBBivDqfwBHujJIMKi6sA9J6JpN5tf1L0gG7NC7ufg5vF/U0r1NVMWZRoXcpoos1qO39CANFzfzhK9NcgWdHqNGE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=pn0CP8Vi; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=VarJKn49; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Flr/SHl2"
-Received: by mail-ot1-f45.google.com with SMTP id 46e09a7af769-7f18c0e03e3so2878122a34.2
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="pn0CP8Vi";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="VarJKn49"
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6896UdLb336590
+	for <linux-kernel@vger.kernel.org>; Wed, 9 Sep 2026 08:31:16 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=Bg/eHNRfWD3uscd40GV8QRig
+	po/JtPPXEdYD1Se/H7Y=; b=pn0CP8Vi19ezKuIiBkVokjSghRGhDI8D4h5CtbQT
+	zMkTS5BVsNjt2oyJ+PtZsMb9zJu88Lxj+KK0p6Q6uCVYmASChhOn/7Ch8n16iIoQ
+	1DOw0f1C+3oh3JrZ1pYU3bud3zj+wCQO1L2/FpiP4kveuJhLuWzgh3rnp2AzEQlE
+	BRNQfOVnWVkjw4eGfReXUMzdzF3jB9Z0VOgzWHu3hRtTzuI35cpjyYNi+hob4LN9
+	qst7tzAkJcYtjge4E0Sr60uxgNFWY7kivi8Dd71zSCgDdwgr67xLwwIm+GYNl2Na
+	XtPrB9m6kYQ+Wqfc9JdeiggBVPq/bIHPE0uIsct+sKnTCw==
+Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com [209.85.215.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gjqe7jy68-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 08:31:16 +0000 (GMT)
+Received: by mail-pg1-f197.google.com with SMTP id 41be03b00d2f7-cbedb8673ceso4887217a12.0
         for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 01:31:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788942675; x=1789547475; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ZVBoL4uLYSK7OhzJyk+4QlEDJCrYxUZn9Ns/nhu2ClA=;
-        b=Flr/SHl2M1SFBg0eCriHLmwNe78GE5KmTbga2Wr0nHSEoUute9MZGPdCRbU1su/LI8
-         B2dzhXvJ2cIQJlkSIdvOfeNEHiP7+LtQrDIRIoSTeMWwFfsLlPhclrAy9jFLR1Dy9ijP
-         xkQzwv/eO7DgjqsXqYTCfCnx8OhhnrHF+UTOIMoe9hDpc/uXwmJu5okVLz96d+geJV7p
-         Qz9sHSMImXIP1t951RnDhgSUn5DFlxoBiQQys+gV7O8iBfab5b7i44o+ntucwNIhXZSr
-         0Le3iAoaBK/I/TnD85mVxjeSxnlqRFxEgzbETyPtAcVfJNaZ7cbD8iWNTzcUHCus/iS1
-         PDvg==
+        d=oss.qualcomm.com; s=google; t=1788942676; x=1789547476; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Bg/eHNRfWD3uscd40GV8QRigpo/JtPPXEdYD1Se/H7Y=;
+        b=VarJKn49yLWvlpeYk5lP1QtpfsNogouhS2Dfinyj5UOyjfXZgHo/8vQLAygunuB817
+         lXLlPET7x0wzkoymWHYHhrSFhK9T/GWov1Vci6IwydBXXBQPSP2lyPfeLxspBlhngjeN
+         h6VIMQFhUKpt2ieXT9uuq6QX55vtNovjIEbIEB/W/P1H87Jl4BhtWDiMFr9qfH1bzAJI
+         y6qSHTIvcs+fD+b1nL7jeR36nxpkiRqCtMVpzo7Fv9IpSt6SpcyZndQb8ss8zhqc86cw
+         Q8PA7tj99Of04IV72gpoqGTCj8hNl8di6tu4ViQLH5+C3njW3OTuFZM0qIlIyVBQNoXW
+         ZitA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788942675; x=1789547475;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
+        d=1e100.net; s=20251104; t=1788942676; x=1789547476;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=ZVBoL4uLYSK7OhzJyk+4QlEDJCrYxUZn9Ns/nhu2ClA=;
-        b=aFC5rl3qyd6Q1PP/scFbp5sYqDa5p/fOuXeDvGonEQeY25egB5gn6kpEUA/fb7j+JO
-         tEDla36M5WOVro1plTCa2wwEYRNvXE/680oHAjcQARuH2SEdTBMO/iIFqyIOflFjkOI1
-         gpmSRw3NNfAf1ZKw/LjqhPntl3mv5ffnxFqCxUciCFjVn37zr8Hd8YiIk5Q9u8TcqoqF
-         YGy3tfswvxONaaQibE9soZOw2qskM84LJis082BryYiEDVS8UN0/j8jgrJ6ct7i+r0Fn
-         Tz1ly2MMQ3o/i6dQp0vKBvfTblPiNpabhrkdzanSWXOhx4YadppduImEqIsiBqXuc2Gk
-         EMwQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwKbAWXuFrxt/IiWr46AePC4mS/g0OFaV1xxwYv2jLsKYxn6W6f7UUsKcKXvWAs7C8aFiph7SlJYYsJZzo=@vger.kernel.org
-X-Gm-Message-State: AFuF++khhhsxB9TE3iX1mN/lG7+6FscCiOl1VL2AcZqZReuO+ACXysnk
-	qIlZGr2o0OETGsCT4EA7V4Ty3p2OMfu/3pMkZ1Mzkk2DdUHucbXnJGJ0
-X-Gm-Gg: AYBFou3eywd17ShKpIYdxDRNBR+MpgcJdSZTTMi8fJXQ62glj6e9gEV8jd7+CoDbO0n
-	JO0LVqvf4pE/Xsr3e8g/0c0Fm9z1VYoUdx/3pZpDv7kxy5pGsB7F7jLZNUAtQfiFBlqjjQDH1ut
-	1uIoRVW7e1qHAddm997ItKg8Zg3Z51l++Xkug/ymsdPdQFkp+m3+02SOam+VkI+P3d7QraSz8cd
-	/MeGErP6rp6rD6AKBmSI1iFSfV9li3Khb/ufjygYDlMZOFlL0oyRYYzCCdNuZAFWybhDZjMkECq
-	nGGeBL5F/DTkBjgSFnjpo6OwaBQ3yWHAuP/LOU/1SG+pn234PTzw31wsUMD2xFtPthkExxc/0Ud
-	egIlDAqeSgyY2rrbw+grDtcyo/owXVYhTT+4THAOqpXSK7AoVg/P7qseM4x5VeDJKohrVINSebn
-	oZgc2ZrE3mxhhPilt435W+JpHVVgxbVdpBBeJja7GJK+XEq7FKnoDEKs9hNBUNJmL3Fs3v8K79P
-	vlPLTQ/yf8ZURG6f5EYjUmyzL0Q+bAFLcZ2ly7zeIwRRc+9nVcDWrGBAhAG7j06yRxvtt+AAW+Z
-	S8PvpyxPEtKgp0Ope2O4r3P5djKJPypwOEqcM5UTtnhrS6GxWl7ML1+9THfM0Jao2y66Tcc96j9
-	XdCT9u8Re8oXaQJkZWsuX8T7oTmpAsj5NPeaWLzg5
-X-Received: by 2002:a05:6820:1987:b0:6ae:a950:9faa with SMTP id 006d021491bc7-6b6faee2564mr17826769eaf.10.1788942675012;
+        bh=Bg/eHNRfWD3uscd40GV8QRigpo/JtPPXEdYD1Se/H7Y=;
+        b=NwnW4PWhgeGeFGfZl05PiS/Rb6zSilv213OimlZNEe/t5lmT7afBmWsmPJDUWGOJMk
+         k8YUp7MROZ1/IZwp2qGH+hSQ/0K9+H4vzHnzZkfxbJCbrDlklxi8MgjXWLJ0iTwSQabe
+         UzsTvcpe5F36H1GO1QGRwAJSAVRmIft13CgJyWjfh2p+sYIzXihBfAADsSPxc80J7MFr
+         T6pnlnvBUbyLHd+rFBm+qrzrWVcCn3SEFqG1Nl2bGc2sAO2kT9xtR8NCpZm4M8yyI9G8
+         Eb5H31z5jPuUXh0sNDod2MuvPrC8RD6FAKrBsR3Yh2I2QBKjAzaUTNUDw2bG3fdjrAh7
+         6ZrQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzcHguUuncUUVx4sNAfuwg8PPQuJQnQSDYskLqZSZ8oOhnr2QLosxj7Sn5jKw28nJyTxSyY40lIcPetIR8=@vger.kernel.org
+X-Gm-Message-State: AFuF++lajQHt4UvA1hPnIVVcyKWE2jR/mAIDOO1KhbhsGnwm+AQ8FWl3
+	9iiql+rK00Bn2guFyPoEpd6O1ziDPlKoMrlKdYU8If3Pybd9m2MKq/+1QeytXVRIbYFgVZs6rdq
+	jnvahYrLSGq5wkr+285uNlHYGO1xO+kL98Ed542r34xQK25e5xr6bM3IpqpvYFUoekpc=
+X-Gm-Gg: AYBFou2iGnR9StmK9iTseZDeQQimVPeRkqNeRFLWTFjcH0qWxpLyEM1YX7eSID97oxY
+	jtOpX+Yp6Ae9+46vUgnpqSGG2a9wJfBoAsWhrdJWZlczx1XtvkDVSiyaudaixvc8cD4RI099yaT
+	kMTKQSkvAgYOUcz/5L4Bu7eyqGe6eS5O5mpne5uZ468OPEDudaAwVbwXiwAcpjCK6uYzDEKdPAH
+	GMMt4YQKi78sZ+kh/YAwMGB+HWAZuhPGfsgXgBS6PbNaicfVks0U7nXNO+bUzlH7aQ4PXMTYRxn
+	7FBjMKJ3OU7rE5+RUWK5CjGczYxpGldVdMCO7vZTEgAC/eqSwsE3KeWkpCccrIs39D75KQRrk1z
+	j+JuFE4mtmKwF6t51mstLSif0NTKLIAQkGb3KrRop57o=
+X-Received: by 2002:a17:90b:2f87:b0:38e:250b:122f with SMTP id 98e67ed59e1d1-39b261e75femr50788806a91.16.1788942675537;
         Wed, 09 Sep 2026 01:31:15 -0700 (PDT)
-Received: from [127.0.1.1] (184-96-151-165.hlrn.qwest.net. [184.96.151.165])
-        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6b6dbedc6a0sm19031004eaf.5.2026.09.09.01.31.13
+X-Received: by 2002:a17:90b:2f87:b0:38e:250b:122f with SMTP id 98e67ed59e1d1-39b261e75femr50788731a91.16.1788942675042;
+        Wed, 09 Sep 2026 01:31:15 -0700 (PDT)
+Received: from QCOM-aGQu4IUr3Y (i-global052.qualcomm.com. [199.106.103.52])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339b123731sm39776875eec.18.2026.09.09.01.31.10
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
         Wed, 09 Sep 2026 01:31:14 -0700 (PDT)
-From: James Hilliard <james.hilliard1@gmail.com>
-Date: Wed, 09 Sep 2026 02:30:48 -0600
-Subject: [PATCH v3 15/15] mtd: rawnand: sunxi: reuse ECC status within each
- DMA read
+Date: Wed, 9 Sep 2026 16:31:08 +0800
+From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+To: Taniya Das <taniya.das@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
+        Brian Masney <bmasney+clk@redhat.com>,
+        Jerome Brunet <jbrunet+clk@baylibre.com>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Ajit Pandey <ajit.pandey@oss.qualcomm.com>,
+        Imran Shaik <imran.shaik@oss.qualcomm.com>,
+        Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
+        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH 2/3] dt-bindings: clock: qcom: document the Nord DPRX
+ Clock Controller
+Message-ID: <aqEZTDMtVaGR8F6o@QCOM-aGQu4IUr3Y>
+References: <20260907-nords_dprx-v1-0-d472af3f01b1@oss.qualcomm.com>
+ <20260907-nords_dprx-v1-2-d472af3f01b1@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260909-submit-sunxi-nand-vendor-oob-layout-v1-v3-15-838cb0ba1547@gmail.com>
-References: <20260909-submit-sunxi-nand-vendor-oob-layout-v1-v3-0-838cb0ba1547@gmail.com>
-In-Reply-To: <20260909-submit-sunxi-nand-vendor-oob-layout-v1-v3-0-838cb0ba1547@gmail.com>
-To: Miquel Raynal <miquel.raynal@bootlin.com>, 
- Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Samuel Holland <samuel@sholland.org>, Maxime Ripard <mripard@kernel.org>, 
- Richard Genoud <richard.genoud@bootlin.com>, 
- Masahiro Yamada <yamada.masahiro@socionext.com>, 
- Boris Brezillon <bbrezillon@kernel.org>, 
- Brian Norris <computersforpeace@gmail.com>
-Cc: linux-mtd@lists.infradead.org, devicetree@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, 
- linux-kernel@vger.kernel.org, James Hilliard <james.hilliard1@gmail.com>
-X-Mailer: b4 0.15.2
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260907-nords_dprx-v1-2-d472af3f01b1@oss.qualcomm.com>
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA5MDA5NCBTYWx0ZWRfX6GplkUA+4o8w
+ ZoAnuQQfrgdAO+pwo92w5TV1U7FLcCJH9pyuH2doC4YdtfV8KGq+RfFzv2yFL3vm6nc4iuBlk0Z
+ 4DPqnI4r/zLVmWSDmpTuycjFqZAfsvU=
+X-Proofpoint-ORIG-GUID: rFZOwb9Vr0LNDEKwDRySePaUN8va1KzJ
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA5MDA5NCBTYWx0ZWRfX4v35SIZUaZY6
+ RaH/NdoeANB56dzp7vOVOZpMIyiMacZFxXdL0l5q5hqVU5jkBTRD/bGP9xPmw4gwCuHou70/QJf
+ cTd6OG06ZF+2hwnpy+QNlVxnQQqxsEvYClqmbT8LFT/GFeRTuW7qkGsEYMctIRCJ9LjRSH/p/cx
+ fpgyYL8WTtbt3vsc72vLYcBaW7UYi5SjC6SSNXZOYxH9zIJ4RqhlOXEmhbCDRQ+WRgqh3BwYaxs
+ 2ZjkSi/szTeHL08eP6vWOPdT2xbApWpZBpkEd+q1/rDWPT3QME9bD1KjC/oBUYU0+j9ss+MAoZc
+ 3L4Qv3FjcNvlMH2lwbowlIWW+QmBX432DAzpzC4Q3z7WHF61Xovg5LnqYZaeHQttJB+L3nGKTJi
+ PEtnlFRNo31DS5NapbsDzIGER8hD/cnYtFld39Yt7ZGT+oFYmNdQfUVWivaPxMHvWMbIewCGzL+
+ MoEWTtKtVwYX3mchrwg==
+X-Authority-Analysis: v=2.4 cv=Xey5Co55 c=1 sm=1 tr=0 ts=6aa11954 cx=c_pps
+ a=rz3CxIlbcmazkYymdCej/Q==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
+ a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
+ a=gEfo2CItAAAA:8 a=EUspDBNiAAAA:8 a=FJ8gEVljA5m4mNThiM4A:9 a=CjuIK1q_8ugA:10
+ a=bFCP_H2QrGi7Okbo017w:22 a=sptkURWiP4Gy88Gu7hUp:22
+X-Proofpoint-GUID: rFZOwb9Vr0LNDEKwDRySePaUN8va1KzJ
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-08_03,2026-09-08_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 malwarescore=0 spamscore=0 lowpriorityscore=0 bulkscore=0
+ phishscore=0 priorityscore=1501 impostorscore=0 suspectscore=0 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609090094
 
-The DMA completion loop reads the pattern ID repeatedly and reads the
-same packed error-counter word for each of its four ECC steps.
+On Mon, Sep 07, 2026 at 01:56:14PM +0530, Taniya Das wrote:
+> Add bindings documentation for the Nord DisplayPort Receiver (DPRX) Clock Controller.
+> 
+> Signed-off-by: Taniya Das <taniya.das@oss.qualcomm.com>
+> ---
+>  .../bindings/clock/qcom,nord-dprxcc.yaml           | 68 ++++++++++++++++++++++
+>  include/dt-bindings/clock/qcom,nord-dprxcc.h       | 27 +++++++++
+>  2 files changed, 95 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/clock/qcom,nord-dprxcc.yaml b/Documentation/devicetree/bindings/clock/qcom,nord-dprxcc.yaml
+> new file mode 100644
+> index 0000000000000000000000000000000000000000..fbaaad1f3db3ff67589d6201ed0e25710c044614
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/clock/qcom,nord-dprxcc.yaml
+> @@ -0,0 +1,68 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/clock/qcom,nord-dprxcc.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Qualcomm DPRX Clock & Reset Controller on Nord
+> +
+> +maintainers:
+> +  - Taniya Das <taniya.das@oss.qualcomm.com>
+> +
+> +description: |
 
-Snapshot the completed operation status and pattern ID, and retain the
-last counter word while visiting consecutive DMA steps. Read counters
-only for steps which use them. Reuse the shared status register value on
-older controllers which place the pattern flags in its upper half.
-Keep the existing error and pattern priority in both the plain-marker
-and randomized-format paths.
+" |" can be dropped?
 
-Start a fresh snapshot after every PIO ECC operation so reuse of hardware
-slot zero cannot reuse status from a previous step. The snapshot is local
-to one callback and does not survive controller resets or DMA-to-PIO
-retries.
+> +  Qualcomm dprx clock control module provides the clocks, resets and power
+> +  domains on Nord.
 
-Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
----
- drivers/mtd/nand/raw/sunxi_nand.c | 100 +++++++++++++++++++++++++-------------
- 1 file changed, 67 insertions(+), 33 deletions(-)
+I'm not sure it provides power domains, as the driver registers no GDSCs
+and the binding has no #power-domain-cells.
 
-diff --git a/drivers/mtd/nand/raw/sunxi_nand.c b/drivers/mtd/nand/raw/sunxi_nand.c
-index 1c1fcea69108..8710e91ffbaa 100644
---- a/drivers/mtd/nand/raw/sunxi_nand.c
-+++ b/drivers/mtd/nand/raw/sunxi_nand.c
-@@ -1138,46 +1138,87 @@ struct sunxi_nfc_ecc_status {
- 	unsigned int max_bitflips;
- };
- 
-+struct sunxi_nfc_ecc_snapshot {
-+	u32 status;
-+	u32 pattern_found;
-+	u32 pattern_id;
-+	u32 count_reg;
-+	u32 count;
-+};
-+
-+static void sunxi_nfc_hw_ecc_read_status(struct nand_chip *nand,
-+					 struct sunxi_nfc_ecc_snapshot *snapshot)
-+{
-+	struct sunxi_nfc *nfc = to_sunxi_nfc(nand->controller);
-+	u32 pattern_found;
-+
-+	pattern_found = readl(nfc->regs + nfc->caps->reg_pat_found);
-+	snapshot->pattern_found = field_get(NFC_ECC_PAT_FOUND_MSK(nfc), pattern_found);
-+	if (nfc->caps->reg_pat_found == NFC_REG_ECC_ST)
-+		snapshot->status = pattern_found;
-+	else
-+		snapshot->status = readl(nfc->regs + NFC_REG_ECC_ST);
-+	snapshot->pattern_id = 0;
-+	if (snapshot->pattern_found &&
-+	    (to_sunxi_nand(nand)->randomized_oob ||
-+	     (snapshot->pattern_found & ~snapshot->status)))
-+		snapshot->pattern_id = readl(nfc->regs + NFC_REG_PAT_ID(nfc));
-+	/* A new operation, including every PIO step, invalidates the count word. */
-+	snapshot->count_reg = ~0U;
-+}
-+
-+static unsigned int
-+sunxi_nfc_hw_ecc_read_count(struct nand_chip *nand,
-+			    struct sunxi_nfc_ecc_snapshot *snapshot, int hw_step)
-+{
-+	struct sunxi_nfc *nfc = to_sunxi_nfc(nand->controller);
-+	u32 reg = NFC_REG_ECC_ERR_CNT(nfc, hw_step);
-+
-+	/* Four consecutive DMA steps share one error-counter register. */
-+	if (snapshot->count_reg != reg) {
-+		snapshot->count = readl(nfc->regs + reg);
-+		snapshot->count_reg = reg;
-+	}
-+
-+	return NFC_ECC_ERR_CNT(hw_step, snapshot->count);
-+}
-+
- static void sunxi_nfc_hw_ecc_record_status(struct nand_chip *nand,
- 					   struct sunxi_nfc_ecc_status *result,
--					   int logical_step, int hw_step, u32 status,
--					   u32 pattern_found)
-+					   int logical_step, int hw_step,
-+					   struct sunxi_nfc_ecc_snapshot *snapshot)
- {
--	struct sunxi_nfc *nfc = to_sunxi_nfc(nand->controller);
- 	u32 count;
- 
--	if ((pattern_found & BIT(hw_step)) &&
--	    !(readl(nfc->regs + NFC_REG_PAT_ID(nfc)) & BIT(hw_step)))
-+	if ((snapshot->pattern_found & BIT(hw_step)) &&
-+	    !(snapshot->pattern_id & BIT(hw_step)))
- 		result->zero_steps |= BIT(logical_step);
- 
--	if (status & NFC_ECC_ERR(hw_step)) {
-+	if (snapshot->status & NFC_ECC_ERR(hw_step)) {
- 		result->error_steps |= BIT(logical_step);
- 		return;
- 	}
- 
--	count = readl(nfc->regs + NFC_REG_ECC_ERR_CNT(nfc, hw_step));
--	count = NFC_ECC_ERR_CNT(hw_step, count);
-+	count = sunxi_nfc_hw_ecc_read_count(nand, snapshot, hw_step);
- 	result->corrected += count;
- 	result->max_bitflips = max(result->max_bitflips, count);
- }
- 
- static int sunxi_nfc_hw_ecc_correct(struct nand_chip *nand, u8 *data, u8 *oob,
--				    int hw_step, u32 status, u32 pattern_found,
-+				    int hw_step, struct sunxi_nfc_ecc_snapshot *snapshot,
- 				    unsigned int user_data_sz, bool *erased)
- {
--	struct sunxi_nfc *nfc = to_sunxi_nfc(nand->controller);
- 	struct nand_ecc_ctrl *ecc = &nand->ecc;
--	u32 tmp;
- 
- 	*erased = false;
- 
--	if (status & NFC_ECC_ERR(hw_step))
-+	if (snapshot->status & NFC_ECC_ERR(hw_step))
- 		return -EBADMSG;
- 
--	if (pattern_found & BIT(hw_step)) {
-+	if (snapshot->pattern_found & BIT(hw_step)) {
- 		u8 pattern;
- 
--		if (unlikely(!(readl(nfc->regs + NFC_REG_PAT_ID(nfc)) & BIT(hw_step)))) {
-+		if (unlikely(!(snapshot->pattern_id & BIT(hw_step)))) {
- 			pattern = 0x0;
- 		} else {
- 			pattern = 0xff;
-@@ -1193,9 +1234,7 @@ static int sunxi_nfc_hw_ecc_correct(struct nand_chip *nand, u8 *data, u8 *oob,
- 		return 0;
- 	}
- 
--	tmp = readl(nfc->regs + NFC_REG_ECC_ERR_CNT(nfc, hw_step));
--
--	return NFC_ECC_ERR_CNT(hw_step, tmp);
-+	return sunxi_nfc_hw_ecc_read_count(nand, snapshot, hw_step);
- }
- 
- static int sunxi_nfc_hw_ecc_read_chunk(struct nand_chip *nand,
-@@ -1210,7 +1249,7 @@ static int sunxi_nfc_hw_ecc_read_chunk(struct nand_chip *nand,
- 	struct sunxi_nand_chip *sunxi_nand = to_sunxi_nand(nand);
- 	unsigned int user_data_sz = sunxi_nfc_user_data_sz(sunxi_nand, logical_step);
- 	struct nand_ecc_ctrl *ecc = &nand->ecc;
--	u32 pattern_found;
-+	struct sunxi_nfc_ecc_snapshot snapshot;
- 	bool bbm = !logical_step;
- 	bool erased;
- 	int ret, bitflips;
-@@ -1250,13 +1289,11 @@ static int sunxi_nfc_hw_ecc_read_chunk(struct nand_chip *nand,
- 
- 	*cur_off = oob_off + ecc->bytes + user_data_sz;
- 
--	pattern_found = readl(nfc->regs + nfc->caps->reg_pat_found);
--	pattern_found = field_get(NFC_ECC_PAT_FOUND_MSK(nfc), pattern_found);
-+	sunxi_nfc_hw_ecc_read_status(nand, &snapshot);
- 
- 	if (sunxi_nand->randomized_oob) {
- 		sunxi_nfc_hw_ecc_record_status(nand, result, logical_step, hw_step,
--					       readl(nfc->regs + NFC_REG_ECC_ST),
--					       pattern_found);
-+					       &snapshot);
- 		memcpy_fromio(data, nfc->regs + NFC_RAM0_BASE, ecc->size);
- 		sunxi_nfc_hw_ecc_get_prot_oob_bytes(nand, oob, hw_step, bbm,
- 						    page, user_data_sz);
-@@ -1264,8 +1301,7 @@ static int sunxi_nfc_hw_ecc_read_chunk(struct nand_chip *nand,
- 	}
- 
- 	bitflips = sunxi_nfc_hw_ecc_correct(nand, data, oob_required ? oob : NULL,
--					    hw_step, readl(nfc->regs + NFC_REG_ECC_ST),
--					    pattern_found, user_data_sz, &erased);
-+					    hw_step, &snapshot, user_data_sz, &erased);
- 	if (erased)
- 		return 1;
- 
-@@ -1530,13 +1566,14 @@ static int sunxi_nfc_hw_ecc_read_chunks_dma(struct nand_chip *nand, uint8_t *buf
- 	struct mtd_info *mtd = nand_to_mtd(nand);
- 	struct nand_ecc_ctrl *ecc = &nand->ecc;
- 	struct sunxi_nfc_ecc_status result = {};
-+	struct sunxi_nfc_ecc_snapshot snapshot;
- 	unsigned int corrected = mtd->ecc_stats.corrected;
- 	unsigned int failed = mtd->ecc_stats.failed;
- 	unsigned int max_bitflips = 0;
- 	bool erased_chunk_found = false;
- 	int ret, i;
- 	struct scatterlist sg;
--	u32 status, pattern_found, wait;
-+	u32 wait;
- 
- 	ret = sunxi_nfc_wait_cmd_fifo_empty(nfc);
- 	if (ret)
-@@ -1577,9 +1614,7 @@ static int sunxi_nfc_hw_ecc_read_chunks_dma(struct nand_chip *nand, uint8_t *buf
- 	if (ret)
- 		return ret;
- 
--	status = readl(nfc->regs + NFC_REG_ECC_ST);
--	pattern_found = readl(nfc->regs + nfc->caps->reg_pat_found);
--	pattern_found = field_get(NFC_ECC_PAT_FOUND_MSK(nfc), pattern_found);
-+	sunxi_nfc_hw_ecc_read_status(nand, &snapshot);
- 
- 	for (i = 0; i < nchunks; i++) {
- 		int data_off = i * ecc->size;
-@@ -1591,8 +1626,7 @@ static int sunxi_nfc_hw_ecc_read_chunks_dma(struct nand_chip *nand, uint8_t *buf
- 		int bitflips;
- 
- 		if (sunxi_nand->randomized_oob) {
--			sunxi_nfc_hw_ecc_record_status(nand, &result, i, i, status,
--						       pattern_found);
-+			sunxi_nfc_hw_ecc_record_status(nand, &result, i, i, &snapshot);
- 			sunxi_nfc_hw_ecc_get_prot_oob_bytes(nand, oob, i, !i,
- 							    page, user_data_sz);
- 			continue;
-@@ -1600,7 +1634,7 @@ static int sunxi_nfc_hw_ecc_read_chunks_dma(struct nand_chip *nand, uint8_t *buf
- 
- 		bitflips = sunxi_nfc_hw_ecc_correct(nand, randomized ? data : NULL,
- 						    oob_required ? oob : NULL,
--						    i, status, pattern_found,
-+						    i, &snapshot,
- 						    user_data_sz, &erased);
- 
- 		/* ECC errors are handled in the second loop. */
-@@ -1629,7 +1663,7 @@ static int sunxi_nfc_hw_ecc_read_chunks_dma(struct nand_chip *nand, uint8_t *buf
- 		return sunxi_nfc_hw_ecc_finish_randomized_read(nand, buf, &result,
- 							     oob_required, true, page);
- 
--	if (status & NFC_ECC_ERR_MSK(nfc)) {
-+	if (snapshot.status & NFC_ECC_ERR_MSK(nfc)) {
- 		for (i = 0; i < nchunks; i++) {
- 			int data_off = i * ecc->size;
- 			unsigned int user_data_sz = sunxi_nfc_user_data_sz(sunxi_nand, i);
-@@ -1637,7 +1671,7 @@ static int sunxi_nfc_hw_ecc_read_chunks_dma(struct nand_chip *nand, uint8_t *buf
- 			u8 *data = buf + data_off;
- 			u8 *oob = nand->oob_poi + oob_off;
- 
--			if (!(status & NFC_ECC_ERR(i)))
-+			if (!(snapshot.status & NFC_ECC_ERR(i)))
- 				continue;
- 
- 			ret = sunxi_nfc_hw_ecc_read_error(nand, data, data_off, oob,
+Shawn
 
--- 
-2.53.0
-
+> +
+> +  See also:
+> +    include/dt-bindings/clock/qcom,nord-dprxcc.h
+> +
+> +properties:
+> +  compatible:
+> +    enum:
+> +      - qcom,nord-dprxcc0
+> +      - qcom,nord-dprxcc1
+> +
+> +  clocks:
+> +    items:
+> +      - description: XO clock source
+> +      - description: DPRX CFG AHB clock from NWGCC
+> +      - description: Sleep clock source
+> +
+> +  power-domains:
+> +    description:
+> +      MMCX power domain.
+> +    maxItems: 1
+> +
+> +  required-opps:
+> +    description:
+> +      MMCX performance point.
+> +    maxItems: 1
+> +
+> +required:
+> +  - compatible
+> +  - clocks
+> +  - power-domains
+> +  - required-opps
+> +
+> +allOf:
+> +  - $ref: qcom,gcc.yaml#
+> +
+> +unevaluatedProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/clock/qcom,nord-nwgcc.h>
+> +    #include <dt-bindings/clock/qcom,rpmh.h>
+> +    #include <dt-bindings/power/qcom,rpmhpd.h>
+> +    clock-controller@a940000 {
+> +      compatible = "qcom,nord-dprxcc0";
+> +      reg = <0x0a940000 0xc000>;
+> +      clocks = <&rpmhcc RPMH_CXO_CLK>,
+> +               <&nwgcc NW_GCC_DPRX0_CFG_AHB_CLK>,
+> +               <&sleep_clk>;
+> +      power-domains = <&rpmhpd RPMHPD_MMCX>;
+> +      required-opps = <&rpmhpd_opp_low_svs>;
+> +      #clock-cells = <1>;
+> +      #reset-cells = <1>;
+> +    };
+> +...
+> diff --git a/include/dt-bindings/clock/qcom,nord-dprxcc.h b/include/dt-bindings/clock/qcom,nord-dprxcc.h
+> new file mode 100644
+> index 0000000000000000000000000000000000000000..62c26b58ebef04f05ea1dc77664c03aaad65baa4
+> --- /dev/null
+> +++ b/include/dt-bindings/clock/qcom,nord-dprxcc.h
+> @@ -0,0 +1,27 @@
+> +/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
+> +/*
+> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+> + */
+> +
+> +#ifndef _DT_BINDINGS_CLK_QCOM_DPRX_CC_NORD_H
+> +#define _DT_BINDINGS_CLK_QCOM_DPRX_CC_NORD_H
+> +
+> +/* DPRX_CC clocks */
+> +#define DPRX_CC_AHB_CLK					0
+> +#define DPRX_CC_AUD_CLK					1
+> +#define DPRX_CC_AUDIO_CLK_SRC				2
+> +#define DPRX_CC_CORE_AHB_DIV_CLK_SRC			3
+> +#define DPRX_CC_CORE_AUD_DIV_CLK_SRC			4
+> +#define DPRX_CC_CORE_RCG0_CLK_SRC			5
+> +#define DPRX_CC_CORE_RCG2_CLK_SRC			6
+> +#define DPRX_CC_CORE_RCG3_CLK_SRC			7
+> +#define DPRX_CC_MDP_MEM_CLK				8
+> +#define DPRX_CC_MMCX_XO_CLK				9
+> +#define DPRX_CC_PLL0					10
+> +#define DPRX_CC_PLL1					11
+> +#define DPRX_CC_VID_MEM_CLK				12
+> +
+> +/* DPRX_CC resets */
+> +#define DPRX_CC_DPRX_BLK_BCR				0
+> +
+> +#endif
+> 
+> -- 
+> 2.34.1
+> 
+> 
