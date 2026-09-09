@@ -1,183 +1,131 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-m16023652195.xmail.ntesmail.com (mail-m16023652195.xmail.ntesmail.com [160.236.52.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C44FD280035
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 00:44:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68ADA492E5D;
+	Wed,  9 Sep 2026 00:44:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=160.236.52.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788914668; cv=none; b=kXCFxSQl26DVf7eeWMAAbjxKg8RBi7bqrdyUuZSk8Tztdvpc6w3Gxbfomnv0ImP3OcIk1FdK1bLDlyMHeAKilb7cr88/j1yKam3k3vjiyRqIAZre7NG3MGt1LUFUTamPD26Jo/aq/YVxk3gi7PPKct+1r0XXIOQAt9BJI0X0wrY=
+	t=1788914702; cv=none; b=KOCbSPzNNH4wYOdBJ3ChbWBIBsH0wxnbJdYWvUxVBX+8osd9a2cpUPsyx73RRYZj6xbq5Ia66EbFgoL9nY0grA8kFYO9AxlD3bI7GP+4e+UISFEqO0pLRVoZp1WqrsMKeWhPXnv8yGQn9hLdZGBrmb2LxqVyfa64NKf2IwgN2uE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788914668; c=relaxed/simple;
-	bh=ORKpbp7AjgMPCFMtfbhN6DauyJKy5S+lNm/IL9cyM0E=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=SwWsh0obAxyvoI4drz3AzEeNuhmI9KtVpgi5pT+xsr6Nzu+BI0qoUUMFrA5IFe9B+lw9hP+3uvXptO7K0+7V9OC6Dt7dUu5a097+HF2AfI0E0RbqeI0mh3DfOBU7DX+HMHW6Zr+0e3u7sEOAAyOEAkj3tewCVA2rma9Qohno/sI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AJPnX0UX; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788914702; c=relaxed/simple;
+	bh=sH4FKnF2NxYQnc2Zi/kCH5M1QzxGotg9J4RDP9ViLaE=;
+	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=QPEFasuRrb1CaN8DKrWmWhjsbSgiolquel4eKRTaHF9MjuZ3paDYhwVd63lUifcRCTxsFEsfGnptbHjZV+tIUZycGRBwPy8NLN/YH+MFohO9rxmlVS3D05dMh39+/HfyIPJ8cp1eO966FQLAj3TmZMvcjDwepA40/jRGX+La+xM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=e9NTEEIW; arc=none smtp.client-ip=160.236.52.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AJPnX0UX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B329C1F00A3A;
-	Wed,  9 Sep 2026 00:44:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788914666;
-	bh=kNrn+bxRvquraUlROLkcePbW5n9v1zW72iJISV/dC6w=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=AJPnX0UXFhNV5xoNjXBGdJ4z7uNqkT32fNhDo4Czr2ql6qVWOgp5Yc7GuEUQw3ZJH
-	 a6MnN0SxApcff8inluNHzdkmCiy6wmGLF0wEc6qdIDhlDSMTqY6qXSHlxJ355OEOjv
-	 iqjyxRgpqoKpR/cH3wRm5XnuHTWoASfx6dPW57N9in7B9NN2zjRSg272Z5DXQlITmm
-	 6BItK11c+mHdJVBj9RE3qCUs8/YHeg8IhlwXLQKRKgS4ONGQB2HF3BW6JD5fKJf3FT
-	 dnqs3IxuEV/LQADzjVWsSJOUjpeBTaB/bIO2hDR+3RQhDBgZ452vI4cF7nqMKvmGkr
-	 SRN+U1KWY0/Ng==
-Date: Wed, 9 Sep 2026 09:44:20 +0900
-From: Masami Hiramatsu (Google) <mhiramat@kernel.org>
-To: Jinke Han <jinkehan@didiglobal.com>
-Cc: <tglx@kernel.org>, <mingo@redhat.com>, <bp@alien8.de>,
- <dave.hansen@linux.intel.com>, <x86@kernel.org>, <hpa@zytor.com>,
- <laoar.shao@gmail.com>, <peterz@infradead.org>, <jgross@suse.com>,
- <kees@kernel.org>, <rppt@kernel.org>, <jpoimboe@kernel.org>,
- <calvin@wbinvd.org>, <pfalcato@suse.de>, <linux-kernel@vger.kernel.org>,
- <tiozhang@didiglobal.com>
-Subject: Re: [PATCH v3] x86/kprobe: Fix crash when probe cs call
-Message-Id: <20260909094420.049df579134ec8525e1eef40@kernel.org>
-In-Reply-To: <20260908073742.GA10517@didi-ThinkCentre-M920t-N000>
-References: <20260908073742.GA10517@didi-ThinkCentre-M920t-N000>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="e9NTEEIW"
+Received: from [172.16.12.48] (unknown [61.154.14.86])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 4d08c1d9d;
+	Wed, 9 Sep 2026 08:44:48 +0800 (GMT+08:00)
+Message-ID: <4d441232-6ab5-4865-a70c-f868e8128f7e@rock-chips.com>
+Date: Wed, 9 Sep 2026 08:44:45 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Cc: shawn.lin@rock-chips.com, Alexey Charkov <alchark@flipper.net>,
+ linux-pci@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org,
+ kernel@collabora.com
+Subject: Re: [PATCH v6 02/10] PCI: dw-rockchip: Restore vpcie3v3 regulator
+ handle
+To: Sebastian Reichel <sebastian.reichel@collabora.com>,
+ Lorenzo Pieralisi <lpieralisi@kernel.org>,
+ =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+ Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
+ Bjorn Helgaas <bhelgaas@google.com>, Heiko Stuebner <heiko@sntech.de>,
+ Philipp Zabel <p.zabel@pengutronix.de>, Jingoo Han <jingoohan1@gmail.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ "Yury Norov (NVIDIA)" <yury.norov@gmail.com>,
+ Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+References: <20260908-rockchip-pcie-system-suspend-v6-0-fbabcca9921b@collabora.com>
+ <20260908-rockchip-pcie-system-suspend-v6-2-fbabcca9921b@collabora.com>
+From: Shawn Lin <shawn.lin@rock-chips.com>
+In-Reply-To: <20260908-rockchip-pcie-system-suspend-v6-2-fbabcca9921b@collabora.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa0839fe00403a4kunm50f3116743e785
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCH0IdVk9MGkseSUJOQ01JTFYVFA
+	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSU
+	9PT0hVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=e9NTEEIWqkh7Z68AwWcaKw2n1Tx+hNYucPDaLw/joe2dmc0eusuvJC9uTUS6/osiyrEz/1iXmbi+GcbCQzY84/xyRH5OnH7Tt91mMMAwTo4iuryxRApYrm6MvmZOQZqAOV2qJg2ROIsA16acFLY3yXJ/KzvONULKiDLcOGWCgEw=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
+	bh=8BHp18JK7JZ2Mrw0ZrUESo0RJu+yED+tqkK5PcwM6KM=;
+	h=date:mime-version:subject:message-id:from;
 
-Thanks! Peter, Ingo, can you pick this via -tip tree? 
+在 2026/09/08 星期二 22:51, Sebastian Reichel 写道:
+> This reverts commit c930b10f17c0 ("PCI: dw-rockchip: Simplify regulator
+> setup with devm_regulator_get_enable_optional()"), which nicely cleaned
+> up the code.
+> 
+> The vpcie3v3 regulator handle is needed to disable the regulator during
+> system suspend (to be added in its own patch).
+> 
 
-On Tue, 8 Sep 2026 15:37:42 +0800
-Jinke Han <jinkehan@didiglobal.com> wrote:
+Reviewed-by: Shawn Lin <shawn.lin@rock-chips.com>
 
-> When I used eBPF to probe the call instructions within a function,
-> we encountered a kernel crash.
-> 
-> The ebpf tool probes the 257 offset of the __hrtimer_run_queues
-> function.
-> 
-> <__hrtimer_run_queues+249>:  nopl   0x0(%rax,%rax,1)
-> <__hrtimer_run_queues+254>:  mov    %r14,%rdi
-> <__hrtimer_run_queues+257>:  cs call <__x86_indirect_thunk_r12>
-> <__hrtimer_run_queues+263>:  mov    %eax,%r12d
-> <__hrtimer_run_queues+266>:  xchg   %ax,%ax
-> <__hrtimer_run_queues+268>:  mov    %r13,%rdi
-> 
-> The scene of kernel crash is as follows:
-> 
-> [73665.737181] BUG: unable to handle page fault for address: 00000000000f41c9
-> [73665.744253] #PF: supervisor write access in kernel mode
-> [73665.749643] #PF: error_code(0x0002) - not-present page
-> [73665.754843] PGD 0 P4D 0
-> [73665.757390] Oops: 0002 [#1] SMP NOPTI
-> [73665.761073] CPU: 1 PID: 0 Comm: swapper/1 Kdump: loaded Tainted: P
-> [73665.782671] RIP: 0010:__hrtimer_run_queues+0x106/0x230
-> 
-> Note that __hrtimer_run_queues+0x106 is __hrtimer_run_queues+262, which is
-> at the 6th byte of the above cs call instruction. Since the cs call
-> instruction occupies 6 bytes, the exception occurred in the middle of that
-> call instruction.
-> 
-> The root cause is that when using eBPF tools to probe in the middle of a
-> function, kprobe with int3 is used as the underlying implementation.
-> During single-step emulation of the original call instruction,
-> int3_emulate_call assumes that the probed call instruction is 5 bytes
-> long. However, the actual CS-prefixed call instruction occupies 6 bytes,
-> so it constructs an incorrect exception return address. When the CPU
-> returns from the kprobe handler, the next instruction to be executed is at
-> the address of the last byte of that CS call instruction. Coincidentally,
-> starting from that address, the CPU fetches and decodes a completely
-> different instruction, which ultimately triggers a kernel crash.
-> 
-> Fix the issue by using the actual instruction length obtained from
-> the instruction decoder when constructing the exception return
-> address, rather than relying on the hardcoded CALL_INSN_SIZE macro.
-> 
-> Cc: stable@kernel.org
-> Cc: linux-trace-kernel@vger.kernel.org
-> Fixes: 6256e668b7af ("x86/kprobes: Use int3 instead of debug trap for single-step")
-> Reviewed-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
-> Suggested-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
-> Acked-by: Yafang Shao <laoar.shao@gmail.com>
-> Signed-off-by: Jinke Han <jinkehan@didiglobal.com>
+> Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
 > ---
->  arch/x86/include/asm/text-patching.h | 4 ++--
->  arch/x86/kernel/alternative.c        | 6 ++++--
->  arch/x86/kernel/kprobes/core.c       | 5 ++---
->  3 files changed, 8 insertions(+), 7 deletions(-)
+>   drivers/pci/controller/dwc/pcie-dw-rockchip.c | 23 +++++++++++++++++------
+>   1 file changed, 17 insertions(+), 6 deletions(-)
 > 
-> diff --git a/arch/x86/include/asm/text-patching.h b/arch/x86/include/asm/text-patching.h
-> index f2d142a0a862..ea09381070e8 100644
-> --- a/arch/x86/include/asm/text-patching.h
-> +++ b/arch/x86/include/asm/text-patching.h
-> @@ -164,9 +164,9 @@ unsigned long int3_emulate_pop(struct pt_regs *regs)
->  }
->  
->  static __always_inline
-> -void int3_emulate_call(struct pt_regs *regs, unsigned long func)
-> +void int3_emulate_call(struct pt_regs *regs, unsigned long ip, unsigned long func)
->  {
-> -	int3_emulate_push(regs, regs->ip - INT3_INSN_SIZE + CALL_INSN_SIZE);
-> +	int3_emulate_push(regs, ip);
->  	int3_emulate_jmp(regs, func);
->  }
->  
-> diff --git a/arch/x86/kernel/alternative.c b/arch/x86/kernel/alternative.c
-> index add62db3e82c..d13bc5215d87 100644
-> --- a/arch/x86/kernel/alternative.c
-> +++ b/arch/x86/kernel/alternative.c
-> @@ -2172,6 +2172,7 @@ int3_exception_notify(struct notifier_block *self, unsigned long val, void *data
->  	unsigned long selftest = (unsigned long)&int3_selftest_asm;
->  	struct die_args *args = data;
->  	struct pt_regs *regs = args->regs;
-> +	unsigned long ip;
->  
->  	OPTIMIZER_HIDE_VAR(selftest);
->  
-> @@ -2184,7 +2185,8 @@ int3_exception_notify(struct notifier_block *self, unsigned long val, void *data
->  	if (regs->ip - INT3_INSN_SIZE != selftest)
->  		return NOTIFY_DONE;
->  
-> -	int3_emulate_call(regs, (unsigned long)&int3_selftest_callee);
-> +	ip = regs->ip - INT3_INSN_SIZE + CALL_INSN_SIZE;
-> +	int3_emulate_call(regs, ip, (unsigned long)&int3_selftest_callee);
->  	return NOTIFY_STOP;
->  }
->  
-> @@ -2754,7 +2756,7 @@ noinstr int smp_text_poke_int3_handler(struct pt_regs *regs)
->  		break;
->  
->  	case CALL_INSN_OPCODE:
-> -		int3_emulate_call(regs, (long)ip + tpl->disp);
-> +		int3_emulate_call(regs, (long)ip, (long)ip + tpl->disp);
->  		break;
->  
->  	case JMP32_INSN_OPCODE:
-> diff --git a/arch/x86/kernel/kprobes/core.c b/arch/x86/kernel/kprobes/core.c
-> index 4e5f8c1736ec..133ff20caccd 100644
-> --- a/arch/x86/kernel/kprobes/core.c
-> +++ b/arch/x86/kernel/kprobes/core.c
-> @@ -510,10 +510,9 @@ NOKPROBE_SYMBOL(kprobe_emulate_ret);
->  
->  static void kprobe_emulate_call(struct kprobe *p, struct pt_regs *regs)
->  {
-> -	unsigned long func = regs->ip - INT3_INSN_SIZE + p->ainsn.size;
-> +	unsigned long ip = regs->ip - INT3_INSN_SIZE + p->ainsn.size;
->  
-> -	func += p->ainsn.rel32;
-> -	int3_emulate_call(regs, func);
-> +	int3_emulate_call(regs, ip, ip + p->ainsn.rel32);
->  }
->  NOKPROBE_SYMBOL(kprobe_emulate_call);
->  
-> -- 
-> 2.34.1
+> diff --git a/drivers/pci/controller/dwc/pcie-dw-rockchip.c b/drivers/pci/controller/dwc/pcie-dw-rockchip.c
+> index dc85564e5001..f67ad3c31c35 100644
+> --- a/drivers/pci/controller/dwc/pcie-dw-rockchip.c
+> +++ b/drivers/pci/controller/dwc/pcie-dw-rockchip.c
+> @@ -112,6 +112,7 @@ struct rockchip_pcie {
+>   	unsigned int clk_cnt;
+>   	struct reset_control *rst;
+>   	struct gpio_desc *rst_gpio;
+> +	struct regulator *vpcie3v3;
+>   	struct irq_domain *irq_domain;
+>   	const struct rockchip_pcie_of_data *data;
+>   	bool supports_clkreq;
+> @@ -844,15 +845,22 @@ static int rockchip_pcie_probe(struct platform_device *pdev)
+>   		return ret;
+>   
+>   	/* DON'T MOVE ME: must be enable before PHY init */
+> -	ret = devm_regulator_get_enable_optional(dev, "vpcie3v3");
+> -	if (ret < 0 && ret != -ENODEV)
+> -		return dev_err_probe(dev, ret,
+> -				     "failed to enable vpcie3v3 regulator\n");
+> +	rockchip->vpcie3v3 = devm_regulator_get_optional(dev, "vpcie3v3");
+> +	if (IS_ERR(rockchip->vpcie3v3)) {
+> +		if (PTR_ERR(rockchip->vpcie3v3) != -ENODEV)
+> +			return dev_err_probe(dev, PTR_ERR(rockchip->vpcie3v3),
+> +					"failed to get vpcie3v3 regulator\n");
+> +		rockchip->vpcie3v3 = NULL;
+> +	} else {
+> +		ret = regulator_enable(rockchip->vpcie3v3);
+> +		if (ret)
+> +			return dev_err_probe(dev, ret,
+> +					     "failed to enable vpcie3v3 regulator\n");
+> +	}
+>   
+>   	ret = rockchip_pcie_phy_init(rockchip);
+>   	if (ret)
+> -		return dev_err_probe(dev, ret,
+> -				     "failed to initialize the phy\n");
+> +		goto disable_regulator;
+>   
+>   	ret = reset_control_deassert(rockchip->rst);
+>   	if (ret)
+> @@ -885,6 +893,9 @@ static int rockchip_pcie_probe(struct platform_device *pdev)
+>   	clk_bulk_disable_unprepare(rockchip->clk_cnt, rockchip->clks);
+>   deinit_phy:
+>   	rockchip_pcie_phy_deinit(rockchip);
+> +disable_regulator:
+> +	if (rockchip->vpcie3v3)
+> +		regulator_disable(rockchip->vpcie3v3);
+>   
+>   	return ret;
+>   }
 > 
 
-
--- 
-Masami Hiramatsu (Google) <mhiramat@kernel.org>
