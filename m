@@ -1,110 +1,146 @@
-Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72D1D489FCB
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 22:08:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.169
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788991696; cv=none; b=OPmrAK0uvSYzCDJ18GaMRAvxy1T4BRrp+AJSUx5YVGRfFDAi9M+GdutRBX8fkrjbzSrdnO4JLXt8DlWR76cj5NWUgTKxf69VUVEn5hh8xkIX/eX1PwQSZQolGtTjiceZCVw6D2rhXbOjLGbMMoJYyYw9XfzEphlbHpzkhqlIhCQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788991696; c=relaxed/simple;
-	bh=oX1NfBQzeNTxwy+1fSOgKyKEYwKoCAwxIi6O628mhnE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=GopIfk/LOiTNrOmUX30nIQ4lGe/ilTxDdc8XGE7SsiDyZwYnQ11ZthB8Mb8syhR5/SSVJCU2Ja0ksqP9I3XbkZPcht5YeKE2rq+iC3CEaOsorfhRZU3a6y3dUIeavQ8uVY5OFfgj1yCTsbmjb3UDKOrtJtNJosPzoqhazrX309A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pqjSYjVH; arc=none smtp.client-ip=209.85.214.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96EFE33CEA5
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 22:09:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.48
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788991767; cv=pass; b=RLCDtitfgxk5TxTS7NLDPn54syocc1ynbwjbcmXSGvOzApW5HD6ziawnCWZiNrgWwydsTRTjVz+Y8mKODkwr3YCOP5PYyN533koDikFHhgPtmKvxPq+7CA57puWo9++ieKgdOzOhQlJipuVfZmLfiN6+bZzQi8Yso0SFFVm2xPw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788991767; c=relaxed/simple;
+	bh=bvzxaEfHxbnbItUGjnix/CzOoHNfP6Agb5FNfRpjWL4=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Suvi9zy8/GujzdpGLLe+5SKPg6s8Do17pJNqUpENOd7e1M9AHjTupmk8Otuk8ouGjV7LkooWL9021cDZOciigLKI1FD2wwlAxkJ/s7Y31GdFcJSpVzsCjapSDHnYbx80PDyYvx1dLrjYORx48xA6j8S3Cpo4CAOEK2Zc3KO3IHI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=hJnHmHhe; arc=pass smtp.client-ip=209.85.128.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pqjSYjVH"
-Received: by mail-pl1-f169.google.com with SMTP id d9443c01a7336-2cace91f112so55495495ad.0
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 15:08:15 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="hJnHmHhe"
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-49cd77e0f95so50585675e9.3
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 15:09:24 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788991763; cv=none;
+        d=google.com; s=arc-20260327;
+        b=lmePW1zWK+vyXNahApSrd/82DebMym18QQ7MHSuL++1Dqh05VkUwbyXEKh6qlWrDxe
+         aFHuevLVEzzyB9sihHfMh0Y+aKbs1uBpfBPR5y6u8ap/7yRgxTVdhhJdOyLBpDkPE/lj
+         MnQJxLsZhWyBeBbPyfyE1TO8Edi0afjDe2ZykyJA7KrUKWKiFUu+sn4RiaBm8C0oer1U
+         Fny6U5/VKKw1ysS9BJyXIAZHKAd7M58XiXhAK79+oyWfBp8R6AQdQQS5ka+D5VUiP/aO
+         OWB+p2QbAaBNUO7auUEb3Jsk/Q9NtizAxFvKizK/lKLJMMdPBB9nBx53JmrvJ4mWv8I/
+         5Wyg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=bvzxaEfHxbnbItUGjnix/CzOoHNfP6Agb5FNfRpjWL4=;
+        fh=GK9L9MfihoMooJSNDusm0Ukc7z4BnQYbfiA7PXnR0Xk=;
+        b=plJqdoDA887e410Sfz6L4UEtd3wYUGFLp+BxSb8Q8hlm9i/+uxzA2AS/xFT+AihBvg
+         dhf7FeoWCLavqlSsa3h7V1otDBR1vtuckL6puKhr0iw2ksFsNvgThAJNH4ebLBunlMfR
+         gOoGca0gV+c3zRb0z5UMNEFvSPDVM1s8vJX5jRQ8srErEWlKeE4s5BOgvd0IWqV9CWI3
+         oLMXETS1VR1Qcz6QGm+H8T9LdZhX1vkRHcXgLIeWFpAV+tIsYK3yNMjK+gDgsuM3/uF0
+         yhyMVaLAXh82mcz8fggxNeuMdF6nG6owD2nh7onjVCsjEahwHGqrL8xdVf0hbycHl0pk
+         O8vw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788991695; x=1789596495; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=C7UZ+CZSXqHjsWNSA8dThjGs+0DrX3xzvJgXi6EfD+U=;
-        b=pqjSYjVH0sTrb4HvNb/roRSvxFt/e18xDiqAaQ6oPmmweGvLbCaJ+Tk/kZZjo6NvBx
-         Yod8HKWd3cku/P7GjA8pylHmgDf68Dp5hc72FEvI40DoJfXUmBNWpijJqjSkleUK9V+N
-         TPr9yue7dsyZ/ATW4vj6DUN90Aiic4MWj4jOtWwrYm8foQGv1q+tehNThgOm4XwWIX8B
-         WGKeqPNIpJf07cymAlA0yQzPkSGnTbdtdSvaUZnNVvAb39v3fyy7cmrO/3HX13OxA/jz
-         04EtO1R/Wvjmn4T4XaTF6MTA6vuRNOb/drY+nWipsBiGo9Pb7ID7hqbqZnK7qVwSzyUL
-         RFvQ==
+        d=google.com; s=20251104; t=1788991763; x=1789596563; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=bvzxaEfHxbnbItUGjnix/CzOoHNfP6Agb5FNfRpjWL4=;
+        b=hJnHmHhe+3Z3B/o1b9i3gNkm/aDnbsezDcQyviqY7dy1zsxKPyI3bYCDtR1pjVAytV
+         yhiu4H+vtxVlBhhNE1bQlb6f7a48UllOzIPrYLGGCIAN4VhfSbAXPRCETqRmpiSPDTOv
+         rWJDZaqFYHjuluIDtrEYzUPixzXiqxS/D9IuWtdGQYfHep7KfZZ14736P7EXNQpqVW08
+         pKn1RBFdnG2451tR/nrEy7dEFMergprk0ekp8fLZLbsiP5bXRvyDoJRneG3y2J37tiN7
+         kc+HMdzfao1r9BRM3SH3gaRbanbA8Sf7jUGn/rPWRtaAzSNYEBIxyhaqePlgxLqEmC+C
+         bNxg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788991695; x=1789596495;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=C7UZ+CZSXqHjsWNSA8dThjGs+0DrX3xzvJgXi6EfD+U=;
-        b=ENxeNN9/Fa9088aRFXvYGSqE+MZAGHmXV56NyZYfgRYwMDX1B+wqKRxQQ+GCmZhBYq
-         PrH8DaIBO2tWYPnH47QHNOX6zgxziAS3PT0uenVOtUqT/K0yMeFu+8qsGAX7/qoy+FDY
-         0EkttQXSOFmLIhNZNdw2+6RzQZK5F/8JjfSqKA5B7EHTm/sz9XUmPZScsv057V7qPQGa
-         7PxfCP8z85IGNndUHW5d1t1i/AMOs2mN3FyjTUnygQ9zfp+j3m9cvRZXcMZ/uS3q7wPt
-         whypd0GRFiQnemoPlt6dIQFi4jhA8sXyhXjbwS0ukT5CTRfCXsy4PKL0sszYePoBfPbg
-         rhXg==
-X-Forwarded-Encrypted: i=1; AKwUvByeJyMShViLAqU9sO7qzFBdnGlKZeeU66k8/LKHRWcopAMxuwpld6otQsoRc0VKEu5MHpl3npe+fAuzjqM=@vger.kernel.org
-X-Gm-Message-State: AFuF++m5wScaz3TvcYBtx1njoo5jLMXDh1DzgmPsaJ+JCZxILovn2IZ+
-	95+LbTdYxd8dBaW9v7dLqcYW17+702N5XFvM6CdFcpLXVD8MbAW5mejwnRxE9Q==
-X-Gm-Gg: AYBFou3XX4Mrn7KunYJOJdU07/RlXzaFSxfnCscxZ1pYRiSb22ecHOQtxV+Bz/QG/Tn
-	WKNPMQdLNuGyJNHN8tmSLBr5hdYzmb4SoW2OvS0qNtfAbX3ptx48OrhB68Juhcn2PVhzbQytc9l
-	JvLwty6NVDv4ieQblozzHr8oe1V7RisRci2jid7ofnz+cDLGsAMCdhm2PrwWMW1DiNnSLjkIs4L
-	rcIVWZE4g0U7rczjnusjPgKN7SyhT4ws9U8nfC2GWJUVUoZMUiFq8vFFsAeAM9VpX0YRso7EoSR
-	70HCVh3jj226985K7Mogplm4Tez6+mzJxiQT3sQ8U+zcLmWB4mpKaag1Os1ax9hjaWcf1Ow9tJ5
-	XM9tKH7zlk91Mpj+jbKGuZYaDWPeyGlBpPNitFb0ne9bKxPVqVV0Mur5KnEf6sPXMI5HQcMiKf7
-	btIfSLK4AzvqF5udVKbY0zBdvqU4OUHRwMb4+XwidIKLr3kmgenoHKlDNGU5IBe3lVgokiD6q+G
-	hw/pQoMdtg0F77+72FJvg4aoWQgTf/RQm7F1F9yUaBYlrOdGTmJ+7tEbHN4C7LsvLVnuxQj3HCT
-	5CkJGGVr+aG95ZDHlmbc3JeGw4eigrLYB2dJK16nEsF3qbUW
-X-Received: by 2002:a17:902:da8d:b0:2d5:3f5f:e645 with SMTP id d9443c01a7336-2db125ca419mr522760655ad.12.1788991694359;
-        Wed, 09 Sep 2026 15:08:14 -0700 (PDT)
-Received: from ryzen.lan ([2601:644:8000:7a86::e35])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2db2c60f687sm65423565ad.58.2026.09.09.15.08.11
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 09 Sep 2026 15:08:13 -0700 (PDT)
-From: Rosen Penev <rosenp@gmail.com>
-To: linux-phy@lists.infradead.org
-Cc: Sven Peter <sven@kernel.org>,
-	Janne Grunau <j@jannau.net>,
-	Neal Gompa <neal@gompa.dev>,
-	Vinod Koul <vkoul@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	asahi@lists.linux.dev (open list:ARM/APPLE MACHINE SUPPORT),
-	linux-arm-kernel@lists.infradead.org (moderated list:ARM/APPLE MACHINE SUPPORT),
-	linux-kernel@vger.kernel.org (open list)
-Subject: [PATCHv2] phy: apple: atc: remove stale kernel-doc for removed struct members
-Date: Wed,  9 Sep 2026 15:08:10 -0700
-Message-ID: <20260909220810.52310-1-rosenp@gmail.com>
-X-Mailer: git-send-email 2.55.0
+        d=1e100.net; s=20251104; t=1788991763; x=1789596563;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=bvzxaEfHxbnbItUGjnix/CzOoHNfP6Agb5FNfRpjWL4=;
+        b=BBRNsMddIw7McdSem2TppeVNmgQZcbc+BDanqPPn0BdhRi6Au3+x1JntCPQ3/HOi3Z
+         c0BMOr6iyaYftbjr5NdmYrkdc8Mo1UeXQ81+EgUB8lUXgQ01iJc7KAzW5ScND9UQ8Y0H
+         iVwsqmeDBYy6lAdTW6jnpnMMm4WnCdlaKwKtGr0ZMsthOZUxWR4h4mTE0W/poVUOfewM
+         7AXgap8JcKFax9+C2jp4YIpDH1IYqXcJbW/ttByFu89D8raSJRjj2qWOH3MisxSs3mLb
+         sbN+9aNoGlWdYir8boWPtJhk5p/IC4gSdgLfpzz3q/qKuwBWYicydOpWjkFYjwNsV5a1
+         e8zQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzPX9oYgrhKa3Wc7DW+ywNIpBYe+NAi27jPp9zczwjh2Jo9ZtjH5ofojRVaN28dbRshgTQXgB0XrGQw3r8=@vger.kernel.org
+X-Gm-Message-State: AFuF++lbqNgZmX8emM17atSBuz6osdZBgFRzxyiI16fq2+vy7hjIEdDo
+	ETDcpPqjezorkL9uvVadtq0wvNCFFACXI1vWvu1bASyKwattvExj/VKqVhXnwxm43MDHjgoJuJV
+	cFbQaQvm+IfHctC76Qg6XOMTuTkwR7iP4Ad2vpCFL
+X-Gm-Gg: AYBFou03Rh7ypV3mFfIlOKZCD7oKQXLg32Pb5YmR/y2MBNCaXd/68/cjtREnbRDWEPN
+	NT6k4BqaNihF7XdUmWaCo1E99QReV30toxkSpX/yEIk5cwqYq0WLm0W2DqT6acVmm9+ugRIN0KA
+	nrAlQMLDYI8c5lNFKkhgPVdXkaD1vRK3madbWg7ylGtEBZkgcV7Tqk+V6OXjg22aD6KdXK/aavC
+	8Ri1WL+shtC54oCcnR6W1reyk3CFSqCcReqrGiANWeCbVPzE45sHb2rA7tvrSLjU+0F/LPHsq2L
+	BH+svb8TwjLhUtna2ddNw6Xj1mVh38aXNH8xdbkPZaH6lIKQRIEWOosekQC1BKwjaFPGnmdeZo+
+	hVA37dj6hln7m24q+tSlk9uOHoy9rYurfYp6DaUmnzkN50LPWyEW46cv73OrrWR+K1/885YQ=
+X-Received: by 2002:a05:600c:81c8:b0:49d:1f10:8b9f with SMTP id
+ 5b1f17b1804b1-49d1f109802mr74781425e9.7.1788991761946; Wed, 09 Sep 2026
+ 15:09:21 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260908-build-speedup-v1-0-5dc1ac01672d@kernel.org>
+ <CAKwvOdmdFdW8=y+s5NLoNeKz4LVbmW8tr+JqJ26wqYFJDdARFQ@mail.gmail.com> <aqFptJRjLZIL-NX7@gremlin>
+In-Reply-To: <aqFptJRjLZIL-NX7@gremlin>
+From: Nick Desaulniers <ndesaulniers@google.com>
+Date: Wed, 9 Sep 2026 15:09:10 -0700
+X-Gm-Features: AcwNN1VBBOSItlzf2aBfQ1Tsn20Bkz1vl5nUIWxayca3KAiKBTvQ_pPLoFqBSq8
+Message-ID: <CAKwvOdnMuwKxPB_SXDcwmrAiwZFXWUAgcS1TdAkW+bqhYEZ=ZQ@mail.gmail.com>
+Subject: Re: [PATCH 00/23] kbuild: significantly speed up kernel builds
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: Nathan Chancellor <nathan@kernel.org>, Linus Torvalds <torvalds@linux-foundation.org>, 
+	Nicolas Schier <nsc@kernel.org>, Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, 
+	Masahiro Yamada <masahiroy@kernel.org>, Alexey Gladkov <legion@kernel.org>, 
+	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
+	"H. Peter Anvin" <hpa@zytor.com>, Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, Arnd Bergmann <arnd@arndb.de>, 
+	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
+	Mark Rutland <mark.rutland@arm.com>, Ard Biesheuvel <ardb@kernel.org>, 
+	Ilias Apalodimas <ilias.apalodimas@linaro.org>, Josh Poimboeuf <jpoimboe@kernel.org>, 
+	Peter Zijlstra <peterz@infradead.org>, Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
+	Gary Guo <gary@garyguo.net>, =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+	Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
+	Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
+	=?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+	Jonathan Corbet <corbet@lwn.net>, Randy Dunlap <rdunlap@infradead.org>, linux-kbuild@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, llvm@lists.linux.dev, 
+	linux-riscv@lists.infradead.org, linux-arch@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-efi@vger.kernel.org, 
+	rust-for-linux@vger.kernel.org, linux-doc@vger.kernel.org, 
+	Jens Axboe <axboe@kernel.dk>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The @sw and @mux members were never present in struct apple_atcphy,
-causing kernel-doc warnings.
+On Wed, Sep 9, 2026 at 7:17=E2=80=AFAM Lorenzo Stoakes (ARM) <ljs@kernel.or=
+g> wrote:
+>
+> On Tue, Sep 08, 2026 at 02:06:18PM -0700, Nick Desaulniers wrote:
+> > It would be cool if your LLM could generate any visualizations of
+> > what's going on during a build? Seeing what's serial vs parallelized
+> > in perhaps useful. Particularly when you can compare the before vs
+> > after.
+>
+> Great idea!
+>
+> I asked it to do exactly that, attached. Came out quite nice and sums it =
+up
+> nicely :)
+>
+> It also provided an ASCII version:
 
-Assisted-by: opencode:big-pickle
-Signed-off-by: Rosen Penev <rosenp@gmail.com>
-Reviewed-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
----
- v2: remove removed in description
- drivers/phy/apple/atc.c | 2 --
- 1 file changed, 2 deletions(-)
+unreadable, but the pictures you attached are worth a thousand words.
+Particularly exciting are the speed ups to the usual edit+compile+run
+loop.
 
-diff --git a/drivers/phy/apple/atc.c b/drivers/phy/apple/atc.c
-index 4156fabad742..f09305dd76d1 100644
---- a/drivers/phy/apple/atc.c
-+++ b/drivers/phy/apple/atc.c
-@@ -585,8 +585,6 @@ struct atcphy_mode_configuration {
-  * @phys.dp: DisplayPort PHY instance
-  * @phy_provider: PHY provider instance
-  * @rcdev: Reset controller device
-- * @sw: Type-C switch instance
-- * @mux: Type-C mux instance
-  * @lock: Mutex for synchronizing register access across PHY, Type-C switch/mux and reset controller
-  */
- struct apple_atcphy {
--- 
-2.55.0
-
+For the blue graph (the top one, first), any idea what that dip in the
+middle is? That's always what annoyed me.
+--=20
+Thanks,
+~Nick Desaulniers
