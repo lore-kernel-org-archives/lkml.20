@@ -1,152 +1,155 @@
-Received: from mail-oo1-f70.google.com (mail-oo1-f70.google.com [209.85.161.70])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0D5B381EA4
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 06:36:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.70
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A274037CD3A;
+	Wed,  9 Sep 2026 06:38:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=150.107.74.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788935805; cv=none; b=Q74jJvaPvTp4dXK1cnXev3fI0518/XpoCoVaIU9E15MlA4aJj7NAjvb5Gj7GNl/9Ui0gH7bfsnm6B6NvbAUkw7V5VrHs8NHuVlhQT5Gu1MPnGvmUjioCJTiEx++2NUkavX4/smphDOeO3eyoooD9CXQ7dMlNLLTrGjqq1eBm2m0=
+	t=1788935914; cv=none; b=meLH57JHLj1MSr5T+noozNfd2UY7prGnWJZfz8t+CKByd4IKna9AEO2UHuSNDTdio0dNDzeHxJYFHTk3tDw+1HAD8sdXlKl2gnEO0zDi5rRadRnZ3xsMPvKOQUkxVIBg7LVskj/rjAEoMN4SKOmmoPDTfXrfho5qGsEQ+8YXD/w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788935805; c=relaxed/simple;
-	bh=sY00z5V30onLLtDgQhbdrVwQUjxmGhBs+7K7da4O+tc=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:Cc:
-	 Content-Type; b=bpfQwnMREyct1H2MwdR8J3VbJB7/KhiEkXxKSrj+5XF8n+5nECj3KFrvedxMOM2ZUho79r2tYkfxI7DuvAxKxUYW4GN/c6OTRXIBIhK7Z8QirG6dRXHRroD0+J57pbrcnHVu6tlhE71MkH0l9Ra0/Ht8A26CFKDvoUXCvp7TQVA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.161.70
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oo1-f70.google.com with SMTP id 006d021491bc7-6b1b27d7ab2so7736110eaf.0
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 23:36:40 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788935796; x=1789540596;
-        h=content-type:cc:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=zCmscbmxkSxvsPpnPdl5tJ0oDhZsF/+axEdFvj3ZC7k=;
-        b=rNLEfVYFLZnoWmLTAua3sr9YsdvdrYgeOKwJcYD/zd5xUi1eRHL9Ji9RHogFN/qfxA
-         ySvn0uszEElNEeI6XX5SOKJg/A7GwlSHVJUXpB8elk97TQ3LLPWbhPbGJx0XDSs7QBwV
-         QUC6gQrqQtKXksrCFuG7CSGVfL6GlSekBL3zHpxWHr93qwqOiPEiNNiYh8S6JMDGPpq2
-         hCPyFxgibFG9O2uwUSnJfUOGjT0TtC8vesgf3xJHpQeQyGbJdIsyKF5jIdIkyN9KHAC4
-         BVWIareeU0ctw3GAfiIXeFiAlh3LlpZ+49W6SmukozntVopF/EbV8vZ4lYbHMg5PBWNF
-         0zdQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxHDQMFz++WcDrSDLBZqKv2LiVeR1VC66L1LNNcqR4C0/3RhsxeZeXDZxhtCkb2UNrjFjGaENqA480q2tA=@vger.kernel.org
-X-Gm-Message-State: AFuF++k6v7YIesdwnwAfwJZT1F+h4EdtUsbtfoySLQskCR/Jy1j1evPN
-	BVSM+kvaMrUWtPIjC8uZ5MQHBEwI8aNOkzcM0LthGI5/3aI2J48KX1+PcW1rs14RZVy5X2O79vF
-	AoF98qSofqFr7zpXs8s7sN6GHg6JOmuBnOPd5njm84BEFUqqHRBvrohrs0MU=
+	s=arc-20240116; t=1788935914; c=relaxed/simple;
+	bh=UaIdji8NEtlfoefjnaKdXcnvMFGMrqOl7BlgXiQJyTg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=g8lmyprO3U+KWKVOuioHGs3TzuU1xC3ysR7uacech2vX1HJ0eRTVw+a06kXa6VUlzhwd+NHkBxsVRhlp5OrhzCtFxLrZQL4crEDIWYLkahHk0OsK/er0to97NzUCa2fdyaeOOAPycJuv95llrNEENIqn7Xo7WKmtFl7aackIwWo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gibson.dropbear.id.au; spf=pass smtp.mailfrom=gandalf.ozlabs.org; dkim=pass (2048-bit key) header.d=gibson.dropbear.id.au header.i=@gibson.dropbear.id.au header.b=ZJUbXApF; arc=none smtp.client-ip=150.107.74.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gibson.dropbear.id.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gandalf.ozlabs.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gibson.dropbear.id.au header.i=@gibson.dropbear.id.au header.b="ZJUbXApF"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=gibson.dropbear.id.au; s=202608; t=1788935897;
+	bh=sQ2ccdLCDWYB8CuKHAwsJqQXF9yoxyVRzyQ3rWcsEMo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=ZJUbXApFm6WJVXzNTdo3NK0WW9HD879B7TfI4Dv/gaD1WgSs6ddWmY2Vn/554+Yqy
+	 DD4qJfgBqdvwoYFxFpFlsjnuompdnIOkc09iCQJPyE1KebhiqS9oYDG8dL4ib4uRkC
+	 yG9Ku+WAOdpb76d70Moqj4O/q9Fo009E2hRMkL6v1BVgXxjY4yh1IzEFfwHS0CeRfp
+	 S8Zeit0X+zVAo/XqDfytYs7kED8Si2+AYgte3mH/bzBxzn1QMTYfVLWzI2pA44mVxI
+	 j03i0Ub4e2DFse9iCUrB3MHZmUB06jwLGwuuOserzkaZA22/mE16oliitistdvul6a
+	 4QIqBk43wCA5w==
+Received: by gandalf.ozlabs.org (Postfix, from userid 1007)
+	id 4hfrjP1F1Dz4wCt; Wed, 09 Sep 2026 16:38:17 +1000 (AEST)
+Date: Wed, 9 Sep 2026 16:38:18 +1000
+From: David Gibson <david@gibson.dropbear.id.au>
+To: Herve Codina <herve.codina@bootlin.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	David Lechner <dlechner@baylibre.com>,
+	Ayush Singh <ayush@beagleboard.org>,
+	Geert Uytterhoeven <geert@linux-m68k.org>,
+	devicetree-compiler@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, devicetree-spec@vger.kernel.org,
+	Hui Pu <hui.pu@gehealthcare.com>,
+	Ian Ray <ian.ray@gehealthcare.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>
+Subject: Re: [PATCH v3 05/15] tests: treegen: Introduce emit_fdt_header_vers()
+Message-ID: <aqD-0OoMyZNQ_UeE@gractus.seuss>
+References: <20260826083146.304291-1-herve.codina@bootlin.com>
+ <20260826083146.304291-6-herve.codina@bootlin.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:4c81:b0:6b3:26b8:424 with SMTP id
- 006d021491bc7-6b6fd3d69d1mr18227942eaf.26.1788935795776; Tue, 08 Sep 2026
- 23:36:35 -0700 (PDT)
-Date: Tue, 08 Sep 2026 23:36:35 -0700
-In-Reply-To: <20260909063623.6999-1-syedtayyabfarooq08@gmail.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6aa0fe73.f81106d8.285f0a.000b.GAE@google.com>
-Subject: Re: test patch
-From: syzbot <syzbot+fe63e4d633540f230624@syzkaller.appspotmail.com>
-To: syedtayyabfarooq08@gmail.com
-Cc: syedtayyabfarooq08@gmail.com, linux-kernel@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="d83/6er6i6bw0E7Z"
+Content-Disposition: inline
+In-Reply-To: <20260826083146.304291-6-herve.codina@bootlin.com>
 
-> #syz test
+--d83/6er6i6bw0E7Z
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-"" does not look like a valid git branch or commit.
+On Wed, Aug 26, 2026 at 10:31:36AM +0200, Herve Codina wrote:
+11;rgb:1c1c/1c1c/1f1f> treegen is used to generate custom dtbs. It uses emi=
+t_fdt_header()
+> to generate the header part.
+>=20
+> The current definition of this function doesn't allow to set custom
+> settings related to version fields.
+>=20
+> In order to easily generate some dtb with custom version values,
+> introduce emit_fdt_header_vers().
+>=20
+> The modification doesn't introduce any functional changes.
+>=20
+> Signed-off-by: Herve Codina <herve.codina@bootlin.com>
 
->
-> diff --git a/drivers/usb/gadget/function/u_serial.c b/drivers/usb/gadget/function/u_serial.c
-> index cdd1dfc666c4..4435cc42d1c0 100644
-> --- a/drivers/usb/gadget/function/u_serial.c
-> +++ b/drivers/usb/gadget/function/u_serial.c
-> @@ -603,6 +603,41 @@ static int gserial_wakeup_host(struct gserial *gser)
->  
->  /* TTY Driver */
->  
-> +static int gs_install(struct tty_driver *driver, struct tty_struct *tty)
-> +{
-> +	struct gs_port *port;
-> +	struct tty_port *tport;
-> +	int ret;
-> +
-> +	mutex_lock(&ports[tty->index].lock);
-> +	port = ports[tty->index].port;
-> +	if (!port) {
-> +		mutex_unlock(&ports[tty->index].lock);
-> +		return -ENODEV;
-> +	}
-> +
-> +	tport = tty_port_get(&port->port);
-> +	mutex_unlock(&ports[tty->index].lock);
-> +
-> +	if (!tport)
-> +		return -ENODEV;
-> +
-> +	ret = tty_port_install(tport, driver, tty);
-> +	if (ret) {
-> +		tty_port_put(tport);
-> +		return ret;
-> +	}
-> +
-> +	tty->driver_data = port;
-> +
-> +	return 0;
-> +}
-> +
-> +static void gs_cleanup(struct tty_struct *tty)
-> +{
-> +	tty_port_put(tty->port);
-> +}
-> +
->  /*
->   * gs_open sets up the link between a gs_port and its associated TTY.
->   * That link is broken *only* by TTY close(), and all driver methods
-> @@ -911,6 +946,8 @@ static int gs_get_icount(struct tty_struct *tty,
->  static const struct tty_operations gs_tty_ops = {
->  	.open =			gs_open,
->  	.close =		gs_close,
-> +	.install =		gs_install,
-> +	.cleanup =		gs_cleanup,
->  	.write =		gs_write,
->  	.put_char =		gs_put_char,
->  	.flush_chars =		gs_flush_chars,
-> @@ -1203,6 +1240,18 @@ static void gs_console_exit(struct gs_port *port)
->  
->  #endif
->  
-> +static void gs_port_destruct(struct tty_port *tport)
-> +{
-> +	struct gs_port *port = container_of(tport, struct gs_port, port);
-> +
-> +	kfree(port);
-> +}
-> +
-> +static const struct tty_port_operations gs_port_ops = {
-> +	.destruct = gs_port_destruct,
-> +};
-> +
-> +
->  static int
->  gs_port_alloc(unsigned port_num, struct usb_cdc_line_coding *coding)
+Reviewed-by: David Gibson <david@gibson.dropbear.id.au>
+
+> ---
+>  tests/treegen.c | 12 +++++++++---
+>  1 file changed, 9 insertions(+), 3 deletions(-)
+>=20
+> diff --git a/tests/treegen.c b/tests/treegen.c
+> index 6891bfd6..28943d43 100644
+> --- a/tests/treegen.c
+> +++ b/tests/treegen.c
+> @@ -105,7 +105,8 @@ static void fill_prop_name(struct buf *b, size_t strs=
+, size_t prop, size_t strof
+> =20
+>  /* FDT structure helpers */
+> =20
+> -static size_t emit_fdt_header(struct buf *b)
+> +static size_t emit_fdt_header_vers(struct buf *b, uint32_t version,
+> +				   uint32_t last_comp_version)
 >  {
-> @@ -1222,6 +1271,7 @@ gs_port_alloc(unsigned port_num, struct usb_cdc_line_coding *coding)
->  	}
->  
->  	tty_port_init(&port->port);
-> +	port->port.ops = &gs_port_ops;
->  	spin_lock_init(&port->port_lock);
->  	init_waitqueue_head(&port->drain_wait);
->  	init_waitqueue_head(&port->close_wait);
-> @@ -1258,8 +1308,7 @@ static void gserial_free_port(struct gs_port *port)
->  	/* wait for old opens to finish */
->  	wait_event(port->close_wait, gs_closed(port));
->  	WARN_ON(port->port_usb != NULL);
-> -	tty_port_destroy(&port->port);
-> -	kfree(port);
-> +	tty_port_put(&port->port);
+>  	size_t off =3D emit_u32(b, FDT_MAGIC);
+> =20
+> @@ -113,14 +114,19 @@ static size_t emit_fdt_header(struct buf *b)
+>  	emit_u32(b, 0);	/* off_dt_struct */
+>  	emit_u32(b, 0);	/* off_dt_strings */
+>  	emit_u32(b, 0);	/* off_mem_rsvmap */
+> -	emit_u32(b, 0x11);	/* version */
+> -	emit_u32(b, 0x10);	/* last_comp_version */
+> +	emit_u32(b, version);	/* version */
+> +	emit_u32(b, last_comp_version);	/* last_comp_version */
+>  	emit_u32(b, 0);	/* boot_cpuid_phys */
+>  	emit_u32(b, 0);	/* size_dt_strings */
+>  	emit_u32(b, 0);	/* size_dt_struct */
+>  	return off;
 >  }
->  
->  void gserial_free_line(unsigned char port_num)
+> =20
+> +static size_t emit_fdt_header(struct buf *b)
+> +{
+> +	return emit_fdt_header_vers(b, 0x11, 0x10);
+> +}
+> +
+>  static void finish_rsvmap(struct buf *b, size_t hdr, size_t rsvmap)
+>  {
+>  	struct fdt_header *fh =3D (struct fdt_header *)(b->data + hdr);
+> --=20
+> 2.55.0
+>=20
+>=20
+
+--=20
+David Gibson (he or they)	| I'll have my music baroque, and my code
+david AT gibson.dropbear.id.au	| minimalist, thank you, not the other way
+				| around.
+http://www.ozlabs.org/~dgibson
+
+--d83/6er6i6bw0E7Z
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEO+dNsU4E3yXUXRK2zQJF27ox2GcFAmqg/tAACgkQzQJF27ox
+2Gc6qxAAoPZsp6xvSa6oM3sroDgBDVoMcRPaalhaTGQiB55rqwmCOqlgCkvlcrx5
+R2VT5/P35iZUeqde0pzuyo5XWXU8BDDWZoBlf9TLy41+f+qwqh0aATpgxm/Q8ltW
+vyyh0rp4qqNutSdXkp1x+hfd1LANrUF7IZu/bJ67n7GSXOde40V5hv1XCBijV89q
+YWzyF40V68813SMBOmpTp55+r/KErORd5pPxpGIkzhIfcjg50npRB7hP+a4M5yN9
+MDu+Pi3DdC3ra4MVkaskJXLZ/A5G/GufyNp+uhwBPHIvMiokyYuKtVecS7n3PxaJ
+yd1+aujk86tGF2mcTPs+qnPLS7qQwOCySY2YMCmzsmlHsCXPV1vLeg3DNeY5eJTI
+KjAeVffHCGvLML7DCjUpjy/dDEiEfoRGyF8I27gsY7A61zsF0VzozyIR7H8yiKto
+EsX+dBcXVONwh/JixNwuVG5SpNIZDYBKBhMI5a6/4P92UajLE5Owju8QDUEALL9U
+4wSKD8bV773N4CiwyqbWh1PX7POIp3egyE+zVp8f2DkV8/5FNQfZdO19D6RTfwWo
+mOQzatkO5qLNkPjokXsvyDc67sr79fQ5YiQQQ1oFtR/HtTRQQHzHtOXTJ0dZtNAx
+TWELkqg1xskSkTGQmR6v1yYaGKDQlx24Hyvd+49G4xUjWOdF2XQ=
+=QTGD
+-----END PGP SIGNATURE-----
+
+--d83/6er6i6bw0E7Z--
