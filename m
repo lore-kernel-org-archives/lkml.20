@@ -1,169 +1,207 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id D980D3546F9
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 04:00:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788926422; cv=none; b=CcKpw39gOlE0OkfcFsPUDx1vXIVb8OvNuFJjRJGlU7Tu3e4vFKCMqB7jBRWG1lgqPIgbuAgMp1NmKlo8LzVvsx/qPHCDbFjv+pRh0UuVzasmJbNUZuNpKi3vE3X8k3DpJO6YljsoTaV+z8c9DwNNQTK5KrAvc/xHWIdan3dp2AQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788926422; c=relaxed/simple;
-	bh=U8t03BH95uIReM5gGaLf+aJqwm/RpI+Qj5wFNcim6XA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=awRdqBIo4x47HnRUTA1WFnZh7pjGQZOaO1XkyiW8IG+0cE7uewqHM4Kw9TQ1WEAesQMF5akgAgzU+wfEUOIZWKB0JQgqfv7RBSMLOolF3ZcRGMHRkzGnz8Ys8kYgV1QvC1z3feDfEKR8/guX621mjG/YHH8wyRpt0MNsHJFxQx0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=ug+EtDLP; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+Received: from SN4PR0501CU005.outbound.protection.outlook.com (mail-southcentralusazon11011033.outbound.protection.outlook.com [40.93.194.33])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59A2D357CED
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 04:00:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.194.33
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788926429; cv=fail; b=mptb2Wk4HEC0MPgES5q34ib6IWSMIPFENlhAKKCjLTU/OFWEx8xmH7tuN0t32JOEBs/WtOs++geavYD1u4wsHdNm/FkNE4IOeHjD44suXer9HmfqBglc4WDmgsbNgPEWHnaeFk0YzSSdvkWHIAXrtP6vARKTwD5igeema13NbcQ=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788926429; c=relaxed/simple;
+	bh=gWbIrbeHXoqAcRbg2BMzkPrHYGdIuHhaQCCnbheXHY4=;
+	h=From:Date:Subject:Content-Type:Message-Id:References:In-Reply-To:
+	 To:Cc:MIME-Version; b=ScMgt/Id7BOjlW0G5rsBedjjAiv97D2sxNkGrFDPxBj3hAllePooDdi5onLRVLHqe1jdWDE6jDhWyCrbj0DDRCKdF741A85KIJPNCkP117f6KYr9Qz/oUGCmyUmyMBxCRWsRZMnipHWR1D5OYee7E2MalgebnAWaHVBZBrPtdAU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=RFdi4aPf; arc=fail smtp.client-ip=40.93.194.33
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="ug+EtDLP"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 0EC1D1477;
-	Tue,  8 Sep 2026 21:00:14 -0700 (PDT)
-Received: from localhost (a085714.arm.com [10.164.19.28])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 0382A3F528;
-	Tue,  8 Sep 2026 21:00:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1788926417; bh=U8t03BH95uIReM5gGaLf+aJqwm/RpI+Qj5wFNcim6XA=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=ug+EtDLPJOfYjPOWsAmFFj9LTsUzGcUTlKj5w2+XZfk95JRIYfU2PaZcCUb8/j/cp
-	 FTk88wBGOJpq/uW/ersOaw782hG69BZfGZCvQppHf/hhjgkTTQazRsn4wTM6CwCf5P
-	 VTxYPV2buK/Cg+Tgtkge2y4SP+GHXDKVMk5c0y6g=
-From: Anshuman Khandual <anshuman.khandual@arm.com>
-To: linux-arm-kernel@lists.infradead.org
-Cc: Anshuman Khandual <anshuman.khandual@arm.com>,
-	David Hildenbrand <david@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org
-Subject: [PATCH V2 2/2] arm64/mm: Standardize printing for pgtable entries
-Date: Wed,  9 Sep 2026 09:30:05 +0530
-Message-ID: <20260909040005.4148136-3-anshuman.khandual@arm.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260909040005.4148136-1-anshuman.khandual@arm.com>
-References: <20260909040005.4148136-1-anshuman.khandual@arm.com>
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="RFdi4aPf"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=v+MH1O7Yi1sZKujudg80aZlcfumhig6AZuj5tILZy4Nv20ocMJ2+Kyp5nHtDLqwfqNoUMSAvRyKHv4Wng7hnunNwU6taq/+1AGmaOxQQgohoekEniDLw9CB69OfjEhoPQVxxnqgRYZKGfYJAAkcKpf9wXHelNn9QbnuaJ/5MpHOD//kYC/VkqPTn32eLtj2TG1ZFK3EXVvh/oND1qg0yALp2hbl3VoO99iRlfsb8vq1v7hcadX4QIGJaDnICrXE4VkhxltsLL1GGE6go7IaweqjVSJ4d1dqqXR25RwnBJcQsiCmacLBaAf/wZzI5Gw7mitw6njj/X1rQJSn2D1T9Hg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Gq6PNDh30qXGFAhiOvrT9JLq0bhmSqC5EjeaLC+1qqw=;
+ b=q+GHY3Vr/+/urt6sWV/uPFZrIxT9oc9RsuV4jxDbgDFzp3utBmBKElimX8/rmy97YLJ/d6s6Qzs44L1KCqeqD+ukKXSHGnWg/+nPiZscyf+yc7kRx/ANr9/mmNzQEUfMXZjGtAPQZvJ9zsCHZ/OavgDMLCDAUzJOop7qjQavr1X3i5M/AIb0i3RNeB94aLBNSYcKO6PoDCClvxmkQ8WtTx+qpWHS5OE8Tkz6gfHmS8s2ohGNhYJLIvkkv5erStO8cRSq6CduY7WDjp+YCUp+2px9qLujhCpte1ejGscCjP7wmzfelH2btZ8djPZ0BLIjv2lR8gHMqBhuvN2K7JSYIQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Gq6PNDh30qXGFAhiOvrT9JLq0bhmSqC5EjeaLC+1qqw=;
+ b=RFdi4aPfajydgVY1GfE9X7JxIXRRze4hx/46M+AVfkTOyZgFejlxi0cmF7lq2kFru7cLBe9oxyWQDd0vLHXWVBJtcQd9+9QKgDzyemdUXjV9IOWuCfjvDWFY4BxWNYZKe25csSoBlaQYoyvtEIkNfMDO1rntyu9wBENRayokbb90HKMrxktSNIJNYyEa7MWdM1HR+HCI7SqugPXVYoro6bwOhMOKxwWlHmbZoTr05dZJwLnlFPebcXXTeiL4W53RdehhETUlBGcAqoQh03Jch3fH0N+paTkNmJ7CkpM/djVYC2OynXiZ/TRklfDUcBlAAPJ+8lZt2TW/Xk1fHEDGbA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DS0PR12MB6413.namprd12.prod.outlook.com (2603:10b6:8:ce::10) by
+ SA3PR12MB699018.namprd12.prod.outlook.com (2603:10b6:806:510::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.7; Wed, 9 Sep 2026
+ 04:00:14 +0000
+Received: from DS0PR12MB6413.namprd12.prod.outlook.com
+ ([fe80::e82a:6673:4142:37fa]) by DS0PR12MB6413.namprd12.prod.outlook.com
+ ([fe80::e82a:6673:4142:37fa%5]) with mapi id 15.21.0406.005; Wed, 9 Sep 2026
+ 04:00:14 +0000
+From: Eliot Courtney <ecourtney@nvidia.com>
+Date: Wed, 09 Sep 2026 12:59:43 +0900
+Subject: [PATCH 05/16] gpu: nova-core: mm: pagetable: Add PdeOps trait
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260909-mmrebase-v1-5-8dd5d4225d2e@nvidia.com>
+References: <20260909-mmrebase-v1-0-8dd5d4225d2e@nvidia.com>
+In-Reply-To: <20260909-mmrebase-v1-0-8dd5d4225d2e@nvidia.com>
+To: Danilo Krummrich <dakr@kernel.org>, 
+ Alexandre Courbot <acourbot@nvidia.com>
+Cc: Alice Ryhl <aliceryhl@google.com>, John Hubbard <jhubbard@nvidia.com>, 
+ Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>, 
+ nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, Eliot Courtney <ecourtney@nvidia.com>, 
+ Joel Fernandes <joelagnelf@nvidia.com>
+X-Mailer: b4 0.15.2
+X-ClientProxiedBy: TYCP301CA0071.JPNP301.PROD.OUTLOOK.COM
+ (2603:1096:405:7d::18) To DS0PR12MB6413.namprd12.prod.outlook.com
+ (2603:10b6:8:ce::10)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS0PR12MB6413:EE_|SA3PR12MB699018:EE_
+X-MS-Office365-Filtering-Correlation-Id: 38360d87-26f1-4a79-ee5b-08df0e26d9f7
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|1800799024|23010399003|366016|10070799003|10067099003|11063799006|56012099006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	hrgrg/PSLDQlcSMiFWLxH2aU0lP6Qf9OKmPNf2F1AyDPjElDtFKFp6uRE6YF3IC+d7kY8VC0rdosc1Mn0wUrO2kIsohvZholkB+Qw03NHTNkpMaKXiLJjAFX9msVnJHZo6tpKfm6LAvOLmzRmDDIex7VHdGlXvYLftaXavK/dcheT6mosjjYwBF/NUUykcvGwQi+wDSomiiCXGnxKmj+uf9V6wLAxpKskZzzj5QjsCu/Q4glWJRBevkoLR0aFoiY2oiVE3YPs4pyZyeh/LhpZ90eRDuS7+2RHnwxAag8QV+eegXEgrsSp1cKNP+0zzGapVLN+5jKPQXUZ0DR53WPkTmmhIiAsLcImt/HSQRVFAv/P8xc655LoQfucAUStn08I6g/XsuM7D1t2lwV9x7Q/5f6fHtZR4IZqy+WLX03PdCJLSK/8zafR38b0uDcB7Qi9RmKGGgkYvU8IMfjYsAATJH1W3ybqlaUSCmDNou4GnqrDZtjb3blOiFf+2KehSaNwzBu6lv0/cKGjbdgERuZRNXXUCIZFahk3YT6Qtcu8RtSgYEziAuiMTu48mt8g7jHh0r0UUzAHEGyNCjSj5K/RP6JTBlaiqDRkXKb9AhK3lPsRrsZ1Lg0fSa1QN07Ye2sSgruU/Q8/ORSjyEYj9Is8XwheqI97KA3WUgRmub3/vg=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR12MB6413.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(23010399003)(366016)(10070799003)(10067099003)(11063799006)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?VGd3V0hwU2VGYzJHdHdyTG5scUR4djltZWZBZ05IdTFzYXR0RndHYi9oKzFY?=
+ =?utf-8?B?WStLMUs4YkVFZC9pMlpETGtBVHN6UUs0NTFJVm0vWXM4M2hKYjc4UXVnd3dW?=
+ =?utf-8?B?b2N4cnNqamRLT3praFpqZ1J5SGhNWlVsYnU4N0cveW94SGF0SkI0OU5SVmVh?=
+ =?utf-8?B?aU1saHJXUnFyMmlmUWp1L2VSOTBwMHJlemxKM2tjZ3pkZ2JwdG1hTDdQMXd2?=
+ =?utf-8?B?VVgrandTSm1TMUxIRE80d1NmeEM4Z1RZMy9udjdiaFpkL0NWbHBrZ1UwSS94?=
+ =?utf-8?B?ZDIvVFFIaVNLKzVtRm91MTUxUmNIQlM0aFd1VkRVaFdLTUVpUHIxTG1sdzBk?=
+ =?utf-8?B?eVFwdXg4WUQ0VGZtbGJJNDJPMDVxZUV2OU1CaEtwREFZOGE1djk1N1plYTlT?=
+ =?utf-8?B?TTZXcVI0a0w4amtaRlNqRXJkZ2xGUGpMdENsSnZEcjVYV09LV3VpY3V6aVFG?=
+ =?utf-8?B?WXRvSGVCaFl3d2ZwdktHTE9lUkpWYzJvZ2lyWWtqUEJPRHU0c3VBcDNBY0Yz?=
+ =?utf-8?B?RHhIcGN2TUVvcXNwWllyVkZaTlhZcERwTytlVnVuRURnTERPSG9LcU0vL3I0?=
+ =?utf-8?B?b2pKUENxL0VPb2NwUktzVFljK2pTa0xrUTRpeWtpWmJVTFFHQ0pMUDNNK1FK?=
+ =?utf-8?B?Z2kySGhtTlRUcnJBZ0NQUnBuZnpVNHBkTzdJUFNKV1h1MlhhMVp5alZucUdy?=
+ =?utf-8?B?Q2J5R1RmTy9kTDQyYjd3T3NLb2svOFhEYSttRDJlVFJCd1BjQ3E4NHIwZFUy?=
+ =?utf-8?B?NkM5KzNKVzZHNW5aVm1FNy9UdHZKSnRVMFRseU4vNzdRVmhLdzZ5aHc3MTNQ?=
+ =?utf-8?B?SmxNTlh0NmZ0RDNwSXNJYkVwV1pQcS9UY0xQYmNXREJZK0VHT1pheXpZY09R?=
+ =?utf-8?B?amJ0aVl5SndhZ054K0IxWjRBS3QzWXpJczU1ZVhyUHdLd3hPNm9Gd1hFMXFN?=
+ =?utf-8?B?V1JSdTF6SXBaNDNDY0djZjJ6alNPWEJXa2xFam1EZTVacjNpZUNpbElFcVRz?=
+ =?utf-8?B?WTFVK2prK0lRdlNLNFJmN1JFa0VPaEdiYnZEK0ErMEp5bzltZzZIbnI0dDVJ?=
+ =?utf-8?B?SkVvZTExOE91TllmNDk3bE5HV0NEMkN2anF5TmxpNGwwSk5kem0rWVVNN2Jp?=
+ =?utf-8?B?RkhLbHpJS3N6eS9BVHhLRnpjaTUzUEl6QkJsYmFvUllMTHVPejJpUHdVN0Zt?=
+ =?utf-8?B?MDRXT3pWRnA5MHFydnpKN0FaVjV1VjFud2ZEeldXVEowS2JiZW9pV2M3Y1lI?=
+ =?utf-8?B?VlBwUWl2RVhsVXZKR0JwcmN3RlZKaHBoenFjSmkwTjU0OVowaEdXOHNNQlVI?=
+ =?utf-8?B?TTFJQm52ZEw3MG1JYzNBdnlvN24wK3FDQlJ1SjdFbFpUQzA3aFJ2NU1hU2I2?=
+ =?utf-8?B?OTVsSlF5VHI1YlU2VWw3azhsdjQ4ZlMvanE3N0I0a242ZzdpTWMwdk0rYURD?=
+ =?utf-8?B?UkVKRUI5YXFtQW5Jd204NWJIZ01ERzYvaHFxakwrREhHY25mL0RaOUpnT2Fs?=
+ =?utf-8?B?Z2l5OUllbE1ZSmExZkp1WWVMdUxDKzB0RjBYRzBiLzNDeGFXc2tVUlhYMnd3?=
+ =?utf-8?B?VXFyRjBVY2duQ0FEb0RlOWNJd2ZEVW5jUHhlb21ONUdOSWJpT1BIaWFlbjd1?=
+ =?utf-8?B?WXAycGFGek9UbEI5Q3dYcFIyWlR0Rk1XNkg5R1VwTE04dXJacld6SEZQNko3?=
+ =?utf-8?B?akdGRVk3eWN6QTQwVGtUNFFnZG80T3Z0ck8xQmgzM2FNQkt0bS90ZVZYUTk3?=
+ =?utf-8?B?UXBtUmY5NWQ2NGxKZStVOFdrbnFEY1FYTytuS2FWOG5GbytqU2hpR3dZSlJB?=
+ =?utf-8?B?NnBnbEQvc2FINml0SWcvRUFLVjBSUTNVeXVJSmh0aWxJL25UampoZFYzc29y?=
+ =?utf-8?B?bnVra1hKUi9sRU5XOUNscW1oekVNaGhVcGpFb1RwczY4RDRGUm1GbDBieTVu?=
+ =?utf-8?B?amlJSnJxRFNyUG5rSWVhcy9vcU5sdkpBV1lMRTV6Z1lOaWtNek9SeTR4RFk2?=
+ =?utf-8?B?SVpPTXpFd21ROGxKalVwM1RoNUZkQ0xPNU8yL3JscHM4dEJONzlTQ2ZUZVJp?=
+ =?utf-8?B?c2VrSkIwVmRMZ29FNGFJa0lveS9uTTM1QVhxTllKSU8yQkVYMTdSWE1nMTZ5?=
+ =?utf-8?B?ZGVEMXdLQXdqVVA4UEw5ODZOOGs3YUh3dW9wY0lSaExqNlU1MUxaaTUxMzNY?=
+ =?utf-8?B?ektiVnVQazRScXBmbzVUU0RqK1JabFNObnVWQXp6ZlJHeTZmb2htK1VLT25Q?=
+ =?utf-8?B?LzNNOG40cnRuNVZhazIvNzR2NDFPKzhlK1V5ZnUrRjdrelNkcEtKRnpndW5Y?=
+ =?utf-8?B?YWdYS21XK05DYi9PcTc0QUFkM0ZObDhHZG45U2lsK2owVjJnRzYvcTRCMkVt?=
+ =?utf-8?Q?h/0Yv5xgDBDpVPC19YkNfzwzaXr7hzyv7lgNwg19aiIyq?=
+X-MS-Exchange-AntiSpam-MessageData-1: /Y1xekYY8rtMww==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 38360d87-26f1-4a79-ee5b-08df0e26d9f7
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6413.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Sep 2026 04:00:13.9822
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: r4lW3mBGYqrK+KVwgttuntSOpmyMyIyZr3zNSmO+272RlxkW5GxeJqT69d+Y7wMw/KpVXh2ryP8Qdq10eMYIcQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB699018
 
-Standardize printing for pgtable entries using recently introduced generic
-helper ptval_bytes_to_hex_str() in core MM which automatically enables 128
-bits entries when added later.
+From: Joel Fernandes <joelagnelf@nvidia.com>
 
-Cc: Catalin Marinas <catalin.marinas@arm.com>
-Cc: Will Deacon <will@kernel.org>
-Cc: linux-arm-kernel@lists.infradead.org
-Cc: linux-kernel@vger.kernel.org
-Signed-off-by: Anshuman Khandual <anshuman.khandual@arm.com>
+Introduce a trait for GPU Page Directory Entries
+(PDEs). Default `read()`/`write()` helpers via a `Pramin` are
+provided.
+
+The forthcoming MMU v2, v3 PDE structs will each implement `PdeOps`,
+allowing the later page-table walker and mapper to call PDE operations.
+
+Signed-off-by: Joel Fernandes <joelagnelf@nvidia.com>
+[ecourtney: replace PraminWindow accesses with typed MMIO views]
+Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
 ---
-Changes in V2:
+ drivers/gpu/nova-core/mm/pagetable.rs | 41 +++++++++++++++++++++++++++++++++++
+ 1 file changed, 41 insertions(+)
 
-- Replaced pgtable level specific strings with pxd_str[] in show_pte()
-
- arch/arm64/mm/fault.c | 16 +++++++++++-----
- arch/arm64/mm/mmu.c   | 16 ++++++++++------
- 2 files changed, 21 insertions(+), 11 deletions(-)
-
-diff --git a/arch/arm64/mm/fault.c b/arch/arm64/mm/fault.c
-index 75c3e463df2e..2cecf6ba6df7 100644
---- a/arch/arm64/mm/fault.c
-+++ b/arch/arm64/mm/fault.c
-@@ -131,6 +131,7 @@ static inline unsigned long mm_to_pgd_phys(struct mm_struct *mm)
-  */
- static void show_pte(unsigned long addr)
- {
-+	char pxd_str[PTVAL_STR_MAX];
- 	struct mm_struct *mm;
- 	pgd_t *pgdp;
- 	pgd_t pgd;
-@@ -160,7 +161,8 @@ static void show_pte(unsigned long addr)
- 
- 	pgdp = pgd_offset(mm, addr);
- 	pgd = READ_ONCE(*pgdp);
--	pr_alert("[%016lx] pgd=%016llx", addr, pgd_val(pgd));
-+	ptval_to_str(pxd_str, pgd_val(pgd));
-+	pr_alert("[%016lx] pgd=%s", addr, pxd_str);
- 
- 	do {
- 		p4d_t *p4dp, p4d;
-@@ -173,19 +175,22 @@ static void show_pte(unsigned long addr)
- 
- 		p4dp = p4d_offset_lockless(pgdp, pgd, addr);
- 		p4d = READ_ONCE(*p4dp);
--		pr_cont(", p4d=%016llx", p4d_val(p4d));
-+		ptval_to_str(pxd_str, p4d_val(p4d));
-+		pr_cont(", p4d=%s", pxd_str);
- 		if (p4d_none(p4d) || p4d_bad(p4d))
- 			break;
- 
- 		pudp = pud_offset_lockless(p4dp, p4d, addr);
- 		pud = READ_ONCE(*pudp);
--		pr_cont(", pud=%016llx", pud_val(pud));
-+		ptval_to_str(pxd_str, pud_val(pud));
-+		pr_cont(", pud=%s", pxd_str);
- 		if (pud_none(pud) || pud_bad(pud))
- 			break;
- 
- 		pmdp = pmd_offset_lockless(pudp, pud, addr);
- 		pmd = READ_ONCE(*pmdp);
--		pr_cont(", pmd=%016llx", pmd_val(pmd));
-+		ptval_to_str(pxd_str, pmd_val(pmd));
-+		pr_cont(", pmd=%s", pxd_str);
- 		if (pmd_none(pmd) || pmd_bad(pmd))
- 			break;
- 
-@@ -194,7 +199,8 @@ static void show_pte(unsigned long addr)
- 			break;
- 
- 		pte = __ptep_get(ptep);
--		pr_cont(", pte=%016llx", pte_val(pte));
-+		ptval_to_str(pxd_str, pte_val(pte));
-+		pr_cont(", pte=%s", pxd_str);
- 		pte_unmap(ptep);
- 	} while(0);
- 
-diff --git a/arch/arm64/mm/mmu.c b/arch/arm64/mm/mmu.c
-index 0b2d190d62c3..26f4cf7b753e 100644
---- a/arch/arm64/mm/mmu.c
-+++ b/arch/arm64/mm/mmu.c
-@@ -2411,6 +2411,8 @@ int arch_set_user_pkey_access(int pkey, unsigned long init_val)
- #ifdef CONFIG_DEBUG_VM
- void __check_safe_pte_update(struct mm_struct *mm, pte_t *ptep, pte_t pte)
- {
-+	char pte_str_old[PTVAL_STR_MAX];
-+	char pte_str[PTVAL_STR_MAX];
- 	pte_t old_pte;
- 
- 	old_pte = __ptep_get(ptep);
-@@ -2425,15 +2427,17 @@ void __check_safe_pte_update(struct mm_struct *mm, pte_t *ptep, pte_t pte)
- 	 * (__ptep_set_access_flags safely changes valid ptes without going
- 	 * through an invalid entry).
- 	 */
-+	ptval_to_str(pte_str, pte_val(pte));
-+	ptval_to_str(pte_str_old, pte_val(old_pte));
- 	VM_WARN_ONCE(!pte_young(pte),
--		     "%s: racy access flag clearing: 0x%016llx -> 0x%016llx",
--		     __func__, pte_val(old_pte), pte_val(pte));
-+		     "%s: racy access flag clearing: %s -> %s",
-+		     __func__, pte_str_old, pte_str);
- 	VM_WARN_ONCE(pte_write(old_pte) && !pte_dirty(pte),
--		     "%s: racy dirty state clearing: 0x%016llx -> 0x%016llx",
--		     __func__, pte_val(old_pte), pte_val(pte));
-+		     "%s: racy dirty state clearing: %s -> %s",
-+		     __func__, pte_str_old, pte_str);
- 	VM_WARN_ONCE(!pgattr_change_is_safe(pte_val(old_pte), pte_val(pte)),
--		     "%s: unsafe attribute change: 0x%016llx -> 0x%016llx",
--		     __func__, pte_val(old_pte), pte_val(pte));
-+		     "%s: unsafe attribute change: %s -> %s",
-+		     __func__, pte_str_old, pte_str);
+diff --git a/drivers/gpu/nova-core/mm/pagetable.rs b/drivers/gpu/nova-core/mm/pagetable.rs
+index a23370b4b62d..14436fa6adf0 100644
+--- a/drivers/gpu/nova-core/mm/pagetable.rs
++++ b/drivers/gpu/nova-core/mm/pagetable.rs
+@@ -128,6 +128,47 @@ fn write(&self, pramin: &mut pramin::Pramin<'_>, addr: VramAddress) -> Result {
+     }
  }
- #endif
- #endif
+ 
++/// Operations on Page Directory Entries (`PDE`s).
++pub(super) trait PdeOps: Copy + core::fmt::Debug + Into<u64> {
++    /// Create a `PDE` from a raw `u64` value.
++    fn from_raw(val: u64) -> Self;
++
++    /// Create a valid `PDE` pointing to a page table in the given aperture.
++    fn new(aperture: AperturePde, table_pfn: Pfn) -> Self;
++
++    /// Create an invalid `PDE`.
++    fn invalid() -> Self;
++
++    /// Check if this `PDE` is valid.
++    fn is_valid(&self) -> bool;
++
++    /// Get the memory aperture of this `PDE`.
++    fn aperture(&self) -> AperturePde;
++
++    /// Get the VRAM address of the page table.
++    fn table_vram_address(&self) -> VramAddress;
++
++    /// Read a `PDE` from VRAM.
++    fn read(pramin: &mut pramin::Pramin<'_>, addr: VramAddress) -> Result<Self> {
++        let val = pramin.window_at::<u64>(addr)?.view().read_val();
++        Ok(Self::from_raw(val))
++    }
++
++    /// Write this `PDE` to VRAM.
++    fn write(&self, pramin: &mut pramin::Pramin<'_>, addr: VramAddress) -> Result {
++        pramin
++            .window_at::<u64>(addr)?
++            .view()
++            .write_val((*self).into());
++        Ok(())
++    }
++
++    /// Check if this `PDE` is valid and points to video memory.
++    fn is_valid_vram(&self) -> bool {
++        self.is_valid() && self.aperture() == AperturePde::VideoMemory
++    }
++}
++
+ /// Memory aperture for Page Table Entries (`PTE`s).
+ ///
+ /// Determines which memory region the `PTE` points to.
+
 -- 
-2.43.0
+2.55.0
 
