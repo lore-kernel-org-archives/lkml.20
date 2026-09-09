@@ -1,151 +1,197 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id EC88E188CC9;
-	Wed,  9 Sep 2026 08:55:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B14DD480DD8
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 08:55:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788944137; cv=none; b=PXmGmW+a1+OLohe47iASqz1vFqg/8oiEIEvh02T6DUTJB0nZ8D/CJcLiwCy3Qv7TA2FtguZswhadivUgJOReACzyQ/cLMDhySv/RgOaMDZeP2GdSnfw2F7RYOimcT65zdd+zww+65WuIpF79nfIfvQI8taatUCyfW7PojP+SwJg=
+	t=1788944139; cv=none; b=kOrHbmW9KarQC4LWQ793JIuJBMR0kBDmjLcp+8YvPvTGGhA2NgljVsUBjluijDWqAjMef/yQZ508aKfq2HN/yGC94JJSdk5xVI+0Wqx2/h2pJbLWOwEu6cn1QwQgbNxutoRQV2+QfYCiiUwccxR9iyeexIUfcwNJsspMjJE1RsI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788944137; c=relaxed/simple;
-	bh=lJDJz6lETRllb1wBQU19zV4OLNHqoK3MIQ/bs71SEBo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=bfZ27OhOEjj0BJifuRD/FJMUR9c1VRKA844cQ/BZXJyk8k6JVseep2YE6qv++ZOReF/3NgA7/1s5S2vFAdahjas+f8EbzvPAJJKwwujcwI1PRWB2PpHtEEsmPXgBhm4/WabgrnHBQAXvBKEwLAmaRL/xnG2irM/YYe40FzhY+Go=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=LZXOxeag; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1788944139; c=relaxed/simple;
+	bh=qShBYRFXbYWfYXpPIgfuo9feOFjnEF/XcFX1QiyG+G0=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=MT4dxqoy2g5YCpk5tTwEliJiPCSfm9+v043+9Q73MDI62qQkiyYiTOc78bwpkdSbNgLRluzoFakabXdVPVbdmQ+LGPVyN/FdolhvodhjBg49IM7ygI2pEGjbpH+T1V90F7yLEmLKImVfo/SDOtbDBdoM5vKwqliehZTh3Lir5Oo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=sfHfGfIf; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="LZXOxeag"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 60CB31576;
-	Wed,  9 Sep 2026 01:55:31 -0700 (PDT)
-Received: from [10.2.197.99] (ewhatever.cambridge.arm.com [10.2.197.99])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 66B0E3F7B4;
-	Wed,  9 Sep 2026 01:55:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1788944135; bh=lJDJz6lETRllb1wBQU19zV4OLNHqoK3MIQ/bs71SEBo=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=LZXOxeaghjFTVejUYIz42ta9EdC/XzJtbaXMq7kG5rYlpmWL0I9CHrpcDsUMw5j67
-	 5DyX181jUhzTNqnqD+cX0PchoWXiDxLuhN6TGcCTQxw7rTSd4wSUfayizASiLuT7tB
-	 xCbp4eyGD/aT2RavQKL3aJGnaTJ6x+WQzEe/PeHM=
-Message-ID: <aa928fb0-1aad-4244-8b03-85a87db35dad@arm.com>
-Date: Wed, 9 Sep 2026 09:55:30 +0100
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="sfHfGfIf"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 2B8A04E415A5;
+	Wed,  9 Sep 2026 08:55:36 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 005A860448;
+	Wed,  9 Sep 2026 08:55:36 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 4EEE111C7AF3D;
+	Wed,  9 Sep 2026 10:55:29 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1788944134; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding; bh=vtO9IYHDg020IlPD4IMPI/zB2Wf4VFLlMIHU59vFMBk=;
+	b=sfHfGfIfxTXAo8bbH2YgpMF95qlahWV/5jsHmovVG6ZYLrYUPj8QLCNEK/VLiDpKRo/REj
+	Vp2YUu4iehyKFhy5dN+oCV6ZOio2GqhzV6on7Yy/kDIKDsKSE3lzaWMJTkvNZa4388NgsF
+	Da+lpo5/YorJCsZ6to9j52tDN/6oCihPze4F0n1WLoFQ+0jAOb7g2BLtRPwZFrfnSP/m25
+	+1kfu7sGBawCqZBDFb+MyB9bsPW2fXHs7fmzQetZP7Mx/rs+NqzQwm5EuXSO72971oPPEA
+	iEgIsLrJ88s2Eh56iWWoPP6Kmbr5/duTvSdD9Mitlx+dFkKmw5of+Ne3xhNJ7A==
+From: "Miguel Gazquez (Schneider Electric)" <miguel.gazquez@bootlin.com>
+Date: Wed, 09 Sep 2026 10:55:27 +0200
+Subject: [PATCH 6.1.y] tcp: clear sock_ops cb flags before force-closing a
+ child socket
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v17 7/7] firmware: arm_rmm: Add wrappers for Realm related
- RMI commands
-To: Gavin Shan <gshan@redhat.com>, kvm@vger.kernel.org, kvmarm@lists.linux.dev
-Cc: maz@kernel.org, will@kernel.org, catalin.marinas@arm.com,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- steven.price@arm.com, aneesh.kumar@kernel.org, oupton@kernel.org,
- joey.gouly@arm.com, tabba@google.com, yuzenghui@huawei.com,
- linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com,
- sdonthineni@nvidia.com, alpergun@google.com, fj0570is@fujitsu.com,
- WeiLin.Chang@arm.com, lpieralisi@kernel.org, enju.kohei@fujitsu.com
-References: <20260907095942.1140734-1-suzuki.poulose@arm.com>
- <20260907095942.1140734-8-suzuki.poulose@arm.com>
- <de7e2d98-2faa-4e16-8164-d7247d31dbd5@redhat.com>
-Content-Language: en-US
-From: Suzuki K Poulose <suzuki.poulose@arm.com>
-In-Reply-To: <de7e2d98-2faa-4e16-8164-d7247d31dbd5@redhat.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260909-cve-2026-74268-6-1-v1-1-be89c97cd71a@bootlin.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMwQ6CMBCE4Vchc3ZJ28BSfBXjQeqC6wFNqwRCe
+ HeLHL9J5l+RJKoknIsVUSZN+hoz7KlAeNzGQUjv2XDGsWmNpzAJ7aCmcuyJyRKHquPe142pW+T
+ jO0qv8z96AZe2XHA95vTtnhI+exDb9gPZ5gWufQAAAA==
+X-Change-ID: 20260908-cve-2026-74268-6-1-6c4b6f857059
+To: stable@vger.kernel.org, "David S. Miller" <davem@davemloft.net>, 
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, 
+ Paolo Abeni <pabeni@redhat.com>, 
+ Hideaki YOSHIFUJI <yoshfuji@linux-ipv6.org>, 
+ David Ahern <dsahern@kernel.org>, Alexei Starovoitov <ast@kernel.org>, 
+ Lawrence Brakmo <brakmo@fb.com>
+Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, netdev@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, bpf@vger.kernel.org, 
+ Sechang Lim <rhkrqnwk98@gmail.com>, Jiayuan Chen <jiayuan.chen@linux.dev>, 
+ Kuniyuki Iwashima <kuniyu@google.com>, Sasha Levin <sashal@kernel.org>, 
+ "Miguel Gazquez (Schneider Electric)" <miguel.gazquez@bootlin.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788944129; l=4720;
+ i=miguel.gazquez@bootlin.com; s=20250708; h=from:subject:message-id;
+ bh=JWoFXVeMGyx5RTwT/JkeBIgL4x9FcSrsXctjJuVDfFo=;
+ b=IMhFORrQhZjNReq14qVWsuaoikSfs0QT9VxGFCQGfs11o5+9AKmmgLsrD1zcjRzga9GsxydJD
+ vBfy+HbtqJ5CBpr9i5LinRYinS02x2xThetSjs/TOnPhxZ5ww4lIzxz
+X-Developer-Key: i=miguel.gazquez@bootlin.com; a=ed25519;
+ pk=k/2KI9jkmayaF0ghZ8QYUH9Wm/kFHDhl8QoZ0RHbr4w=
+X-Last-TLS-Session-Version: TLSv1.3
 
-On 09/09/2026 08:15, Gavin Shan wrote:
-> On 9/7/26 7:59 PM, Suzuki K Poulose wrote:
->> From: Steven Price <steven.price@arm.com>
->>
->> Introduce wrappers for the RMI functions needed for creating and
->> managing realm guests. This will be used by the KVM to manage the
->> Realms
->>
->> Signed-off-by: Steven Price <steven.price@arm.com>
->> Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>
->> ---
->> Changes since v16:
->>    * Split into a separate patch and move away from arch/arm64 to
->>      include/linux/.
->>    * Also moved into the firmware_rmm series from the KVM CCA support.
->>      This is done in a hope to reduce the merge conflicts and make
->>      the KVM CCA upstreaming in independent parallel chunks
->> ---
->>   include/linux/arm-rmi-cmds.h | 453 +++++++++++++++++++++++++++++++++++
->>   1 file changed, 453 insertions(+)
->>
->> diff --git a/include/linux/arm-rmi-cmds.h b/include/linux/arm-rmi-cmds.h
->> index 79e2c1f165112..746257d77dd61 100644
->> --- a/include/linux/arm-rmi-cmds.h
->> +++ b/include/linux/arm-rmi-cmds.h
->> @@ -222,4 +222,457 @@ static inline long 
->> rmi_granule_range_undelegate(unsigned long base,
->>       return ret;
->>   }
->> +/**
->> + * rmi_rtt_data_map_init() - Create a protected mapping with data 
->> contents
->                                  
-> ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-> 
-> s/Create a protected mapping with data contents/Create a mappings in 
-> protected IPA with known contents
+From: Sechang Lim <rhkrqnwk98@gmail.com>
 
-Ack.
+[ Upstream commit 990348e5bb457697c2f1f7f7b65154a3334d9d2b ]
 
-> 
-> With this, it's consistently counterpart of the comments for 
-> rmi_rtt_data_map().
-> 
->
->
+A child socket inherits the listener's bpf_sock_ops_cb_flags via
+sk_clone_lock(). If its setup fails in tcp_v4_syn_recv_sock() /
+tcp_v6_syn_recv_sock(), the child is freed through put_and_exit, where
+inet_csk_prepare_forced_close() drops the socket lock and tcp_done() runs
+without it.
 
-...
+If BPF_SOCK_OPS_STATE_CB_FLAG was inherited, tcp_done() -> tcp_set_state()
+calls tcp_call_bpf(), which expects the lock and trips sock_owned_by_me():
 
+  WARNING: include/net/sock.h:1799 at tcp_set_state+0x433/0x550
+  RIP: 0010:tcp_set_state+0x433/0x550 include/net/sock.h:1799
+  Call Trace:
+   <IRQ>
+   tcp_done+0xba/0x250 net/ipv4/tcp.c:5095
+   tcp_v4_syn_recv_sock+0x850/0xa50 net/ipv4/tcp_ipv4.c:1787
+   tcp_check_req+0xf30/0x1360 net/ipv4/tcp_minisocks.c:926
+   tcp_v4_rcv+0x1047/0x1b50 net/ipv4/tcp_ipv4.c:2164
+   </IRQ>
 
-> 
-> The nested if statements can be avoided if we have:
-> 
->      if (ret != RMI_SUCCESS)
->          return ret;
-> 
->      if (out_top)
->          *out_top = regs.a1;
->      if (out_range)
->          *out_range = regs.a2;
->      if (out_count)
->          *out_count = regs.a3;
-> 
->      return RMI_SUCCESS;
+The child is freed before it is ever established, so it should run no
+sock_ops callback. Clear its cb flags in inet_csk_prepare_for_destroy_sock(),
+the common point for the IPv4, IPv6 and chtls forced-close paths and for the
+MPTCP ->syn_recv_sock() failure path (dispose_child), which reaches tcp_done()
+on a child that was never established too.
 
-Done for all of them.
+Suggested-by: Jiayuan Chen <jiayuan.chen@linux.dev>
+Fixes: d44874910a26 ("bpf: Add BPF_SOCK_OPS_STATE_CB")
+Signed-off-by: Sechang Lim <rhkrqnwk98@gmail.com>
+Reviewed-by: Jiayuan Chen <jiayuan.chen@linux.dev>
+Reviewed-by: Kuniyuki Iwashima <kuniyu@google.com>
+Reviewed-by: Eric Dumazet <edumazet@google.com>
+Link: https://patch.msgid.link/20260611092923.1895982-1-rhkrqnwk98@gmail.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 
-...
->> +/**
->> + * rmi_realm_activate() - Active a realm
->> + * @rd: PA of the RD
->> + *
->> + * Mark a realm as Active signalling that creation is complete and 
->> allowing
->                                                           ^^^^^^^^
-> 
-> s/complete/completed ?
+[ Moved inet_csk_prepare_for_destroy_sock() to inet_connection_sock.c due to header dependency,
+  Added a guard arount the call to tcp_clear_sock_ops_cb_flags to avoid
+  calling it for DDCP sockets.]
 
-I have changed this :
+Signed-off-by: Miguel Gazquez (Schneider Electric) <miguel.gazquez@bootlin.com>
+---
+ include/net/inet_connection_sock.h | 8 +-------
+ include/net/tcp.h                  | 9 +++++++++
+ net/ipv4/inet_connection_sock.c    | 9 +++++++++
+ 3 files changed, 19 insertions(+), 7 deletions(-)
 
-  /**
-- * rmi_realm_activate() - Active a realm
-+ * rmi_realm_activate() - Activate a realm
-   * @rd: PA of the RD
-   *
-- * Mark a realm as Active signalling that creation is complete and allowing
-+ * Mark a realm as Active, signalling that creation is completed, allowing
-   * execution of the realm.
+diff --git a/include/net/inet_connection_sock.h b/include/net/inet_connection_sock.h
+index 7649d4901f0c..069e7adf4373 100644
+--- a/include/net/inet_connection_sock.h
++++ b/include/net/inet_connection_sock.h
+@@ -295,14 +295,8 @@ reqsk_timeout(struct request_sock *req, unsigned long max_timeout)
+ 	return (unsigned long)min_t(u64, timeout, max_timeout);
+ }
+ 
+-static inline void inet_csk_prepare_for_destroy_sock(struct sock *sk)
+-{
+-	/* The below has to be done to allow calling inet_csk_destroy_sock */
+-	sock_set_flag(sk, SOCK_DEAD);
+-	this_cpu_inc(*sk->sk_prot->orphan_count);
+-}
+-
+ void inet_csk_destroy_sock(struct sock *sk);
++void inet_csk_prepare_for_destroy_sock(struct sock *sk);
+ void inet_csk_prepare_forced_close(struct sock *sk);
+ 
+ /*
+diff --git a/include/net/tcp.h b/include/net/tcp.h
+index 9632ac801e01..866943eb5d96 100644
+--- a/include/net/tcp.h
++++ b/include/net/tcp.h
+@@ -2440,6 +2440,11 @@ static inline int tcp_call_bpf_3arg(struct sock *sk, int op, u32 arg1, u32 arg2,
+ 	return tcp_call_bpf(sk, op, 3, args);
+ }
+ 
++static inline void tcp_clear_sock_ops_cb_flags(struct sock *sk)
++{
++	tcp_sk(sk)->bpf_sock_ops_cb_flags = 0;
++}
++
+ #else
+ static inline int tcp_call_bpf(struct sock *sk, int op, u32 nargs, u32 *args)
+ {
+@@ -2457,6 +2462,10 @@ static inline int tcp_call_bpf_3arg(struct sock *sk, int op, u32 arg1, u32 arg2,
+ 	return -EPERM;
+ }
+ 
++static inline void tcp_clear_sock_ops_cb_flags(struct sock *sk)
++{
++}
++
+ #endif
+ 
+ static inline u32 tcp_timeout_init(struct sock *sk)
+diff --git a/net/ipv4/inet_connection_sock.c b/net/ipv4/inet_connection_sock.c
+index a0014311c520..6184534aa1bf 100644
+--- a/net/ipv4/inet_connection_sock.c
++++ b/net/ipv4/inet_connection_sock.c
+@@ -1252,6 +1252,15 @@ void inet_csk_destroy_sock(struct sock *sk)
+ }
+ EXPORT_SYMBOL(inet_csk_destroy_sock);
+ 
++void inet_csk_prepare_for_destroy_sock(struct sock *sk)
++{
++	/* The below has to be done to allow calling inet_csk_destroy_sock */
++	if (sk->sk_protocol == IPPROTO_TCP)
++		tcp_clear_sock_ops_cb_flags(sk);
++	sock_set_flag(sk, SOCK_DEAD);
++	this_cpu_inc(*sk->sk_prot->orphan_count);
++}
++
+ /* This function allows to force a closure of a socket after the call to
+  * tcp/dccp_create_openreq_child().
+  */
 
-Addressed the rest of the comments.
+---
+base-commit: cf82dcca96346600c7068cf3f841335f9fa08f54
+change-id: 20260908-cve-2026-74268-6-1-6c4b6f857059
 
-Thank you for your detailed look at the patches, much appreciated !
+Best regards,
+--  
+Miguel Gazquez (Schneider Electric) <miguel.gazquez@bootlin.com>
 
-Cheers
-Suzuki
