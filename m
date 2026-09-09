@@ -1,137 +1,276 @@
-Received: from mail-oo2-f0.google.com (mail-oo2-f0.google.com [74.125.231.128])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39B93489FB4
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 22:44:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.128
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3EFF49BD8C;
+	Wed,  9 Sep 2026 22:44:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788993898; cv=none; b=gIaEZtQsGs0yPGQAS/1uGwRUWHntlrP/qRfiCwO2fNyU5bRgBoJUL74PcAZeHrfXN+Mp9Xq7pkP0Qj+JESmPMnKxO62vtHdqUIANNxYLIG/Mf0GLSpEwTvNSJEcNp+l+VMP/7cnPhpEiqp7l8XsoiCUhpM7ymZMMRfF3DzlzT4U=
+	t=1788993915; cv=none; b=IYQ9aWvtyWfgI42iQpXZVr8FUMhC/4+G5Y4aNaL8NFsEQwhWZJJZAqbxeKWvITZq0TYXrRGIG5inXvkY65/DK62sOunN8rFZFAuRQLJZ87sSKd+lzPQsflPkM7biyVmguMwfdvPorOyGzDcz+hXsQ6vxaxVrurNLvdLvtczKz0Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788993898; c=relaxed/simple;
-	bh=ayXAYpIOQBuW6ezTZuvH5c7lqVtStW6Pgo04q9tR3FY=;
-	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=srz+BLS7zB/EZNZI968Y+VGJXo0oGGNGYm8D35POH4fCjGVo44y+zEDpDhYD4lIskidrcdcJGwdKP1li+2gtW1AQvOcvgrPKmFczZY6ctInW8sJ9FU2hgCS7XpGttAtlemleR0PTQX+K13jG32IpTnUHkZ7mWsB4pCOrhjKWcK4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.128
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oo2-f0.google.com with SMTP id 006d021491bc7-6a3900cb2b5so2480280eaf.0
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 15:44:49 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788993886; x=1789598686;
-        h=content-type:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=H/zyDd5ZHfD1gowSKtlv4Qe8jLMIPiJvUQA8mt4u+qI=;
-        b=KUpJ/9jOlZ6GENfZl6OnY7Ub0v99lO7Z0JweY5ybahTO/gMMK8zuwVV8flg+GhHuRZ
-         nSdGOZSN+tuZORaI2SFUphJ6xavh5QEV9eCbk1nramHPZRohSflIsLhXUGESXmY93z+4
-         Qmag1G6447t5EaYN8mRm15KPyKTtmtG2re/jrVJMK734O6Uo79AABduQXHG/Ij51d3tP
-         Tt7gpH0mnJBfZwXgutPK9qxTQJwqysSZlSP5UnzzIxmURtcOVPW7PgxYW62OY4/cQBx0
-         5wguY6ErxfAaaTxWpkOh/53Vc+8jU4iYsoadqeWQ+r1ZvSys0gl4CI+obFiScCeFn0VZ
-         DytQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwf3CgqQbm8N9f1JFk6cGDQzob7xtewlcF9oTxP6PcT/vQ0nQGoKqf8LTvJN6ea8VgyRYKRpV3Pn+qpC1Q=@vger.kernel.org
-X-Gm-Message-State: AFuF++mh5gOmYpfZ8zuBEaSQNiogX5qIXyub6ZBoznormc1zGA/Rddqi
-	DUvS8YX+kt9uR5NWGYOJgif7a6jYfW1c5qxPU2IsydcZ/Ti3cqCpXMOdAHoxMW58yl9M7a5Xm+S
-	Mm25uhW7Xc2w+d5VzWxqN3WcaatE6UNUtwqH8wLp4xnqHOBkwcl9NqvtdOZ0=
+	s=arc-20240116; t=1788993915; c=relaxed/simple;
+	bh=1pohEkRkRTKr14WIc8Kdm4jTItnBwB1MtGczCR58BsI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=fARmFozqDH9Ir/9g9YKGoNZYQYrNh8Kh6DN3CbDkrnDRIS+qiUiD0LBK/NdUPOG88AQfItHyiw0RO87ePH1vovUxqeU0CBrT1/fFR++m/0cW2iBh0CciIV7LoWBDu5k6X6xConhLn8JMnUF8gzPsBsqRZtgeeTDGUXjfO/SzGpk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CiSeuaSF; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CiSeuaSF"
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id E57F01F000FF;
+	Wed,  9 Sep 2026 22:44:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788993896;
+	bh=g2XFQ1WhPtycVFb6TdfuXMrofw2tfv8EfVRsLMQOs7c=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=CiSeuaSFIZUcHP/TePFgqFoyArz7JQLx7EWdYp/QJf+CHxA/dUGjNPaUxRuCYrJxK
+	 ICgl5s5gg+DqS32I8lcyx6QmQlDz91xs3T9cJQoNJp0uYhI/3bcCGQg6HHPCgMs20w
+	 kD/BA1Ms7psXWNiG0LVRkzLd2/cOWOg0989jLEz+gf3e1KB3vRycjnxtgMlkA3O3pF
+	 aTaPpEajfpOuj2y5thmJZfZKNDBhUzE+3Rp1w/iZ5Z8fHL++ngF1yY/fWpsJoe3nub
+	 l19JCJHLOZVsvwSeRp0e2CzdGTyN2asGAF0XIYh172MSnpeXlRmwMZqIYqEUMoCjD4
+	 NxgzNH2AfZI3Q==
+Date: Thu, 10 Sep 2026 01:44:52 +0300
+From: Jarkko Sakkinen <jarkko@kernel.org>
+To: Chengfeng Ye <nicoyip.dev@gmail.com>
+Cc: David Howells <dhowells@redhat.com>, Paul Moore <paul@paul-moore.com>,
+	James Morris <jmorris@namei.org>,
+	"Serge E. Hallyn" <serge@hallyn.com>,
+	Andrew Morton <akpm@linux-foundation.org>, keyrings@vger.kernel.org,
+	linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] keys: Fix key_user use-after-free during ownership
+ changes
+Message-ID: <aqHhZO0GjMTOer4j@kernel.org>
+References: <20260904080940.575882-1-nicoyip.dev@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:810a:b0:6b1:bdd9:453 with SMTP id
- 006d021491bc7-6b6faee1fa2mr23686398eaf.12.1788993886341; Wed, 09 Sep 2026
- 15:44:46 -0700 (PDT)
-Date: Wed, 09 Sep 2026 15:44:46 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6aa1e15e.f81106d8.2ab401.0003.GAE@google.com>
-Subject: [syzbot] [wireless?] BUG: using smp_processor_id() in preemptible
- code in ieee80211_tx_control_port
-From: syzbot <syzbot+d979bd35c8a76fd1b6f5@syzkaller.appspotmail.com>
-To: johannes@sipsolutions.net, linux-kernel@vger.kernel.org, 
-	linux-wireless@vger.kernel.org, netdev@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260904080940.575882-1-nicoyip.dev@gmail.com>
 
-Hello,
+On Fri, Sep 04, 2026 at 04:09:40PM +0800, Chengfeng Ye wrote:
+> keyctl_chown_key() replaces key->user and then drops the key's
+> reference to the previous key_user. Several paths access key->user
+> without any common synchronization with this replacement, including
+> the /proc/keys iterators, find_keyring_by_name(), quota accounting, and
+> key instantiation.
+> 
+> This allows an ownership change to free the previous key_user while a
+> reader is still accessing it:
+> 
+>   CPU 0 (/proc/keys)            CPU 1 (KEYCTL_CHOWN)
+>   user = key->user
+>                                 old = key->user
+>                                 key->user = newowner
+>                                 key_user_put(old)
+>                                   kfree(old)
+>   uid = user->uid
+> 
+> The same missing synchronization also can corrupt instantiated-key
+> accounting. KEY_LOOKUP_PARTIAL allows keyctl_chown_key() to change the
+> owner of a key while it is still being instantiated:
+> 
+>   CPU 0 (instantiate)           CPU 1 (KEYCTL_CHOWN)
+>   atomic_inc(old->nikeys)
+>                                 observe KEY_IS_UNINSTANTIATED
+>                                 skip the nikeys transfer
+>                                 key->user = newowner
+>   mark key instantiated
+> 
+> The increment remains charged to the previous owner. Quota reservation
+> can similarly select one owner for its quota limit and another owner
+> for the usage update, or access an owner that has already been freed.
+> 
+> The existing locks do not provide common exclusion for these
+> operations. keyctl_chown_key() holds key->sem, key construction uses
+> key_construction_mutex, and the affected readers hold their respective
+> tree or list locks.
+> 
+> Use key_user_lock to serialize access to key ownership. Hold it across
+> the accounting transfer and key->user replacement in keyctl_chown_key().
+> Use the same lock while readers copy the owner's UID, while quota usage
+> is updated, and while the instantiated-key count and key state are
+> committed.
+> 
+> key_user_lock already serializes final key_user removal, so an old
+> owner cannot be freed while one of these readers is accessing it.
+> 
+> Fixes: 5801649d8b83 ("[PATCH] keys: let keyctl_chown() change a key's owner")
+> Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
+> ---
+> Changes in v2:
+> - Audit every user->uid occurrence and all direct key->user accesses.
+> - Take key_user_lock explicitly at each namespace-filtering reader instead
+>   of hiding the lock acquisition in an accessor.
+> - Serialize quota reservation and construction accounting with ownership
+>   changes while preserving the existing direct key->user accesses.
+> - Use the commit that introduced ownership changes as the Fixes target.
+> 
+> Link: https://lore.kernel.org/keyrings/20260823170448.3856516-1-nicoyip.dev@gmail.com/ [v1]
 
-syzbot found the following issue on:
+https://www.kernel.org/doc/html/latest/process/submitting-patches.html#separate-your-changes
 
-HEAD commit:    a9d7ced84989 Add linux-next specific files for 20260908
-git tree:       linux-next
-console+strace: https://syzkaller.appspot.com/x/log.txt?x=149cfaf9580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=17eeb09695a2b3c9
-dashboard link: https://syzkaller.appspot.com/bug?extid=d979bd35c8a76fd1b6f5
-compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
-syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=129cfaf9580000
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=139866f9580000
+I.e. no bundle commits. This unreviewable.
 
-Downloadable assets:
-disk image: https://storage.googleapis.com/syzbot-assets/4f470407358e/disk-a9d7ced8.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/858b9d7ba687/vmlinux-a9d7ced8.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/ef971d22d75f/bzImage-a9d7ced8.xz
+> ---
+>  security/keys/key.c     | 13 +++++++++++--
+>  security/keys/keyctl.c  |  4 ++++
+>  security/keys/keyring.c |  7 ++++++-
+>  security/keys/proc.c    | 15 +++++++++++++--
+>  4 files changed, 34 insertions(+), 5 deletions(-)
+> 
+> diff --git a/security/keys/key.c b/security/keys/key.c
+> index b34a64d81d47..54c675b3b58d 100644
+> --- a/security/keys/key.c
+> +++ b/security/keys/key.c
+> @@ -21,6 +21,7 @@ struct rb_root		key_serial_tree; /* tree of keys indexed by serial */
+>  DEFINE_SPINLOCK(key_serial_lock);
+>  
+>  struct rb_root	key_user_tree; /* tree of quota records indexed by UID */
+> +/* Protects key_user_tree and key ownership changes. */
+>  DEFINE_SPINLOCK(key_user_lock);
+>  
+>  unsigned int key_quota_root_maxkeys = 1000000;	/* root's key count quota */
+> @@ -380,9 +381,12 @@ int key_payload_reserve(struct key *key, size_t datalen)
+>  
+>  	/* contemplate the quota adjustment */
+>  	if (delta != 0 && test_bit(KEY_FLAG_IN_QUOTA, &key->flags)) {
+> -		unsigned maxbytes = uid_eq(key->user->uid, GLOBAL_ROOT_UID) ?
+> -			key_quota_root_maxbytes : key_quota_maxbytes;
+>  		unsigned long flags;
+> +		unsigned int maxbytes;
+> +
+> +		spin_lock(&key_user_lock);
+> +		maxbytes = uid_eq(key->user->uid, GLOBAL_ROOT_UID) ?
+> +			key_quota_root_maxbytes : key_quota_maxbytes;
+>  
+>  		spin_lock_irqsave(&key->user->lock, flags);
+>  
+> @@ -396,6 +400,7 @@ int key_payload_reserve(struct key *key, size_t datalen)
+>  			key->quotalen += delta;
+>  		}
+>  		spin_unlock_irqrestore(&key->user->lock, flags);
+> +		spin_unlock(&key_user_lock);
+>  	}
+>  
+>  	/* change the recorded data length if that didn't generate an error */
+> @@ -447,8 +452,10 @@ static int __key_instantiate_and_link(struct key *key,
+>  
+>  		if (ret == 0) {
+>  			/* mark the key as being instantiated */
+> +			spin_lock(&key_user_lock);
+>  			atomic_inc(&key->user->nikeys);
+>  			mark_key_instantiated(key, 0);
+> +			spin_unlock(&key_user_lock);
+>  			notify_key(key, NOTIFY_KEY_INSTANTIATED, 0);
+>  
+>  			if (test_and_clear_bit(KEY_FLAG_USER_CONSTRUCT, &key->flags))
+> @@ -604,8 +611,10 @@ int key_reject_and_link(struct key *key,
+>  	/* can't instantiate twice */
+>  	if (key->state == KEY_IS_UNINSTANTIATED) {
+>  		/* mark the key as being negatively instantiated */
+> +		spin_lock(&key_user_lock);
+>  		atomic_inc(&key->user->nikeys);
+>  		mark_key_instantiated(key, -error);
+> +		spin_unlock(&key_user_lock);
+>  		notify_key(key, NOTIFY_KEY_INSTANTIATED, -error);
+>  		key_set_expiry(key, ktime_get_real_seconds() + timeout);
+>  
+> diff --git a/security/keys/keyctl.c b/security/keys/keyctl.c
+> index d14ace88e529..83a9575b084e 100644
+> --- a/security/keys/keyctl.c
+> +++ b/security/keys/keyctl.c
+> @@ -1004,6 +1004,8 @@ long keyctl_chown_key(key_serial_t id, uid_t user, gid_t group)
+>  		if (!newowner)
+>  			goto error_put;
+>  
+> +		spin_lock(&key_user_lock);
+> +
+>  		/* transfer the quota burden to the new user */
+>  		if (test_bit(KEY_FLAG_IN_QUOTA, &key->flags)) {
+>  			unsigned maxkeys = uid_eq(uid, GLOBAL_ROOT_UID) ?
+> @@ -1039,6 +1041,7 @@ long keyctl_chown_key(key_serial_t id, uid_t user, gid_t group)
+>  		zapowner = key->user;
+>  		key->user = newowner;
+>  		key->uid = uid;
+> +		spin_unlock(&key_user_lock);
+>  	}
+>  
+>  	/* change the GID */
+> @@ -1058,6 +1061,7 @@ long keyctl_chown_key(key_serial_t id, uid_t user, gid_t group)
+>  
+>  quota_overrun:
+>  	spin_unlock_irqrestore(&newowner->lock, flags);
+> +	spin_unlock(&key_user_lock);
+>  	zapowner = newowner;
+>  	ret = -EDQUOT;
+>  	goto error_put;
+> diff --git a/security/keys/keyring.c b/security/keys/keyring.c
+> index 15bf4af8f282..5943e8b48c0f 100644
+> --- a/security/keys/keyring.c
+> +++ b/security/keys/keyring.c
+> @@ -1148,6 +1148,7 @@ struct key *find_keyring_by_name(const char *name, bool uid_keyring)
+>  {
+>  	struct user_namespace *ns = current_user_ns();
+>  	struct key *keyring;
+> +	kuid_t uid;
+>  
+>  	if (!name)
+>  		return ERR_PTR(-EINVAL);
+> @@ -1158,7 +1159,11 @@ struct key *find_keyring_by_name(const char *name, bool uid_keyring)
+>  	 * grants Search permission and that hasn't been revoked
+>  	 */
+>  	list_for_each_entry(keyring, &ns->keyring_name_list, name_link) {
+> -		if (!kuid_has_mapping(ns, keyring->user->uid))
+> +		spin_lock(&key_user_lock);
+> +		uid = keyring->user->uid;
+> +		spin_unlock(&key_user_lock);
+> +
+> +		if (!kuid_has_mapping(ns, uid))
+>  			continue;
+>  
+>  		if (test_bit(KEY_FLAG_REVOKED, &keyring->flags))
+> diff --git a/security/keys/proc.c b/security/keys/proc.c
+> index 4f4e2c1824f1..e507c500c068 100644
+> --- a/security/keys/proc.c
+> +++ b/security/keys/proc.c
+> @@ -68,7 +68,13 @@ static struct rb_node *key_serial_next(struct seq_file *p, struct rb_node *n)
+>  	n = rb_next(n);
+>  	while (n) {
+>  		struct key *key = rb_entry(n, struct key, serial_node);
+> -		if (kuid_has_mapping(user_ns, key->user->uid))
+> +		kuid_t uid;
+> +
+> +		spin_lock(&key_user_lock);
+> +		uid = key->user->uid;
+> +		spin_unlock(&key_user_lock);
+> +
+> +		if (kuid_has_mapping(user_ns, uid))
+>  			break;
+>  		n = rb_next(n);
+>  	}
+> @@ -80,6 +86,7 @@ static struct key *find_ge_key(struct seq_file *p, key_serial_t id)
+>  	struct user_namespace *user_ns = seq_user_ns(p);
+>  	struct rb_node *n = key_serial_tree.rb_node;
+>  	struct key *minkey = NULL;
+> +	kuid_t uid;
+>  
+>  	while (n) {
+>  		struct key *key = rb_entry(n, struct key, serial_node);
+> @@ -100,7 +107,11 @@ static struct key *find_ge_key(struct seq_file *p, key_serial_t id)
+>  		return NULL;
+>  
+>  	for (;;) {
+> -		if (kuid_has_mapping(user_ns, minkey->user->uid))
+> +		spin_lock(&key_user_lock);
+> +		uid = minkey->user->uid;
+> +		spin_unlock(&key_user_lock);
+> +
+> +		if (kuid_has_mapping(user_ns, uid))
+>  			return minkey;
+>  		n = rb_next(&minkey->serial_node);
+>  		if (!n)
+> -- 
+> 2.43.0
 
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+d979bd35c8a76fd1b6f5@syzkaller.appspotmail.com
-
-BUG: using smp_processor_id() in preemptible [00000000] code: syz-executor240/5639
-caller is dev_sw_netstats_tx_add include/linux/netdevice.h:3086 [inline]
-caller is ieee80211_tx_control_port+0xac7/0x1100 net/mac80211/tx.c:6656
-CPU: 0 UID: 0 PID: 5639 Comm: syz-executor240 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/24/2026
-Call Trace:
- <TASK>
- dump_stack_lvl+0xe8/0x150 lib/dump_stack.c:120
- check_preemption_disabled+0xcd/0xd0 lib/smp_processor_id.c:47
- dev_sw_netstats_tx_add include/linux/netdevice.h:3086 [inline]
- ieee80211_tx_control_port+0xac7/0x1100 net/mac80211/tx.c:6656
- rdev_tx_control_port net/wireless/rdev-ops.h:783 [inline]
- nl80211_tx_control_port+0x624/0x960 net/wireless/nl80211.c:18603
- genl_family_rcv_msg_doit+0x233/0x340 net/netlink/genetlink.c:1114
- genl_family_rcv_msg net/netlink/genetlink.c:1194 [inline]
- genl_rcv_msg+0x614/0x7a0 net/netlink/genetlink.c:1209
- netlink_rcv_skb+0x226/0x4a0 net/netlink/af_netlink.c:2556
- genl_rcv+0x28/0x40 net/netlink/genetlink.c:1218
- netlink_unicast_kernel net/netlink/af_netlink.c:1319 [inline]
- netlink_unicast+0x7bd/0x940 net/netlink/af_netlink.c:1345
- netlink_sendmsg+0x7c3/0xae0 net/netlink/af_netlink.c:1900
- sock_sendmsg_nosec+0x13a/0x180 net/socket.c:800
- __sock_sendmsg net/socket.c:815 [inline]
- ____sys_sendmsg+0x54e/0x850 net/socket.c:2713
- ___sys_sendmsg+0x2a5/0x360 net/socket.c:2767
- __sys_sendmsg net/socket.c:2799 [inline]
- __do_sys_sendmsg net/socket.c:2804 [inline]
- __se_sys_sendmsg net/socket.c:2802 [inline]
- __x64_sys_sendmsg+0x1b1/0x290 net/socket.c:2802
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7f2fe280ba69
-Code: c0 79 93 eb d5 48 8d 7c 1d 00 eb 99 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 d0 ff ff ff f7 d8 64 89 01 48
-RSP: 002b:00007ffc9ac26a08 EFLAGS: 00000246 ORIG_RAX: 000000000000002e
-
-
-
----
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
-
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
-
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
-
-If you want syzbot to run the reproducer, reply with:
-#syz test: git://repo/address.git branch-or-commit-hash
-If you attach or paste a git patch, syzbot will apply it before testing.
-
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
-
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
-
-If you want to undo deduplication, reply with:
-#syz undup
+BR, Jarkko
