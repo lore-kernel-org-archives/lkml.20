@@ -1,155 +1,152 @@
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD83D55D879
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 13:20:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F3D3552947;
+	Wed,  9 Sep 2026 13:21:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788960059; cv=none; b=oILrpc+K8XVTsMSd0PjjxEbD/7mglOgyT3hSrITmry8IY/BRD3fkjyLXxq8ezbgRD09GmpzJRajX7dsvSdmo9ToQGfFlr2uxcQrbpNpH7eHVc6ACOYDiTvL7jzJeIm0QTwu7fHZfT4TJ9zdUno8A+Zk/72x24Gy1eCvUzKg6Z8k=
+	t=1788960091; cv=none; b=aHRIcdL0xs8errVbE6BLAxTOon/Uyn08YY/ylabK/kIyOqnkFt+RtjBKs6mX2k5DMC0MrGLn11cmG5UXajj6bv/rlbxWAOWSil7hJkilY4h9DKZzxAicMJvykKImDwYSQTQdan2qGP6JvF7bz8DdkC4b5vq5+jVLWy7Ddq/KPtQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788960059; c=relaxed/simple;
-	bh=1rpYp9/x6QZBAeabDSXxOvoteEpsLsPbNU50Cm/Tks4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ZcwZMpFI+n38oMp7P36Bv7M+FUUOVkxXxXaq8rkFyxYQ2EA4+M/evQy86eezXgHOb5kgaYHWwMQxOe3KINqktYf/d7KAa//qzkS5eWfVQLiZDbpI0PSxZPwbAmUZcG+m4GfjLLIVqTOydrjDXQyd2Cnnsg5Nfp3R9otnqGMRLQY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=iKiostL2; arc=none smtp.client-ip=209.85.128.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788960091; c=relaxed/simple;
+	bh=jL14stIA2rn68YKG4zCHQgGa1C9S4Qh+DLrH7ru852E=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=iMO6kRLzfrWeLEMP27Wt8XepsADdAsYYVlY1Oe0zTE3CEkvNlcdB4fHDd2D9aDmDYII8tCtAcPU0xRKy7G0SjgQY/OJOSfT4aredxAbrVcCorJaGWKK9WBPVyEdJKvHbuJaB20pEptGAw21YQcnuUK/OjGLW2fEzzlwsXbhYdIs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cSZMaNiF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="iKiostL2"
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-49b0d78a801so58148725e9.2
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 06:20:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788960055; x=1789564855; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=xqcFgIRraimIxFzTBpazVCLFmRgJ8bu+hLdgiYiQiYQ=;
-        b=iKiostL2iShBz5U7B+fqlBWmvWLfjAN0C5KJIomug0nbS/uaSDFEcv79uDjBQVqYBZ
-         inGJr6bEINe4aOUmERVgS6HZxY8ixN1G/9LJKFytADUt+FNct3Ej2/ct2cQQm2TJYPi3
-         eVl745xC9ICVSAKFfJPXu1YcQVew48NYH1XJfeYpeLtDAJXHsPvHrr7CaQ1GXCfO4QEQ
-         zqJxCqiASVHG7P5XLC9XTWBtNmbxIoheEkip9mWlQFAY/1J3UfN92Ex57lMNPw7HxJ/2
-         9nTVkflibCDZMmOnG/RW1PEhOA1/7hkCOG1Xnli6KNk1Uva/oHkOxMV63gIicRGoLk3f
-         GCQA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788960055; x=1789564855;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=xqcFgIRraimIxFzTBpazVCLFmRgJ8bu+hLdgiYiQiYQ=;
-        b=hOTSct3TLc+04KZWz71+5iimrTpcC2hzNBwS1d2RomM7ZfGDF/FeshKIOwdAArZaVV
-         8UuEJ+NSTrv+xIj7kheST9TBvMMItoP47NrQWmRQgXd4qPrgvbpts58N221CZdfpQkcn
-         UKodjEsG8RsLYgOlvfPwl7BDkwtwIRAHv9USDhiz5kCFYuc1HuuwdTf4M0xLi2b+xLUh
-         odblHwc413U91K4pCPa7mYikJvFzzTt581zkpwVKH0Hs4uR7yKeNvaei+/389HQgUpFU
-         XAQuEkwmyhgUhgFK1yl20g80BDM/5oEUhr3otXrHx79m5c9QNLW4XYu9tlspxHE+sPv0
-         XnPg==
-X-Forwarded-Encrypted: i=1; AKwUvBxZVl6W8E+fP5kQjTd6H8tQ2abLHAO7+zsfzgMyFiXdEDQn0GgDgjAq1IiVosEuM0OlDwMSL8v/0EPD8eo=@vger.kernel.org
-X-Gm-Message-State: AFuF++kXDgOq+4hG0t7WQg+DmEE6OyhNz96exAMJwK9M8ZTC4IKyzlps
-	smXfmhwPNBygeHrLWuPazYmQqfAWY2uZdgoWymlDRZxtHMM0wK7NFDOM
-X-Gm-Gg: AYBFou2LcCI+GrHINHtWbLAARQxqGYnfBd6ntCDJNlvOJqlQ2JFIaA6lfTniNca1r6A
-	scX4iyG74DgrsV8u9osswCDsZ5Elgz7Tm2Jk8qJ2lJeibJ/02XucWw6LgW0D9v9op25s1kXKZqr
-	FgADQ/h1N1gVm0SHSvdIF/ws2DeXMxu/UW/Xq5OttobDf6z4E1GCWEr0Uu5w7Q/PYgiYcIasz15
-	qaltTIQnn0bP8NwXHFh4d9QaLtEFFkxqoZhMJURjAAzhMy4wr1/563WpanXyBeJM7HS3dGq8957
-	Tz+kilzZjaQVISPcixvADca0cf0tAKrhas4sv4c/gw5+ojKCy8J0RlK+Tn3Ty93KMkQQfZzQ2pX
-	NdMtTGuqtfUXkIZOEhvcSyo22DRSojX8+qg9KhB+ERn7eFYi8tFsMYqUFIcOIO9Te9iW8Ydf9UA
-	gIuX3VaHGYLhf9VJjg/OPFWgAnzkaQggGy2+ZdaGM3E5Vce+/5qkkejBLIyYJaOpsHho4ws8V2x
-	ebuZw==
-X-Received: by 2002:a05:600c:3ba5:b0:49c:dada:f581 with SMTP id 5b1f17b1804b1-49cf7f39c8bmr434366595e9.0.1788960054671;
-        Wed, 09 Sep 2026 06:20:54 -0700 (PDT)
-Received: from VivoBook-ASUS-X712UA-M712UA.lan ([2a00:f44:c51:e108:176f:2adf:3ca6:dc52])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49d1e002d25sm93156835e9.1.2026.09.09.06.20.52
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 09 Sep 2026 06:20:53 -0700 (PDT)
-From: Stanislaw Pal <kuncy7@gmail.com>
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-	Jie Luo <jie.luo@oss.qualcomm.com>
-Cc: Mieczyslaw Nalewaj <namiltd@yahoo.com>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Michael Turquette <mturquette@baylibre.com>,
-	Georg Seema <georgseema@gmail.com>,
-	Brian Masney <bmasney@redhat.com>,
-	linux-arm-msm@vger.kernel.org,
-	linux-clk@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] clk: qcom: ipq-cmn-pll: keep the CMN block bus clocks enabled
-Date: Wed,  9 Sep 2026 15:20:49 +0200
-Message-ID: <20260909132049.37611-1-kuncy7@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <b58e3f64-1a5c-4db4-a51b-7138fb3609da@oss.qualcomm.com>
-References: <b58e3f64-1a5c-4db4-a51b-7138fb3609da@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cSZMaNiF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD4D01F00A3A;
+	Wed,  9 Sep 2026 13:21:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788960090;
+	bh=Et8Tc+zJYrlmS7IHYeOD4T4P7eMPWgKqQ5XzB6XXw7M=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=cSZMaNiFDM/iBbEtipO42XrDHprhWxCTfMIycSPNBvU57qYx7auTLKBkEex9w0WQv
+	 SKXEtl/3ZYJyMM9IfTMl9feHqT1bnBoVu9ONikLN8FktK7fjmOAnJKTIVbtELsgJuy
+	 TPdXsRaftBDkIpm7qDvNYomLzyPH1TPmwnH1PGdM12W6ZhNR+5Fnw1iw4t+TnvdC3F
+	 NMmn/RKfetqFCNdf3nAuvQU/PsWuHEapuyYy2BRPB4Udq6FMVRXMTrVzQguhktAZzL
+	 9lgZzW2BlYbgPpL4s3q0ps1mvZVlFFCx7QgDQ1MPp6UegTTYvLhQPoclSHHsMP2THN
+	 z1OtfDX0svuIw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 3/5] mm/memory-failure: efi: record hardware-poisoned
+ frames into the poisoned-memory table
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Ilias Apalodimas" <ilias.apalodimas@linaro.org>, "Michal Hocko" <mhocko@suse.com>, "Naoya
+ Horiguchi" <nao.horiguchi@gmail.com>, "Andrew Morton" <akpm@linux-foundation.org>, kas@kernel.org, "Vlastimil
+ Babka" <vbabka@kernel.org>, x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, "David
+ Hildenbrand" <david@kernel.org>, "Breno Leitao" <leitao@debian.org>, "Liam
+ R. Howlett" <liam@infradead.org>, "Brendan Jackman" <brendan.jackman@linux.dev>, "Johannes
+ Weiner" <hannes@cmpxchg.org>, "Borislav Petkov" <bp@alien8.de>, "Suren
+ Baghdasaryan" <surenb@google.com>, "Ard Biesheuvel" <ardb@kernel.org>, "Lorenzo
+ Stoakes" <ljs@kernel.org>, "Mike Rapoport" <rppt@kernel.org>, "Miaohe Lin" <linmiaohe@huawei.com>, "Ingo
+ Molnar" <mingo@redhat.com>, "Dave Hansen" <dave.hansen@linux.intel.com>, "Zi
+ Yan" <ziy@nvidia.com>, "Thomas Gleixner" <tglx@kernel.org>
+Cc: kernel-team@meta.com, rmikey@meta.com, harry@kernel.org, linux-efi@vger.kernel.org, riel@surriel.com, linux-kernel@vger.kernel.org, linux-mm@kvack.org, kexec@lists.infradead.org
+In-Reply-To: <20260909-hwpoison-kho-v4-3-359313564495@debian.org>
+References: <20260909-hwpoison-kho-v4-0-359313564495@debian.org>
+ <20260909-hwpoison-kho-v4-3-359313564495@debian.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 09 Sep 2026 13:21:28 +0000
+Message-Id: <20260909132128.AD4D01F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-On 9/9/26 2:12 PM, Konrad Dybcio wrote:
-> Is it only the UNIPHY consuming the 50 MHz one?
->
-> What consumes the XO clock? What consumes the sleep clock?
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] Missing overflow check when computing the end address of the EFI p=
+oisoned memory table can lead to an unbounded memblock reservation and memo=
+ry corruption.
+--
 
-Nothing in Linux consumes any of the three today.
+commit 7216d7e029930900ac5741a5f5bbfe7a2107b408
+Author: Breno Leitao <leitao@debian.org>
 
-grep -rn '&cmn_pll' arch/arm64/boot/dts/qcom/ on v6.18 gives, in full:
+mm/memory-failure: efi: record hardware-poisoned frames into the poisoned-m=
+emory table
 
-  ipq5018.dtsi:258:  assigned-clocks = <&cmn_pll IPQ5018_CMN_PLL_CLK>;
-  ipq5424.dtsi:288:  assigned-clocks = <&cmn_pll IPQ5424_CMN_PLL_CLK>;
-  ipq9574.dtsi:359:  assigned-clocks = <&cmn_pll CMN_PLL_CLK>;
-  ipq9574.dtsi:1253:                   <&cmn_pll NSS_1200MHZ_CLK>,
-  ipq9574.dtsi:1254:                   <&cmn_pll PPE_353MHZ_CLK>,
+This commit hooks action_result() to efi_hwpoison_record_pfn() to record ha=
+rd
+offlined frames in the LINUX_EFI_POISONED_MEMORY table, ensuring they are
+passed down to the next kernel via kexec. It also adds early initialization
+code to vet the table inherited from previous boots.
 
-The first three are the provider setting its own VCO rate. The only
-real consumer anywhere is the IPQ9574 NSS clock controller. No device
-tree in the tree references XO_24MHZ_CLK or SLEEP_32KHZ_CLK, on any
-SoC - and of the five compatibles the driver carries, only ipq5018,
-ipq5424 and ipq9574 have a cmn_pll node in mainline at all.
+> diff --git a/drivers/firmware/efi/poison.c b/drivers/firmware/efi/poison.c
+> new file mode 100644
+> index 0000000000000..c18edf111c710
+> --- /dev/null
+> +++ b/drivers/firmware/efi/poison.c
+[ ... ]
+> +static bool __init
+> +efi_poison_geometry_valid(const struct linux_efi_poisoned_memory *pm)
+> +{
+> +	u64 nbits;
+> +
+> +	/* Whole words, and a bit count that can be taken without wrapping. */
+> +	if (!pm->size || !IS_ALIGNED(pm->size, sizeof(unsigned long)) ||
+> +	    check_mul_overflow(pm->size, (u64)BITS_PER_BYTE, &nbits))
+> +		return false;
 
-On IPQ5018 specifically:
+[Severity: High]
+Does this validation fully protect against an excessively large pm->size?
 
- - eth-50mhz: Jie is right that the UNIPHY takes it, and it will become
-   a clk_get() consumer once IPQ5018 UNIPHY/PCS support lands. The node
-   in the pending work has
+While check_mul_overflow() validates the size for bit conversion, it appears
+it does not verify that the table's footprint fits within the physical addr=
+ess
+space without overflowing when combined with efi.poisoned_memory.
 
-	clocks = <&gcc GCC_UNIPHY_AHB_CLK>, <&gcc GCC_UNIPHY_SYS_CLK>,
-		 <&gcc GCC_UNIPHY_RX_CLK>, <&gcc GCC_UNIPHY_TX_CLK>,
-		 <&cmn_pll IPQ5018_ETH_50MHZ_CLK>;
-	clock-names = "ahb", "sys", "port5_rx", "port5_tx", "ref";
+> +
+> +	if (pm->unit_size < PAGE_SIZE || !is_power_of_2(pm->unit_size))
+> +		return false;
+> +
+> +	return IS_ALIGNED(pm->phys_base, pm->unit_size);
+> +}
+[ ... ]
+> +void __init efi_poisoned_memory_reserve(void)
+> +{
+> +	struct linux_efi_poisoned_memory *pm;
+> +	phys_addr_t start, end;
+> +
+> +	if (efi.poisoned_memory =3D=3D EFI_INVALID_TABLE_ADDR)
+> +		return;
+> +
+> +	pm =3D early_memremap(efi.poisoned_memory, sizeof(*pm));
+> +	if (!pm) {
+> +		pr_warn("Could not map poisoned-memory table\n");
+> +		efi.poisoned_memory =3D EFI_INVALID_TABLE_ADDR;
+> +		return;
+> +	}
+> +
+> +	if (!efi_poison_table_valid(pm)) {
+> +		efi.poisoned_memory =3D EFI_INVALID_TABLE_ADDR;
+> +		early_memunmap(pm, sizeof(*pm));
+> +		return;
+> +	}
+> +
+> +	start =3D PAGE_ALIGN_DOWN(efi.poisoned_memory);
+> +	end =3D PAGE_ALIGN(efi.poisoned_memory + sizeof(*pm) + pm->size);
 
-   In mainline there is no such node yet - the only "uniphy" nodes on
-   IPQ5018 are the two PCIe PHYs - so that 50 MHz path exists in
-   silicon with nothing holding a handle on it from Linux.
+[Severity: High]
+Can this computation wrap around if pm->size is maliciously large?
 
- - xo-24mhz and sleep-32khz: I know of no consumer, in tree or out.
-   Worth noting these are not what the rest of the SoC runs on: the
-   platform's 24 MHz XO and 32 kHz sleep clock come from the board
-   oscillators described separately in ipq5018.dtsi (xo_clk ->
-   ref_96mhz_clk -> xo_board_clk, and sleep_clk), not from the CMN
-   block. The CMN outputs at the same nominal rates look like
-   re-exports for hard-wired internal use.
+Because pm->size is only constrained to be less than U64_MAX / 8 in
+efi_poison_geometry_valid(), an unvalidated addition here could overflow,
+resulting in end < start. If that happens, an enormous end - start would
+be passed to memblock_add() and memblock_reserve().
 
-I would rather this did not decide the patch, though, because the
-failure it fixes is not a later register access to the CMN block.
-Mieczyslaw's summary in the v4 thread put it that way; the mechanism I
-measured is narrower, and it is what the v4 commit message describes:
+This could result in memblock capping the size to PHYS_ADDR_MAX - start,
+blindly marking the rest of the physical address space (including MMIO) as
+RAM. This forces direct-map cacheable page table entries for MMIO regions,
+leading to system crashes or memory layout corruption.
 
- - gating those same two clocks on an idle, fully booted GL-B3000
-   (runtime PM autosuspend, gate landing ~75 s after probe) is
-   harmless - runtime_status "suspended", both radios still serving
-   clients;
- - with UNIPHY0 disabled in the device tree, so that no uniphy driver
-   exists in that boot at all, the board still dies in 6 of 7 boots;
- - stretching the end of probe by 15 ms, or by a full 2 s, still ends
-   in a watchdog reset, 8 of 8 boots each.
+> +	early_memunmap(pm, sizeof(*pm));
+> +
+> +	memblock_add(start, end - start);
+> +	memblock_reserve(start, end - start);
+> +}
 
-So what hangs the SoC is the gate transition landing amid early-boot
-bus activity, not any consumer's access afterwards. That is also why
-no consumer-side scheme can help: the window is between the CMN PLL
-probe returning and the first clk_get() by anybody, whichever consumer
-eventually turns up.
-
-Thanks for the Ack on v4.
-
-Best regards,
-Stanislaw
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260909-hwpoison-k=
+ho-v4-0-359313564495@debian.org?part=3D3
