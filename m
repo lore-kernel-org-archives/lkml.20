@@ -1,133 +1,153 @@
-Received: from fout-b6-smtp.messagingengine.com (fout-b6-smtp.messagingengine.com [202.12.124.149])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f50.google.com (mail-ed1-f50.google.com [209.85.208.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D16C158599F;
-	Wed,  9 Sep 2026 15:26:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.149
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0EE65678FC
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 15:27:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788967603; cv=none; b=l1LvASVV2R3O6RshGq72znQtPk9h0QkePUhBs1iNFwKv+atj1zPQZlcYjIwoNaPbV/r3y5Aau5PM2pWVNvPrjoRUXlFYUDfyTYquOsI+NqobTkMeuOJwEJrNx1B4Ndm7tiHvfyxmAMMMV+1phqIImjaBx1HCeSBpqfz1CrE57vY=
+	t=1788967626; cv=none; b=cgTjLoLnlHD9bXKvh/gIAookOhggAA3Q7Hp3+CHIhb7PotpYJ9mYgqb0VkLktDWu3maBy3eWwR/xiJLlSWys8dpjWARDUpBHR1jK3RXd2cxugTd9Y+APZfCzquTXxo1K7+aNtPTqdb1pcZ2S3D4TLsKfLX2XG9Ts71LUlRjgAEQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788967603; c=relaxed/simple;
-	bh=K+tPpcnxPlmZ+hTXPwaP9ZimJYGKFH4bAEXXpRkzTVc=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=YrXoDvKZ3fyEa5NfqFPWCM+ODF55Vkly9NRgfLEwBTL1gmtHeqpGVGnAqwbrv9VdDQx3slJYes5pP3eAzztmI1POyZkkRlEd5s5iA/rsJCPwbg3SvU4Im+tF16QtPZB+3n6adMh7LIhty+j8MEu1LQExffIg1rhlXOSSa6Jd9BE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=squebb.ca; spf=pass smtp.mailfrom=squebb.ca; dkim=pass (2048-bit key) header.d=squebb.ca header.i=@squebb.ca header.b=jPUh/+lX; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=QR5qTOpO; arc=none smtp.client-ip=202.12.124.149
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=squebb.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=squebb.ca
+	s=arc-20240116; t=1788967626; c=relaxed/simple;
+	bh=t3yqbvSqtFoLUHow+WwPXXOfeaEh7bClm80fMM9rQTg=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=h493stHHu4BvbUX8dJ8WF14nuhwhM1wcjYcivfd974V2/WOqzy9fppvLjhrSS1LTMfOqAr07n7WkW8xuvG3ibhsqHO675+ShsDndtpwcHuNw17RICKFD6vhCJLVFGesDoaS0QhUi5YJFESriRjvxyLMAZAojf0JbLDnx1hxatoY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org; spf=pass smtp.mailfrom=linuxfoundation.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=dWWjxsx3; arc=none smtp.client-ip=209.85.208.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=squebb.ca header.i=@squebb.ca header.b="jPUh/+lX";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="QR5qTOpO"
-Received: from stl-compute-04.internal (stl-compute-04.internal [10.204.2.64])
-	by mailfout.stl.internal (Postfix) with ESMTP id 0C79C1D0007D;
-	Wed,  9 Sep 2026 11:26:40 -0400 (EDT)
-Received: from stl-imap-02 ([10.204.2.93])
-  by stl-compute-04.internal (MEProxy); Wed, 09 Sep 2026 11:26:40 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=squebb.ca; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1788967600;
-	 x=1789054000; bh=ZPxVBLa4CvLLJKe83NmgL2WWM/qbgnI7dmZEJVlqqrU=; b=
-	jPUh/+lXlWS7tgD1oT6DJXiZZlrMPPDh4Tfv3XGlQ6umMqHXfdboh/PLx07ghan8
-	4QwE62dAYUR1q6MzISA/cDbM4TegLJT62ZbbWH8zaFbb0V14YglZZKXlD6jXi17F
-	REFDMPqNB7HCf/Sk15avPoWLdSGJ0Pxop9gM18KYf6W7LEeotJaTllglyrtaen2w
-	lNZwl4W+g8KNjkWGdr7g3kTb2qn89TKaBGrJ9iUIDbqrvrVopVR20P0sKqWL4U5G
-	re1LwBvJzQ6OMOHElksYq5Y0QqrkIVklIUXW6bcR4eSLkGHjE3frXwCPYDfiOfGB
-	sg1X2cn2h3pd9oWIp9a3NQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1788967600; x=
-	1789054000; bh=ZPxVBLa4CvLLJKe83NmgL2WWM/qbgnI7dmZEJVlqqrU=; b=Q
-	R5qTOpOE760RM+igCpevlhsB+VYQEZ+9eUK4uAqjshYtPLoC8D++jxx0AOzD7fz2
-	dKkjcqv9gL7noej2we8E8qCMlva+Dcu+MSYVhsI7myeItVyWXxlAC+B3k0wRp271
-	oq6YrJ1kN/W3nL+j/vaY8Uu7B1CySWxBkax1ytLcOLZaZ/WEwFtJXRRv0qh72G0M
-	L87CExw7Ln+GTvjxO4rFo9pG5OSLJs36a+QLNaZevkYpBqdJsbmDxSwTgVsxGKK2
-	4OVP032ZfGrhKuMMcwqjtHJdjdW3NTnk1khY6fMhlrf1wVDhz/Ku6vCPgjmLWhcR
-	VxltKqThjCKYWDdmeIspA==
-X-ME-Sender: <xms:r3qhahvIthtSedIno5tfbZCxWQ7wXvvmGEfLe-JpFa4CZG1ggVUeJA>
-    <xme:r3qhalRJDsPClNNgnFASnxwABWD1gGmUONYMmqw_xAQyfxpPB_K5vcmXPD-VCvkKe
-    uvPCIye4UITa-6R6u_HwCQs9FYPQwXaVvgg9yULAqlKd-zybsVS9jB1>
-X-ME-Proxy-Cause: dmFkZTE+w1Y6fFtlj5RcASlh8NEDiTG9A3MuPojYMbHu6zQa9usr/1G/TfV4grgL4ZYaJQ
-    bi23o9l74Ulc0IEixroAqBfx3hu5U4dmtZAe3a/6eP1HaHZISArRLlCH7Ysy+zRDOsYcDn
-    5U9hYAEQ93oUKoALTU+qWF6MF8zueCuDNoyKkxtSumVPOprRNBuPaHK8Iq8p2Q+2ObRRaS
-    KdzEGVRW3WC5ntSruZ+Hi8o3wpG/ESev8yr4qkotmGAaZhcrVNyyVIrBh30ZkjPp6AHTyk
-    NyD51Ii8qeRoLyr0yV3Scq6qYfN1jFSNd9KGKGi50Jr58AC0jbyvAC1lek7vv8L+/tTBHz
-    T87H+/9Bt4cb5F2YqI3yAcCBj1EbUJJ+1zMKX4IhqA2szc7KVXyJ08WrQ6m2KNPWAoyJty
-    I4xKuHHdYDCHwReQt3HC7hjAQcGXSSy851H7WFQT+9zpUdz3BJ4hdoVFr2/4vkWaV5p70/
-    WN70rhsCY7jaXLxfQWIRaY4CDLmg3up9kGRtG48gvJ1RorOP4E5i0q1WUg3AXDJCkVrRte
-    80J2aY9+KXOY6y3sLtDBeu2INIdQWhgn/kkgbuPuhHcoCubOa+Dp3HBfvRIURDEGF8Vrjz
-    6fuMEbyzaCWjxDrwHGoqR0TjFwKb68SYEtEmiPcXMoRQCGEIaEgBcP1WJKvA
-X-ME-Proxy: <xmx:r3qhan-Ws5rIRZbLCeRkXUOkS5YFxLKmh4V_Lmxrph6zpqaQ02uJTw>
-    <xmx:r3qhakLkYiiwl1xepSniucUFZ1BaQQTYSBcsCCFgxani-5CT4cBjvQ>
-    <xmx:r3qhalt4DX2vk8eoyxSakjHRYdvH6T4A0aML35mb_-aYqZyKU4i9sA>
-    <xmx:r3qharDnja5jjIPpNBauHLJ01QkDMHk8_XGXpc8zhyOxlG1o2wKH9A>
-    <xmx:sHqhaszSzhZ0cPbp4wBVTtyIyKJsoKQqo3Rf9sLxuzSqH1KWRFBURCby>
-Feedback-ID: ibe194615:Fastmail
-Received: by mailuser.stl.internal (Postfix, from userid 501)
-	id 7EFDA2C00064; Wed,  9 Sep 2026 11:26:39 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="dWWjxsx3"
+Received: by mail-ed1-f50.google.com with SMTP id 4fb4d7f45d1cf-6a0a4aa99bdso7671857a12.1
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 08:27:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linux-foundation.org; s=google; t=1788967622; x=1789572422; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=/FowYqhA2IUhImtOTNUOvZbuU0tnu+Lv5LcROnzCHgI=;
+        b=dWWjxsx3vOAB63KDzDEmsM3O1VLGIjC7p9JJgGsk3wnbelifabuG9SHGQDwBZlVfux
+         HUH2xA8DjA7ELN6q7f1eAggrY+FZ/l6vsDSxLj/vQw0V7OyD7zxelRtHyGJ3guvTi7zp
+         87xyxUN76J8UhQZa4MUkLncIcYMrKmppESk2c=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788967622; x=1789572422;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=/FowYqhA2IUhImtOTNUOvZbuU0tnu+Lv5LcROnzCHgI=;
+        b=NhfPNOnZRj7kPS1EELivUpTWsxmKMnzboaXtRbg+Vcxo0ACZgeXO5vpr5/N51nKjWg
+         SKlbweDLkOO45Z7A2uPl4q6VZ1hHnAnExh4ylwkYfKznRbozSpaq59L4vGJ9vDah7/TJ
+         SbfcPejPiPuObKAD+HWb1ZKrkBXBWZYvfGnzEDGxcCwWfnXjQKAFXgJ5z/XLlYOf73wq
+         1AXqkV+kpfdNcS1fgszUKBQfIZG9fFLuzXGolJPYLMjw9zaumlGyGNCT+FRyTyblQ0mu
+         LNgpuIjQlmihJygYfzxlsG+dLeBPLdoVxOmr8/UxeX6h8MjUHlPZ0/JuOMFN5hscCF+d
+         Qgjw==
+X-Forwarded-Encrypted: i=1; AKwUvBwwg92KkLHVotuUpmhKLNBvaxt+rubMmFHPR41QJw9PlqFcgpkowwQC0gQlaH2NSOz4o92faz0URzFN11Y=@vger.kernel.org
+X-Gm-Message-State: AFuF++mmOYpbsoxNvuMIe9HZ7dSeU2vJNx+aj6E0lOYcUh3Vqy7ijOzd
+	dXi5t7iTxkbmZGpgzYKw6bNWHYXdwwWXjhGYsV8RieiLPDh8efzKYzWfPsHaKcmUIvDRHt6WG2H
+	OJgh05d+fNA==
+X-Gm-Gg: AYBFou1MlWiIfrO3ylE5W9aZ9MmYhuDlGvmoLiSDI7OoVNbuSRpZDG6BsCCIF+ckJyY
+	pE+/RKcHzwpqizYs1hCwI+GWzWQ5a59NhT2MKG0Ve6OFHOxBhk8RxTClMigWyknA8mkq78893/T
+	J0FuF+OHmdbKaLAKJvaM2tckIgMzOpF7xf3dskP8EW4bmsaGuPNHphwsteCy+jzLs1tAbJMnnDo
+	vkh8T7Owk5YvR4zT88i8YQnBgqJUzmQ1JsdOP7U1MQwaJRsJ6Qf/+T3C426y36LghHnhR0in+90
+	3bcYUcNOtLflVzxooulK/uGYkecKfJ7Y38umk3DJW/e6u07mX8PWqPWb4UQhRZL1X2VYHf1hEnP
+	bYWAwYai1qy0cpvI2RuZwiJM6mT+jJpWEEQY7moJsocIsegy78DlVivi+uzwYUku2pBgSRN+5+k
+	cZXtpYt9gMZjyt23To7T++IxUmjsfgGpiGc+uDROIe1lHpkfaCOrZsBzHeGRxYJq91M1Ux0upV/
+	VX2aSadswwUBUFVCsUwsnnCDtHxqLEHrKKSscWdz8O9+i9b
+X-Received: by 2002:a05:6402:2786:b0:6a7:f5b1:273c with SMTP id 4fb4d7f45d1cf-6a7f5b12877mr10178234a12.3.1788967621778;
+        Wed, 09 Sep 2026 08:27:01 -0700 (PDT)
+Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com. [209.85.218.53])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a9863cb3d6sm1682320a12.0.2026.09.09.08.26.59
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 09 Sep 2026 08:27:00 -0700 (PDT)
+Received: by mail-ej1-f53.google.com with SMTP id a640c23a62f3a-c2544ff970dso893392666b.2
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 08:26:59 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwLJ2zgJNitXRVRer440FQ9fUjnzsXhG4ojMwcvn0qf+LSKJ3aVjxGkZh/EQX3PIJQAELpBKirstaxSkRw=@vger.kernel.org
+X-Received: by 2002:a17:907:da4:b0:c26:1649:47af with SMTP id
+ a640c23a62f3a-c26164955fcmr1368813666b.37.1788967618809; Wed, 09 Sep 2026
+ 08:26:58 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ThreadId: AR8LNQcE3F07
-Date: Wed, 09 Sep 2026 11:26:18 -0400
-From: "Mark Pearson" <mpearson-lenovo@squebb.ca>
-To: "Thorsten Blum" <blum@kernel.org>,
- "Henrique de Moraes Holschuh" <hmh@hmh.eng.br>,
- "Derek J . Clark" <derekjohn.clark@gmail.com>,
- "Hans de Goede" <hansg@kernel.org>,
- =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Cc: ibm-acpi-devel@lists.sourceforge.net,
- "platform-driver-x86@vger.kernel.org" <platform-driver-x86@vger.kernel.org>,
- linux-kernel@vger.kernel.org
-Message-Id: <254d9c60-d21e-4ef5-b70e-89dd18ff7147@app.fastmail.com>
-In-Reply-To: <20260907090103.352995-3-blum@kernel.org>
-References: <20260907090103.352995-3-blum@kernel.org>
-Subject: Re: [PATCH] platform/x86: thinkpad_acpi: Remove unreachable code in
- beep_read()
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
+References: <20260908-build-speedup-v1-0-5dc1ac01672d@kernel.org> <20260908-build-speedup-v1-11-5dc1ac01672d@kernel.org>
+In-Reply-To: <20260908-build-speedup-v1-11-5dc1ac01672d@kernel.org>
+From: Linus Torvalds <torvalds@linux-foundation.org>
+Date: Wed, 9 Sep 2026 08:26:42 -0700
+X-Gmail-Original-Message-ID: <CAHk-=wiA_UJbKiu8fOezKV=MfEcaFuzZiuk8Fto-Bc1KrA=43Q@mail.gmail.com>
+X-Gm-Features: AcwNN1UWYYtk4z7iDc5cI-l9BNT1_XTZBZ1EzZVT-QGEk4RrzSdK76DVFXE4iKE
+Message-ID: <CAHk-=wiA_UJbKiu8fOezKV=MfEcaFuzZiuk8Fto-Bc1KrA=43Q@mail.gmail.com>
+Subject: Re: [PATCH 11/23] kbuild: implement and use depcheck to check
+ dependency timestamps
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
+	Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling <morbo@google.com>, 
+	Justin Stitt <justinstitt@google.com>, Masahiro Yamada <masahiroy@kernel.org>, 
+	Alexey Gladkov <legion@kernel.org>, Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
+	Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
+	"H. Peter Anvin" <hpa@zytor.com>, Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, Arnd Bergmann <arnd@arndb.de>, 
+	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
+	Mark Rutland <mark.rutland@arm.com>, Ard Biesheuvel <ardb@kernel.org>, 
+	Ilias Apalodimas <ilias.apalodimas@linaro.org>, Josh Poimboeuf <jpoimboe@kernel.org>, 
+	Peter Zijlstra <peterz@infradead.org>, Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
+	Gary Guo <gary@garyguo.net>, =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+	Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
+	Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
+	=?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+	Jonathan Corbet <corbet@lwn.net>, Randy Dunlap <rdunlap@infradead.org>, linux-kbuild@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, llvm@lists.linux.dev, 
+	linux-riscv@lists.infradead.org, linux-arch@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-efi@vger.kernel.org, 
+	rust-for-linux@vger.kernel.org, linux-doc@vger.kernel.org, 
+	Jens Axboe <axboe@kernel.dk>
+Content-Type: text/plain; charset="UTF-8"
 
-Hi Thorsten,
-
-On Mon, Sep 7, 2026, at 5:01 AM, Thorsten Blum wrote:
-> The procfs entry /proc/acpi/ibm/beep is only created if beep_init()
-> succeeds, which requires beep_handle to be non-NULL. Remove the
-> unreachable code branch from beep_read().
+On Tue, 8 Sept 2026 at 13:57, Lorenzo Stoakes (ARM) <ljs@kernel.org> wrote:
 >
-> Signed-off-by: Thorsten Blum <blum@kernel.org>
-> ---
->  drivers/platform/x86/lenovo/thinkpad_acpi.c | 8 ++------
->  1 file changed, 2 insertions(+), 6 deletions(-)
+> Each object's .cmd file lists its header dependencies, which often
+> consists of over a thousand dependencies.
 >
-> diff --git a/drivers/platform/x86/lenovo/thinkpad_acpi.c 
-> b/drivers/platform/x86/lenovo/thinkpad_acpi.c
-> index 1082c36ae723..069c9f1c359f 100644
-> --- a/drivers/platform/x86/lenovo/thinkpad_acpi.c
-> +++ b/drivers/platform/x86/lenovo/thinkpad_acpi.c
-> @@ -5936,12 +5936,8 @@ static int __init beep_init(struct 
-> ibm_init_struct *iibm)
-> 
->  static int beep_read(struct seq_file *m)
->  {
-> -	if (!beep_handle)
-> -		seq_puts(m, "status:\t\tnot supported\n");
-> -	else {
-> -		seq_puts(m, "status:\t\tsupported\n");
-> -		seq_puts(m, "commands:\t<cmd> (<cmd> is 0-17)\n");
-> -	}
-> +	seq_puts(m, "status:\t\tsupported\n");
-> +	seq_puts(m, "commands:\t<cmd> (<cmd> is 0-17)\n");
-> 
->  	return 0;
->  }
+> When little has changed in the tree, this is what make spends most of its
+> time doing, spending over a second, single-threaded when parsing larger
+> directory trees.
 
-Change looks good to me.
-I guess the beep_write could be similarly updated?
+Side note: from some kernel build profiles I did long ago, I have this
+memory of it being made much worse by the fact that we use
 
-Mark
+    "$(wildcard xyzzy)"
+
+for all our config header files in those .cmd.o files. That then
+causes extra work for 'make' for all of this.
+
+And we do that 'wildcard' thing not because we want to actually match
+a pattern, but because that was the only way to have 'make' not
+complain about missing config headers.
+
+I'm not even sure the original reason for it is relevant any more -
+this is all a very dim memory from years and years ago when I actually
+tried to look at profiles of 'make' itself (normally when I do kernel
+build profiles I only look at the what the kernel part of the build
+is, not user mode).
+
+I just tried removing the 'wildcard' generation from
+scripts/basic/fixdep.c and the kernel build didn't care about it at
+all. The whole 'wildcard' trick goes all the way back to the original
+commit that added that whole 'fixdep.c' phase.
+
+Maybe the whole thing is entirely stale now and should be removed. I
+probably just didn't trigger the situation where those extra
+'wildcard' things matter. That whole thing is from a quarter century
+ago, and nobody has dared look at that code since..
+
+Or maybe 'make' is better at those wildcards these days - or other
+things have shifted.
+
+From those dim memories, make spent a lot of time doing filesystem
+lookups (directory reading  and 'stat()' calls - the wildcard thing
+triggered more getdents calls), but even more time just in string
+handling.
+
+               Linus
