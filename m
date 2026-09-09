@@ -1,204 +1,115 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3B713B2FC8;
-	Wed,  9 Sep 2026 06:44:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACBFE3AFD0F
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 06:45:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788936291; cv=none; b=cYGdkOl6o+GH7yY7O9WYFhhXp/xuuk3AIlQpM2yB5HtcPtlJtrfd1v9j91tqELTmtzSJwx4+whFSSeCnuhyry9w1eZav/flzX9p33sQzNvMkzQAjYQ/f/fV9TkQF9CMjATVk8yz9n6VY/k7SOH7oRcQO4mmfvyDYZ+47IrvbkNg=
+	t=1788936306; cv=none; b=bqB5//MYePdMv9DPtk2LmgIhk6UgR6vvK1LRZcuImHvkXbkGAQi5w5DRHE96azhuPPTI2tkkpm7qPnowLa0IqKPXgkqdQQkhovIPc1WCdttibVF0SUTbAyTp//fdxhj20y8qV++gcGldTQJS6yFcGHiZjR2bVliO17D7//CSoJw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788936291; c=relaxed/simple;
-	bh=h4FW0yyt3kzqUUclmpweY6GYhfksgxgNMuK6HAguxsE=;
-	h=Date:From:To:Subject:Cc:In-Reply-To:References:MIME-Version:
-	 Message-ID:Content-Type; b=hwDebYtBYluUrQ0JCmOT8inT/ErSxzvoPYZPXC/oy8sXqXk2sl9YdFtXaNmhmv7Rmww/DsqbYEpXe39uuiv8RnnewHoUjlEdMItzzfU1jLhV8VuWWJasn/0k96WsBTJrrhxsRrk9qxnK1sDPmEYGVajCO2ergCNsMdrb5do3ktM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=B5eJN4UF; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=x9eM+0Ro; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	s=arc-20240116; t=1788936306; c=relaxed/simple;
+	bh=DanluAYLKGnSSr8y1+7HZ6AUnVzsPNVwXGZvF4Qstfk=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=RLWIjY6BWsp4Ctok0U3N5QoGgDnGfRtwCxRYtnFODztvgo0CpWOH/1/wD1xXwOJOdBeZaZMGDjGpSM5Kjv6/LLPL6jgn7STEvjgLo0ha1iYI3oObfFyK1XKi+6+aYef11H5wOwmc6W5/SvWPLcWcdvWVB67A9XyJZA3fOT008T4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rZzwWbx2; arc=none smtp.client-ip=209.85.221.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="B5eJN4UF";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="x9eM+0Ro"
-Date: Wed, 09 Sep 2026 06:44:46 -0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1788936288;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=mVDt0UNn4RbajPVRIH7apfIlI4lm22OL83huSlpNSKw=;
-	b=B5eJN4UFdZL/zdPSZCScWwtKDsQ/vKYqXnSdVT7faJQj/1RVYykUZeEXF/zoOPKHe/rJWf
-	sC3L1+0H1w9e+k4/H7PKwjoc0a8wx8+Txo+THDXjwK2uZLJdcsqg26909id3rEs5MrtXpl
-	88rnuclRT0CxOP6mxgN3sg2esUskzivK6ywgz9o97dLumwM4JEclx7LJoHoXvuEl0T51ff
-	QX2EB+7m861RxMARngPtKcXeYAK+4ckjI8KKPVB7UWAcU+lITERhIeGeUBcAP2CvPmV3/O
-	IzPui0kajg1KHIygxCejWKqYQAOQewOvx/+3P7ac0yR9mS5scUC6gFezl/whiA==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1788936288;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=mVDt0UNn4RbajPVRIH7apfIlI4lm22OL83huSlpNSKw=;
-	b=x9eM+0RosFYgTsCN24Ern1Oih3okaXSMXrOS7cFAaRXzndXu1+TXJA/valQb4VkdgO9vOo
-	xC9neJ9QQlmuwsBQ==
-From: "tip-bot2 for Lorenzo Stoakes (ARM)" <tip-bot2@linutronix.de>
-Sender: tip-bot2@linutronix.de
-Reply-to: linux-kernel@vger.kernel.org
-To: linux-tip-commits@vger.kernel.org
-Subject: [tip: x86/urgent] x86/mm/pat: Acquire init_mm write lock on collapse
- to avoid UAF
-Cc: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
- "Mike Rapoport (Microsoft)" <rppt@kernel.org>,
- Dave Hansen <dave.hansen@linux.intel.com>, Ingo Molnar <mingo@kernel.org>,
- "Kiryl Shutsemau (Meta)" <kas@kernel.org>,
- "David Hildenbrand (Arm)" <david@kernel.org>, Will Deacon <will@kernel.org>,
- David Carlier <devnexen@gmail.com>, Atish Patra <atishp@meta.com>,
- Nikunj A Dadhania <nikunj@amd.com>, stable@vger.kernel.org, x86@kernel.org,
- linux-kernel@vger.kernel.org
-In-Reply-To: <20260813-cpa-fixes-v2-1-39b4ff90f91d@kernel.org>
-References: <20260813-cpa-fixes-v2-1-39b4ff90f91d@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rZzwWbx2"
+Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-4843f205a5bso3456656f8f.1
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 23:45:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788936303; x=1789541103; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=e0E6YoepVX602+BZgbZmpihibucX2fS9462FnPD7Cgw=;
+        b=rZzwWbx2sH4d/qXVZKNVxq08MnLLftOjjcT2cbATDTP2kvqWwSayrt/deiN6L/lyZP
+         BOafq7gp2gma07KgA2FtbZocta3Obs0REa+qcCDl7OIabpc09XqM1TTaQcE04rd56B1d
+         RVBOojzXobjRbMnPS9hS9WQAyLJ3OsBzZpBm4JmpHbveOvnPVNIMJFJORdD+1yE269Y1
+         B0L9agqSKqLdslZ883bQQ/gqz6DwCs0kiVEftNW/o6BQh3yr8qQXu+OkPK555nNbhT6q
+         UuqNpONmMK72JfZ3WjzEOAbe2AJawNw81YyBvpWSsSvSgOZ556IaMN8mH0BDsyJnvJYN
+         fRSg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788936303; x=1789541103;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=e0E6YoepVX602+BZgbZmpihibucX2fS9462FnPD7Cgw=;
+        b=ihxeWRxlIgXfw6F/Qxf0aJfjWkWr72f/qiofzZTcxg9DDZYTIuyER72Fd5UUUHtIcV
+         CvDLfP0i5sPDY2OeNYhEG4jsfOB+l+iNeJZ8gbvGA9SqgY1FDKD6F9G9O/70uiUWZ7oo
+         DAxCDZcH4/A1M3ECVBE9UczmIhS4a2cwy6jQoDyzeKrrbDeizk0jY1WRCxQLBSALC55E
+         ipKADi4H2JZQxtzf1KNB7fXi8bZRNdLnygaFzWNxvoOYa6O6L1UykvlnAcwdH3l/vXXZ
+         IFd9WnbmYZVmQH2Rgt58feeF6qjN6/6fqk5DM4QbBrUJtKp0OamNjEgK0vWvkb9pMLZw
+         fhxg==
+X-Forwarded-Encrypted: i=1; AKwUvBxSQvS/2u0j4D0eBn3gtDr8uCbTmXvzWG2RNLo4Y9wTYakZEdow1gLhBghm6ZDfYA+FlNoe6aA5lXNxDk0=@vger.kernel.org
+X-Gm-Message-State: AFuF++nxEFUSB0rYsXiuehX3VQbWYvVv6/Xsxk4Ab+vW8o8DYuGyEmr2
+	qlddjrfPqk5Du/xlHOvksEndkzVfoKV+oSXEP0eYWkG6wrg/11QMTauEtwnhknFQ
+X-Gm-Gg: AYBFou2tyxuSTd2/vp+USW5bcy0AdWWKPs9G15H7vFVtx/+Y+T9YKpCgaRn1RdyR1fE
+	4lb7A5ctqI5u5Q6hdWVl7WcRcCYNnRCmx+3xsCC7KucXxtrM7mTB+i2BNtx8D84pPM8iAzfDLTH
+	1MiJXdGhnp1oC2Pj8EuIf861jxPyJc8XdjeunOfnGWYkDirtbf/bDNbI8Ca6AZWr7rsnvYkhOkD
+	mPQwLDz2EasJZksIjCPB6jMEO4gtEKeoV/ID947Gy09VYxeRMbAjHwoxYyWLPIgXPAJDXTTJ+n2
+	wKr+/Iovqdy3lvj7nxo2GggxVbe7dU0RzCiYNGtPc/WfEb41W/c22HqHvorE+b6u3y661EOo5aP
+	xzoKf6G+q5MUIa57PWMaejV1mXeyCfddeLJVbcYm/cAQU+cVul4PAACOocJdGQLyt4QZzMtVj7M
+	Zu065EEtLa1somM12R5XmI97rs9Sxiqlwdq340z6QXoZuSOtcRbjQlU3BQdFAfQag+Nyyt3cio2
+	LraYU8jFN2TB7tHfwl01IjMpYBv0qWqPnpwtfMwPrnWLD33S+DzFoaMHMD2DRoWMEd4o9GHLDhB
+	z3RuPQnLNMfmHh2xm5xEdw6Gjc32AWtE4Jh61sGCFcw3pbtwoblgEk8LZce5hxU=
+X-Received: by 2002:a05:6000:608:b0:485:8e4b:3d34 with SMTP id ffacd0b85a97d-4858e4b3ed7mr31596984f8f.5.1788936302679;
+        Tue, 08 Sep 2026 23:45:02 -0700 (PDT)
+Received: from MacBook-Pro-von-Karl.localdomain (dynamic-095-114-212-219.95.114.pool.telefonica.de. [95.114.212.219])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4859207c28fsm36579522f8f.5.2026.09.08.23.45.01
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Tue, 08 Sep 2026 23:45:02 -0700 (PDT)
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: Chuck Lever <cel@kernel.org>
+Cc: Karl Mehltretter <kmehltretter@gmail.com>,
+	Trond Myklebust <trondmy@kernel.org>,
+	Anna Schumaker <anna@kernel.org>,
+	Jeff Layton <jlayton@kernel.org>,
+	NeilBrown <neil@brown.name>,
+	Olga Kornievskaia <okorniev@redhat.com>,
+	Dai Ngo <Dai.Ngo@oracle.com>,
+	Tom Talpey <tom@talpey.com>,
+	linux-nfs@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] svcrdma: Fix svc_rdma_recv_cid_init() kernel-doc
+Date: Wed,  9 Sep 2026 08:43:43 +0200
+Message-Id: <20260909064343.90437-1-kmehltretter@gmail.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <178893628651.623050.5611793532943336222.tip-bot2@tip-bot2>
-Robot-ID: <tip-bot2@linutronix.de>
-Robot-Unsubscribe:
- Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
-Precedence: bulk
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-The following commit has been merged into the x86/urgent branch of tip:
+svc_rdma_recv_cid_init() initializes a Receive Queue completion ID,
+but its kernel-doc heading names svc_rdma_send_cid_init(). The latter is
+a separate helper immediately below it, so kernel-doc cannot match this
+comment to the receive helper.
 
-Commit-ID:     a1c7570cedd03372812a5b693732880867babbca
-Gitweb:        https://git.kernel.org/tip/a1c7570cedd03372812a5b693732880867b=
-abbca
-Author:        Lorenzo Stoakes (ARM) <ljs@kernel.org>
-AuthorDate:    Thu, 13 Aug 2026 12:01:24 +03:00
-Committer:     Ingo Molnar <mingo@kernel.org>
-CommitterDate: Wed, 09 Sep 2026 08:38:56 +02:00
+Fix the copied function name.
 
-x86/mm/pat: Acquire init_mm write lock on collapse to avoid UAF
-
-x86 implements page attribute modification using its Change Page
-Attributes (CPA) mechanism.
-
-This tracks properties of ranges such as cache mode through x86 page
-attributes, and as part of that logic manipulates kernel page tables.
-
-Since commit:
-
-  41d88484c71c ("x86/mm/pat: restore large ROX pages after fragmentation")
-
-ranges of kernel page table entries can be collapsed into
-huge page table entries as part of this logic.
-
-As part of this collapse, it frees the page tables which the collapsed
-entries previously pointed to, and it does so without any relevant locks
-being held to preclude concurrent kernel page table walkers.
-
-The only way this code can be reached is if CPA_COLLAPSE is specified, and
-this is only set in set_memory_rox() via:
-
-set_memory_rox()
--> change_page_attr_set_clr()
--> cpa_flush()
--> cpa_collapse_large_pages()
-
-Notable users of this are execmem and BPF when manipulating executable
-mappings.
-
-However, this is problematic for ptdump as it walks ranges it does not own
-and thus runs the risk of a use-after-free on page tables freed underneath
-it.
-
-In addition, concurrent CPA collapse operations are possible which can also
-cause races.
-
-Resolve the issue by acquiring the mmap write lock on init_mm across the
-whole operation.
-
-It is safe to acquire a sleeping lock as all the callers invoke
-set_memory_rox() from process context and in any case,
-change_page_attr_set_clr() calls vm_unmap_alias() which ultimately takes a
-mutex, disallowing atomic context here.
-
-Fixes: 41d88484c71c ("x86/mm/pat: restore large ROX pages after fragmentation=
-")
-Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
-Signed-off-by: Dave Hansen <dave.hansen@linux.intel.com>
-Signed-off-by: Ingo Molnar <mingo@kernel.org>
-Reviewed-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
-Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
-Reviewed-by: David Hildenbrand (Arm) <david@kernel.org>
-Reviewed-by: Dave Hansen <dave.hansen@linux.intel.com>
-Reviewed-by: Will Deacon <will@kernel.org>
-Reviewed-by: David Carlier <devnexen@gmail.com>
-Tested-by: Atish Patra <atishp@meta.com>
-Tested-by: Nikunj A Dadhania <nikunj@amd.com>
-Cc:stable@vger.kernel.org
-Link: https://patch.msgid.link/20260813-cpa-fixes-v2-1-39b4ff90f91d@kernel.org
+Fixes: 28ee0ec8948a ("svcrdma: De-duplicate completion ID initialization helpers")
+Assisted-by: LLM
+Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
 ---
- arch/x86/mm/pat/set_memory.c | 15 ++++++++++++++-
- include/linux/mmap_lock.h    |  2 ++
- 2 files changed, 16 insertions(+), 1 deletion(-)
+ include/linux/sunrpc/svc_rdma.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/arch/x86/mm/pat/set_memory.c b/arch/x86/mm/pat/set_memory.c
-index c38faf3..4abddd7 100644
---- a/arch/x86/mm/pat/set_memory.c
-+++ b/arch/x86/mm/pat/set_memory.c
-@@ -22,6 +22,7 @@
- #include <linux/cc_platform.h>
- #include <linux/set_memory.h>
- #include <linux/memregion.h>
-+#include <linux/cleanup.h>
-=20
- #include <asm/e820/api.h>
- #include <asm/processor.h>
-@@ -409,7 +410,7 @@ static void __cpa_flush_tlb(void *data)
-=20
- static int collapse_large_pages(unsigned long addr, struct list_head *pgtabl=
-es);
-=20
--static void cpa_collapse_large_pages(struct cpa_data *cpa)
-+static void __cpa_collapse_large_pages(struct cpa_data *cpa)
- {
- 	unsigned long start, addr, end;
- 	struct ptdesc *ptdesc, *tmp;
-@@ -443,6 +444,18 @@ static void cpa_collapse_large_pages(struct cpa_data *cp=
-a)
- 	}
- }
-=20
-+static void cpa_collapse_large_pages(struct cpa_data *cpa)
-+{
-+	/*
-+	 * Take the mmap write lock on init_mm to:
-+	 * - Avoid a use-after-free if raced by ptdump (which takes its own
-+	 *   write lock on init_mm).
-+	 * - Serialise concurrent CPA walkers.
-+	 */
-+	scoped_guard(mmap_write_lock, &init_mm)
-+		__cpa_collapse_large_pages(cpa);
-+}
-+
- static void cpa_flush(struct cpa_data *cpa, int cache)
- {
- 	unsigned int i;
-diff --git a/include/linux/mmap_lock.h b/include/linux/mmap_lock.h
-index bec0eab..b8a13b8 100644
---- a/include/linux/mmap_lock.h
-+++ b/include/linux/mmap_lock.h
-@@ -630,6 +630,8 @@ static inline void mmap_read_unlock(struct mm_struct *mm)
- DEFINE_GUARD(mmap_read_lock, struct mm_struct *,
- 	     mmap_read_lock(_T), mmap_read_unlock(_T))
- DEFINE_GUARD_COND(mmap_read_lock, _try, mmap_read_trylock(_T))
-+DEFINE_GUARD(mmap_write_lock, struct mm_struct *,
-+	     mmap_write_lock(_T), mmap_write_unlock(_T))
-=20
- static inline void mmap_read_unlock_non_owner(struct mm_struct *mm)
- {
+diff --git a/include/linux/sunrpc/svc_rdma.h b/include/linux/sunrpc/svc_rdma.h
+index 76aa5ec4ab40..5ccb13bf906f 100644
+--- a/include/linux/sunrpc/svc_rdma.h
++++ b/include/linux/sunrpc/svc_rdma.h
+@@ -142,7 +142,7 @@ enum {
+ #define RPCSVC_MAXPAYLOAD_RDMA	RPCSVC_MAXPAYLOAD
+ 
+ /**
+- * svc_rdma_send_cid_init - Initialize a Receive Queue completion ID
++ * svc_rdma_recv_cid_init - Initialize a Receive Queue completion ID
+  * @rdma: controlling transport
+  * @cid: completion ID to initialize
+  */
+
+base-commit: 893e11787f78e43b534e252249ac3fff4d1333f8
+-- 
+2.53.0
