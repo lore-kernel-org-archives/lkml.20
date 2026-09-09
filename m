@@ -1,49 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41BA157981A;
-	Wed,  9 Sep 2026 15:53:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B75D5576EB8;
+	Wed,  9 Sep 2026 15:53:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788969223; cv=none; b=q0VO5wlZkIarxWAOLIO7uFz20lXE77vM106QhOeQ4UbJ/xrgMumE/jptcUgaK8ydAX+TWa1ODxhC0R61r0vnE3FkkZzYuYnNOLxWw5aDSYaVviWlEGINs6byKP1Z54+YXIwXzyjpHX47VlnWFAwFmNsZNvtr4gJQsZzfX58sowU=
+	t=1788969230; cv=none; b=KdWGVl6W9gQZ/NGmbesk2mi+d13v58bpAAD/2ZHEzoFhhf7qv/mroe0DrdB44xYXFyyuy+1yrDKBxbM4BaGV5wpKSQ7GeU5oPZGEmfRanRPNofQEortLS2n9LKrH5oXV4xGHbb7TYGVuNvCgP+2vOXCZJqTZi28m564CM/DHCp8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788969223; c=relaxed/simple;
-	bh=jYxLIltiJBNKtV2wRv/XI73ayKEPL2qUF4cypA58Y30=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=leju78QKiXrq9XPHG2IATo7cJyDZMI7WJcSG2b7sywD8+u5ZhGT6QIrIaLldk/qAgzMNQeWmMYsn6Au1YC84hfQt0RKh8dfCla1qKvH+IKDCrb3NtFkgvsi6yGhMDaTIl+FMiPbfKXH6rshGWUMtuRECiHggoAeZNAPvmHLzR34=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IVichdBj; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788969230; c=relaxed/simple;
+	bh=Lw23bxYF2SeVxe2c2uvX0H1QkXIsH944jUEI8MagQVk=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=fU8l64p+txa2nCUXhgBhv4/7yOZI1q/lcMYyV/GKG7Aj5BRm9YGO1dwke6IghiATLSfQUv30tbhJTQWYZgXjp4Wr+eHba4XNi0cBtjCP5pelVy2HbeAQ5gTxYnaq78z/zuhNTutVBRq4sW+DhgJ3q7md77gV3DgmCD3F4doqcsM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dlqiTQX+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IVichdBj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E932C1F00A3E;
-	Wed,  9 Sep 2026 15:53:38 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dlqiTQX+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3F9701F00A3D;
+	Wed,  9 Sep 2026 15:53:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788969221;
-	bh=KH3AB4VEx2Nfdbk7UYQ1u4DHzvIIDHQmmX/lLYqQNM0=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=IVichdBjTkcdPG+FELSm8so46I7269H/VTTI89+EhEbrs6qlJcga2BRNc+7xUob9k
-	 +OqGCzmV+gEpFRpL4gam5pNXah1/rYZ7XgkquJbrsAbh42Y2UADnaIbLveCOp4eiTH
-	 enrPdeWkPjMmwQJ0fsKjbLU0t1ulayM0uh4XsTLqLHf4L7B/mu5EBKrehpVYj4Yh54
-	 MV/J8hLyGg5C/sJvOfwRuYblon32YnLMMJ5FFRmWJA1O8RlSp/cWJxQZoq2In3jxSM
-	 Y+DKjKpTbvytE0DHBZRl5z+g+5lzR3KPvfL7veoJdVsfpIsyJJFDoSF4KgrNbFpp95
-	 5aUWM10H7HGUw==
-From: Mark Brown <broonie@kernel.org>
-To: Shenghao Ding <shenghao-ding@ti.com>, Kevin Lu <kevin-lu@ti.com>, 
- Baojun Xu <baojun.xu@ti.com>, Sen Wang <sen@ti.com>, 
- Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>, 
- Takashi Iwai <tiwai@suse.com>, Andrey Golovko <andrey.golovko@gmail.com>
-Cc: "Holalu Yogendra, Niranjan" <niranjan.hy@ti.com>, 
- Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>, 
- Charles Keepax <ckeepax@opensource.cirrus.com>, 
- Vijendar Mukunda <Vijendar.Mukunda@amd.com>, 
- Antoine Monnet <antoine@montane.tech>, Robin Everaars <robineveraars@pm.me>, 
- Ville Saarinen <wiza@saarinenkoti.fi>, linux-sound@vger.kernel.org, 
- linux-kernel@vger.kernel.org
-In-Reply-To: <20260815112000.4180-1-andrey.golovko@gmail.com>
-References: <20260815112000.4180-1-andrey.golovko@gmail.com>
-Subject: Re: [PATCH v3 0/2] ASoC: tas2783-sdw: fix the read-only Control
- handling
-Message-Id: <178895627059.87467.16366156414675146446.b4-ty@b4>
-Date: Wed, 09 Sep 2026 13:17:50 +0100
+	s=k20260515; t=1788969228;
+	bh=d6P8nm47c75PBnxXGfDXABoraSULENG6UjLUERO0Rq4=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=dlqiTQX+iMDMb1qXIXZYay9dfUlyORepD3vScebEO37aWVzwCkzCDyMAqxf+d/Yhe
+	 JYMtlmqPlcM5T73uAZF0iAA8cNO4s79GLzTFEsc5QcIjoSXK93um942NhlK+O5+qDU
+	 ErXMZo7H8Igu/mrMs5U0N8JAkPSKVTIScvIzUy1x6BJrmVltcVM1kyl+aQm06lI2Dn
+	 1qjzk8KKcpkHTzEj9Ie5amDCq73rxHeY47gRNhMJqej7v/q94/lbyZY0AsRZVzaP0f
+	 zU87RqdgUwFcWHOZydhE/DErioLnsZk6mLON4waRp7Ag0M0r8+urlx9Fa1aOWHj1wF
+	 JM5aAGwQf7PCQ==
+From: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>
+Cc: linux-kernel@vger.kernel.org,
+	linux-trace-kernel@vger.kernel.org,
+	Sang-Heon Jeon <ekffu200098@gmail.com>
+Subject: [PATCH 1/3] bootconfig: Reject unexpected data after null character
+Date: Thu, 10 Sep 2026 00:53:45 +0900
+Message-ID: <178896922501.177508.6894964926791268965.stgit@devnote2>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <178896921555.177508.434402948295885560.stgit@devnote2>
+References: <178896921555.177508.434402948295885560.stgit@devnote2>
+User-Agent: StGit/0.19
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -51,69 +46,90 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2311; i=broonie@kernel.org;
- h=from:subject:message-id; bh=jYxLIltiJBNKtV2wRv/XI73ayKEPL2qUF4cypA58Y30=;
- b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqoYEAmEa6JJlbI3a2BXfzkKnpH4DH1Y0gAYUs7
- eyuAwaorM+JATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCaqGBAAAKCRAk1otyXVSH
- 0A2SB/4rSUh/LRr6ZPIx5ovqC3fo/11hVvMUHA+yw9E3JSTk4ZkbqiOt8rIOUuA+9AllCqUeui7
- ly6/XMDyuYyss1ny6fYKfR5SH8Wf6mR0cWqmFSMj9r89XJYLzGa3CJcFo86Sa9M/7EL5rjdnyfG
- Z/PyPwvTqMwTgbwGYdBtmlRce77k/L2j7q7+6Zjg1fCWc/1Fr4jQuh9vtXnuLFiCYLJWn+qFqQt
- aGP/CgmmE4w2+sZ0yXDvOim2BLvP2FM1YQ/hhWiHZpWVcnlILglDhFZXkwAumk4v9mpPqecKMRX
- 0XbzfDiFfDxxkT5ePr1gEgRT4+Wg8Qvk+mygyB+TQymPcb7z
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
+Content-Transfer-Encoding: 8bit
 
-On Sat, 15 Aug 2026 14:40:00 +0300, Andrey Golovko wrote:
-> ASoC: tas2783-sdw: fix the read-only Control handling
-> 
-> The 1/2 of v2 is in for-7.3 as 0c7aeb0f5ece, so this is the rest of it,
-> rebased on that, with one more patch in front.
-> 
-> Mark asked whether marking the read-only Controls volatile works for
-> multi-byte reads.  It does not, on its own.  Twenty of the Controls that
-> patch marks volatile are wider than one byte: nineteen of four - the
-> Latency of FU23, FU26 and FU127, XU22 0x06, SAPU29 0x05, PPU21 and PPU26
-> 0x06, the 0x08 Control of IT21, IT26, IT28, IT29, OT23, OT24, OT25, OT28
-> and OT127, MU26 0x06, MFPU21 and MFPU26 0x08 - and XU22 0x07 of two.
-> With val_bits = 8 the MBQ layer refuses each of them before anything
-> reaches the bus, so the patch on its own would turn a read that used to
-> be answered from the cache into -EINVAL.  What the cache answered was
-> the placeholder from tas2783_reg_default[] rather than anything the
-> device had said, and the driver performs no register reads at all, so
-> nothing in tree can tell the difference today - but -EINVAL is not what
-> the patch should leave behind.
-> 
-> [...]
+From: Masami Hiramatsu (Google) <mhiramat@kernel.org>
 
-Applied to
+If a bootconfig buffer contains an intermediate null character in the
+middle of the configuration, xbc_parse_tree() stops at the null character
+because string delimiter searches (e.g. strpbrk()) stop at '\0', and
+cleanly breaks out of the loop without error. As a result, any
+configuration data following the intermediate null character is silently
+ignored, allowing unparsed or potentially malicious data to be hidden
+after an early termination.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.4
+Fix this in xbc_parse_tree() by checking that no non-null data remains
+between the parser termination point and the end of the input buffer.
+Trailing null characters (such as alignment padding in initrd) continue
+to be accepted as valid.
 
-Thanks!
+Also update apply_xbc() in tools/bootconfig/main.c to calculate the
+buffer size based on the loaded file size rather than strlen(), so that
+files with intermediate null characters are not truncated before
+validation.
 
-[1/2] ASoC: tas2783-sdw: make multi-byte MBQ registers reachable
-      https://git.kernel.org/broonie/sound/c/3e56757584d6
-[2/2] ASoC: tas2783-sdw: do not cache read-only Controls
-      https://git.kernel.org/broonie/sound/c/f4ffa3820949
+Assisted-by: Antigravity:gemini-3.8-flash
+Signed-off-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+---
+ lib/bootconfig.c                    |    7 +++++++
+ tools/bootconfig/main.c             |    4 +++-
+ tools/bootconfig/test-bootconfig.sh |   12 ++++++++++++
+ 3 files changed, 22 insertions(+), 1 deletion(-)
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+diff --git a/lib/bootconfig.c b/lib/bootconfig.c
+index aba11caf6903..0ec2874db9c7 100644
+--- a/lib/bootconfig.c
++++ b/lib/bootconfig.c
+@@ -1116,6 +1116,13 @@ static int __init xbc_parse_tree(void)
+ 		}
+ 	} while (!ret);
+ 
++	if (!ret) {
++		while (p < xbc_data + xbc_data_size - 1 && *p == '\0')
++			p++;
++		if (p < xbc_data + xbc_data_size - 1)
++			ret = xbc_parse_error("Unexpected data after null character", p);
++	}
++
+ 	return ret;
+ }
+ 
+diff --git a/tools/bootconfig/main.c b/tools/bootconfig/main.c
+index 7dc9fff9b637..6035404733c3 100644
+--- a/tools/bootconfig/main.c
++++ b/tools/bootconfig/main.c
+@@ -422,7 +422,9 @@ static int apply_xbc(const char *path, const char *xbc_path)
+ 		pr_err("Failed to load %s : %d\n", xbc_path, ret);
+ 		return ret;
+ 	}
+-	size = strlen(buf) + 1;
++	size = ret;
++	if (size == 0 || buf[size - 1] != '\0')
++		size++;
+ 	csum = xbc_calc_checksum(buf, size);
+ 
+ 	/* Backup the bootconfig data */
+diff --git a/tools/bootconfig/test-bootconfig.sh b/tools/bootconfig/test-bootconfig.sh
+index fc69f815ce4a..530ce7e28d63 100755
+--- a/tools/bootconfig/test-bootconfig.sh
++++ b/tools/bootconfig/test-bootconfig.sh
+@@ -180,6 +180,18 @@ EOF
+ $BOOTCONF -a $TEMPCONF $INITRD 2> $OUTFILE
+ xpass grep -q "1:1" $OUTFILE
+ 
++echo "Intermediate null character test"
++printf "key = value\n\0extra = data\n" > $TEMPCONF
++xfail $BOOTCONF -a $TEMPCONF $INITRD
++$BOOTCONF -a $TEMPCONF $INITRD 2> $OUTFILE
++xpass grep -q "Unexpected" $OUTFILE
++
++echo "Trailing null character test"
++printf "key = value\n\0" > $TEMPCONF
++xpass $BOOTCONF -a $TEMPCONF $INITRD
++$BOOTCONF $INITRD > $OUTFILE
++xpass grep -q "value" $OUTFILE
++
+ echo "=== expected failure cases ==="
+ for i in samples/bad-* ; do
+   xfail $BOOTCONF -a $i $INITRD
 
