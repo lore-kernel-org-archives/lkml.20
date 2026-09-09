@@ -1,84 +1,64 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34C242CCC5;
-	Wed,  9 Sep 2026 00:31:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 541A614A60F;
+	Wed,  9 Sep 2026 00:31:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788913871; cv=none; b=g6pR+Wzxz/tS91ornp4f6Zf9tjh2BuVIYJekrm+L45SpGK21DxD69EjJQKdgv+xPHjn3GKy3O75bWs2AajoerMb1ecftskk7E/A7eQKLpIW8SiBoOdoYXuONLvRv7Lmsp1IAU1k7s9fCHz+gNiVydMLKB7N13Gnyl28KK+Qb3ew=
+	t=1788913909; cv=none; b=nFSlpKx94333ZIOYPRrDQHbmOuzxwKKqWZmwzDDWe0y03/jvCobSitB0xM2G8coSUnKyY/plfxe7XOjaV2QQRzpmrCzx06tcoY+lXXB8sudMwLwi+vmAspOih1M9n1GwzmVhYSE0hunXUTjhwGEn+gZXDB1AjfKmDkjMRE4KlEE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788913871; c=relaxed/simple;
-	bh=p/eKjTyJTC8KAHuqsb1+IwIH2Ux6clIVamawaJKm77I=;
-	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=X+ln0LZb47DRLw3Xk8EX463QrbHJoM3i199gfR4kawrcCVTv3o7+SbXkH7QHWwRKRqnqyDvMKEbh/sjHXGKSkxoWA+OZUWPIMOysRbPgotgNWoQ3MQhG/+4T6oSanjPGUGddVfixA51J5okC0B7GGaqw2YB9KGlXp4p3WPGYPLw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OmoZSdWa; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788913909; c=relaxed/simple;
+	bh=OdxVRyViT8qd8aNfIxcJTXm0RGXtOrMqT9FZVkVEbA8=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=J/yV4/vUScfujGUhzV61K0CkDZdhUQrcUpnd18aD+pJAjAjvaK0913075YfYuIfAd/I7aO3YHvGNKt3jyNs5bp28myb38WjWT8fOQevgsAtsCtPlOMmolYOtUYia7gwadbYUA69sH1Rs/nRha4ji2wMUCWaa4SCKlC8NUzh2xRU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=g6JpoG2J; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OmoZSdWa"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B4BED1F00A3A;
-	Wed,  9 Sep 2026 00:31:09 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="g6JpoG2J"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D96FE1F00A3A;
+	Wed,  9 Sep 2026 00:31:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788913869;
-	bh=0lpJ7Ts/WqeZ5mZKljNcLphz9CKQteOXg8TKoqD4gTs=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=OmoZSdWa82KBDU14dxB/JZdzrSl/2wbwYFEc9kukucIy2wbpocNOYD5lVacTEeCr5
-	 CYHgsCg9sE3mXLjwO4B2hrMtUENLWuswzmBd4tRsddt5b0uXGyZNEFQM+846bte+pu
-	 QPuI5z8IXbJS1e/XkpnabABbSkdChfKCieCTvnixT1Q0W/fzzYNOAoJe65ifyEWP0C
-	 kFX/1jqk9T+DNmf9r7MjCHLQJXlDbfWpe7D8BR+FsTn904EKJ0iEA98vSVBq34qCoz
-	 n/mWcD4GDh4TmIpEY+QH0VicZChc6QFMx3WsIR2m4GdswivK1z4dGwqT6NMIRs3Rog
-	 rlT9z7VbBHuGw==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 56BC3380820D;
-	Wed,  9 Sep 2026 00:30:09 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	s=k20260515; t=1788913908;
+	bh=IJUtrL8up/h7b4D3LUoCpPL5As/ef1JMSKBMMW3rWj8=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=g6JpoG2JeHDhJJ3haho6V8VxAWNaXFwboo4XEUMSTa3YvjPNYitNUVvbTo1KB/ECn
+	 +q9PYI26hFY1sbXSbNAUJaWca470AI0rrjpCvsCUB+MHE0QxBX2eiGYsYGNTfhDHBt
+	 UPICEP+K1Ku993j/nSOiTPz5BUaYSJoefHw+yRRvE9z0tTRboEbV+yB3tZnTsk42SK
+	 qNpikUxoXe5PGS+ytlxORrzCbGwtKH9iHKGx6Lco7wTPxbKavQTu0IH9l80aIb4166
+	 O5MkQ0jdUjri40WcM13zQxzK8eAboaiQULjZt2XMduA1FhiECgG106FzkAPY5ItTq8
+	 7PzMKQU2ursaw==
+Date: Wed, 9 Sep 2026 01:31:40 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: alistair23@gmail.com
+Cc: linux-pci@vger.kernel.org, Jonathan.Cameron@huawei.com, djbw@kernel.org,
+ rust-for-linux@vger.kernel.org, lukas@wunner.de, alistair@alistair23.me,
+ linux-cxl@vger.kernel.org, bhelgaas@google.com, akpm@linux-foundation.org,
+ linux-kernel@vger.kernel.org, gary@garyguo.net, ojeda@kernel.org,
+ benno.lossin@proton.me, a.hindborg@kernel.org, wilfred.mallawa@wdc.com,
+ tmgross@umich.edu, boqun.feng@gmail.com, bjorn3_gh@protonmail.com,
+ alex.gaynor@gmail.com, aliceryhl@google.com
+Subject: Re: [PATCH v3 17/21] lib: rspdm: Support SPDM get_digests
+Message-ID: <20260909013140.11117c3e@jic23-huawei>
+In-Reply-To: <20260901010347.2614656-18-alistair.francis@wdc.com>
+References: <20260901010347.2614656-1-alistair.francis@wdc.com>
+	<20260901010347.2614656-18-alistair.francis@wdc.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net-next v3 0/2] selftests: drv-net: Allow cross-compiling
- the
- hardware tests
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <178891380788.78759.7423905077118012699.git-patchwork-notify@kernel.org>
-Date: Wed, 09 Sep 2026 00:30:07 +0000
-References: <20260907161438.755125-1-maxime.chevallier@bootlin.com>
-In-Reply-To: <20260907161438.755125-1-maxime.chevallier@bootlin.com>
-To: Maxime Chevallier <maxime.chevallier@bootlin.com>
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, donald.hunter@gmail.com,
- horms@kernel.org, shuah@kernel.org, matttbe@kernel.org, sdf@fomichev.me,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- thomas.petazzoni@bootlin.com, linux-kselftest@vger.kernel.org
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Hello:
+On Tue,  1 Sep 2026 11:03:43 +1000
+alistair23@gmail.com wrote:
 
-This series was applied to netdev/net-next.git (main)
-by Jakub Kicinski <kuba@kernel.org>:
-
-On Mon,  7 Sep 2026 18:14:34 +0200 you wrote:
-> Hi,
+> From: Alistair Francis <alistair@alistair23.me>
 > 
-> This is the third version for the ynl and drivers/net/hw
-> cross-compilation enablement series.
+> Support the GET_DIGESTS SPDM command.
 > 
-> Changes come from Sashiko reviews, that detected some Makefile inclusion
-> ordering issues, a stray 'Q = @' in the ynl makefiles to have proper
-> verbosity support, and some commit log rewording.
-> 
-> [...]
+> Signed-off-by: Alistair Francis <alistair@alistair23.me>
+Reviewed-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
 
-Here is the summary with links:
-  - [net-next,v3,1/2] tools: ynl: Allow cross-compiling ynl and associated tools
-    https://git.kernel.org/netdev/net-next/c/917f713b4ec4
-  - [net-next,v3,2/2] selftests: drv-net: Use cross-compilation environment for the io_uring check
-    https://git.kernel.org/netdev/net-next/c/0c5588740e22
-
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
-
+Subject to my current standard - "as a non rust person"
