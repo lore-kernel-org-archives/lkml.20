@@ -1,135 +1,251 @@
-Received: from mail-oo1-f70.google.com (mail-oo1-f70.google.com [209.85.161.70])
+Received: from mail-ej1-f49.google.com (mail-ej1-f49.google.com [209.85.218.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A6F637CD42
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 21:35:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.70
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788989740; cv=none; b=Ys/R0tt3AyLjLC/XYbw5PVE6Ry2ULh+XKaOTdqlv3WNYMpTSwzn7M4q6SIttRUzbba86tbgSV6x3ypci9l4DcAnN1fsB6PwakFjft7w7nYL7p8WRbQqvGd8nHSgiOoMPLUeUP31+BxK8SCr52oJOG2dkJokLle4LxyqyM1W4NeI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788989740; c=relaxed/simple;
-	bh=B16T6VYWn55CTHDD5871lwj9QEByd3VO4bR6nH2Leuw=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=rXnfGqfVfipesEmr1XRm8jrJE33QtUKA6/yfm360jKzOJ7602odCojd4SABegPa5sFXNib+shI6NShyWRUR8046rnQgKLg3Mxax9iWr23Wb7rkIQhUh2fDf0VJeuJWXyKFIBJ1hxJkJyiNy+8ywN4sZr/kqkuvtNduk8sq6FD10=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.161.70
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oo1-f70.google.com with SMTP id 006d021491bc7-6b1b27d7ab2so8694870eaf.0
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 14:35:29 -0700 (PDT)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AB593FE359
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 21:40:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.49
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788990008; cv=pass; b=e45wOWbgmj0YwYS5j/I2Za09zmOQvSa8PLdXGAvAJgXihOCHXWn8aboRUl0RqWFxqaLkLeA+sJE9mbW+RAwHmWVhTexZqsly/lbh14vfyOS4gWOvNDRrhmYQ52f+LMvLiWdCf+9DCcaQb/BJOftsPAgjUsbTNoB7ZC81k9fW1XE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788990008; c=relaxed/simple;
+	bh=ddYlgRH+Eu31kZhzBqiV/ZLzQ+kkAleS3Iapjo7h8+s=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=KWnhVz25f1kaqPhoFJTCMYTX9aubtN0/6vHiqEcmccIhcGWY8aEhEuBfnPv3sYWCWtZHrIbVCgZtZn2Xs/htBvoDe3rNfPMBVrTtXPp3FiaBaI4KMu4IIJLXGxmwUagenqh3WhFQ5KI4DgPAJLsq9ZdztS6R9xG6hFRfPspr+1Q=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CqOuAtwQ; arc=pass smtp.client-ip=209.85.218.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CqOuAtwQ"
+Received: by mail-ej1-f49.google.com with SMTP id a640c23a62f3a-c15e2dab83eso1122090266b.1
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 14:40:03 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788989997; cv=none;
+        d=google.com; s=arc-20260327;
+        b=keaHF7se4g8ujWMgCxjI+m5/qd/5a7Rdl1fK8dcDI7a0hshz+Jx1X3DUTGkWQzCx+T
+         MlqfLX3qKglSYLj79I6tvsHcZyQ/Lg3qIqcFqU9TkmGd5gnh7ioNiu1So3WYDrF2kDFI
+         YY5E4XqAykTD4owTcK/raME8/AewcgLiKg5sTUt3GhSuiNB8gtuvLbRhNpRZoPttl3Ty
+         PEDwhIC5/3Su8Cn482dddn35qTNJtj+P09MlQoaFRnfGxVflk0+v0euQpOqfhjWDhkEu
+         zK2beZPj2u7KR5sCmXl0EjPADkFlSaU0m9/TvA52+QCRXeiovgpiUzloYlxxIza7o/EN
+         wT7w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=HyaCdrxKlZQ2oXMbYltyBFEBTyPKfY34zB6KlNdy/xA=;
+        fh=Flu+W3GFeiWoE3auy+CZL9xbirJR2tR8wlm6opan4rc=;
+        b=S03M9821KjPEwK2SAxhntb8IiOAlPjogTtylr6nD4SP5f8/4QDUOzhJyEvLRRhYuqn
+         3CWOj7eKa/dJjpfUWInwJbJ4rEc5Izc+FdrImjhC3vla1qxvy8az6lRaZpRcoJiNjAH3
+         04uHnxAgZrBfw2ldLSmTuAECwPkq/hSb1hEakilYAYUwU2ojlAWfxe+UHjvD24CJY3nC
+         HCC8GHMKmJ+xB7DrMJr+jbJnabsco6GgbjOGV7Y948cLADuxdSOQvZ3ww1S1bPp6TK1x
+         Lkn0uakSStJqt3zU4+9Hg8ZfvMovz/L8+7xkgRlFC3LqmRNgW7wrNbLlVGSJBCSLngZA
+         rklw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788989997; x=1789594797; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=HyaCdrxKlZQ2oXMbYltyBFEBTyPKfY34zB6KlNdy/xA=;
+        b=CqOuAtwQuaMUS4pKzYGX8Je6JCE5CFo0ZFukn9Qi1giILHgqQybl44MELOR1UTCvML
+         Lj9GCGDz396Do1U+JQy9oRPflDlrY+r7mq1bvcz7dLLI79JupsST0LHVT42zRPNhrUr0
+         IlD8hLOzlOckecwi3DgbXZXahDZRSsFODCTUC5iRKcfKsnYxwMKI34DYqQlpqOjvzVtG
+         F4paTxyIeGQh96MAO7auc4NP5oJped8pfQLQW0XOj3g/y1GbuDXK+7113BOV6M0McqRj
+         9KsM50WMmr0w03sFD4/Jyi8lVGPJmZwz2z9gEvJmj+qFCJGvISeHECZqAUzC1HfaIgDs
+         u+pw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788989726; x=1789594526;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=C72TfSHoWHn8VitdFGNxau+dEMnVMylbtdpv+64TlXs=;
-        b=md46dYu1+noWDA/SP6iGkIwFEi7//7o5lyx1+ivWakrHIDMFvsnmso38mdwdB1Vv4N
-         hWPEsTYfFyJkgjkdxGDmtZNm3SU02C05cbbAVXoG1o9aFcAfyUtuR9LyrAkSicbIRZVy
-         MLs8sPEnbWzhtWbWF70fbFD0y5ZrvrYQMiRZ5vtkmxmct/YkOL6fDW+g9UDhhj6Fm5oF
-         KWEhAU/4J24JBDn/iv2qpSe7QfL4jSE1mlNQBLAZJV5fImg8QLKxPJl+TkNNruM84NX4
-         Ol4BZfmsSmhmvT84bCzMcHbvIXzzrzCmrdHxGuATvfTsWuxWByOhziQeqo1keA/SmFi+
-         2A+w==
-X-Forwarded-Encrypted: i=1; AKwUvBwfIj16jmVHeeRAA+NmajVwSY6V9K+G9tycG4jgskJSc6kwfUsuW80cQLjlyslH/+m5aDThUJy/db/A85E=@vger.kernel.org
-X-Gm-Message-State: AFuF++l9lgkXizXeWLPriJhE6GqKp/NdmQwi23LwCjvQgUbnJnJOO6U1
-	hq/eGGbrD0sgzypOtYuRvHTUhjshJz8RnnmwuXHexLjPrsqK+Ezru1hzLmFlkfB41Ty+kpxepZ9
-	poxkUhTLsfAbe3Zq6gx3r+953IyyEIIePiAiNNOZzzlqXChBpoc8GKO6+m90=
+        d=1e100.net; s=20251104; t=1788989997; x=1789594797;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=HyaCdrxKlZQ2oXMbYltyBFEBTyPKfY34zB6KlNdy/xA=;
+        b=FlyX5LW0FQKIGjItj6NHkTOs/wN2CMcCGKxRyiGnr/O7EODW83vvWdVcBSbJ7+9Cq9
+         p51+HP3XQ82A9Q211cZquDyUl+MmQMeetbl8YVRh7Ht5HCOXPtTk4AhwETwGHPaozkCv
+         i/rRdk/4VnatNoiVwTywzK9xn49Y+b9FVKp+/cT1sE8wXgRXv/VtPlCJpW7m6uqZ0WJ8
+         JNzZ9PfLHJqCYbCdmA5q+3NjYBdoQ24MVR2mvxWyRboCsYZIFVnWC1EMbnAa8BXrlC+4
+         sxKR3cWwYm6ABKqPcz7y/gk7jVTYlUN+Bh5nRNPFrXDYSIGIGR+iiozx0/9SXplD9grj
+         68sQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxXu+Wp3nmQ1/Zzabc8UKuy25Xg5+ke8WIif53xcBBPLWsEEoIvRiRH0XaQ1sC3HjL/zqr8mtvsxM9gmIc=@vger.kernel.org
+X-Gm-Message-State: AFuF++mjhLrGkEmTW08Z+TGYq0Bp/O8V+0Vdsz5aOUWnYazjDjR5Ncyd
+	ahRwnCbsMPDO0CU2RBeNx+/hfWUibEhhPZXeCch7/qpprImnPe6aOAvnS9AFPe7ib3Yj3jVOcEY
+	GfKbIOh9YUOa154aPsnk3uTK53Ek7PPA=
+X-Gm-Gg: AYBFou1hm8rHRrvrV8EuR5Q/RLibEBHhQ2T203/uUIdFz/zv5U88e/eykwZobjHSSf1
+	+LM1JpiWBuGMOTuBIsyRMIYJdfUJbcb+6NUc9qjphTv6NiHuWPWWhsGresSHc22DilbvW684ZX/
+	c/2fW/JssOBN02Vh9I3jSbTLbm9w4lXGSLppFBDiaPmiTg2aDZhTC7rV3SnyDtspGmEQbF9uLIp
+	31uQVhpl5VD+wTkU82hJ/yDrcqu04vblklUTTe5RsUG29lTD4Azf9alT721np3VCZaWyweWhRu+
+	ZGmDbf5h/YhTMvj3L7NIlqjzhc48Z+5KYwAin4/uf4kJUErhgq9+Ta4/FsAkWRLCxeO7pnv8ymS
+	Zk11NQt3SILNnsrpFp8H0t9uP6iVTS4Ch9bvcaUqUhc/07GdMWVzObgx4gr73Zfv8MIe6H/yiI/
+	7h8/pYDZ4yzyCRt+Squng4qNaRiWY9JtPJ1M72RmiYXzbwJNwZzZFfr470QE1kSUNUUA==
+X-Received: by 2002:a17:907:94d1:b0:c25:5ad1:41e0 with SMTP id
+ a640c23a62f3a-c260cb4539cmr1647515266b.23.1788989997322; Wed, 09 Sep 2026
+ 14:39:57 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:8187:b0:6b7:46fa:16a6 with SMTP id
- 006d021491bc7-6bee7d17888mr2184433eaf.59.1788989726560; Wed, 09 Sep 2026
- 14:35:26 -0700 (PDT)
-Date: Wed, 09 Sep 2026 14:35:26 -0700
-In-Reply-To: <6a9b44e0.a5e650b3.363816.0002.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6aa1d11e.f81106d8.2ab401.0001.GAE@google.com>
-Subject: Re: [syzbot] [block?] BUG: sleeping function called from invalid
- context in null_insert_page
-From: syzbot <syzbot+95fdab36405e5ffdb680@syzkaller.appspotmail.com>
-To: linux-block@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com
+References: <20260901004243.50052-1-rosenp@gmail.com> <890a971a-49cc-46e9-83ee-7df6d892f65c@intel.com>
+In-Reply-To: <890a971a-49cc-46e9-83ee-7df6d892f65c@intel.com>
+From: Rosen Penev <rosenp@gmail.com>
+Date: Wed, 9 Sep 2026 14:39:46 -0700
+X-Gm-Features: AcwNN1WAUPI16ZC4OyveYJgLyv2MzCWa68SEubVmklnGNCwLKbGkugxFaxcW1ds
+Message-ID: <CAKxU2N_CUNgM07-8=c4nKw=fbExxz6g0mdnsO2dvce7MT1vVwA@mail.gmail.com>
+Subject: Re: [PATCH] mmc: sdhci-pxav3: use managed clock enablement
+To: Adrian Hunter <adrian.hunter@intel.com>
+Cc: linux-mmc@vger.kernel.org, Ulf Hansson <ulfh@kernel.org>, 
+	open list <linux-kernel@vger.kernel.org>, Karel Balej <balejk@matfyz.cz>, 
+	=?UTF-8?Q?Duje_Mihanovi=C4=87?= <duje@dujemihanovic.xyz>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-syzbot has found a reproducer for the following issue on:
-
-HEAD commit:    893e11787f78 Merge tag 'x86_urgent_for_7.3-rc3' of git://g..
-git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
-console output: https://syzkaller.appspot.com/x/log.txt?x=17e50925580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=8c5c3949d762a91f
-dashboard link: https://syzkaller.appspot.com/bug?extid=95fdab36405e5ffdb680
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=10c13749580000
-
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+95fdab36405e5ffdb680@syzkaller.appspotmail.com
-
-null_blk: disk syzdev created
-BUG: sleeping function called from invalid context at ./include/linux/sched/mm.h:322
-in_atomic(): 0, irqs_disabled(): 0, non_block: 0, pid: 6031, name: syz-executor254
-preempt_count: 0, expected: 0
-RCU nest depth: 1, expected: 0
-locks held by syz-executor254/6031: 1, last CPU#0:
- #0: ffffffff8edec2e0 (rcu_read_lock){....}-{1:3}, at: rcu_lock_acquire include/linux/rcupdate.h:309 [inline]
- #0: ffffffff8edec2e0 (rcu_read_lock){....}-{1:3}, at: rcu_read_lock include/linux/rcupdate.h:849 [inline]
- #0: ffffffff8edec2e0 (rcu_read_lock){....}-{1:3}, at: blk_mq_dispatch_queue_requests+0x148/0x7c0 block/blk-mq.c:2872
-CPU: 0 UID: 0 PID: 6031 Comm: syz-executor254 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-Call Trace:
- <TASK>
- __dump_stack lib/dump_stack.c:94 [inline]
- dump_stack_lvl+0x100/0x190 lib/dump_stack.c:120
- __might_resched.cold+0x1dc/0x222 kernel/sched/core.c:9256
- might_alloc include/linux/sched/mm.h:322 [inline]
- slab_pre_alloc_hook mm/slub.c:4636 [inline]
- slab_alloc_node mm/slub.c:4974 [inline]
- __kmalloc_cache_noprof+0x3e3/0x6d0 mm/slub.c:5559
- _kmalloc_noprof include/linux/slab.h:991 [inline]
- null_alloc_page drivers/block/null_blk/main.c:878 [inline]
- null_insert_page+0x10b/0x6c0 drivers/block/null_blk/main.c:1027
- copy_to_nullb drivers/block/null_blk/main.c:1165 [inline]
- null_transfer drivers/block/null_blk/main.c:1279 [inline]
- null_handle_data_transfer+0x7df/0xe20 drivers/block/null_blk/main.c:1308
- null_handle_memory_backed drivers/block/null_blk/main.c:1388 [inline]
- null_process_cmd+0x1e3/0x290 drivers/block/null_blk/main.c:1442
- null_handle_cmd drivers/block/null_blk/main.c:1465 [inline]
- null_queue_rq+0x8e4/0xfb0 drivers/block/null_blk/main.c:1711
- null_queue_rqs+0xe9/0x2f0 drivers/block/null_blk/main.c:1725
- __blk_mq_flush_list block/blk-mq.c:2827 [inline]
- __blk_mq_flush_list+0x9a/0xc0 block/blk-mq.c:2823
- blk_mq_dispatch_queue_requests+0x184/0x7c0 block/blk-mq.c:2872
- blk_mq_flush_plug_list+0x1f2/0x600 block/blk-mq.c:2960
- __blk_flush_plug+0x2c4/0x4b0 block/blk-core.c:1270
- blk_finish_plug+0x5c/0xa0 block/blk-core.c:1297
- blkdev_writepages+0xf6/0x150 block/fops.c:488
- do_writepages+0x278/0x600 mm/page-writeback.c:2560
- filemap_writeback+0x22d/0x2e0 mm/filemap.c:387
- filemap_fdatawrite_range mm/filemap.c:412 [inline]
- file_write_and_wait_range+0xcd/0x140 mm/filemap.c:786
- blkdev_fsync+0x6c/0xd0 block/fops.c:596
- vfs_fsync_range fs/sync.c:186 [inline]
- vfs_fsync fs/sync.c:200 [inline]
- do_fsync+0xbf/0x220 fs/sync.c:211
- __do_sys_fsync fs/sync.c:216 [inline]
- __se_sys_fsync fs/sync.c:214 [inline]
- __x64_sys_fsync+0x32/0x50 fs/sync.c:214
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7f756122f3b7
-Code: 48 89 fa 4c 89 df e8 98 1d 00 00 8b 93 08 03 00 00 59 5e 48 83 f8 fc 74 1a 5b c3 0f 1f 84 00 00 00 00 00 48 8b 44 24 10 0f 05 <5b> c3 0f 1f 80 00 00 00 00 83 e2 39 83 fa 08 75 de e8 23 ff ff ff
-RSP: 002b:00007fffc74cf400 EFLAGS: 00000202 ORIG_RAX: 000000000000004a
-RAX: ffffffffffffffda RBX: 0000555566674400 RCX: 00007f756122f3b7
-RDX: 0000000000000000 RSI: 0000000000000000 RDI: 0000000000000003
-RBP: 000000000000000a R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000202 R12: 00007f756126bae3
-R13: 00007fffc74cf450 R14: 00007f7561268060 R15: 00007f7561268140
- </TASK>
-
-
----
-If you want syzbot to run the reproducer, reply with:
-#syz test: git://repo/address.git branch-or-commit-hash
-If you attach or paste a git patch, syzbot will apply it before testing.
+On Wed, Sep 9, 2026 at 12:51=E2=80=AFAM Adrian Hunter <adrian.hunter@intel.=
+com> wrote:
+>
+> On 01/09/2026 03:42, Rosen Penev wrote:
+> > Replace devm_clk_get() plus clk_prepare_enable() with the managed
+> > variants devm_clk_get_enabled() and devm_clk_get_optional_enabled().
+> > The core clock becomes optional, which removes the IS_ERR() guards
+> > in runtime suspend/resume and lets devms unwind the clocks, so the
+> > manual clk_disable_unprepare() calls in the probe error paths and
+> > remove are dropped.
+> >
+> > clk_prepare_enable() and friends are NULL safe, so no need to check if
+> > the optional clock is present.
+> >
+> > Also handle failures of clk_prepare_enable() in runtime resume instead
+> > of ignoring them: a failed enable would leave controller register
+> > accesses hitting unclocked hardware. Bail out before resuming the host
+> > and unwind clk_io when enabling clk_core fails. This also drops the
+> > now unused pltfm_host variable from remove().
+> >
+> > Assisted-by: opencode:big-pickle
+> > Signed-off-by: Rosen Penev <rosenp@gmail.com>
+> > ---
+> >  drivers/mmc/host/sdhci-pxav3.c | 42 +++++++++++++++-------------------
+> >  1 file changed, 19 insertions(+), 23 deletions(-)
+> >
+> > diff --git a/drivers/mmc/host/sdhci-pxav3.c b/drivers/mmc/host/sdhci-px=
+av3.c
+> > index d082c4e21aa9..db9dfa92cb57 100644
+> > --- a/drivers/mmc/host/sdhci-pxav3.c
+> > +++ b/drivers/mmc/host/sdhci-pxav3.c
+> > @@ -414,19 +414,18 @@ static int sdhci_pxav3_probe(struct platform_devi=
+ce *pdev)
+> >       pltfm_host =3D sdhci_priv(host);
+> >       pxa =3D sdhci_pltfm_priv(pltfm_host);
+> >
+> > -     pxa->clk_io =3D devm_clk_get(dev, "io");
+> > +     pxa->clk_io =3D devm_clk_get_enabled(dev, "io");
+> >       if (IS_ERR(pxa->clk_io))
+> > -             pxa->clk_io =3D devm_clk_get(dev, NULL);
+> > +             pxa->clk_io =3D devm_clk_get_enabled(dev, NULL);
+>
+> Sashiko has a point about getting the wrong clock:
+>
+>         https://sashiko.dev/#/patchset/20260901004243.50052-1-rosenp%40gm=
+ail.com?part=3D1
+It's technically correct but meaningless. All dts files specify the
+clock properly. Both paths attempt to enable the same clock.
+>
+> >       if (IS_ERR(pxa->clk_io)) {
+> >               dev_err(dev, "failed to get io clock\n");
+> >               return PTR_ERR(pxa->clk_io);
+> >       }
+> >       pltfm_host->clk =3D pxa->clk_io;
+> > -     clk_prepare_enable(pxa->clk_io);
+> >
+> > -     pxa->clk_core =3D devm_clk_get(dev, "core");
+> > -     if (!IS_ERR(pxa->clk_core))
+> > -             clk_prepare_enable(pxa->clk_core);
+> > +     pxa->clk_core =3D devm_clk_get_optional_enabled(dev, "core");
+> > +     if (IS_ERR(pxa->clk_core))
+> > +             return PTR_ERR(pxa->clk_core);
+> >
+> >       host->mmc->caps |=3D MMC_CAP_NEED_RSP_BUSY;
+> >       /* enable 1/8V DDR capable */
+> > @@ -435,17 +434,17 @@ static int sdhci_pxav3_probe(struct platform_devi=
+ce *pdev)
+> >       if (of_device_is_compatible(np, "marvell,armada-380-sdhci")) {
+> >               ret =3D armada_38x_quirks(pdev, host);
+> >               if (ret < 0)
+> > -                     goto err_mbus_win;
+> > +                     return ret;
+> >               ret =3D mv_conf_mbus_windows(pdev, mv_mbus_dram_info());
+> >               if (ret < 0)
+> > -                     goto err_mbus_win;
+> > +                     return ret;
+> >       }
+> >
+> >       match =3D of_match_device(of_match_ptr(sdhci_pxav3_of_match), &pd=
+ev->dev);
+> >       if (match) {
+> >               ret =3D mmc_of_parse(host->mmc);
+> >               if (ret)
+> > -                     goto err_of_parse;
+> > +                     return ret;
+> >               sdhci_get_of_property(pdev);
+> >               pdata =3D pxav3_get_mmc_pdata(dev);
+> >               pdev->dev.platform_data =3D pdata;
+> > @@ -500,27 +499,18 @@ static int sdhci_pxav3_probe(struct platform_devi=
+ce *pdev)
+> >  err_add_host:
+> >       pm_runtime_disable(&pdev->dev);
+> >       pm_runtime_put_noidle(&pdev->dev);
+> > -err_of_parse:
+> > -err_mbus_win:
+> > -     clk_disable_unprepare(pxa->clk_io);
+> > -     clk_disable_unprepare(pxa->clk_core);
+> >       return ret;
+> >  }
+> >
+> >  static void sdhci_pxav3_remove(struct platform_device *pdev)
+> >  {
+> >       struct sdhci_host *host =3D platform_get_drvdata(pdev);
+> > -     struct sdhci_pltfm_host *pltfm_host =3D sdhci_priv(host);
+> > -     struct sdhci_pxa *pxa =3D sdhci_pltfm_priv(pltfm_host);
+> >
+> >       pm_runtime_get_sync(&pdev->dev);
+> >       pm_runtime_disable(&pdev->dev);
+> >       pm_runtime_put_noidle(&pdev->dev);
+> >
+> >       sdhci_remove_host(host, 1);
+> > -
+> > -     clk_disable_unprepare(pxa->clk_io);
+> > -     clk_disable_unprepare(pxa->clk_core);
+> >  }
+> >
+> >  static int sdhci_pxav3_suspend(struct device *dev)
+> > @@ -561,8 +551,7 @@ static int sdhci_pxav3_runtime_suspend(struct devic=
+e *dev)
+> >               mmc_retune_needed(host->mmc);
+> >
+> >       clk_disable_unprepare(pxa->clk_io);
+> > -     if (!IS_ERR(pxa->clk_core))
+> > -             clk_disable_unprepare(pxa->clk_core);
+> > +     clk_disable_unprepare(pxa->clk_core);
+> >
+> >       return 0;
+> >  }
+> > @@ -572,10 +561,17 @@ static int sdhci_pxav3_runtime_resume(struct devi=
+ce *dev)
+> >       struct sdhci_host *host =3D dev_get_drvdata(dev);
+> >       struct sdhci_pltfm_host *pltfm_host =3D sdhci_priv(host);
+> >       struct sdhci_pxa *pxa =3D sdhci_pltfm_priv(pltfm_host);
+> > +     int ret;
+> >
+> > -     clk_prepare_enable(pxa->clk_io);
+> > -     if (!IS_ERR(pxa->clk_core))
+> > -             clk_prepare_enable(pxa->clk_core);
+> > +     ret =3D clk_prepare_enable(pxa->clk_io);
+> > +     if (ret)
+> > +             return ret;
+> > +
+> > +     ret =3D clk_prepare_enable(pxa->clk_core);
+> > +     if (ret) {
+> > +             clk_disable_unprepare(pxa->clk_io);
+> > +             return ret;
+> > +     }
+> >
+> >       sdhci_runtime_resume_host(host, 0);
+> >       return 0;
+>
