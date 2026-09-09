@@ -1,113 +1,124 @@
-Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com [209.85.214.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from dggsgout12.his.huawei.com (dggsgout12.his.huawei.com [45.249.212.56])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6398033D4F3
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 06:22:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.170
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788934938; cv=pass; b=fXGJEc0KkVbQ4dECgZFl1jy68NN1BDlHEhhse0ks+bQ2ryUriWQFyss7haNJP5bP2vqgGcKM7J/SvWlO+00wAyetwSxnZpFCuND+DgGhcXOB7kjTBgg81/KgTIJRUnoRa1+KHFDMGDo0ONuCYe1mm2NBjppmq+FxM8xhHPdVbro=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788934938; c=relaxed/simple;
-	bh=ZUMAL4Md/OW/2i7TX6skK5sRb7fbFz1d/4ElfK5ssWM=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=L1BY9WIav+WHdCcxvyxR9IpI23cs3xEoHL2TXevhhPtaVjGsCklI3jcTcq32OnrNMlOOwtoUEe9HyyMVGMeNfLq/rtVxcAAnuQQiESKFYshbXGWWA0UflBhe1XzZeRE3Eex6nH1aOfFhADP6jG88EwEEHGhBX4i1pk/XNmDAttA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ql0FwmNg; arc=pass smtp.client-ip=209.85.214.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ql0FwmNg"
-Received: by mail-pl1-f170.google.com with SMTP id d9443c01a7336-2d58efc7356so70230855ad.1
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 23:22:17 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788934937; cv=none;
-        d=google.com; s=arc-20260327;
-        b=IRLQklkql3KcusxBmqObJSTcVkYHVw3bojOsOMWRNeVMPGc+pYVcuiljeUm+ZzW8Lo
-         6LPunnmxE1RvuoZGIG7lSFVAEzx3Q0mTO9S021FM3TFkOTzeLtUuhDsehA22xrp7mKDE
-         WlSZhTAJpIn4YDM4vE/atKTspLIcaZpqtTC6ZAQ+v3JaQLD0YGS153dqpcyFa06W2AOv
-         SxMCB0QpoLiFEqrjofxRVDE+N0tXr6kUkTmeyoLd0EybMh3wibtuPZ+NGGYW3JoOjBwe
-         44181kO+lhbsDT6h5+HR1oKsxoOIDJGe70auTcC9WxZP71fxxJNwefXjaKmKsrlNQMSO
-         /93Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=VWM6CeHEk1aJXSMMdnevLIa5hIVREi7SkJQJU6C6uoA=;
-        fh=UMWzsvojVJFa1S37cvNhsGNLjp6xOn6/rI7R071TiEA=;
-        b=KccJ4ComecUQRKv98DQPSEzwY/0OoAdz99bucBThAr5EPHjhHndZMUqAgny/fY66lk
-         01UrzBsk+IuADUzhEiX+f/W+fAOUTBBkw5FndY3J5Kc+MVbzRQag0Xr9TVC8ZrGSQZMQ
-         DAJuJpbxYjM5p6YwvEvOkk4Od1DoD4t7WqQZ/OcJcGw2+SOlG/BVcNe5n3NICWch5GKw
-         +VPDJaSK9TO0jghbGBZAabGZMV50qZ2D3Mx+mtbgAvHwNWXo6NV0CYGD4fFAe6X6bfhB
-         QG25lIb1d1DDmGIUBSRMcY7jrFuY67fRBUkweUL89INVq0QNSIEvpEBk+k/6usWvKBmt
-         G8tw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788934937; x=1789539737; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=VWM6CeHEk1aJXSMMdnevLIa5hIVREi7SkJQJU6C6uoA=;
-        b=ql0FwmNgoGsS6mrohJjP4yNIQW5HMfiy6B1gImcGcd+aIII2jfSaO+P1VZmGm7Q4w+
-         C8qOQoMqviiO7gJswGseYyNA0Bdg+5yyJP+NSMKo3r4Vs0RwQG7YYiryRmm3sLHXPOli
-         wKMbUYiYdrldUwJhWeUdObJZYZorC2A/mrDOvA4r7/UOAku4U/CdrCwJDClt5RDg748m
-         7PJ1iHJKDg1xgzOhkZ5aXcfcRYpv2Y8LIBccXebKARO/+uUnOXmdZNc9b1/NGv93k1cJ
-         2wy1y3wvAFq4DSfkwcZuD7dn6XDIdtyheOAHtm7S+moO0qdO1DSIUYzig3Wp45kVgfyo
-         mqDg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788934937; x=1789539737;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=VWM6CeHEk1aJXSMMdnevLIa5hIVREi7SkJQJU6C6uoA=;
-        b=QZY61EUnypII1wRiXKEBX6NRl/sq7fXe85vNJ+jPNa/ayaceONN0qe4DHh6rvYXrQp
-         wQ0lobxBsxdCu60hlm6IisRJyDd3XRtkLA1fSm1t7rQevZZJaF8WU7zYUB1di32hj3TJ
-         3myCOG5MDpdeSKu6Fa5gL1H9EhSXrByRxFSS93Dsix2ckDW0x1xF1cSd8FRGPAcDTOVb
-         PMlOhmgr1GNTf524+ZfxtMcqjXDybC/PSdvacwCS9mFCXyQQLcYWX4qFk2Pd9WssqAsT
-         iAxIFYDMiXD6x3W3iMNyfiGHUbrPoi1G89sPHSeG0Yhs82EP9poulLNpZukeW7q/cZxg
-         spDw==
-X-Forwarded-Encrypted: i=1; AKwUvBz3btJ/YL02seEBO1Q8Kq1+dX0YNVG9IRk7afV4EIxPA8I3llabTWaAAvfoetYKxslaKKBJ8p3mF2bWdes=@vger.kernel.org
-X-Gm-Message-State: AFuF++muVDvExVotjkG96xDYryXkhi7hooqa2aPcb7SqXrAo85W9zOE/
-	UWNTSoy/okPk3yBDAnMiahkbnrI8gRsu26+53rdOhXXTb+1BxSENG8UrjBzsHQ15EldjVYQiYRT
-	Y/bOshNheSx/e7ig0/phc7de92d6sRek=
-X-Gm-Gg: AYBFou2IpXRoUVl7WvmM/mL7chh9A6XOVhb8oBDQfzzMWm9lfIbCefxkECzg+HDGSBf
-	kd2OPjkgDISfMvq5IiuAHWkVS8Zq/kyRFt+YtSEtKCmZfU/LkMRzliy8MbfVsu/4iYSgve8eZb3
-	O5Z0dq1y7kCM3OVfg8KESLpe/foraVwkhwmOTjK1PyvhC0helk8pv1Cs/rBZkoM88XVq+Zia4Ht
-	yNRcW+SSMkydEGo0pPL3IhCTHMfTXjhJ5iMtmYOyEJMDjLKRm8dGzi6j+GKwMDoJ7W3wmvFJCsE
-	sGd4gizrDq+TVISbK4T6gpkuBdMtmI+kgUFoPa/2zX18oAVLBUDeiOKvIUWTgAQELFyWwMbvqqF
-	MBon6Jo0KxUUA2Vg5gvzoY/YRwSlhdvqJmDtKT1rnonWKL+Kc+SMdd4GB1+q5Mlwb6y0=
-X-Received: by 2002:a17:903:4687:b0:2db:733c:fd1f with SMTP id
- d9443c01a7336-2db733d01b1mr147964695ad.8.1788934936683; Tue, 08 Sep 2026
- 23:22:16 -0700 (PDT)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB6263793B4
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 06:23:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.249.212.56
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788934993; cv=none; b=b0lzVksxSuHD9ndDAzkkH9MalUg2r96nXFQXV+ImlNp/L4BOgKd5/FAE+yZ8tRKhgbgQv26+m+cFPjtN6my8IESNnbLMwJYgfPC8yJgl1JxsG1VEOoV+DYDp1mK8YlkyfFPPTq4RWv8PXLIcg4SUoiFF09NMA3vPN15myuv0RN0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788934993; c=relaxed/simple;
+	bh=vCZ0sp66Ujq2pYxTZqVkONRljQsnyINGarb9W74b0JQ=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
+	 In-Reply-To:Content-Type; b=nq278o+ev27vjs6CiuhtJUjry3K/okFZ9x6GQn5nCy81XzzSRtKwTigggJ1yRdpAlnv/U5MJldIhARUdn3DlvwW7dV0Iz4GXJOL5kkOSUAIPHA1BEn3zTo+rQP+nDvarHZ3WpzT9I35qvJ+3+vQjOYsJ4x7WoU4FGNvoCuS7n7Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com; spf=pass smtp.mailfrom=huaweicloud.com; arc=none smtp.client-ip=45.249.212.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huaweicloud.com
+Received: from mail.maildlp.com (unknown [172.19.163.170])
+	by dggsgout12.his.huawei.com (SkyGuard) with ESMTPS id 4hfrMp3j0ZzKHMbN
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 14:23:02 +0800 (CST)
+Received: from mail02.huawei.com (unknown [10.116.40.112])
+	by mail.maildlp.com (Postfix) with ESMTP id 0E19B4056D
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 14:23:05 +0800 (CST)
+Received: from [10.174.179.37] (unknown [10.174.179.37])
+	by APP1 (Coremail) with UTF8SMTPSA id cCh0CgB3YAtH+6BqQMYyBQ--.9414S3;
+	Wed, 09 Sep 2026 14:23:04 +0800 (CST)
+Message-ID: <5a17b91a-1720-eda5-a3b7-5c7b438087b9@huaweicloud.com>
+Date: Wed, 9 Sep 2026 14:23:03 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260909-fec-ptp-pps-event-uaf-v3-0-bead12c29a16@cherr.cc> <20260909-fec-ptp-pps-event-uaf-v3-2-bead12c29a16@cherr.cc>
-In-Reply-To: <20260909-fec-ptp-pps-event-uaf-v3-2-bead12c29a16@cherr.cc>
-From: Bui Duc Phuc <phucduc.bui@gmail.com>
-Date: Wed, 9 Sep 2026 13:22:03 +0700
-X-Gm-Features: AcwNN1UJle0sVjQuUbKVCU6-l0sg65xDQ67_7YzJFG8LlrYIbdhc6pOpj-B036Y
-Message-ID: <CAABR9nGshJE96aCZVriQeMd+7Zjua5n+EKpUTN=953sowUL0Tg@mail.gmail.com>
-Subject: Re: [PATCH net v3 2/2] net: fec: free the PPS interrupt before
- tearing down the PHC and netdev
-To: Shengzhuo Wei <me@cherr.cc>
-Cc: Wei Fang <wei.fang@nxp.com>, Frank Li <frank.li@nxp.com>, 
-	Shenwei Wang <shenwei.wang@nxp.com>, Andrew Lunn <andrew+netdev@lunn.ch>, 
-	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Richard Cochran <richardcochran@gmail.com>, Troy Kisky <troy.kisky@boundarydevices.com>, 
-	Fugang Duan <fugang.duan@nxp.com>, Lucas Stach <l.stach@pengutronix.de>, 
-	Simon Horman <horms@kernel.org>, imx@lists.linux.dev, netdev@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+Subject: Re: [PATCH] arm64: io: Reject present-invalid user prot in
+ ioremap_prot()
+Content-Language: en-US
+From: Zeng Heng <zengheng@huaweicloud.com>
+To: catalin.marinas@arm.com, suzuki.poulose@arm.com,
+ anshuman.khandual@arm.com, gshan@redhat.com, david@kernel.org,
+ will@kernel.org
+Cc: wangkefeng.wang@huawei.com, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+References: <20260905033148.3657516-1-zengheng@huaweicloud.com>
+In-Reply-To: <20260905033148.3657516-1-zengheng@huaweicloud.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-CM-TRANSID:cCh0CgB3YAtH+6BqQMYyBQ--.9414S3
+X-Coremail-Antispam: 1UD129KBjvJXoW7Zw15uF4xtw1UWr47Zw15twb_yoW8tF17pF
+	1kur1kWrWDGa4IyFsFgr92gF45Cws5JFZYg34vqF12vF12vFWxJrsYg345W348AFs293y8
+	KrsIg3s8XryUtFDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUkKb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k2
+	6cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4
+	vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xIIjxv20xvEc7Cj
+	xVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVWxJr0_GcWl84ACjcxK6I8E87Iv6xkF7I
+	0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40E
+	x7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x
+	0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41lc7I2V7IY0VAS07AlzVAYIcxG8wCY1x0262kKe7AK
+	xVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F4
+	0E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFyl
+	IxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxV
+	AFwI0_Jr0_Gr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j
+	6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Jr0_GrUvcSsGvfC2KfnxnUUI43ZEXa7IU17KsU
+	UUUUU==
+X-CM-SenderInfo: p2hqwxhhqjqx5xdzvxpfor3voofrz/
 
-> +
-> +       if (fep->pps_irq >= 0) {
-> +               free_irq(fep->pps_irq, ndev);
-> +               fep->pps_irq = -1;
-> +       }
-> +
+Hi all,
 
-I think fep->pps_irq > 0 would be more appropriate here,
-since the IRQ returned by platform_get_irq_byname_optional() or
-platform_get_irq_optional() cannot be 0.
+    Kindly ping.
+
+
+On 2026/9/5 11:31, Zeng Heng wrote:
+> From: Zeng Heng <zengheng4@huawei.com>
+> 
+> Mapping a stack-top page via /dev/mem with PROT_NONE and then reading
+> that process's /proc/<pid>/cmdline triggers a spurious WARN in
+> ioremap_prot() through generic_access_phys():
+> 
+>    WARNING: ./arch/arm64/include/asm/io.h:275 at generic_access_phys
+>    Call trace:
+>      generic_access_phys+0x1c8/0x228 (P)
+>      __access_remote_vm+0x2b4/0x398
+>      access_remote_vm+0x14/0x30
+>      get_mm_cmdline+0xf8/0x2a0
+>      proc_pid_cmdline_read+0x68/0x120
+> 
+> generic_access_phys() passes the full pgprot derived from the user PTE
+> to ioremap_prot(). A PROT_NONE /dev/mem mapping is encoded as PAGE_NONE,
+> which clears PTE_VALID and sets the software PTE_PRESENT_INVALID bit.
+> On arm64 such an entry is still pte_present(), so follow_pfnmap_start()
+> reports the pfn and generic_access_phys() reaches ioremap_prot().
+> The PTE_USER assertion, which is meant to catch kernel prots being
+> passed by mistake, then fires for a PROT_NONE user mapping
+> that legitimately lacks PTE_USER, producing the spurious WARN.
+> 
+> Reject a user prot encoding a present-invalid (i.e. PROT_NONE) entry up
+> front so that generic_access_phys() cleanly fails the access instead
+> of warning. Note that PTE_PRESENT_INVALID aliases the PTE_NG bit and
+> is only meaningful when PTE_VALID is clear, so both bits must be
+> checked together.
+> 
+> Fixes: 8f098037139b ("arm64: io: Extract user memory type in ioremap_prot()")
+> Signed-off-by: Zeng Heng <zengheng4@huawei.com>
+> ---
+>   arch/arm64/include/asm/io.h | 4 ++++
+>   1 file changed, 4 insertions(+)
+> 
+> diff --git a/arch/arm64/include/asm/io.h b/arch/arm64/include/asm/io.h
+> index 21c8e400107c..bbfbc4682639 100644
+> --- a/arch/arm64/include/asm/io.h
+> +++ b/arch/arm64/include/asm/io.h
+> @@ -272,6 +272,10 @@ static inline void __iomem *ioremap_prot(phys_addr_t phys, size_t size,
+>   	pgprot_t prot;
+>   	ptval_t user_prot_val = pgprot_val(user_prot);
+>   
+> +	if ((user_prot_val & (PTE_VALID | PTE_PRESENT_INVALID)) ==
+> +	     PTE_PRESENT_INVALID)
+> +		return NULL;
+> +
+>   	if (WARN_ON_ONCE(!(user_prot_val & PTE_USER)))
+>   		return NULL;
+>   
+
