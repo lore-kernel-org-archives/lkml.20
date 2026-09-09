@@ -1,74 +1,143 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B63E498915;
-	Wed,  9 Sep 2026 08:06:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788941209; cv=none; b=nZ3yoUAkCydKDUApPtohEPxXskw/IeedLeM81gOFiRFI5mU/pgb9nxJ3ThbZGYzNVfLQojGpuoa1gMVm7eWESnd1QkW6k6SUbttngzuHHIjKey1Pb8D97MoNla1BrikhdGw8OI2rDbfNQrJ+ykyktB+E37YQJFh32sOFN2I/c6U=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF13149505C
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 08:06:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.227.140
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788941209; cv=pass; b=LaDkewY8hARjrRMNv7Wqizp9Htcw5vPo425zd/8Ws162KpJocuL6D9oUmG/bfvFFylMcmH/8SD+kxv/9J2Ydtr8ZwQ6iX4P+MHei27aN2xZbd1rpWAeKB87fLmfTNigrFBR3KPUa0ZbjJtKZHiR5hj2nCoULv9JelUaBYFzMjx8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788941209; c=relaxed/simple;
-	bh=aI7kV343+FY6w04t+ft4JW9t/r1SIb/qpZCQsWY/NW4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=b07BHko7PMyIo4nOgE1MfrFlDY82nuO1RZANxyBjiY3uAXlqZl+LJw8el5dQrGO59+kwKMCFcXbGgb0YOWewNEQZw3weq5pDDFEAs3lO3I5uraqsqib2xVo9UeztEFXZ68s7Dkl5AO+o/uM0iWQJr5cxQUavdcrvliYoGx2iXUY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aQtPW4G3; arc=none smtp.client-ip=100.103.45.18
+	bh=jccdgTKoA1IteJFwmLOO4A5mlgna+9dFOZN51O/IvCA=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=kiPHjKn1ASKVZ1f1WGlL4pfoIVCfzqsPla1TmhlILzGEjAA0nLkaA7mXCaoqOKi/2s3EdMtvPF+Y3FlrFC3fUG1RNMwk3JmpJdvsp9ys54p3/uxp+nMiSx2KagfXUUy1d0+efTflYDUwO20+VlLVZ//dWWr9VQblfwVXj9/zWuE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=nLfVhODn; arc=pass smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aQtPW4G3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C13751F00A3A;
-	Wed,  9 Sep 2026 08:06:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788941208;
-	bh=Sm+VRBme+F4AuNb+2Kn1vUGzPGQfC4nUbsqtHhdSZ/E=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=aQtPW4G32f4EnPI9Vax3cgfcFE+MuZgnZC4DiQ4fx16mqMnDsJUFzr0acgxVCZ9Tg
-	 kDYW/dh5hFmWpcwX49VXFahtF/7ob+nthDqJM2KzhswsVSROq2cJ9gJqhEySyobGgu
-	 nEJNz+vrr0su31LpGOPw+jfrGj2m0jp+fVYbEteNWZpDxSYsU+XrskFhslBZ2G4TjL
-	 TyChczVlZXeVT4V+kW+H/ZoC5NNjc+G5MyWwJnJXikluq6S03k59k/eZbh9VYfLK1x
-	 wLt0aZ2cUsaKrM1YgH6uDyJse13E7ROAdyhc7G656AspLEJoojTEcp1fS/jewgOU1b
-	 sLHfLq2ijPjdA==
-Date: Wed, 9 Sep 2026 10:06:39 +0200
-From: Manivannan Sadhasivam <mani@kernel.org>
-To: Pengpeng Hou <pengpeng@iscas.ac.cn>
-Cc: Vinod Koul <vkoul@kernel.org>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Krzysztof Kozlowski <krzk@kernel.org>, 
-	Alim Akhtar <alim.akhtar@samsung.com>, Pritam Manohar Sutar <pritam.sutar@samsung.com>, 
-	Sam Protsenko <semen.protsenko@linaro.org>, Johan Hovold <johan@kernel.org>, 
-	=?utf-8?B?QW5kcsOp?= Draszik <andre.draszik@linaro.org>, Peter Griffin <peter.griffin@linaro.org>, 
-	linux-phy@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
-	linux-samsung-soc@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] phy: samsung: usbdrd: propagate GS101 PIPE3 lock failures
-Message-ID: <nfz2nsasfgf5ob4zqrs7aywwct2lbcnri4ltel42iebwu27piw@zyb3u3rhaph2>
-References: <20260623135349.42739-1-pengpeng@iscas.ac.cn>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="nLfVhODn"
+Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2d6ff3aca07so64425ad.1
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 01:06:47 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788941207; cv=none;
+        d=google.com; s=arc-20260327;
+        b=L4qlLm6CrAEg1EsfuW5WRuFhr86kmIciNyGnIFROgc05UMQSt6NgR43Y8sltje4Ue3
+         ry4PmBOieWC0xCx6VOUWwAHtNDNiNaG5KKQ440D3PJgz15fkP1mqFz7fixY/eHfccKLT
+         rFYnqn9VdUkV9j3NbWCPrKdH/lXe3o2QEiD6jONOkOq8tz/i82NzpvhHfGny8en3qRtg
+         76Bo7M0spfmEW5zsLKj6arHW/xKGu4tWYh30tjs2jw2RS11z8hxwOmDhcBke+HEilia/
+         /JcPVVNeByLCQDeO136ewJUDOc6Agb2/Pva32Uac30j4hDJX+iI8l8P1Emlb7/AXJx+w
+         tiWw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=h5a67p9bBINgQ7LBbBcS4dRSdhOilWoAw3aEd1cEzKg=;
+        fh=drYK7WvLoHOWMnMEAcs9CRLFvfqzftQshew+guGMgb8=;
+        b=Wxifqo8sSZfjoijLkwqyKhJUq76ywTv15TqHOnRsqjHadHScFr1aOlM8Zt+QnHR5CV
+         xiwabgrggzTYzqxkdsXmIJ5eXnYTZfslle3qfzCut7DZrMlrkOA6RVSBxUCo9Jr7ZwLK
+         nW3YPkZo+3SVCuDtoUAzIfFj7cOqZuMpxqVOgLKYIcsvoUAqEazozNpBSULL0riDShBq
+         FQtBe/8Ifi4PJC7eNAsnQ9DuF2FCVkYtvEcNnTttQmubWMhb6kT4udQrM5B1My1mA2kr
+         /g0v6KAkxFIQXQXph17+mx2+EPgtS65MRbgcN9IrZT4IN31dFHAC9Mf+LCTWUjF/MHoH
+         bGoA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1788941207; x=1789546007; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=h5a67p9bBINgQ7LBbBcS4dRSdhOilWoAw3aEd1cEzKg=;
+        b=nLfVhODnCewsw683wfqdRs3QFOa9A7Fo9Xq7tnXPQg4zv1U7SWdx2/brrB12nXfA3W
+         gSQW56ByLyLmKop0tdSRbSxsZsareM/xrgLBxHdtCLFkrGr/+LZrKcnicZCwFPs14gsu
+         swB+qMuFgABEmplZulTR3lmOC4ag6GEV7kWepKC4ABJWkcNxMnW8dz2gSyMsLcnpqTDN
+         aCYT2hre0vGl21hOyYufoV5QONPypEW7Oz37qlYfBbePFtX8tktBXVadyQYJP4IAJc26
+         u0EPrgbpRVE2UDgm8piU+kmdgCWoSBudUiwAMzRleCwa+bbQ20CbGH5EWvjMi9pI/hAB
+         PtHg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788941207; x=1789546007;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=h5a67p9bBINgQ7LBbBcS4dRSdhOilWoAw3aEd1cEzKg=;
+        b=oi/CCXixpbDjVskTF0b+JfeYlOCgcnYip9ZRTKIJBmTPzxbb04fs/9fcgZxtsQbVmc
+         YDWT6n1QD+denWhVfdk49tZVmpOw2kEu0o7WbRIyNb9VZe6444HdjRULWuyiqoSIxklq
+         rWufVqNxcAiYw/ujskqZONeIZN+7BiHiYEO5vPzfWLMqQl7p8CtRgvDjuSWKPvvOy5HG
+         WvqxF6ByLvnfo4/IhN5tirn56Lu17S1ry3LQYHNRQ74+OjWjzydbDyC1OeU+FP/PVs75
+         eS7Y/tZwtVMIF7hpb39n2G3/s8ZfH0abBKo7/rcdLRnWFD25mLHLEOkiKAOYynmsSE0v
+         LBmQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzO4Wexkicui0q3ZhhZrLOAFZ8Rz8fyh2f0O5ZzQa0KmuWk4W8WxWoLoS/OpxHzuux/iF/7Qf5cbYwLiAY=@vger.kernel.org
+X-Gm-Message-State: AFuF++mzkRKVnc9ESeH1ohm+wqgNE5PMIYq2Pegun0PL7NNVC673El+E
+	gEyczORLpBJblSIfR5rtvqYzS5piKG0OHZuxdq69jTXtulF7RViT7SQyp4Jx4qvTbGRBifWiLb8
+	udedsPqN03vItWj5m/zTp7+9t75Jj3LPyP3tlILAo
+X-Gm-Gg: AYBFou2BJItw4JQpHrKCiFvXJwS05d63Kj/+HpwLJ52cWwg8b4wMuH+7ORbqEht/OWm
+	lwnpK++KCb50tPpbxjYyUEa6xJy9Gzk3i2JrESJOjefXbq3oHdoAAxzmSnDYBvWNO37QXiGGt5W
+	+0m9i80fjo7VDMkQ2iKDw0xJODg39TCA0NO9xWxN/CVtd0/H5Ysyu7ndVRjcdxbXlSygrH8kjLc
+	SlTMW574ld9Cv+clySALtmOYhCrGhWPzTWSktb0M0iqOcRlQqIlgyUPCbYqDeAKNKMq2Pk+YSRx
+	mfASBBhg+eNeYiq+K4ezKc9KhELmVsrhWovOhr4KqgoavPYVZLwuWA3PwA==
+X-Received: by 2002:a17:902:d988:b0:2b9:e831:5e5c with SMTP id
+ d9443c01a7336-2dbddb1f4f4mr5306795ad.4.1788941206507; Wed, 09 Sep 2026
+ 01:06:46 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260623135349.42739-1-pengpeng@iscas.ac.cn>
+References: <878q5f5tlt.ffs@fw13> <aqD7FDvDhiEF_u0N@infradead.org>
+In-Reply-To: <aqD7FDvDhiEF_u0N@infradead.org>
+From: Luigi Rizzo <lrizzo@google.com>
+Date: Wed, 9 Sep 2026 10:06:10 +0200
+X-Gm-Features: AcwNN1VkP_hnkhu1BhimxJBNF_bxxxh-Y07PAXa53bzMuSECve8p-f-Z8Pr0vg8
+Message-ID: <CAMOZA0Lt99A1H45Hp0Snq4aSEw-Xr_Mh4xA--Cx0Qh_6vsQvOQ@mail.gmail.com>
+Subject: Re: [PATCH v5 0/7] Global Software Interrupt Moderation (GSIM)
+To: Christoph Hellwig <hch@infradead.org>
+Cc: Thomas Gleixner <tglx@linutronix.de>, Fengnan Chang <changfengnan@bytedance.com>, 
+	Marc Zyngier <maz@kernel.org>, Luigi Rizzo <rizzo.unipi@gmail.com>, Paolo Abeni <pabeni@redhat.com>, 
+	linux-kernel@vger.kernel.org, linux-pci@vger.kernel.org, 
+	Bjorn Helgaas <bhelgaas@google.com>, netdev@vger.kernel.org, 
+	linux-nvme@lists.infradead.org, Guzebing <guzebing@bytedance.com>, 
+	Keith Busch <kbusch@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, Jun 23, 2026 at 09:53:49PM +0800, Pengpeng Hou wrote:
-> The GS101 PIPE3 initialization checks the PMA PLL lock and then checks
-> the CDR lock. The PLL helper returns an error, but the GS101 PIPE3 init
-> path dropped that result. The CDR helper only logged a timeout. PHY
-> initialization could therefore still return success after either the PLL
-> or the selected receive lane had not locked.
-> 
-> Make the in-file SoC-specific phy_init hook return an int so helpers
-> with real failure results can propagate them through the existing PHY
-> init paths. Keep the register-only helpers returning success and use the
-> new return path to report the GS101 CDR wait failure. Other SoC helper
-> paths keep their previous success behavior.
-> 
-> Fixes: 32267c29bc7d ("phy: exynos5-usbdrd: support Exynos USBDRD 3.1 combo phy (HS & SS)")
-> Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
+On Wed, Sep 9, 2026 at 8:25=E2=80=AFAM Christoph Hellwig <hch@infradead.org=
+> wrote:
+>
+> On Sat, Sep 05, 2026 at 10:30:22PM +0200, Thomas Gleixner wrote:
+> > > it appears that GSIM is only effective in scenarios where multi disks=
+ at very high
+> > > IOPS; in some cases, there was a noticeable performance regression.
+> > > If there=E2=80=99s something wrong with my configuration, please corr=
+ect me.
+> >
+> > So we have a NVME specific mechanism to tackle the same problem and a
+> > more generic version which is subsystem "independent".
+>
+> I'm not sure they tackle the entirely same problem, although they are
+> very related.
 
-Reviewed-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+There is overlap but it is accidental.
+The difference between the two mechanism is the following:
 
-- Mani
+- GSIM addresses hardware limitations (SoCs that create huge PCIe
+  backpressure on each MSIx interrupt, eventually reducing the available
+  bandwidth too much, regardless of how many CPUs can process interrupts).
+  The goal here is to throttle the total MSIx rate, blocking them at
+  the source (PCIe device) rather than later in the interrupt controller.
 
--- 
-மணிவண்ணன் சதாசிவம்
+- the NVME mechanism (and NAPI) aim to amortize interrupt processing
+  overhead. It does so by recreating some fine grained single-source
+  interrupt moderation (something that NICs do in hardware, but NVME
+  does not, with 100us being way too coarse for modern SSDs) and an
+  adaptive scheme to adjust the delay and decide when to kick in.
+
+I think there is a reason for both.
+
+GSIM because it is more general and addresses an issue the others cannot ha=
+ndle
+the subsystem-specific scheme because they can be more efficient
+(eg they can hook into existing helpers like the threaded irq handler,
+call directly the handler without going through the full irq chain,
+use more targeted heuristics to decide when to kick in).
+
+cheers
+luigi
