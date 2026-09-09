@@ -1,74 +1,78 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-10631.protonmail.ch (mail-10631.protonmail.ch [79.135.106.31])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBA505581EE;
-	Wed,  9 Sep 2026 12:35:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51D3E54CF7D;
+	Wed,  9 Sep 2026 12:36:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.31
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788957312; cv=none; b=AwuvN7uGyPPCGphybyNbYrM3hll82MICnB1+sJmL8+dKrCLbcXnx0ZTAmXuuWyq8NN2Z7X0VLL02nm96iHjGBrrHGRKN+HUNMt/fmbHSmlaIQ2yiwmQQkoIFGTtq185Hpbg7JnfA1lOJ7uVFvqGd7Bwdp0vnkZ4hhZI9sD1DkkY=
+	t=1788957406; cv=none; b=BuocMPB1L7I0IuQnB5WU5WyQg/2baKqqDey83YZY03MZjwB0wIhsZLEJo08iwifK49UwRcyWtub6Faj4r8W7+e4bZqyfOr1AMeLmbR/OTmi5i4iRc8guy3CIhFoCAGZrtG9Vn6+bp0aicwR0OLSupgZV8dGKRT/9hM5nI8fubjo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788957312; c=relaxed/simple;
-	bh=aLEhDg09bgTUasecHByCkze5LmoohSVDOa3QJ+q3fiU=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=W5qJ3vQS3WOXhD7SyFa7sGzL3rMVra7yIMg3B761CsbRtOUKF9HY8MxSs+4r0QwxvLuHeZTAM1BrPKCt+KGIgWSX0b3x/srnodi0ryQzW1dapWHoIoRflbHZyzH17a46TvSKpsOi2pkbDcy2f2/f8dsT1odlUusLre7Q7rprEsQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=j12fQjBq; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788957406; c=relaxed/simple;
+	bh=l46CKViQp3zW5HRKchxZ3QEpRItrYTg7NYq3J/AMCOQ=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=ACHgQokisftgORfRqNzmZlgkXymButad37NYc6C81bOuZyiiPXfb8/hGr8x0TLhYUAVzyxZjllohT+gZf+tEuqqYvlUAy3GrLPqewUFX2BLhM+m3hLdo1BxcHik7OUr4S8Jy03llsxvmLpY3PymbHa7/HjgwG120OqkiaC38yc0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=lbj2PIgU; arc=none smtp.client-ip=79.135.106.31
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="j12fQjBq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CA2C41F00A3A;
-	Wed,  9 Sep 2026 12:35:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788957311;
-	bh=mJoAyXLU+gq93Hg0D0pH4EKfCCnj6hvdcJzCIDVF9kc=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=j12fQjBqku/Nd3b8iH/+HSt0a+56YuXDQfBMTpAjO5rlDw+3jV/Slv5pzOJr+pNKu
-	 weYAsllKWZjydyWNl7qYgN0wAmJ8WSq1pV7tUwcYgHjpmeAukLKM/Rje8nOA+uYS0t
-	 wVpl9R444LJxHBw3YzD4jyr0BC6BEL9ps1+2gHkaq0x74KqRoQ09NLRw6QKQN2Pokz
-	 cnP4xNYQhYR36ugNb5hTvXUOCT7oOK9vqxAR31P7L4EM3k96zyjOSm58G3VDPPJVqO
-	 Ju26Fx/f84xdCIuZusElgm9vUlALU3ozk3Gkd435H7PpIgckVl/DbWSDWVaCVnw98h
-	 jaTiAtyVnt6kA==
-From: Vinod Koul <vkoul@kernel.org>
-To: Frank Li <Frank.Li@kernel.org>, Logan Gunthorpe <logang@deltatee.com>, 
- Andrew Morton <akpm@linux-foundation.org>, Shivank Garg <shivankg@amd.com>
-Cc: stable@vger.kernel.org, dmaengine@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Frank Li <Frank.Li@nxp.com>, 
- Sashiko <sashiko-bot@kernel.org>
-In-Reply-To: <20260822-dmaengine-kref-fix-v5-0-d4a4ee47d927@amd.com>
-References: <20260822-dmaengine-kref-fix-v5-0-d4a4ee47d927@amd.com>
-Subject: Re: [PATCH v5 0/4] dmaengine: fix kref underflow and UAF in
- dma_chan_put()
-Message-Id: <178895730837.2164851.14814950154989384320.b4-ty@kernel.org>
-Date: Wed, 09 Sep 2026 18:05:08 +0530
+	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="lbj2PIgU"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
+	s=protonmail3; t=1788957396; x=1789216596;
+	bh=UfMgxI5ECUBneggy/3p96uqfpXXz+eCuwUnoSjzcPgs=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=lbj2PIgU+CKQD/IPeor+F95N0TG0rhF69E7CTIrAS5rA0WQ4JesX0iN4lME0Z36SZ
+	 j5YdOC8mBCq4rJ7EMl1EdKqZhVK/GjgLOcKuewnhWRa8TH+j4vE7LsvguoNQwoLBFV
+	 9F3bi5eGXPuj6mCfylKVP6TTQ4FWRbwx0rVnLy2/R/ETVBH5ACLMDI6ja/hn3yFaAf
+	 0YZ4D9pV5UwvaKDqNflXNTSOmK60XSlOfoSndtJfnxGhQWQqk8FePpbeYslJknI5NF
+	 oDv2r7RRqYdp53VyTlxex1ZurquxnaDyKnBKbm+I93f/hCzcrYcyjTmNkdUXM9sGsk
+	 4JZWJ0XpEBK9g==
+Date: Wed, 09 Sep 2026 12:36:31 +0000
+To: "Vladimir V . Kondratyev" <vladimirkondratyev2@gmail.com>
+From: Sergey Lebedev <lsa.uz@pm.me>
+Cc: Marcel Holtmann <marcel@holtmann.org>, Luiz Augusto von Dentz <luiz.dentz@gmail.com>, Paul Menzel <pmenzel@molgen.mpg.de>, Chandrashekar Devegowda <chandrashekar.devegowda@intel.com>, Kiran K <kiran.k@intel.com>, Arnd Bergmann <arnd@arndb.de>, linux-bluetooth@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4] Bluetooth: btintel_pcie: fix stale cache in set_dxstate fallback check
+Message-ID: <20260909123625.72055-1-lsa.uz@pm.me>
+In-Reply-To: <20260903192245.135310-2-vladimirkondratyev2@gmail.com>
+References: <20260507203426.128975-1-vladimirkondratyev2@gmail.com> <20260903192245.135310-2-vladimirkondratyev2@gmail.com>
+Feedback-ID: 113843758:user:proton
+X-Pm-Message-ID: 112975b915fecf03c95a6dd87eb0d6eb75a25e11
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.14.3
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
+For anyone arriving here later: this patch is now 1/2 of a two-patch series=
+,
+posted today.
 
-On Sat, 22 Aug 2026 19:22:02 +0000, Shivank Garg wrote:
-> Fix bugs related to dma_chan_put(), found while testing with SDXI[1].
-> 
-> [1]: https://lore.kernel.org/dmaengine/20260605-sdxi-base-v3-0-4d38ca2bdffe@amd.com
-> 
-> 
+  https://lore.kernel.org/linux-bluetooth/20260909123416.71919-1-lsa.uz@pm.=
+me/
 
-Applied, thanks!
+The code is untouched. The only change is my Signed-off-by beneath Vladimir=
+'s,
+as the person passing it on. 2/2 is Ravindra's PM-flow patch rebased on top=
+,
+with his agreement, and the cover letter explains why the two belong togeth=
+er:
+each of them leaves a real failure behind when applied alone, and that is n=
+ow
+shown on two machines and two controller generations.
 
-[1/4] dmaengine: add dma_device_get() helper
-      commit: 424103642d009f5a7dc33300a49d5606d1bf4fb5
-[2/4] dmaengine: Fix device kref underflow in dma_chan_put()
-      commit: 44dab659064eb5c10adb0306510eebe848ed592d
-[3/4] dmaengine: fix use-after-free in dma_chan_put() and dma_release_channel()
-      commit: e873c74132f0c5f1452816cd9bb26208f0bba1e1
-[4/4] dmaengine: wait for RCU readers before releasing dma_device
-      commit: dc750422170a563c7a81f6e49d36bb02c62ae37f
+Vladimir, I have not heard from you since I said this would go out unless y=
+ou
+objected, and I am not reading that as agreement. It is your patch. If you
+would rather post the series yourself, or not at all, say so and I will
+withdraw it.
 
-Best regards,
--- 
-~Vinod
+I am deliberately not marking this posting superseded in patchwork - that i=
+s
+yours or the maintainer's call, not mine.
 
+Sergey
 
