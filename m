@@ -1,238 +1,331 @@
-Received: from mx0b-0002e601.pphosted.com (mx0b-0002e601.pphosted.com [148.163.154.28])
+Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA4431E7C18;
-	Wed,  9 Sep 2026 15:37:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.154.28
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788968230; cv=fail; b=M739xn1ppUMKoVgSu3c1eB6R9zBxHecfgUml8F7BktkSRnvqBWKY18jShVaYA1SoTdJy9I6Cq/bWkT5y8xEchedy7ul7pNICWGEhfJg8Y5vB8mpO5V86+luh5CHii0ZrRKs9oyjRgsWbb1l1Wt/im0J/zH4qdvFaSNjOk4TICaE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788968230; c=relaxed/simple;
-	bh=TLxdpKfA5S7hxtShBR+rs+TnNEoMPkLbw4qrWwnu7WY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=DtAYasep0FPVn0iYfeoTS5m9j3ty1YqnOYTW5FipsDk14N/SboywQZH+zrm4P803N3HKHtjZbeVoSGqyCuM/AxHS3MRudOzAS1reKTKyUY6LuRe92YfAFz/G8eZMWA7qbp9DlJus8YDMeedJfdAC3tMZjpbg32OR5PCv3r2lq2I=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b=kQLZIBBG; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=RIhn0dHD; arc=fail smtp.client-ip=148.163.154.28
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D60F156510E;
+	Wed,  9 Sep 2026 15:37:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788968237; cv=none; b=iTcaIWses7xh4sMZZwe+X29fnk20+oNwd86bsjqr9PmoSdQG5M0mivnY0SH/GMtVYYvj3YXpWHkRIvPCt6HlijC73liTW7jexzlisyyLbEvuURPkMHX52Il28JTZxyJawIGHlsQyLyuSks1J6SeMeCbSwpTw78xR4uyCkJHhTMA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788968237; c=relaxed/simple;
+	bh=luQVRUXy09UsxsSG4VuBiLocK41frDwj1A+LRi22K5M=;
+	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
+	 MIME-Version:Content-Type; b=MMDdtQ+mSjYxpRrkHMPSZfrZdBQlKDZDgm0wzPevKsjEmRBIK9zbN4DkxKPzoQwL1NEhKIlJNNPwItFdb5rrWFNfe0msQGh8pE/vGvYenBv+rWm1HKvzcS6OAzB3LQ5my+YlsjHRLkpexwKomcg3IxGP7vjCv5Pt5x/nfVG0jDQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=qr58ZPVv; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=i4GG0YOh; arc=none smtp.client-ip=5.75.144.95
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b="kQLZIBBG";
-	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="RIhn0dHD"
-Received: from pps.filterd (m0374955.ppops.net [127.0.0.1])
-	by mx0b-0002e601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 689AogiM389524;
-	Wed, 9 Sep 2026 10:37:02 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=
-	proofpoint-05-2026; bh=9DnX7mOqve94uhCla89+JPI60ZKLoaNj6YvTLGUH7
-	Os=; b=kQLZIBBGS7wV0L6BnQHQqRuIM8TcE5aAZbAvr5+9pzx18S3E/zQ6ytS33
-	Wn0g6lybZHOpVdzrhLvWiAb5cthBdkU9PH1MIZe1D279H7enDoD3rbCpahrnldhQ
-	mhuwr2HOohuZ86yoM6C4/fVMixRG/cvxmMDO0Kv44oreqtBy0oaKZmROLxqYQotv
-	frEkOhtxPKvKCpI0788mQQLDxoLPfc45NXXQzr/lPlQ3qyd5qfuzPfbWMsg/dGhf
-	8FfqSxckQq4sCnmjf3ERXN9CtE1jktt4IVYF0ba+eek+RCFmM+MnzjhcBlAUX7Ic
-	4xX0ZoFT44wY69TGB4g9IUi+B1aQw==
-Received: from bl0pr03cu003.outbound.protection.outlook.com (mail-eastusazon11012060.outbound.protection.outlook.com [52.101.53.60])
-	by mx0b-0002e601.pphosted.com (PPS) with ESMTPS id 4gk4aat706-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Wed, 09 Sep 2026 10:37:02 -0500 (CDT)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=IbxUHkORnkzULS2m3VUuDc9HorOQN3iUP07SsNfmE2/CUtSa1qFKeIYal/rewcqeVf3mzUQqUz1g7b1znyYYz08yUCKdVzPRgPvlB5ajyGEtsoQsVLpYIq0Txpekb4EL2Q0QFgBdT+d9QTqQA3O4U5FfqIb7TqAup4ZM+Lx2onoJ1NEm43C80gIpwMtDavxG13Z17ApKx97QrEaPDn2I7jRqPAedenKa5pP1XhSfV6meed5xTTJCxT19rSmB+TRElKWPlvJu/C1+2VZLSELYOo0IhYrH5GddyYYJcQ0bLtDhWfHWPRaGOM3iSoV1kVttK7HQJle/9JE+bqh7pySxcg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=9DnX7mOqve94uhCla89+JPI60ZKLoaNj6YvTLGUH7Os=;
- b=NrBJhHzDGoNt6RevpZz1Juy2dBA22uCqXsopKEauuWlPdUc4cuiuAJkLeUutOihO7sBT51vE6Ae2mlTnckjfUpWGCu5E6EWR3LcvseGzt7mIe5Kkj7hbge7rPWjauHY5zJ9KkMPry1GzjLQ5NG85XMwJgDr4O85Vx+WGP3CM+aq6Vs3JFVaE4y3f5IKvbrcqxFjHDQJqUTS4DAenfDxq2zXF+P3RFN+jMDPhQVOUHGvlKzKHjPcuKe50hATIaDRWgkwg7dqJAB+A+Q1EhjM/sTQSC1ZxQWn95OSrk3zZoJe0HbIckNH4uZoY+wKG2qXQl6e7b51VDplG/Rz1HrtD9w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 198.47.21.194) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
- dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9DnX7mOqve94uhCla89+JPI60ZKLoaNj6YvTLGUH7Os=;
- b=RIhn0dHD9uNaMLUqoHKyOmevD6USCyL+KfcW1kJLCvvOGqJF+iSMo0iyZszjbbbYXiMiSCUneMDsQIhTZGh17BhfWQpy+6VfKKNpL37UvYEpDciKPlIzZDkxRHRsQgOsrPT7g08m57VN8gsvv5QQEPMZlW4SZsK2Ai0dPGYgnhc=
-Received: from BN1PR14CA0013.namprd14.prod.outlook.com (2603:10b6:408:e3::18)
- by CH4PR10MB8194.namprd10.prod.outlook.com (2603:10b6:610:23a::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.4; Wed, 9 Sep 2026
- 15:36:54 +0000
-Received: from BN7PEPF000000A4.namprd05.prod.outlook.com
- (2603:10b6:408:e3:cafe::61) by BN1PR14CA0013.outlook.office365.com
- (2603:10b6:408:e3::18) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.406.7 via Frontend Transport; Wed, 9
- Sep 2026 15:36:54 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.21.194)
- smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
- action=none header.from=ti.com;
-Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
- 198.47.21.194 as permitted sender) receiver=protection.outlook.com;
- client-ip=198.47.21.194; helo=flwvzet200.ext.ti.com; pr=C
-Received: from flwvzet200.ext.ti.com (198.47.21.194) by
- BN7PEPF000000A4.mail.protection.outlook.com (10.167.245.228) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.406.5 via Frontend Transport; Wed, 9 Sep 2026 15:36:53 +0000
-Received: from DFLE211.ent.ti.com (10.64.6.69) by flwvzet200.ext.ti.com
- (10.248.192.31) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Wed, 9 Sep
- 2026 10:36:10 -0500
-Received: from DFLE201.ent.ti.com (10.64.6.59) by DFLE211.ent.ti.com
- (10.64.6.69) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Wed, 9 Sep
- 2026 10:36:09 -0500
-Received: from lelvem-mr05.itg.ti.com (10.180.75.9) by DFLE201.ent.ti.com
- (10.64.6.59) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45 via Frontend
- Transport; Wed, 9 Sep 2026 10:36:09 -0500
-Received: from [128.247.81.105] (hpz2.dhcp.ti.com [128.247.81.105])
-	by lelvem-mr05.itg.ti.com (8.18.1/8.18.1) with ESMTP id 689Fa91Y1536891;
-	Wed, 9 Sep 2026 10:36:09 -0500
-Message-ID: <3079f9bc-5a15-40bc-bf8d-1b53c32ffccb@ti.com>
-Date: Wed, 9 Sep 2026 10:36:09 -0500
+	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="qr58ZPVv";
+	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="i4GG0YOh"
+DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1788968210; bh=fkFSCvdo5LuLSf4z3fmclGB
+	fz86uj6dQWp9LPZ/W2Cc=; b=qr58ZPVvmSgO7ouudvb9sgozM1OhTDQHmoyq9tLnlyOcg/9IZw
+	bzWRnyrFtuxAYFXRwClGWmLdnkYenedlyqYk8iRGVf5c/KjrkRP3DMTb6mAyFIMOqjZPvaOTlFE
+	w8ncjbttLVj4BeaiBvO6YmZZbUP3VpI8SvC42xV4y3sZQb2qUNFV13vhO8O1g2exPGBXMhV1NPr
+	iZs3eEUcGnYPvVOBCpcVPYZ/jv0sVcyqlqf82IsjcTnPu2qn3WlBbwEOGq5Qipl/6gXBGaw958j
+	1r9sB7fHM8agdNQXnrXgvU49UItbL/UlLP9d1Q/6ZUrR8jP4hHGJh4Mn/2QTqF+3caQ==;
+DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1788968210; bh=fkFSCvdo5LuLSf4z3fmclGB
+	fz86uj6dQWp9LPZ/W2Cc=; b=i4GG0YOhB54yf77Rqasf/C5eiqMaIWC2PVXaz+F7qafpWLRZJu
+	IKQqOoayQG0TEV8AQg78HSScL6oRwAtz1/AQ==;
+Date: Wed, 09 Sep 2026 16:36:49 +0100
+From: Bradley Morgan <brads@mainlining.org>
+To: Bill Wendling <morbo@google.com>, Christian Brauner <brauner@kernel.org>
+CC: =?ISO-8859-1?Q?Thomas_Wei=DFschuh?= <thomas.weissschuh@linutronix.de>,
+ Kees Cook <kees@kernel.org>, "Gustavo A. R. Silva" <gustavoars@kernel.org>,
+ Aleksa Sarai <cyphar@cyphar.com>, Jan Kara <jack@suse.cz>,
+ Nathan Chancellor <nathan@kernel.org>, Miguel Ojeda <ojeda@kernel.org>,
+ Thomas Gleixner <tglx@kernel.org>, Nicolas Schier <nsc@kernel.org>,
+ Gary Guo <gary@garyguo.net>, Alice Ryhl <aliceryhl@google.com>,
+ Douglas Anderson <dianders@chromium.org>, Anand Moon <linux.amoon@gmail.com>,
+ Oleg Nesterov <oleg@redhat.com>, codemender-patching+linux@google.com,
+ linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org
+Subject: Re: [PATCH v5 2/2] userns: Add KUnit test suite for uid_gid_map
+In-Reply-To: <20260908222734.3048684-2-morbo@google.com>
+References: <20260823125155.1136740-3-morbo@google.com> <20260908222734.3048684-1-morbo@google.com> <20260908222734.3048684-2-morbo@google.com>
+Message-ID: <76DEB9F0-5263-4AB0-816F-71A57F3B67BB@mainlining.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] mmc: dts: am654: Add 650ms power off delay for proper MMC
- power cycle
-To: Nishanth Menon <nm@ti.com>
-CC: Vignesh Raghavendra <vigneshr@ti.com>, Tero Kristo <kristo@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        <linux-arm-kernel@lists.infradead.org>, <devicetree@vger.kernel.org>,
-        <linux-kernel@vger.kernel.org>
-References: <20260908170635.238775-1-jm@ti.com>
- <20260908171613.bpd6eo53cjtlrztr@macaw>
- <e8abc328-578e-48cb-a469-1e3edec6780a@ti.com>
- <20260908174934.pbbvtrfhlnjinipu@constable>
- <f99dff87-6fcb-4a19-ba3b-4d31e3835726@ti.com>
- <20260909103646.7jk5vwvyc7tku5yv@kennel>
-Content-Language: en-US
-From: Judith Mendez <jm@ti.com>
-In-Reply-To: <20260909103646.7jk5vwvyc7tku5yv@kennel>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN7PEPF000000A4:EE_|CH4PR10MB8194:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8f2c3578-1aa6-4792-12a5-08df0e882c57
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|23010399003|376014|82310400026|1800799024|4143699003|10067099003|56012099006|22082099003|18002099003|6133799003;
-X-Microsoft-Antispam-Message-Info:
-	gw0u5kgAPumenQXEBGrMKAqLHBB1Pxz2ZdY0RrxPO4UPCGteiBkN8jKwQ+IN75h0KPR1V/Il49MN94H6ZtbwaK64o9kgYNkKQZ6IxUXai+WG7LwrY64OGY4FL7ASRslBtWeZD4pe2gyOysaCUZ1AJTxnlI2+zPmud9pJ4HtIksMr1XsCETiaZ89qVearfzqO607efERdxgVezYCsqgIQCvYXRmXhDIqDT+ND8ViWbMffEILBIJl5a//OEu3ZWDb2Tscqw2KF6LgU3Av0y/KKFnZmpQFjALvBFQk+egH1w9loV/VnePWbjVGo+EH+5ilcCPdFQakrXJQIXvhuR8iOW534dbKSjSDA+P0TAAzRcm+EVU1y2QnbtaNrs18DCaW7hXFfMFHvaLdsraNKv+yULFAS8U8P8B22DjYHKMozpCDERzMNFcgwXroMdkc+QRg8mryOX9JP8pmUGgEdmlb97DHaOOyYye7sypmUEsm1sYNzLuAqj6wLsu04ZM6U6yAFgbUn9Zz25nKiIEpehc4vheiMhX05YIWpDaRFfXUZai1wjJGaZrGTc8BEgxoJPFSBD2OIlMFiacwUtElYXYKuEpfQDhsnuDlRn6hIb5yXWaAxIN8fW5e8EyZybfHOorNRvK/AUQqdPLF17/NhKufSK2SZKojLBuKxmEOPgrhg9agUKIvBaRmRUq1JCkVdygkhWr3HJ/oJQXIyeoYfyDsEZw==
-X-Forefront-Antispam-Report:
-	CIP:198.47.21.194;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:flwvzet200.ext.ti.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(36860700016)(23010399003)(376014)(82310400026)(1800799024)(4143699003)(10067099003)(56012099006)(22082099003)(18002099003)(6133799003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	vCFbhaVBX+c0135jiNnPOZEdVB/mmMPl1gKA54Piy3vnBKJcIipkW6r+9YfB5bsU9w31POW0bSXFM3dFppXM4tAMTWH2ZcWY93JPA6X55DOadku7QG2RCfD3+IzaNslndoRIrXj4Ekdzz+PmSBuryPGsOMOOqA5B2ltXCWYELZd+KFkLAYnSBu6In38A+8/H/WHhDZxt3GJ7zBZbXeTWdXSq8S0Gu/qCVjRBCYTQg/Y9ZinlraVpn7QXS/1YU9dS7SEgoPTUQ/1f6BxA+/fCcu2523yLVwl7hzvld44WYu94XsKxCDaTtGUsUd8tyS82TjqJWEYIorNpzL9OR4LCeuZJj6QRslFTcV/4kWXf8GkR5XmAj/ptBDBt+s7ecRISHaSIkGRD9ZyIHsw9A/f+dGWqDuPrKU+kArDQoT3bFvBVnoueXMnFGkXWA8bgyten
-X-Exchange-RoutingPolicyChecked:
-	rDYsNDmKFOKNxiE1cU4sCOTDi8UZDi41JKbhdFymUDgO/GvtK7L5dZMQ3uDvtOfXjp7syleK4bA9nJoG1KmRGrbrVQ0v/1W1+nJQiIeGQbA5+X07RjtH8gp2/Q3/NT7dZe82FO5n7GiqOyQpPU9X+CZd2XLXTdk+Id72nCKaOGL9ngtFNIFTc8NgWKuHl+1X9Sz/VDqu7IxhdNZnxPLO31Oo9Aor45sPFkAiN0ybPId4RXcDFaMUscOV8s4o/BENaYqRiT8eltL12z1cKkmtx63G0KhNt7rawpEYXa0DEkO/Y3pBvUlod2HZs3lea0A2ZGTgxnco+14i904ufcOhiQ==
-X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Sep 2026 15:36:53.1037
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8f2c3578-1aa6-4792-12a5-08df0e882c57
-X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.21.194];Helo=[flwvzet200.ext.ti.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN7PEPF000000A4.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH4PR10MB8194
-X-Proofpoint-GUID: AFmtPlx86NlgM7VXE-0zeVq8r1e4-gHj
-X-Proofpoint-ORIG-GUID: AFmtPlx86NlgM7VXE-0zeVq8r1e4-gHj
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA5MDE3MyBTYWx0ZWRfXxrr+EV84MFb0
- mk2rBAWC69gp/3zPFDZBZrkEVZMzkPSk/SVA+kOj5kXGpaqPN9Xsnq9sXdzzFVn1S0NRDfvUprJ
- xpSilRDBIXF8Q7VwyVAGV6cLQozGC2NzZFsOqGAKdMfq8JN/8v50fTIruYbM1SVOVdG1a2AXdnE
- EufF82d2AaPH8tGGyeXj2yEb6fhshbt88ZnW+3VyBIg8e9DfzT6tqqCp3wQXq/a1V0PaxH4itZY
- b3ZOeGEZOB7DlsCRBLmBqnSZDo/aTUIhjLB+dF4CwHYjm15TJ/6TG47J5UPS2KPWG6Kmg4sA97M
- iDWXl8Wvmoh1hp4sdDt7PQD5AWZr+7FrC4xC4wXTOLDj+1AeMyymlQQE1rE8Ev6wdG8N16cLEiB
- ZVY80/Bn2l5Vfmg+u0Cn+XPatbeir4s9y3X+MfBnQpGq1B+ZUQ5n66BNxBQzE2fAsDFyoy0VFuh
- /9X2E/vdkkFO1lFr0rg==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA5MDE3MyBTYWx0ZWRfX/emQNTE3d5rq
- SHivpuY45RuD7S4yjTSiQDhP2Hdhn+cSGWe3FhUr6mP76HnWyljFOVapNGBCAkG5mI80LFtlj5F
- dNEA7trhxEh/W2m7zdDUUsrdVFwhRZU=
-X-Authority-Analysis: v=2.4 cv=DfEnbPtW c=1 sm=1 tr=0 ts=6aa17d1e cx=c_pps
- a=yaJUXpcFNTkE3gTvo4ZtIQ==:117 a=iwqwCZQqcuTv3JOpYdM7/Q==:17
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
- a=V5UXEbMT0ywA:10 a=VkNPw1HP01LnGYTKEx00:22 a=Z8NIEmU8O1QQgoT56wFK:22
- a=fPAWb5peG099m5CrUpKH:22 a=VwQbUJbxAAAA:8 a=sozttTNsAAAA:8
- a=MsbBCBBioWvCGMzGvfkA:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-08_03,2026-09-09_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 spamscore=0 clxscore=1015 bulkscore=0 suspectscore=0
- priorityscore=1501 impostorscore=0 lowpriorityscore=0 malwarescore=0
- adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2609090173
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: 8bit
 
-Hi Nishanth,
-
-On 9/9/26 05:36, Nishanth Menon wrote:
-> On 13:13-20260908, Judith Mendez wrote:
->> Hi Nishanth,
->>
->> On 9/8/26 12:49, Nishanth Menon wrote:
->>> On 12:29-20260908, Judith Mendez wrote:
->>>> Hi Nishanth,
->>>>
->>>> On 9/8/26 12:16, Nishanth Menon wrote:
->>>>> On 12:06-20260908, Judith Mendez wrote:
->>>>>> The AM65x EVM MMC1 VDD rail discharges slowly through RC circuit.
->>>>>> SD spec (section 6.4.1.3) requires VDD < 0.5V for minimum 1ms during
->>>>>> power cycle. Measured discharge time on this board is ~632.97ms to
->>>>>> reach < 0.5V threshold.
->>>>>>
->>>>>> During boot, MMC power cycles between boot stages. Without power off
->>>>>> delay, VDD doesn't fully discharge. Card retains 1.8V signaling state
->>>>>> from previous stages. When U-Boot initializes, card no longer asserts
->>>>>> S18A in ACMD41 response (already switched to 1.8V). Host misinterprets
->>>>>> card state and forces 1.8V anyway, falling into a bad state and causing
->>>>>> a boot failure.
->>>>>>
->>>>>> Add power-off-delay-us = 650000 (650ms) to ensure proper VDD discharge
->>>>>> during power cycles, allowing card to fully reset state between boot
->>>>>> stages.
->>>>>>
->>>>>> Signed-off-by: Judith Mendez <jm@ti.com>
->>>>>
->>>>> Fixes ?
->>>>
->>>> Fix is really for u-boot, don't think I can point to a u-boot
->>>> commit here can I?
->>>
->>> You'd face the same problem if you are starting from a different boot
->>> media and then enable MMC in linux kernel, right? what was described in
->>> the patch sounds like a discharge latency of the evm. This was missed in
->>> the original commit?
->>>
->>
->> Not exactly. The failure is only seen at u-boot specifically with
->> SD card boot. Very specifically due to the MMC driver in u-boot and
->> commit [0] which is not reverted since it is technically correct.
->> The commit just happened to expose our EVM's issue first. According to
->> the discussion, mirror Linux patch may be coming soon, which we are
->> now prepared for with this patch and [1].
->>
->> [0]
->> https://lore.kernel.org/u-boot/d17a810c-e2db-4a24-a37d-2d7e02466ce9@ti.com/
->> [1] https://lore.kernel.org/linux-mmc/20260806162202.657512-1-jm@ti.com/
+On 8 September 2026 23:27:30 BST, Bill Wendling <morbo@google.com> wrote:
+>Add a KUnit test suite to verify the insertion and sorting of mappings
+>in struct uid_gid_map. This test suite validates both base extent
+>insertion (<= 5 mappings) and extended extent insertion (> 5 mappings,
+>which triggers the allocation of the forward and reverse pointers).
+>
+>This is especially useful for verifying that the __counted_by_ptr
+>attribute added to 'forward' and 'reverse' pointers works correctly
+>without causing any runtime bounds-checking panics or traps.
+>
+>Assisted-by: Gemini:3.1-pro-preview
+>Signed-off-by: Bill Wendling <morbo@google.com>
+>Tested-by: Bradley Morgan <brads@mainlining.org>
+>Reviewed-by: Bradley Morgan <brads@mainlining.org>
+>---
+>v2 - Remove Gerrit tag.
+>v3 - s/KUNIT_EXPECT_NOT_ERR_OR_NULL/KUNIT_ASSERT_NOT_ERR_OR_NULL/
+>   - Fixed Kconfig tests.
+>v4 - Actually test on unsorted data. Corrected the "Assisted-by" tag.
+>v5 - Convert the KUnit test to a format that follows the KUnit style
+>     guild more closely. This includes some renameing and using macros
+>     in the "visibility.h" header. We no longer #include the test file
+>     into the implementation file. This should be much cleaner.
+>---
+>Cc: Bradley Morgan <brads@mainlining.org>
+>Cc: Thomas Weißschuh <thomas.weissschuh@linutronix.de>
+>Cc: Kees Cook <kees@kernel.org>
+>Cc: "Gustavo A. R. Silva" <gustavoars@kernel.org>
+>Cc: Christian Brauner <brauner@kernel.org>
+>Cc: Aleksa Sarai <cyphar@cyphar.com>
+>Cc: Jan Kara <jack@suse.cz>
+>Cc: Nathan Chancellor <nathan@kernel.org>
+>Cc: Miguel Ojeda <ojeda@kernel.org>
+>Cc: Thomas Gleixner <tglx@kernel.org>
+>Cc: Nicolas Schier <nsc@kernel.org>
+>Cc: Gary Guo <gary@garyguo.net>
+>Cc: "Thomas Weißschuh" <thomas.weissschuh@linutronix.de>
+>Cc: Alice Ryhl <aliceryhl@google.com>
+>Cc: Douglas Anderson <dianders@chromium.org>
+>Cc: Anand Moon <linux.amoon@gmail.com>
+>Cc: Oleg Nesterov <oleg@redhat.com>
+>Cc: codemender-patching+linux@google.com
+>Cc: linux-kernel@vger.kernel.org
+>Cc: linux-hardening@vger.kernel.org
+>---
+> include/linux/user_namespace.h   |  6 ++
+> init/Kconfig                     | 11 ++++
+> kernel/Makefile                  |  1 +
+> kernel/tests/.kunitconfig        |  4 ++
+> kernel/tests/user_ns_map_kunit.c | 98 ++++++++++++++++++++++++++++++++
+> kernel/user_namespace.c          |  8 ++-
+> 6 files changed, 126 insertions(+), 2 deletions(-)
+> create mode 100644 kernel/tests/.kunitconfig
+> create mode 100644 kernel/tests/user_ns_map_kunit.c
+>
+>diff --git a/include/linux/user_namespace.h b/include/linux/user_namespace.h
+>index 2962256eddf7..633157781edc 100644
+>--- a/include/linux/user_namespace.h
+>+++ b/include/linux/user_namespace.h
+>@@ -207,6 +207,12 @@ extern bool in_userns(const struct user_namespace *ancestor,
+> 		       const struct user_namespace *child);
+> extern bool current_in_userns(const struct user_namespace *target_ns);
+> struct ns_common *ns_get_owner(struct ns_common *ns);
+>+
+>+#if IS_ENABLED(CONFIG_USER_NS_MAP_KUNIT_TEST)
+>+extern int insert_extent(struct uid_gid_map *map, struct uid_gid_extent *extent);
+>+extern int sort_idmaps(struct uid_gid_map *map);
+>+#endif /* CONFIG_USER_NS_MAP_KUNIT_TEST */
+>+
+> #else
 > 
-> This context is useful in diffstat. I see the driver fix in kernel which
-> can use this property not present in previous kernels, hence no fixes.
+> static inline struct user_namespace *get_user_ns(struct user_namespace
+> *ns)
+>diff --git a/init/Kconfig b/init/Kconfig
+>index 8583d9f06c52..27c1ffc675bf 100644
+>--- a/init/Kconfig
+>+++ b/init/Kconfig
+>@@ -1457,6 +1457,17 @@ config USER_NS
 > 
-> That said, please fix $subject for v2 and repost. I suggest:
-> arm64: dts: ti: k3-am654-base-board: Add power off delay for proper MMC power cycle
+> 	  If unsure, say N.
 > 
+>+config USER_NS_MAP_KUNIT_TEST
+>+	tristate "KUint test for user
 
-Ok, will fixup coverletter and subject for v2.
+Hmm! s/KUint/KUnit
 
-Thanks.
-~ Judith
+ namespace map insertion" if !KUNIT_ALL_TESTS
+>+	depends on USER_NS && KUNIT
+>+	default KUNIT_ALL_TESTS
+>+	help
+>+	  This builds the KUnit test for user namespace uid/gid map insertion.
+>+	  It validates map insertion, limits, dynamic allocation of the
+>+	  extended extents array, and mapping sorting functions.
+>+
+>+	  If unsure, say N.
+>+
+> config PID_NS
+> 	bool "PID Namespaces"
+> 	default y
+>diff --git a/kernel/Makefile b/kernel/Makefile
+>index 1e1a31673577..2a64282749b8 100644
+>--- a/kernel/Makefile
+>+++ b/kernel/Makefile
+>@@ -141,6 +141,7 @@ obj-$(CONFIG_WATCH_QUEUE) += watch_queue.o
+> 
+> obj-$(CONFIG_RESOURCE_KUNIT_TEST) += resource_kunit.o
+> obj-$(CONFIG_SYSCTL_KUNIT_TEST) += sysctl-test.o
+>+obj-$(CONFIG_USER_NS_MAP_KUNIT_TEST) += tests/user_ns_map_kunit.o
+> 
+> CFLAGS_kstack_erase.o += $(DISABLE_KSTACK_ERASE)
+> CFLAGS_kstack_erase.o += $(call cc-option,-mgeneral-regs-only)
+>diff --git a/kernel/tests/.kunitconfig b/kernel/tests/.kunitconfig
+>new file mode 100644
+>index 000000000000..b3d1206fd81a
+>--- /dev/null
+>+++ b/kernel/tests/.kunitconfig
+>@@ -0,0 +1,4 @@
+>+CONFIG_KUNIT=y
+>+CONFIG_NAMESPACES=y
+>+CONFIG_USER_NS=y
+>+CONFIG_USER_NS_MAP_KUNIT_TEST=y
+>diff --git a/kernel/tests/user_ns_map_kunit.c b/kernel/tests/user_ns_map_kunit.c
+>new file mode 100644
+>index 000000000000..24c21e43a36c
+>--- /dev/null
+>+++ b/kernel/tests/user_ns_map_kunit.c
+>@@ -0,0 +1,98 @@
+>+// SPDX-License-Identifier: GPL-2.0
+>+/*
+>+ * KUnit test for user namespace map insertion and sorting.
+>+ */
+>+
+>+#define pr_fmt(fmt) "user_namespace: " fmt
+>+
+>+#include <kunit/test.h>
+>+#include <linux/user_namespace.h>
+>+
+>+#define NR_EXTENTS (UID_GID_MAP_MAX_BASE_EXTENTS + 5)
+>+
+>+static void user_ns_map_insert(struct kunit *test)
+>+{
+>+	struct uid_gid_map map;
+>+	struct uid_gid_extent extent;
+>+	int i, ret;
+>+
+>+	memset(&map, 0, sizeof(map));
+>+
+>+	/* Insert up to UID_GID_MAP_MAX_BASE_EXTENTS elements */
+>+	for (i = 0; i < UID_GID_MAP_MAX_BASE_EXTENTS; i++) {
+>+		extent.first = i * 10;
+>+		extent.lower_first = i * 100;
+>+		extent.count = 5;
+>+
+>+		ret = insert_extent(&map, &extent);
+>+		KUNIT_ASSERT_EQ(test, ret, 0);
+>+	}
+>+
+>+	KUNIT_EXPECT_EQ(test, map.nr_extents, UID_GID_MAP_MAX_BASE_EXTENTS);
+>+
+>+	/* Verify the elements ended up in the 'extent' array */
+>+	for (i = 0; i < UID_GID_MAP_MAX_BASE_EXTENTS; i++) {
+>+		KUNIT_EXPECT_EQ(test, map.extent[i].first, i * 10);
+>+		KUNIT_EXPECT_EQ(test, map.extent[i].lower_first, i * 100);
+>+		KUNIT_EXPECT_EQ(test, map.extent[i].count, 5);
+>+	}
+>+}
+>+
+>+static void user_ns_map_insert_extended(struct kunit *test)
+>+{
+>+	struct uid_gid_map map;
+>+	struct uid_gid_extent extent;
+>+	int i, ret;
+>+
+>+	memset(&map, 0, sizeof(map));
+>+
+>+	/* Insert more than UID_GID_MAP_MAX_BASE_EXTENTS elements */
+>+	for (i = 0; i < NR_EXTENTS; i++) {
+>+		int value = 9 - i;
+>+
+>+		extent.first = value * 10;
+>+		extent.lower_first = value * 100;
+>+		extent.count = 5;
+>+
+>+		ret = insert_extent(&map, &extent);
+>+		KUNIT_ASSERT_EQ(test, ret, 0);
+>+	}
+>+
+>+	KUNIT_EXPECT_EQ(test, map.nr_extents, NR_EXTENTS);
+>+
+>+	/* Now sort the map to set up reverse mapping */
+>+	ret = sort_idmaps(&map);
+>+	KUNIT_ASSERT_EQ(test, ret, 0);
+>+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, map.reverse);
+>+
+>+	/* Verify the elements are in 'forward' and that sorting is correct */
+>+	for (i = 0; i < map.nr_extents; i++) {
+>+		KUNIT_EXPECT_EQ(test, map.forward[i].first, i * 10);
+>+		KUNIT_EXPECT_EQ(test, map.forward[i].lower_first, i * 100);
+>+		KUNIT_EXPECT_EQ(test, map.forward[i].count, 5);
+>+
+>+		KUNIT_EXPECT_EQ(test, map.reverse[i].first, i * 10);
+>+		KUNIT_EXPECT_EQ(test, map.reverse[i].lower_first, i * 100);
+>+		KUNIT_EXPECT_EQ(test, map.reverse[i].count, 5);
+>+	}
+>+
+>+	kfree(map.forward);
+>+	kfree(map.reverse);
+>+}
+>+
+>+static struct kunit_case user_ns_map_test_cases[] = {
+>+	KUNIT_CASE(user_ns_map_insert),
+>+	KUNIT_CASE(user_ns_map_insert_extended),
+>+	{}
+>+};
+>+
+>+static struct kunit_suite user_ns_map_test_suite = {
+>+	.name = "user_ns_map",
+>+	.test_cases = user_ns_map_test_cases,
+>+};
+>+
+>+kunit_test_suite(user_ns_map_test_suite);
+>+
+>+MODULE_LICENSE("GPL");
+>+MODULE_DESCRIPTION("KUnit test for user namespace map insertion");
+>+MODULE_IMPORT_NS("EXPORTED_FOR_KUNIT_TESTING");
+>diff --git a/kernel/user_namespace.c b/kernel/user_namespace.c
+>index 786dbf0506ca..d8cbefd36598 100644
+>--- a/kernel/user_namespace.c
+>+++ b/kernel/user_namespace.c
+>@@ -1,5 +1,6 @@
+> // SPDX-License-Identifier: GPL-2.0-only
+> 
+>+#include <kunit/visibility.h>
+> #include <linux/export.h>
+> #include <linux/nsproxy.h>
+> #include <linux/slab.h>
+>@@ -786,7 +787,8 @@ static bool mappings_overlap(struct uid_gid_map *new_map,
+>  * Takes care to allocate a 4K block of memory if the number of mappings exceeds
+>  * UID_GID_MAP_MAX_BASE_EXTENTS.
+>  */
+>-static int insert_extent(struct uid_gid_map *map, struct uid_gid_extent *extent)
+>+VISIBLE_IF_KUNIT int insert_extent(struct uid_gid_map *map,
+>+				   struct uid_gid_extent *extent)
+> {
+> 	struct uid_gid_extent *dest;
+> 
+>@@ -822,6 +824,7 @@ static int insert_extent(struct uid_gid_map *map, struct uid_gid_extent *extent)
+> 	*dest = *extent;
+> 	return 0;
+> }
+>+EXPORT_SYMBOL_IF_KUNIT(insert_extent);
+> 
+> /* cmp function to sort() forward mappings */
+> static int cmp_extents_forward(const void *a, const void *b)
+>@@ -857,7 +860,7 @@ static int cmp_extents_reverse(const void *a, const void *b)
+>  * sort_idmaps - Sorts an array of idmap entries.
+>  * Can only be called if number of mappings exceeds UID_GID_MAP_MAX_BASE_EXTENTS.
+>  */
+>-static int sort_idmaps(struct uid_gid_map *map)
+>+VISIBLE_IF_KUNIT int sort_idmaps(struct uid_gid_map *map)
+> {
+> 	if (map->nr_extents <= UID_GID_MAP_MAX_BASE_EXTENTS)
+> 		return 0;
+>@@ -878,6 +881,7 @@ static int sort_idmaps(struct uid_gid_map *map)
+> 
+> 	return 0;
+> }
+>+EXPORT_SYMBOL_IF_KUNIT(sort_idmaps);
+> 
+> /**
+>  * verify_root_map() - check the uid 0 mapping
+>
 
-
-
+--- Thanks!
+https://lore.kernel.org/all/EE579805-42F2-4C58-B752-F28779EEB717@grrlz.net/
