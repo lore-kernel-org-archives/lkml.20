@@ -1,103 +1,176 @@
-Received: from va-1-113.ptr.blmpb.com (va-1-113.ptr.blmpb.com [209.127.230.113])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15F4F481AA6
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 08:53:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.230.113
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0157144A3E2
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 08:53:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788943985; cv=none; b=fxPo9S6J8ECzviBOTfsWnYQlH+t/nCceIyLcYrH1tXbuzMF1dk8uDSGAqirh2kuGHTcfFCzNoqHSeAFIGSgrF66PHopqf31yiaLa8YRdLHOjIv14IdWUrqrVw6qh2p2VZRdi/u8aeZEzQbEcAVLYhuJX5qA02vRTBHYp0JuDtrs=
+	t=1788944023; cv=none; b=EVlDRT0ipxNbWGgfOCM5wpYWzr/7qpZ4M/k3S890C81pM2UvxhrE46l4Sj2+8llEnKxObKOrPmoIEQNuEZTKYezdbWoiHvZCNv+zisDMwY1RT3EU9h5+bp0Ho96y10rdNEXkIa6NsDqzzGxizTBqqPFwPWmkQ++2m1DaSs0DAiA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788943985; c=relaxed/simple;
-	bh=cq7Ae+f3RmWaAVZ5M2GZcg5KWymPTZkW1haOlMIWGyU=;
-	h=To:Content-Type:Mime-Version:Date:Message-Id:Subject:In-Reply-To:
-	 Cc:From:References; b=KK2wAUO0sxGhoRaNGexxr3RudnoIHPZH9vbBeNfn+Om9/APPrrNFTv6VuTbejDwOgYamHVfhCbf+jwOHuEL7gA3g2J6/YQujgM0ZFodtOC4ROTYF+47yBmHpxJbydPiHC0D94uwbBW4AxYLuJsYe09jQuassbmAAFU0kW2Mw4oc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=Va+nyMI1; arc=none smtp.client-ip=209.127.230.113
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
+	s=arc-20240116; t=1788944023; c=relaxed/simple;
+	bh=oeNgveW9Tt4/2RrRQetsoMagtELhTgBtkFerJiMJAaI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=tdYiCx+YW/HE7KKujDnkXcrPogbQun/hG1JgZFZ8N2Gcz4esRMrQn6vrK8lLYDCrdWRACxS7Eq34R2NVzj5yXZy8TgcQ5niKGODqsdZdj9/9x/vG4ypGwcpx1QFpgpeCcI5/18swvY/wXcJPdo7njHAuAl4UhjDqtjirlpkHITg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=JC7MX5kg; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=m/aRkbMb; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="Va+nyMI1"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=2212171451; d=bytedance.com; t=1788943968; h=from:subject:
- mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
- mime-version:in-reply-to:message-id;
- bh=42eTvA3+zf7J2g0oBhjdgayHhzy7hkEc9NIuW1rhfg8=;
- b=Va+nyMI1D+4ByyiJbOWpl2gpoaHAQ8ujhtZsJK1xUQugG0og0ecc4ZRTLwRXABcFx6qbix
- XW5CGjEYW6thywI31Y8NeTIbKv3v6Jv83k6CykBU66TPxuEzVGPrQk+dFHyeFK77p5GPDv
- cI0Ny+gp1xJqRt5lb0FVZ4CcCvkvF1GyFxQs1X3o6eCowGIjVk1en80FyBRW5FeB15Moee
- vKQRrhYUCqsS2qgixj89w1nyDWscaIvXdE0R1nPYpJZeAj0zIhhawUoDYuz6MkgyPFlHzf
- gWCI3zzY+3/DuJUgHCvvbLr1Vb81+U1vjyW/RVzFRrFcm3OHbQ2p7CAs2cHRQA==
-To: "Luigi Rizzo" <lrizzo@google.com>, 
-	"Christoph Hellwig" <hch@infradead.org>
-Content-Type: text/plain; charset=UTF-8
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="JC7MX5kg";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="m/aRkbMb"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1788944021;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=XfqIN4Kwtqfnd1bFRCrRwzjmsoY7buI31s7mTLJJCXA=;
+	b=JC7MX5kgCacgVnA8pJn/9etn1uIwqM9R//Z+iPdFxmA843zoScvEjIXSHuYrKPHPtskdaE
+	vsYx1MNGjdnVeadlW0//ZG79yB/L0t6brq5g05Sd7A9J77RLJa4JdqEeUfOXf3rRAQHhgm
+	tv79qYkB7RBN7dwZyX2BF3tP/JyO5IU=
+Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
+ [209.85.221.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-304-xUHWSdnyPHmtoG5Elss2gA-1; Wed, 09 Sep 2026 04:53:39 -0400
+X-MC-Unique: xUHWSdnyPHmtoG5Elss2gA-1
+X-Mimecast-MFC-AGG-ID: xUHWSdnyPHmtoG5Elss2gA_1788944018
+Received: by mail-wr1-f70.google.com with SMTP id ffacd0b85a97d-4839f9edb08so3504548f8f.0
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 01:53:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1788944018; x=1789548818; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=XfqIN4Kwtqfnd1bFRCrRwzjmsoY7buI31s7mTLJJCXA=;
+        b=m/aRkbMbmMy7nCb94YDSbCghzTgBo8hTd3pPbKGHFW81EQjnbjp+jq1SKaspNvg/2s
+         K9HRedbLiEorTUxVn7y0Q52iFZV6TTXg9CStsrWiqc6152MZ1+Q3/63TQby3KVllYmW8
+         i77fSFSIEIhGikPPrzJFtJr7YE28fWB2YbHerWy51k3oENOz6xenjSkmcf78OJEt1Q5L
+         JPMrEyB9iMBQdmWJXFGMDGO0k1xrEa7w5QXl9TS5ryIncYKv7JmL3vWLjxJw2bzdi3Df
+         ZfNC8ro+zNmkb4QHuO1nydfULeFh76Xp4GBnWp6d4vO4gKH25ymz0O0IlHG8iJLn45XJ
+         Uwzg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788944018; x=1789548818;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=XfqIN4Kwtqfnd1bFRCrRwzjmsoY7buI31s7mTLJJCXA=;
+        b=PxezUUjG39I+BY/QcTmnnRwFQvm8u4YnWBYMLuLwgkE0kdNCu5jfi02z8ru4GfIy9i
+         NFhQFxaNmWDg+Mj3unyIvttiyxzyuIAkcyfsJmNTTKfPI24bxl/GcSeWQUh3nYhO2j1d
+         xiJlzb/gkMaV0cSO8VoMIYe6JVMDAwtJFU9uB5V/gvQQ2QnTL5qhjLv6WSJbV6Sk/zTy
+         dMxXCuAr9ZihFO/m6n+NLhFmFAbVR+oZttSFKAyCjLJK4XPBYUFH4QEysqq+kMXfzisd
+         BaWACyEmynq4JnYXBDuN4MsThETXEg7JQixXRpHtLAYH71UELbrhfCCyGCEdDHoG9XTy
+         fI9g==
+X-Forwarded-Encrypted: i=1; AKwUvBwBk/7c+Nkz9ZxhmlWKFHaqUNrHUGXjdYEyUsTQeQnmqtWkeTaCdaIMFJ0QqLUo9ns+3fkMFcEZBFffMtU=@vger.kernel.org
+X-Gm-Message-State: AFuF++nw43w9nePrE0L1KQnDeULlOIf46mwPKgOwRQYY2bL/gAbPjCrF
+	DBo0VTI7znsdH4hOPJBABec3PN+w4crYZU7fyqv7bgozKUpP8OajqVKEnwkf6r5I7RyuDeHqYYL
+	eIdBM+UTMmE836iI5AQ3Fqg+17yaE74NXfdOooP1xJgnuos9AL+J7/dbP3Uy3FWJmlw==
+X-Gm-Gg: AYBFou2DY36loNW3TktVDLTG8L0y0qI7qK+RKI2xoHUkNWceGCck3fHVVLJACBdRpzG
+	cQL0+S/hZssGbzRlibnVm4Hi8bMId9rQIV5nveiLqlckiQ3gBPSHC2HANGNEKK/55HsUF3osp5C
+	0Y2GBTVLhl2FJv4GOcTC1TYURB2f1TLB6DLhQyjqsjR0ssSEtuMa5KY2Mtptymu57AbSc81tn7S
+	A9geUmBaSo6qYH+o6d+4+8EpC6CDmNr64rbaZYK26xlHTjFEEvWgLtYEPZxA82LCfM5dSAtPkcg
+	DkJ+D+GN+wCujXYKLDBMHXhSvYWX66Tu5IobA1mWEYIRTj0cD4G5F+hIrz6KtHQp+W7JU1d0gA=
+	=
+X-Received: by 2002:a5d:5f52:0:b0:485:9233:a5ae with SMTP id ffacd0b85a97d-4859233aaf2mr25267370f8f.3.1788944018472;
+        Wed, 09 Sep 2026 01:53:38 -0700 (PDT)
+X-Received: by 2002:a5d:5f52:0:b0:485:9233:a5ae with SMTP id ffacd0b85a97d-4859233aaf2mr25267336f8f.3.1788944018095;
+        Wed, 09 Sep 2026 01:53:38 -0700 (PDT)
+Received: from [192.168.0.9] ([47.64.114.243])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-485958f1493sm31003763f8f.37.2026.09.09.01.53.36
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 09 Sep 2026 01:53:37 -0700 (PDT)
+Message-ID: <5a1c75b6-8d68-4bfe-bda8-b2ca25cdffab@redhat.com>
+Date: Wed, 9 Sep 2026 10:53:36 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-X-Lms-Return-Path: <lba+26aa11e5e+7facaf+vger.kernel.org+changfengnan@bytedance.com>
-Date: Wed, 9 Sep 2026 16:52:27 +0800
-Message-Id: <8e816cdc-a714-49d8-943f-677617682352@bytedance.com>
-Subject: Re: [PATCH v5 0/7] Global Software Interrupt Moderation (GSIM)
-In-Reply-To: <CAMOZA0Lt99A1H45Hp0Snq4aSEw-Xr_Mh4xA--Cx0Qh_6vsQvOQ@mail.gmail.com>
-Content-Transfer-Encoding: quoted-printable
-Cc: "Thomas Gleixner" <tglx@linutronix.de>, "Marc Zyngier" <maz@kernel.org>, 
-	"Luigi Rizzo" <rizzo.unipi@gmail.com>, "Paolo Abeni" <pabeni@redhat.com>, 
-	<linux-kernel@vger.kernel.org>, <linux-pci@vger.kernel.org>, 
-	"Bjorn Helgaas" <bhelgaas@google.com>, <netdev@vger.kernel.org>, 
-	<linux-nvme@lists.infradead.org>, "Guzebing" <guzebing@bytedance.com>, 
-	"Keith Busch" <kbusch@kernel.org>
-From: "Fengnan" <changfengnan@bytedance.com>
-References: <878q5f5tlt.ffs@fw13> <aqD7FDvDhiEF_u0N@infradead.org> <CAMOZA0Lt99A1H45Hp0Snq4aSEw-Xr_Mh4xA--Cx0Qh_6vsQvOQ@mail.gmail.com>
-X-Original-From: Fengnan <changfengnan@bytedance.com>
+MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] crypto: xilinx - clear AES key buffer before freeing it
+To: Thorsten Blum <blum@kernel.org>, Herbert Xu
+ <herbert@gondor.apana.org.au>, "David S. Miller" <davem@davemloft.net>,
+ Michal Simek <michal.simek@amd.com>, Harsh Jain <h.jain@amd.com>,
+ Bjorn Helgaas <bhelgaas@google.com>,
+ Takashi Sakamoto <o-takashi@sakamocchi.jp>,
+ =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig_=28The_Capable_Hub=29?=
+ <u.kleine-koenig@baylibre.com>
+Cc: Danilo Krummrich <dakr@kernel.org>, linux-crypto@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <20260908191607.405177-2-blum@kernel.org>
+Content-Language: en-US
+From: Thomas Huth <thuth@redhat.com>
+Autocrypt: addr=thuth@redhat.com; keydata=
+ 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
+In-Reply-To: <20260908191607.405177-2-blum@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-=E5=9C=A8 2026/9/9 16:06, Luigi Rizzo =E5=86=99=E9=81=93:
-> On Wed, Sep 9, 2026 at 8:25=E2=80=AFAM Christoph Hellwig <hch@infradead.o=
-rg> wrote:
->> On Sat, Sep 05, 2026 at 10:30:22PM +0200, Thomas Gleixner wrote:
->>>> it appears that GSIM is only effective in scenarios where multi disks =
-at very high
->>>> IOPS; in some cases, there was a noticeable performance regression.
->>>> If there=E2=80=99s something wrong with my configuration, please corre=
-ct me.
->>> So we have a NVME specific mechanism to tackle the same problem and a
->>> more generic version which is subsystem "independent".
->> I'm not sure they tackle the entirely same problem, although they are
->> very related.
-> There is overlap but it is accidental.
-> The difference between the two mechanism is the following:
->
-> - GSIM addresses hardware limitations (SoCs that create huge PCIe
->    backpressure on each MSIx interrupt, eventually reducing the available
->    bandwidth too much, regardless of how many CPUs can process interrupts=
-).
->    The goal here is to throttle the total MSIx rate, blocking them at
->    the source (PCIe device) rather than later in the interrupt controller=
-.
->
-> - the NVME mechanism (and NAPI) aim to amortize interrupt processing
->    overhead. It does so by recreating some fine grained single-source
->    interrupt moderation (something that NICs do in hardware, but NVME
->    does not, with 100us being way too coarse for modern SSDs) and an
->    adaptive scheme to adjust the delay and decide when to kick in.
-That's a great summary.
+On 08/09/2026 21.16, Thorsten Blum wrote:
+> In xilinx_aes_aead_exit(), the AES key buffer is freed without being
+> cleared, which allows key material to remain in memory. Use
+> kfree_sensitive() to clear the buffer before freeing it.
+> 
+> Fixes: c315cb0005be ("crypto: xilinx - Change coherent DMA to streaming DMA API")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Thorsten Blum <blum@kernel.org>
+> ---
+>   drivers/crypto/xilinx/zynqmp-aes-gcm.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/crypto/xilinx/zynqmp-aes-gcm.c b/drivers/crypto/xilinx/zynqmp-aes-gcm.c
+> index d54c268dfe34..ebee37dddb1f 100644
+> --- a/drivers/crypto/xilinx/zynqmp-aes-gcm.c
+> +++ b/drivers/crypto/xilinx/zynqmp-aes-gcm.c
+> @@ -766,7 +766,7 @@ static void xilinx_aes_aead_exit(struct crypto_aead *aead)
+>   	struct xilinx_aead_tfm_ctx *tfm_ctx = crypto_tfm_ctx(tfm);
+>   
+>   	dma_unmap_single(tfm_ctx->dev, tfm_ctx->key_dma_addr, AES_KEYSIZE_256, DMA_TO_DEVICE);
+> -	kfree(tfm_ctx->key);
+> +	kfree_sensitive(tfm_ctx->key);
+>   	if (tfm_ctx->fbk_cipher) {
+>   		crypto_free_aead(tfm_ctx->fbk_cipher);
+>   		tfm_ctx->fbk_cipher = NULL;
+Reviewed-by: Thomas Huth <thuth@redhat.com>
 
-As for generic solutions, I've tried several approaches before, but none=20
-of them
-could achieve the same or close results as NVMe adaptive interrupt polling.
-I'm still experimenting with different options.
-
-
->
-> I think there is a reason for both.
->
-> GSIM because it is more general and addresses an issue the others cannot =
-handle
-> the subsystem-specific scheme because they can be more efficient
-> (eg they can hook into existing helpers like the threaded irq handler,
-> call directly the handler without going through the full irq chain,
-> use more targeted heuristics to decide when to kick in).
->
-> cheers
-> luigi
