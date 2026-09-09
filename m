@@ -1,105 +1,95 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D70541BA81;
-	Wed,  9 Sep 2026 20:30:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 797063B7742;
+	Wed,  9 Sep 2026 20:30:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788985812; cv=none; b=n5ErjnEcvrPEuCT3aQ2DJJJCwbOCv/i8iYOuABBQTtXBEYiVMHhIQZuXyXk4Jut3nZlPcXTJpu360YCPPMxcgZb7Jio8mDtHaF01ZOX6d2TtpxWsHyFaB31f4kqORgQS1WCGBAy4s4RspsWqA8oyqldxag2Yk2nGHrUUUdK9GM0=
+	t=1788985836; cv=none; b=R08Q9FOuj6FiwqEmg15/kvv2DUWVxU6SWUytdf8OK6c4fLXOqX9RuxsJ115sC5BuVW0w3emcpOVy6DlhYa5Uus0WHwbhxL/+E82HcroUSpZgijsLgQKk7kUD6edwPsL/azQQzZgn++JaLXI1g0cFcCdZyKmp8JT0DX4XGqNMe6U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788985812; c=relaxed/simple;
-	bh=rPkAujITE7i9u31o6ZiwCibdSYQWVGevQAnP4+K0KZ8=;
-	h=Content-Type:MIME-Version:Message-Id:In-Reply-To:References:
-	 Subject:From:To:Cc:Date; b=DHm4wadTRH8MSVtB1QtVxe7qSFPnwVap/ELv7ZWdY9Aes+X6G9GT5+di5m7GzMmQ3aDgwBL+E6oCSzAc3ClFExESq3apgy5U498QeVQ+BnQtUsHXn+ld+CRpiFEjNoM6GgWuJlWPxv3np9ilcyXI9H+LdbXHMgfyVNhT38O7DS0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PI+PJqxm; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788985836; c=relaxed/simple;
+	bh=GDa9doJb5HpYth1oZ4d0wJYLaV5uvEqg1wVw46zNJMU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=pE8VpZ03cY75U/njkTh3p3UqVU1e62+2oECSo1CX7d4cTBvQMeCtb28JK3tzOhQ1Aj+/JHfl8B5AppfjBLhxh4IcjYiwbqGBoHHm9qtkktJNpatSlA96X0z2rKimqtSjHf4aswom8S5HpaOKmYTrSgfLoeEDhTs6ozyS4vRQSLs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jj4fjrEj; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PI+PJqxm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A96421F00899;
-	Wed,  9 Sep 2026 20:30:00 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jj4fjrEj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3791E1F000FF;
+	Wed,  9 Sep 2026 20:30:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788985802;
-	bh=Lyv0L/4ipysGiQ6qRhyrfrKEyetbfGfMfzVdFDDzfwU=;
-	h=In-Reply-To:References:Subject:From:To:Cc:Date;
-	b=PI+PJqxm85SiYlzlYSHjbIR837OvMEhO35NIBQBASPB19FGGP8pogFsMdmkRDmwlr
-	 BiW1UnN3rIUjO2feRD4KYY4QqWkTULFQuXeL6XWc+ODhfbAbZyMMVYvRXbruVv5XQ1
-	 i62Wqi1Zj8ATIDmOxW41qSb6ngU52PLqj5NswCgZ3uGjMKi+e7rdw2h+LYAEH6+p59
-	 6aQ0EUmefJEOTOHt+6dNwVOYFDRcnFFtVwn3mKiBirFCPQLwTvxOoxj0Ugl20yS7rX
-	 uJk1NkrbQ8yk1uHIOzWxGimYlFxBNN+wN3bTymB9Jl01okPS5sME6+SbOCbANtIHNz
-	 +1hWNBr/Ydm6w==
-Content-Type: multipart/mixed; boundary="===============8517157787774259594=="
+	s=k20260515; t=1788985831;
+	bh=Zm6OYF7UGpRoKIJEPn08vsmxH3kEkHKLnqQecML+z9Q=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=jj4fjrEjUHS0z/G6x7A/HojE9rKD5+CTpyAxnbQiU8t0xVC9Mi8twt57g5064GLYX
+	 ngDTY60fS2cbLp1kwO8H0xel5Xgg3e9eSfFMsP11cjP7pVkp82CXnYA96ZsbFKAokF
+	 Sr7Dk13mK2jaxWCsBFfYr/YFxa+3OYngB/ducbRujIZg0owYYuPBTXdLKTDy6qLRfc
+	 xlFks/JxckiqCwtFr0EjvS0CrhmPIFsBELrLID9/ULzsegBUwOeh+8F89ESxBvm3Eo
+	 3vVJXFqu4Qeptam3W4UrzY1AYnERMKVtJNCYD1qGB3bdL4HDng9074KEpqH/lXsOfX
+	 0xAXfy+EdNHxg==
+Date: Wed, 9 Sep 2026 17:30:28 -0300
+From: Arnaldo Carvalho de Melo <acme@kernel.org>
+To: Ian Rogers <irogers@google.com>
+Cc: alice.mei.rogers@gmail.com, namhyung@kernel.org,
+	adrian.hunter@intel.com, jolsa@kernel.org, laixintaoo@gmail.com,
+	linux-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org,
+	mingo@redhat.com, peterz@infradead.org
+Subject: Re: [PATCH v4 0/2] perf python TUI report and flamegraph
+Message-ID: <aqHB5PahbbxmXBO-@x2>
+References: <20260809041638.2402705-1-irogers@google.com>
+ <20260809051820.2436530-1-irogers@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-Id: <023aac007780af00c0060b296fe83c373e580c42836e08807ca1f61ce82ca009@mail.kernel.org>
-In-Reply-To: <20260909193719.518517-7-utilityemal77@gmail.com>
-References: <20260909193719.518517-7-utilityemal77@gmail.com>
-Subject: Re: [PATCH bpf-next v3 06/15] lsm: Add the bpf_lsm_policy_acquire kfunc
-From: bot+bpf-ci@kernel.org
-To: utilityemal77@gmail.com,ast@kernel.org,daniel@iogearbox.net,andrii@kernel.org,kpsingh@kernel.org,matt@bobrowski.net,paul@paul-moore.com,mic@digikod.net,viro@zeniv.linux.org.uk,brauner@kernel.org,kees@kernel.org
-Cc: casey@schaufler-ca.com,gnoack@google.com,jack@suse.cz,song@kernel.org,yonghong.song@linux.dev,martin.lau@linux.dev,eddyz87@gmail.com,memxor@gmail.com,jolsa@kernel.org,m@maowtm.org,bpf@vger.kernel.org,linux-security-module@vger.kernel.org,linux-kernel@vger.kernel.org,utilityemal77@gmail.com,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
-Date: Wed,  9 Sep 2026 20:30:00 +0000 (UTC)
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260809051820.2436530-1-irogers@google.com>
 
---===============8517157787774259594==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+On Sat, Aug 08, 2026 at 10:18:17PM -0700, Ian Rogers wrote:
+> Implement a perf TUI using the python textual module. Using the
+> textual framework means that in most modern terminals the mouse is
+> supported, the color scheme can be configured, and screenshots made.
+> 
+> The work is dependent on the extensions to the perf python module
+> merged into perf-tools-next such as commit 88439191ad5e ("perf python:
+> Add callchain support"). It is also dependent on the python textual
+> module for TUI support.
 
-> diff --git a/security/bpf_lsm_kfuncs.c b/security/bpf_lsm_kfuncs.c
-> index 988dcd6f4dd9..43a4bf57fd31 100644
-> --- a/security/bpf_lsm_kfuncs.c
-> +++ b/security/bpf_lsm_kfuncs.c
-> @@ -14,6 +14,36 @@
->
->  __bpf_kfunc_start_defs();
->
-> +/**
-> + * bpf_lsm_policy_acquire - Acquire a reference on a shared policy object
-> + * @object: RCU-protected pointer to a policy object, e.g. loaded from
-> + *          a map kptr field under bpf_rcu_read_lock()
-> + *
-> + * Acquire a reference of its own on a policy object the program does
-> + * not own, so that any number of concurrent program executions can
-> + * use the object shared through one map kptr field, without emptying
-> + * it as bpf_kptr_xchg() would.  The returned reference stays valid
-> + * after bpf_rcu_read_unlock() and must be released with
-> + * bpf_lsm_policy_release().
-> + *
-> + * Return: A referenced policy object, or NULL if the object's
-> + * reference count concurrently dropped to zero.
-> + */
+Cool stuff, just tested it :-)
 
-This isn't a bug, but would it be worth spelling out the other NULL
-cases here -- no enabled LSM owning @object->lsmid, or the owning LSM's
-get hook failing -- the way bpf_lsm_policy_from_fd()'s Return: section
-does just below?
+Thanks, applied to perf-tools-next, for v7.4.
 
-The current text names one of the three ways the kfunc yields NULL. The
-body also returns NULL when no enabled LSM's policy_object_get static
-call matches @object->lsmid, and when the owning LSM's hook fails for a
-reason other than a dead refcount.
-
-> +__bpf_kfunc struct lsm_policy_object *
-> +bpf_lsm_policy_acquire(struct lsm_policy_object *object)
-> +{
-> +	struct lsm_static_call *scall;
-> +
-> +	lsm_for_each_hook(scall, policy_object_get) {
-> +		if (scall->hl->lsmid->id != object->lsmid)
-> +			continue;
-> +		if (scall->hl->hook.policy_object_get(object))
-> +			return NULL;
-> +		return object;
-> +	}
-> +	return NULL;
-> +}
-
-
----
-AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
-See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
-
-CI run summary: https://github.com/kernel-patches/bpf/actions/runs/34398515657
---===============8517157787774259594==--
+- Arnaldo
+ 
+> v4: Fix typo of profle to profile and tweak argparse command
+>     description to only mention flamegraph after that support is added
+>     (Sashiko). Sashiko notes a high severity issue because the script
+>     depends on perf Python module extensions that are already
+>     merged. This is because Sashiko is testing the changes against the
+>     perf-tools rather than perf-tools-next. Verified
+>     rich.errors.MarkupError don't occur for kernel DSOs, primarily as
+>     there is always a space after the square brackets.
+> 
+> v3: Tweaks to commit messages (Sashiko).
+> https://lore.kernel.org/linux-perf-users/20260809041638.2402705-1-irogers@google.com/
+> 
+> v2: Migrate from inbuilt perf python interpreter to perf python
+>     module. Improve the flamegraph performance. Use the textual's
+>     color scheme rather than red and white.
+> https://lore.kernel.org/linux-perf-users/20260808065743.2328212-1-irogers@google.com/
+> 
+> v1:
+> https://lore.kernel.org/linux-perf-users/20250725082425.20999-1-irogers@google.com/
+> 
+> Alice Rogers (2):
+>   perf python: New treport script
+>   perf python: treport add flamegraph support
+> 
+>  tools/perf/python/treport.py | 561 +++++++++++++++++++++++++++++++++++
+>  1 file changed, 561 insertions(+)
+>  create mode 100755 tools/perf/python/treport.py
+> 
+> -- 
+> 2.55.0.654.g21b8a5bc05-goog
