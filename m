@@ -1,31 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D49C55D88B;
-	Wed,  9 Sep 2026 13:23:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AE83560AC3;
+	Wed,  9 Sep 2026 13:24:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788960237; cv=none; b=tcyW7MOaSOryfrekkcCtyUVj2Id/nd4CMalRyNy+5vyXt20yQcJtEj8KGYmyGTfzrsGIhXHiBkyg1hnU3WLFhHeY+4YKOHPwyMpGerD+6e2iPVThGDWNWgaP+OKrNI9yZQbExSrKWGQFPkgSXwSN6m5EGNjUS4X6/5oPGsOaUFE=
+	t=1788960263; cv=none; b=pTFQgxdpuoQfDxtGLXqW1vYndmS/LQRVabJxG94i8tTuVyw211GUqkTA9C1ESmCPYgLw61wecAE4bIaqralkGkRXLTMeYp0c72P5NoO/F0XR7gfoKNjAqcDt8yADdXNyY/xvU7EcEPkuutsT672jrP/oBo2po7r2z6WqSlQDk0Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788960237; c=relaxed/simple;
-	bh=LaPTDFnVtsiRnXkLt6fpgVmlEtWrA6qWKsuvC6YPS5M=;
+	s=arc-20240116; t=1788960263; c=relaxed/simple;
+	bh=NO4G5eYBdbhMd5sw67d/eqUiBQ8PQcOJvjXe7aSIJgU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=FO8OHtj6fxTLfIEtAwyAZPQA6zG/iqJ5MzpRD9Q41v4KE5RS2nvHYXdJV5rXFizWnLWZKPcjiZGLA73BioGULIRGOAol7GzHXGq4eOV86hjfPWky0+1xENLMivX1G3rf6PclKwLXsy2A4ofgz97ept52z7z/WlEafBiH+SJYbEg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=afU4Z+4b; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=VjYyqVtirm3NvkTSyzKfEHhbAPj+5iS05Q75d0pN51XKf0jyWtw0ixzmCLq5Y8WCta2Bcdm7uSOKGotFP9gLseb41rSH8cVSw05T9DD/Ou8tmbZXNzec4kULhFAcXmuZkrnQF6Ay0gCRNkZGUhqXew/bixwNghcLorD0MXh3/QE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=d+JiQCIK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="afU4Z+4b"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F04C1F00A3E;
-	Wed,  9 Sep 2026 13:23:29 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="d+JiQCIK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C747C1F00A3F;
+	Wed,  9 Sep 2026 13:23:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788960218;
-	bh=1qoOc7gtnkGvenngoPvkysqsE/ScnFZ2Rj1iCl13Sxo=;
+	s=k20260515; t=1788960243;
+	bh=GsvUef4hneB+xdHcxkeILGXl9Km9+VtxY+PwGgE+eto=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=afU4Z+4bYjnmJUGqBLOfDY2EU3+6JtjBHF/JBWReVV747TD4tWqp8b7/D1quuc/DO
-	 ytAMQUABdjXsLYGYIHoTcLt+pW9R0h/wN3xrysNmk2Jbgh4U4PrHIMjOlvvIUQ8UBw
-	 qlW0eBN0AhPqgTddjnXrX7KG2A6khwX6JoGzIb7a1V7ocQVZFwDLDcx3oIQ/5xO70y
-	 X7IWvAVzkhMyrJ7rghVnF9angaB6xl4aEAA6ADH4nWRHqPb8IjHvBwXhIo7Ourde8r
-	 PZObQxs2mi2Z3tXEGcjxmw4IFQiZzRSqk8qS8Y2baOvM7o4k90oBQkjCasJ/iGL9MD
-	 zGm13+nbcqcMw==
+	b=d+JiQCIKd3jlqqdaDOteHFuE3oG36JyWUU+QWxk/n59ROKREnLLnr5WsLTb/dbd8L
+	 TPYEzmQIQ8Ym5n29AU5nqJ5FW67xXpBkMFFbpJ0AmjUYdaxaiVP8kFXbY1KTiTVA1n
+	 oXATGrn9c3jdn9KFcxvC5wrDXA+UN0S3zZvJRgYaJpcbunvy3t6vaEuyxsi9ym+1DC
+	 R3WpH0TtC77Zu3s2j9csObvAri9x3Q1R6JRZ20sM2vdysNr2fZu7hvZJMz7xXlzh5v
+	 KMhh5pIn8Lqh+TzFPcmbq+ZTpfzm2Hykvic25JUD39YmziT4GSfSsqmNbyKTODNYjg
+	 ucMA2X1FARVvQ==
 From: Arnd Bergmann <arnd@kernel.org>
 To: Lee Jones <lee@kernel.org>,
 	mfd@lists.linux.dev
@@ -68,9 +68,9 @@ Cc: linux-kernel@vger.kernel.org,
 	linux-sound@vger.kernel.org,
 	linuxppc-dev@lists.ozlabs.org,
 	llvm@lists.linux.dev
-Subject: [PATCH 09/14] mfd: remove unused lm3533 driver
-Date: Wed,  9 Sep 2026 15:21:46 +0200
-Message-ID: <20260909132153.1596191-10-arnd@kernel.org>
+Subject: [PATCH 12/14] mfd: remove unused mcp-sa11x0/ucb1x00 driver
+Date: Wed,  9 Sep 2026 15:21:49 +0200
+Message-ID: <20260909132153.1596191-13-arnd@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260909132153.1596191-1-arnd@kernel.org>
 References: <20260909132153.1596191-1-arnd@kernel.org>
@@ -84,3187 +84,2441 @@ Content-Transfer-Encoding: 8bit
 
 From: Arnd Bergmann <arnd@arndb.de>
 
-This driver has apparently never had any users, as it does not support
-devicetree probing, and no lm3533_platform_data definition ever
-existed upstream.
+The sa1100 platform has been removed, so these drivers are no longer
+used anywhere.
 
 Signed-off-by: Arnd Bergmann <arnd@arndb.de>
 ---
- drivers/iio/light/Kconfig           |  17 -
- drivers/iio/light/Makefile          |   1 -
- drivers/iio/light/lm3533-als.c      | 922 ----------------------------
- drivers/leds/Kconfig                |  13 -
- drivers/leds/Makefile               |   1 -
- drivers/leds/leds-lm3533.c          | 755 -----------------------
- drivers/mfd/Kconfig                 |  13 -
- drivers/mfd/Makefile                |   1 -
- drivers/mfd/lm3533-core.c           | 635 -------------------
- drivers/mfd/lm3533-ctrlbank.c       | 162 -----
- drivers/video/backlight/Kconfig     |  11 -
- drivers/video/backlight/Makefile    |   1 -
- drivers/video/backlight/lm3533_bl.c | 398 ------------
- include/linux/mfd/lm3533.h          |  99 ---
- 14 files changed, 3029 deletions(-)
- delete mode 100644 drivers/iio/light/lm3533-als.c
- delete mode 100644 drivers/leds/leds-lm3533.c
- delete mode 100644 drivers/mfd/lm3533-core.c
- delete mode 100644 drivers/mfd/lm3533-ctrlbank.c
- delete mode 100644 drivers/video/backlight/lm3533_bl.c
- delete mode 100644 include/linux/mfd/lm3533.h
+ Documentation/admin-guide/devices.txt        |   1 -
+ drivers/mfd/Kconfig                          |  24 -
+ drivers/mfd/Makefile                         |   8 -
+ drivers/mfd/mcp-core.c                       | 235 ------
+ drivers/mfd/mcp-sa11x0.c                     | 304 -------
+ drivers/mfd/ucb1x00-assabet.c                | 175 ----
+ drivers/mfd/ucb1x00-core.c                   | 795 -------------------
+ drivers/mfd/ucb1x00-ts.c                     | 445 -----------
+ include/linux/mfd/mcp.h                      |  63 --
+ include/linux/mfd/ucb1x00.h                  | 261 ------
+ include/linux/platform_data/mfd-mcp-sa11x0.h |  17 -
+ 11 files changed, 2328 deletions(-)
+ delete mode 100644 drivers/mfd/mcp-core.c
+ delete mode 100644 drivers/mfd/mcp-sa11x0.c
+ delete mode 100644 drivers/mfd/ucb1x00-assabet.c
+ delete mode 100644 drivers/mfd/ucb1x00-core.c
+ delete mode 100644 drivers/mfd/ucb1x00-ts.c
+ delete mode 100644 include/linux/mfd/mcp.h
+ delete mode 100644 include/linux/mfd/ucb1x00.h
+ delete mode 100644 include/linux/platform_data/mfd-mcp-sa11x0.h
 
-diff --git a/drivers/iio/light/Kconfig b/drivers/iio/light/Kconfig
-index f23bbce12c72..afef3d25e6ed 100644
---- a/drivers/iio/light/Kconfig
-+++ b/drivers/iio/light/Kconfig
-@@ -394,23 +394,6 @@ config RPR0521
- 	  To compile this driver as a module, choose M here:
- 	  the module will be called rpr0521.
+diff --git a/Documentation/admin-guide/devices.txt b/Documentation/admin-guide/devices.txt
+index f544399675fa..eaaa03118fc1 100644
+--- a/Documentation/admin-guide/devices.txt
++++ b/Documentation/admin-guide/devices.txt
+@@ -262,7 +262,6 @@
+ 		 10 = /dev/adbmouse	Apple Desktop Bus mouse
+ 		 11 = /dev/vrtpanel	Vr41xx embedded touch panel
+ 		 13 = /dev/vpcmouse	Connectix Virtual PC Mouse
+-		 14 = /dev/touchscreen/ucb1x00  UCB 1x00 touchscreen
+ 		 15 = /dev/touchscreen/mk712	MK712 touchscreen
+ 		128 = /dev/beep		Fancy beep device
+ 		129 =
+diff --git a/drivers/mfd/Kconfig b/drivers/mfd/Kconfig
+index 8a3bbb628693..0395af7270f9 100644
+--- a/drivers/mfd/Kconfig
++++ b/drivers/mfd/Kconfig
+@@ -2258,30 +2258,6 @@ config MFD_QCOM_PM8008
+ 	  under it in the device tree. Additional drivers must be enabled in
+ 	  order to use the functionality of the device.
  
--config SENSORS_LM3533
--	tristate "LM3533 ambient light sensor"
--	depends on MFD_LM3533
--	help
--	  If you say yes here you get support for the ambient light sensor
--	  interface on National Semiconductor / TI LM3533 Lighting Power
--	  chips.
+-menu "Multimedia Capabilities Port drivers"
+-	depends on ARCH_SA1100
 -
--	  The sensor interface can be used to control the LEDs and backlights
--	  of the chip through defining five light zones and three sets of
--	  corresponding output-current values.
+-config MCP
+-	tristate
 -
--	  The driver provides raw and mean adc readings along with the current
--	  light zone through sysfs. A threshold event can be generated on zone
--	  changes. The ALS-control output values can be set per zone for the
--	  three current output channels.
+-# Interface drivers
+-config MCP_SA11X0
+-	tristate "Support SA11x0 MCP interface"
+-	depends on ARCH_SA1100
+-	select MCP
 -
- config LTR390
- 	tristate "LTR-390UV-01 ambient light and UV sensor"
- 	depends on I2C
-diff --git a/drivers/iio/light/Makefile b/drivers/iio/light/Makefile
-index 64e354c49ed8..7b9de7c83999 100644
---- a/drivers/iio/light/Makefile
-+++ b/drivers/iio/light/Makefile
-@@ -35,7 +35,6 @@ obj-$(CONFIG_SENSORS_ISL29028)	+= isl29028.o
- obj-$(CONFIG_ISL29125)		+= isl29125.o
- obj-$(CONFIG_ISL76682)		+= isl76682.o
- obj-$(CONFIG_JSA1212)		+= jsa1212.o
--obj-$(CONFIG_SENSORS_LM3533)	+= lm3533-als.o
- obj-$(CONFIG_LTR390)		+= ltr390.o
- obj-$(CONFIG_LTR501)		+= ltr501.o
- obj-$(CONFIG_LTRF216A)		+= ltrf216a.o
-diff --git a/drivers/iio/light/lm3533-als.c b/drivers/iio/light/lm3533-als.c
+-# Chip drivers
+-config MCP_UCB1200
+-	tristate "Support for UCB1200 / UCB1300"
+-	depends on MCP_SA11X0
+-	select MCP
+-
+-config MCP_UCB1200_TS
+-	tristate "Touchscreen interface support"
+-	depends on MCP_UCB1200 && INPUT
+-
+-endmenu
+-
+ config MFD_VEXPRESS_SYSREG
+ 	tristate "Versatile Express System Registers"
+ 	depends on VEXPRESS_CONFIG && GPIOLIB
+diff --git a/drivers/mfd/Makefile b/drivers/mfd/Makefile
+index 2cdbc693ee33..ff62e922209e 100644
+--- a/drivers/mfd/Makefile
++++ b/drivers/mfd/Makefile
+@@ -126,14 +126,6 @@ obj-$(CONFIG_MFD_OCELOT)	+= ocelot-soc.o
+ 
+ obj-$(CONFIG_MFD_CPCAP)		+= motorola-cpcap.o
+ 
+-obj-$(CONFIG_MCP)		+= mcp-core.o
+-obj-$(CONFIG_MCP_SA11X0)	+= mcp-sa11x0.o
+-obj-$(CONFIG_MCP_UCB1200)	+= ucb1x00-core.o
+-obj-$(CONFIG_MCP_UCB1200_TS)	+= ucb1x00-ts.o
+-
+-ifeq ($(CONFIG_SA1100_ASSABET),y)
+-obj-$(CONFIG_MCP_UCB1200)	+= ucb1x00-assabet.o
+-endif
+ 
+ obj-$(CONFIG_PMIC_DA9052)	+= da9052-irq.o
+ obj-$(CONFIG_PMIC_DA9052)	+= da9052-core.o
+diff --git a/drivers/mfd/mcp-core.c b/drivers/mfd/mcp-core.c
 deleted file mode 100644
-index 99f0b903018c..000000000000
---- a/drivers/iio/light/lm3533-als.c
+index be08eaee0a90..000000000000
+--- a/drivers/mfd/mcp-core.c
 +++ /dev/null
-@@ -1,922 +0,0 @@
--// SPDX-License-Identifier: GPL-2.0-or-later
+@@ -1,235 +0,0 @@
+-// SPDX-License-Identifier: GPL-2.0-only
 -/*
-- * lm3533-als.c -- LM3533 Ambient Light Sensor driver
+- *  linux/drivers/mfd/mcp-core.c
 - *
-- * Copyright (C) 2011-2012 Texas Instruments
+- *  Copyright (C) 2001 Russell King
 - *
-- * Author: Johan Hovold <jhovold@gmail.com>
+- *  Generic MCP (Multimedia Communications Port) layer.  All MCP locking
+- *  is solely held within this file.
 - */
--
--#include <linux/atomic.h>
--#include <linux/fs.h>
--#include <linux/interrupt.h>
--#include <linux/io.h>
--#include <linux/iio/events.h>
--#include <linux/iio/iio.h>
 -#include <linux/module.h>
--#include <linux/mutex.h>
--#include <linux/mfd/core.h>
--#include <linux/platform_device.h>
+-#include <linux/init.h>
+-#include <linux/errno.h>
+-#include <linux/smp.h>
+-#include <linux/device.h>
 -#include <linux/slab.h>
--#include <linux/uaccess.h>
--
--#include <linux/mfd/lm3533.h>
--
--
--#define LM3533_ALS_RESISTOR_MIN			1
--#define LM3533_ALS_RESISTOR_MAX			127
--#define LM3533_ALS_CHANNEL_CURRENT_MAX		2
--#define LM3533_ALS_THRESH_MAX			3
--#define LM3533_ALS_ZONE_MAX			4
--
--#define LM3533_REG_ALS_RESISTOR_SELECT		0x30
--#define LM3533_REG_ALS_CONF			0x31
--#define LM3533_REG_ALS_ZONE_INFO		0x34
--#define LM3533_REG_ALS_READ_ADC_RAW		0x37
--#define LM3533_REG_ALS_READ_ADC_AVERAGE		0x38
--#define LM3533_REG_ALS_BOUNDARY_BASE		0x50
--#define LM3533_REG_ALS_TARGET_BASE		0x60
--
--#define LM3533_ALS_ENABLE_MASK			0x01
--#define LM3533_ALS_INPUT_MODE_MASK		0x02
--#define LM3533_ALS_INT_ENABLE_MASK		0x01
--
--#define LM3533_ALS_ZONE_SHIFT			2
--#define LM3533_ALS_ZONE_MASK			0x1c
--
--#define LM3533_ALS_FLAG_INT_ENABLED		1
+-#include <linux/string.h>
+-#include <linux/mfd/mcp.h>
 -
 -
--struct lm3533_als {
--	struct lm3533 *lm3533;
--	struct platform_device *pdev;
+-#define to_mcp(d)		container_of(d, struct mcp, attached_device)
+-#define to_mcp_driver(d)	container_of(d, struct mcp_driver, drv)
 -
--	unsigned long flags;
--	int irq;
+-static int mcp_bus_match(struct device *dev, const struct device_driver *drv)
+-{
+-	return 1;
+-}
 -
--	atomic_t zone;
--	struct mutex thresh_mutex;
+-static int mcp_bus_probe(struct device *dev)
+-{
+-	struct mcp *mcp = to_mcp(dev);
+-	struct mcp_driver *drv = to_mcp_driver(dev->driver);
+-
+-	return drv->probe(mcp);
+-}
+-
+-static void mcp_bus_remove(struct device *dev)
+-{
+-	struct mcp *mcp = to_mcp(dev);
+-	struct mcp_driver *drv = to_mcp_driver(dev->driver);
+-
+-	drv->remove(mcp);
+-}
+-
+-static const struct bus_type mcp_bus_type = {
+-	.name		= "mcp",
+-	.match		= mcp_bus_match,
+-	.probe		= mcp_bus_probe,
+-	.remove		= mcp_bus_remove,
 -};
 -
--
--static int lm3533_als_get_adc(struct iio_dev *indio_dev, bool average,
--								int *adc)
+-/**
+- *	mcp_set_telecom_divisor - set the telecom divisor
+- *	@mcp: MCP interface structure
+- *	@div: SIB clock divisor
+- *
+- *	Set the telecom divisor on the MCP interface.  The resulting
+- *	sample rate is SIBCLOCK/div.
+- */
+-void mcp_set_telecom_divisor(struct mcp *mcp, unsigned int div)
 -{
--	struct lm3533_als *als = iio_priv(indio_dev);
--	u8 reg;
--	u8 val;
--	int ret;
+-	unsigned long flags;
 -
--	if (average)
--		reg = LM3533_REG_ALS_READ_ADC_AVERAGE;
--	else
--		reg = LM3533_REG_ALS_READ_ADC_RAW;
+-	spin_lock_irqsave(&mcp->lock, flags);
+-	mcp->ops->set_telecom_divisor(mcp, div);
+-	spin_unlock_irqrestore(&mcp->lock, flags);
+-}
+-EXPORT_SYMBOL(mcp_set_telecom_divisor);
 -
--	ret = lm3533_read(als->lm3533, reg, &val);
--	if (ret) {
--		dev_err(&indio_dev->dev, "failed to read adc\n");
--		return ret;
--	}
+-/**
+- *	mcp_set_audio_divisor - set the audio divisor
+- *	@mcp: MCP interface structure
+- *	@div: SIB clock divisor
+- *
+- *	Set the audio divisor on the MCP interface.
+- */
+-void mcp_set_audio_divisor(struct mcp *mcp, unsigned int div)
+-{
+-	unsigned long flags;
 -
--	*adc = val;
+-	spin_lock_irqsave(&mcp->lock, flags);
+-	mcp->ops->set_audio_divisor(mcp, div);
+-	spin_unlock_irqrestore(&mcp->lock, flags);
+-}
+-EXPORT_SYMBOL(mcp_set_audio_divisor);
 -
--	return 0;
+-/**
+- *	mcp_reg_write - write a device register
+- *	@mcp: MCP interface structure
+- *	@reg: 4-bit register index
+- *	@val: 16-bit data value
+- *
+- *	Write a device register.  The MCP interface must be enabled
+- *	to prevent this function hanging.
+- */
+-void mcp_reg_write(struct mcp *mcp, unsigned int reg, unsigned int val)
+-{
+-	unsigned long flags;
+-
+-	spin_lock_irqsave(&mcp->lock, flags);
+-	mcp->ops->reg_write(mcp, reg, val);
+-	spin_unlock_irqrestore(&mcp->lock, flags);
+-}
+-EXPORT_SYMBOL(mcp_reg_write);
+-
+-/**
+- *	mcp_reg_read - read a device register
+- *	@mcp: MCP interface structure
+- *	@reg: 4-bit register index
+- *
+- *	Read a device register and return its value.  The MCP interface
+- *	must be enabled to prevent this function hanging.
+- */
+-unsigned int mcp_reg_read(struct mcp *mcp, unsigned int reg)
+-{
+-	unsigned long flags;
+-	unsigned int val;
+-
+-	spin_lock_irqsave(&mcp->lock, flags);
+-	val = mcp->ops->reg_read(mcp, reg);
+-	spin_unlock_irqrestore(&mcp->lock, flags);
+-
+-	return val;
+-}
+-EXPORT_SYMBOL(mcp_reg_read);
+-
+-/**
+- *	mcp_enable - enable the MCP interface
+- *	@mcp: MCP interface to enable
+- *
+- *	Enable the MCP interface.  Each call to mcp_enable will need
+- *	a corresponding call to mcp_disable to disable the interface.
+- */
+-void mcp_enable(struct mcp *mcp)
+-{
+-	unsigned long flags;
+-
+-	spin_lock_irqsave(&mcp->lock, flags);
+-	if (mcp->use_count++ == 0)
+-		mcp->ops->enable(mcp);
+-	spin_unlock_irqrestore(&mcp->lock, flags);
+-}
+-EXPORT_SYMBOL(mcp_enable);
+-
+-/**
+- *	mcp_disable - disable the MCP interface
+- *	@mcp: MCP interface to disable
+- *
+- *	Disable the MCP interface.  The MCP interface will only be
+- *	disabled once the number of calls to mcp_enable matches the
+- *	number of calls to mcp_disable.
+- */
+-void mcp_disable(struct mcp *mcp)
+-{
+-	unsigned long flags;
+-
+-	spin_lock_irqsave(&mcp->lock, flags);
+-	if (--mcp->use_count == 0)
+-		mcp->ops->disable(mcp);
+-	spin_unlock_irqrestore(&mcp->lock, flags);
+-}
+-EXPORT_SYMBOL(mcp_disable);
+-
+-static void mcp_release(struct device *dev)
+-{
+-	struct mcp *mcp = container_of(dev, struct mcp, attached_device);
+-
+-	kfree(mcp);
 -}
 -
--static int _lm3533_als_get_zone(struct iio_dev *indio_dev, u8 *zone)
+-struct mcp *mcp_host_alloc(struct device *parent, size_t size)
 -{
--	struct lm3533_als *als = iio_priv(indio_dev);
--	u8 val;
--	int ret;
+-	struct mcp *mcp;
 -
--	ret = lm3533_read(als->lm3533, LM3533_REG_ALS_ZONE_INFO, &val);
--	if (ret) {
--		dev_err(&indio_dev->dev, "failed to read zone\n");
--		return ret;
+-	mcp = kzalloc(sizeof(struct mcp) + size, GFP_KERNEL);
+-	if (mcp) {
+-		spin_lock_init(&mcp->lock);
+-		device_initialize(&mcp->attached_device);
+-		mcp->attached_device.parent = parent;
+-		mcp->attached_device.bus = &mcp_bus_type;
+-		mcp->attached_device.dma_mask = parent->dma_mask;
+-		mcp->attached_device.release = mcp_release;
 -	}
+-	return mcp;
+-}
+-EXPORT_SYMBOL(mcp_host_alloc);
 -
--	val = (val & LM3533_ALS_ZONE_MASK) >> LM3533_ALS_ZONE_SHIFT;
--	*zone = min_t(u8, val, LM3533_ALS_ZONE_MAX);
+-int mcp_host_add(struct mcp *mcp, void *pdata)
+-{
+-	mcp->attached_device.platform_data = pdata;
+-	dev_set_name(&mcp->attached_device, "mcp0");
+-	return device_add(&mcp->attached_device);
+-}
+-EXPORT_SYMBOL(mcp_host_add);
 -
--	return 0;
+-void mcp_host_del(struct mcp *mcp)
+-{
+-	device_del(&mcp->attached_device);
+-}
+-EXPORT_SYMBOL(mcp_host_del);
+-
+-void mcp_host_free(struct mcp *mcp)
+-{
+-	put_device(&mcp->attached_device);
+-}
+-EXPORT_SYMBOL(mcp_host_free);
+-
+-int mcp_driver_register(struct mcp_driver *mcpdrv)
+-{
+-	mcpdrv->drv.bus = &mcp_bus_type;
+-	return driver_register(&mcpdrv->drv);
+-}
+-EXPORT_SYMBOL(mcp_driver_register);
+-
+-void mcp_driver_unregister(struct mcp_driver *mcpdrv)
+-{
+-	driver_unregister(&mcpdrv->drv);
+-}
+-EXPORT_SYMBOL(mcp_driver_unregister);
+-
+-static int __init mcp_init(void)
+-{
+-	return bus_register(&mcp_bus_type);
 -}
 -
--static int lm3533_als_get_zone(struct iio_dev *indio_dev, u8 *zone)
+-static void __exit mcp_exit(void)
 -{
--	struct lm3533_als *als = iio_priv(indio_dev);
--	int ret;
+-	bus_unregister(&mcp_bus_type);
+-}
 -
--	if (test_bit(LM3533_ALS_FLAG_INT_ENABLED, &als->flags)) {
--		*zone = atomic_read(&als->zone);
--	} else {
--		ret = _lm3533_als_get_zone(indio_dev, zone);
--		if (ret)
--			return ret;
--	}
+-module_init(mcp_init);
+-module_exit(mcp_exit);
 -
--	return 0;
+-MODULE_AUTHOR("Russell King <rmk@arm.linux.org.uk>");
+-MODULE_DESCRIPTION("Core multimedia communications port driver");
+-MODULE_LICENSE("GPL");
+diff --git a/drivers/mfd/mcp-sa11x0.c b/drivers/mfd/mcp-sa11x0.c
+deleted file mode 100644
+index 228c4a2f4c1f..000000000000
+--- a/drivers/mfd/mcp-sa11x0.c
++++ /dev/null
+@@ -1,304 +0,0 @@
+-// SPDX-License-Identifier: GPL-2.0-only
+-/*
+- *  linux/drivers/mfd/mcp-sa11x0.c
+- *
+- *  Copyright (C) 2001-2005 Russell King
+- *
+- *  SA11x0 MCP (Multimedia Communications Port) driver.
+- *
+- *  MCP read/write timeouts from Jordi Colomer, rehacked by rmk.
+- */
+-#include <linux/module.h>
+-#include <linux/io.h>
+-#include <linux/errno.h>
+-#include <linux/kernel.h>
+-#include <linux/delay.h>
+-#include <linux/spinlock.h>
+-#include <linux/platform_device.h>
+-#include <linux/pm.h>
+-#include <linux/mfd/mcp.h>
+-
+-#include <mach/hardware.h>
+-#include <asm/mach-types.h>
+-#include <linux/platform_data/mfd-mcp-sa11x0.h>
+-
+-#define DRIVER_NAME "sa11x0-mcp"
+-
+-struct mcp_sa11x0 {
+-	void __iomem	*base0;
+-	void __iomem	*base1;
+-	u32		mccr0;
+-	u32		mccr1;
+-};
+-
+-/* Register offsets */
+-#define MCCR0(m)	((m)->base0 + 0x00)
+-#define MCDR0(m)	((m)->base0 + 0x08)
+-#define MCDR1(m)	((m)->base0 + 0x0c)
+-#define MCDR2(m)	((m)->base0 + 0x10)
+-#define MCSR(m)		((m)->base0 + 0x18)
+-#define MCCR1(m)	((m)->base1 + 0x00)
+-
+-#define priv(mcp)	((struct mcp_sa11x0 *)mcp_priv(mcp))
+-
+-static void
+-mcp_sa11x0_set_telecom_divisor(struct mcp *mcp, unsigned int divisor)
+-{
+-	struct mcp_sa11x0 *m = priv(mcp);
+-
+-	divisor /= 32;
+-
+-	m->mccr0 &= ~0x00007f00;
+-	m->mccr0 |= divisor << 8;
+-	writel_relaxed(m->mccr0, MCCR0(m));
+-}
+-
+-static void
+-mcp_sa11x0_set_audio_divisor(struct mcp *mcp, unsigned int divisor)
+-{
+-	struct mcp_sa11x0 *m = priv(mcp);
+-
+-	divisor /= 32;
+-
+-	m->mccr0 &= ~0x0000007f;
+-	m->mccr0 |= divisor;
+-	writel_relaxed(m->mccr0, MCCR0(m));
 -}
 -
 -/*
-- * channel	output channel 0..2
-- * zone		zone 0..4
+- * Write data to the device.  The bit should be set after 3 subframe
+- * times (each frame is 64 clocks).  We wait a maximum of 6 subframes.
+- * We really should try doing something more productive while we
+- * wait.
 - */
--static inline u8 lm3533_als_get_target_reg(unsigned channel, unsigned zone)
+-static void
+-mcp_sa11x0_write(struct mcp *mcp, unsigned int reg, unsigned int val)
 -{
--	return LM3533_REG_ALS_TARGET_BASE + 5 * channel + zone;
+-	struct mcp_sa11x0 *m = priv(mcp);
+-	int ret = -ETIME;
+-	int i;
+-
+-	writel_relaxed(reg << 17 | MCDR2_Wr | (val & 0xffff), MCDR2(m));
+-
+-	for (i = 0; i < 2; i++) {
+-		udelay(mcp->rw_timeout);
+-		if (readl_relaxed(MCSR(m)) & MCSR_CWC) {
+-			ret = 0;
+-			break;
+-		}
+-	}
+-
+-	if (ret < 0)
+-		printk(KERN_WARNING "mcp: write timed out\n");
 -}
 -
--static int lm3533_als_get_target(struct iio_dev *indio_dev, unsigned channel,
--							unsigned zone, u8 *val)
+-/*
+- * Read data from the device.  The bit should be set after 3 subframe
+- * times (each frame is 64 clocks).  We wait a maximum of 6 subframes.
+- * We really should try doing something more productive while we
+- * wait.
+- */
+-static unsigned int
+-mcp_sa11x0_read(struct mcp *mcp, unsigned int reg)
 -{
--	struct lm3533_als *als = iio_priv(indio_dev);
--	u8 reg;
--	int ret;
+-	struct mcp_sa11x0 *m = priv(mcp);
+-	int ret = -ETIME;
+-	int i;
 -
--	if (channel > LM3533_ALS_CHANNEL_CURRENT_MAX)
--		return -EINVAL;
+-	writel_relaxed(reg << 17 | MCDR2_Rd, MCDR2(m));
 -
--	if (zone > LM3533_ALS_ZONE_MAX)
--		return -EINVAL;
+-	for (i = 0; i < 2; i++) {
+-		udelay(mcp->rw_timeout);
+-		if (readl_relaxed(MCSR(m)) & MCSR_CRC) {
+-			ret = readl_relaxed(MCDR2(m)) & 0xffff;
+-			break;
+-		}
+-	}
 -
--	reg = lm3533_als_get_target_reg(channel, zone);
--	ret = lm3533_read(als->lm3533, reg, val);
--	if (ret)
--		dev_err(&indio_dev->dev, "failed to get target current\n");
+-	if (ret < 0)
+-		printk(KERN_WARNING "mcp: read timed out\n");
 -
 -	return ret;
 -}
 -
--static int lm3533_als_set_target(struct iio_dev *indio_dev, unsigned channel,
--							unsigned zone, u8 val)
+-static void mcp_sa11x0_enable(struct mcp *mcp)
 -{
--	struct lm3533_als *als = iio_priv(indio_dev);
--	u8 reg;
+-	struct mcp_sa11x0 *m = priv(mcp);
+-
+-	writel(-1, MCSR(m));
+-	m->mccr0 |= MCCR0_MCE;
+-	writel_relaxed(m->mccr0, MCCR0(m));
+-}
+-
+-static void mcp_sa11x0_disable(struct mcp *mcp)
+-{
+-	struct mcp_sa11x0 *m = priv(mcp);
+-
+-	m->mccr0 &= ~MCCR0_MCE;
+-	writel_relaxed(m->mccr0, MCCR0(m));
+-}
+-
+-/*
+- * Our methods.
+- */
+-static struct mcp_ops mcp_sa11x0 = {
+-	.set_telecom_divisor	= mcp_sa11x0_set_telecom_divisor,
+-	.set_audio_divisor	= mcp_sa11x0_set_audio_divisor,
+-	.reg_write		= mcp_sa11x0_write,
+-	.reg_read		= mcp_sa11x0_read,
+-	.enable			= mcp_sa11x0_enable,
+-	.disable		= mcp_sa11x0_disable,
+-};
+-
+-static int mcp_sa11x0_probe(struct platform_device *dev)
+-{
+-	struct mcp_plat_data *data = dev_get_platdata(&dev->dev);
+-	struct resource *mem0, *mem1;
+-	struct mcp_sa11x0 *m;
+-	struct mcp *mcp;
 -	int ret;
 -
--	if (channel > LM3533_ALS_CHANNEL_CURRENT_MAX)
--		return -EINVAL;
+-	if (!data)
+-		return -ENODEV;
 -
--	if (zone > LM3533_ALS_ZONE_MAX)
--		return -EINVAL;
+-	mem0 = platform_get_resource(dev, IORESOURCE_MEM, 0);
+-	mem1 = platform_get_resource(dev, IORESOURCE_MEM, 1);
+-	if (!mem0 || !mem1)
+-		return -ENXIO;
 -
--	reg = lm3533_als_get_target_reg(channel, zone);
--	ret = lm3533_write(als->lm3533, reg, val);
--	if (ret)
--		dev_err(&indio_dev->dev, "failed to set target current\n");
+-	if (!request_mem_region(mem0->start, resource_size(mem0),
+-				DRIVER_NAME)) {
+-		ret = -EBUSY;
+-		goto err_mem0;
+-	}
 -
+-	if (!request_mem_region(mem1->start, resource_size(mem1),
+-				DRIVER_NAME)) {
+-		ret = -EBUSY;
+-		goto err_mem1;
+-	}
+-
+-	mcp = mcp_host_alloc(&dev->dev, sizeof(struct mcp_sa11x0));
+-	if (!mcp) {
+-		ret = -ENOMEM;
+-		goto err_alloc;
+-	}
+-
+-	mcp->owner		= THIS_MODULE;
+-	mcp->ops		= &mcp_sa11x0;
+-	mcp->sclk_rate		= data->sclk_rate;
+-
+-	m = priv(mcp);
+-	m->mccr0 = data->mccr0 | 0x7f7f;
+-	m->mccr1 = data->mccr1;
+-
+-	m->base0 = ioremap(mem0->start, resource_size(mem0));
+-	m->base1 = ioremap(mem1->start, resource_size(mem1));
+-	if (!m->base0 || !m->base1) {
+-		ret = -ENOMEM;
+-		goto err_ioremap;
+-	}
+-
+-	platform_set_drvdata(dev, mcp);
+-
+-	/*
+-	 * Initialise device.  Note that we initially
+-	 * set the sampling rate to minimum.
+-	 */
+-	writel_relaxed(-1, MCSR(m));
+-	writel_relaxed(m->mccr1, MCCR1(m));
+-	writel_relaxed(m->mccr0, MCCR0(m));
+-
+-	/*
+-	 * Calculate the read/write timeout (us) from the bit clock
+-	 * rate.  This is the period for 3 64-bit frames.  Always
+-	 * round this time up.
+-	 */
+-	mcp->rw_timeout = DIV_ROUND_UP(64 * 3 * 1000000, mcp->sclk_rate);
+-
+-	ret = mcp_host_add(mcp, data->codec_pdata);
+-	if (ret == 0)
+-		return 0;
+-
+- err_ioremap:
+-	iounmap(m->base1);
+-	iounmap(m->base0);
+-	mcp_host_free(mcp);
+- err_alloc:
+-	release_mem_region(mem1->start, resource_size(mem1));
+- err_mem1:
+-	release_mem_region(mem0->start, resource_size(mem0));
+- err_mem0:
 -	return ret;
 -}
 -
--static int lm3533_als_get_current(struct iio_dev *indio_dev, unsigned channel,
--								int *val)
+-static void mcp_sa11x0_remove(struct platform_device *dev)
 -{
--	u8 zone;
--	u8 target;
--	int ret;
+-	struct mcp *mcp = platform_get_drvdata(dev);
+-	struct mcp_sa11x0 *m = priv(mcp);
+-	struct resource *mem0, *mem1;
 -
--	ret = lm3533_als_get_zone(indio_dev, &zone);
--	if (ret)
--		return ret;
+-	if (m->mccr0 & MCCR0_MCE)
+-		dev_warn(&dev->dev,
+-			 "device left active (missing disable call?)\n");
 -
--	ret = lm3533_als_get_target(indio_dev, channel, zone, &target);
--	if (ret)
--		return ret;
+-	mem0 = platform_get_resource(dev, IORESOURCE_MEM, 0);
+-	mem1 = platform_get_resource(dev, IORESOURCE_MEM, 1);
 -
--	*val = target;
+-	mcp_host_del(mcp);
+-	iounmap(m->base1);
+-	iounmap(m->base0);
+-	mcp_host_free(mcp);
+-	release_mem_region(mem1->start, resource_size(mem1));
+-	release_mem_region(mem0->start, resource_size(mem0));
+-}
+-
+-static int mcp_sa11x0_suspend(struct device *dev)
+-{
+-	struct mcp_sa11x0 *m = priv(dev_get_drvdata(dev));
+-
+-	if (m->mccr0 & MCCR0_MCE)
+-		dev_warn(dev, "device left active (missing disable call?)\n");
+-
+-	writel(m->mccr0 & ~MCCR0_MCE, MCCR0(m));
 -
 -	return 0;
 -}
 -
--static int lm3533_als_read_raw(struct iio_dev *indio_dev,
--				struct iio_chan_spec const *chan,
--				int *val, int *val2, long mask)
+-static int mcp_sa11x0_resume(struct device *dev)
 -{
--	int ret;
+-	struct mcp_sa11x0 *m = priv(dev_get_drvdata(dev));
 -
--	switch (mask) {
--	case IIO_CHAN_INFO_RAW:
--		switch (chan->type) {
--		case IIO_LIGHT:
--			ret = lm3533_als_get_adc(indio_dev, false, val);
--			break;
--		case IIO_CURRENT:
--			ret = lm3533_als_get_current(indio_dev, chan->channel,
--									val);
--			break;
--		default:
--			return -EINVAL;
--		}
--		break;
--	case IIO_CHAN_INFO_AVERAGE_RAW:
--		ret = lm3533_als_get_adc(indio_dev, true, val);
--		break;
--	default:
--		return -EINVAL;
--	}
+-	writel_relaxed(m->mccr1, MCCR1(m));
+-	writel_relaxed(m->mccr0, MCCR0(m));
 -
--	if (ret)
--		return ret;
--
--	return IIO_VAL_INT;
+-	return 0;
 -}
 -
--#define CHANNEL_CURRENT(_channel)					\
--	{								\
--		.type		= IIO_CURRENT,				\
--		.channel	= _channel,				\
--		.indexed	= true,					\
--		.output		= true,					\
--		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW),		\
--	}
--
--static const struct iio_chan_spec lm3533_als_channels[] = {
--	{
--		.type		= IIO_LIGHT,
--		.channel	= 0,
--		.indexed	= true,
--		.info_mask_separate = BIT(IIO_CHAN_INFO_AVERAGE_RAW) |
--				   BIT(IIO_CHAN_INFO_RAW),
--	},
--	CHANNEL_CURRENT(0),
--	CHANNEL_CURRENT(1),
--	CHANNEL_CURRENT(2),
+-static const struct dev_pm_ops mcp_sa11x0_pm_ops = {
+-	.suspend = mcp_sa11x0_suspend,
+-	.freeze = mcp_sa11x0_suspend,
+-	.poweroff = mcp_sa11x0_suspend,
+-	.resume_noirq = mcp_sa11x0_resume,
+-	.thaw_noirq = mcp_sa11x0_resume,
+-	.restore_noirq = mcp_sa11x0_resume,
 -};
 -
--static irqreturn_t lm3533_als_isr(int irq, void *dev_id)
--{
+-static struct platform_driver mcp_sa11x0_driver = {
+-	.probe		= mcp_sa11x0_probe,
+-	.remove		= mcp_sa11x0_remove,
+-	.driver		= {
+-		.name	= DRIVER_NAME,
+-		.pm	= pm_sleep_ptr(&mcp_sa11x0_pm_ops),
+-	},
+-};
 -
--	struct iio_dev *indio_dev = dev_id;
--	struct lm3533_als *als = iio_priv(indio_dev);
--	u8 zone;
+-/*
+- * This needs re-working
+- */
+-module_platform_driver(mcp_sa11x0_driver);
+-
+-MODULE_ALIAS("platform:" DRIVER_NAME);
+-MODULE_AUTHOR("Russell King <rmk@arm.linux.org.uk>");
+-MODULE_DESCRIPTION("SA11x0 multimedia communications port driver");
+-MODULE_LICENSE("GPL");
+diff --git a/drivers/mfd/ucb1x00-assabet.c b/drivers/mfd/ucb1x00-assabet.c
+deleted file mode 100644
+index 698f60aa9756..000000000000
+--- a/drivers/mfd/ucb1x00-assabet.c
++++ /dev/null
+@@ -1,175 +0,0 @@
+-// SPDX-License-Identifier: GPL-2.0-only
+-/*
+- *  linux/drivers/mfd/ucb1x00-assabet.c
+- *
+- *  Copyright (C) 2001-2003 Russell King, All Rights Reserved.
+- *
+- *  We handle the machine-specific bits of the UCB1x00 driver here.
+- */
+-#include <linux/device.h>
+-#include <linux/err.h>
+-#include <linux/fs.h>
+-#include <linux/gpio/machine.h>
+-#include <linux/gpio/property.h>
+-#include <linux/init.h>
+-#include <linux/input.h>
+-#include <linux/module.h>
+-#include <linux/platform_device.h>
+-#include <linux/proc_fs.h>
+-#include <linux/property.h>
+-#include <linux/slab.h>
+-#include <linux/mfd/ucb1x00.h>
+-
+-#define UCB1X00_ATTR(name,input)\
+-static ssize_t name##_show(struct device *dev, struct device_attribute *attr, \
+-			   char *buf)	\
+-{								\
+-	struct ucb1x00 *ucb = classdev_to_ucb1x00(dev);		\
+-	int val;						\
+-	ucb1x00_adc_enable(ucb);				\
+-	val = ucb1x00_adc_read(ucb, input, UCB_NOSYNC);		\
+-	ucb1x00_adc_disable(ucb);				\
+-	return sprintf(buf, "%d\n", val);			\
+-}								\
+-static DEVICE_ATTR_RO(name)
+-
+-UCB1X00_ATTR(vbatt, UCB_ADC_INP_AD1);
+-UCB1X00_ATTR(vcharger, UCB_ADC_INP_AD0);
+-UCB1X00_ATTR(batt_temp, UCB_ADC_INP_AD2);
+-
+-static const struct property_entry ucb1x00_gpio_keys_props[] = {
+-	PROPERTY_ENTRY_STRING("label", "ucb1x00"),
+-	PROPERTY_ENTRY_U32("poll-interval", 50),
+-	{ }
+-};
+-
+-#define UCB1X00_BTN_PROPS(_idx)						\
+-struct property_entry ucb1x00_btn##_idx##_props[] = {			\
+-	PROPERTY_ENTRY_U32("linux,code", BTN_0 + (_idx)),		\
+-	PROPERTY_ENTRY_GPIO("gpios", &ucb1x00_gpiochip_node,		\
+-			    _idx, GPIO_ACTIVE_HIGH),			\
+-	PROPERTY_ENTRY_STRING("label", "btn" #_idx),			\
+-	PROPERTY_ENTRY_BOOL("linux,can-disable"),			\
+-	{ }								\
+-}
+-
+-static const UCB1X00_BTN_PROPS(0);
+-static const UCB1X00_BTN_PROPS(1);
+-static const UCB1X00_BTN_PROPS(2);
+-static const UCB1X00_BTN_PROPS(3);
+-static const UCB1X00_BTN_PROPS(4);
+-static const UCB1X00_BTN_PROPS(5);
+-
+-static const struct property_entry * const ucb1x00_btn_props[] = {
+-	ucb1x00_btn0_props,
+-	ucb1x00_btn1_props,
+-	ucb1x00_btn2_props,
+-	ucb1x00_btn3_props,
+-	ucb1x00_btn4_props,
+-	ucb1x00_btn5_props,
+-};
+-
+-struct ucb1x00_assabet_priv {
+-	struct platform_device *pdev;
+-	struct fwnode_handle *keys_node;
+-	struct fwnode_handle *button_nodes[ARRAY_SIZE(ucb1x00_btn_props)];
+-};
+-
+-static void ucb1x00_assabet_remove_nodes(struct ucb1x00_assabet_priv *priv, int n)
+-{
+-	while (--n >= 0)
+-		fwnode_remove_software_node(priv->button_nodes[n]);
+-
+-	fwnode_remove_software_node(priv->keys_node);
+-}
+-
+-static int ucb1x00_assabet_add(struct ucb1x00_dev *dev)
+-{
+-	struct ucb1x00 *ucb = dev->ucb;
+-	struct platform_device_info pdevinfo = {
+-		.name = "gpio-keys",
+-		.id = PLATFORM_DEVID_NONE,
+-		.parent = &ucb->dev,
+-	};
+-	int ret;
+-	int i;
+-
+-	struct ucb1x00_assabet_priv *priv;
+-
+-	priv = kzalloc_obj(*priv);
+-	if (!priv)
+-		return -ENOMEM;
+-
+-	priv->keys_node = fwnode_create_software_node(ucb1x00_gpio_keys_props, NULL);
+-	if (IS_ERR(priv->keys_node)) {
+-		ret = PTR_ERR(priv->keys_node);
+-		goto err_free_priv;
+-	}
+-
+-	for (i = 0; i < ARRAY_SIZE(ucb1x00_btn_props); i++) {
+-		priv->button_nodes[i] = fwnode_create_software_node(ucb1x00_btn_props[i],
+-								    priv->keys_node);
+-		if (IS_ERR(priv->button_nodes[i])) {
+-			ret = PTR_ERR(priv->button_nodes[i]);
+-			goto err_free_buttons;
+-		}
+-	}
+-
+-	pdevinfo.fwnode = priv->keys_node;
+-
+-	priv->pdev = platform_device_register_full(&pdevinfo);
+-	ret = PTR_ERR_OR_ZERO(priv->pdev);
+-	if (ret)
+-		goto err_free_buttons;
+-
+-	device_create_file(&ucb->dev, &dev_attr_vbatt);
+-	device_create_file(&ucb->dev, &dev_attr_vcharger);
+-	device_create_file(&ucb->dev, &dev_attr_batt_temp);
+-
+-	dev->priv = priv;
+-	return 0;
+-
+-err_free_buttons:
+-	ucb1x00_assabet_remove_nodes(priv, i);
+-err_free_priv:
+-	kfree(priv);
+-	return ret;
+-}
+-
+-static void ucb1x00_assabet_remove(struct ucb1x00_dev *dev)
+-{
+-	struct ucb1x00_assabet_priv *priv = dev->priv;
+-
+-	if (!IS_ERR(priv->pdev))
+-		platform_device_unregister(priv->pdev);
+-
+-	ucb1x00_assabet_remove_nodes(priv, ARRAY_SIZE(priv->button_nodes));
+-
+-	device_remove_file(&dev->ucb->dev, &dev_attr_batt_temp);
+-	device_remove_file(&dev->ucb->dev, &dev_attr_vcharger);
+-	device_remove_file(&dev->ucb->dev, &dev_attr_vbatt);
+-
+-	kfree(priv);
+-}
+-
+-static struct ucb1x00_driver ucb1x00_assabet_driver = {
+-	.add	= ucb1x00_assabet_add,
+-	.remove	= ucb1x00_assabet_remove,
+-};
+-
+-static int __init ucb1x00_assabet_init(void)
+-{
+-	return ucb1x00_register_driver(&ucb1x00_assabet_driver);
+-}
+-
+-static void __exit ucb1x00_assabet_exit(void)
+-{
+-	ucb1x00_unregister_driver(&ucb1x00_assabet_driver);
+-}
+-
+-module_init(ucb1x00_assabet_init);
+-module_exit(ucb1x00_assabet_exit);
+-
+-MODULE_AUTHOR("Russell King <rmk@arm.linux.org.uk>");
+-MODULE_DESCRIPTION("Assabet noddy testing only example ADC driver");
+-MODULE_LICENSE("GPL");
+diff --git a/drivers/mfd/ucb1x00-core.c b/drivers/mfd/ucb1x00-core.c
+deleted file mode 100644
+index 90edf0352d05..000000000000
+--- a/drivers/mfd/ucb1x00-core.c
++++ /dev/null
+@@ -1,795 +0,0 @@
+-// SPDX-License-Identifier: GPL-2.0-only
+-/*
+- *  linux/drivers/mfd/ucb1x00-core.c
+- *
+- *  Copyright (C) 2001 Russell King, All Rights Reserved.
+- *
+- *  The UCB1x00 core driver provides basic services for handling IO,
+- *  the ADC, interrupts, and accessing registers.  It is designed
+- *  such that everything goes through this layer, thereby providing
+- *  a consistent locking methodology, as well as allowing the drivers
+- *  to be used on other non-MCP-enabled hardware platforms.
+- *
+- *  Note that all locks are private to this file.  Nothing else may
+- *  touch them.
+- */
+-#include <linux/module.h>
+-#include <linux/kernel.h>
+-#include <linux/sched.h>
+-#include <linux/slab.h>
+-#include <linux/init.h>
+-#include <linux/errno.h>
+-#include <linux/interrupt.h>
+-#include <linux/irq.h>
+-#include <linux/device.h>
+-#include <linux/mutex.h>
+-#include <linux/mfd/ucb1x00.h>
+-#include <linux/pm.h>
+-#include <linux/property.h>
+-#include <linux/gpio/driver.h>
+-
+-static DEFINE_MUTEX(ucb1x00_mutex);
+-static LIST_HEAD(ucb1x00_drivers);
+-static LIST_HEAD(ucb1x00_devices);
+-
+-/**
+- *	ucb1x00_io_set_dir - set IO direction
+- *	@ucb: UCB1x00 structure describing chip
+- *	@in:  bitfield of IO pins to be set as inputs
+- *	@out: bitfield of IO pins to be set as outputs
+- *
+- *	Set the IO direction of the ten general purpose IO pins on
+- *	the UCB1x00 chip.  The @in bitfield has priority over the
+- *	@out bitfield, in that if you specify a pin as both input
+- *	and output, it will end up as an input.
+- *
+- *	ucb1x00_enable must have been called to enable the comms
+- *	before using this function.
+- *
+- *	This function takes a spinlock, disabling interrupts.
+- */
+-void ucb1x00_io_set_dir(struct ucb1x00 *ucb, unsigned int in, unsigned int out)
+-{
+-	unsigned long flags;
+-
+-	spin_lock_irqsave(&ucb->io_lock, flags);
+-	ucb->io_dir |= out;
+-	ucb->io_dir &= ~in;
+-
+-	ucb1x00_reg_write(ucb, UCB_IO_DIR, ucb->io_dir);
+-	spin_unlock_irqrestore(&ucb->io_lock, flags);
+-}
+-
+-/**
+- *	ucb1x00_io_write - set or clear IO outputs
+- *	@ucb:   UCB1x00 structure describing chip
+- *	@set:   bitfield of IO pins to set to logic '1'
+- *	@clear: bitfield of IO pins to set to logic '0'
+- *
+- *	Set the IO output state of the specified IO pins.  The value
+- *	is retained if the pins are subsequently configured as inputs.
+- *	The @clear bitfield has priority over the @set bitfield -
+- *	outputs will be cleared.
+- *
+- *	ucb1x00_enable must have been called to enable the comms
+- *	before using this function.
+- *
+- *	This function takes a spinlock, disabling interrupts.
+- */
+-void ucb1x00_io_write(struct ucb1x00 *ucb, unsigned int set, unsigned int clear)
+-{
+-	unsigned long flags;
+-
+-	spin_lock_irqsave(&ucb->io_lock, flags);
+-	ucb->io_out |= set;
+-	ucb->io_out &= ~clear;
+-
+-	ucb1x00_reg_write(ucb, UCB_IO_DATA, ucb->io_out);
+-	spin_unlock_irqrestore(&ucb->io_lock, flags);
+-}
+-
+-/**
+- *	ucb1x00_io_read - read the current state of the IO pins
+- *	@ucb: UCB1x00 structure describing chip
+- *
+- *	Return a bitfield describing the logic state of the ten
+- *	general purpose IO pins.
+- *
+- *	ucb1x00_enable must have been called to enable the comms
+- *	before using this function.
+- *
+- *	This function does not take any mutexes or spinlocks.
+- */
+-unsigned int ucb1x00_io_read(struct ucb1x00 *ucb)
+-{
+-	return ucb1x00_reg_read(ucb, UCB_IO_DATA);
+-}
+-
+-static int ucb1x00_gpio_set(struct gpio_chip *chip, unsigned int offset,
+-			    int value)
+-{
+-	struct ucb1x00 *ucb = gpiochip_get_data(chip);
+-	unsigned long flags;
+-
+-	spin_lock_irqsave(&ucb->io_lock, flags);
+-	if (value)
+-		ucb->io_out |= 1 << offset;
+-	else
+-		ucb->io_out &= ~(1 << offset);
+-
+-	ucb1x00_enable(ucb);
+-	ucb1x00_reg_write(ucb, UCB_IO_DATA, ucb->io_out);
+-	ucb1x00_disable(ucb);
+-	spin_unlock_irqrestore(&ucb->io_lock, flags);
+-
+-	return 0;
+-}
+-
+-static int ucb1x00_gpio_get(struct gpio_chip *chip, unsigned offset)
+-{
+-	struct ucb1x00 *ucb = gpiochip_get_data(chip);
+-	unsigned val;
+-
+-	ucb1x00_enable(ucb);
+-	val = ucb1x00_reg_read(ucb, UCB_IO_DATA);
+-	ucb1x00_disable(ucb);
+-
+-	return !!(val & (1 << offset));
+-}
+-
+-static int ucb1x00_gpio_direction_input(struct gpio_chip *chip, unsigned offset)
+-{
+-	struct ucb1x00 *ucb = gpiochip_get_data(chip);
+-	unsigned long flags;
+-
+-	spin_lock_irqsave(&ucb->io_lock, flags);
+-	ucb->io_dir &= ~(1 << offset);
+-	ucb1x00_enable(ucb);
+-	ucb1x00_reg_write(ucb, UCB_IO_DIR, ucb->io_dir);
+-	ucb1x00_disable(ucb);
+-	spin_unlock_irqrestore(&ucb->io_lock, flags);
+-
+-	return 0;
+-}
+-
+-static int ucb1x00_gpio_direction_output(struct gpio_chip *chip, unsigned offset
+-		, int value)
+-{
+-	struct ucb1x00 *ucb = gpiochip_get_data(chip);
+-	unsigned long flags;
+-	unsigned old, mask = 1 << offset;
+-
+-	spin_lock_irqsave(&ucb->io_lock, flags);
+-	old = ucb->io_out;
+-	if (value)
+-		ucb->io_out |= mask;
+-	else
+-		ucb->io_out &= ~mask;
+-
+-	ucb1x00_enable(ucb);
+-	if (old != ucb->io_out)
+-		ucb1x00_reg_write(ucb, UCB_IO_DATA, ucb->io_out);
+-
+-	if (!(ucb->io_dir & mask)) {
+-		ucb->io_dir |= mask;
+-		ucb1x00_reg_write(ucb, UCB_IO_DIR, ucb->io_dir);
+-	}
+-	ucb1x00_disable(ucb);
+-	spin_unlock_irqrestore(&ucb->io_lock, flags);
+-
+-	return 0;
+-}
+-
+-static int ucb1x00_to_irq(struct gpio_chip *chip, unsigned offset)
+-{
+-	struct ucb1x00 *ucb = gpiochip_get_data(chip);
+-
+-	return ucb->irq_base > 0 ? ucb->irq_base + offset : -ENXIO;
+-}
+-
+-/*
+- * UCB1300 data sheet says we must:
+- *  1. enable ADC	=> 5us (including reference startup time)
+- *  2. select input	=> 51*tsibclk  => 4.3us
+- *  3. start conversion	=> 102*tsibclk => 8.5us
+- * (tsibclk = 1/11981000)
+- * Period between SIB 128-bit frames = 10.7us
+- */
+-
+-/**
+- *	ucb1x00_adc_enable - enable the ADC converter
+- *	@ucb: UCB1x00 structure describing chip
+- *
+- *	Enable the ucb1x00 and ADC converter on the UCB1x00 for use.
+- *	Any code wishing to use the ADC converter must call this
+- *	function prior to using it.
+- *
+- *	This function takes the ADC mutex to prevent two or more
+- *	concurrent uses, and therefore may sleep.  As a result, it
+- *	can only be called from process context, not interrupt
+- *	context.
+- *
+- *	You should release the ADC as soon as possible using
+- *	ucb1x00_adc_disable.
+- */
+-void ucb1x00_adc_enable(struct ucb1x00 *ucb)
+-{
+-	mutex_lock(&ucb->adc_mutex);
+-
+-	ucb->adc_cr |= UCB_ADC_ENA;
+-
+-	ucb1x00_enable(ucb);
+-	ucb1x00_reg_write(ucb, UCB_ADC_CR, ucb->adc_cr);
+-}
+-
+-/**
+- *	ucb1x00_adc_read - read the specified ADC channel
+- *	@ucb: UCB1x00 structure describing chip
+- *	@adc_channel: ADC channel mask
+- *	@sync: wait for syncronisation pulse.
+- *
+- *	Start an ADC conversion and wait for the result.  Note that
+- *	synchronised ADC conversions (via the ADCSYNC pin) must wait
+- *	until the trigger is asserted and the conversion is finished.
+- *
+- *	This function currently spins waiting for the conversion to
+- *	complete (2 frames max without sync).
+- *
+- *	If called for a synchronised ADC conversion, it may sleep
+- *	with the ADC mutex held.
+- */
+-unsigned int ucb1x00_adc_read(struct ucb1x00 *ucb, int adc_channel, int sync)
+-{
+-	unsigned int val;
+-
+-	if (sync)
+-		adc_channel |= UCB_ADC_SYNC_ENA;
+-
+-	ucb1x00_reg_write(ucb, UCB_ADC_CR, ucb->adc_cr | adc_channel);
+-	ucb1x00_reg_write(ucb, UCB_ADC_CR, ucb->adc_cr | adc_channel | UCB_ADC_START);
+-
+-	for (;;) {
+-		val = ucb1x00_reg_read(ucb, UCB_ADC_DATA);
+-		if (val & UCB_ADC_DAT_VAL)
+-			break;
+-		/* yield to other processes */
+-		set_current_state(TASK_INTERRUPTIBLE);
+-		schedule_timeout(1);
+-	}
+-
+-	return UCB_ADC_DAT(val);
+-}
+-
+-/**
+- *	ucb1x00_adc_disable - disable the ADC converter
+- *	@ucb: UCB1x00 structure describing chip
+- *
+- *	Disable the ADC converter and release the ADC mutex.
+- */
+-void ucb1x00_adc_disable(struct ucb1x00 *ucb)
+-{
+-	ucb->adc_cr &= ~UCB_ADC_ENA;
+-	ucb1x00_reg_write(ucb, UCB_ADC_CR, ucb->adc_cr);
+-	ucb1x00_disable(ucb);
+-
+-	mutex_unlock(&ucb->adc_mutex);
+-}
+-
+-/*
+- * UCB1x00 Interrupt handling.
+- *
+- * The UCB1x00 can generate interrupts when the SIBCLK is stopped.
+- * Since we need to read an internal register, we must re-enable
+- * SIBCLK to talk to the chip.  We leave the clock running until
+- * we have finished processing all interrupts from the chip.
+- */
+-static void ucb1x00_irq(struct irq_desc *desc)
+-{
+-	struct ucb1x00 *ucb = irq_desc_get_handler_data(desc);
+-	unsigned int isr, i;
+-
+-	ucb1x00_enable(ucb);
+-	isr = ucb1x00_reg_read(ucb, UCB_IE_STATUS);
+-	ucb1x00_reg_write(ucb, UCB_IE_CLEAR, isr);
+-	ucb1x00_reg_write(ucb, UCB_IE_CLEAR, 0);
+-
+-	for (i = 0; i < 16 && isr; i++, isr >>= 1)
+-		if (isr & 1)
+-			generic_handle_irq(ucb->irq_base + i);
+-	ucb1x00_disable(ucb);
+-}
+-
+-static void ucb1x00_irq_update(struct ucb1x00 *ucb, unsigned mask)
+-{
+-	ucb1x00_enable(ucb);
+-	if (ucb->irq_ris_enbl & mask)
+-		ucb1x00_reg_write(ucb, UCB_IE_RIS, ucb->irq_ris_enbl &
+-				  ucb->irq_mask);
+-	if (ucb->irq_fal_enbl & mask)
+-		ucb1x00_reg_write(ucb, UCB_IE_FAL, ucb->irq_fal_enbl &
+-				  ucb->irq_mask);
+-	ucb1x00_disable(ucb);
+-}
+-
+-static void ucb1x00_irq_noop(struct irq_data *data)
+-{
+-}
+-
+-static void ucb1x00_irq_mask(struct irq_data *data)
+-{
+-	struct ucb1x00 *ucb = irq_data_get_irq_chip_data(data);
+-	unsigned mask = 1 << (data->irq - ucb->irq_base);
+-
+-	raw_spin_lock(&ucb->irq_lock);
+-	ucb->irq_mask &= ~mask;
+-	ucb1x00_irq_update(ucb, mask);
+-	raw_spin_unlock(&ucb->irq_lock);
+-}
+-
+-static void ucb1x00_irq_unmask(struct irq_data *data)
+-{
+-	struct ucb1x00 *ucb = irq_data_get_irq_chip_data(data);
+-	unsigned mask = 1 << (data->irq - ucb->irq_base);
+-
+-	raw_spin_lock(&ucb->irq_lock);
+-	ucb->irq_mask |= mask;
+-	ucb1x00_irq_update(ucb, mask);
+-	raw_spin_unlock(&ucb->irq_lock);
+-}
+-
+-static int ucb1x00_irq_set_type(struct irq_data *data, unsigned int type)
+-{
+-	struct ucb1x00 *ucb = irq_data_get_irq_chip_data(data);
+-	unsigned mask = 1 << (data->irq - ucb->irq_base);
+-
+-	raw_spin_lock(&ucb->irq_lock);
+-	if (type & IRQ_TYPE_EDGE_RISING)
+-		ucb->irq_ris_enbl |= mask;
+-	else
+-		ucb->irq_ris_enbl &= ~mask;
+-
+-	if (type & IRQ_TYPE_EDGE_FALLING)
+-		ucb->irq_fal_enbl |= mask;
+-	else
+-		ucb->irq_fal_enbl &= ~mask;
+-	if (ucb->irq_mask & mask) {
+-		ucb1x00_reg_write(ucb, UCB_IE_RIS, ucb->irq_ris_enbl &
+-				  ucb->irq_mask);
+-		ucb1x00_reg_write(ucb, UCB_IE_FAL, ucb->irq_fal_enbl &
+-				  ucb->irq_mask);
+-	}
+-	raw_spin_unlock(&ucb->irq_lock);
+-
+-	return 0;
+-}
+-
+-static int ucb1x00_irq_set_wake(struct irq_data *data, unsigned int on)
+-{
+-	struct ucb1x00 *ucb = irq_data_get_irq_chip_data(data);
+-	struct ucb1x00_plat_data *pdata = ucb->mcp->attached_device.platform_data;
+-	unsigned mask = 1 << (data->irq - ucb->irq_base);
+-
+-	if (!pdata || !pdata->can_wakeup)
+-		return -EINVAL;
+-
+-	raw_spin_lock(&ucb->irq_lock);
+-	if (on)
+-		ucb->irq_wake |= mask;
+-	else
+-		ucb->irq_wake &= ~mask;
+-	raw_spin_unlock(&ucb->irq_lock);
+-
+-	return 0;
+-}
+-
+-static struct irq_chip ucb1x00_irqchip = {
+-	.name = "ucb1x00",
+-	.irq_ack = ucb1x00_irq_noop,
+-	.irq_mask = ucb1x00_irq_mask,
+-	.irq_unmask = ucb1x00_irq_unmask,
+-	.irq_set_type = ucb1x00_irq_set_type,
+-	.irq_set_wake = ucb1x00_irq_set_wake,
+-};
+-
+-static int ucb1x00_add_dev(struct ucb1x00 *ucb, struct ucb1x00_driver *drv)
+-{
+-	struct ucb1x00_dev *dev;
 -	int ret;
 -
--	/* Clear interrupt by reading the ALS zone register. */
--	ret = _lm3533_als_get_zone(indio_dev, &zone);
--	if (ret)
+-	dev = kmalloc_obj(struct ucb1x00_dev);
+-	if (!dev)
+-		return -ENOMEM;
+-
+-	dev->ucb = ucb;
+-	dev->drv = drv;
+-
+-	ret = drv->add(dev);
+-	if (ret) {
+-		kfree(dev);
+-		return ret;
+-	}
+-
+-	list_add_tail(&dev->dev_node, &ucb->devs);
+-	list_add_tail(&dev->drv_node, &drv->devs);
+-
+-	return ret;
+-}
+-
+-static void ucb1x00_remove_dev(struct ucb1x00_dev *dev)
+-{
+-	dev->drv->remove(dev);
+-	list_del(&dev->dev_node);
+-	list_del(&dev->drv_node);
+-	kfree(dev);
+-}
+-
+-/*
+- * Try to probe our interrupt, rather than relying on lots of
+- * hard-coded machine dependencies.  For reference, the expected
+- * IRQ mappings are:
+- *
+- *  	Machine		Default IRQ
+- *	adsbitsy	IRQ_GPCIN4
+- *	cerf		IRQ_GPIO_UCB1200_IRQ
+- *	flexanet	IRQ_GPIO_GUI
+- *	freebird	IRQ_GPIO_FREEBIRD_UCB1300_IRQ
+- *	graphicsclient	ADS_EXT_IRQ(8)
+- *	graphicsmaster	ADS_EXT_IRQ(8)
+- *	lart		LART_IRQ_UCB1200
+- *	omnimeter	IRQ_GPIO23
+- *	pfs168		IRQ_GPIO_UCB1300_IRQ
+- *	simpad		IRQ_GPIO_UCB1300_IRQ
+- *	shannon		SHANNON_IRQ_GPIO_IRQ_CODEC
+- *	yopy		IRQ_GPIO_UCB1200_IRQ
+- */
+-static int ucb1x00_detect_irq(struct ucb1x00 *ucb)
+-{
+-	unsigned long mask;
+-
+-	mask = probe_irq_on();
+-
+-	/*
+-	 * Enable the ADC interrupt.
+-	 */
+-	ucb1x00_reg_write(ucb, UCB_IE_RIS, UCB_IE_ADC);
+-	ucb1x00_reg_write(ucb, UCB_IE_FAL, UCB_IE_ADC);
+-	ucb1x00_reg_write(ucb, UCB_IE_CLEAR, 0xffff);
+-	ucb1x00_reg_write(ucb, UCB_IE_CLEAR, 0);
+-
+-	/*
+-	 * Cause an ADC interrupt.
+-	 */
+-	ucb1x00_reg_write(ucb, UCB_ADC_CR, UCB_ADC_ENA);
+-	ucb1x00_reg_write(ucb, UCB_ADC_CR, UCB_ADC_ENA | UCB_ADC_START);
+-
+-	/*
+-	 * Wait for the conversion to complete.
+-	 */
+-	while ((ucb1x00_reg_read(ucb, UCB_ADC_DATA) & UCB_ADC_DAT_VAL) == 0);
+-	ucb1x00_reg_write(ucb, UCB_ADC_CR, 0);
+-
+-	/*
+-	 * Disable and clear interrupt.
+-	 */
+-	ucb1x00_reg_write(ucb, UCB_IE_RIS, 0);
+-	ucb1x00_reg_write(ucb, UCB_IE_FAL, 0);
+-	ucb1x00_reg_write(ucb, UCB_IE_CLEAR, 0xffff);
+-	ucb1x00_reg_write(ucb, UCB_IE_CLEAR, 0);
+-
+-	/*
+-	 * Read triggered interrupt.
+-	 */
+-	return probe_irq_off(mask);
+-}
+-
+-static void ucb1x00_release(struct device *dev)
+-{
+-	struct ucb1x00 *ucb = classdev_to_ucb1x00(dev);
+-	kfree(ucb);
+-}
+-
+-static struct class ucb1x00_class = {
+-	.name		= "ucb1x00",
+-	.dev_release	= ucb1x00_release,
+-};
+-
+-const struct software_node ucb1x00_gpiochip_node = {
+-	.name = "ucb1x00-gpio",
+-};
+-EXPORT_SYMBOL_GPL(ucb1x00_gpiochip_node);
+-
+-static int ucb1x00_probe(struct mcp *mcp)
+-{
+-	struct ucb1x00_plat_data *pdata = mcp->attached_device.platform_data;
+-	struct ucb1x00_driver *drv;
+-	struct ucb1x00 *ucb;
+-	unsigned id, i, irq_base;
+-	int ret = -ENODEV;
+-
+-	/* Tell the platform to deassert the UCB1x00 reset */
+-	if (pdata && pdata->reset)
+-		pdata->reset(UCB_RST_PROBE);
+-
+-	mcp_enable(mcp);
+-	id = mcp_reg_read(mcp, UCB_ID);
+-	mcp_disable(mcp);
+-
+-	if (id != UCB_ID_1200 && id != UCB_ID_1300 && id != UCB_ID_TC35143) {
+-		printk(KERN_WARNING "UCB1x00 ID not found: %04x\n", id);
+-		goto out;
+-	}
+-
+-	ucb = kzalloc_obj(struct ucb1x00);
+-	ret = -ENOMEM;
+-	if (!ucb)
 -		goto out;
 -
--	atomic_set(&als->zone, zone);
+-	device_initialize(&ucb->dev);
+-	ucb->dev.class = &ucb1x00_class;
+-	ucb->dev.parent = &mcp->attached_device;
+-	dev_set_name(&ucb->dev, "ucb1x00");
 -
--	iio_push_event(indio_dev,
--		       IIO_UNMOD_EVENT_CODE(IIO_LIGHT,
--					    0,
--					    IIO_EV_TYPE_THRESH,
--					    IIO_EV_DIR_EITHER),
--		       iio_get_time_ns(indio_dev));
--out:
+-	raw_spin_lock_init(&ucb->irq_lock);
+-	spin_lock_init(&ucb->io_lock);
+-	mutex_init(&ucb->adc_mutex);
+-
+-	ucb->id  = id;
+-	ucb->mcp = mcp;
+-
+-	ret = device_add_software_node(&ucb->dev, &ucb1x00_gpiochip_node);
+-	if (ret)
+-		goto err_swnode_add;
+-
+-	ret = device_add(&ucb->dev);
+-	if (ret)
+-		goto err_dev_add;
+-
+-	ucb1x00_enable(ucb);
+-	ucb->irq = ucb1x00_detect_irq(ucb);
+-	ucb1x00_disable(ucb);
+-	if (!ucb->irq) {
+-		dev_err(&ucb->dev, "IRQ probe failed\n");
+-		ret = -ENODEV;
+-		goto err_no_irq;
+-	}
+-
+-	ucb->gpio.base = -1;
+-	irq_base = pdata ? pdata->irq_base : 0;
+-	ucb->irq_base = irq_alloc_descs(-1, irq_base, 16, -1);
+-	if (ucb->irq_base < 0) {
+-		dev_err(&ucb->dev, "unable to allocate 16 irqs: %d\n",
+-			ucb->irq_base);
+-		ret = ucb->irq_base;
+-		goto err_irq_alloc;
+-	}
+-
+-	for (i = 0; i < 16; i++) {
+-		unsigned irq = ucb->irq_base + i;
+-
+-		irq_set_chip_and_handler(irq, &ucb1x00_irqchip, handle_edge_irq);
+-		irq_set_chip_data(irq, ucb);
+-		irq_clear_status_flags(irq, IRQ_NOREQUEST);
+-	}
+-
+-	irq_set_irq_type(ucb->irq, IRQ_TYPE_EDGE_RISING);
+-	irq_set_chained_handler_and_data(ucb->irq, ucb1x00_irq, ucb);
+-
+-	if (pdata && pdata->gpio_base) {
+-		ucb->gpio.label = dev_name(&ucb->dev);
+-		ucb->gpio.parent = &ucb->dev;
+-		ucb->gpio.owner = THIS_MODULE;
+-		ucb->gpio.base = pdata->gpio_base;
+-		ucb->gpio.ngpio = 10;
+-		ucb->gpio.set = ucb1x00_gpio_set;
+-		ucb->gpio.get = ucb1x00_gpio_get;
+-		ucb->gpio.direction_input = ucb1x00_gpio_direction_input;
+-		ucb->gpio.direction_output = ucb1x00_gpio_direction_output;
+-		ucb->gpio.to_irq = ucb1x00_to_irq;
+-		ret = gpiochip_add_data(&ucb->gpio, ucb);
+-		if (ret)
+-			goto err_gpio_add;
+-	} else
+-		dev_info(&ucb->dev, "gpio_base not set so no gpiolib support");
+-
+-	mcp_set_drvdata(mcp, ucb);
+-
+-	if (pdata)
+-		device_set_wakeup_capable(&ucb->dev, pdata->can_wakeup);
+-
+-	INIT_LIST_HEAD(&ucb->devs);
+-	mutex_lock(&ucb1x00_mutex);
+-	list_add_tail(&ucb->node, &ucb1x00_devices);
+-	list_for_each_entry(drv, &ucb1x00_drivers, node) {
+-		ucb1x00_add_dev(ucb, drv);
+-	}
+-	mutex_unlock(&ucb1x00_mutex);
+-
+-	return ret;
+-
+- err_gpio_add:
+-	irq_set_chained_handler(ucb->irq, NULL);
+- err_irq_alloc:
+-	if (ucb->irq_base > 0)
+-		irq_free_descs(ucb->irq_base, 16);
+- err_no_irq:
+-	device_del(&ucb->dev);
+- err_dev_add:
+-	device_remove_software_node(&ucb->dev);
+- err_swnode_add:
+-	put_device(&ucb->dev);
+- out:
+-	if (pdata && pdata->reset)
+-		pdata->reset(UCB_RST_PROBE_FAIL);
+-	return ret;
+-}
+-
+-static void ucb1x00_remove(struct mcp *mcp)
+-{
+-	struct ucb1x00_plat_data *pdata = mcp->attached_device.platform_data;
+-	struct ucb1x00 *ucb = mcp_get_drvdata(mcp);
+-	struct list_head *l, *n;
+-
+-	mutex_lock(&ucb1x00_mutex);
+-	list_del(&ucb->node);
+-	list_for_each_safe(l, n, &ucb->devs) {
+-		struct ucb1x00_dev *dev = list_entry(l, struct ucb1x00_dev, dev_node);
+-		ucb1x00_remove_dev(dev);
+-	}
+-	mutex_unlock(&ucb1x00_mutex);
+-
+-	if (ucb->gpio.base != -1)
+-		gpiochip_remove(&ucb->gpio);
+-
+-	irq_set_chained_handler(ucb->irq, NULL);
+-	irq_free_descs(ucb->irq_base, 16);
+-	device_del(&ucb->dev);
+-	device_remove_software_node(&ucb->dev);
+-	put_device(&ucb->dev);
+-
+-	if (pdata && pdata->reset)
+-		pdata->reset(UCB_RST_REMOVE);
+-}
+-
+-int ucb1x00_register_driver(struct ucb1x00_driver *drv)
+-{
+-	struct ucb1x00 *ucb;
+-
+-	INIT_LIST_HEAD(&drv->devs);
+-	mutex_lock(&ucb1x00_mutex);
+-	list_add_tail(&drv->node, &ucb1x00_drivers);
+-	list_for_each_entry(ucb, &ucb1x00_devices, node) {
+-		ucb1x00_add_dev(ucb, drv);
+-	}
+-	mutex_unlock(&ucb1x00_mutex);
+-	return 0;
+-}
+-
+-void ucb1x00_unregister_driver(struct ucb1x00_driver *drv)
+-{
+-	struct list_head *n, *l;
+-
+-	mutex_lock(&ucb1x00_mutex);
+-	list_del(&drv->node);
+-	list_for_each_safe(l, n, &drv->devs) {
+-		struct ucb1x00_dev *dev = list_entry(l, struct ucb1x00_dev, drv_node);
+-		ucb1x00_remove_dev(dev);
+-	}
+-	mutex_unlock(&ucb1x00_mutex);
+-}
+-
+-static int ucb1x00_suspend(struct device *dev)
+-{
+-	struct ucb1x00_plat_data *pdata = dev_get_platdata(dev);
+-	struct ucb1x00 *ucb = dev_get_drvdata(dev);
+-	struct ucb1x00_dev *udev;
+-
+-	mutex_lock(&ucb1x00_mutex);
+-	list_for_each_entry(udev, &ucb->devs, dev_node) {
+-		if (udev->drv->suspend)
+-			udev->drv->suspend(udev);
+-	}
+-	mutex_unlock(&ucb1x00_mutex);
+-
+-	if (ucb->irq_wake) {
+-		unsigned long flags;
+-
+-		raw_spin_lock_irqsave(&ucb->irq_lock, flags);
+-		ucb1x00_enable(ucb);
+-		ucb1x00_reg_write(ucb, UCB_IE_RIS, ucb->irq_ris_enbl &
+-				  ucb->irq_wake);
+-		ucb1x00_reg_write(ucb, UCB_IE_FAL, ucb->irq_fal_enbl &
+-				  ucb->irq_wake);
+-		ucb1x00_disable(ucb);
+-		raw_spin_unlock_irqrestore(&ucb->irq_lock, flags);
+-
+-		enable_irq_wake(ucb->irq);
+-	} else if (pdata && pdata->reset)
+-		pdata->reset(UCB_RST_SUSPEND);
+-
+-	return 0;
+-}
+-
+-static int ucb1x00_resume(struct device *dev)
+-{
+-	struct ucb1x00_plat_data *pdata = dev_get_platdata(dev);
+-	struct ucb1x00 *ucb = dev_get_drvdata(dev);
+-	struct ucb1x00_dev *udev;
+-
+-	if (!ucb->irq_wake && pdata && pdata->reset)
+-		pdata->reset(UCB_RST_RESUME);
+-
+-	ucb1x00_enable(ucb);
+-	ucb1x00_reg_write(ucb, UCB_IO_DATA, ucb->io_out);
+-	ucb1x00_reg_write(ucb, UCB_IO_DIR, ucb->io_dir);
+-
+-	if (ucb->irq_wake) {
+-		unsigned long flags;
+-
+-		raw_spin_lock_irqsave(&ucb->irq_lock, flags);
+-		ucb1x00_reg_write(ucb, UCB_IE_RIS, ucb->irq_ris_enbl &
+-				  ucb->irq_mask);
+-		ucb1x00_reg_write(ucb, UCB_IE_FAL, ucb->irq_fal_enbl &
+-				  ucb->irq_mask);
+-		raw_spin_unlock_irqrestore(&ucb->irq_lock, flags);
+-
+-		disable_irq_wake(ucb->irq);
+-	}
+-	ucb1x00_disable(ucb);
+-
+-	mutex_lock(&ucb1x00_mutex);
+-	list_for_each_entry(udev, &ucb->devs, dev_node) {
+-		if (udev->drv->resume)
+-			udev->drv->resume(udev);
+-	}
+-	mutex_unlock(&ucb1x00_mutex);
+-	return 0;
+-}
+-
+-static DEFINE_SIMPLE_DEV_PM_OPS(ucb1x00_pm_ops,
+-				ucb1x00_suspend, ucb1x00_resume);
+-
+-static struct mcp_driver ucb1x00_driver = {
+-	.drv		= {
+-		.name	= "ucb1x00",
+-		.owner	= THIS_MODULE,
+-		.pm	= pm_sleep_ptr(&ucb1x00_pm_ops),
+-	},
+-	.probe		= ucb1x00_probe,
+-	.remove		= ucb1x00_remove,
+-};
+-
+-static int __init ucb1x00_init(void)
+-{
+-	int ret = class_register(&ucb1x00_class);
+-	if (ret == 0) {
+-		ret = mcp_driver_register(&ucb1x00_driver);
+-		if (ret)
+-			class_unregister(&ucb1x00_class);
+-	}
+-	return ret;
+-}
+-
+-static void __exit ucb1x00_exit(void)
+-{
+-	mcp_driver_unregister(&ucb1x00_driver);
+-	class_unregister(&ucb1x00_class);
+-}
+-
+-module_init(ucb1x00_init);
+-module_exit(ucb1x00_exit);
+-
+-EXPORT_SYMBOL(ucb1x00_io_set_dir);
+-EXPORT_SYMBOL(ucb1x00_io_write);
+-EXPORT_SYMBOL(ucb1x00_io_read);
+-
+-EXPORT_SYMBOL(ucb1x00_adc_enable);
+-EXPORT_SYMBOL(ucb1x00_adc_read);
+-EXPORT_SYMBOL(ucb1x00_adc_disable);
+-
+-EXPORT_SYMBOL(ucb1x00_register_driver);
+-EXPORT_SYMBOL(ucb1x00_unregister_driver);
+-
+-MODULE_ALIAS("mcp:ucb1x00");
+-MODULE_AUTHOR("Russell King <rmk@arm.linux.org.uk>");
+-MODULE_DESCRIPTION("UCB1x00 core driver");
+-MODULE_LICENSE("GPL");
+diff --git a/drivers/mfd/ucb1x00-ts.c b/drivers/mfd/ucb1x00-ts.c
+deleted file mode 100644
+index 39fe187eea1f..000000000000
+--- a/drivers/mfd/ucb1x00-ts.c
++++ /dev/null
+@@ -1,445 +0,0 @@
+-// SPDX-License-Identifier: GPL-2.0-only
+-/*
+- *  Touchscreen driver for UCB1x00-based touchscreens
+- *
+- *  Copyright (C) 2001 Russell King, All Rights Reserved.
+- *  Copyright (C) 2005 Pavel Machek
+- *
+- * 21-Jan-2002 <jco@ict.es> :
+- *
+- * Added support for synchronous A/D mode. This mode is useful to
+- * avoid noise induced in the touchpanel by the LCD, provided that
+- * the UCB1x00 has a valid LCD sync signal routed to its ADCSYNC pin.
+- * It is important to note that the signal connected to the ADCSYNC
+- * pin should provide pulses even when the LCD is blanked, otherwise
+- * a pen touch needed to unblank the LCD will never be read.
+- */
+-#include <linux/module.h>
+-#include <linux/moduleparam.h>
+-#include <linux/init.h>
+-#include <linux/interrupt.h>
+-#include <linux/sched.h>
+-#include <linux/spinlock.h>
+-#include <linux/completion.h>
+-#include <linux/delay.h>
+-#include <linux/string.h>
+-#include <linux/input.h>
+-#include <linux/device.h>
+-#include <linux/freezer.h>
+-#include <linux/slab.h>
+-#include <linux/kthread.h>
+-#include <linux/mfd/ucb1x00.h>
+-
+-#include <mach/collie.h>
+-#include <asm/mach-types.h>
+-
+-
+-
+-struct ucb1x00_ts {
+-	struct input_dev	*idev;
+-	struct ucb1x00		*ucb;
+-
+-	spinlock_t		irq_lock;
+-	unsigned		irq_disabled;
+-	wait_queue_head_t	irq_wait;
+-	struct task_struct	*rtask;
+-	u16			x_res;
+-	u16			y_res;
+-
+-	unsigned int		adcsync:1;
+-};
+-
+-static int adcsync;
+-
+-static inline void ucb1x00_ts_evt_add(struct ucb1x00_ts *ts, u16 pressure, u16 x, u16 y)
+-{
+-	struct input_dev *idev = ts->idev;
+-
+-	input_report_abs(idev, ABS_X, x);
+-	input_report_abs(idev, ABS_Y, y);
+-	input_report_abs(idev, ABS_PRESSURE, pressure);
+-	input_report_key(idev, BTN_TOUCH, 1);
+-	input_sync(idev);
+-}
+-
+-static inline void ucb1x00_ts_event_release(struct ucb1x00_ts *ts)
+-{
+-	struct input_dev *idev = ts->idev;
+-
+-	input_report_abs(idev, ABS_PRESSURE, 0);
+-	input_report_key(idev, BTN_TOUCH, 0);
+-	input_sync(idev);
+-}
+-
+-/*
+- * Switch to interrupt mode.
+- */
+-static inline void ucb1x00_ts_mode_int(struct ucb1x00_ts *ts)
+-{
+-	ucb1x00_reg_write(ts->ucb, UCB_TS_CR,
+-			UCB_TS_CR_TSMX_POW | UCB_TS_CR_TSPX_POW |
+-			UCB_TS_CR_TSMY_GND | UCB_TS_CR_TSPY_GND |
+-			UCB_TS_CR_MODE_INT);
+-}
+-
+-/*
+- * Switch to pressure mode, and read pressure.  We don't need to wait
+- * here, since both plates are being driven.
+- */
+-static inline unsigned int ucb1x00_ts_read_pressure(struct ucb1x00_ts *ts)
+-{
+-	if (machine_is_collie()) {
+-		ucb1x00_io_write(ts->ucb, COLLIE_TC35143_GPIO_TBL_CHK, 0);
+-		ucb1x00_reg_write(ts->ucb, UCB_TS_CR,
+-				  UCB_TS_CR_TSPX_POW | UCB_TS_CR_TSMX_POW |
+-				  UCB_TS_CR_MODE_POS | UCB_TS_CR_BIAS_ENA);
+-
+-		udelay(55);
+-
+-		return ucb1x00_adc_read(ts->ucb, UCB_ADC_INP_AD2, ts->adcsync);
+-	} else {
+-		ucb1x00_reg_write(ts->ucb, UCB_TS_CR,
+-				  UCB_TS_CR_TSMX_POW | UCB_TS_CR_TSPX_POW |
+-				  UCB_TS_CR_TSMY_GND | UCB_TS_CR_TSPY_GND |
+-				  UCB_TS_CR_MODE_PRES | UCB_TS_CR_BIAS_ENA);
+-
+-		return ucb1x00_adc_read(ts->ucb, UCB_ADC_INP_TSPY, ts->adcsync);
+-	}
+-}
+-
+-/*
+- * Switch to X position mode and measure Y plate.  We switch the plate
+- * configuration in pressure mode, then switch to position mode.  This
+- * gives a faster response time.  Even so, we need to wait about 55us
+- * for things to stabilise.
+- */
+-static inline unsigned int ucb1x00_ts_read_xpos(struct ucb1x00_ts *ts)
+-{
+-	if (machine_is_collie())
+-		ucb1x00_io_write(ts->ucb, 0, COLLIE_TC35143_GPIO_TBL_CHK);
+-	else {
+-		ucb1x00_reg_write(ts->ucb, UCB_TS_CR,
+-				  UCB_TS_CR_TSMX_GND | UCB_TS_CR_TSPX_POW |
+-				  UCB_TS_CR_MODE_PRES | UCB_TS_CR_BIAS_ENA);
+-		ucb1x00_reg_write(ts->ucb, UCB_TS_CR,
+-				  UCB_TS_CR_TSMX_GND | UCB_TS_CR_TSPX_POW |
+-				  UCB_TS_CR_MODE_PRES | UCB_TS_CR_BIAS_ENA);
+-	}
+-	ucb1x00_reg_write(ts->ucb, UCB_TS_CR,
+-			UCB_TS_CR_TSMX_GND | UCB_TS_CR_TSPX_POW |
+-			UCB_TS_CR_MODE_POS | UCB_TS_CR_BIAS_ENA);
+-
+-	udelay(55);
+-
+-	return ucb1x00_adc_read(ts->ucb, UCB_ADC_INP_TSPY, ts->adcsync);
+-}
+-
+-/*
+- * Switch to Y position mode and measure X plate.  We switch the plate
+- * configuration in pressure mode, then switch to position mode.  This
+- * gives a faster response time.  Even so, we need to wait about 55us
+- * for things to stabilise.
+- */
+-static inline unsigned int ucb1x00_ts_read_ypos(struct ucb1x00_ts *ts)
+-{
+-	if (machine_is_collie())
+-		ucb1x00_io_write(ts->ucb, 0, COLLIE_TC35143_GPIO_TBL_CHK);
+-	else {
+-		ucb1x00_reg_write(ts->ucb, UCB_TS_CR,
+-				  UCB_TS_CR_TSMY_GND | UCB_TS_CR_TSPY_POW |
+-				  UCB_TS_CR_MODE_PRES | UCB_TS_CR_BIAS_ENA);
+-		ucb1x00_reg_write(ts->ucb, UCB_TS_CR,
+-				  UCB_TS_CR_TSMY_GND | UCB_TS_CR_TSPY_POW |
+-				  UCB_TS_CR_MODE_PRES | UCB_TS_CR_BIAS_ENA);
+-	}
+-
+-	ucb1x00_reg_write(ts->ucb, UCB_TS_CR,
+-			UCB_TS_CR_TSMY_GND | UCB_TS_CR_TSPY_POW |
+-			UCB_TS_CR_MODE_POS | UCB_TS_CR_BIAS_ENA);
+-
+-	udelay(55);
+-
+-	return ucb1x00_adc_read(ts->ucb, UCB_ADC_INP_TSPX, ts->adcsync);
+-}
+-
+-/*
+- * Switch to X plate resistance mode.  Set MX to ground, PX to
+- * supply.  Measure current.
+- */
+-static inline unsigned int ucb1x00_ts_read_xres(struct ucb1x00_ts *ts)
+-{
+-	ucb1x00_reg_write(ts->ucb, UCB_TS_CR,
+-			UCB_TS_CR_TSMX_GND | UCB_TS_CR_TSPX_POW |
+-			UCB_TS_CR_MODE_PRES | UCB_TS_CR_BIAS_ENA);
+-	return ucb1x00_adc_read(ts->ucb, 0, ts->adcsync);
+-}
+-
+-/*
+- * Switch to Y plate resistance mode.  Set MY to ground, PY to
+- * supply.  Measure current.
+- */
+-static inline unsigned int ucb1x00_ts_read_yres(struct ucb1x00_ts *ts)
+-{
+-	ucb1x00_reg_write(ts->ucb, UCB_TS_CR,
+-			UCB_TS_CR_TSMY_GND | UCB_TS_CR_TSPY_POW |
+-			UCB_TS_CR_MODE_PRES | UCB_TS_CR_BIAS_ENA);
+-	return ucb1x00_adc_read(ts->ucb, 0, ts->adcsync);
+-}
+-
+-static inline int ucb1x00_ts_pen_down(struct ucb1x00_ts *ts)
+-{
+-	unsigned int val = ucb1x00_reg_read(ts->ucb, UCB_TS_CR);
+-
+-	if (machine_is_collie())
+-		return (!(val & (UCB_TS_CR_TSPX_LOW)));
+-	else
+-		return (val & (UCB_TS_CR_TSPX_LOW | UCB_TS_CR_TSMX_LOW));
+-}
+-
+-/*
+- * This is a RT kernel thread that handles the ADC accesses
+- * (mainly so we can use semaphores in the UCB1200 core code
+- * to serialise accesses to the ADC).
+- */
+-static int ucb1x00_thread(void *_ts)
+-{
+-	struct ucb1x00_ts *ts = _ts;
+-	DECLARE_WAITQUEUE(wait, current);
+-	bool frozen, ignore = false;
+-	int valid = 0;
+-
+-	set_freezable();
+-	add_wait_queue(&ts->irq_wait, &wait);
+-	while (!kthread_freezable_should_stop(&frozen)) {
+-		unsigned int x, y, p;
+-		signed long timeout;
+-
+-		if (frozen)
+-			ignore = true;
+-
+-		ucb1x00_adc_enable(ts->ucb);
+-
+-		x = ucb1x00_ts_read_xpos(ts);
+-		y = ucb1x00_ts_read_ypos(ts);
+-		p = ucb1x00_ts_read_pressure(ts);
+-
+-		/*
+-		 * Switch back to interrupt mode.
+-		 */
+-		ucb1x00_ts_mode_int(ts);
+-		ucb1x00_adc_disable(ts->ucb);
+-
+-		msleep(10);
+-
+-		ucb1x00_enable(ts->ucb);
+-
+-
+-		if (ucb1x00_ts_pen_down(ts)) {
+-			set_current_state(TASK_INTERRUPTIBLE);
+-
+-			spin_lock_irq(&ts->irq_lock);
+-			if (ts->irq_disabled) {
+-				ts->irq_disabled = 0;
+-				enable_irq(ts->ucb->irq_base + UCB_IRQ_TSPX);
+-			}
+-			spin_unlock_irq(&ts->irq_lock);
+-			ucb1x00_disable(ts->ucb);
+-
+-			/*
+-			 * If we spat out a valid sample set last time,
+-			 * spit out a "pen off" sample here.
+-			 */
+-			if (valid) {
+-				ucb1x00_ts_event_release(ts);
+-				valid = 0;
+-			}
+-
+-			timeout = MAX_SCHEDULE_TIMEOUT;
+-		} else {
+-			ucb1x00_disable(ts->ucb);
+-
+-			/*
+-			 * Filtering is policy.  Policy belongs in user
+-			 * space.  We therefore leave it to user space
+-			 * to do any filtering they please.
+-			 */
+-			if (!ignore) {
+-				ucb1x00_ts_evt_add(ts, p, x, y);
+-				valid = 1;
+-			}
+-
+-			set_current_state(TASK_INTERRUPTIBLE);
+-			timeout = HZ / 100;
+-		}
+-
+-		schedule_timeout(timeout);
+-	}
+-
+-	remove_wait_queue(&ts->irq_wait, &wait);
+-
+-	ts->rtask = NULL;
+-	return 0;
+-}
+-
+-/*
+- * We only detect touch screen _touches_ with this interrupt
+- * handler, and even then we just schedule our task.
+- */
+-static irqreturn_t ucb1x00_ts_irq(int irq, void *id)
+-{
+-	struct ucb1x00_ts *ts = id;
+-
+-	spin_lock(&ts->irq_lock);
+-	ts->irq_disabled = 1;
+-	disable_irq_nosync(ts->ucb->irq_base + UCB_IRQ_TSPX);
+-	spin_unlock(&ts->irq_lock);
+-	wake_up(&ts->irq_wait);
+-
 -	return IRQ_HANDLED;
 -}
 -
--static int lm3533_als_set_int_mode(struct iio_dev *indio_dev, int enable)
+-static int ucb1x00_ts_open(struct input_dev *idev)
 -{
--	struct lm3533_als *als = iio_priv(indio_dev);
--	u8 mask = LM3533_ALS_INT_ENABLE_MASK;
--	u8 val;
--	int ret;
--
--	if (enable)
--		val = mask;
--	else
--		val = 0;
--
--	ret = lm3533_update(als->lm3533, LM3533_REG_ALS_ZONE_INFO, val, mask);
--	if (ret) {
--		dev_err(&indio_dev->dev, "failed to set int mode %d\n",
--								enable);
--		return ret;
--	}
--
--	return 0;
--}
--
--static int lm3533_als_get_int_mode(struct iio_dev *indio_dev, int *enable)
--{
--	struct lm3533_als *als = iio_priv(indio_dev);
--	u8 mask = LM3533_ALS_INT_ENABLE_MASK;
--	u8 val;
--	int ret;
--
--	ret = lm3533_read(als->lm3533, LM3533_REG_ALS_ZONE_INFO, &val);
--	if (ret) {
--		dev_err(&indio_dev->dev, "failed to get int mode\n");
--		return ret;
--	}
--
--	*enable = !!(val & mask);
--
--	return 0;
--}
--
--static inline u8 lm3533_als_get_threshold_reg(unsigned nr, bool raising)
--{
--	u8 offset = !raising;
--
--	return LM3533_REG_ALS_BOUNDARY_BASE + 2 * nr + offset;
--}
--
--static int lm3533_als_get_threshold(struct iio_dev *indio_dev, unsigned nr,
--							bool raising, u8 *val)
--{
--	struct lm3533_als *als = iio_priv(indio_dev);
--	u8 reg;
--	int ret;
--
--	if (nr > LM3533_ALS_THRESH_MAX)
--		return -EINVAL;
--
--	reg = lm3533_als_get_threshold_reg(nr, raising);
--	ret = lm3533_read(als->lm3533, reg, val);
--	if (ret)
--		dev_err(&indio_dev->dev, "failed to get threshold\n");
--
--	return ret;
--}
--
--static int lm3533_als_set_threshold(struct iio_dev *indio_dev, unsigned nr,
--							bool raising, u8 val)
--{
--	struct lm3533_als *als = iio_priv(indio_dev);
--	u8 val2;
--	u8 reg, reg2;
--	int ret;
--
--	if (nr > LM3533_ALS_THRESH_MAX)
--		return -EINVAL;
--
--	reg = lm3533_als_get_threshold_reg(nr, raising);
--	reg2 = lm3533_als_get_threshold_reg(nr, !raising);
--
--	mutex_lock(&als->thresh_mutex);
--	ret = lm3533_read(als->lm3533, reg2, &val2);
--	if (ret) {
--		dev_err(&indio_dev->dev, "failed to get threshold\n");
--		goto out;
--	}
--	/*
--	 * This device does not allow negative hysteresis (in fact, it uses
--	 * whichever value is smaller as the lower bound) so we need to make
--	 * sure that thresh_falling <= thresh_raising.
--	 */
--	if ((raising && (val < val2)) || (!raising && (val > val2))) {
--		ret = -EINVAL;
--		goto out;
--	}
--
--	ret = lm3533_write(als->lm3533, reg, val);
--	if (ret) {
--		dev_err(&indio_dev->dev, "failed to set threshold\n");
--		goto out;
--	}
--out:
--	mutex_unlock(&als->thresh_mutex);
--
--	return ret;
--}
--
--static int lm3533_als_get_hysteresis(struct iio_dev *indio_dev, unsigned nr,
--								u8 *val)
--{
--	struct lm3533_als *als = iio_priv(indio_dev);
--	u8 falling;
--	u8 raising;
--	int ret;
--
--	if (nr > LM3533_ALS_THRESH_MAX)
--		return -EINVAL;
--
--	mutex_lock(&als->thresh_mutex);
--	ret = lm3533_als_get_threshold(indio_dev, nr, false, &falling);
--	if (ret)
--		goto out;
--	ret = lm3533_als_get_threshold(indio_dev, nr, true, &raising);
--	if (ret)
--		goto out;
--
--	*val = raising - falling;
--out:
--	mutex_unlock(&als->thresh_mutex);
--
--	return ret;
--}
--
--static ssize_t show_thresh_either_en(struct device *dev,
--					struct device_attribute *attr,
--					char *buf)
--{
--	struct iio_dev *indio_dev = dev_to_iio_dev(dev);
--	struct lm3533_als *als = iio_priv(indio_dev);
--	int enable;
--	int ret;
--
--	if (als->irq) {
--		ret = lm3533_als_get_int_mode(indio_dev, &enable);
--		if (ret)
--			return ret;
--	} else {
--		enable = 0;
--	}
--
--	return sysfs_emit(buf, "%u\n", enable);
--}
--
--static ssize_t store_thresh_either_en(struct device *dev,
--					struct device_attribute *attr,
--					const char *buf, size_t len)
--{
--	struct iio_dev *indio_dev = dev_to_iio_dev(dev);
--	struct lm3533_als *als = iio_priv(indio_dev);
--	unsigned long enable;
--	bool int_enabled;
--	u8 zone;
--	int ret;
--
--	if (!als->irq)
--		return -EBUSY;
--
--	if (kstrtoul(buf, 0, &enable))
--		return -EINVAL;
--
--	int_enabled = test_bit(LM3533_ALS_FLAG_INT_ENABLED, &als->flags);
--
--	if (enable && !int_enabled) {
--		ret = lm3533_als_get_zone(indio_dev, &zone);
--		if (ret)
--			return ret;
--
--		atomic_set(&als->zone, zone);
--
--		set_bit(LM3533_ALS_FLAG_INT_ENABLED, &als->flags);
--	}
--
--	ret = lm3533_als_set_int_mode(indio_dev, enable);
--	if (ret) {
--		if (!int_enabled)
--			clear_bit(LM3533_ALS_FLAG_INT_ENABLED, &als->flags);
--
--		return ret;
--	}
--
--	if (!enable)
--		clear_bit(LM3533_ALS_FLAG_INT_ENABLED, &als->flags);
--
--	return len;
--}
--
--static ssize_t show_zone(struct device *dev,
--				struct device_attribute *attr, char *buf)
--{
--	struct iio_dev *indio_dev = dev_to_iio_dev(dev);
--	u8 zone;
--	int ret;
--
--	ret = lm3533_als_get_zone(indio_dev, &zone);
--	if (ret)
--		return ret;
--
--	return sysfs_emit(buf, "%u\n", zone);
--}
--
--enum lm3533_als_attribute_type {
--	LM3533_ATTR_TYPE_HYSTERESIS,
--	LM3533_ATTR_TYPE_TARGET,
--	LM3533_ATTR_TYPE_THRESH_FALLING,
--	LM3533_ATTR_TYPE_THRESH_RAISING,
--};
--
--struct lm3533_als_attribute {
--	struct device_attribute dev_attr;
--	enum lm3533_als_attribute_type type;
--	u8 val1;
--	u8 val2;
--};
--
--static inline struct lm3533_als_attribute *
--to_lm3533_als_attr(struct device_attribute *attr)
--{
--	return container_of(attr, struct lm3533_als_attribute, dev_attr);
--}
--
--static ssize_t show_als_attr(struct device *dev,
--					struct device_attribute *attr,
--					char *buf)
--{
--	struct iio_dev *indio_dev = dev_to_iio_dev(dev);
--	struct lm3533_als_attribute *als_attr = to_lm3533_als_attr(attr);
--	u8 val;
--	int ret;
--
--	switch (als_attr->type) {
--	case LM3533_ATTR_TYPE_HYSTERESIS:
--		ret = lm3533_als_get_hysteresis(indio_dev, als_attr->val1,
--									&val);
--		break;
--	case LM3533_ATTR_TYPE_TARGET:
--		ret = lm3533_als_get_target(indio_dev, als_attr->val1,
--							als_attr->val2, &val);
--		break;
--	case LM3533_ATTR_TYPE_THRESH_FALLING:
--		ret = lm3533_als_get_threshold(indio_dev, als_attr->val1,
--								false, &val);
--		break;
--	case LM3533_ATTR_TYPE_THRESH_RAISING:
--		ret = lm3533_als_get_threshold(indio_dev, als_attr->val1,
--								true, &val);
--		break;
--	default:
--		ret = -ENXIO;
--	}
--
--	if (ret)
--		return ret;
--
--	return sysfs_emit(buf, "%u\n", val);
--}
--
--static ssize_t store_als_attr(struct device *dev,
--					struct device_attribute *attr,
--					const char *buf, size_t len)
--{
--	struct iio_dev *indio_dev = dev_to_iio_dev(dev);
--	struct lm3533_als_attribute *als_attr = to_lm3533_als_attr(attr);
--	u8 val;
--	int ret;
--
--	if (kstrtou8(buf, 0, &val))
--		return -EINVAL;
--
--	switch (als_attr->type) {
--	case LM3533_ATTR_TYPE_TARGET:
--		ret = lm3533_als_set_target(indio_dev, als_attr->val1,
--							als_attr->val2, val);
--		break;
--	case LM3533_ATTR_TYPE_THRESH_FALLING:
--		ret = lm3533_als_set_threshold(indio_dev, als_attr->val1,
--								false, val);
--		break;
--	case LM3533_ATTR_TYPE_THRESH_RAISING:
--		ret = lm3533_als_set_threshold(indio_dev, als_attr->val1,
--								true, val);
--		break;
--	default:
--		ret = -ENXIO;
--	}
--
--	if (ret)
--		return ret;
--
--	return len;
--}
--
--#define ALS_ATTR(_name, _mode, _show, _store, _type, _val1, _val2)	\
--	{ .dev_attr	= __ATTR(_name, _mode, _show, _store),		\
--	  .type		= _type,					\
--	  .val1		= _val1,					\
--	  .val2		= _val2 }
--
--#define LM3533_ALS_ATTR(_name, _mode, _show, _store, _type, _val1, _val2) \
--	struct lm3533_als_attribute lm3533_als_attr_##_name =		  \
--		ALS_ATTR(_name, _mode, _show, _store, _type, _val1, _val2)
--
--#define ALS_TARGET_ATTR_RW(_channel, _zone)				\
--	LM3533_ALS_ATTR(out_current##_channel##_current##_zone##_raw,	\
--				S_IRUGO | S_IWUSR,			\
--				show_als_attr, store_als_attr,		\
--				LM3533_ATTR_TYPE_TARGET, _channel, _zone)
--/*
-- * ALS output current values (ALS mapper targets)
-- *
-- * out_current[0-2]_current[0-4]_raw		0-255
-- */
--static ALS_TARGET_ATTR_RW(0, 0);
--static ALS_TARGET_ATTR_RW(0, 1);
--static ALS_TARGET_ATTR_RW(0, 2);
--static ALS_TARGET_ATTR_RW(0, 3);
--static ALS_TARGET_ATTR_RW(0, 4);
--
--static ALS_TARGET_ATTR_RW(1, 0);
--static ALS_TARGET_ATTR_RW(1, 1);
--static ALS_TARGET_ATTR_RW(1, 2);
--static ALS_TARGET_ATTR_RW(1, 3);
--static ALS_TARGET_ATTR_RW(1, 4);
--
--static ALS_TARGET_ATTR_RW(2, 0);
--static ALS_TARGET_ATTR_RW(2, 1);
--static ALS_TARGET_ATTR_RW(2, 2);
--static ALS_TARGET_ATTR_RW(2, 3);
--static ALS_TARGET_ATTR_RW(2, 4);
--
--#define ALS_THRESH_FALLING_ATTR_RW(_nr)					\
--	LM3533_ALS_ATTR(in_illuminance0_thresh##_nr##_falling_value,	\
--			S_IRUGO | S_IWUSR,				\
--			show_als_attr, store_als_attr,		\
--			LM3533_ATTR_TYPE_THRESH_FALLING, _nr, 0)
--
--#define ALS_THRESH_RAISING_ATTR_RW(_nr)					\
--	LM3533_ALS_ATTR(in_illuminance0_thresh##_nr##_raising_value,	\
--			S_IRUGO | S_IWUSR,				\
--			show_als_attr, store_als_attr,			\
--			LM3533_ATTR_TYPE_THRESH_RAISING, _nr, 0)
--/*
-- * ALS Zone thresholds (boundaries)
-- *
-- * in_illuminance0_thresh[0-3]_falling_value	0-255
-- * in_illuminance0_thresh[0-3]_raising_value	0-255
-- */
--static ALS_THRESH_FALLING_ATTR_RW(0);
--static ALS_THRESH_FALLING_ATTR_RW(1);
--static ALS_THRESH_FALLING_ATTR_RW(2);
--static ALS_THRESH_FALLING_ATTR_RW(3);
--
--static ALS_THRESH_RAISING_ATTR_RW(0);
--static ALS_THRESH_RAISING_ATTR_RW(1);
--static ALS_THRESH_RAISING_ATTR_RW(2);
--static ALS_THRESH_RAISING_ATTR_RW(3);
--
--#define ALS_HYSTERESIS_ATTR_RO(_nr)					\
--	LM3533_ALS_ATTR(in_illuminance0_thresh##_nr##_hysteresis,	\
--			S_IRUGO, show_als_attr, NULL,			\
--			LM3533_ATTR_TYPE_HYSTERESIS, _nr, 0)
--/*
-- * ALS Zone threshold hysteresis
-- *
-- * threshY_hysteresis = threshY_raising - threshY_falling
-- *
-- * in_illuminance0_thresh[0-3]_hysteresis	0-255
-- * in_illuminance0_thresh[0-3]_hysteresis	0-255
-- */
--static ALS_HYSTERESIS_ATTR_RO(0);
--static ALS_HYSTERESIS_ATTR_RO(1);
--static ALS_HYSTERESIS_ATTR_RO(2);
--static ALS_HYSTERESIS_ATTR_RO(3);
--
--#define ILLUMINANCE_ATTR_RO(_name) \
--	DEVICE_ATTR(in_illuminance0_##_name, S_IRUGO, show_##_name, NULL)
--#define ILLUMINANCE_ATTR_RW(_name) \
--	DEVICE_ATTR(in_illuminance0_##_name, S_IRUGO | S_IWUSR, \
--						show_##_name, store_##_name)
--/*
-- * ALS Zone threshold-event enable
-- *
-- * in_illuminance0_thresh_either_en		0,1
-- */
--static ILLUMINANCE_ATTR_RW(thresh_either_en);
--
--/*
-- * ALS Current Zone
-- *
-- * in_illuminance0_zone		0-4
-- */
--static ILLUMINANCE_ATTR_RO(zone);
--
--static struct attribute *lm3533_als_event_attributes[] = {
--	&dev_attr_in_illuminance0_thresh_either_en.attr,
--	&lm3533_als_attr_in_illuminance0_thresh0_falling_value.dev_attr.attr,
--	&lm3533_als_attr_in_illuminance0_thresh0_hysteresis.dev_attr.attr,
--	&lm3533_als_attr_in_illuminance0_thresh0_raising_value.dev_attr.attr,
--	&lm3533_als_attr_in_illuminance0_thresh1_falling_value.dev_attr.attr,
--	&lm3533_als_attr_in_illuminance0_thresh1_hysteresis.dev_attr.attr,
--	&lm3533_als_attr_in_illuminance0_thresh1_raising_value.dev_attr.attr,
--	&lm3533_als_attr_in_illuminance0_thresh2_falling_value.dev_attr.attr,
--	&lm3533_als_attr_in_illuminance0_thresh2_hysteresis.dev_attr.attr,
--	&lm3533_als_attr_in_illuminance0_thresh2_raising_value.dev_attr.attr,
--	&lm3533_als_attr_in_illuminance0_thresh3_falling_value.dev_attr.attr,
--	&lm3533_als_attr_in_illuminance0_thresh3_hysteresis.dev_attr.attr,
--	&lm3533_als_attr_in_illuminance0_thresh3_raising_value.dev_attr.attr,
--	NULL
--};
--
--static const struct attribute_group lm3533_als_event_attribute_group = {
--	.attrs = lm3533_als_event_attributes
--};
--
--static struct attribute *lm3533_als_attributes[] = {
--	&dev_attr_in_illuminance0_zone.attr,
--	&lm3533_als_attr_out_current0_current0_raw.dev_attr.attr,
--	&lm3533_als_attr_out_current0_current1_raw.dev_attr.attr,
--	&lm3533_als_attr_out_current0_current2_raw.dev_attr.attr,
--	&lm3533_als_attr_out_current0_current3_raw.dev_attr.attr,
--	&lm3533_als_attr_out_current0_current4_raw.dev_attr.attr,
--	&lm3533_als_attr_out_current1_current0_raw.dev_attr.attr,
--	&lm3533_als_attr_out_current1_current1_raw.dev_attr.attr,
--	&lm3533_als_attr_out_current1_current2_raw.dev_attr.attr,
--	&lm3533_als_attr_out_current1_current3_raw.dev_attr.attr,
--	&lm3533_als_attr_out_current1_current4_raw.dev_attr.attr,
--	&lm3533_als_attr_out_current2_current0_raw.dev_attr.attr,
--	&lm3533_als_attr_out_current2_current1_raw.dev_attr.attr,
--	&lm3533_als_attr_out_current2_current2_raw.dev_attr.attr,
--	&lm3533_als_attr_out_current2_current3_raw.dev_attr.attr,
--	&lm3533_als_attr_out_current2_current4_raw.dev_attr.attr,
--	NULL
--};
--
--static const struct attribute_group lm3533_als_attribute_group = {
--	.attrs = lm3533_als_attributes
--};
--
--static int lm3533_als_set_input_mode(struct lm3533_als *als, bool pwm_mode)
--{
--	u8 mask = LM3533_ALS_INPUT_MODE_MASK;
--	u8 val;
--	int ret;
--
--	if (pwm_mode)
--		val = mask;	/* pwm input */
--	else
--		val = 0;	/* analog input */
--
--	ret = lm3533_update(als->lm3533, LM3533_REG_ALS_CONF, val, mask);
--	if (ret) {
--		dev_err(&als->pdev->dev, "failed to set input mode %d\n",
--								pwm_mode);
--		return ret;
--	}
--
--	return 0;
--}
--
--static int lm3533_als_set_resistor(struct lm3533_als *als, u8 val)
--{
--	int ret;
--
--	if (val < LM3533_ALS_RESISTOR_MIN || val > LM3533_ALS_RESISTOR_MAX) {
--		dev_err(&als->pdev->dev, "invalid resistor value\n");
--		return -EINVAL;
--	}
--
--	ret = lm3533_write(als->lm3533, LM3533_REG_ALS_RESISTOR_SELECT, val);
--	if (ret) {
--		dev_err(&als->pdev->dev, "failed to set resistor\n");
--		return ret;
--	}
--
--	return 0;
--}
--
--static int lm3533_als_setup(struct lm3533_als *als,
--			    const struct lm3533_als_platform_data *pdata)
--{
--	int ret;
--
--	ret = lm3533_als_set_input_mode(als, pdata->pwm_mode);
--	if (ret)
--		return ret;
--
--	/* ALS input is always high impedance in PWM-mode. */
--	if (!pdata->pwm_mode) {
--		ret = lm3533_als_set_resistor(als, pdata->r_select);
--		if (ret)
--			return ret;
--	}
--
--	return 0;
--}
--
--static int lm3533_als_setup_irq(struct lm3533_als *als, void *dev)
--{
--	u8 mask = LM3533_ALS_INT_ENABLE_MASK;
--	int ret;
--
--	/* Make sure interrupts are disabled. */
--	ret = lm3533_update(als->lm3533, LM3533_REG_ALS_ZONE_INFO, 0, mask);
--	if (ret) {
--		dev_err(&als->pdev->dev, "failed to disable interrupts\n");
--		return ret;
--	}
--
--	ret = request_threaded_irq(als->irq, NULL, lm3533_als_isr,
--					IRQF_TRIGGER_LOW | IRQF_ONESHOT,
--					dev_name(&als->pdev->dev), dev);
--	if (ret) {
--		dev_err(&als->pdev->dev, "failed to request irq %d\n",
--								als->irq);
--		return ret;
--	}
--
--	return 0;
--}
--
--static int lm3533_als_enable(struct lm3533_als *als)
--{
--	u8 mask = LM3533_ALS_ENABLE_MASK;
--	int ret;
--
--	ret = lm3533_update(als->lm3533, LM3533_REG_ALS_CONF, mask, mask);
--	if (ret)
--		dev_err(&als->pdev->dev, "failed to enable ALS\n");
--
--	return ret;
--}
--
--static int lm3533_als_disable(struct lm3533_als *als)
--{
--	u8 mask = LM3533_ALS_ENABLE_MASK;
--	int ret;
--
--	ret = lm3533_update(als->lm3533, LM3533_REG_ALS_CONF, 0, mask);
--	if (ret)
--		dev_err(&als->pdev->dev, "failed to disable ALS\n");
--
--	return ret;
--}
--
--static const struct iio_info lm3533_als_info = {
--	.attrs		= &lm3533_als_attribute_group,
--	.event_attrs	= &lm3533_als_event_attribute_group,
--	.read_raw	= &lm3533_als_read_raw,
--};
--
--static int lm3533_als_probe(struct platform_device *pdev)
--{
--	const struct lm3533_als_platform_data *pdata;
--	struct lm3533 *lm3533;
--	struct lm3533_als *als;
--	struct iio_dev *indio_dev;
--	int ret;
--
--	lm3533 = dev_get_drvdata(pdev->dev.parent);
--	if (!lm3533)
--		return -EINVAL;
--
--	pdata = dev_get_platdata(&pdev->dev);
--	if (!pdata) {
--		dev_err(&pdev->dev, "no platform data\n");
--		return -EINVAL;
--	}
--
--	indio_dev = devm_iio_device_alloc(&pdev->dev, sizeof(*als));
--	if (!indio_dev)
--		return -ENOMEM;
--
--	indio_dev->info = &lm3533_als_info;
--	indio_dev->channels = lm3533_als_channels;
--	indio_dev->num_channels = ARRAY_SIZE(lm3533_als_channels);
--	indio_dev->name = dev_name(&pdev->dev);
--	iio_device_set_parent(indio_dev, pdev->dev.parent);
--	indio_dev->modes = INDIO_DIRECT_MODE;
--
--	als = iio_priv(indio_dev);
--	als->lm3533 = lm3533;
--	als->pdev = pdev;
--	als->irq = lm3533->irq;
--	atomic_set(&als->zone, 0);
--	mutex_init(&als->thresh_mutex);
--
--	platform_set_drvdata(pdev, indio_dev);
--
--	if (als->irq) {
--		ret = lm3533_als_setup_irq(als, indio_dev);
--		if (ret)
--			return ret;
--	}
--
--	ret = lm3533_als_setup(als, pdata);
--	if (ret)
--		goto err_free_irq;
--
--	ret = lm3533_als_enable(als);
--	if (ret)
--		goto err_free_irq;
--
--	ret = iio_device_register(indio_dev);
--	if (ret) {
--		dev_err(&pdev->dev, "failed to register ALS\n");
--		goto err_disable;
--	}
--
--	return 0;
--
--err_disable:
--	lm3533_als_disable(als);
--err_free_irq:
--	if (als->irq)
--		free_irq(als->irq, indio_dev);
--
--	return ret;
--}
--
--static void lm3533_als_remove(struct platform_device *pdev)
--{
--	struct iio_dev *indio_dev = platform_get_drvdata(pdev);
--	struct lm3533_als *als = iio_priv(indio_dev);
--
--	lm3533_als_set_int_mode(indio_dev, false);
--	iio_device_unregister(indio_dev);
--	lm3533_als_disable(als);
--	if (als->irq)
--		free_irq(als->irq, indio_dev);
--}
--
--static struct platform_driver lm3533_als_driver = {
--	.driver	= {
--		.name	= "lm3533-als",
--	},
--	.probe		= lm3533_als_probe,
--	.remove		= lm3533_als_remove,
--};
--module_platform_driver(lm3533_als_driver);
--
--MODULE_AUTHOR("Johan Hovold <jhovold@gmail.com>");
--MODULE_DESCRIPTION("LM3533 Ambient Light Sensor driver");
--MODULE_LICENSE("GPL");
--MODULE_ALIAS("platform:lm3533-als");
-diff --git a/drivers/leds/Kconfig b/drivers/leds/Kconfig
-index f0cd10ad6279..1a0663a6501c 100644
---- a/drivers/leds/Kconfig
-+++ b/drivers/leds/Kconfig
-@@ -262,19 +262,6 @@ config LEDS_LM3532
- 	  controlled manually or using PWM input or using ambient
- 	  light automatically.
- 
--config LEDS_LM3533
--	tristate "LED support for LM3533"
--	depends on LEDS_CLASS
--	depends on MFD_LM3533
--	help
--	  This option enables support for the LEDs on National Semiconductor /
--	  TI LM3533 Lighting Power chips.
--
--	  The LEDs can be controlled directly, through PWM input, or by the
--	  ambient-light-sensor interface. The chip supports
--	  hardware-accelerated blinking with maximum on and off periods of 9.8
--	  and 77 seconds respectively.
--
- config LEDS_LM3642
- 	tristate "LED support for LM3642 Chip"
- 	depends on LEDS_CLASS && I2C
-diff --git a/drivers/leds/Makefile b/drivers/leds/Makefile
-index 63dc0b0c5a51..b989803bedb9 100644
---- a/drivers/leds/Makefile
-+++ b/drivers/leds/Makefile
-@@ -39,7 +39,6 @@ obj-$(CONFIG_LEDS_IS31FL319X)		+= leds-is31fl319x.o
- obj-$(CONFIG_LEDS_IS31FL32XX)		+= leds-is31fl32xx.o
- obj-$(CONFIG_LEDS_LM3530)		+= leds-lm3530.o
- obj-$(CONFIG_LEDS_LM3532)		+= leds-lm3532.o
--obj-$(CONFIG_LEDS_LM3533)		+= leds-lm3533.o
- obj-$(CONFIG_LEDS_LM355x)		+= leds-lm355x.o
- obj-$(CONFIG_LEDS_LM36274)		+= leds-lm36274.o
- obj-$(CONFIG_LEDS_LM3642)		+= leds-lm3642.o
-diff --git a/drivers/leds/leds-lm3533.c b/drivers/leds/leds-lm3533.c
-deleted file mode 100644
-index 45795f2a1042..000000000000
---- a/drivers/leds/leds-lm3533.c
-+++ /dev/null
-@@ -1,755 +0,0 @@
--// SPDX-License-Identifier: GPL-2.0-or-later
--/*
-- * leds-lm3533.c -- LM3533 LED driver
-- *
-- * Copyright (C) 2011-2012 Texas Instruments
-- *
-- * Author: Johan Hovold <jhovold@gmail.com>
-- */
--
--#include <linux/module.h>
--#include <linux/leds.h>
--#include <linux/mfd/core.h>
--#include <linux/mutex.h>
--#include <linux/platform_device.h>
--#include <linux/slab.h>
--
--#include <linux/mfd/lm3533.h>
--
--
--#define LM3533_LVCTRLBANK_MIN		2
--#define LM3533_LVCTRLBANK_MAX		5
--#define LM3533_LVCTRLBANK_COUNT		4
--#define LM3533_RISEFALLTIME_MAX		7
--#define LM3533_ALS_CHANNEL_LV_MIN	1
--#define LM3533_ALS_CHANNEL_LV_MAX	2
--
--#define LM3533_REG_CTRLBANK_BCONF_BASE		0x1b
--#define LM3533_REG_PATTERN_ENABLE		0x28
--#define LM3533_REG_PATTERN_LOW_TIME_BASE	0x71
--#define LM3533_REG_PATTERN_HIGH_TIME_BASE	0x72
--#define LM3533_REG_PATTERN_RISETIME_BASE	0x74
--#define LM3533_REG_PATTERN_FALLTIME_BASE	0x75
--
--#define LM3533_REG_PATTERN_STEP			0x10
--
--#define LM3533_REG_CTRLBANK_BCONF_MAPPING_MASK		0x04
--#define LM3533_REG_CTRLBANK_BCONF_ALS_EN_MASK		0x02
--#define LM3533_REG_CTRLBANK_BCONF_ALS_CHANNEL_MASK	0x01
--
--#define LM3533_LED_FLAG_PATTERN_ENABLE		1
--
--
--struct lm3533_led {
--	struct lm3533 *lm3533;
--	struct lm3533_ctrlbank cb;
--	struct led_classdev cdev;
--	int id;
--
--	struct mutex mutex;
--	unsigned long flags;
--};
--
--
--static inline struct lm3533_led *to_lm3533_led(struct led_classdev *cdev)
--{
--	return container_of(cdev, struct lm3533_led, cdev);
--}
--
--static inline int lm3533_led_get_ctrlbank_id(struct lm3533_led *led)
--{
--	return led->id + 2;
--}
--
--static inline u8 lm3533_led_get_lv_reg(struct lm3533_led *led, u8 base)
--{
--	return base + led->id;
--}
--
--static inline u8 lm3533_led_get_pattern(struct lm3533_led *led)
--{
--	return led->id;
--}
--
--static inline u8 lm3533_led_get_pattern_reg(struct lm3533_led *led,
--								u8 base)
--{
--	return base + lm3533_led_get_pattern(led) * LM3533_REG_PATTERN_STEP;
--}
--
--static int lm3533_led_pattern_enable(struct lm3533_led *led, int enable)
--{
--	u8 mask;
--	u8 val;
--	int pattern;
--	int state;
+-	struct ucb1x00_ts *ts = input_get_drvdata(idev);
+-	unsigned long flags = 0;
 -	int ret = 0;
 -
--	dev_dbg(led->cdev.dev, "%s - %d\n", __func__, enable);
+-	BUG_ON(ts->rtask);
 -
--	mutex_lock(&led->mutex);
+-	if (machine_is_collie())
+-		flags = IRQF_TRIGGER_RISING;
+-	else
+-		flags = IRQF_TRIGGER_FALLING;
 -
--	state = test_bit(LM3533_LED_FLAG_PATTERN_ENABLE, &led->flags);
--	if ((enable && state) || (!enable && !state))
+-	ts->irq_disabled = 0;
+-
+-	init_waitqueue_head(&ts->irq_wait);
+-	ret = request_irq(ts->ucb->irq_base + UCB_IRQ_TSPX, ucb1x00_ts_irq,
+-			  flags, "ucb1x00-ts", ts);
+-	if (ret < 0)
 -		goto out;
 -
--	pattern = lm3533_led_get_pattern(led);
--	mask = 1 << (2 * pattern);
--
--	if (enable)
--		val = mask;
--	else
--		val = 0;
--
--	ret = lm3533_update(led->lm3533, LM3533_REG_PATTERN_ENABLE, val, mask);
--	if (ret) {
--		dev_err(led->cdev.dev, "failed to enable pattern %d (%d)\n",
--							pattern, enable);
--		goto out;
--	}
--
--	__change_bit(LM3533_LED_FLAG_PATTERN_ENABLE, &led->flags);
--out:
--	mutex_unlock(&led->mutex);
--
--	return ret;
--}
--
--static int lm3533_led_set(struct led_classdev *cdev,
--						enum led_brightness value)
--{
--	struct lm3533_led *led = to_lm3533_led(cdev);
--
--	dev_dbg(led->cdev.dev, "%s - %d\n", __func__, value);
--
--	if (value == 0)
--		lm3533_led_pattern_enable(led, 0);	/* disable blink */
--
--	return lm3533_ctrlbank_set_brightness(&led->cb, value);
--}
--
--static enum led_brightness lm3533_led_get(struct led_classdev *cdev)
--{
--	struct lm3533_led *led = to_lm3533_led(cdev);
--	u8 val;
--	int ret;
--
--	ret = lm3533_ctrlbank_get_brightness(&led->cb, &val);
--	if (ret)
--		return ret;
--
--	dev_dbg(led->cdev.dev, "%s - %u\n", __func__, val);
--
--	return val;
--}
--
--/* Pattern generator defines (delays in us). */
--#define LM3533_LED_DELAY1_VMIN	0x00
--#define LM3533_LED_DELAY2_VMIN	0x3d
--#define LM3533_LED_DELAY3_VMIN	0x80
--
--#define LM3533_LED_DELAY1_VMAX	(LM3533_LED_DELAY2_VMIN - 1)
--#define LM3533_LED_DELAY2_VMAX	(LM3533_LED_DELAY3_VMIN - 1)
--#define LM3533_LED_DELAY3_VMAX	0xff
--
--#define LM3533_LED_DELAY1_TMIN	16384U
--#define LM3533_LED_DELAY2_TMIN	1130496U
--#define LM3533_LED_DELAY3_TMIN	10305536U
--
--#define LM3533_LED_DELAY1_TMAX	999424U
--#define LM3533_LED_DELAY2_TMAX	9781248U
--#define LM3533_LED_DELAY3_TMAX	76890112U
--
--/* t_step = (t_max - t_min) / (v_max - v_min) */
--#define LM3533_LED_DELAY1_TSTEP	16384
--#define LM3533_LED_DELAY2_TSTEP	131072
--#define LM3533_LED_DELAY3_TSTEP	524288
--
--/* Delay limits for hardware accelerated blinking (in ms). */
--#define LM3533_LED_DELAY_ON_MAX \
--	((LM3533_LED_DELAY2_TMAX + LM3533_LED_DELAY2_TSTEP / 2) / 1000)
--#define LM3533_LED_DELAY_OFF_MAX \
--	((LM3533_LED_DELAY3_TMAX + LM3533_LED_DELAY3_TSTEP / 2) / 1000)
--
--/*
-- * Returns linear map of *t from [t_min,t_max] to [v_min,v_max] with a step
-- * size of t_step, where
-- *
-- *	t_step = (t_max - t_min) / (v_max - v_min)
-- *
-- * and updates *t to reflect the mapped value.
-- */
--static u8 time_to_val(unsigned *t, unsigned t_min, unsigned t_step,
--							u8 v_min, u8 v_max)
--{
--	unsigned val;
--
--	val = (*t + t_step / 2 - t_min) / t_step + v_min;
--
--	*t = t_step * (val - v_min) + t_min;
--
--	return (u8)val;
--}
--
--/*
-- * Returns time code corresponding to *delay (in ms) and updates *delay to
-- * reflect actual hardware delay.
-- *
-- * Hardware supports 256 discrete delay times, divided into three groups with
-- * the following ranges and step-sizes:
-- *
-- *	[   16,   999]	[0x00, 0x3e]	step  16 ms
-- *	[ 1130,  9781]	[0x3d, 0x7f]	step 131 ms
-- *	[10306, 76890]	[0x80, 0xff]	step 524 ms
-- *
-- * Note that delay group 3 is only available for delay_off.
-- */
--static u8 lm3533_led_get_hw_delay(unsigned *delay)
--{
--	unsigned t;
--	u8 val;
--
--	t = *delay * 1000;
--
--	if (t >= (LM3533_LED_DELAY2_TMAX + LM3533_LED_DELAY3_TMIN) / 2) {
--		t = clamp(t, LM3533_LED_DELAY3_TMIN, LM3533_LED_DELAY3_TMAX);
--		val = time_to_val(&t,	LM3533_LED_DELAY3_TMIN,
--					LM3533_LED_DELAY3_TSTEP,
--					LM3533_LED_DELAY3_VMIN,
--					LM3533_LED_DELAY3_VMAX);
--	} else if (t >= (LM3533_LED_DELAY1_TMAX + LM3533_LED_DELAY2_TMIN) / 2) {
--		t = clamp(t, LM3533_LED_DELAY2_TMIN, LM3533_LED_DELAY2_TMAX);
--		val = time_to_val(&t,	LM3533_LED_DELAY2_TMIN,
--					LM3533_LED_DELAY2_TSTEP,
--					LM3533_LED_DELAY2_VMIN,
--					LM3533_LED_DELAY2_VMAX);
--	} else {
--		t = clamp(t, LM3533_LED_DELAY1_TMIN, LM3533_LED_DELAY1_TMAX);
--		val = time_to_val(&t,	LM3533_LED_DELAY1_TMIN,
--					LM3533_LED_DELAY1_TSTEP,
--					LM3533_LED_DELAY1_VMIN,
--					LM3533_LED_DELAY1_VMAX);
--	}
--
--	*delay = (t + 500) / 1000;
--
--	return val;
--}
--
--/*
-- * Set delay register base to *delay (in ms) and update *delay to reflect
-- * actual hardware delay used.
-- */
--static u8 lm3533_led_delay_set(struct lm3533_led *led, u8 base,
--							unsigned long *delay)
--{
--	unsigned t;
--	u8 val;
--	u8 reg;
--	int ret;
--
--	t = (unsigned)*delay;
--
--	/* Delay group 3 is only available for low time (delay off). */
--	if (base != LM3533_REG_PATTERN_LOW_TIME_BASE)
--		t = min(t, LM3533_LED_DELAY2_TMAX / 1000);
--
--	val = lm3533_led_get_hw_delay(&t);
--
--	dev_dbg(led->cdev.dev, "%s - %lu: %u (0x%02x)\n", __func__,
--							*delay, t, val);
--	reg = lm3533_led_get_pattern_reg(led, base);
--	ret = lm3533_write(led->lm3533, reg, val);
--	if (ret)
--		dev_err(led->cdev.dev, "failed to set delay (%02x)\n", reg);
--
--	*delay = t;
--
--	return ret;
--}
--
--static int lm3533_led_delay_on_set(struct lm3533_led *led, unsigned long *t)
--{
--	return lm3533_led_delay_set(led, LM3533_REG_PATTERN_HIGH_TIME_BASE, t);
--}
--
--static int lm3533_led_delay_off_set(struct lm3533_led *led, unsigned long *t)
--{
--	return lm3533_led_delay_set(led, LM3533_REG_PATTERN_LOW_TIME_BASE, t);
--}
--
--static int lm3533_led_blink_set(struct led_classdev *cdev,
--				unsigned long *delay_on,
--				unsigned long *delay_off)
--{
--	struct lm3533_led *led = to_lm3533_led(cdev);
--	int ret;
--
--	dev_dbg(led->cdev.dev, "%s - on = %lu, off = %lu\n", __func__,
--							*delay_on, *delay_off);
--
--	if (*delay_on > LM3533_LED_DELAY_ON_MAX ||
--					*delay_off > LM3533_LED_DELAY_OFF_MAX)
--		return -EINVAL;
--
--	if (*delay_on == 0 && *delay_off == 0) {
--		*delay_on = 500;
--		*delay_off = 500;
--	}
--
--	ret = lm3533_led_delay_on_set(led, delay_on);
--	if (ret)
--		return ret;
--
--	ret = lm3533_led_delay_off_set(led, delay_off);
--	if (ret)
--		return ret;
--
--	return lm3533_led_pattern_enable(led, 1);
--}
--
--static ssize_t show_id(struct device *dev,
--				struct device_attribute *attr, char *buf)
--{
--	struct led_classdev *led_cdev = dev_get_drvdata(dev);
--	struct lm3533_led *led = to_lm3533_led(led_cdev);
--
--	return sysfs_emit(buf, "%d\n", led->id);
--}
--
--/*
-- * Pattern generator rise/fall times:
-- *
-- *   0 - 2048 us (default)
-- *   1 - 262 ms
-- *   2 - 524 ms
-- *   3 - 1.049 s
-- *   4 - 2.097 s
-- *   5 - 4.194 s
-- *   6 - 8.389 s
-- *   7 - 16.78 s
-- */
--static ssize_t show_risefalltime(struct device *dev,
--					struct device_attribute *attr,
--					char *buf, u8 base)
--{
--	struct led_classdev *led_cdev = dev_get_drvdata(dev);
--	struct lm3533_led *led = to_lm3533_led(led_cdev);
--	ssize_t ret;
--	u8 reg;
--	u8 val;
--
--	reg = lm3533_led_get_pattern_reg(led, base);
--	ret = lm3533_read(led->lm3533, reg, &val);
--	if (ret)
--		return ret;
--
--	return sysfs_emit(buf, "%x\n", val);
--}
--
--static ssize_t show_risetime(struct device *dev,
--				struct device_attribute *attr, char *buf)
--{
--	return show_risefalltime(dev, attr, buf,
--					LM3533_REG_PATTERN_RISETIME_BASE);
--}
--
--static ssize_t show_falltime(struct device *dev,
--				struct device_attribute *attr, char *buf)
--{
--	return show_risefalltime(dev, attr, buf,
--					LM3533_REG_PATTERN_FALLTIME_BASE);
--}
--
--static ssize_t store_risefalltime(struct device *dev,
--					struct device_attribute *attr,
--					const char *buf, size_t len, u8 base)
--{
--	struct led_classdev *led_cdev = dev_get_drvdata(dev);
--	struct lm3533_led *led = to_lm3533_led(led_cdev);
--	u8 val;
--	u8 reg;
--	int ret;
--
--	if (kstrtou8(buf, 0, &val) || val > LM3533_RISEFALLTIME_MAX)
--		return -EINVAL;
--
--	reg = lm3533_led_get_pattern_reg(led, base);
--	ret = lm3533_write(led->lm3533, reg, val);
--	if (ret)
--		return ret;
--
--	return len;
--}
--
--static ssize_t store_risetime(struct device *dev,
--					struct device_attribute *attr,
--					const char *buf, size_t len)
--{
--	return store_risefalltime(dev, attr, buf, len,
--					LM3533_REG_PATTERN_RISETIME_BASE);
--}
--
--static ssize_t store_falltime(struct device *dev,
--					struct device_attribute *attr,
--					const char *buf, size_t len)
--{
--	return store_risefalltime(dev, attr, buf, len,
--					LM3533_REG_PATTERN_FALLTIME_BASE);
--}
--
--static ssize_t show_als_channel(struct device *dev,
--				struct device_attribute *attr, char *buf)
--{
--	struct led_classdev *led_cdev = dev_get_drvdata(dev);
--	struct lm3533_led *led = to_lm3533_led(led_cdev);
--	unsigned channel;
--	u8 reg;
--	u8 val;
--	int ret;
--
--	reg = lm3533_led_get_lv_reg(led, LM3533_REG_CTRLBANK_BCONF_BASE);
--	ret = lm3533_read(led->lm3533, reg, &val);
--	if (ret)
--		return ret;
--
--	channel = (val & LM3533_REG_CTRLBANK_BCONF_ALS_CHANNEL_MASK) + 1;
--
--	return sysfs_emit(buf, "%u\n", channel);
--}
--
--static ssize_t store_als_channel(struct device *dev,
--					struct device_attribute *attr,
--					const char *buf, size_t len)
--{
--	struct led_classdev *led_cdev = dev_get_drvdata(dev);
--	struct lm3533_led *led = to_lm3533_led(led_cdev);
--	unsigned channel;
--	u8 reg;
--	u8 val;
--	u8 mask;
--	int ret;
--
--	if (kstrtouint(buf, 0, &channel))
--		return -EINVAL;
--
--	if (channel < LM3533_ALS_CHANNEL_LV_MIN ||
--					channel > LM3533_ALS_CHANNEL_LV_MAX)
--		return -EINVAL;
--
--	reg = lm3533_led_get_lv_reg(led, LM3533_REG_CTRLBANK_BCONF_BASE);
--	mask = LM3533_REG_CTRLBANK_BCONF_ALS_CHANNEL_MASK;
--	val = channel - 1;
--
--	ret = lm3533_update(led->lm3533, reg, val, mask);
--	if (ret)
--		return ret;
--
--	return len;
--}
--
--static ssize_t show_als_en(struct device *dev,
--				struct device_attribute *attr, char *buf)
--{
--	struct led_classdev *led_cdev = dev_get_drvdata(dev);
--	struct lm3533_led *led = to_lm3533_led(led_cdev);
--	bool enable;
--	u8 reg;
--	u8 val;
--	int ret;
--
--	reg = lm3533_led_get_lv_reg(led, LM3533_REG_CTRLBANK_BCONF_BASE);
--	ret = lm3533_read(led->lm3533, reg, &val);
--	if (ret)
--		return ret;
--
--	enable = val & LM3533_REG_CTRLBANK_BCONF_ALS_EN_MASK;
--
--	return sysfs_emit(buf, "%d\n", enable);
--}
--
--static ssize_t store_als_en(struct device *dev,
--					struct device_attribute *attr,
--					const char *buf, size_t len)
--{
--	struct led_classdev *led_cdev = dev_get_drvdata(dev);
--	struct lm3533_led *led = to_lm3533_led(led_cdev);
--	unsigned enable;
--	u8 reg;
--	u8 mask;
--	u8 val;
--	int ret;
--
--	if (kstrtouint(buf, 0, &enable))
--		return -EINVAL;
--
--	reg = lm3533_led_get_lv_reg(led, LM3533_REG_CTRLBANK_BCONF_BASE);
--	mask = LM3533_REG_CTRLBANK_BCONF_ALS_EN_MASK;
--
--	if (enable)
--		val = mask;
--	else
--		val = 0;
--
--	ret = lm3533_update(led->lm3533, reg, val, mask);
--	if (ret)
--		return ret;
--
--	return len;
--}
--
--static ssize_t show_linear(struct device *dev,
--				struct device_attribute *attr, char *buf)
--{
--	struct led_classdev *led_cdev = dev_get_drvdata(dev);
--	struct lm3533_led *led = to_lm3533_led(led_cdev);
--	u8 reg;
--	u8 val;
--	int linear;
--	int ret;
--
--	reg = lm3533_led_get_lv_reg(led, LM3533_REG_CTRLBANK_BCONF_BASE);
--	ret = lm3533_read(led->lm3533, reg, &val);
--	if (ret)
--		return ret;
--
--	if (val & LM3533_REG_CTRLBANK_BCONF_MAPPING_MASK)
--		linear = 1;
--	else
--		linear = 0;
--
--	return sysfs_emit(buf, "%x\n", linear);
--}
--
--static ssize_t store_linear(struct device *dev,
--					struct device_attribute *attr,
--					const char *buf, size_t len)
--{
--	struct led_classdev *led_cdev = dev_get_drvdata(dev);
--	struct lm3533_led *led = to_lm3533_led(led_cdev);
--	unsigned long linear;
--	u8 reg;
--	u8 mask;
--	u8 val;
--	int ret;
--
--	if (kstrtoul(buf, 0, &linear))
--		return -EINVAL;
--
--	reg = lm3533_led_get_lv_reg(led, LM3533_REG_CTRLBANK_BCONF_BASE);
--	mask = LM3533_REG_CTRLBANK_BCONF_MAPPING_MASK;
--
--	if (linear)
--		val = mask;
--	else
--		val = 0;
--
--	ret = lm3533_update(led->lm3533, reg, val, mask);
--	if (ret)
--		return ret;
--
--	return len;
--}
--
--static ssize_t show_pwm(struct device *dev,
--					struct device_attribute *attr,
--					char *buf)
--{
--	struct led_classdev *led_cdev = dev_get_drvdata(dev);
--	struct lm3533_led *led = to_lm3533_led(led_cdev);
--	u8 val;
--	int ret;
--
--	ret = lm3533_ctrlbank_get_pwm(&led->cb, &val);
--	if (ret)
--		return ret;
--
--	return sysfs_emit(buf, "%u\n", val);
--}
--
--static ssize_t store_pwm(struct device *dev,
--					struct device_attribute *attr,
--					const char *buf, size_t len)
--{
--	struct led_classdev *led_cdev = dev_get_drvdata(dev);
--	struct lm3533_led *led = to_lm3533_led(led_cdev);
--	u8 val;
--	int ret;
--
--	if (kstrtou8(buf, 0, &val))
--		return -EINVAL;
--
--	ret = lm3533_ctrlbank_set_pwm(&led->cb, val);
--	if (ret)
--		return ret;
--
--	return len;
--}
--
--static LM3533_ATTR_RW(als_channel);
--static LM3533_ATTR_RW(als_en);
--static LM3533_ATTR_RW(falltime);
--static LM3533_ATTR_RO(id);
--static LM3533_ATTR_RW(linear);
--static LM3533_ATTR_RW(pwm);
--static LM3533_ATTR_RW(risetime);
--
--static struct attribute *lm3533_led_attributes[] = {
--	&dev_attr_als_channel.attr,
--	&dev_attr_als_en.attr,
--	&dev_attr_falltime.attr,
--	&dev_attr_id.attr,
--	&dev_attr_linear.attr,
--	&dev_attr_pwm.attr,
--	&dev_attr_risetime.attr,
--	NULL,
--};
--
--static umode_t lm3533_led_attr_is_visible(struct kobject *kobj,
--					     struct attribute *attr, int n)
--{
--	struct device *dev = kobj_to_dev(kobj);
--	struct led_classdev *led_cdev = dev_get_drvdata(dev);
--	struct lm3533_led *led = to_lm3533_led(led_cdev);
--	umode_t mode = attr->mode;
--
--	if (attr == &dev_attr_als_channel.attr ||
--					attr == &dev_attr_als_en.attr) {
--		if (!led->lm3533->have_als)
--			mode = 0;
--	}
--
--	return mode;
--};
--
--static const struct attribute_group lm3533_led_attribute_group = {
--	.is_visible	= lm3533_led_attr_is_visible,
--	.attrs		= lm3533_led_attributes
--};
--
--static const struct attribute_group *lm3533_led_attribute_groups[] = {
--	&lm3533_led_attribute_group,
--	NULL
--};
--
--static int lm3533_led_setup(struct lm3533_led *led,
--					struct lm3533_led_platform_data *pdata)
--{
--	int ret;
--
--	ret = lm3533_ctrlbank_set_max_current(&led->cb, pdata->max_current);
--	if (ret)
--		return ret;
--
--	return lm3533_ctrlbank_set_pwm(&led->cb, pdata->pwm);
--}
--
--static int lm3533_led_probe(struct platform_device *pdev)
--{
--	struct lm3533 *lm3533;
--	struct lm3533_led_platform_data *pdata;
--	struct lm3533_led *led;
--	int ret;
--
--	dev_dbg(&pdev->dev, "%s\n", __func__);
--
--	lm3533 = dev_get_drvdata(pdev->dev.parent);
--	if (!lm3533)
--		return -EINVAL;
--
--	pdata = dev_get_platdata(&pdev->dev);
--	if (!pdata) {
--		dev_err(&pdev->dev, "no platform data\n");
--		return -EINVAL;
--	}
--
--	if (pdev->id < 0 || pdev->id >= LM3533_LVCTRLBANK_COUNT) {
--		dev_err(&pdev->dev, "illegal LED id %d\n", pdev->id);
--		return -EINVAL;
--	}
--
--	led = devm_kzalloc(&pdev->dev, sizeof(*led), GFP_KERNEL);
--	if (!led)
--		return -ENOMEM;
--
--	led->lm3533 = lm3533;
--	led->cdev.name = pdata->name;
--	led->cdev.default_trigger = pdata->default_trigger;
--	led->cdev.brightness_set_blocking = lm3533_led_set;
--	led->cdev.brightness_get = lm3533_led_get;
--	led->cdev.blink_set = lm3533_led_blink_set;
--	led->cdev.brightness = LED_OFF;
--	led->cdev.groups = lm3533_led_attribute_groups;
--	led->id = pdev->id;
--
--	mutex_init(&led->mutex);
--
--	/* The class framework makes a callback to get brightness during
--	 * registration so use parent device (for error reporting) until
--	 * registered.
+-	/*
+-	 * If we do this at all, we should allow the user to
+-	 * measure and read the X and Y resistance at any time.
 -	 */
--	led->cb.lm3533 = lm3533;
--	led->cb.id = lm3533_led_get_ctrlbank_id(led);
--	led->cb.dev = lm3533->dev;
+-	ucb1x00_adc_enable(ts->ucb);
+-	ts->x_res = ucb1x00_ts_read_xres(ts);
+-	ts->y_res = ucb1x00_ts_read_yres(ts);
+-	ucb1x00_adc_disable(ts->ucb);
 -
--	platform_set_drvdata(pdev, led);
--
--	ret = led_classdev_register(pdev->dev.parent, &led->cdev);
--	if (ret) {
--		dev_err(&pdev->dev, "failed to register LED %d\n", pdev->id);
--		return ret;
--	}
--
--	led->cb.dev = led->cdev.dev;
--
--	ret = lm3533_led_setup(led, pdata);
--	if (ret)
--		goto err_deregister;
--
--	ret = lm3533_ctrlbank_enable(&led->cb);
--	if (ret)
--		goto err_deregister;
--
--	return 0;
--
--err_deregister:
--	led_classdev_unregister(&led->cdev);
--
--	return ret;
--}
--
--static void lm3533_led_remove(struct platform_device *pdev)
--{
--	struct lm3533_led *led = platform_get_drvdata(pdev);
--
--	dev_dbg(&pdev->dev, "%s\n", __func__);
--
--	lm3533_ctrlbank_disable(&led->cb);
--	led_classdev_unregister(&led->cdev);
--}
--
--static void lm3533_led_shutdown(struct platform_device *pdev)
--{
--
--	struct lm3533_led *led = platform_get_drvdata(pdev);
--
--	dev_dbg(&pdev->dev, "%s\n", __func__);
--
--	lm3533_ctrlbank_disable(&led->cb);
--	lm3533_led_set(&led->cdev, LED_OFF);		/* disable blink */
--}
--
--static struct platform_driver lm3533_led_driver = {
--	.driver = {
--		.name = "lm3533-leds",
--	},
--	.probe		= lm3533_led_probe,
--	.remove		= lm3533_led_remove,
--	.shutdown	= lm3533_led_shutdown,
--};
--module_platform_driver(lm3533_led_driver);
--
--MODULE_AUTHOR("Johan Hovold <jhovold@gmail.com>");
--MODULE_DESCRIPTION("LM3533 LED driver");
--MODULE_LICENSE("GPL");
--MODULE_ALIAS("platform:lm3533-leds");
-diff --git a/drivers/mfd/Kconfig b/drivers/mfd/Kconfig
-index b0c7df448445..2cb2efafa8a4 100644
---- a/drivers/mfd/Kconfig
-+++ b/drivers/mfd/Kconfig
-@@ -1917,19 +1917,6 @@ config MENELAUS
- 	  and other features that are often used in portable devices like
- 	  cell phones and PDAs.
- 
--config MFD_LM3533
--	tristate "TI/National Semiconductor LM3533 Lighting Power chip"
--	depends on I2C
--	select MFD_CORE
--	select REGMAP_I2C
--	help
--	  Say yes here to enable support for National Semiconductor / TI
--	  LM3533 Lighting Power chips.
--
--	  This driver provides common support for accessing the device;
--	  additional drivers must be enabled in order to use the LED,
--	  backlight or ambient-light-sensor functionality of the device.
--
- config MFD_TIMBERDALE
- 	tristate "Timberdale FPGA"
- 	select MFD_CORE
-diff --git a/drivers/mfd/Makefile b/drivers/mfd/Makefile
-index cf3c70364538..8bd4c3e218bb 100644
---- a/drivers/mfd/Makefile
-+++ b/drivers/mfd/Makefile
-@@ -227,7 +227,6 @@ obj-$(CONFIG_MFD_SEC_CORE)	+= sec-core.o
- obj-$(CONFIG_MFD_SEC_ACPM)	+= sec-acpm.o
- obj-$(CONFIG_MFD_SEC_I2C)	+= sec-i2c.o
- obj-$(CONFIG_MFD_SYSCON)	+= syscon.o
--obj-$(CONFIG_MFD_LM3533)	+= lm3533-core.o lm3533-ctrlbank.o
- obj-$(CONFIG_MFD_VEXPRESS_SYSREG)	+= vexpress-sysreg.o
- obj-$(CONFIG_MFD_RETU)		+= retu-mfd.o
- obj-$(CONFIG_MFD_AS3711)	+= as3711.o
-diff --git a/drivers/mfd/lm3533-core.c b/drivers/mfd/lm3533-core.c
-deleted file mode 100644
-index 0a2409d00b2e..000000000000
---- a/drivers/mfd/lm3533-core.c
-+++ /dev/null
-@@ -1,635 +0,0 @@
--// SPDX-License-Identifier: GPL-2.0-or-later
--/*
-- * lm3533-core.c -- LM3533 Core
-- *
-- * Copyright (C) 2011-2012 Texas Instruments
-- *
-- * Author: Johan Hovold <jhovold@gmail.com>
-- */
--
--#include <linux/module.h>
--#include <linux/init.h>
--#include <linux/kernel.h>
--#include <linux/err.h>
--#include <linux/gpio/consumer.h>
--#include <linux/i2c.h>
--#include <linux/mfd/core.h>
--#include <linux/regmap.h>
--#include <linux/seq_file.h>
--#include <linux/slab.h>
--#include <linux/uaccess.h>
--
--#include <linux/mfd/lm3533.h>
--
--
--#define LM3533_BOOST_OVP_MASK		0x06
--#define LM3533_BOOST_OVP_SHIFT		1
--
--#define LM3533_BOOST_FREQ_MASK		0x01
--#define LM3533_BOOST_FREQ_SHIFT		0
--
--#define LM3533_BL_ID_MASK		1
--#define LM3533_LED_ID_MASK		3
--#define LM3533_BL_ID_MAX		1
--#define LM3533_LED_ID_MAX		3
--
--#define LM3533_HVLED_ID_MAX		2
--#define LM3533_LVLED_ID_MAX		5
--
--#define LM3533_REG_OUTPUT_CONF1		0x10
--#define LM3533_REG_OUTPUT_CONF2		0x11
--#define LM3533_REG_BOOST_PWM		0x2c
--
--#define LM3533_REG_MAX			0xb2
--
--
--static struct mfd_cell lm3533_als_devs[] = {
--	{
--		.name	= "lm3533-als",
--		.id	= -1,
--	},
--};
--
--static struct mfd_cell lm3533_bl_devs[] = {
--	{
--		.name	= "lm3533-backlight",
--		.id	= 0,
--	},
--	{
--		.name	= "lm3533-backlight",
--		.id	= 1,
--	},
--};
--
--static struct mfd_cell lm3533_led_devs[] = {
--	{
--		.name	= "lm3533-leds",
--		.id	= 0,
--	},
--	{
--		.name	= "lm3533-leds",
--		.id	= 1,
--	},
--	{
--		.name	= "lm3533-leds",
--		.id	= 2,
--	},
--	{
--		.name	= "lm3533-leds",
--		.id	= 3,
--	},
--};
--
--int lm3533_read(struct lm3533 *lm3533, u8 reg, u8 *val)
--{
--	int tmp;
--	int ret;
--
--	ret = regmap_read(lm3533->regmap, reg, &tmp);
--	if (ret < 0) {
--		dev_err(lm3533->dev, "failed to read register %02x: %d\n",
--								reg, ret);
--		return ret;
--	}
--
--	*val = tmp;
--
--	dev_dbg(lm3533->dev, "read [%02x]: %02x\n", reg, *val);
--
--	return ret;
--}
--EXPORT_SYMBOL_GPL(lm3533_read);
--
--int lm3533_write(struct lm3533 *lm3533, u8 reg, u8 val)
--{
--	int ret;
--
--	dev_dbg(lm3533->dev, "write [%02x]: %02x\n", reg, val);
--
--	ret = regmap_write(lm3533->regmap, reg, val);
--	if (ret < 0) {
--		dev_err(lm3533->dev, "failed to write register %02x: %d\n",
--								reg, ret);
--	}
--
--	return ret;
--}
--EXPORT_SYMBOL_GPL(lm3533_write);
--
--int lm3533_update(struct lm3533 *lm3533, u8 reg, u8 val, u8 mask)
--{
--	int ret;
--
--	dev_dbg(lm3533->dev, "update [%02x]: %02x/%02x\n", reg, val, mask);
--
--	ret = regmap_update_bits(lm3533->regmap, reg, mask, val);
--	if (ret < 0) {
--		dev_err(lm3533->dev, "failed to update register %02x: %d\n",
--								reg, ret);
--	}
--
--	return ret;
--}
--EXPORT_SYMBOL_GPL(lm3533_update);
--
--static int lm3533_set_boost_freq(struct lm3533 *lm3533,
--						enum lm3533_boost_freq freq)
--{
--	int ret;
--
--	ret = lm3533_update(lm3533, LM3533_REG_BOOST_PWM,
--					freq << LM3533_BOOST_FREQ_SHIFT,
--					LM3533_BOOST_FREQ_MASK);
--	if (ret)
--		dev_err(lm3533->dev, "failed to set boost frequency\n");
--
--	return ret;
--}
--
--
--static int lm3533_set_boost_ovp(struct lm3533 *lm3533,
--						enum lm3533_boost_ovp ovp)
--{
--	int ret;
--
--	ret = lm3533_update(lm3533, LM3533_REG_BOOST_PWM,
--					ovp << LM3533_BOOST_OVP_SHIFT,
--					LM3533_BOOST_OVP_MASK);
--	if (ret)
--		dev_err(lm3533->dev, "failed to set boost ovp\n");
--
--	return ret;
--}
--
--/*
-- * HVLED output config -- output hvled controlled by backlight bl
-- */
--static int lm3533_set_hvled_config(struct lm3533 *lm3533, u8 hvled, u8 bl)
--{
--	u8 val;
--	u8 mask;
--	int shift;
--	int ret;
--
--	if (hvled == 0 || hvled > LM3533_HVLED_ID_MAX)
--		return -EINVAL;
--
--	if (bl > LM3533_BL_ID_MAX)
--		return -EINVAL;
--
--	shift = hvled - 1;
--	mask = LM3533_BL_ID_MASK << shift;
--	val = bl << shift;
--
--	ret = lm3533_update(lm3533, LM3533_REG_OUTPUT_CONF1, val, mask);
--	if (ret)
--		dev_err(lm3533->dev, "failed to set hvled config\n");
--
--	return ret;
--}
--
--/*
-- * LVLED output config -- output lvled controlled by LED led
-- */
--static int lm3533_set_lvled_config(struct lm3533 *lm3533, u8 lvled, u8 led)
--{
--	u8 reg;
--	u8 val;
--	u8 mask;
--	int shift;
--	int ret;
--
--	if (lvled == 0 || lvled > LM3533_LVLED_ID_MAX)
--		return -EINVAL;
--
--	if (led > LM3533_LED_ID_MAX)
--		return -EINVAL;
--
--	if (lvled < 4) {
--		reg = LM3533_REG_OUTPUT_CONF1;
--		shift = 2 * lvled;
+-	ts->rtask = kthread_run(ucb1x00_thread, ts, "ktsd");
+-	if (!IS_ERR(ts->rtask)) {
+-		ret = 0;
 -	} else {
--		reg = LM3533_REG_OUTPUT_CONF2;
--		shift = 2 * (lvled - 4);
+-		free_irq(ts->ucb->irq_base + UCB_IRQ_TSPX, ts);
+-		ts->rtask = NULL;
+-		ret = -EFAULT;
 -	}
 -
--	mask = LM3533_LED_ID_MASK << shift;
--	val = led << shift;
--
--	ret = lm3533_update(lm3533, reg, val, mask);
--	if (ret)
--		dev_err(lm3533->dev, "failed to set lvled config\n");
--
+- out:
 -	return ret;
 -}
 -
--static void lm3533_enable(struct lm3533 *lm3533)
--{
--	gpiod_set_value(lm3533->hwen, 1);
--}
--
--static void lm3533_disable(struct lm3533 *lm3533)
--{
--	gpiod_set_value(lm3533->hwen, 0);
--}
--
--enum lm3533_attribute_type {
--	LM3533_ATTR_TYPE_BACKLIGHT,
--	LM3533_ATTR_TYPE_LED,
--};
--
--struct lm3533_device_attribute {
--	struct device_attribute dev_attr;
--	enum lm3533_attribute_type type;
--	union {
--		struct {
--			u8 id;
--		} output;
--	} u;
--};
--
--#define to_lm3533_dev_attr(_attr) \
--	container_of(_attr, struct lm3533_device_attribute, dev_attr)
--
--static ssize_t show_output(struct device *dev,
--				struct device_attribute *attr, char *buf)
--{
--	struct lm3533 *lm3533 = dev_get_drvdata(dev);
--	struct lm3533_device_attribute *lattr = to_lm3533_dev_attr(attr);
--	int id = lattr->u.output.id;
--	u8 reg;
--	u8 val;
--	u8 mask;
--	int shift;
--	int ret;
--
--	if (lattr->type == LM3533_ATTR_TYPE_BACKLIGHT) {
--		reg = LM3533_REG_OUTPUT_CONF1;
--		shift = id - 1;
--		mask = LM3533_BL_ID_MASK << shift;
--	} else {
--		if (id < 4) {
--			reg = LM3533_REG_OUTPUT_CONF1;
--			shift = 2 * id;
--		} else {
--			reg = LM3533_REG_OUTPUT_CONF2;
--			shift = 2 * (id - 4);
--		}
--		mask = LM3533_LED_ID_MASK << shift;
--	}
--
--	ret = lm3533_read(lm3533, reg, &val);
--	if (ret)
--		return ret;
--
--	val = (val & mask) >> shift;
--
--	return sysfs_emit(buf, "%u\n", val);
--}
--
--static ssize_t store_output(struct device *dev,
--					struct device_attribute *attr,
--					const char *buf, size_t len)
--{
--	struct lm3533 *lm3533 = dev_get_drvdata(dev);
--	struct lm3533_device_attribute *lattr = to_lm3533_dev_attr(attr);
--	int id = lattr->u.output.id;
--	u8 val;
--	int ret;
--
--	if (kstrtou8(buf, 0, &val))
--		return -EINVAL;
--
--	if (lattr->type == LM3533_ATTR_TYPE_BACKLIGHT)
--		ret = lm3533_set_hvled_config(lm3533, id, val);
--	else
--		ret = lm3533_set_lvled_config(lm3533, id, val);
--
--	if (ret)
--		return ret;
--
--	return len;
--}
--
--#define LM3533_OUTPUT_ATTR(_name, _mode, _show, _store, _type, _id) \
--	struct lm3533_device_attribute lm3533_dev_attr_##_name = \
--		{ .dev_attr	= __ATTR(_name, _mode, _show, _store), \
--		  .type		= _type, \
--		  .u.output	= { .id = _id }, }
--
--#define LM3533_OUTPUT_ATTR_RW(_name, _type, _id) \
--	LM3533_OUTPUT_ATTR(output_##_name, S_IRUGO | S_IWUSR, \
--					show_output, store_output, _type, _id)
--
--#define LM3533_OUTPUT_HVLED_ATTR_RW(_nr) \
--	LM3533_OUTPUT_ATTR_RW(hvled##_nr, LM3533_ATTR_TYPE_BACKLIGHT, _nr)
--#define LM3533_OUTPUT_LVLED_ATTR_RW(_nr) \
--	LM3533_OUTPUT_ATTR_RW(lvled##_nr, LM3533_ATTR_TYPE_LED, _nr)
 -/*
-- * Output config:
-- *
-- * output_hvled<nr>	0-1
-- * output_lvled<nr>	0-3
+- * Release touchscreen resources.  Disable IRQs.
 - */
--static LM3533_OUTPUT_HVLED_ATTR_RW(1);
--static LM3533_OUTPUT_HVLED_ATTR_RW(2);
--static LM3533_OUTPUT_LVLED_ATTR_RW(1);
--static LM3533_OUTPUT_LVLED_ATTR_RW(2);
--static LM3533_OUTPUT_LVLED_ATTR_RW(3);
--static LM3533_OUTPUT_LVLED_ATTR_RW(4);
--static LM3533_OUTPUT_LVLED_ATTR_RW(5);
--
--static struct attribute *lm3533_attributes[] = {
--	&lm3533_dev_attr_output_hvled1.dev_attr.attr,
--	&lm3533_dev_attr_output_hvled2.dev_attr.attr,
--	&lm3533_dev_attr_output_lvled1.dev_attr.attr,
--	&lm3533_dev_attr_output_lvled2.dev_attr.attr,
--	&lm3533_dev_attr_output_lvled3.dev_attr.attr,
--	&lm3533_dev_attr_output_lvled4.dev_attr.attr,
--	&lm3533_dev_attr_output_lvled5.dev_attr.attr,
--	NULL,
--};
--
--#define to_dev_attr(_attr) \
--	container_of(_attr, struct device_attribute, attr)
--
--static umode_t lm3533_attr_is_visible(struct kobject *kobj,
--					     struct attribute *attr, int n)
+-static void ucb1x00_ts_close(struct input_dev *idev)
 -{
--	struct device *dev = kobj_to_dev(kobj);
--	struct lm3533 *lm3533 = dev_get_drvdata(dev);
--	struct device_attribute *dattr = to_dev_attr(attr);
--	struct lm3533_device_attribute *lattr = to_lm3533_dev_attr(dattr);
--	enum lm3533_attribute_type type = lattr->type;
--	umode_t mode = attr->mode;
+-	struct ucb1x00_ts *ts = input_get_drvdata(idev);
 -
--	if (!lm3533->have_backlights && type == LM3533_ATTR_TYPE_BACKLIGHT)
--		mode = 0;
--	else if (!lm3533->have_leds && type == LM3533_ATTR_TYPE_LED)
--		mode = 0;
+-	if (ts->rtask)
+-		kthread_stop(ts->rtask);
 -
--	return mode;
--};
--
--static struct attribute_group lm3533_attribute_group = {
--	.is_visible	= lm3533_attr_is_visible,
--	.attrs		= lm3533_attributes
--};
--
--static int lm3533_device_als_init(struct lm3533 *lm3533)
--{
--	struct lm3533_platform_data *pdata = dev_get_platdata(lm3533->dev);
--	int ret;
--
--	if (!pdata->als)
--		return 0;
--
--	lm3533_als_devs[0].platform_data = pdata->als;
--	lm3533_als_devs[0].pdata_size = sizeof(*pdata->als);
--
--	ret = mfd_add_devices(lm3533->dev, 0, lm3533_als_devs, 1, NULL,
--			      0, NULL);
--	if (ret) {
--		dev_err(lm3533->dev, "failed to add ALS device\n");
--		return ret;
--	}
--
--	lm3533->have_als = 1;
--
--	return 0;
+-	ucb1x00_enable(ts->ucb);
+-	free_irq(ts->ucb->irq_base + UCB_IRQ_TSPX, ts);
+-	ucb1x00_reg_write(ts->ucb, UCB_TS_CR, 0);
+-	ucb1x00_disable(ts->ucb);
 -}
 -
--static int lm3533_device_bl_init(struct lm3533 *lm3533)
+-
+-/*
+- * Initialisation.
+- */
+-static int ucb1x00_ts_add(struct ucb1x00_dev *dev)
 -{
--	struct lm3533_platform_data *pdata = dev_get_platdata(lm3533->dev);
--	int i;
--	int ret;
+-	struct ucb1x00_ts *ts;
+-	struct input_dev *idev;
+-	int err;
 -
--	if (!pdata->backlights || pdata->num_backlights == 0)
--		return 0;
--
--	if (pdata->num_backlights > ARRAY_SIZE(lm3533_bl_devs))
--		pdata->num_backlights = ARRAY_SIZE(lm3533_bl_devs);
--
--	for (i = 0; i < pdata->num_backlights; ++i) {
--		lm3533_bl_devs[i].platform_data = &pdata->backlights[i];
--		lm3533_bl_devs[i].pdata_size = sizeof(pdata->backlights[i]);
+-	ts = kzalloc_obj(struct ucb1x00_ts);
+-	idev = input_allocate_device();
+-	if (!ts || !idev) {
+-		err = -ENOMEM;
+-		goto fail;
 -	}
 -
--	ret = mfd_add_devices(lm3533->dev, 0, lm3533_bl_devs,
--			      pdata->num_backlights, NULL, 0, NULL);
--	if (ret) {
--		dev_err(lm3533->dev, "failed to add backlight devices\n");
--		return ret;
--	}
+-	ts->ucb = dev->ucb;
+-	ts->idev = idev;
+-	ts->adcsync = adcsync ? UCB_SYNC : UCB_NOSYNC;
+-	spin_lock_init(&ts->irq_lock);
 -
--	lm3533->have_backlights = 1;
+-	idev->name       = "Touchscreen panel";
+-	idev->id.product = ts->ucb->id;
+-	idev->open       = ucb1x00_ts_open;
+-	idev->close      = ucb1x00_ts_close;
+-	idev->dev.parent = &ts->ucb->dev;
 -
--	return 0;
--}
+-	idev->evbit[0]   = BIT_MASK(EV_ABS) | BIT_MASK(EV_KEY);
+-	idev->keybit[BIT_WORD(BTN_TOUCH)] = BIT_MASK(BTN_TOUCH);
 -
--static int lm3533_device_led_init(struct lm3533 *lm3533)
--{
--	struct lm3533_platform_data *pdata = dev_get_platdata(lm3533->dev);
--	int i;
--	int ret;
+-	input_set_drvdata(idev, ts);
 -
--	if (!pdata->leds || pdata->num_leds == 0)
--		return 0;
+-	ucb1x00_adc_enable(ts->ucb);
+-	ts->x_res = ucb1x00_ts_read_xres(ts);
+-	ts->y_res = ucb1x00_ts_read_yres(ts);
+-	ucb1x00_adc_disable(ts->ucb);
 -
--	if (pdata->num_leds > ARRAY_SIZE(lm3533_led_devs))
--		pdata->num_leds = ARRAY_SIZE(lm3533_led_devs);
+-	input_set_abs_params(idev, ABS_X, 0, ts->x_res, 0, 0);
+-	input_set_abs_params(idev, ABS_Y, 0, ts->y_res, 0, 0);
+-	input_set_abs_params(idev, ABS_PRESSURE, 0, 0, 0, 0);
 -
--	for (i = 0; i < pdata->num_leds; ++i) {
--		lm3533_led_devs[i].platform_data = &pdata->leds[i];
--		lm3533_led_devs[i].pdata_size = sizeof(pdata->leds[i]);
--	}
+-	err = input_register_device(idev);
+-	if (err)
+-		goto fail;
 -
--	ret = mfd_add_devices(lm3533->dev, 0, lm3533_led_devs,
--			      pdata->num_leds, NULL, 0, NULL);
--	if (ret) {
--		dev_err(lm3533->dev, "failed to add LED devices\n");
--		return ret;
--	}
--
--	lm3533->have_leds = 1;
--
--	return 0;
--}
--
--static int lm3533_device_setup(struct lm3533 *lm3533,
--					struct lm3533_platform_data *pdata)
--{
--	int ret;
--
--	ret = lm3533_set_boost_freq(lm3533, pdata->boost_freq);
--	if (ret)
--		return ret;
--
--	return lm3533_set_boost_ovp(lm3533, pdata->boost_ovp);
--}
--
--static int lm3533_device_init(struct lm3533 *lm3533)
--{
--	struct lm3533_platform_data *pdata = dev_get_platdata(lm3533->dev);
--	int ret;
--
--	dev_dbg(lm3533->dev, "%s\n", __func__);
--
--	if (!pdata) {
--		dev_err(lm3533->dev, "no platform data\n");
--		return -EINVAL;
--	}
--
--	lm3533->hwen = devm_gpiod_get(lm3533->dev, NULL, GPIOD_OUT_LOW);
--	if (IS_ERR(lm3533->hwen))
--		return dev_err_probe(lm3533->dev, PTR_ERR(lm3533->hwen), "failed to request HWEN GPIO\n");
--	gpiod_set_consumer_name(lm3533->hwen, "lm3533-hwen");
--
--	lm3533_enable(lm3533);
--
--	ret = lm3533_device_setup(lm3533, pdata);
--	if (ret)
--		goto err_disable;
--
--	lm3533_device_als_init(lm3533);
--	lm3533_device_bl_init(lm3533);
--	lm3533_device_led_init(lm3533);
--
--	ret = sysfs_create_group(&lm3533->dev->kobj, &lm3533_attribute_group);
--	if (ret < 0) {
--		dev_err(lm3533->dev, "failed to create sysfs attributes\n");
--		goto err_unregister;
--	}
+-	dev->priv = ts;
 -
 -	return 0;
 -
--err_unregister:
--	mfd_remove_devices(lm3533->dev);
--err_disable:
--	lm3533_disable(lm3533);
--
--	return ret;
+- fail:
+-	input_free_device(idev);
+-	kfree(ts);
+-	return err;
 -}
 -
--static void lm3533_device_exit(struct lm3533 *lm3533)
+-static void ucb1x00_ts_remove(struct ucb1x00_dev *dev)
 -{
--	dev_dbg(lm3533->dev, "%s\n", __func__);
+-	struct ucb1x00_ts *ts = dev->priv;
 -
--	sysfs_remove_group(&lm3533->dev->kobj, &lm3533_attribute_group);
--
--	mfd_remove_devices(lm3533->dev);
--	lm3533_disable(lm3533);
+-	input_unregister_device(ts->idev);
+-	kfree(ts);
 -}
 -
--static bool lm3533_readable_register(struct device *dev, unsigned int reg)
--{
--	switch (reg) {
--	case 0x10 ... 0x2c:
--	case 0x30 ... 0x38:
--	case 0x40 ... 0x45:
--	case 0x50 ... 0x57:
--	case 0x60 ... 0x6e:
--	case 0x70 ... 0x75:
--	case 0x80 ... 0x85:
--	case 0x90 ... 0x95:
--	case 0xa0 ... 0xa5:
--	case 0xb0 ... 0xb2:
--		return true;
--	default:
--		return false;
--	}
--}
--
--static bool lm3533_volatile_register(struct device *dev, unsigned int reg)
--{
--	switch (reg) {
--	case 0x34 ... 0x36:	/* zone */
--	case 0x37 ... 0x38:	/* adc */
--	case 0xb0 ... 0xb1:	/* fault */
--		return true;
--	default:
--		return false;
--	}
--}
--
--static bool lm3533_precious_register(struct device *dev, unsigned int reg)
--{
--	switch (reg) {
--	case 0x34:		/* zone */
--		return true;
--	default:
--		return false;
--	}
--}
--
--static const struct regmap_config regmap_config = {
--	.reg_bits	= 8,
--	.val_bits	= 8,
--	.max_register	= LM3533_REG_MAX,
--	.readable_reg	= lm3533_readable_register,
--	.volatile_reg	= lm3533_volatile_register,
--	.precious_reg	= lm3533_precious_register,
+-static struct ucb1x00_driver ucb1x00_ts_driver = {
+-	.add		= ucb1x00_ts_add,
+-	.remove		= ucb1x00_ts_remove,
 -};
 -
--static int lm3533_i2c_probe(struct i2c_client *i2c)
+-static int __init ucb1x00_ts_init(void)
 -{
--	struct lm3533 *lm3533;
--
--	dev_dbg(&i2c->dev, "%s\n", __func__);
--
--	lm3533 = devm_kzalloc(&i2c->dev, sizeof(*lm3533), GFP_KERNEL);
--	if (!lm3533)
--		return -ENOMEM;
--
--	i2c_set_clientdata(i2c, lm3533);
--
--	lm3533->regmap = devm_regmap_init_i2c(i2c, &regmap_config);
--	if (IS_ERR(lm3533->regmap))
--		return PTR_ERR(lm3533->regmap);
--
--	lm3533->dev = &i2c->dev;
--	lm3533->irq = i2c->irq;
--
--	return lm3533_device_init(lm3533);
+-	return ucb1x00_register_driver(&ucb1x00_ts_driver);
 -}
 -
--static void lm3533_i2c_remove(struct i2c_client *i2c)
+-static void __exit ucb1x00_ts_exit(void)
 -{
--	struct lm3533 *lm3533 = i2c_get_clientdata(i2c);
--
--	dev_dbg(&i2c->dev, "%s\n", __func__);
--
--	lm3533_device_exit(lm3533);
+-	ucb1x00_unregister_driver(&ucb1x00_ts_driver);
 -}
 -
--static const struct i2c_device_id lm3533_i2c_ids[] = {
--	{ "lm3533" },
--	{ }
--};
--MODULE_DEVICE_TABLE(i2c, lm3533_i2c_ids);
+-module_param(adcsync, int, 0444);
+-module_init(ucb1x00_ts_init);
+-module_exit(ucb1x00_ts_exit);
 -
--static struct i2c_driver lm3533_i2c_driver = {
--	.driver = {
--		   .name = "lm3533",
--	},
--	.id_table	= lm3533_i2c_ids,
--	.probe		= lm3533_i2c_probe,
--	.remove		= lm3533_i2c_remove,
--};
--
--static int __init lm3533_i2c_init(void)
--{
--	return i2c_add_driver(&lm3533_i2c_driver);
--}
--subsys_initcall(lm3533_i2c_init);
--
--static void __exit lm3533_i2c_exit(void)
--{
--	i2c_del_driver(&lm3533_i2c_driver);
--}
--module_exit(lm3533_i2c_exit);
--
--MODULE_AUTHOR("Johan Hovold <jhovold@gmail.com>");
--MODULE_DESCRIPTION("LM3533 Core");
+-MODULE_AUTHOR("Russell King <rmk@arm.linux.org.uk>");
+-MODULE_DESCRIPTION("UCB1x00 touchscreen driver");
 -MODULE_LICENSE("GPL");
-diff --git a/drivers/mfd/lm3533-ctrlbank.c b/drivers/mfd/lm3533-ctrlbank.c
+diff --git a/include/linux/mfd/mcp.h b/include/linux/mfd/mcp.h
 deleted file mode 100644
-index 2537dfade51c..000000000000
---- a/drivers/mfd/lm3533-ctrlbank.c
+index fd5cafc77e8a..000000000000
+--- a/include/linux/mfd/mcp.h
 +++ /dev/null
-@@ -1,162 +0,0 @@
--// SPDX-License-Identifier: GPL-2.0-or-later
+@@ -1,63 +0,0 @@
+-/* SPDX-License-Identifier: GPL-2.0-only */
 -/*
-- * lm3533-ctrlbank.c -- LM3533 Generic Control Bank interface
+- *  linux/drivers/mfd/mcp.h
 - *
-- * Copyright (C) 2011-2012 Texas Instruments
-- *
-- * Author: Johan Hovold <jhovold@gmail.com>
+- *  Copyright (C) 2001 Russell King, All Rights Reserved.
 - */
+-#ifndef MCP_H
+-#define MCP_H
 -
 -#include <linux/device.h>
--#include <linux/module.h>
 -
--#include <linux/mfd/lm3533.h>
+-struct mcp_ops;
 -
--
--#define LM3533_MAX_CURRENT_MIN		5000
--#define LM3533_MAX_CURRENT_MAX		29800
--#define LM3533_MAX_CURRENT_STEP		800
--
--#define LM3533_PWM_MAX			0x3f
--
--#define LM3533_REG_PWM_BASE		0x14
--#define LM3533_REG_MAX_CURRENT_BASE	0x1f
--#define LM3533_REG_CTRLBANK_ENABLE	0x27
--#define LM3533_REG_BRIGHTNESS_BASE	0x40
--
--
--static inline u8 lm3533_ctrlbank_get_reg(struct lm3533_ctrlbank *cb, u8 base)
--{
--	return base + cb->id;
--}
--
--int lm3533_ctrlbank_enable(struct lm3533_ctrlbank *cb)
--{
--	u8 mask;
--	int ret;
--
--	dev_dbg(cb->dev, "%s - %d\n", __func__, cb->id);
--
--	mask = 1 << cb->id;
--	ret = lm3533_update(cb->lm3533, LM3533_REG_CTRLBANK_ENABLE,
--								mask, mask);
--	if (ret)
--		dev_err(cb->dev, "failed to enable ctrlbank %d\n", cb->id);
--
--	return ret;
--}
--EXPORT_SYMBOL_GPL(lm3533_ctrlbank_enable);
--
--int lm3533_ctrlbank_disable(struct lm3533_ctrlbank *cb)
--{
--	u8 mask;
--	int ret;
--
--	dev_dbg(cb->dev, "%s - %d\n", __func__, cb->id);
--
--	mask = 1 << cb->id;
--	ret = lm3533_update(cb->lm3533, LM3533_REG_CTRLBANK_ENABLE, 0, mask);
--	if (ret)
--		dev_err(cb->dev, "failed to disable ctrlbank %d\n", cb->id);
--
--	return ret;
--}
--EXPORT_SYMBOL_GPL(lm3533_ctrlbank_disable);
--
--/*
-- * Full-scale current.
-- *
-- * imax		5000 - 29800 uA (800 uA step)
-- */
--int lm3533_ctrlbank_set_max_current(struct lm3533_ctrlbank *cb, u16 imax)
--{
--	u8 reg;
--	u8 val;
--	int ret;
--
--	if (imax < LM3533_MAX_CURRENT_MIN || imax > LM3533_MAX_CURRENT_MAX)
--		return -EINVAL;
--
--	val = (imax - LM3533_MAX_CURRENT_MIN) / LM3533_MAX_CURRENT_STEP;
--
--	reg = lm3533_ctrlbank_get_reg(cb, LM3533_REG_MAX_CURRENT_BASE);
--	ret = lm3533_write(cb->lm3533, reg, val);
--	if (ret)
--		dev_err(cb->dev, "failed to set max current\n");
--
--	return ret;
--}
--EXPORT_SYMBOL_GPL(lm3533_ctrlbank_set_max_current);
--
--int lm3533_ctrlbank_set_brightness(struct lm3533_ctrlbank *cb, u8 val)
--{
--	u8 reg;
--	int ret;
--
--	reg = lm3533_ctrlbank_get_reg(cb, LM3533_REG_BRIGHTNESS_BASE);
--	ret = lm3533_write(cb->lm3533, reg, val);
--	if (ret)
--		dev_err(cb->dev, "failed to set brightness\n");
--
--	return ret;
--}
--EXPORT_SYMBOL_GPL(lm3533_ctrlbank_set_brightness);
--
--int lm3533_ctrlbank_get_brightness(struct lm3533_ctrlbank *cb, u8 *val)
--{
--	u8 reg;
--	int ret;
--
--	reg = lm3533_ctrlbank_get_reg(cb, LM3533_REG_BRIGHTNESS_BASE);
--	ret = lm3533_read(cb->lm3533, reg, val);
--	if (ret)
--		dev_err(cb->dev, "failed to get brightness\n");
--
--	return ret;
--}
--EXPORT_SYMBOL_GPL(lm3533_ctrlbank_get_brightness);
--
--/*
-- * PWM-input control mask:
-- *
-- *   bit 5 - PWM-input enabled in Zone 4
-- *   bit 4 - PWM-input enabled in Zone 3
-- *   bit 3 - PWM-input enabled in Zone 2
-- *   bit 2 - PWM-input enabled in Zone 1
-- *   bit 1 - PWM-input enabled in Zone 0
-- *   bit 0 - PWM-input enabled
-- */
--int lm3533_ctrlbank_set_pwm(struct lm3533_ctrlbank *cb, u8 val)
--{
--	u8 reg;
--	int ret;
--
--	if (val > LM3533_PWM_MAX)
--		return -EINVAL;
--
--	reg = lm3533_ctrlbank_get_reg(cb, LM3533_REG_PWM_BASE);
--	ret = lm3533_write(cb->lm3533, reg, val);
--	if (ret)
--		dev_err(cb->dev, "failed to set PWM mask\n");
--
--	return ret;
--}
--EXPORT_SYMBOL_GPL(lm3533_ctrlbank_set_pwm);
--
--int lm3533_ctrlbank_get_pwm(struct lm3533_ctrlbank *cb, u8 *val)
--{
--	u8 reg;
--	int ret;
--
--	reg = lm3533_ctrlbank_get_reg(cb, LM3533_REG_PWM_BASE);
--	ret = lm3533_read(cb->lm3533, reg, val);
--	if (ret)
--		dev_err(cb->dev, "failed to get PWM mask\n");
--
--	return ret;
--}
--EXPORT_SYMBOL_GPL(lm3533_ctrlbank_get_pwm);
--
--MODULE_AUTHOR("Johan Hovold <jhovold@gmail.com>");
--MODULE_DESCRIPTION("LM3533 Control Bank interface");
--MODULE_LICENSE("GPL");
-diff --git a/drivers/video/backlight/Kconfig b/drivers/video/backlight/Kconfig
-index 4acbac1bbb9e..bd88c88d7cf2 100644
---- a/drivers/video/backlight/Kconfig
-+++ b/drivers/video/backlight/Kconfig
-@@ -215,17 +215,6 @@ config BACKLIGHT_SY7758
- 	  Say Y to enable the backlight driver for the Silergy SY7758
- 	  backlight controller found in Ayaneo Pocket S2.
- 
--config BACKLIGHT_LM3533
--	tristate "Backlight Driver for LM3533"
--	depends on MFD_LM3533
--	help
--	  Say Y to enable the backlight driver for National Semiconductor / TI
--	  LM3533 Lighting Power chips.
--
--	  The backlights can be controlled directly, through PWM input, or by
--	  the ambient-light-sensor interface. The chip supports 256 brightness
--	  levels.
--
- config BACKLIGHT_LOCOMO
- 	tristate "Sharp LOCOMO LCD/Backlight Driver"
- 	depends on SHARP_LOCOMO
-diff --git a/drivers/video/backlight/Makefile b/drivers/video/backlight/Makefile
-index e11175bdd500..d98e60664af6 100644
---- a/drivers/video/backlight/Makefile
-+++ b/drivers/video/backlight/Makefile
-@@ -37,7 +37,6 @@ obj-$(CONFIG_BACKLIGHT_KTD253)		+= ktd253-backlight.o
- obj-$(CONFIG_BACKLIGHT_KTD2801)		+= ktd2801-backlight.o
- obj-$(CONFIG_BACKLIGHT_KTZ8866)		+= ktz8866.o
- obj-$(CONFIG_BACKLIGHT_LM3509)		+= lm3509_bl.o
--obj-$(CONFIG_BACKLIGHT_LM3533)		+= lm3533_bl.o
- obj-$(CONFIG_BACKLIGHT_LM3630A)		+= lm3630a_bl.o
- obj-$(CONFIG_BACKLIGHT_LM3639)		+= lm3639_bl.o
- obj-$(CONFIG_BACKLIGHT_LOCOMO)		+= locomolcd.o
-diff --git a/drivers/video/backlight/lm3533_bl.c b/drivers/video/backlight/lm3533_bl.c
-deleted file mode 100644
-index babfd3ceec86..000000000000
---- a/drivers/video/backlight/lm3533_bl.c
-+++ /dev/null
-@@ -1,398 +0,0 @@
--// SPDX-License-Identifier: GPL-2.0-or-later
--/*
-- * lm3533-bl.c -- LM3533 Backlight driver
-- *
-- * Copyright (C) 2011-2012 Texas Instruments
-- *
-- * Author: Johan Hovold <jhovold@gmail.com>
-- */
--
--#include <linux/module.h>
--#include <linux/init.h>
--#include <linux/platform_device.h>
--#include <linux/backlight.h>
--#include <linux/slab.h>
--
--#include <linux/mfd/lm3533.h>
--
--
--#define LM3533_HVCTRLBANK_COUNT		2
--#define LM3533_BL_MAX_BRIGHTNESS	255
--
--#define LM3533_REG_CTRLBANK_AB_BCONF	0x1a
--
--
--struct lm3533_bl {
--	struct lm3533 *lm3533;
--	struct lm3533_ctrlbank cb;
--	struct backlight_device *bd;
--	int id;
+-struct mcp {
+-	struct module	*owner;
+-	struct mcp_ops	*ops;
+-	spinlock_t	lock;
+-	int		use_count;
+-	unsigned int	sclk_rate;
+-	unsigned int	rw_timeout;
+-	struct device	attached_device;
 -};
 -
--
--static inline int lm3533_bl_get_ctrlbank_id(struct lm3533_bl *bl)
--{
--	return bl->id;
--}
--
--static int lm3533_bl_update_status(struct backlight_device *bd)
--{
--	struct lm3533_bl *bl = bl_get_data(bd);
--
--	return lm3533_ctrlbank_set_brightness(&bl->cb, backlight_get_brightness(bd));
--}
--
--static int lm3533_bl_get_brightness(struct backlight_device *bd)
--{
--	struct lm3533_bl *bl = bl_get_data(bd);
--	u8 val;
--	int ret;
--
--	ret = lm3533_ctrlbank_get_brightness(&bl->cb, &val);
--	if (ret)
--		return ret;
--
--	return val;
--}
--
--static const struct backlight_ops lm3533_bl_ops = {
--	.get_brightness	= lm3533_bl_get_brightness,
--	.update_status	= lm3533_bl_update_status,
+-struct mcp_ops {
+-	void		(*set_telecom_divisor)(struct mcp *, unsigned int);
+-	void		(*set_audio_divisor)(struct mcp *, unsigned int);
+-	void		(*reg_write)(struct mcp *, unsigned int, unsigned int);
+-	unsigned int	(*reg_read)(struct mcp *, unsigned int);
+-	void		(*enable)(struct mcp *);
+-	void		(*disable)(struct mcp *);
 -};
 -
--static ssize_t show_id(struct device *dev,
--				struct device_attribute *attr, char *buf)
--{
--	struct lm3533_bl *bl = dev_get_drvdata(dev);
+-void mcp_set_telecom_divisor(struct mcp *, unsigned int);
+-void mcp_set_audio_divisor(struct mcp *, unsigned int);
+-void mcp_reg_write(struct mcp *, unsigned int, unsigned int);
+-unsigned int mcp_reg_read(struct mcp *, unsigned int);
+-void mcp_enable(struct mcp *);
+-void mcp_disable(struct mcp *);
+-#define mcp_get_sclk_rate(mcp)	((mcp)->sclk_rate)
 -
--	return scnprintf(buf, PAGE_SIZE, "%d\n", bl->id);
--}
+-struct mcp *mcp_host_alloc(struct device *, size_t);
+-int mcp_host_add(struct mcp *, void *);
+-void mcp_host_del(struct mcp *);
+-void mcp_host_free(struct mcp *);
 -
--static ssize_t show_als_channel(struct device *dev,
--				struct device_attribute *attr, char *buf)
--{
--	struct lm3533_bl *bl = dev_get_drvdata(dev);
--	unsigned channel = lm3533_bl_get_ctrlbank_id(bl);
--
--	return scnprintf(buf, PAGE_SIZE, "%u\n", channel);
--}
--
--static ssize_t show_als_en(struct device *dev,
--				struct device_attribute *attr, char *buf)
--{
--	struct lm3533_bl *bl = dev_get_drvdata(dev);
--	int ctrlbank = lm3533_bl_get_ctrlbank_id(bl);
--	u8 val;
--	u8 mask;
--	bool enable;
--	int ret;
--
--	ret = lm3533_read(bl->lm3533, LM3533_REG_CTRLBANK_AB_BCONF, &val);
--	if (ret)
--		return ret;
--
--	mask = 1 << (2 * ctrlbank);
--	enable = val & mask;
--
--	return scnprintf(buf, PAGE_SIZE, "%d\n", enable);
--}
--
--static ssize_t store_als_en(struct device *dev,
--					struct device_attribute *attr,
--					const char *buf, size_t len)
--{
--	struct lm3533_bl *bl = dev_get_drvdata(dev);
--	int ctrlbank = lm3533_bl_get_ctrlbank_id(bl);
--	int enable;
--	u8 val;
--	u8 mask;
--	int ret;
--
--	if (kstrtoint(buf, 0, &enable))
--		return -EINVAL;
--
--	mask = 1 << (2 * ctrlbank);
--
--	if (enable)
--		val = mask;
--	else
--		val = 0;
--
--	ret = lm3533_update(bl->lm3533, LM3533_REG_CTRLBANK_AB_BCONF, val,
--									mask);
--	if (ret)
--		return ret;
--
--	return len;
--}
--
--static ssize_t show_linear(struct device *dev,
--				struct device_attribute *attr, char *buf)
--{
--	struct lm3533_bl *bl = dev_get_drvdata(dev);
--	u8 val;
--	u8 mask;
--	int linear;
--	int ret;
--
--	ret = lm3533_read(bl->lm3533, LM3533_REG_CTRLBANK_AB_BCONF, &val);
--	if (ret)
--		return ret;
--
--	mask = 1 << (2 * lm3533_bl_get_ctrlbank_id(bl) + 1);
--
--	if (val & mask)
--		linear = 1;
--	else
--		linear = 0;
--
--	return scnprintf(buf, PAGE_SIZE, "%x\n", linear);
--}
--
--static ssize_t store_linear(struct device *dev,
--					struct device_attribute *attr,
--					const char *buf, size_t len)
--{
--	struct lm3533_bl *bl = dev_get_drvdata(dev);
--	unsigned long linear;
--	u8 mask;
--	u8 val;
--	int ret;
--
--	if (kstrtoul(buf, 0, &linear))
--		return -EINVAL;
--
--	mask = 1 << (2 * lm3533_bl_get_ctrlbank_id(bl) + 1);
--
--	if (linear)
--		val = mask;
--	else
--		val = 0;
--
--	ret = lm3533_update(bl->lm3533, LM3533_REG_CTRLBANK_AB_BCONF, val,
--									mask);
--	if (ret)
--		return ret;
--
--	return len;
--}
--
--static ssize_t show_pwm(struct device *dev,
--					struct device_attribute *attr,
--					char *buf)
--{
--	struct lm3533_bl *bl = dev_get_drvdata(dev);
--	u8 val;
--	int ret;
--
--	ret = lm3533_ctrlbank_get_pwm(&bl->cb, &val);
--	if (ret)
--		return ret;
--
--	return scnprintf(buf, PAGE_SIZE, "%u\n", val);
--}
--
--static ssize_t store_pwm(struct device *dev,
--					struct device_attribute *attr,
--					const char *buf, size_t len)
--{
--	struct lm3533_bl *bl = dev_get_drvdata(dev);
--	u8 val;
--	int ret;
--
--	if (kstrtou8(buf, 0, &val))
--		return -EINVAL;
--
--	ret = lm3533_ctrlbank_set_pwm(&bl->cb, val);
--	if (ret)
--		return ret;
--
--	return len;
--}
--
--static LM3533_ATTR_RO(als_channel);
--static LM3533_ATTR_RW(als_en);
--static LM3533_ATTR_RO(id);
--static LM3533_ATTR_RW(linear);
--static LM3533_ATTR_RW(pwm);
--
--static struct attribute *lm3533_bl_attributes[] = {
--	&dev_attr_als_channel.attr,
--	&dev_attr_als_en.attr,
--	&dev_attr_id.attr,
--	&dev_attr_linear.attr,
--	&dev_attr_pwm.attr,
--	NULL,
+-struct mcp_driver {
+-	struct device_driver drv;
+-	int (*probe)(struct mcp *);
+-	void (*remove)(struct mcp *);
 -};
 -
--static umode_t lm3533_bl_attr_is_visible(struct kobject *kobj,
--					     struct attribute *attr, int n)
+-int mcp_driver_register(struct mcp_driver *);
+-void mcp_driver_unregister(struct mcp_driver *);
+-
+-#define mcp_get_drvdata(mcp)	dev_get_drvdata(&(mcp)->attached_device)
+-#define mcp_set_drvdata(mcp,d)	dev_set_drvdata(&(mcp)->attached_device, d)
+-
+-static inline void *mcp_priv(struct mcp *mcp)
 -{
--	struct device *dev = kobj_to_dev(kobj);
--	struct lm3533_bl *bl = dev_get_drvdata(dev);
--	umode_t mode = attr->mode;
--
--	if (attr == &dev_attr_als_channel.attr ||
--					attr == &dev_attr_als_en.attr) {
--		if (!bl->lm3533->have_als)
--			mode = 0;
--	}
--
--	return mode;
--};
--
--static struct attribute_group lm3533_bl_attribute_group = {
--	.is_visible	= lm3533_bl_attr_is_visible,
--	.attrs		= lm3533_bl_attributes
--};
--
--static int lm3533_bl_setup(struct lm3533_bl *bl,
--					struct lm3533_bl_platform_data *pdata)
--{
--	int ret;
--
--	ret = lm3533_ctrlbank_set_max_current(&bl->cb, pdata->max_current);
--	if (ret)
--		return ret;
--
--	return lm3533_ctrlbank_set_pwm(&bl->cb, pdata->pwm);
+-	return mcp + 1;
 -}
 -
--static int lm3533_bl_probe(struct platform_device *pdev)
--{
--	struct lm3533 *lm3533;
--	struct lm3533_bl_platform_data *pdata;
--	struct lm3533_bl *bl;
--	struct backlight_device *bd;
--	struct backlight_properties props;
--	int ret;
--
--	dev_dbg(&pdev->dev, "%s\n", __func__);
--
--	lm3533 = dev_get_drvdata(pdev->dev.parent);
--	if (!lm3533)
--		return -EINVAL;
--
--	pdata = dev_get_platdata(&pdev->dev);
--	if (!pdata) {
--		dev_err(&pdev->dev, "no platform data\n");
--		return -EINVAL;
--	}
--
--	if (pdev->id < 0 || pdev->id >= LM3533_HVCTRLBANK_COUNT) {
--		dev_err(&pdev->dev, "illegal backlight id %d\n", pdev->id);
--		return -EINVAL;
--	}
--
--	bl = devm_kzalloc(&pdev->dev, sizeof(*bl), GFP_KERNEL);
--	if (!bl)
--		return -ENOMEM;
--
--	bl->lm3533 = lm3533;
--	bl->id = pdev->id;
--
--	bl->cb.lm3533 = lm3533;
--	bl->cb.id = lm3533_bl_get_ctrlbank_id(bl);
--	bl->cb.dev = NULL;			/* until registered */
--
--	memset(&props, 0, sizeof(props));
--	props.type = BACKLIGHT_RAW;
--	props.max_brightness = LM3533_BL_MAX_BRIGHTNESS;
--	props.brightness = pdata->default_brightness;
--	bd = devm_backlight_device_register(&pdev->dev, pdata->name,
--					pdev->dev.parent, bl, &lm3533_bl_ops,
--					&props);
--	if (IS_ERR(bd)) {
--		dev_err(&pdev->dev, "failed to register backlight device\n");
--		return PTR_ERR(bd);
--	}
--
--	bl->bd = bd;
--	bl->cb.dev = &bl->bd->dev;
--
--	platform_set_drvdata(pdev, bl);
--
--	ret = sysfs_create_group(&bd->dev.kobj, &lm3533_bl_attribute_group);
--	if (ret < 0) {
--		dev_err(&pdev->dev, "failed to create sysfs attributes\n");
--		return ret;
--	}
--
--	backlight_update_status(bd);
--
--	ret = lm3533_bl_setup(bl, pdata);
--	if (ret)
--		goto err_sysfs_remove;
--
--	ret = lm3533_ctrlbank_enable(&bl->cb);
--	if (ret)
--		goto err_sysfs_remove;
--
--	return 0;
--
--err_sysfs_remove:
--	sysfs_remove_group(&bd->dev.kobj, &lm3533_bl_attribute_group);
--
--	return ret;
--}
--
--static void lm3533_bl_remove(struct platform_device *pdev)
--{
--	struct lm3533_bl *bl = platform_get_drvdata(pdev);
--	struct backlight_device *bd = bl->bd;
--
--	dev_dbg(&bd->dev, "%s\n", __func__);
--
--	bd->props.power = BACKLIGHT_POWER_OFF;
--	bd->props.brightness = 0;
--
--	lm3533_ctrlbank_disable(&bl->cb);
--	sysfs_remove_group(&bd->dev.kobj, &lm3533_bl_attribute_group);
--}
--
--#ifdef CONFIG_PM_SLEEP
--static int lm3533_bl_suspend(struct device *dev)
--{
--	struct lm3533_bl *bl = dev_get_drvdata(dev);
--
--	dev_dbg(dev, "%s\n", __func__);
--
--	return lm3533_ctrlbank_disable(&bl->cb);
--}
--
--static int lm3533_bl_resume(struct device *dev)
--{
--	struct lm3533_bl *bl = dev_get_drvdata(dev);
--
--	dev_dbg(dev, "%s\n", __func__);
--
--	return lm3533_ctrlbank_enable(&bl->cb);
--}
 -#endif
+diff --git a/include/linux/mfd/ucb1x00.h b/include/linux/mfd/ucb1x00.h
+deleted file mode 100644
+index 66ecad4667c9..000000000000
+--- a/include/linux/mfd/ucb1x00.h
++++ /dev/null
+@@ -1,261 +0,0 @@
+-/* SPDX-License-Identifier: GPL-2.0-only */
+-/*
+- *  linux/include/mfd/ucb1x00.h
+- *
+- *  Copyright (C) 2001 Russell King, All Rights Reserved.
+- */
+-#ifndef UCB1200_H
+-#define UCB1200_H
 -
--static SIMPLE_DEV_PM_OPS(lm3533_bl_pm_ops, lm3533_bl_suspend, lm3533_bl_resume);
+-#include <linux/device.h>
+-#include <linux/mfd/mcp.h>
+-#include <linux/gpio/consumer.h>
+-#include <linux/gpio/driver.h>
+-#include <linux/mutex.h>
 -
--static void lm3533_bl_shutdown(struct platform_device *pdev)
+-#define UCB_IO_DATA	0x00
+-#define UCB_IO_DIR	0x01
+-
+-#define UCB_IO_0		(1 << 0)
+-#define UCB_IO_1		(1 << 1)
+-#define UCB_IO_2		(1 << 2)
+-#define UCB_IO_3		(1 << 3)
+-#define UCB_IO_4		(1 << 4)
+-#define UCB_IO_5		(1 << 5)
+-#define UCB_IO_6		(1 << 6)
+-#define UCB_IO_7		(1 << 7)
+-#define UCB_IO_8		(1 << 8)
+-#define UCB_IO_9		(1 << 9)
+-
+-#define UCB_IE_RIS	0x02
+-#define UCB_IE_FAL	0x03
+-#define UCB_IE_STATUS	0x04
+-#define UCB_IE_CLEAR	0x04
+-#define UCB_IE_ADC		(1 << 11)
+-#define UCB_IE_TSPX		(1 << 12)
+-#define UCB_IE_TSMX		(1 << 13)
+-#define UCB_IE_TCLIP		(1 << 14)
+-#define UCB_IE_ACLIP		(1 << 15)
+-
+-#define UCB_IRQ_TSPX		12
+-
+-#define UCB_TC_A	0x05
+-#define UCB_TC_A_LOOP		(1 << 7)	/* UCB1200 */
+-#define UCB_TC_A_AMPL		(1 << 7)	/* UCB1300 */
+-
+-#define UCB_TC_B	0x06
+-#define UCB_TC_B_VOICE_ENA	(1 << 3)
+-#define UCB_TC_B_CLIP		(1 << 4)
+-#define UCB_TC_B_ATT		(1 << 6)
+-#define UCB_TC_B_SIDE_ENA	(1 << 11)
+-#define UCB_TC_B_MUTE		(1 << 13)
+-#define UCB_TC_B_IN_ENA		(1 << 14)
+-#define UCB_TC_B_OUT_ENA	(1 << 15)
+-
+-#define UCB_AC_A	0x07
+-#define UCB_AC_B	0x08
+-#define UCB_AC_B_LOOP		(1 << 8)
+-#define UCB_AC_B_MUTE		(1 << 13)
+-#define UCB_AC_B_IN_ENA		(1 << 14)
+-#define UCB_AC_B_OUT_ENA	(1 << 15)
+-
+-#define UCB_TS_CR	0x09
+-#define UCB_TS_CR_TSMX_POW	(1 << 0)
+-#define UCB_TS_CR_TSPX_POW	(1 << 1)
+-#define UCB_TS_CR_TSMY_POW	(1 << 2)
+-#define UCB_TS_CR_TSPY_POW	(1 << 3)
+-#define UCB_TS_CR_TSMX_GND	(1 << 4)
+-#define UCB_TS_CR_TSPX_GND	(1 << 5)
+-#define UCB_TS_CR_TSMY_GND	(1 << 6)
+-#define UCB_TS_CR_TSPY_GND	(1 << 7)
+-#define UCB_TS_CR_MODE_INT	(0 << 8)
+-#define UCB_TS_CR_MODE_PRES	(1 << 8)
+-#define UCB_TS_CR_MODE_POS	(2 << 8)
+-#define UCB_TS_CR_BIAS_ENA	(1 << 11)
+-#define UCB_TS_CR_TSPX_LOW	(1 << 12)
+-#define UCB_TS_CR_TSMX_LOW	(1 << 13)
+-
+-#define UCB_ADC_CR	0x0a
+-#define UCB_ADC_SYNC_ENA	(1 << 0)
+-#define UCB_ADC_VREFBYP_CON	(1 << 1)
+-#define UCB_ADC_INP_TSPX	(0 << 2)
+-#define UCB_ADC_INP_TSMX	(1 << 2)
+-#define UCB_ADC_INP_TSPY	(2 << 2)
+-#define UCB_ADC_INP_TSMY	(3 << 2)
+-#define UCB_ADC_INP_AD0		(4 << 2)
+-#define UCB_ADC_INP_AD1		(5 << 2)
+-#define UCB_ADC_INP_AD2		(6 << 2)
+-#define UCB_ADC_INP_AD3		(7 << 2)
+-#define UCB_ADC_EXT_REF		(1 << 5)
+-#define UCB_ADC_START		(1 << 7)
+-#define UCB_ADC_ENA		(1 << 15)
+-
+-#define UCB_ADC_DATA	0x0b
+-#define UCB_ADC_DAT_VAL		(1 << 15)
+-#define UCB_ADC_DAT(x)		(((x) & 0x7fe0) >> 5)
+-
+-#define UCB_ID		0x0c
+-#define UCB_ID_1200		0x1004
+-#define UCB_ID_1300		0x1005
+-#define UCB_ID_TC35143          0x9712
+-
+-#define UCB_MODE	0x0d
+-#define UCB_MODE_DYN_VFLAG_ENA	(1 << 12)
+-#define UCB_MODE_AUD_OFF_CAN	(1 << 13)
+-
+-struct software_node;
+-extern const struct software_node ucb1x00_gpiochip_node;
+-
+-enum ucb1x00_reset {
+-	UCB_RST_PROBE,
+-	UCB_RST_RESUME,
+-	UCB_RST_SUSPEND,
+-	UCB_RST_REMOVE,
+-	UCB_RST_PROBE_FAIL,
+-};
+-
+-struct ucb1x00_plat_data {
+-	void			(*reset)(enum ucb1x00_reset);
+-	unsigned		irq_base;
+-	int			gpio_base;
+-	unsigned		can_wakeup;
+-};
+-
+-struct ucb1x00 {
+-	raw_spinlock_t		irq_lock;
+-	struct mcp		*mcp;
+-	unsigned int		irq;
+-	int			irq_base;
+-	struct mutex		adc_mutex;
+-	spinlock_t		io_lock;
+-	u16			id;
+-	u16			io_dir;
+-	u16			io_out;
+-	u16			adc_cr;
+-	u16			irq_fal_enbl;
+-	u16			irq_ris_enbl;
+-	u16			irq_mask;
+-	u16			irq_wake;
+-	struct device		dev;
+-	struct list_head	node;
+-	struct list_head	devs;
+-	struct gpio_chip 	gpio;
+-};
+-
+-struct ucb1x00_driver;
+-
+-struct ucb1x00_dev {
+-	struct list_head	dev_node;
+-	struct list_head	drv_node;
+-	struct ucb1x00		*ucb;
+-	struct ucb1x00_driver	*drv;
+-	void			*priv;
+-};
+-
+-struct ucb1x00_driver {
+-	struct list_head	node;
+-	struct list_head	devs;
+-	int	(*add)(struct ucb1x00_dev *dev);
+-	void	(*remove)(struct ucb1x00_dev *dev);
+-	int	(*suspend)(struct ucb1x00_dev *dev);
+-	int	(*resume)(struct ucb1x00_dev *dev);
+-};
+-
+-#define classdev_to_ucb1x00(cd)	container_of(cd, struct ucb1x00, dev)
+-
+-int ucb1x00_register_driver(struct ucb1x00_driver *);
+-void ucb1x00_unregister_driver(struct ucb1x00_driver *);
+-
+-/**
+- *	ucb1x00_clkrate - return the UCB1x00 SIB clock rate
+- *	@ucb: UCB1x00 structure describing chip
+- *
+- *	Return the SIB clock rate in Hz.
+- */
+-static inline unsigned int ucb1x00_clkrate(struct ucb1x00 *ucb)
 -{
--	struct lm3533_bl *bl = platform_get_drvdata(pdev);
--
--	dev_dbg(&pdev->dev, "%s\n", __func__);
--
--	lm3533_ctrlbank_disable(&bl->cb);
+-	return mcp_get_sclk_rate(ucb->mcp);
 -}
 -
--static struct platform_driver lm3533_bl_driver = {
--	.driver = {
--		.name	= "lm3533-backlight",
--		.pm	= &lm3533_bl_pm_ops,
--	},
--	.probe		= lm3533_bl_probe,
--	.remove		= lm3533_bl_remove,
--	.shutdown	= lm3533_bl_shutdown,
--};
--module_platform_driver(lm3533_bl_driver);
--
--MODULE_AUTHOR("Johan Hovold <jhovold@gmail.com>");
--MODULE_DESCRIPTION("LM3533 Backlight driver");
--MODULE_LICENSE("GPL");
--MODULE_ALIAS("platform:lm3533-backlight");
-diff --git a/include/linux/mfd/lm3533.h b/include/linux/mfd/lm3533.h
-deleted file mode 100644
-index 69059a7a2ce5..000000000000
---- a/include/linux/mfd/lm3533.h
-+++ /dev/null
-@@ -1,99 +0,0 @@
--/* SPDX-License-Identifier: GPL-2.0-or-later */
--/*
-- * lm3533.h -- LM3533 interface
+-/**
+- *	ucb1x00_enable - enable the UCB1x00 SIB clock
+- *	@ucb: UCB1x00 structure describing chip
 - *
-- * Copyright (C) 2011-2012 Texas Instruments
-- *
-- * Author: Johan Hovold <jhovold@gmail.com>
+- *	Enable the SIB clock.  This can be called multiple times.
 - */
+-static inline void ucb1x00_enable(struct ucb1x00 *ucb)
+-{
+-	mcp_enable(ucb->mcp);
+-}
 -
--#ifndef __LINUX_MFD_LM3533_H
--#define __LINUX_MFD_LM3533_H
+-/**
+- *	ucb1x00_disable - disable the UCB1x00 SIB clock
+- *	@ucb: UCB1x00 structure describing chip
+- *
+- *	Disable the SIB clock.  The SIB clock will only be disabled
+- *	when the number of ucb1x00_enable calls match the number of
+- *	ucb1x00_disable calls.
+- */
+-static inline void ucb1x00_disable(struct ucb1x00 *ucb)
+-{
+-	mcp_disable(ucb->mcp);
+-}
 -
--#define LM3533_ATTR_RO(_name) \
--	DEVICE_ATTR(_name, S_IRUGO, show_##_name, NULL)
--#define LM3533_ATTR_RW(_name) \
--	DEVICE_ATTR(_name, S_IRUGO | S_IWUSR , show_##_name, store_##_name)
+-/**
+- *	ucb1x00_reg_write - write a UCB1x00 register
+- *	@ucb: UCB1x00 structure describing chip
+- *	@reg: UCB1x00 4-bit register index to write
+- *	@val: UCB1x00 16-bit value to write
+- *
+- *	Write the UCB1x00 register @reg with value @val.  The SIB
+- *	clock must be running for this function to return.
+- */
+-static inline void ucb1x00_reg_write(struct ucb1x00 *ucb, unsigned int reg, unsigned int val)
+-{
+-	mcp_reg_write(ucb->mcp, reg, val);
+-}
 -
--struct device;
--struct gpio_desc;
--struct regmap;
+-/**
+- *	ucb1x00_reg_read - read a UCB1x00 register
+- *	@ucb: UCB1x00 structure describing chip
+- *	@reg: UCB1x00 4-bit register index to write
+- *
+- *	Read the UCB1x00 register @reg and return its value.  The SIB
+- *	clock must be running for this function to return.
+- */
+-static inline unsigned int ucb1x00_reg_read(struct ucb1x00 *ucb, unsigned int reg)
+-{
+-	return mcp_reg_read(ucb->mcp, reg);
+-}
+-/**
+- *	ucb1x00_set_audio_divisor - 
+- *	@ucb: UCB1x00 structure describing chip
+- *	@div: SIB clock divisor
+- */
+-static inline void ucb1x00_set_audio_divisor(struct ucb1x00 *ucb, unsigned int div)
+-{
+-	mcp_set_audio_divisor(ucb->mcp, div);
+-}
 -
--struct lm3533 {
--	struct device *dev;
+-/**
+- *	ucb1x00_set_telecom_divisor -
+- *	@ucb: UCB1x00 structure describing chip
+- *	@div: SIB clock divisor
+- */
+-static inline void ucb1x00_set_telecom_divisor(struct ucb1x00 *ucb, unsigned int div)
+-{
+-	mcp_set_telecom_divisor(ucb->mcp, div);
+-}
 -
--	struct regmap *regmap;
+-void ucb1x00_io_set_dir(struct ucb1x00 *ucb, unsigned int, unsigned int);
+-void ucb1x00_io_write(struct ucb1x00 *ucb, unsigned int, unsigned int);
+-unsigned int ucb1x00_io_read(struct ucb1x00 *ucb);
 -
--	struct gpio_desc *hwen;
--	int irq;
+-#define UCB_NOSYNC	(0)
+-#define UCB_SYNC	(1)
 -
--	unsigned have_als:1;
--	unsigned have_backlights:1;
--	unsigned have_leds:1;
+-unsigned int ucb1x00_adc_read(struct ucb1x00 *ucb, int adc_channel, int sync);
+-void ucb1x00_adc_enable(struct ucb1x00 *ucb);
+-void ucb1x00_adc_disable(struct ucb1x00 *ucb);
+-
+-#endif
+diff --git a/include/linux/platform_data/mfd-mcp-sa11x0.h b/include/linux/platform_data/mfd-mcp-sa11x0.h
+deleted file mode 100644
+index b589e61bbc2e..000000000000
+--- a/include/linux/platform_data/mfd-mcp-sa11x0.h
++++ /dev/null
+@@ -1,17 +0,0 @@
+-/* SPDX-License-Identifier: GPL-2.0-only */
+-/*
+- *  Copyright (C) 2005 Russell King.
+- */
+-#ifndef __MFD_MCP_SA11X0_H
+-#define __MFD_MCP_SA11X0_H
+-
+-#include <linux/types.h>
+-
+-struct mcp_plat_data {
+-	u32 mccr0;
+-	u32 mccr1;
+-	unsigned int sclk_rate;
+-	void *codec_pdata;
 -};
 -
--struct lm3533_ctrlbank {
--	struct lm3533 *lm3533;
--	struct device *dev;
--	int id;
--};
--
--struct lm3533_als_platform_data {
--	unsigned pwm_mode:1;		/* PWM input mode (default analog) */
--	u8 r_select;			/* 1 - 127 (ignored in PWM-mode) */
--};
--
--struct lm3533_bl_platform_data {
--	char *name;
--	u16 max_current;		/* 5000 - 29800 uA (800 uA step) */
--	u8 default_brightness;		/* 0 - 255 */
--	u8 pwm;				/* 0 - 0x3f */
--};
--
--struct lm3533_led_platform_data {
--	char *name;
--	const char *default_trigger;
--	u16 max_current;		/* 5000 - 29800 uA (800 uA step) */
--	u8 pwm;				/* 0 - 0x3f */
--};
--
--enum lm3533_boost_freq {
--	LM3533_BOOST_FREQ_500KHZ,
--	LM3533_BOOST_FREQ_1000KHZ,
--};
--
--enum lm3533_boost_ovp {
--	LM3533_BOOST_OVP_16V,
--	LM3533_BOOST_OVP_24V,
--	LM3533_BOOST_OVP_32V,
--	LM3533_BOOST_OVP_40V,
--};
--
--struct lm3533_platform_data {
--	enum lm3533_boost_ovp boost_ovp;
--	enum lm3533_boost_freq boost_freq;
--
--	struct lm3533_als_platform_data *als;
--
--	struct lm3533_bl_platform_data *backlights;
--	int num_backlights;
--
--	struct lm3533_led_platform_data *leds;
--	int num_leds;
--};
--
--extern int lm3533_ctrlbank_enable(struct lm3533_ctrlbank *cb);
--extern int lm3533_ctrlbank_disable(struct lm3533_ctrlbank *cb);
--
--extern int lm3533_ctrlbank_set_brightness(struct lm3533_ctrlbank *cb, u8 val);
--extern int lm3533_ctrlbank_get_brightness(struct lm3533_ctrlbank *cb, u8 *val);
--extern int lm3533_ctrlbank_set_max_current(struct lm3533_ctrlbank *cb,
--								u16 imax);
--extern int lm3533_ctrlbank_set_pwm(struct lm3533_ctrlbank *cb, u8 val);
--extern int lm3533_ctrlbank_get_pwm(struct lm3533_ctrlbank *cb, u8 *val);
--
--extern int lm3533_read(struct lm3533 *lm3533, u8 reg, u8 *val);
--extern int lm3533_write(struct lm3533 *lm3533, u8 reg, u8 val);
--extern int lm3533_update(struct lm3533 *lm3533, u8 reg, u8 val, u8 mask);
--
--#endif	/* __LINUX_MFD_LM3533_H */
+-#endif
 -- 
 2.53.0
 
