@@ -1,121 +1,115 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E5433002B9;
-	Wed,  9 Sep 2026 07:37:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDB613002B9;
+	Wed,  9 Sep 2026 07:37:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788939448; cv=none; b=pVKRtyql9szJMxDljtgeMj5Yog7iKJE+AXmLnmFXLy+jZwJUPo60f7fTdTkwRkGDkANk3p23rb3SPJ2hx3elGPA5tFPObQOxy74Rdsn8gmGwNZUV2bf1RdMCt6+BZo1ot8oKn/OI0+oYIpaT9gkbEuNA1z8ZmUgiTKhYESaNN3k=
+	t=1788939481; cv=none; b=N2Ve/nRwYGhwyZmobhl8ngOh8EteuAofAbJ5w8DB4XqpK4QggDNvLKT6+oJTk9P492JTImUhxL7NfKVIzffi2o7T9QV3XudzAuWjpgCHjK9x2NcU3NJbV0kwqtqzmiMVGo99iPHbAWKw+I4/1L6KuJckDf39psHGWyzMXXqqVmg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788939448; c=relaxed/simple;
-	bh=bxG5XvvBVoxSF5m95QrKNdxwfBkN3HiM6ZmP7BIDYL0=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=elEXhjwcsP6YXaH9EhfV/2+jtNSw4W5VG8FB8CJIZb5GV+zQWzeTm+g6C2PfvhrxqfVdjqDfiSM+PU9yjsuU7xef65ubLYbCQftX4oIMse9vxRxdKleA4xWb9Fae42bfaJ2Waa8/3xF0f+oxxOtIDazXfuAQl1OsY+LJoG+Ksu4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Dl+hRUS7; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788939481; c=relaxed/simple;
+	bh=63OJlxLj5WvUPh6u8FY27KSP3KoV3iyT6ThUCut2U8U=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=L169S9+StIc7EH6UDVY9028LmDRrt2d6ywjYTmUkHHszVTuPoYHJ6B8JHor77d0xv5h+kzAvRvIWMKvN6/5Ec/DJ1H2oD32qujBU5LDKLkJtxNHVWhiCtszpVNXrzbPA5H8E1XbNdji79nmibQY9d8obuVptKIzxU2ht/2e2SPk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MGjCBk0Z; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Dl+hRUS7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E580A1F00A3F;
-	Wed,  9 Sep 2026 07:37:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MGjCBk0Z"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4BFAF1F00A3A;
+	Wed,  9 Sep 2026 07:37:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788939447;
-	bh=U/QZJikpo5kZYaUKl+nXZK03zswjscmlVtD3BHEcVcQ=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=Dl+hRUS7EGUIOBSQVLZBfIfZurYDPsVL4Az7bRRfECr6kD5mpE6oUfbena6TSipgH
-	 IILNxj5T8iND/m3lPyC1dVNo/vsed361q4LXmfL01jScxrnXhbl6SQ+b1hxUEwxPdU
-	 xM8sLLyukLF1dLS3INT9077CdWagsWWS5RE5JR74VEDgvpKzPevSd9bp6Re9jv9cAY
-	 esbfnCE9qIN8hd6A46n4Dv/gSB5mDs57hN4XRJyEa0kU0JjYcj+vkAwYDtbFcD3WrW
-	 GtxRgz0G2EcBDcAVSWMmtGWLeXcQlHcY45EwszMtYzUZMjgnf0cZbCd72QEazjoS5B
-	 /aa7vM9A9gXlw==
-X-Mailer: emacs 31.1 (via feedmail 11-beta-1 I)
-From: Aneesh Kumar K.V <aneesh.kumar@kernel.org>
-To: Jason Gunthorpe <jgg@nvidia.com>
-Cc: linux-coco@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Greg KH <gregkh@linuxfoundation.org>,
-	Jeremy Linton <jeremy.linton@arm.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Sudeep Holla <sudeep.holla@arm.com>,
-	Will Deacon <will@kernel.org>,
-	Steven Price <steven.price@arm.com>,
-	Suzuki K Poulose <Suzuki.Poulose@arm.com>,
-	Andre Przywara <andre.przywara@arm.com>
-Subject: Re: [PATCH v10 6/7] firmware: smccc: arm-cca-guest: Bind the TSM
- provider to an SMCCC device
-In-Reply-To: <178855077571.693280.17942746234757215326.b4-review@b4>
-References: <20260904095000.1184861-1-aneesh.kumar@kernel.org>
- <20260904095000.1184861-7-aneesh.kumar@kernel.org>
- <178855077571.693280.17942746234757215326.b4-review@b4>
-Date: Wed, 09 Sep 2026 13:07:18 +0530
-Message-ID: <yq5atsnyeuz5.fsf@kernel.org>
+	s=k20260515; t=1788939479;
+	bh=4aZRlqqvMLjbIPmvvpAAGUHdgZsBWGGPHyB8VH0SxNE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=MGjCBk0ZAiXKm3dIguUZf+BjztEXIXL1+2asaeZkTFN0mlW/CJSsIMiZC6ghR+WKe
+	 wGhK1P0Uz66JOoD1IrlLiqEYrS53oeisofGpS3BLPKFnZFCL1eyKlH9QBz6WMb00Fs
+	 UUDGM5VaHjEPZqHZkZnI97zGeGRYy9T0mTzigUoW2mWqgUIB5s1lE8LS/y+YfoaTW+
+	 MC68mmHFYmnMh7WOaKXV1ERC1fCKAicJlKm3Y9jmdYBvKZVDe9KPs2yjHVq4UrjKvI
+	 lRu3qdOGv6YD1xFFVVC8YmW3g0RF0guV52ZxgMyU2VneFpdNZPUROjGuQ8q9RA8ewG
+	 BPjtLAd+zoo/g==
+Date: Wed, 9 Sep 2026 09:37:55 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: David Oberhollenzer <david.oberhollenzer@sigma-star.at>
+Cc: linux-phy@lists.infradead.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, vkoul@kernel.org, neil.armstrong@linaro.org, robh@kernel.org, 
+	krzk+dt@kernel.org, conor+dt@kernel.org, johan@kernel.org, rogerq@ti.com, 
+	Julian.FRIEDRICH@frequentis.com, upstream+omap@sigma-star.at
+Subject: Re: [PATCH v3 2/2] phy: ti: ti-pipe3: allow configuring ACSPCIe
+ TX/RX mode
+Message-ID: <20260909-hot-snobbish-cobra-0f97c5@quoll>
+References: <20260905211555.15944-1-david.oberhollenzer@sigma-star.at>
+ <20260905211555.15944-3-david.oberhollenzer@sigma-star.at>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260905211555.15944-3-david.oberhollenzer@sigma-star.at>
 
-Jason Gunthorpe <jgg@nvidia.com> writes:
+On Sat, Sep 05, 2026 at 11:15:55PM +0200, David Oberhollenzer wrote:
+> For the PCIe PHYs, read the property from the device tree and
+> update the RX/TX mode selection bits in the specified syscon
+> register.
+> 
+> Signed-off-by: David Oberhollenzer <david.oberhollenzer@sigma-star.at>
+> ---
+>  drivers/phy/ti/phy-ti-pipe3.c | 27 +++++++++++++++++++++++++++
+>  1 file changed, 27 insertions(+)
+> 
+> diff --git a/drivers/phy/ti/phy-ti-pipe3.c b/drivers/phy/ti/phy-ti-pipe3.c
+> index b5543b5c674c..bc02010dadb7 100644
+> --- a/drivers/phy/ti/phy-ti-pipe3.c
+> +++ b/drivers/phy/ti/phy-ti-pipe3.c
+> @@ -115,6 +115,9 @@
+>  #define MEM_CDR_LOS_SOURCE_MASK		GENMASK(10, 9)
+>  #define MEM_CDR_LOS_SOURCE_SHIFT	9
+>  
+> +#define PCIE_TX_RX_CTRL_MASK		GENMASK(17, 16)
+> +#define PCIE_TX_RX_CTRL_SHIFT		16
+> +
+>  /*
+>   * This is an Empirical value that works, need to confirm the actual
+>   * value required for the PIPE3PHY_PLL_CONFIGURATION2.PLL_IDLE status
+> @@ -785,6 +788,24 @@ static int ti_pipe3_get_pll_base(struct ti_pipe3 *phy)
+>  	return PTR_ERR_OR_ZERO(phy->pll_ctrl_base);
+>  }
+>  
+> +static int ti_pipe3_acspcie_tx_rx_mode(struct ti_pipe3 *phy)
+> +{
+> +	struct device_node *np = phy->dev->of_node;
+> +	struct regmap *regmap;
+> +	unsigned int args[2];
+> +
+> +	regmap = syscon_regmap_lookup_by_phandle_args(np,
+> +						      "ti,syscon-acspcie-tx-rx",
+> +						      2, args);
+> +	if (IS_ERR(regmap)) {
+> +		dev_warn(phy->dev, "can't get ti,syscon-acspcie-tx-rx\n");
+> +		return -EINVAL;
+> +	}
+> +
+> +	return regmap_update_bits(regmap, args[0], PCIE_TX_RX_CTRL_MASK,
+> +				  args[1] << PCIE_TX_RX_CTRL_SHIFT);
+> +}
+> +
+>  static int ti_pipe3_probe(struct platform_device *pdev)
+>  {
+>  	struct ti_pipe3 *phy;
+> @@ -807,6 +828,12 @@ static int ti_pipe3_probe(struct platform_device *pdev)
+>  	phy->dpll_map = data->dpll_map;
+>  	phy->settings = data->settings;
+>  
+> +	if (phy->mode == PIPE3_MODE_PCIE) {
+> +		ret = ti_pipe3_acspcie_tx_rx_mode(phy);
+> +		if (ret)
+> +			dev_warn(dev, "failed to set ACSPCIe TX/RX mode\n");
 
->> [ ... 42 lines skipped ... ]
->> @@ -94,6 +95,11 @@ static const struct smccc_device_info smccc_devices[] __initconst = {
->>  		.requires_smc   = false,
->>  		.device_name    = "arm-smccc-trng",
->>  	},
->> +	{
->> +		.func_id        = SMC_RSI_ABI_VERSION,
->> +		.requires_smc   = true,
->> +		.device_name    = "arm-rsi",
->> +	},
->>  };
->>  
->>  static bool __init smccc_probe_smccc_device(const struct smccc_device_info *smccc_dev)
->
->    [Severity: High]
->    When this new entry is probed by smccc_probe_smccc_device(), does
->    arm_smccc_1_1_invoke() pass uninitialized registers to the firmware?
->
->    Looking at smccc_probe_smccc_device() during system initialization:
->
->    drivers/firmware/smccc/smccc.c:smccc_probe_smccc_device() {
->        ...
-> 	   arm_smccc_1_1_invoke(smccc_dev->func_id, &res);
->        ...
->    }
->
->    Since arm_smccc_1_1_invoke() is a variadic macro, providing only the func_id
->    leaves x1/r1 uninitialized in the SMC inline assembly.
->
->    For SMC_RSI_ABI_VERSION, the RMM uses x1 as the requested interface revision
->    to determine supported revisions.
->
->    Could this pass a garbage requested interface revision to the RMM,
->    potentially causing probe failures or returning an unsupported boundary?
->
->    Could this also leak kernel register state to EL2?
->
-> Sashiko still has this to say, I think it should pass 0 as the x1
-> 'requested version' instead of unpredictable garbage.
->
+This looks like new warning for existing ABI without any explanation why
+is this a warning. Was it working? If yes, why existing boards should
+warn now?
 
-To handle 
+Best regards,
+Krzysztof
 
-> Could this also leak kernel register state to EL2?
->
-
-Should we instead do
-
-	arm_smccc_1_1_invoke(smccc_dev->func_id,
-			     0, 0, 0, 0, 0, 0, 0, &res);
-	ret = res.a0;
-
-There is no standard defining how the various SMCCC VERSION calls are
-expected to work. For example, ARM_SMCCC_TRNG_VERSION does not use x1,
-while SMC_RSI_ABI_VERSION does. Another VERSION call could use both x1
-and x2. The only consistent behavior is to return
-SMCCC_RET_NOT_SUPPORTED when the SMCCC function ID is not supported.
-
--aneesh
