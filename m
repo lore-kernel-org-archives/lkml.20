@@ -1,207 +1,313 @@
-Received: from CHN02-SH0-obe.outbound.protection.partner.outlook.cn (mail-sh0chn02on2128.outbound.protection.partner.outlook.cn [139.219.146.128])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85CA6577E24;
-	Wed,  9 Sep 2026 14:47:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=139.219.146.128
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788965242; cv=fail; b=JypmKMtxtV6Wx3nSH5SWnPJbGrWP4sg1yHe2BejEHYfnOtIlclWPEnskl+2rIazhQwmbfAewXwPBTzwrnuRzAi8QK5r3MLy0xSKfxOvus/1LYL+UrKAaqR59SHp9bIxKDVCIMtdu0YwDIxnD4Acu917/U935J/Bux8xlfTECMRA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788965242; c=relaxed/simple;
-	bh=gkXOpVbXPnadlIkdZZx4ACMssUjUYPtsihsC8cZeNCQ=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=MDjy/upvL4Q9pbKJqZDx4w3ojGglgHwc36xOvh6M0/YboTwXslsQ5APWZbYXdxqE7IWFC0boyOK/4MC5R0xk97UUIBlM1TAmM4rxox36xu4ECllM+QDUws75mcg6Ax+VFEmGBx3s25pC8ppqOjyrz4X6k2QTt9qo0Q4VrY+egiE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com; spf=pass smtp.mailfrom=starfivetech.com; arc=fail smtp.client-ip=139.219.146.128
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starfivetech.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=n70nqWQC0PZAuTMg7mW3CIcdnj36LQA2txTLR2g4pwKp4tHNi8tnyGWXQfgeTzitm1Uy56AYAf/yZW7ZzYRsNzb31I2xoMeDwlfx9uIuIJcGeWWDRc3zGMPScKxmOxCjGm8Uv6wuWPzs5fvpcBMpwxzJOHNlsO6SIjd2waIOcnc1wgHtnl1+GPwgwBkyXO/V65xw+u3qPWHjkTrCb21BcTv2kOBREk0xde2nu/pHSeGSBBQ+y2cs5ULAAHoG/BS2zfoXbKRE9mJHkVVV0HvodVy3spp4zE1yZSsOMeVR8wZO5qWUAX+SqIR53yVJLg/eZTGFGz2nEyi4v8Fo7NGcLg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=frfvd6jW+x2T8ns+6/X3TNs/higvG1vyLrmcZH6la4w=;
- b=NX5s0baQtsadGWWeQg95UnIwo6vXqMe9zDAhnssnqBdt3L9vHxvZpa4yVbFNGt6Jjfnkvjj9F+woKvwYw64SoWF+FbKI9iw/pNs/hUa0/hHxLprpkHP2XhirHQGb1G7DWY+ibFR+UAI2N+zjiFzqB5JmkTs0jkoOWgO5AL67CA3Z6hJXMqX3LruHRmUIiiTjTaq2iJ+eOAJE0EWHNNR3U1Ml72F0E72GXyY/sbRJvsKAlZmZ6IFQcp+t7ofQmLgN064ovy/6ir/YZ9dkMbEtHC4AAEej373zpgfUWv9oHXBSBs2SRGWQQqBfs7QzXLiOwH8b14V6a0iz+gZj7C52/g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=starfivetech.com; dmarc=pass action=none
- header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
-Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:17::6) by ZQ4PR01MB1266.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:16::14) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.18; Wed, 9 Sep
- 2026 10:14:45 +0000
-Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
- ([fe80::e7d4:256c:b066:850d]) by
- ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn ([fe80::e7d4:256c:b066:850d%4])
- with mapi id 15.21.0339.017; Wed, 9 Sep 2026 10:14:45 +0000
-From: Changhuang Liang <changhuang.liang@starfivetech.com>
-To: Conor Dooley <conor@kernel.org>
-CC: Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
-	Emil Renner Berthing <kernel@esmil.dk>, Paul Walmsley <pjw@kernel.org>,
-	Albert Ou <aou@eecs.berkeley.edu>, Palmer Dabbelt <palmer@dabbelt.com>,
-	Alexandre Ghiti <alex@ghiti.fr>, Philipp Zabel <p.zabel@pengutronix.de>,
-	Bartosz Golaszewski <brgl@kernel.org>, "linux-gpio@vger.kernel.org"
-	<linux-gpio@vger.kernel.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "devicetree@vger.kernel.org"
-	<devicetree@vger.kernel.org>, "linux-riscv@lists.infradead.org"
-	<linux-riscv@lists.infradead.org>, Lianfeng Ouyang
-	<lianfeng.ouyang@starfivetech.com>
-Subject: Re: [PATCH v7 03/21] dt-bindings: pinctrl: Add
- starfive,jhb100-sys0-pinctrl
-Thread-Topic: [PATCH v7 03/21] dt-bindings: pinctrl: Add
- starfive,jhb100-sys0-pinctrl
-Thread-Index: AQHdOTzS/Ezb1OmSwkyNoZ30RtNkILbFJiCAgABglECAAIwuAIAAArWg
-Date: Wed, 9 Sep 2026 10:14:45 +0000
-Message-ID:
- <ZQ4PR01MB12027338F6207EFD690228BEF2B02@ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn>
-References: <20260831113514.66382-1-changhuang.liang@starfivetech.com>
- <20260831113514.66382-4-changhuang.liang@starfivetech.com>
- <20260908-annually-catfight-39e3a1543274@spud>
- <ZQ4PR01MB1202F0B2A4BB3D370C82D523F2B02@ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn>
- <aqEvTU_-69_PAQf7@squawk>
-In-Reply-To: <aqEvTU_-69_PAQf7@squawk>
-Accept-Language: zh-CN, en-US
-Content-Language: zh-CN
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=starfivetech.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: ZQ4PR01MB1202:EE_|ZQ4PR01MB1266:EE_
-x-ms-office365-filtering-correlation-id: 8193e8e3-ad26-4ee1-fc47-08df0e5b2bf5
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam:
- BCL:0;ARA:13230040|1800799024|376014|7416014|23010399003|366016|38070700021|10067099003|4143699003|56012099006|18002099003|22082099003;
-x-microsoft-antispam-message-info:
- vS6tNb2ba/j9+X/c11Xc/yYUObdaqhkr3Bs9tLFgM7yvgnZXkk/3ACkEkjoDNIt+7pqlBucdCeh6bZrrAYx5R98KlLSWFAvVk4spr3RVHWLNQBQ1ridz3Psf1NYcAjlzwZ8QSqPXk3PESI0GKZwvnsP5LUyZ1odf2kQ8zjBbSJvsVJgb2kVwgHLfx/pEKsTea9xW46ZjBev2iGU0S1Hn5BfKC2sY0ZHmFskBMHu3QHVj0zL+5vdJARQJaxZIwscJ43vQj0tjrxH0AuuQEUQDt8Ge3E9C3OpiInogRCUF9Zt0nACgJpUrTeyExmaDm6o5dayBJzENWxeL7X5iP9gVbls2N4kv1Of7NLHRTw96nCdh08NjW01tuvkCcvqyNiOKEd1MtfFzz0ppV0bI+JPP2yqCn3AM4hdPM0X9smQhgv4ZIutRaJ5S7w7tEH7iuD4X0JPzMxXKkch8xUrjX0VnXlK9B28uBP2pGwuFmWsG5ne1iRrsatoc27qPGYZdK5plb9kPHAWyItDtu3ffdg2p+b00dg6mxRPxz8gWjKSnyaS+3eyGsd6OkunAymMbL2x2
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(7416014)(23010399003)(366016)(38070700021)(10067099003)(4143699003)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?WUDXRmmy1JCEBavi1oxPkq1jQ8RVnsFunXsTNjnxfEL5ARixG8z0IeHeBO4Z?=
- =?us-ascii?Q?kk/AzlcdTnERtS91v1qBiH20hVUafjAjy//mzQzvVtEKDEayEfzfKJMuroqX?=
- =?us-ascii?Q?y0CXB/WK9fgiFk++RwPQdzsYygqPjXtvuapmTt9fnAuoDWKX0QNcmmX/bvqz?=
- =?us-ascii?Q?axcNQdchYNn3+B6wi1OCX1DxeDvtt0EOsoqcR1V9TFWeMamTe6BuuS7Ua8RX?=
- =?us-ascii?Q?wguyMtZDYZ9zvbWA6CoBV+Y6zN81yAyY2cYM92hbk9WJ0wu4rnME2XJFBLvr?=
- =?us-ascii?Q?2PdGkxP0af+Wo4LSVpp9J1f2qHBfs3VB/sqYodVNYSInCFTS0l5sSK352c2J?=
- =?us-ascii?Q?xfWDxGu1Qi0iQxVwzKGdQKbrEZKYH9IbSzFMSnSj915UMgh7ZzMlR+AUODK3?=
- =?us-ascii?Q?db+gArRSXcyCG11gpEagdA/D3XaENDbMZULXRkQqF5nmdKlpK+OFaw5e+BaF?=
- =?us-ascii?Q?MWvf9/nic+ImGd3a7YLJKL4oIuGs5AoL4ncs2snTM7fKCyEbxnUvg+a4R8tA?=
- =?us-ascii?Q?OsQqIsBbxYhDuxFGfKMhqn0p6yafyDQD9mQqODFBRR+B+wPO52QB3SQO7dQE?=
- =?us-ascii?Q?yOqc/OEkbIL5gGknmPBeCdbb97aO4jS1IDDwP4ckazKaGSoAeA6ajGdHu6GG?=
- =?us-ascii?Q?JegOeiaxWdXeXnYtyOhIQlKFJR6uLzgvdxIkXRzVMlXcTLCb7PSbQ8nHNkzZ?=
- =?us-ascii?Q?J/RZMBBPNCI++u67FTRpciKiPKW+EnM0kN1+g4JxQcidlGLUnC8954NG703X?=
- =?us-ascii?Q?/HtZ7D5V3xoDkIOmOqr9oAsVtrWkJwQIOwdHPpGPJuJmhb9zUVQ/WSg5Zd6K?=
- =?us-ascii?Q?K2T3Xhml1F12txaPiTTAXBbRpdd8eMplXC5nBzmHnVNqK1HdMkHRWkjT3yVN?=
- =?us-ascii?Q?qYZAZE7E7y/YYLhE8Pl0NpxENRCHeEfCDlqPKCaItVbFyyb9gV3NlhZAWb/G?=
- =?us-ascii?Q?O8ZxDqjy6rNjdODgfEoFji7HkgK6cy1wfZ99iUA+XFbOZRFcxCPNVaCjR7bl?=
- =?us-ascii?Q?bToH1vBfdM7OGB/euVprVg1VquPpvApVES2cTQeOgVLVwPlH/r1Vy1aTUhpX?=
- =?us-ascii?Q?nhs3lByRo6ISyoKNgBA4pqxVLt2z+xs2WZzX9q0fv0IZ7xNNiWmsXnUvr101?=
- =?us-ascii?Q?H+AEahuB3MBsJqg9yGCOdAditvSVaAr+20T619xo4LHiibg7o/yVsEwTOgN5?=
- =?us-ascii?Q?3iNdGv6Zk9fW0FLlyMnGJ/NJekVcT6hps21QO2orcB7KnuCl5c7BlkA2DnnZ?=
- =?us-ascii?Q?TTWk7qPByLQ9muxXdA9eOQ5JnLURjOTp9tenAVvwcv5kSefJb0h8ZGwNlY2P?=
- =?us-ascii?Q?NemJUPTDnZSxApR1RyKs1KvcNx03o2sO81Q9l/odKtORcRQTX4serZ4oO+3M?=
- =?us-ascii?Q?y7Yl/TwhK+IYd+fnJdZP8ABwz3MKPehDnAZ24bW/HoR0k4Ydfp7WYhB5tOsl?=
- =?us-ascii?Q?ZtV4Hh898ApThjB7h3jlU+yEzUXnlFG6Cg8kE2All+pS63JiGdVxM0fwhEiP?=
- =?us-ascii?Q?pJ59aYsQUFZO25HT4vsBTmHh1NXuruEgy/MhlNiNu3i49BRb+vAA8EDb0A2l?=
- =?us-ascii?Q?VzKGbIgfaPsfPRC90755LnAUf8KNauVJIBKUgU41xv0RLE485f0jDxVDqrW/?=
- =?us-ascii?Q?7eILxiokjB8xGEH5VQlWeLAOYr4UrtfzR+Ddja0U0wmOgS/jGvWoYT4mxpEj?=
- =?us-ascii?Q?Iihr9aTaBVwIGPy3qW0HMJLdsUiuSInoBXDi9OgL9tXzUl0yMHX1KPtpnlfy?=
- =?us-ascii?Q?jZOKxhz3R7fRaXKqsR9uLHEFsDW3jwc=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29E1C53FD5C
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 14:47:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788965279; cv=none; b=OTW8ehaASuqpmsU/sbFudlyfLgu4HbpGIVKBse71jK8YMGU831xRgcA26tgRXsgelYkJIP6OocwO86lRqv/5bAMorWmvYOiWdFMi5eeRUPu1c0iJBz/ndbRRYWFV3yMVZ+MzqchgzUDbh7HAl5e65OfIcwbJQh0fLZP/BvcoQWI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788965279; c=relaxed/simple;
+	bh=rN/Nn/FHT/BBJCC/zhF1JHzEHTGfpG0/9yuiaZTDQQ0=;
+	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
+	 Subject:Content-Type; b=SkriUV3UWlRn98C05E9eHfcVsYwtTUQSrTMr1585Et6tj+YiHZi1zYqWQG4wqWvxko+ijG+jWjaF0dICvGaAfSeRFCt4+suGuJbbw4xykTWS1Xhmdwaes3FPfkprnscnvwk66g8jeeqMFtnR60ck2NR7mbhc2fQxlwW9Q6mjZeE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=awhZr7Oj; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="awhZr7Oj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5080B1F00A3D;
+	Wed,  9 Sep 2026 14:47:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788965277;
+	bh=305fiDZR5O30XyYnejmNt8DXKRI31wkY0vRofwAAD4Q=;
+	h=Date:From:To:Cc:In-Reply-To:References:Subject;
+	b=awhZr7OjJSAVgDPd7BzIYZff0FoY6KwXF3pqCD9z/mNoIJWbToG2L1lTJMTv8271f
+	 Dmr/UqYcm/LT/9XojJDSKQpi9/JgzVhqxSmocGc8yiLehPxRlKU71uEcSNrlOAdzkR
+	 r8yE2vrHmLWaaoK7XoMzgQuo+iylyfEt1bEXZc8rKhglvmxE99aVBA2S9iUmDKLpNi
+	 2GrF/po8+e5Y1PS29c+mxQQNIbk5+7G5wpYvR9VF/sbPZaKxH2ld7GJitNGI/uSJJm
+	 DdxBLs0MPW7ygDCru2iHi01gniGIRVXRyOIMzOcm652Vj/0gzVRMGy1N1LVB5A8v88
+	 fvvsILtTmb95w==
+Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
+	by mailfauth.ams.internal (Postfix) with ESMTP id A4D75198003A;
+	Wed,  9 Sep 2026 10:47:54 -0400 (EDT)
+Received: from ams-imap-11 ([10.64.2.31])
+  by ams-compute-02.internal (MEProxy); Wed, 09 Sep 2026 10:47:54 -0400
+X-ME-Sender: <xms:lXGhalsJpXFCBjo_K3bvHiiBuzsJiOJeG96f1ivVJUtfw3ic8tAuqA>
+    <xme:lXGhapSRHw_5ZqAHSvUhZJODY4NNznJyd-ClKtHphmi3uzVQ5g22quM3OXEH62ZOQ
+    AtmIeQVMfPWMqpnJ5oASUy1xfuD2IayapsdLOJrcKenZyVkvisU91OS>
+X-ME-Proxy-Cause: dmFkZTE6jmqC424uS50ngBXddaPLMfJzFShd+1mTL0Ixo+2iSVYras5InCqXE6NTcXbwJj
+    blle7PySdPpumsjtyWm7gKb+QFtda9yypgBSD/tGgHWlaQzIaeqPqHd+JXpc+hHQ7cNnwp
+    bx/EVJvlyTofZ/JA8PThZhe594JSfmn+cmcpXl9DSqaoShAAWLC7MFAwSI/Knogapul3g5
+    /GpcynIMWR7hq+SLxVUK7ASoGqyAh7edjCF0RO34X2CrBuOmnHnAki9dV6WSXefxAOETRL
+    Y8S58oOxIqzGZi7jKElLzjU9t9opg1Dpo8i8+I3BPclrRAeyP9iDr2SDYeKKmpYeckwzFA
+    VuGG0qxaUE3VzLBKTxJ7QRsOtrnpJ7uoKpMGSGQP+lrWf5swrzuIMO15r8hWWSGi+Jq8AW
+    VlQbk9QotDYCbFZkJb2X9MtFJ59KADeOlXu05UJZVjwaxHPosLKGjtE9XCPICGlkCPNlZn
+    Xk7Twd21fa9s4I4jrGJ8lox7ZtGwI0CVuilgbD4HM9QyCOr3+fGlE2prt4hv9Ir0ga46UG
+    GyJWCJZtIZ1NVdunaJcz//hPli6MyXJQihxpszckpaX2jT2tyd33qv2gToQ/l8FEn8R2oj
+    BQyKzngPCRzo/Jwyf4v9KPdujqT7Xgsi05wMzp/XXAkbq34p7yxD6jLJsHRQ
+X-ME-Proxy: <xmx:mnGham6Acb4iT1vA9qm3Lr1t9oU8OIUGoheuL9VEG-DiTldY1xj-8g>
+    <xmx:mnGham2EsdJWyC2SA5GUYRnyfpV1ifoldQMroELi1I1DvNyAWROEXA>
+    <xmx:mnGhar77y1ix8YaN9_NS8HZiCq8iec08hm6soV_k0sIRr-bnd_U0Jw>
+    <xmx:mnGhahrtoSs6QcVfrl1Xz9fNDcOgGZ8pPKcg4brx7CnunmDkZjKbXg>
+    <xmx:mnGharV_tFyeApxnmSPSCH6YG4Pam3hCsuzLELRJML0H6O-x9MSms6l9>
+Feedback-ID: ice86485a:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+	id A5932F8007D; Wed,  9 Sep 2026 10:47:49 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: starfivetech.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8193e8e3-ad26-4ee1-fc47-08df0e5b2bf5
-X-MS-Exchange-CrossTenant-originalarrivaltime: 09 Sep 2026 10:14:45.1712
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: O/6eVJklPPTGztEDhS+qKdTZTRxFrWwxHiINwnQZQy6cXCl5W8NNiXsnNxZzywESt2sNMEYDqtbr4HXN0j7gf5qJHCCyIpPc64q8ncpg34plWf/GlIEzohA37fTXCgyY
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZQ4PR01MB1266
+Date: Wed, 09 Sep 2026 16:47:27 +0200
+From: "Ard Biesheuvel" <ardb@kernel.org>
+To: "Breno Leitao" <leitao@debian.org>,
+ "Ilias Apalodimas" <ilias.apalodimas@linaro.org>,
+ "Miaohe Lin" <linmiaohe@huawei.com>,
+ "Naoya Horiguchi" <nao.horiguchi@gmail.com>,
+ "Andrew Morton" <akpm@linux-foundation.org>,
+ "Kiryl Shutsemau (Meta)" <kas@kernel.org>, kexec@lists.infradead.org,
+ "David Hildenbrand" <david@kernel.org>, "Lorenzo Stoakes" <ljs@kernel.org>,
+ "Liam R. Howlett" <liam@infradead.org>,
+ "Vlastimil Babka" <vbabka@kernel.org>, "Mike Rapoport" <rppt@kernel.org>,
+ "Suren Baghdasaryan" <surenb@google.com>, "Michal Hocko" <mhocko@suse.com>,
+ "Thomas Gleixner" <tglx@kernel.org>, "Ingo Molnar" <mingo@redhat.com>,
+ "Borislav Petkov" <bp@alien8.de>,
+ "Dave Hansen" <dave.hansen@linux.intel.com>, x86@kernel.org,
+ "H . Peter Anvin" <hpa@zytor.com>,
+ "Brendan Jackman" <brendan.jackman@linux.dev>,
+ "Johannes Weiner" <hannes@cmpxchg.org>, "Zi Yan" <ziy@nvidia.com>
+Cc: linux-efi@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-mm@kvack.org, rmikey@meta.com, riel@surriel.com, harry@kernel.org,
+ kernel-team@meta.com
+Message-Id: <2c9a7bef-3189-4f78-a6cb-61d2f7afd643@app.fastmail.com>
+In-Reply-To: <20260909-hwpoison-kho-v4-2-359313564495@debian.org>
+References: <20260909-hwpoison-kho-v4-0-359313564495@debian.org>
+ <20260909-hwpoison-kho-v4-2-359313564495@debian.org>
+Subject: Re: [PATCH v4 2/5] mm/memory-failure: libstub: install the poisoned-memory EFI
+ table
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 
-Hi, Conor
+Hello Breno,
 
-> On Wed, Sep 09, 2026 at 01:43:20AM +0000, Changhuang Liang wrote:
-> > Hi, Conor
-> >
-> > Thanks for the review.
-> >
-> > > On Mon, Aug 31, 2026 at 04:34:56AM -0700, Changhuang Liang wrote:
-> > > > diff --git a/include/dt-bindings/pinctrl/starfive,jhb100-pinctrl.h
-> > > > b/include/dt-bindings/pinctrl/starfive,jhb100-pinctrl.h
-> > > > new file mode 100644
-> > > > index 000000000000..6d8f5516a178
-> > > > --- /dev/null
-> > > > +++ b/include/dt-bindings/pinctrl/starfive,jhb100-pinctrl.h
-> > > > @@ -0,0 +1,17 @@
-> > > > +/* SPDX-License-Identifier: GPL-2.0 OR MIT */
-> > > > +/*
-> > > > + * Copyright (C) 2022 StarFive Technology Co., Ltd.
-> > > > + *
-> > > > + * Author: Changhuang Liang <changhuang.liang@starfivetech.com>
-> > > > + */
-> > > > +
-> > > > +#ifndef __DT_BINDINGS_PINCTRL_STARFIVE_JHB100_H__
-> > > > +#define __DT_BINDINGS_PINCTRL_STARFIVE_JHB100_H__
-> > > > +
-> > > > +/* sys0 pad numbers */
-> > > > +#define PADNUM_SYS0_GPIO_A0				0
-> > > > +#define PADNUM_SYS0_GPIO_A1				1
-> > > > +#define PADNUM_SYS0_GPIO_A2				2
-> > > > +#define PADNUM_SYS0_GPIO_A3				3
-> > >
-> > > Krzysztof's point [1] about these still stands. Pad indices aren't bi=
-ndings.
-> > > Sure, your driver and your dts both might want to use these but that
-> > > doesn't make them a binding. For that to be the case, they need to
-> > > effectively be made up numbers - like how clocks are often listed
-> > > with numbers from 0 into the dozens or hundreds, when that may or
-> > > may not correlate with actual bits in registers, e.g. indices 0-31
-> > > in a clock binding might be in register 1 and then
-> > > 32-63 are in register 2. There's no need for a binding here to
-> > > assign meanings to numbers, because the meanings are assigned by the
-> > > hardware itself - index
-> > > 0 for SYS0 *is* A0, because that's how the hardware is designed.
-> > >
-> > > Were the numbers to run continuously, so that we had
-> > >
-> > > #define JHB100_PADNUM_A0	0
-> > > #define JHB100_PADNUM_A1	1
-> > > #define JHB100_PADNUM_A2	2
-> > > #define JHB100_PADNUM_A3	3
-> > > #define JHB100_PADNUM_A4	4
-> > > and so on down to
-> > > #define JHB100_PADNUM__D0	1234
-> > >
-> > > then it would be a binding, because we're assigning a meaning to
-> > > 1234 that's not something determined by the hardware.
-> > >
-> > > FWIW, I'm happy to have the unchanged starfive,jhb100-pinctrl.h sit
-> > > in arch/riscv/boot/dts/starfive, because the defines are helpful -
-> > > but as things stand I think Krzysztof is right.
-> >
-> > For the current series, the drivers also use some definitions from the
-> > binding. In the next version, should the macro definitions be directly
-> > placed in their respective pinctrl-starfive-jhb100-<domain>.c files?
->=20
-> Only the ones that are actually used, which I think is a limited subset o=
-f the
-> definitions in this header. At least, none of the ones that I looked up w=
-ere
-> actually used in the drivers, except for the sys0 ones.
+Apologies for chiming in late.
 
-Understood. I'll define the ones that are actually used by the driver direc=
-tly
-in the corresponding domain.c files in the next version.
+On Wed, 9 Sep 2026, at 15:05, Breno Leitao wrote:
+> A EFI config table can only be installed while boot services are still
+> up, so the stub has to create it; the running kernel can only flip bits
+> in a table that already exists.
+>
 
-Best Regards,
-Changhuang
+This is true, but that also means a config table could have a 'next' field
+pointing to an allocation that was added later.
+
+There is a EFI memreserve table based on this principle: this is a hack
+that we added for the arm64 GICv3 LPI table handling, which is a braindead
+piece of kit that must use the same physical allocation as the previous
+kernel. It is not currently enabled on x86.
+
+Please consider whether or not that is more suitable, and can be repurposed
+or shared. (Feel free to make changes to the current format if needed).
+
+I don't have a strong preference either way, but I feel the 2M granularity
+may be a bit wasteful, no?
+
+> Size the bitmap from the span the UEFI memory map describes, which
+> efi_get_ram_range() walks since the stub has no max_pfn. Bit 0 covers
+> the bottom of that span, recorded in phys_base, so a machine whose RAM
+> starts high does not pay for the hole below it. Memory the firmware
+> hot-adds later sits outside the span and is not carried across a kexec.
+>
+> One table has to serve every architecture, and they do not agree on what
+> becomes RAM: x86 decides by descriptor type, arm64 by attribute. So
+> efi_get_ram_range() does not filter at all and spans every descriptor in
+> the map. Sizing wide only costs bitmap bytes; sizing narrow silently
+> drops the records for every frame outside the span.
+>
+> At one bit per 2M that is 64K per TiB, and 256M at the 4PB x86
+> architectural maximum. The 2M granule is called "unit" here, and the
+> table carries it so the granule can change later without breaking the
+> kernels already reading it.
+>
+> Allocate it as EFI_ACPI_RECLAIM_MEMORY so the next kernel does not take
+> it for free RAM, and install it empty.
+>
+> A table installed by an earlier boot rides the system table across kexec
+> and is reused as-is.
+>
+> x86 does not go through efi_stub_common(), so the generic stub and the
+> x86 stub each need the call; on x86 it has to come before exit_boot(),
+> which is the last point a configuration table can be installed.
+>
+> Signed-off-by: Breno Leitao <leitao@debian.org>
+> ---
+>  drivers/firmware/efi/libstub/efi-stub-helper.c | 100 +++++++++++++++++++++++++
+>  drivers/firmware/efi/libstub/efi-stub.c        |   1 +
+>  drivers/firmware/efi/libstub/efistub.h         |   6 ++
+>  drivers/firmware/efi/libstub/x86-stub.c        |   2 +
+>  4 files changed, 109 insertions(+)
+>
+> diff --git a/drivers/firmware/efi/libstub/efi-stub-helper.c 
+> b/drivers/firmware/efi/libstub/efi-stub-helper.c
+> index 48f93f7758e9e..5cbe675491333 100644
+> --- a/drivers/firmware/efi/libstub/efi-stub-helper.c
+> +++ b/drivers/firmware/efi/libstub/efi-stub-helper.c
+> @@ -774,3 +774,103 @@ void efi_remap_image(unsigned long image_base, 
+> unsigned alloc_size,
+>  			efi_warn("Failed to remap data region non-executable\n");
+>  	}
+>  }
+> +
+> +#ifdef CONFIG_EFI_POISONED_MEMORY
+> +/*
+> + * Find the base and top of the memory, so, we can create the bitmap 
+> for
+> + * the full range.
+> + */
+> +static efi_status_t efi_get_ram_range(u64 *base, u64 *top)
+> +{
+> +	struct efi_boot_memmap *map __free(efi_pool) = NULL;
+> +	u64 ram_base = ULLONG_MAX, ram_top = 0;
+> +	efi_status_t status;
+> +	int i, nr_desc;
+> +
+> +	status = efi_get_memory_map(&map, false);
+> +	if (status != EFI_SUCCESS)
+> +		return status;
+> +
+> +	nr_desc = map->map_size / map->desc_size;
+> +	for (i = 0; i < nr_desc; i++) {
+> +		efi_memory_desc_t *d;
+> +
+> +		d = efi_memdesc_ptr((unsigned long)map->map, map->desc_size, i);
+> +		ram_base = min(ram_base, d->phys_addr);
+> +		ram_top = max(ram_top,
+> +			      d->phys_addr + d->num_pages * EFI_PAGE_SIZE);
+> +	}
+> +	if (!ram_top || ram_base == ULLONG_MAX)
+> +		return EFI_NOT_FOUND;
+> +
+> +	*base = round_down(ram_base, EFI_POISON_UNIT_SIZE);
+> +	*top = round_up(ram_top, EFI_POISON_UNIT_SIZE);
+> +
+> +	return EFI_SUCCESS;
+> +}
+> +
+> +/* The size of the bitmap */
+> +static u64 efi_poison_bitmap_size(u64 span)
+> +{
+> +	u64 bytes = DIV_ROUND_UP(DIV_ROUND_UP(span, EFI_POISON_UNIT_SIZE),
+> +				 BITS_PER_BYTE);
+> +
+> +	return round_up(bytes, sizeof(unsigned long));
+> +}
+> +
+> +static struct linux_efi_poisoned_memory *efi_poison_alloc(u64 
+> phys_base,
+> +							  u64 bitmap_size)
+> +{
+> +	struct linux_efi_poisoned_memory *pm;
+> +	efi_status_t status;
+> +
+> +	status = efi_bs_call(allocate_pool, EFI_ACPI_RECLAIM_MEMORY,
+> +			     sizeof(*pm) + bitmap_size, (void **)&pm);
+> +	if (status != EFI_SUCCESS)
+> +		return NULL;
+> +
+> +	pm->version = 1;
+> +	pm->unit_size = EFI_POISON_UNIT_SIZE;
+> +	pm->phys_base = phys_base;
+> +	pm->size = bitmap_size;
+> +	memset(pm->bitmap, 0, bitmap_size);
+> +
+> +	return pm;
+> +}
+> +
+> +/* This needs to be done while boot service is still active */
+> +void install_poisoned_memory_table(void)
+> +{
+> +	efi_guid_t poisoned_memory_table_guid = 
+> LINUX_EFI_POISONED_MEMORY_TABLE_GUID;
+> +	struct linux_efi_poisoned_memory *pm;
+> +	u64 ram_base, ram_top, bitmap_size;
+> +	efi_status_t status;
+> +
+> +	/* A table installed by an earlier boot rides the system table across 
+> kexec. */
+> +	pm = get_efi_config_table(poisoned_memory_table_guid);
+> +	if (pm) {
+> +		if (pm->version != 1)
+> +			efi_err("Unknown version of poisoned-memory table\n");
+> +		return;
+> +	}
+> +
+> +	if (efi_get_ram_range(&ram_base, &ram_top) != EFI_SUCCESS) {
+> +		efi_err("Failed to size the poisoned-memory table!\n");
+> +		return;
+> +	}
+> +
+> +	bitmap_size = efi_poison_bitmap_size(ram_top - ram_base);
+> +	pm = efi_poison_alloc(ram_base, bitmap_size);
+> +	if (!pm) {
+> +		efi_err("Failed to allocate poisoned-memory table!\n");
+> +		return;
+> +	}
+> +
+> +	status = efi_bs_call(install_configuration_table,
+> +			     &poisoned_memory_table_guid, pm);
+> +	if (status != EFI_SUCCESS) {
+> +		efi_bs_call(free_pool, pm);
+> +		efi_err("Failed to install poisoned-memory config table!\n");
+> +	}
+> +}
+> +#endif
+> diff --git a/drivers/firmware/efi/libstub/efi-stub.c 
+> b/drivers/firmware/efi/libstub/efi-stub.c
+> index 235c9738da2d6..22a315e2814a1 100644
+> --- a/drivers/firmware/efi/libstub/efi-stub.c
+> +++ b/drivers/firmware/efi/libstub/efi-stub.c
+> @@ -179,6 +179,7 @@ efi_status_t efi_stub_common(efi_handle_t handle,
+>  			 EFI_RT_SUPPORTED_SET_VIRTUAL_ADDRESS_MAP);
+> 
+>  	install_memreserve_table();
+> +	install_poisoned_memory_table();
+> 
+>  	status = efi_boot_kernel(handle, image, image_addr, cmdline_ptr);
+> 
+> diff --git a/drivers/firmware/efi/libstub/efistub.h 
+> b/drivers/firmware/efi/libstub/efistub.h
+> index fd91fc15ec810..44436869c4efe 100644
+> --- a/drivers/firmware/efi/libstub/efistub.h
+> +++ b/drivers/firmware/efi/libstub/efistub.h
+> @@ -1169,6 +1169,12 @@ efi_enable_reset_attack_mitigation(void) { }
+> 
+>  void efi_retrieve_eventlog(void);
+> 
+> +#ifdef CONFIG_EFI_POISONED_MEMORY
+> +void install_poisoned_memory_table(void);
+> +#else
+> +static inline void install_poisoned_memory_table(void) { }
+> +#endif
+> +
+>  struct sysfb_display_info *alloc_primary_display(void);
+>  struct sysfb_display_info *__alloc_primary_display(void);
+>  void free_primary_display(struct sysfb_display_info *dpy);
+> diff --git a/drivers/firmware/efi/libstub/x86-stub.c 
+> b/drivers/firmware/efi/libstub/x86-stub.c
+> index 0bae0f06b6763..3136132b9628a 100644
+> --- a/drivers/firmware/efi/libstub/x86-stub.c
+> +++ b/drivers/firmware/efi/libstub/x86-stub.c
+> @@ -1024,6 +1024,8 @@ void __noreturn efi_stub_entry(efi_handle_t 
+> handle,
+> 
+>  	setup_unaccepted_memory();
+> 
+> +	install_poisoned_memory_table();
+> +
+>  	status = exit_boot(boot_params, handle);
+>  	if (status != EFI_SUCCESS) {
+>  		efi_err("exit_boot() failed!\n");
+>
+> -- 
+> 2.53.0-Meta
