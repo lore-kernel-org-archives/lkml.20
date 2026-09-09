@@ -1,594 +1,167 @@
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 78B7A4A68A1;
-	Wed,  9 Sep 2026 22:25:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
+Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08C053EC825
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 22:27:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788992721; cv=none; b=K1ka4kdd78YfUnqpHnBk97FLSL6zjmb5BRa8Qdsar1Rh+9tCBTo5tYgxpN6tdtjb+2G706prailULPExSOsudD3NNLDUDoaEf2XWKqHPj3bzFx2sLyF1YC/PjG1WZqPLq81FKr4dScLQuqIPSyYZ3+sbFvFgW+zUh7oGxZDmmJw=
+	t=1788992870; cv=none; b=iwCNwSebaCsPP0/9iXEUdE7kbPBSqjU58RnQgkT2lhCDbLEKtEz19beSj9sCpiMySMscSQ38FYVg3rO3x8uxRPc6ntBldvZohCfIP6KlQmTehfZAwtTkcHrVgwLU4hb0I40FIORAxa8ni6tJy9HsnsTcWG2HzdQ3iCWRM7bkIfE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788992721; c=relaxed/simple;
-	bh=tk/JSF7YOLaVaCZ58cEml+9RAP1u/qXEZOwK0esYZqo=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=vCUL1//Jv6TGs7PUBB+XdBJYQDMgBO+VCdSPDwTwqsXFeslWkppGKGQN4Cr2Xo4QvR4cuke8aRA3EG+zkJcPhSR4EtzEMemu/v9oHVZICvjqguClNhK3GYxy546NoexwkUtyyFLQmjA12TmbxNlCHPBBNxSDU1HeyFnokluvEKw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; arc=none smtp.client-ip=13.77.154.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microsoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
-Received: by linux.microsoft.com (Postfix, from userid 1202)
-	id E449620B717B; Wed,  9 Sep 2026 15:24:29 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com E449620B717B
-From: Long Li <longli@microsoft.com>
-To: Long Li <longli@microsoft.com>,
-	Long Li <longli@kernel.org>,
-	Konstantin Taranov <kotaranov@microsoft.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	"David S . Miller" <davem@davemloft.net>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Eric Dumazet <edumazet@google.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	Leon Romanovsky <leon@kernel.org>,
-	Haiyang Zhang <haiyangz@microsoft.com>,
-	"K . Y . Srinivasan" <kys@microsoft.com>,
-	Wei Liu <wei.liu@kernel.org>,
-	Dexuan Cui <decui@microsoft.com>,
-	shradhagupta@linux.microsoft.com,
-	Simon Horman <horms@kernel.org>,
-	ernis@linux.microsoft.com,
-	stephen@networkplumber.org,
-	shirazsaleem@microsoft.com
-Cc: netdev@vger.kernel.org,
-	linux-rdma@vger.kernel.org,
-	linux-hyperv@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH net-next v5 13/13] net: mana: keep the existing queues when the channel count is raised
-Date: Wed,  9 Sep 2026 15:24:16 -0700
-Message-ID: <20260909222416.884246-14-longli@microsoft.com>
-X-Mailer: git-send-email 2.43.7
-In-Reply-To: <20260909222416.884246-1-longli@microsoft.com>
-References: <20260909222416.884246-1-longli@microsoft.com>
+	s=arc-20240116; t=1788992870; c=relaxed/simple;
+	bh=mqKexKRlmNDFLQEIvT7Y9z7FUD+hpM8xK3PiP7gpeMA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=peWWj+asuyaEpApOIre5LexpJGerAmoskMar4l3sSgoZS26hqTt6gQdqxgNzGUhqDFQo+po5UJfnG8QMl8G19Fzm/NUS0j6DvpPYc7z+4IHwtuwTCEd1phpO2s+AFAFpZgLFXFVHxoetC/lm0y/7B2um2WzngFrdqm7uGJI0tm4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=kh99ibga; arc=none smtp.client-ip=209.85.216.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="kh99ibga"
+Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-38dfe7eb825so5397839a91.0
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 15:27:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1788992867; x=1789597667; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=R5cPdTAC3boYVm13Avr5IgzIz8D8z9d9W6rfo2545Nc=;
+        b=kh99ibgak5G4QcwI18d3owe7OazqpalonXOzIn1u7ixcsAtGPBuMJCV+wPTfPW93Zx
+         5JksmleUaj1HYW/wzEHI2D7v9CmTZtfkIiSlyT80XG9h2rxjfb52L4g/WatVXsHrBLWG
+         1WVAi7zbp75wITpZVE11ectc+xUDt80kn7K7i59MnZd04nCFZ14rkLjUqTV2MzN/a+WU
+         E4ehGWy/30sShjczlgoS/41orH8pVxldORcj2zpMcG+Z69cojlCKBlwpbn8Hta4j598P
+         nvSc/iOw2dto3nnFLL26kQY/IebWj9RYNDPGaHYsksBBDaIdjlVn9qTnJdhfn29zUrxP
+         E2Pw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788992867; x=1789597667;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=R5cPdTAC3boYVm13Avr5IgzIz8D8z9d9W6rfo2545Nc=;
+        b=gK0SDDqq2NlpSTPdvYzdAaPuLHf2IBlE3PnO2unuUeybRSX/fVG+LBks1ACuOda0X2
+         GoQFlnO4RHeTilLingGFPxnWWbBimVGmlgSgyksvvvKTmzv/9G3v440bhkwmtMDDy7YD
+         hCMbUG3curKahqi+X7Wi5bHMvItt9OSDZ+zOql48kpCz098ISdWTjBF5SFVxQ/XAm7Fc
+         6pD4F0/mZHQn8raOZtXFljXM8G3kA+CNmku7m+gMbyg89QIDiBDjLoj4yaBoqlCnFm+7
+         rBfHQf79A5Hx1eA+35uJyBoWHX4W6+3IsrVrPvi5Mds4Wa+vj6V8/9qn9WUorH+7jWav
+         En7w==
+X-Forwarded-Encrypted: i=1; AKwUvByHA/LPx58hz3BwqZ4LhyJqpYO2L7xCS4grfVInXcIs0IR0VAHTN7EHbK+D2JQJ3dTNYBudXZ2L+Y/qeJE=@vger.kernel.org
+X-Gm-Message-State: AFuF++myIXipO2l9Zmx2LJeAgIfveADV+p62XNPqunRVTToNtLBORIHV
+	r/7AgMllSHAkoN2+UH6UG8QHwPHYtkSDhU6daKdpKHh7zgAeUEaUBnZ+/aXlnmZQQg==
+X-Gm-Gg: AYBFou1MY+rvuS7KQ6Yu5G26E+w0prXk3dGKMdX0kL6jsI6TGAniX1BKhTdIdA0v2+2
+	RjXytr714eiHENQmtDSRlbmASK8UndQthnL87YM89sDJpjrOCZPVHVbwbAKIP6Wtr6iJPG4jP4H
+	4yFecYXHvwQ6RVR827cjAi348fFE38q7xh4jdznvzUPpX/o02uWlMHYsP6K1tZxNWujc1gGvn+i
+	Ob689e6JiIKSVfWQvNn00pRayY9XVSOJxfKUBL0XWInFjQ7hB7DvK5lsx9M9W3BvGpFcfQmWP3w
+	V/9n6ICiiYeaXH2pZXBeAaYAfuXIDuHAycHvOmovYFDiaeMj5qMWvB0b8A5XHuHhCEY0ogUoPEj
+	d4xlN/w2lvtVLK2dlpHiZz8AwLYOZ9g9XAmYrYLO+bpg/SRJ6ur7dNjaAgUfE8v+b5JQKhAneVg
+	Tm4AQpTAD1LnnojyouCq8MKH1WdksDJIhfwDU2oHlhZqT49SLdYssiVDQ3W/g4T6saeX2X1tHnv
+	4k4+rvFyYipBMBI1saH2gfMg3jroGgFAvhhEWN/
+X-Received: by 2002:a17:90b:4cce:b0:38f:240d:b857 with SMTP id 98e67ed59e1d1-39b260dd4e9mr60322664a91.2.1788992866367;
+        Wed, 09 Sep 2026 15:27:46 -0700 (PDT)
+Received: from google.com (192.150.203.35.bc.googleusercontent.com. [35.203.150.192])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d7738ce41sm1598219a91.3.2026.09.09.15.27.45
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 09 Sep 2026 15:27:45 -0700 (PDT)
+Date: Wed, 9 Sep 2026 22:27:42 +0000
+From: David Matlack <dmatlack@google.com>
+To: Alex Williamson <alex.williamson@nvidia.com>
+Cc: Alex Williamson <alex@shazbot.org>, kvm <kvm@vger.kernel.org>,
+	linux-kernel <linux-kernel@vger.kernel.org>,
+	Jason Gunthorpe <jgg@ziepe.ca>, Kevin Tian <kevin.tian@intel.com>,
+	Yi Liu <yi.l.liu@intel.com>
+Subject: Re: [PATCH 1/4] vfio: Reject a second cdev open before mutating
+ shared device state
+Message-ID: <aqHdXvfcfCJbLajM@google.com>
+References: <20260901215358.2421359-1-alex.williamson@nvidia.com>
+ <20260901215358.2421359-2-alex.williamson@nvidia.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260901215358.2421359-2-alex.williamson@nvidia.com>
 
-Keep existing queues and allocate only the added tail. Growing N to M
-now needs M SQ/RQ pairs at peak, rather than N + M.
+On 2026-09-01 03:53 PM, Alex Williamson wrote:
+> The cdev single-open check lives in vfio_df_open(), which runs at the
+> end of the bind ioctl, after vfio_df_ioctl_bind_iommufd() has already
+> updated state shared across all opens: vfio_df_check_token() can set
+> the PF vf_token and vfio_df_get_kvm_safe() records the caller's KVM
+> pointer in device->kvm and takes a reference.
+> 
+> A second cdev bind of an already-open device runs both, only to be
+> rejected in vfio_df_open().  The error path clears device->kvm and
+> drops the reference, tearing down the current opener's KVM association
+> and potentially resulting in an unbalanced reference on close or
+> premature release, while the vf_token remains clobbered.
+> 
+> Move the single-open check into vfio_df_ioctl_bind_iommufd() ahead of
+> both mutations, so a bind that cannot complete leaves the current
+> opener's state untouched.  df->group is NULL on this path, so a
+> non-zero open_count is exactly what vfio_df_open() rejected.  The test
+> in vfio_df_open() becomes redundant and is removed.
+> 
+> Return -EBUSY rather than -EINVAL here.  The arguments are not invalid,
+> the device is in use, which could be a transient condition due to a
+> delayed fput if the prior user is terminated.  This provides
+> compatibility with the group path, where a group open returns -EBUSY,
+> and users may choose bounded polling to detect such a transient
+> condition.
+> 
+> Fixes: 839e692fa4eb ("vfio: Make vfio_df_open() single open for device cdev path")
+> Fixes: 5fcc26969a16 ("vfio: Add VFIO_DEVICE_BIND_IOMMUFD")
+> Fixes: 86624ba3b522 ("vfio/pci: Do vf_token checks for VFIO_DEVICE_BIND_IOMMUFD")
+> Assisted-by: claude-opus-4-8
+> Signed-off-by: Alex Williamson <alex.williamson@nvidia.com>
 
-Track the fresh queues separately for failure cleanup and XDP references.
-Wait for TX-selection readers before freeing old containers, and clear
-slots during partial teardown. Full rebuilds now keep the current count.
+Can you add a regression test for this?
 
-Advertise in-driver resize recovery after converting the live resize
-paths. Failed rollback still requires recovery.
+The VF token clobbering can be reproduced in vfio_pci_sriov_uapi_test:
 
-Signed-off-by: Long Li <longli@microsoft.com>
----
-Changes in v5:
-  - Rebased onto current net-next; no changes to this patch.
-
-Changes in v4:
-  - Wait for TX-selection readers before freeing old containers.
-  - Clear TX pointer-array slots after partial teardown.
-  - Shorten comments and qualify the resize-recovery description.
-
- .../net/ethernet/microsoft/mana/mana_bpf.c    |   2 +-
- drivers/net/ethernet/microsoft/mana/mana_en.c | 209 +++++++++++++++---
- .../ethernet/microsoft/mana/mana_ethtool.c    |  31 ++-
- include/net/mana/gdma.h                       |   8 +-
- include/net/mana/mana.h                       |   7 +-
- 5 files changed, 217 insertions(+), 40 deletions(-)
-
-diff --git a/drivers/net/ethernet/microsoft/mana/mana_bpf.c b/drivers/net/ethernet/microsoft/mana/mana_bpf.c
-index 2060e08d82277237307ac99ff7ad66b4b134e8b4..3acec1bb02a3403f15fd97a0b46b70b4b75c27b7 100644
---- a/drivers/net/ethernet/microsoft/mana/mana_bpf.c
-+++ b/drivers/net/ethernet/microsoft/mana/mana_bpf.c
-@@ -206,7 +206,7 @@ static int mana_xdp_set(struct net_device *ndev, struct bpf_prog *prog,
- 			return -ENOMEM;
- 		}
- 
--		err = mana_alloc_qset(apc, scratch, apc->num_queues,
-+		err = mana_alloc_qset(apc, scratch,
- 				      apc->rx_queue_size, apc->tx_queue_size,
- 				      apc->priv_flags, apc->configured_mtu,
- 				      prog, &newq);
-diff --git a/drivers/net/ethernet/microsoft/mana/mana_en.c b/drivers/net/ethernet/microsoft/mana/mana_en.c
-index 158f9a6ce42157ad7afd45ec642405fbd81f0bac..29f54f91cb0094f65cdd09d82cf4f29f3d296437 100644
---- a/drivers/net/ethernet/microsoft/mana/mana_en.c
-+++ b/drivers/net/ethernet/microsoft/mana/mana_en.c
-@@ -927,7 +927,7 @@ static int mana_change_mtu(struct net_device *ndev, int new_mtu)
- 	if (!scratch)
- 		return -ENOMEM;
- 
--	err = mana_alloc_qset(mpc, scratch, mpc->num_queues, mpc->rx_queue_size,
-+	err = mana_alloc_qset(mpc, scratch, mpc->rx_queue_size,
- 			      mpc->tx_queue_size, mpc->priv_flags, new_mtu,
- 			      mpc->bpf_prog, &newq);
- 	if (err)
-@@ -2878,7 +2878,9 @@ static void mana_deinit_txq(struct mana_port_context *apc, struct mana_txq *txq)
- 	mana_gd_destroy_queue(gd->gdma_context, txq->gdma_sq);
+diff --git a/tools/testing/selftests/vfio/vfio_pci_sriov_uapi_test.c b/tools/testing/selftests/vfio/vfio_pci_sriov_uapi_test.c
+index 19d657d00b75..de8408b90a25 100644
+--- a/tools/testing/selftests/vfio/vfio_pci_sriov_uapi_test.c
++++ b/tools/testing/selftests/vfio/vfio_pci_sriov_uapi_test.c
+@@ -157,6 +157,42 @@ TEST_F(vfio_pci_sriov_uapi_test, override_token)
+        ASSERT_COND_VF_CREATION(ret);
  }
- 
--static void mana_destroy_txq(struct mana_port_context *apc)
-+/* Keep the array and queues below @first; clear freed slots. */
-+static void mana_destroy_txq_from(struct mana_port_context *apc,
-+				  unsigned int first)
- {
- 	struct napi_struct *napi;
- 	int i;
-@@ -2886,7 +2888,7 @@ static void mana_destroy_txq(struct mana_port_context *apc)
- 	if (!apc->tx_qp)
- 		return;
- 
--	for (i = 0; i < apc->num_queues; i++) {
-+	for (i = first; i < apc->num_queues; i++) {
- 		if (!apc->tx_qp[i])
- 			continue;
- 
-@@ -2910,7 +2912,16 @@ static void mana_destroy_txq(struct mana_port_context *apc)
- 		mana_deinit_txq(apc, &apc->tx_qp[i]->txq);
- 
- 		kvfree(apc->tx_qp[i]);
-+		apc->tx_qp[i] = NULL;
- 	}
+
++TEST(failed_second_open_does_not_clobber_token)
++{
++       struct vfio_pci_device *pf = NULL, *pf_second_fd = NULL, *vf = NULL;
++       struct iommu *iommu;
++       int ret;
++
++       iommu = iommu_init("iommufd");
++       if (!iommu)
++               SKIP(return, "iommufd mode not supported");
++
++       /* Create and bind PF using UUID_1 */
++       ret = device_init(pf_bdf, iommu, UUID_1, &pf);
++       ASSERT_EQ(ret, 0);
++
++       /*
++        * Attempt to open the same PF again and bind it with a *different*
++        * token (UUID_2). This must fail with EBUSY because it's a second open.
++        */
++       ret = device_init(pf_bdf, iommu, UUID_2, &pf_second_fd);
++       ASSERT_EQ(ret, -EBUSY);
++
++       /*
++        * Attempt to initialize a VF using the original PF token (UUID_1).
++        * If the failed open above clobbered the PF's token (i.e. updated it to
++        * UUID_2), this VF initialization will fail.
++        */
++       ret = device_init(vf_bdf, iommu, UUID_1, &vf);
++       ASSERT_EQ(ret, 0);
++
++       device_cleanup(vf);
++       if (pf_second_fd)
++               device_cleanup(pf_second_fd);
++       device_cleanup(pf);
++       iommu_cleanup(iommu);
 +}
 +
-+static void mana_destroy_txq(struct mana_port_context *apc)
-+{
-+	if (!apc->tx_qp)
-+		return;
-+
-+	mana_destroy_txq_from(apc, 0);
- 
- 	kfree(apc->tx_qp);
- 	apc->tx_qp = NULL;
-@@ -2941,8 +2952,11 @@ static void mana_create_txq_debugfs(struct mana_port_context *apc, int idx)
- 			    tx_qp->tx_cq.gdma_cq, &mana_dbg_q_fops);
- }
- 
-+/* With @first nonzero, use the existing array and unwind only new queues on
-+ * failure.
-+ */
- static int mana_create_txq(struct mana_port_context *apc,
--			   struct net_device *net)
-+			   struct net_device *net, unsigned int first)
+ static void vf_teardown(void)
  {
- 	struct mana_context *ac = apc->ac;
- 	struct gdma_dev *gd = ac->gdma_dev;
-@@ -2957,9 +2971,14 @@ static int mana_create_txq(struct mana_port_context *apc,
- 	int err;
- 	int i;
- 
--	apc->tx_qp = kzalloc_objs(struct mana_tx_qp *, apc->num_queues);
--	if (!apc->tx_qp)
--		return -ENOMEM;
-+	if (first) {
-+		if (WARN_ON(!apc->tx_qp))
-+			return -EINVAL;
-+	} else {
-+		apc->tx_qp = kzalloc_objs(struct mana_tx_qp *, apc->num_queues);
-+		if (!apc->tx_qp)
-+			return -ENOMEM;
-+	}
- 
- 	/*  The minimum size of the WQE is 32 bytes, hence
- 	 *  apc->tx_queue_size represents the maximum number of WQEs
-@@ -2976,7 +2995,7 @@ static int mana_create_txq(struct mana_port_context *apc,
- 
- 	gc = gd->gdma_context;
- 
--	for (i = 0; i < apc->num_queues; i++) {
-+	for (i = first; i < apc->num_queues; i++) {
- 		apc->tx_qp[i] = kvzalloc_obj(*apc->tx_qp[i]);
- 		if (!apc->tx_qp[i]) {
- 			err = -ENOMEM;
-@@ -3084,7 +3103,10 @@ static int mana_create_txq(struct mana_port_context *apc,
- out:
- 	netdev_err(net, "Failed to create %d TX queues, %d\n",
- 		   apc->num_queues, err);
--	mana_destroy_txq(apc);
-+	if (first)
-+		mana_destroy_txq_from(apc, first);
-+	else
-+		mana_destroy_txq(apc);
- 	return err;
- }
- 
-@@ -3440,14 +3462,15 @@ static void mana_create_rxq_debugfs(struct mana_port_context *apc, int idx)
- 			    &mana_dbg_q_fops);
- }
- 
-+/* The caller must destroy queues added before a failure. */
- static int mana_add_rx_queues(struct mana_port_context *apc,
--			      struct net_device *ndev)
-+			      struct net_device *ndev, unsigned int first)
- {
- 	struct mana_rxq *rxq;
- 	int err = 0;
- 	int i;
- 
--	for (i = 0; i < apc->num_queues; i++) {
-+	for (i = first; i < apc->num_queues; i++) {
- 		rxq = mana_create_rxq(apc, i, &apc->eqs[i], ndev);
- 		if (IS_ERR(rxq)) {
- 			err = PTR_ERR(rxq);
-@@ -3465,14 +3488,15 @@ static int mana_add_rx_queues(struct mana_port_context *apc,
- 	return err;
- }
- 
--static void mana_destroy_rxqs(struct mana_port_context *apc)
-+static void mana_destroy_rxqs_from(struct mana_port_context *apc,
-+				   unsigned int first)
- {
- 	struct mana_rxq *rxq;
- 	u32 rxq_idx;
- 
- 	if (apc->rxqs) {
- 
--		for (rxq_idx = 0; rxq_idx < apc->num_queues; rxq_idx++) {
-+		for (rxq_idx = first; rxq_idx < apc->num_queues; rxq_idx++) {
- 			rxq = apc->rxqs[rxq_idx];
- 			if (!rxq)
- 				continue;
-@@ -3483,6 +3507,11 @@ static void mana_destroy_rxqs(struct mana_port_context *apc)
- 	}
- }
- 
-+static void mana_destroy_rxqs(struct mana_port_context *apc)
-+{
-+	mana_destroy_rxqs_from(apc, 0);
-+}
-+
- static void mana_destroy_vport(struct mana_port_context *apc)
- {
- 	struct gdma_dev *gd = apc->ac->gdma_dev;
-@@ -3856,7 +3885,7 @@ int mana_alloc_queues(struct net_device *ndev)
- 		goto destroy_vport;
- 	}
- 
--	err = mana_create_txq(apc, ndev);
-+	err = mana_create_txq(apc, ndev, 0);
- 	if (err) {
- 		netdev_err(ndev, "Failed to create TXQ on vPort %u: %d\n",
- 			   apc->port_idx, err);
-@@ -3871,7 +3900,7 @@ int mana_alloc_queues(struct net_device *ndev)
- 		goto destroy_txq;
- 	}
- 
--	err = mana_add_rx_queues(apc, ndev);
-+	err = mana_add_rx_queues(apc, ndev, 0);
- 	if (err)
- 		goto destroy_rxq;
- 
-@@ -4254,8 +4283,137 @@ void mana_discard_split(struct mana_qset *newq, struct mana_qset *tailq)
- 	memset(tailq, 0, sizeof(*tailq));
- }
- 
-+/* Carry existing queues into @out_new; allocate only the tail. @out_fresh
-+ * isolates new queues for cleanup after a failed publish.
-+ */
-+int mana_grow_qset(struct mana_port_context *apc,
-+		   struct mana_port_context *scratch, unsigned int new_count,
-+		   struct mana_qset *out_new, struct mana_qset *out_fresh)
-+{
-+	unsigned int old_count = apc->num_queues;
-+	struct mana_tx_qp **new_tx, **fresh_tx;
-+	struct mana_rxq **new_rx, **fresh_rx;
-+	struct net_device *ndev = apc->ndev;
-+	unsigned int fresh_count;
-+	bool indir_lost;
-+	unsigned int i;
-+	int err;
-+
-+	ASSERT_RTNL();
-+
-+	if (WARN_ON(new_count <= old_count))
-+		return -EINVAL;
-+	if (WARN_ON(!apc->tx_qp || !apc->rxqs))
-+		return -EINVAL;
-+
-+	fresh_count = new_count - old_count;
-+
-+	new_tx = kzalloc_objs(struct mana_tx_qp *, new_count);
-+	new_rx = kzalloc_objs(struct mana_rxq *, new_count);
-+	fresh_tx = kzalloc_objs(struct mana_tx_qp *, fresh_count);
-+	fresh_rx = kzalloc_objs(struct mana_rxq *, fresh_count);
-+	if (!new_tx || !new_rx || !fresh_tx || !fresh_rx) {
-+		err = -ENOMEM;
-+		goto free_arrays;
-+	}
-+
-+	for (i = 0; i < old_count; i++) {
-+		new_tx[i] = apc->tx_qp[i];
-+		new_rx[i] = apc->rxqs[i];
-+	}
-+
-+	scratch->num_queues = new_count;
-+	scratch->tx_qp = new_tx;
-+	scratch->rxqs = new_rx;
-+
-+	err = mana_rss_table_alloc(scratch);
-+	if (err)
-+		goto free_arrays;
-+
-+	err = mana_grow_eqs(apc, new_count);
-+	if (err)
-+		goto cleanup_rss;
-+
-+	scratch->eqs = apc->eqs;
-+	scratch->num_eqs = apc->num_eqs;
-+
-+	err = mana_create_txq(scratch, ndev, old_count);
-+	if (err)
-+		goto cleanup_rss;
-+
-+	err = mana_add_rx_queues(scratch, ndev, old_count);
-+	if (err)
-+		goto cleanup_rxq;
-+
-+	if (mana_rss_table_keep(apc, new_count, &indir_lost))
-+		memcpy(scratch->indir_table, apc->indir_table,
-+		       apc->indir_table_sz * sizeof(*apc->indir_table));
-+	else
-+		mana_rss_table_init(scratch);
-+
-+	mana_qset_snapshot(scratch, out_new);
-+	out_new->rxfh_indir_lost = indir_lost;
-+
-+	for (i = 0; i < fresh_count; i++) {
-+		fresh_tx[i] = new_tx[old_count + i];
-+		fresh_rx[i] = new_rx[old_count + i];
-+	}
-+
-+	memset(out_fresh, 0, sizeof(*out_fresh));
-+	out_fresh->tx_qp	= fresh_tx;
-+	out_fresh->rxqs		= fresh_rx;
-+	out_fresh->default_rxobj = INVALID_MANA_HANDLE;
-+	out_fresh->num_queues	= fresh_count;
-+	out_fresh->rx_queue_size = apc->rx_queue_size;
-+	out_fresh->tx_queue_size = apc->tx_queue_size;
-+	out_fresh->priv_flags	= apc->priv_flags;
-+	out_fresh->mtu		= apc->configured_mtu;
-+	out_fresh->bpf_prog	= apc->bpf_prog;
-+
-+	/* Take XDP refs on fresh RXQs only. On the merged set,
-+	 * mana_chn_setxdp() returns early on the carried rxqs[0].
-+	 */
-+	mana_qset_install(scratch, out_fresh);
-+	mana_chn_setxdp(scratch, mana_xdp_get(apc));
-+
-+	return 0;
-+
-+cleanup_rxq:
-+	mana_destroy_rxqs_from(scratch, old_count);
-+	mana_destroy_txq_from(scratch, old_count);
-+cleanup_rss:
-+	mana_cleanup_indir_table(scratch);
-+free_arrays:
-+	/* Free containers only; carried queues remain live. */
-+	scratch->tx_qp = NULL;
-+	scratch->rxqs = NULL;
-+	kfree(new_tx);
-+	kfree(new_rx);
-+	kfree(fresh_tx);
-+	kfree(fresh_rx);
-+
-+	mana_shrink_eqs(apc, apc->num_queues);
-+
-+	netdev_err(ndev, "%s(num_queues=%u) failed: %d\n", __func__,
-+		   new_count, err);
-+	return err;
-+}
-+
-+/* Free merged containers only, not carried queues. The caller must retire fresh
-+ * queues separately.
-+ */
-+void mana_discard_grow(struct mana_qset *newq)
-+{
-+	kfree(newq->tx_qp);
-+	kfree(newq->rxqs);
-+	kfree(newq->indir_table);
-+	kfree(newq->rxobj_table);
-+	memset(newq, 0, sizeof(*newq));
-+}
-+
-+/* Rebuild at the current count; resize uses split/grow. */
- int mana_alloc_qset(struct mana_port_context *apc,
--		    struct mana_port_context *scratch, unsigned int num_queues,
-+		    struct mana_port_context *scratch,
- 		    unsigned int rx_queue_size, unsigned int tx_queue_size,
- 		    u32 priv_flags, int mtu, struct bpf_prog *bpf_prog,
- 		    struct mana_qset *out)
-@@ -4266,7 +4424,7 @@ int mana_alloc_qset(struct mana_port_context *apc,
- 
- 	ASSERT_RTNL();
- 
--	scratch->num_queues	= num_queues;
-+	scratch->num_queues	= apc->num_queues;
- 	scratch->rx_queue_size	= rx_queue_size;
- 	scratch->tx_queue_size	= tx_queue_size;
- 	scratch->priv_flags	= priv_flags;
-@@ -4282,22 +4440,19 @@ int mana_alloc_qset(struct mana_port_context *apc,
- 	if (err)
- 		goto cleanup_rxq_array;
- 
--	err = mana_grow_eqs(apc, num_queues);
--	if (err)
--		goto cleanup_rss;
--
-+	/* Reuse the existing EQ pool; the queue count is unchanged. */
- 	scratch->eqs = apc->eqs;
- 	scratch->num_eqs = apc->num_eqs;
- 
--	err = mana_create_txq(scratch, ndev);
-+	err = mana_create_txq(scratch, ndev, 0);
- 	if (err)
- 		goto cleanup_rss;
- 
--	err = mana_add_rx_queues(scratch, ndev);
-+	err = mana_add_rx_queues(scratch, ndev, 0);
- 	if (err)
- 		goto cleanup_rxq;
- 
--	if (mana_rss_table_keep(apc, num_queues, &indir_lost))
-+	if (mana_rss_table_keep(apc, scratch->num_queues, &indir_lost))
- 		memcpy(scratch->indir_table, apc->indir_table,
- 		       apc->indir_table_sz * sizeof(*apc->indir_table));
- 	else
-@@ -4316,10 +4471,8 @@ int mana_alloc_qset(struct mana_port_context *apc,
- 	kfree(scratch->rxqs);
- 	scratch->rxqs = NULL;
- out_err:
--	mana_shrink_eqs(apc, apc->num_queues);
--
- 	netdev_err(ndev, "%s(num_queues=%u) failed: %d\n", __func__,
--		   num_queues, err);
-+		   apc->num_queues, err);
- 	return err;
- }
- 
-@@ -4531,7 +4684,7 @@ int mana_publish_qset(struct mana_port_context *apc, struct mana_qset *newq,
- }
- 
- /* Create missing debugfs nodes once retiring names are gone. */
--static void mana_qset_debugfs_publish(struct mana_port_context *apc)
-+void mana_qset_debugfs_publish(struct mana_port_context *apc)
- {
- 	unsigned int i;
- 
-diff --git a/drivers/net/ethernet/microsoft/mana/mana_ethtool.c b/drivers/net/ethernet/microsoft/mana/mana_ethtool.c
-index 0b8c2f61d6263c65a8119b94426f794b218ad55f..6586a9d2a13438bd85d0aa55c55c08a0b3301f78 100644
---- a/drivers/net/ethernet/microsoft/mana/mana_ethtool.c
-+++ b/drivers/net/ethernet/microsoft/mana/mana_ethtool.c
-@@ -684,7 +684,7 @@ static int mana_set_channels(struct net_device *ndev,
- 	struct mana_port_context *apc = netdev_priv(ndev);
- 	unsigned int new_count = channels->combined_count;
- 	struct mana_port_context *scratch;
--	struct mana_qset newq, oldq;
-+	struct mana_qset newq, oldq, freshq;
- 	int err;
- 
- 	if (new_count < 1 || new_count > apc->max_queues) {
-@@ -767,19 +767,33 @@ static int mana_set_channels(struct net_device *ndev,
- 		goto free_scratch;
- 	}
- 
--	err = mana_alloc_qset(apc, scratch, new_count, apc->rx_queue_size,
--			      apc->tx_queue_size, apc->priv_flags,
--			      apc->configured_mtu, apc->bpf_prog, &newq);
-+	err = mana_grow_qset(apc, scratch, new_count, &newq, &freshq);
- 	if (err)
- 		goto free_scratch;
- 
- 	err = mana_publish_qset(apc, &newq, &oldq);
- 	if (err) {
--		mana_free_qset(scratch, &newq);
-+		/* Free only the new queues, then discard the merged containers.
-+		 */
-+		mana_free_qset(scratch, &freshq);
-+		mana_discard_grow(&newq);
- 		goto free_scratch;
- 	}
- 
--	mana_free_qset(scratch, &oldq);
-+	/* Wait for ndo_select_queue() readers of oldq.indir_table. All queues
-+	 * are now live in newq; free only the old and fresh containers.
-+	 */
-+	synchronize_net();
-+
-+	kfree(oldq.tx_qp);
-+	kfree(oldq.rxqs);
-+	kfree(oldq.indir_table);
-+	kfree(oldq.rxobj_table);
-+	kfree(freshq.tx_qp);
-+	kfree(freshq.rxqs);
-+
-+	/* No retirement runs to publish the new queues' debugfs nodes. */
-+	mana_qset_debugfs_publish(apc);
- 
- free_scratch:
- 	mana_publish_close_if_needed(apc);
-@@ -856,7 +870,7 @@ static int mana_set_ringparam(struct net_device *ndev,
- 		goto clear_flag;
- 	}
- 
--	err = mana_alloc_qset(apc, scratch, apc->num_queues, new_rx, new_tx,
-+	err = mana_alloc_qset(apc, scratch, new_rx, new_tx,
- 			      apc->priv_flags, apc->configured_mtu,
- 			      apc->bpf_prog, &newq);
- 	if (err) {
-@@ -876,7 +890,6 @@ static int mana_set_ringparam(struct net_device *ndev,
- 	mana_free_qset(scratch, &oldq);
- 
- free_scratch:
--	/* Release unpublished queues before closing their shared EQ pool. */
- 	mana_publish_close_if_needed(apc);
- 	mana_qset_scratch_free(scratch);
- clear_flag:
-@@ -946,7 +959,7 @@ static int mana_set_priv_flags(struct net_device *ndev, u32 priv_flags)
- 		goto clear_flag;
- 	}
- 
--	err = mana_alloc_qset(apc, scratch, apc->num_queues, apc->rx_queue_size,
-+	err = mana_alloc_qset(apc, scratch, apc->rx_queue_size,
- 			      apc->tx_queue_size, priv_flags,
- 			      apc->configured_mtu, apc->bpf_prog, &newq);
- 	if (err)
-diff --git a/include/net/mana/gdma.h b/include/net/mana/gdma.h
-index 308950f9b54b0485bac66b80d63e257eaf5f787e..666565ffb26aad6b77044ce1604568aa208a5b79 100644
---- a/include/net/mana/gdma.h
-+++ b/include/net/mana/gdma.h
-@@ -686,6 +686,11 @@ enum {
- /* Driver supports non-contiguous queue buffers */
- #define GDMA_DRV_CAP_FLAG_1_NON_CONTIGUOUS_BUFFERS BIT(30)
- 
-+/* Resize failures are handled in-driver; a failed rollback still needs
-+ * recovery.
-+ */
-+#define GDMA_DRV_CAP_FLAG_1_SELF_RECOVERY_ON_QUEUE_RESIZE_FAILURE BIT(31)
-+
- #define GDMA_DRV_CAP_FLAGS1 \
- 	(GDMA_DRV_CAP_FLAG_1_EQ_SHARING_MULTI_VPORT | \
- 	 GDMA_DRV_CAP_FLAG_1_NAPI_WKDONE_FIX | \
-@@ -703,7 +708,8 @@ enum {
- 	 GDMA_DRV_CAP_FLAG_1_HWC_TIMEOUT_RECOVERY | \
- 	 GDMA_DRV_CAP_FLAG_1_EQ_MSI_UNSHARE_MULTI_VPORT | \
- 	 GDMA_DRV_CAP_FLAG_1_DYN_INTERRUPT_MODERATION | \
--	 GDMA_DRV_CAP_FLAG_1_NON_CONTIGUOUS_BUFFERS)
-+	 GDMA_DRV_CAP_FLAG_1_NON_CONTIGUOUS_BUFFERS | \
-+	 GDMA_DRV_CAP_FLAG_1_SELF_RECOVERY_ON_QUEUE_RESIZE_FAILURE)
- 
- #define GDMA_DRV_CAP_FLAGS2 0
- 
-diff --git a/include/net/mana/mana.h b/include/net/mana/mana.h
-index 5ec75de0b644569acdf697e997c262d999295a06..cc936ae97a0318620c011ae55925595858e0fc3d 100644
---- a/include/net/mana/mana.h
-+++ b/include/net/mana/mana.h
-@@ -739,7 +739,7 @@ static inline struct mana_stats_rx *mana_rxq_stats(struct mana_rxq *rxq)
- }
- 
- int mana_alloc_qset(struct mana_port_context *apc,
--		    struct mana_port_context *scratch, unsigned int num_queues,
-+		    struct mana_port_context *scratch,
- 		    unsigned int rx_queue_size, unsigned int tx_queue_size,
- 		    u32 priv_flags, int mtu, struct bpf_prog *bpf_prog,
- 		    struct mana_qset *out);
-@@ -747,10 +747,15 @@ int mana_split_qset(struct mana_port_context *apc,
- 		    struct mana_port_context *scratch, unsigned int new_count,
- 		    struct mana_qset *out_new, struct mana_qset *out_tail);
- void mana_discard_split(struct mana_qset *newq, struct mana_qset *tailq);
-+int mana_grow_qset(struct mana_port_context *apc,
-+		   struct mana_port_context *scratch, unsigned int new_count,
-+		   struct mana_qset *out_new, struct mana_qset *out_fresh);
-+void mana_discard_grow(struct mana_qset *newq);
- int mana_publish_qset(struct mana_port_context *apc, struct mana_qset *newq,
- 		      struct mana_qset *out_old);
- void mana_publish_close_if_needed(struct mana_port_context *apc);
- void mana_free_qset(struct mana_port_context *scratch, struct mana_qset *qset);
-+void mana_qset_debugfs_publish(struct mana_port_context *apc);
- 
- void mana_dim_change(struct mana_cq *cq, bool enable);
- 
--- 
-2.43.0
+        /*
