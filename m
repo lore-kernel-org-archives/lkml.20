@@ -1,51 +1,72 @@
-Received: from smtpbgau1.qq.com (smtpbgau1.qq.com [54.206.16.166])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12CDF3563E1;
-	Wed,  9 Sep 2026 03:36:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.206.16.166
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA8DF23C4F3
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 03:38:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788925027; cv=none; b=Vq/lejfvcqYuVVH/sxBSBpNBEXga3dc26bU0RYq2uNH8FDmyYz7dkZlwTcKAcE76C/ikSdQOD9MaA2O4WuUI3Qv+5VljrVRjUDLnsoDT+5wBlHbitYHIeGNfiQIdwAOrKXynXSqjqe4493Ro4O3Bp4FRxnkjD0XOiuwLulOivtk=
+	t=1788925134; cv=none; b=XhPN/XZjb8wQbyI4jZNrlxen4cSijmOZC80fLFP2J3VihrX2LzMpdRBwmqqyERyFkO1dy6rHzVbHrrRvlxeH+t4pPurGVOvVmDnRI4fRWWo7KlGrCBCKLJhTgBgsrX+R6EwzSHXrqrtJRvNVHmhC0j1tBmKgw3KsZ+O4/8nq9hw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788925027; c=relaxed/simple;
-	bh=Qd1XgArg2q+m7K/L/jpwsQwWH0hMl/cvrWWrUCs0GzY=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=j6TDzcIGZPWXPb7SqQfoFQM4OTkefn9FaB3JaMJK7P0/DZNrRpJKpPRfh5Ppd0uxtYjRMK1pj8uZWKs+n2Ve7yvZmcXAycJvNHG57wY0s7jB78+f2M+jLgu62303kXk5DZf1JnvNz7/ftAj56LEgl3txWC/t3jp1Ixz6/Wy9Ekk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=ETNc5U+Q; arc=none smtp.client-ip=54.206.16.166
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
+	s=arc-20240116; t=1788925134; c=relaxed/simple;
+	bh=v/nPjsQOCEIKEWJ77rJZFCnUUARPwNEBAmiHhVHNtSw=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=ZfAWjZwYN2twMASXHORMQcACU/CSFtWR2jt1BjoKSkpFI3/Be1mXEpCJEbUlkRzvgn/SXZi1TqX8VSWns+NqypKuFuAByeEM3xkZfJbCSqVksFzqnP+oZC12j73R1mogFkLphr2YXjMKJXp+K/srVJWYDKeJ3kwiEnhQinlG2DQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jnUysI1h; arc=none smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="ETNc5U+Q"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1788924965;
-	bh=xXRf0SUBV3suWoM0NzxTLIfVE6eSGflDShrfnAnxvT4=;
-	h=From:To:Subject:Date:Message-Id:MIME-Version;
-	b=ETNc5U+QCXv9fcNzyRhUVKnWlKohowejNyViGdLn40TD+c4kITK/XgxmDEK4cc3D5
-	 fuNLvXcN05ihc4Lkg32uy7jK5lOrOtBssn2OEz6cptVzvRcmFZHxBmFZ2qwWu/ojYY
-	 heVNS2B4Cbe7Yef5INZegAMhvJjZjtTduvp3GphQ=
-X-QQ-mid: esmtpsz17t1788924947t863e0c09
-X-QQ-Originating-IP: gMXocejGpJ2GJABfXFf8kOt/4JEgASBRhiAgAOtWxxU=
-Received: from uniontech.com ( [113.57.152.160])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Wed, 09 Sep 2026 11:35:44 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 16255912553971824354
-EX-QQ-RecipientCnt: 10
-From: Yichong Chen <chenyichong@uniontech.com>
-To: tytso@mit.edu
-Cc: adilger.kernel@dilger.ca,
-	libaokun@linux.alibaba.com,
-	jack@suse.cz,
-	ojaswin@linux.ibm.com,
-	ritesh.list@gmail.com,
-	yi.zhang@huawei.com,
-	linux-ext4@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jnUysI1h"
+Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-398beb616f5so678263a91.1
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 20:38:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788925132; x=1789529932; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=CBiLqTkQaNBb/2DBOx2xL3ycZ7GO8eo7KWlmm4z4Kzo=;
+        b=jnUysI1hv/orHZPOUyqwAHIiYHu/gy5V3VY9H0e5hu5TOuna+//FDlYKYidFsW1R9m
+         auIy0qQY5j7mVwPyMhpUxxB7+/yqgwveNn46UyKs+DcFF+YLhmC8w9p8Hb3Eu7R2KAUu
+         YMmfHHahBnSukFzoNJa7kOyo7BXNFVjRR1XLSrnwYmCZ7gqumvr/jtNrl8Ynn9XWvreZ
+         RAJ1ZquioSgXsp/W2T1k5yd4piOj0T8LY82+WTDaMqOa8tGTykbJIhLsLFOquBlmSe+G
+         +vB/B/dE3BgxjiyIdWSV1CHqCGGK1Khfb/LhjTFvG+ApVs+U4MmExE8JNPm4/rxtr5/U
+         rgAw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788925132; x=1789529932;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=CBiLqTkQaNBb/2DBOx2xL3ycZ7GO8eo7KWlmm4z4Kzo=;
+        b=MJkzEnGNqOHvc6X8bwQDQRapglXg+9VpLAdZvsBI73u3MIcVYls1dpSYHnb5ZSAn8a
+         F8MUfiAHJ75KRkKXQdAbkyFrE9qkrx2Y4ZxOQ+Vkzt3XSssJwjh4x4tEb4H4Z3Ujb4vm
+         /ECdHdNhEooVspB3dN7w0Ds0n4BSGddwIZpfyiKf3oBGpm8o215Sm3ZFrJaCw/MwIfPo
+         mZ/rj5cp9YhNYz92pdg7oj6rYRCI7CRgnTMTulfYcrikHXl5SbVvX+BuojnteN4GuG0I
+         KI409wqGN7uD4EzX6ok0B5bgK9HRjWLcNCKz6eZgM32G4tmvi9JETTfzU5fl/ROT9c6L
+         cCKg==
+X-Forwarded-Encrypted: i=1; AKwUvBzITn3nSukjSigwlrMQ1TMOo2ul2mA4GY6Cm5eHij8s2Y+Lp484I6Ck27pJSHQEH4IqMe1Z7hkdvqNTdnY=@vger.kernel.org
+X-Gm-Message-State: AFuF++nBTnQHd/oiACd577oNH05OnZA+9VUL3SXAKj2tMBz9VpJUZj3C
+	p7lIw/hNNQGC2Jtyi3SfFEbHgL6knrFb7I9VCG04nkAj0u4qLD7MKWuq
+X-Gm-Gg: AYBFou0iXiqmqo6HtV0D4bYDMnkN/BaQzqYrApVcPjVip6uUY5L/Gn5uMGPjz9D1MMI
+	x77rc4hgG8Nawto1ZpK0KP+iq5vLLKNtfkzFRt3RsGdBm0ZA2szZ6mtJn+L3I05ncvnUYDA5Y/f
+	EJB3VTp9+jsfe7ZZc7YMHmDUfP5K69X81SxTN7lG7E7qZ71C8IvxmkFysQWuAE4EnwUQi3KP5lf
+	IWnLNdSy3CU82gGEnSBagT/pOhiJQFgQxDSHdFI6tXBfcPeDtKCpA5dptkk1OdxFV6cs/TsQCio
+	yi9Kknv9UWNyUaop1FH6Yd9R5xgZyyU6ws74G/9Y9q1ytLW2IlEcKxt1DjXOvvgKuH+3kdUD5FI
+	ZbgVELnouluFHRgXc2epFK3jPpd4RfMjeSlU/mEP56CWUpHT553hw3RziGfu8LaQCfDBDnbm/GN
+	0Mewengi260ZVTckros6DZ+OPGkyw4GEdJnhzUDZA2emrZ9RkwgomTQAMnWMxnKvDfyQPbALkP4
+	2w=
+X-Received: by 2002:a17:90b:4405:b0:398:9bd3:d6d4 with SMTP id 98e67ed59e1d1-39b8bf0ce55mr7805843a91.14.1788925131938;
+        Tue, 08 Sep 2026 20:38:51 -0700 (PDT)
+Received: from baineng-pc.. ([117.133.183.252])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b25f88475sm29419266a91.1.2026.09.08.20.38.49
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 08 Sep 2026 20:38:51 -0700 (PDT)
+From: Baineng Shou <shoubaineng@gmail.com>
+To: vkoul@kernel.org
+Cc: Frank.Li@kernel.org,
+	dmaengine@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Yichong Chen <chenyichong@uniontech.com>
-Subject: [PATCH] ext4: clear journal restart indication after inserting extent
-Date: Wed,  9 Sep 2026 11:35:42 +0800
-Message-Id: <20260909033542.3087876-1-chenyichong@uniontech.com>
-X-Mailer: git-send-email 2.20.1
+	Baineng Shou <shoubaineng@gmail.com>
+Subject: [PATCH] dmaengine: mmp_pdma: fix wrong sg length in mmp_pdma_prep_slave_sg
+Date: Wed,  9 Sep 2026 11:38:41 +0800
+Message-Id: <20260909033841.1395793-1-shoubaineng@gmail.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -53,58 +74,39 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: esmtpsz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz3a-0
-X-QQ-XMAILINFO: Nb1VDHjJrCDX4GR0sMoYT5NnIG5Z3SY+kHzCKAmZt39Pcxlu5Ducstrr
-	kzsLHa4rhqscPxkMz9XIr8tSaK4XpBrGeYOa8m0+aTRFnkIEJVptOlWs45Hj1fxVNz6VbUt
-	Zhb20QBdYzrGJatMnBw9Wqrzw2ino4TrRNGmMCS/L6yF0J5bObxGh7oxQ6vutuNnO+9IrfS
-	B9CKsmkMlL/t4jLofdC5vUOFf/BfAed//I/oUFpxYPKMnGqLBZA7IIeTxOICO0MokNF+arV
-	eZ8kmx3kjLqX9Q646vUW12TnryVaHGl5hAeABGm+viSY84pGeqoDFYCOKm0pxy2E/BRGboF
-	GggTHZzgfCfp4Rcerxh0v2N3Rx5P0gKaEz68ny29rXOrTu3FwUd9MV2y4hVjU1J0eTuXgTf
-	JTkzhmgyFngzdQVkwBWNUuUnzOdjecehXwU3yPbXtMC5k0LimSnP9SvIdcG3ufz8UczXj2n
-	Dd+Kc+zJnctZYUzv/nOTHgPLsh+WEkbtLjY5JeYXmwpZQ+mwjre/PvOOkWYwKelo4lf7nhJ
-	TQsr0yAgnLEXwtM0NTLFYxdSE0DSpZo1vqPL9yzy7h7sY9oqK6xpVwAIqzo42SWhQsPKQoa
-	YMA+ulDtDkBp1TA2JBSOobhAmwLx8POLKju/0puIR3M8IeBLXgzQq3H1ibqj3MDc6Jc0mjP
-	QsyKt7tTFncsQShllZU3WOdZWyf2kZo4qSN1d4dCZnEuv6OYv2rSZfR1bk/0g5ODOyUtwY2
-	nMBUUd/+6t0pj3n0t6gVY2JCAhbTHngFAIe+zwvdVAhlN8ruitMgz96x8OpV80DuK/IKirw
-	SfvmdiKG8opFh7Q0lTpDOUaji2kwyA4PpzolHxtEyqfFaMP1M+8OzFvgMWB3mugMQ7WGqdH
-	uD+qNRp7rrr/3TUFizbP19fq6ar8PLguFGncW6QvZf6y2NMW99rjVW5/PcxneQE5rl3qO/1
-	K12snMrd1z/J1xJI4VaoGvfBQnQZNEPjSQ6Oki9uUBKwAzPeIJlLjt9Qy2H29AfAESbM7bO
-	QOWknAjHRu4zPUOmEg
-X-QQ-XMRINFO: NS+P29fieYNwqS3WCnRCOn9D1NpZuCnCRA==
-X-QQ-RECHKSPAM: 0
 
-ext4_datasem_ensure_credits() returns 1 when it successfully restarts
-the transaction. finish_range() leaves that value in retval when the
-subsequent ext4_ext_insert_extent() succeeds. Its callers interpret any
-nonzero return as a migration failure, so they stop building the extent
-tree and take the cleanup path instead of completing the migration.
+In mmp_pdma_prep_slave_sg(), for_each_sg() iterates the scatterlist
+putting each entry into 'sg', but the entry length is read from 'sgl'
+(the list head) instead of 'sg' (the current entry):
 
-Before ext4_ext_insert_extent() was changed to return a path, its integer
-return value overwrote the restart indication. Restore that behavior with
-PTR_ERR_OR_ZERO(), preserving insertion errors and returning zero on
-success.
+    for_each_sg(sgl, sg, sg_len, i) {
+        addr = sg_dma_address(sg);
+        avail = sg_dma_len(sgl);   /* should be 'sg' */
 
-Fixes: f7d1331f16a8 ("ext4: get rid of ppath in ext4_ext_insert_extent()")
-Signed-off-by: Yichong Chen <chenyichong@uniontech.com>
+Consequently 'avail' is always the length of the first entry. For
+multi-sg lists this causes out-of-bounds reads when a later entry is
+shorter than the first, and silent data loss when it is longer.
+Single-sg or uniformly-sized lists happen to mask the issue.
+
+Fixes: c8acd6aa6bed3 ("dmaengine: mmp-pdma support")
+Signed-off-by: Baineng Shou <shoubaineng@gmail.com>
 ---
- fs/ext4/migrate.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+ drivers/dma/mmp_pdma.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/fs/ext4/migrate.c b/fs/ext4/migrate.c
-index 5d60ef10fe11..d467b5a13c62 100644
---- a/fs/ext4/migrate.c
-+++ b/fs/ext4/migrate.c
-@@ -53,8 +53,7 @@ static int finish_range(handle_t *handle, struct inode *inode,
- 	if (retval < 0)
- 		goto err_out;
- 	path = ext4_ext_insert_extent(handle, inode, path, &newext, 0);
--	if (IS_ERR(path))
--		retval = PTR_ERR(path);
-+	retval = PTR_ERR_OR_ZERO(path);
- err_out:
- 	up_write((&EXT4_I(inode)->i_data_sem));
- 	ext4_free_ext_path(path);
+diff --git a/drivers/dma/mmp_pdma.c b/drivers/dma/mmp_pdma.c
+index 386e85cd4882..e90fd2023af7 100644
+--- a/drivers/dma/mmp_pdma.c
++++ b/drivers/dma/mmp_pdma.c
+@@ -713,7 +713,7 @@ mmp_pdma_prep_slave_sg(struct dma_chan *dchan, struct scatterlist *sgl,
+ 
+ 	for_each_sg(sgl, sg, sg_len, i) {
+ 		addr = sg_dma_address(sg);
+-		avail = sg_dma_len(sgl);
++		avail = sg_dma_len(sg);
+ 
+ 		do {
+ 			len = min_t(size_t, avail, PDMA_MAX_DESC_BYTES);
 -- 
-2.51.0
+2.34.1
 
