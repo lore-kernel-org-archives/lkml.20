@@ -1,112 +1,139 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com [209.85.216.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2028E3A4539
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 06:00:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 473A23A5421
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 06:01:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788933612; cv=none; b=f/xev9mzJ97XFyO6yXDBflZ8Hchcy/CLCh4QsJFdPZXFwrKUnOpY/KooaldZxesE6dOu+YuQM1i4MGNVIdK+9MrgqWpRi0VaH4pDOcDVCj9Pn8FOJJn4o/d8UXNq+bmqp+zeh68Wy+T3jUEVMBNfKakW+cw23Oxs9NCuw3teLnE=
+	t=1788933664; cv=none; b=pcHihbh3MzVMU7/qZV5goUhmaL05lTjLWN3wJl1fobPeDFX26gH36mhWERh9xvScOtmCrlqprRcC8PnRb2RpCeaSg79kNZSk13Ki9kE2AbIVsouh8SLX4zhiOc2V6d+WxvdHhwxtscZ7lm0c+0K2CgwqHFaDjsVTLE5En+rnnLk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788933612; c=relaxed/simple;
-	bh=76y8yYBPxaXBmji+aSrOLFVcg+RsiE/a5Mz+iifDVf4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=RFoernSBKyFbKxMUxmwdlP8vPOQN+oPO4Y+BW55lV0PexpTUXtgfNAfUdEf4dpmZAvJp7LSMaB/c5sNbM5L4b2+W5O8Lrkgi3nxxv+nXb0m6/Q5824ZfAqRlyAmOI/L4acPGbFaRzo4snKBW1tdRHlW9E7NkEKgSt1ehSMru134=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=F0I3BHwF; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788933664; c=relaxed/simple;
+	bh=S/fzE7LggtKyXFVV+3o0QCAj32nkdP1715ppK3vGFKw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Zw9IKr1CYuaEZ6zRBwiOdySGdEUL06ZcXZGDXeesnGJOR6XUlcDgj6iPgyR83vyca8fT/H7+D2XzoRnmspcSV90274P1Rg73FWWXq7lT7DCK9REX3dU0DrLShrgUl0qHzZzN9Ew66Cz1OQGk2Y9Xi6PkXmzZsEFQqWOvNT0kcNY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai; spf=pass smtp.mailfrom=nebusec.ai; dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b=IYORCHwA; arc=none smtp.client-ip=209.85.216.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nebusec.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="F0I3BHwF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE6911F00A3D;
-	Wed,  9 Sep 2026 06:00:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788933610;
-	bh=MgRXf6LJu/RQ2LO1msDGJIOm0e4T9UlVLCdDH/R1eIk=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=F0I3BHwFpH14zktNDr4pj4hHLC5cL9SSm05FOM+46ne8pPA0l6VOH4rS/wQAXL98W
-	 /sLmYNfql1pBAYRoI1NiJvYIZZMRKnqY6OiWuCrfPkUayCfcfynMzV4kFUDiNVxh+0
-	 249hbMkTyKBgN/GmbtmymAn+48S2lezTPK/VErNpuqJRx5pGIR4IkVqZ00HdkYvkXi
-	 pgrVwYwI3QbgRWOtAwRhxsP+GBcisdPes6VaTtx8VeSUhe+WdXGpx9zc/ovhEmPEIB
-	 156TjCxbU1kgIHjFH/jLYzCU74uE4VGeB8hLURagmwMWIfSNwAkM/gkym8rDqRwTyN
-	 LgFPbXI+33MGA==
-Message-ID: <dc7c1fb8-9d01-4d1c-abcd-1bddd70edecb@kernel.org>
-Date: Wed, 9 Sep 2026 08:00:07 +0200
+	dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b="IYORCHwA"
+Received: by mail-pj1-f43.google.com with SMTP id 98e67ed59e1d1-383b4a3755fso5124909a91.3
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 23:01:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=nebusec.ai; s=google; t=1788933662; x=1789538462; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=gvow6oU4iq+0a+bBr6UukoAAqBxhHL+gKoXpK7iHJCA=;
+        b=IYORCHwAfNY6VX+KYA/obNIlz/YoxYfiSw+BGBZqcxHhYDgs0yCT+uObG/8pGBvtEg
+         e9DJE4PVljtrJ8Q1TqZc9T6rvEuQ7uctvtMjkgNM6Rjixdb/qmsQ/+dzrmgMMfOi7G4g
+         nZXoZK0H4BRRpw0yB9SFLYgYmul/rMMBDy2V135anF5lzcbGQ6YLBqDRxguV6kVWhYSr
+         TRgeb/hZou+7U1Bp03fJAapz4SbsWbX1RPXqFpVXRG20BAmCaLMPDiRoov0GCzIRBbU1
+         ewAUs/8soSpyEmXBPdIZWd/BN6itUKi99PwbYDw7qf7MigiSa9s+IceGQC3E94Q3c+a9
+         i6lw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788933662; x=1789538462;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=gvow6oU4iq+0a+bBr6UukoAAqBxhHL+gKoXpK7iHJCA=;
+        b=TEsFybzDDgGbGJ8WiyLZ77fUk2AnjW6LbuIQrg+WgWN1z/69bse34IzoVPcZyziImZ
+         /AeB/MmgFRixWPbCexxUjDQ2S6Zihv1T33FWAkcR75tn0/Jb38XJbPanKQ8n50j31xJW
+         tuJJGWisU7iL5Lkvh4HjwJD4G9n9yc0TTEDOBM2YaKCHsfGSGMHa1zF5l3Kw3cFIQpk9
+         12pZ9gJSZDijNAcrh+ITCXYDCHO9aU6+zYQeA0mEqiW34k9iyLnIPfghnU43iij+tAva
+         e7qkVEZ8YDnlpPwq2Exlv+bK7OH811fTx/7H/bC2+gAo71CHNIoqdCdVshHDIJATCWJx
+         c2IA==
+X-Forwarded-Encrypted: i=1; AKwUvBxlexdC7VD5tEh9Da1l0c0hO5c11uSPuCqnDe7XBhk6tIuLNLCSAL1tIRFrMXkfqamERGtAr3m6KqUK1tA=@vger.kernel.org
+X-Gm-Message-State: AFuF++msV/k2b+JMSkUcSlA4XoQMA8zcYdWb10pvZi23QTj2Ycf6EtLO
+	T+JCjEnudWWJselryFYA+M/m0S91l7LIYSQxouM0Q8AUNDYdRuzEE2ARZ2BeA8IICqil
+X-Gm-Gg: AYBFou1DoHLKIGL7Rz/2zzWksb4lyq4DdTfu2miVs70Tzy9ibgLZLtrqJwQ9TooUREX
+	dZlNE0QIRVVfUg6K1P4ba3mvsR5eno4M3YN1Wc+53PGvXPX+8OOoL/9GaGpR28ubEGwUnmxJouA
+	iKOtluPY6Wkxj5M4vgp5SxS0kI9LFgGe5ZWB4+qKdXCT07xgmAb+1QYBOVB/zF4Hk1RhVC2tSNp
+	G4cA3ckQvG9XCs0DDitXv3awkzBRrVE0SqF4ygLbOisFga3q2W7oBLE16wxuV6lYJrd336AuxZd
+	MV42o4bDW6g4zKeheKY0eNwpbuOs2oDEncFetaOgma1Aj7CFPCXxNYkUFdVL/CFzrg1jG1xb1rm
+	7muNOmQe9d7AhxhqDIlFryhH2B4gYwLzw3tsqeJ6CvNT7dithOUCJ6Ftnq6vCYkieZmmjjlQ1fB
+	XXQjeQNJ8MpJ/IYZDbi4+t0ll338WUT+jax8HMQzkNJRtMvY2rJMEuY0bTnFwZhs5AgP4K573op
+	4NTGhmpogyl0YFDwI0QaOMtopYStA==
+X-Received: by 2002:a17:90a:dfcd:b0:396:4cbf:45a2 with SMTP id 98e67ed59e1d1-39b84cce5a8mr18859182a91.14.1788933662174;
+        Tue, 08 Sep 2026 23:01:02 -0700 (PDT)
+Received: from b6ad5085b32f.. ([122.51.212.64])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39cfa44aee7sm662709a91.3.2026.09.08.23.00.56
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 08 Sep 2026 23:01:01 -0700 (PDT)
+From: Zihan Xi <zihanx@nebusec.ai>
+To: linux-wireless@vger.kernel.org
+Cc: Johannes Berg <johannes@sipsolutions.net>,
+	Felix Fietkau <nbd@nbd.name>,
+	Ryder Lee <ryder.lee@mediatek.com>,
+	linux-kernel@vger.kernel.org,
+	Zihan Xi <zihanx@nebusec.ai>,
+	stable@vger.kernel.org,
+	Vega <vega@nebusec.ai>,
+	Luxing Yin <root@tr0jan.top>
+Subject: [PATCH wireless v2 1/1] wifi: mac80211: fix mesh fast xmit path deletion UAF
+Date: Wed,  9 Sep 2026 06:00:46 +0000
+Message-ID: <f0c01d0a6d7bdc3497dd62b69a884c00f0d8b78b.1788930567.git.zihanx@nebusec.ai>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <cover.1788930567.git.zihanx@nebusec.ai>
+References: <cover.1788930567.git.zihanx@nebusec.ai>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCHv2 1/4] memory: fsl_ifc: Fix optional NAND IRQ handling and
- migrate to platform IRQ API
-To: Rosen Penev <rosenp@gmail.com>
-Cc: linux-kernel@vger.kernel.org
-References: <20260721202450.485171-1-rosenp@gmail.com>
- <20260721202450.485171-2-rosenp@gmail.com>
- <3bfabe23-b88d-4548-a7a4-06bf526c3a31@kernel.org>
- <CAKxU2N-xfKn_AChcAse_nxFBznxog+OLYW2htBwKHd_Mxk0BUA@mail.gmail.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <CAKxU2N-xfKn_AChcAse_nxFBznxog+OLYW2htBwKHd_Mxk0BUA@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 06/09/2026 20:34, Rosen Penev wrote:
-> On Tue, Sep 1, 2026 at 8:29 AM Krzysztof Kozlowski <krzk@kernel.org> wrote:
->>>       dev_set_drvdata(&dev->dev, NULL);
->>> @@ -204,9 +202,21 @@ static int fsl_ifc_ctrl_probe(struct platform_device *dev)
->>>       int ret = 0;
->>>       int version, banks;
->>>       void __iomem *addr;
->>> +     int nand_irq;
->>> +     int irq;
->>
->> Why do you need the intermediate variables?
-> In order to call platform_get_irq before any allocation happens in probe.
->>
+mesh_fast_tx_cache() stores raw mesh_path pointers. Path deletion
+flushes the cache and then frees the path with kfree_rcu(), but a
+lookup that already holds the path can insert a new cache entry
+after the flush. The cache then points at freed memory.
 
-But allocation is the first thing the probe is doing.
+Set MESH_PATH_DELETED before flushing, and skip inserting a cache
+entry if the path or MPP path is already deleted. Check this under
+the cache walk lock so it is ordered with the flush.
 
-Best regards,
-Krzysztof
+Fixes: d5edb9ae8d56 ("wifi: mac80211: mesh fast xmit support")
+Cc: stable@vger.kernel.org
+Reported-by: Vega <vega@nebusec.ai>
+Assisted-by: LLM
+Co-developed-by: Luxing Yin <root@tr0jan.top>
+Signed-off-by: Luxing Yin <root@tr0jan.top>
+Signed-off-by: Zihan Xi <zihanx@nebusec.ai>
+---
+changes in v2:
+  - Rewrite the commit message.
+  - v1 Link: https://lore.kernel.org/all/94174303640c5e1022b31836770bad75f741afbf.1788845030.git.zihanx@nebusec.ai/
+
+ net/mac80211/mesh_pathtbl.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
+
+diff --git a/net/mac80211/mesh_pathtbl.c b/net/mac80211/mesh_pathtbl.c
+index 03171cf008557..dfcc4f3a7088e 100644
+--- a/net/mac80211/mesh_pathtbl.c
++++ b/net/mac80211/mesh_pathtbl.c
+@@ -577,6 +577,12 @@ void mesh_fast_tx_cache(struct ieee80211_sub_if_data *sdata,
+ 		goto unlock_sta;
+ 
+ 	spin_lock(&cache->walk_lock);
++	if ((READ_ONCE(mpath->flags) & MESH_PATH_DELETED) ||
++	    (mppath && (READ_ONCE(mppath->flags) & MESH_PATH_DELETED))) {
++		kfree(entry);
++		goto unlock_cache;
++	}
++
+ 	prev = rhashtable_lookup_get_insert_fast(&cache->rht,
+ 						 &entry->rhash,
+ 						 fast_tx_rht_params);
+@@ -812,6 +818,9 @@ static void __mesh_path_del(struct mesh_table *tbl, struct mesh_path *mpath)
+ {
+ 	hlist_del_rcu(&mpath->walk_list);
+ 	rhashtable_remove_fast(&tbl->rhead, &mpath->rhash, mesh_rht_params);
++	spin_lock_bh(&mpath->state_lock);
++	mpath->flags |= MESH_PATH_DELETED;
++	spin_unlock_bh(&mpath->state_lock);
+ 	if (tbl == &mpath->sdata->u.mesh.mpp_paths)
+ 		mesh_fast_tx_flush_addr(mpath->sdata, mpath->dst);
+ 	else
+-- 
+2.43.0
+
