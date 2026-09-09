@@ -1,38 +1,39 @@
 Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0259853ECEA
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 12:26:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F0B354EEDA
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 12:26:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788956803; cv=none; b=HIiomxwBAIclohLk7aUrQdCuQVVdyblCdSgxusSEp9NMyjCtZ24++eb58YGDY4jtY4AufwhEBDe+FWbbyJExeNhzDrO/fIQKeRKvGeoCS1muukQFrxcnlrULty7AmPRsJ+9wJHVkG1O1ct1T4g26KNiUEQ8zHKN8TppuPchtGww=
+	t=1788956803; cv=none; b=NCr+Q3LYQKULmMx8DnUba3n4DPHBA+cd0eqLcEstNrfkbvFz9LhLuqZHF2ITyNChMJApt2LGIP+2Oa6v7EXu2wv/gREIQwnAzemW3Sfam03KuziLXgX5wnOGz8np6L1ZEVH/SUMTT9Tc2G7cnnsrfOxLH4ZyEWrD9qC+4Ef77N0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788956803; c=relaxed/simple;
-	bh=jqZBiqGKBMU4zTfRpO7DR0V1Rbw99SpO5i8rHPKNrjI=;
+	bh=kCi+Tb5m5KBRyhVouKRj+siyNlOg0KFGeHeXboDrLtI=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=lfjOgJ6KFyl0oNmNByknt+Q+wAg5AMSjaVBHIxNQAF5Uih5BOFvbub1p3yPcnvhvG4PD0fvP42rVTaH7gpxwqecVJWxvCilGjVG06i0E+glzO3LC+gdfUnU9l44mouJOLtQoZXQ97OjSxTUsBKF8QD/vDkCD7hzkJNnKkax3dww=
+	 MIME-Version; b=TJhhqQLhB6DBtXMfFllDZvGm8pnIkH1NPiFd95URFxZOeNdiCNMxJrVn5wqn0RjxFd5VanJORiZ/YmDUalpqhogDGbv17wRUw8Fv2tFK7ZFWID4NqzQMQltcEuLfYmtm9dH1maUsW/4FqWI4yGxy5DCUlvuMc7+NBOzNo0cKBIc=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: b2f39a58ac4911f19a56ed5b684f684d-20260909
+X-UUID: b293fd78ac4911f19a56ed5b684f684d-20260909
+X-CID-CACHE: Type:Local,Time:202609091934+08,HitQuantity:1
 X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:219b1826-8d61-44c1-b095-cd036d567ef9,IP:0,U
-	RL:0,TC:0,Content:0,EDM:-25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
-	N:release,TS:-25
-X-CID-META: VersionHash:7db8b62,CLOUDID:b05759f0d3061fdd971368d421722fe7,BulkI
-	D:nil,BulkQuantity:0,SF:81|82|102|850|865|898,TC:nil,Content:0|15|50|99,ED
-	M:2,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0
-	,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-O-INFO: VERSION:1.3.19,REQID:68a44a09-8479-45a6-9c32-12761d15ad8b,IP:0,U
+	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+	release,TS:0
+X-CID-META: VersionHash:7db8b62,CLOUDID:a8ba1a5c94b9a01235897b98721e70a8,BulkI
+	D:nil,BulkQuantity:0,SF:81|82|102|136|850|865|898,TC:nil,Content:0|15|50|9
+	9,EDM:-3|-100,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,O
+	SI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
 X-CID-BVR: 2,SSN|SDN
 X-CID-BAS: 2,SSN|SDN,0,_
 X-CID-FACTOR: TF_CID_SPAM_SNR
 X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: b2f39a58ac4911f19a56ed5b684f684d-20260909
+X-UUID: b293fd78ac4911f19a56ed5b684f684d-20260909
 X-User: zenghongling@kylinos.cn
 Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
 	(envelope-from <zenghongling@kylinos.cn>)
 	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 734040080; Wed, 09 Sep 2026 20:26:36 +0800
+	with ESMTP id 491707570; Wed, 09 Sep 2026 20:26:35 +0800
 From: Hongling Zeng <zenghongling@kylinos.cn>
 To: vkoul@kernel.org,
 	neil.armstrong@linaro.org,
@@ -42,11 +43,10 @@ To: vkoul@kernel.org,
 Cc: linux-phy@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
 	zhongling0719@126.com,
-	Hongling Zeng <zenghongling@kylinos.cn>,
-	Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
-Subject: [PATCH v8 3/4] phy: ti-pipe3: Fix EPROBE_DEFER handling for clock  resources
-Date: Wed,  9 Sep 2026 20:26:29 +0800
-Message-Id: <20260909122630.1313205-4-zenghongling@kylinos.cn>
+	Hongling Zeng <zenghongling@kylinos.cn>
+Subject: [PATCH v8 2/4] phy: ti: pipe3: Fix clock resource leak on probe  errors
+Date: Wed,  9 Sep 2026 20:26:28 +0800
+Message-Id: <20260909122630.1313205-3-zenghongling@kylinos.cn>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20260909122630.1313205-1-zenghongling@kylinos.cn>
 References: <20260909122630.1313205-1-zenghongling@kylinos.cn>
@@ -58,79 +58,71 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-ti_pipe3_get_clk() has two issues with -EPROBE_DEFER error handling:
+When devm_phy_create() or devm_of_phy_provider_register() fails,
+the refclk that was enabled earlier is not disabled, causing a
+resource leak.
 
-1. When devm_clk_get() for sysclk fails, the function returns -EINVAL
-   instead of propagating the actual error code. This masks -EPROBE_DEFER
-   to -EINVAL, breaking the probe deferral mechanism and causing permanent
-   driver initialization failure on systems with non-deterministic probe
-   ordering.
+Fix this by adding an error handling path to disable the clock
+when these functions fail.
 
-2. For SATA PHY refclk, the function ignores all errors to support older
-   DTBs missing the refclk property. However, this incorrectly ignores
-   -EPROBE_DEFER as well, causing the driver to proceed without waiting
-   for the clock provider to become available.
-
-Fix both issues:
-- Return PTR_ERR(phy->sys_clk) instead of -EINVAL to propagate all
-  error codes including -EPROBE_DEFER
-- Use devm_clk_get_optional() for SATA refclk to handle optional
-  clocks while propagating -EPROBE_DEFER and other errors
-
-Fixes: a70143bbef6b ("drivers: phy: usb3/pipe3: Adapt pipe3 driver to Generic PHY Framework")
-Fixes: 7f33912d2978 ("phy: ti-pipe3: Fix SATA across suspend/resume")
-Suggested-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+Fixes: 234738ea3390 ("phy: ti-pipe3: move clk initialization to a separate function")
 Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
 ---
-Change in v8:
- -Use dev_err_probe() for refclk and sysclk acquisition failures.
+Change in v7:
+ -Remove the redundant !IS_ERR(phy->refclk) check in the clock cleanup
+  path, as suggested by Mani.
 ---
- drivers/phy/ti/phy-ti-pipe3.c | 24 +++++++++++++++---------
- 1 file changed, 15 insertions(+), 9 deletions(-)
+ drivers/phy/ti/phy-ti-pipe3.c | 26 ++++++++++++++++++++++----
+ 1 file changed, 22 insertions(+), 4 deletions(-)
 
 diff --git a/drivers/phy/ti/phy-ti-pipe3.c b/drivers/phy/ti/phy-ti-pipe3.c
-index 021657cbce48..fdd81c935e5f 100644
+index 0e3bc9218733..021657cbce48 100644
 --- a/drivers/phy/ti/phy-ti-pipe3.c
 +++ b/drivers/phy/ti/phy-ti-pipe3.c
-@@ -608,14 +608,20 @@ static int ti_pipe3_get_clk(struct ti_pipe3 *phy)
- 	struct clk *clk;
- 	struct device *dev = phy->dev;
- 
--	phy->refclk = devm_clk_get(dev, "refclk");
-+	/*
-+	 * refclk is optional for SATA PHY to support older DTBs, but
-+	 * required for other modes. Use devm_clk_get_optional() for SATA
-+	 * which returns NULL for -ENOENT, allowing us to propagate all
-+	 * other errors including -EPROBE_DEFER.
-+	 */
-+	if (phy->mode == PIPE3_MODE_SATA)
-+		phy->refclk = devm_clk_get_optional(dev, "refclk");
-+	else
-+		phy->refclk = devm_clk_get(dev, "refclk");
-+
- 	if (IS_ERR(phy->refclk)) {
--		dev_err(dev, "unable to get refclk\n");
--		/* older DTBs have missing refclk in SATA PHY
--		 * so don't bail out in case of SATA PHY.
--		 */
--		if (phy->mode != PIPE3_MODE_SATA)
--			return PTR_ERR(phy->refclk);
-+		return dev_err_probe(dev, PTR_ERR(phy->refclk),
-+				"unable to get refclk\n");
- 	}
- 
- 	if (phy->mode != PIPE3_MODE_SATA) {
-@@ -631,8 +637,8 @@ static int ti_pipe3_get_clk(struct ti_pipe3 *phy)
- 	if (phy->mode != PIPE3_MODE_PCIE || phy->phy_power_syscon) {
- 		phy->sys_clk = devm_clk_get(dev, "sysclk");
- 		if (IS_ERR(phy->sys_clk)) {
--			dev_err(dev, "unable to get sysclk\n");
--			return -EINVAL;
-+			return dev_err_probe(dev, PTR_ERR(phy->sys_clk),
-+					"unable to get sysclk\n");
+@@ -834,21 +834,39 @@ static int ti_pipe3_probe(struct platform_device *pdev)
+ 	 */
+ 	if (phy->mode == PIPE3_MODE_SATA) {
+ 		if (!IS_ERR(phy->refclk)) {
+-			clk_prepare_enable(phy->refclk);
++			ret = clk_prepare_enable(phy->refclk);
++			if (ret) {
++				dev_err(dev, "Failed to enable refclk %d\n", ret);
++				goto err_pm_disable;
++			}
+ 			phy->sata_refclk_enabled = true;
  		}
  	}
  
+ 	generic_phy = devm_phy_create(dev, NULL, &ops);
+-	if (IS_ERR(generic_phy))
+-		return PTR_ERR(generic_phy);
++	if (IS_ERR(generic_phy)) {
++		ret = PTR_ERR(generic_phy);
++		goto err_clk_disable;
++	}
+ 
+ 	phy_set_drvdata(generic_phy, phy);
+ 
+ 	ti_pipe3_power_off(generic_phy);
+ 
+ 	phy_provider = devm_of_phy_provider_register(dev, of_phy_simple_xlate);
+-	return PTR_ERR_OR_ZERO(phy_provider);
++	if (IS_ERR(phy_provider)) {
++		ret = PTR_ERR(phy_provider);
++		goto err_clk_disable;
++	}
++
++	return 0;
++
++err_clk_disable:
++	if (phy->sata_refclk_enabled)
++		clk_disable_unprepare(phy->refclk);
++err_pm_disable:
++	pm_runtime_disable(dev);
++	return ret;
+ }
+ 
+ static void ti_pipe3_remove(struct platform_device *pdev)
 -- 
 2.25.1
 
