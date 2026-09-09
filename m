@@ -1,81 +1,134 @@
-Received: from out30-110.freemail.mail.aliyun.com (out30-110.freemail.mail.aliyun.com [115.124.30.110])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70BC3455623;
-	Wed,  9 Sep 2026 08:21:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.110
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 423D444A3FC
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 08:22:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788942122; cv=none; b=VAsiJenC0uSX1htc5gv8DFZzU2PnGR9fPuXrGrsVJMLT3hTmUB+820tw3iWKBsYaJXxtGDlrWoUANDMmZYKK9nioywAAUxlm0NMWFcPkB3rcyBy/x9MVEjG4NjxcL53AbfQATrgZoVB4WQ2rK5EwYoa6YqiFxZEF593a9nkKMWs=
+	t=1788942147; cv=none; b=faoz+kuDQipP4NrJr1F++0NZufLsoaEztJ+WVT3iv6JubXXXLndIUWeN7BS74FR7aMz+bebmCRlG6UA37C49iX1upx1IbdHSBJXMr6xZoFUol5p+cMPNUBmoVE9ZOKOS+HuWAYoHPB+ANuuJuvkoIdrv9ac/t6xqwtBSBF4KRkA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788942122; c=relaxed/simple;
-	bh=aV6mJa2QLkNRpbKrvt7xmHjh7KFO0I7vxqVXUSJmj6g=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Ot2IOCn9otzBqEvcY2m2gcnT1IKge1vO0JUAyFHnMs4LGZ73ynebyTd/dUHk7a784pWmhgCmyIB8wQvRJsu8uunzXe5h5ePDqtaz7p0Fse0zQV0OoqjFqY7i856V5qkwer9FX91iQ/sVAqxgjmzIo9yRUogo3bsToDDY4fTzeB0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=si23y+BC; arc=none smtp.client-ip=115.124.30.110
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	s=arc-20240116; t=1788942147; c=relaxed/simple;
+	bh=QViobpJ4Kli8Q35Dq+uuf93hk2ll3if4mS6RjmB5JOY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=E7LehqDQ0iPmgowV5acaVi8/iGgng8kJ/WGrKwPlOfrNA6MpdI5vq7KOH+0j3aShddGWhb9k1ChJ1GpMDgxHdlpmt8mbVMvK9MxC3kAxUuM9z7mE3fbUUMmh4ShzBlBJa/9RrTOENgP5E+rXJ7S3e55npYJwno5c/HI90bdt4QY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Jsr3OMp0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="si23y+BC"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1788942118; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
-	bh=rdvGaYGhPQtbODP5jHxh4QECoIrAIjuXWV8VMXv4teE=;
-	b=si23y+BCEvxtM5cc0pADmsRxp78OR7a8MxUv/rkhNBlfNkjTOqDoKTJ8jQ+IEZPg6HISVVj6gxQ+re3M692CFlKJDYtdxy7cKxtXEYhO4S39lDB6mrMeUNPkRXh4YB/wzUp11idPBdDRf4TsFFGDybviMZko1ElIvVa+1+C+QtY=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R131e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037026112;MF=baolin.wang@linux.alibaba.com;NM=1;PH=DS;RN=27;SR=0;TI=SMTPD_---0XAeKi9D_1788942115;
-Received: from 30.74.144.119(mailfrom:baolin.wang@linux.alibaba.com fp:SMTPD_---0XAeKi9D_1788942115 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Wed, 09 Sep 2026 16:21:56 +0800
-Message-ID: <95ada031-0fe3-4191-b09e-56b324247456@linux.alibaba.com>
-Date: Wed, 9 Sep 2026 16:21:54 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Jsr3OMp0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 76EA41F00A3A;
+	Wed,  9 Sep 2026 08:22:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788942146;
+	bh=IZJZkwuzP9bCUn9cbZ6GATDpFjjOakgDLWy9LKF4FFo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Jsr3OMp0oPWmNLnLn97/cGca4WY6c+Jjl9PmreoUPwVfel7+lDFyQeNDlUsRZekrr
+	 fGWCJBQhK2gpTSuyGOM07sEyQAH9OBcqYB95BmC2AW+0dFvPE7lHjq7qlCcObRCN5g
+	 3UhTgDRpWLIdAQ8V1HftQs4ArLScLNEyj80ve7DOf8jkL3H5RJfbsDic1ftdutnmP5
+	 1nl8DFX3nDyRB6k+AXXsmbYETHKroST7TjEhcNxU6+mdcPQd7cbWvc8aySZSGTqjd7
+	 hZDIEuukZumncGfsPGPveSs9GX+F445AeYYsg0dHelq8nomo5J7+1+n/CoVbipdNFt
+	 xC0RBivZ2KWMw==
+Date: Wed, 9 Sep 2026 10:22:22 +0200
+From: Maxime Ripard <mripard@kernel.org>
+To: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	Daniel Stone <daniels@collabora.com>, Harry Wentland <harry.wentland@amd.com>, 
+	Jocelyn Falempe <jfalempe@redhat.com>, Jonas =?utf-8?B?w4VkYWhs?= <jadahl@redhat.com>, 
+	Michel =?utf-8?Q?D=C3=A4nzer?= <mdaenzer@redhat.com>, Pekka Paalanen <pekka.paalanen@collabora.com>, 
+	Sebastian Wick <sebastian.wick@redhat.com>, Simon Ser <contact@emersion.fr>, 
+	Victoria Brekenfeld <victoria@system76.com>, Xaver Hugl <xaver.hugl@kde.org>, dri-devel@lists.freedesktop.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 09/11] drm/atomic-uapi: Add DRM_MODE_ATOMIC_RESET flag
+Message-ID: <aqEMMpTN26hCs2dB@houat>
+References: <20260908-drm-reset-state-flag-v3-0-905570f387a4@kernel.org>
+ <20260908-drm-reset-state-flag-v3-9-905570f387a4@kernel.org>
+ <3c77a62c-13e2-44bd-a7e8-c2ea29dcf352@suse.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 04/19] selftests/mm: skip khugepaged page cache cases
- without a PMD folio
-To: Kiryl Shutsemau <kirill@shutemov.name>, akpm@linux-foundation.org,
- david@kernel.org, ljs@kernel.org, rppt@kernel.org
-Cc: linux-mm@kvack.org, linux-kselftest@vger.kernel.org,
- linux-kernel@vger.kernel.org, usama.anjum@arm.com, usama.arif@linux.dev,
- nico.pache@linux.dev, ziy@nvidia.com, baohua@kernel.org, dev.jain@arm.com,
- hughd@google.com, lance.yang@linux.dev, liam@infradead.org, mhocko@suse.com,
- ryan.roberts@arm.com, shuah@kernel.org, surenb@google.com,
- vbabka@kernel.org, agordeev@linux.ibm.com, jgg@ziepe.ca, leon@kernel.org,
- kernel-team@meta.com, "Kiryl Shutsemau (Meta)" <kas@kernel.org>
-References: <20260908125105.1510704-1-kirill@shutemov.name>
- <20260908125105.1510704-5-kirill@shutemov.name>
-From: Baolin Wang <baolin.wang@linux.alibaba.com>
-In-Reply-To: <20260908125105.1510704-5-kirill@shutemov.name>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha384;
+	protocol="application/pgp-signature"; boundary="mop3s4wzh3xzpd4v"
+Content-Disposition: inline
+In-Reply-To: <3c77a62c-13e2-44bd-a7e8-c2ea29dcf352@suse.de>
 
 
+--mop3s4wzh3xzpd4v
+Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v3 09/11] drm/atomic-uapi: Add DRM_MODE_ATOMIC_RESET flag
+MIME-Version: 1.0
 
-On 9/8/26 8:50 PM, Kiryl Shutsemau wrote:
-> From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
-> 
-> The page cache caps folio order at MAX_PAGECACHE_ORDER, which is below the
-> PMD order on arm64 with 64K pages, where a PMD is 512M.  A PMD-sized page
-> cache folio is impossible there, so the kernel refuses these collapses:
-> MADV_COLLAPSE answers -EINVAL and khugepaged passes over the range.  Four
-> shmem cases ask for a PMD-sized folio anyway, fail, and the run bails out
-> in the middle.
-> 
-> Skip the shmem and file mem types where the cap is below the PMD order.
-> 
-> The cap is not shmem-specific: it applies to every file folio.  Add
-> thp_file_supported_orders() to read the orders the page cache allows.
-> 
-> Anonymous collapse is unaffected: its orders are not capped this way.
-> 
-> Assisted-by: LLM
-> Reviewed-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
-> Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
-> Signed-off-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
-> ---
+Hi Thomas,
 
-LGTM.
-Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+Thanks for the review
+
+On Wed, Sep 09, 2026 at 09:24:41AM +0200, Thomas Zimmermann wrote:
+> Hi
+>=20
+> Am 08.09.26 um 16:35 schrieb Maxime Ripard:
+> [...]
+> > diff --git a/drivers/gpu/drm/drm_ioctl.c b/drivers/gpu/drm/drm_ioctl.c
+> > index 0dbf04d4aa9e..f13bb7c490c4 100644
+> > --- a/drivers/gpu/drm/drm_ioctl.c
+> > +++ b/drivers/gpu/drm/drm_ioctl.c
+> > @@ -303,10 +303,13 @@ static int drm_getcap(struct drm_device *dev, voi=
+d *data, struct drm_file *file_
+> >   		break;
+> >   	case DRM_CAP_ATOMIC_ASYNC_PAGE_FLIP:
+> >   		req->value =3D drm_core_check_feature(dev, DRIVER_ATOMIC) &&
+> >   			     dev->mode_config.async_page_flip;
+> >   		break;
+> > +	case DRM_CAP_ATOMIC_RESET:
+> > +		req->value =3D drm_atomic_can_create_state(dev);
+> > +		break;
+>=20
+> Looking at this and the other places where _can_create_state is being use=
+d,
+> I'd like to present a different design.
+>=20
+> Scratch the helper entirely and introduce a dedicated callback in
+> drm_mode_config_funcs that sets up the default state.=A0 Your current hel=
+per
+> drm_atomic_commit_fill_with_defaults would be the common implementation. =
+The
+> DRM core could test for the existence of this callback to see if
+> default-reset is available. Sure, we'd have to modify all drivers, but it
+> would be architecturally cleaner IMHO and give full control to the driver=
+s.
+
+There's also an interaction with the other big series relying on
+atomic_create_state: state read-out.
+
+If you're doing state read-out, you want to if possible create a blank
+state, and make the hardware fill it. If not possible, then reset the
+hardware and allocate a blank state. Either way, all objects are
+affected, and that's what drm_mode_config_create_state() will do there.
+
+In the DRM_MODE_ATOMIC_RESET case, we don't want to create a blank state
+for *everything* but only to what's exposed to userspace (ie, everything
+but drm_private_obj). In a way, it's more akin to
+drm_mode_config_reset(), but without the hardware reset part.
+
+I still feel like two functions are easier to reason about for this, and
+I don't think a helper would help: we haven't needed it so far for
+drm_mode_config_reset() / drm_atomic_commit_alloc(), so it's not clear
+to me what the extra modularity would bring to the table.
+
+Maxime
+
+--mop3s4wzh3xzpd4v
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCaqEXOQAKCRAnX84Zoj2+
+djkXAX4keCkaWpWy7OcyT8B3SL9jGkEc4NEWQdchk+KxSflN4+7nuX9AGeKKvGJh
+JHrpRyIBgJGvkzzhqFrt/VaOEk0kLyYR+spIfMLF5BWoHIjCTZk/XFLd73oHnONo
+sgzTzKJBSQ==
+=bT3e
+-----END PGP SIGNATURE-----
+
+--mop3s4wzh3xzpd4v--
