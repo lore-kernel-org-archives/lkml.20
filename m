@@ -1,105 +1,105 @@
-Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com [209.85.218.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30ACE353A82
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 07:38:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F8ED3D5663
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 07:41:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788939523; cv=none; b=hazEny9QgERhoggCTfv2Fn6C7+3t7WCEEdf/qleYc0uTiDXAA2maiA7XwfThjxPku9Ti1DDntCQFC/uBhSBxzo7PCnkRWpc5lNanMf83CfIbnrbBoQiuw0tKyU8w2p4X6EhTD2nwvcfjPsQMq1p3LU8PNHVsYosACNdsPh+1BdM=
+	t=1788939675; cv=none; b=YYFKAPeWdwGkLxn+AzMlkHmCe5C+MzhHnvjkYat05xYquU82GcSSiB3ulsIs6nlyjlAiUL2UJncr53uwQV8qXtprq9SVRvDDD7elKaw29GRh3q/P3rfU+1H6FZ1Rq5qo90ni2XV6IxMadvdNbLpC3z5tu0U2m/IxrRcObN4vIpo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788939523; c=relaxed/simple;
-	bh=oLrKovMvI6vEuEPm9DSdmFXguG3Eq58Sk5UpeIaY1ZE=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=lSZegcOld/j/1SGrqm2/DwfBHtYyH6jyL7VQ6pMOtivRoh6dsOMoco50KszUElSlhxv7/MFoA7hLiz7zmEJ8uYgnkN1XvRMd8TD+sG4enDgTd1ZhLA0nnAq8A8Wuocdgis7JtJtoGZBLImVwJTwi/F5ZdiDaXVLl4R5ERQ++bWY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.218.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-ej1-f42.google.com with SMTP id a640c23a62f3a-c25b661d37dso793252666b.0
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 00:38:41 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788939519; x=1789544319;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=jPhA4Ya5/PqW/e+rBC5ClbUaQ0FR7NY7rHjANc3fz2w=;
-        b=GE414nRDV3oL73dymjeubPtaAdm2WTAP2uydVQlMWOOnsbXS2A5gpF3Vh2hiRyIfHQ
-         7Hxiu1DFiLXvOcRP0A8eRBfyvEq6C/oAjtEcaR5yIqQ2EHjtwZw0fWEdOUq+An296MoK
-         xm09dUKJLz3tKvCGMD7txS7Zh7iXxaF1TJqjCixtT3IJXPMkmJt1cdcURE4Mk8ZjjIz5
-         nzvTJbi4rPWueNx8WURK6MCLRRwnOH/QWZn5BEdQ8/xugOK0ZQF7tNspp0HGyGiC/s2W
-         uNHtkNqXcrkZBt58B6Q1Jwn0Qkyf0x5O3kBhOcE3GLWf5bz7EgQDBZkSHN3AqeDrPg5S
-         lz0w==
-X-Forwarded-Encrypted: i=1; AKwUvByRT9E69SDlQzQEBqe84uX2p5Rg7374reskssR49rMp6Low4wZYdMBZ6359rxWlcIds5u3ZiQRpy3eE2HU=@vger.kernel.org
-X-Gm-Message-State: AFuF++lZTOlUCEA87RVioXwbmf7IFf0/if6RplwkuJNQ/YL1uhwGHjSN
-	dYyiObb+wDNoLKwLU57Hl7wj33UN3LV/lkEpn1tXvfx8ptj4HSq+TMYR5Vr7ZxUVNOg=
-X-Gm-Gg: AYBFou1qlLYYbiW/U9s8SY/LumU2Izftb8L2ePa/eP6Wzsyf/qzIXQGcTzapFkpiS0P
-	if7PUdlbstMeAb9UlIDLVMaB4lCmf+L6ZraQ8bdJipWPfX2y8FfgrDekYVc09TNKuzDloifxdw9
-	rOhaSLC0MtsXtMq7mfcnFMrssRKwjIOVW7I2zNg/933A5AsCQmksz7biZeEQIkOUge69XkdtMhw
-	vhH46zFRtQciaQZ8zA4KtyGVO42DFvkJq56wKmWisXV/j13vwTcCZLYILftJXCfEtMY46iFQQbU
-	IicpoIqJVSrxKAEbnZAsVGbH6S8up+tiFjyIwfOOY5xWW7lka6W8KcOdliT/8Ky6SbhEsCdPCiG
-	kQD4HHewCNFNcagTFK0EdQVhNoS5hxYTIsxvzOdb6153NonF21knerTs3WWMUzwKnoRBBvpW/jD
-	i8R3Aou+6YHc/RkrxwLIsl/JbaezwD7QvWhGARDdpZM8qCMgQVrq72xp9kSpnDdVJnFXrBOjazy
-	mQ/FaPaDAi0/EA3A9TDDjQZ8oOrE0m9ZV45
-X-Received: by 2002:a17:907:1c18:b0:c16:4e5:944a with SMTP id a640c23a62f3a-c260ca241admr1350424366b.21.1788939519164;
-        Wed, 09 Sep 2026 00:38:39 -0700 (PDT)
-Received: from mail-ed1-f45.google.com (mail-ed1-f45.google.com. [209.85.208.45])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2939592a2bsm17456866b.62.2026.09.09.00.38.38
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 09 Sep 2026 00:38:38 -0700 (PDT)
-Received: by mail-ed1-f45.google.com with SMTP id 4fb4d7f45d1cf-6a68279dd86so6915552a12.3
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 00:38:38 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxlFenBj9E/05r8DKfLI9aFdxzzWhPLdQGn1aqtRG5gpay0kCSwaCZUAwbC3oV6ZcW58M8EtQqkyU/G0h0=@vger.kernel.org
-X-Received: by 2002:a05:6402:a0d9:b0:6a7:ee56:615c with SMTP id
- 4fb4d7f45d1cf-6a7ee5662efmr10229032a12.30.1788939517892; Wed, 09 Sep 2026
- 00:38:37 -0700 (PDT)
+	s=arc-20240116; t=1788939675; c=relaxed/simple;
+	bh=MlcVH8AYjIrsfuFaNwlFo7SIgqFCihQaoevoEAWBcAI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=j1veaBswRI9XL4JF9lM4Pk4t4gnmurl68XH54OzFNXSD2MKmmAeY7jQ4BI294JzUlaUkeSe9Cao6TPWLkaxy6xPEDhyP6DJ81RuXmJ8lnPrVgRrMWPvhk5QuJ0h3LotxJx1zud1JhcRnFns1fowCe1cMxrZhoHap34BAyibSNcQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RjZMoR3N; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RjZMoR3N"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5137A1F00A3A;
+	Wed,  9 Sep 2026 07:41:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788939673;
+	bh=lSeFjDW5eiBGIVae8tX1ju2okgaGaYVEwgaaxEkYskg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=RjZMoR3Nf4/Wv0M+CqCWKgdOfCRbVGjtRB+2VRTRPq0nqKlEar9bFX/AG4yQ61CT0
+	 oPTmDI2RZrYC1mqkzgmNQy89SuetLM7Pc+LVUOlpSNvmTjG0BHKVvgAOXvh34rXEdT
+	 PmGxiliYMFkIJgQXCKrzGqOD72TycJWYaQ6JHps7qtmYx/pWyGi1wec3oHN0qWBD7d
+	 3SYp6Oje+1+IJaeZxF6oCAW0jpxo6+Ukfa3+0BUrggMPFufa/2euNlXTxEpMuLY21B
+	 hZUnw8jZJI/4PnjyJ7PMPXn2FXraL3h6QP5mez6kbXsXwlkbBdEBzI7csDNtmv8q5T
+	 7u0JxlPaBYVoQ==
+Date: Wed, 9 Sep 2026 09:41:06 +0200
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: Hongling Zeng <zenghongling@kylinos.cn>
+Cc: vkoul@kernel.org, neil.armstrong@linaro.org, johan@kernel.org, 
+	kishon@kernel.org, rogerq@ti.com, linux-phy@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, zhongling0719@126.com
+Subject: Re: [PATCH v6 1/4] phy: ti-pipe3: Fix ignored clock enable return
+ value  in init
+Message-ID: <rws3cizw777sqpaioxhxmzbzs6ofifnq4ja7nzswotwqir6sfk@47kay4qi2fut>
+References: <20260619030214.1779043-1-zenghongling@kylinos.cn>
+ <20260619030214.1779043-2-zenghongling@kylinos.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260816153809.7067-1-jakovnovak30@gmail.com> <aoLCr8JEYaYxcJcQ@hovoldconsulting.com>
- <CAMuHMdU_Rx4ZGi9SsNxKUDyYmV-GbD8rD9NMVzYginBMXdZDMg@mail.gmail.com>
- <ap7CaVj82BJZgjf6@hovoldconsulting.com> <CAMuHMdX6JfqpLMGDQJSQ8E8XNobRwr16LOzuphPt3Afs-OZdJA@mail.gmail.com>
- <aqEDb0THnCM-Q_Vy@hovoldconsulting.com>
-In-Reply-To: <aqEDb0THnCM-Q_Vy@hovoldconsulting.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Wed, 9 Sep 2026 09:38:24 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdWK8j200+Of062ghV1E7b0BYWsufEAop_4+3Bhmi0sxVQ@mail.gmail.com>
-X-Gm-Features: AcwNN1XBeNCcZxFqMVOeNqjjdkhhsb3Z-uWNgAulmw7oFiph_1tBNYwccdZmiJY
-Message-ID: <CAMuHMdWK8j200+Of062ghV1E7b0BYWsufEAop_4+3Bhmi0sxVQ@mail.gmail.com>
-Subject: Re: [PATCH] mmc: vub300: fix sleeping function call from invalid
- context in vub300_inactivity_timer_expired
-To: Johan Hovold <johan@kernel.org>
-Cc: Ulf Hansson <ulfh@kernel.org>, Jakov Novak <jakovnovak30@gmail.com>, linux-mmc@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-kernel-mentees@lists.linux.dev, 
-	Guangshuo Li <lgs201920130244@gmail.com>, Runyu Xiao <runyu.xiao@seu.edu.cn>, 
-	Shuah Khan <skhan@linuxfoundation.org>, 
-	syzbot+1ee4f3b9228e35f14677@syzkaller.appspotmail.com, 
-	Wolfram Sang <wsa+renesas@sang-engineering.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260619030214.1779043-2-zenghongling@kylinos.cn>
 
-Hi Johan,
+On Fri, Jun 19, 2026 at 11:02:11AM +0800, Hongling Zeng wrote:
+> ti_pipe3_init() ignores the return value of ti_pipe3_enable_clocks(),
+> which can lead to:
+> 
+> 1. Unclocked hardware access if clock enable fails
+> 2. Unbalanced clock disables in error paths
+> 
+> ti_pipe3_enable_clocks() returns an error code when clock enable fails
+> and rolls back any partially enabled clocks. If we ignore this error
+> and continue, we access hardware without proper clocking, which can
+> cause bus errors.
+> 
+> Additionally, if we reach error paths later in the function and call
+> ti_pipe3_disable_clocks(), we'll be disabling already-disabled clocks,
+> causing unbalanced disable warnings.
+> 
+> Fix this by checking the return value of ti_pipe3_enable_clocks()
+> and returning early if it fails.
+> 
+> Fixes: 234738ea3390 ("phy: ti-pipe3: move clk initialization to a separate function")
+> Reported-by: Sashiko AI <sashiko@kernel.org>
+> Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
 
-On Wed, 9 Sept 2026 at 08:57, Johan Hovold <johan@kernel.org> wrote:
-> On Mon, Sep 07, 2026 at 04:48:00PM +0200, Geert Uytterhoeven wrote:
-> > On Mon, 7 Sept 2026 at 15:55, Johan Hovold <johan@kernel.org> wrote:
-> > > Sure, but should you be scheduling rescan work before all resources have
-> > > been set up and the host has been registered?
-> >
-> > I would like to defer that question to the TMIO experts.
->
-> Are they on CC?
+Reviewed-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
 
-Ulf was from the beginning; I had added Wolfram in my previous email.
+One comment below.
 
-Gr{oetje,eeting}s,
+> 
+> ---
+> Change in v5:
+>   -Add Fix ignored clock enable return value in init patch
+> ---
+> Change in v6:
+>   -Fix all clock leak paths comprehensively
+>   -PCIe syscon update failure path
+>   -SATA DPLL lock check path (also fix incorrect return logic)
+>   -SATA errata path in ti_pipe3_exit()
+> ---
+>  drivers/phy/ti/phy-ti-pipe3.c | 5 ++++-
+>  1 file changed, 4 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/phy/ti/phy-ti-pipe3.c b/drivers/phy/ti/phy-ti-pipe3.c
+> index b5543b5c674c..b8c055893742 100644
+> --- a/drivers/phy/ti/phy-ti-pipe3.c
+> +++ b/drivers/phy/ti/phy-ti-pipe3.c
+> @@ -500,7 +500,10 @@ static int ti_pipe3_init(struct phy *x)
+>  	u32 val;
+>  	int ret = 0;
 
-                        Geert
+Now this initialization becomes redundant.
+
+- Mani
 
 -- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+மணிவண்ணன் சதாசிவம்
