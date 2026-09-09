@@ -1,60 +1,81 @@
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 049DE55931F;
-	Wed,  9 Sep 2026 12:57:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 277D754B1C6
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 12:58:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788958639; cv=none; b=i3how8/hEirVZ2bPRTm3BaEfJNdOlAgS0ZJ3HlT7CTYGeGzQoSdtCQZSd1de6cewdL0N2cTJA6qBMkMN9ZwH6ICVXwoJSVppD4fLyv7kWJGdON6GRescCsIjmeNxWWlJrsAem8/dh3aS6H1MdqEk0vq2sD1y9PBeDdoRkJlC1pU=
+	t=1788958694; cv=none; b=KTsNh7Anr7ORW+VTICFdtEj3YbIAprCk/psg8Ul7YWdz4WDPyb/n3aYKpX25cvG2RoO13jsd3V0lsoEd6Y2YNsqdLVlOBp5fZJ+8gfdMMdeCVGtUEyJzuRvmLL7HvVsahOCFBeb50xyxv5FCjKpsSGznVVVyCgkm3Y1tFlsWtvY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788958639; c=relaxed/simple;
-	bh=rQXxtPGTn+0le1P664FNQhsnU05yMQhSKpgUC/bN+C4=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=bV9QJwHA+9qSPPrKvK1a3vSE/pRJ0/T2/Z0qeWMVRy2geYZ7fTt4q1UTQUhhR2KNMe8frLI1N1pxZRpxV6QAR3iNFm5TJhLWkh4+NqtbYWXvaYM62yrlqTrkmaxasIfVFD1ZyCDdK4HvFun4Di4lPHU+zcIkhv22tChtkedYFzs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=ITHny0QW; arc=none smtp.client-ip=211.75.126.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
+	s=arc-20240116; t=1788958694; c=relaxed/simple;
+	bh=3Q0M1744me0qsolg9qrDZCRcGHaHVe/MhjnUUvkzarQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=dJMD0aip5PongdnRifSvewthtP/VQ2eSav7+hShcNsz9m+ERb4+gKVyCCsADFQpMFxmAccyg2g5tR6yt2kufrhxjwnsJr83dkT2BBIkF9hpsaMN6GsVDzSPqkPlc80mLjgHktEIfO6CbElblfiiXefJZydqg0QjNusu9vJsQH3Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ilOltwoI; arc=none smtp.client-ip=209.85.128.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="ITHny0QW"
-X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 689Cv2JM1624292, This message is accepted by code: ctloc85258
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
-	t=1788958622; bh=IDkypqrozryxPL5Ml/ir1ioEnOnc/cQkd376ei/8pEc=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding:Content-Type;
-	b=ITHny0QW04OR/dfDULfkudWEusiFrhChNF8hgi/jz8dQdFMe/QVkwVxUlBm7QD4lV
-	 VCbDB4S2ITRuinB7D6Th8mq0Tbn8mK+/ieKqhApd0U2Rxw0B3W98DpOQ4zFycR6GsJ
-	 IQUHHph1b7h2Wt9TAD9haEv1SX9S90mDUF0wg560XGoPl739yAPGhMykGzQkt4H0uE
-	 wJGVc6frBziIM7+rp59CZyM9qokax5n+XLG07qfTYfMwKpWHCWLRC5d1Nov/+xJC2s
-	 3iuHBscg9kmZoWAqxhcTBmOqh7yuE42W/Cyc0fagOIFxEEsLT5xwv/qunJ4O9pyIZv
-	 shNSLkKpvXb3w==
-Received: from mail.realtek.com (rtkexhmbs02.realtek.com.tw[172.21.6.41])
-	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 689Cv2JM1624292
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Wed, 9 Sep 2026 20:57:02 +0800
-Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
- RTKEXHMBS02.realtek.com.tw (172.21.6.41) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.43; Wed, 9 Sep 2026 20:57:03 +0800
-Received: from RTKEXHMBS03.realtek.com.tw (10.21.1.53) by
- RTKEXHMBS06.realtek.com.tw (10.21.1.56) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.43; Wed, 9 Sep 2026 20:57:02 +0800
-Received: from cn1dhc-k02 (172.21.252.101) by RTKEXHMBS03.realtek.com.tw
- (10.21.1.53) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
- Transport; Wed, 9 Sep 2026 20:57:02 +0800
-From: Yu-Chun Lin <eleanor.lin@realtek.com>
-To: <broonie@kernel.org>, <robh@kernel.org>, <krzk+dt@kernel.org>,
-	<conor+dt@kernel.org>
-CC: <p.zabel@pengutronix.de>, <james.tai@realtek.com>, <cy.huang@realtek.com>,
-	<stanley_chang@realtek.com>, <eleanor.lin@realtek.com>,
-	<jyanchou@realtek.com>, <linux-spi@vger.kernel.org>,
-	<devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-Subject: [PATCH v4 2/2] spi: spi-mem: Add Realtek SPI NOR flash controller driver
-Date: Wed, 9 Sep 2026 20:57:01 +0800
-Message-ID: <20260909125701.273314-3-eleanor.lin@realtek.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20260909125701.273314-1-eleanor.lin@realtek.com>
-References: <20260909125701.273314-1-eleanor.lin@realtek.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ilOltwoI"
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-49d036e0e99so24214115e9.1
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 05:58:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788958690; x=1789563490; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=fDJIsvQodZTtbEW9SHhG5tI4vA4bsB8pqciFKepxJb0=;
+        b=ilOltwoIZhkTY1hOjWT+ISeIyPT7cyBgCBL5wftQr5MbRE0dj44McFUsMiVWWqGMWh
+         Xfj5SpyrS61w4X3F5YTrt0oBhXaS4AC74LCbnJLeO4tLfGnrWsl81+U0HxTZ+KgVYhCD
+         r0Fg0e4zt3gLgwKG3AqdtNyc7woW/dh8scP3Da59pCO0j9fwK9uXYjSlIiKqOzq9zJ7j
+         WPbAGnoSD3lUSELA5Twce3Hxl3z9UOU7MCG9XS1PuiEKYj1L1+38zyb1yAOhchOyBnOa
+         yqRrVxIhjBAJnDrHsDc3hNTUjuQAQdXxFoJkXpwrgiDfIGsgkJVqo0HHkPF+BgSWjPB5
+         HPWA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788958690; x=1789563490;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=fDJIsvQodZTtbEW9SHhG5tI4vA4bsB8pqciFKepxJb0=;
+        b=DTRS05au+SXpFhOexGfdGqcqpD7NQt3DjzrcZSeb4/iCaD19i9SY4xYO8oyehKcp9U
+         7FOZysl5oAmZ/w7K+2RLwaTiu8Dd4SE4CHIg1JZvsyeVSbDuU9KrBWCX21qGsCbICrd5
+         qVnsHhxhTxbHfF1JwYqXQTBUKn9+XKZtMwFgIv2k1AiTytGTvQqdhR7lHW2KLfBy//p8
+         WeMC7YrDcsk7uatrVGvkg5vlEDbWYdyFF1xAvW0OmTmOJrmk+zY/2TFAfzvZQg8K8WZu
+         sd0DDz70eF1gHmVIAmbg32EvOwtwOqlEPF6ruUoxmw/0g8ojJXf1b6EsV+bhy84JWgm6
+         kyRw==
+X-Forwarded-Encrypted: i=1; AKwUvBxrW1IAD2RG93dC/EwlOYqf/wqARbJqPEVqZTL+TUDhaJfkAkGVs6AckerVzQT/Rk8uC6xcGXNxHdwxE1w=@vger.kernel.org
+X-Gm-Message-State: AFuF++lTlzPlblWTBYPjxDb4RsEz5pSumbmS4x054QOapMmI+pzjJqi9
+	biwFO4eC4BHRndDKvo1k+JAPLo3KXq9Lxy6ySdiGoyQZojkknV0bIipm
+X-Gm-Gg: AYBFou2GWnvgxVNc1L9Uw4JLXabarkik6Dvk86dAdiFmDonTZeT9qsHctdG+6eQCkgz
+	/7/LF4D0RJVer6kcBo+4/OflCh2xlEXeLDImf4ck2NkQ9UfODQD0SRI4I7XCRdPwDfYH3zCicCi
+	CXJ1edzNnRLiM/ZKYccvcEK280HnIKU5WnXt2Vq2ZXgCycS7RzQTwce4OaKVU8GUnpawrIUOZcW
+	dr3ZPiN2bSQbxDjla5j2KIK7WW3aY7pIqA1q+Pv7kXYWAFlnPlBfHLnBJ53AH6UMZQDvSYIOOuM
+	9B2q1HMEfuHyXAx+RvGw9FBiAHqWNdJXhcU3Xt9Ajl2WT5jOjEIpXEg7bvOtBSS63liBb/2NshE
+	PiZRSsIw+05rz4LSgB6EjEUHeT5URA/PxnSxMbfWwb9a/1RTgLVC17CI9S+3e7EynbfS2M3rfN3
+	s6oajfGbbjfWKKY1jg8Rqi4kVMP7oeCA9sc77vK+McOnXX0P2WuR6NRH/I7omphqbk2mYRYk5X9
+	oFUDJKXB/iAkmRPwojBtl+xxHkmSgb3Yf7PRewJTxhie87occ/MZm/yFZ9w+2pDVJ3f+c03wNVs
+	kq0L97da3NSwUSIRK8xc6QEeZtllAAe1RWQlSbbLRY9aNbDB
+X-Received: by 2002:a05:600c:6098:b0:49c:fc6c:be05 with SMTP id 5b1f17b1804b1-49cfc6cbfdbmr373559205e9.28.1788958689949;
+        Wed, 09 Sep 2026 05:58:09 -0700 (PDT)
+Received: from PC-Davide.homenet.telecomitalia.it (host-79-24-252-102.retail.telecomitalia.it. [79.24.252.102])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cf772692dsm550297605e9.10.2026.09.09.05.58.08
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 09 Sep 2026 05:58:09 -0700 (PDT)
+From: Davide Bonatto <bonatto.davide@gmail.com>
+To: Alexey Brodkin <abrodkin@synopsys.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	dri-devel@lists.freedesktop.org (open list:DRM DRIVERS),
+	linux-kernel@vger.kernel.org (open list)
+Cc: Davide Bonatto <bonatto.davide@gmail.com>
+Subject: [PATCH v5] drm/tiny: arcpgu: Replace simple display pipe with regular atomic helpers
+Date: Wed,  9 Sep 2026 14:58:02 +0200
+Message-ID: <20260909125806.174851-1-bonatto.davide@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260909092455.131962-1-bonatto.davide@gmail.com>
+References: <20260909092455.131962-1-bonatto.davide@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -62,729 +83,345 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
 
-From: Jyan Chou <jyanchou@realtek.com>
+The drm_simple_display_pipe helper is considered legacy/deprecated in
+favor of explicitly managing individual plane, CRTC, and encoder objects
+using standard atomic helpers.
 
-Add a spi-mem driver for the SPI NOR Flash Controller (SFC) found on Realtek
-DHC SoC. SFC supports Dual I/O.
+Migrate arcpgu to initialize its primary plane, CRTC, and encoder
+explicitly, and route mode validation, enable, and disable hooks
+through drm_crtc_helper_funcs, and plane updates through
+drm_plane_helper_funcs.
 
-Implement the exec_op API for regular control commands and the dirmap API
-for hardware-accelerated read/write operations.
-
-The controller is described by three register ranges. The first one (ctrl)
-holds the control registers. The second one (dma) holds the DMA engine
-registers, used to transfer the payload between the flash and main memory.
-The third range is the memory aperture (dirmap) that maps the flash
-contents.
-
-Signed-off-by: Jyan Chou <jyanchou@realtek.com>
-Co-developed-by: Yu-Chun Lin <eleanor.lin@realtek.com>
-Signed-off-by: Yu-Chun Lin <eleanor.lin@realtek.com>
+Signed-off-by: Davide Bonatto <bonatto.davide@gmail.com>
 ---
-Changes since v2:
-- Add Yu-Chun's last name.
-- Specify "NOR" in the commit message and descriptions to avoid future
-conflicts with SPI NAND or GSPI.
-- Make SPDX license and copyright notice headers in C++-style.
-- Drop driver-internal polling (rtk_spi_read_status()), leaving the status
-polling and timeout handling to framework.
-- Track the 4-byte addressing state and properly restore it in rtk_spi_init()
-to prevent state loss during runtime PM suspend/resume.
-- Add hardware cleanup in rtk_spi_dma_transfer() to explicitly trigger a
-graceful stop of the DMA engine if a timeout occurs.
-- Check bounds against the direct mapping window (dirmap_size) in both PIO and
-DMA transfer paths.
-- Add reset_control_assert() in the probe error path and .remove().
-- Replace RUNTIME_PM_OPS() + SYSTEM_SLEEP_PM_OPS() with
-DEFINE_RUNTIME_DEV_PM_OPS().
----
- MAINTAINERS               |   6 +
- drivers/spi/Kconfig       |  10 +
- drivers/spi/Makefile      |   1 +
- drivers/spi/spi-rtk-nor.c | 623 ++++++++++++++++++++++++++++++++++++++
- 4 files changed, 640 insertions(+)
- create mode 100644 drivers/spi/spi-rtk-nor.c
+v5:
+  - Fix NULL pointer dereference in arc_pgu_crtc_atomic_check() by checking
+    crtc_state->plane_mask instead of manually querying plane state.
+v4:
+  - Use drm_atomic_get_plane_state() in CRTC .atomic_check to ensure
+    the primary plane state is attached and locked, avoiding false -EINVAL
+    rejections and broken partial atomic commits.
+v3:
+  - Add CRTC .atomic_check hook to validate primary plane presence
+    and avoid NULL pointer dereference in arc_pgu_set_pxl_fmt().
+  - Pass framebuffer explicitly to arc_pgu_mode_set() and read plane
+    state via drm_atomic_get_new_plane_state() in CRTC enable to prevent UAF.
+  - Keep CRTC global enable bit intact during plane disable to avoid
+    hardware state desync.
+v2:
+  - Add .prepare_fb callback to support implicit synchronization.
+  - Add .atomic_check using drm_atomic_helper_check_plane_state()
+    to validate hardware scaling/clipping constraints.
+  - Implement arc_pgu_plane_atomic_disable() to stop DMA and clear
+    buffer address register, preventing hardware DMA scanout UAF.
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 34d5c9a0d562..20cd9332f823 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -22754,6 +22754,12 @@ S:	Maintained
- F:	Documentation/devicetree/bindings/spi/realtek,rtl9301-snand.yaml
- F:	drivers/spi/spi-realtek-rtl-snand.c
+ drivers/gpu/drm/tiny/arcpgu.c | 188 +++++++++++++++++++++++++++-------
+ 1 file changed, 150 insertions(+), 38 deletions(-)
+
+diff --git a/drivers/gpu/drm/tiny/arcpgu.c b/drivers/gpu/drm/tiny/arcpgu.c
+index c93d61ac0bb7..c6308fee568d 100644
+--- a/drivers/gpu/drm/tiny/arcpgu.c
++++ b/drivers/gpu/drm/tiny/arcpgu.c
+@@ -5,6 +5,8 @@
+  * Copyright (C) 2016 Synopsys, Inc. (www.synopsys.com)
+  */
  
-+REALTEK SPI-NOR
-+M:	Jyan Chou <jyanchou@realtek.com>
-+M:	Yu-Chun Lin <eleanor.lin@realtek.com>
-+S:	Supported
-+F:	drivers/spi/spi-rtk-nor.c
++#include "drm/drm_gem_atomic_helper.h"
 +
- REALTEK SYSTIMER DRIVER
- M:	Hao-Wen Ting <haowen.ting@realtek.com>
- S:	Maintained
-diff --git a/drivers/spi/Kconfig b/drivers/spi/Kconfig
-index 8782514bb89b..d45baa15a601 100644
---- a/drivers/spi/Kconfig
-+++ b/drivers/spi/Kconfig
-@@ -957,6 +957,16 @@ config SPI_RSPI
- 	help
- 	  SPI driver for Renesas RSPI and QSPI blocks.
+ #include <linux/clk.h>
  
-+config SPI_RTK_NOR
-+	tristate "Realtek SPI-NOR flash controller"
-+	depends on ARCH_REALTEK || COMPILE_TEST
-+	depends on SPI_MEM
-+	help
-+	  This enables support for the SPI NOR Flash Controller found on
-+	  Realtek DHC SoCs. The controller supports single and dual I/O
-+	  transfers and offloads the payload to an integrated DMA engine.
-+	  Say Y or M here if you are building a kernel for a Realtek DHC SoC
+ #include <drm/clients/drm_client_setup.h>
+@@ -23,6 +25,8 @@
+ #include <drm/drm_of.h>
+ #include <drm/drm_probe_helper.h>
+ #include <drm/drm_simple_kms_helper.h>
++#include <drm/drm_atomic.h>
++#include <drm/drm_bridge.h>
+ #include <linux/dma-mapping.h>
+ #include <linux/module.h>
+ #include <linux/of_reserved_mem.h>
+@@ -52,13 +56,17 @@ struct arcpgu_drm_private {
+ 	struct drm_device	drm;
+ 	void __iomem		*regs;
+ 	struct clk		*clk;
+-	struct drm_simple_display_pipe pipe;
++	struct drm_plane	plane;
++	struct drm_crtc		crtc;
++	struct drm_encoder	encoder;
+ 	struct drm_connector	sim_conn;
+ };
+ 
+ #define dev_to_arcpgu(x) container_of(x, struct arcpgu_drm_private, drm)
+ 
+-#define pipe_to_arcpgu_priv(x) container_of(x, struct arcpgu_drm_private, pipe)
++#define crtc_to_arcpgu_priv(x) container_of(x, struct arcpgu_drm_private, crtc)
 +
- config SPI_RZV2H_RSPI
- 	tristate "Renesas RZ/V2H RSPI controller"
- 	depends on ARCH_RENESAS || COMPILE_TEST
-diff --git a/drivers/spi/Makefile b/drivers/spi/Makefile
-index 9fa12498ce8c..68f4d3283e0c 100644
---- a/drivers/spi/Makefile
-+++ b/drivers/spi/Makefile
-@@ -131,6 +131,7 @@ obj-$(CONFIG_MACH_REALTEK_RTL)		+= spi-realtek-rtl.o
- obj-$(CONFIG_SPI_REALTEK_SNAND)		+= spi-realtek-rtl-snand.o
- obj-$(CONFIG_SPI_RPCIF)			+= spi-rpc-if.o
- obj-$(CONFIG_SPI_RSPI)			+= spi-rspi.o
-+obj-$(CONFIG_SPI_RTK_NOR)		+= spi-rtk-nor.o
- obj-$(CONFIG_SPI_RZV2H_RSPI)		+= spi-rzv2h-rspi.o
- obj-$(CONFIG_SPI_RZV2M_CSI)		+= spi-rzv2m-csi.o
- obj-$(CONFIG_SPI_S3C64XX)		+= spi-s3c64xx.o
-diff --git a/drivers/spi/spi-rtk-nor.c b/drivers/spi/spi-rtk-nor.c
-new file mode 100644
-index 000000000000..5ccfa234b6b1
---- /dev/null
-+++ b/drivers/spi/spi-rtk-nor.c
-@@ -0,0 +1,623 @@
-+// SPDX-License-Identifier: GPL-2.0
-+//
-+//  Realtek SPI Nor Flash Controller Driver (SFC)
-+//
-+//  Copyright (c) 2024-2026 Realtek Semiconductor Corp.
++#define plane_to_arcpgu(x) container_of(x, struct arcpgu_drm_private, plane)
+ 
+ static inline void arc_pgu_write(struct arcpgu_drm_private *arcpgu,
+ 				 unsigned int reg, u32 value)
+@@ -115,14 +123,19 @@ static const u32 arc_pgu_supported_formats[] = {
+ 	DRM_FORMAT_ARGB8888,
+ };
+ 
+-static void arc_pgu_set_pxl_fmt(struct arcpgu_drm_private *arcpgu)
++static void arc_pgu_set_pxl_fmt(struct arcpgu_drm_private *arcpgu,
++				const struct drm_framebuffer *fb)
+ {
+-	const struct drm_framebuffer *fb = arcpgu->pipe.plane.state->fb;
+-	uint32_t pixel_format = fb->format->format;
++	u32 pixel_format;
+ 	u32 format = DRM_FORMAT_INVALID;
+ 	int i;
+ 	u32 reg_ctrl;
+ 
++	if (!fb)
++		return;
 +
-+#include <linux/bits.h>
-+#include <linux/clk.h>
-+#include <linux/delay.h>
-+#include <linux/dma-mapping.h>
-+#include <linux/errno.h>
-+#include <linux/iopoll.h>
-+#include <linux/minmax.h>
-+#include <linux/module.h>
-+#include <linux/platform_device.h>
-+#include <linux/pm_runtime.h>
-+#include <linux/reset.h>
-+#include <linux/spi/spi.h>
-+#include <linux/spi/spi-mem.h>
-+#include <linux/types.h>
++	pixel_format = fb->format->format;
 +
-+#define SFC_OPCODE		0x00
-+#define DUAL_MODE_EN		BIT(9)
-+
-+#define SFC_CTL			0x04
-+#define RW_DATAEN		BIT(4)
-+#define ADDR_EN			BIT(3)
-+
-+#define SFC_SCK			0x08
-+#define FDIV_MASK		GENMASK(7, 0)
-+
-+#define SFC_CE			0x0c
-+#define DESLT_TIME		0x1a
-+#define DESLT_TIME_SHIFT	16
-+#define PH_CNT			0x13
-+#define PH_CNT_SHIFT		8
-+#define PL_CNT			0x7
-+
-+#define WT_PROM_DONE		BIT(8)
-+
-+#define SFC_POS_LATCH		0x14
-+#define FALLING_EDGE_EN		0x0
-+
-+#define SFC_WAIT_WR		0x18
-+#define SFC_EN_WR		0x1c
-+#define WT_PROM_EN		BIT(8)
-+
-+#define SFC_ADR_FOUR_BYTE_EN	0x28
-+
-+#define MD_FDMA_DDR_SADDR	0x0c
-+#define MD_FDMA_FL_SADDR	0x10
-+
-+#define MD_FDMA_CTRL2		0x14
-+#define MAX_XFER_DMA_LEN	(BIT(26) | BIT(27))
-+#define MAX_XFER_256		BIT(26)
-+#define DMA_TO_FLASH		BIT(25)
-+
-+#define MD_FDMA_CTRL1		0x18
-+#define DMA_W_EN_START		BIT(3)
-+#define DMA_END			BIT(2)
-+#define DMA_W_EN		BIT(1)
-+#define DMA_START		BIT(0)
-+
-+#define MD_FDMA_DDR_SADDR1	0x20
-+
-+#define SFC_DMA_TIMEOUT		20000
-+#define SFC_DMA_MAX_LEN		0x100
-+
-+#define SFC_CTL_DMYCNT_MASK	GENMASK(31, 24)
-+#define SFC_CTL_DMYCNT_SHIFT	24
-+
-+#define DMA_HIGH_BITS_MASK	0x7
-+
-+#define RTK_SPI_OP_RDSR		0x05
-+#define RTK_SPI_OP_WREN		0x06
-+#define RTK_SPI_OP_EN4B		0xb7
-+#define RTK_SPI_OP_EX4B		0xe9
-+
-+#define SFC_AUTOSUSPEND_TIMEOUT	2000
-+
-+struct rtk_spi_host {
-+	struct device		*dev;
-+	struct clk		*clk;
-+	struct reset_control	*rstc;
-+	void __iomem		*regbase;
-+	void __iomem		*iobase;
-+	void __iomem		*mdbase;
-+	void			*buffer;
-+	bool			is_4byte;
-+	dma_addr_t		dma_buffer;
-+	resource_size_t		flash_phys_base;
-+	size_t			dirmap_size;
-+};
-+
-+static u32 rtk_spi_calc_dummy_cycles(const struct spi_mem_op *op)
+ 	for (i = 0; i < ARRAY_SIZE(arc_pgu_supported_formats); i++) {
+ 		if (arc_pgu_supported_formats[i] == pixel_format)
+ 			format = arc_pgu_supported_formats[i];
+@@ -139,10 +152,10 @@ static void arc_pgu_set_pxl_fmt(struct arcpgu_drm_private *arcpgu)
+ 	arc_pgu_write(arcpgu, ARCPGU_REG_CTRL, reg_ctrl);
+ }
+ 
+-static enum drm_mode_status arc_pgu_mode_valid(struct drm_simple_display_pipe *pipe,
+-					       const struct drm_display_mode *mode)
++static enum drm_mode_status arc_pgu_crtc_mode_valid(struct drm_crtc *crtc,
++						    const struct drm_display_mode *mode)
+ {
+-	struct arcpgu_drm_private *arcpgu = pipe_to_arcpgu_priv(pipe);
++	struct arcpgu_drm_private *arcpgu = crtc_to_arcpgu_priv(crtc);
+ 	long rate, clk_rate = mode->clock * 1000;
+ 	long diff = clk_rate / 200; /* +-0.5% allowed by HDMI spec */
+ 
+@@ -153,9 +166,10 @@ static enum drm_mode_status arc_pgu_mode_valid(struct drm_simple_display_pipe *p
+ 	return MODE_NOCLOCK;
+ }
+ 
+-static void arc_pgu_mode_set(struct arcpgu_drm_private *arcpgu)
++static void arc_pgu_mode_set(struct arcpgu_drm_private *arcpgu,
++			     const struct drm_framebuffer *fb)
+ {
+-	struct drm_display_mode *m = &arcpgu->pipe.crtc.state->adjusted_mode;
++	struct drm_display_mode *m = &arcpgu->crtc.state->adjusted_mode;
+ 	u32 val;
+ 
+ 	arc_pgu_write(arcpgu, ARCPGU_REG_FMT,
+@@ -189,54 +203,127 @@ static void arc_pgu_mode_set(struct arcpgu_drm_private *arcpgu)
+ 	arc_pgu_write(arcpgu, ARCPGU_REG_STRIDE, 0);
+ 	arc_pgu_write(arcpgu, ARCPGU_REG_START_SET, 1);
+ 
+-	arc_pgu_set_pxl_fmt(arcpgu);
++	arc_pgu_set_pxl_fmt(arcpgu, fb);
+ 
+ 	clk_set_rate(arcpgu->clk, m->crtc_clock * 1000);
+ }
+ 
+-static void arc_pgu_enable(struct drm_simple_display_pipe *pipe,
+-			   struct drm_crtc_state *crtc_state,
+-			   struct drm_plane_state *plane_state)
++static void arc_pgu_crtc_atomic_enable(struct drm_crtc *crtc,
++				       struct drm_atomic_commit *state)
+ {
+-	struct arcpgu_drm_private *arcpgu = pipe_to_arcpgu_priv(pipe);
++	struct arcpgu_drm_private *arcpgu = crtc_to_arcpgu_priv(crtc);
++	struct drm_plane_state *plane_state =
++		drm_atomic_get_new_plane_state(state, &arcpgu->plane);
++	const struct drm_framebuffer *fb = plane_state ? plane_state->fb : NULL;
+ 
+-	arc_pgu_mode_set(arcpgu);
++	arc_pgu_mode_set(arcpgu, fb);
+ 
+ 	clk_prepare_enable(arcpgu->clk);
+ 	arc_pgu_write(arcpgu, ARCPGU_REG_CTRL,
+ 		      arc_pgu_read(arcpgu, ARCPGU_REG_CTRL) |
+-		      ARCPGU_CTRL_ENABLE_MASK);
++		ARCPGU_CTRL_ENABLE_MASK);
+ }
+ 
+-static void arc_pgu_disable(struct drm_simple_display_pipe *pipe)
++static void arc_pgu_crtc_atomic_disable(struct drm_crtc *crtc,
++					struct drm_atomic_commit *state)
+ {
+-	struct arcpgu_drm_private *arcpgu = pipe_to_arcpgu_priv(pipe);
++	struct arcpgu_drm_private *arcpgu = crtc_to_arcpgu_priv(crtc);
+ 
+ 	clk_disable_unprepare(arcpgu->clk);
+ 	arc_pgu_write(arcpgu, ARCPGU_REG_CTRL,
+-			      arc_pgu_read(arcpgu, ARCPGU_REG_CTRL) &
+-			      ~ARCPGU_CTRL_ENABLE_MASK);
++		      arc_pgu_read(arcpgu, ARCPGU_REG_CTRL) &
++		~ARCPGU_CTRL_ENABLE_MASK);
+ }
+ 
+-static void arc_pgu_update(struct drm_simple_display_pipe *pipe,
+-			   struct drm_plane_state *state)
++static void arc_pgu_plane_atomic_update(struct drm_plane *plane,
++					struct drm_atomic_commit *state)
+ {
+-	struct arcpgu_drm_private *arcpgu;
++	struct arcpgu_drm_private *arcpgu = plane_to_arcpgu(plane);
++	struct drm_plane_state *new_plane_state = drm_atomic_get_new_plane_state(state, plane);
+ 	struct drm_gem_dma_object *gem;
+ 
+-	if (!pipe->plane.state->fb)
++	if (!new_plane_state->fb)
+ 		return;
+ 
+-	arcpgu = pipe_to_arcpgu_priv(pipe);
+-	gem = drm_fb_dma_get_gem_obj(pipe->plane.state->fb, 0);
++	gem = drm_fb_dma_get_gem_obj(new_plane_state->fb, 0);
+ 	arc_pgu_write(arcpgu, ARCPGU_REG_BUF0_ADDR, gem->dma_addr);
+ }
+ 
+-static const struct drm_simple_display_pipe_funcs arc_pgu_pipe_funcs = {
+-	.update = arc_pgu_update,
+-	.mode_valid = arc_pgu_mode_valid,
+-	.enable	= arc_pgu_enable,
+-	.disable = arc_pgu_disable,
++static void arc_pgu_plane_atomic_disable(struct drm_plane *plane,
++					 struct drm_atomic_commit *state)
 +{
-+	if (!op->dummy.nbytes)
++	struct arcpgu_drm_private *arcpgu = plane_to_arcpgu(plane);
++
++	arc_pgu_write(arcpgu, ARCPGU_REG_BUF0_ADDR, 0);
++}
++
++static int arc_pgu_plane_atomic_check(struct drm_plane *plane,
++				      struct drm_atomic_commit *state)
++{
++	struct drm_plane_state *new_plane_state = drm_atomic_get_new_plane_state(state, plane);
++	struct drm_crtc_state *crtc_state;
++
++	if (!new_plane_state->crtc)
 +		return 0;
 +
-+	return (op->dummy.nbytes * 8) / op->dummy.buswidth;
-+}
-+
-+static void rtk_spi_read_mode(struct rtk_spi_host *host, const struct spi_mem_op *op)
-+{
-+	u32 opcode = op->cmd.opcode;
-+	u32 dummy_cycles, val;
-+
-+	if (op->data.buswidth == 2)
-+		opcode |= DUAL_MODE_EN;
-+
-+	writel(opcode, host->regbase + SFC_OPCODE);
-+
-+	val = readl(host->regbase + SFC_CTL);
-+	val |= RW_DATAEN | ADDR_EN;
-+
-+	dummy_cycles = rtk_spi_calc_dummy_cycles(op);
-+
-+	val &= ~SFC_CTL_DMYCNT_MASK;
-+	val |= (dummy_cycles << SFC_CTL_DMYCNT_SHIFT) & SFC_CTL_DMYCNT_MASK;
-+	writel(val, host->regbase + SFC_CTL);
-+
-+	readl(host->iobase);
-+}
-+
-+static void rtk_spi_write_mode(struct rtk_spi_host *host,
-+			       const struct spi_mem_op *op)
-+{
-+	u32 opcode = op->cmd.opcode;
-+	u32 val;
-+
-+	writel(opcode, host->regbase + SFC_OPCODE);
-+
-+	val = readl(host->regbase + SFC_CTL);
-+	val |= RW_DATAEN | ADDR_EN;
-+	writel(val, host->regbase + SFC_CTL);
-+}
-+
-+static void rtk_spi_enable_auto_write(struct rtk_spi_host *host)
-+{
-+	u32 val;
-+
-+	val = WT_PROM_DONE | RTK_SPI_OP_RDSR;
-+	writel(val, host->regbase + SFC_WAIT_WR);
-+
-+	val = WT_PROM_EN | RTK_SPI_OP_WREN;
-+	writel(val, host->regbase + SFC_EN_WR);
-+}
-+
-+static void rtk_spi_disable_auto_write(struct rtk_spi_host *host)
-+{
-+	writel(RTK_SPI_OP_RDSR, host->regbase + SFC_WAIT_WR);
-+	writel(RTK_SPI_OP_WREN, host->regbase + SFC_EN_WR);
-+}
-+
-+static int rtk_spi_byte_transfer(struct rtk_spi_host *host, loff_t offset,
-+				 size_t len, unsigned char *buf, bool is_read)
-+{
-+	if (offset + len > host->dirmap_size) {
-+		dev_err(host->dev, "PIO transfer out of bounds\n");
++	crtc_state = drm_atomic_get_new_crtc_state(state, new_plane_state->crtc);
++	if (!crtc_state)
 +		return -EINVAL;
-+	}
 +
-+	if (is_read)
-+		memcpy_fromio(buf, host->iobase + offset, len);
-+	else
-+		memcpy_toio(host->iobase + offset, buf, len);
++	return drm_atomic_helper_check_plane_state(new_plane_state, crtc_state,
++						   DRM_PLANE_NO_SCALING,
++						   DRM_PLANE_NO_SCALING,
++						   false, true);
++}
++
++static int arc_pgu_crtc_atomic_check(struct drm_crtc *crtc,
++				     struct drm_atomic_commit *state)
++{
++	struct drm_crtc_state *crct_state = drm_atomic_get_new_crtc_state(state, crtc);
++
++	if (!crct_state->enable)
++		return 0;
++
++	if (!crct_state->plane_mask)
++		return -EINVAL;
 +
 +	return 0;
 +}
 +
-+static void rtk_spi_init(struct rtk_spi_host *host)
-+{
-+	u32 val;
++static const struct drm_crtc_helper_funcs arc_pgu_crtc_helper_funcs = {
++	.mode_valid	= arc_pgu_crtc_mode_valid,
++	.atomic_enable	= arc_pgu_crtc_atomic_enable,
++	.atomic_disable = arc_pgu_crtc_atomic_disable,
++	.atomic_check	= arc_pgu_crtc_atomic_check,
++};
 +
-+	val = readl(host->regbase + SFC_SCK);
-+	val &= ~FDIV_MASK;
-+	val |= (3 << 0) & FDIV_MASK;
-+	writel(val, host->regbase + SFC_SCK);
++static const struct drm_crtc_funcs arc_pgu_crtc_funcs = {
++	.reset			= drm_atomic_helper_crtc_reset,
++	.destroy		= drm_crtc_cleanup,
++	.set_config		= drm_atomic_helper_set_config,
++	.page_flip		= drm_atomic_helper_page_flip,
++	.atomic_duplicate_state = drm_atomic_helper_crtc_duplicate_state,
++	.atomic_destroy_state	= drm_atomic_helper_crtc_destroy_state,
++};
 +
-+	val = (DESLT_TIME << DESLT_TIME_SHIFT) | (PH_CNT << PH_CNT_SHIFT) | PL_CNT;
-+	writel(val, host->regbase + SFC_CE);
++static const struct drm_plane_helper_funcs arc_pgu_plane_helper_funcs = {
++	.atomic_update	= arc_pgu_plane_atomic_update,
++	.prepare_fb	= drm_gem_plane_helper_prepare_fb,
++	.atomic_check	= arc_pgu_plane_atomic_check,
++	.atomic_disable = arc_pgu_plane_atomic_disable,
++};
 +
-+	writel(FALLING_EDGE_EN, host->regbase + SFC_POS_LATCH);
-+	writel(RTK_SPI_OP_RDSR, host->regbase + SFC_WAIT_WR);
-+	writel(RTK_SPI_OP_WREN, host->regbase + SFC_EN_WR);
++static const struct drm_plane_funcs arc_pgu_plane_funcs = {
++	.update_plane = drm_atomic_helper_update_plane,
++	.disable_plane = drm_atomic_helper_disable_plane,
++	.destroy = drm_plane_cleanup,
++	.reset = drm_atomic_helper_plane_reset,
++	.atomic_duplicate_state = drm_atomic_helper_plane_duplicate_state,
++	.atomic_destroy_state = drm_atomic_helper_plane_destroy_state,
++};
 +
-+	writel(host->is_4byte ? 0x1 : 0x0, host->regbase + SFC_ADR_FOUR_BYTE_EN);
-+}
++static const struct drm_encoder_funcs arc_pgu_encoder_funcs = {
++	.destroy = drm_encoder_cleanup
+ };
+ 
+ static const struct drm_mode_config_funcs arcpgu_drm_modecfg_funcs = {
+@@ -301,13 +388,38 @@ static int arcpgu_load(struct arcpgu_drm_private *arcpgu)
+ 			return ret;
+ 	}
+ 
+-	ret = drm_simple_display_pipe_init(drm, &arcpgu->pipe, &arc_pgu_pipe_funcs,
+-					   arc_pgu_supported_formats,
+-					   ARRAY_SIZE(arc_pgu_supported_formats),
+-					   NULL, connector);
++	ret = drm_universal_plane_init(drm, &arcpgu->plane, 0,
++				       &arc_pgu_plane_funcs, arc_pgu_supported_formats,
++				       ARRAY_SIZE(arc_pgu_supported_formats), NULL,
++				       DRM_PLANE_TYPE_PRIMARY, NULL);
 +
-+static int rtk_spi_command_read(struct rtk_spi_host *host, const struct spi_mem_op *op)
-+{
-+	size_t len = op->data.nbytes;
-+	loff_t offset = op->addr.val;
-+	u8 opcode = op->cmd.opcode;
-+	u32 dummy_cycles, val;
+ 	if (ret)
+ 		return ret;
+ 
++	drm_plane_helper_add(&arcpgu->plane, &arc_pgu_plane_helper_funcs);
 +
-+	writel(opcode, host->regbase + SFC_OPCODE);
++	ret = drm_crtc_init_with_planes(drm, &arcpgu->crtc, &arcpgu->plane, NULL,
++					&arc_pgu_crtc_funcs, NULL);
 +
-+	val = readl(host->regbase + SFC_CTL);
-+	val &= ~(SFC_CTL_DMYCNT_MASK | ADDR_EN);
-+	val |= RW_DATAEN;
-+
-+	if (op->addr.nbytes > 0)
-+		val |= ADDR_EN;
-+
-+	dummy_cycles = rtk_spi_calc_dummy_cycles(op);
-+	val |= (dummy_cycles << SFC_CTL_DMYCNT_SHIFT) & SFC_CTL_DMYCNT_MASK;
-+	writel(val, host->regbase + SFC_CTL);
-+
-+	return rtk_spi_byte_transfer(host, offset, len, op->data.buf.in, true);
-+}
-+
-+static int rtk_spi_do_write_and_cmds(struct rtk_spi_host *host, const struct spi_mem_op *op)
-+{
-+	u8 opcode = op->cmd.opcode;
-+	u32 ctl_val = 0;
-+
-+	writel(opcode, host->regbase + SFC_OPCODE);
-+
-+	if (op->data.nbytes > 0)
-+		ctl_val |= RW_DATAEN;
-+	if (op->addr.nbytes > 0)
-+		ctl_val |= ADDR_EN;
-+
-+	writel(ctl_val, host->regbase + SFC_CTL);
-+
-+	if (op->data.nbytes > 0) {
-+		const u8 *buf = op->data.buf.out;
-+
-+		if (op->addr.val + op->data.nbytes > host->dirmap_size)
-+			return -EINVAL;
-+
-+		for (unsigned int i = 0; i < op->data.nbytes; i++)
-+			writeb(buf[i], host->iobase + op->addr.val + i);
-+	} else {
-+		if (op->addr.val >= host->dirmap_size)
-+			return -EINVAL;
-+
-+		readb(host->iobase + op->addr.val);
-+	}
-+
-+	/*
-+	 * Hardware Workaround:
-+	 * The controller's auto-mode engine requires SFC_ADR_FOUR_BYTE_EN to be
-+	 * explicitly updated when the flash enters or exits 4-byte mode via control
-+	 * commands.
-+	 */
-+	if ((op->addr.nbytes == 4 || opcode == RTK_SPI_OP_EN4B) && !host->is_4byte) {
-+		host->is_4byte = true;
-+		writel(0x1, host->regbase + SFC_ADR_FOUR_BYTE_EN);
-+	} else if ((op->addr.nbytes == 3 || opcode == RTK_SPI_OP_EX4B) && host->is_4byte) {
-+		host->is_4byte = false;
-+		writel(0x0, host->regbase + SFC_ADR_FOUR_BYTE_EN);
-+	}
-+
-+	return 0;
-+}
-+
-+static int rtk_spi_dma_transfer(struct rtk_spi_host *host, loff_t offset,
-+				size_t len, bool is_read)
-+{
-+	u64 dma_buffer, timeout_us = SFC_DMA_TIMEOUT * 100;
-+	u32 flash_phys_addr, val;
-+	int ret;
-+
-+	if (offset + len > host->dirmap_size) {
-+		dev_err(host->dev, "DMA transfer out of bounds\n");
-+		return -EINVAL;
-+	}
-+
-+	writel(DMA_W_EN_START | DMA_W_EN, host->mdbase + MD_FDMA_CTRL1);
-+
-+	dma_buffer = host->dma_buffer;
-+
-+	/* Setup MD DDR address and flash address */
-+	writel(lower_32_bits(dma_buffer), host->mdbase + MD_FDMA_DDR_SADDR);
-+	writel(upper_32_bits(dma_buffer) & DMA_HIGH_BITS_MASK,
-+	       host->mdbase + MD_FDMA_DDR_SADDR1);
-+
-+	/* MD_FDMA_FL_SADDR is a 32-bit hardware register */
-+	flash_phys_addr = lower_32_bits(host->flash_phys_base + offset);
-+	writel(flash_phys_addr, host->mdbase + MD_FDMA_FL_SADDR);
-+
-+	if (is_read)
-+		val = MAX_XFER_DMA_LEN | len;
-+	else
-+		val = DMA_TO_FLASH | MAX_XFER_256 | len;
-+
-+	writel(val, host->mdbase + MD_FDMA_CTRL2);
-+
-+	writel(DMA_W_EN | DMA_START, host->mdbase + MD_FDMA_CTRL1);
-+	udelay(1);
-+
-+	ret = readl_poll_timeout(host->mdbase + MD_FDMA_CTRL1, val,
-+				 !(val & DMA_START), 100, timeout_us);
-+	if (ret) {
-+		dev_err(host->dev, "DMA transfer timed out\n");
-+		val = readl(host->mdbase + MD_FDMA_CTRL1);
-+		val |= DMA_END | DMA_W_EN_START;
-+		writel(val, host->mdbase + MD_FDMA_CTRL1);
-+
-+		if (readl_poll_timeout(host->mdbase + MD_FDMA_CTRL1, val,
-+				       !(val & DMA_END), 10, 1000)) {
-+			dev_err(host->dev, "Failed to stop DMA gracefully\n");
-+		}
-+
++	if (ret)
 +		return ret;
-+	}
 +
-+	return 0;
-+}
++	drm_crtc_helper_add(&arcpgu->crtc, &arc_pgu_crtc_helper_funcs);
 +
-+static int rtk_spi_exec_op(struct spi_mem *mem, const struct spi_mem_op *op)
-+{
-+	struct rtk_spi_host *host = spi_controller_get_devdata(mem->spi->controller);
++	ret = drm_encoder_init(drm, &arcpgu->encoder, &arc_pgu_encoder_funcs,
++			       DRM_MODE_ENCODER_NONE, NULL);
 +
-+	if (op->data.dir == SPI_MEM_DATA_IN)
-+		return rtk_spi_command_read(host, op);
++	if (ret)
++		return ret;
 +
-+	return rtk_spi_do_write_and_cmds(host, op);
-+}
++	arcpgu->encoder.possible_crtcs = drm_crtc_mask(&arcpgu->crtc);
 +
-+static bool rtk_spi_supports_op(struct spi_mem *mem,
-+				const struct spi_mem_op *op)
-+{
-+	if (op->cmd.buswidth != 1)
-+		return false;
-+
-+	if (op->cmd.dtr || op->addr.dtr || op->data.dtr)
-+		return false;
-+
-+	if (op->addr.nbytes != 0) {
-+		if (op->addr.buswidth > 1)
-+			return false;
-+		if (op->addr.nbytes < 3 || op->addr.nbytes > 4)
-+			return false;
-+	}
-+
-+	if (op->dummy.nbytes != 0) {
-+		if (op->dummy.buswidth > 1 || op->dummy.nbytes > 7)
-+			return false;
-+	}
-+
-+	if (op->data.nbytes != 0 && op->data.buswidth > 2)
-+		return false;
-+
-+	return spi_mem_default_supports_op(mem, op);
-+}
-+
-+static int rtk_spi_dirmap_create(struct spi_mem_dirmap_desc *desc)
-+{
-+	const struct spi_mem_op *op = desc->info.op_tmpl;
-+
-+	if (op->data.dir == SPI_MEM_DATA_IN && op->addr.nbytes != 3 && op->addr.nbytes != 4)
-+		return -EOPNOTSUPP;
-+
-+	if (op->data.dir != SPI_MEM_DATA_IN && op->data.dir != SPI_MEM_DATA_OUT)
-+		return -EOPNOTSUPP;
-+
-+	return 0;
-+}
-+
-+static ssize_t rtk_spi_dirmap_read(struct spi_mem_dirmap_desc *desc,
-+				   u64 offs, size_t len, void *buf)
-+{
-+	struct rtk_spi_host *host = spi_controller_get_devdata(desc->mem->spi->controller);
-+	const struct spi_mem_op *op = desc->info.op_tmpl;
-+	loff_t addr = desc->info.offset + offs;
-+	size_t chunk_len;
-+	int ret;
-+
-+	/*
-+	 * Handle unaligned address bytes at the beginning of the read operation.
-+	 * The hardware requires 4-byte alignment for DMA transfers.
-+	 */
-+	if (addr & 0x3) {
-+		rtk_spi_read_mode(host, op);
-+		chunk_len = min_t(size_t, 4 - (addr & 0x3), len);
-+		ret = rtk_spi_byte_transfer(host, addr, chunk_len, buf, true);
++	if (connector) {
++		ret = drm_connector_attach_encoder(connector, &arcpgu->encoder);
 +		if (ret)
 +			return ret;
-+
-+		return chunk_len;
 +	}
 +
-+	rtk_spi_read_mode(host, op);
-+	chunk_len = min_t(size_t, len, SFC_DMA_MAX_LEN);
-+	ret = rtk_spi_dma_transfer(host, addr, chunk_len, true);
-+	if (ret) {
-+		dev_err(host->dev, "DMA read transfer failed: %d\n", ret);
-+		return ret;
-+	}
-+
-+	memcpy(buf, host->buffer, chunk_len);
-+
-+	return chunk_len;
-+}
-+
-+static ssize_t rtk_spi_dirmap_write(struct spi_mem_dirmap_desc *desc,
-+				    u64 offs, size_t len, const void *buf)
-+{
-+	struct rtk_spi_host *host = spi_controller_get_devdata(desc->mem->spi->controller);
-+	const struct spi_mem_op *op = desc->info.op_tmpl;
-+	loff_t addr = desc->info.offset + offs;
-+	size_t chunk_len;
-+	int ret = 0;
-+
-+	rtk_spi_enable_auto_write(host);
-+	rtk_spi_write_mode(host, op);
-+
-+	/*
-+	 * Handle unaligned address bytes at the beginning of the write operation.
-+	 * The hardware requires 4-byte alignment for DMA transfers.
-+	 */
-+	if (addr & 0x3) {
-+		chunk_len = min_t(size_t, 4 - (addr & 0x3), len);
-+		ret = rtk_spi_byte_transfer(host, addr, chunk_len, (u8 *)buf, false);
-+
-+		goto out;
-+	}
-+
-+	chunk_len = min_t(size_t, len, SFC_DMA_MAX_LEN);
-+
-+	memcpy(host->buffer, buf, chunk_len);
-+
-+	ret = rtk_spi_dma_transfer(host, addr, chunk_len, false);
-+	if (ret)
-+		dev_err(host->dev, "DMA write transfer failed: %d\n", ret);
-+
-+out:
-+	rtk_spi_disable_auto_write(host);
-+
-+	return ret < 0 ? ret : chunk_len;
-+}
-+
-+static const struct spi_controller_mem_ops rtk_spi_mem_ops = {
-+	.supports_op = rtk_spi_supports_op,
-+	.exec_op = rtk_spi_exec_op,
-+	.dirmap_create = rtk_spi_dirmap_create,
-+	.dirmap_read = rtk_spi_dirmap_read,
-+	.dirmap_write = rtk_spi_dirmap_write,
-+};
-+
-+static int rtk_spi_probe(struct platform_device *pdev)
-+{
-+	struct device *dev = &pdev->dev;
-+	struct spi_controller *ctrl;
-+	struct rtk_spi_host *host;
-+	struct resource *res;
-+	int ret;
-+
-+	ctrl = devm_spi_alloc_host(dev, sizeof(*host));
-+	if (!ctrl)
-+		return -ENOMEM;
-+
-+	platform_set_drvdata(pdev, ctrl);
-+	host = spi_controller_get_devdata(ctrl);
-+	host->dev = dev;
-+
-+	host->clk = devm_clk_get(dev, NULL);
-+	if (IS_ERR(host->clk))
-+		return PTR_ERR(host->clk);
-+
-+	ret = clk_prepare_enable(host->clk);
-+	if (ret)
-+		return ret;
-+
-+	host->rstc = devm_reset_control_get_optional_exclusive(dev, NULL);
-+	if (IS_ERR(host->rstc)) {
-+		ret = PTR_ERR(host->rstc);
-+		goto err_disable_clk;
-+	}
-+
-+	reset_control_assert(host->rstc);
-+	usleep_range(10, 20);
-+	reset_control_deassert(host->rstc);
-+
-+	ret = dma_set_mask_and_coherent(dev, DMA_BIT_MASK(35));
-+	if (ret) {
-+		dev_err(dev, "Failed to set dma mask\n");
-+		goto err_disable_clk;
-+	}
-+
-+	host->buffer = dmam_alloc_coherent(dev, SFC_DMA_MAX_LEN,
-+					   &host->dma_buffer, GFP_KERNEL);
-+	if (!host->buffer) {
-+		ret = -ENOMEM;
-+		goto err_disable_clk;
-+	}
-+
-+	host->regbase = devm_platform_ioremap_resource_byname(pdev, "ctrl");
-+	if (IS_ERR(host->regbase)) {
-+		ret = PTR_ERR(host->regbase);
-+		goto err_disable_clk;
-+	}
-+
-+	host->mdbase = devm_platform_ioremap_resource_byname(pdev, "dma");
-+	if (IS_ERR(host->mdbase)) {
-+		ret = PTR_ERR(host->mdbase);
-+		goto err_disable_clk;
-+	}
-+
-+	res = platform_get_resource_byname(pdev, IORESOURCE_MEM, "dirmap");
-+	host->iobase = devm_ioremap_resource(dev, res);
-+	if (IS_ERR(host->iobase)) {
-+		ret = PTR_ERR(host->iobase);
-+		goto err_disable_clk;
-+	}
-+
-+	host->dirmap_size = resource_size(res);
-+	host->flash_phys_base = res->start;
-+	host->is_4byte = false;
-+
-+	ctrl->mode_bits = SPI_RX_DUAL | SPI_TX_DUAL;
-+	ctrl->bus_num = -1;
-+	ctrl->mem_ops = &rtk_spi_mem_ops;
-+	ctrl->num_chipselect = 1;
-+	ctrl->auto_runtime_pm = true;
-+
-+	rtk_spi_init(host);
-+
-+	pm_runtime_set_autosuspend_delay(dev, SFC_AUTOSUSPEND_TIMEOUT);
-+	pm_runtime_use_autosuspend(dev);
-+	pm_runtime_set_active(dev);
-+	pm_runtime_enable(dev);
-+	pm_runtime_get_noresume(dev);
-+
-+	ret = spi_register_controller(ctrl);
-+	if (ret < 0) {
-+		dev_err(dev, "failed to register controller\n");
-+		goto err_pm_disable;
-+	}
-+
-+	pm_runtime_put_autosuspend(dev);
-+
-+	return 0;
-+
-+err_pm_disable:
-+	pm_runtime_put_noidle(dev);
-+	pm_runtime_disable(dev);
-+	pm_runtime_set_suspended(dev);
-+	pm_runtime_dont_use_autosuspend(dev);
-+	reset_control_assert(host->rstc);
-+
-+err_disable_clk:
-+	clk_disable_unprepare(host->clk);
-+
-+	return ret;
-+}
-+
-+static void rtk_spi_remove(struct platform_device *pdev)
-+{
-+	struct spi_controller *ctrl = platform_get_drvdata(pdev);
-+	struct rtk_spi_host *host = spi_controller_get_devdata(ctrl);
-+	struct device *dev = &pdev->dev;
-+
-+	spi_unregister_controller(ctrl);
-+
-+	pm_runtime_get_sync(dev);
-+	pm_runtime_disable(dev);
-+	reset_control_assert(host->rstc);
-+	clk_disable_unprepare(host->clk);
-+	pm_runtime_put_noidle(dev);
-+	pm_runtime_set_suspended(dev);
-+}
-+
-+static const struct of_device_id rtk_spi_dt_ids[] = {
-+	{ .compatible = "realtek,rtd1625-nor" },
-+	{ /* sentinel */ }
-+};
-+
-+MODULE_DEVICE_TABLE(of, rtk_spi_dt_ids);
-+
-+static int rtk_spi_runtime_suspend(struct device *dev)
-+{
-+	struct spi_controller *ctlr = dev_get_drvdata(dev);
-+	struct rtk_spi_host *host = spi_controller_get_devdata(ctlr);
-+
-+	reset_control_assert(host->rstc);
-+
-+	clk_disable_unprepare(host->clk);
-+
-+	return 0;
-+}
-+
-+static int rtk_spi_runtime_resume(struct device *dev)
-+{
-+	struct spi_controller *ctlr = dev_get_drvdata(dev);
-+	struct rtk_spi_host *host = spi_controller_get_devdata(ctlr);
-+	int ret;
-+
-+	ret = clk_prepare_enable(host->clk);
-+	if (ret < 0) {
-+		dev_err(dev, "clk_prepare_enable failed: %d\n", ret);
-+		return ret;
-+	}
-+
-+	reset_control_assert(host->rstc);
-+	usleep_range(10, 20);
-+	reset_control_deassert(host->rstc);
-+
-+	rtk_spi_init(host);
-+
-+	return 0;
-+}
-+
-+static DEFINE_RUNTIME_DEV_PM_OPS(rtk_spi_pm_ops, rtk_spi_runtime_suspend,
-+				 rtk_spi_runtime_resume, NULL);
-+
-+static struct platform_driver rtk_spi_driver = {
-+	.driver = {
-+		.name = "rtk-spi-nor",
-+		.of_match_table = rtk_spi_dt_ids,
-+		.pm = pm_ptr(&rtk_spi_pm_ops),
-+	},
-+	.probe	= rtk_spi_probe,
-+	.remove	= rtk_spi_remove,
-+};
-+module_platform_driver(rtk_spi_driver);
-+
-+MODULE_DESCRIPTION("Realtek SPI Nor Controller Driver");
-+MODULE_AUTHOR("Jyan Chou <jyanchou@realtek.com>");
-+MODULE_LICENSE("GPL");
+ 	if (encoder_node) {
+ 		/* Locate drm bridge from the hdmi encoder DT node */
+ 		struct drm_bridge *bridge __free(drm_bridge_put) =
+@@ -315,7 +427,7 @@ static int arcpgu_load(struct arcpgu_drm_private *arcpgu)
+ 		if (!bridge)
+ 			return -EPROBE_DEFER;
+ 
+-		ret = drm_simple_display_pipe_attach_bridge(&arcpgu->pipe, bridge);
++		ret = drm_bridge_attach(&arcpgu->encoder, bridge, NULL, 0);
+ 		if (ret)
+ 			return ret;
+ 	}
+@@ -342,7 +454,7 @@ static int arcpgu_show_pxlclock(struct seq_file *m, void *arg)
+ 	struct drm_device *drm = node->minor->dev;
+ 	struct arcpgu_drm_private *arcpgu = dev_to_arcpgu(drm);
+ 	unsigned long clkrate = clk_get_rate(arcpgu->clk);
+-	unsigned long mode_clock = arcpgu->pipe.crtc.mode.crtc_clock * 1000;
++	unsigned long mode_clock = arcpgu->crtc.mode.crtc_clock * 1000;
+ 
+ 	seq_printf(m, "hw  : %lu\n", clkrate);
+ 	seq_printf(m, "mode: %lu\n", mode_clock);
 -- 
 2.43.0
 
