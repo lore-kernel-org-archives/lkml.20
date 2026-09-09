@@ -1,50 +1,87 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 788AB52FE41;
-	Wed,  9 Sep 2026 10:59:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.19
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AB44530E1D
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 11:00:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788951569; cv=none; b=a23eIAhlhLfEY8IXMIhg9tfI0aZngebDq6d3xeHp2Tt8z/WiCcdGhayHnKkzVfzmXEAh/CIGz4McDKeAniPUw9AJ+t9NhlO7Jm8ZtUk/Nl+wGWBE8aCZreBW8KoWwGOaOV5eysUyVVHTmwBQy54qyNxnMxw3CJ7lr8tfhFfokm8=
+	t=1788951636; cv=none; b=AUweJZMXfH4Nqg4cwpG/HIm7ja+4d5QdGD4CbWgjgC28hVG5QVl4Z9DLMv/GGtYUWR8O4qmXS0SdSNSFNNDO8SdvZXW1dL+sHDb5FljImo6R1z+251mZr74bnZ0449Sem3UUWoWC8bCdebcxtNuhu6dTkjfiBZF3+Lm6fJr8ctA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788951569; c=relaxed/simple;
-	bh=+Tu/O72827ZSBH3csRuI89G55OIjDCt8XGGxw+E2AAU=;
+	s=arc-20240116; t=1788951636; c=relaxed/simple;
+	bh=BpZU+Csbr6XAi4Uya3364FwpsUxyX/Gtm2FuGJ0r0Kk=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=dBwoEyuSN0bX5PDYv1iTe/3dPwfr7uMJulbI4qlpPdVifUIFXudXkCCqQtXAaXk0ngM9gCsnq0nWbFyetwCEYYW07tLg3P1soxVQ/3Eqbyk6ReiFmvBHwJoDbutRVCToLVyIT+/yaLR5nDjvUrtMsHSnV5FtfnyAanur/uyO1yA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=T0PDd/CS; arc=none smtp.client-ip=198.175.65.19
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	 In-Reply-To:Content-Type; b=dq+1ipb28VHF3BrdpK/sCjJEg/O0Oh5QisvqSo0b/RmrZm/sSQ256teegRYXnsLCKqtehP3Nq4C5WJNquykHNHXD3VO41UOXJ/7qcd4y++rpTgWaS8Sjx/l9KRaH71CwMGbU8cZV4S17b/n6l5ppe2xpTVicf5QKIhmvyUA/rTo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=cH4zVMhT; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Rc2SqaxQ; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="T0PDd/CS"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788951567; x=1820487567;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=+Tu/O72827ZSBH3csRuI89G55OIjDCt8XGGxw+E2AAU=;
-  b=T0PDd/CS9Esf0xBYMQS5kPsYPPKV7joPQDBKr5Ns0ZSGlx5lv+QLO0wh
-   U5my+1YwoteVVelDv6b3fzEiDV9kVxnskkMlL6Pqs1I5aJJMETxA3KAWY
-   Ep7WPrp3eQO31NuWhF37JuRb+/1orf9E0NV52Oggx4JbctvgtZw9zxywd
-   RGhIszm0rsr2u1n7EnfuR78xekJGcefdzgEOOHaSG05W8F/AaB6uWvw1Q
-   Fp8NeUwfzkZsKUG2K51gklUUTlfodkBNdcVFkBnXaiGHsSFJhVVP2UFeS
-   GvSQxOoHJJGHtr5pcxN+UeVSGw6Wj/LFaN0EWLz+v0uYlWxa3LUr5eH5o
-   g==;
-X-CSE-ConnectionGUID: YSC4YB7DSFWLCrIBTY9ISQ==
-X-CSE-MsgGUID: xwe42HPQThOXodOrVtUfAw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11900"; a="89298546"
-X-IronPort-AV: E=Sophos;i="6.25,270,1779174000"; 
-   d="scan'208";a="89298546"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
-  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Sep 2026 03:59:23 -0700
-X-CSE-ConnectionGUID: 9Byf6zvYR8OU4EXO2+AkNQ==
-X-CSE-MsgGUID: QRSdUOmUTxuJX9zEK3/LHw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,270,1779174000"; 
-   d="scan'208";a="267001320"
-Received: from unknown (HELO [10.238.208.122]) ([10.238.208.122])
-  by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Sep 2026 03:59:17 -0700
-Message-ID: <f16e1c13-b959-4085-bf4a-9e583d149e93@intel.com>
-Date: Wed, 9 Sep 2026 18:59:14 +0800
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="cH4zVMhT";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Rc2SqaxQ"
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 689Aq4hP2569822
+	for <linux-kernel@vger.kernel.org>; Wed, 9 Sep 2026 11:00:31 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	7M1xBfbwoWpxywxGNIz7S/tIizoYLnlcHAJ3EhjTxbI=; b=cH4zVMhTMuyO21jy
+	30UgnLlKC0zv279sZxMCK+xh5RiN5zRsalXPfLhUQ+C28JTBLAfQ8IvWaoWYV7PE
+	UzPSVYD06CV+MImUo99tggF3kuSifr49YyTuOd9XVF48p73nU75E++tyKC0/apAK
+	YdDb13iTcLzj1TgL9OAP/9oRLiuYdWw0s2UXEkiqcUoQzU8wYaBxUWfSYhMTPHTP
+	Dq7s4CXX3VjbCnjO2mADXjruMYg4KHjYd6ez80ETI+UMCKmiVc7oBURqpGfxklyl
+	4CVptdJ55cSeRHfpDxBUrHKRjXK/cBetZ+n/cQ11L+7ZdeznA02+DiJBvzARwaUq
+	UZZFfg==
+Received: from mail-vs1-f69.google.com (mail-vs1-f69.google.com [209.85.217.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gjqha3p4e-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 11:00:31 +0000 (GMT)
+Received: by mail-vs1-f69.google.com with SMTP id ada2fe7eead31-78ff33b2292so12786137.1
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 04:00:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1788951630; x=1789556430; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=7M1xBfbwoWpxywxGNIz7S/tIizoYLnlcHAJ3EhjTxbI=;
+        b=Rc2SqaxQWswonc3Vgk7Q8btDdty1Ts5lbN2x21NViwZulJYXmBKf58Unjm7dgVP9sI
+         vuFeamDXhtKjqaEL60dReO1PohmqLggwfKux4LKpcRHSbKVgMn/RJGUPPeEKKsK7J7fj
+         oULOb63SmVGsgkp0F0NafJ/2LUpAZPt1aBkfRlsoo1q5C8oGssa+yigeAW9N9/4Pd+wN
+         N0bA0FwyCs30etEuwZPMOtzTkinrhnooVvi4SRQsvo3s/1Jq9xZJhPVSBDl7BE900QC0
+         GI1iGDBjr0cdco3XC+2LUtvbVlx7vqs8m7O7XspEg6k5AhZgNwIrL+ymSRW4pAFlvvzp
+         bUzA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788951630; x=1789556430;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=7M1xBfbwoWpxywxGNIz7S/tIizoYLnlcHAJ3EhjTxbI=;
+        b=Z0C2N0I0cRvavGPfcNdxY5L78eXSaiGPTQqnKpefKnqcz7+lONUjxNLSAFvX3IQmR0
+         oIo9OUrybaQxLZzDHjeyz1yuUJEAiN2v2zQ2tFO9oMMFYMTYgto82ZLJ7Ds2Bjf7AXbr
+         IBTiuijpsfLNMc8UVaf2+eUcV9JFhRJuEOI6gJxDG2ky+QO9+Of04CWSmgQlUWrUBQzy
+         cJjhBULYdO4629VJ48+RlJkRgekn962KxT4ienQHWTrDs9F6jKw979s1GGO0nWT4IuRc
+         s7fWP053uDm5C9bdq03yWX7FQ86JG+du7PiRlmll+5uSmqfZckhdtifLQC87mAChMlhA
+         CiDg==
+X-Forwarded-Encrypted: i=1; AKwUvBzGQHKSrNzEF0CyjMWZeHbpjf9+r/YKl4DSnLabZzJMk9HXLN4C4DOGoXIUGcbOQmY3+JQT8n9RrYeg6sw=@vger.kernel.org
+X-Gm-Message-State: AFuF++ly4RKyR2JALZVsy9rioW5/HyLeg7V+DKewVuN8m8lZiugpMvR0
+	g3SNkofoOOgortdSY7DY4iZYhlo+QTbP7xyCvZoUP1A/8AheyqRz3FXVpkYUeHlxTTOiSatod/D
+	hP83XjH3e7L0SfQ7IwhRnjjQWWW/5D/gOO8nvZ+KJU87Lvz7erZTKm/h5KBQdaYq3JUg=
+X-Gm-Gg: AYBFou1C9OVJxr/YCMJyQHtV9m8/IFBoX0nQ7BY9WSR73JEF3/HeQ874HG26aNKx4sl
+	rk1twwY5QwGvQNlG5QOSwf1qzkMqRtDc8pUlwqWAKvS461IlBudSJ7H7Jg70YBmZGq0zW7jd/mZ
+	h/tCFkBlJZCpARERwjVNBnxKbBp7Gqsdb4OvYhp8xKza9cjYP9Ik4CxVy7Hs2lhIY2nyac9NOTf
+	XUd6IAfVVgzt9lIOHxSUWsuCKfPj7SrCuVK3u0CbzP5JhypaQEuk01llyrS7rsdd/Jd5Y2SVzSv
+	XmZT25R/7TJTAzp6L+U80mV1iZfRfqB3KicIpiKB4YLSD8MBHiBqC5Dcqbzzvvfly87Cj/FG80/
+	jn68o8N1JWcu0ScITi/C+dg==
+X-Received: by 2002:a05:6102:4b13:b0:78d:3ee3:c558 with SMTP id ada2fe7eead31-78d3ee3c590mr2465033137.1.1788951630528;
+        Wed, 09 Sep 2026 04:00:30 -0700 (PDT)
+X-Received: by 2002:a05:6102:4b13:b0:78d:3ee3:c558 with SMTP id ada2fe7eead31-78d3ee3c590mr2465021137.1.1788951629956;
+        Wed, 09 Sep 2026 04:00:29 -0700 (PDT)
+Received: from [192.168.202.12] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a49e959082sm3022831fa.20.2026.09.09.04.00.25
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 09 Sep 2026 04:00:27 -0700 (PDT)
+Message-ID: <0b999fca-7441-44c2-b6b6-a092c30cd65c@oss.qualcomm.com>
+Date: Wed, 9 Sep 2026 13:00:24 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -52,122 +89,65 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v14 21/22] KVM: selftests: Add ucall support for TDX
-To: Sean Christopherson <seanjc@google.com>, Peter Fang <peter.fang@intel.com>
-Cc: Lisa Wang <wyihan@google.com>, Andrew Jones <ajones@ventanamicro.com>,
- Ackerley Tng <ackerleytng@google.com>, Binbin Wu
- <binbin.wu@linux.intel.com>, Chao Gao <chao.gao@intel.com>,
- Chenyi Qiang <chenyi.qiang@intel.com>,
- Dave Hansen <dave.hansen@linux.intel.com>,
- Erdem Aktas <erdemaktas@google.com>, Ira Weiny <ira.weiny@intel.com>,
- Isaku Yamahata <isaku.yamahata@intel.com>, Kiryl Shutsemau <kas@kernel.org>,
- linux-kselftest@vger.kernel.org, Paolo Bonzini <pbonzini@redhat.com>,
- "Pratik R. Sampat" <pratikrajesh.sampat@amd.com>,
- Reinette Chatre <reinette.chatre@intel.com>,
- Rick Edgecombe <rick.p.edgecombe@intel.com>,
- Roger Wang <runanwang@google.com>, Ryan Afranji <afranji@google.com>,
- Sagi Shahar <sagis@google.com>, Shuah Khan <shuah@kernel.org>,
- Oliver Upton <oupton@kernel.org>, Jeremiah McReynolds <jmcrey@google.com>,
- kvm@vger.kernel.org, linux-coco@lists.linux.dev,
- linux-kernel@vger.kernel.org, x86@kernel.org
-References: <20260722-tdx-selftests-v14-0-15ad654a50db@google.com>
- <20260722-tdx-selftests-v14-21-15ad654a50db@google.com>
- <6f89fc78-0344-4a7e-bbd8-ac201b8f845a@intel.com>
- <20260828020612.GF33657@pedri>
- <b4cffa34-864d-4fd0-9fc7-a7d4514075b2@intel.com>
- <20260828042044.GG33657@pedri> <apGYxwdCSuC-X732@google.com>
+Subject: Re: [PATCH v9 1/2] arm64: dts: qcom: sdm845-google: Add dual front
+ IMX355 cameras
+To: david@ixit.cz, Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>
+Cc: Petr Hodina <petr.hodina@protonmail.com>,
+        Richard Acayan <mailingradian@gmail.com>,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org
+References: <20260907-pixel3-camera-v9-0-b1981f2d3291@ixit.cz>
+ <20260907-pixel3-camera-v9-1-b1981f2d3291@ixit.cz>
 Content-Language: en-US
-From: Xiaoyao Li <xiaoyao.li@intel.com>
-In-Reply-To: <apGYxwdCSuC-X732@google.com>
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260907-pixel3-camera-v9-1-b1981f2d3291@ixit.cz>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA5MDEyMSBTYWx0ZWRfXwfiHBKmSFFhi
+ /3c+1cErhpITUsySGf5NzjGULfdVfyW2a4+ZsbfRlGHA2Ot/17aSialJPKVLEHd84PP3wbB2XlG
+ b1yMWTwt0L/YXzJpySIY8ImbanWyQELUgwXQOguMgnCDBFKN5LpeYCSw3ep4AAA81dyUsUiuLxd
+ XEKmIrYP3C0slgPaK8waSBagnGJUdL2MumphoBe0P8tzAxQsfQjsuxpd9Q+kz0APcXLiPfreON4
+ GaCQCy+GK3kHQJ/l6UhSz2b4dSs5gYbB8ZhjEDFzibq9LEW7c4WmOOjufrt3BURkdeELRksfGRs
+ cyznZ4V6CwcyI1lIl9vAMyBY4T7q1Qtk9N05OoJoNFlvan1gou6eNanhqC0XeI0mvhOGp5szXXu
+ uJI3r2ww2u0y15RW6mqlkVFsu0/Vb+cggU5YOJS1HlhYymjEQd1g7IJBp4wGX07ZJpbraUzZL7r
+ jqz9i4kZuO+iBVgwIhw==
+X-Authority-Analysis: v=2.4 cv=Z5Xc2nRA c=1 sm=1 tr=0 ts=6aa13c4f cx=c_pps
+ a=5HAIKLe1ejAbszaTRHs9Ug==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=EUspDBNiAAAA:8 a=uxpBaPyPSpK-buiB_gcA:9 a=QEXdDO2ut3YA:10
+ a=gYDTvv6II1OnSo0itH1n:22
+X-Proofpoint-GUID: 6_mJOOKdlSTfgGjECMC4gQbF9KsTG8rM
+X-Proofpoint-ORIG-GUID: 6_mJOOKdlSTfgGjECMC4gQbF9KsTG8rM
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA5MDEyMSBTYWx0ZWRfXxUmbQrQavioB
+ zzARW50mLWIZ5idfR1gIKRDcYV+gvpgoK0z3XPIYKIixFtwXDyNsv5OZ/54O+7cB7IpjLeWOGzH
+ 8CQhY3HW4sZg6c33gSjcawLyKnG/efw=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-08_03,2026-09-09_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 impostorscore=0 lowpriorityscore=0 bulkscore=0 malwarescore=0
+ adultscore=0 phishscore=0 priorityscore=1501 spamscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609090121
 
-On 8/28/2026 10:18 PM, Sean Christopherson wrote:
-> On Thu, Aug 27, 2026, Peter Fang wrote:
->> On Fri, Aug 28, 2026 at 10:31:14AM +0800, Xiaoyao Li wrote:
->>>>
->>>> Hmm... This makes me wonder if vm->arch.s_bit below could be replaced
->>>> with the same architectural approach. GPAW is available through
->>>> TDG.VP.INFO or the initial RBX value. This does require a bit more
->>>> plumbing though.
->>>
->>> I'm afraid not. Because below is host code, and vm->arch.s_bit is not used
->>> in guest code.
->>>
->>> Or are suggesting something like dropping the
->>>
->>> 	if (is_tdx_vm(vm)) {
->>> 		ucall_mmio_gpa = UCALL_MMIO_GPA | vm->arch.s_bit;
->>> 		sync_global_to_guest(vm, ucall_mmio_gpa);
->>> 	}
->>>
->>> entirely and use below hardcoded value instead in guest code?
->>>
->>> 	UCALL_MMIO_GPA | 1 << (GPAW - 1)
->>
->> Yeah this is what I meant. Just drop sync_global_to_guest() entirely and
->> do things like a normal TDX guest would.
+On 9/7/26 5:58 PM, David Heidelberg via B4 Relay wrote:
+> From: David Heidelberg <david@ixit.cz>
 > 
-> Blech.  Every time I come back to this series we're still discussing ucall crud,
-> and "doing thing like a normal TDX guest".  Selftests aren't normal guests.
+> The Pixel 3 features two front-facing Sony IMX355 sensors with
+> different focal lengths (standard and wide-angle).
 > 
-> I know I suggested using the HPET base, but I only did so very begrudgingly as I
-> couldn't come up with a better alternative to emulated MMIO, and the end result
-> is quite gross.  Not only does the code ignore @mmio_gpa but still obviously use
-> emulated MMIO, it requires synchronizing data to the guest because KVM disallows
-> "private" MMIO.
+> Sensors are connected via CSIPHY port 1 and 2 and controlled over CCI
+> I2C1, using MCLK2 as the clock source.
 > 
->   void ucall_arch_init(struct kvm_vm *vm, gpa_t mmio_gpa)
->   {
->          vm_type = vm->type;
->          sync_global_to_guest(vm, vm_type);
+> This enables support for the dual front camera configuration.
 > 
->          if (is_tdx_vm(vm)) {
->                  ucall_mmio_gpa = UCALL_MMIO_GPA | vm->arch.s_bit;
->                  sync_global_to_guest(vm, ucall_mmio_gpa);
->          }
->    }
-> 
-> Retrieving GPA via TDG.VP.INFO isn't any better, it's still an absurd amount of
-> "work" for something that should be trivial.
-> 
-> Can't we just abuse TDVMCALL_REPORT_FATAL_ERROR?  AFAICT, there's no restriction
-> on the data payload, and there's enough space to all but guarantee we'll never get
-> a false positive.
-> 
-> Pulling in Xiaoyao's idea about using CPUID...
-> 
->>> +void ucall_arch_init(struct kvm_vm *vm, gpa_t mmio_gpa)
->>> +{
->>> +     vm_type = vm->type;
->>> +     sync_global_to_guest(vm, vm_type);
->>
->> It works and it looks simple. But we have the architectural approach to
->> test if a guest is TD guest, by checking the CPUID 0x21.
->>
->> Since checking CPUID 0x21 is not complex, and as a bonus it can help
->> test if TDX module behaves correctly for CPUID leaf 0x21, I think we
->> should switch to use CPUID 0x21 to check if it is TDX VM in guest code?
-> 
-> Absolutely not.  It will require at least one an extra VM-Exit for TDX and non-TDX
-> guests alike, and thanks to Intel's wonderful CPUID behavior of having unsupported
-> leaves return the last supported leaf, the guest would have to check CPUID.0x0 and
-> then CPUID.0x21 on modern hardware, i.e. would incur two extra VM-Exits.  I don't
-> care about the performance, but from a debug perspective that's going to be awful,
-> as what should be a super simple operation will be polluted with unwanted data.
+> Signed-off-by: David Heidelberg <david@ixit.cz>
+> ---
 
-As you said, "Selftests aren't normal guests". So the guest code doesn't
-need to check CPUID.0x0 to get maximum supported leaf before CPUID.0x21.
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-And for TDX, the CPUID doesn't cause VM-Exit to KVM, it only exits to TDX
-module, which is transparent to KVM.
-
-Anyway, if we go with the TDVMCALL_REPORT_FATAL_ERROR as you proposed, we
-don't need the logic to check if it is a TDX VM in the guest.
-
-> Stop trying to reinvent the wheel and just use a virtual function table.
-> 
-> I've verified the attached patches don't break non-TDX selftests, someone just
-> needs to test the TDX changes.
-
-I test it and it works.
+Konrad
