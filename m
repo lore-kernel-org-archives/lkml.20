@@ -1,101 +1,160 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx2-f8.google.com (mail-yx2-f8.google.com [74.125.224.136])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6888550DBB;
-	Wed,  9 Sep 2026 19:13:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCB4F3090CD
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 19:14:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.136
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788981234; cv=none; b=ITkpipUPZn3tbF460qjkk7BGYyzrLzosdzFTJ32RqttmMGXrAj34Dh35o+jl/c8qfRVTEjpuBNSRdV5UlZS1oIkkShUwfN4n82/4T6uTKOjZesGL6vnNaEa/HMlFYjTfSrQEkha+bzE3JLfkbDYBdLHls9UmRL1wWVSTr3480Rc=
+	t=1788981262; cv=none; b=rpatbNFXy40STUmAKRp8ACpFbvfQY+SLmZZAQU+i40Ih4JCYnioo2kQXIyG1O57mnKwODFDYL4U9Z6BxQbqPxwVtAANUmzkXmAjMT/ej+PZje9W011uijcjhIJ4do8ynfrL/S4hMaCJhy781Q3Aj8Oansb8+l/6728VcDwz7hPU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788981234; c=relaxed/simple;
-	bh=2zqeMdfMgzgLSz4WalrmXPvdFX+4uJ6wmlBvyPJsE24=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=eEuBC+GvAgZoGtPa9U3bfldjvPbhjL+ogYJAvjaSpW6BgIwVTEYq+cy6N6oxAJPzdMh4Tp38c8yl3J6GerSfs0cCzYKX93MbBpDei3NeSRbdmx/ObjSIOYPFs39bsbEjmn85pUl4ypw4CU6scWNZ0muRWkuGqRzhhgpMedIXKZg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Sp5QCKRG; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788981262; c=relaxed/simple;
+	bh=EDwUvwYj52uRaI2dCh0tF4qDlZkgWRI/RU1+vIfQfts=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=KUvaq0ZzvkXJhjHEUOyYR/kEbiwKMq0bmd1yr4hr/qvj0Bdyd/oBjcfMmYMBKUptJld6y+A0QBfyKnT0acHZVueURPx/Ao1bcSy5b3mbi1/WK5v43EiTM3EvntldK0oDXJKj8CXRe5QZRiUKMZcyvc18JrydprTr9eJqrv/55Yk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nCrMDV4y; arc=none smtp.client-ip=74.125.224.136
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Sp5QCKRG"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 789AF1F000FF;
-	Wed,  9 Sep 2026 19:13:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788981230;
-	bh=GJQLOIo2F/8mgbaZ6MM/HOKjSOsdGspfu+Rgpw9gTLU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Sp5QCKRGqnjtgftM39OzgG9o3glYhC+pUXsZYdO21iDX/IQKGR305FK8SU+gUUHmH
-	 EzvxMEEF5giefLVCAKnxpz42h3RhUGy85cUc9rxoEJGDwAFsQuY++Ir25TD3YrKPvc
-	 ZETtroFS/VizLPnltYkazT64Q8hGpCzwF1OilDSrkgqiCSCsUYr+x7I5XvlDFMAXZh
-	 uLgF1WfYWu/jodY5tkqEjRYJgQS86BFaUfwYL1GL5+TcF06c4VZP9jTTRJEwxsZ9kW
-	 auRlwbJEbnWhhoa4ud0i4CrjYK7SZtm8V25+Txnn0PPSpnBVKn1RswiLii/fnSGGvt
-	 p05HydOIsCMDg==
-Date: Wed, 9 Sep 2026 09:13:49 -1000
-From: Tejun Heo <tj@kernel.org>
-To: "Paul E. McKenney" <paulmck@kernel.org>
-Cc: Josef Bacik <josef@toxicpanda.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	David Hildenbrand <david@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>, Jan Kara <jack@suse.cz>,
-	Roman Gushchin <roman.gushchin@linux.dev>,
-	Dennis Zhou <dennis@kernel.org>,
-	"Matthew Wilcox (Oracle)" <willy@infradead.org>, linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org, bpf@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] writeback: report a Tasks-RCU quiescent state per cgwb
- drain pass
-Message-ID: <aqGv7R4LTmlrW6QI@slm.duckdns.org>
-References: <20260909-cgwb-tasks-rcu-qs-v1-1-967a7754771f@toxicpanda.com>
- <aqGilhgcEd0qaHjI@slm.duckdns.org>
- <16d13239-8911-4597-bfd6-18aa02135137@paulmck-laptop>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nCrMDV4y"
+Received: by mail-yx2-f8.google.com with SMTP id 00721157ae682-854f090ff98so33095907b3.0
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 12:14:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788981260; x=1789586060; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=Yzknjs/dgM6cXy8bMP6XtAn4j86y5MQftpHsbTjU4JM=;
+        b=nCrMDV4y7AG9ZxxEvNPmvF4s9vnPDCZ4Rp4KmWvM/2AiTrtphisahkjkSmeTSDLHqN
+         W5JI6jmRA4zqTsiVvV4Pd1C89H5tbSmj9FXfUoyxkn4UHBGKwQdzFyV8kpa06GJmGalM
+         JQKrHKHiNlTn7KQ8AQjzKslh5mWywpWc8FdUH7d9NVnt18G+psF6/yAUPEd5RsvsZrXH
+         x3XX7SMVSKZTCpZHxLf7zuth0RTxce7ovw6TJdl6KPP3B4Gwz0Jgc3kQvT4m7HZeRSQS
+         bqpj6B7JlscJSyucILktwTr+Oe+OawCGtq8z1qHd4WUvfN3vp7/gE+ScEoZb738Wc+ym
+         mX9g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788981260; x=1789586060;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=Yzknjs/dgM6cXy8bMP6XtAn4j86y5MQftpHsbTjU4JM=;
+        b=nfHS10+aUReXr7oZyVI/Y4wQ40YnYhNsUbWTP4OQXkJcnEL/2mCUU1YSjdEu0vrO58
+         t3LI8sPhtVUdGF5xUat0DLALma5V2P0i21l6fF2Q8nPpFTrkLITlXCntBIL01UBx4JkH
+         +0SJZbWmam+YISFL6lYjdjAjUNupqCNJqrO3xIuBs0mASg4cvYteI1exdIgC6PSNjJ92
+         F5O9DID3/WJSRwh4P9/o5kjNCSHirdPD3kdXCt9kBavao7Cxrv2sN7uARwXw4eZGtD75
+         eEjPNMQsM2ZZZnCUG+42g/hH37Rn4f3BBifGf15KoC1XJgLUUsYmbHzh4FTtVsoe0OsC
+         Nn/A==
+X-Forwarded-Encrypted: i=1; AKwUvBwgARYL7WnQqrITKIAT72Vp5LBwwwm40zHNeqyJV73CiDKxKM9d3rEwbFuVYqhw+Dk+AL+9Dqeleeit7e8=@vger.kernel.org
+X-Gm-Message-State: AFuF++lYgg3ZC6NcjMNI+taGFggnH7hVBOusrv6XeVTfJ9BNW9HxeONC
+	OeBnVl4ITg/6QFgo9kvj+opZdMd3sA79yNFxOkIePXx3tOg44U9shds2
+X-Gm-Gg: AYBFou3Re4Td8Dr3idbi6akJweeGeE1bik46jMgTYF0I9pBmbumhHqOVjxunILHhGRQ
+	zCdF0kzQJa8zum27dK5mU7X8jKuSA8HB5WzM1qiOsLHlLHFbAhJuDTklWYyOc0iYkBizfjXbkqG
+	chnap6OKGIX1jLXiqNAB0o53qQ0n45SRvapsKsmTzvE4v/xvskKjmPpFHDiYBuPoUuFuB3KE4uJ
+	KbZlWx0KcrbgttCD3e7DxtcX9JIOTtAgyzpjXVIqnYepOMIVwVCP7nCLjqDpm9FsmVEYmx9DBhC
+	Zd2bM2MZX5nN6mDF/rXVuC1VrPXYjuFJHGjXde0/s90mIObKCcFIhYbO2lkVAtt64ihHyI/P3Cn
+	tCKVzWoFISvzzQ25WKH5l3f2f9JBYWjALiUwdOEksg5sSTPfoLAXF3sKADl+5NI1DN4yQppt069
+	i21+ylHq4lzChZcJK2lEQ9YTgjS1BEMJkAaTIknFUBasO3kJUib0Z2tJd5n3ojmZyJbkfFubRxI
+	2FWcpqJMxalz8VrgiALXEShug+/sa8N2R9JNpR+PTGNq5dluAld8ddkBnYohrblzvMRVSpMc2Ne
+X-Received: by 2002:a05:690c:e0d5:10b0:857:f33:6f1d with SMTP id 00721157ae682-87122396144mr109553227b3.6.1788981259894;
+        Wed, 09 Sep 2026 12:14:19 -0700 (PDT)
+Received: from [10.10.18.223] (wsip-64-207-253-118.tu.ok.cox.net. [64.207.253.118])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91040664be1sm150361316d6.18.2026.09.09.12.14.18
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 09 Sep 2026 12:14:19 -0700 (PDT)
+From: Ryan Brue <ryanbrue.dev@gmail.com>
+Date: Wed, 09 Sep 2026 14:14:16 -0500
+Subject: [PATCH] drm/imagination: suspend the GPU for system sleep, not
+ just runtime PM
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <16d13239-8911-4597-bfd6-18aa02135137@paulmck-laptop>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260909-rbrue-suez-upstreaming-pvr-suspend-gpu-system-sleep-v1-1-f45847bc951b@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXNwQ6CMBCE4Vche3aTykGCr2I8UDrUGqnNbktQw
+ rtb9fjNYf6NFBKgdG42EixBwzNWHA8NjbchenBw1dSa9mR607NYKWAteHNJmgXDHKLntEgdNSE
+ 69qmwvjRjZn0Aie1keze5zpjOUn1Ogimsv+rl+rcWe8eYvyna9w8NeRyNlwAAAA==
+X-Change-ID: 20260909-rbrue-suez-upstreaming-pvr-suspend-gpu-system-sleep-bfb9dfd7007b
+To: Alessio Belle <alessio.belle@imgtec.com>, 
+ Luigi Santivetti <luigi.santivetti@imgtec.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Sarah Walker <sarah.walker@imgtec.com>, 
+ Donald Robson <donald.robson@imgtec.com>
+Cc: imagination@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, Ryan Brue <ryanbrue.dev@gmail.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788981258; l=2911;
+ i=ryanbrue.dev@gmail.com; s=20260906; h=from:subject:message-id;
+ bh=EDwUvwYj52uRaI2dCh0tF4qDlZkgWRI/RU1+vIfQfts=;
+ b=e3Tfw3yuJqdLfhsvfVAyjk7rHzRK6ioMgcmTgeGmoRNT6onFbW6CVKFXi6ZGv4BUSX/EeoMII
+ yVSbVc+K6VSA70/wRm0GEMx1VTHB/o73vstNk/nEBUf+3usP2Lttss8
+X-Developer-Key: i=ryanbrue.dev@gmail.com; a=ed25519;
+ pk=KsUvVaP//v/2q+ZBuacc7cLbsyEYn+AD71Sn28oZWKo=
 
-Hello,
+pvr_pm_ops has only RUNTIME_PM_OPS, so the GPU gets no callback for system
+suspend at all. That is fine only while the GPU happens to be
+runtime-suspended when the system suspends -- then its own runtime PM has
+already disabled the firmware and powered the domain off. If it is
+runtime-ACTIVE, genpd powers the domain down during the system suspend
+without the driver ever being told, so on resume the driver still believes
+its firmware is running. The first firmware operation then never completes:
 
-On Wed, Sep 09, 2026 at 12:03:20PM -0700, Paul E. McKenney wrote:
-> > The patch looks fine but this overall seems fragile. cond_resched() was
-> > already marking "stuff that can take too long" but we need to use
-> > cond_resched_tasks_rcu_qs() if it can take *really* long. There gotta be a
-> > way to make this more maintainable. If always doing tasks_rcu_qs from
-> > cond_resched() is too expensive, can it be be gated behind something cheaper
-> > e.g. some tick based test?
-> 
-> This is the business end of cond_resched_tasks_rcu_qs() in preemptible
-> kernels (in which cond_resched() is nothingness):
-> 
-> # define rcu_tasks_classic_qs(t, preempt)				\
-> 	do {								\
-> 		if (!(preempt) && READ_ONCE((t)->rcu_tasks_holdout))	\
-> 			WRITE_ONCE((t)->rcu_tasks_holdout, false);	\
-> 	} while (0)
-> 
-> This is pretty lightweight.  Adding a jiffies check would likely make
-> it more expensive.
-> 
-> Or am I missing your point?
+  pvr_mmu_flush_exec -> timeout -> pvr_power_reset -> drm_dev_unplug
 
-I found the following thread for why there is a separate variant for
-cond_resched_tasks_rcu_qs():
+and pvr_power_reset() deadlocks, because drm_dev_unplug() waits in
+synchronize_srcu() for every drm_dev_enter() section to exit while being
+called from inside a DRM ioctl that holds one. The result is an unkillable
+D-state process and a GPU that stays dead until reboot.
 
-  https://lkml.kernel.org/r/20180224151240.0d63a059@vmware.local.home
+On mt8173 (amazon-suez) this is deterministic:
 
-The rationale was that it'd make cond_resched() expensive, so I assumed it
-was relatively heavy. If it already comes down to a single test, I'm not
-sure having a separate interface makes a lot of sense. There isn't some
-semantical difference between the two, right? Anything which takes long
-enough needs to do the tasks rcu qs, and that is what we mark with
-cond_resched().
+  echo on > /sys/devices/platform/soc/13000000.gpu/power/control
+  echo mem > /sys/power/state          # wakes on an RTC alarm
+  vulkaninfo --summary                 # hangs in D state, every time
 
-Thanks.
+and with an autosuspend delay of 50 ms it is also what makes the failure
+look intermittent in normal use -- it depends purely on whether the GPU was
+idle at the instant of suspend.
 
--- 
-tejun
+pvr_power_device_suspend() already disables the firmware and calls the
+platform power_off, and pvr_power_device_resume() is its exact inverse, so
+force them for system sleep. The vendor driver arrives at the same rule by
+a different route: it holds a wakelock while the MFG domain is powered
+("prevent suspend when gpu active") so the system can never suspend with
+the GPU on.
+
+The reset-path deadlock itself (drm_dev_unplug() waiting on an SRCU section
+held by the ioctl that called pvr_power_reset()) is a separate problem and
+is not addressed here; this change only stops the system-sleep path from
+triggering it.
+
+Fixes: 727538a4bbff ("drm/imagination: Implement power management")
+Assisted-by: LLM
+Signed-off-by: Ryan Brue <ryanbrue.dev@gmail.com>
+---
+ drivers/gpu/drm/imagination/pvr_drv.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/gpu/drm/imagination/pvr_drv.c b/drivers/gpu/drm/imagination/pvr_drv.c
+index 5c965ef0274f..23d353141589 100644
+--- a/drivers/gpu/drm/imagination/pvr_drv.c
++++ b/drivers/gpu/drm/imagination/pvr_drv.c
+@@ -1517,6 +1517,7 @@ MODULE_DEVICE_TABLE(of, dt_match);
+ 
+ static const struct dev_pm_ops pvr_pm_ops = {
+ 	RUNTIME_PM_OPS(pvr_power_device_suspend, pvr_power_device_resume, pvr_power_device_idle)
++	SYSTEM_SLEEP_PM_OPS(pm_runtime_force_suspend, pm_runtime_force_resume)
+ };
+ 
+ static struct platform_driver pvr_driver = {
+
+---
+base-commit: df2908090cda368b01ff43709f51890076c56157
+change-id: 20260909-rbrue-suez-upstreaming-pvr-suspend-gpu-system-sleep-bfb9dfd7007b
+
+Best regards,
+--  
+Ryan Brue <ryanbrue.dev@gmail.com>
+
