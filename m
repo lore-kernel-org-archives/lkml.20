@@ -1,77 +1,47 @@
-Received: from mail-oi1-f174.google.com (mail-oi1-f174.google.com [209.85.167.174])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 324F6560AC7
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 16:17:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6C3157C70B;
+	Wed,  9 Sep 2026 16:17:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788970627; cv=none; b=JSOdgXL/njGQvRwd/5bC3grIm2DEYuMvqkW3OoR+fId93fwGEso5DNgzHIvf1XQRs1BfyB751fhgoWvkB19WbLLoFtTTqPNOQzdNJKqTBTfhEn1UWgANZiJNlq1bpqub3y4q/G7BGBLy2OBTn1U5vWUucBWUHy/fq4L8vR8dSbA=
+	t=1788970636; cv=none; b=WraWpUMbABNls7hN2pOSIuWymkDioaraRA0lNE95znRxzYYQGJ8LxI3TStCqHsTQho1NF1YMqjtcRT1zDR1rdvVEDFMYTOa2E0fXDbktDqtolVmg/tWhrk1Dhv/0F/o9mxOBqiQ7bi8A2eRbxxuMQYESYpkG0qr5T6G+tU4w/Uo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788970627; c=relaxed/simple;
-	bh=eFHDOCUvG6RJkKxnP7GoyTwndFgmCvaMrkqn3U9uemE=;
+	s=arc-20240116; t=1788970636; c=relaxed/simple;
+	bh=xUlvInYsRpNgi1OjmmyJHdbF3tITIDBgAvg7yd7zKeE=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=LLVGrQ+wuDUbHLdMKsd0/oTRHXxUwZT8bNiOqFGpB6Pb+/L7rjTnXnolYac3PGeiQwvqZG8Xp9MKm9GwWFLL1EX5dSxpiK2bAHAmqCjHWVxeS/a5Y8Bt18VJz42bS9/DrnfVIDkUjvFWMH35c9XJpBESZBUkIJz8gLvc0Z8KKjI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=K1whdm1Z; arc=none smtp.client-ip=209.85.167.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=TMEPq+bXEMVWNYqVsGo9UjD3I/kRfVhseJfJsghYff4KvCpRokPFO1IS/USwYuQwL44yr+qVJUilowBtbp2Y5OOuQfcHXCBaSKKit4PmJ4bYCg65d4g7cRsncFYzmmkuP+/pAnHbHD4NKvILpGlFeos2xMI9NMf2dx8EJA8Y2k8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=F50EqytV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="K1whdm1Z"
-Received: by mail-oi1-f174.google.com with SMTP id 5614622812f47-4b28db31b89so3517659b6e.1
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 09:17:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788970623; x=1789575423; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=fshKvEEVhGFc5VFLl5TyLUM9DH0VS/1zTeCkHq9ANIQ=;
-        b=K1whdm1ZS+gonRbBoAHFC94DNJfuOZqjjRn9l5S9ut3rEPZWEHf8apT56NeHM6X7sn
-         HFAwomhnpw/VOedeIYsIQ3VYzYv8EYdT86Xrt8HOMH/7BLAEgHUN6WTFLoRn1Frl6+fi
-         aZb+h7/qu7glTMZ3SVu7j2Eeh60kck1ezT0mtmwIx6IArkegZT/rW3/IcMLHpZsm7oOJ
-         dQXCU+Gn84Aq00YwUlgNFrQ452ih1Yn88z7DG2UjwF6laHUFOWhRRzeNXNf1uuN2vhat
-         RjABQJitvE7lwcdSOujeJshyA5AQhHNRKrDnVpEBjVvAkmMXd8+gLpsdDZJDi3KqDIHl
-         SBag==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788970623; x=1789575423;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=fshKvEEVhGFc5VFLl5TyLUM9DH0VS/1zTeCkHq9ANIQ=;
-        b=f3NMOU6f3+CnZ4jp2pIq23dOkPT7GbcQwRMKYHT0sRY9IAx1+SSzWxAjWa8jy7rHcP
-         /oIk4QfA63kT4J/z70DK+/TFzZ1lZNvZgjxjZv+UsgjGYYAufND+9oxAYkhNk/VzuwOI
-         JFY9Sj1Ts4zV+BPiqtsKK9NnUR/5nmF0x7g5n2g9W1vRY3SonTb5Lyt5BRm9i/h+vtSt
-         iQTmczLVnoYEAJ+ab9omaJja/iUDDqdD5MHNthLZI7Denuy1RC7+FKCHL8VIX3uJKyQ3
-         VvZzESfDTooo9tsD601kTT5NXXggst4TidGX6q5WEaVuJlUcHk0HhYUhvF8wfagLrF9w
-         teyA==
-X-Forwarded-Encrypted: i=1; AKwUvBzQve9u3zfEp7aZTzuypj8HQTOeS0ggjj9dUbMNwDZ01QK63sFMZCO/UiBhL3jqop/pTOCu1mOWNwQgYCE=@vger.kernel.org
-X-Gm-Message-State: AFuF++mA9FvGXQXeNoH9R1Zdr8mqzBDBGOFjTvWrybGN0yIXXTOqunBP
-	EebMQ1znZGQGlZo/ykImRP3Ocmf6N9QC/HkiBE+0e646IFMncu56crN/
-X-Gm-Gg: AYBFou06l37BVjbFJCmtBr1cJAIOFHnGObG3u/9wzZ06Pp9gON1mlD/n6MX15936jUx
-	Jc4gs2MQj8TrALBIDML0TUtmqqwY9psQwlOzqq8Czqps8emQ3Y4NB1uxYR6z6YfP5k8VFCoSEFd
-	Pa6+XUIYKwL/LvRnexco3clTrmD6PaRdzFz3wliaMIm8eIsOQ6WmEHes8L1x+G3kaFqdBjsNpdr
-	l/J9eGalFrQtGgJ22AhZKrYa9kOlxKooMPQeqLQoWz0sJ9mjtW6w+4beC1aLr2xS9yGUUgWzWR8
-	/TkMC7lNnTYYBkaYAObOe+3Jzkxej3l4nyPc8smbpktQ17wfZGGymzjcaB0SQr6dx6doe3eMMZ7
-	/6pUXnziBVKVBHVAX5fcoIKcFG/csDCHIP9IxAdotTO/GcG+6+ZKr+H6vlXRyQrGUbWuVEzqQci
-	RJe4hLf21CvHCf6i47auAhtqFHiGMANH+As0q9ZYcAB6TbiFWSSRl//sp+c+mhkv8FyMyA6GDnz
-	B2KkyOwzCYs8wjJWQyD
-X-Received: by 2002:a05:6808:bc4:b0:4a4:adaf:5570 with SMTP id 5614622812f47-4b95fb4f59bmr23974245b6e.4.1788970622954;
-        Wed, 09 Sep 2026 09:17:02 -0700 (PDT)
-Received: from devvm29614.prn0.facebook.com ([2a03:2880:ff:6::])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-4b971240f68sm16753189b6e.8.2026.09.09.09.17.00
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 09 Sep 2026 09:17:01 -0700 (PDT)
-Date: Wed, 9 Sep 2026 09:16:58 -0700
-From: Bobby Eshleman <bobbyeshleman@gmail.com>
-To: netdev-bot+sashiko@kernel.org
-Cc: juanlu@fastmail.com, dw@davidwei.uk, netdev@vger.kernel.org,
-	io-uring@vger.kernel.org, linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org, kuba@kernel.org,
-	asml.silence@gmail.com, pabeni@redhat.com, shuah@kernel.org
-Subject: Re: [net-next,v6,5/6] selftests: net: add multithread server support
- to iou-zcrx
-Message-ID: <aqGGevrEG5+iZosZ@devvm29614.prn0.facebook.com>
-References: <20260831-iou-zcrx-v6-5-02d1d012f0fd@fastmail.com>
- <178839229706.3394541.1555608492152892136@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="F50EqytV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2274E1F00893;
+	Wed,  9 Sep 2026 16:17:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788970635;
+	bh=8H0vZzAbbS9XRMCpvUFIC2Ym7zgrUw6qI/eijIEjT8I=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=F50EqytV1ddfMvPCmG+31Pa1trdohpLepudoNCmMch473GbB6PNksI331ufTfSYZD
+	 EaanFuKUFuE1FZC4cXZS/v7PPOywl4ojcnIRDSbRSkqzrdgPfg4E+Fp1EVfYD5d8Ot
+	 IuTR4v0KsfjrJbHOKSQeTCFeSqdSbIw+RbMML5q9swZi+oAAWTnV3MnBulVJLJQUim
+	 OtFjtV75vaYX7Z5UxdD/PrBuL1CysWWxmrYtxBNoX3cnhXfc6DOWPwx6C5BNkLBjZC
+	 2uJXOZ5iwsPAXGQvrwaY41ptNJyDFARfAGDJNXudd+EurB6hZdUDPLJ67kQTRJhlIA
+	 4xPoiFjt1soiw==
+Date: Wed, 9 Sep 2026 17:17:10 +0100
+From: Lee Jones <lee@kernel.org>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Botsz HUANG <huang.botsz@gmail.com>,
+	Hemanth Selam <hemanth.selam@gmail.com>,
+	Support Opensource <support.opensource@diasemi.com>,
+	Matti Vaittinen <mazziesaccount@gmail.com>,
+	=?iso-8859-1?Q?Andr=E9?= Draszik <andre.draszik@linaro.org>,
+	linux-kernel@vger.kernel.org, mfd@lists.linux.dev,
+	linux-samsung-soc@vger.kernel.org
+Subject: Re: [PATCH] mfd: fix typos in comments
+Message-ID: <20260909161710.GG2133376@google.com>
+References: <20260904122834.33723-1-hemanth.selam@gmail.com>
+ <apwFlV97bLVlvsOJ@botszhome>
+ <59747ea8-bd89-4dff-ba13-ff9c66318e8c@kernel.org>
+ <20260909161454.GF2133376@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -80,94 +50,33 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <178839229706.3394541.1555608492152892136@kernel.org>
+In-Reply-To: <20260909161454.GF2133376@google.com>
 
-On Wed, Sep 02, 2026 at 11:38:17PM +0000, netdev-bot+sashiko@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 6 potential
-> issue(s) to consider:
-> 
+On Wed, 09 Sep 2026, Lee Jones wrote:
 
-[...]
+> On Tue, 08 Sep 2026, Krzysztof Kozlowski wrote:
+> 
+> > On 05/09/2026 14:05, Botsz HUANG wrote:
+> > > On Fri, Sep 04, 2026 at 05:58:28PM +0530, Hemanth Selam wrote:
+> > >> 2.48.1
+> > >>
+> > > 
+> > > good job~
+> > > Acked-by: Botsz HUANG <huang.botsz@gmail.com>
+> > 
+> > I don't think this is real identity. It always comes with other
+> > LLM-generated content - as in this case as well - from Nick Huang
+> > <sef1548@gmail.com>.
+> 
+> sef1548@gmail.com is Googleable and appears to be legit.
+> 
+> They also have commits dating back to May last year.
 
-> > @@ -356,29 +444,68 @@ static void run_server(void)
-> >  	if (ret < 0)
-> >  		error(1, 0, "bind()");
-> >  
-> > -	flags |= IORING_SETUP_COOP_TASKRUN;
-> > -	flags |= IORING_SETUP_SINGLE_ISSUER;
-> > -	flags |= IORING_SETUP_DEFER_TASKRUN;
-> > -	flags |= IORING_SETUP_SUBMIT_ALL;
-> > -	flags |= IORING_SETUP_CQE32;
-> > +	pthread_barrier_init(&setup_done, NULL, cfg_num_threads + 1);
-> > +	pthread_barrier_init(&dispatch_done, NULL, cfg_num_threads + 1);
-> > +
-> > +	for (i = 0; i < cfg_num_threads; i++) {
-> > +		ctxs[i].queue_id = cfg_queue_id + i;
-> > +		ctxs[i].setup_done = &setup_done;
-> > +		ctxs[i].dispatch_done = &dispatch_done;
-> > +	}
-> >  
-> > -	io_uring_queue_init(512, &ctx.ring, flags);
-> > +	for (i = 0; i < cfg_num_threads; i++) {
-> > +		ret = pthread_create(&threads[i], NULL,
-> > +				     server_worker, &ctxs[i]);
-> > +		if (ret)
-> > +			error(1, ret, "pthread_create()");
-> > +	}
-> >  
-> > -	setup_zcrx(&ctx);
-> >  	if (cfg_dry_run)
-> > -		return;
-> > +		goto join;
-> >  
-> >  	if (listen(fd, 1024) < 0)
-> >  		error(1, 0, "listen()");
-> >  
-> > -	add_accept(&ctx, fd);
-> > +	pthread_barrier_wait(&setup_done);
-> 
-> [Severity: High]
-> Is the listen() intentionally moved before the workers have registered
-> their ifqs? The main thread creates the threads, calls listen(), and only
-> then waits on setup_done, while the workers reach that barrier after
-> io_uring_queue_init_params() plus setup_zcrx(), i.e. after
-> io_uring_register_ifq() has restarted the device RX queue.
-> 
-> Before the patch the sequence was serialized in one thread:
-> 
-> 	io_uring_queue_init(512, &ctx.ring, flags);
-> 	setup_zcrx(&ctx);
-> 	...
-> 	listen(fd, 1024);
-> 
-> so the port only became visible once the memory provider was installed.
-> 
-> Two existing tests depend on that ordering. wait_port_listen() in
-> net/lib/py/utils.py polls every 5 ms, so it can now return while
-> registration is still in flight:
-> 
-> iou-zcrx.py:test_zcrx_large_chunks() {
-> 	wait_port_listen(cfg.port, proto="tcp")
-> 
-> 	check_iou_rx_buf_len(cfg, rx_buf_len)
-> }
-> 
-> check_iou_rx_buf_len() raises "Expected 1 io-uring page pool, found 0",
-> and nk_qlease.py:test_destroy() does queue_get() plus
-> ksft_in("io-uring", queue_info) immediately after wait_port_listen() with
-> no sleep.
-> 
-> Beyond the harness races, data delivered into the queue before the
-> provider exists is serviced by the copy fallback rather than zero copy,
-> and the queue restart during registration can drop in-flight frames.
-> 
-> Would moving listen() below pthread_barrier_wait(&setup_done) restore the
-> previous guarantee?
+Botsz Huang is also a real name [0].
 
-Just a heads up that I tested this on BRCM and did find this listen()
-ordering issue to cause genuine (but flaky) regression for
-nk_qlease.test_destroy. Moving the listen() to after wait(setup_done)
-indeed fixed it.
+Now, whether they should be Acked-by:ing patches is another issue entirely!
 
-Best,
-Bobby
+[0] https://www.researchgate.net/profile/Botsz-Huang
+
+-- 
+Lee Jones
