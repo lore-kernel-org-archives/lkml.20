@@ -1,403 +1,150 @@
-Received: from va-1-112.ptr.blmpb.com (va-1-112.ptr.blmpb.com [209.127.230.112])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from sender6-pp-o94.zoho.com (sender6-pp-o94.zoho.com [165.173.180.94])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CC6813D53C
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 02:08:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.230.112
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788919702; cv=none; b=McBMzhLdOvqwPE4SbqxDJyarnN1ruEnohhAOvIeqFWM/qlg4zbE5lRyny4/Beh4dLnou2O1tfqZxXaQyEXxJUqyW6d6Sh9GBpaxDQ2/EsaGVGAuNgUIJFBGuaQiZk8gffoQTSCGFgTI/cqmrD/QbjV3AU2AyI4LJgiRn+iFlzSo=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788919702; c=relaxed/simple;
-	bh=ubDYaYOICJ4YWD/Jj98sNQ6dSD4fMGJQJzt5G0uu5ZY=;
-	h=Content-Type:To:From:References:In-Reply-To:Mime-Version:Date:
-	 Message-Id:Cc:Subject; b=j3CeS8rADN7PlAEsZihLhB3FmGYaQDJ33bfRiZcFzrbn3gG3VebcFDj0Qund1uc4o6rE8b4zN/XliOOkAVT2thN+p/TQrNzTlO03kNrcKtIh8zMNooOCD9DvdNGfmpPdqfa440VYee45Xu03r5moz5YYErDbe72En1OQDClWQyU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=TnGYa4rn; arc=none smtp.client-ip=209.127.230.112
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D34C113D53C;
+	Wed,  9 Sep 2026 02:08:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.180.94
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788919709; cv=pass; b=AaNnjqptK/zBBxTeFaBqgl962XmNd5ShAVomDEST0+5IX/f9yDSjdsyw5v9siwhyr74nxtvqtEKIh9R7oaC70qiCJrcG7KV5OMyWBeXuFqF/4wGZul0YDfR36ztpmdyrIQCp3zlJx4Jmx1XqqqyKQpAojH5x5c1IbMsBeRLp/W0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788919709; c=relaxed/simple;
+	bh=fzZsDrYGy+IbNu7Tci5r7HZUQrMRfylbcqJ7UQXJ0qs=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=TafWUytjxl9sLU1XUO/JGaklvLjBhq/8iZFGTkDqMmLKiotp7Z2M834aDYJGX/XGd5kJrohdW/V1Bdm/tc6okWXfs4ZrLVcdcD7JqYknpE1SObynMbsn5LI9YkHoaCQFWhtu4gDVWkl8S4av7MFeAy69BWwLyAP1RnNNMGVsm/o=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=zohomail.com; spf=pass smtp.mailfrom=zohomail.com; dkim=pass (1024-bit key) header.d=zohomail.com header.i=ming.li@zohomail.com header.b=Atmq24h0; arc=pass smtp.client-ip=165.173.180.94
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=zohomail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zohomail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="TnGYa4rn"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=2212171451; d=bytedance.com; t=1788919693; h=from:subject:
- mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
- mime-version:in-reply-to:message-id;
- bh=ubDYaYOICJ4YWD/Jj98sNQ6dSD4fMGJQJzt5G0uu5ZY=;
- b=TnGYa4rnvVdcHrL02CF6jhH0MNjvbm2Cr7nkcDf7Q0NnRtJQKrmnVkjXv15As9iHzkuTjY
- gUQ3iTMXVcHN2YOu/KBjKLWlm2k+oKypLXRMM/IglDZkyUpskTVZ1dH7AT56yPN0/WhHD1
- yf0wpkH2KNHiWjmCSZ60NdTzC4BcWN4NoofFn0ycPnsjAOq6h4drEv54MqCf26s3x33Nvx
- zmEnJKZFcz1AO4gcwoIhHeVjIQYvJr3UNjD+EOXmVzEd4PzYGkBZflB3HeEVf09MT6+Gd1
- ujmQF9Mww1DgEsJcXApGqc6l/AHo/2RNeJ7UQ50VxsJ3dliGX/LdbfoUr+8MdQ==
-Content-Type: text/plain; charset=UTF-8
-To: "Jan Kara" <jack@suse.cz>
-From: =?utf-8?q?=E5=B0=B9=E6=AC=A3?= <yinxin.x@bytedance.com>
-References: <cover.1788836830.git.yinxin.x@bytedance.com> <dce170b76e9501d555b0af70cc8c45c248577400.1788836830.git.yinxin.x@bytedance.com>
-	<matvd3klv4w7buhnjkdpllkautw3zu2e5hpjfdedvvoozpbfxj@z7joalz5an74>
-In-Reply-To: <matvd3klv4w7buhnjkdpllkautw3zu2e5hpjfdedvvoozpbfxj@z7joalz5an74>
+	dkim=pass (1024-bit key) header.d=zohomail.com header.i=ming.li@zohomail.com header.b="Atmq24h0"
+ARC-Seal: i=1; a=rsa-sha256; t=1788919700; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=UDluB+eFyFv/9WBjZnbnn7+nZSt0PNNC4AbDv6+fnSvYOf/Ppw+4QhT8ZtiiJinP4PgYkm/1zJ6NGMxOIta9k3R9piGHZpe5WOsy6hofJObobCQefirbyk7+qwLNPz6N/sQpNjTqfDaPLuZWTSHzqk6QG7XJhWlqlTvFtrjDVDw=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1788919700; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=xRyGtyZmjhzl8CYleaEojSFYXlW6kLaxI53pyn/v0Sc=; 
+	b=MGJJH80a3kY3tNTgdHpW9/Tv+6qAiBydUrje69HVJ5k3avkJh7YW394+/pw8fjtJi76m+Y3HWngMKTHEivyBMGjgmrv9gxHvs3FQsyCwBZXz3Vom8y46ntzSJMJUKxyeI6YN5jHyoy468+1q0cRr0G8P3x/sHIg8tdIBCHog5Vs=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=zohomail.com;
+	spf=pass  smtp.mailfrom=ming.li@zohomail.com;
+	dmarc=pass header.from=<ming.li@zohomail.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1788919700;
+	s=zm2022; d=zohomail.com; i=ming.li@zohomail.com;
+	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Feedback-ID:Message-Id:Reply-To;
+	bh=xRyGtyZmjhzl8CYleaEojSFYXlW6kLaxI53pyn/v0Sc=;
+	b=Atmq24h0yV5W2T9EqFTkgXSF9IxGPUuG2wdGKXCe7LjYkVmDitSI33izB7geFHyC
+	x/Gb0pGbcK6Tnpq4ExlyIbXczK7KJF9uuYaX0TAHBCfv83TvO5eYnx1pP79EMA2t28S
+	r5yp778ef3JvmaoU9EtgxwxUeK4LrDZ7ZgOpXKok=
+Received: by smtp.zohomail.com with SMTPS id 1788919699020409.6821399782324;
+	Tue, 8 Sep 2026 19:08:19 -0700 (PDT)
+Message-ID: <fc844c0b-e429-4c0d-9113-35a1635c03a3@zohomail.com>
+Date: Wed, 9 Sep 2026 10:08:14 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-X-Lms-Return-Path: <lba+16aa0bf8c+d1252a+vger.kernel.org+yinxin.x@bytedance.com>
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 09 Sep 2026 10:08:08 +0800
-Message-Id: <b0a5d388d0b2cb320744535d7f9d8f59e469aa88.aa79b65b.6b2f.41be.bcbf.08bf9deeb395@bytedance.com>
-Cc: "Alexander Viro" <viro@zeniv.linux.org.uk>, 
-	"Christian Brauner" <brauner@kernel.org>, "Jan Kara" <jack@suse.cz>, 
-	"Tejun Heo" <tj@kernel.org>, "Jens Axboe" <axboe@kernel.dk>, 
-	<linux-fsdevel@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v1 2/2] writeback: snapshot foreign flush pages
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] cxl/events: Return IRQ_NONE when no event is pending
+To: Jonathan Cameron <jic23@kernel.org>,
+ Shaikh Kamaluddin <shaikhkamal2012@gmail.com>
+Cc: Davidlohr Bueso <dave@stgolabs.net>, Dave Jiang <dave.jiang@intel.com>,
+ Alison Schofield <alison.schofield@intel.com>,
+ Vishal Verma <vishal.l.verma@intel.com>, Dan Williams <djbw@kernel.org>,
+ Ira Weiny <iweiny@kernel.org>, linux-cxl@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260906155705.13252-1-shaikhkamal2012@gmail.com>
+ <20260907194824.615e47ff@jic23-huawei>
+From: Li Ming <ming.li@zohomail.com>
+In-Reply-To: <20260907194824.615e47ff@jic23-huawei>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Feedback-ID: zu08011227da0bf2ef153f92606495703a0000d3d03e4108f7dc55e74078963443d5780ca88952a1e5deaa3e:ZohoMail
+X-Zoho-CM-AccountID: abd763e7b9fa23acf4f42a44f9876d2d993e05abdb9290f9ccb1008c977bf7f0
+X-ZohoMailClient: External
 
 
-> From: "Jan Kara"<jack@suse.cz>
-> Date:=C2=A0 Tue, Sep 8, 2026, 19:01
-> Subject:=C2=A0 Re: [PATCH v1 2/2] writeback: snapshot foreign flush pages
-> To: "Xin Yin"<yinxin.x@bytedance.com>
-> Cc: "Alexander Viro"<viro@zeniv.linux.org.uk>, "Christian Brauner"<braune=
-r@kernel.org>, "Jan Kara"<jack@suse.cz>, "Tejun Heo"<tj@kernel.org>, "Jens =
-Axboe"<axboe@kernel.dk>, <linux-fsdevel@vger.kernel.org>, <linux-kernel@vge=
-r.kernel.org>
-> On Tue 08-09-26 11:23:52, Xin Yin wrote:
-> > WB_REASON_FOREIGN_FLUSH is best-effort writeback for foreign dirtying. =
-It
-> > should write pages that are already visible to the target wb, but shoul=
-d
-> > not keep extending the same work with pages dirtied while the work is
-> > running.
-> >=C2=A0
-> > Make foreign flushes use tagged writeback while preserving WB_SYNC_NONE
-> > semantics. Use the remaining work budget as the per-inode chunk, so a
-> > tagged pass is not truncated to the normal periodic chunk and a large
-> > inode still cannot exceed the finite work budget.
-> >=C2=A0
-> > Queue b_dirty only once for each foreign-flush work. Later passes only
-> > retry b_more_io inodes skipped due to I_SYNC, and the work exits once
-> > b_io and b_more_io are drained. If the budget is consumed, redirty the
-> > inode instead of requeueing it to b_more_io so the same work cannot loo=
-p
-> > on a continuously dirtied inode.
-> >=C2=A0
-> > Do not refresh dirtied_when for foreign flushes; later dirtying should =
-be
-> > handled by later foreign, kupdate, or background writeback.
-> >=C2=A0
-> > Fixes: 97b27821b485 ("writeback, memcg: Implement foreign dirty flushin=
-g")
-> > Signed-off-by: Xin Yin <yinxin.x@bytedance.com>
->=C2=A0
-> I really dislike how your implementation ties the two writeback deadlock
-> avoidance schemes (nr_to_write for WB_SYNC_NONE writeback vs folio taggin=
-g
-> + inode dirty timestamp for WB_SYNC_ALL writeback) together. But before w=
-e
-> get to the implementation details let's discuss the purpose a bit:
->=C2=A0
-> In principle I agree with you that the primary purpose of
-> cgroup_writeback_by_id() is that it wants to flush inodes that have folio=
-s
-> that are accounted to our memcg. It does this by a rather rough approach =
-of
-> flushing the whole wb. If this races with other dirtying, it might happen
-> that we won't actually flush the foreign folios we want. Am I getting you=
-r
-> concern right? Are you able to actually observe such situation in practic=
-e?
-Hi Jan,
+在 2026/9/8 02:48, Jonathan Cameron 写道:
+> On Sun,  6 Sep 2026 21:27:05 +0530
+> Shaikh Kamaluddin <shaikhkamal2012@gmail.com> wrote:
+>
+>> CXL event interrupts may share an MSI/MSI-X vector with other event
+>> logs or device features. Consequently, cxl_event_thread() is registered
+>> with IRQF_SHARED and must determine whether an interrupt belongs to the
+>> event-log facility.
+>>
+>> The handler masks the Device Event Status register to the event logs
+>> supported by the driver. However, when no supported status bit is set,
+>> it exits the processing loop and still returns IRQ_HANDLED.
+>>
+>> Track whether at least one supported event status bit was observed.
+>> Return IRQ_NONE when there was no event to service, while continuing to
+>> return IRQ_HANDLED after processing one or more event logs.
+> What is the practical result of this change?
+> I think it will only affect the spurious interrupt detection so
+> to me it looks like a cleanup rather than a fix.  Is there
+> any path by which we actually lose interrupts as a result of this?
+>
+>> Fixes: a49aa8141b65 ("cxl/mem: Wire up event interrupts")
+>>
+> No blank lines in tag blocks.  There are a number of tools that rely
+> on there not being any and as such there are also scripts that run
+> on various upstream trees that will send us annoying emails if this
+> blank line is still here!  I'm not sure why this mistake in patch
+> formatting is so common as there are plenty of docs without the
+> blank lines!
+>
+>> Signed-off-by: Shaikh Kamaluddin <shaikhkamal2012@gmail.com>
+> A suggestion for an alternative implementation below.
+>
+>> ---
+>>   drivers/cxl/pci.c | 5 ++++-
+>>   1 file changed, 4 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/drivers/cxl/pci.c b/drivers/cxl/pci.c
+>> index c7c91e8dc51d..8b560cae91f2 100644
+>> --- a/drivers/cxl/pci.c
+>> +++ b/drivers/cxl/pci.c
+>> @@ -515,6 +515,7 @@ static irqreturn_t cxl_event_thread(int irq, void *id)
+>>   	struct cxl_dev_id *dev_id = id;
+>>   	struct cxl_dev_state *cxlds = dev_id->cxlds;
+>>   	struct cxl_memdev_state *mds = to_cxl_memdev_state(cxlds);
+>> +	bool handled = false;
+>>   	u32 status;
+>>   
+>>   	do {
+>> @@ -527,11 +528,13 @@ static irqreturn_t cxl_event_thread(int irq, void *id)
+>>   		status &= CXLDEV_EVENT_STATUS_ALL;
+>>   		if (!status)
+> 			return IRQ_NONE;
+>
+> And don't need the other changes.
 
-Yes, that's the concern. Concurrent dirtying could consume the work's budge=
-t without sufficiently flushing the foreign folios charged to the memcg we'=
-re trying to help.
+Hi Jonathan,
 
-We haven't confirmed that specific situation in production. What we've obse=
-rved is long-running foreign work with many subsequent works queued behind =
-it. We haven't traced the original source memcg's folios closely enough to =
-show that they were left dirty because newly dirtied pages consumed the bud=
-get. So that part is still a concern, not an observed failure.
 
-The idea behind combining the two approaches was to get the budget right fo=
-r the target wb, while keeping the flush from chasing concurrent dirtying. =
-The first is about not holding up later work on the same wb, including sync=
-fs. There's also a fairness concern: an old inode can keep getting newly di=
-rtied pages written while later-dirtied inodes have to wait for another wor=
-k. The second is about making the flush more useful to the source memcg, al=
-though tagging alone doesn't guarantee that its folios get flushed.
+I think we should not return IRQ_NONE here, because the loop could run 
+multiple times untill no event record, so we always get a status with 
+0x0 value in the last loop. In that case, we still need to return 
+IRQ_HANDLED.
 
-I see your concern about mixing the two mechanisms, though. Would you sugge=
-st keeping the budget-only approach for now, or is there a simpler way to a=
-ddress the concurrent-dirtying concern?
 
-Thanks
-Xin Yin
->=C2=A0
-> =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 Honza
->=C2=A0
-> > ---
-> > =C2=A0fs/fs-writeback.c =C2=A0 =C2=A0 =C2=A0 =C2=A0 | 57 ++++++++++++++=
-++++++++++++++++---------
-> > =C2=A0include/linux/writeback.h | =C2=A01 +
-> > =C2=A02 files changed, 45 insertions(+), 13 deletions(-)
-> >=C2=A0
-> > diff --git a/fs/fs-writeback.c b/fs/fs-writeback.c
-> > index 7c2340a5dead..6c5d1c85b6f8 100644
-> > --- a/fs/fs-writeback.c
-> > +++ b/fs/fs-writeback.c
-> > @@ -40,6 +40,7 @@ struct wb_writeback_work {
-> > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0struct super_block *sb;
-> > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0enum writeback_sync_modes sync_mode;
-> > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0unsigned int tagged_writepages:1;
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0unsigned int for_foreign_flush:1;
-> > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0unsigned int for_kupdate:1;
-> > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0unsigned int range_cyclic:1;
-> > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0unsigned int for_background:1;
-> > @@ -1174,6 +1175,12 @@ int cgroup_writeback_by_id(u64 bdi_id, int memcg=
-_id,
-> > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (work) {
-> > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0work->nr_=
-pages =3D dirty;
-> > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0work->syn=
-c_mode =3D WB_SYNC_NONE;
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0/*
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 * Foreign flu=
-shes should write a snapshot of dirty pages without
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 * chasing con=
-current dirtiers, but still honor the finite target
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 * wb budget c=
-alculated above.
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 */
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0work->for_fore=
-ign_flush =3D 1;
-> > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0work->ran=
-ge_cyclic =3D 1;
-> > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0work->rea=
-son =3D reason;
-> > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0work->don=
-e =3D done;
-> > @@ -1553,18 +1560,21 @@ static int move_expired_inodes(struct list_head=
- *delaying_queue,
-> > =C2=A0 * =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 +--> dequeue for IO
-> > =C2=A0 */
-> > =C2=A0static void queue_io(struct bdi_writeback *wb, struct wb_writebac=
-k_work *work,
-> > - =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- unsigned long dirtied_before)
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- unsigned long dirtied_before, bool queue_dirty)
-> > =C2=A0{
-> > - =C2=A0 =C2=A0 =C2=A0 =C2=A0int moved;
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0int moved =3D 0;
-> > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0unsigned long time_expire_jif =3D dir=
-tied_before;
-> > =C2=A0
-> > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0assert_spin_locked(&wb->list_lock);
-> > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0list_splice_init(&wb->b_more_io, &wb-=
->b_io);
-> > - =C2=A0 =C2=A0 =C2=A0 =C2=A0moved =3D move_expired_inodes(&wb->b_dirty=
-, &wb->b_io, dirtied_before);
-> > - =C2=A0 =C2=A0 =C2=A0 =C2=A0if (!work->for_sync)
-> > - =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0time_expire_ji=
-f =3D jiffies - dirtytime_expire_interval * HZ;
-> > - =C2=A0 =C2=A0 =C2=A0 =C2=A0moved +=3D move_expired_inodes(&wb->b_dirt=
-y_time, &wb->b_io,
-> > - =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 time_expire_jif);
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0if (queue_dirty) {
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0moved =3D move=
-_expired_inodes(&wb->b_dirty, &wb->b_io,
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0dirtied_before);
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (!work->for=
-_sync)
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0time_expire_jif =3D jiffies - dirtytime_expire_interval * HZ;
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0moved +=3D mov=
-e_expired_inodes(&wb->b_dirty_time, &wb->b_io,
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 time_expire_jif);
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0}
-> > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (moved)
-> > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0wb_io_lis=
-ts_populated(wb);
-> > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0trace_writeback_queue_io(wb, work, di=
-rtied_before, moved);
-> > @@ -1651,11 +1661,13 @@ static void requeue_inode(struct inode *inode, =
-struct bdi_writeback *wb,
-> > =C2=A0
-> > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0/*
-> > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 * Sync livelock prevention. Each ino=
-de is tagged and synced in one
-> > - =C2=A0 =C2=A0 =C2=A0 =C2=A0 * shot. If still dirty, it will be redirt=
-y_tail()'ed below. =C2=A0Update
-> > - =C2=A0 =C2=A0 =C2=A0 =C2=A0 * the dirty time to prevent enqueue and s=
-ync it again.
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0 * shot for WB_SYNC_ALL or unbudgeted tagg=
-ed writeback. If still dirty,
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0 * it will be redirty_tail()'ed below. Upd=
-ate the dirty time to prevent
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0 * enqueue and sync it again.
-> > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 */
-> > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if ((inode_state_read(inode) & I_DIRT=
-Y) &&
-> > - =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0(wbc->sync_mode =3D=3D WB_SY=
-NC_ALL || wbc->tagged_writepages))
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0(wbc->sync_mode =3D=3D WB_SY=
-NC_ALL ||
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 (wbc->tagged_writepages && =
-!wbc->for_foreign_flush)))
-> > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0inode->di=
-rtied_when =3D jiffies;
-> > =C2=A0
-> > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (wbc->pages_skipped) {
-> > @@ -1678,6 +1690,7 @@ static void requeue_inode(struct inode *inode, st=
-ruct bdi_writeback *wb,
-> > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 * someti=
-mes bales out without doing anything.
-> > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 */
-> > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (wbc->=
-nr_to_write <=3D 0 &&
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
-!wbc->for_foreign_flush &&
-> > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0!inode_dirtied_after(inode, dirtied_before)) {
-> > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0/* Slice used up. Queue for next turn. */
-> > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0requeue_io(inode, wb);
-> > @@ -1918,6 +1931,8 @@ static long writeback_chunk_size(struct super_blo=
-ck *sb,
-> > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 * =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 (quickly) tag currently dirty pages
-> > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 * =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 (maybe slowly) sync all tagged pages
-> > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 */
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0if (work->for_foreign_flush)
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return work->n=
-r_pages;
-> > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (work->sync_mode =3D=3D WB_SYNC_AL=
-L || work->tagged_writepages)
-> > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return LO=
-NG_MAX;
-> > =C2=A0
-> > @@ -1943,7 +1958,9 @@ static long writeback_sb_inodes(struct super_bloc=
-k *sb,
-> > =C2=A0{
-> > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0struct writeback_control wbc =3D {
-> > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0.sync_mod=
-e =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=3D work->sync_mod=
-e,
-> > - =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0.tagged_writep=
-ages =C2=A0 =C2=A0 =C2=A0 =C2=A0=3D work->tagged_writepages,
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0.tagged_writep=
-ages =C2=A0 =C2=A0 =C2=A0 =C2=A0=3D work->tagged_writepages ||
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0work->for_foreign_flush,
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0.for_foreign_f=
-lush =C2=A0 =C2=A0 =C2=A0 =C2=A0=3D work->for_foreign_flush,
-> > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0.for_kupd=
-ate =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=3D work->for_ku=
-pdate,
-> > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0.for_back=
-ground =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=3D work->for=
-_background,
-> > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0.for_sync=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=3D work->for_sync,
-> > @@ -2141,7 +2158,7 @@ static long writeback_inodes_wb(struct bdi_writeb=
-ack *wb, long nr_pages,
-> > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0blk_start_plug(&plug);
-> > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0spin_lock(&wb->list_lock);
-> > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (list_empty(&wb->b_io))
-> > - =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0queue_io(wb, &=
-work, jiffies);
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0queue_io(wb, &=
-work, jiffies, true);
-> > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0__writeback_inodes_wb(wb, &work);
-> > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0spin_unlock(&wb->list_lock);
-> > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0blk_finish_plug(&plug);
-> > @@ -2202,6 +2219,13 @@ static long wb_writeback(struct bdi_writeback *w=
-b,
-> > =C2=A0
-> > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0spin_lock=
-(&wb->list_lock);
-> > =C2=A0
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (queued && =
-work->for_foreign_flush &&
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
-list_empty(&wb->b_io) &&
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
-list_empty(&wb->b_more_io)) {
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0spin_unlock(&wb->list_lock);
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0break;
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0}
-> > +
-> > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0trace_wri=
-teback_start(wb, work);
-> > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (list_=
-empty(&wb->b_io)) {
-> > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0/*
-> > @@ -2217,7 +2241,14 @@ static long wb_writeback(struct bdi_writeback *w=
-b,
-> > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0} else if (work->for_background)
-> > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0dirtied_before =3D jiffies;
-> > =C2=A0
-> > - =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0queue_io(wb, work, dirtied_before);
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0/*
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 * After the initial queue_io() pass, a foreign flush may
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 * still have I_SYNC-skipped inodes on b_more_io. =C2=A0Move
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 * those back to b_io without selecting another batch from
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 * b_dirty.
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 */
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0queue_io(wb, work, dirtied_before,
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 !work->for_foreign_flush || !que=
-ued);
-> > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0queued =3D true;
-> > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0}
-> > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (work-=
->sb)
-> > diff --git a/include/linux/writeback.h b/include/linux/writeback.h
-> > index e530112c4b3a..096f0963d104 100644
-> > --- a/include/linux/writeback.h
-> > +++ b/include/linux/writeback.h
-> > @@ -59,6 +59,7 @@ struct writeback_control {
-> > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0unsigned for_kupdate:1; =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0/* A kupdate writeback */
-> > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0unsigned for_background:1; =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0/* A background writeback */
-> > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0unsigned tagged_writepages:1; =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0/* tag-and-write to avoid livelock */
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0unsigned for_foreign_flush:1; =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0/* foreign dirty flushing */
-> > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0unsigned range_cyclic:1; =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0/* range_start is cyclic */
-> > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0unsigned for_sync:1; =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0/* sync(2) WB_SYNC_ALL writeback *=
-/
-> > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0unsigned unpinned_netfs_wb:1; =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0/* Cleared I_PINNING_NETFS_WB */
-> > --=C2=A0
-> > 2.20.1
-> --=C2=A0
-> Jan Kara <jack@suse.com>
-> SUSE Labs, CR
->=C2=A0
+Ming
+
+>
+>>   			break;
+>> +
+>> +		handled = true;
+>>   		cxl_mem_get_event_records(mds, status);
+>>   		cond_resched();
+>>   	} while (status);
+>>   
+>> -	return IRQ_HANDLED;
+>> +	return handled ? IRQ_HANDLED : IRQ_NONE;
+>>   }
+>>   
+>>   static int cxl_event_req_irq(struct cxl_dev_state *cxlds, u8 setting)
+>>
+>> base-commit: 7098e9cd98a05c0c5de2fae0c2465f9d966fdd07
+>> prerequisite-patch-id: 92e40cd60a697020faac475dcc77ba63b33434ea
+>> prerequisite-patch-id: 10027ad5d9aed85806047f807b3a76273b6c4a77
