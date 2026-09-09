@@ -1,113 +1,236 @@
-Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from relay.yourmailgateway.de (relay.yourmailgateway.de [185.244.194.184])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FCEE3B42FB
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 06:47:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A7A23002B9;
+	Wed,  9 Sep 2026 06:49:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.244.194.184
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788936470; cv=none; b=pLYdze54uh49Y43FbatI5GgsQqhG1gfLt5YQO2DIQTCfcsy30muuT8ECXG3a7VzWhpCDWeTCgznCKwVo9soMVgJMsIYT31xiD+aaetHaUZvbPiD1ABXYFut0DPsNdObx982FZDxdLlI2X3tsUzXif9EbsqY2MJS7U/zP/kEB1Cs=
+	t=1788936588; cv=none; b=d+Z9C8X+NElActJAiIWgpV8KuJ2fxGKSxkCbDdedJm2TNAPXs1ppqhNVBZ7fwafyFtIfkQCTsUE+n5fxciCCyHwaoHQK1q0g5SFLU65kV5pObl8cBBryoTnEyjIou9DcJr05RVqrS0BBfi3ZQAVXHaZrqwTCJBSCaEf5Wd0Q36U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788936470; c=relaxed/simple;
-	bh=o8E3Y97/uq7/nE5aPAcgxU0XNcCxSrIZSYmd9j2OSmQ=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=XjwKjWSAx15Xwca5a45kCy1iOrPktSr2jXaaaDYWzj8Qd+wuwL161HqpidXBh9QA7V0plcJiAwG9cJKPtdn0XgBb+4R6aHwMmxs1FE29FWR1jQBW3LAly+liIKum4AQS+Hud44kfZzjkpgCaA/4Io2Qi1+WEVCftd9rcy5EvpIE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AFSSmdnH; arc=none smtp.client-ip=209.85.221.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788936588; c=relaxed/simple;
+	bh=/gxUULYAK9OqRwaEWwihGP2+fmMA3RW3eLXJkKotFOA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=AzOSwPcl0hKLYWXC2TtbkQPZiixgekTul8qfTA6y7LXgsaxJu/2yVbXEWOQ87+p3vNgpn4OCfnakjtPC8ai+mi84FanRPXy+KtQLu0sIowrY93Uj64CE9E7VVmLfQ4IhKbqOWm+u73Tevfn3WKLnblie832O/UgodoUdZfssIaY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=leemhuis.info; spf=pass smtp.mailfrom=leemhuis.info; dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b=TaYEyo7Z; arc=none smtp.client-ip=185.244.194.184
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=leemhuis.info
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=leemhuis.info
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AFSSmdnH"
-Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-482e067e908so4346132f8f.2
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 23:47:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788936462; x=1789541262; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=mOCQAP6K7d2SeDC/l7CuDRVi41UuAMHdzhXPewwMtn8=;
-        b=AFSSmdnH0UpLuRXjKo5pt/BrgFkLnAavG+8qLhQEMwimICRqkWiszP/TdB9up1v9Ma
-         K0+Y7V1e/CivaW5OJN6FkhBSmD+7a0ojGTHX//KLnLOayU3g0Urkbzpksu8XCOWsDZot
-         6BOffL1QqV3562xDjrGGeepc6lqVAb4XkbGzB/M26XFDAlqzi1mWX57hlpEmqwQmPG1j
-         hYqjjE3oIQnCn18QrzPol2kqxry7KPg9eddz8mttnb8ihRHqVwbGytMfBu9f0nDVLIEk
-         nVC3IhPGbOy3Smdyy6X2sB9nSu231I5PWaa9zKjTpIFdjPuh2t7kcMdKEQc+9FJ5uFug
-         yXGA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788936462; x=1789541262;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=mOCQAP6K7d2SeDC/l7CuDRVi41UuAMHdzhXPewwMtn8=;
-        b=ir9hPIcOxXSloeSihwhwkvEuxMTRVEqj9eGCMDBsb2mblB5NUe7SCgJI2BiYf3qtWw
-         6JSlLi75K25orPgdPyJvKQcDlWXR1w9tSSmJ8qLlZDYGrwlAaBDHnpRag3LeE8jtX5wC
-         y+sYmr6017gGsSBVeYTg7puyrjumpOqIcQjJiGlfUOBHiuQU2E8ySaqzQb51h7LYYGyB
-         tdQGvIID0N1oO7PS9q59dRsz43rkxN5qutPblQEsv6rmb6KXwKN6S0SFoRAeRj2JMiFT
-         go9I+NSV6baTz7MPQxkwoMhzAHFqiPK0z4kKHvr7Lf+fryZJLbWKvPVgclpgwSU4lDaO
-         v/PQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwI60Dr71IWws73ElfWb9xLVTNMGmKlBFpKklCl6ZmGHasSim7Sp/XEqNXukzTGY4rag/pVnYS2MhWNOmA=@vger.kernel.org
-X-Gm-Message-State: AFuF++mRdqYEm6K0afvUZxPBNhE6PoPSnrYM0awFDIvKWmgWXdPCpvxa
-	VBKJYcL6t4I+cMLuHFZpa1p4a85A4TNeGCcwVBWvLO76tzCzXsfjZYAX
-X-Gm-Gg: AYBFou0I6Y4s7bX1k9GRpMMdBJuhfIHXBBiFCz1DbUkbbXMa4H6e4Jt/K/gZb75yxLW
-	y0QXxSsjxJPMwCo0U5aMyAmodD/vU1W6v6UpBu8S9l++hj0iDaeXlWxk5oaBMlV6CNclOUBEMkb
-	iowVfme5X4NK2d9yrhXlcoFQnmhYuaNk6eJOZueu0zaE1UlH+m55ybCuXimsB6IlnW/K3t1VNIY
-	l4DsBVuE7soXO2NTBbxVHOmxyAZAVywYpA8YE/4PP18d4IcTrlefJXA0H/vABBfXkIHQ9NNlSdi
-	5o5ugpuVNF3gvt8F2IsFd5oENGzSfHMu0YEtrYTaRi8Rq9+4BGmPy1f5rBe+Jks5IfoBmlS6j84
-	QNE5nmlDT1pbNTQWt2PN0ud9sz+8aXxkKgNdOBLT5y3UVtEs1ysNccU8MXfsO6IadqWAsGVvGKi
-	ca+ByshyhYWsQKvVJ9CJFYchO4hnvZsANdweGeS05ex6JHV5uOLrjiGaKuTiREl7X/+n/WM/fOl
-	mdmkXyE/MvDwDlj35yVDxA3kqyjxkzrYwDVmOtd+Wwv08b+nVTJI6/UAqR5Cmb8e4YEygLH/R+w
-	QtaF8enel93QUD+D94eJBxO5KP/vhYfzSzPd1LGP1dTYRJNF8Vzn
-X-Received: by 2002:a5d:5f51:0:b0:485:8a46:704b with SMTP id ffacd0b85a97d-4858a467215mr30855337f8f.29.1788936461723;
-        Tue, 08 Sep 2026 23:47:41 -0700 (PDT)
-Received: from MacBook-Pro-von-Karl.localdomain (dynamic-095-114-212-219.95.114.pool.telefonica.de. [95.114.212.219])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-485885b7bfasm42216264f8f.29.2026.09.08.23.47.40
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Tue, 08 Sep 2026 23:47:41 -0700 (PDT)
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: Sebastian Reichel <sre@kernel.org>
-Cc: Karl Mehltretter <kmehltretter@gmail.com>,
-	Linus Walleij <linus.walleij@linaro.org>,
-	linux-pm@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] power: supply: Fix maintenance charge table kernel-doc
-Date: Wed,  9 Sep 2026 08:46:23 +0200
-Message-Id: <20260909064623.90737-1-kmehltretter@gmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+	dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b="TaYEyo7Z"
+Received: from relay01-mors.netcup.net (localhost [127.0.0.1])
+	by relay01-mors.netcup.net (Postfix) with ESMTPS id 4hfryW4fwqz99G8;
+	Wed,  9 Sep 2026 08:49:39 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=leemhuis.info;
+	s=key2; t=1788936579;
+	bh=/gxUULYAK9OqRwaEWwihGP2+fmMA3RW3eLXJkKotFOA=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=TaYEyo7ZBCIMbWpfSMELsgtZuA+6JA832NdX4+nS/HKK3A5YO6Hpe6YwY5aHcBbSo
+	 B15IvjBXhD2HPYowH6aNECPq5uCxidF60GZCQq3EQRwIrza2zl6UnkBq/LFXB9VJCF
+	 LYSX6sL3TIyI/f9InXGErtabuCFEBTaHB3UU9roYHj53xK+cxVNcjv1Aj3hWQUQa61
+	 EeB03lKLXIukPnMCyMwB8MveWclMbjxU4o+TPv36p+UJ2cvRxLZYqflaPAzCf3ABRg
+	 Du5HwYPeP3KuGpbuW1c8azQlQJWl7A6cIV9+3S5kY5CXTWNU6CqM5nVfISAVcj9QiQ
+	 J8iC2OvwoV16g==
+Received: from policy02-mors.netcup.net (unknown [46.38.225.35])
+	by relay01-mors.netcup.net (Postfix) with ESMTPS id 4hfryW3xW4z7wVF;
+	Wed,  9 Sep 2026 08:49:39 +0200 (CEST)
+Received: from mxe9fb.netcup.net (unknown [10.243.12.53])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by policy02-mors.netcup.net (Postfix) with ESMTPS id 4hfryV5NGxz8sb0;
+	Wed,  9 Sep 2026 08:49:38 +0200 (CEST)
+Received: from [IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f] (unknown [IPv6:2a02:8108:8984:1d00:a0cf:1912:4be:477f])
+	by mxe9fb.netcup.net (Postfix) with ESMTPSA id EE7185FAB1;
+	Wed,  9 Sep 2026 08:49:37 +0200 (CEST)
+Authentication-Results: mxe9fb;
+        spf=pass (sender IP is 2a02:8108:8984:1d00:a0cf:1912:4be:477f) smtp.mailfrom=linux@leemhuis.info smtp.helo=[IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f]
+Received-SPF: pass (mxe9fb: connection is authenticated)
+Message-ID: <6c62aa38-1190-4636-a1dc-f921bedb3a6e@leemhuis.info>
+Date: Wed, 9 Sep 2026 08:49:37 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4] docs: verify/bisect: fix typos, formating and
+ punctuation
+To: Manuel Ebner <manuelebnerli@mailbox.org>, Jonathan Corbet
+ <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>
+Cc: Randy Dunlap <rdunlap@infradead.org>, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260904114606.756700-3-manuelebnerli@mailbox.org>
+From: Thorsten Leemhuis <linux@leemhuis.info>
+Content-Language: de-DE, en-US
+Autocrypt: addr=linux@leemhuis.info; keydata=
+ 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 MEK4
+In-Reply-To: <20260904114606.756700-3-manuelebnerli@mailbox.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-PPP-Message-ID: 
+ <178893657828.1188006.12873148848000129912@mxe9fb.netcup.net>
+X-NC-CID: 9x4zhzasRMIKTKN17nlpMzAMdcZqS9+jKUjD/249QX/mD4kwx5g=
 
-struct power_supply_maintenance_charge_table contains
-charge_safety_timer_minutes, but its kernel-doc describes
-safety_timer_minutes. This leaves the real member undescribed and adds a
-nonexistent member to the generated documentation.
+On 9/4/26 13:46, Manuel Ebner wrote:
+> Improve readability.
 
-Use the member's actual name.
+YMMV, but for me this is a bit too short and vague; I'd prefer a proper
+sentence along the lines of "Fix a few typos and some grammar and
+formatting issues." Yes, basically the same as the subject (side note:
+needs s/formating/formatting/ apparently), but there is not much more to
+say here. Apart from that:
 
-Fixes: d72ce7d32478 ("power: supply: ab8500: Standardize maintenance charging")
-Assisted-by: LLM
-Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
----
- include/linux/power_supply.h | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+Acked-by: Thorsten Leemhuis <linux@leemhuis.info>
 
-diff --git a/include/linux/power_supply.h b/include/linux/power_supply.h
-index e749d2189335..95d3bc42ea17 100644
---- a/include/linux/power_supply.h
-+++ b/include/linux/power_supply.h
-@@ -414,9 +414,9 @@ struct power_supply_vbat_ri_table {
-  * @charge_voltage_max_uv: maintenance charging voltage that is usually a bit
-  *   lower than the constant_charge_voltage_max_uv. We can apply this settings
-  *   charge_current_max_ua until we get back up to this voltage.
-- * @safety_timer_minutes: maintenance charging safety timer, with an expiry
-- *   time in minutes. We will only use maintenance charging in this setting
-- *   for a certain amount of time, then we will first move to the next
-+ * @charge_safety_timer_minutes: maintenance charging safety timer, with an
-+ *   expiry time in minutes. We will only use maintenance charging in this
-+ *   setting for a certain amount of time, then we will first move to the next
-  *   maintenance charge current and voltage pair in respective array and wait
-  *   for the next safety timer timeout, or, if we reached the last maintencance
-  *   charging setting, disable charging until we reach
+And again: thx for doing this!
 
-base-commit: 893e11787f78e43b534e252249ac3fff4d1333f8
--- 
-2.53.0
+Ciao, Thorsten
+
+
+> Signed-off-by: Manuel Ebner <manuelebnerli@mailbox.org>
+> CC: Randy Dunlap <rdunlap@infradead.org>
+> ---
+> 
+> [v4]
+>  - remove 'Reviewed-by: Randy Dunlap'
+> 
+> [v3]
+>  + incorporate Thorsten's suggestions
+> 
+> [v2]
+>  https://lore.kernel.org/all/20260902115121.687986-2-manuelebnerli@mailbox.org/
+>  + one more 'your' -> 'you'
+>  + 'it'
+>  + incorporate Randy's suggestions
+>     https://lore.kernel.org/all/0475c09c-e165-41a5-b654-5c6aefeaab0b@infradead.org/
+>  + Reviewed-by: Randy Dunlap (added by mistake)
+> 
+> [v1]
+>  https://lore.kernel.org/all/20260829055501.581856-2-manuelebnerli@mailbox.org/
+> ---
+>  .../verify-bugs-and-bisect-regressions.rst    | 26 +++++++++----------
+>  1 file changed, 13 insertions(+), 13 deletions(-)
+> 
+> diff --git a/Documentation/admin-guide/verify-bugs-and-bisect-regressions.rst b/Documentation/admin-guide/verify-bugs-and-bisect-regressions.rst
+> index 7d38393f3..91ebb631a 100644
+> --- a/Documentation/admin-guide/verify-bugs-and-bisect-regressions.rst
+> +++ b/Documentation/admin-guide/verify-bugs-and-bisect-regressions.rst
+> @@ -163,7 +163,7 @@ will be considered the 'good' release and used to prepare the .config file.
+>       section 'Complementary tasks: cleanup during and after the process'
+>       below.
+>  
+> -  d) Once your finished the bisection, put a few things away::
+> +  d) Once you have finished the bisection, put a few things away::
+>  
+>         cd ~/linux/
+>         git bisect log > ~/bisect-log
+> @@ -178,9 +178,9 @@ will be considered the 'good' release and used to prepare the .config file.
+>         ./scripts/config --set-str CONFIG_LOCALVERSION '-local-cafec0cacaca0-reverted'
+>  
+>      This is optional, as some commits are impossible to revert. But if the
+> -    second command worked flawlessly, build, install, and boot one more kernel
+> -    kernel; just this time skip the first command copying the base .config file
+> -    over, as that already has been taken care off.
+> +    second command worked flawlessly, build, install, and boot one more kernel;
+> +    just this time skip the first command copying the base .config file over,
+> +    as that already has been taken care off.
+>  
+>  * **Complementary tasks**: cleanup during and after the process.
+>  
+> @@ -229,10 +229,10 @@ depends on your issue:
+>  Execute all steps till the end of *segment 1* to **verify if your kernel problem
+>  is present in code supported by Linux kernel developers**. If it is, you are all
+>  set to report the bug -- unless it did not happen with earlier kernel versions,
+> -as then your want to at least continue with *segment 2* to **check if the issue
+> +as then you want to at least continue with *segment 2* to **check if the issue
+>  qualifies as regression** which receive priority treatment. Depending on the
+>  outcome you then are ready to report a bug or submit a preliminary regression
+> -report; instead of the latter your could also head straight on and follow
+> +report; instead of the latter you could also head straight on and follow
+>  *segment 3* to **perform a bisection** for a full-fledged regression report
+>  developers are obliged to act upon.
+>  
+> @@ -550,7 +550,7 @@ be a waste of time. [:ref:`details <introlatestcheck_bisref>`]
+>        cd ~/linux/
+>        git switch --discard-changes --detach stable/linux-6.1.y
+>  
+> -    Your series is unsupported, if is not listed or carrying a 'end of life'
+> +    Your series is unsupported if it is not listed or it is carrying a 'end of life'
+>      tag. In that case you might want to check if a successor series (say
+>      linux-6.2.y) or mainline (see next point) fix the bug.
+>  
+> @@ -1183,9 +1183,9 @@ Space requirements
+>  The numbers mentioned are rough estimates with a big extra charge to be on the
+>  safe side, so often you will need less.
+>  
+> -If you have space constraints, be sure to hay attention to the :ref:`step about
+> -debug symbols' <debugsymbols_bissbs>` and its :ref:`accompanying reference
+> -section' <debugsymbols_bisref>`, as disabling then will reduce the consumed disk
+> +If you have space constraints, be sure to pay attention to the :ref:`step about
+> +debug symbols <debugsymbols_bissbs>` and its :ref:`accompanying reference
+> +section <debugsymbols_bisref>`, as disabling them will reduce the consumed disk
+>  space by quite a few gigabytes.
+>  
+>  [:ref:`back to step-by-step guide <diskspace_bissbs>`]
+> @@ -1254,8 +1254,8 @@ distributions:
+>        kernel-install-tools libelf-devel make modutils openssl openssl-devel \
+>        perl-base zlib-devel rpm-build ncurses-devel qt6-base-devel
+>  
+> -These commands install a few packages that are often, but not always needed. You
+> -for example might want to skip installing the development headers for ncurses,
+> +These commands install a few packages that are often, but not always needed. For
+> +example, you might want to skip installing the development headers for ncurses,
+>  which you will only need in case you later might want to adjust the kernel build
+>  configuration using make the targets 'menuconfig' or 'nconfig'; likewise omit
+>  the headers of Qt6 if you do not plan to adjust the .config using 'xconfig'.
+> @@ -1407,7 +1407,7 @@ Occasionally odd things happen when trying to use a config file prepared for one
+>  kernel (say 6.1) on an older mainline release -- especially if it is much older
+>  (say 5.15). That's one of the reasons why the previous step in the guide told
+>  you to boot the kernel where everything works. If you manually add a .config
+> -file you thus want to ensure it's from the working kernel and not from a one
+> +file you thus want to ensure it's from the working kernel and not from one
+>  that shows the regression.
+>  
+>  In case you want to build kernels for another machine, locate its kernel build
+
