@@ -1,180 +1,131 @@
-Received: from mail-yx1-f53.google.com (mail-yx1-f53.google.com [74.125.224.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C1FF4CB8C0
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 10:14:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7963B46F497;
+	Wed,  9 Sep 2026 10:14:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788948868; cv=none; b=Jd1kZYFp4D23UztWg5Z8SPbyXz+dMdiVeBWe6DvKHovDC9yCoKlS6sSRTUi1o1xevHkU6FfO+MsI8APp/8d3kbg075JMkJtIUw2pLogGjwuNhIGWWGrpst6ChIxgMvYi5XlCUj+IehpY4/wsANE80kMFqoV2tJf14n/qHcSfblk=
+	t=1788948890; cv=none; b=GmoF2y39w4SumR1vQCxSteSrP6xDJOoRz0xFPuiqt7LJ7nOCzg0vSROGm0EbWdBcrJfFlKpXP2SBZG+nOpkcI0Y7PCyAOwmeZWqYA5118/y+3QOw3mQIyq9WeIyTT9O28fOs6Y4bRR3d8+QaSnmbzk+15xA9Sgmh0RG3m5v8j2I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788948868; c=relaxed/simple;
-	bh=iYBl1TBcq8XbAN5lWXQ5xeG2cPfd6X78ZvXFz11jkXE=;
-	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=K2zBdioKAQJB2SfmIf13mEnHKj9fsb6205cJ7MfhqPN18c5X83cLte4f4/PVdQXxvDPT2P8sOrmZio2w8YThHPB7kId3KkDXerkhCpQdL9yco4wtcrYmd1UkOCpOY+zNl9EG1yRcf2zxieSSabFttABzCV9ilgyOAmybTwIbf/o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=PRYPqwdZ; arc=none smtp.client-ip=74.125.224.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	s=arc-20240116; t=1788948890; c=relaxed/simple;
+	bh=RQdyPfHAQAB+Jzs3OlEUJvvhdrM+PUhs0IgVssNNUD0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=iuyaZWYaFrh0s/GfN8YT6BLL1gV6qxgJ69ErDhCi0TFgyamATyGJj9w8kG39JZGoInGLoMNyi+nlf32M2QiYBUctSVvMVhzbzQ1BZaFEGgCi+yDw2EBmRhayfo5Ude6lMNmRnHZ1KcAmKbHw9ukp1EB9Xf3j5jtRZra99pqANrU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nhzulUhL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="PRYPqwdZ"
-Received: by mail-yx1-f53.google.com with SMTP id 956f58d0204a3-66c70f69d3fso5341226d50.1
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 03:14:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788948858; x=1789553658; darn=vger.kernel.org;
-        h=content-type:mime-version:references:message-id:in-reply-to:subject
-         :cc:to:from:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=cx1TfB9GnW58nOxDn37ATPgkJR6erGAjBm2BqNqkY28=;
-        b=PRYPqwdZUo/IB9RDXendGZtCja/iYJ1a6PM7GvuYIFcVs73+Aq2REekIyiRl7fjjAk
-         LRp04gPqNFcbyURy/5NcHJapf/ediVuCV9FJ1gJom6LcsEPMy9CDFhkqZ8YDn8ZOT1Ha
-         x4O5p+TtNQEe1tpXqurl4XGFaXkVfFZhpr/nW/5B/zHmkgqGY/bx0ycLpnRgdmH7gU0q
-         KPRfakb0o+JxLzBDZeilT8v9QkXEYKrAImhMZJKQUmLO1sKS50VNsZuJAQNQ3jAtlJZF
-         /hj5X3ycMERjXWMG5IKdk6DNw5Vm752upXAONuac2+tmtxbZxrS+V6RMe0RLe8rdCk66
-         7aSw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788948858; x=1789553658;
-        h=content-type:mime-version:references:message-id:in-reply-to:subject
-         :cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=cx1TfB9GnW58nOxDn37ATPgkJR6erGAjBm2BqNqkY28=;
-        b=N4NFlWL/kABJOWARl+00FzTy3z47x31awTyf+00nxLpuIq4vQDgzHuvDtBW6mMo/+L
-         PjEglD3wK0kryW1X7EarPY7wIAkAmymfl/vMB61LFU3dSWhZbsLNoaNKWY/XmnQp4yht
-         sgOop/JsAGWJ5r7dfRc82V8Zg4H4WmAxVHHwgFX57488Z7HjnnO1gzUpfGThCrgonUtY
-         fMo9yPdU0oeTCxmYurjADKVigM1FY6chF3jrshJyr6WTuUVZ+OzkiKFlHP+od6jkP5+T
-         L4iYwj2EndEY/VY5pXW45HTRIbHu1qGIshiIfRbifx9dPVva97ph3jbVt4vFP3CrIxfp
-         m58A==
-X-Forwarded-Encrypted: i=1; AKwUvBz9v5UA1xlCcgjEmgEiP2xRK256v6Z6+nozzcUQanxiCRoUmKt4dywgj0W9W1KPjV0YL+F0NXGRpNNo6F4=@vger.kernel.org
-X-Gm-Message-State: AFuF++lu58HuOapUqK5tgQ4tdj3nVX8Q4tRJB9ndAuk8l0UJScbETDyS
-	4N7Nh0tBKQoOqOGSRLvWTKQHlGDr4sD78BXrUoWCTp715ajT/qXRbGIKIcIZ3ShQEg==
-X-Gm-Gg: AYBFou0kR0jDxl2z3kVravRHdjYOvre3Gyv4dqu4eMdUnIMULKW9TK8SSyZ7ZZgFQKY
-	8K1zOscEVIMYt277sWC4qq2FTMzk9gzuaohnmZ8NGjTu16H+kDodOBFaD68gue4zrZPAXGAE+gk
-	hsGPIbArzEoo2CZTAuaAalsqftnzH7SPxGPPcJfUG0IgraS1+Zb/4ztgzdI2BAKn00EFpzMX3f5
-	4ZmYG1I8IDiZqt8w2Lm22eUmZDv9GAFhuhEPuL6cK0MkmPfXMaec+ZoTPnBk52SWbsUx4baX/ks
-	vZdhUfg36+xXDPhfZA7LzC03F7z3iKOGSWvouoFX76WQGsj5G+gNFc/uJxc3tsK9tRzxUwnNPGr
-	Y4v0ALcTsjmMdgGHpC/ylO/92xYpvaSxiVs9/n+NJlFvwSaGgO2p0U9U++wVe8+dG1w9BrBk9em
-	bYC1OzQ9ImvZgXz3oO8gIUbIydBXwAFvJH85LBNYtfOYV2Axzy2jqG7nsIgWTp0D0C6IWTRYfwI
-	YhnhncUs83y1KJ3BQNN//tLrLHZksEG5rgLcq0NxVA5J37FN1LHLsIiV/Q=
-X-Received: by 2002:a05:690e:4513:10b0:670:f6e8:1f8c with SMTP id 956f58d0204a3-670f6e87f07mr2998845d50.84.1788948857514;
-        Wed, 09 Sep 2026 03:14:17 -0700 (PDT)
-Received: from darker.attlocal.net (172-10-233-147.lightspeed.sntcca.sbcglobal.net. [172.10.233.147])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-66fb47a8894sm12066216d50.1.2026.09.09.03.14.12
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 09 Sep 2026 03:14:16 -0700 (PDT)
-Date: Wed, 9 Sep 2026 03:14:11 -0700 (PDT)
-From: Hugh Dickins <hughd@google.com>
-To: Andrew Morton <akpm@linux-foundation.org>
-cc: Ackerley Tng <ackerleytng@google.com>, 
-    Alexander Viro <viro@zeniv.linux.org.uk>, Alexandre Ghiti <alex@ghiti.fr>, 
-    Baolin Wang <baolin.wang@linux.alibaba.com>, 
-    Barry Song <baohua@kernel.org>, Binbin Wu <binbin.wu@linux.intel.com>, 
-    Christian Brauner <brauner@kernel.org>, Christoph Hellwig <hch@lst.de>, 
-    Christoph Lameter <cl@gentwo.org>, 
-    Claudio Imbrenda <imbrenda@linux.ibm.com>, 
-    David Hildenbrand <david@kernel.org>, JP Kobryn <jp.kobryn@linux.dev>, 
-    Jan Kara <jack@suse.cz>, Jens Axboe <axboe@kernel.dk>, 
-    Johannes Weiner <hannes@cmpxchg.org>, Kairui Song <ryncsn@gmail.com>, 
-    Kiryl Shutsemau <kas@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
-    Leonardo Bras <leobras.c@gmail.com>, Lorenzo Stoakes <ljs@kernel.org>, 
-    Marcelo Tosatti <mtosatti@redhat.com>, 
-    Matthew Wilcox <willy@infradead.org>, 
-    Mel Gorman <mgorman@techsingularity.net>, 
-    Miaohe Lin <linmiaohe@huawei.com>, Michal Hocko <mhocko@suse.com>, 
-    Minchan Kim <minchan@kernel.org>, Muchun Song <muchun.song@linux.dev>, 
-    Oscar Salvador <osalvador@suse.de>, Peter Zijlstra <peterz@infradead.org>, 
-    Qi Zheng <qi.zheng@linux.dev>, Rik van Riel <riel@surriel.com>, 
-    Sebastian Andrzej Siewior <bigeasy@linutronix.de>, 
-    Shakeel Butt <shakeel.butt@linux.dev>, 
-    Suren Baghdasaryan <surenb@google.com>, 
-    Vlastimil Babka <vbabka@kernel.org>, 
-    Yang Shi <yang@os.amperecomputing.com>, Yu Zhao <yuzhao@google.com>, 
-    Zach O'Keefe <zokeefe@google.com>, Zi Yan <ziy@nvidia.com>, 
-    linux-block@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
-    linux-kernel@vger.kernel.org, linux-mm@kvack.org
-Subject: [PATCH v2 16/26] mm/fbatch: remove lru_cache_disable() from NUMA
- folio migration
-In-Reply-To: <e28f9a94-4339-f8ac-8301-6be3c9b5b7ce@google.com>
-Message-ID: <bc903047-0dad-902d-5774-ecf73c6dd343@google.com>
-References: <e28f9a94-4339-f8ac-8301-6be3c9b5b7ce@google.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nhzulUhL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CE4A41F00ACA;
+	Wed,  9 Sep 2026 10:14:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788948879;
+	bh=70RnjnARbQTtRci4oCo8XVkl2awaWzisUCOHwCEJGRA=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=nhzulUhLxmsr03uXqoT+fmt9kXPkJVDRfEDNN6bFTqkCRIIDyC1jLBYMkfXVyygym
+	 flYuOMREto5Oh+c1Py4HmhA20QWLDo1uO810or6kYLyA95C5/4jn/CMoNDNUp+ksBy
+	 aVkkzCtgV+nGdmN3dkLJgVBwZJa94S/AO1oDaR3wEG/wH7djRUzfQ10eCxRIjRKhJ6
+	 2++cBthrfg/GE/5trNd860dTJh9UKYQ/xXJTFH4KQiS4COI458mjK/CIrbaB8RY+ss
+	 cXw/l+f+GImTFo4XRHOs4exg+3bAmTq30mfeZh6KhLAz7PebGCO7u1XuKjT5XX2c7t
+	 FN59FcsYQKBwQ==
+Message-ID: <fdb26816-5efd-4adc-8d90-fa29a3be1dc3@kernel.org>
+Date: Wed, 9 Sep 2026 12:14:34 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/1] ARM: dts: draeger: Add socfpga devicetree for
+ Draeger's M48 board.
+To: Petko Manolov <petko.manolov@konsulko.com>
+Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+ robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, dinguyen@kernel.org
+References: <20260908111011.960876-1-petko.manolov@konsulko.com>
+ <20260908111011.960876-2-petko.manolov@konsulko.com>
+ <3dbe92ee-805f-496d-9a7d-94c837e674b5@kernel.org>
+ <20260909100709.GA20988@carbon.k.g>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20260909100709.GA20988@carbon.k.g>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Remove lru_cache_disable() from mbind(MOVE), migrate_pages and move_pages
-syscall handling. They do not now benefit from lru_add_drain_all() first;
-they gain little benefit from invalidating buffer head LRUs first, since
-5.0 commit 80409c65e2c6 ("mm: migrate: make buffer_migrate_page_norefs()
-actually succeed"); and it's a shame that (even without CAP_SYS_NICE)
-they can prevent concurrent tasks from enjoying the use of those caches.
+On 09/09/2026 12:07, Petko Manolov wrote:
+> On 26-09-09 08:36:23, Krzysztof Kozlowski wrote:
+>> On 08/09/2026 13:10, Petko Manolov wrote:
+>>> +
+>>> +	chosen {
+>>> +		bootargs = "earlyprintk";
+>>
+>> That's not a mainline suitable argument, drop.
+> 
+> Well, i'm a bit confused.  These files in arch/arm/boot/dts/intel/socfpga/
+> 
+> socfpga_arria5_socdk.dts
+> socfpga_cyclone5_de0_nano_soc.dts
+> socfpga_cyclone5_vining_fpga.dts
+> socfpga_arria10_socdk.dtsi
+> socfpga_cyclone5_socdk.dts
+> socfpga_cyclone5_chameleon96.dts
+> socfpga_cyclone5_socrates.dts
+> socfpga_cyclone5_sodia.dts
+> socfpga_cyclone5_sockit.dts
+> 
+> all have:
+> 
+>         chosen {
+>                 bootargs = "earlyprintk";
+>                 stdout-path = "serial0:115200n8";
+>         };
+> 
+> Is this some sort of legacy that isn't accepted in modern days or is it
+> something else?
 
-Signed-off-by: Hugh Dickins <hughd@google.com>
----
- mm/mempolicy.c | 7 -------
- mm/migrate.c   | 3 ---
- 2 files changed, 10 deletions(-)
+And git log tells...? Anyway, pre-existing code is a poor argument why
+code should be added.
 
-diff --git a/mm/mempolicy.c b/mm/mempolicy.c
-index 79053ece02cd..f4d9b5580632 100644
---- a/mm/mempolicy.c
-+++ b/mm/mempolicy.c
-@@ -1343,8 +1343,6 @@ int do_migrate_pages(struct mm_struct *mm, const nodemask_t *from,
- 	long err = 0;
- 	nodemask_t tmp;
- 
--	lru_cache_disable();
--
- 	/*
- 	 * Find a 'source' bit set in 'tmp' whose corresponding 'dest'
- 	 * bit in 'to' is not also set in 'tmp'.  Clear the found 'source'
-@@ -1425,7 +1423,6 @@ int do_migrate_pages(struct mm_struct *mm, const nodemask_t *from,
- 			break;
- 	}
- 
--	lru_cache_enable();
- 	if (err < 0)
- 		return err;
- 	return (nr_failed < INT_MAX) ? nr_failed : INT_MAX;
-@@ -1530,8 +1527,6 @@ static long do_mbind(unsigned long start, unsigned long len,
- 	if (!new)
- 		flags |= MPOL_MF_DISCONTIG_OK;
- 
--	if (flags & (MPOL_MF_MOVE | MPOL_MF_MOVE_ALL))
--		lru_cache_disable();
- 	{
- 		NODEMASK_SCRATCH(scratch);
- 		if (scratch) {
-@@ -1626,8 +1621,6 @@ static long do_mbind(unsigned long start, unsigned long len,
- 		putback_movable_pages(&pagelist);
- mpol_out:
- 	mpol_put(new);
--	if (flags & (MPOL_MF_MOVE | MPOL_MF_MOVE_ALL))
--		lru_cache_enable();
- 	return err;
- }
- 
-diff --git a/mm/migrate.c b/mm/migrate.c
-index 364015cbef33..1d2085529cd0 100644
---- a/mm/migrate.c
-+++ b/mm/migrate.c
-@@ -2359,8 +2359,6 @@ static int do_pages_move(struct mm_struct *mm, nodemask_t task_nodes,
- 	int start, i;
- 	int err = 0, err1;
- 
--	lru_cache_disable();
--
- 	for (i = start = 0; i < nr_pages; i++) {
- 		const void __user *p;
- 		int node;
-@@ -2439,7 +2437,6 @@ static int do_pages_move(struct mm_struct *mm, nodemask_t task_nodes,
- 	if (err >= 0)
- 		err = err1;
- out:
--	lru_cache_enable();
- 	return err;
- }
- 
--- 
-2.51.0
-
+Best regards,
+Krzysztof
