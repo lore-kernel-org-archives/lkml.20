@@ -1,57 +1,82 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 393D62E7395;
-	Wed,  9 Sep 2026 08:45:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 442B439A07E;
+	Wed,  9 Sep 2026 08:47:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.2
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788943520; cv=none; b=LBRbWFovCXC2a4akIT5U7CpsjRYhwcR5z0oufZK23PJs8wCax2Qc/se/q0ASdoxd3Fo0e0IzxHMZkhQvFedFynwo3/8DUq7D6Gsbpq8yrLbHeisGr6m89a+8vuYAuf4F5qAIC/x5tSMyCGpeUs/naaINkrcruzXC3JImaLKV1x8=
+	t=1788943631; cv=none; b=lSKcLDXQhHxfWYPG987cxtLPfrn4ec97cEjSspD8AtA7MAhbdpO7foIEQqxjR1YgigimgjQCV3C2D+k5EyzXCHnBHJ9veWjvTLbfZ61EwW1ZFfUNSjyRIjZ/f1ndhd89tV2CE7FgDrWHiPYaq15B2S5amc9ZJewQRoew+iI2BZc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788943520; c=relaxed/simple;
-	bh=IDEZ/1m0GEess8Ah5yDcc0vSlMzGhV9bGWAodPIAKZU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=mXrK/k6IWbUromT4cZQNuzE9Em7Rd2SN6lpgeH50ivOkL5/skQk4XyIS/VlU2sWsbbt8hP+BqKCQEdGK/76QALaTVa2hcLDSNX4K79iDPycFj0HFgkoGrCMoqxLHLdFo59O+wyfr9LW/RNUoZPKzEedMCjNwt/6u781UjoRoIcw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=KMMHWos9; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788943631; c=relaxed/simple;
+	bh=8D/Jrs3FJYLJaC+B4zEVEdw2IHnsrFplQX0t1gVYytk=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=luc+dUqn41NgVak0PBSyokRLOkvUnSbCeDnj7Uzvii2ALg/fUIRmfKlgho60lRWONN1+eR4fG2OyLyWhCq9yTY7vptF3v2S9Pjp7WEQpEgkLw8tiHB4SMw8c8vAg780AIrowT2hzA6yW9NRnzIhzlTdhh43eLwvUAhVDFxACsuE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=jvPxSGq+; arc=none smtp.client-ip=220.197.31.2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="KMMHWos9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 44B531F00A3A;
-	Wed,  9 Sep 2026 08:45:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788943518;
-	bh=eM9ktLiB61lA8CFhKE5IExmNlNZqNI8om2BER4rNQmw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=KMMHWos9p5k+jDWn+Xts/yawooJOCC3c5VhfMSH7KCMiHPmT3syBlPbEEeajv7LCQ
-	 0P7/kIjENrskNwfJC+2zYHli9kGRu5/3IZ3G5E9yAXsKNpE5Ilt4VzmLWP9w0XYoz9
-	 riwWBcJmz6+77PbJhzCukjn9ALkLhUlwSRFkidSg=
-Date: Wed, 9 Sep 2026 10:45:10 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Christian Brauner <brauner@kernel.org>
-Cc: Shakeel Butt <shakeel.butt@linux.dev>, Tejun Heo <tj@kernel.org>,
-	Christian Brauner <christian@brauner.io>,
-	Meta kernel team <kernel-team@meta.com>,
-	linux-kselftest@vger.kernel.org, driver-core@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] selftests: cover kernfs dentry revalidation
-Message-ID: <2026090900-conceal-porous-b16b@gregkh>
-References: <20260902014050.499002-1-shakeel.butt@linux.dev>
- <20260904-kandidat-bergbahn-ersonnen-3a6dd1f1cf0e@brauner>
- <aprVEyqOrdmuD-HN@linux.dev>
- <2026090456-unblock-elixir-7d4f@gregkh>
- <20260909-steht-nahelegen-zutrauen-7eed38304a5b@brauner>
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="jvPxSGq+"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=8D
+	/Jrs3FJYLJaC+B4zEVEdw2IHnsrFplQX0t1gVYytk=; b=jvPxSGq+7E+CiSUcLE
+	RtA3tgFqamq1+PIGIWxS+o3CSi7apdeRfX2UqujYCAsFGFPZl25/U/lhk2rFa9gv
+	W+Qg/2jhiNJcxAgW+m2be+Tg4Lkwmrqm+ztkgnuoyXq2hXKt3MjHnLpFY9qCXzNt
+	2MPsRD/05lYmeHSgWt48kw0yo=
+Received: from sky.localdomain (unknown [])
+	by gzga-smtp-mtada-g1-2 (Coremail) with SMTP id _____wDnmT7dHKFqcEd0Bg--.51566S2;
+	Wed, 09 Sep 2026 16:46:21 +0800 (CST)
+From: Junnan Zhang <zhangjn_dev@163.com>
+To: zhangjn_dev@163.com,
+	Tejun Heo <tj@kernel.org>
+Cc: Michal Koutny <mkoutny@suse.com>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	cgroups@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Ridong Chen <ridong.chen@linux.dev>,
+	Shouxin Sun <sunshx@chinatelecom.cn>
+Subject: Re: [PATCH v3] cgroup: avoid flushing global workqueue in cgroup1_pidlist_destroy_all
+Date: Wed,  9 Sep 2026 16:46:19 +0800
+Message-ID: <20260909084619.91579-1-zhangjn_dev@163.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <aqA6x_8E3Xiewoso@slm.duckdns.org>
+References: 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260909-steht-nahelegen-zutrauen-7eed38304a5b@brauner>
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wDnmT7dHKFqcEd0Bg--.51566S2
+X-Coremail-Antispam: 1Uf129KBjvdXoWruFyUWr1fCFy3Gry5Wr17Jrb_yoWDXwc_uw
+	10vw4vkw4fKr4kurZ2gF98uan5WrWF9w1xZrWxJrW3t340yrs0vFs0ga4SvFn7Ka97JF98
+	Gas0qF1akw12gjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7VUU3ku5UUUUU==
+X-CM-SenderInfo: x2kd0wxmqbvvry6rljoofrz/xtbCxR1B1mqhHN126AAA3b
 
-On Wed, Sep 09, 2026 at 10:23:28AM +0200, Christian Brauner wrote:
-> > kernfs patches go through the driver-core tree normally, not vfs.
-> 
-> Ok, I've taken quite a few before not too long ago. Do you mind leaving
-> this set in the vfs tree?
+Hi Tejun, Michal,
 
-No objection at all, sorry for the confusion.
+> I'd rather not touch them at all and eventually retire the whole v1
+> interface.
+
+Understood, and I have no objection to Michal's approach as the
+long-term direction -- routing v1 reads through css_task_iter removes
+the pidlist machinery altogether, including the destroy workqueue
+behind this hang.
+
+May I ask for some guidance on the near term, though? cgroup v1 is
+still the default on widely deployed enterprise distros and will
+likely remain in production use for years to come, and this hung
+task was observed on a production Kubernetes node. This patch (v3)
+is a pure maintenance fix: it changes no user-visible behavior, adds
+no interface, and is stable-backportable. It would also remain
+relevant for the cgroup_v1_sorted=true path if Michal's change
+lands.
+
+Would you consider taking it as a minimal fix? Or, if the consensus
+is to leave v1 completely untouched, what would be the recommended
+course for production systems that keep hitting this?
+
+Thanks,
+Junnan
+
