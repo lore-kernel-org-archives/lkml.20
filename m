@@ -1,107 +1,111 @@
-Received: from zg8tmtyylji0my4xnjeumjiw.icoremail.net (zg8tmtyylji0my4xnjeumjiw.icoremail.net [162.243.161.220])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4787C3587A2;
-	Wed,  9 Sep 2026 05:25:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.243.161.220
+Received: from mail.lysator.liu.se (mail.lysator.liu.se [130.236.254.3])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7A34361DBA;
+	Wed,  9 Sep 2026 05:25:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=130.236.254.3
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788931518; cv=none; b=YZADRxkkkqTdxEjydBk4Hl5FMfd+kEZNlzFYBGJJuFBEO7lvapVbjpXKSzhcPzqE67RaW3bjtGhm086w5Jr/LTokQ3Tk7LxHruszT1y4mZpHzk2HPivsYwNMzveQJRBaMvmfrdc9cKtn+ldd4DWu+VaXnR5/DWl/oN/2zL88c1I=
+	t=1788931555; cv=none; b=EyYi6fMYSlIfH5uxTzbDD6zNUj9Z7quHg/MZ1oeowmVU7F/WdXyhogWwjcvCjt1Lk8awtC8iNDCWc05E6h1ZTj7YLJJx0N9CYO2fZ3Ne1e6teDNlZtAHBvpwlrXDfaEs4OUoIIrz5NYkHmeleMbyCTAzSsqTRSLT65IszhfSoR8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788931518; c=relaxed/simple;
-	bh=z1IMR72Jm/OXNjztBA3wGKpKghlaUl7Iv2sZZOJYPU0=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=FKxogttiVhOW+cO7F7sX2ddKUFAzpdbyb4PkjNr0Wpt3an8CaPxVYpY4/V7Tth6XTlv8582ZkK8DLGr18xYd6bRuSyYdVRjc6VqWQ6W5zQITead6gQXdCKE+SVOKp4yXOQxswVzYYXQDj0CA18c1qkjTbuRsFuOHEARdFF02pkw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=162.243.161.220
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
-Received: from zju.edu.cn (unknown [10.98.66.117])
-	by mtasvr (Coremail) with SMTP id _____wBHIX6w7aBq6uoBAQ--.7104S3;
-	Wed, 09 Sep 2026 13:25:05 +0800 (CST)
-Received: from localhost.localdomain (unknown [10.98.66.117])
-	by mail-app1 (Coremail) with SMTP id yy_KCgAHnKaw7aBqbcFoBA--.45453S2;
-	Wed, 09 Sep 2026 13:25:04 +0800 (CST)
-From: Fan Wu <fanwu01@zju.edu.cn>
-To: lucas.demarchi@intel.com
-Cc: thomas.hellstrom@linux.intel.com,
-	rodrigo.vivi@intel.com,
-	airlied@gmail.com,
-	simona@ffwll.ch,
-	intel-xe@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Fan Wu <fanwu01@zju.edu.cn>
-Subject: [PATCH] drm/xe/i2c: cancel the client work on remove
-Date: Wed,  9 Sep 2026 05:23:28 +0000
-Message-Id: <20260909052328.654682-1-fanwu01@zju.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1788931555; c=relaxed/simple;
+	bh=TBSjd0wHBttYMB73JiVfFTcNAzvAyF40gt/CVFr51bQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=i4h47yNMHiKjDKnjZptAGtf+uGl+iOh7fa3xAmxAyfHf+60AQ7F/nzabQy2i5PEgOqpG/8fD3LFD+BEQooDi8GOz3tJuZb15nNgvrWtgkXwmVBC2nzOm1pQxIolssqLbuIA9JvYAgcrrdidgHSaSC1obKYurxSsW4MsgviRl/6c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lysator.liu.se; spf=pass smtp.mailfrom=lysator.liu.se; dkim=pass (2048-bit key) header.d=lysator.liu.se header.i=@lysator.liu.se header.b=IE33cti3; dkim=pass (2048-bit key) header.d=lysator.liu.se header.i=@lysator.liu.se header.b=IE33cti3; arc=none smtp.client-ip=130.236.254.3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lysator.liu.se
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lysator.liu.se
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=lysator.liu.se header.i=@lysator.liu.se header.b="IE33cti3";
+	dkim=pass (2048-bit key) header.d=lysator.liu.se header.i=@lysator.liu.se header.b="IE33cti3"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lysator.liu.se;
+	s=2026; t=1788931540;
+	bh=TBSjd0wHBttYMB73JiVfFTcNAzvAyF40gt/CVFr51bQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=IE33cti3TPZUSWoD9ir4u8uMBs5ntrvqHwpU94eORjuIRa6vN4MFFMqH8FGEytXlo
+	 9swva8XvWcrjKNImhEyeS/6lQGCB3o4EG+SFt73Kin6KtWcJpdtVWTP4KLCoREFeqF
+	 vG/fCoti0X0FVx6GGUoMQa8VWYup5chiRZpRvMhy0Ddkh6L+llkIr4jOGvWDdoer8n
+	 7FJkegfNVsS8oMGtItbFW+Hs1J1REWAv7oxC8zXCWhe7HSfmLeTe2eq+Q+G1wprqgi
+	 Tpg77084L6HBhTrxK4rghFsGF0UUGIL7lsDVfGjxVlmAuvsKvXaOFU25xcq/Cky2df
+	 n3n3yrdABlEuQ==
+Received: from mail.lysator.liu.se (localhost [127.0.0.1])
+	by mail.lysator.liu.se (Postfix) with ESMTP id 1E2F8134E5;
+	Wed,  9 Sep 2026 07:25:40 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lysator.liu.se;
+	s=2026; t=1788931540;
+	bh=TBSjd0wHBttYMB73JiVfFTcNAzvAyF40gt/CVFr51bQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=IE33cti3TPZUSWoD9ir4u8uMBs5ntrvqHwpU94eORjuIRa6vN4MFFMqH8FGEytXlo
+	 9swva8XvWcrjKNImhEyeS/6lQGCB3o4EG+SFt73Kin6KtWcJpdtVWTP4KLCoREFeqF
+	 vG/fCoti0X0FVx6GGUoMQa8VWYup5chiRZpRvMhy0Ddkh6L+llkIr4jOGvWDdoer8n
+	 7FJkegfNVsS8oMGtItbFW+Hs1J1REWAv7oxC8zXCWhe7HSfmLeTe2eq+Q+G1wprqgi
+	 Tpg77084L6HBhTrxK4rghFsGF0UUGIL7lsDVfGjxVlmAuvsKvXaOFU25xcq/Cky2df
+	 n3n3yrdABlEuQ==
+Received: from gryt (81-225-28-11-no2391.tbcn.telia.com [81.225.28.11])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by mail.lysator.liu.se (Postfix) with ESMTPSA id ADD5B13531;
+	Wed,  9 Sep 2026 07:25:39 +0200 (CEST)
+Date: Wed, 9 Sep 2026 07:25:38 +0200
+From: Peter Rosin <peda@lysator.liu.se>
+To: Conor Dooley <conor@kernel.org>
+Cc: Shiv Prakash Gupta <shivprakash.gupta@nxp.com>, andi.shyti@kernel.org,
+	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+	linux-i2c@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, vikash.bansal@nxp.com,
+	priyanka.jain@nxp.com
+Subject: Re: [PATCH 1/2] dt-bindings: i2c: Add NXP PCA9641 I2C bus master
+ arbiter
+Message-ID: <aqDt0uC7FNRmsv9S@gryt>
+References: <20260908123146.1839854-1-shivprakash.gupta@nxp.com>
+ <20260908123146.1839854-2-shivprakash.gupta@nxp.com>
+ <20260908-skirt-makeshift-2050f3bcbb22@spud>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:yy_KCgAHnKaw7aBqbcFoBA--.45453S2
-X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
-X-CM-DELIVERINFO: =?B?YhfASgXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
-	sfnVCjTgEH9dVomQuWcozCBBFzIrCNcQHfV2ckOR5KAS8rZcN3Zc9b3RzG5I2YoyNUuUXV
-	JaRR6vAqtJ69vbf58Vip9E6mavGmQbzmcFsnzP86
-X-Coremail-Antispam: 1Uk129KBj93XoW7Cw4Dtr47KFW8Kry7Kw1UXFc_yoW8CF17pr
-	sxWrW5GrZF9F42gw47Za1xAFyUCr4fArWSkr17J343WwsxKry8Zr98tayUJFyjyayrZa4j
-	yrn0q3y3urW5AFcCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUU9Gb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AK
-	xVW0oVCq3wAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc804V
-	CY07AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AK
-	xVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48Icx
-	kI7VAKI48JM4x0Y48IcxkI7VAKI48G6xCjnVAKz4kxMxAIw28IcxkI7VAKI48JMxC20s02
-	6xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_Jr
-	I_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v2
-	6r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj4
-	0_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8
-	JrUvcSsGvfC2KfnxnUUI43ZEXa7IU85l1PUUUUU==
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260908-skirt-makeshift-2050f3bcbb22@spud>
+X-Virus-Scanned: ClamAV using ClamSMTP
 
-xe_i2c_notifier() stores the DesignWare adapter in i2c->adapter and
-schedules i2c->work when the adapter is registered under the xe I2C
-platform device, and xe_i2c_client_work() then instantiates the AMC
-client device on that adapter.
+Den Tue, Sep 08, 2026 at 06:47:01PM +0100, skrev Conor Dooley:
+> On Tue, Sep 08, 2026 at 06:01:45PM +0530, Shiv Prakash Gupta wrote:
+> > Add device tree binding schema for the NXP PCA9641 2-to-1 I2C bus
+> > master arbiter.
+> > 
+> > The PCA9641 arbitrates between two upstream I2C masters competing for a
+> > single downstream slave bus using a lock/grant ownership model. The
+> > binding supports an optional 'interrupts' property for interrupt-assisted
+> > arbitration.
+> > 
+> > Signed-off-by: Shiv Prakash Gupta <shivprakash.gupta@nxp.com>
+> > ---
 
-xe_i2c_remove() unregisters the client devices, the bus notifier and
-the adapter platform device, but it never drains i2c->work. A work
-item that is still queued or running when the adapter is unregistered
-dereferences i2c->adapter in i2c_new_client_device() after
-platform_device_unregister() has released the adapter. The work item
-is also embedded in the devm-allocated struct xe_i2c, so a work item
-still queued after the drm device devm unwind frees that allocation
-runs its callback on freed memory.
+...
 
-Cancel the work in xe_i2c_remove(), after bus_unregister_notifier()
-so that no new instance can be scheduled, and before the adapter is
-unregistered so that a running instance still finds a live adapter.
+> > +  i2c-arb:
+> > +    type: object
+> > +    $ref: /schemas/i2c/i2c-controller.yaml
+> > +    unevaluatedProperties: false
+> > +    description:
+> > +      I2C bus node representing the downstream slave bus controlled by the
+> > +      PCA9641. Downstream slave devices are declared as child nodes here.
+> 
+> Why does this node need to exist? Can't the i2c-arbiter node itself
+> contain the child devices?
 
-This issue was found by an in-house static analysis tool.
+For symmetry with the pre-existing I2C arbs, which all have the extra
+node for historical implementation reasons? I don't know if that's
+considered a valid reason? I prefer to have all arbs follow the same
+structure...
 
-Fixes: f0e53aadd702 ("drm/xe: Support for I2C attached MCUs")
-Cc: stable@vger.kernel.org
-Assisted-by: Codex:gpt-5.6
-Co-developed-by: Song Li <songl@zju.edu.cn>
-Signed-off-by: Song Li <songl@zju.edu.cn>
-Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
----
- drivers/gpu/drm/xe/xe_i2c.c | 1 +
- 1 file changed, 1 insertion(+)
+The "documentation" describing common I2C arbitration details went missing
+here:
 
-diff --git a/drivers/gpu/drm/xe/xe_i2c.c b/drivers/gpu/drm/xe/xe_i2c.c
-index 706783863d07..5a176d78193b 100644
---- a/drivers/gpu/drm/xe/xe_i2c.c
-+++ b/drivers/gpu/drm/xe/xe_i2c.c
-@@ -311,6 +311,7 @@ static void xe_i2c_remove(void *data)
- 		i2c_unregister_device(i2c->client[i]);
- 
- 	bus_unregister_notifier(&i2c_bus_type, &i2c->bus_notifier);
-+	cancel_work_sync(&i2c->work);
- 	xe_i2c_unregister_adapter(i2c);
- 	xe_i2c_remove_irq(i2c);
- }
+https://lore.kernel.org/all/20230731163833.319258-1-krzysztof.kozlowski@linaro.org/
 
+Cheers,
+Peter
