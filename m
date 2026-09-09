@@ -1,160 +1,177 @@
-Received: from mail-yx2-f8.google.com (mail-yx2-f8.google.com [74.125.224.136])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCB4F3090CD
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 19:14:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.136
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F18D23B0587;
+	Wed,  9 Sep 2026 19:14:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788981262; cv=none; b=rpatbNFXy40STUmAKRp8ACpFbvfQY+SLmZZAQU+i40Ih4JCYnioo2kQXIyG1O57mnKwODFDYL4U9Z6BxQbqPxwVtAANUmzkXmAjMT/ej+PZje9W011uijcjhIJ4do8ynfrL/S4hMaCJhy781Q3Aj8Oansb8+l/6728VcDwz7hPU=
+	t=1788981276; cv=none; b=F0H50/7r1sGyfS1E1vN3LGNH0r4JpY7moJ9FO8+jyPmFKMhmOh6ckEAD4XZ3BQAiBir3jUtdNhWEis+c8toHPjQ1Vw1m6VgqGEIa8S8FLQ4sdfC6OsHhdyNExUHvl/ONEsWywmUQRUXMW13TiXmuNL/xdnsqLe6fgATWukXV4L8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788981262; c=relaxed/simple;
-	bh=EDwUvwYj52uRaI2dCh0tF4qDlZkgWRI/RU1+vIfQfts=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=KUvaq0ZzvkXJhjHEUOyYR/kEbiwKMq0bmd1yr4hr/qvj0Bdyd/oBjcfMmYMBKUptJld6y+A0QBfyKnT0acHZVueURPx/Ao1bcSy5b3mbi1/WK5v43EiTM3EvntldK0oDXJKj8CXRe5QZRiUKMZcyvc18JrydprTr9eJqrv/55Yk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nCrMDV4y; arc=none smtp.client-ip=74.125.224.136
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788981276; c=relaxed/simple;
+	bh=d8WCbeo6jjOivxNyTxUN+oxzgGbmO2YuDGqsYw1uw7I=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=uCRzsN8J+6+1JVvSeDcAlnUDsFu1JJi0vXNHFzF+8AArZOduJwButIOzehH58u54fUy8CqQXs8P+Kb/luTEvkda+3+jWYOmzH+FdZ/50Uj4Ycq+p6y60mkCnRKHXoTPm5O+bEZ5QlFifZPIBAYdzkXoxDeevhiWbOuU++IVvSqY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=ah4+xZDI; arc=none smtp.client-ip=65.109.113.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nCrMDV4y"
-Received: by mail-yx2-f8.google.com with SMTP id 00721157ae682-854f090ff98so33095907b3.0
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 12:14:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788981260; x=1789586060; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=Yzknjs/dgM6cXy8bMP6XtAn4j86y5MQftpHsbTjU4JM=;
-        b=nCrMDV4y7AG9ZxxEvNPmvF4s9vnPDCZ4Rp4KmWvM/2AiTrtphisahkjkSmeTSDLHqN
-         W5JI6jmRA4zqTsiVvV4Pd1C89H5tbSmj9FXfUoyxkn4UHBGKwQdzFyV8kpa06GJmGalM
-         JQKrHKHiNlTn7KQ8AQjzKslh5mWywpWc8FdUH7d9NVnt18G+psF6/yAUPEd5RsvsZrXH
-         x3XX7SMVSKZTCpZHxLf7zuth0RTxce7ovw6TJdl6KPP3B4Gwz0Jgc3kQvT4m7HZeRSQS
-         bqpj6B7JlscJSyucILktwTr+Oe+OawCGtq8z1qHd4WUvfN3vp7/gE+ScEoZb738Wc+ym
-         mX9g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788981260; x=1789586060;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=Yzknjs/dgM6cXy8bMP6XtAn4j86y5MQftpHsbTjU4JM=;
-        b=nfHS10+aUReXr7oZyVI/Y4wQ40YnYhNsUbWTP4OQXkJcnEL/2mCUU1YSjdEu0vrO58
-         t3LI8sPhtVUdGF5xUat0DLALma5V2P0i21l6fF2Q8nPpFTrkLITlXCntBIL01UBx4JkH
-         +0SJZbWmam+YISFL6lYjdjAjUNupqCNJqrO3xIuBs0mASg4cvYteI1exdIgC6PSNjJ92
-         F5O9DID3/WJSRwh4P9/o5kjNCSHirdPD3kdXCt9kBavao7Cxrv2sN7uARwXw4eZGtD75
-         eEjPNMQsM2ZZZnCUG+42g/hH37Rn4f3BBifGf15KoC1XJgLUUsYmbHzh4FTtVsoe0OsC
-         Nn/A==
-X-Forwarded-Encrypted: i=1; AKwUvBwgARYL7WnQqrITKIAT72Vp5LBwwwm40zHNeqyJV73CiDKxKM9d3rEwbFuVYqhw+Dk+AL+9Dqeleeit7e8=@vger.kernel.org
-X-Gm-Message-State: AFuF++lYgg3ZC6NcjMNI+taGFggnH7hVBOusrv6XeVTfJ9BNW9HxeONC
-	OeBnVl4ITg/6QFgo9kvj+opZdMd3sA79yNFxOkIePXx3tOg44U9shds2
-X-Gm-Gg: AYBFou3Re4Td8Dr3idbi6akJweeGeE1bik46jMgTYF0I9pBmbumhHqOVjxunILHhGRQ
-	zCdF0kzQJa8zum27dK5mU7X8jKuSA8HB5WzM1qiOsLHlLHFbAhJuDTklWYyOc0iYkBizfjXbkqG
-	chnap6OKGIX1jLXiqNAB0o53qQ0n45SRvapsKsmTzvE4v/xvskKjmPpFHDiYBuPoUuFuB3KE4uJ
-	KbZlWx0KcrbgttCD3e7DxtcX9JIOTtAgyzpjXVIqnYepOMIVwVCP7nCLjqDpm9FsmVEYmx9DBhC
-	Zd2bM2MZX5nN6mDF/rXVuC1VrPXYjuFJHGjXde0/s90mIObKCcFIhYbO2lkVAtt64ihHyI/P3Cn
-	tCKVzWoFISvzzQ25WKH5l3f2f9JBYWjALiUwdOEksg5sSTPfoLAXF3sKADl+5NI1DN4yQppt069
-	i21+ylHq4lzChZcJK2lEQ9YTgjS1BEMJkAaTIknFUBasO3kJUib0Z2tJd5n3ojmZyJbkfFubRxI
-	2FWcpqJMxalz8VrgiALXEShug+/sa8N2R9JNpR+PTGNq5dluAld8ddkBnYohrblzvMRVSpMc2Ne
-X-Received: by 2002:a05:690c:e0d5:10b0:857:f33:6f1d with SMTP id 00721157ae682-87122396144mr109553227b3.6.1788981259894;
-        Wed, 09 Sep 2026 12:14:19 -0700 (PDT)
-Received: from [10.10.18.223] (wsip-64-207-253-118.tu.ok.cox.net. [64.207.253.118])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91040664be1sm150361316d6.18.2026.09.09.12.14.18
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 09 Sep 2026 12:14:19 -0700 (PDT)
-From: Ryan Brue <ryanbrue.dev@gmail.com>
-Date: Wed, 09 Sep 2026 14:14:16 -0500
-Subject: [PATCH] drm/imagination: suspend the GPU for system sleep, not
- just runtime PM
+	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="ah4+xZDI"
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id E28AF40E01ED;
+	Wed,  9 Sep 2026 19:14:30 +0000 (UTC)
+X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
+Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
+	header.d=alien8.de
+Received: from mail.alien8.de ([127.0.0.1])
+	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id iIu_wFNTMsPI; Wed,  9 Sep 2026 19:14:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
+	t=1788981261; bh=XeugPcE935YQxipQwg/vnfXosvIcdyaMCLFwxk84wns=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=ah4+xZDIHdXYnFEBnKOX7zJPSURXnBXKOovTMsu0XCpBsjYPcwt6+pxfSosZQzjXH
+	 ILxaMTmNpV3u/EpBFwJ0i8RBZjWpj90xaYmyBUVwR7zoNHs/l/n0G+R+BFOTBJdFXn
+	 oGQZeiZ9PiiUYli4nOfLTugp2sNG9R3L7ZYEgqHdKRTDOnGGOk/zxFIURyAJmrFN2J
+	 +oGGRWvRID45uATYRrvCNjybFxQnwc0sNr2/Noy4ubVx98C9OlQhELrOkEVgSdfn/F
+	 4RHZXKWMliaORaZox4VuPS62wH0rAjtA7V0VC2kuhXZvp7RDqCVuxkcJ5MPbx6fgVF
+	 cw4d1GdG92XpdlWGsJqBHHLubqgTTrl9Vl+6pFL1yp2HWtlW8CHExFEjUSXiG1dbvD
+	 9yDvwHKIQRhN9p97XgOuXczfkVN0yD+mUssrMFNxYPI5AVTUug4ShLGW6s/hA7tMLZ
+	 CfU8+WXTU7DQzcRSeXFEhkxAmf5GcOsgFfaaOwA2+lUWdvGD5p5LAC5NaLYpBZCGKL
+	 HxzTVQYWzvhwFxIWNa662gA0Q2LUbF4r9JjO9OX/aDHLIvU6+0XXCYw3dsAnGh61ut
+	 vgShKQnqYqatEj5rOrHh1tsfd2dG8xlFrTgJvOsfQrZnxTh4eDyZ6ilQwhUSEOqhw1
+	 9E4OSwq5RGa9V7MQN+yZv2eE=
+Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::42])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 6150440E01E1;
+	Wed,  9 Sep 2026 19:14:13 +0000 (UTC)
+Date: Wed, 9 Sep 2026 12:14:10 -0700
+From: Borislav Petkov <bp@alien8.de>
+To: Ard Biesheuvel <ardb+git@google.com>,
+	Kiryl Shutsemau <kirill@shutemov.name>
+Cc: linux-efi@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Ard Biesheuvel <ardb@kernel.org>,
+	Vincent Mailhol <mailhol@kernel.org>, x86@kernel.org
+Subject: Re: [PATCH v2 01/10] x86/boot: Drop pointless re-implementation of
+ panic()
+Message-ID: <20260909191410.GAaqGwAsCewrdVZZ0s@fat_crate.local>
+References: <20260909115530.1924665-12-ardb+git@google.com>
+ <20260909115530.1924665-13-ardb+git@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260909-rbrue-suez-upstreaming-pvr-suspend-gpu-system-sleep-v1-1-f45847bc951b@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXNwQ6CMBCE4Vche3aTykGCr2I8UDrUGqnNbktQw
- rtb9fjNYf6NFBKgdG42EixBwzNWHA8NjbchenBw1dSa9mR607NYKWAteHNJmgXDHKLntEgdNSE
- 69qmwvjRjZn0Aie1keze5zpjOUn1Ogimsv+rl+rcWe8eYvyna9w8NeRyNlwAAAA==
-X-Change-ID: 20260909-rbrue-suez-upstreaming-pvr-suspend-gpu-system-sleep-bfb9dfd7007b
-To: Alessio Belle <alessio.belle@imgtec.com>, 
- Luigi Santivetti <luigi.santivetti@imgtec.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Sarah Walker <sarah.walker@imgtec.com>, 
- Donald Robson <donald.robson@imgtec.com>
-Cc: imagination@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Ryan Brue <ryanbrue.dev@gmail.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788981258; l=2911;
- i=ryanbrue.dev@gmail.com; s=20260906; h=from:subject:message-id;
- bh=EDwUvwYj52uRaI2dCh0tF4qDlZkgWRI/RU1+vIfQfts=;
- b=e3Tfw3yuJqdLfhsvfVAyjk7rHzRK6ioMgcmTgeGmoRNT6onFbW6CVKFXi6ZGv4BUSX/EeoMII
- yVSbVc+K6VSA70/wRm0GEMx1VTHB/o73vstNk/nEBUf+3usP2Lttss8
-X-Developer-Key: i=ryanbrue.dev@gmail.com; a=ed25519;
- pk=KsUvVaP//v/2q+ZBuacc7cLbsyEYn+AD71Sn28oZWKo=
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260909115530.1924665-13-ardb+git@google.com>
 
-pvr_pm_ops has only RUNTIME_PM_OPS, so the GPU gets no callback for system
-suspend at all. That is fine only while the GPU happens to be
-runtime-suspended when the system suspends -- then its own runtime PM has
-already disabled the firmware and powered the domain off. If it is
-runtime-ACTIVE, genpd powers the domain down during the system suspend
-without the driver ever being told, so on resume the driver still believes
-its firmware is running. The first firmware operation then never completes:
+On Wed, Sep 09, 2026 at 01:55:32PM +0200, Ard Biesheuvel wrote:
+> From: Ard Biesheuvel <ardb@kernel.org>
+> 
+> The decompressor has its own implementation of panic(), which is based
+> on the vsnprintf() routine provided by the EFI stub.
+> 
+> Relying on the EFI stub from code that does not execute in the context
+> of the EFI boot services is a bad idea. It is also completely pointless
+> in this case, given that the only user of this version of panic() only
+> passes a compile time constant string, without any printf conversions.
+> 
+> So use error() instead of panic() in that case, and drop the panic()
+> implementation entirely. This is needed so that the EFI stub's
+> vsnprintf() can be modified in a manner that is incompatible with the
+> expectations of this caller.
+> 
+> Signed-off-by: Ard Biesheuvel <ardb@kernel.org>
+> ---
+>  arch/x86/boot/compressed/error.c | 19 -------------------
+>  arch/x86/boot/compressed/error.h |  1 -
+>  arch/x86/boot/compressed/mem.c   |  2 +-
+>  3 files changed, 1 insertion(+), 21 deletions(-)
+> 
+> diff --git a/arch/x86/boot/compressed/error.c b/arch/x86/boot/compressed/error.c
+> index 19a8251de506..ce5ed7d8265e 100644
+> --- a/arch/x86/boot/compressed/error.c
+> +++ b/arch/x86/boot/compressed/error.c
+> @@ -22,22 +22,3 @@ void error(char *m)
+>  	while (1)
+>  		asm("hlt");
+>  }
+> -
+> -/* EFI libstub  provides vsnprintf() */
+> -#ifdef CONFIG_EFI_STUB
+> -void panic(const char *fmt, ...)
 
-  pvr_mmu_flush_exec -> timeout -> pvr_power_reset -> drm_dev_unplug
+So this thing appeared magically in v8 of the TDX unaccepted memory patches
+and I don't think we questioned it back then.
 
-and pvr_power_reset() deadlocks, because drm_dev_unplug() waits in
-synchronize_srcu() for every drm_dev_enter() section to exit while being
-called from inside a DRM ioctl that holds one. The result is an unkillable
-D-state process and a GPU that stays dead until reboot.
+v7's tdx_accept_memory() does error():
 
-On mt8173 (amazon-suez) this is deterministic:
+https://lore.kernel.org/all/20220614120231.48165-15-kirill.shutemov@linux.intel.com/
 
-  echo on > /sys/devices/platform/soc/13000000.gpu/power/control
-  echo mem > /sys/power/state          # wakes on an RTC alarm
-  vulkaninfo --summary                 # hangs in D state, every time
+and v8 started doing panic():
 
-and with an autosuspend delay of 50 ms it is also what makes the failure
-look intermittent in normal use -- it depends purely on whether the GPU was
-idle at the instant of suspend.
++void tdx_accept_memory(phys_addr_t start, phys_addr_t end)
++{
++	if (!tdx_enc_status_changed_phys(start, end, true))
++		panic("Accepting memory failed: %#llx-%#llx\n",  start, end);
++}
 
-pvr_power_device_suspend() already disables the firmware and calls the
-platform power_off, and pvr_power_device_resume() is its exact inverse, so
-force them for system sleep. The vendor driver arrives at the same rule by
-a different route: it holds a wakelock while the MFG domain is powered
-("prevent suspend when gpu active") so the system can never suspend with
-the GPU on.
+https://lore.kernel.org/all/20221207014933.8435-15-kirill.shutemov@linux.intel.com/
 
-The reset-path deadlock itself (drm_dev_unplug() waiting on an SRCU section
-held by the ioctl that called pvr_power_reset()) is a separate problem and
-is not addressed here; this change only stops the system-sleep path from
-triggering it.
+and it switched to it being a vsnprintf() wrapper because it wanted to dump
+start and end perhaps.
 
-Fixes: 727538a4bbff ("drm/imagination: Implement power management")
-Assisted-by: LLM
-Signed-off-by: Ryan Brue <ryanbrue.dev@gmail.com>
----
- drivers/gpu/drm/imagination/pvr_drv.c | 1 +
- 1 file changed, 1 insertion(+)
+But then it ended up dropping the params in v13 and landed upstream with
+a single string as an argument.
 
-diff --git a/drivers/gpu/drm/imagination/pvr_drv.c b/drivers/gpu/drm/imagination/pvr_drv.c
-index 5c965ef0274f..23d353141589 100644
---- a/drivers/gpu/drm/imagination/pvr_drv.c
-+++ b/drivers/gpu/drm/imagination/pvr_drv.c
-@@ -1517,6 +1517,7 @@ MODULE_DEVICE_TABLE(of, dt_match);
- 
- static const struct dev_pm_ops pvr_pm_ops = {
- 	RUNTIME_PM_OPS(pvr_power_device_suspend, pvr_power_device_resume, pvr_power_device_idle)
-+	SYSTEM_SLEEP_PM_OPS(pm_runtime_force_suspend, pm_runtime_force_resume)
- };
- 
- static struct platform_driver pvr_driver = {
+Anyway, adding Kiryl/Kirill for comment and leaving in the rest for reference.
 
----
-base-commit: df2908090cda368b01ff43709f51890076c56157
-change-id: 20260909-rbrue-suez-upstreaming-pvr-suspend-gpu-system-sleep-bfb9dfd7007b
+> -{
+> -	static char buf[1024];
+> -	va_list args;
+> -	int len;
+> -
+> -	va_start(args, fmt);
+> -	len = vsnprintf(buf, sizeof(buf), fmt, args);
+> -	va_end(args);
+> -
+> -	if (len && buf[len - 1] == '\n')
+> -		buf[len - 1] = '\0';
+> -
+> -	error(buf);
+> -}
+> -#endif
+> diff --git a/arch/x86/boot/compressed/error.h b/arch/x86/boot/compressed/error.h
+> index 31f9e080d61a..87062dea9a20 100644
+> --- a/arch/x86/boot/compressed/error.h
+> +++ b/arch/x86/boot/compressed/error.h
+> @@ -6,6 +6,5 @@
+>  
+>  void warn(const char *m);
+>  void error(char *m) __noreturn;
+> -void panic(const char *fmt, ...) __noreturn __cold;
+>  
+>  #endif /* BOOT_COMPRESSED_ERROR_H */
+> diff --git a/arch/x86/boot/compressed/mem.c b/arch/x86/boot/compressed/mem.c
+> index 0e9f84ab4bdc..e1c017b55184 100644
+> --- a/arch/x86/boot/compressed/mem.c
+> +++ b/arch/x86/boot/compressed/mem.c
+> @@ -37,7 +37,7 @@ void arch_accept_memory(phys_addr_t start, phys_addr_t end)
+>  	/* Platform-specific memory-acceptance call goes here */
+>  	if (early_is_tdx_guest()) {
+>  		if (!tdx_accept_memory(start, end))
+> -			panic("TDX: Failed to accept memory\n");
+> +			error("TDX: Failed to accept memory\n");
+>  	} else if (early_is_sevsnp_guest()) {
+>  		snp_accept_memory(start, end);
+>  	} else {
+> -- 
+> 2.55.0.1003.g10538fe699-goog
 
-Best regards,
---  
-Ryan Brue <ryanbrue.dev@gmail.com>
+-- 
+Regards/Gruss,
+    Boris.
 
+https://people.kernel.org/tglx/notes-about-netiquette
