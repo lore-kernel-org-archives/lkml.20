@@ -1,111 +1,143 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA74E560AB3;
-	Wed,  9 Sep 2026 16:39:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83863583ACC;
+	Wed,  9 Sep 2026 16:39:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788971965; cv=none; b=hZTh76z+eENkRxAbSVCIVa8n1EvjqJb7ZfcIDws+KxYpjqXlkhy2c6bkVA62AgzTTXo2QATIEUQJ0lhziTGSX7Z+W3TRF6aNQtgR3TzmCnvXB8CgLnVZc2aKnqZ16EhR0u+ZaROpw39BIwpDhUzCUtJ9pkR8+4ECmRnbOOoZwIo=
+	t=1788971973; cv=none; b=Iw+Fv0BtODg8YK/LhTKDYrBJ5dLhxImAD1fC32MsHNJzf/WB9b6tOSuf7aPLitBQ+5a0kPcgG7cAahhDrkXONErWHJzWBzylKpD+CyGSYZAf+6PgJyJ/g7ML2MPtwIadgxzKMhkI/IeekW3ZGQKYJwGGWQiNYOMN6zVyIYpCfFw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788971965; c=relaxed/simple;
-	bh=FOm1fIw0DMQpAGmJi8JiagS47H8KggFhPCfSsm4vK+Y=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=KAVy1tb57Z9w+wB0ew07o0XKcmlRqrD0L0oDvCfJJcByS3MVjrpURQoeUU6e+8F1lzoh3zBYyONnIpAX1DyGK9Vm4hIrGXKs3SaPVFYYjiYYc9rSdb6DICjydIvqIdJAyn2zlZBjK8cY+ovVjTGboAUfttwGdB2VlHhzAqRaINA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Im87FuBm; arc=none smtp.client-ip=192.198.163.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1788971973; c=relaxed/simple;
+	bh=obXuPcRvkWnzIqN2joo9otws3rNTJVbnzqTcEFBqsOc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=i2zY82ecG+a7o312KHDC1QJWf+1/RFpDFGaVFfAbvTTLtRoIP5UZY5dFlEx1cCv2bHDeSE0W6XBCF4rgFegLTMJg88d0BAZ4bRYPVTsFqmqLbsDkEPtkNS6IiDJxCJdBWmtu0diRwXIwS4sF9GwJajk2KY1sHRfc3LIWWPrkOMo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=b2uq2HLz; arc=none smtp.client-ip=198.175.65.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Im87FuBm"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="b2uq2HLz"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788971963; x=1820507963;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=FOm1fIw0DMQpAGmJi8JiagS47H8KggFhPCfSsm4vK+Y=;
-  b=Im87FuBm3frEvf4c10a0VMO75pJA1fqYaUX6KwYDb1lmL9udF7fCXAW3
-   iB6CzS6JMBmCkmYUYTubvyVkjS6GVgGwfq6/2HIjK8WBQxj4PVJClGpTD
-   d0ey9cGGmuNwrgNuMNUqocHWwJS0qIMWIRcZcGYizIGRcZTwsGBDRQ6A6
-   Fm8Dh28zM4evAQbiznVh8LbR0SE2rVQmfuhkTWW5V94zdb+VZDH2Y9gM4
-   bDy83HlBthfzG8Qs8WEihhSOCc3V8IEAvAUePalb+HtXjzl0SwhoIYJwP
-   yjafEQJxEJdhUuPC1NTq8qfdrcTL6iX5OLxAywWWsA+3SYqXZTK1AUV0e
+  t=1788971972; x=1820507972;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=obXuPcRvkWnzIqN2joo9otws3rNTJVbnzqTcEFBqsOc=;
+  b=b2uq2HLznKciKEpcZrnbxqOe94bmqm8kN8ZLa47uUrz/PgYW42SYok4/
+   fdBlhn4rDjNWwM8AhoZZksGqzO20PY0T+OpGVrGrtdb85/AgxOm0l7eNu
+   EbGl815/2+a6DReev/KXO9GGkmVPOOcDs11bYDr54AcjgCk6Uba83JI9e
+   UP+tXUamKQq2joLlD7+ocL3BD5vOCQy9afXD8v8yAKrYTnKAceYFpnEha
+   RlFFvr5PuSbW9NAcO2VgCczLv4R4tbp5wQa0ueBDeNqhtDPSWgrUFlctk
+   6heLyM/UtXm+oc3ieiSFdsMENBOdAO+U1A/HkjXWXcSUPRZXRHmoZ2YeA
    Q==;
-X-CSE-ConnectionGUID: hNGG9aJUQueLSrQfz4P/iA==
-X-CSE-MsgGUID: trH7MebpQTWZ0IOG7i27Bw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11900"; a="76964847"
+X-CSE-ConnectionGUID: 0vG9qwnAQwq4d1ePdZPkCA==
+X-CSE-MsgGUID: Fw8+/4U1QKOFmbWnkAmnQQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11900"; a="100568508"
 X-IronPort-AV: E=Sophos;i="6.25,270,1779174000"; 
-   d="scan'208";a="76964847"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
-  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Sep 2026 09:39:22 -0700
-X-CSE-ConnectionGUID: FchodqDrRu6u56mwT6YlEQ==
-X-CSE-MsgGUID: R9Zcv4YjRTC0iXfF0jXuCQ==
+   d="scan'208";a="100568508"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Sep 2026 09:39:31 -0700
+X-CSE-ConnectionGUID: HabaXO0NQt61xU7HEnWKBQ==
+X-CSE-MsgGUID: Qk+eQ6riTfqE8EPsCXm74g==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.25,270,1779174000"; 
-   d="scan'208";a="267688901"
-Received: from black.igk.intel.com ([10.91.253.5])
-  by fmviesa010.fm.intel.com with ESMTP; 09 Sep 2026 09:39:20 -0700
-Received: by black.igk.intel.com (Postfix, from userid 1003)
-	id 8EC0D99; Wed, 09 Sep 2026 18:39:19 +0200 (CEST)
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
-	linux-acpi@vger.kernel.org,
-	acpica-devel@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Cc: "Rafael J. Wysocki" <rafael@kernel.org>,
-	Maciej Wieczor-Retman <maciej.wieczor-retman@intel.com>,
-	Pawel Chmielewski <pawel.chmielewski@intel.com>,
-	Len Brown <lenb@kernel.org>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Subject: [PATCH v1 1/1] ACPI: bus: Reduce runtime memory footprint of struct acpi_device
-Date: Wed,  9 Sep 2026 18:39:18 +0200
-Message-ID: <20260909163918.368017-1-andriy.shevchenko@linux.intel.com>
-X-Mailer: git-send-email 2.50.1
+   d="scan'208";a="273343716"
+Received: from xiaoyaol-hp-g830.ccr.corp.intel.com (HELO [10.124.240.119]) ([10.124.240.119])
+  by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Sep 2026 09:39:28 -0700
+Message-ID: <9abeed40-bcdc-48d9-8cbb-cb87154bb9f6@intel.com>
+Date: Thu, 10 Sep 2026 00:39:25 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 1/4] KVM: TDX: Track configurable CPUID bits allowed by
+ KVM
+To: "Edgecombe, Rick P" <rick.p.edgecombe@intel.com>,
+ "kvm@vger.kernel.org" <kvm@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "binbin.wu@linux.intel.com" <binbin.wu@linux.intel.com>
+Cc: "kas@kernel.org" <kas@kernel.org>,
+ "pbonzini@redhat.com" <pbonzini@redhat.com>,
+ "nik.borisov@suse.com" <nik.borisov@suse.com>,
+ "seanjc@google.com" <seanjc@google.com>, "Gao, Chao" <chao.gao@intel.com>,
+ "dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>,
+ "andrew.cooper3@citrix.com" <andrew.cooper3@citrix.com>
+References: <20260827031837.2863609-1-binbin.wu@linux.intel.com>
+ <20260827031837.2863609-2-binbin.wu@linux.intel.com>
+ <55488b92-66a8-45e5-ad0f-8fed63ce1187@intel.com>
+ <a30741f8-b99b-4f36-80a5-4688c2578d99@linux.intel.com>
+ <6b565572-b316-4e86-906d-f150c896fe21@intel.com>
+ <84891108-55be-48c1-9993-c730a5334d5b@linux.intel.com>
+ <cfe57e67-49ce-47d7-b20b-a29e23fe16d4@intel.com>
+ <d8012e9acbe3c733b082c87fdbe9f229a8f7750c.camel@intel.com>
+Content-Language: en-US
+From: Xiaoyao Li <xiaoyao.li@intel.com>
+In-Reply-To: <d8012e9acbe3c733b082c87fdbe9f229a8f7750c.camel@intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-The ACPI handler is heavily used by the ACPI code. Making it as
-the first member in the struct acpi_device reduces code size.
-For instance, the drivers/acpi/scan.o (with `make allyesconfig`)
-gives this statistics:
+On 9/9/2026 5:13 AM, Edgecombe, Rick P wrote:
+>>>> In the end, they might be disallowed to be configured to TDs because KVM
+>>>> doesn't allow them for VMX VMs. This is also the point I want to discuss.
+>>>> Do we really want to make such restriction that KVM cannot enable/allow a
+>>>> feature for TDs unless KVM first enables/allows it for VMX VMs? What's
+>>>> reason behind it?
+>>> Sean mentioned it that "generally speaking, KVM shouldn't allow features
+>>> that KVM doesn't support for non-TDX VMs" in
+>>> https://lore.kernel.org/kvm/aj1fi_0SBxMK5WOB@google.com/
+>> For existing features, it might make some sense. But for new features, I
+>> don't think so. It defines the enabling order for new features that we must
+>> enable a feature for non-TDX VMs first and then TDs. And people might want
+>> to bypass this rule by abusing the TDX_CFG_EXTRA_F() when only one line of
+>> TDX_CFG_EXTRA_F() is enough to enable a feature for TDs but more effort
+>> required to enable it for non-TDX VMs.
+>>
+>> Maybe I miss somthing. I would like to see stronger reasons for such decision.
+> I think "generally speaking" means, it's not a hard rule.
+> 
+> As for why to prefer it, I think we would normally want regulars VMs and TDs to
+> work similarly. Especially those that have some of the virtualization handled by
+> KVM. But TDX module's behavior of a feature can conform to KVM's only if KVM's
+> already exists. Take for example split lock detection. The normal VM KVM support
+> initially went through several iterations of design. Separately, TDX ended up
+> with a different solution. Imagine if we had enabled the TDX arch one, before
+> solving the general KVM problems. Then we would end up with two different
+> behaviors, or a worse KVM behavior as it tries to conform to TDX module's
+> behavior.
+> 
+> So we need to at least solve a feature at that level before deciding KVM's
+> handling of it. This could be done while enabling the feature for TDX only, but
+> often would involve solving the problems for normal VMs too. In the end, it's
+> the generic KVM behavior that needs to be solved before enabling the feature.
+> 
+> Ideally we could consider normal VM and TD at the same time. I expect we will
+> start doing that after this series is in place. Not a hard rule, but a norm.
 
-add/remove: 0/0 grow/shrink: 3/8 up/down: 50/-169 (-119)
-Function                                     old     new   delta
-acpi_device_add                             2294    2319     +25
-acpi_add_single_object                      6523    6544     +21
-acpi_dev_get_next_consumer_dev               602     606      +4
-acpi_tie_acpi_dev                            169     165      -4
-acpi_scan_drop_device                        319     315      -4
-acpi_dev_clear_dependencies                 1151    1147      -4
-acpi_bus_attach                             2898    2894      -4
-acpi_dma_get_range                          1420    1415      -5
-acpi_init_device_object                     5497    5485     -12
-acpi_bus_check_add                          1940    1923     -17
-acpi_device_hotplug                         3407    3288    -119
-Total: Before=77509, After=77390, chg -0.15%
+I don't think "split lock detection" is a good example. We are discussing
+virtualizing a feature, or allowing a feature to be exposed to non-TDX and TDX
+guests. While "split lock detection" is not a virtualizable feature and how KVM
+handles it is all about how KVM fixes the architectural flaw of it.
 
-Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
----
- include/acpi/acpi_bus.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Generally, I agree with your point that we need to think at higher level before
+KVM deciding to support virtualizing a feature. But after the generic level
+consideration is done, there can be different orders:
 
-diff --git a/include/acpi/acpi_bus.h b/include/acpi/acpi_bus.h
-index a10a591c18b2..64ae66ca456e 100644
---- a/include/acpi/acpi_bus.h
-+++ b/include/acpi/acpi_bus.h
-@@ -435,9 +435,9 @@ struct acpi_device_software_nodes {
- 
- /* Device */
- struct acpi_device {
-+	acpi_handle handle;		/* no handle for fixed hardware */
- 	u32 pld_crc;
- 	int device_type;
--	acpi_handle handle;		/* no handle for fixed hardware */
- 	struct fwnode_handle fwnode;
- 	struct list_head wakeup_list;
- 	struct list_head del_list;
--- 
-2.50.1
+1. allow a feature for non-TDX VMs and TDs at same time. i.e., in one patch or
+in a single series.
 
+2. allow a feature for non-TDX VMs first and then TDs. This can be due to by
+that time TDX's spec for the feature has not been defined/finalized.
+
+3. allow a feature for TDs first and then non-TDX VMs. This can be due to it
+requires more effort/patches to support virtualizing a feature for non-TDX VMs.
+
+Usually allowing a feature for TDs requires far less efforts than for non-TDX
+VMs, because most of the virtualization work is done by TDX module. E.g., for
+TDs, KVM usually only needs to add code to restore the host states that are not
+restored by TDX module. However for non-TDX VMs, KVM needs to do more: emulate
+the architectural behavior of the MSRs, context switch states, and the nested
+handling, etc. It's likely that a series to enable a feature for non-TDX VMs
+spends several Linux releases to finally get merged. Making TDX support depends
+on it seems not that necessary.
