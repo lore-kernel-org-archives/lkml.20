@@ -1,207 +1,234 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f182.google.com (mail-pg1-f182.google.com [209.85.215.182])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C9253382DA
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 04:29:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788928166; cv=none; b=M7YvNNldA9glTGgCMUjY+NQ+5sDpozADqodcoBz1qP+WKBkRF/b4oYQnVEWw3zjn/gP8XlVcGk+ukAOQ6U8OAiiEBSc5Fz1sJnAl4zyvXvzv4WPIxigvY1eHBe30A8ghyDbqXQ2rS7Btxl4hnfSvYG/vB4W8Lw/3owbklQfRRPw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788928166; c=relaxed/simple;
-	bh=WTn05/4QycXhxqRWks5EqAjlR8e86BCzz+vfMc6TDRE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=odjKCBvWg52/2bR6Zv8JoADfunF3epcrAYgA2+3n3YC2zMrS0b2eCxApeX/5WfMbhuURtfxa2h/aNp1kxbiy42Ic9BUyxN0pclmJtl/FEB7D40F/rQAF1tOUB6OMcytAuC+ApEGBnC8W/DINELFEOpJF9mG4Cxt7JV72Zc/xDno=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=LGUi96nV; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=EmPFeAu5; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 134571B4F1F
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 04:31:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.215.182
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788928319; cv=pass; b=TSK57JOSzLVmYLbWwu5DEmDqVQ+4a+hVhMTnuhuwDLYomZ0dvefu6UCzyKxJnC4a5Lsqp2Dl5mGoORPeoVb9O9xXMPRXUDtSO9mrL9knkMXofGrk7GSbWHsdDvn/IoRPKfZC8jnP+gOTOPwoHuwZOev9q0kMErvgKCyIKXF0bbQ=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788928319; c=relaxed/simple;
+	bh=wCoAPXGQWo/3x8ZcHwjWU9tDfHvxRZZTr1ThfjC8Me4=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=XVgaAT+FwRE/pdsuzLh0bKV/f5QN7+uRtxLCgZlbA2UlTMNIUuwtcTOXGmoAdEoogIKT7kmfV2wwjmPKHk78LdyqInLKuVrp39dEI/N7yB8p8Ct/KoNaRF7H1BjixHNuh1ebMPSw7epdgPCcApj7BKo2kFwiSrJdYMHHqz9Vhf8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=C9qF87zf; arc=pass smtp.client-ip=209.85.215.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="LGUi96nV";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="EmPFeAu5"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1788928163;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Nh6M4VZCYgC4q2LdczwdgMA5ELYVwccRqILicmGF2f4=;
-	b=LGUi96nVVP5ewTjOaQk1h7clWnXbVLTE6Wnzm1CS76i3AATFVCPI9brEI3jny+hL4fwGNs
-	KMuAnmHtQXEcG4zxcSMKPWSaUYM8VXPq4Cm/LZ45eRK5eD+o2goVDYpon3QlivOoUYiain
-	fz/fL1+RztXS+a9SVnLI5LQIyd26Z8g=
-Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com
- [209.85.216.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-663-TU8q3DFLPeacy9GNuGB-rg-1; Wed, 09 Sep 2026 00:29:22 -0400
-X-MC-Unique: TU8q3DFLPeacy9GNuGB-rg-1
-X-Mimecast-MFC-AGG-ID: TU8q3DFLPeacy9GNuGB-rg_1788928161
-Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-395543dc382so749356a91.0
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 21:29:21 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="C9qF87zf"
+Received: by mail-pg1-f182.google.com with SMTP id 41be03b00d2f7-cc328b43a56so4347429a12.2
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 21:31:56 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788928316; cv=none;
+        d=google.com; s=arc-20260327;
+        b=h2RHcgb81yUpn/4b55m71rVz8KYUNBLpkybTysJUtJ/9l0q/UKucuG9tg7p8UeG1Bj
+         /OM078QvmJEJFV2qtNVKYaTKKoRnBAJbK7HDqyrpOwUVfmVKccDvdH69O5S+hUxcAYFA
+         nVngAdyd8pX6AYi1z5vZMP809zO10ffTIngygE/Zwoj6L3LXFciVMrh1dp6cn0neqiZz
+         ssrJpPN1L37m5WRe4PYK5zJO3bDm4C+69cxik1BacWJoB6Gqw51itDU0Vjvq3td4X40p
+         Oj7eUpmsbfOLvTkrA39h3lufFmIbGHpRWLZviAG5h9JpCWEf3zwh0xRQmRFp7Si8j84b
+         mTrQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=aalq+Xsboz3fBB7v2n7ALpXM1NAPQRQmE6A5C22OVu4=;
+        fh=Cisu90DYGTiCBXMQ3MDvse+lPgolWQruMv8Isae0zuc=;
+        b=g7MrgQCyLp4U/Q19V5gSNd2OHRvkCc4i9dEkuujetIPliFPL8PZ85/fAMT8wMG4NLW
+         Gp+Pok3SQfPJ75gOUfRiPvIfVYHZILc12qTsmXx2kADvml5W6edPgMye+cCxPO6zwcIK
+         qvF0LDYnNQvI7WokNf4LcV+/XMXhAjdzgf2Y1awi8ebA/b+BUcpaIE5TEfib7+vP9r4S
+         L+7AX4Jqk4fbf25A3x92e3U195qrMipgvbMEo7SjqdB32p5lNH0sgQsd0FYdpo43H7RM
+         qjPoB/JbIiHrHAAEsqmXYrF8iyvbcwHF8v8imvBomMYRbJe1wnAf4UMdKVmxqZrm6jIP
+         FAKA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1788928161; x=1789532961; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20251104; t=1788928316; x=1789533116; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Nh6M4VZCYgC4q2LdczwdgMA5ELYVwccRqILicmGF2f4=;
-        b=EmPFeAu50xW5vOqAf3VuxXMCtwy7CYeoLd+ZDi1oQHUoRRFivygD9WsIQugNaAR0LO
-         p3jC1NDB1ADEEFkULyI0o4DiJVJ7JRf+HZhYl2BGoLEh/63JjG/a30E+FmqTappLkKS2
-         EEj3b9J30qiOtSuKIb7+qHwLH80hiEEhW9UPgSWfvPQiAqQ6yJLCp/xlPbkvlgBwNx5h
-         IJf1C6gZ/Kb9lY9Lmcrygv/BMYQ73+SKYKpKqLyuGqOVWUrXyeXr2i4VZGvKqDu/4Kaq
-         Ey2QFWAkLCKYR6xqXKxzf4r9g6GVSK2kyIT0abkxB3hUmhnIeiv6whpzicPikpaXGvkw
-         Oizw==
+        bh=aalq+Xsboz3fBB7v2n7ALpXM1NAPQRQmE6A5C22OVu4=;
+        b=C9qF87zfzUl5z3O8fzRZT5jjjtl3C+vdBjhhnAf1+EwK0XlSIgfREl0AfZoBo1DmD/
+         LGcjR/+g2P75ajvEvj4mmCu6ckvnLcipQZJPNAZw2fIGSEObd3N9lGnpzCslsjdl+Hii
+         kL3cPFYqYdivFfkDX1Bp+ve21ebs4Q/CHu+X+liZF/TC5VTm4VkLFImDLqvRdQrk1pXl
+         Yq+I5k1RNePdu1ELc4vnFYGD7jAqChb1AY8yCXLcgc2FMTiF4/XKWyMGb4dwugvmyJtF
+         yfrLCoY7VZ2nkMuvce70xqSKEpIG3x1HsAe9NbJzFBS1ueL5yNvEQaSSRctbzGu9xZzG
+         i6tw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788928161; x=1789532961;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Nh6M4VZCYgC4q2LdczwdgMA5ELYVwccRqILicmGF2f4=;
-        b=YD+oOZA9bu+gdmhrFoWL5fJpSlZ9n8vWeXdLmzOPCr8sc8ruErD+6CiOBf/+Is8YCO
-         sTeR9c+HoVn9izwxuuyevDL4GO5epntXGjTszYwF2wBJY7pvAHl4H7NU4N1hj0LH88vS
-         tU98fLcttB2ZIBDmYFcPSxseqWbqHelBhhRswbseMgIedvmRbRHkOT4EsVSIV1cNUj3n
-         VU2exHnrm5xAUaza9DwxcDuOcUMxxLk65RZnEL/WyqOG0w86OoTBzYcAwsW2clFUgXZL
-         /WXfvtn6VC4NSlS71hCDe/POLEYx0JqjlcCc+9FWA2Wt4A3wL5ccDZ+4UBWdG1r6ZGvg
-         4LSg==
-X-Forwarded-Encrypted: i=1; AKwUvBwOlPtTTtc64QFr2jdW6KOh1Xs87/RTGF1sCIc5NMem0XUU3Z//s4P6ATl67YSC/lKq3kynPH9w1G27rBg=@vger.kernel.org
-X-Gm-Message-State: AFuF++l46xEOKS3lbV/NS8HSA8wbFThv1Ev11QWvQ4KVX3kCQ49lvdCX
-	ovn2+owcsKI7BHXduVjFSYgI0gFd8YC8UY7eTwN+EDDV5fgANf22HcZb7fnU2EfKZsQWetI4ppv
-	D2p6MgLPE18TTaO6D44kWfWJRyKmK7AVO+dHKkL52l2z7t7NRHqAYxD7TlXEXPseXCQ==
-X-Gm-Gg: AYBFou1W9SvP9grJOCrP4odKeZtZMjqTZFYLm0HXscC46tjgdhQxreq1YBibOodX50f
-	LEKcDFfUJ2Guf0uwmOUsVEWAcouZfLLsDaxDJcssvZZiM9vGhvbj56ekT+eJdeQRyjfjl+AckFI
-	2J9xFZ39X1tEK8uCQI64OVfNDaki6canqz8Dg81IgW2H6q6gNEkKtdvlRV4qEUpUMu0NnowenF+
-	drSyBi5lLfqnCMuphb7beEYZl5RAvlffb4n+Fzlo0M6Oxn3bk+CT3GlqcwDmabny0c0NFbZAl/r
-	BXW/2t91ddVHCuUwANJYoOpN7a/gVhgxclK0iLIKXirJ+X65cMr/kMcoZT9uJkq14qsHU1R0oSO
-	6x7+9Yc5Gl79I5gtuUOL2Mfiasfch1x30A3fuGkVMkg==
-X-Received: by 2002:a17:90b:564c:b0:37f:e326:6557 with SMTP id 98e67ed59e1d1-39b2612338dmr54737966a91.4.1788928160900;
-        Tue, 08 Sep 2026 21:29:20 -0700 (PDT)
-X-Received: by 2002:a17:90b:564c:b0:37f:e326:6557 with SMTP id 98e67ed59e1d1-39b2612338dmr54737906a91.4.1788928160430;
-        Tue, 08 Sep 2026 21:29:20 -0700 (PDT)
-Received: from [192.168.68.52] (n175-34-8-244.mrk21.qld.optusnet.com.au. [175.34.8.244])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39ba0a7b2c3sm5544813a91.0.2026.09.08.21.29.10
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 08 Sep 2026 21:29:19 -0700 (PDT)
-Message-ID: <aac304fa-a371-4210-8703-74281c9748f8@redhat.com>
-Date: Wed, 9 Sep 2026 14:29:08 +1000
+        d=1e100.net; s=20251104; t=1788928316; x=1789533116;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=aalq+Xsboz3fBB7v2n7ALpXM1NAPQRQmE6A5C22OVu4=;
+        b=TLbBMCgs7STeXc1dwUy9ZpzKE4Lx6H1AFXqSnz3uIvH3gr+ejEvQsGnALwjZFxpbnu
+         o9XQHHModB9rXFOVaVKEyvujHCOv+xOzImK/x5qypOEYx/09GvpLZHOvH0M+9QxxxpZr
+         f4uxYb2djG20NYpVkPTknvw1hEf8jmCRislTcouBq767HjvS+ruNAjcXTlxXEBLBh87g
+         2avGlHZNWDuY2bRBHpdwMbEdt+rFQ2xPp6FwaKzwxIoPYK1dS9oRE6Q+/rtnLWAamCk3
+         CEvomiwWowhK5aJ6hzB8WnFe3/RwdZewFvp41Dnvqc0Rt1udByRHAlF5Yo8INOZ0WXdl
+         mn2w==
+X-Forwarded-Encrypted: i=1; AKwUvBy61vMoJnDSk2S3BcvYlF8cvcxChUCEuhUhhKMUur5WeEPMc57brP400qTDNLwHpgOko52fHfGgtri2JPA=@vger.kernel.org
+X-Gm-Message-State: AFuF++kGb0ZWvmYFCnJ++CQnd/rN0aZDudz0DgWcmGMfUyY1Bko5wFKO
+	2knhfnMPwnq95kcJZPd+njq1WcU5z4ofNJX2az6xBe7RaKv+mEdSBQVTjJ9PyQkfCkD/G2q6y8Z
+	K3wmXLigYtijoLqUvzcu+vcs7gBIVgc4=
+X-Gm-Gg: AYBFou1LsRKzTAkx2Xptf+dyxrAKCXHu9in1oO1IJSrGuF1AQk1ymqYpO8iBStB0A0Z
+	yFMbNGyKQdilogzGgklF6qwUB9znODJpqt8Seurof2eemSDDbCdbr4mUDOzm4MukVd0cHodQ2eN
+	vo5nRXZXaWXbdcNZ7QIXw86TYUICno8hhAcCmgvzFTOojKi2jGBIUXbMgNUUiL1gNrniixFdA+t
+	B8nECUlPOuYdNRFl08m1Rl20+AAQV1pPlSYg0Ouh+CxXoRkq4uP/WBwWzPnxrtZ362MvekfpqiY
+	f+RsxNuAUzU6g4KRlqWPtKTCweEWO3JdJFD64aDbGKHaDPdFZIfQqHozNG1Bmpqh2T+7tooB7ji
+	KqhnyUVjJ5c3sxPmoi9OnhHpwQrrbAV/0Rxz9HMftG9I6oKG0DUeVSI/uIim8CdMoBbWN9dx9YZ
+	f+QGP8m7oB8hH4QHFk41MOKa7E6h9R14Q=
+X-Received: by 2002:a17:90b:5844:b0:38f:5869:387b with SMTP id
+ 98e67ed59e1d1-39b26101c20mr49310336a91.9.1788928316092; Tue, 08 Sep 2026
+ 21:31:56 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v17 5/7] firmware: arm_rmm: Activate the RMM
-To: Suzuki K Poulose <suzuki.poulose@arm.com>, kvm@vger.kernel.org,
- kvmarm@lists.linux.dev
-Cc: maz@kernel.org, will@kernel.org, catalin.marinas@arm.com,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- steven.price@arm.com, aneesh.kumar@kernel.org, oupton@kernel.org,
- joey.gouly@arm.com, tabba@google.com, yuzenghui@huawei.com,
- linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com,
- sdonthineni@nvidia.com, alpergun@google.com, fj0570is@fujitsu.com,
- WeiLin.Chang@arm.com, lpieralisi@kernel.org, enju.kohei@fujitsu.com
-References: <20260907095942.1140734-1-suzuki.poulose@arm.com>
- <20260907095942.1140734-6-suzuki.poulose@arm.com>
-Content-Language: en-US
-From: Gavin Shan <gshan@redhat.com>
-In-Reply-To: <20260907095942.1140734-6-suzuki.poulose@arm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20260906030429.2085375-1-xmei5@asu.edu>
+In-Reply-To: <20260906030429.2085375-1-xmei5@asu.edu>
+From: Dmitry Safonov <0x7f454c46@gmail.com>
+Date: Wed, 9 Sep 2026 05:31:44 +0100
+X-Gm-Features: AcwNN1Xjri9__-XXqjMy6AxNsRDi7V3Sjo2MFCmVHnIjKnO3ilsgeLwUCFBs4a0
+Message-ID: <CAJwJo6asOVa21T==+n7qdso1DBvH6Y3rXo24DdieAQS6XeTutw@mail.gmail.com>
+Subject: Re: [PATCH net v2] net/tcp-ao: don't dereference NULL current_key/rnext_key
+To: Xiang Mei <xmei5@asu.edu>
+Cc: Jiayuan Chen <jiayuan.chen@linux.dev>, Eric Dumazet <edumazet@google.com>, 
+	Neal Cardwell <ncardwell@google.com>, Kuniyuki Iwashima <kuniyu@google.com>, 
+	"David S . Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Simon Horman <horms@kernel.org>, netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Salam Noureddine <noureddine@arista.com>, David Ahern <dsahern@kernel.org>, co+2c72469dbbec34af@bugs.sh, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Hi Suzuki,
+Hi Xiang,
 
-On 9/7/26 7:59 PM, Suzuki K Poulose wrote:
-> From: Steven Price <steven.price@arm.com>
-> 
-> Activate the RMM after the basic configuration. This is a memory transferring,
-> stateful operation.
-> 
-> Signed-off-by: Steven Price <steven.price@arm.com>
-> Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>
+Thanks for your report and the proposed fix.
+I remember I wanted to write tests for re-connect() on the same
+socket, but never found time for this, as it's not really used in BGP,
+as far as I'm aware.
+
+On Sun, 6 Sept 2026 at 04:04, Xiang Mei <xmei5@asu.edu> wrote:
+>
+> TCP_AO_DEL_KEY with del_async=1 is accepted in TCP_LISTEN and NULLs
+> current_key and rnext_key; tcp_ao_connect_init() clears them on a
+> reconnect.  Five readers dereference them without a check.
+>
+> tcp_ao_time_wait() leaves tp->ao_info pointing at the tcp_ao_info it
+> hands the TIME_WAIT socket, and tcp_done() skips inet_csk_destroy_sock()
+> on the tcp_fin() FIN_WAIT2 path, so the full socket stays in TCP_CLOSE
+> with its fd open, sharing that object.  An unprivileged
+> connect(AF_UNSPEC) + listen() then clears rnext_key while the TIME_WAIT
+> socket reads it from softirq, and tcp_v4_timewait_ack() dereferences it.
+> The segment need not be authenticated: tcp_v4_rcv()'s do_time_wait: path
+> skips tcp_inbound_hash().
+>
+> Check both fields and drop the segment when the key is gone; without one
+> no valid signature can be produced.  In tcp_inbound_ao_hash() this must
+> be a drop rather than a fallthrough to the keyid lookup, which would let
+> the peer pick the verification key that rnext_key pins.
+>
+> This removes the dereferences only; the two sockets still share one
+> mutable tcp_ao_info, leaving snd_sne, lisn and sk_omem_alloc racy.  The
+> first Fixes: is where the unchecked read came from, not the sharing.
+>
+>   Oops: general protection fault, probably for non-canonical address
+>     0xdffffc0000000010: 0000 [#1] SMP KASAN NOPTI
+>   KASAN: null-ptr-deref in range [0x0000000000000080-0x0000000000000087]
+>   RIP: 0010:tcp_v4_rcv (net/ipv4/tcp_ipv4.c:1055 net/ipv4/tcp_ipv4.c:2333)
+>   Call Trace:
+>    <IRQ>
+>    ip_protocol_deliver_rcu (net/ipv4/ip_input.c:207)
+>    ip_local_deliver (net/ipv4/ip_input.c:262)
+>    ip_rcv (net/ipv4/ip_input.c:612)
+>    __netif_receive_skb_one_core (net/core/dev.c:6264)
+>    process_backlog (net/core/dev.c:6728)
+>    net_rx_action (net/core/dev.c:8007)
+>    handle_softirqs (kernel/softirq.c:645)
+>    </IRQ>
+>   Kernel panic - not syncing: Fatal exception in interrupt
+>
+> Fixes: decde2586b34 ("net/tcp: Add TCP-AO sign to twsk")
+> Fixes: 0a3a809089eb ("net/tcp: Verify inbound TCP-AO signed segments")
+> Cc: stable@vger.kernel.org
+> Reported-by: co+2c72469dbbec34af@bugs.sh
+> Closes: https://lore.kernel.org/all/YG9s0PiBKJZcXAKld3MToa1IVRJOUoKiaA57%40bugs.sh/
+> Signed-off-by: Xiang Mei <xmei5@asu.edu>
 > ---
-> Changes since v16:
->   * Split into a new patch
-> ---
->   drivers/firmware/arm_rmm/rmi.c | 17 +++++++++++++++--
->   include/linux/arm-rmi-cmds.h   | 11 +++++++++++
->   2 files changed, 26 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/firmware/arm_rmm/rmi.c b/drivers/firmware/arm_rmm/rmi.c
-> index 42c973c3a98bb..d969c8738efde 100644
-> --- a/drivers/firmware/arm_rmm/rmi.c
-> +++ b/drivers/firmware/arm_rmm/rmi.c
-> @@ -641,7 +641,8 @@ static int rmi_configure(void)
->   
->   static int __init arm64_init_rmi(void)
->   {
-> -	int ret;
-> +	int ret = 0;
-> +	struct rmi_sro_state *sro = NULL;
+> v2: drop the incomplete v1 fix; adding missing checks to avoid null-deref
+>
+>  net/ipv4/tcp_ao.c   | 6 ++++++
+>  net/ipv4/tcp_ipv4.c | 4 ++++
+>  net/ipv6/tcp_ipv6.c | 2 ++
+>  3 files changed, 12 insertions(+)
+>
+> diff --git a/net/ipv4/tcp_ao.c b/net/ipv4/tcp_ao.c
+> index bb7bbc20ba3f..9c2e5c8c8fe3 100644
+> --- a/net/ipv4/tcp_ao.c
+> +++ b/net/ipv4/tcp_ao.c
+> @@ -857,6 +857,8 @@ int tcp_ao_prepare_reset(const struct sock *sk, struct sk_buff *skb,
+>                         return -ENOENT;
+>                 *traffic_key = snd_other_key(*key);
+>                 rnext_key = READ_ONCE(ao_info->rnext_key);
+> +               if (!rnext_key)
+> +                       return -ENOENT;
 
-Why we need to initialize those local variables ('ret' and 'sro')? :-)
-Also, we can use the scope-based cleanup function supported by cleanup.h
-for @sro.
+I think this is quite a big hammer to fix the re-connect() issue.
+In theory, we could even restrict connect()/listen() after TCP_CLOSE,
+but I think I have an idea how to address it "properly".
 
-	struct smi_sro_state *sro __free(kfree) = NULL;
+I have a draft of a patch; I'll test it today and send it for review.
 
-With the scope-based cleanup in place, we needn't explict 'kfree(sro)' at
-end of this function.
+>                 *keyid = rnext_key->rcvid;
+>                 *sne = tcp_ao_compute_sne(READ_ONCE(ao_info->snd_sne),
+>                                           snd_basis, seq);
+> @@ -1026,6 +1028,8 @@ tcp_inbound_ao_hash(struct sock *sk, const struct sk_buff *skb,
+>                  * matching the rcvid in the mkt.
+>                  */
+>                 key = READ_ONCE(info->rnext_key);
+> +               if (!key)
+> +                       goto key_not_found;
+>                 if (key->rcvid != aoh->keyid) {
+>                         key = tcp_ao_established_key(sk, info, -1, aoh->keyid);
+>                         if (!key)
+> @@ -1045,6 +1049,8 @@ tcp_inbound_ao_hash(struct sock *sk, const struct sk_buff *skb,
+>                 if (err)
+>                         return err;
+>                 current_key = READ_ONCE(info->current_key);
+> +               if (!current_key)
+> +                       return SKB_DROP_REASON_TCP_AOFAILURE;
+>                 /* Key rotation: the peer asks us to use new key (RNext) */
+>                 if (unlikely(aoh->rnext_keyid != current_key->sndid)) {
+>                         trace_tcp_ao_rnext_request(sk, skb, current_key->sndid,
+> diff --git a/net/ipv4/tcp_ipv4.c b/net/ipv4/tcp_ipv4.c
+> index 9f053eb8b46e..93e073065b1b 100644
+> --- a/net/ipv4/tcp_ipv4.c
+> +++ b/net/ipv4/tcp_ipv4.c
+> @@ -1052,6 +1052,10 @@ static void tcp_v4_timewait_ack(struct sock *sk, struct sk_buff *skb,
+>                 key.traffic_key = snd_other_key(key.ao_key);
+>                 key.sne = READ_ONCE(ao_info->snd_sne);
+>                 rnext_key = READ_ONCE(ao_info->rnext_key);
+> +               if (!rnext_key) {
+> +                       inet_twsk_put(tw);
+> +                       return;
+> +               }
+>                 key.rcv_next = rnext_key->rcvid;
+>                 key.type = TCP_KEY_AO;
+>  #else
+> diff --git a/net/ipv6/tcp_ipv6.c b/net/ipv6/tcp_ipv6.c
+> index df9c29eb5c1f..0fb75d139430 100644
+> --- a/net/ipv6/tcp_ipv6.c
+> +++ b/net/ipv6/tcp_ipv6.c
+> @@ -1182,6 +1182,8 @@ static void tcp_v6_timewait_ack(struct sock *sk, struct sk_buff *skb,
+>                 key.traffic_key = snd_other_key(key.ao_key);
+>                 /* rcv_next switches to our rcv_next */
+>                 rnext_key = READ_ONCE(ao_info->rnext_key);
+> +               if (!rnext_key)
+> +                       goto out;
+>                 key.rcv_next = rnext_key->rcvid;
+>                 key.sne = READ_ONCE(ao_info->snd_sne);
+>                 key.type = TCP_KEY_AO;
+> --
+> 2.43.0
+>
 
->   
->   	/* Continue without realm support if we can't agree on a version */
->   	ret = rmi_check_version();
-> @@ -656,7 +657,19 @@ static int __init arm64_init_rmi(void)
->   	if (ret)
->   		return ret;
->   
-> -	return 0;
-> +	/* Activate the RMM */
-> +	sro = kmalloc_obj(*sro);
-> +	if (!sro)
-> +		return -ENOMEM;
-
-	if (!sro) {
-		pr_err("Unable to alloc SRO object for RMM activation\n");
-		return -ENOMEM;
-	}
-
-> +
-> +	ret = rmi_rmm_activate(sro);
-> +	if (ret) {
-> +		pr_err("RMM activate failed\n");
-> +		ret = ret < 0 ? ret : -ENXIO;
-> +	}
-> +
-> +	kfree(sro);
-> +	return ret;
->   }
->   
->   /*
-> diff --git a/include/linux/arm-rmi-cmds.h b/include/linux/arm-rmi-cmds.h
-> index fed0f3421895d..dea7c7004d35f 100644
-> --- a/include/linux/arm-rmi-cmds.h
-> +++ b/include/linux/arm-rmi-cmds.h
-> @@ -64,6 +64,17 @@ static inline int rmi_rmm_config_set(unsigned long cfg_ptr)
->   	return res.a0;
->   }
->   
-> +/**
-> + * rmi_rmm_activate() - Activate the RMM
-> + * @sro: Preallocated SRO context to be used
-> + *
-> + * Return: 0 on success, positive RMI result code or negative Linux error code
-> + */
-> +static inline long rmi_rmm_activate(struct rmi_sro_state *sro)
-> +{
-> +	return rmi_sro_memxfer_cmd(sro, GFP_KERNEL, SMC_RMI_RMM_ACTIVATE);
-> +}
-> +
-
-rmi_rmm_acvivate() would be used for once by rmi.c::arm64_init_rmi(). Lets
-not expose the function by combining the logic to rmi.c::arm64_init_rmi().
-
->   /**
->    * rmi_features() - Read feature register
->    * @index: Feature register index
-
-Thanks,
-Gavin
-
+Thanks again,
+             Dmitry
