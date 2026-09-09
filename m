@@ -1,110 +1,73 @@
-Received: from mta0.migadu.com (out-70.mta0.migadu.com [91.218.175.70])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7117B550DC3
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 13:13:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.70
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4786A3BD241;
+	Wed,  9 Sep 2026 13:13:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788959585; cv=none; b=htCFbgx0sX8gDWw2R9v4mTTw3/MlyX2FwXo4zWnzCiZSCn99mjdE+tSuxoYMCOXNBM688E1ARyaK0cv6Yq+nXMvyGjKqxknypM2ji0I9zOl5iKfsDVYjdEYSNgvMofUul4cXOMgtKqY78yHEGAttoO5rRY6sqf+huJmw3OLEE8c=
+	t=1788959591; cv=none; b=VZ3VapAH+Us2n9dJjTHMSbdqHHg5zB/kZFUFTqb1hztCCmg+z2zpy5LPvo8Vx2TbubJCmGc5UY7vjVOTraMQQkTbyI/02SoCBcs/zC6X6b052+rDz+1TjchckCwK88voyLLAUtoDCVtuagT8a5Nz6GTkjoTdoaM4tx43dVP0tKw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788959585; c=relaxed/simple;
-	bh=pTDfVRoX1U+RIjfQuPegFcGKswGHWQIt1UsGbzs5f/E=;
-	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=WrpSqMU4BERMU6PqS3nkJAoEaki/EIL1tPuXW/wrSUqWmjqgEHBLn8Wh39P3JSg6IaXozJzwgXR407m7wqFMmO+x1Xtw25cQqO7Jz7exM5I8lIS5HIUnorw4sW+Df3oZVjucNTKsniHkZGP9kAakAnuGTDiswkDadvWvfQNEcGw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=OtdeloKO; arc=none smtp.client-ip=91.218.175.70
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1788959591; c=relaxed/simple;
+	bh=qD6j76I+Qk3PUSr3QQ9AVK1lQH2Z8RRApT7/zigsCbw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Pa+2P+0hHJT57231TD3da5FY7Q/3YfNeM74EmjAcn/oNAqSdtGQGtJ6Pkv9J53WRn9UozzbsLdGHtLCJIDr/NMcASrONmKyXEvCu23N04Bq+YRl9scIhFyZbwzEkTt4CjtgevUq6EyCJ1g520mxpnvoRSMGMff8UjpptAh/C3z0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=APUXlKR1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="OtdeloKO"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=pTDfVRoX1U+RIjfQuPegFcGKswGHWQIt1UsGbzs5f/E=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788959580; v=1; x=1789564380;
- b=OtdeloKOIruM9qO0qJpX2b+U/7i6FL3ax2sVvxjwMZamfzLli6o5HmujIYltuTKW9+kB0Pcd
- UvVXIgft599AT40Lw210drnTEfY9StLpnk2hBqZudqP/TFjSOnOgBQ09jtX35FBs+icNyiLXqHD
- qnPP6Cty/9atR4fdA0g8K/tA=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id b52656f567ea3328;
-	Wed, 09 Sep 2026 13:13:00 +0000
-X-Mizu-Trace-ID: b52656f567ea3328
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <7ff19114-de0c-4118-a000-b236d8d30127@linux.dev>
-Date: Wed, 9 Sep 2026 21:12:54 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="APUXlKR1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7CF1A1F00A3A;
+	Wed,  9 Sep 2026 13:13:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788959589;
+	bh=Qip3QIl4UdUUw+h7D8er7pZ8yEsSc9fh4T5mZHUNRXQ=;
+	h=From:To:Cc:Subject:Date;
+	b=APUXlKR1DUrHgKKASlJcxv6ParC1Ep+XWVizwm26N/ugyxgNgs4cP1LPmu/Ksr9Vt
+	 2vssc5/69QJzebbWxKu+bxdW9uCvE8CBTNWCqw3kudrbzGA22uca91CLSatTE0qbTk
+	 F74ylfFvDkgFNbWibnjaf+65ySX2D3+UmaCNcxDpSsIVlA7KYIM3ytvWLJHuMljTlG
+	 07VoHq/DXv4o1VrSZP8LY+NBeEEljHY62yfnri76hLGx8qS5GQWevJ7e/jS2FPFh2G
+	 adUhdCyJRwulmHjFiZIr8wM061MjbmVc1yzSUMYjkaV1JI+WMwIhcIhNt6CKF/DzjA
+	 o6wUTMcREPn3A==
+From: Dinh Nguyen <dinguyen@kernel.org>
+To: bp@alien8.de,
+	tony.luck@intel.com
+Cc: dinguyen@kernel.org,
+	rounakdas2025@gmail.com,
+	linux-edac@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCHv4 0/4] EDAC/altera: Address sashiko reviews part 1(v4)
+Date: Wed,  9 Sep 2026 08:12:49 -0500
+Message-ID: <20260909131253.2158486-1-dinguyen@kernel.org>
+X-Mailer: git-send-email 2.42.0.411.g813d9a9188
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Cc: cui.tao@linux.dev, josef@toxicopanda.com, axboe@kernel.dk,
- cgroups@vger.kernel.org, linux-block@vger.kernel.org,
- linux-kernel@vger.kernel.org, bpf@vger.kernel.org, andrii@kernel.org,
- ast@kernel.org, daniel@iogearbox.net, linux-kselftest@vger.kernel.org,
- Tao Cui <cuitao@kylinos.cn>
-Subject: Re: [RFC PATCH 0/8] blk-iocost: BPF struct_ops cost model
-To: Tejun Heo <tj@kernel.org>
-References: <20260908100143.47598-1-cui.tao@linux.dev>
- <178889947167.2.14514677804554939704@kernel.org>
-From: Tao Cui <cui.tao@linux.dev>
-In-Reply-To: <178889947167.2.14514677804554939704@kernel.org>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Hello, Tejun
+Hi EDAC maintainers,
 
-在 2026/9/9 04:31, Tejun Heo 写道:
-> Hello, Tao.
-> 
-> On Tue, 08 Sep 2026 18:01:35 +0800, Tao Cui wrote:
-> 
->>  4. One model system-wide vs named models selectable per device (as
->>     tcp-cc names are per-socket)?
-> 
-> The struct_ops instance should be per-device. Loading a model for a device
-> should switch it to BPF automatically. Switching back to the builtin model
-> should detach the struct_ops.
-> 
->>  2. Per-cgroup state lifetime: iocg_id is the css id and is recycled
->>     once the cgroup is removed, so models must treat it as a
->>     transient key.  Does the interface need a release(iocg_id)
->>     callback so models can clean up per-cgroup state instead of
->>     detecting reuse, or is per-cgroup bpf local storage, which
->>     carries its own lifetime, the better home for model state?
-> 
-> I'd pass blkcg as a kptr and add online/offline callbacks so the model can
-> manage its per-cgroup state.
-> 
->> return value of 0 delegates the IO back to the builtin formula, so a
->> model which only handles some IO types cannot make the rest free.
-> 
-> I don't think mixing BPF and builtin pricing makes sense, either per IO or
-> between charging and request sizing. It seems convoluted and error-prone.
-> Implementing the linear model in BPF is straightforward.
-> 
-> Please combine the interface, registration, dispatch and configuration
-> changes into one patch. These patches are small and implement one feature.
-> 
+This is version 4 of the patch series that addresses some of the sashiko
+reviews for the Altera EDAC driver.
 
-Thanks for the detailed review across the series.
+Here's what has changed from v3:
 
-All the comments make sense. I'm reworking the interface for v2
-along those lines: the attachment model will be reworked, the
-mixed builtin/BPF pricing path will go away so a model fully owns
-pricing on a device it's attached to (including flushes), the
-per-cgroup state handling is being reworked, operation flags will
-be preserved, and sleepable models will be rejected during
-verification.
-
-The Kconfig dependency, the example model issues, the selftest
-problems, and the patch organization will all be addressed as well.
-
-I'll post v2 once it's ready.
+I rebased the series to edac-urgent branch because of patch
+9868f5c077df ("EDAC/altera: Use parent device for devres in 
+altr_portb_setup()") will cause conflicts.
 
 Thanks,
-Tao
+Dinh
 
-> Thanks.
-> 
+
+Dinh Nguyen (4):
+  EDAC/altera: Do not allow driver unbinding
+  EDAC/altera: Drop __init from ECC setup paths for re-probe safety
+  EDAC/altera: Fix code leak on dci allocation failure
+  EDAC/altera: Fix use-after-free in error paths
+
+ drivers/edac/altera_edac.c | 60 ++++++++++++++++++--------------------
+ 1 file changed, 29 insertions(+), 31 deletions(-)
+
+-- 
+2.42.0.411.g813d9a9188
 
