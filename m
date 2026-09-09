@@ -1,98 +1,97 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lj1-f182.google.com (mail-lj1-f182.google.com [209.85.208.182])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4B474F55A5;
-	Wed,  9 Sep 2026 13:47:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9155D550DC3
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 13:47:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788961659; cv=none; b=GdeD4mBIQeWHnGdMT3SW/IqdAQ2J8DRn+cnaCC0JwCslKpOaD0hNk4HlB5/bSRf9TQxRGpn+s3XmiOAl2UKjMwIswnYSDdhuWd3w2ci0rs5bwyD14jdXYK73imDiO5acA6O5QobYIFS4ePDCOyvcPRg9+jud0M8XJW0mydr6QEo=
+	t=1788961659; cv=none; b=vBcr4ocp5vBybTOsJzyDpblzEnbtVOggLva48CfdSmET5RQkfYxk6FmaqrXdvYMJ4K/A2ZA493Mhc2z1hAtf85u+s07sgOkNzXAT/xsnAT5hWo/DTkyZGAcOypjjj16P33vIWIaG/L22eYmZg4uwT1RTTbVTmWAsNodzpC+WemQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788961659; c=relaxed/simple;
-	bh=paMgZuNREAZRlfZm0w4BUOSPbd88b6hgz9N3jycmZig=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Kcs+/hXN/ckzZvOhCavWR0jmD9E5V2gRQrDTlTUnNkpX7IbrH+Xn4chufTLQe8NsJUfunDdUXYmBz5yovE6pmsdjOtE9egbOvRUcbAjTIBVu+5C7g8JLGi0Cw3jaLpd0onskTbMo43xX+wBVP0yak2LipWEXOBSeowXUJZdfN9c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=GCHpAQ+O; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	bh=CK3Qd7JtwaCS785oIL9SXaJ5indJD5W5VLAi3IhI91c=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=OZF4ctWvylgjx6r02NrLM/Cuna5m/eNmXZHS16QqtLPotwNuBdQqLOFGQMxfnbHMk1nAM2pRsQp1u9pw2A7BoHKTCPqeLqUj4bVevTn0v/Jt/m7vi8xyeptvRR9PXPPNeSTrlZepQZ/Bio6Xt+3xEFGsqowCi3fHHdahw4+vD4s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JUR6OybP; arc=none smtp.client-ip=209.85.208.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="GCHpAQ+O"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 11B541A1A70;
-	Wed,  9 Sep 2026 13:47:35 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id D920F60448;
-	Wed,  9 Sep 2026 13:47:34 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id E878511C782BF;
-	Wed,  9 Sep 2026 15:47:25 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1788961652; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 in-reply-to:references; bh=UeQWrBHUsYzfR8OG1tLDH6xJ9uIj59JiQoZuHROubjw=;
-	b=GCHpAQ+OrX4KfJhFAWkevTRLOtcTPUS8G9Z+Qk0T1XTKkFRt9FjGrGjCYhRGd9BtQhCjo/
-	EjrkQN54tfMFRkO5+xmticdh9JQRCnP2A6n6eTLXDpmK7ohZQa0h2ZLHdz6McP4I8NsWd7
-	Vhhg7eZxU5SjMneaW0TFE74yKyqTBm3QDE3kSX31z2V59Awjm5z2K1z2U17N9pizI0//yg
-	GjoEmkXUvZsDmi3QmJQ5OdeX67P1EmPvSDqjVYKsmyBs8NvIaHtOqAOZbnt7yRBk6aq0Q9
-	1TDtXjaJ35VLd+ubtK3nvQd8cnqvwUzV/I8u/lS/OxzWY95CvKOygSUOa+SMoQ==
-Date: Wed, 9 Sep 2026 15:47:25 +0200
-From: Alexandre Belloni <alexandre.belloni@bootlin.com>
-To: Arnd Bergmann <arnd@kernel.org>
-Cc: Lee Jones <lee@kernel.org>, mfd@lists.linux.dev,
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	Arnd Bergmann <arnd@arndb.de>, Daniel Thompson <danielt@kernel.org>,
-	Jingoo Han <jingoohan1@gmail.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Guenter Roeck <linux@roeck-us.net>,
-	Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Jonathan Cameron <jic23@kernel.org>,
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	Pavel Machek <pavel@kernel.org>,
-	Michael Hennerich <michael.hennerich@analog.com>,
-	Support Opensource <support.opensource@diasemi.com>,
-	Sebastian Reichel <sre@kernel.org>, Helge Deller <deller@gmx.de>,
-	dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org,
-	linux-media@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-hwmon@vger.kernel.org, patches@opensource.cirrus.com,
-	linux-watchdog@vger.kernel.org, linux-gpio@vger.kernel.org,
-	linux-iio@vger.kernel.org, linux-input@vger.kernel.org,
-	linux-leds@vger.kernel.org, linux-pm@vger.kernel.org,
-	linux-rtc@vger.kernel.org, linux-fbdev@vger.kernel.org,
-	linux-sound@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
-	llvm@lists.linux.dev
-Subject: Re: [PATCH 07/14] mfd: remove unused lp8788 driver
-Message-ID: <202609091347259a3b9fa4@mail.local>
-References: <20260909132153.1596191-1-arnd@kernel.org>
- <20260909132153.1596191-8-arnd@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JUR6OybP"
+Received: by mail-lj1-f182.google.com with SMTP id 38308e7fff4ca-39c86945164so60619061fa.1
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 06:47:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788961655; x=1789566455; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=CK3Qd7JtwaCS785oIL9SXaJ5indJD5W5VLAi3IhI91c=;
+        b=JUR6OybPqamijSbijCLaeZ0PPNmC8kckffNpbSNDXwDfqetDAH4WrUf6O2Y/z62ab/
+         AdwiohKxoxZUQtO8HNsrraBWb0q7yP5XbbIa7vmbQePyeohGnLk2g4T7us9z603f+YWK
+         5s3y+A+cQ+6Uiyj/Gh2obsXae5WYm83xbUCP5Xpp2rdtFKNMRNdae0e8d/ypzLBj6NCy
+         VJwAEdon30vpDlCWvyj49v92JXAA8p8R/hdYjIrCFN+4so+aSC3z9Wh/5PJ1e6JVXSzT
+         lFs7F74nywdROI5Th0Vow8kD1WOap6/iSLfotLL30JQQswe2+E79lK8SvkV7S+Jz4GQ2
+         eEMw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788961655; x=1789566455;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=CK3Qd7JtwaCS785oIL9SXaJ5indJD5W5VLAi3IhI91c=;
+        b=lZRbcfc5ah+IqZ9Mzmm/6WAKrHD34694fcdU375PVP/aZJZL+AEjrLcXAhuCDNgeSn
+         KkOJutKs2XFWTGBxdTDJUYCPlrhHYden7h+T/jI7CHYFsT+I/CBrz5lAM1sU9dWlUbOr
+         sAfwbDAvIZDHu3sOpVxvCYLT/Y0kS9G8yrW74++Q4p5Jhv6Kmva6cO5PIMklfR0DbAaL
+         htqs7M3YoU73+acPqkgQV4OSHsQ7IVez4KPtnWn4kj8yzhV37xTLPgu7/xWXPyfV8LAE
+         +LXru/Pa8x93kgthFXrf2JSD10wkfnrKWE+D45wZ0rBguFV4W7YoMqC0jSeJU0GuFycq
+         U4zA==
+X-Forwarded-Encrypted: i=1; AKwUvByvAfWdUBv3J02fv/mRitQ2DogbiuQkA+3mTcLHDmzWw6iLfvetTQ2k61WG9NdodfGSoiWJZh3rZCZckrQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++mcdWBJjUTcLz3pr++bOgc44e3zYyWvCWK8Vt00IguswKLpKBte
+	3gCp8UD+iAl3F1Vy3TW+tk/ZZ9URCJWAcr2/tG4Ga3Cbpn8CPnGMbi/+
+X-Gm-Gg: AYBFou2LExrAXUFmPNgEQwJ54WZMKAYayQ6OMZDkJDcEEUG/GhsYDB1GLsuwdcjwfTW
+	pbE7xrzuZskTeZQ0KIuPq75bivaTZ9D3nKVQgzKnzgBfGQ5BoeggRfAC/PU5BvwJmjsGpns8al0
+	qXG8kFrY8/88ceZUN9D/5jLJCxgOt4bSljJnzurS4xDhuKpq5Nbhh+BSdzUnQszt6j9n+trKCBB
+	22hNGQd0NmXbjUUXh2AJ4/bnYbLih63KxOpFnXEVzBRaS6FpBedSm0NBR2uXL+YcUGSGejQEPI1
+	ga0ljSV9seh5QAMqKAXrPbLgUKzgb6h8drpZyz6c8FD46hbb8cE0UX+GiBZLbRjoM/ed/0rrOSo
+	WDalLU+XqsU8a1DqCH6VgSAT5seVpNdEllzjNtecb+H/+kLzm/zNGFkiYDLg2MNbI+iIkoSh7vv
+	EvwcrZcOPNpiDuyIhO/1wCUhL9h7UieBaMbyrxOfAIv6rJGOBSv7jaMpH2NgIT8hpJf+h7GFxu5
+	57NRNZbs69afw==
+X-Received: by 2002:a2e:9fcb:0:b0:3a3:7681:6d72 with SMTP id 38308e7fff4ca-3a37681756fmr35983981fa.27.1788961654972;
+        Wed, 09 Sep 2026 06:47:34 -0700 (PDT)
+Received: from KAS (94-29-32-34.dynamic.spd-mgts.ru. [94.29.32.34])
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a58f539ec8sm136161fa.12.2026.09.09.06.47.33
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 09 Sep 2026 06:47:34 -0700 (PDT)
+From: Andrey Korshunov <razor1702@gmail.com>
+To: diederik@cknow-tech.com
+Cc: heiko@sntech.de,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	linux-rockchip@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] dt-bindings: arm: rockchip: Add FriendlyElec NanoPi R28S
+Date: Wed,  9 Sep 2026 16:47:31 +0300
+Message-ID: <20260909134731.364-1-razor1702@gmail.com>
+X-Mailer: git-send-email 2.54.0.windows.1
+In-Reply-To: <DLAPRUR4Q73F.1KIBGA408LQSJ@cknow-tech.com>
+References: <DLAPRUR4Q73F.1KIBGA408LQSJ@cknow-tech.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260909132153.1596191-8-arnd@kernel.org>
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Transfer-Encoding: 8bit
 
-On 09/09/2026 15:21:44+0200, Arnd Bergmann wrote:
-> From: Arnd Bergmann <arnd@arndb.de>
-> 
-> This driver was apparently never used upstream, and without devicetree
-> support cannot be used by external board support.
-> 
-> The MAINTAINER entry was already removed in 2021 as the email address
-> bounced.
-> 
-> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+On Wed Sep 9, 2026 at 12:29 PM CEST, Diederik de Haas wrote:
+> There's already an attempt in the works to upstream NanoPi R28S support:
+> https://lore.kernel.org/linux-rockchip/20260907-r28s-upstream-v2-0-21ab570fc91c@proton.me/
 
-Acked-by: Alexandre Belloni <alexandre.belloni@bootlin.com>
+Thanks, I had not seen it - I searched lore before sending, evidently not
+well enough. That series is further along and covers more of the board,
+so please drop mine.
 
+I have the hardware and will review and test that one instead. One
+finding about the PHY reset has gone to patch 2 of that thread.
 
-
--- 
-Alexandre Belloni, co-owner and COO, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+Andrey
