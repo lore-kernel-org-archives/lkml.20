@@ -1,43 +1,43 @@
-Received: from mail-43101.protonmail.ch (mail-43101.protonmail.ch [185.70.43.101])
+Received: from mail-4316.protonmail.ch (mail-4316.protonmail.ch [185.70.43.16])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E512946EF92;
-	Wed,  9 Sep 2026 20:35:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66E2252D2DE;
+	Wed,  9 Sep 2026 20:37:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788986145; cv=none; b=M/Fs6QBvJregnr6x6f90/ix5sYiWfiyIdX+l1NIHufFlc72vrtdctvko8ntVJruUhweDshEW8gs+JVPSbD9dSHm1x/uxzD1czmCHoAD971O5LKtcKbPJUZvhH4OQETE1HTthCwn/5zQAyHedRId4L+7XiDuzukzxMF3FkSb7kt4=
+	t=1788986264; cv=none; b=g6rwaPH0t86pOEHUQYEZikT+4YSzMQcyrPwc34ecQSYmDv8+U0R7BkZ5lGzusqCxjHayvz1mlysvN6SCNFrFzgnTkllrhG+rjqhfPDBoQxu20flJpNKiQaWcsdDG63SiJu0c3QOU3sTVahmnAnZ+Y4bKEPzwQxoH7odbzy+QDjk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788986145; c=relaxed/simple;
-	bh=TXqlY98w1aE20jfY3Fgxbx8NTjcocPxYQogZfFtKtpY=;
+	s=arc-20240116; t=1788986264; c=relaxed/simple;
+	bh=k8s+rVCUMvjBTnZOnves0aAx0qGp9PRCg2wgF4YOsu4=;
 	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=dT8Me+/CSXQxfo98BiFLa+tZ6D8tQpmenVBe1y5jkp1zGd59PgabTzTnwDGvuWYvbRRjJOnQaA+mm0O9VcmmTAcNp7GdK5n0DGTlzY4joIFb/EMzE5AKprmjSkNq7SVPqZMrBZQXFpSm9ANejOJx47XuyjX7pXGycRHVj5crmpU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=Hbm6ZmUq; arc=none smtp.client-ip=185.70.43.101
+	 MIME-Version:Content-Type; b=QjyKEFYvEzMbJutNOD1sayVosxaG6S6ImDAePnYfNeIH+lmr4jOms1s9f4xwlTjbOdx39n9OgUz5apmua7SVc8urJ61p6fH6shlNAn3dQxW5CQ60Nu/punmG6mojZ9q855mWjw805ndQg11Uco7Z/FZto3bb+RdNL5hIiYVCTik=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=A3EZBfAO; arc=none smtp.client-ip=185.70.43.16
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="Hbm6ZmUq"
+	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="A3EZBfAO"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1788986137; x=1789245337;
-	bh=6XQzlI+x/Mrh3cmxN3t1L9AEhHISL1NCWiJeiJcmU3g=;
+	s=protonmail3; t=1788986255; x=1789245455;
+	bh=VyJv7HpB+lIhsmHnwFJ5SrdDv0jsrX3CB3Cu/5qNaX8=;
 	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
 	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
 	 Message-ID:BIMI-Selector;
-	b=Hbm6ZmUqjZJvdEw9NSwwQTdqoGOrlJQc/V94S8n6SOS7dPjGxm3+lDnnXzewWbS0C
-	 agUutc7m8wStVEc5H55Q+cEZmGHlF6r/6SEZkXfT0yL3ITRXmO7IZFETZ+ClfJRChK
-	 CNnVhv0JfvIAbxUbtCtNzXVvDM+s/VsmUO4ur9KmEJT/U6CMtZtagb2oAAVcp40p6/
-	 LHV8nwqQpMILWfofVng2HUaqM9Lo7DkhvhDOOKP5jdxnA1wNMDITz6ZeRnUu7W/Hn+
-	 EaXcWcNTTOqmoxLl+8/DandtLfmmdc/zeS79OFzSDcEQkXFpm6cvoOG+3d/bpVXQRX
-	 nwqlaPKu5hU0g==
-Date: Wed, 09 Sep 2026 20:35:33 +0000
+	b=A3EZBfAOrx8ucSs0G1Jqfw4rnV4yzQlzMytKvbYrwIuBAmfRokX1FuU4IYBqggjVu
+	 VaG3aMsC9KbLpY877F4krSClb5/Ih91FTAvKj/cHoJvkDUYyclH9dglY5u/tcf9RKa
+	 PfnD0LpknIJRiQAXo0ACPTIrdhlo8TEPF0a3d0xYIIWxlGy0BJmD1+c9q7wKz9NUBE
+	 T117AvplJoWLlM42DfnipNSC2gHnAR5BmMwptlwfO3HL6IwIgTxjYUqFT6Db4Xmb+T
+	 HtEH9C8Dp+8DTsHuJTtYcyp9whyDCK8x1t5vmX5ULzvXA34GfmQ8gSuH6CKreMHvAp
+	 TPh12BLeLwYyA==
+Date: Wed, 09 Sep 2026 20:37:30 +0000
 To: Sakari Ailus <sakari.ailus@linux.intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Andre Gilerson <andre.gilerson@gmail.com>, Dan Scally <dan.scally@ideasonboard.com>
 From: Sergey Lebedev <lsa.uz@pm.me>
-Cc: Hans de Goede <hansg@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, German <germanpapulindez@gmail.com>, sashiko-reviews@lists.linux.dev, linux-media@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 2/3] media: i2c: Add Sony IMX681 sensor driver
-Message-ID: <20260909203527.90372-1-lsa.uz@pm.me>
-In-Reply-To: <20260909193953.86192-3-lsa.uz@pm.me>
-References: <20260909193953.86192-1-lsa.uz@pm.me> <20260909193953.86192-3-lsa.uz@pm.me>
+Cc: Hans de Goede <hansg@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, German <germanpapulindez@gmail.com>, linux-media@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [PATCH v3 1/3] dt-bindings: media: Add Sony IMX681
+Message-ID: <20260909203717.90605-2-lsa.uz@pm.me>
+In-Reply-To: <20260909203717.90605-1-lsa.uz@pm.me>
+References: <20260909203717.90605-1-lsa.uz@pm.me>
 Feedback-ID: 113843758:user:proton
-X-Pm-Message-ID: 217f5eabfc9141bff3d4b3066f20c9e2cd5471e9
+X-Pm-Message-ID: a428afc5b1dbce074326f80c980e9538b4737a16
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -47,110 +47,135 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-Correct, and it is a regression I introduced between v1 and v2. The v2 cove=
-r
-letter also offered to spread the same mistake across six more drivers, so
-that offer needs withdrawing before anything else.
+The Sony IMX681 is a CMOS image sensor used as the user-facing camera on
+several Microsoft Surface devices. It operates from analog 2.8 V, digital
+1.05 V and interface 1.8 V supplies, is programmable over I2C, and outputs
+10-bit Bayer data over a two-lane MIPI CSI-2 D-PHY interface.
 
-Withdrawing the cleanup offer
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D
+Signed-off-by: Sergey Lebedev <lsa.uz@pm.me>
+---
+ .../bindings/media/i2c/sony,imx681.yaml       | 107 ++++++++++++++++++
+ 1 file changed, 107 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/media/i2c/sony,imx681=
+.yaml
 
-The cover said the "!" form is in gc05a2, gc08a3, imx283, lm3560, og0ve1b a=
-nd
-ov6211 and offered a cleanup converting them. Please do not take that up, a=
-nd
-if anyone has begun, stop: converting them to "<=3D 0" would break each of =
-them
-exactly as it broke this driver.
+diff --git a/Documentation/devicetree/bindings/media/i2c/sony,imx681.yaml b=
+/Documentation/devicetree/bindings/media/i2c/sony,imx681.yaml
+new file mode 100644
+index 000000000..6d2e4ddce
+--- /dev/null
++++ b/Documentation/devicetree/bindings/media/i2c/sony,imx681.yaml
+@@ -0,0 +1,107 @@
++# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/media/i2c/sony,imx681.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Sony IMX681 CMOS Image Sensor
++
++maintainers:
++  - Andre Gilerson <andre.gilerson@gmail.com>
++
++description:
++  The Sony IMX681 is a CMOS active pixel image sensor with a square pixel
++  array, used as the user-facing camera on several Microsoft Surface devic=
+es.
++  It operates from analog 2.8 V, digital 1.05 V and interface 1.8 V suppli=
+es,
++  is programmable over I2C, and outputs 10-bit Bayer data over a two-lane
++  MIPI CSI-2 D-PHY interface.
++
++allOf:
++  - $ref: /schemas/media/video-interface-devices.yaml#
++
++properties:
++  compatible:
++    const: sony,imx681
++
++  reg:
++    maxItems: 1
++
++  clocks:
++    description: Input clock (19.2 MHz)
++    maxItems: 1
++
++  avdd-supply:
++    description: Analog power supply (2.8 V)
++
++  dvdd-supply:
++    description: Digital power supply (1.05 V)
++
++  dovdd-supply:
++    description: Interface power supply (1.8 V)
++
++  reset-gpios:
++    description: Sensor reset (XCLR) GPIO, active low
++    maxItems: 1
++
++  port:
++    $ref: /schemas/graph.yaml#/$defs/port-base
++    unevaluatedProperties: false
++
++    properties:
++      endpoint:
++        $ref: /schemas/media/video-interfaces.yaml#
++        unevaluatedProperties: false
++
++        properties:
++          data-lanes:
++            items:
++              - const: 1
++              - const: 2
++
++        required:
++          - data-lanes
++          - link-frequencies
++
++    required:
++      - endpoint
++
++required:
++  - compatible
++  - reg
++  - clocks
++  - avdd-supply
++  - dvdd-supply
++  - dovdd-supply
++  - port
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/gpio/gpio.h>
++
++    i2c {
++        #address-cells =3D <1>;
++        #size-cells =3D <0>;
++
++        camera-sensor@10 {
++            compatible =3D "sony,imx681";
++            reg =3D <0x10>;
++            clocks =3D <&clock_cam>;
++            avdd-supply =3D <&vcc2v8_cam>;
++            dvdd-supply =3D <&vcc1v05_cam>;
++            dovdd-supply =3D <&vcc1v8_cam>;
++            reset-gpios =3D <&gpio 4 GPIO_ACTIVE_LOW>;
++            orientation =3D <0>;
++            rotation =3D <0>;
++
++            port {
++                imx681_ep: endpoint {
++                    data-lanes =3D <1 2>;
++                    link-frequencies =3D /bits/ 64 <969600000>;
++                    remote-endpoint =3D <&csi_in>;
++                };
++            };
++        };
++    };
++...
+--=20
+2.53.0
 
-The reasoning behind the offer was wrong in a specific way worth naming. I
-compared against i915, xe, ipa, ivpu and arm-smmu, which do test "> 0" or
-"<=3D 0" - but they sit where CONFIG_PM is effectively mandatory, so the th=
-ird
-return never reaches them. drivers/media/i2c builds without PM, and that is
-the whole of the difference.
-
-The finding
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-
-Without CONFIG_PM the helper is, unconditionally:
-
-  static inline int pm_runtime_get_if_active(struct device *dev)
-  {
-          return -EINVAL;
-  }
-
-v1's "if (!...)" fell through on that and applied the control, which is the
-right thing to do: with no runtime PM the sensor is powered from probe and
-never suspended. v2's "<=3D 0" returns 0 instead and drops it - exposure, g=
-ain,
-blanking, test pattern, all of them, with nothing reported to the caller.
-
-v3 will use the shape ov64a40 already has:
-
-          pm_status =3D pm_runtime_get_if_active(imx681->dev);
-          if (!pm_status)
-                  return 0;
-          ...
-          if (pm_status > 0)
-                  pm_runtime_put(imx681->dev);
-
-0 skips, 1 applies and puts, -EINVAL applies and does not put. That answers=
- the
-first review's finding - the put of a reference never taken - without losin=
-g
-the case v1 had right by accident.
-
-ov64a40 is the only fully correct caller of this helper in drivers/media/i2=
-c.
-I looked at it when the first review landed, wrote it down as a variant of =
-the
-same thing, and did not read its second half. Had I done so, v2 would have
-carried this.
-
-If a cleanup for the other six is still wanted, that is the shape it should
-take, and I will send one only if a maintainer asks.
-
-v3 follows this message. Respinning within hours is not something I would
-normally do, but nobody has reviewed v2 yet and the alternative is asking
-people to read code I already know is wrong. The change is ten lines, six o=
-f
-them comment, and 1/3 and 3/3 are byte-identical to v2.
-
-The other finding, on 3/3, which is not ours
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-
-The same run flagged a High issue in ipu-bridge and marked it pre-existing.=
- It
-is - our 3/3 is two lines of table entry - but I checked it rather than wav=
-ing
-it past, and it looks real. Sakari, Dan: this is yours rather than mine.
-
-The reference. sensor->adev =3D ACPI_PTR(acpi_dev_get(adev)) takes a second
-reference to the ACPI device. On "goto err_free_swnodes" only the iterator'=
-s is
-dropped, by acpi_dev_put(adev), and bridge->n_sensors has not been incremen=
-ted
-yet, so ipu_bridge_unregister_sensors() does not walk this sensor either.
-Narrow in practice: ipu_bridge_instantiate_ivsc() returns 0 immediately whe=
-n
-there is no csi_dev, so reaching it needs a machine with an IVSC.
-
-The fwnode pointers look wider to me. primary->secondary is assigned in
-ipu_bridge_connect_sensor(), and set_secondary_fwnode(sensor->csi_dev, fwno=
-de)
-in ipu_bridge_instantiate_ivsc(). Neither is cleared anywhere in the file,
-while ipu_bridge_unregister_sensors() calls
-software_node_unregister_node_group() on the nodes they point at. The file
-walks that chain itself, in ipu_bridge_check_fwnode_graph(fwnode->secondary=
-).
-That is the ordinary unbind path rather than an error path.
-
-No patch from me for either: I have no IVSC machine and no way to force the
-failure, and an untested lifetime change in someone else's driver is worth
-less than a clear report.
-
-Sergey
 
