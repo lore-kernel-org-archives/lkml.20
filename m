@@ -1,110 +1,108 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-63.mta1.migadu.com [95.215.58.63])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A444D492E4D;
-	Wed,  9 Sep 2026 07:45:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71185357D0F
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 07:46:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.63
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788939941; cv=none; b=Z9hdVEeoDfmUlNEmxJncohfi+SlGEB1+NJwLgZ/lgGDkGAmmXoTd4WH7ieaTDt0dNq4F4qjfzyZKAZi062G4oiyAADXeN1+2mc/h41PFt8FYgWyu1m8SkklCL9JUdr4F7+kQyNBKw7UqplLqHkiVIsS8o4Z3d8QamoolN5dh7Qg=
+	t=1788939978; cv=none; b=Q3d0eCUFJMW1CVTa2lFiXShfikj7Qv7ffXcYKzZ7My2SiDMz61QzRh/F/ePpLSuQZokX6wGnJ9cAlmdY8ex5EKIgsJcDp/4C4ct8E/akns2yuVGgFvQoxh3Z7Rp4PqdxWmdgKYagXBvaVDLouJjXEQGaBopSMSAWNmQfB5BGosk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788939941; c=relaxed/simple;
-	bh=BykUejFK5ljKcbR1mM3gAEgwx+ZO2lZhl5enbSQZ+Rc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=iZLsOeW+4uGCeurtDctrTvcn/tSthwQGSZFYaJT55jGXlqY5zQ4ot4chFqa4RUY+x4Jg/PlOSGcex7azrVH3ykrj1+dG+4wcA8q0WiSyqXXqHPn+KGrtZaQif+RRVsjc/8tbwLykOdsX8Gkdkdrwfn1RfcOHFrm8S/1NLyO6/AY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=RGeUMUWl; arc=none smtp.client-ip=192.198.163.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1788939978; c=relaxed/simple;
+	bh=+lksqU2WhGpad9JilfMgl01dXqETbmY1NREALhnrYhk=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=A8XRIxI7rb/VWJ8lUdXlEllwh1CPLl8PJ0WToDInqQptBLcO6NX7tGulaMqa+8Lv0az18mrIQmvhwTTMOU3BsDX+bB35YKTuDgqJ5i+bGbi35QqiNpNMPSPwT0R4ClDYdHCiUrX0COnix/KnC2zBSAW2LsVTdiB4OzVbC+WUZ9k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=u38IEegn; arc=none smtp.client-ip=95.215.58.63
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="RGeUMUWl"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788939940; x=1820475940;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=BykUejFK5ljKcbR1mM3gAEgwx+ZO2lZhl5enbSQZ+Rc=;
-  b=RGeUMUWlnlXyJspHhN1QR63tz4fxl7/3Itsk5AfZfUFHUhBG3MBrjwP9
-   1z/LqXPvJONbKRC25HZc9NNG/3i3VCq8RdS+uCN04H2kROMwLzLy4xund
-   /lDP+cU8mFr8PYz+jXJG8ylVl0SnouY07+8JGSv9AKYyi3ES/T+V35Jh/
-   dGSRwKDuQT/fhE1tzeFbOv5dGR8HYEkT2vRO1ZiW3p37iiipUA5xpfx5d
-   HklwftCQWD7VqSdWW9BZ84IkjUY+WY7fJgtwUFZjq5tDztBYFb/GscvyP
-   +kYxI2YPwctG+pxUOshCFS88/0iOEZghL97Wo1YCjJRmsG7W6nCcptX6d
-   g==;
-X-CSE-ConnectionGUID: YWxEbZjaSrCVkh6Kv1aYMA==
-X-CSE-MsgGUID: MLp8a0VRQrOsrzfMNtPVoQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11900"; a="76915763"
-X-IronPort-AV: E=Sophos;i="6.25,270,1779174000"; 
-   d="scan'208";a="76915763"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
-  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Sep 2026 00:45:39 -0700
-X-CSE-ConnectionGUID: uLeRUXlbQgK70URCcSVZug==
-X-CSE-MsgGUID: uqVVDHIMQqika+qL2VWDrg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,270,1779174000"; 
-   d="scan'208";a="265035318"
-Received: from yilunxu-optiplex-7050.sh.intel.com (HELO localhost) ([10.239.47.46])
-  by fmviesa009.fm.intel.com with ESMTP; 09 Sep 2026 00:45:37 -0700
-Date: Wed, 9 Sep 2026 15:45:37 +0800
-From: Xu Yilun <yilun.xu@linux.intel.com>
-To: Yang Zi <2959243019@qq.com>
-Cc: yilun.xu@intel.com, trix@redhat.com, mdf@kernel.org,
-	linux-fpga@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] fpga: dfl: Fix NULL pointer dereference in
- dfl_fpga_feature_devs_enumerate()
-Message-ID: <aqEOocAGuV6G6xee@yilunxu-OptiPlex-7050>
-References: <tencent_EFA15EDE0B67CF3347A9EFD9A05E6A620D08@qq.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="u38IEegn"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=+lksqU2WhGpad9JilfMgl01dXqETbmY1NREALhnrYhk=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788939972; v=1; x=1789544772;
+ b=u38IEegnjlBgCClb26xOlizFZ9fBFAmvmBw8cntMBE3myTbmfzrviyE1VGoJgPFzc1CmAcbs
+ sJ8EM1jMoAC3gO/wm40e5CqP/BXRxr1VoCNOBUmNjlB3KugH3+O+6VNuO7ZPyotWXheEw6zID8x
+ bj2uS+P01fgyeSoAcE41iK4k=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 66143cb18931b1c6;
+	Wed, 09 Sep 2026 07:46:12 +0000
+X-Mizu-Trace-ID: 66143cb18931b1c6
+X-Migadu-Flow: FLOW_OUT
+From: luka.gejak@linux.dev
+To: Ping-Ke Shih <pkshih@realtek.com>
+Cc: linux-wireless@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Michael Straube <straube.linux@gmail.com>,
+	Peter Robinson <pbrobinson@gmail.com>,
+	Bitterblue Smith <rtl8821cerfe2@gmail.com>,
+	Luka Gejak <luka.gejak@linux.dev>
+Subject: [PATCH v11 1/7] wifi: rtw88: add the RTL8723B chip type and SDIO helper
+Date: Wed,  9 Sep 2026 09:45:50 +0200
+Message-ID: <20260909074556.55709-2-luka.gejak@linux.dev>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260909074556.55709-1-luka.gejak@linux.dev>
+References: <20260909074556.55709-1-luka.gejak@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <tencent_EFA15EDE0B67CF3347A9EFD9A05E6A620D08@qq.com>
 
-On Tue, Aug 25, 2026 at 05:08:42PM +0800, Yang Zi wrote:
-> The build_info struct (binfo) is zeroed by devm_kzalloc(), but its
-> sub_features list head is not initialized there; INIT_LIST_HEAD() is only
-> called later inside parse_feature_fiu().  If parsing ends without ever
-> reaching parse_feature_fiu() (for example, when every feature header in
-> the list is an unsupported type), binfo->sub_features is still all-zero
-> instead of a valid empty list head.
-> 
-> build_info_free() then runs list_for_each_entry_safe() over that list,
-> which reads head->next == NULL and dereferences a NULL pointer.
-> 
-> KASAN report:
-> 
->     BUG: KASAN: null-ptr-deref in build_info_free drivers/fpga/dfl.c:950 [inline]
->     BUG: KASAN: null-ptr-deref in dfl_fpga_feature_devs_enumerate+0x59ba/0x60d0 drivers/fpga/dfl.c:1611
->     Read of size 8 at addr 0000000000000000 by task syz.0.2/1096
-> 
-> Initialize binfo->sub_features right after allocating binfo so that
-> build_info_free() and the other sub_features consumers always see a valid
-> list head.
-> 
-> Signed-off-by: Yang Zi <2959243019@qq.com>
-> ---
->  drivers/fpga/dfl.c | 2 ++
->  1 file changed, 2 insertions(+)
-> 
-> diff --git a/drivers/fpga/dfl.c b/drivers/fpga/dfl.c
-> index 4c63c7c8579b..6377304e4447 100644
-> --- a/drivers/fpga/dfl.c
-> +++ b/drivers/fpga/dfl.c
-> @@ -1589,6 +1589,8 @@ dfl_fpga_feature_devs_enumerate(struct dfl_fpga_enum_info *info)
->          goto unregister_region_exit;
->      }
->  
-> +    INIT_LIST_HEAD(&binfo->sub_features);
-> +
+From: Luka Gejak <luka.gejak@linux.dev>
 
-You patch format is broken, I can't apply.
+The RTL8723B is a 802.11n combo chip whose SDIO variant, RTL8723BS, runs
+a Realtek vendor firmware that differs from the firmware used by the
+other rtw88 8723 family devices. Supporting it needs a number of small
+adjustments spread across the shared core, all of which have to be
+restricted to this one chip and bus combination.
 
->      binfo->type = DFL_ID_MAX;
->      binfo->dev = info->dev;
->      binfo->cdev = cdev;
-> 
-> 
-> 
+Add the chip type and a helper that tests for it, so the changes that
+follow can be gated without repeating the chip and bus comparison.
+
+Signed-off-by: Luka Gejak <luka.gejak@linux.dev>
+Acked-by: Ping-Ke Shih <pkshih@realtek.com>
+---
+
+Notes:
+    Changes in v11: none.
+    Changes in v10: none.
+    Changes in v9: none.
+    Changes in v8: none.
+    Changes in v7: none.
+    Changes in v6: none.
+    Changes in v5: none.
+
+ drivers/net/wireless/realtek/rtw88/main.h | 7 +++++++
+ 1 file changed, 7 insertions(+)
+
+diff --git a/drivers/net/wireless/realtek/rtw88/main.h b/drivers/net/wireless/realtek/rtw88/main.h
+index 6883fbd9f768..d59f6e323adf 100644
+--- a/drivers/net/wireless/realtek/rtw88/main.h
++++ b/drivers/net/wireless/realtek/rtw88/main.h
+@@ -194,6 +194,7 @@ enum rtw_chip_type {
+ 	RTW_CHIP_TYPE_8723D,
+ 	RTW_CHIP_TYPE_8821C,
+ 	RTW_CHIP_TYPE_8703B,
++	RTW_CHIP_TYPE_8723B,
+ 	RTW_CHIP_TYPE_8821A,
+ 	RTW_CHIP_TYPE_8812A,
+ 	RTW_CHIP_TYPE_8814A,
+@@ -2195,6 +2196,12 @@ static inline bool rtw_chip_has_tx_stbc(struct rtw_dev *rtwdev)
+ 	return rtwdev->chip->tx_stbc;
+ }
+ 
++static inline bool rtw_is_8723bs(struct rtw_dev *rtwdev)
++{
++	return rtwdev->chip->id == RTW_CHIP_TYPE_8723B &&
++	       rtwdev->hci.type == RTW_HCI_TYPE_SDIO;
++}
++
+ static inline u8 rtw_acquire_macid(struct rtw_dev *rtwdev)
+ {
+ 	unsigned long mac_id;
+-- 
+2.55.0
+
