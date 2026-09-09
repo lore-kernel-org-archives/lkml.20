@@ -1,132 +1,155 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lj1-f169.google.com (mail-lj1-f169.google.com [209.85.208.169])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8839C3C109D
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 20:14:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788984857; cv=none; b=h+qypNm1Dr7muXHokrkqWZ99IysprID3/bzu9l5OmKsArNUZzwT0Xc1VfBga1GrGX9IfnJ+w1wuMAQbFmXfzDtfowbKtI+uzIIlkRLHgj1arNl5BX/dWgJokQthYsHruIReSi1Yi8eEtR1qbINyx5ebfiQC6a8xwGhdlD4T+1I8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788984857; c=relaxed/simple;
-	bh=jsAfD0x6H4CpXABTrjk+C+iNJfFFVHIaPK+HNZm11pQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=OXUYzu88pvKHjb61bWPEHpI27uP40GFDUt3SC7o8VGiKCxLqMs8aiIJ+bku6INdDC00b4CJwTzrOFrMz6C45kuZVe86TAP3xmumEIyITZ6V4RUtu2Ait0Ae65KgGEbsO5jzQnjaq4YcrHX35AkfWZOCJvJzLhukbWUvkNYHib8E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=I8UY9KYC; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6A1440B10C
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 20:18:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.169
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788985087; cv=pass; b=Q4foFSw4kWXatiUpIKJfwBOtL6z2O+TduyVH1afmL/2ROVyyAGBhWYc17UfHUCsQlontsFG0L6NsY84tl/DaCcs5qs3unek8eKSNernkKra3fUddl76mj89dn1qjF3iizmQ+EeH1AR2jkXMoKcifVf6vjSvfS9JgGzwmHNc6lFU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788985087; c=relaxed/simple;
+	bh=r0SYPe6/MLvVhiIoMkAkIXOuQ6dRGOznaSyuFqfT4PU=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=WPgSQYfRDUDPeyae/udINMWGW1qNBBXOPTw66i/TY544fxApK32CNeiqMAi0Qkn6nG9x38oVeKzCfH5GZ+9AzvSdJFQze0l5cZnvtq1USrB6nqn5h23qJLGrGsYtkQglLdDJtOtvsM+lKyGbCL0G/nOR+PtQDVKgGCIRtK67CqU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=smJQALHJ; arc=pass smtp.client-ip=209.85.208.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="I8UY9KYC"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1788984854;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=lKTM+YFNwQBQdailf/krjJt9YY8aumvxrk1D4x3TQQU=;
-	b=I8UY9KYCNi0SGnPGw5RSQ51pyJ4A6hAtQs1FqrRPZMndzO28vCHO3GpKvuX2YtIqo5HWNB
-	x59dxoepCwpxyWhvMpB7HNSGxTmySlSso4f7UQoUitoCeIcFt4vjpPx0besjfaK6vIDxje
-	yt19adcbsM1dc7x88WbhCwsAl65yybg=
-Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-363-z87LLbsnMXOszc9WnPRl3Q-1; Wed,
- 09 Sep 2026 16:14:12 -0400
-X-MC-Unique: z87LLbsnMXOszc9WnPRl3Q-1
-X-Mimecast-MFC-AGG-ID: z87LLbsnMXOszc9WnPRl3Q_1788984851
-Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 77F931954B1B;
-	Wed,  9 Sep 2026 20:14:10 +0000 (UTC)
-Received: from [100.91.18.181] (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 2C6EB1800576;
-	Wed,  9 Sep 2026 20:14:08 +0000 (UTC)
-Message-ID: <44bdfc4b-4729-4dc3-b7b0-53c671c5ee34@redhat.com>
-Date: Wed, 9 Sep 2026 16:14:07 -0400
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="smJQALHJ"
+Received: by mail-lj1-f169.google.com with SMTP id 38308e7fff4ca-3a58eb29192so4263381fa.3
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 13:18:01 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788985078; cv=none;
+        d=google.com; s=arc-20260327;
+        b=njIzuc7KSouamJcIykX0uL+BtlMvOtt38HUy7xcVbvum0/6dlmmFXC4iurjzMw1phd
+         +4jM4OYtvD/DlmZOlPLCZhJButvL9sVmaXEznhOEag4+k40bkvPlexOKzKXZesslbuVN
+         632fhEG4oaZjLa12f7EZQAc1rS2/eAvnR+3ecd2gzRU2szAoc8R8FdA5J18ZfQzVGrWe
+         SQ15y3OYBDW1ScbyCR9gD5/iNeLfa+HE2T4qGQcx3rx/Q08xag3zZpEJnhA7BZxR1NbO
+         sRLPeyFxmkpJRlltJ0B3q9PZUJVOU/oHzAnbLWR3pFCgYo677dxSHNZQKYp1WwFyzeKK
+         3T5g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=rU/edVWvN0al2QuqioTnSDLV4+asJJGA8jcDggwnG3A=;
+        fh=pPwQ8K6n+/RmrZrjPyqAh12sjc0mzbk/XnbHVJphWO4=;
+        b=WXQ1s6wJWQeSM2EEDTPoXGVrOAKQfmodXQ8oAD2y3PfRHNfoOdEtzncAvIZci+/fxz
+         /TLqIBEH9EfQgcSsc+8o0kR0bzTL67WOgpeblCMzqTwF9YFj/L9znUMHoR+KoAjnwoQF
+         RfjIXf/o44NhZJtAjqV8OBNFXQdzc3Y84aJxzUcGKG4azTE0xJrm+3Sme2VGOUDsgLmA
+         lznm2iowxGT+YsIFzMF6SNyjIcmMv0cEk9kxq4gwFpQEVnKMgF9QTwab5HxFyBl8LtbI
+         0JJ5pPbXuApZlfp6leGLmj5EN5pkPvHjQDFA7vtMsqsjV8vu/Cy19El+Q9nAAAuNp8SW
+         k+EA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788985078; x=1789589878; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=rU/edVWvN0al2QuqioTnSDLV4+asJJGA8jcDggwnG3A=;
+        b=smJQALHJEKLggOAUE3JHMc4GrHnhEz7kBOpoYZ+TN9qx1gucc9icC6ZGkjkY25N0Hc
+         hwOKnXbTnOmQlCMiX8WY7Wbjwvsib1tfB2qyB6MqkouZEUe5OjkyThv3qA5myAKF01PX
+         BmLKDkjM5hOjVkYHLAanr63ETq0E9LC2GSoZqoox6EZvrQR6uYEu/UVdyTXh2zgSk1V2
+         M024205Bv8hrlzM4HVPzmnPrUR/+dlNMyqZLhQMLQvjtwdq7uJLqGI2km027Yh8QgtFu
+         7WIf3RmVmKLsaxk6qGoIS24SCB7zbMPTLBu8TI43Ok91YY3/KlWDJj6JYoMwuHjkDq5x
+         NhtA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788985078; x=1789589878;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=rU/edVWvN0al2QuqioTnSDLV4+asJJGA8jcDggwnG3A=;
+        b=BOMdzHGxHanWMdN0VnrvRoPIGLyJFqaLCQIRRKEs0z1zj7qQPR4TvvzxUnxYieJ+Fo
+         JwzCWJdeKWvd1HIt2k9gJT+OnGGFSjbb2BxPVsjP5CuaWKNbEOz7RLKRAjRwC8Riy282
+         XCKkL8HHZezmLa7nUZ+Uitega5qZZ0CJgPKJADAxuWho3wDajZ8uMq0vFplN8YJTXhAD
+         PuP2ym9IoMAeK1iTtPTMFTRqyaqGKscpg7Jseh9D48Sj7FVgV/jMZ6G5c5vo1BTotHg6
+         l7CwIljEfh1fb8DT/4G2uza8/PUGE3bMuNpz4Bf/2//EA2zL2+Dr7zBAOLJXAkew0IwR
+         ZbbQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxU84T2UdaPxn3VrpYnMIOW0M/El2e25VRrYqcAuXUZ0kt17g9VRPp2mk0x13RjXpZUrwTR52mPr17zo/s=@vger.kernel.org
+X-Gm-Message-State: AFuF++m74dwy0l7n5y1HqZD9DDau/5TGlST7uDkfMKKibu6D1fFbpS1H
+	WxEJFOVakUTC91PbJWd2UzeVT2AzDmPoLK0Eea4m7Z49u3gDB4WsK4NDhxEW4cZ7VKvtk/56zcZ
+	HUb+jAqvbCT4NpKpkInTUx7+Sk94p8ns=
+X-Gm-Gg: AYBFou0oTy01aWxI/eR4ZfrwwD2MJ2mlon0r0wm9vnw06PMfp2oy1O42wDcLsj1Gzlm
+	Q1LcI8awuM97re+UWYbNjGNNKb+jvybE79nTDgO7zDycQ0W6OF4eSRgf1+d37P0XJhmWAlPYOin
+	lNS4yxIiGbYaVcG3TjPq65638Pel4gi2eWK+tlDEHX+SoKI2S2Q3TpYvMZSE5u2QO+V966a6h2v
+	9JB1bulNAgWc+ddmasPfBTSuZccxzZ3puZHZ+GKIupOeaXvK5+o8IaTajyQ5DDfWjOxallujbPs
+	r7MjOyhpruuBf6Ji5m8vP9J3OSdfGzwByiHuHKZCtNyWvhu+ZbQEFbXMylU3KR7FTDJXHZZv2sX
+	j2OuhFGZdrxlmoBZvKXCsntib+4aLj0v+2fOkCu8nUT3O
+X-Received: by 2002:a05:6512:acd:b0:5b6:1a7c:fd86 with SMTP id
+ 2adb3069b0e04-5b61a7cfdb9mr6159278e87.44.1788985077633; Wed, 09 Sep 2026
+ 13:17:57 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 next 0/9] locking/osq_lock: Optimisations to osq_lock
- code
-To: Haakon Bugge <haakon.bugge@oracle.com>,
- David Laight <david.laight.linux@gmail.com>
-Cc: Linus Torvalds <torvalds@linux-foundation.org>,
- Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
- Will Deacon <will@kernel.org>, Boqun Feng <boqun@kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Yafang Shao <laoar.shao@gmail.com>, Steven Rostedt <rostedt@goodmis.org>
-References: <20260907084133.3696-1-david.laight.linux@gmail.com>
- <CAHk-=wget=mgjpkPJ+3-tueqo7AK1m4MR_Jqht6bj3-w+FhQHg@mail.gmail.com>
- <20260907182705.54585f73@pumpkin>
- <89F7CD08-2BDD-424D-AA2F-77D72647D93E@oracle.com>
-Content-Language: en-US
-From: Waiman Long <longman@redhat.com>
-In-Reply-To: <89F7CD08-2BDD-424D-AA2F-77D72647D93E@oracle.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
+References: <20260908152808.3928630-1-arnd@kernel.org> <20260908152808.3928630-9-arnd@kernel.org>
+In-Reply-To: <20260908152808.3928630-9-arnd@kernel.org>
+From: Fabio Estevam <festevam@gmail.com>
+Date: Wed, 9 Sep 2026 17:17:46 -0300
+X-Gm-Features: AcwNN1WKZQyaGADU6lkE-GsXnisq5MVghkNUlNC3CqrQiDAXJmgIgXPSi_5sivU
+Message-ID: <CAOMZO5B4q01XRGRfK_LoR1SWkvdP-_fbSHrE4BYq7gVf7k0Xwg@mail.gmail.com>
+Subject: Re: [PATCH 08/13] ARM: imx: remove nommu support
+To: Arnd Bergmann <arnd@kernel.org>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>, Alexandre Belloni <alexandre.belloni@bootlin.com>, 
+	Linus Walleij <linusw@kernel.org>, Russell King <linux@armlinux.org.uk>, 
+	Drew Fustini <fustini@kernel.org>, Arnd Bergmann <arnd@arndb.de>, Rob Herring <robh@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Liviu Dudau <liviu.dudau@arm.com>, 
+	Sudeep Holla <sudeep.holla@kernel.org>, Lorenzo Pieralisi <lpieralisi@kernel.org>, 
+	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
+	Pengutronix Kernel Team <kernel@pengutronix.de>, Vladimir Zapolskiy <vz@mleia.com>, Stefan Agner <stefan@agner.ch>, 
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+	Aaro Koskinen <aaro.koskinen@iki.fi>, Andreas Kemnade <andreas@kemnade.info>, 
+	Kevin Hilman <khilman@baylibre.com>, Roger Quadros <rogerq@kernel.org>, 
+	Tony Lindgren <tony@atomide.com>, Nicolas Ferre <nicolas.ferre@microchip.com>, 
+	Claudiu Beznea <claudiu.beznea@tuxon.dev>, Andrew Lunn <andrew@lunn.ch>, 
+	Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>, 
+	Gregory Clement <gregory.clement@bootlin.com>, Robert Jarzmik <robert.jarzmik@free.fr>, 
+	Kristoffer Ericson <kristoffer.ericson@gmail.com>, Ethan Nelson-Moore <enelsonmoore@gmail.com>, 
+	Geert Uytterhoeven <geert@linux-m68k.org>, Alexander Sverdlin <alexander.sverdlin@siemens.com>, 
+	Shawn Guo <shawnguo@kernel.org>, Karl Mehltretter <kmehltretter@gmail.com>, 
+	"David Hildenbrand (Arm)" <david@kernel.org>, Nicolas Pitre <npitre@baylibre.com>, linux-doc@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	devicetree@vger.kernel.org, imx@lists.linux.dev, 
+	linux-stm32@st-md-mailman.stormreply.com, linux-omap@vger.kernel.org, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Giulio Benetti <giulio.benetti@benettiengineering.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 9/9/26 10:15 AM, Haakon Bugge wrote:
+On Tue, Sep 8, 2026 at 12:29=E2=80=AFPM Arnd Bergmann <arnd@kernel.org> wro=
+te:
 >
->> On 7 Sep 2026, at 19:27, David Laight <david.laight.linux@gmail.com> wrote:
->>
->> On Mon, 7 Sep 2026 09:08:28 -0700
->> Linus Torvalds <torvalds@linux-foundation.org> wrote:
->>
->>> On Mon, 7 Sept 2026 at 01:41, David Laight <david.laight.linux@gmail.com> wrote:
->>>> I've fixed some broken/missing memory barriers but left the initial xchg()
->>>> when acquiring the lock as a full barrier, I think it could be relaxed.
->>> Well, it should almost certainly be at least an
->>> atomic_cmpxchg_acquire(), since that's what osq_wait_next() uses for
->>> the contention case.
->> I'm not sure, but am no expert on acquire/release barriers.
->> The 'fast path' osq_lock() code only has one memory access so there
->> isn't anything to sequence it with.
->> The important one is the smp_wmb() a bit lower down that ensures the
->> list tail (or head) is written before the back link.
->> When that was missing things went badly wrong.
->> (I think the WRITE_ONCE() could be a store_release() instead.)
->>
->> The ACQUIRE semantics were added to ensure the 'node->next = NULL'
->> assignment happened before the xchg().
->> That assignment goes away in patch 5.
->> But I'd want someone who really understands arm64 to comment.
-> These are preliminary results. I added osq_lock's to my
-> mutual-exclusion selftest [1], which has not yet been reviewed. The
-> test is based on v7.3-rc2.
+> From: Arnd Bergmann <arnd@arndb.de>
 >
-> For lock acquisition, I used:
+> The i.MX platform has grown support for three separate product
+> lines using Cortex-M based microcontrollers over the years:
 >
-> 	preempt_disable();
-> 	while (!osq_lock(&el->mx_osq_lock.lock)) {
-> 		preempt_enable();
-> 		cond_resched();
-> 		preempt_disable();
-> 	}
+>  - i.MX RT1050, a high-end microcontroller
+>  - Vybrid vf610 suppors running Linux on either the Cortex-A5
+>    CPU or the Cortex-M4 MCU
+>  - i.MX7D similarly can run Linux on the Cortex-A7 or the
+>    Cortex-M4
 >
-> with the corresponding release:
+> There are no known upstream users of any of those three, so
+> drop support and simplify the platform to assume that an MMU
+> is present.
 >
-> 	osq_unlock(&el->mx_osq_lock.lock);
-> 	preempt_enable();
->
-> Assuming that this is a correct use of the OSQ API, the OSQ test fails
-> on a 160-CPU bare-metal Arm system. The same test passes on a 512-CPU
-> AMD x86_64 system as expected, showing at least that the test is
-> capable of passing.
-
-osq_unlock() must provide the release barrier. I think the two 
-"WRITE_ONCE(next->locked, 1)" should have been 
-"smp_store_release(&next->locked, 1)".  There is an xchg() call before 
-the WRITE_ONCE's, but it is on a different cacheline so it may not apply.
-
-Could you make that change to the existing code and rerun the test again 
-on arm64 to see if it can pass?
-
-Thanks,
-Longman
-
+> Cc: Frank Li <Frank.Li@nxp.com>
+> Cc: Sascha Hauer <s.hauer@pengutronix.de>
+> Cc: Pengutronix Kernel Team <kernel@pengutronix.de>
+> Cc: Fabio Estevam <festevam@gmail.com>
+> Cc: Stefan Agner <stefan@agner.ch>
+> Cc: Rob Herring <robh@kernel.org>
+> Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
+> Cc: Conor Dooley <conor+dt@kernel.org>
+> Cc: Vladimir Zapolskiy <vz@mleia.com>
+> Cc: Giulio Benetti <giulio.benetti@benettiengineering.com>
+> Cc: devicetree@vger.kernel.org
+> Cc: imx@lists.linux.dev
+> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+> ---
+>  arch/arm/boot/dts/nxp/imx/Makefile            |    2 -
+>  arch/arm/boot/dts/nxp/imx/imxrt1050-evk.dts   |   72 -
+>  arch/arm/boot/dts/nxp/imx/imxrt1050-pinfunc.h |  993 -----------
+>  arch/arm/boot/dts/nxp/imx/imxrt1050.dtsi      |  160 --
+>  arch/arm/boot/dts/nxp/imx/imxrt1170-pinfunc.h | 1561 -----------------
