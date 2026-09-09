@@ -1,157 +1,162 @@
-Received: from mail.cjdns.fr (mail.cjdns.fr [5.135.140.105])
+Received: from sender4-op-o12.zoho.com (sender4-op-o12.zoho.com [136.143.188.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C08C485949;
-	Wed,  9 Sep 2026 21:33:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.135.140.105
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788989609; cv=none; b=psFSU7cjhy7CSl/359CKv3tY52oTspvO3HQQjKFJYj3u3SgRg/CWvp9aNv0Sh2ToFljqcORpyT8Kv7z0jLz5Xg7aGODDoFarOTEecnV6aW1/nlMIbiWYA7QHwk8OEY/v+tp89bUbzYt5vCUcoNWB9VE1ZVEfGzzSnub0BilOcRM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788989609; c=relaxed/simple;
-	bh=834eDjOan/A5adnG3hsLjh7NHyS9qItlttjBQ8iMDKM=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Qd5pkqVsbzCbBNiZJrxDZAuww7SaW22Q5SJxiZX0brDsfGsLhu0a951vnS7lKwTixoZi3hSbOMqv+bQuXokwQx1J3w6f/CWXSe5yqL/65yZ8EWP5fxLzMwfHr58Cn2FIPMIK2AE+krXnmN+YX3vg1FOnxLgpB0GGmWSYyoIx5kE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr; spf=pass smtp.mailfrom=cjdns.fr; dkim=pass (2048-bit key) header.d=cjdns.fr header.i=@cjdns.fr header.b=njbNHfNm; arc=none smtp.client-ip=5.135.140.105
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cjdns.fr
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF2CB475354;
+	Wed,  9 Sep 2026 21:33:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.12
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788989630; cv=pass; b=QDsX9f6jMfCXcpiMQYLAoA+mIWJMNvsmGMqKYslCsXxMfBdGzScGcxKTFrbdr60pF4HgUDGL7Z4Q9jZ8XpvoDY9+aShFBaTWad6asWQYOdIIMYlidNhXgsE5WCTqWQlaSqDvb+hrOuLmSck9bFXzRl0iDkpaSQx+gnzysN2+Yow=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788989630; c=relaxed/simple;
+	bh=CMWvvbmwTpJpxRVSkyL2ArxTPtKtihk3Fd+UAgAbtDg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=e5IzbVdpmqMZl8DcfVbivihv6Huas5aWlbcZXME8LsNBJMdbI1HUXP+9sCtq+gXc5K/tUnFNc3aswfMFeIKufKUtHrUweUp13csfvMT3RKWwlBsvcg7Q7LTSuhBmaJs75KXEn+Ke/NeqbyzoiUYpbGJYLXO8RZOuh5OWWMYh4Aw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.b=Ms0wcapA; arc=pass smtp.client-ip=136.143.188.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cjdns.fr header.i=@cjdns.fr header.b="njbNHfNm"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 55D76408E9C;
-	Wed,  9 Sep 2026 23:33:03 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cjdns.fr; s=dkim;
-	t=1788989589; h=from:subject:date:message-id:to:cc:mime-version:
-	 content-transfer-encoding; bh=V/qlTnUfYfGp2JdX/hItZG5Gee2j7Ew0nxnFZ6sxuQ4=;
-	b=njbNHfNmVsDqxX50TMx4/HC1qNAlT73XFtEcqOCX+5q5vZN+umf7CVN2biX8IYFOq7QTmY
-	fPkiBhd8WynUvTvHrd6efRjK5N+Sbtaq3XTkjYOXX4bRr+V+rrGdh2n3VYzYoTocINjWgP
-	BUSJT38c1rt9hxPDekC0tPn0FXUgC0wVkrmbTKOSEKUlQl+99LgczV5aZ8HSQCQ6MRWsI6
-	jV0SE3HZ46FstACiVBZMtrnt+7jaX8iFk3285cZlcxT1VLES+IOAZBS0L1gwEcCIbPrK+J
-	lGsgQe3MsVoKmGLIcoRwV/9P5TGvDVOFmtUNhunF4QUD9PNjrQyvyE4nZSn4kA==
-From: Caleb James DeLisle <cjd@cjdns.fr>
-To: netdev@vger.kernel.org
-Cc: daniel@makrotopia.org,
-	dqfext@gmail.com,
-	SkyLake.Huang@mediatek.com,
-	andrew@lunn.ch,
-	hkallweit1@gmail.com,
-	linux@armlinux.org.uk,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	matthias.bgg@gmail.com,
-	angelogioacchino.delregno@collabora.com,
-	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org,
-	Caleb James DeLisle <cjd@cjdns.fr>,
-	Matheus Sampaio Queiroga <srherobrine20@gmail.com>
-Subject: [PATCH net-next] net: phy: mediatek: support MT7530 PHYs on EN71221 MCM
-Date: Wed,  9 Sep 2026 21:32:50 +0000
-Message-Id: <20260909213250.3184238-1-cjd@cjdns.fr>
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.b="Ms0wcapA"
+ARC-Seal: i=1; a=rsa-sha256; t=1788989608; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=ObCXcB72YCyYRrvxmhSLQ1Nqmuoo7gaUYEMaJuh7Rd6UGai0KFYctV6Fh2AGETFoOVKDkGCPOZx6Dty5G0wJt6KrocNutntZs/cBjoBGkegIBbDKYPrZZhTg8QNtEfAwgk2I8XouiZ4PtN/itEG+EzhpH83ZCzNZQOnANFejbBM=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1788989608; h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=OK/+i+bSuot0rWajR76Gmfv+pPtd96VADwafK/3Ut6I=; 
+	b=cu9T77n45oC/tjSwpmaF1LiCz83V4g75SCHe9vrRkfkqZbT3hgvaR2QOfUG6kvPsbcONl/PpPY13a0sLHSHM/Idb5cklpPVq2UZXkogexkFXPTKtc/Bc+sYPNB+54kLtRQVKIxzzg/11CXCv2Y+MG0tg6pzAEQQi1UX87x1UHSA=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=sebastian.reichel@collabora.com;
+	dmarc=pass header.from=<sebastian.reichel@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1788989608;
+	s=zohomail; d=collabora.com; i=sebastian.reichel@collabora.com;
+	h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:MIME-Version:Content-Type:In-Reply-To:Message-Id:Reply-To;
+	bh=OK/+i+bSuot0rWajR76Gmfv+pPtd96VADwafK/3Ut6I=;
+	b=Ms0wcapA2R4VPsm84z5vbEOolbuMYodYG7nDzfuG75AhdFzJiXY5idw+SswpJ7fo
+	MWFEZ1lePPZCn2H/MWtAPWsramR0sY231gFg/2DYIX2/Kt+lMOSXFFoIszNMyeSr3oL
+	7qdA/uRcrAOeV7dg6vgeLU6ry4ewyVO3Xlrxz2Zg=
+Received: by mx.zohomail.com with SMTPS id 1788989606504151.99293599189923;
+	Wed, 9 Sep 2026 14:33:26 -0700 (PDT)
+Received: by venus (Postfix, from userid 1000)
+	id A8C86183377; Wed, 09 Sep 2026 23:33:23 +0200 (CEST)
+Date: Wed, 9 Sep 2026 23:33:23 +0200
+From: Sebastian Reichel <sebastian.reichel@collabora.com>
+To: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
+Cc: Daniel Lezcano <daniel.lezcano@kernel.org>, 
+	"open list:POWER SUPPLY CLASS/SUBSYSTEM and DRIVERS" <linux-pm@vger.kernel.org>, open list <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH] power: supply: Fix power limit documentation
+Message-ID: <aqHQPhfxUkJlQJmv@venus>
+References: <20260821153949.2914201-1-daniel.lezcano@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="food2nm4pzpdq4iw"
+Content-Disposition: inline
+In-Reply-To: <20260821153949.2914201-1-daniel.lezcano@oss.qualcomm.com>
+X-Zoho-Virus-Status: 1
+X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/288.982.46
+X-ZohoMailClient: External
 
-The EcoNet EN751221 multi-chip module implementation of the MT7530
-requires some additional configuration of the PHYs on startup.
-The reason for this is not known, but it is possible that it has
-to do with the fact that the EN751221 MCM implementation of the
-MT7530 runs at an abnormal PLL frequency (362.5Mhz).
 
-Detect whether the MT7530 PHY is attached to the MDIO bus of an
-EcoNet EN751221 switch and if so, apply the necessary register
-updates.
+--food2nm4pzpdq4iw
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH] power: supply: Fix power limit documentation
+MIME-Version: 1.0
 
-Co-developed-by: Matheus Sampaio Queiroga <srherobrine20@gmail.com>
-Signed-off-by: Matheus Sampaio Queiroga <srherobrine20@gmail.com>
-Signed-off-by: Caleb James DeLisle <cjd@cjdns.fr>
----
- drivers/net/phy/mediatek/mtk-ge.c | 61 +++++++++++++++++++++++++++++++
- 1 file changed, 61 insertions(+)
+Hi,
 
-diff --git a/drivers/net/phy/mediatek/mtk-ge.c b/drivers/net/phy/mediatek/mtk-ge.c
-index 73d9b72f9d9e..42b06c40d703 100644
---- a/drivers/net/phy/mediatek/mtk-ge.c
-+++ b/drivers/net/phy/mediatek/mtk-ge.c
-@@ -1,4 +1,5 @@
- // SPDX-License-Identifier: GPL-2.0+
-+#include <linux/of.h>
- #include <linux/bitfield.h>
- #include <linux/module.h>
- #include <linux/phy.h>
-@@ -62,8 +63,68 @@ static void mtk_gephy_config_init(struct phy_device *phydev)
- 		       FIELD_PREP(MTK_MCC_NEARECHO_OFFSET_MASK, 0x3));
- }
- 
-+static bool mt7530_phy_is_en751221_companion(struct phy_device *phydev)
-+{
-+	struct device *parent = phydev->mdio.bus->parent;
-+
-+	return parent && parent->of_node &&
-+	       of_device_is_compatible(parent->of_node, "econet,en751221");
-+}
-+
-+/*
-+ * The EcoNet reference implementation applies additional tuning to
-+ * the PHYs of the multi-chip module MT7530.
-+ */
-+static int mt7530_phy_en751221_config_init(struct phy_device *phydev)
-+{
-+	int ret;
-+
-+	ret = genphy_soft_reset(phydev);
-+	if (ret)
-+		return ret;
-+
-+	/* Clause 22 local data. */
-+	ret = phy_write(phydev, MII_CTRL1000, 0x1e00);
-+	if (ret < 0)
-+		return ret;
-+
-+	ret = phy_write_paged(phydev, MTK_PHY_PAGE_EXTENDED_1, 0x14, 0x3a04);
-+	if (ret < 0)
-+		return ret;
-+
-+	/* Clause 45 global/local data from mt7530GePhyCfgLoad(E3.0). */
-+	ret = phy_write_mmd(phydev, MDIO_MMD_VEND2, 0x0417, 0x7775);
-+	if (ret < 0)
-+		return ret;
-+
-+	ret = phy_write_mmd(phydev, MDIO_MMD_VEND1, 0x00a6, 0x0350);
-+	if (ret < 0)
-+		return ret;
-+
-+	ret = phy_write_mmd(phydev, MDIO_MMD_VEND1, 0x0012, 0xd210);
-+	if (ret < 0)
-+		return ret;
-+
-+	/* Vendor profile disables 100/1000BASE-T EEE advertisement. */
-+	ret = phy_write_mmd(phydev, MDIO_MMD_AN, 0x003c, 0x0000);
-+	if (ret < 0)
-+		return ret;
-+
-+	phydev_info(phydev, "EN751221 companion MT7530 E3.0 PHY profile loaded\n");
-+
-+	return 0;
-+}
-+
- static int mt7530_phy_config_init(struct phy_device *phydev)
- {
-+	int ret;
-+
-+	if (mt7530_phy_is_en751221_companion(phydev)) {
-+		ret = mt7530_phy_en751221_config_init(phydev);
-+		if (ret)
-+			return ret;
-+	}
-+
- 	mtk_gephy_config_init(phydev);
- 
- 	/* Increase post_update_timer */
--- 
-2.39.5
+On Fri, Aug 21, 2026 at 05:39:49PM +0200, Daniel Lezcano wrote:
+> The documentation for the input current and voltage limits recommends
+> using those properties for problems that can be solved using a power
+> limit. This contradicts the recommendation to prefer input_power_limit
+> for such cases.
+>=20
+> Similarly, the input_power_limit documentation recommends using the
+> current or voltage limits for problems that can be solved with a power
+> limit, which conveys the opposite of the intended meaning.
+>=20
+> Fix the wording to clarify that input_power_limit should be preferred
+> whenever a power limit can address the problem, while current or
+> voltage limits should be used when it cannot.
 
+Patch LGTM.
+
+> Signed-off-by: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
+> Signed-off-by: Daniel Lezcano <daniel.lezcano@kernel.org>
+
+Is this intentional?
+
+Greetings,
+
+-- Sebastian
+
+> ---
+>  Documentation/ABI/testing/sysfs-class-power | 10 +++++-----
+>  1 file changed, 5 insertions(+), 5 deletions(-)
+>=20
+> diff --git a/Documentation/ABI/testing/sysfs-class-power b/Documentation/=
+ABI/testing/sysfs-class-power
+> index 32697b926cc8..f0ef87d365dd 100644
+> --- a/Documentation/ABI/testing/sysfs-class-power
+> +++ b/Documentation/ABI/testing/sysfs-class-power
+> @@ -600,8 +600,8 @@ Description:
+>  		supply. Normally this is configured based on the type of
+>  		connection made (e.g. A configured SDP should output a maximum
+>  		of 500mA so the input current limit is set to the same value).
+> -		Use preferably input_power_limit, and for problems that can be
+> -		solved using power limit use input_current_limit.
+> +		Use preferably input_power_limit, and for problems that can not
+> +		be solved using power limit use input_current_limit.
+> =20
+>  		Access: Read, Write
+> =20
+> @@ -618,8 +618,8 @@ Description:
+>  		input power to 5V when the screen is on to meet Google's skin
+>  		temperature targets). Note that this feature should not be
+>  		used for safety critical things.
+> -		Use preferably input_power_limit, and for problems that can be
+> -		solved using power limit use input_voltage_limit.
+> +		Use preferably input_power_limit, and for problems that can not
+> +		be solved using power limit use input_voltage_limit.
+> =20
+>  		Access: Read, Write
+> =20
+> @@ -633,7 +633,7 @@ Description:
+>  		in the supply. Normally this is configured based on
+>  		system-level knowledge or user input. Use preferably this
+>  		feature to limit the incoming power and use current/voltage
+> -		limit only for problems that can be solved using power limit.
+> +		limit only for problems that can not be solved using power limit.
+> =20
+>  		Access: Read, Write
+> =20
+> --=20
+> 2.43.0
+>=20
+
+--food2nm4pzpdq4iw
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAmqh0J8ACgkQ2O7X88g7
++pqTWQ/9F0BEvTrZxKfzrF3WzUfSJqAuk2l4Phnjg75ZHNIC7zXjrPvoU4Ea6G+O
+73QKquo8MfeYYF62cV5CL6bxVXyM2bomhsjG3BSjuo9Ec6/Yh/JzkMgSwaNDSfxM
+iJ/FeSTV8vb3tSByB4/JZ+ABs1yJTvWxyjYNsC6UZWG51+ZoujfY2Fd1fZworoDd
+pn9siIXzb1G4Asrgr6XrhtIQScu6kAiYhgDkt/oJX6lfOC39cyGzZ4QY3Swm0l5K
+DY7zCTf7enBUECLvsfBKSt103anLgiCje0gTwIY6E2uS0lamDAybDUl+/0WR0O/7
+ZfKRnSuXYa6I4VIKl4z5W4BV/1iLGg0adVFDkBsUXcWeQ8iPWL27XaZW61TgCbnG
+0ce2PTbCRp9vPkgrrXpFUYKruvJVZ61VSGm1eFurWxsAV2wFYrlTwmxwdsi7DPpa
+ya0qkIEV72DDWLWa/FvWnlGNpx4tzKGJauGXYf2oj0ggljDlRax3CkXbXAFe5M+/
+FyWCGM6iLGArafIqMzcFY8p03fV2j0m3UKFS9upEUHWPp8e60PUybVI99AxWFAU8
+GGYg5eVux98ySCSuNbll8ZmNib4zSjexg8V4NtoF+aqP2s1YUKcoESQRA9tJ4yVD
+M8YkzhZz9LHX2a4JL3zzgrKU613EtGy4DEhH/06nXIO5F4tF5+8=
+=tyMq
+-----END PGP SIGNATURE-----
+
+--food2nm4pzpdq4iw--
