@@ -1,137 +1,105 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76CB225F99F;
-	Wed,  9 Sep 2026 07:49:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B56C33A7F49;
+	Wed,  9 Sep 2026 07:49:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788940146; cv=none; b=DEqgOSo/TTSFxxKgd4qPmxMTvqNO2zQLLpOUm41IMEkx3SZs05aPQCHd6Ss7kir8OHFnRb/fT50EQq4QlRGx7yEwxCYUQBcGanPMYhbvIH3LzX+wCHuCDwnYrbn9jQFwKO64LlD/zbKjx8C6vFEqvw+JkjeFJdb+uiW268odkWU=
+	t=1788940151; cv=none; b=fiCib80LkzclomqCOmlFSl5MDUl2ajD29C7ZwUEvTnMIocDZ1VQBCFWFgxo5v4TQ1zJcC1yIE5lFh0efTNWsGTyqiv/NHOyu4pqy15fblC+P0vbu6ILHLjHQL8cgPp5V3wgj2fIarceeb3P2m1zEgtT4IUvAZvwGfBcspxTAOMc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788940146; c=relaxed/simple;
-	bh=ISQDd1oJEQJmG/NynBkrUI70OPSeSTJUlMkBuQns42Q=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=kc5qz50Y9lSAtZLqEMxNlAg8nEbmWTkvqygrVsCt4aCn1IqCMiKGqabWbIITlPmTbayjz8U+JwzjR09PbXDmJOOt7CvZX20pe+PqmS+nyf+AkOLO8ONkJwNs5/yMch4+L6fOIgD6kg41wGHTMF8kmlsCGtK301uIQHRJgd2rf+0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aoutg6l0; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788940151; c=relaxed/simple;
+	bh=n/YUHToCu4xFzFyURJPKym92O2SUcgsTqgNBRzWypyI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=iXsRZIgnO1P0d1nfV/33F6YFH0ozf9NW0ua82K9No+wrt23LrAJm15cJDMPav6gQXRNIPtrK84wbsMQEmL90EPfH8sucVErjFHYZwNGcgjxgz5APHg/AS9L7EzMN7YtDTdDJ4pVGnZnRhLuoxM1c9ESS2Th2vG3u2qFDM3Tutzo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lA4UvNb/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aoutg6l0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5B71A1F00A3D;
-	Wed,  9 Sep 2026 07:48:57 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lA4UvNb/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2679F1F00A3A;
+	Wed,  9 Sep 2026 07:49:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788940145;
-	bh=hgnZT+2Mit5xpVjYvXSjzD7nZQWY3h9bkFOl6mmp6VE=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=aoutg6l0ahEWNqSvkL74AzduJYMljzmNogoR3fwrcgiv8TqgtrQACSc53f29qsR+Y
-	 zKB4X5gSunES93G58vRXWZhe9XC2xTrHs0pfuophcsW1KziqpVXNEcL2QLGeqcl73y
-	 8Q2lJlG67Q3J4mGJYb1z6dczTn3Vt/4MPe8n4ujPV6qDUafyRsaDqIzcfaFdTlnn+o
-	 9QoKWuPr/EzRnP+7cGpUqdI8xxek1TvzFTHwUnfiIC0adkO3YHsK9l/aahG18br4ib
-	 W1wz4dNeq4vDzgeE/yUtXJI7L6mwqZvRRVUWvwSUFLxISEiRC8ZoRc7qG5/FarHap4
-	 b59RMVAAygeoA==
-Message-ID: <37dab3cf-c138-4d05-8e34-461a86d71281@kernel.org>
-Date: Wed, 9 Sep 2026 09:48:56 +0200
+	s=k20260515; t=1788940149;
+	bh=CtjHw6tdgvoCt/S+ovgmKPDM4t7AdlJ2arISz/nBgmE=;
+	h=From:To:Cc:Subject:Date;
+	b=lA4UvNb/XirQdQKQbXONbFRB2eb+4zrQLcZBfjDDNtOPGEsANHBI1s7O2Y2uAx70v
+	 JPnnOfJPM67k6uDHnaxLhj+Ki9UlhWnUXOxMmacrwttqJrahibnlaGDvWXv02N8Zex
+	 fmKGpb6KscP4TgyvUPmPQXKb80X4b1Au0iThM2NzpDX9xwV1cIVTvwrw2NtdbJUGqR
+	 yPSPgEPYK6ccxCp6hl8za/wDfMY/pfnxuQyh2Wqf+vt1XppE6Vl4494heWBU3c1mjV
+	 mah8nkU7vSY8ZqD88xgVctnv3dSa/5p2GURY09O+i208oyJHOZZyle36SIOgSEU2YW
+	 Mjus+5bTMYSYg==
+From: Thorsten Blum <blum@kernel.org>
+To: Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	x86@kernel.org,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	Arnd Bergmann <arnd@arndb.de>
+Cc: Thorsten Blum <blum@kernel.org>,
+	linux-kernel@vger.kernel.org,
+	linux-arch@vger.kernel.org
+Subject: [PATCH RESEND v2] x86/serial: Use generic BASE_BAUD in asm/serial.h
+Date: Wed,  9 Sep 2026 09:46:54 +0200
+Message-ID: <20260909074653.408945-4-blum@kernel.org>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 4/6] dt-bindings: interrupt-controller: apple,aic2: Add
- apple,t8140 compatible
-To: Yureka Lilian <yureka@cyberchaos.dev>, Nick Chan <towinchenmi@gmail.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Lorenzo Pieralisi
- <lpieralisi@kernel.org>, Sven Peter <sven@kernel.org>,
- Janne Grunau <j@jannau.net>, Neal Gompa <neal@gompa.dev>,
- Hector Martin <marcan@marcan.st>, Thomas Gleixner <tglx@kernel.org>,
- Radu Rendec <radu@rendec.net>, Wim Van Sebroeck <wim@linux-watchdog.org>,
- Guenter Roeck <linux@roeck-us.net>, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, asahi@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, linux-watchdog@vger.kernel.org
-References: <20260904-apple-a18-pro-initial-devicetrees-v1-0-0c25401d165d@cyberchaos.dev>
- <20260904-apple-a18-pro-initial-devicetrees-v1-4-0c25401d165d@cyberchaos.dev>
- <4e65ef39-cf1b-49d4-a899-da36acb442c2@gmail.com>
- <20260909-advanced-marble-lorikeet-eebeef@quoll>
- <76ad4ffe-82b8-42ec-abbe-a8c35ed8705f@kernel.org>
- <76d1c5c8-f051-4365-b113-e18be5aaa9a0@cyberchaos.dev>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <76d1c5c8-f051-4365-b113-e18be5aaa9a0@cyberchaos.dev>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1895; i=blum@kernel.org; h=from:subject; bh=n/YUHToCu4xFzFyURJPKym92O2SUcgsTqgNBRzWypyI=; b=owGbwMvMwCUWt7pQ4caZUj3G02pJDFkL+d7+v8J52bh630KhNuXcgg27Ph8unJb+Wb/UeGXv0 ZZb/y6HdZSyMIhxMciKKbI8mPVjhm9pTeUmk4idMHNYmUCGMHBxCsBFnBn+8P398Pi3TIaC4r0T JU/jOjJbmV6dCbkhZ2C81PlweamtAiPDNekXy+vPiT15FsU9R8o2f5vWbrZdTlXXPGtfpN+XSf7 IAQA=
+X-Developer-Key: i=blum@kernel.org; a=openpgp; fpr=1D60735E8AEF3BE473B69D84733678FD8DFEEAD4
+Content-Transfer-Encoding: 8bit
 
-On 09/09/2026 09:34, Yureka Lilian wrote:
->>>>> diff --git a/Documentation/devicetree/bindings/interrupt-controller/apple,aic2.yaml b/Documentation/devicetree/bindings/interrupt-controller/apple,aic2.yaml
->>>>> index 1cb886785173..e3cadc5ad39d 100644
->>>>> --- a/Documentation/devicetree/bindings/interrupt-controller/apple,aic2.yaml
->>>>> +++ b/Documentation/devicetree/bindings/interrupt-controller/apple,aic2.yaml
->>>>> @@ -46,6 +46,7 @@ properties:
->>>>>                 - apple,t6030-aic3
->>>>>                 - apple,t6031-aic3
->>>>>                 - apple,t8132-aic3
->>>>> +              - apple,t8140-aic3
->>>> the title should be "... Add t8140 compatible" describing the hardware corresponding
->>>> to the added compatible since the compatible being added is not "apple,t8140".
->>> Commit msg is correct, it does exactly what you wrote, no?
->>>
->>>> (Alternatively, if you mention the compatible in title, say "...Add apple,t8140-aic3" as
->>>> "compatible" is already implied)
->>> That would be repeating diff, so not really helpful.
->>
->> Ah, you meant the subject of the patch...
->>
->>
->> Best regards,
->> Krzysztof
-> 
-> 
-> That's how I parsed it too. Removed the "apple," from the subject, so 
-> it's just "dt-bindings: interrupt-controller: apple,aic2: Add t8140 
-> compatible".
+Include asm-generic/serial.h and use the generic BASE_BAUD definition
+instead of redefining it. Consolidate the comments accordingly.
 
-Sure
+Signed-off-by: Thorsten Blum <blum@kernel.org>
+---
+Changes in v2:
+- Preserve the note that BASE_BAUD should not be arch-specific (Arnd)
+- v1: https://lore.kernel.org/r/20260717073149.3622-3-thorsten.blum@linux.dev/
+---
+ arch/x86/include/asm/serial.h | 9 +--------
+ include/asm-generic/serial.h  | 7 +++----
+ 2 files changed, 4 insertions(+), 12 deletions(-)
 
-Best regards,
-Krzysztof
+diff --git a/arch/x86/include/asm/serial.h b/arch/x86/include/asm/serial.h
+index ece8299d2695..b623f6d70f64 100644
+--- a/arch/x86/include/asm/serial.h
++++ b/arch/x86/include/asm/serial.h
+@@ -2,14 +2,7 @@
+ #ifndef _ASM_X86_SERIAL_H
+ #define _ASM_X86_SERIAL_H
+ 
+-/*
+- * This assumes you have a 1.8432 MHz clock for your UART.
+- *
+- * It'd be nice if someone built a serial card with a 24.576 MHz
+- * clock, since the 16550A is capable of handling a top speed of 1.5
+- * megabits/second; but this requires a faster clock.
+- */
+-#define BASE_BAUD (1843200/16)
++#include <asm-generic/serial.h>
+ 
+ /* Standard COM flags (except for COM4, because of the 8514 problem) */
+ #ifdef CONFIG_SERIAL_8250_DETECT_IRQ
+diff --git a/include/asm-generic/serial.h b/include/asm-generic/serial.h
+index ca9f7b6be3f0..c06765a4f5f8 100644
+--- a/include/asm-generic/serial.h
++++ b/include/asm-generic/serial.h
+@@ -3,12 +3,11 @@
+ #define __ASM_GENERIC_SERIAL_H
+ 
+ /*
+- * This should not be an architecture specific #define, oh well.
++ * This should not be an architecture-specific definition.
+  *
+- * Traditionally, it just describes i8250 and related serial ports
+- * that have this clock rate.
++ * Traditionally, it describes i8250 and related serial ports using
++ * a 1.8432 MHz UART clock.
+  */
+-
+ #define BASE_BAUD (1843200 / 16)
+ 
+ #endif /* __ASM_GENERIC_SERIAL_H */
