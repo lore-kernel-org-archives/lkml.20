@@ -1,112 +1,168 @@
-Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com [209.85.218.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EC184A3858
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 10:07:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69AD94AA3FB;
+	Wed,  9 Sep 2026 10:07:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788948434; cv=none; b=q6TEQe8aN5EhQCpJmRc8PKF0Aa8G1jAdFBEk5mm1fUqLP8QHPiQWEL1ayK5hfVzly0ag+z1VhUmGcv1xvTbIInkV8jZqpFfYQzBkK6B0KFbuvzz89R7rxBaw2UqDqNPLX8IBzcUolAkxfAvPUhnMaHtEM4XGl1W72ccuU5E4h14=
+	t=1788948454; cv=none; b=BD5KlreRr+ah9M/4nN9whUt1Sai7nnGbhAc9itAHDz9SHZAa9zVvigsHsr+rr2EYRMSkx5rASIzJGhBO2KZs5PLTYXTuqZ29y2pwfNgUUTMHxqL/g78pxVXLxMLrGtFOvZwScOHNdQdatSF6KD6Ts+tJvMTUjrwSSnMFXvC+gGc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788948434; c=relaxed/simple;
-	bh=ihZ1MFd5oR2jYnPMXliHs9oCseeCex80gley3PuV2sU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=i47pK+PhnecZNToFv+XUVMNlkboYCsWS1vTRa6paS5K2ozbsZrDyAVmk5PiubGOzOsloabuq11MPfrczgnxQCq2xmaDvjYn5szb1IOGW/JmfoWcc1P7YfERIQAq2UBp8uPdjgkL2QQT++cL4PecMSuBc+++uxYSw1t7K5qQ1daY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=konsulko.com; spf=pass smtp.mailfrom=konsulko.com; dkim=pass (1024-bit key) header.d=konsulko.com header.i=@konsulko.com header.b=YntXkAa8; arc=none smtp.client-ip=209.85.218.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=konsulko.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=konsulko.com
+	s=arc-20240116; t=1788948454; c=relaxed/simple;
+	bh=V5UBoopZ3KQVTUPVB5g0l5mZ54qcuD+78LD4jh6PV5o=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=aChdcZbwq4xlTSfFFrMU1R55+QytEXbsNa627niTyRrGR1vEehQfvhyOPqja4Js083uGOtAmQh6ws3/IkRcqwRZrm8IrHEAwN82ow6pLorWzKeSz3DJRFEkuokdxaTqwITwuTdYrHBKomhq9vxRSP0qvnpnDOibKwM+djuOHTko=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=IFF89JlA; arc=none smtp.client-ip=178.251.229.89
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=konsulko.com header.i=@konsulko.com header.b="YntXkAa8"
-Received: by mail-ej1-f54.google.com with SMTP id a640c23a62f3a-c250a2bc3b3so691175766b.2
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 03:07:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=konsulko.com; s=google; t=1788948431; x=1789553231; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=/MpSV5WFYmvBknbjwvmDSkjCZ5uC0FxZSSeTd39Acy0=;
-        b=YntXkAa8vR5gmN9KHEtkbjnB/AtkluYUf/wIxRobvv5hvmAqQTvJkysWxdfsxSeQvw
-         0uQI40LgbpPFHV1w9H2I1RT9b0PxXMFeoE+rCBb7EpjsvBF6EglS0xMB5bdah5w4LCeU
-         jv6dCObP2bxGqKs2NLKXS6MjBsuyAPRJ5ZpuE=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788948431; x=1789553231;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=/MpSV5WFYmvBknbjwvmDSkjCZ5uC0FxZSSeTd39Acy0=;
-        b=lY51MhNKjX0wdDFs8VCJ53YmIJquzh/1i1H5ZOmu92D9ymPkWnieiZgExXOK/3U6Nt
-         OunkpYxZxR0khBc0WE7eqdoG/FUSJxKAPphIYfAuZvreONuOpeiMfTn7e8z0QW7CxjTD
-         gH8piR/4HHX/pqEi3bZjHAQwu+CZnHH7Gvfe++RB2TPJklPyYIuVSJVBWIUtgkWguMP/
-         i3TvE5U2uglBd3b7akUVpXS3XLwF7CZlp2KaQnyFdjVjJz1o1ehrsOZV7YeI0BxXsMxK
-         j060MBjCpNP/jexVk7k/UNBZvZ9EcepAiDNAvqvPlxZID3IiBnrofocjkJ86m/GhgxUC
-         GCNA==
-X-Gm-Message-State: AFuF++nBprbWP4umgQjNqwxSVovSlHOZs4KrTWTvfQ7LguI2mgWwCL9N
-	4RY79l+vxAc6Mt/8+5O9orLO71CVFvu38nvnqaPT9aelS9/DyEx+3mzY38ITdIL9rqQ=
-X-Gm-Gg: AYBFou2PL3JUPJFXV8nJPYtkANVhOMNxZi8Di+U67dkDU5A7xJBXNRU50sEFLm0ZoIW
-	rz5Odgg9iEh1gsoICqslWxGRy+EocyyPpwbygyBLJUepu3Ojyx3YT2WRE8rofvOJVG+Jk+hJ8b7
-	NZk6s6vh43U1/7lSO2QEbZsB2YYafl/xagjEDrbQpzS1AV1vNKJ6waKPPFWwLMGQlC4e0aisIRX
-	9t2Tnxvy5tGn7LjVxYtAD19bkVm8Rlg+BnFXmYnqpiMWDijRmielgvsNkwGUUjyiztTYsK/vKXR
-	HYPHu+Y5uRQL5xJU7t+TTq2bU23zEpgOuEmBnzdNSIbaLvQjxu2t7o3bSBZy0rSMzMb4lKyMH1d
-	/TlZ4HXeQZ0J2v0zWi4btlKd8OP6+OMdDI3imuepdAUVkdkj+tOzpM7PoU8pwYbxfytPqql3chP
-	IzKiHh4CkZZlyeTYd1AEODqQLcNAxYJMYE6VM46ahoFYs36NBDPeM8oaGjRYA4pdSw+YYO3WSg8
-	393byFTGr8YZn4HcoFm4AVzyMC/C++ojGM=
-X-Received: by 2002:a17:907:7204:b0:c26:19e3:e98b with SMTP id a640c23a62f3a-c2619e3f02cmr1125576066b.43.1788948431181;
-        Wed, 09 Sep 2026 03:07:11 -0700 (PDT)
-Received: from carbon.k.g (79-100-31-116.ip.btc-net.bg. [79.100.31.116])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c260d5497cbsm745699166b.34.2026.09.09.03.07.09
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 09 Sep 2026 03:07:10 -0700 (PDT)
-Date: Wed, 9 Sep 2026 13:07:09 +0300
-From: Petko Manolov <petko.manolov@konsulko.com>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
-	dinguyen@kernel.org
-Subject: Re: [PATCH v2 1/1] ARM: dts: draeger: Add socfpga devicetree for
- Draeger's M48 board.
-Message-ID: <20260909100709.GA20988@carbon.k.g>
-References: <20260908111011.960876-1-petko.manolov@konsulko.com>
- <20260908111011.960876-2-petko.manolov@konsulko.com>
- <3dbe92ee-805f-496d-9a7d-94c837e674b5@kernel.org>
+	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="IFF89JlA"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id B03AA101CCB;
+	Wed, 09 Sep 2026 12:07:21 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
+	s=dkim; t=1788948445;
+	h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=t5vFdgJaDV4YUMq5lpmdzQC9P/e5D7d6TtaH7tjrnhE=;
+	b=IFF89JlAZBhq582k4BbFlFrFNPjbKkidA5MU0OZFY79LAPStNpNeQj5KGL0ghVxC5YKM52
+	ZIPR8zXD4OVjUwDUFLMNRLoTxa2F6gRlFX3ZmmP7Ku1qQTuKrrCdwCvzGm5UDj18Jf1A+l
+	TTewT0mjSi7aIxMms1/BKB21JjjUVXXWgeDjsqOg/RtAVC4DQVFKPVSwlXUmJRjoit+Ug3
+	k5LJp7VvpzL1QMfkcS4WruRJHrC4cacnxEqFanfaYEnXv+EWAuZPky4Mig+O5yGh3I9bXI
+	Dji4wc+hfon/apceuuvOJ55VCVRyPZ1f2oECotTUGQV1yAwo9y+yMlA6cfLRMg==
+Message-ID: <71a1e980-419f-35a5-647c-b34463a57c37@nabladev.com>
+Date: Wed, 9 Sep 2026 12:06:45 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <3dbe92ee-805f-496d-9a7d-94c837e674b5@kernel.org>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.2.0
+Subject: Re: [PATCH v4] driver: fpga: xilinx-selectmap: add csi and rdwr
+ support
+Content-Language: en-US
+To: Xu Yilun <yilun.xu@linux.intel.com>
+Cc: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-fpga@vger.kernel.org, Bartosz Golaszewski <brgl@kernel.org>,
+ Linus Walleij <linusw@kernel.org>, Michal Simek <michal.simek@amd.com>,
+ Moritz Fischer <mdf@kernel.org>, Tom Rix <trix@redhat.com>,
+ Xu Yilun <yilun.xu@intel.com>, linux-gpio@vger.kernel.org
+References: <20260810062105.299808-1-hs@nabladev.com>
+ <ap2Yx8oACWfBKOep@yilunxu-OptiPlex-7050>
+ <6a489d2b-b5d1-0455-793f-f4100fd3b3d1@nabladev.com>
+ <aqBbFGExUpS0k0yE@yilunxu-OptiPlex-7050>
+ <fb783b51-d5cb-c2ae-9d26-11df39e40aa8@nabladev.com>
+ <aqEAImnHDYWcOdc0@yilunxu-OptiPlex-7050>
+From: Heiko Schocher <hs@nabladev.com>
+In-Reply-To: <aqEAImnHDYWcOdc0@yilunxu-OptiPlex-7050>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-On 26-09-09 08:36:23, Krzysztof Kozlowski wrote:
-> On 08/09/2026 13:10, Petko Manolov wrote:
-> > +
-> > +	chosen {
-> > +		bootargs = "earlyprintk";
+Hello Xu Yilun,
+
+On 09.09.26 08:43, Xu Yilun wrote:
+>>> What if we re-program the 2 FPGAs at the same time? Is there still
+>>> chance the 2 CS lines are all asserted? Can they be correctly
+>>> re-programmed in this case?
+>>
+>> In the FPGA layer, yes. Each FPGA is its own fpga_manager with its own
+>> CSI_B, and the only lock the core offers is mgr->ref_mutex, which
+>> fpga_mgr_lock() takes per manager. Nothing there serializes two managers
+>> that share one SelectMAP port, so both CS lines can be asserted at the
+>> same time and then both devices take both bitstreams.
+>>
+>> But one layer higher, the only in-tree trigger for a SelectMAP device is
+>> of_fpga_region_notify() calling fpga_region_program_fpga(), and
+>> of_overlay_fdt_apply() holds of_overlay_phandle_mutex from beginning to
+>> end, so two overlay applications cannot overlap, if I see this correct.
+>>
+>> I would rather keep this out of this patch.
 > 
-> That's not a mainline suitable argument, drop.
+> Yes, that's the way to go.
 
-Well, i'm a bit confused.  These files in arch/arm/boot/dts/intel/socfpga/
+Ok, I send the v5 soon.
 
-socfpga_arria5_socdk.dts
-socfpga_cyclone5_de0_nano_soc.dts
-socfpga_cyclone5_vining_fpga.dts
-socfpga_arria10_socdk.dtsi
-socfpga_cyclone5_socdk.dts
-socfpga_cyclone5_chameleon96.dts
-socfpga_cyclone5_socrates.dts
-socfpga_cyclone5_sodia.dts
-socfpga_cyclone5_sockit.dts
+>> If you want it handled, I can prepare a follow up patch, and it seems to
+>> me this can be done with a simple mutex in this driver around the write
+>> transfer in xilinx_selectmap_write(), with one lock for all ports.
+> 
+> "one lock for all ports" is still illogical to me. The FPGAs on
+> different ports won't interfere each other, is it?
 
-all have:
+They do not, you are right. I first thought to solve it "easy" with
+a mutex around the write... but nothing tells the driver which managers
+share a port.
 
-        chosen {
-                bootargs = "earlyprintk";
-                stdout-path = "serial0:115200n8";
-        };
+Two managers on one port and two managers on two ports look exactly the
+same from inside the driver. And so we may we lock the write unnecessary...
 
-Is this some sort of legacy that isn't accepted in modern days or is it
-something else?
+I have to think about...
 
+>>
+>> The port does not have to be held for a whole bitstream, as documentation
+>> says, that SelectMAP takes the configuration data non-continuously, with
+>> CSI_B deasserted in between, so serializing single transfers already lets
+>> two devices be programmed at the same time with each one seeing only its
+>> own data.
+>>
+>> Should I send such a patch? And if yes, as a follow up to a v5 version of
+>> this patch?
+>>
+>> Or add both patches into a v5 series?
+> 
+> No, fix the existing problem. 2 FPGAs are another topic.
 
-		Petko
+Fine.
+
+> 
+>>
+>> I am fine with both ...
+>>
+>>> I mean I think this patch does fix the problem of "always assertion",
+>>> which is good to me. But the changelog seems stop me, it talks all about
+>>> 2 FPGAs sharing the same bus, which seems more complex than just
+>>> manipulating the CS.
+>>
+>> Agreed. The two FPGAs are how I ran into this, not what the patch is
+>> about.
+>>
+>> So next proposal for the commit message is:
+>> """
+>> fpga: xilinx-selectmap: control CSI_B and RDWR_B during configuration
+>>
+>> The driver requests the optional CSI_B and RDWR_B GPIOs with
+>> GPIOD_OUT_HIGH and never touches them again. That flag carries a
+>> logical value, so both signals end up asserted from probe on, whatever
+>> polarity the device tree states, and they stay asserted for the
+>> lifetime of the device.
+>>
+>> Neither signal belongs to the driver's lifetime. CSI_B (Chip Select)
+>> selects the device on the SelectMAP port, RDWR_B (Read/Write) selects
+>> the transfer direction, so both belong to the data transfer. A device
+>> that is never deselected never lets go of the port, and a port pinned
+>> to write mode cannot be read back.
+>>
+>> Keep the two descriptors in the driver private data, request them
+>> deasserted, and assert them only around the configuration data
+>> transfer. RDWR_B is asserted first as UG570, note 4 of figure "Continuous
+>> x8 SelectMAP Data Loading", warns that changing it while the device is
+>> selected causes an ABORT on the next CCLK.
+>> """
+>>
+>> If fine for you I can send v5, with no code changes, just some
+>> comment changes as discussed.
+> 
+> Good to me.
+> 
+
+Thanks!
+
+bye,
+Heiko
+-- 
+Nabla Software Engineering
+HRB 40522 Augsburg
+Phone: +49 821 45592596
+E-Mail: office@nabladev.com
+Geschäftsführer : Stefano Babic
