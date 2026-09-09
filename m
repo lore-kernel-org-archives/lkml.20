@@ -1,101 +1,102 @@
-Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
+Received: from mta0.migadu.com (out-69.mta0.migadu.com [91.218.175.69])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 275645921FA
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 21:19:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70332332615
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 21:19:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.69
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788988748; cv=none; b=u3o4O0zKn6yspuAnKCjn3zbtysJZyMH/wH0az30tQZ2WMsBkaqv43Zg1gZRJ70NTvinIrky+nyJT8I9gLs3/9+IKBgjlsLzN00XkZKFxPI46yH6DvW0eeje1nefDq7ejHBuGFJ0Yz3xSdvf3Z4UXwFfUGWn5DTPVOMGkOedGy8w=
+	t=1788988793; cv=none; b=UIqoP0f/cTyc54Q1TbFw+POUPGct8VP8hxWJWBL0rywj1ucN8BMyq5XGHldC2zMVmJYSO1G++PkdVOmv2GJGu148J0rPryOX2vle1Fw1dqPsFGDeamcyNNijcL13AG2DjMSnCJGxcGDn9Za5S2joyQ0I5KuNRaIv7rGGU+AgcDo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788988748; c=relaxed/simple;
-	bh=BUdZUC9kvXMtqxFxBtgzKJJ3yAa4zgVCDgOAePfWYHo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=PNC7WrtbVf0X6O+6MGrBrc+FaIczE6RlKbTs0UKsWy21qNF2Muf/Zys+w6h9VR7NjvNhmXXDZv7lfP9lU5ReElz4BJyeGFD1CnqceCbr3EuVpmRTv18L59fK8MiMxNc+FB7qZ+vgtHSD9EDXaYvpWFXcVo0xnVDBIsQGzVGuffQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cXENsh//; arc=none smtp.client-ip=209.85.214.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788988793; c=relaxed/simple;
+	bh=XRX7D5+qIu+nyobBVV27AMpjipKGZgLW7iTQSvfvVK8=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=qS7HiO91/FCIC4XiZwJ2XU4OxlbmaCa/cRhCxBUIBsBLDZv8hYO5hRjqhwNRjEOqHOq6svy+yTNAnYVwcng9sA5kz8jYdJjrxCLvEdg0YY9WqVPMwvDD9plQ8Uc7+xpaLYF943xeFEvmIOTA8PJA6gH/aC01H2+jco4OLiDs5iQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=aSKYqCH3; arc=none smtp.client-ip=91.218.175.69
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cXENsh//"
-Received: by mail-pl1-f169.google.com with SMTP id d9443c01a7336-2d58efc7356so82596365ad.1
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 14:19:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788988746; x=1789593546; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=E7azo53s70BncUSK1Vr25CtM3yK3TBQvzmoA81KUUK8=;
-        b=cXENsh//b1Do1xt2RPAf1P7jgyzJbit50UODLjgn6Dva+AVxGoNDMhmD1UyXDlzYrG
-         JHFWXumxHW9H/G5Ny5/Q6YZMqgexEllCqgK693GXfmdEBGyzb1Mc/R1i4oMHn/Rwbbjx
-         cMxq12WmbOu9xvco8AxfS6fqX4Le1nyjXDk0RGpb1PM6HjlWOPFIInkSC8FSG58NSpNL
-         t0mh7/RRMrFGyXSefhHEArh/4LrPikkjXUc1yYSLf43k71QffeVkjv84V0evwlq3BXxQ
-         Qf7So5s4+IKvY5eh+5RqOIGDZKNr63Ngz+s/XyRCjHM2cc4DKbPz6+T1C8fRznyJOzio
-         H9ww==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788988746; x=1789593546;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=E7azo53s70BncUSK1Vr25CtM3yK3TBQvzmoA81KUUK8=;
-        b=MRsaycG86z+jgG6zAn5ESCC8YGiHmiJnkEbGxUcEN9maDWRmbo1yZvZMLfjhshaBSi
-         O0zcJhD6OAD7g92umSjDV5IZvk9ppartz75aRl674DdJyc/zz1dplHgtBw4+/XrEqzfP
-         M4gjNJnR+E2gOVTWxJQ8D96fIC5ii4WXc+/cYQdCN0ChJpV/CdwCC+filkdQJGw4rT6y
-         hig62m5v/DD67Nw5S3cNPsxw/nWt5AJLHTTTv+mIr0vxiMTJ3r8QVCzWee0nlOMRZQUR
-         SoRXv0r3zPgyLaP6nEySbnlK+/oSah9V4QM+FvDCRBbXTyzoFQmGNmq5cha6UQYE64MI
-         8LYQ==
-X-Forwarded-Encrypted: i=1; AKwUvByMJf2ya+mCiGaYYQDyYIfTP4R2qvu4fKWI2v86M8RkzPpRMKp4doUZ6PBZqO5w1k+NfCEHVnWyuJmG860=@vger.kernel.org
-X-Gm-Message-State: AFuF++mfNI/q2AtzalhxeHXJCi2xEJdY4v2+lEZ4hX0cvmqN1WV8bsJp
-	Fty1UnhHruvUXZMitC8X58Xy1NK1NEmUsD57M7Wc5zzIxQ+0XZn3tet2
-X-Gm-Gg: AYBFou0Mg5V9cYGWGUL/ES7mvWlXjKSjZZ8G703xVthk3zAKcZD/bZeKyJ1lbkLIsvR
-	Bl5ng5bbL4WFCWwLotiupFojcSMlJLBhSwEleXkqVeixQbRdKYTTteQqogArYD72/w1o2mOVg3e
-	SLGmhGXjY3g9VJBX6gjmypbHdbpxAyxL5JmfMIeLpc/GzHwjArHew1elrF+Oy4Qam0IIiuLq2Wy
-	wjJ0zF7P/9OhULnyGnULxhApvJrbQu61UoJtFDovzKXPb5WsPO1M9lkuB9sG1hAb3ifP9RYiH3O
-	btuwHzlSKCOrwgBjVQDGP/2LJ4zheWDUcKM8viV3FbnqupwxDbAPM3veHvLj9pLPFPr/H6HS/e9
-	jPJ84LjTPmQQc9Ij7CkLUSUFeuVdbNEgaGkJl6bCTqFYdgNKVuP59y4fWw9bWJUDlMGOWDXYcFO
-	Arh5CGkaaoWQFoAwqHi3gACM0Qs4906BIOkLHwXEZeUt/NIHrCPCrc44sU0dwcVuh0vtknaE2j1
-	AmK59HEjbVMDg==
-X-Received: by 2002:a17:902:d492:b0:2d9:68b7:c324 with SMTP id d9443c01a7336-2db125cce1bmr506327015ad.3.1788988746227;
-        Wed, 09 Sep 2026 14:19:06 -0700 (PDT)
-Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2db14959961sm79255245ad.19.2026.09.09.14.19.05
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 09 Sep 2026 14:19:05 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Date: Wed, 9 Sep 2026 14:19:04 -0700
-From: Guenter Roeck <linux@roeck-us.net>
-To: Tzung-Bi Shih <tzungbi@kernel.org>
-Cc: Wim Van Sebroeck <wim@linux-watchdog.org>,
-	Daniel Palmer <daniel@thingy.jp>,
-	Romain Perier <romain.perier@gmail.com>,
-	linux-watchdog@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 7/9] watchdog: msc313e: Sync timeout value if WDT was
- running at boot
-Message-ID: <22e01d39-2e7e-40c6-9d60-ebbf81cb9f0c@roeck-us.net>
-References: <20260828161348.13212-1-tzungbi@kernel.org>
- <20260828161348.13212-8-tzungbi@kernel.org>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="aSKYqCH3"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=XRX7D5+qIu+nyobBVV27AMpjipKGZgLW7iTQSvfvVK8=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788988787; v=1; x=1789593587;
+ b=aSKYqCH3GTC3ZkA9rnSuBXpMT9VvRSIy1tBI0LP3LtsF4wyY51TBgSbzgIy11Ji7LSP4Wacw
+ +hRrAzu//qgIeDGvQU8BUMsoC+7Gv0NvIdV5Bwm27zpNGYut2kPwI34Jl1E7MtVdbx5CK4bcCGi
+ PiRE67B3tq3U44seP6UzKGY8=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta12.migadu.com with ESMTPS id 809fffd4d1b542f4;
+	Wed, 09 Sep 2026 21:19:37 +0000
+X-Mizu-Trace-ID: 809fffd4d1b542f4
+X-Migadu-Flow: FLOW_OUT
+From: Roman Gushchin <roman.gushchin@linux.dev>
+To: "Patrick Lu (Anthropic)" <perf.patrick.lu@gmail.com>
+Cc: Alexander Viro <viro@zeniv.linux.org.uk>,  Christian Brauner
+ <brauner@kernel.org>,  Jan Kara <jack@suse.cz>,  Tejun Heo
+ <tj@kernel.org>,  "Matthew Wilcox (Oracle)" <willy@infradead.org>,  Andrew
+ Morton <akpm@linux-foundation.org>,  Dennis Zhou <dennis@kernel.org>,
+  linux-fsdevel@vger.kernel.org,  linux-kernel@vger.kernel.org,
+  stable@vger.kernel.org
+Subject: Re: [PATCH] writeback: bound cleanup_offline_cgwb() rescans by
+ rotating b_attached
+In-Reply-To: <20260909-wb-cgwb-rotate-v1-1-f2eb994d2a46@gmail.com> (Patrick
+	Lu's message of "Wed, 09 Sep 2026 18:50:27 +0000")
+References: <20260909-wb-cgwb-rotate-v1-1-f2eb994d2a46@gmail.com>
+User-Agent: mu4e 1.12.15; emacs 30.2
+Date: Wed, 09 Sep 2026 21:19:32 +0000
+Message-ID: <7ia4fqzijf6j.fsf@castle.c.googlers.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260828161348.13212-8-tzungbi@kernel.org>
+Content-Type: text/plain
 
-On Sat, Aug 29, 2026 at 12:13:46AM +0800, Tzung-Bi Shih wrote:
-> If WDT was running at boot, the hardware timeout might be set to values
-> other than the final software timeout.
-> 
-> To be consistent, set the hardware timeout to match the final software
-> timeout (i.e., after watchdog_init_timeout()) if WDT was running.
-> 
-> Fixes: ffd264bd152c ("watchdog: msc313e: Check if the WDT was running at boot")
-> Signed-off-by: Tzung-Bi Shih <tzungbi@kernel.org>
+"Patrick Lu (Anthropic)" <perf.patrick.lu@gmail.com> writes:
 
-Applied.
+> cleanup_offline_cgwb() prepares at most WB_MAX_INODES_PER_ISW inodes
+> per call and is called again until the dying wb is drained, but every
+> call walks wb->b_attached from the head. Inodes already prepared (they
+> stay on the list with I_WB_SWITCH set until the switch worker runs) and
+> inodes that cannot be switched (I_FREEING, I_WILL_FREE, !SB_ACTIVE,
+> DAX, already on the target wb) stay at the head, so each pass rescans a
+> growing prefix under wb->list_lock and a full drain is quadratic in the
+> number of attached inodes. With ~17M inodes attached to one dying cgwb
+> we have seen this end in soft lockups, with CPUs reported stuck for
+> 21-48s.
+>
+> Move every scanned inode to the tail of b_attached, so the next pass
+> starts where the previous one stopped and the drain becomes linear.
+> b_attached is unordered and isw_prepare_wbs_switch() is its only
+> walker, so nobody else sees the reorder. b_dirty_time is ordered by
+> expiry for move_expired_inodes() and keeps its current scan.
+>
+> Fixes: c22d70a162d3 ("writeback, cgroup: release dying cgwbs by switching attached inodes")
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM
+> Signed-off-by: Patrick Lu (Anthropic) <perf.patrick.lu@gmail.com>
+> ---
+> Seen in production on a 6.18-based kernel: with ~17M inodes attached
+> to one dying cgwb, a node spent 36 minutes in back-to-back
+> wb->list_lock holds by the cleanup scanner (~6ms each, ~46% of wall
+> time, starving writeback on that wb); with this patch the same workload
+> drains in ~30 seconds. Also seen on stock Amazon Linux 2023 6.12.68 as
+> isw workers spinning on the list_lock in inode_switch_wbs_work_fn()
+> while cleanup_offline_cgwbs_workfn() runs.
+>
+> Tested with a QEMU A/B setup at 100k attached inodes and patched vs
+> unpatched on production-class hardware at ~17M attached inodes.
+>
+> Josef Bacik's patch making the drain loop report a Tasks-RCU quiescent
+> state [1] fixes BPF/ftrace detach stalls behind the same drain; this
+> patch bounds the walk itself. The two are independent.
+>
+> [1] https://lore.kernel.org/linux-mm/20260909-cgwb-tasks-rcu-qs-v1-1-967a7754771f@toxicpanda.com/
+> ---
+>  fs/fs-writeback.c | 39 ++++++++++++++++++++++++++++-----------
+>  1 file changed, 28 insertions(+), 11 deletions(-)
 
-We might need consider the potential problem outlined by Sashiko, though.
+Acked-by: Roman Gushchin <roman.gushchin@linux.dev>
 
-Thanks,
-Guenter
+Thanks
