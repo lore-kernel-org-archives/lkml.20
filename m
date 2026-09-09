@@ -1,67 +1,36 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+Received: from mta1.migadu.com (out-253.mta1.migadu.com [95.215.58.253])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EE00377010
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 17:23:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28E0E374A0B
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 17:23:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.253
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788974604; cv=none; b=qy69KnyPM2jpfui8bYhhKUBiVuFL2U2fRIfG/E+x3Ictx3LhUZmskt7os8T1LkBfujMQa6iyQgQCSHB5LdKXZHbXlcqeskheTokNAspo3qArBASbFhdmuQNmDNy+U4pziqCquoLleX56bRvz7FFCFYwhyob6pxNv3YxLVd8Kug8=
+	t=1788974618; cv=none; b=jRb8lkviSwNNVF6RYmfkMhG/aD3p2rCkY2+z5Y/TIXZus/V6RxRUyGfxXEG4PVYfDaLRjs/mtOPAs/uoKh1I8tW6aU36eNHvZpbhJXvp75AvnSa5xrAHPKdZTvDdL6egFnj7unWPm7Iu7f5mAteUIeayx0en28EEnwvATn7DCwg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788974604; c=relaxed/simple;
-	bh=Ma/L5v3/MIxJsem7izls5YWzD6Lvnm0x0/IZS472r/k=;
+	s=arc-20240116; t=1788974618; c=relaxed/simple;
+	bh=xPew0eVo7R/zYVDxxfBW9xCrccXOy5ezHUnX46aDpPI=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=fpxP15SZoiC63ETXW4UEgy80II9M/uqIMuvVMwinRtW1aM+JlbspOok59jTI8n+bw8Eiunz6kDt9kuhKClkIXgI3nsO5t77Nj7jzSwOZENc1NP/0ehzgi0nL3qaJWuppMQV7944O6F9C7kiZKysteEbz0r0SUSQZjCeB151No6g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=ZXjya9uc; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
+	 In-Reply-To:Content-Type; b=BaXj0h0BqeoG7bif9iyGDVeHAkgxfEpMM6Zt89a/M+D8GAWo+UIiQVjKdgSMA31YamaWWFOkM0/uCzj7poyhzTHSn7BsnF7Umsrgy01PEq5DlPMvtxZLQWZ7upaI6SQJ9tESgrB1plEK1w+ZXFfptMmGHT0W6uP7l0p2kE4uqPc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=UuCPy9uS; arc=none smtp.client-ip=95.215.58.253
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="ZXjya9uc"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49cc9f581c4so9007745e9.0
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 10:23:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1788974600; x=1789579400; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=wiZKD6CltG7hf1k/8sp0Tt8gHPp1c75neCIdHUU3hrk=;
-        b=ZXjya9ucptK6Uknx41A3wNMle/kzi0pyzSSA8sPDDc1idGRFs9pPg7xEwsGSdDjAV0
-         iCTMeQK585+NA/B2LQDzPL5+eEfMKQnSLMvCPY1aABfDVERICQPikVZVF1wCkaWKDSQk
-         y0V2azjdFv8XgFH1YmcuT5d0Gb8IG6do3tJTe0a705Fm82f7mXr06wfepx0K+xs49Xm/
-         XuweYqX2Df7dEP+RM1M0AvejvURl3Uw/i4N+S/t3hzE8QTtYOyaf/v/ygZ7UbRD2qnyI
-         0U435Z3aoZZeok8QBN6TBdSIzGUGKi0lvZkxFojZNwNBCnKvuQppkgA+Pe+/ZdZ6g7vY
-         ZSuQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788974600; x=1789579400;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=wiZKD6CltG7hf1k/8sp0Tt8gHPp1c75neCIdHUU3hrk=;
-        b=I3Tw047UL8j7ljcFE5thaGVT4l5i+ip+Te4OtBtaz5y6X3HX33EqNsKtf1wHnZXHrZ
-         4zbCvRecZYJyMDvc+GUVGabaCW+/Ht11RzZXDtuvc4WRmLHAIia3bv727JEwyikIQCJE
-         58sEl31AfQKyi4mF+4s9FDWbFB2qfNFax2uKEswbl3SjcHjZlRN/nmbMYKmXGe32C+v8
-         JKc1y0OijebK1EHIataIVNHkbAlcaHshWD7rJ+Jm9CS56wz4U3uxnVld2EYddm0Zoy9g
-         tMdSrupXWxnmVm5FJ/9WtkOxcaivnY7t3bbLCE86+kZ3zKZNMUTgMGz1OoiG+OrBU89k
-         RHiw==
-X-Forwarded-Encrypted: i=1; AKwUvBxL9LyZhAKE500qcdwVTrhQKTBMxEpx3XfHYFK0nFnIPcdnSDd4Hi60bxLkOHLwWJ9h438KDOSQJyfiAfM=@vger.kernel.org
-X-Gm-Message-State: AFuF++mZcsmeNW4lYyrUKwBnhdU1Sc7PDZbdrpUlvEW9VJLezQZQqzf0
-	JviRZGZGsUE9XGOA6Nt6HLou5lEZz9vXPYfv4MDPaIuwbA6leC9JZd5X4MEWN/NeFwg=
-X-Gm-Gg: AYBFou2LhB7RPHAua+p44BU9AQeryeAnZoEStPAkzQuJz/fOMepTWOPPB6Mz94fkqQc
-	bMa2YGRDjUp1PivEGleaZxAUsbEzs8nQALdBO7KiyYulpkLbXj9od2EZOl91zHu3eXsGYXvr3We
-	9RuE6DyyXGZ1bsD8HM4HCOC+aMFV/l0043/kI4xsGBWNeWox2Cin3Q2ZS2dS2xrYkZVdD6UW/AZ
-	4yHQChw/CqnCo0U9M5V6Kgb0TroaROE2NBM3BxzFmSrM0qk22JDcn+FFFgBPw5URr0JWWHsNew8
-	Tri1ZN5ESo2wbMCCeyXC5H4i7rRdCBmwj73qPA+JRYpnW7Inr0ksOfdShnSJIzpmMmpDkWISjwN
-	98sTA7SBMDPkPNWr30a1coZEiAjFdpKI9QlC1KGeJmS6rNmw1FRFxNMYkxh8hZRNv+wv3ylgdEZ
-	xZqd1NvHWzW9oO1ogghlmsjkmWycfxdXh9cMqyZU+KXM9uhnnKTHQ2iJyUZVS7EDG3m8n9t5g=
-X-Received: by 2002:a05:600d:8647:10b0:499:59fd:dbfc with SMTP id 5b1f17b1804b1-49d26d863famr3428865e9.1.1788974600288;
-        Wed, 09 Sep 2026 10:23:20 -0700 (PDT)
-Received: from [172.22.22.28] ([73.62.185.64])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49d26bf332esm5336325e9.8.2026.09.09.10.23.17
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 09 Sep 2026 10:23:19 -0700 (PDT)
-Message-ID: <c2d7637a-a99b-435a-b625-0f9d8e94111a@riscstar.com>
-Date: Wed, 9 Sep 2026 12:23:15 -0500
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="UuCPy9uS"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=xPew0eVo7R/zYVDxxfBW9xCrccXOy5ezHUnX46aDpPI=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788974613; v=1; x=1789579413;
+ b=UuCPy9uSfGDCtajYqzi78sNTxGliBJLy+8SnE7SJov30l9p0lmpcJR/y36sragzpxl6E17xS
+ +b0qlkQbIaNNxnPgZVeu3qb2XglyZDkebCOKVjoGonfrbukOzOK0I1zgHxlwPnS1UDx+OPyaKVI
+ l+1l5UjkGr/r71gYbqkVKms0=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 8a33c50734fea798;
+	Wed, 09 Sep 2026 17:23:32 +0000
+X-Mizu-Trace-ID: 8a33c50734fea798
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <2a9e1567-b3c1-4f31-8993-bef74656d1e3@linux.dev>
+Date: Wed, 9 Sep 2026 19:23:31 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -69,216 +38,151 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 4/4] PCI: of: introduce of_pci_verify_node()
-To: Bjorn Helgaas <helgaas@kernel.org>
-Cc: bhelgaas@google.com, robh@kernel.org, saravanak@kernel.org,
- herve.codina@bootlin.com, daniel@riscstar.com, mohd.anwar@oss.qualcomm.com,
- lorenzo.bianconi@oss.qualcomm.com, linux-pci@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260909163727.GA230382@bhelgaas>
+Subject: Re: [PATCH] platform: x86: fix typos in comments
+To: Hemanth Selam <hemanth.selam@gmail.com>,
+ Corentin Chary <corentin.chary@gmail.com>, "Luke D . Jones"
+ <luke@ljones.dev>, Hans de Goede <hansg@kernel.org>,
+ =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ Eric Piel <eric.piel@tremplin-utc.net>,
+ Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
+ "Lee, Chun-Yi" <jlee@suse.com>, Kenneth Chan <kenneth.t.chan@gmail.com>,
+ Armin Wolf <W_Armin@gmx.de>
+Cc: platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260907085426.3661-1-hemanth.selam@gmail.com>
 Content-Language: en-US
-From: Alex Elder <elder@riscstar.com>
-In-Reply-To: <20260909163727.GA230382@bhelgaas>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-
-On 9/9/26 11:37 AM, Bjorn Helgaas wrote:
-> On Tue, Sep 08, 2026 at 04:34:58PM -0500, Alex Elder wrote:
->> Commit 407d1a51921e9 ("PCI: Create device tree node for bridge") linked
->> the PCI enumeration process together with devicetree, creating a devicetree
->> node for discovered PCI bridges.  Its successor commit ae9813db1dc5a ("PCI:
->> Add quirks to generate device tree node for Xilinx Alveo U50") shows how
->> to use a PCI final fixup quirk to also create a devicetree node for a
->> non-bridge PCI device.  These changes allowed devicetree overlays to
->> describe components downstream of a PCI device, by providing a place to
->> attach the overlay.
->>
->> Note that the dynamic devicetree node is only created if the device didn't
->> already have an assigned node.
->>
->> Later, commit aa7b4bbcb3a1d ("arm64: dts: qcom: qcs6490-rb3gen2: Add
->> TC9563 PCIe switch node") *pre-defined* devicetree nodes to represent the
->> PCI device nodes that would (also) be discovered via the PCI enumeration
->> process.  The devicetree node in this case is created with the content
->> from the DTS file.  So when a (host) bridge is done being initialized
->> during PCI enumeration, no node is dynamically created (the commits
->> mentioned above do not apply).
->>
->> Ideally, any pre-defined PCI devicetree node would contain exactly the
->> same information as whatever the dynamic creation process would produce
->> (though it could include more).
->>
->> However that is not the case for the pre-defined Qualcomm RB3gen2 nodes.
->> And in particular, the endpoint (function) nodes include this property:
->>
->>      device_type = "pci";
->>
->> This is simply wrong; that property is meant only for bridge nodes.
->>
->> Rob Herring requested that a runtime check to be added to spot this
->> specific error, only for non-bridge PCI devices.  Herve Codina further
->> suggested we ensure that bridge PCI devices *do* define the device_type
->> property, with value "pci".  We also accept "pciex" as the value of the
->> device_type property for bridges.
-> 
-> IIUC this patch basically adds a warning for ill-formed DTs but
-> doesn't otherwise change any behavior.  Obviously a developer could
-> fix the DT, but what would a user do in response to the warning?
-
-You are correct.  It really is meant for developers, not users,
-and no user should ever see these warnings.
-
-> Is there something that doesn't work when this warning is emitted, and
-> fixing the DT would make it work?  If so, is there any hint that could
-> be included in the warning?  E.g., "DT device_type is missing; can't
-> support X"?
-
-I discovered this the hard way...  I'm implementing a PCI endpoint
-bus, and didn't realize that endpoints should not have the device_type
-property (= "pci") specified.  These endpoints *did* specify that
-property, and as a result, address mapping for the pci-ep-bus didn't
-work.
-
-To be honest I don't know the consequences of this property being
-missing for a PCI bridge device.  I do know the problem I encountered
-if it's specified with value "pci" for an endpoint node.  I have no
-objection to making the message more informative, but it might not
-really cover all the things that won't work as a result.
-
-The DTS files have been fixed:
-   https://lore.kernel.org/lkml/20260902214321.1721477-1-elder@riscstar.com/
-(And as a result, a few verbs above should be made past tense.)
-
-I created this patch simply in response to Rob's suggestion, and
-updated it based on Herve's.
+From: Denis Benato <denis.benato@linux.dev>
+In-Reply-To: <20260907085426.3661-1-hemanth.selam@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
 
-I could update the description to look more like what you got
-Gemini to produce.  That talks about some context that I did
-not provide, but it also lacks some of the other context (like
-when/why PCI devices even have devicetree nodes, and how I
-discovered it).
+On 9/7/26 10:54, Hemanth Selam wrote:
+> Fix typos in comments, reported by scripts/checkpatch.pl using the
+> misspelling list in scripts/spelling.txt.  Only touches comments, no code
+> changes.
+Hello Hemanth,
 
-> The commit log doesn't actually say directly what the patch does.  I
-> asked gemini to work on it, and it produced this, which is
-> straightforward but omits a lot of detail you might want:
-> 
->    PCI: of: Verify "device_type" property for PCI device nodes
-> 
->    According to the Open Firmware PCI Bus Supplement and Devicetree
->    Specification, the `device_type` property is reserved strictly for
->    PCI bridge nodes (with value "pci" or "pciex"). Non-bridge PCI
->    endpoint nodes must not include a `device_type` property.
-> 
->    Pre-defined Device Tree nodes representing PCI devices sometimes
->    violate this requirement—such as endpoint nodes incorrectly
->    specifying `device_type = "pci"`, or bridge nodes omitting
->    `device_type` altogether.
-> 
->    Introduce of_pci_verify_node() to sanity-check pre-defined Device
->    Tree nodes assigned to PCI devices as they are registered in
->    pci_bus_add_device():
-> 
->      - Warn if a PCI bridge node lacks a "pci" or "pciex" `device_type`
->        property.
-> 
->      - Warn if a non-bridge PCI endpoint node contains a `device_type`
->        property.
-> 
-> I'd like to get Rob's Reviewed-by since I'm not really a DT expert.
+Thanks for this!
 
-I agree, I think we need that since it was his suggestion.
+I think it's best to split up the thing in one patch per file, or at least driver.
 
-I don't mind spinning version 6 to update the description
-and possible the warning message.  I'll leave that up to you
-(or Rob) to request that before it gets accepted.
+If Ilpo agrees with me don't forget to add my tag:
 
-Thanks.
-
-					-Alex
-> 
->> Reviewed-by: Herve Codina <herve.codina@bootlin.com>
->> Signed-off-by: Alex Elder <elder@riscstar.com>
->> ---
->>   drivers/pci/bus.c |  1 +
->>   drivers/pci/of.c  | 32 ++++++++++++++++++++++++++++++++
->>   drivers/pci/pci.h |  3 +++
->>   3 files changed, 36 insertions(+)
->>
->> diff --git a/drivers/pci/bus.c b/drivers/pci/bus.c
->> index 655ed53436d3e..679afbc6d3109 100644
->> --- a/drivers/pci/bus.c
->> +++ b/drivers/pci/bus.c
->> @@ -351,6 +351,7 @@ void pci_bus_add_device(struct pci_dev *dev)
->>   	 * are not assigned yet for some devices.
->>   	 */
->>   	pcibios_bus_add_device(dev);
->> +	of_pci_verify_node(dev);
->>   	pci_fixup_device(pci_fixup_final, dev);
->>   	if (pci_is_bridge(dev))
->>   		of_pci_make_dev_node(dev);
->> diff --git a/drivers/pci/of.c b/drivers/pci/of.c
->> index a51dff91b196d..5a040ed836744 100644
->> --- a/drivers/pci/of.c
->> +++ b/drivers/pci/of.c
->> @@ -1085,3 +1085,35 @@ int of_pci_get_equalization_presets(struct device *dev,
->>   	return 0;
->>   }
->>   EXPORT_SYMBOL_GPL(of_pci_get_equalization_presets);
->> +
->> +/**
->> + * of_pci_verify_node - Sanity check some PCI device node properties
->> + * @pdev: The PCI device whose device node is checked
->> + *
->> + * PCI enumeration authoritatively discovers what we need to know about
->> + * a PCI device.  A devicetree-based platform will represent a PCI root
->> + * bridge with a node, but otherwise devicetree doesn't typically include
->> + * many PCI nodes.  Where such nodes do exist, experience has shown that
->> + * the "device_type" property is sometimes wrong, so warn about that.
->> + */
->> +void of_pci_verify_node(struct pci_dev *pdev)
->> +{
->> +	struct device_node *np = pci_device_to_OF_node(pdev);
->> +	bool device_is_bridge;
->> +	bool device_type_pci;
->> +
->> +	/* Nothing to check if there's no pre-existing devicetree node */
->> +	if (!np)
->> +		return;
->> +
->> +	device_is_bridge = pci_is_bridge(pdev);
->> +	device_type_pci = of_node_is_type(np, "pci") ||
->> +			  of_node_is_type(np, "pciex");
->> +
->> +	/* Bridges should have device type "pci"; endpoints should not */
->> +	if (device_is_bridge == device_type_pci)
->> +		return;
->> +
->> +	dev_err(&pdev->dev, "PCI %s have \"pci\" device_type property\n",
->> +		device_is_bridge ? "bridge should" : "endpoint should not");
->> +}
->> diff --git a/drivers/pci/pci.h b/drivers/pci/pci.h
->> index ba3c3fddddc23..2e33d3bd4b0ba 100644
->> --- a/drivers/pci/pci.h
->> +++ b/drivers/pci/pci.h
->> @@ -1253,6 +1253,7 @@ bool of_pci_supply_present(struct device_node *np);
->>   int of_pci_get_equalization_presets(struct device *dev,
->>   				    struct pci_eq_presets *presets,
->>   				    int num_lanes);
->> +void of_pci_verify_node(struct pci_dev *pdev);
->>   #else
->>   static inline int
->>   of_get_pci_domain_nr(struct device_node *node)
->> @@ -1308,6 +1309,8 @@ static inline int of_pci_get_equalization_presets(struct device *dev,
->>   
->>   	return 0;
->>   }
->> +
->> +static inline void of_pci_verify_node(struct pci_dev *pdev) { }
->>   #endif /* CONFIG_OF */
->>   
->>   struct of_changeset;
->> -- 
->> 2.53.0
->>
-
+Reviewed-by : Denis Benato <denis.benato@linux.dev>
+> Assisted-by: Cursor:claude-opus-5
+> Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
+> ---
+>  drivers/platform/x86/asus-laptop.c          | 2 +-
+>  drivers/platform/x86/asus-nb-wmi.c          | 2 +-
+>  drivers/platform/x86/hp/hp_accel.c          | 2 +-
+>  drivers/platform/x86/intel/vsec_tpmi.c      | 2 +-
+>  drivers/platform/x86/msi-laptop.c           | 2 +-
+>  drivers/platform/x86/panasonic-laptop.c     | 2 +-
+>  drivers/platform/x86/samsung-laptop.c       | 2 +-
+>  drivers/platform/x86/uniwill/uniwill-acpi.c | 2 +-
+>  8 files changed, 8 insertions(+), 8 deletions(-)
+>
+> diff --git a/drivers/platform/x86/asus-laptop.c b/drivers/platform/x86/asus-laptop.c
+> index 449addd1ac7a..de607edb9490 100644
+> --- a/drivers/platform/x86/asus-laptop.c
+> +++ b/drivers/platform/x86/asus-laptop.c
+> @@ -865,7 +865,7 @@ static ssize_t infos_show(struct device *dev, struct device_attribute *attr,
+>  		len += sysfs_emit_at(page, len, "SFUN value         : %#x\n",
+>  			       (uint) temp);
+>  	/*
+> -	 * The HWRS method return informations about the hardware.
+> +	 * The HWRS method return information about the hardware.
+>  	 * 0x80 bit is for WLAN, 0x100 for Bluetooth.
+>  	 * 0x40 for WWAN, 0x10 for WIMAX.
+>  	 * The significance of others is yet to be found.
+> diff --git a/drivers/platform/x86/asus-nb-wmi.c b/drivers/platform/x86/asus-nb-wmi.c
+> index aeb461b1644d..9b729afb34f9 100644
+> --- a/drivers/platform/x86/asus-nb-wmi.c
+> +++ b/drivers/platform/x86/asus-nb-wmi.c
+> @@ -573,7 +573,7 @@ static void asus_nb_wmi_quirks(struct asus_wmi_driver *driver)
+>  	driver->quirks = quirks;
+>  	driver->panel_power = BACKLIGHT_POWER_ON;
+>  
+> -	/* overwrite the wapf setting if the wapf paramater is specified */
+> +	/* overwrite the wapf setting if the wapf parameter is specified */
+>  	if (wapf != -1)
+>  		quirks->wapf = wapf;
+>  	else
+> diff --git a/drivers/platform/x86/hp/hp_accel.c b/drivers/platform/x86/hp/hp_accel.c
+> index 39b73dc473f1..40e1b9fb1b6d 100644
+> --- a/drivers/platform/x86/hp/hp_accel.c
+> +++ b/drivers/platform/x86/hp/hp_accel.c
+> @@ -122,7 +122,7 @@ static int lis3lv02d_acpi_read(struct lis3lv02d *lis3, int reg, u8 *ret)
+>  static int lis3lv02d_acpi_write(struct lis3lv02d *lis3, int reg, u8 val)
+>  {
+>  	struct acpi_device *dev = lis3->bus_priv;
+> -	unsigned long long ret; /* Not used when writting */
+> +	unsigned long long ret; /* Not used when writing */
+>  	union acpi_object in_obj[2];
+>  	struct acpi_object_list args = { 2, in_obj };
+>  
+> diff --git a/drivers/platform/x86/intel/vsec_tpmi.c b/drivers/platform/x86/intel/vsec_tpmi.c
+> index 0153dd57838e..fbe9c8af4aee 100644
+> --- a/drivers/platform/x86/intel/vsec_tpmi.c
+> +++ b/drivers/platform/x86/intel/vsec_tpmi.c
+> @@ -597,7 +597,7 @@ static const char *intel_tpmi_name(enum intel_tpmi_id id)
+>  	}
+>  }
+>  
+> -/* String Length for tpmi-"feature_name(upto 8 bytes)" */
+> +/* String Length for tpmi-"feature_name(up to 8 bytes)" */
+>  #define TPMI_FEATURE_NAME_LEN	14
+>  
+>  static int tpmi_create_device(struct intel_tpmi_info *tpmi_info,
+> diff --git a/drivers/platform/x86/msi-laptop.c b/drivers/platform/x86/msi-laptop.c
+> index ddef6b78d2fa..0a0c756a5598 100644
+> --- a/drivers/platform/x86/msi-laptop.c
+> +++ b/drivers/platform/x86/msi-laptop.c
+> @@ -117,7 +117,7 @@ struct quirk_entry {
+>  	 * Wlan/Bluetooth/3G, those netbook will load the SCM (windows app) to
+>  	 * disable the original Wlan/Bluetooth control by BIOS when user press
+>  	 * fn key, then control Wlan/Bluetooth/3G by SCM (software control by
+> -	 * OS). Without SCM, user cann't on/off 3G module on those 3G netbook.
+> +	 * OS). Without SCM, user can't on/off 3G module on those 3G netbook.
+>  	 * On Linux, msi-laptop driver will do the same thing to disable the
+>  	 * original BIOS control, then might need use HAL or other userland
+>  	 * application to do the software control that simulate with SCM.
+> diff --git a/drivers/platform/x86/panasonic-laptop.c b/drivers/platform/x86/panasonic-laptop.c
+> index 19d194ff37ca..a3597344edef 100644
+> --- a/drivers/platform/x86/panasonic-laptop.c
+> +++ b/drivers/platform/x86/panasonic-laptop.c
+> @@ -107,7 +107,7 @@
+>   *
+>   *	Jul.25, 2004	Hiroshi Miura <miura@da-cha.org>
+>   *		- v0.4  first post version
+> - *		        add function to retrive SIFR
+> + *		        add function to retrieve SIFR
+>   *
+>   *	Jul.24, 2004	Hiroshi Miura <miura@da-cha.org>
+>   *		- v0.3  get proper status of hotkey
+> diff --git a/drivers/platform/x86/samsung-laptop.c b/drivers/platform/x86/samsung-laptop.c
+> index 710f3d5bf84c..18631e96bb17 100644
+> --- a/drivers/platform/x86/samsung-laptop.c
+> +++ b/drivers/platform/x86/samsung-laptop.c
+> @@ -295,7 +295,7 @@ static const struct sabi_config sabi_configs[] = {
+>   *   d0, d1, d2, d3   - data fields
+>   *   call             - call SABI using command and data
+>   *
+> - * This allow to call arbitrary sabi commands wihout
+> + * This allow to call arbitrary sabi commands without
+>   * modifying the driver at all.
+>   * For example, setting the keyboard backlight brightness to 5
+>   *
+> diff --git a/drivers/platform/x86/uniwill/uniwill-acpi.c b/drivers/platform/x86/uniwill/uniwill-acpi.c
+> index 7a2eeaec4c96..eeead0159828 100644
+> --- a/drivers/platform/x86/uniwill/uniwill-acpi.c
+> +++ b/drivers/platform/x86/uniwill/uniwill-acpi.c
+> @@ -1705,7 +1705,7 @@ static int uniwill_kbd_led_mc_brightness_set(struct led_classdev *led_cdev,
+>  
+>  	/*
+>  	 * The EC interprets a RGB value of 0x000000 as a command to restore
+> -	 * the device-specfic default RGB value. Work around this by writing
+> +	 * the device-specific default RGB value. Work around this by writing
+>  	 * a RGB value of 0x010101 (faint white) instead.
+>  	 */
+>  	if (data->kbd_led_mc_subled_info[0].intensity == 0 &&
