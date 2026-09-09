@@ -1,79 +1,100 @@
-Received: from mail-4319.protonmail.ch (mail-4319.protonmail.ch [185.70.43.19])
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C990568534;
-	Wed,  9 Sep 2026 13:35:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.19
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1F3156B86D
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 13:35:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788960939; cv=none; b=abmLtQ5iupqNZWolM4jtv+3KHdJe+KhQgu8JTXI5WO2SMYSa+Z5ySR/vnEWY5IJ2IyqiVENqw5DheGjwt4M47iVmOyaWdtHsbmpoGJt8Ml8QGOrjijum2D5cdoF5luxIPq0Q+Yl4A9Lsmc8UniSKJOCOT7HwrR6/8W6vTp1JvA4=
+	t=1788960958; cv=none; b=H9UdOYRUomvIRaWkIXjllwGg+2Z6kO7/I4z8ExduYMfA2iFJ8PgWrsAwhsWxjvgIaKRKUzvNFCA5jQHBBAjMTLuMk5tvgw8jk/uRXQFDlXEg2UX4dnODAQDoIj5yWD5sMQDyfV75KRCO5gIiLScHYgXjQ/FEfHe9szHEtW82UBw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788960939; c=relaxed/simple;
-	bh=UvIq/cjJV1hrTOlrWNf3iiQyvG0huFuuj7qysrrM2u8=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=BiOmMJTe1QglxaQ2B3AydYVnhCpqXf3UWf4G4b7vH0yz+htm3kl4Guy9rJbwAksSA6Yk3TE4horf0gutEElwVPaSc27eZmJ/0W/6MbHRk9m7fEQbz7n8NlC4TqrT48prKuHC5BdJW2xOi6DjPGScxPXeMKI9HXbzRNn0rtP9Qgc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=IsLU78/n; arc=none smtp.client-ip=185.70.43.19
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
+	s=arc-20240116; t=1788960958; c=relaxed/simple;
+	bh=S12/r65QfioQ9d5p52gF8FIWDFw21osWvG0ohyLUnuo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=rAn9F7yCRmL2ujMDVErYrXFWBBZo4103Fl4mgXS5oTUHk/xkWUpV55AZnXdfZ+WbXlcjRP4G8YKVfdcqPOayKe2UD3yx+5FdcyVUuTwzJCV8lv6YlgmnTyndnYw+nowPpiYik5qLsWtDbT1rQZF13sMj/ZGVM53qgQc61RTey5o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=gf5m6dG8; arc=none smtp.client-ip=117.135.210.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="IsLU78/n"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail; t=1788960929; x=1789220129;
-	bh=8FP9wEWR+OQlwhcDhoPZ/PVqsFTANFAKvO8FGTeDz5s=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=IsLU78/nM9lNpcWcpMwTAnDNWCElDiEwffkCVgRIlLxY+ydaX3ujG/Jn2RkgzL1RR
-	 OGvyg3Euo6jRpusAnLX/2f8npgfJrIBzDY+KfffjCPgsdJ9/q0OTlCbiYIU5z/J/XH
-	 HGvp/n8XCPpg6Si3CqoLAoy4m7LridPSe7iktxNZhFKKn+zTWqqdgJtwQF0CLOmL7J
-	 t+BElI4ppSVVzYWzhyJ1vXThJGxqH+9hBy+fXxIz03TQfT9ozGpJjrYKSPZvbbqFA2
-	 gnqG2pV3HaKkqbWz4/zhHcMVZ0uf5RWCfCVOD7lE+ICfdPjPDHxRa7u+v20ceIkPe2
-	 fC855vEIag/Fw==
-Date: Wed, 09 Sep 2026 13:35:23 +0000
-To: "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>
-From: contectforbusiness@proton.me
-Cc: "sudipm.mukherjee@gmail.com" <sudipm.mukherjee@gmail.com>, "teddy.wang@siliconmotion.com" <teddy.wang@siliconmotion.com>, "linux-fbdev@vger.kernel.org" <linux-fbdev@vger.kernel.org>, "linux-staging@lists.linux.dev" <linux-staging@lists.linux.dev>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH 1/2] staging: sm750fb: make g_fbmode const to fix checkpatch warning
-Message-ID: <z52NAZ-Y9CZbDesqE3fyIEJdUIJnqeIXj6HhArNIjnT8tw7wQcT6uhT7KdZlC7h11AB5X8AQG1EG96GalUwNUGtCy6XFKqCkeazSTpmEzPk=@proton.me>
-In-Reply-To: <KW1s60gR5As9PdhLGq5MQYR9QPxr-tCZUn_dxvjME1PM6lW4ilRIG0gq8mbir7y9oBSlnEIhPq-EkEjHkruVnDNZpsJ-2OF2OIAEZLEZs7E=@proton.me>
-References: <KW1s60gR5As9PdhLGq5MQYR9QPxr-tCZUn_dxvjME1PM6lW4ilRIG0gq8mbir7y9oBSlnEIhPq-EkEjHkruVnDNZpsJ-2OF2OIAEZLEZs7E=@proton.me>
-Feedback-ID: 147676893:user:proton
-X-Pm-Message-ID: d48efaa0481a959b39cf2c693198d246cb67d856
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="gf5m6dG8"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=2Z
+	VUjImDEntEikN406jEi124vb67kt2C9gOZ0qEIiNg=; b=gf5m6dG8BXTWfT8LaK
+	0NOpaq/1aGwkx6N3HwT4gbjVQdq4UbfHYfhAeK8f/mEj3Ajq/cr6LS3IlhlnfTCT
+	9NX/zLqJiq8PoWMgSg0hEeeKrkkUbbJq+tlOotAlXlloMFvfw9s8scPU1zZy4DZF
+	J8ZczahIwmZtl+qv6H219KQOM=
+Received: from localhost.localdomain (unknown [])
+	by gzga-smtp-mtada-g1-1 (Coremail) with SMTP id _____wD3H01dYKFqaq2dBg--.62908S2;
+	Wed, 09 Sep 2026 21:34:22 +0800 (CST)
+From: albin_yang@163.com
+To: peterz@infradead.org,
+	mingo@redhat.com,
+	juri.lelli@redhat.com,
+	vincent.guittot@linaro.org
+Cc: dietmar.eggemann@arm.com,
+	rostedt@goodmis.org,
+	bsegall@google.com,
+	mgorman@suse.de,
+	vschneid@redhat.com,
+	kprateek.nayak@amd.com,
+	linux-kernel@vger.kernel.org,
+	albinwyang@tencent.com
+Subject: [PATCH] sched/stats: Fix run_delay over-count for migrated sched_delayed tasks
+Date: Wed,  9 Sep 2026 21:33:45 +0800
+Message-ID: <20260909133345.1572954-1-albin_yang@163.com>
+X-Mailer: git-send-email 2.43.7
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD3H01dYKFqaq2dBg--.62908S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7uw45KF1xur1rKw1DWFW5Awb_yoW8CF13pr
+	Z8W3yUJa1DKw4rKr9Fvr4kWry3Gwn7G3y3tFn7t348Gry5GF1Yqryjq3W3Xr4FvrWvvFZI
+	vF4jg39IvF4DKF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07j0hFxUUUUU=
+X-CM-SenderInfo: pdoex0xb1d0wi6rwjhhfrp/xtbC7x4y1GqhYF7LIQAA3I
 
-checkpatch reports:
+From: Wei Yang <albinwyang@tencent.com>
 
-  WARNING: static const char * array should probably be
-  static const char * const
+With DELAY_DEQUEUE, a blocked task stays on the runqueue with
+se.sched_delayed set and its sched_info.last_queued is cleared, so the sleep
+is not counted into run_delay.
 
-g_fbmode is never modified, so make the pointers const as well.
-This quiets the warning and makes the intent clearer.
+When such a delayed (sleeping) task is migrated across CPUs via the plain
+migration paths (move_queued_task / move_queued_task_locked, the latter used
+by __migrate_swap_task), activate_task(dst, 0) calls enqueue_task() without
+ENQUEUE_RESTORE, re-arming last_queued to the migration timestamp while the
+task is still sleeping. The later real wakeup (ENQUEUE_DELAYED) tries to
+re-arm last_queued at wakeup time but is suppressed because last_queued is
+already non-zero, so sched_info_arrive() folds the whole sleep duration
+between migration and wakeup into run_delay.
 
-No functional change.
+Fix by not re-arming last_queued for a sched_delayed task in
+sched_info_enqueue(). The wakeup path clears sched_delayed before reaching
+sched_info_enqueue(), so it still re-arms at the real wakeup time. Plain
+runnable tasks and load-balance migrations are unaffected (sched_delayed
+tasks are excluded from active load balancing).
 
-Signed-off-by: Vaibhav Agarwal <contectforbusiness@proton.me>
+Fixes: 152e11f6df29 ("sched/fair: Implement delayed dequeue")
+Signed-off-by: Wei Yang <albinwyang@tencent.com>
 ---
- drivers/staging/sm750fb/sm750.c | 2 +-
+ kernel/sched/stats.h | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/staging/sm750fb/sm750.c b/drivers/staging/sm750fb/sm75=
-0.c
-index 039e2033f..f731ef53e 100644
---- a/drivers/staging/sm750fb/sm750.c
-+++ b/drivers/staging/sm750fb/sm750.c
-@@ -12,7 +12,7 @@
- static int g_hwcursor =3D 1;
- static int g_noaccel __ro_after_init;
- static int g_nomtrr __ro_after_init;
--static const char *g_fbmode[] =3D {NULL, NULL};
-+static const char * const g_fbmode[] =3D {NULL, NULL};
- static const char *g_def_fbmode =3D "1024x768-32@60";
- static char *g_settings;
- static int g_dualview __ro_after_init;
+diff --git a/kernel/sched/stats.h b/kernel/sched/stats.h
+index ebe0a7765f98..dc626f99ffd9 100644
+--- a/kernel/sched/stats.h
++++ b/kernel/sched/stats.h
+@@ -290,7 +290,7 @@ static void sched_info_arrive(struct rq *rq, struct task_struct *t)
+  */
+ static inline void sched_info_enqueue(struct rq *rq, struct task_struct *t)
+ {
+-	if (!t->sched_info.last_queued)
++	if (!t->sched_info.last_queued && !t->se.sched_delayed)
+ 		t->sched_info.last_queued = rq_clock(rq);
+ }
+ 
+-- 
+2.43.7
 
