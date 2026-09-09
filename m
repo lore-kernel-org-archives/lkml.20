@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 522952D9780
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 14:01:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E20A53FD37
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 14:01:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788962494; cv=none; b=XgD/v/n01sFFUw2Kvy70oP8obqPpuaHmBDljFXS2H4ov84h4pCAfX6LlrTJhzxJVSOHycDBY3/u45p7op20wmS/XYw1Iqw4v7QBSGhi+g0P+2XrzDfWsh+uof8q0YrFAObbju0XSPXGwebW7Kz3MhzpAr8smuGFGHXH7uV8o4nM=
+	t=1788962506; cv=none; b=ls33MHPKW3Zyb0zMPlk4f3efn1Bc5+OrABqATFe6PiMpc2xFFpJJhtrcRzGLg5CVvCdyi3e5Ywy4johL+hPTZNFGi0AJfzLyxu1QZwmppLOLS76xr5cr6Bqy7oLID8G676I4Br1/b9qtSglSrOpb/nO73rCV+lE0usK2K290SR4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788962494; c=relaxed/simple;
-	bh=/aBMilkPgG8GmoC0T0geU7JxiohsmbS/R/82UFNKznw=;
+	s=arc-20240116; t=1788962506; c=relaxed/simple;
+	bh=vJw4vTVrz4C1R0X6Csvs/dhckJheHsMDTxiBZUje+bg=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=o0AtOmt/lg32rLIRPEEQJ+LkldKDXURrBAYr4MM7dD2d2FMa20AnwflY5QgswXBU1cLhWIZn0zdD62WCDhPfFGqcG7SfAek+mlwxQGqw5SmWOArhI8XFs8Z5LkFX2tc9N1vsC9mIFqJi5TFdNlE2eYEbpu1Rcnxuj6jaTyJwtPs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VDD4HS0b; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=ZVHv5w4EoTso4YL51OoCP2KP9z4fsIgW9xt0J0b1gA5lSuY0nlkEKQrtlSgWoQjL5LQS5Z1SB9afnGTRqB2fMNaVxgLYaubZ4AKlH1yEG/WdmJF8a/I5Bt57CXPgIDyBd0tCAkp2t2o6Shqf6cqmylO2rMcE29GpQMFYr/Wx864=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aIDREDi8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VDD4HS0b"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 348811F00A3A;
-	Wed,  9 Sep 2026 14:01:23 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aIDREDi8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 488661F00AC4;
+	Wed,  9 Sep 2026 14:01:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788962493;
-	bh=CdGQNBbV5rgyR6AC1v+rMzMBWuTn1mX6O2sJk9ZzEuI=;
+	s=k20260515; t=1788962505;
+	bh=lgmQbNDE6udjGQNjpfhdi1UAeRbSGHZuGtlT9/GjdAw=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=VDD4HS0bFNN/fUrWGwry9H610uhD3sA91TeA2++WjM0PWm+SEvctvTbSwinGPBAqt
-	 6CIYzwKk19mN5tLGwhYdyiYErv/wNsG2DdcHKhsu5tjypdIN6ZIyn7zhhliqKylFcm
-	 P1wdNHWUBfWUHHFShC0uSMl7Z5/Rm3xMdixXzRJfhGVBlqGngEHoJw1eMd0dtAvGLP
-	 tCKQ82vPwy6gbGbgrLOt9FrNauHmAuIwM3BWyOttGSagdd1BgTbs1gEuUKoBYOfp5g
-	 cincbrs7xqsl5bROa6us9e3np8OHmlsRbqad2nzkagOha1kq4NOO7SuvrVNWJLNIQj
-	 OrAXaf8UfthYQ==
-Message-ID: <c33cbd18-a506-4301-91d4-7cee033d2536@kernel.org>
-Date: Wed, 9 Sep 2026 16:01:22 +0200
+	b=aIDREDi8cN3vEkHv81BT15oq78pQGDpQde1+F6DS83L1jfggJF6NRZKNYaJDTtkyZ
+	 HinjeHpLMD6d1P4xdz940z0c5BW+NOeYF+POuVsZE2/mnHxcYLZ50oUbv9MXwLG9Z9
+	 diG7Z1Uc5e7iQCZaCnXnvPkrjTUb2gw/wS3L6hDn0PRbANgd3/Q4UAXVK2Zba+YAtU
+	 0cb+SfgqsM2510uNdaM2qRMHjTPprKueTUahkhdJbf2hUPPv8atx5ybOekAZ1PgmFb
+	 lbLnagnLVrSRWnIgeHPUW344Uw0yQZApDB1yGY46Fg2EMHBdEmD6nr6jFEqVGJ2tIn
+	 qQfO3lATw2qhg==
+Message-ID: <7eae1b63-9989-46a5-9f0d-252d1cb81314@kernel.org>
+Date: Wed, 9 Sep 2026 16:01:35 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -35,7 +35,8 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 5/8] mm/swapfile: use folio_page_swap_entry()
+Subject: Re: [PATCH v2 6/8] arm64: mte: make mte_save_tags() and
+ mte_restore_tags() static
 To: Tal Zussman <tz2294@columbia.edu>,
  Andrew Morton <akpm@linux-foundation.org>, Chris Li <chrisl@kernel.org>,
  Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>,
@@ -55,7 +56,7 @@ To: Tal Zussman <tz2294@columbia.edu>,
 Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org
 References: <20260908-folio_swap_entry-v2-0-ee6d01dfa5e1@columbia.edu>
- <20260908-folio_swap_entry-v2-5-ee6d01dfa5e1@columbia.edu>
+ <20260908-folio_swap_entry-v2-6-ee6d01dfa5e1@columbia.edu>
 From: "David Hildenbrand (Arm)" <david@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=david@kernel.org; keydata=
@@ -102,14 +103,14 @@ Autocrypt: addr=david@kernel.org; keydata=
  3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
  CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
  qIws/H2t
-In-Reply-To: <20260908-folio_swap_entry-v2-5-ee6d01dfa5e1@columbia.edu>
+In-Reply-To: <20260908-folio_swap_entry-v2-6-ee6d01dfa5e1@columbia.edu>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 9/8/26 17:16, Tal Zussman wrote:
-> folio_dup_swap() and folio_put_swap() open-code the swap entry
-> computation from folio->swap and folio_page_idx(). Use
-> folio_page_swap_entry() instead.
+> mte_save_tags() and mte_restore_tags() are only used by
+> arch_prepare_to_swap() and arch_swap_restore() in mteswap.c. Make them
+> static and remove their declarations from mte.h.
 > 
 > No functional change.
 > 
