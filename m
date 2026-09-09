@@ -1,301 +1,92 @@
-Received: from mail-qk2-f12.google.com (mail-qk2-f12.google.com [74.125.230.204])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1DB13F3293
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 21:51:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.204
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788990686; cv=pass; b=QkcbAUVGlqf401zR7KOGb71cdXg1tgUaR0it1rDuIvqiQ/dLzUOkypSiBnp4Nn4qEpKWkBPVvsOWq5CaP+UgqMKP8GTaQE88MZr3EZ8JdJ/QwgltONZ90wC7B6hk/XwIz4QaNdRSkjV40/jiR9q2v7y8+jaGT1VtSCXKzeemArI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788990686; c=relaxed/simple;
-	bh=oGSL5ZNrRrIcFVKDXpFvslxtC08mY6cmJRWkDCy+QXM=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=KzZCuPZ44wVnQKirEoyiXRK/YiAg6+d8fEbPgdvtfDDyk8nZHv10U92EhxM07C1dUUzkzAsafo3Pli/J2oAn5NjDg6UgfvjIsiEarinyI2xH+tweEWh7mey2hzBVctQSv4Xy5/Ty7skUg0GYd6YbP0SvnO7uIaEnQ4iTPk7rYUg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=INHOTf6u; arc=pass smtp.client-ip=74.125.230.204
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13D023D6479
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 21:51:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788990698; cv=none; b=tyx2GJGVlrI6WfnNqeabbMukp2cwEkTa9SmGJ2iiyQU5s4IJD2jRIU8nn9KnCx0rZqzlg2c3y9vZxkbmN6CjjGLNrHFt1fRSbvjf9aDuOW3J95VrC1BDOLSDFcW9PqxSUTcXNMF1e9SAQBgm5kFcr+F3eqQ6amLNNXsDRifapEI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788990698; c=relaxed/simple;
+	bh=Ndd2XrO22ju/jqARH9zd8coBZawekux8q7hWoL0RXco=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=kb/ES3CWc0xY5Bh//NTQZ2s6FQyNcHWz3cixsXbJ3t+PzDhj07fvkl1b87mcPid7cbdQKLwTuAvN+MR2dheQtAXy8ZgSPI503KJVVQ9h1ZHHPgzDfMq+3H+WYEylSfQH3W+UahcEYvC2xyxMBjYN7KJK+N7o+cxdI3iL9vqa0Bs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=aWbMEsGX; arc=none smtp.client-ip=90.155.50.34
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="INHOTf6u"
-Received: by mail-qk2-f12.google.com with SMTP id d75a77b69052e-530411c7ee1so38741cf.0
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 14:51:23 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788990682; cv=none;
-        d=google.com; s=arc-20260327;
-        b=B9NNv3fFq5R2/kmQZjJI1x6Hxfs7ftQJvmIK05PCEgiWM5pMnQlqTWRUzF9WfjrHRi
-         FBRULFKxXcYrOeX4HnPKK+l0M8h/pBkgZv16JifcczQabJKnSfX+9mVH0k11VBuW6GdW
-         wS7gxHP0OzaJI+quWzinn5G9aa3oCVqbtLxbvKllY4JvXjYtOlf9pKYycognOXVqo4UR
-         3840F0iOCb38xr+s7mOzjK+nh8N+TAGQoumX7Y6cEhW7uP3OjOAKobtUMD7qEXWhOfkJ
-         uz8XkgFAmw9XpaeBHrmMdeoQoOyV+zDyyqIfIvFeRyY/e0iiOGOni3GVxyvKdxt33K3D
-         Fsnw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=A7p9WWZeWPUSCEcOXg2XJofz7nmB+pP1oglnGvljEvQ=;
-        fh=t0/Q/IJZSuTjGReTcuDe+406nrl7TDExvLdvdfNQUrg=;
-        b=P6uVGXAVlOJxENndLdmcaCsAEXFWFVk+qns0ld6PN13cnIN+lyLAb4GUHka3/JGxT8
-         m63jSbNiCLwyj8JC+asSQz6Mm2hA9B+nN3OpgZce983E1lhUO4T53Xwt0sxn5L3xLVC7
-         Ne240H5ZGxx8ON5eUleoH7r3S/0Jjqp7X75/YvzHd72W7JRm+igEaL0CL7TB141IqQNJ
-         2ue8dwhmXsbu+GLz+Ac9XXoKd4gV902d1pOuk54kR0l9j6oy48X1TzsNAeImN+aVVkdG
-         arswhHmagLT7TIeRWtqmml+a4JKn4f/cAfrEO+FxYhdxyif6LsDxVS8+wnsCgYSz4TvM
-         PCgQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788990682; x=1789595482; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=A7p9WWZeWPUSCEcOXg2XJofz7nmB+pP1oglnGvljEvQ=;
-        b=INHOTf6uLKoiWJE3oMLPAjRFPBnVSFPLK96SgWFMRvdLwdQPHOaj7NMol0W5A4gsBk
-         MtKqMbavARKgLFzrJNr2Gz+l2KWKvKuaw8uqe325ilHZSgV66q5RhxYlpUgPQHD4LZSd
-         zeo2x1BL83ZWGwxgog2FZBOeDrXiqcSx8+2AhsLrC0x5kHhIkJNENhrt1vPONtKaZzz4
-         iq80jUXeeP8ysHvgDDAbf0amAInA3CAGc7bi2iaSnfCCpZdHtjmoEMchEjTuBTFMKwxa
-         vrb/PoOt5uRYbh6A3HIO7F3JSCOJ9zK1/Kr0VfRh6hc45a2uGyB2oVehqnUOS0Y0BoDQ
-         T6kA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788990682; x=1789595482;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=A7p9WWZeWPUSCEcOXg2XJofz7nmB+pP1oglnGvljEvQ=;
-        b=qPfZh05xKQG0Vnd91706A0wvEqsEm35shA+c+Fv1WoZGQ0dp00wBjYAXuznFIzAOV0
-         b1UvBAV82AoOpqoAljZuPppre4OaDXqk0k4vaLPBxeeVSkHt5OB2Mbofr6APscngpb0i
-         +TU/Ej7wuxyvxH4HK0ywSGby3g1h+AmIIrUU+7BBg4fKumIjmzFwyjb6byrn6G1FLoW1
-         Nmzhvonra19jzrl2IZbRKMHJXGsJIGYhpkszO9BSZqkJw0vS3/PUCR0FgQdUqlNurgPZ
-         1uXjsDGcPsnDMU+6axr1nIJ0YZo8uhJmq+DXw1/jyvFecukIwOVUmPjXxG+SyHhrXprJ
-         Y/+Q==
-X-Forwarded-Encrypted: i=1; AKwUvBzMXZis0sKPnh0wZwYv6/XBGsSrvZ5gpz6foYVuhun/E6T2q5Y5x+8CSO0TtMffBvI4B9EP+3yJNapZqrU=@vger.kernel.org
-X-Gm-Message-State: AFuF++nHyMmJaxsRpSJyRD74/rrTOiVMjo+ffHewMZIp9XTeqK/dUHMA
-	BKmp+09PG7B4eiqarUM643I/KXw6V5nI4dcpFTWnRyfN1t/mYaE+KTKCMI+KTp22LxBnhmYXvwR
-	FuABeL/0eGperxcPJMhzImnD1HLHlIlkXHQZp0kh8
-X-Gm-Gg: AYBFou1azZ5LV5RP6TuSH2Zbwj3wlLv5zNdahMblMqyl2H3XkMUET6PrnfRtunbkfHb
-	3CFGVL6nEeUN7qJZtpEOT5u7paKmDqrZZGxx6Nkarmi8/8K5ls1S9tS6pamSOektZ5tdUR3KzkI
-	WyOPkwD8kObk5mKyEbBcHjrMWqxGps+TxV1Rkj1hoUzODDtajuwwWz+xgv4imRdfVbdiuZklVM3
-	AsWKJ7nXNYeKU2MpBax2ijJlMXwPx2vQ2tXFo6yL0K9nR/OFc5kzJhw34rKjIKfLYoR87zqiUGh
-	ZLrULNWswU5L/gDhsYOxiQcV7wVia2GmrR9zxjSY6G2Xtf4if2Xjjy/U5A==
-X-Received: by 2002:ac8:7f81:0:b0:52e:1e8:21f4 with SMTP id
- d75a77b69052e-530b62adb08mr929301cf.5.1788990680995; Wed, 09 Sep 2026
- 14:51:20 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="aWbMEsGX"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=DYuwB6DL5qoXxnem2Sh49UaLWIq/5mk6bF4glzH7dyA=; b=aWbMEsGXXdzPU/bx+iCtaVcm8e
+	nRg2aqSvGS3f4uve5u3Ke2K4GEO+BE93YcSEFve6tsM7QLcgvDpPg/q4wx8Im5J1Mwy/pLJx9g9pS
+	jgROHSedbRoJ6EqqhPXHI1qFLxlIskGJeoGXTY54fo+jKQfS0+MahJzA5uTyrrnLgFBuailVAOylH
+	j5lGomeixCyu8vSf0Z7F8fv/bZnKXIKpVjv9gpFYYUPHPZ64RfMdnL6R67s/YIcx5SO50G4DOHDBy
+	YJ40ynKuYYisOAFmRlgPyWKvxjM7E02SVl05cWmTFCWWpxZM2RoGW+A5qeplnqiXqgY8EPx2pCEpB
+	mqjJlybg==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1x4QCM-0000000A1ca-3w9W;
+	Wed, 09 Sep 2026 21:51:19 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id 016EE300A9A; Wed, 09 Sep 2026 23:51:17 +0200 (CEST)
+Date: Wed, 9 Sep 2026 23:51:17 +0200
+From: Peter Zijlstra <peterz@infradead.org>
+To: Will Deacon <will@kernel.org>
+Cc: Andrea Righi <arighi@nvidia.com>, Ingo Molnar <mingo@redhat.com>,
+	Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
+	Valentin Schneider <vschneid@redhat.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Christian Loehle <christian.loehle@arm.com>,
+	Shrikanth Hegde <sshegde@linux.ibm.com>,
+	Phil Auld <pauld@redhat.com>, Breno Leitao <leitao@debian.org>,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v5 0/2] sched: Enable preferred SMT siblings on NVIDIA
+ Olympus
+Message-ID: <20260909215117.GO776954@noisy.programming.kicks-ass.net>
+References: <20260909062649.469633-1-arighi@nvidia.com>
+ <20260909131415.GB4120091@noisy.programming.kicks-ass.net>
+ <aqF84So9WUQCDgsz@willie-the-truck>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260907063918.3432401-1-surenb@google.com> <20260907063918.3432401-4-surenb@google.com>
- <4825a2fe-f064-45d7-a7c9-e98de7efe86c@kernel.org> <CAJuCfpFL_g7tELjT8p8ExM3tX_v2gNDM9rRKwwefPV_KW=fHfA@mail.gmail.com>
- <8e643f51-a47f-428e-9443-678326288fa6@kernel.org>
-In-Reply-To: <8e643f51-a47f-428e-9443-678326288fa6@kernel.org>
-From: Suren Baghdasaryan <surenb@google.com>
-Date: Wed, 9 Sep 2026 14:51:09 -0700
-X-Gm-Features: AcwNN1WhVGNfB-pxrRcwKFTO2y3J4tLY_kHnkGoYanjTzogNBsN7pKUja62KieY
-Message-ID: <CAJuCfpEYdj=u0wczKRrsB8uDkbSzPy+hrsCo9TW9-3J3r3p0xQ@mail.gmail.com>
-Subject: Re: [PATCH v2 3/5] proc/task_mmu: remove special-casing of
- smap_gather_stats() start parameter
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: akpm@linux-foundation.org, liam@infradead.org, ljs@kernel.org, 
-	vbabka@kernel.org, willy@infradead.org, jannh@google.com, paulmck@kernel.org, 
-	pfalcato@suse.de, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	linux-fsdevel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <aqF84So9WUQCDgsz@willie-the-truck>
 
-On Wed, Sep 9, 2026 at 12:16=E2=80=AFPM David Hildenbrand (Arm)
-<david@kernel.org> wrote:
->
-> On 9/9/26 20:28, Suren Baghdasaryan wrote:
-> > On Wed, Sep 9, 2026 at 10:16=E2=80=AFAM David Hildenbrand (Arm)
-> > <david@kernel.org> wrote:
-> >>
-> >> On 9/7/26 08:39, Suren Baghdasaryan wrote:
-> >>> smap_gather_stats() interprets its start parameter to mean vma->vm_st=
-art
-> >>> when it's set to 0. Eliminate this special interpretation and pass
-> >>> vma->vm_start explicitly when needed.
-> >>>
-> >>> Since smap_gather_stats() operates within a single VMA, we can replac=
-e
-> >>> walk_page_vma()/walk_page_range() calls with walk_page_range_vma()
-> >>> which is simpler and also can be called while holding per-VMA lock.
-> >>>
-> >>> No functional change intended.
-> >>>
-> >>> Suggested by: Lorenzo Stoakes <ljs@kernel.org>
-> >>> Signed-off-by: Suren Baghdasaryan <surenb@google.com>
-> >>> ---
-> >>>  fs/proc/task_mmu.c | 40 ++++++++++++++++++++++------------------
-> >>>  1 file changed, 22 insertions(+), 18 deletions(-)
-> >>>
-> >>> diff --git a/fs/proc/task_mmu.c b/fs/proc/task_mmu.c
-> >>> index 9908ba32f180..3351decd1172 100644
-> >>> --- a/fs/proc/task_mmu.c
-> >>> +++ b/fs/proc/task_mmu.c
-> >>> @@ -1246,20 +1246,27 @@ get_smaps_shmem_walk_ops(struct proc_maps_pri=
-vate *priv)
-> >>>       return &smaps_shmem_walk_vma_lock_ops;
-> >>>  }
-> >>>
-> >>> -/*
-> >>> - * Gather mem stats from @vma with the indicated beginning
-> >>> - * address @start, and keep them in @mss.
-> >>> +/**
-> >>> + * smap_gather_stats() - Gather mem stats from @vma.
-> >>> + * @priv: proc maps private state.
-> >>> + * @vma: The VMA to gather stats for.
-> >>> + * @mss: The accumulated stats.
-> >>> + * @start: The address from which to start.
-> >>>   *
-> >>> - * Use vm_start of @vma as the beginning address if @start is 0.
-> >>> + * This gathers stats for the whole of the VMA unless the lock was d=
-ropped
-> >>> + * and VMA grew or got merged and we found it again, in which case w=
-e only
-> >>> + * gather stats for the remainder of the VMA range.
-> >>>   */
-> >>>  static void smap_gather_stats(struct proc_maps_private *priv,
-> >>>                             struct vm_area_struct *vma,
-> >>> -                           struct mem_size_stats *mss, unsigned long=
- start)
-> >>> +                           struct mem_size_stats *mss,
-> >>> +                           unsigned long start)
-> >>>  {
-> >>>       const struct mm_walk_ops *ops =3D get_smaps_walk_ops(priv);
-> >>> +     const bool is_partial =3D start > vma->vm_start;
-> >>>
-> >>>       /* Invalid start */
-> >>> -     if (start >=3D vma->vm_end)
-> >>> +     if (start < vma->vm_start || start >=3D vma->vm_end)
-> >>>               return;
-> >>>
-> >>>       if (vma =3D=3D get_gate_vma(priv->lock_ctx.mm))
-> >>> @@ -1279,20 +1286,17 @@ static void smap_gather_stats(struct proc_map=
-s_private *priv,
-> >>>                * Unless we know that the shmem object (or the part ma=
-pped by
-> >>>                * our VMA) has no swapped out pages at all.
-> >>>                */
-> >>> -             unsigned long shmem_swapped =3D shmem_swap_usage(vma);
-> >>> +             const unsigned long shmem_swapped =3D shmem_swap_usage(=
-vma);
-> >>> +             const bool shared_or_ro =3D vma_test(vma, VMA_SHARED_BI=
-T) ||
-> >>> +                                       !vma_test(vma, VMA_WRITE_BIT)=
-;
-> >>>
-> >>> -             if (!start && (!shmem_swapped || (vma->vm_flags & VM_SH=
-ARED) ||
-> >>> -                                     !(vma->vm_flags & VM_WRITE))) {
-> >>> +             if (!is_partial && (!shmem_swapped || shared_or_ro))
-> >>>                       mss->swap +=3D shmem_swapped;
-> >>> -             } else {
-> >>> +             else
-> >>>                       ops =3D get_smaps_shmem_walk_ops(priv);
-> >>> -             }
-> >>
-> >> Horrible, horrible code, really. But not your fault :)
-> >>
-> >> I think we can just make the shared_or_ro less odd by just checking fo=
-r cow
-> >> mappings (as described in the comment).
-> >>
-> >>         const bool is_cow =3D vma_is_cow_mapping(vma);
-> >>
-> >> ...
-> >>
-> >>         if (is_partial || (shmem_swapped && is_cow))
-> >>                 ops =3D get_smaps_shmem_walk_ops(priv);
-> >>         else
-> >>                 mss->swap +=3D shmem_swapped;
-> >>
-> >> That's almost in a form that I could understand what's happening.
-> >
-> > Hmm. So, are you saying that !is_cow always implies shared_or_ro? Or
-> > maybe you are stating that vma_is_cow_mapping() was the actual intent
-> > here?
->
-> So the comment says:
->
-> "For private writable mappings, we might have COW pages that  .."
->
-> Which translates to:
->
->         private writable =3D=3D vma_is_cow_mapping()
+On Wed, Sep 09, 2026 at 04:36:01PM +0100, Will Deacon wrote:
+> On Wed, Sep 09, 2026 at 03:14:15PM +0200, Peter Zijlstra wrote:
+> > On Wed, Sep 09, 2026 at 08:26:07AM +0200, Andrea Righi wrote:
+> > 
+> > > Andrea Righi (2):
+> > >       arm64: topology: Prefer PE0 on NVIDIA Olympus SMT cores
+> > >       sched/fair: Honor asymmetric SMT priority in idle selection
+> > > 
+> > >  arch/arm64/include/asm/topology.h |  1 +
+> > >  arch/arm64/kernel/smp.c           |  1 +
+> > >  arch/arm64/kernel/topology.c      | 51 +++++++++++++++++++++++
+> > >  kernel/sched/fair.c               | 85 +++++++++++++++++++++++++++++++--------
+> > >  kernel/sched/sched.h              |  6 +++
+> > >  kernel/sched/topology.c           | 36 +++++++++++++++++
+> > >  6 files changed, 163 insertions(+), 17 deletions(-)
+> > 
+> > I tentatively picked these up, but I need an arm64 ack before I can
+> > merge them, and ideally vingu will bless them too :-)
+> 
+> We've had five versions of this in five minutes, but the arch code is
+> pretty filthy tbh. Detecting topology based on MIDR is a non-starter,
+> sorry.
 
-Ok, just want to make sure I'm not missing something subtle.
-
->
-> >
-> > shared_or_ro =3D VMA_SHARED_BIT || !VMA_WRITE_BIT
-> >
-> > is_cow =3D !VMA_SHARED_BIT && VMA_MAYWRITE_BIT
-> > !is_cow =3D VMA_SHARED_BIT || !VMA_MAYWRITE_BIT
-> >
-> > so, !is_cow would impy shared_or_ro only if !VMA_MAYWRITE_BIT always
-> > implies !VMA_WRITE_BIT. But I think it's possible to have a VMA that
-> > has VMA_WRITE_BIT but not VMA_MAYWRITE_BIT, right?
->
-> VMA_WRITE should imply VMA_MAYWRITE
-
-Ah, good to know.
-
->
-> (in sanitize_fault_flags() we even disallow write faults entirely if VM_M=
-AYWRITE
-> is missing)
-
-I see.
-
->
-> For example, a
-> > driver can create such a VMA to allow writing to the VMA but to lock
-> > its content once mprotect(PROT_READ) gets called.
->
-> I don't think that would be valid for a driver to do. But it wouldn't mat=
-ter
-> here because
->
->         shmem_mapping(vma->vm_file->f_mapping)
-
-I was obviously overthinking this :)
-
->
->
-> I think we could simplify the comment as well to:
->
-> diff --git a/fs/proc/task_mmu.c b/fs/proc/task_mmu.c
-> index e671b4fd8dedd..4b7e7089cafa7 100644
-> --- a/fs/proc/task_mmu.c
-> +++ b/fs/proc/task_mmu.c
-> @@ -1303,12 +1303,10 @@ static void smap_gather_stats(struct proc_maps_pr=
-ivate
-> *priv,if (is_partial || (shmem_swapped && is_cow))
->
->         if (vma->vm_file && shmem_mapping(vma->vm_file->f_mapping)) {
->                 /*
-> -                * For shared or readonly shmem mappings we know that all
-> -                * swapped out pages belong to the shmem object, and we c=
-an
-> -                * obtain the swap value much more efficiently. For priva=
-te
-> -                * writable mappings, we might have COW pages that are
-> -                * not affected by the parent swapped out pages of the sh=
-mem
-> -                * object, so we have to distinguish them during the page=
- walk.
-> +                * In CoW mappings, we might have anon folios that are
-> +                * independent of the shmem object. So fallback to the le=
-ss
-> +                * efficient mechanism in such mappings.
-> +                *
-
-Sounds good. Will update.
-
->                  * Unless we know that the shmem object (or the part mapp=
-ed by
->                  * our VMA) has no swapped out pages at all.
->                  */
->
-> --
-> Cheers,
->
-> David
+Yeah, Andrea is a wee bit fast with re-posting. I'll drop this, no
+worries.
