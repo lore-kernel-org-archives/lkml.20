@@ -1,225 +1,189 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70C3C3644C7
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 17:16:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A32483101B2;
+	Wed,  9 Sep 2026 17:16:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788974179; cv=none; b=UfB/LcAVSpBmmIwTNA0nQg/Xb5imu4cKzOro3iY+ca4OF7Z/CALKxuDOezjVmnXVaJSZs5ornJ6mXPOhAZIeFvQYVftZaKWHWlVmO3G3qmHOmqVeFYAupnmQRmgZJrlBqag2a4Zw9Hxi8DAJr5rE+8eaFrUTHc8CBgK3ffq/Fhg=
+	t=1788974195; cv=none; b=c5aH4eC6UAkfGjhawCkIMwOUMdexAIrFDQqB60stELmvg0QoqAdFQUjQGy//u/076lsDMm6/UYBtc1PISl9n9ToEWlpmersaV9jhIk2+e7kKOUbFA29lcF+OWJ1tC+FWNxFFztJUxkdBPFZVHgbdW0JTonRjO2v/JCcEXwVAIn4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788974179; c=relaxed/simple;
-	bh=Edmagecg2PaIU44/PLytw5C3Adgmsos2KNBXGxIxnCw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=W4ZOvd+RSkxX6YlP7etTg6Vb7GLgJUJnfjQUIR/7Bpi2iORV38h9Mt7IKy1B1UCkUVgUIfgcjbi3nr8sq3CysN2xLsj6sWyE5nta0r/XvBLqnRIQMQ2bwgyglhknBl6bW38N+CYx7AUEJuVsKOebTDgpUVnkwlwJ8ZRAFaYxz9s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=S72Welgf; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=P/AdubD5; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1788974195; c=relaxed/simple;
+	bh=8QFaipwtcL5iD+8jhXmzPpe2u7WQqj/c1B37a4iCI+E=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Kx7t9Nfm6oR9NZUCiqQKcopPRQq1eP4hK0z21qXs+TrRkBql85RvKnf1wuICgSeeHBkQ4G+JxBNGBlgspAxnMz3f56HZjcMh17+J8jONLliaE5toI8dmjSqvsnfZN5cV7iOzsZQMXY8fhZXneZmvlrXu5W8Po4VrMYPUh674p6Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HUt3fl8h; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="S72Welgf";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="P/AdubD5"
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 689H7W1c2477368
-	for <linux-kernel@vger.kernel.org>; Wed, 9 Sep 2026 17:16:17 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=NrIsFfwedfuLeKvzU70rKNtT
-	+rVIhJ0VJ39qxRIr5Qw=; b=S72WelgfsaZtrz5JllU+R+NP9CCOf2QzT2nd3iR6
-	wVf8+viNAnTjKlWgnXqmTJa+2+dOvFTecJ/+pvjjoef8HDQrzr3XkftTUg//NuT5
-	QE2XVeIArXON82vf2exGclBNbCWt9I8jtGwOKQAOesYkbRJCpqFlVqVHwI7H4oCF
-	j8otjdTeVixQT3MxPzRBRHAmjqQWv5JN1oO39r2VPoj9ccSctHWm5xJVArVMH3Fr
-	khQaXcy0sO/7WGuWyZPw68FrU0mR/J3a+mR8p31Wx0leOSVanwZrRR86HEdyCSXx
-	MZhI/FigkoPuuT56ufkksltirKf6M6JnMHyWflixtksxOQ==
-Received: from mail-vs1-f69.google.com (mail-vs1-f69.google.com [209.85.217.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gk5cnsx2c-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 17:16:17 +0000 (GMT)
-Received: by mail-vs1-f69.google.com with SMTP id ada2fe7eead31-785827e6073so865707137.1
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 10:16:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788974176; x=1789578976; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=NrIsFfwedfuLeKvzU70rKNtT+rVIhJ0VJ39qxRIr5Qw=;
-        b=P/AdubD5CbjshzP1yZdjveCGdDZ9/HPX72/8sINHn+fiYgnL4C3gaZItFWtxacGgkB
-         nTZeoE/5r7Sfyzn/oSjoq/wPffaNI1LIcHPeEof8w5MJBlEnqYD7IuhWDCcjsDdBbBvh
-         VlHAnKMFzMOm6kEAA9PMHuidnfyea3dlShc89akxCkILVCic1aOJU1B0yFUfhfiP9NSi
-         GvkAZUkAXb/vGRpGseAEqZGSASF5R6gUqLvtMQP14K8Gj9BuFB29/DEYotP20X2EKvoC
-         2iPg49lJWLC7nkGEPl5N+PD8/eVZ6tQF2+0Ve1lKOd7hIegru6HUg3AQ2Ty8NIeiRLEa
-         NN4w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788974176; x=1789578976;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=NrIsFfwedfuLeKvzU70rKNtT+rVIhJ0VJ39qxRIr5Qw=;
-        b=gWiT/y2o/jadB2t6FUHRPDtlZPEKAcvO8X2Iir8yxmQ9fOCPf6H9zXedeAk/98E3tu
-         r7Vqjp76yBw7IGOjgDzp1+qVQoGUYTx/S+QfNNB3iqXB0d5XNOFx8JyvGNlUDyb253jd
-         P0h8bRjYNyGW0WunNq6NtLVAm1QPNDG1u8okpCptfRiT51JF0XE+I8NP7McLL5DD6Rd2
-         tkEIaqca1b5B+1Hx6KAm+DRPZo0pqaXfIGeC+cNuKW+H2mTyQguiemgHzvRynjWN0GE+
-         8fd4EHjVX1I+b1pFah+caDMTA+OI/6FnHUagvgdUntBSFzk2jh8dupTUOhDWuysbp1RT
-         9oFw==
-X-Forwarded-Encrypted: i=1; AKwUvBze0irWhfsFlQPtlF1XLuCLa5/wnD8VvEB4wro1BfLeSibB+V9PS8A5mMZ8e0/i8o0CpOKnHy8+TChvubA=@vger.kernel.org
-X-Gm-Message-State: AFuF++m30Da3gjrGjPQ+DMLbulRiTmlCOBiQPqCcdQ7+k3kKvUpGDdWL
-	h8/mzDV7vCdwECl2CMqS9VNaV7puBrcL42GadToCMiVRhK7FTPyP/wGhifeal83AOLNgliW8wyp
-	yKzcdF81UbxuTCVNh6j+vO6JJab8YeCQI8zaUaNiGT+4PtEPrpPGJf2Os6FF9wqC2OLQ=
-X-Gm-Gg: AYBFou3qFP9opG0Gf39vOBvwOfVZHHBJ2A9PL8iGAk5mWvRlNyct+TEIr1N+5ECuUrX
-	W3p0dhTAPTvqIY4qZLxHzuVccKABfzNOlMQlnDn43dId1Dqw5t3CDrZhpilWFql2T3IeLN6nt+P
-	x76399HaSQh5gBc31VCQnUM734X1Zj2pw2UJJogtF8Mc2uXb/rltOF5rtoyLNpZHnhhQijZzyeQ
-	vqXk2NmkoLYwhyyWDG++Vzu1awcZS1w6g5aNleDqY6/3XDQdJ4hq5DVvQ/AbY5E3zaS4Oa0KHgk
-	gszj/+WaXowg6cJHt+rUnfxLvcDW3aepSCO/uHkX65Wav6pQJCnjZn3FpP+T0tkmrTM2uoAV5wH
-	3GIZIK9X4pzNZcQ==
-X-Received: by 2002:a05:6102:5698:b0:78f:f234:75b9 with SMTP id ada2fe7eead31-790726d342emr1955944137.0.1788974176225;
-        Wed, 09 Sep 2026 10:16:16 -0700 (PDT)
-X-Received: by 2002:a05:6102:5698:b0:78f:f234:75b9 with SMTP id ada2fe7eead31-790726d342emr1955829137.0.1788974175459;
-        Wed, 09 Sep 2026 10:16:15 -0700 (PDT)
-Received: from localhost ([188.216.77.92])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49d1fb04f1esm60278055e9.0.2026.09.09.10.16.13
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 09 Sep 2026 10:16:13 -0700 (PDT)
-Date: Wed, 9 Sep 2026 19:16:13 +0200
-From: Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>
-To: Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
-        "David S. Miller" <davem@davemloft.net>,
-        Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
-        Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Andrew Davis <afd@ti.com>,
-        Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>,
-        Russell King <linux@armlinux.org.uk>,
-        Richard Cochran <richardcochran@gmail.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Alexandre Torgue <alexandre.torgue@foss.st.com>,
-        Giuseppe Cavallaro <peppe.cavallaro@st.com>,
-        Jose Abreu <joabreu@synopsys.com>,
-        Maxime Chevallier <maxime.chevallier@bootlin.com>,
-        Maxime Coquelin <mcoquelin.stm32@gmail.com>, netdev@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org,
-        linux-stm32@st-md-mailman.stormreply.com,
-        linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH net-next v2 4/9] net: stmmac: qcom-ethqos: convert
- ethqos_rgmii_macro_init() to void
-Message-ID: <aqGUXf4aaPNGhuJm@lore-desk>
-References: <20260908-shikra_ethernet-v2-0-bbe3389d0652@oss.qualcomm.com>
- <20260908-shikra_ethernet-v2-4-bbe3389d0652@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HUt3fl8h"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A47FF1F000FF;
+	Wed,  9 Sep 2026 17:16:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788974193;
+	bh=RCNfdPry0qx3z3EYS25Xgw7tSBbwgBT8RyM8ger6/hk=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=HUt3fl8hAt44QPj6lykLIlkMzZu/kNaIu+7I/sN0voLfwcLf510ppqfYbRl7KcDEv
+	 SKMb9cs5xZcJvNsUF9CfDYxSGPCxcA75at/RjGWUvZvZIqRpjlfaZUpBy/mia5YSt3
+	 sehhohY8y6vO3d67rfo9cAcMO7HGnh2faq6EX9fAVC6Jx/gddHiPTEpB42PKbZ2aWu
+	 h8hZN4jNdr1qjMzrwpguqChT6cJC/Ib/QTQ3YnwXC5T5iEmIcstljUzYY3YwY4FdC/
+	 di7xHiCt0w25A7uOe6ykp7TiT06K256QLU4eLUfv4lHS2ZitzlHqsYdVTzbeoEb7tN
+	 KyEZApAl6QaDQ==
+Message-ID: <4825a2fe-f064-45d7-a7c9-e98de7efe86c@kernel.org>
+Date: Wed, 9 Sep 2026 19:16:27 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="Jz3BLvdJrcEnCQaB"
-Content-Disposition: inline
-In-Reply-To: <20260908-shikra_ethernet-v2-4-bbe3389d0652@oss.qualcomm.com>
-X-Proofpoint-GUID: s42ZpIsJ8TSElQRzyxuoxzszimHg3HrF
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA5MDE5MiBTYWx0ZWRfX8sIlcneBEGPC
- K5o/Jw8qJWQMhv6rZfAD643jX7ZhOlLWu1oKZMYYBcitnmt6V8uQUfWguUEUkzQQErjJ63jESOq
- 63z1nhtOJfMla24a8sj6py84g3Pc4Wc=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA5MDE5MiBTYWx0ZWRfX6sZzIhsp59Ob
- 03/Z9Tg5d5/LbIiLzgMQ74d38F5J85UMp/Bab2I5kZ1iG8uzbJGxpOSl1W26aqkcUMHkDQ6xUWy
- o0/vYPM5D1FCo/E6mYKngS4i77VfJTAmzw8lSD84hS/V6s1bgqWwFLz3BCiZUN5zinI8oRhf24e
- ZkFKMOZZhbmR+75bZuJlQPpBk41dQbWJtGHpyc8VY7GhUK/KtKzDMcAC4n5LmT1qePXqS3yFef1
- v4MJ6kTKQkPgpRxyL3JEhP/GK1TtRN/NBw0u28jkOPdYe/xmk54xwAKjK7LII9SpebNETvx5Rbq
- tKuHeKMbPG3sqiXeL+x0tstRarm5ULnVCAv61XHEhzAzgt1vnfmNBjSVNLI+1h1Q8QqQiCH5rSa
- eWvxTcwgDaPMtb/hvVm/c3T8tNvWu0xqls5ilkbNIiXqdY79nHqxinTtJPz0+2cv1/3j2yCvJu8
- 503a+BPQwXhUdtL75uA==
-X-Authority-Analysis: v=2.4 cv=S+jpBosP c=1 sm=1 tr=0 ts=6aa19461 cx=c_pps
- a=5HAIKLe1ejAbszaTRHs9Ug==:117 a=WpTaRW6qxYHRGzLzQsVYzg==:17
- a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22 a=P-IC7800AAAA:8
- a=EUspDBNiAAAA:8 a=VkhmObMS16-UOsR-uKgA:9 a=CjuIK1q_8ugA:10
- a=Ytgtto6viW8UiwRGLNEA:9 a=gYDTvv6II1OnSo0itH1n:22 a=d3PnA9EDa4IxuAV0gXij:22
-X-Proofpoint-ORIG-GUID: s42ZpIsJ8TSElQRzyxuoxzszimHg3HrF
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-08_03,2026-09-09_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 spamscore=0 impostorscore=0 phishscore=0 lowpriorityscore=0
- priorityscore=1501 suspectscore=0 clxscore=1015 bulkscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609090192
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 3/5] proc/task_mmu: remove special-casing of
+ smap_gather_stats() start parameter
+To: Suren Baghdasaryan <surenb@google.com>, akpm@linux-foundation.org
+Cc: liam@infradead.org, ljs@kernel.org, vbabka@kernel.org,
+ willy@infradead.org, jannh@google.com, paulmck@kernel.org, pfalcato@suse.de,
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org
+References: <20260907063918.3432401-1-surenb@google.com>
+ <20260907063918.3432401-4-surenb@google.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20260907063918.3432401-4-surenb@google.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
---Jz3BLvdJrcEnCQaB
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-> The return value is never checked by its sole caller and the speed
-> validation duplicates a check higher up the call stack.  Convert to
-> void and remove the dead code.
->=20
-> Reviewed-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
-> Signed-off-by: Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>
-
-Acked-by: Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>
-
+On 9/7/26 08:39, Suren Baghdasaryan wrote:
+> smap_gather_stats() interprets its start parameter to mean vma->vm_start
+> when it's set to 0. Eliminate this special interpretation and pass
+> vma->vm_start explicitly when needed.
+> 
+> Since smap_gather_stats() operates within a single VMA, we can replace
+> walk_page_vma()/walk_page_range() calls with walk_page_range_vma()
+> which is simpler and also can be called while holding per-VMA lock.
+> 
+> No functional change intended.
+> 
+> Suggested by: Lorenzo Stoakes <ljs@kernel.org>
+> Signed-off-by: Suren Baghdasaryan <surenb@google.com>
 > ---
->  drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c | 10 +---------
->  1 file changed, 1 insertion(+), 9 deletions(-)
->=20
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c b/dr=
-ivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
-> index ac7d6d3e205a1ab5b391def879d6f1033a0961b6..44270c25d874f72e7f971757f=
-ec659d36468c315 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
-> @@ -371,9 +371,8 @@ static int ethqos_dll_configure(struct qcom_ethqos *e=
-thqos)
->  	return 0;
+>  fs/proc/task_mmu.c | 40 ++++++++++++++++++++++------------------
+>  1 file changed, 22 insertions(+), 18 deletions(-)
+> 
+> diff --git a/fs/proc/task_mmu.c b/fs/proc/task_mmu.c
+> index 9908ba32f180..3351decd1172 100644
+> --- a/fs/proc/task_mmu.c
+> +++ b/fs/proc/task_mmu.c
+> @@ -1246,20 +1246,27 @@ get_smaps_shmem_walk_ops(struct proc_maps_private *priv)
+>  	return &smaps_shmem_walk_vma_lock_ops;
 >  }
-> =20
-> -static int ethqos_rgmii_macro_init(struct qcom_ethqos *ethqos, int speed)
-> +static void ethqos_rgmii_macro_init(struct qcom_ethqos *ethqos, int spee=
-d)
+>  
+> -/*
+> - * Gather mem stats from @vma with the indicated beginning
+> - * address @start, and keep them in @mss.
+> +/**
+> + * smap_gather_stats() - Gather mem stats from @vma.
+> + * @priv: proc maps private state.
+> + * @vma: The VMA to gather stats for.
+> + * @mss: The accumulated stats.
+> + * @start: The address from which to start.
+>   *
+> - * Use vm_start of @vma as the beginning address if @start is 0.
+> + * This gathers stats for the whole of the VMA unless the lock was dropped
+> + * and VMA grew or got merged and we found it again, in which case we only
+> + * gather stats for the remainder of the VMA range.
+>   */
+>  static void smap_gather_stats(struct proc_maps_private *priv,
+>  			      struct vm_area_struct *vma,
+> -			      struct mem_size_stats *mss, unsigned long start)
+> +			      struct mem_size_stats *mss,
+> +			      unsigned long start)
 >  {
-> -	struct device *dev =3D &ethqos->pdev->dev;
->  	unsigned int prg_rclk_dly, loopback;
->  	unsigned int phase_shift;
-> =20
-> @@ -384,11 +383,6 @@ static int ethqos_rgmii_macro_init(struct qcom_ethqo=
-s *ethqos, int speed)
->  	/* Select RGMII, write 0 to interface select */
->  	rgmii_clrmask(ethqos, RGMII_CONFIG_INTF_SEL, RGMII_IO_MACRO_CONFIG);
-> =20
-> -	if (speed !=3D SPEED_1000 && speed !=3D SPEED_100 && speed !=3D SPEED_1=
-0) {
-> -		dev_err(dev, "Invalid speed %d\n", speed);
-> -		return -EINVAL;
-> -	}
-> -
->  	rgmii_setmask(ethqos, RGMII_CONFIG_DDR_MODE, RGMII_IO_MACRO_CONFIG);
-> =20
->  	if (speed =3D=3D SPEED_1000) {
-> @@ -479,8 +473,6 @@ static int ethqos_rgmii_macro_init(struct qcom_ethqos=
- *ethqos, int speed)
-> =20
->  	rgmii_updatel(ethqos, RGMII_CONFIG_LOOPBACK_EN, loopback,
->  		      RGMII_IO_MACRO_CONFIG);
-> -
-> -	return 0;
->  }
-> =20
->  static void ethqos_fix_mac_speed_rgmii(void *bsp_priv,
->=20
-> --=20
-> 2.34.1
->=20
->=20
+>  	const struct mm_walk_ops *ops = get_smaps_walk_ops(priv);
+> +	const bool is_partial = start > vma->vm_start;
+>  
+>  	/* Invalid start */
+> -	if (start >= vma->vm_end)
+> +	if (start < vma->vm_start || start >= vma->vm_end)
+>  		return;
+>  
+>  	if (vma == get_gate_vma(priv->lock_ctx.mm))
+> @@ -1279,20 +1286,17 @@ static void smap_gather_stats(struct proc_maps_private *priv,
+>  		 * Unless we know that the shmem object (or the part mapped by
+>  		 * our VMA) has no swapped out pages at all.
+>  		 */
+> -		unsigned long shmem_swapped = shmem_swap_usage(vma);
+> +		const unsigned long shmem_swapped = shmem_swap_usage(vma);
+> +		const bool shared_or_ro = vma_test(vma, VMA_SHARED_BIT) ||
+> +					  !vma_test(vma, VMA_WRITE_BIT);
+>  
+> -		if (!start && (!shmem_swapped || (vma->vm_flags & VM_SHARED) ||
+> -					!(vma->vm_flags & VM_WRITE))) {
+> +		if (!is_partial && (!shmem_swapped || shared_or_ro))
+>  			mss->swap += shmem_swapped;
+> -		} else {
+> +		else
+>  			ops = get_smaps_shmem_walk_ops(priv);
+> -		}
 
---Jz3BLvdJrcEnCQaB
-Content-Type: application/pgp-signature; name=signature.asc
+Horrible, horrible code, really. But not your fault :)
 
------BEGIN PGP SIGNATURE-----
+I think we can just make the shared_or_ro less odd by just checking for cow
+mappings (as described in the comment).
 
-iHUEABYKAB0WIQTquNwa3Txd3rGGn7Y6cBh0uS2trAUCaqGUXQAKCRA6cBh0uS2t
-rIibAP0S/gGVaDgOtJQrrnNWdWnIJWz20hm/VIyYD9SKCquKdwD/YToyiF5E74NX
-CzVfv/b293W/qNrfSESKxGxMQFlq6A8=
-=s/dw
------END PGP SIGNATURE-----
+	const bool is_cow = vma_is_cow_mapping(vma);
 
---Jz3BLvdJrcEnCQaB--
+...
+
+	if (is_partial || (shmem_swapped && is_cow))
+		ops = get_smaps_shmem_walk_ops(priv);
+	else
+		mss->swap += shmem_swapped;
+
+That's almost in a form that I could understand what's happening.
+
+-- 
+Cheers,
+
+David
