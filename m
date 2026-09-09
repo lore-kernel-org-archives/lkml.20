@@ -1,185 +1,166 @@
-Received: from mail-lf1-f41.google.com (mail-lf1-f41.google.com [209.85.167.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C814D4F6484
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 23:48:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE72E4F6484;
+	Wed,  9 Sep 2026 23:48:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.9
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788997711; cv=none; b=sdnODTkPmC2u9KYGd8jJkUmjCPOb6NBAtLb+Rh/Yvy09oSNZQZsszdhODS7RQY8ijIvi4sjtJSR4HPwitbPMcqS8i8Oro0/R1wfuZql5oWGo44XGBhFP0cMk9SdCabO/l0Ha4xyKOlEdzmRvJngZLa28GGxkhAjBhK+LIQ8nyRU=
+	t=1788997725; cv=none; b=RCnYl6yIeIb2/xqCi1B3M+ZTUx+HZpdXZp64ZOY+6JDLkSCMe6mUs6s/JvWIACwAGd7BxwmYRCQ+zoMz1Q6uaO/XPIVXhiRJFi1mqmxoYLw4tE8gPAnPVP/u6Jc8BtpQTJoa22Wjb3sdaLYQgLV+xKw5ZMqylL+SDxOnBj2lN4Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788997711; c=relaxed/simple;
-	bh=fA3I9xtvhB2RFdS0+NqXtoI/Hzh/Ja6h6i48v0kI9+k=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=T61metYthtHe6lLE/rDFpayN7ZcLsRKeLqaHFY9ZWdVE9H6hCAVsuIFCKKmORuipHEZT5Weav7tNdKBSCjqypmkWlAW+d7efxhVWXGGn66qJ6iARAAezdqdJS6mp5+1AUK8gXwEIpsjzASPE/Dftzovw6QiF2XZCuodSa8Rh9+s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GrFBY17f; arc=none smtp.client-ip=209.85.167.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788997725; c=relaxed/simple;
+	bh=p5metIfVY3CtI+2oTzxtSM1WtBNXuJaHNZRuFvzc/1A=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=R6MgsSeyloJzPHVbisnulWWRj0mtcgbRBoTfLb6g6+LWUbJxZTQvvw6hk/tUGDMmeBu8MIlw7vT83sUrkk7xlI0ytKtmRB+2PKqZgX4zMD9j4rN7sNRIvTqYtL24k9To7AlwX63oHHk2AkVtcw9aE6m2bIXVoijXr/oddoPM5xg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=SO+P7ctG; arc=none smtp.client-ip=198.175.65.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GrFBY17f"
-Received: by mail-lf1-f41.google.com with SMTP id 2adb3069b0e04-5b7674fcb26so1351988e87.3
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 16:48:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788997708; x=1789602508; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=oljMkHqtrrFXTraD37aMs/be+Y8zIyNb8eBw0a0WIP0=;
-        b=GrFBY17fO4WpCgAhDbuX5h7lIK/3/vK719iYcHz7vcQFWio0rxuZB62sbKu57gOVsH
-         +1LbfVqJb7ZtTMjzWIvqoNIb2ZRPLAcEwzM8Us6OMACX5Rz/a7XFOJeEvjdE0F358Euj
-         UMVcsiqrTDtc+9NwMfoUqSjT44VSqPSUuDoWnDRBTPlFy0hcFia6S5MdnySFCIdF3tWd
-         iTRZrbw/5J8phRedP4xmkxinzu/AaXNSPtDwZgXRvlXRlrlPzFu/JUtrAjDh7DBOddbR
-         xGa0jDWn+lAC1ugAddHEEvSr+IhUwhuLrTAoimn+EIe8vEdqFZZqL0593DITcdMk7QEU
-         8IzQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788997708; x=1789602508;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=oljMkHqtrrFXTraD37aMs/be+Y8zIyNb8eBw0a0WIP0=;
-        b=YKtp7vTbLYp+y7qMZq+SVhDNLtHcsrRSMiTn90YD4qqtqukPaM86SQNURk9GH9lFiS
-         ygt4ybcc2NPgY1wQtAoW10u8wDHMFrRD3vVXZMaM0ccVGIFflU7litkTf5bYFvVL4wIx
-         vdismqrt3PnBTAl/A3A/dghKSJUsmQug+wO69KYWCbkHrbD7jFYbD386t09qj8dw6/JP
-         36dCRlvvC0QYfY4R/auWdbEawoO9NYwfJHf0uWrHSWbcqmYG77d4aR078XUUX7tdkYXq
-         jQeCHQGw51RcTXYFgSjDEy/2o14ZDIB+JxZdkcsksWDnQHov8qj4IHuUseTiqB6NmPhO
-         zcsg==
-X-Forwarded-Encrypted: i=1; AKwUvByZ9KK+8elqavgpNMv42PihMXj0EYo43Kg8c0wWM6OeSpYaMUCx94A3b+FbhN2oxiqnfmjwS80lIjrErUU=@vger.kernel.org
-X-Gm-Message-State: AFuF++lBwrjk/KnkIg81LT2QFqyF3QJ1uRjy9Z9xcaGWP/3ffXXYjGd0
-	D6uRuCTUTbgcIuwWCxRVR+qgYckJI/2vUV4q9k5sTC12vFdl0VyIlNsD
-X-Gm-Gg: AYBFou3UuUmoqHiwc/0Bf//eXVmVJgmM3pvtetp904uCoIaNrFgtjIkaokyn88l5IH7
-	Izs3KISUDK10lxU8QotV7cRKaOYcvhUVcDvEIPOIqhH/0uFgn7aUrok7hDdlxe8t19E4pbI1mxt
-	jE71So0OkPLqG5YaL2T3uvB6Z4+PVElAyBuAjODrVBuScsMbp0kasUT5IuriHpXSf9uWkckzjQN
-	kEnQKe8PQRpHf7rwWzPS3u4cQKypY3qBdIh0PmeRxeWA6zy0b6kdjGl9HpUaor6uDnnxNX+kh8T
-	87MSclRXsfOVRPHJyM/h3vuBvFOzwCnzjS6zkCbn1ElRh4mRPipQgsOX78W/jpd/upK0sPG6+sw
-	o2Y7XLX0w6gvDIsNENM/kAlHc4uNdlHwKyKyxtG1dn72cJl/VJpUWNwKX04Ex/F4hLQnOIYfpdN
-	k6iJ6KiUTVVsHYQP98D0cVXJyCA28IK4IriD9gPFTYeAg/iF8/ps8kk1IAfwp+qiDJfmkazXLJi
-	YfA2uPXzaoxQ+W8+dcukI+uQJ48S7vfFPiLKrQb
-X-Received: by 2002:a05:6512:2511:b0:5b5:e0e8:534a with SMTP id 2adb3069b0e04-5b616ee98abmr6539579e87.1.1788997707687;
-        Wed, 09 Sep 2026 16:48:27 -0700 (PDT)
-Received: from notebook ([93.189.200.242])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b6166ed4cesm4153300e87.26.2026.09.09.16.48.24
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 09 Sep 2026 16:48:26 -0700 (PDT)
-From: Rinat Muhamedgaliev <rinat.muhamedgaliev@gmail.com>
-To: Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Sebastian Reichel <sre@kernel.org>
-Cc: David Heidelberg <david@ixit.cz>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	=?UTF-8?q?Pali=20Roh=C3=A1r?= <pali@kernel.org>,
-	"Andrew F . Davis" <afd@ti.com>,
-	linux-arm-msm@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-pm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Rinat Muhamedgaliev <rinat.muhamedgaliev@gmail.com>
-Subject: [PATCH v3 2/3] power: supply: bq27xxx: autodetect bq27411 and bq27541
-Date: Thu, 10 Sep 2026 02:47:43 +0300
-Message-ID: <20260909234744.1177153-3-rinat.muhamedgaliev@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260909234744.1177153-1-rinat.muhamedgaliev@gmail.com>
-References: <20260829205258.26955-1-rinat.muhamedgaliev@gmail.com>
- <20260909234744.1177153-1-rinat.muhamedgaliev@gmail.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="SO+P7ctG"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788997722; x=1820533722;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=p5metIfVY3CtI+2oTzxtSM1WtBNXuJaHNZRuFvzc/1A=;
+  b=SO+P7ctGmZKQno/8tZU+M6hlk3QC3syPNBz3XVoPD+/KGUIeZKp0qw7R
+   0bX8mos9m+3dghwdyW3HgLxRiupJqczh/Hh5fH93LTrv97dsoZOHh1VB5
+   TjUAX2r56/5XT/0fgNqLsMUiheB+xa6gcdo/hoE3DNiavRDNj71nsgzmQ
+   56RV+bFGF8fNKutj4EkFtP+d7yD8+rscN1zASTYJ8GruvWDe3mqEbqrAy
+   6XS+WgQEodoZX5j3LFB+C90KePLcH9ds401FKZOffafGlXrsNWmmtrp6e
+   b+TCv/j5mjpRXZuYx43GyuFncPKac+SkQst5j1qdibPTX+5LCjVw7zAx8
+   A==;
+X-CSE-ConnectionGUID: Dv+eIRn2Tw6v6lckV41CmQ==
+X-CSE-MsgGUID: b21dMTgqQa+fcZ0y0Y/2eA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11900"; a="112210650"
+X-IronPort-AV: E=Sophos;i="6.25,271,1779174000"; 
+   d="scan'208";a="112210650"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Sep 2026 16:48:41 -0700
+X-CSE-ConnectionGUID: xMUZWJzRTSuN4OtwBVjgTA==
+X-CSE-MsgGUID: CZmEZki4Rxm7Mj6cn0lD6g==
+X-ExtLoop1: 1
+Received: from lkp-server01.sh.intel.com (HELO a3e91e2cf319) ([10.239.97.150])
+  by fmviesa003.fm.intel.com with ESMTP; 09 Sep 2026 16:48:38 -0700
+Received: from kbuild by a3e91e2cf319 with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1x4S1s-0000000015I-0n14;
+	Wed, 09 Sep 2026 23:48:36 +0000
+Date: Thu, 10 Sep 2026 07:48:31 +0800
+From: kernel test robot <lkp@intel.com>
+To: Oleg Keri <okerixx@gmail.com>,
+	"Derek J. Clark" <derekjohn.clark@gmail.com>,
+	Mark Pearson <mpearson-lenovo@squebb.ca>,
+	Jiri Kosina <jikos@kernel.org>,
+	Benjamin Tissoires <bentiss@kernel.org>
+Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
+	linux-input@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] HID: lenovo: suppress phantom radio control input on
+ Yoga Slim 7x Gen 11
+Message-ID: <202609100719.bu2saXPQ-lkp@intel.com>
+References: <20260908091907.5653-1-okerixx@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260908091907.5653-1-okerixx@gmail.com>
 
-Some replaceable battery packs used by OnePlus 6 and OnePlus 6T
-phones contain a bq27411, while others contain a bq27541. These
-devices require different register maps.
+Hi Oleg,
 
-Add support for the generic ti,bq27xxx compatible. At probe time,
-issue the DeviceType control command and select the bq27411 or bq27541
-register map from the returned value.
+kernel test robot noticed the following build errors:
 
-Signed-off-by: Rinat Muhamedgaliev <rinat.muhamedgaliev@gmail.com>
----
- drivers/power/supply/bq27xxx_battery_i2c.c | 39 ++++++++++++++++++++++
- 1 file changed, 39 insertions(+)
+[auto build test ERROR on 5e036ce12de91c6fd674dad33b169c6150be2a7a]
 
-diff --git a/drivers/power/supply/bq27xxx_battery_i2c.c b/drivers/power/supply/bq27xxx_battery_i2c.c
-index 868e95f..718f8e8 100644
---- a/drivers/power/supply/bq27xxx_battery_i2c.c
-+++ b/drivers/power/supply/bq27xxx_battery_i2c.c
-@@ -16,6 +16,11 @@
- 
- static DEFINE_IDA(battery_id);
- 
-+#define BQ27XXX_REG_CTRL		0x00
-+#define BQ27XXX_DEVICE_TYPE		0x0001
-+#define BQ27411_DEVICE_TYPE		0x0421
-+#define BQ27541_DEVICE_TYPE		0x0541
-+
- static irqreturn_t bq27xxx_battery_irq_handler_thread(int irq, void *data)
- {
- 	struct bq27xxx_device_info *di = data;
-@@ -153,6 +158,32 @@ static void bq27xxx_battery_i2c_devm_ida_free(void *data)
- 	ida_free(&battery_id, num);
- }
- 
-+static int bq27xxx_battery_i2c_detect_chip(struct bq27xxx_device_info *di)
-+{
-+	int ret;
-+
-+	ret = di->bus.write(di, BQ27XXX_REG_CTRL, BQ27XXX_DEVICE_TYPE,
-+			    false);
-+	if (ret < 0)
-+		return ret;
-+
-+	ret = di->bus.read(di, BQ27XXX_REG_CTRL, false);
-+	if (ret < 0)
-+		return ret;
-+
-+	switch (ret) {
-+	case BQ27411_DEVICE_TYPE:
-+		di->chip = BQ27411;
-+		return 0;
-+	case BQ27541_DEVICE_TYPE:
-+		di->chip = BQ27541;
-+		return 0;
-+	default:
-+		dev_err(di->dev, "unsupported device type 0x%04x\n", ret);
-+		return -ENODEV;
-+	}
-+}
-+
- static int bq27xxx_battery_i2c_probe(struct i2c_client *client)
- {
- 	const struct i2c_device_id *id = i2c_client_get_device_id(client);
-@@ -188,6 +219,12 @@ static int bq27xxx_battery_i2c_probe(struct i2c_client *client)
- 	di->bus.read_bulk = bq27xxx_battery_i2c_bulk_read;
- 	di->bus.write_bulk = bq27xxx_battery_i2c_bulk_write;
- 
-+	if (!di->chip) {
-+		ret = bq27xxx_battery_i2c_detect_chip(di);
-+		if (ret)
-+			return ret;
-+	}
-+
- 	ret = bq27xxx_battery_setup(di);
- 	if (ret)
- 		return ret;
-@@ -225,6 +262,7 @@ static void bq27xxx_battery_i2c_remove(struct i2c_client *client)
- }
- 
- static const struct i2c_device_id bq27xxx_i2c_id_table[] = {
-+	{ "bq27xxx", 0 },
- 	{ "bq27200", BQ27000 },
- 	{ "bq27210", BQ27010 },
- 	{ "bq27500", BQ2750X },
-@@ -262,6 +300,7 @@ MODULE_DEVICE_TABLE(i2c, bq27xxx_i2c_id_table);
- 
- #ifdef CONFIG_OF
- static const struct of_device_id bq27xxx_battery_i2c_of_match_table[] = {
-+	{ .compatible = "ti,bq27xxx" },
- 	{ .compatible = "ti,bq27200" },
- 	{ .compatible = "ti,bq27210" },
- 	{ .compatible = "ti,bq27500" },
--- 
-2.55.0
+url:    https://github.com/intel-lab-lkp/linux/commits/Oleg-Keri/HID-lenovo-suppress-phantom-radio-control-input-on-Yoga-Slim-7x-Gen-11/20260908-111907
+base:   5e036ce12de91c6fd674dad33b169c6150be2a7a
+patch link:    https://lore.kernel.org/r/20260908091907.5653-1-okerixx%40gmail.com
+patch subject: [PATCH] HID: lenovo: suppress phantom radio control input on Yoga Slim 7x Gen 11
+config: s390-allmodconfig (https://download.01.org/0day-ci/archive/20260910/202609100719.bu2saXPQ-lkp@intel.com/config)
+compiler: clang version 24.0.0git (https://github.com/llvm/llvm-project d1c0cc5e760f9cbb68e2acec80a476c4b8b898b7)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260910/202609100719.bu2saXPQ-lkp@intel.com/reproduce)
 
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202609100719.bu2saXPQ-lkp@intel.com/
+
+All errors (new ones prefixed by >>):
+
+>> drivers/hid/hid-lenovo.c:523:7: error: use of undeclared identifier 'I2C_DEVICE_ID_ITE_LENOVO_YOGA_SLIM_7X_G11_KEYBOARD'
+     523 |         case I2C_DEVICE_ID_ITE_LENOVO_YOGA_SLIM_7X_G11_KEYBOARD:
+         |              ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   drivers/hid/hid-lenovo.c:1584:27: error: use of undeclared identifier 'I2C_DEVICE_ID_ITE_LENOVO_YOGA_SLIM_7X_G11_KEYBOARD'
+    1584 |                      USB_VENDOR_ID_ITE, I2C_DEVICE_ID_ITE_LENOVO_YOGA_SLIM_7X_G11_KEYBOARD) },
+         |                                         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+>> drivers/hid/hid-lenovo.c:1588:1: error: definition of variable with array type needs an explicit size or an initializer
+    1588 | MODULE_DEVICE_TABLE(hid, lenovo_devices);
+         | ^
+   include/linux/module.h:256:21: note: expanded from macro 'MODULE_DEVICE_TABLE'
+     256 | static typeof(name) __mod_device_table(type, name)                      \
+         |                     ^
+   include/linux/module.h:247:2: note: expanded from macro '__mod_device_table'
+     247 |         __PASTE(__mod_device_table__,   \
+         |         ^
+   include/linux/compiler_types.h:16:23: note: expanded from macro '__PASTE'
+      16 | #define __PASTE(a, b) ___PASTE(a, b)
+         |                       ^
+   include/linux/compiler_types.h:15:24: note: expanded from macro '___PASTE'
+      15 | #define ___PASTE(a, b) a##b
+         |                        ^
+   <scratch space>:15:1: note: expanded from here
+      15 | __mod_device_table__kmod_hid_lenovo__hid__lenovo_devices
+         | ^
+   3 errors generated.
+
+
+vim +/I2C_DEVICE_ID_ITE_LENOVO_YOGA_SLIM_7X_G11_KEYBOARD +523 drivers/hid/hid-lenovo.c
+
+   488	
+   489	static int lenovo_input_mapping(struct hid_device *hdev,
+   490			struct hid_input *hi, struct hid_field *field,
+   491			struct hid_usage *usage, unsigned long **bit, int *max)
+   492	{
+   493		switch (hdev->product) {
+   494		case USB_DEVICE_ID_LENOVO_TPKBD:
+   495			return lenovo_input_mapping_tpkbd(hdev, hi, field,
+   496								usage, bit, max);
+   497		case USB_DEVICE_ID_LENOVO_CUSBKBD:
+   498		case USB_DEVICE_ID_LENOVO_CBTKBD:
+   499			return lenovo_input_mapping_cptkbd(hdev, hi, field,
+   500								usage, bit, max);
+   501		case USB_DEVICE_ID_LENOVO_TPIIUSBKBD:
+   502		case USB_DEVICE_ID_LENOVO_TPIIBTKBD:
+   503			return lenovo_input_mapping_tpIIkbd(hdev, hi, field,
+   504								usage, bit, max);
+   505		case USB_DEVICE_ID_IBM_SCROLLPOINT_III:
+   506		case USB_DEVICE_ID_IBM_SCROLLPOINT_PRO:
+   507		case USB_DEVICE_ID_IBM_SCROLLPOINT_OPTICAL:
+   508		case USB_DEVICE_ID_IBM_SCROLLPOINT_800DPI_OPTICAL:
+   509		case USB_DEVICE_ID_IBM_SCROLLPOINT_800DPI_OPTICAL_PRO:
+   510		case USB_DEVICE_ID_LENOVO_SCROLLPOINT_OPTICAL:
+   511			return lenovo_input_mapping_scrollpoint(hdev, hi, field,
+   512								usage, bit, max);
+   513		case USB_DEVICE_ID_LENOVO_TP10UBKBD:
+   514			return lenovo_input_mapping_tp10_ultrabook_kbd(hdev, hi, field,
+   515								       usage, bit, max);
+   516		case USB_DEVICE_ID_LENOVO_X12_TAB:
+   517		case USB_DEVICE_ID_LENOVO_X12_TAB2:
+   518		case USB_DEVICE_ID_LENOVO_X13_TAB:
+   519		case USB_DEVICE_ID_LENOVO_X1_TAB:
+   520		case USB_DEVICE_ID_LENOVO_X1_TAB2:
+   521		case USB_DEVICE_ID_LENOVO_X1_TAB3:
+   522			return lenovo_input_mapping_x1_tab_kbd(hdev, hi, field, usage, bit, max);
+ > 523		case I2C_DEVICE_ID_ITE_LENOVO_YOGA_SLIM_7X_G11_KEYBOARD:
+   524			return lenovo_input_mapping_yoga7x_g11_kbd(hdev, hi, field, usage, bit, max);
+   525		default:
+   526			return 0;
+   527		}
+   528	}
+   529	
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
