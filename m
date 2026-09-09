@@ -1,148 +1,99 @@
-Received: from mta1.migadu.com (out-216.mta1.migadu.com [95.215.58.216])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97BD74349AD
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 10:02:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.216
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1AD13DAAA1;
+	Wed,  9 Sep 2026 10:03:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788948173; cv=none; b=XF5yWa6lJdvrdYAwg1XxH99cx5NwvaKh+lh0eN+TFg6tx8jExsIzNkOwqQrL9OUsjD70X82pfpiYU1bmKHtAtiws2vh/cqmsqL7/Mr1FoskSACotWpqM6Xh7f0PWG/g0Kj0WHGd1wiUSZA9nZ7OUGIGvWF9QpDAj9VlZrb4Cf6s=
+	t=1788948181; cv=none; b=I3yBBG42vtHZ1UPBLqCCw7vOZCByVzG1v+ZBonu5DYcqFAuX1Dj/C7mtuy4fNloi0wvEYwcgWWmLxqciprxmIKQzNMX7WngNcMI6vmjXBNrl6juX+xN3bte1Buua7fl5aONP0eh+H0Z1hReGcD1c6lrkN6CvqwhHKb55QmX5rzI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788948173; c=relaxed/simple;
-	bh=m//qkx0KbTFibXUztG1vNBFPNzkzWbof/D1O8o9BQjE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=cipKA9+axTmTkEJKlr7mMTBNtg91V3RaXJqGl1pEPc4F+QJAoesT/Mk9u5iPKT2vEywrYWxxKVEAXK4MsMcO1lnaMh6BB/87hK+Q8olYoYRmVFYzDeAO7ERxWHuXXPOEn+W5dO+7f8MKvPwl7upNs/fF/7DU1T74b69xOhxEBpE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=xNyQ0Onr; arc=none smtp.client-ip=95.215.58.216
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1788948181; c=relaxed/simple;
+	bh=EVsC7YNIyV3XddxWdZtfOvFrWEPTDs5tjm9Ewwpx0Fw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=eN0TYYsPIB2lXBIn3QZTQycD57OEf/rF6Q3XuMQMij+PfPE2desNyj0ZM1ru0r4VSoUT0JE/nJQjDPIBqM6Soctw/C5nE/9ypYzy+VjsOPTn6DTHCGVFd295Y+w1ct4D1EMP648HYomy4SL4FMCdO02dE9grNtM8/BvpRlp+ai8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hX5tVD48; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="xNyQ0Onr"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=m//qkx0KbTFibXUztG1vNBFPNzkzWbof/D1O8o9BQjE=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788948168; v=1; x=1789552968;
- b=xNyQ0OnrVl8pSF9kW9jF1oWGPMWCYbXb53HXpU5ULX52CXjVXjkqiXOGKQntbE2I8B/JkqcQ
- fCFot3UKe75GHc0UQ/Klt/kSjNrJQ3Hi84bYkwtBYMKviuWMkbOXSIfPpuPs+MBUeoeAkd06wHC
- hcBacTEeuUpSoLUz0UNRqoys=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta10.migadu.com with ESMTPS id c6ae4e2d42fbd256;
-	Wed, 09 Sep 2026 10:02:47 +0000
-X-Mizu-Trace-ID: c6ae4e2d42fbd256
-X-Migadu-Flow: FLOW_OUT
-From: Usama Arif <usama.arif@linux.dev>
-To: Kiryl Shutsemau <kirill@shutemov.name>
-Cc: Usama Arif <usama.arif@linux.dev>,
-	akpm@linux-foundation.org,
-	"Matthew Wilcox (Oracle)" <willy@infradead.org>,
-	David Hildenbrand <david@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>,
-	Jan Kara <jack@suse.cz>,
-	Rik van Riel <riel@surriel.com>,
-	Harry Yoo <harry@kernel.org>,
-	Lance Yang <lance.yang@linux.dev>,
-	Jann Horn <jannh@google.com>,
-	Alexander Viro <viro@zeniv.linux.org.uk>,
-	Christian Brauner <brauner@kernel.org>,
-	"Darrick J. Wong" <djwong@kernel.org>,
-	Carlos Maiolino <cem@kernel.org>,
-	Pedro Falcato <pfalcato@suse.de>,
-	linux-mm@kvack.org,
-	linux-fsdevel@vger.kernel.org,
-	linux-xfs@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	kernel-team@meta.com,
-	"Kiryl Shutsemau (Meta)" <kas@kernel.org>
-Subject: Re: [RFC PATCH 0/5] mm: sub-folio dirty tracking for PTE-mapped mmap writes
-Date: Wed,  9 Sep 2026 03:02:39 -0700
-Message-ID: <20260909100240.635595-1-usama.arif@linux.dev>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260903182943.662461-1-kirill@shutemov.name>
-References: 
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hX5tVD48"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C5E231F00A3D;
+	Wed,  9 Sep 2026 10:02:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788948180;
+	bh=qL5v5lQdZldPAbLm/+TpEkR7SMK04/J+TrzXP5wZgHs=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=hX5tVD48XCtUCVXCRL5G9+dGlaiLOYwvKuJ4NPg+7iYrzwq4NCV8g6oaBxe5m2yMg
+	 YFzqWD19PJoZBRAvWrNqsHYPyobZWghyBI4oMIm1QU3dacJS6Anoi+7fmzTp+TZSDD
+	 hJnr8MoHeZwP3ui0gZeUFrEdNwfw+lYeOr0o3XK9Y1Clx1cqeDjv6nu78+5S+8YRH2
+	 Ooi/ot9PfJ1faexvtpbohSFlvFk+uJZ3KMwBK9dBfzG3h5xeF/uboedCwEtDbJWcgg
+	 p3Kz+K+d4PgpQQZ3/qh+rfTRqNCQZjsE1nKxIvl7fyJg5VqIosP5HD6mug4nRDY9PM
+	 iw4Y9KYc8sJyw==
+Date: Wed, 9 Sep 2026 11:02:48 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Judith Mendez <jm@ti.com>
+Cc: Srinivas Kandagatla <srini@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
+	Masami Hiramatsu <mhiramat@kernel.org>, devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 1/3] dt-bindings: nvmem: uniphier-efuse: Add
+ ti,am62p-efuse compatible
+Message-ID: <aqEuyLac2OGkSYX7@squawk>
+References: <20260902222759.736124-1-jm@ti.com>
+ <20260902222759.736124-2-jm@ti.com>
+ <20260903-sandfish-likewise-820d64daae2b@spud>
+ <9e72a269-1b19-4c60-a32d-8f93c499f205@ti.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="msDbi5syonYINgjJ"
+Content-Disposition: inline
+In-Reply-To: <9e72a269-1b19-4c60-a32d-8f93c499f205@ti.com>
 
-On Thu,  3 Sep 2026 19:29:38 +0100 Kiryl Shutsemau <kirill@shutemov.name> wrote:
+--msDbi5syonYINgjJ
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-> From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
-> 
-> A store through a shared file mapping dirties the whole folio. With large
-> page cache folios that turns a 4K store into 2M of writeback: one dirty
-> bit per folio, and writeback has no way to know which part changed.
-> 
-> XFS already knows better. iomap tracks dirty state per block and
-> iomap_writeback_folio() submits only the dirty ranges, and the buffered
-> write path sets just the range it copied. Only the mmap path throws that
-> away, because iomap_dirty_folio() covers the whole folio.
-> 
-> Narrowing the dirtying at page_mkwrite() time does not work on its own:
-> set_pte_range() batch-maps a whole folio writable on the first shared
-> write fault, so the stores that follow never fault and never reach the
-> filesystem.
-> 
-> So harvest the hardware instead. folio_clear_dirty_for_io() already calls
-> folio_mkclean(), whose rmap walk reads pte_dirty() for every entry of the
-> folio and throws it away. Those bits are the only record of which parts
-> of a large folio were written through a mapping. Collect them there and
-> hand the filesystem the runs that were dirty, through a new
-> a_ops->dirty_folio_range().
-> 
-> All of this is about PTE-mapped folios. A PMD-mapped folio has a single
-> dirty bit for the 2M it maps, so there is nothing finer to harvest, and
-> it keeps writing back whole. Keeping shared write faults off PMDs is a
-> separate patch and not part of this posting.
-> 
-> On a 512M file in 2M folios on XFS, storing one byte per folio and
-> calling msync() wrote 512M before and writes 1M after, with identical
-> minor fault counts.
+On Tue, Sep 08, 2026 at 03:28:47PM -0500, Judith Mendez wrote:
+> Hi Conor,
+>=20
+> On 9/3/26 13:00, Conor Dooley wrote:
+> > On Wed, Sep 02, 2026 at 05:27:57PM -0500, Judith Mendez wrote:
+> > > Add ti,am62p-efuse as a compatible string to the uniphier-efuse bindi=
+ng.
+> > > The uniphier-efuse driver can be used to read AM62P efuse registers as
+> > > well for GP_SW silicon revision detection.
+> > >=20
+> > > Signed-off-by: Judith Mendez <jm@ti.com>
+> >=20
+> > Why is a fallback compatible not suitable here?
+> > Either it is, and you should add one, or you need to explain in hte
+> > commit message why it is not.
+>=20
+> Do you mean the following? :
+>=20
+> compatible:
+>     oneOf:
+>         - const: socionext,uniphier-efuse
+>         - items:
+>             - const: ti,am62p-efuse
+>             - const: socionext,uniphier-efuse
 
-Hi Kiryl,
+Correct.
 
-The motivation makes sense to me. I will look into the patches.
+--msDbi5syonYINgjJ
+Content-Type: application/pgp-signature; name=signature.asc
 
-Just wanted to check, the above xfs example, is that on an ARM host?
+-----BEGIN PGP SIGNATURE-----
 
-Thanks,
-Usama
+iHUEARYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaqEuyAAKCRB4tDGHoIJi
+0kbTAQClPJISrFz94rICYGVYujAIAlIPpO10JQHDUyUxLH6E1gEAqYmy4Hgv2dII
+OViZOLP/U00zE82DsFTWQKfQ+vKrhwc=
+=ARD7
+-----END PGP SIGNATURE-----
 
-> 
-> Not addressed here:
-> 
->  - Dirty accounting stays folio-granular. A 4K store still counts as 2M
->    against dirty_ratio and balance_dirty_pages().
->  - iomap_page_mkwrite() still allocates blocks for the whole folio.
->  - Filesystems without per-block dirty state see no change.
-> 
-> Kiryl Shutsemau (Meta) (5):
->   mm: let folio_mkclean() report which pages had dirty PTEs
->   mm: add a_ops->dirty_folio_range() and use the mkclean dirty harvest
->   mm: keep the mmap dirty range down to the faulting page
->   iomap: narrow page_mkwrite() dirtying to the faulting page
->   xfs: track mmap dirty state per block
-> 
->  fs/iomap/buffered-io.c | 37 +++++++++++++-----
->  fs/xfs/xfs_aops.c      |  2 +-
->  include/linux/fs.h     |  3 ++
->  include/linux/iomap.h  |  2 +
->  include/linux/mm.h     |  1 +
->  include/linux/rmap.h   |  7 ++++
->  mm/memory.c            | 58 ++++++++++++++++++++++++++--
->  mm/page-writeback.c    | 87 +++++++++++++++++++++++++++++++++++++++---
->  mm/rmap.c              | 56 +++++++++++++++++++++------
->  9 files changed, 222 insertions(+), 31 deletions(-)
-> 
-> 
-> base-commit: 0a0d1d55dad570724bf8c7ea83409639cfb4be9b
-> -- 
-> 2.54.0
-> 
-> 
+--msDbi5syonYINgjJ--
