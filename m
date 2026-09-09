@@ -1,204 +1,208 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com [209.85.218.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B99D52D2DF;
-	Wed,  9 Sep 2026 10:45:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788950757; cv=none; b=hP/NKagRyMIOSv5FKD7AmSQD30Bq4mkdDcwLQB/yMUUC+rgdC/LCnK4g7Z+lw0g9Qg33pO1Y0uic6tQJs4bD0DnhB/Q0f0akeKWSWmO2fwmQkOFJhMZqL0spVDLT3Cw1PsBmT9+aZLQ5fNsIu3phDuQ9TZSe4XhRwyt1qIrNZ0k=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788950757; c=relaxed/simple;
-	bh=SW7cLgojHrcUYXKcjEEu0ONNrq/wW4d4yuppKQ28Jf4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=pfNLnSUjjDXfweVOGYO+RmdgQ8TGeFLVku+iCXDVY691XsoOXRgEfSdcBgu+MWkZsYJ+NU18JwJdVqDMqtbbXotrenBTLGP0ysfw4Boa5vW6NUoqC9+gS6bE4Yxsk5xXnVuDaCYTYTeV+aGWWd74ELKCA1LvW6TIbHevfi31djQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=wZgrh7oK; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=XjpjIQVP; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=vjJehZzv; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=bYv4a894; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C92955335A8
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 10:47:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.43
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788950847; cv=pass; b=V+I+8qeosIBdrWgpZ7rv2W4RlnXfLVRrN6bFsWliD1YTmGoWYuW/T91bMKPzjlUMWudsSEtpfoJl/LeYMJV9oWHk110GqdOXHW9HWUO4OeS3nOmCbRlkSjEQ2+252LUaI/VWdxFynPsSxGAZzTwIowX9el+XAV5g4SQikLene7E=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788950847; c=relaxed/simple;
+	bh=c8u0G9DIKWY3wWy8HFtAWaGMEPB6ZGP6llC+ZRy104Q=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=vDGOtuYgwu+b2kH0mGTvOhDegneqSVRcCIA6KyYk+5d7uc3RDN8pFi31VJBo/J7o8IstGMYOsOQaEh4RT/v/OsacR22K0mvMqpXds4n7vZeywNhPBC3qBgJjg7xRTnZveSL87LvwrrV8v6bJYhFuvwvjmfxve23KTiqTPlYAFzk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mihalicyn.com; spf=pass smtp.mailfrom=mihalicyn.com; dkim=pass (1024-bit key) header.d=mihalicyn.com header.i=@mihalicyn.com header.b=K5vcrzUt; arc=pass smtp.client-ip=209.85.218.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mihalicyn.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mihalicyn.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="wZgrh7oK";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="XjpjIQVP";
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="vjJehZzv";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="bYv4a894"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id EDE321FB94;
-	Wed,  9 Sep 2026 10:45:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1788950748; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=veSNjv/CclJGuuawSVwaLJ3kDirS5tEQKBLayZHneAA=;
-	b=wZgrh7oKi8hZUx7nwG1ZyXsH4zeQ+R57NtJrI7AuJoFRAYtnhcTGUxsDip373OrgGnkPMf
-	kOh0AIIhzE1eQ13LPb4edWvOLAaq8RZSKzZkQ4TerMusCiWkY00TlkZCqsmvNqZ9AL2lUh
-	+zwWJpYBM8yg3yx0b9MUILL7TpnFUhA=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1788950748;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=veSNjv/CclJGuuawSVwaLJ3kDirS5tEQKBLayZHneAA=;
-	b=XjpjIQVPER7klngKkoKX6dl73PnYd5HPHKSXemlioT+835uqhfJwaoRIydhafAcwo7IfUt
-	eV/2bQO7Ocp0KACg==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=vjJehZzv;
-	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=bYv4a894
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1788950743; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=veSNjv/CclJGuuawSVwaLJ3kDirS5tEQKBLayZHneAA=;
-	b=vjJehZzvgePVEh21qvW9xKptgBmpAzeSyUIqr5baRoBDZgfLATM5wrInmlIpuwwHdvYiJD
-	ZiP9pbszyaAz3OengjRc4FGx6nANRKPMF9UaGp9AxcEeEZ/ltbmnzjHC2ktm1usI5R0MTc
-	KSwdVPmNo1BOmPMbXSJYtGbaZZV5baQ=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1788950743;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=veSNjv/CclJGuuawSVwaLJ3kDirS5tEQKBLayZHneAA=;
-	b=bYv4a894oFIomDN7P7MKdZJozbClCezL3uISMMevPmLYxIu2mbQ+8b/905tKthqX2r7evd
-	dbSk2/puRZAJFhAw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id C5FDA1352C;
-	Wed,  9 Sep 2026 10:45:43 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id lr9PMNc4oWpHQAAAD6G6ig
-	(envelope-from <jack@suse.cz>); Wed, 09 Sep 2026 10:45:43 +0000
-Received: by quack3.suse.cz (Postfix, from userid 1000)
-	id 5958DA1341; Wed, 09 Sep 2026 12:45:39 +0200 (CEST)
-Date: Wed, 9 Sep 2026 12:45:39 +0200
-From: Jan Kara <jack@suse.cz>
-To: Fan Wu <fanwu01@zju.edu.cn>
-Cc: tytso@mit.edu, adilger.kernel@dilger.ca, libaokun@linux.alibaba.com, 
-	jack@suse.cz, ojaswin@linux.ibm.com, ritesh.list@gmail.com, 
-	yi.zhang@huawei.com, linux-ext4@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2] ext4: fix discard work use-after-free on failed mount
-Message-ID: <yk63qkcutb7znlrsiwtrc6ijkjtptfxaj73oclyx5px24wka2t@4s4wjofmlnwm>
-References: <20260909054124.657782-1-fanwu01@zju.edu.cn>
+	dkim=pass (1024-bit key) header.d=mihalicyn.com header.i=@mihalicyn.com header.b="K5vcrzUt"
+Received: by mail-ej1-f43.google.com with SMTP id a640c23a62f3a-c2938116fefso63845566b.1
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 03:47:25 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788950843; cv=none;
+        d=google.com; s=arc-20260327;
+        b=S/Q/1KDs0xeL/YEf/igI292mq5z0fVhge3p2e0I4ZC606qwFy3GjLo0jsBcxuFD7Ug
+         695InhVBUEf5liYcHA23uXVOFNcwmhZILPBmToB9w+14SqNaAoB2/wgUsIniOfELZstv
+         6Gj4Sydy2gbrPCb+7tafDjeuOraNRyTB+ehzmxe4ZE83msvniSNoPbgnJY76H7BP8iOR
+         asPA2fmdy1AHyKERYlzTKXb7hW/uH6VlAwC41lwKHXoCW4uOPkOoysrsHfVvp03JdcAj
+         +ZpTLJYgW0xDww0cXDzXqbc6yzUovbVa1VwOAjNsgsxWdMZG+44zdp8h232sufRMcdWV
+         yHXg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=KuPrUbZf/fUdetX99DjVi3Kowkh+3S7lPORa/Cu8+p8=;
+        fh=KH4BpYjfQbHk0XbH2LK0opxJQkDIzIL1RIOV6Bw2f04=;
+        b=h6BoFzodA0h3gQ9wtoVHh8vOBT2ePLzxl8ipsMNNWrHACtKnil15D1vGYNRjRFIugk
+         W8RVqasEIfK4dhgOzn0U8IAjtfmS5DQP+/FQo/wyHLgM+wAfSllzs/swqZtDoBf0AX71
+         0RybnAiWSMyuNS8oR8adqjddLwK3Ygr8M3nXQVhaHfXxbnRSxuX5mDLcYvwbvI7iu1Ha
+         kGuiMggk77TXuKRxAH4ydYerq/SKXH5NzJX0xy7re4l1/1M/xtSfkQVMYlC743/9IPdw
+         EdHuUdHwfKsH2NsSEaB8Pn52T8biRTYwANYA3cKsxvx5vR3pW2R8siZbOhTR1hs3A4Nw
+         z44A==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=mihalicyn.com; s=mihalicyn; t=1788950843; x=1789555643; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=KuPrUbZf/fUdetX99DjVi3Kowkh+3S7lPORa/Cu8+p8=;
+        b=K5vcrzUtilChwK/MPJX5CZQ3+nCjlXcsrIfvIDSQcvZ7DoCbsmViIAE+dwn7nHZPsQ
+         BIHDcv2OJNiGyoNcyuxSprar+Z3meDAKbyod7dx0hMYt1VZU9WmLxWwfR43j0iXWPsCE
+         v5sJB9AOS6P2iiv8ZiUYu05Vibq/kmOpg8QMk=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788950843; x=1789555643;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=KuPrUbZf/fUdetX99DjVi3Kowkh+3S7lPORa/Cu8+p8=;
+        b=ousuAfzQQVogQ2wenednaMjGQqsBoDArvV7x5b7QMIpOnuadQ3EucXhhWZWBHBr4Mf
+         U+uyP37LtFP1WjQ3Nl/g8HvcMN1qWZwz+ghL1Adk22hjNJ0CJCZ1z37HuBRWV2fYFzS8
+         5Dt7eHquTdiHpqGVAnicnpXjw2edfuL6oPEPO6MeymGBMtLm+fOpbQutXfwDKh3C71nO
+         cPxkuBGWwLbAYbVh6bBrdchrcZCoMGEpJzQPNuUf86B7OZwatCo3uY00ir1JI/vmAPwW
+         shP7AykLZXR4r37Wn0kqi+dCCqSQzV7jMHtsiDOVCQzErJPJfjK/OM4M87Emu8WTR0X3
+         u2yQ==
+X-Forwarded-Encrypted: i=1; AKwUvBx31kmPGSWtByRntGtdG4BzS3AdzKMLUIpDwcnt6KpZxdlhnUV/uX31g+VldHBgOzpQQWH2VZAA8jY/UBE=@vger.kernel.org
+X-Gm-Message-State: AFuF++nF0v/avdz2G9m0K3/xWJcaFbpUOxo7qOLsAweWmTOrLNTxU3HT
+	Z7J4QfaJ1wK7A5ogcrOem7Gdn13b2ZT6Xk+eylWzgcqk+WTUWUx6iv4XnUC5qAuit78DZrXP2HV
+	li8j5RV8QUo5T6z81naIrd0NNnJg7Bo8XkjCD+5RFRQ==
+X-Gm-Gg: AYBFou0sKAQNwIsmdLy/Spu24uw9/mDD7JVIO/XLBasbRQZWoCmv9gV2dPsMVb+qQFU
+	sTlFyy5r/hQxwGr/1RhEKNx3CRgC7cJLzzBUqhUxPX/1hXBpdGIQCwOdATCD4mxXsGZQIw9LVea
+	qYoAV2lwBG7yiS/iU4REreSUauKkPHR6n9vXqDnV7wpukwkbcIYduuDfZe8JSgKfyiYF5XUu0dM
+	t0qoG3NViAHp2OTYsfYyGUE3ZwkqPUYY+1MdhCbfDiy7O4ur+7tcCZkX/uqqWYSYGqMGUHx7o40
+	Aegcmiutk2ClWx2GmFBen+FwW8lJK1Y+F7fHY9r+TnRMamxH++GzK8kjLgJW6UxfRYfTkGthgQC
+	GEzwkcUQ8jg4=
+X-Received: by 2002:a17:907:e1c6:10b0:c26:2c3d:67aa with SMTP id
+ a640c23a62f3a-c262c3d7d38mr647675466b.47.1788950843137; Wed, 09 Sep 2026
+ 03:47:23 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260909054124.657782-1-fanwu01@zju.edu.cn>
-X-Spam-Level: 
-X-Rspamd-Action: no action
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Queue-Id: EDE321FB94
-X-Spamd-Result: default: False [-2.51 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	RCVD_TLS_LAST(0.00)[];
-	ARC_NA(0.00)[];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	RCVD_COUNT_THREE(0.00)[3];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	FREEMAIL_CC(0.00)[mit.edu,dilger.ca,linux.alibaba.com,suse.cz,linux.ibm.com,gmail.com,huawei.com,vger.kernel.org];
-	RCPT_COUNT_SEVEN(0.00)[11];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TAGGED_RCPT(0.00)[];
-	DKIM_TRACE(0.00)[suse.cz:+];
-	MISSING_XM_UA(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,zju.edu.cn:email,suse.com:email,suse.cz:dkim,suse.cz:email]
-X-Spam-Flag: NO
-X-Spam-Score: -2.51
+References: <20260831-work-unix-passpidfd-v1-0-70cbfda0c7ba@kernel.org>
+ <20260831-work-unix-passpidfd-v1-2-70cbfda0c7ba@kernel.org>
+ <CAJqdLrooAYAcgzug=+idiPfqsZ0HGaqi29STuw7uzDh7eEB1xQ@mail.gmail.com> <20260909-kredenzen-stock-hyperaktiv-121c1eec9f98@brauner>
+In-Reply-To: <20260909-kredenzen-stock-hyperaktiv-121c1eec9f98@brauner>
+From: Alexander Mikhalitsyn <alexander@mihalicyn.com>
+Date: Wed, 9 Sep 2026 12:47:11 +0200
+X-Gm-Features: AcwNN1XVh-ALE8Pd-F1vhWkAcwoJY8Oak9Or6CODFCYe9Lq9EEeN6slL8DKSSVc
+Message-ID: <CAJqdLrrt_HhKmSmKr72rUip-_j_eOG-41SoBGcJJGZ=i2pUd6w@mail.gmail.com>
+Subject: Re: [PATCH 02/10] af_unix: record the pid of the sending thread
+To: Christian Brauner <brauner@kernel.org>
+Cc: Jakub Kicinski <kuba@kernel.org>, Kuniyuki Iwashima <kuniyu@google.com>, Oleg Nesterov <oleg@redhat.com>, 
+	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+	Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
+	Willem de Bruijn <willemb@google.com>, netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, linux-fsdevel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Wed 09-09-26 05:41:24, Fan Wu wrote:
-> ext4_put_super() shuts the journal down before it releases the mballoc
-> structures, but the failure unwind of __ext4_fill_super() runs the two
-> steps in the opposite order: failed_mount6 calls ext4_mb_release(),
-> which flushes sbi->s_discard_work, and the journal is destroyed only
-> later, just above failed_mount3a.
-> 
-> With -o discard, that journal destroy re-arms the work after the flush:
-> ext4_journal_destroy() calls ext4_force_commit(), and the commit
-> callback, registered once mballoc is initialized, queues s_discard_work
-> whenever the discard option is set, even with an empty freed-data list.
-> A running transaction can be live at that point: replaying the orphan
-> list is the easiest way to get one, and the quota paths on
-> failed_mount8/failed_mount9 can leave one too. The final force commit
-> is not necessarily a no-op.
-> 
-> Nothing drains s_discard_work after that point: failed_mount3 flushes
-> only s_sb_upd_work and the s_err_report timer, and ext4_fill_super()
-> then frees sbi with a plain kfree() through ext4_free_sbi(). If the
-> system_dfl_wq worker is delayed across the rest of the unwind,
-> ext4_discard_work() then accesses the freed sbi, first through
-> sbi->s_sb and then while taking sbi->s_md_lock.
-> 
-> This is the pattern fixed for the s_err_report timer in commit
-> 0ce160c5bdb6 ("ext4: fix timer use-after-free on failed mount"):
-> async state armed after the unwind's last drain point.
-> 
-> Force the commit at failed_mount6, before ext4_mb_release(), so that
-> the discard work its commit callback queues is normally already
-> pending when the flush_work() in ext4_mb_release() runs.
-> disable_work_sync() there then makes this airtight: it also drains an
-> instance the flush missed, and no later commit, including the force
-> commit inside the journal destroy further down the unwind, can
-> requeue the work. The journal destroy stays at its existing position.
-> 
-> This issue was found by an in-house static analysis tool.
-> 
-> Fixes: 55cdd0af2bc5 ("ext4: get discard out of jbd2 commit kthread contex")
-> Cc: stable@vger.kernel.org # v6.10+
-> Assisted-by: Codex:gpt-5.6
-> Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+Am Mi., 9. Sept. 2026 um 12:36 Uhr schrieb Christian Brauner
+<brauner@kernel.org>:
+>
+> On Mon, Sep 07, 2026 at 11:55:23AM +0200, Alexander Mikhalitsyn wrote:
+> > Am Mo., 31. Aug. 2026 um 13:21 Uhr schrieb Christian Brauner
+> > <brauner@kernel.org>:
+> > >
+> > > Currently only the struct pid of the thread-group leader is recorded.
+> > > The identity of the actual thread that sent the message or is connected
+> > > to a given socket cannot be retrieved.
+> > >
+> > > Add the plumbing to make it possible to retrieve a pidfd for the sender.
+> > > Nothing uses the thread-specific struct pid yet. No functional changes.
+> > >
+> > > Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+> > > ---
+> > >  include/net/scm.h  |  7 +++----
+> > >  net/core/scm.c     | 21 +++++++++++++++++----
+> > >  net/unix/af_unix.c | 23 +++++++++++++----------
+> > >  net/unix/af_unix.h |  3 ++-
+> > >  4 files changed, 35 insertions(+), 19 deletions(-)
+> > >
+> > > diff --git a/include/net/scm.h b/include/net/scm.h
+> > > index 86ae6bc109ec..aa7d15c5fc27 100644
+> > > --- a/include/net/scm.h
+> > > +++ b/include/net/scm.h
+> > > @@ -42,7 +42,7 @@ struct scm_fp_list {
+> > >  };
+> > >
+> > >  struct scm_cookie {
+> > > -       struct pid              *pid;           /* Skb credentials */
+> > > +       DECLARE_PIDS(pid, PIDTYPE_TGID);        /* Skb credentials by pid type */
+> > >         struct scm_fp_list      *fp;            /* Passed files         */
+> > >         struct scm_creds        creds;          /* Skb credentials      */
+> > >  #ifdef CONFIG_SECURITY_NETWORK
+> > > @@ -69,7 +69,7 @@ static __inline__ void unix_get_peersec_dgram(struct socket *sock, struct scm_co
+> > >  static __inline__ void scm_set_cred(struct scm_cookie *scm,
+> > >                                     struct pid *pid, kuid_t uid, kgid_t gid)
+> > >  {
+> > > -       scm->pid = get_pid(pid);
+> > > +       scm->pid[PIDTYPE_TGID] = get_pid(pid);
+> > >         scm->creds.pid = pid_vnr(pid);
+> > >         scm->creds.uid = uid;
+> > >         scm->creds.gid = gid;
+> > > @@ -77,8 +77,7 @@ static __inline__ void scm_set_cred(struct scm_cookie *scm,
+> > >
+> > >  static __inline__ void scm_destroy_cred(struct scm_cookie *scm)
+> > >  {
+> > > -       put_pid(scm->pid);
+> > > -       scm->pid = NULL;
+> > > +       put_pids(scm->pid);
+> > >  }
+> > >
+> > >  static __inline__ void scm_destroy(struct scm_cookie *scm)
+> > > diff --git a/net/core/scm.c b/net/core/scm.c
+> > > index f0d44ecdb11f..9b9e119c353a 100644
+> > > --- a/net/core/scm.c
+> > > +++ b/net/core/scm.c
+> > > @@ -149,6 +149,7 @@ EXPORT_SYMBOL(__scm_destroy);
+> > >
+> > >  static inline int scm_replace_pid(struct scm_cookie *scm, struct pid *pid)
+> > >  {
+> > > +       struct pid *thread_pid;
+> > >         int err;
+> > >
+> > >         /* drop all previous references */
+> > > @@ -158,7 +159,18 @@ static inline int scm_replace_pid(struct scm_cookie *scm, struct pid *pid)
+> > >         if (unlikely(err))
+> > >                 return err;
+> > >
+> > > -       scm->pid = pid;
+> > > +       /* A sender naming its own thread-group sends from the current thread. */
+> > > +       if (pid == task_tgid(current))
+> > > +               thread_pid = task_pid(current);
+> > > +       else
+> > > +               thread_pid = pid;
+> >
+> > Hi Christian,
+> >
+> > The patch looks good to me, but this spot raised some doubts for me.
+> >
+> > If scm_replace_pid() is called with pid == task_tgid(current) then all
+> > good, because we
+> > get scm->pid[PIDTYPE_TGID] == pid and  scm->pid[PIDTYPE_PID] ==
+> > task_pid(current). All good.
+> >
+> > If scm_replace_pid() is supplied with pid that has a type PIDTYPE_TGID, then:
+> > - scm->pid[PIDTYPE_TGID] == pid. Good.
+> > - scm->pid[PIDTYPE_PID] = pid. Doesn't looks correct, shoudn't we do
+>
+> After chatting with you, I think I get the concern. You think that
+> scm->pid[PIDTYPE_PID] always points to a thread-group leader if pid ==
+> task_tgid(current). Yes, that's true but that's intended and fine. The
+> thread-group leader is just a thread in the thread-group just with
+> magical behavior (that we would really like to get rid of but can't
+> easily...).
 
-Looks good to me. Just two nits below. After fixing them feel free to add:
+Yes, my concern was about another case when `pid != task_tgid(current)`, but the
+chunk of code I've suggested makes no sense. When I looked at it with
+a fresh head I realized this.
+In scm_replace_pid, once we've got `pid` pointing to a leader's thread
+we can't really do anything
+other than taking leader thread's TID as a scm->pid[PIDTYPE_PID]...
 
-Reviewed-by: Jan Kara <jack@suse.cz>
+>
+> Thanks for looking closely at this though!
 
->  failed_mount6:
-> +	/*
-> +	 * Flush any running transaction: its commit callback may queue
-> +	 * s_discard_work, which the flush_work() in ext4_mb_release()
-> +	 * below drains; disable_work_sync() there also drains an
-> +	 * instance queued after that, and keeps the journal destroy
-> +	 * further down the unwind from requeueing the work.
-> +	 */
+LGTM
 
-I think this comment is a bit too detailed. Maybe just:
-	/*
-	 * We can have a running transaction from orphan replay or quota
-	 * setup. Commit it so that discard work after commit runs before
-	 * we shutdown mballoc.
-	 */
-
-> +	if (sbi->s_journal)
-
-No need for this check. ext4_force_commit() -> ext4_journal_force_commit()
-does it on its own.
-
-> +		ext4_force_commit(sb);
->  	ext4_mb_release(sb);
->  	ext4_flex_groups_free(sbi);
->  failed_mount5:
-
-								Honza
--- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+Reviewed-by: Alexander Mikhalitsyn <aleksandr.mikhalitsyn@futurfusion.io>
