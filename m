@@ -1,274 +1,144 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1938420459A
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 06:29:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2A12357D08
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 06:29:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788935345; cv=none; b=gwYECF3hx7Rk86XjRxV/OFLjJomHy+V4CrUl6Zf6DpDwsMbxbc5pISGFq47gmGKWCSSx+i7/9LOUqk6fGx8jfMcDGOlNntrvA9j3nWm+UTtqupA2AYRrPSLjZbOG/SOQaE1d2/s26BiuiBULuaJd6vQnY21DC1HFeIUOLwPV15A=
+	t=1788935361; cv=none; b=SJMopE1v02ej0M58YzVrn0sHwldBXQXCY1owKFcJeUY0a8Vx4PQ3mNVBrAlVle14wmY6sStvUfE8Opt7ibdJvFsZkyZa9XZto6qpjVO+8lKfwfYfCeSff81BY7W3Yx2vbfJH61ZwkSykJmoggPSWTirrAEp8+8dgEx97QgEZMpQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788935345; c=relaxed/simple;
-	bh=3fV8jgLcRjuyLR391/kG5tMD6K1kffCREi2nmZlsCaA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=iIxFgicF+Ey3+kWGwDya8fvRKsliiBjwtKXpC830S4gsF38Z3DcZRfEN2sAKoEO/4nsXDiO5Oiw6OUeDXo8PfImg2GSiecdNpP8k9y1yeBe/d6ngjueQUOKysDebdCy6NZLSf6HhXx1Mqzc+Nyy7EM3eKZ0FP1DOq+TqDNo/n5k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=Tb4jeXvc; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=4TWE+OnT; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=U4BnwlC1; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=HoEvHJUI; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	s=arc-20240116; t=1788935361; c=relaxed/simple;
+	bh=GApF9KA7a7An3y3e0JIVJ0bz/r94i/L+WtuY8JrvS10=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Vt6SV1WYl/dvkyevY+Tx24fcX0oki6q5adqJsc7WmVZRbF+jSGV7D/dtBbug6zalyzCs1U9EFSjuCDxpNGm6cna7LnonZBuWGOinndd9rj/XOh8sO3LSh07BXoJJvb/2620ExEC2CfuQX5CS3uOUU5o7vSYAsjFZisIoYDeYFPs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=LNkndGI+; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=JjUCDJ6M; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="Tb4jeXvc";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="4TWE+OnT";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="U4BnwlC1";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="HoEvHJUI"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 369F5219C9;
-	Wed,  9 Sep 2026 06:28:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1788935337; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=B0oCX5KMpd7x5PI6OZxyukHi8rD2vQm93yVg8CbvZCc=;
-	b=Tb4jeXvcvx9gyX//R56F2xo2xIIiTANiRwTnMFwO20hA2y/jX1uhsySsURiudYm9CxriWd
-	tGSLEdPGsVprp9Xro0fDT82k653sUtwU2cmWZHzRr01X2n+eAViFIHd54FQw1CxYVCKm89
-	zPhuCw22s9n7GTUGzvn8jIMziRe3aQg=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1788935337;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=B0oCX5KMpd7x5PI6OZxyukHi8rD2vQm93yVg8CbvZCc=;
-	b=4TWE+OnTzD9Ykx833TWy2cxSka6lpDjU1oY7kEFKMPiSjB1eENU+q7/9xyrjpJ6oDGKSpF
-	5lH2I2sQ5kRw82CA==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1788935333; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=B0oCX5KMpd7x5PI6OZxyukHi8rD2vQm93yVg8CbvZCc=;
-	b=U4BnwlC14yHpa67+CwxYaLPKFPMmIm5Dmldgee7oa9X/foglmkt+AFPt30neN+CgXG3pva
-	JZ7t5ixru3bklmHZnaKBoLjtwTAyjn6SGojDo0jzPfWi/QTTacWyf6itfnoW+kQIg6tcDX
-	Ik9Cop4R88E8ZW7PLCPB+4z0d0MXZ1k=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1788935333;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=B0oCX5KMpd7x5PI6OZxyukHi8rD2vQm93yVg8CbvZCc=;
-	b=HoEvHJUIb7Ao18J/W00fnvPl1gHQlx//mxzDrWGDVwywWkRK0JOvawx1KAxtwDCuoheqS6
-	WhvvujRAm0UaHZBQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 81A1A13354;
-	Wed,  9 Sep 2026 06:28:52 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id 6lG4HaT8oGr9PgAAD6G6ig
-	(envelope-from <tzimmermann@suse.de>); Wed, 09 Sep 2026 06:28:52 +0000
-Message-ID: <2b3ff8c0-09b4-48fd-9965-9df70d19778c@suse.de>
-Date: Wed, 9 Sep 2026 08:28:51 +0200
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="LNkndGI+";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="JjUCDJ6M"
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6896BL4v1274463
+	for <linux-kernel@vger.kernel.org>; Wed, 9 Sep 2026 06:29:16 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=UuVzlSB31qLhxRy93vlak5xk
+	hcEfOZHHWWOiuFWT7KI=; b=LNkndGI+F2sVu3y5Jk29Y6qr8RzZHDbUDldUWiet
+	jDNwQBuB1w53SE5u7S6smxLJvGwsbmuQizXPBfXnrHsCJMLMzvmSs1Z8V5d+Ex2q
+	QYYjDQps+IxT4+nUEawE6bDduSv+xQrhJF5ccgaQ84bjKaz786cGcUOYA8y1YED8
+	InVhv7bYQnLFb4v36zcGVO9EOLrmPRUZ1z8XCGHuFrToVlGpcg4tpUnRhJA75NbV
+	G4Tpge1Axdb1PhY5KFtXcJYoUi6Zbgw1uVVAdnxYAOj9yB8+lQiDzlJ/5SN0oqou
+	8IOwNIEBYCNoYFRKYzTR2OlIEAiBOXaFQfyLtkEWEP+A6Q==
+Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com [209.85.215.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gjqdw2m8j-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 06:29:16 +0000 (GMT)
+Received: by mail-pg1-f197.google.com with SMTP id 41be03b00d2f7-cbe77d6864dso8044178a12.2
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 23:29:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1788935356; x=1789540156; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=UuVzlSB31qLhxRy93vlak5xkhcEfOZHHWWOiuFWT7KI=;
+        b=JjUCDJ6MYGkhy1Z8JVs0iQooCFNn2aF1q0DperjyXqjqsAPVTMLcxjUeHu/JgoDNdT
+         anwYZyL2ihKPi8om9wqpCN/2pqwG3risJy5OkrjSFgL0VPp1wBhE/WSac99yu30iA+F1
+         qbmM+FwNu0xiHewN0ZurQnqHb6LLrjuMnkBgfb3zK/XG19XfT898FYrNy5fuvcqZPxAy
+         Z/OJ4PO4fOfW6yvDqn0dWXVZBjUW2bk2L5PDP0q5PdgqO7YPk07YmW+t0adhK79fQnR0
+         ZzCPkSkNkLhuR3ghdpvo17epyHCfDYeXr+WaRemahCgvjwQbtCE5P1e/QhFFDvQDEAlc
+         Cw5w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788935356; x=1789540156;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=UuVzlSB31qLhxRy93vlak5xkhcEfOZHHWWOiuFWT7KI=;
+        b=WXbzabyQ49nSoYdIvbhl7+fIch7wHsSRloKNIWpQPlz/nQu+jETwsL4xWjruC9MLKa
+         2jSlpyLLmPZCevQhpZaDLfM83tkJYcRrjQ8ikuJmNeCB7r1I0Fi8NC3qACxh1DLe/Gqs
+         bgG3XtzsWde1Zl6ePyfd3K8FS7pRHj3sd0pJ6waD0CkOXkkgTboc7B4BVksBAFK/w2pa
+         ZpPS8fQT22aqK4u6YiaBRU6lkOlym+unCcspTQ7OdaRp/cE6x8NV4Sr8i8+v4Lu/HGmp
+         i92cUyYqyM0Uia6uTUCl3zgCc8HbVj2e1c4rxw8uqWqpEACrqFoGrgnkRc2qgrMhdJk8
+         P13A==
+X-Forwarded-Encrypted: i=1; AKwUvBwp3CQhItH9zr0HZdypR3cyry8rsZi/wxk5D+ybn7KdD1Uywr0Ur/V2ycCpPzD+wKDjxRGdCaOx/WiGDXo=@vger.kernel.org
+X-Gm-Message-State: AFuF++kpS0jJ1QRhK6YAJMsIiUoxJ2bULqbkKkqbPzNr56TioKoTLFuj
+	bYh2tlYJ3I64VYE3W7+8lD8sjlBD4TQMDmzew0DZO5uKpMnGNVLaEDgA5oyaH1H9SsjX4lMxsXD
+	qoZwjGSMa/iYCNcxsvtlU2F/XMoKHRy53vMOvg9G+aNEukIiJLwDEDKipTOG4389Ay1o=
+X-Gm-Gg: AYBFou2/2IWc7HyOIgETt0kO2eC60ptcomHxB0I8b/Sftp1pGs+SZXvEps0GiMylo6I
+	ep3P4qgqL+2lPsDG0RElOCtrjsh6G25xknzM58ROr8kT4PkZpYFEUjWnJZ0kRx3Tbrp6EEGtJPl
+	FHYqsbBCp4DwDsdrvSZwru/sEn7FukdRmebhSZnzP4vUXeIcRFR1fgTV//Tcpd94vYmVUQia5v3
+	HDoMnLwoiveNM6k35MYmZJqSkbHCUm0R3CDVvdhSRZacP2NpUxQMOxV0W+RbA5+L5TfH1EhkbD6
+	KvSTBk1NkN2LxFJrjEKQa9JiLQpxNCxCA7yzgTGQ2Rl3xg0p+T12OZRHTabZeYw5o22IVJb5ZCu
+	i+B1bW7FJboC8dlWGagJXq3/LbJI=
+X-Received: by 2002:a05:6a20:9630:b0:3cc:ebeb:3efe with SMTP id adf61e73a8af0-3da39ee18ecmr51556885637.9.1788935355840;
+        Tue, 08 Sep 2026 23:29:15 -0700 (PDT)
+X-Received: by 2002:a05:6a20:9630:b0:3cc:ebeb:3efe with SMTP id adf61e73a8af0-3da39ee18ecmr51556828637.9.1788935355402;
+        Tue, 08 Sep 2026 23:29:15 -0700 (PDT)
+Received: from hu-mojha-hyd.qualcomm.com ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339a534df1sm47823081eec.7.2026.09.08.23.29.11
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 08 Sep 2026 23:29:14 -0700 (PDT)
+Date: Wed, 9 Sep 2026 11:59:07 +0530
+From: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Cc: Georgi Djakov <djakov@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org,
+        linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-arm-kernel@lists.infradead.org,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Subject: Re: [PATCH v2 0/3] interconnect: qcom: Some defconfig/defaults
+ cleanups and improvements
+Message-ID: <20260909062907.f43ahkic5bnv6qja@hu-mojha-hyd.qualcomm.com>
+References: <20260515-interconnect-qcom-clean-arm64-v2-0-adeebc73596d@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 01/11] drm/atomic: colorop: Rename state to
- state_to_destroy
-To: Maxime Ripard <mripard@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: Daniel Stone <daniels@collabora.com>,
- Harry Wentland <harry.wentland@amd.com>,
- Jocelyn Falempe <jfalempe@redhat.com>, =?UTF-8?Q?Jonas_=C3=85dahl?=
- <jadahl@redhat.com>, =?UTF-8?Q?Michel_D=C3=A4nzer?= <mdaenzer@redhat.com>,
- Pekka Paalanen <pekka.paalanen@collabora.com>,
- Sebastian Wick <sebastian.wick@redhat.com>, Simon Ser <contact@emersion.fr>,
- Victoria Brekenfeld <victoria@system76.com>, Xaver Hugl
- <xaver.hugl@kde.org>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-References: <20260908-drm-reset-state-flag-v3-0-905570f387a4@kernel.org>
- <20260908-drm-reset-state-flag-v3-1-905570f387a4@kernel.org>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <20260908-drm-reset-state-flag-v3-1-905570f387a4@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Spam-Level: 
-X-Spam-Score: -4.30
-X-Spam-Flag: NO
-X-Spamd-Result: default: False [-4.30 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-0.999];
-	MIME_GOOD(-0.10)[text/plain];
-	ARC_NA(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[16];
-	MIME_TRACE(0.00)[0:+];
-	FREEMAIL_TO(0.00)[kernel.org,linux.intel.com,gmail.com,ffwll.ch];
-	MID_RHS_MATCH_FROM(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	URIBL_BLOCKED(0.00)[imap1.dmz-prg2.suse.org:helo,suse.de:email,suse.de:mid,suse.com:url];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url,suse.de:email,suse.de:mid,imap1.dmz-prg2.suse.org:helo]
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260515-interconnect-qcom-clean-arm64-v2-0-adeebc73596d@oss.qualcomm.com>
+X-Proofpoint-ORIG-GUID: EagF28behjS4BT7b9V8ohweSKKvHVVXX
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA5MDA3MSBTYWx0ZWRfX/PxZ0yvEel0z
+ BbV424jkh+eJdR3elwF+E8DBm2S00CBTci7Tw4nIdVdb7HsidvYHI8l/6csdtb8LFp4b6ygSEak
+ X3hnOIyCOrsYTrOfbLnPbu3Z+RsTJuY=
+X-Proofpoint-GUID: EagF28behjS4BT7b9V8ohweSKKvHVVXX
+X-Authority-Analysis: v=2.4 cv=Bo2tB4X5 c=1 sm=1 tr=0 ts=6aa0fcbc cx=c_pps
+ a=rz3CxIlbcmazkYymdCej/Q==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
+ a=bC-a23v3AAAA:8 a=EUspDBNiAAAA:8 a=K9csx1bNu7bmPCVkKm4A:9 a=CjuIK1q_8ugA:10
+ a=bFCP_H2QrGi7Okbo017w:22 a=FO4_E8m0qiDe52t0p3_H:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA5MDA3MSBTYWx0ZWRfX7Hg3zM6XaDyw
+ TG1C0cyFMgDmRpN43EIaPW02AbIV6cXTKI1Cd3vTWskceLm8rgnyjeL5fERLKxmERqSsOi/LuXa
+ pSMfqm5WsF80rx47p3dxBuW+83s1DkQzdbprqe6ve2kx+c8N/p9poHRIeHceE2flwm6yShAZVLk
+ IAkFuzJShDMwrU5PBqhZeFlP6/ISXhcLnM5e5EURJ98O0CluuQk+oG8Jo74jJikXcBXjDJPUSeJ
+ Zk9/F/s+TZnoPc2pibRDr1TFKirIkRKHF70tcFiZWUxPBXpHwV2X9fpXR+j0AyMo3iF1jxpSSej
+ m4KzLi18f6e5htOMjrQgbjWHkQ2eXveth50RvWAnfTkTisjAUgWmtIR9jMavB09NXenXqe1JZRQ
+ 9VXq5LnHYBmNZjSmZaGL0ttEWCaY3URdBW5ehTP0WfuHrNgCrgVv9uPnmKIUV0WQbqslNiFglfW
+ MRtchz2G1nFKKuVR+bA==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-08_03,2026-09-08_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 suspectscore=0 bulkscore=0 impostorscore=0 adultscore=0
+ malwarescore=0 spamscore=0 priorityscore=1501 lowpriorityscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609090071
 
+On Fri, May 15, 2026 at 02:11:05PM +0200, Krzysztof Kozlowski wrote:
+> Changes in v2:
+> - Patch #3: Switch to built-in for everything, with explanation in
+>   commit msg.
+> - Tags
+> - Link to v1: https://patch.msgid.link/20260428-interconnect-qcom-clean-arm64-v1-0-e6bc3f7832db@oss.qualcomm.com
+> 
+> Similarly to clocks and pinctrl, interconnects should not be a user
+> visible choice.
 
-
-Am 08.09.26 um 16:35 schrieb Maxime Ripard:
-> The atomic state tracking structures used to have a generic state
-> field to track the state to free when tearing down the
-> drm_atomic_commit. It has since been renamed to state_to_destroy in
-> __drm_planes_state, __drm_crtcs_state, __drm_connnectors_state, and
-> __drm_private_objs_state to better describe its purpose.
->
-> The colorop support has been added after that rename, but
-> __drm_colorops_state still uses the old state name. Rename it to
-> state_to_destroy for consistency, and add the matching kerneldoc.
-
-Makes sense. Please merge this as you see fit.
-
->
-> Signed-off-by: Maxime Ripard <mripard@kernel.org>
-
-Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
-
-> ---
->   drivers/gpu/drm/drm_atomic.c        |  6 +++---
->   drivers/gpu/drm/drm_atomic_helper.c |  2 +-
->   include/drm/drm_atomic.h            | 18 +++++++++++++++++-
->   3 files changed, 21 insertions(+), 5 deletions(-)
->
-> diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
-> index 45df6376f408..5c0f7b7024d1 100644
-> --- a/drivers/gpu/drm/drm_atomic.c
-> +++ b/drivers/gpu/drm/drm_atomic.c
-> @@ -341,13 +341,13 @@ void drm_atomic_commit_default_clear(struct drm_atomic_commit *state)
->   
->   		if (!colorop)
->   			continue;
->   
->   		drm_colorop_atomic_destroy_state(colorop,
-> -						 state->colorops[i].state);
-> +						 state->colorops[i].state_to_destroy);
->   		state->colorops[i].ptr = NULL;
-> -		state->colorops[i].state = NULL;
-> +		state->colorops[i].state_to_destroy = NULL;
->   		state->colorops[i].old_state = NULL;
->   		state->colorops[i].new_state = NULL;
->   	}
->   
->   	for (i = 0; i < state->num_private_objs; i++) {
-> @@ -706,11 +706,11 @@ drm_atomic_get_colorop_state(struct drm_atomic_commit *state,
->   
->   	colorop_state = drm_atomic_helper_colorop_duplicate_state(colorop);
->   	if (!colorop_state)
->   		return ERR_PTR(-ENOMEM);
->   
-> -	state->colorops[index].state = colorop_state;
-> +	state->colorops[index].state_to_destroy = colorop_state;
->   	state->colorops[index].ptr = colorop;
->   	state->colorops[index].old_state = colorop->state;
->   	state->colorops[index].new_state = colorop_state;
->   	colorop_state->state = state;
->   
-> diff --git a/drivers/gpu/drm/drm_atomic_helper.c b/drivers/gpu/drm/drm_atomic_helper.c
-> index 285aac3554df..c4752bd7d999 100644
-> --- a/drivers/gpu/drm/drm_atomic_helper.c
-> +++ b/drivers/gpu/drm/drm_atomic_helper.c
-> @@ -3349,11 +3349,11 @@ int drm_atomic_helper_swap_state(struct drm_atomic_commit *state,
->   		WARN_ON(colorop->state != old_colorop_state);
->   
->   		old_colorop_state->state = state;
->   		new_colorop_state->state = NULL;
->   
-> -		state->colorops[i].state = old_colorop_state;
-> +		state->colorops[i].state_to_destroy = old_colorop_state;
->   		colorop->state = new_colorop_state;
->   	}
->   
->   	drm_panic_lock(state->dev, flags);
->   	for_each_oldnew_plane_in_state(state, plane, old_plane_state, new_plane_state, i) {
-> diff --git a/include/drm/drm_atomic.h b/include/drm/drm_atomic.h
-> index 88087910ab1a..00b3e9fc429a 100644
-> --- a/include/drm/drm_atomic.h
-> +++ b/include/drm/drm_atomic.h
-> @@ -157,11 +157,27 @@ struct drm_crtc_commit {
->   	bool abort_completion;
->   };
->   
->   struct __drm_colorops_state {
->   	struct drm_colorop *ptr;
-> -	struct drm_colorop_state *state, *old_state, *new_state;
-> +
-> +	/**
-> +	 * @state_to_destroy:
-> +	 *
-> +	 * Used to track the @drm_colorop_state we will need to free
-> +	 * when tearing down the associated &drm_atomic_commit in
-> +	 * $drm_mode_config_funcs.atomic_state_clear or
-> +	 * drm_atomic_commit_default_clear().
-> +	 *
-> +	 * Before a commit, and the call to
-> +	 * drm_atomic_helper_swap_state() in particular, it points to
-> +	 * the same state than @new_state. After a commit, it points to
-> +	 * the same state than @old_state.
-> +	 */
-> +	struct drm_colorop_state *state_to_destroy;
-> +
-> +	struct drm_colorop_state *old_state, *new_state;
->   };
->   
->   struct __drm_planes_state {
->   	struct drm_plane *ptr;
->   
->
+Is there a conclusion on this series? As I was depending on this series for
+Hawi interconnect config enablement.
 
 -- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Jochen Jaser, Andrew McDonald, (HRB 36809, AG Nürnberg)
-
-
+-Mukesh Ojha
