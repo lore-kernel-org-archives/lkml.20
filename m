@@ -1,89 +1,137 @@
-Received: from mail-4322.protonmail.ch (mail-4322.protonmail.ch [185.70.43.22])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05FB9395ACB;
-	Wed,  9 Sep 2026 18:03:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.22
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2153396D13;
+	Wed,  9 Sep 2026 18:03:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788976994; cv=none; b=rdSwJ2LR0ylUNN3DAJUYxQis3/9xkqwqfdTT8cEoZZqH82dD7kQT81Be0GDiP3+YyoqZR3WH7jh7xfb8M/qThP8YTV3VHecncJaQ0M/haKbvw6Fj9l3mG6g+5O9+qtTmh+gwFXpeYtzeehwXnb85c09K/MnWs90tBkp+guiHeRg=
+	t=1788977010; cv=none; b=EtrSQpZe6Vj48pK3cZ8wi/+CYgGYoFp6avoxCqQeOWAYmb+u3XcD0lVVBg16Q5wnioSgsT9oQsOaezXqLAejnYa9rVG/ONchI0/0k1PNMnnSis/SiUlCpegntdk+C5ztDFtX/OrUI04OIz0awoIegVyFtkNZGRCEOrsrvIeSUw8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788976994; c=relaxed/simple;
-	bh=oDS5W3cSpVGn6qkJxr40An5vaSJLQqwsd8fVviBk6jM=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=E1X0XqiZjrM1FuLoxb4f0KEaOv4WWR+V4dPn6RhA6nK9T2JuFK9pz9ziGNtDikECzTkoM1x+lDIs4AA7dE4krIxtUVYXqv4f5aOkzdGuGYHwjPGgNfYAGTydYWNj/vPFCiPNCzL0G5duKFjjJZZ0gGfsQtGhEFOLW9Qtoh8B69U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=i5hd/TfJ; arc=none smtp.client-ip=185.70.43.22
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
+	s=arc-20240116; t=1788977010; c=relaxed/simple;
+	bh=Las9w7VEmzQZwGkpCFsvWgiGoM0T0keae01SaXpx4ME=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Magjg4ex3a/e8r6w5iLFZNagHE3uRA0lQlZMsWajVkSkxBFg/r8drPD39Kjc3D0Meod5LC7pmTCHqmbEMvIyQySxzWmrurKHryZUKBMQBJZ34KAxgJ0u7zZ5v8LzlcgEWfhPOaDtY2pVvI+j1vM0hK0VLtS5N6dLSkq8uBcWZyE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cmlnNDid; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="i5hd/TfJ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1788976989; x=1789236189;
-	bh=rhTZGDrb562Rn4laHPHku+TT/h6b8jqSFRjdB4Ul3/g=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=i5hd/TfJgKF2R2t9KkoWMoChkRXsDQF7y1/8LHkoPWWDWhgpG7pgWlJ08cJYwQLT/
-	 Bmh8P0r6EpowNIZEo9LdFDirSUuk4WikQPQIemObzLUhOFuUqOMVXtqlK/EKXg4o3y
-	 LZEiGXJlkgEWkMLKGg55cRrWT6QmpmEh7tujLs/tAzoO4ZeEEc/ZDD+vYohyiBENTL
-	 9sQYk56uIQkeVQcWV7eOjznw1OUnCBACMQr2Q9M2dMaYbWAO8LQaanFK/05GKlYPXQ
-	 avmXRQERjd776g5Jkz8O7W+NUVXvb/cyK/bkiucsZ8J6Lwp6SB9pZUfxNEU6jKrFdg
-	 zM/uha+tdgATA==
-Date: Wed, 09 Sep 2026 18:03:06 +0000
-To: Sakari Ailus <sakari.ailus@linux.intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Hans de Goede <hansg@kernel.org>
-From: Sergey Lebedev <lsa.uz@pm.me>
-Cc: Daniel Scally <dan.scally@ideasonboard.com>, Jakob Berg Jespersen <dev@berg.pm>, linux-media@vger.kernel.org, platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3] media: i2c: ov13858: add regulator, clock and reset GPIO handling
-Message-ID: <20260909180259.81079-1-lsa.uz@pm.me>
-In-Reply-To: <20260831130312.26296-1-lsa.uz@pm.me>
-References: <20260831130312.26296-1-lsa.uz@pm.me>
-Feedback-ID: 113843758:user:proton
-X-Pm-Message-ID: 9687c92d6d4b2e39752960b3d4f7e2768721440b
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cmlnNDid"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0E8641F00893;
+	Wed,  9 Sep 2026 18:03:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788977009;
+	bh=KnDHX9M1i8YbIvHyQzXuOKvuaUqriDDBknhvO0sB8QE=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=cmlnNDidZblxlV5/VzdIsPp8MS9wHhh7DzVGRE+vQFXyP+piyEBMYBdDHCwljqDQX
+	 a3oskIjFjUp1la2tk19iHQBPwuUfUJYsLkmljf9AbqIXJH5j+tWS3ePvpWhwRsOQrK
+	 Ao/zSc46p04/qK6UkVj5QcfKzdqdK7OTl4N7Lr0nQpNIcqXodXYqL+JBxIc8AEdXFA
+	 cUk1S7nYgAOiqyOALV0yRJV19HoqNHebVOyVsQBiMBpOekHo5Nh/piATDBlxHlZKPY
+	 hwdCnZvppyxOSnWM9nc/langm5LWe7xV0Ig2ZZjn61edbX15WCTrqH4ZJiQww8ldx3
+	 BU1pJUfrjwvDg==
+Message-ID: <bc937549-d004-4d31-bf05-ddbdeea519bc@kernel.org>
+Date: Wed, 9 Sep 2026 20:03:24 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Thunderbird Daily
+Subject: Re: [PATCH net v2 05/15] mptcp: options: handle MPC data + csum reqd
+ + no csum
+Content-Language: fr
+To: netdev-bot+sashiko@kernel.org
+Cc: martineau@kernel.org, geliang@kernel.org, davem@davemloft.net,
+ edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
+ netdev@vger.kernel.org, mptcp@lists.linux.dev, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20260908-net-mptcp-misc-fixes-7-3-rc1-v2-5-df1de70348b6@kernel.org>
+ <178896537514.219967.16760487622956837996@kernel.org>
+From: Matthieu Baerts <matttbe@kernel.org>
+Autocrypt: addr=matttbe@kernel.org; keydata=
+ xsFNBFXj+ekBEADxVr99p2guPcqHFeI/JcFxls6KibzyZD5TQTyfuYlzEp7C7A9swoK5iCvf
+ YBNdx5Xl74NLSgx6y/1NiMQGuKeu+2BmtnkiGxBNanfXcnl4L4Lzz+iXBvvbtCbynnnqDDqU
+ c7SPFMpMesgpcu1xFt0F6bcxE+0ojRtSCZ5HDElKlHJNYtD1uwY4UYVGWUGCF/+cY1YLmtfb
+ WdNb/SFo+Mp0HItfBC12qtDIXYvbfNUGVnA5jXeWMEyYhSNktLnpDL2gBUCsdbkov5VjiOX7
+ CRTkX0UgNWRjyFZwThaZADEvAOo12M5uSBk7h07yJ97gqvBtcx45IsJwfUJE4hy8qZqsA62A
+ nTRflBvp647IXAiCcwWsEgE5AXKwA3aL6dcpVR17JXJ6nwHHnslVi8WesiqzUI9sbO/hXeXw
+ TDSB+YhErbNOxvHqCzZEnGAAFf6ges26fRVyuU119AzO40sjdLV0l6LE7GshddyazWZf0iac
+ nEhX9NKxGnuhMu5SXmo2poIQttJuYAvTVUNwQVEx/0yY5xmiuyqvXa+XT7NKJkOZSiAPlNt6
+ VffjgOP62S7M9wDShUghN3F7CPOrrRsOHWO/l6I/qJdUMW+MHSFYPfYiFXoLUZyPvNVCYSgs
+ 3oQaFhHapq1f345XBtfG3fOYp1K2wTXd4ThFraTLl8PHxCn4ywARAQABzSRNYXR0aGlldSBC
+ YWVydHMgPG1hdHR0YmVAa2VybmVsLm9yZz7CwZEEEwEIADsCGwMFCwkIBwIGFQoJCAsCBBYC
+ AwECHgECF4AWIQToy4X3aHcFem4n93r2t4JPQmmgcwUCZUDpDAIZAQAKCRD2t4JPQmmgcz33
+ EACjROM3nj9FGclR5AlyPUbAq/txEX7E0EFQCDtdLPrjBcLAoaYJIQUV8IDCcPjZMJy2ADp7
+ /zSwYba2rE2C9vRgjXZJNt21mySvKnnkPbNQGkNRl3TZAinO1Ddq3fp2c/GmYaW1NWFSfOmw
+ MvB5CJaN0UK5l0/drnaA6Hxsu62V5UnpvxWgexqDuo0wfpEeP1PEqMNzyiVPvJ8bJxgM8qoC
+ cpXLp1Rq/jq7pbUycY8GeYw2j+FVZJHlhL0w0Zm9CFHThHxRAm1tsIPc+oTorx7haXP+nN0J
+ iqBXVAxLK2KxrHtMygim50xk2QpUotWYfZpRRv8dMygEPIB3f1Vi5JMwP4M47NZNdpqVkHrm
+ jvcNuLfDgf/vqUvuXs2eA2/BkIHcOuAAbsvreX1WX1rTHmx5ud3OhsWQQRVL2rt+0p1DpROI
+ 3Ob8F78W5rKr4HYvjX2Inpy3WahAm7FzUY184OyfPO/2zadKCqg8n01mWA9PXxs84bFEV2mP
+ VzC5j6K8U3RNA6cb9bpE5bzXut6T2gxj6j+7TsgMQFhbyH/tZgpDjWvAiPZHb3sV29t8XaOF
+ BwzqiI2AEkiWMySiHwCCMsIH9WUH7r7vpwROko89Tk+InpEbiphPjd7qAkyJ+tNIEWd1+MlX
+ ZPtOaFLVHhLQ3PLFLkrU3+Yi3tXqpvLE3gO3LM7BTQRV4/npARAA5+u/Sx1n9anIqcgHpA7l
+ 5SUCP1e/qF7n5DK8LiM10gYglgY0XHOBi0S7vHppH8hrtpizx+7t5DBdPJgVtR6SilyK0/mp
+ 9nWHDhc9rwU3KmHYgFFsnX58eEmZxz2qsIY8juFor5r7kpcM5dRR9aB+HjlOOJJgyDxcJTwM
+ 1ey4L/79P72wuXRhMibN14SX6TZzf+/XIOrM6TsULVJEIv1+NdczQbs6pBTpEK/G2apME7vf
+ mjTsZU26Ezn+LDMX16lHTmIJi7Hlh7eifCGGM+g/AlDV6aWKFS+sBbwy+YoS0Zc3Yz8zrdbi
+ Kzn3kbKd+99//mysSVsHaekQYyVvO0KD2KPKBs1S/ImrBb6XecqxGy/y/3HWHdngGEY2v2IP
+ Qox7mAPznyKyXEfG+0rrVseZSEssKmY01IsgwwbmN9ZcqUKYNhjv67WMX7tNwiVbSrGLZoqf
+ Xlgw4aAdnIMQyTW8nE6hH/Iwqay4S2str4HZtWwyWLitk7N+e+vxuK5qto4AxtB7VdimvKUs
+ x6kQO5F3YWcC3vCXCgPwyV8133+fIR2L81R1L1q3swaEuh95vWj6iskxeNWSTyFAVKYYVskG
+ V+OTtB71P1XCnb6AJCW9cKpC25+zxQqD2Zy0dK3u2RuKErajKBa/YWzuSaKAOkneFxG3LJIv
+ Hl7iqPF+JDCjB5sAEQEAAcLBXwQYAQIACQUCVeP56QIbDAAKCRD2t4JPQmmgc5VnD/9YgbCr
+ HR1FbMbm7td54UrYvZV/i7m3dIQNXK2e+Cbv5PXf19ce3XluaE+wA8D+vnIW5mbAAiojt3Mb
+ 6p0WJS3QzbObzHNgAp3zy/L4lXwc6WW5vnpWAzqXFHP8D9PTpqvBALbXqL06smP47JqbyQxj
+ Xf7D2rrPeIqbYmVY9da1KzMOVf3gReazYa89zZSdVkMojfWsbq05zwYU+SCWS3NiyF6QghbW
+ voxbFwX1i/0xRwJiX9NNbRj1huVKQuS4W7rbWA87TrVQPXUAdkyd7FRYICNW+0gddysIwPoa
+ KrLfx3Ba6Rpx0JznbrVOtXlihjl4KV8mtOPjYDY9u+8x412xXnlGl6AC4HLu2F3ECkamY4G6
+ UxejX+E6vW6Xe4n7H+rEX5UFgPRdYkS1TA/X3nMen9bouxNsvIJv7C6adZmMHqu/2azX7S7I
+ vrxxySzOw9GxjoVTuzWMKWpDGP8n71IFeOot8JuPZtJ8omz+DZel+WCNZMVdVNLPOd5frqOv
+ mpz0VhFAlNTjU1Vy0CnuxX3AM51J8dpdNyG0S8rADh6C8AKCDOfUstpq28/6oTaQv7QZdge0
+ JY6dglzGKnCi/zsmp2+1w559frz4+IC7j/igvJGX4KDDKUs0mlld8J2u2sBXv7CGxdzQoHaz
+ lzVbFe7fduHbABmYz9cefQpO7wDE/Q==
+Organization: NGI0 Core
+In-Reply-To: <178896537514.219967.16760487622956837996@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-New evidence for this patch, from media/next rather than from a distro kern=
-el.
+Hello,
 
-I built and booted a kernel from media/next f9536a8065 on the Surface Pro 1=
-1
-today - for an unrelated series - and the back camera does not come up on i=
-t:
+On 09/09/2026 16:49, netdev-bot+sashiko@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential
+> issue(s) to consider:
+> 
+> Critical: 0 · High: 0 · Medium: 0 · Low: 1 (1)
+> 
+> - [Low] Residual uninitialised read of `mp_opt->csum`: the patch closes
+>   the functional consumer of the uninitialised checksum…
 
-  ov13858 i2c-OVTID858:00: failed to find sensor: -5
-  ov13858 i2c-OVTID858:00: probe with driver ov13858 failed with error -5
+There is a pr_debug() reading mp_opt->csum. Harmless, but should be
+fixed to silence such report. A follow-up patch will follow:
 
-That is the mechanism Hans named on 2026-08-31 - "the ov13858 problem is no=
-t a
-problem with the INT3472 driver, but rather with the ov13858 driver" - now
-visible on current upstream. Reading f9536a8065: ov13858.c contains no
-regulator, no supply and no gpiod reference at all, and while probe does
-acquire a clock through devm_v4l2_sensor_clk_get() it never enables it. So
-nothing asks INT3472 to power the sensor, and the chip-ID read talks to a p=
-art
-that is still off.
+https://lore.kernel.org/20260908-mptcp-opt-read-debug-v1-2-b3e74549b6f6@kernel.org
 
-  https://lore.kernel.org/all/df2f3cb1-1bab-432f-a359-59e6bec9580a@kernel.o=
-rg/
+> Pre-existing issues:
+> - [Low] Reported concern (assessed as an intentional, documented
+>   behaviour change): a passive endpoint whose local checksum sysctl is…
 
-With this patch applied the same machine enumerates the camera and streams =
-from
-it; that has been true since 2026-08-31 and is what the original posting
-reported. What is new is only that the failure is now demonstrated on the t=
-ree
-this patch is aimed at, rather than argued from a 7.0.0 kernel.
+(...)
 
-Both ov13858 patches still apply to f9536a8065 unchanged - checked, not ass=
-umed
-- so there is nothing to resend and I am not asking for anything here. Reco=
-rding
-it because the next person to read this thread should not have to take the
-"camera still dead" claim on trust.
+> The commit message already
+> covers that trade-off.  The gap where the peer's SYN A bit is never
+> stored in subflow_req is pre-existing and unchanged here.
 
-Sergey
+Indeed ...
+
+> Would it be worth a short note in the commit message that the passive
+> side's only source for the peer's A bit is the third ACK, so the new
+> condition also drops that signal for a data-bearing third ACK?
+
+... but there is already a note about that. Maybe the note is not clear
+enough, or my English is not good enough, but I don't think we need to
+add an even longer text.
+
+Cheers,
+Matt
+-- 
+Sponsored by the NGI0 Core fund.
 
