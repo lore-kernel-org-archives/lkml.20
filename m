@@ -1,140 +1,155 @@
-Received: from mail-lj1-f172.google.com (mail-lj1-f172.google.com [209.85.208.172])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 510BD583AD8
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 16:42:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.172
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788972124; cv=pass; b=OzAWijkfmCs+NFV6WRnLUTOTC22Qr992/8pG30LBR9HGycohDF7kI7lBXQGMfM7SA8LM1SS1aq5pDZlrOgEpg7tnLzSXNi0GcGEkwZKQt51RQ+6jusoJmFgjstDBOs5DN0qQUln+DzzQ0XVJ93QhLXfmvWNAebA/vf43yJGFicY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788972124; c=relaxed/simple;
-	bh=/PVQoRJaxnOVHklysY+eFPRn0PjfeKzNOqRGrKxgA1Q=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=TxS+lSpZym3RoUt3AgEWx0QH4q6ctoi3xszW69RbLLbFyo7PZ3LPj6ExTI/ibH0xT2rYDYLFVhdN8Vzeqk5bLd2qzeP8/AO6fuA3HycijtMziXKlsG+DLB/fZwH0f1OwB0rBskX5q70rECZepCvipjUyDkc6tjYRgr0KyRnUdqU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KMdV5HJZ; arc=pass smtp.client-ip=209.85.208.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10ECF58596B;
+	Wed,  9 Sep 2026 16:42:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788972126; cv=none; b=bgOhZ+IZFAqqssZSE/zbQ64znPqbKR/3D8BvHulmlp193wsk/KdYpjcKvccaulezDCW+usnYXHHN1eBWlj61SuaYK9plB7ENBlsW3VwSRQWYiw+I2PjoerdU3FAg6ZjmyPLVakSTJ4E1jCbEiIgP9KC2veA9/Zkh7GpjX+2X27A=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788972126; c=relaxed/simple;
+	bh=Q6pDdgD77tRCU1gfJ0wVe+fYxWUkzGcUP5Av9NeMePE=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=OUCd8qNNGwCanvJAxzu0XLo1i+/lh9TyUgBu0FVPOR17gmEBxAHnRPVQ80hcqsPc4cK45L/6v2iFijziVYS7eg+hFI6hMLeF4fgorCjg7crjsfhInjmEzXNd2QHCnu+m+uzaRxEIv0D+ik8Lpq04ozLTsJj2+OvhkrC2QEbk04A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=P9XxZjSA; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KMdV5HJZ"
-Received: by mail-lj1-f172.google.com with SMTP id 38308e7fff4ca-3a49d2b18d5so7098231fa.3
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 09:42:02 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788972120; cv=none;
-        d=google.com; s=arc-20260327;
-        b=mVFyF/w5rsewR9wReWCiaCIp48qGUnRpMxB/YiAwVUSHzRs0xhBa30rNJX8xOHpe+w
-         X1YqjiouX8FFeK23WP0ixvMFnMqmhU01mv8hGpXd2PQGDAj6vHKoTcY9qVpQXQv8a2I5
-         UmSI0Z3LrZDMusBYXy7X3wTy4E6SfCRY0iIU6dqNIoDIEXjIjJ2G1iZ4wai/rFiTBWYP
-         MRzEXjin99dUYhXB05L2y4KjU6Ziyi5PIni6x4oyCt2CxGYHUslhmMyIM7pZRFlQvMi5
-         MUX3LE9yXKhw/Xelz8+hZqHKM/OTtna3mRWIicbxGsuSqe80C3OmSI0gzQlwfFjz0Tob
-         qTdA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=/PVQoRJaxnOVHklysY+eFPRn0PjfeKzNOqRGrKxgA1Q=;
-        fh=gN0v25NU32KL9sgL1v3lyHHhYMZulIPZZub4MLqtL+M=;
-        b=DQGPtQgoSGbMEQMBaSGNPHOZyctYhUgLoZI2LG0mvwojF4eKMx10UPW4EmX9vAt0di
-         l6WzVqmhprregUb8onkirpFe10dbDmL1Da4Gpky9iouG3wbDZjAEq9kvdsrHmbc0OLUz
-         0RyL5SgyKfsFYfBgRBuA+beg6uevRSvwhxQMOoER5es5oI2ZxutQy3RygHpKQ4A7zOH2
-         le50Da/DOtW9sAksOSX5zNLalyLKWagmz/6LIB1xESk6vYmZCq23MdL7go41u/OhKxpY
-         X7BA9/BqzuOoZ3VCV0cpGcdnY28EJRjO/B9u6ZXdravRMMmsSZxtDABvI1XYu4AYgn1m
-         LAjg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788972120; x=1789576920; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=/PVQoRJaxnOVHklysY+eFPRn0PjfeKzNOqRGrKxgA1Q=;
-        b=KMdV5HJZLLIGtdTClDxjzcAuheXnvNce1P1lhEryWKx2i8eALdZs63zfXF+uUbfM2C
-         XToTkhlCI+ek3ljZF0Cew7UDx038xg1rJ3x+oJshyqwgORB8iiCvpAOjAv4LgcFBxBJa
-         g0qiswT5jPVitQmJvPqLoRjKT359Nz4buKHHuksAgwUQnVp9GwHZ1DS5xI8+WcmpNGgK
-         7Nu91E2WjY9yxcUSlcC/sFq2usp1DBmdr8iaGTJzbgoOJ06J8ibkvpSJlIZgL3VeJvqG
-         ozrJJwvMMjy9d7XW0YzsoAW/Q2ZEFuXct7MHPiPDKLgizH/BUTkNWGrbndLP+Kum1SJc
-         +JLA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788972120; x=1789576920;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=/PVQoRJaxnOVHklysY+eFPRn0PjfeKzNOqRGrKxgA1Q=;
-        b=RH/CcDFt6j3+nbIedgY7j2rNWohuXs2y7Yq2pXw4UqYMd/F+uB+ylsXPzs5z2dlGnF
-         /s+e/YMtIE1rF4lSCgi3GCSbLse95mswQ7eJsHfHI8n0DBzpYdrLXNcxV3ev9OTnJRpu
-         uR717RJNl0V1Of5qIlaDHe7319lGDbGEf5ndBbRSQv94aQszVA+TGD+g5xAaf6wTUuuQ
-         ReFbqovz5hoTcvygfvfENrM7mY9rIIDFGpET7WFNYjMW8BPsLux1ssgW0vR/fPThVlzx
-         NiY7GYzZ1LsH3ny0zS0RxlHlCHh+gbR/bGiCYnUMyhN30c0b6mrs7RVPFvMpoaVAt+b6
-         5zZg==
-X-Forwarded-Encrypted: i=1; AKwUvByyTBqgNrlP49J0RuM0DpN1oUMxbpcLrbiY55xidTTHEn6WLMXMMPbxctkyl3d/1LJjgAf+riKHr4/a/W0=@vger.kernel.org
-X-Gm-Message-State: AFuF++kFS6L0wl+i+cZXMPldzRv77GQnZWIVliRkPMbE+bd8Gi+1VRQL
-	4yFnXOH50ZuT5bwG1g1av/TSXFSE0Tfml4EygnxkeIyPUUHhoLcYAZQVXPsM1u+nf8B3dzfB/u2
-	0gXaVQMizz1OLhfY73c9kVZHFS3LxcMY=
-X-Gm-Gg: AYBFou2Fri+IveToyqk8IK+/1H4s4yDCfY6sdTAX2ThYY2UAX+pkpo04UmetXump6wJ
-	gTKALkfw6q1oA4CD2otVqCxb7hYJBYh+4hspIP37MOvXnb62Mt9NOdy8kvqIfhreVcPJdjeKASQ
-	6UrEjXLr8K6NY3EPFw6e2M7YaGdqOPm4cZ0Br4x9KoY2MFEJicfI09x80/oQGtpDxXasU/C+dN0
-	K+zLC/cMNV+IZFRsfuH4qHtTvwiKikpt0DfKAA9gRVXqLEmccO+hZL+XZS1BiVmHr3U19rN0G+j
-	rGEmXEQlWwE7BuLvs+N4x9IMjR0xWTMEtqf5bVh+xIpwVS8jSDdgkP+cXmt0rGtMIFPkqf2Oj52
-	1g/DcQm2xE2E=
-X-Received: by 2002:a05:651c:221f:b0:3a3:2585:3bc5 with SMTP id
- 38308e7fff4ca-3a371a898d4mr40270231fa.3.1788972119897; Wed, 09 Sep 2026
- 09:41:59 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="P9XxZjSA"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B4D111F00893;
+	Wed,  9 Sep 2026 16:42:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788972124;
+	bh=FMw2HWQZ9hsyHLkoSdNcliDW51DS08OBnzT9klJKoh4=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=P9XxZjSAG7BO5GXu5sDY05MoKWqQwhylKChrrcysigqS/FwRisiRX/pVyr+icPk0J
+	 7CJ77bLLiep/LK+yAPpV4JxlKhBZ9zlqXcoRPGqKnldEEyYHglyJnFnlEJau1liEoa
+	 qLe/SB6+Rg4lOHNDwoKMF83aZpRtU1vxD0aNSiIZuOGFjmBynCfFVwL9CqWOpaR8lj
+	 lL1jyzwcbT9BCZEksH+hLf77ZJJvDgQbD8c7b/t0tmLHWmNmVGVw6aM5FN2vVaTH4y
+	 yaBvW207NqjFjivMOEFurLOsJ55Zpd9WFCuivAecQgCkn/z/Mk7xbm2H89Q4SOOaL6
+	 reZBgwdUZYdSQ==
+From: Konrad Dybcio <konradybcio@kernel.org>
+Date: Wed, 09 Sep 2026 18:41:54 +0200
+Subject: [PATCH 1/6] interconnect: qcom: Move bcm_div() to common code
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <CAKEwX=MP=zuTnLT=coS_EpXe2KwXq=79yBnsEGXwcZZsW3S=Yw@mail.gmail.com>
- <CAMgjq7AHRzBsbmGOx0s=TQFBwcn=DEU1naR443sO6x+pJd6hAg@mail.gmail.com> <aqBT_35E-eSoN_zj@cmpxchg.org>
-In-Reply-To: <aqBT_35E-eSoN_zj@cmpxchg.org>
-From: Nhat Pham <nphamcs@gmail.com>
-Date: Wed, 9 Sep 2026 09:41:46 -0700
-X-Gm-Features: AcwNN1VWXPWfi4oFELOf49OQVDIrkZtLFgj_RbpHarRwRGht_40BlAv3JxkMu4E
-Message-ID: <CAKEwX=N4aaq_oD2agTUNrUNXhaYGeQ9vxu+dywFvEFgWFi4uQg@mail.gmail.com>
-Subject: Re: Path forward for Virtualized Swap?
-To: Johannes Weiner <hannes@cmpxchg.org>
-Cc: Kairui Song <ryncsn@gmail.com>, Chris Li <chrisl@kernel.org>, 
-	Michal Hocko <mhocko@kernel.org>, Roman Gushchin <roman.gushchin@linux.dev>, 
-	Shakeel Butt <shakeel.butt@linux.dev>, Yosry Ahmed <yosry@kernel.org>, 
-	David Hildenbrand <david@kernel.org>, Muchun Song <muchun.song@linux.dev>, 
-	Kemeng Shi <shikemeng@huaweicloud.com>, Baoquan He <baoquan.he@linux.dev>, 
-	Barry Song <baohua@kernel.org>, YoungJun Park <youngjun.park@lge.com>, 
-	Chengming Zhou <chengming.zhou@linux.dev>, "Lorenzo Stoakes (Oracle)" <ljs@kernel.org>, 
-	"Liam R. Howlett" <liam@infradead.org>, "Vlastimil Babka (SUSE)" <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
-	=?UTF-8?Q?Suren_Baghdasaryan=EF=BF=BC?= <surenb@google.com>, 
-	Qi Zheng <qi.zheng@linux.dev>, Axel Rasmussen <axelrasmussen@google.com>, 
-	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, Rik van Riel <riel@surriel.com>, 
-	Gregory Price <gourry@gourry.net>, Wenchao Hao <haowenchao22@gmail.com>, 
-	Jonathan Corbet <corbet@lwn.net>, Hugh Dickins <hughd@google.com>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, Tejun Heo <tj@kernel.org>, 
-	=?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Kunwu Chan <kunwu.chan@linux.dev>, 
-	Meta kernel team <kernel-team@meta.com>, Linux Memory Management List <linux-mm@kvack.org>, 
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, linux-doc@vger.kernel.org, 
-	"open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)" <cgroups@vger.kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
-	Joshua Hahn <joshua.hahnjy@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260909-topic-icc_rpm_smd_qol-v1-1-6dc5b5e97626@oss.qualcomm.com>
+References: <20260909-topic-icc_rpm_smd_qol-v1-0-6dc5b5e97626@oss.qualcomm.com>
+In-Reply-To: <20260909-topic-icc_rpm_smd_qol-v1-0-6dc5b5e97626@oss.qualcomm.com>
+To: Georgi Djakov <djakov@kernel.org>, Evan Green <evgreen@chromium.org>, 
+ Yassine Oudjana <y.oudjana@protonmail.com>, 
+ Dmitry Baryshkov <lumag@kernel.org>, Adam Skladowski <a39.skl@gmail.com>
+Cc: linux-arm-msm@vger.kernel.org, linux-pm@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, 
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788972117; l=3145;
+ i=konrad.dybcio@oss.qualcomm.com; s=20230215; h=from:subject:message-id;
+ bh=giFz0SPGWx5zhxrTw7l9Ho39cbePiTp1WQDdxwBTl3U=;
+ b=JZfoPQxkrnMmL3h92ZJ11e16g7PQDiNYiq+KnVwG7j4ddIsO/BzwqdtXac97SZDzyolI3ZuJm
+ wqrBifQY9bhDzEuSJpxXd9J8cWCtha7zcO2MAC27JclV1yx5L9UW7YO
+X-Developer-Key: i=konrad.dybcio@oss.qualcomm.com; a=ed25519;
+ pk=iclgkYvtl2w05SSXO5EjjSYlhFKsJ+5OSZBjOkQuEms=
 
-On Tue, Sep 8, 2026 at 11:30=E2=80=AFAM Johannes Weiner <hannes@cmpxchg.org=
-> wrote:
->
-> On Mon, Sep 07, 2026 at 01:51:31PM +0800, Kairui Song wrote:
-> > Where I've ended up is that unbounded growth is a real concern. On a
-> > host with no memcg limit (root cgroup, and most desktop and embedded
-> > setups), an unlimited pool means usage can keep growing, with no
-> > admin visible ceiling at all. I'm not attached to xswap's percent of RA=
-M
-> > knob specifically, but I do think some kind of bound makes sense.
->
-> Swap space is just process virtual address space, no?
->
-> Swap entries already have one or more page table entries pointing to
-> them, which in turn are managed by trees of vm_area_structs. That
-> means rlimits apply, overcommit protection applies, and OOM killer
-> attribution works as well (oom_badness()).
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-I tested this theory. I spinned up a process, and let it spam 0-filled
-memory + swap these pages out continually.
+This helper is useful for both SMD_RPM and RPMH code, extract it.
 
-As you predicted, oom-killer picked it up eventually. The host was
-(and is) intact otherwise :)
+Assisted-by: LLM
+Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+---
+ drivers/interconnect/qcom/bcm-voter.c  | 21 +++++----------------
+ drivers/interconnect/qcom/icc-common.h |  9 +++++++++
+ 2 files changed, 14 insertions(+), 16 deletions(-)
+
+diff --git a/drivers/interconnect/qcom/bcm-voter.c b/drivers/interconnect/qcom/bcm-voter.c
+index a2d437a05a11..cdb0c5ee5cbc 100644
+--- a/drivers/interconnect/qcom/bcm-voter.c
++++ b/drivers/interconnect/qcom/bcm-voter.c
+@@ -3,7 +3,6 @@
+  * Copyright (c) 2020-2021, The Linux Foundation. All rights reserved.
+  */
+ 
+-#include <asm/div64.h>
+ #include <linux/interconnect-provider.h>
+ #include <linux/list_sort.h>
+ #include <linux/module.h>
+@@ -14,6 +13,7 @@
+ #include <soc/qcom/tcs.h>
+ 
+ #include "bcm-voter.h"
++#include "icc-common.h"
+ #include "icc-rpmh.h"
+ 
+ static LIST_HEAD(bcm_voters);
+@@ -47,17 +47,6 @@ static int cmp_vcd(void *priv, const struct list_head *a, const struct list_head
+ 	return bcm_a->aux_data.vcd - bcm_b->aux_data.vcd;
+ }
+ 
+-static u64 bcm_div(u64 num, u32 base)
+-{
+-	/* Ensure that small votes aren't lost. */
+-	if (num && num < base)
+-		return 1;
+-
+-	do_div(num, base);
+-
+-	return num;
+-}
+-
+ /* BCMs with enable_mask use one-hot-encoding for on/off signaling */
+ static void bcm_aggregate_mask(struct qcom_icc_bcm *bcm)
+ {
+@@ -99,20 +88,20 @@ static void bcm_aggregate(struct qcom_icc_bcm *bcm)
+ 	for (bucket = 0; bucket < QCOM_ICC_NUM_BUCKETS; bucket++) {
+ 		for (i = 0; i < bcm->num_nodes; i++) {
+ 			node = bcm->nodes[i];
+-			temp = bcm_div(node->sum_avg[bucket] * bcm->aux_data.width,
++			temp = qcom_bw_div(node->sum_avg[bucket] * bcm->aux_data.width,
+ 				       node->buswidth * node->channels);
+ 			agg_avg[bucket] = max(agg_avg[bucket], temp);
+ 
+-			temp = bcm_div(node->max_peak[bucket] * bcm->aux_data.width,
++			temp = qcom_bw_div(node->max_peak[bucket] * bcm->aux_data.width,
+ 				       node->buswidth);
+ 			agg_peak[bucket] = max(agg_peak[bucket], temp);
+ 		}
+ 
+ 		temp = agg_avg[bucket] * bcm->vote_scale;
+-		bcm->vote_x[bucket] = bcm_div(temp, bcm->aux_data.unit);
++		bcm->vote_x[bucket] = qcom_bw_div(temp, bcm->aux_data.unit);
+ 
+ 		temp = agg_peak[bucket] * bcm->vote_scale;
+-		bcm->vote_y[bucket] = bcm_div(temp, bcm->aux_data.unit);
++		bcm->vote_y[bucket] = qcom_bw_div(temp, bcm->aux_data.unit);
+ 	}
+ 
+ 	if (bcm->keepalive && bcm->vote_x[QCOM_ICC_BUCKET_AMC] == 0 &&
+diff --git a/drivers/interconnect/qcom/icc-common.h b/drivers/interconnect/qcom/icc-common.h
+index 21c39b163948..af4b5a6f30b7 100644
+--- a/drivers/interconnect/qcom/icc-common.h
++++ b/drivers/interconnect/qcom/icc-common.h
+@@ -7,6 +7,15 @@
+ #define __DRIVERS_INTERCONNECT_QCOM_ICC_COMMON_H__
+ 
+ #include <linux/interconnect-provider.h>
++#include <linux/math64.h>
++
++static inline u64 qcom_bw_div(u64 num, u32 base)
++{
++	if (num && num < base)
++		return 1;
++
++	return div_u64(num, base);
++}
+ 
+ struct icc_node_data *qcom_icc_xlate_extended(const struct of_phandle_args *spec,
+ 					      void *data);
+
+-- 
+2.55.0
+
