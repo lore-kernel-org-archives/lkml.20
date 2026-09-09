@@ -1,174 +1,124 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+Received: from mail-yx1-f54.google.com (mail-yx1-f54.google.com [74.125.224.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9C1232470F
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 03:54:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788926083; cv=none; b=FJ/Eu51tyvf8z6HAszPYhS8eX9c2ubeXarWPz9NYAvywSKpGik33DGCoaQBQ4giIpSznObzmHbR3zNV4+Uc1sk2Q2Ej8JNUyIn162kLTPV24E9KlGKwANRaVEYJ66VuzDSxkXnaJjxH1N+Vip+g7Drem8NnDOL2s9ueeHpKjMYs=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788926083; c=relaxed/simple;
-	bh=Xiqqil3lhejwyFNGntLSKdddo5jmG4i9c0LXeFp46Dk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=DVHTcrU9UVSVaADMtIXmh01LmwI+77Q2hJbCrU9uZXJOFsaQTVXwTRxivO1Ek0GXfdRPmzpFjdOirdXl2f5+zmj5ENYrMDil59HJ9nIlzfD48u6y+aSV/OJuHUMGorjckCmaJ+sc6pgdtx5A1a6hJN/oy7fmXKHhvQ5SzsBgbyM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fyYE2PGp; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42005492E47
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 03:57:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.54
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788926238; cv=pass; b=TGfCugRyupUUvw0yntucuhW0jBEOdEVcuYavP0Wkr1V/hkS8315NAyq88L+Ihcipzxa377mD0ogNFnTWOmdW4GsTqsZk96NckwXS+GrBQSHphsUGKGmAPI6HX+R4GFRPW4czEWpEqH0eF9Sc1TUywCCdxkxngtzb61oBkn+N4Mw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788926238; c=relaxed/simple;
+	bh=x21Fq+BMWsHXEBP0FNYN937Cc3gZGsVjLTugOGsEAA4=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=la/EvvHlX0zwJ1BxRanLNUVdXmJDIIvgLWO8l4b4HWtKKZFa/Hhv39hsRR3iTFDXU04JbObKNTdYP6Y5mMISAtz0tfxaa7OOWoxXL6POBZfp8MUHAwvO5f/75wKdU2Wr2U3fHOMfjY+qejOoXk0AxCtrF0OtoiKJl5Kne9S6Qq8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=iCBLC2+/; arc=pass smtp.client-ip=74.125.224.54
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fyYE2PGp"
-Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-398beb616f5so681263a91.1
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 20:54:39 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="iCBLC2+/"
+Received: by mail-yx1-f54.google.com with SMTP id 956f58d0204a3-66e64e6e3fbso4748932d50.2
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 20:57:16 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788926236; cv=none;
+        d=google.com; s=arc-20260327;
+        b=qtaJ0a7cir7d/1elDXTCVVuU9sGdjGkHB2X8CiFWnSsfOMfSfoClsVWXfJuiFzCCWv
+         sm7VrbkBOh9FSm1BGKp6AOWKc6s/pbwE3jQDGKC11mppnUNvpWnOl6gREIhTLUPKt9fB
+         TXs2Ks6zMu2rXUBSW3eCyLtHAw+3tdZSqCbrAt8q/zhrGdtRTd6tJMTchLsBU7R/Kw3Y
+         4D3BGLaY3eBgJfoCDqB9tdLFoMF6e6CB49dEwFHbVtcwftifmMTe3IXTPMB9rVFduIKy
+         7tKWW7MHci9Kp2BmLqlyiybfvtdPBy674Ky39kNx+pHhgICBnydXXpYewH61neCUer4y
+         9rBQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=6Od0mHSJulGCnv5qFieBy+atRCSjt7BOnlfDxonrmf8=;
+        fh=GHF789pQAi/8VpaSb1CPp6tE3hZYslLI0EA2x0CVwuk=;
+        b=V575x410BFoyiaQHMhtQw1agI7PpOjAFdeyi/V3AR4TQcDfc5sdVd3M+9wQ706GBPY
+         JZJXj7dosSTpYaM74/ZC3+mPN6n+BLitLMbuPrtaN9hGaHkrKZhMzZl5xk75AXrEBeOc
+         Wqb6VmJMI/mZTjudITa+6p/ZmRIJX6TyMF6HuieAJiRBjKTqeUQNQWmjWZj5zXazP07L
+         KfvDlTAHMjSiUuSUMfMmjJBtNA2iX6yRkYpZW8t8EqVqbfPKnEung5qo7uQrtpYOJEhz
+         chfpS9Up63bGsqpx5ICH2acwfCPtIwd6jrP/ksjADJ2bpMksFKZSL/gcfem21YQGJ8hH
+         tW0Q==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788926079; x=1789530879; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=FVrTOgTm+0hJ1CwNzLVTB+HsMENUpTPm4cRxnxEzp5M=;
-        b=fyYE2PGpd7Dqs6n9aQhRMp1NWC0tLWkohZBECp7gwZfuLcxvO4pOrIeLG8DeCFLtx4
-         INa4UNxjSJbXvah5rrz29I+40M87nieoJBwiSmvWX5PPUYO7+adhQP3i5i7NKhPJRl9K
-         vspiPmS/isVMomlSyXjvFxRn0NCL15CMtlvCBGJUfDAFjIbhjCGDlC5KRHVLf6jI2HD4
-         By40N9Pye/HJnroglzUX8c3JfHweKM1W3v4f0TQtxQqFtMppUawEluIh1ZhcNiosh58a
-         UrAsBxVapXnCCy1jKlVhthNO0Ph8JX/rxEeihdmMRCe/h32fvsYNdlw5fQkrsVVqz0E1
-         Hy3Q==
+        d=gmail.com; s=20251104; t=1788926236; x=1789531036; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=6Od0mHSJulGCnv5qFieBy+atRCSjt7BOnlfDxonrmf8=;
+        b=iCBLC2+/E+fmfGz0UrYq9buZxZICDiZq5KWHP2ClWylQY1cjlcQoBaOTjZo4mww1Ay
+         uqi8ZpdNtSNO/0Lw4YXbawx6k3cm0BxUTWA577zMc6cftqGFGz8UISMOCjsti4ObTZns
+         WJofHAfL5d0YqEiHGUjYZShmafARCOhNJFxhDGaV78wA67Ujysk43Hi/5OKcoPmTBKN5
+         Oq7VOBs55ghECl4LYJVNQE3lJ9vtSIQ8+hPaJ6OTfki4Rql6E66RM0JQL0m1nxWjdqQE
+         MKtRDG5eMAjNLqljAfPzVXWavctj5ngoepi0W3yLB/vw2s4boL9wGCuqGl4IYm+9qg+x
+         3xoQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788926079; x=1789530879;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=FVrTOgTm+0hJ1CwNzLVTB+HsMENUpTPm4cRxnxEzp5M=;
-        b=Zv3xqwwTRrmbzOsBMnfpODid9fboqtDCdPn2VDSvBlXK0K0r9Bya5uY7MOBALVmcV+
-         If+x4k9BPB1YClLOnPwtqupJ7skE/wzxbQ9cR47xw2hdvQdvTtofnI6tW3DvcQxqnAvU
-         ddZYGN6SGFLorJ9KaMKxG4jnmPbErQmC2gG13WikaWO19/tlbLaQjr2B0JRiRHoIvCGg
-         zNDdEKotyHKoSosiDSUd+IxF0enEwCmgsyNtIdKWkP9wY75AQD10TLk/719KtPViNy3o
-         b0EGXpyKjbJej8oyZdr+Z5BqsyI+Q/wEv64yUsdcKvRmt0qXGf6945RsrhNp4rSARfXf
-         RFwQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxcLtDZNjGn3g95MOhbrnpCJGangqCvFgiTNqskdMptr6+CqjhSa1ftZD7KpvMRee/E2mb67/PbCSCzEvE=@vger.kernel.org
-X-Gm-Message-State: AFuF++klU34j8CWO7YuM12SyUyKVKyzatmR17NPdof+t+NGpH6+ZhJYh
-	bqpan3t8jphLKQEUZgMFXFoTvrBpjPevzFTyiau1jJtnwvYw4MoXC4wuJM2nlO0Iy6w=
-X-Gm-Gg: AYBFou2tC4WSVilK0EQiSP6nocb4pRS5V+/3TozWOU4beIbjxDuhuhSA2yDWWq6SIud
-	Lz6rVTfr6v03wF9uKw9ac0X4tuF14ngaLfULWRsbQJ1uI/XQwhtwWmzfaXFRlQ/vua+mfaSi22B
-	VZHn9WnEzFJXhYBSfX2DYzgjMegcmZJT3qrkJC2ljCug/ftqFDRrkn2AfMDfjqL9lA02PM/mogD
-	WjshxFf/JUGSjnwt7Y7zcT/3HkeZTZusmVu3efBCyQfWkIjT4eufqiGWak9hfOkatreI2M+gvI9
-	v/d7onwSjjsJNW66FRI5whXPkjpWtfPp6fZl+64pAooCxbVywvMqx6BJomMPJa89U6jJ7GTtwOx
-	s961ELgAh7rYyZ0VsFzTMenaTz5zkWVXB8kebmzpDaw75ST7KLvyCNjL7KTx2O3K5qor/ZZoAuM
-	UJxOdIqfD8v8Svg4l7osjMir+B5b1tHYYhRkeVsov7J+ZrwRIS9YxeJPOxBPr/c4WR6frxaftSX
-	S9Vq5ic
-X-Received: by 2002:a17:90b:1c01:b0:384:927f:3db9 with SMTP id 98e67ed59e1d1-39b8bc95819mr8444097a91.1.1788926078043;
-        Tue, 08 Sep 2026 20:54:38 -0700 (PDT)
-Received: from gmail.com ([185.220.238.35])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b07b197a9sm35037781a91.0.2026.09.08.20.54.35
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 08 Sep 2026 20:54:37 -0700 (PDT)
-From: Kunwu Chan <kunwu.chan@gmail.com>
-To: SJ Park <sj@kernel.org>
-Cc: Kunwu Chan <kunwu.chan@gmail.com>,
-	akpm@linux-foundation.org,
-	lianux.mm@gmail.com,
-	damon@lists.linux.dev,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] mm/damon/tests/core-kunit: improve nr_samples_per_aggr test isolation
-Date: Wed,  9 Sep 2026 11:54:26 +0800
-Message-ID: <20260909035430.2432886-1-kunwu.chan@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260908133651.96278-1-sj@kernel.org>
-References: 
+        d=1e100.net; s=20251104; t=1788926236; x=1789531036;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=6Od0mHSJulGCnv5qFieBy+atRCSjt7BOnlfDxonrmf8=;
+        b=ILMB05nyG5uhIBG49XZnpP9fnKjF5xaMby02FluZH+2ab473OIBvZNleKxxCM9R6C5
+         bnVfVlnI/ATTIm2QQAAqgVgPRVgjezxw9wqW754ZzpPf7X+uRHxApnINbDjRjsb+Q5An
+         +SiTltTjBlZJy8c4BZ9bv6rr5wx7xm+jF7yzc9jZDoXF2nsyiwKELhUtv5sGsMSZmcFL
+         HSHH7TlRChWbXeMS4Kr/zyRU+WrtLZWfZVFQ1AfLRdMLjcLHb974w7Xr1xjocQ7LLxtW
+         WCgf9BX56xQ0vp8P6W0xbw3Hd81JR9dOC1TEnDDXdBSTkaVNhxS3dKI/N2wD1F0+m+XY
+         Uzgw==
+X-Forwarded-Encrypted: i=1; AKwUvByc8tvGfHUqiGwYQwoZssXlxE/ZoYF4GiaZ+XxjKxErkSxHmnNP3vrKD3Fg2kEU300YkWWb2JW5MREmUf4=@vger.kernel.org
+X-Gm-Message-State: AFuF++mA0yZcYqXSJgEtPuau3KLIrFRQPvPtx073ru6V+nNr9kF9alKT
+	x2lgR+prIQG2xu/ozjp3hHynxdH0dqe4Ws/zzXR5hOtsH5Zoxhf8t84C3Spxk4mtAo0Khgcx4nC
+	5PoEvKbAH/k/PrWpmU/tWyUHKuzU1iA4=
+X-Gm-Gg: AYBFou1irnCxEBPWMGAVUmdtmZOo3GhXUqYKG7OlXq5fysOVsGnl+6/tgT/omvL+1I2
+	AiYI8ZhYrSiw6efxgB0kU4RcdhGsjQLrCx2RRkOw6p76c8eCqQ2PtAj/2BkBMFl0jYKrcKQCtYX
+	n+m3KHY/WsYnxmRW/yqgiPKv9XZEJN0txYJbCXfaNY/8DiAjup6jLIbC75QyJhMq7HuHKUOigSn
+	vHpn+pOlEjNuQaLD0WxIGBAmn8WBh5xdOfBZYYfXR9kiN+UI425w5keA2QaUP7TWjgs/ETQ88WJ
+	LvoBy7bbWAXp7sukKRsLJgmijm+ayWDFsEQKfLlQiyf5YbJJyx/eTqxx+fKH7LDV94E3DZOTyTp
+	QzZHNjE8W6muu5TqQ1QufdhXEcBUrTKJWeMLySBZ9zWTn
+X-Received: by 2002:a05:690e:c46:b0:668:9230:e269 with SMTP id
+ 956f58d0204a3-66fc1bdd0edmr9162300d50.41.1788926236014; Tue, 08 Sep 2026
+ 20:57:16 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260906054336.20187-1-kartikey406@gmail.com> <ap_S2eIZW6bYqZFU@hovoldconsulting.com>
+In-Reply-To: <ap_S2eIZW6bYqZFU@hovoldconsulting.com>
+From: Deepanshu Kartikey <kartikey406@gmail.com>
+Date: Wed, 9 Sep 2026 09:27:04 +0530
+X-Gm-Features: AcwNN1U9v-STXCm9TBNQNcZXEwsKruqtT516HWo-HvVQbqB54_1fWY9NUQ7MIsw
+Message-ID: <CADhLXY5uybqOzB7iec4YhwrALAAXgt_67RNAua+kRVkCt0JD9Q@mail.gmail.com>
+Subject: Re: [PATCH] nfc: pn533: fix OOB read in pn533_acr122_is_rx_frame_valid()
+To: Johan Hovold <johan@kernel.org>
+Cc: david@ixit.cz, kuba@kernel.org, horms@kernel.org, error27@gmail.com, 
+	gregkh@linuxfoundation.org, michael.thalmeier@hale.at, sameo@linux.intel.com, 
+	oe-linux-nfc@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	syzbot+1853daab1a47603d4678@syzkaller.appspotmail.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Tue,  8 Sep 2026 06:36:50 -0700 SJ Park <sj@kernel.org> wrote:
+On Tue, Sep 8, 2026 at 2:48=E2=80=AFPM Johan Hovold <johan@kernel.org> wrot=
+e:
+>
 
-> Hi Kunwu,
-> 
-> On Tue,  8 Sep 2026 14:36:35 +0800 Kunwu Chan <kunwu.chan@gmail.com> wrote:
-> 
-> > The damon_nr_samples_per_aggr() test sets both intervals to zero,
-> > which exercises two different fallback paths at once.
-> > 
-> > Use separate compound initializers for each case so that each case
-> > tests one fallback path independently. Also make the overflow case
-> > use an explicit non-zero sample interval so that it does not depend
-> > on the zero sample interval fallback.
-> 
-> Thank you for sharing this patch!
-> 
-> > 
-> > Signed-off-by: Kunwu Chan <kunwu.chan@gmail.com>
-> > ---
-> >  mm/damon/tests/core-kunit.h | 19 +++++++++++++++----
-> >  1 file changed, 15 insertions(+), 4 deletions(-)
-> > 
-> > diff --git a/mm/damon/tests/core-kunit.h b/mm/damon/tests/core-kunit.h
-> > index c01e6a75cad..ff23208c181 100644
-> > --- a/mm/damon/tests/core-kunit.h
-> > +++ b/mm/damon/tests/core-kunit.h
-> > @@ -627,12 +627,20 @@ static void damon_test_set_regions(struct kunit *test)
-> >  
-> >  static void damon_test_nr_samples_per_aggr(struct kunit *test)
-> >  {
-> > -	struct damon_attrs attrs = {
-> > +	struct damon_attrs attrs;
-> > +
-> > +	/* Zero sample interval is treated as one. */
-> > +	attrs = (struct damon_attrs){
-> >  		.sample_interval = 0,
-> > -		.aggr_interval = 0,
-> > +		.aggr_interval = 5000,
-> >  	};
-> > +	KUNIT_EXPECT_EQ(test, damon_nr_samples_per_aggr(&attrs), 5000);
-> 
-> Thank you for adding this test case.
-> 
-> >  
-> > -	/* Zero aggregation interval doesn't cause division by zero */
-> > +	/* Zero samples per aggregation is treated as one. */
-> > +	attrs = (struct damon_attrs){
-> > +		.sample_interval = 5000,
-> > +		.aggr_interval = 0,
-> > +	};
-> >  	KUNIT_EXPECT_EQ(test, damon_nr_samples_per_aggr(&attrs), 1);
-> 
-> But damon_set_attrs() disallows sample intervals that are larger than the
-> aggregation intervals.  Hence this setup is somewhat unrealistic.  Should we
-> set sample_interval zero?
+> Are you missing an Assisted-by tag here?
+>
 
-Good point. 
-I checked damon_set_attrs() as well, and the `sample_interval <= aggr_interval` 
-constraint makes `0/0` the consistent boundary case here.
+Sure , I will add assisted-by tag .
 
-I'll update the second case accordingly.
+> Just a drive-by comment, but should this not replace the existing
+> datalen =3D=3D 0 check?
+>
+> >       if (frame->data[frame->ccid.datalen - 2] =3D=3D 0x63)
+> >               return false;
+>
+> Johan
 
-Thanks,
-KunWu
+I will remove the older if (!frame->ccid.datalen)   check.
 
-> 
-> >  
-> >  	/*
-> > @@ -640,7 +648,10 @@ static void damon_test_nr_samples_per_aggr(struct kunit *test)
-> >  	 * overflow
-> >  	 */
-> >  	if (ULONG_MAX > UINT_MAX) {
-> > -		attrs.aggr_interval = (unsigned long)UINT_MAX + 1;
-> > +		attrs = (struct damon_attrs){
-> > +			.sample_interval = 1,
-> > +			.aggr_interval = (unsigned long)UINT_MAX + 1,
-> > +		};
-> >  		KUNIT_EXPECT_EQ(test, damon_nr_samples_per_aggr(&attrs),
-> >  				UINT_MAX);
-> >  	}
-> > 
-> > base-commit: d118502628f8b673be9023db8bdf878f64a7ed45
-> > -- 
-> > 2.43.0
-> 
-> 
-> Thanks,
-> SJ
-> 
+I will send patch v2 shortly
 
-Sent using hkml (https://github.com/sjp38/hackermail)
+Thanks
+
+Deepanshu
