@@ -1,402 +1,172 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B515E566C53;
-	Wed,  9 Sep 2026 16:02:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 811F6577E58;
+	Wed,  9 Sep 2026 16:02:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788969748; cv=none; b=spPCdTJDGBX/RInpSQ5Mnc6lYxaW7rOC3R2H5eWByMrCVBoJMDSMMIk81XVPSxrtIs3ZhGzbMUqz/fu9BcUHvcO14nQjOw4D1c1P/lkNn6aX4VWqoDLBZhuM1oivTruROwrHyhlUSkJAu6pzKIsKEcQGYraLbgNCCA0K4zDixl8=
+	t=1788969753; cv=none; b=OTW8iu4Yoj/ZBwkBNw65sWrhVJex6he96dd4gwZ1La4URoXoA330DNIv/y8hFXGu+dvaffyNyBWa8X4CVL8aeMQkOL0O/GtDZjSza8SJzTYEhvhuC/3MSA6HVNeTi2/VSnqa7lSHL+EeB7Qm47gwRKI0ARIPmnpiP6vVapk/XcE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788969748; c=relaxed/simple;
-	bh=+qFWelgk7ZhBw3jqt1QlHX25hgNM2NqBuFhO3mk1wuo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=OMS7FBLHs2PvJCFN+zOTeOKnHjwx72BaSPNilwAHMKt9Y/8wco8yGxW9n7sYVgfMPPK8VVgqJ2x0n9UQhoO43drc2qgfpwgeTxWDLMRqvxq16BGinMK08AhrLVjn848LjKYb5XHGWmBmQpYFEH0WZ51kXoCzFNbZR3pSu3CD37o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=eQOIS11B; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1788969753; c=relaxed/simple;
+	bh=Jpwl9ZJTluhiqtfbshmgH/50lLjHq49Fsgrch56fQ/c=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=DQalLmDXV2UwNjSad4igB34AFICMI0NlIyjwySeJ1xGeuyMmWNg7gNW7Hogs37XPSX+IxMm46Dk55VJaZpq5NocnLdSYiWHvk+UAyp6xZfPa4ird3giPumswMhSnZjXh9kBGsPtAuLGSKOsn8am0WA17GyHNk/Ib9bhloNDXm/4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=D9K/wQcb; arc=none smtp.client-ip=198.175.65.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="eQOIS11B"
-Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 689B1cJc3839630;
-	Wed, 9 Sep 2026 16:01:52 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=iGcnBj
-	nzsvFwvqDF7dJOgFmWXqwCG/4To3uYxCNHBPA=; b=eQOIS11BcylKcEdguI+jAm
-	1jRK2YB64sGT0T3qeY9q2Xf9TK2vXHil0SwI6i+xD8ol3CYTbu+mc3j2xQZQJhWK
-	t9O7TIqL92/YrWwX0CizP/oLzY0zFk+SGLd+kDilUefjIibipJeRhwS3hbYEfqT1
-	KIgpaTnSLKfxIVriagFs3M6McPdmqjui4yjnS4hug8mQ8MTiARHBz0X3/PeoOTDi
-	Zm0KQC9xmUYuFmbJAE982gMSFFjzy25TcQE/QBYBAEfrcqqZSSHHOT6dbIx+pdrJ
-	o8PT4kwdFzNi0imWxAnV4XAx6au95/eyu8yGQaPQAOgLh/N+Yryy8O0hRVKbr1Eg
-	==
-Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4ggbhf6jqv-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 09 Sep 2026 16:01:51 +0000 (GMT)
-Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma22.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 689FuEm0001918;
-	Wed, 9 Sep 2026 16:01:50 GMT
-Received: from smtprelay07.fra02v.mail.ibm.com ([9.218.2.229])
-	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4ggwswb9as-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 09 Sep 2026 16:01:50 +0000 (GMT)
-Received: from smtpav01.fra02v.mail.ibm.com (smtpav01.fra02v.mail.ibm.com [10.20.54.100])
-	by smtprelay07.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 689G1jw148103904
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Wed, 9 Sep 2026 16:01:45 GMT
-Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 85EF82004E;
-	Wed,  9 Sep 2026 16:01:45 +0000 (GMT)
-Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id BE01220040;
-	Wed,  9 Sep 2026 16:01:35 +0000 (GMT)
-Received: from [9.61.255.18] (unknown [9.61.255.18])
-	by smtpav01.fra02v.mail.ibm.com (Postfix) with ESMTPS;
-	Wed,  9 Sep 2026 16:01:35 +0000 (GMT)
-Message-ID: <0e07e597-d816-4425-b190-d61c3281f95c@linux.ibm.com>
-Date: Wed, 9 Sep 2026 21:31:31 +0530
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="D9K/wQcb"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788969752; x=1820505752;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=Jpwl9ZJTluhiqtfbshmgH/50lLjHq49Fsgrch56fQ/c=;
+  b=D9K/wQcbE+QCGOFySE7Z+30qfZ7NsYWQAOA4qF2o9K6GTjPv2j9Okby3
+   lVOTaS1xd8Bz5qRYQBJstz2Bb/h6sb/R3EM4kmed86KsNOvywZkfhcTdi
+   VVJkNFb/dUl75aSZSjzynU/K3w+dN2gbrsdWhftsK2qLDvvnstuBkV+mA
+   esFxzefD4aoSFveBZWv9DpHPOwkOBzZieRsmFUEzAbrSGLkhY9DtCmLJn
+   uWvw+CWANUgVV6Q0EPzmGfKnt+d3QL9q1oAmEl+47nCpeZ9zjj5q5qKni
+   tK1TApYoVPiOh035XHEc8QxEdtWVDDYK1fLQMZB3QFmJQxZllXMUyg6xU
+   A==;
+X-CSE-ConnectionGUID: CVmC6YnjSgGmDMH6A3lC1A==
+X-CSE-MsgGUID: hKXJR6XMTPO64QmZM1VDAw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11900"; a="100564457"
+X-IronPort-AV: E=Sophos;i="6.25,270,1779174000"; 
+   d="scan'208";a="100564457"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Sep 2026 09:02:31 -0700
+X-CSE-ConnectionGUID: c6rws71/Q7e2g+AflT4cXg==
+X-CSE-MsgGUID: Z2CX5bYqScmjtQWRxY/4wA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,270,1779174000"; 
+   d="scan'208";a="267072925"
+Received: from iweiny-desk3.amr.corp.intel.com (HELO tfalcon-desk.attlocal.net) ([10.124.222.48])
+  by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Sep 2026 09:02:30 -0700
+From: Thomas Falcon <thomas.falcon@intel.com>
+To: Namhyung Kim <namhyung@kernel.org>
+Cc: linux-perf-users@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Peter Zijlstra <peterz@infradead.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Ian Rogers <irogers@google.com>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	James Clark <james.clark@linaro.org>,
+	Dapeng Mi <dapeng1.mi@linux.intel.com>
+Subject: [PATCH v7 0/6] perf: Add support for memory region/range reporting
+Date: Wed,  9 Sep 2026 11:02:12 -0500
+Message-ID: <20260909160218.174928-1-thomas.falcon@intel.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 12/22] coredump: clean up coredump state handling
-To: Christian Brauner <brauner@kernel.org>, linux-fsdevel@vger.kernel.org
-Cc: Jacob Lalonde <jalalonde@meta.com>, Josef Bacik <josef@toxicpanda.com>,
-        Jann Horn <jannh@google.com>, Alexander Viro <viro@zeniv.linux.org.uk>,
-        Jan Kara <jack@suse.cz>, Andrew Morton <akpm@linux-foundation.org>,
-        David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
-        "Liam R. Howlett" <liam@infradead.org>,
-        Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
-        Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
-        Omar Sandoval <osandov@osandov.com>, Jacob Lalonde <jalalonde@fb.com>,
-        Shuah Khan <shuah@kernel.org>, linux-kernel@vger.kernel.org,
-        linux-mm@kvack.org, linux-kselftest@vger.kernel.org,
-        linuxppc-dev@lists.ozlabs.org
-References: <20260820-work-coredump-sparse-v2-0-ba32dd718c51@kernel.org>
- <20260820-work-coredump-sparse-v2-12-ba32dd718c51@kernel.org>
-Content-Language: en-US
-From: R Nageswara Sastry <rnsastry@linux.ibm.com>
-In-Reply-To: <20260820-work-coredump-sparse-v2-12-ba32dd718c51@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-GUID: RC2P0Eez8eUL9mdFR4p7Y9v5Q42r_iXJ
-X-Authority-Analysis: v=2.4 cv=RIaD2Yi+ c=1 sm=1 tr=0 ts=6aa182ef cx=c_pps
- a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=RzCfie-kr_QcCd8fBx8p:22 a=VwQbUJbxAAAA:8
- a=VnNF1IyMAAAA:8 a=EdPaav6MFMfPzbQwOvsA:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA5MDE3OCBTYWx0ZWRfX49YuAzFzCrzn
- GyUaesOT0Zaas4kjvS7CEdGUBC6cbVZQmqlGd7nXgLusnch3Gb3wkQZFid1EGDi1JsLu8+7C6ha
- CB/7e7NuREDOrToW519z3pcXTBZANb8=
-X-Proofpoint-ORIG-GUID: KN_x0VA8pfEEO2JiqzD1hzgZ4TDJGFl7
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA5MDE3OCBTYWx0ZWRfX8pa+aJ3poKL7
- pgZf78/kRtTfVslMnHaEvjO0KGTsMmOqAX4lHomWV68n08wcwDQXQP3z0hGakj2K1X9tvEfVTW6
- OirKTn93cc5pdKHSOxxihMyTGgIT6agsYblgn0oUBBfRqAAPwbYlroG82xDNWtxWZFZC5203bvd
- ZaRcU7QyYxbZ3vGfzw18tOkex8KrSxNaK7OjxJZock4akTTGeuu5hwyaeUY+Sp+mwumsYUvnrbm
- YIj2gR1lJXiox7gxTshZwtVSYBPgfaOVnKhz0e0iJHR41a48YxGptZ/gFEKmdLw5+R4jgMxv2u+
- rmKoTujQ0nYDfCHSiNPTd+pklx28vBkF9mB6p5rituIW5kZRraODAWvj1u3mORCmbMBmU9iFPgT
- gAPDAf0wiLuKEWsfRO71zqnGjvJxBWsebda8pICzSfVh5F+vbA8J5xIkbOXbUg22IsTKr95wcey
- lSRRK3JDriFloVdPGoQ==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-08_03,2026-09-09_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=0 malwarescore=0 priorityscore=1501 bulkscore=0
- adultscore=0 phishscore=0 clxscore=1015 impostorscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609090178
+Content-Transfer-Encoding: 8bit
 
+Add support for two memory-related reporting features in the perf tool:
 
-On 20.08.2026 4:39 AM, Christian Brauner wrote:
-> Right now coredump state handling is messy. The binfmt->core_dump::
-> methods return 1 when the coredump method did anything at all which
-> means that a partial write counts as having dumped core. This is fine as
-> the state is really only used to indicate that a coredump event occurred
-> in the exit status of the task. That should obviously be indicated even
-> if the actual writeout of the coredump failed.
->
-> But it means the coredump method of the binary formats is different from
-> all the other coredump helpers. And there's no way to communicate to
-> userspace that a coredump was truncated. We'll add support for that in a
-> second. For now, clean this up.
->
-> Add a flag member into struct coredump_params. Let the coredump method
-> raise COREDUMP_STATE_STARTED. This is what coredump_finish() will end up
-> using to splice in the coredump bit into the exit status.
->
-> This allows us to let the return value mean success or failure and align
-> it with the other coredump helpers. We also start raising
-> COREDUMP_STATE_TRUNCATED. This will be used in the next patches to
-> communicate truncation to userspace via the coredump socket.
->
-> No functional changes.
->
-> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
-Tested-by: R Nageswara Sastry <rnsastry@linux.ibm.com>
+1. Memory region reporting in perf-c2c and perf-script subcommands.
+2. Memory range data in perf.data file header and perf-c2c subcommand.
 
-System: ppc64le LPAR (IBM POWER), Linux 7.3-rc2
-> ---
->   fs/binfmt_elf.c          | 12 +++++++-----
->   fs/binfmt_elf_fdpic.c    | 12 +++++++-----
->   fs/coredump.c            | 31 +++++++++++++++++--------------
->   include/linux/binfmts.h  |  3 ++-
->   include/linux/coredump.h | 12 ++++++++++++
->   5 files changed, 45 insertions(+), 25 deletions(-)
->
-> diff --git a/fs/binfmt_elf.c b/fs/binfmt_elf.c
-> index 16a56b6b3f6c..f85b2137bdb9 100644
-> --- a/fs/binfmt_elf.c
-> +++ b/fs/binfmt_elf.c
-> @@ -74,7 +74,7 @@ static int load_elf_binary(struct linux_binprm *bprm);
->    * don't even try.
->    */
->   #ifdef CONFIG_ELF_CORE
-> -static int elf_core_dump(struct coredump_params *cprm);
-> +static bool elf_core_dump(struct coredump_params *cprm);
->   #else
->   #define elf_core_dump	NULL
->   #endif
-> @@ -1990,9 +1990,9 @@ static void fill_extnum_info(struct elfhdr *elf, struct elf_shdr *shdr4extnum,
->    * and then they are actually written out.  If we run out of core limit
->    * we just truncate.
->    */
-> -static int elf_core_dump(struct coredump_params *cprm)
-> +static bool elf_core_dump(struct coredump_params *cprm)
->   {
-> -	int has_dumped = 0;
-> +	bool ret = false;
->   	int segs, i;
->   	struct elfhdr elf;
->   	loff_t offset = 0, dataoff;
-> @@ -2023,7 +2023,7 @@ static int elf_core_dump(struct coredump_params *cprm)
->   	if (!fill_note_info(&elf, e_phnum, &info, cprm))
->   		goto end_coredump;
->   
-> -	has_dumped = 1;
-> +	cprm->state |= COREDUMP_STATE_STARTED;
->   
->   	offset += sizeof(elf);				/* ELF header */
->   	offset += segs * sizeof(struct elf_phdr);	/* Program headers */
-> @@ -2118,11 +2118,13 @@ static int elf_core_dump(struct coredump_params *cprm)
->   			goto end_coredump;
->   	}
->   
-> +	ret = true;
-> +
->   end_coredump:
->   	free_note_info(&info);
->   	kfree(shdr4extnum);
->   	kfree(phdr4note);
-> -	return has_dumped;
-> +	return ret;
->   }
->   
->   #endif		/* CONFIG_ELF_CORE */
-> diff --git a/fs/binfmt_elf_fdpic.c b/fs/binfmt_elf_fdpic.c
-> index fe0b5c5ed2bc..252eb155965b 100644
-> --- a/fs/binfmt_elf_fdpic.c
-> +++ b/fs/binfmt_elf_fdpic.c
-> @@ -75,7 +75,7 @@ static int elf_fdpic_map_file_by_direct_mmap(struct elf_fdpic_params *,
->   					     struct file *, struct mm_struct *);
->   
->   #ifdef CONFIG_ELF_CORE
-> -static int elf_fdpic_core_dump(struct coredump_params *cprm);
-> +static bool elf_fdpic_core_dump(struct coredump_params *cprm);
->   #endif
->   
->   static struct linux_binfmt elf_fdpic_format = {
-> @@ -1476,9 +1476,9 @@ static bool elf_fdpic_dump_segments(struct coredump_params *cprm,
->    * and then they are actually written out.  If we run out of core limit
->    * we just truncate.
->    */
-> -static int elf_fdpic_core_dump(struct coredump_params *cprm)
-> +static bool elf_fdpic_core_dump(struct coredump_params *cprm)
->   {
-> -	int has_dumped = 0;
-> +	bool ret = false;
->   	int segs;
->   	int i;
->   	struct elfhdr *elf = NULL;
-> @@ -1535,7 +1535,7 @@ static int elf_fdpic_core_dump(struct coredump_params *cprm)
->   	/* Set up header */
->   	fill_elf_fdpic_header(elf, e_phnum);
->   
-> -	has_dumped = 1;
-> +	cprm->state |= COREDUMP_STATE_STARTED;
->   	/*
->   	 * Set up the notes in similar form to SVR4 core dumps made
->   	 * with info from their /proc.
-> @@ -1655,6 +1655,8 @@ static int elf_fdpic_core_dump(struct coredump_params *cprm)
->   		       cprm->file->f_pos, offset);
->   	}
->   
-> +	ret = true;
-> +
->   end_coredump:
->   	while (thread_list) {
->   		tmp = thread_list;
-> @@ -1665,7 +1667,7 @@ static int elf_fdpic_core_dump(struct coredump_params *cprm)
->   	kfree(elf);
->   	kfree(psinfo);
->   	kfree(shdr4extnum);
-> -	return has_dumped;
-> +	return ret;
->   }
->   
->   #endif		/* CONFIG_ELF_CORE */
-> diff --git a/fs/coredump.c b/fs/coredump.c
-> index d61f36239f91..6af3ff0e19a6 100644
-> --- a/fs/coredump.c
-> +++ b/fs/coredump.c
-> @@ -98,7 +98,6 @@ struct core_name {
->   	char *corename __counted_by_ptr(size);
->   	int used, size;
->   	unsigned int core_pipe_limit;
-> -	bool core_dumped;
->   	enum coredump_type_t core_type;
->   };
->   
-> @@ -250,7 +249,6 @@ static bool coredump_parse(struct core_name *cn, struct coredump_params *cprm,
->   	cn->used = 0;
->   	cn->corename = NULL;
->   	cn->core_pipe_limit = 0;
-> -	cn->core_dumped = false;
->   	if (*pat_ptr == '|')
->   		cn->core_type = COREDUMP_PIPE;
->   	else if (*pat_ptr == '@')
-> @@ -549,13 +547,13 @@ static int coredump_wait(int exit_code, struct core_state *core_state)
->   	return core_waiters;
->   }
->   
-> -static void coredump_finish(bool core_dumped)
-> +static void coredump_finish(enum coredump_state state)
->   {
->   	struct core_thread *curr, *next;
->   	struct task_struct *task;
->   
->   	spin_lock_irq(&current->sighand->siglock);
-> -	if (core_dumped && !__fatal_signal_pending(current))
-> +	if ((state & COREDUMP_STATE_STARTED) && !__fatal_signal_pending(current))
->   		current->signal->group_exit_code |= 0x80;
->   	next = current->signal->core_state->dumper.next;
->   	current->signal->core_state = NULL;
-> @@ -1045,19 +1043,23 @@ static bool coredump_pipe(struct core_name *cn, struct coredump_params *cprm,
->   	return true;
->   }
->   
-> -static bool coredump_write(struct core_name *cn,
-> -			  struct coredump_params *cprm,
-> -			  const struct linux_binfmt *binfmt)
-> +static bool coredump_write(struct coredump_params *cprm,
-> +			   const struct linux_binfmt *binfmt)
->   {
->   
-> -	if (dump_interrupted())
-> +	if (dump_interrupted()) {
-> +		cprm->state |= COREDUMP_STATE_TRUNCATED;
->   		return true;
-> +	}
->   
-> -	if (!dump_vma_snapshot(cprm))
-> +	if (!dump_vma_snapshot(cprm)) {
-> +		cprm->state |= COREDUMP_STATE_TRUNCATED;
->   		return false;
-> +	}
->   
->   	file_start_write(cprm->file);
-> -	cn->core_dumped = binfmt->core_dump(cprm);
-> +	if (!binfmt->core_dump(cprm))
-> +		cprm->state |= COREDUMP_STATE_TRUNCATED;
->   	/*
->   	 * Ensures that file size is big enough to contain the current
->   	 * file postion. This prevents gdb from complaining about
-> @@ -1066,7 +1068,8 @@ static bool coredump_write(struct core_name *cn,
->   	 */
->   	if (cprm->to_skip) {
->   		cprm->to_skip--;
-> -		dump_emit(cprm, "", 1);
-> +		if (!dump_emit(cprm, "", 1))
-> +			cprm->state |= COREDUMP_STATE_TRUNCATED;
->   	}
->   	file_end_write(cprm->file);
->   	free_vma_snapshot(cprm);
-> @@ -1082,7 +1085,7 @@ static void coredump_cleanup(struct core_name *cn, struct coredump_params *cprm)
->   		atomic_dec(&core_pipe_count);
->   	}
->   	kfree(cn->corename);
-> -	coredump_finish(cn->core_dumped);
-> +	coredump_finish(cprm->state);
->   }
->   
->   static inline bool coredump_skip(const struct coredump_params *cprm,
-> @@ -1136,14 +1139,14 @@ static void do_coredump(struct core_name *cn, struct coredump_params *cprm,
->   	if (unshare_files())
->   		return;
->   
-> -	if ((cprm->mask & COREDUMP_KERNEL) && !coredump_write(cn, cprm, binfmt))
-> +	if ((cprm->mask & COREDUMP_KERNEL) && !coredump_write(cprm, binfmt))
->   		return;
->   
->   	coredump_sock_shutdown(cprm->file);
->   
->   	/* Let the parent know that a coredump was generated. */
->   	if (cprm->mask & COREDUMP_USERSPACE)
-> -		cn->core_dumped = true;
-> +		cprm->state |= COREDUMP_STATE_STARTED;
->   
->   	/*
->   	 * When core_pipe_limit is set we wait for the coredump server
-> diff --git a/include/linux/binfmts.h b/include/linux/binfmts.h
-> index 2c77e383e737..64f82fb642bf 100644
-> --- a/include/linux/binfmts.h
-> +++ b/include/linux/binfmts.h
-> @@ -94,7 +94,8 @@ struct linux_binfmt {
->   	struct module *module;
->   	int (*load_binary)(struct linux_binprm *);
->   #ifdef CONFIG_COREDUMP
-> -	int (*core_dump)(struct coredump_params *cprm);
-> +	/* Returns true if the whole coredump was written. */
-> +	bool (*core_dump)(struct coredump_params *cprm);
->   	unsigned long min_coredump;	/* minimal dump size */
->   #endif
->   } __randomize_layout;
-> diff --git a/include/linux/coredump.h b/include/linux/coredump.h
-> index 943bddfb22bf..709388dd5659 100644
-> --- a/include/linux/coredump.h
-> +++ b/include/linux/coredump.h
-> @@ -9,6 +9,16 @@
->   #include <asm/siginfo.h>
->   
->   #ifdef CONFIG_COREDUMP
-> +/**
-> + * enum coredump_state - what happened while the coredump was written
-> + * @COREDUMP_STATE_STARTED: the dumper committed to writing a coredump
-> + * @COREDUMP_STATE_TRUNCATED: the dumper stopped before it had written all of it
-> + */
-> +enum coredump_state {
-> +	COREDUMP_STATE_STARTED		= (1U << 0),
-> +	COREDUMP_STATE_TRUNCATED	= (1U << 1),
-> +};
-> +
->   struct core_vma_metadata {
->   	unsigned long start, end;
->   	vm_flags_t flags;
-> @@ -28,6 +38,8 @@ struct coredump_params {
->   	int cpu;
->   	/* COREDUMP_* options negotiated with the coredump server. */
->   	u64 mask;
-> +	/* COREDUMP_STATE_* raised while the coredump is written. */
-> +	enum coredump_state state;
->   	loff_t written;
->   	loff_t pos;
->   	loff_t to_skip;
->
+Memory region reporting was introduced as part of support for the
+Off-module Response facility (OMR) [1], which provides a new data
+source encoding supporting "up to 8 fine-grained memory regions in
+addition to the cache region, offering more detailed insights into
+memory access regions."
+
+Memory Range support was introduced with the addition of the ACPI Memory
+Range and Region Mapping (MRRM) [2] table. It provides a base address plus
+a length value for each memory range, as well as NUMA node and local and
+remote "region ID's" so that "platform firmware can indicate the type of
+memory for each range."[3]
+
+Include a change allowing PERF_MEM_LVLNUM_L0 to be printed in
+perf-mem output as well.
+
+[1]: https://lore.kernel.org/all/20260114011750.350569-1-dapeng1.mi@linux.intel.com/
+[2]: https://lore.kernel.org/lkml/20250505173819.419271-1-tony.luck@intel.com/
+[3]: MRRM definition allow for future expansion for the OS to assign
+these region IDs.
+
+v7:
+-- perf-c2c: fix output_str allocation error handling that introduces a
+   memory leak (Sashiko)
+
+v6: 
+-- Rebase on 7.3-rc1
+
+v5:
+-- perf-c2c: make the cacheline header span and ui_quirks() width
+   fixup depend on memory-region availability (Namhyung Kim)
+
+v4:
+-- perf-script: gate the Region field on the HEADER_MEMORY_RANGES feature
+   bit via perf_session instead of a global flag, with a pipe-mode fallback
+-- perf-c2c: fix output_str allocation error handling
+-- perf header: Fix typo in region id bounds checking which made region 255
+   invalid
+
+v3:
+-- included missing ff-size check in process_memory_ranges
+-- make memory region reporting in perf c2c-and perf-script conditional
+   on feature bit, requiring some patch reordering (Namhyung Kim)
+-- used open/openat to read memory range sysfs files in memory_range__read()
+   (Namhyung Kim)
+-- Removed path name and file name buffers in memory_range__read(),
+   instead pass path name from as a parameter from memory_range__parse()
+   (Namhyung Kim)
+-- use calloc instead of zalloc in memory_range__parse() and
+   process_memory_ranges() (Namhyung Kim)
+-- Removed redundant check for existance of memory range directory in
+   memory_range__read() (Namhyung Kim)
+-- Included output examples of memory ranges in perf header and perf-c2c
+   in commit message (Namhyung Kim)
+
+v2:
+-- Added missing newline in WARN_ONCE message in c2c_he__set_mem_region()
+-- increased buffers passed to perf_script__meminfo_scnprintf() from 150
+   to 200 bytes to avoid silent truncation
+-- Added check for NULL return of sysfs__mountpoint() when parsing
+   memory ranges in sysfs
+-- increased MAX_MEMORY_RANGES sanity check from 64 to 256 based on
+   ACPI MRRM table implementation in Linux kernel
+-- added comment for MAX_MEMORY_RANGES to clarify that it is a sanity check
+   for malformed perf.data files
+-- removed a line of code was removed from util/env.h but was added back in
+   v1 due to bad rebase
+
+Dapeng Mi (3):
+  perf mem: Add support for printing PERF_MEM_LVLNUM_L0
+  perf tools: Show memory region in perf-c2c subcommand
+  perf tools: Show memory region in perf-script subcommand
+
+Thomas Falcon (3):
+  perf mem: Fix size tracking for mem_lvl's in
+    perf_script__meminfo_scnprintf()
+  perf header: Support memory ranges
+  perf c2c: print memory region data with stdio output
+
+ tools/perf/Documentation/perf-record.txt      |   2 +-
+ .../Documentation/perf.data-file-format.txt   |  13 ++
+ tools/perf/builtin-c2c.c                      | 128 ++++++++++-
+ tools/perf/builtin-inject.c                   |   1 +
+ tools/perf/builtin-script.c                   |  13 +-
+ tools/perf/util/bpf-filter.l                  |   1 +
+ tools/perf/util/c2c.h                         |   1 +
+ tools/perf/util/env.c                         |   1 +
+ tools/perf/util/env.h                         |  10 +
+ tools/perf/util/header.c                      | 203 ++++++++++++++++++
+ tools/perf/util/header.h                      |   1 +
+ tools/perf/util/mem-events.c                  |  93 +++++++-
+ tools/perf/util/mem-events.h                  |   5 +-
+ .../scripting-engines/trace-event-python.c    |   5 +-
+ 14 files changed, 454 insertions(+), 23 deletions(-)
+
 -- 
-Thanks and Regards
-R.Nageswara Sastry
+2.43.0
 
