@@ -1,147 +1,178 @@
-Received: from mail-lf2-f12.google.com (mail-lf2-f12.google.com [74.125.229.204])
+Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 369114CCDED
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 11:20:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.229.204
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788952851; cv=pass; b=fX74gk13opDzuzl4/KjGuZTNzzTr6/SwTVmPRnhTBm0a/m2cte/DrtWzRDwGxjNz3wtHorfVVNyq0wt8szWYgEc5/pWOke9BWVgIsWFtPh94uAzs/dJA+NibEJAJQ4caO+fE+O2xU/c9XgjxMg1us1/yMeyHg0UU7le04t2Co2U=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788952851; c=relaxed/simple;
-	bh=DGJNGDyqk/L8FuMkKQ9UZ8lh0gD+ZC6OA/bClDuW/zs=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=VsBnE+i9TldtRpcQwAldm3sWHGDAr0rKhk+WdMYLjBubDcpVs1QIaLFLIJqbCV/1SdYnK6zV8RJpO6ZuP8naob7hJZV71abtDq8hkgcT6tf/QGVOHN8japk2u43HWl+iFbscCupVd8JgkDeZNJwISENjFJFU34EyBXc1NZM1eus=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=QkAL6QIS; arc=pass smtp.client-ip=74.125.229.204
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EE7C4B04B2
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 11:21:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.46
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788952880; cv=none; b=CRdfTaRYumxT42w3kGz//TsRYK95+ibTQxvQAvypgZovPKO4iRIkc4I+uX2kiduEyMjeTKsh3RLQ9E9xvoxyhY2j2kXd0PhwOoxmuH2bOKTLRBslEi+aKVW/FPQnWl8p0lILzB8in0DJLpqcPf+gO9gwUUNEeZDEoBTwrh/w0pk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788952880; c=relaxed/simple;
+	bh=ejKLOMfYN5cbTm0XLhNm/9cnSoVZpQ0xyMtLlfidjgU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=InYeT9YocIrdV79Cv6CxrcRKDe2oM9PcK2e2kZC12Qrxso2+ba3q8gifWeceR5/53Ia1ZLaWnYTuJUJCFihuZed3AoHsHotkAkhmOOjeA2zg6bg9Bs3sAUVFGa76qjTp4FikK3OWCBtGjQz5pl//btCuhrbGZ/sSo16nx1DOq9c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BYa+YnHT; arc=none smtp.client-ip=209.85.216.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="QkAL6QIS"
-Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b4a0b384c4so5881e87.1
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 04:20:47 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788952846; cv=none;
-        d=google.com; s=arc-20260327;
-        b=N341PsvEbBbegNIYe95bBVev+1SCUb+HoAgYcc4KuNo0T6QJCs/UZ6rJ5657EM7kBF
-         HscUnEc1hTYCRyGbgScbv3PAW8+5JtOUVQBpSWTkgViHAuTJmw8+wMgpL/Daa0IzdWyD
-         bOMopfncyBLdkik9kcAJG+xhlIvobK8HRVUuM4gJgSQpLbg7kGQ0AJ3ryKXQky9BB1fd
-         HgSoA4AbWd4sTCeTqlBnT2tbjlXMCHVVjl5hrrQ/ObbKMtHF0fQEE8HZD2MqxrihpR6K
-         zYDaN4hBZT/ZvzrAiFREiTTVVaWXjt1eLPB3rqJC9AJevTkLkfb80NcXWlgUeVWvZDZi
-         xBUA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=crDfVMRTURCJ2kMvoxcTffnKsS81n5x7VpWJfYEfCY0=;
-        fh=dyOSVwuIHTfn/RwdbFRblMVz7iy3q9Qha57JB8+Bikc=;
-        b=bHgcmFNb+aHmCaOzrM654oShIbl6AvKZVCp0xlsdKyFwkRHyX+koxwioF+HB1AjP2e
-         M2L9s7DK5WLZDHxKJlj6kdwUKqZnZN+fDrAUlo8ychTJp+FSoBxv7bo7Z8/4x498o8zk
-         ErtPsfqfx76upgv0XriMzTeBOulTwkBLZORPQi+9kGFONVfohwFGTh+7zridezHuvJdz
-         uWu7jfcYkQs5+9Q/0NSl1RQJ+PVSk/Zf4H3taTHsEAwETIPq84H3J6QIt+3IifZHp+zh
-         3odT75l8he+Hwx/JRQ5dF8OCIALsewkjARTPwTQxzpX6rP+f5WrxxSxRiCOWL08iMKke
-         0uCw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BYa+YnHT"
+Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-3964e480f76so6644651a91.1
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 04:21:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788952846; x=1789557646; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=crDfVMRTURCJ2kMvoxcTffnKsS81n5x7VpWJfYEfCY0=;
-        b=QkAL6QISn1bh3pjiycL1GsW/qqnPUqacyQ8OWDyNNxDVAKlYUulyikewz0sOsfWFpF
-         mU7nyNB48lrWJXC0CGBhPw4Bu81utFNuY1RkyH3dJWSfXY9hjyal5xFdjdHQN6SQBGvk
-         BhXchPSZPwI7wOE0rpTx1cUhShbR1U9xG7vxqKyAB10FruuGdkgjvbXcFdVNS3CPMKi/
-         UKpq9g9lZcraCJ1vyxaA+6yCc6xUya/N/0qGGQ6GXFV25gYuGkoEtco2uL4PlmVa20Kj
-         sMb0fX33vEk0Ecbry2QRhtC1zRcQPng6uL90l87DAeAMudopA+lsY3i6uYn5AKYLJ6sh
-         VPCA==
+        d=gmail.com; s=20251104; t=1788952879; x=1789557679; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=AUHFFioMah0sAuoQzwWsCFgryzdcGUF6ghThqp3wfNI=;
+        b=BYa+YnHTNjKuHzgKRG+ySBsuIZeVouwrU5U2MH2WS4UM+DwmRuw6L4UaYaiY+sMxca
+         TEGQJIgHZnZX0/zkJ0fd9OQYOgi+eWWn+qPU/GZr4DqGRTtnyQNTcBAgV4jz3zCZqR8E
+         hHxExUzK0vbPfDou/jD+Uw5CBudfjOsS0iZ0uVIUGKh0iY2xMJIQdPUVj6mUKbOPg7nk
+         1mhGyJjk93EgY0gv9ghgrcdleA+Aef03J7z0ysjtPKCVdk8Wshi/IB2UJCbT0nqYj67Q
+         JwVLHFxb3I0d0DpP1mfFKZ2N6MRcE+a3JtTT9/Dy/Vx01zUwUytk1uN+clVEoJVs7a/s
+         rSjQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788952846; x=1789557646;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=crDfVMRTURCJ2kMvoxcTffnKsS81n5x7VpWJfYEfCY0=;
-        b=B3KXs0m9XRk8Fjo7DAW4OuVT0v4talNa5RdyV2rBEFxNbpF0UmbqdtOVsO8oqG8W4v
-         4wRPSwDQZwdLXadh0vc+3NLZ2NKxlDcQDb4g7ML14xiqcH2nznOaEiV3p8uYZqx7jcKE
-         qiKeFxFXzqwc2EkpoDXhe1JbKKCIGMFCUWLhTOydxu3e8wnEC+uo3EK3St2fmWtEtYGg
-         w5BQpiHxjzgGglY/9Azv9yQOnvqVDDSLDguECLHq2tZlqt2qMbV6zJ6Zeam/E85f/E1j
-         g7v3iRUfOhU480u/0Avr8+zwxPtJLSP8IRhAbQxDxur7d3VwL/TjG2jaW8WUevk2CPgJ
-         bC4w==
-X-Forwarded-Encrypted: i=1; AKwUvByHKtd/Qhhy1Hrn5KtVNeSdyOzDr0Mme81nPeyzDljm8MQ8LOEGBndDHQ4yPzyYAeGEMUGfys1w6Qfqm/k=@vger.kernel.org
-X-Gm-Message-State: AFuF++mBFMMuNlSKX0ppIFFPGE0KYhwRCLgzo9OG6/AmeoxfcD2iszkH
-	sxychqrkId3fUEnbiZ9Y1O1v1eJAH/vUuWdXJ4KdNwT8xSXznVk+xGHZCxu/m6TkDdad0Qur8th
-	WLncTxXRQoHOFom905VZOJkb7W+RvQ3An9SO5Sp4q
-X-Gm-Gg: AYBFou3pgW2dXwdhNT0mUdPrP8e9KEIePmUlOApkq5SW8En82K4e8VWdeYv7OUjHtVr
-	W7rqZ54LpMJ04SmkH8lc5WrMMu5RKB4/ob7OzFq4gXChXJKBpCtRL7maypUSY4umM+6uAvwn9rz
-	D2rquQtwdUxAzE11TxhVMZB1HCE/5SsHFBhK8FTjEoUQbPaz/3fzWUjy9GiMTxP6xGe5FKbuFzD
-	+h8eFZeyyDc8NcyXqQf7Z7FPxz/r8aWC6LrZg+mZef4LMFaPokff8aeBg9luLmh1K72RmyBBThq
-	WLTQDI6x9BM7NBEpLYESqrs33EzMhG+MsBBogjeTIi/RAEhmkKtPuHHyDxvKTMy2Rsby447uds3
-	9CgOItwzDynw=
-X-Received: by 2002:a05:6512:3f22:b0:5b5:e890:1953 with SMTP id
- 2adb3069b0e04-5b764bcde12mr149151e87.12.1788952845618; Wed, 09 Sep 2026
- 04:20:45 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1788952879; x=1789557679;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=AUHFFioMah0sAuoQzwWsCFgryzdcGUF6ghThqp3wfNI=;
+        b=ZWA3vVeGZ/BXOa1y6qz5iQQAhdDwkZNyFex9fhary4ufOeZY4iq1B1kDsN20B3KcDG
+         u7DFrriPCgdGLXWpqZmK+DqQ0aedihuOJhIzpGxGZXq2lK1X65rw0cOqmJFUkI679uJ3
+         JJUTrkTHh/P0mjgFn2PiVyYaEcwvkI6qnIvJo5GPZ8rNIcLnLfAqptZ3xNiIWRd/CR7h
+         cO7F5XwHZ+8OdJruWz8d8vsvpLEMNWxlKwEtUUYgzXp9bB/1lgexzrGnFTU4OKrXtV4r
+         QsV26zyXZ79nA3YfDGZ6mx0m/g0ZqZ4cvoFI7saBWCnMq3rlPNuhu6Ze6GsuYYaRs2Lv
+         MEuA==
+X-Forwarded-Encrypted: i=1; AKwUvByYqt3YM3inhscM3Ekh4vw0fXKbHanWuVH4NdFoVZA4qeC63E7i1wCmuaphSpP2+iNZirIpkRMJ6qleXI4=@vger.kernel.org
+X-Gm-Message-State: AFuF++nH9vr91Vsed1OQpdb2ZWewvjRA70ZdIVh7+6LWm4stiCWUEkkj
+	/l6B6CYJZ/jV59zfIXyhT8oWwSuIRakTRaFYYLyN11keb0c83MBqPAsD
+X-Gm-Gg: AYBFou2uPtEHe5mvGOsskg4mt2uG8YSQQP+UF49DY8TlPB95PYil4b3AN9Be2RlF5Zs
+	gITjeYSHHBOlhYAGdPFePTW6qcklbeTHasGAHHxzUR+LSY0TlhZs5toYm7tkBl2/KL1ZueiAnw6
+	Zf5rA4PTej7soSlQ8lwvhkceVtfxfx0I2w1/wJk9n78iyGEget7xlksLN0fn3UTb8Puk60AVNxJ
+	psKECxw3Ab5awAkBWpkNY4xz++YqyfUYGeGTe0+lkn7b2yB1T8WzDtIiSbXSHBQmLmwx3udNZ36
+	+LDGdutire4TMVpUIWroCULp4Pg9SDRruY+XFOM6DJazz8qsSQY4RPudEITedZoFwIDYWDwuIDZ
+	JdFYNLS2TD7wXykoZi0Ryu3OiIvycPDSGs7FSEdLSWbjvNiAq8VVY8FkBDLJ5sieDZSkvYgAz7p
+	v34N+Qr4lBjKNWS73uCU27xCG6UOE2VnVSlUHJ+N6KyY5p6frojyqeWq/apbFbkNMchcWxU1PIU
+	qCY/nGcQFXuaMuF9aztYZKTJF8JXaat684=
+X-Received: by 2002:a17:90a:1188:b0:39b:a8d8:985 with SMTP id 98e67ed59e1d1-39ba8d80b06mr5282578a91.12.1788952878427;
+        Wed, 09 Sep 2026 04:21:18 -0700 (PDT)
+Received: from LAPTOP-450UDG4J ([223.185.135.143])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b260cd2aasm31265258a91.3.2026.09.09.04.21.15
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 09 Sep 2026 04:21:17 -0700 (PDT)
+From: Yogesh Gaur <yogeshgaur.83@gmail.com>
+To: Alexander Aring <aahringo@redhat.com>,
+	David Teigland <teigland@redhat.com>
+Cc: gfs2@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Yogesh Gaur <yogeshgaur.83@gmail.com>,
+	syzbot+da6dc573ce5e6624f505@syzkaller.appspotmail.com
+Subject: [PATCH] dlm: don't return a lkb that has no rsb from find_lkb()
+Date: Wed,  9 Sep 2026 16:51:08 +0530
+Message-ID: <20260909112108.2281-1-yogeshgaur.83@gmail.com>
+X-Mailer: git-send-email 2.55.0.windows.5
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260908162223.1683432-1-suzuki.poulose@arm.com> <20260908162223.1683432-2-suzuki.poulose@arm.com>
-In-Reply-To: <20260908162223.1683432-2-suzuki.poulose@arm.com>
-From: Fuad Tabba <tabba@google.com>
-Date: Wed, 9 Sep 2026 12:20:09 +0100
-X-Gm-Features: AcwNN1UBL7PwhavrAXm1ihvLqEvgnaWmqxzjHA3KjiWz2CvXQREmUKFugkp-B-A
-Message-ID: <CA+EHjTwSwGUGT=6GWaOyav7kBQey0+xpL0kJ03ABtp23ZgD6RA@mail.gmail.com>
-Subject: Re: [PATCH v17 01/20] KVM: arm64: Include kvm_emulate.h in kvm/arm_psci.h
-To: Suzuki K Poulose <suzuki.poulose@arm.com>
-Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev, maz@kernel.org, 
-	will@kernel.org, catalin.marinas@arm.com, linux-kernel@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, steven.price@arm.com, 
-	aneesh.kumar@kernel.org, oupton@kernel.org, gshan@redhat.com, 
-	joey.gouly@arm.com, yuzenghui@huawei.com, linux-coco@lists.linux.dev, 
-	gankulkarni@os.amperecomputing.com, sdonthineni@nvidia.com, 
-	alpergun@google.com, fj0570is@fujitsu.com, WeiLin.Chang@arm.com, 
-	lpieralisi@kernel.org, enju.kohei@fujitsu.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Tue, 8 Sept 2026 at 17:22, Suzuki K Poulose <suzuki.poulose@arm.com> wro=
-te:
->
-> Fix a potential build error (like below, when asm/kvm_emulate.h gets
-> included after the kvm/arm_psci.h) by including the missing header file
-> in kvm/arm_psci.h:
->
-> ./include/kvm/arm_psci.h: In function =E2=80=98kvm_psci_version=E2=80=99:
-> ./include/kvm/arm_psci.h:29:13: error: implicit declaration of function
->    =E2=80=98vcpu_has_feature=E2=80=99; did you mean =E2=80=98cpu_have_fea=
-ture=E2=80=99? [-Werror=3Dimplicit-function-declaration]
->    29 |         if (vcpu_has_feature(vcpu, KVM_ARM_VCPU_PSCI_0_2)) {
->                  |             ^~~~~~~~~~~~~~~~
->                                |             cpu_have_feature
->
-> Reviewed-by: Gavin Shan <gshan@redhat.com>
-> Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>
-> Signed-off-by: Steven Price <steven.price@arm.com>
+_create_lkb() publishes a new lkb in ls_lkbxa, which is what assigns its
+lkb_id:
 
-Reviewed-by: Fuad Tabba <fuad.tabba@linux.dev>
+	rv = xa_alloc(&ls->ls_lkbxa, &lkb->lkb_id, lkb, limit, GFP_ATOMIC);
 
-Cheers,
-/fuad
-> ---
->  include/kvm/arm_psci.h | 2 ++
->  1 file changed, 2 insertions(+)
->
-> diff --git a/include/kvm/arm_psci.h b/include/kvm/arm_psci.h
-> index f86a006d67136..06c20612e9e7d 100644
-> --- a/include/kvm/arm_psci.h
-> +++ b/include/kvm/arm_psci.h
-> @@ -10,6 +10,8 @@
->  #include <linux/kvm_host.h>
->  #include <uapi/linux/psci.h>
->
-> +#include <asm/kvm_emulate.h>
-> +
->  #define KVM_ARM_PSCI_0_1       PSCI_VERSION(0, 1)
->  #define KVM_ARM_PSCI_0_2       PSCI_VERSION(0, 2)
->  #define KVM_ARM_PSCI_1_0       PSCI_VERSION(1, 0)
-> --
-> 2.43.0
->
+but the lkb only gets an rsb later, once request_lock() has resolved the
+resource name and calls attach_lkb():
+
+	static void attach_lkb(struct dlm_rsb *r, struct dlm_lkb *lkb)
+	{
+		hold_rsb(r);
+		lkb->lkb_resource = r;
+	}
+
+So between those two points the lkb is fully addressable by its lkb_id
+while lkb_resource is still NULL. find_lkb() will hand it out, and its
+callers all go straight for the rsb without checking:
+
+	r = lkb->lkb_resource;
+
+	hold_rsb(r);
+	lock_rsb(r);
+
+For the userspace API the lkid is simply whatever was written to the
+misc device, so a lkid can be aimed at a lkb that is still being built
+by another thread. hold_rsb() then reads res_flags off NULL:
+
+  BUG: KASAN: null-ptr-deref in rsb_flag fs/dlm/dlm_internal.h:386 [inline]
+  BUG: KASAN: null-ptr-deref in hold_rsb fs/dlm/lock.c:334 [inline]
+  BUG: KASAN: null-ptr-deref in unlock_lock fs/dlm/lock.c:3333 [inline]
+  BUG: KASAN: null-ptr-deref in dlm_user_unlock+0x2ab/0x690 fs/dlm/lock.c:5956
+  Read of size 8 at addr 0000000000000050 by task syz.3.570/7893
+   rsb_flag fs/dlm/dlm_internal.h:386 [inline]
+   hold_rsb fs/dlm/lock.c:334 [inline]
+   unlock_lock fs/dlm/lock.c:3333 [inline]
+   dlm_user_unlock+0x2ab/0x690 fs/dlm/lock.c:5956
+   device_user_unlock+0x1ca/0x260 fs/dlm/user.c:321
+   device_write+0x905/0xed0 fs/dlm/user.c:590
+
+Reject an unattached lkb in find_lkb() rather than in each caller. Every
+find_lkb() caller dereferences lkb->lkb_resource -- convert_lock(),
+unlock_lock() and cancel_lock() through the r = lkb->lkb_resource above,
+dlm_recover_process_copy() the same way, add_to_waiters() via
+lkb->lkb_resource->res_ls -- so none of them wants a half-built lkb, and
+a lkb without an rsb is not a lock anyone outside can name yet. Callers
+already handle find_lkb() failing.
+
+Testing lkb_resource under ls_lkbxa_lock next to the existing kref_read()
+check is enough. The value is not stable under that lock, as attach_lkb()
+does not take it, but it does not need to be: once a non-NULL rsb has
+been observed it stays attached for the life of the reference taken here,
+because detach_lkb() only runs from __put_lkb() on the last reference.
+Observing NULL while attach_lkb() races is the case being rejected, and
+the thread still inside request_lock() has not returned the lkid to
+anyone at that point.
+
+This is the null-ptr-deref only. The refcount warning syzbot reports in
+dlm_user_request() itself, where hold_lkb() runs on a lkb whose count
+already reached zero, is a separate race on an lkb that is past
+attach_lkb() and is not addressed here.
+
+The unchecked r = lkb->lkb_resource goes back to the original DLM
+import, but an untrusted lkid only became possible once the userspace
+device interface was added, so that is the tag below.
+
+Fixes: 597d0cae0f99 ("[DLM] dlm: user locks")
+Reported-by: syzbot+da6dc573ce5e6624f505@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=da6dc573ce5e6624f505
+Assisted-by: LLM
+Signed-off-by: Yogesh Gaur <yogeshgaur.83@gmail.com>
+---
+ fs/dlm/lock.c | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
+
+diff --git a/fs/dlm/lock.c b/fs/dlm/lock.c
+index 2609e4fdeba8..73e92237fa07 100644
+--- a/fs/dlm/lock.c
++++ b/fs/dlm/lock.c
+@@ -1554,9 +1554,17 @@ static int find_lkb(struct dlm_ls *ls, uint32_t lkid, struct dlm_lkb **lkb_ret)
+ 		/* check if lkb is still part of lkbxa under lkbxa_lock as
+ 		 * the lkb_ref is tight to the lkbxa data structure, see
+ 		 * __put_lkb().
++		 *
++		 * _create_lkb() publishes the lkb in lkbxa before
++		 * attach_lkb() gives it an rsb, so a lkid that comes from
++		 * outside can name a lkb that is still being built. Every
++		 * caller here dereferences lkb->lkb_resource, so treat such
++		 * a lkb as not found. Once an rsb has been seen it stays
++		 * attached, as detach_lkb() only runs from __put_lkb() on
++		 * the last reference and we are about to take one.
+ 		 */
+ 		read_lock_bh(&ls->ls_lkbxa_lock);
+-		if (kref_read(&lkb->lkb_ref))
++		if (kref_read(&lkb->lkb_ref) && lkb->lkb_resource)
+ 			kref_get(&lkb->lkb_ref);
+ 		else
+ 			lkb = NULL;
+-- 
+2.55.0.windows.5
+
