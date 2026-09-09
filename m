@@ -1,36 +1,33 @@
-Received: from mta0.migadu.com (out-98.mta0.migadu.com [91.218.175.98])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99B9437C11F
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 17:39:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.98
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D159829E10B
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 17:39:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788975544; cv=none; b=TELA21fKDrW+PpflKyNyFo4ONJWy35nn+ZKM3gX1+3h1G0yOPjR7uwLcPBYcOvKqQSD2gCS0Q9XxWoH6W5w4Itn/frYzqGVnGztCE8ud4yLOTQlJHZv8+FHCYMrbWl+gpIR0Kl/Byh5/WLyZCBQOXSjTO/Dzev+JJR19yzPORMs=
+	t=1788975571; cv=none; b=HvOSvWOfrHawW8xZivQJ4Qd5S87U03Nf2+3Z8e7wVEQBq8MAe4s6TJa2PkmqdwOur1+p9fC2RhfFYtfX0CIAwexubiThgB8fiL674+QCEAbtwAE2ZpE37v2oO7ZlUjCa9JO62rhjf83asvFZX6YsEhZ464+b9BLB8fQYCBPZ2Cs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788975544; c=relaxed/simple;
-	bh=EnnRHDWfqBGm5+O+OlUx4K5NSMsJ9BC3rDHa6lTbFgk=;
+	s=arc-20240116; t=1788975571; c=relaxed/simple;
+	bh=7FwEWFHDxkKSYOpv0EWYcsPgtcwKPTmELmxDIynX/5U=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=HjYFRU1++gB/4yPeI6wmKeTkbqUNnMwrXa0ldLZsn5O9IKux/GzasyRy+gYr6niKh0EI5nhqd4tmpGdHMZ03DfpOQjAPNcMhSyYcutCWfDFU2hGg8SDeK+kIFBKl8gfNNp3aSDMcxVOAZxw3k3tLUcJNyuQ+FCDRDgQmY3sRpTY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Vd2XCcfi; arc=none smtp.client-ip=91.218.175.98
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	 In-Reply-To:Content-Type; b=XlMRKHbqztd477NuG39CGUl7tlm4SvnER8TQMRbJmtegG+IxtsiJlPsIM4Q889rWKylj6CPIHUIBEYahdKUJsULosMf2fEuuNr/74oc7B2fbL98j0ezdA42PUenkH8R79Q5eczuqMEmKlza5RCRRG5+RUgsdy8BRyM8BYHuTT48=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MD1sgUCp; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Vd2XCcfi"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=EnnRHDWfqBGm5+O+OlUx4K5NSMsJ9BC3rDHa6lTbFgk=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788975539; v=1; x=1789580339;
- b=Vd2XCcfifrSyIw5pHWRZ1Tgj+eZNyNYOt8QtpST3i44j1rf7UQQin28KxaftGRhfjTLoCUsT
- AwMUBnwsRxG1SMZvNPay6ZYuKO+BQT6yNCBur8i6xfTkMBtRRKAiuRa4wgXpXfytYJB6P6jFA3w
- 3ZDmZf3RkbYD+gWqyHJfpDwI=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 6fd7739b0bf8718a;
-	Wed, 09 Sep 2026 17:38:59 +0000
-X-Mizu-Trace-ID: 6fd7739b0bf8718a
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <c636bef6-9ab4-45cf-8566-bab9c09fc6b7@linux.dev>
-Date: Wed, 9 Sep 2026 10:38:50 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MD1sgUCp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 528591F000FF;
+	Wed,  9 Sep 2026 17:39:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788975569;
+	bh=lckkvQ96etQRK/jiBHaJOZl8yzGvIy0G7bi8kXAAjKE=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=MD1sgUCp7ahRANqwb9B3UoldMvPtufo5A6BpPQYcYs/ujUC6lNKBpgfTf5cncrxx+
+	 M7FZaCSNNmJLs6zuogEfmbn/2Tf5sbkMkvfeMEElL4soC4xOiyUU67o0inDM/ffssf
+	 mUtENC1EA/a8YRubyznqR+NQhKXWUItgYr3KK+hTSQ2S3LPewGll3v/F20ErJaOAd5
+	 53hbLnDjPCFl0h69kxMTQO9kEI0PjYkcH7TZ2Etjcc0q7axb1ilAEkydilez/s93cz
+	 2WTEfJvfPU/1wFekPc94lQVAU9ym0sYYPTX5HSWyjI/2tCJtJq6eeVFGSXHL8Tveo7
+	 vBGtc/2uJj5/w==
+Message-ID: <f2aa85c7-e4db-4b2a-9927-5869458171d7@kernel.org>
+Date: Wed, 9 Sep 2026 19:39:19 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -38,112 +35,135 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/mm/pat: skip RWX verification until kernel text is
- set to read only
-To: Mike Rapoport <rppt@kernel.org>, Dave Hansen <dave.hansen@linux.intel.com>
-Cc: Andy Lutomirski <luto@kernel.org>, Borislav Petkov <bp@alien8.de>,
- Ingo Molnar <mingo@redhat.com>, Nathan Chancellor <nathan@kernel.org>,
- "H. Peter Anvin" <hpa@zytor.com>, Peter Zijlstra <peterz@infradead.org>,
- Thomas Gleixner <tglx@kernel.org>, linux-kernel@vger.kernel.org,
- x86@kernel.org, bpf <bpf@vger.kernel.org>
-References: <20260908092730.4002628-1-rppt@kernel.org>
+Subject: Re: [PATCH v4 06/17] mm/huge_memory: consolidate irq and locking for
+ folio split
+To: kasong@tencent.com, linux-mm@kvack.org
+Cc: linux-kernel@vger.kernel.org, Andrew Morton <akpm@linux-foundation.org>,
+ Lorenzo Stoakes <ljs@kernel.org>, Zi Yan <ziy@nvidia.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>,
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+ Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
+ Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ Chris Li <chrisl@kernel.org>, Kemeng Shi <shikemeng@huaweicloud.com>,
+ Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>,
+ Barry Song <baohua@kernel.org>, Youngjun Park <youngjun.park@lge.com>,
+ Yeoreum Yun <yeoreum.yun@arm.com>, "Kiryl Shutsemau (Meta)"
+ <kas@kernel.org>, Shivam Kalra <shivamkalra98@zohomail.in>,
+ Kairui Song <ryncsn@gmail.com>
+References: <20260908-swap-thp-cleanup-v4-0-b532a3f20e71@tencent.com>
+ <20260908-swap-thp-cleanup-v4-6-b532a3f20e71@tencent.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
 Content-Language: en-US
-From: Ihor Solodrai <ihor.solodrai@linux.dev>
-In-Reply-To: <20260908092730.4002628-1-rppt@kernel.org>
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20260908-swap-thp-cleanup-v4-6-b532a3f20e71@tencent.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 9/8/26 2:27 AM, Mike Rapoport wrote:
-> From: "Mike Rapoport (Microsoft)" <rppt@kernel.org>
+On 9/7/26 20:12, Kairui Song via B4 Relay wrote:
+> From: Kairui Song <kasong@tencent.com>
 > 
-> Nathan Chancellor reports the following warning:
+> Let each split helper handle its own locking instead of relying on
+> the caller, so both helpers manage their own irq and locking state.
+> This lets __folio_split() drop its local irq handling and fail label,
+> preparing for further cleanup.
 > 
->   CPA detected W^X violation: 8000000000000123 -> 0000000000000123 range: 0xffffffffc0400000 - 0xffffffffc0400fff PFN 100e00
->   WARNING: arch/x86/mm/pat/set_memory.c:722 at __change_page_attr_set_clr+0xde7/0x1290, CPU#0: swapper/0/0
->   Modules linked in:
->   CPU: 0 UID: 0 PID: 0 Comm: swapper/0 Not tainted 7.3.0-rc1-debug-00006-g453e78594434 #1 PREEMPT(full)  2950d432dd3910251071a66f3134fe0875432786
->   Hardware name: ASUS System Product Name/PRIME Z590M-PLUS, BIOS 1801 12/26/2022
->   RIP: 0010:__change_page_attr_set_clr+0xdff/0x1290
->   Code: 80 7c 24 42 00 0f 85 3a 04 00 00 48 8d 3d 19 8d 79 02 49 89 d9 4c 89 e1 4c 89 d2 4c 89 f6 4d 8d 84 24 ff 0f 00 00 4c 89 14 24 <67> 48 0f b9 3a 4c 8b 14 24 48 8b 0d 81 44 bf 01 41 f6 c2 01
->   RSP: 0000:ffffffff87003c60 EFLAGS: 00010246
->   RAX: 0000000000000002 RBX: 0000000000100e00 RCX: ffffffffc0400000
->   RDX: 0000000000000123 RSI: 8000000000000123 RDI: ffffffff872e50c0
->   RBP: 8000000100e00123 R08: ffffffffc0400fff R09: 0000000000100e00
->   R10: 0000000000000123 R11: 0000000000000001 R12: ffffffffc0400000
->   R13: 0000000100e00123 R14: 8000000000000123 R15: ffffffff87003d58
->   FS:  0000000000000000(0000) GS:ffff8ad1777a7000(0000) knlGS:0000000000000000
->   CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
->   CR2: ffff8ad0a4201000 CR3: 00000007e3022001 CR4: 0000000000770ef0
->   PKRU: 55555554
->   Call Trace:
->    <TASK>
->    ? _vm_unmap_aliases+0x219/0x280
->    change_page_attr_set_clr+0x161/0x250
->    ? events_sysfs_show+0x5d/0x80
->    set_memory_x+0x39/0x50
->    apply_retpolines+0x656/0x6d0
->    ? events_sysfs_show+0x5d/0x80
->    ? events_sysfs_show+0x6c/0x80
->    ? events_sysfs_show+0x62/0x80
->    alternative_instructions+0x3c/0xd0
->    arch_cpu_finalize_init+0x130/0x190
->    start_kernel+0x97d/0xa10
->    x86_64_start_reservations+0x24/0x30
->    x86_64_start_kernel+0xda/0xe0
->    common_startup_64+0x13e/0x151
->    </TASK>
->   ---[ end trace 0000000000000000 ]---
-
-BPF CI has caught similar splats on linux-next [1].
-The patch fixes it [2][3].
-
-Tested-by: Ihor Solodrai <ihor.solodrai@linux.dev>
-
-Thanks!
-
-[1] https://github.com/kernel-patches/bpf/actions/runs/33918575854/job/101174705812
-[2] https://github.com/kernel-patches/vmtest/pull/523
-[3] https://github.com/kernel-patches/bpf/actions/runs/34279792157
-
+> The file path now uses xas_lock_irq() instead of local_irq_disable()
+> with xas_lock(). The two are equivalent on non-RT, and
+> TRANSPARENT_HUGEPAGE cannot be enabled on RT anyway. This conversion
+> also buys consistency: every other place in mm/ that freezes a folio
+> while it is still reachable through the page cache already takes the
+> lock this way. This was actually the last plain xas_lock() on
+> mapping->i_pages left in mm. If we are going to support RT, spinning
+> on frozen folio refs could be a problem, but it already exists in
+> many places and should be fixed generically.
 > 
-> The warning appears because commit 038176c21617f ("x86/mm/pat: fix
-> effective RW computation in lookup_address_in_pgd_attr()") fixed the
-> effective RW checked by verify_rwx() and it exposed that pages used
-> for ITS trampolines temporarily have RWX permissions.
+> The anon helper keeps a single local_irq_disable() as before, because
+> it has to cover several plain spinlocks at once.
 > 
-> The permissions are updated in its_fini_core() after all the ITS
-> trampolines are generated, but since verify_rwx() detects invalid
-> transitions, it warns when its_alloc() makes RW memory executable.
+> The dropped xas_reset() was a no-op as the xa_state is not walked
+> before the xas_load() under the lock.
 > 
-> At the time of alternatives patching the entire kernel text is mapped
-> RWX, so the warning is bogus anyway.
-> 
-> Skip verification of W^X violations in verify_rwx() when they are
-> triggered by transitions happening before the kernel text is remapped as
-> read-only.
-> 
-> Reported-by: Nathan Chancellor <nathan@kernel.org>
-> Closes: https://lore.kernel.org/all/20260905044253.GA3816371@ax162
-> Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+> Reviewed-by: Zi Yan <ziy@nvidia.com>
+> Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+> Reviewed-by: Yeoreum Yun <yeoreum.yun@arm.com>
+> Signed-off-by: Kairui Song <kasong@tencent.com>
 > ---
->  arch/x86/mm/pat/set_memory.c | 4 ++++
->  1 file changed, 4 insertions(+)
-> 
-> diff --git a/arch/x86/mm/pat/set_memory.c b/arch/x86/mm/pat/set_memory.c
-> index 226660973d515..2eecb76703bb4 100644
-> --- a/arch/x86/mm/pat/set_memory.c
-> +++ b/arch/x86/mm/pat/set_memory.c
-> @@ -708,6 +708,10 @@ static inline pgprot_t verify_rwx(pgprot_t old, pgprot_t new, unsigned long star
->  	if (!(__supported_pte_mask & _PAGE_NX))
->  		return new;
->  
-> +	/* skip verification until kernel text is set to read only */
-> +	if (!kernel_set_to_readonly)
-> +		return new;
-> +
->  	if (!((pgprot_val(old) ^ pgprot_val(new)) & (_PAGE_RW | _PAGE_NX)))
->  		return new;
->  
-> 
-> base-commit: 038176c21617fcc03ccc1ca43230ffedb712c047
 
+[...]
+
+>  	if (nr_shmem_dropped)
+>  		shmem_uncharge(mapping->host, nr_shmem_dropped);
+> @@ -4390,8 +4391,6 @@ static int __folio_split(struct folio *folio, unsigned int new_order,
+>   */
+>  int folio_split_unmapped(struct folio *folio, unsigned int new_order)
+>  {
+> -	int ret = 0;
+> -
+>  	VM_WARN_ON_ONCE_FOLIO(folio_mapped(folio), folio);
+>  	VM_WARN_ON_ONCE_FOLIO(!folio_test_locked(folio), folio);
+>  	VM_WARN_ON_ONCE_FOLIO(!folio_test_large(folio), folio);
+> @@ -4400,11 +4399,8 @@ int folio_split_unmapped(struct folio *folio, unsigned int new_order)
+>  	if (folio_expected_ref_count(folio) != folio_ref_count(folio) - 1)
+>  		return -EAGAIN;
+>  
+> -	local_irq_disable();
+> -	ret = __folio_freeze_split_anon(folio, new_order, &folio->page,
+> -					false, NULL, SPLIT_TYPE_UNIFORM);
+> -	local_irq_enable();
+> -	return ret;
+> +	return __folio_freeze_split_anon(folio, new_order, &folio->page,
+> +					 false, NULL, SPLIT_TYPE_UNIFORM);
+
+Yeah, that bit looks especially nice.
+
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+
+-- 
+Cheers,
+
+David
