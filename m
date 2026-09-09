@@ -1,143 +1,149 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yw1-f177.google.com (mail-yw1-f177.google.com [209.85.128.177])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 848745678D9;
-	Wed,  9 Sep 2026 13:35:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A3175678ED
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 13:35:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788960909; cv=none; b=YBq8qjm9p/wncqh7Tv+V7j2fYBjr4Y98JSmg8ltT+szUpUcvOL/CBtPMfZoj7T/u29UIqkDkFZSKwOvayOVwWK6DhKaT8TRkKWrpvcOuEaveuErpZ/YkAOIjczdGJIG8+6v1/L5qA4ujRbTT76Xs4DfJby+hBf9OK/xnGbSQc2w=
+	t=1788960918; cv=none; b=YR2qDjS2BvMlutsSqO5ZtjfBkzl3AB+1j81PNECXf9rtaVI5beYMXrWflnTJX+Rx/Pj/9HXy+CQoh4z0/XE5yEP8ZYwqMkNujdvOjUDYRD/pQ00V1NxCHTZP3E7sELK0u6T5nEKhDo8YK6xS6kA3K0Jbw0b9aIKbGXhSK59XXu0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788960909; c=relaxed/simple;
-	bh=ifd00cyRI1HuxOcc2xxWxJxbUrmoY4ieu/5tTBcNKZc=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=XRBk3AFBF35H6NhZKVPrWmx/BNBB1afizFFT37xqGvQALLZVSg3DuO7lmtO9PtNWIhhLkXllLR41oZnLqPn1BVg2dz6/muly6L2bvAzEJdfxaro3qNzvFjZuXMPtAQdcS1fws/JzYHZ8Eus/6jFoVyX4vU95I59IAhU+gKDAaB8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JUrQET7B; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788960918; c=relaxed/simple;
+	bh=pYAXFeuFVimJwDLBUI4en4oiYVdoAA0vzKgHRiam0R4=;
+	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=I/ei6BeKG8j8AEKdPBQPRC1dUnATBzdhi2vTROxA6ANfUHoxyNaM4DxUXEmtQ1r8YeTaMN/HocU+PrJhaFbQiU5hwxtryNKKb7eLNeBOexhBx4/BuBH3JRuSf4bG/6Al4FeLfm8ZWURPhnSmfSEhRcoIgBOFi7GtTCrUkIe/d5U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aXHo/mVH; arc=none smtp.client-ip=209.85.128.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JUrQET7B"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 87FCA1F00A3D;
-	Wed,  9 Sep 2026 13:34:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788960908;
-	bh=L2v3o67HNQ9aSFqTXVM1jpMn5NU+1i04xE3R5tvtAw4=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=JUrQET7Bpep1u4rw0MKmhd9cfkeICsEyAERFh9SEB3R3M+csy30qdNXfG/4GEdFoe
-	 ylt75rtuHgs5B902EEQK9MUSQwl8Jvgpfu87L8ifQaEXVvj2lWEQ2sNq5st4BeYXO6
-	 7AFVLyGoIDL0OR6RE1ecN3f0N7liMpHacZoQ20+8IP0J88ZyM2xcWbh3R8Ek+fVCrQ
-	 /IOC4FEn+4dlR9VjLohiYugge0+bl+TbMqGUOgEt+goOdwybo2LG51/wecTCLBMqbX
-	 UKc1z3AWRQcg9gA+oBnjs1wQEvXxuzHAsQJ5bIom6NyHIAfadkKPvZyItRyn/yduu5
-	 x32FaRXVOo9OQ==
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Date: Wed, 09 Sep 2026 15:33:01 +0200
-Subject: [PATCH 08/12] mm/sparse: move __highest_used_section_nr handling
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aXHo/mVH"
+Received: by mail-yw1-f177.google.com with SMTP id 00721157ae682-861f30636f9so88847947b3.0
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 06:35:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788960916; x=1789565716; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:date:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=IF7gGSnNHvzeRxMeQJEXPfnNoiV1RgOi8xQaXNAluos=;
+        b=aXHo/mVHlqCY04RXO/+yLgAoiVc8v+p/f7jRRx+a4qrfZE53PLwBi3PvDHKeSezwje
+         600DrGithzi+RJ1XmZ3EOoX8JmRETN6Zc4cHC4rqHpUuhND3jQ3DqYcqrmotoOza2GkB
+         CJS77HQnLiP0bDDemhEPiU1zqaQVl1sdD/n8qQ3R48qKTlj+lROE+MsJGjjE28dCDpNW
+         4JTwZ+VtcLQwU2N0T0KT7EwhGda22E439GC2l/KMqEblQuLhKgJAK78mpc32BOpyUTgU
+         Ez+wVzdJCEBcXgSyBpBA43HLwgM5ZfcA8IkhXh98NNLOMj0JBiKXTGMlpUXKQ875DVdT
+         salg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788960916; x=1789565716;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=IF7gGSnNHvzeRxMeQJEXPfnNoiV1RgOi8xQaXNAluos=;
+        b=l1uYptJJR19q9wWGIA1/M01Qf4zyxjrriKRLWhrxIWHQy1EomOnxt9U9rCFLhaD8CK
+         j0mC/TDoic5i7ssothtvW1aruNESI0zVn9dal2I8uPnXNl7zw57DQgEblmzZbE50A6GE
+         GOY5Xt6lRgneND6fYhPo4h1Gf4AI2scXR/kjf5pIBTpwtSPlqdQxzCS1lrHFensXjS3q
+         a/usMWF+OH3Acisf0AmFBnSiuLBcXKYWntQLnosd31HOLzUxOMvd5OQ9XnUzIh4FYihN
+         BxzKxO+63Xwh3M9DUWRQFos0hk0SEHf2RaiHIITEF93+qUI9hQdbq5sUhgx1GS95nAKd
+         Wiow==
+X-Forwarded-Encrypted: i=1; AKwUvByZ5ae7fmJm29gRbR/tmUjcWNQQbX+zoZI/oUILWVf5DFlSHk2it6zoWc6f0n6VgvSWVD0njMniruPgrbk=@vger.kernel.org
+X-Gm-Message-State: AFuF++n5vIFb7bjzBi+TUZi95iwAp7gNM4SoskiL/tjcdrKZ5OKfG2pT
+	jVtrGmzsa51u6RFs5PzqdWDWty3sWRoLA+r47ZtiRKSPbWDuH4rHzhzj7Vp9BSchyaZ6JElm
+X-Gm-Gg: AYBFou0kpkB+SjuEpCxEs980cErqNkeUhkZI4LHMWlHCDLzd3CeyRhliM8D9LhYd5le
+	mJC8K5muHCrlPaAOFnebC9zTgc2dMtwOWyh7lrHNfM1DiQzWojK0nwrzPFD5MMZ2pDxmrZ4UapO
+	oXyj9O/gukYQ/meI+ODcvMcMIlKb7iqSrAURTvb0nVb2t/svDhG6MVVd7BxOzk/4KfOh+5h0JY/
+	W4uEGwW6hBEvS47+DB5XKk85d3/HGZ2eQip92GfVB8euRZnabXsKLVPUQ76zECXY26y2Grauus9
+	XQukSPITJCMhpqKpy16GiAxdWLGXlwKCDNjn3Mdi1AK2xFgEa0ru40XOhxvPd0ZiX01RpvS7D/a
+	Ygo+xxG4Q4aUnIk7N98pnDhJfWJJ12mS3KPcJA5dBKMD5lSIcsg6CSUC5QlgoJ9BffWqeNLc1uZ
+	QueWMYgf1CPVpr1bMPj7Swgs72aYQt0kbm/tdyz80ttUp8lDXgUGpIK68FT3TIsk9bow==
+X-Received: by 2002:a05:690c:ed6:b0:816:b469:cd12 with SMTP id 00721157ae682-87122f5564bmr131074277b3.8.1788960916082;
+        Wed, 09 Sep 2026 06:35:16 -0700 (PDT)
+Received: from localhost ([45.112.44.120])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-881575de059sm2427287b3.18.2026.09.09.06.35.15
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 09 Sep 2026 06:35:15 -0700 (PDT)
+From: Coiby Xu <coiby.xu@gmail.com>
+X-Google-Original-From: Coiby Xu <Coiby.Xu@gmail.com>
+Date: Wed, 9 Sep 2026 21:33:02 +0800
+To: Randy Dunlap <rdunlap@infradead.org>
+Cc: kexec@lists.infradead.org, Andrew Morton <akpm@linux-foundation.org>, 
+	Sourabh Jain <sourabhjain@linux.ibm.com>, Baoquan He <baoquan.he@linux.dev>, 
+	Dave Young <ruirui.yang@linux.dev>, Pratyush Yadav <pratyush@kernel.org>, 
+	Will Deacon <will@kernel.org>, linux-arm-kernel@lists.infradead.org, 
+	Jinjie Ruan <ruanjinjie@huawei.com>, Mike Rapoport <rppt@kernel.org>, 
+	Pasha Tatashin <pasha.tatashin@soleen.com>, Jonathan Corbet <corbet@lwn.net>, 
+	Shuah Khan <skhan@linuxfoundation.org>, "open list:DOCUMENTATION" <linux-doc@vger.kernel.org>, 
+	open list <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v5 8/9] crash_dump: Disallow
+ configfs/crash_dm_crypt_key/reuse if crash hotplug supported
+Message-ID: <aqFfvCpcrbN-8qcs@Rk>
+References: <20260909003657.1570544-1-coiby.xu@gmail.com>
+ <20260909003657.1570544-9-coiby.xu@gmail.com>
+ <c0d5f2e9-9bd1-46fb-8111-d3af6b6c9e66@infradead.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260909-b4-sparsemem_cleanups-v1-8-008fc8d579fe@kernel.org>
-References: <20260909-b4-sparsemem_cleanups-v1-0-008fc8d579fe@kernel.org>
-In-Reply-To: <20260909-b4-sparsemem_cleanups-v1-0-008fc8d579fe@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>, 
- Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
- Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
- Kairui Song <kasong@tencent.com>, Qi Zheng <qi.zheng@linux.dev>, 
- Shakeel Butt <shakeel.butt@linux.dev>, Barry Song <baohua@kernel.org>, 
- Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
- Wei Xu <weixugc@google.com>, Baoquan He <baoquan.he@linux.dev>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, 
- Brendan Jackman <brendan.jackman@linux.dev>, 
- Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>, 
- Oscar Salvador <osalvador@suse.de>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- "Rafael J. Wysocki" <rafael@kernel.org>, Danilo Krummrich <dakr@kernel.org>, 
- Jan Kiszka <jan.kiszka@siemens.com>, Kieran Bingham <kbingham@kernel.org>
-Cc: linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
- linux-cxl@vger.kernel.org, driver-core@lists.linux.dev, 
- linux-fsdevel@vger.kernel.org, "David Hildenbrand (Arm)" <david@kernel.org>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2321; i=david@kernel.org;
- h=from:subject:message-id; bh=ifd00cyRI1HuxOcc2xxWxJxbUrmoY4ieu/5tTBcNKZc=;
- b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLIWJhj/9Ny1KDloarDGVa1TGt0r2+dIpR+efCbvRNIKL
- bfLL/nlOkpZGMQ4GGTFFFmCgu8bvHy5rrbajY8ZZg4rE8gQBi5OAZhI7jxGhvXvpFgXTC59Y6Tj
- FHXihcBi00OJWlFqnZdOrNI6IaKxpoSR4c/7iSYTvC+Glr0wsct6bm6/8hnnuY4O6bVr31hNFeG
- fygkA
-X-Developer-Key: i=david@kernel.org; a=openpgp;
- fpr=1BD9CAAD735C4C3A460DFCCA4DDE10F700FF835A
+Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Disposition: inline
+In-Reply-To: <c0d5f2e9-9bd1-46fb-8111-d3af6b6c9e66@infradead.org>
 
-Let's move it to sparse_init_one_section(). However, to keep early
-boot processing working, we also have to initialize it in
-sparse_sections_init().
+On Tue, Sep 08, 2026 at 10:46:03PM -0700, Randy Dunlap wrote:
+>
+>
+>On 9/8/26 5:36 PM, Coiby Xu wrote:
+>> If crash hotplug is supported, dm-crypt keys saved to reserved memory
+>> will be taken care of automatically. Thus it doesn't make sense to use
+>> configfs/crash_dm_crypt_key/reuse. Not reserving
+>> image->dm_crypt_keys_addr makes it implicitly to disallow using this
+>> API. Currently x86_64 and ppc64le have implemented crash hotplug
+>> feature.
+>>
+>> Also update the doc accordingly. Note two doc issues are fixed as well.
+>>
+>> Fixes: 9ebfa8dcaea7 ("crash_dump: reuse saved dm crypt keys for CPU/memory hot-plugging")
+>> Reviewed-by: Sourabh Jain <sourabhjain@linux.ibm.com>
+>> Signed-off-by: Coiby Xu <coiby.xu@gmail.com>
+>> ---
+>>  Documentation/admin-guide/kdump/kdump.rst | 16 ++++++++++------
+>>  kernel/crash_dump_dm_crypt.c              | 12 ++++++++----
+>>  2 files changed, 18 insertions(+), 10 deletions(-)
+>>
+>> diff --git a/Documentation/admin-guide/kdump/kdump.rst b/Documentation/admin-guide/kdump/kdump.rst
+>> index 7587caadbae1..0bf2eb100a05 100644
+>> --- a/Documentation/admin-guide/kdump/kdump.rst
+>> +++ b/Documentation/admin-guide/kdump/kdump.rst
+>> @@ -577,9 +577,10 @@ with /sys/kernel/config/crash_dm_crypt_keys for setup,
+>>
+>>  1. Tell the first kernel what logon keys are needed to unlock the disk volumes,
+>>      # Add key #1
+>> -    mkdir /sys/kernel/config/crash_dm_crypt_keys/7d26b7b4-e342-4d2d-b660-7426b0996720
+>> +    VOL1_UUID=7d26b7b4-e342-4d2d-b660-7426b0996720
+>> +    mkdir /sys/kernel/config/crash_dm_crypt_keys/$VOL1_UUID
+>>      # Add key #1's description
+>> -    echo cryptsetup:7d26b7b4-e342-4d2d-b660-7426b0996720 > /sys/kernel/config/crash_dm_crypt_keys/description
+>> +    echo cryptsetup:$VOL1_UUID > /sys/kernel/config/crash_dm_crypt_keys/$VOL1_UUID/description
+>>
+>>      # how many keys do we have now?
+>>      cat /sys/kernel/config/crash_dm_crypt_keys/count
+>> @@ -591,15 +592,18 @@ with /sys/kernel/config/crash_dm_crypt_keys for setup,
+>>      cat /sys/kernel/config/crash_dm_crypt_keys/count
+>>      2
+>>
+>> -    # To support CPU/memory hot-plugging, reuse keys already saved to reserved
+>> -    # memory
+>> -    echo true > /sys/kernel/config/crash_dm_crypt_key/reuse
+>> -
+>>  2. Load the dump-capture kernel
+>>
+>>  3. After the dump-capture kerne get booted, restore the keys to user keyring
+>
+>                             kernel is booted,
 
-Should we use READ_ONCE/WRITE_ONCE with __highest_used_section_nr?
-Probably, something for another day.
+Thanks for catching this typo! I'll apply your suggestion to next
+version!
 
-Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
----
- mm/sparse.c | 5 +++--
- mm/sparse.h | 6 +++---
- 2 files changed, 6 insertions(+), 5 deletions(-)
-
-diff --git a/mm/sparse.c b/mm/sparse.c
-index 2b41ae36f20b8..2d0f2db34f4cf 100644
---- a/mm/sparse.c
-+++ b/mm/sparse.c
-@@ -177,7 +177,7 @@ static inline unsigned long first_present_section_nr(void)
- 
- void __init sparse_sections_init(void)
- {
--	unsigned long pfn, start_pfn, end_pfn;
-+	unsigned long pfn, start_pfn, end_pfn, section_nr;
- 	int i, nid;
- 
- 	sparse_extreme_init();
-@@ -187,9 +187,9 @@ void __init sparse_sections_init(void)
- 		mminit_validate_memmodel_limits(&start_pfn, &end_pfn);
- 
- 		for (pfn = start_pfn; pfn < end_pfn; pfn += PAGES_PER_SECTION) {
--			unsigned long section_nr = pfn_to_section_nr(pfn);
- 			struct mem_section *ms;
- 
-+			section_nr = pfn_to_section_nr(pfn);
- 			sparse_index_init(section_nr, nid);
- 			ms = __nr_to_section(section_nr);
- 			if (ms->section_mem_map)
-@@ -201,6 +201,7 @@ void __init sparse_sections_init(void)
- 			__section_mark_present(ms, section_nr);
- 		}
- 	}
-+	__highest_used_section_nr = section_nr;
- }
- 
- #ifndef CONFIG_SPARSEMEM_VMEMMAP
-diff --git a/mm/sparse.h b/mm/sparse.h
-index 7c5d82ceb7142..a3af4967fd5c5 100644
---- a/mm/sparse.h
-+++ b/mm/sparse.h
-@@ -97,6 +97,9 @@ static inline void sparse_init_one_section(struct mem_section *ms,
- 
- 	BUILD_BUG_ON(SECTION_MAP_LAST_BIT > PFN_SECTION_SHIFT);
- 
-+	if (section_nr > __highest_used_section_nr)
-+		__highest_used_section_nr = section_nr;
-+
- 	/*
- 	 * We encode the start PFN of the section into the mem_map such that
- 	 * page_to_pfn() on !CONFIG_SPARSEMEM_VMEMMAP can simply subtract it
-@@ -114,9 +117,6 @@ static inline void sparse_init_one_section(struct mem_section *ms,
- static inline void __section_mark_present(struct mem_section *ms,
- 		unsigned long section_nr)
- {
--	if (section_nr > __highest_used_section_nr)
--		__highest_used_section_nr = section_nr;
--
- 	ms->section_mem_map |= SECTION_MARKED_PRESENT;
- }
- 
+[...]
 
 -- 
-2.43.0
-
+Best regards,
+Coiby
