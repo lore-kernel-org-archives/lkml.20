@@ -1,33 +1,60 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA31D332637;
-	Wed,  9 Sep 2026 06:07:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 351C92DC783
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 06:07:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788934054; cv=none; b=TTTfIBmURBh0xvEyIwupNnqbEsR98uSW8J/bY/LOR2fW1XNHUNnzK2ctS7S6voK2U3EwEgXqqPmZGlvNGi0mtMj5mZXcK9vPb9u+nnz70xoHDfwsPj6sf2pYirUxeqFQ48YSiRqDGAcJSunR02ly/xLRK8m1gHInTr7HQGJ9/xg=
+	t=1788934069; cv=none; b=GCGdMEttKBDKILZK33JyXJbaTR+erCb++l/zLgJWdLVn109V7YXimYpRp07MUHPtebjKsx4uG9upSTiQP4yqdimERTaQMeMRThicw9WtkQo5Fi4rVnQqhHB7+537TmcXGT9aCZU64ckrpS2F6sqSmC74pE2nfU0he2sU6DPd3yw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788934054; c=relaxed/simple;
-	bh=U7v3XsLCphE4wshOWWCpr2M2x6+OXCgWzJwOnBqTAtQ=;
+	s=arc-20240116; t=1788934069; c=relaxed/simple;
+	bh=1lVS+SPVmuM5p2gywL/tHQIDR9KV1OnrN+ktn9y0uWc=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=n31IEpaqUcAOSBk4EBu7Vh8dU+XYNz8U5dmXWI/k21XZ9fzWJByNwQstgSG23UxdhlYxZHp+QsqIFzE7/qDpcnI7HzUvMijZROzhiwLX1pBcE0Wt0BFO9wO23UA8hEZuOIn7sRlYXiEfCsy+KZsPk7aPTpuT8Wyb8CnyhV2Rmw4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XpUWj45G; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=ioap2haynwhbN3tstNO/MVAILdRFAUtl2B5hWmJ1aWjRarUrMoEFWnn/8cUcCKGWjOD6k6RAW2qQcNPRZjkW15vsj2yC+iuLK/UTO7Xn/YeOy2Q4WsNLxfV7EXVxva71uLrPGnrMwM6TVhDl3ULNbM5v9oBHo6gSQBalIV7AFWY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=SGqNqT7N; arc=none smtp.client-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XpUWj45G"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 51A151F00A3A;
-	Wed,  9 Sep 2026 06:07:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788934052;
-	bh=sCWgbO/HmDCGRypEbkff2kKanCBnA5ge8SwiD4kj4nE=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=XpUWj45GqaBHjC7KgWHyJJ8mkyoCrmnS8oxplKJtzUiPAYyp2VXO9uMlhlHwzAEAn
-	 O6xxRSvmBGBMVgFtJreNqWeAcFLg89J8Eof2t6k2as8BOlcpmDEYJZ0f1t4GHPybuw
-	 K+2aQ4AleUbjYRwzRTAJu7QY4cffwwHbaHu8qOCrfIecVK4dSTCNRswREiE8JPwW3X
-	 nx+n3oTLQBlQcN5jc5EGBFEbBIgcqmAM3RpiXKRKCEYo0KU9S3abtzaV8iOKsSckGp
-	 AZ6dYH3dGdSt+tz8g60fEo7ruI2ENaX/ta0arAyI2mbZcKB/qR9cNexAuJR2VLnXDa
-	 +wDokvJ8PZ3Bw==
-Message-ID: <f33ff763-136e-4c10-bd77-d40bb4baf02c@kernel.org>
-Date: Wed, 9 Sep 2026 08:07:23 +0200
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="SGqNqT7N"
+Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 688N1xrx2300030;
+	Wed, 9 Sep 2026 06:07:28 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=uk0u9F
+	hT8YAH7rD+2Bj1nJLC1XnYAKmxfuVYeYYnnkQ=; b=SGqNqT7NhyV7eelVSmXiuG
+	0aj0OV/uXABjiZ+IOBfb9w9woaFsRv64UfPiA8aG/MSRmHcGMkrBpfKehCfvfgpM
+	jhTB6Ni4AQO6BALVjl9lgcxJilB9jrVeRfXWUij+KuoMjhlqSLU3+BPsno51v+pR
+	vv5bB9eK6NBeauOB20bpo681uEYYs00hgY2zeRCVJKVI9YWN59zjDjrr4o1IX7J2
+	bLNs9Ob0RALTKYHfu2u7e2GUigbLyfVPHg1rr8gry8uhkqmkwbv5hldgN0smgPUS
+	IGQoJsknba7cACmk0s9RrNTQ3R/nS8wknCV/+QgNqjnuGRqvQ0bPPnzQ1CzIM1zg
+	==
+Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4ggbhf3nh5-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 09 Sep 2026 06:07:28 +0000 (GMT)
+Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma13.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 6895uGhM021023;
+	Wed, 9 Sep 2026 06:07:27 GMT
+Received: from smtprelay05.fra02v.mail.ibm.com ([9.218.2.225])
+	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4ggymgge7t-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 09 Sep 2026 06:07:27 +0000 (GMT)
+Received: from smtpav05.fra02v.mail.ibm.com (smtpav05.fra02v.mail.ibm.com [10.20.54.104])
+	by smtprelay05.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68967Ni850135338
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Wed, 9 Sep 2026 06:07:23 GMT
+Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 67DD020040;
+	Wed,  9 Sep 2026 06:07:23 +0000 (GMT)
+Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id A541620043;
+	Wed,  9 Sep 2026 06:07:20 +0000 (GMT)
+Received: from [9.123.3.199] (unknown [9.123.3.199])
+	by smtpav05.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Wed,  9 Sep 2026 06:07:20 +0000 (GMT)
+Message-ID: <385c38cc-fb9a-446c-9e19-2e4fa0631f19@linux.ibm.com>
+Date: Wed, 9 Sep 2026 11:37:19 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -35,206 +62,345 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v18 3/8] dt-bindings: i3c: Add NXP P3H2x4x i3c-hub support
-To: Lakshay Piplani <lakshay.piplani@nxp.com>, linux-kernel@vger.kernel.org,
- linux-i3c@lists.infradead.org, alexandre.belloni@bootlin.com,
- krzk+dt@kernel.org, robh@kernel.org, conor+dt@kernel.org,
- devicetree@vger.kernel.org, broonie@kernel.org, lee@kernel.org,
- Frank.Li@nxp.com, lgirdwood@gmail.com
-Cc: vikash.bansal@nxp.com, priyanka.jain@nxp.com, aman.kumarpandey@nxp.com
-References: <20260903062108.2712296-1-lakshay.piplani@nxp.com>
- <20260903062108.2712296-4-lakshay.piplani@nxp.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
+Subject: Re: [PATCH v4 4/5] powerpc/pseries/eeh: Implement RTAS-based EEH
+ error injection
+To: Sourabh Jain <sourabhjain@linux.ibm.com>, mahesh@linux.ibm.com,
+        maddy@linux.ibm.com, mpe@ellerman.id.au, christophe.leroy@csgroup.eu,
+        oohall@gmail.com, npiggin@gmail.com, tpearson@raptorengineering.com,
+        alex@shazbot.org
+Cc: linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org,
+        sbhat@linux.ibm.com, harshpb@linux.ibm.com
+References: <20260831065441.48654-1-nnmlinux@linux.ibm.com>
+ <20260831065441.48654-5-nnmlinux@linux.ibm.com>
+ <02c8c3a8-04f4-4664-a4fd-5223f5262508@linux.ibm.com>
 Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20260903062108.2712296-4-lakshay.piplani@nxp.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-
-On 03/09/2026 08:21, Lakshay Piplani wrote:
-> From: Aman Kumar Pandey <aman.kumarpandey@nxp.com>
-> 
-> Add bindings for the NXP P3H2x4x (P3H2440/P3H2441/P3H2840/P3H2841)
-> multiport I3C hub family. These devices connect to a host via
-> I3C/I2C/SMBus and allow communication with multiple downstream
-> peripherals.
-> 
-> Signed-off-by: Aman Kumar Pandey <aman.kumarpandey@nxp.com>
-> Signed-off-by: Vikash Bansal <vikash.bansal@nxp.com>
-> Signed-off-by: Lakshay Piplani <lakshay.piplani@nxp.com>
-> Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
-> Reviewed-by: Frank Li <Frank.Li@nxp.com>
-> 
-> ---
-> Changes in v18:
->  - Rebased onto v7.3-rc1; no intended driver behaviour changes
-> 
-> Changes in v17:
->  - Explain in the binding description that all variants share the same register
->    interface, software reads the target-port count from DEV_CAPAB, and
->    the x0/x1 variants differ only in power-up defaults that the driver
->    overrides
-> 
-> Changes in v16:
->  - Add an allOf/if-then block for the 4-port variants (nxp,p3h2440 and
->    nxp,p3h2441) that limits i3c@[0-3]/smbus@[0-3] and disallows target
->    ports [4-7], so DTs describing nonexistent ports fail validation
->  - Add #address-cells and #size-cells to the required list, since the hub
->    is a parent bus to the target-port child node
->  - Add an explicit minimum of 0 to the target-port reg constraints, retain
->    the maximum of 7, and restrict the maximum to 3 for four-port variants
-> 
-> Changes in v15:
->  - Add compatible strings for the P3H2440, P3H2441, P3H2840 and P3H2841
->    variants
->  - Fix the target-port reg schema to describe the single-cell port index
-> 
-> Changes in v14:
->  - No change
-> 
-> Changes in v13:
->  - Fix mismatch between example unit-address and reg property by correcting the reg value
->    to match the node name
-> 
-> Changes in v12:
->  - No change, added Reviewed-By tag
-> 
-> Changes in v11:
->  - No change
-> 
-> Changes in v10:
->  - No change, added Reviewed-By tag
-> 
-> Changes in v9:
->  - Referenced i3c.yaml and i2c-controller.yaml for child nodes
->  - Dropped unnecessary #address-cells and #size-cells from child nodes
-> 
-> Changes in v8:
->  - Add compatible in i3c example
-> 
-> Changes in v7:
->  - Fix schema validation issues
->  - Adjust required properties
->  - Add I2C example
-> 
-> Changes in v6:
->  - Use a vendor prefix for the attributes
-> 
-> Changes in v5:
->  - Removed SW properties: cp0-ldo-microvolt,cp1-ldo-microvolt,
->    tp0145-ldo-microvolt, tp2367-ldo-microvolt
->  - Changed supply entries and its descriptions
-> 
-> Changes in v4:
->  - Fixed DT binding check warning
->  - Removed SW properties: ibi-enable, local-dev, and always-enable
-> 
-> Changes in v3:
->  - Added MFD (Multi-Function Device) support for I3C hub and on-die regulator
->  - Added Regulator supply node
-> 
-> Changes in v2:
->  - Fixed DT binding check warning
->  - Revised logic for parsing DTS nodes
-> ---
-> ---
->  .../devicetree/bindings/i3c/nxp,p3h2840.yaml  | 328 ++++++++++++++++++
->  MAINTAINERS                                   |   9 +
->  2 files changed, 337 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/i3c/nxp,p3h2840.yaml
-> 
-> diff --git a/Documentation/devicetree/bindings/i3c/nxp,p3h2840.yaml b/Documentation/devicetree/bindings/i3c/nxp,p3h2840.yaml
-> new file mode 100644
-> index 000000000000..6b0076b4487f
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/i3c/nxp,p3h2840.yaml
-> @@ -0,0 +1,328 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +# Copyright 2025-2026 NXP
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/i3c/nxp,p3h2840.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: NXP P3H2X4X I3C HUB
-> +
-> +maintainers:
-> +  - Aman Kumar Pandey <aman.kumarpandey@nxp.com>
-> +  - Vikash Bansal <vikash.bansal@nxp.com>
-> +  - Lakshay Piplani <lakshay.piplani@nxp.com>
-> +
-> +description: |
-> +  P3H2x4x (P3H2440/P3H2441/P3H2840/P3H2841) is a family of multiport I3C
-> +  hub devices that connect to:-
-> +  1. A host CPU via I3C/I2C/SMBus bus on upstream side and connect to multiple
-> +     peripheral devices on the downstream  side.
-> +  2. Have two Controller Ports which can support either
-> +     I2C/SMBus or I3C buses and connect to a CPU, BMC or SOC.
-> +  3. P3H2840/ P3H2841 are 8 port I3C hub with eight Target Ports.
-> +  4. P3H2440/ P3H2441 are 4 port I3C hub with four Target Ports.
-> +     Target ports can be configured as SMBus or I3C and connect to
-> +     peripherals.
-> +
-> +  All variants use the same register interface. Software reads the number
-> +  of target ports from DEV_CAPAB. The x0/x1 variants differ in their
-> +  power-up defaults, which the driver replaces with the DT configuration.
-
-I don't understand what this driver reference means and what is its
-purpose here.
-
-> +
-> +properties:
-> +  compatible:
-> +    enum:
-> +      - nxp,p3h2440
-> +      - nxp,p3h2441
-> +      - nxp,p3h2840
-> +      - nxp,p3h2841
-
-I don't see improvements.
+From: Narayana Murty N <nnmlinux@linux.ibm.com>
+In-Reply-To: <02c8c3a8-04f4-4664-a4fd-5223f5262508@linux.ibm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-GUID: mYuO9aD32imxhIklcFwbp62gmjUb7VNu
+X-Authority-Analysis: v=2.4 cv=RIaD2Yi+ c=1 sm=1 tr=0 ts=6aa0f7a0 cx=c_pps
+ a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=RzCfie-kr_QcCd8fBx8p:22 a=VwQbUJbxAAAA:8
+ a=VnNF1IyMAAAA:8 a=0oMT2e0EhHCWqyLYaj0A:9 a=dMb2Ee1TWpK55KY-:21
+ a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA5MDA2NiBTYWx0ZWRfX4tFqblkBdvbo
+ 6+3oNOlFrq4hQNeGKRr9tlvRGKE3rBDAqIOdKxD7TESrd84ov9sdXiyGnVEq5fXriQ41P5wzs2U
+ 1Z7yF8vbJJj7+Pt0ZjHxDxHn4KXOJu4=
+X-Proofpoint-ORIG-GUID: 9eqMUFyMvjAfEwXkjFkTZYLlG5JxWgst
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA5MDA2NiBTYWx0ZWRfX1el77rZ9xIoa
+ GAfXqQ5svvrsHCwaGSvrvnh6LSTMBSbShIlP7YfbuB82kJq1DrPsLNAwzSiEiFbr+vEhANUQe1i
+ i98LP4bThHwRUGMFpvCaTtRedqdgZEq9IfS98MbAEgVyJb8LPREr1MiMsremu1UwEAgZ7zDHttG
+ bGy/5zTmaF2yb78I3QS/DJR7VkVSKjUByWTdbFNj1XNd96CX/1IzHz9C5jUTGI1AZTQ33dneMWK
+ meuUO38kJ8vOK+hNSUBXY8MTZgdA4YPQcDMwJusVzqO1Qq3OfbaEAlOY+i5wnXsEimLDmDHYovp
+ 0nj0fQ2cL0G/HCwg/OISgtc5luz1nGuuumBoZQl8bJBdTDAgy4xSqZMrEqlDjjEkVJUVl1ZrfRL
+ 5RIo/1vp3dlB0DgA0Q/86qHHMafR5SOVeLuGTSTLh4fXdWuc3B3vRILbFDuPoUZ5fvKeAl0wabz
+ qt3nnm6MXyYa+yFft/Q==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-08_03,2026-09-08_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 suspectscore=0 malwarescore=0 priorityscore=1501 bulkscore=0
+ adultscore=0 phishscore=0 clxscore=1015 impostorscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609090066
 
 
-Best regards,
-Krzysztof
+
+On 02/09/26 10:46 AM, Sourabh Jain wrote:
+> 
+> 
+> On 31/08/26 12:24, Narayana Murty N wrote:
+>> Replace the legacy MMIO stub in pseries_eeh_err_inject() with a full
+>> PAPR-compliant RTAS error injection path using the existing RTAS
+>> work-area allocator.
+>>
+>> The mutex is not a buffer lock;
+> Sorry but I didn't get this...
+> 
+>> it serializes the firmware session
+>> open/inject/close sequence as required by PAPR.  No global buffer
+>> is allocated or used.
+> Nit:
+> I think the above para is influenced form old suggestion to not use global
+> dedicated buffer. Lets drop the global buffer thing from commit message
+> explain just the current approach.
+> 
+Agreed. I will clean up the commit message and describe only the current
+implementation. I will drop the "mutex is not a buffer lock" and "no 
+global buffer is used" wording.
+>>
+>> VFIO EEH error injection exposes a generic userspace ABI.  pSeries maps
+>> the generic EEH error types to RTAS ibm,errinjct encodings via
+>> pseries_eeh_type_to_rtas().  EEH_ERR_TYPE_32 and EEH_ERR_TYPE_64 are
+>> unchanged; their values are defined in arch/powerpc/include/uapi/asm/ 
+>> eeh.h
+>> and are not renumbered.
+>>
+>> Tested with corresponding QEMU patches:
+>> https://lore.kernel.org/all/20251029150618.186803-1- 
+>> nnmlinux@linux.ibm.com/
+>>
+>> Signed-off-by: Narayana Murty N <nnmlinux@linux.ibm.com>
+>> ---
+>>   arch/powerpc/platforms/pseries/eeh_pseries.c | 123 ++++++++++++++-----
+>>   1 file changed, 95 insertions(+), 28 deletions(-)
+>>
+>> diff --git a/arch/powerpc/platforms/pseries/eeh_pseries.c b/arch/ 
+>> powerpc/platforms/pseries/eeh_pseries.c
+>> index fafe0004e738..fcb8c560d813 100644
+>> --- a/arch/powerpc/platforms/pseries/eeh_pseries.c
+>> +++ b/arch/powerpc/platforms/pseries/eeh_pseries.c
+>> @@ -25,6 +25,7 @@
+>>   #include <linux/rbtree.h>
+>>   #include <linux/sched.h>
+>>   #include <linux/seq_file.h>
+>> +#include <linux/mutex.h>
+>>   #include <linux/spinlock.h>
+>>   #include <linux/crash_dump.h>
+>> @@ -34,6 +35,7 @@
+>>   #include <asm/machdep.h>
+>>   #include <asm/ppc-pci.h>
+>>   #include <asm/rtas.h>
+>> +#include <asm/rtas-work-area.h>
+>>   /* RTAS tokens */
+>>   static int ibm_set_eeh_option;
+>> @@ -958,8 +960,6 @@ static int prepare_errinjct_buffer(void *buf, 
+>> struct eeh_pe *pe,
+>>               return -EINVAL;
+>>           if (upper_32_bits(addr) || upper_32_bits(mask)) {
+>> -            pr_err("32-bit IOA injection cannot encode addr=%#lx 
+>> mask=%#lx\n",
+>> -                   addr, mask);
+> 
+> We are returning -EINVAL remove the error message, what is the need?
+> 
+Agreed. I will remove this unnecessary error message and just return
+-EINVAL.
+
+>>               return -EINVAL;
+>>           }
+>> @@ -992,50 +992,117 @@ static int prepare_errinjct_buffer(void *buf, 
+>> struct eeh_pe *pe,
+>>           break;
+>>       default:
+>> -        pr_err("unsupported RTAS error injection type 0x%x\n", 
+>> rtas_type);
+>> +        pr_err("unsupported RTAS error injection type 0x%x\n",
+>> +               rtas_type);
+> 
+> Above change is not necessary..
+> 
+Agreed. I will drop this unrelated formatting-only change.
+>>           return -EINVAL;
+>>       }
+>> -    pr_debug("errinjct buffer ready: rtas_type=0x%x func=%d 
+>> addr=0x%lx mask=0x%lx\n",
+>> -         rtas_type, func, addr, mask);
+> 
+> What is need to remove this debug message?
+There is no strong reason to remove it. I will keep the existing debug 
+message.
+> 
+>>       return 0;
+>>   }
+>> +/* pseries-local mutex serializes the open/inject/close RTAS session */
+>> +static DEFINE_MUTEX(pseries_errinjct_mutex);
+>> +
+>>   /**
+>>    * pseries_eeh_err_inject - Inject specified error to the indicated PE
+>>    * @pe: the indicated PE
+>> - * @type: error type
+>> - * @func: specific error type
+>> - * @addr: address
+>> - * @mask: address mask
+>> - * The routine is called to inject specified error, which is
+>> - * determined by @type and @func, to the indicated PE
+>> + * @type: generic EEH error type (EEH_ERR_TYPE_32 or EEH_ERR_TYPE_64)
+>> + * @func: specific error function
+>> + * @addr: address argument (type-dependent, may be zero)
+>> + * @mask: address mask (type-dependent, may be zero)
+>> + *
+>> + * Implements PAPR-compliant error injection using:
+>> + *   ibm,open-errinjct -> ibm,errinjct -> ibm,close-errinjct
+>> + *
+>> + * A short-lived RTAS work area is allocated per call; no global buffer
+>> + * is used.
+> Mentioning "no global buffer is used" is not adding any value, I think.
+> 
+Agreed.
+>> pseries_errinjct_mutex serializes the open/inject/close
+>> + * session sequence.
+>> + *
+>> + * Return: 0 on success, negative errno on failure.
+>>    */
+>>   static int pseries_eeh_err_inject(struct eeh_pe *pe, int type, int 
+>> func,
+>>                     unsigned long addr, unsigned long mask)
+>>   {
+>> -    struct    eeh_dev    *pdev;
+>> +    struct rtas_work_area *area;
+>> +    phys_addr_t area_phys;
+>> +    u32 buf_phys;
+>> +    void *buf;
+>> +    int open_token, errinjct_token, close_token;
+>> +    int session_token;
+>> +    int rtas_type;
+>> +    int close_rc;
+>> +    int rc;
+>> +
+>> +    rc = validate_errinjct_args(pe, type, func, addr, mask);
+>> +    if (rc)
+>> +        return rc;
+>> -    /* Check on PCI error type */
+>> -    if (type != EEH_ERR_TYPE_32 && type != EEH_ERR_TYPE_64)
+>> +    rtas_type = pseries_eeh_type_to_rtas(type);
+>> +    if (rtas_type < 0)
+>>           return -EINVAL;
+>> -    switch (func) {
+>> -    case EEH_ERR_FUNC_LD_MEM_ADDR:
+>> -    case EEH_ERR_FUNC_LD_MEM_DATA:
+>> -    case EEH_ERR_FUNC_ST_MEM_ADDR:
+>> -    case EEH_ERR_FUNC_ST_MEM_DATA:
+>> -        /* injects a MMIO error for all pdev's belonging to PE */
+>> -        pci_lock_rescan_remove();
+>> -        list_for_each_entry(pdev, &pe->edevs, entry)
+>> -            eeh_pe_inject_mmio_error(pdev->pdev);
+>> -        pci_unlock_rescan_remove();
+>> -        break;
+>> -    default:
+>> -        return -ERANGE;
+>> +    open_token    = rtas_function_token(RTAS_FN_IBM_OPEN_ERRINJCT);
+>> +    errinjct_token = rtas_function_token(RTAS_FN_IBM_ERRINJCT);
+>> +    close_token   = rtas_function_token(RTAS_FN_IBM_CLOSE_ERRINJCT);
+>> +
+>> +    if (open_token    == RTAS_UNKNOWN_SERVICE ||
+>> +        errinjct_token == RTAS_UNKNOWN_SERVICE ||
+>> +        close_token   == RTAS_UNKNOWN_SERVICE)
+>> +        return -ENODEV;
+>> +
+>> +    area = rtas_work_area_alloc(RTAS_ERRINJCT_BUF_SIZE);
+>> +    buf  = rtas_work_area_raw_buf(area);
+>> +    area_phys = rtas_work_area_phys(area);
+> 
+> 
+> I was wondering if there is any need to hold the work area buffer until
+> we acquire pseries_errinjct_mutex.
+> 
+> Would it make sense to allocate the buffer only after acquiring the
+> mutex? I suggested an order for the open, errinjct, and close calls
+> below, which I think could also help address the above comment.
+> 
+Agreed. I will reorder the flow as suggested:
+
+1. acquire the mutex
+2. call ibm,open-errinjct
+3. allocate the RTAS work area
+4. populate the work buffer
+5. call ibm,errinjct
+6. free the RTAS work area
+7. call ibm,close-errinjct
+8. release the mutex
+
+This avoids allocating the work area if ibm,open-errinjct fails and 
+keeps the
+work area held only while it is needed.
+> Nit: this file is under pseries platform so pseries_errinjct_mutex can 
+> renamed to errinct_mutex.
+Agreed. I will rename it to errinjct_mutex.
+>> +
+>> +    if (WARN_ON_ONCE(upper_32_bits(area_phys))) {
+>> +        rc = -ERANGE;
+>> +        goto out_free_area;
+>>       }
+>> -    return 0;
+>> +    buf_phys = lower_32_bits(area_phys);
+> 
+> I don't understand the above logic. First, we check area_phys and exit
+> early if the address is above 4G, and then we take the lower 32 bits of
+> the same address.
+> 
+> I think the RTAS work area allocation API should be responsible for
+> allocating the work area buffer at the right location. The user
+> shouldn't have to worry about where exactly the buffer is allocated
+> unless they have a specific requirement.
+> 
+> Is the work area buffer allocated by the API not meeting your
+> requirement? If so, could you please explain what the issue is? Let's
+> see if we can fix it in the work area allocation API. Otherwise, I
+> would suggest removing the checking and truncation done around
+> area_phys.
+> 
+> Let me know your opinion.
+> 
+Agreed. Since this path uses the RTAS work area allocator, I will remove 
+the explicit upper_32_bits(area_phys) check and the local address 
+truncation logic. If the allocator does not provide an RTAS-suitable 
+address, that should be handled in the allocator rather than in this EEH 
+path.
+> 
+>> +
+>> +    rc = prepare_errinjct_buffer(buf, pe, rtas_type, func, addr, mask);
+>> +    if (rc)
+>> +        goto out_free_area;
+>> +
+>> +    mutex_lock(&pseries_errinjct_mutex);
+>> +
+>> +    do {
+>> +        rc = rtas_call(open_token, 0, 2, &session_token);
+>> +    } while (rtas_busy_delay(rc));
+>> +
+>> +    if (rc) {
+>> +        pr_err("ibm,open-errinjct failed: status=%d\n", rc);
+>> +        rc = rtas_error_rc(rc);
+>> +        goto out_unlock;
+>> +    }
+> 
+> I think we should allocate the work area buffer only after the
+> open-errinjct call succeeds. My preferred order is:
+> 
+> - Call RTAS open-errinjct
+> - Allocate the work area buffer
+> - Populate the work area buffer and make the errinjct RTAS call
+> - Release the work area buffer
+> - Call RTAS close-errinjct
+> 
+As stated above, will address in next version.
+> This way, the work area buffer is held only for as long as it is needed,
+> and we also avoid allocating it if open-errinjct fails.
+Agreed.
+> 
+>> +
+>> +    do {
+>> +        rc = rtas_call(errinjct_token, 3, 1, NULL,
+>> +                   rtas_type, session_token, buf_phys);
+>> +    } while (rtas_busy_delay(rc));
+>> +
+>> +    if (rc) {
+>> +        pr_err("ibm,errinjct failed: status=%d\n", rc);
+>> +        rc = rtas_error_rc(rc);
+>> +    }
+>> +
+>> +    do {
+>> +        close_rc = rtas_call(close_token, 1, 1, NULL, session_token);
+>> +    } while (rtas_busy_delay(close_rc));
+>> +
+>> +    if (close_rc) {
+>> +        pr_warn("ibm,close-errinjct failed: status=%d\n", close_rc);
+>> +        if (!rc)
+>> +            rc = rtas_error_rc(close_rc);
+>> +    }
+>> +
+>> +out_unlock:
+>> +    mutex_unlock(&pseries_errinjct_mutex);
+>> +
+>> +out_free_area:
+>> +    rtas_work_area_free(area);
+>> +    return rc;
+>>   }
+>>   static struct eeh_ops pseries_eeh_ops = {
+> 
+
