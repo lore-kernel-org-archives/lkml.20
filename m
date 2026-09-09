@@ -1,225 +1,156 @@
-Received: from mail-yw1-f177.google.com (mail-yw1-f177.google.com [209.85.128.177])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0202649F120
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 10:05:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21C3E4A13AD;
+	Wed,  9 Sep 2026 10:05:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788948325; cv=none; b=r5ix6BT2WQA84u0RgrPMHywRUB5yZxaHWp/PnLYBcKMD0pNhAsLO1FJ+3s1O/Q7stBpHio0SCFbVGAWqm6yteUXcdhrPeNO/vNHt/eM79tKRqKyMRdTcbkOfq6XtRZMgC9mVAoGrX2GqQjK3ukvL1LoTvatE2SmWNVbi8X7JnCA=
+	t=1788948329; cv=none; b=e50FJaR9K6P6Os92G7dOwrTqq4E6cT0Nr7/Pj/MnBWNAXwNZlq00bJSUp5YKCBiDA3fzYgJlzKrBSaE4IzZE8YxEdnIgoNvaJ4eW4M/lrnoItUXR2SsM0fdAoT1b4ygQ2B6lpPEwM8x5YarZbnyxLx9ihww9VD4uAUnC7/SMQdo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788948325; c=relaxed/simple;
-	bh=qMr1bVSK6brdsAbJBgTYmdPhEJSJ4vqK0Yk38H2rNMM=;
-	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=QKUUW/X0O64nXjpGO145lflyL2Y+O8jaxZb9Ebs73/72k3wU42RUhe6moMPFWf49L2Z9SylDYovDVR771cgcaA/Xh0nuZ1YcSChIFqWJzgXyeCDh2EhgtC46+QJJYKoEJLIuL4R2ZoR0cu9kGF4YYvEiuUQpdF13i+sZubgrtPM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=qJIdpKn1; arc=none smtp.client-ip=209.85.128.177
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	s=arc-20240116; t=1788948329; c=relaxed/simple;
+	bh=kJV1f3wB2RcXY3XSY6MQqbSq5MB+kbNhrwlsOrgQJrs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=D6ay1j1AhlYgw1Hf71em2LoEM0l1CzEYFMnKFDujZI/3jCMrEW61DWwaqI+nrnTPfsJDT4FXKDQvcpsdt3OziXjJ2DqCNPvBmJYfwky2KJrVVS70KSg69akwFmU//Hz2bX2+DfKnXSBAYYg1EDFuPSKBJ613HQKb7mUiokFuWJ8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Da7lqg5D; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="qJIdpKn1"
-Received: by mail-yw1-f177.google.com with SMTP id 00721157ae682-8565d77c277so73379707b3.0
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 03:05:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788948323; x=1789553123; darn=vger.kernel.org;
-        h=content-type:mime-version:references:message-id:in-reply-to:subject
-         :cc:to:from:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=yFQHd4CD2vPDTEJCwRK4KnJHHa5RS0l8x4Ius5m53Xw=;
-        b=qJIdpKn1TDNl8g9xLqgYhGyLTBFmZwLT3uxh4xLIzoB6uOXZ/kkb6TCBUi6sGuyltQ
-         v+Z3Zv2H16MDHZkRD67zgpNvUxTMXYVsrHpgDheD6iGS6mJYgn6KYYTqakiEnpnBvgtd
-         rFGNLbZJq3Z549hPDiaZ2IVFgxtbuSvWkrT7/EmPXP/oUODZbGq8dLOk+2HXp18a2Q/S
-         cfxGp7GsdIQTy8bur5gKlM2+NtSyAdXuqQj2J1AUsqyml8eQWrmyQ7n18yLytFBGh0uP
-         KCqqbNOELV+f/RDtWz2WBhaYkKkxWjWidVHWY6gN7tgXQoR8KJHAmTqQ1Be9uJqc88/j
-         koww==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788948323; x=1789553123;
-        h=content-type:mime-version:references:message-id:in-reply-to:subject
-         :cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=yFQHd4CD2vPDTEJCwRK4KnJHHa5RS0l8x4Ius5m53Xw=;
-        b=Jdhxo8jyGZYJQk9nIbK/2GixjJIDwD0IMs6tP2ExN1oXjhewbf+Czm3o35LD9Qp+C9
-         00oMkU40pzuPgjxVU69VtW4tmPzO8un1HGBPXG6Z241pLM3yPB7k8zKw8TzKthKJrwYM
-         FU4j9LP4hpfnHM+YQmik5QIe3lOBnSCfIgNrqqVHxeDYiLFlBTUMXxzm553ZessrW0cD
-         jVJhZcvJnJzOuDF+AjuSnRpYznTQnUd0zyfHOUY9UNUUfyFLqKOh3kHuD+yR/FeboJJc
-         4D6M4kEl2eENQRfaj+7R6daL5jxHVGveHiTXyLO8Q4BckqO5PBHAMwTb4/Paoef3JCbL
-         wZJw==
-X-Forwarded-Encrypted: i=1; AKwUvBx6S3dMDZBn6yWRkOcegw50hiRr2Gb9Bxv7RIHxhOijFMrQDzOsUzt6SDDdhBY2XjmNfCEHZpY/KGqL/4k=@vger.kernel.org
-X-Gm-Message-State: AFuF++lLS6Vr7OPqzi6h37MQ2y7ZWgovKWtS6ukUQJxSMNd2hMB1fvCt
-	0LOjEGMhFEJYyQA9gTUfvBHuQfo7I1JE3GUwqIt5eyyhRmHtSHgODhSbUy9XnsbuZg==
-X-Gm-Gg: AYBFou1T/gTNsmv3w3WikRRvVDgps5pgTef4hftH6vpEwEkLEUzG5ZXOjpYdy0T/IdW
-	GmINV2e279O816hUqhz/kzDCTGcOPtjkLUJloowXmrH2+m0P9dJxpe3ARZ8Bsl+WfT8cFiLnmsc
-	SGEMTYT+7P7Yl9giPs0dJ2kdkzNbykHN4rNoTP9UNugSPNiHLzyxXgfU2xv7jYV2xq/TRBgUA5J
-	JZJg6ZcaWuuIpoelyYfCsDO/wIcaha7p5xDlmNwfbIvuO/2QZP65l/1ieFHWC/Flts6q69N9vHn
-	xUa1uR9o97uRSxq0aQHGVRc7i+fKu0oNlLDKO1SBpBzseJO9qV/uB13XHeCGXvmIH2Lw3CdxKw4
-	EDv8NFqV2/r9uFUIB8f/hFfOmZQtbIhtssde1Bjdny2E7OIrAOK0FXRCaV2L1CH5t2dyK14QLNy
-	s918e+rAZzkoMYH8REMNGw9ifU4jzTISUQKEZvciNUnh8/bH2uk3xMGbktCjdGlApzVEgjLG77w
-	kmqjGa5I5WqJfTYnbhDWye05I12HV9hVBvCqxJTEhJz/Fs9qTvyWInJ6MU=
-X-Received: by 2002:a05:690c:88:b0:864:6f4d:ef7f with SMTP id 00721157ae682-87121acbbc5mr139779397b3.7.1788948322156;
-        Wed, 09 Sep 2026 03:05:22 -0700 (PDT)
-Received: from darker.attlocal.net (172-10-233-147.lightspeed.sntcca.sbcglobal.net. [172.10.233.147])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8714befac64sm107718397b3.47.2026.09.09.03.05.17
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 09 Sep 2026 03:05:21 -0700 (PDT)
-Date: Wed, 9 Sep 2026 03:05:16 -0700 (PDT)
-From: Hugh Dickins <hughd@google.com>
-To: Andrew Morton <akpm@linux-foundation.org>
-cc: Ackerley Tng <ackerleytng@google.com>, 
-    Alexander Viro <viro@zeniv.linux.org.uk>, Alexandre Ghiti <alex@ghiti.fr>, 
-    Baolin Wang <baolin.wang@linux.alibaba.com>, 
-    Barry Song <baohua@kernel.org>, Binbin Wu <binbin.wu@linux.intel.com>, 
-    Christian Brauner <brauner@kernel.org>, Christoph Hellwig <hch@lst.de>, 
-    Christoph Lameter <cl@gentwo.org>, 
-    Claudio Imbrenda <imbrenda@linux.ibm.com>, 
-    David Hildenbrand <david@kernel.org>, JP Kobryn <jp.kobryn@linux.dev>, 
-    Jan Kara <jack@suse.cz>, Jens Axboe <axboe@kernel.dk>, 
-    Johannes Weiner <hannes@cmpxchg.org>, Kairui Song <ryncsn@gmail.com>, 
-    Kiryl Shutsemau <kas@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
-    Leonardo Bras <leobras.c@gmail.com>, Lorenzo Stoakes <ljs@kernel.org>, 
-    Marcelo Tosatti <mtosatti@redhat.com>, 
-    Matthew Wilcox <willy@infradead.org>, 
-    Mel Gorman <mgorman@techsingularity.net>, 
-    Miaohe Lin <linmiaohe@huawei.com>, Michal Hocko <mhocko@suse.com>, 
-    Minchan Kim <minchan@kernel.org>, Muchun Song <muchun.song@linux.dev>, 
-    Oscar Salvador <osalvador@suse.de>, Peter Zijlstra <peterz@infradead.org>, 
-    Qi Zheng <qi.zheng@linux.dev>, Rik van Riel <riel@surriel.com>, 
-    Sebastian Andrzej Siewior <bigeasy@linutronix.de>, 
-    Shakeel Butt <shakeel.butt@linux.dev>, 
-    Suren Baghdasaryan <surenb@google.com>, 
-    Vlastimil Babka <vbabka@kernel.org>, 
-    Yang Shi <yang@os.amperecomputing.com>, Yu Zhao <yuzhao@google.com>, 
-    Zach O'Keefe <zokeefe@google.com>, Zi Yan <ziy@nvidia.com>, 
-    linux-block@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
-    linux-kernel@vger.kernel.org, linux-mm@kvack.org
-Subject: [PATCH v2 12/26] mm/fbatch: remove percpu_pvec_drained and
- folios_put()
-In-Reply-To: <e28f9a94-4339-f8ac-8301-6be3c9b5b7ce@google.com>
-Message-ID: <e5f75b23-a65d-85f0-850d-a3c375ef420a@google.com>
-References: <e28f9a94-4339-f8ac-8301-6be3c9b5b7ce@google.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Da7lqg5D"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2585E1F00ADE;
+	Wed,  9 Sep 2026 10:05:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788948327;
+	bh=DoOFUTTLq3F8SnEe2BxPjPHx1V1IzLc22vrDVr7s0qE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Da7lqg5DuVdSEz0zDKFb8J9Z+VkDjG93eZuIcAXcREQ2aDFko+cNF2lzOTsJBKjM+
+	 VsWLj7ddjbK7pjhXVYPCJff3BKRIduusD8QU4WCR6FEbodMnZpQLYdjdA9Ao3DtyXv
+	 IeCV/xXu/IcfAqrgmOYMfbuTim39bcfnhWOHd164kyjKmC5RXI4oHBk8P8qXS46TOn
+	 6ftny5crMo+OO8GsD7qhAFEUI/XzXJgL+YiMAGS5SHAKTunwV6pUFaCQRX1dZ8fpUz
+	 oyjRPSnFO90qFV4Y4c1XrGl1PUH3HcbH6IkDn3U6YKfrDMjLCPnxuuyU8QD/noEk4n
+	 o4Kvp4XZQctyA==
+Date: Wed, 9 Sep 2026 11:05:02 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Changhuang Liang <changhuang.liang@starfivetech.com>
+Cc: Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Emil Renner Berthing <kernel@esmil.dk>,
+	Paul Walmsley <pjw@kernel.org>, Albert Ou <aou@eecs.berkeley.edu>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	"linux-gpio@vger.kernel.org" <linux-gpio@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-riscv@lists.infradead.org" <linux-riscv@lists.infradead.org>,
+	Lianfeng Ouyang <lianfeng.ouyang@starfivetech.com>
+Subject: Re: [PATCH v7 03/21] dt-bindings: pinctrl: Add
+ starfive,jhb100-sys0-pinctrl
+Message-ID: <aqEvTU_-69_PAQf7@squawk>
+References: <20260831113514.66382-1-changhuang.liang@starfivetech.com>
+ <20260831113514.66382-4-changhuang.liang@starfivetech.com>
+ <20260908-annually-catfight-39e3a1543274@spud>
+ <ZQ4PR01MB1202F0B2A4BB3D370C82D523F2B02@ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="CzfhbBx3OnI0r5Pd"
+Content-Disposition: inline
+In-Reply-To: <ZQ4PR01MB1202F0B2A4BB3D370C82D523F2B02@ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn>
 
-Remove the percpu_pvec_drained field from folio_batch, and its only use
-in __folio_batch_release(): remove that now pointless lru_add_drain().
+--CzfhbBx3OnI0r5Pd
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Which leaves __folio_batch_release() as an exported name for folios_put()
-which is itself just a wrapper for folios_put_refs(): mm/mlock.c and
-mm/folio.c don't need such a wrapper, just say folios_put_refs(,NULL).
+On Wed, Sep 09, 2026 at 01:43:20AM +0000, Changhuang Liang wrote:
+> Hi, Conor
+>=20
+> Thanks for the review.
+>=20
+> > On Mon, Aug 31, 2026 at 04:34:56AM -0700, Changhuang Liang wrote:
+> > > diff --git a/include/dt-bindings/pinctrl/starfive,jhb100-pinctrl.h
+> > > b/include/dt-bindings/pinctrl/starfive,jhb100-pinctrl.h
+> > > new file mode 100644
+> > > index 000000000000..6d8f5516a178
+> > > --- /dev/null
+> > > +++ b/include/dt-bindings/pinctrl/starfive,jhb100-pinctrl.h
+> > > @@ -0,0 +1,17 @@
+> > > +/* SPDX-License-Identifier: GPL-2.0 OR MIT */
+> > > +/*
+> > > + * Copyright (C) 2022 StarFive Technology Co., Ltd.
+> > > + *
+> > > + * Author: Changhuang Liang <changhuang.liang@starfivetech.com>
+> > > + */
+> > > +
+> > > +#ifndef __DT_BINDINGS_PINCTRL_STARFIVE_JHB100_H__
+> > > +#define __DT_BINDINGS_PINCTRL_STARFIVE_JHB100_H__
+> > > +
+> > > +/* sys0 pad numbers */
+> > > +#define PADNUM_SYS0_GPIO_A0				0
+> > > +#define PADNUM_SYS0_GPIO_A1				1
+> > > +#define PADNUM_SYS0_GPIO_A2				2
+> > > +#define PADNUM_SYS0_GPIO_A3				3
+> >=20
+> > Krzysztof's point [1] about these still stands. Pad indices aren't bind=
+ings.
+> > Sure, your driver and your dts both might want to use these but that do=
+esn't
+> > make them a binding. For that to be the case, they need to effectively =
+be
+> > made up numbers - like how clocks are often listed with numbers from 0 =
+into
+> > the dozens or hundreds, when that may or may not correlate with actual =
+bits
+> > in registers, e.g. indices 0-31 in a clock binding might be in register=
+ 1 and then
+> > 32-63 are in register 2. There's no need for a binding here to assign m=
+eanings
+> > to numbers, because the meanings are assigned by the hardware itself - =
+index
+> > 0 for SYS0 *is* A0, because that's how the hardware is designed.
+> >=20
+> > Were the numbers to run continuously, so that we had
+> >=20
+> > #define JHB100_PADNUM_A0	0
+> > #define JHB100_PADNUM_A1	1
+> > #define JHB100_PADNUM_A2	2
+> > #define JHB100_PADNUM_A3	3
+> > #define JHB100_PADNUM_A4	4
+> > and so on down to
+> > #define JHB100_PADNUM__D0	1234
+> >=20
+> > then it would be a binding, because we're assigning a meaning to 1234 t=
+hat's
+> > not something determined by the hardware.
+> >=20
+> > FWIW, I'm happy to have the unchanged starfive,jhb100-pinctrl.h sit in
+> > arch/riscv/boot/dts/starfive, because the defines are helpful - but as =
+things
+> > stand I think Krzysztof is right.
+>=20
+> For the current series, the drivers also use some definitions from the bi=
+nding. In=20
+> the next version, should the macro definitions be directly placed in thei=
+r respective=20
+> pinctrl-starfive-jhb100-<domain>.c files?
 
-Or should folios_put() be the export? But __folio_batch_release() is what
-drivers/gpu and net/sunrpc are using: don't change them in this series.
+Only the ones that are actually used, which I think is a limited subset
+of the definitions in this header. At least, none of the ones that I
+looked up were actually used in the drivers, except for the sys0 ones.
 
-Signed-off-by: Hugh Dickins <hughd@google.com>
----
- include/linux/folio_batch.h |  2 --
- include/linux/mm.h          | 18 ------------------
- mm/folio.c                  | 17 +++--------------
- mm/mlock.c                  |  2 +-
- 4 files changed, 4 insertions(+), 35 deletions(-)
+--CzfhbBx3OnI0r5Pd
+Content-Type: application/pgp-signature; name=signature.asc
 
-diff --git a/include/linux/folio_batch.h b/include/linux/folio_batch.h
-index e1cc8ae023f1..a3337f70e109 100644
---- a/include/linux/folio_batch.h
-+++ b/include/linux/folio_batch.h
-@@ -27,7 +27,6 @@ struct folio;
- struct folio_batch {
- 	unsigned char nr;
- 	unsigned char i;
--	bool percpu_pvec_drained;
- 	struct folio *folios[FOLIO_BATCH_SIZE];
- };
- 
-@@ -41,7 +40,6 @@ static inline void folio_batch_init(struct folio_batch *fbatch)
- {
- 	fbatch->nr = 0;
- 	fbatch->i = 0;
--	fbatch->percpu_pvec_drained = false;
- }
- 
- static inline void folio_batch_reinit(struct folio_batch *fbatch)
-diff --git a/include/linux/mm.h b/include/linux/mm.h
-index dd09c438fa23..942a9d9ed5c8 100644
---- a/include/linux/mm.h
-+++ b/include/linux/mm.h
-@@ -2201,24 +2201,6 @@ typedef union {
- 
- void release_pages(release_pages_arg, int nr);
- 
--/**
-- * folios_put - Decrement the reference count on an array of folios.
-- * @folios: The folios.
-- *
-- * Like folio_put(), but for a batch of folios.  This is more efficient
-- * than writing the loop yourself as it will optimise the locks which need
-- * to be taken if the folios are freed.  The folios batch is returned
-- * empty and ready to be reused for another batch; there is no need to
-- * reinitialise it.
-- *
-- * Context: May be called in process or interrupt context, but not in NMI
-- * context.  May be called while holding a spinlock.
-- */
--static inline void folios_put(struct folio_batch *folios)
--{
--	folios_put_refs(folios, NULL);
--}
--
- static inline void put_page(struct page *page)
- {
- 	struct folio *folio = page_folio(page);
-diff --git a/mm/folio.c b/mm/folio.c
-index 18e97923e527..5021639c5494 100644
---- a/mm/folio.c
-+++ b/mm/folio.c
-@@ -160,7 +160,7 @@ static void folio_batch_move_lru(struct folio_batch *fbatch, move_fn_t move_fn)
- 
- 	if (lruvec)
- 		lruvec_unlock_irqrestore(lruvec, flags);
--	folios_put(fbatch);
-+	folios_put_refs(fbatch, NULL);
- }
- 
- static void __folio_batch_add_and_move(struct folio_batch __percpu *fbatch,
-@@ -1043,22 +1043,11 @@ void release_pages(release_pages_arg arg, int nr)
- EXPORT_SYMBOL(release_pages);
- 
- /*
-- * The folios which we're about to release may be in the deferred lru-addition
-- * queues.  That would prevent them from really being freed right now.  That's
-- * OK from a correctness point of view but is inefficient - those folios may be
-- * cache-warm and we want to give them back to the page allocator ASAP.
-- *
-- * So __folio_batch_release() will drain those queues here.
-- * folio_batch_move_lru() calls folios_put() directly to avoid
-- * mutual recursion.
-+ * This used to optimize with a drain before putting: no longer helpful.
-  */
- void __folio_batch_release(struct folio_batch *fbatch)
- {
--	if (!fbatch->percpu_pvec_drained) {
--		lru_add_drain();
--		fbatch->percpu_pvec_drained = true;
--	}
--	folios_put(fbatch);
-+	folios_put_refs(fbatch, NULL);
- }
- EXPORT_SYMBOL(__folio_batch_release);
- 
-diff --git a/mm/mlock.c b/mm/mlock.c
-index 1050010bbe0b..97134eff6b56 100644
---- a/mm/mlock.c
-+++ b/mm/mlock.c
-@@ -191,7 +191,7 @@ static void mlock_folio_batch(struct folio_batch *fbatch)
- 
- 	if (lruvec)
- 		lruvec_unlock_irq(lruvec);
--	folios_put(fbatch);
-+	folios_put_refs(fbatch, NULL);
- }
- 
- void mlock_drain_local(void)
--- 
-2.51.0
+-----BEGIN PGP SIGNATURE-----
 
+iHUEARYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaqEvTgAKCRB4tDGHoIJi
+0tkiAP4ju3bCLww2Qz0ZX7JJ3vLgGAKAjceC7CmVV8I/mNuImAD/SuYzUxILRQFb
+FRai3/OvTbB6UApRe77WAcLJupsGww8=
+=rHeS
+-----END PGP SIGNATURE-----
+
+--CzfhbBx3OnI0r5Pd--
