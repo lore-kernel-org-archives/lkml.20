@@ -1,168 +1,371 @@
-Received: from mail-lj1-f173.google.com (mail-lj1-f173.google.com [209.85.208.173])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from fout-b1-smtp.messagingengine.com (fout-b1-smtp.messagingengine.com [202.12.124.144])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46F6E39A057
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 17:31:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FB4C38D6BD;
+	Wed,  9 Sep 2026 17:31:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.144
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788975078; cv=none; b=mFTnIbiz09TZOw3NauRBaBO65UdKO8ycQqY8nKB4tHzDYhmVgwA6dr4nuakZIqElxRCymdZKu2ZTlcnl/L5nSAEN6GUBOUX5KC/hWKug3Urd/Z5LupRdMNNtNcBNAB9f5QOO43BYfoL3mPrn0KCwZy6MDsbHfGjvE216dXBx4A4=
+	t=1788975077; cv=none; b=SWVLD20iMfq2ilcws+r0yCEpmBrpieW36LJUsEYtCIq6+2JC5ag15fwUJja15gCmmSdMt7QlZ9wzPw3DpoFPaUb4XD+1uK4J/efJFhZP30SISMMSikBr3mgzz6gRsh2yk0I7COB2zA+izAHx9+GBeL87YjfZ0dEzZtgE7+UdYRk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788975078; c=relaxed/simple;
-	bh=5fmz0pFJPOf69m13tgNlsodqPmqgLuXgeWBMtpj3Lzk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=CLMNYjDNeUEtjB0GMSZGYOJS9fWoGoOTau8R2rDDk1Dl4XDC9HP+rOw+DQZwcDdfHgVU5qMx5igw6ufj4aq8NuHPkbPZq5neega04zDJm2kT7d2pxlcbCdhF6eHpaXvXLJjTEjl4D2z9lXNB2XOvG3iY4DXgTy3r1TjefQVn5Yk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RAkuDZ1f; arc=none smtp.client-ip=209.85.208.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788975077; c=relaxed/simple;
+	bh=7vK78GlO2mGmPsbvEys/WT5uL2xQEz6UezB8GBaChec=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=MtJ79AXI6Ob/AlDzX0NvuEaC0e7ixe2wUK5YK9h6bJpvYTn0gxaGxeqyY3B9ieaG6/pOqbUj1MWMR11KqIwjwQw1k12mDc1MJb+/4RwGP/OocGw61GiF/RuXZ/sB6APnIJXIB0M3X8MEZsR8yKVeifRUqx5AHvt7Fgcjtq/gJIw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ragnatech.se; spf=pass smtp.mailfrom=ragnatech.se; dkim=pass (2048-bit key) header.d=ragnatech.se header.i=@ragnatech.se header.b=u4Dr1RIg; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=ZVVOqLy9; arc=none smtp.client-ip=202.12.124.144
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ragnatech.se
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ragnatech.se
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RAkuDZ1f"
-Received: by mail-lj1-f173.google.com with SMTP id 38308e7fff4ca-3a499a6d02cso10594451fa.1
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 10:31:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788975074; x=1789579874; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=COlbN8g71PZLS8Vw0yv0Jnd68gVBxKrHka7KfWabY50=;
-        b=RAkuDZ1f0eAj0mB/L0bBtScyb5ug6eTl+JAm5/lGgTrh+31IYaXu9y4D4OTDz1yTY2
-         UrJsiQFR4RsMc/iZkjhsqlmAOm0k3jVk53IhC/j9rdzm1K/5QRAQ27c7IWkBCEyaWU8R
-         7jBb3wgonLjA1j6dSuDprJqiJakFdR7zoWf1B3vrmVfVAcWPgT+g1xoxZSlCH+iQ9jGW
-         I1+LnhzKnoJaoEOGWKE28bVOpa1HFs3RG1Oxkm83koARKa1/hTQZ1STxlNR64eTZTjME
-         0f0By4K9hVUuXIGVODqE4p3ptyN5WW3JnX8d7udDgGMHlxOH4Jit3QpXBFczEdWSTSdJ
-         XlLA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788975074; x=1789579874;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=COlbN8g71PZLS8Vw0yv0Jnd68gVBxKrHka7KfWabY50=;
-        b=qf94QT0kEDjfTQDJ/DxwcjCBJBvtLn+uW6M73jPTt5FyMkRmT7Btb06p/cKquXC1RS
-         fEJ+LLNB/KWG+TsDV//KbVW+5C+jKl9ZSwrQcjaFYh+Mmg6ksaWPAb8yJr+0cuELcou8
-         5ig4z8RGQhx6Mf22HhxoXI16HVsNy3YnuGRviip13qcmEzENGj9EVdC3UYtbF9QMA8lp
-         3O0ceaP1nsSwg4XhPOdddpPUpim5cu9le4+sF0nGdZ33ABqg/nXKzXSuDLVkpw6C9Z/m
-         YzZtoIafSVthayznfbZ80wZUz69hAePv3QrVoR3t9vEBH0dJjVvw6eYPuao1kCHPLY1p
-         oHtw==
-X-Forwarded-Encrypted: i=1; AKwUvBxu/iFpU9Sn0PjiXsJYhMesoANOI8eootpBcjLZz7Mz5Ma/hB4OJ1rujjb5NxV8NT6D1hTIy1w2dS14Ets=@vger.kernel.org
-X-Gm-Message-State: AFuF++lEf5Tc7D4GOsAg2aaXySw7vSAb3po+UZbQBRpX0POuzp4fGWku
-	kQooGM36ldSFdPilvkAuDF+jwikU7JsSiHSnBdpW6GvZgPGwpyutgFs3
-X-Gm-Gg: AYBFou15WLmIpEFb7pldZlnXa4rGyxsnBT6u3LC2dMsrt+s7eLWOSixZhmSaPClFsRv
-	YrWCWmDMmQNl4xMfqQES45kBSUGDW6lYvYH2SIrk7QJ9vunPfY9sXp4RZenKDKHK/+wK7hQc0L4
-	Ek0LotO0Rq9Xsu9zsqfpYwZh0zEzYHPPkThctz+JSxvT9/fZApkEzkOGE4rB9Mn0DGSDKXpw83b
-	0xoDZ33+V0TbihT4lcCKxhs3Oe4wAlOb2UzenRTz9BChrHg8bqFdJ46wnjD5pdaSMxOwSc+sfdK
-	fjKFvG8Tw3xr8owL+tajuyoRNA8nDk+PYj2Bui+i5mjz0BuKTd+0RYjQcxtvP99NwwvxGA7U9CO
-	YtF8PzFrvgDf1mPuFuF3yS+OjEBqki5AjPrQStUSXzRu6jH0TTIq5VqCLguY9CB3ssG5x/vn249
-	5y0MOSwxuKhHzHnmjhFNMqcXwc6xdBwVCnMRZPionpBAJLtUWwjPsTPJEMx2BQ/VqKTyLQtYrk5
-	2wnCgCy6/Bmk5J3/40V3y5pUZE0+A1mWw==
-X-Received: by 2002:a05:6512:3e09:b0:5b6:4ad:77b5 with SMTP id 2adb3069b0e04-5b616f4e76fmr5968551e87.29.1788975073832;
-        Wed, 09 Sep 2026 10:31:13 -0700 (PDT)
-Received: from soda.int.kasm.eu (soda.int.kasm.eu. [2001:678:a5c:1202:7b92:9ac1:b9ef:5287])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b752df233bsm2780995e87.25.2026.09.09.10.31.12
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 09 Sep 2026 10:31:13 -0700 (PDT)
-From: Klara Modin <klarasmodin@gmail.com>
-To: David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Alice Ryhl <aliceryhl@google.com>
-Cc: Miguel Ojeda <ojeda@kernel.org>,
-	Alex Deucher <alexander.deucher@amd.com>,
-	Mukul Joshi <mukul.joshi@amd.com>,
-	Felix Kuehling <felix.kuehling@amd.com>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-	Thorsten Leemhuis <linux@leemhuis.info>,
-	Manuel Ebner <manuelebner@mailbox.org>,
-	Gary Guo <gary@garyguo.net>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	dri-devel@lists.freedesktop.org,
-	rust-for-linux@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=ragnatech.se header.i=@ragnatech.se header.b="u4Dr1RIg";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="ZVVOqLy9"
+Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
+	by mailfout.stl.internal (Postfix) with ESMTP id 1C87B1D0011D;
+	Wed,  9 Sep 2026 13:31:14 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-03.internal (MEProxy); Wed, 09 Sep 2026 13:31:14 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ragnatech.se; h=
+	cc:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm3; t=1788975073;
+	 x=1789061473; bh=DZCW3AX4IQy7VtLxOkg1LexBaFGy8OVeG+7z1SNmxkc=; b=
+	u4Dr1RIgWUx8wHbljsX1vVFhKlQeDV/rLwIHvqAd3LQ1K01NxhPLpAlOGZU5fTpj
+	b1tDMAR5ufoInVzIXh0mvSs35FRAaXgG9ZEtYt5OCrZ6s/pp7stEaDEJBlvkfhPm
+	Gx7tPNMH8/4NDSKyvl4Yeh7huz2SYn6XjeSVSxEF+zmBwKy7fbdVkgHgNFAaLeKo
+	5PVdX6VGcSRTQ98/gyNTLYbWkO6tchtBiJNEduBXtYIhVtW49+wbqCmvhOuoz4IE
+	hbTqWFfsKaPx7fJfPPqKUE6u9yhtbpaSAuXLR+51bm9zqV6k02E2u4AfTvpGtepj
+	JPcc2H+jKhdPE9bW8qv/mQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1788975073; x=
+	1789061473; bh=DZCW3AX4IQy7VtLxOkg1LexBaFGy8OVeG+7z1SNmxkc=; b=Z
+	VVOqLy9E3XVHmTZoQazDO5a0pK6cHB89ujHvOBxPK3Jmw09IDZyhgEnvbejyzGy6
+	N0G9wN3JVzeErI1KsTnV5HDpfKvkhBInidlKdXdSgpVjKwO0//jAbEy/3ig70oSh
+	fg4T6MdvS4F8ip6E5uTMK3Pm9OcQDL/YQMy504i7FOVinn8yktuAPYw0jA+XLZt7
+	7zr6ygjxKhumOHSuoDGdiVKtWOsu6IzNNmik8lFHUa7YnZgB3p9YnXHcu0PpcyRV
+	VGkoUbKIyHr1Iw2mdP4mRaYEgmyeoVJB5Ld6742RheY89EIkwHZOrgawnDrlTnwS
+	9wT04RTyPIyr6+gY6STXg==
+X-ME-Sender: <xms:4ZeharudP0mmXk-pGJZIN6rtEz-Xex4KKmCKuJFT4T81iN2Uq3iO1Q>
+    <xme:4ZehajaIE_-eUDTwDkF4PURi4MHul7Ml_8ysc28nNSiU3EU-4672oOBChZikfM9SJ
+    PaE9bCwnYLeRnikRSNCsbAk7ZEzVCsgAHYOX6ZdOwuo6BHLisLLdo_zHA>
+X-ME-Received: <xmr:4Zehaj3VaD-6WTbhcKcmSYBPgx_gSJHZb_65KwR2c_xQ-62S7GzX538vmu6Larjy7yQQGR7Hogf-_cSE97KIp6-4gIBLecI>
+X-ME-Proxy-Cause: dmFkZTFpKuOoHA8K6npXM0EyPQ3B6fuJj1V92yxTkRTwTvOrGLmaogCPSGJNdxe3w3n+ts
+    3Bnq9S0gANJKKK31pjNWK50OZ9a7PMq2fNO8DZXCQ+/ff2Kmc+UHBXNITlDnGREVxg/f50
+    czaZu7ewfHhQ8KEOahciUDlJaktTnHuAyQxRzBwFm86u+eYYubMr2Wb9/todjLgmh5z450
+    82zfjBukuoe9N1IpciNBSfLDvZO88JgjH/tASHI61YFG/pSFyNvmg0AvAJCBYM82e580+H
+    IntiqdDAd7FDyLCJPHSk55kS+5m53Gxxbft8dJNI3qmcm7XJFRCQyhfwNMEehhg0cLBjSw
+    dJUTnx9U+x22UZE0O5siuLEVi2dt562Jjl5+bVMISm/KqhrpB4EwHL6gVV+tkVNDi6oehA
+    WYTAavGhu3rin3NReO/13BqeXQmv6f5EXrXFwG0ndjgLMHq4+WNnlvmUToKq8mOKrn6moA
+    4xpSr3//oFHCrMx00IDjm/vO+s+/E+tzh+2IwXPvcC0Re2sicl6Gyqm2NoNgH2/gA6qEbJ
+    MWHY7rZVIywg5oUxzcPTYZpba4g9bRz6K2oPQQZ8LUJDFWBmrLbzHrFKc6p1ZTGJ+645S0
+    ZqvEBAhcYV0ydo674scPOfYB7nWhcmlCK75GNpL6ytI4HOzBHeCJl3e7l6cw
+X-ME-Proxy: <xmx:4ZehahXRKc61N7ywud6trnULueniLb3M6omRSaIkuq2lqzPVle3QaQ>
+    <xmx:4ZehamvYYWnsJEPMRTLd-1yd4ywf7nhLAmg2_mZalSgNTaYjfts9-Q>
+    <xmx:4ZehagUfj5CL6cFE-mOfSLt1KpYAOipHt68iWE9qCXZSNKpDXkmWnQ>
+    <xmx:4ZehaqX7tkR3CBOwBlV3kPnMqVqRjJIfjTNPIpyVpuiJdllT2Z_kFw>
+    <xmx:4ZehaoPVMVT0wqrO9t67sTpLF1Ikshuz9b3J7ejfAuxpnkb5RhS_oLZu>
+Feedback-ID: i80c9496c:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 9 Sep 2026 13:31:13 -0400 (EDT)
+From: =?UTF-8?q?Niklas=20S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>
+To: paul@pbarker.dev,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Richard Cochran <richardcochran@gmail.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"DavidS. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Vadim Fedorenko <vadim.fedorenko@linux.dev>,
+	Sergey Shtylyov <sergei.shtylyov@gmail.com>,
+	linux-renesas-soc@vger.kernel.org,
+	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	amd-gfx@lists.freedesktop.org,
-	Klara Modin <klarasmodin@gmail.com>
-Subject: [PATCH v2] rust/drm/gem: initialize callbacks with ..pin_init::zeroed()
-Date: Wed,  9 Sep 2026 19:31:03 +0200
-Message-ID: <20260909173103.73656-1-klarasmodin@gmail.com>
+	netdev@vger.kernel.org
+Cc: =?UTF-8?q?Niklas=20S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>
+Subject: [PATCH net-next v4 06/10] net: ethernet: ravb: Replace gPTP flags with callbacks
+Date: Wed,  9 Sep 2026 19:30:23 +0200
+Message-ID: <20260909173027.2201560-7-niklas.soderlund+renesas@ragnatech.se>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260909173027.2201560-1-niklas.soderlund+renesas@ragnatech.se>
+References: <20260909173027.2201560-1-niklas.soderlund+renesas@ragnatech.se>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-When the commit b67d2d039f64 ("drm/gem: Add callback for when handle
-count goes to 0") added the handle_free callback, it did not update the
-rust abstraction, which will cause a build failure when that is enabled.
-Rather than just adding another None initializer, use
-..pin_init::zeroed() to make all unlisted callbacks None, and remove the
-existing zero-initializations.
+Prepare for adding Gen4 support which will add a third and new way to
+interact with the gPTP clock by replacing the flags for Gen2 behavior
+(info->gptp) and Gen3 behavior (info->ccc_gac) with callbacks.
 
-Fixes: b67d2d039f64 ("drm/gem: Add callback for when handle count goes to 0")
-Reported-by: Thorsten Leemhuis <linux@leemhuis.info>
-Closes: https://lore.kernel.org/all/aaef18cd-ab55-4fb8-8563-ca3a5ea9cbc6@leemhuis.info
-Reported-by: Thomas Zimmermann <tzimmermann@suse.de>
-Closes: https://lore.kernel.org/all/4da62a4b-c4ef-492a-9a27-b56bd4784acf@suse.de
-Suggested-by: Gary Guo <gary@garyguo.net>
-Signed-off-by: Klara Modin <klarasmodin@gmail.com>
----
-v2:
-- also remove initialization of vm_ops, which is also handled by
-  ..pin_init::zeroed() (thanks Gary)
-- fix the same issue in the shmem helper (thanks Thomas, also reported
-  by Sashiko)
-- v1: https://lore.kernel.org/lkml/20260908175427.47207-1-klarasmodin@gmail.com
----
- rust/kernel/drm/gem/mod.rs   | 13 +------------
- rust/kernel/drm/gem/shmem.rs |  5 +----
- 2 files changed, 2 insertions(+), 16 deletions(-)
+This will make adding Gen4 support cleaner as the code will not have "if
+else if else" sprinkled all over to handle each generations special
+cases.
 
-diff --git a/rust/kernel/drm/gem/mod.rs b/rust/kernel/drm/gem/mod.rs
-index 80d8f524f9d5..9d4280002765 100644
---- a/rust/kernel/drm/gem/mod.rs
-+++ b/rust/kernel/drm/gem/mod.rs
-@@ -266,18 +266,7 @@ impl<T: DriverObject, Ctx: DeviceContext> Object<T, Ctx> {
-         free: Some(Self::free_callback),
-         open: Some(open_callback::<T>),
-         close: Some(close_callback::<T>),
--        print_info: None,
--        export: None,
--        pin: None,
--        unpin: None,
--        get_sg_table: None,
--        vmap: None,
--        vunmap: None,
--        mmap: None,
--        status: None,
--        vm_ops: core::ptr::null_mut(),
--        evict: None,
--        rss: None,
-+        ..pin_init::zeroed()
-     };
+Signed-off-by: Niklas Söderlund <niklas.soderlund+renesas@ragnatech.se>
+Reviewed-by: Sergey Shtylyov <sergei.shtylyov@gmail.com>
+---
+* Changes since v1
+- Handle error from starting the PTP clock.
+---
+ drivers/net/ethernet/renesas/ravb.h      | 24 ++++++-
+ drivers/net/ethernet/renesas/ravb_main.c | 83 +++++++++++++++---------
+ 2 files changed, 76 insertions(+), 31 deletions(-)
+
+diff --git a/drivers/net/ethernet/renesas/ravb.h b/drivers/net/ethernet/renesas/ravb.h
+index 0c122a815840..6603f90b19e1 100644
+--- a/drivers/net/ethernet/renesas/ravb.h
++++ b/drivers/net/ethernet/renesas/ravb.h
+@@ -1034,6 +1034,27 @@ struct ravb_ptp {
+ 	struct ravb_ptp_perout perout[N_PER_OUT];
+ };
  
-     /// Returns the `Device` that owns this GEM object.
-diff --git a/rust/kernel/drm/gem/shmem.rs b/rust/kernel/drm/gem/shmem.rs
-index a687d46d170d..24cb5343e0db 100644
---- a/rust/kernel/drm/gem/shmem.rs
-+++ b/rust/kernel/drm/gem/shmem.rs
-@@ -132,19 +132,16 @@ impl<T: DriverObject> Object<T> {
-         open: Some(super::open_callback::<T>),
-         close: Some(super::close_callback::<T>),
-         print_info: Some(bindings::drm_gem_shmem_object_print_info),
--        export: None,
-         pin: Some(bindings::drm_gem_shmem_object_pin),
-         unpin: Some(bindings::drm_gem_shmem_object_unpin),
-         get_sg_table: Some(bindings::drm_gem_shmem_object_get_sg_table),
-         vmap: Some(bindings::drm_gem_shmem_object_vmap),
-         vunmap: Some(bindings::drm_gem_shmem_object_vunmap),
-         mmap: Some(bindings::drm_gem_shmem_object_mmap),
--        status: None,
--        rss: None,
-         #[allow(unused_unsafe, reason = "Safe since Rust 1.82.0")]
-         // SAFETY: `drm_gem_shmem_vm_ops` is a valid, static const on the C side.
-         vm_ops: unsafe { &raw const bindings::drm_gem_shmem_vm_ops },
--        evict: None,
-+        ..pin_init::zeroed()
-     };
++/**
++ * struct ravb_gptp_info - Platform specific gPTP behavior
++ *
++ * Each generation of RAVB have slightly different behaviors when interacting
++ * with the gPTP clock. This struct provides the callbacks to be called at
++ * critical points in the RAVB driver.
++ *
++ * @set_config_mode:	Enter config mode
++ * @dmac_start:		Called when the DMAC starts
++ * @dmac_stop:		Called when the DMAC stops
++ * @ndev_open:		Called when the ndev is opened
++ * @ndev_close:		Called when the ndev is closed
++ */
++struct ravb_gptp_info {
++	int (*set_config_mode)(struct net_device *ndev);
++	int (*dmac_start)(struct net_device *ndev);
++	void (*dmac_stop)(struct net_device *ndev);
++	int (*ndev_open)(struct net_device *ndev);
++	void (*ndev_close)(struct net_device *ndev);
++};
++
+ struct ravb_hw_info {
+ 	int (*receive)(struct net_device *ndev, int budget, int q);
+ 	void (*set_rate)(struct net_device *ndev);
+@@ -1052,6 +1073,7 @@ struct ravb_hw_info {
+ 	u32 rx_buffer_size;
+ 	u32 rx_desc_size;
+ 	u32 dbat_entry_num;
++	const struct ravb_gptp_info *ptp; /* Callbacks to handle gPTP interactions. */
+ 	unsigned aligned_tx: 1;
+ 	unsigned coalesce_irqs:1;	/* Needs software IRQ coalescing */
  
-     /// Return a raw pointer to the embedded drm_gem_shmem_object.
+@@ -1062,8 +1084,6 @@ struct ravb_hw_info {
+ 	unsigned multi_irqs:1;		/* AVB-DMAC and E-MAC has multiple irqs */
+ 	unsigned irq_en_dis:1;		/* Has separate irq enable and disable regs */
+ 	unsigned err_mgmt_irqs:1;	/* Line1 (Err) and Line2 (Mgmt) irqs are separate */
+-	unsigned gptp:1;		/* AVB-DMAC has gPTP support */
+-	unsigned ccc_gac:1;		/* AVB-DMAC has gPTP support active in config mode */
+ 	unsigned gptp_ref_clk:1;	/* gPTP has separate reference clock */
+ 	unsigned nc_queues:1;		/* AVB-DMAC has RX and TX NC queues */
+ 	unsigned magic_pkt:1;		/* E-MAC supports magic packet detection */
+diff --git a/drivers/net/ethernet/renesas/ravb_main.c b/drivers/net/ethernet/renesas/ravb_main.c
+index 5ba322593a01..9e9b1c4fbe95 100644
+--- a/drivers/net/ethernet/renesas/ravb_main.c
++++ b/drivers/net/ethernet/renesas/ravb_main.c
+@@ -712,8 +712,8 @@ static int ravb_dmac_init(struct net_device *ndev)
+ 		return error;
+ 
+ 	/* Initialise PTP Clock driver */
+-	if (info->gptp)
+-		ravb_ptp_init(ndev);
++	if (info->ptp && info->ptp->dmac_start)
++		return info->ptp->dmac_start(ndev);
+ 
+ 	return 0;
+ }
+@@ -1124,8 +1124,8 @@ static int ravb_stop_dma(struct net_device *ndev)
+ 	}
+ 
+ 	/* Stop PTP Clock driver */
+-	if (info->gptp)
+-		ravb_ptp_stop(ndev);
++	if (info->ptp && info->ptp->dmac_stop)
++		info->ptp->dmac_stop(ndev);
+ 
+ 	/* Stop AVB-DMAC process */
+ 	return ravb_set_opmode(ndev, CCC_OPC_CONFIG);
+@@ -1774,7 +1774,7 @@ static int ravb_get_ts_info(struct net_device *ndev,
+ 	struct ravb_private *priv = netdev_priv(ndev);
+ 	const struct ravb_hw_info *hw_info = priv->info;
+ 
+-	if (priv->ptp.clock && (hw_info->gptp || hw_info->ccc_gac)) {
++	if (priv->ptp.clock && hw_info->ptp) {
+ 		info->so_timestamping =
+ 			SOF_TIMESTAMPING_TX_SOFTWARE |
+ 			SOF_TIMESTAMPING_TX_HARDWARE |
+@@ -1835,21 +1835,11 @@ static int ravb_set_config_mode(struct net_device *ndev)
+ {
+ 	struct ravb_private *priv = netdev_priv(ndev);
+ 	const struct ravb_hw_info *info = priv->info;
+-	int error;
+ 
+-	if (info->gptp) {
+-		error = ravb_set_opmode(ndev, CCC_OPC_CONFIG);
+-		if (error)
+-			return error;
+-		/* Set CSEL value */
+-		ravb_modify(ndev, CCC, CCC_CSEL, CCC_CSEL_HPB);
+-	} else if (info->ccc_gac) {
+-		error = ravb_set_opmode(ndev, CCC_OPC_CONFIG | CCC_GAC | CCC_CSEL_HPB);
+-	} else {
+-		error = ravb_set_opmode(ndev, CCC_OPC_CONFIG);
+-	}
++	if (info->ptp && info->ptp->set_config_mode)
++		return info->ptp->set_config_mode(ndev);
+ 
+-	return error;
++	return ravb_set_opmode(ndev, CCC_OPC_CONFIG);
+ }
+ 
+ static int ravb_compute_gti(struct net_device *ndev)
+@@ -1860,7 +1850,7 @@ static int ravb_compute_gti(struct net_device *ndev)
+ 	unsigned long rate;
+ 	u64 inc;
+ 
+-	if (!(info->gptp || info->ccc_gac))
++	if (!info->ptp)
+ 		return 0;
+ 
+ 	if (info->gptp_ref_clk)
+@@ -1967,8 +1957,11 @@ static int ravb_open(struct net_device *ndev)
+ 	ravb_emac_init(ndev);
+ 
+ 	/* Initialise PTP Clock driver */
+-	if (info->ccc_gac)
+-		ravb_ptp_init(ndev);
++	if (info->ptp && info->ptp->ndev_open) {
++		error = info->ptp->ndev_open(ndev);
++		if (error)
++			goto out_ptp_stop;
++	}
+ 
+ 	/* PHY control start */
+ 	error = ravb_phy_start(ndev);
+@@ -2187,7 +2180,7 @@ static netdev_tx_t ravb_start_xmit(struct sk_buff *skb, struct net_device *ndev)
+ 	desc->dptr = cpu_to_le32(dma_addr);
+ 
+ 	/* TX timestamp required */
+-	if (info->gptp || info->ccc_gac) {
++	if (info->ptp) {
+ 		if (q == RAVB_NC) {
+ 			ts_skb = kmalloc_obj(*ts_skb, GFP_ATOMIC);
+ 			if (!ts_skb) {
+@@ -2369,8 +2362,8 @@ static int ravb_close(struct net_device *ndev)
+ 	}
+ 
+ 	/* Stop PTP Clock driver */
+-	if (info->ccc_gac)
+-		ravb_ptp_stop(ndev);
++	if (info->ptp && info->ptp->ndev_close)
++		info->ptp->ndev_close(ndev);
+ 
+ 	/* Set the config mode to stop the AVB-DMAC's processes */
+ 	if (ravb_stop_dma(ndev) < 0)
+@@ -2378,7 +2371,7 @@ static int ravb_close(struct net_device *ndev)
+ 			   "device will be stopped after h/w processes are done.\n");
+ 
+ 	/* Clear the timestamp list */
+-	if (info->gptp || info->ccc_gac) {
++	if (info->ptp) {
+ 		list_for_each_entry_safe(ts_skb, ts_skb2, &priv->ts_skb_list, list) {
+ 			list_del(&ts_skb->list);
+ 			kfree_skb(ts_skb->skb);
+@@ -2660,6 +2653,26 @@ static int ravb_mdio_release(struct ravb_private *priv)
+ 	return 0;
+ }
+ 
++static int ravb_gen2_ptp_set_config_mode(struct net_device *ndev)
++{
++	int ret;
++
++	ret = ravb_set_opmode(ndev, CCC_OPC_CONFIG);
++	if (ret)
++		return ret;
++
++	/* gPTP Clock Select High-speed peripheral bus clock. */
++	ravb_modify(ndev, CCC, CCC_CSEL, CCC_CSEL_HPB);
++
++	return 0;
++}
++
++static const struct ravb_gptp_info ravb_gen2_ptp_info = {
++	.set_config_mode = ravb_gen2_ptp_set_config_mode,
++	.dmac_start = ravb_ptp_init,
++	.dmac_stop = ravb_ptp_stop,
++};
++
+ static const struct ravb_hw_info ravb_gen2_hw_info = {
+ 	.receive = ravb_rx_rcar,
+ 	.set_rate = ravb_set_rate_rcar,
+@@ -2678,12 +2691,24 @@ static const struct ravb_hw_info ravb_gen2_hw_info = {
+ 			  SKB_DATA_ALIGN(sizeof(struct skb_shared_info)),
+ 	.rx_desc_size = sizeof(struct ravb_ex_rx_desc),
+ 	.dbat_entry_num = 22,
++	.ptp = &ravb_gen2_ptp_info,
+ 	.aligned_tx = 1,
+-	.gptp = 1,
+ 	.nc_queues = 1,
+ 	.magic_pkt = 1,
+ };
+ 
++static int ravb_gen3_ptp_set_config_mode(struct net_device *ndev)
++{
++	/* Enable gPTP Clock and Select High-speed peripheral bus clock. */
++	return ravb_set_opmode(ndev, CCC_OPC_CONFIG | CCC_GAC | CCC_CSEL_HPB);
++}
++
++static const struct ravb_gptp_info ravb_gen3_ptp_info = {
++	.set_config_mode = ravb_gen3_ptp_set_config_mode,
++	.ndev_open = ravb_ptp_init,
++	.ndev_close = ravb_ptp_stop,
++};
++
+ static const struct ravb_hw_info ravb_gen3_hw_info = {
+ 	.receive = ravb_rx_rcar,
+ 	.set_rate = ravb_set_rate_rcar,
+@@ -2702,11 +2727,11 @@ static const struct ravb_hw_info ravb_gen3_hw_info = {
+ 			  SKB_DATA_ALIGN(sizeof(struct skb_shared_info)),
+ 	.rx_desc_size = sizeof(struct ravb_ex_rx_desc),
+ 	.dbat_entry_num = 22,
++	.ptp = &ravb_gen3_ptp_info,
+ 	.internal_delay = 1,
+ 	.tx_counters = 1,
+ 	.multi_irqs = 1,
+ 	.irq_en_dis = 1,
+-	.ccc_gac = 1,
+ 	.nc_queues = 1,
+ 	.magic_pkt = 1,
+ };
+@@ -2733,7 +2758,7 @@ static const struct ravb_hw_info ravb_gen4_hw_info = {
+ 	.tx_counters = 1,
+ 	.multi_irqs = 1,
+ 	.irq_en_dis = 1,
+-	.ccc_gac = 1,
++	.ptp = &ravb_gen3_ptp_info,
+ 	.nc_queues = 1,
+ 	.magic_pkt = 1,
+ };
+@@ -2758,7 +2783,7 @@ static const struct ravb_hw_info ravb_rzv2m_hw_info = {
+ 	.dbat_entry_num = 22,
+ 	.multi_irqs = 1,
+ 	.err_mgmt_irqs = 1,
+-	.gptp = 1,
++	.ptp = &ravb_gen2_ptp_info,
+ 	.gptp_ref_clk = 1,
+ 	.nc_queues = 1,
+ 	.magic_pkt = 1,
 -- 
 2.55.0
 
