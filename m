@@ -1,88 +1,121 @@
-Received: from mta1.migadu.com (out-142.mta1.migadu.com [95.215.58.142])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 890E73002B9
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 07:37:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.142
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E5433002B9;
+	Wed,  9 Sep 2026 07:37:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788939443; cv=none; b=mX35fHYOVgrVAXy7Up5r9hB9mQIDRf5mFGILiwbVLDmEkyDs1U0B6y/GP9eVq0Lc1UdJPSDHkorVJs7KsFP20Nt6LjwwGuHwRJZ9MKts3x5da1yUwfrJ2mt+qel2h+yGRrGW+2cIdsqLmVZsYDJHOWhxVKLKEOdwH8gmmdKb7as=
+	t=1788939448; cv=none; b=pVKRtyql9szJMxDljtgeMj5Yog7iKJE+AXmLnmFXLy+jZwJUPo60f7fTdTkwRkGDkANk3p23rb3SPJ2hx3elGPA5tFPObQOxy74Rdsn8gmGwNZUV2bf1RdMCt6+BZo1ot8oKn/OI0+oYIpaT9gkbEuNA1z8ZmUgiTKhYESaNN3k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788939443; c=relaxed/simple;
-	bh=W3MflD4KvxfjlYvuaglkAbbfr+JQGM3DGNPD2OgqTvE=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=TskPxkyDb3Lz7kogj9SfmvYXmEUJmVwoeC2K0VnQmdnzMgbR7ttEg2QepxZH+zZrk7h9shsTfruaVWw8w2jmTXtsSbwX3DxX27QjhgTyWXUbet2xvw8buK01Rzthwnk9Q0KTbMK0R/Kd7BWODeltakuh9CmYvR3tSjkItIgE1mE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=SDZYU/Ec; arc=none smtp.client-ip=95.215.58.142
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1788939448; c=relaxed/simple;
+	bh=bxG5XvvBVoxSF5m95QrKNdxwfBkN3HiM6ZmP7BIDYL0=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=elEXhjwcsP6YXaH9EhfV/2+jtNSw4W5VG8FB8CJIZb5GV+zQWzeTm+g6C2PfvhrxqfVdjqDfiSM+PU9yjsuU7xef65ubLYbCQftX4oIMse9vxRxdKleA4xWb9Fae42bfaJ2Waa8/3xF0f+oxxOtIDazXfuAQl1OsY+LJoG+Ksu4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Dl+hRUS7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="SDZYU/Ec"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=W3MflD4KvxfjlYvuaglkAbbfr+JQGM3DGNPD2OgqTvE=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788939438; v=1; x=1789544238;
- b=SDZYU/Ec3V5iIZ/wn6MiFBPF3I5zErZxrcAMMv8ENdNDPH6BH1HwJFjuZ+UR11IGTsdBjZFX
- WTLjvF6w30kSSYs7uZ2kqIO3yyeTX5J1yOoEgMftrhp2xCdUjbwxw9G1R6u3QnTnJ4Mgc8dZECA
- ljLcYd3EMwJ93pDpJUi4kqx8=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 3ceb72af4f1d12fa;
-	Wed, 09 Sep 2026 07:37:18 +0000
-X-Mizu-Trace-ID: 3ceb72af4f1d12fa
-X-Migadu-Flow: FLOW_OUT
-Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b4a0b384b7so4344e87.0
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 00:37:17 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzo2vWpXFtrRfVNqq40sF5wvKS/iSN+a5tCb2+yU+fpYJpYZeFkjtKTcnWsO1Ld1L6EF9heBkHx4+zuPmc=@vger.kernel.org
-X-Gm-Message-State: AFuF++l/RmfhpADkTNyzJSSvBqpsObeSR8diTnaFgFblMZgj3z/bcTIE
-	5BBPre+cqVzWgxFAiYqV/Xp8wsTQp7aZ1HND/xF+cVM7j51sjF27vXTXtZ3IOBdsRZa8PttDNDD
-	j1i4xVvQtRFtl6fIQ4/MYka+kWo9WLvKdrDqRwzhr
-X-Received: by 2002:a05:6512:288:b0:5b7:78bc:ec07 with SMTP id
- 2adb3069b0e04-5b778bcee15mr17247e87.14.1788939437032; Wed, 09 Sep 2026
- 00:37:17 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Dl+hRUS7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E580A1F00A3F;
+	Wed,  9 Sep 2026 07:37:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788939447;
+	bh=U/QZJikpo5kZYaUKl+nXZK03zswjscmlVtD3BHEcVcQ=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=Dl+hRUS7EGUIOBSQVLZBfIfZurYDPsVL4Az7bRRfECr6kD5mpE6oUfbena6TSipgH
+	 IILNxj5T8iND/m3lPyC1dVNo/vsed361q4LXmfL01jScxrnXhbl6SQ+b1hxUEwxPdU
+	 xM8sLLyukLF1dLS3INT9077CdWagsWWS5RE5JR74VEDgvpKzPevSd9bp6Re9jv9cAY
+	 esbfnCE9qIN8hd6A46n4Dv/gSB5mDs57hN4XRJyEa0kU0JjYcj+vkAwYDtbFcD3WrW
+	 GtxRgz0G2EcBDcAVSWMmtGWLeXcQlHcY45EwszMtYzUZMjgnf0cZbCd72QEazjoS5B
+	 /aa7vM9A9gXlw==
+X-Mailer: emacs 31.1 (via feedmail 11-beta-1 I)
+From: Aneesh Kumar K.V <aneesh.kumar@kernel.org>
+To: Jason Gunthorpe <jgg@nvidia.com>
+Cc: linux-coco@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Greg KH <gregkh@linuxfoundation.org>,
+	Jeremy Linton <jeremy.linton@arm.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Sudeep Holla <sudeep.holla@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Steven Price <steven.price@arm.com>,
+	Suzuki K Poulose <Suzuki.Poulose@arm.com>,
+	Andre Przywara <andre.przywara@arm.com>
+Subject: Re: [PATCH v10 6/7] firmware: smccc: arm-cca-guest: Bind the TSM
+ provider to an SMCCC device
+In-Reply-To: <178855077571.693280.17942746234757215326.b4-review@b4>
+References: <20260904095000.1184861-1-aneesh.kumar@kernel.org>
+ <20260904095000.1184861-7-aneesh.kumar@kernel.org>
+ <178855077571.693280.17942746234757215326.b4-review@b4>
+Date: Wed, 09 Sep 2026 13:07:18 +0530
+Message-ID: <yq5atsnyeuz5.fsf@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260909063156.89636-1-kmehltretter@gmail.com>
-In-Reply-To: <20260909063156.89636-1-kmehltretter@gmail.com>
-From: Fuad Tabba <fuad.tabba@linux.dev>
-Date: Wed, 9 Sep 2026 08:36:40 +0100
-X-Gmail-Original-Message-ID: <CA+EHjTx3fmj_fkD_ybPANyTrEApMUyBscfP4JtP-F_MRL-L=2w@mail.gmail.com>
-X-Gm-Features: AcwNN1X7nBSrvOxVUlaJ6opTCQ7kc3b4t69IqzHQ2RwkJ6z5rM4K_pY4NvS2qiE
-Message-ID: <CA+EHjTx3fmj_fkD_ybPANyTrEApMUyBscfP4JtP-F_MRL-L=2w@mail.gmail.com>
-Subject: Re: [PATCH] KVM: arm64: Fix kvm_get_vtcr() kernel-doc
-To: Karl Mehltretter <kmehltretter@gmail.com>
-Cc: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
-	Quentin Perret <qperret@google.com>, Joey Gouly <joey.gouly@arm.com>, 
-	Steffen Eiden <seiden@linux.ibm.com>, Suzuki K Poulose <suzuki.poulose@arm.com>, 
-	Zenghui Yu <yuzenghui@huawei.com>, Catalin Marinas <catalin.marinas@arm.com>, 
-	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
-	linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain
 
-Hi Karl,
+Jason Gunthorpe <jgg@nvidia.com> writes:
 
-...
-
-Good catch, I'm a fan of documentation fixes :)
-
-While you're on that line, the description is also inaccurate, so you
-could fix both in one go and save a follow-up touching the same line:
-
-> - * @phys_shfit:        Value to set in VTCR_EL2.T0SZ.
-> + * @phys_shift:        Value to set in VTCR_EL2.T0SZ.
-
-kvm_get_vtcr() sets T0SZ to 64 - phys_shift, so phys_shift isn't the
-value written to the field, it's the IPA size in bits. Something like:
-
-     * @phys_shift:    IPA size, in bits.
-
-Cheers,
-/fuad
-
+>> [ ... 42 lines skipped ... ]
+>> @@ -94,6 +95,11 @@ static const struct smccc_device_info smccc_devices[] __initconst = {
+>>  		.requires_smc   = false,
+>>  		.device_name    = "arm-smccc-trng",
+>>  	},
+>> +	{
+>> +		.func_id        = SMC_RSI_ABI_VERSION,
+>> +		.requires_smc   = true,
+>> +		.device_name    = "arm-rsi",
+>> +	},
+>>  };
+>>  
+>>  static bool __init smccc_probe_smccc_device(const struct smccc_device_info *smccc_dev)
 >
-> base-commit: 893e11787f78e43b534e252249ac3fff4d1333f8
-> --
-> 2.53.0
+>    [Severity: High]
+>    When this new entry is probed by smccc_probe_smccc_device(), does
+>    arm_smccc_1_1_invoke() pass uninitialized registers to the firmware?
+>
+>    Looking at smccc_probe_smccc_device() during system initialization:
+>
+>    drivers/firmware/smccc/smccc.c:smccc_probe_smccc_device() {
+>        ...
+> 	   arm_smccc_1_1_invoke(smccc_dev->func_id, &res);
+>        ...
+>    }
+>
+>    Since arm_smccc_1_1_invoke() is a variadic macro, providing only the func_id
+>    leaves x1/r1 uninitialized in the SMC inline assembly.
+>
+>    For SMC_RSI_ABI_VERSION, the RMM uses x1 as the requested interface revision
+>    to determine supported revisions.
+>
+>    Could this pass a garbage requested interface revision to the RMM,
+>    potentially causing probe failures or returning an unsupported boundary?
+>
+>    Could this also leak kernel register state to EL2?
+>
+> Sashiko still has this to say, I think it should pass 0 as the x1
+> 'requested version' instead of unpredictable garbage.
+>
+
+To handle 
+
+> Could this also leak kernel register state to EL2?
+>
+
+Should we instead do
+
+	arm_smccc_1_1_invoke(smccc_dev->func_id,
+			     0, 0, 0, 0, 0, 0, 0, &res);
+	ret = res.a0;
+
+There is no standard defining how the various SMCCC VERSION calls are
+expected to work. For example, ARM_SMCCC_TRNG_VERSION does not use x1,
+while SMC_RSI_ABI_VERSION does. Another VERSION call could use both x1
+and x2. The only consistent behavior is to return
+SMCCC_RET_NOT_SUPPORTED when the SMCCC function ID is not supported.
+
+-aneesh
