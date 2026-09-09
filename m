@@ -1,184 +1,149 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk2-f12.google.com (mail-qk2-f12.google.com [74.125.230.204])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 707EA384238
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 18:01:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5BB0391E4B
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 18:01:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.204
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788976878; cv=none; b=SDUGki5wMrdrPlEO5UO5YtC4HK/9kU4nKRrDF7gCfiqgnkbpPDsUuvdXIUXkEviiOnzbyzY3VMWf4Q4J5RCppSRDRp7OlCNhcwmV+l13EpZr/P4/BgvovFerCaiHSt0u0OBma8qPLSjNrVtFiR0Zd5YzSwNLjpY5KXQqrKZoemU=
+	t=1788976909; cv=none; b=dq00qJ9Iz3vUUoy/InHapErmAKaE/YSEshrQrbPidPBbtPjYAPtGlzRbzpodrzxAwUs6vwGfP5lN+o4ZOcuPaB/PggIgTJ0mu5fFnosKP0k85HC9O0pZTKt0Z01YfyNmmfmLXd0H70Sqkrxf2XU7/dQnRs4GkJki8raXyKjOlRM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788976878; c=relaxed/simple;
-	bh=MWAcc0S8T0AMmFdPD+A1IyzlpMsFTMKOibCCpP727Kw=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=jmEQFERl5Opunk3fLUtZyTLCJTTR3Zo82s+U7VdNEWyLO2GXFikqYewUpqgFZi5X5CzTE5Yi2YFRBynJ++rUH6EqvnrrJIISYKSD8/SAKJ5eT/gNINt5vb56BZi67DkjY3XmL0CmocvbfNeO4xgse4XSltFjJfJy9DlK8BgVqL8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=kVXwzG0r; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=MtX0mciR; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1788976909; c=relaxed/simple;
+	bh=GG8pFvCYlju27mE7uNA7NfAlddJXiZpGOvkluyIkBMM=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=d40c3r/DcmFfWdk2ugOHJJhkUvOS+OqJFGG2eVGxJlpqydoeyMklBxopCg5cxLxAsr+vTyYV/1ySVnKjotVpmeQweIMDfcHBqBLFnga44Sye7Y79sbVR4MOvPhn6Jer10JOYxFaHzeoeFUshXc1cNThPWyzXA1/egxkgl2PYLrE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com; spf=pass smtp.mailfrom=toxicpanda.com; dkim=pass (2048-bit key) header.d=toxicpanda.com header.i=@toxicpanda.com header.b=Npby1FB1; arc=none smtp.client-ip=74.125.230.204
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=toxicpanda.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="kVXwzG0r";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="MtX0mciR"
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 689H7Yk33133755
-	for <linux-kernel@vger.kernel.org>; Wed, 9 Sep 2026 18:01:16 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	BvCuCj+1hsq0hf2yMIZAP5CM6LznakfZh7U1V3Cg3gU=; b=kVXwzG0rArK5FzXu
-	IsAToYikSvB46NCL+MJV9WEUbY+uXtNRkuT1IyYz45OB3NY0IzgjLBAiZhr4UmBw
-	FiEwVh+Za3t+/7falVzFeotH5bAiNlJfTBKjOVC6pW3knTU8R9E9jEWefKIzx/SK
-	8UYSDgwUx7gSi2RiE0D3n+ZmwqGnPvk8C2pCw0k9GbgCBHYiUz+AugH4ovuOup5t
-	uHKzskCJjrIaMO/oERxlm4qPOCDnta23QmGkbl92DRkq2L4Q3rB3QQu2vkG9YSgN
-	1cYZjxlJWL8Z5gNcB5kioAFg1JW2xFndXlUX5rw39v3PEQRAo25OItMhmNm19uQf
-	/QJ3bQ==
-Received: from mail-oa1-f72.google.com (mail-oa1-f72.google.com [209.85.160.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gk5ru244w-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 18:01:16 +0000 (GMT)
-Received: by mail-oa1-f72.google.com with SMTP id 586e51a60fabf-46524220c5aso7623627fac.0
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 11:01:16 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=toxicpanda.com header.i=@toxicpanda.com header.b="Npby1FB1"
+Received: by mail-qk2-f12.google.com with SMTP id af79cd13be357-93910ca6023so45151385a.2
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 11:01:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788976875; x=1789581675; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:organization
-         :references:in-reply-to:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=BvCuCj+1hsq0hf2yMIZAP5CM6LznakfZh7U1V3Cg3gU=;
-        b=MtX0mciRNMbmfW5R9jAigS88gJbIwRJsRHQzqShGgfljRSJ5vvOHaWeizvOuLtL15c
-         F/xv2dkvLJajGCrDb3ZYiqhwg0+yQup8eGqJe/nHRNC2wU8joWabLWtPgWlFEV2RHihj
-         1Zru/X/vs+LIMfUsKK3E0rBoS7jaAXB+5SNZYJzTNMdrhaqC0tNPY0wbfzw6gknD88hd
-         IevsFiWyRY5Uk24FCAgn2levm1vogGdNlH1v6vk4pxFDoGAvYutKNP9gEgmHAHLcrl2+
-         ecOGlnHVzUwNkPRw590bCXYV+o87Fnczfd79GXtvLMwyY0yvA74L2L/F/cbFlgJ4ttsr
-         6eUw==
+        d=toxicpanda.com; s=google; t=1788976906; x=1789581706; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=ViCBkdbLW7JdXmtrQtir0eAwLk4ivWB6Xk+gL7SNqv4=;
+        b=Npby1FB1feUrqqGhVK5Jden+msFFDuJUEaGOr7CAmN+XghUrw5D4mA+XIMv1A6dFkn
+         O7+2rhV2wGGmgnWI7bQXKrV7h+qHWICV8a4XkJiENExh4hqyuZzYT5DRoQWYHf9WEIpd
+         A9d4uCPUnyFTE2qi/Kun3dIU53rjqyXal7tYLn8Ef9miLIgjnGr55ikHs0Uu77zoTteB
+         KGfUB4FnxYzBF4HU4aMMDBRc545HOQz2m1zJgJgESbZDZZOxI7awnWhS9mlObB00sGfj
+         REQqJ3Rs+6W0wYDOhPa5oB0oN51+TVgtqQhw9oq2GGjn9QeFghrCfy+G8J91TFtkV1rK
+         dv8g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788976875; x=1789581675;
-        h=content-transfer-encoding:content-type:mime-version:organization
-         :references:in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=BvCuCj+1hsq0hf2yMIZAP5CM6LznakfZh7U1V3Cg3gU=;
-        b=YG4B7J+/s4r8PRVEcsX+TZ5b05RK6ADC7N/HI+NGDV4OtdsfD2zp84s6qnYYzfMWyX
-         POmUHyqmvyJ5EUkjPAhvBrXXcnBGWsv/yhF6FmxDM4zMR3dJXkBa47RKEmQgmqAlALeX
-         tVgFk2VOCjOiTDkf9AyVFHPrgYaJDLvNgKOeGl4jZbUk805/PsjMsjQsIxyVHfp5XnFG
-         62+yd7xPpF/5bhaP/+rPMgdJ3Ak3Akzr6HJb3Vd1Jir/wchv4wMl4Ngx/UeDYepIHTh9
-         O6kwxuwkA0urcEkZzDwOX8JZj1184GPL+y64MdAP2JNvJ4lBOoMRXrTrk2+BqTBrDZNZ
-         eeQA==
-X-Forwarded-Encrypted: i=1; AKwUvBxbBGzCRHlXPymtP0Q+FUFnFdwrs7sNiUv/kZsCoZl2lJcgx9chiJn2wNTdQSES17KLyd7nU6tw9i/IF90=@vger.kernel.org
-X-Gm-Message-State: AFuF++kVVVn51MpKHbT333HQ7dDbbbhxci6vCQ93kjIPDAVwveWZClJw
-	WIvbABez4+W3S4KI6mO+Q5qLKl5Tka68xQzUFrStInRcbrWSxbsAdKNRoU5/jUVC02x8ZskdPTh
-	uP2wBfifem+3dF6I+km05Zjef7Pyc3XfihRTpNDLpOuvLkJ4e56twqAEOLYww+ELlnx0=
-X-Gm-Gg: AYBFou0fIstfk4c0excpsxnaCUt2z+ov9wtJvHNSZrIUkQPTTIOkHQLt3KrEN8OZugL
-	MpbAInQp0yICkSbbA7Yo6vF7k9Ypg6jbyly4WFYvfjipFRIFkbXJFiywU5dyDVXmvHnZfdpsEQZ
-	7ZXuU2i36qCjWLTyTpeGrdWy0rTmNkxeqhKB78K82rMqUNPOXzUoiIdYZZTD2r/xz7eGDUrzjye
-	EPYd/rA5v/uTW4ElVwDzAkPZLE/BVrn14i0l5T84mq5V5bvD7P/E0dXbYxQOd/3oNxge3FEVuvl
-	Tl1IeApLRBDV81Owo8djyyg+pLb06PzBpi4QofHHXPJpm4VLzbF6/gNoP4ORab4QFPEbKul0Mr7
-	ZUgZka0ZH6srdQ/qeS4Auuh8+hGM=
-X-Received: by 2002:a05:6820:4df3:b0:6be:46f4:2908 with SMTP id 006d021491bc7-6be46f43c91mr2959639eaf.55.1788976875453;
-        Wed, 09 Sep 2026 11:01:15 -0700 (PDT)
-X-Received: by 2002:a05:6820:4df3:b0:6be:46f4:2908 with SMTP id 006d021491bc7-6be46f43c91mr2959494eaf.55.1788976873782;
-        Wed, 09 Sep 2026 11:01:13 -0700 (PDT)
-Received: from localhost ([50.35.44.179])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1435c2ae6b5sm280583c88.1.2026.09.09.11.01.11
+        d=1e100.net; s=20251104; t=1788976906; x=1789581706;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=ViCBkdbLW7JdXmtrQtir0eAwLk4ivWB6Xk+gL7SNqv4=;
+        b=CRUOF+8pfMuO/t4NZ+6RTtHiic5cL/fTz/Glf/PLlD4GK0FCH2DBzINxynHu5cd4/v
+         VGM4akD11wleM1obm0pm3H9lRqOpZMTnpvnml+Abkx2xXPvSaqM7MXv9K9CSZnSXB53E
+         pwj34Fkl0gswD9dTXIgp6DdhkNXdWjLnP/N0NpZLzhzWL3KdI9csKqMvRg24JsY7Wgap
+         A3e0CKs/Et7CXrfGmir3KDVFCgF81NrBvnZq5sTJYrYNKFjrpLxZcxyaKZCQeHGxdzxY
+         FFRaZkxrm/wj/bojrBTs2JLfXNe4bsUXSth1r9iUretyT0AdUwAFOEtRWGNIjvcbMR8m
+         WE3Q==
+X-Forwarded-Encrypted: i=1; AKwUvBzUhWv5G6hDTzxsGWkIYH5ui7Hcqs8xMaS4rCCQXbrwxXKZZJhepTTF963K5/lF3xIGC+tw1jL+6JeiYlo=@vger.kernel.org
+X-Gm-Message-State: AFuF++lj3JR5+uTqEU3uao8gohj7j4bvF19QuA9gi68DoZOdXuMeIVVt
+	iTNA/GS4RJDF7v/gOKMOxa/ztSbK6RszpblmcAZD9QXSdtgPVxHVPf2gpdRSpQC3X0Q=
+X-Gm-Gg: AYBFou1jQ5eMoPviMGlBOiuqVMDRjKewSY8MrXq9vVEz24JJeGJ9MndHCZVdHCU0F1P
+	3YQZW/tcDYtHAJUhz5erhh5sP5rEfn/IlCuX/sSqKXNDJn1OWm8thw3rjKdwHmMziOgu2h+k9CQ
+	tKONYjM1Vw2xRIQ2VQIoHcuUftWWz9SUxIJ4uCneNFjv1JBNZ+LfI0Dk91j00CYNOSlepnScveL
+	GUJUpnEIthtA6GvVgw/s1uIha5b0TibB5q5LMY1mM24y2YzrzFlOF8NPiXw77CVUqJzct5dgO5J
+	SUi6XIiAR+ef36W7lcpuqni39bxCHx9WQS758Eec/rPd4kM6jN382Lqsb4qVc6O6Br8PAZcXHp0
+	epk5jzEwKaAEbHqpOBmSxn0cTqfrTCoyFF96VC4/Ub3gRcg31PeABtLMZ4hDx65+r+MQGa2Wm0u
+	oYv4db881C0N6xMTYSQzISVw/4RIjll4zsrGKX8BPnLBrVhA57Bdn69qeB8DsfiLwntNUuLqK2t
+	GeFQDKjqXM0hseeOOwXcDGzWYhaNfHFAehaFlpkw7PnDNWelEvQ4aFT
+X-Received: by 2002:a05:620a:3941:b0:92e:4927:2002 with SMTP id af79cd13be357-939d4a8ebb0mr452910285a.39.1788976906226;
+        Wed, 09 Sep 2026 11:01:46 -0700 (PDT)
+Received: from toxicpanda.com (ec2-34-228-114-98.compute-1.amazonaws.com. [34.228.114.98])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-9398c498610sm1295435685a.43.2026.09.09.11.01.45
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 09 Sep 2026 11:01:12 -0700 (PDT)
-Date: Wed, 9 Sep 2026 10:59:54 -0700
-From: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-To: Jason Gunthorpe <jgg@nvidia.com>
-Cc: Nicolin Chen <nicolinc@nvidia.com>, will@kernel.org, robin.murphy@arm.com,
-        joro@8bytes.org, bhelgaas@google.com, praan@google.com,
-        kevin.tian@intel.com, kees@kernel.org, smostafa@google.com,
-        baolu.lu@linux.intel.com, linux-arm-kernel@lists.infradead.org,
-        iommu@lists.linux.dev, linux-kernel@vger.kernel.org,
-        linux-pci@vger.kernel.org, skaestle@nvidia.com, mmarrid@nvidia.com,
-        skolothumtho@nvidia.com, bbiber@nvidia.com, harsha.v@oss.qualcomm.com
-Subject: Re: [PATCH v3 08/13] iommu/arm-smmu-v3: Disable PRI when no IRQ
- handler is registered
-Message-ID: <20260909105954.00002181@oss.qualcomm.com>
-In-Reply-To: <20260904141525.GT4157646@nvidia.com>
-References: <cover.1788222485.git.nicolinc@nvidia.com>
-	<0b5282c7e850f1a1c650e43670899b4ef5335efd.1788222486.git.nicolinc@nvidia.com>
-	<178846311318.1308030.4956293524348641228.b4-review@b4>
-	<20260904141525.GT4157646@nvidia.com>
-Organization: Qualcomm
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
+        Wed, 09 Sep 2026 11:01:45 -0700 (PDT)
+From: Josef Bacik <josef@toxicpanda.com>
+Date: Wed, 09 Sep 2026 18:01:07 +0000
+Subject: [PATCH] writeback: report a Tasks-RCU quiescent state per cgwb
+ drain pass
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=M+997Sws c=1 sm=1 tr=0 ts=6aa19eec cx=c_pps
- a=Z3eh007fzM5o9awBa1HkYQ==:117 a=aNnz9XPx1a4JIXSYt2cE/A==:17
- a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
- a=Ikd4Dj_1AAAA:8 a=nKlBY_KgISjqlfJ5XcQA:9 a=CjuIK1q_8ugA:10
- a=eBU8X_Hb5SQ8N-bgNfv4:22
-X-Proofpoint-GUID: CZu-nHFfRMQ66kUUUBAnx--SsJ0LW02Y
-X-Proofpoint-ORIG-GUID: CZu-nHFfRMQ66kUUUBAnx--SsJ0LW02Y
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA5MDIwMSBTYWx0ZWRfX6WtiB/5TS1Gn
- WdA3rCFtrIImyO8cYCpzQOS2ZygtWxhD/5tahdmpAUHgBdm2S30+nu3aocpORQrEII/Qyj6XcpY
- qY8L5RQMOc6Q0WPYZ5QFYW/tbC3ERvc=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA5MDIwMSBTYWx0ZWRfXwwtys9Xz4bZS
- vosWWrJE289G757ibAzAxaCpVJXvutJXTboDa40Qp++6Utj4l9QsECKBOC317Cr0xtfWlgJgMs1
- l/n4g1msSuZ1sBXcW0ksqDaVWzpnJGMieYTX3hdHKuWrxmQr8CX2rJsGW92eky0Mmy1lP/cP6Y1
- dZpeoWw2bjK+dB19kdsD8M8ovgdHWeIf3brvS2zexwzyiyQz1LmVV4gcsRf9HeBdiaZozMJvygx
- 5tGlfsoNf16p9g2Lur7PYilibqFlhAMwAxmK+dPV/zJBBXxbLHN40x0T5nd1w9S0n4i2BWe6179
- wXUy94rDd6izAyCV8+tvbQmxIQazUyx8N2CD9G/K8AdUgxxjwqwLA3JzYcj7qtktsqCb1bU6j12
- WQRhH4USspDoX3lFsEkB2VqlZcW1X7XH6MjemamXOv6JYTlnAlg6HbT5VAttodKVoWsvbrNKEFd
- VKWGl4XmgwhCy/XZ1GA==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-08_03,2026-09-09_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 bulkscore=0 spamscore=0 phishscore=0 impostorscore=0
- lowpriorityscore=0 suspectscore=0 clxscore=1015 priorityscore=1501
- malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2609090201
+Message-Id: <20260909-cgwb-tasks-rcu-qs-v1-1-967a7754771f@toxicpanda.com>
+X-B4-Tracking: v=1; b=H4sIAOKeoWoC/yWMTQ6CMBBGr0Jm7SRtISZ4FeNiWgaoxqozRUkId
+ 7fV5ft+3gbKElnh1Gwg/I4aH6mAPTQQZkoTYxwKgzPuaHrTY5g+HjPpTVHCgi/FzrWdLeXYsoX
+ yewqPcf05z5c/6+KvHHIV1YUnZfRCKcw1upNmFtj3L1UhlqWOAAAA
+X-Change-ID: 20260909-cgwb-tasks-rcu-qs-42341609f3e1
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+ Michal Hocko <mhocko@suse.com>, Jan Kara <jack@suse.cz>, 
+ Tejun Heo <tj@kernel.org>, Roman Gushchin <roman.gushchin@linux.dev>, 
+ Dennis Zhou <dennis@kernel.org>
+Cc: "Matthew Wilcox (Oracle)" <willy@infradead.org>, linux-mm@kvack.org, 
+ linux-kernel@vger.kernel.org, bpf@vger.kernel.org, stable@vger.kernel.org, 
+ Josef Bacik <josef@toxicpanda.com>
+X-Mailer: b4 0.15.2
 
-On Fri, 4 Sep 2026 11:15:25 -0300
-Jason Gunthorpe <jgg@nvidia.com> wrote:
+cleanup_offline_cgwbs_workfn() drains a dying cgwb by calling
+cleanup_offline_cgwb() until it returns false, with a cond_resched()
+between passes.  On a CONFIG_PREEMPTION kernel that cond_resched() does
+nothing: _cond_resched() is a plain "return 0", and under
+PREEMPT_DYNAMIC the full and lazy modes disable it.  Since commit
+7dadeaa6e851 ("sched: Further restrict the preemption modes") those are
+the only two models on the architectures with PREEMPT_LAZY support,
+arm64 and x86 among them, so the drain loop never reports a Tasks-RCU
+quiescent state.
 
-> On Thu, Sep 03, 2026 at 12:18:33PM -0700, Jonathan Cameron wrote:
-> > > arm_smmu_setup_irqs() has three failure paths that leave the priq without
-> > > a handler: a missing priq IRQ line, devm_request_threaded_irq() failure on
-> > > the priq IRQ, and devm_request_threaded_irq() failure on the combined IRQ.
-> > > Each path warned but kept ARM_SMMU_FEAT_PRI set in smmu->features.
-> > > 
-> > > With FEAT_PRI still set, arm_smmu_setup_irqs() enables IRQ_CTRL_PRIQ_IRQEN
-> > > against a handler that does not exist, and a later change would then have
-> > > arm_smmu_probe_device() call pci_enable_pri() on PCIe endpoints, allowing
-> > > them to issue PRI Page Requests that pile up in the priq with no drainer.
-> > > Separately, arm_smmu_device_reset() has already enabled CR0_PRIQEN before
-> > > it invoked arm_smmu_setup_irqs(), so the hardware queue would stay enabled
-> > > regardless of what setup_irqs decides.
-> > > 
-> > > Clear ARM_SMMU_FEAT_PRI in all three failure paths, so that subsequent code
-> > > treats PRI as unavailable. And disable CR0_PRIQEN after the setup function
-> > > returns.
-> > > 
-> > > A kdump kernel cannot service page requests: strip FEAT_PRI when detecting
-> > > features, so downstream PRI setup is skipped.  
-> > 
-> > Dumb question - why can't a kdump kernel service page requests?
-> > I'm nowhere near familiar enough with that stuff and I suspect I'm not
-> > the only one who might be in that state and reading this series.
-> > Configuration choice, or a fundamental thing?  
-> 
-> The initial issue is the streams are left in whatever state the crash
-> kernel had them in, so it can be generating a bunch of PRIs with no
-> place to put them.
-> 
-> Though eventually we may find a device where dropping them is not good
-> and they need to be NAK'd promptly..
-> 
-> But I think the real motivation here is to save memory in the kdump
-> kernel..
+A worker draining a cgwb with millions of attached inodes runs for
+minutes.  On a 6.18 arm64 host in lazy mode the cgwb worker drained one
+dying cgroup's writeback domain for over 11 minutes.  A BPF program
+unlink (bpf_trampoline_unlink_prog -> bpf_trampoline_update ->
+unregister_ftrace_direct -> ftrace_shutdown -> synchronize_rcu_tasks())
+waited on that grace period while holding the trampoline mutex, 42
+tasks queued behind it in D state, and the hung task detector fired at
+614 s and panicked the host.  Any BPF or ftrace detach during a long
+drain inherits the drain's length.
 
-Got it, so design decision rather than fundamental.  Maybe tweak that text
-to say 
-"A kdump kernel doesn't service page request" ?
-> 
-> Jason
-> 
+Fix this by calling cond_resched_tasks_rcu_qs() so we do not stall out
+anybody who calls sycnrhonize_rcu_tasks().  We put this in a do { } while
+loop because if we have many small cgroups cleanup_offline_cgwb() will
+return false and we will never call cond_resched_tasks_rcu_qs(), creating
+the same problem.
+
+Fixes: c22d70a162d3 ("writeback, cgroup: release dying cgwbs by switching attached inodes")
+Cc: stable@vger.kernel.org
+Link: https://lore.kernel.org/bpf/9d444098-7c03-4163-af12-bd0a79a51443@paulmck-laptop/
+Assisted-by: LLM
+Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+---
+ mm/backing-dev.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
+
+diff --git a/mm/backing-dev.c b/mm/backing-dev.c
+index cecbcf9060a6..18e999053bae 100644
+--- a/mm/backing-dev.c
++++ b/mm/backing-dev.c
+@@ -910,8 +910,9 @@ static void cleanup_offline_cgwbs_workfn(struct work_struct *work)
+ 			continue;
+ 
+ 		spin_unlock_irq(&cgwb_lock);
+-		while (cleanup_offline_cgwb(wb))
+-			cond_resched();
++		do {
++			cond_resched_tasks_rcu_qs();
++		} while (cleanup_offline_cgwb(wb));
+ 		spin_lock_irq(&cgwb_lock);
+ 
+ 		wb_put(wb);
+
+---
+base-commit: 893e11787f78e43b534e252249ac3fff4d1333f8
+change-id: 20260909-cgwb-tasks-rcu-qs-42341609f3e1
+
+Best regards,
+--  
+Josef Bacik <josef@toxicpanda.com>
 
