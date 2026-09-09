@@ -1,61 +1,88 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-142.mta1.migadu.com [95.215.58.142])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3635F3D9043;
-	Wed,  9 Sep 2026 07:36:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 890E73002B9
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 07:37:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.142
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788939398; cv=none; b=De3uhwA2che6yyUT3bfoS0fKkF9m8UmEDd6xZdeOQ3eiVvxy7KjcaMgcvs5liovDcpNA2B4UnUWe2q5sE0ZmOqoRqnR2HWjo96QDZyMuOo/IrwFP9/icz5Ag2l04fLFRbqQLVllpCexebTFxl4C7dClqCpSTREqPAw1S+wL1hn0=
+	t=1788939443; cv=none; b=mX35fHYOVgrVAXy7Up5r9hB9mQIDRf5mFGILiwbVLDmEkyDs1U0B6y/GP9eVq0Lc1UdJPSDHkorVJs7KsFP20Nt6LjwwGuHwRJZ9MKts3x5da1yUwfrJ2mt+qel2h+yGRrGW+2cIdsqLmVZsYDJHOWhxVKLKEOdwH8gmmdKb7as=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788939398; c=relaxed/simple;
-	bh=X5F8OS/0tInD8LKhiFiTv1ifVTXXTDNYolXcxLLi9OQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=BiL7Q6H/usOgwnkISUeMK4+lwF0L5vROg96htpljHYscfSzbvBY/jg5wbU1zy6vWIN1JoGTFKbkXUEpOU6BumN9IWePAbt8WgOsOpsbGM/yNeRiCmQsAK7A8LjPmIINoAFB1SSiLZd9Pq/yuHqFwnzNoUIqdq78XV2VOOa2P+gs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=gu6zjS24; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788939443; c=relaxed/simple;
+	bh=W3MflD4KvxfjlYvuaglkAbbfr+JQGM3DGNPD2OgqTvE=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=TskPxkyDb3Lz7kogj9SfmvYXmEUJmVwoeC2K0VnQmdnzMgbR7ttEg2QepxZH+zZrk7h9shsTfruaVWw8w2jmTXtsSbwX3DxX27QjhgTyWXUbet2xvw8buK01Rzthwnk9Q0KTbMK0R/Kd7BWODeltakuh9CmYvR3tSjkItIgE1mE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=SDZYU/Ec; arc=none smtp.client-ip=95.215.58.142
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="gu6zjS24"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B54BE1F00A3A;
-	Wed,  9 Sep 2026 07:36:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788939387;
-	bh=X5F8OS/0tInD8LKhiFiTv1ifVTXXTDNYolXcxLLi9OQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=gu6zjS244jlxoTfpgau+WcvvEJVws7M1g3CKTw6UMsf3CLG5wRNONS4GSeD6OnFeA
-	 xd2fv+c6gfelRkhcMceBAGpibdIc9PM5S8YyFNhrYQeqjekpQXGUb9HqZp0IUHjRAe
-	 DcQYsB6qdluxgY2UcRhw+BXi2X7qy5zKwNgqqyY8=
-Date: Wed, 9 Sep 2026 09:36:19 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Amir Mohammad Jahangirzad <a.jahangirzad@gmail.com>
-Cc: Valentina Manea <valentina.manea.m@gmail.com>,
-	Shuah Khan <shuah@kernel.org>, Hongren Zheng <i@zenithal.me>,
-	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
-	syzkaller@googlegroups.com,
-	Mohammad Mahdi Anbaraki <m.mahdianbaraki@gmail.com>
-Subject: Re: [BUG] KASAN: slab-use-after-free in usb_control_msg /
- kobject_put (vhci_hcd)
-Message-ID: <2026090937-exert-olympics-e8e7@gregkh>
-References: <20260909015438.274093-1-a.jahangirzad@gmail.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="SDZYU/Ec"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=W3MflD4KvxfjlYvuaglkAbbfr+JQGM3DGNPD2OgqTvE=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788939438; v=1; x=1789544238;
+ b=SDZYU/Ec3V5iIZ/wn6MiFBPF3I5zErZxrcAMMv8ENdNDPH6BH1HwJFjuZ+UR11IGTsdBjZFX
+ WTLjvF6w30kSSYs7uZ2kqIO3yyeTX5J1yOoEgMftrhp2xCdUjbwxw9G1R6u3QnTnJ4Mgc8dZECA
+ ljLcYd3EMwJ93pDpJUi4kqx8=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 3ceb72af4f1d12fa;
+	Wed, 09 Sep 2026 07:37:18 +0000
+X-Mizu-Trace-ID: 3ceb72af4f1d12fa
+X-Migadu-Flow: FLOW_OUT
+Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b4a0b384b7so4344e87.0
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 00:37:17 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzo2vWpXFtrRfVNqq40sF5wvKS/iSN+a5tCb2+yU+fpYJpYZeFkjtKTcnWsO1Ld1L6EF9heBkHx4+zuPmc=@vger.kernel.org
+X-Gm-Message-State: AFuF++l/RmfhpADkTNyzJSSvBqpsObeSR8diTnaFgFblMZgj3z/bcTIE
+	5BBPre+cqVzWgxFAiYqV/Xp8wsTQp7aZ1HND/xF+cVM7j51sjF27vXTXtZ3IOBdsRZa8PttDNDD
+	j1i4xVvQtRFtl6fIQ4/MYka+kWo9WLvKdrDqRwzhr
+X-Received: by 2002:a05:6512:288:b0:5b7:78bc:ec07 with SMTP id
+ 2adb3069b0e04-5b778bcee15mr17247e87.14.1788939437032; Wed, 09 Sep 2026
+ 00:37:17 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260909015438.274093-1-a.jahangirzad@gmail.com>
+References: <20260909063156.89636-1-kmehltretter@gmail.com>
+In-Reply-To: <20260909063156.89636-1-kmehltretter@gmail.com>
+From: Fuad Tabba <fuad.tabba@linux.dev>
+Date: Wed, 9 Sep 2026 08:36:40 +0100
+X-Gmail-Original-Message-ID: <CA+EHjTx3fmj_fkD_ybPANyTrEApMUyBscfP4JtP-F_MRL-L=2w@mail.gmail.com>
+X-Gm-Features: AcwNN1X7nBSrvOxVUlaJ6opTCQ7kc3b4t69IqzHQ2RwkJ6z5rM4K_pY4NvS2qiE
+Message-ID: <CA+EHjTx3fmj_fkD_ybPANyTrEApMUyBscfP4JtP-F_MRL-L=2w@mail.gmail.com>
+Subject: Re: [PATCH] KVM: arm64: Fix kvm_get_vtcr() kernel-doc
+To: Karl Mehltretter <kmehltretter@gmail.com>
+Cc: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
+	Quentin Perret <qperret@google.com>, Joey Gouly <joey.gouly@arm.com>, 
+	Steffen Eiden <seiden@linux.ibm.com>, Suzuki K Poulose <suzuki.poulose@arm.com>, 
+	Zenghui Yu <yuzenghui@huawei.com>, Catalin Marinas <catalin.marinas@arm.com>, 
+	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+	linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Wed, Sep 09, 2026 at 05:24:38AM +0330, Amir Mohammad Jahangirzad wrote:
-> We have found two related KASAN slab-use-after-free bugs in the USB
-> subsystem (specifically involving vhci_hcd and usbip) using syzkaller.
+Hi Karl,
 
-There are lot of those, please see the mailing list for suggested
-patches, or better yet, submit patches yourself for the reported
-problems as you have a reproducer.
+...
 
-But note, usbip runs on a trusted network, with trusted devices, so
-perhaps you are fuzzing the wrong thing?
+Good catch, I'm a fan of documentation fixes :)
 
-thanks,
+While you're on that line, the description is also inaccurate, so you
+could fix both in one go and save a follow-up touching the same line:
 
-greg k-h
+> - * @phys_shfit:        Value to set in VTCR_EL2.T0SZ.
+> + * @phys_shift:        Value to set in VTCR_EL2.T0SZ.
+
+kvm_get_vtcr() sets T0SZ to 64 - phys_shift, so phys_shift isn't the
+value written to the field, it's the IPA size in bits. Something like:
+
+     * @phys_shift:    IPA size, in bits.
+
+Cheers,
+/fuad
+
+>
+> base-commit: 893e11787f78e43b534e252249ac3fff4d1333f8
+> --
+> 2.53.0
