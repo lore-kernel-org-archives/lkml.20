@@ -1,155 +1,144 @@
-Received: from zg8tmtyylji0my4xnjeumjiw.icoremail.net (zg8tmtyylji0my4xnjeumjiw.icoremail.net [162.243.161.220])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 83DE52DB78C;
-	Wed,  9 Sep 2026 05:42:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.243.161.220
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B7F42DB78C;
+	Wed,  9 Sep 2026 05:43:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788932554; cv=none; b=Lxkb3M1bL7HyG5vHjr78N7mGcv7w4vx5qu7AqGXgA3jfOwNGnCe00gZtAw171voyibJ4jDIU0qm2XSeBdg8fVBwehGSRKRIELBjwHpe5mkMo5hsWw0xVoKy5Zz3vFnXRuLTTXeJs8BzfiJOr9hMUYY6R7kUrUJD/KbdJ4fPj9sw=
+	t=1788932601; cv=none; b=WBtsriIC4Y2/ahqdUmhTLhaX0G8I/Uc/Digi7c5BJQzAUABYMBghFijq1LOl87B/OOl3kYa9bdJzKcsHabt7Tj6emzZja8+RUBqgi+eZ+BG1FfgAlLMsq3vI8kOmKrf4K3QovDOILAlCA/LU6e6HjkieaayJV+bbP3V2gjLUbwE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788932554; c=relaxed/simple;
-	bh=irgw5692G3THZMp8Ohgma24p5AdL59yjnKDh1VN+LU4=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=A6XJbKITLECMvLZcztvBsHfNszoIHClHjG1ZcntuQxxIXhrRUjTuKM9bcOPPQVdgHSF8vuEPewalJxIECMU1bkzmjtdkw3A0lLlvLAV432IyqE3gFg7kI+j8nbuWjWStCmkF1VKhWZF8U7FDrwH3Ilhy3lBwlJQQ1jR606pckfA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=162.243.161.220
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
-Received: from zju.edu.cn (unknown [10.98.66.117])
-	by mtasvr (Coremail) with SMTP id _____wAXAT+98aBqcPgBAQ--.7086S3;
-	Wed, 09 Sep 2026 13:42:21 +0800 (CST)
-Received: from localhost.localdomain (unknown [10.98.66.117])
-	by mail-app4 (Coremail) with SMTP id zi_KCgAnezO88aBqWyaoAw--.14S2;
-	Wed, 09 Sep 2026 13:42:20 +0800 (CST)
-From: Fan Wu <fanwu01@zju.edu.cn>
-To: tytso@mit.edu
-Cc: adilger.kernel@dilger.ca,
-	libaokun@linux.alibaba.com,
-	jack@suse.cz,
-	ojaswin@linux.ibm.com,
-	ritesh.list@gmail.com,
-	yi.zhang@huawei.com,
-	linux-ext4@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Fan Wu <fanwu01@zju.edu.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH v2] ext4: fix discard work use-after-free on failed mount
-Date: Wed,  9 Sep 2026 05:41:24 +0000
-Message-Id: <20260909054124.657782-1-fanwu01@zju.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1788932601; c=relaxed/simple;
+	bh=u9Sm8jPI4+Fwj1M3ncBHH2tQ7kcqsX+JkFd7lWPCCyY=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=u25a6qmk8GbkHCu8EPFt/9tWSreotjwhgWVY5hnp8YxJ1OmSDQPepc6jTwvf0xGaHhPvHLGibP3NTk9PaSTBrLA5wd9f7Hqv6+DiFxUQXv6KM22dvv3Kawu86oskVooQf0W/VAa9S5Iw2BPUucy16nHKEiUPoOM0KgdT3KsRptQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fiMzUH1i; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fiMzUH1i"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 36EE21F00A3A;
+	Wed,  9 Sep 2026 05:43:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788932599;
+	bh=eqpQ69w02D0+WhW3Ec1YD7jRQ68DlaztQhqmKUMxU9g=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=fiMzUH1iv0v/XzmIq3X5si6CrSI/6NTpT4RYSkzjtG+SrWuuvUuQxSfd2eRbvuQ2j
+	 C7yqnBIytFyihjxWFjiN0X+DP97TnfxnMbwpreVdClWElsUfBmLEprZ9s2Lurhnvjs
+	 d6hRrF2YgFbm9J+o+D7zWbFvqBUvK8SvFIg+4gzHdxhDD1OlkATkDsk8pTvg3ky20Z
+	 N/plnaSjSz2DT9ayMCNdg2zJX7E+/4aTnvsB4HN7LC60qoDWcn8XRki3ApkkqgHrHQ
+	 J+lrMGSJS4F+o/t30Xr+m/EVz9x53FDwTaQ9AqmQ+As8e+gyLx97e3P/67eTHE0CwU
+	 6sRH8j4yV3bXg==
+Subject: Re: [PATCH net-next v2 1/7] net: mctp: usblib: Add to parameterized
+ kunit tests.
+From: netdev-bot+sashiko@kernel.org
+To: james@codeconstruct.com.au
+Cc: jk@codeconstruct.com.au, matt@codeconstruct.com.au, andrew+netdev@lunn.ch,
+ davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+ kees@kernel.org, gustavoars@kernel.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org
+Date: Wed, 09 Sep 2026 05:43:18 +0000
+Message-ID: <178893259873.219967.11550957902353874236@kernel.org>
+In-Reply-To:
+ <20260903-dev-mctp-usb-lib-test-v2-1-313cf15e0b56@codeconstruct.com.au>
+References:
+ <20260903-dev-mctp-usb-lib-test-v2-1-313cf15e0b56@codeconstruct.com.au>
+X-sashiko-severity: Low
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zi_KCgAnezO88aBqWyaoAw--.14S2
-X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
-X-CM-DELIVERINFO: =?B?k/HslgXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
-	sfnXz+g1OQfMo27QHy5TwQyZyEmTEYPW8rwO+uoQfYOdLQf3NR5W4PiQdyNICW5RYHww39
-	IjhLnkNV1x8vEIdir8k=
-X-Coremail-Antispam: 1Uk129KBj93XoWxXF1fCr1fXr17WFyfXryUXFc_yoWrCr18pr
-	43Ar1UKrWDWry0kw47uw4xXFy0gw4ruF47Gryxur1DZ398X34SyFZrt3Wa9F4UKrZ5G3WS
-	vF1jg34DWFWrA3gCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUUPjb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Cr1j6rxdM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v2
-	6rxl6s0DM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6x
-	kI12xvs2x26I8E6xACxx1l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v2
-	6r1Y6r17McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2
-	Ij64vIr41lF7xvr2IYc2Ij64vIr40E4x8a64kEw24lFIxGxcIEc7CjxVA2Y2ka0xkIwI1l
-	42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJV
-	WUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAK
-	I48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F
-	4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY
-	6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjxU7rcfUUUUU
 
-ext4_put_super() shuts the journal down before it releases the mballoc
-structures, but the failure unwind of __ext4_fill_super() runs the two
-steps in the opposite order: failed_mount6 calls ext4_mb_release(),
-which flushes sbi->s_discard_work, and the journal is destroyed only
-later, just above failed_mount3a.
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider:
 
-With -o discard, that journal destroy re-arms the work after the flush:
-ext4_journal_destroy() calls ext4_force_commit(), and the commit
-callback, registered once mballoc is initialized, queues s_discard_work
-whenever the discard option is set, even with an empty freed-data list.
-A running transaction can be live at that point: replaying the orphan
-list is the easiest way to get one, and the quota paths on
-failed_mount8/failed_mount9 can leave one too. The final force commit
-is not necessarily a no-op.
+Critical: 0 · High: 0 · Medium: 0 · Low: 1
 
-Nothing drains s_discard_work after that point: failed_mount3 flushes
-only s_sb_upd_work and the s_err_report timer, and ext4_fill_super()
-then frees sbi with a plain kfree() through ext4_free_sbi(). If the
-system_dfl_wq worker is delayed across the rest of the unwind,
-ext4_discard_work() then accesses the freed sbi, first through
-sbi->s_sb and then while taking sbi->s_md_lock.
+- [Low] The new/modified worst-case span parameters ("1p5x-split" line
+  390, "2p2x-large-split" line 396, "3p3x-large-split" line 400) are…
 
-This is the pattern fixed for the s_err_report timer in commit
-0ce160c5bdb6 ("ext4: fix timer use-after-free on failed mount"):
-async state armed after the unwind's last drain point.
+--
 
-Force the commit at failed_mount6, before ext4_mb_release(), so that
-the discard work its commit callback queues is normally already
-pending when the flush_work() in ext4_mb_release() runs.
-disable_work_sync() there then makes this airtight: it also drains an
-instance the flush missed, and no later commit, including the force
-commit inside the journal destroy further down the unwind, can
-requeue the work. The journal destroy stays at its existing position.
+net: mctp: usblib: Add to parameterized kunit tests.
 
-This issue was found by an in-house static analysis tool.
+Adds three worst-case entries to the mctp_usblib_test_pkt_spans[] table: a
+single packet split over five transfers on and between the headers, and two
+large-packet cases that split at the worst case for buffer allocation. The
+existing "2p2x-large-split" entry is also adjusted so the trailing span is a
+single byte.
 
-Fixes: 55cdd0af2bc5 ("ext4: get discard out of jbd2 commit kthread contex")
-Cc: stable@vger.kernel.org # v6.10+
-Assisted-by: Codex:gpt-5.6
-Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
----
-v2: per review from Jan Kara, keep the journal shutdown at its existing
-    point instead of destroying the journal at failed_mount6: force the
-    outstanding transaction there so the re-arm happens before the
-    ext4_mb_release() flush, and disable_work_sync() the discard work
-    after the flush. jbd2 publishes j_commit_sequence before running
-    the commit callback, so the callback can still queue the work
-    after ext4_force_commit() and the flush have both returned;
-    disable_work_sync() drains that instance as well and keeps the
-    later journal destroy from requeueing the work.
-v1: https://lore.kernel.org/linux-ext4/20260820052102.4616-1-fanwu01@zju.edu.cn/
----
- fs/ext4/mballoc.c | 2 ++
- fs/ext4/super.c   | 9 +++++++++
- 2 files changed, 11 insertions(+)
+> diff --git a/drivers/net/mctp/mctp-usblib-test.c b/drivers/net/mctp/mctp-usblib-test.c
+> index 9df401a914ff..4c27307900fb 100644
+> --- a/drivers/net/mctp/mctp-usblib-test.c
+> +++ b/drivers/net/mctp/mctp-usblib-test.c
+> @@ -386,12 +386,18 @@ static const struct mctp_usblib_test_pkt_span mctp_usblib_test_pkt_spans[] = {
+>  	{ "1p2x-split-mctphdr", 1, { 16 }, 2, { 6, 10 } },
+>  	/* Single packet split over 3 transfers, middle entirely continuation */
+>  	{ "1p3x-split", 1, { 12 }, 3, { 4, 4, 4 } },
+> +	/* A packet split over 5 transfers, splitting on and between each header. */
+> +	{ "1p5x-split", 1, { 12 }, 5, { 3, 1, 1, 3, 4}},
+>  	/* Max-sized single transfer */
+>  	{ "1p1x-large", 1, { 8191 }, 1, { 8191 } },
+>  	/* Two large packets, split at the worst-case for allocation, with a
+>  	 * single byte continuing the span
+>  	 */
+> -	{ "2p2x-large-split", 2, { 8190, 8190 }, 2, { 8191, 8189 } },
+> +	{ "2p2x-large-split", 2, { 8190, 8191 }, 2, { 8191, 8190 } },
+> +	/* Three large packets, split at the worst-case for allocation,
+> +	 * with a single byte continuing each span
+> +	 */
+> +	{ "3p3x-large-split", 3, { 8190, 8191, 8191 }, 3, { 8191, 8191, 8190 } },
+>  };
 
-diff --git a/fs/ext4/mballoc.c b/fs/ext4/mballoc.c
-index ed1bd00e11cd..874b71931ab6 100644
---- a/fs/ext4/mballoc.c
-+++ b/fs/ext4/mballoc.c
-@@ -3897,6 +3897,8 @@ void ext4_mb_release(struct super_block *sb)
- 	 * wait the discard work to drain all of ext4_free_data
- 	 */
- 	flush_work(&sbi->s_discard_work);
-+	/* Prevent the later journal teardown from requeueing discard work. */
-+	disable_work_sync(&sbi->s_discard_work);
- 	WARN_ON_ONCE(!list_empty(&sbi->s_discard_list));
- 
- 	group_info = rcu_access_pointer(sbi->s_group_info);
-diff --git a/fs/ext4/super.c b/fs/ext4/super.c
-index 4b6112e5d6c5..62d1930e9783 100644
---- a/fs/ext4/super.c
-+++ b/fs/ext4/super.c
-@@ -5761,6 +5761,15 @@ failed_mount8: __maybe_unused
- failed_mount7:
- 	ext4_unregister_li_request(sb);
- failed_mount6:
-+	/*
-+	 * Flush any running transaction: its commit callback may queue
-+	 * s_discard_work, which the flush_work() in ext4_mb_release()
-+	 * below drains; disable_work_sync() there also drains an
-+	 * instance queued after that, and keeps the journal destroy
-+	 * further down the unwind from requeueing the work.
-+	 */
-+	if (sbi->s_journal)
-+		ext4_force_commit(sb);
- 	ext4_mb_release(sb);
- 	ext4_flex_groups_free(sbi);
- failed_mount5:
+[Severity: Low]
+Can these new worst-case vectors actually detect a misplaced payload?
 
+The consumer, mctp_usblib_test_rx_pkt_span(), only makes two checks after
+feeding all the transfers:
+
+	/* check received packets */
+	KUNIT_EXPECT_EQ(test, dev->rx_pkts.qlen, pkt_span->n_pkts);
+	for (i = 0; ; i++) {
+		...
+		if (i < pkt_span->n_pkts)
+			KUNIT_EXPECT_EQ(test, skb->len, pkt_span->pkts[i] - 4);
+
+The bytes of each reassembled skb are never compared against pktbuf.
+
+The payload is also indistinguishable, since mctp_usblib_test_init_pkt()
+zero-fills everything after the 8-byte header:
+
+	memcpy(data, &hdr, min(len, sizeof(hdr)));
+	if (len > sizeof(hdr))
+		memset(data + sizeof(hdr), 0, len - sizeof(hdr));
+
+So a reassembly bug that keeps the USB/MCTP headers where the library expects
+them but places payload bytes at the wrong offset would still yield the
+expected qlen and skb->len, and these cases would pass.
+
+That matters most for the two "large-split" entries, which exist to exercise
+the compaction path in mctp_usblib_rx_prepare():
+
+	skb2 = skb_copy_expand(skb, 0, len, gfp);
+	if (!skb2)
+		return -ENOMEM;
+	dev_kfree_skb_any(skb);
+	skb = skb2;
+	...
+	*bufp = skb_tail_pointer(skb);
+
+A wrong copy or wrong returned write offset there is precisely a payload
+placement error the current assertions cannot see.
+
+Would it be worth giving each packet a distinguishable byte pattern in
+mctp_usblib_test_init_pkt() and comparing the dequeued skbs against pktbuf
+with skb_copy_bits() and KUNIT_EXPECT_MEMEQ, so these vectors validate
+reassembly rather than only span accounting?
+
+For reference, this gap remains at the end of the series (as of 7b7c42135cec
+the rx span test still asserts only qlen and skb->len; only the newly added
+tx tests use KUNIT_EXPECT_MEMEQ).
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260903-dev-mctp-usb-lib-test-v2-0-313cf15e0b56%40codeconstruct.com.au
