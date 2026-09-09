@@ -1,176 +1,323 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0157144A3E2
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 08:53:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D265A470EA3;
+	Wed,  9 Sep 2026 08:54:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.200.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788944023; cv=none; b=EVlDRT0ipxNbWGgfOCM5wpYWzr/7qpZ4M/k3S890C81pM2UvxhrE46l4Sj2+8llEnKxObKOrPmoIEQNuEZTKYezdbWoiHvZCNv+zisDMwY1RT3EU9h5+bp0Ho96y10rdNEXkIa6NsDqzzGxizTBqqPFwPWmkQ++2m1DaSs0DAiA=
+	t=1788944064; cv=none; b=ifbTTIdl8OIbm+nIrxntsfZIarj6U2kKQ5WqG3lZAaERyrMHGZV0DHvfgyjNcvL/XIjkXGX/G67gACgEE91wwhfQc97ow3aAf4uECSpjQx6HvOqTLZS2TCQq8VCnTyVTiDwaUU3HtbEgR7xpbB5C7glwHx4ntX7pwmwZwABNVuA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788944023; c=relaxed/simple;
-	bh=oeNgveW9Tt4/2RrRQetsoMagtELhTgBtkFerJiMJAaI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=tdYiCx+YW/HE7KKujDnkXcrPogbQun/hG1JgZFZ8N2Gcz4esRMrQn6vrK8lLYDCrdWRACxS7Eq34R2NVzj5yXZy8TgcQ5niKGODqsdZdj9/9x/vG4ypGwcpx1QFpgpeCcI5/18swvY/wXcJPdo7njHAuAl4UhjDqtjirlpkHITg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=JC7MX5kg; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=m/aRkbMb; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="JC7MX5kg";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="m/aRkbMb"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1788944021;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=XfqIN4Kwtqfnd1bFRCrRwzjmsoY7buI31s7mTLJJCXA=;
-	b=JC7MX5kgCacgVnA8pJn/9etn1uIwqM9R//Z+iPdFxmA843zoScvEjIXSHuYrKPHPtskdaE
-	vsYx1MNGjdnVeadlW0//ZG79yB/L0t6brq5g05Sd7A9J77RLJa4JdqEeUfOXf3rRAQHhgm
-	tv79qYkB7RBN7dwZyX2BF3tP/JyO5IU=
-Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
- [209.85.221.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-304-xUHWSdnyPHmtoG5Elss2gA-1; Wed, 09 Sep 2026 04:53:39 -0400
-X-MC-Unique: xUHWSdnyPHmtoG5Elss2gA-1
-X-Mimecast-MFC-AGG-ID: xUHWSdnyPHmtoG5Elss2gA_1788944018
-Received: by mail-wr1-f70.google.com with SMTP id ffacd0b85a97d-4839f9edb08so3504548f8f.0
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 01:53:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1788944018; x=1789548818; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=XfqIN4Kwtqfnd1bFRCrRwzjmsoY7buI31s7mTLJJCXA=;
-        b=m/aRkbMbmMy7nCb94YDSbCghzTgBo8hTd3pPbKGHFW81EQjnbjp+jq1SKaspNvg/2s
-         K9HRedbLiEorTUxVn7y0Q52iFZV6TTXg9CStsrWiqc6152MZ1+Q3/63TQby3KVllYmW8
-         i77fSFSIEIhGikPPrzJFtJr7YE28fWB2YbHerWy51k3oENOz6xenjSkmcf78OJEt1Q5L
-         JPMrEyB9iMBQdmWJXFGMDGO0k1xrEa7w5QXl9TS5ryIncYKv7JmL3vWLjxJw2bzdi3Df
-         ZfNC8ro+zNmkb4QHuO1nydfULeFh76Xp4GBnWp6d4vO4gKH25ymz0O0IlHG8iJLn45XJ
-         Uwzg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788944018; x=1789548818;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=XfqIN4Kwtqfnd1bFRCrRwzjmsoY7buI31s7mTLJJCXA=;
-        b=PxezUUjG39I+BY/QcTmnnRwFQvm8u4YnWBYMLuLwgkE0kdNCu5jfi02z8ru4GfIy9i
-         NFhQFxaNmWDg+Mj3unyIvttiyxzyuIAkcyfsJmNTTKfPI24bxl/GcSeWQUh3nYhO2j1d
-         xiJlzb/gkMaV0cSO8VoMIYe6JVMDAwtJFU9uB5V/gvQQ2QnTL5qhjLv6WSJbV6Sk/zTy
-         dMxXCuAr9ZihFO/m6n+NLhFmFAbVR+oZttSFKAyCjLJK4XPBYUFH4QEysqq+kMXfzisd
-         BaWACyEmynq4JnYXBDuN4MsThETXEg7JQixXRpHtLAYH71UELbrhfCCyGCEdDHoG9XTy
-         fI9g==
-X-Forwarded-Encrypted: i=1; AKwUvBwBk/7c+Nkz9ZxhmlWKFHaqUNrHUGXjdYEyUsTQeQnmqtWkeTaCdaIMFJ0QqLUo9ns+3fkMFcEZBFffMtU=@vger.kernel.org
-X-Gm-Message-State: AFuF++nw43w9nePrE0L1KQnDeULlOIf46mwPKgOwRQYY2bL/gAbPjCrF
-	DBo0VTI7znsdH4hOPJBABec3PN+w4crYZU7fyqv7bgozKUpP8OajqVKEnwkf6r5I7RyuDeHqYYL
-	eIdBM+UTMmE836iI5AQ3Fqg+17yaE74NXfdOooP1xJgnuos9AL+J7/dbP3Uy3FWJmlw==
-X-Gm-Gg: AYBFou2DY36loNW3TktVDLTG8L0y0qI7qK+RKI2xoHUkNWceGCck3fHVVLJACBdRpzG
-	cQL0+S/hZssGbzRlibnVm4Hi8bMId9rQIV5nveiLqlckiQ3gBPSHC2HANGNEKK/55HsUF3osp5C
-	0Y2GBTVLhl2FJv4GOcTC1TYURB2f1TLB6DLhQyjqsjR0ssSEtuMa5KY2Mtptymu57AbSc81tn7S
-	A9geUmBaSo6qYH+o6d+4+8EpC6CDmNr64rbaZYK26xlHTjFEEvWgLtYEPZxA82LCfM5dSAtPkcg
-	DkJ+D+GN+wCujXYKLDBMHXhSvYWX66Tu5IobA1mWEYIRTj0cD4G5F+hIrz6KtHQp+W7JU1d0gA=
-	=
-X-Received: by 2002:a5d:5f52:0:b0:485:9233:a5ae with SMTP id ffacd0b85a97d-4859233aaf2mr25267370f8f.3.1788944018472;
-        Wed, 09 Sep 2026 01:53:38 -0700 (PDT)
-X-Received: by 2002:a5d:5f52:0:b0:485:9233:a5ae with SMTP id ffacd0b85a97d-4859233aaf2mr25267336f8f.3.1788944018095;
-        Wed, 09 Sep 2026 01:53:38 -0700 (PDT)
-Received: from [192.168.0.9] ([47.64.114.243])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-485958f1493sm31003763f8f.37.2026.09.09.01.53.36
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 09 Sep 2026 01:53:37 -0700 (PDT)
-Message-ID: <5a1c75b6-8d68-4bfe-bda8-b2ca25cdffab@redhat.com>
-Date: Wed, 9 Sep 2026 10:53:36 +0200
+	s=arc-20240116; t=1788944064; c=relaxed/simple;
+	bh=OT3HE675N+VdybCn3UOUW38GVdcZHrAGIqgFEgNE7wY=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=k5VjUw6rAC81zB+vzR1bwNoUJq+jQ1sKoupYgTgPyZyFA0w6QOsM27H/4qVuI4xHtyx5edty+CgejxjhYNcjf0XFGNERCeUB+it9S/4nxXdDwXUXl1kwIWZ8o6orgHADqPHOGgbFSfHS12XDWoiachnailclWr0gdOgJ6oJr2/I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.200.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+X-PTX-Original-Recipient: alvin.sipraga@analog.com
+X-PTX-Original-Recipient: linusw@kernel.org
+X-PTX-Original-Recipient: conor+dt@kernel.org
+X-PTX-Original-Recipient: sboyd@kernel.org
+X-PTX-Original-Recipient: krzk@kernel.org
+X-PTX-Original-Recipient: robh@kernel.org
+X-PTX-Original-Recipient: krzk+dt@kernel.org
+X-PTX-Original-Recipient: mturquette@baylibre.com
+X-PTX-Original-Recipient: devicetree@vger.kernel.org
+X-PTX-Original-Recipient: linux-gpio@vger.kernel.org
+X-PTX-Original-Recipient: linux-clk@vger.kernel.org
+X-PTX-Original-Recipient: linux-kernel@vger.kernel.org
+X-PTX-Original-Recipient: kernel@pengutronix.de
+X-PTX-Original-Recipient: s.hauer@pengutronix.de
+Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
+	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id C28DB202043;
+	Wed, 09 Sep 2026 10:54:12 +0200 (CEST)
+Received: from dude02.red.stw.pengutronix.de ([2a0a:edc0:0:1101:1d::28])
+	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <s.hauer@pengutronix.de>)
+	id 1x4E4K-0003io-23;
+	Wed, 09 Sep 2026 10:54:12 +0200
+Received: from [::1] (helo=dude02.red.stw.pengutronix.de)
+	by dude02.red.stw.pengutronix.de with esmtp (Exim 4.98.2)
+	(envelope-from <s.hauer@pengutronix.de>)
+	id 1x4E4K-00000006WeY-2GL6;
+	Wed, 09 Sep 2026 10:54:12 +0200
+From: Sascha Hauer <s.hauer@pengutronix.de>
+Date: Wed, 09 Sep 2026 10:54:07 +0200
+Subject: [PATCH v8 1/2] dt-bindings: clock: add TI CDCE6214 binding
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] crypto: xilinx - clear AES key buffer before freeing it
-To: Thorsten Blum <blum@kernel.org>, Herbert Xu
- <herbert@gondor.apana.org.au>, "David S. Miller" <davem@davemloft.net>,
- Michal Simek <michal.simek@amd.com>, Harsh Jain <h.jain@amd.com>,
- Bjorn Helgaas <bhelgaas@google.com>,
- Takashi Sakamoto <o-takashi@sakamocchi.jp>,
- =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig_=28The_Capable_Hub=29?=
- <u.kleine-koenig@baylibre.com>
-Cc: Danilo Krummrich <dakr@kernel.org>, linux-crypto@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <20260908191607.405177-2-blum@kernel.org>
-Content-Language: en-US
-From: Thomas Huth <thuth@redhat.com>
-Autocrypt: addr=thuth@redhat.com; keydata=
- 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
-In-Reply-To: <20260908191607.405177-2-blum@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20260909-clk-cdce6214-v8-1-4dfa355c1f65@pengutronix.de>
+References: <20260909-clk-cdce6214-v8-0-4dfa355c1f65@pengutronix.de>
+In-Reply-To: <20260909-clk-cdce6214-v8-0-4dfa355c1f65@pengutronix.de>
+To: Michael Turquette <mturquette@baylibre.com>, 
+ Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ devicetree@vger.kernel.org, kernel@pengutronix.de, 
+ linux-gpio@vger.kernel.org, Sascha Hauer <s.hauer@pengutronix.de>, 
+ Linus Walleij <linusw@kernel.org>, 
+ =?utf-8?q?Alvin_=C5=A0ipraga?= <alvin.sipraga@analog.com>, 
+ Krzysztof Kozlowski <krzk@kernel.org>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788944052; l=6861;
+ i=s.hauer@pengutronix.de; s=20230412; h=from:subject:message-id;
+ bh=OT3HE675N+VdybCn3UOUW38GVdcZHrAGIqgFEgNE7wY=;
+ b=HUmJlHyah0E6yRPguByL833PJoT1r04F2pA0f2QCoVaJWlmqljUIwxudcf8d6zcKM1baB5cQm
+ bhN+YD9fZOXCIiDSX22caHEREYa06TVzSTXb2oLLKCFgwkIBQ3odbPa
+X-Developer-Key: i=s.hauer@pengutronix.de; a=ed25519;
+ pk=4kuc9ocmECiBJKWxYgqyhtZOHj5AWi7+d0n/UjhkwTg=
 
-On 08/09/2026 21.16, Thorsten Blum wrote:
-> In xilinx_aes_aead_exit(), the AES key buffer is freed without being
-> cleared, which allows key material to remain in memory. Use
-> kfree_sensitive() to clear the buffer before freeing it.
-> 
-> Fixes: c315cb0005be ("crypto: xilinx - Change coherent DMA to streaming DMA API")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Thorsten Blum <blum@kernel.org>
-> ---
->   drivers/crypto/xilinx/zynqmp-aes-gcm.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/crypto/xilinx/zynqmp-aes-gcm.c b/drivers/crypto/xilinx/zynqmp-aes-gcm.c
-> index d54c268dfe34..ebee37dddb1f 100644
-> --- a/drivers/crypto/xilinx/zynqmp-aes-gcm.c
-> +++ b/drivers/crypto/xilinx/zynqmp-aes-gcm.c
-> @@ -766,7 +766,7 @@ static void xilinx_aes_aead_exit(struct crypto_aead *aead)
->   	struct xilinx_aead_tfm_ctx *tfm_ctx = crypto_tfm_ctx(tfm);
->   
->   	dma_unmap_single(tfm_ctx->dev, tfm_ctx->key_dma_addr, AES_KEYSIZE_256, DMA_TO_DEVICE);
-> -	kfree(tfm_ctx->key);
-> +	kfree_sensitive(tfm_ctx->key);
->   	if (tfm_ctx->fbk_cipher) {
->   		crypto_free_aead(tfm_ctx->fbk_cipher);
->   		tfm_ctx->fbk_cipher = NULL;
-Reviewed-by: Thomas Huth <thuth@redhat.com>
+Add device tree binding for the CDCE6214, an Ultra-Low Power Clock
+Generator With One PLL, Four Differential Outputs, Two Inputs, and
+Internal EEPROM.
+
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Signed-off-by: Sascha Hauer <s.hauer@pengutronix.de>
+---
+ .../devicetree/bindings/clock/ti,cdce6214.yaml     | 192 +++++++++++++++++++++
+ include/dt-bindings/clock/ti,cdce6214.h            |  25 +++
+ 2 files changed, 217 insertions(+)
+
+diff --git a/Documentation/devicetree/bindings/clock/ti,cdce6214.yaml b/Documentation/devicetree/bindings/clock/ti,cdce6214.yaml
+new file mode 100644
+index 0000000000000..4a9c9155894af
+--- /dev/null
++++ b/Documentation/devicetree/bindings/clock/ti,cdce6214.yaml
+@@ -0,0 +1,192 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/clock/ti,cdce6214.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: TI CDCE6214 programmable clock generator with PLL
++
++maintainers:
++  - Sascha Hauer <s.hauer@pengutronix.de>
++
++description: >
++  Ultra-Low Power Clock Generator With One PLL, Four Differential Outputs,
++  Two Inputs, and Internal EEPROM
++
++  - CDCE6214: https://www.ti.com/product/CDCE6214
++
++properties:
++  compatible:
++    enum:
++      - ti,cdce6214
++
++  reg:
++    maxItems: 1
++
++  clocks:
++    minItems: 1
++    maxItems: 2
++
++  clock-names:
++    minItems: 1
++    items:
++      - enum: [ priref, secref ]
++      - const: secref
++
++  '#clock-cells':
++    const: 1
++
++patternProperties:
++  '-pins$':
++    type: object
++    additionalProperties: false
++
++    patternProperties:
++      '^conf':
++        type: object
++        additionalProperties: false
++        $ref: /schemas/pinctrl/pincfg-node.yaml#
++
++        properties:
++          pins:
++            items:
++              enum: [priref, secref, out0, out1, out2, out3, out4 ]
++
++          ti,io-standard:
++            description: |
++              1: CMOS
++              2: LVDS
++              3: Low-Power HCSL
++              4: XTAL mode
++              5: differential
++            enum: [1, 2, 3, 4, 5]
++            $ref: /schemas/types.yaml#/definitions/uint32
++
++          ti,xo-cload-femtofarads:
++            description: Load capacity for XO in Femtofarad
++
++          ti,xo-bias-microamp:
++            description: Bias current setting of the XO
++
++          ti,cmosp-mode:
++            description: |
++              Driving mode for CMOSN output:
++              1: Low Polarity
++              2: High Polrity
++              3: Disable
++            $ref: /schemas/types.yaml#/definitions/uint32
++            maximum: 3
++
++          ti,cmosn-mode:
++            description: |
++              Driving mode for CMOSN output:
++              1: Low Polarity
++              2: High Polrity
++              3: Disable
++            $ref: /schemas/types.yaml#/definitions/uint32
++            maximum: 3
++
++        allOf:
++          - if:
++              properties:
++                pins:
++                  contains:
++                    const: priref
++            then:
++              properties:
++                io-standard:
++                  enum: [ 1, 5 ]
++
++          - if:
++              properties:
++                pins:
++                  contains:
++                    const: secref
++            then:
++              properties:
++                io-standard:
++                  enum: [ 1, 4, 5 ]
++
++          - if:
++              properties:
++                pins:
++                  contains:
++                    const: out0
++            then:
++              properties:
++                io-standard:
++                  enum: [ 1 ]
++
++          - if:
++              properties:
++                pins:
++                  contains:
++                    enum:
++                      - out1
++                      - out4
++            then:
++              properties:
++                io-standard:
++                  enum: [ 1, 2, 3 ]
++
++          - if:
++              properties:
++                pins:
++                  contains:
++                    enum:
++                      - out2
++                      - out3
++            then:
++              properties:
++                io-standard:
++                  enum: [ 2, 3 ]
++
++        required:
++          - pins
++
++required:
++  - compatible
++  - reg
++  - clocks
++  - '#clock-cells'
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/clock/ti,cdce6214.h>
++    i2c {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        clock-generator@67 {
++            compatible = "ti,cdce6214";
++            reg = <0x67>;
++            #clock-cells = <1>;
++            clocks = <&clock_ref25m>;
++            clock-names = "priref";
++
++            cdce6214_pins: cdce6214-pins {
++                conf1 {
++                    pins = "secref";
++                    ti,io-standard = <CDCE6214_IOSTD_XTAL>;
++                    ti,xo-cload-femtofarads = <8100>;
++                    ti,xo-bias-microamp = <100>;
++                };
++
++                conf2 {
++                    pins = "out1";
++                    ti,io-standard = <CDCE6214_IOSTD_CMOS>;
++                    ti,cmosp-mode = <CDCE6214_CMOS_MODE_HIGH>;
++                    ti,cmosn-mode = <CDCE6214_CMOS_MODE_LOW>;
++                };
++
++                conf3 {
++                    pins = "out4";
++                    ti,io-standard = <CDCE6214_IOSTD_CMOS>;
++                    ti,cmosp-mode = <CDCE6214_CMOS_MODE_HIGH>;
++                    ti,cmosn-mode = <CDCE6214_CMOS_MODE_LOW>;
++                };
++            };
++        };
++    };
+diff --git a/include/dt-bindings/clock/ti,cdce6214.h b/include/dt-bindings/clock/ti,cdce6214.h
+new file mode 100644
+index 0000000000000..41ec4f8868bbb
+--- /dev/null
++++ b/include/dt-bindings/clock/ti,cdce6214.h
+@@ -0,0 +1,25 @@
++/* SPDX-License-Identifier: (GPL-2.0 OR MIT) */
++#ifndef _DT_BINDINGS_CLK_TI_CDCE6214_H
++#define _DT_BINDINGS_CLK_TI_CDCE6214_H
++
++/* Clock indices for the clocks provided by the CDCE6214 */
++#define CDCE6214_CLK_OUT0	2
++#define CDCE6214_CLK_OUT1	3
++#define CDCE6214_CLK_OUT2	4
++#define CDCE6214_CLK_OUT3	5
++#define CDCE6214_CLK_OUT4	6
++#define CDCE6214_CLK_PLL	7
++#define CDCE6214_CLK_PSA	8
++#define CDCE6214_CLK_PSB	9
++
++#define CDCE6214_IOSTD_CMOS	1
++#define CDCE6214_IOSTD_LVDS	2
++#define CDCE6214_IOSTD_LP_HCSL	3
++#define CDCE6214_IOSTD_XTAL	4
++#define CDCE6214_IOSTD_DIFF	5
++
++#define CDCE6214_CMOS_MODE_LOW		1
++#define CDCE6214_CMOS_MODE_HIGH		2
++#define CDCE6214_CMOS_MODE_DISABLED	3
++
++#endif /* _DT_BINDINGS_CLK_TI_CDCE6214_H */
+
+-- 
+2.47.3
 
