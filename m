@@ -1,152 +1,208 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lf2-f12.google.com (mail-lf2-f12.google.com [74.125.229.204])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D096576EB8;
-	Wed,  9 Sep 2026 15:53:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E7C0581225
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 15:53:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.204
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788969234; cv=none; b=NfwWvkdb6KtBKNStvdqyo+kMrRA9Z19IRee3digS2QS9gc0+po/rLeV2zqMp3yw74/wgyY1LKOV/Aopz+TQ/x6hSO6XCj1/Bb+PHVJoTqtK+IAJAL/hXtUit2sIfh5k0XTffF9SiyjbHAeYnqK9sC9rd7NNcMNp16mH5f664NPE=
+	t=1788969237; cv=none; b=JsjCCBN6NPIhIsoikDNBcNuTs94wFsNENLj20XiSFDwVyU+6nlm/l+vbH+UgYPYi0ao/NENfknnzNucGVTuU6uoawftpG9Dn1V+mwEbvzzr8M/A2Wz2uyCksSMAqJk/XrgK3DlGDl5DrKYxx9xo+W2c12IrJrD7zj1kEd8IUj2c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788969234; c=relaxed/simple;
-	bh=dUjHsZuyDv1l8FbpCpEgVt+StsM7dxMMLWPLdFQAmW0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=NCxrsAXLnmcd4uM8n7PlRgsp0uUZlU73Ka8xPFgNDBy0m9s0I85PWhjsWMuysxdkVqT044PbVthdQzfYmeKIhgAwVBnHipTCGLvK3lwPiXkzG6Cwy8teEFFe/xwpT2GxiihSQ7LOY7yL5p0VMozfR0YDKXcCJduIGO+Eh+HQeas=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=FkZShthZ; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1788969237; c=relaxed/simple;
+	bh=ji9WYJgPEsD0oObrb9vGLlirQa8xSklSxgsAtuPp4EI=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=nvyRR+cpngF4HjS35rskhQH7OOpkpWRh4TYpQgP8Qnzb5plYCmEVYkjVFZoJ+0JxOKQ1KxPNNPLQjE2o7P+c+kM+ZHOX009D3NLByNbiVcZYZGWz/BviYUQ1GCBIBE1SHAQXrAotBoHLucACLKxneaJauueuR4jJnq82vTNJco4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=nm5U8mIV; arc=none smtp.client-ip=74.125.229.204
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="FkZShthZ"
-Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 689B1hXA1930950;
-	Wed, 9 Sep 2026 15:53:24 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=9fEv8C
-	VQ+LcrjyrEyKWNY8tE1ZC5nOC4fuPxuTwwtWQ=; b=FkZShthZPf6z6Inxuhf+uF
-	iNXUzguRjPZq6PaXhqShCZ3McDp20T3UU5KU3cjMrWdZqtNCUuSuqfdkm8GvIvLF
-	dd72+XGKDtIjz69shK+IZlKQChWqyKHmF6exXT0UkgZBSqDxfU9Ur7ERBXMUX80P
-	s0bhDfhWZtFY8AxXcf0pCGiGI5KikMBri/OGHlqKcjofQOFEa0vOHAVhylAiOQpt
-	uCOLt6833VHDacYxqLq1mLTEtUp5aex8n856rgslbajZo+ccvWXcR2TgU4TdVmIw
-	4EHKN7jBzQE3ENXFaCKAqQK2azDDhu9EJCVqra+ip00luEloiWqmnR79lR7H0gcw
-	==
-Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4ggbqk6vp0-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 09 Sep 2026 15:53:23 +0000 (GMT)
-Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma22.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 689FfE6N015367;
-	Wed, 9 Sep 2026 15:53:22 GMT
-Received: from smtprelay05.fra02v.mail.ibm.com ([9.218.2.225])
-	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4ggwswb807-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 09 Sep 2026 15:53:22 +0000 (GMT)
-Received: from smtpav01.fra02v.mail.ibm.com (smtpav01.fra02v.mail.ibm.com [10.20.54.100])
-	by smtprelay05.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 689FrJXq50987368
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Wed, 9 Sep 2026 15:53:20 GMT
-Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id D9F5A2004B;
-	Wed,  9 Sep 2026 15:53:19 +0000 (GMT)
-Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 4CF0E20043;
-	Wed,  9 Sep 2026 15:53:10 +0000 (GMT)
-Received: from [9.61.255.18] (unknown [9.61.255.18])
-	by smtpav01.fra02v.mail.ibm.com (Postfix) with ESMTPS;
-	Wed,  9 Sep 2026 15:53:09 +0000 (GMT)
-Message-ID: <30360c50-0238-40e8-b598-bdfda1141cc8@linux.ibm.com>
-Date: Wed, 9 Sep 2026 21:23:06 +0530
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="nm5U8mIV"
+Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b5e4f16f16so1271636e87.0
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 08:53:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1788969233; x=1789574033; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=a9+VNAcoJZM4aq0tQI6V+NRSLAdDW0QhBOB3oGupHtM=;
+        b=nm5U8mIVhCbOyjnUte5y/2lmAvtuRfXKo4E5C3JHR+IBKYa7yHYqvF9nBYirnREB66
+         qe1LqDzt//iAPfjJ23Q0DqlGU9ahgS39zNL+i/wZspI992l5EPPJp11oqcLlS/mayhJq
+         yKQBmDJc1eW7hcy0rVhEXZyn+z4nJtJ7krrW8=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788969233; x=1789574033;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=a9+VNAcoJZM4aq0tQI6V+NRSLAdDW0QhBOB3oGupHtM=;
+        b=iGz7NR7HBA5IaX7x8nfFoK481zSt5Dyyj9W2Po189stRDYQnipP/eeiHDGfwk6gn0e
+         oAh/LyshchqcOS6WSER2UJBYW9oAlUkqVtyA44U57uIq82VtB44ls8DqT/ALC0GODdNi
+         f+4RRwx6Vh1xjSK7EaGxLuYv/zidfqD14uKTd1eL4oLqZh97cKNmVdXaxQwSEd49vCQO
+         iHJzb+5BK9PovaYnyBJv9z0TO5oygBlO2lR9tNKjByk0DWbGov0aYmvlZ48cIUY4TJCL
+         VuoTWctwK+P7MqF2K0bZlSkiKGWyWhjCVzIWk/jQaG7Ys9sRRVZsxaHY5qQi+2dRjvdy
+         ZhmQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxU7UtqpXQ57uJQuANzSZyZHOahJZyGAt7ObZzW3ZjtyYplXrgjwaKIAmIvrREiNLFYCGSdNms4gNwuwcM=@vger.kernel.org
+X-Gm-Message-State: AFuF++nZT+TwcfK1D4/mFaW8obRLyKl0rQRx3MfCdfTfxitrgPJhVfPY
+	NIqekPRtM9GoWwP45K4acyvyH3e0mPcM+ZTG7wuGMDMxtuX0M495aad0cTNY9/Y1iaJiSereMHn
+	JrT8gfw==
+X-Gm-Gg: AYBFou1cjn/8IhIoK4NSJbq1nvRYJpBooShyS5mVg4wJFJIlXz4yOR7kEPQc0UYhV8E
+	iA0xtRVM76WzEPgP8APs39WKsgdg4JEqXnO1vWEregZUMrkoFwlFI/YxBVX20XYYhnnp5/DMYv0
+	p64fz+LkX6YHsfmDq63QmECd4/aYcuE66Qp9qH5CFY/jUCVrYtl2HlbXXxTgO+seye+aRStfVQu
+	VEpG4dY1jFlpzUR+8Fw1OMCpoYdtpalo/+FXGm99IGlcX7H18RHMXCNkItVMo8j2o7Oe+7InvTJ
+	E3dTkRvmMMsFxBrA8qAi4RcYj3DZNf47JBOcEF3ywHkc2GHVpxI2JvO6kpI0SbHv9lWHT5xbkB7
+	H3/AzTNyk8rObekbSIfxgvmPBtjXRYdkiUZ2mcwxJs+4L5ZXXhckzbBILsOrnzNR+6E/yrJpAS3
+	O5XR4ta/cgWVTrvzRimiohRAaaBisKTcOtT3sgL7m0d9MUORIE/vf2RyEtA8xep63ZjJBvqxmlz
+	xJyiuk5964u5lt1HuiwARDyDIo2wgdaZvJHaW0=
+X-Received: by 2002:a05:6512:2c86:b0:5b4:a97e:a56e with SMTP id 2adb3069b0e04-5b763cdb7c6mr2800650e87.15.1788969233212;
+        Wed, 09 Sep 2026 08:53:53 -0700 (PDT)
+Received: from mail-lr2-f12.google.com (mail-lr2-f12.google.com. [74.125.230.76])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b89954b649sm222804e87.19.2026.09.09.08.53.51
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 09 Sep 2026 08:53:52 -0700 (PDT)
+Received: by mail-lr2-f12.google.com with SMTP id 38308e7fff4ca-3a2ff176d7eso10901471fa.3
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 08:53:51 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzUMd4NM+2WVOO3j2rR/gUX5o+y34x5Bim99XR+ApeG98iasM5YW+sRfqRQIJjEicDO73Y4jxK36zNxzpo=@vger.kernel.org
+X-Received: by 2002:a05:651c:a34a:b0:3a1:4f33:f60e with SMTP id
+ 38308e7fff4ca-3a49765d1ccmr16262451fa.8.1788969230181; Wed, 09 Sep 2026
+ 08:53:50 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 02/22] coredump: refuse negative skips
-To: Christian Brauner <brauner@kernel.org>, linux-fsdevel@vger.kernel.org
-Cc: Jacob Lalonde <jalalonde@meta.com>, Josef Bacik <josef@toxicpanda.com>,
-        Jann Horn <jannh@google.com>, Alexander Viro <viro@zeniv.linux.org.uk>,
-        Jan Kara <jack@suse.cz>, Andrew Morton <akpm@linux-foundation.org>,
-        David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
-        "Liam R. Howlett" <liam@infradead.org>,
-        Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
-        Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
-        Omar Sandoval <osandov@osandov.com>, Jacob Lalonde <jalalonde@fb.com>,
-        Shuah Khan <shuah@kernel.org>, linux-kernel@vger.kernel.org,
-        linux-mm@kvack.org, linux-kselftest@vger.kernel.org,
-        linuxppc-dev@lists.ozlabs.org
-References: <20260820-work-coredump-sparse-v2-0-ba32dd718c51@kernel.org>
- <20260820-work-coredump-sparse-v2-2-ba32dd718c51@kernel.org>
-Content-Language: en-US
-From: R Nageswara Sastry <rnsastry@linux.ibm.com>
-In-Reply-To: <20260820-work-coredump-sparse-v2-2-ba32dd718c51@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-ORIG-GUID: pYL1X5j4L64D3lhY8GC7_PxezJajFPeA
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA5MDE3MyBTYWx0ZWRfXyZQ2yeCYTZ8Y
- 0zY5ztZt9jhIlCwPuIHMWYJZeFMN1RfSvZmQxlYKHYhZCliMI/1/l/3Wg0EpWXDDd6lWozX46Rp
- BOsUhsvxP3K7Gf6k9YxbUWZBPcLY48o=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA5MDE3MyBTYWx0ZWRfX5MyolTbYyMTx
- 81rdDfK4pUyI4nx4v6Y9Tq/r/gVfH0lueULm43ZNa2On7UJUzNwVwdVblnzuc6TdwypX9OVkabd
- mY7Y+a3Um2ewoWxHnuzkeZMU9B9ZEx8zXreAkdyeB0s9N4qbY4sE3Mi+N9nw47/d2BRpkyMNGvD
- 3NamjGc8COyszi5eNpC2WHmCm6ZnIaCNR9nVGU8PKzrDMBSZz7UZmsQZ2GC97VMvBlLdIC1rSRX
- cnRoYJFT+Rf7HW7PJ/28KPLDCHwRT7HIo66pa7r9Oacak+UAvogwSvhdsx8cRtWmtDzjGv5q3Tx
- MRgAeULZKoh4YyzTCo7msiB5MQSn0j7ly8YqteQYeKytKoC6USiarP/25m9uwlz0MZyki4TDtFE
- 9HQGoeP/j1znxi3DPlsn/xA5Dz4ToJDJEyWtDxCPse+ktxUKAo6Dlm+UeqHdrTyl+tA5+qewgyB
- 79OOPB5Pjo8vswDjYfA==
-X-Authority-Analysis: v=2.4 cv=JaKMa0KV c=1 sm=1 tr=0 ts=6aa180f3 cx=c_pps
- a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=uAbxVGIbfxUO_5tXvNgY:22 a=VwQbUJbxAAAA:8
- a=VnNF1IyMAAAA:8 a=0fa85O3lyfMzuANSHggA:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-GUID: x7FvKhawyt97Kk1EQB6_XHSAe9xWv9Jr
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-08_03,2026-09-09_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 spamscore=0 phishscore=0 impostorscore=0 lowpriorityscore=0
- adultscore=0 bulkscore=0 priorityscore=1501 suspectscore=0 clxscore=1015
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609090173
+References: <20260714222338.2965707-1-dianders@chromium.org>
+ <20260714152138.7.I5cef580a62c86ba6c3465ad336fa509afbdf1476@changeid> <CABb+yY3_xBvQVFHEs=v39u7+TLjJRaVv3sg5pGgd0YxCruZ8Tw@mail.gmail.com>
+In-Reply-To: <CABb+yY3_xBvQVFHEs=v39u7+TLjJRaVv3sg5pGgd0YxCruZ8Tw@mail.gmail.com>
+From: Doug Anderson <dianders@chromium.org>
+Date: Wed, 9 Sep 2026 08:53:37 -0700
+X-Gmail-Original-Message-ID: <CAD=FV=X-fAJp=EG_yTAg+QQgNYRCt25947oHGHZuq-FEyirK0g@mail.gmail.com>
+X-Gm-Features: AcwNN1VMebMlHBDN2oamx6OSXko7kBI4Fg9_efqS3e1qWZ6X4QFSZyV1w6i5DKU
+Message-ID: <CAD=FV=X-fAJp=EG_yTAg+QQgNYRCt25947oHGHZuq-FEyirK0g@mail.gmail.com>
+Subject: Re: [PATCH 7/7] mailbox: goog-mba: Introduce the goog-mba mailbox driver
+To: Jassi Brar <jassisinghbrar@gmail.com>
+Cc: Joonwon Kang <joonwonkang@google.com>, Subhash Jadavani <sjadavani@google.com>, 
+	Tudor Ambarus <tudor.ambarus@linaro.org>, Lucas Wei <lucaswei@google.com>, 
+	Brian Norris <briannorris@chromium.org>, Peter Griffin <peter.griffin@linaro.org>, 
+	=?UTF-8?Q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	linux-samsung-soc@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+Hi,
 
-On 20.08.2026 4:39 AM, Christian Brauner wrote:
-> The dump_skip_to() helper calculates a relative skip based on the
-> absolute positon of the coredump:
+On Sat, Sep 5, 2026 at 6:20=E2=80=AFPM Jassi Brar <jassisinghbrar@gmail.com=
+> wrote:
 >
-> 	cprm->to_skip = pos - cprm->pos;
+> Hi Douglas,
 >
-> That's easy to mess up for callers and one already did. This risk
-> endless zero PAGE_SIZE loops or overwriting already written coredump
-> data thereby corrupting the dump.
+> On Tue, Jul 14, 2026 at 5:24=E2=80=AFPM Douglas Anderson <dianders@chromi=
+um.org> wrote:
+> ....
+> > +
+> > +/**
+> > + * goog_mba_handle_tx_interrupt() - Handle interrupt that remote Acked=
+ our msg.
+> > + * @goog_mbox: The mailbox info.
+> > + */
+> > +static void goog_mba_handle_tx_interrupt(struct goog_mbox_info *goog_m=
+box)
+> > +{
+> > +       unsigned int reqs_completed;
+> > +       int i;
+> > +
+> > +       /*
+> > +        * ACK interrupt needs to be cleared before reading CLIENT_OUTS=
+TANDING_MSG.
+> > +        * Then if a "race" happens and another message gets Acked afte=
+r we clear
+> > +        * but before we read CLIENT_OUTSTANDING_MSG then the worst tha=
+t will
+> > +        * happen is we'll get a followup interrupt that will show 0 re=
+qs_completed.
+> > +        */
+> > +       writel(CLIENT_IRQ_STATUS_ACK_INT, goog_mbox->iomem + CLIENT_IRQ=
+_STATUS_OFFSET);
+> > +
+> > +       if (goog_mbox->queue_mode) {
+> > +               u32 outstanding_msgs;
+> > +
+> > +               outstanding_msgs =3D readl(goog_mbox->iomem + CLIENT_OU=
+TSTANDING_MSG);
+> > +               spin_lock(&goog_mbox->lock);
+> > +
+> > +               if (goog_mbox->outstanding_msgs >=3D outstanding_msgs) =
+{
+> > +                       reqs_completed =3D goog_mbox->outstanding_msgs =
+- outstanding_msgs;
+> > +               } else {
+> > +                       /*
+> > +                        * The hardware's track of outstanding messages=
+ should always
+> > +                        * be less than or equal to the number of messa=
+ges we queued.
+> > +                        * If it thinks there are more messages outstan=
+ding than we
+> > +                        * queued, something is wrong. Assume nothing w=
+as completed.
+> > +                        */
+> > +                       dev_warn_ratelimited(goog_mbox->mba->dev,
+> > +                                            "%pOFP: unexpected outstan=
+ding msgs: %u -> %u\n",
+> > +                                            goog_mbox->np, goog_mbox->=
+outstanding_msgs,
+> > +                                            outstanding_msgs);
+> > +                       reqs_completed =3D 0;
+> > +               }
+> > +               goog_mbox->outstanding_msgs =3D outstanding_msgs;
+> > +               spin_unlock(&goog_mbox->lock);
+> > +
+> > +               trace_goog_mba_process_q_txdone(goog_mbox, reqs_complet=
+ed, outstanding_msgs);
+> > +       } else {
+> > +               reqs_completed =3D 1;
+> > +               trace_goog_mba_process_nq_txdone(goog_mbox);
+> > +       }
+> > +
+> > +       for (i =3D 0; i < reqs_completed; i++)
+> > +               mbox_chan_txdone(&goog_mbox->chan, 0);
 >
-> I don't think skipping backwards has any meaning. So warn and refuse.
->
-> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
-Tested-by: R Nageswara Sastry <rnsastry@linux.ibm.com>
+> The patchset doesn't say much about the clients but if the platform
+> works like this, I have a strong feeling we can do without introducing
+> mbox_controller.has_queue.
+> Just use the msg_data[] ringbuffer -- we can avoid changing the core
+> internals and you will still get ACK for each message.
+> What are the clients going to be like?
 
-System: ppc64le LPAR (IBM POWER), Linux 7.3-rc2
-> ---
->   fs/coredump.c | 2 ++
->   1 file changed, 2 insertions(+)
->
-> diff --git a/fs/coredump.c b/fs/coredump.c
-> index e68a76ff92a3..ac4e922c9cb9 100644
-> --- a/fs/coredump.c
-> +++ b/fs/coredump.c
-> @@ -1261,6 +1261,8 @@ EXPORT_SYMBOL(dump_emit);
->   
->   void dump_skip_to(struct coredump_params *cprm, unsigned long pos)
->   {
-> +	if (WARN_ON_ONCE(pos < cprm->pos))
-> +		return;
->   	cprm->to_skip = pos - cprm->pos;
->   }
->   EXPORT_SYMBOL(dump_skip_to);
->
--- 
-Thanks and Regards
-R.Nageswara Sastry
+I don't think we can get rid of `mbox_controller.has_queue`.
+Specifically, the queue mode allows the mailbox controller to handle
+multiple outstanding transactions simultaneously to reduce latency.
+Imagine host (Linux) interrupt latency is 100us and we want to send 3
+mailbox messages. Let's say queuing a mailbox message takes 10us.
+We'll say that the remote interrupt latency is 50us. Timing would look
+something like this:
 
+0.000000: Client sends msg #1 and mbox controller initiates the xfer
+0.000010: Client sends msg #2 and mbox controller initiates the xfer
+0.000020: Client sends msg #3 and mbox controller initiates the xfer
+0.000050: Remote gets IRQ, sees 3 messages, and ACKs them all.
+0.000150: ACK IRQ arrives; mbox controller sends 3 txdone
+
+...so all 3 messages are sent / ACKed in 150us.
+
+Without letting the mailbox controller queue, we'd end up more like this:
+
+0.000000: Client sends msg #1 and mbox controller initiates the xfer
+0.000050: Remote gets IRQ, sees msg #1, ACKs it.
+0.000150: ACK IRQ arrives; mbox controller sends txdone
+0.000150: mbox core notes txdone and sends msg #2
+0.000200: Remote gets IRQ, sees msg #2, ACKs it.
+0.000300: ACK IRQ arrives; mbox controller sends txdone
+0.000300: mbox core notes txdone and sends msg #3
+0.000350: Remote gets IRQ, sees msg #3, ACKs it.
+0.000450: ACK IRQ arrives; mbox controller sends txdone
+
+Hopefully that clears up what the "has_queue" is about and why we need it?
+
+-Doug
