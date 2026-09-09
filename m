@@ -1,135 +1,154 @@
-Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5822533593;
-	Wed,  9 Sep 2026 12:00:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.61.82.184
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2D6E4C77C5
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 12:03:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788955242; cv=none; b=pndPHCf3fsKTzl9EDp4EhIF8fB0sElZziIuB/7erxDYT/FJv/cuwKBYVXuoEvofCkENhYq/6EJx4DyRE2XnmGiS8/R2aS6vLyyVAMrJdTuLe3w4jcWeWkW219e4+8N/qTT5w+PS+Jkr2bvPPEbNMwDFl1U7mooX08tOLe72qfj8=
+	t=1788955425; cv=none; b=fWLUf8logLsiBuq58kpDNMkozrDndlvZTTRy/xopu+3kuTMH8soicTjDH5jXpajOMVQUa1rhbwEajR6EieaqXh0PG1IQMyGcjliGayIXlBKXaGB5WSsJxbjUmRTEmt0zifK24tUfuYur1yyz3pRMgkzrEi2L7v4NP6MZuCcWyI4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788955242; c=relaxed/simple;
-	bh=6ytdDyu+z2dx/LqddlafJ7bKpVfM51+v6bsQCEmLQmk=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=MrraUZK+0Pp7k5F1Y3gnPzh7ZI+QCTRVy90dj/aZvlRZnQ2BBrA8lLhMqQf44SS1TyxaODtVBWAxMT4GAP3NHfXunyctsStc4FzOoyBcNeMOkNbOZwlR4anaUBbmaUGL+qYqJ5JCOqwIIVAg3SEdVMS2NrZMeGmKwfT5k5+63u8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com; spf=pass smtp.mailfrom=mediatek.com; dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b=VpxHxoLA; arc=none smtp.client-ip=210.61.82.184
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mediatek.com
+	s=arc-20240116; t=1788955425; c=relaxed/simple;
+	bh=LTBwD1h69J9FSsjHehddPX+hOWUr30Pz+tfBZRGQ76w=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=l6llkU1XDKavyZmSclS5UQ3xcm85fsjpZW2dh/giFDlV6+bcpEnSpc1aKDDlvCIg28NEzzotUx+DNnF1RxsHCTCGwJpKAEsKKjUhNXpcMTqy0wScg40v2WcG31SoxwPk+raSw+X1rLjAE5OCU56Kfh3wB2ipuA+VHFFcVvfn6M4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=nq7ReIHK; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=bIZlJAQF; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b="VpxHxoLA"
-X-UUID: 0b304350ac4611f18dc8c9802ae25ab1-20260909
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com; s=dk;
-	h=Content-Type:Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:CC:To:From; bh=C9QctYEqiTsdwLGcp7AZwfH3/JIDtpuPyDKHZOFDwwk=;
-	b=VpxHxoLAM9Ez62LPhx/C49JI9EtFnWvQwIpxt+YDCZWGj5cC4Yk+qZU/APU0zeFp0uG1rk25f00OG2/IG8yXD88ZWqkNZhFxfRPPvh7ZtZeFx8f6X5pmJmX99l+maiKRAfmsJdMvauBsU5YqluXwwZ5o6p0QIQmn3A+kWAmIicY=;
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:690bc7db-724f-4ae4-9614-9cdb180969dd,IP:0,U
-	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
-	release,TS:0
-X-CID-META: VersionHash:7db8b62,CLOUDID:63a191dc-e2a3-4c41-83fa-4adacd638ae3,B
-	ulkID:nil,BulkQuantity:0,SF:102|836|865|888|898,TC:-5,Content:0|15|50|99,E
-	DM:-3,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:nil,BEC:-1,COL:0,OSI:0,OSA:0,
-	AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 0b304350ac4611f18dc8c9802ae25ab1-20260909
-Received: from mtkmbs09n1.mediatek.inc [(172.21.101.35)] by mailgw02.mediatek.com
-	(envelope-from <chris.lu@mediatek.com>)
-	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
-	with ESMTP id 1960534395; Wed, 09 Sep 2026 20:00:26 +0800
-Received: from mtkmbs11n2.mediatek.inc (172.21.101.187) by
- MTKMBS14N2.mediatek.inc (172.21.101.76) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.29; Wed, 9 Sep 2026 20:00:14 +0800
-Received: from mtksitap99.mediatek.inc (10.233.130.16) by
- mtkmbs11n2.mediatek.inc (172.21.101.73) with Microsoft SMTP Server id
- 15.2.2562.29 via Frontend Transport; Wed, 9 Sep 2026 20:00:14 +0800
-From: Chris Lu <chris.lu@mediatek.com>
-To: Marcel Holtmann <marcel@holtmann.org>, Johan Hedberg
-	<johan.hedberg@gmail.com>, Luiz Von Dentz <luiz.dentz@gmail.com>
-CC: Sean Wang <sean.wang@mediatek.com>, Will Lee <will-cy.Lee@mediatek.com>,
-	SS Wu <ss.wu@mediatek.com>, linux-bluetooth
-	<linux-bluetooth@vger.kernel.org>, linux-kernel
-	<linux-kernel@vger.kernel.org>, linux-mediatek
-	<linux-mediatek@lists.infradead.org>, Chris Lu <chris.lu@mediatek.com>
-Subject: [PATCH 0/3] Bluetooth: btmtk: Harden firmware parsing and improve logging
-Date: Wed, 9 Sep 2026 20:00:08 +0800
-Message-ID: <20260909120011.1198001-1-chris.lu@mediatek.com>
-X-Mailer: git-send-email 2.45.2
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="nq7ReIHK";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="bIZlJAQF"
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 689BU3fK2171596
+	for <linux-kernel@vger.kernel.org>; Wed, 9 Sep 2026 12:03:42 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	F7myrCA3xPiz3ZcfTIUST0TcemtCB5dR4O00mG6ydPY=; b=nq7ReIHKiSIozb3F
+	PhCWHLTrHzlOg9SxQNkKM4oXCr2Ssgi2WT0qC15hBGnybFQmDOaw7gh9PuctG0WD
+	DurvwmU77YXDi7MV+aArP9rt03OswQv+H8CbIE+o29i6r5hLVFs7MXaLgYt48HBZ
+	AF0n5BD74z9kwX5Z6LykHOI08HU2WM+7u9uqBRBgB3rjfw9zQrZ/Kyf2bvnpgj8z
+	DY3hYrqg7+NgoI6dSIwas2HBrnYJGrmQe5Iw7FLAvyD3/IqWpb9oiZVPVY0bsl4w
+	n4BJBxoSiQJ76D1uMD+e3iATfdYxgJfQhxxJvngRg9Kg7cJeuKuJQrRNvGlKulbz
+	D9n4Zg==
+Received: from mail-oa1-f72.google.com (mail-oa1-f72.google.com [209.85.160.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gk5rggatf-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 12:03:42 +0000 (GMT)
+Received: by mail-oa1-f72.google.com with SMTP id 586e51a60fabf-45f00527132so3016047fac.0
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 05:03:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1788955422; x=1789560222; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=F7myrCA3xPiz3ZcfTIUST0TcemtCB5dR4O00mG6ydPY=;
+        b=bIZlJAQFqBe4V1dZhAgSxGb2ATNS3dSzZSIT3Aq3Ej+tEKOs/t3yb3eA/3VvDZ7IOi
+         K1+xnlz4mpyVAlAig94SMAzrmvjx9BJxr9WHISnl0Mf/CRfHoZdeZVFdP3fAHI9WaChb
+         iyFiYjKkBN0CTfviA2bBe533wCgNSmaiG+wltfH40RcHxYw+2x/VaDXOl8dM85DzYXDZ
+         56zMNL+xJ6wlJvVHARtYx/kHiXogLHKa/6rEY6fwlrcbasaufsduQqrBGvxQNJdMOPmT
+         XCOfXeQ8ueDdXT4kr6lFTU8yN0c68ibraNiz4qHFBiT/w+PQ8fz4MOsu9ad5B42tPeDU
+         2NAg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788955422; x=1789560222;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=F7myrCA3xPiz3ZcfTIUST0TcemtCB5dR4O00mG6ydPY=;
+        b=IlHVttjyJu+BxFrnTiJmaSFIzfbOHYhf0pNBPGZz0jA+phoBpWoZN1qLiQemDjdVbt
+         IzNzdwS0WFoB3Rs3FlCMz4xnbFbspR/cK7BxStx4PZcxXGTk51E1roW/af+Cry9kejyz
+         /ESYmFPyTmV1IpKikl1OpA/wdpMUZ9XcqUE/9mf9p+01+FEHhdOZVhCtVh751Ustrmdw
+         /sf9r+X6diVNzi+HBDOcS2Dtp3Ut7bFchYG13BN/rHrK1jF+ocOmixD/Ml4YJIpKI/Na
+         X3fhge75sIjrWG5lWij8/ydV1Ykxdn04GjWz3cdmpnEXdAhkQe+Nf9SRNUTqN3AbS77S
+         53+w==
+X-Forwarded-Encrypted: i=1; AKwUvBzjq201qgevbACoYkxziqbJxQmtXQZzJ0qMVtWR6E3dTL3vh9r09FJ1X8klI8YXBokPIop/O4mQdFctjKA=@vger.kernel.org
+X-Gm-Message-State: AFuF++kjewQuidf5e1ZukT3oRGVO8xB+sRAHRNHaYKzoUUs+WTA6ZDpP
+	TxmMgbqvhFHhvOXzRL1N25NSSD6sUD564pZ1w18APSZzH9y+hngYE4KYDp9C/VMTkOHrqDesOaY
+	UD9YVwZjNQUnGIXTSGfIPiVvl0gRWLBKOC0830e4e/1O/F5IJOq3AVLvBjNnkOM1FxUk=
+X-Gm-Gg: AYBFou3KEDlEejC5l+TQVpk4bwdfYN4rl35OT89nW4VH/qkpc+M179yYHiR5OnRk9QM
+	UDZKhlzCl8WvajnJwmHNxVcXkCTMc5yf1DhVYnfZjabUVdqHs2JEayyP+pOXQLV1BUpfW4GIzxT
+	y9g8eJPIKiHcFV0HXg7WTM+QwVqUmhshVmd9FZBR+2ac/5aEK3yV1MgTohfoAni5zsjDyv7VriD
+	5OKzuzJC1bRhEAuOjVL3iEFvocwwdYfODABkojcrybxepkc34ZhnZwRf6A1grRX3sOVXOKsv6UP
+	CQOMSZFIpiSyct9qJfxZvJu3aukMe4vAPQjLoIVLbGS9iWfR6wNAZrA/5OxVX27iL4CaIdMGNLw
+	MZfBXZUSxId9QrErL1Z4zLA==
+X-Received: by 2002:a05:6820:c3c2:10b0:6b1:aff4:8e9f with SMTP id 006d021491bc7-6b71535d622mr11739854eaf.2.1788955421677;
+        Wed, 09 Sep 2026 05:03:41 -0700 (PDT)
+X-Received: by 2002:a05:6820:c3c2:10b0:6b1:aff4:8e9f with SMTP id 006d021491bc7-6b71535d622mr11739804eaf.2.1788955421251;
+        Wed, 09 Sep 2026 05:03:41 -0700 (PDT)
+Received: from [192.168.202.12] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c262f97f1a3sm586774566b.19.2026.09.09.05.03.37
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 09 Sep 2026 05:03:39 -0700 (PDT)
+Message-ID: <9416e173-7690-45ec-8c01-6ee4facf811f@oss.qualcomm.com>
+Date: Wed, 9 Sep 2026 14:03:36 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] arm64: dts: qcom: sdm845-sony-tama: enable modem
+To: Shujath Mohd <shujath@outlook.in>, Bjorn Andersson
+ <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <TYZPR01MB51313D5E4F5EE3CAF57C0876C3B12@TYZPR01MB5131.apcprd01.prod.exchangelabs.com>
+ <TYZPR01MB5131FC151BBDEDD2C6C615A3C3B12@TYZPR01MB5131.apcprd01.prod.exchangelabs.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <TYZPR01MB5131FC151BBDEDD2C6C615A3C3B12@TYZPR01MB5131.apcprd01.prod.exchangelabs.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA5MDEzNCBTYWx0ZWRfXyZcIfTtmOmaw
+ 3nu7ejW8NGkz6N68AyltjCdXc3TWgGI6QhXI3nG8kdyneS6jsbQ82hXprN6ZvJwZapZ9LQYBTFq
+ NebtNJRr5xIwo5RwFfU8K4Kk+LXkZUw=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA5MDEzNCBTYWx0ZWRfXwF6BEvoHMbiQ
+ rJRj13yCQZNJOaMfyocxVwjA1Eo3t17S+CeBtjqIVIgVSJRAbCn1Ikhrtt8qpcET33XXlxttj8+
+ aMuivTHujg//+66ReM46HuJhpEDQJu4feJc/jK2hfdZpGiL2VqslNyBh+oiQeo72RSwCkbuPTzz
+ HxOF/5gNNdKXTNk5HjJyL9fjuIY+y2fLuTbkdb1V1aJtyRisqUFmC8Ip1I8MghNMnBx0fdSDwF2
+ JBck4L/ext6Va1mA/u6ZwNnrUQcaFaGJLBB8QPP+1RoqGKOmqvn27ksh3txuppb7XbOVo0BDvnD
+ 4/GrNvTk44LM92VZAe4YoMO7rS1xJFk9g1aHziHOeycv3BxI58f7Y/NzmWiUWnl2T/ygkRqDPMw
+ v5j+iTc0IEJVU9Sw2XmAjK/o2mvXy33OoJHRCZLseWFaZS9bb31e0n+LDz7FvjYHhO3hoMxsOTF
+ Je3rouVE67SF77tJYOA==
+X-Authority-Analysis: v=2.4 cv=B6qJFutM c=1 sm=1 tr=0 ts=6aa14b1e cx=c_pps
+ a=Z3eh007fzM5o9awBa1HkYQ==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
+ a=q3xCwlIlc302ULIvI5EA:9 a=QEXdDO2ut3YA:10 a=eBU8X_Hb5SQ8N-bgNfv4:22
+X-Proofpoint-GUID: WBMVGBblItLTH-KgvXihFzpNXi36G6nK
+X-Proofpoint-ORIG-GUID: WBMVGBblItLTH-KgvXihFzpNXi36G6nK
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-08_03,2026-09-09_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 phishscore=0 spamscore=0 adultscore=0 malwarescore=0
+ bulkscore=0 clxscore=1015 impostorscore=0 lowpriorityscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609090134
 
-Three changes to the shared btmtk firmware download path, all in
-preparation for MT7928 support but useful on their own.
+On 9/8/26 3:16 AM, Shujath Mohd wrote:
+> Enable the modem remoteproc on Sony Xperia TAMA devices and provide
+> the corresponding MBA and modem firmware.
+> 
+> The modem requires ta-service to be running for proper initialization.
 
-Patch 1 bounds-checks the firmware image before the section map walk in
-btmtk_setup_firmware_79xx(). Today the section count, the section map
-array and each section's offset/length come straight out of the file and
-are never compared against fw->size, so a truncated or corrupted file
-makes the driver read past the end of request_firmware()'s buffer. The
-section count is a __le32 from the file, so on 32-bit builds multiplying
-it by the 64-byte map size wraps a size_t and a bound computed without an
-overflow check would come out small enough to accept the file; both
-helpers order their arithmetic so nothing can wrap. A section count of
-zero is rejected too, since it passes every size check but would leave
-the download loop with nothing to do and still report success.
-
-The checks live in two helpers rather than inline because the MT7928
-CBMCU download path added later needs exactly the same arithmetic and
-should not carry a second copy of it. Bounding dlsize by fw->size also
-removes an existing hazard in the download loop: dlen is computed as
-min_t(int, 250, dl_size) from an otherwise unbounded __le32, so a large
-enough value turned dlen negative and "dl_size -= dlen" then grew
-dl_size instead of shrinking it.
-
-Patch 2 makes the log line more useful: it never said which file was
-requested, it reported the firmware's own hwver field as the HW version
-rather than the device id the driver read from the chip, and it printed
-the 16-byte datetime array with %s even though the array need not be
-NUL-terminated. Both callers pass a real device id - btmtksdio reads it
-from register 0x70010200 and btusb switches on it before getting here.
-
-Patch 3 replaces the bare 1/2/3 sequence flags on BTMTK_WMT_PATCH_DWNLD
-packets with a named enum. No functional change. The other bare flag
-values in the driver belong to other WMT opcodes, where the field means
-something different, and are left alone. Paul Menzel reviewed this change
-in an earlier MT7928 series; the enum values are unchanged here, the only
-difference being a comment added above it.
-
-Testing
-=======
-
-Compile-tested with CONFIG_BT_MTK, CONFIG_BT_HCIBTUSB and
-CONFIG_BT_MTKSDIO as modules, each patch applied individually, no new
-warnings.
-
-Runtime-tested on MT7922 (USB 0e8d:223c) over repeated unplug/replug and
-Bluetooth on/off cycles; it comes up every time and the firmware download
-is unchanged:
-
-  [  365.233785] usb 1-2: New USB device found, idVendor=0e8d, idProduct=223c
-  [  365.245951] Bluetooth: hci0: Loading BT firmware: mediatek/BT_RAM_CODE_MT7922_1_1_hdr.bin
-  [  365.245956] Bluetooth: hci0: BT HW ver: 0x7922, SW ver: 0x008a, Build Time: 20260605203811
-  [  367.542038] Bluetooth: hci0: Device setup in 2244536 usecs
-  [  367.601570] Bluetooth: hci0: AOSP extensions version v1.00
-  [  367.601581] Bluetooth: hci0: AOSP quality report is supported
-
-Chris Lu (3):
-  Bluetooth: btmtk: Validate the firmware layout before parsing it
-  Bluetooth: btmtk: Improve BT firmware logging
-  Bluetooth: btmtk: Replace magic numbers with WMT packet flag enum
-
- drivers/bluetooth/btmtk.c | 92 +++++++++++++++++++++++++++++++++++-----
- drivers/bluetooth/btmtk.h |  9 ++++
- 2 files changed, 90 insertions(+), 11 deletions(-)
+A link to that would be very interesting to people reading this
+commit message in N years
 
 
-base-commit: 701ca71884b3d101fd25b7adbf972355056ef352
---
-2.45.2
+> The remoteproc firmware configuration has been verified with the
+> following firmware running:
+> 
+>   remoteproc0: mba.mbn
+>   remoteproc1: adsp.mbn
+>   remoteproc2: cdsp.mbn
+>   remoteproc3: slpi.mbn
 
+I don't quite understand what you're trying to say in this last
+paragraph, given the other remoteprocs are standalone and unrelated
+
+Konrad
