@@ -1,30 +1,30 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6C95482D4;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B8DC559CB3;
 	Wed,  9 Sep 2026 20:49:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788986996; cv=none; b=kVvf6n/ePhk4knZMdDl0QrItt1mIxvtk/Lf3TiZ37IUnSgOoBDg4UGQxFqFSOu3o2y97racmc7pwZEleQVNeXuuliduVlG3h0hGOQsX77OX/uxqHU6B9/x73hCKYLmZm1TuhYkrWvNfplDxg/HRDgp8cbtI7AURS5+ryxy01kJE=
+	t=1788986994; cv=none; b=jU++mOTvmHjWmPIjAeB1OpHwhapJzUnUYb8Cplhn/3V3x07uJGPF2+q7T/3EJeMRuNrOqgZNidFlIKDsi6sx+t2cD0ZDWd1K+RkKhRmE0Z9JQscIIDrYDuhIO/ic9BTTTQrrQoSH6w3SUDHWUEuxCoCb4R1LTKHyvL3z4E0ID94=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788986996; c=relaxed/simple;
-	bh=Az6R6HSt2zg5EvIM6TeasZD548ZeBo/zw10xbogSfq4=;
+	s=arc-20240116; t=1788986994; c=relaxed/simple;
+	bh=+/c27T920kBCdmxGv5fLETrRsiIAYcQsxC/xLBTVVI0=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=miKh7M4Gk9DEMzoKaqUsFNozP5ABcHqY7e4qSgF7RiiGgucb1ay79gSFPKvugUE+bWCftStTJ0n14o9fJTeee3ADdCeX1d4yx3UId9TcPbYPaeX87MrMNZMeyqXUwH9JLuhcKggLmN+V/AURz1D/k7zhCYa05Hx7sgdkZrqBRo8=
+	 MIME-Version:Content-Type; b=QDGa4jFl6OME2H5nuITz/A0P8E/qFVkdhIyIenb3jf85sfas7SS1p/8Hk/q3fcCXrVMjK2VrSmlN26u/8fc/svB+rTTxQMYDq2KzzG6TGu/4OkfrdeIbjxsiwjY071mqNPnpROVQT4BKCKYnyK/3KkzouzzPO0FlwHRGySUHdAc=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A0991F008A0;
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2B1CC1F008A1;
 	Wed,  9 Sep 2026 20:49:35 +0000 (UTC)
 Received: by venus (Postfix, from userid 1000)
-	id 1E0E4183381; Wed, 09 Sep 2026 22:49:32 +0200 (CEST)
+	id 15319183380; Wed, 09 Sep 2026 22:49:32 +0200 (CEST)
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
-To: Sebastian Reichel <sre@kernel.org>, Tony Lindgren <tony@atomide.com>, 
- Mark Greer <mgreer@animalcreek.com>, Liam Breck <kernel@networkimprov.net>, 
- Ryan Brue <ryanbrue.dev@gmail.com>
-Cc: linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20260908-rbrue-suez-upstreaming-bq24190_charger-use-wake-irq-api-v1-1-c3f10ae2a34a@gmail.com>
-References: <20260908-rbrue-suez-upstreaming-bq24190_charger-use-wake-irq-api-v1-1-c3f10ae2a34a@gmail.com>
-Subject: Re: [PATCH] power: supply: bq24190_charger: use the wake irq API
-Message-Id: <178898697211.883277.12562040233246462716.b4-ty@b4>
+To: linux-pm@vger.kernel.org, Fan Wu <fanwu01@zju.edu.cn>
+Cc: sre@kernel.org, pali@kernel.org, songl@zju.edu.cn, 
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+In-Reply-To: <20260903081312.225535-1-fanwu01@zju.edu.cn>
+References: <20260903081312.225535-1-fanwu01@zju.edu.cn>
+Subject: Re: [PATCH] power: supply: bq27xxx: Ensure poll work is cancelled
+ on remove
+Message-Id: <178898697207.883277.5505684330129247481.b4-ty@b4>
 Date: Wed, 09 Sep 2026 22:49:32 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -37,21 +37,25 @@ Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.16.0
 
 
-On Tue, 08 Sep 2026 00:35:58 -0500, Ryan Brue wrote:
-> bq24190_probe() calls enable_irq_wake() on the charger interrupt and
-> never calls disable_irq_wake(). That is wrong in three ways.
+On Thu, 03 Sep 2026 08:13:12 +0000, Fan Wu wrote:
+> The di->work poll work is queued from the poll callback itself and from
+> bq27xxx_external_power_changed(). The cancel_delayed_work_sync() in
+> bq27xxx_battery_teardown() runs while the power_supply is still
+> registered, so external_power_changed() can re-arm the work after the
+> cancel, and it runs after the driver data has been freed.
 > 
-> It is unbalanced. free_irq() does not touch desc->wake_depth -- only
-> irq_set_irq_wake() does -- so after the driver is unbound the descriptor
-> is still one wake reference deep and the irqchip is still configured for
-> wake, forever, for an interrupt nobody owns any more.
+> Register a devm_delayed_work_autocancel() before
+> devm_power_supply_register(), so on unwind the power_supply is
+> unregistered first, after which no new external_power_changed()
+> callback can be dispatched, and the poll work is cancelled only then.
+> Drop the now-redundant cancel from bq27xxx_battery_teardown().
 > 
 > [...]
 
 Applied, thanks!
 
-[1/1] power: supply: bq24190_charger: use the wake irq API
-      commit: 00465cb99af254dee479be51b793a49a0af442bf
+[1/1] power: supply: bq27xxx: Ensure poll work is cancelled on remove
+      commit: b90fd101324ca12494a65bd8d2e749883551962d
 
 Best regards,
 -- 
