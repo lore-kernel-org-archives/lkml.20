@@ -1,111 +1,302 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23C7744A3E2
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 09:06:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 314864915A5;
+	Wed,  9 Sep 2026 09:06:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788944784; cv=none; b=Ewv1PxUvqe0T3gP4C1AeKPoBoiLDHFRfdqDEUR7lYPPTT1IOyzic7Tqw5XlTNyt5GHgRYM+aPfmadd7svVJ+I1n8+uxg88mYYEGxKLelw5XTjOz5cKCecL8iM9OGoZCM4TJ9eI2pESX4YfbxxdlB5/yc+I30NYPuaU3hSB4liTo=
+	t=1788944783; cv=none; b=r+urKTED5mRx8LM7Ss8vl/ImvtMMadAYjfAce7eGP5zAViQEm9cS5izti9vbJuftqoSBVGlbn+FLd3kBAQhMQxPuMoznV5+96464O5COBixP8ALlT8J7YkpH4rB5q8sYviiDeXQylfr68naOY7mBsRm88h7telxq5+F+J0r68vA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788944784; c=relaxed/simple;
-	bh=kjC7zFmvS6+Z0Su5AyND9tbS4+QZuh6pAhX8y/gfjkk=;
-	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=mi6pnWSSsLO8qmcQdmzd/5CoYwk5i2y+qovG6gXozv2Pg6NCorT9kNKXhdNqioTNEQSrT/s6XuULRUcFErWEmHSgtbsNu2eVISlShBvAv9s/bj5Pg8kXLju5egz65vqAMf+5IGS8LjH9AkZw5zAtO05KQlHfLseY3nS9RkY/Qsc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QXm2dDTq; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788944783; c=relaxed/simple;
+	bh=JlSn9YddP+JeE4YK154QhRxhqOrvmvs2k/nVLpKzUxU=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=oNjZIuv8Xiq0PGnP0Xzdu8oJ0Tub1BIM+VHd/Y9FABb1tEkoa1DBrCPjh3o+lWz0h7mljsz+6VciUr6wG/6KRoxuohJNwf4VcP2vTr2jGj97DCMr26bpgGZ45kjdD+eNH+c1FraOQoYd/U12PVcNg8/ZeZBz5Y8x+IcrH6Mjtmc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RA3c3I9g; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QXm2dDTq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AF7601F0155D
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 09:06:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RA3c3I9g"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4DCC31F00A3D;
+	Wed,  9 Sep 2026 09:06:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788944781;
-	bh=dii2jE7C72W2ski5o7RHBY8kSMlzb7654UkI7tfR0PE=;
-	h=From:In-Reply-To:References:Date:Subject:To:Cc;
-	b=QXm2dDTqlawpzUKdH2+SNJMCzqg70ZPHzpXImpE35OqvKbcWRXUTLibBkb+G4xDlz
-	 dzLJsh7eoIz1A2jwF3kWkyb/N3kPfQReyR3aR/MnFAGQGgpQl90VcITXo82+oLzKEU
-	 Kz+5jY9YNszGfKfeK0XkcOEXOZVtNEReOZPdQHmyzHBt0zbBGJQBOjpydNXmgo+sA2
-	 It8cpdRykkukGN/OvO4uMKqDs4gWwJNm4hZtmNR6z4gI1N0u3SZmE0JLfSXbrUtgI6
-	 f+cwqkR1SQ1sES5sZPGZQe6m9pz/Q8RKnHyf1oxkzyWtcxgrpNE7h31Aao313JlkWz
-	 EMiSTFZznYieQ==
-Received: by mail-lf1-f42.google.com with SMTP id 2adb3069b0e04-5b4adcce4b1so5090670e87.1
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 02:06:21 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvByphOzYfB0qndcwrJy6H/9q4xC0NItOejB7EkXEPQkSnhEWfQLbu2xA5ba9Gu7cU8LgSjPDeDudE8O+DBA=@vger.kernel.org
-X-Gm-Message-State: AFuF++mU0+PfQalwcjRCZSVa/H/AS86lbFsUtlKqjihDF2rvkMIlXbGC
-	Hg6+PwVhBwjBJbD1/fIUMaxy9WzVNyZeofTuoKxsyQ/D6oKOHL+lc/kI8mTcBiB+xHPc6i8vWxw
-	K6FbpvmUg1gVeM274xiGN7wITtCYgjrrRDr1cm8d4IQ==
-X-Received: by 2002:a05:6512:2392:b0:5b6:19e9:faee with SMTP id
- 2adb3069b0e04-5b619e9feadmr9372101e87.7.1788944780379; Wed, 09 Sep 2026
- 02:06:20 -0700 (PDT)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 9 Sep 2026 02:06:18 -0700
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 9 Sep 2026 02:06:18 -0700
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <20260909080114.591938-5-herve.codina@bootlin.com>
+	s=k20260515; t=1788944780;
+	bh=FAL7Dm/W/QsCfNk7BhIHNon+A3YKI7/DuwahG4heNEg=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=RA3c3I9gVha2tIGXnRf8zpXDbn11dDXIrZs0Zycy2fMTaIuZrY/7JgcuToFtW4tQA
+	 A0hyt+rQ2W0ik2DAUsw+2u7qBeiCpP3bt5cpi9N9BIZmWTYNDuSCWL9gXhfZL+Suf5
+	 s4ACVjilcUwbkxEc0ywteTlvTjN9OsPAW/N7inbLcg1VnRmcWl1P2LoEm/K6UMTOxX
+	 Ooa2aWpVgGtHLnliGERUD1HIBT3qHnGIuteCVhOo/4EkmedAasmZNV+96Bj+xIGDkP
+	 7ryekKcn6RmX+Rphu6WmXQZZtJVRiT97ipbChU/LPhGByFcsdw3aJ58lkISGCQug9u
+	 szi9BycGicslA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] drm/msm: split DPU core IRQ handler under
+ CONFIG_PREEMPT_RT
+Reply-To: sashiko-reviews@lists.linux.dev
+To: vishnu.saini@oss.qualcomm.com
+Cc: linux-rt-devel@lists.linux.dev, linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org
+In-Reply-To: <20260909-drm-mis-next-split-irq-v1-1-89bc9c512c53@oss.qualcomm.com>
+References: <20260909-drm-mis-next-split-irq-v1-1-89bc9c512c53@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 09 Sep 2026 09:06:19 +0000
+Message-Id: <20260909090620.4DCC31F00A3D@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260909080114.591938-1-herve.codina@bootlin.com> <20260909080114.591938-5-herve.codina@bootlin.com>
-Date: Wed, 9 Sep 2026 02:06:18 -0700
-X-Gmail-Original-Message-ID: <CAMRc=MfqMBixhXHVmYhdpGc6BU7M+rrs8EQ_j+q3hbotkqCjEw@mail.gmail.com>
-X-Gm-Features: AcwNN1XGS28aCCiZZDD6zMMd556ezTre_MtLVw34sLu2zEhsTocTiN_vEfjyNZM
-Message-ID: <CAMRc=MfqMBixhXHVmYhdpGc6BU7M+rrs8EQ_j+q3hbotkqCjEw@mail.gmail.com>
-Subject: Re: [PATCH v11 04/10] cxl/test: Use device_set_node()
-To: Herve Codina <herve.codina@bootlin.com>
-Cc: driver-core@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	linux-pci@vger.kernel.org, linux-sound@vger.kernel.org, 
-	patches@opensource.cirrus.com, linux-gpio@vger.kernel.org, 
-	linux-acpi@vger.kernel.org, linux-cxl@vger.kernel.org, 
-	Allan Nielsen <allan.nielsen@microchip.com>, Horatiu Vultur <horatiu.vultur@microchip.com>, 
-	Daniel Machon <daniel.machon@microchip.com>, Steen Hegelund <steen.hegelund@microchip.com>, 
-	Luca Ceresoli <luca.ceresoli@bootlin.com>, Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
-	Jonathan Cameron <jonathan.cameron@huawei.com>, Richard Cheng <icheng@nvidia.com>, 
-	Andrew Lunn <andrew@lunn.ch>, Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
-	Danilo Krummrich <dakr@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, 
-	Charles Keepax <ckeepax@opensource.cirrus.com>, 
-	Richard Fitzgerald <rf@opensource.cirrus.com>, David Rhodes <david.rhodes@cirrus.com>, 
-	Linus Walleij <linusw@kernel.org>, Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
-	Daniel Scally <djrscally@gmail.com>, Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
-	Sakari Ailus <sakari.ailus@linux.intel.com>, Bartosz Golaszewski <brgl@kernel.org>, 
-	Len Brown <lenb@kernel.org>, Davidlohr Bueso <dave@stgolabs.net>, Jonathan Cameron <jic23@kernel.org>, 
-	Dave Jiang <dave.jiang@intel.com>, Alison Schofield <alison.schofield@intel.com>, 
-	Vishal Verma <vishal.l.verma@intel.com>, Dan Williams <djbw@kernel.org>, 
-	Ira Weiny <iweiny@kernel.org>, Li Ming <ming.li@zohomail.com>, Lizhi Hou <lizhi.hou@amd.com>
-Content-Type: text/plain; charset="UTF-8"
 
-On Wed, 9 Sep 2026 10:01:03 +0200, Herve Codina <herve.codina@bootlin.com> said:
-> The code set directly dev->fwnode.
->
-> Use the dedicated helper to perform this operation.
->
-> Signed-off-by: Herve Codina <herve.codina@bootlin.com>
-> Reviewed-by: Dave Jiang <dave.jiang@intel.com>
-> Reviewed-by: Jonathan Cameron <jonathan.cameron@huawei.com>
-> Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-> Reviewed-by: Richard Cheng <icheng@nvidia.com>
-> ---
->  tools/testing/cxl/test/cxl.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/tools/testing/cxl/test/cxl.c b/tools/testing/cxl/test/cxl.c
-> index 62bd92b3be45..547ebc97bf59 100644
-> --- a/tools/testing/cxl/test/cxl.c
-> +++ b/tools/testing/cxl/test/cxl.c
-> @@ -1677,7 +1677,7 @@ static void mock_companion(struct acpi_device *adev, struct device *dev)
->  {
->  	device_initialize(&adev->dev);
->  	fwnode_init(&adev->fwnode, NULL);
-> -	dev->fwnode = &adev->fwnode;
-> +	device_set_node(dev, &adev->fwnode);
->  	adev->fwnode.dev = dev;
+Thank you for your contribution! Sashiko AI review found 5 potential issue(=
+s) to consider:
+- [Critical] Setting `IRQF_NO_THREAD` for backends without `irq_thread` for=
+ces them into hardirq context on PREEMPT_RT, causing kernel panics.
+- [High] Race condition in threaded IRQ handler leading to NULL pointer der=
+eference or Use-After-Free on PREEMPT_RT.
+- [High] Acquiring sleepable `spinlock_t` inside `raw_spinlock_t` on non-RT=
+ kernels violates wait-context rules, triggering lockdep splats.
+- [High] `dpu_core_irq_read()` reads hardware registers directly without ch=
+ecking `irq_pending_mask`, causing fault recovery loops to falsely timeout =
+on PREEMPT_RT.
+- [Medium] Primary IRQ handler incorrectly returns `IRQ_NONE` after clearin=
+g masked interrupts, risking permanent IRQ disablement.
+--
+
+commit de5a98b2b15837b087edf7ff28d14a0650953129
+Author: Naman S Thaker <namathak@qti.qualcomm.com>
+Subject: drm/msm: split DPU core IRQ handler under CONFIG_PREEMPT_RT
+
+This commit splits dpu_core_irq() into a minimal hardirq handler and a new
+dpu_core_irq_thread() to dispatch per-encoder callbacks on PREEMPT_RT
+kernels. It also changes irq_lock to raw_spinlock_t and drops IRQF_NO_THREAD
+where threaded handlers are not implemented.
+
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c b/drivers/=
+gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c
+> index 5b7cd5241f450..95b016e8d7df1 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c
+> @@ -322,6 +322,52 @@ static void dpu_core_irq_callback_handler(struct dpu=
+_kms *dpu_kms, unsigned int
+>  	irq_entry->cb(irq_entry->arg);
 >  }
->
-> --
-> 2.55.0
->
+> =20
+> +/*
+> + * dpu_core_irq_dispatch() runs the fired bits for @reg_idx through their
+> + * registered callbacks directly. Only used on non-PREEMPT_RT kernels, w=
+here
+> + * dpu_core_irq() itself is allowed to take the sleepable locks reached =
+via
+> + * those callbacks.
+> + */
+> +static void dpu_core_irq_dispatch(struct dpu_kms *dpu_kms, int reg_idx, =
+u32 irq_status)
+> +{
+> +	unsigned int irq_idx;
+> +	int bit;
+> +
+> +	/*
+> +	 * Search through matching intr status.
+> +	 */
+> +	while ((bit =3D ffs(irq_status)) !=3D 0) {
+> +		irq_idx =3D DPU_IRQ_IDX(reg_idx, bit - 1);
+> +
+> +		dpu_core_irq_callback_handler(dpu_kms, irq_idx);
+
+[Severity: High]
+On non-RT kernels, this dispatch happens while holding the raw_spin_lock=20
+acquired in dpu_core_irq(). Does this violate wait-context rules?
+
+The dispatched callbacks (e.g., DRM vblank event handlers) acquire standard
+spinlock_t locks. Acquiring a spinlock_t (wait context LD_WAIT_CONFIG) while
+holding a raw_spinlock_t (wait context LD_WAIT_SPIN) constitutes an invalid
+wait context and triggers a lockdep splat on non-RT kernels.
+
+[ ... ]
+
+> @@ -332,16 +378,14 @@ irqreturn_t dpu_core_irq(struct msm_kms *kms)
+>  	struct dpu_kms *dpu_kms =3D to_dpu_kms(kms);
+>  	struct dpu_hw_intr *intr =3D dpu_kms->hw_intr;
+>  	int reg_idx;
+> -	unsigned int irq_idx;
+>  	u32 irq_status;
+>  	u32 enable_mask;
+> -	int bit;
+> -	unsigned long irq_flags;
+> +	bool wake_thread =3D false;
+> =20
+>  	if (!intr)
+>  		return IRQ_NONE;
+> =20
+> -	spin_lock_irqsave(&intr->irq_lock, irq_flags);
+> +	raw_spin_lock(&intr->irq_lock);
+>  	for (reg_idx =3D 0; reg_idx < MDP_INTR_MAX; reg_idx++) {
+>  		if (!test_bit(reg_idx, &intr->irq_mask))
+>  			continue;
+> @@ -363,6 +407,52 @@ irqreturn_t dpu_core_irq(struct msm_kms *kms)
+>  		if (!irq_status)
+>  			continue;
+
+[Severity: Medium]
+Will this lead to the generic IRQ subsystem permanently disabling the displ=
+ay
+IRQ line?
+
+If an interrupt fires but is filtered out by enable_mask, the hardware
+interrupt is actively cleared a few lines above this, but irq_status
+becomes 0, meaning the loop continues and wake_thread remains false.
+
+> =20
+> +		if (IS_ENABLED(CONFIG_PREEMPT_RT)) {
+> +			dpu_core_irq_defer_to_thread(intr, reg_idx, irq_status);
+> +			wake_thread =3D true;
+> +		} else {
+> +			dpu_core_irq_dispatch(dpu_kms, reg_idx, irq_status);
+> +		}
+> +	}
+> +
+> +	/* ensure register writes go through */
+> +	wmb();
+> +
+> +	raw_spin_unlock(&intr->irq_lock);
+> +
+> +	if (IS_ENABLED(CONFIG_PREEMPT_RT))
+> +		return wake_thread ? IRQ_WAKE_THREAD : IRQ_NONE;
+
+[Severity: Medium]
+(Continued from above)
+On PREEMPT_RT, returning IRQ_NONE after actively clearing a masked interrupt
+falsely tells the generic IRQ subsystem that the interrupt was unhandled.
+This could cause the spurious interrupt detector to disable the IRQ line.
+
+> +
+> +	return IRQ_HANDLED;
+> +}
+> +
+> +#ifdef CONFIG_PREEMPT_RT
+> +/*
+> + * dpu_core_irq_thread() runs in a genuine preemptible IRQ thread (woken=
+ via
+> + * IRQ_WAKE_THREAD from dpu_core_irq() above), so it's safe for it -- an=
+d the
+> + * per-encoder callbacks it dispatches to -- to take spinlock_t/rt_mutex
+> + * locks such as enc_spinlock, dpu_crtc::spin_lock, and the various DRM-=
+core
+> + * locks reached via vblank/CRC/writeback handling.
+> + */
+> +irqreturn_t dpu_core_irq_thread(struct msm_kms *kms)
+> +{
+> +	struct dpu_kms *dpu_kms =3D to_dpu_kms(kms);
+> +	struct dpu_hw_intr *intr =3D dpu_kms->hw_intr;
+> +	int reg_idx;
+> +	unsigned int irq_idx;
+> +	u32 irq_status;
+> +	unsigned long irq_flags;
+> +	int bit;
+> +
+> +	if (!intr)
+> +		return IRQ_NONE;
+> +
+> +	for (reg_idx =3D 0; reg_idx < MDP_INTR_MAX; reg_idx++) {
+> +		raw_spin_lock_irqsave(&intr->irq_lock, irq_flags);
+> +		irq_status =3D intr->irq_pending_mask[reg_idx];
+> +		intr->irq_pending_mask[reg_idx] =3D 0;
+> +		raw_spin_unlock_irqrestore(&intr->irq_lock, irq_flags);
+> +
+>  		/*
+>  		 * Search through matching intr status.
+>  		 */
+
+[Severity: High]
+Does this leave the callback dispatch completely unprotected from concurrent
+modifications?
+
+Since raw_spin_unlock_irqrestore() is called before iterating over the bits,
+the callback pointers can be concurrently set to NULL by
+dpu_core_irq_unregister_callback() (which acquires irq_lock).=20
+
+This allows the callback pointer to be zeroed between the check and executi=
+on
+in the thread, which could lead to a deterministic NULL pointer dereference.
+Furthermore, if the caller frees the callback context immediately after
+unregistering, it causes a Use-After-Free since no synchronization prevents
+the thread from executing the concurrently running callback.
+
+[ ... ]
+
+> @@ -554,7 +640,7 @@ u32 dpu_core_irq_read(struct dpu_kms *dpu_kms,
+>  		return 0;
+>  	}
+> =20
+> -	spin_lock_irqsave(&intr->irq_lock, irq_flags);
+> +	raw_spin_lock_irqsave(&intr->irq_lock, irq_flags);
+> =20
+>  	reg_idx =3D DPU_IRQ_REG(irq_idx);
+>  	intr_status =3D DPU_REG_READ(&intr->hw,
+> @@ -567,7 +653,7 @@ u32 dpu_core_irq_read(struct dpu_kms *dpu_kms,
+>  	/* ensure register writes go through */
+>  	wmb();
+> =20
+> -	spin_unlock_irqrestore(&intr->irq_lock, irq_flags);
+> +	raw_spin_unlock_irqrestore(&intr->irq_lock, irq_flags);
+> =20
+>  	return intr_status;
+>  }
+
+[Severity: High]
+Could this result in false timeout errors on PREEMPT_RT?
+
+dpu_core_irq_read() is used by driver wait paths to verify if a hardware ev=
+ent
+fired but the software callback was delayed. Because it reads the hardware
+register directly (which reads as 0 because the hardirq already cleared it)
+and ignores the new irq_pending_mask, it could falsely conclude that the
+interrupt never fired.
+
+[ ... ]
+
+> diff --git a/drivers/gpu/drm/msm/msm_kms.c b/drivers/gpu/drm/msm/msm_kms.c
+> index e5d0ea6294484..f7d045f283ad9 100644
+> --- a/drivers/gpu/drm/msm/msm_kms.c
+> +++ b/drivers/gpu/drm/msm/msm_kms.c
+> @@ -76,7 +90,25 @@ static int msm_irq_install(struct drm_device *dev, uns=
+igned int irq)
+> =20
+>  	msm_irq_preinstall(dev);
+> =20
+> +#ifdef CONFIG_PREEMPT_RT
+> +	/*
+> +	 * Some KMS backends (e.g. dpu1) split their handler into a minimal
+> +	 * hardirq primary handler that only acks hardware and a threaded
+> +	 * handler that does the actual (sleep-capable) callback dispatch.
+> +	 * IRQF_ONESHOT keeps the primary handler running as a true hardirq
+> +	 * even under PREEMPT_RT's forced-threading (see
+> +	 * irq_setup_forced_threading() in kernel/irq/manage.c), the same
+> +	 * property IRQF_NO_THREAD gives the backends that don't split their
+> +	 * handler and must run their whole ->irq() in hardirq context.
+> +	 */
+> +	if (kms->funcs->irq_thread)
+> +		ret =3D request_threaded_irq(irq, msm_irq, msm_irq_thread,
+> +					   IRQF_ONESHOT, dev->driver->name, dev);
+> +	else
+> +		ret =3D request_irq(irq, msm_irq, IRQF_NO_THREAD, dev->driver->name, d=
+ev);
+
+[Severity: Critical]
+Will setting IRQF_NO_THREAD force legacy backends into hardirq context on
+PREEMPT_RT, causing kernel panics?
+
+The patch sets IRQF_NO_THREAD for legacy KMS backends (e.g., MDP5, MDP4)
+because they don't implement the new irq_thread callback. However, this
+explicitly disables forced-threading on PREEMPT_RT. Because these legacy
+handlers acquire standard spinlock_t locks (which are sleepable rt_mutexes
+on RT), running them strictly in hardirq context is invalid and will result
+in a "scheduling while atomic" crash.
+
+> +#else
+>  	ret =3D request_irq(irq, msm_irq, 0, dev->driver->name, dev);
+> +#endif
+>  	if (ret)
+>  		return ret;
 >
 
-Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260909-drm-mis-ne=
+xt-split-irq-v1-1-89bc9c512c53@oss.qualcomm.com?part=3D1
