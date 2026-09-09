@@ -1,117 +1,107 @@
-Received: from mail-qv2-f11.google.com (mail-qv2-f11.google.com [74.125.230.139])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00B5C563FBD
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7858568FA3
 	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 15:25:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.139
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788967547; cv=pass; b=LS84MN/mg2A/lxVGo4i7Kvv66sR/AMW1qEu6Z9/1HE6WYh4RS40TdH0Q310lXAXOkqWcjOo+goahiIrv+/IugSWZbqlSeOXSqHUtznUqiogRE2S+qScZVWoPKedj+EFguB4Udid4N6/btn690Bfejh2eCrRALAH1NglhzSai2oU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788967547; c=relaxed/simple;
-	bh=0/Jm5DAY3AamN+rYMx+HuqizbAknGGFn26W9uqNpDbc=;
-	h=MIME-Version:From:In-Reply-To:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=L2ePGtJWCn6nuK3LaG6yU7Tg3xDfFGSGeKUw8GkYzWqOy7AV4BGeIhcst9aveGx1H8ynrwyXkWxZMyhWegROGhzciHaX8nqf06bCXKBMClB5ASZt74BHB7RJbP1ckYVREGwGhFh8ohEyBPA2hhOcW1jaeZf3ehcKX8oCE2YhIi4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=tIEbJ3tU; arc=pass smtp.client-ip=74.125.230.139
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788967548; cv=none; b=cyL8DO0hcg7hMf4cySX6tXB7J4+mBjQx0vlahn29vZtvi//HIUNFO8aJogTP/GnW/2YLt0GTDYYxdhulqrVt1hAoKCh8f0rIW9WafJyycohAFYCPaqkaeMXf5DFk0cMAFxusV/YsPjawV7rm22kvOT8UZIZLTqqgCdjcweWai8c=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788967548; c=relaxed/simple;
+	bh=wF3BelC3fQbE50LcH0Wozkm3LosMdn9MD0O1Zl+nCQo=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=N0Q6ofy6fKO4Zjro0RYB7xArB/o4eOWajyGW9aXjiOHIz/kINJQMLAnEcwhPNaaNo0axVTFzzVtX5HiCgN6eWQyvDiJtUKs6nDsMGRvOoI2p/b4y9gvEpJX3c6VHdE7eOJb1dP56X+Pp+lQP1+LIz6mIlIp3niwcPT9MaF/NHFE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=ogFH0pXI; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="tIEbJ3tU"
-Received: by mail-qv2-f11.google.com with SMTP id 6a1803df08f44-9105342b2d3so25964486d6.1
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 08:25:45 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788967545; cv=none;
-        d=google.com; s=arc-20260327;
-        b=DdI0e03V3Akn+PMDJNTNLRCY6jYzGJyb+rvxYjB0JWgbVPqjTHiMPPb2Nemr348nU/
-         Bg1iboK+vVLfBsMuQSWTtI1BfRLf2G5feH8eDEPpP9Ux0mS1JhR05QvHPNwWcrLzASzZ
-         a8Flf6w+MtXLtOqZwTKJW0FhpexyP4FZxHKF3AZKVCBkbkZYcatYMTYsnul1TVCulRtD
-         LwpYD6g/qIJrIZvuQq6fzxsExw5TdeTJSEN2yx109r/rZyDOSLe5gm1ZYHSVHJw0Y0aV
-         sCBHQyJH17E03ZXt/VYjm6cg0N+ohsmgRqAzPNT/2C9Xf1itoc8pbUK++M2TY9Q047fb
-         vzqQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:references:in-reply-to:from
-         :mime-version:dkim-signature;
-        bh=0/Jm5DAY3AamN+rYMx+HuqizbAknGGFn26W9uqNpDbc=;
-        fh=CJJJkDaK5p18E99at8eE2ugLaYJII3eokrW6RfEKecw=;
-        b=g9K0eFDxE8YfulSWwYn9Q0YTm7bqef+fdZSPhYPjWZZK872ZjuaQdZIDEBvxl9IC9V
-         K6cPbIb1MTiYm1J745+UVNMvi48/ePVPd+9NDLuikY0tgZ7nO67KvxNHTOmAwwIQzs4s
-         k0lZZp3E+IQcwc8yfyM9vDp3RJxNPUIYlBk1wLT2bmfxpgp53n6D506MjNGLATIUpKd4
-         SEA4vbW1zoRkNDcjyr1B7T/aSJFnk3quXYgQ4tjCioaOkpZlotNs/IBR9B0Fe9BBASYt
-         AJs4i4Scor8HWpR+MNH1QZE8DBNDhVWjmcpF0SHKg2us2AmkLwSkelvmHU1MX5tj66Os
-         t8WA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788967545; x=1789572345; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:references:in-reply-to
-         :from:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=0/Jm5DAY3AamN+rYMx+HuqizbAknGGFn26W9uqNpDbc=;
-        b=tIEbJ3tULppdr2+syxuOlfIdUs5O59slsP7c1p0TUBt80qrIVX+FykF2VS3ukP6iw/
-         zuBHCzALAh+9l/QqqPphFzIWHNhF1W/sAWPdthS6/UUUyLVfumQ3sXz7N0y8QjwWq1Pq
-         Gu+PxDdXf4M7xbhOgx4Wdj0k4kZYPPM6esb0FjBMPFvjsE/a5110DG+C41zwOhLdfXcL
-         NQmytweFASB7ltcbXWSSjAS/cc9nV5WqMRq/QzkHPEIauEmpb5GAPv69WP7YukB5JHDz
-         njd8fXZFh0IOf3qYw+DOe6eCTSHUSyKDN7k1V4HIduQEbiUWP5oCjUtAmQxswtr1y3Sc
-         0kcQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788967545; x=1789572345;
-        h=content-type:cc:to:subject:message-id:date:references:in-reply-to
-         :from:mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=0/Jm5DAY3AamN+rYMx+HuqizbAknGGFn26W9uqNpDbc=;
-        b=BKfPH6XWZIuAqX1Nvbr5CZfDkODl4TOtc6TdnZaPVasEYMMt9zgXSpDJxV9/N03Z7K
-         nkIDhlF4moUJCDSIDMwwV6F/QjG8Co13kxAqD1eqUB3Jzi46j37pMi/5M6hDnaamAGax
-         J4dq+74U0wcehbr4Txs9ztWItFpuEbky186NPvC6DGQuuIFW0vstY+r6iKJIpDGi1RJm
-         hY5akwTj3YsOCd2hsb42uRxyz7sgSDDdQapA2BuZjBeSOn2SO7DIFyn1oZY2u2y/kfbf
-         uC6unnsLVJJ327pDS+xh9MgiWjF2xwcdpSoV/AOOpT+2f+96VuwA60j3L5Sg7rMfbHHJ
-         IuCQ==
-X-Forwarded-Encrypted: i=1; AKwUvBy1laNeMX+vkeia963kXZCBpCIvxeRk6yZKu17NjkaQ2MJ83EvJouudjbVe+7TOJQ/zqQyvPLH2EJSQc0Y=@vger.kernel.org
-X-Gm-Message-State: AFuF++mnGxMfieEuMG6HeHS0ljRjR574d3iFJ7CBzlGCTWgcZOTpqELr
-	qcNIDB5LrBbRrTol4NG3ooquG8Ir8hbWlvAfkBA1WmLqfpIABZVVMgzmcAbWuyLb1l8b1ixnR+W
-	8MpaRsCPJoNIs4vdwCf/7AuHrIH1AUBo=
-X-Gm-Gg: AYBFou0p3WeLX3HlXmQym8fk8a+76DLWFmoFsisClixzGEOdDKPs7XwR4UHVGBtv9DU
-	QoGN8OIeTzfBEGRifFCPDylu8v+bSmewciJMIm1cji1YyUyYDurh0+mweJF8tdUa7SaDnnSTMGt
-	QCW3mNoNZ/wnPfSJwm2ZE9o0EepXNG7ZvINfE3NnY8pfRb4OwPq6jNw6LQZg2Il9VFaE+Y5WZUt
-	fuoHAkmtt8YjAVFyjPZYZ6Hm6sC/VlQn02UGvXXuRliEpyCB9NguZ8+QXTwf3ycco3gFANmC2im
-	GC3kdYPEq9Rw1yKQgcQDMw9ZUYPn2LzNiqbzmoowfAVPei3rzN6KjA==
-X-Received: by 2002:a05:6214:3f83:b0:910:49d1:3a7d with SMTP id
- 6a1803df08f44-9106b371d12mr101320656d6.3.1788967544656; Wed, 09 Sep 2026
- 08:25:44 -0700 (PDT)
-Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
- Wed, 9 Sep 2026 08:25:43 -0700
-Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
- Wed, 9 Sep 2026 08:25:43 -0700
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="ogFH0pXI"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 410B14E41592;
+	Wed,  9 Sep 2026 15:25:44 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 1527A60448;
+	Wed,  9 Sep 2026 15:25:44 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id BA7F211C7AF57;
+	Wed,  9 Sep 2026 17:25:35 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1788967543; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding; bh=T95E4GAuXTPY8HSzjhtUtKCCAYBOzAsqRYeg4LelSjw=;
+	b=ogFH0pXIB1GSItIDUyyXqn6rIQdcFAn9ErAUrOBGobEXh51w0AF3JNYogwbKuu8JQsOR/U
+	x+sQVLE3aV/6/JNs3xDJD1CTTKohVcbECHH5UaqXXTYBPNAhqYc1vJETvXDPje1Qe5whmR
+	dhLhTMfBLQzqWfaIEaAnQGFGVCcRwLY8QvIoL9ou4ejH6flN1/jIY2BnyysSpJHpfNXz3m
+	PuBBxY5X2z31T1Iici04D3e3uEHuCukv23DjwlZK1drXRSVx7FWdhz3OZtR4/SpffWccyl
+	zqX+fuwjy4fuu3s0w8ek0rm7OIkpWUIdeEvuMKWuXnqjCtVpuMf/TsJOtYeRgQ==
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+Subject: [PATCH 00/25] mtd: spi-nor: winbond: Cleanup JW family, add
+ support for PW chips
+Date: Wed, 09 Sep 2026 17:25:31 +0200
+Message-Id: <20260909-winbond-master-spi-nor-jw-cleanup-pw-addition-v1-0-c1b20c39dd1f@bootlin.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-From: Tianyi Chen <diannaaav@gmail.com>
-In-Reply-To: <CACGbirQ-xfWymbY9Z440sjbUseLRuaPFT17mBAwddeN7wqVi-w@mail.gmail.com>
-References: <CACGbirQ-xfWymbY9Z440sjbUseLRuaPFT17mBAwddeN7wqVi-w@mail.gmail.com>
-Date: Wed, 9 Sep 2026 08:25:43 -0700
-X-Gm-Features: AcwNN1XbctJykLIajwUrOJ8N0MtuRTsipdzh4r2QkiO3ZZ9AV0_gzwQwPujw2hI
-Message-ID: <CACGbirTmyi0LHZEr4xOwg_WgFALarFVPMm7JhHBbXwG10PF3KQ@mail.gmail.com>
-Subject: Re: [PATCH v2 RESEND] selftests/sched_ext: Validate select_cpu_and
- mask constraints
-To: Tejun Heo <tj@kernel.org>
-Cc: Shuah Khan <shuah@kernel.org>, sched-ext@lists.linux.dev, 
-	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Tianyi Chen <diannaaav@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3NwQrCMAyA4VcZORvYqi3TV5Ed6ho1omlJphXG3
+ t3i8b98/wpGymRw6lZQ+rBxlhbDroP5HuVGyKk1uN6FPriAleWSJeEr2kKKVhglKz4qzk+K8i5
+ YKsaUeGkSDp7i3h9GH44jNLMoXfn7/52nbfsBa/8aUn8AAAA=
+X-Change-ID: 20260626-winbond-master-spi-nor-jw-cleanup-pw-addition-15ea35485698
+To: Pratyush Yadav <pratyush@kernel.org>, Michael Walle <mwalle@kernel.org>, 
+ Takahiro Kuwano <takahiro.kuwano@infineon.com>, 
+ Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>
+Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+ Steam Lin <STLin2@winbond.com>, linux-mtd@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, Miquel Raynal <miquel.raynal@bootlin.com>
+X-Mailer: b4 0.14.3
+X-Last-TLS-Session-Version: TLSv1.3
 
-Hi Tejun,
+Compared to the previous ones, this series is super straightforward
+since it leverages all the core changes that have already been done for
+the JV/RV families. Like the former JV/RV series, it first cleans up the
+table for JW chips. As I have access to a lot of devices, I made test
+runs with almost all of them. This way I could extract the SFDP data,
+the capabilities of the chips, proof that they passed all the tests,
+etc. I then add support for the PW parts, also showing a full test run
+in each case.
 
-Please disregard the previous Gmail resend in this thread. While
-investigating the same delivery path for an MM series, I confirmed that
-outbound delivery wraps long lines and damages patch whitespace.
+Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
+---
+Miquel Raynal (25):
+      mtd: spi-nor: winbond: W25Q32xW-Q/N: Enhance identification of the chips
+      mtd: spi-nor: winbond: W25Q64xW-Q/N: Enhance identification of the chips
+      mtd: spi-nor: winbond: W25Q32xW-Q/N: Fill locking information
+      mtd: spi-nor: winbond: W25Q64xW-Q/N: Fill locking information
+      mtd: spi-nor: winbond: W25Q128JW-Q/N: Fill locking information
+      mtd: spi-nor: winbond: W25Q32JW-M: Fill locking information
+      mtd: spi-nor: winbond: W25Q64JW-M: Fill locking information
+      mtd: spi-nor: winbond: W25Q128JW-M: Fill locking information
+      mtd: spi-nor: winbond: W25Q256JW-Q/N/M: Fill locking information
+      mtd: spi-nor: winbond: W25Q32JW-Q/N: Add quad page program capability
+      mtd: spi-nor: winbond: W25Q64JW-Q/N: Add quad page program capability
+      mtd: spi-nor: winbond: W25Q128JW-Q/N: Add quad page program capability
+      mtd: spi-nor: winbond: W25Q32JW-M: Add quad page program capability
+      mtd: spi-nor: winbond: W25Q64JW-M: Add quad page program capability
+      mtd: spi-nor: winbond: W25Q128JW-M: Add quad page program capability
+      mtd: spi-nor: winbond: Prepare introduction of W25QxxPW-Q/N parts
+      mtd: spi-nor: winbond: Add support for W25Q33PW-Q/N
+      mtd: spi-nor: winbond: Add support for W25Q64PW-Q/N
+      mtd: spi-nor: winbond: Add support for W25Q12PW-Q/N
+      mtd: spi-nor: winbond: Add support for W25Q25PW-Q/N
+      mtd: spi-nor: winbond: Prepare introduction of W25QxxPW-M parts
+      mtd: spi-nor: winbond: Add support for W25Q33PW-M
+      mtd: spi-nor: winbond: Add support for W25Q64PW-M
+      mtd: spi-nor: winbond: Add support for W25Q12PW-M
+      mtd: spi-nor: winbond: Add support for W25Q25PW-M
 
-I have resent the unchanged v2 as a text/plain attachment:
-https://lore.kernel.org/r/CACGbirTEtYnxiZW0EnOCHbZt66=t-A_Nppp0ChRfM9G2ZD5+aQ@mail.gmail.com
+ drivers/mtd/spi-nor/winbond.c | 91 ++++++++++++++++++++++++++++++++++++-------
+ 1 file changed, 77 insertions(+), 14 deletions(-)
+---
+base-commit: 21373f9588a0df4fd2ad7bbd120b04fccfaf0677
+change-id: 20260626-winbond-master-spi-nor-jw-cleanup-pw-addition-15ea35485698
 
-The externally received attachment preserves the patch and applies
-through b4 and git am to the prepared tree.
+Best regards,
+-- 
+Miquel Raynal <miquel.raynal@bootlin.com>
 
-Sorry for the extra resend.
-
-Thanks,
-Tianyi
