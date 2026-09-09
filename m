@@ -1,245 +1,134 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A702D572692;
-	Wed,  9 Sep 2026 14:14:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DB9D577E4E;
+	Wed,  9 Sep 2026 14:15:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788963263; cv=none; b=ZpEfzcJ7A8l1bTKJSC9xjQIYcoI8O1V3feyJyTVagjyDOMt7OxhHNtCt3zEqBJdZ3W9/ijDJoheAxTlDKiNFSCBwtITWLGpcjZS4v8Fchyq0BtCgfY61r/xqwyJ8ZysIlvOZijk2QJhCESMeC9MlY1nL0hmvTqRhOyMZhU80Muo=
+	t=1788963303; cv=none; b=OZHywotCy+ctNIEYIwDNAhNbvy1a7pTLKDflzbp6fZFzdruDpyM4GSiq52C73kK25izT5KyKVoAxnKphZxJQPG5/MgmNvan6XoGdu/yGhvLrqykhkShypSJZFO7Nz24bQpT+HMrJ8Wa37/oUX5ayfKRK3pTPGB00zy9WQMpi6P8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788963263; c=relaxed/simple;
-	bh=gx+oIcs0P6H8PbwV9ZJxkS0GLSxCT6o0xFPNtdzRzAQ=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=U6tXJO07+yJLa+mu1K1IlFFj/WbdEkUsm4+ZuCsEg1/wOdrkxc+x/92VKsj7ynWA+fDrAFXB5KnhcWE3AHNk6TBUVHqkWBZmCX1vh0Cxwd/ZXkmcBGD3mXQlofUhXQmjIUwy+YdHyp+sprAwF5/s+LaHLOmo5w+z8dgJ1wZaYng=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IgBhc+fv; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1788963303; c=relaxed/simple;
+	bh=XRII96xTVW3zFT9oYMBI25SY9w8xHd6efZetmEu2H1o=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=jgCjmnnJKaVfBYjr+HVr5rZv7kvMrsJzogtU+OHE8hCBX4KYwetIhrJT9ikbnUo+ZWbtbOoXgPYYLaL7InYp9K4eKsGH/YT4IKcHeMW30JpS4gwTCGOD+TGOrR6o36hRdkLMN+IQO//Ul3rGaTco/va2c3wtP3UavUiSV3Q0u2c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VvletEha; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IgBhc+fv"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 68D94C2BCF6;
-	Wed,  9 Sep 2026 14:14:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1788963263;
-	bh=gx+oIcs0P6H8PbwV9ZJxkS0GLSxCT6o0xFPNtdzRzAQ=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=IgBhc+fvT6IZTgQqnCNeyD7NNmsT/If/5WATYEguG+Cs4fK+I9AK7J7+NTj+d+aA2
-	 4dDif4toDKlYIe1AGfhrw+hcmwCnXvZZZMUsnrm7lCMfyJPNK9ookZLGmbZt4C9Hk7
-	 qnNERlrEI793k/O227tWLjQAO4WWYFQ+Xvc9Isiu4z+5K38fAIIYidMABJI/Bd1gi/
-	 Iwbz0KuBI5McRGpGlO0/Dluc0UNA6MgVtdgXN0hOmbKy4liSw5nBJ86bc02SlTebRw
-	 uNaERM8oFzRftCDp/5rjMQW4pQFHPdTHeyXV4YeKNhe5oNyfynnMaXow0I5eCFyoIC
-	 DRrpvpNAsp2Bw==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 52E63C79FBB;
-	Wed,  9 Sep 2026 14:14:23 +0000 (UTC)
-From: Roman Vivchar via B4 Relay <devnull+rva333.protonmail.com@kernel.org>
-Date: Wed, 09 Sep 2026 17:14:07 +0300
-Subject: [PATCH 3/3] iommu/mediatek-v1: add mt6572 support
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VvletEha"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 792551F00A3A;
+	Wed,  9 Sep 2026 14:15:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788963301;
+	bh=/OniCvkCuZhep7Dm5VZzuIT7ePpQGUA0n6SAlx9Bc8w=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=VvletEhaFCak6ywKLnRFrGMJ7b8MMyP8MmrTP4XG8MKFdtZi82kxWxr/syaGLcGE7
+	 Ql5FfgHegVuBGGKhOP5b6L6AskrJRO2K2AuWZSbk0lkozm4lzUb7oWpvLuTsFL0xa4
+	 ra+RKJkTgdCsur0k6gzEzy8RGza5rjBUzRTfXlyeHdyPXoke3FYxrY5X1i9t0Qk1W4
+	 vD+rKZve6yVmCZa0yHLbxffb/gh/twU5dfvJ9QKOAgPzTRsVofwgKI2OEV+dx+tVDg
+	 bt7nwM8agbFn8F8iQHr+ubcbZzrmzKw/G+ZpXNsGvBtYUEmkBpOl1Sy8F1k9pT5RDg
+	 OPObMoM97btcQ==
+Date: Wed, 9 Sep 2026 10:14:58 -0400
+From: Namhyung Kim <namhyung@kernel.org>
+To: Ian Rogers <irogers@google.com>
+Cc: Andi Kleen <ak@linux.intel.com>, Peter Zijlstra <peterz@infradead.org>,
+	"Mi, Dapeng" <dapeng1.mi@linux.intel.com>,
+	Ingo Molnar <mingo@redhat.com>,
+	Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Eranian Stephane <eranian@google.com>, linux-kernel@vger.kernel.org,
+	linux-perf-users@vger.kernel.org, Dapeng Mi <dapeng1.mi@intel.com>,
+	Zide Chen <zide.chen@intel.com>,
+	Falcon Thomas <thomas.falcon@intel.com>,
+	Xudong Hao <xudong.hao@intel.com>,
+	Gennady Kupava <gennady.kupava@gmail.com>,
+	Ravi Bangoria <ravi.bangoria@amd.com>
+Subject: Re: [PATCH 2/2] perf/x86: Disable precise sampling for
+ PERF_SAMPLE_STACK_USER
+Message-ID: <aqFp4oa7o2JxZAMi@google.com>
+References: <20260908075102.540715-1-dapeng1.mi@linux.intel.com>
+ <20260908075102.540715-2-dapeng1.mi@linux.intel.com>
+ <20260908084906.GO4121339@noisy.programming.kicks-ass.net>
+ <1691a05c-49a6-4b16-8bad-cb3c004ed07c@linux.intel.com>
+ <20260908101914.GQ4121339@noisy.programming.kicks-ass.net>
+ <aqAlddsFPYJvRhFr@tassilo>
+ <CAP-5=fWbSNYpt8p3e+pqjY+xhqs8WrzsBfPaKB1NLBm88mH8Yg@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260909-6572-iommu-v1-3-de261da09fb2@protonmail.com>
-References: <20260909-6572-iommu-v1-0-de261da09fb2@protonmail.com>
-In-Reply-To: <20260909-6572-iommu-v1-0-de261da09fb2@protonmail.com>
-To: Yong Wu <yong.wu@mediatek.com>, "Joerg Roedel (AMD)" <joro@8bytes.org>, 
- Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Matthias Brugger <matthias.bgg@gmail.com>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Cc: iommu@lists.linux.dev, linux-mediatek@lists.infradead.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, Roman Vivchar <rva333@protonmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788963261; l=5880;
- i=rva333@protonmail.com; s=20260510; h=from:subject:message-id;
- bh=Q9DENazAgwi3T2qykCPLy9Ktvy2jjfeMJUql9cSW4PY=;
- b=8+P8cpShisgwoJq0VZRjZTKZLtcBmRIMxKVIDut/OQ5H+DuS0IRCr8OkGmuFQBBntJL5u+eAM
- gSO9ctW66BlAB6sGh2wQRaETyPAsSTIhioXn1Gf/IaQj0ZaS0FCL5+k
-X-Developer-Key: i=rva333@protonmail.com; a=ed25519;
- pk=zww/nWjBGoQ4POXCG0BV6fx2iuXK6jx77rsKPA5YK5Y=
-X-Endpoint-Received: by B4 Relay for rva333@protonmail.com/20260510 with
- auth_id=777
-X-Original-From: Roman Vivchar <rva333@protonmail.com>
-Reply-To: rva333@protonmail.com
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAP-5=fWbSNYpt8p3e+pqjY+xhqs8WrzsBfPaKB1NLBm88mH8Yg@mail.gmail.com>
 
-From: Roman Vivchar <rva333@protonmail.com>
+Hello,
 
-mt6572 SoC utilizes an earlier version of the IOMMU, that shares the
-same v1 architecture, but has minor hardware differences compared to
-mt2701.
+On Tue, Sep 08, 2026 at 01:56:56PM -0700, Ian Rogers wrote:
+> On Tue, Sep 8, 2026 at 8:10 AM Andi Kleen <ak@linux.intel.com> wrote:
+> >
+> > > That's what we already do, no? I have distinct memories of making the
+> > > stack unwind use the NMI regs rather then the PEBS regs.
+> > >
+> > > > In my opinion, it could even make the thing worse. User
+> > > > requires to get precise samplings, but perf silently returns imprecise
+> > > > records, this would mislead user.
+> > >
+> > > Mostly just the unwind might be off a little, the rest is accurate. This
+> > > has been the case 'forever'. Performance analysis isn't for silly
+> > > people, if they can't deal with a little fuzz then perhaps they're in
+> > > the wrong business.
+> >
+> > Is the main problem that the stack doesn't agree? Perhaps there
+> > could be a check for regs->rsp == pebs->user rsp (if in user space)
+> > to detect problematic samples.
+> >
+> > The question is how to report it and who should do the checking.
+> >
+> > It may need new fields in the ABI either to communicate the extra PEBS RSP
+> > or a bit to indicate that there might be a mismatch.
+> >
+> > I guess checking in the kernel and reporting an error might be simpler
+> > and maybe cleaner, but it would likely limit more advanced recovery
+> > possibilities.
+> >
+> > Are there other mismatches that break the unwinding? Perhaps the same
+> > for RBP?
+> 
+> For DWARF unwinding any register may be the source of a frame pointer
+> (e.g. the OpenSSL library would use R11 rather than RBP).
+> 
+> There is redundancy on x86 you can sample the PERF_REG_X86_IP register
+> in the user register and there is PERF_SAMPLE_IP in the sample event
+> itself.
+> 
+> My understanding is that IBS can only sample IP and so for precise
+> samples we can use PERF_SAMPLE_IP as the precise location and the user
+> register PERF_REG_X86_IP as the interrupt IP - this would match the
+> other register values in the interrupt.
+> 
+> In DWARF unwinding, we initialize the register state using the sampled
+> user registers:
+> https://web.git.kernel.org/pub/scm/linux/kernel/git/perf/perf-tools-next.git/tree/tools/perf/util/unwind-libdw.c?h=perf-tools-next#n270
+> and on x86 we sample all registers for DWARF unwinding:
+> https://web.git.kernel.org/pub/scm/linux/kernel/git/perf/perf-tools-next.git/tree/tools/perf/arch/x86/include/perf_regs.h?h=perf-tools-next#n20
+> https://web.git.kernel.org/pub/scm/linux/kernel/git/perf/perf-tools-next.git/tree/tools/perf/util/perf-regs-arch/perf_regs_x86.c?h=perf-tools-next#n238
+> 
+> Having PERF_SAMPLE_IP be precise and the user registers from the
+> interrupt I believe works for AMD IBS and ARM SPE, but for Intel PEBS
+> there is the ability to use the PEBS register samples for other
+> non-redundant registers. In the x86 driver could we disable PEBS
+> sampling for these registers when doing user stack sampling, so that
+> the sampled user registers match the stack sample? We can keep the
+> PERF_SAMPLE_IP precise, and make all the registers precise when there
+> is no stack sampling.
 
-Introduce mtk_iommu_type to distinguish between mt2701 and mt6572
-variant and apply the necessary logic.
++1.
 
-Finally, add a platform data for the mt6572 SoC.
+I think it's better to keep PERF_SAMPLE_IP precise as requested and pick
+appropriate registers based on PERF_SAMPLE_USER_STACK.
 
-Signed-off-by: Roman Vivchar <rva333@protonmail.com>
----
-Based on my downstream findings, this change may also support mt6582 SoC,
-but I don't have the hardware to test if it actually works.
----
- drivers/iommu/mtk_iommu_v1.c | 72 +++++++++++++++++++++++++++++++++-----------
- 1 file changed, 55 insertions(+), 17 deletions(-)
-
-diff --git a/drivers/iommu/mtk_iommu_v1.c b/drivers/iommu/mtk_iommu_v1.c
-index 72355f41c36a..b6f547b100d1 100644
---- a/drivers/iommu/mtk_iommu_v1.c
-+++ b/drivers/iommu/mtk_iommu_v1.c
-@@ -7,6 +7,7 @@
-  *
-  * Based on driver/iommu/mtk_iommu.c
-  */
-+#include <linux/bitfield.h>
- #include <linux/bug.h>
- #include <linux/clk.h>
- #include <linux/component.h>
-@@ -85,6 +86,13 @@ struct dma_iommu_mapping {
- #define F_DESC_NONSEC				BIT(3)
- #define MT2701_M4U_TF_LARB(TF)			(6 - (((TF) >> 13) & 0x7))
- #define MT2701_M4U_TF_PORT(TF)			(((TF) >> 8) & 0xF)
-+
-+#define MT6572_MMU_INT_ID_PORT_ID		GENMASK(12, 8)
-+#define MT6572_MMU_INT_ID_LARB_ID		GENMASK(14, 13)
-+
-+#define MT6572_M4U_TF_PORT(TF)			FIELD_GET(MT6572_MMU_INT_ID_PORT_ID, TF)
-+#define MT6572_M4U_TF_LARB(TF)			(FIELD_GET(MT6572_MMU_INT_ID_LARB_ID, TF) - 1)
-+
- /* MTK generation one iommu HW only support 4K size mapping */
- #define MT2701_IOMMU_PAGE_SHIFT			12
- #define MT2701_IOMMU_PAGE_SIZE			(1UL << MT2701_IOMMU_PAGE_SHIFT)
-@@ -96,6 +104,11 @@ struct dma_iommu_mapping {
-  */
- #define M2701_IOMMU_PGT_SIZE			SZ_4M
- 
-+enum mtk_iommu_type {
-+	MTK_IOMMU_MT6572,
-+	MTK_IOMMU_V1,
-+};
-+
- struct mtk_iommu_v1_suspend_reg {
- 	u32			standard_axi_mode;
- 	u32			dcm_dis;
-@@ -116,6 +129,8 @@ struct mtk_iommu_v1_data {
- 	struct mtk_smi_larb_iommu	larb_imu[MTK_LARB_NR_MAX];
- 
- 	struct mtk_iommu_v1_suspend_reg	reg;
-+
-+	enum mtk_iommu_type type;
- };
- 
- struct mtk_iommu_v1_domain {
-@@ -170,8 +185,12 @@ static inline int mt2701_m4u_to_port(int id)
- 
- static void mtk_iommu_v1_tlb_flush_all(struct mtk_iommu_v1_data *data)
- {
--	writel_relaxed(F_INVLD_EN1 | F_INVLD_EN0,
--			data->base + REG_MMU_INV_SEL);
-+	u32 val = F_INVLD_EN0;
-+
-+	if (data->type == MTK_IOMMU_V1)
-+		val |= F_INVLD_EN1;
-+
-+	writel_relaxed(val, data->base + REG_MMU_INV_SEL);
- 	writel_relaxed(F_ALL_INVLD, data->base + REG_MMU_INVALIDATE);
- 	wmb(); /* Make sure the tlb flush all done */
- }
-@@ -180,25 +199,33 @@ static void mtk_iommu_v1_tlb_flush_range(struct mtk_iommu_v1_data *data,
- 					 unsigned long iova, size_t size)
- {
- 	int ret;
--	u32 tmp;
-+	u32 tmp, val = F_INVLD_EN0;
- 
--	writel_relaxed(F_INVLD_EN1 | F_INVLD_EN0,
--		data->base + REG_MMU_INV_SEL);
-+	if (data->type == MTK_IOMMU_V1)
-+		val |= F_INVLD_EN1;
-+
-+	writel_relaxed(val, data->base + REG_MMU_INV_SEL);
- 	writel_relaxed(iova & F_MMU_FAULT_VA_MSK,
- 		data->base + REG_MMU_INVLD_START_A);
- 	writel_relaxed((iova + size - 1) & F_MMU_FAULT_VA_MSK,
- 		data->base + REG_MMU_INVLD_END_A);
- 	writel_relaxed(F_MMU_INV_RANGE, data->base + REG_MMU_INVALIDATE);
- 
--	ret = readl_poll_timeout_atomic(data->base + REG_MMU_CPE_DONE,
--				tmp, tmp != 0, 10, 100000);
--	if (ret) {
--		dev_warn(data->dev,
--			 "Partial TLB flush timed out, falling back to full flush\n");
--		mtk_iommu_v1_tlb_flush_all(data);
-+	if (data->type == MTK_IOMMU_V1) {
-+		ret = readl_poll_timeout_atomic(data->base + REG_MMU_CPE_DONE,
-+						tmp, tmp != 0, 10, 100000);
-+		if (ret) {
-+			dev_warn(data->dev,
-+				 "Partial TLB flush timed out, falling back to full flush\n");
-+			mtk_iommu_v1_tlb_flush_all(data);
-+		}
-+
-+		/* Clear the CPE status */
-+		writel_relaxed(0, data->base + REG_MMU_CPE_DONE);
-+	} else {
-+		/* Make sure the TLB flush is done */
-+		wmb();
- 	}
--	/* Clear the CPE status */
--	writel_relaxed(0, data->base + REG_MMU_CPE_DONE);
- }
- 
- static irqreturn_t mtk_iommu_v1_isr(int irq, void *dev_id)
-@@ -215,8 +242,14 @@ static irqreturn_t mtk_iommu_v1_isr(int irq, void *dev_id)
- 	fault_iova &= F_MMU_FAULT_VA_MSK;
- 	fault_pa = readl_relaxed(data->base + REG_MMU_INVLD_PA);
- 	regval = readl_relaxed(data->base + REG_MMU_INT_ID);
--	fault_larb = MT2701_M4U_TF_LARB(regval);
--	fault_port = MT2701_M4U_TF_PORT(regval);
-+
-+	if (data->type == MTK_IOMMU_V1) {
-+		fault_larb = MT2701_M4U_TF_LARB(regval);
-+		fault_port = MT2701_M4U_TF_PORT(regval);
-+	} else {
-+		fault_larb = MT6572_M4U_TF_LARB(regval);
-+		fault_port = MT6572_M4U_TF_PORT(regval);
-+	}
- 
- 	/*
- 	 * MTK v1 iommu HW could not determine whether the fault is read or
-@@ -539,7 +572,10 @@ static int mtk_iommu_v1_hw_init(const struct mtk_iommu_v1_data *data)
- 		return ret;
- 	}
- 
--	regval = F_MMU_CTRL_COHERENT_EN | F_MMU_TF_PROTECT_SEL(2);
-+	regval = F_MMU_TF_PROTECT_SEL(2);
-+	if (data->type == MTK_IOMMU_V1)
-+		regval |= F_MMU_CTRL_COHERENT_EN;
-+
- 	writel_relaxed(regval, data->base + REG_MMU_CTRL_REG);
- 
- 	regval = F_INT_TRANSLATION_FAULT |
-@@ -588,7 +624,8 @@ static const struct iommu_ops mtk_iommu_v1_ops = {
- };
- 
- static const struct of_device_id mtk_iommu_v1_of_ids[] = {
--	{ .compatible = "mediatek,mt2701-m4u", },
-+	{ .compatible = "mediatek,mt2701-m4u", .data = (void *)MTK_IOMMU_V1 },
-+	{ .compatible = "mediatek,mt6572-m4u", .data = (void *)MTK_IOMMU_MT6572 },
- 	{}
- };
- MODULE_DEVICE_TABLE(of, mtk_iommu_v1_of_ids);
-@@ -612,6 +649,7 @@ static int mtk_iommu_v1_probe(struct platform_device *pdev)
- 		return -ENOMEM;
- 
- 	data->dev = dev;
-+	data->type = (enum mtk_iommu_type)(uintptr_t)of_device_get_match_data(dev);
- 
- 	/* Protect memory. HW will access here while translation fault.*/
- 	protect = devm_kcalloc(dev, 2, MTK_PROTECT_PA_ALIGN,
-
--- 
-2.55.0
-
+Thanks,
+Namhyung
 
