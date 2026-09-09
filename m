@@ -1,175 +1,164 @@
-Received: from mail-ed1-f44.google.com (mail-ed1-f44.google.com [209.85.208.44])
+Received: from mail-oo1-f72.google.com (mail-oo1-f72.google.com [209.85.161.72])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E03F83EFFA9
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 07:43:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECC8A28640B
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 07:44:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788939838; cv=none; b=VzMnekTSBCTsJm7XK+bAIKV2F/K0mBH7HazFTJ+FMXnKQSzXPToNCFiBT5RJWr/8BF3HZw4blcZCW2GldaqMOAVw774eh0/dtsPvVLtCsQCwkfQMNEnbJJh0cdjfhEtPT61erpVCEgG9WB+7rSc2EEtA0QQx/FrDlhORXojGRTk=
+	t=1788939852; cv=none; b=rcNtL9t0yeOv1KLp7ZB4zQ3zTVKqnEHXB7rmFdZ1JNMwXxFCIvRbbMrVh+Rw2NxJX/6juM6JcG35ASrRb0vPC7HY6yh54vtD+J5tDZwSi4SOVYapYurHkIG1wJeK0ufhqn2rvjqw79R+F1lPOIKx6GIReD7K2SfLcqHQBcDzllA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788939838; c=relaxed/simple;
-	bh=9yc14kv9vv0ac8fv1uYJcHFWFcqHf9NP7Ogx1611OGE=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=dEWjpVqb/y9x+NKkAVJt62iU1JK1pyi+hMhJIesZx6fCmZsu0w/MP0sGQx8jhcs7ZtzTb5x5C/gAE0/0xVr4/fDh1C6WJdjY5fG7wOVx6OxFypjOw0TBCUxc8PcClFR0M5nKqK5RuUY9GUP707NVRHVli6itRbxi9I55gIf0FWo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.208.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-ed1-f44.google.com with SMTP id 4fb4d7f45d1cf-6a0794669a6so8321709a12.2
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 00:43:56 -0700 (PDT)
+	s=arc-20240116; t=1788939852; c=relaxed/simple;
+	bh=G1HDO2UU2iXko1BHCCO9FvpyAeq3VsHOSeMkgnFf+dU=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=SupxVpOyFSJxIFtKvQfYT/hG3t9Brbu2DQn3dG1XF1vBUqxy2AOyBw01XMimtzWGYw2oGTkkpQiq5oIzjAHGvdOy7gf6tKb6hQU6NZDjjEiufKreuT/xxljA70gWx76Inen9L4Yzr/cfM0vLpsB1/mQq0lKpNEsSp8Ch+QjERxE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.161.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oo1-f72.google.com with SMTP id 006d021491bc7-6b1b6df25efso5852586eaf.3
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 00:44:10 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788939835; x=1789544635;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=2rInCUUC/UXiPpHJ1CPYpbMNMz1oCA9yxKCwNhHDaNM=;
-        b=mAHzg3KjENBWYz2GX25758ioGkN7mDz94GN3Uo823NWyoTw+xGZjV6s/szmCk62ThC
-         KpNcqjqXHF6KlMI3T5dEZLNQP8iXwUtHF5jxG3FeiSbYySWaoG3BjNZAnvXKXvLQfZEo
-         fW+4/2sINg6pcDuY1YGDBdcNejH1dzUMZJgCjHdulqvcnYsa5PE6GbXAPRW4Gsd0m8HJ
-         g7uggSPLXzvs2D5H5VCRwq8eHc7uYVaPjn7EANv2UQX2Hl+t+Hwg3cWgeRiODoaqlLXT
-         baqvXIGHzq9nG0g2mE215p8e3GJySNDHmLfhcChpuVjTsCx8ucwJQnvWe6wqE0ZmjleT
-         LMiw==
-X-Forwarded-Encrypted: i=1; AKwUvBwUcpJ3IGMhrPeS2/d7WI5Tajt9R32RtfQDpkn0d1800Q9Ux3gwpcDvelprUMDPack+plOlJxTtzBag1Ww=@vger.kernel.org
-X-Gm-Message-State: AFuF++nuTdV9wzDE0C8UwkIcZf8dWh1mnaRLWr0MDwkLQHofoWDH9lFL
-	nxynx2ZRQjikLfjtFYTXzndn4hJ4VKPC9nOsuOSigRQRK2s7xgXQseCj5CGRomHCKLI=
-X-Gm-Gg: AYBFou3xwVsIW0xQGzWeEFVlDI8lMefza3kTykwuCxdR0mO1NidV45Llc9JHXiztGXF
-	7qblj/izxEOW+Y5OuS7q8vCmp3wEvF7sy3KrCplyb8oy4ERPcyDGVmDWGrV9DkKoL4aatwYA1j+
-	TKUuVnpbb75p35P2ZPiGYCfTPJ67ANjgPVI3UzhE4LO2VRdZ+03GZpVPh1DdCoTbCtQgnhWtsEV
-	2CV0UXLfnRgkha4vCK3YaAx2nPTzA8yv71afWM/WysSr5lgnyqa/GHtJZ1jaWus1M0cIQek2/j7
-	g16k56VmWwcdj34LAt7bAGFFSQ5F5KEY4jogqiPHun3IH1j6Ww+d7xeCL5BmUwNBUwWOxeH5RHe
-	82x8fRGz2g9fV+CVoYT0HdF7/Ev7FAIdt+22jSjvHNpY55OMR8XoP3deF8aUvUZn5XCJIb5ga37
-	oi7D+r1ZBCyDimWkRKmx1N3gGPpYB1VR6aDdqaoEGed29H1YJgsiSI1ij4tI+ocgEWXMFyY5V5F
-	0KS6kXe8b9QMhsE/Jumzo6apeYVrs1OEYbt
-X-Received: by 2002:a05:6402:915:b0:6a9:93c7:ca57 with SMTP id 4fb4d7f45d1cf-6a993c7cbebmr815159a12.22.1788939834945;
-        Wed, 09 Sep 2026 00:43:54 -0700 (PDT)
-Received: from mail-ed1-f43.google.com (mail-ed1-f43.google.com. [209.85.208.43])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a993d6611asm382326a12.25.2026.09.09.00.43.48
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 09 Sep 2026 00:43:53 -0700 (PDT)
-Received: by mail-ed1-f43.google.com with SMTP id 4fb4d7f45d1cf-6a18e24ad25so7121225a12.1
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 00:43:48 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzXhjQnSjQxXM+WTr09elM8stMOIzgsQhKBsFJXMv+ScS/z6UCgvJcosQ1l+d/7MMVh5km3887z8wUgeJ4=@vger.kernel.org
-X-Received: by 2002:a05:6402:f05:b0:6a8:e223:fee3 with SMTP id
- 4fb4d7f45d1cf-6a8e223ff92mr2011006a12.43.1788939828389; Wed, 09 Sep 2026
- 00:43:48 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1788939850; x=1789544650;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=5SZz6yS+9ghwNm+378dRmudSnYoMOcliJmAbkqo+x3U=;
+        b=llYo2R5IpCEfW+90SmPrk6GRtkfbmDFH8A463+clCX3staB9HIrA4Vf/0tJ7+yNo6d
+         CtUHcgs4TSOj4yd0tzCsugb7RCfv6XMGwpnXGXapkb+FZfPrlh8t5KDFMQjBGopMSncc
+         ba+9hHgKiLCD+MCQkpBiubORxe/ni/LF5gwq9FBbdF/sGcwcUxTeTch/YRVdrEKlC/4U
+         e7+PrJoC+WJ2qP0YxRdAJ9sAEj9FzAthVbYL/p1x+rf48My2iTj5R3/zoABOrUm96hVB
+         09ulbBdYIUtngZcHkts1kXepur+xLmQbBCg9ajFeIw1DUQrVzylLs2jBQTy3uXP2qvdY
+         DHtg==
+X-Gm-Message-State: AFuF++mK1ZnyNel1VW+lFy3SGwOi6QUIQa7P0FvbkNuICmAexLPWAEVv
+	vWF7fxEf+kj0Tk8hNU1r9oXlytP2KHrHRJVIFBaVPai0I229b+NtNS/H7ZGpJRwfg3O9BiI1qM0
+	SNf8SHoBoLkT9cW45HY0eO001ZC8cGQtJfJfOc34rKude8pT4FRFQqI3foso=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260826174854.199139-1-biju.das.jz@bp.renesas.com>
- <20260826174854.199139-14-biju.das.jz@bp.renesas.com> <CAMuHMdWKpWtp6dXe_1qk+GuV-n065LjHNQBGGEfsOfVz9_T1+w@mail.gmail.com>
- <TY3PR01MB113466B5A606D636420D7BD5586B02@TY3PR01MB11346.jpnprd01.prod.outlook.com>
-In-Reply-To: <TY3PR01MB113466B5A606D636420D7BD5586B02@TY3PR01MB11346.jpnprd01.prod.outlook.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Wed, 9 Sep 2026 09:43:35 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdWQAAugUtYNgkKrY=TFZbiAa61=jBg_fj__L+hRUBCR_A@mail.gmail.com>
-X-Gm-Features: AcwNN1UM-4yUAnjvwz3HU9UugHpIoEhFheoRD6Ksts2TAyZGkKbX5f7QzfQ8BYQ
-Message-ID: <CAMuHMdWQAAugUtYNgkKrY=TFZbiAa61=jBg_fj__L+hRUBCR_A@mail.gmail.com>
-Subject: Re: [PATCH v3 13/13] arm64: dts: renesas: Add LVDS overlay for RZ/G3L
- SMARC EVK with ITE6263
-To: Biju Das <biju.das.jz@bp.renesas.com>
-Cc: "biju.das.au" <biju.das.au@gmail.com>, "magnus.damm" <magnus.damm@gmail.com>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	"linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>, 
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>, 
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
-	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>
+X-Received: by 2002:a05:6820:16ac:b0:6be:2c0f:e41a with SMTP id
+ 006d021491bc7-6be2c1f70a8mr1281755eaf.23.1788939849837; Wed, 09 Sep 2026
+ 00:44:09 -0700 (PDT)
+Date: Wed, 09 Sep 2026 00:44:09 -0700
+In-Reply-To: <6a6c3d48.5cf34cee.28a846.0008.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6aa10e49.f81106d8.285f0a.000e.GAE@google.com>
+Subject: Forwarded: Re: test patch
+From: syzbot <syzbot+fe63e4d633540f230624@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
 Content-Type: text/plain; charset="UTF-8"
 
-Hi Biju,
+For archival purposes, forwarding an incoming command email to
+linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com.
 
-On Wed, 9 Sept 2026 at 04:57, Biju Das <biju.das.jz@bp.renesas.com> wrote:
-> > From: Geert Uytterhoeven <geert@linux-m68k.org>
-> > On Wed, 26 Aug 2026 at 19:49, Biju <biju.das.au@gmail.com> wrote:
-> > > Add a Device Tree overlay (r9a08g046l48-smarc-lvds-ite6263.dtso) for
-> > > the RZ/G3L (R9A08G046) SMARC EVK board to support LVDS-to-HDMI output
-> > > via the ITE 6263 HDMI transmitter.
-> > >
-> > > The overlay enables the LVDS controller and the display unit
-> > > (DU/LCDC), and configures the ITE6263 on I2C2.
-> > >
-> > > Update the Makefile to build the overlay as both a standalone .dtbo
-> > > and a composite .dtb (base DTB + overlay).
-> > >
-> > > Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
+***
 
-> > > --- /dev/null
-> > > +++ b/arch/arm64/boot/dts/renesas/r9a08g046l48-smarc-lvds-ite6263.dtso
+Subject: Re: test patch
+Author: syedtayyabfarooq08@gmail.com
 
-> > > +&{/} {
-> > > +       lvds-to-hdmi-out {
-> > > +               compatible = "hdmi-connector";
-> > > +               type = "d";
-> > > +
-> > > +               port {
-> > > +                       lvds_to_hdmi_con_out: endpoint {
-> > > +                               remote-endpoint = <&it6263_out>;
-> > > +                       };
-> > > +               };
-> >
-> > No DDC?
->
-> The driver uses parent i2c bus as ddc-i2c-bus. That is the reason not added.
+#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
 
-Neat trick. Do you know where that is handled? I couldn't find it.
-
-> > > +       it6263: it6263@4c {
-> >
-> > hdmi@4c
-> Ok.
->
-> >
-> > > +               compatible = "ite,it6263";
-> > > +               reg = <0x4c>;
-> > > +               data-mapping = "vesa-24";
-> > > +               ivdd-supply = <&reg_1v8>;
-> > > +               ovdd-supply = <&reg_3v3>;
-> > > +               txavcc18-supply = <&reg_1v8>;
-> > > +               txavcc33-supply = <&reg_3v3>;
-> > > +               pvcc1-supply = <&reg_1v8>;
-> > > +               pvcc2-supply = <&reg_1v8>;
-> > > +               avcc-supply = <&reg_3v3>;
-> > > +               anvdd-supply = <&reg_1v8>;
-> > > +               apvdd-supply = <&reg_1v8>;
-> > > +
-> > > +               ports {
-> > > +                       #address-cells = <1>;
-> > > +                       #size-cells = <0>;
-> > > +
-> > > +                       port@0 {
-> > > +                               reg = <0>;
-> > > +                               bridge_in: endpoint {
-> > > +                                       remote-endpoint = <&lvds_out>;
-> > > +                               };
-> > > +                       };
-> > > +
-> > > +                       port@2 {
-> > > +                               reg = <2>;
-> > > +                               it6263_out: endpoint {
-> > > +                                       remote-endpoint = <&lvds_to_hdmi_con_out>;
-> > > +                               };
-> > > +                       };
-> > > +               };
-> >
-> > No audio?
->
-> Binding describes audio port, but ITE6263 driver supports only video mode compared to
-> both Audio/Video support on ADV7535 driver.
->
-> I will add audio entries once we have driver support.
-> Hope it is ok for you?
-
-That's fine, thanks!
-
-Gr{oetje,eeting}s,
-
-                        Geert
-
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+diff --git a/drivers/usb/gadget/function/u_serial.c b/drivers/usb/gadget/function/u_serial.c
+index cdd1dfc666c4..4020807a4d2c 100644
+--- a/drivers/usb/gadget/function/u_serial.c
++++ b/drivers/usb/gadget/function/u_serial.c
+@@ -603,6 +603,41 @@ static int gserial_wakeup_host(struct gserial *gser)
+ 
+ /* TTY Driver */
+ 
++static int gs_install(struct tty_driver *driver, struct tty_struct *tty)
++{
++	struct gs_port *port;
++	struct tty_port *tport;
++	int ret;
++
++	mutex_lock(&ports[tty->index].lock);
++	port = ports[tty->index].port;
++	if (!port) {
++		mutex_unlock(&ports[tty->index].lock);
++		return -ENODEV;
++	}
++
++	tport = tty_port_get(&port->port);
++	mutex_unlock(&ports[tty->index].lock);
++
++	if (!tport)
++		return -ENODEV;
++
++	ret = tty_port_install(tport, driver, tty);
++	if (ret) {
++		tty_port_put(tport);
++		return ret;
++	}
++
++	tty->driver_data = port;
++
++	return 0;
++}
++
++static void gs_cleanup(struct tty_struct *tty)
++{
++	tty_port_put(tty->port);
++}
++
+ /*
+  * gs_open sets up the link between a gs_port and its associated TTY.
+  * That link is broken *only* by TTY close(), and all driver methods
+@@ -695,6 +730,9 @@ static void gs_close(struct tty_struct *tty, struct file *file)
+ 	struct gs_port *port = tty->driver_data;
+ 	struct gserial	*gser;
+ 
++	if (!port)
++		return;
++
+ 	spin_lock_irq(&port->port_lock);
+ 
+ 	if (port->port.count != 1) {
+@@ -911,6 +949,8 @@ static int gs_get_icount(struct tty_struct *tty,
+ static const struct tty_operations gs_tty_ops = {
+ 	.open =			gs_open,
+ 	.close =		gs_close,
++	.install =		gs_install,
++	.cleanup =		gs_cleanup,
+ 	.write =		gs_write,
+ 	.put_char =		gs_put_char,
+ 	.flush_chars =		gs_flush_chars,
+@@ -1203,6 +1243,18 @@ static void gs_console_exit(struct gs_port *port)
+ 
+ #endif
+ 
++static void gs_port_destruct(struct tty_port *tport)
++{
++	struct gs_port *port = container_of(tport, struct gs_port, port);
++
++	kfree(port);
++}
++
++static const struct tty_port_operations gs_port_ops = {
++	.destruct = gs_port_destruct,
++};
++
++
+ static int
+ gs_port_alloc(unsigned port_num, struct usb_cdc_line_coding *coding)
+ {
+@@ -1222,6 +1274,7 @@ gs_port_alloc(unsigned port_num, struct usb_cdc_line_coding *coding)
+ 	}
+ 
+ 	tty_port_init(&port->port);
++	port->port.ops = &gs_port_ops;
+ 	spin_lock_init(&port->port_lock);
+ 	init_waitqueue_head(&port->drain_wait);
+ 	init_waitqueue_head(&port->close_wait);
+@@ -1258,8 +1311,7 @@ static void gserial_free_port(struct gs_port *port)
+ 	/* wait for old opens to finish */
+ 	wait_event(port->close_wait, gs_closed(port));
+ 	WARN_ON(port->port_usb != NULL);
+-	tty_port_destroy(&port->port);
+-	kfree(port);
++	tty_port_put(&port->port);
+ }
+ 
+ void gserial_free_line(unsigned char port_num)
