@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBB76545284
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 13:39:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8ABD2560AA6;
+	Wed,  9 Sep 2026 13:43:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788961179; cv=none; b=TShRDh38rIyt1dKa6wyPk9x/hxFRhl/KTSxTZCKPm7lgkNevsKdTxI2xGWjtfTiI6rmrC/ZePeqd4ByOxBmYcd4Z8p7fSGpwFUmDcITObs9EDFpuCHhGFhC9P//O9WHKrHpKzPDWeMzB9PN//XHHjonO+H+IUIYZLO0fKCTPUVw=
+	t=1788961390; cv=none; b=XtNyOMxtMQVcaBWTva2usO2+sRDJBk3UMr1ryGFfk0hCh/0fEz/9ApH2EZZx+5fv8S0/dFaCUst3wO3xcItNWnEoVlU7jytJT3Ha1TgHlbxEMQ/d6fAR/j9QoKOYl+RTtFbef8zw25UhZAqRFgpf09ws3zyklazKHKEy73EANuI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788961179; c=relaxed/simple;
-	bh=ADJn4yusT2jkKciSg4N6YALdMSIALstYrgLb9kA/qr4=;
+	s=arc-20240116; t=1788961390; c=relaxed/simple;
+	bh=9D2VrtSgIjh+ekg7GYIMf9QvBaRe/5WJyBHjk6U5njY=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=roexqpgbDL0g4f1ARSKaqoAaDUrz89w4gKZPe5LmC12fPCwLDcPTlTBqG6I2XXPfLRHHIJgyyoKzUGPo36JRJmNwp0L0FS7zTPb68tOPQkdTe9Rahfek+uU+jP8g9YJHqGw2blTYuE8YmI9nHvo3u93zBR+4H3XS0SwXcTd8yBU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aLPoNRcJ; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=FB7FgPODK6yCD2vvmb6DpGuy3EKLaK8Pn8zmO8VwK8jdxVjo6EopfPeJCdZ5Ytlk+aBH8mqILremowZi/whWM0vR6/1CzoUbu9dNdgYHugEirPGTxG8qNcyLfl65eU/EWT9IeA05TZSM8Gyaaz3SnqJb0MqtOVHHZzjTjMPe1x4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bYS5kG7e; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aLPoNRcJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE4BA1F00A3A;
-	Wed,  9 Sep 2026 13:39:34 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bYS5kG7e"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3DA481F00A3A;
+	Wed,  9 Sep 2026 13:43:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788961178;
-	bh=2iP4r/Esf2pGXwRFwOfaFPtixVlzXtak19L1ZuCehHI=;
+	s=k20260515; t=1788961389;
+	bh=u9IzuLqDULcD860ya5R4OSTfR5VByrothjUZYfYv1/w=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=aLPoNRcJrIUL+1yqxoKS9+amtbp4r91seb6cACR5mTIDhpdc6wojfjfrTvCip5Glu
-	 tA7h5LfhL6E3cdvU+mtaMv36LFxeTn7cXy5YIvtuhuR1FyBs64qdeFCrBDIAu1eh/C
-	 IH0pR+3/vxzT3FMaHyneR1NIdYVAntqyeB1fpYiYh4QZq5ZGWsgi+avt6V6DFgbJzC
-	 QPOVxXnt+bRM9lkBejCdDiKLSUUL+oWMULfrXtNJ+Yhd6QxmbozNFQr9msKbjaC/Sy
-	 iM6lNn/cbUanuJCiCnm8KC0R3c923oFV9IZGvBgvEuaAxXL6jSzWrlNzAACXjnRwiw
-	 V/LNo3CKTkobQ==
-Message-ID: <c23b6290-a648-4a46-bcdb-044ca16f8ea8@kernel.org>
-Date: Wed, 9 Sep 2026 15:39:33 +0200
+	b=bYS5kG7e4E5j8HFOwgf2LIOyXcy4a25Yvc6Y3XLeFu/8a6PVFx5B8WYOyEcjewUmN
+	 jW04ZRymPTZpVDoUmqfDccKEUeB5BYifKEsEnkZLavCGdl1YJoXuSFHw5/iP4rh8bm
+	 b/MvS25hdYpQcmIDoxo8wNMc49Zag720BJ14WBnnXFMhIepMzJnC6cVPmBbqAGBmae
+	 L+O75kGdtiB9bCj3zQ3gHtPxeNhkWWZj3f/pVVO0w/X01GKjqpyFz119ULV9Ni8qKL
+	 GVGRjlcWOpw/1/1Wtk2u5XncOGCx2VsNxZiDLmLDr0/u7EhyVPP+jieu+t+3X8AojC
+	 Q4XS3SO9cicrw==
+Message-ID: <c99ca53a-73ef-4a0c-8738-eba1cc89bea2@kernel.org>
+Date: Wed, 9 Sep 2026 15:43:03 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -35,21 +35,21 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 10/17] mm/hugetlb: switch HugeTLB to section-based
- vmemmap optimization
-To: Muchun Song <muchun.song@linux.dev>
-Cc: Muchun Song <songmuchun@bytedance.com>,
- Andrew Morton <akpm@linux-foundation.org>, Oscar Salvador
- <osalvador@suse.de>, Mike Rapoport <rppt@kernel.org>,
- Vlastimil Babka <vbabka@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
- Michal Hocko <mhocko@suse.com>, David Laight <david.laight.linux@gmail.com>,
- "Liam R . Howlett" <liam@infradead.org>,
- Suren Baghdasaryan <surenb@google.com>, Qi Zheng <qi.zheng@linux.dev>,
- linux-mm@kvack.org, linux-kernel@vger.kernel.org
-References: <20260825084608.47437-1-songmuchun@bytedance.com>
- <20260825084608.47437-11-songmuchun@bytedance.com>
- <67dc7ac8-b39d-4354-8cbf-f2a1c3a369ee@kernel.org>
- <82CAF33D-2482-4E8B-826D-8AF5E6FF8866@linux.dev>
+Subject: Re: [PATCH v2] mm/migrate_device: avoid out-of-bounds writes for
+ compound folios
+To: Hui Su <sh_def@163.com>
+Cc: Matthew Brost <matthew.brost@intel.com>,
+ Andrew Morton <akpm@linux-foundation.org>, Balbir Singh
+ <balbirs@nvidia.com>, Zhi Wang <ziy@nvidia.com>,
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>,
+ Byungchul Park <byungchul@sk.com>, Gourry <gourry@gourry.net>,
+ Ying Huang <ying.huang@linux.alibaba.com>, Alex Popple <apopple@nvidia.com>,
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20260817120758.669807-3-sh_def@163.com>
+ <4ead5df7-f000-4087-83e4-13aae036e0b7@kernel.org>
+ <apESOAPVzggWmbcJ@gsse-cloud1.jf.intel.com>
+ <5ae7a11c-1db4-44cd-bf67-a98cfd5ca08b@kernel.org>
+ <20260909112049.3202956-1-sh_def@163.com>
 From: "David Hildenbrand (Arm)" <david@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=david@kernel.org; keydata=
@@ -96,80 +96,47 @@ Autocrypt: addr=david@kernel.org; keydata=
  3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
  CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
  qIws/H2t
-In-Reply-To: <82CAF33D-2482-4E8B-826D-8AF5E6FF8866@linux.dev>
+In-Reply-To: <20260909112049.3202956-1-sh_def@163.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 9/9/26 15:08, Muchun Song wrote:
+On 9/9/26 13:20, Hui Su wrote:
+> On Mon, Sep 07, 2026 at 02:23:33PM +0200, David Hildenbrand (Arm) wrote:
+>> That's what I was thinking: because how should we partially migrate folios?
+>> Doesn't make sense :)
+>>
+>> If this cannot be triggered today, neither Fixes: nor CC: stable is appropriate.
+>>
+>> Agreed that we should just warn.
 > 
+> Hi David, Matthew,
 > 
->> On Sep 9, 2026, at 17:58, David Hildenbrand (Arm) <david@kernel.org> wrote:
->>
->> On 8/25/26 10:46, Muchun Song wrote:
->>> HugeTLB bootmem vmemmap optimization still carries its own early setup
->>> path, including pre-populating optimized mappings before the generic
->>> sparse-vmemmap code runs.
->>>
->>> Now that the section-based vmemmap optimization can derive HugeTLB
->>> vmemmap deduplication from section metadata, HugeTLB only needs to mark
->>> the bootmem huge page range with the appropriate order. The generic
->>> sparse-vmemmap population path can then allocate and map the shared tail
->>> vmemmap pages without any HugeTLB-specific early population code.
->>>
->>> Do that by setting the section order when a bootmem huge page is
->>> allocated and dropping the dedicated pre-HVO helpers and related
->>> special-casing.
->>>
->>> This removes duplicate early setup logic and switches HugeTLB to the
->>> section-based vmemmap optimization path.
->>>
->>> Signed-off-by: Muchun Song <songmuchun@bytedance.com>
->>> Acked-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
->>> ---
->>> v3:
->>> - Use the order-based helper for the bootmem vmemmap-optimized check
->>>
->>> v2:
->>> - Collect Acked-by from Mike Rapoport
->>> ---
->>> include/linux/hugetlb.h |  1 -
->>> include/linux/mm.h      |  3 --
->>> mm/hugetlb.c            | 30 ++------------
->>> mm/hugetlb_vmemmap.c    | 90 +++--------------------------------------
->>> mm/hugetlb_vmemmap.h    | 14 +++----
->>> mm/sparse-vmemmap.c     | 31 --------------
->>> mm/sparse.h             | 27 +++++++++++++
->>> 7 files changed, 42 insertions(+), 154 deletions(-)
->>
->> Nice cleanup.
->>
->>>
->>> diff --git a/mm/sparse.h b/mm/sparse.h
->>> index e4617f9c8876..049272aba84e 100644
->>> --- a/mm/sparse.h
->>> +++ b/mm/sparse.h
->>> @@ -16,6 +16,24 @@ static inline unsigned int section_order(const struct mem_section *section)
->>> return section->order;
->>> }
->>>
->>> +static inline void section_set_order(struct mem_section *section, unsigned int order)
->>> +{
->>> + 	VM_WARN_ON(section_order(section) && order && section_order(section) != order);
->>> + 	section->order = order;
->>
->> As raised previously "section order" is entirely unclear. If this is a compound
->> page order we should spell that out.
+> Sorry, I missed this earlier.
 > 
-> But I also have another question. Should I also rename the helper name,
-> like section_set_compound_order? or it is enough to just renaming
-> the field name?
+> This fix has already landed in mainline, but I agree that the API semantics
+> should be clarified. Partially migrating a compound folio does not make
+> sense. If the intended contract is that callers must not provide a range
+> that cuts through a compound folio, then treating such input as caller
+> misuse with an explicit WARN/error path sounds reasonable.
+> 
+> The reason I added the Fixes tag and Cc'd stable was that I observed an
+> actual KASAN out-of-bounds write with the HMM migrate_anon_huge_zero
+> selftest. The path was:
+> 
+>   dmirror_fops_release()
+>     -> dmirror_device_evict_chunk()
+>       -> migrate_device_range()
+> 
+> My intent was to prevent migrate_device_range() from writing past the
+> caller-provided src_pfns array when such an input is observed. That said,
+> silently stopping the collection is not necessarily the best API semantics
+> if this should be treated as caller misuse.
+> 
+> I will rerun the reproducer on current mainline and report back with the
+> result. If the preferred direction is to make this an explicit WARN/error
+> path instead, I can send a follow-up patch on top of mainline.
 
-Rename the helpers please.
-
-A memory section has a size (which is a power of two / order). The page order
-used inside the section should be clearly separated.
-
-BTW, I didn't mention it yet, but I really enjoy this cleanup.
+Yes, and please clean up the code in any case; the duplication should be avoided.
 
 -- 
 Cheers,
