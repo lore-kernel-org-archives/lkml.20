@@ -1,144 +1,170 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7E781A6820;
-	Wed,  9 Sep 2026 09:26:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 539A43D5C26
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 09:27:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788945988; cv=none; b=RRrbPlpzcta0AHsWtDMJYNY4e94suO5sRijh2zH539V2FZhGmFnPopSojKlBvaeEt9YCaiGCyItdGu1DrNdKGZX5sXN5CQwF47lkIyuvsWkLtKj6rw20LlIYGK2Nm6dkxbLRoQlRav+aGAP+QGuledeizp6bwML8WJYn/uI1KuQ=
+	t=1788946051; cv=none; b=bGgZDkBYHmTjVwo7yDoIQ9nmfqJILFK0Mze6H36GPXM7sPLl1qYbNUvDkbhOL59/QVxx+ieX5tNAh1wOdINyc9CRQIx3/HTaQ3G3lLJ/GWKNCMfAZxDh9tlx8nr6O0GO+ng0QqvcJdDfiLF5ZPRc+VsDihzQjNV7kn02QUIlcdo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788945988; c=relaxed/simple;
-	bh=fhRW1Nkf1F9Csk2E+a6kMGis7XrVq47cBvJX8sbwh2A=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=e/6OjlAj9r41il7/8Rlr9UU3q7WJF8wY3n3c8jWDsHh0iGYG9tqW+LwxZIPn8ZcOWI+KzrFDwNZfuB4bAkKR3Z51U87f+g+ZP558E2M+1+sI0dPT+J4FVa1ThD9e+fbYYub7fgSqYk2arLn/WrTYtwzVam5E+KZM+OaI4nE3yTY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=D5QHzY8z; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788946051; c=relaxed/simple;
+	bh=ZcLSLvkBF6ozJekkfIc7TNhqA51pJFNoJ7IKNcYF6Ro=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=vBMlxNPicoHCWtJj821HnTMeut5MXhr4VgUxODYzZalI/aEabni4PIfW518zmWovHw3vnTZoTxK5D2WOehHIbm4K+LFZLUuSUVqCnQUI4Tn+OR02PptK2d2/veYYg9zY0vke7/DzbcfnQ4VT550ydO7EVOUYPULhFJxT81jPS4E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=isnO0f97; arc=none smtp.client-ip=209.85.128.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="D5QHzY8z"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2FB7B1F00A3D;
-	Wed,  9 Sep 2026 09:26:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788945986;
-	bh=YX/JSkYghr9nrINIMWcFmmh29g3GmX1nU9kCwJO/qRo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=D5QHzY8zxVSrWlON2fnQhU2DQoZchub7p168QA6c6jIVWyTY9Mf9ENGtTN7i+08d9
-	 gFA8Gt7Z2R1tK10L2hCQcw9m4+W3tNW1ot14z1klVtv9eJKgN/ky5sl2qTSXROUyso
-	 7tyisRlE9LRjc7cTFBYCs/7SsyG+bBOp5ko3lbxfFuf5bxfGt3N0fLFVvI33lNUuZ9
-	 FHgSdjika+pdNaliIkODWk8n1BeXKjt6nOF2NnyXwnQ/3CjYBWeag+s0g+EVigT1Pw
-	 4y/+QF9E3OHZqslWLleDQ9UTCFNl1PR5BHfVilkGOr4YRN6UYFsslyr7P935XeBajk
-	 eZGfigDrtM8WA==
-Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
-	by mailfauth.ams.internal (Postfix) with ESMTP id 36DE6198003A;
-	Wed,  9 Sep 2026 05:26:06 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-03.internal (MEProxy); Wed, 09 Sep 2026 05:26:20 -0400
-X-ME-Sender: <xms:LSahakXWIT_tvMZpAA4tisSYzPACPbNz90sUvrKt6CnZT7f0bznCEQ>
-    <xme:LSahag53DfWVoWKflreXJqLcFkpU92hBAWTzNjRTqAW2ze0rgIAhIsSChKIn5Ti_6
-    KANr8G0vz3pvYzhqK6VUilcolUQhOTSLzW4l2jvSqWcWV7i5Wr00qmD>
-X-ME-Received: <xmr:LSahajm1t3WFULvmjgrvyoRWrSpX6TH6JtiTt4jZbvxEM0QXBcnMCsVPuQM>
-X-ME-Proxy-Cause: dmFkZTG4Xf5HQCh02zpqVvbKCxDxzvOSSyHgHOP3uMLvoamU0KCtlJg5G7fmz9Cf9LwJ4+
-    u43d35HyzgT45XS4YAKZHukESCUbAy6ZShLloStMpjHT/y6x5XvWA6PxDLOyWt9+ikMKjc
-    zETlWFHuSZ8ORVsn+jAlUAvv2EBzWWsscPi4QFgDlrLa3yw68FIjtTKVaZqM0eJSg/GuFG
-    PATxH5LCPqzMkEKCwvoxWevBpaE5KCPic5zvLKY5EIapHD6v0GUJQwsC7esq16fDb0nPXf
-    16/0Hsa4P7Gc/AUvOZ0A8A9rcDB4OFqVFmJGna/qdlpcowZ2nVhVucQOP/2UhdOWkjcsJG
-    bn5bMQWMV42DveAl7CVcZkwPb5GLbvc1Cf0IzGc9irZASBEiK3FCaxRyq1M73CWs3bmbiy
-    ff8K3sgP/N5TIqIlCpWMeIHRSWHEI6dt3xf82VJDupYGSlhNmr9yqFk6w/2dorxNJoWXbf
-    YgPEiAWDmBrJh7NfpaNcz3nd9MaiqYGNbDW6RIkrAkS9QWCGiiWtJzvkou0Tm89GVe3kCZ
-    2dXCb88A9l1toZ6Oe2eQbItaBH+l/shJecWdB3aE/wGnes1LHEntmse3E+X5e88WLWEJXk
-    LTYzE9igbNTFH2Vdd7kfG0gwnEhXZFP9DLJvxDWPIoXNnK4NDvajy5q5fhuA
-X-ME-Proxy: <xmx:LSahaqZiJgtSP1S1SXg4ApLr7vjawzMbaok1DlQFBAfjnNWf23YTSQ>
-    <xmx:LSahavGJasYuwmK-LtmlKjypYyuDUaWGs252xt1j5xv93UHUhE-04w>
-    <xmx:LSahavvD36JEO0uwWjWHHIu5-ZNg6oK3QNWBiPqsc3XTl13vJahNcQ>
-    <xmx:LSahasNhB-3rvAirGtHcE-v5Ps2Pehi66hIVbkaqldNeNCBRdVfH3w>
-    <xmx:LSahan07FiGk0MNCDzy03CWVja0Qnj4KqABWoK0gdzZFR-lpCNl87xrf>
-Feedback-ID: i10464835:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 9 Sep 2026 05:26:03 -0400 (EDT)
-Date: Wed, 9 Sep 2026 10:26:03 +0100
-From: Kiryl Shutsemau <kas@kernel.org>
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
- 	David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>,
- 	Baolin Wang <baolin.wang@linux.alibaba.com>,
- "Liam R. Howlett" <liam@infradead.org>,
- 	Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
- Dev Jain <dev.jain@arm.com>, 	Barry Song <baohua@kernel.org>,
- Lance Yang <lance.yang@linux.dev>, 	Usama Arif <usama.arif@linux.dev>,
- Guo Ren <guoren@kernel.org>, Brian Cain <bcain@kernel.org>,
- 	Geert Uytterhoeven <geert@linux-m68k.org>,
- Dinh Nguyen <dinguyen@kernel.org>,
- 	Simon Schuster <schuster.simon@siemens-energy.com>,
- Jonas Bonn <jonas@southpole.se>,
- 	Stefan Kristiansson <stefan.kristiansson@saunalahti.fi>,
- Stafford Horne <shorne@gmail.com>,
- 	Yoshinori Sato <ysato@users.sourceforge.jp>,
- Rich Felker <dalias@libc.org>,
- 	John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
- Paul Walmsley <pjw@kernel.org>, 	Palmer Dabbelt <palmer@dabbelt.com>,
- Albert Ou <aou@eecs.berkeley.edu>, 	Alexandre Ghiti <alex@ghiti.fr>,
- Russell King <linux@armlinux.org.uk>, 	Vineet Gupta <vgupta@kernel.org>,
- Michal Simek <monstr@monstr.eu>, Chris Zankel <chris@zankel.net>,
- 	Max Filippov <jcmvbkbc@gmail.com>, Will Deacon <will@kernel.org>,
- 	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
- Nick Piggin <npiggin@gmail.com>, 	Peter Zijlstra <peterz@infradead.org>,
- "David S. Miller" <davem@davemloft.net>,
- 	Andreas Larsson <andreas@gaisler.com>,
- Richard Henderson <richard.henderson@linaro.org>,
- 	Matt Turner <mattst88@gmail.com>, Magnus Lindholm <linmag7@gmail.com>,
- 	Catalin Marinas <catalin.marinas@arm.com>,
- Mark Rutland <mark.rutland@arm.com>,
- 	Huacai Chen <chenhuacai@kernel.org>, WANG Xuerui <kernel@xen0n.name>,
- 	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
- "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
- 	Helge Deller <deller@gmx.de>, Madhavan Srinivasan <maddy@linux.ibm.com>,
- 	Michael Ellerman <mpe@ellerman.id.au>,
- "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
- 	Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
- 	Alexander Gordeev <agordeev@linux.ibm.com>,
- Christian Borntraeger <borntraeger@linux.ibm.com>,
- 	Sven Schnelle <svens@linux.ibm.com>,
- Richard Weinberger <richard@nod.at>,
- 	Anton Ivanov <anton.ivanov@cambridgegreys.com>,
- Johannes Berg <johannes@sipsolutions.net>,
- 	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>,
- 	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
- "H. Peter Anvin" <hpa@zytor.com>, 	Arnd Bergmann <arnd@arndb.de>,
- Vlastimil Babka <vbabka@kernel.org>, 	Mike Rapoport <rppt@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>, 	Michal Hocko <mhocko@suse.com>,
- Jason Gunthorpe <jgg@ziepe.ca>, 	John Hubbard <jhubbard@nvidia.com>,
- Peter Xu <peterx@redhat.com>, linux-mm@kvack.org,
- 	linux-kernel@vger.kernel.org, linux-csky@vger.kernel.org,
- linux-hexagon@vger.kernel.org, 	linux-m68k@lists.linux-m68k.org,
- linux-openrisc@vger.kernel.org, linux-sh@vger.kernel.org,
- 	linux-riscv@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- 	linux-snps-arc@lists.infradead.org, linux-arch@vger.kernel.org,
- sparclinux@vger.kernel.org, 	linux-alpha@vger.kernel.org,
- loongarch@lists.linux.dev, linux-mips@vger.kernel.org,
- 	linux-parisc@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
- linux-s390@vger.kernel.org, 	linux-um@lists.infradead.org,
- Hugh Dickins <hughd@google.com>, Qi Zheng <qi.zheng@linux.dev>
-Subject: Re: [PATCH v2 00/12] mm: make userland page table freeing RCU-safe
-Message-ID: <aqEl9zv8M_o1yW62@thinkstation>
-References: <20260908-rcu-pagetable-freeing-v2-0-1f60b64e878e@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="isnO0f97"
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-499b2981a7bso60731055e9.3
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 02:27:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788946046; x=1789550846; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=lsdKs0VobuM4XI3gIi1gCgynRI1C45G2dcgah+Cu3mM=;
+        b=isnO0f97dV2yRvpBkjb+GqrzvLj+5Is7RYGn+XomlxYmcO/WrShU30gFKzVqrHyiJt
+         YCNX9k1VuN2mcsa/MU25YHxl7jXjspKc/bYq9OcviM6e5VutOidesNcdvkT2sg3kvEA+
+         1mH+4du8qxuJnmIlxQYA3YtuY/eK5uHRY6OGbzDgRBrTu+tzpZBjc9oIpqXkuG445WRB
+         GDJ99GhDgiRgHlQrcDLvUBT7YEVAdVEHw5/wabGM6VXANtwBExg5PYwm1eHIJEeHMpDx
+         AXVeseSADkSvKYbROwgKkLQ4qorIAWukPmok2YCHWosSds4wz+iS3Cv1bjS+iP9sweUe
+         gKFQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788946046; x=1789550846;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=lsdKs0VobuM4XI3gIi1gCgynRI1C45G2dcgah+Cu3mM=;
+        b=RbCCR/nF7wPP6WrH0CkiaCg6F3L4krJwSZOsAGsz+iSOmn/2/gpw+x26fPttkLcdat
+         O2KwLtiSMer0h6yav0QSI/u5DPtnUM+HLr5II8+iQM6bbCxjkDZAtDilUNahDYv0nSRu
+         9323QC/Q7fbYSWAEbcDsfGHXr9Kn3PROPFu704PzWP6W8VSMvCfP/IOoD51BpWTF2Ob6
+         HKbtEM4SxiNy1GiKs8FBPkzO5c2G7wh6a/NNyByJLpSqSD2Re1IgIAl0Mo5OtM3m5/eR
+         gv550nkACRXHBSQxvkdbAn9NVhMfhST49qSPId813tNFXaoiWYrxZgu6L3DjGMURh57O
+         aSaQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzuBYYDQSEj5oE2t6U2LyV5495OSgpK6DV3tzJYMdEdqIneSP5PdgWl1JEnIoT/v50xiTpRLvVsPYdQyFk=@vger.kernel.org
+X-Gm-Message-State: AFuF++lgfmYdPP5wW7d7nTCuUQ2oEnlNRQzgLHxV+Kk0UR6l+MzXHOyL
+	dXD/JPlYvN462OtcuIf7OOOZ12PESBQZXcLPnqnZ/pcslGOhvK0kVeqi
+X-Gm-Gg: AYBFou2JlnL+5GY9+2EDeln3AIlw+bC+SLtoOJQSRK+0M5i3q1BgJ8s24eyUPk+Z0tD
+	rUauoe6fDXLaS0rcwU0+G2yMlLI/rPuGhQKGjaKiIZCo7v3jRBfXkS0YDK2JzW1l092GAZGLypy
+	ieCoThxCwIcJ7gbmWExL5OaKYxe2XPeGM5rNBH5QPsw2vkOAkmoBw0IaCX2VD5fv4lRoSFb7DlG
+	WTjvOb62QM309U4uMcGEZ88QsOOJTsPK5IEWUejegoVjUJsG36fqjXNji+BOOdkvAV1k1rrH/z8
+	B84mmC3Def7wCuz4rDTrcdo7P0TcAy4Dtr2AJPgs4PFq9L7XikiBvZJ9Gz5axeAAartsBvVcSvc
+	FfM8BDpM5s4ibqgh33XGAqJKGbZLIRoBzib9tXh3AByA0I8Tl9xgZ3XLmLPeogz/Bq+Kpq2scNX
+	p4l4rCv1DMBLIsH9jC9CGUoZ8Lea4ClAnrcO7pSaAMFZjU9m8qA7j5JzV9iCydYpMGrUIJDqUtf
+	tHEof+GZ96ongijFe/yi/Zw
+X-Received: by 2002:a05:600d:8490:20b0:49c:f89b:f82 with SMTP id 5b1f17b1804b1-49cf89b1bc2mr525615555e9.12.1788946045572;
+        Wed, 09 Sep 2026 02:27:25 -0700 (PDT)
+Received: from kali ([169.224.126.247])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-485883c074asm41558442f8f.23.2026.09.09.02.27.23
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 09 Sep 2026 02:27:25 -0700 (PDT)
+From: Ali Firas <alishmery18@gmail.com>
+To: netdev@vger.kernel.org,
+	idosch@nvidia.com
+Cc: kuba@kernel.org,
+	pabeni@redhat.com,
+	davem@davemloft.net,
+	edumazet@google.com,
+	andrew+netdev@lunn.ch,
+	razor@blackwall.org,
+	roopa@nvidia.com,
+	linux-kernel@vger.kernel.org,
+	Ali Firas <alishmery18@gmail.com>
+Subject: [PATCH net 0/3] vxlan: vnifilter: bound the VNI range per request
+Date: Wed,  9 Sep 2026 12:26:42 +0300
+Message-ID: <20260909092645.3105263-1-alishmery18@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260907141001.GA708129@shredder>
+References: <20260907141001.GA708129@shredder>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260908-rcu-pagetable-freeing-v2-0-1f60b64e878e@kernel.org>
+Content-Transfer-Encoding: 8bit
 
-On Tue, Sep 08, 2026 at 01:32:09PM +0100, Lorenzo Stoakes (ARM) wrote:
-> The majority of architectures in the kernel defer page table freeing until
-> an RCU grace period has elapsed, this series converts all remaining
-> architectures to do so too and eliminates CONFIG_MMU_GATHER_RCU_TABLE_FREE
-> altogether.
+A single RTM_NEWTUNNEL or RTM_DELTUNNEL message can currently ask the
+vnifilter code for the whole 24-bit VNI space, and vxlan_vni_add_del()
+loops over that span under rtnl_lock creating one VNI node and one
+per-CPU stats block per iteration. That is reachable by an unprivileged
+user in a user+network namespace and it costs roughly 2.1 GiB + 1 GiB
+per possible CPU (128 B slab plus 64 B per possible CPU per VNI): on
+2, 4 and 8 CPU guests every full-range request
+ended in a global OOM, with no errno returned because the caller is
+itself OOM-killed, and with unrelated root-owned processes killed on the
+way down. Because rtnl_lock is global rather than per-netns, it also
+stalled network configuration everywhere: a plain "ip link add dummy0
+type dummy" in a different network namespace takes 0.011 s normally,
+4.472 s while a 1,000,000 VNI request runs, and never completed at all
+during a full-range one. Patch 1 caps the span of a single request at
+4096 VNIs, which closes both. The cap is on one request, not on the
+device: a device can still hold the whole VNI space, it just takes more
+than one message.
 
-Apart from few nitpicks, the patchset looks good to me:
+Patch 2 charges the VNI node and its per-CPU stats to the caller's memcg.
+With the cap in place this is no longer the primary defence, but nothing
+limits how many capped requests a task may issue, so an unprivileged user
+can still accumulate VNIs 4096 at a time with none of it charged to them.
+It is also the same class fix as commit 1beb81947eb4 ("net/sched: account
+classifier filter allocations to memcg"). One limitation is worth stating
+up front: try_charge() reclaims and then invokes the memcg OOM killer
+rather than returning -ENOMEM, so accounting confines the blast radius
+without producing a graceful failure.
 
-Acked-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+Patch 3 adds the selftest coverage Ido asked for, in the existing API
+test: a range of exactly the maximum is accepted and one VNI more is
+rejected, for both add and delete.
+
+The limit is a driver-local constant rather than VLAN_N_VID: the values
+coincide today, but a bound on a VXLAN netlink request is not a count of
+VLAN IDs, and coupling them would make a change to one silently change
+the other.
+
+Patch 1 does tighten uAPI: a request spanning more than 4096 VNIs used
+to succeed and now returns -EINVAL. Ido's assessment was that the limit
+is unlikely to break anyone, since vnifilter is mainly used on bridged
+VXLAN devices where the VNI is derived from the VLAN, capped at 4094.
+I am sending the series to net because the stall is reachable by an
+unprivileged user and crosses namespaces.
+
+What I am less sure about is that Fixes: in net means this reaches
+stable, where a script issuing one large range would start failing
+across a point release. If that is the wrong trade, I am happy to respin
+patch 1 against net-next without the Fixes tag.
+
+Two things the series does not address. A single-VNI request with
+START == END >= VXLAN_N_VID still passes the span check, and
+vxlan_vni_field() shifts without masking, so such an entry is silently
+truncated on the wire while holding its own rhashtable slot. That wants
+a netlink policy range check, which I will send separately to net-next
+as a pure uAPI tightening.
+
+Measured worst case at the cap, on a 2 CPU / 2G guest: a request of
+exactly 4096 VNIs takes 0.031 s to add and 0.022 s to delete, and the
+cross-namespace "ip link add" blocks for 0.024 s during it. The old
+full-range request is now rejected outright with
+
+  Error: VNI range spans more than 4096 VNIs.
+
+for both add and delete.
+
+The whole selftest file passes before and after: 27 tests passed and 0
+failed on the base, 31 passed and 0 failed with the series applied.
+
+The 4096 limit follows Ido Schimmel's suggestion:
+https://lore.kernel.org/netdev/20260907141001.GA708129@shredder/
+
+Ali Firas (3):
+  vxlan: vnifilter: limit the VNI range of a single request
+  vxlan: vnifilter: account VNI node and per-CPU stats to memcg
+  selftests: net: test the vxlan vnifilter VNI range limit
+
+ drivers/net/vxlan/vxlan_vnifilter.c           | 24 +++++++++++++++++--
+ .../selftests/net/test_vxlan_vnifiltering.sh  | 13 ++++++++++
+ 2 files changed, 35 insertions(+), 2 deletions(-)
 
 -- 
-  Kiryl Shutsemau / Kirill A. Shutemov
+2.53.0
+
