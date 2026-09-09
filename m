@@ -1,146 +1,94 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from sg-2-2.ptr.blmpb.com (sg-2-2.ptr.blmpb.com [71.18.227.2])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56DA73C8C43;
-	Wed,  9 Sep 2026 19:47:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C3343C4B6F
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 19:48:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=71.18.227.2
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788983261; cv=none; b=X2D2QKoKvuCAdzFVDIIiwKJ8NYKIdYKlYhDyN/X4KW1/eQMqg6R/cFuBB/Ly28M9yjNDXhwNElxOWIBQ2KREEgHLH3GUGyG5t41inrj1X6ErTDnJDCvyJM3vEdX86YDaaTkRZ7O0SCCnNQ7BzNFV3eWLFT1wsQDraolMEtfWffQ=
+	t=1788983311; cv=none; b=O98CI/914nHlaXdSgA00ZS32oo97COU9CjSWVpJ5mSXkDRm1quw65sLJOZZlxgj8uPsJIMUgADVSDQvCyvV5OVcWFgC9KMHbUoPnsWj175Shrm/nW1zws6zHRk6E/ObILL/47MHjuKdh0A5ljsgMQ1StQLoKSz4STj+a5G5tWtQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788983261; c=relaxed/simple;
-	bh=NizfhVOT/VvA2dUqB5NXjYFEK1DkfSANyvy3gAhNVwY=;
-	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
-	 References:Date:Message-Id; b=cWT/LAJx3YNwivXaqcE+aTsQz4IJnGcNie6LvPSq5RazLMJCqtwQ4PX8vnV0ofq8yaHEh3SJk5Ri5Q7m73dOy1umfO6lWaDGwFPo57DO6gkmTjh9Ru1+wAqeXe981JGkrVVjk0SG7ynIJ6t5szG3rELU3zlFbaOvLKlthcbQ32w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RE+iRgyp; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788983311; c=relaxed/simple;
+	bh=bIHnFJeIR8NCizBam5bSpQWNUrltT1kv2ZZq+/mblJQ=;
+	h=From:Subject:Cc:Content-Disposition:Content-Type:Mime-Version:
+	 Date:Message-Id:References:In-Reply-To:To; b=IyQZs2043Rofwl+mgJuUaSW76tn/x5RxhU308VQBZ0Kn/haBl+NrTgqZ9+zZsLmlcsH66yTaQOePyWxgrnylfYhjX27+28vlWii829Ir58sbFjQUFGAiQYqOYQXaw2DoV3S5axzmYBSLVVhZPSYakQ7lqcSqCPonqTz1vQIzmvY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cherr.cc; spf=pass smtp.mailfrom=cherr.cc; dkim=pass (2048-bit key) header.d=cherr.cc header.i=@cherr.cc header.b=IHW3e2mQ; arc=none smtp.client-ip=71.18.227.2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cherr.cc
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cherr.cc
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RE+iRgyp"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4BDAD1F000FF;
-	Wed,  9 Sep 2026 19:47:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788983260;
-	bh=G7FTp6iVpcIdN5Xvcj9jVAhuUcfgpjxShTyjExlqApk=;
-	h=Subject:From:To:Cc:In-Reply-To:References:Date;
-	b=RE+iRgypgtxiGH3q8JJskwl3TmdpMFavTXW4O087iWcLRDpCKuDZXaHFmXWekOnH9
-	 ijGG1NEISpLVBfQUFK8npUZUJDiQ0Q3S7+LKVf+dbu3+7uIXKVriBmBMmaIdBsGby3
-	 9XrHw9IyWegS+oMIT8/JU6XGRlO/cbB5cLOi3kkkGAAFszmS0cCBqQw1VucOINId3a
-	 hDkCoHIXy7BRc1ix9OTYLpF3c1RooB8oRgnqGLjaGjg/1BdrEOVPZhyMTH3Qxc/YLp
-	 z6nmAMsihmZ+dmGZ+5jTY4eiIMBmrGaG7kV0QtlV06t2xDMck6pPA25mesjpn9xH0Z
-	 vWnQcn0cGaldQ==
+	dkim=pass (2048-bit key) header.d=cherr.cc header.i=@cherr.cc header.b="IHW3e2mQ"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=feishu2604220257; d=cherr.cc; t=1788983296; h=from:subject:
+ mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
+ mime-version:in-reply-to:message-id;
+ bh=VWXdC+EiFgKXDk4rNFutmJw52+1YadomDGamPq9rKuI=;
+ b=IHW3e2mQi6/o4orGzclZk1XIgRsFPdaWkn5bD5vJvp9vNlWhYsuJegb9BlmzDA2ZYMAGfC
+ HfqumZKKN90TLdO642EJJy1s/01ti7hz/QZhwPjEzvNEst3IbKYjpNR1C8kyd4lEs7cPKz
+ jZET06kpwF3br5pxxYFHHIjsQGrR2GCzruD1yzc5L4VdXirNs8pVx7IH3iN3Y5flydGusi
+ jkp5BvUMHxDT/2x0fKxx3ZSbFBPDp2TyCKpnNgbZypIO0LtvqqK7xrVo6WqzM22CeEyU82
+ NZoU4AMJpJ0pyiWpugMXumuYmO8q6Lc1QHMPPDbsj6TcmSYX6rJbsUckjSMGCw==
+From: "Shengzhuo Wei" <me@cherr.cc>
+Subject: Re: [PATCH net v3 2/2] net: fec: free the PPS interrupt before tearing down the PHC and netdev
+Received: from nobug ([111.42.148.144]) by smtp.feishu.cn with ESMTPS; Thu, 10 Sep 2026 03:48:13 +0800
+Content-Transfer-Encoding: 7bit
+Cc: "Shengzhuo Wei" <me@cherr.cc>, "Frank Li" <frank.li@nxp.com>, 
+	"Shenwei Wang" <shenwei.wang@nxp.com>, 
+	"Andrew Lunn" <andrew+netdev@lunn.ch>, 
+	"David S. Miller" <davem@davemloft.net>, 
+	"Eric Dumazet" <edumazet@google.com>, "Jakub Kicinski" <kuba@kernel.org>, 
+	"Paolo Abeni" <pabeni@redhat.com>, 
+	"Richard Cochran" <richardcochran@gmail.com>, 
+	"Troy Kisky" <troy.kisky@boundarydevices.com>, 
+	"Fugang Duan" <fugang.duan@nxp.com>, 
+	"Lucas Stach" <l.stach@pengutronix.de>, 
+	"Simon Horman" <horms@kernel.org>, <imx@lists.linux.dev>, 
+	<netdev@vger.kernel.org>, <linux-kernel@vger.kernel.org>, 
+	<stable@vger.kernel.org>
+Content-Disposition: inline
+X-Lms-Return-Path: <lba+26aa1b7fe+00e492+vger.kernel.org+me@cherr.cc>
+Content-Type: text/plain; charset=UTF-8
+X-Original-From: Shengzhuo Wei <me@cherr.cc>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH 01/23] scripts/mksysmap: drop the MODULE_INFO() symbols
- from kallsyms
-From: Nicolas Schier <nsc@kernel.org>
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Linus Torvalds <torvalds@linux-foundation.org>, 
- Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
- Nick Desaulniers <ndesaulniers@google.com>, 
- Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, 
- Masahiro Yamada <masahiroy@kernel.org>, Alexey Gladkov <legion@kernel.org>, 
- Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, 
- x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
- Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
- Arnd Bergmann <arnd@arndb.de>, Catalin Marinas <catalin.marinas@arm.com>, 
- Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
- Ard Biesheuvel <ardb@kernel.org>, 
- Ilias Apalodimas <ilias.apalodimas@linaro.org>, 
- Josh Poimboeuf <jpoimboe@kernel.org>, Peter Zijlstra <peterz@infradead.org>, 
- Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
- Gary Guo <gary@garyguo.net>, 
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
- Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
- Danilo Krummrich <dakr@kernel.org>, 
- Daniel Almeida <daniel.almeida@collabora.com>, 
- Tamir Duberstein <tamird@kernel.org>, 
- Alexandre Courbot <acourbot@nvidia.com>, 
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
- Jonathan Corbet <corbet@lwn.net>, Randy Dunlap <rdunlap@infradead.org>, 
- linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org, 
- llvm@lists.linux.dev, linux-riscv@lists.infradead.org, 
- linux-arch@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-efi@vger.kernel.org, rust-for-linux@vger.kernel.org, 
- linux-doc@vger.kernel.org, Jens Axboe <axboe@kernel.dk>
-In-Reply-To: <20260908-build-speedup-v1-1-5dc1ac01672d@kernel.org>
-References: <20260908-build-speedup-v1-0-5dc1ac01672d@kernel.org>
- <20260908-build-speedup-v1-1-5dc1ac01672d@kernel.org>
-Date: Wed, 09 Sep 2026 21:47:18 +0200
-Message-Id: <178898323844.67740.9621915831851570155.b4-review@b4>
-X-Mailer: b4 0.17-dev-db0b7
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1653; i=nsc@kernel.org;
- s=20250924; h=from:subject:message-id;
- bh=NizfhVOT/VvA2dUqB5NXjYFEK1DkfSANyvy3gAhNVwY=;
- b=owEBbQKS/ZANAwAKAQdSCnAWJhJpAcsmYgBqobfJ9BgDh91qnjAMpDNJucGv2ZXrlzPMYRjE7
- rNCrcRJCh2JAjMEAAEKAB0WIQSHQTenhzckp4G+wsYHUgpwFiYSaQUCaqG3yQAKCRAHUgpwFiYS
- aZqOD/4sUOM2BAG5AdjrKij8kvmIBpqDDZ5E3rDYx/anFXwzCclat3h8vQwYItxXJ7fCEPjKQGr
- cDNy+7qBJY7uJ3ZKmcexTphtdfYupo20JRAZOFtsiP7x2gFJ0b4IIdoAMl4pd1PPQrAxkQ9W7/i
- blU9LungzgMmgQYrrnRs05DYz1+ZDOl6bG8oGb/EYjgw0kWHjc5bZTAur62d/ifmJJvQPkj55oc
- IS8ErGY8wxkBebMDMAFPhGA8GkcQ2TRffMmx2F/wUV6pIynpSlnmEVo8saZSUXAihCjTzieorK8
- XjNUssKIEUuOX0uYPjototEvLbfOv9dSVDTyLuX6Zij+X/3ASSRaxeEUyZyWVO0BEWfSvNG6q8V
- BPxXmdhq/KVyWyECZvekZe9Gqljcz2nEuaOpBCIB8HeeIsorSBDO+5+YPIG2cYoTfMkQeorT+ym
- kNCOhNKtY73TpuvviFSIrY1Elmf8A7A4EyFxjOEG6c/OtkdBMQxsD1qbUdrsHPekrwy6mPL7AYR
- ztWhiBZNfY9m3q2JSqljpgnntGUSUR3D/waRev+SuSgugkwOvEx1LB/QcBydMNEylydptY7b03m
- i463GkNGNWhgKZATvqr3lxYskg1t2yDQ+Bjd6S8XWmVzEaNMGfDi+jySiHpHX8jl3+NBuRoOceG
- AyVga/GJBPqKQTA==
-X-Developer-Key: i=nsc@kernel.org; a=openpgp;
- fpr=18ED52DBE34F860EE9FBC82B7D97093255A0CE7F
+Mime-Version: 1.0
+Date: Thu, 10 Sep 2026 03:48:11 +0800
+Message-Id: <aqG3-ySw1AecQVkD@nobug>
+References: <20260909-fec-ptp-pps-event-uaf-v3-0-bead12c29a16@cherr.cc> <20260909-fec-ptp-pps-event-uaf-v3-2-bead12c29a16@cherr.cc> <CAABR9nGshJE96aCZVriQeMd+7Zjua5n+EKpUTN=953sowUL0Tg@mail.gmail.com>
+In-Reply-To: <CAABR9nGshJE96aCZVriQeMd+7Zjua5n+EKpUTN=953sowUL0Tg@mail.gmail.com>
+To: "Bui Duc Phuc" <phucduc.bui@gmail.com>, "Wei Fang" <wei.fang@nxp.com>
 
-> Commit 3e86e4d74c04 ("kbuild: keep .modinfo section in vmlinux.unstripped")
-> keeps .modinfo symbols out of System.map and kallsyms, which assumes unique
-> IDs have a format like '__UNIQUE_ID_modinfo123'.
+> > +
+> > +       if (fep->pps_irq >= 0) {
+> > +               free_irq(fep->pps_irq, ndev);
+> > +               fep->pps_irq = -1;
+> > +       }
+> > +
 > 
-> However, commit afb026b6d35c ("compiler: Tweak __UNIQUE_ID() naming"), sent
-> in the same cycle, changes this to '__UNIQUE_ID_modinfo_123'.
-> 
-> As a result this regexp has never matched and every kernel since v6.18 has
-> carried one kallsyms entries for every MODULE_INFO() declaration in the
-> kernel whether the modules are compiled or not.
-> 
-> That's 5,810 entries for an x86 defconfig build and 15,200 for arm64.
-> 
-> On x86 defconfig that is 113 KiB of kallsyms tables and 32 KiB of bzImage,
-> and every lookup walks past them.
-> 
-> Fix the pattern.
-> 
-> Fixes: 3e86e4d74c04 ("kbuild: keep .modinfo section in vmlinux.unstripped")
-> 
-> No measurable change in build time, the smaller tables are not on any path
-> the build waits for.
-> 
+> I think fep->pps_irq > 0 would be more appropriate here,
+> since the IRQ returned by platform_get_irq_byname_optional() or
+> platform_get_irq_optional() cannot be 0.
 
-For consistency, it would be nice to have the 'Fixes:' trailer at the
-beginning of the trailer block (that is: here.)
+Hi Phuc,
 
-> Assisted-by: LLM
-> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
->
-> diff --git a/scripts/mksysmap b/scripts/mksysmap
-> index c4531eacde20..56a8b8bbdb37 100755
-> --- a/scripts/mksysmap
-> +++ b/scripts/mksysmap
-> @@ -83,7 +83,7 @@
->  / _SDA2_BASE_$/d
->  
->  # MODULE_INFO()
-> -/ __UNIQUE_ID_modinfo[0-9]*$/d
-> +/ __UNIQUE_ID_modinfo_[0-9]*$/d
->  
->  # ---------------------------------------------------------------------------
->  # Ignored patterns
+You're right. I hadn't checked whether these helpers could return
+IRQ 0.
 
-Thanks!
+I saw the existing irq >= 0 check in the request path and wanted
+the release path to match it. I used -1 to distinguish "no IRQ
+requested" from a possible IRQ 0, recording the IRQ only after
+request_irq() succeeded.
 
-Reviewed-by: Nicolas Schier <nsc@kernel.org>
+Since both helpers reject IRQ 0, that extra handling is unnecessary.
+Keeping pps_irq at its initial value of 0 and checking > 0 before
+free_irq() is sufficient.
 
--- 
-Nicolas
+Wei, I plan to drop the -1 initialization, use > 0 for the release
+check, and reset pps_irq to 0 after freeing it. Do you have any
+concerns with that change?
 
+Thanks for pointing this out.
+
+Best regards,
+Shengzhuo
