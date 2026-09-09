@@ -1,250 +1,170 @@
-Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com [165.173.180.11])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4211158E2A2;
-	Wed,  9 Sep 2026 21:08:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.180.11
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788988124; cv=pass; b=duPO/lpC3i1agccGIan/rVeIOM6+L+AXDUG0ohtDbdABWeb0WzFHGDSWtB6xJb36vjgDMpy7SF5uXLE2/4SyIbwttdV6aBd6yVD4mmKj80r6gEaKmv4UukotHiZiKN83Ukx0n5v10cRy/vRGwcaTpEhFBqEYSeYX6x84iAGaHp8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788988124; c=relaxed/simple;
-	bh=tj/bEIU1bcu8t022BqWb+Qu+7tbxn3sUWiwo2QeLhKM=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79B0058FD3A
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 21:10:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788988253; cv=none; b=ie0KtBZAj5T6vyG5VwcZEwKIqNZ/wGYjdkxHPbZWroImyiO9XasWuOZJFoXDeITV3VRY4o/TnaIQjzD5IAzCB3QWvE303rJQRgtkuHR22KFLnSCb2khONSwT9QSC3NvCR73m1ifAS74hMJGHc0+7RJfiaRhrIREhpQc+XJxjy/g=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788988253; c=relaxed/simple;
+	bh=Spjf6xqG2qfvbwK7Zr0ktdFO4xP0s4DHcL0CPQWQr/4=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=eGMRrQ6l2JE/ywg0bq6ertBq20jd0QlSRLZpHEBYhvveknVwePmn8ar3qwY4x5KFKbqAFtswvmquwX00a0lnJ6dWUXp5o8MW5bO/l1Xh3MIj6vNJ+p9aaGVtji2yDwqsYm7EP6Dd5nGAUKdcPUsf6Q5F3pcJInLmllRTMpl7DKo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.b=EmASXpM1; arc=pass smtp.client-ip=165.173.180.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=M+12pqwAAjJXqoz4Tw2u0tOdfA3n1ciQ6R3vo82ETCe9AQYeRzikUkhmjjZbqF3BVSwMBDBMqxUNlxvldiPF7QHPmHBypMDUTICI+Qt5tZ1BEGNa37OmQdzwmWSfwCFb950RMJG0CEr56lvcSAbkMJjzBs8lHBmLssK3s51Lu20=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QIJvOVNV; arc=none smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.b="EmASXpM1"
-ARC-Seal: i=1; a=rsa-sha256; t=1788988113; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=CpD6VP6KZMOrlJhjQVEp3m2dy6Ey/biNn+DSAbVi4EgvHeDVRriB+nB+D3QvOC18WUaJX7S2Br+HEOLhUYQ2QWunOjERd4M9u3VC/pU+8IkGcOdm7vQwz5Qv8K4FxoutH/sXGBX2wW+PXCxLO/eByLK3540ZZ+i7eOwKEYnvUAg=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1788988113; h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=i20i/ggCALMNwDadOAv6mdnZuvWfc14LrBp1z4LLOr0=; 
-	b=D8MgXatBd7g78cinmgSi55n9sHMgN/O4IlrNAHpR9JgbWfpnxXl5T1nKF2kepmkdrprvyGLvM5MR5188D9N5tCr6QV1y8EuHNw3K6zS08VeYgBDKvTIcYwvBSY80GXZZ0O6pRDEnku2fVHfF4BejbNNFYRBC9t+M/vWCg+WfbRo=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=sebastian.reichel@collabora.com;
-	dmarc=pass header.from=<sebastian.reichel@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1788988113;
-	s=zohomail; d=collabora.com; i=sebastian.reichel@collabora.com;
-	h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:MIME-Version:Content-Type:In-Reply-To:Message-Id:Reply-To;
-	bh=i20i/ggCALMNwDadOAv6mdnZuvWfc14LrBp1z4LLOr0=;
-	b=EmASXpM1N46pu71p6ZHd999oEuT2GFWBnbT7+psLaJdhDcNY8qPKaonvI5a+l2eo
-	pWfAB6MKph8mJFvitVRvuhOHExB6VsfkmR3rqZK+mkGNozWu1bRW4XTIFryPGyMJkBQ
-	EyKU+vP5s23IS7/CbENiP38xSLzEKYowb0s0jZrE=
-Received: by mx.zohomail.com with SMTPS id 1788988111194745.2781428972909;
-	Wed, 9 Sep 2026 14:08:31 -0700 (PDT)
-Received: by venus (Postfix, from userid 1000)
-	id 8B1C2183377; Wed, 09 Sep 2026 23:08:27 +0200 (CEST)
-Date: Wed, 9 Sep 2026 23:08:27 +0200
-From: Sebastian Reichel <sebastian.reichel@collabora.com>
-To: amitsd@google.com
-Cc: Badhri Jagan Sridharan <badhri@google.com>, 
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org, RD Babiera <rdbabiera@google.com>, 
-	Kyle Tso <kyletso@google.com>
-Subject: Re: [PATCH] usb: typec: tcpm: Support native battery energy
- properties in battery AMS
-Message-ID: <aqHJtbFkepedz7BO@venus>
-References: <20260820-tcpm-energy-props-upstream-v1-1-0a0167863848@google.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QIJvOVNV"
+Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-396ccdaea75so818004a91.1
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 14:10:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788988252; x=1789593052; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=5s6tbDh0gZouWp+8QV/C1Mblvi6uIzTsyYuZmljZJMs=;
+        b=QIJvOVNV7sCE1YvcXsfGWKrtq8mUptt3Ppm9xsJzHcP1oR267eOn2BlpvWvmPUwWfY
+         NwUehrTA1YFFE6u7n8zSjaPs6jX0M3OzVoCzsX/fmQSeNlrYbnP7AZnVX+vGumc2JoTc
+         dEjWR41DLJqY/EuVCsdiNKPQZQlnSbLoii8NMBzoJuVOFOo5V8BpTiHNOUVJJeJLhgQo
+         49dnjMvZdH9P3YnUdOcVhFAVabJGAsAa4nt7Om6sIlu0108NBH/jKboNO2EJvUbub1zt
+         CbkNffXlTDWP1YkdvlMqwjLIKdcTcuHt3n+aqiYSO1YkVBxOOGd0arWKRiASUZEmt36D
+         oxYg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788988252; x=1789593052;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=5s6tbDh0gZouWp+8QV/C1Mblvi6uIzTsyYuZmljZJMs=;
+        b=ixgMN3A7Az0ALzTigvYv1/KDjVY2o+rFri9u367hGSDfCGn1sadg8Jxv4zhdXbylsC
+         k4nYMhFbvYKdkBI8gUKiY9n+sbjz62JdOmITUJSj6tFFvzxX7mxOPraFb082J6pdAE5o
+         GOULfeOkY4DoqL6VAUo8sQgJq4n7PILUdu+OsCwqS7zsfdhMxShoyqwbHOmuiJ8eD7yF
+         vkn81xi4tCZ6gFu/cqtcgH+MkHsBuZcRNwfjxstYt9pqjipTxWWVm1a+yUAW6KNoAxfP
+         D0v4hZKQxURSQo1bI5PU7LJdaU6rZoWDD/snDjVAGLjugPauyfAZd3NpLYZwDngdusxA
+         t0Eg==
+X-Forwarded-Encrypted: i=1; AKwUvBxmdby45LmSxCd+ETVEcMFf9SuYofuzdd1DxSi8J9IhB/9hFmB0rM8xFC30UPCrqkdZV5CLm7IqUoXzA6k=@vger.kernel.org
+X-Gm-Message-State: AFuF++mAlsgUK9GowL1h/pxQiDSDN1dz4Rrmrdt2u5u/t9f55xiVOoZd
+	PCw6N80cyKq7aGcf3RFsHgSJGlP6p614EoeabnA1dfGLB99GeJPu1SKE
+X-Gm-Gg: AYBFou2iGPtOfllVd0rXoEfdE7tICCENUAfAi1ehqD1GuqstDy9Si5mvlPY+pdQI/OE
+	01o72bc9WGBpO9zxBPThO55RfFPMHGc0ExP37J2qqKrA2e6X3TtYYsDRR+UTUYzMinFvrf7+IDw
+	ZUXLJ1ttGc1Jy+epcf0tVamcNvq5OpZpJuxatt3upJ83PZue1o/kSpEZ9OvODd/QWHlIrGyOXhZ
+	bnDc3XtpH62vPD3W9IJ0MELEtX5sOYj2fZoaggd76rULq3jGW0KdyfBYYj9poyxxM7TqR+lTBmi
+	vY5QqTuY0d88qBkvxIMDKPwrylp+/zLk8pr3T4jgllaVoMD48fnGO9uJJddc7YYcmvDc3Lq82Ww
+	phX81unbv1ua/PEG3ZQKjr2Lx1PGN5MHCi/pD6jZ241I1jsOj4FIW4y0Ik4Wr9ZYYlXoTwuHbvR
+	fUxELuP1IHNLK24yycXl7Ywtu3+QjbhFLpHfnX9R4U1deB/34LxvRo28xZHZNyfCe3WynyxrsDX
+	e7+2Lv6p2en
+X-Received: by 2002:a17:90b:58d0:b0:39b:5622:d645 with SMTP id 98e67ed59e1d1-39d7743f69bmr933364a91.0.1788988251631;
+        Wed, 09 Sep 2026 14:10:51 -0700 (PDT)
+Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d77122566sm1331358a91.9.2026.09.09.14.10.50
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 09 Sep 2026 14:10:51 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Date: Wed, 9 Sep 2026 14:10:50 -0700
+From: Guenter Roeck <linux@roeck-us.net>
+To: Tzung-Bi Shih <tzungbi@kernel.org>
+Cc: Wim Van Sebroeck <wim@linux-watchdog.org>,
+	Daniel Palmer <daniel@thingy.jp>,
+	Romain Perier <romain.perier@gmail.com>,
+	linux-watchdog@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 3/9] watchdog: msc313e: Fix clock leak and spurious
+ timer in settimeout()
+Message-ID: <23a329d0-f183-4efd-af9a-fde95a946403@roeck-us.net>
+References: <20260828161348.13212-1-tzungbi@kernel.org>
+ <20260828161348.13212-4-tzungbi@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="deq6sdnandm5mu3o"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260820-tcpm-energy-props-upstream-v1-1-0a0167863848@google.com>
-X-Zoho-Virus-Status: 1
-X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/288.982.46
-X-ZohoMailClient: External
+In-Reply-To: <20260828161348.13212-4-tzungbi@kernel.org>
 
+On Sat, Aug 29, 2026 at 12:13:42AM +0800, Tzung-Bi Shih wrote:
+> msc313e_wdt_settimeout() unconditionally calls msc313e_wdt_start() which
+> introduces two severe bugs:
+> 
+> 1. If the watchdog is already active, calling start() again will
+>    increase the reference count of the clock again.  However stop() is
+>    only called once, the reference count is unbalance.
+> 2. If the watchdog is stopped, calling settimeout() will start
+>    the hardware timer accidentally.
+> 
+> Factor out the register-writing logic into a helper function.  Only call
+> it in settimeout() if the watchdog is running.  Otherwise, simply update
+> `wdev->timeout`.
+> 
+> Fixes: e9800b799464 ("watchdog: Add Mstar MSC313e WDT driver")
+> Signed-off-by: Tzung-Bi Shih <tzungbi@kernel.org>
 
---deq6sdnandm5mu3o
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH] usb: typec: tcpm: Support native battery energy
- properties in battery AMS
-MIME-Version: 1.0
+Applied. Comment below, though.
 
-Hi,
+Thanks,
+Guenter
 
-On Thu, Aug 20, 2026 at 09:17:58PM +0000, Amit Sunil Dhamne via B4 Relay wr=
-ote:
-> From: Amit Sunil Dhamne <amitsd@google.com>
->=20
-> Some fuel gauges report battery telemetry in energy rather than charge.
-> Add support for querying native energy properties for Battery Status and
-> Battery Capabilities AMS, falling back to calculating energy from charge
-> and average voltage when primary properties are not supported.
->=20
-> +---------+--------------------+----------------------------------+
-> | Sr. No. | Primary            | Fallback                         |
-> +---------+--------------------+----------------------------------+
-> | 1       | ENERGY_NOW         | CHARGE_NOW + VOLTAGE_AVG         |
-> | 2       | ENERGY_FULL_DESIGN | CHARGE_FULL_DESIGN + VOLTAGE_AVG |
-> | 3       | ENERGY_FULL        | CHARGE_FULL + VOLTAGE_AVG        |
-> +---------+--------------------+----------------------------------+
-> Note: All properties above are to be prefixed with POWER_SUPPLY_PROP_.
->=20
-> Closes: https://lore.kernel.org/all/amVJ1u67qHENBQ5l@venus/
-> Suggested-by: Sebastian Reichel <sebastian.reichel@collabora.com>
-> Assisted-by: Gemini:gemini-3.1-pro
-> Signed-off-by: Amit Sunil Dhamne <amitsd@google.com>
-> Reviewed-by: Badhri Jagan Sridharan <badhri@google.com>
 > ---
-
-Reviewed-by: Sebastian Reichel <sebastian.reichel@collabora.com>
-
-Greetings,
-
--- Sebastian
-
->  drivers/usb/typec/tcpm/tcpm.c | 57 +++++++++++++++++++++++++++----------=
-------
->  1 file changed, 36 insertions(+), 21 deletions(-)
->=20
-> diff --git a/drivers/usb/typec/tcpm/tcpm.c b/drivers/usb/typec/tcpm/tcpm.c
-> index a8cd1959c426..0d7dc0b51c87 100644
-> --- a/drivers/usb/typec/tcpm/tcpm.c
-> +++ b/drivers/usb/typec/tcpm/tcpm.c
-> @@ -410,6 +410,9 @@ struct pd_timings {
->  /* Convert microwatt to watt */
->  #define UW_TO_W(pow)				(div_u64((pow), 1000000))
-> =20
-> +/* Convert micro-Watt-hours to USB PD energy (increments of 0.1Wh) */
-> +#define UWH_TO_PD_ENERGY(energy)		(UW_TO_W((u64)(energy) * 10))
+> v2:
+> - New to the series.
+> ---
+>  drivers/watchdog/msc313e_wdt.c | 22 ++++++++++++++++------
+>  1 file changed, 16 insertions(+), 6 deletions(-)
+> 
+> diff --git a/drivers/watchdog/msc313e_wdt.c b/drivers/watchdog/msc313e_wdt.c
+> index c3018b970164..8ce24df8e338 100644
+> --- a/drivers/watchdog/msc313e_wdt.c
+> +++ b/drivers/watchdog/msc313e_wdt.c
+> @@ -31,20 +31,26 @@ struct msc313e_wdt_priv {
+>  	struct clk *clk;
+>  };
+>  
+> +static void msc313e_wdt_set_hw_timeout(struct msc313e_wdt_priv *priv,
+> +				       unsigned int timeout)
+> +{
+> +	u32 t = timeout * clk_get_rate(priv->clk);
 > +
->  /*
->   * As per USB PD Spec Rev 3.18 (Sec. 6.5.13.11), the number of fixed bat=
-teries
->   * that a port can be queried is restricted to 4.
-> @@ -1580,8 +1583,7 @@ static u16 tcpm_charge_to_energy(int charge, int vo=
-ltage)
+> +	writew(t & 0xffff, priv->base + REG_WDT_MAX_PRD_L);
+> +	writew((t >> 16) & 0xffff, priv->base + REG_WDT_MAX_PRD_H);
+> +	writew(1, priv->base + REG_WDT_CLR);
+
+I wonder if the write to REG_WDT_CLR can come first, to fix the
+problem outlined by Sashiko in one of the subsequent patches.
+
+
+> +}
+> +
+>  static int msc313e_wdt_start(struct watchdog_device *wdev)
 >  {
->  	u64 energy =3D div_u64((u64)charge * voltage, 1000000);
-> =20
-> -	/* Battery telemetry is reported in increments of 0.1Wh */
-> -	return (u16)UW_TO_W(energy * 10);
-> +	return UWH_TO_PD_ENERGY(energy);
+>  	struct msc313e_wdt_priv *priv = watchdog_get_drvdata(wdev);
+> -	u32 timeout;
+>  	int err;
+>  
+>  	err = clk_prepare_enable(priv->clk);
+>  	if (err)
+>  		return err;
+>  
+> -	timeout = wdev->timeout * clk_get_rate(priv->clk);
+> -	writew(timeout & 0xffff, priv->base + REG_WDT_MAX_PRD_L);
+> -	writew((timeout >> 16) & 0xffff, priv->base + REG_WDT_MAX_PRD_H);
+> -	writew(1, priv->base + REG_WDT_CLR);
+> +	msc313e_wdt_set_hw_timeout(priv, wdev->timeout);
+>  	return 0;
 >  }
-> =20
->  static int tcpm_pd_send_batt_status(struct tcpm_port *port)
-> @@ -1612,16 +1614,17 @@ static int tcpm_pd_send_batt_status(struct tcpm_p=
-ort *port)
->  	else
->  		batt_present =3D val.intval > 0;
-> =20
-> -	ret =3D power_supply_get_property(batt, POWER_SUPPLY_PROP_CHARGE_NOW,
-> -					&val);
-> +	ret =3D power_supply_get_property(batt, POWER_SUPPLY_PROP_ENERGY_NOW, &=
-val);
->  	if (!ret) {
-> -		charge_now =3D val.intval;
-> -		ret =3D power_supply_get_property(batt,
-> -						POWER_SUPPLY_PROP_VOLTAGE_AVG,
-> -						&val);
-> -		if (!ret)
-> -			present_charge =3D tcpm_charge_to_energy(charge_now,
-> -							       val.intval);
-> +		present_charge =3D UWH_TO_PD_ENERGY(val.intval);
-> +	} else {
-> +		ret =3D power_supply_get_property(batt, POWER_SUPPLY_PROP_CHARGE_NOW, =
-&val);
-> +		if (!ret) {
-> +			charge_now =3D val.intval;
-> +			ret =3D power_supply_get_property(batt, POWER_SUPPLY_PROP_VOLTAGE_AVG=
-, &val);
-> +			if (!ret)
-> +				present_charge =3D tcpm_charge_to_energy(charge_now, val.intval);
-> +		}
->  	}
-> =20
->  	ret =3D power_supply_get_property(batt, POWER_SUPPLY_PROP_STATUS, &val);
-> @@ -1678,19 +1681,31 @@ static int tcpm_pd_send_batt_cap(struct tcpm_port=
- *port)
-> =20
->  	invalid_ref =3D false;
->  	batt =3D port->fixed_batt[batt_id];
-> -	ret =3D power_supply_get_property(batt, POWER_SUPPLY_PROP_VOLTAGE_AVG,
-> -					&val);
-> -	if (!ret) {
-> -		vol =3D val.intval;
-> -		ret =3D power_supply_get_property(batt,
-> -						POWER_SUPPLY_PROP_CHARGE_FULL_DESIGN,
-> -						&val);
+>  
+> @@ -69,9 +75,13 @@ static int msc313e_wdt_stop(struct watchdog_device *wdev)
+>  
+>  static int msc313e_wdt_settimeout(struct watchdog_device *wdev, unsigned int new_time)
+>  {
+> +	struct msc313e_wdt_priv *priv = watchdog_get_drvdata(wdev);
 > +
-> +	ret =3D power_supply_get_property(batt, POWER_SUPPLY_PROP_ENERGY_FULL_D=
-ESIGN, &val);
-> +	if (!ret)
-> +		design_cap =3D UWH_TO_PD_ENERGY(val.intval);
-> +
-> +	ret =3D power_supply_get_property(batt, POWER_SUPPLY_PROP_ENERGY_FULL, =
-&val);
-> +	if (!ret)
-> +		charge_cap =3D UWH_TO_PD_ENERGY(val.intval);
-> +
-> +	if (design_cap !=3D BATTERY_PROPERTY_UNKNOWN && charge_cap !=3D BATTERY=
-_PROPERTY_UNKNOWN)
-> +		goto send_cap;
-> +
-> +	ret =3D power_supply_get_property(batt, POWER_SUPPLY_PROP_VOLTAGE_AVG, =
-&val);
-> +	if (ret)
-> +		goto send_cap;
-> +
-> +	vol =3D val.intval;
-> +	if (design_cap =3D=3D BATTERY_PROPERTY_UNKNOWN) {
-> +		ret =3D power_supply_get_property(batt, POWER_SUPPLY_PROP_CHARGE_FULL_=
-DESIGN, &val);
->  		if (!ret)
->  			design_cap =3D tcpm_charge_to_energy(val.intval, vol);
-> +	}
-> =20
-> -		ret =3D power_supply_get_property(batt,
-> -						POWER_SUPPLY_PROP_CHARGE_FULL,
-> -						&val);
-> +	if (charge_cap =3D=3D BATTERY_PROPERTY_UNKNOWN) {
-> +		ret =3D power_supply_get_property(batt, POWER_SUPPLY_PROP_CHARGE_FULL,=
- &val);
->  		if (!ret)
->  			charge_cap =3D tcpm_charge_to_energy(val.intval, vol);
->  	}
->=20
-> ---
-> base-commit: e1e6e541c5c9cf548e9fdc35fc26808c82074440
-> change-id: 20260820-tcpm-energy-props-upstream-a493353f0054
->=20
-> Best regards,
-> --=20
-> Amit Sunil Dhamne <amitsd@google.com>
->=20
->=20
->=20
-
---deq6sdnandm5mu3o
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAmqhyscACgkQ2O7X88g7
-+pp1cQ//e6lmtujD0Yb0vr0irVWyua8bCpQyKIA/YNOeHE02WIRDmvBScuqsQDXK
-/02HJUS03X4UVKtn1r0LkiaBElSdouay6hUIaz8pkbzZ/KZdTugFe7cK4Dcdp80W
-4Whu/cZD6+mT7sYFNui4JOIKZECas+9Szo+IhyYZh4lrkwihv1X/oOSiS1NKEWqS
-tyitONuftplvKOAgOpp7JcSBSXAN1PymrTpbD8VnKcMmBbUUaXFKlTXKGsOvBxRq
-T7hsjaMHpQUcQwxZs0DELuJu9t1cHjdoVZGUmYD6t3/YdJJFwop8MWeOFOau5RBC
-nMcWpU27uFLGw7zR6kl8OnM2rXMcnkkuGMpBjv0v1PGyzwmFdxlnrqaaB0CByWQ0
-stAPgd90KEaZiuXKtDllptdF9Bme8ccIGd3/gz48D5KWRCuPaI12amRqEAlXwTNj
-LE2OLAICljX/DR31J6ryFKoSBOMi7SvJODiOHjiwgZBn3YCCYwE7EApfrx9rQ6m5
-dmAmNueV8mcryZl4UQju7e9P+4ieu29zHLgGymCSkBdSKyok9y7wx8iGDFcRPOov
-QAcEJBQeZozuMTzWhCruHUSLxZaLMTK164gWDIvvtGMxR3aQcSx85Z0hV1QNoQb3
-1nOuEC9L4fDgqff4Zz0sjCy5z5pyde7FI0gnnKTV3GGYWShT+4E=
-=b/yb
------END PGP SIGNATURE-----
-
---deq6sdnandm5mu3o--
+>  	wdev->timeout = new_time;
+>  
+> -	return msc313e_wdt_start(wdev);
+> +	if (watchdog_hw_running(wdev) || watchdog_active(wdev))
+> +		msc313e_wdt_set_hw_timeout(priv, wdev->timeout);
+> +	return 0;
+>  }
+>  
+>  static const struct watchdog_info msc313e_wdt_ident = {
