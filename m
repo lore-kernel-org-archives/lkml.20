@@ -1,165 +1,98 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33C2557C735;
-	Wed,  9 Sep 2026 14:45:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44E3557980C
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 14:45:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788965120; cv=none; b=pC6Us5y4cf+Pb/2shNlZbotpU8lfADwi8coxLEe2TXyTSAv8aXEtaNVNoOSppLN7YNV9JIMW+/VLbRRQOUEoDH6Dq0TMXaX+MTOy9vQbP61jchE6cfv0ltaLzGblZHCacuWueybRPaZtIRHOy6KVJcGzMd3GxJBJvUdJdiqxQUY=
+	t=1788965125; cv=none; b=C8bv84IX7E9GfX4D/XIJWOsLFa78ab+8XdMOaR42Qbv1LoUAqkViHbcsgtFHxLnJ0qSa9hjyVwFhGGj7jIgA1wyT97aXBDjyVkUMqKj5uefZHSXymkkU1vVeq0HnLPS99dqynKNSZRzvfKwdsf5a2hM4zyATbL0+IZ0jg+ddkvc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788965120; c=relaxed/simple;
-	bh=Ypon59CrcL/GClEUgoItVwKRy5h97oyDAyIzwKQTKL8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=FARKpujQ2YLThZ0wRtJRA8RpMdXtWJJvY25DTDwN2593sKZKbmYiuwXyjKTo7Dk9637n7nTPlVnwIOB9WcfSJs9LjvmlTT/TNr4789sBGYrzJ73ry8eLihwkOEZkHKSBl/PVy3qnPrk0oClZ2CSSbZMPE5pOh6BSJoFf2bxZEKk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Xhxx0khW; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788965125; c=relaxed/simple;
+	bh=qgX3F3/chBJajEYG6ONnqTkx0UeYX0YlLIoI1meGgyw=;
+	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
+	 MIME-Version:Content-Type; b=W4swOIAoqbs8ygw0FUz2bFXHDCf7kpPnN40sMkuo+eIo//vlK2DvoZZ9qSgnUz8WbqXyPhhHyZthLFvtfgdGBubwSKZ1lPo8aqewrT+0hC1iw5+LRaEpuUcY+V6z5e5vTowft3xWlLaXQuRUjPEvyhvtWrKkWlKKuIUEel4J2ks=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=rwXItU7p; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=eQ332XR5; arc=none smtp.client-ip=5.75.144.95
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Xhxx0khW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 78AC91F00A3A;
-	Wed,  9 Sep 2026 14:45:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788965119;
-	bh=K58cKHulWym61Yate6t1pTnTXRuBWGGv6yostO13qNY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Xhxx0khW2G/5/4vxzFifVxHhB1Hj4/gJYWj9vH7PrAXbsF+QcjQEQFAH3W56oAvks
-	 lqXDwUoQLaUur3E2tolLS49mfx+b4Ze9yl+QcE2iE6tNyafSE1MmimNmOnbH4iHt22
-	 GgB1BEZ0QSxF3Um43IZKLjYOP+ljAj6AhBy2muVtNsqtgjRmj227JPG9fiVwV/8j/2
-	 YCBDrmVUjfAGL7zfOEmaojeuER2qxydaEdPEC4Ryl79Ez1o4FF1U567vSCgnkTKRG4
-	 XJ6kAJFdjD02KG4GJqMWNLaNBWrmKpq6XB4Mz9mnfCWxvS7o1jLLrg5In2OL84xomV
-	 rgiDsoDXb0k9A==
-Date: Wed, 9 Sep 2026 16:45:15 +0200
-From: Frederic Weisbecker <frederic@kernel.org>
-To: Peter Zijlstra <peterz@infradead.org>
-Cc: stern@rowland.harvard.edu, boqun@kernel.org,
-	Thomas Gleixner <tglx@kernel.org>,
-	LKML <linux-kernel@vger.kernel.org>,
-	"Cc: Hyunwoo Kim" <imv4bel@gmail.com>,
-	Oleg Nesterov <oleg@redhat.com>,
-	Christian Brauner <brauner@kernel.org>,
-	John Stultz <jstultz@google.com>, Ingo Molnar <mingo@kernel.org>,
-	Alexander Viro <viro@zeniv.linux.org.uk>,
-	"Eric W. Biederman" <ebiederm@xmission.com>, stable@vger.kernel.org
-Subject: Re: [patch V2 1/8] signal: Prevent exec() race
-Message-ID: <aqFw--VfXWz-yZt8@localhost.localdomain>
-References: <ap6urw5aAxrKO3Ck@localhost.localdomain>
- <87ik4h2icz.ffs@fw13>
- <ap8bUiYYwQT1nVg5@pavilion.home>
- <875x0g3de3.ffs@fw13>
- <ap_gOSWtPNjwWS1e@localhost.localdomain>
- <20260909080407.GR4121339@noisy.programming.kicks-ass.net>
- <87ecf223n4.ffs@fw13>
- <20260909095518.GL776954@noisy.programming.kicks-ass.net>
- <aqFNV4k6DcbyxYCe@localhost.localdomain>
- <20260909124555.GM776954@noisy.programming.kicks-ass.net>
+	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="rwXItU7p";
+	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="eQ332XR5"
+DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1788965108; bh=Wm2geJlbtGbU92IZqu+eW8m
+	0JT5CwaWOaBBT2z+SwHo=; b=rwXItU7pH72zB0D/BX831s78+axJv8WNyiUVJbPbmr+v+ca0iv
+	Kp3yNZgIdQmLiSgld1J/BCxtgtSxeME+4jWvWsc9e+X4IlgoXcgBhQXU+cL0tnlaoTVAd4ySEQx
+	i06xtXV6G0oYdk8QxofW096Z4J8JSwmJ8AVo36GkwYATG7j61Vm7Eda4NVACexD0LtomlsW1hIF
+	8Qq9kgOD9J7SY4OkqP1fCO/pUHVqnpqCZ/khJ5czQdZGWVCIOj1eQuNERQYnx+nwDZzz7NkdSzB
+	kGVG3vBcyQzKTifgKzF1Bzg9+xptPOAkeXlbv680MmFQ/89BcTeW460/mE65Mjpbpmw==;
+DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1788965108; bh=Wm2geJlbtGbU92IZqu+eW8m
+	0JT5CwaWOaBBT2z+SwHo=; b=eQ332XR52iPJulGnX5vlJ+6ddc6RAyiihpHC5U83VmpXXhWnrn
+	P9cvLPGuSD7cYw9NHLY7KpxQ8o5zk6ULRXAA==;
+Date: Wed, 09 Sep 2026 15:45:06 +0100
+From: Bradley Morgan <brads@mainlining.org>
+To: Mark Rutland <mark.rutland@arm.com>, Will Deacon <will@kernel.org>
+CC: Catalin Marinas <catalin.marinas@arm.com>, James Morse <james.morse@arm.com>,
+ Marc Zyngier <maz@kernel.org>, Ard Biesheuvel <ardb@kernel.org>,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 0/7] arm64: hibernate: dust off the suspend/cleanup rework
+In-Reply-To: <aqEhTIPqoKj98TRS@J2N7QTR9R3>
+References: <20260825205839.14571-1-brads@mainlining.org> <apgpnjnJ4suhHh-v@J2N7QTR9R3.cambridge.arm.com> <B23E199A-2D3D-48B4-A7E9-9664371A7361@mainlining.org> <apgsm92KtXA7xh6H@J2N7QTR9R3.cambridge.arm.com> <aplRx8f5NprO9dSU@willie-the-truck_quarantine> <aqEhTIPqoKj98TRS@J2N7QTR9R3>
+Message-ID: <CEB74969-03F2-4F98-8FFB-625A39EEAE7D@mainlining.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
+Content-Type: text/plain;
+ charset=utf-8
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260909124555.GM776954@noisy.programming.kicks-ass.net>
 
-Le Wed, Sep 09, 2026 at 02:45:55PM +0200, Peter Zijlstra a écrit :
-> On Wed, Sep 09, 2026 at 02:13:11PM +0200, Frederic Weisbecker wrote:
-> 
-> > > > I argue that's not possible:
-> > > > 
-> > > > A:   sigqueue stores
-> > > > 
-> > > > B:   AQUIRE tasklist
-> > > > 
-> > > > C:   exit_state store
-> > > > 
-> > > > D:   RELEASE tasklist
-> > > > 
-> > > > E                               ACQUIRE tasklist
-> 
-> > > > F                               if (exit_state)
-> > > > 				    	swap_pid()
-> > > > G                                   STORE_PID
-> > > > 
-> > > > 				      RELEASE tasklist
-> > > > 
-> > > > H                                                       READ PID
-> > > > 							      ....
-> > > > I                                		              ACQUIRE siglock
-> 
-> > > Let G' be the unnamed RELEASE after G.
-> > > 
-> > > Now, I have deleted and rewritten this tail end at least twice now. And
-> > > I *think* I'm agreeing with you. Let me explain:
-> > > 
-> > > It all hinges on D-E and H-I.
-> > > 
-> > > D-E is a UNLOCK+LOCK hand-over, which is not quite the same as
-> > > RELEASE+ACQUIRE. Specifically, we have:
-> > > 
-> > >   RELEASE+ACQUIRE: RCpc,  only the CPUs involved agree on the ordering
-> > >   UNLOCK+LOCK:     RCtso, the hand-over is store-ordering
-> > > 
-> > > So while earlier I was arguing with RCpc in mind, in which case D-E
-> > > completely goes away and we can consider B-G' to be one big critical
-> > > section from the PoV of a third CPU (our posix_timer_fn() one). In this
-> > > case we can push A down and G up and have them cross.
-> > > 
-> > > *However*, since these are locks, we actually have D-E be UNLOCK+LOCK,
-> > > which is RCtso and that *does* impose store order, so A stores must
-> > > happen before G stores
-> > > 
-> > > Combine with H-I, which has a data dependency from the LOAD to the LOCK
-> > > and thereby constraints later LOADs, those sigqueue loads that come
-> > > after I must in fact observe the A stores.
-> > 
-> > I didn't know about all those UNLOCK+LOCK properties. Well,
-> > I know that UNLOCK+LOCK on the same lock, or on different locks
-> > but the same CPU, equals smp_mb() except on powerpc. Which is why
-> > we have smp_mb__after_unlock_lock(). But what you describe is quite
-> > different.
-> > 
-> > Is this something that we should expect litmus to modelize?
-> 
-> IIRC these commits:
-> 
-> 6e89e831a901 ("tools/memory-model: Add extra ordering for locks and remove it for ordinary release/acquire")
-> ddfe12944e84 ("tools/memory-model: Provide extra ordering for unlock+lock pair
-> on the same CPU")
+On 9 September 2026 10:05:16 BST, Mark Rutland <mark.rutland@arm.com>
+wrote:
+>Hi Will,
+>
+>On Thu, Sep 03, 2026 at 11:53:59AM +0100, Will Deacon wrote:
+>> it's worth noting that Bradley's patch _does_ fix one of the
+>> hibernation problems and has been tested by Vladimir:
+>> 
+>> https://lore.kernel.org/all/20260809213615.11646-1-include@grrlz.net/
+>> 
+>> I would prefer to take your complete set of patches, but if you don't
+>> want that then should I just take the above for now? Prior to this
+>> series, there has been no activity for nearly two years on your branch,
+>> so I'd prefer to get _something_ in, even if it only fixes some of the
+>> problems.
+>
+>Sorry for the delay.
+>
+>I'd prefer if you picked up Bradley's single patch for now. I'll follow
+>up with a respin of the rest of the cleanup and fixes shortly.
 
-I didn't know that UNLOCK+LOCK can pair with smp_load_acquire(). Good to know.
+Oh, so I didn't need to do all that? Urgh..
 
-But unlock+lock doesn't pair with unlock+lock on different CPU.
+>
+>Could you add a note to the commit message as to how Vladimir was able
+>to trigger a hang with CONFIG_PAGE_POISONING=y and page_poison=on? It's
+>helpful for anyone testing a backport, etc.
+>
+>With that:
+>
+>Acked-by: Mark Rutland <mark.rutland@arm.com>
+>
+>For context, when I originally wrote my patches, I hadn't managed to
+>trigger failures at top level without additional hacks, and so this
+>hadn't been a high priority. Given that Vladimir can trigger this
+>specific issue with existing options, it makes sense to pick that up.
+>
+>I had a vague recollection that this specific fix lead to a secondary
+>issue, but digging through my notes I can't see what that would have
+>been, and I suspect I had just gotten confused w.r.t. what KVM was
+>doing. If I find there was a real secondary issue I'll follow up with a
+>fix .
+>
+>Thanks,
+>Mark.
 
-C MP+polocks
-
-{}
-
-P0(int *A, int *B, spinlock_t *mylock)
-{
-	spin_lock(mylock);
-	WRITE_ONCE(*A, 1);
-	spin_unlock(mylock);
-	spin_lock(mylock);
-	WRITE_ONCE(*B, 1);
-	spin_unlock(mylock);
-}
-
-P1(int *A, int *B, spinlock_t *otherlock)
-{
-	int r0;
-	int r1;
-
-	r0 = READ_ONCE(*B);
-	spin_lock(otherlock);
-	r1 = READ_ONCE(*A);
-	spin_unlock(otherlock);
-}
-
-exists (1:r0=1 /\ 1:r1=0) (* Bad outcome happens *)
-
-But yeah there is no data dependency involved. Let me answer to
-that to tglx.
-
--- 
-Frederic Weisbecker
-SUSE Labs
+--- Thanks!
+https://lore.kernel.org/all/EE579805-42F2-4C58-B752-F28779EEB717@grrlz.net/
