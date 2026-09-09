@@ -1,105 +1,143 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oa2-f0.google.com (mail-oa2-f0.google.com [74.125.231.64])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31C4F35AC2F;
-	Wed,  9 Sep 2026 11:08:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB32E5237AD
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 11:08:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788952098; cv=none; b=jEsMtSIBuL1ScMg+EquRTHSPDlKaZrh0r9QvAnMV39oWZo4Ju25sLQ58zaTcZULOTdZydb0iGWcxwCfv4RyrhI9MfoGHPzT5Cpo/T7Y1/0aEqP2SIMrAZFZXqS13X8vkIHFlYE65Oypux9SrSV9Ols/qJCyLiaCAc99sDqBWfv0=
+	t=1788952115; cv=none; b=Fo+kqp6+8+yU05O/mUOla6P588FEz2TjMeDJKS+fvemRuR08HipS3VTRifHC8ckaVkkVs62Je+N5NHmrpjEAy9mkWVisrZMLXzwuZ9GCSqGTrruWsG0rsNAXKv4/dtXip/LworeUEKfXEnYaB98bJfvLYQ8qJjIPXTf0xNEvNgY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788952098; c=relaxed/simple;
-	bh=Pl5KB8Rb6ZjqAl0MGo912TbnPMsPiInnD10TuBslO9I=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=UzV3yopit99u2onScmKpcbMau51L13fVpRyfvWqZIBqEYElDc+jYZe2w0FBc3eDsI9Wg8HVWfTczTpejZwURhY11VZDqPL4sNu8V2XhjZEv2mfNq2fkt+IdGP+ZrFlUsjExddEgIz6wiNdcDck00HYnaYZE4qUhkQ00ucaNz9ts=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QaTpJ5ov; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QaTpJ5ov"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B4F9D1F00AC4;
-	Wed,  9 Sep 2026 11:07:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788952097;
-	bh=n4mPQZ86gp5FDwQ4tHqlyfsOtYqdqNDLvVyVaC4A/Fo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=QaTpJ5ovoTiEG+gXq4D4QRjJgrK/QkDaAvE4t9yf2p1CDXfWR+kPkM4RvUM0qdfPJ
-	 YQ3u5ytOfaVK2InZ/CGWXhSaMh2xZGgB5cMzAuvnJWAkL0XnASM+7IEN4Mh5mQR/v/
-	 23xVaM73u8uzFcGxU4t1Ngaq+BDhm428o54Sxl6mcGruZx3hwkdRUas8xhLW+8np6o
-	 1FCSepWEU5Qtr1gN3/1lPqwwWSfxlmy6GHgFq4rT9aBoF8CazzfpBWEzsvaBIQ/txk
-	 czLEOp1wjtukmiYmMeK+KJpQGgy7iNAEV7FZIokob8wTGUUDEcjvf9Oxi9V03vXvLr
-	 Iqy39qtZl8jxA==
-Date: Wed, 9 Sep 2026 12:07:52 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Kiryl Shutsemau <kas@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, "Liam R. Howlett" <liam@infradead.org>, 
-	Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
-	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
-	Usama Arif <usama.arif@linux.dev>, Guo Ren <guoren@kernel.org>, Brian Cain <bcain@kernel.org>, 
-	Geert Uytterhoeven <geert@linux-m68k.org>, Dinh Nguyen <dinguyen@kernel.org>, 
-	Simon Schuster <schuster.simon@siemens-energy.com>, Jonas Bonn <jonas@southpole.se>, 
-	Stefan Kristiansson <stefan.kristiansson@saunalahti.fi>, Stafford Horne <shorne@gmail.com>, 
-	Yoshinori Sato <ysato@users.sourceforge.jp>, Rich Felker <dalias@libc.org>, 
-	John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>, Paul Walmsley <pjw@kernel.org>, 
-	Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
-	Alexandre Ghiti <alex@ghiti.fr>, Russell King <linux@armlinux.org.uk>, 
-	Vineet Gupta <vgupta@kernel.org>, Michal Simek <monstr@monstr.eu>, Chris Zankel <chris@zankel.net>, 
-	Max Filippov <jcmvbkbc@gmail.com>, Will Deacon <will@kernel.org>, 
-	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin <npiggin@gmail.com>, 
-	Peter Zijlstra <peterz@infradead.org>, "David S. Miller" <davem@davemloft.net>, 
-	Andreas Larsson <andreas@gaisler.com>, Richard Henderson <richard.henderson@linaro.org>, 
-	Matt Turner <mattst88@gmail.com>, Magnus Lindholm <linmag7@gmail.com>, 
-	Catalin Marinas <catalin.marinas@arm.com>, Mark Rutland <mark.rutland@arm.com>, 
-	Huacai Chen <chenhuacai@kernel.org>, WANG Xuerui <kernel@xen0n.name>, 
-	Thomas Bogendoerfer <tsbogend@alpha.franken.de>, "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>, 
-	Helge Deller <deller@gmx.de>, Madhavan Srinivasan <maddy@linux.ibm.com>, 
-	Michael Ellerman <mpe@ellerman.id.au>, "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, 
-	Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
-	Alexander Gordeev <agordeev@linux.ibm.com>, Christian Borntraeger <borntraeger@linux.ibm.com>, 
-	Sven Schnelle <svens@linux.ibm.com>, Richard Weinberger <richard@nod.at>, 
-	Anton Ivanov <anton.ivanov@cambridgegreys.com>, Johannes Berg <johannes@sipsolutions.net>, 
-	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
-	Arnd Bergmann <arnd@arndb.de>, Vlastimil Babka <vbabka@kernel.org>, 
-	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
-	Michal Hocko <mhocko@suse.com>, Jason Gunthorpe <jgg@ziepe.ca>, 
-	John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, linux-csky@vger.kernel.org, linux-hexagon@vger.kernel.org, 
-	linux-m68k@lists.linux-m68k.org, linux-openrisc@vger.kernel.org, linux-sh@vger.kernel.org, 
-	linux-riscv@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
-	linux-snps-arc@lists.infradead.org, linux-arch@vger.kernel.org, sparclinux@vger.kernel.org, 
-	linux-alpha@vger.kernel.org, loongarch@lists.linux.dev, linux-mips@vger.kernel.org, 
-	linux-parisc@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, linux-s390@vger.kernel.org, 
-	linux-um@lists.infradead.org, Hugh Dickins <hughd@google.com>, Qi Zheng <qi.zheng@linux.dev>
-Subject: Re: [PATCH v2 00/12] mm: make userland page table freeing RCU-safe
-Message-ID: <aqE-ABWDmw26OGK2@gremlin>
-References: <20260908-rcu-pagetable-freeing-v2-0-1f60b64e878e@kernel.org>
- <aqEl9zv8M_o1yW62@thinkstation>
+	s=arc-20240116; t=1788952115; c=relaxed/simple;
+	bh=zLFT2midDUIE08jFtiZXoNTa28LZis4aapNizkR9Pl4=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=JYhc7zUMZF5pJ0E4lo5GFNpMFBOagptrszvgYw6vy48pRQv6HmNjppqqayimLUhKtP/ILnIwC/LIxSO6z63Ji7AFtWQONBcdI+6APF5WinW22zHbW58UUAr3mBExS+ngPD8LZKmW98QzWSbo/Jj90bT6ljRUplJcg44DOhlQ5D0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oa2-f0.google.com with SMTP id 586e51a60fabf-451e8472960so4569099fac.1
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 04:08:33 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788952112; x=1789556912;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=poOtJKRFcKQRNN+xN9bSoCheSB1ECKcVLBbKDneilbo=;
+        b=OxBVuMemyFH4HSxm9fJ6/IU8Hh1ZmCwXx5QN4M1SPC9aatPV8QfRkSk+5J7De2FFQK
+         xNhM/2Qv4Her/TVAeTlrULOgJtsS29yhZyMOLBmLZUgn2Iu7L1bMuMfjKbAXmz75WVa4
+         GNFC0sYAgWNb+bg8klUqgmyMoYqHMNaGKVgce3tg1lDWGxfOEBGv0B/cQodGdta8L/S8
+         3PVxHpsk3PkZLU2n92zqW1nTmmuLndS521DxkQO1VQJTkR0o9NTbqBdABUJmrBt4R0D4
+         WBzAL3Boep4Ya5GParrqNvQzIplMjxfk+1yFwFHUuxqhc3CcN/qGRchCpsrxWlPq0pgO
+         fI/Q==
+X-Forwarded-Encrypted: i=1; AKwUvBzz1+yQXlG8TX6wePWqFCGUFl71hqg9AXp7z3NAq0avyr8LtDCrjpkvAStnKh4MMPcSf6USs20LthtoUuA=@vger.kernel.org
+X-Gm-Message-State: AFuF++ldydcb2Ac5+4v+rEolrKPs0Mte1Pjkk1H69Eg9eIltcKXAqQIS
+	rysmz6U9oSuLY8PHg6sN+9UQLQS+hnV2W4QanDt46vk5+w8MsFx3SixaVPEd/d7c9JUROLIz0zw
+	jEcX+zKTs2yqKKHe92tJ/zZw4PYMrb9iwXYCBF4IDkjeqDuTWe9RJ5fKP+tA=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <aqEl9zv8M_o1yW62@thinkstation>
+X-Received: by 2002:a05:6820:f08:b0:6bd:ec40:e809 with SMTP id
+ 006d021491bc7-6bee4da46bdmr181333eaf.13.1788952112746; Wed, 09 Sep 2026
+ 04:08:32 -0700 (PDT)
+Date: Wed, 09 Sep 2026 04:08:32 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6aa13e30.f614420e.2bf292.0015.GAE@google.com>
+Subject: [syzbot] [exfat?] WARNING in fat_write_inode
+From: syzbot <syzbot+4cb66d4011e51657d6b4@syzkaller.appspotmail.com>
+To: hirofumi@mail.parknet.co.jp, linkinjeon@kernel.org, 
+	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	sj1557.seo@samsung.com, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-On Wed, Sep 09, 2026 at 10:26:03AM +0100, Kiryl Shutsemau wrote:
-> On Tue, Sep 08, 2026 at 01:32:09PM +0100, Lorenzo Stoakes (ARM) wrote:
-> > The majority of architectures in the kernel defer page table freeing until
-> > an RCU grace period has elapsed, this series converts all remaining
-> > architectures to do so too and eliminates CONFIG_MMU_GATHER_RCU_TABLE_FREE
-> > altogether.
->
-> Apart from few nitpicks, the patchset looks good to me:
->
-> Acked-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+Hello,
 
-Thanks! :)
+syzbot found the following issue on:
 
->
-> --
->   Kiryl Shutsemau / Kirill A. Shutemov
+HEAD commit:    654ae5d73c05 Merge tag 'drm-fixes-2026-09-05' of https://g..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=146d68f9580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=e909ffe6b35dddb7
+dashboard link: https://syzkaller.appspot.com/bug?extid=4cb66d4011e51657d6b4
+compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
 
---
-Cheers, Lorenzo
+Unfortunately, I don't have any reproducer for this issue yet.
+
+Downloadable assets:
+disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/d900f083ada3/non_bootable_disk-654ae5d7.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/b52a78a429eb/vmlinux-654ae5d7.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/ee752e9e76b3/bzImage-654ae5d7.xz
+
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+4cb66d4011e51657d6b4@syzkaller.appspotmail.com
+
+------------[ cut here ]------------
+!buffer_uptodate(bh)
+WARNING: fs/buffer.c:991 at mark_buffer_dirty+0x299/0x410 fs/buffer.c:991, CPU#0: syz.0.0/5320
+Modules linked in:
+CPU: 0 UID: 0 PID: 5320 Comm: syz.0.0 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+RIP: 0010:mark_buffer_dirty+0x299/0x410 fs/buffer.c:991
+Code: 4c 89 f7 e8 d9 01 d8 ff 49 8b 3e be 40 00 00 00 5b 41 5c 41 5e 41 5f 5d e9 74 52 fb ff e8 bf 8b 66 ff eb 8c e8 b8 8b 66 ff 90 <0f> 0b 90 e9 a5 fd ff ff e8 aa 8b 66 ff 90 0f 0b 90 e9 cf fd ff ff
+RSP: 0018:ffffc9000e3cf850 EFLAGS: 00010293
+RAX: ffffffff82614078 RBX: ffff888043def620 RCX: ffff8880003fcb00
+RDX: 0000000000000000 RSI: 0000000000000000 RDI: 0000000000000002
+RBP: ffffc9000e3cf901 R08: ffff888043def627 R09: 1ffff110087bdec4
+R10: dffffc0000000000 R11: ffffed10087bdec5 R12: 1ffff92001c79f20
+R13: ffff888043def620 R14: ffff888041c13410 R15: dffffc0000000000
+FS:  00005555923af540(0000) GS:ffff88808c2cd000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 0000563f7528d660 CR3: 000000004429a000 CR4: 0000000000352ef0
+Call Trace:
+ <TASK>
+ __fat_write_inode fs/fat/inode.c:946 [inline]
+ fat_write_inode+0x939/0xca0 fs/fat/inode.c:963
+ write_inode fs/fs-writeback.c:1608 [inline]
+ __writeback_single_inode+0x69d/0x1220 fs/fs-writeback.c:1851
+ writeback_single_inode+0x544/0xf70 fs/fs-writeback.c:1926
+ sync_inode_metadata+0x122/0x1d0 fs/fs-writeback.c:3100
+ writeback_inode fs/fat/inode.c:1916 [inline]
+ fat_flush_inodes+0x9b/0x1d0 fs/fat/inode.c:1936
+ fat_file_release+0xe0/0x1a0 fs/fat/file.c:180
+ __fput+0x418/0xa50 fs/file_table.c:512
+ task_work_run+0x1d9/0x270 kernel/task_work.c:233
+ resume_user_mode_work include/linux/resume_user_mode.h:50 [inline]
+ __exit_to_user_mode_loop kernel/entry/common.c:70 [inline]
+ exit_to_user_mode_loop+0x204/0x770 kernel/entry/common.c:101
+ __exit_to_user_mode_prepare include/linux/irq-entry-common.h:207 [inline]
+ syscall_exit_to_user_mode_prepare include/linux/irq-entry-common.h:230 [inline]
+ syscall_exit_to_user_mode include/linux/entry-common.h:336 [inline]
+ do_syscall_64+0x328/0x520 arch/x86/entry/syscall_64.c:89
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7f597199e159
+Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007fff8b9d4328 EFLAGS: 00000246 ORIG_RAX: 00000000000001b4
+RAX: 0000000000000000 RBX: 00007f5971c27da0 RCX: 00007f597199e159
+RDX: 0000000000000000 RSI: 000000000000001e RDI: 0000000000000003
+RBP: 00007f5971c27da0 R08: 0000000000000006 R09: 0000000000000000
+R10: 00007f5971c27cb0 R11: 0000000000000246 R12: 00000000000179c9
+R13: 00007f5971c2645c R14: 0000000000017964 R15: 00007fff8b9d4430
+ </TASK>
+
+
+---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
+
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
+
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
+
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
+
+If you want to undo deduplication, reply with:
+#syz undup
