@@ -1,174 +1,161 @@
-Received: from mail-ot1-f69.google.com (mail-ot1-f69.google.com [209.85.210.69])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail-4316.protonmail.ch (mail-4316.protonmail.ch [185.70.43.16])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB120492522
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 12:33:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.69
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB3B6554092
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 12:34:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788957224; cv=none; b=p0bWt/TpN0OxdlpvxKPdnMNLgTFaBpsWIhUQLQBwwGYo9n5GmTFfh/im0kzZWSnSlcvKd/JiVNpyQCKQd+Q9U0lkrblhS1V8wZiwRjuJBfA8W3Nlah/m5ubWBzg8SgVLts1Ac7CQnGXtpBRMBUp9ctwsc1tkDiSf6vuG8z7vtx4=
+	t=1788957274; cv=none; b=ouU8ICVMIqHRf8+VEAAjAmzxvcTNiXYPqwHk7RCkYvB1Nbuj8h38VSV7VAGrREPdfRP20ghaQZwxVvl83t/Gpi56mM/oH9D9yUgMPc0uNUfXGPUQPFtVGabfhToIvBiIZVIk+oxjHXKm0yaxeYydykpRf24cjIzY86lYzF5PxtQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788957224; c=relaxed/simple;
-	bh=KS1N6k2YLTMDi7c0RGLz/xl9wUEpOP5ZMfi9x4dtylU=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=Skz6wPtP/+LmljvweVU2w1eSlRJSDR85t/w/eQl0nAsOY1R12rm7kPcE5HXU5ePIAIOMbVYQ1MaxHRAdEoB/Kyu/ABHybp0s3OWDd7zY+F/NEugi88yaEape/HijFvZgUs/0M90AkhOOEb5a00NxgnQfrr+f0DP9Nf47YPyhZbI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.210.69
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-ot1-f69.google.com with SMTP id 46e09a7af769-7ec6685adabso8164678a34.0
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 05:33:42 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788957221; x=1789562021;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=Lcl1dgouCFGOLM4r5ViGc8pC9IXATr1+8cPCCR6EmR0=;
-        b=J+hZNy/95II+6bKoEQl329yICr9vkR28nWIZi0wf0WUIT3raM6giLRcZwGemQKDK+B
-         93r2ZUQmzMafSpkUf0myJTfBRnyXWmcxmoSXPhuaraPP/6otoUUqEukD9WP5yJbGd1Tf
-         +jT9rulikob2L68qWB4fFCfyCmDK0Z9jRtqkIR3ZnZUjMjiGeOKRwQRzLgWnO8XwrfR6
-         diDyCDH405qzA154A1AuWFYyqllgUsTAV38jZinyuCYMfRdfbB7dsyYXCRvIYRrHKlaW
-         WPX1zAXDsOP0c43tqncppZtFa2YNWqg5hLoOdt/mWJXVQuUrLjKmHzS5mljnYskv7hXH
-         MEKw==
-X-Gm-Message-State: AFuF++nwHDCIutP6niZWJav0T3B9HakaCbdnl2+Y8t/NC1aijy0JFKaL
-	s5YXZXYzqYmOjIU6vlttf0gdAnyPkbsN+ItN7KeqIzD0aHaLJPKftGDnc5fTwhVqBlSV9tseTP9
-	DsLlsxgJ8gXBAxbokbX5g66bJcETv29RDjbepeyUrsCrm4JZQ5aPvH9KC35k=
+	s=arc-20240116; t=1788957274; c=relaxed/simple;
+	bh=Z7+vjnGGeVwv0RSVOFrLDFGxzP6Nx6JPFZsXRRpQTck=;
+	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=O4pjL2euVNoEOfUyF8spv7gDc/J1kgy4l0tShk2zlsf+7AUEkUsZPiMQnQj/jxvKAd0Z7y4T2WHJyezvLIR01/OHdtQ3jl1XMnCCccxgsfBsvL1SqKm8kITJjK4lwm0ppEmmPzi4ZcXHvb0t54ADJCt6tOdSscRzx0aVY4C3tFE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=kJcIGIRC; arc=none smtp.client-ip=185.70.43.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="kJcIGIRC"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
+	s=protonmail3; t=1788957270; x=1789216470;
+	bh=6mEqcbB1stbfq33PpXl/N5pk5+NTONG711JCj8/6s6E=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=kJcIGIRC7QNodCGFjA4CAA/d+aSAPXlfpSSH0xjMYUngC+GXOy5HCexMKpmDqipt5
+	 FN7ReNaqYLpgrvcSAYQ663JrZzdvqus5JYmKYkcfrCPaRWsCgw7IQlJLcV+NavtcUN
+	 gVa5XQONpINo2AZnmZYJBuEAIEIgz+37mhgh6r+BwolGcS90smMQa643Tq45GwemIt
+	 8GlRo+k0pJE3CVabFbOZN98tSGpxVGH3dLcH7cL8Cb2gxTwVk58K4urXO+QADd3AJI
+	 lvWwV18GnBpxTyAJZ64PSlPoYcu+qn4+31ueejZqs3n8vnpmbi4j862lHBDKpWmymv
+	 j45WAFdRONkXQ==
+Date: Wed, 09 Sep 2026 12:34:25 +0000
+To: Marcel Holtmann <marcel@holtmann.org>, Luiz Augusto von Dentz <luiz.dentz@gmail.com>, "Vladimir V . Kondratyev" <vladimirkondratyev2@gmail.com>, Ravindra <ravindra@intel.com>
+From: Sergey Lebedev <lsa.uz@pm.me>
+Cc: Ferenc Lengyel <dev@lengyelf.eu>, Chethan Tumkur Narayan <chethan.tumkur.narayan@intel.com>, Ravishankar Srivatsa <ravishankar.srivatsa@intel.com>, Paul Menzel <pmenzel@molgen.mpg.de>, Kiran K <kiran.k@intel.com>, Chandrashekar Devegowda <chandrashekar.devegowda@intel.com>, Mahalingeshwara Chambarakatta <mahalingeshwara.chambarakatta@intel.com>, Arnd Bergmann <arnd@arndb.de>, linux-bluetooth@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [PATCH 0/2] Bluetooth: btintel_pcie: two PM fixes, assembled as one series
+Message-ID: <20260909123416.71919-1-lsa.uz@pm.me>
+Feedback-ID: 113843758:user:proton
+X-Pm-Message-ID: f01ad771e84e472a10af2134e05262c398876408
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:8596:10b0:6b7:8415:d799 with SMTP id
- 006d021491bc7-6b78415d91emr12758841eaf.68.1788957221494; Wed, 09 Sep 2026
- 05:33:41 -0700 (PDT)
-Date: Wed, 09 Sep 2026 05:33:41 -0700
-In-Reply-To: <6a6d375e.2d659fcc.1d46f5.01a4.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6aa15225.6e6c5f9e.28f11f.0027.GAE@google.com>
-Subject: Forwarded: Re: test patch
-From: syzbot <syzbot+31117fde582fe6a0cd62@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-For archival purposes, forwarding an incoming command email to
-linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com.
+Two patches already on this list fix different halves of the same fault, an=
+d
+each leaves a real failure behind when applied alone. This assembles them i=
+nto
+one series. I am the submitter only - authorship, Fixes: tags and existing
+trailers are unchanged.
 
-***
+  1/2  Vladimir V. Kondratyev  - re-read BOOT_STAGE_REG before the fallback
+                                 check, so a missed alive interrupt is
+                                 survivable
+  2/2  Ravindra (Intel)        - fix the PM flow for S0ix, S3 and S4, which
+                                 among other things stops .thaw running an =
+FLR
 
-Subject: Re: test patch
-Author: syedtayyabfarooq08@gmail.com
+Both carry Fixes: e57362f4911b.
 
-#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
+How this came about, so nobody has to take my word for it. Ravindra agreed =
+to
+the assembly on 2026-09-08, on the condition that authorship and the Fixes:
+tags be preserved and that his patch be rebased on top of Vladimir's; both =
+are
+done:
 
-diff --git a/drivers/usb/gadget/function/u_serial.c b/drivers/usb/gadget/function/u_serial.c
-index cdd1dfc666c4..5974a9303ecf 100644
---- a/drivers/usb/gadget/function/u_serial.c
-+++ b/drivers/usb/gadget/function/u_serial.c
-@@ -603,6 +603,41 @@ static int gserial_wakeup_host(struct gserial *gser)
- 
- /* TTY Driver */
- 
-+static int gs_install(struct tty_driver *driver, struct tty_struct *tty)
-+{
-+	struct gs_port *port;
-+	struct tty_port *tport;
-+	int ret;
-+
-+	mutex_lock(&ports[tty->index].lock);
-+	port = ports[tty->index].port;
-+	if (!port) {
-+		mutex_unlock(&ports[tty->index].lock);
-+		return -ENODEV;
-+	}
-+
-+	tport = tty_port_get(&port->port);
-+	mutex_unlock(&ports[tty->index].lock);
-+
-+	if (!tport)
-+		return -ENODEV;
-+
-+	ret = tty_port_install(tport, driver, tty);
-+	if (ret) {
-+		tty_port_put(tport);
-+		return ret;
-+	}
-+
-+	tty->driver_data = port;
-+
-+	return 0;
-+}
-+
-+static void gs_cleanup(struct tty_struct *tty)
-+{
-+	tty_port_put(tty->port);
-+}
-+
- /*
-  * gs_open sets up the link between a gs_port and its associated TTY.
-  * That link is broken *only* by TTY close(), and all driver methods
-@@ -695,14 +730,16 @@ static void gs_close(struct tty_struct *tty, struct file *file)
- 	struct gs_port *port = tty->driver_data;
- 	struct gserial	*gser;
- 
-+	if (!port)
-+		return;
-+
- 	spin_lock_irq(&port->port_lock);
- 
- 	if (port->port.count != 1) {
- raced_with_open:
--		if (port->port.count == 0)
--			WARN_ON(1);
--		else
-+		if (port->port.count > 0)
- 			--port->port.count;
-+
- 		goto exit;
- 	}
- 
-@@ -911,6 +948,8 @@ static int gs_get_icount(struct tty_struct *tty,
- static const struct tty_operations gs_tty_ops = {
- 	.open =			gs_open,
- 	.close =		gs_close,
-+	.install =		gs_install,
-+	.cleanup =		gs_cleanup,
- 	.write =		gs_write,
- 	.put_char =		gs_put_char,
- 	.flush_chars =		gs_flush_chars,
-@@ -1203,6 +1242,18 @@ static void gs_console_exit(struct gs_port *port)
- 
- #endif
- 
-+static void gs_port_destruct(struct tty_port *tport)
-+{
-+	struct gs_port *port = container_of(tport, struct gs_port, port);
-+
-+	kfree(port);
-+}
-+
-+static const struct tty_port_operations gs_port_ops = {
-+	.destruct = gs_port_destruct,
-+};
-+
-+
- static int
- gs_port_alloc(unsigned port_num, struct usb_cdc_line_coding *coding)
- {
-@@ -1222,6 +1273,7 @@ gs_port_alloc(unsigned port_num, struct usb_cdc_line_coding *coding)
- 	}
- 
- 	tty_port_init(&port->port);
-+	port->port.ops = &gs_port_ops;
- 	spin_lock_init(&port->port_lock);
- 	init_waitqueue_head(&port->drain_wait);
- 	init_waitqueue_head(&port->close_wait);
-@@ -1258,8 +1310,7 @@ static void gserial_free_port(struct gs_port *port)
- 	/* wait for old opens to finish */
- 	wait_event(port->close_wait, gs_closed(port));
- 	WARN_ON(port->port_usb != NULL);
--	tty_port_destroy(&port->port);
--	kfree(port);
-+	tty_port_put(&port->port);
- }
- 
- void gserial_free_line(unsigned char port_num)
+  https://lore.kernel.org/linux-bluetooth/IA1PR11MB786922E0DBE2CDC8FB00C5B6=
+DAB12@IA1PR11MB7869.namprd11.prod.outlook.com/
+
+Vladimir has not replied to the message that said this would go out unless =
+he
+objected, and I am not treating that silence as agreement. Vladimir - it is
+your patch. If you would rather post the series yourself, or not at all, sa=
+y
+so and I will drop this:
+
+  https://lore.kernel.org/linux-bluetooth/20260908102758.72135-1-lsa.uz@pm.=
+me/
+
+Why one series
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+
+They were posted separately and read as alternatives. They are not. The
+evidence now comes from two machines, two controller generations, and two
+distinct faults:
+
+Surface Pro 11, Lunar Lake, BE201 8086:a876, s2idle. With a fixture that
+drops the alive interrupt on demand, Ravindra's change alone leaves the
+missed-interrupt case failing exactly as unpatched; Vladimir's re-read fixe=
+s
+it; together they do not interfere. The same failure was also caught
+spontaneously with injection disabled, one run in six.
+
+  https://lore.kernel.org/linux-bluetooth/20260902133836.11786-1-lsa.uz@pm.=
+me/
+
+ThinkPad X9-15p, Panther Lake 8086:e476, hibernation. Ferenc Lengyel report=
+ed
+hibernation aborting with -EBUSY after the image was already written, and
+tested both patches:
+
+  stock                    3 aborts in 10 cycles
+  1/2 alone                2 aborts in 5
+  1/2 + 2/2                0 aborts in 10
+
+He then instrumented 1/2's re-read and found why 1/2 alone is not enough on
+his machine: the register honestly reports the controller is not in D3,
+because .thaw has just run an FLR that dropped it to ROM, and firmware has
+not reloaded by the time .poweroff asks for D3 some nine seconds later. 2/2
+removes that FLR from .thaw and keeps it on .restore. His own caveat, which
+he states himself: ten clean cycles against a roughly one-in-three prior
+failure rate is Fisher p ~ 0.06 - consistent and matching the mechanism,
+not a large sample.
+
+  https://lore.kernel.org/linux-bluetooth/df180a89-b214-41b4-b8ce-c6ed6b123=
+72f@lengyelf.eu/
+
+What the rebase changed
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+
+Nothing but context. 2/2 needed one hand adjustment: its header hunk remove=
+s
+u8 pm_sx_event from struct btintel_pcie_data, and bluetooth-next has since
+gained struct btintel_pcie_mdbgc mdbgc between dbgc and dmp_hdr, so the
+three-line context no longer matched. The resulting diffstat is identical t=
+o
+Ravindra's posting - 64 lines in the .c, 2 in the .h, 44 insertions and 22
+deletions - and no reference to pm_sx_event is left anywhere in
+drivers/bluetooth.
+
+Built against bluetooth-next at 701ca7188 with W=3D1: no warnings from eith=
+er
+file. The code is otherwise byte-for-byte what was tested on both machines.
+
+One thing for Paul: you gave a Reviewed-by on v3 of 1/2 at 14:36 UTC on
+2026-09-03 and v4 went out at 19:22 without carrying it. I have not added i=
+t
+back, since it is not mine to move, but you may want to re-give it here.
+
+Originals:
+  1/2  https://lore.kernel.org/linux-bluetooth/20260903192245.135310-2-vlad=
+imirkondratyev2@gmail.com/
+  2/2  https://lore.kernel.org/linux-bluetooth/20260902042840.2432862-1-rav=
+indra@intel.com/
+
+Ravindra (1):
+  Bluetooth: btintel_pcie: fix PM flow for S0ix, S3 and S4
+
+Vladimir V. Kondratyev (1):
+  Bluetooth: btintel_pcie: fix stale cache in set_dxstate fallback check
+
+ drivers/bluetooth/btintel_pcie.c | 72 ++++++++++++++++++++++----------
+ drivers/bluetooth/btintel_pcie.h |  3 +-
+ 2 files changed, 50 insertions(+), 25 deletions(-)
+
+--=20
+2.50.1 (Apple Git-155)
+
+
