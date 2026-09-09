@@ -1,147 +1,173 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 917AA52ED3B
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 10:59:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 788AB52FE41;
+	Wed,  9 Sep 2026 10:59:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.19
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788951555; cv=none; b=UoXlnZNuFmiYNwIln0LNXTAVAPx2PQZEHULtD4pKkL1dzyRq6JVcW4z7nemx/66Pir+eqsxQSjojZN4PyySRonaAYns7rkPAB1CfclFwhgaySA/ltR2Sg9OuObY16smSltVb273BXaarzgx3g2BulzccrnFosa/Z53tst6pKViM=
+	t=1788951569; cv=none; b=a23eIAhlhLfEY8IXMIhg9tfI0aZngebDq6d3xeHp2Tt8z/WiCcdGhayHnKkzVfzmXEAh/CIGz4McDKeAniPUw9AJ+t9NhlO7Jm8ZtUk/Nl+wGWBE8aCZreBW8KoWwGOaOV5eysUyVVHTmwBQy54qyNxnMxw3CJ7lr8tfhFfokm8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788951555; c=relaxed/simple;
-	bh=RUO35p/hYiz3qwtxTqHtL1pfFhUUTjGTSPmbomopvYE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=fzLblxtHZzsVNzWm26KChnEeO4UaZwRMXlopAFSDjy89RPyINp4UsZ4TGQ6sF6pEi+YVpJv7MXZimFTnPMF5hTfSal9pF2WprbGnynsuiFb2QIQUPIngXq3G/L42ZkNX1RHkdOyIhTKaRAn0KbgSgLkbKyhMCEvf4Du1T7Dhulk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pAL2d1U7; arc=none smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788951569; c=relaxed/simple;
+	bh=+Tu/O72827ZSBH3csRuI89G55OIjDCt8XGGxw+E2AAU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=dBwoEyuSN0bX5PDYv1iTe/3dPwfr7uMJulbI4qlpPdVifUIFXudXkCCqQtXAaXk0ngM9gCsnq0nWbFyetwCEYYW07tLg3P1soxVQ/3Eqbyk6ReiFmvBHwJoDbutRVCToLVyIT+/yaLR5nDjvUrtMsHSnV5FtfnyAanur/uyO1yA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=T0PDd/CS; arc=none smtp.client-ip=198.175.65.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pAL2d1U7"
-Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2d747ed9865so439295ad.1
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 03:59:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788951546; x=1789556346; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=xc+Wze03aW10ioVYI+L7Um/7DBQSw6qOvq0My2EOj7U=;
-        b=pAL2d1U7NU7o638SSBc1SQN94sq2D6jVKwm5Erqoeu5qN0jftc6svVQgdfICIZLXSr
-         3ZVPEik/4pbJhzBvsMH+8kIHabOVLGA4KE6h0M2HUr/dGbjq0aLRAjlO0kTmn3PiBGGX
-         u23JgQcH7Ji6azaaZ0rsYq2TUdI6odmt4fxVsqDXMHR5LVCAIvJeaV7uwZk6vOFrvbcG
-         INfe6xaMhtqf+tH4745oRbCjrkjq5ZaScZ7GaFTFK2Q2rFwS9ZE0+4MWjGS1l1rOWH/m
-         qpSNEQDafwUq71mChxqEZqVU6X/y17VDnTCv38bv5/00ZVDmQ5rRB36x45bmPv4lEn11
-         aJvQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788951546; x=1789556346;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=xc+Wze03aW10ioVYI+L7Um/7DBQSw6qOvq0My2EOj7U=;
-        b=V/zIa93i6Ry0nPQmdS5q4Vj5EvDur55fw4AFQDD/khkZOS1mrzjYK3Y0xazWQ2KHyp
-         fTIu7pkBnDlfkl86qhD5rYkdL29ubk5wjTQilJ40+dxuKn36BG9FYA9dtptjE6wFttee
-         +O28OtloVu9gF7Fh+lpCVXnY2fXU/mwKsRucBGMlDVShcyFxewkAebElB0hQNH2zhjYD
-         BsPVsJu9AQDO1tcOXI6mg2ipAjqv1lgCRsY84mCIOQA5wmJ5igsWphgUlYMJajGchOWz
-         T2CArIPIsVLcdT9x2gukJMgB/v+sckw+iOIskmxqhTNnBLwz5JGw+9xCw431p9Vwm82A
-         4NEg==
-X-Forwarded-Encrypted: i=1; AKwUvByQyMLR3z17XSZz12uLBFHKSIkcKHE0Tdb1SsJ/fwP6RoUbflWWLO0Y5agVBFp4Ehbu0hy9uppgWXWdXUM=@vger.kernel.org
-X-Gm-Message-State: AFuF++njviQpHUo/Dx0L7M3V8PsuQle5fy9h4xZ9znJJIJ/qVcQ+ZxcQ
-	1uWiv08ir041td7wBH0mu2Y/A3+SMbea3mf7hxGG3BllRlLOrUIWrhIk
-X-Gm-Gg: AYBFou3TNE+jdQJJgXbK+XzLRQkpZmu//iX8qC4+HeZu7mC07yCZBedtPd/bxwAchjh
-	gN/BNE8ztCoRhMGySGmz41lcmZhlhyd6QghwSQk5yDDZrz307T7yYc1yLQjKtZa/6yDY1IuiQPJ
-	7YHgqnEXmGxBoQpwPe7raA05ypPyxTaxWICg2LnOklDHcbEH7hbGKDghgr4xRe0Q6gXBA1EBqRX
-	X01FMSOb1MY07wzSdCgfOaQIdKLQy6T/UtHRzRg08vFp9idgkG/pGPKEnLiQ86CAx5qgoixyblz
-	k9Sq+9MKcZ/TDGpTZapZqZdIDSVhJvGLthEBSC8GVpVP/K8nlVr/6YWZ2K2e/RdPSH6Qvn6JeL9
-	ipGM1VBrS+AMQJDuDVGjD3onLtpvInv96hQWOmtIFPkxN+cMk4rZIBNIrBGd9vHtYtQK9t4wJuR
-	lPO+GjPx3odd1F0bVCqu/Lyhsd2lSQGrGF0UnAUMVnrL/g5vR3REz+HFZdSDXIRs2M5GLDwTN0+
-	OrYPD45ScSM
-X-Received: by 2002:a17:903:2ac5:b0:2d8:d4d1:3139 with SMTP id d9443c01a7336-2dd07a911f8mr7078825ad.16.1788951546098;
-        Wed, 09 Sep 2026 03:59:06 -0700 (PDT)
-Received: from adriano.lan ([2803:9810:3d22:1608:e46d:9e65:1b2a:35eb])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339af25062sm68395973eec.16.2026.09.09.03.59.03
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 09 Sep 2026 03:59:05 -0700 (PDT)
-From: Adriano Cordova <adrianox@gmail.com>
-To: Ulf Hansson <ulfh@kernel.org>
-Cc: Stephen Boyd <swboyd@chromium.org>,
-	Johan Hovold <johan@kernel.org>,
-	linux-mmc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Adriano Cordova <adrianox@gmail.com>,
-	syzbot+f312381a95cc080992fd@syzkaller.appspotmail.com,
-	stable@vger.kernel.org
-Subject: [PATCH v3 2/2] mmc: core: don't dereference parent when releasing host index
-Date: Wed,  9 Sep 2026 07:58:56 -0300
-Message-ID: <20260909105856.129733-2-adrianox@gmail.com>
-X-Mailer: git-send-email 2.51.0
-In-Reply-To: <20260909105856.129733-1-adrianox@gmail.com>
-References: <20260909105856.129733-1-adrianox@gmail.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="T0PDd/CS"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788951567; x=1820487567;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=+Tu/O72827ZSBH3csRuI89G55OIjDCt8XGGxw+E2AAU=;
+  b=T0PDd/CS9Esf0xBYMQS5kPsYPPKV7joPQDBKr5Ns0ZSGlx5lv+QLO0wh
+   U5my+1YwoteVVelDv6b3fzEiDV9kVxnskkMlL6Pqs1I5aJJMETxA3KAWY
+   Ep7WPrp3eQO31NuWhF37JuRb+/1orf9E0NV52Oggx4JbctvgtZw9zxywd
+   RGhIszm0rsr2u1n7EnfuR78xekJGcefdzgEOOHaSG05W8F/AaB6uWvw1Q
+   Fp8NeUwfzkZsKUG2K51gklUUTlfodkBNdcVFkBnXaiGHsSFJhVVP2UFeS
+   GvSQxOoHJJGHtr5pcxN+UeVSGw6Wj/LFaN0EWLz+v0uYlWxa3LUr5eH5o
+   g==;
+X-CSE-ConnectionGUID: YSC4YB7DSFWLCrIBTY9ISQ==
+X-CSE-MsgGUID: xwe42HPQThOXodOrVtUfAw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11900"; a="89298546"
+X-IronPort-AV: E=Sophos;i="6.25,270,1779174000"; 
+   d="scan'208";a="89298546"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Sep 2026 03:59:23 -0700
+X-CSE-ConnectionGUID: 9Byf6zvYR8OU4EXO2+AkNQ==
+X-CSE-MsgGUID: QRSdUOmUTxuJX9zEK3/LHw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,270,1779174000"; 
+   d="scan'208";a="267001320"
+Received: from unknown (HELO [10.238.208.122]) ([10.238.208.122])
+  by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Sep 2026 03:59:17 -0700
+Message-ID: <f16e1c13-b959-4085-bf4a-9e583d149e93@intel.com>
+Date: Wed, 9 Sep 2026 18:59:14 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v14 21/22] KVM: selftests: Add ucall support for TDX
+To: Sean Christopherson <seanjc@google.com>, Peter Fang <peter.fang@intel.com>
+Cc: Lisa Wang <wyihan@google.com>, Andrew Jones <ajones@ventanamicro.com>,
+ Ackerley Tng <ackerleytng@google.com>, Binbin Wu
+ <binbin.wu@linux.intel.com>, Chao Gao <chao.gao@intel.com>,
+ Chenyi Qiang <chenyi.qiang@intel.com>,
+ Dave Hansen <dave.hansen@linux.intel.com>,
+ Erdem Aktas <erdemaktas@google.com>, Ira Weiny <ira.weiny@intel.com>,
+ Isaku Yamahata <isaku.yamahata@intel.com>, Kiryl Shutsemau <kas@kernel.org>,
+ linux-kselftest@vger.kernel.org, Paolo Bonzini <pbonzini@redhat.com>,
+ "Pratik R. Sampat" <pratikrajesh.sampat@amd.com>,
+ Reinette Chatre <reinette.chatre@intel.com>,
+ Rick Edgecombe <rick.p.edgecombe@intel.com>,
+ Roger Wang <runanwang@google.com>, Ryan Afranji <afranji@google.com>,
+ Sagi Shahar <sagis@google.com>, Shuah Khan <shuah@kernel.org>,
+ Oliver Upton <oupton@kernel.org>, Jeremiah McReynolds <jmcrey@google.com>,
+ kvm@vger.kernel.org, linux-coco@lists.linux.dev,
+ linux-kernel@vger.kernel.org, x86@kernel.org
+References: <20260722-tdx-selftests-v14-0-15ad654a50db@google.com>
+ <20260722-tdx-selftests-v14-21-15ad654a50db@google.com>
+ <6f89fc78-0344-4a7e-bbd8-ac201b8f845a@intel.com>
+ <20260828020612.GF33657@pedri>
+ <b4cffa34-864d-4fd0-9fc7-a7d4514075b2@intel.com>
+ <20260828042044.GG33657@pedri> <apGYxwdCSuC-X732@google.com>
+Content-Language: en-US
+From: Xiaoyao Li <xiaoyao.li@intel.com>
+In-Reply-To: <apGYxwdCSuC-X732@google.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-mmc_host_classdev_release() reads host->parent->of_node to decide
-whether to free the IDA slot, but mmc_alloc_host() does not guarantee
-that the parent outlives the host (only devm_mmc_alloc_host() does).
-So the vub300 driver can release its parent usb_device before
-the host, resulting in a use-after-free.
+On 8/28/2026 10:18 PM, Sean Christopherson wrote:
+> On Thu, Aug 27, 2026, Peter Fang wrote:
+>> On Fri, Aug 28, 2026 at 10:31:14AM +0800, Xiaoyao Li wrote:
+>>>>
+>>>> Hmm... This makes me wonder if vm->arch.s_bit below could be replaced
+>>>> with the same architectural approach. GPAW is available through
+>>>> TDG.VP.INFO or the initial RBX value. This does require a bit more
+>>>> plumbing though.
+>>>
+>>> I'm afraid not. Because below is host code, and vm->arch.s_bit is not used
+>>> in guest code.
+>>>
+>>> Or are suggesting something like dropping the
+>>>
+>>> 	if (is_tdx_vm(vm)) {
+>>> 		ucall_mmio_gpa = UCALL_MMIO_GPA | vm->arch.s_bit;
+>>> 		sync_global_to_guest(vm, ucall_mmio_gpa);
+>>> 	}
+>>>
+>>> entirely and use below hardcoded value instead in guest code?
+>>>
+>>> 	UCALL_MMIO_GPA | 1 << (GPAW - 1)
+>>
+>> Yeah this is what I meant. Just drop sync_global_to_guest() entirely and
+>> do things like a normal TDX guest would.
+> 
+> Blech.  Every time I come back to this series we're still discussing ucall crud,
+> and "doing thing like a normal TDX guest".  Selftests aren't normal guests.
+> 
+> I know I suggested using the HPET base, but I only did so very begrudgingly as I
+> couldn't come up with a better alternative to emulated MMIO, and the end result
+> is quite gross.  Not only does the code ignore @mmio_gpa but still obviously use
+> emulated MMIO, it requires synchronizing data to the guest because KVM disallows
+> "private" MMIO.
+> 
+>   void ucall_arch_init(struct kvm_vm *vm, gpa_t mmio_gpa)
+>   {
+>          vm_type = vm->type;
+>          sync_global_to_guest(vm, vm_type);
+> 
+>          if (is_tdx_vm(vm)) {
+>                  ucall_mmio_gpa = UCALL_MMIO_GPA | vm->arch.s_bit;
+>                  sync_global_to_guest(vm, ucall_mmio_gpa);
+>          }
+>    }
+> 
+> Retrieving GPA via TDG.VP.INFO isn't any better, it's still an absurd amount of
+> "work" for something that should be trivial.
+> 
+> Can't we just abuse TDVMCALL_REPORT_FATAL_ERROR?  AFAICT, there's no restriction
+> on the data payload, and there's enough space to all but guarantee we'll never get
+> a false positive.
+> 
+> Pulling in Xiaoyao's idea about using CPUID...
+> 
+>>> +void ucall_arch_init(struct kvm_vm *vm, gpa_t mmio_gpa)
+>>> +{
+>>> +     vm_type = vm->type;
+>>> +     sync_global_to_guest(vm, vm_type);
+>>
+>> It works and it looks simple. But we have the architectural approach to
+>> test if a guest is TD guest, by checking the CPUID 0x21.
+>>
+>> Since checking CPUID 0x21 is not complex, and as a bonus it can help
+>> test if TDX module behaves correctly for CPUID leaf 0x21, I think we
+>> should switch to use CPUID 0x21 to check if it is TDX VM in guest code?
+> 
+> Absolutely not.  It will require at least one an extra VM-Exit for TDX and non-TDX
+> guests alike, and thanks to Intel's wonderful CPUID behavior of having unsupported
+> leaves return the last supported leaf, the guest would have to check CPUID.0x0 and
+> then CPUID.0x21 on modern hardware, i.e. would incur two extra VM-Exits.  I don't
+> care about the performance, but from a debug perspective that's going to be awful,
+> as what should be a super simple operation will be polluted with unwanted data.
 
-Put the alias decision in host->index_is_alias at allocation time,
-while the parent is still valid, and use it at release time.
+As you said, "Selftests aren't normal guests". So the guest code doesn't
+need to check CPUID.0x0 to get maximum supported leaf before CPUID.0x21.
 
-Fixes: 10252bae863d ("mmc: core: Don't allocate IDA for OF aliases")
-Reported-by: syzbot+f312381a95cc080992fd@syzkaller.appspotmail.com
-Link: https://syzkaller.appspot.com/bug?extid=f312381a95cc080992fd
-Assisted-by: opencode: deepseek v4 flash
-Cc: stable@vger.kernel.org
-Signed-off-by: Adriano Cordova <adrianox@gmail.com>
----
-Changes since v1:
-  - Added Assisted-by tag
-  - put alias decision in host->index_is_alias
-Changes since v2:
-  - Split patch into two logical patches
-  - Corrected the Fixes: tag
+And for TDX, the CPUID doesn't cause VM-Exit to KVM, it only exits to TDX
+module, which is transparent to KVM.
 
- drivers/mmc/core/host.c | 3 ++-
- include/linux/mmc/host.h | 1 +
- 2 files changed, 3 insertions(+), 1 deletion(-)
+Anyway, if we go with the TDVMCALL_REPORT_FATAL_ERROR as you proposed, we
+don't need the logic to check if it is a TDX VM in the guest.
 
-diff --git a/drivers/mmc/core/host.c b/drivers/mmc/core/host.c
-index b7ce3137d452..542bb033c6da 100644
---- a/drivers/mmc/core/host.c
-+++ b/drivers/mmc/core/host.c
-@@ -67,7 +67,7 @@ static void mmc_host_classdev_release(struct device *dev)
- {
- 	struct mmc_host *host = cls_dev_to_mmc_host(dev);
- 	wakeup_source_unregister(host->ws);
--	if (of_alias_get_id(host->parent->of_node, "mmc") < 0)
-+	if (!host->index_is_alias)
- 		ida_free(&mmc_host_ida, host->index);
- 	kfree(host);
- }
-@@ -538,6 +538,7 @@ struct mmc_host *mmc_alloc_host(int extra, struct device *dev)
- 	}
- 
- 	host->index = index;
-+	host->index_is_alias = (alias_id >= 0);
- 
- 	dev_set_name(&host->class_dev, "mmc%d", host->index);
- 	host->ws = wakeup_source_register(NULL, dev_name(&host->class_dev));
-diff --git a/include/linux/mmc/host.h b/include/linux/mmc/host.h
-index ba84f02c2a10..165d24104d3c 100644
---- a/include/linux/mmc/host.h
-+++ b/include/linux/mmc/host.h
-@@ -356,6 +356,7 @@ struct mmc_host {
- 	struct device		*parent;
- 	struct device		class_dev;
- 	int			index;
-+	bool			index_is_alias;
- 	const struct mmc_host_ops *ops;
- 	struct mmc_pwrseq	*pwrseq;
- 	unsigned int		f_min;
--- 
-2.51.0
+> Stop trying to reinvent the wheel and just use a virtual function table.
+> 
+> I've verified the attached patches don't break non-TDX selftests, someone just
+> needs to test the TDX changes.
 
+I test it and it works.
