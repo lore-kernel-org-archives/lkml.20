@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3E94566C67
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 14:01:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 522952D9780
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 14:01:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788962463; cv=none; b=HvlEW1nyD4QpkJ218bSrgA85AGmSKK+nZ+IL5uNuQU7gUkRg5rvMwFM1O6RtLYU13/OyVCi4tos9vrxDvRe6Mt54Dg/LMbdJQwayv+a1KcX8C0zm78HHuzYwzf9FdzFBGRJpj+1miqAI5/2Jpxgs7BL7Ej8BsZCynfMT1jtsLG0=
+	t=1788962494; cv=none; b=XgD/v/n01sFFUw2Kvy70oP8obqPpuaHmBDljFXS2H4ov84h4pCAfX6LlrTJhzxJVSOHycDBY3/u45p7op20wmS/XYw1Iqw4v7QBSGhi+g0P+2XrzDfWsh+uof8q0YrFAObbju0XSPXGwebW7Kz3MhzpAr8smuGFGHXH7uV8o4nM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788962463; c=relaxed/simple;
-	bh=IMPY9dxFo9HL8u9pJe6uIWYQoJVQ93w41byw+vMxm/k=;
+	s=arc-20240116; t=1788962494; c=relaxed/simple;
+	bh=/aBMilkPgG8GmoC0T0geU7JxiohsmbS/R/82UFNKznw=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=NFaudapH2cIQmSG7xxSub+Aves1s37iT/A/xXwA12xSlhPIoPAV0vi5XruuxhLIsoMBWzDF2HcgebNnL90TAdyEt0+lmJqNszch3FpQ0HGvIW+3LhB01o0vrNIfXJhEg8+1YpOrNv5G4lW9+lWn4JfR8sIMfIjBSz3TSA5DQckA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gUeB99/0; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=o0AtOmt/lg32rLIRPEEQJ+LkldKDXURrBAYr4MM7dD2d2FMa20AnwflY5QgswXBU1cLhWIZn0zdD62WCDhPfFGqcG7SfAek+mlwxQGqw5SmWOArhI8XFs8Z5LkFX2tc9N1vsC9mIFqJi5TFdNlE2eYEbpu1Rcnxuj6jaTyJwtPs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VDD4HS0b; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gUeB99/0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E005F1F00A3A;
-	Wed,  9 Sep 2026 14:00:54 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VDD4HS0b"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 348811F00A3A;
+	Wed,  9 Sep 2026 14:01:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788962462;
-	bh=kxSG+xnLXoNNs2ROuIVkq4UavUfbd24H5I1YkUmDyag=;
+	s=k20260515; t=1788962493;
+	bh=CdGQNBbV5rgyR6AC1v+rMzMBWuTn1mX6O2sJk9ZzEuI=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=gUeB99/0UlLzaRF7SPfQ8niZ46JmUJdooO+eWrzk4rurvmM7nTlxx1/b9B5SvRez1
-	 zuHchEgCxQmzbwSd7VMaiijCYsQ05CBVgugrgLZ3sWSg/rfyDpsLbZeoocnDj2Sq9E
-	 7VG2A86oz21V2HLABAKToMY2tj8l5fQEOmlON1Q4mC4VECBSrLr0A41pSBtaAu9ziL
-	 5fbWZD/qcj6z7f+Ryyua2qwOE/bV8VFuMu/tnUB/J+08QEDtFKVFuxSbAnz2h6/1Qz
-	 XVV6i0wSp+zw8pVdmjMpjQNFIAiWN303sExXHHxVsSnS3q6UWLU6ytiWzgYi0aXF5d
-	 +58gmOP9EgaRA==
-Message-ID: <60ac97b9-8da3-491d-8d1c-dcd83c7232fb@kernel.org>
-Date: Wed, 9 Sep 2026 16:00:53 +0200
+	b=VDD4HS0bFNN/fUrWGwry9H610uhD3sA91TeA2++WjM0PWm+SEvctvTbSwinGPBAqt
+	 6CIYzwKk19mN5tLGwhYdyiYErv/wNsG2DdcHKhsu5tjypdIN6ZIyn7zhhliqKylFcm
+	 P1wdNHWUBfWUHHFShC0uSMl7Z5/Rm3xMdixXzRJfhGVBlqGngEHoJw1eMd0dtAvGLP
+	 tCKQ82vPwy6gbGbgrLOt9FrNauHmAuIwM3BWyOttGSagdd1BgTbs1gEuUKoBYOfp5g
+	 cincbrs7xqsl5bROa6us9e3np8OHmlsRbqad2nzkagOha1kq4NOO7SuvrVNWJLNIQj
+	 OrAXaf8UfthYQ==
+Message-ID: <c33cbd18-a506-4301-91d4-7cee033d2536@kernel.org>
+Date: Wed, 9 Sep 2026 16:01:22 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -35,8 +35,7 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 4/8] mm/zswap: use folio_swap_entry() in
- zswap_store_page()
+Subject: Re: [PATCH v2 5/8] mm/swapfile: use folio_page_swap_entry()
 To: Tal Zussman <tz2294@columbia.edu>,
  Andrew Morton <akpm@linux-foundation.org>, Chris Li <chrisl@kernel.org>,
  Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>,
@@ -56,7 +55,7 @@ To: Tal Zussman <tz2294@columbia.edu>,
 Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org
 References: <20260908-folio_swap_entry-v2-0-ee6d01dfa5e1@columbia.edu>
- <20260908-folio_swap_entry-v2-4-ee6d01dfa5e1@columbia.edu>
+ <20260908-folio_swap_entry-v2-5-ee6d01dfa5e1@columbia.edu>
 From: "David Hildenbrand (Arm)" <david@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=david@kernel.org; keydata=
@@ -103,36 +102,19 @@ Autocrypt: addr=david@kernel.org; keydata=
  3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
  CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
  qIws/H2t
-In-Reply-To: <20260908-folio_swap_entry-v2-4-ee6d01dfa5e1@columbia.edu>
+In-Reply-To: <20260908-folio_swap_entry-v2-5-ee6d01dfa5e1@columbia.edu>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 9/8/26 17:16, Tal Zussman wrote:
-> zswap_store_page() open-codes the swap entry computation from
-> folio->swap and the page index. Use folio_swap_entry() instead.
+> folio_dup_swap() and folio_put_swap() open-code the swap entry
+> computation from folio->swap and folio_page_idx(). Use
+> folio_page_swap_entry() instead.
 > 
 > No functional change.
 > 
 > Signed-off-by: Tal Zussman <tz2294@columbia.edu>
 > ---
->  mm/zswap.c | 3 +--
->  1 file changed, 1 insertion(+), 2 deletions(-)
-> 
-> diff --git a/mm/zswap.c b/mm/zswap.c
-> index 5d0d8bd72193..c27e22d067e3 100644
-> --- a/mm/zswap.c
-> +++ b/mm/zswap.c
-> @@ -1398,8 +1398,7 @@ static bool zswap_store_page(struct folio *folio, long index,
->  			     struct obj_cgroup *objcg,
->  			     struct zswap_pool *pool)
->  {
-> -	swp_entry_t page_swpentry = swp_entry(swp_type(folio->swap),
-> -					      swp_offset(folio->swap) + index);
-> +	swp_entry_t page_swpentry = folio_swap_entry(folio, index);
->  	struct zswap_entry *entry, *old;
->  
->  	/* allocate entry */
-> 
 
 Acked-by: David Hildenbrand (Arm) <david@kernel.org>
 
