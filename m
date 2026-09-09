@@ -1,118 +1,229 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from frasgout.his.huawei.com (frasgout.his.huawei.com [185.176.79.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C58DE583ADC;
-	Wed,  9 Sep 2026 14:39:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5D6656511F
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 14:39:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.176.79.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788964773; cv=none; b=pGXbQIqSxIUBg2x24Ui+kQBj/U3o+aze7TXvHmJEXgppFuZcZPitnLNs5KEO1vleqP3lnENvFbey1tesnUmcRK4m/oye5x935Bi9ZWMno1GqHZT/gCVXTIX8CPNBeLQQ7RH/M9J1pjyatFHLVokdnAGSrjbdmdB+WTWrNFFabqA=
+	t=1788964772; cv=none; b=X+VQZyycgxyPrP5WZDnImY/8PtB/NIZAcWnNzyBAcsvc1YHYcndReMSFzTvIVgb0e0AM6cthnvZ9SjVUsMEEoZOxnYTxG/uIXNSakGd/SEElK/PlkW5KIws/khzX3UQ3Db/syyQoMJsPqN636yOLtNN4sluKlyPpXKK16hOMhz0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788964773; c=relaxed/simple;
-	bh=COqaeepJ34UP9JkjD+7E0BGwfxYsZJeDT4TvX3LXCUk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ojXh1gIKCC5zpHJDRCVBGgpB8aSVT+yYD6KGmic+ldiFw4ZYdLnEp9IOKErvCXG++moppqzTyXlvmKe01hSWwfKP4hQIOt0dg6PfAwG/jr5NHmxdKuWHD+8PP3Vg35XVOEHbTTii9P+d+6dups4y+HbJXX3VOpTASPkB1LIBD5s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=I6d8BOJ4; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788964772; c=relaxed/simple;
+	bh=t1E/oGmiGfzPLRGsYMkt/JnVH9NV2UPEIP8cKWhUnjY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=pvQg/FY4uRcjPjJ+Hn7ClsavmUjOGv7ylq71E+5aUNU877o5Ee0Ke0aRgRwymNiYvQUTt+xS+YXrStRZFKkZh5DyKIbez5Nh/1r6vvv92E13+qX9iUX2XX7OvLkXCdL9ROs20C3XX+rUKlszkmu+tzy/Zepem7q7Uv8cC7eWkJA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei-partners.com; spf=pass smtp.mailfrom=huawei-partners.com; dkim=pass (1024-bit key) header.d=huawei-partners.com header.i=@huawei-partners.com header.b=AMbUYPw3; arc=none smtp.client-ip=185.176.79.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei-partners.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei-partners.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="I6d8BOJ4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2E22D1F00A3F;
-	Wed,  9 Sep 2026 14:39:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788964771;
-	bh=krXnjg6Pwz8O/sUpJFYknubsldGm0fpI+pROTsHvcUA=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=I6d8BOJ4LY7ycfGSICfj78vSLTkMh8siSng7seWwonXZVXKx/NvkhnlUBTWr4jHyL
-	 BzEdy5ru2P8b/ytPK3ylezVV4ilJ2I5zdCe9v8knYu1eStbOZNx+Zhl2X0qoHyybkM
-	 kGvmNFZR/WaL7toWAzLu5AEXaUdcCJLgK5z1VUzo=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	David Howells <dhowells@redhat.com>,
-	Steve French <sfrench@samba.org>,
-	Paulo Alcantara <pc@manguebit.org>,
-	Enzo Matsumiya <ematsumiya@suse.de>,
-	linux-cifs@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Steve French <stfrench@microsoft.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18 538/583] cifs: Scripted clean up fs/smb/client/cifs_unicode.h
-Date: Wed,  9 Sep 2026 15:43:43 +0200
-Message-ID: <20260909134256.410787177@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260909134237.773280130@linuxfoundation.org>
-References: <20260909134237.773280130@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (1024-bit key) header.d=huawei-partners.com header.i=@huawei-partners.com header.b="AMbUYPw3"
+dkim-signature: v=1; a=rsa-sha256; d=huawei-partners.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=hgkh+lnCPR9ToQ7RKu6WNXgaTBz3MWmsuMW/EsVHOjs=;
+	b=AMbUYPw3HWqJHuMzyv7Oatsol7IMXbL2hnF0W1wanh6yMZMdr06iXV187VlLtRigXMmOlnImM
+	6HYry6tOtOhVjG8QA0chN8xhVsVCXcmd5Z8obKK40uCQoqYzYKhN5tveEKJvB2DCYef3Yo93kDA
+	OCNE0uCBXOVF4amHc79YWwQ=
+Received: from mail.maildlp.com (unknown [172.18.224.83])
+	by frasgout.his.huawei.com (SkyGuard) with ESMTPS id 4hg3ML4m88zHnH56;
+	Wed,  9 Sep 2026 22:38:22 +0800 (CST)
+Received: from mscpeml500003.china.huawei.com (unknown [7.188.49.51])
+	by mail.maildlp.com (Postfix) with ESMTPS id 77DFB4057A;
+	Wed,  9 Sep 2026 22:39:24 +0800 (CST)
+Received: from [10.123.123.154] (10.123.123.154) by
+ mscpeml500003.china.huawei.com (7.188.49.51) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Wed, 9 Sep 2026 17:39:23 +0300
+Message-ID: <8f193651-9a6a-421b-91a7-df4a231786fd@huawei-partners.com>
+Date: Wed, 9 Sep 2026 17:39:23 +0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH REPOST 0/5] mm/damon/vaddr: support {prep,apply}_probes
+To: SJ Park <sj@kernel.org>
+CC: Andrew Morton <akpm@linux-foundation.org>, <damon@lists.linux.dev>,
+	<linux-kernel@vger.kernel.org>, <linux-mm@kvack.org>
+References: <20260909143143.106666-1-sj@kernel.org>
+Content-Language: en-US
+From: Gutierrez Asier <gutierrez.asier@huawei-partners.com>
+In-Reply-To: <20260909143143.106666-1-sj@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: mscpeml500004.china.huawei.com (7.188.26.250) To
+ mscpeml500003.china.huawei.com (7.188.49.51)
 
-6.18-stable review patch.  If anyone has any objections, please let me know.
 
-------------------
 
-From: David Howells <dhowells@redhat.com>
+On 9/9/2026 5:31 PM, SJ Park wrote:
+> Hi Asier,
+> 
+> On Wed, 9 Sep 2026 17:25:51 +0300 Gutierrez Asier <gutierrez.asier@huawei-partners.com> wrote:
+> 
+>> Hi SJ,
+>>
+>> On 9/9/2026 5:04 PM, SJ Park wrote:
+>>> DAMON supports data attributes monitoring.  However, only the physical
+>>> address space operation set (paddr) is supporting it.  Add the support
+>>> to the virtual address space operation set (vaddr).
+>>>
+>>> Patch 1 adds prep_probes support to vaddr.  Patch 2 moves probe filter
+>>> handling code in paddr.c that can be reused by vaddr to ops-common.c.
+>>> Patch 3 adds minimum apply_probes support to vaddr.  Patch 4 extends the
+>>> support for hugetlb.  Patch 5 extends the support for pgidle_unset
+>>> filter.
+>>>
+>>> Test
+>>> ====
+>>>
+>>> I confirmed it can capture ~48 mb working set of masim in vaddr mode,
+>>> like below.
+>>>
+>>> First, start masim [1] to access ~48 mb memory at a time, in the
+>>> background.
+>>>
+>>>     $ ./masim/masim.py run \
+>>>             --config_file ./masim/configs/stairs-50mb.cfg \
+>>>             --repeat 10 --quiet &
+>>>
+>>> Note that the config says the working set is 50mb.  It is 50 million
+>>> bytes, so ~48 MiB.
+>>>
+>>> Start traditional access monitoring of masim's virtual address space
+>>> using damo [2].
+>>>
+>>>     $ sudo ./damo/damo start $(pidof masim)
+>>>
+>>> Confirm it can capture the ~48 MiB working set as the 4-th region on the
+>>> snapshot.
+>>>
+>>>     $ sudo ./damo/damo report access
+>>>     heatmap:
+>>>     11111111334[...]3000000000000000000000000000000000000000489999997777777743333333555556[...]8
+>>>     # min/max temperatures: -1,150,000,000, 80,009,499, column size: 6.963
+>>>     MiB
+>>>     intervals: sample 5 ms aggr 100 ms (max access hz 200)
+>>>     0   addr 85.355 TiB   size 55.703 MiB  access 0 hz   age 9.500 s
+>>>     1   addr 85.355 TiB   size 18.984 MiB  access 0 hz   age 6.700 s
+>>>     2   addr 127.183 TiB  size 278.516 MiB access 0 hz   age 11.500 s
+>>>     3   addr 127.183 TiB  size 7.570 MiB   access 0 hz   age 900 ms
+>>>     4   addr 127.183 TiB  size 48.133 MiB  access 190 hz age 800 ms
+>>>     5   addr 127.183 TiB  size 54.977 MiB  access 0 hz   age 1.700 s
+>>>     6   addr 127.183 TiB  size 55.113 MiB  access 0 hz   age 6.700 s
+>>>     7   addr 127.183 TiB  size 37.902 MiB  access 0 hz   age 3.900 s
+>>>     8   addr 127.990 TiB  size 120.000 KiB access 0 hz   age 11.400 s
+>>>     9   addr 127.990 TiB  size 8.000 KiB   access 70 hz  age 0 ns
+>>>     10  addr 127.990 TiB  size 4.000 KiB   access 0 hz   age 11.200 s
+>>>     memory bw estimate: 8.931 GiB per second
+>>>     total size: 557.027 MiB
+>>>     record DAMON intervals: sample 5 ms, aggr 100 ms
+>>>
+>>> Stop access monitoring and start probe-only mode access monitoring.
+>>>
+>>>     $ sudo ./damo/damo stop
+>>>     $ sudo ./damo/damo start $(pidof masim) --probe_prep set_pgidle \
+>>>             --probe_filter allow pgidle_unset --probe_weight 1
+>>>
+>>> Confirm it can also capture the ~48 MiB working set as the 11-th region
+>>> on the snapshot.
+>>>
+>>>     $ sudo ./damo/damo report attrs
+>>>     heatmap:
+>>>     00000000113[...]40000000000000000000000000000000000000000000000001111114999999533333336[...]6
+>>>     # min/max temperatures: -840,000,000, 330,002,000, column size: 6.961
+>>>     MiB
+>>>     probe prep: set_pgidle, filter: allow pgidle_unset (weight: 1)
+>>>     intervals: sample 5 ms aggr 100 ms (max probe hits 20)
+>>>     #   size         address       age           probe_hits
+>>>     0   8.000 KiB    127.990 TiB   8.700 s       0
+>>>     1   120.000 KiB  127.990 TiB   8.600 s       0
+>>>     2   55.543 MiB   127.183 TiB   8.400 s       0
+>>>     3   110.008 MiB  127.183 TiB   8.300 s       0
+>>>     4   55.352 MiB   127.183 TiB   8.100 s       0
+>>>     5   55.605 MiB   127.183 TiB   8 s           0
+>>>     6   55.691 MiB   85.355 TiB    7.900 s       0
+>>>     7   54.430 MiB   127.183 TiB   7.900 s       0
+>>>     8   50.391 MiB   127.183 TiB   6.900 s       0
+>>>     9   18.879 MiB   85.355 TiB    6 s           0
+>>>     10  52.844 MiB   127.183 TiB   3.500 s       0
+>>>     11  48.039 MiB   127.183 TiB   3.300 s       20
+>>>     12  4.000 KiB    127.990 TiB   8.500 s       20
+>>>     memory bw estimate: 0 B per second
+>>>     total size: 556.910 MiB
+>>>     record DAMON intervals: sample 5 ms, aggr 100 ms
+>>>
+>>> [1] https://github.com/sjp38/masim
+>>> [2] https://github.com/damonitor/damo
+>>>
+>>> Changes from v1 original post
+>>> - v1: https://lore.kernel.org/20260906184417.96621-1-sj@kernel.org
+>>> - Rebase to latest mm-new.
+>>> Changes from RFC
+>>> - RFC: https://lore.kernel.org/20260905202634.88102-1-sj@kernel.org
+>>> - Drop RFC tag.
+>>> - Rebase to latest mm-new.
+>>>
+>>> SJ Park (5):
+>>>   mm/damon/vaddr: support prep_probes
+>>>   mm/damon/paddr: move probe filter handling to ops-common
+>>>   mm/damon/vaddr: support apply_probe
+>>>   mm/damon/vaddr: extend apply_probes() for hugetlb
+>>>   mm/damon/vaddr: support pgidle_unset probe filter type
+>>>
+>>>  mm/damon/ops-common.c |  32 ++++++
+>>>  mm/damon/ops-common.h |   2 +
+>>>  mm/damon/paddr.c      |  23 +----
+>>>  mm/damon/vaddr.c      | 232 ++++++++++++++++++++++++++++++++++++++++++
+>>>  4 files changed, 267 insertions(+), 22 deletions(-)
+>>>
+>>>
+>>> base-commit: da659d141e9797b3a2e5d0e2b457bfa4e8a8cb2d
+>>
+>> Nice to see the progress with probes.
+>>
+>> Since you are adding prep_probes for vaddr, do we need to check for
+>> the existence of prep_probes in kdamond_fn?
+>>
+>> How about this?
+>>
+>> diff --git a/mm/damon/core.c b/mm/damon/core.c
+>> index 645cb367019a..7b308cbf21ab 100644
+>> --- a/mm/damon/core.c
+>> +++ b/mm/damon/core.c
+>> @@ -3935,7 +3935,7 @@ static int kdamond_fn(void *data)
+>>                 if (kdamond_wait_activation(ctx))
+>>                         break;
+>>  
+>> -               do_prep = ctx->ops.prep_probes && damon_has_prep(ctx);
+>> +               do_prep = damon_has_prep(ctx);
+>>  
+>>                 if (!access_check_disabled && ctx->ops.prepare_access_checks)
+>>                         ctx->ops.prepare_access_checks(ctx);
+>>
+>> And maybe change the name of the variable to has_prep.
+> 
+> I'm sorry but I don't understand a benefit of the change.  Rather, I show it
+> could cause a problem.  Later code does below:
+> 
+>                 if (do_prep)
+>                         ctx->ops.prep_probes(ctx, access_check_disabled);
+> 
+> If do_prep is true but ctx->ops.prep_probes is NULL, this will cause a problem.
+> 
+> Am I missing something?
+I was under the impression that with the change, all possible operations would
+have a prep_probes handler. I just noticed that we also have fvaddr, where
+ctx->ops.prep_probes is NULL.
 
-[ Upstream commit 696ca7d95658224ba807813101d0d5714d1d8aa4 ]
+Ignore my comment :-)> 
+> Thanks,
+> SJ
+> 
+> [...]
 
-Remove externs, correct argument names and reformat declarations.
-
-Signed-off-by: David Howells <dhowells@redhat.com>
-cc: Steve French <sfrench@samba.org>
-cc: Paulo Alcantara <pc@manguebit.org>
-cc: Enzo Matsumiya <ematsumiya@suse.de>
-cc: linux-cifs@vger.kernel.org
-cc: linux-fsdevel@vger.kernel.org
-cc: linux-kernel@vger.kernel.org
-Acked-by: Enzo Matsumiya <ematsumiya@suse.de>
-Signed-off-by: Steve French <stfrench@microsoft.com>
-
-For the stable backport, drop the original header cleanup because the stable-only __KERNEL__ guard makes it conflict and the target does not touch or depend on those declarations. Instead, carry only a behavior-preserving local snapshot of mnt_cifs_flags in cifs_setattr_nounix(); the target patch refers to that snapshot in its new setuid/setgid condition.
-
-cc: Steve French <sfrench@samba.org>
-cc: Paulo Alcantara <pc@manguebit.org>
-cc: Enzo Matsumiya <ematsumiya@suse.de>
-cc: linux-cifs@vger.kernel.org
-cc: linux-fsdevel@vger.kernel.org
-cc: linux-kernel@vger.kernel.org
-
-[ sashal: Reduced backport -- upstream 696ca7d956582 touches 1 file(s), this
-  backport carries 1. Not backported here:
-  fs/smb/client/cifs_unicode.h
-  This note is generated from the file lists only; see the resolution record
-  for the reasoning. ]
-
-Stable-dep-of: b8e5dc4f95e5 ("smb: client: clear setuid/setgid bit on write with cifsacl/modefromsid/posix extensions")
-Signed-off-by: Sasha Levin <sashal@kernel.org>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
----
- fs/smb/client/inode.c |    3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
---- a/fs/smb/client/inode.c
-+++ b/fs/smb/client/inode.c
-@@ -3307,6 +3307,7 @@ cifs_setattr_nounix(struct dentry *diren
- 	kgid_t gid = INVALID_GID;
- 	struct inode *inode = d_inode(direntry);
- 	struct cifs_sb_info *cifs_sb = CIFS_SB(inode->i_sb);
-+	unsigned int sbflags = cifs_sb->mnt_cifs_flags;
- 	struct cifsInodeInfo *cifsInode = CIFS_I(inode);
- 	struct cifsFileInfo *cfile = NULL;
- 	const char *full_path;
-@@ -3321,7 +3322,7 @@ cifs_setattr_nounix(struct dentry *diren
- 	cifs_dbg(FYI, "setattr on file %pd attrs->ia_valid 0x%x\n",
- 		 direntry, attrs->ia_valid);
- 
--	if (cifs_sb->mnt_cifs_flags & CIFS_MOUNT_NO_PERM)
-+	if (sbflags & CIFS_MOUNT_NO_PERM)
- 		attrs->ia_valid |= ATTR_FORCE;
- 
- 	rc = setattr_prepare(&nop_mnt_idmap, direntry, attrs);
-
+-- 
+Asier Gutierrez
+Huawei
 
