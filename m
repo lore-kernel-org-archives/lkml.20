@@ -1,118 +1,96 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from relay.hostedemail.com (smtprelay0011.hostedemail.com [216.40.44.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EE7158124E;
-	Wed,  9 Sep 2026 16:08:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3761457ED91;
+	Wed,  9 Sep 2026 16:08:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788970094; cv=none; b=ZvbSMi+HqBxWdyuNCV4zj+rhWfIOFAaLpBcAxfEsEIYMfVdI1+oHHCRmcD7ljJNVlE5dUYHy5ekOFzmCVocJ7IW1szmOWFziMCzaRw5GcShF+D3ZUVUNcAB9e7w+wM1sZgAGlIa84+KOjz7JqJPAMFs8LnPqbOEeApS2V60+7e4=
+	t=1788970105; cv=none; b=soF/vbin5Cbdy/fqcha26BqfWTFk7Qg6l8Yx4a9dOI7majbDw5mI4J151rv3N/qo5mftUhXLn5IUifNXieJ5VYi7P7P9dNrAILopwWWLVejG2sFs8EYH/cuQzC5A7Xej7l8orM+gczTfIGXc8s20tLRyTZFw+Ijszb+FpS4lgyY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788970094; c=relaxed/simple;
-	bh=qheTvuUD6icv5WzdI9gI1GKIhjR1ZjA0vPsnZH6KukM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=AuUbsqPQfkIzXEwVlSdaBMGEXJYfsP/GmMhHbChlObbPetUPOuT2FmXw1/WvF4J1Pz5hOZURgy/5b5i3WPU0rnQWkvdGbOCRcVHXCJvjIyhmuEsIIa27eF9Mo/+OIpgEVHTa4GkmkVze8xheBU5fcr2M2sDMveya/jP7M5OZyDQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=B01PiU7B; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788970105; c=relaxed/simple;
+	bh=48vJDYQd/DllTLq+3iIQm08kuK2MD2yf5k0t+DLfZ6w=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=puKTvTJRjD0EmCX2BT9l/DbI1ovCTiRr1tTxwE9EU0DtnQaHkL4v00WPZ6Paz5K+12oGuoxQezy5ysWwHbay5vflasZ7rK6w7mHJkVjMW8Tvnca+3BSANbRR8LeKmrhTgaeI2PM0m1GWG66q1+LxKzAnqey+eJ4DvWvGDqVwz3c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b=Ew4HNQfB; arc=none smtp.client-ip=216.40.44.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="B01PiU7B"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 107771F00A3A;
-	Wed,  9 Sep 2026 16:08:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788970092;
-	bh=y43J6V5CnbKKUQhwSOC0RMYUS8d3xRV1ZMlsN19AqMQ=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=B01PiU7BKpTEH46oQ0dWb3GZCWUDMG9zj7ff+ito9KN6Yyi23KZFruzdSm/px1VXe
-	 ZDKB89SDe+C/2Z/zE6uQ3kIjF+EUqJt7cz55jh3BXIpKtesPpDXrB8YMS8EaO1TyWx
-	 h17ahQ7gDF/8I5sdBZZ19TS6j3JcmQ1MZ85vmWx6+2ppH0zDU2ylIWX/vp6mFrtyWY
-	 ZxJ0ZWS53e4FopjV53TiukqMjAJoKe4noJmPa+PkM2foXCGbHcJK9eu2WYt2E5GJEG
-	 Z5q9w1VzpsVEiZxKh/yFs/F72BYGQNLPX82FtmcYYD482Mnt8QFw1hxZoYO6EtqYSm
-	 3C6DrremnAvsg==
-From: Simon Horman <horms@kernel.org>
-To: mhkelley58@gmail.com
-Cc: Simon Horman <horms@kernel.org>,
-	kys@microsoft.com,
-	haiyangz@microsoft.com,
-	wei.liu@kernel.org,
-	decui@microsoft.com,
-	longli@microsoft.com,
-	andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	linux-hyperv@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	netdev@vger.kernel.org
-Subject: Re: [PATCH v2 3/3] hv_netvsc: Leak send/recv buffers if GPADL teardown fails
-Date: Wed,  9 Sep 2026 17:08:05 +0100
-Message-ID: <20260909160805.698511-1-horms@kernel.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260907214902.9046-4-mhklinux@outlook.com>
-References: <20260907214902.9046-4-mhklinux@outlook.com>
+	dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b="Ew4HNQfB"
+Received: from omf08.hostedemail.com (lb01a-stub [10.200.18.249])
+	by unirelay02.hostedemail.com (Postfix) with ESMTP id C35A112023E;
+	Wed,  9 Sep 2026 16:08:14 +0000 (UTC)
+Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf08.hostedemail.com (Postfix) with ESMTPA id A212520028;
+	Wed,  9 Sep 2026 16:07:54 +0000 (UTC)
+Date: Wed, 9 Sep 2026 12:09:11 -0400
+From: Steven Rostedt <rostedt@goodmis.org>
+To: Peter Zijlstra <peterz@infradead.org>
+Cc: Ye Liu <ye.liu@linux.dev>, Thomas Gleixner <tglx@kernel.org>, "Rafael J.
+ Wysocki" <rafael@kernel.org>, Andrew Morton <akpm@linux-foundation.org>,
+ Ingo Molnar <mingo@redhat.com>, Will Deacon <will@kernel.org>, Boqun Feng
+ <boqun@kernel.org>, "Paul E. McKenney" <paulmck@kernel.org>, Frederic
+ Weisbecker <frederic@kernel.org>, Neeraj Upadhyay
+ <neeraj.upadhyay@kernel.org>, Joel Fernandes <joelagnelf@nvidia.com>, Josh
+ Triplett <josh@joshtriplett.org>, Uladzislau Rezki <urezki@gmail.com>, Juri
+ Lelli <juri.lelli@redhat.com>, Vincent Guittot
+ <vincent.guittot@linaro.org>, Masami Hiramatsu <mhiramat@kernel.org>, Josh
+ Poimboeuf <jpoimboe@kernel.org>, Ye Liu <liuye@kylinos.cn>, Michal Hocko
+ <mhocko@suse.com>, mic@digikod.net, oleg@redhat.com, david@kernel.org,
+ linmiaohe@huawei.com, nao.horiguchi@gmail.com, gnoack3000@gmail.com,
+ ljs@kernel.org, sj@kernel.org, rientjes@google.com, shakeel.butt@linux.dev,
+ xu.xin16@zte.com.cn, chengming.zhou@linux.dev, tony.luck@intel.com,
+ reinette.chatre@intel.com, x86@kernel.org, paul@paul-moore.com,
+ jmorris@namei.org, serge@hallyn.com, pavel@kernel.org,
+ lance.yang@linux.dev, pmladek@suse.com, longman@redhat.com,
+ mathieu.desnoyers@efficios.com, jiangshanlai@gmail.com,
+ qiang.zhang@linux.dev, dietmar.eggemann@arm.com, bsegall@google.com,
+ mgorman@suse.de, vschneid@redhat.com, kprateek.nayak@amd.com,
+ mark.rutland@arm.com, Dave.Martin@arm.com, james.morse@arm.com,
+ babu.moger@amd.com, linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ linux-pm@vger.kernel.org, rcu@vger.kernel.org,
+ linux-trace-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+ linux-security-module@vger.kernel.org
+Subject: Re: [PATCH v2 5/8] kernel: convert process/thread iterators to
+ for_each_*_rculock
+Message-ID: <20260909120911.39032d13@gandalf.local.home>
+In-Reply-To: <20260908074228.GW4120091@noisy.programming.kicks-ass.net>
+References: <20260907081334.1152889-1-ye.liu@linux.dev>
+	<20260907081334.1152889-6-ye.liu@linux.dev>
+	<20260908074228.GW4120091@noisy.programming.kicks-ass.net>
+X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-Rspamd-Server: rspamout05
+X-Rspamd-Queue-Id: A212520028
+X-Stat-Signature: 9bhr8mrf9jecgksswrur9snxt487op5c
+X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
+X-Session-ID: U2FsdGVkX19AMuTGL3VW5jagbOlwR+u7MA3F7VHnB+E=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=/I71CIheSuIDueqiu5rSWBUTO1zgH8vNXvV3i4L+T3M=; b=Ew4HNQfBJAW3QvJxL4xhoiz9d8D5iKxdsh10iXdMiDWG2dDq7BMF05gGgIe33e3EURTU9qshCUIWRI2S0eUCvA/2rIUrCApBNkGcwACOZpOkimIjHL8b/x7tJjeaE7wl5Zs/j2u4aimfyEbEUcr1qeLykOSGUaC1FUfmTB//jiU=
+X-HE-Tag: 1788970074-992515
+X-HE-Meta: U2FsdGVkX1/sjgIjUTzuszHX70bniX8/y4F8byAYJr5L4Kwf+Pq6SiK2LPgzAD5EmFKiynkAadzXM3x4qLo75WXhyZS59ULjI1qQoL45xrhI1eeT5MQRMQD7bu70iZsc+CglwGOHs01oUY4ZjM52NNgq0CB+kCQa2KO+APJ8kTcl3nqnjNjAlc1JFqBxU4lZ2fyci3LxkzioFG2oL8BkseTKqCeVBDEpzStaNBdD1+0SXhinobD7JBj25O6ZQ2QRX+9EcAaF97Hp+dwm4LQdc9C3AJjaDSrgcaZVEvOum5vPIdIBDcRSXlr1hiTDhVZmnQlEKNFFcUytxpY2d+6lRgiyopEE0T/P2K/3KnRoNxkqh992zUZis1LjkJPZxbAg
 
-This is an AI-generated review of your patch. The human sending this
-email has considered the AI review valid, or at least plausible.
-Full review at: https://sashiko.dev/#/patchset/20260907214902.9046-2-mhklinux@outlook.com?part=3
----
-hv_netvsc: Leak send/recv buffers if GPADL teardown fails
+On Tue, 8 Sep 2026 09:42:28 +0200
+Peter Zijlstra <peterz@infradead.org> wrote:
 
-This commit addresses a bug where send/recv buffers were improperly freed if
-GPADL teardown failed. It introduces calls to vmbus_leak_buffer() to safely
-leak the buffers instead of freeing them when they might still be accessed by
-the host.
+> >  kernel/cpu.c             |  4 +---
+> >  kernel/freezer.c         |  4 +---
+> >  kernel/hung_task.c       | 11 ++++-------
+> >  kernel/locking/lockdep.c |  4 +---
+> >  kernel/rcu/update.c      |  4 +---
+> >  kernel/sched/core.c      |  3 +--
+> >  kernel/sched/debug.c     |  4 +---
+> >  kernel/trace/fgraph.c    |  8 ++------
+> >  kernel/unwind/deferred.c |  3 +--
+> >  9 files changed, 13 insertions(+), 32 deletions(-)  
+> 
+> This is not something that can be applied.
 
-Closes: https://lore.kernel.org/linux-hyperv/20260731201210.3653C1F00AC4@smtp.kernel.org/
+I believe you mean to break it up into individual subsystems. kernel/ is
+not its own subsystem, it contains many different ones.
 
-> diff --git a/drivers/net/hyperv/netvsc.c b/drivers/net/hyperv/netvsc.c
-> index 5cd084e5696cd..e9292c3fac925 100644
-> --- a/drivers/net/hyperv/netvsc.c
-> +++ b/drivers/net/hyperv/netvsc.c
-> @@ -316,9 +316,11 @@ static void netvsc_teardown_recv_gpadl(struct hv_device *device,
->  		 * rather than continue and a bugchk
->  		 */
->  		if (ret != 0) {
-> +			vmbus_leak_buffer(&net_device->recv_buf,
-> +					  &net_device->recv_buf_chunks,
-> +					  &net_device->recv_buf_chunk_cnt);
-
-[Severity: High]
-Could this lead to a NULL pointer dereference if NAPI is still polling
-concurrently?
-
-In netvsc_device_add(), NAPI is enabled and the VMBus channel is opened. If a
-subsequent initialization step fails (like send_buf setup), the error path
-calls netvsc_teardown_recv_gpadl().
-
-If the GPADL teardown fails, vmbus_leak_buffer() will set
-net_device->recv_buf to NULL. Because NAPI is not synchronized with this
-teardown and is disabled later in the error path, a concurrent softirq could
-execute this path in netvsc_receive():
-
-    char *recv_buf = net_device->recv_buf;
-    ...
-    data = recv_buf + offset;
-    ...
-    ret = rndis_filter_receive(ndev, net_device, nvchan, data, buflen);
-
-Since the code does not check for NULL, it passes the faulty data pointer
-(NULL + offset) to rndis_filter_receive().
-
-This would result in a kernel panic when trying to read from the pointer:
-
-    memcpy(rndis_msg, data, RNDIS_HEADER_SIZE);
-
-Is there a way to defer setting recv_buf to NULL until after NAPI has been
-disabled?
-
->  			netdev_err(ndev,
->  				   "unable to teardown receive buffer's gpadl\n");
-> -			return;
->  		}
->  	}
->  }
+-- Steve
