@@ -1,196 +1,102 @@
-Received: from mx0b-00364e01.pphosted.com (mx0b-00364e01.pphosted.com [148.163.139.74])
+Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADB332C0269
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 04:33:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.139.74
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE7253264EA;
+	Wed,  9 Sep 2026 04:37:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788928438; cv=none; b=K8FNlKv7mZNauOSGSvOVn9C+bu5feM2YC6SjlUBxN5whBjg/C6G0HoaOAskYQki0BkeL1/Qi8TCsGHvwWTEDjKxp6Wk6Ive0k4JbYkms7aY+D1zdmeOevz/149/TZb9vEr+J7KP3YHnO3SBwx0R04PhSjZgGxJuSTo+eS9sBp5w=
+	t=1788928676; cv=none; b=XqzUK1WD/tYLflNtPZqDjUrckOzQ1lxNJqLJFiFzuBj89Fy3o58cvQcJXhNG6GNE2Bjig1aIR6un4d/QUJi14Q4equDte0LOaoc3EjOL08Qp9fOZnBHZoS8S5Oq+3N6aObrvCrRKWvUJkPPDMh2aVDSGAxSM4qE2c4kNB99A06M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788928438; c=relaxed/simple;
-	bh=uIP5+X9fRzK8IuB/mzSXnHXzVEaJz/KO0XKashYAsGw=;
+	s=arc-20240116; t=1788928676; c=relaxed/simple;
+	bh=eG9VVcfzi7pkWrfKLBjQkMTy5n8GJaU4Z9lPu/fZXmk=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=aQXWE51P3WgKYMHSMbw41i27GvDWUf0IJ9kyu3wBuuX/rzUAdQ8/HvYzLURy+DcZagjeGzedTij0Ri6jnafl7kfBQ2i1tuKk+YhQCYvDsrvT+eJ5uFL/CU9Wtm0q7xyezq751I72WGmdw7COgnJghrJje4eTE07Lz/cZownHaAA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=columbia.edu; spf=pass smtp.mailfrom=columbia.edu; dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b=l8a6NNmE; dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b=D6c4twYo; arc=none smtp.client-ip=148.163.139.74
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=columbia.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=columbia.edu
+	 In-Reply-To:Content-Type; b=asd8wV0srPKHy9voIMy3ZZ3WVynZIV15bwRJ3tZXd2x3m6SJhBWxvsdkqiFXatVyvJyfvLuTPLP8ujf4pcZt5NvZZJmggMLaTGGs9IVZ7E5iFhiRPjzf1FjUbm3vAkE6LcQvUVT4QOUXH9L6UwpZmhk2q18Wa/N72GhEyyQuI/4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=oLgjbW67; arc=none smtp.client-ip=80.241.56.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b="l8a6NNmE";
-	dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b="D6c4twYo"
-Received: from pps.filterd (m0167077.ppops.net [127.0.0.1])
-	by mx0b-00364e01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6894Wbi03175679
-	for <linux-kernel@vger.kernel.org>; Wed, 9 Sep 2026 00:33:55 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=columbia.edu; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pps01; bh=qS/T
-	tJdGLPA5+bK/9bT71cro3XlPuAYM0hPCqu2zzdU=; b=l8a6NNmE9liP1Q/lJQ/E
-	sOqUVHPLYvuC+I1k7v6xqDF+7L3ulN1Ob/nLhb6tiuazVOmHG4N9l6Y7+pc8rNQ0
-	+iLSkHQbwT8pJ0tgCGf5mc2xD9ZG9WHwOWuQo045+tgqvCKHu9c+Tr+uoWNE0s52
-	6dYPcGEsNsb0bYEJtWCwGI6rhVG0GBLRPnjKW7BaNv4NmgdtjAxvcqDwTTyjl6He
-	DK63oz+Z3zxWCRPnJeVeGCyE6cDJ4EfXhFq1UADckXvNYHI8a5ph4O7NoA8aBCbv
-	A8l3AfgF3iB9EKiB/8B7ErhIDxrT33r7YZuiccEquMxaIVj5dsGe1tQQ47tsfNgw
-	rg==
-Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com [209.85.160.200])
-	by mx0b-00364e01.pphosted.com (PPS) with ESMTPS id 4gjnkawb8q-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 00:33:55 -0400 (EDT)
-Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-530ab3382ebso486791cf.0
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 21:33:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=columbia.edu; s=lionmail; t=1788928435; x=1789533235; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=qS/TtJdGLPA5+bK/9bT71cro3XlPuAYM0hPCqu2zzdU=;
-        b=D6c4twYoshjGhU5x/ql7GHghsf0kk1/6e7AxMrrVVC78bncIR0bYZ0F9t64odUTQCu
-         9kimlTVRIj0DavZV3YUGyx9gPxZLYiMTpLqOGaoAYkRFjX82LzE3xNOJ82jT8RYUwoxe
-         54jLwunPkPBmneR288uDTgK/FTV/8n0rH5la9e/oRC5RFrW5aTR+RuHqPeZT3bhsS6sv
-         KKnzvNU5Zl99fkOWyiA9Fhdo7Q7C9mMmyMMTUUzksRirFsRQnjSiXJWHXjzIroe74jqg
-         wz3MagwSeV9ZvFkuogwmhx7Wn+ILjUTG4PsajyoVMgFBFosUdhUCwAZrW9HOF6BqJgqI
-         9rgg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788928435; x=1789533235;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=qS/TtJdGLPA5+bK/9bT71cro3XlPuAYM0hPCqu2zzdU=;
-        b=pJTdvHv7lcZo063KXWFmtOg1QR6EVbDIqGGhcZYtzk9ZXtqrB+r8jPbFi/jH5q6tmU
-         F3qCOINfvyXCZjpQ922SNTd1tl+lLkbsJhphk+ejYHrFQpkVB/x48ZoPbKPBjiN2pcEs
-         aBq5Plw8C9Ou87lEvZ8kNIKhk7tTttCB37P5pcUXmH9ftesSfVsoq6ozINXWJyJ5MkXT
-         ICp9GlAEBm07GPSNiPrdY72J+730VqWBhtAnobHkIo8RDdUmEQSuUfpIRjAo9B2wbWQI
-         Pm3LffJFIf/bTZWmIzQv6opZg3/FL/GoGGEYyuadhfUIPwAM5UuQGVG4kCcZvnTVwNc1
-         k2rg==
-X-Forwarded-Encrypted: i=1; AKwUvByt7cFWxEyEg3w3KNkq0qhdCCLlwIKrwIE+/SrzRKYcNebroAeIjuWkcqGZgir2Nrvk1M6sIP7KDcQx2KA=@vger.kernel.org
-X-Gm-Message-State: AFuF++nF0OY5YrnbxANJs3a9nqlSkgmWuE6Gt9v54NqGgNotKOSVDHb3
-	dhWk8f2ir7kszis5jt1WuVQN7ngbLqRx01FPODOV9EtbdWfhtnwA17y7unh/EVg0+tipIooAIre
-	qQkDQD8ON88GdLYTvlsW1kbSp/HnItQIA8dcSBo6db47z7NdzV7YDSxhDm7FNGw==
-X-Gm-Gg: AYBFou19ugypRRz6bjqdLO7lmpBhSf/IcN78hGmBZZa5wRHuU04woMgt3w3uEB6rQHM
-	BLgBiNdjPdyiQwuUIA4z8JOmEkWxMdn3005ceb8DycnFUeJNZNvEV+lFtAG32J9Ke7YAhPIik1F
-	02Uro2J+qRaN+5r56vBGVzmVrIzuzRNRna9LGrlifT2fb2/C5SVWmQuZNVAPHnxqd7yZMvXET90
-	TBHBoGYY7GDgRFZe7Z9Go0LECxPX9Ynf2Du6HVbPuyc8Y80Cbmp6FTwV+8rJVtiEP8ry20IxOiV
-	60ZwrT50bDHbG2x2/494tajffDkeEQAEN6oQDMt0fK5VrFnn4KTC7pHeBLBfp8ACw/kw0y+saXK
-	wDI/nzour2NjYFXBmW5Z9nszvJlHeoKP9qZCv6Z//XWq3YhcqHxpzzcc=
-X-Received: by 2002:a05:622a:2d0:b0:52d:953b:2c25 with SMTP id d75a77b69052e-530549ee1abmr420515651cf.38.1788928434773;
-        Tue, 08 Sep 2026 21:33:54 -0700 (PDT)
-X-Received: by 2002:a05:622a:2d0:b0:52d:953b:2c25 with SMTP id d75a77b69052e-530549ee1abmr420515351cf.38.1788928434312;
-        Tue, 08 Sep 2026 21:33:54 -0700 (PDT)
-Received: from [192.168.1.62] (dyn-160-39-33-242.dyn.columbia.edu. [160.39.33.242])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-910405966f0sm134596966d6.6.2026.09.08.21.33.52
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 08 Sep 2026 21:33:52 -0700 (PDT)
-Message-ID: <5d2d27f9-e815-43d0-a7b5-6601c5e2509b@columbia.edu>
-Date: Wed, 9 Sep 2026 00:33:51 -0400
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="oLgjbW67"
+Received: from smtp202.mailbox.org (smtp202.mailbox.org [IPv6:2001:67c:2050:b231:465::202])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4hfp2L57grzMlFd;
+	Wed, 09 Sep 2026 06:37:46 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1788928666;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=67tux91yUFkgKxFKhelqMsixAxrdmMG+zLHiWwpznfk=;
+	b=oLgjbW67ZzrWy+uU+6rqhMzp+Flgwet2T1MJCW2P94GZQrL7r7we34erDsLcmhDziAGScw
+	zAXBfnF01JZuMTz++QM043X+vELgsJTRSsc73ow7H5TfQFYIzdvUz0sL9r1ue0ulGgBXVh
+	MffibHI1PJFwZEkeAWft86LogkEz1ylDc5uFu4IfheEUr/SSCLYw4o1ZYeSC1tC3kTgHtO
+	+4rsoNiB15oNvZIAiC6TYqoimUpgb9OH35SeLu7w2IPoelY7nCMZS5Ov9Y6TklMbfIUkKg
+	yCNHpe/+SgDSeLkdJjcDRyuRSJCO19I/v3f2Q1ujT1wmyRKIoyvMMGNoLkC13Q==
+Message-ID: <1758591c-4583-4db1-a9bc-32430bbb6a37@mailbox.org>
+Date: Wed, 9 Sep 2026 04:22:03 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 00/15] btrfs: remove the v1 space cache
-To: dsterba@suse.cz
-Cc: David Sterba <dsterba@suse.com>, Chris Mason <mason@kernel.org>,
-        Qu Wenruo <wqu@suse.com>, linux-btrfs@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-References: <20260907-btrfs-remove-v1-space-cache-v1-0-5f9a5ba352a7@columbia.edu>
- <20260909010846.GH9053@suse.cz>
+Subject: Re: [PATCH v3] PCI: rcar-gen4: Add missing PM ops
+To: Koichiro Den <den@valinux.co.jp>
+Cc: linux-pci@vger.kernel.org, Geert Uytterhoeven <geert+renesas@glider.be>,
+ =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+ Bjorn Helgaas <bhelgaas@google.com>, Conor Dooley <conor+dt@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Lorenzo Pieralisi <lpieralisi@kernel.org>,
+ Magnus Damm <magnus.damm@gmail.com>, Manivannan Sadhasivam
+ <mani@kernel.org>, Rob Herring <robh@kernel.org>,
+ Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-renesas-soc@vger.kernel.org
+References: <20260907163554.725127-1-marek.vasut+renesas@mailbox.org>
+ <74il3j2dzfdt4xhqrfjkifhnpnmgqtplon2mtzfjzkbszwegi7@vou6a5rshcvr>
+ <de8e26a0-cd05-4448-8392-0fb3953e7d3f@mailbox.org>
+ <ain27ypszl767h3fygurivurojxctyjy2yprada6lgjef5c623@23nn7tsrecb6>
 Content-Language: en-US
-From: Tal Zussman <tz2294@columbia.edu>
-In-Reply-To: <20260909010846.GH9053@suse.cz>
-Content-Type: text/plain; charset=UTF-8
+From: Marek Vasut <marek.vasut@mailbox.org>
+In-Reply-To: <ain27ypszl767h3fygurivurojxctyjy2yprada6lgjef5c623@23nn7tsrecb6>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA5MDA0OSBTYWx0ZWRfXy1jjg/OtX7jp
- S3jfDbUWFjb4CbEA0LPgxfMN3Cb3jWJq8XrWyr8et1IOro3AqOFtNV4zqpjLyPeCJyW5a9xTzUB
- tGxR6i6Plph0JTSWMjdEnGiIIBsfuCUPT67Jj8Zyoq/mhgBoB6Xc
-X-Authority-Analysis: v=2.4 cv=Ibm3n2qa c=1 sm=1 tr=0 ts=6aa0e1b3 cx=c_pps
- a=JbAStetqSzwMeJznSMzCyw==:117 a=GaPK54s0Se3oFqK5NkZy0g==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=x7bEGLp0ZPQA:10 a=A0y_DWxS2BwA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=Da8U98TiO7q1upZEImrf:22 a=QOCMdifcju39GKoXhKua:22
- a=LShM9Hbsi2Ufa6fwzJoA:9 a=QEXdDO2ut3YA:10 a=uxP6HrT_eTzRwkO_Te1X:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA5MDA0OSBTYWx0ZWRfXxE7cYYs1LUj8
- Z+nznYKhLrXCGQL5wTVg+QPdS0QXUE8pbFu+ETnzAR9JMFeo4jW50gPvYrTACoFo3jXUvDpd18U
- r6LBUpIw5tDSyqaUu3yfR7BUiUqNDCOoOhHgEMz8rBD/jUXs+s2Xpl3r2gswjV5r1O+865Vp3mv
- pgj10FpEKwL5npmGZAkA4PkIhS41pEB8WjyBnifnqa0pPb+8yJtr2svES67y0g+3e71lx7f6SZT
- kKYg3wVpCPMSslk+IKF0+AqDnsz+RHcGjLM6z0rHtOm4qqhVtcZz/NbpO+9XsdGnKu23CV1dalw
- qnGThWQKai77kOwMra3th3iRg61DvYx5qW94zwZH2pTd5Wp7WWnmL5KF/J2fo5bd7vty7Pe5XW3
- /Y2kcoyX0z09nROTPWPBbJZ9Cy1oOMW1xFosdsfXOssFmhOoXkTQwh09NFv654X5cP3GpfKkvln
- wsw9VU/YVsecPjiUzeA==
-X-Proofpoint-GUID: ei9qeQ1CfJe0qdoxuJQxipptIpJahni-
-X-Proofpoint-ORIG-GUID: ei9qeQ1CfJe0qdoxuJQxipptIpJahni-
-X-Proofpoint-Virus-Version: vendor=nai engine=6900 definitions=11900
- signatures=596817
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 phishscore=0 priorityscore=1501 bulkscore=10 impostorscore=10
- lowpriorityscore=10 spamscore=0 clxscore=1015 suspectscore=0 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609090049
+X-MBO-RS-ID: 9666f74209110f82f62
+X-MBO-RS-META: pnrx5kkfu5j5zuj4856bbzec8ida5d3a
 
-On 9/9/26 4:08 AM, David Sterba wrote:
-> On Mon, Sep 07, 2026 at 09:19:15PM -0400, Tal Zussman wrote:
->> Since commit 545e560a5b0f ("btrfs: disable v1 space cache") the mount
->> options can't select the v1 space cache anymore, but the code is all
->> still there, and a filesystem with an old cache and no free space tree
->> still enabled it from the superblock. Qu suggested removing it rather
->> than converting its page handling to folios [1].
->> 
->> Patch 1 stops enabling the cache from the on-disk state, so an existing
->> cache is cleaned up on the next read-write mount, as -o nospace_cache
->> already did. This is the one user-visible change: the cleanup is now
->> unconditional, and a read-write mount fails if it fails.
-> 
-> In case it fails there are 2 ways how to fix it:
-> 
-> - convert to free space tree during mount (the recommended conversion
->    from v1 to v2) but it could fail for the same reason
-> 
-> - on unmounted filesystem do 'btrfs rescue clear-space-cache v1'
-> 
+On 9/9/26 4:17 AM, Koichiro Den wrote:
 
-Thanks, I'll add this to the cover letter.
+Hello Den-san,
 
->> Patches 2-5
->> remove the write path, 6 and 7 the load path and disk_cache_state, and
->> 8 and 9 the SPACE_CACHE flag and the unused half of the cleanup helper.
->> Patches 10-15 remove the trimming ranges and the free space inode
->> special cases in the write path, which only the v1 writer used.
+>>> The s2idle test with pm_test=platform now passes in EP mode on S4 Spider even
+>>> with CONFIG_PCIE_DW_HOST=y. Thanks! Feel free to use the tag for it if it helps.
+>>>
+>>> Tested-by: Koichiro Den <den@valinux.co.jp>
+>> Thank you for your test. I would like to ask -- is the EP side of PCIe link
+>> behaving correctly during suspend/resume cycle on your S4 setup ? Does the
+>> EP require any special handling during suspend/resume ?
 > 
-> The piecemeal removal is good, makes it clear what's still needed, as
-> listed below.
+> To be clear, what I confirmed was the following:
 > 
->> What's left is what's needed to find and delete the cache inodes of an
->> existing filesystem:
->> 
->> 1. lookup_free_space_inode(), btrfs_remove_free_space_inode(), and
->>    btrfs_cleanup_free_space_cache_v1(), which runs on the first
->>    read-write mount and zeroes cache_generation in the super block.
->> 
->> 2. btrfs_truncate_free_space_cache() and delete_v1_space_cache(), which
->>    relocation uses to get a cache inode's extents out of a block group.
->> 
->> 3. btrfs_is_free_space_inode(), for the evict and inode update paths.
->> 
->> 4. The on-disk definitions: cache_generation in the super block,
->>    BTRFS_FREE_SPACE_OBJECTID, and the free space header and entry
->>    items.
->> 
->> space_cache and space_cache=v1 still fall back to nospace_cache with a
->> warning.
+> - The panic I observed with v1 no longer occurs with this newer revision.
+> - I could create a vNTB EPF after running the test.
+> - With vNTB/ntb_netdev already connected before the test. ping resumed normally
+>    afterwards.
 > 
-> The sperblock::space_cache will remain unused and the only valid value
-> is 0. Repurposing it in the future is possible but we need a long period
-> in between.
+> Note: I used the suspend test from the commit message on the EP:
+>    echo s2idle > /sys/power/mem_sleep && \
+>    echo platform > /sys/power/pm_test && \
+>    echo mem > /sys/power/state
 > 
-> The points listed above for the code that will be still needed seem
-> minimal. It could be removed eventually leaving only the unmounted
-> clearing.
-> 
-> I'll add the series as topic branch to linux-next. The mentioned change
-> to tranaction NOJOIN is simple and no-op in the code so it'll get
-> updated for the final merge.
-> 
+> Based on these, I believe this patch introduces no regression in EP mode on S4.
+> Any pre-existing EP suspend/resume issues could be addressed separately.
 
-Great, thank you! I'll send a v2 with the transaction split in a couple
-days.
+Understood.
 
+Thank you for your help !
+
+-- 
+Best regards,
+Marek Vasut
