@@ -1,102 +1,103 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp-8fad.mail.infomaniak.ch (smtp-8fad.mail.infomaniak.ch [83.166.143.173])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6866B37C925
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 18:33:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FDA839CCFA
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 18:35:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=83.166.143.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788978812; cv=none; b=rnH9L6mscU6l0CJkLJaovEjoJIPGiiW8wqmPbGqxJJJLI5e8xeKv0LJF75xLVh/fSQ7PJfXm3vyVbE/htOYFhhQA9dhSIaHowL34Rj/qI+RuemKfMejNpEln/u1g4X0UpBnAnbie4Ak4jiY//ZQhm+IZUQJ5u/C2AbZyHp1ruHY=
+	t=1788978917; cv=none; b=KdGYtVOuFxlwt9okwOZzfSuQaxNPK2/XQfrnU+ScY4bHfUZae7hpNvzUt8hK7lv0LTTH+Z65Hv3S+zElAW0NSUshZq94xPu7pSlKcIW+8VMA0/dfIp3zNwogCSYhyFkUVbhJl5C96+mIqLNGOa2iRG53V6rAknwes3rKM2Fq7qA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788978812; c=relaxed/simple;
-	bh=peV0QDmOv2RpylKNsqiOQ0PlLLqXwh9h6AojzDr/wKQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=AnHNZBqRXAJEVhNMQcU6YUDlNKmIWXs6KOP4lPed/Plmv3YCExXCxsdxfT9CAKn9K3iu8WLySbcELej/UXS/gEVAWQuMosi1OKfpkGAsC96yNg54gg+uyxmhcB2ElPG5BLf1ZsmfOit9uDh5Hgo5C4iDDKZqcS3rcPQi6k8OpLY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LEBLUq8A; arc=none smtp.client-ip=74.125.225.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788978917; c=relaxed/simple;
+	bh=AC4lBqGuD4zcf/6Z/HUBafA2incti3y8Lkd1zHpZjns=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=uECznXdtqgRnf1uMvvR5raeaPCHfzA5faWWPTDcrRLT2L9HaOJ2SS840HvHTUC9QliJiWLg0k58TyiK6NKGIIhPgGqDAHyp0KC3fiZ6v5XM75LGQohUKBWvNnpfZn3jHQoHRwFMWQZD3mmj6h5tkW2F8E8vDmyt2lMIWISF7R44=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=digikod.net; spf=pass smtp.mailfrom=digikod.net; dkim=pass (1024-bit key) header.d=digikod.net header.i=@digikod.net header.b=HUIOhqI9; arc=none smtp.client-ip=83.166.143.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=digikod.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=digikod.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LEBLUq8A"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-4843cedd129so884475f8f.0
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 11:33:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788978808; x=1789583608; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=peV0QDmOv2RpylKNsqiOQ0PlLLqXwh9h6AojzDr/wKQ=;
-        b=LEBLUq8AnC3Q2wQH3rKAlCPd7GnGCapevYjMVfdmYgpYTnyjOsIvEHcYw8HSu1iEap
-         Z9hfl5KzUoqnMxKtOdZnJjUxGrgBpeG+LOU0S5N/ZirRclT/TwhvHWoV8xM9HLX8U9Yb
-         muQ9XvRH1d+xwjkU0JSsyUEwxBtm61ENF8rJKpon/oPDhNLSFYeg+j4eeh4FTNd5WcLx
-         /lCzOpwL/D+ZFswiWUIwXU5NyP/wE7pu5wAybgMe6QRRQueabMmftyI8QQRrqC7xOQAw
-         LHHx5I37TqUPYp6U1u5i7LFsvEp7rPF8vCRXWx6a7/f2Kf9lGsvNy+u9xcrgsyiZz579
-         gn/A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788978808; x=1789583608;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=peV0QDmOv2RpylKNsqiOQ0PlLLqXwh9h6AojzDr/wKQ=;
-        b=sSJo4ChJ+IVfrG6dXokPxfHui1Pa9gxb3IBPx7/NI1I+WcN0Sy+eFXvPc2ZJF1Y9WW
-         aRu9BufxDbN7xRaXbvAfpRjww7KBASYu60iD52NKptAUu5LjKO4T8bbNZwklMdzGbaL7
-         QKYc90SKNg+oxJW/kCPuoERng6SRVXc/RVrSTwmAfVeBZVUKRmkC0VBYE7s0/5DJiZdH
-         i5ivlQP8iSU2V2JI2f3jCeqrQSkSCxT6WjOV/Na/oLs7blTzrCqkqc/oX7X3pZQdQqkp
-         un7fDEwld2AQECYq2SA00DVlIBYOixWgfylGwZD/xRIYMJca5LRXTattSRazcotzvSFj
-         YF6A==
-X-Forwarded-Encrypted: i=1; AKwUvBxY96Tlk7AnaSUKyWjM2wz8VxaGZud8NpvPo1booA+nEUhVG5iIuPS0P+b1lCsvm5jkBB7E1Xl1vjjYtio=@vger.kernel.org
-X-Gm-Message-State: AFuF++kgC6rRtdQgpJ/nqXMXDkf05HPMdyD0iuRIVTPH15hnvffq46dP
-	BOgVlVIdq+/2Avv/XNVMRhZX6VTJo1VKPAC3OMIZvkVFj9PIfKtD3t79
-X-Gm-Gg: AYBFou1nr7RornpV1kKmdxto5qDEcbd0oD4qsUr4Wx3qs8ylKyLV0uhbPeLgm4bdwdu
-	pLJN04wH/myGabmRa+sU/He2sVGyaQASHHMLIXAPVBZiAWMnHaNevfME8OAVCUxjDq+wtVH+qKK
-	fTN1QEk040f9NBd0Gexr+33tkuXxEGx4IrzNZcWD/0KBOv3dqJ/6Ik/HWOJ360ybV2rWqt1PhAD
-	chNAGVKUZFZtHvjkW0H7H78d2ckdT/hGuTN9nkEpcp5GIcY1h4FUcZFgZC0RYbX11DmLKFQrMUh
-	hE6qbj89maBeAuyYJytG55bmXv0hCsRoRnvPJ/NDkHPYcxt8X6FiDKCUFHWyXXuqbdtcFIdbMKz
-	b4U0GGzdKQu166i4h9GuH/uC5x7y9PHLVgZVAdDxiM2ThHP+nUKS3s/jpvyi3m8yNE6V2ByWaTn
-	5wlplLZM+XBx6bYByExwT5bMttDuNoQwxbBuESxpjElqVQVhIu6JWJseoAq1r0c+gaqwQI8s+oq
-	nl1W89TU/1NTzTyKgTwfWGW7QY1KBP1h4mct7HwDPxJyaIFPJb5bPKquqA0ppAP7VsoG+XUHocH
-	jFGw5S73Ah+jg+NWgRCRKPFpKg==
-X-Received: by 2002:a5d:64e8:0:b0:485:b169:54fd with SMTP id ffacd0b85a97d-485b169576emr7617081f8f.4.1788978808281;
-        Wed, 09 Sep 2026 11:33:28 -0700 (PDT)
-Received: from cdev ([2a02:8071:68c3:bd00::8998])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-485885b1320sm44363262f8f.27.2026.09.09.11.33.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 09 Sep 2026 11:33:27 -0700 (PDT)
-From: yCduIhFgkD <vladimirkondratyev2@gmail.com>
-X-Google-Original-From: yCduIhFgkD <83831960+yCduIhFgkD@users.noreply.github.com>
-To: lsa.uz@pm.me
-Cc: arnd@arndb.de,
-	chandrashekar.devegowda@intel.com,
-	chethan.tumkur.narayan@intel.com,
-	dev@lengyelf.eu,
-	kiran.k@intel.com,
-	linux-bluetooth@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	luiz.dentz@gmail.com,
-	mahalingeshwara.chambarakatta@intel.com,
-	marcel@holtmann.org,
-	pmenzel@molgen.mpg.de,
-	ravindra@intel.com,
-	ravishankar.srivatsa@intel.com,
-	vladimirkondratyev2@gmail.com
-Subject: Consent for Assembly
-Date: Wed,  9 Sep 2026 20:33:25 +0200
-Message-ID: <20260909183325.20971-1-83831960+yCduIhFgkD@users.noreply.github.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260909123416.71919-1-lsa.uz@pm.me>
-References: <20260909123416.71919-1-lsa.uz@pm.me>
+	dkim=pass (1024-bit key) header.d=digikod.net header.i=@digikod.net header.b="HUIOhqI9"
+Received: from smtp-3-0001.mail.infomaniak.ch (smtp-3-0001.mail.infomaniak.ch [10.4.36.108])
+	by smtp-4-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4hg8cV5DxQzx9j;
+	Wed,  9 Sep 2026 20:35:06 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=digikod.net;
+	s=20191114; t=1788978906;
+	bh=039DE0Nj6zfdqHjgOxtMBb1+k4HmJRZc5h2UMeymOjA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=HUIOhqI9V1nC2Wg+pzSs1XnGXHH9Iit5VUcr+5eRi0gn03VrArdNNuxZ6ILDs+gKJ
+	 eReVIOMYr4Hc7YSYrGq6c9JBScQcUD+XArk77TD+deWOnCWkJ7jfYE5GsFnGl4zeYy
+	 t7ieIU3UmcpX8TJJFC99LV48IOZpuvRFSLTFl0Gc=
+Received: from unknown by smtp-3-0001.mail.infomaniak.ch (Postfix) with ESMTPA id 4hg8cS5C1PznPJ;
+	Wed,  9 Sep 2026 20:35:04 +0200 (CEST)
+Date: Wed, 9 Sep 2026 20:35:00 +0200
+From: =?utf-8?Q?Micka=C3=ABl_Sala=C3=BCn?= <mic@digikod.net>
+To: Paul Moore <paul@paul-moore.com>
+Cc: Christian Brauner <brauner@kernel.org>, 
+	=?utf-8?Q?G=C3=BCnther?= Noack <gnoack@google.com>, "Serge E . Hallyn" <serge@hallyn.com>, 
+	Daniel Durning <danieldurning.work@gmail.com>, Jonathan Corbet <corbet@lwn.net>, 
+	Justin Suess <utilityemal77@gmail.com>, Lennart Poettering <lennart@poettering.net>, 
+	Mikhail Ivanov <ivanov.mikhail1@huawei-partners.com>, Nicolas Bouchinet <nicolas.bouchinet@oss.cyber.gouv.fr>, 
+	Shervin Oloumi <enlightened@google.com>, Tingmao Wang <m@maowtm.org>, kernel-team@cloudflare.com, 
+	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-security-module@vger.kernel.org
+Subject: Re: [PATCH v3 3/12] security: Add LSM_AUDIT_DATA_NS for namespace
+ audit records
+Message-ID: <20260909.quahcia8aiF4@digikod.net>
+References: <20260726161400.3010511-4-mic@digikod.net>
+ <5cabf9b33a20f130cedcc423b8b2d151@paul-moore.com>
+ <CAHC9VhS_WP-bLgMGiFAfE1MT76iKvVJ-OV5r7xju-KMdrfjssQ@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAHC9VhS_WP-bLgMGiFAfE1MT76iKvVJ-OV5r7xju-KMdrfjssQ@mail.gmail.com>
+X-Infomaniak-Routing: alpha
 
-Hi Sergey,
+On Mon, Aug 31, 2026 at 05:26:20PM -0400, Paul Moore wrote:
+> On Tue, Aug 11, 2026 at 4:16 PM Paul Moore <paul@paul-moore.com> wrote:
+> > On Jul 26, 2026 =?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net> wrote:
+> > >
+> > > Add a new LSM audit data type LSM_AUDIT_DATA_NS that logs namespace
+> > > information in audit records.  Two fields are provided:
+> > >
+> > > - ns_type: the CLONE_NEW* flag identifying the namespace type, logged
+> > >   in hexadecimal.
+> > >
+> > > - ns_id: the unique 64-bit namespace identifier, retrievable from
+> > >   userspace via NS_GET_ID or listns(2).  Unlike the proc inode number
+> > >   (inum), ns_id is never recycled.  For namespace creation denials,
+> > >   ns_id is 0 because the namespace does not exist yet.
+> >
+> > Based on the code in this patch, "ns_type" should be "namespace_type"
+> > and a similar change needs to be done for "ns_id".  Regardless, the
+> > first three patches look fine to me (I can fixup the above during a
+> > merge).
+> >
+> > As mentioned previously, I want to merge at least the first three
+> > patches via the LSM tree since we have multiple LSMs which depend on
+> > these new hooks.  I'm happy to also merge the remaining Landlock
+> > patches in this patchset via the LSM tree, or you can manage those
+> > separately; let me know how you would like to proceed with that.
+> >
+> > Since we are at -rc7, this is obviously something for after the
+> > upcoming merge window so I'm going to merge the first three patches
+> > into the lsm/dev-staging branch now with the understanding that they
+> > will move over to the lsm/dev branch after the upcoming merge window
+> > is finished.  If you want me to merge the Landlock patches too, just
+> > let me know.
+> 
+> The first three patches are now in lsm/dev, thanks everyone.
 
-Sorry for the late response.
+Thanks.
 
-I consent to the assembling the series.
-Also thanks for the extensive testing! You're really rad!
+> 
+> Mickaël, if you would like me to merge the remaining patches in this
+> patchset into the lsm/dev branch just let me know.
 
-Regards,
-Vladimir
+I'll send a new patch series soon because this v3 would not apply
+anymore.  I'll include your lsm/dev patches to keep a consistent patch
+series.
