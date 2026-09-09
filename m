@@ -1,238 +1,215 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx2-f12.google.com (mail-yx2-f12.google.com [74.125.224.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21505577E26;
-	Wed,  9 Sep 2026 16:03:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0E0C58038E
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 16:03:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788969799; cv=none; b=Uwbclh0OJ92Gpk3/KmSY060VkY3sJ89EFd5JcfZgRxnhGw13YrN0ZN5GHFC6EhQkkhynR03SKfFmuQ6M1VBcRFwU73wUSLB7FrwFSoh/b/vzR+SorqYvHTk+AJzS+h2DrkV9FTe8O2LBvaxyLfI0oZPpHursCemxIXF0XWX04uM=
+	t=1788969807; cv=none; b=QiyyRqMDqaFdLKsFy5OGjtzm4WyCtiYXb2IuZB/K5WOIxwpUwFY5NM8mv0X3SRIsHWIpllSNqnmO9OLAh7FftMx8ONu2sDRMqc7uHWnSeGXOeMneQ6I0mZsWyq+OrXCLE9lDjG4hShKtA4g1h1GdXGgCRJ3UOI/w68uJo3BWOwE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788969799; c=relaxed/simple;
-	bh=6k71zVTtg4gskeQ71dR57KqGckAtGUuZczZAACIOabo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=cbBzFoPCA437QdBs/sH1/PC3lg8dksXAaySL5HfrPOhfzGZqjI0Dkg3nVANXN115PGeksQbaDL2JN4C/+U5ycA5gAZmi6L1cdsRHhTD1nKnRpoBFwr6JdEnP6MNe6NlYrPmOg9nPlp7xIOzhbd/03S5JDo45bb8SKkT51qn8AEM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=XGq85tAN; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1788969807; c=relaxed/simple;
+	bh=On06xCFs+45Cv/iSsThW0gWQ416PGgEnZnw/69MIF+I=;
+	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=YRFBa9DqQA2TbxA2lUIdPVlgEGQVwwxqvTD9wYmQWNIK0K4ZcCGWCw4Zs303gR1VlY0bLF7FUlfTY0oVDlFuTv8YaO3SdAiKrdRoocewLMpABCFjElvouTi/mr/+5W0rQ2dkTRfiRPgQVMqYJiCA/sExGnJCyA9XVNsLHuqDXaY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AaoIAZgk; arc=none smtp.client-ip=74.125.224.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="XGq85tAN"
-Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 689B1QNt3801875;
-	Wed, 9 Sep 2026 16:02:46 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=HSY/Er
-	1CmYDqXlV3DacUgRIGKuhSH1cmMKR2uFNIWLQ=; b=XGq85tANWEGt+kPdGvbv5l
-	gS5vUEe68BAiHVu+vo0sACDL/e7VRctQdEM4/iCP7o1Y/TX5ym6HtR4gDAF6Q7SQ
-	l2dD4Xiyo1s/iBclrb5ICMqOMvS9KUinB6BPtQmsQrlV3YuOt0QFhKMHkKHtMskl
-	LhY91ByF2VjW3cdwr2qLMtyLMpYle9QqpUtKXsPEwjQ5q8MjXwiycpI+5ozFu0W7
-	PM5hZYgW4EOmJ3+27v6Na4b0Bg2ORJuU7nZW4IOWM0NOwYLIBhgQvbkYQ6HVJboX
-	4S681HWXjP6f3uVa4Ea4L7lnjam44VNU88YlzXVBO+CVVnPXL80OFXBWas/YjKqg
-	==
-Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4ggbhky0ts-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 09 Sep 2026 16:02:45 +0000 (GMT)
-Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma23.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 689FuGXx005264;
-	Wed, 9 Sep 2026 16:02:44 GMT
-Received: from smtprelay05.fra02v.mail.ibm.com ([9.218.2.225])
-	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4ggxwhb444-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 09 Sep 2026 16:02:44 +0000 (GMT)
-Received: from smtpav01.fra02v.mail.ibm.com (smtpav01.fra02v.mail.ibm.com [10.20.54.100])
-	by smtprelay05.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 689G2dE349283438
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Wed, 9 Sep 2026 16:02:39 GMT
-Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 964302004F;
-	Wed,  9 Sep 2026 16:02:39 +0000 (GMT)
-Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id AA11F20043;
-	Wed,  9 Sep 2026 16:02:29 +0000 (GMT)
-Received: from [9.61.255.18] (unknown [9.61.255.18])
-	by smtpav01.fra02v.mail.ibm.com (Postfix) with ESMTPS;
-	Wed,  9 Sep 2026 16:02:29 +0000 (GMT)
-Message-ID: <ffeb3910-5923-470d-8ff0-8db665ff2bb0@linux.ibm.com>
-Date: Wed, 9 Sep 2026 21:32:25 +0530
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AaoIAZgk"
+Received: by mail-yx2-f12.google.com with SMTP id 956f58d0204a3-66e4ab19127so497795d50.1
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 09:03:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788969804; x=1789574604; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:date:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=AausXKsac6c2thgVaA1TemaODiOlglfugBkNliHU0Ak=;
+        b=AaoIAZgkmSISKaCcKTIxCHIdkND4IT9Q1ovu4NYKJo0TUcHdKSzno+TuLODhIdvG9u
+         OxCNAQyjSdpO4WZ9m7Saqgf7FT6WCQyqikjeK88v82zZgfkkIXaNu5VZncE4NojZvl+8
+         t+mDRnwv3jg/NWJNxcQmoGewwG7tv1yrhyUeP1By1UmFvIX9hzOeBVODPr3AOQYn+lAZ
+         YtLmOm79yBPvoERAXd4YCeAqH2ZEgkDLnsXrRg9PyjBykoB38ePuuCGyNmQCuqjYKTmt
+         7acUuxnWpzAQKpxH90+ht8CxcCKZy8/nu0atr23IEB7lgORef8xBTSU3P3DR3iFWfHhH
+         sZZg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788969804; x=1789574604;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=AausXKsac6c2thgVaA1TemaODiOlglfugBkNliHU0Ak=;
+        b=GwK8toKR0CaRO5AOK/X4gNDowEqVplV7p2ZApddWGl+qVytCLyAR0Vv5UXrmVYUxac
+         7WtlOWhk3z8CkPXBGurWH92RNdWZiilb/d24eqCkS+0SLfBQmpBq7Yqytn/JSRS3puMo
+         dNz5suTYoqMAh9sJUCQIrEFs/WCdACqhPUHv161IV6IhQFbD3jMp0ftc9jC82jUYFfdq
+         nLikM9/b3OiT3KzoqPa/OoPgm0yLs8Gkzp53HBiBK01wQkbB2cVBiey040cLbqxI8DCj
+         SJU96oQ2hO8YfeMibB+LpEHgpWKu1XVX6MZjQyHk8FHj67BkkGBDiRLlQ/wk6hpXqWQE
+         Gxqw==
+X-Gm-Message-State: AFuF++ns8aq7rlF4rrT5vfxCsQKEZgqRnugFu+iRetYtw9qJk0K05+7D
+	6XDpQ3LWgUounB6NjVJBbe4nqF6Ub2g987J/j7NOtfdZoRMnBIiFbGgL
+X-Gm-Gg: AYBFou3WwCbj9dsgXVLe1uqL8vBy02Tzpj0DimfnvP7VQzvywNHpY8GEUfWciWVf/Q1
+	+5wU5jdFf2Dg8Bbszq/8oaTQNGRQ0UG8oW+TGgJhtFsHhk0zksUYpBjZI7/PN7bSc7JHfPnkJu9
+	6PK9GvmuVgCtPX5fyQdeuF43nlh2evkRq/Kwh+sRt3+fMUZS6XaJe6m2tiHNOltxHIbfopiazCO
+	9BiquhP3YjHsxqTneIH7wWvlsmMyWQgwKDcvrt5SsSDZbP67Mlyyihf5pJkXD8LeQyRoHIIoNj7
+	gaoPk2EVx3l/Qx204ChVERc7EuBQfmjJjnKUSVTKFtHEHEZP0qlMgiO+Y0RouaFnjVraLluZSIy
+	qvAeoJ6E6N2/RN5ttPt/XUgb8b7sg70eU0Ig3yeDWlp0hH5nq9RoK6krFJiacKv4RXoFO4QOJ6o
+	8nbThhneWjs0uJGbhl3f0jTcSHXZTEcKx2Y6nuU9L/WUZejlqShPI/MQ6ECH8pXvTVFZc3UX/Z0
+	csJHcSgkSczJclsxpKgBg412Vzw
+X-Received: by 2002:a05:690e:4188:b0:66e:ac6f:cdf with SMTP id 956f58d0204a3-6710feec5eamr676251d50.5.1788969803429;
+        Wed, 09 Sep 2026 09:03:23 -0700 (PDT)
+Received: from localhost (c-73-105-0-191.hsd1.fl.comcast.net. [73.105.0.191])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-87149ec0e68sm111794017b3.20.2026.09.09.09.03.21
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 09 Sep 2026 09:03:22 -0700 (PDT)
+From: Yury Norov <yury.norov@gmail.com>
+X-Google-Original-From: Yury Norov <ynorov@nvidia.com>
+Date: Wed, 9 Sep 2026 12:03:21 -0400
+To: Shrikanth Hegde <sshegde@linux.ibm.com>
+Cc: linux-kernel@vger.kernel.org, mingo@kernel.org, peterz@infradead.org,
+	juri.lelli@redhat.com, vincent.guittot@linaro.org,
+	yury.norov@gmail.com, kprateek.nayak@amd.com, iii@linux.ibm.com,
+	corbet@lwn.net, meted@linux.ibm.com, tglx@kernel.org,
+	gregkh@linuxfoundation.org, pbonzini@redhat.com, seanjc@google.com,
+	vschneid@redhat.com, huschle@linux.ibm.com, rostedt@goodmis.org,
+	dietmar.eggemann@arm.com, maddy@linux.ibm.com, srikar@linux.ibm.com,
+	hdanton@sina.com, chleroy@kernel.org, vineeth@bitbyteword.org,
+	frederic@kernel.org, arighi@nvidia.com, pauld@redhat.com,
+	christian.loehle@arm.com, tj@kernel.org,
+	tommaso.cucinotta@gmail.com, maz@kernel.org, rafael@kernel.org,
+	rdunlap@infradead.org, kernellwp@gmail.com,
+	linux-doc@vger.kernel.org, jgross@suse.com,
+	virtualization@lists.linux.dev, sunlightlinux@gmail.com
+Subject: Re: [PATCH v13 02/13] cpumask: Introduce cpumask_intersects_and
+Message-ID: <aqGDSeGGIfJvn8uc@yury>
+References: <20260909135617.871006-1-sshegde@linux.ibm.com>
+ <20260909135617.871006-3-sshegde@linux.ibm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 13/22] coredump: add COREDUMP_RECORDS to the coredump
- socket protocol
-To: Christian Brauner <brauner@kernel.org>, linux-fsdevel@vger.kernel.org
-Cc: Jacob Lalonde <jalalonde@meta.com>, Josef Bacik <josef@toxicpanda.com>,
-        Jann Horn <jannh@google.com>, Alexander Viro <viro@zeniv.linux.org.uk>,
-        Jan Kara <jack@suse.cz>, Andrew Morton <akpm@linux-foundation.org>,
-        David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
-        "Liam R. Howlett" <liam@infradead.org>,
-        Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
-        Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
-        Omar Sandoval <osandov@osandov.com>, Jacob Lalonde <jalalonde@fb.com>,
-        Shuah Khan <shuah@kernel.org>, linux-kernel@vger.kernel.org,
-        linux-mm@kvack.org, linux-kselftest@vger.kernel.org,
-        linuxppc-dev@lists.ozlabs.org
-References: <20260820-work-coredump-sparse-v2-0-ba32dd718c51@kernel.org>
- <20260820-work-coredump-sparse-v2-13-ba32dd718c51@kernel.org>
-Content-Language: en-US
-From: R Nageswara Sastry <rnsastry@linux.ibm.com>
-In-Reply-To: <20260820-work-coredump-sparse-v2-13-ba32dd718c51@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA5MDE3OCBTYWx0ZWRfXzPZdSwT6Cj0z
- 4b99P1W16MAmjQqnxkbK2d27CmM2i/OIZppMqF0m+r63Y94nDlpVjnclqixwQ9x7jo8+yOqCjgU
- +Y0PlznQ4T4n5UOt9OYeU7Drlaj94rQ=
-X-Proofpoint-ORIG-GUID: zZBYAI8Ze8g_g7P1UnwCdknMJzB5uk3g
-X-Authority-Analysis: v=2.4 cv=NMDlPU6g c=1 sm=1 tr=0 ts=6aa18326 cx=c_pps
- a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=U7nrCbtTmkRpXpFmAIza:22 a=VwQbUJbxAAAA:8
- a=VnNF1IyMAAAA:8 a=WVHIdix6p19bwZ1xHcsA:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA5MDE3OCBTYWx0ZWRfXyeMWmainlQeC
- HThRCwuusivddEBLW3VCaGYoJTbOGPXd0S7Rm1H4qhvTQCiunRqJBW5OcIBXBvPeSOhNUZSeG9S
- iZad7jrKSIw2NLkSQBNhcBZAb68iNUdpc5A2cP2e17buQOtuXUx3sPg23fRYNooebDKUPL8j/dz
- PxFAsAUO+H+7F4eUf8sd/BtgJXfUErNZEf65szRrybJre2Er+XruGWn8rlneEGAboO4ZdvcGDqL
- 1TXtxYAYkKV9gvV/XSXwTVdXZ1QrQwZFjHW5ciX7cnuKVX8FzBLZV34PuTse9EoAuVdvKGCeJRv
- ApNhvWZBkBvB3tE0/ONqvnUrCREE4hbLaVwD/i1kzIiricbdQppym6alYfD+VNUmXAHA49uyi2R
- O2zevJT7JShoptvXkOIJxvS85G1yqmH7sJ2t6Tfl8taVYVg69GKKJ0x19NKAffEpUCSTVgYAzTE
- uuU9Z+l7W9bRKehQMFA==
-X-Proofpoint-GUID: OSUZ9Laqkyeg78AFekbbhNf9bQuODu9T
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-08_03,2026-09-09_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 spamscore=0 lowpriorityscore=0 clxscore=1015 adultscore=0
- impostorscore=0 bulkscore=0 malwarescore=0 priorityscore=1501 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609090178
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260909135617.871006-3-sshegde@linux.ibm.com>
+
+On Wed, Sep 09, 2026 at 07:26:06PM +0530, Shrikanth Hegde wrote:
+> Introduce bitmap_intersects_and() to determine whether the intersection
+> of three bitmaps is non-empty. Unlike cpumask_first_and_and(), this
+> returns immediately when an intersecting word is found and does not
+> calculate the first matching bit.
+> 
+> Add cpumask_intersects_and() as the corresponding cpumask wrapper.
+> 
+> A subsequent patch uses the helper to determine whether a task
+> has a CPU that is present in its affinity mask, the preferred CPU mask,
+> and task possible CPU mask.
+> 
+> Suggested-by: Yury Norov <yury.norov@gmail.com>
+> Signed-off-by: Shrikanth Hegde <sshegde@linux.ibm.com>
 
 
-On 20.08.2026 4:39 AM, Christian Brauner wrote:
-> Currently a coredump sent over a socket is raw data. The kernel knows
-> things about the data it's sending that are useful for a coredump
-> server. For example, it knows where the unpopulated parts of a mapping
-> are. We can't communicate this to userspace currently though.
->
-> Add a COREDUMP_RECORDS feature bit and a struct coredump_record_header
-> so userspace can negotiate that feature. Instead of a byte stream it
-> gets a header plus data. Reassembling the records yields the same
-> coredump that would have been sent without them.
->
-> The record itself is also versioned and thus extensible with the same
-> protocol as the ack-req sync.
->
-> A record stream ends explicitly. A COREDUMP_RECORD_END record closes it,
-> carries no data and reports the size of the coredump. It is only sent
-> once the whole coredump has been written. If it's missing the coredump
-> should be treated as truncated.
->
-> This just adds the infrastructure.
->
-> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
-Tested-by: R Nageswara Sastry <rnsastry@linux.ibm.com>
-
-System: ppc64le LPAR (IBM POWER), Linux 7.3-rc2
+Reviwed-by: Yury Norov <yury.norov@gmail.com>
 
 > ---
->   include/uapi/linux/coredump.h | 66 +++++++++++++++++++++++++++++++++++++++++++
->   1 file changed, 66 insertions(+)
->
-> diff --git a/include/uapi/linux/coredump.h b/include/uapi/linux/coredump.h
-> index 662e0468da6e..0bd5c8662ebe 100644
-> --- a/include/uapi/linux/coredump.h
-> +++ b/include/uapi/linux/coredump.h
-> @@ -11,12 +11,16 @@
->    * @COREDUMP_USERSPACE: userspace writes coredump
->    * @COREDUMP_REJECT: don't generate coredump
->    * @COREDUMP_WAIT: wait for coredump server
-> + * @COREDUMP_RECORDS: send the coredump as a sequence of records instead of
-> + *                    as a plain byte stream, see struct coredump_record_header;
-> + *                    requires COREDUMP_KERNEL
->    */
->   enum {
->   	COREDUMP_KERNEL		= (1ULL << 0),
->   	COREDUMP_USERSPACE	= (1ULL << 1),
->   	COREDUMP_REJECT		= (1ULL << 2),
->   	COREDUMP_WAIT		= (1ULL << 3),
-> +	COREDUMP_RECORDS	= (1ULL << 4),
->   };
->   
->   /**
-> @@ -101,4 +105,66 @@ enum coredump_mark {
->   	__COREDUMP_MARK_MAX		= (1U << 31),
->   };
->   
+>  include/linux/bitmap.h  | 14 ++++++++++++++
+>  include/linux/cpumask.h | 18 ++++++++++++++++++
+>  lib/bitmap.c            | 17 +++++++++++++++++
+>  3 files changed, 49 insertions(+)
+> 
+> diff --git a/include/linux/bitmap.h b/include/linux/bitmap.h
+> index 7df1573a409c..adafbcf2016b 100644
+> --- a/include/linux/bitmap.h
+> +++ b/include/linux/bitmap.h
+> @@ -52,6 +52,7 @@ struct device;
+>   *  bitmap_complement(dst, src, nbits)          *dst = ~(*src)
+>   *  bitmap_equal(src1, src2, nbits)             Are *src1 and *src2 equal?
+>   *  bitmap_intersects(src1, src2, nbits)        Do *src1 and *src2 overlap?
+> + *  bitmap_intersects_and(src1, src2, src3, nbits) Do *src1, *src2 and *src3 overlap?
+>   *  bitmap_subset(src1, src2, nbits)            Is *src1 a subset of *src2?
+>   *  bitmap_empty(src, nbits)                    Are all bits zero in *src?
+>   *  bitmap_full(src, nbits)                     Are all bits set in *src?
+> @@ -181,6 +182,9 @@ void __bitmap_replace(unsigned long *dst,
+>  		      const unsigned long *mask, unsigned int nbits);
+>  bool __bitmap_intersects(const unsigned long *bitmap1,
+>  			 const unsigned long *bitmap2, unsigned int nbits);
+> +bool __bitmap_intersects_and(const unsigned long *bitmap1,
+> +			     const unsigned long *bitmap2,
+> +			     const unsigned long *bitmap3, unsigned int nbits);
+>  bool __bitmap_subset(const unsigned long *bitmap1,
+>  		     const unsigned long *bitmap2, unsigned int nbits);
+>  unsigned int __bitmap_weight(const unsigned long *bitmap, unsigned int nbits);
+> @@ -445,6 +449,16 @@ bool bitmap_intersects(const unsigned long *src1, const unsigned long *src2, uns
+>  		return __bitmap_intersects(src1, src2, nbits);
+>  }
+>  
+> +static __always_inline
+> +bool bitmap_intersects_and(const unsigned long *src1, const unsigned long *src2,
+> +			   const unsigned long *src3, unsigned int nbits)
+> +{
+> +	if (small_const_nbits(nbits))
+> +		return ((*src1 & *src2 & *src3) & BITMAP_LAST_WORD_MASK(nbits)) != 0;
+> +	else
+> +		return __bitmap_intersects_and(src1, src2, src3, nbits);
+> +}
+> +
+>  static __always_inline
+>  bool bitmap_subset(const unsigned long *src1, const unsigned long *src2, unsigned int nbits)
+>  {
+> diff --git a/include/linux/cpumask.h b/include/linux/cpumask.h
+> index 4c8bb6953107..7c8f16797f94 100644
+> --- a/include/linux/cpumask.h
+> +++ b/include/linux/cpumask.h
+> @@ -824,6 +824,24 @@ bool cpumask_intersects(const struct cpumask *src1p, const struct cpumask *src2p
+>  						      small_cpumask_bits);
+>  }
+>  
 > +/**
-> + * enum coredump_record_type - Type of a coredump record
+> + * cpumask_intersects_and - (*src1p & *src2p & *src3p) != 0
+> + * @src1p: the first input
+> + * @src2p: the second input
+> + * @src3p: the third input
 > + *
-> + * @COREDUMP_RECORD_DATA: the header is followed by ->len bytes of data
-> + * @COREDUMP_RECORD_END: the coredump ends here, the header is not followed
-> + *                       by any data and no further record is sent
-> + * @__COREDUMP_RECORD_TYPE_MAX: the maximum coredump record type value
+> + * Return: true if AND of the three cpumasks is non-empty,
+> + *	   otherwise false
 > + */
-> +enum coredump_record_type {
-> +	COREDUMP_RECORD_DATA		= 0U,
-> +	COREDUMP_RECORD_END		= 1U,
-> +	__COREDUMP_RECORD_TYPE_MAX	= (1U << 31),
-> +};
+> +static __always_inline
+> +bool cpumask_intersects_and(const struct cpumask *src1p,
+> +			    const struct cpumask *src2p,
+> +			    const struct cpumask *src3p)
+> +{
+> +	return bitmap_intersects_and(cpumask_bits(src1p), cpumask_bits(src2p),
+> +				 cpumask_bits(src3p), small_cpumask_bits);
+> +}
 > +
-> +/**
-> + * struct coredump_record_header - header of a coredump record
-> + * @size: size of struct coredump_record_header
-> + * @type: one of enum coredump_record_type
-> + * @flags: modifiers for this record
-> + * @offset: offset in the coredump this record starts at
-> + * @len: number of coredump bytes this record accounts for
-> + *
-> + * If the coredump server raises COREDUMP_RECORDS in coredump_ack->mask
-> + * the kernel doesn't send the coredump as a plain byte stream. It sends
-> + * a sequence of records instead. A COREDUMP_RECORD_DATA record is
-> + * followed by @len bytes of actual coredump data. Records arrive in
-> + * order and leave no gaps. So @offset is the sum of the @len of all
-> + * records before it.
-> + *
-> + * The last record is a COREDUMP_RECORD_END record. It is followed by
-> + * nothing. Its @len is zero. Its @offset is the size of the coredump.
-> + * The kernel only sends it once it has written the whole coredump. A
-> + * server that hits end-of-file without having seen an end record must
-> + * treat the coredump as incomplete.
-> + *
-> + * The @size member is set to the size of struct coredump_record_header
-> + * the kernel knows and lets the header grow later. It comes first so it
-> + * can be peeked. Userspace must consume @size bytes and discard
-> + * anything beyond what it knows. It must refuse a @size smaller than
-> + * COREDUMP_RECORD_HEADER_SIZE_VER0. @size covers the header alone.
-> + * @offset and @len count coredump bytes.
-> + *
-> + * The @flags member carries modifiers that change how the record is to
-> + * be interpreted. No flag is defined yet. Userspace must refuse a
-> + * record carrying a flag or a type it doesn't know. Every new record
-> + * type is raised in coredump_req->mask as a feature of its own. A
-> + * server only ever sees the types it asked for.
-> + *
-> + * COREDUMP_RECORDS must be combined with COREDUMP_KERNEL.
-> + */
-> +struct coredump_record_header {
-> +	__u32 size;
-> +	__u32 type;
-> +	__u64 flags;
-> +	__u64 offset;
-> +	__u64 len;
-> +};
+>  /**
+>   * cpumask_subset - (*src1p & ~*src2p) == 0
+>   * @src1p: the first input
+> diff --git a/lib/bitmap.c b/lib/bitmap.c
+> index ed685127a107..d1cb8a507c60 100644
+> --- a/lib/bitmap.c
+> +++ b/lib/bitmap.c
+> @@ -308,6 +308,23 @@ bool __bitmap_intersects(const unsigned long *bitmap1,
+>  }
+>  EXPORT_SYMBOL(__bitmap_intersects);
+>  
+> +bool __bitmap_intersects_and(const unsigned long *bitmap1,
+> +			     const unsigned long *bitmap2,
+> +			     const unsigned long *bitmap3, unsigned int bits)
+> +{
+> +	unsigned int k, lim = bits / BITS_PER_LONG;
 > +
-> +enum {
-> +	COREDUMP_RECORD_HEADER_SIZE_VER0 = 32U, /* size of first published struct */
-> +};
+> +	for (k = 0; k < lim; ++k)
+> +		if (bitmap1[k] & bitmap2[k] & bitmap3[k])
+> +			return true;
 > +
->   #endif /* _UAPI_LINUX_COREDUMP_H */
->
--- 
-Thanks and Regards
-R.Nageswara Sastry
-
+> +	if (bits % BITS_PER_LONG)
+> +		if ((bitmap1[k] & bitmap2[k] & bitmap3[k]) & BITMAP_LAST_WORD_MASK(bits))
+> +			return true;
+> +	return false;
+> +}
+> +EXPORT_SYMBOL(__bitmap_intersects_and);
+> +
+>  bool __bitmap_subset(const unsigned long *bitmap1,
+>  		     const unsigned long *bitmap2, unsigned int bits)
+>  {
+> -- 
+> 2.52.0
