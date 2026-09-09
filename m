@@ -1,154 +1,149 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0523B41C6A
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 19:10:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D2643ACF0B;
+	Wed,  9 Sep 2026 19:11:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788981046; cv=none; b=HPQNq1reXLIDf2x3OL5QK/9C/UhUm6bz+VgHwn1W3ClgIZxUfWgqKvdw7D9kLha/cJ1xA70JQkHY44WgPQZ6Q9TjJ07jCdEt/vTDStxO9p1alvC44Pn9sjiTGQapnbQFp4JdSdSlmmvhukf+EVMTFuwM4qjeF1CIUXskiXKeU10=
+	t=1788981095; cv=none; b=RXudwOKK8Huvm4xviTvv92blQOvV49ti4HbK36GJ8yojF2yuqhSH/Wv8fpkhsJtZs9v4V2sb0FLbqRCKGARn6yTE67+Sq0pDXYRNPdkTw1c1HE8GAC/hG1FqCnuxNnHJnPNrcmgMDwGsE7WsuC1iwdFcYlHFDq4wF/fVsWMmPQk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788981046; c=relaxed/simple;
-	bh=+FwvqeOjTOvavB2Tk0SAMV7YSqs/UTLwrOLAsMcBZ0s=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ChRWwhff2yljArDgsqTnVICyjA/gCdOI3K2QtEp6VCvhZ735IlGA4uD7NlY3fI11UD8VV16gtTdlDnWFDuGy8GoZBygupRnnC/WCO4rNGXctRmPCniu60njYayVWsJPAQnSS28Yi+/6rYB7ghpNlVXmxz9PTXUj9otbVP/Z3Qck=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bx+vL5tq; arc=none smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788981095; c=relaxed/simple;
+	bh=ibMGoZNFVcERL68F6QE3UT1XnEua4MeDZrrFkasR/M0=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=n7+lczvpphPf21GdyozBaNwyymI9XmJMFuBdElJZp6OXLu2a17b8OfIXmyAFX8wBBl3Lj0/IsceTw2mevyrp5ZsgxZX1Fl1uZd4uw0a+UYs1NItEg8Mu07BWGiJ5+f7mVo/FxGz5bVGF0hvcP898cB8nIiy1ffnD5qFoBK4SjH4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=O+hkhVly; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bx+vL5tq"
-Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2d747eb79f6so5108935ad.0
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 12:10:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788981043; x=1789585843; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=TyPxplOOHI2AEPRdVqrOjZibnjH3OGUmINX0gnTrLb8=;
-        b=bx+vL5tq0zNZYW5V74NfZwQ6quPYjRn53dhcO+ZoSd/CZ2tAL3i3Hpr4DaF+Zk50kt
-         XhQUgRH3g00XpXX+BBr48tSSHs8ckccYP0xfRXwrKhA6m0JAumZaROUuisKxl0eDQ9QD
-         gHgh7LyGXplM41mJeuOtZQwrdtImgtas3Nz3IXVpdk+VbmcAA/8xwHxkbTZdY7j0Lfg8
-         K1f0YlrCAk1yRYcRIDCE3vwcmQNEwapF+Zwd9ADvGtyd3tv4JHs8nDt5y26rmiLEqpYE
-         0C6fM+Ef0YgetYn4BSjbq78RqwBgcshQyJiUqvPEYHXbLxzJeH6nvZSgroEOlGkPTLvY
-         N/RA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788981043; x=1789585843;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=TyPxplOOHI2AEPRdVqrOjZibnjH3OGUmINX0gnTrLb8=;
-        b=KRX67zaa154LPnV5dERnXdDlyQxYDonfC92Yl8a9NddR9lCt3b3eZWFYR0nRCNiwEz
-         uxq3kbZ4xTcAULkKVzvggXOIjYZVlmCFpvD16aA+7ZbU2elHPyNZm6RKCQCcreG99tny
-         5A+BqFiaJHTk0wwO0ltfuM9V74AsypHjBMxMLsvr8Ch71+TFenbPUPo7ymoQTNlo6yc7
-         PnU4Va/k80tJFBkUt0iZ9a+TW9g5yg64hlnW8fHnsXIjXPB+zBgZf1famcXTf1LN2+Hn
-         6M/dO6aQNOu7raj6BdMY42NKVfzBKHwHhO1rr82X+ZsWR++u0aiiOM0CV9KxGXhfhQqS
-         fivw==
-X-Forwarded-Encrypted: i=1; AKwUvBxlZfFE2MSa2EGIBZ7n2VwEKKICE8rq4eB0cGZ3gOFdlEhZbyPPS1Cmhr9bztTtBeu//QaVEz6KW2P5pbw=@vger.kernel.org
-X-Gm-Message-State: AFuF++kGpBw/L3XYUD7Xnq5MwZI7CgUxzg8OBtaaOKWKhBMvKX/1JZOK
-	rSGEJ6d/0FGEd3/p77kO2ekZaTNZi32tLDC2c6SqN1DkYLt80HR1aNjqp/Z08OPlqNZQIQ==
-X-Gm-Gg: AYBFou01hTmOqZ/qiKizSK8bAAtHXD+A8gb9Lvj0PqOuhkYprrTzxUPkJnfIm+7UaPf
-	+yXsGO3cjeVb8eCtXdAcAICCWFc0DaI36oYBc/gjdMc6hFmihQKdq2xt0KyZsiJn4aq6cBu9pca
-	SNRkWVmtuYoqpV/f9Na29aKm7w1sJkPEhhyW573xSNFsB6LT1A1QA+xMcloUY8SywoB4HEBWH4L
-	/fblnbQFKvHznHl7HDveRhu8pYUhyqlSzJc17eCA/I15LS3Ucjcv3KQtNpLmUz8arLfrbFpveme
-	draN+Hz/LLh2uL19Bd46XsPFSGYGSh4Aa1+bhPd+BjDbZ++aiamiSEagVA90jkjNkiJKuUgTksK
-	twosZGmc7ul2PvPWtRWDAc2Zcyb2HEtebwJXkXuBwUuBxVF4M+o55SjT/Eq0MH1DwSPlUSqOrtO
-	iIWbeTFm2nU3U/iSt83UnCxwvLlKOQ+3ktjxRyUyx0ddh3FqpNdXdvdC1ue3HUQ2csAU3qQatxp
-	Hki78vP4gHlXFwp+d/1KcbvdM1kSvuv
-X-Received: by 2002:a17:902:ec89:b0:2d6:df31:5bd0 with SMTP id d9443c01a7336-2dd07b9d3c0mr43860775ad.10.1788981042709;
-        Wed, 09 Sep 2026 12:10:42 -0700 (PDT)
-Received: from 192.168.50.3 ([198.176.50.208])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2db18a1eb47sm77198285ad.48.2026.09.09.12.10.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 09 Sep 2026 12:10:41 -0700 (PDT)
-From: Weiming Shi <bestswngs@gmail.com>
-To: Helge Deller <deller@gmx.de>
-Cc: linux-fbdev@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	co+c25629c98ba36ebe@bugs.sh,
-	Weiming Shi <bestswngs@gmail.com>
-Subject: [PATCH] fbdev: vfb: defer cleanup until the last reference
-Date: Thu, 10 Sep 2026 03:10:23 +0800
-Message-ID: <20260909191022.847295-2-bestswngs@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="O+hkhVly"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 85B731F000FF;
+	Wed,  9 Sep 2026 19:11:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788981092;
+	bh=YrVzVZFAj9c+kcR8ihQIElO4jyvfEdwPLoLRmPTnBUo=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=O+hkhVlyjoV8DOkR2ZAwgJx0L7Peef5U/bwWbqjnDRVO3wbBKQeLxgeOU5BzdUgFq
+	 j6zHQkqUxn+v1Ra4FTCz7REcg9+HxGqWj/9o2kT8+PiKl4mp6HmpS1bKDcm3yKfIK+
+	 EusHsD6RaK0zQeRvq2cEsBYXd8tfF/GbcZQSlA7RqVT9TA3tY9q5ZdHlH5CQ54FArD
+	 lC+upPE1mdfV0mzcs4UzBI/ixJjc0Uu2DggmKuaqdOAPZg/tgh4LFufwh6e5Dm51nT
+	 BrZeqa8HRREen3UBlGVg/mVprCS17n3ffqoxiTe0Mk2H3RX1/EpqsMPuMIe1nlnq9o
+	 f2R3CPYXwSvOA==
+Date: Wed, 9 Sep 2026 20:11:26 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Li Ming <ming.li@zohomail.com>
+Cc: Shaikh Kamaluddin <shaikhkamal2012@gmail.com>, Davidlohr Bueso
+ <dave@stgolabs.net>, Dave Jiang <dave.jiang@intel.com>, Alison Schofield
+ <alison.schofield@intel.com>, Vishal Verma <vishal.l.verma@intel.com>, Dan
+ Williams <djbw@kernel.org>, Ira Weiny <iweiny@kernel.org>,
+ linux-cxl@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] cxl/events: Return IRQ_NONE when no event is pending
+Message-ID: <20260909201126.091cc7f0@jic23-hlaptop>
+In-Reply-To: <fc844c0b-e429-4c0d-9113-35a1635c03a3@zohomail.com>
+References: <20260906155705.13252-1-shaikhkamal2012@gmail.com>
+	<20260907194824.615e47ff@jic23-huawei>
+	<fc844c0b-e429-4c0d-9113-35a1635c03a3@zohomail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-FBIOGETCMAP takes a shallow snapshot of info->cmap and performs the
-usercopy after dropping info->lock. vfb_remove() frees the colormap
-immediately after unregistering the framebuffer, even when an open file
-still holds a reference to fb_info. A concurrent driver unbind can
-therefore free the colormap while the ioctl copies it to userspace.
+On Wed, 9 Sep 2026 10:08:14 +0800
+Li Ming <ming.li@zohomail.com> wrote:
 
-KASAN reports:
+> =E5=9C=A8 2026/9/8 02:48, Jonathan Cameron =E5=86=99=E9=81=93:
+> > On Sun,  6 Sep 2026 21:27:05 +0530
+> > Shaikh Kamaluddin <shaikhkamal2012@gmail.com> wrote:
+> > =20
+> >> CXL event interrupts may share an MSI/MSI-X vector with other event
+> >> logs or device features. Consequently, cxl_event_thread() is registered
+> >> with IRQF_SHARED and must determine whether an interrupt belongs to the
+> >> event-log facility.
+> >>
+> >> The handler masks the Device Event Status register to the event logs
+> >> supported by the driver. However, when no supported status bit is set,
+> >> it exits the processing loop and still returns IRQ_HANDLED.
+> >>
+> >> Track whether at least one supported event status bit was observed.
+> >> Return IRQ_NONE when there was no event to service, while continuing to
+> >> return IRQ_HANDLED after processing one or more event logs. =20
+> > What is the practical result of this change?
+> > I think it will only affect the spurious interrupt detection so
+> > to me it looks like a cleanup rather than a fix.  Is there
+> > any path by which we actually lose interrupts as a result of this?
+> > =20
+> >> Fixes: a49aa8141b65 ("cxl/mem: Wire up event interrupts")
+> >> =20
+> > No blank lines in tag blocks.  There are a number of tools that rely
+> > on there not being any and as such there are also scripts that run
+> > on various upstream trees that will send us annoying emails if this
+> > blank line is still here!  I'm not sure why this mistake in patch
+> > formatting is so common as there are plenty of docs without the
+> > blank lines!
+> > =20
+> >> Signed-off-by: Shaikh Kamaluddin <shaikhkamal2012@gmail.com> =20
+> > A suggestion for an alternative implementation below.
+> > =20
+> >> ---
+> >>   drivers/cxl/pci.c | 5 ++++-
+> >>   1 file changed, 4 insertions(+), 1 deletion(-)
+> >>
+> >> diff --git a/drivers/cxl/pci.c b/drivers/cxl/pci.c
+> >> index c7c91e8dc51d..8b560cae91f2 100644
+> >> --- a/drivers/cxl/pci.c
+> >> +++ b/drivers/cxl/pci.c
+> >> @@ -515,6 +515,7 @@ static irqreturn_t cxl_event_thread(int irq, void =
+*id)
+> >>   	struct cxl_dev_id *dev_id =3D id;
+> >>   	struct cxl_dev_state *cxlds =3D dev_id->cxlds;
+> >>   	struct cxl_memdev_state *mds =3D to_cxl_memdev_state(cxlds);
+> >> +	bool handled =3D false;
+> >>   	u32 status;
+> >>  =20
+> >>   	do {
+> >> @@ -527,11 +528,13 @@ static irqreturn_t cxl_event_thread(int irq, voi=
+d *id)
+> >>   		status &=3D CXLDEV_EVENT_STATUS_ALL;
+> >>   		if (!status) =20
+> > 			return IRQ_NONE;
+> >
+> > And don't need the other changes. =20
+>=20
+> Hi Jonathan,
+>=20
+>=20
+> I think we should not return IRQ_NONE here, because the loop could run=20
+> multiple times untill no event record, so we always get a status with=20
+> 0x0 value in the last loop. In that case, we still need to return=20
+> IRQ_HANDLED.
 
-  BUG: KASAN: slab-use-after-free in _copy_to_user
-  Read of size 512 by task poc/125
+Ah excellent point.  Ignore me.  Any dance to return here needs
+a handled variable to be checked so ends up just being moving the
+return.  Maybe that's worth doing but not important.
 
-   _copy_to_user (./include/linux/instrumented.h:129 ./include/linux/uaccess.h:201 lib/usercopy.c:24)
-   fb_cmap_to_user (./include/linux/uaccess.h:230 drivers/video/fbdev/core/fbcmap.c:211)
-   do_fb_ioctl (drivers/video/fbdev/core/fb_chrdev.c:114)
+Jonathan
 
-   Allocated by task 1:
-   fb_alloc_cmap_gfp (./include/linux/slab.h:973 ./include/linux/slab.h:1290 drivers/video/fbdev/core/fbcmap.c:108)
-   vfb_probe (drivers/video/fbdev/vfb.c:459)
-
-   Freed by task 124:
-   fb_dealloc_cmap (drivers/video/fbdev/core/fbcmap.c:151)
-   vfb_remove (drivers/video/fbdev/vfb.c:489)
-
-unregister_framebuffer() drops the registration reference, and fbdev calls
-fb_destroy after the last put_fb_info(). Move the registered framebuffer's
-cleanup into an fb_destroy callback so its colormap and screen buffer stay
-alive until all file references have been released.
-
-Fixes: 5e266e2e0e19 ("vfb: fix memory leaks in removal path")
-Reported-by: co+c25629c98ba36ebe@bugs.sh
-Closes: https://lore.kernel.org/linux-fbdev/f2Kf9GYn1lKR5S1dbvGVtykMxK1RlgP5z8sW@bugs.sh/
-Assisted-by: Codex:gpt-5
-Signed-off-by: Weiming Shi <bestswngs@gmail.com>
----
- drivers/video/fbdev/vfb.c | 11 ++++++++---
- 1 file changed, 8 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/video/fbdev/vfb.c b/drivers/video/fbdev/vfb.c
-index 5b7965f36c5ed..de137b2bdaedc 100644
---- a/drivers/video/fbdev/vfb.c
-+++ b/drivers/video/fbdev/vfb.c
-@@ -78,6 +78,13 @@ static int vfb_pan_display(struct fb_var_screeninfo *var,
- static int vfb_mmap(struct fb_info *info,
- 		    struct vm_area_struct *vma);
- 
-+static void vfb_destroy(struct fb_info *info)
-+{
-+	vfree(info->screen_buffer);
-+	fb_dealloc_cmap(&info->cmap);
-+	framebuffer_release(info);
-+}
-+
- static const struct fb_ops vfb_ops = {
- 	.owner		= THIS_MODULE,
- 	__FB_DEFAULT_SYSMEM_OPS_RDWR,
-@@ -87,6 +94,7 @@ static const struct fb_ops vfb_ops = {
- 	.fb_pan_display	= vfb_pan_display,
- 	__FB_DEFAULT_SYSMEM_OPS_DRAW,
- 	.fb_mmap	= vfb_mmap,
-+	.fb_destroy	= vfb_destroy,
- };
- 
-     /*
-@@ -485,9 +493,6 @@ static void vfb_remove(struct platform_device *dev)
- 
- 	if (info) {
- 		unregister_framebuffer(info);
--		vfree(videomemory);
--		fb_dealloc_cmap(&info->cmap);
--		framebuffer_release(info);
- 	}
- }
- 
--- 
-2.55.0
+>=20
+>=20
+> Ming
+>=20
+> > =20
+> >>   			break;
+> >> +
+> >> +		handled =3D true;
+> >>   		cxl_mem_get_event_records(mds, status);
+> >>   		cond_resched();
+> >>   	} while (status);
+> >>  =20
+> >> -	return IRQ_HANDLED;
+> >> +	return handled ? IRQ_HANDLED : IRQ_NONE;
+> >>   }
+> >>  =20
+> >>   static int cxl_event_req_irq(struct cxl_dev_state *cxlds, u8 setting)
+> >>
+> >> base-commit: 7098e9cd98a05c0c5de2fae0c2465f9d966fdd07
+> >> prerequisite-patch-id: 92e40cd60a697020faac475dcc77ba63b33434ea
+> >> prerequisite-patch-id: 10027ad5d9aed85806047f807b3a76273b6c4a77 =20
 
