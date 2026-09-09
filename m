@@ -1,314 +1,230 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4C0D5237AD
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 11:08:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92A97498913;
+	Wed,  9 Sep 2026 11:09:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.8
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788952125; cv=none; b=J1pXVTSLlSm0OMXiWGqWiB/ZhPJXxd2J6iYMe4w2SfHe1tFhMS89dW5OnC1MbA0nnvuYnp5YBArg7E/o5F2Oszp7OLAs725byfEHBold82V39AmCa3Bbpyz5ws624QONK5m2hNMpoe+43hBrJhRnXB8paBPZEpoANk8XW50LK9E=
+	t=1788952161; cv=none; b=l9UbHnRoqbjpoD45xLgEZcVqgZ09xlBvzB0eSgjNfsq5rD2i7Jnxol+sbJW7JYjgR399RHQT9Wk6QBZ7QUC2l6tikEFPzmpw2lI2ETLP1Pwkwx9HHu4B5pT0EFMTPy7A1YzMfvl7ZslvnQ6m/CxGPa4ODp0GyCZsTYtNVc3SIPI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788952125; c=relaxed/simple;
-	bh=4g+AZT5uzTfuyN2AMCNQxdKFa1sH6r/b4nmx1xOu32M=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=MU0+9snZCCUhbT5Bo5zfq5RREZXknCq8nOYX2rKtZSPf4QyqmxyiingM7bC8gRKySUB3har/S/w8a100LAF5n9Bz2tCYpZGCWJGxavQ/oqNvTSpB9Hw6pz/w/rlftUVLPWdSqLkqvZ71ai5meFLNHE70SdaZYklGEeLdH6Nhea0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oc/3Q5OX; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788952161; c=relaxed/simple;
+	bh=abi+/R1e6E+9aPYOuEIPi75GEQP4y+dpDIaoNPwN0LU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=pHv5BKfgewuxD52Mw2eKO2oz0NpQtD1AcZ1iTo16+zeVjjPfbfa+ajU8RDMP8f6ZcY8+3bNspBvEI9vMuQ4D2THIJvayABWSbRb9QVGGQgV4OVEfsJm4IEhaJxEay+HA3juqP4v9x5f9UO2TcS9xye3uvLF5YIvuRMTcZ8Mhcbg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=dPFdHj32; arc=none smtp.client-ip=192.198.163.8
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oc/3Q5OX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9557A1F00A3A;
-	Wed,  9 Sep 2026 11:08:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788952122;
-	bh=XDF6EUNBfqF92NXMVALDMNh+97LM2dme+iORskOBx2w=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=oc/3Q5OXuZzFrpZbMUc9s0AL5QWt1ffnpkl+XPubY0HjwJCMrfrIN7KqwJkF0iGCg
-	 7NwA7545HMZQkbDbKhF7rjkuVurGqkCj59UaplbHeJoUYIwsXuXln3uKjK8HaByv76
-	 h0NHWbA0f3i2rp64NIhHsGp95bUit01xSHvMBB/0PHh0953navTSoeWFlk9aDsufAq
-	 ImDyiIBchNf37mGGrvU1zGxt2gMe9efvuLAb3/Bbqk1bbeKgauqsiLuCXgwW3xLbnA
-	 XUxWIKmMq5hMZ5smHAz0RVFQR3g8CWnrIS0EvvVGB2gx4rezUMhgmXUtaNFR1aKKSC
-	 wbVQyE4Jsq2cA==
-Date: Wed, 9 Sep 2026 12:08:36 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Jisheng Zhang <jszhang@kernel.org>
-Cc: Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	Andrey Ryabinin <ryabinin.a.a@gmail.com>,
-	Alexander Potapenko <glider@google.com>,
-	Andrey Konovalov <andreyknvl@gmail.com>,
-	Dmitry Vyukov <dvyukov@google.com>,
-	Vincenzo Frascino <vincenzo.frascino@arm.com>,
-	linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org,
-	kasan-dev@googlegroups.com
-Subject: Re: [PATCH v2 4/5] riscv: RISCV_ISA_SV48 and RISCV_ISA_SV57 under
- NONPORTABLE
-Message-ID: <aqE-NPNy1qnSJc7o@squawk>
-References: <20260907151437.7603-1-jszhang@kernel.org>
- <20260907151437.7603-5-jszhang@kernel.org>
- <20260907-backless-theatrics-f19e489bc63f@spud>
- <ap-FtoTqMCnNACJN@xhacker>
- <20260908-deflector-degree-ceca18036811@spud>
- <aqCe6T8QKtJcLHiM@xhacker>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="dPFdHj32"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788952159; x=1820488159;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=abi+/R1e6E+9aPYOuEIPi75GEQP4y+dpDIaoNPwN0LU=;
+  b=dPFdHj326CkD2wqk/ztyxVgU9MmI4g4aDcbpEfHjISk4BemetpnWypLy
+   QK9kUlidHik1Alhh25kLQC3bujhQiG6AJf9ZY5NZsbK5Xu14o1zMbou1N
+   blhaVfZX+keabtjkPPKkYkBdoUS+fX2W7tVFP/lyJB27ZxGAfG1qMaviO
+   zmyyCCsFloiMsk9eaxV4iYaIYi1ZEbqveuyKSAzy9c14oB8bBjYreC8ow
+   7attIDWR3WEYChzF0E7zpqdEREnvbMbCYW10etcYzLhUvW3GUkfSeciyu
+   8uB1JXQRsJlnuuMnHXhufsjATUKNBaKrrY04wlgBS3VXgdHmg1gVVlmUP
+   Q==;
+X-CSE-ConnectionGUID: INMS3SCgTX68KKXZGFcang==
+X-CSE-MsgGUID: LgNU9gnDTmu/Syej/QD3ng==
+X-IronPort-AV: E=McAfee;i="6800,10657,11900"; a="106891239"
+X-IronPort-AV: E=Sophos;i="6.25,270,1779174000"; 
+   d="scan'208";a="106891239"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Sep 2026 04:09:18 -0700
+X-CSE-ConnectionGUID: 0fboeuVlQ6qz8NzGOu0B7g==
+X-CSE-MsgGUID: ScdIAudqT825YavfGZKC/A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,270,1779174000"; 
+   d="scan'208";a="269531793"
+Received: from dapengmi-mobl1.ccr.corp.intel.com (HELO [10.124.241.239]) ([10.124.241.239])
+  by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Sep 2026 04:09:14 -0700
+Message-ID: <d6ccff7d-df31-4308-b60b-8ec5f630415e@linux.intel.com>
+Date: Wed, 9 Sep 2026 19:09:11 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="1+RHUK1obFa6miaX"
-Content-Disposition: inline
-In-Reply-To: <aqCe6T8QKtJcLHiM@xhacker>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [Patch v2] perf/x86/intel: Prevent drain_pebs() reentry
+To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
+ Arnaldo Carvalho de Melo <acme@kernel.org>,
+ Namhyung Kim <namhyung@kernel.org>, Ian Rogers <irogers@google.com>,
+ Adrian Hunter <adrian.hunter@intel.com>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ Andi Kleen <ak@linux.intel.com>, Eranian Stephane <eranian@google.com>
+Cc: linux-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org,
+ Dapeng Mi <dapeng1.mi@intel.com>, Zide Chen <zide.chen@intel.com>,
+ Falcon Thomas <thomas.falcon@intel.com>, Xudong Hao <xudong.hao@intel.com>
+References: <20260813064346.335458-1-dapeng1.mi@linux.intel.com>
+Content-Language: en-US
+From: "Mi, Dapeng" <dapeng1.mi@linux.intel.com>
+In-Reply-To: <20260813064346.335458-1-dapeng1.mi@linux.intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
---1+RHUK1obFa6miaX
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Hi Peter,
 
-On Wed, Sep 09, 2026 at 07:48:57AM +0800, Jisheng Zhang wrote:
-> On Tue, Sep 08, 2026 at 02:07:27PM +0100, Conor Dooley wrote:
-> > On Tue, Sep 08, 2026 at 11:49:10AM +0800, Jisheng Zhang wrote:
-> > > On Mon, Sep 07, 2026 at 05:21:11PM +0100, Conor Dooley wrote:
-> > > > On Mon, Sep 07, 2026 at 11:14:36PM +0800, Jisheng Zhang wrote:
-> > > > > In last commit, we have optimized the pgtable_l4|l5_enabled with =
-isa
-> > > > > extension alternative mechanism, thus a typical access_ok(addr, 1=
-);
-> > > > > is compiled as:
-> > > > >=20
-> > > > > ffffffff8001dd30:	1141                	addi	sp,sp,-16
-> > > > > ffffffff8001dd32:	e022                	sd	s0,0(sp)
-> > > > > ffffffff8001dd34:	e406                	sd	ra,8(sp)
-> > > > > ffffffff8001dd36:	0800                	addi	s0,sp,16
-> > > > > ffffffff8001dd38:	00000013          	nop
-> > > > > ffffffff8001dd3c:	02a0006f          	j	ffffffff8001dd66 <foo+0x3e>
-> > > > > ffffffff8001dd40:	60a2                	ld	ra,8(sp)
-> > > > > ffffffff8001dd42:	6402                	ld	s0,0(sp)
-> > > > > ffffffff8001dd44:	57fd                	li	a5,-1
-> > > > > ffffffff8001dd46:	83a1                	srli	a5,a5,0x8
-> > > > > ffffffff8001dd48:	00a7b533          	sltu	a0,a5,a0
-> > > > > ffffffff8001dd4c:	00154513          	xori	a0,a0,1
-> > > > > ffffffff8001dd50:	0141                	addi	sp,sp,16
-> > > > > ffffffff8001dd52:	8082                	ret
-> > > > > ...
-> > > > > ffffffff8001dd64:	bfe1                	j	ffffffff8001dd3c <foo+0x=
-14>
-> > > > > ffffffff8001dd66:	0180006f          	j	ffffffff8001dd7e <foo+0x56>
-> > > > > ffffffff8001dd6a:	60a2                	ld	ra,8(sp)
-> > > > > ffffffff8001dd6c:	6402                	ld	s0,0(sp)
-> > > > > ffffffff8001dd6e:	57fd                	li	a5,-1
-> > > > > ffffffff8001dd70:	83c5                	srli	a5,a5,0x11
-> > > > > ffffffff8001dd72:	00a7b533          	sltu	a0,a5,a0
-> > > > > ffffffff8001dd76:	00154513          	xori	a0,a0,1
-> > > > > ffffffff8001dd7a:	0141                	addi	sp,sp,16
-> > > > > ffffffff8001dd7c:	8082                	ret
-> > > > > ffffffff8001dd7e:	60a2                	ld	ra,8(sp)
-> > > > > ffffffff8001dd80:	6402                	ld	s0,0(sp)
-> > > > > ffffffff8001dd82:	57fd                	li	a5,-1
-> > > > > ffffffff8001dd84:	83e9                	srli	a5,a5,0x1a
-> > > > > ffffffff8001dd86:	00a7b533          	sltu	a0,a5,a0
-> > > > > ffffffff8001dd8a:	00154513          	xori	a0,a0,1
-> > > > > ffffffff8001dd8e:	0141                	addi	sp,sp,16
-> > > > > ffffffff8001dd90:	8082                	ret
-> > > > >=20
-> > > > > As can be seen, different branches for SV39/SV48/SV57 are still t=
-here,
-> > > > > since access_ok() sits at hot code path, why not reduce the code =
-size
-> > > > > to optimize to make the instruction cache happy?
-> > > > >=20
-> > > > > Introduce RISCV_ISA_SV48 and RISCV_ISA_SV57 under NONPORTABLE, so=
- that
-> > > > > the embedded platforms can choose the best option themselves, whi=
-le
-> > > > > still keep the feature of unified one kernel Image for all SV39, =
-SV48
-> > > > > and SV57.
-> > > > >=20
-> > > > > Before the patch, vmlinux built with pure RISCV64 defconfig
-> > > > >    text    data     bss     dec     hex filename
-> > > > > 13439437   6790446  483221 20713104 13c0e90 /tmp/old/vmlinux
-> > > > >=20
-> > > > > After the patch, vmlinux built with pure RISCV64 defconfig:
-> > > > >    text    data     bss     dec     hex filename
-> > > > > 13314445   6787934  466837 20569216 139dc80 /tmp/new/vmlinux
-> > > > >=20
-> > > > > .text section is reduced by 122KB!
-> > > > >=20
-> > > > > And after the patch, typical access_ok(addr, 1) is compiled as:
-> > > > > ffffffff8001809a:	1141                	addi	sp,sp,-16
-> > > > > ffffffff8001809c:	e022                	sd	s0,0(sp)
-> > > > > ffffffff8001809e:	e406                	sd	ra,8(sp)
-> > > > > ffffffff800180a0:	0800                	addi	s0,sp,16
-> > > > > ffffffff800180a2:	00000013          	nop
-> > > > > ffffffff800180a6:	60a2                	ld	ra,8(sp)
-> > > > > ffffffff800180a8:	6402                	ld	s0,0(sp)
-> > > > > ffffffff800180aa:	4785                	li	a5,1
-> > > > > ffffffff800180ac:	179a                	slli	a5,a5,0x26
-> > > > > ffffffff800180ae:	00f53533          	sltu	a0,a0,a5
-> > > > > ffffffff800180b2:	0141                	addi	sp,sp,16
-> > > > > ffffffff800180b4:	8082                	ret
-> > > > >=20
-> > > > > only 12 instruction!! For refernece, before the patch, the access=
-(addr,
-> > > > > 1) needs 32 instructions.
-> > > > >=20
-> > > > > Signed-off-by: Jisheng Zhang <jszhang@kernel.org>
-> > > > > ---
-> > > > >  arch/riscv/Kconfig                  | 24 ++++++++++++++++++++++++
-> > > > >  arch/riscv/include/asm/pgtable-64.h | 12 ++++++++++++
-> > > > >  arch/riscv/mm/init.c                | 10 ++++++++++
-> > > > >  3 files changed, 46 insertions(+)
-> > > > >=20
-> > > > > diff --git a/arch/riscv/Kconfig b/arch/riscv/Kconfig
-> > > > > index e9476b8cbeb0..4cdb1e3f34be 100644
-> > > > > --- a/arch/riscv/Kconfig
-> > > > > +++ b/arch/riscv/Kconfig
-> > > > > @@ -602,6 +602,30 @@ config RISCV_ISA_SSQOSID
-> > > > >  	  cache partitioning scheme and use the MCID to track how much
-> > > > >  	  cache a process, or a group of processes, is using.
-> > > > > =20
-> > > > > +config RISCV_ISA_SV48
-> > > > > +	bool "Page-Based 48-bit Virtual-Memory System"
-> > > > > +	depends on 64BIT && NONPORTABLE
-> > > > > +	default y
-> > > >=20
-> > > > I don't understand how you've got this set up here.
-> > > > If this is genuinely non-portable, then you should not set the defa=
-ult to
-> > > > enabled. However, I'm not really sure that this is actually non-por=
-table
-> > > > at all....
-> > > >=20
-> > > > > +	help
-> > > > > +	  Add support for the Page-Based 48-bit Virtual-Memory System.
-> > > > > +
-> > > > > +	  Enable this option for systems for which a 39-bit virtual add=
-ress
-> > > > > +	  space is insufficient. But if 39-bit is enough, disabling this
-> > > > > +	  option will result in smaller kernel size and slighly better
-> > > > > +	  performance.
-> > > > > +
-> > > > > +config RISCV_ISA_SV57
-> > > > > +	bool "Page-Based 57-bit Virtual-Memory System"
-> > > > > +	depends on 64BIT && NONPORTABLE
-> > > > > +	default y
-> > > > > +	help
-> > > > > +	  Add support for the Page-Based 57-bit Virtual-Memory System.
-> > > > > +
-> > > > > +	  Enable this option for systems for which a 48-bit virtual add=
-ress
-> > > > > +	  space is insufficient. But if 48-bit is enough, disabling this
-> > > > > +	  option will result in smaller kernel size and slighly better
-> > > > > +	  performance.
-> > > > > +
-> > > > >  config RISCV_ISA_SVPBMT
-> > > > >  	bool "Svpbmt extension support for supervisor mode page-based m=
-emory types"
-> > > > >  	depends on 64BIT && MMU
-> > > > > diff --git a/arch/riscv/include/asm/pgtable-64.h b/arch/riscv/inc=
-lude/asm/pgtable-64.h
-> > > > > index 7e30ec0e9f6c..f2d29da93eea 100644
-> > > > > --- a/arch/riscv/include/asm/pgtable-64.h
-> > > > > +++ b/arch/riscv/include/asm/pgtable-64.h
-> > > > > @@ -16,21 +16,33 @@ extern bool _pgtable_l5_enabled;
-> > > > >  #ifdef USE_EARLY_PGTABLE_LEVELS
-> > > > >  static __always_inline bool pgtable_l5_enabled(void)
-> > > > >  {
-> > > > > +	if (IS_ENABLED(CONFIG_NONPORTABLE) && !IS_ENABLED(CONFIG_RISCV_=
-ISA_SV57))
-> > > > > +		return false;
-> > > > > +
-> > > > >  	return _pgtable_l5_enabled;
-> > > > >  }
-> > > > > =20
-> > > > >  static __always_inline bool pgtable_l4_enabled(void)
-> > > > >  {
-> > > > > +	if (IS_ENABLED(CONFIG_NONPORTABLE) && !IS_ENABLED(CONFIG_RISCV_=
-ISA_SV48))
-> > > > > +		return false;
-> > > > > +
-> > > > >  	return _pgtable_l4_enabled;
-> > > > >  }
-> > > > >  #else
-> > > > >  static __always_inline bool pgtable_l4_enabled(void)
-> > > > >  {
-> > > > > +	if (IS_ENABLED(CONFIG_NONPORTABLE) && !IS_ENABLED(CONFIG_RISCV_=
-ISA_SV48))
-> > > > > +		return false;
-> > > > > +
-> > > > >  	return riscv_has_extension_likely(RISCV_ISA_EXT_SV48);
-> > > > >  }
-> > > > > =20
-> > > > >  static __always_inline bool pgtable_l5_enabled(void)
-> > > > >  {
-> > > > > +	if (IS_ENABLED(CONFIG_NONPORTABLE) && !IS_ENABLED(CONFIG_RISCV_=
-ISA_SV57))
-> > > > > +		return false;
-> > > > > +
-> > > > >  	return riscv_has_extension_likely(RISCV_ISA_EXT_SV57);
-> > > > >  }
-> > > > >  #endif
-> > > >=20
-> > > > ...because the code here won't enable sv57 etc if not supported...
-> > > >=20
-> > > > > diff --git a/arch/riscv/mm/init.c b/arch/riscv/mm/init.c
-> > > > > index 2a2402d79bc4..90bb85c5f167 100644
-> > > > > --- a/arch/riscv/mm/init.c
-> > > > > +++ b/arch/riscv/mm/init.c
-> > > > > @@ -844,6 +844,16 @@ static __init void set_satp_mode(uintptr_t d=
-tb_pa)
-> > > > > =20
-> > > > >  	kernel_map.page_offset =3D PAGE_OFFSET_L5;
-> > > > > =20
-> > > > > +	/* Fall back to Sv48 if Sv57 is unsupported on non-portable sys=
-tems */
-> > > > > +	if (IS_ENABLED(CONFIG_NONPORTABLE) && !IS_ENABLED(CONFIG_RISCV_=
-ISA_SV57) &&
-> > > > > +			satp_mode_limit =3D=3D 0)
-> > > > > +		satp_mode_limit =3D SATP_MODE_48;
-> > > >=20
-> > > > ...and neither does the code here.
-> > > >=20
-> > > > > Introduce RISCV_ISA_SV48 and RISCV_ISA_SV57 under NONPORTABLE, so=
- that
-> > > > > the embedded platforms can choose the best option themselves, whi=
-le
-> > > > > still keep the feature of unified one kernel Image for all SV39, =
-SV48
-> > > > > and SV57.
-> > > >=20
-> > > > NONPORTABLE is what you're meant to depend on when the kernel that =
-gets
-> > > > built cannot run on platforms without the feature.
-> > >=20
-> > > The reason I put these two Kconfig options under NONPORTABLE is: all
-> > > distributions won't enable NONPORTABLE for their defconfig, and I gue=
-ss
-> > > the distributions want to kept unified one kernel Image for all SV39,
-> > > SV48 and SV57.
-> > >=20
-> > > I have no preference whether move them out of NONPORTABLE or not.
-> >=20
-> > Oh right I think I made a mistake in my understanding of what's going on
-> > here.
-> >=20
-> > If you turn on NONPORTABLE (but not these new options) then you only get
-> > sv39 support. I think what you should do to make the behaviour of these
-> > options clearer is invert them.
->=20
-> hmm, other ISA ext Kconfig options are not inverted, so I prefer moving
-> SV48|57 out of NONPORTABLE and make them y by default.
+Could you please review and queue this patch if it's good enough? This
+version addresses your comments. Thanks.
 
-Sure, that works for me.
 
---1+RHUK1obFa6miaX
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iHUEARYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaqE+NAAKCRB4tDGHoIJi
-0pygAP94MA882BBSMKWMgXUcJwenSA75SIeqIoXo+xpl9NsSJQD8CTBp0ycVz6e9
-v6FSwwqinix5gIm+sHYi0ktbxFPUIgE=
-=RTlc
------END PGP SIGNATURE-----
-
---1+RHUK1obFa6miaX--
+On 8/13/2026 2:43 PM, Dapeng Mi wrote:
+> The PEBS buffer is shared by all events on a CPU, so drain_pebs() must
+> not be reentered. If so, one instance may observe stale buffer state and
+> potentially access out-of-bound memory.
+>
+> Most invocations happen in NMI context, which naturally prevents reentry.
+> However, drain_pebs() is also reachable from process context via
+> intel_pmu_drain_pebs_buffer().
+>
+> In those paths, the PMU is often already disabled, but not guaranteed.
+> For example, __intel_pmu_pebs_disable() only disables the target counter,
+> so other active counters can still raise a PMI and interrupt an in-flight
+> drain_pebs(). Here is an example,
+>
+> __perf_addr_filters_adjust()
+>   perf_event_stop()
+>     __perf_event_stop()
+>       x86_pmu_stop() (event->pmu->stop)
+>         intel_pmu_disable_event()
+>           intel_pmu_pebs_disable()
+>             __intel_pmu_pebs_disable()
+>               intel_pmu_drain_large_pebs()
+>                 intel_pmu_drain_pebs_buffer()
+>
+> Introduce __intel_pmu_quiesce() and __intel_pmu_resume() helpers and
+> use them in intel_pmu_drain_large_pebs() to disable the full PMU
+> around the intel_pmu_drain_pebs_buffer() call, preventing reentry.
+>
+> Also add a warning in intel_pmu_drain_pebs_buffer() when the full PMU is
+> not disabled.
+>
+> Signed-off-by: Dapeng Mi <dapeng1.mi@linux.intel.com>
+> ---
+>
+> v2: Move __intel_pmu_quiesce()/__intel_pmu_resume() pair into
+> intel_pmu_drain_large_pebs() instead of guarding all drain_pebs()
+> callbacks. (Peter)
+>
+> v1: https://lore.kernel.org/all/20260717080342.1879573-9-dapeng1.mi@linux.intel.com/
+>
+>  arch/x86/events/intel/core.c | 33 ++++++++++++++++++++++++---------
+>  arch/x86/events/intel/ds.c   |  8 +++++++-
+>  arch/x86/events/perf_event.h |  3 +++
+>  3 files changed, 34 insertions(+), 10 deletions(-)
+>
+> diff --git a/arch/x86/events/intel/core.c b/arch/x86/events/intel/core.c
+> index f6ee1819864e..1cdb52c0aad5 100644
+> --- a/arch/x86/events/intel/core.c
+> +++ b/arch/x86/events/intel/core.c
+> @@ -3125,6 +3125,27 @@ static void intel_pmu_del_event(struct perf_event *event)
+>  		this_cpu_ptr(&cpu_hw_events)->n_late_setup--;
+>  }
+>  
+> +int __intel_pmu_quiesce(void)
+> +{
+> +	struct cpu_hw_events *cpuc = this_cpu_ptr(&cpu_hw_events);
+> +	int pmu_enabled = cpuc->enabled;
+> +
+> +	cpuc->enabled = 0;
+> +	if (pmu_enabled)
+> +		intel_pmu_disable_all();
+> +
+> +	return pmu_enabled;
+> +}
+> +
+> +void __intel_pmu_resume(int pmu_enabled)
+> +{
+> +	struct cpu_hw_events *cpuc = this_cpu_ptr(&cpu_hw_events);
+> +
+> +	cpuc->enabled = pmu_enabled;
+> +	if (pmu_enabled)
+> +		intel_pmu_enable_all(0);
+> +}
+> +
+>  static int icl_set_topdown_event_period(struct perf_event *event)
+>  {
+>  	struct hw_perf_event *hwc = &event->hw;
+> @@ -3316,16 +3337,13 @@ static void intel_pmu_read_event(struct perf_event *event)
+>  	if (event->hw.flags & (PERF_X86_EVENT_AUTO_RELOAD | PERF_X86_EVENT_TOPDOWN) ||
+>  	    is_pebs_counter_event_group(event)) {
+>  		struct cpu_hw_events *cpuc = this_cpu_ptr(&cpu_hw_events);
+> -		bool pmu_enabled = cpuc->enabled;
+> +		int pmu_enabled;
+>  
+>  		/* Only need to call update_topdown_event() once for group read. */
+>  		if (is_metric_event(event) && (cpuc->txn_flags & PERF_PMU_TXN_READ))
+>  			return;
+>  
+> -		cpuc->enabled = 0;
+> -		if (pmu_enabled)
+> -			intel_pmu_disable_all();
+> -
+> +		pmu_enabled = __intel_pmu_quiesce();
+>  		/*
+>  		 * If the PEBS counters snapshotting is enabled,
+>  		 * the topdown event is available in PEBS records.
+> @@ -3334,10 +3352,7 @@ static void intel_pmu_read_event(struct perf_event *event)
+>  			static_call(intel_pmu_update_topdown_event)(event, NULL);
+>  		else
+>  			intel_pmu_drain_pebs_buffer();
+> -
+> -		cpuc->enabled = pmu_enabled;
+> -		if (pmu_enabled)
+> -			intel_pmu_enable_all(0);
+> +		__intel_pmu_resume(pmu_enabled);
+>  
+>  		return;
+>  	}
+> diff --git a/arch/x86/events/intel/ds.c b/arch/x86/events/intel/ds.c
+> index e86e4ba91e1b..54890dda0589 100644
+> --- a/arch/x86/events/intel/ds.c
+> +++ b/arch/x86/events/intel/ds.c
+> @@ -1242,8 +1242,11 @@ int intel_pmu_drain_bts_buffer(void)
+>  
+>  void intel_pmu_drain_pebs_buffer(void)
+>  {
+> +	struct cpu_hw_events *cpuc = this_cpu_ptr(&cpu_hw_events);
+>  	struct perf_sample_data data;
+>  
+> +	WARN_ON_ONCE(cpuc->enabled);
+> +
+>  	static_call(x86_pmu_drain_pebs)(NULL, &data);
+>  }
+>  
+> @@ -1864,8 +1867,11 @@ static void intel_pmu_pebs_via_pt_enable(struct perf_event *event)
+>  static inline void intel_pmu_drain_large_pebs(struct cpu_hw_events *cpuc)
+>  {
+>  	if (cpuc->n_pebs == cpuc->n_large_pebs &&
+> -	    cpuc->n_pebs != cpuc->n_pebs_via_pt)
+> +	    cpuc->n_pebs != cpuc->n_pebs_via_pt) {
+> +		int enabled = __intel_pmu_quiesce();
+>  		intel_pmu_drain_pebs_buffer();
+> +		__intel_pmu_resume(enabled);
+> +	}
+>  }
+>  
+>  static void __intel_pmu_pebs_enable(struct perf_event *event)
+> diff --git a/arch/x86/events/perf_event.h b/arch/x86/events/perf_event.h
+> index fa381110f7a7..84495279079a 100644
+> --- a/arch/x86/events/perf_event.h
+> +++ b/arch/x86/events/perf_event.h
+> @@ -1638,6 +1638,9 @@ static __always_inline void __intel_pmu_lbr_disable(void)
+>  	wrmsrq(MSR_IA32_DEBUGCTLMSR, debugctl);
+>  }
+>  
+> +extern int __intel_pmu_quiesce(void);
+> +extern void __intel_pmu_resume(int pmu_enabled);
+> +
+>  int intel_pmu_save_and_restart(struct perf_event *event);
+>  
+>  struct event_constraint *
+>
+> base-commit: 917d558b151cad5b05991e5eaee22efab33525ca
