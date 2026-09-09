@@ -1,150 +1,245 @@
-Received: from CY3PR05CU001.outbound.protection.outlook.com (mail-westcentralusazon11013053.outbound.protection.outlook.com [40.93.201.53])
+Received: from SN4PR0501CU005.outbound.protection.outlook.com (mail-southcentralusazon11011070.outbound.protection.outlook.com [40.93.194.70])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F1E83822A6;
-	Wed,  9 Sep 2026 08:20:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.201.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53BA22AE68;
+	Wed,  9 Sep 2026 08:21:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.194.70
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788942029; cv=fail; b=aTBJjY34l9UmcDyOAFRZOUmsKlPjI1XS46ZuzHFh3fIGBJlBs0F8OmKyRrLmY8Hf1G9qE/K1gXNjanmWKKMpsBUC5qagDTYwMQI18ourGsF1smKxI15nYU7cSLy9tBmL5tr6wWRiHlO0Yxzln4BBmEoy8x8/xrnC9PabQW3FFMw=
+	t=1788942073; cv=fail; b=GSrQqNJYASFk+EgqCneUH8AFlPe2R7jsgI9xjBG/UXgBd8JgK+O6ywuMHGslmVU/u1jMmyBko5ILCfyLzWTEJUo2qTCV7ryhdW/EKsf7TtiNe5240p2q7FbiT4fhK8ud10U1PtNiIRU/HDvwxmJpkp5VqAK1fGhXoZK1AHRk8iY=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788942029; c=relaxed/simple;
-	bh=NIAx4Ahbrm5Ar4c9LtId/kiYPvDt1ttg9Z/hNHog7EA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=AzONAZdCXW3mBh22bM8+SWvWjW8PxtB9ud0q2LcnEw4WcmnlC40i+HV8a88hoj9UOsUx+69fy+8yin5QhvxChNUOsdkU9zntq7QfHlkZOAIb2jKr2wPNeYnqfj3WkhJ7G3pYKUU4w682rEXBKkNfd024g+WEag2yeQCgrC0vYF8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=S7Z3BZT5; arc=fail smtp.client-ip=40.93.201.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	s=arc-20240116; t=1788942073; c=relaxed/simple;
+	bh=Q0Tlo+7/FNd4dAozajRjGWzL8Oacu73LQ8s1SIcPens=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:To:CC; b=p8SNB12RUNyfdOoDubXiffdo5YXHO7FUbQqeyGp1VZh6a7PemkORsdrVJLhQtAauGhtIvOlssw4zU/YMGL/sMJcV2Mu+iI/f1JVdNzztI0KoW8NqjtHTpICkx6n5eek8mUHc1dTXYq80pZn0UbCT7RVaPTYFG4OqiVa+CNC+eWQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=C8nRttIz; arc=fail smtp.client-ip=40.93.194.70
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="S7Z3BZT5"
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="C8nRttIz"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=u0OYGqDy+XpgRvFqcxbaHTvMEsOpyPMh64fCOcL48NLNTNFLkXBIX10k3Y4EHW0E0vPPPovUK6lHenNLGeke3upyxXNqCCF7YXqnY3c9TmGiLwpgdP2MLWOiblTCD9myYndKx6y0mYp4LOD8b3LxjWuc0zZUrwBW9KZG8rmZzd5LhjWVZzRK6Q/C3/4qfu3vYcalgyvb88pMvcJs68/K+fb/PNoi+TOXPi7EUqA1TpZj63X0KiVbD73HvSf6v7dv9QO4D+P/nq6btuZEDvCwbGjjINFIBIN5ym7YDVzGVTFwAcf7yWtliC6Y0fKSdrzUJEVUyK/tr7r3DinbiCpPhg==
+ b=dq4M2IzvyFcjuUnDkf/MhbZ4PbkiS4jRlxxsLBG11qaljngWFMYbZemPFMrmbnFwsRVxCNcSp90BSs6num110vZAtSRN43jgitYb6U46DpSqrxWFku9fSRsxSQuH3/tiT+EsAgVJzbvuejb27ew77yVUvMNm31eO9izWpaGH0igbVmHTwIvZtdpLnSJFPJR8X140I+aQIl/RAg17I8s+Vg4SreNKW35lq4DxViOgpypcaq2TRMBO6RruX5jGVhK2act7EsyubX5ODmKhUuN82WZS3X1yDCZijm/dZ+GKP5enqTdHMEte6xF8apzxL00cAMWxPtjbevEi+WZJtfjmcA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=SvTr2lZC9aNuQfWSMu3rHXhCR/dxLQtXb+YUK80WKq0=;
- b=DKUKVs6GM49uEB6QTt4AYMfmiYgGkHkGToBoCOC/7bHDjF/TTCASQfhZdo6EppY+ZMFEiJ2pRNKTiPH2+0A7h8dbgpoXD+lwINgJfLeoOqCK8VSTHouCZodLaE/oEd/p+k0y03PqeJyv0PP7dfyrFWAJKVVGAemjRv/3lHf3oFIKaysI4gFqbfyQ9Vt3UkYWrIMvQjYmCrvKsOqIc/WJV/Izcxurw+xiVTaTa+203B37Zm+OIZIXn7nSmD36GonhcK1cUpYKnuxyVJJPGIe4DerGsM+Q6MMdv9oDG+IGE9Aps9PgyY6johrVuwPo+FhdU890iG8rKqBMUclylFf5Bw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
+ bh=eA4tusOFXfhcaiHuyadK4PeOPJJDlwnqDawxa472IaM=;
+ b=Gf15pgGEjbabTAC6ionl3ILSdsRPK3s+MpmqLAN1ujLf87JwxNCBPI+AGc/dEIQP7EgfU85V3O1SN0fF0omrU6yxre/yWlEIelkOJnWgLBId0jyG8b08Dkb99Ys3h+1plWkHU2NV/xJ9Y0YmUyzvdPJVPia4XXZxOhYMxw4pGAKjw9KerpxU6hqbuSrPEX5YiaZTq54htRp7NiQvaqDSy5mCs1wHGojUNf1uf1biJZN7fWDox5+tyk67Aa/lbEgRhvfTUC0HmgYT5Wun9fHDvXvvXuTx1yQlQAqa+0MNaRwKv4CggHBYBPsuXNWMnEVAxzGkv1q/OUdiuexbrtzudg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=SvTr2lZC9aNuQfWSMu3rHXhCR/dxLQtXb+YUK80WKq0=;
- b=S7Z3BZT50johzzKgTQLX0zjcbN/S9fu5yJj5ltS1FDRqVfMbHXTOFNJWby0mvFM/CnSDu3H7LjXLVibuRZJdJaPub6NI2YAK9eCc0udrVKy8X5gxtu7WVmXkAw/jVZzLmXTSeT9vWiRoateR45vdR3qJyy9caPGs9cPEJFqt+T98gi6Cih8UUrRI2AKjlKd1RqN0NLXi2A31BgrYLH4Cv4pytAej4uuJnrXQuMoRIuDBTpIh2iIZYpoTDWlm9XtCFvVj0Xotcar5LA8A1+3yA6A826+uECjPfCHcamTp4tk3Qcfkoubbp0LKq6qzgQDWx+jTbZxTjYjL2vgU9LZ3xQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from PH0PR12MB7957.namprd12.prod.outlook.com (2603:10b6:510:281::22)
- by CY8PR12MB7148.namprd12.prod.outlook.com (2603:10b6:930:5c::11) with
+ bh=eA4tusOFXfhcaiHuyadK4PeOPJJDlwnqDawxa472IaM=;
+ b=C8nRttIzO7qhbM+OSpOmvjtmmyJkOfg5tIN56FY5ALm7iFbxbC2oBRAaZRodueGmobH2qWRtgaiLBVokFrSbfjkBmgzUHcN6k+IFqTW8Z+q8ppNCySEtSWsVr5Se4BX7NtnTiYEzCQt0gvg1zqnweAA/KBMxJMqKYPRkJ3ZUN24=
+Received: from MW4P220CA0024.NAMP220.PROD.OUTLOOK.COM (2603:10b6:303:115::29)
+ by LV3PR12MB9167.namprd12.prod.outlook.com (2603:10b6:408:196::19) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.10; Wed, 9 Sep
- 2026 08:20:25 +0000
-Received: from PH0PR12MB7957.namprd12.prod.outlook.com
- ([fe80::9251:acc2:cc63:3499]) by PH0PR12MB7957.namprd12.prod.outlook.com
- ([fe80::9251:acc2:cc63:3499%3]) with mapi id 15.21.0406.005; Wed, 9 Sep 2026
- 08:20:19 +0000
-Date: Wed, 9 Sep 2026 11:20:08 +0300
-From: Ido Schimmel <idosch@nvidia.com>
-To: Zihan Xi <zihanx@nebusec.ai>
-Cc: David Ahern <dsahern@kernel.org>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	netdev@vger.kernel.org, Simon Horman <horms@kernel.org>,
-	Hannes Frederic Sowa <hannes@stressinduktion.org>,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org,
-	Vega <vega@nebusec.ai>, Luxing Yin <root@tr0jan.top>
-Subject: Re: [PATCH net 1/1] ipv6: fix fib6 walker UAF on seq stop
-Message-ID: <20260909082008.GA1258831@shredder>
-References: <cover.1788837093.git.zihanx@nebusec.ai>
- <89699735763f6c297584d7c2ff106239cc1e8ce0.1788837093.git.zihanx@nebusec.ai>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <89699735763f6c297584d7c2ff106239cc1e8ce0.1788837093.git.zihanx@nebusec.ai>
-X-ClientProxiedBy: TL2P290CA0014.ISRP290.PROD.OUTLOOK.COM
- (2603:1096:950:2::17) To PH0PR12MB7957.namprd12.prod.outlook.com
- (2603:10b6:510:281::22)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.8; Wed, 9 Sep 2026
+ 08:21:07 +0000
+Received: from BY1PEPF0001AE16.namprd04.prod.outlook.com
+ (2603:10b6:303:115:cafe::a6) by MW4P220CA0024.outlook.office365.com
+ (2603:10b6:303:115::29) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.406.7 via Frontend Transport; Wed, 9
+ Sep 2026 08:21:07 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BY1PEPF0001AE16.mail.protection.outlook.com (10.167.242.104) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.406.5 via Frontend Transport; Wed, 9 Sep 2026 08:21:07 +0000
+Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Wed, 9 Sep
+ 2026 03:21:06 -0500
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb09.amd.com
+ (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Wed, 9 Sep
+ 2026 03:21:06 -0500
+Received: from [127.0.1.1] (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.46 via Frontend
+ Transport; Wed, 9 Sep 2026 03:21:03 -0500
+From: Carl Lee <carl.lee@amd.com>
+Date: Wed, 9 Sep 2026 16:25:02 +0800
+Subject: [PATCH] ARM: dts: aspeed: anacapa: add NCT7363 fan controllers
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-ID: <20260909-arm-dts-aspeed-anacapa-add-nct7363-fan-controllers-v1-1-f84ba4254db6@amd.com>
+X-B4-Tracking: v=1; b=H4sIAN0XoWoC/x3NQQoCMQxA0asMWRuoU62MVxEXsUm1MKalKSIMc
+ 3eLy7f5fwOTlsXgOm3Q5JMtFx04HiaIL9KnYOZhmN0c3OIWpPZG7oZkVYSRlCJVQmJGjf3ig8d
+ EirFob2VdpRk6TsGf5RElnGCEa5OUv//p7b7vPyYjzECEAAAA
+X-Change-ID: 20260909-arm-dts-aspeed-anacapa-add-nct7363-fan-controllers-0df635ebce64
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Joel Stanley <joel@jms.id.au>, "Andrew
+ Jeffery" <andrew@codeconstruct.com.au>, Ryan Chen <ryan_chen@aspeedtech.com>,
+	Billy Tsai <billy_tsai@aspeedtech.com>
+CC: <devicetree@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+	<linux-aspeed@lists.ozlabs.org>, <linux-kernel@vger.kernel.org>,
+	<carl.lee@amd.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788942304; l=3094;
+ i=carl.lee@amd.com; s=20260203; h=from:subject:message-id;
+ bh=Q0Tlo+7/FNd4dAozajRjGWzL8Oacu73LQ8s1SIcPens=;
+ b=/O63VCPm+8eAY+T49Fw4k6ECeRcM8FZ3murHr2VyY4HgGut+LN5vyyNpnkulHDv7MOe0r9umx
+ LnXYEXEe6oIArapev95y4RGX4cQYVCSi8rGPKNXIBbCcnBsAor+CeLJ
+X-Developer-Key: i=carl.lee@amd.com; a=ed25519;
+ pk=pyq7QaQvoxMg806KVkRwpCbiah+7ncWr4MBpK1AEyjA=
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH0PR12MB7957:EE_|CY8PR12MB7148:EE_
-X-MS-Office365-Filtering-Correlation-Id: 45718e45-c1c4-4d34-b712-08df0e4b2f6e
+X-MS-TrafficTypeDiagnostic: BY1PEPF0001AE16:EE_|LV3PR12MB9167:EE_
+X-MS-Office365-Filtering-Correlation-Id: b3ece34f-a09a-40ed-bf4f-08df0e4b4c45
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|376014|1800799024|366016|23010399003|22082099003|10067099003|4143699003|56012099006|11063799006|18002099003;
+	BCL:0;ARA:13230040|36860700016|376014|7416014|1800799024|82310400026|23010399003|10067099003|11063799006|56012099006|18002099003;
 X-Microsoft-Antispam-Message-Info:
-	6DpaEydaZsDETHHjoAcd1SMi4Qg09l77zSsjUK6kLdQ3NJQSmgBoiW2GIPAUAT6md7ZCAM/mwOc2gIw5fRrxcIWey+2y12IifvkNnAkmzd7ppjftopRwqD2Wm9BZibQ/s9YIDQT9WQMwXbdG8UC1RMDlDK9r8vQ50BZkFCYcN5cpvgiI7w2Xjn1ypovqtSpAWE7nyMjjuV+AL59S1zfZlAleY7wMHSMm0BCic/weIIqDmuqS0nia7lIf242sifMki+XNl0Mk0LQiAtbeW1ju2DLeafVpNJRe0Ru1DZuNwLJdljdPnsuQRBvS6WN0lO2AMDLwyGICPWiwJ/pwsnc0RTLEglVCFr8eXy+/JZKkc04StTfx1jlfTXB8OoDuQk+6AarcUD0XX/fSAIPh+8YC/m57TyRsITTX+dmtTsGasXBGBkgwSw2GadOxJ4qwBmdxBfyTCFkgWnwfnU4crEIevcTrhIKBnhrZooGaZPabCev5mRK74EK++hSnQ0mtbk3zNawFR1EtD1gdrCMvOtP2hRg4L6hEKPNohiKYswP2n60/ozA9epiKLlp5zNVlqS+DUaFA/7HQoFohgR5H5j4Spg/j9HLCas0UvyMq+cHZ8DuC3MsDHStQoKRGVABUIHfAleVsfF/v8yc/C5fViHVuHXp1fOKUZgghypAl1bJRKOk=
+	ebjYRuDM4nzmfUdbyIcZNtLl/ba3wGS0Ab222ET2hcD6hRaapU0+BXsidF98YTDxU6co6E9wzDhykV/KSYVJZ2FqY9UPSJ7CggdnEknqw8YU9KqiEGkwRFnNAHhnMVtta3dFN+XConoWPOTWUX53UHLiKYyv1iOVDRS77DqdtsdrzTZHDiFZOQAgyLUNqaL8zjU/czu+KkVUCctJo9Y8+1DpzmX5u0+dFcWFG8Vg5/Y0hP7jV+Q1S9UjKd8NNxvA+sz9/Oi3l5fG1FJ+xpiFqkcSl8omyfEgu1kgWBaqxHJz3lIkXbdbcHVISVlpAI/XhQSRTdjjC6mZLjJE+FCSKrMoY+Y8cPLQ3lqVGGn9/W4jwP9oHzFuEuY/MN5caMFCZedphXkwSV8Ai5u6rGLKIS96vak/FcNTniCwq44/Xf5Tbl41JsXBHqibeE3JPMFV2uWDPHmvpggJI8Wk0NcwsowVznIOHRmvB9ynS20U53Eaa+8w3Hl85jhc/CmXDAiXDb3BFO1YNzUC/AdRWS0Qo3d0Z7bARKHc0OWTOAoIal3Bki1zxvBfqXz4tYqvMgXIHM47sKUgWX/cRo2FohOt21YGx8RdmhEyV3w3NXbmoH+AZFhCQj5eB2p3mcKogTRSc3jggZ5vejMvGWeqVYjMRFvr13brlxBgj/GwYL/2/E47wt9//1V3eowLZM9+SAFlIVEWmRgdC+cjahyzDSGp6A==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR12MB7957.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(1800799024)(366016)(23010399003)(22082099003)(10067099003)(4143699003)(56012099006)(11063799006)(18002099003);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(376014)(7416014)(1800799024)(82310400026)(23010399003)(10067099003)(11063799006)(56012099006)(18002099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?DU9IcuhOizJ6YIKbEo1e4im+1n+P5KxcOGkhaD00A2XOuHaWgjvn8s0R6kJ9?=
- =?us-ascii?Q?CTqg8+7kFN3rMaGI7uFNPDp8GGrVqS79a06vx/NSkGHgcES62IwWaeseMlLh?=
- =?us-ascii?Q?vmay0kV/3aWA+5+IzjWrLj4rFK89HUxnmmNKhWi817y+M/KHu/yiaEUulvSB?=
- =?us-ascii?Q?OIWiMwxCkThyhko9SBsoMXgyvPsy+PyuI3c5GLMtRRRTKPKrEFa1hpEH7ZDQ?=
- =?us-ascii?Q?paiLE8ZMGUoQoyL1STlKxLKtJKrdOPLLBtDoLEB9oMUq+VASUaIDGocCr5BE?=
- =?us-ascii?Q?mvbULAkkXvMqnaiB22ozagPw17FWVgQOtjBVyYPCZOxCSWmpcg0OVuHsmFCq?=
- =?us-ascii?Q?PlaY+0gjVicBVyV1nqfFlHXKpR7NSW2MRfE1lWrEFcOX94UzzkltGoTl7A5y?=
- =?us-ascii?Q?D5aqXQISdHPIyLOJti+9OqRg+Ipii1dRKEq+FA+5ZNslqAyGEAQM/59cIhIm?=
- =?us-ascii?Q?6Lb+OqnUa9F70ZFael5WS2R2SVwme/t9raLkU8jfVsKhnm80K0zqEgJ+PSk0?=
- =?us-ascii?Q?ZLb95Awge6puFcfqvqqLc8mbOzc5Xth+mY61O+avDPQ8TCDqtvIEEO3DMltq?=
- =?us-ascii?Q?tAsxaM3+9P7fmzwUlKkUVhgzQHqyb6r/FjHPsP3QDVy36tE6ElipIL5sWYKH?=
- =?us-ascii?Q?41WbHLmo0q4dk1EQzE0EfqJp7BpllxbQPNH+HwWPdG7DrWaOX5+119+lOPuY?=
- =?us-ascii?Q?mcwwJeKFeILSjdK3kjOKByU2x9RzMQHDunghqQxPkEPGURuaE/7r4l5i3fFt?=
- =?us-ascii?Q?pZq2HHGisgiTyyB1yVeokjEslnxsBT6rHHAjKlMRc9S+HbdLSuRFeqncJwRT?=
- =?us-ascii?Q?S6zSEUf9ByLlodzIaR0WFa9EzBLTC9j+6DjT3JLpMuxmIa0KGu5VarFIh3go?=
- =?us-ascii?Q?aP7bL3NT+wc3WBcKzjxwKNI/+tik2el8XueyhCSquGGyK/66C22t+kCTPhNp?=
- =?us-ascii?Q?5nc15cCn+7IGcOjNeKXlRLgdO3zyHQ9/fEcsP0+LKpsntwFRCZeoF4jFzrp9?=
- =?us-ascii?Q?TL9nLJ02hJYs313lbN4mmUB5hWtPngxi7FL3o13Y3E/TvFnHzUp+sd/hoS6M?=
- =?us-ascii?Q?FFeNQDyFib/XhBbLckRnrCwuZU32tRA3GARJzL72Fsm0Ws9QzJXh22IzPl5P?=
- =?us-ascii?Q?T9GILiL98y7u/A3ExQ86SmZSM5KEx/PDvwXwVuFWVLTcGGcMvwaaECAIZT6t?=
- =?us-ascii?Q?m3ufNyhdrP5rIDOY+KxW49zu1oh7okyBXOoBlgWbsNS1HoIPfmHa8WfHoxUF?=
- =?us-ascii?Q?cI1JNrV9UmlHGPoNSnjBm9npgwrQxrhMZ10qkz1yUIudokLlexKdfgymZtAS?=
- =?us-ascii?Q?RlR3+lz92lbPkEADOtQFHLOGmU59ONgvCcVGm+LG1PAHRzdtcGmpOV8DBRYH?=
- =?us-ascii?Q?8GdgHumEMLhmk7hXLD8O4sONDak+Z3gDGgOHj+PYgThKgAbvl78bfJiSMStS?=
- =?us-ascii?Q?lqmRHgM/BlpQHyfRO9ygXy3vmKFilEZiADAzu9JadwM+AOOZqe/Jz4g4f3/F?=
- =?us-ascii?Q?Kz0TC26MfnfAyEqd8lewlOJVvXJlGJunsZj/P/1qVZj3k7hGhVNkmViV67Ze?=
- =?us-ascii?Q?uzOdEtQDy+NrPx9e37yBLTsRg8Pru8lC+flN1XAcT/GhmUxLO7PHXlDMUZsA?=
- =?us-ascii?Q?m4vq6K1VjWwkMzXWbPW7Yky/5IBts9AApnSh8CEqUf2ObTucUDu3ElPKVeNl?=
- =?us-ascii?Q?9OFxeK/tqV9jTYYW493A8H8IbjsSuDNza0AlxI/7AwbRX35K?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 45718e45-c1c4-4d34-b712-08df0e4b2f6e
-X-MS-Exchange-CrossTenant-AuthSource: PH0PR12MB7957.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Sep 2026 08:20:19.3677
+	D9GWRG9co8BwiyjS38oFxj8YdjIcV9ZFSvm9ezAGRAW+Xim87bZsQXz6HremtQ3PNJYZy8yh6StD8+NyF12z1pgJQzjhF9twm0mfGPc4ybxeohjTumv8A67n7ZZuAeXddLA5jl5eGu7Wt9xznxIjKkn5aIfyTrKODzrx3t5GnotohhTJpAa2tj8Bt4U5Wg0W6T/RNSvnPy9gafWWZPUq6IXZw+lZ2PBv98gKKnV2edrK239MgipwaNaE5+rWqSKHIS6XBRJnWzyQz9NLgr9eBhpUzK9XuUGrggrmZl8vQjv/xeC7z4Gt8wxxHdC7Pv1d/xkUlwqIPFhZfFGSLcCcbejzzUgMVgegpZG8MA1AJv/n9eXDY/fX9XuuMl/xedymcKwe2+cTf45cJW+QNDgZ3D8iBgm9wqcVk1A1Za6eKzODfXaKrdeYlYXzNv3VIMb+
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Sep 2026 08:21:07.3611
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: KcGpv5X7CEi2Lwzwb4wayIn7ylu5y4NI8odgYtLIDQy7NyLBGLtAKMaEDgJYza5sfVD8qy1m5q5vkS6jZVI1Ew==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7148
+X-MS-Exchange-CrossTenant-Network-Message-Id: b3ece34f-a09a-40ed-bf4f-08df0e4b4c45
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BY1PEPF0001AE16.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV3PR12MB9167
 
-On Tue, Sep 08, 2026 at 07:42:56AM +0000, Zihan Xi wrote:
-> ipv6_route_iter_active() treats a walker in FWS_U at the table root as
-> already unlinked. fib6_del_route() can move a still-linked walker into
-> that same state when the current leaf is the last route at the root,
-> so ipv6_route_native_seq_stop() skips fib6_walker_unlink(). The seq
-> private object can then be freed while it remains on
-> net->ipv6.fib6_walkers. A later route deletion walks the dangling list
-> and uses the freed walker.
-> 
-> Use the list head as membership state and reinitialize it when
-> unlinking. Keep the existing w->node check so a never-started iterator
-> with a zeroed private object is not treated as linked.
-> 
-> The same stop helper is used by /proc/net/ipv6_route and by the BPF
-> ipv6_route iterator. The BPF show path only widens the race.
-> 
-> Fixes: 8d2ca1d7b5c3 ("ipv6: avoid high order memory allocations for /proc/net/ipv6_route")
-> Cc: stable@vger.kernel.org
-> Reported-by: Vega <vega@nebusec.ai>
-> Assisted-by: LLM
-> Co-developed-by: Luxing Yin <root@tr0jan.top>
-> Signed-off-by: Luxing Yin <root@tr0jan.top>
-> Signed-off-by: Zihan Xi <zihanx@nebusec.ai>
+Add two NCT7363 fan-controller nodes on Anacapa I2C mux
+channels and define their PWM/tach channel mappings.
 
-Reviewed-by: Ido Schimmel <idosch@nvidia.com>
+This matches the fan-control hardware layout and allows the
+kernel to probe the correct fan-controller devices.
+
+Signed-off-by: Carl Lee <carl.lee@amd.com>
+---
+ .../dts/aspeed/aspeed-bmc-facebook-anacapa.dts     | 86 ++++++++++++++++++++++
+ 1 file changed, 86 insertions(+)
+
+diff --git a/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-anacapa.dts b/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-anacapa.dts
+index 1fddf3a5d138..281e226fa2d0 100644
+--- a/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-anacapa.dts
++++ b/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-anacapa.dts
+@@ -475,6 +475,45 @@ adc@1f {
+ 				ti,mode = /bits/ 8 <1>;
+ 			};
+ 
++			fanctl1: fan-controller@21 {
++				compatible = "nuvoton,nct7363";
++				reg = <0x21>;
++				#pwm-cells = <2>;
++
++				fan-9 {
++					pwms = <&fanctl1 0 40000>;
++					tach-ch = /bits/ 8 <0x09>;
++				};
++				fan-10 {
++					pwms = <&fanctl1 0 40000>;
++					tach-ch = /bits/ 8 <0x0a>;
++				};
++				fan-15 {
++					pwms = <&fanctl1 6 40000>;
++					tach-ch = /bits/ 8 <0x0f>;
++				};
++				fan-0 {
++					pwms = <&fanctl1 6 40000>;
++					tach-ch = /bits/ 8 <0x00>;
++				};
++				fan-2 {
++					pwms = <&fanctl1 9 40000>;
++					tach-ch = /bits/ 8 <0x02>;
++				};
++				fan-3 {
++					pwms = <&fanctl1 9 40000>;
++					tach-ch = /bits/ 8 <0x03>;
++				};
++				fan-5 {
++					pwms = <&fanctl1 12 40000>;
++					tach-ch = /bits/ 8 <0x05>;
++				};
++				fan-6 {
++					pwms = <&fanctl1 12 40000>;
++					tach-ch = /bits/ 8 <0x06>;
++				};
++			};
++
+ 			gpio@22 {
+ 				compatible = "nxp,pca9555";
+ 				reg = <0x22>;
+@@ -549,6 +588,53 @@ gpio@22 {
+ 					"LPDB_PWRGD_P50V_HSC5_SYS_R","";
+ 			};
+ 
++			fanctl0: fan-controller@23 {
++				compatible = "nuvoton,nct7363";
++				reg = <0x23>;
++				#pwm-cells = <2>;
++
++				fan-9 {
++					pwms = <&fanctl0 0 40000>;
++					tach-ch = /bits/ 8 <0x09>;
++				};
++				fan-10 {
++					pwms = <&fanctl0 0 40000>;
++					tach-ch = /bits/ 8 <0x0a>;
++				};
++				fan-12 {
++					pwms = <&fanctl0 3 40000>;
++					tach-ch = /bits/ 8 <0x0c>;
++				};
++				fan-13 {
++					pwms = <&fanctl0 3 40000>;
++					tach-ch = /bits/ 8 <0x0d>;
++				};
++				fan-15 {
++					pwms = <&fanctl0 6 40000>;
++					tach-ch = /bits/ 8 <0x0f>;
++				};
++				fan-0 {
++					pwms = <&fanctl0 6 40000>;
++					tach-ch = /bits/ 8 <0x00>;
++				};
++				fan-2 {
++					pwms = <&fanctl0 9 40000>;
++					tach-ch = /bits/ 8 <0x02>;
++				};
++				fan-3 {
++					pwms = <&fanctl0 9 40000>;
++					tach-ch = /bits/ 8 <0x03>;
++				};
++				fan-5 {
++					pwms = <&fanctl0 12 40000>;
++					tach-ch = /bits/ 8 <0x05>;
++				};
++				fan-6 {
++					pwms = <&fanctl0 12 40000>;
++					tach-ch = /bits/ 8 <0x06>;
++				};
++			};
++
+ 			gpio@24 {
+ 				compatible = "nxp,pca9555";
+ 				reg = <0x24>;
+
+---
+base-commit: 32b6ef9a5d0eca44f9cd91f52f4faa89f145a0de
+change-id: 20260909-arm-dts-aspeed-anacapa-add-nct7363-fan-controllers-0df635ebce64
+
+Best regards,
+-- 
+Carl Lee <carl.lee@amd.com>
+
