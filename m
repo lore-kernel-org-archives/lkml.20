@@ -1,62 +1,118 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3467F3F1073
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 09:29:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com [210.118.77.11])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D31FD3DC856
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 09:29:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.118.77.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788946194; cv=none; b=aZtqH3gqV7sSCikzZ2Ul1CRKOpUQS8NGVtvg9mcDbK7zs/HeaDnO7V1fYgHxbsldhG+oBV6GNjeMgohFFDoOs+0CCJUCCugi93DGajB+n3bEVdO72YZW4gnS6QXQLkKcTVtku4gjSURH7fvAt1r9ZAA4N/53kKPsGFhaiv96ns4=
+	t=1788946198; cv=none; b=AEAysLvaJmCCQULOSw/qNduPhQn4SCCzrjocW2bn72r+R4hoglxUeqLOcbVFip+7bGQ6fT/QRjlfORLGD+JK473nWiioqa5aWhheH7o817p5Q2kLxoKD6PBTy2yUBzR2djCIPSACwxthOsAHHBrsw/YRxTxhBZe/aBzUkGJ+/dc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788946194; c=relaxed/simple;
-	bh=YBHCyyidJUAro23ju4IMIUDqTWZtl4Wqq8769jnU3UA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=lwiJvORQJTK5yoQKYaobhlBARI7h2ZAIzf9LUfGOaCqkEw3elFnDwKmaPuwof2rYc0kxUMxEqyUDX7eegqcM4BF5uyHnHbKxrxZ19F68Mf8JwLAb9joeqJZIpjfr1z4eYWx1W93+cG28/36KqgWMGet8SeD+NHRYbiZyIkj5M60=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=fnlZk8Bc; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1788946198; c=relaxed/simple;
+	bh=WmqknmXOa3htBxa5JgdgxRU3H8UZeW31hfcsndjwUiI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:From:In-Reply-To:
+	 Content-Type:References; b=Hg+YiHok5mT/Y7i+nal1c0wY0f7vQuznD+jUfHdk0bPOUyGiMrrv56I916RtwSuBp3OW5FRnhD9/c2ETdIt9CJKp71gxHYcYwcj+oNkMzlpQ7XA76ojGoeJC69nwDpvTmzoEHQOPHtWhCVNt+1afxG2rpRqMRRKdQeHSJud0UfE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=l1f7NXyS; arc=none smtp.client-ip=210.118.77.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="fnlZk8Bc"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id CB2C01576;
-	Wed,  9 Sep 2026 02:29:32 -0700 (PDT)
-Received: from localhost (unknown [10.2.196.114])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 174D53F528;
-	Wed,  9 Sep 2026 02:29:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1788946176; bh=YBHCyyidJUAro23ju4IMIUDqTWZtl4Wqq8769jnU3UA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=fnlZk8Bc/XKeil61O/z4hKox/RfFo/tBcfry3clDwaP29ttvrEzFTy+qZ4B7r+BbH
-	 BBhP+tK5CW3qRGD7SQ0exGGP21UTBMhIKK3l2au2SIcEvxQAP0Q/1ZbAiY4TJKwdbL
-	 ENoiJsagOIgPciAOcAHcXvf3Es1PZWxVDyegc2Y4=
-Date: Wed, 9 Sep 2026 10:29:34 +0100
-From: Leo Yan <leo.yan@arm.com>
-To: yingchao deng <dengyingchao@kylinsec.com.cn>
-Cc: Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Mike Leach <mike.leach@arm.com>,
-	James Clark <james.clark@linaro.org>,
-	Mathieu Poirier <mathieu.poirier@linaro.org>,
-	Miaoqian Lin <linmq006@gmail.com>, coresight@lists.linaro.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	qinyungao@kylinsec.com.cn
-Subject: Re: [PATCH] coresight: syscfg: fix deadlock on device registration
- failure
-Message-ID: <20260909092934.GD200420@e132581.arm.com>
-References: <604ED754D4669F40+20260825014717.2346-1-dengyingchao@kylinsec.com.cn>
- <20260908161614.GA200420@e132581.arm.com>
- <ACA6A9E0ED9B6395+1c28050a-b7f5-419e-be5d-e88010592ed7@kylinsec.com.cn>
+	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="l1f7NXyS"
+Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
+	by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id 20260909092932euoutp019d046af333c48f9d31305dae814fbec2~TnRDYd29x0360103601euoutp01u
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 09:29:32 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com 20260909092932euoutp019d046af333c48f9d31305dae814fbec2~TnRDYd29x0360103601euoutp01u
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1788946172;
+	bh=AvCVoTcFv09OSmnOhTviu6CzkkZAHrdDwoUk19+MOkw=;
+	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
+	b=l1f7NXyS9z5pLwa7iy4HuECv/LXXBTT/waZgNWc2ma7UStHoHRWO2KbNqhjYJkriE
+	 aUcTTGNp7sez08ceiZOsRBOuSPPuzQsrpgqlcluFtxhxfYDHrPIa0Ha6vcD0NtnZys
+	 7hzRVD8ZCqWDQmLpNJZLJE7AwsG5x/Cc/HQFlXaQ=
+Received: from eusmtip2.samsung.com (unknown [203.254.199.222]) by
+	eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
+	20260909092932eucas1p12e652b155548553a3fb3860adaf88d99~TnRDE5LTl2633426334eucas1p1u;
+	Wed,  9 Sep 2026 09:29:32 +0000 (GMT)
+Received: from [106.210.134.192] (unknown [106.210.134.192]) by
+	eusmtip2.samsung.com (KnoxPortal) with ESMTPA id
+	20260909092931eusmtip2fb751ca7efb9f29d5549d7ea01817133~TnRClZNqT2607926079eusmtip2o;
+	Wed,  9 Sep 2026 09:29:31 +0000 (GMT)
+Message-ID: <fb39c105-db6c-4820-aee6-e423bf612cc7@samsung.com>
+Date: Wed, 9 Sep 2026 11:29:31 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <ACA6A9E0ED9B6395+1c28050a-b7f5-419e-be5d-e88010592ed7@kylinsec.com.cn>
+User-Agent: Betterbird (Windows)
+Subject: Re: [PATCH] dma-coherent: report a failed reserved memory
+ assignment
+To: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+Cc: Robin Murphy <robin.murphy@arm.com>, Andrew Morton
+	<akpm@linux-foundation.org>, iommu@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Content-Language: en-US
+From: Marek Szyprowski <m.szyprowski@samsung.com>
+In-Reply-To: <20260905074727.108029-1-donggeunyoo.kernel@gmail.com>
+Content-Transfer-Encoding: 7bit
+X-CMS-MailID: 20260909092932eucas1p12e652b155548553a3fb3860adaf88d99
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+X-RootMTR: 20260905074735eucas1p235b2a9129bc0bb01b5725d57149ed5f5
+X-EPHeader: CA
+X-CMS-RootMailID: 20260905074735eucas1p235b2a9129bc0bb01b5725d57149ed5f5
+References: <CGME20260905074735eucas1p235b2a9129bc0bb01b5725d57149ed5f5@eucas1p2.samsung.com>
+	<20260905074727.108029-1-donggeunyoo.kernel@gmail.com>
 
-On Wed, Sep 09, 2026 at 09:34:07AM +0800, yingchao deng wrote:
+On 05.09.2026 09:47, Donggeun Yoo wrote:
+> rmem_dma_device_init() drops the return value of
+> dma_assign_coherent_memory() and always reports success. That call fails
+> with -EBUSY when the device already has a coherent pool, and the file
+> allows only "*one* such region of memory" per device.
+>
+> of_reserved_mem_device_init_by_idx() reads the zero as success. It logs
+> "assigned reserved memory node" for a region that was not assigned and
+> records the pairing, so of_reserved_mem_device_release() later runs
+> rmem_dma_device_release() for it. That clears dev->dma_mem without
+> looking at which region it was called for, dropping the pool the device
+> did get and leaving it on ordinary memory.
+>
+> dma_declare_coherent_memory() checks the same call and releases the
+> memory on failure, and rmem_swiotlb_device_init() propagates its own
+> errors. Return the error here as well, so a device tree that assigns two
+> pools to one device fails the probe instead of half working.
+>
+> Fixes: 7bfa5ab6fa1b ("drivers: dma-coherent: add initialization from device tree")
+> Signed-off-by: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
 
-[...]
+Applied to dma-mapping-fixes, thanks!
 
-> I'll send v2 with your suggested change.
+> ---
+> Compile-tested only, with CONFIG_DMA_DECLARE_COHERENT=y and
+> CONFIG_OF_RESERVED_MEM=y. I do not have a board that assigns two
+> shared-dma-pool regions to one device; the release path was traced
+> through of_reserved_mem_device_release() and rmem_dma_device_release()
+> rather than observed.
+>
+>  kernel/dma/coherent.c | 3 +--
+>  1 file changed, 1 insertion(+), 2 deletions(-)
+>
+> diff --git a/kernel/dma/coherent.c b/kernel/dma/coherent.c
+> index 45bbae947f4b..4d0266893bcc 100644
+> --- a/kernel/dma/coherent.c
+> +++ b/kernel/dma/coherent.c
+> @@ -352,8 +352,7 @@ static int rmem_dma_device_init(struct reserved_mem *rmem, struct device *dev)
+>  	    min_not_zero(dev->coherent_dma_mask, dev->bus_dma_limit))
+>  		dev_warn(dev, "reserved memory is beyond device's set DMA address range\n");
+>  
+> -	dma_assign_coherent_memory(dev, mem);
+> -	return 0;
+> +	return dma_assign_coherent_memory(dev, mem);
+>  }
+>  
+>  static void rmem_dma_device_release(struct reserved_mem *rmem,
 
-Thanks a lot!
+Best regards
+-- 
+Marek Szyprowski, PhD
+Samsung R&D Institute Poland
+
