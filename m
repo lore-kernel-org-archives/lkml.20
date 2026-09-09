@@ -1,91 +1,204 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 879183672AA;
-	Wed,  9 Sep 2026 17:12:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C83EB3624B3;
+	Wed,  9 Sep 2026 17:13:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788973943; cv=none; b=KzV4SSAi5/oIYHsvBXFh4JbUX3f63g95agsUYPK2zQr1iRTyofZIwgBPAG9BWV7kigC5INAdZGyvXq+BuZX4HJ9sQkt68lOys30tU8XiuqIOvQl9gjqDJx84DZE+hNI49h6PYsStuVGBpwEjGDLE2RqVLlUz1nylhGgV90bG2+o=
+	t=1788973994; cv=none; b=FVZfCCEVQopWZ2ep5Qj1zaIHwUoS3ngVhyocHFRe94zPrG8q2bhXzyWKDEg0XFmDUJLyoJPktz0ETFeEgN+JeFCpgW6C+Cz463L1lP/uauVC4U066NCrS6O40spoLnTCkO/vqPS26Ru2fDYauRRRwYw05MPDsj/EpcIo7zmJT3U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788973943; c=relaxed/simple;
-	bh=JGVzLJ1XZNN56fG5XtMrF5nUv1HMoUf2IXmD2NjsYt8=;
+	s=arc-20240116; t=1788973994; c=relaxed/simple;
+	bh=S64L27A589o2OosVp4GFVwB1Um/5ijreRPMBZviTrlM=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=R+Lr9EGsrzDSSpqqNTaIc+Eir/x24wNbjyQs2a/Xz1UuomgSAqT+5iTxU7w5VTVQIquXndOY+wa87QY/vDJ0k7rIScYHZ4oJOSt5ilzE6FEe0OEXf8Imx9kUqz8PAdl7UXhngcSG1vEDU5gj7SzWbHpJnU/7qx8QqS9c9IZPo8s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cMMIaCcS; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=oMLXe+vwvbhcbvwga5syGUcGepNyrtY1n+h+R50LlH8LlGvtdbfqeVPKd3jzxgbCmeOWV2XX0okRC/R/nroQoTDZPlIRhKMpDosBy56k+UorJ725Z0W1yu8My0AWhuVfdS9KQZDbRimUYhi7AZLsNRtYB+iVn+JGXRfwYYmUYXw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GKOoGJXk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cMMIaCcS"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id B8B0D1F00898;
-	Wed,  9 Sep 2026 17:12:18 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GKOoGJXk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B9E4E1F000FF;
+	Wed,  9 Sep 2026 17:13:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788973939;
-	bh=JGVzLJ1XZNN56fG5XtMrF5nUv1HMoUf2IXmD2NjsYt8=;
+	s=k20260515; t=1788973992;
+	bh=Ufuh8rHe8RzDWREZVOB5iC/Zr56vWlipFdG7yg5JHjw=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=cMMIaCcSWStEtmZJVSd8nnQnmwk91XM+NyRIm3q2wfWm1O+ee2eY60Am2XqUqRjGJ
-	 mtMtvCtGYqGIsjX+q2q4zNr0aEoh+dPEqoXCysxjPbn+Hv9eWx/F9dUiganl64VpdS
-	 iQAx0XQNbXlXbQOPuePnmlrZfdG+01zIk8vxQ9x7QxL95/EohJGVZRVRDghoGsUEEG
-	 flG1BWArL56Df7Y0cKbq0yOAmzL6mggDexmBhUqoSTc8EmEAzo7te5/9xySilUwbXT
-	 G91Se9QdYGN6d276lRny1t0krMaq5fFl60NKXaBFyju2ftEKfsnV7KXKsaUAE7pX8S
-	 aI8U69zwtShCA==
-Date: Wed, 9 Sep 2026 19:12:16 +0200
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <ukleinek@kernel.org>
-To: Bartosz Golaszewski <brgl@kernel.org>
-Cc: Ernest Van Hoecke <ernestvanhoecke@gmail.com>, 
-	Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>, 
-	"Miquel Raynal (Schneider Electric)" <miquel.raynal@bootlin.com>, Frank Li <Frank.li@oss.nxp.com>, 
-	Kieran Bingham <kieran.bingham@ideasonboard.com>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
-	Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>, 
-	Linus Walleij <linusw@kernel.org>, Herve Codina <herve.codina@bootlin.com>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Geert Uytterhoeven <geert@linux-m68k.org>, 
-	Leonardo Costa <leonardo.costa@toradex.com>, devicetree@vger.kernel.org, linux-gpio@vger.kernel.org, 
-	linux-pwm@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Ernest Van Hoecke <ernest.vanhoecke@toradex.com>, stable@vger.kernel.org
-Subject: Re: [PATCH RFC 1/2] of: property: fw_devlink: Follow GPIO nexus maps
-Message-ID: <aqGS1_ndxJa3ifkS@monoceros>
-References: <20260902-fw-devlink-nexus-ready-v1-0-68fe1996e78a@toradex.com>
- <20260902-fw-devlink-nexus-ready-v1-1-68fe1996e78a@toradex.com>
- <CAMRc=MfN73=K1nZrqUbhrMSijjpzhF_z_U9JU4_H163W0vRpqA@mail.gmail.com>
+	b=GKOoGJXkIXdtEkoH8v22EkCC9f7VeSkTOqIvgxY5y+FryZ0ErUlrWtG3z4kwXWhBL
+	 sl6pQ7mxbKA+D/7GdWzuINNHi6XXFlNlmLAEfwQjuZ1YVGupC41GCQMQIiNyda762l
+	 YLNkpRPx8BbByXoSyENmsVVbLCb9q9ntzh5ty6l381mX/OcmUn8iQnyB+Xi3mmHMsV
+	 VHxGUuRtjczB5xoW+nphOxpzA84U58F+NruTp7SoliIfUTSLE486bTMyoEWU69a6Th
+	 pr71TsinuVKccKsy+oYwAoDMXrRxdotH0rZFyJFA10PuVVqecsRIC3NpzNXOFNR+dv
+	 bnVgXyavOmjnw==
+Date: Wed, 9 Sep 2026 19:13:02 +0200
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: chunfeng.yun@mediatek.com, vkoul@kernel.org, neil.armstrong@linaro.org, 
+	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, matthias.bgg@gmail.com, 
+	chunkuang.hu@kernel.org, p.zabel@pengutronix.de, justin.yeh@mediatek.com, 
+	linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
+	linux-phy@lists.infradead.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	dri-devel@lists.freedesktop.org, kernel@collabora.com
+Subject: Re: [PATCH v3 05/12] phy: phy-mtk-dp: Implement power_on and
+ power_off PHY callbacks
+Message-ID: <qi7ond5pdug5o56qi2i3btqbp6quljanei3v27kbbrbebcquxi@g7kfqgjc3s76>
+References: <20260707154245.198361-1-angelogioacchino.delregno@collabora.com>
+ <20260707154245.198361-6-angelogioacchino.delregno@collabora.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="eybq5ldbvfmww6sh"
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <CAMRc=MfN73=K1nZrqUbhrMSijjpzhF_z_U9JU4_H163W0vRpqA@mail.gmail.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260707154245.198361-6-angelogioacchino.delregno@collabora.com>
 
+On Tue, Jul 07, 2026 at 05:42:38PM +0200, AngeloGioacchino Del Regno wrote:
+> Add .power_on() and .power_off() callbacks to mtk_dp_phy_dev_ops
+> to be able to call those with phy_power_on() and phy_power_off()
+> API in the DisplayPort driver to be able to stop using all of
+> those hardcoded register writes in that external driver.
+> 
+> Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+> ---
+>  drivers/phy/mediatek/phy-mtk-dp.c | 88 +++++++++++++++++++++++++++++++
+>  1 file changed, 88 insertions(+)
+> 
+> diff --git a/drivers/phy/mediatek/phy-mtk-dp.c b/drivers/phy/mediatek/phy-mtk-dp.c
+> index 20974650d940..f6b0e83d4833 100644
+> --- a/drivers/phy/mediatek/phy-mtk-dp.c
+> +++ b/drivers/phy/mediatek/phy-mtk-dp.c
+> @@ -21,6 +21,9 @@
+>  
+>  #define MTK_DP_PHY_MAX_LANES		4
+>  
+> +/* DP_PHYA_GLB_FORCE_CTRL_1 */
+> +#define CKM_CKTX0_EN_FORCE_MODE		BIT(10)
+> +
+>  /* DP_PHYD_PLL_CTL_1 */
+>  #define TPLL_SSC_EN			BIT(3)
+>  
+> @@ -38,6 +41,11 @@
+>  #  define DP_GLB_SW_RST_XTAL_CLK	BIT(2)
+>  #  define DP_GLB_SW_RST_MAIN_LINK	BIT(3)
+>  
+> +/* DP_PHYD_AUX_RX_CTL */
+> +#define PHYD_DIG_DPAUX_RX_EN		BIT(0)
+> +#define PHYD_DIG_XTP_GLB_CKDET_EN	BIT(1)
+> +#define PHYD_DIG_DPAUX_RX_DEGLITCH_EN	BIT(2)
+> +
+>  #define DRIVING_PARAM_0_DEFAULT	0x0
+>  #define DRIVING_PARAM_1_DEFAULT	0x0
+>  #define DRIVING_PARAM_2_DEFAULT	0x0
+> @@ -88,6 +96,12 @@
+>  #define DRIVING_PARAM_8_DEFAULT	(XTP_LN_TX_LCTXCP1_SW2_PRE1_DEFAULT | \
+>  				 XTP_LN_TX_LCTXCP1_SW3_PRE0_DEFAULT)
+>  
+> +enum mtk_dp_phya_ana_glb_regidx {
+> +	DP_PHYA_GLB_FORCE_CTRL_0,
+> +	DP_PHYA_GLB_FORCE_CTRL_1,
+> +	DP_PHYA_GLOBAL_MAX
+> +};
+> +
+>  enum mtk_dp_phyd_dig_lane_regidx {
+>  	DP_PHYD_LAN_DRIVING_PARAM_0,
+>  	DP_PHYD_LAN_MAX
+> @@ -98,9 +112,15 @@ enum mtk_dp_phyd_dig_glb_regidx {
+>  	DP_PHYD_PLL_CTL_1,
+>  	DP_PHYD_SW_RST,
+>  	DP_PHYD_BIT_RATE,
+> +	DP_PHYD_AUX_RX_CTL,
+>  	DP_PHYD_GLOBAL_MAX
+>  };
+>  
+> +static const u8 mt8195_phy_ana_glb_regs[DP_PHYA_GLOBAL_MAX] = {
+> +	[DP_PHYA_GLB_FORCE_CTRL_0] = 0x30,
+> +	[DP_PHYA_GLB_FORCE_CTRL_1] = 0x34,
+> +};
+> +
+>  static const u8 mt8195_phy_dig_lane_regs[DP_PHYD_LAN_MAX] = {
+>  	[DP_PHYD_LAN_DRIVING_PARAM_0] = 0x2c,
+>  };
+> @@ -110,21 +130,26 @@ static const u8 mt8195_phy_dig_glb_regs[DP_PHYD_GLOBAL_MAX] = {
+>  	[DP_PHYD_PLL_CTL_1] = 0x14,
+>  	[DP_PHYD_SW_RST] = 0x38,
+>  	[DP_PHYD_BIT_RATE] = 0x3c,
+> +	[DP_PHYD_AUX_RX_CTL] = 0x40,
+>  };
+>  
+>  /**
+>   * struct mtk_dp_phy_pdata - Platform data and defaults for MediaTek DP/eDP PHY
+> + * @off_ana_glb:    Base offset for dptx_phyd_sifslv_ana_glb
+>   * @off_dig_glb:    Base offset for dptx_phyd_sifslv_dig_glb
+>   * @off_dig_lane:   Base offsets for dptx_phyd_sifslv_dig_lan (for each lane)
+> + * @regs_ana_glb:   Register (layout) offsets for ana_glb
+>   * @regs_dig_glb:   Register (layout) offsets for dig_glb
+>   * @regs_dig_lane:  Register (layout) offsets for dig_lan
+>   */
+>  struct mtk_dp_phy_pdata {
+>  	/* Register offsets */
+> +	u16 off_ana_glb;
+>  	u16 off_dig_glb;
+>  	u16 off_dig_lane[MTK_DP_PHY_MAX_LANES];
+>  
+>  	/* Register maps */
+> +	const u8 *regs_ana_glb;
+>  	const u8 *regs_dig_glb;
+>  	const u8 *regs_dig_lane;
+>  };
+> @@ -208,6 +233,65 @@ static int mtk_dp_phy_configure(struct phy *phy, union phy_configure_opts *opts)
+>  	return 0;
+>  }
+>  
+> +static int mtk_dp_phy_power_on(struct phy *phy)
+> +{
+> +	struct mtk_dp_phy *dp_phy = phy_get_drvdata(phy);
+> +	const struct mtk_dp_phy_pdata *pdata = dp_phy->pdata;
+> +	const u8 *regs_dig = pdata->regs_dig_glb;
+> +	const u8 *regs_ana = pdata->regs_ana_glb;
+> +	int ret;
+> +
+> +	/* Enable AUX Channel with RX De-Glitch and input clock detection */
+> +	ret = regmap_write(dp_phy->regmap,
+> +			   pdata->off_dig_glb + regs_dig[DP_PHYD_AUX_RX_CTL],
+> +			   PHYD_DIG_DPAUX_RX_EN |
+> +			   PHYD_DIG_XTP_GLB_CKDET_EN |
+> +			   PHYD_DIG_DPAUX_RX_DEGLITCH_EN);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = regmap_clear_bits(dp_phy->regmap,
+> +				pdata->off_ana_glb + regs_ana[DP_PHYA_GLB_FORCE_CTRL_1],
+> +				CKM_CKTX0_EN_FORCE_MODE);
+> +	if (ret) {
+> +		/* Shut down AUX channel */
+> +		regmap_write(dp_phy->regmap,
+> +			     pdata->off_dig_glb + regs_dig[DP_PHYD_AUX_RX_CTL], 0);
+> +		return ret;
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +static int mtk_dp_phy_power_off(struct phy *phy)
+> +{
+> +	struct mtk_dp_phy *dp_phy = phy_get_drvdata(phy);
+> +	const struct mtk_dp_phy_pdata *pdata = dp_phy->pdata;
+> +	const u8 *regs_dig = pdata->regs_dig_glb;
+> +	const u8 *regs_ana = pdata->regs_ana_glb;
+> +	int ret_cktx, ret_aux;
+> +
+> +	ret_cktx = regmap_set_bits(dp_phy->regmap,
+> +				   pdata->off_ana_glb + regs_ana[DP_PHYA_GLB_FORCE_CTRL_1],
+> +				   CKM_CKTX0_EN_FORCE_MODE);
+> +
+> +	/* Disable RX unconditionally */
+> +	ret_aux = regmap_write(dp_phy->regmap,
+> +			       pdata->off_dig_glb + regs_dig[DP_PHYD_AUX_RX_CTL], 0);
+> +	if (ret_aux) {
+> +		dev_err(&phy->dev, "Could not disable AUX RX: %d\n", ret_aux);
 
---eybq5ldbvfmww6sh
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Subject: Re: [PATCH RFC 1/2] of: property: fw_devlink: Follow GPIO nexus maps
-MIME-Version: 1.0
+Since the regmap is MMIO based, I don't think you'll hit these failures.
 
-On Wed, Sep 02, 2026 at 05:30:19AM -0700, Bartosz Golaszewski wrote:
-> Since this is a fix that we may want to backport, the unit tests should go in
-> a separate, follow-up commit.
+- Mani
 
-So while splitting the tests to a separate commit is a good concept, I
-think the stable guys would be positive to take both, the fix and the
-unit-test for their backporting.
-
-Best regards
-Uwe
-
---eybq5ldbvfmww6sh
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmqhk20ACgkQj4D7WH0S
-/k6V5Qf7BUZkOTIPufVrU/X+2bwv6luB5duM0jFEQrKRCOt0WzCV5xnCwuHqimke
-/K3ALrWyRTmcJVDG5FmQKHmGeOo0W1fb2Q/1ldTKdr94WsRJuxI3+PKX5D3Y57bK
-h0AD6lJZgGCTWTqQFnyeg35HXxSL7O8YbCz7Q5A6KIeCHt/AhlxFjxAgqutcy8d8
-o52B1F2Hrj/cXM2SRXqDevx/t/JxialX6GsVubIjfuN5C/VHB5AMS5bH7zVLGlFc
-97QPuRP98UkrMLJ25+Lva5E80a6osc18RIVPgA0DXveYAyB+TIqm/9GtQAAZI/+s
-NiZmf2cyJXWfBaPVfFhNPYrqiRb8zg==
-=XMfs
------END PGP SIGNATURE-----
-
---eybq5ldbvfmww6sh--
+-- 
+மணிவண்ணன் சதாசிவம்
