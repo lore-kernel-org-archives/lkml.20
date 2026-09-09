@@ -1,133 +1,378 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx2-f12.google.com (mail-yx2-f12.google.com [74.125.224.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7676B486B8E;
-	Wed,  9 Sep 2026 10:33:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED4CE4F55BE
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 10:33:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788949985; cv=none; b=biA4pznxZzIMrBJPRqFEiS10yk+8CPEaHtYi0izr+nN/xL3QIQLG/3rvS/afOnM0IL8AZSUtcGQGz8De+cNaAwavev8n2wE80oK8iWcBZ/+jKb3j1XQ0SeshlX8nOYZMyzFcXJHOY2zaqewCd8aTOYQG/11v86fPgCaERK/YS3g=
+	t=1788949999; cv=none; b=mD/9oppUzNQA1o35elp26Q/4AbPrmgdjKaFQ18NvLNC2p2wjNuiTywt8/ujo+nai6J+v79ZH159+cjUoyc8iLYbU/jwajjiJkxsM7WurMDdavIFAlCBs+FoW9x3PYPXB72jhajZrtM7batBSOTijmqvrqnGkL/1ENWDa4IAShj8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788949985; c=relaxed/simple;
-	bh=Zt1+z4NwZcoeE6r1XYdtawEEVW5QXnCZ4eTu9ViOSVU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=GjIu92qvFy3u0l16FC1qZBKRV+2nEGR45geUMzvG16CTECzv9DaNa5COyAmoKMpGTjeOHrdYR3Ik9VXdpG5u1WC5FceRYAJORCrtpfmMO1noHJ1SrjGWbfQKvY2b9aQz3NFsThya56VqVKOipsusexF32R9KxYtbEMCnLnfRvIU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=emmPr2Xj; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788949999; c=relaxed/simple;
+	bh=ZvWWFyEwjUxkBs81Ot3sUxd33dtMx+r31MyIHQ1994E=;
+	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=VbsYQh0314wDLdJLjlnA7ip4MFt4whT5oVvWfT/yKNPRDVN6eN767nUYJ/9BGisSX17eSQlhPVO0dqoRG9N4IBg2i1kXwtXnokupgYWiV0FvLiXabZ7nRV3DyvF6iDv4LjcsShYylpLU0m7rQeoS81IHjX+pon1dwHE7+M4xcD8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=QCnG7i4m; arc=none smtp.client-ip=74.125.224.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="emmPr2Xj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 610C51F00AC4;
-	Wed,  9 Sep 2026 10:32:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788949984;
-	bh=Zt1+z4NwZcoeE6r1XYdtawEEVW5QXnCZ4eTu9ViOSVU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=emmPr2XjnDU+OoWAn16ohhGVokPcM41LhZonjExaPx8f/gsDStcfahLupaN729EIk
-	 EfV0lykLpxUv0Wc1K9CYPvHP+5zXFvXkDvTcGVaqHE8cq5ARxogieAx3faNMnak4kk
-	 6U78eREi2A5zG9ZK8DL05UOmHlXAXj/8JIkr2Yq6OwVuVUQzpQWxp8lIQIpkQQ5kuB
-	 N0HK/SOWlw/hlia4albjymCQF0NBz+XP13mSCgOILT5v0Go/iv67YaA9w5esd9QYeN
-	 truH491o0jlANoquXfqdQWWysVGZodYe3sNjOvxRp9xT5rKr9PMfc9dudtl/P6QpSP
-	 kfnq/hrfs0LEg==
-Date: Wed, 9 Sep 2026 11:32:53 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Marek Vasut <marek.vasut@mailbox.org>
-Cc: linux-usb@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org
-Subject: Re: [PATCH v7 1/2] dt-bindings: usb: dwc3: Document Renesas R-Car
- Gen5 DWC3 xHCI USB controller
-Message-ID: <aqE11WTb6EMhn6Tb@squawk>
-References: <20260903213031.314473-1-marek.vasut+renesas@mailbox.org>
- <20260904-colonial-wimp-b37c27657664@spud>
- <7771adfd-7447-4802-ad75-7c889ad32ee7@mailbox.org>
- <20260907-tassel-bargraph-836b6f41fc43@spud>
- <04bb7d78-4b0e-49ba-910a-6fa2b0a8c1a7@mailbox.org>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="QCnG7i4m"
+Received: by mail-yx2-f12.google.com with SMTP id 00721157ae682-85d46e4cdcdso9727187b3.2
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 03:33:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1788949997; x=1789554797; darn=vger.kernel.org;
+        h=content-type:mime-version:references:message-id:in-reply-to:subject
+         :cc:to:from:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=9XKIfsbwB2WTm2tTUcIYzMdzj76RrLfvaApBm113T1U=;
+        b=QCnG7i4mq53r5LnAlbiV6CtpVnw/JuxmF3bJrKNXDm7Lbe29gAQb7nZ3YIRFWeqO6g
+         NiXqMOGxiNfs6guNJefOLDwsd2a7SyZUsPRubvEklCBIwjNusqzcqexsPW1jxIb3c6zi
+         x0SGys1LkOIxjnhcBZEzuKPdUqYwwsg16RcQFIhPKbO/cnful0vwmh3FGZyDxbkB07kR
+         3dfVYxodOJuq7uHuEg5tGeAo6DKRrv0KAJi2VMxYBkry9QpZAd5F86ywkgRqng7bYHHT
+         JDDjQch1YO8lI0cRvQffL9gbPgnCH1/LJ7zeqUhyl4Lhf2FjVONxpR9z4s0LE/H92nS/
+         WDVA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788949997; x=1789554797;
+        h=content-type:mime-version:references:message-id:in-reply-to:subject
+         :cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=9XKIfsbwB2WTm2tTUcIYzMdzj76RrLfvaApBm113T1U=;
+        b=jmdisye70jPh2CEk759dPuYqR8vXKX9pDFAlpcONE5sqOP5SqZHsLPOouEQwma+cy8
+         eghdam96wU6muJtm7LhhAgDHZqMkdFMxAQkXnZ7pNh3pz7wBY9ZSzzKdVAFbhjXm4wNH
+         IhXFKnqngyHcxQ3RGOUeOYgjlgzHp7pr7NF6pg9mED+Jte36ysDM9YjJgoQxQjPRQRb+
+         sVkmfR9aSp4g4W7L8U3ewT2SgCEW37PEmmWPzrNUX6cQvDmqzmpYNNBzcD/MEeyumF7r
+         blx4BcpKxP647252gJ6u2hrAbWMmwGtVpDS80X52m7xjnsUcwKMaBlccZQbkxpo/Bksk
+         HnPQ==
+X-Forwarded-Encrypted: i=1; AKwUvByfb0NbvSmjJh4vWdeSY82FKoh5IaLmVyCkiNfOLhLwaN6m7eLKHDufe+HwM2Yi0dtX0ApCUAASl5clNNc=@vger.kernel.org
+X-Gm-Message-State: AFuF++kSzVrHqF+WXx+fU+FSrv43xzhIVYqKp/sQGJkxFdx1DLQm7eYn
+	gEGanT5wRuEXjn5/SbDVClrq5QNQrTqgyEI8exCtyNdWw0N7kLu8sH/UA4cekHN1FA==
+X-Gm-Gg: AYBFou2/Pyj7T0fnXvWbFdFimWiesxJemQeSOYLFXhkVaxAiU6+8ee5C/QYx63yv7WA
+	gVtVo3g4XadVTpIVl/4eJdEmochEBph4i3WDk5agG1mNVRjuQwM6paYTS9QXw9TS9sJn2Bml/TE
+	klvnJBBYmXvVT5y23nS0q1pcEMoBejTTjHpCl55Czdfo+9Euiqwn02uWGofqV9ql3Gj5y+Y1+l+
+	tKc5G4tvA7Ufn+bpjReXWoE9FPB9MKnAGU9oAUftqrLu5etPZGnoENpgEAK91lNz/jPu8Jo6lIa
+	4v/8LLoEgnIVs2y32LELmK5dyJenhRET+COnKU1Wd2WPWvXDbJPlNmV9Dsw6bp18a4Do0yW8kH/
+	4LAH4OqMNYcDGAEE7ng4PUVwSzcSUDpgUO2jQe5pu805a7x+U3hV3W+0z5ASKLTwLasOAh9E1HJ
+	Zq/4Ozyo7k/lsFnwDI/s0YbridaZ7y42otUyE6yAVxuWoLRwc5dem5zTOa3H3aBBSDuzArv4IPF
+	YRs37W0HQVz9sbBDDTIzh0Pi3czjnOhjEwZ0M2/d6ArjlmPJ1YL4pM=
+X-Received: by 2002:a05:690c:9:b0:836:ec9b:b468 with SMTP id 00721157ae682-87f2a0de993mr24243117b3.34.1788949996112;
+        Wed, 09 Sep 2026 03:33:16 -0700 (PDT)
+Received: from [192.168.1.242] (172-10-233-147.lightspeed.sntcca.sbcglobal.net. [172.10.233.147])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8714b720d82sm107878567b3.41.2026.09.09.03.33.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 09 Sep 2026 03:33:15 -0700 (PDT)
+Date: Wed, 9 Sep 2026 03:33:10 -0700 (PDT)
+From: Hugh Dickins <hughd@google.com>
+To: Andrew Morton <akpm@linux-foundation.org>
+cc: Ackerley Tng <ackerleytng@google.com>, 
+    Alexander Viro <viro@zeniv.linux.org.uk>, Alexandre Ghiti <alex@ghiti.fr>, 
+    Baolin Wang <baolin.wang@linux.alibaba.com>, 
+    Barry Song <baohua@kernel.org>, Binbin Wu <binbin.wu@linux.intel.com>, 
+    Christian Brauner <brauner@kernel.org>, Christoph Hellwig <hch@lst.de>, 
+    Christoph Lameter <cl@gentwo.org>, 
+    Claudio Imbrenda <imbrenda@linux.ibm.com>, 
+    David Hildenbrand <david@kernel.org>, JP Kobryn <jp.kobryn@linux.dev>, 
+    Jan Kara <jack@suse.cz>, Jens Axboe <axboe@kernel.dk>, 
+    Johannes Weiner <hannes@cmpxchg.org>, Kairui Song <ryncsn@gmail.com>, 
+    Kiryl Shutsemau <kas@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
+    Leonardo Bras <leobras.c@gmail.com>, Lorenzo Stoakes <ljs@kernel.org>, 
+    Marcelo Tosatti <mtosatti@redhat.com>, 
+    Matthew Wilcox <willy@infradead.org>, 
+    Mel Gorman <mgorman@techsingularity.net>, 
+    Miaohe Lin <linmiaohe@huawei.com>, Michal Hocko <mhocko@suse.com>, 
+    Minchan Kim <minchan@kernel.org>, Muchun Song <muchun.song@linux.dev>, 
+    Oscar Salvador <osalvador@suse.de>, Peter Zijlstra <peterz@infradead.org>, 
+    Qi Zheng <qi.zheng@linux.dev>, Rik van Riel <riel@surriel.com>, 
+    Sebastian Andrzej Siewior <bigeasy@linutronix.de>, 
+    Shakeel Butt <shakeel.butt@linux.dev>, 
+    Suren Baghdasaryan <surenb@google.com>, 
+    Vlastimil Babka <vbabka@kernel.org>, 
+    Yang Shi <yang@os.amperecomputing.com>, Yu Zhao <yuzhao@google.com>, 
+    Zach O'Keefe <zokeefe@google.com>, Zi Yan <ziy@nvidia.com>, 
+    linux-block@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
+    linux-kernel@vger.kernel.org, linux-mm@kvack.org
+Subject: [PATCH v2 24/26] fs,mm/fbatch: lru_cache_disable() keep off buffer_head
+ lrus only
+In-Reply-To: <e28f9a94-4339-f8ac-8301-6be3c9b5b7ce@google.com>
+Message-ID: <4a8ab88a-689f-d4d1-adf9-2498a1b3246d@google.com>
+References: <e28f9a94-4339-f8ac-8301-6be3c9b5b7ce@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="qBVmVRqLRzK+3DcX"
-Content-Disposition: inline
-In-Reply-To: <04bb7d78-4b0e-49ba-910a-6fa2b0a8c1a7@mailbox.org>
+Content-Type: text/plain; charset=US-ASCII
 
---qBVmVRqLRzK+3DcX
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Now that the per-cpu fbatch folio references are gone, there seems to
+be no excuse for lru_cache_disable() there - other than offline_pages()
+needing to lru_add_drain_all() to erase stale pointers from the fbatches.
 
-On Tue, Sep 08, 2026 at 10:58:48PM +0200, Marek Vasut wrote:
-> On 9/7/26 7:43 PM, Conor Dooley wrote:
->=20
-> Hello Conor,
->=20
-> > > > > +unevaluatedProperties: false
-> > > >=20
-> > > > I said this elsewhere today, but this binding has lots of "distaste=
-ful"
-> > > > properties for things that should be determined from the compatible
-> > >=20
-> > > Which properties would those be ? (it seems
-> > > reg/clocks/interrupts/phys/power-domains/resets really need to be the=
-re as
-> > > separate properties, but maybe I am missing the point?)
-> >=20
-> > All the quirk properties is what I am talking about here. There's about
-> > 50 of them and I don't know if a single one should actually exist.
->=20
-> I cannot tell whether every one of them will ever be used or useful, but I
-> also do not have a good argument to block most of them as they are tunabl=
-es
-> which apply to the DWC3 core itself.
->=20
-> I could make only the ones which are currently used available, but that
-> would be confusing the implementers by suggesting that the other quirks a=
-re
-> not applicable even if they might be ; and this would likely turn into an
-> endless stream of schema updates, with random users enabling random quirks
-> they just used. I don't think that would be helpful.
+Remove lru_cache_disabled() checks from all except bh_lru_install():
+assuming that lru_cache_disable() might have value in preventing repeated
+calls to invalidate_bh_lrus() when migrating folios in memory hotremoval.
 
-My understanding was that these things were effectively errata, so users
-should not be enabling them willy nilly - the vast majority of these are
-set in soc.dtsi files, and the couple dts users I checked were all SoCs
-for which there was only one board. IMO it's far more confusing to suggest
-that a user has to figure out which of these may apply on their platform.
-But of course, do what you want, they're your users.
+So move all that from mm/folio.c to fs/buffer.c: but I can't see how any
+of the paranoid synchronize_rcu_expedited() business is needed now (or
+even before) - leave it out. And back at the mm end, lru_add_drain_all()
+does not need that force_all_cpus either - it stopped forcing all cpus
+in 5.18 commit ff042f4a9b05 ("mm: lru_cache_disable: replace work queue
+synchronization with synchronize_rcu").
 
->=20
-> > > > , so I
-> > > > would appreciate it if you could use additionalProperties: false he=
-re
-> > > > cite the ones you need to use explicitly.
-> > >=20
-> > > May I ask, what exactly is the rule of thumb for additionalProperties=
-:false
-> > > and unevaluatedProperties:false ? I seem to struggle with picking the=
- right
-> > > one for a while now.
-> >=20
-> > I would say, if all properties being imported apply to you device, use
-> > unevaluated. If only some do, and there are some that will be
-> > problematic or confusing if used, then additionalProperties: false and
-> > citing the good ones explicit is clearer for users and prevents the bad
-> > combos.
->=20
-> Thank you for this clarification, I will make a note of it.
+Signed-off-by: Hugh Dickins <hughd@google.com>
+---
+ fs/buffer.c                 | 24 +++++++++++++++---
+ include/linux/buffer_head.h |  4 +++
+ include/linux/swap.h        |  7 ------
+ mm/folio.c                  | 49 ++++---------------------------------
+ mm/internal.h               |  6 -----
+ mm/memory_hotplug.c         |  4 +++
+ mm/mlock.c                  |  4 +--
+ 7 files changed, 36 insertions(+), 62 deletions(-)
 
---qBVmVRqLRzK+3DcX
-Content-Type: application/pgp-signature; name=signature.asc
+diff --git a/fs/buffer.c b/fs/buffer.c
+index 7d114e5b9c62..7455a11dfc4a 100644
+--- a/fs/buffer.c
++++ b/fs/buffer.c
+@@ -1200,6 +1200,24 @@ static inline void check_irqs_on(void)
+ #endif
+ }
+ 
++static atomic_t lru_disable_count = ATOMIC_INIT(0);
++
++void lru_cache_disable(void)
++{
++	if (atomic_inc_return(&lru_disable_count) == 1)
++		invalidate_bh_lrus();
++}
++
++static inline bool lru_cache_disabled(void)
++{
++	return atomic_read(&lru_disable_count);
++}
++
++void lru_cache_enable(void)
++{
++	atomic_dec(&lru_disable_count);
++}
++
+ /*
+  * Install a buffer_head into this cpu's LRU.  If not already in the LRU, it is
+  * inserted at the front, and the buffer_head at the back if any is evicted.
+@@ -1215,9 +1233,9 @@ static void bh_lru_install(struct buffer_head *bh)
+ 	bh_lru_lock();
+ 
+ 	/*
+-	 * the refcount of buffer_head in bh_lru prevents dropping the
+-	 * attached page(i.e., try_to_free_buffers) so it could cause
+-	 * failing page migration.
++	 * The refcount of buffer_head in bh_lru prevents dropping the
++	 * attached page (i.e., try_to_free_buffers), so it could cause
++	 * repeated calls to invalidate_bh_lrus() during page migration.
+ 	 * Skip putting upcoming bh into bh_lru until migration is done.
+ 	 */
+ 	if (lru_cache_disabled() || cpu_is_isolated(smp_processor_id())) {
+diff --git a/include/linux/buffer_head.h b/include/linux/buffer_head.h
+index f19f9e80be8f..3b6a41b7932f 100644
+--- a/include/linux/buffer_head.h
++++ b/include/linux/buffer_head.h
+@@ -517,6 +517,8 @@ void mmb_init(struct mapping_metadata_bhs *mmb, struct address_space *mapping);
+ bool mmb_has_buffers(struct mapping_metadata_bhs *mmb);
+ void mmb_invalidate(struct mapping_metadata_bhs *mmb);
+ int mmb_sync(struct mapping_metadata_bhs *mmb);
++void lru_cache_disable(void);
++void lru_cache_enable(void);
+ void invalidate_bh_lrus(void);
+ extern int buffer_heads_over_limit;
+ 
+@@ -525,6 +527,8 @@ extern int buffer_heads_over_limit;
+ static inline void buffer_init(void) {}
+ static inline bool try_to_free_buffers(struct folio *folio) { return true; }
+ static inline int mmb_sync(struct mapping_metadata_bhs *mmb) { return 0; }
++static inline void lru_cache_disable(void) {}
++static inline void lru_cache_enable(void) {}
+ static inline void invalidate_bh_lrus(void) {}
+ #define buffer_heads_over_limit 0
+ 
+diff --git a/include/linux/swap.h b/include/linux/swap.h
+index 0052a6890435..423d9b669149 100644
+--- a/include/linux/swap.h
++++ b/include/linux/swap.h
+@@ -314,13 +314,6 @@ static inline void lru_cache_drain_for_folio(const struct folio *folio,
+ /* linux/mm/folio-compat.c */
+ void mark_page_accessed(struct page *page);
+ 
+-extern atomic_t lru_disable_count;
+-
+-static inline bool lru_cache_disabled(void)
+-{
+-	return atomic_read(&lru_disable_count);
+-}
+-
+ extern unsigned long shrink_all_memory(unsigned long nr_pages);
+ long remove_mapping(struct address_space *mapping, struct folio *folio);
+ 
+diff --git a/mm/folio.c b/mm/folio.c
+index dbad66e805e2..55ca799a9dcd 100644
+--- a/mm/folio.c
++++ b/mm/folio.c
+@@ -173,7 +173,7 @@ static void __folio_batch_add_and_move(struct folio_batch __percpu *fbatch,
+ 		local_lock(&cpu_fbatches.lock);
+ 
+ 	if (!folio_batch_add(this_cpu_ptr(fbatch), folio) ||
+-			!folio_may_be_lru_cached(folio) || lru_cache_disabled())
++			!folio_may_be_lru_cached(folio))
+ 		folio_batch_move_lru(this_cpu_ptr(fbatch), move_fn);
+ 
+ 	if (disable_irq)
+@@ -434,7 +434,7 @@ void __folio_add_lru(struct folio *folio, bool mlockit)
+ 	smp_mb__before_atomic();
+ 	folio_set_lru(folio);
+ 
+-	if (full || !folio_may_be_lru_cached(folio) || lru_cache_disabled())
++	if (full || !folio_may_be_lru_cached(folio))
+ 		folio_batch_move_lru(fbatch, lru_add);
+ 
+ 	local_unlock(&cpu_fbatches.lock);
+@@ -719,7 +719,7 @@ static bool cpu_needs_drain(unsigned int cpu)
+  * Calling this function with cpu hotplug locks held can actually lead
+  * to obscure indirect dependencies via WQ context.
+  */
+-static inline void __lru_add_drain_all(bool force_all_cpus)
++void lru_add_drain_all(void)
+ {
+ 	/*
+ 	 * lru_drain_gen - Global pages generation number
+@@ -743,7 +743,7 @@ static inline void __lru_add_drain_all(bool force_all_cpus)
+ 	if (WARN_ON(!mm_percpu_wq))
+ 		return;
+ 
+-	trace_mm_lru_add_drain_all_tp(force_all_cpus);
++	trace_mm_lru_add_drain_all_tp(false);
+ 
+ 	/*
+ 	 * Guarantee folio_batch counter stores visible by this CPU
+@@ -770,7 +770,7 @@ static inline void __lru_add_drain_all(bool force_all_cpus)
+ 	 * (C) Exit the draining operation if a newer generation, from another
+ 	 * lru_add_drain_all(), was already scheduled for draining. Check (A).
+ 	 */
+-	if (unlikely(this_gen != lru_drain_gen && !force_all_cpus))
++	if (unlikely(this_gen != lru_drain_gen))
+ 		goto done;
+ 
+ 	/*
+@@ -816,11 +816,6 @@ static inline void __lru_add_drain_all(bool force_all_cpus)
+ done:
+ 	mutex_unlock(&lock);
+ }
+-
+-void lru_add_drain_all(void)
+-{
+-	__lru_add_drain_all(false);
+-}
+ #else
+ void lru_add_drain_all(void)
+ {
+@@ -829,40 +824,6 @@ void lru_add_drain_all(void)
+ }
+ #endif /* CONFIG_SMP */
+ 
+-atomic_t lru_disable_count = ATOMIC_INIT(0);
+-
+-/*
+- * lru_cache_disable() needs to be called before we start compiling
+- * a list of folios to be migrated using folio_isolate_lru().
+- * It drains folios on LRU cache and then disable on all cpus until
+- * lru_cache_enable is called.
+- *
+- * Must be paired with a call to lru_cache_enable().
+- */
+-void lru_cache_disable(void)
+-{
+-	atomic_inc(&lru_disable_count);
+-	/*
+-	 * Readers of lru_disable_count are protected by either disabling
+-	 * preemption or rcu_read_lock:
+-	 *
+-	 * preempt_disable, local_irq_disable  [bh_lru_lock()]
+-	 * rcu_read_lock		       [rt_spin_lock CONFIG_PREEMPT_RT]
+-	 * preempt_disable		       [local_lock !CONFIG_PREEMPT_RT]
+-	 *
+-	 * Since v5.1 kernel, synchronize_rcu() is guaranteed to wait on
+-	 * preempt_disable() regions of code. So any CPU which sees
+-	 * lru_disable_count = 0 will have exited the critical
+-	 * section when synchronize_rcu() returns.
+-	 */
+-	synchronize_rcu_expedited();
+-#ifdef CONFIG_SMP
+-	__lru_add_drain_all(true);
+-#else
+-	lru_add_drain_all();
+-#endif
+-}
+-
+ /**
+  * folios_put_refs - Reduce the reference count on a batch of folios.
+  * @folios: The folios.
+diff --git a/mm/internal.h b/mm/internal.h
+index 6700fff13675..d9930b752153 100644
+--- a/mm/internal.h
++++ b/mm/internal.h
+@@ -53,12 +53,6 @@ static inline bool folio_may_be_lru_cached(const struct folio *folio)
+ 	return !folio_test_large(folio);
+ }
+ 
+-static inline void lru_cache_enable(void)
+-{
+-	atomic_dec(&lru_disable_count);
+-}
+-
+-void lru_cache_disable(void);
+ void lru_add_drain(void);
+ void lru_add_drain_cpu(int cpu);
+ void lru_add_drain_cpu_zone(struct zone *zone);
+diff --git a/mm/memory_hotplug.c b/mm/memory_hotplug.c
+index 226ab9cb078a..19756c45b5e7 100644
+--- a/mm/memory_hotplug.c
++++ b/mm/memory_hotplug.c
+@@ -24,6 +24,7 @@
+ #include <linux/ioport.h>
+ #include <linux/delay.h>
+ #include <linux/migrate.h>
++#include <linux/buffer_head.h>
+ #include <linux/page-isolation.h>
+ #include <linux/pfn.h>
+ #include <linux/suspend.h>
+@@ -2095,6 +2096,9 @@ int offline_pages(unsigned long start_pfn, unsigned long nr_pages,
+ 
+ 	} while (ret);
+ 
++	/* Remove any instances of the freed pages from per-cpu fbatches. */
++	lru_add_drain_all();
++
+ 	/* Mark all sections offline and remove free pages from the buddy. */
+ 	managed_pages = __offline_isolated_pages(start_pfn, end_pfn);
+ 	pr_debug("Offlined Pages %ld\n", nr_pages);
+diff --git a/mm/mlock.c b/mm/mlock.c
+index 971430e6251e..a3cfdb274fc7 100644
+--- a/mm/mlock.c
++++ b/mm/mlock.c
+@@ -247,7 +247,7 @@ void mlock_folio(struct folio *folio)
+ 	local_lock(&mlock_fbatch.lock);
+ 	fbatch = this_cpu_ptr(&mlock_fbatch.fbatch);
+ 	if (!folio_batch_add(fbatch, mlock_flagged(folio)) ||
+-	    !folio_may_be_lru_cached(folio) || lru_cache_disabled())
++	    !folio_may_be_lru_cached(folio))
+ 		mlock_folio_batch(fbatch);
+ 	local_unlock(&mlock_fbatch.lock);
+ }
+@@ -278,7 +278,7 @@ void munlock_folio(struct folio *folio)
+ 	local_lock(&mlock_fbatch.lock);
+ 	fbatch = this_cpu_ptr(&mlock_fbatch.fbatch);
+ 	if (!folio_batch_add(fbatch, folio) ||
+-	    !folio_may_be_lru_cached(folio) || lru_cache_disabled())
++	    !folio_may_be_lru_cached(folio))
+ 		mlock_folio_batch(fbatch);
+ 	local_unlock(&mlock_fbatch.lock);
+ }
+-- 
+2.51.0
 
------BEGIN PGP SIGNATURE-----
-
-iHUEARYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaqE11QAKCRB4tDGHoIJi
-0lUgAP9Pi97ecXQKWV9Ei1bIkP+caXYOH+MgetFqrSucBCaSwAD/UK7YKjo4wXMo
-xQF0DaswAN7lo6C2jPDNjP4j7/1MnQU=
-=HYWb
------END PGP SIGNATURE-----
-
---qBVmVRqLRzK+3DcX--
