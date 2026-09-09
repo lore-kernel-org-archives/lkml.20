@@ -1,190 +1,138 @@
-Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com [209.85.214.181])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B47131F16B;
-	Wed,  9 Sep 2026 01:34:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.151
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 050B1238C1A
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 01:34:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788917653; cv=none; b=gGyJhlNU1mGk8+xtgZa74T0TAZMv/GlRrJWOM/Avp/jUFLjdBz2Kwp6eYOlj8ZChRsHApPH3PEeHqX8h3IuiRQ+UMHfhsayrdEptd95aeqJCyAnyEYeWehNR6/RBydkUxJZlygcyVnBf8QVj37gzVw7Erv7wTiinmeJCVLkbc3k=
+	t=1788917667; cv=none; b=Dz97/2XNGX8zx5JpGM2xAZIM9pdCVqrgDi0DxFOutXILa4zFVWyi9PRHwGmDoxcHmk6ZSB10Nhv9bkiq3WzPEx7+t6EX8KJ6UYINbhsBlQOvdzECBmmTY3MI3jbviv8oQ+OadU6MPC7aRoRH4VkZZy6RCB0UfoBSIo/rErFUtTc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788917653; c=relaxed/simple;
-	bh=CDyJE+i4OPH6iK3meqPlGPohZHESDSzKomzHmRhnOrk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ohQlnf1zVJxaubKoIvNLYTbaGYPKYL6Btbon7c4Vp/FrwkSoIG9ZJI7hwFpwStndag9lz/ynOlbSwGTrivMwTQb84MfUNl1mFNsmgizEdgTLFzIajoA3lXKo/HBGVUwPhWLDU+3ypFwP+A4nkf6YCO1qU04jrBBXvclfzn6DSCo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=kVkLwsrt; arc=none smtp.client-ip=80.241.56.151
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	s=arc-20240116; t=1788917667; c=relaxed/simple;
+	bh=EBcVrnHHrPyxRqOOfHraM7Cj3/vhEau6in5geWEuBBY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Nhdv4POwAuKF/Epu1CYbqx49bO89Yb7tDY+VxY3W4oG7a47RqrSRzRCFbyHJk24sWYH9SPqarQr3v6VCvAxGNurgZjync6+MC2ZP+w8NktHt2QwpWVwgVTokeIwUYm2FN+EKbNLjQa7IsGo2a2/ggZZ7+nppLUbuD14cApo0yfk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YHdZjFbX; arc=none smtp.client-ip=209.85.214.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="kVkLwsrt"
-Received: from smtp202.mailbox.org (smtp202.mailbox.org [10.196.197.202])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4hfjyR4Fktz8sYY;
-	Wed, 09 Sep 2026 03:34:07 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1788917647;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=oen7SxWNOkmw/Mne5KXubQLU0+t6pswvJ0mbFH3FjXI=;
-	b=kVkLwsrtVcuv40zNmEdd5H5zsiLOD3NN6ZAloLFXardIVlO2zHu2Kuhr0YhzzXLRWfkzCu
-	QH5r2zzXogHhrXtu3hITjGjiN8J+q2OQhxnD/CuOHy4mXm9ZgqtV92duyr64YEqAt6OjdZ
-	Wx2bLNQryJXIDPKFY/4koYFqopsxvlX7q4YlTDhTKaTpfmhoTxlq5OQgUOGvkUVmfB6niy
-	63obYlD99tGMPHN9lFL2hf4DLOpvRlXVXnyU8dcoqq+uNIA4+n36laysgcFmB3Crk9Fl5O
-	0ywm5Ej9Bja10gL3StuRnQzQvH6OOEKqBvAbAsAnXy1FSQ6PfTbJ6k0rLhG7OQ==
-Message-ID: <b837e41d-ba6f-40bf-89db-b62ccd2be467@mailbox.org>
-Date: Wed, 9 Sep 2026 03:34:05 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YHdZjFbX"
+Received: by mail-pl1-f181.google.com with SMTP id d9443c01a7336-2d8f265cbe6so43180565ad.0
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 18:34:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788917665; x=1789522465; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:sender:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=S8HXgsUe8d8r+ydmsF6B29V68PoRsQNSsTVHaoSKsZs=;
+        b=YHdZjFbXru+P3dI4PKsQEWHpFqaLzTuEdlhbuZXGIv5YHGqBLzD6Rlm0+a906r1PH4
+         EFo94cOAzMpwsb2InEy6vSeKEuxKcx/9W0Xnk4T7q+SvP0JTSLjRdhSga8Y1wGFh+Eg0
+         GG9s4bbZ5jBVTmq3OAS/wvFRvq4ZSO4vefz17S602WuFi/womfuesoaVIeUvRDfk4M51
+         DtzzB8nliYkeo0t7ww2yNREWu8GmubxtB5GoTKvUXLaSM9cU5vfix7zlr8YiAX2FFN/5
+         WQvTH7aWdb49znrFoX+5Qsi/Y0p0LN8+P1Rkt1sLMnAbIoJAOZbEMdNEj467EuektSfO
+         5nLA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788917665; x=1789522465;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:sender:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=S8HXgsUe8d8r+ydmsF6B29V68PoRsQNSsTVHaoSKsZs=;
+        b=eDgNwYDi4XYd3BysvLDRg84Ag/YRBbZCMa4XbK5REXRQtd9Ti7TEYsND9RklHamqzY
+         crY6ay6CmxmEqAuE3zTDhhQcAtoZPpEsc6D0u6Ubd24zd/cnamYLY5asCKxREEAW+x1e
+         TPXhV/R+AuMO9DUZALPNUKQv1BcO7eFUZLTymLgtXOzXvNi4QyMvw1600axuNTimAucy
+         KnFHzh2YkJQipLz66NDYAMSte3TxaHXQzwLhmFXVXFthoNWkFLB8/x6S//ynwPjZ5ap3
+         cKajE0dZd2bAK/EpgqaK3mYlawUBZRIjsm8u7fezPOfk+uII9zFCp8ylQ6/3UjcLbohm
+         cSJA==
+X-Forwarded-Encrypted: i=1; AKwUvBx+JvM4gb3wQWnTOLp4hIk01sIcs9q0e8PYHzs6aGHr+WLir9ZYvef83FVfZxQYEJaZon3idaCZPyiXj0k=@vger.kernel.org
+X-Gm-Message-State: AFuF++kS0G13LF87JrT328RLHUJfJo2y9QVzRsLutBRzdOKZ/VU2KWUi
+	q95ZZMPHeQ0FWtckyxj139EAUIc8rMQmzj3LIIW6hOEDQRc701C75aA8
+X-Gm-Gg: AYBFou1RvFJRU/p5NPFZS0JF8MHWDo3uJ72S2zK98DoRuGmXrKXW7SkuBCe3zUaIqba
+	M5whHIzc5EL6ytMNJf2dnpYpC54UqeCVGP5wfwGGLCutvctCaxKWi6PhITCmliOZ/MOHH8AU7F9
+	TlLDTjzl/oVqWUpbGsXqAZf7hqYqTFgLslkrfXMNi7b8D+nKyTjvSPDLpKhoaGAO0HH3SUD+4yf
+	IYEkaIVy1Epq4afGy+v6weIe4eEvtXXEYTG27WEOg9LcZEreyjqYCJmuy0WXR8FRsfLrNG7xg7q
+	doTIimCGsbfb+eh80H+Q3/EAdxozlMJDcBirqqW2YR5U/xi3FCqI9jzKkMCCo37jfQjh+LbbTp6
+	Psh1+Rg/svk7up24FbQ/SbZB2s4vCwSNNuAP40bat3CexHXi2erIHDLtU+7cQVeWh1oPA0ACRbR
+	Z+8zhcoEw1RS3m8iVJh0FozqgFbGvtTuUXRHtnaNvZf2V57etWO23rr5fZdJ+wmc7c1RfeANAnY
+	6bA4Xvn5X/p4/pqUfC2MpI7+jMFxK5cEBUJE+Dr2Jd+JOtLG/9eu6BlCaM8hQ==
+X-Received: by 2002:a17:903:22c8:b0:2d7:5ebe:a588 with SMTP id d9443c01a7336-2db126d6e31mr456681265ad.13.1788917664922;
+        Tue, 08 Sep 2026 18:34:24 -0700 (PDT)
+Received: from m-upc-A520M-HDV.flets-east.jp ([2400:2410:3f60:500:574b:e1a5:307b:15c5])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2db63c00837sm27975145ad.40.2026.09.08.18.34.21
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 08 Sep 2026 18:34:24 -0700 (PDT)
+Sender: Yuyang Huang <uyoko90@gmail.com>
+From: Yuyang Huang <sigefriedhyy@gmail.com>
+To: Yuyang Huang <sigefriedhyy@gmail.com>
+Cc: "David S. Miller" <davem@davemloft.net>,
+	David Ahern <dsahern@kernel.org>,
+	Donald Hunter <donald.hunter@gmail.com>,
+	Eric Dumazet <edumazet@google.com>,
+	Ido Schimmel <idosch@nvidia.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Kuniyuki Iwashima <kuniyu@google.com>,
+	Nicolas Dichtel <nicolas.dichtel@6wind.com>,
+	Nikolaos Gkarlis <nickgarlis@gmail.com>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Sabrina Dubroca <sd@queasysnail.net>,
+	Shuah Khan <shuah@kernel.org>,
+	Simon Horman <horms@kernel.org>,
+	Stanislav Fomichev <sdf.kernel@gmail.com>,
+	linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	netdev@vger.kernel.org
+Subject: [PATCH net-next v2 0/3] rtnetlink: dump link-layer multicast addresses
+Date: Wed,  9 Sep 2026 10:33:58 +0900
+Message-ID: <20260909013401.14408-1-sigefriedhyy@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Subject: Re: [PATCH 2/2] gpio: rcar: Add R-Car X5H (R8A78000) support
-To: Geert Uytterhoeven <geert@linux-m68k.org>
-Cc: linux-gpio@vger.kernel.org, Bartosz Golaszewski <brgl@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Krzysztof Kozlowski
- <krzk+dt@kernel.org>, Linus Walleij <linusw@kernel.org>,
- Rob Herring <robh@kernel.org>, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org
-References: <20260704151521.211335-1-marek.vasut+renesas@mailbox.org>
- <20260704151521.211335-2-marek.vasut+renesas@mailbox.org>
- <CAMuHMdUapaP-8kkWT5cXtEO1h58aAzzm34XqO_mcrgbVSyXEwg@mail.gmail.com>
- <b516bf77-fb15-41f2-80ac-b80c621fedd1@mailbox.org>
- <CAMuHMdWb2Qk=heWhwFh4TsEggHOmzTd4Lj-vG6kXjRVMDDUG2A@mail.gmail.com>
- <43eccc85-fca3-4c69-9114-b45ab5e1b487@mailbox.org>
- <CAMuHMdVWm1JzmXx1++dhvHbnBbVqQnVVAANfmH5Y24bhJU7pXQ@mail.gmail.com>
-Content-Language: en-US
-From: Marek Vasut <marek.vasut@mailbox.org>
-In-Reply-To: <CAMuHMdVWm1JzmXx1++dhvHbnBbVqQnVVAANfmH5Y24bhJU7pXQ@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-MBO-RS-ID: 7afcf83a0758599f27a
-X-MBO-RS-META: krtuwrze3fxqgftse3541gjj53gurcio
+Content-Transfer-Encoding: 8bit
 
-On 9/8/26 9:49 AM, Geert Uytterhoeven wrote:
+"ip maddr show" prints three kinds of entries: link-layer, IPv4 and
+IPv6. The IPv4 and IPv6 ones can be read over netlink today: IPv6 has
+had RTM_GETMULTICAST for a long time and IPv4 got it in eb4e17a1d915
+("netlink: support dumping IPv4 multicast addresses"), with IFA_MC_USERS
+added later so the user count no longer has to come from procfs.
 
-Hello Geert,
+The link-layer list is the missing piece. dev->mc, the addresses
+programmed into the device filter, is only exported via
+/proc/net/dev_mcast, so iproute2 still carries a procfs parser just for
+that. This series closes the gap so that "ip maddr show" can be served
+from rtnetlink alone.
 
->>>> On 9/4/26 1:15 PM, Geert Uytterhoeven wrote:
->>>>>> +++ b/drivers/gpio/gpio-rcar.c
->>>>>
->>>>>> @@ -65,14 +66,59 @@ struct gpio_rcar_priv {
->>>>>>
->>>>>>     #define RCAR_MAX_GPIO_PER_BANK         32
->>>>>>
->>>>>> +static inline int gpio_rcar_remap_offset(struct gpio_rcar_priv *p, int *offs)
->>>>>
->>>>> IMO passing a pointer to offs complicates the code.  Perhaps pass offs
->>>>> by value, and return the adjusted offset or a negative error code?
->>>>
->>>> I want to avoid that, since if I only return error value, I can then do
->>>> simple:
->>>>
->>>> ret = gpio_rcar_remap_offset(...);
->>>> if (ret)
->>>>      return ret;
->>>>
->>>> in gpio_rcar_read() and gpio_rcar_write(), which are the only two call
->>>> sites of this function.
->>>
->>> gpio_rcar_read() and gpio_rcar_write() do not return error codes.
->>> I was thinking of
->>>
->>>       offs = gpio_rcar_remap_offset(p, offs);
->>>       if (offs < 0)
->>>               return 0;
->>>
->>> which is almost the same, but avoids passing offs by address.
->>
->> Is there any benefit to it, compared to keeping the value and return
->> code separate ?
-> 
-> Naive me (I am not a compiler writer) thinks the compiler may have a
-> harder time to optimize the code when addresses are involved.
+Patch 1 handles RTM_GETMULTICAST dumps with ifa_family set to AF_PACKET
+and walks dev->mc under netif_addr_lock_bh(), no RTNL. The reply reuses
+the ifaddrmsg format of the IPv4 and IPv6 dumps: IFA_MULTICAST carries
+the raw link-layer address, IFA_MC_USERS the reference count, and
+IFA_F_PERMANENT is set for entries added with SIOCADDMULTI, which is the
+"static" column /proc/net/dev_mcast has and "ip maddr" prints. A
+non-zero ifa_index limits the dump to one device.
 
-Will the compiler generate code that is worse in the end ?
+Patch 2 updates the rt-addr spec and patch 3 adds a selftest that
+checks the filter, the user count and the permanent flag on a dummy
+device.
 
->>>>>> +{
->>>>>> +       /* R-Car Gen4 and older do not need any offset remap. */
->>>>>> +       if (!p->info.has_layout_gen5)
->>>>>> +               return 0;
->>>>>> +
->>>>>> +       /*
->>>>>> +        * R-Car Gen5 register layout is slightly different and the offsets
->>>>>> +        * that have to be added to or subtracted from each register offset
->>>>>> +        * can be divided into five groups, listed below.
->>>>>> +        */
->>>>>> +       switch (*offs) {
->>>>>> +       case IOINTSEL...OUTDT:
->>>>>> +               return 0;
->>>>>> +       case INDT:
->>>>>> +               *offs += 0x10;
->>>>>> +               return 0;
->>>>>> +       case INTDT...EDGLEVEL:
->>>>>> +               fallthrough;
->>>>>> +       case BOTHEDGE:
->>>>>> +               *offs += 0x70;
->>>>>> +               return 0;
->>>>>> +       case OUTDTSEL:
->>>>>> +               *offs -= 0x34;
->>>>>> +               return 0;
->>>>>> +       case INEN:
->>>>>> +               *offs -= 0x38;
->>>>>> +               return 0;
->>>>>> +       default:
->>>>>> +               /*
->>>>>> +                * This here must never be reached, if this is reached, that
->>>>>> +                * means there is a catastrophic failure in the driver. Skip
->>>>>> +                * any IO read/write to prevent further damage.
->>>>>> +                */
->>>>>> +               WARN_ON(1);
->>>>>
->>>>> A build-time failure would be better.  I tried BUILD_BUG() instead,
->>>>> but unfortunately gcc is not smart enough to notice this case is
->>>>> never reached.  __always_inline doesn't seem to help either.
->>>> I had one more idea -- how about we convert the driver to mmio regmap,
->>>> use opaque register numbers throughout the driver to identify registers
->>>> to the regmap (maybe not a great idea), and then implement .read/.write
->>>> callbacks in the regmap_config which instead of doing plain
->>>> readl()/writel() for register IO would instead do this remapping ?
->>>> Regmap could validate that the opaque register numbers are only the
->>>> expected register numbers and reject all the others. Maybe the opaque
->>>> register numbers could instead of Gen4 register offsets. What do you think ?
->>>
->>> That's similar (but more complex?) than the array look-up
->>> in drivers/tty/serial/sh-sci.c I pointed to before.
->>> drivers/i2c/busses/i2c-riic.c uses the same method.
->>
->> Those do not use regmap (drivers/base/regmap/), do they ?
-> 
-> No they don't.
+Nothing changes for other families. AF_PACKET dumps returned
+-EOPNOTSUPP before, so iproute2 can keep the procfs fallback for older
+kernels. I have the iproute2 side ready and will post it once this is
+in; with it, "ip maddr show" does not open /proc/net at all.
 
-What about my regmap suggestion ?
+Changes in v2:
+- Always validate the request header, not only with strict checking
+- Use a single "with" statement in the selftest (ruff)
 
->>> I.e. just convert the existing register defines into an enum, and use
->>> that to index a table with the family-specific offsets?
->>
->> Are we back to the table look up discussion instead of remap function ?
-> 
-> Yes, I think that's the simplest and best-performing solution
+Yuyang Huang (3):
+  rtnetlink: add AF_PACKET multicast dumps
+  netlink: specs: rt-addr: document AF_PACKET multicast dumps
+  selftests: net: test AF_PACKET multicast dumps
 
-The performance benefit of the table look up was never confirmed.
+ Documentation/netlink/specs/rt-addr.yaml |   7 +-
+ net/core/rtnetlink.c                     | 129 +++++++++++++++++++++++
+ tools/testing/selftests/net/rtnetlink.py |  57 +++++++++-
+ 3 files changed, 189 insertions(+), 4 deletions(-)
 
-> : one
-> extra table look-up (array indexing) in gpio_rcar_{read,write}(),
-> compared to an extra function call to gpio_rcar_remap_offset().
+-- 
+2.43.0
 
-The function is inlined by the compiler. The table look up will likely 
-suffer due to non-locality of the data in cache.
-
-> As a bonus, storing -1 for a non-existing register in the look-up table
-> would let us get rid of the four existing .has_<reg> booleans, e.g.
-> 
->     -        if (p->info.has_both_edge_trigger)
->     +        if (p->info.regs[BOTHEDGE] >= 0)
->                      gpio_rcar_modify_bit(p, BOTHEDGE, hwirq, both);
-Please see the actual-regmap suggestion I proposed above, that solves 
-this problem too, without mixing signed and unsigned types.
