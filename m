@@ -1,120 +1,162 @@
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id B4BCE3B895D;
-	Wed,  9 Sep 2026 06:45:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFDE83BB139
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 06:45:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788936313; cv=none; b=a0PY2C73ztWrsUegwLBlEVxvO2U8Oj41ke/BQTquoIYua6k23XMpxOP2nkEdV/S2osy0Ud3Wpr+cX0VAZ0U8qbcOJEx5slD+jDWbeiFfBTVEhn/5mgdIXF8hIokEKw5v6dG36yHIW14RhAHYNuBa27Un+1dDjPfjCo6wkmSlc00=
+	t=1788936316; cv=none; b=nMxppXfrgnY6GbmVga1sOa7CRKPDxEQnFuLcKOBWrN1CGa452+52tPB5I3zOuj9jfPdp44hmKj1ik/TXEzrZFZu3/yo18xtbNYNFNxW+3xXXRsK29cvgr0UqFiFKQCmGKW0yApVBAUp1ZPLmgdJVjdmiLH5t/Qgeh0XA5jZr65I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788936313; c=relaxed/simple;
-	bh=/DLIok3k4tdCoOMkF2K/QrJWNryia6Ild8zWY6ve8M4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=JfF5R01r2ahQzDSU6dJC4lkvaypxCaYVciC0bxGYNaCX4YXdYYFiuNOKZUB1Si+If325IeOyXILIyJkZQWR32QJKCbk+KSVLbM+sBf9lk7vXTDklJR5Dgy13pOy+Wpr0I5vEGFPKYhT2kK0/YmAcPYM8cxKa0F4XjHRM9UyckNI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=p/81C5N0; arc=none smtp.client-ip=13.77.154.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
+	s=arc-20240116; t=1788936316; c=relaxed/simple;
+	bh=Dbe73Tvs5EYLnu1vtoP1R/+TyEnhBF1khl9WMFgf1ZA=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=IOzQZMXv2rwJNP4UKmx0hGS0gS1DAXLSKcNxK7j6QnH1hqzicXcGG3dJn+6H1W8/MgeBBEVTaddIAUX6wPRHLgca4u4hEWDMWtYlnLBOHY5/DVTvOs1KZyV7f10kq1CBonJEwgbVq+vGd8bVWOgM9uelZDTFp7LBPSiqeOuXT2k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IhLgczlC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="p/81C5N0"
-Received: from CPC-namja-026ON.localdomain (unknown [4.213.232.16])
-	by linux.microsoft.com (Postfix) with ESMTPSA id B3D7220B712B;
-	Tue,  8 Sep 2026 23:44:22 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com B3D7220B712B
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
-	s=default; t=1788936271;
-	bh=vKHuFOw8t4T9qpNBzxIJe+5gzUOU1w5bceovfgKqwGU=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=p/81C5N0Nhb4PASLj2y38DpLCycOVHsXzvYXVoy+C9heCL77FlV2FBK67UJyIpUhA
-	 Z/H+GUgqQJ6QzQSGdt5CW8hlUULng9CBp/ttGnI8INXMgc0EAhjGIjcnwXhIApzALh
-	 gwU1rACPwIWjeDatrhC7Txe7TzHBNjAzBVMTiQGM=
-From: Naman Jain <namjain@linux.microsoft.com>
-To: Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	x86@kernel.org,
-	"H . Peter Anvin" <hpa@zytor.com>,
-	Wei Liu <wei.liu@kernel.org>,
-	"K . Y . Srinivasan" <kys@microsoft.com>,
-	Haiyang Zhang <haiyangz@microsoft.com>,
-	Dexuan Cui <decui@microsoft.com>
-Cc: Michael Kelley <mhklinux@outlook.com>,
-	Long Li <longli@microsoft.com>,
-	Nam Cao <namcao@linutronix.de>,
-	Joerg Roedel <joro@8bytes.org>,
-	Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
-	Vasant Hegde <vasant.hegde@amd.com>,
-	Will Deacon <will@kernel.org>,
-	Robin Murphy <robin.murphy@arm.com>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	=?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Kees Cook <kees@kernel.org>,
-	"Rafael J . Wysocki" <rafael@kernel.org>,
-	Radu Rendec <radu@rendec.net>,
-	Sean Christopherson <seanjc@google.com>,
-	Kai Huang <kai.huang@intel.com>,
-	Dmitry Ilvokhin <d@ilvokhin.com>,
-	Shradha Gupta <shradhagupta@linux.microsoft.com>,
-	Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
-	Thierry Reding <treding@nvidia.com>,
-	Jiri Wiesner <jwiesner@suse.de>,
-	Daniel J Blueman <daniel@quora.org>,
-	linux-hyperv@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	iommu@lists.linux.dev,
-	linux-pci@vger.kernel.org
-Subject: [PATCH v4 1/4] x86/hyperv: Set irq_retrigger for root partition PCI/MSI irqchip
-Date: Wed,  9 Sep 2026 06:44:45 +0000
-Message-ID: <20260909064448.1004-2-namjain@linux.microsoft.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260909064448.1004-1-namjain@linux.microsoft.com>
-References: <20260909064448.1004-1-namjain@linux.microsoft.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IhLgczlC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8B8661F01560
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 06:45:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788936314;
+	bh=oXtI965ppSTiwbT7ipKM86YtHUyLj5gqRIWr+nTAhBA=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=IhLgczlCdWxFSegmkDizxcGCljjux3VJc/i0FEoY8gH2PXRUq4Ssn7Y30byvlShQN
+	 gFCDQfZx7fm+duVZJvytrkcjU5b3C1wT8mzuIhcBd5/MFvOZQyvXERSN9mv0tAiSgL
+	 5WRfo91cKBLXK0RSm9JXUt+1ypLzXGa+Hxid0r3sBUmNRgra8ny+lsL65oS3vB3jxA
+	 uEJYCwVriFGytJVB5DZHLBxlxTvbZghw6a4Bnz3Pvg7GkJJXLdhx07aTck1sFxDWZw
+	 4LFA6J5OxT6k7ridJrBHWXdlH9Ah/Ag33l3q6SpLU9s+DxJEMH8jlYgovnNHbGED7H
+	 D9MjCaVN42fpA==
+Received: by mail-qk1-f170.google.com with SMTP id af79cd13be357-939adff838bso207263785a.0
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 23:45:14 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwthS7zURmgW/hwyKCSUOQ81U/vIDkMByvU8RvWiSCIhUfgp+p/o5f/WO4fZXclnoAeRYyxYJUqrTXtF7Q=@vger.kernel.org
+X-Gm-Message-State: AFuF++mEx8uEBG9fKnmt1wIR1j290dNJo6TZyJEEFQMTEEaF/ZnVpIbI
+	k631qioTaGQoodYyp8W+Fqp5w6OJYpBDax5qQDlIv9LHJRu7CSJgtOeNN/PFidptyDDmlWwwnpY
+	LB+XLaYmE5xHI3T2NOTWT2OU0oHg9eGg=
+X-Received: by 2002:a05:620a:811f:b0:939:6dea:374b with SMTP id
+ af79cd13be357-939804f7c81mr2852075085a.47.1788936313658; Tue, 08 Sep 2026
+ 23:45:13 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260907042447.2450663-1-ridong.chen@linux.dev> <20260907042447.2450663-3-ridong.chen@linux.dev>
+In-Reply-To: <20260907042447.2450663-3-ridong.chen@linux.dev>
+From: Barry Song <baohua@kernel.org>
+Date: Wed, 9 Sep 2026 14:45:02 +0800
+X-Gmail-Original-Message-ID: <CAGsJ_4zvJmdiicZAefUyjn4RjP=hBxE95fjpR9HM+SFJ8S_aCQ@mail.gmail.com>
+X-Gm-Features: AcwNN1VgWoJtkBN10FObnIaNeshFsBlYP68mFG3ghCEpyRhlhxvLD1TMEuEii5k
+Message-ID: <CAGsJ_4zvJmdiicZAefUyjn4RjP=hBxE95fjpR9HM+SFJ8S_aCQ@mail.gmail.com>
+Subject: Re: [PATCH RFC 2/2] mm/mglru: add tracepoint for inc_max_seq
+To: Ridong Chen <ridong.chen@linux.dev>
+Cc: Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu <mhiramat@kernel.org>, 
+	Andrew Morton <akpm@linux-foundation.org>, Johannes Weiner <hannes@cmpxchg.org>, 
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, David Hildenbrand <david@kernel.org>, 
+	Michal Hocko <mhocko@kernel.org>, Qi Zheng <qi.zheng@linux.dev>, 
+	Shakeel Butt <shakeel.butt@linux.dev>, Lorenzo Stoakes <ljs@kernel.org>, 
+	Kairui Song <kasong@tencent.com>, Axel Rasmussen <axelrasmussen@google.com>, 
+	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, linux-kernel@vger.kernel.org, 
+	linux-trace-kernel@vger.kernel.org, linux-mm@kvack.org, 
+	Ridong Chen <chenridong@xiaomi.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The Hyper-V root partition vPCI MSI irqchip lost its irq_retrigger()
-callback when it was converted to msi_create_parent_irq_domain(). The
-callback was present on the original irqchip and was dropped during that
-conversion.
+On Mon, Sep 7, 2026 at 12:25=E2=80=AFPM Ridong Chen <ridong.chen@linux.dev>=
+ wrote:
+>
+> From: Ridong Chen <chenridong@xiaomi.com>
+>
+> Aging in MGLRU advances max_seq via inc_max_seq(), creating a new
+> youngest generation. There is currently no tracepoint on this path, so
+> the moment a new generation is created, and how the min_seq of each type
+> trails behind it, cannot be observed as it happens.
+>
+> Add mm_mglru_inc_max_seq, emitted right after max_seq is bumped, with
+> the memcg id and the new max_seq alongside the anon and file min_seq.
+> Paired with the mm_mglru_isolate_folios tracepoint it makes the full
+> aging-to-eviction window observable per memcg.
+>
+> Assisted-by: Claude:claude-opus-4-8
+> Signed-off-by: Ridong Chen <chenridong@xiaomi.com>
+> ---
+>  include/trace/events/vmscan.h | 30 ++++++++++++++++++++++++++++++
+>  mm/vmscan.c                   |  4 ++++
+>  2 files changed, 34 insertions(+)
+>
+> diff --git a/include/trace/events/vmscan.h b/include/trace/events/vmscan.=
+h
+> index a0e3cf75294b..ab93c2f4b318 100644
+> --- a/include/trace/events/vmscan.h
+> +++ b/include/trace/events/vmscan.h
+> @@ -439,6 +439,36 @@ TRACE_EVENT(mm_mglru_isolate_folios,
+>                 __entry->max_seq)
+>  );
+>
+> +TRACE_EVENT(mm_mglru_inc_max_seq,
+> +
+> +       TP_PROTO(u64 memcg_id,
+> +               unsigned long max_seq,
+> +               unsigned long anon_min_seq,
+> +               unsigned long file_min_seq),
+> +
+> +       TP_ARGS(memcg_id, max_seq, anon_min_seq, file_min_seq),
+> +
+> +       TP_STRUCT__entry(
+> +               __field(u64, memcg_id)
+> +               __field(unsigned long, max_seq)
+> +               __field(unsigned long, anon_min_seq)
+> +               __field(unsigned long, file_min_seq)
+> +       ),
+> +
+> +       TP_fast_assign(
+> +               __entry->memcg_id =3D memcg_id;
+> +               __entry->max_seq =3D max_seq;
+> +               __entry->anon_min_seq =3D anon_min_seq;
+> +               __entry->file_min_seq =3D file_min_seq;
+> +       ),
+> +
+> +       TP_printk("memcg_id=3D%llu max_seq=3D%lu anon_min_seq=3D%lu file_=
+min_seq=3D%lu",
+> +               __entry->memcg_id,
+> +               __entry->max_seq,
+> +               __entry->anon_min_seq,
+> +               __entry->file_min_seq)
+> +);
+> +
+>  TRACE_EVENT(mm_vmscan_write_folio,
+>
+>         TP_PROTO(struct folio *folio),
+> diff --git a/mm/vmscan.c b/mm/vmscan.c
+> index 771fe6827939..3c806a57d113 100644
+> --- a/mm/vmscan.c
+> +++ b/mm/vmscan.c
+> @@ -4065,6 +4065,10 @@ static bool inc_max_seq(struct lruvec *lruvec, uns=
+igned long seq, int swappiness
+>         WRITE_ONCE(lrugen->timestamps[next], jiffies);
+>         /* make sure preceding modifications appear */
+>         smp_store_release(&lrugen->max_seq, lrugen->max_seq + 1);
+> +       trace_mm_mglru_inc_max_seq(mem_cgroup_id(lruvec_memcg(lruvec)),
+> +                                  lrugen->max_seq,
+> +                                  lrugen->min_seq[LRU_GEN_ANON],
+> +                                  lrugen->min_seq[LRU_GEN_FILE]);
 
-On CPU hot-unplug fixup_irqs() migrates the interrupts which are affine to
-the outgoing CPU to a new target. If an interrupt still has its pending bit
-set in the outgoing CPU's IRR at that point, fixup_irqs() resends it on the
-new target through the irqchip's irq_retrigger() callback. As the root
-partition PCI/MSI chip no longer provides that callback, the pending
-interrupt is silently dropped, which can result in lost interrupts, stalls
-and "No irq handler for vector" messages during CPU hotplug.
+I suspect we also want to know the number of pages in each generation,
+similar to:
 
-Restore irq_chip_retrigger_hierarchy() as the irq_retrigger() callback for
-the root partition PCI/MSI irqchip, so that a pending interrupt is resent
-on its new target CPU via the parent x86 vector domain.
+/sys/kernel/debug # cat lru_gen
+memcg 1 /
+ node     0
+          0      25672          0          85
+          1      25672          0        4249
+          2      25672         21           0
+          3      25672          0           0
+memcg 19 /A
+ node     0
+          0      23036          0           0
+          1      23036          0           0
+          2      23036          0           0
+          3      23036          0           0
 
-Fixes: 4691db0704ac ("x86/hyperv: Switch to msi_create_parent_irq_domain()")
-Cc: stable@vger.kernel.org
-Reviewed-by: Michael Kelley <mhklinux@outlook.com>
-Signed-off-by: Naman Jain <namjain@linux.microsoft.com>
----
- arch/x86/hyperv/irqdomain.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/arch/x86/hyperv/irqdomain.c b/arch/x86/hyperv/irqdomain.c
-index b3ad50a874dca..6d790636c8b95 100644
---- a/arch/x86/hyperv/irqdomain.c
-+++ b/arch/x86/hyperv/irqdomain.c
-@@ -316,6 +316,7 @@ static bool hv_init_dev_msi_info(struct device *dev, struct irq_domain *domain,
- 		return false;
- 
- 	chip->flags |= IRQCHIP_SKIP_SET_WAKE | IRQCHIP_MOVE_DEFERRED;
-+	chip->irq_retrigger = irq_chip_retrigger_hierarchy;
- 
- 	info->ops->msi_prepare = pci_msi_prepare;
- 
--- 
-2.43.0
-
+Best Regards
+Barry
