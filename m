@@ -1,101 +1,142 @@
-Received: from mail.cjdns.fr (mail.cjdns.fr [5.135.140.105])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk2-f12.google.com (mail-qk2-f12.google.com [74.125.230.204])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC239523789;
-	Wed,  9 Sep 2026 23:26:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.135.140.105
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D045552D2A1
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 23:26:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.204
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788996389; cv=none; b=hrmEoi19Fqv0bHHQ7CyVPz03AHVumku5qdq59MyT3aA82R53h0Oew4IPrO9Rc6dzkZPcnYxS/fPR+h/loIDcuvb5ghZMmcT6/wQMJVY8mP2ISV0YxnGycxr35dzgmWfW62MIc6mIHqGLzY0oRoouiaiKXxWaVcCgDu5n4MNkJ9I=
+	t=1788996397; cv=none; b=hCiN06atp7Z4dRDlcTL71M2CVUuxi6xsMrD5y5ntXBbC0LHpSZ8BcbFoRgzVObkXaiBSRUOeN8wEjhkBN4vViNa2lu43SX65elbCp2ezMt9D1a7mVn7fIVrnQ824KdVVNijkorRXvut/GLMZwWbmlsEG+kkpadh7E0OFjaC53P8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788996389; c=relaxed/simple;
-	bh=o6J9QzmygitULLoPTGVcSWzV2bRy2IL93iyTFPIz6Y4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ICMVZEaFVRD9mLU6CjkWPnLEq1NQIecuPFYqviZOxw2I95ht1Huv3nKrL3AWtdF+1NAEMIQ5H9gL5JrF62Ygn1NXfwTqMeGWY0Y1Z6kxA0s5riiNWmEFArIh9KViQar39A9DO5WbwGzcwv7JCRLH8v/Vh8PXAHvwJ1mT7e6w9/U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr; spf=none smtp.mailfrom=cjdns.fr; dkim=pass (2048-bit key) header.d=cjdns.fr header.i=@cjdns.fr header.b=ZLh6GYtZ; arc=none smtp.client-ip=5.135.140.105
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=cjdns.fr
+	s=arc-20240116; t=1788996397; c=relaxed/simple;
+	bh=OVdxTIy0l32ihpvWX2MNEv5STrgK+9Rui3lOFdgMtkw=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=LOkGOLlj+NFiUSol2or8atP9kouoD6WRZ2qyCqUq+OfvZq5Og6LKbHwlMQjwwgtpdV3vDqXMIS7K50IMcbeAe4mZTUG+WUpqEo3gj3zTnlZomazA/er9MIXywzuRkotYlbCDBjNMSu9WoeEgPXha2kLVMnCL3MHjO615+ifB1/k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=E79toLWn; arc=none smtp.client-ip=74.125.230.204
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cjdns.fr header.i=@cjdns.fr header.b="ZLh6GYtZ"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 1C0FB40B4DE;
-	Thu, 10 Sep 2026 01:26:15 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cjdns.fr; s=dkim;
-	t=1788996382; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=KjFa+0tDikevuBm4q9CtkZnRLbUXGml043SLQjo4Y20=;
-	b=ZLh6GYtZUSHDlwpxATWxSRb0oIeM79jebqM94lRLuSLBRuSzFe+0Sjb2tO757S5xxuC/+2
-	m4F4Vr/g8nnHJDp2fSovK1GqrGWMfe+F8u/syXv7tXb1Qtxm+YAfBf03HnA/LrlSE74vGG
-	mnvRI7XoQM/iBrcnzoGTalHnKFDzyOdmJSDDx47B81xQaJuoBuxcc0CGeliOGm9bhBkkFF
-	mqwDCeBQhSofPD9ULpjm2FLK22l3cVpCNZcw7otqLF2uqb/xJ1hAoyLM4TzKX/zCbcyDZb
-	Ij+ryUfcMd+4FnInUtOsKwS+2z0qeCvmMRYkj770MUoVt/lOsTkDn9lUrzToHQ==
-Message-ID: <7a3479c8-45cc-4b88-b111-c35d59f370e1@cjdns.fr>
-Date: Thu, 10 Sep 2026 01:26:14 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="E79toLWn"
+Received: by mail-qk2-f12.google.com with SMTP id af79cd13be357-93910c3d02aso108413985a.1
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 16:26:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788996391; x=1789601191; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=elO0ESwMGeryy/voYSGWGe1Y0YMo4gcHLHddwm68FBU=;
+        b=E79toLWnrH+vpJdls0TEDTxc9zk33WiZMe/4uzhbhwhgZILIK91VQ8bSgzrs1HPQ+U
+         wK8k/saaIZ6O69GR2XbJxZH9D69yO1tfzwUi1rHKJC7LmqUqe61+mT2yTtjkJ+33y6Fj
+         Dw9qhVCULDftdd/RZlycbcxDs1D3AANKpe0jTy+Pes7gZ0oon2afM4wcCYHJW89fOjLQ
+         qyElPPc9/QogKj/U0/58V1kGPLHHiELnq1HC66X0fCmB4yn7DZuFT2A+khLMV3rC5zkS
+         1RC9mfmmYqHuDHATxQpuyr6Kv4Sjoh9/FU7EydMb5uMmlvBp/81/uuPnc6uNORl6j52j
+         gfcA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788996391; x=1789601191;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=elO0ESwMGeryy/voYSGWGe1Y0YMo4gcHLHddwm68FBU=;
+        b=AEeiYDmAT1TPaLFKsoklgkJlCXXCgZQfLWNL7jgrN/DQhM2VNZV83/Kr7bRO3bjnlP
+         EJldn1zkSJkJKBJExcJikbFNxxXMqLR7dur/LEQJs4rYB9BAFPWXnwV2YCaRA4GvjddN
+         MBfrePlPMUPtIcsegXgcraCp3p+Pjh3aVOrV72u2UUYlshhyYYIMEZB+E004FlORlue7
+         zfaMIkPb8dr9apapU95xxMGPFVbZ9RppfRJpyOr7OeMJr1LZww18vIZYEoQ366jc3KrG
+         2wjOmYIP6DRZ1K86VERw9Zl40VEq68P5PgZtoy6INAhVbh+HqzWRYXJTIoDFSpjyVK+R
+         mICw==
+X-Forwarded-Encrypted: i=1; AKwUvBz631KFinZ3JIuoFCf0X8HX8z/2zJppnZMxYbjLBaqE9YNwF8D+2MYWxzwP5F9Afta9gJavDLupMdOWbtE=@vger.kernel.org
+X-Gm-Message-State: AFuF++lpqAAEwbrTauEalExMLGNWTORlk3h0PHxa/WyGYLpAXu1+QJua
+	UQDZqKIPXfxxII/r5vJucUpmumBj9weQy1h7xgiZcAvqL6MVjmBwfilP
+X-Gm-Gg: AYBFou2o4dmmudLBDbb/PCCM4k8Plf1fJOX91XCOiVtOsTTxzXhMgn4FwIIl3ksgJmS
+	xbqmhlIBRQwAoXItA4qWU3r/OVOdQIqx+TrKpnEh6nKNSvaQ1tfp/qvLkqalgOdoSGg2FL1nazw
+	VfGJzFA9Ccfo1jgkGQ35CelRkqOcLB9RQqgZIjF0e8UgCnBhGlD5c7l9gf9g7nhbaBSBajPfKZF
+	2k0YQhqdGe38r/3+yf3XAn2Z0lYBVSprwOJAWKbmrP9Ooe4Ll+h667ZMD9cD/FI84pbq7E2R3dV
+	tto5Q+piBK9pHi0IqZv5kWTdFyCgCtceI50ZamaTdANeR5VAnd5or+KGhvJxPI6iK1kISiEF2FO
+	FyzWB16mmcskWqVOsLm3pJUw+Z4FJiqjE3BYBBE6hFBJlpJ9tMsZbwwm6+TTjLr7uri6ZYopfaN
+	yRvTPlBJ52UfWitxglCgYgJE1scVRrmgMiU4ceNXO3lkWgBqaIIO15RfsUq9gDUlup4C9Tj1TRi
+	ko9S2Ily0UwtWcK7Lu9v3o1wvjHXzmkep2AAtNlNj46EzA0fIgJ
+X-Received: by 2002:a05:620a:46a5:b0:939:d676:2ed5 with SMTP id af79cd13be357-939d7e9c974mr229270085a.7.1788996391542;
+        Wed, 09 Sep 2026 16:26:31 -0700 (PDT)
+Received: from [127.0.1.1] (static-68-235-46-14.cust.tzulo.com. [68.235.46.14])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-9397fb70fbdsm1530498085a.32.2026.09.09.16.26.30
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 09 Sep 2026 16:26:31 -0700 (PDT)
+From: Miles Krause <mileskrause5200@gmail.com>
+Date: Wed, 09 Sep 2026 19:26:26 -0400
+Subject: [PATCH] memory: emif: fix device_node reference leak on np_ddr
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird Beta
-Subject: Re: [PATCH net-next] net: phy: mediatek: support MT7530 PHYs on
- EN71221 MCM
-To: Daniel Golle <daniel@makrotopia.org>
-Cc: netdev@vger.kernel.org, dqfext@gmail.com, SkyLake.Huang@mediatek.com,
- andrew@lunn.ch, hkallweit1@gmail.com, linux@armlinux.org.uk,
- davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
- pabeni@redhat.com, matthias.bgg@gmail.com,
- angelogioacchino.delregno@collabora.com, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
- Matheus Sampaio Queiroga <srherobrine20@gmail.com>
-References: <20260909213250.3184238-1-cjd@cjdns.fr>
- <aqHlfmYa249e3HRM@makrotopia.org>
-Content-Language: en-US
-From: Caleb James DeLisle <cjd@cjdns.fr>
-In-Reply-To: <aqHlfmYa249e3HRM@makrotopia.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+Message-Id: <20260909-master-v1-1-8800f5647ab2@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzMDSwNL3dzE4pLUIl1DY0PjVLOkpCTDtGQloOKCotS0zAqwQdGxtbUA5oc
+ a71gAAAA=
+X-Change-ID: 20260909-master-1313e6bbb1fc
+To: Santosh Shilimkar <ssantosh@kernel.org>, 
+ Krzysztof Kozlowski <krzk@kernel.org>, Benoit Cousson <b-cousson@ti.com>, 
+ Aneesh V <aneesh@ti.com>, Grant Likely <grant.likely@secretlab.ca>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Santosh Shilimkar <santosh.shilimkar@ti.com>, 
+ linux-kernel@vger.kernel.org, Miles Krause <mileskrause5200@gmail.com>
+X-Mailer: b4 0.14.3
 
+of_get_memory_device_details() takes a reference on the DDR device
+node via of_parse_phandle() and stores it in emif->np_ddr for later
+use, but drops that reference without calling of_node_put() on two
+error paths: the devm_kzalloc() allocation-failure check and the
+is_dev_data_valid() check. Both return NULL immediately, leaking the
+node reference each time either failure triggers.
 
-On 10/09/2026 01:02, Daniel Golle wrote:
-> On Wed, Sep 09, 2026 at 09:32:50PM +0000, Caleb James DeLisle wrote:
->> The EcoNet EN751221 multi-chip module implementation of the MT7530
->> requires some additional configuration of the PHYs on startup.
->> The reason for this is not known, but it is possible that it has
->> to do with the fact that the EN751221 MCM implementation of the
->> MT7530 runs at an abnormal PLL frequency (362.5Mhz).
->>
->> Detect whether the MT7530 PHY is attached to the MDIO bus of an
->> EcoNet EN751221 switch and if so, apply the necessary register
->> updates.
->>
->> Co-developed-by: Matheus Sampaio Queiroga <srherobrine20@gmail.com>
->> Signed-off-by: Matheus Sampaio Queiroga <srherobrine20@gmail.com>
->> Signed-off-by: Caleb James DeLisle <cjd@cjdns.fr>
->> ---
->>   drivers/net/phy/mediatek/mtk-ge.c | 61 +++++++++++++++++++++++++++++++
->>   1 file changed, 61 insertions(+)
->>
->> diff --git a/drivers/net/phy/mediatek/mtk-ge.c b/drivers/net/phy/mediatek/mtk-ge.c
->> index 73d9b72f9d9e..42b06c40d703 100644
->> --- a/drivers/net/phy/mediatek/mtk-ge.c
->> +++ b/drivers/net/phy/mediatek/mtk-ge.c
->> [...]
->>   static int mt7530_phy_config_init(struct phy_device *phydev)
->>   {
->> +	int ret;
->> +
->> +	if (mt7530_phy_is_en751221_companion(phydev)) {
-> Please introduce a `.match_phy_device` operation for both, actual
-> MT7530 and EN751221, similar eg. to `ksz8051_match_phy_device` in
-> micrel.c.
+The same reference is also never released on the success path: it is
+kept for the life of the bound device (compared against a later
+instance's np_ddr in the duplicate-DDR-geometry check) but
+emif_remove() never calls of_node_put() on it, leaking it every time
+an EMIF device unbinds. of_node_put() on a NULL pointer is a no-op, so
+this is also safe for the non-DT get_device_details() path, where
+np_ddr is left NULL by devm_kzalloc().
 
-Sounds good, since this will certainly collide with 
-https://lore.kernel.org/netdev/20260827065930.2618729-2-cjd@cjdns.fr/ 
-would you prefer them in the same patch, or as a patch set? If you'd 
-like I can do this and the FE phy as a common patch set. Let me know 
-what you prefer.
+Fixes: e6b42eb6a66c ("memory: emif: add device tree support to emif driver")
+Signed-off-by: Miles Krause <mileskrause5200@gmail.com>
+---
+ drivers/memory/emif.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-Thanks,
+diff --git a/drivers/memory/emif.c b/drivers/memory/emif.c
+index 2fadad0666b1..44ccc2561835 100644
+--- a/drivers/memory/emif.c
++++ b/drivers/memory/emif.c
+@@ -922,6 +922,7 @@ static struct emif_data *of_get_memory_device_details(
+ 	if (!emif || !pd || !dev_info) {
+ 		dev_err(dev, "%s: Out of memory!!\n",
+ 			__func__);
++		of_node_put(np_ddr);
+ 		goto error;
+ 	}
+ 
+@@ -946,6 +947,7 @@ static struct emif_data *of_get_memory_device_details(
+ 			pd->device_info->io_width, pd->phy_type, pd->ip_rev,
+ 			emif->dev)) {
+ 		dev_err(dev, "%s: invalid device data!!\n", __func__);
++		of_node_put(np_ddr);
+ 		goto error;
+ 	}
+ 	/*
+@@ -1140,6 +1142,7 @@ static void emif_remove(struct platform_device *pdev)
+ 	struct emif_data *emif = platform_get_drvdata(pdev);
+ 
+ 	emif_debugfs_exit(emif);
++	of_node_put(emif->np_ddr);
+ }
+ 
+ static void emif_shutdown(struct platform_device *pdev)
 
-Caleb
+---
+base-commit: 50d05c7c76c96b90462f24debacca971d2e86713
+change-id: 20260909-master-1313e6bbb1fc
+
+Best regards,
+-- 
+Miles Krause <mileskrause5200@gmail.com>
 
