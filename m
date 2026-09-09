@@ -1,158 +1,426 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.cjdns.fr (mail.cjdns.fr [5.135.140.105])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A29C563FD6;
-	Wed,  9 Sep 2026 14:04:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E697855C1D2;
+	Wed,  9 Sep 2026 14:04:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.135.140.105
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788962660; cv=none; b=R5pgohQvaZEZVAypHB1pXM9E0InLQQHHpBY+JYnK1+ZreBeQF0mSnfUi53U8wxwKLQNM77kOQbji47/W5w561M38EAe1dMicP887IZWMNAkgIRlNH+eQjVitr5ncTSfMvBPkPUWYp1xlp3D3hJj8MZUIr94J1/1msM8w2uIRX1M=
+	t=1788962661; cv=none; b=ZkyvpSa1PuBROuuh5q0URkGEAJkJe17TbV9N6TfJCngB7XMf06LnnGtmmHg9WOSnkCige/NP9hufcwpZ/kIeakENhA2XT/BgjvwyqSlC5IvahynS0ZV77M6+YMG+kmRRYangAoQYjVG3ZFbDKKR/Gmqc7er+3j/leJiGmn08vto=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788962660; c=relaxed/simple;
-	bh=3rs8b4Ko2wVhQJJe5ZlB4Fq5AtYvbtQpcPHM7TIxMrc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=o8mxUOKCs+qGsglfDo6JgwRiy284+4pwYDATGVFgjoZD5eOL8Rn7Id1/wqVUsC9OeznVrT2rkYhGoOQ5alssY7l+eFNBNLvhItzW5PW1Eu1rTcbh7pR3g6e+g0c/dVD6NyDBU9qQGBkH/GNwbIAo5qpVNqwtEUXsrp5oNLfhuGw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=mKfRUM5z; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=AxUmGF07; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=KgLizKET; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=3Mz08+BI; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	s=arc-20240116; t=1788962661; c=relaxed/simple;
+	bh=l5qdXuXiU3klI6IFrHwspTJby5Q38opeBd1gWq6oQsc=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=X/CuiU/C2KWDjtKtr6Dc7IfdltuKw0fcZwyoyHKBiGiYitWq1rDl//VNkPJ/aFul5CVHORpCkuKNMVQF+kl5UM+nlfZn40x4CDDsQagixZPLJ2vxsBHZwr+9Z4rIdeXVJZOBqLR/NgdrbJmjNYsQTUg8UQhv0m5RUm/wB1Q3g3w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr; spf=none smtp.mailfrom=cjdns.fr; dkim=pass (2048-bit key) header.d=cjdns.fr header.i=@cjdns.fr header.b=HsSbZmtO; arc=none smtp.client-ip=5.135.140.105
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=cjdns.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="mKfRUM5z";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="AxUmGF07";
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="KgLizKET";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="3Mz08+BI"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 255611FF84;
-	Wed,  9 Sep 2026 14:04:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1788962652;
-	h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
-	 cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ORmuwsP/Vox4hcpH4q82OYzLsLdhV49jjKM0EmIfzZ4=;
-	b=mKfRUM5zinivaWajXQuquchWM2Uy+Eka1GnQWWf/EdGyVdXhz247zJD0tmTex06rOGRlho
-	GwZyGCjHw7wnw3TXrzWgFFaJUQHtK+ygOvkHecoriu+QooS/9R7AL6J7uGLacn5BEgVJ5I
-	9wMkos9JK7s6yUmIpU+4M/xTFTfoWps=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1788962652;
-	h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
-	 cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ORmuwsP/Vox4hcpH4q82OYzLsLdhV49jjKM0EmIfzZ4=;
-	b=AxUmGF07NQczlpuT6VQyRM62cShgLOcOCoffP6LSXaxmHmlcJuaPkPTL3itxxZWnGnQXh+
-	nxCqEX+4yWSlEICA==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=KgLizKET;
-	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=3Mz08+BI
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1788962648;
-	h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
-	 cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ORmuwsP/Vox4hcpH4q82OYzLsLdhV49jjKM0EmIfzZ4=;
-	b=KgLizKETrG2DrL7D8CPqHYwrW/OXIJNYHs+T28QrO0CCXXgBRRdtky8xgRmm17gfGDzSmi
-	yOzb7X100DGXJswHotjPFJsUDC3sHiTDnpke+/spc1ao1QSKIhFpyci3lJecZLHVSmHu2M
-	ZdLeYe5yv7dxQ+Ool8RcgwORPki9FFM=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1788962648;
-	h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
-	 cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ORmuwsP/Vox4hcpH4q82OYzLsLdhV49jjKM0EmIfzZ4=;
-	b=3Mz08+BI5d/JUKY+fn4nOl07hO4pqKTC0FkzlTjiQp0DvbGTbP4kC073TS+IOgfJpEV6UB
-	i5w+p/UtlCcbngCA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id DF49E13185;
-	Wed,  9 Sep 2026 14:04:07 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id W4hUNldnoWqBHQAAD6G6ig
-	(envelope-from <dsterba@suse.cz>); Wed, 09 Sep 2026 14:04:07 +0000
-Date: Wed, 9 Sep 2026 16:03:51 +0200
-From: David Sterba <dsterba@suse.cz>
-To: Tal Zussman <tz2294@columbia.edu>
-Cc: Qu Wenruo <wqu@suse.com>, David Sterba <dsterba@suse.com>,
-	Chris Mason <mason@kernel.org>,
-	"Matthew Wilcox (Oracle)" <willy@infradead.org>,
-	linux-btrfs@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 0/7] btrfs: convert some struct page users to folios
-Message-ID: <20260909140351.GL9053@suse.cz>
-Reply-To: dsterba@suse.cz
-References: <20260907-btrfs-folio-conversions-v2-0-b5fe79f7607b@columbia.edu>
- <f4a415f9-1e3a-4b26-a2a4-61bcc98eb39f@suse.com>
+	dkim=pass (2048-bit key) header.d=cjdns.fr header.i=@cjdns.fr header.b="HsSbZmtO"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 7865F3F6569;
+	Wed,  9 Sep 2026 16:04:12 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cjdns.fr; s=dkim;
+	t=1788962655; h=from:subject:date:message-id:to:cc:mime-version:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=UhB4/FVFTjW5jN4k7OfpSymcaSQdJlJMbEw3Hj3zD7I=;
+	b=HsSbZmtOM3noujAKJVTjQ0oqYMXxZ35ii/LJ5EcDQZIPJKArfMjPUaVXOFLvato+6uyCoB
+	/cQFppSKFofixXTpgp93Oc/Q2snB+/JRe2yjptVq4YjTRMc5nYFtIXX74zn77frXkCt5Xl
+	4JOhEySy91P8cYMbxYlESGfXTHMAZJeJV34duKfoe0qM44qSybN2K8ZINHdM2vY8HcYR3I
+	zmUWWpY9AGFEPjwziGwxjZTynEAv61RUY1+enPakauiSnrdxhYbkiGG7oHNzVlHDI8VMl4
+	KifDX39WpzfSNFB85XymJSRHzyMrd/TPu5pVbIDNRi/LPfZ/akqWYpdf3sjiRQ==
+From: Caleb James DeLisle <cjd@cjdns.fr>
+To: netdev@vger.kernel.org
+Cc: andrew@lunn.ch,
+	olteanv@gmail.com,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	matthias.bgg@gmail.com,
+	angelogioacchino.delregno@collabora.com,
+	chester.a.unal@arinc9.com,
+	daniel@makrotopia.org,
+	linux@armlinux.org.uk,
+	arinc.unal@arinc9.com,
+	Landen.Chao@mediatek.com,
+	dqfext@gmail.com,
+	sean.wang@mediatek.com,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org,
+	naseefkm@gmail.com,
+	b.larsson@gmx.com,
+	Caleb James DeLisle <cjd@cjdns.fr>
+Subject: [PATCH net-next 3/7] net: dsa: mediatek: add support for passthrough mode
+Date: Wed,  9 Sep 2026 14:03:42 +0000
+Message-Id: <20260909140346.2861572-4-cjd@cjdns.fr>
+In-Reply-To: <20260909140346.2861572-1-cjd@cjdns.fr>
+References: <20260909140346.2861572-1-cjd@cjdns.fr>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <f4a415f9-1e3a-4b26-a2a4-61bcc98eb39f@suse.com>
-User-Agent: Mutt/1.5.23.1-rc1 (2014-03-12)
-X-Spam-Level: 
-X-Rspamd-Action: no action
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Queue-Id: 255611FF84
-X-Spamd-Result: default: False [-4.21 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	HAS_REPLYTO(0.30)[dsterba@suse.cz];
-	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	ARC_NA(0.00)[];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	TO_DN_SOME(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_TLS_ALL(0.00)[];
-	REPLYTO_DOM_NEQ_TO_DOM(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	REPLYTO_ADDR_EQ_FROM(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	DKIM_TRACE(0.00)[suse.cz:+];
-	DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received,2a07:de40:b281:104:10:150:64:97:from];
-	RCPT_COUNT_SEVEN(0.00)[7];
-	MID_RHS_MATCH_FROM(0.00)[];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:dkim,suse.cz:mid,suse.cz:replyto,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo]
-X-Spam-Flag: NO
-X-Spam-Score: -4.21
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Wed, Sep 09, 2026 at 03:40:47PM +0930, Qu Wenruo wrote:
-> 
-> 
-> 在 2026/9/8 05:49, Tal Zussman 写道:
-> > This series converts three areas of btrfs that still use struct page:
-> > 
-> > 1. The extent-io tests. test_find_delalloc() uses the page APIs, and the
-> >     extent buffer memory checks assume one page per folio.
-> > 
-> > 2. Compression. btrfs_compr_pool_scan() walks the folio pool as struct
-> >     page, the last use of page->lru in btrfs, and the heuristic sampler
-> >     is the last caller of find_get_page().
-> > 
-> > 3. Super block reads. btrfs_read_disk_super() and the zoned super block
-> >     log comparison are the last page cache lookups by page in btrfs.
-> > 
-> > Tested with KASAN, lockdep, DEBUG_VM and the btrfs selftests enabled.
-> > xfstests' compress group under compress=zstd and the btrfs group both
-> > pass.
-> 
-> Now pushed to for-next branch.
+In some cases, hardware integrators add a second MT7530 switch to a
+port of the CPU-connected MT7530 and configure the upstream switch to
+pass all traffic to and from the downstream switch. Particularly,
+without altering the MediaTek DSA tag. The typical reason for this is
+because the downstream switch is more capable, but the upstream switch
+is an irremovable part of the SoC.
 
-Tal, please send the cast removal I asked for in patch 5 separately. Thanks.
+To enable passthrough, the main switch has its CPU port, and the port
+to the second switch, both configured as MT7530_VLAN_EG_DISABLED and
+MT7530_VLAN_TRANSPARENT and it uses the port matrix to control
+forwarding.
+
+Support passing through to a downstream switch, and also support being
+the downstream switch - meaning the upstream link is not a CPU port but
+rather a DSA port.
+
+As a point of information:
+
+There exist features in the hardware which appear to enable full
+two-switch hierarchies (i.e. ports on the upstream switch are also
+available for use). The way that this is supposed to work is though a
+PASSTHROUGH flag in the DSA tag on BIT(7). The downstream switch sets
+a flag called "PT_OPTION" on the PVC register of its "CPU" port (the
+port linking to the upstream switch). This causes the downstream switch
+to set the PASSTHROUGH flag on all ingress traffic. The CPU then sets
+the PASSTHROUGH flag on egress traffic meant for the downstream switch.
+
+In this configuration, the upstream switch sets MT7530_VLAN_USER, and
+PORT_SPEC_TAG on the (real) CPU port (as usual), but also sets it on
+the port leading to the downstream switch. The PORT_SPEC_TAG flag on
+the downstream link port causes incoming DSA tags to be copied over
+rather than being replaced by tags identifying the traffic as having
+come from the link port. Finally, an ACL is installed which causes the
+upstream switch to forward all egress traffic with the PASSTHROUGH bit
+to the link port.
+
+However for reasons unknown, the PASSTHROUGH bit is cleared by the
+upstream switch as it receives ingress traffic from the downstream
+switch. So by the time the traffic reaches the CPU, it no longer bears
+the PASSTHROUGH bit and its origin cannot be known.
+
+Reference code defaults to passthrough mode as is implemented here, but
+supports a limited hierarchical implementation for hardware that needs
+it. In this mode it is not permitted to use the same port number on
+both switches. This implementation does not implement that mode because
+there is no known hardware using ports on both switches.
+
+Signed-off-by: Caleb James DeLisle <cjd@cjdns.fr>
+---
+ drivers/net/dsa/mt7530.c | 164 +++++++++++++++++++++++++++++++++++----
+ drivers/net/dsa/mt7530.h |   6 ++
+ 2 files changed, 153 insertions(+), 17 deletions(-)
+
+diff --git a/drivers/net/dsa/mt7530.c b/drivers/net/dsa/mt7530.c
+index 9a50a492e6f0..58190e13813c 100644
+--- a/drivers/net/dsa/mt7530.c
++++ b/drivers/net/dsa/mt7530.c
+@@ -1286,13 +1286,41 @@ mt753x_trap_frames(struct mt7530_priv *priv)
+ 				   TO_CPU_FW_CPU_ONLY);
+ }
+ 
++static int
++mt7530_port_change_mtu(struct dsa_switch *ds, int port, int new_mtu);
++
++/* If this switch is downstream of another switch that is in passthrough mode,
++ * the "CPU" port is actually a DSA port.
++ */
+ static void
+ mt753x_cpu_port_enable(struct dsa_switch *ds, int port)
+ {
+ 	struct mt7530_priv *priv = ds->priv;
+ 
+-	/* Enable Mediatek header mode on the cpu port */
+-	regmap_write(priv->regmap, MT7530_PVC_P(port), PORT_SPEC_TAG);
++	if (priv->is_passthrough) {
++		/* Disable parsing of the DSA tag, it will be forwarded blindly
++		 * to the downstream switch.
++		 */
++		regmap_write(priv->regmap, MT7530_PVC_P(port),
++			     VLAN_ATTR(MT7530_VLAN_TRANSPARENT) |
++			     PVC_EG_TAG(MT7530_VLAN_EG_DISABLED));
++
++		/* The port is not configured to parse DSA tags, so they are
++		 * liable to be confused for length fields, so length check is
++		 * disabled.
++		 */
++		regmap_clear_bits(priv->regmap, MT753X_AGC, AGC_L2LEN_CHK);
++
++		/* In passthrough mode, MTU is only enforced downstream */
++		mt7530_port_change_mtu(ds, port, MT7530_MAX_MTU);
++
++		/* Loop detection has no value in passthrough mode */
++		regmap_set_bits(priv->regmap, MT753X_MTRAP,
++				MT7530_LOOP_DET_DISABLE);
++	} else {
++		/* Not passthrough, enable DSA tag handling on CPU port. */
++		regmap_write(priv->regmap, MT7530_PVC_P(port), PORT_SPEC_TAG);
++	}
+ 
+ 	/* Enable flooding on the CPU port */
+ 	regmap_set_bits(priv->regmap, MT753X_MFC,
+@@ -1322,6 +1350,7 @@ static int
+ mt7530_port_enable(struct dsa_switch *ds, int port,
+ 		   struct phy_device *phy)
+ {
++	int upstream_pt = dsa_switch_upstream_port(ds);
+ 	struct dsa_port *dp = dsa_to_port(ds, port);
+ 	struct mt7530_priv *priv = ds->priv;
+ 
+@@ -1332,13 +1361,38 @@ mt7530_port_enable(struct dsa_switch *ds, int port,
+ 	 * bridge.
+ 	 */
+ 	if (dsa_port_is_user(dp)) {
+-		struct dsa_port *cpu_dp = dp->cpu_dp;
++		priv->ports[port].pm |= PCR_MATRIX(BIT(upstream_pt));
++
++	} else if (dsa_port_is_dsa(dp) && dp->index != upstream_pt) {
++		priv->ports[port].pm |= PCR_MATRIX(BIT(upstream_pt));
++
++		/* Should not happen */
++		WARN_ON_ONCE(!priv->is_passthrough);
++
++		/* We are passing through to a downstream switch so we set both
++		 * CPU and downstream link to pass traffic untouched so that
++		 * the STAG from the downstream switch will pass to the upstream.
++		 */
++		regmap_write(priv->regmap, MT7530_PVC_P(port),
++			     VLAN_ATTR(MT7530_VLAN_TRANSPARENT) |
++			     PVC_EG_TAG(MT7530_VLAN_EG_DISABLED));
++
++		/* We let the downstream switch flood */
++		regmap_set_bits(priv->regmap, MT753X_MFC, BC_FFP(BIT(port)) |
++				UNM_FFP(BIT(port)) | UNU_FFP(BIT(port)));
+ 
+-		priv->ports[port].pm |= PCR_MATRIX(BIT(cpu_dp->index));
++		/* Make the upstream port able to connect to the DSA port.
++		 * This must be explicit because PORT_SPEC_TAG is unset.
++		 */
++		regmap_write(priv->regmap, MT7530_PCR_P(upstream_pt),
++			     PCR_MATRIX(BIT(port)));
+ 	}
+ 	priv->ports[port].enable = true;
+-	regmap_update_bits(priv->regmap, MT7530_PCR_P(port), PCR_MATRIX_MASK,
+-			   priv->ports[port].pm);
++
++	/* In passthrough mode, CPU port mask is set above. */
++	if (!(priv->is_passthrough && dp->index == upstream_pt))
++		regmap_update_bits(priv->regmap, MT7530_PCR_P(port),
++				   PCR_MATRIX_MASK, priv->ports[port].pm);
+ 
+ 	mutex_unlock(&priv->reg_mutex);
+ 
+@@ -1390,7 +1444,7 @@ mt7530_port_change_mtu(struct dsa_switch *ds, int port, int new_mtu)
+ 	 * largest MTU of the user ports. Because the switch only has a global
+ 	 * RX length register, only allowing CPU port here is enough.
+ 	 */
+-	if (!dsa_is_cpu_port(ds, port))
++	if (!dsa_is_upstream_port(ds, port))
+ 		return 0;
+ 
+ 	regmap_read(priv->regmap, MT7530_GMACCR, &val);
+@@ -2411,11 +2465,6 @@ mt7530_setup(struct dsa_switch *ds)
+ 		break;
+ 	}
+ 
+-	if (!dn) {
+-		dev_err(ds->dev, "parent OF node of DSA conduit not found");
+-		return -EINVAL;
+-	}
+-
+ 	ds->assisted_learning_on_cpu_port = true;
+ 	ds->untag_vlan_aware_bridge_pvid = true;
+ 	ds->mtu_enforcement_ingress = true;
+@@ -2517,7 +2566,7 @@ mt7530_setup(struct dsa_switch *ds)
+ 		/* Disable learning by default on all ports */
+ 		regmap_set_bits(priv->regmap, MT7530_PSC_P(i), SA_DIS);
+ 
+-		if (dsa_is_cpu_port(ds, i)) {
++		if (dsa_is_upstream_port(ds, i)) {
+ 			mt753x_cpu_port_enable(ds, i);
+ 		} else {
+ 			mt7530_port_disable(ds, i);
+@@ -2541,7 +2590,7 @@ mt7530_setup(struct dsa_switch *ds)
+ 		return ret;
+ 
+ 	/* Check for PHY muxing on port 5 */
+-	if (dsa_is_unused_port(ds, 5)) {
++	if (dn && dsa_is_unused_port(ds, 5)) {
+ 		/* Scan the ethernet nodes. Look for GMAC1, lookup the used PHY.
+ 		 * Set priv->p5_mode to the appropriate value if PHY muxing is
+ 		 * detected.
+@@ -2641,7 +2690,7 @@ mt7531_setup_common(struct dsa_switch *ds)
+ 		regmap_set_bits(priv->regmap, MT7531_DBG_CNT(i),
+ 				MT7531_DIS_CLR);
+ 
+-		if (dsa_is_cpu_port(ds, i)) {
++		if (dsa_is_upstream_port(ds, i)) {
+ 			mt753x_cpu_port_enable(ds, i);
+ 		} else {
+ 			mt7530_port_disable(ds, i);
+@@ -3302,7 +3351,7 @@ mt753x_conduit_state_change(struct dsa_switch *ds,
+ 
+ 	/* Set the CPU port to trap frames to for MT7530. Trapped frames will be
+ 	 * forwarded to the numerically smallest CPU port whose conduit
+-	 * interface is up.
++	 * interface is up. NOTE: "CPU port" can also mean an upstream DSA link.
+ 	 */
+ 	if (priv->id != ID_MT7530 && priv->id != ID_MT7621 &&
+ 	    priv->id != ID_EN7528)
+@@ -3397,6 +3446,76 @@ static int mt7988_setup(struct dsa_switch *ds)
+ 	return mt7531_setup_common(ds);
+ }
+ 
++/* 1 if passthrough, negative if error. */
++static int mt753x_check_passthrough(struct device *dev)
++{
++	struct device_node *ports, *port;
++	int passthrough_ports = 0;
++	int enabled_ports = 0;
++
++	ports = of_get_child_by_name(dev->of_node, "ports");
++	if (!ports)
++		ports = of_get_child_by_name(dev->of_node, "ethernet-ports");
++
++	if (!ports) {
++		dev_err(dev, "no ports child node found\n");
++		return -EINVAL;
++	}
++
++	for_each_available_child_of_node(ports, port) {
++		struct device_node *link;
++
++		enabled_ports++;
++
++		link = of_parse_phandle(port, "ethernet", 0);
++		if (!link)
++			link = of_parse_phandle(port, "link", 0);
++
++		if (!link)
++			continue;
++
++		of_node_put(link);
++
++		passthrough_ports++;
++	}
++
++	of_node_put(ports);
++
++	/*
++	 * A switch is considered passthrough if exactly two available
++	 * ports have an "ethernet" or "link" phandle.
++	 */
++	if (passthrough_ports > 2 ||
++	    (passthrough_ports == 2 && enabled_ports != 2)
++	) {
++		dev_err(dev, "Only two ports allowed in passthrough mode\n");
++		return -EINVAL;
++	}
++
++	return passthrough_ports == 2;
++}
++
++/* No manipulation of forwarding rules allowed in passthrough mode */
++static const struct dsa_switch_ops mt7530_passthrough_switch_ops = {
++	.get_tag_protocol	= mtk_get_tag_protocol,
++	.setup			= mt753x_setup,
++	.teardown		= mt753x_teardown,
++	.preferred_default_local_cpu_port = mt753x_preferred_default_local_cpu_port,
++	.get_strings		= mt7530_get_strings,
++	.get_ethtool_stats	= mt7530_get_ethtool_stats,
++	.get_sset_count		= mt7530_get_sset_count,
++	.get_eth_mac_stats	= mt7530_get_eth_mac_stats,
++	.get_rmon_stats		= mt7530_get_rmon_stats,
++	.get_eth_ctrl_stats	= mt7530_get_eth_ctrl_stats,
++	.get_stats64		= mt7530_get_stats64,
++	.port_enable		= mt7530_port_enable,
++	.port_disable		= mt7530_port_disable,
++	.phylink_get_caps	= mt753x_phylink_get_caps,
++	.support_eee		= dsa_supports_eee,
++	.set_mac_eee		= mt753x_set_mac_eee,
++	.conduit_state_change	= mt753x_conduit_state_change,
++};
++
+ static const struct dsa_switch_ops mt7530_switch_ops = {
+ 	.get_tag_protocol	= mtk_get_tag_protocol,
+ 	.setup			= mt753x_setup,
+@@ -3529,8 +3648,12 @@ EXPORT_SYMBOL_GPL(mt753x_table);
+ int
+ mt7530_probe_common(struct mt7530_priv *priv)
+ {
++	int passthrough = mt753x_check_passthrough(priv->dev);
+ 	struct device *dev = priv->dev;
+ 
++	if (passthrough < 0)
++		return passthrough;
++
+ 	priv->ds = devm_kzalloc(dev, sizeof(*priv->ds), GFP_KERNEL);
+ 	if (!priv->ds)
+ 		return -ENOMEM;
+@@ -3548,7 +3671,14 @@ mt7530_probe_common(struct mt7530_priv *priv)
+ 	priv->id = priv->info->id;
+ 	priv->dev = dev;
+ 	priv->ds->priv = priv;
+-	priv->ds->ops = &mt7530_switch_ops;
++
++	if (passthrough) {
++		priv->ds->ops = &mt7530_passthrough_switch_ops;
++		priv->is_passthrough = true;
++	} else {
++		priv->ds->ops = &mt7530_switch_ops;
++	}
++
+ 	priv->ds->phylink_mac_ops = &mt753x_phylink_mac_ops;
+ 	mutex_init(&priv->reg_mutex);
+ 	spin_lock_init(&priv->stats_lock);
+diff --git a/drivers/net/dsa/mt7530.h b/drivers/net/dsa/mt7530.h
+index 3dabbc99fbbc..108c831dd012 100644
+--- a/drivers/net/dsa/mt7530.h
++++ b/drivers/net/dsa/mt7530.h
+@@ -40,6 +40,7 @@ enum mt753x_id {
+ /* Register for ARL global control */
+ #define MT753X_AGC			0xc
+ #define  LOCAL_EN			BIT(7)
++#define  AGC_L2LEN_CHK			BIT(4)
+ 
+ /* Register for MAC forward control */
+ #define MT753X_MFC			0x10
+@@ -583,6 +584,7 @@ enum mt7531_clk_skew {
+ #define MT753X_MTRAP			0x7804
+ #define  MT7530_P5_PHY0_SEL		BIT(20)
+ #define  MT7530_CHG_TRAP		BIT(16)
++#define  MT7530_LOOP_DET_DISABLE	BIT(14)
+ #define  MT7530_P5_MAC_SEL		BIT(13)
+ #define  MT7530_P6_DIS			BIT(8)
+ #define  MT7530_P5_RGMII_MODE		BIT(7)
+@@ -897,6 +899,9 @@ struct mt753x_info {
+  * @p5_mode:		Holding the current mode of port 5 of the MT7530 switch
+  * @p5_sgmii:		Flag for distinguishing if port 5 of the MT7531 switch
+  *			has got SGMII
++ * @is_passthrough:	If this switch is to pass traffic between the upstream
++ *			(CPU) port and a second downstream switch, without
++ *			altering the DSA tag.
+  * @irq_domain:		IRQ domain of the switch irq_chip
+  * @create_sgmii:	Pointer to function creating SGMII PCS instance(s)
+  * @active_cpu_ports:	Holding the active CPU ports
+@@ -921,6 +926,7 @@ struct mt7530_priv {
+ 	bool			p5_sgmii;
+ 	u8			mirror_rx;
+ 	u8			mirror_tx;
++	bool			is_passthrough;
+ 	struct mt7530_port	ports[MT7530_NUM_PORTS];
+ 	struct mt753x_pcs	pcs[MT7530_NUM_PORTS];
+ 	/* protect among processes for registers access*/
+-- 
+2.39.5
+
