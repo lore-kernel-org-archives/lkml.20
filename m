@@ -1,75 +1,72 @@
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com [209.85.214.175])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AADEF37C115
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 06:42:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2396C3A9631
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 06:42:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788936139; cv=none; b=Qh4aVMuTIVWiosVU29QhTllekUDBVybEBiF2TVQCqtvf/RSPPVVXsAdpGmUV4Est4mQScZrRXiLTttuqOT3Dk4OoQFiuA8jUQWS12RV47E4CaarIbbp0x7G6THzH3uwgsBBVUENZMRg4dRzVgoCzSkcxuJJjCX1rvNc/m+W5PDw=
+	t=1788936141; cv=none; b=bUv6MeiXAslMO+Dd0TkqIVQg8wTLPNVexVLNzoY99sLHZgGPQGms1UgZ+eCKCEhXFFRTkO3plzt1mycK7DjEM/mbalcqQ9lVluHRHa+NSLxYYNYjfZrucfU0G0gue3wPHQ3jfUFWO1F5vCNHDE2KvI4B1kGpscv8+892C3QdUyo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788936139; c=relaxed/simple;
-	bh=8XQPL+qXmwwMqJoxtmSJBCmN+e7LaBDtPH6jPm9wiZw=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Ex/TsmJa1mkLXqrrYf3gm6d7si/HAVBAOu9kmZIvGj9RDx/ca3wNdeMJs19bvud5O9SPsXavzO+n2GH1SJptE0Wt2N3mXzBMkvsmZ+Dhx8GKvLWmAOx2eb+UuKAkfn6bdn7Ym1WMOqnJmzujNDnSPJUx9Za0CyT8cD+wQxFigQc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aprkWaR+; arc=none smtp.client-ip=209.85.128.46
+	s=arc-20240116; t=1788936141; c=relaxed/simple;
+	bh=iDybumrrIViuDLFcgCBzA5c0ljgLQ9G7vLoz9kImh+Y=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Nk5KHGsuExoU8jeGpcSSgT01GKy/qzFMQ4g08TI7SvPhHVM1DUxGerPT/hIX+eW6RYdtpmkB7Hu0dc7wayV0kLKLGjdXUGlxD8diOp3BpG1KbpylDow9VSx0+UTVmQSHhrzWui/NB2zor9ijgMrO1QwsZhx5NIlVI3Xb9faenJA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DoL0mKJx; arc=none smtp.client-ip=209.85.214.175
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aprkWaR+"
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4995b0343c1so76571255e9.3
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 23:42:17 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DoL0mKJx"
+Received: by mail-pl1-f175.google.com with SMTP id d9443c01a7336-2dcff8f44f2so4381765ad.1
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 23:42:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788936136; x=1789540936; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788936139; x=1789540939; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=H6tvZNI4t5/tOb8RX49yOghwxoZpFGQ6EqhK2cKUEWg=;
-        b=aprkWaR+EiND5MKP60MSXCSi4gumRp2zl2z+WWCVb6ehffrKGTr0gQfWM9Pl8QgNlz
-         EucSYT7CaukC+ZWRaQv8UIrcJjL6HxDOksOddn23Sz1qFQomKKn492dbJKxOEXMOblCU
-         pm/NF3YNY0zFRMabtcNM+1yw0YZeGm7NKhIr+9CpmfNJzcuCNZgSYquyhj2fV7Gd5lZT
-         JV180cB4mnGPtdpc/wrakHr51SZWerOEhyjI2Eg1kz3YvTjUH0zrlhIJV3pBKpCLvMB7
-         r5MyQAvSJ1a5IYL0inj3WRprWvF3l/hFTxUsJXXVDJSqkYmOvLwhUxxg6oXRqv1oCpad
-         ufgA==
+        bh=CxZ7rOe2cp20uhhw8BfBShBPGU+l2Fa3Spwjm/FWLyE=;
+        b=DoL0mKJxKkvKX6pfJHRLnPRhPnXu9Kw9wiloCv/eSQ7Map2M9jOnL5LefiNOX2M4tz
+         f7hBkhe2oHYbl2SpADI1kyIoqoZW230LEnmx/tKZd1vMsmdyZDPvHksqnZO2hl6mlRPP
+         eM/zYdNcjmKgZNNBtnEwogztjN1eypUz7OnnzAEY94D0D9e+d6/BInA2wU3i8cI82gjj
+         Fd9n4WIOBBOBy+kDKypt+DUuu8mjpCoowum+ONBQBV4vynzK61DY2SlP+6EpjGaACww7
+         /xWHjFdKICzkxYjBrqaWoGGvdgZyBLzSUlQLuZHXpIpAY2rrFKQf6ZjuaUFGd6hcVI84
+         p49Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788936136; x=1789540936;
+        d=1e100.net; s=20251104; t=1788936139; x=1789540939;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=H6tvZNI4t5/tOb8RX49yOghwxoZpFGQ6EqhK2cKUEWg=;
-        b=nLyFgdx100e9t0ghgbLsX+xbWD13lol3GENYC7waRkDDfOCjcOTJ1TJzKqhXo7zsNU
-         NcceePBiryPuIO7iQO053R35OPiogdNHpUInc5L3Wu6m60iru8FdfGroXtF3xyjPKnIE
-         YiACHUn4mqW3OfHlYukuKSxzTLabZzauEsKRPIUoLuueK3sJQSrKAzNGIhkE7ZJdsFJC
-         ZsR7JtVF9VsAoveK6awVwIgREbXtpVbpF/QgDOvw1gSXRfCXSBxSBG2kP8psvlQI9m0x
-         dsaQWcmWtBndodk0AZkxQif7kqnh1C4cxoSKUb+DR4Uf21s5qCdotonCCPd5nAk4NYGC
-         Cbog==
-X-Forwarded-Encrypted: i=1; AKwUvBxF4hs0X61gsEFZi+NjMHv4gW5JRzpfkZGmwOackaK+2C/1vBMkzH+36NaWY5WdaoWNyjK5zTTqq7uIW14=@vger.kernel.org
-X-Gm-Message-State: AFuF++nv8gIrfBDEe87sYiAKCSsogMbXMmU4hfvZGCDPvYubkX/gqQ+L
-	GYt2rC30lvCWGRTi3Y0fAHKaimfQylkOmggmhmtGJ7R4IxiCGqvwpv56
-X-Gm-Gg: AYBFou2QKM9oFFCoK9Qnl0/6ZpeFStv2B2bPLKzV6CIpb2elQ8PkKOUKQTNSmPdW7LA
-	ffyi7cmqA+fDBZU/6R02/g6j55+OhDbsXmFyKHWoWSlI2IQ6+Q+ME2aZxxbwK8feFswm+gXFOaI
-	auykMFVENXr4tva9dfIizH9RIhX7A/SKymTFL1SBSMmW9K5rvKthiX+WiCAxTIfMNsQAYXVYzGs
-	kU+z3pKCptj49Y4wpj9zvgo3+d58knEfIOaTU6oihCYK62SzOTPk6xWwbYPrqepL1pJs68a+rVZ
-	BYiGIDF+/3gBNC/DhMGgQGNWKAawb9uHqJZBVP2+d42WA72U0fc5txi7RRzlP35ukokph7sGJCY
-	gO1VqFp9PJdGe5v96+aChdaai6bZb8UB9JKkEUmhjBWCA7hwVsjjzi8Q+OYCi3WcZxYCt3TWwD4
-	mekG1xfX4WGeMVWzGo3SL1P5hokP8sm5q7qYqFxbbCc+ZoXbC4t9ZnaXu/vawXeouFbwhiUe4cZ
-	uUdLqnJf7eb9xNCj4XTGTVCwPB0lPpWFoMpZeMg7Nywy63NSv4UofoJF9WaoiK7UgbHMSFjXo0B
-	CKjgizckR80Y+g2YxMgUkPLhCOFVD4r1ikg7hGWfBSIzbGq5sBrnVVQ1D1uYyiPQ
-X-Received: by 2002:a05:600c:358a:b0:49c:dada:30b7 with SMTP id 5b1f17b1804b1-49cf82070famr332881865e9.2.1788936135696;
-        Tue, 08 Sep 2026 23:42:15 -0700 (PDT)
-Received: from MacBook-Pro-von-Karl.localdomain (dynamic-095-114-212-219.95.114.pool.telefonica.de. [95.114.212.219])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cf7703cefsm600953625e9.5.2026.09.08.23.42.14
+        bh=CxZ7rOe2cp20uhhw8BfBShBPGU+l2Fa3Spwjm/FWLyE=;
+        b=fX8IG9xnWC6aoV3bRFO04U5htteCCaPB1QTBfnRtkjjDna4eieZ7/aiYffgAvMIenU
+         LP1YjKs5XMN324qLeAIcPk86+b4Xqs0SZ8Z+cI5cQKl2fAD3QZzKoiIYuIUJ4agCyws0
+         Dq3htE7uX2vL8reh83YzTYxlVqsNCrgQBXvRMlibQl7d+ltk6OVjjaUfOb8FXb9klkWC
+         zmX2zoJQr8Q39t3s8zUJgsrR5hg7ABrfiHUB9gig90CuPhlwPbv7lc3weozRvuVFPlFP
+         5ivr74yoUbsQvZ8Yige+2Dz48c1P8K32yCw4vpqw2ePTau7oZS0gkohNcPWv6hqJcoZp
+         euWQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwjEGoJGTJD9JZjuEhabdeuGc4Vj8Iy7JQWQAD2NVw50F9FHRIFeWbDqg5rRUoSwvaIMgI5t0nTwNN6aP4=@vger.kernel.org
+X-Gm-Message-State: AFuF++lc3JWaF6BYGBxeXTgv+7XgtjrrxM2RXuOrSEMJeJ0uXD8r0Rso
+	hRm4CztM6wSvMYFqinN60cq6eKjt2Oz3uN43bToDHg9RY5Yu4BOwCwoB
+X-Gm-Gg: AYBFou1PewVOuYLitilnhKrLz984QMtrY1bJnIjqeloDWWEJFL4iTazVRoQVQ+f5rfR
+	ZQ1GnDWq2eanOYXa5FOZYjTBTG+cM/kpXLMG//eBBq3VdlDefB8SDVlACKxny20np9CwonxfM+u
+	osZr8EmrbozqIbMFI+VBTXLhGvrwG6C652jjh3z81ljKzZ3jySnXb6UEQQGRr3Ufi+1TequgUiZ
+	0NJcaoOTl+QW2Op+BxNUCGDt9bn/YGmhgIN9vBNq6s6hnY5quP0fTeIYKSQuJ6uuPHjdPDT8DoV
+	gVEpFSElmKI7cKDlkDGTBY7176nCA1qKIDOJd8ZaLMpxt8si3pQrsM0QdkZlmfLSP7sfQ/OJKwx
+	PQV535ykolJswIU4HQbRxhxtEGwmjaavevMbnrrdKlckVh9eSbg3hxXz6nLNYUJCRWYO2NHW3SP
+	htGDTHeLqPj7bR0tUiPuyl9Oq9byoDX8GKFIXu+ovHSjbm+Ep0AVILG6Vy0Do20IrONmQ07+zHT
+	AJz8GW68CCg5246skFjpsuqtvKsFnEWKN2BjLevyToSg9Sw8a5YDrXXxQw=
+X-Received: by 2002:a17:902:7788:b0:2d7:4cd4:5a7f with SMTP id d9443c01a7336-2db127c0b20mr362659145ad.12.1788936139312;
+        Tue, 08 Sep 2026 23:42:19 -0700 (PDT)
+Received: from localhost.localdomain ([2405:1202:c2a4:2d00:91c9:34c8:7e7b:4100])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2db149c935dsm67295055ad.64.2026.09.08.23.42.17
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Tue, 08 Sep 2026 23:42:15 -0700 (PDT)
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: Miquel Raynal <miquel.raynal@bootlin.com>
-Cc: Karl Mehltretter <kmehltretter@gmail.com>,
-	Richard Weinberger <richard@nod.at>,
-	Vignesh Raghavendra <vigneshr@ti.com>,
-	Peter Pan <peterpandong@micron.com>,
-	linux-mtd@lists.infradead.org,
+        Tue, 08 Sep 2026 23:42:18 -0700 (PDT)
+From: Ryohei Hashimoto <laurel.medalist12@gmail.com>
+To: linux-wireless@vger.kernel.org
+Cc: Arend van Spriel <arend.vanspriel@broadcom.com>,
+	brcm80211@lists.linux.dev,
+	brcm80211-dev-list.pdl@broadcom.com,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH] mtd: spinand: Fix spinand_manufacturer_ops kernel-doc
-Date: Wed,  9 Sep 2026 08:40:55 +0200
-Message-Id: <20260909064055.90235-1-kmehltretter@gmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+Subject: [PATCH] wifi: brcmfmac: log the firmware status when a connect fails
+Date: Wed,  9 Sep 2026 15:41:25 +0900
+Message-ID: <20260909064125.67844-1-laurel.medalist12@gmail.com>
+X-Mailer: git-send-email 2.51.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -78,33 +75,65 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The kernel-doc heading for struct spinand_manufacturer_ops misspells
-and truncates its name as manufacurer_ops. As a result, kernel-doc cannot
-match the comment to the structure declaration.
+brcmf_bss_connect_done() receives the firmware event in @e but discards it
+on the failure path.  Every failed connect is reported to cfg80211 as
+WLAN_STATUS_AUTH_TIMEOUT (16), whatever the firmware actually said, so
+userspace only ever sees:
 
-Use the structure's actual name.
+  wlan0: CTRL-EVENT-ASSOC-REJECT bssid=00:00:00:00:00:00 status_code=16
 
-Fixes: 7529df465248 ("mtd: nand: Add core infrastructure to support SPI NANDs")
-Assisted-by: LLM
-Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+The all-zero BSSID comes from the same place: conn_params is memset to
+zero and profile->bssid has not been filled in when the station never
+associated.
+
+status_code=16 therefore carries no information about the cause.  It is not
+an AP response and it does not mean "authentication timed out" - it is the
+only failure value this driver can produce.  This is a recurring source of
+confusion: [1] has been open since 2023 with more than twenty follow-ups
+and no explanation of the code, and covers BCM4345/6, BCM43430 and
+CYW43455 across several kernel versions.  It supersedes [2], filed against
+the firmware repository a day earlier and closed in favour of it.
+
+The firmware's own status (BRCMF_E_STATUS_*) is more specific - FAIL,
+TIMEOUT, NO_NETWORKS, ABORT and so on - and it is already in hand.  Log it
+so the cause can be narrowed down without rebuilding the kernel.
+
+brcmf_err() is used rather than brcmf_dbg() or brcmf_info() because it is
+the only one of the three that is both visible in a distribution kernel and
+bounded.  brcmf_dbg(CONN) is compiled out without CONFIG_BRCMDBG, which is
+what makes the reports in [1] and [2] impossible to act on - the people
+hitting this run stock kernels.  brcmf_info() expands to a plain pr_info()
+in a non-debug build and is not rate limited, and wpa_supplicant retries
+the association every few seconds, so it would flood the log.  brcmf_err()
+goes through net_ratelimit() there, so a station retrying against an
+unreachable AP prints at most a few lines per second.
+
+All three fields are printed because only some of them are meaningful on
+each path into the failure branch.  brcmf_is_nonetwork() keys off @status,
+so that is the useful field for a join that never associated - the case in
+[1].  brcmf_is_linkdown() keys off @event_code and the 802.11 @reason and
+does not look at @status at all, so @status can read 0 there.  Printing the
+three together lets the reader tell which path was taken instead of
+guessing from one number.
+
+The status reported to cfg80211 is left alone; changing it would alter what
+userspace sees.
+
+[1] https://github.com/RPi-Distro/firmware-nonfree/issues/38
+[2] https://github.com/raspberrypi/firmware/issues/1829
+
+Signed-off-by: Ryohei Hashimoto <laurel.medalist12@gmail.com>
 ---
- include/linux/mtd/spinand.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/include/linux/mtd/spinand.h b/include/linux/mtd/spinand.h
-index 5f4c00ae72a7..0bd3f30ea57e 100644
---- a/include/linux/mtd/spinand.h
-+++ b/include/linux/mtd/spinand.h
-@@ -399,7 +399,7 @@ struct spinand_devid {
- };
- 
- /**
-- * struct manufacurer_ops - SPI NAND manufacturer specific operations
-+ * struct spinand_manufacturer_ops - SPI NAND manufacturer specific operations
-  * @init: initialize a SPI NAND device
-  * @cleanup: cleanup a SPI NAND device
-  *
-
-base-commit: 893e11787f78e43b534e252249ac3fff4d1333f8
--- 
-2.53.0
+diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/cfg80211.c b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/cfg80211.c
+index 872c488..114dabb 100644
+--- a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/cfg80211.c
++++ b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/cfg80211.c
+@@ -6522,6 +6522,8 @@ brcmf_bss_connect_done(struct brcmf_cfg80211_info *cfg,
+ 			clear_bit(BRCMF_VIF_STATUS_ASSOC_SUCCESS,
+ 				  &ifp->vif->sme_state);
+ 			conn_params.status = WLAN_STATUS_AUTH_TIMEOUT;
++			brcmf_err("connect failed: event %u status %u reason %u\n",
++				  e->event_code, e->status, e->reason);
+ 		}
+ 		conn_params.links[0].bssid = profile->bssid;
+ 		conn_params.req_ie = conn_info->req_ie;
