@@ -1,47 +1,85 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FE7C33DEC8;
-	Wed,  9 Sep 2026 07:35:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1CA429D27D
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 07:36:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788939361; cv=none; b=N0beldxwgvnAisUc2REpezc/xLIDG+nkGTllWLFxRL+1nVPgK9pvjADBGolzKX6W4F4NaUjqSU27v2Sp0JZfixNVrEh3+16bluh9V6AmenX7dRQHWLM9IFfnF8A1kGNuO1JTylCpbXDLW9rzIG1Rkln9OG2+Sgl1yI0CeJcxxgQ=
+	t=1788939375; cv=none; b=kZLyq5Nya5CjKaQIcdpFzXPWNDwo1Nhw5TL6hx7ehsfJGpVGVunp4VV0/WRQGjpI6rdpIAtPooYvqeQHg6lF4UDy3T2vbj4fpHVHheTbMfwwGvl8Ufpi8iIRw+1++cabl2O5Z0FLtwKuhrZ8PjYK17W+v8bY05WZa6KH/VdhEXU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788939361; c=relaxed/simple;
-	bh=eGMvNgsYGKPWUrgXIAqzJ1svwm6MdNmdB5cuofkI7KY=;
+	s=arc-20240116; t=1788939375; c=relaxed/simple;
+	bh=IRKWIkhJwafZxW1vv88MkUTkA4ugbZD+XzwQyVo4/xU=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=LFOXmpF8hwDrJ/kWVaE/Rvj1Wv3/J96AwBbDRvHG0md0TYdfi7cYgUi+t3Qw9j4+FKT2aQG9e6LoE8deoPLliwFit0qmX7ZmytVG8jK5SYR2SqlNJTcqxNY6b093DLerDVGqEJ94OCFgpaHR/UmXI/ysiJwgGAEt8fJpxCY01Pg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=m5DcZp4X; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=oHSrzfxXDiWCoDa9p4numxxhZSjkeLIUwknOHDChNJCLe5uLa2bPJiGMNJPJ7wQHUvd00jf7WKh8/cUa+SRcHUk6sd9cC2atlemuCSwGdiXNMFkcmUPsb/FMHL8QUdb5cz20lbiEVup2C+Uqpp7howed4FKJqZxJy4jroYEarZE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=DFRISFlF; arc=none smtp.client-ip=209.85.128.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="m5DcZp4X"
-Received: from ideasonboard.com (93-46-82-201.ip106.fastwebnet.it [93.46.82.201])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 4A7024B0;
-	Wed,  9 Sep 2026 09:34:20 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1788939260;
-	bh=eGMvNgsYGKPWUrgXIAqzJ1svwm6MdNmdB5cuofkI7KY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=m5DcZp4XGsdCFiu5FHCi/VKiczBQnR5LMlc0T0M1JZfdYzlg8Ue6iNHWXS5vx1LIN
-	 V1j6Qggj/7V0JX5uRlClBTJSzoxt7pxH24Z83UelpY4LGdTbJJQPtAjOseV0YQaRUk
-	 vH92/FltlQyjwU8ijZVzjXbgoAnwpwRYGolxyE10=
-Date: Wed, 9 Sep 2026 09:35:52 +0200
-From: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-To: Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
-	Philippe Baetens <philippebaetens@gmail.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Kieran Bingham <kieran.bingham@ideasonboard.com>, 
-	Jai Luthra <jai.luthra@ideasonboard.com>, linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Conor Dooley <conor.dooley@microchip.com>
-Subject: Re: [PATCH v4 1/2] dt-bindings: media: i2c: Add Mira016 image sensor
-Message-ID: <aqEJk6dKWuyMLLRt@zed>
-References: <20260908-mira016-v4-0-1950504c131c@ideasonboard.com>
- <20260908-mira016-v4-1-1950504c131c@ideasonboard.com>
- <ap_EWstoCsLOkZ6x@kekkonen.localdomain>
- <ap_0yL-JatdVDaXG@zed>
- <ap_2Jhqc3vlmkmci@kekkonen.localdomain>
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="DFRISFlF"
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-495437bb891so30919205e9.1
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 00:36:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1788939372; x=1789544172; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=V3OoG3DjDJcclfZFhjtGj32TTpN8ta/8kYvfy2cZ0Ak=;
+        b=DFRISFlFLDzd3Aco6dFxkmsc496/okSOq2NeMt74IdYp5S9fRnaxrxrxIsz0Y/YgMu
+         OMNC+0b4mTWubSyikeqrRXuBflvIsCZVB971S779RoNtgzpyyEHLO5actM0DgD3as+bE
+         p6+vfBhA+3pMcn0KaFCQIwwlmyXgKRV/10207/sXoEu3R/0yjw7essDXIsdtrKRi8vf0
+         4h0uA4Hs++4B5zrbDw1tOeGm/Y17OZHtrtfgEFWtsT9MDwarem8k8BFhkIL64RsLDmei
+         mbKPgYqQuQCL4m0rRdwi+GtuIlYGAU4F0VBK09Fah5bl7JXyZm3Lp4mto10+y+uZN7+L
+         X/pg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788939372; x=1789544172;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=V3OoG3DjDJcclfZFhjtGj32TTpN8ta/8kYvfy2cZ0Ak=;
+        b=gBbQ44+JfAAp+9pe/kb7xU74nFYbShtVd0DxZMyOlCWqVO3RTrquxfyMdxii/7lgP2
+         RjiNMscqw00iSyXArRGwyQwjtF8pT58/nNRUnU3zsmyD3qfkRe5QdtdULiYbZBM3qyuP
+         szIdJPtYU8hADwZTG9IlBVDDuoaM/xqouZamQH7JRynD/kmE7SBcSkB9OqEDmd+pfjGI
+         H+JU6CMB7/YyRP0waQ782xnUWI3NVgwR6g2SJ7ikFTEZ7dg4juuCueXngTRIPHG0J+Xq
+         qhdo6eM561jtdDYG7oaKexi7vuw1+j1D++fdd9aJRHoYytTzat8vHyejAGr8b1bNyVwc
+         MPWA==
+X-Forwarded-Encrypted: i=1; AKwUvBzV2X6gR8FF28PKZb2RaJoeaPe5Sq1+J9A8xr/HsSBRwTEfPw7UZxSAdxVJJSblJkA0j+oNHMtqvB6Tirw=@vger.kernel.org
+X-Gm-Message-State: AFuF++ng30jZ0c4xGEdR/xf58xq4WRUjF7j2h9k7OKVTKAVNqBBsYFwb
+	NviMaSGnctl5TG+1mFOcwoKeXbTwlXzob8pCTdAYnWWyVMrA1PBY9c2SmvnLNMr7f6Tc0UFDIK/
+	VqFsbUZ4=
+X-Gm-Gg: AYBFou0G1KZFiNHCnl/Stezz6Iat4lSJ4Ya0ryu6cmiMmDMG4DbCYKDOeGa23CC/0Ho
+	3Dm8kVeAHTQTQOj2KT7COQQFr7hSEaDdC9PvldB19ADhJBBiI6jhcxV34CiW6HkLqW2QHvPua4T
+	OEB/7ttZjKo+e5XNyInSvowBIsCafKu87k+Q8XiE2VLZOQwoed6a4aPP11EvQexe6C4JrKmEgeI
+	ZnaFzEW+E5Jv4Qv8YDGh09neZG7zWy2svcnzG1VKjEElite58ZedjcAb95JWFmg/J5uBDXVATrZ
+	3U7GU9FYJdWxv2AL1nfVkRUUv2TdpwTPl4LUqJfB9irCDMnE7vigOdVn0LFLNIGxCRKkOHCMZ8q
+	l8/CblIvDrLzqHEnbznxwoLPCeeWQguKPcn61ILsFiTBJY4ndtyGOzbwcZLZJljIelebnMOt8y7
+	utyXQypRO3T+icXfMLcsVNEPeBy5wde7ZhpySByqaheQmRQek9P+PIYKzIg0J5BAcYgrcajM4Fh
+	o4bXpA=
+X-Received: by 2002:a05:600c:600b:b0:49b:90bc:d4f3 with SMTP id 5b1f17b1804b1-49cee5d6287mr321995535e9.4.1788939371754;
+        Wed, 09 Sep 2026 00:36:11 -0700 (PDT)
+Received: from localhost (109-81-20-2.rct.o2.cz. [109.81.20.2])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48588394fa1sm39983209f8f.8.2026.09.09.00.36.11
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 09 Sep 2026 00:36:11 -0700 (PDT)
+Date: Wed, 9 Sep 2026 09:36:10 +0200
+From: Michal Hocko <mhocko@suse.com>
+To: Yosry Ahmed <yosry@kernel.org>
+Cc: akpm@linux-foundation.org, mgorman@techsingularity.net,
+	david@redhat.com, vbabka@suse.cz, hannes@cmpxchg.org,
+	quic_pkondeti@quicinc.com, linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH V3 3/3] mm: page_alloc: drain pcp lists before oom kill
+Message-ID: <aqEMagbMGPlkuP2P@tiehlicka>
+References: <a8e16f7eb295e1843f8edaa1ae1c68325c54c896.1699104759.git.quic_charante@quicinc.com>
+ <aphSYFTd12oia8K2@google.com>
+ <apkhSHr3by5Bf8jW@tiehlicka>
+ <CAO9r8zPCYNmJbkQEA62z75AB=ziWqGb38_E-ee_6o40Sz=zHXA@mail.gmail.com>
+ <apqppFukssaAQz3w@tiehlicka>
+ <CAO9r8zMBBhhqepbLR9buOOu7bpyLW+UTu55DjbCYrbBp56rkCw@mail.gmail.com>
+ <aprxXHSh-LyqaFCW@tiehlicka>
+ <CAO9r8zO93CMjJHLO1ZqHY0Tr2kDfvpMHfH3MLkR37vV0YROf_g@mail.gmail.com>
+ <ap5nJm1mH-4nfLaY@tiehlicka>
+ <CAO9r8zOaAGHXK6FZ0PM9sJL2zH4fQe5kh+W2TBNL90YZV2detQ@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -50,224 +88,92 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <ap_2Jhqc3vlmkmci@kekkonen.localdomain>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAO9r8zOaAGHXK6FZ0PM9sJL2zH4fQe5kh+W2TBNL90YZV2detQ@mail.gmail.com>
 
-Sakari,
-
-On Tue, Sep 08, 2026 at 02:48:54PM +0300, Sakari Ailus wrote:
-> Hi Jacopo,
->
-> On Tue, Sep 08, 2026 at 01:46:11PM +0200, Jacopo Mondi wrote:
-> > Hi Sakari
+On Mon 07-09-26 01:49:39, Yosry Ahmed wrote:
+> On Mon, Sep 7, 2026 at 12:26 AM Michal Hocko <mhocko@suse.com> wrote:
 > >
-> > On Tue, Sep 08, 2026 at 11:16:26AM +0300, Sakari Ailus wrote:
-> > > Hi Jacopo,
-> > >
-> > > On Tue, Sep 08, 2026 at 09:57:23AM +0200, Jacopo Mondi wrote:
-> > > > Add bindings for the ams OSRAM Mira016 image sensor.
+> > On Fri 04-09-26 09:35:55, Yosry Ahmed wrote:
+> > > On Fri, Sep 4, 2026 at 9:27 AM Michal Hocko <mhocko@suse.com> wrote:
+> > [...]
+> > > > > diff --git a/mm/page_alloc.c b/mm/page_alloc.c
+> > > > > index 8d79f76cdd0e1..98e9079240ad5 100644
+> > > > > --- a/mm/page_alloc.c
+> > > > > +++ b/mm/page_alloc.c
+> > > > > @@ -4592,11 +4592,12 @@ __alloc_pages_direct_reclaim(gfp_t gfp_mask,
+> > > > > unsigned int order,
+> > > > >         psi_memstall_enter(&pflags);
+> > > > >         *did_some_progress = __perform_reclaim(gfp_mask, order, ac);
+> > > > >         if (unlikely(!(*did_some_progress)))
+> > > > > -               goto out;
+> > > > > +               goto drain;
+> > > > >
+> > > > >  retry:
+> > > > >         page = get_page_from_freelist(gfp_mask, order, alloc_flags, ac);
+> > > > >
+> > > > > +drain:
+> > > > >         /*
+> > > > >          * If an allocation failed after direct reclaim, it could be because
+> > > > >          * pages are pinned on the per-cpu lists or in high alloc reserves.
+> > > > > @@ -4608,7 +4609,6 @@ __alloc_pages_direct_reclaim(gfp_t gfp_mask,
+> > > > > unsigned int order,
+> > > > >                 drained = true;
+> > > > >                 goto retry;
+> > > > >         }
+> > > > > -out:
+> > > > >         psi_memstall_leave(&pflags);
 > > > >
-> > > > Signed-off-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-> > > > Acked-by: Conor Dooley <conor.dooley@microchip.com>
-> > > > ---
-> > > >  .../devicetree/bindings/media/i2c/ams,mira016.yaml | 97 ++++++++++++++++++++++
-> > > >  MAINTAINERS                                        |  7 ++
-> > > >  2 files changed, 104 insertions(+)
-> > > >
-> > > > diff --git a/Documentation/devicetree/bindings/media/i2c/ams,mira016.yaml b/Documentation/devicetree/bindings/media/i2c/ams,mira016.yaml
-> > > > new file mode 100644
-> > > > index 000000000000..49a606fca6cb
-> > > > --- /dev/null
-> > > > +++ b/Documentation/devicetree/bindings/media/i2c/ams,mira016.yaml
-> > > > @@ -0,0 +1,97 @@
-> > > > +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
-> > > > +%YAML 1.2
-> > > > +---
-> > > > +$id: http://devicetree.org/schemas/media/i2c/ams,mira016.yaml#
-> > > > +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> > > > +
-> > > > +title: AMS 0.16 MP NIR enhanced global shutter image sensor
-> > > > +
-> > > > +maintainers:
-> > > > +  - Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-> > > > +  - Philippe Baetens <philippebaetens@gmail.com>
-> > > > +
-> > > > +description:
-> > > > +  Mira016 is a 0.16 MP NIR enhanced global shutter image sensor designed for 2D
-> > > > +  and 3D consumer and industrial machine vision applications. The sensor is
-> > > > +  compliant to the MIPI CSI-2 v1.3 protocol interface and the D-PHY v1.2
-> > > > +  physical layer specifications to transmit the image data to the host
-> > > > +  processor. It uses one data lane and one clock lane operating up to 1.5 Gbps.
-> > > > +
-> > > > +allOf:
-> > > > +  - $ref: /schemas/media/video-interface-devices.yaml#
-> > > > +
-> > > > +properties:
-> > > > +  compatible:
-> > > > +    const: ams,mira016
-> > > > +
-> > > > +  reg:
-> > > > +    maxItems: 1
-> > > > +
-> > > > +  clocks:
-> > > > +    maxItems: 1
-> > > > +
-> > > > +  vdd28-supply:
-> > > > +    description:
-> > > > +      I/O voltage supply, 2.8 volts
-> > > > +
-> > > > +  vdd11-supply:
-> > > > +    description:
-> > > > +      I/O voltage supply, 1.1 volts
-> > > > +
-> > > > +  reset-gpios:
-> > > > +    description: Sensor reset (RST_N) GPIO
-> > > > +    maxItems: 1
-> > > > +
-> > > > +  port:
-> > > > +    $ref: /schemas/graph.yaml#/$defs/port-base
-> > > > +    additionalProperties: false
-> > > > +    description:
-> > > > +      Video output port
-> > > > +
-> > > > +    properties:
-> > > > +      endpoint:
-> > > > +        $ref: /schemas/media/video-interfaces.yaml#
-> > > > +        unevaluatedProperties: false
-> > > > +
-> > > > +        properties:
-> > > > +          data-lanes:
-> > > > +            items:
-> > > > +              - const: 1
+> > > > Ideally if we can make the function call less hairy. Maybe we want to
+> > > > make draining part of the reclaim as the last resort when normal reclaim
+> > > > fails.
 > > >
-> > > The device obviously supports non-continuous clock mode (and that's what
-> > > the driver also only does right now) but as the continous clock mode is
-> > > required by CSI-2, I presume the device can do both.
+> > > Do you mean do the draining in __perform_reclaim(), or deeper into the
+> > > reclaim stack?
 > > >
-> > > So I think you should have
+> > > The thing is that __alloc_pages_direct_reclaim() currently drains when
+> > > __perform_reclaim() fails to make any progress and we still cannot
+> > > allocate. The change above makes it drain if it cannot allocate after
+> > > __perform_reclaim(), regardless of progress. So if you want to move it
+> > > into __perform_reclaim(), we'll have it in both places.
 > > >
-> > >              clock-noncontinuous: true
-> > >
-> > > here.
-> > >
+> > > Or maybe I just don't understand what you meant :)
 > >
-> > Maybe I'm confused (again, after 10 or so years of doing this) by the
-> > usage of unevaluatedProperties/additionalProperties, but if I read
-> > Documentation/devicetree/bindings/writing-schema.rst right
-> >
-> >   * unevaluatedProperties: false
-> >       Used when this binding references other schema whose all properties
-> >       should be allowed.
-> >
-> > Means all properties from video-interfaces.yaml are accepted (which is
-> > imho very wrong, but it's a battle with dt maintainers I don't want to
-> > start again).
->
-> I guess you should have
->
-> 		additionalProperties: false
->
-> too?
->
+> > Sorry for not being clear enough. I meant to pull draining out of
+> > __alloc_pages_direct_reclaim and instead have it somewhere in the
+> > reclaim path. It is not entirely clear to me  where at the moment but we
+> > do not need to have the same behavior as now. The idea behind the code
+> > is to not drain way too much. Maybe we want to drain when dropping the
+> > priority down to 0.
+> 
+> If we want to maintain the current behavior of only doing this for
+> direct reclaim (not kswapd, cgroup reclaim, or proactive reclaim),
+> then I was going to suggest adding it to do_try_to_free_pages().
+> However, we bail before priority reaches 0 if we are able to make
+> progress or compaction is ready.
+> 
+> Also, I think in do_try_to_free_pages() we don't have enough context
+> to decide if we need to drain the pcplists. Looking at the comment in
+> __alloc_pages_direct_reclaim(), we specifically drain the pcplists if
+> the allocation fails after reclaim makes progress to make sure all
+> reclaimed pages (e.g. in other CPUs' pcplists) are made available to
+> the allocation. So I think it fits better in the allocation path, so
+> that we only drain if we cannot allocate after direct reclaim.
+> 
+> I think the main issue is that we only drain today if we know direct
+> reclaim made progress, so it potentially freed some pages to pcplists.
+> However, it is possible that reclaim did not make progress but there
+> were already pages on the pcplists (e.g. freed concurrently or were
+> already there). I don't think the right place to do this is reclaim
+> path.
+> 
+> I personally think either Charan's original patch (draining in
+> should_reclaim_retry()), or the diff I proposed upthread (draining in
+> __alloc_pages_direct_reclaim()) are probably the best places. Please
+> let me know if you still disagree.
 
-Where exactly do you mean ?
-
-I don't think I can have additionalProperties: and
-unevaluatedProperties: in the same node, do I ?
-
-It's been a long time ago when we discussed with dt-maintainers what
-the policy should have been for endpoints that reference
-video-interfaces.yaml.
-
-To me, the most sensible thing was to use "additionalProperties: false"
-and explicitly allow the supported properties, instead of allowing all
-of them. However dt maintainers had a different opinion (for reasons I
-honestly can't remember) and I think we have stabilized on the
-following pattern
-
-        port:
-          $ref: /schemas/graph.yaml#/$defs/port-base
-          additionalProperties: false
-
-          properties:
-            endpoint:
-              $ref: /schemas/media/video-interfaces.yaml#
-              unevaluatedProperties: false
-
-              properties:
-                ...
-
-All the most recently merged bindings in media/i2c have this pattern
-
-42f83a32259a ("dt-bindings: media: i2c: Add Sony IMX678")
-097d2be74ad0 ("dt-bindings: media: i2c: document Omnivision OV08D10 CMOS image sensor")
-631dd79305ab ("dt-bindings: media: i2c: Add ov2732 image sensor")
-
-I feel like I'm missing something obvious, otherwise I don't see why
-this binding should be different ?
-
-
-> >
-> >
-> > > > +
-> > > > +        required:
-> > > > +          - data-lanes
-> > > > +          - link-frequencies
-> > > > +
-> > > > +required:
-> > > > +  - compatible
-> > > > +  - reg
-> > > > +  - clocks
-> > > > +  - vdd28-supply
-> > > > +  - vdd11-supply
-> > > > +  - port
-> > > > +
-> > > > +unevaluatedProperties: false
-> > > > +
-> > > > +examples:
-> > > > +  - |
-> > > > +    i2c {
-> > > > +        #address-cells = <1>;
-> > > > +        #size-cells = <0>;
-> > > > +
-> > > > +        camera@36 {
-> > > > +            compatible = "ams,mira016";
-> > > > +            reg = <0x36>;
-> > > > +            clocks = <&cam1_clk>;
-> > > > +
-> > > > +            vdd28-supply = <&cam1_reg>;
-> > > > +            vdd11-supply = <&cam_dummy_reg>;
-> > > > +
-> > > > +            port {
-> > > > +                endpoint {
-> > > > +                    data-lanes = <1>;
-> > > > +                    link-frequencies = /bits/ 64 <750000000>;
-> > > > +                };
-> > > > +            };
-> > > > +        };
-> > > > +    };
-> > > > +...
-> > > > diff --git a/MAINTAINERS b/MAINTAINERS
-> > > > index e12dc3ca57ab..1c24b05b378b 100644
-> > > > --- a/MAINTAINERS
-> > > > +++ b/MAINTAINERS
-> > > > @@ -1454,6 +1454,13 @@ S:	Maintained
-> > > >  F:	Documentation/devicetree/bindings/iio/light/ams,as73211.yaml
-> > > >  F:	drivers/iio/light/as73211.c
-> > > >
-> > > > +AMS MIRA016 DRIVER
-> > > > +M:	Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-> > > > +M:	Philippe Baetens <philippebaetens@gmail.com>
-> > > > +L:	linux-media@vger.kernel.org
-> > > > +S:	Maintained
-> > > > +F:	Documentation/devicetree/bindings/media/i2c/ams,mira016.yaml
-> > > > +
-> > > >  AMT (Automatic Multicast Tunneling)
-> > > >  M:	Taehee Yoo <ap420073@gmail.com>
-> > > >  L:	netdev@vger.kernel.org
-> > > >
-> > >
->
-> --
-> Regards,
->
-> Sakari Ailus
+In that case should_reclaim_retry seems a better fitting fix. 
+Thanks!
+-- 
+Michal Hocko
+SUSE Labs
