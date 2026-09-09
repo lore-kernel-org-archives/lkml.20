@@ -1,147 +1,103 @@
-Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazolkn19011033.outbound.protection.outlook.com [52.103.39.33])
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 205373D1715;
-	Wed,  9 Sep 2026 23:56:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.103.39.33
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788998162; cv=fail; b=VdFlSDaIo0Urgoty/EanZjHCBGFZWLF4Kil9CpYrdHHcX5tHDNscOnE6gxeoVVpY6YThAlNLXwQLHlkFwuxyQmwCJqcXoZJzKkVaion9VsM9VpjCzQeWldUaRVrtUrC4iZGdfYS30TDLOdS9oq9igkPuRRr2HokVmGpyHB88m9Q=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788998162; c=relaxed/simple;
-	bh=q0NssAvtPWp/zl7EE2Y9ySyRW0enkvt0X0jNq0Xeeao=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=CFkEo4C5k1mgiF09o4+Jl47GTa0BA7EdnhONWhWq+kDhN1g98Dp6U2BTIN46N4buj0HDlt59CJcsChU4Jh17+zVup/6QWvCptfzvqDK2dlB0A1xnAst70zEpdSZSCyTdlb4jo23+q43A2PcnkoeJCZYF3xMpQeCxxCbPz1t2xpg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hotmail.co.uk; spf=pass smtp.mailfrom=hotmail.co.uk; dkim=pass (2048-bit key) header.d=HOTMAIL.CO.UK header.i=@HOTMAIL.CO.UK header.b=oHmr/i1k; arc=fail smtp.client-ip=52.103.39.33
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hotmail.co.uk
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hotmail.co.uk
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D513531B10;
+	Wed,  9 Sep 2026 23:58:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788998282; cv=none; b=CNCV3EG9cv5S4A5NcDb/TAmR1Ei87GgnXHnpibj1HyynhrodpY77icvAM/hlr44afybMYXxmBRGmrcH5+snsgOa/icoWoE5Z24emcdAJ7iYReV3tzN1N68h5tC+wwwizXMAI3t9nAPiHoV6jslaEza/qMMhD7UVW++HLkD1q5J8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788998282; c=relaxed/simple;
+	bh=ZwYI9m7G132YZPY3AaOeKgr10e7aVNFOTxXTze8IUag=;
+	h=Date:From:To:Subject:Cc:In-Reply-To:References:MIME-Version:
+	 Message-ID:Content-Type; b=qFt+dPx69wsRynml+YlAa6gao11GUxHXf9H9U39G9QIIjhJfw299JLG1WCmwvNM5UuC0+GYMtMCjCQN3cP+ePgDeAYnVUpvUnR+ZsPu5+xGp7sW1/+7PJ8LNiYSndDcbuUovNn5nh+t57N1Zra8WpOD1FlK/rvrcba1TzBa5DJA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=JW42woUd; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=5jSXeAbH; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=HOTMAIL.CO.UK header.i=@HOTMAIL.CO.UK header.b="oHmr/i1k"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=s1KbAETRnx39qe4M5DjZx+y2xX6Xx3HEMAdDYFGFbKuAhHdioOlGeO3JiDAqLqkv84vrr9A9mN0OG6d1KLxP5XhAmqj23hmKQ8ZBxLV09lK4V88FdmfYfpk/oAi+vEbVnQGx8i+2NY/gEdFmkjSq2MqMuzneijyCw3iIjY5jdJj/+iSFmCE9lyH/wviMjzASGcOzlLcqaR8668unEnvMGuNOuzsHMLMyAKZY7DV6QBdlK10EQNb86nUOKwTkfkgPzAC4DGCUhaceHALmkdvz9Wl00a5ok5+I1frPc5PrwQZkZ2K9qc5g+uXXWRXGdx8aYA8XDqqC46Zda80aQTTCig==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=q0NssAvtPWp/zl7EE2Y9ySyRW0enkvt0X0jNq0Xeeao=;
- b=MhvaeMboXrAF4TSkbLRpDuBhf55xjuPrIG+B/iPTACMyuXaHpZ9Bp/FUp6VUxeVOQQhXGOva/4jYVBivjpVWDCYszB2adckuIj5vc9jRAkF/F+eyuQqeSOz8RV7eKuR5rwaf2k6+4vSqRwmyCUi9Qm5DcFBeRVhWfxTonYJUCV08doE26WJ1b2SJR0eRVQn2TE0M/GDFwQfElLhiOkn3dy50QoIhVGBpJRt001cKuDR0lfUzC0eykC2Pbi9Tf9mfpSKQkkuqELg18dI+ccGVfFFWXu3KoB8KEgkWqPht2ylW3YTSgqkzGLBAZJ5bWSZ5OhQ5tIqCiKE7JGSyiHKQAQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=HOTMAIL.CO.UK;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=q0NssAvtPWp/zl7EE2Y9ySyRW0enkvt0X0jNq0Xeeao=;
- b=oHmr/i1kzlNiefM9CH4kSLRn+iK80JT7ZGgmU/ESGmH6lHEBAj4vmVwFeTwQqAAyiQtPiMJl5VzPkP8h3IqD64wbcu634NTE1+T6tg6o9gtX1ZI/PN39Y/3574k19+IUbuU8ZIBXg8cUGSqO6hBxAjq9h9K/XIuHUgo5pasdZcFmTviN3vXM6e5V4WYzA4YzJ/3m/9ll/0d+fnEQ/EimMamjIKmnNXHYYawCyd0bchvlgdCwL8HuIQZ0sFHXlPR6AapN7W4/V3Mr0Jtz/jiKERR4POQA+7r9uM4F3aDKaWPtNh+4KtNjbZYYZhPqlGZtnED4YtBrqvlLJVMISCB1mg==
-Received: from AS8P251MB0001.EURP251.PROD.OUTLOOK.COM (2603:10a6:20b:344::22)
- by GVXP251MB0792.EURP251.PROD.OUTLOOK.COM (2603:10a6:150:6a::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.7; Wed, 9 Sep 2026
- 23:55:58 +0000
-Received: from AS8P251MB0001.EURP251.PROD.OUTLOOK.COM
- ([fe80::2952:d4d0:4ba:8352]) by AS8P251MB0001.EURP251.PROD.OUTLOOK.COM
- ([fe80::2952:d4d0:4ba:8352%3]) with mapi id 15.21.0406.007; Wed, 9 Sep 2026
- 23:55:58 +0000
-From: Aamir Ahmed <elb12345@hotmail.co.uk>
-To: Tung Quang Nguyen <tung.quang.nguyen@est.tech>
-Cc: Aamir Ahmed <elb12345@hotmail.co.uk>,
-	Jon Maloy <jmaloy@redhat.com>,
-	tipc-discussion@lists.sourceforge.net,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] tipc: validate data size before reading Gap ACK block header
-Date: Thu, 10 Sep 2026 00:55:52 +0100
-Message-ID:
- <AS8P251MB0001F5A484C7465493F8BF1DC8B02@AS8P251MB0001.EURP251.PROD.OUTLOOK.COM>
-X-Mailer: git-send-email 2.53.0.windows.1
-In-Reply-To: <DU4P189MB3750CBD6A79FFD1255DFF593C6B12@DU4P189MB3750.EURP189.PROD.OUTLOOK.COM>
-References: <AS8P251MB000136A75E6C720544CAC017C8B32@AS8P251MB0001.EURP251.PROD.OUTLOOK.COM> <DU4P189MB3750CBD6A79FFD1255DFF593C6B12@DU4P189MB3750.EURP189.PROD.OUTLOOK.COM>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: LO2P123CA0103.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:139::18) To AS8P251MB0001.EURP251.PROD.OUTLOOK.COM
- (2603:10a6:20b:344::22)
-X-Microsoft-Original-Message-ID:
- <20260909235552.31475-1-elb12345@hotmail.co.uk>
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="JW42woUd";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="5jSXeAbH"
+Date: Wed, 09 Sep 2026 23:57:55 -0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1788998276;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=371tuQggDXjRvVE/cVE8lCjqu5nPytVJvKMClVUBLmU=;
+	b=JW42woUdE+OCt/MBrPIKwE+e2SuzZa4fKa2M8SxUT9EvfzMorCR/27qV69gXqjezwB8/ze
+	iW1E5/hprv5mQepLnngWvIv+ptPv4ytFAnxFDIl5wgGgav/bEVVIzR1kTdjvH2cNuOOBpI
+	kw25JpGRzuM2ssJExg7GW287msfcJjq3EIzmlBhGGEboHr+LJ908eXgSQVWYFc1jVOn+i5
+	Cpvi4klfzzijaPMs8cpYyTru56hma+T6lP3Q2VwTIUhaQTmJNumZKewAEhCeh3QjG7nsqc
+	jcHhpfPURpq2eXkmjrp9ERLJbmOl/HEvE8zwMjtBkDS8dMYPo81dGc1B6b2Q8w==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1788998276;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=371tuQggDXjRvVE/cVE8lCjqu5nPytVJvKMClVUBLmU=;
+	b=5jSXeAbHFe9DHZk8mda9uBGJxSKrGdmE1EsUZX4u/qbEiALPKNIlVJzCDS9jB94HwbcJWa
+	fRS/vC2aNP9h/eBA==
+From: "tip-bot2 for Eric Biggers" <tip-bot2@linutronix.de>
+Sender: tip-bot2@linutronix.de
+Reply-to: linux-kernel@vger.kernel.org
+To: linux-tip-commits@vger.kernel.org
+Subject: [tip: x86/fpu] xor: Remove redundant X86_FEATURE_OSXSAVE check
+Cc: Eric Biggers <ebiggers@kernel.org>, "Borislav Petkov (AMD)" <bp@alien8.de>,
+ Christoph Hellwig <hch@lst.de>, x86@kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20260901145740.42337-8-ebiggers@kernel.org>
+References: <20260901145740.42337-8-ebiggers@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AS8P251MB0001:EE_|GVXP251MB0792:EE_
-X-MS-Office365-Filtering-Correlation-Id: de8b06fb-9bfb-4f0f-aece-08df0ecde49a
-X-Microsoft-Antispam:
-	BCL:0;ARA:14566002|19110799012|15080799012|51005399006|8060799015|25010399006|5072599009|23021999003|37011999003|25031999004|24021099003|55001999006|3412199025|440099028|26104999009|40105399003|2607281247196008|1710799026;
-X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?aFuIX91dK0B+y8d0cIllnuZLTJVmPdHRm5dX+wNUUPUPIwEpAryH8MYj/4pH?=
- =?us-ascii?Q?Ob6S193dPGEBFF/lY3A3yxPPEAAitVl9fw3yAWOhvgHPzoznE3VKlsr3wCLV?=
- =?us-ascii?Q?inQ4h73jXIsJVpW3zKOg8K2yTWgbVh42iM+O9gIc2mN7pmFiFQDhDS43lbFA?=
- =?us-ascii?Q?vwMkV6JjdXSm6HdBJO6QH0rOnKPQ9/AAy7cQP9OWb6wpIp5gX0pYPOQ8s2UA?=
- =?us-ascii?Q?w4T7ekf3tO8Me4ddxuumVT6mi7uw6KHMcy/EH9Gy7etPlGO3i9ZMlM0IP9yq?=
- =?us-ascii?Q?lLJIKQCMzlUKcG8tvWuQOlKTueR3R8e1zVOr+DePSBIlKfjTOnB1kOQLvw3j?=
- =?us-ascii?Q?DXtnom8iVfYYMEv10QijPmCRwqWBh1icj6HmX7U40VtUPZ/OqWrMFrCbzyKz?=
- =?us-ascii?Q?+HRh82n+uUu15PG3cFdMdljAizI6ZLCVSCse1NeXbDH/UutBe7GkkqMIL9yY?=
- =?us-ascii?Q?K9b+soM1azF5qm5h876yyY6x5gutjfVr9Fbti5Mz/+h9Kl2vx5nQX92+QMe3?=
- =?us-ascii?Q?+eOq3cnvB4LE6nSTqpANJ/18aUG5ZPnIZpsCKJXbWt7AbuSMBNDaZM2wW8X8?=
- =?us-ascii?Q?7pjeNHD8UZsKGpi2H47Zc5Yh2Ug57NssPP4yNZIdZto6hgu63VQEQ7iPSZYt?=
- =?us-ascii?Q?2JgaPlctzrzj/0rIvLi6fE5/eHBR18T20xBoh6/UDXweyLl+h1Ra+wXYBu4/?=
- =?us-ascii?Q?wN1Nb9cwpDGUdNs0DjaqpojqN3L3Gmt7bDzFqdbWkr7LzNteC8I9EOSjC3yL?=
- =?us-ascii?Q?mW9oU0PpVbDQoVsdLAUEoRyzOzGmBO2PTxsqjB4ZJChfn2KgI22FGBFONCGv?=
- =?us-ascii?Q?R5OOaAGGxxizFFVuGva+QjZ1IwOtf8xR517msxk/lpHVRpSY8/mMDiOkOEyh?=
- =?us-ascii?Q?l1NzrfLzQ4GGZMvM0IvHFPGVy7k5YqDyBgzmM2rJNpN49c0lYWiyWYRZVSBd?=
- =?us-ascii?Q?+ocEcWgQengoeij6fq0v+OADOL0X8Wra2aNIr7uLi3CleK0d0LoxdXUD8Yef?=
- =?us-ascii?Q?fve0xRyxvoIXR1Jks4fPNU+KVA863Yv5Y5qkYrDZF0/1AeWopFcLKRRd9a1B?=
- =?us-ascii?Q?YRFTbqPv?=
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?EfPGrp6vzJ2vV98KtrrSp37WUREIxrycYobvKJui9JHaJ+WPHp4CSjZtuEjQ?=
- =?us-ascii?Q?H1+pznDPQ8GUD4AOmBIVfLv1gG0zHeE/knXMkRAcmd0Dr/ah6myWvXGiMmxG?=
- =?us-ascii?Q?RbjVYqKvTSTD9ZfUpfD5a5A8e4TmJtxyb/25p3iG6+fx2gAShycNWfEyJHdk?=
- =?us-ascii?Q?DuGSr3T1Jox9HxFCOj0jMqLVICvbdNN4ochTy5JKwqNs2dmY2+kg2D4D5D0w?=
- =?us-ascii?Q?iIeBJIY9Jd0JHAjVL++JQ4PJMJiOxJaNjiMCTmck3A9Mhu/xOjuImyfMX6BG?=
- =?us-ascii?Q?+dN/mW8+KOgmG1oH6QCvRIQpymzkRBK3HrD/L0iupdftIbMWCSEF5Da2MyHi?=
- =?us-ascii?Q?6hPnqi4+54bcOwDjp8kmOKhVZVreYmeVC9S+OPPjo6x5xBkFHxELD3HW5YDc?=
- =?us-ascii?Q?orcp3sOR7kTiNZOZmzcMPSuS7HQH9muDL1Ev83bpiYmUQamSwUlPMUj8YZDf?=
- =?us-ascii?Q?V3/r+0GWBDeR+DXcQKempUSMHnpDG4ao7CzNiVRulOd+dv0qbiotEf8SRkqP?=
- =?us-ascii?Q?e46lxzga2ON6YyVRuZvehQbko6xKHm8Gjg/r38sYFKHDrd9eYRO07ki7n4l+?=
- =?us-ascii?Q?wfkkB6yCfofFb4sESDxF5KYkg6B3i3Nkyj6F7pXcvre61zEGKWPOM+iyfwBa?=
- =?us-ascii?Q?gI8Obh0wJKFQP1rdxV7WNsvoi40xY3cDEqIcIXUatDX61bGX48B82f/S+Dqc?=
- =?us-ascii?Q?P7FflKQAT9O+SU0tYDrAFPst+fwkavk6vkEkmKr68R93iE1lYiNA6VpVvkVW?=
- =?us-ascii?Q?C94m4GrJIPKvb0y4CfMx6JvnfoAHnzmZ2qKL5en2n4MPqgnpbOTN1nEOW83/?=
- =?us-ascii?Q?FrHAcgLlVPmio7RTOhcWX0t7UZVnrdSZHwC0ZMovWM1huGL/1bWSRYXwshdf?=
- =?us-ascii?Q?ohrDTLLxTrsxn+nWuy66hFKzr4jaCbpDZpcCdFVl37DWHRSyEWwxBaqTTVJr?=
- =?us-ascii?Q?RVoNQ1YVOC5+jOhGgv6YUgVpL9iRrevkQAI1o4oMyqMgpHMK6/xdmUBjd0As?=
- =?us-ascii?Q?FD59zB29IHswAOVToNDCh+M3tiNepjSC3mId1SouO/VtCqgQuXixepfxZHBI?=
- =?us-ascii?Q?Zqo6nYGye4A7lbQS35bkp44BncFbJgzs3vFkVFy7NGGf+aEDzx8Mh3qVlaCM?=
- =?us-ascii?Q?GOfYJolv2LGybuqNCwVlx59be/3eDYl2sXecC3i9fPy3+/HstbaBoKQ31RkV?=
- =?us-ascii?Q?Pd2YDJI5RXmaZabMbOzoJskoBhxvkwkDTMhvwreBDDH/D7Xk9Mi4weA+J1ti?=
- =?us-ascii?Q?TQOxAQeAxVNwu9tg7/6tAMUstQ9nh7rg0xtHp+AZFie0vmtWIpdkEUijwOD0?=
- =?us-ascii?Q?pyrqSWzEWdMzQmTleIOyOVLPyPMRQsxUGhZG7m3CgcYf33jSRKDxw4j8qX8p?=
- =?us-ascii?Q?2MWHur+GKdfNaEl9DGs69kOTnM42nbVkMA+65N/aMWCH/7uLEn0fPUHkyhMv?=
- =?us-ascii?Q?6rn/2ta+s+QNiIEPyoL+CT08JxDy/2q7?=
-X-OriginatorOrg: sct-15-20-9412-3-msonline-outlook-fe3f5.templateTenant
-X-MS-Exchange-CrossTenant-Network-Message-Id: de8b06fb-9bfb-4f0f-aece-08df0ecde49a
-X-MS-Exchange-CrossTenant-AuthSource: AS8P251MB0001.EURP251.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Sep 2026 23:55:57.9393
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
-X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
-	00000000-0000-0000-0000-000000000000
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GVXP251MB0792
+Message-ID: <178899827530.623050.12258480059431715110.tip-bot2@tip-bot2>
+Robot-ID: <tip-bot2@linutronix.de>
+Robot-Unsubscribe:
+ Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
+Precedence: bulk
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for reviewing. I've reviewed this further and there was a
-flaw in my methodology.
+The following commit has been merged into the x86/fpu branch of tip:
 
-Reads stay inside the skb and the result is never used, so there is
-nothing to show. The commit message overstated this as an
-out-of-bounds read and write.
+Commit-ID:     2b1b0d6f4ea7be1c838c73988ac46c06ed0308ae
+Gitweb:        https://git.kernel.org/tip/2b1b0d6f4ea7be1c838c73988ac46c06ed0=
+308ae
+Author:        Eric Biggers <ebiggers@kernel.org>
+AuthorDate:    Tue, 01 Sep 2026 07:57:39 -07:00
+Committer:     Borislav Petkov (AMD) <bp@alien8.de>
+CommitterDate: Wed, 09 Sep 2026 14:20:42 -07:00
 
-Please drop this patch, apologies.
+xor: Remove redundant X86_FEATURE_OSXSAVE check
 
-pw-bot: rejected
+X86_FEATURE_AVX implies X86_FEATURE_OSXSAVE already.
 
-Kind Regards,
-Aamir Ahmed
+Signed-off-by: Eric Biggers <ebiggers@kernel.org>
+Signed-off-by: Borislav Petkov (AMD) <bp@alien8.de>
+Reviewed-by: Christoph Hellwig <hch@lst.de>
+Acked-by: Christoph Hellwig <hch@lst.de>
+Link: https://patch.msgid.link/20260901145740.42337-8-ebiggers@kernel.org
+---
+ lib/raid/xor/x86/xor_arch.h | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
+
+diff --git a/lib/raid/xor/x86/xor_arch.h b/lib/raid/xor/x86/xor_arch.h
+index 99fe85a..991abe3 100644
+--- a/lib/raid/xor/x86/xor_arch.h
++++ b/lib/raid/xor/x86/xor_arch.h
+@@ -18,8 +18,7 @@ extern struct xor_block_template xor_block_avx;
+  */
+ static __always_inline void __init arch_xor_init(void)
+ {
+-	if (boot_cpu_has(X86_FEATURE_AVX) &&
+-	    boot_cpu_has(X86_FEATURE_OSXSAVE)) {
++	if (boot_cpu_has(X86_FEATURE_AVX)) {
+ 		xor_force(&xor_block_avx);
+ 	} else if (IS_ENABLED(CONFIG_X86_64) || boot_cpu_has(X86_FEATURE_XMM)) {
+ 		xor_register(&xor_block_sse);
