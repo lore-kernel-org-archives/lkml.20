@@ -1,84 +1,86 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAA6537996C;
-	Wed,  9 Sep 2026 09:15:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7887A3921D5;
+	Wed,  9 Sep 2026 09:15:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788945331; cv=none; b=VO0fFBU6iLX3hY3jOB6D9hQgnHt111IsYqzx8ZbSXF3VaFFGQGzOS1WQJjt/RpZ86AW38kpp0NRnyT03LW+IJG0hDbKTRlH35lR6tIpDniyeDCyjatpKh5byjUYhWeQLgljDYuuwJyE39Jb5TdHzIsX9XaSrNatiPGbvYIEu2yU=
+	t=1788945340; cv=none; b=MPPSHUcmXye8KHml1FrMEpIZ8WNeVoL23uE4bkKz/A9D0ziRkkF1SI7OeyvTaGqqv6ISk5P5VdM4JtR7etHctPd7XTeGl7l6HeQKXiCrDxKwP+kR5GIetjhr++zvKdQOTaebr5hNq40cfwJtmWVvu4VtzeXcWmyuyfPeUDRX2vI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788945331; c=relaxed/simple;
-	bh=Q1hPFcHkvswbhbdcsLOQX7sUlSGIB2PG8xMG+T49BdU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=bzRzN+E1XmyCEjg8wOTcnYpkxRrRWD/YOyTwHnQrAQcDyTrJqyfiGCj8V+Gn6GRlQ228qk5u/rFhwfCmUszAjNF8xuwbKCz92eyOF6Dp5VcverJOROCIZMpgkvccZHL5f+CBIlEXL2N/B2oN3Qj3kQ1m+N1wlND6AjY6aL+wJcE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=dT2IlqVY; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	s=arc-20240116; t=1788945340; c=relaxed/simple;
+	bh=Tp545e+vZhGG09eqJxZ3JJ9psJ5PrcqizN1ltjgOeQ0=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=TEduEJjiTmQZxKxLnCXTNXxVIKrRyu/n/a4e8ykBZ4RxRRvrBk+ntCAbQntb606lTnphaEzozput7KhyQ31f9rox3A3yUjzS5IS/zd6oJKajftAN2P93U7mR5AWETzy9DQsUdWu/OtHzbMJAxp7x32ijm1R6J1SjlCPkpe5vy7c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=kyvXj7KG; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="dT2IlqVY"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1788945325;
-	bh=Q1hPFcHkvswbhbdcsLOQX7sUlSGIB2PG8xMG+T49BdU=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=dT2IlqVYjgDxGh0a45aUg5OLWqBfn58Tqt+giiqkH/WI7jCVZTpq39H7OPXvyc+9k
-	 Y7bmq7IYqc98Lfkus42umstvLW4rDYwwLXiRDBWrE69flsMPUEkSDwRLTQoQrqN8//
-	 3gASZwZWUVen+9+pS4SKdmBNCG5c+lkO6TUtRKxiYEJZJKsrvxI1xHnCxH0caEpkRh
-	 KU0WcYboDKQFpEtc3jES2L/YVxBFQmtLHoyU/mNFh4FjPzvLP++Mw3sQ+cFhpeBHUe
-	 tWs4wzGEGcrtF51V24DffIbEm8ehBowmunz6LbYkd+S6ntCu2Oarxo8mfP7KjcYC4j
-	 df2B9WEsk0Qpw==
-Received: from [100.64.1.21] (unknown [100.64.1.21])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: kholk11)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id CDED317E06E0;
-	Wed, 09 Sep 2026 11:15:24 +0200 (CEST)
-Message-ID: <3bb91821-e618-4992-8f95-8e2631568bbe@collabora.com>
-Date: Wed, 9 Sep 2026 11:15:24 +0200
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="kyvXj7KG"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 8E0DC4E415A5;
+	Wed,  9 Sep 2026 09:15:36 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 557E060448;
+	Wed,  9 Sep 2026 09:15:36 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 62D6711C7AF75;
+	Wed,  9 Sep 2026 11:15:30 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1788945335; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=Be9teADg7Yx/fENXWg5y5jLFgv5ZSSIpuEqGiq03lCw=;
+	b=kyvXj7KG8eWIRinyWnysk6EGxzkgWFKQ0d+sTkM2Mm6daaVeadIMazmqvW6LteYPu4zNUw
+	S6v32JXbMU0ZLqTMz7V1UFfzC7u9F2SpzNQ9iYnUwKK5dRnhDOcziOxxg2CBhLZ/f8kW/S
+	to86epEqkDEgYJKg2fJ+zlG7HMZl9+c4Lm2YTHlqJf6QLgV7xzSakHiIr7pHk6J+jv/YHP
+	OYQZPEuZBTNDO/Og/xAU7kHJ2IVw6OJftF3jdWv+JG4qmyv8OgvrNPqrPR55daKQGuEh/Y
+	1MSRO5Uc46+poXDvFYIpcUORqASk5eyc5o+pEy4bei2WdxgWa1UEzQ1Uz12YdQ==
+From: Luca Ceresoli <luca.ceresoli@bootlin.com>
+To: andrzej.hajda@intel.com, neil.armstrong@linaro.org, rfoss@kernel.org, 
+ Laurent.pinchart@ideasonboard.com, jonas@kwiboo.se, 
+ jernej.skrabec@gmail.com, maarten.lankhorst@linux.intel.com, 
+ mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch, 
+ Leonardo Costa <leoreis.costa@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ tomi.valkeinen@ideasonboard.com, francesco@dolcini.it, 
+ leonardo.costa@toradex.com, stable@vger.kernel.org
+In-Reply-To: <20260706132440.1594239-1-leoreis.costa@gmail.com>
+References: <20260706132440.1594239-1-leoreis.costa@gmail.com>
+Subject: Re: [PATCH RESEND] drm/bridge: tc358768: Enforce input bus flags
+ via atomic_check
+Message-Id: <178894533018.1178686.9521893040126546313.b4-ty@b4>
+Date: Wed, 09 Sep 2026 11:15:30 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/7] ASoC: mediatek: mt8188: mt8188-afe-clk: Propagate
- regmap update errors
-To: Mark Brown <broonie@kernel.org>,
- Cezary Rojewski <cezary.rojewski@intel.com>
-Cc: phucduc.bui@gmail.com, Liam Girdwood <lgirdwood@gmail.com>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- Kees Cook <kees@kernel.org>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- Trevor Wu <trevor.wu@mediatek.com>, Douglas Anderson
- <dianders@chromium.org>, linux-sound@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
- linux-kernel@vger.kernel.org, Matthias Brugger <matthias.bgg@gmail.com>
-References: <20260907120310.135693-1-phucduc.bui@gmail.com>
- <20260907120310.135693-4-phucduc.bui@gmail.com>
- <e011cd74-7c5a-4cd1-b412-ad11765ad11c@intel.com>
- <a88fbf17-faac-4902-bd39-ff0a616a7d2d@sirena.org.uk>
-From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Content-Language: en-US
-In-Reply-To: <a88fbf17-faac-4902-bd39-ff0a616a7d2d@sirena.org.uk>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.16.0
+X-Last-TLS-Session-Version: TLSv1.3
 
-On 9/8/26 20:52, Mark Brown wrote:
-> On Tue, Sep 08, 2026 at 07:49:00PM +0200, Cezary Rojewski wrote:
+
+On Mon, 06 Jul 2026 10:24:17 -0300, Leonardo Costa wrote:
+> The tc358768 declares static bridge timings requiring pixel data to be
+> sampled on the positive clock edge.
 > 
->> I'd expect someone from Mediatek to verify this.  While I agree with the
->> change, some drivers follow "ignore register update result" arch and,
->> what was previously ignored will now cause basic operations to fail.
+> However, the DRM core default propagation simply copies the output-side
+> bus flags, coming from the next bridge, connector or panel, to the
+> input side. If the propagated flags are incompatible with the bridge
+> ones, the data is wrongly sampled, typically resulting in visual
+> artifacts on the panel.
 > 
-> We don't really get any review from Mediatek, AngeloGioacchino used to
-> try to cover things but it seems he got busy recently :(
+> [...]
 
-Yeah, sorry about that, it's busy-busy-busy days here.
-Also I had a summer break, so 1+1=ouch :-)
+Applied, thanks!
 
-The changes are fine, those regmap updates always succeed, that's why it works,
-and ignoring an error there would actually break things.
+[1/1] drm/bridge: tc358768: Enforce input bus flags via atomic_check
+      commit: ed761e0693950fcb4f6b0f60387a3961b972adf3
 
-Cheers,
-Angelo
+Best regards,
+-- 
+Luca Ceresoli, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
+
+
