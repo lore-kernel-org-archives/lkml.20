@@ -1,227 +1,121 @@
-Received: from mail-qk1-f175.google.com (mail-qk1-f175.google.com [209.85.222.175])
+Received: from mail-yx1-f51.google.com (mail-yx1-f51.google.com [74.125.224.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3E6A3905E4
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 17:51:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC45D3905E4
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 17:53:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788976306; cv=none; b=gsqisLekLdZ2QW96DM2e4BRSZfBHHTelnu6wfZDQZierJKiEGAZnWQF51+wpxOxQMDjPVxRk4B5MQSdO7Cee48Za4rXDjogXkJWeTkARaKv5dAIWOmjth+AH4zwg9eMMIowK5NCLfWkil4mfVMcMztH1jTlW1Rk75p9ipnTyBdY=
+	t=1788976428; cv=none; b=QegSeMhzhDha+q48gU7VUQXI8JIntf9THOqSCu8liGY1fIhsdSt789ys3iXwael6d8ctX3weiC8YPzooZlycJxatrvZrgMHgSlkpV1e6bpJUmD0J2YWPaxl1foxOQkKgkVy3Ty27AwdKhxTExCUClYOcDtMmriD+Yg18meh4Tfc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788976306; c=relaxed/simple;
-	bh=aq/PKVfZKJmCIP0vQntEh7xY4iPp0Mcck74grYuN11k=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=F45KpO7/scGmXSUNG67LC1H7vdNS3ZSGa8quMt+MIbgV39OM3m9murmjNy1AW6M7PdrOQkmcvNd5CiJw29lk3iU3AIhud+BnMnCt6dtD5j7Tq2VerO/J74t86C1BIw9+o4UuaW+w2SbAS9nX1zYSpRQsEql8OL397+VMTSk3YuM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com; spf=pass smtp.mailfrom=toxicpanda.com; dkim=pass (2048-bit key) header.d=toxicpanda.com header.i=@toxicpanda.com header.b=p20lUFMd; arc=none smtp.client-ip=209.85.222.175
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=toxicpanda.com
+	s=arc-20240116; t=1788976428; c=relaxed/simple;
+	bh=c/i490OXbFpkfgBsFCReQhspvRl0PoEXDMLnbXAz9Fo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=TN8FXi9I67WZdHmuZKWieVyGrqkWfvpcpMa1ejWtlkT8VPG9pR3cDJX6Wn9DDIb6PAHMu1JyWaALYzBFKaBxP2m36l8L1yz9CTgK0Vw6rZik9hOjVPEpOeQ++DBw137n45WX4+p/SOS0YhkUexjnxmnZ5sX+gDGYZmhdQjP6GvQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cloudflare.com; spf=pass smtp.mailfrom=cloudflare.com; dkim=pass (2048-bit key) header.d=cloudflare.com header.i=@cloudflare.com header.b=HvF1LeAh; arc=none smtp.client-ip=74.125.224.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cloudflare.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cloudflare.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=toxicpanda.com header.i=@toxicpanda.com header.b="p20lUFMd"
-Received: by mail-qk1-f175.google.com with SMTP id af79cd13be357-9399d52b1efso206140585a.0
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 10:51:44 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=cloudflare.com header.i=@cloudflare.com header.b="HvF1LeAh"
+Received: by mail-yx1-f51.google.com with SMTP id 956f58d0204a3-66f96418909so2219835d50.0
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 10:53:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=toxicpanda.com; s=google; t=1788976304; x=1789581104; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=gZN/fqOjYn2gzdjtAN4lO1LY9ZsRrEO//8nK1ex68AY=;
-        b=p20lUFMdZnlS+Wz3oCdIcbYz7OeNkWIcxq5I76VGDbEl6mBrZsj/P0jCHJm98p09di
-         Y9b5G+FlpxMN1HS3MH7yINWcN7cO/sOg0AKVSZuyr80I2RzqYeXdeiTvZ1xTprUTeV3H
-         wRwknRKgrxuJyh4LUMFz8FoFgdyKOw9CAhwyRgCLLLlj04VsuEdk+RkxSKi0ED91TSlC
-         lh3nTaZPeZkEOiUWaL+vOhOCffRKlk8SaQ+HBJchioe6kxM9g+HHkXHmnQhlMh9uhV4u
-         dCLY+MobLDLN8IB/6M9lA1L5Wkez3KjszATPVUgaC7t4ylQUL81netNkNxrmQVcHYirY
-         aENQ==
+        d=cloudflare.com; s=google09082023; t=1788976426; x=1789581226; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=XRIgg3iSuevNT11a9+TD/UWqT0ngKKbrlCWnrPVS/0g=;
+        b=HvF1LeAh4DQVg5v4KsaPg4Dv0qbFIjmuxl8+CejoQrKaLsp/LIhchtp+CvOxmi7Jrm
+         u54UL5BCIGdt87ycq/Bo5mTs31Xrdqwss7RZ8k3lEfme8f+nxz+W1vgCI+F18yUOTP7s
+         d3/NmQIofc6J6VDTxijc4hOm2mdCwLNH3buKLKNOo/Hw2gRgad2YJWVSTjorDxUK5Qf+
+         BMieBQpNYNX1Tks7+dM3FFjlCZ1p1ehsrj7h/6CZmuXHvhckKdh8xAloLfdHFHFW2Hk6
+         c83wKGXRISJG5o6+yywDC+x0dKrcxxveARgomkrzIQJcIIVIvPUTSZj8qQxFh6EHKQdE
+         qUiA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788976304; x=1789581104;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=gZN/fqOjYn2gzdjtAN4lO1LY9ZsRrEO//8nK1ex68AY=;
-        b=RwwWl+/pcW0UNOnR8C4qBcQZoTcgfggSePt55H2P2iCC2MiUxvQIlwwm+5fcp4hHWm
-         b1ULlQKzH29QPSbgf8zzOsPMDZYq/e65F2Vvb64lQT8MeIaVoYmCoI754GjIxEtI+4mJ
-         8TqayM3KO06cklwXe5SEscZUhb5rSqbzAi4GNVtLnXLWSSHaxGNNycO23ckmHELoJpQX
-         GhZRRHA/JYd3fnItthYDQN0TFOLXOW7o0lw/aHt9Nyj0Vc7ybRjHMUoPs5mbmY4eUtcB
-         GUizgGtCHXSbpS7BGrPb/GMOlcV79qMNbpJH/Uk1iPqsKlSTjD+qpMKO9MSIdjpGziAq
-         Ik3Q==
-X-Forwarded-Encrypted: i=1; AKwUvBykn84ad/yvGij0buZ5B1jAp4OPbuZ8UfQ5dYmSZjSb44k1SCW+gxWv348mVLqwzQaPQ3unwuwEwdFI0aQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++msySmqFQ63GbJQJIxOUBf4x4icyYeqVEnMr7TERcPWiFqivhAT
-	D6i0tKgL52uCyU/7vLTJH/sy134HROTPGyskPk0EmrsYB2seK0yDnd8kfh114IrO+lM=
-X-Gm-Gg: AYBFou0wsEeb5+H+tQ9EiTcBXEEE5JSxqWzKFS8l2c6BUcmfaMlkeBnHBdNZG2wP2kr
-	YY2KOaTVOw+UJFSjtqc6n0qjbH609MOfpWjnMSlU1d+3y+syVYGwFRGzhNkJ1tIazrJb2c6SI7f
-	ERLWJfRGYeW2RoOeGyePHIQkfnJlC2pe3UZme6iWmEHwmhkSSTiTQNKVPDoZNjXmlrgmr3wEQyk
-	zqa7MOf8/xuBoK4q5fxYRviW8TwThXDL8mPncuEPMGdKqKKoMk5+eqiRM9qydFqCgleLTMzxW0n
-	YP4Sd4LoSLhAKS8nMty/3YpHXuG4zQnC6j5TwquMWrnqQCiyygeVRX0wyymwg3Rdp8f1xdC75Rj
-	MTLnVVgINOOn97mjm1+udW0yfph7q68MFnhVzfIrJfOGcKycpBQo8TjvPb9aKSa9L+4e3/hEJ0o
-	sPzDKlIcrmVEuPijK2gKppvwiKL6ZpwpO2YYnZX2hicRH/BoM+Zc5wb9sTMx/uaFy1elVRPkt1l
-	Z9TIJ5aJMB6Fclavq58GVWrGGB1SRBY/vuKskMnYiYIiwHmTcGf1G9zCVvle4B7LSs=
-X-Received: by 2002:a05:620a:7290:b0:939:6cd9:1fa3 with SMTP id af79cd13be357-939803b0a9cmr3153866985a.4.1788976303254;
-        Wed, 09 Sep 2026 10:51:43 -0700 (PDT)
-Received: from toxicpanda.com (ec2-34-228-114-98.compute-1.amazonaws.com. [34.228.114.98])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93985cffb3dsm1379663685a.18.2026.09.09.10.51.41
+        d=1e100.net; s=20251104; t=1788976426; x=1789581226;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=XRIgg3iSuevNT11a9+TD/UWqT0ngKKbrlCWnrPVS/0g=;
+        b=D4wuO6M7NDUF2B4dNIvnWo9vwipwmOxH5iidIFReQ9kZ0Tw6UkdHQdbtI8IYGWGfe6
+         oXZjiO0zB7rB0LVSWqxYEWRODDwCBEDkfV9iZZ9+NVPcHZj8E7dCMGRvQiptr1Qk0mfI
+         qme+jTegO+QHOkR2l848usGsNoSZES4/43JSxTcMQBJ2Yc66Gc3yMtCt0vBRGHfhcv2Y
+         ZsmMIv71pIzOzvoGusc40q5ppOqRv9DtQm6lEq/XIlJhKPy+HTTfNF5TZvcWLpSH0P7t
+         McvQzfBO3UwZz+WeEv2eNqy42Qt2tNkGSvbvAcQwEzZROk+PoQ6RPChYH0JQ82hm7+Tq
+         kXmw==
+X-Forwarded-Encrypted: i=1; AKwUvBxRKZAraQSYAjfhJHDZcdWoMlX9rXPg1X6frSujol1GCVV1B1YyoljQzk0pseptY6xq6eccOEHFddQE9co=@vger.kernel.org
+X-Gm-Message-State: AFuF++kK9ueLtV+W9HbIPsCy9deyX6m2fRi+dRtZkPJcajVCX60v6u7w
+	v40yfICbaOfiFL93iMZ4cEI3C4FCTMs8jUP0nC99ZtXjTV/NsmOi0V8QSWgfi7GYTOo=
+X-Gm-Gg: AYBFou3vszsRY51R9OcbLTkyJ6Cz8O0upd6+grIAFbXDBpeEE529hxjwLJwO15staf+
+	LxAT6/+QmfNAyB0kk8vn+dUIW1w/oqoT9ZUhwAqLcNHCPA7twrTvnqOlZhTQ5V4p/FztBhOiMD+
+	udCM0FXniNlQmbAfuXISGMvu8HiUuq776pAe2NwMc5/1AzLIbdpz/x2oKb7nuaGV/pZYXKFmGsA
+	a6TQm2OPLxZYlPSYLqeIU83wLRbCoIGV0avJqiE4RdMnLA9M4ME5a8b4gWVOlGB049m6l0PjQtU
+	upGPaE7n0qgZtGOMf3jTnd/iNJI7QIfwAZyjjtFWOFJzhA+pTa2cPBH8iKIWG+ZhviFL71KUgcK
+	7ibMdU5QchseApOpfTmvkeVnGiCWP8eAQ7N/hSth5LiF2cWPmb8CrAY2fnsMhDPIR64v0F4mSHL
+	DAgzPXlA47pFTpMz/c9hpbF2N0cNCjMZviD7SkDdtDI5jwTlYCeQ==
+X-Received: by 2002:a05:690e:1244:b0:66c:707b:60eb with SMTP id 956f58d0204a3-66fb5a149f7mr11250899d50.23.1788976425617;
+        Wed, 09 Sep 2026 10:53:45 -0700 (PDT)
+Received: from CMGLRV3 ([2a09:bac6:947f:3af::5e:7d])
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-66fb7c7e8d7sm11902088d50.14.2026.09.09.10.53.44
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 09 Sep 2026 10:51:42 -0700 (PDT)
-From: Josef Bacik <josef@toxicpanda.com>
-Date: Wed, 09 Sep 2026 17:51:04 +0000
-Subject: [PATCH bpf-next v2] bpf: Avoid soft lockup in
- __htab_map_lookup_and_delete_batch()
+        Wed, 09 Sep 2026 10:53:45 -0700 (PDT)
+Date: Wed, 9 Sep 2026 12:53:42 -0500
+From: Frederick Lawler <fred@cloudflare.com>
+To: Mimi Zohar <zohar@linux.ibm.com>, 
+	Roberto Sassu <roberto.sassu@huawei.com>, Dmitry Kasatkin <dmitry.kasatkin@gmail.com>, 
+	Eric Snowberg <eric.snowberg@oracle.com>, Paul Moore <paul@paul-moore.com>, 
+	James Morris <jmorris@namei.org>, "Serge E. Hallyn" <serge@hallyn.com>
+Cc: linux-integrity@vger.kernel.org, linux-security-module@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, kernel-team@cloudflare.com
+Subject: Re: [PATCH v2 0/3] integrity: Return error codes in audit messages
+Message-ID: <weadqcqqw3e4snwysfnx2fszrxctppkqqgdjrkfyn7uh5poczp@dpnp6tl3mk6u>
+References: <20260727-report-hash-error-v2-0-30e394f524fc@cloudflare.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260909-b4-htab-batch-resched-v2-1-0cb529d8f95a@toxicpanda.com>
-X-B4-Tracking: v=1; b=H4sIAIecoWoC/6WPwW7CMAyGXwX5jFHTlhY47T0mDnbiLplGipxQF
- aG+O22nSVw47fjL9vf5f0ASDZLgtHmAyhBS6OMcyu0GrKf4JRjcnKEsyqZoiwNyjT4TI1O2HlW
- S9eLQsJVDVdRt0ziYb68qXRhX7ifwtcMoY4bz7yTd+FtsXrDLbqf9BbNXoVfT8Y1pMGiQXEsNV
- 1zvTfXxE+Jt3DkZFpgPKfd6X/sMZtX/A3ieZiRTEmSlaP3y318bvFDKojBNT6o7PN1FAQAA
-X-Change-ID: 20260708-b4-htab-batch-resched-1bce8304766d
-To: Alexei Starovoitov <ast@kernel.org>, 
- Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>, 
- Eduard Zingerman <eddyz87@gmail.com>, 
- Kumar Kartikeya Dwivedi <memxor@gmail.com>, 
- Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
- Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
- Emil Tsalapatis <emil@etsalapatis.com>, 
- Ihor Solodrai <ihor.solodrai@linux.dev>, Brian Vazquez <brianvv@google.com>
-Cc: bpf@vger.kernel.org, linux-kernel@vger.kernel.org, 
- "Jose Fernandez (Anthropic)" <jose.fernandez@linux.dev>, 
- "Paul E. McKenney" <paulmck@kernel.org>, Rik van Riel <riel@surriel.com>, 
- Josef Bacik <josef@toxicpanda.com>
-X-Mailer: b4 0.15.2
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260727-report-hash-error-v2-0-30e394f524fc@cloudflare.com>
 
-From: "Jose Fernandez (Anthropic)" <jose.fernandez@linux.dev>
+Hi Mimi and Roberto,
 
-__htab_map_lookup_and_delete_batch() has no rescheduling point. The
-batch count bounds how many entries are copied out, not how many
-buckets are visited, so one BPF_MAP_LOOKUP_BATCH call can walk the
-map end to end. The empty-bucket fast path is worse: it stays inside
-a single rcu_read_lock() / bpf_disable_instrumentation() section for
-any run of consecutive empty buckets.
+On Mon, Jul 27, 2026 at 05:21:46PM -0500, Frederick Lawler wrote:
+> Commit 2f845882ecd2 ("integrity: Add errno field in audit message")
+> introduced an audit log function that can take an error code. It is
+> wrapped by integrity_audit_msg() that implicitly sets the error code
+> argument to zero. The problem is that there are uses of integrity_audit_msg()
+> such as ima_collect_measurement() that hide the failure cause for
+> the message.
+> 
+> This series aims to convert integrity_audit_msg() call sites to
+> integrity_audit_message(), and then expose error codes based on the
+> following criteria:
+> 
+>     1. The log depends on a result from earlier callee, and/or
+>     2. The caller function itself returns with that result
+> 
+> ima_release_policy() is the only caller I thought made sense to keep as
+> is. The message doesn't correlate with a return code, nor does it
+> depend on a result from an earlier callee in the function.
+> 
+> Signed-off-by: Frederick Lawler <fred@cloudflare.com>
+> ---
+> This is probably a bit more than what was asked from v1, but as I was
+> making changes and looking at other call sites, I didn't think it made
+> sense to keep integrity_audit_msg() around anymore.
+> 
+> Changes in v2:
+> - Changes from v1 are now reflected in patch 3.
+> - Replace all instances of integrity_audit_msg().
+> - Convert to patch series.
+> - Link to v1: https://lore.kernel.org/r/20260716-report-hash-error-v1-1-ac19281112e4@cloudflare.com
+> 
 
-That holds up on small maps, but it falls apart at scale. On a
-144-CPU arm64 host running a CONFIG_PREEMPT_NONE kernel, periodic
-BPF_MAP_LOOKUP_BATCH calls against an LRU hash map with 16,777,216
-buckets held a CPU inside the batch op for 77+ seconds and triggered
-the soft lockup watchdog.
+I think this series may have fallen through the cracks between the merge
+windows. Shall I respin + rebase?
 
-Commit 75134f16e7dd ("bpf: Add schedule points in batch ops") fixed this
-same problem in the generic batch ops, but not in this htab-native path,
-which every htab-based hash map variant uses for its lookup[_and_delete]
-batch ops.
-
-Complete that fix here. Leave the critical section after 64 consecutive
-empty buckets, call cond_resched_tasks_rcu_qs(), and resume at the saved
-bucket cursor. No locks are held at that point, and resuming from the
-cursor is already the function's behavior for non-empty buckets. Add the
-same call to the per-bucket loop after copy_to_user(), where every lock
-has been dropped. cond_resched_rcu() is not enough here: sleeping with
-bpf_prog_active elevated makes tracing programs on that CPU silently
-skip their invocations.
-
-Plain cond_resched() is not enough either. It is a no-op under PREEMPT
-and PREEMPT_LAZY, the only models arm64 and x86 have offered since
-commit 7dadeaa6e851 ("sched: Further restrict the preemption modes").
-It is also never a Tasks RCU quiescent state, in any model: the
-reschedule counts as a preemption. The walking task stays a holdout and
-stalls every synchronize_rcu_tasks() caller, ftrace and BPF trampoline
-teardown included, until the syscall returns [1].
-cond_resched_tasks_rcu_qs() is the usual tool for that [2]. It reports
-the quiescent state at each yield and still reschedules as
-cond_resched() does on PREEMPT_NONE and PREEMPT_VOLUNTARY kernels.
-
-Fixes: 057996380a42 ("bpf: Add batch ops to all htab bpf map")
-Cc: "Paul E. McKenney" <paulmck@kernel.org>
-Cc: Rik van Riel <riel@surriel.com>
-Link: https://lore.kernel.org/bpf/20260715215314.44423f47@fangorn/ [1]
-Link: https://lore.kernel.org/bpf/9d444098-7c03-4163-af12-bd0a79a51443@paulmck-laptop/ [2]
-Assisted-by: LLM
-Signed-off-by: Jose Fernandez (Anthropic) <jose.fernandez@linux.dev>
-Signed-off-by: Josef Bacik <josef@toxicpanda.com>
----
-Changes in v2:
-- Use cond_resched_tasks_rcu_qs() at both yield points so the walk
-  also reports a Tasks RCU quiescent state, and explain why in the
-  commit message
-- Put the opening /* of both comments on its own line (sashiko review
-  on v1)
-- Cc Paul E. McKenney and Rik van Riel, whose thread the message cites
-- Rebase onto bpf-next
-- Link to v1: https://lore.kernel.org/bpf/20260709-b4-htab-batch-resched-v1-1-ad7a6b3b4513@linux.dev
----
- kernel/bpf/hashtab.c | 24 +++++++++++++++++++++---
- 1 file changed, 21 insertions(+), 3 deletions(-)
-
-diff --git a/kernel/bpf/hashtab.c b/kernel/bpf/hashtab.c
-index 6f331c80130d..a72dc5b9f184 100644
---- a/kernel/bpf/hashtab.c
-+++ b/kernel/bpf/hashtab.c
-@@ -1772,6 +1772,12 @@ static int htab_lru_percpu_map_lookup_and_delete_elem(struct bpf_map *map,
- 						 flags);
- }
- 
-+/*
-+ * Max consecutive empty buckets to walk in one RCU +
-+ * instrumentation-disabled section before rescheduling.
-+ */
-+#define HTAB_BATCH_EMPTY_RESCHED 64
-+
- static int
- __htab_map_lookup_and_delete_batch(struct bpf_map *map,
- 				   const union bpf_attr *attr,
-@@ -1793,6 +1799,7 @@ __htab_map_lookup_and_delete_batch(struct bpf_map *map,
- 	unsigned long flags = 0;
- 	bool locked = false;
- 	struct htab_elem *l;
-+	u32 empty_cnt = 0;
- 	struct bucket *b;
- 	int ret = 0;
- 
-@@ -1971,12 +1978,21 @@ __htab_map_lookup_and_delete_batch(struct bpf_map *map,
- 	}
- 
- next_batch:
--	/* If we are not copying data, we can go to next bucket and avoid
--	 * unlocking the rcu.
-+	/*
-+	 * If we are not copying data, we can go to next bucket and avoid
-+	 * unlocking the rcu. Bound the walk though: after
-+	 * HTAB_BATCH_EMPTY_RESCHED consecutive empty buckets, fully exit
-+	 * the critical section (no locks are held here) and reschedule.
- 	 */
- 	if (!bucket_cnt && (batch + 1 < htab->n_buckets)) {
- 		batch++;
--		goto again_nocopy;
-+		if (++empty_cnt < HTAB_BATCH_EMPTY_RESCHED)
-+			goto again_nocopy;
-+		empty_cnt = 0;
-+		rcu_read_unlock();
-+		bpf_enable_instrumentation();
-+		cond_resched_tasks_rcu_qs();
-+		goto again;
- 	}
- 
- 	rcu_read_unlock();
-@@ -1990,11 +2006,13 @@ __htab_map_lookup_and_delete_batch(struct bpf_map *map,
- 	}
- 
- 	total += bucket_cnt;
-+	empty_cnt = 0;
- 	batch++;
- 	if (batch >= htab->n_buckets) {
- 		ret = -ENOENT;
- 		goto after_loop;
- 	}
-+	cond_resched_tasks_rcu_qs();
- 	goto again;
- 
- after_loop:
-
----
-base-commit: af0b84a9215d951d16f26b7ee34353b970cf5d4e
-change-id: 20260708-b4-htab-batch-resched-1bce8304766d
-
-Best regards,
---  
-Josef Bacik <josef@toxicpanda.com>
-
+Best,
+Fred
