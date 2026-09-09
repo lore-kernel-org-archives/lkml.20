@@ -1,195 +1,230 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EDA438C2C0
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 17:33:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B619E38C2A0;
+	Wed,  9 Sep 2026 17:33:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788975190; cv=none; b=hgCbxIU3Y1PnE9RzWT1h41ijPmCeDVSrhWa9CKyAZ/TmBK04bE+umxW02mfa44XZh2KePK5mO8D0JF8cmMCVrWhUXGj2IsrTzxLPaHFjBYRvQWFoZevWh00zlBWpoTYE3CLa10OiLa1Y4FlZj27gL5j3g+QGTq62qzojHe3HF7o=
+	t=1788975195; cv=none; b=A2k3nzjg6MBpMTQb8Aw+BGPRp+qx1DlDHbIO3ACKXuSejpSKJIQoEz7yP56Ed18QmclUR82oJBHpeC7bMy5TZnURFQDOfYaUo1uHP4pSUqSzR1QyOWJiZxM7U5jf9feI58NtGBTJh0FBXPreqbWZcKyrFyznFcJ6GEdJ6OlZcPc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788975190; c=relaxed/simple;
-	bh=SURE3r0SmnxKIsk3mBFbCEYHpUR7xImyMM/JfWV/2dc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=kPP2rW7H+RzLIW9QLdk87cJkIFQwNVxpStcw5T1kKGYTq4a1y76LRTP0JnZhPazl73CQzkQr/NT1pjSH2r9EsylV3RAf6ng6cL8wi57xd/zPQjBlduPd1gAv388B/Ng86/03phSya1KT8drDVUdjLzK1OjixlzaGLoMUbxZv0qA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hhGhkxbF; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788975195; c=relaxed/simple;
+	bh=8e65vqBqS2+xPNtfIXxAIdUPEoHFNmQ9ODmWLxPHkS8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=G9KOjg0FxbGMKWN/c1LmI4FFwyLbV2JLTHlHHmZNqp0012YV+kRNGArMsUdMoDnff8x/8bIwh3ph3KROi0JSPXa8WmvNFHl2+niNoQYg7bA8Y6ot4oTDWrPpF1hOHyAwL4GzI2O52tqq5AJy/ytAbKDW6ZWrsWEtgwlPTodvIow=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=0WGoVxJM; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hhGhkxbF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DF0AD1F00893;
-	Wed,  9 Sep 2026 17:32:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788975189;
-	bh=aDg0GpWzq1Pq3pQXFSFSo5nmvCOOz/Q/krQK/wQhrPE=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=hhGhkxbFISlcHv9SPA0uDsuBkCiT7FM/Ywv8L5DtjrH5mK8FEPRbtFXY/qfoAHX5m
-	 AuC2nxFCdMlmAaaaGlvuA5LtU7PmujyXQpktKY4X6swt7Y98dNJeXk4ibKCFOb1W8l
-	 Y/cUsyy8RqP1Wd9By4OtdJYUWJtKxj6+P99H61w29r3F8dDFYjcBLzKw4zeIg3Ub5F
-	 BBeHlObbqaheSW6s47D/BQBHcg9lLFJ1bmtiQsoJt6nLrTIPBu7KmRGWJ31J7LkHMK
-	 eCce1TAWkX/fJoaMOaoyYBXNLD2qp6feZMjf2vrI/686I9/uwObR0J9x81IWnNJP/k
-	 5XnfYePZjDkWg==
-Message-ID: <c1f21bf2-71e3-4537-a000-fd0e95257759@kernel.org>
-Date: Wed, 9 Sep 2026 19:32:57 +0200
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="0WGoVxJM"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=Qqzky4NioK/O0Csy4TAuIV9g/PeGeOmc1R35TVZNWDY=; b=0WGoVxJMhT2iQsWfTdyG9M1Zh+
+	gTiJslqIatvt11Rrm9MsM1MiJOqD/cYccENxUdvfs6EClGwMO6EW0PjC/tXJv6zwKO9fg8r8N+nLG
+	qd8SXt3YjPGWtQs55BsAwWT0DUgYRagC1CMA9F1eCAowbSuE7rDdReSx0fWyatk3mpYk=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1x4MA3-004GBP-Gl; Wed, 09 Sep 2026 19:32:39 +0200
+Date: Wed, 9 Sep 2026 19:32:39 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: David Yang <mmyangfl@gmail.com>
+Cc: Kyle Switch <kyle.switch@motor-comm.com>, olteanv@gmail.com,
+	davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+	pabeni@redhat.com, horms@kernel.org, linux@armlinux.org.uk,
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+	ming.xu@motor-comm.com, xiaolin.xu@motor-comm.com,
+	jianmin.wang@motor-comm.com, wei.zhang@gl-inet.com,
+	sijia.huang@gl-inet.com
+Subject: Re: [PATCH net-next v6 6/6] net: dsa: motorcomm: Add support for
+ Motorcomm YT922x
+Message-ID: <0aa20394-2042-4c52-b30b-cdd742d4da65@lunn.ch>
+References: <20260908083614.2210505-1-kyle.switch@motor-comm.com>
+ <20260908083614.2210505-7-kyle.switch@motor-comm.com>
+ <CAAXyoMMLpaD5B4QojC0OKHxOFfPfFGpsS2nxCMT9e=nJeo8beg@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] mm: implement and use vma_is_faulted(), silence KCSAN
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
- Suren Baghdasaryan <surenb@google.com>, "Liam R. Howlett"
- <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
- Shakeel Butt <shakeel.butt@linux.dev>, Zi Yan <ziy@nvidia.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
- Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
- Kiryl Shutsemau <kas@kernel.org>, Mike Rapoport <rppt@kernel.org>,
- Michal Hocko <mhocko@suse.com>, Xu Xin <xu.xin16@zte.com.cn>,
- Chengming Zhou <chengming.zhou@linux.dev>, Jann Horn <jannh@google.com>,
- Pedro Falcato <pfalcato@suse.de>, Rik van Riel <riel@surriel.com>,
- Harry Yoo <harry@kernel.org>, Chris Li <chrisl@kernel.org>,
- Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>,
- Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>,
- Youngjun Park <youngjun.park@lge.com>, Peter Xu <peterx@redhat.com>,
- linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- Guilherme Giacomo Simoes <trintaeoitogc@gmail.com>
-References: <20260909-vma-is-faulted-v1-1-3a701f48984a@kernel.org>
- <3a261c3e-4c26-41b3-b55f-5800ae1081f3@kernel.org> <aqGJx-uQjN8-DEBe@gremlin>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <aqGJx-uQjN8-DEBe@gremlin>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAAXyoMMLpaD5B4QojC0OKHxOFfPfFGpsS2nxCMT9e=nJeo8beg@mail.gmail.com>
 
-On 9/9/26 18:36, Lorenzo Stoakes (ARM) wrote:
-> On Wed, Sep 09, 2026 at 06:24:52PM +0200, David Hildenbrand (Arm) wrote:
->> On 9/9/26 18:14, Lorenzo Stoakes (ARM) wrote:
->>> Provide a function to abstract the common task of checking whether
->>> a VMA is faulted in or not.
->>>
->>> A VMA or mmap lock must be held when calling this function. For an attached
->>> VMA the transitions between unfaulted/faulted state are:
->>>
->>>        Transition        |              VMA/mmap Lock state
->>>  ------------------------|-----------------------------------------------
->>>    unfaulted to faulted  | write lock OR read lock + mm->page_table_lock
->>>    faulted to unfaulted  | write lock
->>>
->>> So vma_is_faulted() never provides a false positive (the lock precludes
->>> it), but if only a read lock is held, a negative result must be re-checked
->>> with mm->page_table_lock held.
->>>
->>> Detached VMAs cannot be concurrently manipulated as they are removed from
->>> the maple tree so require no guarantees.
->>>
->>> Use data_race() to silence KCSAN about non-existent data races between
->>> concurrent vma->anon_vma read/write on optimistic fault tests.
->>>
->>> Also while here, const-ify vma_is_attached(), vma_assert_stabilised() and
->>> dependants.
->>>
->>> Finally, update the core VMA merge/split, rmap, mremap, KSM and fault
->>> preparation callers which test vma->anon_vma directly to use
->>> vma_is_faulted() instead.
->>>
->>> Note that the lockless read in reusable_anon_vma() is doing more than
->>> checking whether the VMA is faulted - it is returning the anon_vma to be
->>> used on fault, so this check is not altered.
->>>
->>> There is one odd one out - file_backed_vma_is_retractable() - which holds
->>> neither a VMA nor mmap lock and is stabilised by the file rmap lock only.
->>>
->>> Therefore just add a comment to explain why the direct vma->anon_vma check
->>> is required.
->>>
->>> Reported-by: Guilherme Giacomo Simoes <trintaeoitogc@gmail.com>
->>> Closes: https://lore.kernel.org/all/20260829100034.423064-1-trintaeoitogc@gmail.com/
->>> Closes: https://lore.kernel.org/all/20260909115723.528501-1-trintaeoitogc@gmail.com/
->>> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
->>> ---
->>
->>
->> Is vma_is_faulted() really the right thing to use when wanting to say that we
->> (likely) faulted in an anon page?
->>
->> I think that's highly confusing, considering just MAP_SHARED mappings where that
->> will never be true.
+> > +/**
+> > + * Initialize serdes configuration based on interface mode.
+> > + */
+> > +static int yt922x_sds_init(struct yt921x_priv *priv, int port,
+> > +                          phy_interface_t interface)
+> > +{
+> > +       int addr;
+> > +       u16 data;
+> > +       int res;
+> > +
+> > +       addr = yt922x_sds_phyaddr_get
+> > +               (port, YT922X_PHY_REG_TYPE_SDS_COMMON_EXT,
+> > +                YT922X_PHY_REG_SPACE_SGMII);
+> > +       if (addr < 0)
+> > +               return -EINVAL;
+> > +       /* write protect */
+> > +       res = yt921x_intif_ext_write(priv, addr, 0x4be, 0xd);
+> > +       if (res)
+> > +               return res;
+> > +       /* CDR */
+> > +       if (interface == PHY_INTERFACE_MODE_100BASEX) {
+> > +               res = yt921x_intif_ext_write(priv, addr, 0x406, 0x0);
+> > +               if (res)
+> > +                       return res;
+> > +               res = yt921x_intif_ext_write(priv, addr, 0x416, 0x3458);
+> > +               if (res)
+> > +                       return res;
+> > +       } else {
+> > +               res = yt921x_intif_ext_write(priv, addr, 0x406, 0x800);
+> > +               if (res)
+> > +                       return res;
+> > +               res = yt921x_intif_ext_write(priv, addr, 0x416, 0x4558);
+> > +               if (res)
+> > +                       return res;
+> > +       }
+> > +       /* PLL */
+> > +       if (interface == PHY_INTERFACE_MODE_USXGMII) {
+> > +               res = yt921x_intif_ext_write(priv, addr, 0x43a, 0x1006);
+> > +               if (res)
+> > +                       return res;
+> > +               res = yt921x_intif_ext_write(priv, addr, 0x43f, 0x3029);
+> > +               if (res)
+> > +                       return res;
+> > +               res = yt921x_intif_ext_write(priv, addr, 0x42a, 0xf070);
+> > +               if (res)
+> > +                       return res;
+> > +       } else {
+> > +               res = yt921x_intif_ext_write(priv, addr, 0x43d, 0x207d);
+> > +               if (res)
+> > +                       return res;
+> > +               res = yt921x_intif_ext_write(priv, addr, 0x43c, 0x207d);
+> > +               if (res)
+> > +                       return res;
+> > +               res = yt921x_intif_ext_write(priv, addr, 0x43f, 0x3032);
+> > +               if (res)
+> > +                       return res;
+> > +               res = yt921x_intif_ext_write(priv, addr, 0x43a, 0x6);
+> > +               if (res)
+> > +                       return res;
+> > +               res = yt921x_intif_ext_write(priv, addr, 0x42a, 0xf070);
+> > +               if (res)
+> > +                       return res;
+> > +       }
+> > +       /* VCO */
+> > +       res = yt921x_intif_ext_write(priv, addr, 0x439, 0xC0);
+> > +       if (res)
+> > +               return res;
+> > +       /* Vdac */
+> > +       res = yt921x_intif_ext_write(priv, addr, 0x492, 0x7f7f);
+> > +       if (res)
+> > +               return res;
+> > +       res = yt921x_intif_ext_write(priv, addr, 0x491, 0x7f);
+> > +       if (res)
+> > +               return res;
+> > +       /* Eye */
+> > +       res = yt921x_intif_ext_write(priv, addr, 0x454, 0xf14);
+> > +       if (res)
+> > +               return res;
+> > +       res = yt921x_intif_ext_write(priv, addr, 0x497, 0xa44);
+> > +       if (res)
+> > +               return res;
+> > +       res = yt921x_intif_ext_write(priv, addr, 0x4cd, 0x0);
+> > +       if (res)
+> > +               return res;
+> > +
+> > +       res = yt921x_intif_ext_write(priv, addr, 0x4af, 0x45e3);
+> > +       if (res)
+> > +               return res;
+> > +       res = yt921x_intif_ext_write(priv, addr, 0x48a, 0xfff);
+> > +       if (res)
+> > +               return res;
+> > +       res = yt921x_intif_ext_write(priv, addr, 0x408, 0x7c00);
+> > +       if (res)
+> > +               return res;
+> > +       res = yt921x_intif_ext_write(priv, addr, 0x4d6, 0x7f);
+> > +       if (res)
+> > +               return res;
+> > +       res = yt921x_intif_ext_write(priv, addr, 0x44f, 0xff08);
+> > +       if (res)
+> > +               return res;
+> > +       /* FFE */
+> > +       res = yt921x_intif_ext_write(priv, addr, 0x48e, 0x7d00);
+> > +       if (res)
+> > +               return res;
+> > +       res = yt921x_intif_ext_write(priv, addr, 0xd, 0x60f);
+> > +       if (res)
+> > +               return res;
+> > +       /* CTLE */
+> > +       res = yt921x_intif_ext_write(priv, addr, 0x4b0, 0x804);
+> > +       if (res)
+> > +               return res;
+> > +       res = yt921x_intif_ext_write(priv, addr, 0x4b1, 0x7774);
+> > +       if (res)
+> > +               return res;
+> > +       res = yt921x_intif_ext_write(priv, addr, 0x4af, 0x45e7);
+> > +       if (res)
+> > +               return res;
+> > +       res = yt921x_intif_ext_write(priv, addr, 0x3, 0x5603);
+> > +       if (res)
+> > +               return res;
+> > +
+> > +       msleep(20);
+> > +       res = yt921x_intif_ext_write(priv, addr, 0x492, 0x7fff);
+> > +       if (res)
+> > +               return res;
+> > +       res = yt921x_intif_ext_write(priv, addr, 0x492, 0x7f7f);
+> > +       if (res)
+> > +               return res;
+> > +       /* CTLE */
+> > +       res = yt921x_intif_ext_write(priv, addr, 0x2000, 0x40);
+> > +       if (res)
+> > +               return res;
+> > +       res = yt921x_intif_ext_write(priv, addr, 0x2000, 0x0);
+> > +       if (res)
+> > +               return res;
+> > +
+> > +       if (interface == PHY_INTERFACE_MODE_SGMII) {
+> > +               res = yt921x_intif_ext_write(priv, addr, 0x1042, 0x48c);
+> > +               if (res)
+> > +                       return res;
+> > +       }
+> > +       /* soft reset */
+> > +       addr = yt922x_sds_phyaddr_get(port, YT922X_PHY_REG_TYPE_MII,
+> > +                                     YT922X_PHY_REG_SPACE_SGMII);
+> > +       if (addr < 0)
+> > +               return res;
+> > +       res = yt921x_intif_read(priv, addr, 0x0, &data);
+> > +       if (res)
+> > +               return res;
+> > +       data &= ~(1 << 15);
+> > +       res = yt921x_intif_write(priv, addr, 0x0, data);
+> > +       if (res)
+> > +               return res;
+> > +       addr = yt922x_sds_phyaddr_get(port, YT922X_PHY_REG_TYPE_MII,
+> > +                                     YT922X_PHY_REG_SPACE_USXGMII);
+> > +       if (addr < 0)
+> > +               return res;
+> > +       res = yt921x_intif_read(priv, addr, 0x0, &data);
+> > +       if (res)
+> > +               return res;
+> > +       data |= 1 << 15;
+> > +       res = yt921x_intif_write(priv, addr, 0x0, data);
+> > +       if (res)
+> > +               return res;
+> > +
+> > +       return 0;
+> > +}
 > 
-> Hmm, yeah.
-> 
-> I mean there's nowhere you'd do this check where you weren't checking something
-> that couldn't at least in theory be anon-faulted. But it's confusing vs. shared
-> you're right.
-> 
-> vma_is_anon_faulted()?
+> No one else, except you, can maintain this stuff. Drop it for now and
+> discuss it later.
 
-Hm, not sure.
+There also appears to be similar magic in the PHY driver. Can this be
+consolidated?
 
-	vma_had_anon_fault()
-
-Might sound better.
-
-Alternatively:
-
-	vma_has_anon_vma()
-
-is the obvious thing we're checking.
-
-	vma_might_have_anon_folios()
-
-would be the clearest (no anon_vma -> no anon folios). But semantically that's
-likely not what you want to check in the code?
-
-
-The whole faulted/unfaulted terminology is a bit confusing ...
-
--- 
-Cheers,
-
-David
+	Andrew
