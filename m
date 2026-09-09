@@ -1,95 +1,69 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C306B1643B;
-	Wed,  9 Sep 2026 00:01:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AE812561A7;
+	Wed,  9 Sep 2026 00:03:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788912079; cv=none; b=FrBlHiqwVYX6eop/MCTU2Eeg8V/ktvbU860bgvoN2vc8ZB9vTYitR2AEkJXHdKClYo3fbO2rUrfBYvO1mfhHsJlmYbVMWPUAKc0JLh2K2on4S+MZ1SVoOmZXAqwDtO+3pjGV4gxJOwSED82ADiD9QjL12XAspdSvE93DlLmOVX8=
+	t=1788912223; cv=none; b=BGR56ikw7QhEU6q3zkgRBMeYtsxEYr69705eb3MFLbBCYi1dFxhGR+uh1PWA73C3gkmHHtem7HG3gPH9JNq7JGOrSlAwwXa2evknmfLRyFU9pwa3qGzAvDCAR6u8LPl9UnQHAiTEROksjuFdubcjhiLr13Go2kMvWiNZ3CfkNjo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788912079; c=relaxed/simple;
-	bh=TC+AdfY5wfm6r30Pha+XuqlDXv5g8AbcqPX5qnkRyKg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=A4iesxX9t7TNYKn1ImN2wrmjieE9+X1XozykikMRxWe1nSYCW0P/49oanxNNtTRb4vMDG5NoclJ7sSSIJPAnrriqOBfLT0gRGSMN71jO6O6xPkVN/kfnW5NXpdDP5FUVwqDuc/+sJvdLu8jaA6pnk+AbFeZCQBDl/R6oM//eWfo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Io+uKMUS; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788912223; c=relaxed/simple;
+	bh=fRxxyaxF4sEIOICY66X/8reWA/2dX8AYB6hJI+WF83c=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=OSNkSKsdxbuIsaoYVVCdvxTyulrSKHP5IiFWMPwrNLVqgEqW475kBXMquMp0EEoTFx4Dp7rH3vKeem2Dvvk/h7ZjR6AlQ4wqId+0MKysbv6hNwgCe088ZpoFhju7JQKgHiejCDvNXivz2LXDg8S/8TgWEijqzadK+qQ/Sf3nWE4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Qjv69hpZ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Io+uKMUS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 536161F00A3A;
-	Wed,  9 Sep 2026 00:01:18 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Qjv69hpZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BCF781F00A3A;
+	Wed,  9 Sep 2026 00:03:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788912078;
-	bh=0UTzGNUczp4DjsKEH5ve8IeesYqL56R6Vh31ixYFRRo=;
-	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
-	b=Io+uKMUSGTY0up/vQAofqyDHn97v9QnMf7Xg0Ira8cjPiE8dH3uhQdluwegTThNCv
-	 KHx0draH0CbqH7Vy8EXdwXEwFZmk2tv05Hy7oIboD9Ojz9J3r50tKZlEiWDZQBWCdZ
-	 qWlztS5t3nj5M9OSCMZLS1ka7ONSbAcqz8WMhMLO+mEM17rvZo7nv/dv7ZPF5s5X42
-	 kgxrNU/MhxWLN0MpwsSh+lqKQvOzyUq6TtkWFR3+QmUlUHWM2yD2sTByHuJgtqeoA8
-	 1rtUUagdcIL0uboclLguEtMwbZnI679Tm31kTJAH5QUmyCnqBzNACznuSiqjTVXsN1
-	 JllNwkc91HXXw==
-Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
-	id 18585CE18F4; Tue,  8 Sep 2026 17:01:18 -0700 (PDT)
-Date: Tue, 8 Sep 2026 17:01:18 -0700
-From: "Paul E. McKenney" <paulmck@kernel.org>
-To: Kunwu Chan <kunwu.chan@gmail.com>
-Cc: jiangshanlai@gmail.com, josh@joshtriplett.org, rostedt@goodmis.org,
-	mathieu.desnoyers@efficios.com, rcu@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 10/13] srcutree: Skip callback scheduling for atomic SRCU
- grace periods
-Message-ID: <ec409022-0e89-477c-a900-537e7cb7285a@paulmck-laptop>
-Reply-To: paulmck@kernel.org
-References: <20260907075829.2073224-1-kunwu.chan@linux.dev>
- <20260907075829.2073224-11-kunwu.chan@linux.dev>
+	s=k20260515; t=1788912216;
+	bh=6IxhlJ9b8uAGlHKepWvd0viaQd29xcE83/MQglixBLU=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=Qjv69hpZltPtq1Jt++GXvMsJ/5TJDRZ1v3V1kkkhdBbRThP+4bGsMYao0gjhBtLAh
+	 ot2lHeQXQSNi5BktOPaw7t0wSVuA8SzBo7HEQhzbDFTX6urtkSGV1rmYDo1PfLC5M0
+	 h5zlFV3eZpzpDNXeOacd28NWmqrN1nSPEAzDaaJFfJbaIz5teGYRcJTr4vrERrw9e2
+	 OsvyU/kWTGIET6SrAdxLq7ASXez1mJXENgpZc7TmB9548mCDN9LNqSDpOJ2XbqFbGI
+	 HL9yXJosKU3T6d+KNDi3u67serPzDTuExJWTDNbqW4avXBj+jBYz+otefoBXKQpEmb
+	 I+QlHAkYFyCgg==
+Date: Tue, 8 Sep 2026 17:03:35 -0700
+From: Jakub Kicinski <kuba@kernel.org>
+To: Qingfang Deng <qingfang.deng@linux.dev>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Paolo Abeni
+ <pabeni@redhat.com>, Mitchell Blank Jr <mitch@sfgoth.com>, Chas Williams
+ <3chas3@gmail.com>, Simon Horman <horms@kernel.org>, James Chapman
+ <jchapman@katalix.com>, "Jiri Slaby (SUSE)" <jirislaby@kernel.org>, Kees
+ Cook <kees@kernel.org>, Breno Leitao <leitao@debian.org>, Asim Viladi Oglu
+ Manizada <manizada@pm.me>, Eric Woudstra <ericwouds@gmail.com>, Felix
+ Fietkau <nbd@nbd.name>, linux-ppp@vger.kernel.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-atm-general@lists.sourceforge.net
+Subject: Re: [PATCH net-next v2] ppp: pass private data to channel callbacks
+Message-ID: <20260908170335.5e98fe60@kernel.org>
+In-Reply-To: <20260906134830.992-1-qingfang.deng@linux.dev>
+References: <20260906134830.992-1-qingfang.deng@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260907075829.2073224-11-kunwu.chan@linux.dev>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Mon, Sep 07, 2026 at 03:58:26PM +0800, Kunwu Chan wrote:
-> From: Kunwu Chan <kunwu.chan@gmail.com>
+On Sun,  6 Sep 2026 21:47:36 +0800 Qingfang Deng wrote:
+> PPP channel callbacks receive struct ppp_channel only to retrieve the
+> driver's private pointer. Pass that pointer directly instead.
 > 
-> call_srcu() is forbidden on atomic srcu_struct, so srcu_gp_end() never
-> has callbacks to invoke for them.  Yet it schedules callback invocation,
-> which for atomic SRCU's SRCU_SIZE_SMALL state arms the boot CPU's
-> ->delay_work timer every grace period, only for srcu_invoke_callbacks()
-> to find nothing to do.
-> 
-> Skip this for atomic SRCU.
-> 
-> Signed-off-by: Kunwu Chan <kunwu.chan@gmail.com>
+> This decouples channel callbacks from the public channel representation
+> and prepares for making struct ppp_channel opaque, with allocation and
+> lifetime managed by the generic PPP layer.
 
-Nice optimization, thank you!  This does not matter for correctness,
-and thus does not affect bisectability, so I have queued it as is for
-testing and further review.
+Not immediately obvious that this is a win. Having a callback op take
+untyped pointer can be error prone. Also, subjectively, making types
+opaque in C often leads to ugly and unnecessarily complex code.
 
-							Thanx, Paul
-
-> ---
->  kernel/rcu/srcutree.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/kernel/rcu/srcutree.c b/kernel/rcu/srcutree.c
-> index 2d2a12f86115..c19f59725706 100644
-> --- a/kernel/rcu/srcutree.c
-> +++ b/kernel/rcu/srcutree.c
-> @@ -1018,10 +1018,10 @@ static void srcu_gp_end(struct srcu_struct *ssp, bool is_atomic)
->  
->  	/* Initiate callback invocation as needed. */
->  	ss_state = smp_load_acquire(&sup->srcu_size_state);
-> -	if (ss_state < SRCU_SIZE_WAIT_BARRIER) {
-> +	if (!is_atomic && ss_state < SRCU_SIZE_WAIT_BARRIER) {
->  		srcu_schedule_cbs_sdp(per_cpu_ptr(ssp->sda, get_boot_cpu_id()),
->  					cbdelay);
-> -	} else {
-> +	} else if (!is_atomic) {
->  		idx = rcu_seq_ctr(gpseq) % ARRAY_SIZE(snp->srcu_have_cbs);
->  		srcu_for_each_node_breadth_first(ssp, snp) {
->  			raw_spin_lock_irq_rcu_node(snp);
-> -- 
-> 2.43.0
-> 
+This patch does not stand on its own, IMO, maybe you need to post the
+entire series, and maybe rethink.
+-- 
+pw-bot: cr
