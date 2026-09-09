@@ -1,169 +1,128 @@
-Received: from TYPPR03CU001.outbound.protection.outlook.com (mail-japaneastazon11022082.outbound.protection.outlook.com [52.101.126.82])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB8D717DFFA;
-	Wed,  9 Sep 2026 05:36:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.126.82
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788932180; cv=fail; b=NXtgg9JOMNj+mW6Meq1Sd5L93XSi8X5nYzx2hW1RQHjkuQ4JLFXlfBek77opr/meD+rp/Dj3WZLQxwHPoPmxEn6SerrG69cf3viTQ8Aqo7DKn53uVAOt2/SP3biJ+wo2t+dKJgvVNQOppyEzONUPet708MSZI1PVfWGeOtTGMRw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788932180; c=relaxed/simple;
-	bh=0XMvDIxJO82E5EsuCZmf0rvVlNK+NGA0h6FliXJNFtI=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=KWDIF0x8XXvu+c1XMXQLMWVL0zBrlFITaEHNIAvUWHOiKdPolj6hlZqghHulVUsAUpyVk9NBO+7bAKG53N2ziIJuDbM4lpXPH1u+6Yg1cGOIGg8+vNvdtOc3Y22jHAzfxzI24c2/DEa9WR92le8UuFpPj0U0TBxWYXQPI8i92bM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com; spf=pass smtp.mailfrom=aspeedtech.com; dkim=pass (2048-bit key) header.d=aspeedtech.com header.i=@aspeedtech.com header.b=iJ91Ymef; arc=fail smtp.client-ip=52.101.126.82
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aspeedtech.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=aspeedtech.com header.i=@aspeedtech.com header.b="iJ91Ymef"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=hK5/61uCad9XJdRcu2Rhw4mys/JDtFlcwlc+WNxQBPQvyfoiLpzg5Qd1sq1dMTylbwRrk+6kEeQ8QCG4pfgIs7AP2ML+KG5rPdbEcdvMF9O5rb/b0HuubnsPh08QkAFFbpEO663A6UGv7v/MdXIhTNrg7qgFT6oUJAT++70jwJSjCfExeuPY0q3KxOSp+V7AM5jhoFMKJ4oBHLmjyJQGDFjoGLPQduVkEoul/SrNID4MziKIPcp8K27QCeAD7xndnPt1iKlkH4TGTOXmi095BevSXIV6xp+PN9emrDNvH0gTYEdgNQ0EV1W+bq8WzTfC1/e+4SZRXk6NgJIsT5SrBw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=0XMvDIxJO82E5EsuCZmf0rvVlNK+NGA0h6FliXJNFtI=;
- b=XbOAeE15Itb8Rmd+VtBtsR/n4I0w6cBjWB2IaBVSwFt+sFoVuUwVg4xsClyWdEBXixMrvaTJZFH0QcBA/Z2QhKNffm2dneyKIK+xtp6bAm8PIk7ZveijzEJrMBzdH2BnThBjhVw0fF8ZsETWaU+PMmYXmE30fAUuMNBf+GPY/wehH7QDdrlB8DXTPFBbIUDPqV/wuBhbR1iDNlOUCs81uXUfv/BxzpTt+YAFEMQ24rSMcy5rN7eaSQePFZR6ToGV2eY4RoRW1X7xEV6CDIa0r9zL+kvXSfsMIktoLHaDW7gDboWcmY0jIc1UfWjssKrlGFbMK72sEIqYARfWOw5AZQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=aspeedtech.com; dmarc=pass action=none
- header.from=aspeedtech.com; dkim=pass header.d=aspeedtech.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aspeedtech.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=0XMvDIxJO82E5EsuCZmf0rvVlNK+NGA0h6FliXJNFtI=;
- b=iJ91Ymef1wiyw/2OqHwkh5Q2O5yAZC1AMtNEv4LG3lqup5+MUw59VucJT44p0wvHialSlfEj9HwUZ8Ev5wX/yQEMQ+WP15D8Abac2JWFR460xyJ3ZKJx/oqM76hZYpir3HyP6FDxbuLUOaNlKDsLjUvzZ+Q34zoiVKtmJW25NnJMVGGtqcbvGG2t5M9XcGNSFPWA+lfQkl0DVZ7lIbfQAZPrDwkP3JEDtrmPGg74AprIVzEsKjjZtK4PJsiEch1Cp6PCFGpnRTUQkeM2KyjYNbq7gYzeNEP9B+qy4Veffi/8avMDpzGmHl8rLN5r2FCXTSnzVHCjet035s8mhijlUQ==
-Received: from OSQPR06MB7252.apcprd06.prod.outlook.com (2603:1096:604:29c::6)
- by JH0PR06MB7268.apcprd06.prod.outlook.com (2603:1096:990:96::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.7; Wed, 9 Sep 2026
- 05:36:16 +0000
-Received: from OSQPR06MB7252.apcprd06.prod.outlook.com
- ([fe80::92af:c9d9:8779:d19]) by OSQPR06MB7252.apcprd06.prod.outlook.com
- ([fe80::92af:c9d9:8779:d19%3]) with mapi id 15.21.0406.005; Wed, 9 Sep 2026
- 05:36:16 +0000
-From: Billy Tsai <billy_tsai@aspeedtech.com>
-To: Frank Li <Frank.li@oss.nxp.com>
-CC: Alexandre Belloni <alexandre.belloni@bootlin.com>, Frank Li
-	<Frank.Li@nxp.com>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
-	<krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Joel Stanley
-	<joel@jms.id.au>, Andrew Jeffery <andrew@codeconstruct.com.au>, Philipp Zabel
-	<p.zabel@pengutronix.de>, "linux-i3c@lists.infradead.org"
-	<linux-i3c@lists.infradead.org>, "devicetree@vger.kernel.org"
-	<devicetree@vger.kernel.org>, "linux-arm-kernel@lists.infradead.org"
-	<linux-arm-kernel@lists.infradead.org>, "linux-aspeed@lists.ozlabs.org"
-	<linux-aspeed@lists.ozlabs.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>
-Subject:
- =?big5?B?pl7C0DogW1BBVENIIDIvOF0gaTNjOiBtaXBpLWkzYy1oY2k6IFN1cHBvcnQgYWRk?=
- =?big5?Q?ress-indexed_DAT_slots?=
-Thread-Topic: [PATCH 2/8] i3c: mipi-i3c-hci: Support address-indexed DAT slots
-Thread-Index: AQHdOgYFV/iRFGCV+Eu8y/2tQxxS3ra6MksAgAuTrhI=
-Date: Wed, 9 Sep 2026 05:36:16 +0000
-Message-ID:
- <OSQPR06MB7252EEDBF3392ED908FD4C8D8BB02@OSQPR06MB7252.apcprd06.prod.outlook.com>
-References: <20260901-b4-i3c-hci-ast2700-v1-0-19909e7cbd7e@aspeedtech.com>
- <20260901-b4-i3c-hci-ast2700-v1-2-19909e7cbd7e@aspeedtech.com>
- <apc5_qthRg3GMEyz@lizhi-Precision-Tower-5810>
-In-Reply-To: <apc5_qthRg3GMEyz@lizhi-Precision-Tower-5810>
-Accept-Language: zh-TW, en-US
-Content-Language: zh-TW
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-msip_labels:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=aspeedtech.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: OSQPR06MB7252:EE_|JH0PR06MB7268:EE_
-x-ms-office365-filtering-correlation-id: 514fda42-b9d0-4032-d5d9-08df0e344484
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|23010399003|1800799024|7416014|376014|366016|10067099003|6133799003|18002099003|22082099003|56012099006|4143699003|38070700021;
-x-microsoft-antispam-message-info:
- YiG5Myewit5RumRyft7R+UBr5GEE+NwAn67soIae9Vq7mV60oKX7LfwIC+5a2KO0bzAmRAq6YLjQYpJNny4p/eNuBVO6jZ0fnKlOA9+kCKu3oaXIgGaGDB2vcqPk4+NQgBp8M3Zb9mVR9J2D1LF8+UmQnVR+54iKCg5dlWLZgn5xQD43gwDLE58W3LAoTgQsaYStf5Jb5+qgEBZdiNL+yFDlTMv1HJBZzC9yyqSwEkUx7c+cttmUqTwINrvEdw9c8S3nsvLqViGSoHrdPbqFC16TchzNGIuuke/435c5sqMomayizwbsK/jT41IYNntqUHlHX1MN+POKHJ86iJ0N9cxkoe8poHTKMz9/jA5FYfnd0SwzgUJ0GtfNEsqhGestE1A5Ra03N9IU2QhbCOyELT9Bi/Wip2w/cI+7egxDQQ40RKXE/sLmsKavEVgDDIPjFazzkMjsJ3dLeo9blkBqobFc/YJKcEua7W2IRksSb57g04VpMth16eJw86g6cmiHVraIMOnRpRpRcJpOV19EYnMyoansqH8NokxLTq9nZAItqBuZ7QXYMCxdghLmAcB1uKQOBgr0qnhh0XAe4miQVgmnlZx45C/7eOgNwKr82e5auYk2OtsF5gB/3PhShtXQiKTvifIjqINeXkjH78VY2HWjI51D0ybIDVuFyUjsgNTD4+oui5QgGN1z243QfDkWrX3nz404Eq1A52J6/LKD0Dj5IO4M9PrAcrvVENBX6UI=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:zh-tw;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:OSQPR06MB7252.apcprd06.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(7416014)(376014)(366016)(10067099003)(6133799003)(18002099003)(22082099003)(56012099006)(4143699003)(38070700021);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?big5?B?ZStqb1RrcytFZjZvVFgxd0lQZW12NjF6UUV4VGVjdFMwUXR1VEp2QUpPVEpqdDRL?=
- =?big5?B?S1E0RGJKaGFjckNaVWJMRERWSExGZDBEWTQ5bVN2NEZibnk0dlhpWk5IdWIxaWhO?=
- =?big5?B?MjMrd1pSVGFKbHFjVEFxQklVTnVaY3JqdXN6RC9nOVZIMncvc2xCTDEvSTFFVkxn?=
- =?big5?B?blU3a2lhMS9OSWpSSTcvdXJJY2c1b3pGN1VxNklMTEFjeDRidHRnSXpMUWQwS3hs?=
- =?big5?B?WDdtblppTW1WTVpRbmx4TDMwN2VmOFJjK0Q2ZnVmamZYTXE5MUZGNUQxbStmTDJi?=
- =?big5?B?S1oycTlkTFI2SHluTjFPeWJzelZ6RkdsWmh1NExsMlErT2NFV0RpREduNTQrQnM4?=
- =?big5?B?UDZBaEhVdUF0M0xidHhydE9TSm1sbEdtN2YydXhIU3pGa0ErditiVEM3MHNHOXF0?=
- =?big5?B?NjM5VUtmaWZqcUpvUEwwSmcwNTZEUFFTdGFxWFAzbXJTb1p0eDFtV0xhTUFIcjJJ?=
- =?big5?B?cHBsbk95M1FYdUQwRThpOVVxa3Mzd2hDTUJrZDUyL0NTMzFmUCtEUjVveWdJZHZV?=
- =?big5?B?TkJ4bEgyTGNXUG9TT0xpeUVrb1QyaFZuRXpKRlN1aHhOZDBqc3hYYkxOamh3VVJ3?=
- =?big5?B?WUVnN2J0MGhXMlkzQW41eTFiTkt2dDgzNWpuU0E5RTNYWUxtOFFaWDBjTFlyR3l3?=
- =?big5?B?TEJlTFh4VG5CSmlFdHdJTXRKbmEwQ0NrR2RoenNvT3BjWXAreXZuV1BzQjJMdW9s?=
- =?big5?B?Q3haN2NwbVVFNVZJUlJPK1NvRDBSeXNRcjlnaU13MmNjOGcxSnFteU1IcDR4Kzc1?=
- =?big5?B?MEIwLzZPdTIwZm1CM3Zac3pyM1BXanRxYitrMW9YK3BKTzVKYU5PUmFEL2h4NGgv?=
- =?big5?B?TzRkNEVrdGFvYmptSWczbFgxR1g1Z291cjB4anBIVEp3S0JRZHFXb084aW15aVhi?=
- =?big5?B?L1kxV2lSNy9ySVM2bVZqQktrdzBBeW56MEJjVVlWNzYxMnY0MElxdkFTVm95LzBD?=
- =?big5?B?cmJTOHZJZU9nSk9qM0FSdXdJeXFOUU8wWUlhRzVMazR0U2ZUcFRiUFZRMnk1WHR0?=
- =?big5?B?NWg5anBRWjY1Qk1tTFh2czA1NTdMN0JNcmVFSk5XdDdtZi9PUTRwNW5Bb1hpTXRk?=
- =?big5?B?OWNGa2hQclJ6NGhFcS9mNUFubWJFeU9wa2pDZFdTQy9EdmYxQ2NUTWRmU0VTMDZO?=
- =?big5?B?ZjdzRzVkOW16QzJOUWU1eFVSSVJCMzBDK0J0UkFiRGlNaTVZaEJsODhMMnRSaEJk?=
- =?big5?B?L1pUeFYrZDNSR2liMHhCbGJtNXh1V2JnaFl2QXdlTGI2cncwRzJaaFltd0NtWERJ?=
- =?big5?B?WDhXOGJVOG9OY0F4SWRBai9EOWxBSjV2Zm94ZDdnSGRGenRYdG9sNG0vTVE0QjVs?=
- =?big5?B?Qmg4clBEZ0NaWHk1MFdwT2xvMldkK3RlcDgvK1RhVjJnYUF5dDE1d200cUttWlhm?=
- =?big5?B?dUw5bTBTNWpaM1A5TjVnNlBDekQ3T1BMeFFBUWp2TVcvcEM1TURIRStQVnA0WDNK?=
- =?big5?B?QnhtYXdGYVBBOEQ4NFBXdnZzNGpFSE5XRXE2MlB5U1NwQUpxT2F0NVg1Zm9UOXhm?=
- =?big5?B?eCs3cS8xd0Qxc3lRTjhuVWJXVEc4OThLMEN6d3Q3dXJjZ2VWVHE4aEd6M1dVS3Jv?=
- =?big5?B?YUxrc0dqQnFvLzdkZUtFTFkybnRscmZPeXRZcEdBQWFnN3JnV1JuWGxFZS8rRWVi?=
- =?big5?B?aE4xME9mNmE4ZjQzYUwycjBwczBiYmI5Y0ZUZ0xQaXM3YTE1azNjWWlOcThsRmFK?=
- =?big5?B?aFRZZDg1VFRaMDNscVNHUUswalZwNHRJZnJ4RXJIL3BGLzd5aXRldEZhOVFyMEpY?=
- =?big5?B?QWFDNldobkJEMEZZNElYZk42a0U4azNxUjJQRjh5bUk2WWkyblF3Um5TUjUrVExV?=
- =?big5?B?Nzh2UFNvQWxzSTVVdWYvUzlFeHFkM3hiNlpNRVBCVzVxYzlvZmtFR0tIeExlUWNi?=
- =?big5?B?T294bk1pSVpjSkJETFVQTnEwR1oydUJNRlJQQ2FNOCs4RGNSYmF0dTQ5S0pOS0hB?=
- =?big5?B?N3lLc09WSUNLMVV1RkhrMkR2T2RRRGcxSzQ1RkdjTng0SE1aMGt5WjBvSGZFUEVO?=
- =?big5?B?enZKL3p4NU5ZeklKdkxxRUdlcnJleUFTWkRLRU8rRXBxZkVPV2ZDLzBUVEU1c3U0?=
- =?big5?B?Z3lBWkZlclYrc2RJTm04OGxnL2dCVFhvUDJXVDRNQzV4cWcya2FZa2h2eUpaS2lH?=
- =?big5?B?eDAwa2Frd3Zvc05mc2Z4YklhaDExb3VjOFpkUHdYVjlHTmo0UHZVSnNidHdmWWsv?=
- =?big5?B?SldISUZsNmNTdFdKZC9qTkpsMS9CQT09?=
-Content-Type: text/plain; charset="big5"
-Content-Transfer-Encoding: base64
+Received: from fraori-sdnproxy-3.icoremail.net (fraori-sdnproxy-3.icoremail.net [132.226.202.154])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id A061738E8BF;
+	Wed,  9 Sep 2026 05:36:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=132.226.202.154
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788932198; cv=none; b=R1UB4tLuo7RNvQru3fL5gamPBtYPQLYpfXY5Sw3cWKfsVJiMIcLxcubCoEMHLtL3K3YTtYBkXkg9iJyB9Fy4XQWMcMsoG8Bi2JhHngg93YMmE4OGyY8yhD0kx8xacsdllry2JENAzVLlNUEBgpUPuFZgSIwu1x6ss8+REAhsyYs=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788932198; c=relaxed/simple;
+	bh=rgGWLedxe/mWsnYMx03SHV/cfBhLegC5cNoIFhI+uac=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=djnFWP506EY+Sp+AiRj/WEoGWpuzyA8Jl7ZqPqSQf1dlGgG4Lt75zd0/sqsSxHUDhXsyfTWctP8i0Sjs/frrDQXfgriMOPdU7/iwdvgWZNyDf2LddWMuCCjgzZWYEWEFEaHaX/9xSc8Kzernns2DCA/gwYJ0Omhl6lXIo673us8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=132.226.202.154
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
+Received: from zju.edu.cn (unknown [10.98.66.117])
+	by mtasvr (Coremail) with SMTP id _____wAH4X1L8KBqy_MBAQ--.32620S3;
+	Wed, 09 Sep 2026 13:36:12 +0800 (CST)
+Received: from localhost.localdomain (unknown [10.98.66.117])
+	by mail-app4 (Coremail) with SMTP id zi_KCgDnGDBK8KBq8CGoAw--.35214S2;
+	Wed, 09 Sep 2026 13:36:10 +0800 (CST)
+From: Fan Wu <fanwu01@zju.edu.cn>
+To: mripard@kernel.org
+Cc: dave.stevenson@raspberrypi.com,
+	mcanal@igalia.com,
+	kernel-list@raspberrypi.com,
+	maarten.lankhorst@linux.intel.com,
+	tzimmermann@suse.de,
+	airlied@gmail.com,
+	simona@ffwll.ch,
+	eric@anholt.net,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Fan Wu <fanwu01@zju.edu.cn>
+Subject: [PATCH] drm/vc4: drain the hangcheck timer and works on V3D unbind
+Date: Wed,  9 Sep 2026 05:35:09 +0000
+Message-Id: <20260909053509.657074-1-fanwu01@zju.edu.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: aspeedtech.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: OSQPR06MB7252.apcprd06.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 514fda42-b9d0-4032-d5d9-08df0e344484
-X-MS-Exchange-CrossTenant-originalarrivaltime: 09 Sep 2026 05:36:16.0405
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 43d4aa98-e35b-4575-8939-080e90d5a249
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 1nVPFmzX2ZnJdXeG0hTTSMEqc7SguqXuvg+aFl2ZLbvXEApJr1avj8cTOKfD4oofQ+ieaoZgg9o3PVx229qNBdV7viFvQvM0zt6GhjIU/Kk=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: JH0PR06MB7268
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zi_KCgDnGDBK8KBq8CGoAw--.35214S2
+X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
+X-CM-DELIVERINFO: =?B?/TeuFgXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
+	sfnXz+g1OQfMo27QHy5TwQyZwfdQ11pk717IchTpzFSURcVSijrRuNKLDtryceijmISBFH
+	tRa/3CMSLNfM+754Feup9E6mavGmQbzmcFsnzP86
+X-Coremail-Antispam: 1Uk129KBj93XoW7Cr1rCrW3Aw48JFW3CrW5XFc_yoW5Jr17pF
+	sxCFZ0qrWkWFW3t3sxZ3Z7ZFyrAw4rtry7GFy29w42kwnIyryrKFyqk34YgFyDJayDWrW3
+	tFsxJ3909Fy5A3gCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUUPjb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Cr1j6rxdM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v2
+	6rxl6s0DM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6x
+	kI12xvs2x26I8E6xACxx1l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v2
+	6r1Y6r17McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2
+	Ij64vIr41lF7xvr2IYc2Ij64vIr40E4x8a64kEw24lFIxGxcIEc7CjxVA2Y2ka0xkIwI1l
+	42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJV
+	WUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAK
+	I48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F
+	4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY
+	6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjxU7rcfUUUUU
 
-PiA+IEhDSSB2MSdzIERFVl9JTkRFWCBhbGxvY2F0aW9uIGlzIHNlcXVlbnRpYWw6IHRoZSBkcml2
-ZXIgcGlja3MgYW55IGZyZWUKPiA+IERBVCBzbG90LCB3aXRoIG5vIHJlbGF0aW9uc2hpcCBiZXR3
-ZWVuIHRoZSBzbG90IG51bWJlciBhbmQgdGhlCj4gPiBkZXZpY2UncyBJM0MgYWRkcmVzcy4gQVNQ
-RUVEJ3MgSTNDIGNvbnRyb2xsZXJzIGhhdmUgbG9uZyBuZWVkZWQgdG8KPiA+IHN1cHBvcnQgbW9y
-ZSBkZXZpY2VzIHRoYW4gdGhlIHN0YW5kYXJkIDUtYml0IERFVl9JTkRFWCBmaWVsZAo+ID4gKGFk
-ZHJlc3NlcyAwLTMxKSBhbGxvd3MsIHNvIHRoZXkgdXNlIGEgbGF5b3V0IHdoZXJlIHRoZSBEQVQg
-c2xvdAo+ID4gbnVtYmVyIGlzIGl0c2VsZiB0aGUgZGV2aWNlJ3MgYWRkcmVzcywgcmVxdWlyaW5n
-IERFVl9JTkRFWCB0byB3aWRlbgo+ID4gdG8gNyBiaXRzIChhZGRyZXNzZXMgMC0xMjcpLgoKPiBE
-b2VzIEFTUEVFRCB3b3JrIGlmIHVzZSA1Yml0IERFVl9JTkRFWD8KCk5vLCBpdCdzIGFib3V0IGhv
-dyB0aGUgREFUIGl0c2VsZiBpcyBhZGRyZXNzZWQuIE9uIEFTVDI3MDAsIHRoZQpjb250cm9sbGVy
-IGRlcml2ZXMgYSBkZXZpY2UncyBJM0MgYWRkcmVzcyBkaXJlY3RseSBmcm9tIGl0cyBEQVQgc2xv
-dApudW1iZXI7IHRoZXJlIGlzIG5vIHNlcGFyYXRlIGFkZHJlc3MgZmllbGQvcmVnaXN0ZXIgcGVy
-IGVudHJ5LgoKSTJDIGRldmljZXMgb24gdGhlIHNhbWUgYnVzIG1ha2UgdGhpcyBjb25jcmV0ZTog
-dGhlaXIgYWRkcmVzc2VzIGFyZQpmaXhlZCBieSB0aGUgZGV2aWNlIG9yIGJvYXJkIGNvbmZpZ3Vy
-YXRpb24sIG5vdCBhc3NpZ25lZCBieSBvdXIKY29udHJvbGxlciwgc28gd2UgY2Fubm90IHJlc3Ry
-aWN0IHRoZW0gdG8gYWRkcmVzc2VzIGJlbG93IDB4MjAuIFRoZQpzYW1lIGlzIHRydWUgZm9yIEkz
-QyBkZXZpY2VzIHRoYXQgb25seSBzdXBwb3J0IFNFVEFBU0E6IHRoZWlyIGR5bmFtaWMKYWRkcmVz
-cyBpcyB0aGVpciBleGlzdGluZyBzdGF0aWMgYWRkcmVzcywgYWdhaW4gZml4ZWQgYnkgdGhlIGRl
-dmljZQpvciBib2FyZCByYXRoZXIgdGhhbiBzb21ldGhpbmcgb3VyIGNvbnRyb2xsZXIgYXNzaWdu
-cy4gV2l0aCBhIDUtYml0CkRFVl9JTkRFWCwgb25seSBzbG90cyAwLTMxIGV4aXN0LCBzbyBhbnkg
-c3VjaCBkZXZpY2UgbGFuZGluZyBhdCAweDIwCm9yIGFib3ZlIHNpbXBseSBjYW5ub3QgYmUgcGxh
-Y2VkIGluIHRoZSBEQVQsIHJlZ2FyZGxlc3Mgb2YgaG93IG1hbnkKb3RoZXIgZGV2aWNlcyBhcmUg
-b24gdGhlIGJ1cy4gRHluYW1pY2FsbHktYXNzaWduZWQgSTNDIGFkZHJlc3NlcwphcmVuJ3QgZ3Vh
-cmFudGVlZCB0byBsYW5kIHVuZGVyIDMyIGVpdGhlci4gREVWX0lOREVYIGhhcyB0byBjb3ZlciB0
-aGUKZnVsbCBhZGRyZXNzIHJhbmdlIHRoaXMgREFUIGxheW91dCBjYW4gcHJvZHVjZSwgaGVuY2Ug
-NyBiaXRzLgoKQmlsbHk=
+The hangcheck timer, which every submitted job arms and which queues
+reset_work once a job stops making progress, and the job_done_work,
+which the render-done interrupt queues to release completed jobs, are
+never drained at teardown: vc4_irq_disable() cancels only
+overflow_mem_work, and vc4_gem_destroy() runs from the drm-managed
+release, after vc4_v3d_unbind() has already uninstalled the V3D
+interrupt and cleared vc4->v3d.
+
+A timer still armed by then reads V3D registers through the NULL
+vc4->v3d pointer, and late callbacks run on the vc4_dev embedding
+them after it has been freed.
+
+Drain them in vc4_v3d_unbind(): shut the hangcheck timer down and
+cancel reset_work before the interrupt is taken down, because
+vc4_irq_reset() in a straggler reset re-enables it, then cancel
+job_done_work once no source is left, before vc4->v3d is cleared.
+
+This issue was found by an in-house static analysis tool.
+
+Fixes: d5b1a78a772f ("drm/vc4: Add support for drawing 3D frames.")
+Cc: stable@vger.kernel.org # 6.13+: vc4->gen does not exist on older trees
+Assisted-by: Codex:gpt-5.6
+Co-developed-by: Song Li <songl@zju.edu.cn>
+Signed-off-by: Song Li <songl@zju.edu.cn>
+Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+---
+ drivers/gpu/drm/vc4/vc4_v3d.c | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
+
+diff --git a/drivers/gpu/drm/vc4/vc4_v3d.c b/drivers/gpu/drm/vc4/vc4_v3d.c
+index f32410420d3e..11d4df3164b4 100644
+--- a/drivers/gpu/drm/vc4/vc4_v3d.c
++++ b/drivers/gpu/drm/vc4/vc4_v3d.c
+@@ -9,6 +9,7 @@
+ #include <linux/component.h>
+ #include <linux/platform_device.h>
+ #include <linux/pm_runtime.h>
++#include <linux/timer.h>
+ 
+ #include <drm/drm_print.h>
+ 
+@@ -497,8 +498,18 @@ static void vc4_v3d_unbind(struct device *dev, struct device *master,
+ 	struct drm_device *drm = data;
+ 	struct vc4_dev *vc4 = to_vc4_dev(drm);
+ 
++	/* Kill the timer, then reset_work: vc4_irq_reset() re-enables it. */
++	if (vc4->gen == VC4_GEN_4) {
++		timer_shutdown_sync(&vc4->hangcheck.timer);
++		cancel_work_sync(&vc4->hangcheck.reset_work);
++	}
++
+ 	vc4_irq_uninstall(drm);
+ 
++	/* Nothing can queue job_done_work any more; drain it. */
++	if (vc4->gen == VC4_GEN_4)
++		cancel_work_sync(&vc4->job_done_work);
++
+ 	/* Disable the binner's overflow memory address, so the next
+ 	 * driver probe (if any) doesn't try to reuse our old
+ 	 * allocation.
+
