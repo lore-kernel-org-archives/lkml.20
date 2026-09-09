@@ -1,116 +1,314 @@
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11012005.outbound.protection.outlook.com [52.101.66.5])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E05663B8BB9
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 19:18:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.49
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788981515; cv=none; b=YbpHpzxW8mxqZdX/VKD4YRPyYFvIQUEv1OUP1aaC1DHNge1lWX70JLFLtJozjqPalkGr1oV8aE9WKJmjgxSf5PrIs5047Jtrl54I5X32ftOa7guAotEmX3kNUj4uxRyoe4p8R084qIRTaMVirCBQX9s/H00kWACuAlFIpE3AX4I=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788981515; c=relaxed/simple;
-	bh=ZBF06lf9l3jjaPsie+l2gDKg30y0nMjdFIJaDuIFA3E=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=DGSrftaBOfD1xCHZLtN1xacIJnk/igzPXR0DoYeJFOhQzxtIpPUnrFF5NhpWYZ2eQNuvVZJp0hIT8fF4NLc9oYwNa5plMh5OAIJfDRRMexO6P7wgADuTwINB13lnd230d9dIus+iJJDBvy77gtyOB20DxzT5o7xmZXCONkvuSig=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=etu+CXdX; arc=none smtp.client-ip=209.85.128.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8296B384238;
+	Wed,  9 Sep 2026 19:18:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.66.5
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788981539; cv=fail; b=T5L9qnoCA0fIHk24j+CmHOc92ka4kEmLwuNPcRi7jlFKjwLj+deO8EkEMkfADuKgeznomHcbF/7h+3Wv8TR/78ghXIFjWZYeC0h1eEONg0dkVKKBh5K+dd0AAHLSs9U3tm2s/SevlWOGpbZJ1Cah2oFuO3nGkwI/Iqrb4b4DlJo=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788981539; c=relaxed/simple;
+	bh=QtXvbfj7tjMlGAyDbILmvoiEHw2RWbI3JnVQc+xYDSU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=Rp+KxVL7OQcux26FoAZc3H+2WYWzFTUTZTAjPKNn0Nnc3eMIdaA01mQdHoYzwqJhXDRL8paK2GCza54Jz9csjkwGTggy7zSzQx7IGuudYSOWgmX19awGA2i7xXM8H7TYG2Hwn+h0BSBd8Z8YrBhtOOk5Spaa85oOEHstItmDzuQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=iONPoCdh; arc=fail smtp.client-ip=52.101.66.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="etu+CXdX"
-Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-498028b3d5eso59486305e9.1
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 12:18:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788981512; x=1789586312; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=cQp1h+Nea1dCnGwxCQ5G9ZglVlG59gCPu/u14By/urM=;
-        b=etu+CXdXiqG7CMxMVMZ0Ib1Uts6d+uEBVjXSAIeyebuRFFsfxM0kdpymrvRHCIddqo
-         9LGAupoOy+rieiQghyfIu/IBd1wvHySJLSVdAl8RIwVgF/QcD5x6AdHkNZU3NmienuRd
-         lbN3GQu+trQcLeOGnvAjV6oRRK32l53/tWRHhgaJp+aoRnRRECc6QEEijH9DzxgwIVOT
-         MQa00FPsEuOyTnLLYpm1LcRfRGe8Fh1HnbhdIrR3bXNPunzbJ4jLRN2U/qdBQvYsUEUd
-         M7DLUdsHNq139a10aVAj+QqxuT95oVYUwqr/cKU8uAwqf32QhfYkrbRYLBAwUGrBwRxW
-         pJQQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788981512; x=1789586312;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=cQp1h+Nea1dCnGwxCQ5G9ZglVlG59gCPu/u14By/urM=;
-        b=i0natjldcdY6Uako7IV3uamm7hyjVsvSUbD3smcm+nmOaLw3EgowFu4wIWfrRygO8i
-         ZIPZCs5wC8bD+nczk8Ym9Q3YNBLPyb7htYDU7q3tzVCaIkkgBKwPlEIAZmwcLfOj0S46
-         /VVWkOkG4RQcotLL65M9mp87+mCLTQTGTNn26CgcMLjwx2NLI0TdWbHHibUChqzrh9K+
-         5bYSldtlHiIfkfb/KqGLq3EisDQutWvDEWS5zZDPZsclyvyQHjI669fS4CDzDKf4WykN
-         BAbi79dLcm9Z2ZKqJkSX00ta3J4nrjFhhWllr2xxnCFXv5zSxAK0pSpvCxQRMgb0V7sl
-         aowA==
-X-Forwarded-Encrypted: i=1; AKwUvBwbAvhrHAPTP5YP11fDoTVClvCLFQaJteJy7VOxJH1JLZsstdxkX4aoLi0Hxdi1JdwsvR8XY98yQ32uOO8=@vger.kernel.org
-X-Gm-Message-State: AFuF++maif4hXY8QVQZ6AAF7n85EkEuGEVtjRn7p2L1CMdBHxg0Dth0S
-	gTi2tPG8NC0rpEJO8Q4prFYMs5uBzrGo1mwWblD+lLfaoRkzS+YhhFWJ
-X-Gm-Gg: AYBFou1wCoYufjF7QAhOAriUvTVbX3UIM48wM8CaHkR080T4iufA8DQ90rbdajS2YLi
-	Klm+Dy0QUj4KPCMSv5ZchghsPsxS3zIEEuKdnuKsWbFBiMI9NuoqwQEvvTvP70w1d6LGiNpSdCK
-	ePtPFr2+cHfTkAqLNCqhbqPZbvNHiJ6/tNX4aIiacel1xAyrWlPUBGLE/UIFt2eOwU8J4JvqIEe
-	gDVgGUIo62qMDUucQxNLfb4+wOaZ7PbmMeusUllNWJ8cA2SeBA3VauLC0TUTX28lisY80EGUbz7
-	HFV/4LBWzt4ZhSQonB7Xjm5FYLDnRbZJj/crBFBWvFSd+kmWTWskBcx+OEzYytEvq4y++yy7awp
-	eB/VahG5T9hnDr01UBlJ24N94nzn0l01lbiMSk/CQMtIoAcJPgyYueEkHaHXb7ZoaKJAxgPtx/C
-	kkC326imSLFH8K23oKXNC2S4sMsbsJsvCcyVr9NwBpqk+N3me+RRuckW4wnXGi/gCq9X9UA3wnf
-	Pa1ni7UjXuhZyG4XQ461MHUl4UkVpjjdmKiXvAyZLk=
-X-Received: by 2002:a05:600c:628c:b0:49c:e1cd:536 with SMTP id 5b1f17b1804b1-49d17a8745bmr144560705e9.12.1788981511672;
-        Wed, 09 Sep 2026 12:18:31 -0700 (PDT)
-Received: from localhost.localdomain (mob-31-26-103-238.net.vodafone.it. [31.26.103.238])
-        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-49d20fce7a7sm164538455e9.4.2026.09.09.12.18.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 09 Sep 2026 12:18:29 -0700 (PDT)
-From: Oleg Keri <okerixx@gmail.com>
-To: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Beata Michalska <beata.michalska@arm.com>,
-	Sumit Gupta <sumitg@nvidia.com>,
-	Prasanna Kumar T S M <ptsm@linux.microsoft.com>,
-	Russell King <linux@armlinux.org.uk>,
-	Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	Sudeep Holla <sudeep.holla@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Viresh Kumar <viresh.kumar@linaro.org>
-Cc: linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	linux-riscv@lists.infradead.org,
-	driver-core@lists.linux.dev,
-	linux-pm@vger.kernel.org
-Subject: Re: [PATCH v1 1/2] arm64: topology: fix arch_freq_get_on_cpu() overflow above 4.19 GHz
-Date: Wed,  9 Sep 2026 21:18:16 +0200
-Message-ID: <178898149654.33757.7826789084252321894@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260909113625.000063be@oss.qualcomm.com>
-References: <20260909113625.000063be@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="iONPoCdh"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=U7bcSyFDYBxgX4ifNu3BJAEBfksXJhwmLvjfGbKjnh0gXfd3x+tYmTQMro2ECJ22mPOnf6SNtCqQvq8NKPtAENscPbm2TlTdTK16hMAjekLMM51B1p7fc8mRvYDKfOX2v5NY+lZswH74RiryPelaTU/MHjFCAwiCGFt/0ooD8Z4wUezmp2/C1zTmTnSXNFuuLvMAVudpx0WW7Er/qSHW/XH/uqvo9Nd/RFmSIiStjP1Gim7GEBImWR6AHkzg+KUUUn94rU51SP6M8R3gnwPP1uGo5XLFeUBdW5MTc/x+dXtEkPFS4KsSRpRz7VzI1d/VJtPBNduY+o4Nv4e42o0H4w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ExRYy5OujWimq9Ood5ruXduIunOMnQ17vRXuaLhUZ0c=;
+ b=KzBknluCwo6Wix3+3vFE6WRjXXjOH3JCN24Auk1gba1g8UhFHHesUGWBkglVCHE4/8imSGf2z0XUwkXQoBlW3zAw5iQ0NTvtgRT3Rb9hhplKYojyJUoQQkoNURVflStTTvREAX3xdFq3pshlPax5GZhxTbQXbL6QqsLeXq3apxFTmOWirRY8oJSmB2CW5Xj4TSHygIdZTrB6caPPWEwwjVbs/Xgg4ZCxlrTBYvWGTEOn8NaFZhs4WGFCbHXALcWOc/Wj6alj2ZuzZ+H6GJE+NpXAyDuXiq5SrmcKjBBu7K4wip6bqsCZocUyWPSzdOBDgcF+rG+jz7ccgVtSTFWngQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ExRYy5OujWimq9Ood5ruXduIunOMnQ17vRXuaLhUZ0c=;
+ b=iONPoCdh8m+ZVdIEdKO6KEDaDNZzfNpbfPYykspz10qh+myQp7JkgZODy2Q8Sc5NrcUk12M9TuWFAqFNn62BZwnPTURn0USn870x4Sp5EgA6asVqtXY/Jn+2yEqZWrK5pA9u2Wm38s7Q3GyQj/GqZs3inzDO+jEKuymkNU2nXJJV0F+5WCc4Hrv1+0RLWsOE88yj0FdlchDnlmWxRptHKjqtHAkVt/21uM0MtFgj12FyS8073M0FR+4ITciHaSovgqQ+UxCBo9OGYyAshgJ/pvAFFu4gjzjy8qj44d7xw+kRkjtucJvNDtUfjOR91Q8et6+ZRedAhQT0hPnGw8w3og==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by AS8PR04MB8342.eurprd04.prod.outlook.com (2603:10a6:20b:3fe::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.8; Wed, 9 Sep 2026
+ 19:18:54 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0406.005; Wed, 9 Sep 2026
+ 19:18:53 +0000
+Date: Wed, 9 Sep 2026 14:18:40 -0500
+From: Frank Li <Frank.li@oss.nxp.com>
+To: Francesco Dolcini <francesco@dolcini.it>
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Robert Foss <rfoss@kernel.org>,
+	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+	Jonas Karlman <jonas@kwiboo.se>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Francesco Dolcini <francesco.dolcini@toradex.com>,
+	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH v1 1/3] dt-bindings: display: bridge: Add THine
+ THC63LVD827
+Message-ID: <aqGxEDHZjgYrrOgE@SMW015318>
+References: <20260908100230.83796-1-francesco@dolcini.it>
+ <20260908100230.83796-2-francesco@dolcini.it>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260908100230.83796-2-francesco@dolcini.it>
+X-ClientProxiedBy: CY5PR18CA0032.namprd18.prod.outlook.com
+ (2603:10b6:930:13::35) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|AS8PR04MB8342:EE_
+X-MS-Office365-Filtering-Correlation-Id: daccbd1b-0605-4570-8993-08df0ea72f7f
+X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|19092799006|23010399003|366016|7416014|376014|10067099003|11063799006|4143699003|56012099006|3023799007|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	iQsddF8G9es0Iit4bAqG1DYCzHLdsPt523iJC621e9u73LkQGnCXP88LaO/dvKw2YrKak7YSuYv+IQ6rSP1Y7unKMSiuEMRnC+m9Ll8ZHamWxdrYVnCGBniBoH05+0qHbnlPoiJTWfQBd4cgjRfHmq6BUz760Hyl9ncO3DmqOuHVYK4VmhK8Zd7OO+04JwQhcI5pHEK5cPq0OG8HjMLehU71tIFogBzZBNJDss9vv42cLuBFhyQSM48du3VyG/vEB+VoDOJGRoPIFPNOSjoS46xXDVtxuvxLhxEzBwjKQeV5U5oFU7lxepfOp1ljmsCr/ahW72XtFIlffIrXAK6DiGE8MwoJo8phhk0gF8ONZzSY5pB/SKMeV+eO7EjxqsFCPFK0bIWWoWV86HmsnlWV016IkV64fYZX1/GzXH5v2jCRyr3ui8NHASWMwu6HLajkVHBpTCYdDVn8SyMg6x5/K4MIws7AzQfBgMe5wblknMHIQqfybFqpwOaoe7WJE50foYGpHrcRQumDIcFsEb+RtrckFCvAhIyG292FDUdC1pYW0K2afAo2X4x35Kz1gNKwearSysKEbxixbQvxNpixlNj6LqWcqfXB6OXIXIS2LZDpMaMVrDk34Vks/3pDKvUf
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(19092799006)(23010399003)(366016)(7416014)(376014)(10067099003)(11063799006)(4143699003)(56012099006)(3023799007)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?3zdh0xWuitTKpxO0Q53cpiS15XOIx/OQy7iPFlY90HKxWry8lrAR4bKwS4wg?=
+ =?us-ascii?Q?nyDsegrcLmQNxGCmaCE0/Y7CkWmxTS6IJ3e6gCXtocHnHkDQuiY9Ds1A34/9?=
+ =?us-ascii?Q?Jy2p8ZbvhyDanZTsU2HOSqvRwqfYdwKJa6ex1ke13407ob1YD9mGi5fTNXEv?=
+ =?us-ascii?Q?I73GzmS9Jj2lM9H3t2f8LgEaxPuBDkwQkffUJOzqBT5X0Bd3j4dLyZWNUno5?=
+ =?us-ascii?Q?7tLu4lnvoiP5SH8MmHzR6m4XWTX9KJg4CRen2ZnyaRU9c5TebGJt1k509BvU?=
+ =?us-ascii?Q?vdVAb/uhOvdY0Y/20rfJjtE3+5O5GbXj40EfqeVYY3CqabgRHgg/ANhxPAgD?=
+ =?us-ascii?Q?OWBGSaJ0q9fe3AU21tnkZBJcp3EJ9intyFsF8M2pxlNbUAHGv1qK0zEe5Oo5?=
+ =?us-ascii?Q?9Bp3NFS4sFf8DjtC2VGebpX4tznYBjgzP+JhRUqvhBGzMITzyQDaKiqPeDRD?=
+ =?us-ascii?Q?4x0aWyU4M843tUlYOw8jh+pBJy+bPF0pjbjt259h4UqtrU4MnK9lcLQhdeaU?=
+ =?us-ascii?Q?eCeemyqXW9ymzMJBEOJ1WZYLoyU22fprdOo6vUmDmmaHY0kZD4DxhlrIPNmz?=
+ =?us-ascii?Q?uIQ3kusLdvo9RPBXzlXlxeD6MytDrPUMM1QE4xK0vIbkdZnEFOoluaSvuLw/?=
+ =?us-ascii?Q?a/uoxbSr7zVjqCiEMQddiU1SJmZyil8Oo2NP4Ysx2WPAyTtLAo1hsAT0606b?=
+ =?us-ascii?Q?BLaporW2f5SIMoLhFagVmFwtt9nmK9oH4qFLJvIVcS4boINA9rOe4cADBTKW?=
+ =?us-ascii?Q?V49rqewRPj7dRA21xZzxQq7PRcnaw5UjXUDb/AqebMV001mwMS4V9AoXKvp4?=
+ =?us-ascii?Q?KJ/OlnTM0oZHeM7pjWeDLJk/LTLIeo7W21XjlE/QX63Ob98FQCual1jFdgA+?=
+ =?us-ascii?Q?SwqW3jie3itTpnVMc+YPmLJ6lo2ev5h50BC98rufKQDu8u3Ec7+thxqfFSZi?=
+ =?us-ascii?Q?M4UGLtdea68iVqRESUOVHL0rpF5bom0xfP0CbNHhkfImCcGLD+DLuaLacsN4?=
+ =?us-ascii?Q?DMtnBeXb6FWu/7b/2KssCH/KYeKWTPEzN5iyEZGhMp2BJcxD15N5P0ZYQ5zH?=
+ =?us-ascii?Q?1B4n3TNP4Ld7dlUIgs7iCZf62Zp0XEYbtLSdczOKcsced+XSBMOm5mneGzc8?=
+ =?us-ascii?Q?1JmcPUmJqrtyv3g464CYS1ZKkV3yRVseMfbd/MkvERrW0iE/RninNe7jWnIu?=
+ =?us-ascii?Q?lxolrwmidSugQFEBT+zWv6SQngEgjX0mCq8KCfRnVeByrdfHLs/yWwl3gcAf?=
+ =?us-ascii?Q?r8m/QM11mGnlIpqd7yYTsvjokwgwGhlrYuALlK3AvMYO4UUN9Mes2pvhAvKq?=
+ =?us-ascii?Q?X0K7L7Qdqt64WeYFr9xtQwPmmpUV5dCi5vsCqpaiYj117YOKsheh4dGVOCTY?=
+ =?us-ascii?Q?yHCuuyhXUr1K4wijQU58LZZtq/o4E6ZcEpb4Qecw3Wobw6aQ9gpjnvA6P4tc?=
+ =?us-ascii?Q?hyLp0hvG2jIUQkrtHKiA53Kll76lUjPrRyYIIlPiLSJnTQ/e7vtowepVcW24?=
+ =?us-ascii?Q?yw3jCRyVrcwGTGfmIF0/NK+jfETYX5lcCjW36qH0E+lUSxHXAdnPJGqOcfTW?=
+ =?us-ascii?Q?AS063sjfSCJwIPk9bYnAegpQfyWVGQOoQJmqUT0awSCjHNeC9fvnWQ6E9zHQ?=
+ =?us-ascii?Q?bVoVaBMU6pCQVMgfujNSwMDnTPK4yCS7Hmn1AbPjEk1gEGK7t6Mu8XgSDEUq?=
+ =?us-ascii?Q?S7FbrZWRO7WMkZG7a3uGnp3NEaHGPwgSGtRh/PghRmo21zeIgz5cekJ3/XMI?=
+ =?us-ascii?Q?u8cscWoBuCrKvcFWrA25daa6IfIwIpI0L8NpIfq7owP9qx8GwvTh?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: daccbd1b-0605-4570-8993-08df0ea72f7f
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Sep 2026 19:18:53.2545
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: t2JjU+jtBnLSYJmfOIvUYDIvNfYQXI5nl525oqekMnOwYTBlKHxnS4yIJf6PVCe8uEsWNxZO+yyudnekNDbROgst4N7b/3Cv8JuYmOmQ1GPDGqwTHpkGYo1cYG0a+lMh
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB8342
 
-Good point - that reads much better than reusing scale as scratch.  Taken
-for v2:
+On Tue, Sep 08, 2026 at 12:02:25PM +0200, Francesco Dolcini wrote:
+> From: Francesco Dolcini <francesco.dolcini@toradex.com>
+>
+> Add THine THC63LVD827 DPI to LVDS encoder.
+>
+> The THC63LVD827 is a simple DPI to LVDS encoder that can be configured
+> with input pins.
+>
+> Link: https://www.thine.co.jp/en/products/detail/THC63LVD827.html
+> Signed-off-by: Francesco Dolcini <francesco.dolcini@toradex.com>
+> ---
+>  .../display/bridge/thine,thc63lvd827.yaml     | 126 ++++++++++++++++++
+>  MAINTAINERS                                   |   5 +
+>  2 files changed, 131 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/display/bridge/thine,thc63lvd827.yaml
+>
+> diff --git a/Documentation/devicetree/bindings/display/bridge/thine,thc63lvd827.yaml b/Documentation/devicetree/bindings/display/bridge/thine,thc63lvd827.yaml
+> new file mode 100644
+> index 000000000000..ead50802e11e
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/display/bridge/thine,thc63lvd827.yaml
+> @@ -0,0 +1,126 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/display/bridge/thine,thc63lvd827.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: THine THC63LVD827 DPI to LVDS encoder
+> +
+> +maintainers:
+> +  - Francesco Dolcini <francesco.dolcini@toradex.com>
+> +
+> +description: |
 
-	scale = arch_scale_freq_capacity(cpu);
-	freq = (scale * arch_scale_freq_ref(cpu)) >> SCHED_CAPACITY_SHIFT;
+Nit: Needn't "|"  should be ">" here
 
-Same semantics, and it makes it obvious that both the multiply and the
-shift stay in 64 bits and only the final value is narrowed - which is the
-whole point of the fix.
+Frank
 
-Agreed on leaving arch_scale_freq_capacity() out of the expression too.
-This file is arm64 only, so unsigned long is 64 bits and it would be safe
-here, but it stops being self-evident to the reader and the cast that
-would make it evident is worse than keeping the temporary.
-
-Thanks for the review.
+> +  The THC63LVD827 converts a 24-bit parallel RGB interface plus HSYNC,
+> +  VSYNC and data-enable to single-link or dual-link LVDS.
+> +
+> +  The LVDS output data mapping is configured using the MAP and 6B/8B inputs,
+> +  that can be controlled by GPIOs.
+> +
+> +  The LVDS output link mode (single/dual) is configured using the MODE input.
+> +
+> +  The parallel interface pixel clock sample polarity is configurable with the
+> +  R/F input strap option.
+> +
+> +properties:
+> +  compatible:
+> +    const: thine,thc63lvd827
+> +
+> +  map-gpios:
+> +    maxItems: 1
+> +    description:
+> +      GPIO connected to the MAP input. A high level selects Mapping Mode 1
+> +      and a low level selects Mapping Mode 2.
+> +
+> +  mode-gpios:
+> +    maxItems: 1
+> +    description:
+> +      GPIO connected to the MODE input. A high level selects single-link
+> +      LVDS output and a low level selects dual-link LVDS output.
+> +
+> +  b6b8-gpios:
+> +    maxItems: 1
+> +    description:
+> +      GPIO connected to the 6B/8B input. A high level selects 6-bit (21-bit)
+> +      mode and a low level selects 8-bit (27-bit) mode.
+> +
+> +  powerdown-gpios:
+> +    maxItems: 1
+> +    description:
+> +      GPIO connected to the active-low /PDWN input. A high level selects
+> +      normal operation and a low level power down the chip.
+> +
+> +  ports:
+> +    $ref: /schemas/graph.yaml#/properties/ports
+> +
+> +    properties:
+> +      port@0:
+> +        $ref: /schemas/graph.yaml#/$defs/port-base
+> +        unevaluatedProperties: false
+> +        description: Parallel RGB input
+> +
+> +        properties:
+> +          endpoint:
+> +            $ref: /schemas/media/video-interfaces.yaml
+> +            unevaluatedProperties: false
+> +
+> +            properties:
+> +              pclk-sample:
+> +                description:
+> +                  Sample data on falling (0) or rising (1) edges of the pixel
+> +                  clock signal.
+> +                enum: [ 0, 1 ]
+> +                default: 0
+> +
+> +      port@1:
+> +        $ref: /schemas/graph.yaml#/properties/port
+> +        description: LVDS output 1st link, used in single- and dual-link mode.
+> +
+> +      port@2:
+> +        $ref: /schemas/graph.yaml#/properties/port
+> +        description: Optional LVDS output 2nd link, for dual-link mode.
+> +
+> +    required:
+> +      - port@0
+> +      - port@1
+> +
+> +required:
+> +  - compatible
+> +  - ports
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/gpio/gpio.h>
+> +
+> +    lvds-encoder {
+> +        compatible = "thine,thc63lvd827";
+> +
+> +        map-gpios = <&gpio4 10 GPIO_ACTIVE_HIGH>;
+> +        mode-gpios = <&gpio4 11 GPIO_ACTIVE_HIGH>;
+> +        powerdown-gpios = <&gpio4 12 GPIO_ACTIVE_LOW>;
+> +
+> +        ports {
+> +            #address-cells = <1>;
+> +            #size-cells = <0>;
+> +
+> +            port@0 {
+> +                reg = <0>;
+> +
+> +                endpoint {
+> +                    pclk-sample = <1>;
+> +                    remote-endpoint = <&dpi_out>;
+> +                };
+> +            };
+> +
+> +            port@1 {
+> +                reg = <1>;
+> +
+> +                endpoint {
+> +                    remote-endpoint = <&lvds_display_in>;
+> +                };
+> +            };
+> +        };
+> +    };
+> +
+> +...
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 6215fcb07770..0b5a25a35367 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -8580,6 +8580,11 @@ F:	Documentation/devicetree/bindings/display/rockchip/rockchip,dw-dp.yaml
+>  F:	drivers/gpu/drm/bridge/synopsys/dw-dp.c
+>  F:	include/drm/bridge/dw_dp.h
+>
+> +DRM DRIVER FOR THINE THC63LVD827 DPI TO LVDS BRIDGE
+> +M:	Francesco Dolcini <francesco@dolcini.it>
+> +S:	Maintained
+> +F:	Documentation/devicetree/bindings/display/bridge/thine,thc63lvd827.yaml
+> +
+>  DRM DRIVER FOR TI DLPC3433 MIPI DSI TO DMD BRIDGE
+>  M:	Jagan Teki <jagan@amarulasolutions.com>
+>  S:	Maintained
+> --
+> 2.47.3
+>
+>
