@@ -1,31 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C958955D87B;
-	Wed,  9 Sep 2026 13:23:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53BD35625FD;
+	Wed,  9 Sep 2026 13:22:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788960201; cv=none; b=ganoe9NlXM2HQHbhW+e5NjGhzV200o4/KZq4PDSx8cYbZYkPaxLDlTNPypT5fH9PzuYq3jopFeHA+H1R1vscZCT2ZmQHJpaTgznoNUkw69fCHXaPBbSV3p8T5TQRchQNS6xfevWwizIKYS0n9CXI3UfJw/2Ww3H+TNee44YZ+lY=
+	t=1788960186; cv=none; b=vCUsGiEXMd0dGJT9coP6AaxSijAgZwL79sF+wD34to5rm/V3E+rtnIL9xrU8nsy4Hb4RHMPP4w8DSX1xFshZ8v46eBpwy5FVubmTESUdjCcivZpuyFdLohai04wwott5AZx8UqfPHRNwI22uQzb5hTHq854t/PWtpk9DhMBMYqQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788960201; c=relaxed/simple;
-	bh=f/sBbKU0YsG/pURQLr3g1xTJTV02le+lZOVXHL/rI2Q=;
+	s=arc-20240116; t=1788960186; c=relaxed/simple;
+	bh=yr6HdmHM6uWB/sPbAToQOifAr5KhAIUdAJKs7UT1sdE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=EPTezwHe2NOOCkWtKkXI8zDmG9lvNyUAf9W8oT+HoOFBZNzgzLLFRV0J0at56h1jS+idyMXQKsZ71PpRwCZdPgHN4+2y5PXFyH/HpDU/Vzw4METhHMVS3qtRz90X71s/ACUFF6iRQ2vg9UhcyCkmmZ15CiCGFv64iFw0gf5rbB4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XA6KA7dr; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=Rj6OQzP3AbQAd701ACVIOh9dYOG4ucWYevXiH6jmHacXuQ98Jnh7bJuD1LU2/dUYUqeGdsQCU6RRiJmuCDyH1NYCP2FOFe3Knn1dQ6CZ1a6liZnV+tvv7vh7yUoREmMGv755JeSxnVZl68ilI1Z6piKPQfUcRnrtPp5hncdv0D4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nfRj7YZO; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XA6KA7dr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CEEA61F00A3A;
-	Wed,  9 Sep 2026 13:23:04 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nfRj7YZO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F40E11F00A3F;
+	Wed,  9 Sep 2026 13:22:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788960192;
-	bh=dyjKpiFdd7qow6743A52LrPpjhddYZz0iA/sauK4rRk=;
+	s=k20260515; t=1788960175;
+	bh=aqKiCslHbiIUUHWRWjajHsUIptSaeo1iBALYM4jli9I=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=XA6KA7drEe9OLkgcd0At3525IWBG8dOfo1vgNzZ9beG6pu3d9dD6bPL8t1zEIfuPC
-	 LSZKfX391MTGk7dkaNN9neQb85WgY8Cs3f9BxI6cPYkDAdcwyBRxmzNT4N2m823srO
-	 5NRfx96pxo/7QlxcV1LsoFv/KhEdhMpqgpT4/4LQ+EOa2o0yjV4jzBwAibEgSvoQe4
-	 X7CNwfJmR6BQtma2GKttvI4NkzWSOpIvAT8eJi6EuyYmE9NQr9GDnwbAMrcwEHKNkQ
-	 AdWvlFpkdljB80PNybr7vezhqIUD7iGJ6I+5rBRqkuycO/OWsIBAvzIMCMAIymr9g5
-	 JSZ9J6TLrVL8w==
+	b=nfRj7YZO1MqrEy8e7ckqtWRMa0ElwMWjWLOKYmiWY+uPMtM2ZvdMkEt9CzljXB8c/
+	 6HImNDfZ/POcpwsP/9GeT4PEWihv9COJptjYW7tnFhZyoSecWpwsxu4c95HDoc0DuZ
+	 x4BmTu7d46aK2hwK1fxCJJ33r2ttba+9hDOdMJXIPvZ4Uu38UxbJNUbK6/I9gvOtX/
+	 YdXTeuQRoZkkGe1bp4KMYfEC9AmAFXtMtZaZxknsX8Flnh30GIdiUU79GJXuV9Gjz3
+	 pBVXS03SdWR3I21GK5eNtmcpW36N3tdAMbsYbnHF2cHJQ7yws6K1BnOcZj/b2DF6NQ
+	 5UXxukJRyGAvQ==
 From: Arnd Bergmann <arnd@kernel.org>
 To: Lee Jones <lee@kernel.org>,
 	mfd@lists.linux.dev
@@ -68,9 +68,9 @@ Cc: linux-kernel@vger.kernel.org,
 	linux-sound@vger.kernel.org,
 	linuxppc-dev@lists.ozlabs.org,
 	llvm@lists.linux.dev
-Subject: [PATCH 06/14] mfd: remove unused da903x driver
-Date: Wed,  9 Sep 2026 15:21:43 +0200
-Message-ID: <20260909132153.1596191-7-arnd@kernel.org>
+Subject: [PATCH 04/14] mfd: remove unused wm8400 driver
+Date: Wed,  9 Sep 2026 15:21:41 +0200
+Message-ID: <20260909132153.1596191-5-arnd@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260909132153.1596191-1-arnd@kernel.org>
 References: <20260909132153.1596191-1-arnd@kernel.org>
@@ -84,2591 +84,4156 @@ Content-Transfer-Encoding: 8bit
 
 From: Arnd Bergmann <arnd@arndb.de>
 
-This driver was used on a handful of ARM/PXA boards until those
-got removed a few years ago. Without devicetree support, there is
-no way to use them upstream.
+This driver requires a platform_data definition, which does not exist
+in the kernel.
+
+According to Mark Brown, the hardware supported by this driver was never
+shipped in production.
+
+Since this is clearly unused, remove it.
 
 Signed-off-by: Arnd Bergmann <arnd@arndb.de>
 ---
- MAINTAINERS                           |   1 -
- drivers/input/touchscreen/Kconfig     |  13 -
- drivers/input/touchscreen/Makefile    |   1 -
- drivers/input/touchscreen/da9034-ts.c | 365 ----------------
- drivers/leds/Kconfig                  |   8 -
- drivers/leds/Makefile                 |   1 -
- drivers/leds/leds-da903x.c            | 145 -------
- drivers/mfd/Kconfig                   |  11 -
- drivers/mfd/Makefile                  |   2 -
- drivers/mfd/da903x.c                  | 565 -------------------------
- drivers/power/supply/Kconfig          |   7 -
- drivers/power/supply/Makefile         |   1 -
- drivers/power/supply/da9030_battery.c | 581 --------------------------
- drivers/regulator/Kconfig             |   8 -
- drivers/regulator/Makefile            |   1 -
- drivers/regulator/da903x-regulator.c  | 495 ----------------------
- drivers/video/backlight/Kconfig       |   7 -
- drivers/video/backlight/Makefile      |   1 -
- drivers/video/backlight/da903x_bl.c   | 160 -------
- 19 files changed, 2373 deletions(-)
- delete mode 100644 drivers/input/touchscreen/da9034-ts.c
- delete mode 100644 drivers/leds/leds-da903x.c
- delete mode 100644 drivers/mfd/da903x.c
- delete mode 100644 drivers/power/supply/da9030_battery.c
- delete mode 100644 drivers/regulator/da903x-regulator.c
- delete mode 100644 drivers/video/backlight/da903x_bl.c
+ MAINTAINERS                          |    1 -
+ drivers/mfd/Kconfig                  |   11 -
+ drivers/mfd/Makefile                 |    1 -
+ drivers/mfd/wm8400-core.c            |  163 ----
+ drivers/regulator/Kconfig            |    7 -
+ drivers/regulator/Makefile           |    1 -
+ drivers/regulator/wm8400-regulator.c |  276 ------
+ include/linux/mfd/wm8400-audio.h     | 1174 ----------------------
+ include/linux/mfd/wm8400-private.h   |  913 -----------------
+ include/linux/mfd/wm8400.h           |   27 -
+ sound/soc/codecs/Kconfig             |    6 -
+ sound/soc/codecs/Makefile            |    2 -
+ sound/soc/codecs/wm8400.c            | 1348 --------------------------
+ sound/soc/codecs/wm8400.h            |   54 --
+ 14 files changed, 3984 deletions(-)
+ delete mode 100644 drivers/mfd/wm8400-core.c
+ delete mode 100644 drivers/regulator/wm8400-regulator.c
+ delete mode 100644 include/linux/mfd/wm8400-audio.h
+ delete mode 100644 include/linux/mfd/wm8400-private.h
+ delete mode 100644 include/linux/mfd/wm8400.h
+ delete mode 100644 sound/soc/codecs/wm8400.c
+ delete mode 100644 sound/soc/codecs/wm8400.h
 
 diff --git a/MAINTAINERS b/MAINTAINERS
-index 86df3fadba87..360655cce7d1 100644
+index 2f5a5c053439..c5e2140cdac0 100644
 --- a/MAINTAINERS
 +++ b/MAINTAINERS
-@@ -7509,7 +7509,6 @@ F:	drivers/input/misc/da72??.[ch]
- F:	drivers/input/misc/da90??_onkey.c
- F:	drivers/input/touchscreen/da9052_tsi.c
- F:	drivers/leds/leds-da90??.c
--F:	drivers/mfd/da903x.c
- F:	drivers/mfd/da90??-*.c
- F:	drivers/mfd/da91??-*.c
- F:	drivers/pinctrl/pinctrl-da90??.c
-diff --git a/drivers/input/touchscreen/Kconfig b/drivers/input/touchscreen/Kconfig
-index 9b9ae8ac3f7f..80bffbead88b 100644
---- a/drivers/input/touchscreen/Kconfig
-+++ b/drivers/input/touchscreen/Kconfig
-@@ -282,19 +282,6 @@ config TOUCHSCREEN_CYTTSP5
- 	  To compile this driver as a module, choose M here: the
- 	  module will be called cyttsp5.
- 
--config TOUCHSCREEN_DA9034
--	tristate "Touchscreen support for Dialog Semiconductor DA9034"
--	depends on PMIC_DA903X
--	default y
--	help
--	  Say Y here to enable the support for the touchscreen found
--	  on Dialog Semiconductor DA9034 PMIC.
--
--	  If unsure, say N.
--
--	  To compile this driver as a module, choose M here: the
--	  module will be called da9034-ts.
--
- config TOUCHSCREEN_DA9052
- 	tristate "Dialog DA9052/DA9053 TSI"
- 	depends on PMIC_DA9052
-diff --git a/drivers/input/touchscreen/Makefile b/drivers/input/touchscreen/Makefile
-index bfd9de83389d..31ebdce6d09f 100644
---- a/drivers/input/touchscreen/Makefile
-+++ b/drivers/input/touchscreen/Makefile
-@@ -29,7 +29,6 @@ obj-$(CONFIG_TOUCHSCREEN_CYTTSP_CORE)	+= cyttsp_core.o
- obj-$(CONFIG_TOUCHSCREEN_CYTTSP_I2C)	+= cyttsp_i2c.o
- obj-$(CONFIG_TOUCHSCREEN_CYTTSP_SPI)	+= cyttsp_spi.o
- obj-$(CONFIG_TOUCHSCREEN_CYTTSP5)	+= cyttsp5.o
--obj-$(CONFIG_TOUCHSCREEN_DA9034)	+= da9034-ts.o
- obj-$(CONFIG_TOUCHSCREEN_DA9052)	+= da9052_tsi.o
- obj-$(CONFIG_TOUCHSCREEN_DYNAPRO)	+= dynapro.o
- obj-$(CONFIG_TOUCHSCREEN_EDT_FT5X06)	+= edt-ft5x06.o
-diff --git a/drivers/input/touchscreen/da9034-ts.c b/drivers/input/touchscreen/da9034-ts.c
-deleted file mode 100644
-index 2943f6a58388..000000000000
---- a/drivers/input/touchscreen/da9034-ts.c
-+++ /dev/null
-@@ -1,365 +0,0 @@
--// SPDX-License-Identifier: GPL-2.0-only
--/*
-- * Touchscreen driver for Dialog Semiconductor DA9034
-- *
-- * Copyright (C) 2006-2008 Marvell International Ltd.
-- *	Fengwei Yin <fengwei.yin@marvell.com>
-- *	Bin Yang  <bin.yang@marvell.com>
-- *	Eric Miao <eric.miao@marvell.com>
-- */
--
--#include <linux/module.h>
--#include <linux/kernel.h>
--#include <linux/delay.h>
--#include <linux/platform_device.h>
--#include <linux/input.h>
--#include <linux/workqueue.h>
--#include <linux/mfd/da903x.h>
--#include <linux/slab.h>
--
--#define DA9034_MANUAL_CTRL	0x50
--#define DA9034_LDO_ADC_EN	(1 << 4)
--
--#define DA9034_AUTO_CTRL1	0x51
--
--#define DA9034_AUTO_CTRL2	0x52
--#define DA9034_AUTO_TSI_EN	(1 << 3)
--#define DA9034_PEN_DETECT	(1 << 4)
--
--#define DA9034_TSI_CTRL1	0x53
--#define DA9034_TSI_CTRL2	0x54
--#define DA9034_TSI_X_MSB	0x6c
--#define DA9034_TSI_Y_MSB	0x6d
--#define DA9034_TSI_XY_LSB	0x6e
--
--enum {
--	STATE_IDLE,	/* wait for pendown */
--	STATE_BUSY,	/* TSI busy sampling */
--	STATE_STOP,	/* sample available */
--	STATE_WAIT,	/* Wait to start next sample */
--};
--
--enum {
--	EVENT_PEN_DOWN,
--	EVENT_PEN_UP,
--	EVENT_TSI_READY,
--	EVENT_TIMEDOUT,
--};
--
--struct da9034_touch {
--	struct device		*da9034_dev;
--	struct input_dev	*input_dev;
--
--	struct delayed_work	tsi_work;
--	struct notifier_block	notifier;
--
--	int	state;
--
--	int	interval_ms;
--	int	x_inverted;
--	int	y_inverted;
--
--	int	last_x;
--	int	last_y;
--};
--
--static inline int is_pen_down(struct da9034_touch *touch)
--{
--	return da903x_query_status(touch->da9034_dev, DA9034_STATUS_PEN_DOWN);
--}
--
--static inline int detect_pen_down(struct da9034_touch *touch, int on)
--{
--	if (on)
--		return da903x_set_bits(touch->da9034_dev,
--				DA9034_AUTO_CTRL2, DA9034_PEN_DETECT);
--	else
--		return da903x_clr_bits(touch->da9034_dev,
--				DA9034_AUTO_CTRL2, DA9034_PEN_DETECT);
--}
--
--static int read_tsi(struct da9034_touch *touch)
--{
--	uint8_t _x, _y, _v;
--	int ret;
--
--	ret = da903x_read(touch->da9034_dev, DA9034_TSI_X_MSB, &_x);
--	if (ret)
--		return ret;
--
--	ret = da903x_read(touch->da9034_dev, DA9034_TSI_Y_MSB, &_y);
--	if (ret)
--		return ret;
--
--	ret = da903x_read(touch->da9034_dev, DA9034_TSI_XY_LSB, &_v);
--	if (ret)
--		return ret;
--
--	touch->last_x = ((_x << 2) & 0x3fc) | (_v & 0x3);
--	touch->last_y = ((_y << 2) & 0x3fc) | ((_v & 0xc) >> 2);
--
--	return 0;
--}
--
--static inline int start_tsi(struct da9034_touch *touch)
--{
--	return da903x_set_bits(touch->da9034_dev,
--			DA9034_AUTO_CTRL2, DA9034_AUTO_TSI_EN);
--}
--
--static inline int stop_tsi(struct da9034_touch *touch)
--{
--	return da903x_clr_bits(touch->da9034_dev,
--			DA9034_AUTO_CTRL2, DA9034_AUTO_TSI_EN);
--}
--
--static inline void report_pen_down(struct da9034_touch *touch)
--{
--	int x = touch->last_x;
--	int y = touch->last_y;
--
--	x &= 0xfff;
--	if (touch->x_inverted)
--		x = 1024 - x;
--	y &= 0xfff;
--	if (touch->y_inverted)
--		y = 1024 - y;
--
--	input_report_abs(touch->input_dev, ABS_X, x);
--	input_report_abs(touch->input_dev, ABS_Y, y);
--	input_report_key(touch->input_dev, BTN_TOUCH, 1);
--
--	input_sync(touch->input_dev);
--}
--
--static inline void report_pen_up(struct da9034_touch *touch)
--{
--	input_report_key(touch->input_dev, BTN_TOUCH, 0);
--	input_sync(touch->input_dev);
--}
--
--static void da9034_event_handler(struct da9034_touch *touch, int event)
--{
--	int err;
--
--	switch (touch->state) {
--	case STATE_IDLE:
--		if (event != EVENT_PEN_DOWN)
--			break;
--
--		/* Enable auto measurement of the TSI, this will
--		 * automatically disable pen down detection
--		 */
--		err = start_tsi(touch);
--		if (err)
--			goto err_reset;
--
--		touch->state = STATE_BUSY;
--		break;
--
--	case STATE_BUSY:
--		if (event != EVENT_TSI_READY)
--			break;
--
--		err = read_tsi(touch);
--		if (err)
--			goto err_reset;
--
--		/* Disable auto measurement of the TSI, so that
--		 * pen down status will be available
--		 */
--		err = stop_tsi(touch);
--		if (err)
--			goto err_reset;
--
--		touch->state = STATE_STOP;
--
--		/* FIXME: PEN_{UP/DOWN} events are expected to be
--		 * available by stopping TSI, but this is found not
--		 * always true, delay and simulate such an event
--		 * here is more reliable
--		 */
--		mdelay(1);
--		da9034_event_handler(touch,
--				     is_pen_down(touch) ? EVENT_PEN_DOWN :
--							  EVENT_PEN_UP);
--		break;
--
--	case STATE_STOP:
--		if (event == EVENT_PEN_DOWN) {
--			report_pen_down(touch);
--			schedule_delayed_work(&touch->tsi_work,
--				msecs_to_jiffies(touch->interval_ms));
--			touch->state = STATE_WAIT;
--		}
--
--		if (event == EVENT_PEN_UP) {
--			report_pen_up(touch);
--			touch->state = STATE_IDLE;
--		}
--		break;
--
--	case STATE_WAIT:
--		if (event != EVENT_TIMEDOUT)
--			break;
--
--		if (is_pen_down(touch)) {
--			start_tsi(touch);
--			touch->state = STATE_BUSY;
--		} else {
--			report_pen_up(touch);
--			touch->state = STATE_IDLE;
--		}
--		break;
--	}
--	return;
--
--err_reset:
--	touch->state = STATE_IDLE;
--	stop_tsi(touch);
--	detect_pen_down(touch, 1);
--}
--
--static void da9034_tsi_work(struct work_struct *work)
--{
--	struct da9034_touch *touch =
--		container_of(work, struct da9034_touch, tsi_work.work);
--
--	da9034_event_handler(touch, EVENT_TIMEDOUT);
--}
--
--static int da9034_touch_notifier(struct notifier_block *nb,
--				 unsigned long event, void *data)
--{
--	struct da9034_touch *touch =
--		container_of(nb, struct da9034_touch, notifier);
--
--	if (event & DA9034_EVENT_TSI_READY)
--		da9034_event_handler(touch, EVENT_TSI_READY);
--
--	if ((event & DA9034_EVENT_PEN_DOWN) && touch->state == STATE_IDLE)
--		da9034_event_handler(touch, EVENT_PEN_DOWN);
--
--	return 0;
--}
--
--static int da9034_touch_open(struct input_dev *dev)
--{
--	struct da9034_touch *touch = input_get_drvdata(dev);
--	int ret;
--
--	ret = da903x_register_notifier(touch->da9034_dev, &touch->notifier,
--			DA9034_EVENT_PEN_DOWN | DA9034_EVENT_TSI_READY);
--	if (ret)
--		return -EBUSY;
--
--	/* Enable ADC LDO */
--	ret = da903x_set_bits(touch->da9034_dev,
--			DA9034_MANUAL_CTRL, DA9034_LDO_ADC_EN);
--	if (ret)
--		return ret;
--
--	/* TSI_DELAY: 3 slots, TSI_SKIP: 3 slots */
--	ret = da903x_write(touch->da9034_dev, DA9034_TSI_CTRL1, 0x1b);
--	if (ret)
--		return ret;
--
--	ret = da903x_write(touch->da9034_dev, DA9034_TSI_CTRL2, 0x00);
--	if (ret)
--		return ret;
--
--	touch->state = STATE_IDLE;
--	detect_pen_down(touch, 1);
--
--	return 0;
--}
--
--static void da9034_touch_close(struct input_dev *dev)
--{
--	struct da9034_touch *touch = input_get_drvdata(dev);
--
--	da903x_unregister_notifier(touch->da9034_dev, &touch->notifier,
--			DA9034_EVENT_PEN_DOWN | DA9034_EVENT_TSI_READY);
--
--	cancel_delayed_work_sync(&touch->tsi_work);
--
--	touch->state = STATE_IDLE;
--	stop_tsi(touch);
--	detect_pen_down(touch, 0);
--
--	/* Disable ADC LDO */
--	da903x_clr_bits(touch->da9034_dev,
--			DA9034_MANUAL_CTRL, DA9034_LDO_ADC_EN);
--}
--
--
--static int da9034_touch_probe(struct platform_device *pdev)
--{
--	struct da9034_touch_pdata *pdata = dev_get_platdata(&pdev->dev);
--	struct da9034_touch *touch;
--	struct input_dev *input_dev;
--	int error;
--
--	touch = devm_kzalloc(&pdev->dev, sizeof(struct da9034_touch),
--			     GFP_KERNEL);
--	if (!touch) {
--		dev_err(&pdev->dev, "failed to allocate driver data\n");
--		return -ENOMEM;
--	}
--
--	touch->da9034_dev = pdev->dev.parent;
--
--	if (pdata) {
--		touch->interval_ms	= pdata->interval_ms;
--		touch->x_inverted	= pdata->x_inverted;
--		touch->y_inverted	= pdata->y_inverted;
--	} else {
--		/* fallback into default */
--		touch->interval_ms	= 10;
--	}
--
--	INIT_DELAYED_WORK(&touch->tsi_work, da9034_tsi_work);
--	touch->notifier.notifier_call = da9034_touch_notifier;
--
--	input_dev = devm_input_allocate_device(&pdev->dev);
--	if (!input_dev) {
--		dev_err(&pdev->dev, "failed to allocate input device\n");
--		return -ENOMEM;
--	}
--
--	input_dev->name		= pdev->name;
--	input_dev->open		= da9034_touch_open;
--	input_dev->close	= da9034_touch_close;
--	input_dev->dev.parent	= &pdev->dev;
--
--	__set_bit(EV_ABS, input_dev->evbit);
--	__set_bit(ABS_X, input_dev->absbit);
--	__set_bit(ABS_Y, input_dev->absbit);
--	input_set_abs_params(input_dev, ABS_X, 0, 1023, 0, 0);
--	input_set_abs_params(input_dev, ABS_Y, 0, 1023, 0, 0);
--
--	__set_bit(EV_KEY, input_dev->evbit);
--	__set_bit(BTN_TOUCH, input_dev->keybit);
--
--	touch->input_dev = input_dev;
--	input_set_drvdata(input_dev, touch);
--
--	error = input_register_device(input_dev);
--	if (error)
--		return error;
--
--	return 0;
--}
--
--static struct platform_driver da9034_touch_driver = {
--	.driver	= {
--		.name	= "da9034-touch",
--	},
--	.probe		= da9034_touch_probe,
--};
--module_platform_driver(da9034_touch_driver);
--
--MODULE_DESCRIPTION("Touchscreen driver for Dialog Semiconductor DA9034");
--MODULE_AUTHOR("Eric Miao <eric.miao@marvell.com>, Bin Yang <bin.yang@marvell.com>");
--MODULE_LICENSE("GPL");
--MODULE_ALIAS("platform:da9034-touch");
-diff --git a/drivers/leds/Kconfig b/drivers/leds/Kconfig
-index 5d6fc2a06016..5aab4765d6d7 100644
---- a/drivers/leds/Kconfig
-+++ b/drivers/leds/Kconfig
-@@ -638,14 +638,6 @@ config LEDS_WM8350
- 	  This option enables support for LEDs driven by the Wolfson
- 	  Microelectronics WM8350 AudioPlus PMIC.
- 
--config LEDS_DA903X
--	tristate "LED Support for DA9030/DA9034 PMIC"
--	depends on LEDS_CLASS
--	depends on PMIC_DA903X
--	help
--	  This option enables support for on-chip LED drivers found
--	  on Dialog Semiconductor DA9030/DA9034 PMICs.
--
- config LEDS_DA9052
- 	tristate "Dialog DA9052/DA9053 LEDS"
- 	depends on LEDS_CLASS
-diff --git a/drivers/leds/Makefile b/drivers/leds/Makefile
-index 96deebbca9d5..148301cf4865 100644
---- a/drivers/leds/Makefile
-+++ b/drivers/leds/Makefile
-@@ -28,7 +28,6 @@ obj-$(CONFIG_LEDS_COBALT_QUBE)		+= leds-cobalt-qube.o
- obj-$(CONFIG_LEDS_COBALT_RAQ)		+= leds-cobalt-raq.o
- obj-$(CONFIG_LEDS_CPCAP)		+= leds-cpcap.o
- obj-$(CONFIG_LEDS_CROS_EC)		+= leds-cros_ec.o
--obj-$(CONFIG_LEDS_DA903X)		+= leds-da903x.o
- obj-$(CONFIG_LEDS_DA9052)		+= leds-da9052.o
- obj-$(CONFIG_LEDS_GPIO)			+= leds-gpio.o
- obj-$(CONFIG_LEDS_GPIO_REGISTER)	+= leds-gpio-register.o
-diff --git a/drivers/leds/leds-da903x.c b/drivers/leds/leds-da903x.c
-deleted file mode 100644
-index 71209b3c8f1e..000000000000
---- a/drivers/leds/leds-da903x.c
-+++ /dev/null
-@@ -1,145 +0,0 @@
--// SPDX-License-Identifier: GPL-2.0-only
--/*
-- * LEDs driver for Dialog Semiconductor DA9030/DA9034
-- *
-- * Copyright (C) 2008 Compulab, Ltd.
-- *	Mike Rapoport <mike@compulab.co.il>
-- *
-- * Copyright (C) 2006-2008 Marvell International Ltd.
-- *	Eric Miao <eric.miao@marvell.com>
-- */
--
--#include <linux/module.h>
--#include <linux/kernel.h>
--#include <linux/platform_device.h>
--#include <linux/leds.h>
--#include <linux/mfd/da903x.h>
--#include <linux/slab.h>
--
--#define DA9030_LED1_CONTROL	0x20
--#define DA9030_LED2_CONTROL	0x21
--#define DA9030_LED3_CONTROL	0x22
--#define DA9030_LED4_CONTROL	0x23
--#define DA9030_LEDPC_CONTROL	0x24
--#define DA9030_MISC_CONTROL_A	0x26	/* Vibrator Control */
--
--#define DA9034_LED1_CONTROL	0x35
--#define DA9034_LED2_CONTROL	0x36
--#define DA9034_VIBRA		0x40
--
--struct da903x_led {
--	struct led_classdev	cdev;
--	struct device		*master;
--	int			id;
--	int			flags;
--};
--
--#define DA9030_LED_OFFSET(id)	((id) - DA9030_ID_LED_1)
--#define DA9034_LED_OFFSET(id)	((id) - DA9034_ID_LED_1)
--
--static int da903x_led_set(struct led_classdev *led_cdev,
--			   enum led_brightness value)
--{
--	struct da903x_led *led =
--			container_of(led_cdev, struct da903x_led, cdev);
--	uint8_t val;
--	int offset, ret = -EINVAL;
--
--	switch (led->id) {
--	case DA9030_ID_LED_1:
--	case DA9030_ID_LED_2:
--	case DA9030_ID_LED_3:
--	case DA9030_ID_LED_4:
--	case DA9030_ID_LED_PC:
--		offset = DA9030_LED_OFFSET(led->id);
--		val = led->flags & ~0x87;
--		val |= value ? 0x80 : 0; /* EN bit */
--		val |= (0x7 - (value >> 5)) & 0x7; /* PWM<2:0> */
--		ret = da903x_write(led->master, DA9030_LED1_CONTROL + offset,
--				   val);
--		break;
--	case DA9030_ID_VIBRA:
--		val = led->flags & ~0x80;
--		val |= value ? 0x80 : 0; /* EN bit */
--		ret = da903x_write(led->master, DA9030_MISC_CONTROL_A, val);
--		break;
--	case DA9034_ID_LED_1:
--	case DA9034_ID_LED_2:
--		offset = DA9034_LED_OFFSET(led->id);
--		val = (value * 0x5f / LED_FULL) & 0x7f;
--		val |= (led->flags & DA9034_LED_RAMP) ? 0x80 : 0;
--		ret = da903x_write(led->master, DA9034_LED1_CONTROL + offset,
--				   val);
--		break;
--	case DA9034_ID_VIBRA:
--		val = value & 0xfe;
--		ret = da903x_write(led->master, DA9034_VIBRA, val);
--		break;
--	}
--
--	return ret;
--}
--
--static int da903x_led_probe(struct platform_device *pdev)
--{
--	struct led_info *pdata = dev_get_platdata(&pdev->dev);
--	struct da903x_led *led;
--	int id, ret;
--
--	if (pdata == NULL)
--		return 0;
--
--	id = pdev->id;
--
--	if (!((id >= DA9030_ID_LED_1 && id <= DA9030_ID_VIBRA) ||
--	      (id >= DA9034_ID_LED_1 && id <= DA9034_ID_VIBRA))) {
--		dev_err(&pdev->dev, "invalid LED ID (%d) specified\n", id);
--		return -EINVAL;
--	}
--
--	led = devm_kzalloc(&pdev->dev, sizeof(struct da903x_led), GFP_KERNEL);
--	if (!led)
--		return -ENOMEM;
--
--	led->cdev.name = pdata->name;
--	led->cdev.default_trigger = pdata->default_trigger;
--	led->cdev.brightness_set_blocking = da903x_led_set;
--	led->cdev.brightness = LED_OFF;
--
--	led->id = id;
--	led->flags = pdata->flags;
--	led->master = pdev->dev.parent;
--
--	ret = led_classdev_register(led->master, &led->cdev);
--	if (ret) {
--		dev_err(&pdev->dev, "failed to register LED %d\n", id);
--		return ret;
--	}
--
--	platform_set_drvdata(pdev, led);
--
--	return 0;
--}
--
--static void da903x_led_remove(struct platform_device *pdev)
--{
--	struct da903x_led *led = platform_get_drvdata(pdev);
--
--	led_classdev_unregister(&led->cdev);
--}
--
--static struct platform_driver da903x_led_driver = {
--	.driver	= {
--		.name	= "da903x-led",
--	},
--	.probe		= da903x_led_probe,
--	.remove		= da903x_led_remove,
--};
--
--module_platform_driver(da903x_led_driver);
--
--MODULE_DESCRIPTION("LEDs driver for Dialog Semiconductor DA9030/DA9034");
--MODULE_AUTHOR("Eric Miao <eric.miao@marvell.com>");
--MODULE_AUTHOR("Mike Rapoport <mike@compulab.co.il>");
--MODULE_LICENSE("GPL");
--MODULE_ALIAS("platform:da903x-led");
+@@ -29398,7 +29398,6 @@ F:	drivers/watchdog/wm83*_wdt.c
+ F:	include/linux/mfd/arizona/
+ F:	include/linux/mfd/wm831x/
+ F:	include/linux/mfd/wm8350/
+-F:	include/linux/mfd/wm8400*
+ F:	include/linux/regulator/arizona*
+ F:	include/linux/wm97xx.h
+ F:	include/sound/wm????.h
 diff --git a/drivers/mfd/Kconfig b/drivers/mfd/Kconfig
-index 5126bae8e61f..fda9d7ad5743 100644
+index b271c9f0c5fc..2b621a77619c 100644
 --- a/drivers/mfd/Kconfig
 +++ b/drivers/mfd/Kconfig
-@@ -408,17 +408,6 @@ config MFD_TN48M_CPLD
- 	  for the SFP slots as well as power supply related information.
- 	  SFP support depends on the GPIO driver being selected.
+@@ -2068,17 +2068,6 @@ config MFD_WM8998
+ 	help
+ 	  Support for Wolfson Microelectronics WM8998 low power audio SoC
  
--config PMIC_DA903X
--	bool "Dialog Semiconductor DA9030/DA9034 PMIC Support"
+-config MFD_WM8400
+-	bool "Wolfson Microelectronics WM8400"
+-	select MFD_CORE
 -	depends on I2C=y
+-	select REGMAP_I2C
 -	help
--	  Say yes here to add support for Dialog Semiconductor DA9030 (a.k.a
--	  ARAVA) and DA9034 (a.k.a MICCO), these are Power Management IC
--	  usually found on PXA processors-based platforms. This includes
--	  the I2C driver and the core APIs _only_, you have to select
--	  individual components like LCD backlight, voltage regulators,
--	  LEDs and battery-charger under the corresponding menus.
+-	  Support for the Wolfson Microelecronics WM8400 PMIC and audio
+-	  CODEC.  This driver provides common support for accessing
+-	  the device, additional drivers must be enabled in order to use
+-	  the functionality of the device.
 -
- config PMIC_DA9052
+ config MFD_WM831X
  	bool
- 	select MFD_CORE
+ 
 diff --git a/drivers/mfd/Makefile b/drivers/mfd/Makefile
-index a6cc4fcc3e1d..82795e65cbe7 100644
+index 649262eb0f5c..36f0ab039b77 100644
 --- a/drivers/mfd/Makefile
 +++ b/drivers/mfd/Makefile
-@@ -139,8 +139,6 @@ ifeq ($(CONFIG_SA1100_ASSABET),y)
- obj-$(CONFIG_MCP_UCB1200)	+= ucb1x00-assabet.o
+@@ -55,7 +55,6 @@ ifeq ($(CONFIG_MFD_CS47L24),y)
+ arizona-objs			+= cs47l24-tables.o
  endif
- 
--obj-$(CONFIG_PMIC_DA903X)	+= da903x.o
--
- obj-$(CONFIG_PMIC_DA9052)	+= da9052-irq.o
- obj-$(CONFIG_PMIC_DA9052)	+= da9052-core.o
- obj-$(CONFIG_MFD_DA9052_SPI)	+= da9052-spi.o
-diff --git a/drivers/mfd/da903x.c b/drivers/mfd/da903x.c
+ obj-$(CONFIG_MFD_WCD934X)	+= wcd934x.o
+-obj-$(CONFIG_MFD_WM8400)	+= wm8400-core.o
+ wm831x-objs			:= wm831x-core.o wm831x-irq.o wm831x-otp.o
+ wm831x-objs			+= wm831x-auxadc.o
+ obj-$(CONFIG_MFD_WM831X)	+= wm831x.o
+diff --git a/drivers/mfd/wm8400-core.c b/drivers/mfd/wm8400-core.c
 deleted file mode 100644
-index e86b39de3303..000000000000
---- a/drivers/mfd/da903x.c
+index 8ecfe878a5ba..000000000000
+--- a/drivers/mfd/wm8400-core.c
 +++ /dev/null
-@@ -1,565 +0,0 @@
--// SPDX-License-Identifier: GPL-2.0-only
+@@ -1,163 +0,0 @@
+-// SPDX-License-Identifier: GPL-2.0-or-later
 -/*
-- * Base driver for Dialog Semiconductor DA9030/DA9034
+- * Core driver for WM8400.
 - *
-- * Copyright (C) 2008 Compulab, Ltd.
-- *	Mike Rapoport <mike@compulab.co.il>
+- * Copyright 2008 Wolfson Microelectronics PLC.
 - *
-- * Copyright (C) 2006-2008 Marvell International Ltd.
-- *	Eric Miao <eric.miao@marvell.com>
+- * Author: Mark Brown <broonie@opensource.wolfsonmicro.com>
 - */
 -
--#include <linux/kernel.h>
--#include <linux/module.h>
--#include <linux/interrupt.h>
--#include <linux/platform_device.h>
+-#include <linux/init.h>
+-#include <linux/bug.h>
+-#include <linux/err.h>
 -#include <linux/i2c.h>
--#include <linux/mfd/da903x.h>
+-#include <linux/kernel.h>
+-#include <linux/mfd/core.h>
+-#include <linux/mfd/wm8400-private.h>
+-#include <linux/mfd/wm8400-audio.h>
+-#include <linux/regmap.h>
 -#include <linux/slab.h>
 -
--#define DA9030_CHIP_ID		0x00
--#define DA9030_EVENT_A		0x01
--#define DA9030_EVENT_B		0x02
--#define DA9030_EVENT_C		0x03
--#define DA9030_STATUS		0x04
--#define DA9030_IRQ_MASK_A	0x05
--#define DA9030_IRQ_MASK_B	0x06
--#define DA9030_IRQ_MASK_C	0x07
--#define DA9030_SYS_CTRL_A	0x08
--#define DA9030_SYS_CTRL_B	0x09
--#define DA9030_FAULT_LOG	0x0a
--
--#define DA9034_CHIP_ID		0x00
--#define DA9034_EVENT_A		0x01
--#define DA9034_EVENT_B		0x02
--#define DA9034_EVENT_C		0x03
--#define DA9034_EVENT_D		0x04
--#define DA9034_STATUS_A		0x05
--#define DA9034_STATUS_B		0x06
--#define DA9034_IRQ_MASK_A	0x07
--#define DA9034_IRQ_MASK_B	0x08
--#define DA9034_IRQ_MASK_C	0x09
--#define DA9034_IRQ_MASK_D	0x0a
--#define DA9034_SYS_CTRL_A	0x0b
--#define DA9034_SYS_CTRL_B	0x0c
--#define DA9034_FAULT_LOG	0x0d
--
--struct da903x_chip;
--
--struct da903x_chip_ops {
--	int	(*init_chip)(struct da903x_chip *);
--	int	(*unmask_events)(struct da903x_chip *, unsigned int events);
--	int	(*mask_events)(struct da903x_chip *, unsigned int events);
--	int	(*read_events)(struct da903x_chip *, unsigned int *events);
--	int	(*read_status)(struct da903x_chip *, unsigned int *status);
--};
--
--struct da903x_chip {
--	struct i2c_client	*client;
--	struct device		*dev;
--	const struct da903x_chip_ops *ops;
--
--	int			type;
--	uint32_t		events_mask;
--
--	struct mutex		lock;
--	struct work_struct	irq_work;
--
--	struct blocking_notifier_head notifier_list;
--};
--
--static inline int __da903x_read(struct i2c_client *client,
--				int reg, uint8_t *val)
+-static bool wm8400_volatile(struct device *dev, unsigned int reg)
 -{
+-	switch (reg) {
+-	case WM8400_INTERRUPT_STATUS_1:
+-	case WM8400_INTERRUPT_LEVELS:
+-	case WM8400_SHUTDOWN_REASON:
+-		return true;
+-	default:
+-		return false;
+-	}
+-}
+-
+-static int wm8400_register_codec(struct wm8400 *wm8400)
+-{
+-	const struct mfd_cell cell = {
+-		.name = "wm8400-codec",
+-		.platform_data = wm8400,
+-		.pdata_size = sizeof(*wm8400),
+-	};
+-
+-	return devm_mfd_add_devices(wm8400->dev, -1, &cell, 1, NULL, 0, NULL);
+-}
+-
+-/*
+- * wm8400_init - Generic initialisation
+- *
+- * The WM8400 can be configured as either an I2C or SPI device.  Probe
+- * functions for each bus set up the accessors then call into this to
+- * set up the device itself.
+- */
+-static int wm8400_init(struct wm8400 *wm8400,
+-		       struct wm8400_platform_data *pdata)
+-{
+-	unsigned int reg;
 -	int ret;
 -
--	ret = i2c_smbus_read_byte_data(client, reg);
--	if (ret < 0) {
--		dev_err(&client->dev, "failed reading at 0x%02x\n", reg);
+-	/* Check that this is actually a WM8400 */
+-	ret = regmap_read(wm8400->regmap, WM8400_RESET_ID, &reg);
+-	if (ret != 0) {
+-		dev_err(wm8400->dev, "Chip ID register read failed\n");
+-		return -EIO;
+-	}
+-	if (reg != 0x6172) {
+-		dev_err(wm8400->dev, "Device is not a WM8400, ID is %x\n",
+-			reg);
+-		return -ENODEV;
+-	}
+-
+-	ret = regmap_read(wm8400->regmap, WM8400_ID, &reg);
+-	if (ret != 0) {
+-		dev_err(wm8400->dev, "ID register read failed: %d\n", ret);
+-		return ret;
+-	}
+-	reg = (reg & WM8400_CHIP_REV_MASK) >> WM8400_CHIP_REV_SHIFT;
+-	dev_info(wm8400->dev, "WM8400 revision %x\n", reg);
+-
+-	ret = wm8400_register_codec(wm8400);
+-	if (ret != 0) {
+-		dev_err(wm8400->dev, "Failed to register codec\n");
 -		return ret;
 -	}
 -
--	*val = (uint8_t)ret;
--	return 0;
--}
--
--static inline int __da903x_reads(struct i2c_client *client, int reg,
--				 int len, uint8_t *val)
--{
--	int ret;
--
--	ret = i2c_smbus_read_i2c_block_data(client, reg, len, val);
--	if (ret < 0) {
--		dev_err(&client->dev, "failed reading from 0x%02x\n", reg);
--		return ret;
--	}
--	return 0;
--}
--
--static inline int __da903x_write(struct i2c_client *client,
--				 int reg, uint8_t val)
--{
--	int ret;
--
--	ret = i2c_smbus_write_byte_data(client, reg, val);
--	if (ret < 0) {
--		dev_err(&client->dev, "failed writing 0x%02x to 0x%02x\n",
--				val, reg);
--		return ret;
--	}
--	return 0;
--}
--
--static inline int __da903x_writes(struct i2c_client *client, int reg,
--				  int len, uint8_t *val)
--{
--	int ret;
--
--	ret = i2c_smbus_write_i2c_block_data(client, reg, len, val);
--	if (ret < 0) {
--		dev_err(&client->dev, "failed writings to 0x%02x\n", reg);
--		return ret;
--	}
--	return 0;
--}
--
--int da903x_register_notifier(struct device *dev, struct notifier_block *nb,
--				unsigned int events)
--{
--	struct da903x_chip *chip = dev_get_drvdata(dev);
--
--	chip->ops->unmask_events(chip, events);
--	return blocking_notifier_chain_register(&chip->notifier_list, nb);
--}
--EXPORT_SYMBOL_GPL(da903x_register_notifier);
--
--int da903x_unregister_notifier(struct device *dev, struct notifier_block *nb,
--				unsigned int events)
--{
--	struct da903x_chip *chip = dev_get_drvdata(dev);
--
--	chip->ops->mask_events(chip, events);
--	return blocking_notifier_chain_unregister(&chip->notifier_list, nb);
--}
--EXPORT_SYMBOL_GPL(da903x_unregister_notifier);
--
--int da903x_write(struct device *dev, int reg, uint8_t val)
--{
--	return __da903x_write(to_i2c_client(dev), reg, val);
--}
--EXPORT_SYMBOL_GPL(da903x_write);
--
--int da903x_writes(struct device *dev, int reg, int len, uint8_t *val)
--{
--	return __da903x_writes(to_i2c_client(dev), reg, len, val);
--}
--EXPORT_SYMBOL_GPL(da903x_writes);
--
--int da903x_read(struct device *dev, int reg, uint8_t *val)
--{
--	return __da903x_read(to_i2c_client(dev), reg, val);
--}
--EXPORT_SYMBOL_GPL(da903x_read);
--
--int da903x_reads(struct device *dev, int reg, int len, uint8_t *val)
--{
--	return __da903x_reads(to_i2c_client(dev), reg, len, val);
--}
--EXPORT_SYMBOL_GPL(da903x_reads);
--
--int da903x_set_bits(struct device *dev, int reg, uint8_t bit_mask)
--{
--	struct da903x_chip *chip = dev_get_drvdata(dev);
--	uint8_t reg_val;
--	int ret = 0;
--
--	mutex_lock(&chip->lock);
--
--	ret = __da903x_read(chip->client, reg, &reg_val);
--	if (ret)
--		goto out;
--
--	if ((reg_val & bit_mask) != bit_mask) {
--		reg_val |= bit_mask;
--		ret = __da903x_write(chip->client, reg, reg_val);
--	}
--out:
--	mutex_unlock(&chip->lock);
--	return ret;
--}
--EXPORT_SYMBOL_GPL(da903x_set_bits);
--
--int da903x_clr_bits(struct device *dev, int reg, uint8_t bit_mask)
--{
--	struct da903x_chip *chip = dev_get_drvdata(dev);
--	uint8_t reg_val;
--	int ret = 0;
--
--	mutex_lock(&chip->lock);
--
--	ret = __da903x_read(chip->client, reg, &reg_val);
--	if (ret)
--		goto out;
--
--	if (reg_val & bit_mask) {
--		reg_val &= ~bit_mask;
--		ret = __da903x_write(chip->client, reg, reg_val);
--	}
--out:
--	mutex_unlock(&chip->lock);
--	return ret;
--}
--EXPORT_SYMBOL_GPL(da903x_clr_bits);
--
--int da903x_update(struct device *dev, int reg, uint8_t val, uint8_t mask)
--{
--	struct da903x_chip *chip = dev_get_drvdata(dev);
--	uint8_t reg_val;
--	int ret = 0;
--
--	mutex_lock(&chip->lock);
--
--	ret = __da903x_read(chip->client, reg, &reg_val);
--	if (ret)
--		goto out;
--
--	if ((reg_val & mask) != val) {
--		reg_val = (reg_val & ~mask) | val;
--		ret = __da903x_write(chip->client, reg, reg_val);
--	}
--out:
--	mutex_unlock(&chip->lock);
--	return ret;
--}
--EXPORT_SYMBOL_GPL(da903x_update);
--
--int da903x_query_status(struct device *dev, unsigned int sbits)
--{
--	struct da903x_chip *chip = dev_get_drvdata(dev);
--	unsigned int status = 0;
--
--	chip->ops->read_status(chip, &status);
--	return ((status & sbits) == sbits);
--}
--EXPORT_SYMBOL(da903x_query_status);
--
--static int da9030_init_chip(struct da903x_chip *chip)
--{
--	uint8_t chip_id;
--	int err;
--
--	err = __da903x_read(chip->client, DA9030_CHIP_ID, &chip_id);
--	if (err)
--		return err;
--
--	err = __da903x_write(chip->client, DA9030_SYS_CTRL_A, 0xE8);
--	if (err)
--		return err;
--
--	dev_info(chip->dev, "DA9030 (CHIP ID: 0x%02x) detected\n", chip_id);
--	return 0;
--}
--
--static int da9030_unmask_events(struct da903x_chip *chip, unsigned int events)
--{
--	uint8_t v[3];
--
--	chip->events_mask &= ~events;
--
--	v[0] = (chip->events_mask & 0xff);
--	v[1] = (chip->events_mask >> 8) & 0xff;
--	v[2] = (chip->events_mask >> 16) & 0xff;
--
--	return __da903x_writes(chip->client, DA9030_IRQ_MASK_A, 3, v);
--}
--
--static int da9030_mask_events(struct da903x_chip *chip, unsigned int events)
--{
--	uint8_t v[3];
--
--	chip->events_mask |= events;
--
--	v[0] = (chip->events_mask & 0xff);
--	v[1] = (chip->events_mask >> 8) & 0xff;
--	v[2] = (chip->events_mask >> 16) & 0xff;
--
--	return __da903x_writes(chip->client, DA9030_IRQ_MASK_A, 3, v);
--}
--
--static int da9030_read_events(struct da903x_chip *chip, unsigned int *events)
--{
--	uint8_t v[3] = {0, 0, 0};
--	int ret;
--
--	ret = __da903x_reads(chip->client, DA9030_EVENT_A, 3, v);
--	if (ret < 0)
--		return ret;
--
--	*events = (v[2] << 16) | (v[1] << 8) | v[0];
--	return 0;
--}
--
--static int da9030_read_status(struct da903x_chip *chip, unsigned int *status)
--{
--	return __da903x_read(chip->client, DA9030_STATUS, (uint8_t *)status);
--}
--
--static int da9034_init_chip(struct da903x_chip *chip)
--{
--	uint8_t chip_id;
--	int err;
--
--	err = __da903x_read(chip->client, DA9034_CHIP_ID, &chip_id);
--	if (err)
--		return err;
--
--	err = __da903x_write(chip->client, DA9034_SYS_CTRL_A, 0xE8);
--	if (err)
--		return err;
--
--	/* avoid SRAM power off during sleep*/
--	__da903x_write(chip->client, 0x10, 0x07);
--	__da903x_write(chip->client, 0x11, 0xff);
--	__da903x_write(chip->client, 0x12, 0xff);
--
--	/* Enable the ONKEY power down functionality */
--	__da903x_write(chip->client, DA9034_SYS_CTRL_B, 0x20);
--	__da903x_write(chip->client, DA9034_SYS_CTRL_A, 0x60);
--
--	/* workaround to make LEDs work */
--	__da903x_write(chip->client, 0x90, 0x01);
--	__da903x_write(chip->client, 0xB0, 0x08);
--
--	/* make ADTV1 and SDTV1 effective */
--	__da903x_write(chip->client, 0x20, 0x00);
--
--	dev_info(chip->dev, "DA9034 (CHIP ID: 0x%02x) detected\n", chip_id);
--	return 0;
--}
--
--static int da9034_unmask_events(struct da903x_chip *chip, unsigned int events)
--{
--	uint8_t v[4];
--
--	chip->events_mask &= ~events;
--
--	v[0] = (chip->events_mask & 0xff);
--	v[1] = (chip->events_mask >> 8) & 0xff;
--	v[2] = (chip->events_mask >> 16) & 0xff;
--	v[3] = (chip->events_mask >> 24) & 0xff;
--
--	return __da903x_writes(chip->client, DA9034_IRQ_MASK_A, 4, v);
--}
--
--static int da9034_mask_events(struct da903x_chip *chip, unsigned int events)
--{
--	uint8_t v[4];
--
--	chip->events_mask |= events;
--
--	v[0] = (chip->events_mask & 0xff);
--	v[1] = (chip->events_mask >> 8) & 0xff;
--	v[2] = (chip->events_mask >> 16) & 0xff;
--	v[3] = (chip->events_mask >> 24) & 0xff;
--
--	return __da903x_writes(chip->client, DA9034_IRQ_MASK_A, 4, v);
--}
--
--static int da9034_read_events(struct da903x_chip *chip, unsigned int *events)
--{
--	uint8_t v[4] = {0, 0, 0, 0};
--	int ret;
--
--	ret = __da903x_reads(chip->client, DA9034_EVENT_A, 4, v);
--	if (ret < 0)
--		return ret;
--
--	*events = (v[3] << 24) | (v[2] << 16) | (v[1] << 8) | v[0];
--	return 0;
--}
--
--static int da9034_read_status(struct da903x_chip *chip, unsigned int *status)
--{
--	uint8_t v[2] = {0, 0};
--	int ret = 0;
--
--	ret = __da903x_reads(chip->client, DA9034_STATUS_A, 2, v);
--	if (ret)
--		return ret;
--
--	*status = (v[1] << 8) | v[0];
--	return 0;
--}
--
--static void da903x_irq_work(struct work_struct *work)
--{
--	struct da903x_chip *chip =
--		container_of(work, struct da903x_chip, irq_work);
--	unsigned int events = 0;
--
--	while (1) {
--		if (chip->ops->read_events(chip, &events))
--			break;
--
--		events &= ~chip->events_mask;
--		if (events == 0)
--			break;
--
--		blocking_notifier_call_chain(
--				&chip->notifier_list, events, NULL);
--	}
--	enable_irq(chip->client->irq);
--}
--
--static irqreturn_t da903x_irq_handler(int irq, void *data)
--{
--	struct da903x_chip *chip = data;
--
--	disable_irq_nosync(irq);
--	(void)schedule_work(&chip->irq_work);
--
--	return IRQ_HANDLED;
--}
--
--static const struct da903x_chip_ops da903x_ops[] = {
--	[0] = {
--		.init_chip	= da9030_init_chip,
--		.unmask_events	= da9030_unmask_events,
--		.mask_events	= da9030_mask_events,
--		.read_events	= da9030_read_events,
--		.read_status	= da9030_read_status,
--	},
--	[1] = {
--		.init_chip	= da9034_init_chip,
--		.unmask_events	= da9034_unmask_events,
--		.mask_events	= da9034_mask_events,
--		.read_events	= da9034_read_events,
--		.read_status	= da9034_read_status,
--	}
--};
--
--static const struct i2c_device_id da903x_id_table[] = {
--	{ "da9030", 0 },
--	{ "da9034", 1 },
--	{ },
--};
--MODULE_DEVICE_TABLE(i2c, da903x_id_table);
--
--static int __remove_subdev(struct device *dev, void *unused)
--{
--	platform_device_unregister(to_platform_device(dev));
--	return 0;
--}
--
--static int da903x_remove_subdevs(struct da903x_chip *chip)
--{
--	return device_for_each_child(chip->dev, NULL, __remove_subdev);
--}
--
--static int da903x_add_subdevs(struct da903x_chip *chip,
--					struct da903x_platform_data *pdata)
--{
--	struct da903x_subdev_info *subdev;
--	struct platform_device *pdev;
--	int i, ret = 0;
--
--	for (i = 0; i < pdata->num_subdevs; i++) {
--		subdev = &pdata->subdevs[i];
--
--		pdev = platform_device_alloc(subdev->name, subdev->id);
--		if (!pdev) {
--			ret = -ENOMEM;
--			goto failed;
+-	if (pdata && pdata->platform_init) {
+-		ret = pdata->platform_init(wm8400->dev);
+-		if (ret != 0) {
+-			dev_err(wm8400->dev, "Platform init failed: %d\n",
+-				ret);
+-			return ret;
 -		}
+-	} else
+-		dev_warn(wm8400->dev, "No platform initialisation supplied\n");
 -
--		pdev->dev.parent = chip->dev;
--		pdev->dev.platform_data = subdev->platform_data;
--
--		ret = platform_device_add(pdev);
--		if (ret) {
--			platform_device_put(pdev);
--			goto failed;
--		}
--	}
 -	return 0;
--
--failed:
--	da903x_remove_subdevs(chip);
--	return ret;
 -}
 -
--static int da903x_probe(struct i2c_client *client)
--{
--	const struct i2c_device_id *id = i2c_client_get_device_id(client);
--	struct da903x_platform_data *pdata = dev_get_platdata(&client->dev);
--	struct da903x_chip *chip;
--	unsigned int tmp;
--	int ret;
+-static const struct regmap_config wm8400_regmap_config = {
+-	.reg_bits = 8,
+-	.val_bits = 16,
+-	.max_register = WM8400_REGISTER_COUNT - 1,
 -
--	chip = devm_kzalloc(&client->dev, sizeof(struct da903x_chip),
--				GFP_KERNEL);
--	if (chip == NULL)
+-	.volatile_reg = wm8400_volatile,
+-
+-	.cache_type = REGCACHE_MAPLE,
+-};
+-
+-/**
+- * wm8400_reset_codec_reg_cache - Reset cached codec registers to
+- * their default values.
+- *
+- * @wm8400: pointer to local driver data structure
+- */
+-void wm8400_reset_codec_reg_cache(struct wm8400 *wm8400)
+-{
+-	regmap_reinit_cache(wm8400->regmap, &wm8400_regmap_config);
+-}
+-EXPORT_SYMBOL_GPL(wm8400_reset_codec_reg_cache);
+-
+-#if IS_ENABLED(CONFIG_I2C)
+-static int wm8400_i2c_probe(struct i2c_client *i2c)
+-{
+-	struct wm8400 *wm8400;
+-
+-	wm8400 = devm_kzalloc(&i2c->dev, sizeof(struct wm8400), GFP_KERNEL);
+-	if (!wm8400)
 -		return -ENOMEM;
 -
--	chip->client = client;
--	chip->dev = &client->dev;
--	chip->ops = &da903x_ops[id->driver_data];
+-	wm8400->regmap = devm_regmap_init_i2c(i2c, &wm8400_regmap_config);
+-	if (IS_ERR(wm8400->regmap))
+-		return PTR_ERR(wm8400->regmap);
 -
--	mutex_init(&chip->lock);
--	INIT_WORK(&chip->irq_work, da903x_irq_work);
--	BLOCKING_INIT_NOTIFIER_HEAD(&chip->notifier_list);
+-	wm8400->dev = &i2c->dev;
+-	i2c_set_clientdata(i2c, wm8400);
 -
--	i2c_set_clientdata(client, chip);
--
--	ret = chip->ops->init_chip(chip);
--	if (ret)
--		return ret;
--
--	/* mask and clear all IRQs */
--	chip->events_mask = 0xffffffff;
--	chip->ops->mask_events(chip, chip->events_mask);
--	chip->ops->read_events(chip, &tmp);
--
--	ret = devm_request_irq(&client->dev, client->irq, da903x_irq_handler,
--			IRQF_TRIGGER_FALLING,
--			"da903x", chip);
--	if (ret) {
--		dev_err(&client->dev, "failed to request irq %d\n",
--				client->irq);
--		return ret;
--	}
--
--	return da903x_add_subdevs(chip, pdata);
+-	return wm8400_init(wm8400, dev_get_platdata(&i2c->dev));
 -}
 -
--static void da903x_remove(struct i2c_client *client)
--{
--	struct da903x_chip *chip = i2c_get_clientdata(client);
+-static const struct i2c_device_id wm8400_i2c_id[] = {
+-       { "wm8400" },
+-       { }
+-};
 -
--	da903x_remove_subdevs(chip);
--}
--
--static struct i2c_driver da903x_driver = {
--	.driver	= {
--		.name	= "da903x",
+-static struct i2c_driver wm8400_i2c_driver = {
+-	.driver = {
+-		.name = "WM8400",
 -	},
--	.probe		= da903x_probe,
--	.remove		= da903x_remove,
--	.id_table	= da903x_id_table,
+-	.probe = wm8400_i2c_probe,
+-	.id_table = wm8400_i2c_id,
 -};
--
--static int __init da903x_init(void)
--{
--	return i2c_add_driver(&da903x_driver);
--}
--subsys_initcall(da903x_init);
--
--static void __exit da903x_exit(void)
--{
--	i2c_del_driver(&da903x_driver);
--}
--module_exit(da903x_exit);
--
--MODULE_DESCRIPTION("PMIC Driver for Dialog Semiconductor DA9034");
--MODULE_AUTHOR("Eric Miao <eric.miao@marvell.com>");
--MODULE_AUTHOR("Mike Rapoport <mike@compulab.co.il>");
-diff --git a/drivers/power/supply/Kconfig b/drivers/power/supply/Kconfig
-index b89ef40df7f8..a492c86e879a 100644
---- a/drivers/power/supply/Kconfig
-+++ b/drivers/power/supply/Kconfig
-@@ -345,13 +345,6 @@ config BATTERY_BQ27XXX_DT_UPDATES_NVM
- 	  general-purpose kernels, as this can cause misconfiguration of a
- 	  smart battery with embedded NVM/flash.
- 
--config BATTERY_DA9030
--	tristate "DA9030 battery driver"
--	depends on PMIC_DA903X
--	help
--	  Say Y here to enable support for batteries charger integrated into
--	  DA9030 PMIC.
--
- config BATTERY_DA9052
- 	tristate "Dialog DA9052 Battery"
- 	depends on PMIC_DA9052
-diff --git a/drivers/power/supply/Makefile b/drivers/power/supply/Makefile
-index f3c0d1006c1a..380546080112 100644
---- a/drivers/power/supply/Makefile
-+++ b/drivers/power/supply/Makefile
-@@ -52,7 +52,6 @@ obj-$(CONFIG_MANAGER_SBS)	+= sbs-manager.o
- obj-$(CONFIG_BATTERY_BQ27XXX)	+= bq27xxx_battery.o
- obj-$(CONFIG_BATTERY_BQ27XXX_I2C) += bq27xxx_battery_i2c.o
- obj-$(CONFIG_BATTERY_BQ27XXX_HDQ) += bq27xxx_battery_hdq.o
--obj-$(CONFIG_BATTERY_DA9030)	+= da9030_battery.o
- obj-$(CONFIG_BATTERY_DA9052)	+= da9052-battery.o
- obj-$(CONFIG_CHARGER_DA9150)	+= da9150-charger.o
- obj-$(CONFIG_BATTERY_DA9150)	+= da9150-fg.o
-diff --git a/drivers/power/supply/da9030_battery.c b/drivers/power/supply/da9030_battery.c
-deleted file mode 100644
-index d25279c26030..000000000000
---- a/drivers/power/supply/da9030_battery.c
-+++ /dev/null
-@@ -1,581 +0,0 @@
--// SPDX-License-Identifier: GPL-2.0-only
--/*
-- * Battery charger driver for Dialog Semiconductor DA9030
-- *
-- * Copyright (C) 2008 Compulab, Ltd.
-- * 	Mike Rapoport <mike@compulab.co.il>
-- */
--
--#include <linux/kernel.h>
--#include <linux/slab.h>
--#include <linux/init.h>
--#include <linux/types.h>
--#include <linux/device.h>
--#include <linux/workqueue.h>
--#include <linux/module.h>
--#include <linux/platform_device.h>
--#include <linux/power_supply.h>
--#include <linux/string_choices.h>
--#include <linux/mfd/da903x.h>
--
--#include <linux/debugfs.h>
--#include <linux/seq_file.h>
--#include <linux/notifier.h>
--
--#define DA9030_FAULT_LOG		0x0a
--#define DA9030_FAULT_LOG_OVER_TEMP	(1 << 7)
--#define DA9030_FAULT_LOG_VBAT_OVER	(1 << 4)
--
--#define DA9030_CHARGE_CONTROL		0x28
--#define DA9030_CHRG_CHARGER_ENABLE	(1 << 7)
--
--#define DA9030_ADC_MAN_CONTROL		0x30
--#define DA9030_ADC_TBATREF_ENABLE	(1 << 5)
--#define DA9030_ADC_LDO_INT_ENABLE	(1 << 4)
--
--#define DA9030_ADC_AUTO_CONTROL		0x31
--#define DA9030_ADC_TBAT_ENABLE		(1 << 5)
--#define DA9030_ADC_VBAT_IN_TXON		(1 << 4)
--#define DA9030_ADC_VCH_ENABLE		(1 << 3)
--#define DA9030_ADC_ICH_ENABLE		(1 << 2)
--#define DA9030_ADC_VBAT_ENABLE		(1 << 1)
--#define DA9030_ADC_AUTO_SLEEP_ENABLE	(1 << 0)
--
--#define DA9030_VBATMON		0x32
--#define DA9030_VBATMONTXON	0x33
--#define DA9030_TBATHIGHP	0x34
--#define DA9030_TBATHIGHN	0x35
--#define DA9030_TBATLOW		0x36
--
--#define DA9030_VBAT_RES		0x41
--#define DA9030_VBATMIN_RES	0x42
--#define DA9030_VBATMINTXON_RES	0x43
--#define DA9030_ICHMAX_RES	0x44
--#define DA9030_ICHMIN_RES	0x45
--#define DA9030_ICHAVERAGE_RES	0x46
--#define DA9030_VCHMAX_RES	0x47
--#define DA9030_VCHMIN_RES	0x48
--#define DA9030_TBAT_RES		0x49
--
--struct da9030_adc_res {
--	uint8_t vbat_res;
--	uint8_t vbatmin_res;
--	uint8_t vbatmintxon;
--	uint8_t ichmax_res;
--	uint8_t ichmin_res;
--	uint8_t ichaverage_res;
--	uint8_t vchmax_res;
--	uint8_t vchmin_res;
--	uint8_t tbat_res;
--	uint8_t adc_in4_res;
--	uint8_t adc_in5_res;
--};
--
--struct da9030_battery_thresholds {
--	int tbat_low;
--	int tbat_high;
--	int tbat_restart;
--
--	int vbat_low;
--	int vbat_crit;
--	int vbat_charge_start;
--	int vbat_charge_stop;
--	int vbat_charge_restart;
--
--	int vcharge_min;
--	int vcharge_max;
--};
--
--struct da9030_charger {
--	struct power_supply *psy;
--	struct power_supply_desc psy_desc;
--
--	struct device *master;
--
--	struct da9030_adc_res adc;
--	struct delayed_work work;
--	unsigned int interval;
--
--	struct power_supply_info *battery_info;
--
--	struct da9030_battery_thresholds thresholds;
--
--	unsigned int charge_milliamp;
--	unsigned int charge_millivolt;
--
--	/* charger status */
--	bool chdet;
--	uint8_t fault;
--	int mA;
--	int mV;
--	bool is_on;
--
--	struct notifier_block nb;
--
--	/* platform callbacks for battery low and critical events */
--	void (*battery_low)(void);
--	void (*battery_critical)(void);
--
--	struct dentry *debug_file;
--};
--
--static inline int da9030_reg_to_mV(int reg)
--{
--	return ((reg * 2650) >> 8) + 2650;
--}
--
--static inline int da9030_millivolt_to_reg(int mV)
--{
--	return ((mV - 2650) << 8) / 2650;
--}
--
--static inline int da9030_reg_to_mA(int reg)
--{
--	return ((reg * 24000) >> 8) / 15;
--}
--
--#ifdef CONFIG_DEBUG_FS
--static int bat_debug_show(struct seq_file *s, void *data)
--{
--	struct da9030_charger *charger = s->private;
--
--	seq_printf(s, "charger is %s\n", str_on_off(charger->is_on));
--	if (charger->chdet) {
--		seq_printf(s, "iset = %dmA, vset = %dmV\n",
--			   charger->mA, charger->mV);
--	}
--
--	seq_printf(s, "vbat_res = %d (%dmV)\n",
--		   charger->adc.vbat_res,
--		   da9030_reg_to_mV(charger->adc.vbat_res));
--	seq_printf(s, "vbatmin_res = %d (%dmV)\n",
--		   charger->adc.vbatmin_res,
--		   da9030_reg_to_mV(charger->adc.vbatmin_res));
--	seq_printf(s, "vbatmintxon = %d (%dmV)\n",
--		   charger->adc.vbatmintxon,
--		   da9030_reg_to_mV(charger->adc.vbatmintxon));
--	seq_printf(s, "ichmax_res = %d (%dmA)\n",
--		   charger->adc.ichmax_res,
--		   da9030_reg_to_mV(charger->adc.ichmax_res));
--	seq_printf(s, "ichmin_res = %d (%dmA)\n",
--		   charger->adc.ichmin_res,
--		   da9030_reg_to_mA(charger->adc.ichmin_res));
--	seq_printf(s, "ichaverage_res = %d (%dmA)\n",
--		   charger->adc.ichaverage_res,
--		   da9030_reg_to_mA(charger->adc.ichaverage_res));
--	seq_printf(s, "vchmax_res = %d (%dmV)\n",
--		   charger->adc.vchmax_res,
--		   da9030_reg_to_mA(charger->adc.vchmax_res));
--	seq_printf(s, "vchmin_res = %d (%dmV)\n",
--		   charger->adc.vchmin_res,
--		   da9030_reg_to_mV(charger->adc.vchmin_res));
--
--	return 0;
--}
--
--DEFINE_SHOW_ATTRIBUTE(bat_debug);
--
--static struct dentry *da9030_bat_create_debugfs(struct da9030_charger *charger)
--{
--	charger->debug_file = debugfs_create_file("charger", 0666, NULL,
--						  charger, &bat_debug_fops);
--	return charger->debug_file;
--}
--
--static void da9030_bat_remove_debugfs(struct da9030_charger *charger)
--{
--	debugfs_remove(charger->debug_file);
--}
--#else
--static inline struct dentry *da9030_bat_create_debugfs(struct da9030_charger *charger)
--{
--	return NULL;
--}
--static inline void da9030_bat_remove_debugfs(struct da9030_charger *charger)
--{
--}
 -#endif
 -
--static inline void da9030_read_adc(struct da9030_charger *charger,
--				   struct da9030_adc_res *adc)
+-static int __init wm8400_driver_init(void)
 -{
--	da903x_reads(charger->master, DA9030_VBAT_RES,
--		     sizeof(*adc), (uint8_t *)adc);
--}
+-	int ret = -ENODEV;
 -
--static void da9030_charger_update_state(struct da9030_charger *charger)
--{
--	uint8_t val;
+-#if IS_ENABLED(CONFIG_I2C)
+-	ret = i2c_add_driver(&wm8400_i2c_driver);
+-	if (ret != 0)
+-		pr_err("Failed to register I2C driver: %d\n", ret);
+-#endif
 -
--	da903x_read(charger->master, DA9030_CHARGE_CONTROL, &val);
--	charger->is_on = (val & DA9030_CHRG_CHARGER_ENABLE) ? 1 : 0;
--	charger->mA = ((val >> 3) & 0xf) * 100;
--	charger->mV = (val & 0x7) * 50 + 4000;
--
--	da9030_read_adc(charger, &charger->adc);
--	da903x_read(charger->master, DA9030_FAULT_LOG, &charger->fault);
--	charger->chdet = da903x_query_status(charger->master,
--						     DA9030_STATUS_CHDET);
--}
--
--static void da9030_set_charge(struct da9030_charger *charger, int on)
--{
--	uint8_t val;
--
--	if (on) {
--		val = DA9030_CHRG_CHARGER_ENABLE;
--		val |= (charger->charge_milliamp / 100) << 3;
--		val |= (charger->charge_millivolt - 4000) / 50;
--		charger->is_on = 1;
--	} else {
--		val = 0;
--		charger->is_on = 0;
--	}
--
--	da903x_write(charger->master, DA9030_CHARGE_CONTROL, val);
--
--	power_supply_changed(charger->psy);
--}
--
--static void da9030_charger_check_state(struct da9030_charger *charger)
--{
--	da9030_charger_update_state(charger);
--
--	/* we wake or boot with external power on */
--	if (!charger->is_on) {
--		if ((charger->chdet) &&
--		    (charger->adc.vbat_res <
--		     charger->thresholds.vbat_charge_start)) {
--			da9030_set_charge(charger, 1);
--		}
--	} else {
--		/* Charger has been pulled out */
--		if (!charger->chdet) {
--			da9030_set_charge(charger, 0);
--			return;
--		}
--
--		if (charger->adc.vbat_res >=
--		    charger->thresholds.vbat_charge_stop) {
--			da9030_set_charge(charger, 0);
--			da903x_write(charger->master, DA9030_VBATMON,
--				       charger->thresholds.vbat_charge_restart);
--		} else if (charger->adc.vbat_res >
--			   charger->thresholds.vbat_low) {
--			/* we are charging and passed LOW_THRESH,
--			   so upate DA9030 VBAT threshold
--			 */
--			da903x_write(charger->master, DA9030_VBATMON,
--				     charger->thresholds.vbat_low);
--		}
--		if (charger->adc.vchmax_res > charger->thresholds.vcharge_max ||
--		    charger->adc.vchmin_res < charger->thresholds.vcharge_min ||
--		    /* Temperature readings are negative */
--		    charger->adc.tbat_res < charger->thresholds.tbat_high ||
--		    charger->adc.tbat_res > charger->thresholds.tbat_low) {
--			/* disable charger */
--			da9030_set_charge(charger, 0);
--		}
--	}
--}
--
--static void da9030_charging_monitor(struct work_struct *work)
--{
--	struct da9030_charger *charger;
--
--	charger = container_of(work, struct da9030_charger, work.work);
--
--	da9030_charger_check_state(charger);
--
--	/* reschedule for the next time */
--	schedule_delayed_work(&charger->work, charger->interval);
--}
--
--static enum power_supply_property da9030_battery_props[] = {
--	POWER_SUPPLY_PROP_MODEL_NAME,
--	POWER_SUPPLY_PROP_STATUS,
--	POWER_SUPPLY_PROP_HEALTH,
--	POWER_SUPPLY_PROP_TECHNOLOGY,
--	POWER_SUPPLY_PROP_VOLTAGE_MAX_DESIGN,
--	POWER_SUPPLY_PROP_VOLTAGE_MIN_DESIGN,
--	POWER_SUPPLY_PROP_VOLTAGE_NOW,
--	POWER_SUPPLY_PROP_CURRENT_AVG,
--};
--
--static void da9030_battery_check_status(struct da9030_charger *charger,
--				    union power_supply_propval *val)
--{
--	if (charger->chdet) {
--		if (charger->is_on)
--			val->intval = POWER_SUPPLY_STATUS_CHARGING;
--		else
--			val->intval = POWER_SUPPLY_STATUS_NOT_CHARGING;
--	} else {
--		val->intval = POWER_SUPPLY_STATUS_DISCHARGING;
--	}
--}
--
--static void da9030_battery_check_health(struct da9030_charger *charger,
--				    union power_supply_propval *val)
--{
--	if (charger->fault & DA9030_FAULT_LOG_OVER_TEMP)
--		val->intval = POWER_SUPPLY_HEALTH_OVERHEAT;
--	else if (charger->fault & DA9030_FAULT_LOG_VBAT_OVER)
--		val->intval = POWER_SUPPLY_HEALTH_OVERVOLTAGE;
--	else
--		val->intval = POWER_SUPPLY_HEALTH_GOOD;
--}
--
--static int da9030_battery_get_property(struct power_supply *psy,
--				   enum power_supply_property psp,
--				   union power_supply_propval *val)
--{
--	struct da9030_charger *charger = power_supply_get_drvdata(psy);
--
--	switch (psp) {
--	case POWER_SUPPLY_PROP_STATUS:
--		da9030_battery_check_status(charger, val);
--		break;
--	case POWER_SUPPLY_PROP_HEALTH:
--		da9030_battery_check_health(charger, val);
--		break;
--	case POWER_SUPPLY_PROP_TECHNOLOGY:
--		val->intval = charger->battery_info->technology;
--		break;
--	case POWER_SUPPLY_PROP_VOLTAGE_MAX_DESIGN:
--		val->intval = charger->battery_info->voltage_max_design;
--		break;
--	case POWER_SUPPLY_PROP_VOLTAGE_MIN_DESIGN:
--		val->intval = charger->battery_info->voltage_min_design;
--		break;
--	case POWER_SUPPLY_PROP_VOLTAGE_NOW:
--		val->intval = da9030_reg_to_mV(charger->adc.vbat_res) * 1000;
--		break;
--	case POWER_SUPPLY_PROP_CURRENT_AVG:
--		val->intval =
--			da9030_reg_to_mA(charger->adc.ichaverage_res) * 1000;
--		break;
--	case POWER_SUPPLY_PROP_MODEL_NAME:
--		val->strval = charger->battery_info->name;
--		break;
--	default:
--		break;
--	}
--
--	return 0;
--}
--
--static void da9030_battery_vbat_event(struct da9030_charger *charger)
--{
--	da9030_read_adc(charger, &charger->adc);
--
--	if (charger->is_on)
--		return;
--
--	if (charger->adc.vbat_res < charger->thresholds.vbat_low) {
--		/* set VBAT threshold for critical */
--		da903x_write(charger->master, DA9030_VBATMON,
--			     charger->thresholds.vbat_crit);
--		if (charger->battery_low)
--			charger->battery_low();
--	} else if (charger->adc.vbat_res <
--		   charger->thresholds.vbat_crit) {
--		/* notify the system of battery critical */
--		if (charger->battery_critical)
--			charger->battery_critical();
--	}
--}
--
--static int da9030_battery_event(struct notifier_block *nb, unsigned long event,
--				void *data)
--{
--	struct da9030_charger *charger =
--		container_of(nb, struct da9030_charger, nb);
--
--	switch (event) {
--	case DA9030_EVENT_CHDET:
--		cancel_delayed_work_sync(&charger->work);
--		schedule_work(&charger->work.work);
--		break;
--	case DA9030_EVENT_VBATMON:
--		da9030_battery_vbat_event(charger);
--		break;
--	case DA9030_EVENT_CHIOVER:
--	case DA9030_EVENT_TBAT:
--		da9030_set_charge(charger, 0);
--		break;
--	}
--
--	return 0;
--}
--
--static void da9030_battery_convert_thresholds(struct da9030_charger *charger,
--					      struct da9030_battery_info *pdata)
--{
--	charger->thresholds.tbat_low = pdata->tbat_low;
--	charger->thresholds.tbat_high = pdata->tbat_high;
--	charger->thresholds.tbat_restart  = pdata->tbat_restart;
--
--	charger->thresholds.vbat_low =
--		da9030_millivolt_to_reg(pdata->vbat_low);
--	charger->thresholds.vbat_crit =
--		da9030_millivolt_to_reg(pdata->vbat_crit);
--	charger->thresholds.vbat_charge_start =
--		da9030_millivolt_to_reg(pdata->vbat_charge_start);
--	charger->thresholds.vbat_charge_stop =
--		da9030_millivolt_to_reg(pdata->vbat_charge_stop);
--	charger->thresholds.vbat_charge_restart =
--		da9030_millivolt_to_reg(pdata->vbat_charge_restart);
--
--	charger->thresholds.vcharge_min =
--		da9030_millivolt_to_reg(pdata->vcharge_min);
--	charger->thresholds.vcharge_max =
--		da9030_millivolt_to_reg(pdata->vcharge_max);
--}
--
--static void da9030_battery_setup_psy(struct da9030_charger *charger)
--{
--	struct power_supply_desc *psy_desc = &charger->psy_desc;
--	struct power_supply_info *info = charger->battery_info;
--
--	psy_desc->name = info->name;
--	psy_desc->use_for_apm = info->use_for_apm;
--	psy_desc->type = POWER_SUPPLY_TYPE_BATTERY;
--	psy_desc->get_property = da9030_battery_get_property;
--
--	psy_desc->properties = da9030_battery_props;
--	psy_desc->num_properties = ARRAY_SIZE(da9030_battery_props);
--};
--
--static int da9030_battery_charger_init(struct da9030_charger *charger)
--{
--	char v[5];
--	int ret;
--
--	v[0] = v[1] = charger->thresholds.vbat_low;
--	v[2] = charger->thresholds.tbat_high;
--	v[3] = charger->thresholds.tbat_restart;
--	v[4] = charger->thresholds.tbat_low;
--
--	ret = da903x_writes(charger->master, DA9030_VBATMON, 5, v);
--	if (ret)
--		return ret;
--
--	/*
--	 * Enable reference voltage supply for ADC from the LDO_INTERNAL
--	 * regulator. Must be set before ADC measurements can be made.
--	 */
--	ret = da903x_write(charger->master, DA9030_ADC_MAN_CONTROL,
--			   DA9030_ADC_LDO_INT_ENABLE |
--			   DA9030_ADC_TBATREF_ENABLE);
--	if (ret)
--		return ret;
--
--	/* enable auto ADC measurements */
--	return da903x_write(charger->master, DA9030_ADC_AUTO_CONTROL,
--			    DA9030_ADC_TBAT_ENABLE | DA9030_ADC_VBAT_IN_TXON |
--			    DA9030_ADC_VCH_ENABLE | DA9030_ADC_ICH_ENABLE |
--			    DA9030_ADC_VBAT_ENABLE |
--			    DA9030_ADC_AUTO_SLEEP_ENABLE);
--}
--
--static int da9030_battery_probe(struct platform_device *pdev)
--{
--	struct da9030_charger *charger;
--	struct power_supply_config psy_cfg = {};
--	struct da9030_battery_info *pdata = pdev->dev.platform_data;
--	int ret;
--
--	if (pdata == NULL)
--		return -EINVAL;
--
--	if (pdata->charge_milliamp >= 1500 ||
--	    pdata->charge_millivolt < 4000 ||
--	    pdata->charge_millivolt > 4350)
--		return -EINVAL;
--
--	charger = devm_kzalloc(&pdev->dev, sizeof(*charger), GFP_KERNEL);
--	if (charger == NULL)
--		return -ENOMEM;
--
--	charger->master = pdev->dev.parent;
--
--	/* 10 seconds between monitor runs unless platform defines other
--	   interval */
--	charger->interval = secs_to_jiffies(pdata->batmon_interval ? : 10);
--
--	charger->charge_milliamp = pdata->charge_milliamp;
--	charger->charge_millivolt = pdata->charge_millivolt;
--	charger->battery_info = pdata->battery_info;
--	charger->battery_low = pdata->battery_low;
--	charger->battery_critical = pdata->battery_critical;
--
--	da9030_battery_convert_thresholds(charger, pdata);
--
--	ret = da9030_battery_charger_init(charger);
--	if (ret)
--		goto err_charger_init;
--
--	INIT_DELAYED_WORK(&charger->work, da9030_charging_monitor);
--	schedule_delayed_work(&charger->work, charger->interval);
--
--	charger->nb.notifier_call = da9030_battery_event;
--	ret = da903x_register_notifier(charger->master, &charger->nb,
--				       DA9030_EVENT_CHDET |
--				       DA9030_EVENT_VBATMON |
--				       DA9030_EVENT_CHIOVER |
--				       DA9030_EVENT_TBAT);
--	if (ret)
--		goto err_notifier;
--
--	da9030_battery_setup_psy(charger);
--	psy_cfg.drv_data = charger;
--	charger->psy = devm_power_supply_register(&pdev->dev,
--						  &charger->psy_desc,
--						  &psy_cfg);
--	if (IS_ERR(charger->psy)) {
--		ret = PTR_ERR(charger->psy);
--		goto err_ps_register;
--	}
--
--	charger->debug_file = da9030_bat_create_debugfs(charger);
--	platform_set_drvdata(pdev, charger);
--	return 0;
--
--err_ps_register:
--	da903x_unregister_notifier(charger->master, &charger->nb,
--				   DA9030_EVENT_CHDET | DA9030_EVENT_VBATMON |
--				   DA9030_EVENT_CHIOVER | DA9030_EVENT_TBAT);
--err_notifier:
--	cancel_delayed_work(&charger->work);
--
--err_charger_init:
 -	return ret;
 -}
--
--static void da9030_battery_remove(struct platform_device *dev)
--{
--	struct da9030_charger *charger = platform_get_drvdata(dev);
--
--	da9030_bat_remove_debugfs(charger);
--
--	da903x_unregister_notifier(charger->master, &charger->nb,
--				   DA9030_EVENT_CHDET | DA9030_EVENT_VBATMON |
--				   DA9030_EVENT_CHIOVER | DA9030_EVENT_TBAT);
--	cancel_delayed_work_sync(&charger->work);
--	da9030_set_charge(charger, 0);
--}
--
--static struct platform_driver da903x_battery_driver = {
--	.driver	= {
--		.name	= "da903x-battery",
--	},
--	.probe = da9030_battery_probe,
--	.remove = da9030_battery_remove,
--};
--
--module_platform_driver(da903x_battery_driver);
--
--MODULE_DESCRIPTION("DA9030 battery charger driver");
--MODULE_AUTHOR("Mike Rapoport, CompuLab");
--MODULE_LICENSE("GPL");
+-subsys_initcall(wm8400_driver_init);
 diff --git a/drivers/regulator/Kconfig b/drivers/regulator/Kconfig
-index 4869a1d5041b..7d587ffc0a89 100644
+index 73b43dc1b3be..4869a1d5041b 100644
 --- a/drivers/regulator/Kconfig
 +++ b/drivers/regulator/Kconfig
-@@ -312,14 +312,6 @@ config REGULATOR_CROS_EC
- 	  This driver can also be built as a module. If so, the module
- 	  will be called cros-ec-regulator.
+@@ -1862,13 +1862,6 @@ config REGULATOR_WM8350
+ 	  This driver provides support for the voltage and current regulators
+ 	  of the WM8350 AudioPlus PMIC.
  
--config REGULATOR_DA903X
--	tristate "Dialog Semiconductor DA9030/DA9034 regulators"
--	depends on PMIC_DA903X
--	depends on !CC_IS_CLANG # https://llvm.org/pr38789
+-config REGULATOR_WM8400
+-	tristate "Wolfson Microelectronics WM8400 AudioPlus PMIC"
+-	depends on MFD_WM8400
 -	help
--	  Say y here to support the BUCKs and LDOs regulators found on
--	  Dialog Semiconductor DA9030/DA9034 PMIC.
+-	  This driver provides support for the voltage regulators of the
+-	  WM8400 AudioPlus PMIC.
 -
- config REGULATOR_DA9052
- 	tristate "Dialog Semiconductor DA9052/DA9053 regulators"
- 	depends on PMIC_DA9052
+ config REGULATOR_WM8994
+ 	tristate "Wolfson Microelectronics WM8994 CODEC"
+ 	depends on MFD_WM8994
 diff --git a/drivers/regulator/Makefile b/drivers/regulator/Makefile
-index 86b5afcc974e..a1344d3c3fd3 100644
+index 972f105567b5..86b5afcc974e 100644
 --- a/drivers/regulator/Makefile
 +++ b/drivers/regulator/Makefile
-@@ -38,7 +38,6 @@ obj-$(CONFIG_REGULATOR_BD718XX) += bd718x7-regulator.o
- obj-$(CONFIG_REGULATOR_BD9571MWV) += bd9571mwv-regulator.o
- obj-$(CONFIG_REGULATOR_BD957XMUF) += bd9576-regulator.o
- obj-$(CONFIG_REGULATOR_BQ257XX) += bq257xx-regulator.o
--obj-$(CONFIG_REGULATOR_DA903X)	+= da903x-regulator.o
- obj-$(CONFIG_REGULATOR_BD96801) += bd96801-regulator.o
- obj-$(CONFIG_REGULATOR_DA9052)	+= da9052-regulator.o
- obj-$(CONFIG_REGULATOR_DA9055)	+= da9055-regulator.o
-diff --git a/drivers/regulator/da903x-regulator.c b/drivers/regulator/da903x-regulator.c
+@@ -215,7 +215,6 @@ obj-$(CONFIG_REGULATOR_WM831X) += wm831x-dcdc.o
+ obj-$(CONFIG_REGULATOR_WM831X) += wm831x-isink.o
+ obj-$(CONFIG_REGULATOR_WM831X) += wm831x-ldo.o
+ obj-$(CONFIG_REGULATOR_WM8350) += wm8350-regulator.o
+-obj-$(CONFIG_REGULATOR_WM8400) += wm8400-regulator.o
+ obj-$(CONFIG_REGULATOR_WM8994) += wm8994-regulator.o
+ 
+ ccflags-$(CONFIG_REGULATOR_DEBUG) += -DDEBUG
+diff --git a/drivers/regulator/wm8400-regulator.c b/drivers/regulator/wm8400-regulator.c
 deleted file mode 100644
-index 2f85897183b3..000000000000
---- a/drivers/regulator/da903x-regulator.c
+index fb3ca7956d00..000000000000
+--- a/drivers/regulator/wm8400-regulator.c
 +++ /dev/null
-@@ -1,495 +0,0 @@
--// SPDX-License-Identifier: GPL-2.0
+@@ -1,276 +0,0 @@
+-// SPDX-License-Identifier: GPL-2.0+
 -//
--// Regulators driver for Dialog Semiconductor DA903x
+-// Regulator support for WM8400
 -//
--// Copyright (C) 2006-2008 Marvell International Ltd.
--// Copyright (C) 2008 Compulab Ltd.
+-// Copyright 2008 Wolfson Microelectronics PLC.
+-//
+-// Author: Mark Brown <broonie@opensource.wolfsonmicro.com>
 -
--#include <linux/kernel.h>
--#include <linux/init.h>
+-#include <linux/bug.h>
 -#include <linux/err.h>
+-#include <linux/kernel.h>
 -#include <linux/module.h>
--#include <linux/platform_device.h>
 -#include <linux/regulator/driver.h>
--#include <linux/regulator/machine.h>
--#include <linux/mfd/da903x.h>
+-#include <linux/mfd/wm8400-private.h>
 -
--/* DA9030 Registers */
--#define DA9030_INVAL		(-1)
--#define DA9030_LDO1011		(0x10)
--#define DA9030_LDO15		(0x11)
--#define DA9030_LDO1416		(0x12)
--#define DA9030_LDO1819		(0x13)
--#define DA9030_LDO17		(0x14)
--#define DA9030_BUCK2DVM1	(0x15)
--#define DA9030_BUCK2DVM2	(0x16)
--#define DA9030_RCTL11		(0x17)
--#define DA9030_RCTL21		(0x18)
--#define DA9030_LDO1		(0x90)
--#define DA9030_LDO23		(0x91)
--#define DA9030_LDO45		(0x92)
--#define DA9030_LDO6		(0x93)
--#define DA9030_LDO78		(0x94)
--#define DA9030_LDO912		(0x95)
--#define DA9030_BUCK		(0x96)
--#define DA9030_RCTL12		(0x97)
--#define DA9030_RCTL22		(0x98)
--#define DA9030_LDO_UNLOCK	(0xa0)
--#define DA9030_LDO_UNLOCK_MASK	(0xe0)
--#define DA9034_OVER1		(0x10)
--
--/* DA9034 Registers */
--#define DA9034_INVAL		(-1)
--#define DA9034_OVER2		(0x11)
--#define DA9034_OVER3		(0x12)
--#define DA9034_LDO643		(0x13)
--#define DA9034_LDO987		(0x14)
--#define DA9034_LDO1110		(0x15)
--#define DA9034_LDO1312		(0x16)
--#define DA9034_LDO1514		(0x17)
--#define DA9034_VCC1		(0x20)
--#define DA9034_ADTV1		(0x23)
--#define DA9034_ADTV2		(0x24)
--#define DA9034_AVRC		(0x25)
--#define DA9034_CDTV1		(0x26)
--#define DA9034_CDTV2		(0x27)
--#define DA9034_CVRC		(0x28)
--#define DA9034_SDTV1		(0x29)
--#define DA9034_SDTV2		(0x2a)
--#define DA9034_SVRC		(0x2b)
--#define DA9034_MDTV1		(0x32)
--#define DA9034_MDTV2		(0x33)
--#define DA9034_MVRC		(0x34)
--
--/* DA9035 Registers. DA9034 Registers are compatible to DA9035. */
--#define DA9035_OVER3		(0x12)
--#define DA9035_VCC2		(0x1f)
--#define DA9035_3DTV1		(0x2c)
--#define DA9035_3DTV2		(0x2d)
--#define DA9035_3VRC		(0x2e)
--#define DA9035_AUTOSKIP		(0x2f)
--
--struct da903x_regulator_info {
--	struct regulator_desc desc;
--
--	int	max_uV;
--	int	vol_reg;
--	int	vol_shift;
--	int	vol_nbits;
--	int	update_reg;
--	int	update_bit;
--	int	enable_reg;
--	int	enable_bit;
+-static const struct linear_range wm8400_ldo_ranges[] = {
+-	REGULATOR_LINEAR_RANGE(900000, 0, 14, 50000),
+-	REGULATOR_LINEAR_RANGE(1700000, 15, 31, 100000),
 -};
 -
--static inline struct device *to_da903x_dev(struct regulator_dev *rdev)
+-static const struct regulator_ops wm8400_ldo_ops = {
+-	.is_enabled = regulator_is_enabled_regmap,
+-	.enable = regulator_enable_regmap,
+-	.disable = regulator_disable_regmap,
+-	.list_voltage = regulator_list_voltage_linear_range,
+-	.get_voltage_sel = regulator_get_voltage_sel_regmap,
+-	.set_voltage_sel = regulator_set_voltage_sel_regmap,
+-	.map_voltage = regulator_map_voltage_linear_range,
+-};
+-
+-static unsigned int wm8400_dcdc_get_mode(struct regulator_dev *dev)
 -{
--	return rdev_get_dev(rdev)->parent->parent;
--}
--
--static inline int check_range(struct da903x_regulator_info *info,
--				int min_uV, int max_uV)
--{
--	if (min_uV < info->desc.min_uV || min_uV > info->max_uV)
--		return -EINVAL;
--
--	return 0;
--}
--
--/* DA9030/DA9034 common operations */
--static int da903x_set_voltage_sel(struct regulator_dev *rdev, unsigned selector)
--{
--	struct da903x_regulator_info *info = rdev_get_drvdata(rdev);
--	struct device *da9034_dev = to_da903x_dev(rdev);
--	uint8_t val, mask;
--
--	if (rdev->desc->n_voltages == 1)
--		return -EINVAL;
--
--	val = selector << info->vol_shift;
--	mask = ((1 << info->vol_nbits) - 1)  << info->vol_shift;
--
--	return da903x_update(da9034_dev, info->vol_reg, val, mask);
--}
--
--static int da903x_get_voltage_sel(struct regulator_dev *rdev)
--{
--	struct da903x_regulator_info *info = rdev_get_drvdata(rdev);
--	struct device *da9034_dev = to_da903x_dev(rdev);
--	uint8_t val, mask;
+-	struct regmap *rmap = rdev_get_regmap(dev);
+-	int offset = (rdev_get_id(dev) - WM8400_DCDC1) * 2;
+-	u16 data[2];
 -	int ret;
 -
--	if (rdev->desc->n_voltages == 1)
+-	ret = regmap_bulk_read(rmap, WM8400_DCDC1_CONTROL_1 + offset, data, 2);
+-	if (ret != 0)
 -		return 0;
 -
--	ret = da903x_read(da9034_dev, info->vol_reg, &val);
--	if (ret)
--		return ret;
+-	/* Datasheet: hibernate */
+-	if (data[0] & WM8400_DC1_SLEEP)
+-		return REGULATOR_MODE_STANDBY;
 -
--	mask = ((1 << info->vol_nbits) - 1)  << info->vol_shift;
--	val = (val & mask) >> info->vol_shift;
+-	/* Datasheet: standby */
+-	if (!(data[0] & WM8400_DC1_ACTIVE))
+-		return REGULATOR_MODE_IDLE;
 -
--	return val;
--}
--
--static int da903x_enable(struct regulator_dev *rdev)
--{
--	struct da903x_regulator_info *info = rdev_get_drvdata(rdev);
--	struct device *da9034_dev = to_da903x_dev(rdev);
--
--	return da903x_set_bits(da9034_dev, info->enable_reg,
--					1 << info->enable_bit);
--}
--
--static int da903x_disable(struct regulator_dev *rdev)
--{
--	struct da903x_regulator_info *info = rdev_get_drvdata(rdev);
--	struct device *da9034_dev = to_da903x_dev(rdev);
--
--	return da903x_clr_bits(da9034_dev, info->enable_reg,
--					1 << info->enable_bit);
--}
--
--static int da903x_is_enabled(struct regulator_dev *rdev)
--{
--	struct da903x_regulator_info *info = rdev_get_drvdata(rdev);
--	struct device *da9034_dev = to_da903x_dev(rdev);
--	uint8_t reg_val;
--	int ret;
--
--	ret = da903x_read(da9034_dev, info->enable_reg, &reg_val);
--	if (ret)
--		return ret;
--
--	return !!(reg_val & (1 << info->enable_bit));
--}
--
--/* DA9030 specific operations */
--static int da9030_set_ldo1_15_voltage_sel(struct regulator_dev *rdev,
--					  unsigned selector)
--{
--	struct da903x_regulator_info *info = rdev_get_drvdata(rdev);
--	struct device *da903x_dev = to_da903x_dev(rdev);
--	uint8_t val, mask;
--	int ret;
--
--	val = selector << info->vol_shift;
--	mask = ((1 << info->vol_nbits) - 1)  << info->vol_shift;
--	val |= DA9030_LDO_UNLOCK; /* have to set UNLOCK bits */
--	mask |= DA9030_LDO_UNLOCK_MASK;
--
--	/* write twice */
--	ret = da903x_update(da903x_dev, info->vol_reg, val, mask);
--	if (ret)
--		return ret;
--
--	return da903x_update(da903x_dev, info->vol_reg, val, mask);
--}
--
--static int da9030_map_ldo14_voltage(struct regulator_dev *rdev,
--				    int min_uV, int max_uV)
--{
--	struct da903x_regulator_info *info = rdev_get_drvdata(rdev);
--	int thresh, sel;
--
--	if (check_range(info, min_uV, max_uV)) {
--		pr_err("invalid voltage range (%d, %d) uV\n", min_uV, max_uV);
--		return -EINVAL;
--	}
--
--	thresh = (info->max_uV + info->desc.min_uV) / 2;
--	if (min_uV < thresh) {
--		sel = DIV_ROUND_UP(thresh - min_uV, info->desc.uV_step);
--		sel |= 0x4;
--	} else {
--		sel = DIV_ROUND_UP(min_uV - thresh, info->desc.uV_step);
--	}
--
--	return sel;
--}
--
--static int da9030_list_ldo14_voltage(struct regulator_dev *rdev,
--				     unsigned selector)
--{
--	struct da903x_regulator_info *info = rdev_get_drvdata(rdev);
--	int volt;
--
--	if (selector & 0x4)
--		volt = rdev->desc->min_uV +
--		       rdev->desc->uV_step * (3 - (selector & ~0x4));
+-	/* Datasheet: active with or without force PWM */
+-	if (data[1] & WM8400_DC1_FRC_PWM)
+-		return REGULATOR_MODE_FAST;
 -	else
--		volt = (info->max_uV + rdev->desc->min_uV) / 2 +
--		       rdev->desc->uV_step * (selector & ~0x4);
--
--	if (volt > info->max_uV)
--		return -EINVAL;
--
--	return volt;
+-		return REGULATOR_MODE_NORMAL;
 -}
 -
--/* DA9034 specific operations */
--static int da9034_set_dvc_voltage_sel(struct regulator_dev *rdev,
--				      unsigned selector)
+-static int wm8400_dcdc_set_mode(struct regulator_dev *dev, unsigned int mode)
 -{
--	struct da903x_regulator_info *info = rdev_get_drvdata(rdev);
--	struct device *da9034_dev = to_da903x_dev(rdev);
--	uint8_t val, mask;
+-	struct regmap *rmap = rdev_get_regmap(dev);
+-	int offset = (rdev_get_id(dev) - WM8400_DCDC1) * 2;
 -	int ret;
 -
--	val = selector << info->vol_shift;
--	mask = ((1 << info->vol_nbits) - 1)  << info->vol_shift;
+-	switch (mode) {
+-	case REGULATOR_MODE_FAST:
+-		/* Datasheet: active with force PWM */
+-		ret = regmap_update_bits(rmap, WM8400_DCDC1_CONTROL_2 + offset,
+-				      WM8400_DC1_FRC_PWM, WM8400_DC1_FRC_PWM);
+-		if (ret != 0)
+-			return ret;
 -
--	ret = da903x_update(da9034_dev, info->vol_reg, val, mask);
--	if (ret)
--		return ret;
+-		return regmap_update_bits(rmap, WM8400_DCDC1_CONTROL_1 + offset,
+-				       WM8400_DC1_ACTIVE | WM8400_DC1_SLEEP,
+-				       WM8400_DC1_ACTIVE);
 -
--	ret = da903x_set_bits(da9034_dev, info->update_reg,
--					1 << info->update_bit);
--	return ret;
--}
+-	case REGULATOR_MODE_NORMAL:
+-		/* Datasheet: active */
+-		ret = regmap_update_bits(rmap, WM8400_DCDC1_CONTROL_2 + offset,
+-				      WM8400_DC1_FRC_PWM, 0);
+-		if (ret != 0)
+-			return ret;
 -
--static const struct linear_range da9034_ldo12_ranges[] = {
--	REGULATOR_LINEAR_RANGE(1700000, 0, 7, 50000),
--	REGULATOR_LINEAR_RANGE(2700000, 8, 15, 50000),
--};
+-		return regmap_update_bits(rmap, WM8400_DCDC1_CONTROL_1 + offset,
+-				       WM8400_DC1_ACTIVE | WM8400_DC1_SLEEP,
+-				       WM8400_DC1_ACTIVE);
 -
--static const struct regulator_ops da903x_regulator_ldo_ops = {
--	.set_voltage_sel = da903x_set_voltage_sel,
--	.get_voltage_sel = da903x_get_voltage_sel,
--	.list_voltage	= regulator_list_voltage_linear,
--	.map_voltage	= regulator_map_voltage_linear,
--	.enable		= da903x_enable,
--	.disable	= da903x_disable,
--	.is_enabled	= da903x_is_enabled,
--};
--
--/* NOTE: this is dedicated for the insane DA9030 LDO14 */
--static const struct regulator_ops da9030_regulator_ldo14_ops = {
--	.set_voltage_sel = da903x_set_voltage_sel,
--	.get_voltage_sel = da903x_get_voltage_sel,
--	.list_voltage	= da9030_list_ldo14_voltage,
--	.map_voltage	= da9030_map_ldo14_voltage,
--	.enable		= da903x_enable,
--	.disable	= da903x_disable,
--	.is_enabled	= da903x_is_enabled,
--};
--
--/* NOTE: this is dedicated for the DA9030 LDO1 and LDO15 that have locks  */
--static const struct regulator_ops da9030_regulator_ldo1_15_ops = {
--	.set_voltage_sel = da9030_set_ldo1_15_voltage_sel,
--	.get_voltage_sel = da903x_get_voltage_sel,
--	.list_voltage	= regulator_list_voltage_linear,
--	.map_voltage	= regulator_map_voltage_linear,
--	.enable		= da903x_enable,
--	.disable	= da903x_disable,
--	.is_enabled	= da903x_is_enabled,
--};
--
--static const struct regulator_ops da9034_regulator_dvc_ops = {
--	.set_voltage_sel = da9034_set_dvc_voltage_sel,
--	.get_voltage_sel = da903x_get_voltage_sel,
--	.list_voltage	= regulator_list_voltage_linear,
--	.map_voltage	= regulator_map_voltage_linear,
--	.enable		= da903x_enable,
--	.disable	= da903x_disable,
--	.is_enabled	= da903x_is_enabled,
--};
--
--/* NOTE: this is dedicated for the insane LDO12 */
--static const struct regulator_ops da9034_regulator_ldo12_ops = {
--	.set_voltage_sel = da903x_set_voltage_sel,
--	.get_voltage_sel = da903x_get_voltage_sel,
--	.list_voltage	= regulator_list_voltage_linear_range,
--	.map_voltage	= regulator_map_voltage_linear_range,
--	.enable		= da903x_enable,
--	.disable	= da903x_disable,
--	.is_enabled	= da903x_is_enabled,
--};
--
--#define DA903x_LDO(_pmic, _id, min, max, step, vreg, shift, nbits, ereg, ebit)	\
--{									\
--	.desc	= {							\
--		.name	= "LDO" #_id,					\
--		.ops	= &da903x_regulator_ldo_ops,			\
--		.type	= REGULATOR_VOLTAGE,				\
--		.id	= _pmic##_ID_LDO##_id,				\
--		.n_voltages = (step) ? ((max - min) / step + 1) : 1,	\
--		.owner	= THIS_MODULE,					\
--		.min_uV	 = (min) * 1000,				\
--		.uV_step = (step) * 1000,				\
--	},								\
--	.max_uV		= (max) * 1000,					\
--	.vol_reg	= _pmic##_##vreg,				\
--	.vol_shift	= (shift),					\
--	.vol_nbits	= (nbits),					\
--	.enable_reg	= _pmic##_##ereg,				\
--	.enable_bit	= (ebit),					\
--}
--
--#define DA903x_DVC(_pmic, _id, min, max, step, vreg, nbits, ureg, ubit, ereg, ebit) \
--{									\
--	.desc	= {							\
--		.name	= #_id,						\
--		.ops	= &da9034_regulator_dvc_ops,			\
--		.type	= REGULATOR_VOLTAGE,				\
--		.id	= _pmic##_ID_##_id,				\
--		.n_voltages = (step) ? ((max - min) / step + 1) : 1,	\
--		.owner	= THIS_MODULE,					\
--		.min_uV = (min) * 1000,					\
--		.uV_step = (step) * 1000,				\
--	},								\
--	.max_uV		= (max) * 1000,					\
--	.vol_reg	= _pmic##_##vreg,				\
--	.vol_shift	= (0),						\
--	.vol_nbits	= (nbits),					\
--	.update_reg	= _pmic##_##ureg,				\
--	.update_bit	= (ubit),					\
--	.enable_reg	= _pmic##_##ereg,				\
--	.enable_bit	= (ebit),					\
--}
--
--#define DA9034_LDO(_id, min, max, step, vreg, shift, nbits, ereg, ebit)	\
--	DA903x_LDO(DA9034, _id, min, max, step, vreg, shift, nbits, ereg, ebit)
--
--#define DA9030_LDO(_id, min, max, step, vreg, shift, nbits, ereg, ebit)	\
--	DA903x_LDO(DA9030, _id, min, max, step, vreg, shift, nbits, ereg, ebit)
--
--#define DA9030_DVC(_id, min, max, step, vreg, nbits, ureg, ubit, ereg, ebit) \
--	DA903x_DVC(DA9030, _id, min, max, step, vreg, nbits, ureg, ubit, \
--		   ereg, ebit)
--
--#define DA9034_DVC(_id, min, max, step, vreg, nbits, ureg, ubit, ereg, ebit) \
--	DA903x_DVC(DA9034, _id, min, max, step, vreg, nbits, ureg, ubit, \
--		   ereg, ebit)
--
--#define DA9035_DVC(_id, min, max, step, vreg, nbits, ureg, ubit, ereg, ebit) \
--	DA903x_DVC(DA9035, _id, min, max, step, vreg, nbits, ureg, ubit, \
--		   ereg, ebit)
--
--static struct da903x_regulator_info da903x_regulator_info[] = {
--	/* DA9030 */
--	DA9030_DVC(BUCK2, 850, 1625, 25, BUCK2DVM1, 5, BUCK2DVM1, 7, RCTL11, 0),
--
--	DA9030_LDO( 1, 1200, 3200, 100,    LDO1, 0, 5, RCTL12, 1),
--	DA9030_LDO( 2, 1800, 3200, 100,   LDO23, 0, 4, RCTL12, 2),
--	DA9030_LDO( 3, 1800, 3200, 100,   LDO23, 4, 4, RCTL12, 3),
--	DA9030_LDO( 4, 1800, 3200, 100,   LDO45, 0, 4, RCTL12, 4),
--	DA9030_LDO( 5, 1800, 3200, 100,   LDO45, 4, 4, RCTL12, 5),
--	DA9030_LDO( 6, 1800, 3200, 100,    LDO6, 0, 4, RCTL12, 6),
--	DA9030_LDO( 7, 1800, 3200, 100,   LDO78, 0, 4, RCTL12, 7),
--	DA9030_LDO( 8, 1800, 3200, 100,   LDO78, 4, 4, RCTL22, 0),
--	DA9030_LDO( 9, 1800, 3200, 100,  LDO912, 0, 4, RCTL22, 1),
--	DA9030_LDO(10, 1800, 3200, 100, LDO1011, 0, 4, RCTL22, 2),
--	DA9030_LDO(11, 1800, 3200, 100, LDO1011, 4, 4, RCTL22, 3),
--	DA9030_LDO(12, 1800, 3200, 100,  LDO912, 4, 4, RCTL22, 4),
--	DA9030_LDO(14, 2760, 2940,  30, LDO1416, 0, 3, RCTL11, 4),
--	DA9030_LDO(15, 1100, 2650,  50,	  LDO15, 0, 5, RCTL11, 5),
--	DA9030_LDO(16, 1100, 2650,  50, LDO1416, 3, 5, RCTL11, 6),
--	DA9030_LDO(17, 1800, 3200, 100,   LDO17, 0, 4, RCTL11, 7),
--	DA9030_LDO(18, 1800, 3200, 100, LDO1819, 0, 4, RCTL21, 2),
--	DA9030_LDO(19, 1800, 3200, 100, LDO1819, 4, 4, RCTL21, 1),
--	DA9030_LDO(13, 2100, 2100, 0, INVAL, 0, 0, RCTL11, 3), /* fixed @2.1V */
--
--	/* DA9034 */
--	DA9034_DVC(BUCK1, 725, 1500, 25, ADTV2, 5, VCC1, 0, OVER1, 0),
--	DA9034_DVC(BUCK2, 725, 1500, 25, CDTV2, 5, VCC1, 2, OVER1, 1),
--	DA9034_DVC(LDO2,  725, 1500, 25, SDTV2, 5, VCC1, 4, OVER1, 2),
--	DA9034_DVC(LDO1, 1700, 2075, 25, MDTV1, 4, VCC1, 6, OVER3, 4),
--
--	DA9034_LDO( 3, 1800, 3300, 100,  LDO643, 0, 4, OVER3, 5),
--	DA9034_LDO( 4, 1800, 2900,1100,  LDO643, 4, 1, OVER3, 6),
--	DA9034_LDO( 6, 2500, 2850,  50,  LDO643, 5, 3, OVER2, 0),
--	DA9034_LDO( 7, 2700, 3050,  50,  LDO987, 0, 3, OVER2, 1),
--	DA9034_LDO( 8, 2700, 2850,  50,  LDO987, 3, 2, OVER2, 2),
--	DA9034_LDO( 9, 2700, 3050,  50,  LDO987, 5, 3, OVER2, 3),
--	DA9034_LDO(10, 2700, 3050,  50, LDO1110, 0, 3, OVER2, 4),
--	DA9034_LDO(11, 1800, 3300, 100, LDO1110, 4, 4, OVER2, 5),
--	DA9034_LDO(12, 1700, 3050,  50, LDO1312, 0, 4, OVER3, 6),
--	DA9034_LDO(13, 1800, 3300, 100, LDO1312, 4, 4, OVER2, 7),
--	DA9034_LDO(14, 1800, 3300, 100, LDO1514, 0, 4, OVER3, 0),
--	DA9034_LDO(15, 1800, 3300, 100, LDO1514, 4, 4, OVER3, 1),
--	DA9034_LDO(5, 3100, 3100, 0, INVAL, 0, 0, OVER3, 7), /* fixed @3.1V */
--
--	/* DA9035 */
--	DA9035_DVC(BUCK3, 1800, 2200, 100, 3DTV1, 3, VCC2, 0, OVER3, 3),
--};
--
--static inline struct da903x_regulator_info *find_regulator_info(int id)
--{
--	struct da903x_regulator_info *ri;
--	int i;
--
--	for (i = 0; i < ARRAY_SIZE(da903x_regulator_info); i++) {
--		ri = &da903x_regulator_info[i];
--		if (ri->desc.id == id)
--			return ri;
--	}
--	return NULL;
--}
--
--static int da903x_regulator_probe(struct platform_device *pdev)
--{
--	struct da903x_regulator_info *ri = NULL;
--	struct regulator_dev *rdev;
--	struct regulator_config config = { };
--
--	ri = find_regulator_info(pdev->id);
--	if (ri == NULL) {
--		dev_err(&pdev->dev, "invalid regulator ID specified\n");
+-	case REGULATOR_MODE_IDLE:
+-		/* Datasheet: standby */
+-		return regmap_update_bits(rmap, WM8400_DCDC1_CONTROL_1 + offset,
+-				       WM8400_DC1_ACTIVE | WM8400_DC1_SLEEP, 0);
+-	default:
 -		return -EINVAL;
 -	}
+-}
 -
--	/* Workaround for the weird LDO12 voltage setting */
--	if (ri->desc.id == DA9034_ID_LDO12) {
--		ri->desc.ops = &da9034_regulator_ldo12_ops;
--		ri->desc.n_voltages = 16;
--		ri->desc.linear_ranges = da9034_ldo12_ranges;
--		ri->desc.n_linear_ranges = ARRAY_SIZE(da9034_ldo12_ranges);
--	}
+-static unsigned int wm8400_dcdc_get_optimum_mode(struct regulator_dev *dev,
+-						 int input_uV, int output_uV,
+-						 int load_uA)
+-{
+-	return REGULATOR_MODE_NORMAL;
+-}
 -
--	if (ri->desc.id == DA9030_ID_LDO14)
--		ri->desc.ops = &da9030_regulator_ldo14_ops;
+-static const struct regulator_ops wm8400_dcdc_ops = {
+-	.is_enabled = regulator_is_enabled_regmap,
+-	.enable = regulator_enable_regmap,
+-	.disable = regulator_disable_regmap,
+-	.list_voltage = regulator_list_voltage_linear,
+-	.map_voltage = regulator_map_voltage_linear,
+-	.get_voltage_sel = regulator_get_voltage_sel_regmap,
+-	.set_voltage_sel = regulator_set_voltage_sel_regmap,
+-	.get_mode = wm8400_dcdc_get_mode,
+-	.set_mode = wm8400_dcdc_set_mode,
+-	.get_optimum_mode = wm8400_dcdc_get_optimum_mode,
+-};
 -
--	if (ri->desc.id == DA9030_ID_LDO1 || ri->desc.id == DA9030_ID_LDO15)
--		ri->desc.ops = &da9030_regulator_ldo1_15_ops;
+-static const struct regulator_desc regulators[] = {
+-	{
+-		.name = "LDO1",
+-		.id = WM8400_LDO1,
+-		.ops = &wm8400_ldo_ops,
+-		.enable_reg = WM8400_LDO1_CONTROL,
+-		.enable_mask = WM8400_LDO1_ENA,
+-		.n_voltages = WM8400_LDO1_VSEL_MASK + 1,
+-		.linear_ranges = wm8400_ldo_ranges,
+-		.n_linear_ranges = ARRAY_SIZE(wm8400_ldo_ranges),
+-		.vsel_reg = WM8400_LDO1_CONTROL,
+-		.vsel_mask = WM8400_LDO1_VSEL_MASK,
+-		.type = REGULATOR_VOLTAGE,
+-		.owner = THIS_MODULE,
+-	},
+-	{
+-		.name = "LDO2",
+-		.id = WM8400_LDO2,
+-		.ops = &wm8400_ldo_ops,
+-		.enable_reg = WM8400_LDO2_CONTROL,
+-		.enable_mask = WM8400_LDO2_ENA,
+-		.n_voltages = WM8400_LDO2_VSEL_MASK + 1,
+-		.linear_ranges = wm8400_ldo_ranges,
+-		.n_linear_ranges = ARRAY_SIZE(wm8400_ldo_ranges),
+-		.type = REGULATOR_VOLTAGE,
+-		.vsel_reg = WM8400_LDO2_CONTROL,
+-		.vsel_mask = WM8400_LDO2_VSEL_MASK,
+-		.owner = THIS_MODULE,
+-	},
+-	{
+-		.name = "LDO3",
+-		.id = WM8400_LDO3,
+-		.ops = &wm8400_ldo_ops,
+-		.enable_reg = WM8400_LDO3_CONTROL,
+-		.enable_mask = WM8400_LDO3_ENA,
+-		.n_voltages = WM8400_LDO3_VSEL_MASK + 1,
+-		.linear_ranges = wm8400_ldo_ranges,
+-		.n_linear_ranges = ARRAY_SIZE(wm8400_ldo_ranges),
+-		.vsel_reg = WM8400_LDO3_CONTROL,
+-		.vsel_mask = WM8400_LDO3_VSEL_MASK,
+-		.type = REGULATOR_VOLTAGE,
+-		.owner = THIS_MODULE,
+-	},
+-	{
+-		.name = "LDO4",
+-		.id = WM8400_LDO4,
+-		.ops = &wm8400_ldo_ops,
+-		.enable_reg = WM8400_LDO4_CONTROL,
+-		.enable_mask = WM8400_LDO4_ENA,
+-		.n_voltages = WM8400_LDO4_VSEL_MASK + 1,
+-		.linear_ranges = wm8400_ldo_ranges,
+-		.n_linear_ranges = ARRAY_SIZE(wm8400_ldo_ranges),
+-		.vsel_reg = WM8400_LDO4_CONTROL,
+-		.vsel_mask = WM8400_LDO4_VSEL_MASK,
+-		.type = REGULATOR_VOLTAGE,
+-		.owner = THIS_MODULE,
+-	},
+-	{
+-		.name = "DCDC1",
+-		.id = WM8400_DCDC1,
+-		.ops = &wm8400_dcdc_ops,
+-		.enable_reg = WM8400_DCDC1_CONTROL_1,
+-		.enable_mask = WM8400_DC1_ENA_MASK,
+-		.n_voltages = WM8400_DC1_VSEL_MASK + 1,
+-		.vsel_reg = WM8400_DCDC1_CONTROL_1,
+-		.vsel_mask = WM8400_DC1_VSEL_MASK,
+-		.min_uV = 850000,
+-		.uV_step = 25000,
+-		.type = REGULATOR_VOLTAGE,
+-		.owner = THIS_MODULE,
+-	},
+-	{
+-		.name = "DCDC2",
+-		.id = WM8400_DCDC2,
+-		.ops = &wm8400_dcdc_ops,
+-		.enable_reg = WM8400_DCDC2_CONTROL_1,
+-		.enable_mask = WM8400_DC2_ENA_MASK,
+-		.n_voltages = WM8400_DC2_VSEL_MASK + 1,
+-		.vsel_reg = WM8400_DCDC2_CONTROL_1,
+-		.vsel_mask = WM8400_DC2_VSEL_MASK,
+-		.min_uV = 850000,
+-		.uV_step = 25000,
+-		.type = REGULATOR_VOLTAGE,
+-		.owner = THIS_MODULE,
+-	},
+-};
+-
+-static int wm8400_regulator_probe(struct platform_device *pdev)
+-{
+-	struct wm8400 *wm8400 = container_of(pdev, struct wm8400, regulators[pdev->id]);
+-	struct regulator_config config = { };
+-	struct regulator_dev *rdev;
 -
 -	config.dev = &pdev->dev;
 -	config.init_data = dev_get_platdata(&pdev->dev);
--	config.driver_data = ri;
+-	config.driver_data = wm8400;
+-	config.regmap = wm8400->regmap;
 -
--	rdev = devm_regulator_register(&pdev->dev, &ri->desc, &config);
--	if (IS_ERR(rdev)) {
--		dev_err(&pdev->dev, "failed to register regulator %s\n",
--				ri->desc.name);
+-	rdev = devm_regulator_register(&pdev->dev, &regulators[pdev->id],
+-				       &config);
+-	if (IS_ERR(rdev))
 -		return PTR_ERR(rdev);
--	}
 -
 -	platform_set_drvdata(pdev, rdev);
+-
 -	return 0;
 -}
 -
--static struct platform_driver da903x_regulator_driver = {
--	.driver	= {
--		.name	= "da903x-regulator",
+-static struct platform_driver wm8400_regulator_driver = {
+-	.driver = {
+-		.name = "wm8400-regulator",
 -		.probe_type = PROBE_PREFER_ASYNCHRONOUS,
 -	},
--	.probe		= da903x_regulator_probe,
+-	.probe = wm8400_regulator_probe,
 -};
 -
--static int __init da903x_regulator_init(void)
+-/**
+- * wm8400_register_regulator - enable software control of a WM8400 regulator
+- *
+- * This function enables software control of a WM8400 regulator via
+- * the regulator API.  It is intended to be called from the
+- * platform_init() callback of the WM8400 MFD driver.
+- *
+- * @dev:      The WM8400 device to operate on.
+- * @reg:      The regulator to control.
+- * @initdata: Regulator initdata for the regulator.
+- */
+-int wm8400_register_regulator(struct device *dev, int reg,
+-			      struct regulator_init_data *initdata)
 -{
--	return platform_driver_register(&da903x_regulator_driver);
--}
--subsys_initcall(da903x_regulator_init);
+-	struct wm8400 *wm8400 = dev_get_drvdata(dev);
 -
--static void __exit da903x_regulator_exit(void)
+-	if (wm8400->regulators[reg].name)
+-		return -EBUSY;
+-
+-	initdata->driver_data = wm8400;
+-
+-	wm8400->regulators[reg].name = "wm8400-regulator";
+-	wm8400->regulators[reg].id = reg;
+-	wm8400->regulators[reg].dev.parent = dev;
+-	wm8400->regulators[reg].dev.platform_data = initdata;
+-
+-	return platform_device_register(&wm8400->regulators[reg]);
+-}
+-EXPORT_SYMBOL_GPL(wm8400_register_regulator);
+-
+-static int __init wm8400_regulator_init(void)
 -{
--	platform_driver_unregister(&da903x_regulator_driver);
+-	return platform_driver_register(&wm8400_regulator_driver);
 -}
--module_exit(da903x_regulator_exit);
+-subsys_initcall(wm8400_regulator_init);
 -
+-static void __exit wm8400_regulator_exit(void)
+-{
+-	platform_driver_unregister(&wm8400_regulator_driver);
+-}
+-module_exit(wm8400_regulator_exit);
+-
+-MODULE_AUTHOR("Mark Brown <broonie@opensource.wolfsonmicro.com>");
+-MODULE_DESCRIPTION("WM8400 regulator driver");
 -MODULE_LICENSE("GPL");
--MODULE_AUTHOR("Eric Miao <eric.miao@marvell.com>"
--	      "Mike Rapoport <mike@compulab.co.il>");
--MODULE_DESCRIPTION("Regulator Driver for Dialog Semiconductor DA903X PMIC");
--MODULE_ALIAS("platform:da903x-regulator");
-diff --git a/drivers/video/backlight/Kconfig b/drivers/video/backlight/Kconfig
-index 63e5059563b4..413ed6c38b53 100644
---- a/drivers/video/backlight/Kconfig
-+++ b/drivers/video/backlight/Kconfig
-@@ -277,13 +277,6 @@ config BACKLIGHT_CGBC
- 	  backlight subsystem. It communicates with the board controller to
- 	  adjust LCD backlight using PWM signals.
- 
--config BACKLIGHT_DA903X
--	tristate "Backlight Driver for DA9030/DA9034 using WLED"
--	depends on PMIC_DA903X
--	help
--	  If you have a LCD backlight connected to the WLED output of DA9030
--	  or DA9034 WLED output, say Y here to enable this driver.
--
- config BACKLIGHT_DA9052
- 	tristate "Dialog DA9052/DA9053 WLED"
- 	depends on PMIC_DA9052
-diff --git a/drivers/video/backlight/Makefile b/drivers/video/backlight/Makefile
-index 1a6bef13430b..3dc3580d82c7 100644
---- a/drivers/video/backlight/Makefile
-+++ b/drivers/video/backlight/Makefile
-@@ -28,7 +28,6 @@ obj-$(CONFIG_BACKLIGHT_AW99706)		+= aw99706.o
- obj-$(CONFIG_BACKLIGHT_BD6107)		+= bd6107.o
- obj-$(CONFIG_BACKLIGHT_CGBC)		+= cgbc_bl.o
- obj-$(CONFIG_BACKLIGHT_CLASS_DEVICE)	+= backlight.o
--obj-$(CONFIG_BACKLIGHT_DA903X)		+= da903x_bl.o
- obj-$(CONFIG_BACKLIGHT_DA9052)		+= da9052_bl.o
- obj-$(CONFIG_BACKLIGHT_EP93XX)		+= ep93xx_bl.o
- obj-$(CONFIG_BACKLIGHT_GPIO)		+= gpio_backlight.o
-diff --git a/drivers/video/backlight/da903x_bl.c b/drivers/video/backlight/da903x_bl.c
+-MODULE_ALIAS("platform:wm8400-regulator");
+diff --git a/include/linux/mfd/wm8400-audio.h b/include/linux/mfd/wm8400-audio.h
 deleted file mode 100644
-index 81ff42bec0ad..000000000000
---- a/drivers/video/backlight/da903x_bl.c
+index d47bdcc7a765..000000000000
+--- a/include/linux/mfd/wm8400-audio.h
 +++ /dev/null
-@@ -1,160 +0,0 @@
--// SPDX-License-Identifier: GPL-2.0-only
+@@ -1,1174 +0,0 @@
+-/* SPDX-License-Identifier: GPL-2.0-or-later */
 -/*
-- * Backlight driver for Dialog Semiconductor DA9030/DA9034
+- * wm8400 private definitions for audio
 - *
-- * Copyright (C) 2008 Compulab, Ltd.
-- *	Mike Rapoport <mike@compulab.co.il>
-- *
-- * Copyright (C) 2006-2008 Marvell International Ltd.
-- *	Eric Miao <eric.miao@marvell.com>
+- * Copyright 2008 Wolfson Microelectronics plc
 - */
 -
--#include <linux/kernel.h>
--#include <linux/init.h>
+-#ifndef __LINUX_MFD_WM8400_AUDIO_H
+-#define __LINUX_MFD_WM8400_AUDIO_H
+-
+-#include <linux/mfd/wm8400-audio.h>
+-
+-/*
+- * R2 (0x02) - Power Management (1)
+- */
+-#define WM8400_CODEC_ENA                        0x8000  /* CODEC_ENA */
+-#define WM8400_CODEC_ENA_MASK                   0x8000  /* CODEC_ENA */
+-#define WM8400_CODEC_ENA_SHIFT                      15  /* CODEC_ENA */
+-#define WM8400_CODEC_ENA_WIDTH                       1  /* CODEC_ENA */
+-#define WM8400_SYSCLK_ENA                       0x4000  /* SYSCLK_ENA */
+-#define WM8400_SYSCLK_ENA_MASK                  0x4000  /* SYSCLK_ENA */
+-#define WM8400_SYSCLK_ENA_SHIFT                     14  /* SYSCLK_ENA */
+-#define WM8400_SYSCLK_ENA_WIDTH                      1  /* SYSCLK_ENA */
+-#define WM8400_SPK_MIX_ENA                      0x2000  /* SPK_MIX_ENA */
+-#define WM8400_SPK_MIX_ENA_MASK                 0x2000  /* SPK_MIX_ENA */
+-#define WM8400_SPK_MIX_ENA_SHIFT                    13  /* SPK_MIX_ENA */
+-#define WM8400_SPK_MIX_ENA_WIDTH                     1  /* SPK_MIX_ENA */
+-#define WM8400_SPK_ENA                          0x1000  /* SPK_ENA */
+-#define WM8400_SPK_ENA_MASK                     0x1000  /* SPK_ENA */
+-#define WM8400_SPK_ENA_SHIFT                        12  /* SPK_ENA */
+-#define WM8400_SPK_ENA_WIDTH                         1  /* SPK_ENA */
+-#define WM8400_OUT3_ENA                         0x0800  /* OUT3_ENA */
+-#define WM8400_OUT3_ENA_MASK                    0x0800  /* OUT3_ENA */
+-#define WM8400_OUT3_ENA_SHIFT                       11  /* OUT3_ENA */
+-#define WM8400_OUT3_ENA_WIDTH                        1  /* OUT3_ENA */
+-#define WM8400_OUT4_ENA                         0x0400  /* OUT4_ENA */
+-#define WM8400_OUT4_ENA_MASK                    0x0400  /* OUT4_ENA */
+-#define WM8400_OUT4_ENA_SHIFT                       10  /* OUT4_ENA */
+-#define WM8400_OUT4_ENA_WIDTH                        1  /* OUT4_ENA */
+-#define WM8400_LOUT_ENA                         0x0200  /* LOUT_ENA */
+-#define WM8400_LOUT_ENA_MASK                    0x0200  /* LOUT_ENA */
+-#define WM8400_LOUT_ENA_SHIFT                        9  /* LOUT_ENA */
+-#define WM8400_LOUT_ENA_WIDTH                        1  /* LOUT_ENA */
+-#define WM8400_ROUT_ENA                         0x0100  /* ROUT_ENA */
+-#define WM8400_ROUT_ENA_MASK                    0x0100  /* ROUT_ENA */
+-#define WM8400_ROUT_ENA_SHIFT                        8  /* ROUT_ENA */
+-#define WM8400_ROUT_ENA_WIDTH                        1  /* ROUT_ENA */
+-#define WM8400_MIC1BIAS_ENA                     0x0010  /* MIC1BIAS_ENA */
+-#define WM8400_MIC1BIAS_ENA_MASK                0x0010  /* MIC1BIAS_ENA */
+-#define WM8400_MIC1BIAS_ENA_SHIFT                    4  /* MIC1BIAS_ENA */
+-#define WM8400_MIC1BIAS_ENA_WIDTH                    1  /* MIC1BIAS_ENA */
+-#define WM8400_VMID_MODE_MASK                   0x0006  /* VMID_MODE - [2:1] */
+-#define WM8400_VMID_MODE_SHIFT                       1  /* VMID_MODE - [2:1] */
+-#define WM8400_VMID_MODE_WIDTH                       2  /* VMID_MODE - [2:1] */
+-#define WM8400_VREF_ENA                         0x0001  /* VREF_ENA */
+-#define WM8400_VREF_ENA_MASK                    0x0001  /* VREF_ENA */
+-#define WM8400_VREF_ENA_SHIFT                        0  /* VREF_ENA */
+-#define WM8400_VREF_ENA_WIDTH                        1  /* VREF_ENA */
+-
+-/*
+- * R3 (0x03) - Power Management (2)
+- */
+-#define WM8400_FLL_ENA                          0x8000  /* FLL_ENA */
+-#define WM8400_FLL_ENA_MASK                     0x8000  /* FLL_ENA */
+-#define WM8400_FLL_ENA_SHIFT                        15  /* FLL_ENA */
+-#define WM8400_FLL_ENA_WIDTH                         1  /* FLL_ENA */
+-#define WM8400_TSHUT_ENA                        0x4000  /* TSHUT_ENA */
+-#define WM8400_TSHUT_ENA_MASK                   0x4000  /* TSHUT_ENA */
+-#define WM8400_TSHUT_ENA_SHIFT                      14  /* TSHUT_ENA */
+-#define WM8400_TSHUT_ENA_WIDTH                       1  /* TSHUT_ENA */
+-#define WM8400_TSHUT_OPDIS                      0x2000  /* TSHUT_OPDIS */
+-#define WM8400_TSHUT_OPDIS_MASK                 0x2000  /* TSHUT_OPDIS */
+-#define WM8400_TSHUT_OPDIS_SHIFT                    13  /* TSHUT_OPDIS */
+-#define WM8400_TSHUT_OPDIS_WIDTH                     1  /* TSHUT_OPDIS */
+-#define WM8400_OPCLK_ENA                        0x0800  /* OPCLK_ENA */
+-#define WM8400_OPCLK_ENA_MASK                   0x0800  /* OPCLK_ENA */
+-#define WM8400_OPCLK_ENA_SHIFT                      11  /* OPCLK_ENA */
+-#define WM8400_OPCLK_ENA_WIDTH                       1  /* OPCLK_ENA */
+-#define WM8400_AINL_ENA                         0x0200  /* AINL_ENA */
+-#define WM8400_AINL_ENA_MASK                    0x0200  /* AINL_ENA */
+-#define WM8400_AINL_ENA_SHIFT                        9  /* AINL_ENA */
+-#define WM8400_AINL_ENA_WIDTH                        1  /* AINL_ENA */
+-#define WM8400_AINR_ENA                         0x0100  /* AINR_ENA */
+-#define WM8400_AINR_ENA_MASK                    0x0100  /* AINR_ENA */
+-#define WM8400_AINR_ENA_SHIFT                        8  /* AINR_ENA */
+-#define WM8400_AINR_ENA_WIDTH                        1  /* AINR_ENA */
+-#define WM8400_LIN34_ENA                        0x0080  /* LIN34_ENA */
+-#define WM8400_LIN34_ENA_MASK                   0x0080  /* LIN34_ENA */
+-#define WM8400_LIN34_ENA_SHIFT                       7  /* LIN34_ENA */
+-#define WM8400_LIN34_ENA_WIDTH                       1  /* LIN34_ENA */
+-#define WM8400_LIN12_ENA                        0x0040  /* LIN12_ENA */
+-#define WM8400_LIN12_ENA_MASK                   0x0040  /* LIN12_ENA */
+-#define WM8400_LIN12_ENA_SHIFT                       6  /* LIN12_ENA */
+-#define WM8400_LIN12_ENA_WIDTH                       1  /* LIN12_ENA */
+-#define WM8400_RIN34_ENA                        0x0020  /* RIN34_ENA */
+-#define WM8400_RIN34_ENA_MASK                   0x0020  /* RIN34_ENA */
+-#define WM8400_RIN34_ENA_SHIFT                       5  /* RIN34_ENA */
+-#define WM8400_RIN34_ENA_WIDTH                       1  /* RIN34_ENA */
+-#define WM8400_RIN12_ENA                        0x0010  /* RIN12_ENA */
+-#define WM8400_RIN12_ENA_MASK                   0x0010  /* RIN12_ENA */
+-#define WM8400_RIN12_ENA_SHIFT                       4  /* RIN12_ENA */
+-#define WM8400_RIN12_ENA_WIDTH                       1  /* RIN12_ENA */
+-#define WM8400_ADCL_ENA                         0x0002  /* ADCL_ENA */
+-#define WM8400_ADCL_ENA_MASK                    0x0002  /* ADCL_ENA */
+-#define WM8400_ADCL_ENA_SHIFT                        1  /* ADCL_ENA */
+-#define WM8400_ADCL_ENA_WIDTH                        1  /* ADCL_ENA */
+-#define WM8400_ADCR_ENA                         0x0001  /* ADCR_ENA */
+-#define WM8400_ADCR_ENA_MASK                    0x0001  /* ADCR_ENA */
+-#define WM8400_ADCR_ENA_SHIFT                        0  /* ADCR_ENA */
+-#define WM8400_ADCR_ENA_WIDTH                        1  /* ADCR_ENA */
+-
+-/*
+- * R4 (0x04) - Power Management (3)
+- */
+-#define WM8400_LON_ENA                          0x2000  /* LON_ENA */
+-#define WM8400_LON_ENA_MASK                     0x2000  /* LON_ENA */
+-#define WM8400_LON_ENA_SHIFT                        13  /* LON_ENA */
+-#define WM8400_LON_ENA_WIDTH                         1  /* LON_ENA */
+-#define WM8400_LOP_ENA                          0x1000  /* LOP_ENA */
+-#define WM8400_LOP_ENA_MASK                     0x1000  /* LOP_ENA */
+-#define WM8400_LOP_ENA_SHIFT                        12  /* LOP_ENA */
+-#define WM8400_LOP_ENA_WIDTH                         1  /* LOP_ENA */
+-#define WM8400_RON_ENA                          0x0800  /* RON_ENA */
+-#define WM8400_RON_ENA_MASK                     0x0800  /* RON_ENA */
+-#define WM8400_RON_ENA_SHIFT                        11  /* RON_ENA */
+-#define WM8400_RON_ENA_WIDTH                         1  /* RON_ENA */
+-#define WM8400_ROP_ENA                          0x0400  /* ROP_ENA */
+-#define WM8400_ROP_ENA_MASK                     0x0400  /* ROP_ENA */
+-#define WM8400_ROP_ENA_SHIFT                        10  /* ROP_ENA */
+-#define WM8400_ROP_ENA_WIDTH                         1  /* ROP_ENA */
+-#define WM8400_LOPGA_ENA                        0x0080  /* LOPGA_ENA */
+-#define WM8400_LOPGA_ENA_MASK                   0x0080  /* LOPGA_ENA */
+-#define WM8400_LOPGA_ENA_SHIFT                       7  /* LOPGA_ENA */
+-#define WM8400_LOPGA_ENA_WIDTH                       1  /* LOPGA_ENA */
+-#define WM8400_ROPGA_ENA                        0x0040  /* ROPGA_ENA */
+-#define WM8400_ROPGA_ENA_MASK                   0x0040  /* ROPGA_ENA */
+-#define WM8400_ROPGA_ENA_SHIFT                       6  /* ROPGA_ENA */
+-#define WM8400_ROPGA_ENA_WIDTH                       1  /* ROPGA_ENA */
+-#define WM8400_LOMIX_ENA                        0x0020  /* LOMIX_ENA */
+-#define WM8400_LOMIX_ENA_MASK                   0x0020  /* LOMIX_ENA */
+-#define WM8400_LOMIX_ENA_SHIFT                       5  /* LOMIX_ENA */
+-#define WM8400_LOMIX_ENA_WIDTH                       1  /* LOMIX_ENA */
+-#define WM8400_ROMIX_ENA                        0x0010  /* ROMIX_ENA */
+-#define WM8400_ROMIX_ENA_MASK                   0x0010  /* ROMIX_ENA */
+-#define WM8400_ROMIX_ENA_SHIFT                       4  /* ROMIX_ENA */
+-#define WM8400_ROMIX_ENA_WIDTH                       1  /* ROMIX_ENA */
+-#define WM8400_DACL_ENA                         0x0002  /* DACL_ENA */
+-#define WM8400_DACL_ENA_MASK                    0x0002  /* DACL_ENA */
+-#define WM8400_DACL_ENA_SHIFT                        1  /* DACL_ENA */
+-#define WM8400_DACL_ENA_WIDTH                        1  /* DACL_ENA */
+-#define WM8400_DACR_ENA                         0x0001  /* DACR_ENA */
+-#define WM8400_DACR_ENA_MASK                    0x0001  /* DACR_ENA */
+-#define WM8400_DACR_ENA_SHIFT                        0  /* DACR_ENA */
+-#define WM8400_DACR_ENA_WIDTH                        1  /* DACR_ENA */
+-
+-/*
+- * R5 (0x05) - Audio Interface (1)
+- */
+-#define WM8400_AIFADCL_SRC                      0x8000  /* AIFADCL_SRC */
+-#define WM8400_AIFADCL_SRC_MASK                 0x8000  /* AIFADCL_SRC */
+-#define WM8400_AIFADCL_SRC_SHIFT                    15  /* AIFADCL_SRC */
+-#define WM8400_AIFADCL_SRC_WIDTH                     1  /* AIFADCL_SRC */
+-#define WM8400_AIFADCR_SRC                      0x4000  /* AIFADCR_SRC */
+-#define WM8400_AIFADCR_SRC_MASK                 0x4000  /* AIFADCR_SRC */
+-#define WM8400_AIFADCR_SRC_SHIFT                    14  /* AIFADCR_SRC */
+-#define WM8400_AIFADCR_SRC_WIDTH                     1  /* AIFADCR_SRC */
+-#define WM8400_AIFADC_TDM                       0x2000  /* AIFADC_TDM */
+-#define WM8400_AIFADC_TDM_MASK                  0x2000  /* AIFADC_TDM */
+-#define WM8400_AIFADC_TDM_SHIFT                     13  /* AIFADC_TDM */
+-#define WM8400_AIFADC_TDM_WIDTH                      1  /* AIFADC_TDM */
+-#define WM8400_AIFADC_TDM_CHAN                  0x1000  /* AIFADC_TDM_CHAN */
+-#define WM8400_AIFADC_TDM_CHAN_MASK             0x1000  /* AIFADC_TDM_CHAN */
+-#define WM8400_AIFADC_TDM_CHAN_SHIFT                12  /* AIFADC_TDM_CHAN */
+-#define WM8400_AIFADC_TDM_CHAN_WIDTH                 1  /* AIFADC_TDM_CHAN */
+-#define WM8400_AIF_BCLK_INV                     0x0100  /* AIF_BCLK_INV */
+-#define WM8400_AIF_BCLK_INV_MASK                0x0100  /* AIF_BCLK_INV */
+-#define WM8400_AIF_BCLK_INV_SHIFT                    8  /* AIF_BCLK_INV */
+-#define WM8400_AIF_BCLK_INV_WIDTH                    1  /* AIF_BCLK_INV */
+-#define WM8400_AIF_LRCLK_INV                    0x0080  /* AIF_LRCLK_INV */
+-#define WM8400_AIF_LRCLK_INV_MASK               0x0080  /* AIF_LRCLK_INV */
+-#define WM8400_AIF_LRCLK_INV_SHIFT                   7  /* AIF_LRCLK_INV */
+-#define WM8400_AIF_LRCLK_INV_WIDTH                   1  /* AIF_LRCLK_INV */
+-#define WM8400_AIF_WL_MASK                      0x0060  /* AIF_WL - [6:5] */
+-#define WM8400_AIF_WL_SHIFT                          5  /* AIF_WL - [6:5] */
+-#define WM8400_AIF_WL_WIDTH                          2  /* AIF_WL - [6:5] */
+-#define WM8400_AIF_WL_16BITS			(0 << 5)
+-#define WM8400_AIF_WL_20BITS			(1 << 5)
+-#define WM8400_AIF_WL_24BITS			(2 << 5)
+-#define WM8400_AIF_WL_32BITS			(3 << 5)
+-#define WM8400_AIF_FMT_MASK                     0x0018  /* AIF_FMT - [4:3] */
+-#define WM8400_AIF_FMT_SHIFT                         3  /* AIF_FMT - [4:3] */
+-#define WM8400_AIF_FMT_WIDTH                         2  /* AIF_FMT - [4:3] */
+-#define WM8400_AIF_FMT_RIGHTJ			(0 << 3)
+-#define WM8400_AIF_FMT_LEFTJ			(1 << 3)
+-#define WM8400_AIF_FMT_I2S			(2 << 3)
+-#define WM8400_AIF_FMT_DSP			(3 << 3)
+-
+-/*
+- * R6 (0x06) - Audio Interface (2)
+- */
+-#define WM8400_DACL_SRC                         0x8000  /* DACL_SRC */
+-#define WM8400_DACL_SRC_MASK                    0x8000  /* DACL_SRC */
+-#define WM8400_DACL_SRC_SHIFT                       15  /* DACL_SRC */
+-#define WM8400_DACL_SRC_WIDTH                        1  /* DACL_SRC */
+-#define WM8400_DACR_SRC                         0x4000  /* DACR_SRC */
+-#define WM8400_DACR_SRC_MASK                    0x4000  /* DACR_SRC */
+-#define WM8400_DACR_SRC_SHIFT                       14  /* DACR_SRC */
+-#define WM8400_DACR_SRC_WIDTH                        1  /* DACR_SRC */
+-#define WM8400_AIFDAC_TDM                       0x2000  /* AIFDAC_TDM */
+-#define WM8400_AIFDAC_TDM_MASK                  0x2000  /* AIFDAC_TDM */
+-#define WM8400_AIFDAC_TDM_SHIFT                     13  /* AIFDAC_TDM */
+-#define WM8400_AIFDAC_TDM_WIDTH                      1  /* AIFDAC_TDM */
+-#define WM8400_AIFDAC_TDM_CHAN                  0x1000  /* AIFDAC_TDM_CHAN */
+-#define WM8400_AIFDAC_TDM_CHAN_MASK             0x1000  /* AIFDAC_TDM_CHAN */
+-#define WM8400_AIFDAC_TDM_CHAN_SHIFT                12  /* AIFDAC_TDM_CHAN */
+-#define WM8400_AIFDAC_TDM_CHAN_WIDTH                 1  /* AIFDAC_TDM_CHAN */
+-#define WM8400_DAC_BOOST_MASK                   0x0C00  /* DAC_BOOST - [11:10] */
+-#define WM8400_DAC_BOOST_SHIFT                      10  /* DAC_BOOST - [11:10] */
+-#define WM8400_DAC_BOOST_WIDTH                       2  /* DAC_BOOST - [11:10] */
+-#define WM8400_DAC_COMP                         0x0010  /* DAC_COMP */
+-#define WM8400_DAC_COMP_MASK                    0x0010  /* DAC_COMP */
+-#define WM8400_DAC_COMP_SHIFT                        4  /* DAC_COMP */
+-#define WM8400_DAC_COMP_WIDTH                        1  /* DAC_COMP */
+-#define WM8400_DAC_COMPMODE                     0x0008  /* DAC_COMPMODE */
+-#define WM8400_DAC_COMPMODE_MASK                0x0008  /* DAC_COMPMODE */
+-#define WM8400_DAC_COMPMODE_SHIFT                    3  /* DAC_COMPMODE */
+-#define WM8400_DAC_COMPMODE_WIDTH                    1  /* DAC_COMPMODE */
+-#define WM8400_ADC_COMP                         0x0004  /* ADC_COMP */
+-#define WM8400_ADC_COMP_MASK                    0x0004  /* ADC_COMP */
+-#define WM8400_ADC_COMP_SHIFT                        2  /* ADC_COMP */
+-#define WM8400_ADC_COMP_WIDTH                        1  /* ADC_COMP */
+-#define WM8400_ADC_COMPMODE                     0x0002  /* ADC_COMPMODE */
+-#define WM8400_ADC_COMPMODE_MASK                0x0002  /* ADC_COMPMODE */
+-#define WM8400_ADC_COMPMODE_SHIFT                    1  /* ADC_COMPMODE */
+-#define WM8400_ADC_COMPMODE_WIDTH                    1  /* ADC_COMPMODE */
+-#define WM8400_LOOPBACK                         0x0001  /* LOOPBACK */
+-#define WM8400_LOOPBACK_MASK                    0x0001  /* LOOPBACK */
+-#define WM8400_LOOPBACK_SHIFT                        0  /* LOOPBACK */
+-#define WM8400_LOOPBACK_WIDTH                        1  /* LOOPBACK */
+-
+-/*
+- * R7 (0x07) - Clocking (1)
+- */
+-#define WM8400_TOCLK_RATE                       0x8000  /* TOCLK_RATE */
+-#define WM8400_TOCLK_RATE_MASK                  0x8000  /* TOCLK_RATE */
+-#define WM8400_TOCLK_RATE_SHIFT                     15  /* TOCLK_RATE */
+-#define WM8400_TOCLK_RATE_WIDTH                      1  /* TOCLK_RATE */
+-#define WM8400_TOCLK_ENA                        0x4000  /* TOCLK_ENA */
+-#define WM8400_TOCLK_ENA_MASK                   0x4000  /* TOCLK_ENA */
+-#define WM8400_TOCLK_ENA_SHIFT                      14  /* TOCLK_ENA */
+-#define WM8400_TOCLK_ENA_WIDTH                       1  /* TOCLK_ENA */
+-#define WM8400_OPCLKDIV_MASK                    0x1E00  /* OPCLKDIV - [12:9] */
+-#define WM8400_OPCLKDIV_SHIFT                        9  /* OPCLKDIV - [12:9] */
+-#define WM8400_OPCLKDIV_WIDTH                        4  /* OPCLKDIV - [12:9] */
+-#define WM8400_DCLKDIV_MASK                     0x01C0  /* DCLKDIV - [8:6] */
+-#define WM8400_DCLKDIV_SHIFT                         6  /* DCLKDIV - [8:6] */
+-#define WM8400_DCLKDIV_WIDTH                         3  /* DCLKDIV - [8:6] */
+-#define WM8400_BCLK_DIV_MASK                    0x001E  /* BCLK_DIV - [4:1] */
+-#define WM8400_BCLK_DIV_SHIFT                        1  /* BCLK_DIV - [4:1] */
+-#define WM8400_BCLK_DIV_WIDTH                        4  /* BCLK_DIV - [4:1] */
+-
+-/*
+- * R8 (0x08) - Clocking (2)
+- */
+-#define WM8400_MCLK_SRC                         0x8000  /* MCLK_SRC */
+-#define WM8400_MCLK_SRC_MASK                    0x8000  /* MCLK_SRC */
+-#define WM8400_MCLK_SRC_SHIFT                       15  /* MCLK_SRC */
+-#define WM8400_MCLK_SRC_WIDTH                        1  /* MCLK_SRC */
+-#define WM8400_SYSCLK_SRC                       0x4000  /* SYSCLK_SRC */
+-#define WM8400_SYSCLK_SRC_MASK                  0x4000  /* SYSCLK_SRC */
+-#define WM8400_SYSCLK_SRC_SHIFT                     14  /* SYSCLK_SRC */
+-#define WM8400_SYSCLK_SRC_WIDTH                      1  /* SYSCLK_SRC */
+-#define WM8400_CLK_FORCE                        0x2000  /* CLK_FORCE */
+-#define WM8400_CLK_FORCE_MASK                   0x2000  /* CLK_FORCE */
+-#define WM8400_CLK_FORCE_SHIFT                      13  /* CLK_FORCE */
+-#define WM8400_CLK_FORCE_WIDTH                       1  /* CLK_FORCE */
+-#define WM8400_MCLK_DIV_MASK                    0x1800  /* MCLK_DIV - [12:11] */
+-#define WM8400_MCLK_DIV_SHIFT                       11  /* MCLK_DIV - [12:11] */
+-#define WM8400_MCLK_DIV_WIDTH                        2  /* MCLK_DIV - [12:11] */
+-#define WM8400_MCLK_INV                         0x0400  /* MCLK_INV */
+-#define WM8400_MCLK_INV_MASK                    0x0400  /* MCLK_INV */
+-#define WM8400_MCLK_INV_SHIFT                       10  /* MCLK_INV */
+-#define WM8400_MCLK_INV_WIDTH                        1  /* MCLK_INV */
+-#define WM8400_ADC_CLKDIV_MASK                  0x00E0  /* ADC_CLKDIV - [7:5] */
+-#define WM8400_ADC_CLKDIV_SHIFT                      5  /* ADC_CLKDIV - [7:5] */
+-#define WM8400_ADC_CLKDIV_WIDTH                      3  /* ADC_CLKDIV - [7:5] */
+-#define WM8400_DAC_CLKDIV_MASK                  0x001C  /* DAC_CLKDIV - [4:2] */
+-#define WM8400_DAC_CLKDIV_SHIFT                      2  /* DAC_CLKDIV - [4:2] */
+-#define WM8400_DAC_CLKDIV_WIDTH                      3  /* DAC_CLKDIV - [4:2] */
+-
+-/*
+- * R9 (0x09) - Audio Interface (3)
+- */
+-#define WM8400_AIF_MSTR1                        0x8000  /* AIF_MSTR1 */
+-#define WM8400_AIF_MSTR1_MASK                   0x8000  /* AIF_MSTR1 */
+-#define WM8400_AIF_MSTR1_SHIFT                      15  /* AIF_MSTR1 */
+-#define WM8400_AIF_MSTR1_WIDTH                       1  /* AIF_MSTR1 */
+-#define WM8400_AIF_MSTR2                        0x4000  /* AIF_MSTR2 */
+-#define WM8400_AIF_MSTR2_MASK                   0x4000  /* AIF_MSTR2 */
+-#define WM8400_AIF_MSTR2_SHIFT                      14  /* AIF_MSTR2 */
+-#define WM8400_AIF_MSTR2_WIDTH                       1  /* AIF_MSTR2 */
+-#define WM8400_AIF_SEL                          0x2000  /* AIF_SEL */
+-#define WM8400_AIF_SEL_MASK                     0x2000  /* AIF_SEL */
+-#define WM8400_AIF_SEL_SHIFT                        13  /* AIF_SEL */
+-#define WM8400_AIF_SEL_WIDTH                         1  /* AIF_SEL */
+-#define WM8400_ADCLRC_DIR                       0x0800  /* ADCLRC_DIR */
+-#define WM8400_ADCLRC_DIR_MASK                  0x0800  /* ADCLRC_DIR */
+-#define WM8400_ADCLRC_DIR_SHIFT                     11  /* ADCLRC_DIR */
+-#define WM8400_ADCLRC_DIR_WIDTH                      1  /* ADCLRC_DIR */
+-#define WM8400_ADCLRC_RATE_MASK                 0x07FF  /* ADCLRC_RATE - [10:0] */
+-#define WM8400_ADCLRC_RATE_SHIFT                     0  /* ADCLRC_RATE - [10:0] */
+-#define WM8400_ADCLRC_RATE_WIDTH                    11  /* ADCLRC_RATE - [10:0] */
+-
+-/*
+- * R10 (0x0A) - Audio Interface (4)
+- */
+-#define WM8400_ALRCGPIO1                        0x8000  /* ALRCGPIO1 */
+-#define WM8400_ALRCGPIO1_MASK                   0x8000  /* ALRCGPIO1 */
+-#define WM8400_ALRCGPIO1_SHIFT                      15  /* ALRCGPIO1 */
+-#define WM8400_ALRCGPIO1_WIDTH                       1  /* ALRCGPIO1 */
+-#define WM8400_ALRCBGPIO6                       0x4000  /* ALRCBGPIO6 */
+-#define WM8400_ALRCBGPIO6_MASK                  0x4000  /* ALRCBGPIO6 */
+-#define WM8400_ALRCBGPIO6_SHIFT                     14  /* ALRCBGPIO6 */
+-#define WM8400_ALRCBGPIO6_WIDTH                      1  /* ALRCBGPIO6 */
+-#define WM8400_AIF_TRIS                         0x2000  /* AIF_TRIS */
+-#define WM8400_AIF_TRIS_MASK                    0x2000  /* AIF_TRIS */
+-#define WM8400_AIF_TRIS_SHIFT                       13  /* AIF_TRIS */
+-#define WM8400_AIF_TRIS_WIDTH                        1  /* AIF_TRIS */
+-#define WM8400_DACLRC_DIR                       0x0800  /* DACLRC_DIR */
+-#define WM8400_DACLRC_DIR_MASK                  0x0800  /* DACLRC_DIR */
+-#define WM8400_DACLRC_DIR_SHIFT                     11  /* DACLRC_DIR */
+-#define WM8400_DACLRC_DIR_WIDTH                      1  /* DACLRC_DIR */
+-#define WM8400_DACLRC_RATE_MASK                 0x07FF  /* DACLRC_RATE - [10:0] */
+-#define WM8400_DACLRC_RATE_SHIFT                     0  /* DACLRC_RATE - [10:0] */
+-#define WM8400_DACLRC_RATE_WIDTH                    11  /* DACLRC_RATE - [10:0] */
+-
+-/*
+- * R11 (0x0B) - DAC CTRL
+- */
+-#define WM8400_DAC_SDMCLK_RATE                  0x2000  /* DAC_SDMCLK_RATE */
+-#define WM8400_DAC_SDMCLK_RATE_MASK             0x2000  /* DAC_SDMCLK_RATE */
+-#define WM8400_DAC_SDMCLK_RATE_SHIFT                13  /* DAC_SDMCLK_RATE */
+-#define WM8400_DAC_SDMCLK_RATE_WIDTH                 1  /* DAC_SDMCLK_RATE */
+-#define WM8400_AIF_LRCLKRATE                    0x0400  /* AIF_LRCLKRATE */
+-#define WM8400_AIF_LRCLKRATE_MASK               0x0400  /* AIF_LRCLKRATE */
+-#define WM8400_AIF_LRCLKRATE_SHIFT                  10  /* AIF_LRCLKRATE */
+-#define WM8400_AIF_LRCLKRATE_WIDTH                   1  /* AIF_LRCLKRATE */
+-#define WM8400_DAC_MONO                         0x0200  /* DAC_MONO */
+-#define WM8400_DAC_MONO_MASK                    0x0200  /* DAC_MONO */
+-#define WM8400_DAC_MONO_SHIFT                        9  /* DAC_MONO */
+-#define WM8400_DAC_MONO_WIDTH                        1  /* DAC_MONO */
+-#define WM8400_DAC_SB_FILT                      0x0100  /* DAC_SB_FILT */
+-#define WM8400_DAC_SB_FILT_MASK                 0x0100  /* DAC_SB_FILT */
+-#define WM8400_DAC_SB_FILT_SHIFT                     8  /* DAC_SB_FILT */
+-#define WM8400_DAC_SB_FILT_WIDTH                     1  /* DAC_SB_FILT */
+-#define WM8400_DAC_MUTERATE                     0x0080  /* DAC_MUTERATE */
+-#define WM8400_DAC_MUTERATE_MASK                0x0080  /* DAC_MUTERATE */
+-#define WM8400_DAC_MUTERATE_SHIFT                    7  /* DAC_MUTERATE */
+-#define WM8400_DAC_MUTERATE_WIDTH                    1  /* DAC_MUTERATE */
+-#define WM8400_DAC_MUTEMODE                     0x0040  /* DAC_MUTEMODE */
+-#define WM8400_DAC_MUTEMODE_MASK                0x0040  /* DAC_MUTEMODE */
+-#define WM8400_DAC_MUTEMODE_SHIFT                    6  /* DAC_MUTEMODE */
+-#define WM8400_DAC_MUTEMODE_WIDTH                    1  /* DAC_MUTEMODE */
+-#define WM8400_DEEMP_MASK                       0x0030  /* DEEMP - [5:4] */
+-#define WM8400_DEEMP_SHIFT                           4  /* DEEMP - [5:4] */
+-#define WM8400_DEEMP_WIDTH                           2  /* DEEMP - [5:4] */
+-#define WM8400_DAC_MUTE                         0x0004  /* DAC_MUTE */
+-#define WM8400_DAC_MUTE_MASK                    0x0004  /* DAC_MUTE */
+-#define WM8400_DAC_MUTE_SHIFT                        2  /* DAC_MUTE */
+-#define WM8400_DAC_MUTE_WIDTH                        1  /* DAC_MUTE */
+-#define WM8400_DACL_DATINV                      0x0002  /* DACL_DATINV */
+-#define WM8400_DACL_DATINV_MASK                 0x0002  /* DACL_DATINV */
+-#define WM8400_DACL_DATINV_SHIFT                     1  /* DACL_DATINV */
+-#define WM8400_DACL_DATINV_WIDTH                     1  /* DACL_DATINV */
+-#define WM8400_DACR_DATINV                      0x0001  /* DACR_DATINV */
+-#define WM8400_DACR_DATINV_MASK                 0x0001  /* DACR_DATINV */
+-#define WM8400_DACR_DATINV_SHIFT                     0  /* DACR_DATINV */
+-#define WM8400_DACR_DATINV_WIDTH                     1  /* DACR_DATINV */
+-
+-/*
+- * R12 (0x0C) - Left DAC Digital Volume
+- */
+-#define WM8400_DAC_VU                           0x0100  /* DAC_VU */
+-#define WM8400_DAC_VU_MASK                      0x0100  /* DAC_VU */
+-#define WM8400_DAC_VU_SHIFT                          8  /* DAC_VU */
+-#define WM8400_DAC_VU_WIDTH                          1  /* DAC_VU */
+-#define WM8400_DACL_VOL_MASK                    0x00FF  /* DACL_VOL - [7:0] */
+-#define WM8400_DACL_VOL_SHIFT                        0  /* DACL_VOL - [7:0] */
+-#define WM8400_DACL_VOL_WIDTH                        8  /* DACL_VOL - [7:0] */
+-
+-/*
+- * R13 (0x0D) - Right DAC Digital Volume
+- */
+-#define WM8400_DAC_VU                           0x0100  /* DAC_VU */
+-#define WM8400_DAC_VU_MASK                      0x0100  /* DAC_VU */
+-#define WM8400_DAC_VU_SHIFT                          8  /* DAC_VU */
+-#define WM8400_DAC_VU_WIDTH                          1  /* DAC_VU */
+-#define WM8400_DACR_VOL_MASK                    0x00FF  /* DACR_VOL - [7:0] */
+-#define WM8400_DACR_VOL_SHIFT                        0  /* DACR_VOL - [7:0] */
+-#define WM8400_DACR_VOL_WIDTH                        8  /* DACR_VOL - [7:0] */
+-
+-/*
+- * R14 (0x0E) - Digital Side Tone
+- */
+-#define WM8400_ADCL_DAC_SVOL_MASK               0x1E00  /*   ADCL_DAC_SVOL - [12:9] */
+-#define WM8400_ADCL_DAC_SVOL_SHIFT                   9  /*   ADCL_DAC_SVOL - [12:9] */
+-#define WM8400_ADCL_DAC_SVOL_WIDTH                   4  /*   ADCL_DAC_SVOL - [12:9] */
+-#define WM8400_ADCR_DAC_SVOL_MASK               0x01E0  /* ADCR_DAC_SVOL - [8:5] */
+-#define WM8400_ADCR_DAC_SVOL_SHIFT                   5  /* ADCR_DAC_SVOL - [8:5] */
+-#define WM8400_ADCR_DAC_SVOL_WIDTH                   4  /* ADCR_DAC_SVOL - [8:5] */
+-#define WM8400_ADC_TO_DACL_MASK                 0x000C  /* ADC_TO_DACL - [3:2] */
+-#define WM8400_ADC_TO_DACL_SHIFT                     2  /* ADC_TO_DACL - [3:2] */
+-#define WM8400_ADC_TO_DACL_WIDTH                     2  /* ADC_TO_DACL - [3:2] */
+-#define WM8400_ADC_TO_DACR_MASK                 0x0003  /* ADC_TO_DACR - [1:0] */
+-#define WM8400_ADC_TO_DACR_SHIFT                     0  /* ADC_TO_DACR - [1:0] */
+-#define WM8400_ADC_TO_DACR_WIDTH                     2  /* ADC_TO_DACR - [1:0] */
+-
+-/*
+- * R15 (0x0F) - ADC CTRL
+- */
+-#define WM8400_ADC_HPF_ENA                      0x0100  /* ADC_HPF_ENA */
+-#define WM8400_ADC_HPF_ENA_MASK                 0x0100  /* ADC_HPF_ENA */
+-#define WM8400_ADC_HPF_ENA_SHIFT                     8  /* ADC_HPF_ENA */
+-#define WM8400_ADC_HPF_ENA_WIDTH                     1  /* ADC_HPF_ENA */
+-#define WM8400_ADC_HPF_CUT_MASK                 0x0060  /* ADC_HPF_CUT - [6:5] */
+-#define WM8400_ADC_HPF_CUT_SHIFT                     5  /* ADC_HPF_CUT - [6:5] */
+-#define WM8400_ADC_HPF_CUT_WIDTH                     2  /* ADC_HPF_CUT - [6:5] */
+-#define WM8400_ADCL_DATINV                      0x0002  /* ADCL_DATINV */
+-#define WM8400_ADCL_DATINV_MASK                 0x0002  /* ADCL_DATINV */
+-#define WM8400_ADCL_DATINV_SHIFT                     1  /* ADCL_DATINV */
+-#define WM8400_ADCL_DATINV_WIDTH                     1  /* ADCL_DATINV */
+-#define WM8400_ADCR_DATINV                      0x0001  /* ADCR_DATINV */
+-#define WM8400_ADCR_DATINV_MASK                 0x0001  /* ADCR_DATINV */
+-#define WM8400_ADCR_DATINV_SHIFT                     0  /* ADCR_DATINV */
+-#define WM8400_ADCR_DATINV_WIDTH                     1  /* ADCR_DATINV */
+-
+-/*
+- * R16 (0x10) - Left ADC Digital Volume
+- */
+-#define WM8400_ADC_VU                           0x0100  /* ADC_VU */
+-#define WM8400_ADC_VU_MASK                      0x0100  /* ADC_VU */
+-#define WM8400_ADC_VU_SHIFT                          8  /* ADC_VU */
+-#define WM8400_ADC_VU_WIDTH                          1  /* ADC_VU */
+-#define WM8400_ADCL_VOL_MASK                    0x00FF  /* ADCL_VOL - [7:0] */
+-#define WM8400_ADCL_VOL_SHIFT                        0  /* ADCL_VOL - [7:0] */
+-#define WM8400_ADCL_VOL_WIDTH                        8  /* ADCL_VOL - [7:0] */
+-
+-/*
+- * R17 (0x11) - Right ADC Digital Volume
+- */
+-#define WM8400_ADC_VU                           0x0100  /* ADC_VU */
+-#define WM8400_ADC_VU_MASK                      0x0100  /* ADC_VU */
+-#define WM8400_ADC_VU_SHIFT                          8  /* ADC_VU */
+-#define WM8400_ADC_VU_WIDTH                          1  /* ADC_VU */
+-#define WM8400_ADCR_VOL_MASK                    0x00FF  /* ADCR_VOL - [7:0] */
+-#define WM8400_ADCR_VOL_SHIFT                        0  /* ADCR_VOL - [7:0] */
+-#define WM8400_ADCR_VOL_WIDTH                        8  /* ADCR_VOL - [7:0] */
+-
+-/*
+- * R24 (0x18) - Left Line Input 1&2 Volume
+- */
+-#define WM8400_IPVU                             0x0100  /* IPVU */
+-#define WM8400_IPVU_MASK                        0x0100  /* IPVU */
+-#define WM8400_IPVU_SHIFT                            8  /* IPVU */
+-#define WM8400_IPVU_WIDTH                            1  /* IPVU */
+-#define WM8400_LI12MUTE                         0x0080  /* LI12MUTE */
+-#define WM8400_LI12MUTE_MASK                    0x0080  /* LI12MUTE */
+-#define WM8400_LI12MUTE_SHIFT                        7  /* LI12MUTE */
+-#define WM8400_LI12MUTE_WIDTH                        1  /* LI12MUTE */
+-#define WM8400_LI12ZC                           0x0040  /* LI12ZC */
+-#define WM8400_LI12ZC_MASK                      0x0040  /* LI12ZC */
+-#define WM8400_LI12ZC_SHIFT                          6  /* LI12ZC */
+-#define WM8400_LI12ZC_WIDTH                          1  /* LI12ZC */
+-#define WM8400_LIN12VOL_MASK                    0x001F  /* LIN12VOL - [4:0] */
+-#define WM8400_LIN12VOL_SHIFT                        0  /* LIN12VOL - [4:0] */
+-#define WM8400_LIN12VOL_WIDTH                        5  /* LIN12VOL - [4:0] */
+-
+-/*
+- * R25 (0x19) - Left Line Input 3&4 Volume
+- */
+-#define WM8400_IPVU                             0x0100  /* IPVU */
+-#define WM8400_IPVU_MASK                        0x0100  /* IPVU */
+-#define WM8400_IPVU_SHIFT                            8  /* IPVU */
+-#define WM8400_IPVU_WIDTH                            1  /* IPVU */
+-#define WM8400_LI34MUTE                         0x0080  /* LI34MUTE */
+-#define WM8400_LI34MUTE_MASK                    0x0080  /* LI34MUTE */
+-#define WM8400_LI34MUTE_SHIFT                        7  /* LI34MUTE */
+-#define WM8400_LI34MUTE_WIDTH                        1  /* LI34MUTE */
+-#define WM8400_LI34ZC                           0x0040  /* LI34ZC */
+-#define WM8400_LI34ZC_MASK                      0x0040  /* LI34ZC */
+-#define WM8400_LI34ZC_SHIFT                          6  /* LI34ZC */
+-#define WM8400_LI34ZC_WIDTH                          1  /* LI34ZC */
+-#define WM8400_LIN34VOL_MASK                    0x001F  /* LIN34VOL - [4:0] */
+-#define WM8400_LIN34VOL_SHIFT                        0  /* LIN34VOL - [4:0] */
+-#define WM8400_LIN34VOL_WIDTH                        5  /* LIN34VOL - [4:0] */
+-
+-/*
+- * R26 (0x1A) - Right Line Input 1&2 Volume
+- */
+-#define WM8400_IPVU                             0x0100  /* IPVU */
+-#define WM8400_IPVU_MASK                        0x0100  /* IPVU */
+-#define WM8400_IPVU_SHIFT                            8  /* IPVU */
+-#define WM8400_IPVU_WIDTH                            1  /* IPVU */
+-#define WM8400_RI12MUTE                         0x0080  /* RI12MUTE */
+-#define WM8400_RI12MUTE_MASK                    0x0080  /* RI12MUTE */
+-#define WM8400_RI12MUTE_SHIFT                        7  /* RI12MUTE */
+-#define WM8400_RI12MUTE_WIDTH                        1  /* RI12MUTE */
+-#define WM8400_RI12ZC                           0x0040  /* RI12ZC */
+-#define WM8400_RI12ZC_MASK                      0x0040  /* RI12ZC */
+-#define WM8400_RI12ZC_SHIFT                          6  /* RI12ZC */
+-#define WM8400_RI12ZC_WIDTH                          1  /* RI12ZC */
+-#define WM8400_RIN12VOL_MASK                    0x001F  /* RIN12VOL - [4:0] */
+-#define WM8400_RIN12VOL_SHIFT                        0  /* RIN12VOL - [4:0] */
+-#define WM8400_RIN12VOL_WIDTH                        5  /* RIN12VOL - [4:0] */
+-
+-/*
+- * R27 (0x1B) - Right Line Input 3&4 Volume
+- */
+-#define WM8400_IPVU                             0x0100  /* IPVU */
+-#define WM8400_IPVU_MASK                        0x0100  /* IPVU */
+-#define WM8400_IPVU_SHIFT                            8  /* IPVU */
+-#define WM8400_IPVU_WIDTH                            1  /* IPVU */
+-#define WM8400_RI34MUTE                         0x0080  /* RI34MUTE */
+-#define WM8400_RI34MUTE_MASK                    0x0080  /* RI34MUTE */
+-#define WM8400_RI34MUTE_SHIFT                        7  /* RI34MUTE */
+-#define WM8400_RI34MUTE_WIDTH                        1  /* RI34MUTE */
+-#define WM8400_RI34ZC                           0x0040  /* RI34ZC */
+-#define WM8400_RI34ZC_MASK                      0x0040  /* RI34ZC */
+-#define WM8400_RI34ZC_SHIFT                          6  /* RI34ZC */
+-#define WM8400_RI34ZC_WIDTH                          1  /* RI34ZC */
+-#define WM8400_RIN34VOL_MASK                    0x001F  /* RIN34VOL - [4:0] */
+-#define WM8400_RIN34VOL_SHIFT                        0  /* RIN34VOL - [4:0] */
+-#define WM8400_RIN34VOL_WIDTH                        5  /* RIN34VOL - [4:0] */
+-
+-/*
+- * R28 (0x1C) - Left Output Volume
+- */
+-#define WM8400_OPVU                             0x0100  /* OPVU */
+-#define WM8400_OPVU_MASK                        0x0100  /* OPVU */
+-#define WM8400_OPVU_SHIFT                            8  /* OPVU */
+-#define WM8400_OPVU_WIDTH                            1  /* OPVU */
+-#define WM8400_LOZC                             0x0080  /* LOZC */
+-#define WM8400_LOZC_MASK                        0x0080  /* LOZC */
+-#define WM8400_LOZC_SHIFT                            7  /* LOZC */
+-#define WM8400_LOZC_WIDTH                            1  /* LOZC */
+-#define WM8400_LOUTVOL_MASK                     0x007F  /* LOUTVOL - [6:0] */
+-#define WM8400_LOUTVOL_SHIFT                         0  /* LOUTVOL - [6:0] */
+-#define WM8400_LOUTVOL_WIDTH                         7  /* LOUTVOL - [6:0] */
+-
+-/*
+- * R29 (0x1D) - Right Output Volume
+- */
+-#define WM8400_OPVU                             0x0100  /* OPVU */
+-#define WM8400_OPVU_MASK                        0x0100  /* OPVU */
+-#define WM8400_OPVU_SHIFT                            8  /* OPVU */
+-#define WM8400_OPVU_WIDTH                            1  /* OPVU */
+-#define WM8400_ROZC                             0x0080  /* ROZC */
+-#define WM8400_ROZC_MASK                        0x0080  /* ROZC */
+-#define WM8400_ROZC_SHIFT                            7  /* ROZC */
+-#define WM8400_ROZC_WIDTH                            1  /* ROZC */
+-#define WM8400_ROUTVOL_MASK                     0x007F  /* ROUTVOL - [6:0] */
+-#define WM8400_ROUTVOL_SHIFT                         0  /* ROUTVOL - [6:0] */
+-#define WM8400_ROUTVOL_WIDTH                         7  /* ROUTVOL - [6:0] */
+-
+-/*
+- * R30 (0x1E) - Line Outputs Volume
+- */
+-#define WM8400_LONMUTE                          0x0040  /* LONMUTE */
+-#define WM8400_LONMUTE_MASK                     0x0040  /* LONMUTE */
+-#define WM8400_LONMUTE_SHIFT                         6  /* LONMUTE */
+-#define WM8400_LONMUTE_WIDTH                         1  /* LONMUTE */
+-#define WM8400_LOPMUTE                          0x0020  /* LOPMUTE */
+-#define WM8400_LOPMUTE_MASK                     0x0020  /* LOPMUTE */
+-#define WM8400_LOPMUTE_SHIFT                         5  /* LOPMUTE */
+-#define WM8400_LOPMUTE_WIDTH                         1  /* LOPMUTE */
+-#define WM8400_LOATTN                           0x0010  /* LOATTN */
+-#define WM8400_LOATTN_MASK                      0x0010  /* LOATTN */
+-#define WM8400_LOATTN_SHIFT                          4  /* LOATTN */
+-#define WM8400_LOATTN_WIDTH                          1  /* LOATTN */
+-#define WM8400_RONMUTE                          0x0004  /* RONMUTE */
+-#define WM8400_RONMUTE_MASK                     0x0004  /* RONMUTE */
+-#define WM8400_RONMUTE_SHIFT                         2  /* RONMUTE */
+-#define WM8400_RONMUTE_WIDTH                         1  /* RONMUTE */
+-#define WM8400_ROPMUTE                          0x0002  /* ROPMUTE */
+-#define WM8400_ROPMUTE_MASK                     0x0002  /* ROPMUTE */
+-#define WM8400_ROPMUTE_SHIFT                         1  /* ROPMUTE */
+-#define WM8400_ROPMUTE_WIDTH                         1  /* ROPMUTE */
+-#define WM8400_ROATTN                           0x0001  /* ROATTN */
+-#define WM8400_ROATTN_MASK                      0x0001  /* ROATTN */
+-#define WM8400_ROATTN_SHIFT                          0  /* ROATTN */
+-#define WM8400_ROATTN_WIDTH                          1  /* ROATTN */
+-
+-/*
+- * R31 (0x1F) - Out3/4 Volume
+- */
+-#define WM8400_OUT3MUTE                         0x0020  /* OUT3MUTE */
+-#define WM8400_OUT3MUTE_MASK                    0x0020  /* OUT3MUTE */
+-#define WM8400_OUT3MUTE_SHIFT                        5  /* OUT3MUTE */
+-#define WM8400_OUT3MUTE_WIDTH                        1  /* OUT3MUTE */
+-#define WM8400_OUT3ATTN                         0x0010  /* OUT3ATTN */
+-#define WM8400_OUT3ATTN_MASK                    0x0010  /* OUT3ATTN */
+-#define WM8400_OUT3ATTN_SHIFT                        4  /* OUT3ATTN */
+-#define WM8400_OUT3ATTN_WIDTH                        1  /* OUT3ATTN */
+-#define WM8400_OUT4MUTE                         0x0002  /* OUT4MUTE */
+-#define WM8400_OUT4MUTE_MASK                    0x0002  /* OUT4MUTE */
+-#define WM8400_OUT4MUTE_SHIFT                        1  /* OUT4MUTE */
+-#define WM8400_OUT4MUTE_WIDTH                        1  /* OUT4MUTE */
+-#define WM8400_OUT4ATTN                         0x0001  /* OUT4ATTN */
+-#define WM8400_OUT4ATTN_MASK                    0x0001  /* OUT4ATTN */
+-#define WM8400_OUT4ATTN_SHIFT                        0  /* OUT4ATTN */
+-#define WM8400_OUT4ATTN_WIDTH                        1  /* OUT4ATTN */
+-
+-/*
+- * R32 (0x20) - Left OPGA Volume
+- */
+-#define WM8400_OPVU                             0x0100  /* OPVU */
+-#define WM8400_OPVU_MASK                        0x0100  /* OPVU */
+-#define WM8400_OPVU_SHIFT                            8  /* OPVU */
+-#define WM8400_OPVU_WIDTH                            1  /* OPVU */
+-#define WM8400_LOPGAZC                          0x0080  /* LOPGAZC */
+-#define WM8400_LOPGAZC_MASK                     0x0080  /* LOPGAZC */
+-#define WM8400_LOPGAZC_SHIFT                         7  /* LOPGAZC */
+-#define WM8400_LOPGAZC_WIDTH                         1  /* LOPGAZC */
+-#define WM8400_LOPGAVOL_MASK                    0x007F  /* LOPGAVOL - [6:0] */
+-#define WM8400_LOPGAVOL_SHIFT                        0  /* LOPGAVOL - [6:0] */
+-#define WM8400_LOPGAVOL_WIDTH                        7  /* LOPGAVOL - [6:0] */
+-
+-/*
+- * R33 (0x21) - Right OPGA Volume
+- */
+-#define WM8400_OPVU                             0x0100  /* OPVU */
+-#define WM8400_OPVU_MASK                        0x0100  /* OPVU */
+-#define WM8400_OPVU_SHIFT                            8  /* OPVU */
+-#define WM8400_OPVU_WIDTH                            1  /* OPVU */
+-#define WM8400_ROPGAZC                          0x0080  /* ROPGAZC */
+-#define WM8400_ROPGAZC_MASK                     0x0080  /* ROPGAZC */
+-#define WM8400_ROPGAZC_SHIFT                         7  /* ROPGAZC */
+-#define WM8400_ROPGAZC_WIDTH                         1  /* ROPGAZC */
+-#define WM8400_ROPGAVOL_MASK                    0x007F  /* ROPGAVOL - [6:0] */
+-#define WM8400_ROPGAVOL_SHIFT                        0  /* ROPGAVOL - [6:0] */
+-#define WM8400_ROPGAVOL_WIDTH                        7  /* ROPGAVOL - [6:0] */
+-
+-/*
+- * R34 (0x22) - Speaker Volume
+- */
+-#define WM8400_SPKATTN_MASK                     0x0003  /* SPKATTN - [1:0] */
+-#define WM8400_SPKATTN_SHIFT                         0  /* SPKATTN - [1:0] */
+-#define WM8400_SPKATTN_WIDTH                         2  /* SPKATTN - [1:0] */
+-
+-/*
+- * R35 (0x23) - ClassD1
+- */
+-#define WM8400_CDMODE                           0x0100  /* CDMODE */
+-#define WM8400_CDMODE_MASK                      0x0100  /* CDMODE */
+-#define WM8400_CDMODE_SHIFT                          8  /* CDMODE */
+-#define WM8400_CDMODE_WIDTH                          1  /* CDMODE */
+-#define WM8400_CLASSD_CLK_SEL                   0x0080  /* CLASSD_CLK_SEL */
+-#define WM8400_CLASSD_CLK_SEL_MASK              0x0080  /* CLASSD_CLK_SEL */
+-#define WM8400_CLASSD_CLK_SEL_SHIFT                  7  /* CLASSD_CLK_SEL */
+-#define WM8400_CLASSD_CLK_SEL_WIDTH                  1  /* CLASSD_CLK_SEL */
+-#define WM8400_CD_SRCTRL                        0x0040  /* CD_SRCTRL */
+-#define WM8400_CD_SRCTRL_MASK                   0x0040  /* CD_SRCTRL */
+-#define WM8400_CD_SRCTRL_SHIFT                       6  /* CD_SRCTRL */
+-#define WM8400_CD_SRCTRL_WIDTH                       1  /* CD_SRCTRL */
+-#define WM8400_SPKNOPOP                         0x0020  /* SPKNOPOP */
+-#define WM8400_SPKNOPOP_MASK                    0x0020  /* SPKNOPOP */
+-#define WM8400_SPKNOPOP_SHIFT                        5  /* SPKNOPOP */
+-#define WM8400_SPKNOPOP_WIDTH                        1  /* SPKNOPOP */
+-#define WM8400_DBLERATE                         0x0010  /* DBLERATE */
+-#define WM8400_DBLERATE_MASK                    0x0010  /* DBLERATE */
+-#define WM8400_DBLERATE_SHIFT                        4  /* DBLERATE */
+-#define WM8400_DBLERATE_WIDTH                        1  /* DBLERATE */
+-#define WM8400_LOOPTEST                         0x0008  /* LOOPTEST */
+-#define WM8400_LOOPTEST_MASK                    0x0008  /* LOOPTEST */
+-#define WM8400_LOOPTEST_SHIFT                        3  /* LOOPTEST */
+-#define WM8400_LOOPTEST_WIDTH                        1  /* LOOPTEST */
+-#define WM8400_HALFABBIAS                       0x0004  /* HALFABBIAS */
+-#define WM8400_HALFABBIAS_MASK                  0x0004  /* HALFABBIAS */
+-#define WM8400_HALFABBIAS_SHIFT                      2  /* HALFABBIAS */
+-#define WM8400_HALFABBIAS_WIDTH                      1  /* HALFABBIAS */
+-#define WM8400_TRIDEL_MASK                      0x0003  /* TRIDEL - [1:0] */
+-#define WM8400_TRIDEL_SHIFT                          0  /* TRIDEL - [1:0] */
+-#define WM8400_TRIDEL_WIDTH                          2  /* TRIDEL - [1:0] */
+-
+-/*
+- * R37 (0x25) - ClassD3
+- */
+-#define WM8400_DCGAIN_MASK                      0x0038  /* DCGAIN - [5:3] */
+-#define WM8400_DCGAIN_SHIFT                          3  /* DCGAIN - [5:3] */
+-#define WM8400_DCGAIN_WIDTH                          3  /* DCGAIN - [5:3] */
+-#define WM8400_ACGAIN_MASK                      0x0007  /* ACGAIN - [2:0] */
+-#define WM8400_ACGAIN_SHIFT                          0  /* ACGAIN - [2:0] */
+-#define WM8400_ACGAIN_WIDTH                          3  /* ACGAIN - [2:0] */
+-
+-/*
+- * R39 (0x27) - Input Mixer1
+- */
+-#define WM8400_AINLMODE_MASK                    0x000C  /* AINLMODE - [3:2] */
+-#define WM8400_AINLMODE_SHIFT                        2  /* AINLMODE - [3:2] */
+-#define WM8400_AINLMODE_WIDTH                        2  /* AINLMODE - [3:2] */
+-#define WM8400_AINRMODE_MASK                    0x0003  /* AINRMODE - [1:0] */
+-#define WM8400_AINRMODE_SHIFT                        0  /* AINRMODE - [1:0] */
+-#define WM8400_AINRMODE_WIDTH                        2  /* AINRMODE - [1:0] */
+-
+-/*
+- * R40 (0x28) - Input Mixer2
+- */
+-#define WM8400_LMP4                             0x0080  /* LMP4 */
+-#define WM8400_LMP4_MASK                        0x0080  /* LMP4 */
+-#define WM8400_LMP4_SHIFT                            7  /* LMP4 */
+-#define WM8400_LMP4_WIDTH                            1  /* LMP4 */
+-#define WM8400_LMN3                             0x0040  /* LMN3 */
+-#define WM8400_LMN3_MASK                        0x0040  /* LMN3 */
+-#define WM8400_LMN3_SHIFT                            6  /* LMN3 */
+-#define WM8400_LMN3_WIDTH                            1  /* LMN3 */
+-#define WM8400_LMP2                             0x0020  /* LMP2 */
+-#define WM8400_LMP2_MASK                        0x0020  /* LMP2 */
+-#define WM8400_LMP2_SHIFT                            5  /* LMP2 */
+-#define WM8400_LMP2_WIDTH                            1  /* LMP2 */
+-#define WM8400_LMN1                             0x0010  /* LMN1 */
+-#define WM8400_LMN1_MASK                        0x0010  /* LMN1 */
+-#define WM8400_LMN1_SHIFT                            4  /* LMN1 */
+-#define WM8400_LMN1_WIDTH                            1  /* LMN1 */
+-#define WM8400_RMP4                             0x0008  /* RMP4 */
+-#define WM8400_RMP4_MASK                        0x0008  /* RMP4 */
+-#define WM8400_RMP4_SHIFT                            3  /* RMP4 */
+-#define WM8400_RMP4_WIDTH                            1  /* RMP4 */
+-#define WM8400_RMN3                             0x0004  /* RMN3 */
+-#define WM8400_RMN3_MASK                        0x0004  /* RMN3 */
+-#define WM8400_RMN3_SHIFT                            2  /* RMN3 */
+-#define WM8400_RMN3_WIDTH                            1  /* RMN3 */
+-#define WM8400_RMP2                             0x0002  /* RMP2 */
+-#define WM8400_RMP2_MASK                        0x0002  /* RMP2 */
+-#define WM8400_RMP2_SHIFT                            1  /* RMP2 */
+-#define WM8400_RMP2_WIDTH                            1  /* RMP2 */
+-#define WM8400_RMN1                             0x0001  /* RMN1 */
+-#define WM8400_RMN1_MASK                        0x0001  /* RMN1 */
+-#define WM8400_RMN1_SHIFT                            0  /* RMN1 */
+-#define WM8400_RMN1_WIDTH                            1  /* RMN1 */
+-
+-/*
+- * R41 (0x29) - Input Mixer3
+- */
+-#define WM8400_L34MNB                           0x0100  /* L34MNB */
+-#define WM8400_L34MNB_MASK                      0x0100  /* L34MNB */
+-#define WM8400_L34MNB_SHIFT                          8  /* L34MNB */
+-#define WM8400_L34MNB_WIDTH                          1  /* L34MNB */
+-#define WM8400_L34MNBST                         0x0080  /* L34MNBST */
+-#define WM8400_L34MNBST_MASK                    0x0080  /* L34MNBST */
+-#define WM8400_L34MNBST_SHIFT                        7  /* L34MNBST */
+-#define WM8400_L34MNBST_WIDTH                        1  /* L34MNBST */
+-#define WM8400_L12MNB                           0x0020  /* L12MNB */
+-#define WM8400_L12MNB_MASK                      0x0020  /* L12MNB */
+-#define WM8400_L12MNB_SHIFT                          5  /* L12MNB */
+-#define WM8400_L12MNB_WIDTH                          1  /* L12MNB */
+-#define WM8400_L12MNBST                         0x0010  /* L12MNBST */
+-#define WM8400_L12MNBST_MASK                    0x0010  /* L12MNBST */
+-#define WM8400_L12MNBST_SHIFT                        4  /* L12MNBST */
+-#define WM8400_L12MNBST_WIDTH                        1  /* L12MNBST */
+-#define WM8400_LDBVOL_MASK                      0x0007  /* LDBVOL - [2:0] */
+-#define WM8400_LDBVOL_SHIFT                          0  /* LDBVOL - [2:0] */
+-#define WM8400_LDBVOL_WIDTH                          3  /* LDBVOL - [2:0] */
+-
+-/*
+- * R42 (0x2A) - Input Mixer4
+- */
+-#define WM8400_R34MNB                           0x0100  /* R34MNB */
+-#define WM8400_R34MNB_MASK                      0x0100  /* R34MNB */
+-#define WM8400_R34MNB_SHIFT                          8  /* R34MNB */
+-#define WM8400_R34MNB_WIDTH                          1  /* R34MNB */
+-#define WM8400_R34MNBST                         0x0080  /* R34MNBST */
+-#define WM8400_R34MNBST_MASK                    0x0080  /* R34MNBST */
+-#define WM8400_R34MNBST_SHIFT                        7  /* R34MNBST */
+-#define WM8400_R34MNBST_WIDTH                        1  /* R34MNBST */
+-#define WM8400_R12MNB                           0x0020  /* R12MNB */
+-#define WM8400_R12MNB_MASK                      0x0020  /* R12MNB */
+-#define WM8400_R12MNB_SHIFT                          5  /* R12MNB */
+-#define WM8400_R12MNB_WIDTH                          1  /* R12MNB */
+-#define WM8400_R12MNBST                         0x0010  /* R12MNBST */
+-#define WM8400_R12MNBST_MASK                    0x0010  /* R12MNBST */
+-#define WM8400_R12MNBST_SHIFT                        4  /* R12MNBST */
+-#define WM8400_R12MNBST_WIDTH                        1  /* R12MNBST */
+-#define WM8400_RDBVOL_MASK                      0x0007  /* RDBVOL - [2:0] */
+-#define WM8400_RDBVOL_SHIFT                          0  /* RDBVOL - [2:0] */
+-#define WM8400_RDBVOL_WIDTH                          3  /* RDBVOL - [2:0] */
+-
+-/*
+- * R43 (0x2B) - Input Mixer5
+- */
+-#define WM8400_LI2BVOL_MASK                     0x01C0  /* LI2BVOL - [8:6] */
+-#define WM8400_LI2BVOL_SHIFT                         6  /* LI2BVOL - [8:6] */
+-#define WM8400_LI2BVOL_WIDTH                         3  /* LI2BVOL - [8:6] */
+-#define WM8400_LR4BVOL_MASK                     0x0038  /* LR4BVOL - [5:3] */
+-#define WM8400_LR4BVOL_SHIFT                         3  /* LR4BVOL - [5:3] */
+-#define WM8400_LR4BVOL_WIDTH                         3  /* LR4BVOL - [5:3] */
+-#define WM8400_LL4BVOL_MASK                     0x0007  /* LL4BVOL - [2:0] */
+-#define WM8400_LL4BVOL_SHIFT                         0  /* LL4BVOL - [2:0] */
+-#define WM8400_LL4BVOL_WIDTH                         3  /* LL4BVOL - [2:0] */
+-
+-/*
+- * R44 (0x2C) - Input Mixer6
+- */
+-#define WM8400_RI2BVOL_MASK                     0x01C0  /* RI2BVOL - [8:6] */
+-#define WM8400_RI2BVOL_SHIFT                         6  /* RI2BVOL - [8:6] */
+-#define WM8400_RI2BVOL_WIDTH                         3  /* RI2BVOL - [8:6] */
+-#define WM8400_RL4BVOL_MASK                     0x0038  /* RL4BVOL - [5:3] */
+-#define WM8400_RL4BVOL_SHIFT                         3  /* RL4BVOL - [5:3] */
+-#define WM8400_RL4BVOL_WIDTH                         3  /* RL4BVOL - [5:3] */
+-#define WM8400_RR4BVOL_MASK                     0x0007  /* RR4BVOL - [2:0] */
+-#define WM8400_RR4BVOL_SHIFT                         0  /* RR4BVOL - [2:0] */
+-#define WM8400_RR4BVOL_WIDTH                         3  /* RR4BVOL - [2:0] */
+-
+-/*
+- * R45 (0x2D) - Output Mixer1
+- */
+-#define WM8400_LRBLO                            0x0080  /* LRBLO */
+-#define WM8400_LRBLO_MASK                       0x0080  /* LRBLO */
+-#define WM8400_LRBLO_SHIFT                           7  /* LRBLO */
+-#define WM8400_LRBLO_WIDTH                           1  /* LRBLO */
+-#define WM8400_LLBLO                            0x0040  /* LLBLO */
+-#define WM8400_LLBLO_MASK                       0x0040  /* LLBLO */
+-#define WM8400_LLBLO_SHIFT                           6  /* LLBLO */
+-#define WM8400_LLBLO_WIDTH                           1  /* LLBLO */
+-#define WM8400_LRI3LO                           0x0020  /* LRI3LO */
+-#define WM8400_LRI3LO_MASK                      0x0020  /* LRI3LO */
+-#define WM8400_LRI3LO_SHIFT                          5  /* LRI3LO */
+-#define WM8400_LRI3LO_WIDTH                          1  /* LRI3LO */
+-#define WM8400_LLI3LO                           0x0010  /* LLI3LO */
+-#define WM8400_LLI3LO_MASK                      0x0010  /* LLI3LO */
+-#define WM8400_LLI3LO_SHIFT                          4  /* LLI3LO */
+-#define WM8400_LLI3LO_WIDTH                          1  /* LLI3LO */
+-#define WM8400_LR12LO                           0x0008  /* LR12LO */
+-#define WM8400_LR12LO_MASK                      0x0008  /* LR12LO */
+-#define WM8400_LR12LO_SHIFT                          3  /* LR12LO */
+-#define WM8400_LR12LO_WIDTH                          1  /* LR12LO */
+-#define WM8400_LL12LO                           0x0004  /* LL12LO */
+-#define WM8400_LL12LO_MASK                      0x0004  /* LL12LO */
+-#define WM8400_LL12LO_SHIFT                          2  /* LL12LO */
+-#define WM8400_LL12LO_WIDTH                          1  /* LL12LO */
+-#define WM8400_LDLO                             0x0001  /* LDLO */
+-#define WM8400_LDLO_MASK                        0x0001  /* LDLO */
+-#define WM8400_LDLO_SHIFT                            0  /* LDLO */
+-#define WM8400_LDLO_WIDTH                            1  /* LDLO */
+-
+-/*
+- * R46 (0x2E) - Output Mixer2
+- */
+-#define WM8400_RLBRO                            0x0080  /* RLBRO */
+-#define WM8400_RLBRO_MASK                       0x0080  /* RLBRO */
+-#define WM8400_RLBRO_SHIFT                           7  /* RLBRO */
+-#define WM8400_RLBRO_WIDTH                           1  /* RLBRO */
+-#define WM8400_RRBRO                            0x0040  /* RRBRO */
+-#define WM8400_RRBRO_MASK                       0x0040  /* RRBRO */
+-#define WM8400_RRBRO_SHIFT                           6  /* RRBRO */
+-#define WM8400_RRBRO_WIDTH                           1  /* RRBRO */
+-#define WM8400_RLI3RO                           0x0020  /* RLI3RO */
+-#define WM8400_RLI3RO_MASK                      0x0020  /* RLI3RO */
+-#define WM8400_RLI3RO_SHIFT                          5  /* RLI3RO */
+-#define WM8400_RLI3RO_WIDTH                          1  /* RLI3RO */
+-#define WM8400_RRI3RO                           0x0010  /* RRI3RO */
+-#define WM8400_RRI3RO_MASK                      0x0010  /* RRI3RO */
+-#define WM8400_RRI3RO_SHIFT                          4  /* RRI3RO */
+-#define WM8400_RRI3RO_WIDTH                          1  /* RRI3RO */
+-#define WM8400_RL12RO                           0x0008  /* RL12RO */
+-#define WM8400_RL12RO_MASK                      0x0008  /* RL12RO */
+-#define WM8400_RL12RO_SHIFT                          3  /* RL12RO */
+-#define WM8400_RL12RO_WIDTH                          1  /* RL12RO */
+-#define WM8400_RR12RO                           0x0004  /* RR12RO */
+-#define WM8400_RR12RO_MASK                      0x0004  /* RR12RO */
+-#define WM8400_RR12RO_SHIFT                          2  /* RR12RO */
+-#define WM8400_RR12RO_WIDTH                          1  /* RR12RO */
+-#define WM8400_RDRO                             0x0001  /* RDRO */
+-#define WM8400_RDRO_MASK                        0x0001  /* RDRO */
+-#define WM8400_RDRO_SHIFT                            0  /* RDRO */
+-#define WM8400_RDRO_WIDTH                            1  /* RDRO */
+-
+-/*
+- * R47 (0x2F) - Output Mixer3
+- */
+-#define WM8400_LLI3LOVOL_MASK                   0x01C0  /* LLI3LOVOL - [8:6] */
+-#define WM8400_LLI3LOVOL_SHIFT                       6  /* LLI3LOVOL - [8:6] */
+-#define WM8400_LLI3LOVOL_WIDTH                       3  /* LLI3LOVOL - [8:6] */
+-#define WM8400_LR12LOVOL_MASK                   0x0038  /* LR12LOVOL - [5:3] */
+-#define WM8400_LR12LOVOL_SHIFT                       3  /* LR12LOVOL - [5:3] */
+-#define WM8400_LR12LOVOL_WIDTH                       3  /* LR12LOVOL - [5:3] */
+-#define WM8400_LL12LOVOL_MASK                   0x0007  /* LL12LOVOL - [2:0] */
+-#define WM8400_LL12LOVOL_SHIFT                       0  /* LL12LOVOL - [2:0] */
+-#define WM8400_LL12LOVOL_WIDTH                       3  /* LL12LOVOL - [2:0] */
+-
+-/*
+- * R48 (0x30) - Output Mixer4
+- */
+-#define WM8400_RRI3ROVOL_MASK                   0x01C0  /* RRI3ROVOL - [8:6] */
+-#define WM8400_RRI3ROVOL_SHIFT                       6  /* RRI3ROVOL - [8:6] */
+-#define WM8400_RRI3ROVOL_WIDTH                       3  /* RRI3ROVOL - [8:6] */
+-#define WM8400_RL12ROVOL_MASK                   0x0038  /* RL12ROVOL - [5:3] */
+-#define WM8400_RL12ROVOL_SHIFT                       3  /* RL12ROVOL - [5:3] */
+-#define WM8400_RL12ROVOL_WIDTH                       3  /* RL12ROVOL - [5:3] */
+-#define WM8400_RR12ROVOL_MASK                   0x0007  /* RR12ROVOL - [2:0] */
+-#define WM8400_RR12ROVOL_SHIFT                       0  /* RR12ROVOL - [2:0] */
+-#define WM8400_RR12ROVOL_WIDTH                       3  /* RR12ROVOL - [2:0] */
+-
+-/*
+- * R49 (0x31) - Output Mixer5
+- */
+-#define WM8400_LRI3LOVOL_MASK                   0x01C0  /* LRI3LOVOL - [8:6] */
+-#define WM8400_LRI3LOVOL_SHIFT                       6  /* LRI3LOVOL - [8:6] */
+-#define WM8400_LRI3LOVOL_WIDTH                       3  /* LRI3LOVOL - [8:6] */
+-#define WM8400_LRBLOVOL_MASK                    0x0038  /* LRBLOVOL - [5:3] */
+-#define WM8400_LRBLOVOL_SHIFT                        3  /* LRBLOVOL - [5:3] */
+-#define WM8400_LRBLOVOL_WIDTH                        3  /* LRBLOVOL - [5:3] */
+-#define WM8400_LLBLOVOL_MASK                    0x0007  /* LLBLOVOL - [2:0] */
+-#define WM8400_LLBLOVOL_SHIFT                        0  /* LLBLOVOL - [2:0] */
+-#define WM8400_LLBLOVOL_WIDTH                        3  /* LLBLOVOL - [2:0] */
+-
+-/*
+- * R50 (0x32) - Output Mixer6
+- */
+-#define WM8400_RLI3ROVOL_MASK                   0x01C0  /* RLI3ROVOL - [8:6] */
+-#define WM8400_RLI3ROVOL_SHIFT                       6  /* RLI3ROVOL - [8:6] */
+-#define WM8400_RLI3ROVOL_WIDTH                       3  /* RLI3ROVOL - [8:6] */
+-#define WM8400_RLBROVOL_MASK                    0x0038  /* RLBROVOL - [5:3] */
+-#define WM8400_RLBROVOL_SHIFT                        3  /* RLBROVOL - [5:3] */
+-#define WM8400_RLBROVOL_WIDTH                        3  /* RLBROVOL - [5:3] */
+-#define WM8400_RRBROVOL_MASK                    0x0007  /* RRBROVOL - [2:0] */
+-#define WM8400_RRBROVOL_SHIFT                        0  /* RRBROVOL - [2:0] */
+-#define WM8400_RRBROVOL_WIDTH                        3  /* RRBROVOL - [2:0] */
+-
+-/*
+- * R51 (0x33) - Out3/4 Mixer
+- */
+-#define WM8400_VSEL_MASK                        0x0180  /* VSEL - [8:7] */
+-#define WM8400_VSEL_SHIFT                            7  /* VSEL - [8:7] */
+-#define WM8400_VSEL_WIDTH                            2  /* VSEL - [8:7] */
+-#define WM8400_LI4O3                            0x0020  /* LI4O3 */
+-#define WM8400_LI4O3_MASK                       0x0020  /* LI4O3 */
+-#define WM8400_LI4O3_SHIFT                           5  /* LI4O3 */
+-#define WM8400_LI4O3_WIDTH                           1  /* LI4O3 */
+-#define WM8400_LPGAO3                           0x0010  /* LPGAO3 */
+-#define WM8400_LPGAO3_MASK                      0x0010  /* LPGAO3 */
+-#define WM8400_LPGAO3_SHIFT                          4  /* LPGAO3 */
+-#define WM8400_LPGAO3_WIDTH                          1  /* LPGAO3 */
+-#define WM8400_RI4O4                            0x0002  /* RI4O4 */
+-#define WM8400_RI4O4_MASK                       0x0002  /* RI4O4 */
+-#define WM8400_RI4O4_SHIFT                           1  /* RI4O4 */
+-#define WM8400_RI4O4_WIDTH                           1  /* RI4O4 */
+-#define WM8400_RPGAO4                           0x0001  /* RPGAO4 */
+-#define WM8400_RPGAO4_MASK                      0x0001  /* RPGAO4 */
+-#define WM8400_RPGAO4_SHIFT                          0  /* RPGAO4 */
+-#define WM8400_RPGAO4_WIDTH                          1  /* RPGAO4 */
+-
+-/*
+- * R52 (0x34) - Line Mixer1
+- */
+-#define WM8400_LLOPGALON                        0x0040  /* LLOPGALON */
+-#define WM8400_LLOPGALON_MASK                   0x0040  /* LLOPGALON */
+-#define WM8400_LLOPGALON_SHIFT                       6  /* LLOPGALON */
+-#define WM8400_LLOPGALON_WIDTH                       1  /* LLOPGALON */
+-#define WM8400_LROPGALON                        0x0020  /* LROPGALON */
+-#define WM8400_LROPGALON_MASK                   0x0020  /* LROPGALON */
+-#define WM8400_LROPGALON_SHIFT                       5  /* LROPGALON */
+-#define WM8400_LROPGALON_WIDTH                       1  /* LROPGALON */
+-#define WM8400_LOPLON                           0x0010  /* LOPLON */
+-#define WM8400_LOPLON_MASK                      0x0010  /* LOPLON */
+-#define WM8400_LOPLON_SHIFT                          4  /* LOPLON */
+-#define WM8400_LOPLON_WIDTH                          1  /* LOPLON */
+-#define WM8400_LR12LOP                          0x0004  /* LR12LOP */
+-#define WM8400_LR12LOP_MASK                     0x0004  /* LR12LOP */
+-#define WM8400_LR12LOP_SHIFT                         2  /* LR12LOP */
+-#define WM8400_LR12LOP_WIDTH                         1  /* LR12LOP */
+-#define WM8400_LL12LOP                          0x0002  /* LL12LOP */
+-#define WM8400_LL12LOP_MASK                     0x0002  /* LL12LOP */
+-#define WM8400_LL12LOP_SHIFT                         1  /* LL12LOP */
+-#define WM8400_LL12LOP_WIDTH                         1  /* LL12LOP */
+-#define WM8400_LLOPGALOP                        0x0001  /* LLOPGALOP */
+-#define WM8400_LLOPGALOP_MASK                   0x0001  /* LLOPGALOP */
+-#define WM8400_LLOPGALOP_SHIFT                       0  /* LLOPGALOP */
+-#define WM8400_LLOPGALOP_WIDTH                       1  /* LLOPGALOP */
+-
+-/*
+- * R53 (0x35) - Line Mixer2
+- */
+-#define WM8400_RROPGARON                        0x0040  /* RROPGARON */
+-#define WM8400_RROPGARON_MASK                   0x0040  /* RROPGARON */
+-#define WM8400_RROPGARON_SHIFT                       6  /* RROPGARON */
+-#define WM8400_RROPGARON_WIDTH                       1  /* RROPGARON */
+-#define WM8400_RLOPGARON                        0x0020  /* RLOPGARON */
+-#define WM8400_RLOPGARON_MASK                   0x0020  /* RLOPGARON */
+-#define WM8400_RLOPGARON_SHIFT                       5  /* RLOPGARON */
+-#define WM8400_RLOPGARON_WIDTH                       1  /* RLOPGARON */
+-#define WM8400_ROPRON                           0x0010  /* ROPRON */
+-#define WM8400_ROPRON_MASK                      0x0010  /* ROPRON */
+-#define WM8400_ROPRON_SHIFT                          4  /* ROPRON */
+-#define WM8400_ROPRON_WIDTH                          1  /* ROPRON */
+-#define WM8400_RL12ROP                          0x0004  /* RL12ROP */
+-#define WM8400_RL12ROP_MASK                     0x0004  /* RL12ROP */
+-#define WM8400_RL12ROP_SHIFT                         2  /* RL12ROP */
+-#define WM8400_RL12ROP_WIDTH                         1  /* RL12ROP */
+-#define WM8400_RR12ROP                          0x0002  /* RR12ROP */
+-#define WM8400_RR12ROP_MASK                     0x0002  /* RR12ROP */
+-#define WM8400_RR12ROP_SHIFT                         1  /* RR12ROP */
+-#define WM8400_RR12ROP_WIDTH                         1  /* RR12ROP */
+-#define WM8400_RROPGAROP                        0x0001  /* RROPGAROP */
+-#define WM8400_RROPGAROP_MASK                   0x0001  /* RROPGAROP */
+-#define WM8400_RROPGAROP_SHIFT                       0  /* RROPGAROP */
+-#define WM8400_RROPGAROP_WIDTH                       1  /* RROPGAROP */
+-
+-/*
+- * R54 (0x36) - Speaker Mixer
+- */
+-#define WM8400_LB2SPK                           0x0080  /* LB2SPK */
+-#define WM8400_LB2SPK_MASK                      0x0080  /* LB2SPK */
+-#define WM8400_LB2SPK_SHIFT                          7  /* LB2SPK */
+-#define WM8400_LB2SPK_WIDTH                          1  /* LB2SPK */
+-#define WM8400_RB2SPK                           0x0040  /* RB2SPK */
+-#define WM8400_RB2SPK_MASK                      0x0040  /* RB2SPK */
+-#define WM8400_RB2SPK_SHIFT                          6  /* RB2SPK */
+-#define WM8400_RB2SPK_WIDTH                          1  /* RB2SPK */
+-#define WM8400_LI2SPK                           0x0020  /* LI2SPK */
+-#define WM8400_LI2SPK_MASK                      0x0020  /* LI2SPK */
+-#define WM8400_LI2SPK_SHIFT                          5  /* LI2SPK */
+-#define WM8400_LI2SPK_WIDTH                          1  /* LI2SPK */
+-#define WM8400_RI2SPK                           0x0010  /* RI2SPK */
+-#define WM8400_RI2SPK_MASK                      0x0010  /* RI2SPK */
+-#define WM8400_RI2SPK_SHIFT                          4  /* RI2SPK */
+-#define WM8400_RI2SPK_WIDTH                          1  /* RI2SPK */
+-#define WM8400_LOPGASPK                         0x0008  /* LOPGASPK */
+-#define WM8400_LOPGASPK_MASK                    0x0008  /* LOPGASPK */
+-#define WM8400_LOPGASPK_SHIFT                        3  /* LOPGASPK */
+-#define WM8400_LOPGASPK_WIDTH                        1  /* LOPGASPK */
+-#define WM8400_ROPGASPK                         0x0004  /* ROPGASPK */
+-#define WM8400_ROPGASPK_MASK                    0x0004  /* ROPGASPK */
+-#define WM8400_ROPGASPK_SHIFT                        2  /* ROPGASPK */
+-#define WM8400_ROPGASPK_WIDTH                        1  /* ROPGASPK */
+-#define WM8400_LDSPK                            0x0002  /* LDSPK */
+-#define WM8400_LDSPK_MASK                       0x0002  /* LDSPK */
+-#define WM8400_LDSPK_SHIFT                           1  /* LDSPK */
+-#define WM8400_LDSPK_WIDTH                           1  /* LDSPK */
+-#define WM8400_RDSPK                            0x0001  /* RDSPK */
+-#define WM8400_RDSPK_MASK                       0x0001  /* RDSPK */
+-#define WM8400_RDSPK_SHIFT                           0  /* RDSPK */
+-#define WM8400_RDSPK_WIDTH                           1  /* RDSPK */
+-
+-/*
+- * R55 (0x37) - Additional Control
+- */
+-#define WM8400_VROI                             0x0001  /* VROI */
+-#define WM8400_VROI_MASK                        0x0001  /* VROI */
+-#define WM8400_VROI_SHIFT                            0  /* VROI */
+-#define WM8400_VROI_WIDTH                            1  /* VROI */
+-
+-/*
+- * R56 (0x38) - AntiPOP1
+- */
+-#define WM8400_DIS_LLINE                        0x0020  /* DIS_LLINE */
+-#define WM8400_DIS_LLINE_MASK                   0x0020  /* DIS_LLINE */
+-#define WM8400_DIS_LLINE_SHIFT                       5  /* DIS_LLINE */
+-#define WM8400_DIS_LLINE_WIDTH                       1  /* DIS_LLINE */
+-#define WM8400_DIS_RLINE                        0x0010  /* DIS_RLINE */
+-#define WM8400_DIS_RLINE_MASK                   0x0010  /* DIS_RLINE */
+-#define WM8400_DIS_RLINE_SHIFT                       4  /* DIS_RLINE */
+-#define WM8400_DIS_RLINE_WIDTH                       1  /* DIS_RLINE */
+-#define WM8400_DIS_OUT3                         0x0008  /* DIS_OUT3 */
+-#define WM8400_DIS_OUT3_MASK                    0x0008  /* DIS_OUT3 */
+-#define WM8400_DIS_OUT3_SHIFT                        3  /* DIS_OUT3 */
+-#define WM8400_DIS_OUT3_WIDTH                        1  /* DIS_OUT3 */
+-#define WM8400_DIS_OUT4                         0x0004  /* DIS_OUT4 */
+-#define WM8400_DIS_OUT4_MASK                    0x0004  /* DIS_OUT4 */
+-#define WM8400_DIS_OUT4_SHIFT                        2  /* DIS_OUT4 */
+-#define WM8400_DIS_OUT4_WIDTH                        1  /* DIS_OUT4 */
+-#define WM8400_DIS_LOUT                         0x0002  /* DIS_LOUT */
+-#define WM8400_DIS_LOUT_MASK                    0x0002  /* DIS_LOUT */
+-#define WM8400_DIS_LOUT_SHIFT                        1  /* DIS_LOUT */
+-#define WM8400_DIS_LOUT_WIDTH                        1  /* DIS_LOUT */
+-#define WM8400_DIS_ROUT                         0x0001  /* DIS_ROUT */
+-#define WM8400_DIS_ROUT_MASK                    0x0001  /* DIS_ROUT */
+-#define WM8400_DIS_ROUT_SHIFT                        0  /* DIS_ROUT */
+-#define WM8400_DIS_ROUT_WIDTH                        1  /* DIS_ROUT */
+-
+-/*
+- * R57 (0x39) - AntiPOP2
+- */
+-#define WM8400_SOFTST                           0x0040  /* SOFTST */
+-#define WM8400_SOFTST_MASK                      0x0040  /* SOFTST */
+-#define WM8400_SOFTST_SHIFT                          6  /* SOFTST */
+-#define WM8400_SOFTST_WIDTH                          1  /* SOFTST */
+-#define WM8400_BUFIOEN                          0x0008  /* BUFIOEN */
+-#define WM8400_BUFIOEN_MASK                     0x0008  /* BUFIOEN */
+-#define WM8400_BUFIOEN_SHIFT                         3  /* BUFIOEN */
+-#define WM8400_BUFIOEN_WIDTH                         1  /* BUFIOEN */
+-#define WM8400_BUFDCOPEN                        0x0004  /* BUFDCOPEN */
+-#define WM8400_BUFDCOPEN_MASK                   0x0004  /* BUFDCOPEN */
+-#define WM8400_BUFDCOPEN_SHIFT                       2  /* BUFDCOPEN */
+-#define WM8400_BUFDCOPEN_WIDTH                       1  /* BUFDCOPEN */
+-#define WM8400_POBCTRL                          0x0002  /* POBCTRL */
+-#define WM8400_POBCTRL_MASK                     0x0002  /* POBCTRL */
+-#define WM8400_POBCTRL_SHIFT                         1  /* POBCTRL */
+-#define WM8400_POBCTRL_WIDTH                         1  /* POBCTRL */
+-#define WM8400_VMIDTOG                          0x0001  /* VMIDTOG */
+-#define WM8400_VMIDTOG_MASK                     0x0001  /* VMIDTOG */
+-#define WM8400_VMIDTOG_SHIFT                         0  /* VMIDTOG */
+-#define WM8400_VMIDTOG_WIDTH                         1  /* VMIDTOG */
+-
+-/*
+- * R58 (0x3A) - MICBIAS
+- */
+-#define WM8400_MCDSCTH_MASK                     0x00C0  /* MCDSCTH - [7:6] */
+-#define WM8400_MCDSCTH_SHIFT                         6  /* MCDSCTH - [7:6] */
+-#define WM8400_MCDSCTH_WIDTH                         2  /* MCDSCTH - [7:6] */
+-#define WM8400_MCDTHR_MASK                      0x0038  /* MCDTHR - [5:3] */
+-#define WM8400_MCDTHR_SHIFT                          3  /* MCDTHR - [5:3] */
+-#define WM8400_MCDTHR_WIDTH                          3  /* MCDTHR - [5:3] */
+-#define WM8400_MCD                              0x0004  /* MCD */
+-#define WM8400_MCD_MASK                         0x0004  /* MCD */
+-#define WM8400_MCD_SHIFT                             2  /* MCD */
+-#define WM8400_MCD_WIDTH                             1  /* MCD */
+-#define WM8400_MBSEL                            0x0001  /* MBSEL */
+-#define WM8400_MBSEL_MASK                       0x0001  /* MBSEL */
+-#define WM8400_MBSEL_SHIFT                           0  /* MBSEL */
+-#define WM8400_MBSEL_WIDTH                           1  /* MBSEL */
+-
+-/*
+- * R60 (0x3C) - FLL Control 1
+- */
+-#define WM8400_FLL_REF_FREQ                     0x1000  /* FLL_REF_FREQ */
+-#define WM8400_FLL_REF_FREQ_MASK                0x1000  /* FLL_REF_FREQ */
+-#define WM8400_FLL_REF_FREQ_SHIFT                   12  /* FLL_REF_FREQ */
+-#define WM8400_FLL_REF_FREQ_WIDTH                    1  /* FLL_REF_FREQ */
+-#define WM8400_FLL_CLK_SRC_MASK                 0x0C00  /* FLL_CLK_SRC - [11:10] */
+-#define WM8400_FLL_CLK_SRC_SHIFT                    10  /* FLL_CLK_SRC - [11:10] */
+-#define WM8400_FLL_CLK_SRC_WIDTH                     2  /* FLL_CLK_SRC - [11:10] */
+-#define WM8400_FLL_FRAC                         0x0200  /* FLL_FRAC */
+-#define WM8400_FLL_FRAC_MASK                    0x0200  /* FLL_FRAC */
+-#define WM8400_FLL_FRAC_SHIFT                        9  /* FLL_FRAC */
+-#define WM8400_FLL_FRAC_WIDTH                        1  /* FLL_FRAC */
+-#define WM8400_FLL_OSC_ENA                      0x0100  /* FLL_OSC_ENA */
+-#define WM8400_FLL_OSC_ENA_MASK                 0x0100  /* FLL_OSC_ENA */
+-#define WM8400_FLL_OSC_ENA_SHIFT                     8  /* FLL_OSC_ENA */
+-#define WM8400_FLL_OSC_ENA_WIDTH                     1  /* FLL_OSC_ENA */
+-#define WM8400_FLL_CTRL_RATE_MASK               0x00E0  /* FLL_CTRL_RATE - [7:5] */
+-#define WM8400_FLL_CTRL_RATE_SHIFT                   5  /* FLL_CTRL_RATE - [7:5] */
+-#define WM8400_FLL_CTRL_RATE_WIDTH                   3  /* FLL_CTRL_RATE - [7:5] */
+-#define WM8400_FLL_FRATIO_MASK                  0x001F  /* FLL_FRATIO - [4:0] */
+-#define WM8400_FLL_FRATIO_SHIFT                      0  /* FLL_FRATIO - [4:0] */
+-#define WM8400_FLL_FRATIO_WIDTH                      5  /* FLL_FRATIO - [4:0] */
+-
+-/*
+- * R61 (0x3D) - FLL Control 2
+- */
+-#define WM8400_FLL_K_MASK                       0xFFFF  /* FLL_K - [15:0] */
+-#define WM8400_FLL_K_SHIFT                           0  /* FLL_K - [15:0] */
+-#define WM8400_FLL_K_WIDTH                          16  /* FLL_K - [15:0] */
+-
+-/*
+- * R62 (0x3E) - FLL Control 3
+- */
+-#define WM8400_FLL_N_MASK                       0x03FF  /* FLL_N - [9:0] */
+-#define WM8400_FLL_N_SHIFT                           0  /* FLL_N - [9:0] */
+-#define WM8400_FLL_N_WIDTH                          10  /* FLL_N - [9:0] */
+-
+-/*
+- * R63 (0x3F) - FLL Control 4
+- */
+-#define WM8400_FLL_TRK_GAIN_MASK                0x0078  /* FLL_TRK_GAIN - [6:3] */
+-#define WM8400_FLL_TRK_GAIN_SHIFT                    3  /* FLL_TRK_GAIN - [6:3] */
+-#define WM8400_FLL_TRK_GAIN_WIDTH                    4  /* FLL_TRK_GAIN - [6:3] */
+-#define WM8400_FLL_OUTDIV_MASK                  0x0007  /* FLL_OUTDIV - [2:0] */
+-#define WM8400_FLL_OUTDIV_SHIFT                      0  /* FLL_OUTDIV - [2:0] */
+-#define WM8400_FLL_OUTDIV_WIDTH                      3  /* FLL_OUTDIV - [2:0] */
+-
+-struct wm8400;
+-void wm8400_reset_codec_reg_cache(struct wm8400 *wm8400);
+-
+-#endif
+diff --git a/include/linux/mfd/wm8400-private.h b/include/linux/mfd/wm8400-private.h
+deleted file mode 100644
+index bc8c2ca6dc70..000000000000
+--- a/include/linux/mfd/wm8400-private.h
++++ /dev/null
+@@ -1,913 +0,0 @@
+-/* SPDX-License-Identifier: GPL-2.0-or-later */
+-/*
+- * wm8400 private definitions.
+- *
+- * Copyright 2008 Wolfson Microelectronics plc
+- */
+-
+-#ifndef __LINUX_MFD_WM8400_PRIV_H
+-#define __LINUX_MFD_WM8400_PRIV_H
+-
+-#include <linux/mfd/wm8400.h>
+-#include <linux/mutex.h>
 -#include <linux/platform_device.h>
--#include <linux/backlight.h>
--#include <linux/mfd/da903x.h>
--#include <linux/slab.h>
--#include <linux/module.h>
+-#include <linux/regmap.h>
 -
--#define DA9030_WLED_CONTROL	0x25
--#define DA9030_WLED_CP_EN	(1 << 6)
--#define DA9030_WLED_TRIM(x)	((x) & 0x7)
+-#define WM8400_REGISTER_COUNT 0x55
 -
--#define DA9034_WLED_CONTROL1	0x3C
--#define DA9034_WLED_CONTROL2	0x3D
--#define DA9034_WLED_ISET(x)	((x) & 0x1f)
+-struct wm8400 {
+-	struct device *dev;
+-	struct regmap *regmap;
 -
--#define DA9034_WLED_BOOST_EN	(1 << 5)
--
--#define DA9030_MAX_BRIGHTNESS	7
--#define DA9034_MAX_BRIGHTNESS	0x7f
--
--struct da903x_backlight_data {
--	struct device *da903x_dev;
--	int id;
--	int current_brightness;
+-	struct platform_device regulators[6];
 -};
 -
--static int da903x_backlight_set(struct backlight_device *bl, int brightness)
+-/*
+- * Register values.
+- */
+-#define WM8400_RESET_ID                         0x00
+-#define WM8400_ID                               0x01
+-#define WM8400_POWER_MANAGEMENT_1               0x02
+-#define WM8400_POWER_MANAGEMENT_2               0x03
+-#define WM8400_POWER_MANAGEMENT_3               0x04
+-#define WM8400_AUDIO_INTERFACE_1                0x05
+-#define WM8400_AUDIO_INTERFACE_2                0x06
+-#define WM8400_CLOCKING_1                       0x07
+-#define WM8400_CLOCKING_2                       0x08
+-#define WM8400_AUDIO_INTERFACE_3                0x09
+-#define WM8400_AUDIO_INTERFACE_4                0x0A
+-#define WM8400_DAC_CTRL                         0x0B
+-#define WM8400_LEFT_DAC_DIGITAL_VOLUME          0x0C
+-#define WM8400_RIGHT_DAC_DIGITAL_VOLUME         0x0D
+-#define WM8400_DIGITAL_SIDE_TONE                0x0E
+-#define WM8400_ADC_CTRL                         0x0F
+-#define WM8400_LEFT_ADC_DIGITAL_VOLUME          0x10
+-#define WM8400_RIGHT_ADC_DIGITAL_VOLUME         0x11
+-#define WM8400_GPIO_CTRL_1                      0x12
+-#define WM8400_GPIO1_GPIO2                      0x13
+-#define WM8400_GPIO3_GPIO4                      0x14
+-#define WM8400_GPIO5_GPIO6                      0x15
+-#define WM8400_GPIOCTRL_2                       0x16
+-#define WM8400_GPIO_POL                         0x17
+-#define WM8400_LEFT_LINE_INPUT_1_2_VOLUME       0x18
+-#define WM8400_LEFT_LINE_INPUT_3_4_VOLUME       0x19
+-#define WM8400_RIGHT_LINE_INPUT_1_2_VOLUME      0x1A
+-#define WM8400_RIGHT_LINE_INPUT_3_4_VOLUME      0x1B
+-#define WM8400_LEFT_OUTPUT_VOLUME               0x1C
+-#define WM8400_RIGHT_OUTPUT_VOLUME              0x1D
+-#define WM8400_LINE_OUTPUTS_VOLUME              0x1E
+-#define WM8400_OUT3_4_VOLUME                    0x1F
+-#define WM8400_LEFT_OPGA_VOLUME                 0x20
+-#define WM8400_RIGHT_OPGA_VOLUME                0x21
+-#define WM8400_SPEAKER_VOLUME                   0x22
+-#define WM8400_CLASSD1                          0x23
+-#define WM8400_CLASSD3                          0x25
+-#define WM8400_INPUT_MIXER1                     0x27
+-#define WM8400_INPUT_MIXER2                     0x28
+-#define WM8400_INPUT_MIXER3                     0x29
+-#define WM8400_INPUT_MIXER4                     0x2A
+-#define WM8400_INPUT_MIXER5                     0x2B
+-#define WM8400_INPUT_MIXER6                     0x2C
+-#define WM8400_OUTPUT_MIXER1                    0x2D
+-#define WM8400_OUTPUT_MIXER2                    0x2E
+-#define WM8400_OUTPUT_MIXER3                    0x2F
+-#define WM8400_OUTPUT_MIXER4                    0x30
+-#define WM8400_OUTPUT_MIXER5                    0x31
+-#define WM8400_OUTPUT_MIXER6                    0x32
+-#define WM8400_OUT3_4_MIXER                     0x33
+-#define WM8400_LINE_MIXER1                      0x34
+-#define WM8400_LINE_MIXER2                      0x35
+-#define WM8400_SPEAKER_MIXER                    0x36
+-#define WM8400_ADDITIONAL_CONTROL               0x37
+-#define WM8400_ANTIPOP1                         0x38
+-#define WM8400_ANTIPOP2                         0x39
+-#define WM8400_MICBIAS                          0x3A
+-#define WM8400_FLL_CONTROL_1                    0x3C
+-#define WM8400_FLL_CONTROL_2                    0x3D
+-#define WM8400_FLL_CONTROL_3                    0x3E
+-#define WM8400_FLL_CONTROL_4                    0x3F
+-#define WM8400_LDO1_CONTROL                     0x41
+-#define WM8400_LDO2_CONTROL                     0x42
+-#define WM8400_LDO3_CONTROL                     0x43
+-#define WM8400_LDO4_CONTROL                     0x44
+-#define WM8400_DCDC1_CONTROL_1                  0x46
+-#define WM8400_DCDC1_CONTROL_2                  0x47
+-#define WM8400_DCDC2_CONTROL_1                  0x48
+-#define WM8400_DCDC2_CONTROL_2                  0x49
+-#define WM8400_INTERFACE                        0x4B
+-#define WM8400_PM_GENERAL                       0x4C
+-#define WM8400_PM_SHUTDOWN_CONTROL              0x4E
+-#define WM8400_INTERRUPT_STATUS_1               0x4F
+-#define WM8400_INTERRUPT_STATUS_1_MASK          0x50
+-#define WM8400_INTERRUPT_LEVELS                 0x51
+-#define WM8400_SHUTDOWN_REASON                  0x52
+-#define WM8400_LINE_CIRCUITS                    0x54
+-
+-/*
+- * Field Definitions.
+- */
+-
+-/*
+- * R0 (0x00) - Reset/ID
+- */
+-#define WM8400_SW_RESET_CHIP_ID_MASK            0xFFFF  /* SW_RESET/CHIP_ID - [15:0] */
+-#define WM8400_SW_RESET_CHIP_ID_SHIFT                0  /* SW_RESET/CHIP_ID - [15:0] */
+-#define WM8400_SW_RESET_CHIP_ID_WIDTH               16  /* SW_RESET/CHIP_ID - [15:0] */
+-
+-/*
+- * R1 (0x01) - ID
+- */
+-#define WM8400_CHIP_REV_MASK                    0x7000  /* CHIP_REV - [14:12] */
+-#define WM8400_CHIP_REV_SHIFT                       12  /* CHIP_REV - [14:12] */
+-#define WM8400_CHIP_REV_WIDTH                        3  /* CHIP_REV - [14:12] */
+-
+-/*
+- * R18 (0x12) - GPIO CTRL 1
+- */
+-#define WM8400_IRQ                              0x1000  /* IRQ */
+-#define WM8400_IRQ_MASK                         0x1000  /* IRQ */
+-#define WM8400_IRQ_SHIFT                            12  /* IRQ */
+-#define WM8400_IRQ_WIDTH                             1  /* IRQ */
+-#define WM8400_TEMPOK                           0x0800  /* TEMPOK */
+-#define WM8400_TEMPOK_MASK                      0x0800  /* TEMPOK */
+-#define WM8400_TEMPOK_SHIFT                         11  /* TEMPOK */
+-#define WM8400_TEMPOK_WIDTH                          1  /* TEMPOK */
+-#define WM8400_MIC1SHRT                         0x0400  /* MIC1SHRT */
+-#define WM8400_MIC1SHRT_MASK                    0x0400  /* MIC1SHRT */
+-#define WM8400_MIC1SHRT_SHIFT                       10  /* MIC1SHRT */
+-#define WM8400_MIC1SHRT_WIDTH                        1  /* MIC1SHRT */
+-#define WM8400_MIC1DET                          0x0200  /* MIC1DET */
+-#define WM8400_MIC1DET_MASK                     0x0200  /* MIC1DET */
+-#define WM8400_MIC1DET_SHIFT                         9  /* MIC1DET */
+-#define WM8400_MIC1DET_WIDTH                         1  /* MIC1DET */
+-#define WM8400_FLL_LCK                          0x0100  /* FLL_LCK */
+-#define WM8400_FLL_LCK_MASK                     0x0100  /* FLL_LCK */
+-#define WM8400_FLL_LCK_SHIFT                         8  /* FLL_LCK */
+-#define WM8400_FLL_LCK_WIDTH                         1  /* FLL_LCK */
+-#define WM8400_GPIO_STATUS_MASK                 0x00FF  /* GPIO_STATUS - [7:0] */
+-#define WM8400_GPIO_STATUS_SHIFT                     0  /* GPIO_STATUS - [7:0] */
+-#define WM8400_GPIO_STATUS_WIDTH                     8  /* GPIO_STATUS - [7:0] */
+-
+-/*
+- * R19 (0x13) - GPIO1 & GPIO2
+- */
+-#define WM8400_GPIO2_DEB_ENA                    0x8000  /* GPIO2_DEB_ENA */
+-#define WM8400_GPIO2_DEB_ENA_MASK               0x8000  /* GPIO2_DEB_ENA */
+-#define WM8400_GPIO2_DEB_ENA_SHIFT                  15  /* GPIO2_DEB_ENA */
+-#define WM8400_GPIO2_DEB_ENA_WIDTH                   1  /* GPIO2_DEB_ENA */
+-#define WM8400_GPIO2_IRQ_ENA                    0x4000  /* GPIO2_IRQ_ENA */
+-#define WM8400_GPIO2_IRQ_ENA_MASK               0x4000  /* GPIO2_IRQ_ENA */
+-#define WM8400_GPIO2_IRQ_ENA_SHIFT                  14  /* GPIO2_IRQ_ENA */
+-#define WM8400_GPIO2_IRQ_ENA_WIDTH                   1  /* GPIO2_IRQ_ENA */
+-#define WM8400_GPIO2_PU                         0x2000  /* GPIO2_PU */
+-#define WM8400_GPIO2_PU_MASK                    0x2000  /* GPIO2_PU */
+-#define WM8400_GPIO2_PU_SHIFT                       13  /* GPIO2_PU */
+-#define WM8400_GPIO2_PU_WIDTH                        1  /* GPIO2_PU */
+-#define WM8400_GPIO2_PD                         0x1000  /* GPIO2_PD */
+-#define WM8400_GPIO2_PD_MASK                    0x1000  /* GPIO2_PD */
+-#define WM8400_GPIO2_PD_SHIFT                       12  /* GPIO2_PD */
+-#define WM8400_GPIO2_PD_WIDTH                        1  /* GPIO2_PD */
+-#define WM8400_GPIO2_SEL_MASK                   0x0F00  /* GPIO2_SEL - [11:8] */
+-#define WM8400_GPIO2_SEL_SHIFT                       8  /* GPIO2_SEL - [11:8] */
+-#define WM8400_GPIO2_SEL_WIDTH                       4  /* GPIO2_SEL - [11:8] */
+-#define WM8400_GPIO1_DEB_ENA                    0x0080  /* GPIO1_DEB_ENA */
+-#define WM8400_GPIO1_DEB_ENA_MASK               0x0080  /* GPIO1_DEB_ENA */
+-#define WM8400_GPIO1_DEB_ENA_SHIFT                   7  /* GPIO1_DEB_ENA */
+-#define WM8400_GPIO1_DEB_ENA_WIDTH                   1  /* GPIO1_DEB_ENA */
+-#define WM8400_GPIO1_IRQ_ENA                    0x0040  /* GPIO1_IRQ_ENA */
+-#define WM8400_GPIO1_IRQ_ENA_MASK               0x0040  /* GPIO1_IRQ_ENA */
+-#define WM8400_GPIO1_IRQ_ENA_SHIFT                   6  /* GPIO1_IRQ_ENA */
+-#define WM8400_GPIO1_IRQ_ENA_WIDTH                   1  /* GPIO1_IRQ_ENA */
+-#define WM8400_GPIO1_PU                         0x0020  /* GPIO1_PU */
+-#define WM8400_GPIO1_PU_MASK                    0x0020  /* GPIO1_PU */
+-#define WM8400_GPIO1_PU_SHIFT                        5  /* GPIO1_PU */
+-#define WM8400_GPIO1_PU_WIDTH                        1  /* GPIO1_PU */
+-#define WM8400_GPIO1_PD                         0x0010  /* GPIO1_PD */
+-#define WM8400_GPIO1_PD_MASK                    0x0010  /* GPIO1_PD */
+-#define WM8400_GPIO1_PD_SHIFT                        4  /* GPIO1_PD */
+-#define WM8400_GPIO1_PD_WIDTH                        1  /* GPIO1_PD */
+-#define WM8400_GPIO1_SEL_MASK                   0x000F  /* GPIO1_SEL - [3:0] */
+-#define WM8400_GPIO1_SEL_SHIFT                       0  /* GPIO1_SEL - [3:0] */
+-#define WM8400_GPIO1_SEL_WIDTH                       4  /* GPIO1_SEL - [3:0] */
+-
+-/*
+- * R20 (0x14) - GPIO3 & GPIO4
+- */
+-#define WM8400_GPIO4_DEB_ENA                    0x8000  /* GPIO4_DEB_ENA */
+-#define WM8400_GPIO4_DEB_ENA_MASK               0x8000  /* GPIO4_DEB_ENA */
+-#define WM8400_GPIO4_DEB_ENA_SHIFT                  15  /* GPIO4_DEB_ENA */
+-#define WM8400_GPIO4_DEB_ENA_WIDTH                   1  /* GPIO4_DEB_ENA */
+-#define WM8400_GPIO4_IRQ_ENA                    0x4000  /* GPIO4_IRQ_ENA */
+-#define WM8400_GPIO4_IRQ_ENA_MASK               0x4000  /* GPIO4_IRQ_ENA */
+-#define WM8400_GPIO4_IRQ_ENA_SHIFT                  14  /* GPIO4_IRQ_ENA */
+-#define WM8400_GPIO4_IRQ_ENA_WIDTH                   1  /* GPIO4_IRQ_ENA */
+-#define WM8400_GPIO4_PU                         0x2000  /* GPIO4_PU */
+-#define WM8400_GPIO4_PU_MASK                    0x2000  /* GPIO4_PU */
+-#define WM8400_GPIO4_PU_SHIFT                       13  /* GPIO4_PU */
+-#define WM8400_GPIO4_PU_WIDTH                        1  /* GPIO4_PU */
+-#define WM8400_GPIO4_PD                         0x1000  /* GPIO4_PD */
+-#define WM8400_GPIO4_PD_MASK                    0x1000  /* GPIO4_PD */
+-#define WM8400_GPIO4_PD_SHIFT                       12  /* GPIO4_PD */
+-#define WM8400_GPIO4_PD_WIDTH                        1  /* GPIO4_PD */
+-#define WM8400_GPIO4_SEL_MASK                   0x0F00  /* GPIO4_SEL - [11:8] */
+-#define WM8400_GPIO4_SEL_SHIFT                       8  /* GPIO4_SEL - [11:8] */
+-#define WM8400_GPIO4_SEL_WIDTH                       4  /* GPIO4_SEL - [11:8] */
+-#define WM8400_GPIO3_DEB_ENA                    0x0080  /* GPIO3_DEB_ENA */
+-#define WM8400_GPIO3_DEB_ENA_MASK               0x0080  /* GPIO3_DEB_ENA */
+-#define WM8400_GPIO3_DEB_ENA_SHIFT                   7  /* GPIO3_DEB_ENA */
+-#define WM8400_GPIO3_DEB_ENA_WIDTH                   1  /* GPIO3_DEB_ENA */
+-#define WM8400_GPIO3_IRQ_ENA                    0x0040  /* GPIO3_IRQ_ENA */
+-#define WM8400_GPIO3_IRQ_ENA_MASK               0x0040  /* GPIO3_IRQ_ENA */
+-#define WM8400_GPIO3_IRQ_ENA_SHIFT                   6  /* GPIO3_IRQ_ENA */
+-#define WM8400_GPIO3_IRQ_ENA_WIDTH                   1  /* GPIO3_IRQ_ENA */
+-#define WM8400_GPIO3_PU                         0x0020  /* GPIO3_PU */
+-#define WM8400_GPIO3_PU_MASK                    0x0020  /* GPIO3_PU */
+-#define WM8400_GPIO3_PU_SHIFT                        5  /* GPIO3_PU */
+-#define WM8400_GPIO3_PU_WIDTH                        1  /* GPIO3_PU */
+-#define WM8400_GPIO3_PD                         0x0010  /* GPIO3_PD */
+-#define WM8400_GPIO3_PD_MASK                    0x0010  /* GPIO3_PD */
+-#define WM8400_GPIO3_PD_SHIFT                        4  /* GPIO3_PD */
+-#define WM8400_GPIO3_PD_WIDTH                        1  /* GPIO3_PD */
+-#define WM8400_GPIO3_SEL_MASK                   0x000F  /* GPIO3_SEL - [3:0] */
+-#define WM8400_GPIO3_SEL_SHIFT                       0  /* GPIO3_SEL - [3:0] */
+-#define WM8400_GPIO3_SEL_WIDTH                       4  /* GPIO3_SEL - [3:0] */
+-
+-/*
+- * R21 (0x15) - GPIO5 & GPIO6
+- */
+-#define WM8400_GPIO6_DEB_ENA                    0x8000  /* GPIO6_DEB_ENA */
+-#define WM8400_GPIO6_DEB_ENA_MASK               0x8000  /* GPIO6_DEB_ENA */
+-#define WM8400_GPIO6_DEB_ENA_SHIFT                  15  /* GPIO6_DEB_ENA */
+-#define WM8400_GPIO6_DEB_ENA_WIDTH                   1  /* GPIO6_DEB_ENA */
+-#define WM8400_GPIO6_IRQ_ENA                    0x4000  /* GPIO6_IRQ_ENA */
+-#define WM8400_GPIO6_IRQ_ENA_MASK               0x4000  /* GPIO6_IRQ_ENA */
+-#define WM8400_GPIO6_IRQ_ENA_SHIFT                  14  /* GPIO6_IRQ_ENA */
+-#define WM8400_GPIO6_IRQ_ENA_WIDTH                   1  /* GPIO6_IRQ_ENA */
+-#define WM8400_GPIO6_PU                         0x2000  /* GPIO6_PU */
+-#define WM8400_GPIO6_PU_MASK                    0x2000  /* GPIO6_PU */
+-#define WM8400_GPIO6_PU_SHIFT                       13  /* GPIO6_PU */
+-#define WM8400_GPIO6_PU_WIDTH                        1  /* GPIO6_PU */
+-#define WM8400_GPIO6_PD                         0x1000  /* GPIO6_PD */
+-#define WM8400_GPIO6_PD_MASK                    0x1000  /* GPIO6_PD */
+-#define WM8400_GPIO6_PD_SHIFT                       12  /* GPIO6_PD */
+-#define WM8400_GPIO6_PD_WIDTH                        1  /* GPIO6_PD */
+-#define WM8400_GPIO6_SEL_MASK                   0x0F00  /* GPIO6_SEL - [11:8] */
+-#define WM8400_GPIO6_SEL_SHIFT                       8  /* GPIO6_SEL - [11:8] */
+-#define WM8400_GPIO6_SEL_WIDTH                       4  /* GPIO6_SEL - [11:8] */
+-#define WM8400_GPIO5_DEB_ENA                    0x0080  /* GPIO5_DEB_ENA */
+-#define WM8400_GPIO5_DEB_ENA_MASK               0x0080  /* GPIO5_DEB_ENA */
+-#define WM8400_GPIO5_DEB_ENA_SHIFT                   7  /* GPIO5_DEB_ENA */
+-#define WM8400_GPIO5_DEB_ENA_WIDTH                   1  /* GPIO5_DEB_ENA */
+-#define WM8400_GPIO5_IRQ_ENA                    0x0040  /* GPIO5_IRQ_ENA */
+-#define WM8400_GPIO5_IRQ_ENA_MASK               0x0040  /* GPIO5_IRQ_ENA */
+-#define WM8400_GPIO5_IRQ_ENA_SHIFT                   6  /* GPIO5_IRQ_ENA */
+-#define WM8400_GPIO5_IRQ_ENA_WIDTH                   1  /* GPIO5_IRQ_ENA */
+-#define WM8400_GPIO5_PU                         0x0020  /* GPIO5_PU */
+-#define WM8400_GPIO5_PU_MASK                    0x0020  /* GPIO5_PU */
+-#define WM8400_GPIO5_PU_SHIFT                        5  /* GPIO5_PU */
+-#define WM8400_GPIO5_PU_WIDTH                        1  /* GPIO5_PU */
+-#define WM8400_GPIO5_PD                         0x0010  /* GPIO5_PD */
+-#define WM8400_GPIO5_PD_MASK                    0x0010  /* GPIO5_PD */
+-#define WM8400_GPIO5_PD_SHIFT                        4  /* GPIO5_PD */
+-#define WM8400_GPIO5_PD_WIDTH                        1  /* GPIO5_PD */
+-#define WM8400_GPIO5_SEL_MASK                   0x000F  /* GPIO5_SEL - [3:0] */
+-#define WM8400_GPIO5_SEL_SHIFT                       0  /* GPIO5_SEL - [3:0] */
+-#define WM8400_GPIO5_SEL_WIDTH                       4  /* GPIO5_SEL - [3:0] */
+-
+-/*
+- * R22 (0x16) - GPIOCTRL 2
+- */
+-#define WM8400_TEMPOK_IRQ_ENA                   0x0800  /* TEMPOK_IRQ_ENA */
+-#define WM8400_TEMPOK_IRQ_ENA_MASK              0x0800  /* TEMPOK_IRQ_ENA */
+-#define WM8400_TEMPOK_IRQ_ENA_SHIFT                 11  /* TEMPOK_IRQ_ENA */
+-#define WM8400_TEMPOK_IRQ_ENA_WIDTH                  1  /* TEMPOK_IRQ_ENA */
+-#define WM8400_MIC1SHRT_IRQ_ENA                 0x0400  /* MIC1SHRT_IRQ_ENA */
+-#define WM8400_MIC1SHRT_IRQ_ENA_MASK            0x0400  /* MIC1SHRT_IRQ_ENA */
+-#define WM8400_MIC1SHRT_IRQ_ENA_SHIFT               10  /* MIC1SHRT_IRQ_ENA */
+-#define WM8400_MIC1SHRT_IRQ_ENA_WIDTH                1  /* MIC1SHRT_IRQ_ENA */
+-#define WM8400_MIC1DET_IRQ_ENA                  0x0200  /* MIC1DET_IRQ_ENA */
+-#define WM8400_MIC1DET_IRQ_ENA_MASK             0x0200  /* MIC1DET_IRQ_ENA */
+-#define WM8400_MIC1DET_IRQ_ENA_SHIFT                 9  /* MIC1DET_IRQ_ENA */
+-#define WM8400_MIC1DET_IRQ_ENA_WIDTH                 1  /* MIC1DET_IRQ_ENA */
+-#define WM8400_FLL_LCK_IRQ_ENA                  0x0100  /* FLL_LCK_IRQ_ENA */
+-#define WM8400_FLL_LCK_IRQ_ENA_MASK             0x0100  /* FLL_LCK_IRQ_ENA */
+-#define WM8400_FLL_LCK_IRQ_ENA_SHIFT                 8  /* FLL_LCK_IRQ_ENA */
+-#define WM8400_FLL_LCK_IRQ_ENA_WIDTH                 1  /* FLL_LCK_IRQ_ENA */
+-#define WM8400_GPI8_DEB_ENA                     0x0080  /* GPI8_DEB_ENA */
+-#define WM8400_GPI8_DEB_ENA_MASK                0x0080  /* GPI8_DEB_ENA */
+-#define WM8400_GPI8_DEB_ENA_SHIFT                    7  /* GPI8_DEB_ENA */
+-#define WM8400_GPI8_DEB_ENA_WIDTH                    1  /* GPI8_DEB_ENA */
+-#define WM8400_GPI8_IRQ_ENA                     0x0040  /* GPI8_IRQ_ENA */
+-#define WM8400_GPI8_IRQ_ENA_MASK                0x0040  /* GPI8_IRQ_ENA */
+-#define WM8400_GPI8_IRQ_ENA_SHIFT                    6  /* GPI8_IRQ_ENA */
+-#define WM8400_GPI8_IRQ_ENA_WIDTH                    1  /* GPI8_IRQ_ENA */
+-#define WM8400_GPI8_ENA                         0x0010  /* GPI8_ENA */
+-#define WM8400_GPI8_ENA_MASK                    0x0010  /* GPI8_ENA */
+-#define WM8400_GPI8_ENA_SHIFT                        4  /* GPI8_ENA */
+-#define WM8400_GPI8_ENA_WIDTH                        1  /* GPI8_ENA */
+-#define WM8400_GPI7_DEB_ENA                     0x0008  /* GPI7_DEB_ENA */
+-#define WM8400_GPI7_DEB_ENA_MASK                0x0008  /* GPI7_DEB_ENA */
+-#define WM8400_GPI7_DEB_ENA_SHIFT                    3  /* GPI7_DEB_ENA */
+-#define WM8400_GPI7_DEB_ENA_WIDTH                    1  /* GPI7_DEB_ENA */
+-#define WM8400_GPI7_IRQ_ENA                     0x0004  /* GPI7_IRQ_ENA */
+-#define WM8400_GPI7_IRQ_ENA_MASK                0x0004  /* GPI7_IRQ_ENA */
+-#define WM8400_GPI7_IRQ_ENA_SHIFT                    2  /* GPI7_IRQ_ENA */
+-#define WM8400_GPI7_IRQ_ENA_WIDTH                    1  /* GPI7_IRQ_ENA */
+-#define WM8400_GPI7_ENA                         0x0001  /* GPI7_ENA */
+-#define WM8400_GPI7_ENA_MASK                    0x0001  /* GPI7_ENA */
+-#define WM8400_GPI7_ENA_SHIFT                        0  /* GPI7_ENA */
+-#define WM8400_GPI7_ENA_WIDTH                        1  /* GPI7_ENA */
+-
+-/*
+- * R23 (0x17) - GPIO_POL
+- */
+-#define WM8400_IRQ_INV                          0x1000  /* IRQ_INV */
+-#define WM8400_IRQ_INV_MASK                     0x1000  /* IRQ_INV */
+-#define WM8400_IRQ_INV_SHIFT                        12  /* IRQ_INV */
+-#define WM8400_IRQ_INV_WIDTH                         1  /* IRQ_INV */
+-#define WM8400_TEMPOK_POL                       0x0800  /* TEMPOK_POL */
+-#define WM8400_TEMPOK_POL_MASK                  0x0800  /* TEMPOK_POL */
+-#define WM8400_TEMPOK_POL_SHIFT                     11  /* TEMPOK_POL */
+-#define WM8400_TEMPOK_POL_WIDTH                      1  /* TEMPOK_POL */
+-#define WM8400_MIC1SHRT_POL                     0x0400  /* MIC1SHRT_POL */
+-#define WM8400_MIC1SHRT_POL_MASK                0x0400  /* MIC1SHRT_POL */
+-#define WM8400_MIC1SHRT_POL_SHIFT                   10  /* MIC1SHRT_POL */
+-#define WM8400_MIC1SHRT_POL_WIDTH                    1  /* MIC1SHRT_POL */
+-#define WM8400_MIC1DET_POL                      0x0200  /* MIC1DET_POL */
+-#define WM8400_MIC1DET_POL_MASK                 0x0200  /* MIC1DET_POL */
+-#define WM8400_MIC1DET_POL_SHIFT                     9  /* MIC1DET_POL */
+-#define WM8400_MIC1DET_POL_WIDTH                     1  /* MIC1DET_POL */
+-#define WM8400_FLL_LCK_POL                      0x0100  /* FLL_LCK_POL */
+-#define WM8400_FLL_LCK_POL_MASK                 0x0100  /* FLL_LCK_POL */
+-#define WM8400_FLL_LCK_POL_SHIFT                     8  /* FLL_LCK_POL */
+-#define WM8400_FLL_LCK_POL_WIDTH                     1  /* FLL_LCK_POL */
+-#define WM8400_GPIO_POL_MASK                    0x00FF  /* GPIO_POL - [7:0] */
+-#define WM8400_GPIO_POL_SHIFT                        0  /* GPIO_POL - [7:0] */
+-#define WM8400_GPIO_POL_WIDTH                        8  /* GPIO_POL - [7:0] */
+-
+-/*
+- * R65 (0x41) - LDO 1 Control
+- */
+-#define WM8400_LDO1_ENA                         0x8000  /* LDO1_ENA */
+-#define WM8400_LDO1_ENA_MASK                    0x8000  /* LDO1_ENA */
+-#define WM8400_LDO1_ENA_SHIFT                       15  /* LDO1_ENA */
+-#define WM8400_LDO1_ENA_WIDTH                        1  /* LDO1_ENA */
+-#define WM8400_LDO1_SWI                         0x4000  /* LDO1_SWI */
+-#define WM8400_LDO1_SWI_MASK                    0x4000  /* LDO1_SWI */
+-#define WM8400_LDO1_SWI_SHIFT                       14  /* LDO1_SWI */
+-#define WM8400_LDO1_SWI_WIDTH                        1  /* LDO1_SWI */
+-#define WM8400_LDO1_OPFLT                       0x1000  /* LDO1_OPFLT */
+-#define WM8400_LDO1_OPFLT_MASK                  0x1000  /* LDO1_OPFLT */
+-#define WM8400_LDO1_OPFLT_SHIFT                     12  /* LDO1_OPFLT */
+-#define WM8400_LDO1_OPFLT_WIDTH                      1  /* LDO1_OPFLT */
+-#define WM8400_LDO1_ERRACT                      0x0800  /* LDO1_ERRACT */
+-#define WM8400_LDO1_ERRACT_MASK                 0x0800  /* LDO1_ERRACT */
+-#define WM8400_LDO1_ERRACT_SHIFT                    11  /* LDO1_ERRACT */
+-#define WM8400_LDO1_ERRACT_WIDTH                     1  /* LDO1_ERRACT */
+-#define WM8400_LDO1_HIB_MODE                    0x0400  /* LDO1_HIB_MODE */
+-#define WM8400_LDO1_HIB_MODE_MASK               0x0400  /* LDO1_HIB_MODE */
+-#define WM8400_LDO1_HIB_MODE_SHIFT                  10  /* LDO1_HIB_MODE */
+-#define WM8400_LDO1_HIB_MODE_WIDTH                   1  /* LDO1_HIB_MODE */
+-#define WM8400_LDO1_VIMG_MASK                   0x03E0  /* LDO1_VIMG - [9:5] */
+-#define WM8400_LDO1_VIMG_SHIFT                       5  /* LDO1_VIMG - [9:5] */
+-#define WM8400_LDO1_VIMG_WIDTH                       5  /* LDO1_VIMG - [9:5] */
+-#define WM8400_LDO1_VSEL_MASK                   0x001F  /* LDO1_VSEL - [4:0] */
+-#define WM8400_LDO1_VSEL_SHIFT                       0  /* LDO1_VSEL - [4:0] */
+-#define WM8400_LDO1_VSEL_WIDTH                       5  /* LDO1_VSEL - [4:0] */
+-
+-/*
+- * R66 (0x42) - LDO 2 Control
+- */
+-#define WM8400_LDO2_ENA                         0x8000  /* LDO2_ENA */
+-#define WM8400_LDO2_ENA_MASK                    0x8000  /* LDO2_ENA */
+-#define WM8400_LDO2_ENA_SHIFT                       15  /* LDO2_ENA */
+-#define WM8400_LDO2_ENA_WIDTH                        1  /* LDO2_ENA */
+-#define WM8400_LDO2_SWI                         0x4000  /* LDO2_SWI */
+-#define WM8400_LDO2_SWI_MASK                    0x4000  /* LDO2_SWI */
+-#define WM8400_LDO2_SWI_SHIFT                       14  /* LDO2_SWI */
+-#define WM8400_LDO2_SWI_WIDTH                        1  /* LDO2_SWI */
+-#define WM8400_LDO2_OPFLT                       0x1000  /* LDO2_OPFLT */
+-#define WM8400_LDO2_OPFLT_MASK                  0x1000  /* LDO2_OPFLT */
+-#define WM8400_LDO2_OPFLT_SHIFT                     12  /* LDO2_OPFLT */
+-#define WM8400_LDO2_OPFLT_WIDTH                      1  /* LDO2_OPFLT */
+-#define WM8400_LDO2_ERRACT                      0x0800  /* LDO2_ERRACT */
+-#define WM8400_LDO2_ERRACT_MASK                 0x0800  /* LDO2_ERRACT */
+-#define WM8400_LDO2_ERRACT_SHIFT                    11  /* LDO2_ERRACT */
+-#define WM8400_LDO2_ERRACT_WIDTH                     1  /* LDO2_ERRACT */
+-#define WM8400_LDO2_HIB_MODE                    0x0400  /* LDO2_HIB_MODE */
+-#define WM8400_LDO2_HIB_MODE_MASK               0x0400  /* LDO2_HIB_MODE */
+-#define WM8400_LDO2_HIB_MODE_SHIFT                  10  /* LDO2_HIB_MODE */
+-#define WM8400_LDO2_HIB_MODE_WIDTH                   1  /* LDO2_HIB_MODE */
+-#define WM8400_LDO2_VIMG_MASK                   0x03E0  /* LDO2_VIMG - [9:5] */
+-#define WM8400_LDO2_VIMG_SHIFT                       5  /* LDO2_VIMG - [9:5] */
+-#define WM8400_LDO2_VIMG_WIDTH                       5  /* LDO2_VIMG - [9:5] */
+-#define WM8400_LDO2_VSEL_MASK                   0x001F  /* LDO2_VSEL - [4:0] */
+-#define WM8400_LDO2_VSEL_SHIFT                       0  /* LDO2_VSEL - [4:0] */
+-#define WM8400_LDO2_VSEL_WIDTH                       5  /* LDO2_VSEL - [4:0] */
+-
+-/*
+- * R67 (0x43) - LDO 3 Control
+- */
+-#define WM8400_LDO3_ENA                         0x8000  /* LDO3_ENA */
+-#define WM8400_LDO3_ENA_MASK                    0x8000  /* LDO3_ENA */
+-#define WM8400_LDO3_ENA_SHIFT                       15  /* LDO3_ENA */
+-#define WM8400_LDO3_ENA_WIDTH                        1  /* LDO3_ENA */
+-#define WM8400_LDO3_SWI                         0x4000  /* LDO3_SWI */
+-#define WM8400_LDO3_SWI_MASK                    0x4000  /* LDO3_SWI */
+-#define WM8400_LDO3_SWI_SHIFT                       14  /* LDO3_SWI */
+-#define WM8400_LDO3_SWI_WIDTH                        1  /* LDO3_SWI */
+-#define WM8400_LDO3_OPFLT                       0x1000  /* LDO3_OPFLT */
+-#define WM8400_LDO3_OPFLT_MASK                  0x1000  /* LDO3_OPFLT */
+-#define WM8400_LDO3_OPFLT_SHIFT                     12  /* LDO3_OPFLT */
+-#define WM8400_LDO3_OPFLT_WIDTH                      1  /* LDO3_OPFLT */
+-#define WM8400_LDO3_ERRACT                      0x0800  /* LDO3_ERRACT */
+-#define WM8400_LDO3_ERRACT_MASK                 0x0800  /* LDO3_ERRACT */
+-#define WM8400_LDO3_ERRACT_SHIFT                    11  /* LDO3_ERRACT */
+-#define WM8400_LDO3_ERRACT_WIDTH                     1  /* LDO3_ERRACT */
+-#define WM8400_LDO3_HIB_MODE                    0x0400  /* LDO3_HIB_MODE */
+-#define WM8400_LDO3_HIB_MODE_MASK               0x0400  /* LDO3_HIB_MODE */
+-#define WM8400_LDO3_HIB_MODE_SHIFT                  10  /* LDO3_HIB_MODE */
+-#define WM8400_LDO3_HIB_MODE_WIDTH                   1  /* LDO3_HIB_MODE */
+-#define WM8400_LDO3_VIMG_MASK                   0x03E0  /* LDO3_VIMG - [9:5] */
+-#define WM8400_LDO3_VIMG_SHIFT                       5  /* LDO3_VIMG - [9:5] */
+-#define WM8400_LDO3_VIMG_WIDTH                       5  /* LDO3_VIMG - [9:5] */
+-#define WM8400_LDO3_VSEL_MASK                   0x001F  /* LDO3_VSEL - [4:0] */
+-#define WM8400_LDO3_VSEL_SHIFT                       0  /* LDO3_VSEL - [4:0] */
+-#define WM8400_LDO3_VSEL_WIDTH                       5  /* LDO3_VSEL - [4:0] */
+-
+-/*
+- * R68 (0x44) - LDO 4 Control
+- */
+-#define WM8400_LDO4_ENA                         0x8000  /* LDO4_ENA */
+-#define WM8400_LDO4_ENA_MASK                    0x8000  /* LDO4_ENA */
+-#define WM8400_LDO4_ENA_SHIFT                       15  /* LDO4_ENA */
+-#define WM8400_LDO4_ENA_WIDTH                        1  /* LDO4_ENA */
+-#define WM8400_LDO4_SWI                         0x4000  /* LDO4_SWI */
+-#define WM8400_LDO4_SWI_MASK                    0x4000  /* LDO4_SWI */
+-#define WM8400_LDO4_SWI_SHIFT                       14  /* LDO4_SWI */
+-#define WM8400_LDO4_SWI_WIDTH                        1  /* LDO4_SWI */
+-#define WM8400_LDO4_OPFLT                       0x1000  /* LDO4_OPFLT */
+-#define WM8400_LDO4_OPFLT_MASK                  0x1000  /* LDO4_OPFLT */
+-#define WM8400_LDO4_OPFLT_SHIFT                     12  /* LDO4_OPFLT */
+-#define WM8400_LDO4_OPFLT_WIDTH                      1  /* LDO4_OPFLT */
+-#define WM8400_LDO4_ERRACT                      0x0800  /* LDO4_ERRACT */
+-#define WM8400_LDO4_ERRACT_MASK                 0x0800  /* LDO4_ERRACT */
+-#define WM8400_LDO4_ERRACT_SHIFT                    11  /* LDO4_ERRACT */
+-#define WM8400_LDO4_ERRACT_WIDTH                     1  /* LDO4_ERRACT */
+-#define WM8400_LDO4_HIB_MODE                    0x0400  /* LDO4_HIB_MODE */
+-#define WM8400_LDO4_HIB_MODE_MASK               0x0400  /* LDO4_HIB_MODE */
+-#define WM8400_LDO4_HIB_MODE_SHIFT                  10  /* LDO4_HIB_MODE */
+-#define WM8400_LDO4_HIB_MODE_WIDTH                   1  /* LDO4_HIB_MODE */
+-#define WM8400_LDO4_VIMG_MASK                   0x03E0  /* LDO4_VIMG - [9:5] */
+-#define WM8400_LDO4_VIMG_SHIFT                       5  /* LDO4_VIMG - [9:5] */
+-#define WM8400_LDO4_VIMG_WIDTH                       5  /* LDO4_VIMG - [9:5] */
+-#define WM8400_LDO4_VSEL_MASK                   0x001F  /* LDO4_VSEL - [4:0] */
+-#define WM8400_LDO4_VSEL_SHIFT                       0  /* LDO4_VSEL - [4:0] */
+-#define WM8400_LDO4_VSEL_WIDTH                       5  /* LDO4_VSEL - [4:0] */
+-
+-/*
+- * R70 (0x46) - DCDC1 Control 1
+- */
+-#define WM8400_DC1_ENA                          0x8000  /* DC1_ENA */
+-#define WM8400_DC1_ENA_MASK                     0x8000  /* DC1_ENA */
+-#define WM8400_DC1_ENA_SHIFT                        15  /* DC1_ENA */
+-#define WM8400_DC1_ENA_WIDTH                         1  /* DC1_ENA */
+-#define WM8400_DC1_ACTIVE                       0x4000  /* DC1_ACTIVE */
+-#define WM8400_DC1_ACTIVE_MASK                  0x4000  /* DC1_ACTIVE */
+-#define WM8400_DC1_ACTIVE_SHIFT                     14  /* DC1_ACTIVE */
+-#define WM8400_DC1_ACTIVE_WIDTH                      1  /* DC1_ACTIVE */
+-#define WM8400_DC1_SLEEP                        0x2000  /* DC1_SLEEP */
+-#define WM8400_DC1_SLEEP_MASK                   0x2000  /* DC1_SLEEP */
+-#define WM8400_DC1_SLEEP_SHIFT                      13  /* DC1_SLEEP */
+-#define WM8400_DC1_SLEEP_WIDTH                       1  /* DC1_SLEEP */
+-#define WM8400_DC1_OPFLT                        0x1000  /* DC1_OPFLT */
+-#define WM8400_DC1_OPFLT_MASK                   0x1000  /* DC1_OPFLT */
+-#define WM8400_DC1_OPFLT_SHIFT                      12  /* DC1_OPFLT */
+-#define WM8400_DC1_OPFLT_WIDTH                       1  /* DC1_OPFLT */
+-#define WM8400_DC1_ERRACT                       0x0800  /* DC1_ERRACT */
+-#define WM8400_DC1_ERRACT_MASK                  0x0800  /* DC1_ERRACT */
+-#define WM8400_DC1_ERRACT_SHIFT                     11  /* DC1_ERRACT */
+-#define WM8400_DC1_ERRACT_WIDTH                      1  /* DC1_ERRACT */
+-#define WM8400_DC1_HIB_MODE                     0x0400  /* DC1_HIB_MODE */
+-#define WM8400_DC1_HIB_MODE_MASK                0x0400  /* DC1_HIB_MODE */
+-#define WM8400_DC1_HIB_MODE_SHIFT                   10  /* DC1_HIB_MODE */
+-#define WM8400_DC1_HIB_MODE_WIDTH                    1  /* DC1_HIB_MODE */
+-#define WM8400_DC1_SOFTST_MASK                  0x0300  /* DC1_SOFTST - [9:8] */
+-#define WM8400_DC1_SOFTST_SHIFT                      8  /* DC1_SOFTST - [9:8] */
+-#define WM8400_DC1_SOFTST_WIDTH                      2  /* DC1_SOFTST - [9:8] */
+-#define WM8400_DC1_OV_PROT                      0x0080  /* DC1_OV_PROT */
+-#define WM8400_DC1_OV_PROT_MASK                 0x0080  /* DC1_OV_PROT */
+-#define WM8400_DC1_OV_PROT_SHIFT                     7  /* DC1_OV_PROT */
+-#define WM8400_DC1_OV_PROT_WIDTH                     1  /* DC1_OV_PROT */
+-#define WM8400_DC1_VSEL_MASK                    0x007F  /* DC1_VSEL - [6:0] */
+-#define WM8400_DC1_VSEL_SHIFT                        0  /* DC1_VSEL - [6:0] */
+-#define WM8400_DC1_VSEL_WIDTH                        7  /* DC1_VSEL - [6:0] */
+-
+-/*
+- * R71 (0x47) - DCDC1 Control 2
+- */
+-#define WM8400_DC1_FRC_PWM                      0x2000  /* DC1_FRC_PWM */
+-#define WM8400_DC1_FRC_PWM_MASK                 0x2000  /* DC1_FRC_PWM */
+-#define WM8400_DC1_FRC_PWM_SHIFT                    13  /* DC1_FRC_PWM */
+-#define WM8400_DC1_FRC_PWM_WIDTH                     1  /* DC1_FRC_PWM */
+-#define WM8400_DC1_STBY_LIM_MASK                0x0300  /* DC1_STBY_LIM - [9:8] */
+-#define WM8400_DC1_STBY_LIM_SHIFT                    8  /* DC1_STBY_LIM - [9:8] */
+-#define WM8400_DC1_STBY_LIM_WIDTH                    2  /* DC1_STBY_LIM - [9:8] */
+-#define WM8400_DC1_ACT_LIM                      0x0080  /* DC1_ACT_LIM */
+-#define WM8400_DC1_ACT_LIM_MASK                 0x0080  /* DC1_ACT_LIM */
+-#define WM8400_DC1_ACT_LIM_SHIFT                     7  /* DC1_ACT_LIM */
+-#define WM8400_DC1_ACT_LIM_WIDTH                     1  /* DC1_ACT_LIM */
+-#define WM8400_DC1_VIMG_MASK                    0x007F  /* DC1_VIMG - [6:0] */
+-#define WM8400_DC1_VIMG_SHIFT                        0  /* DC1_VIMG - [6:0] */
+-#define WM8400_DC1_VIMG_WIDTH                        7  /* DC1_VIMG - [6:0] */
+-
+-/*
+- * R72 (0x48) - DCDC2 Control 1
+- */
+-#define WM8400_DC2_ENA                          0x8000  /* DC2_ENA */
+-#define WM8400_DC2_ENA_MASK                     0x8000  /* DC2_ENA */
+-#define WM8400_DC2_ENA_SHIFT                        15  /* DC2_ENA */
+-#define WM8400_DC2_ENA_WIDTH                         1  /* DC2_ENA */
+-#define WM8400_DC2_ACTIVE                       0x4000  /* DC2_ACTIVE */
+-#define WM8400_DC2_ACTIVE_MASK                  0x4000  /* DC2_ACTIVE */
+-#define WM8400_DC2_ACTIVE_SHIFT                     14  /* DC2_ACTIVE */
+-#define WM8400_DC2_ACTIVE_WIDTH                      1  /* DC2_ACTIVE */
+-#define WM8400_DC2_SLEEP                        0x2000  /* DC2_SLEEP */
+-#define WM8400_DC2_SLEEP_MASK                   0x2000  /* DC2_SLEEP */
+-#define WM8400_DC2_SLEEP_SHIFT                      13  /* DC2_SLEEP */
+-#define WM8400_DC2_SLEEP_WIDTH                       1  /* DC2_SLEEP */
+-#define WM8400_DC2_OPFLT                        0x1000  /* DC2_OPFLT */
+-#define WM8400_DC2_OPFLT_MASK                   0x1000  /* DC2_OPFLT */
+-#define WM8400_DC2_OPFLT_SHIFT                      12  /* DC2_OPFLT */
+-#define WM8400_DC2_OPFLT_WIDTH                       1  /* DC2_OPFLT */
+-#define WM8400_DC2_ERRACT                       0x0800  /* DC2_ERRACT */
+-#define WM8400_DC2_ERRACT_MASK                  0x0800  /* DC2_ERRACT */
+-#define WM8400_DC2_ERRACT_SHIFT                     11  /* DC2_ERRACT */
+-#define WM8400_DC2_ERRACT_WIDTH                      1  /* DC2_ERRACT */
+-#define WM8400_DC2_HIB_MODE                     0x0400  /* DC2_HIB_MODE */
+-#define WM8400_DC2_HIB_MODE_MASK                0x0400  /* DC2_HIB_MODE */
+-#define WM8400_DC2_HIB_MODE_SHIFT                   10  /* DC2_HIB_MODE */
+-#define WM8400_DC2_HIB_MODE_WIDTH                    1  /* DC2_HIB_MODE */
+-#define WM8400_DC2_SOFTST_MASK                  0x0300  /* DC2_SOFTST - [9:8] */
+-#define WM8400_DC2_SOFTST_SHIFT                      8  /* DC2_SOFTST - [9:8] */
+-#define WM8400_DC2_SOFTST_WIDTH                      2  /* DC2_SOFTST - [9:8] */
+-#define WM8400_DC2_OV_PROT                      0x0080  /* DC2_OV_PROT */
+-#define WM8400_DC2_OV_PROT_MASK                 0x0080  /* DC2_OV_PROT */
+-#define WM8400_DC2_OV_PROT_SHIFT                     7  /* DC2_OV_PROT */
+-#define WM8400_DC2_OV_PROT_WIDTH                     1  /* DC2_OV_PROT */
+-#define WM8400_DC2_VSEL_MASK                    0x007F  /* DC2_VSEL - [6:0] */
+-#define WM8400_DC2_VSEL_SHIFT                        0  /* DC2_VSEL - [6:0] */
+-#define WM8400_DC2_VSEL_WIDTH                        7  /* DC2_VSEL - [6:0] */
+-
+-/*
+- * R73 (0x49) - DCDC2 Control 2
+- */
+-#define WM8400_DC2_FRC_PWM                      0x2000  /* DC2_FRC_PWM */
+-#define WM8400_DC2_FRC_PWM_MASK                 0x2000  /* DC2_FRC_PWM */
+-#define WM8400_DC2_FRC_PWM_SHIFT                    13  /* DC2_FRC_PWM */
+-#define WM8400_DC2_FRC_PWM_WIDTH                     1  /* DC2_FRC_PWM */
+-#define WM8400_DC2_STBY_LIM_MASK                0x0300  /* DC2_STBY_LIM - [9:8] */
+-#define WM8400_DC2_STBY_LIM_SHIFT                    8  /* DC2_STBY_LIM - [9:8] */
+-#define WM8400_DC2_STBY_LIM_WIDTH                    2  /* DC2_STBY_LIM - [9:8] */
+-#define WM8400_DC2_ACT_LIM                      0x0080  /* DC2_ACT_LIM */
+-#define WM8400_DC2_ACT_LIM_MASK                 0x0080  /* DC2_ACT_LIM */
+-#define WM8400_DC2_ACT_LIM_SHIFT                     7  /* DC2_ACT_LIM */
+-#define WM8400_DC2_ACT_LIM_WIDTH                     1  /* DC2_ACT_LIM */
+-#define WM8400_DC2_VIMG_MASK                    0x007F  /* DC2_VIMG - [6:0] */
+-#define WM8400_DC2_VIMG_SHIFT                        0  /* DC2_VIMG - [6:0] */
+-#define WM8400_DC2_VIMG_WIDTH                        7  /* DC2_VIMG - [6:0] */
+-
+-/*
+- * R75 (0x4B) - Interface
+- */
+-#define WM8400_AUTOINC                          0x0008  /* AUTOINC */
+-#define WM8400_AUTOINC_MASK                     0x0008  /* AUTOINC */
+-#define WM8400_AUTOINC_SHIFT                         3  /* AUTOINC */
+-#define WM8400_AUTOINC_WIDTH                         1  /* AUTOINC */
+-#define WM8400_ARA_ENA                          0x0004  /* ARA_ENA */
+-#define WM8400_ARA_ENA_MASK                     0x0004  /* ARA_ENA */
+-#define WM8400_ARA_ENA_SHIFT                         2  /* ARA_ENA */
+-#define WM8400_ARA_ENA_WIDTH                         1  /* ARA_ENA */
+-#define WM8400_SPI_CFG                          0x0002  /* SPI_CFG */
+-#define WM8400_SPI_CFG_MASK                     0x0002  /* SPI_CFG */
+-#define WM8400_SPI_CFG_SHIFT                         1  /* SPI_CFG */
+-#define WM8400_SPI_CFG_WIDTH                         1  /* SPI_CFG */
+-
+-/*
+- * R76 (0x4C) - PM GENERAL
+- */
+-#define WM8400_CODEC_SOFTST                     0x8000  /* CODEC_SOFTST */
+-#define WM8400_CODEC_SOFTST_MASK                0x8000  /* CODEC_SOFTST */
+-#define WM8400_CODEC_SOFTST_SHIFT                   15  /* CODEC_SOFTST */
+-#define WM8400_CODEC_SOFTST_WIDTH                    1  /* CODEC_SOFTST */
+-#define WM8400_CODEC_SOFTSD                     0x4000  /* CODEC_SOFTSD */
+-#define WM8400_CODEC_SOFTSD_MASK                0x4000  /* CODEC_SOFTSD */
+-#define WM8400_CODEC_SOFTSD_SHIFT                   14  /* CODEC_SOFTSD */
+-#define WM8400_CODEC_SOFTSD_WIDTH                    1  /* CODEC_SOFTSD */
+-#define WM8400_CHIP_SOFTSD                      0x2000  /* CHIP_SOFTSD */
+-#define WM8400_CHIP_SOFTSD_MASK                 0x2000  /* CHIP_SOFTSD */
+-#define WM8400_CHIP_SOFTSD_SHIFT                    13  /* CHIP_SOFTSD */
+-#define WM8400_CHIP_SOFTSD_WIDTH                     1  /* CHIP_SOFTSD */
+-#define WM8400_DSLEEP1_POL                      0x0008  /* DSLEEP1_POL */
+-#define WM8400_DSLEEP1_POL_MASK                 0x0008  /* DSLEEP1_POL */
+-#define WM8400_DSLEEP1_POL_SHIFT                     3  /* DSLEEP1_POL */
+-#define WM8400_DSLEEP1_POL_WIDTH                     1  /* DSLEEP1_POL */
+-#define WM8400_DSLEEP2_POL                      0x0004  /* DSLEEP2_POL */
+-#define WM8400_DSLEEP2_POL_MASK                 0x0004  /* DSLEEP2_POL */
+-#define WM8400_DSLEEP2_POL_SHIFT                     2  /* DSLEEP2_POL */
+-#define WM8400_DSLEEP2_POL_WIDTH                     1  /* DSLEEP2_POL */
+-#define WM8400_PWR_STATE_MASK                   0x0003  /* PWR_STATE - [1:0] */
+-#define WM8400_PWR_STATE_SHIFT                       0  /* PWR_STATE - [1:0] */
+-#define WM8400_PWR_STATE_WIDTH                       2  /* PWR_STATE - [1:0] */
+-
+-/*
+- * R78 (0x4E) - PM Shutdown Control
+- */
+-#define WM8400_CHIP_GT150_ERRACT                0x0200  /* CHIP_GT150_ERRACT */
+-#define WM8400_CHIP_GT150_ERRACT_MASK           0x0200  /* CHIP_GT150_ERRACT */
+-#define WM8400_CHIP_GT150_ERRACT_SHIFT               9  /* CHIP_GT150_ERRACT */
+-#define WM8400_CHIP_GT150_ERRACT_WIDTH               1  /* CHIP_GT150_ERRACT */
+-#define WM8400_CHIP_GT115_ERRACT                0x0100  /* CHIP_GT115_ERRACT */
+-#define WM8400_CHIP_GT115_ERRACT_MASK           0x0100  /* CHIP_GT115_ERRACT */
+-#define WM8400_CHIP_GT115_ERRACT_SHIFT               8  /* CHIP_GT115_ERRACT */
+-#define WM8400_CHIP_GT115_ERRACT_WIDTH               1  /* CHIP_GT115_ERRACT */
+-#define WM8400_LINE_CMP_ERRACT                  0x0080  /* LINE_CMP_ERRACT */
+-#define WM8400_LINE_CMP_ERRACT_MASK             0x0080  /* LINE_CMP_ERRACT */
+-#define WM8400_LINE_CMP_ERRACT_SHIFT                 7  /* LINE_CMP_ERRACT */
+-#define WM8400_LINE_CMP_ERRACT_WIDTH                 1  /* LINE_CMP_ERRACT */
+-#define WM8400_UVLO_ERRACT                      0x0040  /* UVLO_ERRACT */
+-#define WM8400_UVLO_ERRACT_MASK                 0x0040  /* UVLO_ERRACT */
+-#define WM8400_UVLO_ERRACT_SHIFT                     6  /* UVLO_ERRACT */
+-#define WM8400_UVLO_ERRACT_WIDTH                     1  /* UVLO_ERRACT */
+-
+-/*
+- * R79 (0x4F) - Interrupt Status 1
+- */
+-#define WM8400_MICD_CINT                        0x8000  /* MICD_CINT */
+-#define WM8400_MICD_CINT_MASK                   0x8000  /* MICD_CINT */
+-#define WM8400_MICD_CINT_SHIFT                      15  /* MICD_CINT */
+-#define WM8400_MICD_CINT_WIDTH                       1  /* MICD_CINT */
+-#define WM8400_MICSCD_CINT                      0x4000  /* MICSCD_CINT */
+-#define WM8400_MICSCD_CINT_MASK                 0x4000  /* MICSCD_CINT */
+-#define WM8400_MICSCD_CINT_SHIFT                    14  /* MICSCD_CINT */
+-#define WM8400_MICSCD_CINT_WIDTH                     1  /* MICSCD_CINT */
+-#define WM8400_JDL_CINT                         0x2000  /* JDL_CINT */
+-#define WM8400_JDL_CINT_MASK                    0x2000  /* JDL_CINT */
+-#define WM8400_JDL_CINT_SHIFT                       13  /* JDL_CINT */
+-#define WM8400_JDL_CINT_WIDTH                        1  /* JDL_CINT */
+-#define WM8400_JDR_CINT                         0x1000  /* JDR_CINT */
+-#define WM8400_JDR_CINT_MASK                    0x1000  /* JDR_CINT */
+-#define WM8400_JDR_CINT_SHIFT                       12  /* JDR_CINT */
+-#define WM8400_JDR_CINT_WIDTH                        1  /* JDR_CINT */
+-#define WM8400_CODEC_SEQ_END_EINT               0x0800  /* CODEC_SEQ_END_EINT */
+-#define WM8400_CODEC_SEQ_END_EINT_MASK          0x0800  /* CODEC_SEQ_END_EINT */
+-#define WM8400_CODEC_SEQ_END_EINT_SHIFT             11  /* CODEC_SEQ_END_EINT */
+-#define WM8400_CODEC_SEQ_END_EINT_WIDTH              1  /* CODEC_SEQ_END_EINT */
+-#define WM8400_CDEL_TO_EINT                     0x0400  /* CDEL_TO_EINT */
+-#define WM8400_CDEL_TO_EINT_MASK                0x0400  /* CDEL_TO_EINT */
+-#define WM8400_CDEL_TO_EINT_SHIFT                   10  /* CDEL_TO_EINT */
+-#define WM8400_CDEL_TO_EINT_WIDTH                    1  /* CDEL_TO_EINT */
+-#define WM8400_CHIP_GT150_EINT                  0x0200  /* CHIP_GT150_EINT */
+-#define WM8400_CHIP_GT150_EINT_MASK             0x0200  /* CHIP_GT150_EINT */
+-#define WM8400_CHIP_GT150_EINT_SHIFT                 9  /* CHIP_GT150_EINT */
+-#define WM8400_CHIP_GT150_EINT_WIDTH                 1  /* CHIP_GT150_EINT */
+-#define WM8400_CHIP_GT115_EINT                  0x0100  /* CHIP_GT115_EINT */
+-#define WM8400_CHIP_GT115_EINT_MASK             0x0100  /* CHIP_GT115_EINT */
+-#define WM8400_CHIP_GT115_EINT_SHIFT                 8  /* CHIP_GT115_EINT */
+-#define WM8400_CHIP_GT115_EINT_WIDTH                 1  /* CHIP_GT115_EINT */
+-#define WM8400_LINE_CMP_EINT                    0x0080  /* LINE_CMP_EINT */
+-#define WM8400_LINE_CMP_EINT_MASK               0x0080  /* LINE_CMP_EINT */
+-#define WM8400_LINE_CMP_EINT_SHIFT                   7  /* LINE_CMP_EINT */
+-#define WM8400_LINE_CMP_EINT_WIDTH                   1  /* LINE_CMP_EINT */
+-#define WM8400_UVLO_EINT                        0x0040  /* UVLO_EINT */
+-#define WM8400_UVLO_EINT_MASK                   0x0040  /* UVLO_EINT */
+-#define WM8400_UVLO_EINT_SHIFT                       6  /* UVLO_EINT */
+-#define WM8400_UVLO_EINT_WIDTH                       1  /* UVLO_EINT */
+-#define WM8400_DC2_UV_EINT                      0x0020  /* DC2_UV_EINT */
+-#define WM8400_DC2_UV_EINT_MASK                 0x0020  /* DC2_UV_EINT */
+-#define WM8400_DC2_UV_EINT_SHIFT                     5  /* DC2_UV_EINT */
+-#define WM8400_DC2_UV_EINT_WIDTH                     1  /* DC2_UV_EINT */
+-#define WM8400_DC1_UV_EINT                      0x0010  /* DC1_UV_EINT */
+-#define WM8400_DC1_UV_EINT_MASK                 0x0010  /* DC1_UV_EINT */
+-#define WM8400_DC1_UV_EINT_SHIFT                     4  /* DC1_UV_EINT */
+-#define WM8400_DC1_UV_EINT_WIDTH                     1  /* DC1_UV_EINT */
+-#define WM8400_LDO4_UV_EINT                     0x0008  /* LDO4_UV_EINT */
+-#define WM8400_LDO4_UV_EINT_MASK                0x0008  /* LDO4_UV_EINT */
+-#define WM8400_LDO4_UV_EINT_SHIFT                    3  /* LDO4_UV_EINT */
+-#define WM8400_LDO4_UV_EINT_WIDTH                    1  /* LDO4_UV_EINT */
+-#define WM8400_LDO3_UV_EINT                     0x0004  /* LDO3_UV_EINT */
+-#define WM8400_LDO3_UV_EINT_MASK                0x0004  /* LDO3_UV_EINT */
+-#define WM8400_LDO3_UV_EINT_SHIFT                    2  /* LDO3_UV_EINT */
+-#define WM8400_LDO3_UV_EINT_WIDTH                    1  /* LDO3_UV_EINT */
+-#define WM8400_LDO2_UV_EINT                     0x0002  /* LDO2_UV_EINT */
+-#define WM8400_LDO2_UV_EINT_MASK                0x0002  /* LDO2_UV_EINT */
+-#define WM8400_LDO2_UV_EINT_SHIFT                    1  /* LDO2_UV_EINT */
+-#define WM8400_LDO2_UV_EINT_WIDTH                    1  /* LDO2_UV_EINT */
+-#define WM8400_LDO1_UV_EINT                     0x0001  /* LDO1_UV_EINT */
+-#define WM8400_LDO1_UV_EINT_MASK                0x0001  /* LDO1_UV_EINT */
+-#define WM8400_LDO1_UV_EINT_SHIFT                    0  /* LDO1_UV_EINT */
+-#define WM8400_LDO1_UV_EINT_WIDTH                    1  /* LDO1_UV_EINT */
+-
+-/*
+- * R80 (0x50) - Interrupt Status 1 Mask
+- */
+-#define WM8400_IM_MICD_CINT                     0x8000  /* IM_MICD_CINT */
+-#define WM8400_IM_MICD_CINT_MASK                0x8000  /* IM_MICD_CINT */
+-#define WM8400_IM_MICD_CINT_SHIFT                   15  /* IM_MICD_CINT */
+-#define WM8400_IM_MICD_CINT_WIDTH                    1  /* IM_MICD_CINT */
+-#define WM8400_IM_MICSCD_CINT                   0x4000  /* IM_MICSCD_CINT */
+-#define WM8400_IM_MICSCD_CINT_MASK              0x4000  /* IM_MICSCD_CINT */
+-#define WM8400_IM_MICSCD_CINT_SHIFT                 14  /* IM_MICSCD_CINT */
+-#define WM8400_IM_MICSCD_CINT_WIDTH                  1  /* IM_MICSCD_CINT */
+-#define WM8400_IM_JDL_CINT                      0x2000  /* IM_JDL_CINT */
+-#define WM8400_IM_JDL_CINT_MASK                 0x2000  /* IM_JDL_CINT */
+-#define WM8400_IM_JDL_CINT_SHIFT                    13  /* IM_JDL_CINT */
+-#define WM8400_IM_JDL_CINT_WIDTH                     1  /* IM_JDL_CINT */
+-#define WM8400_IM_JDR_CINT                      0x1000  /* IM_JDR_CINT */
+-#define WM8400_IM_JDR_CINT_MASK                 0x1000  /* IM_JDR_CINT */
+-#define WM8400_IM_JDR_CINT_SHIFT                    12  /* IM_JDR_CINT */
+-#define WM8400_IM_JDR_CINT_WIDTH                     1  /* IM_JDR_CINT */
+-#define WM8400_IM_CODEC_SEQ_END_EINT            0x0800  /* IM_CODEC_SEQ_END_EINT */
+-#define WM8400_IM_CODEC_SEQ_END_EINT_MASK       0x0800  /* IM_CODEC_SEQ_END_EINT */
+-#define WM8400_IM_CODEC_SEQ_END_EINT_SHIFT          11  /* IM_CODEC_SEQ_END_EINT */
+-#define WM8400_IM_CODEC_SEQ_END_EINT_WIDTH           1  /* IM_CODEC_SEQ_END_EINT */
+-#define WM8400_IM_CDEL_TO_EINT                  0x0400  /* IM_CDEL_TO_EINT */
+-#define WM8400_IM_CDEL_TO_EINT_MASK             0x0400  /* IM_CDEL_TO_EINT */
+-#define WM8400_IM_CDEL_TO_EINT_SHIFT                10  /* IM_CDEL_TO_EINT */
+-#define WM8400_IM_CDEL_TO_EINT_WIDTH                 1  /* IM_CDEL_TO_EINT */
+-#define WM8400_IM_CHIP_GT150_EINT               0x0200  /* IM_CHIP_GT150_EINT */
+-#define WM8400_IM_CHIP_GT150_EINT_MASK          0x0200  /* IM_CHIP_GT150_EINT */
+-#define WM8400_IM_CHIP_GT150_EINT_SHIFT              9  /* IM_CHIP_GT150_EINT */
+-#define WM8400_IM_CHIP_GT150_EINT_WIDTH              1  /* IM_CHIP_GT150_EINT */
+-#define WM8400_IM_CHIP_GT115_EINT               0x0100  /* IM_CHIP_GT115_EINT */
+-#define WM8400_IM_CHIP_GT115_EINT_MASK          0x0100  /* IM_CHIP_GT115_EINT */
+-#define WM8400_IM_CHIP_GT115_EINT_SHIFT              8  /* IM_CHIP_GT115_EINT */
+-#define WM8400_IM_CHIP_GT115_EINT_WIDTH              1  /* IM_CHIP_GT115_EINT */
+-#define WM8400_IM_LINE_CMP_EINT                 0x0080  /* IM_LINE_CMP_EINT */
+-#define WM8400_IM_LINE_CMP_EINT_MASK            0x0080  /* IM_LINE_CMP_EINT */
+-#define WM8400_IM_LINE_CMP_EINT_SHIFT                7  /* IM_LINE_CMP_EINT */
+-#define WM8400_IM_LINE_CMP_EINT_WIDTH                1  /* IM_LINE_CMP_EINT */
+-#define WM8400_IM_UVLO_EINT                     0x0040  /* IM_UVLO_EINT */
+-#define WM8400_IM_UVLO_EINT_MASK                0x0040  /* IM_UVLO_EINT */
+-#define WM8400_IM_UVLO_EINT_SHIFT                    6  /* IM_UVLO_EINT */
+-#define WM8400_IM_UVLO_EINT_WIDTH                    1  /* IM_UVLO_EINT */
+-#define WM8400_IM_DC2_UV_EINT                   0x0020  /* IM_DC2_UV_EINT */
+-#define WM8400_IM_DC2_UV_EINT_MASK              0x0020  /* IM_DC2_UV_EINT */
+-#define WM8400_IM_DC2_UV_EINT_SHIFT                  5  /* IM_DC2_UV_EINT */
+-#define WM8400_IM_DC2_UV_EINT_WIDTH                  1  /* IM_DC2_UV_EINT */
+-#define WM8400_IM_DC1_UV_EINT                   0x0010  /* IM_DC1_UV_EINT */
+-#define WM8400_IM_DC1_UV_EINT_MASK              0x0010  /* IM_DC1_UV_EINT */
+-#define WM8400_IM_DC1_UV_EINT_SHIFT                  4  /* IM_DC1_UV_EINT */
+-#define WM8400_IM_DC1_UV_EINT_WIDTH                  1  /* IM_DC1_UV_EINT */
+-#define WM8400_IM_LDO4_UV_EINT                  0x0008  /* IM_LDO4_UV_EINT */
+-#define WM8400_IM_LDO4_UV_EINT_MASK             0x0008  /* IM_LDO4_UV_EINT */
+-#define WM8400_IM_LDO4_UV_EINT_SHIFT                 3  /* IM_LDO4_UV_EINT */
+-#define WM8400_IM_LDO4_UV_EINT_WIDTH                 1  /* IM_LDO4_UV_EINT */
+-#define WM8400_IM_LDO3_UV_EINT                  0x0004  /* IM_LDO3_UV_EINT */
+-#define WM8400_IM_LDO3_UV_EINT_MASK             0x0004  /* IM_LDO3_UV_EINT */
+-#define WM8400_IM_LDO3_UV_EINT_SHIFT                 2  /* IM_LDO3_UV_EINT */
+-#define WM8400_IM_LDO3_UV_EINT_WIDTH                 1  /* IM_LDO3_UV_EINT */
+-#define WM8400_IM_LDO2_UV_EINT                  0x0002  /* IM_LDO2_UV_EINT */
+-#define WM8400_IM_LDO2_UV_EINT_MASK             0x0002  /* IM_LDO2_UV_EINT */
+-#define WM8400_IM_LDO2_UV_EINT_SHIFT                 1  /* IM_LDO2_UV_EINT */
+-#define WM8400_IM_LDO2_UV_EINT_WIDTH                 1  /* IM_LDO2_UV_EINT */
+-#define WM8400_IM_LDO1_UV_EINT                  0x0001  /* IM_LDO1_UV_EINT */
+-#define WM8400_IM_LDO1_UV_EINT_MASK             0x0001  /* IM_LDO1_UV_EINT */
+-#define WM8400_IM_LDO1_UV_EINT_SHIFT                 0  /* IM_LDO1_UV_EINT */
+-#define WM8400_IM_LDO1_UV_EINT_WIDTH                 1  /* IM_LDO1_UV_EINT */
+-
+-/*
+- * R81 (0x51) - Interrupt Levels
+- */
+-#define WM8400_MICD_LVL                         0x8000  /* MICD_LVL */
+-#define WM8400_MICD_LVL_MASK                    0x8000  /* MICD_LVL */
+-#define WM8400_MICD_LVL_SHIFT                       15  /* MICD_LVL */
+-#define WM8400_MICD_LVL_WIDTH                        1  /* MICD_LVL */
+-#define WM8400_MICSCD_LVL                       0x4000  /* MICSCD_LVL */
+-#define WM8400_MICSCD_LVL_MASK                  0x4000  /* MICSCD_LVL */
+-#define WM8400_MICSCD_LVL_SHIFT                     14  /* MICSCD_LVL */
+-#define WM8400_MICSCD_LVL_WIDTH                      1  /* MICSCD_LVL */
+-#define WM8400_JDL_LVL                          0x2000  /* JDL_LVL */
+-#define WM8400_JDL_LVL_MASK                     0x2000  /* JDL_LVL */
+-#define WM8400_JDL_LVL_SHIFT                        13  /* JDL_LVL */
+-#define WM8400_JDL_LVL_WIDTH                         1  /* JDL_LVL */
+-#define WM8400_JDR_LVL                          0x1000  /* JDR_LVL */
+-#define WM8400_JDR_LVL_MASK                     0x1000  /* JDR_LVL */
+-#define WM8400_JDR_LVL_SHIFT                        12  /* JDR_LVL */
+-#define WM8400_JDR_LVL_WIDTH                         1  /* JDR_LVL */
+-#define WM8400_CODEC_SEQ_END_LVL                0x0800  /* CODEC_SEQ_END_LVL */
+-#define WM8400_CODEC_SEQ_END_LVL_MASK           0x0800  /* CODEC_SEQ_END_LVL */
+-#define WM8400_CODEC_SEQ_END_LVL_SHIFT              11  /* CODEC_SEQ_END_LVL */
+-#define WM8400_CODEC_SEQ_END_LVL_WIDTH               1  /* CODEC_SEQ_END_LVL */
+-#define WM8400_CDEL_TO_LVL                      0x0400  /* CDEL_TO_LVL */
+-#define WM8400_CDEL_TO_LVL_MASK                 0x0400  /* CDEL_TO_LVL */
+-#define WM8400_CDEL_TO_LVL_SHIFT                    10  /* CDEL_TO_LVL */
+-#define WM8400_CDEL_TO_LVL_WIDTH                     1  /* CDEL_TO_LVL */
+-#define WM8400_CHIP_GT150_LVL                   0x0200  /* CHIP_GT150_LVL */
+-#define WM8400_CHIP_GT150_LVL_MASK              0x0200  /* CHIP_GT150_LVL */
+-#define WM8400_CHIP_GT150_LVL_SHIFT                  9  /* CHIP_GT150_LVL */
+-#define WM8400_CHIP_GT150_LVL_WIDTH                  1  /* CHIP_GT150_LVL */
+-#define WM8400_CHIP_GT115_LVL                   0x0100  /* CHIP_GT115_LVL */
+-#define WM8400_CHIP_GT115_LVL_MASK              0x0100  /* CHIP_GT115_LVL */
+-#define WM8400_CHIP_GT115_LVL_SHIFT                  8  /* CHIP_GT115_LVL */
+-#define WM8400_CHIP_GT115_LVL_WIDTH                  1  /* CHIP_GT115_LVL */
+-#define WM8400_LINE_CMP_LVL                     0x0080  /* LINE_CMP_LVL */
+-#define WM8400_LINE_CMP_LVL_MASK                0x0080  /* LINE_CMP_LVL */
+-#define WM8400_LINE_CMP_LVL_SHIFT                    7  /* LINE_CMP_LVL */
+-#define WM8400_LINE_CMP_LVL_WIDTH                    1  /* LINE_CMP_LVL */
+-#define WM8400_UVLO_LVL                         0x0040  /* UVLO_LVL */
+-#define WM8400_UVLO_LVL_MASK                    0x0040  /* UVLO_LVL */
+-#define WM8400_UVLO_LVL_SHIFT                        6  /* UVLO_LVL */
+-#define WM8400_UVLO_LVL_WIDTH                        1  /* UVLO_LVL */
+-#define WM8400_DC2_UV_LVL                       0x0020  /* DC2_UV_LVL */
+-#define WM8400_DC2_UV_LVL_MASK                  0x0020  /* DC2_UV_LVL */
+-#define WM8400_DC2_UV_LVL_SHIFT                      5  /* DC2_UV_LVL */
+-#define WM8400_DC2_UV_LVL_WIDTH                      1  /* DC2_UV_LVL */
+-#define WM8400_DC1_UV_LVL                       0x0010  /* DC1_UV_LVL */
+-#define WM8400_DC1_UV_LVL_MASK                  0x0010  /* DC1_UV_LVL */
+-#define WM8400_DC1_UV_LVL_SHIFT                      4  /* DC1_UV_LVL */
+-#define WM8400_DC1_UV_LVL_WIDTH                      1  /* DC1_UV_LVL */
+-#define WM8400_LDO4_UV_LVL                      0x0008  /* LDO4_UV_LVL */
+-#define WM8400_LDO4_UV_LVL_MASK                 0x0008  /* LDO4_UV_LVL */
+-#define WM8400_LDO4_UV_LVL_SHIFT                     3  /* LDO4_UV_LVL */
+-#define WM8400_LDO4_UV_LVL_WIDTH                     1  /* LDO4_UV_LVL */
+-#define WM8400_LDO3_UV_LVL                      0x0004  /* LDO3_UV_LVL */
+-#define WM8400_LDO3_UV_LVL_MASK                 0x0004  /* LDO3_UV_LVL */
+-#define WM8400_LDO3_UV_LVL_SHIFT                     2  /* LDO3_UV_LVL */
+-#define WM8400_LDO3_UV_LVL_WIDTH                     1  /* LDO3_UV_LVL */
+-#define WM8400_LDO2_UV_LVL                      0x0002  /* LDO2_UV_LVL */
+-#define WM8400_LDO2_UV_LVL_MASK                 0x0002  /* LDO2_UV_LVL */
+-#define WM8400_LDO2_UV_LVL_SHIFT                     1  /* LDO2_UV_LVL */
+-#define WM8400_LDO2_UV_LVL_WIDTH                     1  /* LDO2_UV_LVL */
+-#define WM8400_LDO1_UV_LVL                      0x0001  /* LDO1_UV_LVL */
+-#define WM8400_LDO1_UV_LVL_MASK                 0x0001  /* LDO1_UV_LVL */
+-#define WM8400_LDO1_UV_LVL_SHIFT                     0  /* LDO1_UV_LVL */
+-#define WM8400_LDO1_UV_LVL_WIDTH                     1  /* LDO1_UV_LVL */
+-
+-/*
+- * R82 (0x52) - Shutdown Reason
+- */
+-#define WM8400_SDR_CHIP_SOFTSD                  0x2000  /* SDR_CHIP_SOFTSD */
+-#define WM8400_SDR_CHIP_SOFTSD_MASK             0x2000  /* SDR_CHIP_SOFTSD */
+-#define WM8400_SDR_CHIP_SOFTSD_SHIFT                13  /* SDR_CHIP_SOFTSD */
+-#define WM8400_SDR_CHIP_SOFTSD_WIDTH                 1  /* SDR_CHIP_SOFTSD */
+-#define WM8400_SDR_NPDN                         0x0800  /* SDR_NPDN */
+-#define WM8400_SDR_NPDN_MASK                    0x0800  /* SDR_NPDN */
+-#define WM8400_SDR_NPDN_SHIFT                       11  /* SDR_NPDN */
+-#define WM8400_SDR_NPDN_WIDTH                        1  /* SDR_NPDN */
+-#define WM8400_SDR_CHIP_GT150                   0x0200  /* SDR_CHIP_GT150 */
+-#define WM8400_SDR_CHIP_GT150_MASK              0x0200  /* SDR_CHIP_GT150 */
+-#define WM8400_SDR_CHIP_GT150_SHIFT                  9  /* SDR_CHIP_GT150 */
+-#define WM8400_SDR_CHIP_GT150_WIDTH                  1  /* SDR_CHIP_GT150 */
+-#define WM8400_SDR_CHIP_GT115                   0x0100  /* SDR_CHIP_GT115 */
+-#define WM8400_SDR_CHIP_GT115_MASK              0x0100  /* SDR_CHIP_GT115 */
+-#define WM8400_SDR_CHIP_GT115_SHIFT                  8  /* SDR_CHIP_GT115 */
+-#define WM8400_SDR_CHIP_GT115_WIDTH                  1  /* SDR_CHIP_GT115 */
+-#define WM8400_SDR_LINE_CMP                     0x0080  /* SDR_LINE_CMP */
+-#define WM8400_SDR_LINE_CMP_MASK                0x0080  /* SDR_LINE_CMP */
+-#define WM8400_SDR_LINE_CMP_SHIFT                    7  /* SDR_LINE_CMP */
+-#define WM8400_SDR_LINE_CMP_WIDTH                    1  /* SDR_LINE_CMP */
+-#define WM8400_SDR_UVLO                         0x0040  /* SDR_UVLO */
+-#define WM8400_SDR_UVLO_MASK                    0x0040  /* SDR_UVLO */
+-#define WM8400_SDR_UVLO_SHIFT                        6  /* SDR_UVLO */
+-#define WM8400_SDR_UVLO_WIDTH                        1  /* SDR_UVLO */
+-#define WM8400_SDR_DC2_UV                       0x0020  /* SDR_DC2_UV */
+-#define WM8400_SDR_DC2_UV_MASK                  0x0020  /* SDR_DC2_UV */
+-#define WM8400_SDR_DC2_UV_SHIFT                      5  /* SDR_DC2_UV */
+-#define WM8400_SDR_DC2_UV_WIDTH                      1  /* SDR_DC2_UV */
+-#define WM8400_SDR_DC1_UV                       0x0010  /* SDR_DC1_UV */
+-#define WM8400_SDR_DC1_UV_MASK                  0x0010  /* SDR_DC1_UV */
+-#define WM8400_SDR_DC1_UV_SHIFT                      4  /* SDR_DC1_UV */
+-#define WM8400_SDR_DC1_UV_WIDTH                      1  /* SDR_DC1_UV */
+-#define WM8400_SDR_LDO4_UV                      0x0008  /* SDR_LDO4_UV */
+-#define WM8400_SDR_LDO4_UV_MASK                 0x0008  /* SDR_LDO4_UV */
+-#define WM8400_SDR_LDO4_UV_SHIFT                     3  /* SDR_LDO4_UV */
+-#define WM8400_SDR_LDO4_UV_WIDTH                     1  /* SDR_LDO4_UV */
+-#define WM8400_SDR_LDO3_UV                      0x0004  /* SDR_LDO3_UV */
+-#define WM8400_SDR_LDO3_UV_MASK                 0x0004  /* SDR_LDO3_UV */
+-#define WM8400_SDR_LDO3_UV_SHIFT                     2  /* SDR_LDO3_UV */
+-#define WM8400_SDR_LDO3_UV_WIDTH                     1  /* SDR_LDO3_UV */
+-#define WM8400_SDR_LDO2_UV                      0x0002  /* SDR_LDO2_UV */
+-#define WM8400_SDR_LDO2_UV_MASK                 0x0002  /* SDR_LDO2_UV */
+-#define WM8400_SDR_LDO2_UV_SHIFT                     1  /* SDR_LDO2_UV */
+-#define WM8400_SDR_LDO2_UV_WIDTH                     1  /* SDR_LDO2_UV */
+-#define WM8400_SDR_LDO1_UV                      0x0001  /* SDR_LDO1_UV */
+-#define WM8400_SDR_LDO1_UV_MASK                 0x0001  /* SDR_LDO1_UV */
+-#define WM8400_SDR_LDO1_UV_SHIFT                     0  /* SDR_LDO1_UV */
+-#define WM8400_SDR_LDO1_UV_WIDTH                     1  /* SDR_LDO1_UV */
+-
+-/*
+- * R84 (0x54) - Line Circuits
+- */
+-#define WM8400_BG_LINE_COMP                     0x8000  /* BG_LINE_COMP */
+-#define WM8400_BG_LINE_COMP_MASK                0x8000  /* BG_LINE_COMP */
+-#define WM8400_BG_LINE_COMP_SHIFT                   15  /* BG_LINE_COMP */
+-#define WM8400_BG_LINE_COMP_WIDTH                    1  /* BG_LINE_COMP */
+-#define WM8400_LINE_CMP_VTHI_MASK               0x00F0  /* LINE_CMP_VTHI - [7:4] */
+-#define WM8400_LINE_CMP_VTHI_SHIFT                   4  /* LINE_CMP_VTHI - [7:4] */
+-#define WM8400_LINE_CMP_VTHI_WIDTH                   4  /* LINE_CMP_VTHI - [7:4] */
+-#define WM8400_LINE_CMP_VTHD_MASK               0x000F  /* LINE_CMP_VTHD - [3:0] */
+-#define WM8400_LINE_CMP_VTHD_SHIFT                   0  /* LINE_CMP_VTHD - [3:0] */
+-#define WM8400_LINE_CMP_VTHD_WIDTH                   4  /* LINE_CMP_VTHD - [3:0] */
+-
+-#endif
+diff --git a/include/linux/mfd/wm8400.h b/include/linux/mfd/wm8400.h
+deleted file mode 100644
+index a812d89e7cb3..000000000000
+--- a/include/linux/mfd/wm8400.h
++++ /dev/null
+@@ -1,27 +0,0 @@
+-/* SPDX-License-Identifier: GPL-2.0-or-later */
+-/*
+- * wm8400 client interface
+- *
+- * Copyright 2008 Wolfson Microelectronics plc
+- */
+-
+-#ifndef __LINUX_MFD_WM8400_H
+-#define __LINUX_MFD_WM8400_H
+-
+-#include <linux/regulator/machine.h>
+-
+-#define WM8400_LDO1  0
+-#define WM8400_LDO2  1
+-#define WM8400_LDO3  2
+-#define WM8400_LDO4  3
+-#define WM8400_DCDC1 4
+-#define WM8400_DCDC2 5
+-
+-struct wm8400_platform_data {
+-	int (*platform_init)(struct device *dev);
+-};
+-
+-int wm8400_register_regulator(struct device *dev, int reg,
+-			      struct regulator_init_data *initdata);
+-
+-#endif
+diff --git a/sound/soc/codecs/Kconfig b/sound/soc/codecs/Kconfig
+index 1f7dc2c7e338..422e50ee0560 100644
+--- a/sound/soc/codecs/Kconfig
++++ b/sound/soc/codecs/Kconfig
+@@ -318,7 +318,6 @@ config SND_SOC_ALL_CODECS
+ 	imply SND_SOC_WM5102
+ 	imply SND_SOC_WM5110
+ 	imply SND_SOC_WM8350
+-	imply SND_SOC_WM8400
+ 	imply SND_SOC_WM8510
+ 	imply SND_SOC_WM8523
+ 	imply SND_SOC_WM8524
+@@ -2556,11 +2555,6 @@ config SND_SOC_WM8350
+ 	tristate
+ 	depends on MFD_WM8350
+ 
+-config SND_SOC_WM8400
+-	tristate
+-	# FIXME nothing selects SND_SOC_WM8400??
+-	depends on MFD_WM8400
+-
+ config SND_SOC_WM8510
+ 	tristate "Wolfson Microelectronics WM8510 CODEC"
+ 	depends on SND_SOC_I2C_AND_SPI
+diff --git a/sound/soc/codecs/Makefile b/sound/soc/codecs/Makefile
+index f4f20a8e112e..3fc78f3b44ba 100644
+--- a/sound/soc/codecs/Makefile
++++ b/sound/soc/codecs/Makefile
+@@ -375,7 +375,6 @@ snd-soc-wm5100-y := wm5100.o wm5100-tables.o
+ snd-soc-wm5102-y := wm5102.o
+ snd-soc-wm5110-y := wm5110.o
+ snd-soc-wm8350-y := wm8350.o
+-snd-soc-wm8400-y := wm8400.o
+ snd-soc-wm8510-y := wm8510.o
+ snd-soc-wm8523-y := wm8523.o
+ snd-soc-wm8524-y := wm8524.o
+@@ -825,7 +824,6 @@ obj-$(CONFIG_SND_SOC_WM5100)	+= snd-soc-wm5100.o
+ obj-$(CONFIG_SND_SOC_WM5102)	+= snd-soc-wm5102.o
+ obj-$(CONFIG_SND_SOC_WM5110)	+= snd-soc-wm5110.o
+ obj-$(CONFIG_SND_SOC_WM8350)	+= snd-soc-wm8350.o
+-obj-$(CONFIG_SND_SOC_WM8400)	+= snd-soc-wm8400.o
+ obj-$(CONFIG_SND_SOC_WM8510)	+= snd-soc-wm8510.o
+ obj-$(CONFIG_SND_SOC_WM8523)	+= snd-soc-wm8523.o
+ obj-$(CONFIG_SND_SOC_WM8524)	+= snd-soc-wm8524.o
+diff --git a/sound/soc/codecs/wm8400.c b/sound/soc/codecs/wm8400.c
+deleted file mode 100644
+index 0eecc8657a38..000000000000
+--- a/sound/soc/codecs/wm8400.c
++++ /dev/null
+@@ -1,1348 +0,0 @@
+-// SPDX-License-Identifier: GPL-2.0-or-later
+-/*
+- * wm8400.c  --  WM8400 ALSA Soc Audio driver
+- *
+- * Copyright 2008-11 Wolfson Microelectronics PLC.
+- * Author: Mark Brown <broonie@opensource.wolfsonmicro.com>
+- */
+-
+-#include <linux/module.h>
+-#include <linux/moduleparam.h>
+-#include <linux/kernel.h>
+-#include <linux/slab.h>
+-#include <linux/init.h>
+-#include <linux/delay.h>
+-#include <linux/pm.h>
+-#include <linux/platform_device.h>
+-#include <linux/regulator/consumer.h>
+-#include <linux/mfd/wm8400-audio.h>
+-#include <linux/mfd/wm8400-private.h>
+-#include <linux/mfd/core.h>
+-#include <sound/core.h>
+-#include <sound/pcm.h>
+-#include <sound/pcm_params.h>
+-#include <sound/soc.h>
+-#include <sound/initval.h>
+-#include <sound/tlv.h>
+-
+-#include "wm8400.h"
+-
+-static struct regulator_bulk_data power[] = {
+-	{
+-		.supply = "I2S1VDD",
+-	},
+-	{
+-		.supply = "I2S2VDD",
+-	},
+-	{
+-		.supply = "DCVDD",
+-	},
+-	{
+-		.supply = "AVDD",
+-	},
+-	{
+-		.supply = "FLLVDD",
+-	},
+-	{
+-		.supply = "HPVDD",
+-	},
+-	{
+-		.supply = "SPKVDD",
+-	},
+-};
+-
+-/* codec private data */
+-struct wm8400_priv {
+-	struct wm8400 *wm8400;
+-	u16 fake_register;
+-	unsigned int sysclk;
+-	unsigned int pcmclk;
+-	int fll_in, fll_out;
+-};
+-
+-static void wm8400_component_reset(struct snd_soc_component *component)
 -{
--	struct da903x_backlight_data *data = bl_get_data(bl);
--	struct device *dev = data->da903x_dev;
--	uint8_t val;
+-	struct wm8400_priv *wm8400 = snd_soc_component_get_drvdata(component);
+-
+-	wm8400_reset_codec_reg_cache(wm8400->wm8400);
+-}
+-
+-static const DECLARE_TLV_DB_SCALE(in_pga_tlv, -1650, 3000, 0);
+-
+-static const DECLARE_TLV_DB_SCALE(out_mix_tlv, -2100, 0, 0);
+-
+-static const DECLARE_TLV_DB_SCALE(out_pga_tlv, -7300, 600, 0);
+-
+-static const DECLARE_TLV_DB_SCALE(out_dac_tlv, -7163, 0, 0);
+-
+-static const DECLARE_TLV_DB_SCALE(in_adc_tlv, -7163, 1763, 0);
+-
+-static const DECLARE_TLV_DB_SCALE(out_sidetone_tlv, -3600, 0, 0);
+-
+-static int wm8400_outpga_put_volsw_vu(struct snd_kcontrol *kcontrol,
+-        struct snd_ctl_elem_value *ucontrol)
+-{
+-	struct snd_soc_component *component = snd_kcontrol_chip(kcontrol);
+-	struct soc_mixer_control *mc =
+-		(struct soc_mixer_control *)kcontrol->private_value;
+-	int reg = mc->reg;
+-        int ret;
+-        u16 val;
+-
+-        ret = snd_soc_put_volsw(kcontrol, ucontrol);
+-        if (ret < 0)
+-                return ret;
+-
+-        /* now hit the volume update bits (always bit 8) */
+-	val = snd_soc_component_read(component, reg);
+-        return snd_soc_component_write(component, reg, val | 0x0100);
+-}
+-
+-#define WM8400_OUTPGA_SINGLE_R_TLV(xname, reg, shift, max, invert, tlv_array) \
+-	SOC_SINGLE_EXT_TLV(xname, reg, shift, max, invert, \
+-		snd_soc_get_volsw, wm8400_outpga_put_volsw_vu, tlv_array)
+-
+-
+-static const char *wm8400_digital_sidetone[] =
+-	{"None", "Left ADC", "Right ADC", "Reserved"};
+-
+-static SOC_ENUM_SINGLE_DECL(wm8400_left_digital_sidetone_enum,
+-			    WM8400_DIGITAL_SIDE_TONE,
+-			    WM8400_ADC_TO_DACL_SHIFT,
+-			    wm8400_digital_sidetone);
+-
+-static SOC_ENUM_SINGLE_DECL(wm8400_right_digital_sidetone_enum,
+-			    WM8400_DIGITAL_SIDE_TONE,
+-			    WM8400_ADC_TO_DACR_SHIFT,
+-			    wm8400_digital_sidetone);
+-
+-static const char *wm8400_adcmode[] =
+-	{"Hi-fi mode", "Voice mode 1", "Voice mode 2", "Voice mode 3"};
+-
+-static SOC_ENUM_SINGLE_DECL(wm8400_right_adcmode_enum,
+-			    WM8400_ADC_CTRL,
+-			    WM8400_ADC_HPF_CUT_SHIFT,
+-			    wm8400_adcmode);
+-
+-static const struct snd_kcontrol_new wm8400_snd_controls[] = {
+-/* INMIXL */
+-SOC_SINGLE("LIN12 PGA Boost", WM8400_INPUT_MIXER3, WM8400_L12MNBST_SHIFT,
+-	   1, 0),
+-SOC_SINGLE("LIN34 PGA Boost", WM8400_INPUT_MIXER3, WM8400_L34MNBST_SHIFT,
+-	   1, 0),
+-/* INMIXR */
+-SOC_SINGLE("RIN12 PGA Boost", WM8400_INPUT_MIXER3, WM8400_R12MNBST_SHIFT,
+-	   1, 0),
+-SOC_SINGLE("RIN34 PGA Boost", WM8400_INPUT_MIXER3, WM8400_R34MNBST_SHIFT,
+-	   1, 0),
+-
+-/* LOMIX */
+-SOC_SINGLE_TLV("LOMIX LIN3 Bypass Volume", WM8400_OUTPUT_MIXER3,
+-	WM8400_LLI3LOVOL_SHIFT, 7, 0, out_mix_tlv),
+-SOC_SINGLE_TLV("LOMIX RIN12 PGA Bypass Volume", WM8400_OUTPUT_MIXER3,
+-	WM8400_LR12LOVOL_SHIFT, 7, 0, out_mix_tlv),
+-SOC_SINGLE_TLV("LOMIX LIN12 PGA Bypass Volume", WM8400_OUTPUT_MIXER3,
+-	WM8400_LL12LOVOL_SHIFT, 7, 0, out_mix_tlv),
+-SOC_SINGLE_TLV("LOMIX RIN3 Bypass Volume", WM8400_OUTPUT_MIXER5,
+-	WM8400_LRI3LOVOL_SHIFT, 7, 0, out_mix_tlv),
+-SOC_SINGLE_TLV("LOMIX AINRMUX Bypass Volume", WM8400_OUTPUT_MIXER5,
+-	WM8400_LRBLOVOL_SHIFT, 7, 0, out_mix_tlv),
+-SOC_SINGLE_TLV("LOMIX AINLMUX Bypass Volume", WM8400_OUTPUT_MIXER5,
+-	WM8400_LRBLOVOL_SHIFT, 7, 0, out_mix_tlv),
+-
+-/* ROMIX */
+-SOC_SINGLE_TLV("ROMIX RIN3 Bypass Volume", WM8400_OUTPUT_MIXER4,
+-	WM8400_RRI3ROVOL_SHIFT, 7, 0, out_mix_tlv),
+-SOC_SINGLE_TLV("ROMIX LIN12 PGA Bypass Volume", WM8400_OUTPUT_MIXER4,
+-	WM8400_RL12ROVOL_SHIFT, 7, 0, out_mix_tlv),
+-SOC_SINGLE_TLV("ROMIX RIN12 PGA Bypass Volume", WM8400_OUTPUT_MIXER4,
+-	WM8400_RR12ROVOL_SHIFT, 7, 0, out_mix_tlv),
+-SOC_SINGLE_TLV("ROMIX LIN3 Bypass Volume", WM8400_OUTPUT_MIXER6,
+-	WM8400_RLI3ROVOL_SHIFT, 7, 0, out_mix_tlv),
+-SOC_SINGLE_TLV("ROMIX AINLMUX Bypass Volume", WM8400_OUTPUT_MIXER6,
+-	WM8400_RLBROVOL_SHIFT, 7, 0, out_mix_tlv),
+-SOC_SINGLE_TLV("ROMIX AINRMUX Bypass Volume", WM8400_OUTPUT_MIXER6,
+-	WM8400_RRBROVOL_SHIFT, 7, 0, out_mix_tlv),
+-
+-/* LOUT */
+-WM8400_OUTPGA_SINGLE_R_TLV("LOUT Volume", WM8400_LEFT_OUTPUT_VOLUME,
+-	WM8400_LOUTVOL_SHIFT, WM8400_LOUTVOL_MASK, 0, out_pga_tlv),
+-SOC_SINGLE("LOUT ZC", WM8400_LEFT_OUTPUT_VOLUME, WM8400_LOZC_SHIFT, 1, 0),
+-
+-/* ROUT */
+-WM8400_OUTPGA_SINGLE_R_TLV("ROUT Volume", WM8400_RIGHT_OUTPUT_VOLUME,
+-	WM8400_ROUTVOL_SHIFT, WM8400_ROUTVOL_MASK, 0, out_pga_tlv),
+-SOC_SINGLE("ROUT ZC", WM8400_RIGHT_OUTPUT_VOLUME, WM8400_ROZC_SHIFT, 1, 0),
+-
+-/* LOPGA */
+-WM8400_OUTPGA_SINGLE_R_TLV("LOPGA Volume", WM8400_LEFT_OPGA_VOLUME,
+-	WM8400_LOPGAVOL_SHIFT, WM8400_LOPGAVOL_MASK, 0, out_pga_tlv),
+-SOC_SINGLE("LOPGA ZC Switch", WM8400_LEFT_OPGA_VOLUME,
+-	WM8400_LOPGAZC_SHIFT, 1, 0),
+-
+-/* ROPGA */
+-WM8400_OUTPGA_SINGLE_R_TLV("ROPGA Volume", WM8400_RIGHT_OPGA_VOLUME,
+-	WM8400_ROPGAVOL_SHIFT, WM8400_ROPGAVOL_MASK, 0, out_pga_tlv),
+-SOC_SINGLE("ROPGA ZC Switch", WM8400_RIGHT_OPGA_VOLUME,
+-	WM8400_ROPGAZC_SHIFT, 1, 0),
+-
+-SOC_SINGLE("LON Mute Switch", WM8400_LINE_OUTPUTS_VOLUME,
+-	WM8400_LONMUTE_SHIFT, 1, 0),
+-SOC_SINGLE("LOP Mute Switch", WM8400_LINE_OUTPUTS_VOLUME,
+-	WM8400_LOPMUTE_SHIFT, 1, 0),
+-SOC_SINGLE("LOP Attenuation Switch", WM8400_LINE_OUTPUTS_VOLUME,
+-	WM8400_LOATTN_SHIFT, 1, 0),
+-SOC_SINGLE("RON Mute Switch", WM8400_LINE_OUTPUTS_VOLUME,
+-	WM8400_RONMUTE_SHIFT, 1, 0),
+-SOC_SINGLE("ROP Mute Switch", WM8400_LINE_OUTPUTS_VOLUME,
+-	WM8400_ROPMUTE_SHIFT, 1, 0),
+-SOC_SINGLE("ROP Attenuation Switch", WM8400_LINE_OUTPUTS_VOLUME,
+-	WM8400_ROATTN_SHIFT, 1, 0),
+-
+-SOC_SINGLE("OUT3 Mute Switch", WM8400_OUT3_4_VOLUME,
+-	WM8400_OUT3MUTE_SHIFT, 1, 0),
+-SOC_SINGLE("OUT3 Attenuation Switch", WM8400_OUT3_4_VOLUME,
+-	WM8400_OUT3ATTN_SHIFT, 1, 0),
+-
+-SOC_SINGLE("OUT4 Mute Switch", WM8400_OUT3_4_VOLUME,
+-	WM8400_OUT4MUTE_SHIFT, 1, 0),
+-SOC_SINGLE("OUT4 Attenuation Switch", WM8400_OUT3_4_VOLUME,
+-	WM8400_OUT4ATTN_SHIFT, 1, 0),
+-
+-SOC_SINGLE("Speaker Mode Switch", WM8400_CLASSD1,
+-	WM8400_CDMODE_SHIFT, 1, 0),
+-
+-SOC_SINGLE("Speaker Output Attenuation Volume", WM8400_SPEAKER_VOLUME,
+-	WM8400_SPKATTN_SHIFT, WM8400_SPKATTN_MASK, 0),
+-SOC_SINGLE("Speaker DC Boost Volume", WM8400_CLASSD3,
+-	WM8400_DCGAIN_SHIFT, 6, 0),
+-SOC_SINGLE("Speaker AC Boost Volume", WM8400_CLASSD3,
+-	WM8400_ACGAIN_SHIFT, 6, 0),
+-
+-WM8400_OUTPGA_SINGLE_R_TLV("Left DAC Digital Volume",
+-	WM8400_LEFT_DAC_DIGITAL_VOLUME, WM8400_DACL_VOL_SHIFT,
+-	127, 0, out_dac_tlv),
+-
+-WM8400_OUTPGA_SINGLE_R_TLV("Right DAC Digital Volume",
+-	WM8400_RIGHT_DAC_DIGITAL_VOLUME, WM8400_DACR_VOL_SHIFT,
+-	127, 0, out_dac_tlv),
+-
+-SOC_ENUM("Left Digital Sidetone", wm8400_left_digital_sidetone_enum),
+-SOC_ENUM("Right Digital Sidetone", wm8400_right_digital_sidetone_enum),
+-
+-SOC_SINGLE_TLV("Left Digital Sidetone Volume", WM8400_DIGITAL_SIDE_TONE,
+-	WM8400_ADCL_DAC_SVOL_SHIFT, 15, 0, out_sidetone_tlv),
+-SOC_SINGLE_TLV("Right Digital Sidetone Volume", WM8400_DIGITAL_SIDE_TONE,
+-	WM8400_ADCR_DAC_SVOL_SHIFT, 15, 0, out_sidetone_tlv),
+-
+-SOC_SINGLE("ADC Digital High Pass Filter Switch", WM8400_ADC_CTRL,
+-	WM8400_ADC_HPF_ENA_SHIFT, 1, 0),
+-
+-SOC_ENUM("ADC HPF Mode", wm8400_right_adcmode_enum),
+-
+-WM8400_OUTPGA_SINGLE_R_TLV("Left ADC Digital Volume",
+-	WM8400_LEFT_ADC_DIGITAL_VOLUME,
+-	WM8400_ADCL_VOL_SHIFT,
+-	WM8400_ADCL_VOL_MASK,
+-	0,
+-	in_adc_tlv),
+-
+-WM8400_OUTPGA_SINGLE_R_TLV("Right ADC Digital Volume",
+-	WM8400_RIGHT_ADC_DIGITAL_VOLUME,
+-	WM8400_ADCR_VOL_SHIFT,
+-	WM8400_ADCR_VOL_MASK,
+-	0,
+-	in_adc_tlv),
+-
+-WM8400_OUTPGA_SINGLE_R_TLV("LIN12 Volume",
+-	WM8400_LEFT_LINE_INPUT_1_2_VOLUME,
+-	WM8400_LIN12VOL_SHIFT,
+-	WM8400_LIN12VOL_MASK,
+-	0,
+-	in_pga_tlv),
+-
+-SOC_SINGLE("LIN12 ZC Switch", WM8400_LEFT_LINE_INPUT_1_2_VOLUME,
+-	WM8400_LI12ZC_SHIFT, 1, 0),
+-
+-SOC_SINGLE("LIN12 Mute Switch", WM8400_LEFT_LINE_INPUT_1_2_VOLUME,
+-	WM8400_LI12MUTE_SHIFT, 1, 0),
+-
+-WM8400_OUTPGA_SINGLE_R_TLV("LIN34 Volume",
+-	WM8400_LEFT_LINE_INPUT_3_4_VOLUME,
+-	WM8400_LIN34VOL_SHIFT,
+-	WM8400_LIN34VOL_MASK,
+-	0,
+-	in_pga_tlv),
+-
+-SOC_SINGLE("LIN34 ZC Switch", WM8400_LEFT_LINE_INPUT_3_4_VOLUME,
+-	WM8400_LI34ZC_SHIFT, 1, 0),
+-
+-SOC_SINGLE("LIN34 Mute Switch", WM8400_LEFT_LINE_INPUT_3_4_VOLUME,
+-	WM8400_LI34MUTE_SHIFT, 1, 0),
+-
+-WM8400_OUTPGA_SINGLE_R_TLV("RIN12 Volume",
+-	WM8400_RIGHT_LINE_INPUT_1_2_VOLUME,
+-	WM8400_RIN12VOL_SHIFT,
+-	WM8400_RIN12VOL_MASK,
+-	0,
+-	in_pga_tlv),
+-
+-SOC_SINGLE("RIN12 ZC Switch", WM8400_RIGHT_LINE_INPUT_1_2_VOLUME,
+-	WM8400_RI12ZC_SHIFT, 1, 0),
+-
+-SOC_SINGLE("RIN12 Mute Switch", WM8400_RIGHT_LINE_INPUT_1_2_VOLUME,
+-	WM8400_RI12MUTE_SHIFT, 1, 0),
+-
+-WM8400_OUTPGA_SINGLE_R_TLV("RIN34 Volume",
+-	WM8400_RIGHT_LINE_INPUT_3_4_VOLUME,
+-	WM8400_RIN34VOL_SHIFT,
+-	WM8400_RIN34VOL_MASK,
+-	0,
+-	in_pga_tlv),
+-
+-SOC_SINGLE("RIN34 ZC Switch", WM8400_RIGHT_LINE_INPUT_3_4_VOLUME,
+-	WM8400_RI34ZC_SHIFT, 1, 0),
+-
+-SOC_SINGLE("RIN34 Mute Switch", WM8400_RIGHT_LINE_INPUT_3_4_VOLUME,
+-	WM8400_RI34MUTE_SHIFT, 1, 0),
+-
+-};
+-
+-/*
+- * _DAPM_ Controls
+- */
+-
+-static int outmixer_event (struct snd_soc_dapm_widget *w,
+-	struct snd_kcontrol * kcontrol, int event)
+-{
+-	struct snd_soc_component *component = snd_soc_dapm_to_component(w->dapm);
+-	struct soc_mixer_control *mc =
+-		(struct soc_mixer_control *)kcontrol->private_value;
+-	struct wm8400_priv *wm8400 = snd_soc_component_get_drvdata(component);
+-	u32 reg_shift = mc->shift;
 -	int ret = 0;
+-	u16 reg;
 -
--	switch (data->id) {
--	case DA9034_ID_WLED:
--		ret = da903x_update(dev, DA9034_WLED_CONTROL1,
--				brightness, 0x7f);
--		if (ret)
--			return ret;
--
--		if (data->current_brightness && brightness == 0)
--			ret = da903x_clr_bits(dev,
--					DA9034_WLED_CONTROL2,
--					DA9034_WLED_BOOST_EN);
--
--		if (data->current_brightness == 0 && brightness)
--			ret = da903x_set_bits(dev,
--					DA9034_WLED_CONTROL2,
--					DA9034_WLED_BOOST_EN);
+-	switch (reg_shift) {
+-	case WM8400_SPEAKER_MIXER | (WM8400_LDSPK << 8) :
+-		reg = snd_soc_component_read(component, WM8400_OUTPUT_MIXER1);
+-		if (reg & WM8400_LDLO) {
+-			dev_warn(wm8400->wm8400->dev,
+-			"Cannot set as Output Mixer 1 LDLO Set\n");
+-			ret = -1;
+-		}
 -		break;
--	case DA9030_ID_WLED:
--		val = DA9030_WLED_TRIM(brightness);
--		val |= brightness ? DA9030_WLED_CP_EN : 0;
--		ret = da903x_write(dev, DA9030_WLED_CONTROL, val);
+-	case WM8400_SPEAKER_MIXER | (WM8400_RDSPK << 8):
+-		reg = snd_soc_component_read(component, WM8400_OUTPUT_MIXER2);
+-		if (reg & WM8400_RDRO) {
+-			dev_warn(wm8400->wm8400->dev,
+-			"Cannot set as Output Mixer 2 RDRO Set\n");
+-			ret = -1;
+-		}
+-		break;
+-	case WM8400_OUTPUT_MIXER1 | (WM8400_LDLO << 8):
+-		reg = snd_soc_component_read(component, WM8400_SPEAKER_MIXER);
+-		if (reg & WM8400_LDSPK) {
+-			dev_warn(wm8400->wm8400->dev,
+-			"Cannot set as Speaker Mixer LDSPK Set\n");
+-			ret = -1;
+-		}
+-		break;
+-	case WM8400_OUTPUT_MIXER2 | (WM8400_RDRO << 8):
+-		reg = snd_soc_component_read(component, WM8400_SPEAKER_MIXER);
+-		if (reg & WM8400_RDSPK) {
+-			dev_warn(wm8400->wm8400->dev,
+-			"Cannot set as Speaker Mixer RDSPK Set\n");
+-			ret = -1;
+-		}
 -		break;
 -	}
 -
--	if (ret)
--		return ret;
+-	return ret;
+-}
 -
--	data->current_brightness = brightness;
+-/* INMIX dB values */
+-static const DECLARE_TLV_DB_SCALE(in_mix_tlv, -1200, 600, 0);
+-
+-/* Left In PGA Connections */
+-static const struct snd_kcontrol_new wm8400_dapm_lin12_pga_controls[] = {
+-SOC_DAPM_SINGLE("LIN1 Switch", WM8400_INPUT_MIXER2, WM8400_LMN1_SHIFT, 1, 0),
+-SOC_DAPM_SINGLE("LIN2 Switch", WM8400_INPUT_MIXER2, WM8400_LMP2_SHIFT, 1, 0),
+-};
+-
+-static const struct snd_kcontrol_new wm8400_dapm_lin34_pga_controls[] = {
+-SOC_DAPM_SINGLE("LIN3 Switch", WM8400_INPUT_MIXER2, WM8400_LMN3_SHIFT, 1, 0),
+-SOC_DAPM_SINGLE("LIN4 Switch", WM8400_INPUT_MIXER2, WM8400_LMP4_SHIFT, 1, 0),
+-};
+-
+-/* Right In PGA Connections */
+-static const struct snd_kcontrol_new wm8400_dapm_rin12_pga_controls[] = {
+-SOC_DAPM_SINGLE("RIN1 Switch", WM8400_INPUT_MIXER2, WM8400_RMN1_SHIFT, 1, 0),
+-SOC_DAPM_SINGLE("RIN2 Switch", WM8400_INPUT_MIXER2, WM8400_RMP2_SHIFT, 1, 0),
+-};
+-
+-static const struct snd_kcontrol_new wm8400_dapm_rin34_pga_controls[] = {
+-SOC_DAPM_SINGLE("RIN3 Switch", WM8400_INPUT_MIXER2, WM8400_RMN3_SHIFT, 1, 0),
+-SOC_DAPM_SINGLE("RIN4 Switch", WM8400_INPUT_MIXER2, WM8400_RMP4_SHIFT, 1, 0),
+-};
+-
+-/* INMIXL */
+-static const struct snd_kcontrol_new wm8400_dapm_inmixl_controls[] = {
+-SOC_DAPM_SINGLE_TLV("Record Left Volume", WM8400_INPUT_MIXER3,
+-	WM8400_LDBVOL_SHIFT, WM8400_LDBVOL_MASK, 0, in_mix_tlv),
+-SOC_DAPM_SINGLE_TLV("LIN2 Volume", WM8400_INPUT_MIXER5, WM8400_LI2BVOL_SHIFT,
+-	7, 0, in_mix_tlv),
+-SOC_DAPM_SINGLE("LINPGA12 Switch", WM8400_INPUT_MIXER3, WM8400_L12MNB_SHIFT,
+-		1, 0),
+-SOC_DAPM_SINGLE("LINPGA34 Switch", WM8400_INPUT_MIXER3, WM8400_L34MNB_SHIFT,
+-		1, 0),
+-};
+-
+-/* INMIXR */
+-static const struct snd_kcontrol_new wm8400_dapm_inmixr_controls[] = {
+-SOC_DAPM_SINGLE_TLV("Record Right Volume", WM8400_INPUT_MIXER4,
+-	WM8400_RDBVOL_SHIFT, WM8400_RDBVOL_MASK, 0, in_mix_tlv),
+-SOC_DAPM_SINGLE_TLV("RIN2 Volume", WM8400_INPUT_MIXER6, WM8400_RI2BVOL_SHIFT,
+-	7, 0, in_mix_tlv),
+-SOC_DAPM_SINGLE("RINPGA12 Switch", WM8400_INPUT_MIXER3, WM8400_L12MNB_SHIFT,
+-	1, 0),
+-SOC_DAPM_SINGLE("RINPGA34 Switch", WM8400_INPUT_MIXER3, WM8400_L34MNB_SHIFT,
+-	1, 0),
+-};
+-
+-/* AINLMUX */
+-static const char *wm8400_ainlmux[] =
+-	{"INMIXL Mix", "RXVOICE Mix", "DIFFINL Mix"};
+-
+-static SOC_ENUM_SINGLE_DECL(wm8400_ainlmux_enum,
+-			    WM8400_INPUT_MIXER1,
+-			    WM8400_AINLMODE_SHIFT,
+-			    wm8400_ainlmux);
+-
+-static const struct snd_kcontrol_new wm8400_dapm_ainlmux_controls =
+-SOC_DAPM_ENUM("Route", wm8400_ainlmux_enum);
+-
+-/* DIFFINL */
+-
+-/* AINRMUX */
+-static const char *wm8400_ainrmux[] =
+-	{"INMIXR Mix", "RXVOICE Mix", "DIFFINR Mix"};
+-
+-static SOC_ENUM_SINGLE_DECL(wm8400_ainrmux_enum,
+-			    WM8400_INPUT_MIXER1,
+-			    WM8400_AINRMODE_SHIFT,
+-			    wm8400_ainrmux);
+-
+-static const struct snd_kcontrol_new wm8400_dapm_ainrmux_controls =
+-SOC_DAPM_ENUM("Route", wm8400_ainrmux_enum);
+-
+-/* LOMIX */
+-static const struct snd_kcontrol_new wm8400_dapm_lomix_controls[] = {
+-SOC_DAPM_SINGLE("LOMIX Right ADC Bypass Switch", WM8400_OUTPUT_MIXER1,
+-	WM8400_LRBLO_SHIFT, 1, 0),
+-SOC_DAPM_SINGLE("LOMIX Left ADC Bypass Switch", WM8400_OUTPUT_MIXER1,
+-	WM8400_LLBLO_SHIFT, 1, 0),
+-SOC_DAPM_SINGLE("LOMIX RIN3 Bypass Switch", WM8400_OUTPUT_MIXER1,
+-	WM8400_LRI3LO_SHIFT, 1, 0),
+-SOC_DAPM_SINGLE("LOMIX LIN3 Bypass Switch", WM8400_OUTPUT_MIXER1,
+-	WM8400_LLI3LO_SHIFT, 1, 0),
+-SOC_DAPM_SINGLE("LOMIX RIN12 PGA Bypass Switch", WM8400_OUTPUT_MIXER1,
+-	WM8400_LR12LO_SHIFT, 1, 0),
+-SOC_DAPM_SINGLE("LOMIX LIN12 PGA Bypass Switch", WM8400_OUTPUT_MIXER1,
+-	WM8400_LL12LO_SHIFT, 1, 0),
+-SOC_DAPM_SINGLE("LOMIX Left DAC Switch", WM8400_OUTPUT_MIXER1,
+-	WM8400_LDLO_SHIFT, 1, 0),
+-};
+-
+-/* ROMIX */
+-static const struct snd_kcontrol_new wm8400_dapm_romix_controls[] = {
+-SOC_DAPM_SINGLE("ROMIX Left ADC Bypass Switch", WM8400_OUTPUT_MIXER2,
+-	WM8400_RLBRO_SHIFT, 1, 0),
+-SOC_DAPM_SINGLE("ROMIX Right ADC Bypass Switch", WM8400_OUTPUT_MIXER2,
+-	WM8400_RRBRO_SHIFT, 1, 0),
+-SOC_DAPM_SINGLE("ROMIX LIN3 Bypass Switch", WM8400_OUTPUT_MIXER2,
+-	WM8400_RLI3RO_SHIFT, 1, 0),
+-SOC_DAPM_SINGLE("ROMIX RIN3 Bypass Switch", WM8400_OUTPUT_MIXER2,
+-	WM8400_RRI3RO_SHIFT, 1, 0),
+-SOC_DAPM_SINGLE("ROMIX LIN12 PGA Bypass Switch", WM8400_OUTPUT_MIXER2,
+-	WM8400_RL12RO_SHIFT, 1, 0),
+-SOC_DAPM_SINGLE("ROMIX RIN12 PGA Bypass Switch", WM8400_OUTPUT_MIXER2,
+-	WM8400_RR12RO_SHIFT, 1, 0),
+-SOC_DAPM_SINGLE("ROMIX Right DAC Switch", WM8400_OUTPUT_MIXER2,
+-	WM8400_RDRO_SHIFT, 1, 0),
+-};
+-
+-/* LONMIX */
+-static const struct snd_kcontrol_new wm8400_dapm_lonmix_controls[] = {
+-SOC_DAPM_SINGLE("LONMIX Left Mixer PGA Switch", WM8400_LINE_MIXER1,
+-	WM8400_LLOPGALON_SHIFT, 1, 0),
+-SOC_DAPM_SINGLE("LONMIX Right Mixer PGA Switch", WM8400_LINE_MIXER1,
+-	WM8400_LROPGALON_SHIFT, 1, 0),
+-SOC_DAPM_SINGLE("LONMIX Inverted LOP Switch", WM8400_LINE_MIXER1,
+-	WM8400_LOPLON_SHIFT, 1, 0),
+-};
+-
+-/* LOPMIX */
+-static const struct snd_kcontrol_new wm8400_dapm_lopmix_controls[] = {
+-SOC_DAPM_SINGLE("LOPMIX Right Mic Bypass Switch", WM8400_LINE_MIXER1,
+-	WM8400_LR12LOP_SHIFT, 1, 0),
+-SOC_DAPM_SINGLE("LOPMIX Left Mic Bypass Switch", WM8400_LINE_MIXER1,
+-	WM8400_LL12LOP_SHIFT, 1, 0),
+-SOC_DAPM_SINGLE("LOPMIX Left Mixer PGA Switch", WM8400_LINE_MIXER1,
+-	WM8400_LLOPGALOP_SHIFT, 1, 0),
+-};
+-
+-/* RONMIX */
+-static const struct snd_kcontrol_new wm8400_dapm_ronmix_controls[] = {
+-SOC_DAPM_SINGLE("RONMIX Right Mixer PGA Switch", WM8400_LINE_MIXER2,
+-	WM8400_RROPGARON_SHIFT, 1, 0),
+-SOC_DAPM_SINGLE("RONMIX Left Mixer PGA Switch", WM8400_LINE_MIXER2,
+-	WM8400_RLOPGARON_SHIFT, 1, 0),
+-SOC_DAPM_SINGLE("RONMIX Inverted ROP Switch", WM8400_LINE_MIXER2,
+-	WM8400_ROPRON_SHIFT, 1, 0),
+-};
+-
+-/* ROPMIX */
+-static const struct snd_kcontrol_new wm8400_dapm_ropmix_controls[] = {
+-SOC_DAPM_SINGLE("ROPMIX Left Mic Bypass Switch", WM8400_LINE_MIXER2,
+-	WM8400_RL12ROP_SHIFT, 1, 0),
+-SOC_DAPM_SINGLE("ROPMIX Right Mic Bypass Switch", WM8400_LINE_MIXER2,
+-	WM8400_RR12ROP_SHIFT, 1, 0),
+-SOC_DAPM_SINGLE("ROPMIX Right Mixer PGA Switch", WM8400_LINE_MIXER2,
+-	WM8400_RROPGAROP_SHIFT, 1, 0),
+-};
+-
+-/* OUT3MIX */
+-static const struct snd_kcontrol_new wm8400_dapm_out3mix_controls[] = {
+-SOC_DAPM_SINGLE("OUT3MIX LIN4/RXP Bypass Switch", WM8400_OUT3_4_MIXER,
+-	WM8400_LI4O3_SHIFT, 1, 0),
+-SOC_DAPM_SINGLE("OUT3MIX Left Out PGA Switch", WM8400_OUT3_4_MIXER,
+-	WM8400_LPGAO3_SHIFT, 1, 0),
+-};
+-
+-/* OUT4MIX */
+-static const struct snd_kcontrol_new wm8400_dapm_out4mix_controls[] = {
+-SOC_DAPM_SINGLE("OUT4MIX Right Out PGA Switch", WM8400_OUT3_4_MIXER,
+-	WM8400_RPGAO4_SHIFT, 1, 0),
+-SOC_DAPM_SINGLE("OUT4MIX RIN4/RXP Bypass Switch", WM8400_OUT3_4_MIXER,
+-	WM8400_RI4O4_SHIFT, 1, 0),
+-};
+-
+-/* SPKMIX */
+-static const struct snd_kcontrol_new wm8400_dapm_spkmix_controls[] = {
+-SOC_DAPM_SINGLE("SPKMIX LIN2 Bypass Switch", WM8400_SPEAKER_MIXER,
+-	WM8400_LI2SPK_SHIFT, 1, 0),
+-SOC_DAPM_SINGLE("SPKMIX LADC Bypass Switch", WM8400_SPEAKER_MIXER,
+-	WM8400_LB2SPK_SHIFT, 1, 0),
+-SOC_DAPM_SINGLE("SPKMIX Left Mixer PGA Switch", WM8400_SPEAKER_MIXER,
+-	WM8400_LOPGASPK_SHIFT, 1, 0),
+-SOC_DAPM_SINGLE("SPKMIX Left DAC Switch", WM8400_SPEAKER_MIXER,
+-	WM8400_LDSPK_SHIFT, 1, 0),
+-SOC_DAPM_SINGLE("SPKMIX Right DAC Switch", WM8400_SPEAKER_MIXER,
+-	WM8400_RDSPK_SHIFT, 1, 0),
+-SOC_DAPM_SINGLE("SPKMIX Right Mixer PGA Switch", WM8400_SPEAKER_MIXER,
+-	WM8400_ROPGASPK_SHIFT, 1, 0),
+-SOC_DAPM_SINGLE("SPKMIX RADC Bypass Switch", WM8400_SPEAKER_MIXER,
+-	WM8400_RL12ROP_SHIFT, 1, 0),
+-SOC_DAPM_SINGLE("SPKMIX RIN2 Bypass Switch", WM8400_SPEAKER_MIXER,
+-	WM8400_RI2SPK_SHIFT, 1, 0),
+-};
+-
+-static const struct snd_soc_dapm_widget wm8400_dapm_widgets[] = {
+-/* Input Side */
+-/* Input Lines */
+-SND_SOC_DAPM_INPUT("LIN1"),
+-SND_SOC_DAPM_INPUT("LIN2"),
+-SND_SOC_DAPM_INPUT("LIN3"),
+-SND_SOC_DAPM_INPUT("LIN4/RXN"),
+-SND_SOC_DAPM_INPUT("RIN3"),
+-SND_SOC_DAPM_INPUT("RIN4/RXP"),
+-SND_SOC_DAPM_INPUT("RIN1"),
+-SND_SOC_DAPM_INPUT("RIN2"),
+-SND_SOC_DAPM_INPUT("Internal ADC Source"),
+-
+-/* DACs */
+-SND_SOC_DAPM_ADC("Left ADC", "Left Capture", WM8400_POWER_MANAGEMENT_2,
+-	WM8400_ADCL_ENA_SHIFT, 0),
+-SND_SOC_DAPM_ADC("Right ADC", "Right Capture", WM8400_POWER_MANAGEMENT_2,
+-	WM8400_ADCR_ENA_SHIFT, 0),
+-
+-/* Input PGAs */
+-SND_SOC_DAPM_MIXER("LIN12 PGA", WM8400_POWER_MANAGEMENT_2,
+-		   WM8400_LIN12_ENA_SHIFT,
+-		   0, &wm8400_dapm_lin12_pga_controls[0],
+-		   ARRAY_SIZE(wm8400_dapm_lin12_pga_controls)),
+-SND_SOC_DAPM_MIXER("LIN34 PGA", WM8400_POWER_MANAGEMENT_2,
+-		   WM8400_LIN34_ENA_SHIFT,
+-		   0, &wm8400_dapm_lin34_pga_controls[0],
+-		   ARRAY_SIZE(wm8400_dapm_lin34_pga_controls)),
+-SND_SOC_DAPM_MIXER("RIN12 PGA", WM8400_POWER_MANAGEMENT_2,
+-		   WM8400_RIN12_ENA_SHIFT,
+-		   0, &wm8400_dapm_rin12_pga_controls[0],
+-		   ARRAY_SIZE(wm8400_dapm_rin12_pga_controls)),
+-SND_SOC_DAPM_MIXER("RIN34 PGA", WM8400_POWER_MANAGEMENT_2,
+-		   WM8400_RIN34_ENA_SHIFT,
+-		   0, &wm8400_dapm_rin34_pga_controls[0],
+-		   ARRAY_SIZE(wm8400_dapm_rin34_pga_controls)),
+-
+-SND_SOC_DAPM_SUPPLY("INL", WM8400_POWER_MANAGEMENT_2, WM8400_AINL_ENA_SHIFT,
+-		    0, NULL, 0),
+-SND_SOC_DAPM_SUPPLY("INR", WM8400_POWER_MANAGEMENT_2, WM8400_AINR_ENA_SHIFT,
+-		    0, NULL, 0),
+-
+-/* INMIXL */
+-SND_SOC_DAPM_MIXER("INMIXL", SND_SOC_NOPM, 0, 0,
+-	&wm8400_dapm_inmixl_controls[0],
+-	ARRAY_SIZE(wm8400_dapm_inmixl_controls)),
+-
+-/* AINLMUX */
+-SND_SOC_DAPM_MUX("AILNMUX", SND_SOC_NOPM, 0, 0, &wm8400_dapm_ainlmux_controls),
+-
+-/* INMIXR */
+-SND_SOC_DAPM_MIXER("INMIXR", SND_SOC_NOPM, 0, 0,
+-	&wm8400_dapm_inmixr_controls[0],
+-	ARRAY_SIZE(wm8400_dapm_inmixr_controls)),
+-
+-/* AINRMUX */
+-SND_SOC_DAPM_MUX("AIRNMUX", SND_SOC_NOPM, 0, 0, &wm8400_dapm_ainrmux_controls),
+-
+-/* Output Side */
+-/* DACs */
+-SND_SOC_DAPM_DAC("Left DAC", "Left Playback", WM8400_POWER_MANAGEMENT_3,
+-	WM8400_DACL_ENA_SHIFT, 0),
+-SND_SOC_DAPM_DAC("Right DAC", "Right Playback", WM8400_POWER_MANAGEMENT_3,
+-	WM8400_DACR_ENA_SHIFT, 0),
+-
+-/* LOMIX */
+-SND_SOC_DAPM_MIXER_E("LOMIX", WM8400_POWER_MANAGEMENT_3,
+-		     WM8400_LOMIX_ENA_SHIFT,
+-		     0, &wm8400_dapm_lomix_controls[0],
+-		     ARRAY_SIZE(wm8400_dapm_lomix_controls),
+-		     outmixer_event, SND_SOC_DAPM_PRE_REG),
+-
+-/* LONMIX */
+-SND_SOC_DAPM_MIXER("LONMIX", WM8400_POWER_MANAGEMENT_3, WM8400_LON_ENA_SHIFT,
+-		   0, &wm8400_dapm_lonmix_controls[0],
+-		   ARRAY_SIZE(wm8400_dapm_lonmix_controls)),
+-
+-/* LOPMIX */
+-SND_SOC_DAPM_MIXER("LOPMIX", WM8400_POWER_MANAGEMENT_3, WM8400_LOP_ENA_SHIFT,
+-		   0, &wm8400_dapm_lopmix_controls[0],
+-		   ARRAY_SIZE(wm8400_dapm_lopmix_controls)),
+-
+-/* OUT3MIX */
+-SND_SOC_DAPM_MIXER("OUT3MIX", WM8400_POWER_MANAGEMENT_1, WM8400_OUT3_ENA_SHIFT,
+-		   0, &wm8400_dapm_out3mix_controls[0],
+-		   ARRAY_SIZE(wm8400_dapm_out3mix_controls)),
+-
+-/* SPKMIX */
+-SND_SOC_DAPM_MIXER_E("SPKMIX", WM8400_POWER_MANAGEMENT_1, WM8400_SPK_ENA_SHIFT,
+-		     0, &wm8400_dapm_spkmix_controls[0],
+-		     ARRAY_SIZE(wm8400_dapm_spkmix_controls), outmixer_event,
+-		     SND_SOC_DAPM_PRE_REG),
+-
+-/* OUT4MIX */
+-SND_SOC_DAPM_MIXER("OUT4MIX", WM8400_POWER_MANAGEMENT_1, WM8400_OUT4_ENA_SHIFT,
+-	0, &wm8400_dapm_out4mix_controls[0],
+-	ARRAY_SIZE(wm8400_dapm_out4mix_controls)),
+-
+-/* ROPMIX */
+-SND_SOC_DAPM_MIXER("ROPMIX", WM8400_POWER_MANAGEMENT_3, WM8400_ROP_ENA_SHIFT,
+-		   0, &wm8400_dapm_ropmix_controls[0],
+-		   ARRAY_SIZE(wm8400_dapm_ropmix_controls)),
+-
+-/* RONMIX */
+-SND_SOC_DAPM_MIXER("RONMIX", WM8400_POWER_MANAGEMENT_3, WM8400_RON_ENA_SHIFT,
+-		   0, &wm8400_dapm_ronmix_controls[0],
+-		   ARRAY_SIZE(wm8400_dapm_ronmix_controls)),
+-
+-/* ROMIX */
+-SND_SOC_DAPM_MIXER_E("ROMIX", WM8400_POWER_MANAGEMENT_3,
+-		     WM8400_ROMIX_ENA_SHIFT,
+-		     0, &wm8400_dapm_romix_controls[0],
+-		     ARRAY_SIZE(wm8400_dapm_romix_controls),
+-		     outmixer_event, SND_SOC_DAPM_PRE_REG),
+-
+-/* LOUT PGA */
+-SND_SOC_DAPM_PGA("LOUT PGA", WM8400_POWER_MANAGEMENT_1, WM8400_LOUT_ENA_SHIFT,
+-		 0, NULL, 0),
+-
+-/* ROUT PGA */
+-SND_SOC_DAPM_PGA("ROUT PGA", WM8400_POWER_MANAGEMENT_1, WM8400_ROUT_ENA_SHIFT,
+-		 0, NULL, 0),
+-
+-/* LOPGA */
+-SND_SOC_DAPM_PGA("LOPGA", WM8400_POWER_MANAGEMENT_3, WM8400_LOPGA_ENA_SHIFT, 0,
+-	NULL, 0),
+-
+-/* ROPGA */
+-SND_SOC_DAPM_PGA("ROPGA", WM8400_POWER_MANAGEMENT_3, WM8400_ROPGA_ENA_SHIFT, 0,
+-	NULL, 0),
+-
+-/* MICBIAS */
+-SND_SOC_DAPM_SUPPLY("MICBIAS", WM8400_POWER_MANAGEMENT_1,
+-		    WM8400_MIC1BIAS_ENA_SHIFT, 0, NULL, 0),
+-
+-SND_SOC_DAPM_OUTPUT("LON"),
+-SND_SOC_DAPM_OUTPUT("LOP"),
+-SND_SOC_DAPM_OUTPUT("OUT3"),
+-SND_SOC_DAPM_OUTPUT("LOUT"),
+-SND_SOC_DAPM_OUTPUT("SPKN"),
+-SND_SOC_DAPM_OUTPUT("SPKP"),
+-SND_SOC_DAPM_OUTPUT("ROUT"),
+-SND_SOC_DAPM_OUTPUT("OUT4"),
+-SND_SOC_DAPM_OUTPUT("ROP"),
+-SND_SOC_DAPM_OUTPUT("RON"),
+-
+-SND_SOC_DAPM_OUTPUT("Internal DAC Sink"),
+-};
+-
+-static const struct snd_soc_dapm_route wm8400_dapm_routes[] = {
+-	/* Make DACs turn on when playing even if not mixed into any outputs */
+-	{"Internal DAC Sink", NULL, "Left DAC"},
+-	{"Internal DAC Sink", NULL, "Right DAC"},
+-
+-	/* Make ADCs turn on when recording
+-	 * even if not mixed from any inputs */
+-	{"Left ADC", NULL, "Internal ADC Source"},
+-	{"Right ADC", NULL, "Internal ADC Source"},
+-
+-	/* Input Side */
+-	/* LIN12 PGA */
+-	{"LIN12 PGA", "LIN1 Switch", "LIN1"},
+-	{"LIN12 PGA", "LIN2 Switch", "LIN2"},
+-	/* LIN34 PGA */
+-	{"LIN34 PGA", "LIN3 Switch", "LIN3"},
+-	{"LIN34 PGA", "LIN4 Switch", "LIN4/RXN"},
+-	/* INMIXL */
+-	{"INMIXL", NULL, "INL"},
+-	{"INMIXL", "Record Left Volume", "LOMIX"},
+-	{"INMIXL", "LIN2 Volume", "LIN2"},
+-	{"INMIXL", "LINPGA12 Switch", "LIN12 PGA"},
+-	{"INMIXL", "LINPGA34 Switch", "LIN34 PGA"},
+-	/* AILNMUX */
+-	{"AILNMUX", NULL, "INL"},
+-	{"AILNMUX", "INMIXL Mix", "INMIXL"},
+-	{"AILNMUX", "DIFFINL Mix", "LIN12 PGA"},
+-	{"AILNMUX", "DIFFINL Mix", "LIN34 PGA"},
+-	{"AILNMUX", "RXVOICE Mix", "LIN4/RXN"},
+-	{"AILNMUX", "RXVOICE Mix", "RIN4/RXP"},
+-	/* ADC */
+-	{"Left ADC", NULL, "AILNMUX"},
+-
+-	/* RIN12 PGA */
+-	{"RIN12 PGA", "RIN1 Switch", "RIN1"},
+-	{"RIN12 PGA", "RIN2 Switch", "RIN2"},
+-	/* RIN34 PGA */
+-	{"RIN34 PGA", "RIN3 Switch", "RIN3"},
+-	{"RIN34 PGA", "RIN4 Switch", "RIN4/RXP"},
+-	/* INMIXR */
+-	{"INMIXR", NULL, "INR"},
+-	{"INMIXR", "Record Right Volume", "ROMIX"},
+-	{"INMIXR", "RIN2 Volume", "RIN2"},
+-	{"INMIXR", "RINPGA12 Switch", "RIN12 PGA"},
+-	{"INMIXR", "RINPGA34 Switch", "RIN34 PGA"},
+-	/* AIRNMUX */
+-	{"AIRNMUX", NULL, "INR"},
+-	{"AIRNMUX", "INMIXR Mix", "INMIXR"},
+-	{"AIRNMUX", "DIFFINR Mix", "RIN12 PGA"},
+-	{"AIRNMUX", "DIFFINR Mix", "RIN34 PGA"},
+-	{"AIRNMUX", "RXVOICE Mix", "LIN4/RXN"},
+-	{"AIRNMUX", "RXVOICE Mix", "RIN4/RXP"},
+-	/* ADC */
+-	{"Right ADC", NULL, "AIRNMUX"},
+-
+-	/* LOMIX */
+-	{"LOMIX", "LOMIX RIN3 Bypass Switch", "RIN3"},
+-	{"LOMIX", "LOMIX LIN3 Bypass Switch", "LIN3"},
+-	{"LOMIX", "LOMIX LIN12 PGA Bypass Switch", "LIN12 PGA"},
+-	{"LOMIX", "LOMIX RIN12 PGA Bypass Switch", "RIN12 PGA"},
+-	{"LOMIX", "LOMIX Right ADC Bypass Switch", "AIRNMUX"},
+-	{"LOMIX", "LOMIX Left ADC Bypass Switch", "AILNMUX"},
+-	{"LOMIX", "LOMIX Left DAC Switch", "Left DAC"},
+-
+-	/* ROMIX */
+-	{"ROMIX", "ROMIX RIN3 Bypass Switch", "RIN3"},
+-	{"ROMIX", "ROMIX LIN3 Bypass Switch", "LIN3"},
+-	{"ROMIX", "ROMIX LIN12 PGA Bypass Switch", "LIN12 PGA"},
+-	{"ROMIX", "ROMIX RIN12 PGA Bypass Switch", "RIN12 PGA"},
+-	{"ROMIX", "ROMIX Right ADC Bypass Switch", "AIRNMUX"},
+-	{"ROMIX", "ROMIX Left ADC Bypass Switch", "AILNMUX"},
+-	{"ROMIX", "ROMIX Right DAC Switch", "Right DAC"},
+-
+-	/* SPKMIX */
+-	{"SPKMIX", "SPKMIX LIN2 Bypass Switch", "LIN2"},
+-	{"SPKMIX", "SPKMIX RIN2 Bypass Switch", "RIN2"},
+-	{"SPKMIX", "SPKMIX LADC Bypass Switch", "AILNMUX"},
+-	{"SPKMIX", "SPKMIX RADC Bypass Switch", "AIRNMUX"},
+-	{"SPKMIX", "SPKMIX Left Mixer PGA Switch", "LOPGA"},
+-	{"SPKMIX", "SPKMIX Right Mixer PGA Switch", "ROPGA"},
+-	{"SPKMIX", "SPKMIX Right DAC Switch", "Right DAC"},
+-	{"SPKMIX", "SPKMIX Left DAC Switch", "Right DAC"},
+-
+-	/* LONMIX */
+-	{"LONMIX", "LONMIX Left Mixer PGA Switch", "LOPGA"},
+-	{"LONMIX", "LONMIX Right Mixer PGA Switch", "ROPGA"},
+-	{"LONMIX", "LONMIX Inverted LOP Switch", "LOPMIX"},
+-
+-	/* LOPMIX */
+-	{"LOPMIX", "LOPMIX Right Mic Bypass Switch", "RIN12 PGA"},
+-	{"LOPMIX", "LOPMIX Left Mic Bypass Switch", "LIN12 PGA"},
+-	{"LOPMIX", "LOPMIX Left Mixer PGA Switch", "LOPGA"},
+-
+-	/* OUT3MIX */
+-	{"OUT3MIX", "OUT3MIX LIN4/RXP Bypass Switch", "LIN4/RXN"},
+-	{"OUT3MIX", "OUT3MIX Left Out PGA Switch", "LOPGA"},
+-
+-	/* OUT4MIX */
+-	{"OUT4MIX", "OUT4MIX Right Out PGA Switch", "ROPGA"},
+-	{"OUT4MIX", "OUT4MIX RIN4/RXP Bypass Switch", "RIN4/RXP"},
+-
+-	/* RONMIX */
+-	{"RONMIX", "RONMIX Right Mixer PGA Switch", "ROPGA"},
+-	{"RONMIX", "RONMIX Left Mixer PGA Switch", "LOPGA"},
+-	{"RONMIX", "RONMIX Inverted ROP Switch", "ROPMIX"},
+-
+-	/* ROPMIX */
+-	{"ROPMIX", "ROPMIX Left Mic Bypass Switch", "LIN12 PGA"},
+-	{"ROPMIX", "ROPMIX Right Mic Bypass Switch", "RIN12 PGA"},
+-	{"ROPMIX", "ROPMIX Right Mixer PGA Switch", "ROPGA"},
+-
+-	/* Out Mixer PGAs */
+-	{"LOPGA", NULL, "LOMIX"},
+-	{"ROPGA", NULL, "ROMIX"},
+-
+-	{"LOUT PGA", NULL, "LOMIX"},
+-	{"ROUT PGA", NULL, "ROMIX"},
+-
+-	/* Output Pins */
+-	{"LON", NULL, "LONMIX"},
+-	{"LOP", NULL, "LOPMIX"},
+-	{"OUT3", NULL, "OUT3MIX"},
+-	{"LOUT", NULL, "LOUT PGA"},
+-	{"SPKN", NULL, "SPKMIX"},
+-	{"ROUT", NULL, "ROUT PGA"},
+-	{"OUT4", NULL, "OUT4MIX"},
+-	{"ROP", NULL, "ROPMIX"},
+-	{"RON", NULL, "RONMIX"},
+-};
+-
+-/*
+- * Clock after FLL and dividers
+- */
+-static int wm8400_set_dai_sysclk(struct snd_soc_dai *codec_dai,
+-		int clk_id, unsigned int freq, int dir)
+-{
+-	struct snd_soc_component *component = codec_dai->component;
+-	struct wm8400_priv *wm8400 = snd_soc_component_get_drvdata(component);
+-
+-	wm8400->sysclk = freq;
 -	return 0;
 -}
 -
--static int da903x_backlight_update_status(struct backlight_device *bl)
--{
--	return da903x_backlight_set(bl, backlight_get_brightness(bl));
--}
--
--static int da903x_backlight_get_brightness(struct backlight_device *bl)
--{
--	struct da903x_backlight_data *data = bl_get_data(bl);
--
--	return data->current_brightness;
--}
--
--static const struct backlight_ops da903x_backlight_ops = {
--	.options	= BL_CORE_SUSPENDRESUME,
--	.update_status	= da903x_backlight_update_status,
--	.get_brightness	= da903x_backlight_get_brightness,
+-struct fll_factors {
+-	u16 n;
+-	u16 k;
+-	u16 outdiv;
+-	u16 fratio;
+-	u16 freq_ref;
 -};
 -
--static int da903x_backlight_probe(struct platform_device *pdev)
+-#define FIXED_FLL_SIZE ((1 << 16) * 10)
+-
+-static int fll_factors(struct wm8400_priv *wm8400, struct fll_factors *factors,
+-		       unsigned int Fref, unsigned int Fout)
 -{
--	struct da9034_backlight_pdata *pdata = dev_get_platdata(&pdev->dev);
--	struct da903x_backlight_data *data;
--	struct backlight_device *bl;
--	struct backlight_properties props;
--	int max_brightness;
+-	u64 Kpart;
+-	unsigned int K, Nmod, target;
 -
--	data = devm_kzalloc(&pdev->dev, sizeof(*data), GFP_KERNEL);
--	if (data == NULL)
--		return -ENOMEM;
+-	factors->outdiv = 2;
+-	while (Fout * factors->outdiv <  90000000 ||
+-	       Fout * factors->outdiv > 100000000) {
+-		factors->outdiv *= 2;
+-		if (factors->outdiv > 32) {
+-			dev_err(wm8400->wm8400->dev,
+-				"Unsupported FLL output frequency %uHz\n",
+-				Fout);
+-			return -EINVAL;
+-		}
+-	}
+-	target = Fout * factors->outdiv;
+-	factors->outdiv = factors->outdiv >> 2;
 -
--	switch (pdev->id) {
--	case DA9030_ID_WLED:
--		max_brightness = DA9030_MAX_BRIGHTNESS;
+-	if (Fref < 48000)
+-		factors->freq_ref = 1;
+-	else
+-		factors->freq_ref = 0;
+-
+-	if (Fref < 1000000)
+-		factors->fratio = 9;
+-	else
+-		factors->fratio = 0;
+-
+-	/* Ensure we have a fractional part */
+-	do {
+-		if (Fref < 1000000)
+-			factors->fratio--;
+-		else
+-			factors->fratio++;
+-
+-		if (factors->fratio < 1 || factors->fratio > 8) {
+-			dev_err(wm8400->wm8400->dev,
+-				"Unable to calculate FRATIO\n");
+-			return -EINVAL;
+-		}
+-
+-		factors->n = target / (Fref * factors->fratio);
+-		Nmod = target % (Fref * factors->fratio);
+-	} while (Nmod == 0);
+-
+-	/* Calculate fractional part - scale up so we can round. */
+-	Kpart = FIXED_FLL_SIZE * (long long)Nmod;
+-
+-	do_div(Kpart, (Fref * factors->fratio));
+-
+-	K = Kpart & 0xFFFFFFFF;
+-
+-	if ((K % 10) >= 5)
+-		K += 5;
+-
+-	/* Move down to proper range now rounding is done */
+-	factors->k = K / 10;
+-
+-	dev_dbg(wm8400->wm8400->dev,
+-		"FLL: Fref=%u Fout=%u N=%x K=%x, FRATIO=%x OUTDIV=%x\n",
+-		Fref, Fout,
+-		factors->n, factors->k, factors->fratio, factors->outdiv);
+-
+-	return 0;
+-}
+-
+-static int wm8400_set_dai_pll(struct snd_soc_dai *codec_dai, int pll_id,
+-			      int source, unsigned int freq_in,
+-			      unsigned int freq_out)
+-{
+-	struct snd_soc_component *component = codec_dai->component;
+-	struct wm8400_priv *wm8400 = snd_soc_component_get_drvdata(component);
+-	struct fll_factors factors;
+-	int ret;
+-	u16 reg;
+-
+-	if (freq_in == wm8400->fll_in && freq_out == wm8400->fll_out)
+-		return 0;
+-
+-	if (freq_out) {
+-		ret = fll_factors(wm8400, &factors, freq_in, freq_out);
+-		if (ret != 0)
+-			return ret;
+-	} else {
+-		/* Bodge GCC 4.4.0 uninitialised variable warning - it
+-		 * doesn't seem capable of working out that we exit if
+-		 * freq_out is 0 before any of the uses. */
+-		memset(&factors, 0, sizeof(factors));
+-	}
+-
+-	wm8400->fll_out = freq_out;
+-	wm8400->fll_in = freq_in;
+-
+-	/* We *must* disable the FLL before any changes */
+-	reg = snd_soc_component_read(component, WM8400_POWER_MANAGEMENT_2);
+-	reg &= ~WM8400_FLL_ENA;
+-	snd_soc_component_write(component, WM8400_POWER_MANAGEMENT_2, reg);
+-
+-	reg = snd_soc_component_read(component, WM8400_FLL_CONTROL_1);
+-	reg &= ~WM8400_FLL_OSC_ENA;
+-	snd_soc_component_write(component, WM8400_FLL_CONTROL_1, reg);
+-
+-	if (!freq_out)
+-		return 0;
+-
+-	reg &= ~(WM8400_FLL_REF_FREQ | WM8400_FLL_FRATIO_MASK);
+-	reg |= WM8400_FLL_FRAC | factors.fratio;
+-	reg |= factors.freq_ref << WM8400_FLL_REF_FREQ_SHIFT;
+-	snd_soc_component_write(component, WM8400_FLL_CONTROL_1, reg);
+-
+-	snd_soc_component_write(component, WM8400_FLL_CONTROL_2, factors.k);
+-	snd_soc_component_write(component, WM8400_FLL_CONTROL_3, factors.n);
+-
+-	reg = snd_soc_component_read(component, WM8400_FLL_CONTROL_4);
+-	reg &= ~WM8400_FLL_OUTDIV_MASK;
+-	reg |= factors.outdiv;
+-	snd_soc_component_write(component, WM8400_FLL_CONTROL_4, reg);
+-
+-	return 0;
+-}
+-
+-/*
+- * Sets ADC and Voice DAC format.
+- */
+-static int wm8400_set_dai_fmt(struct snd_soc_dai *codec_dai,
+-		unsigned int fmt)
+-{
+-	struct snd_soc_component *component = codec_dai->component;
+-	u16 audio1, audio3;
+-
+-	audio1 = snd_soc_component_read(component, WM8400_AUDIO_INTERFACE_1);
+-	audio3 = snd_soc_component_read(component, WM8400_AUDIO_INTERFACE_3);
+-
+-	/* set master/slave audio interface */
+-	switch (fmt & SND_SOC_DAIFMT_MASTER_MASK) {
+-	case SND_SOC_DAIFMT_CBC_CFC:
+-		audio3 &= ~WM8400_AIF_MSTR1;
 -		break;
--	case DA9034_ID_WLED:
--		max_brightness = DA9034_MAX_BRIGHTNESS;
+-	case SND_SOC_DAIFMT_CBP_CFP:
+-		audio3 |= WM8400_AIF_MSTR1;
 -		break;
 -	default:
--		dev_err(&pdev->dev, "invalid backlight device ID(%d)\n",
--				pdev->id);
 -		return -EINVAL;
 -	}
 -
--	data->id = pdev->id;
--	data->da903x_dev = pdev->dev.parent;
--	data->current_brightness = 0;
+-	audio1 &= ~WM8400_AIF_FMT_MASK;
 -
--	/* adjust the WLED output current */
--	if (pdata)
--		da903x_write(data->da903x_dev, DA9034_WLED_CONTROL2,
--				DA9034_WLED_ISET(pdata->output_current));
--
--	memset(&props, 0, sizeof(props));
--	props.type = BACKLIGHT_RAW;
--	props.max_brightness = max_brightness;
--	bl = devm_backlight_device_register(&pdev->dev, pdev->name,
--					data->da903x_dev, data,
--					&da903x_backlight_ops, &props);
--	if (IS_ERR(bl)) {
--		dev_err(&pdev->dev, "failed to register backlight\n");
--		return PTR_ERR(bl);
+-	/* interface format */
+-	switch (fmt & SND_SOC_DAIFMT_FORMAT_MASK) {
+-	case SND_SOC_DAIFMT_I2S:
+-		audio1 |= WM8400_AIF_FMT_I2S;
+-		audio1 &= ~WM8400_AIF_LRCLK_INV;
+-		break;
+-	case SND_SOC_DAIFMT_RIGHT_J:
+-		audio1 |= WM8400_AIF_FMT_RIGHTJ;
+-		audio1 &= ~WM8400_AIF_LRCLK_INV;
+-		break;
+-	case SND_SOC_DAIFMT_LEFT_J:
+-		audio1 |= WM8400_AIF_FMT_LEFTJ;
+-		audio1 &= ~WM8400_AIF_LRCLK_INV;
+-		break;
+-	case SND_SOC_DAIFMT_DSP_A:
+-		audio1 |= WM8400_AIF_FMT_DSP;
+-		audio1 &= ~WM8400_AIF_LRCLK_INV;
+-		break;
+-	case SND_SOC_DAIFMT_DSP_B:
+-		audio1 |= WM8400_AIF_FMT_DSP | WM8400_AIF_LRCLK_INV;
+-		break;
+-	default:
+-		return -EINVAL;
 -	}
 -
--	bl->props.brightness = max_brightness;
--
--	platform_set_drvdata(pdev, bl);
--	backlight_update_status(bl);
+-	snd_soc_component_write(component, WM8400_AUDIO_INTERFACE_1, audio1);
+-	snd_soc_component_write(component, WM8400_AUDIO_INTERFACE_3, audio3);
 -	return 0;
 -}
 -
--static struct platform_driver da903x_backlight_driver = {
--	.driver		= {
--		.name	= "da903x-backlight",
--	},
--	.probe		= da903x_backlight_probe,
+-static int wm8400_set_dai_clkdiv(struct snd_soc_dai *codec_dai,
+-		int div_id, int div)
+-{
+-	struct snd_soc_component *component = codec_dai->component;
+-	u16 reg;
+-
+-	switch (div_id) {
+-	case WM8400_MCLK_DIV:
+-		reg = snd_soc_component_read(component, WM8400_CLOCKING_2) &
+-			~WM8400_MCLK_DIV_MASK;
+-		snd_soc_component_write(component, WM8400_CLOCKING_2, reg | div);
+-		break;
+-	case WM8400_DACCLK_DIV:
+-		reg = snd_soc_component_read(component, WM8400_CLOCKING_2) &
+-			~WM8400_DAC_CLKDIV_MASK;
+-		snd_soc_component_write(component, WM8400_CLOCKING_2, reg | div);
+-		break;
+-	case WM8400_ADCCLK_DIV:
+-		reg = snd_soc_component_read(component, WM8400_CLOCKING_2) &
+-			~WM8400_ADC_CLKDIV_MASK;
+-		snd_soc_component_write(component, WM8400_CLOCKING_2, reg | div);
+-		break;
+-	case WM8400_BCLK_DIV:
+-		reg = snd_soc_component_read(component, WM8400_CLOCKING_1) &
+-			~WM8400_BCLK_DIV_MASK;
+-		snd_soc_component_write(component, WM8400_CLOCKING_1, reg | div);
+-		break;
+-	default:
+-		return -EINVAL;
+-	}
+-
+-	return 0;
+-}
+-
+-/*
+- * Set PCM DAI bit size and sample rate.
+- */
+-static int wm8400_hw_params(struct snd_pcm_substream *substream,
+-	struct snd_pcm_hw_params *params,
+-	struct snd_soc_dai *dai)
+-{
+-	struct snd_soc_component *component = dai->component;
+-	u16 audio1 = snd_soc_component_read(component, WM8400_AUDIO_INTERFACE_1);
+-
+-	audio1 &= ~WM8400_AIF_WL_MASK;
+-	/* bit size */
+-	switch (params_width(params)) {
+-	case 16:
+-		break;
+-	case 20:
+-		audio1 |= WM8400_AIF_WL_20BITS;
+-		break;
+-	case 24:
+-		audio1 |= WM8400_AIF_WL_24BITS;
+-		break;
+-	case 32:
+-		audio1 |= WM8400_AIF_WL_32BITS;
+-		break;
+-	}
+-
+-	snd_soc_component_write(component, WM8400_AUDIO_INTERFACE_1, audio1);
+-	return 0;
+-}
+-
+-static int wm8400_mute(struct snd_soc_dai *dai, int mute, int direction)
+-{
+-	struct snd_soc_component *component = dai->component;
+-	u16 val = snd_soc_component_read(component, WM8400_DAC_CTRL) & ~WM8400_DAC_MUTE;
+-
+-	if (mute)
+-		snd_soc_component_write(component, WM8400_DAC_CTRL, val | WM8400_DAC_MUTE);
+-	else
+-		snd_soc_component_write(component, WM8400_DAC_CTRL, val);
+-
+-	return 0;
+-}
+-
+-/* TODO: set bias for best performance at standby */
+-static int wm8400_set_bias_level(struct snd_soc_component *component,
+-				 enum snd_soc_bias_level level)
+-{
+-	struct wm8400_priv *wm8400 = snd_soc_component_get_drvdata(component);
+-	struct snd_soc_dapm_context *dapm = snd_soc_component_to_dapm(component);
+-	u16 val;
+-	int ret;
+-
+-	switch (level) {
+-	case SND_SOC_BIAS_ON:
+-		break;
+-
+-	case SND_SOC_BIAS_PREPARE:
+-		/* VMID=2*50k */
+-		val = snd_soc_component_read(component, WM8400_POWER_MANAGEMENT_1) &
+-			~WM8400_VMID_MODE_MASK;
+-		snd_soc_component_write(component, WM8400_POWER_MANAGEMENT_1, val | 0x2);
+-		break;
+-
+-	case SND_SOC_BIAS_STANDBY:
+-		if (snd_soc_dapm_get_bias_level(dapm) == SND_SOC_BIAS_OFF) {
+-			ret = regulator_bulk_enable(ARRAY_SIZE(power),
+-						    &power[0]);
+-			if (ret != 0) {
+-				dev_err(wm8400->wm8400->dev,
+-					"Failed to enable regulators: %d\n",
+-					ret);
+-				return ret;
+-			}
+-
+-			snd_soc_component_write(component, WM8400_POWER_MANAGEMENT_1,
+-				     WM8400_CODEC_ENA | WM8400_SYSCLK_ENA);
+-
+-			/* Enable POBCTRL, SOFT_ST, VMIDTOG and BUFDCOPEN */
+-			snd_soc_component_write(component, WM8400_ANTIPOP2, WM8400_SOFTST |
+-				     WM8400_BUFDCOPEN | WM8400_POBCTRL);
+-
+-			msleep(50);
+-
+-			/* Enable VREF & VMID at 2x50k */
+-			val = snd_soc_component_read(component, WM8400_POWER_MANAGEMENT_1);
+-			val |= 0x2 | WM8400_VREF_ENA;
+-			snd_soc_component_write(component, WM8400_POWER_MANAGEMENT_1, val);
+-
+-			/* Enable BUFIOEN */
+-			snd_soc_component_write(component, WM8400_ANTIPOP2, WM8400_SOFTST |
+-				     WM8400_BUFDCOPEN | WM8400_POBCTRL |
+-				     WM8400_BUFIOEN);
+-
+-			/* disable POBCTRL, SOFT_ST and BUFDCOPEN */
+-			snd_soc_component_write(component, WM8400_ANTIPOP2, WM8400_BUFIOEN);
+-		}
+-
+-		/* VMID=2*300k */
+-		val = snd_soc_component_read(component, WM8400_POWER_MANAGEMENT_1) &
+-			~WM8400_VMID_MODE_MASK;
+-		snd_soc_component_write(component, WM8400_POWER_MANAGEMENT_1, val | 0x4);
+-		break;
+-
+-	case SND_SOC_BIAS_OFF:
+-		/* Enable POBCTRL and SOFT_ST */
+-		snd_soc_component_write(component, WM8400_ANTIPOP2, WM8400_SOFTST |
+-			WM8400_POBCTRL | WM8400_BUFIOEN);
+-
+-		/* Enable POBCTRL, SOFT_ST and BUFDCOPEN */
+-		snd_soc_component_write(component, WM8400_ANTIPOP2, WM8400_SOFTST |
+-			WM8400_BUFDCOPEN | WM8400_POBCTRL |
+-			WM8400_BUFIOEN);
+-
+-		/* mute DAC */
+-		val = snd_soc_component_read(component, WM8400_DAC_CTRL);
+-		snd_soc_component_write(component, WM8400_DAC_CTRL, val | WM8400_DAC_MUTE);
+-
+-		/* Enable any disabled outputs */
+-		val = snd_soc_component_read(component, WM8400_POWER_MANAGEMENT_1);
+-		val |= WM8400_SPK_ENA | WM8400_OUT3_ENA |
+-			WM8400_OUT4_ENA | WM8400_LOUT_ENA |
+-			WM8400_ROUT_ENA;
+-		snd_soc_component_write(component, WM8400_POWER_MANAGEMENT_1, val);
+-
+-		/* Disable VMID */
+-		val &= ~WM8400_VMID_MODE_MASK;
+-		snd_soc_component_write(component, WM8400_POWER_MANAGEMENT_1, val);
+-
+-		msleep(300);
+-
+-		/* Enable all output discharge bits */
+-		snd_soc_component_write(component, WM8400_ANTIPOP1, WM8400_DIS_LLINE |
+-			WM8400_DIS_RLINE | WM8400_DIS_OUT3 |
+-			WM8400_DIS_OUT4 | WM8400_DIS_LOUT |
+-			WM8400_DIS_ROUT);
+-
+-		/* Disable VREF */
+-		val &= ~WM8400_VREF_ENA;
+-		snd_soc_component_write(component, WM8400_POWER_MANAGEMENT_1, val);
+-
+-		/* disable POBCTRL, SOFT_ST and BUFDCOPEN */
+-		snd_soc_component_write(component, WM8400_ANTIPOP2, 0x0);
+-
+-		ret = regulator_bulk_disable(ARRAY_SIZE(power),
+-					     &power[0]);
+-		if (ret != 0)
+-			return ret;
+-
+-		break;
+-	}
+-
+-	return 0;
+-}
+-
+-#define WM8400_RATES SNDRV_PCM_RATE_8000_96000
+-
+-#define WM8400_FORMATS (SNDRV_PCM_FMTBIT_S16_LE | SNDRV_PCM_FMTBIT_S20_3LE |\
+-	SNDRV_PCM_FMTBIT_S24_LE)
+-
+-static const struct snd_soc_dai_ops wm8400_dai_ops = {
+-	.hw_params = wm8400_hw_params,
+-	.mute_stream = wm8400_mute,
+-	.set_fmt = wm8400_set_dai_fmt,
+-	.set_clkdiv = wm8400_set_dai_clkdiv,
+-	.set_sysclk = wm8400_set_dai_sysclk,
+-	.set_pll = wm8400_set_dai_pll,
+-	.no_capture_mute = 1,
 -};
 -
--module_platform_driver(da903x_backlight_driver);
+-/*
+- * The WM8400 supports 2 different and mutually exclusive DAI
+- * configurations.
+- *
+- * 1. ADC/DAC on Primary Interface
+- * 2. ADC on Primary Interface/DAC on secondary
+- */
+-static struct snd_soc_dai_driver wm8400_dai = {
+-/* ADC/DAC on primary */
+-	.name = "wm8400-hifi",
+-	.playback = {
+-		.stream_name = "Playback",
+-		.channels_min = 1,
+-		.channels_max = 2,
+-		.rates = WM8400_RATES,
+-		.formats = WM8400_FORMATS,
+-	},
+-	.capture = {
+-		.stream_name = "Capture",
+-		.channels_min = 1,
+-		.channels_max = 2,
+-		.rates = WM8400_RATES,
+-		.formats = WM8400_FORMATS,
+-	},
+-	.ops = &wm8400_dai_ops,
+-};
 -
--MODULE_DESCRIPTION("Backlight Driver for Dialog Semiconductor DA9030/DA9034");
--MODULE_AUTHOR("Eric Miao <eric.miao@marvell.com>");
--MODULE_AUTHOR("Mike Rapoport <mike@compulab.co.il>");
+-static int wm8400_component_probe(struct snd_soc_component *component)
+-{
+-	struct wm8400 *wm8400 = dev_get_platdata(component->dev);
+-	struct wm8400_priv *priv;
+-	int ret;
+-	u16 reg;
+-
+-	priv = devm_kzalloc(component->dev, sizeof(struct wm8400_priv),
+-			    GFP_KERNEL);
+-	if (priv == NULL)
+-		return -ENOMEM;
+-
+-	snd_soc_component_init_regmap(component, wm8400->regmap);
+-	snd_soc_component_set_drvdata(component, priv);
+-	priv->wm8400 = wm8400;
+-
+-	ret = devm_regulator_bulk_get(wm8400->dev,
+-				 ARRAY_SIZE(power), &power[0]);
+-	if (ret != 0) {
+-		dev_err(component->dev, "Failed to get regulators: %d\n", ret);
+-		return ret;
+-	}
+-
+-	wm8400_component_reset(component);
+-
+-	reg = snd_soc_component_read(component, WM8400_POWER_MANAGEMENT_1);
+-	snd_soc_component_write(component, WM8400_POWER_MANAGEMENT_1, reg | WM8400_CODEC_ENA);
+-
+-	/* Latch volume update bits */
+-	reg = snd_soc_component_read(component, WM8400_LEFT_LINE_INPUT_1_2_VOLUME);
+-	snd_soc_component_write(component, WM8400_LEFT_LINE_INPUT_1_2_VOLUME,
+-		     reg & WM8400_IPVU);
+-	reg = snd_soc_component_read(component, WM8400_RIGHT_LINE_INPUT_1_2_VOLUME);
+-	snd_soc_component_write(component, WM8400_RIGHT_LINE_INPUT_1_2_VOLUME,
+-		     reg & WM8400_IPVU);
+-
+-	snd_soc_component_write(component, WM8400_LEFT_OUTPUT_VOLUME, 0x50 | (1<<8));
+-	snd_soc_component_write(component, WM8400_RIGHT_OUTPUT_VOLUME, 0x50 | (1<<8));
+-
+-	return 0;
+-}
+-
+-static void  wm8400_component_remove(struct snd_soc_component *component)
+-{
+-	u16 reg;
+-
+-	reg = snd_soc_component_read(component, WM8400_POWER_MANAGEMENT_1);
+-	snd_soc_component_write(component, WM8400_POWER_MANAGEMENT_1,
+-		     reg & (~WM8400_CODEC_ENA));
+-}
+-
+-static const struct snd_soc_component_driver soc_component_dev_wm8400 = {
+-	.probe			= wm8400_component_probe,
+-	.remove			= wm8400_component_remove,
+-	.set_bias_level		= wm8400_set_bias_level,
+-	.controls		= wm8400_snd_controls,
+-	.num_controls		= ARRAY_SIZE(wm8400_snd_controls),
+-	.dapm_widgets		= wm8400_dapm_widgets,
+-	.num_dapm_widgets	= ARRAY_SIZE(wm8400_dapm_widgets),
+-	.dapm_routes		= wm8400_dapm_routes,
+-	.num_dapm_routes	= ARRAY_SIZE(wm8400_dapm_routes),
+-	.suspend_bias_off	= 1,
+-	.idle_bias_on		= 1,
+-	.use_pmdown_time	= 1,
+-	.endianness		= 1,
+-};
+-
+-static int wm8400_probe(struct platform_device *pdev)
+-{
+-	return devm_snd_soc_register_component(&pdev->dev,
+-			&soc_component_dev_wm8400,
+-			&wm8400_dai, 1);
+-}
+-
+-static struct platform_driver wm8400_codec_driver = {
+-	.driver = {
+-		   .name = "wm8400-codec",
+-		   },
+-	.probe = wm8400_probe,
+-};
+-
+-module_platform_driver(wm8400_codec_driver);
+-
+-MODULE_DESCRIPTION("ASoC WM8400 driver");
+-MODULE_AUTHOR("Mark Brown");
 -MODULE_LICENSE("GPL");
--MODULE_ALIAS("platform:da903x-backlight");
+-MODULE_ALIAS("platform:wm8400-codec");
+diff --git a/sound/soc/codecs/wm8400.h b/sound/soc/codecs/wm8400.h
+deleted file mode 100644
+index 9e7bd4f767e7..000000000000
+--- a/sound/soc/codecs/wm8400.h
++++ /dev/null
+@@ -1,54 +0,0 @@
+-/* SPDX-License-Identifier: GPL-2.0-or-later */
+-/*
+- * wm8400.h  --  audio driver for WM8400
+- *
+- * Copyright 2008 Wolfson Microelectronics PLC.
+- * Author: Mark Brown <broonie@opensource.wolfsonmicro.com>
+- */
+-
+-#ifndef _WM8400_CODEC_H
+-#define _WM8400_CODEC_H
+-
+-#define WM8400_MCLK_DIV 0
+-#define WM8400_DACCLK_DIV 1
+-#define WM8400_ADCCLK_DIV 2
+-#define WM8400_BCLK_DIV 3
+-
+-#define WM8400_MCLK_DIV_1 0x400
+-#define WM8400_MCLK_DIV_2 0x800
+-
+-#define WM8400_DAC_CLKDIV_1    0x00
+-#define WM8400_DAC_CLKDIV_1_5  0x04
+-#define WM8400_DAC_CLKDIV_2    0x08
+-#define WM8400_DAC_CLKDIV_3    0x0c
+-#define WM8400_DAC_CLKDIV_4    0x10
+-#define WM8400_DAC_CLKDIV_5_5  0x14
+-#define WM8400_DAC_CLKDIV_6    0x18
+-
+-#define WM8400_ADC_CLKDIV_1    0x00
+-#define WM8400_ADC_CLKDIV_1_5  0x20
+-#define WM8400_ADC_CLKDIV_2    0x40
+-#define WM8400_ADC_CLKDIV_3    0x60
+-#define WM8400_ADC_CLKDIV_4    0x80
+-#define WM8400_ADC_CLKDIV_5_5  0xa0
+-#define WM8400_ADC_CLKDIV_6    0xc0
+-
+-
+-#define WM8400_BCLK_DIV_1                       (0x0 << 1)
+-#define WM8400_BCLK_DIV_1_5                     (0x1 << 1)
+-#define WM8400_BCLK_DIV_2                       (0x2 << 1)
+-#define WM8400_BCLK_DIV_3                       (0x3 << 1)
+-#define WM8400_BCLK_DIV_4                       (0x4 << 1)
+-#define WM8400_BCLK_DIV_5_5                     (0x5 << 1)
+-#define WM8400_BCLK_DIV_6                       (0x6 << 1)
+-#define WM8400_BCLK_DIV_8                       (0x7 << 1)
+-#define WM8400_BCLK_DIV_11                      (0x8 << 1)
+-#define WM8400_BCLK_DIV_12                      (0x9 << 1)
+-#define WM8400_BCLK_DIV_16                      (0xA << 1)
+-#define WM8400_BCLK_DIV_22                      (0xB << 1)
+-#define WM8400_BCLK_DIV_24                      (0xC << 1)
+-#define WM8400_BCLK_DIV_32                      (0xD << 1)
+-#define WM8400_BCLK_DIV_44                      (0xE << 1)
+-#define WM8400_BCLK_DIV_48                      (0xF << 1)
+-
+-#endif
 -- 
 2.53.0
 
