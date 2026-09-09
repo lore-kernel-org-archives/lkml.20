@@ -1,38 +1,38 @@
 Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBE57545DA9;
-	Wed,  9 Sep 2026 11:34:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 100725476FD
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 11:34:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788953687; cv=none; b=CqaAG98I3tRWiXbpf1NyqqnmZ3E5YoyxUk/Zjss8xqUUIgxfVmuvQLWu4jND3v9PjPC7rPJPJ8Qxb8kZGZQGxCHHAnVOq3GmIh9k0SqLVUho9iSkrosj0puqjByJ8lLkqhgDJF0LBLVetAboQTttpD3RGeeI70aTIWGhuMj87Os=
+	t=1788953687; cv=none; b=WkZ/1rFUv0Zy7JfP/HO+KGrj6O9c3FvrQbMcwvkZwPTDlzWK+Ht9hKk3kpIavOZgQf1hJEREhnDvqfgO2i9jcLX2mZHNZlilvS0UfW711kcMhC1UOqM4RsT5tMOPwup7GXAh1vbCn/N5P9pT5SNSEIi1E7QCLGYfiqqT1Zjm8Es=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788953687; c=relaxed/simple;
-	bh=7jWTrN7p2PthpHeS4Rmtj7mWhr5j0+jYw5jh5OLkoOg=;
+	bh=kCi+Tb5m5KBRyhVouKRj+siyNlOg0KFGeHeXboDrLtI=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=BI1FRpwrzi3zKJDVoWdLqLy7Q8axbVnI1MOeCJ2GGGZoxc9uor0TKC7z4vXYcvGaNoaySHpeo4BYo/eGWhEN3C5ohLLtZ6HF1+cCoQHcKCY0x0XsUBNX0cvkrsloZhMZuedPsXDeMtJkdYwftYMuDYUaxOCNJz0CIrY6Azbtm1g=
+	 MIME-Version; b=AGndIjfwKNgSFEUrdYy12o0qbJUZsYKvudmeBx4tlhLjv4ezMTyyrNmWgqjU6kDp5KArENnaN+W2vlE464jIHuqSpm6eOeEnm57bd/KQuTwZvheJ3Zo/GMVgUTEVY8A2WXgfUWpvNZGXk9Rv64SU0DIdIQd53jA7ogPouzFwK+c=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: 71f60984ac4211f19a56ed5b684f684d-20260909
+X-UUID: 71040152ac4211f19a56ed5b684f684d-20260909
 X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:4e9c3541-075b-4229-a75c-24090aca1d47,IP:0,U
-	RL:0,TC:0,Content:-25,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
-	N:release,TS:-25
-X-CID-META: VersionHash:7db8b62,CLOUDID:79fa69263b627d5718ec32f951583d2e,BulkI
+X-CID-O-INFO: VERSION:1.3.19,REQID:0061c089-4e68-45e5-83e0-331b6213daa7,IP:0,U
+	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+	release,TS:0
+X-CID-META: VersionHash:7db8b62,CLOUDID:a8ba1a5c94b9a01235897b98721e70a8,BulkI
 	D:nil,BulkQuantity:0,SF:81|82|102|136|850|865|898,TC:nil,Content:0|15|50|9
-	9,EDM:-3|-100,IP:nil,URL:99|1,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:
-	0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+	9,EDM:-3|-100,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,O
+	SI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
 X-CID-BVR: 2,SSN|SDN
 X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_ULS,TF_CID_SPAM_SNR
+X-CID-FACTOR: TF_CID_SPAM_SNR
 X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 71f60984ac4211f19a56ed5b684f684d-20260909
+X-UUID: 71040152ac4211f19a56ed5b684f684d-20260909
 X-User: zenghongling@kylinos.cn
 Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
 	(envelope-from <zenghongling@kylinos.cn>)
 	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 658264266; Wed, 09 Sep 2026 19:34:40 +0800
+	with ESMTP id 810588460; Wed, 09 Sep 2026 19:34:38 +0800
 From: Hongling Zeng <zenghongling@kylinos.cn>
 To: vkoul@kernel.org,
 	neil.armstrong@linaro.org,
@@ -42,12 +42,10 @@ To: vkoul@kernel.org,
 Cc: linux-phy@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
 	zhongling0719@126.com,
-	Hongling Zeng <zenghongling@kylinos.cn>,
-	stable@vger.kernel.org,
-	Sashiko AI <sashiko@kernel.org>
-Subject: [PATCH v7 4/4] phy: ti-pipe3: Fix clock leak in init error path
-Date: Wed,  9 Sep 2026 19:34:33 +0800
-Message-Id: <20260909113433.1287454-5-zenghongling@kylinos.cn>
+	Hongling Zeng <zenghongling@kylinos.cn>
+Subject: [PATCH v7 2/4] phy: ti: pipe3: Fix clock resource leak on probe  errors
+Date: Wed,  9 Sep 2026 19:34:31 +0800
+Message-Id: <20260909113433.1287454-3-zenghongling@kylinos.cn>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20260909113433.1287454-1-zenghongling@kylinos.cn>
 References: <20260909113433.1287454-1-zenghongling@kylinos.cn>
@@ -59,51 +57,71 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-When regmap_update_bits() fails in ti_pipe3_init() for PCIe mode,
-the function returns the error without calling ti_pipe3_disable_clocks().
-This leaves the clocks permanently enabled since the PHY framework won't
-invoke the .exit callback on init failure.
+When devm_phy_create() or devm_of_phy_provider_register() fails,
+the refclk that was enabled earlier is not disabled, causing a
+resource leak.
 
-Fix this by adding proper clock cleanup in the PCIe error path, consistent
-with how the DPLL program error path handles cleanup.
+Fix this by adding an error handling path to disable the clock
+when these functions fail.
 
 Fixes: 234738ea3390 ("phy: ti-pipe3: move clk initialization to a separate function")
-Cc: stable@vger.kernel.org
-Reported-by: Sashiko AI <sashiko@kernel.org>
-Closes: https://lore.kernel.org/all/20260518023657.41852C2BCB0@smtp.kernel.org/
 Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
 ---
 Change in v7:
- -Restore the original `return ret` in the SATA PLL-locked init path.
+ -Remove the redundant !IS_ERR(phy->refclk) check in the clock cleanup
+  path, as suggested by Mani.
 ---
- drivers/phy/ti/phy-ti-pipe3.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+ drivers/phy/ti/phy-ti-pipe3.c | 26 ++++++++++++++++++++++----
+ 1 file changed, 22 insertions(+), 4 deletions(-)
 
 diff --git a/drivers/phy/ti/phy-ti-pipe3.c b/drivers/phy/ti/phy-ti-pipe3.c
-index a67f5da43c83..fea64db93da5 100644
+index 0e3bc9218733..021657cbce48 100644
 --- a/drivers/phy/ti/phy-ti-pipe3.c
 +++ b/drivers/phy/ti/phy-ti-pipe3.c
-@@ -518,6 +518,8 @@ static int ti_pipe3_init(struct phy *x)
- 		val = 0x96 << OMAP_CTRL_PCIE_PCS_DELAY_COUNT_SHIFT;
- 		ret = regmap_update_bits(phy->pcs_syscon, phy->pcie_pcs_reg,
- 					 PCIE_PCS_MASK, val);
-+		if (ret)
-+			ti_pipe3_disable_clocks(phy);
- 		return ret;
+@@ -834,21 +834,39 @@ static int ti_pipe3_probe(struct platform_device *pdev)
+ 	 */
+ 	if (phy->mode == PIPE3_MODE_SATA) {
+ 		if (!IS_ERR(phy->refclk)) {
+-			clk_prepare_enable(phy->refclk);
++			ret = clk_prepare_enable(phy->refclk);
++			if (ret) {
++				dev_err(dev, "Failed to enable refclk %d\n", ret);
++				goto err_pm_disable;
++			}
+ 			phy->sata_refclk_enabled = true;
+ 		}
  	}
  
-@@ -555,8 +557,10 @@ static int ti_pipe3_exit(struct phy *x)
- 	/* If dpll_reset_syscon is not present we wont power down SATA DPLL
- 	 * due to Errata i783
- 	 */
--	if (phy->mode == PIPE3_MODE_SATA && !phy->dpll_reset_syscon)
-+	if (phy->mode == PIPE3_MODE_SATA && !phy->dpll_reset_syscon) {
-+		ti_pipe3_disable_clocks(phy);
- 		return 0;
+ 	generic_phy = devm_phy_create(dev, NULL, &ops);
+-	if (IS_ERR(generic_phy))
+-		return PTR_ERR(generic_phy);
++	if (IS_ERR(generic_phy)) {
++		ret = PTR_ERR(generic_phy);
++		goto err_clk_disable;
 +	}
  
- 	/* PCIe doesn't have internal DPLL */
- 	if (phy->mode != PIPE3_MODE_PCIE) {
+ 	phy_set_drvdata(generic_phy, phy);
+ 
+ 	ti_pipe3_power_off(generic_phy);
+ 
+ 	phy_provider = devm_of_phy_provider_register(dev, of_phy_simple_xlate);
+-	return PTR_ERR_OR_ZERO(phy_provider);
++	if (IS_ERR(phy_provider)) {
++		ret = PTR_ERR(phy_provider);
++		goto err_clk_disable;
++	}
++
++	return 0;
++
++err_clk_disable:
++	if (phy->sata_refclk_enabled)
++		clk_disable_unprepare(phy->refclk);
++err_pm_disable:
++	pm_runtime_disable(dev);
++	return ret;
+ }
+ 
+ static void ti_pipe3_remove(struct platform_device *pdev)
 -- 
 2.25.1
 
