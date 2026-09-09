@@ -1,206 +1,137 @@
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A8623C0635
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 09:20:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11BD03CB8EF
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 09:20:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788945614; cv=none; b=NasiFSKVQ3EA8KlwzCcbn84M7sUbmpPUV7+jqm2IB6rCqZt+Yl54rzB80gAFey2cAGG7xsHqV9EKBYL9FOIWSVGiqLGMxErZ/MVSzH9CM5mPvlG5xyo66ejQyo9NKIfKrb1wYQGsJcPisrQen+HOp3rJGQdz8JIvUduFYXQS6Wo=
+	t=1788945662; cv=none; b=jkzskWEt+zZ2Ojl1+VrwW7qW5K7Ai3iDjXHH6j/DhZMnONO5frYkZDapXCExp2h9WkkokMviAUlPeCopocqW8qK1dAqQdwfZUB8nlcoDS/ysYv21UXpwaoLgyuzaef1FZg0ObPUzAd+ezUijj4KKpqNR2n9iXyhHP3qvJVSOfJ4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788945614; c=relaxed/simple;
-	bh=PdnZQvO3+oKJZgPjnG+zbfgcH9UOhnj7jaju9sYgC4g=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=WaytLNzknNp1QzDAN4xfn8Gwx40xihvUVV2XfBlcVK7B81NBD0w5kz3cjb4Saqt+MQCR0AvpUkh3zpjZtdkl4U6UyonepJmJbn95GJbK35eW333ch/+9599168qdsYY+dTe+rHL87HqDwDJeIPCPv0dMMpTOV2YnsYk9vZhnhQk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=iMWTsOYm; arc=none smtp.client-ip=209.85.128.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1788945662; c=relaxed/simple;
+	bh=ukcWglz3b0XxiFuNMMjBoSzp+0cQUC+nI3t9GxS1yJc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=C2LLk4MpPtBLMk/DFHDUE+OhyIH9z5DcdHpFPGQqoY16JYJ/tD9lkL56WS7R7OfnexAmtAMs2Q1TIVswdGmBCW+EIymcPC8Krzi9zDDLqqxh3FCiP3tOCZISzg2jE7Eu+6hZszzjvWOGahX1SZrSG9sEUqDqP5heXKFeWVy+/zk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Gq9YLOcG; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=eqHS+lVq; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="iMWTsOYm"
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-49ccfae359fso48609165e9.3
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 02:20:08 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Gq9YLOcG";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="eqHS+lVq"
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6896Y15Y965221
+	for <linux-kernel@vger.kernel.org>; Wed, 9 Sep 2026 09:20:54 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	ukcWglz3b0XxiFuNMMjBoSzp+0cQUC+nI3t9GxS1yJc=; b=Gq9YLOcGElM9zYWo
+	mKBl6U+Qv8aHzZtMkr341dg391VyqGtc7LZfSLY2/LCq8/tKUbFrDMT+Cuq7yj7F
+	CpN1Y+XkwvV8FrNGU9xkGAXtc6dv9wyDSKo5DWBoto/hqQf6mPwmHtQRMk0S1Msj
+	AcNMhzMwqtP0uEyozQg/v76sRVMur8pVhfWKk+NeNQpcjGFCDALmWDDfNTaB9ppG
+	gsXCgLYhsICqNdhx99NT4yjH/Vl5aNxYJSHpU3xykmJdCA3SHnG1YU0zsVaOwq0u
+	K0dJm7IaHJUnmn5iUICEIs6Dy15Jsv0MLAhXfKKwFp/dbHQfeaVwzYnmc4LIPt65
+	2Cw1lg==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gjqha39vt-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 09:20:54 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-9392788b3f8so106203685a.2
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 02:20:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1788945606; x=1789550406; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=tEerm9pyUvgRnZ+v5dhjRTsyRhn0zUMJ8+Fd7BMxvcE=;
-        b=iMWTsOYmB/Qh30BpKSrjQbq13s2Fmcdn7raP8fzbjdZHHuRf2kHk00dZwVy9b8J8eV
-         2j18MHd3zy6Q7uLr0sNHJKNcWH68h/EcUCfB3FCNAmeAWd2KnFSTOZLxLvUODuUWSkEF
-         DsWoRhboAB3pTKeFmEynnlN6W0npp6wrvMKOl70Pb1TzDFFsxsu2gwqE3nX85bntO7+g
-         CqGUuagNq9dwV04DXP2bolKtuLurF5K+JUW6PfHVTtj93nfvMOGFayHHU/OH5FlvhDqZ
-         LryJGAnWGay5nU4tbZP6dQIpz2VDlTT++pO56SlVnVS8WXmi3tixNy8RhZjs9SuN4gN+
-         Yuzw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788945606; x=1789550406;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=oss.qualcomm.com; s=google; t=1788945653; x=1789550453; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=tEerm9pyUvgRnZ+v5dhjRTsyRhn0zUMJ8+Fd7BMxvcE=;
-        b=q73cJxa2a9Fr+pDryA5npp9oU2uSsFB/Xla9hSF0gWwHy7jJCmNYsOtAm67/vwR+sX
-         a/QCMNvgz15SaSF9q2YO1wnyXamWBsEn9LBAaCTY//2oxyaBJZXTaD47+uPZSBA+zuEk
-         31GTNkW0rkPI5RbEams19rLHJatvs5dseB+Vp7aDMViCIj085e5zi+R3CBkVj/N6SGrh
-         H7ldX5Pf3seu4eGYtx84YqRHAA8ZxeI5cw5ei/UDoN8AuyPvRbGG4ZOO7oRMw1ffIYdf
-         atZKzYnQ4DsEoy8KA/ha4F972Mx1ivGapv62vjipKWjrhr3sqGijGYmPcMGe6bnnAiDA
-         8EFA==
-X-Forwarded-Encrypted: i=1; AKwUvBzPHfDVvtcMtjKZmsAuO7zgNCEgoTGUC7fnYPqcvHE5ezKmSzLtvqnKjTsD4WbXbPdJSLTfte7yvluXVq0=@vger.kernel.org
-X-Gm-Message-State: AFuF++nmPv0t7H6eg2yi2PTsMUCrc1rodno6trDJ+5SWdgk64TmtfUw9
-	xIpnSk/cJH3ZMO2/ZqCGXhEaXv8XaDHXs/T4rVs3Z9VB1HPJ+UXrvIjhAO27kKBdv3A=
-X-Gm-Gg: AYBFou1kK/MSlWdy+sCBAdgSWpvLYBFZxOifraIIuTauF35L89XCey4NpSHsbPJjkAO
-	xD8qnZO/i+pwo/Ju5hTl0Gne7PrOC6B6tT36s7d0L7yPPT5GYYSKsDzWRAWe9z8nM6lm0UpiSos
-	RLgOK2jCrhpFNfsgsz46PTnc3Cct+X44rcqFy3a5up/dFUUZ2bd/MG50e01W/f5CoNMnIDoFHdM
-	KQ83Rrz1fCsbLtJS+mX6TVTkrvTHNy896cWZLrZ23L1xEf6OwrS+AaQ/qRSNSqj2lPo5iJGnqU4
-	YVMaoVVJI9JvHYYyQi0/lXOjGDKU1VXM3EWMbWrlV2702vCZUn+X/s5Q4NMKpYlEkyIJOhj0382
-	aZjzp3Tjb6SgQCCDN01SPmtF6rfxPwkoa2VwLJcwRcvM4AHVJsLfzbNEfNNxQLywOipZeQ0v/+7
-	UMNo+atdiGFBYnwfQmrFkDY2UfYYtgVVRfreeat3yKaLBKAp/oj2tDVjzuxHAtYTYd8VQB0BBOr
-	2za
-X-Received: by 2002:a05:600c:1914:b0:499:60bf:c6f7 with SMTP id 5b1f17b1804b1-49cf8269fdfmr332845835e9.13.1788945605501;
-        Wed, 09 Sep 2026 02:20:05 -0700 (PDT)
-Received: from localhost ([2a02:8071:56d1:2de0:1d24:d58d:2b65:c291])
-        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-49cfbdacc45sm430466665e9.11.2026.09.09.02.20.02
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 09 Sep 2026 02:20:03 -0700 (PDT)
-Date: Wed, 9 Sep 2026 11:19:58 +0200
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: Karl Mehltretter <kmehltretter@gmail.com>, 
-	Jonathan Corbet <corbet@lwn.net>, Randy Dunlap <rdunlap@infradead.org>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Bjorn Helgaas <bhelgaas@google.com>, 
-	Alexander Usyskin <alexander.usyskin@intel.com>, Dominik Brodowski <linux@dominikbrodowski.net>, 
-	Bjorn Andersson <andersson@kernel.org>, Mathieu Poirier <mathieu.poirier@linaro.org>, 
-	Alex Shi <alexs@kernel.org>, Yanteng Si <si.yanteng@linux.dev>, 
-	Dongliang Mu <dzm91@hust.edu.cn>, Danilo Krummrich <dakr@kernel.org>, 
-	Takashi Sakamoto <o-takashi@sakamocchi.jp>, Geert Uytterhoeven <geert@linux-m68k.org>, 
-	linux-pci@vger.kernel.org, linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-remoteproc@vger.kernel.org
-Subject: Re: [PATCH v3] Documentation: Update after split of
- <linux/mod_devicetable.h>
-Message-ID: <aqEWUBf1pewPP_K2@monoceros>
-References: <20260908070031.32833-1-kmehltretter@gmail.com>
- <ap_HYy2IVZt-0mxN@ashevche-desk.local>
+        bh=ukcWglz3b0XxiFuNMMjBoSzp+0cQUC+nI3t9GxS1yJc=;
+        b=eqHS+lVqA66VjgRkmt6lgAjHZgeZQBzaLI+aXvdDWgM2FcKK8X/s1NLUSk8O+YMma3
+         LC86HpcVClp2yYqMWFGHrkT+hbTrv8iV92QKDGymUFdq2H5h9YA30/pM3BqzI5zz5EWW
+         WTVV1gIrZLlVkh96QvkIFI8T5MZONsooAbyF2GiMGIwJJGJtpNQIaCOyJcz/0Nkm1eks
+         /DmQ6MrXpuZpocn0guE2BUyew7wIkp7ChIbVjLWk/reZhV5ItatnnTLze/lhAWTc3TH7
+         Ywcgff9bpnVIlyWBtCttY6KowPpxv7GkBy2CRO9HHcEBYgjONJ8aw4Ib8u6e7QC0/FOS
+         8rfg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788945653; x=1789550453;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ukcWglz3b0XxiFuNMMjBoSzp+0cQUC+nI3t9GxS1yJc=;
+        b=ijWugdY8S1iNHaVpR2ywo7bGDj3XzVzpyOWNOvBO6z2n2b1XOro5sVA8lghB+HGTjw
+         HGDNJHenpoE2AGqjzSiZDvurT2T6P4UKhR4nxDHvDUQOFuCQIOGEeVdgcgbmRAcDJljN
+         5atDEWmyZkIWGIWN2QlprbCp/4OvUVKtxd/l6HnUYmw8j4x8ojZ60pQB3RnRwnTZkDrF
+         x7hCdctu3sw9SgJhddrif3ZNv3e7gZYtlDqD9oG/O6Ux7alF7LOK2Sr6/LOuXuVL4vJ2
+         O8nYZsOe/fu2VHfLAoAxros2n1VnGxlJzDZFXGIqxqboRSZwuTAwL4MW0JZrNZo2rzTM
+         JyVQ==
+X-Forwarded-Encrypted: i=1; AKwUvBw0/iyHkkjgUIS70OElfJjRlKondejDMFTSEtbEv9QpqGAkbrYYmxoeJuePZdOiniZSygoboVv+sF5wKJY=@vger.kernel.org
+X-Gm-Message-State: AFuF++lRgRTLpmoSJ+pTSugamGrWB4gHRHhHxmgxUXfVJIx8fsPyoNfX
+	N0QGDB0U4g5fD8/hAKa/7K1w7h1Z70KEC173vKq3esaMYhNSGCvA9b2FUmneMTCjE8LMfBhKVJI
+	GflR0gRE07zxUk3eDBn8s7Gz7gXnbfC2PQ9B1YEZTb/fHPq5FUy2O3HUc8nmzmq337iM=
+X-Gm-Gg: AYBFou3JTRMVDiInd1n38M6RAhWCKdrIsDz6uVFdvgqPrhK1lWteTJNaTewCfpX2pon
+	nnB6xftMYJdT6Klhg22ZCAFiisNoJ4m4mD/wgtiuIUw27AZSOPZ7AK3doTIv6qUfjjfgW4QdbPf
+	L9KPga8IVo/N+anDXMASjFvqsIT8p7RzXJCEVEbpO5uiCKsOh4mek7s/+UqR2gU9cVFaooPVSIY
+	H3lj08h4U1VtRTuqW+5WefzRvXdoClcLIFImctomvkqVdMb1fv3UJ9ZqpkeQjX9dDz8nistS9XW
+	h4e0lUiRItQu527JrQnhmUhr9NCvhEvKFrxpbTQ6UJLhMqUjCi5T2QX0ywfI977gxnaOC5lGkQ1
+	N8iQ/B2I7+ul3e8sLqrOhCw==
+X-Received: by 2002:a05:620a:4409:b0:939:8bc:8826 with SMTP id af79cd13be357-93991702d25mr2428458585a.2.1788945653317;
+        Wed, 09 Sep 2026 02:20:53 -0700 (PDT)
+X-Received: by 2002:a05:620a:4409:b0:939:8bc:8826 with SMTP id af79cd13be357-93991702d25mr2428454285a.2.1788945652851;
+        Wed, 09 Sep 2026 02:20:52 -0700 (PDT)
+Received: from [192.168.202.12] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c260d53c37csm720711166b.32.2026.09.09.02.20.51
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 09 Sep 2026 02:20:51 -0700 (PDT)
+Message-ID: <42e0869d-cb28-4144-b5b7-f62bd26b7d08@oss.qualcomm.com>
+Date: Wed, 9 Sep 2026 11:20:50 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="vttone5brkwdkpur"
-Content-Disposition: inline
-In-Reply-To: <ap_HYy2IVZt-0mxN@ashevche-desk.local>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] clk: qcom: Fix CLK_GLYMUR_GPUCC default
+To: Sivansh Gupta <sivansh.gupta@oss.qualcomm.com>, andersson@kernel.org
+Cc: pankaj.patil@oss.qualcomm.com, linux-arm-msm@vger.kernel.org,
+        linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <5778ae29-9c86-418e-85f4-1bf48d674a31@oss.qualcomm.com>
+ <20260908145605.1134841-1-sivansh.gupta@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260908145605.1134841-1-sivansh.gupta@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA5MDEwMyBTYWx0ZWRfXytYGTod7vxGw
+ Ectz86heuI1jPa6Eld4YB4ZD0LHk/RKSdbOsddAoF/+2gyofR3NSVvxVHsrPuveZtT67enkC2ME
+ YRSZnH074EVt2cWGCD8KZ+qkp9DluLgFp3WvINrzTq+S+EJEAxVpyPrX4dOahOOMT4C0Uk3wQku
+ FhGJ8LgxPy9CBVwJIdWWceVVnwJZ2vQPZVYLVWmw2SaPM9qZNGvIpHYtRSoZhJ7Mn3evH8i495u
+ lK9Ud3cGptfrzPtrWw8RZDfhUvcSaadTAVjXlZHD80DmG6+fyyeaHIhL/zTPkuatny/NBMb/cY0
+ Ys2zZlLGD/c64vYgoP1rLrcQH8cWUcuyEwLpGZ1IucM6gUJ6Eybeg5tdP/8jazEL/7/9IXERQBD
+ lECyNNs82jZ7CvahwDft8VezlN01tE/JJQBWFO8fqwGyZQhhFBaMTYsiBSSg8CsRE7eIZflhebJ
+ EMqNhaxLCTJsOQ4Pugw==
+X-Authority-Analysis: v=2.4 cv=Z5Xc2nRA c=1 sm=1 tr=0 ts=6aa124f6 cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=rlEOdTZNFpIyHtoTmy0A:9 a=QEXdDO2ut3YA:10 a=bTQJ7kPSJx9SKPbeHEYW:22
+X-Proofpoint-GUID: Wgqm0xrO3VV4H-gDI1zqiSblb-wWnTO9
+X-Proofpoint-ORIG-GUID: Wgqm0xrO3VV4H-gDI1zqiSblb-wWnTO9
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA5MDEwMyBTYWx0ZWRfX1iSQxN79YEX4
+ m3BCcHrLxjv6iHJ0D6Y+d8OcT8GrObSLNlCxoqqNUuRswiMcjdpSq5aneWj1a2GZotYo7q3P30Z
+ L9TRBfdC0b50tiaRejFEnx4i4vV4EtE=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-08_03,2026-09-08_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 impostorscore=0 lowpriorityscore=0 bulkscore=0 malwarescore=0
+ adultscore=0 phishscore=0 priorityscore=1501 spamscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609090103
 
+On 9/8/26 4:56 PM, Sivansh Gupta wrote:
+> Hey, this patch has not received an ack, please let me know if
+> anything is needed from my side.
 
---vttone5brkwdkpur
-Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v3] Documentation: Update after split of
- <linux/mod_devicetable.h>
-MIME-Version: 1.0
+You already received two, which is more than plenty for a
+trivial 2-liner!
 
-Hello Andy,
-
-On Tue, Sep 08, 2026 at 11:29:23AM +0300, Andy Shevchenko wrote:
-> On Tue, Sep 08, 2026 at 09:00:31AM +0200, Karl Mehltretter wrote:
-> > From: Uwe Kleine-K=F6nig (The Capable Hub) <u.kleine-koenig@baylibre.co=
-m>
-> >=20
-> > Most structs that were defined in <linux/mod_devicetable.h> before were
-> > moved to a bus specific header. Follow the movement to get the struct's
-> > documentation back.
-> >=20
-> > For the list of device ids in basics.rst use an explicit list of all the
-> > headers that have kernel-doc annotations and that are not described
-> > elsewhere (i.e. pci and mei_cl). <linux/device-id/acpi.h> is left out on
-> > purpose, ACPI_DEVICE_CLASS() is not a device id struct.
->=20
-> Huh?! The device-id/acpi.h provides the ACPI device ID definition.
-
-<linux/device-id/acpi.h> provides both, struct acpi_device_id and the
-macro ACPI_DEVICE_CLASS. The latter has a kdoc comment, the former
-doesn't. So including <linux/device-id/acpi.h> in the patch makes
-ACPI_DEVICE_CLASS appear in the list of device-id structs, but
-acpi_device_id not.
-
-So while this patch doesn't implement the optimum to get acpi_device_id
-explicitly documented, but the purpose of the patch is to restore the
-=66rom before ad428f5811bd, which is accomplished.
-
->=20
-> > Also repair the referencing in the zh_CN translation of pci.rst and
-> > don't duplicate `struct mei_cl_device_id`.
->=20
-> > Fixes: ad428f5811bd ("mod_devicetable.h: Split into per subsystem heade=
-rs")
-> > Signed-off-by: Uwe Kleine-K=F6nig (The Capable Hub) <u.kleine-koenig@ba=
-ylibre.com>
->=20
-> ...
->=20
-> > Changes since v2
-> >   https://lore.kernel.org/r/ede7ce64f20e10660ebf6bc1b41836dad750ae3b.17=
-83349758.git.ukleinek@kernel.org/
-> > - use the :file: role for the header path in pcmcia/driver.rst (Randy)
-> > - say in the commit message that <linux/device-id/acpi.h> is left out on
-> >   purpose (question raised by the Sashiko review)
->=20
-> I am unsatisfied with how the ACPI division was handled in the above ment=
-ioned
-> split. Id est the include/device-id/acpi.h is *the* header that has to be=
- used
-> for the IDs, not the respective "include all" linux/acpi.h.
-> Hence the documentation has to allow the use of the device-id/*.h directl=
-y in
-> the drivers (most of the cases for ACPI).
-
-I don't care much if drivers include <linux/device-id/acpi.h>
-transitively via <linux/acpi.h> (or another header) or explicitly. My
-preference is the former, but I won't argue if it's done differently.
-
-> Alternatively the OF ID *and* ACPI ID must be included to the upper lever=
- bus
-> headers. So, spi.h, i2c.h, platform_device.h and so on has to *always* pr=
-ovide
-> both.
-
-That is the case today and it's sensible. So without giving a guarantee
-for the next 20 years, I'd say keeping it as is is fine.
-=20
-> > - carried Randy's Reviewed-by and Tested-by from v2, the diff changed in
-> >   one line of markup only
-> > - Uwe asked me to take over the patch:
-> >   https://lore.kernel.org/r/apv6yQ1U-HhNglyV@monoceros/
-> >   It supersedes my PCI-only patch
-> >   https://lore.kernel.org/r/20260905084916.40196-1-kmehltretter@gmail.c=
-om/
-> >=20
-> > Randy's suggestion to add kernel-doc comments to <linux/mei_cl_bus.h> f=
-or
-> > struct mei_cl_driver and include those instead of the duplicated struct=
- is
-> > left for a separate patch, it touches a header outside Documentation/.
->=20
-> Uwe, can you fix that?
-
-It's on my idle-todo-list. So unless someone beats me to it, I will
-addresss that eventually.
-
-Best regards
-Uwe
-
---vttone5brkwdkpur
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmqhJLQACgkQj4D7WH0S
-/k4CyggAtK1zDtK07mADDeDBynrhpncLSmcf8R0tSjv+Xk9TNGQ/6jg1KnpiwRJ8
-H7gft1ZYewjr67sx4HJUqIAvhu9a6XSuVFFCJL0qpfdnLCV5HB41Sr774yWBmdgL
-Ohg8uXSIiSxaWulydkjyqpAbMoO58YOFBqn9xH5ffXYsEGdjViQnISWry8jcojuO
-We7CP3HzAH8W2U/7U/SjWHExzFUG2EDHty0IkIkhbbsw0WxSnjKwzwadG/u44t+3
-kaCV6vKQ6pdYoUxazoWAU53UeLIg9QsXwcgEh5Jqyib7efudfyzAoMgK3I0PiQj8
-I4Uq5TLA9bE+cMGACDmAQhLm4cmM0A==
-=3eZW
------END PGP SIGNATURE-----
-
---vttone5brkwdkpur--
+Konrad
