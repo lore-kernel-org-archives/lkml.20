@@ -1,87 +1,104 @@
-Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
+Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0878C5650F0;
-	Wed,  9 Sep 2026 16:52:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE719568FDF;
+	Wed,  9 Sep 2026 16:52:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788972734; cv=none; b=U3J4XiNctqLs42CjIoPAmo2K/1q2etJhaGNQwgz3WZnKt7921cZWKsbey/d++ylbKmFaWDbRjMSc4mtlmjh7IEXYmCvYvautr5r41zwU2SERuzVZOQOF9d/TEF428yeI/Hshqd3H8IuVzBdzRFAaUVIbb6HnishIGMW2SSrTqok=
+	t=1788972761; cv=none; b=cKLvENhHHhGSiE/JDpzm7cPiKP+GiV5B/1CqoLDfFReJcDTlYcGlUeWqR1s0VdD8MPS/NisFeGC0Uii2JewlsVialTni9BCYBnN4cc35GPOYNBvRtOwjMYVLizRI1KRtdLGi16zMAS1AUYT0bpBYDnyST99QnTM5VmZHoiZHFG4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788972734; c=relaxed/simple;
-	bh=lQn2lAir9FmbcFgnCmsBi+UMc2rRhAOD5HAtcyzblbo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=MgEejlqwYbhbr0POG4KhkXypbMfrK5+HbQvNuQMYRAVfZd2pSx9Aw/Ug3rl17IJJwSk1qhkPZYsN4dHByNfE4pwY1jmJ2WR3FSwILLvvqZ9qMv7/2oSQFCXXMfznQDMG+1C9mer6CcAy8EtLutrLebAsHuobyIBPToI7cuQFULs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=DWmIPfOG; arc=none smtp.client-ip=178.251.229.89
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
+	s=arc-20240116; t=1788972761; c=relaxed/simple;
+	bh=D8Xg7T6KqYH4/WUvkf9lj526uOKKiRcA2jkTEUin+E8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=O997wvWyYkzMqs0P64MTvksCBCjp/Wyx7gu5e5VczTumwdzz57e61GJzFZMO+8+dsMwNZ2fdxcTVVtm/dmzu4C/UyOWqSa/smJ2V5EcGy0cQqiEQCCsK711+qWQkRqREHwXZHRu/s6jeM8S71cyDXISCwdH8ZE322/ARJAKqXYk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=CEVMBYM2; arc=none smtp.client-ip=80.241.56.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="DWmIPfOG"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 011A6101EDF;
-	Wed, 09 Sep 2026 18:52:02 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
-	s=dkim; t=1788972725;
-	h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 in-reply-to:references; bh=ikpn/6xWU1Pyb3tbfdQJr8tyx90voFpcP63y3bK2J7E=;
-	b=DWmIPfOGsrMNulYtoStR2KaxJp5yfettnMD6+IftuSr+OwD1zdBHCg/DX+n/wEEsil51YW
-	jSa5gZKscSsa8iyCsgOp0Y84MGU4MKVXM3rv/LscjOpyW/Bys33bDC7QCWQRRB+/43nhwg
-	AM90FJwG519bHux/HiDaHSAuU3pR5acPyg2U/Zb3dPOc8qJFrNBkEfVyYEfq2ww1/OiHgw
-	PG3enQPISbRn9HoI8tD04jp7WXdacRh0K9rBNSwzB8bfXSsnDRA5SEbzX5ReJEcCUQEhHD
-	Vwj3mjCVOcd5N9ZM2MkLFJuZScybR/V9T42cMlOwC/RbkemgpUFYyG1wf6aJAQ==
-Date: Wed, 9 Sep 2026 18:52:01 +0200
-From: Pavel Machek <pavel@nabladev.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: stable@vger.kernel.org, patches@lists.linux.dev,
-	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org,
-	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org,
-	patches@kernelci.org, lkft-triage@lists.linaro.org,
-	pavel@nabladev.com, jonathanh@nvidia.com, f.fainelli@gmail.com,
-	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
-	hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
-	sr@sladewatkins.com
-Subject: Re: [PATCH 6.18 000/583] 6.18.51-rc1 review
-Message-ID: <aqGOsXLUZ164rVOF@duo.ucw.cz>
-References: <20260909134237.773280130@linuxfoundation.org>
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="CEVMBYM2"
+Received: from smtp202.mailbox.org (smtp202.mailbox.org [IPv6:2001:67c:2050:b231:465::202])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4hg6LD3WqWzMlGK;
+	Wed, 09 Sep 2026 18:52:36 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1788972756;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=wANtG2Wck81u3ITB1BffycJAGPKSfj9OAY9Ew1PSRKk=;
+	b=CEVMBYM2BnLkVG3JuEdeDg1EQxeHGPhwOfeiIlk5vHwGcD4wFkqW9UVpLX5BVTOh43eD/X
+	hqjQAH3MFjIFQLnkEBTeoV2hCSKL4OtLmXeXBRp27LAP3+G5pY0WuCYHQ8OjNni/0q2oik
+	0895QKLQvP74XrhzS+hRWPSf4/v8BxKQI5bFLQb986bJIRWNpHIpuMYdAG6WwJ9sz2OhKS
+	c99QrIePvOm1sUGburFEw0VMapoqjDL/GOTjIrcVF835cnQD1Y9V535O3IMr7TxplN2meY
+	bv62AL1LwjJX/EmWq1MrVu3crIWKYOOPK+zzyfVKiWS5671IfIEtFigi+e3LSA==
+Message-ID: <3b345291-b14d-45a4-818e-355b487c46a9@mailbox.org>
+Date: Wed, 9 Sep 2026 16:43:19 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha1;
-	protocol="application/pgp-signature"; boundary="4XPSkX+TWMH9hFbg"
-Content-Disposition: inline
-In-Reply-To: <20260909134237.773280130@linuxfoundation.org>
-X-Last-TLS-Session-Version: TLSv1.3
+Subject: Re: [PATCH v7 1/2] dt-bindings: usb: dwc3: Document Renesas R-Car
+ Gen5 DWC3 xHCI USB controller
+To: Conor Dooley <conor@kernel.org>
+Cc: linux-usb@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Rob Herring <robh@kernel.org>,
+ Thinh Nguyen <Thinh.Nguyen@synopsys.com>, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org
+References: <20260903213031.314473-1-marek.vasut+renesas@mailbox.org>
+ <20260904-colonial-wimp-b37c27657664@spud>
+ <7771adfd-7447-4802-ad75-7c889ad32ee7@mailbox.org>
+ <20260907-tassel-bargraph-836b6f41fc43@spud>
+ <04bb7d78-4b0e-49ba-910a-6fa2b0a8c1a7@mailbox.org> <aqE11WTb6EMhn6Tb@squawk>
+Content-Language: en-US
+From: Marek Vasut <marek.vasut@mailbox.org>
+In-Reply-To: <aqE11WTb6EMhn6Tb@squawk>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-MBO-RS-META: kq35cnhos6bpsrynf31z5uqsc8hur51r
+X-MBO-RS-ID: 4ad110d8ca3e4f81110
 
+On 9/9/26 12:32 PM, Conor Dooley wrote:
 
---4XPSkX+TWMH9hFbg
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Hello Conor,
 
-Hi!
+>> I could make only the ones which are currently used available, but that
+>> would be confusing the implementers by suggesting that the other quirks are
+>> not applicable even if they might be ; and this would likely turn into an
+>> endless stream of schema updates, with random users enabling random quirks
+>> they just used. I don't think that would be helpful.
+> 
+> My understanding was that these things were effectively errata, so users
+> should not be enabling them willy nilly - the vast majority of these are
+> set in soc.dtsi files, and the couple dts users I checked were all SoCs
+> for which there was only one board.
 
-> This is the start of the stable review cycle for the 6.18.51 release.
-> There are 583 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
+I agree with the careful application of these properties part.
 
-CIP testing did not find any problems here:
+However, I perceive them as tunables, not errata. If they were errata, I 
+would argue the errata quirks that apply to each controller instance in 
+each SoC should be derived from the compatible string. If they were 
+tunables, they should be DT properties.
 
-https://gitlab.com/cip-project/cip-testing/linux-stable-rc-ci/-/tree/linux-6.18.y
+> IMO it's far more confusing to suggest
+> that a user has to figure out which of these may apply on their platform.
 
-Tested-by: Pavel Machek (CIP) <pavel@nabladev.com>
+The way I interpret this is, that the user should keep the defaults and 
+not enable any of the additional quirks unless they really need them. 
+But the DT checker should not warn the user that the quirk is invalid, 
+because I do not think that is the case -- the quirk is not invalid, it 
+is only not necessary in the majority of cases.
 
+> But of course, do what you want, they're your users.
+
+How shall we proceed here ?
+
+-- 
 Best regards,
-                                                                Pavel
-
---4XPSkX+TWMH9hFbg
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iF0EABECAB0WIQRPfPO7r0eAhk010v0w5/Bqldv68gUCaqGOsQAKCRAw5/Bqldv6
-8p0eAJ9vapROQZXU0Ore+HR4U7EWcYS+ZwCfZ5hftmCTwTYqRr/85lCnxWJYpkE=
-=olhY
------END PGP SIGNATURE-----
-
---4XPSkX+TWMH9hFbg--
+Marek Vasut
