@@ -1,111 +1,127 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yw1-f174.google.com (mail-yw1-f174.google.com [209.85.128.174])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6C1037A822;
-	Wed,  9 Sep 2026 10:24:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7BCB46AA9F
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 10:25:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788949472; cv=none; b=KwdHuUG50h9zgbBL8PD64TIGqaJUfgzunGs1UYM0F8oyyp8W1JtIrtWtMDtGX3fzLBsx+LR17Zm+Gt8fYBX9ntPmgHeI260z3/9yL2wZdNeFQYPoxiYiHJFNQJ/65ZkSTqeCG5wp42d6nFLzhOI3apjkcDr3iqGxwEXdCCf6GvM=
+	t=1788949514; cv=none; b=nOLoheRDwtwNcePNnEuSKBKqOp1LCvwPW9YHk/G92fzY5dB61nCcW/+jl9eBX5kBxc1mJRjUlF5FZ8zTRgYo8qM9tbdv1uPIJIJOkY1lFEbQASbWpxMJ2dh45c3bp/P6W5s0JYfxdgSP1Jipnlk1bFBQ5xNdYCyIUMjWyoVYbQM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788949472; c=relaxed/simple;
-	bh=I8Onle8fDcB2jJH/6ZCRLaXNOxUd6QuB/0FGJ6RuK6c=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=Dc1i56k62MYBQdjz9mkoY12znDIV/GpMiAcUvJ6EdbTw2NqUCX0bo9fVwJ27jXkeGPQ15nupPYxYzoKc800tlCvcCGTdnQg5BkJClV0jSo7tCjH8inZoLv/6YIO58Nc0VLdKvDTUO1KygcHiyI8M8AkbYeAWBWkfVMNWaJR3iFU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JLovTtU8; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788949514; c=relaxed/simple;
+	bh=PA7/Pbx5AEThbU1dExwqFT9w9coLuAoGrR7Ue2+wOTE=;
+	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=ZcC/ejYr9sRHE+bFeDPFdvLVxtvgrbSanzbiFlv2WUn5OHAfLvujXrOGzTNi1RFB4qCCWQKk/jIooarbhQ9PWAQyyOQXX+zYIX9uVvxAcGc0LNAjk/dosLssoG283qpnYoRDFZ6QF2ezn5uJtIRJR+C5qVJ6PaCf7lhGH71SwoM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=sMACMHU8; arc=none smtp.client-ip=209.85.128.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JLovTtU8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DD6FF1F00A3A;
-	Wed,  9 Sep 2026 10:24:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788949471;
-	bh=gbV02tkIR0l5+u0XIgUNoM3WdEsWs96K0HwU9kLHxWA=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=JLovTtU8ApoMQpMX5pDtVyhtOFv/Glvm3zMo8dcpf76G+RSWmHoiTBS3WRw4ShQkv
-	 Yt93feqcMS9bZwLHeqwYNTe76OrQ7Aj2jzuHo5zKdYiaWck4KRJ2KHT3oyb5vg7b71
-	 pO0FLMvr7AXwYeOKjIi0rL7iF4aEACVceVIlRioRQfFOK+FLTUELHwjNCTU8HDFBNS
-	 hujPHhJcpkYem4MSeRlW7bRb7H5iqNEErxtpIWq/1wk+EGRpe2WfbCCqqWT51sMfU+
-	 BzNINXI3vSeWDj2A/I24P6C4F5tEyoUNJvf+XkYGjwalWmMO5inCt+1seGL53F+oWz
-	 j5pG+i3gSZ6Jg==
-From: Thomas Gleixner <tglx@kernel.org>
-To: Naman Jain <namjain@linux.microsoft.com>, Ingo Molnar
- <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, Dave Hansen
- <dave.hansen@linux.intel.com>, x86@kernel.org, "Joerg Roedel (AMD)"
- <joro@8bytes.org>, Will Deacon <will@kernel.org>, "K. Y. Srinivasan"
- <kys@microsoft.com>, Haiyang Zhang <haiyangz@microsoft.com>, Wei Liu
- <wei.liu@kernel.org>, Dexuan Cui <decui@microsoft.com>, Long Li
- <longli@microsoft.com>, Lorenzo Pieralisi <lpieralisi@kernel.org>,
- Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>, Manivannan
- Sadhasivam
- <mani@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>
-Cc: "H. Peter Anvin" <hpa@zytor.com>, Suravee Suthikulpanit
- <suravee.suthikulpanit@amd.com>, Vasant Hegde <vasant.hegde@amd.com>,
- Robin Murphy <robin.murphy@arm.com>, Rob Herring <robh@kernel.org>,
- Shradha Gupta <shradhagupta@linux.microsoft.com>, Aditya Garg
- <gargaditya@linux.microsoft.com>, iommu@lists.linux.dev,
- linux-hyperv@vger.kernel.org, linux-pci@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 3/3] x86/irq, iommu/amd, PCI: Drop redundant
- irq_retrigger inits
-In-Reply-To: <20260810090716.2325295-4-namjain@linux.microsoft.com>
-References: <20260810090716.2325295-1-namjain@linux.microsoft.com>
- <20260810090716.2325295-4-namjain@linux.microsoft.com>
-Date: Wed, 09 Sep 2026 12:24:28 +0200
-Message-ID: <875x0e204j.ffs@fw13>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="sMACMHU8"
+Received: by mail-yw1-f174.google.com with SMTP id 00721157ae682-836c8bde2dcso37594507b3.0
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 03:25:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1788949511; x=1789554311; darn=vger.kernel.org;
+        h=content-type:mime-version:references:message-id:in-reply-to:subject
+         :cc:to:from:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=tbn1aAX73v4jfLOAScY/xk2YxlfOe4UtWahA1Ug2y2k=;
+        b=sMACMHU8bUBRcevNAt4rnxkr3JHUKboqxgklcBwQXRmJ4F65NgGz0OoXJ1+1SqoDup
+         va3cGoWVD+QdFyHTN315iCwqEyTQMhvn08fWj1aZIOD+a7tAE+SuBkm9Na1vq8daGX0n
+         BpltVo6dID4JgABrOfcolkDET2tDT6Oppk0J/PH9RZxLPddxlD9ARY+GODw/i/WgSpI3
+         Rz3EaF4SPDHXEYV+Az/iF6Y5gppFgVWwQdH0hHhwz+pvdE4SkCSu+uI1Gixk7kgdALkq
+         FmnLa3oRYEIYZEjQgxK5nhvRIqcoLDn98EBrxj4Z7tuxJPalZYBNbcFJmP6SOU0kLkuz
+         gh9g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788949511; x=1789554311;
+        h=content-type:mime-version:references:message-id:in-reply-to:subject
+         :cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=tbn1aAX73v4jfLOAScY/xk2YxlfOe4UtWahA1Ug2y2k=;
+        b=monsV3BCrEgnF5bAHmCoWKnZA0h9evF5nk5jqhk0WUpQE6bS9RJQNFT+K+/xifYzou
+         asmj2B7v5ipiZhubtGcWGSyfDLVzneD1MJ7YbyPn0zzPFZfKzohHeIfTB58WG4+4NgMN
+         f4/a+49KZd3zON4ZlQeX0aDjU52a7nYxMxi1GhW4U1CcOxKNv2tK2QQ9p3i3OIta2ANk
+         jNmqQmf+meTmTpWpELWNzz0qO8OmMHBI5myvIgEBXt4vBdH8e/irJIa++ioI1Ih9gNUz
+         MOq5xl7bfMgyxpSNjsH+BMM89Xpyt8KeYfJjvFQFy62Zq6T+nG3fs9Nkn9mpMLoTDUM5
+         t/pg==
+X-Forwarded-Encrypted: i=1; AKwUvBxdRFnqKgLHvq2oySwV07CUSKmED94q1YDduie60PeP/Ahl771hAvt1f/krMbcfKet6rj9fWL9QW92Y6Jk=@vger.kernel.org
+X-Gm-Message-State: AFuF++lpQYC/+hTuIQ0haZsFHo0vYKYjRueDSMFwxYNFEx8eza4uL1gL
+	aJvJmwteMrmYVpKuECjU+n/Jk8cFyPHHQdCTCrFgeqRhhcdN9I4XH4l92vxPcTKbvA==
+X-Gm-Gg: AYBFou1hVoJ9FgeZne885h0ibyvLCnhWHIdO3FQBfqzx2/1JPfgATsoZLZ2Oa5qWbuT
+	o1J4uEztMHRVl3iTsPHLQ6ISFeRzcfHBckwahcj3LnDrRVjDGQBddXjxfCKdDCUSCni5hTtMa2z
+	bovJoxMhbhDkZ3czrj8secFi41GqCo+lg7M1MB3WQSKLkHaLgiH16hDIaPQJGWbcnDgJ6yoaYLe
+	F5ELYwwcDcwAaL/cpW4/tHPWWzRC3pruool3+AI4fKI6VhmALS/6b7sY3JR4O48Yu+2jUKwJqUz
+	dFsjbaFoVzNKFTmWx+/At/FjQfjJmpKJGQHAbWqiX9dGk8eUTg+uZJGzLpSlweNKJcywCmUtMGh
+	ioDU5wn4as2RyXPdVwPRd2MzLrNN7LAkAZO6flWVfeQvnWqJUYJdROzupV5LBieOlcmF/4U/Xpl
+	AEo/Yy/2u5ODLbS+CcIRQrGA6gQkRtAhBnXlFkegTF9/CrFSMshuXcueByuNLX0CTlk0fdKBQEI
+	+mlUI0qmJh/02FMlnrDxgLh7VPFF0EqGUXjk16auc4Z64Hj6nORwjigaOxRoN0+qBxTEw==
+X-Received: by 2002:a05:690c:62c4:b0:870:96e4:6716 with SMTP id 00721157ae682-87127b36981mr130530337b3.28.1788949510969;
+        Wed, 09 Sep 2026 03:25:10 -0700 (PDT)
+Received: from darker.attlocal.net (172-10-233-147.lightspeed.sntcca.sbcglobal.net. [172.10.233.147])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-87149315162sm107287417b3.12.2026.09.09.03.25.06
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 09 Sep 2026 03:25:09 -0700 (PDT)
+Date: Wed, 9 Sep 2026 03:25:05 -0700 (PDT)
+From: Hugh Dickins <hughd@google.com>
+To: Andrew Morton <akpm@linux-foundation.org>
+cc: Ackerley Tng <ackerleytng@google.com>, 
+    Alexander Viro <viro@zeniv.linux.org.uk>, Alexandre Ghiti <alex@ghiti.fr>, 
+    Baolin Wang <baolin.wang@linux.alibaba.com>, 
+    Barry Song <baohua@kernel.org>, Binbin Wu <binbin.wu@linux.intel.com>, 
+    Christian Brauner <brauner@kernel.org>, Christoph Hellwig <hch@lst.de>, 
+    Christoph Lameter <cl@gentwo.org>, 
+    Claudio Imbrenda <imbrenda@linux.ibm.com>, 
+    David Hildenbrand <david@kernel.org>, JP Kobryn <jp.kobryn@linux.dev>, 
+    Jan Kara <jack@suse.cz>, Jens Axboe <axboe@kernel.dk>, 
+    Johannes Weiner <hannes@cmpxchg.org>, Kairui Song <ryncsn@gmail.com>, 
+    Kiryl Shutsemau <kas@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
+    Leonardo Bras <leobras.c@gmail.com>, Lorenzo Stoakes <ljs@kernel.org>, 
+    Marcelo Tosatti <mtosatti@redhat.com>, 
+    Matthew Wilcox <willy@infradead.org>, 
+    Mel Gorman <mgorman@techsingularity.net>, 
+    Miaohe Lin <linmiaohe@huawei.com>, Michal Hocko <mhocko@suse.com>, 
+    Minchan Kim <minchan@kernel.org>, Muchun Song <muchun.song@linux.dev>, 
+    Oscar Salvador <osalvador@suse.de>, Peter Zijlstra <peterz@infradead.org>, 
+    Qi Zheng <qi.zheng@linux.dev>, Rik van Riel <riel@surriel.com>, 
+    Sebastian Andrzej Siewior <bigeasy@linutronix.de>, 
+    Shakeel Butt <shakeel.butt@linux.dev>, 
+    Suren Baghdasaryan <surenb@google.com>, 
+    Vlastimil Babka <vbabka@kernel.org>, 
+    Yang Shi <yang@os.amperecomputing.com>, Yu Zhao <yuzhao@google.com>, 
+    Zach O'Keefe <zokeefe@google.com>, Zi Yan <ziy@nvidia.com>, 
+    linux-block@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
+    linux-kernel@vger.kernel.org, linux-mm@kvack.org
+Subject: [PATCH v2 21/26] block/fbatch: no lru_add_drain_all() in
+ invalidate_bdev()
+In-Reply-To: <e28f9a94-4339-f8ac-8301-6be3c9b5b7ce@google.com>
+Message-ID: <0debd9f6-0ff8-31b0-4830-3a81ba56754a@google.com>
+References: <e28f9a94-4339-f8ac-8301-6be3c9b5b7ce@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=US-ASCII
 
-On Mon, Aug 10 2026 at 09:07, Naman Jain wrote:
-> --- a/arch/x86/kernel/apic/msi.c
-> +++ b/arch/x86/kernel/apic/msi.c
-> @@ -137,7 +137,7 @@ msi_set_affinity(struct irq_data *irqd, const struct cpumask *mask, bool force)
->  	 * IRR.
->  	 */
->  	if (lapic_vector_set_in_irr(cfg->vector))
-> -		irq_data_get_irq_chip(irqd)->irq_retrigger(irqd);
-> +		irq_chip_retrigger_hierarchy(irqd);
+invalidate_bdev() has no good reason to lru_add_drain_all(), now that the
+per-cpu fbatch references are gone; but keep doing invalidate_bh_lrus().
 
-That's broken because irqd points at the vector domain already, so there
-is no parent and nothing gets retriggered.
+Signed-off-by: Hugh Dickins <hughd@google.com>
+---
+ block/bdev.c | 1 -
+ 1 file changed, 1 deletion(-)
 
-Let's look at the hierarchy when interrupt remapping is enabled:
+diff --git a/block/bdev.c b/block/bdev.c
+index cd8323083740..853545b29b7f 100644
+--- a/block/bdev.c
++++ b/block/bdev.c
+@@ -97,7 +97,6 @@ void invalidate_bdev(struct block_device *bdev)
+ 
+ 	if (mapping->nrpages) {
+ 		invalidate_bh_lrus();
+-		lru_add_drain_all();	/* make sure all lru add caches are flushed */
+ 		invalidate_mapping_pages(mapping, 0, -1);
+ 	}
+ }
+-- 
+2.51.0
 
-             | --- [DMAR]
-[VECTOR] --- |                | -- [IOAPIC]
-             | --- [REMAP] ---| -- [HPET]
-                              | -- [DEVICE MSI]
-
-All outer domains have .irq_set_affinity = msi_domain_set_affinity,
-which does:
-
-msi_domain_set_affinity(irqdata, ....)
-
-    irqdata->parent->irq_set_affinity(irqdata->parent, ....);
-    
-In that case msi_set_affinity() is only reachable for the DMAR domain
-and all others (IOAPIC, HPET, DEVICE MSI) end up in the REMAP domain
-which handles irq_set_affinity and never ends up in the above code.
-
-In the non-remapping case:
-
-             | -- [IOAPIC]
-[VECTOR] --- | -- [HPET]
-             | -- [DEVICE MSI]
-
-In this case the vector domain is the MSI parent domain for all of them
-and all outer domains will end up in msi_set_affinity() via
-msi_domain_set_affinity().
-
-In any case 'irqd' in msi_set_affinity() will always point to the vector
-domain and therefore the exiting code is correct and can't be changed to
-retrigger hierarchy as that would see irqd->parent == NULL and do
-nothing. Neither will adding a conditional there do anything useful
-because the vector domain always has the retrigger callback set.
-
-Thanks,
-
-        tglx
