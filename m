@@ -1,111 +1,113 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EED945581FB
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 12:42:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D4DA5581FB;
+	Wed,  9 Sep 2026 12:42:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788957728; cv=none; b=WcwMDT/+m/026zxexZrnlzoRA7sZbEqOb474SY5bRlWpN3yH55pabuAy5JCAhkPFeYSL17i3ODcfRbGfXki6UaRh3WlzUNJ2Rri8lcMj4HKJU+ySogsP5f1fCigkbNhI0eXrIRK/U8c08dTy9cSOESyMwGSs7PHsX2ksZ+UrSJ4=
+	t=1788957741; cv=none; b=bgqHZ+Ll72GHefqEIW8GQ63tgdvClxkCqp1KGBrhnlH46ltC5icAoj3lCzaOqxtzjBFq4DLKeqDwQKL134Kcl4xRitmsiqzngZkVeNj4RpKNGtcvVKbyqDIOdfAn3iK4LQpOssz5jJKutMiQQ63ocYXEJymCOL3U8DZHzcioCCI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788957728; c=relaxed/simple;
-	bh=GJNMZQbHSmwBr+zVeFr9A/dvc+rKaXGmrgl80slAuJ4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=GLXeMjGV4BuYQLeDNhkNktvY6x21uTslXfoFjqxmF4h20iPZZU60N5anqkjZH2hQwZywT4q3q+zNymoWBEcJDWg7TAbi0Ss5auOAJcYhpU8ywuYSurhN3MRcNtV61XxixO7cbURdQvMqNHwQhrrJk46EoC/5friGlKU0NjBAEsk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=fQo5xu37; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1788957741; c=relaxed/simple;
+	bh=NY5kkXrnZzZgiNLFun8C7Lr1re+TSRpPdQy0gKiyCxg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=OsHh2A0wVRpqSMI1VdmZ0c+5rfazE73wmjO05FZUEZMgmZlBhP/oQF2RB5bqbXH+AKm4jNfCDsmBuHH8+z8y0tdXQNJ6pZ18EwpogLK8UxU9992LgzTBrdWP1heSaNA77y3qoCqC0aaE0b3wDqK61Z+6UDdSrZKcE9BtmjXs2Cs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mj6jKoa/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="fQo5xu37"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 651884E415A4;
-	Wed,  9 Sep 2026 12:42:04 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 2D9A160448;
-	Wed,  9 Sep 2026 12:42:04 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 1B80311C7AF5C;
-	Wed,  9 Sep 2026 14:41:53 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1788957721; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 in-reply-to:references; bh=h9+wKzPa6JcporMdRfFhDFtBgO7SIKlB0UBH49rnfV0=;
-	b=fQo5xu37RTwShDHIC2oOZlp+NwSKioDt2qv5+gAB1pv8i9p+xJQbpBXEwU+2wNL2W4bc8r
-	5cdb/8tcsinfXdAF55wQjGfmArjpUrnYw4Dwco2XE/SlnHXnjcm/SZpd+T85a2MnDnA5cj
-	I3SHBVAWhlYv2l8rgrX5gjNqlPBVFcZZmIn2oh7yHqY859T6YrMyKFUUAhgpuCNlxyhc10
-	OiAeT05poKOLR0VWpwX3AYkmSmv6vensv1/nsp8wCJD7M129KP1VZIPp7XUsgL1XhmBn6B
-	5oUZeTpanwQJifomjKg1GJWn4SAVptG5WZkcER8lGg69/mFX7Lp5cN8lxf3sWg==
-Date: Wed, 9 Sep 2026 14:41:53 +0200
-From: Alexandre Belloni <alexandre.belloni@bootlin.com>
-To: Arnd Bergmann <arnd@kernel.org>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>,
-	Linus Walleij <linusw@kernel.org>,
-	Russell King <linux@armlinux.org.uk>,
-	Drew Fustini <fustini@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
-	Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
-	Liviu Dudau <liviu.dudau@arm.com>,
-	Sudeep Holla <sudeep.holla@kernel.org>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Vladimir Zapolskiy <vz@mleia.com>, Stefan Agner <stefan@agner.ch>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Aaro Koskinen <aaro.koskinen@iki.fi>,
-	Andreas Kemnade <andreas@kemnade.info>,
-	Kevin Hilman <khilman@baylibre.com>,
-	Roger Quadros <rogerq@kernel.org>, Tony Lindgren <tony@atomide.com>,
-	Nicolas Ferre <nicolas.ferre@microchip.com>,
-	Claudiu Beznea <claudiu.beznea@tuxon.dev>,
-	Andrew Lunn <andrew@lunn.ch>,
-	Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
-	Gregory Clement <gregory.clement@bootlin.com>,
-	Robert Jarzmik <robert.jarzmik@free.fr>,
-	Kristoffer Ericson <kristoffer.ericson@gmail.com>,
-	Ethan Nelson-Moore <enelsonmoore@gmail.com>,
-	Geert Uytterhoeven <geert@linux-m68k.org>,
-	Alexander Sverdlin <alexander.sverdlin@siemens.com>,
-	Shawn Guo <shawnguo@kernel.org>,
-	Karl Mehltretter <kmehltretter@gmail.com>,
-	"David Hildenbrand (Arm)" <david@kernel.org>,
-	Nicolas Pitre <npitre@baylibre.com>, linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	devicetree@vger.kernel.org, imx@lists.linux.dev,
-	linux-stm32@st-md-mailman.stormreply.com,
-	linux-omap@vger.kernel.org
-Subject: Re: [PATCH 12/13] ARM: at91: remove samv7 support
-Message-ID: <202609091241532edd8277@mail.local>
-References: <20260908152808.3928630-1-arnd@kernel.org>
- <20260908152808.3928630-13-arnd@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mj6jKoa/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 32FD51F00A3A;
+	Wed,  9 Sep 2026 12:42:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788957740;
+	bh=PzrFCfaRwUPe/W44IVH55NxsQ4oS2KmOl4ikIySWXXs=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=mj6jKoa/E+1Y1ng+DBulHZL2CsdA+w+cysWTVP9I7XnRCr/snpaqH5OVp8ugfox+Q
+	 sm9DdRq7tMchvorL3oPmolchcLnpL3gqGrH7GOVNwNcjBlvirT3xvldumFKO/fQ3oV
+	 QrL8PNFCcyv6+QJPvdoPOb8+ycwWV23iWhqJCH45Dl9YpNUQ8pv8teA9WEoJ9cn+uO
+	 rmVsaorHf8s76hOqViprmfaiYccLrmy4LEGfuNqqprR2pNXEj0NHp0/7jGzMHNeZpB
+	 y6ln0t5DvRogREfD1gt/3ber4Yrba4s30WJgNBWg5kH3upUqJDqFUbqlaetH1xWZdA
+	 nq9WoIGL3c1JA==
+From: Christian Brauner <brauner@kernel.org>
+To: Jakub Kicinski <kuba@kernel.org>,
+	Kuniyuki Iwashima <kuniyu@google.com>,
+	Oleg Nesterov <oleg@redhat.com>,
+	Christian Brauner <brauner@kernel.org>
+Cc: "David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Willem de Bruijn <willemb@google.com>,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Alexander Viro <viro@zeniv.linux.org.uk>,
+	Jan Kara <jack@suse.cz>,
+	linux-fsdevel@vger.kernel.org,
+	Alexander Mikhalitsyn <alexander@mihalicyn.com>
+Subject: Re: [PATCH v2 00/10] net: support thread-specific pidfds for send and connect
+Date: Wed,  9 Sep 2026 14:40:25 +0200
+Message-ID: <20260909-vorkommen-einwickeln-entspannen-fb7fb4e29575@brauner>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260909-work-unix-passpidfd-v2-0-7bd342abb2d1@kernel.org>
+References: <20260909-work-unix-passpidfd-v2-0-7bd342abb2d1@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260908152808.3928630-13-arnd@kernel.org>
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset="utf-8"
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2547; i=brauner@kernel.org; h=from:subject:message-id; bh=NY5kkXrnZzZgiNLFun8C7Lr1re+TSRpPdQy0gKiyCxg=; b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWQtDFG6cehOsdfexKJUhaXBcxczTz585WaNS3+qKLffn 8vT11w17ihlYRDjYpAVU2RxaDcJl1vOU7HZKFMDZg4rE8gQBi5OAZjII11Ghosmk71PGSxITTTW 3asup87SdZvh19ZVYff2Xp3fOH+JawUjQ//THLdDHCELVc1yVY9fX2PvO2em3/tTLtOvem+azFH GzggA
+X-Developer-Key: i=brauner@kernel.org; a=openpgp; fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
+Content-Transfer-Encoding: 8bit
 
-On 08/09/2026 17:28:02+0200, Arnd Bergmann wrote:
-> From: Arnd Bergmann <arnd@arndb.de>
+On Wed, 09 Sep 2026 12:42:59 +0200, Christian Brauner wrote:
+> SO_PASSPIDFD/SCM_PIDFD and SO_PEERPIDFD allow to retrieve a pidfd for
+> the thread-group leader. The coredump server using the coredump socket
+> cannot get a handle on the task that took the signal and is writing the
+> coredump easily. Workloads interested in per-thread authentification
+> have similar problems.
 > 
-> The Atmel at91 line, now known as Microchip SAM contains both
-> SoCs using ARM926 and Cortex-A CPUs as well as a number of
-> microcontrollers. Only a single one of those MCUs currently
-> has Linux support, and has no known users.
+> Add SO_PASSPIDFD_THREAD and SO_PEERPIDFD_THREAD. We record the sending
+> and the connecting thread in addition to the thread-group leader.
 > 
-> The samv7 platform was deprecated in Linux-7.3LTS, which will
-> remain supported a while longer after it is gone from mainline.
-> 
-> Cc: Nicolas Ferre <nicolas.ferre@microchip.com>
-> Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>
-> Cc: Claudiu Beznea <claudiu.beznea@tuxon.dev>
-> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+> [...]
 
-Acked-by: Alexandre Belloni <alexandre.belloni@bootlin.com>
+@Jakub, shared branch in vfs-7.4.shared.net-next.pidfd. I'm open to rebasing if
+you have need for that on your end during the cycle.
 
+---
 
--- 
-Alexandre Belloni, co-owner and COO, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+Applied to the vfs-7.4.shared.net-next.pidfd branch of the vfs/vfs.git tree.
+Patches in the vfs-7.4.shared.net-next.pidfd branch should appear in linux-next soon.
+
+Please report any outstanding bugs that were missed during review in a
+new review to the original patch series allowing us to drop it.
+
+It's encouraged to provide Acked-bys and Reviewed-bys even though the
+patch has now been applied. If possible patch trailers will be updated.
+
+Note that commit hashes shown below are subject to change due to rebase,
+trailer updates or similar. If in doubt, please check the listed branch.
+
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/vfs/vfs.git
+branch: vfs-7.4.shared.net-next.pidfd
+
+[01/10] pid: add helpers to operate on a struct pid array
+        https://git.kernel.org/vfs/vfs/c/b674dcb18f1d
+[02/10] af_unix: record the pid of the sending thread
+        https://git.kernel.org/vfs/vfs/c/a8575fe8b94e
+[03/10] net: add SO_PASSPIDFD_THREAD to get a thread-specific SCM_PIDFD
+        https://git.kernel.org/vfs/vfs/c/78dc8469581d
+[04/10] selftests/net: SO_PASSPIDFD_THREAD
+        https://git.kernel.org/vfs/vfs/c/7810049c5675
+[05/10] net: turn sk_peer_pid into an array indexed by pid type
+        https://git.kernel.org/vfs/vfs/c/0149a6ceaf8f
+[06/10] af_unix: record the pid of the connecting thread
+        https://git.kernel.org/vfs/vfs/c/4dd362b00be5
+[07/10] net: add SO_PEERPIDFD_THREAD to get a thread-specific pidfd
+        https://git.kernel.org/vfs/vfs/c/41972f2e5ab0
+[08/10] selftests/net: SO_PEERPIDFD_THREAD
+        https://git.kernel.org/vfs/vfs/c/6e8bef9686e4
+[09/10] pidfs: record the coredump on the dumping thread's pid too
+        https://git.kernel.org/vfs/vfs/c/52671ec3712c
+[10/10] selftests/coredump: check the dumping thread's pidfd
+        https://git.kernel.org/vfs/vfs/c/b956027e73be
