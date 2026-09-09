@@ -1,134 +1,110 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B67D550DAA;
-	Wed,  9 Sep 2026 12:15:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 269D6471247
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 12:16:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788956152; cv=none; b=MPIhznYB7z2V/WDG2GzuDaNVTnKK8mUNTZ5HNdj+Ie4L25ZxR1h1e1VZrigRPT7LCQQQa6+yMxk38TowRpG5buObPJQATRbPDokk9EpoTdCqaPouDeBX4Ci8o0lYgaWMSJL43gvIS+fcMVjj5jKS4/0WMnWPO2Amx0xYtRUuYns=
+	t=1788956183; cv=none; b=fBe9hfBQQIbHUo3VctrFWbB5eH2UAKkUZL7bPPcJX2jGGsFD5Y9Ku9qeP/fkpexRm262NiS6e31VirXU+6u+SIKs8ULDpjv5uueGDW3PXopKsD695K27dDF66Ugby6kT1wW4N4x7tFegyrZ/uFMWmemQStGeTNJsgH4UfoHl0Lo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788956152; c=relaxed/simple;
-	bh=0yBz+vfmQAjsLLbc02fzl1rM5uTCPEj8y4eisX4Nb5s=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=uisFMtVzwEwvj6DFGhXI3oRQkjG+wy2OZSUmhR5UIKVjZPMdQ0dPBXNFQn78S5yxuT5niIMTDy8TdA0c5lFx6+Ru8dGAyCvAPdiEf85zHAdcYVv74RZJGY69py9A653KS/Ddvn0S8uvCsSISdDIhWZ14/o1Pa7VdbyBY//A8GlU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=f5LZqLGX; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1788956183; c=relaxed/simple;
+	bh=y0AFMcKTGl7uv/p5BHEJJeildm+pyxOLf4CVF643gno=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=ler0BZQCan0fLvQuyNEE3yXwK+EAQE2rhX+6imxFss8f7Zjai+GOiW06nIBIpPifc6tRpQP31y/3w8dNBUHxx0iv3IOOEtkBoJ2IZNtfQvBbcbK7QvR7gg84R2IYoFtdFvdz99ln57cLEvqzC3rHT7sm1r+ehRxka59tJFQ1/wk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=HIXXv8s6; arc=none smtp.client-ip=198.175.65.18
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="f5LZqLGX"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=4lNSvoiSu1Oe1KDHuQCmg5IrjKq5LQk9MUhqhzpAfU4=; b=f5LZqLGXXvOEfc7SKxBaSnFYWD
-	8fUD+sruRwzKwhivGLkdPumNJZ49A+elVNBoeoVfknIU5fxLVw+cySda5scTERn+RkCUjJZFAt633
-	bsKj28ZCaQbvA4EfO1g/aME7vjZodZFgknm8J2mJE5kUOlS7dvvh3w5GPxdfaD0ysQnE=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1x4HCs-004CRj-Ki; Wed, 09 Sep 2026 14:15:14 +0200
-Date: Wed, 9 Sep 2026 14:15:14 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Yury Norov <yury.norov@gmail.com>
-Cc: Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	Raju Rangoju <Raju.Rangoju@amd.com>,
-	Prashanth Kumar K R <PrashanthKumar.K.R@amd.com>,
-	Tony Nguyen <anthony.l.nguyen@intel.com>,
-	Przemek Kitszel <przemyslaw.kitszel@intel.com>,
-	Jian Shen <shenjian15@huawei.com>,
-	Jijie Shao <shaojijie@huawei.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
-	intel-wired-lan@lists.osuosl.org, linux-usb@vger.kernel.org,
-	Rasmus Villemoes <linux@rasmusvillemoes.dk>,
-	Andrew Morton <akpm@linux-foundation.org>
-Subject: Re: [PATCH 7/9] net: phy: use linkmode operation return values in
- phy_device.c
-Message-ID: <3fcc6c7e-a9c6-46c4-8393-1abe7d12dea6@lunn.ch>
-References: <20260907215439.409858-1-ynorov@nvidia.com>
- <20260907215439.409858-8-ynorov@nvidia.com>
- <67ed1522-cec8-4137-85df-ffbae654e07c@lunn.ch>
- <aqAnd1gpXne2lqCT@yury>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="HIXXv8s6"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788956182; x=1820492182;
+  h=from:to:cc:subject:in-reply-to:references:date:
+   message-id:mime-version;
+  bh=y0AFMcKTGl7uv/p5BHEJJeildm+pyxOLf4CVF643gno=;
+  b=HIXXv8s6lFg6edAxL2m7JzHtC+1XGnegIjXG44jgCgCjWX6O8ywVXuBy
+   g6ZraTQ+BW0yc5Z5JlIDYNZMwKr581ux9eQo+Ee8VYkea5qkS6oXEI9TC
+   /9kP/kHA1Q1bbPaIE1QJAjZ8lxxhwVTtsfu1ZzFzIG0gmuZFEvO7iiYe2
+   rksw67AJIoVCTRRRlvKqgzClMxCUYLQTMbf1vnI8GWlhhP/54G26iR3e3
+   Gx5ApwHF/qnzGv0fU1GhHl6PbrdNEaomZo/KJJJovuqoR1TxEEOaXetey
+   KRd4RrXpUnAZ4KUO8zzFmyzsE5l5txIO3aE/cJ9DwAr6aIfGcmQEijjOM
+   Q==;
+X-CSE-ConnectionGUID: 96qSxNyNS0m7dOM+U+k1jA==
+X-CSE-MsgGUID: d09oW9V+S0epapUflzxGMQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11900"; a="89420156"
+X-IronPort-AV: E=Sophos;i="6.25,270,1779174000"; 
+   d="scan'208";a="89420156"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Sep 2026 05:16:22 -0700
+X-CSE-ConnectionGUID: SqBcx/zaToSD5AD4+2lWdg==
+X-CSE-MsgGUID: jP4tqTR2Rpy3s7bt60Pj9A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,270,1779174000"; 
+   d="scan'208";a="265090508"
+Received: from fpallare-mobl4.ger.corp.intel.com (HELO localhost) ([10.245.245.20])
+  by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Sep 2026 05:16:18 -0700
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: tarund18303@gmail.com
+Cc: rodrigo.vivi@intel.com, joonas.lahtinen@linux.intel.com,
+ tursulin@ursulin.net, airlied@gmail.com, simona@ffwll.ch,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ tarun-tarun143 <tarund18303@gmail.com>
+Subject: Re: [PATCH] drm/i915/dp_link_caps: Validate max link rate
+In-Reply-To: <20260827022035.3442-1-tarund18303@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+References: <20260827022035.3442-1-tarund18303@gmail.com>
+Date: Wed, 09 Sep 2026 15:16:16 +0300
+Message-ID: <0531dd3f6e5056128dc1208c31199373a9035175@intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <aqAnd1gpXne2lqCT@yury>
+Content-Type: text/plain
 
-On Tue, Sep 08, 2026 at 11:19:19AM -0400, Yury Norov wrote:
-> On Tue, Sep 08, 2026 at 03:52:09PM +0200, Andrew Lunn wrote:
-> > > -	linkmode_and(sfp_support, port->supported, caps->link_modes);
-> > > -	if (linkmode_empty(sfp_support)) {
-> > > +	if (!linkmode_and(sfp_support, port->supported, caps->link_modes)) {
-> > >  		dev_err(&phydev->mdio.dev, "incompatible SFP module inserted, no common linkmode\n");
-> > 
-> > From a readability perspective, i like linkmode_empty(). It is more
-> > obvious than !linkmode_and().
-> 
-> OK, a function returning 2 values is not something obvious in C. What
-> about this?
-> 
->         
-> 	sfp_supported = linkmode_and(sfp_support, port->supported, caps->link_modes);
->         if (!sfp_supported)
-> 		dev_err(&phydev->mdio.dev, "incompatible SFP module inserted, no common linkmode\n");
+On Thu, 27 Aug 2026, tarund18303@gmail.com wrote:
+> From: tarun-tarun143 <tarund18303@gmail.com>
+>
+> Validate the maximum link rate against the source-supported rates
+> before using the maximum link limits to calculate allowed
+> configurations.
+>
+> This prevents an unsupported link rate from being accepted as a
+> maximum link limit.
 
-Why not keep it as it is? If the link mode is empty, we know we have a
-problem. 
+Are you seeing this issue being hit, or are you just going through TODO
+comments and trying to come up with fixes?
 
+BR,
+Jani.
 
-> 
-> > None of this code is in the hot path. So we should put readability
-> > above performance. 
-> > 
-> > >  	/* Some PHYs may advertise, by default, not support EEE modes. So,
-> > >  	 * we need to clean them. In addition remove all disabled EEE modes.
-> > >  	 */
-> > > -	linkmode_and(phydev->advertising_eee, phydev->supported_eee,
-> > > -		     phydev->advertising_eee);
-> > > -	linkmode_andnot(phydev->advertising_eee, phydev->advertising_eee,
-> > > -			phydev->eee_disabled_modes);
-> > > -
-> > >  	/* There is no "enabled" flag. If PHY is advertising, assume it is
-> > >  	 * kind of enabled.
-> > >  	 */
-> > > -	phydev->eee_cfg.eee_enabled = !linkmode_empty(phydev->advertising_eee);
-> > > +	phydev->eee_cfg.eee_enabled =
-> > > +		linkmode_and_andnot(phydev->advertising_eee,
-> > > +				    phydev->advertising_eee,
-> > > +				    phydev->supported_eee,
-> > > +				    phydev->eee_disabled_modes);
-> > 
-> > So, which is more readable, the original or this?
-> 
-> The new version is more readable to me. What about this:
->         
->         eee_advertised = linkmode_and_andnot(phydev->advertising_eee,
-> 	                                     phydev->advertising_eee,
->                                              phydev->supported_eee,
-> 		                             phydev->eee_disabled_modes);
+>
+> Signed-off-by: tarun-tarun143 <tarund18303@gmail.com>
+> ---
+>  drivers/gpu/drm/i915/display/intel_dp_link_caps.c | 5 ++++-
+>  1 file changed, 4 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/i915/display/intel_dp_link_caps.c b/drivers/gpu/drm/i915/display/intel_dp_link_caps.c
+> index 7b6cc6055da8..0934488153bb 100644
+> --- a/drivers/gpu/drm/i915/display/intel_dp_link_caps.c
+> +++ b/drivers/gpu/drm/i915/display/intel_dp_link_caps.c
+> @@ -710,7 +710,10 @@ static bool max_link_limits_valid(struct intel_dp_link_caps *link_caps,
+>  	    !is_power_of_2(max_link_limits->lane_count))
+>  		return false;
+>  
+> -	/* TODO: Validate max_link_limits->rate against the source supported rates. */
+> +	if (intel_dp_rate_index(link_caps->dp->source_rates,
+> +				link_caps->dp->num_source_rates,
+> +				max_link_limits->rate) < 0)
+> +		return false;
+>  
+>  	intel_dp_link_caps_get_forced_params(link_caps, &forced_params);
+>  	allowed_configs = calc_allowed_config_filter(link_caps, link_caps->enabled_configs,
+>
+> base-commit: 73e3f0710014fe6d4ed98cfc02292f6121db7558
 
-I still prefer the original version.
-
-Where do you stop with these functions? Why not add
-linkmode_and_andnot_or()?  linkmode_and_nand_xor_nor()?
-
-If complex expressions were used on the fast path, every packet
-needing some bitmap logic, i can see the benefit of such complex
-functions, if they can be optimised. But this is slow path, probe
-time, or when the link goes up. Human readability comes first.
-
-Just out of interest, did you look at the disassembly for both
-versions? Isn't it the inline linkmode_ wrapper function which drops
-the return value, which you are adding back. But the
-compiler/optimizer sees it and could make use of it? Is gcc/clang
-clever enough to do that?
-
-	Andrew
+-- 
+Jani Nikula, Intel
