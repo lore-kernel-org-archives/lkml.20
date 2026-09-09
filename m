@@ -1,69 +1,201 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 686D05328AE;
-	Wed,  9 Sep 2026 10:52:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1E3D4B148B
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 10:52:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788951172; cv=none; b=KqVEsVYDb/aNeXYKD3o8iRi6wbAcWTh4+WMxGRI3Fh99a0oAY8tCIPTanGhLbahJm9Fg7G7+mAfNAda2wZodDuGpmrRPoGOTI5SjIUu5LXHB0/wq34QHwajiaTpWrUtSzS35vX3/NR8plg2m8G2hLPdJPhoJs9W/tUaUyKQ3ils=
+	t=1788951176; cv=none; b=KeXKjePIXRTnkSOUB9PYHsf/l4HBvLdNPzor88US2rYj7jGtlVh3NuygnWW6JlfJioOhrckKIC91Qd9uUaSOcPLnddKgP/XILzLdsGFIRIlHdRRqDUosShNcrYi6lc7D1U5UtwBolPIjo4DUp/B7CeSwij6oJgAZTdY+z24Uwys=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788951172; c=relaxed/simple;
-	bh=ZHjqnq9NH+Ikvi2NYFMSMojFJbnnQdXm7+7u1FfH6II=;
-	h=From:To:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=f10IiiLAH0pzB6zmilTsDJVnin/i2xoAISNaBbI9tcP1YwBQ+VjAbh39ok7gZl+uLOzGK8E9afm2qJUAAJxM6KZzQsIu+FSSOsDLwRZIj70OhK44awWeC4zECXMPmY4zmUNCFN1IHAEm+yk1y2cL51GgrQegvrgHcKubdj2aTqY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=U6EJG5bG; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788951176; c=relaxed/simple;
+	bh=C7u8iRDxIF8RMwZk7KKyYWmXBhq4KkK0dHqbcUGkab4=;
+	h=Content-Type:Message-ID:Date:MIME-Version:Subject:To:Cc:
+	 References:From:In-Reply-To; b=nceTEI85XpD8j1jh3wpFIEwIYAUN2yPNr74tb/7UAaQN7GMTaKhA0FQ59b6RK5V6wG8NbJQfEa3mt9caxD/3j0KiNoM7cunK5SeUS2CQyiNedWdoRyDcE2lZOOTdhjIPhGqF+tuAe8DW2orhczcjbQiZ4SwfrDxipREn/oMkC+c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=bzsy1fuS; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=BO5+iORW; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="U6EJG5bG"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B5F061F00A3A;
-	Wed,  9 Sep 2026 10:52:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788951168;
-	bh=3cKbNd616wWNajTVIynaWeEJ6Kr7Ap1typJBO+6xdFY=;
-	h=From:To:In-Reply-To:References:Subject:Date;
-	b=U6EJG5bGMtJmCAwQTsKf0cleAiy0ViPCIn+7Ik4WoiMNuHveOr7iwkYam78TW5Fe8
-	 G6SCv9XsjqKftEszV66xLYboeMdlFgzCKJ0ziKFSHXscHxNhhSN/4FmIwSQLTXWJ1I
-	 Dt4wtkLslWzSF5ToXGbTzK6blnOFpH+2fnkxG1RFX985gQXrZjQkETa/brLBYIil2e
-	 xSynt53+avZxRAPEKsrkZygJpa++lfLaqz9aO+wRX2CSD5VgyUPK8xDWSuPt4tq+fZ
-	 +nd9R/DxdzuBSr7ZJEMbxbVJy2zbcfPoU7xlmY7huPhPc9BleP9Q9b2bX8ZBu7/GKr
-	 p82KBbDTtClwQ==
-From: Niklas Cassel <cassel@kernel.org>
-To: dlemoal@kernel.org, linux-ide@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Pei Xiao <xiaopei01@kylinos.cn>
-In-Reply-To: <cover.1788867690.git.xiaopei01@kylinos.cn>
-References: <cover.1788867690.git.xiaopei01@kylinos.cn>
-Subject: Re: [PATCH v2 0/2] ata: pata_parport: fix UAF on protocol module
- unload
-Message-Id: <178895116744.2768460.12721406127250514018.b4-ty@kernel.org>
-Date: Wed, 09 Sep 2026 12:52:47 +0200
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="bzsy1fuS";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="BO5+iORW"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1788951170;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=jlII6PmLS6Fy2IEhFtMVBBXGY0oZneRlW8U4Qxok/SY=;
+	b=bzsy1fuS9AHd2lbQ6V3T49p5BrxdapyPInxyEU8e98D9fmxEN0aye874hFnn8JSD/iUYxP
+	X9PkNsJR/2G2hFAVPUXcK9ixaPmcQ3ykOFZYTLwYtLU+CJ8NiiM76WV1fdUZbeGurNCN1M
+	sSg6o6d9iA0CyHSKuJoPWyUhzbzX4AE=
+Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com
+ [209.85.216.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-122-fMPu1NMPMNKPSXJLk2qWBQ-1; Wed, 09 Sep 2026 06:52:48 -0400
+X-MC-Unique: fMPu1NMPMNKPSXJLk2qWBQ-1
+X-Mimecast-MFC-AGG-ID: fMPu1NMPMNKPSXJLk2qWBQ_1788951168
+Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-39b77130a7fso4799265a91.2
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 03:52:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1788951167; x=1789555967; darn=vger.kernel.org;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:content-type:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=jlII6PmLS6Fy2IEhFtMVBBXGY0oZneRlW8U4Qxok/SY=;
+        b=BO5+iORWX7lvGbrDcc3drCaFTZeioYhzZRApAVfwS88LDeEhu0zvOsGYZ+jPY1Qepe
+         8GtwwSLYpiBgzAUeAzSWoG6k7++MzFZLErqgPjp8/+1651EtpaMzXWtzQpzbHBNwVUaQ
+         U7B20ZOjjEgK7BVcwd9JG0aHjqfGvBoDhX1zHOy6i5rY4KXGfJHUGn+9dtkVqXci/Hc/
+         pfcT3Ydvq7oreD2yd+U1yp5+xrwHygzXqJWKoukrxtWb1SngbVrJhY0CT3ejLocCRDKR
+         RPZo25wxTyv1nK7xONK6Lbh5M3rZ7YLyv06yX3pJJFYLfcx1IfwhAZbXU9GWJLblD63V
+         53fg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788951167; x=1789555967;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:content-type:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=jlII6PmLS6Fy2IEhFtMVBBXGY0oZneRlW8U4Qxok/SY=;
+        b=qWKiBdigtxVpLj8VBktiilBcSainBDJZ0/sdDdYwQUlKFE+843eoz/eplKWkkViZWi
+         lX7zSWDrC++rpBY0EziCx0ETjNSEuJDGLpEJZpjfyUoF+oh3O5adV1avXxw06+Y/SLkB
+         waDTXlAzlxwLy3Cs1g6vWs1xjCkojqAxPRSrQt+ijVz2j0LUtie5RNMDUZ5Et7M4+sV3
+         WdweJJsKos8qHI3rSsQ36hjomS/w1kHLE6MkJIswMRg8vPZMpTjNOCasGHhHlk8JWh5a
+         rBQOuqvz1OXvb0J9YILMqZvgHXCOPtKis3seDg8nEcn5IQVElNXYN4+mCW8+EYwzStvh
+         REGg==
+X-Forwarded-Encrypted: i=1; AKwUvBxzeskPdhwC7vchGOW4g6QWJrocxyo9ymjQK4r1uXjCk26VXexQ1C1dZEDGZ5fHsGT2ivPaXpSiAaNyBi8=@vger.kernel.org
+X-Gm-Message-State: AFuF++nxpfJdMzZ99otaGPW0S38266dMWo2wb7Q4Dz2oVG4Br/SLNyB4
+	Ffpi4mmVRn2qkA8DXBz9OmE8hBfU76kr8BYcSN9D2ndZuzoYT06AKTQ7e912NEC37IXPNbCt0mf
+	kHH9Q1/izfPsvVaMaQTWITOJLOG9bncRG0smfiaf43Cw+rF0Ldp+5znmKNicPnSeRyQ==
+X-Gm-Gg: AYBFou0uXbtvt0BdTICGzd9IhYnPxxRY1e8Cg1Nwh/NczCbt6INCmAmPjuDYDQzK5zF
+	janOz1WVYeaVImIQ6gVE7Uajik4IU1rJKl7pcVtP2vZSKCv4o1yTB3ZE2wlIvi/ieNpMBLo1QtQ
+	20GELxiijGn6Fsl91KKFvBDSdTPOEpVsAvDBU7/hLwUmKmpwtmnc0jOSGSWq1avvf9VUOvFOu4H
+	QDatPkIz0N61BezSpCDYPKl5g8vvlXgrFac+YgCxqfQWWIPt9I30hTi+xG045iEuF032udI8IP8
+	u9AYGW4CsIYSXD8FLpDYj431y+PczvWigJS+C6Szgo3hPVBrptN9D/StcfI7hxvWXLJytQEFuFL
+	hocIMyK4MrR9D6skyEOYpVM06f+c/s4x3c98yih+zxw==
+X-Received: by 2002:a17:90b:5844:b0:38f:5869:387b with SMTP id 98e67ed59e1d1-39b26101c20mr51714312a91.9.1788951167417;
+        Wed, 09 Sep 2026 03:52:47 -0700 (PDT)
+X-Received: by 2002:a17:90b:5844:b0:38f:5869:387b with SMTP id 98e67ed59e1d1-39b26101c20mr51714221a91.9.1788951166708;
+        Wed, 09 Sep 2026 03:52:46 -0700 (PDT)
+Received: from [192.168.68.52] (n175-34-8-244.mrk21.qld.optusnet.com.au. [175.34.8.244])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b260fe843sm31417683a91.10.2026.09.09.03.52.36
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 09 Sep 2026 03:52:45 -0700 (PDT)
+Content-Type: multipart/mixed; boundary="------------ARHmqz6kmyRmg021RcSq0ymY"
+Message-ID: <9086ca6a-5dce-493f-ac76-487dedc60758@redhat.com>
+Date: Wed, 9 Sep 2026 20:52:33 +1000
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v17 0/7] firmware: arm_rmm: Add RMM v2.0 base RMI support
+To: Kohei Enju <enju.kohei@fujitsu.com>,
+ Suzuki K Poulose <suzuki.poulose@arm.com>
+Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev, maz@kernel.org,
+ will@kernel.org, catalin.marinas@arm.com, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, steven.price@arm.com,
+ aneesh.kumar@kernel.org, oupton@kernel.org, joey.gouly@arm.com,
+ tabba@google.com, yuzenghui@huawei.com, linux-coco@lists.linux.dev,
+ gankulkarni@os.amperecomputing.com, sdonthineni@nvidia.com,
+ alpergun@google.com, fj0570is@fujitsu.com, WeiLin.Chang@arm.com,
+ lpieralisi@kernel.org
+References: <20260907095942.1140734-1-suzuki.poulose@arm.com>
+ <ap-C6NLnxuWWTMzi@FCCLS0092175.localdomain>
+Content-Language: en-US
+From: Gavin Shan <gshan@redhat.com>
+In-Reply-To: <ap-C6NLnxuWWTMzi@FCCLS0092175.localdomain>
+
+This is a multi-part message in MIME format.
+--------------ARHmqz6kmyRmg021RcSq0ymY
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.14.3
 
-On Tue, 08 Sep 2026 19:47:26 +0800, Pei Xiao wrote:
-> This series fixes use-after-free issues in pata_parport when a protocol
-> module goes away while pi_adapter devices created by it are still
-> attached.
+Hi Kohei,
+
+On 9/8/26 2:09 PM, Kohei Enju wrote:
+
+[...]
+
+>>
+>> [1] RMM spec : https://support.arm.com/documentation/den0137/2-0bet3/
+>> [2] This series: https://gitlab.arm.com/linux-arm/linux-cca.git cca/cca-host/fw_rmm/v17
+>> [3] KVM CCA v17 integration branch: https://gitlab.arm.com/linux-arm/linux-cca.git cca/cca-host/kvm-integration/v17
+>> [4] Gmem inplace conversion https://github.com/googleprodkernel/linux-cc/tree/guest_memfd-inplace-conversion-v12
+>> [5] TF-RMM https://git.trustedfirmware.org/TF-RMM/tf-rmm.git main (commit: 134266ae)
 > 
-> Patch 1 pins the protocol module before the device becomes visible.
-> Previously try_module_get() ran after device_register(), so a forced
-> module unload in between left pi->proto dangling from the moment the
-> device appeared on the bus.
+> I understand that QEMU-virt is not intended to model a realistic
+> production platform and that QEMU-SBSA is generally preferred. However,
+> I sometimes use QEMU-virt to test functionality quickly because it runs
+> slightly faster than QEMU-SBSA.
 > 
-> [...]
+> I tested this series with QEMU-virt and found that RMM initialization
+> failed during boot:
+> 
+>    [...]
+>    INFO:    BL31: Initializing RMM
+>    INFO:    RMM init start.
+>    ERROR:   RMM init failed: -8
+>    WARNING: BL31: RMM initialization failed
+> 
+I also ran into same issue and attached TF-A patch leads to a successful
+RMM initialization, please have a try to see if it can resolve your issue.
 
-Applied to libata/linux.git (for-7.4), thanks!
 
-[1/2] ata: pata_parport: pin the protocol module before device_register()
-      https://git.kernel.org/libata/linux/c/5d3355c7
-[2/2] ata: pata_parport: unregister devices on protocol unregister
-      https://git.kernel.org/libata/linux/c/d82c5cf6
+Thanks,
+Gavin
+--------------ARHmqz6kmyRmg021RcSq0ymY
+Content-Type: text/x-patch; charset=UTF-8; name="tf-a.patch"
+Content-Disposition: attachment; filename="tf-a.patch"
+Content-Transfer-Encoding: base64
 
-Kind regards,
-Niklas
+RnJvbSBjMjJkZGM0MzY4NjUwNTUwODQ1Zjg2MmZjMDdjYjM1Yjk5OGZiYjIzIE1vbiBTZXAg
+MTcgMDA6MDA6MDAgMjAwMQpGcm9tOiBHYXZpbiBTaGFuIDxnc2hhbkByZWRoYXQuY29tPgpE
+YXRlOiBXZWQsIDkgU2VwIDIwMjYgMTk6NTg6MzcgKzEwMDAKU3ViamVjdDogW1BBVENIXSBw
+bGF0L3FlbXU6IGFkZCBwbGF0X3JtbWRfcmVzZXJ2ZV9tZW1vcnkoKSBmb3IgVklSVCBwbGF0
+Zm9ybQpNSU1FLVZlcnNpb246IDEuMApDb250ZW50LVR5cGU6IHRleHQvcGxhaW47IGNoYXJz
+ZXQ9VVRGLTgKQ29udGVudC1UcmFuc2Zlci1FbmNvZGluZzogOGJpdAoKU2lnbmVkLW9mZi1i
+eTogR2F2aW4gU2hhbiA8Z3NoYW5AcmVkaGF0LmNvbT4KLS0tCiBwbGF0L3FlbXUvcWVtdS9p
+bmNsdWRlL3BsYXRmb3JtX2RlZi5oICB8ICAzICsrKwogcGxhdC9xZW11L3FlbXUvcGxhdF9y
+bW1fbWVtX2NhcnZlb3V0LmMgfCAyOCArKysrKysrKysrKysrKysrKysrKysrKysrKwogcGxh
+dC9xZW11L3FlbXUvcGxhdGZvcm0ubWsgICAgICAgICAgICAgfCAgNCArKysrCiAzIGZpbGVz
+IGNoYW5nZWQsIDM1IGluc2VydGlvbnMoKykKIGNyZWF0ZSBtb2RlIDEwMDY0NCBwbGF0L3Fl
+bXUvcWVtdS9wbGF0X3JtbV9tZW1fY2FydmVvdXQuYwoKZGlmZiAtLWdpdCBhL3BsYXQvcWVt
+dS9xZW11L2luY2x1ZGUvcGxhdGZvcm1fZGVmLmggYi9wbGF0L3FlbXUvcWVtdS9pbmNsdWRl
+L3BsYXRmb3JtX2RlZi5oCmluZGV4IDA2MDE4ZTdiMi4uYzNlZDk4NmNmIDEwMDY0NAotLS0g
+YS9wbGF0L3FlbXUvcWVtdS9pbmNsdWRlL3BsYXRmb3JtX2RlZi5oCisrKyBiL3BsYXQvcWVt
+dS9xZW11L2luY2x1ZGUvcGxhdGZvcm1fZGVmLmgKQEAgLTM2OCw2ICszNjgsOSBAQCBDQVNT
+RVJUKChQTEFUX1FFTVVfTDBfR1BUX0JBU0UgJiAoUExBVF9RRU1VX0wwX0dQVF9TSVpFIC0g
+MSkpID09IDAsCiAjZGVmaW5lIFJNTV9TSEFSRURfQkFTRQkJCShSTU1fTElNSVQpCiAjZGVm
+aW5lIFJNTV9TSEFSRURfU0laRQkJCVBMQVRfUUVNVV9STU1fU0hBUkVEX1NJWkUKIAorI2Rl
+ZmluZSBQTEFUX0FSTV9STU1fUEFZTE9BRF9TSVpFCVVMKDB4NjAwMDAwKSAgICAvKiAyICog
+M01CICovCisjZGVmaW5lIFJNTV9QQVlMT0FEX0xJTUlUCQkoUk1NX0JBU0UgKyBQTEFUX0FS
+TV9STU1fUEFZTE9BRF9TSVpFKQorCiAvKgogICogV2UgYWRkIHRoZSBSTU1fU0hBUkVEIHNp
+emUgdG8gUk1NIG1hcHBpbmcgdG8gbWFwIHRoZSByZWdpb24gYXMgYSBibG9jay4KICAqIEVs
+c2Ugd2UgZW5kIHVwIHJlcXVpcmluZyBtb3JlIHBhZ2V0YWJsZXMgaW4gQkwyIGZvciBST01M
+SUIgYnVpbGQuCmRpZmYgLS1naXQgYS9wbGF0L3FlbXUvcWVtdS9wbGF0X3JtbV9tZW1fY2Fy
+dmVvdXQuYyBiL3BsYXQvcWVtdS9xZW11L3BsYXRfcm1tX21lbV9jYXJ2ZW91dC5jCm5ldyBm
+aWxlIG1vZGUgMTAwNjQ0CmluZGV4IDAwMDAwMDAwMC4uYzY4Y2EyNDNkCi0tLSAvZGV2L251
+bGwKKysrIGIvcGxhdC9xZW11L3FlbXUvcGxhdF9ybW1fbWVtX2NhcnZlb3V0LmMKQEAgLTAs
+MCArMSwyOCBAQAorLyoKKyAqIENvcHlyaWdodCAoYykgMjAyNiwgQXJtIExpbWl0ZWQgYW5k
+IENvbnRyaWJ1dG9ycy4gQWxsIHJpZ2h0cyByZXNlcnZlZC4KKyAqCisgKiBTUERYLUxpY2Vu
+c2UtSWRlbnRpZmllcjogQlNELTMtQ2xhdXNlCisgKi8KKworI2luY2x1ZGUgPGxpYi9zcGlu
+bG9jay5oPgorI2luY2x1ZGUgPHBsYXQvY29tbW9uL3BsYXRmb3JtLmg+CisKK3N0YXRpYyBz
+cGlubG9ja190IG1lbV9yZXNlcnZlX2xvY2s7CitzdGF0aWMgdWludHB0cl90IHRvcF9tZW0g
+PSBSTU1fTElNSVQ7CisKK3VpbnRwdHJfdCBwbGF0X3JtbWRfcmVzZXJ2ZV9tZW1vcnkoc2l6
+ZV90IHNpemUsIHVuc2lnbmVkIGxvbmcgYWxpZ25tZW50KQoreworCXVpbnQ2NF90IGFsaWdu
+X21hc2sgPSBhbGlnbm1lbnQgLSAxOworCXVpbnRwdHJfdCBhZGRyOworCisJc3Bpbl9sb2Nr
+KCZtZW1fcmVzZXJ2ZV9sb2NrKTsKKwlhZGRyID0gKHRvcF9tZW0gLSBzaXplKSAmIH5hbGln
+bl9tYXNrOworCWlmIChhZGRyID49IFJNTV9QQVlMT0FEX0xJTUlUKSB7CisJCXRvcF9tZW0g
+PSBhZGRyOworCX0gZWxzZSB7CisJCWFkZHIgPSAwOworCX0KKwlzcGluX3VubG9jaygmbWVt
+X3Jlc2VydmVfbG9jayk7CisKKwlyZXR1cm4gYWRkcjsKK30KZGlmZiAtLWdpdCBhL3BsYXQv
+cWVtdS9xZW11L3BsYXRmb3JtLm1rIGIvcGxhdC9xZW11L3FlbXUvcGxhdGZvcm0ubWsKaW5k
+ZXggMmUxMmY2YmNhLi42NTVjYzY4M2EgMTAwNjQ0Ci0tLSBhL3BsYXQvcWVtdS9xZW11L3Bs
+YXRmb3JtLm1rCisrKyBiL3BsYXQvcWVtdS9xZW11L3BsYXRmb3JtLm1rCkBAIC0xNzUsNiAr
+MTc1LDEwIEBAIEJMMzFfU09VUkNFUwkJKz0JcGxhdC9jb21tb24vcGxhdF9zcG1kX21hbmlm
+ZXN0LmMJXAogCQkJCSR7RkRUX1dSQVBQRVJTX1NPVVJDRVN9CiBlbmRpZgogCitpZmVxICgk
+e0VOQUJMRV9STU19LDEpCitCTDMxX1NPVVJDRVMJCSs9CSR7UExBVF9RRU1VX1BBVEh9L3Bs
+YXRfcm1tX21lbV9jYXJ2ZW91dC5jCitlbmRpZgorCiBpZm5lcSAoJHtFTkFCTEVfRkVBVF9S
+TkdfVFJBUH0sMCkKIEJMMzFfU09VUkNFUwkJKz0JcGxhdC9xZW11L3FlbXUvcWVtdV9zeW5j
+X3RyYXBzLmMKIGVuZGlmCi0tIAoyLjU1LjAKCg==
+
+--------------ARHmqz6kmyRmg021RcSq0ymY--
 
