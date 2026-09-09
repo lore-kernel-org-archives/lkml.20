@@ -1,171 +1,124 @@
-Received: from mail-qt1-f180.google.com (mail-qt1-f180.google.com [209.85.160.180])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from shelob.surriel.com (shelob.surriel.com [96.67.55.147])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBFD670809
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 21:11:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D9C670809;
+	Wed,  9 Sep 2026 21:11:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=96.67.55.147
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788988293; cv=none; b=S754mA+CnGajF6lY88Ul9fdtal2fhERZdDvAm+jG7XFUfvs07brayB9548gLP8HaaSU5HKbJvs9ETAPiWLCVCwAWjqiWi9NUlRNgtBvULDkKb8RksCdScXu60cP3s7/pjMBzDQWsGzPzy8U7cNYqpW9u6j1vqiehYP3Nau79OWw=
+	t=1788988307; cv=none; b=DPlrJ7MZHc4BadjEZw3YJhFrRuBlrfSU7Yl0QALlLeuX9QSK2uqAr97k+zxTkGzd2sipjmKMc4aEEUjVrN3pre8dgk9xFGFoh8YEzuD3NpgjGcWh1MrHmqCL5nW9ID+T2Ur56aZBm8K2MEKYRdz+PjLo2BiOIZPO+7NGApPPvX0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788988293; c=relaxed/simple;
-	bh=2JNeQ04IMcKNTxofpXfLMMlWn+o2rMxFXN3X10QNLJE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=g6fvY76gq5FsjbOyx0VCAWNHuIpqW0EuxD8DfRxSvGg3JRrFhaiPSRsng5AeS7r7uBYABYqivgNoZqhPK5fxKhEbY17zqsYYrgGwsquriX1Eu07mdyx4K2U8UUsvnR6BhG4YoNWSHr/3tnNmiyDx38Rx0M/cFNoninofyQut2uM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu; spf=fail smtp.mailfrom=g.harvard.edu; dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b=dHL29DPq; arc=none smtp.client-ip=209.85.160.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=g.harvard.edu
+	s=arc-20240116; t=1788988307; c=relaxed/simple;
+	bh=GUoT4KzhJ0ptKTRFixl7KlEZxiE5gKxOkKNPBs6qT9s=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=is9EHI4baX51hmzFpglRGddDuj88sPYuMD/sPP+R7+PjL165g9MkJ2Udz7pUofyx8ULlj5AvBy+djpXZznaqSBxFe8yMvs4es9vPaM028T5LNzjm296boixKUvCjQ0QWryuMgsFe2n6KZfZ6d78HbVqgEHptI5EG4KmyArwWnWw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=surriel.com; spf=pass smtp.mailfrom=surriel.com; dkim=pass (2048-bit key) header.d=surriel.com header.i=@surriel.com header.b=LYStQf7Q; arc=none smtp.client-ip=96.67.55.147
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=surriel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=surriel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b="dHL29DPq"
-Received: by mail-qt1-f180.google.com with SMTP id d75a77b69052e-52e2d1bdbc0so41513591cf.0
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 14:11:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=rowland.harvard.edu; s=google; t=1788988291; x=1789593091; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=NcvcU2ZyDvNJc/uxVV4o6h0SAHgq94jw2tNDLTGmzOk=;
-        b=dHL29DPqONYxt2qOFJzoHcVTMk5Dy4ovl81mIpkIyvJVY5Ji/WPD5/R+Dv7/bzRMrp
-         J7K314wpz7OZcLNxH8ojE1pfq5WDF5pyTi6MPYW9N4sQccUmKcYKABtyQkOX60l3+qqQ
-         L7+WdFNQSvQtpkwmfrY6nDmrmBp8Rqr68kCjQkI8A3i7NXnSZL7NMUiEPXZTiiyB0kAv
-         ikDAelVSxeO7MFk/koaHGrCg+wGvRdSgO+zlVDb633xbwNRnbRyDJGRP15fwivUM5Sp9
-         JMBrL4R2Zl2agrj+Qz6O9BZ6M9xYRwBgaP2EtJiHtdqOvx1jMl4dbz0IRkvygopVUcCR
-         /RrA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788988291; x=1789593091;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=NcvcU2ZyDvNJc/uxVV4o6h0SAHgq94jw2tNDLTGmzOk=;
-        b=Wl3i//OPwEpqU1Isbq/8AltXIv0OmbU3rGDu2Kr34323CQrVt6SBG+uOlFfMBy139r
-         M27Wvu22bOAA9/v9r24shM/01ow/3/yfDGYPY4fJDRr9FQoPgCkyvglIEmXEcOTFNgzt
-         E17YGWOfwsTygunSsbguLXumFwWppOiomP95ZUDhI60UK11nwshyigu3Hha1ijJjxmir
-         SbeYheJr6e66Rrw0uae0OL6LIsRcORbZzrEmJlhjbidwOdbkInxTj0ihJNm4MqBNAwGk
-         TBAjt6ozOfcVPYvDMhxuuKSJiNBgcQnNTkhB0oKFxqa+Ojw5/6QlVavKswyjJMJ19rZY
-         NMHA==
-X-Forwarded-Encrypted: i=1; AKwUvBw/ClVuJFD3B0JfejCYNU5lHLGsAuT8UdsexWIKW/vnO7XhngDeagTFTRWmHT9QBODF99QgaC5kOJACbPw=@vger.kernel.org
-X-Gm-Message-State: AFuF++kf6SYWOH7NQeNY29bq6uf1zD6PTb+UL1v2DgIyMnUhpLeerHEX
-	1mAAZauOc9INgXmj02PRlbNByNA/OLsUPIM65oyz7nL5jDgRCdr/3U9YVjQvOzeu8Q==
-X-Gm-Gg: AYBFou1ACq6B+OaSnh+yDxbzqR2CAzzoyjusli2ofGnW7bTjfQ3qcvbcP8gwIxXWwnr
-	Nm8C9obtoTim9ht1zOzlaPHo9Q2XmlMCP9aL+Q4J0fpNdVLY/aoehFDg6bXK+E6fjKomCv9C8sZ
-	cW2+d17r/YDLeiGPpXBlly07z9c9S6cWPRWVFbDmENAAyJTafLdgRrOrQH/I6cKypYuLc60Ol0J
-	PQTDKjrXAlbo8vBbIEyiv48lDZs7DVe77roIkpSjxquPJ640gvR3i0iDwZMH1DMn6o/kO2ANpYq
-	GOcaIGNA7ePXwHEDYfa8xx0zj7ghAcNwlkQtjwWp0mKUl4JdWXS4QGvrd/eZOq9eI8XEQXFL73t
-	QqEbLUGXNM+tjfvSsNq9Fzk65NjOqkcbEmen2WlleLHbasjxURivTqwJZDh5K30c6yIcw1EHsQt
-	nUKMNRdTf65YY0QNqWJjXu14x2mLEDvXqJp+O5iGuB71kDOM3nk7z1fe6pmbXIF+xQRlNpXCP5
-X-Received: by 2002:a05:622a:1dcb:b0:530:aa4a:993a with SMTP id d75a77b69052e-530aa4a9cc4mr64563791cf.41.1788988290773;
-        Wed, 09 Sep 2026 14:11:30 -0700 (PDT)
-Received: from rowland.harvard.edu ([2601:19b:d01:d210::7544])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-53054116466sm150525631cf.6.2026.09.09.14.11.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 09 Sep 2026 14:11:30 -0700 (PDT)
-Date: Wed, 9 Sep 2026 17:11:27 -0400
-From: Alan Stern <stern@rowland.harvard.edu>
-To: Thomas Gleixner <tglx@kernel.org>
-Cc: Frederic Weisbecker <frederic@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>, boqun@kernel.org,
-	LKML <linux-kernel@vger.kernel.org>,
-	"Cc: Hyunwoo Kim" <imv4bel@gmail.com>,
-	Oleg Nesterov <oleg@redhat.com>,
-	Christian Brauner <brauner@kernel.org>,
-	John Stultz <jstultz@google.com>, Ingo Molnar <mingo@kernel.org>,
-	Alexander Viro <viro@zeniv.linux.org.uk>,
-	"Eric W. Biederman" <ebiederm@xmission.com>, stable@vger.kernel.org
-Subject: Re: [patch V2 1/8] signal: Prevent exec() race
-Message-ID: <adea7b13-51cc-4603-acbe-9e6d5baa5247@rowland.harvard.edu>
-References: <875x0g3de3.ffs@fw13>
- <ap_gOSWtPNjwWS1e@localhost.localdomain>
- <20260909080407.GR4121339@noisy.programming.kicks-ass.net>
- <87ecf223n4.ffs@fw13>
- <20260909095518.GL776954@noisy.programming.kicks-ass.net>
- <aqFNV4k6DcbyxYCe@localhost.localdomain>
- <20260909124555.GM776954@noisy.programming.kicks-ass.net>
- <aqFw--VfXWz-yZt8@localhost.localdomain>
- <d633542b-2a2f-4adb-82c1-ea650466f63a@rowland.harvard.edu>
- <87pkymywth.ffs@fw13>
+	dkim=pass (2048-bit key) header.d=surriel.com header.i=@surriel.com header.b="LYStQf7Q"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=surriel.com
+	; s=mail; h=MIME-Version:Content-Transfer-Encoding:Content-Type:References:
+	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:Content-ID:
+	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+	:Resent-Message-ID; bh=GUoT4KzhJ0ptKTRFixl7KlEZxiE5gKxOkKNPBs6qT9s=; b=LYStQf
+	7Q6uPWWdMGqzOeGtMLo/Y9asjziM5rg33zNU7ru+n0zGoja9Pt7rc6ZAci0StHobVVcH9YptEQdRd
+	D4n35WhFBkTgWnf8D/LAQ+RVZPshfgiAmxOGJrfhr9lL8aE5VkOEMnTl69tw3cBfSFqArL8GUazQP
+	wZj0j3vt0TUYmaS6vNvC/By8l5T9crqLiyzcZGSSc1XdgUa8ypkdeSjsDNUB6aWaedDz07Cb21ssO
+	gECkD3M0LZx3aczbS5vO7bzSZ2OpGzO1XNJqmZBMEuDP+qEo9cNaYV28DI3Qd33hJauKGekKT4R4I
+	4aCtnWTYjWtpqgEgwqVVK5iqE6Mg==;
+Received: from [2601:18c:8100:a0e0:5a47:caff:fe78:8708]
+	by shelob.surriel.com with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.99.5)
+	(envelope-from <riel@surriel.com>)
+	id 1x4OYL-00000004Hxv-1Xph;
+	Wed, 09 Sep 2026 20:05:53 +0000
+Message-ID: <6f1db74b0bfb6c67fbea7e2dbcce72c4ceb04f61.camel@surriel.com>
+Subject: Re: [PATCH bpf-next v2] bpf: Avoid soft lockup in
+ __htab_map_lookup_and_delete_batch()
+From: Rik van Riel <riel@surriel.com>
+To: Josef Bacik <josef@toxicpanda.com>, Alexei Starovoitov <ast@kernel.org>,
+  Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko
+ <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>,  Kumar Kartikeya
+ Dwivedi	 <memxor@gmail.com>, Martin KaFai Lau <martin.lau@linux.dev>, Song
+ Liu	 <song@kernel.org>, Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa	
+ <jolsa@kernel.org>, Emil Tsalapatis <emil@etsalapatis.com>, Ihor Solodrai	
+ <ihor.solodrai@linux.dev>, Brian Vazquez <brianvv@google.com>
+Cc: bpf@vger.kernel.org, linux-kernel@vger.kernel.org, "Jose Fernandez
+ (Anthropic)" <jose.fernandez@linux.dev>, "Paul E. McKenney"
+ <paulmck@kernel.org>
+Date: Wed, 09 Sep 2026 16:05:51 -0400
+In-Reply-To: <20260909-b4-htab-batch-resched-v2-1-0cb529d8f95a@toxicpanda.com>
+References: 
+	<20260909-b4-htab-batch-resched-v2-1-0cb529d8f95a@toxicpanda.com>
+Autocrypt: addr=riel@surriel.com; prefer-encrypt=mutual;
+ keydata=mQENBFIt3aUBCADCK0LicyCYyMa0E1lodCDUBf6G+6C5UXKG1jEYwQu49cc/gUBTTk33A
+ eo2hjn4JinVaPF3zfZprnKMEGGv4dHvEOCPWiNhlz5RtqH3SKJllq2dpeMS9RqbMvDA36rlJIIo47
+ Z/nl6IA8MDhSqyqdnTY8z7LnQHqq16jAqwo7Ll9qALXz4yG1ZdSCmo80VPetBZZPw7WMjo+1hByv/
+ lvdFnLfiQ52tayuuC1r9x2qZ/SYWd2M4p/f5CLmvG9UcnkbYFsKWz8bwOBWKg1PQcaYHLx06sHGdY
+ dIDaeVvkIfMFwAprSo5EFU+aes2VB2ZjugOTbkkW2aPSWTRsBhPHhV6dABEBAAG0HlJpayB2YW4gU
+ mllbCA8cmllbEByZWRoYXQuY29tPokBHwQwAQIACQUCW5LcVgIdIAAKCRDOed6ShMTeg05SB/986o
+ gEgdq4byrtaBQKFg5LWfd8e+h+QzLOg/T8mSS3dJzFXe5JBOfvYg7Bj47xXi9I5sM+I9Lu9+1XVb/
+ r2rGJrU1DwA09TnmyFtK76bgMF0sBEh1ECILYNQTEIemzNFwOWLZZlEhZFRJsZyX+mtEp/WQIygHV
+ WjwuP69VJw+fPQvLOGn4j8W9QXuvhha7u1QJ7mYx4dLGHrZlHdwDsqpvWsW+3rsIqs1BBe5/Itz9o
+ 6y9gLNtQzwmSDioV8KhF85VmYInslhv5tUtMEppfdTLyX4SUKh8ftNIVmH9mXyRCZclSoa6IMd635
+ Jq1Pj2/Lp64tOzSvN5Y9zaiCc5FucXtB9SaWsgdmFuIFJpZWwgPHJpZWxAc3VycmllbC5jb20+iQE
+ +BBMBAgAoBQJSLd2lAhsjBQkSzAMABgsJCAcDAgYVCAIJCgsEFgIDAQIeAQIXgAAKCRDOed6ShMTe
+ g4PpB/0ZivKYFt0LaB22ssWUrBoeNWCP1NY/lkq2QbPhR3agLB7ZXI97PF2z/5QD9Fuy/FD/jddPx
+ KRTvFCtHcEzTOcFjBmf52uqgt3U40H9GM++0IM0yHusd9EzlaWsbp09vsAV2DwdqS69x9RPbvE/Ne
+ fO5subhocH76okcF/aQiQ+oj2j6LJZGBJBVigOHg+4zyzdDgKM+jp0bvDI51KQ4XfxV593OhvkS3z
+ 3FPx0CE7l62WhWrieHyBblqvkTYgJ6dq4bsYpqxxGJOkQ47WpEUx6onH+rImWmPJbSYGhwBzTo0Mm
+ G1Nb1qGPG+mTrSmJjDRxrwf1zjmYqQreWVSFEt26tBpSaWsgdmFuIFJpZWwgPHJpZWxAZmIuY29tP
+ okBPgQTAQIAKAUCW5LbiAIbIwUJEswDAAYLCQgHAwIGFQgCCQoLBBYCAwECHgECF4AACgkQznneko
+ TE3oOUEQgAsrGxjTC1bGtZyuvyQPcXclap11Ogib6rQywGYu6/Mnkbd6hbyY3wpdyQii/cas2S44N
+ cQj8HkGv91JLVE24/Wt0gITPCH3rLVJJDGQxprHTVDs1t1RAbsbp0XTksZPCNWDGYIBo2aHDwErhI
+ omYQ0Xluo1WBtH/UmHgirHvclsou1Ks9jyTxiPyUKRfae7GNOFiX99+ZlB27P3t8CjtSO831Ij0Ip
+ QrfooZ21YVlUKw0Wy6Ll8EyefyrEYSh8KTm8dQj4O7xxvdg865TLeLpho5PwDRF+/mR3qi8CdGbkE
+ c4pYZQO8UDXUN4S+pe0aTeTqlYw8rRHWF9TnvtpcNzZw==
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <87pkymywth.ffs@fw13>
 
-On Wed, Sep 09, 2026 at 10:49:30PM +0200, Thomas Gleixner wrote:
-> On Wed, Sep 09 2026 at 15:28, Alan Stern wrote:
-> > On Wed, Sep 09, 2026 at 04:45:15PM +0200, Frederic Weisbecker wrote:
-> > I can't tell what you're trying to do here.  The UNLOCK-LOCK ordering 
-> > in P0 means that P1 sees A=1 before it sees B=1.  But nothing in this 
-> > litmus test forces P1 to execute READ_ONCE(*b) before READ_ONCE(*A).  If 
-> > the reads are executed in the opposite order, you can see how P1 might 
-> > get r0=1 and r1=0.
-> 
-> The problem we are debating is:
-> 
->     C = VAL1
-> 
->     CPU0                    CPU1		CPU2
->     
->     STORE(A0, 0)
->     STORE(A1, 0)
-> 
->     LOCK(TLOCK)
->     STORE(B, 1) // 0 -> 1
->     UNLOCK(TLOCK)
-> 
->                            LOCK(TLOCK)
->                            b = LOAD(B)
->                            if (b)
->                               STORE(C, VAL0)
-> 
->                                                 c = LOAD(C)
->                                                 LOCK(c->lock)
->                                                   a0 = LOAD(A0)
->                                                   if (!a0)
->                                                      STORE(A0, X1)
->                                                      STORE(A1, X2)
-> 
-> The question is whether CPU2 can observe C == VAL0 and A0 == NULL before
-> A1 has completed.
-> 
-> My and Peter's argument is that the sequence
-> 
->    UNLOCK(TLOCK) on CPU0   -> LOCK(TLOCK) on CPU1
-> 
-> implies RCtso and therefore the stores to A0 and A1 on CPU0 must be
-> before the store to C on CPU1.
-> 
-> Now because the LOAD(C) on CPU2 depends on that STORE(C) the
-> LOCK(c->lock) ensures that LOAD(A0) can't be reordered and because of
-> that STORE(A1, 0) has completed before that.
-> 
-> CPU2 LOAD(C) observing VAL0 has a data dependency on the STORE(C, VAL0)
-> on CPU1, which as argued above can only happen after the UNLOCK/LOCK
-> sequence CPU1 observes the STORE(B).
-> 
-> Subsequently LOCK(c->lock) has a data dependency on LOAD(C) and the LOCK
-> operation prevents that LOAD(A0) can be reordered before LOCK(c->lock).
-> 
-> So despite the fact that c->lock != TLOCK the UNLOCK(TLOCK)/LOCK(TLOCK)
-> sequence, which implies RCtso, the following takes care of it:
-> 
->     1) the data dependency between the STORE(C, VAL0) on CPU1 and the
->        c = LOAD(C) on CPU2 observing VAL0
->    
->     2) the data dependency of LOCK(c->lock) on #1
-> 
->     3) due to LOCK() in #2 LOAD(A0) cannot observe the STORE(A0, 0) on
->        CPU0 without the STORE(A1, 0) on CPU0 has completed.
-> 
-> If #3 can happen then that would obviously cause undebuggable data
-> corruption.
-> 
-> I hope this is understandable enough despite my brain having melted
-> several times by now while writing it up.
+On Wed, 2026-09-09 at 17:51 +0000, Josef Bacik wrote:
+>=20
+> Plain cond_resched() is not enough either. It is a no-op under
+> PREEMPT
+> and PREEMPT_LAZY, the only models arm64 and x86 have offered since
+> commit 7dadeaa6e851 ("sched: Further restrict the preemption modes").
+> It is also never a Tasks RCU quiescent state, in any model: the
+> reschedule counts as a preemption. The walking task stays a holdout
+> and
+> stalls every synchronize_rcu_tasks() caller, ftrace and BPF
+> trampoline
+> teardown included, until the syscall returns [1].
+> cond_resched_tasks_rcu_qs() is the usual tool for that [2]. It
+> reports
+> the quiescent state at each yield and still reschedules as
+> cond_resched() does on PREEMPT_NONE and PREEMPT_VOLUNTARY kernels.
+>=20
+> Fixes: 057996380a42 ("bpf: Add batch ops to all htab bpf map")
+> Cc: "Paul E. McKenney" <paulmck@kernel.org>
+> Cc: Rik van Riel <riel@surriel.com>
+> Link:
+> https://lore.kernel.org/bpf/20260715215314.44423f47@fangorn/=C2=A0[1]
+> Link:
+> https://lore.kernel.org/bpf/9d444098-7c03-4163-af12-bd0a79a51443@paulmck-=
+laptop/
+> =C2=A0[2]
+> Assisted-by: LLM
+> Signed-off-by: Jose Fernandez (Anthropic) <jose.fernandez@linux.dev>
+> Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+>=20
 
-I see.  Yes, your analysis is right.  And Frederic's latest LKML litmus 
-test confirms the result.
+Looks like you got an RCU quiesce in every path that
+loops back.
 
-Alan Stern
+Reviewed-by: Rik van Riel <riel@surriel.com>
+
+--=20
+All Rights Reversed.
