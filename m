@@ -1,196 +1,224 @@
-Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com [136.143.188.11])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f54.google.com (mail-ed1-f54.google.com [209.85.208.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE9F7572693;
-	Wed,  9 Sep 2026 15:48:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6344D33B6D1
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 15:48:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.54
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788968889; cv=pass; b=QDU9G+SBdCW2s6Opnq9l9G/KFKxYhbZEYKXSFzjyJeBtpBkXbn06J94ZbU2fRlMzzhpIoOyIUJSb8VLDFC7PBaBexTJUBQiR0w0NXvSicQssa7RSiPBMG1r9r8IoLD0CAWJAhs4jlKmrmambE5+Ea6NABbmS6SE+Ss0dEkyd5jY=
+	t=1788968909; cv=pass; b=PWTMqhZJ11LCYI8U970csgFXgtonMKJF7YtnvrcHnJ7xUmbKR8y4MRjEkMKYED1B7yVd5wfkmNrkYdgQUa2HOynVBFMLqxKL+ngwAQIZhvzMQOY4NHCDVn1f1ZnaSVgh/eAYhdBCZvj6nw02tyeXaKQSlTIB9ScPt/MlJS+BYxo=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788968889; c=relaxed/simple;
-	bh=1WHu6Hc9Jk1lAvAKxEchkOqNKezm6LoV4VOS1wDm8MQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=N0WA3FDqHyHK316CRTjbQkpUYj7wkxN8tJDiJDNVo/PzwJ4A3Ia7SDD69dWSEZRXssfHSx/2Ls5VEH2jocz9HkGmi93Gnfyh8UhggawX+Un30HTqN85VOjBYC9r+L0BfG2FYAzwyUs45V8N9Gv/1PAihi+P8Bcb7tFmk+Yb+XnA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.b=QK9PzuPu; arc=pass smtp.client-ip=136.143.188.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	s=arc-20240116; t=1788968909; c=relaxed/simple;
+	bh=MTB4vhRYMuyozT5gOapSPVf+DqNctDkF69x23GTF/iA=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=T7FhPHUEez5B5XQnJTtOxNc3uKG9/l68m6F/m7/l4zmHpLO+6a4Wh7pkpaEdTFy6wZazpTGZEP0X+N6/QfykfQ6kIeyJBEASWO7nHD9npVb1kHRerStO++BupUbih4hWG40Y9sYCj22LNNEb4nR3D8CiGjVf5kI99oPZ/PmX0Nk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=nFFiIS4b; arc=pass smtp.client-ip=209.85.208.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.b="QK9PzuPu"
-ARC-Seal: i=1; a=rsa-sha256; t=1788968850; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=LrNzaX7Q840JJMB22boDRMC4XbmiCXA37gNpa578E+fzZjLt4A+nukYAlA9Df2BaLC7CWgUf6+IU8BT9hMO9vRDfjnyo+MpHbnoB9zuaZX+EAxwsVGbr69mI66nXIuPXJXW59o7Ui0tvWRgxyc6sAlneJtqlRKaXBULfpIV7OUQ=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1788968850; h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=pE7m7m2sBB5ewZCKug+UN71/5f27jp3fJnMB4dlTatU=; 
-	b=T3zLm6V/V1CyF92gtMOjqhUnvmbQ87vAAOjSDUGeov26rGLxk1jR9PkMDtqgz8zqCyNd9s4+X/ncqjedqXLVdJEh69MKUib4DNZFsztCRXhl0IgcKoCMSUssdjG+vjOdH3Q29LKW79Q6xcAUwZsx31gVfcz2hZV4Kt3HW2AuIhs=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=sebastian.reichel@collabora.com;
-	dmarc=pass header.from=<sebastian.reichel@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1788968850;
-	s=zohomail; d=collabora.com; i=sebastian.reichel@collabora.com;
-	h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:MIME-Version:Content-Type:In-Reply-To:Message-Id:Reply-To;
-	bh=pE7m7m2sBB5ewZCKug+UN71/5f27jp3fJnMB4dlTatU=;
-	b=QK9PzuPuYguldW4zRPZuX/PxYYe7H5UaLIKA4Myro5mVihkb8oyjDNFtaSfo7bGc
-	+59RM1jk+7fc0gozUFD98ZXHehTgg7k9PdbQ61Ks5qY+OgcSc6EMo9uj99nNfvythuq
-	FICikCNYNnWe6xQ3Mw6nUy/LipiPEdmal8Cku4JU=
-Received: by mx.zohomail.com with SMTPS id 178896884950669.76921172500283;
-	Wed, 9 Sep 2026 08:47:29 -0700 (PDT)
-Received: by venus (Postfix, from userid 1000)
-	id 412E7183377; Wed, 09 Sep 2026 17:47:21 +0200 (CEST)
-Date: Wed, 9 Sep 2026 17:47:21 +0200
-From: Sebastian Reichel <sebastian.reichel@collabora.com>
-To: Arnd Bergmann <arnd@kernel.org>
-Cc: Lee Jones <lee@kernel.org>, mfd@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	Arnd Bergmann <arnd@arndb.de>, Daniel Thompson <danielt@kernel.org>, 
-	Jingoo Han <jingoohan1@gmail.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
-	Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Guenter Roeck <linux@roeck-us.net>, Linus Walleij <linusw@kernel.org>, 
-	Bartosz Golaszewski <brgl@kernel.org>, Jonathan Cameron <jic23@kernel.org>, 
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>, Pavel Machek <pavel@kernel.org>, 
-	Michael Hennerich <michael.hennerich@analog.com>, Support Opensource <support.opensource@diasemi.com>, 
-	Alexandre Belloni <alexandre.belloni@bootlin.com>, Helge Deller <deller@gmx.de>, dri-devel@lists.freedesktop.org, 
-	linux-doc@vger.kernel.org, linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-hwmon@vger.kernel.org, patches@opensource.cirrus.com, linux-watchdog@vger.kernel.org, 
-	linux-gpio@vger.kernel.org, linux-iio@vger.kernel.org, linux-input@vger.kernel.org, 
-	linux-leds@vger.kernel.org, linux-pm@vger.kernel.org, linux-rtc@vger.kernel.org, 
-	linux-fbdev@vger.kernel.org, linux-sound@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, 
-	llvm@lists.linux.dev
-Subject: Re: [PATCH 11/14] mfd: remove unused wm8350 driver
-Message-ID: <aqF_aeDd8oTZaiRR@venus>
-References: <20260909132153.1596191-1-arnd@kernel.org>
- <20260909132153.1596191-12-arnd@kernel.org>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="nFFiIS4b"
+Received: by mail-ed1-f54.google.com with SMTP id 4fb4d7f45d1cf-6a051b737d8so5751441a12.1
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 08:48:27 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788968905; cv=none;
+        d=google.com; s=arc-20260327;
+        b=B2u3zbWj/toG1sn3EIx3wCiRnxaHDmi3PpL4tFRLSp2JCUh88p57/iKAFhYN+b8z5o
+         RoZuW69+VRr1AZ/PcWNCk0R1EdYyx9Zp08Il2+v53EJmMuoY6FT/hT6Ra75S8lgvmLCC
+         aSW888RoGzC0a9RSzre6y5iPUPDUcqpfv0MjIvBiiOFKLBmJXvTRqq1XvqRVJ3XQ5rS3
+         OGhvKnoWT+lSlu5vSRdzXnEZc+IzlEylLjJP1BHKpqU5HcSZ6V7IbyIweOuJ5/P3Egvg
+         IwGwmU2lOO1CmEmeCkAUHHZL1YPXfMU5rFvxXKrmEmNwEKq4GAcDwoBNDM/59O6APHKM
+         n2Rw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=AvEpio6Dr+dAXZtOEeFZQcmLQCRLUtc8KQUOMMbwMyw=;
+        fh=yODPSZcDzScKU85rVZuKHQ8AEFg5KblDGK58wNdGUFo=;
+        b=g7VSTHlUlPNB8Tqf5v5qfpTHniSeZvsuQbQ3DxohHxixxFCOyM8XUQhCiUFjsCdZyp
+         A2wuwV6fA31uQBYhvQ7PfApt5kP8VlW58dVlX4/lkmUYhrf93/tW/t5UoWXbAMfO7UDm
+         43JPQekAPLd1DiHvqlv0wP6cdb3vHppXeBHcmUDI9r189lb1Cn1pf9FVO+1S6I7FI+aM
+         NIOZ7TbISTwhNnb34vP6Pykj1YR6pB0fHw8IyMCnDng63TfaS6qoRZbOU2V7AfPk2CkB
+         QpwtbhzB8qqkmfNYAsnuuXyxQNbxbakaaZXJVqxdA9+N4Mk59+02iErfuVfaNwkyjIYb
+         gRyg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1788968905; x=1789573705; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=AvEpio6Dr+dAXZtOEeFZQcmLQCRLUtc8KQUOMMbwMyw=;
+        b=nFFiIS4bNHIHvPpce9RDUIhW6aOwlwQI4zzqE1gPbF/Shdhw5Nze1VqAhsrjIijUJB
+         q0hFmMG+XMzBpQbOWAU06Lvn1/aP8mpq/HYUHFfy4yIs58M2tM3ctK86kzuzhKLFymih
+         3MDFcJJIFKJCZsHFmHLzLYuZ2P+c7F37dw4ZUpQWCY6Wx1ZQvWPGNB7qG8BKkSpQq9Wb
+         uG2xNJuysNjBjJJffy2KFl8uCNeUHJlF+Jtvj+D6gZdpCbQCecWGf93wbLfHCKcxlSav
+         hkognObi857fhGzV9zq1QkSSk9mozxXCr8ufWOh5sJy5aT5LMx6wpipFknbvxLHqA0mE
+         bpkA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788968905; x=1789573705;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=AvEpio6Dr+dAXZtOEeFZQcmLQCRLUtc8KQUOMMbwMyw=;
+        b=f6nBtGChqP3LMw045kRIvrOZjpIGyKG0P2K15cgQ1xIRESToc0ccBjb+JHNS4asM3f
+         vyDTN0E1Dw/SeMQh2yUktH3tDqXhuwaR3mBbR/D9D6VR0CNrgZSgQwC4tbf96N8lzwfI
+         nJJuwBRNE33sFAhG6O9nXGJXcOq4W0iwKRBcfX8/janS3eItvUyfPTFK0oVzw7Q1BmhO
+         QiRdS5NcJA7ufrAmqCZmx76+fIqN42McCFIUCU55sVd+goHxl5AjP61gj5WmxrPIyycj
+         6jlH+LVgmK4+Nhypnmm1nBm6p6kz5PXyRpfcQ9kkdt6SGlAr4+TYwx+PEYhy2/ezD71U
+         ZPzQ==
+X-Forwarded-Encrypted: i=1; AKwUvBw2p+F6ITdmuMZu4UCMly52dshSxmbd/s14mBjUOkior6UbckNuHjrHnYyqJCZK4nr+z7RUwK05wnJR0QM=@vger.kernel.org
+X-Gm-Message-State: AFuF++la8CbL942cLY2/+NeN+1h9HmOJ+Ab8VPsHeuIxbirNZoLEUEcE
+	gSkmR4FQYYa2g+CavqcElerIlC5e3gCvQdf02wQhNsXE7iMMiK6ATkGsZF1ZX9wn27BN5oi3gwJ
+	mx0qMBwJpSfccwagKHU+8mpdfAqlykGb809cUeCEzKg==
+X-Gm-Gg: AYBFou2cJBwWwAhxld/pSzPdQAS+805XFTZfu2Aw3IwYu2sefL0CAnYJZ/QPjTa6U/B
+	4dY68QdxMFBS1mdrAIRFIGJEC1BnaN5po5VWjsgko3D3XXESBLfgENaMZNL0oyBpBv84wVvIST9
+	SW1wL60X0Uf5V7/fZjUbVOLJVsu9Lbs+baYjlUq3xmUSxKaI9JtwXFlmF+SVvSbNd6M5fC2N/lv
+	LgrJrN2dm2ttw5puO8Srlmbu7vta12G1wYuf+FTvw4p2LZWZCSWo6Wn5xaOCPrcB0ZkqHKPIyvT
+	NK7Dm/+06gRyFxpkJK7qduLZdLuvtAyhy1oT8skqICnED2O1mMyTMNgMHZ7Qn93ZPrtx1As7Eph
+	9zrlfgqNCpzwFBw==
+X-Received: by 2002:a05:6402:44cf:b0:6a7:ee54:f89d with SMTP id
+ 4fb4d7f45d1cf-6a7ee55004fmr9427767a12.33.1788968905485; Wed, 09 Sep 2026
+ 08:48:25 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="6jecggrki5ootgjo"
-Content-Disposition: inline
-In-Reply-To: <20260909132153.1596191-12-arnd@kernel.org>
-X-Zoho-Virus-Status: 1
-X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/288.959.6
-X-ZohoMailClient: External
+References: <20260904195634.2275867-1-afd@ti.com> <20260904195634.2275867-2-afd@ti.com>
+In-Reply-To: <20260904195634.2275867-2-afd@ti.com>
+From: Mathieu Poirier <mathieu.poirier@linaro.org>
+Date: Wed, 9 Sep 2026 09:48:13 -0600
+X-Gm-Features: AcwNN1XiyR7C76z1k0S5Yc-Wztfvzi4hQj7vmn2oE92ATkhGg1_zT0hJ4Av7cGY
+Message-ID: <CANLsYkxzv53oxQ8NDaNM==u3xE0e9u1_BUUFCbNS+Xfcy9Yupg@mail.gmail.com>
+Subject: Re: [PATCH 2/3] remoteproc: k3-dsp: Fix usage of omap_mbox_message
+ and mbox_msg_t
+To: Andrew Davis <afd@ti.com>
+Cc: Bjorn Andersson <andersson@kernel.org>, linux-remoteproc@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-
---6jecggrki5ootgjo
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH 11/14] mfd: remove unused wm8350 driver
-MIME-Version: 1.0
-
-Hi,
-
-On Wed, Sep 09, 2026 at 03:21:48PM +0200, Arnd Bergmann wrote:
-> From: Arnd Bergmann <arnd@arndb.de>
->=20
-> This driver was used on the i.MX31 ADS reference board from Freescale
-> and the smdk6410 reference board from Samsung. Both used platform_data
-> based driver probing and are now gone from the kernel.
->=20
-> Since probing with devicetree has never been supported by wm8350,
-> it is clear that nothing can use the driver on an upstream kernel,
-> and it is unlikely that anyone is still interested in a devicetree
-> conversion, so remove it.
->=20
-> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+On Fri, 4 Sept 2026 at 13:56, Andrew Davis <afd@ti.com> wrote:
+>
+> The type of message sent using omap-mailbox is always u32. The definition
+> of mbox_msg_t is uintptr_t which is wrong as that type changes based on
+> the architecture (32bit vs 64bit). Make the type fixed to u32.
+>
+> This then means we need to fix the helper macro omap_mbox_message so it
+> doesn't cast to u32 twice. What this macro should be doing is converting
+> from the message type returned from the mailbox framework into the
+> omap-mailbox type. When fixing this we should add a macro for the other
+> direction (from omap-mailbox type to something that can be used with
+> mbox_send_message).
+>
+> After these changes, make use of the new macros as appropriate.
+>
+> Signed-off-by: Andrew Davis <afd@ti.com>
 > ---
->  Documentation/hwmon/index.rst                 |    1 -
->  Documentation/hwmon/wm8350.rst                |   30 -
->  .../watchdog/watchdog-parameters.rst          |    7 -
->  MAINTAINERS                                   |    1 -
->  drivers/gpio/Kconfig                          |    7 -
->  drivers/gpio/Makefile                         |    1 -
->  drivers/gpio/gpio-wm8350.c                    |  144 --
->  drivers/hwmon/Kconfig                         |   10 -
->  drivers/hwmon/Makefile                        |    1 -
->  drivers/hwmon/wm8350-hwmon.c                  |   92 -
->  drivers/leds/Kconfig                          |    8 -
->  drivers/leds/Makefile                         |    1 -
->  drivers/leds/leds-wm8350.c                    |  267 ---
->  drivers/mfd/Kconfig                           |   15 -
->  drivers/mfd/Makefile                          |    4 -
->  drivers/mfd/wm8350-core.c                     |  444 -----
->  drivers/mfd/wm8350-gpio.c                     |  217 ---
->  drivers/mfd/wm8350-i2c.c                      |   64 -
->  drivers/mfd/wm8350-irq.c                      |  542 ------
->  drivers/mfd/wm8350-regmap.c                   |  335 ----
->  drivers/power/supply/Kconfig                  |    7 -
->  drivers/power/supply/Makefile                 |    1 -
->  drivers/power/supply/wm8350_power.c           |  590 ------
->  drivers/regulator/Kconfig                     |    7 -
->  drivers/regulator/Makefile                    |    1 -
->  drivers/regulator/wm8350-regulator.c          | 1330 -------------
->  drivers/rtc/Kconfig                           |   10 -
->  drivers/rtc/Makefile                          |    1 -
->  drivers/rtc/rtc-wm8350.c                      |  474 -----
->  drivers/watchdog/Kconfig                      |    8 -
->  drivers/watchdog/Makefile                     |    1 -
->  drivers/watchdog/wm8350_wdt.c                 |  171 --
->  include/linux/mfd/wm8350/audio.h              |  620 -------
->  include/linux/mfd/wm8350/comparator.h         |  171 --
->  include/linux/mfd/wm8350/core.h               |  692 -------
->  include/linux/mfd/wm8350/gpio.h               |  356 ----
->  include/linux/mfd/wm8350/pmic.h               |  775 --------
->  include/linux/mfd/wm8350/rtc.h                |  265 ---
->  include/linux/mfd/wm8350/supply.h             |  129 --
->  include/linux/mfd/wm8350/wdt.h                |   24 -
->  sound/soc/codecs/Kconfig                      |    5 -
->  sound/soc/codecs/Makefile                     |    2 -
->  sound/soc/codecs/wm8350.c                     | 1638 -----------------
->  sound/soc/codecs/wm8350.h                     |   25 -
->  44 files changed, 9494 deletions(-)
->  delete mode 100644 Documentation/hwmon/wm8350.rst
->  delete mode 100644 drivers/gpio/gpio-wm8350.c
->  delete mode 100644 drivers/hwmon/wm8350-hwmon.c
->  delete mode 100644 drivers/leds/leds-wm8350.c
->  delete mode 100644 drivers/mfd/wm8350-core.c
->  delete mode 100644 drivers/mfd/wm8350-gpio.c
->  delete mode 100644 drivers/mfd/wm8350-i2c.c
->  delete mode 100644 drivers/mfd/wm8350-irq.c
->  delete mode 100644 drivers/mfd/wm8350-regmap.c
->  delete mode 100644 drivers/power/supply/wm8350_power.c
->  delete mode 100644 drivers/regulator/wm8350-regulator.c
->  delete mode 100644 drivers/rtc/rtc-wm8350.c
->  delete mode 100644 drivers/watchdog/wm8350_wdt.c
->  delete mode 100644 include/linux/mfd/wm8350/audio.h
->  delete mode 100644 include/linux/mfd/wm8350/comparator.h
->  delete mode 100644 include/linux/mfd/wm8350/core.h
->  delete mode 100644 include/linux/mfd/wm8350/gpio.h
->  delete mode 100644 include/linux/mfd/wm8350/pmic.h
->  delete mode 100644 include/linux/mfd/wm8350/rtc.h
->  delete mode 100644 include/linux/mfd/wm8350/supply.h
->  delete mode 100644 include/linux/mfd/wm8350/wdt.h
->  delete mode 100644 sound/soc/codecs/wm8350.c
->  delete mode 100644 sound/soc/codecs/wm8350.h
+>  drivers/remoteproc/omap_remoteproc.c | 10 +++++-----
+>  drivers/remoteproc/ti_k3_common.c    | 10 ++--------
+>  include/linux/omap-mailbox.h         |  5 +++--
+>  3 files changed, 10 insertions(+), 15 deletions(-)
+>
+> diff --git a/drivers/remoteproc/omap_remoteproc.c b/drivers/remoteproc/omap_remoteproc.c
+> index 6ed0f28edac9c..efff95b8e363f 100644
+> --- a/drivers/remoteproc/omap_remoteproc.c
+> +++ b/drivers/remoteproc/omap_remoteproc.c
+> @@ -499,7 +499,7 @@ static void omap_rproc_mbox_callback(struct mbox_client *client, void *data)
+>                                                 client);
+>         struct device *dev = oproc->rproc->dev.parent;
+>         const char *name = oproc->rproc->name;
+> -       u32 msg = (u32)data;
+> +       mbox_msg_t msg = omap_mbox_from_message(data);
+>
 
-Acked-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+This patch looks familiar - was it submitted before but not merged?
 
--- Sebastian
+I'm fine with this set but would like an RB/TB from someone else at TI
+(for all 3 patches).
 
---6jecggrki5ootgjo
-Content-Type: application/pgp-signature; name="signature.asc"
+Thanks,
+Mathieu
 
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAmqhf4gACgkQ2O7X88g7
-+prKqQ/+PXcHDDMXmArFWKzxhSxHAA3VwPIx07accUNhGecv9r7U8GAjiSQlBv5d
-gojcqTyZ5UKCZQ/g6DCGOzwb9lsRDx5njdMXtyZJUq2Z68YBxbCiKa8iGezkGRAp
-e/rO3HJlQdPs8dvggypfYz+HN/YpOMf/hF9JmgvQI4KR1TYt3RLXavSVQBsb/TMk
-7faKB1EKAYYbJQi+b5fc/iSfNIqxl/Rf+g8VEQtxjSmDafmeLGNJhgS+Amd/CF6i
-nKYmkKALE2Xq6riwBqtqbCazqplJsGsSxWK1qmhfDZs53Ws0+VgYi5N86Qard8Oy
-V8+cITjYwZlOVoRIwSs1roLjdGZFn87iPLEmTmGgBcXtjNMPh5uj4x2+vvhVwW+Y
-0K+Gx3s85iJURMTCZUYqPCI+3fhsU4KQ13g4nf3DAiab3GCtlS8FfH1P+RGHJU5n
-4SAZgJ+DIk7nS4CEYeq3EZJacM7/IAMAdjE/IOSkfmY7ZPui71QXNASTru/d0K23
-5HdYwbYghK1kj2Lb33geTv+TP5LXDsmvvWGDnMTlf5mna6YUdyAvMtgEtF0VDtUV
-CUWngQHAxaSKC2DRfTeqP6/vjUww9bj6oDpUicbnz8BrEags3kzaJWKtFqGUs7M9
-n0wbYmjflYmAe/mK+1CsH7p2TuMiqpvc9pc06lXO/85PySPEqNI=
-=bCBv
------END PGP SIGNATURE-----
-
---6jecggrki5ootgjo--
+>         dev_dbg(dev, "mbox msg: 0x%x\n", msg);
+>
+> @@ -550,7 +550,7 @@ static void omap_rproc_kick(struct rproc *rproc, int vqid)
+>         }
+>
+>         /* send the index of the triggered virtqueue in the mailbox payload */
+> -       ret = mbox_send_message(oproc->mbox, (void *)vqid);
+> +       ret = mbox_send_message(oproc->mbox, omap_mbox_to_message(vqid));
+>         if (ret < 0)
+>                 dev_err(dev, "failed to send mailbox message, status = %d\n",
+>                         ret);
+> @@ -628,7 +628,7 @@ static int omap_rproc_start(struct rproc *rproc)
+>          * Note that the reply will _not_ arrive immediately: this message
+>          * will wait in the mailbox fifo until the remote processor is booted.
+>          */
+> -       ret = mbox_send_message(oproc->mbox, (void *)RP_MBOX_ECHO_REQUEST);
+> +       ret = mbox_send_message(oproc->mbox, omap_mbox_to_message(RP_MBOX_ECHO_REQUEST));
+>         if (ret < 0) {
+>                 dev_err(dev, "mbox_send_message failed: %d\n", ret);
+>                 goto put_mbox;
+> @@ -777,13 +777,13 @@ static int _omap_rproc_suspend(struct rproc *rproc, bool auto_suspend)
+>         struct omap_rproc *oproc = rproc->priv;
+>         unsigned long to = msecs_to_jiffies(DEF_SUSPEND_TIMEOUT);
+>         unsigned long ta = jiffies + to;
+> -       u32 suspend_msg = auto_suspend ?
+> +       mbox_msg_t suspend_msg = auto_suspend ?
+>                                 RP_MBOX_SUSPEND_AUTO : RP_MBOX_SUSPEND_SYSTEM;
+>         int ret;
+>
+>         reinit_completion(&oproc->pm_comp);
+>         oproc->suspend_acked = false;
+> -       ret = mbox_send_message(oproc->mbox, (void *)suspend_msg);
+> +       ret = mbox_send_message(oproc->mbox, omap_mbox_to_message(suspend_msg));
+>         if (ret < 0) {
+>                 dev_err(dev, "PM mbox_send_message failed: %d\n", ret);
+>                 return ret;
+> diff --git a/drivers/remoteproc/ti_k3_common.c b/drivers/remoteproc/ti_k3_common.c
+> index 3cb8ae5d72f67..4b6da3363f6c2 100644
+> --- a/drivers/remoteproc/ti_k3_common.c
+> +++ b/drivers/remoteproc/ti_k3_common.c
+> @@ -54,7 +54,7 @@ void k3_rproc_mbox_callback(struct mbox_client *client, void *data)
+>         struct k3_rproc *kproc = container_of(client, struct k3_rproc, client);
+>         struct device *dev = kproc->rproc->dev.parent;
+>         struct rproc *rproc = kproc->rproc;
+> -       u32 msg = (u32)(uintptr_t)(data);
+> +       mbox_msg_t msg = omap_mbox_from_message(data);
+>
+>         dev_dbg(dev, "mbox msg: 0x%x\n", msg);
+>
+> @@ -94,15 +94,9 @@ void k3_rproc_kick(struct rproc *rproc, int vqid)
+>  {
+>         struct k3_rproc *kproc = rproc->priv;
+>         struct device *dev = kproc->dev;
+> -       u32 msg = (u32)vqid;
+>         int ret;
+>
+> -       /*
+> -        * Send the index of the triggered virtqueue in the mailbox payload.
+> -        * NOTE: msg is cast to uintptr_t to prevent compiler warnings when
+> -        * void* is 64bit. It is safely cast back to u32 in the mailbox driver.
+> -        */
+> -       ret = mbox_send_message(kproc->mbox, (void *)(uintptr_t)msg);
+> +       ret = mbox_send_message(kproc->mbox, omap_mbox_to_message(vqid));
+>         if (ret < 0)
+>                 dev_err(dev, "failed to send mailbox message, status = %d\n",
+>                         ret);
+> diff --git a/include/linux/omap-mailbox.h b/include/linux/omap-mailbox.h
+> index 3cc5c4ed7f5a6..e45f8c3841c23 100644
+> --- a/include/linux/omap-mailbox.h
+> +++ b/include/linux/omap-mailbox.h
+> @@ -6,8 +6,9 @@
+>  #ifndef OMAP_MAILBOX_H
+>  #define OMAP_MAILBOX_H
+>
+> -typedef uintptr_t mbox_msg_t;
+> +typedef u32 mbox_msg_t;
+>
+> -#define omap_mbox_message(data) (u32)(mbox_msg_t)(data)
+> +#define omap_mbox_to_message(data) ((void *)(uintptr_t)(data))
+> +#define omap_mbox_from_message(data) ((mbox_msg_t)(uintptr_t)(data))
+>
+>  #endif /* OMAP_MAILBOX_H */
+> --
+> 2.39.2
+>
