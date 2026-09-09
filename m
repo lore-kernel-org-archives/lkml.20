@@ -1,57 +1,57 @@
-Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
+Received: from mail-pf1-f199.google.com (mail-pf1-f199.google.com [209.85.210.199])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0B0D30D3E5
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 04:24:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.198
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4EDA27AC57
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 04:24:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788927882; cv=none; b=ESoFclEbryor9d1I/SgQNJgcmoRE1GtenwZut7tvoanBr4Zy5uGwROpiqVC6nRqIolKC2Y4PWpn+cd3HGmk+CWyvY4WXn5wzDlraKthWTN+Y5tsdsldA/L2zlvrU7cOgpyOe32pBk3Ue2J4QJHz4GrSRQWlz2/vzC1MGnTdhRjY=
+	t=1788927886; cv=none; b=fevQZ9rCaOy7sVAHHCo0n8XwHD/ltBxpzQlVxOngfxvLFPGHkBge/E4BtU3EmjYzgFxXaw+UUq5hPC5U9WfvmH/QfYkCD/sMLB6daVHxoYDzJJwaxjdTnGWKW0WCeIZZnF0U4pnS5hb3zLIBIdaF72RZHE7vC5kbbHLVRJZPK+Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788927882; c=relaxed/simple;
-	bh=dZzvZvrldOHqYJkY1Z3xYueWymErA7+Y5x+W1FlWSDU=;
+	s=arc-20240116; t=1788927886; c=relaxed/simple;
+	bh=K4EJnp/OtkGUkU5fqwk5wI56dSk02gYF3Hq0gumu0NI=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=dHyWXf0/0gGCeQIKyAjvV6LQ49RLtzzaAwvmrBAvr5OcVNVSFAQDfZqA9ElbnYzMgLvrlzNMo89LbJ6mZYVChiyqYcQruaZWJNkgViwtIyK0TSXPkIy5YQ9PIwVvw9GfJTuaNitQCcJGxtbt2StNs8xFqtKmReeJTN46M10sutU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--tweek.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Oq4VlbIz; arc=none smtp.client-ip=209.85.214.198
+	 To:Cc:Content-Type; b=gGep84rJuEhMJNfbdSCswFagMICRd4j0VUhBLwPwoXS245LmgPOXv2tQwGeP9h1xr45OB9d8eZC7V2oq7EDhe57rYpn0WTW7vmxb7BKq9u0tx9OSI0khRFwAUeu8jJQIg1uowlk6wQ0JGsE3ZAtA4pDkYeLAkMHUcvkmmTLyJ4A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--tweek.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=tB9dn3di; arc=none smtp.client-ip=209.85.210.199
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--tweek.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Oq4VlbIz"
-Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2cee1ec30f2so64487725ad.3
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 21:24:40 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="tB9dn3di"
+Received: by mail-pf1-f199.google.com with SMTP id d2e1a72fcca58-848568a6f62so5630289b3a.0
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 21:24:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788927880; x=1789532680; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1788927884; x=1789532684; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:from:subject
          :message-id:references:mime-version:in-reply-to:date:from:to:cc
          :subject:date:message-id:reply-to:content-type;
-        bh=KnhJI+rKKo0KB69PekMjbT0jUwVFPsoq1/xJBf+QKyA=;
-        b=Oq4VlbIz3hxmjDHHLArxQCQwVjx34V2hErP/KprO6373MGmkxUQPF+rWrArwQxJkba
-         gp+xy0oN1If6eaS2cnEZpbmYD7hdAxaBopf+qV5f7E90ldYxg/MBMDuDPzUpHnNxlEGS
-         DJNKFzzTOwTM/tvG4AGJt5Dcoc/3Wb85jnIFWOU+GFaVOLpAw/tpAzY0fRs7lA3miw9y
-         44Vut9CmRo4tlg6ZcfrDkBfaIQoZhnMzMPskSHg1h9S3JhJZmy9FFPiOOm04YpAplyVw
-         zO6BHcJJiFy7jOyPB98PQ8KFwzIYhCQ11bg3qKn4M1sUfnkeFbjAZncWShilqfqadeD3
-         Wb/Q==
+        bh=2OX+nWAyzcuztkMjIO1ryU+hNrymKwlyjS5f829o1nw=;
+        b=tB9dn3diQYnCkl0J/pgNLuil2rdKXixH5idnp35CC0mgsqtMpx3gGRM8M6NdM0CyvJ
+         dD1Dah3Zfu9GFrG5142oEP8glVhly0nSaikB/cAzSQWFatoOtGYZF3uiqKsqMWhPC3rM
+         rwfKI+9xe+QsJaETT5V+Cb/wmDudx5g9aINrJnkLLlirIbAWTAUL5ajecmO3pb6J3l9r
+         sdg1ppswFnCmrwRZ+4JuZbKs3yf6AidClcfQNHBjGk1FkxjnQjMpq7ru5nV1Te04ErVR
+         795+9m/O8rfJLRqsVXomEH4iiMH8NbIqALM28F5xhzqg673yp+i8+d3jycD9DmfcKQVm
+         rLtQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788927880; x=1789532680;
+        d=1e100.net; s=20251104; t=1788927884; x=1789532684;
         h=content-transfer-encoding:content-type:cc:to:from:subject
          :message-id:references:mime-version:in-reply-to:date
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=KnhJI+rKKo0KB69PekMjbT0jUwVFPsoq1/xJBf+QKyA=;
-        b=ZaRoZBVxEPG6K6Q36YeCPUGE8b13rkHXxJp8q7jgRxNzCou3S7yE/Cfyj5BJ/b1818
-         aj+V7IrUqVFwVmAT3vnHeuTKPlCdTr9gznsilPR7wFwPltjltB05AGvkGJNx8yarD/Wp
-         QzS/AEj5ZH7Q+oJBDaRw0pTE8DXH6twvN4VlNwKtAdv7FkPJZrMEqGN51H+IrcQgRYvw
-         X83SqMscIK3k84wxYlQRr+Y+yutuZAXaQlBOiZRO0pA0IL+NYF/M5MH8jTlzStCZQAsA
-         h22hBWqi4/lKvlqlSu8t1mqNU6GA8UdI9nBqjyztyKIR+iy4MmV2JS2kSI+YL+X1/0yF
-         zrUw==
-X-Forwarded-Encrypted: i=1; AKwUvBz2nP8pOx/u0AMUEDpn6AL45Htp8nSoMtz1drSxW8Pit3zvA9jFf8ElWyAPCOajnC7lqkCmgZ8QEsoKF5Y=@vger.kernel.org
-X-Gm-Message-State: AFuF++m60H3av1h9yVEM0wAEEcYL0mslv/fCLltQkK7baOPjg+20MJHQ
-	6oDvPeYSVPdKXSIe+V7O0UQ5MYRSQspX/Oy9W1+DvwIkBcVDUyYowbWx6BMrGD+mz84LmYBLFDv
-	wDA==
-X-Received: from plme14.prod.google.com ([2002:a17:903:490e:b0:2db:5eae:a078])
- (user=tweek job=prod-delivery.src-stubby-dispatcher) by 2002:a17:903:289:b0:2da:e67a:87d4
- with SMTP id d9443c01a7336-2db1268128dmr488919855ad.19.1788927879966; Tue, 08
- Sep 2026 21:24:39 -0700 (PDT)
-Date: Wed,  9 Sep 2026 14:24:32 +1000
+        bh=2OX+nWAyzcuztkMjIO1ryU+hNrymKwlyjS5f829o1nw=;
+        b=MptO7k4sCZHlhmZADUMEApnrpTpCf/NBxb3BVdeEapXIhAc/PHQPo8F00vrW+4JCjn
+         kEyTBnzPXI+va5TJu1JM7NHhZkXuF+ed9FRMRlvVXwNGM60z0kv381ZQecqk7/5aFhG+
+         zA4yvF/jHg3Mhp9ReYw3xMwO1oC3NpTM0BHAKYVamaJ6d8wKd8PVjGBiuPPrAyJLvIUI
+         N38WEALI+4t8uFQj8jAg9NzjfxN6HYt4NnsdTS1mhh1/2OyHDvMxoto/AqDPpRB+GerW
+         xSt187EAt1hXpOKSSNOSH9TaTlxhM3q/JTFn/Fbnva8WtuBbUFfYcWL3zhzg1LeE+8mL
+         IiHA==
+X-Forwarded-Encrypted: i=1; AKwUvBzPcAXP3gN97p1nZo+3C18pBLrwuIbmc2qS7yfxZCaBcHJoZcMmKr+cNOn3JNyEHvpeYArCDw+FZmtDDDE=@vger.kernel.org
+X-Gm-Message-State: AFuF++lGoqTT2WcItEJ3hPtcZb/Xv93uT8nqVLC5j0J5WDMqPFjpJ1g7
+	zvH+pWST/FU5v8Ag5GP8D01q21j+YF1b/KopO2xW0PPjTu2VemCUKFeQHYAmSm/Knt9rUVE7MYS
+	3Pg==
+X-Received: from pfbgh5.prod.google.com ([2002:a05:6a00:6385:b0:84e:a25:1e6b])
+ (user=tweek job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a00:2187:b0:845:e440:d0ca
+ with SMTP id d2e1a72fcca58-86166ac231bmr43259395b3a.8.1788927883755; Tue, 08
+ Sep 2026 21:24:43 -0700 (PDT)
+Date: Wed,  9 Sep 2026 14:24:33 +1000
 In-Reply-To: <20260909042433.1775591-1-tweek@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -61,9 +61,9 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 References: <20260909042433.1775591-1-tweek@google.com>
 X-Mailer: git-send-email 2.55.0.979.g7e5102b832-goog
-Message-ID: <20260909042433.1775591-2-tweek@google.com>
-Subject: [PATCH bpf-next v2 2/3] bpftool: Compute light skeleton ctx.sz
- without relying on links
+Message-ID: <20260909042433.1775591-3-tweek@google.com>
+Subject: [PATCH bpf-next v2 3/3] selftests/bpf: Verify program FD after
+ non-autoload programs in lskel
 From: "=?UTF-8?q?Thi=C3=A9baud=20Weksteen?=" <tweek@google.com>
 To: Quentin Monnet <qmo@kernel.org>, Alexei Starovoitov <ast@kernel.org>, 
 	Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>, 
@@ -77,69 +77,35 @@ Cc: Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>,
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-When generating a light skeleton, gen_trace() unconditionally sets
-skel->ctx.sz using (char *)&skel->links - (char *)skel. However, if a
-BPF object has no programs and no struct_ops maps (prog_cnt +
-attach_map_cnt =3D=3D 0), do_skeleton() omits the links struct, causing the
-generated skeleton header to fail compilation.
+In test_global_percpu_data.c, dump_percpu_data is defined after two
+non-autoload SEC("?kprobe") programs (verifier_strncmp and
+verifier_snprintf). Verify in test_global_percpu_data_lskel() that
+lskel->progs.dump_percpu_data.prog_fd is properly populated (> 0) when
+loaded via the light skeleton.
 
-Compute skel->ctx.sz from the end of progs (if prog_cnt > 0), maps (if
-map_cnt > 0), or ctx instead of relying on skel->links. Also remove the
-unused opts.data_sz argument passed to codegen().
-
-Fixes: d510296d331a ("bpftool: Use syscall/loader program in "prog load" an=
-d "gen skeleton" command.")
 Signed-off-by: Thi=C3=A9baud Weksteen <tweek@google.com>
 ---
- tools/bpf/bpftool/gen.c | 15 +++++++++++----
- 1 file changed, 11 insertions(+), 4 deletions(-)
+No changes since v1.
 
-diff --git a/tools/bpf/bpftool/gen.c b/tools/bpf/bpftool/gen.c
-index e9a1a018f270..4a93c392857a 100644
---- a/tools/bpf/bpftool/gen.c
-+++ b/tools/bpf/bpftool/gen.c
-@@ -711,7 +711,7 @@ static void codegen_destroy(struct bpf_object *obj, con=
-st char *obj_name)
- }
-=20
- static int gen_trace(struct bpf_object *obj, const char *obj_name, const c=
-har *header_guard,
--		     const struct gen_loader_opts *opts)
-+		     const struct gen_loader_opts *opts, size_t prog_cnt, size_t map_cnt=
+ tools/testing/selftests/bpf/prog_tests/global_data_init.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/tools/testing/selftests/bpf/prog_tests/global_data_init.c b/to=
+ols/testing/selftests/bpf/prog_tests/global_data_init.c
+index 7c539cbcf3a1..ebda60200b71 100644
+--- a/tools/testing/selftests/bpf/prog_tests/global_data_init.c
++++ b/tools/testing/selftests/bpf/prog_tests/global_data_init.c
+@@ -214,6 +214,8 @@ static void test_global_percpu_data_lskel(void)
+ 	lskel =3D test_global_percpu_data_lskel__open_and_load();
+ 	if (!ASSERT_OK_PTR(lskel, "test_global_percpu_data_lskel__open_and_load")=
 )
- {
- 	struct bpf_load_and_run_opts sopts =3D {};
- 	char sig_buf[MAX_SIG_SIZE];
-@@ -746,9 +746,16 @@ static int gen_trace(struct bpf_object *obj, const cha=
-r *obj_name, const char *h
- 			skel =3D (struct %1$s *)skel_alloc(sizeof(*skel));    \n\
- 			if (!skel)					    \n\
- 				goto cleanup;				    \n\
--			skel->ctx.sz =3D (char *)&skel->links - (char *)skel; \n\
- 		",
--		obj_name, opts->data_sz);
-+		obj_name);
-+	if (prog_cnt)
-+		printf("\tskel->ctx.sz =3D (char *)&skel->progs - (char *)skel\n"
-+		       "\t\t       + sizeof(skel->progs);\n");
-+	else if (map_cnt)
-+		printf("\tskel->ctx.sz =3D (char *)&skel->maps - (char *)skel\n"
-+		       "\t\t       + sizeof(skel->maps);\n");
-+	else
-+		printf("\tskel->ctx.sz =3D sizeof(skel->ctx);\n");
- 	bpf_object__for_each_map(map, obj) {
- 		const void *mmap_data =3D NULL;
- 		size_t mmap_size =3D 0;
-@@ -1469,7 +1476,7 @@ static int do_skeleton(int argc, char **argv)
- 			goto out;
- 	}
- 	if (use_loader) {
--		err =3D gen_trace(obj, obj_name, header_guard, &gen_opts);
-+		err =3D gen_trace(obj, obj_name, header_guard, &gen_opts, prog_cnt, map_=
-cnt);
  		goto out;
- 	}
++	if (!ASSERT_GT(lskel->progs.dump_percpu_data.prog_fd, 0, "dump_percpu_dat=
+a.prog_fd"))
++		goto out;
 =20
+ 	map_fd =3D lskel->maps.percpu.map_fd;
+ 	prog_fd =3D lskel->progs.update_percpu_data.prog_fd;
 --=20
 2.55.0.979.g7e5102b832-goog
 
