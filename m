@@ -1,114 +1,120 @@
-Received: from canpmsgout06.his.huawei.com (canpmsgout06.his.huawei.com [113.46.200.221])
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7748470115;
-	Wed,  9 Sep 2026 08:37:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.221
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA3DF492E35
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 08:37:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788943060; cv=none; b=JzOdgUB3m2Tr81vEBh/K884w5Ml6IY90458ynPqneiDd2k6z61p+GR4nYjHmR2ia2gIvx1Y8+yOPZXBXhwTy2X96TLGEIdaBx+ux3QAh4WdmeZYVQ9N0BLrTcDrwxwTGdtDu11Edscr/1yKpXwsDQOHy/f5pWrpe3asA4Ye46hg=
+	t=1788943078; cv=none; b=c/b2OO2hM3wHZLXrhR120rMMG4Pj8Siz732NdV/K+drp6vfiYCvaaHgdok13HAp86MpgZtx+UAnHZn7M8CNdpS/5qv+Z/JKxkxPhEH/IBJgSaBEVuDY60/Q7F0s6EfIQ1q7zrwle5U/LJ0pcnWUx9TEbL/zpLmBgvp1fRstBfX4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788943060; c=relaxed/simple;
-	bh=5Khv5cvFHTYed7owHSHPM50HghIbRqn856W0Ep0FFSM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=hC/0od5pFsL8CqIwyrkEjOlVAd2s1RTa88inZr8FIK4Gn97Qb4DGimrsPqooN3xasmkBH2M3SYAXKI7P9BvUqy4ShYlRlgKSWxIsiUbZsB1jjdOTd9Vl0+caOV0EOwUiWVnAoRzCLm7h0ltVRgJDRGH7W7FiJYBN59hWe2Pa1/Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=ar1f3E10; arc=none smtp.client-ip=113.46.200.221
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	s=arc-20240116; t=1788943078; c=relaxed/simple;
+	bh=RTgyWuos+dlVWJsUkc2mLL6FHdJvohZdmtiGA1cqGRc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ZXavpuILcnD0MH61Ah7eHjciIjSILvEnIB5BEWtNQEddfqgfQSSyhF/flH0IAFKuAsuFprpKKsNQBRsFizRqC1OiFny5T+kmz7u8+15CrTfNbV73KY3Cy3elQ6w+IU2ZQSPvkPdpDayx77508AJV3aNXyvdYMLBI9/VjmURe0/Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=jlWDGNrx; arc=none smtp.client-ip=90.155.50.34
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="ar1f3E10"
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=1pfvM1MtV/hEUXdiJQuW5WMua3sDTwevcTlKJNlMLb8=;
-	b=ar1f3E10IzlZjI03rCT4/ytOZSrsk/JVr3e/EeTYS4rKxSwybt7QHeSGTf/+w8+Qo+3fsasjS
-	9ycP+GmlILKqSLdR63PKtNwqDIhf4FFu0xxqJHUq52K/8Y+g56g7Xn2C6Mgsy6myaluQi4wL2SF
-	7VcHFp88IzuV5nowyC3dE+c=
-Received: from mail.maildlp.com (unknown [172.19.163.0])
-	by canpmsgout06.his.huawei.com (SkyGuard) with ESMTPS id 4hfv6P5sh0zRhQs;
-	Wed,  9 Sep 2026 16:26:37 +0800 (CST)
-Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
-	by mail.maildlp.com (Postfix) with ESMTPS id D1BD140561;
-	Wed,  9 Sep 2026 16:37:29 +0800 (CST)
-Received: from [10.67.109.254] (10.67.109.254) by
- kwepemk200008.china.huawei.com (7.202.194.74) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Wed, 9 Sep 2026 16:37:28 +0800
-Message-ID: <07d77598-bc02-4c73-824b-6d320d158c6b@huawei.com>
-Date: Wed, 9 Sep 2026 16:37:19 +0800
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="jlWDGNrx"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=EwztdronqOJwt5dYWo45Y3H6fqnP8z7dPMjrAMHItcA=; b=jlWDGNrx4bEXETcSNFgThbOltk
+	1CcLgMMOk+hpsT8EkTXGV2//RxydiDaH4BsoQ0Ra0UKyoO0/tQxxVSSOvck3bvTIlgw2J5npka83K
+	r44DYqeps63OO5xHSKUZiLuTsy7TkyjtrBU9BVnHfuA+WLRdYwc/bIhG26bb3GYqotsZDacTqT2cH
+	unkQEDnxvaQ2FdYFtggETa1y4jjo4W60DYXNNkeDNQZVPsOaGXCkwx4rr04XeDXRhQBBicrXgi5w9
+	sB4aE73hFwK5yYKLLENyMZih25MVwQlOsRFzwXcR8DMqiS9Zhu1ywZc4fw5Z7CzWpHqO2NVbHkSvf
+	wqhRwNmA==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1x4DoG-00000002yR5-1Eo6;
+	Wed, 09 Sep 2026 08:37:36 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id 652033005AF; Wed, 09 Sep 2026 10:37:35 +0200 (CEST)
+Date: Wed, 9 Sep 2026 10:37:35 +0200
+From: Peter Zijlstra <peterz@infradead.org>
+To: Hui Su <sh_def@163.com>
+Cc: "Chen, Yu C" <yu.c.chen@intel.com>, tim.c.chen@linux.intel.com,
+	mingo@redhat.com, kprateek.nayak@amd.com, juri.lelli@redhat.com,
+	vincent.guittot@linaro.org, dietmar.eggemann@arm.com,
+	rostedt@goodmis.org, bsegall@google.com, mgorman@suse.de,
+	vschneid@redhat.com, connoro@google.com, jstultz@google.com,
+	linux-kernel@vger.kernel.org, arighi@nvidia.com
+Subject: Re: [PATCH v3 1/2] sched/numa: Drive NUMA task tick from execution
+ context
+Message-ID: <20260909083735.GK776954@noisy.programming.kicks-ass.net>
+References: <20260904085244.799276-1-sh_def@163.com>
+ <20260904085244.799276-2-sh_def@163.com>
+ <20260908083545.GM4121339@noisy.programming.kicks-ass.net>
+ <a89a2aef-f374-4fd6-aafe-ca21d21c980d@intel.com>
+ <20260908104407.GD687043@noisy.programming.kicks-ass.net>
+ <20260908121021.53837-1-sh_def@163.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 03/40] arm64/sysreg: Add MPAMSM_EL1 register
-To: Ben Horgan <ben.horgan@arm.com>
-CC: <amitsinght@marvell.com>, <baisheng.gao@unisoc.com>,
-	<baolin.wang@linux.alibaba.com>, <carl@os.amperecomputing.com>,
-	<dave.martin@arm.com>, <david@kernel.org>, <dfustini@baylibre.com>,
-	<fenghuay@nvidia.com>, <gshan@redhat.com>, <james.morse@arm.com>,
-	<jonathan.cameron@huawei.com>, <kobak@nvidia.com>, <lcherian@marvell.com>,
-	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
-	<peternewman@google.com>, <punit.agrawal@oss.qualcomm.com>,
-	<quic_jiles@quicinc.com>, <reinette.chatre@intel.com>,
-	<rohit.mathew@arm.com>, <scott@os.amperecomputing.com>,
-	<sdonthineni@nvidia.com>, <tan.shaopeng@fujitsu.com>,
-	<xhao@linux.alibaba.com>, <catalin.marinas@arm.com>, <will@kernel.org>,
-	<corbet@lwn.net>, <maz@kernel.org>, <oupton@kernel.org>,
-	<joey.gouly@arm.com>, <suzuki.poulose@arm.com>, <kvmarm@lists.linux.dev>,
-	<zengheng4@huawei.com>, <linux-doc@vger.kernel.org>, Shaopeng Tan
-	<tan.shaopeng@jp.fujitsu.com>
-References: <20260313144617.3420416-1-ben.horgan@arm.com>
- <20260313144617.3420416-4-ben.horgan@arm.com>
-From: Jinjie Ruan <ruanjinjie@huawei.com>
-In-Reply-To: <20260313144617.3420416-4-ben.horgan@arm.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: kwepems200002.china.huawei.com (7.221.188.68) To
- kwepemk200008.china.huawei.com (7.202.194.74)
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260908121021.53837-1-sh_def@163.com>
 
-
-
-在 2026/3/13 22:45, Ben Horgan 写道:
-> The MPAMSM_EL1 register determines the MPAM configuration for an SMCU. Add
-> the register definition.
+On Tue, Sep 08, 2026 at 09:10:21PM +0900, Hui Su wrote:
+> On Tue, Sep 08, 2026 at 12:44:07PM +0200, Peter Zijlstra wrote:
+> > I also wondered if we should have task_tick() do curr_class->task_tick()
+> > last, rather than first. But I couldn't immediately find a compelling
+> > argument either way around.
+> >
+> > Updated...
+> >
+> > @@ -910,6 +910,16 @@ static void __used hrtick_clear(struct rq *rq)
+> >  		hrtimer_cancel(&rq->hrtick_timer);
+> >  }
+> >
+> > +static inline void task_tick(struct rq *rq, int queued)
+> > +{
+> > +	const struct sched_class *curr_class = rq->curr->sched_class,
+> > +				*donor_class = rq->donor->sched_class;
+> > +
+> > +	curr_class->task_tick(rq, queued);
+> > +	if (sched_proxy_exec() && donor_class != curr_class)
+> > +		donor_class->task_tick(rq, queued);
+> > +}
 > 
-> Tested-by: Gavin Shan <gshan@redhat.com>
-> Tested-by: Shaopeng Tan <tan.shaopeng@jp.fujitsu.com>
-> Tested-by: Peter Newman <peternewman@google.com>
-> Tested-by: Zeng Heng <zengheng4@huawei.com>
-> Tested-by: Punit Agrawal <punit.agrawal@oss.qualcomm.com>
-> Reviewed-by: Zeng Heng <zengheng4@huawei.com>
-> Reviewed-by: Shaopeng Tan <tan.shaopeng@jp.fujitsu.com>
-> Reviewed-by: Jonathan Cameron <jonathan.cameron@huawei.com>
-> Reviewed-by: Gavin Shan <gshan@redhat.com>
-> Acked-by: Catalin Marinas <catalin.marinas@arm.com>
-> Signed-off-by: Ben Horgan <ben.horgan@arm.com>
-> ---
->  arch/arm64/tools/sysreg | 8 ++++++++
->  1 file changed, 8 insertions(+)
+> The per-class split looks good to me. I noticed a couple of details while
+> going through the updated version.
 > 
-> diff --git a/arch/arm64/tools/sysreg b/arch/arm64/tools/sysreg
-> index 9d1c21108057..1287cb1de6f3 100644
-> --- a/arch/arm64/tools/sysreg
-> +++ b/arch/arm64/tools/sysreg
-> @@ -5172,6 +5172,14 @@ Field	31:16	PARTID_D
->  Field	15:0	PARTID_I
->  EndSysreg
->  
-> +Sysreg	MPAMSM_EL1	3	0	10	5	3
-> +Res0	63:48
-> +Field	47:40	PMG_D
-> +Res0	39:32
-> +Field	31:16	PARTID_D
-> +Res0	15:0
-> +EndSysreg
-> +
->  Sysreg	ISR_EL1	3	0	12	1	0
+> First, I think there is a reason to call curr_class->task_tick() last.
+> 
+> For example, with an RT/DL donor and a FAIR execution context, the donor
+> class tick calls update_curr_*(), which goes through
+> update_curr_common()/update_se() and accounts the elapsed task runtime
+> to rq->curr->se.sum_exec_runtime. If the FAIR callback runs first,
+> task_tick_numa() observes sum_exec_runtime before the current tick's runtime
+> has been accounted.
+> 
+> Calling the donor class first preserves the accounting-before-consumer
+> ordering:
+> 
+> 	donor_class->task_tick(rq, queued);
+> 	if (sched_proxy_exec() && curr_class != donor_class)
+> 		curr_class->task_tick(rq, queued);
+> 
+> This also matches the ordering in v3, where the donor tick ran before
+> sched_tick_exec_ctx().
 
-Reviewed-by: Jinjie Ruan <ruanjinjie@huawei.com>
+Indeed!
 
->  Res0	63:11
->  Field	10	IS
+> Second, task_tick() is added after hrtick_clear(), which puts it inside
+> CONFIG_SCHED_HRTICK. Since sched_tick() calls task_tick() unconditionally,
+> CONFIG_SCHED_HRTICK=n would leave task_tick() undefined. The helper needs
+> to be outside the CONFIG_SCHED_HRTICK block.
 
+Whoopsie ;-)
+
+> With those changes, the split and the queued handling look good to me so far.
+> I'll test the cross-class and hrtick cases, rework the series accordingly,
+> and send a v4.
+
+Thanks!
