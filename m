@@ -1,133 +1,114 @@
-Received: from m16.mail.126.com (m16.mail.126.com [117.135.210.9])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 211D739A807;
-	Wed,  9 Sep 2026 07:41:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B62E122A4F1;
+	Wed,  9 Sep 2026 07:42:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788939684; cv=none; b=UcFozc4EllOeIT6YlzEYe/8K2I8C7Ry6qGHgFczx1uWxmUzTLTHbbvDJCl1+Hz87n49L3zrLQ+kmRhfaZ4OVkeVcEnBAG2KvG5b6+6ij9Po2UcGcI4En8sLdTKTQky151I7OYnd2Lwhn6pZA1sH0nwsO5nRzzmnQbaxPvYaDOFY=
+	t=1788939737; cv=none; b=J0Np5iGH/eCgL8/kP84/NGwtu2HlEJVaRvjtS/gJFrpGfiwV0VYv6sf40Jcwq2OSXJd6M3U5NgEUfRH26FIaqGwwWmxmoGQuqpSJp6Y9xS6J0AuqbVN0JcS90NLfebE9L5HLPn6KxEhc62LM29DbmO2PdWu0OkhzbnUkom3XhkE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788939684; c=relaxed/simple;
-	bh=Y7IMMoAe0P9D+WRSBkVBPj9oQEY3shNsdP/66A1tL4I=;
-	h=Message-ID:Date:From:MIME-Version:To:CC:Subject:References:
-	 In-Reply-To:Content-Type; b=K27hrBhcayzAAipGuYhoXq+RYh9haDy7V3qDHs8ZRUJnU/6FxcO8s9yuHLxFIldAHjXy69npAZ0SmkcPAk4ZNZuopuJnFX4QNwfa0uYiiIwwqEHIPyLCl049mDLDE+t3q16eyGiZVcsxsXx2607pFu9FpE3BV8qLbDOoiIaPEhM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com; spf=pass smtp.mailfrom=126.com; dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b=BQWwQEFN; arc=none smtp.client-ip=117.135.210.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=126.com
+	s=arc-20240116; t=1788939737; c=relaxed/simple;
+	bh=IGK/5Y4kNWD1Ap7GspLzth20aBPpet7ygARTsLlDidk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=DycKBzuSP8X6qZphg/TFnCeEA9p+85hplDmRWaekfZQyU0CY19OdBQEqcLohjZiNwwYaCSurGsxRCLngd2aNqXt7z6zQ8qXjJgFDLTeYc90fu7oBTilRDdr4b2z86NpNz4h3ZAZh5fW71wcwL9CPyardAGK4EbE17yehmyUZiL8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=hIf80Lt+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b="BQWwQEFN"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
-	s=s110527; h=Message-ID:Date:From:MIME-Version:To:Subject:
-	Content-Type; bh=4mhyiuXHdkylIUvNmVFXSgeIj+5kPbmYba+P1UHgLak=;
-	b=BQWwQEFNU6pIwfslX/GRUvhdQ4UUt//wHQmg4W2mhyqtLR5IsLaO3VXLrzjw9U
-	3lczSi5mI64qhsqykYJx+aD1VYH4FPQ9LEdlnKKh77wLG8M48kUMNZs/oCI49Sxh
-	3KxftANAu/oCtYU5srbsorHAVOo1S38HeLeEdjz8UMWUo=
-Received: from localhost.localdomain (unknown [])
-	by gzsmtp4 (Coremail) with SMTP id PykvCgD3X1yBDaFqM2k+HQ--.2132S2;
-	Wed, 09 Sep 2026 15:40:49 +0800 (CST)
-Message-ID: <6AA10D61.6030403@126.com>
-Date: Wed, 09 Sep 2026 15:40:17 +0800
-From: Hongling Zeng <zhongling0719@126.com>
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:31.0) Gecko/20100101 Thunderbird/31.2.0
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="hIf80Lt+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EA1FE1F00A3A;
+	Wed,  9 Sep 2026 07:42:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1788939735;
+	bh=UVqwwhHJQ8OHnqxqDLMedGCWjBVA5AePETD/60WnvVs=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=hIf80Lt+vfHQ9wuGbbxEVTD54chua8wHqQ/RGrfOQRh89RTejCW6X0OxZY/mMW2j4
+	 Ri/BNqbznUBES0POuQIAm/zAXUZx/RQuCVn8oJE9+9dkBkhWkG/U4YDUCtdL9ZxgZI
+	 XoWmq7qDTpIyt5LFuzN3h06eIe0PU1GMVjODtlgI=
+Date: Wed, 9 Sep 2026 09:42:08 +0200
+From: Greg KH <gregkh@linuxfoundation.org>
+To: AJ39210 <predescuciprian99@gmail.com>
+Cc: linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/4] staging: rtl8723bs: update TODO list for completed
+ cleanups
+Message-ID: <2026090945-astronaut-relative-0e01@gregkh>
+References: <20260908183430.3256-1-predescuciprian99@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-To: Dave Chinner <dgc@kernel.org>
-CC: Hongling Zeng <zenghongling@kylinos.cn>, cem@kernel.org, 
- darrick.wong@oracle.com, chandanrlinux@gmail.com, 
- linux-xfs@vger.kernel.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org
-Subject: Re: [PATCH v2] xfs: bound logged region access in inode buffer recovery
-References: <20260907080450.314067-1-zenghongling@kylinos.cn> <ap8ucHIw-pKLhh9c@dread> <6A9F7022.6020206@126.com> <ap-sV2Cc5U5fNMmo@dread> <6A9FBDB3.20705@126.com> <aqCTfSqqywJ5qKcY@dread>
-In-Reply-To: <aqCTfSqqywJ5qKcY@dread>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PykvCgD3X1yBDaFqM2k+HQ--.2132S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxAr1UZFy7tF1kWF4kJF1xGrg_yoW5Kr17pF
-	WfKa18urWkJ34IvrykAF48JaySgrZ5Ga9xGr98t34DAFn8KrnxKFWvya1Y9Fy7CrnYg34j
-	vw4jyw4qg34UAaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07j-WrJUUUUU=
-X-CM-SenderInfo: x2kr0wpolqwiqxrzqiyswou0bp/xtbBoQJmN2qhDYIqCgAA3W
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260908183430.3256-1-predescuciprian99@gmail.com>
+
+On Tue, Sep 08, 2026 at 09:34:27PM +0300, AJ39210 wrote:
+> Signed-off-by: AJ39210 <predescuciprian99@gmail.com>
+> ---
+>  drivers/staging/rtl8723bs/TODO | 15 +++++++++------
+>  1 file changed, 9 insertions(+), 6 deletions(-)
+> 
+> diff --git a/drivers/staging/rtl8723bs/TODO b/drivers/staging/rtl8723bs/TODO
+> index 34c216e6d..8de062b47 100644
+> --- a/drivers/staging/rtl8723bs/TODO
+> +++ b/drivers/staging/rtl8723bs/TODO
+> @@ -1,7 +1,10 @@
+>  TODO:
+> -- find and remove any code for other chips that is left over
+> -- convert any remaining unusual variable types
+> -- checkpatch.pl fixes - most of the remaining ones are lines too long. Many
+> -  of them will require refactoring
+> -- merge Realtek's bugfixes and new features into the driver
+> -- switch to use MAC80211
+> +- Partial: remove remaining code for other chips that is left over. Unused
+> +  non-8723B AMPDU burst enum values and unused 8188E ODM fields have been
+> +  removed, but more legacy code remains.
+> +- Partial: convert unusual variable types. The channel control APIs and rate
+> +  helpers now use kernel fixed-width types, but more legacy types remain.
+> +- Partial checkpatch.pl fixes: several overlong callback and scan-list lines
+> +  have been wrapped, but many warnings remain and will require refactoring.
+> +- Merge Realtek's bugfixes and new features into the driver.
+> +- Switch to use MAC80211.
+> -- 
+> 2.55.0
+> 
 
 
-在 2026年09月09日 07:00, Dave Chinner 写道:
-> On Tue, Sep 08, 2026 at 03:48:03PM +0800, Hongling Zeng wrote:
->> 在 2026年09月08日 14:33, Dave Chinner 写道:
->>> Don't take the design doc as being complete or correct - it's a
->>> working document and really only serves as the initial high level
->>> plan I fleshed out.
->>>
->>> Indeed, I implemented a chunk of it yesterday afternoon (i.e.
->>> before I saw your patch this morning) and my findings change quite a
->>> bit of the generic infrastructure to make it handle the transaction
->>> header without having to special case it. So from that perspective,
->>> it's already out of date...
->>>
->>> I'll post what I have in the series later this afternoon so you can
->>> get up to speed.
-> Ok, I just posted my current WIP to the log-verification-1 branch in
-> my kernel.org repo
-> (https://git.kernel.org/pub/scm/linux/kernel/git/dgc/linux-xfs.git)
->
-> This is completely untested, I've only made sure it compiles. Don't
-> expect it to work. If you do start adding to it, build on top of it
-> and point me to the git repo where all your new work can be found.
->
-> What I've implemented so far is the refactoring necessary to
-> implement generic handling of log item verification and decoding,
-> converted the special case transhdr decoding to use the generic
-> infrastructure, and implemented fairly complete ophdr validation,
-> including validation of the log unmount record (which isn't
-> validated in any way right now).
->
-> Design has changed to use methods for item specific region count
-> checking, as well as adding a completion method that allows item
-> types to consume the item rather than queuing it for later recovery
-> (both needed for the transhdr conversion). Implementation has been
-> refined to avoid decoding ophdrs until sufficient validation has
-> been performed to guarantee the buffer pointer is sane and is long
-> enough to contain a full ophdr, and then it valdates the rest of the
-> ophdr before passing it to the processing code.
->
-> The next steps are to start implementing the per-item type
-> validation functions.
->
-> I also noticed that the head/tail search code that reads log
-> record headers doesn't really do much validation on the log record
-> headers. We probably need to address that, too, so we can detect
-> corrupted headers during the head/tail search and avoid finding
-> incorrect head/tail records as a result.
->
->> Once your series is posted I'll start with review and the
->> recoveryloop / logprint-based testing, then take the per-type
->> validate_region() / validate_item() implementations on top of your
->> iterator.
-> I think it's probably better that you first read the code yourself
-> and develop an understanding of what needs to be done without the
-> aid of an LLM. See if you can find bugs in what I've already done
-> -without- an LLM - you will learn the code at the same time, and
-> then be in a much better place to guide an LLM through later stages
-> of development.
->
-> Cheers,
->
-> Dave.
->
-Thanks for posting the WIP series.
+Hi,
 
-I’ll work from the log-verification-1 branch and first study the generic
-iterator and item handling rather than extending the old special cases.
-I’ll pay particular attention to arbitrary continuation fragments,
-zero-length first fragments, transaction-header completion, and cleanup
-on malformed input.
+This is the friendly patch-bot of Greg Kroah-Hartman.  You have sent him
+a patch that has triggered this response.  He used to manually respond
+to these common problems, but in order to save his sanity (he kept
+writing the same thing over and over, yet to different people), I was
+created.  Hopefully you will not take offence and will fix the problem
+in your patch and resubmit it so that it can be accepted into the Linux
+kernel tree.
 
-I’ll review the existing code for bugs before adding the per-item 
-validation functions, and will point you to my repository once I have
-work based on the branch.
+You are receiving this message because of the following common error(s)
+as indicated below:
 
-Thanks,
-Hongling
+- You did not specify a description of why the patch is needed, or
+  possibly, any description at all, in the email body.  Please read the
+  section entitled "The canonical patch format" in the kernel file,
+  Documentation/process/submitting-patches.rst for what is needed in
+  order to properly describe the change.
 
+- You did not write a descriptive Subject: for the patch, allowing Greg,
+  and everyone else, to know what this patch is all about.  Please read
+  the section entitled "The canonical patch format" in the kernel file,
+  Documentation/process/submitting-patches.rst for what a proper
+  Subject: line should look like.
+
+- It looks like you did not use your "real" name for the patch on either
+  the Signed-off-by: line, or the From: line (both of which have to
+  match).  Please read the kernel file,
+  Documentation/process/submitting-patches.rst for how to do this
+  correctly.
+
+If you wish to discuss this problem further, or you have questions about
+how to resolve this issue, please feel free to respond to this email and
+Greg will reply once he has dug out from the pending patches received
+from other developers.
+
+thanks,
+
+greg k-h's patch email bot
