@@ -1,41 +1,41 @@
 Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1926C57D228
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 15:26:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1542E57D224
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 15:26:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788967575; cv=none; b=aWWJfzPVYj/O9x8lDbFASehbXQa3zTItkLaZrlcTcprGeuW1Qr8fWUjvaLmJApPgGqyD6t8rwH3XN7UmRpdJd62AdWItvx37hBS2uzEqn3tb2O0gpOA/99CsetEfxUffHL9j+Q6ytoecnLGd6tvFIdQZu76WbkyJBlL9EekEGMo=
+	t=1788967577; cv=none; b=br0OlCJvX47yUeodaVQVzbmx95GBW6xkagZc0g7nWMbnF+guxxNiCc3GZXBnZj6aCT+O7EwqHsBJGvrem3FYRhssYIgSugfdJFeqiFYTH7wBriABfjdrWiqFLxAMEF4ous9KQmT8YxLvEMS3RNv5+OJ+vJWq5mlFu5tDSUQkkv8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788967575; c=relaxed/simple;
-	bh=cgwnQqcZqGo5NQIEPV2DTPuv26h3lNsvsDrOv4yhMGs=;
+	s=arc-20240116; t=1788967577; c=relaxed/simple;
+	bh=aFvEEy2ob5c9uaAYQgDvsc0NHbtTHZ3lrVxtQdfKfpc=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=f5qbc5Q78LD7ClcqRt6GFWudifG9/hcREf8qD1zzgaL4kMPk03hjRBo6ocX9Hw+MP5QPWBR3kmJDM07iu4pHOTZ4i+IthMNKkUK9lJjpWkH5LTpSzut36NV+tCOW8t5ReueT6aiVk2zjtp7hDBxgqzXT3aNlT5rGzMm3pevD8C4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=U7GzBxtl; arc=none smtp.client-ip=185.246.84.56
+	 In-Reply-To:To:Cc; b=WEW7zF4XLGKwc+o/PUHGkK2lVCKu8ymmwl10Np8axjS3kR85ubih37VFQHlJ3h70m5+549jEH7/b9owUt5+i4CeyiwmrkaMZcJ344FRZbF89nLrswQwXKUnTc+8qcSc7YI/U9WM58uXld/anx1ol/Q2aHivT4xCLpUe6PVzLwIA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=Rq9ibgxf; arc=none smtp.client-ip=185.246.84.56
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="U7GzBxtl"
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="Rq9ibgxf"
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id CBC241A1A7F;
-	Wed,  9 Sep 2026 15:26:12 +0000 (UTC)
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 2BB0C1A1A80;
+	Wed,  9 Sep 2026 15:26:14 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id A07CD60448;
-	Wed,  9 Sep 2026 15:26:12 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 2BC0411C7AF57;
-	Wed,  9 Sep 2026 17:26:11 +0200 (CEST)
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 015D760448;
+	Wed,  9 Sep 2026 15:26:14 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 4EFB911C7AF7D;
+	Wed,  9 Sep 2026 17:26:12 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1788967571; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	t=1788967573; h=from:subject:date:message-id:to:cc:mime-version:content-type:
 	 content-transfer-encoding:in-reply-to:references;
-	bh=fyG6h/F5DGIOpU5ckjpkKd9PbF63MTcO+98o8dtj2n0=;
-	b=U7GzBxtlGoDuKCamxZaJzjJz8mg2iYusOmv1eCoMtiNFDI440aqwXhIlg0/WX/ecyfNV0q
-	OZeOzLYVxPwQssUnY9ZC0y3rNoq0fTwHznA81yaWT4wJ24KiX/NRKkPX/uyCGaFeoNendZ
-	FGW6U49U6yOF60JRPuBxBI1iUD5HicpXWiTfiF8baVMIkNyAJJLqF6bw28Xazzyp1WSl6j
-	/f63ugc08LKSTSb2vl/SNgxbJCxKyfFWuB0lVXI0BoIZiR3atOJcWbRMFfYnS+QCufaaMq
-	Nj79MZrqIfFfutW+PJIJZ2aLPCdnCm4/KLAXSkgBQJ8oMlgNIoEI35NxgE+PRw==
+	bh=zrordzHJ+Hm9G4+D6z7BJUku8Qa3cmh36QTR22d12E4=;
+	b=Rq9ibgxfwUDfIFBzCnidFeD6Nj1rFuf5Mn4F0dsuRXHWtyu9rYBOBdjP5RjhyIUZMaxOL/
+	fxKeUX4YRguW2XvN56ItGEnAaqkr4pNfa3/b2Q5BgvYr7hIpPfV9U6xCpjskuvMruBpcNd
+	VBdtni+S/cjn9AIhgoOL2DmskMC1h/Fr2V6Fanprdp+zWoezaZq3yQRZ5CdmIj6qV8Oq/F
+	lTh7X655c5jBerSmS9q1mJlVJvqZKBBOwpMX3cDY8Co0SX/4x0YH5AB3qG0x0Iq384KLM1
+	vVwh0495BQoc2ily+uSO6D4QpTPqY56qRAHPhA98auWqH+ukbUvkD9ASP9vSbQ==
 From: Miquel Raynal <miquel.raynal@bootlin.com>
-Date: Wed, 09 Sep 2026 17:25:42 +0200
-Subject: [PATCH 11/25] mtd: spi-nor: winbond: W25Q64JW-Q/N: Add quad page
+Date: Wed, 09 Sep 2026 17:25:43 +0200
+Subject: [PATCH 12/25] mtd: spi-nor: winbond: W25Q128JW-Q/N: Add quad page
  program capability
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -45,7 +45,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260909-winbond-master-spi-nor-jw-cleanup-pw-addition-v1-11-c1b20c39dd1f@bootlin.com>
+Message-Id: <20260909-winbond-master-spi-nor-jw-cleanup-pw-addition-v1-12-c1b20c39dd1f@bootlin.com>
 References: <20260909-winbond-master-spi-nor-jw-cleanup-pw-addition-v1-0-c1b20c39dd1f@bootlin.com>
 In-Reply-To: <20260909-winbond-master-spi-nor-jw-cleanup-pw-addition-v1-0-c1b20c39dd1f@bootlin.com>
 To: Pratyush Yadav <pratyush@kernel.org>, Michael Walle <mwalle@kernel.org>, 
@@ -63,18 +63,33 @@ earn a few % write throughput.
 
 Before:
 $ flash_speed /dev/mtd0 -dc10
-eraseblock write speed is 707 KiB/s
-page write speed is 699 KiB/s
-2 page write speed is 703 KiB/s
+eraseblock write speed is 378 KiB/s
+page write speed is 375 KiB/s
+2 page write speed is 375 KiB/s
 
 After:
 $ flash_speed /dev/mtd0 -dc10
-eraseblock write speed is 735 KiB/s
-page write speed is 726 KiB/s
-2 page write speed is 730 KiB/s
+eraseblock write speed is 386 KiB/s
+page write speed is 382 KiB/s
+2 page write speed is 384 KiB/s
 
 Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
 ---
++ cat /sys/bus/spi/devices/spi0.0/spi-nor/jedec_id
+ef6018
++ cat /sys/bus/spi/devices/spi0.0/spi-nor/manufacturer
+winbond
++ xxd -p /sys/bus/spi/devices/spi0.0/spi-nor/sfdp
+53464450060101ff00060110800000ff84000102d00000ffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+ffffffffffffffffe520f9ffffffff0744eb086b083b42bbfeffffffffff
+0000ffff40eb0c200f5210d800003602a60082ea14c9e96376337a757a75
+f7bdd55c19f75dffe930f880ffffffffffffffffffffffffffffffff0000
+f0ffffffffff
++ sha256sum /sys/bus/spi/devices/spi0.0/spi-nor/sfdp
+9f09054bceec22f43966246eb3043944d50cb679d0a56e8579f78ebe4f99b5a1  /sys/bus/spi/devices/spi0.0/spi-nor/sfdp
 + cat /sys/kernel/debug/spi-nor/spi0.0/capabilities
 Supported read modes by the flash
  1S-1S-1S
@@ -107,23 +122,94 @@ Supported page program modes by the flash
   opcode	0x02
  1S-1S-4S
   opcode	0x32
++ cat /sys/kernel/debug/spi-nor/spi0.0/params
+name		(null)
+id		ef 60 18 00 00 00
+size		16.0 MiB
+write size	1
+page size	256
+address nbytes	3
+flags		HAS_SR_TB | HAS_LOCK | HAS_16BIT_SR | SOFT_RESET | NO_WP | HAS_SR2_CMP_BIT6
+
+opcodes
+ read		0xeb
+  dummy cycles	6
+ erase		0xd8
+ program	0x32
+ 8D extension	none
+
+protocols
+ read		1S-4S-4S
+ write		1S-1S-4S
+ register	1S-1S-1S
+
+erase commands
+ 20 (4.00 KiB) [1]
+ 52 (32.0 KiB) [2]
+ d8 (64.0 KiB) [3]
+ c7 (16.0 MiB)
+
+sector map
+ region (in hex)   | erase mask | overlaid
+ ------------------+------------+---------
+ 00000000-00ffffff |     [   3] | no
+
+locked sectors
+ region (in hex)   | status   | #sectors
+ ------------------+----------+---------
+ 00000000-00ffffff | unlocked | 64
++ dd 'if=/dev/urandom' 'of=./spi_test' 'bs=1M' 'count=2'
+2+0 records in
+2+0 records out
++ mtd_debug erase /dev/mtd0 0 2097152
+Erased 2097152 bytes from address 0x00000000 in flash
++ mtd_debug read /dev/mtd0 0 2097152 spi_read
+Copied 2097152 bytes from address 0x00000000 in flash to spi_read
++ hexdump spi_read
+0000000 ffff ffff ffff ffff ffff ffff ffff ffff
+*
+0200000
++ sha256sum spi_read
+4bda3a28f4ffe603c0ec1258c0034d65a1a0d35ab7bd523a834608adabf03cc5  spi_read
++ mtd_debug write /dev/mtd0 0 2097152 spi_test
+Copied 2097152 bytes from spi_test to address 0x00000000 in flash
++ mtd_debug read /dev/mtd0 0 2097152 spi_read
+Copied 2097152 bytes from address 0x00000000 in flash to spi_read
++ sha256sum spi_read spi_test
+a4fc3a4bd8163710f3a51f6bda131e0146dd7f9e92b7b201e0a8df18e7b89040  spi_read
+a4fc3a4bd8163710f3a51f6bda131e0146dd7f9e92b7b201e0a8df18e7b89040  spi_test
++ mtd_debug erase /dev/mtd0 0 2097152
+Erased 2097152 bytes from address 0x00000000 in flash
++ mtd_debug read /dev/mtd0 0 2097152 spi_read
+Copied 2097152 bytes from address 0x00000000 in flash to spi_read
++ sha256sum spi_read spi_test
+4bda3a28f4ffe603c0ec1258c0034d65a1a0d35ab7bd523a834608adabf03cc5  spi_read
+a4fc3a4bd8163710f3a51f6bda131e0146dd7f9e92b7b201e0a8df18e7b89040  spi_test
++ mtd_debug info /dev/mtd0
+mtd.type = MTD_NORFLASH
+mtd.flags = MTD_CAP_NORFLASH
+mtd.size = 16777216 (16M)
+mtd.erasesize = 65536 (64K)
+mtd.writesize = 1
+mtd.oobsize = 0
+regions = 0
 ---
  drivers/mtd/spi-nor/winbond.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/drivers/mtd/spi-nor/winbond.c b/drivers/mtd/spi-nor/winbond.c
-index 022fcfd05da2..7e79a415db4b 100644
+index 7e79a415db4b..a4ac11785d25 100644
 --- a/drivers/mtd/spi-nor/winbond.c
 +++ b/drivers/mtd/spi-nor/winbond.c
-@@ -334,7 +334,7 @@ static const struct flash_info winbond_nor_parts[] = {
- 		.id = SNOR_ID(0xef, 0x60, 0x17),
- 		.name = "w25q64dw",
- 		.size = SZ_8M,
+@@ -341,7 +341,7 @@ static const struct flash_info winbond_nor_parts[] = {
+ 		.id = SNOR_ID(0xef, 0x60, 0x18),
+ 		.name = "w25q128fw",
+ 		.size = SZ_16M,
 -		.flags = SPI_NOR_HAS_LOCK | SPI_NOR_HAS_TB | SPI_NOR_HAS_CMP,
 +		.flags = SPI_NOR_QUAD_PP | SPI_NOR_HAS_LOCK | SPI_NOR_HAS_TB | SPI_NOR_HAS_CMP,
  		.no_sfdp_flags = SECT_4K | SPI_NOR_DUAL_READ | SPI_NOR_QUAD_READ,
  	}, {
- 		/* W25Q128FW-G/Q, W25Q128JW-Q/N */
+ 		/* W25Q256JW-Q/N */
 
 -- 
 2.54.0
