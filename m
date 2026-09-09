@@ -1,147 +1,222 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD8F225DB0D
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 00:15:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53E0C492E35;
+	Wed,  9 Sep 2026 00:18:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788912950; cv=none; b=LyWrFiO5vQLA5x5twk/NWMaPyq6zv7uisa2loqfiJJ/1WimWUaFEnJxMqJIhVlUrJGEAClahyFVjtGJtXmLYaXgCa8L08A7pAlRqqduvcNPX/FXpLecSPizcIeTva4QrrE5vC2R88W9paZHCNhbyA/yuwWR3ZyadnkT0CbA1OkU=
+	t=1788913082; cv=none; b=jaSwCqyva045PSY/JvVuyrh1YzUX7YjmBRPYd4Iy7O3WRUnmeixCEPsoJM7sUGiHS+ys9sYQYKvnY92Vu+Fs6gnjprjJ5mpgUeY3rjdWP6IG4cE/AD3G5iMKXXoRsbu92Q2+x4ZAM93uN3TFpfen66EyqEApn1mTbh+d5GQpzxo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788912950; c=relaxed/simple;
-	bh=xCgEb6i9n6u7MoxdQFy4Ft1iDxS8NZbzOuJ49Xp8p0g=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=TruaSzsznJpSQtUkpmlklxQEkL18aNo7EvLavYLS1lBztya3w4/AkgBhvLvSsjy1NQytio7OK11EqWDve6PH+wXFwRFOmTq4Mdk1qcKnAMNWMBAVMGPMm51g76W8zn20nYNZHYq8sPUCixH8bpRq+TtDauAqdBL43iPkofdyBMs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=QpwmXlYh; arc=none smtp.client-ip=192.198.163.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1788913082; c=relaxed/simple;
+	bh=Ot/UZDPY6UelrsvOMQAtEcKYhjrLKB1SSJBo+sssl0g=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=cvdSDmwMUyBfuso4DjRBt+Y5B6RfCMK4rTwYeuW11cx+JQJisHNuGIqVR5uIaJOwn6QLoYpX4eAy4IAdYcTAnFrGEC6+1EJujR9BzFbP8uLr4scosHo8RF05H+fqKp+DijfaxRAFWu/GNeIHVrIl/n5+/hvMBExDl0F9qTdNzuM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Gum4spRA; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="QpwmXlYh"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788912949; x=1820448949;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=xCgEb6i9n6u7MoxdQFy4Ft1iDxS8NZbzOuJ49Xp8p0g=;
-  b=QpwmXlYhYi7h06Oawalab4xRRONY2KemCmKovg8sfTFp/RIQCvrCA/2s
-   BDoRsvzvsczXshbNCP6NSR0CjkhYNwb2tDrdsBUgJ1tSTriyVbQlWaYST
-   O0tZaY07L8WhdDaeF35IQ0xrVc3yN8Kto8ERk+qWqu7QXmBB+6gusaiBa
-   U5UYarhBrMRjiLog6p7vS3TGu2cmx4jheNexujcbpBKAvFtvA5Sf7PcZX
-   4HdOuxeCjs0elA3yaG+vu6mo/3MN/R4AqqsTe+clU/UOlXB27XCEkXy6h
-   BOD4Awy1hDNCLN6ajJVtvat5vlnTk7VQGEYtDYE23O0CQrsOllDcE3Y63
-   w==;
-X-CSE-ConnectionGUID: tLD2eJUZTtW9Iw3s/jOmag==
-X-CSE-MsgGUID: tfTnHXKASm+fiFWug/qYGw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11900"; a="88479874"
-X-IronPort-AV: E=Sophos;i="6.25,269,1779174000"; 
-   d="scan'208";a="88479874"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
-  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Sep 2026 17:15:48 -0700
-X-CSE-ConnectionGUID: lXyR8ezNQ0aIGImpHwd96w==
-X-CSE-MsgGUID: VRHdMKULSCKFsD5xdDlOZA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,269,1779174000"; 
-   d="scan'208";a="273109458"
-Received: from vverma7-desk1.amr.corp.intel.com (HELO [10.125.111.130]) ([10.125.111.130])
-  by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Sep 2026 17:15:47 -0700
-Message-ID: <522548e1-ebbf-4785-83d7-e2cc3aa83b62@intel.com>
-Date: Tue, 8 Sep 2026 17:15:46 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Gum4spRA"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 384A31F00A3A;
+	Wed,  9 Sep 2026 00:17:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788913080;
+	bh=O+79BnLAnaC+H0CWgx23+HhthCZ5yld4K1Rh7gRtUVQ=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=Gum4spRA2ZX29eSKddhBcY3ue9EFUcpRc4HXBlWmYP7tDhejWNeEkM1+OCIvHEasu
+	 CWT9VJ5wo6yZdvz8vd5Bvfkbcgm13C2QEYnlPWL6JYia9UGa80gGLphxE5p9JR69UI
+	 m0S6U2NO+931YfL3gdMD4aGwWNyCbGE0v1e57Lx0FaHCE1KecxqC/pN8Nr33oRf0HI
+	 ZiUH3G/8ykma3MZF/SgtwRJ1vpBGmW5RH5X3dNis3Hcwfk6OGJ3g3/kfXbcoLp7h9x
+	 uXDgPhoNwBxwGOLIOchhYylGa6Nr5UDaDlhWr5265QenF+4yDF01zO9FTgx2evBJmJ
+	 UIMw8RETjVt0w==
+Date: Wed, 9 Sep 2026 01:17:54 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: alistair23@gmail.com
+Cc: linux-pci@vger.kernel.org, Jonathan.Cameron@huawei.com, djbw@kernel.org,
+ rust-for-linux@vger.kernel.org, lukas@wunner.de, alistair@alistair23.me,
+ linux-cxl@vger.kernel.org, bhelgaas@google.com, akpm@linux-foundation.org,
+ linux-kernel@vger.kernel.org, gary@garyguo.net, ojeda@kernel.org,
+ benno.lossin@proton.me, a.hindborg@kernel.org, wilfred.mallawa@wdc.com,
+ tmgross@umich.edu, boqun.feng@gmail.com, bjorn3_gh@protonmail.com,
+ alex.gaynor@gmail.com, aliceryhl@google.com
+Subject: Re: [PATCH v3 16/21] lib: rspdm: Support SPDM negotiate_algorithms
+Message-ID: <20260909011754.2ced4320@jic23-huawei>
+In-Reply-To: <20260901010347.2614656-17-alistair.francis@wdc.com>
+References: <20260901010347.2614656-1-alistair.francis@wdc.com>
+	<20260901010347.2614656-17-alistair.francis@wdc.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/mm/pat: skip RWX verification until kernel text is
- set to read only
-To: Mike Rapoport <rppt@kernel.org>, Dave Hansen <dave.hansen@linux.intel.com>
-Cc: Andy Lutomirski <luto@kernel.org>, Borislav Petkov <bp@alien8.de>,
- Ingo Molnar <mingo@redhat.com>, Nathan Chancellor <nathan@kernel.org>,
- "H. Peter Anvin" <hpa@zytor.com>, Peter Zijlstra <peterz@infradead.org>,
- Thomas Gleixner <tglx@kernel.org>, linux-kernel@vger.kernel.org,
- x86@kernel.org
-References: <20260908092730.4002628-1-rppt@kernel.org>
-From: Dave Hansen <dave.hansen@intel.com>
-Content-Language: en-US
-Autocrypt: addr=dave.hansen@intel.com; keydata=
- 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
-In-Reply-To: <20260908092730.4002628-1-rppt@kernel.org>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 
-On 9/8/26 02:27, Mike Rapoport wrote:
-> --- a/arch/x86/mm/pat/set_memory.c
-> +++ b/arch/x86/mm/pat/set_memory.c
-> @@ -708,6 +708,10 @@ static inline pgprot_t verify_rwx(pgprot_t old, pgprot_t new, unsigned long star
->  	if (!(__supported_pte_mask & _PAGE_NX))
->  		return new;
+On Tue,  1 Sep 2026 11:03:42 +1000
+alistair23@gmail.com wrote:
+
+> From: Alistair Francis <alistair@alistair23.me>
+> 
+> Support the NEGOTIATE_ALGORITHMS SPDM command.
+> 
+> Signed-off-by: Alistair Francis <alistair@alistair23.me>
+A question on types inline. Otherwise with the thing Aksh
+called out this looks fine to me.
+
+> diff --git a/lib/rspdm/lib.rs b/lib/rspdm/lib.rs
+> index 76325babdff2..d418d15e4c70 100644
+> --- a/lib/rspdm/lib.rs
+> +++ b/lib/rspdm/lib.rs
+
+> @@ -117,11 +121,12 @@ pub extern "C" fn spdm_destroy(state_ptr: *mut spdm_state) {
+>      if state_ptr.is_null() {
+>          return;
+>      }
+> +
+
+Move that to the early commit.
+
+>      // SAFETY: `state_ptr` was returned from `spdm_create()`, which leaked a
+>      // `Pin<KBox<Mutex<SpdmState>>>` via `KBox::into_raw`.  The caller
+>      // guarantees the state is no longer in use.  Reconstructing the pinned
+>      // box and dropping it runs `Drop` for the `Mutex` and `SpdmState` and
+>      // frees the allocation.
+> -    let b = unsafe { KBox::from_raw(state_ptr as *mut Mutex<SpdmState>) };
+> +    let b = unsafe { KBox::from_raw(state_ptr as *mut Mutex<SpdmState<'_>>) };
+>      drop(unsafe { Pin::new_unchecked(b) });
+>  }
+> diff --git a/lib/rspdm/state.rs b/lib/rspdm/state.rs
+> index 5ef14c8ed237..b78086c75370 100644
+> --- a/lib/rspdm/state.rs
+> +++ b/lib/rspdm/state.rs
+...
+
 >  
-> +	/* skip verification until kernel text is set to read only */
-> +	if (!kernel_set_to_readonly)
-> +		return new;
+> @@ -373,4 +452,164 @@ pub(crate) fn get_capabilities(&mut self) -> Result<(), Error> {
+>  
+>          Ok(())
+>      }
+> +
+> +    fn update_response_algs(&mut self) -> Result<(), Error> {
+> +        match self.base_asym_alg {
+> +            SPDM_ASYM_RSASSA_2048 => {
+> +                self.sig_len = 256;
+> +                self.base_asym_enc = CStr::from_bytes_with_nul(b"pkcs1\0")?;
+> +            }
+> +            SPDM_ASYM_RSASSA_3072 => {
+> +                self.sig_len = 384;
+> +                self.base_asym_enc = CStr::from_bytes_with_nul(b"pkcs1\0")?;
+> +            }
+> +            SPDM_ASYM_RSASSA_4096 => {
+> +                self.sig_len = 512;
+> +                self.base_asym_enc = CStr::from_bytes_with_nul(b"pkcs1\0")?;
+> +            }
+> +            SPDM_ASYM_ECDSA_ECC_NIST_P256 => {
+> +                self.sig_len = 64;
+> +                self.base_asym_enc = CStr::from_bytes_with_nul(b"p1363\0")?;
+> +            }
+> +            SPDM_ASYM_ECDSA_ECC_NIST_P384 => {
+> +                self.sig_len = 96;
+> +                self.base_asym_enc = CStr::from_bytes_with_nul(b"p1363\0")?;
+> +            }
+> +            SPDM_ASYM_ECDSA_ECC_NIST_P521 => {
+> +                self.sig_len = 132;
+> +                self.base_asym_enc = CStr::from_bytes_with_nul(b"p1363\0")?;
+> +            }
+> +            _ => {
+> +                pr_err!("Unknown asym algorithm\n");
+> +                return Err(EINVAL);
+> +            }
+> +        }
+> +
+> +        match self.base_hash_alg {
+> +            SPDM_HASH_SHA_256 => {
+> +                self.base_hash_alg_name = CStr::from_bytes_with_nul(b"sha256\0")?;
+> +            }
+> +            SPDM_HASH_SHA_384 => {
+> +                self.base_hash_alg_name = CStr::from_bytes_with_nul(b"sha384\0")?;
+> +            }
+> +            SPDM_HASH_SHA_512 => {
+> +                self.base_hash_alg_name = CStr::from_bytes_with_nul(b"sha512\0")?;
+> +            }
+> +            _ => {
+> +                pr_err!("Unknown hash algorithm\n");
+> +                return Err(EINVAL);
+> +            }
+> +        }
+> +
+> +        // This is freed in when `SpdmState` is dropped, but this call
 
-If someone sets up a W+X mapping, such a mapping could persist until
-after boot and this would suppress the warning. Right?
+freed when
 
-Sure, you can _get_ checking with debug_checkwx(). But that's a debug
-option and it's kinda weird to shift the burden from an always-on thing
-like verify_rwx() to a literal debug option.
+> +        // can happen multiple times.
+> +        if self.shash != core::ptr::null_mut() {
+> +            if let Some(desc) = self.desc.take() {
+> +                // SAFETY: `self.shash` is a valid handle
+> +                let desc_len = core::mem::size_of::<bindings::shash_desc>()
+> +                    + unsafe { bindings::crypto_shash_descsize(self.shash) } as usize;
+> +
+...
 
-That said, I think you're completely on target for thinking that it's
-silly for verify_rwx() to even *try* to spew warnings in boot.
+> diff --git a/lib/rspdm/validator.rs b/lib/rspdm/validator.rs
+> index 42c0b28cdcaa..4f7a82d4b210 100644
+> --- a/lib/rspdm/validator.rs
+> +++ b/lib/rspdm/validator.rs
+> @@ -9,7 +9,8 @@
+>  
+>  use crate::bindings::{
+>      __IncompleteArrayField,
+> -    __le16, //
+> +    __le16,
+> +    __le32, //
+>  };
 
-How about we add a kernel_strict_rwx() helper:
+> +
+> +#[repr(C, packed)]
+> +pub(crate) struct NegotiateAlgsRsp {
+> +    pub(crate) version: u8,
+> +    pub(crate) code: u8,
+> +    pub(crate) param1: u8,
+> +    pub(crate) param2: u8,
+> +
+> +    pub(crate) length: u16,
 
-bool strict_kernel_rwx(void)
-{
-	return IS_ENABLED(CONFIG_STRICT_KERNEL_RWX) && rodata_enabled;
-}
+Why do we treat this one as native endian but the ext_asym below
+as explicitly little endian?  
 
-Have verify_rwx() check *that*. Also, make the DEBUG_WX functionality
-mandatory for STRICT_KERNEL_RWX (with appropriate renaming) so that it
-can be depended upon. I assume all the distros are turning DEBUG_WX on
-already (Ubuntu seems to).
+> +    pub(crate) measurement_specification_sel: u8,
+> +    pub(crate) other_params_sel: u8,
+> +
+> +    pub(crate) measurement_hash_algo: u32,
+> +    pub(crate) base_asym_sel: u32,
+> +    pub(crate) base_hash_sel: u32,
+> +
+> +    reserved1: [u8; 11],
+> +
+> +    pub(crate) mel_specification_sel: u8,
+> +    pub(crate) ext_asym_sel_count: u8,
+> +    pub(crate) ext_hash_sel_count: u8,
+> +    reserved2: [u8; 2],
+> +
+> +    pub(crate) ext_asym: __IncompleteArrayField<__le32>,
+> +    pub(crate) ext_hash: __IncompleteArrayField<__le32>,
+> +    pub(crate) resp_alg_struct: __IncompleteArrayField<RegAlg>,
+> +}
+> +
+> +impl<'a> Validate<Untrusted<&'a [u8]>> for &'a NegotiateAlgsRsp {
+> +    type Err = Error;
+> +
+> +    fn validate(unvalidated: &[u8]) -> Result<Self, Self::Err> {
+> +        if unvalidated.len() < mem::size_of::<NegotiateAlgsRsp>() {
+> +            return Err(EINVAL);
+> +        }
+> +
+> +        let ptr = unvalidated.as_ptr();
+> +        // CAST: `NegotiateAlgsRsp` only contains integers and has `repr(C)`.
+> +        let ptr = ptr.cast::<NegotiateAlgsRsp>();
+> +        // SAFETY: `ptr` came from a reference and the cast above is valid.
+> +        let rsp: &NegotiateAlgsRsp = unsafe { &*ptr };
+> +
+> +        Ok(rsp)
+> +    }
+> +}
 
-Maybe just do the strict_kernel_rwx() to start and then circle back
-around to muck with making DEBUG_WX mandatory?
