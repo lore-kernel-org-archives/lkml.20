@@ -1,140 +1,153 @@
-Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com [209.85.215.197])
+Received: from mail-qk2-f12.google.com (mail-qk2-f12.google.com [74.125.230.204])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11EEA559CB5
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 19:27:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.197
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50623556B92
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 19:28:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.204
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788982065; cv=none; b=ol7ib3F5DjXs8lErTipfVg6xPAFTlI9wNjPxh9pNvoUxEeCVzG8Tc6lTWeglc+UvV64CjiLGVf6/GmQ8jCWj9plw2Si4t4Q8xq5vT50AotbunoEU4/2sYcI7wve8k1pdubyjW4dEk7u6GK1vV80CmIJYd46YQklBM/dCu/4zTrw=
+	t=1788982091; cv=none; b=YooYGw3G7uw5vlkS3IsVvMvBKkYmhyAUjd7vrIKTmmYfE2Qzz4Uqs8lD5IVP1rebddd7rw9xTjpeE8ysRZELMlnfPba0E5tsHgqYcNrfMsx0XvDZdCtGE2geSZ9cjHGW8SjEHVi8mh99TrpdF582qvCQ/XJJQCdxAwEL28dKbW8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788982065; c=relaxed/simple;
-	bh=I6oSFTNds+s9NlLuPGCHhSDpMwOfaItLVXSFUxWxScg=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=FgpauYgSiOUvYHUbhDmpY8HngB2643RjN2Y6rgB7usc2iLNSjE2NqvvVfgeI23ZrM1k5eWBRfPLYUumwBU7bhVVtOsY/ZPF56JZby8UXrpJnZj/W0rxyyZOuKyRxBAWKlUsTmDcuVzMMkTxi2wQKLEfnsy1tyFcSptE8AcrkxU0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=YGWOZNqp; arc=none smtp.client-ip=209.85.215.197
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	s=arc-20240116; t=1788982091; c=relaxed/simple;
+	bh=fGd2gQvYjHPd/S46Z42N0Jlf7DxGps2/byqPup1ks4M=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=AWsZ1TjdMZjTQJSTXdBeptYId23/GxiieUaTCieI0kfJ1mSVBinKSU73pyIl7bgpy9U36L+LmCBgYnz7yIOcn3DwyWYg2HYHLMCrYVEMxSEUYzeOhtf6wD58yTkflvwPFkH0Jofg4mzlc7bDXVY/esa7w/MVt7gaj6vTYMcalMo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu; spf=fail smtp.mailfrom=g.harvard.edu; dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b=rMX1htfu; arc=none smtp.client-ip=74.125.230.204
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=g.harvard.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="YGWOZNqp"
-Received: by mail-pg1-f197.google.com with SMTP id 41be03b00d2f7-cbee6bb8408so7508223a12.3
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 12:27:43 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b="rMX1htfu"
+Received: by mail-qk2-f12.google.com with SMTP id d75a77b69052e-5309a20a55bso13226571cf.1
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 12:28:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788982063; x=1789586863; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=UQpI0mVgouyaN7zxfkMJtMw/cMIll+7enT9xQjnBa90=;
-        b=YGWOZNqpwWSQZssIceuc+Oq0o5L+c6lKtB+agZmWMsR8d/qetGqnWVeRFh0lQJ84gz
-         pDZ8CZQZFrogjhqimX4URHg4pZWHrfwHoEyzjV4erCpY7q5xwZlNdhpeQ8JasYwDhN8m
-         KJS178nk5QferruqTk2O3NOxdKWgpvVjxvXv5nNRJ5b31KprPsWorQ/lZtSvk9eqaq5m
-         a0PpJOA+ML5GXQJzkiGHDqBnjnioM4BDLTmpYZIHcRJXhCb6OzehMs776Lk5P+iiOf3C
-         1l1oquoQSd3eyJMcKDzV94VVZnSWJizkTaUY2+t7ZZlI8yVQZXTVK/2+qVSystOpz/KH
-         ZXfA==
+        d=rowland.harvard.edu; s=google; t=1788982089; x=1789586889; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=p3BW/nKMoa3+gVnS02BNvPl8t9SljlS9vu83eupf26I=;
+        b=rMX1htfuWqOVOyHKThlge7fRi+3bgREEkZqDPVLFI0UDuDJ0Q/UFnoxVg1QRjkKV39
+         diYTyxPY7B9jPIU7dOkCSNqCZYEVsep6B0jy//NWrVf9qmvx2nmYl0f8epfLDh2w2w33
+         9V/RghEAboYAd3tG40NdpMvcpypfe608uIZ8VQ2yupJeXmN1amypDPMjpmgqwPEczE7y
+         NmcUh4ijwesOB2uT3cEqQywWZ/iSvHL/ATgk0jiyQ9QUcZDr0C8gMJjWiVKxt006cH9U
+         LyYtLwW3QML6ya6kvqpF/aNXDNr0gO5mNtn1xbCASqZyd7pyqyrE/3at65Js/t1YFxfQ
+         Dkvw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788982063; x=1789586863;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=UQpI0mVgouyaN7zxfkMJtMw/cMIll+7enT9xQjnBa90=;
-        b=IvQJ88YmIGz/KgvX+ibWa5zlV6Z9QEj9VSjDx9QILJu7prw1QDm6ggWlsV3M9TzF5u
-         Er3UU7Paub40aOigJZyFfV4Fgwo9ckbXFQcIxS0Q4o9otw5HKH8GLPGif/TVsQYogrEH
-         A/RBak43Rin5WYE4cBfQP8SezbBNNhfxO20XURLbvbDUS5spIW6T1p68g5ZxV//rTnbb
-         3OmzFJwg9p4traRlbwX/TRAsLLlilzl6Th+zp+ruwuxaSPZVBE6WHm0vBM0/IRbjdyKa
-         87Fh+tYxoENnf8TF+Hss/S/rdCoIEU/3PrZt6Kx0Yd0+aN9+h6wtA+QRmfI7oORuuM83
-         yhrQ==
-X-Forwarded-Encrypted: i=1; AKwUvBy2kqjinEWPQGqrTK7R9MqdJk4M1Cs1Rqr1kkXmwi8ESAKFK8ksfeC9FEJuv1KX21GeOWJSQ5ioWaxvOdU=@vger.kernel.org
-X-Gm-Message-State: AFuF++mjhhMbtdR/gcdiJnItgbxy0cnCOZYQUlMZ70h0DRAbf7C21idY
-	2anH40jf4O6LDxI5Wj4BoMkCa8lBqSRn2W5RPt2+yNJOU/cbyFNJ0y9ChRSm/pQX+9iAR1s13EM
-	Doa2ZHw==
-X-Received: from pfbmt7.prod.google.com ([2002:a05:6a00:6e67:b0:869:6fdc:2a86])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a20:9e4e:b0:3d3:ae40:51e0
- with SMTP id adf61e73a8af0-3da3a045196mr58708633637.20.1788982063138; Wed, 09
- Sep 2026 12:27:43 -0700 (PDT)
-Date: Wed, 9 Sep 2026 12:27:42 -0700
-In-Reply-To: <daa3875e-420d-4de5-9a1f-8c4138a1dbd8@kernel.org>
+        d=1e100.net; s=20251104; t=1788982089; x=1789586889;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=p3BW/nKMoa3+gVnS02BNvPl8t9SljlS9vu83eupf26I=;
+        b=fqfbJ8siQ6rqjc4QMvT+wVzq/1usYCMaqpi1wGOfgRoM77nSIYVUEhp/oaWDMe/hA6
+         4ZgLwJ/0TqT0qgoAAqFF3IK5ph9cnZifbZtCmMo/4OOYCDWux2Oy7SGC+s59dFrU8L4w
+         iUyYOYefi/DUYUzmIkFniGA/CKtz8Xqg5+CCYXad36rLKrCHOLVE86QBP4gFSbSzr+cT
+         pxrB/0vrN6LRFEkDm6OZ3FpUbL5r7lZoq2qVs+UwBgkPLeQnauvx1acNUxpCYb0kXcRF
+         qbvDhWcpIl0twxZKQT0V+go5BR7z2xznXfqo2MIwKW1G0bCS3M29y1d6NyLLfwtme51j
+         pyzQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwvTyXZmvi2Q5hur2d/ggTKyNb8drj4P//phEH6GB4tVAUBreHjSM7Xcbq0ybw3tvc4N+gU7y+dtBYiusg=@vger.kernel.org
+X-Gm-Message-State: AFuF++ncu3+GjhsztjbVg01Pz+g2qEaSaiTmcfdyugE3jJ0kZvoujbKe
+	TD0EH/ZOkFw/2CAt9dGcYBm2Sc448u9YZjxuBf21PDfJ+/07Z9Y4/lZPIgxqVCcECw==
+X-Gm-Gg: AYBFou1HoBlCuAXCgzsTxMFU+kz/M40GRK+VK10Teo4j/1KxTsj7nCzHtg0scwJVCAN
+	g5pT8fHcGa5eqBd/GaaZ0BruV7QN6tT/pIJlZLNPDLAhU0ixhiAX9Fi+PJGXVE+a/dqz9mh9WaT
+	KqJ/SXK4GFGaWj2CAqCojoN4A2x/ATIG3wyyxrmFQKpoD3TvS+2ZTlBUP0HpP6vjyw4cb/2uDaK
+	4TaWYv0K9XczdfgljbNA623czb2BsjusivqGRo6E4W7gVSeGCQ5RzKgWMrHddUciaN60rrBXIbH
+	f/aL3mOea64mJSRRNmxGDdC/OPo1Q4ob7y971ldSyppgTonPOXzlqhhgzi9Ik8aMBCJNGm1D39F
+	KMd9dvtgTzE8TSPe6yzhopwvWrbAQqUfGyi1IqX80moHJSD7KlWP8kRA9S/QugPN6ZFSiyHJo28
+	rzNXHrm58z5ePB6PYTTnej84qtkHCd+m83W69afDUhgaP3IRzOv+lTWCgqhTguMVdcDKPZmpDVz
+	EF8aj9aV+34289ptipYY4a/7Xq8EHLuh38B29s2jZAd49zkPKgTFg==
+X-Received: by 2002:a05:622a:53c5:b0:530:4deb:9801 with SMTP id d75a77b69052e-530a2e093b6mr129633651cf.49.1788982089079;
+        Wed, 09 Sep 2026 12:28:09 -0700 (PDT)
+Received: from rowland.harvard.edu ([2607:fb60:1011:2006:2008:aeb7:73d7:d8ff])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-5305418950fsm146682361cf.20.2026.09.09.12.28.07
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 09 Sep 2026 12:28:08 -0700 (PDT)
+Date: Wed, 9 Sep 2026 15:28:05 -0400
+From: Alan Stern <stern@rowland.harvard.edu>
+To: Frederic Weisbecker <frederic@kernel.org>
+Cc: Peter Zijlstra <peterz@infradead.org>, boqun@kernel.org,
+	Thomas Gleixner <tglx@kernel.org>,
+	LKML <linux-kernel@vger.kernel.org>,
+	"Cc: Hyunwoo Kim" <imv4bel@gmail.com>,
+	Oleg Nesterov <oleg@redhat.com>,
+	Christian Brauner <brauner@kernel.org>,
+	John Stultz <jstultz@google.com>, Ingo Molnar <mingo@kernel.org>,
+	Alexander Viro <viro@zeniv.linux.org.uk>,
+	"Eric W. Biederman" <ebiederm@xmission.com>, stable@vger.kernel.org
+Subject: Re: [patch V2 1/8] signal: Prevent exec() race
+Message-ID: <d633542b-2a2f-4adb-82c1-ea650466f63a@rowland.harvard.edu>
+References: <87ik4h2icz.ffs@fw13>
+ <ap8bUiYYwQT1nVg5@pavilion.home>
+ <875x0g3de3.ffs@fw13>
+ <ap_gOSWtPNjwWS1e@localhost.localdomain>
+ <20260909080407.GR4121339@noisy.programming.kicks-ass.net>
+ <87ecf223n4.ffs@fw13>
+ <20260909095518.GL776954@noisy.programming.kicks-ass.net>
+ <aqFNV4k6DcbyxYCe@localhost.localdomain>
+ <20260909124555.GM776954@noisy.programming.kicks-ass.net>
+ <aqFw--VfXWz-yZt8@localhost.localdomain>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260904004342.3162959-1-seanjc@google.com> <20260904004342.3162959-2-seanjc@google.com>
- <daa3875e-420d-4de5-9a1f-8c4138a1dbd8@kernel.org>
-Message-ID: <aqGzLkjuQn5ALdYi@google.com>
-Subject: Re: [PATCH v3 1/4] KVM: guest_memfd: Gracefully handle xarray errors
- when binding a memslot
-From: Sean Christopherson <seanjc@google.com>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Stefan Teodorescu <fane@google.com>, Dennis Tighe <dtighe@google.com>, 
-	Sashiko Bot <sashiko-bot@kernel.org>, Yan Zhao <yan.y.zhao@intel.com>
-Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <aqFw--VfXWz-yZt8@localhost.localdomain>
 
-On Mon, Sep 07, 2026, David Hildenbrand (Arm) wrote:
-> On 9/4/26 02:43, Sean Christopherson wrote:
-> > If inserting a memslot into a guest_memfd's bindings xarray fails,
-> > propagate the error back to the caller, i.e. fail memslot creation as well.
-> > Signalling success and continuing on with memslot creation results in
-> > use-after-free, as the guest_memfd instance will remain reachable via the
-> > memslot after the file is freed (kvm_gmem_release() won't nullify the file
-> > pointer due to lack of a valid binding).
-> > 
-> > Opportunistically WARN and reject binding if KVM_MEMSLOT_GMEM_ONLY is
-> > already set, partly to guard against goofs elsewhere, but mostly so that
-> > KVM doesn't need to worry about clobbering flags when unwinding on failure.
-> > 
-> > Fixes: a7800aa80ea4 ("KVM: Add KVM_CREATE_GUEST_MEMFD ioctl() for guest-specific backing memory")
-> > Cc: stable@vger.kernel.org
-> > Reported-by: Stefan Teodorescu <fane@google.com>
-> > Reported-by: Dennis Tighe <dtighe@google.com>
-> > Reported-by: Sashiko Bot <sashiko-bot@kernel.org>
-> > Closes: https://lore.kernel.org/all/20260823135031.4F6DC1F000E9%40smtp.kernel.org
-> > Signed-off-by: Sean Christopherson <seanjc@google.com>
-> > ---
-> >  virt/kvm/guest_memfd.c | 15 +++++++++++++--
-> >  1 file changed, 13 insertions(+), 2 deletions(-)
-> > 
-> > diff --git a/virt/kvm/guest_memfd.c b/virt/kvm/guest_memfd.c
-> > index b596486d184c..0b48e9a775aa 100644
-> > --- a/virt/kvm/guest_memfd.c
-> > +++ b/virt/kvm/guest_memfd.c
-> > @@ -612,10 +612,14 @@ int kvm_gmem_bind(struct kvm *kvm, struct kvm_memory_slot *slot,
-> >  	struct inode *inode;
-> >  	struct file *file;
-> >  	int r = -EINVAL;
-> > +	void *xar;
-> >  
-> >  	BUILD_BUG_ON(sizeof(gpa_t) != sizeof(offset));
-> >  	BUILD_BUG_ON(sizeof(gfn_t) != sizeof(slot->gmem.pgoff));
-> >  
-> > +	if (WARN_ON_ONCE(slot->flags & KVM_MEMSLOT_GMEM_ONLY))
-> > +		return -EINVAL;
-> > +
-> >  	file = fget(fd);
-> >  	if (!file)
-> >  		return -EBADF;
-> > @@ -654,7 +658,15 @@ int kvm_gmem_bind(struct kvm *kvm, struct kvm_memory_slot *slot,
-> >  	if (kvm_gmem_supports_mmap(inode))
-> >  		slot->flags |= KVM_MEMSLOT_GMEM_ONLY;
-> >  
-> > -	xa_store_range(&f->bindings, start, end - 1, slot, GFP_KERNEL);
-> > +	xar = xa_store_range(&f->bindings, start, end - 1, slot, GFP_KERNEL);
-> > +
-> > +	r = xa_is_err(xar) ? xa_err(xar) : 0;
-> 
-> 
-> r = xa_err(xar);
-> 
-> Should be sufficient, right?
+On Wed, Sep 09, 2026 at 04:45:15PM +0200, Frederic Weisbecker wrote:
+> I didn't know that UNLOCK+LOCK can pair with smp_load_acquire(). Good to know.
 
-Yes.  I didn't like relying on what I thought were internal xarray details, but
-I missed that xa_err() itself checks xa_is_err().
- 
-> mm/memremap.c:pagemap_range() uses that and just avoids the intermediate xar
-> value completely.
+I don't know what that means.  Regardless, LOCK doesn't pair with 
+smp_load_acquire().  UNLOCK does, but only to the extent that acts as a 
+release.
+
+> But unlock+lock doesn't pair with unlock+lock on different CPU.
 > 
-> r = xa_err(xa_store_range(...);
+> C MP+polocks
+> 
+> {}
+> 
+> P0(int *A, int *B, spinlock_t *mylock)
+> {
+> 	spin_lock(mylock);
+> 	WRITE_ONCE(*A, 1);
+> 	spin_unlock(mylock);
+> 	spin_lock(mylock);
+> 	WRITE_ONCE(*B, 1);
+> 	spin_unlock(mylock);
+> }
+> 
+> P1(int *A, int *B, spinlock_t *otherlock)
+> {
+> 	int r0;
+> 	int r1;
+> 
+> 	r0 = READ_ONCE(*B);
+> 	spin_lock(otherlock);
+> 	r1 = READ_ONCE(*A);
+> 	spin_unlock(otherlock);
+> }
+> 
+> exists (1:r0=1 /\ 1:r1=0) (* Bad outcome happens *)
 
-Ya, it's ugly, but I do think it's less ugly than the intermediate xar.
+I can't tell what you're trying to do here.  The UNLOCK-LOCK ordering 
+in P0 means that P1 sees A=1 before it sees B=1.  But nothing in this 
+litmus test forces P1 to execute READ_ONCE(*b) before READ_ONCE(*A).  If 
+the reads are executed in the opposite order, you can see how P1 might 
+get r0=1 and r1=0.
 
-	r = xa_err(xa_store_range(&f->bindings, start, end - 1, slot, GFP_KERNEL));
+If P1 had done this instead:
+
+P1(int *A, int *B)
+{
+	int r0;
+	int r1;
+
+	r0 = READ_ONCE(*B);
+	smp_rmb();
+	r1 = READ_ONCE(*A);
+}
+
+then r0=1 and r1=0 would be impossible.
+
+Alan Stern
