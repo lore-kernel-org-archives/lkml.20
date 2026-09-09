@@ -1,241 +1,105 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lf1-f42.google.com (mail-lf1-f42.google.com [209.85.167.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42A1B585987;
-	Wed,  9 Sep 2026 14:32:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788964324; cv=none; b=uY51PpsJK56oCi8yZv9eVFtAFeLbWTlZI4F1FC2FyRbmQY59s/YGZcJIpSjTKXWb+QW0GOS0T6ZgyOZhJO+4CmEGVlgFFSK31Yiq+IMqHawn0apvMvqA4UXWhlgNkkVuVf2lkx4FZ+x+ftL7B2YS291hCfFPuuebeGlabqwvWZg=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788964324; c=relaxed/simple;
-	bh=QlQtW209TskljUfdhmkhQbpqSVF6gGswBimhcCs72oI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=bOA09z78lMD62MBH3feK8aBwS+XRknbT3cWJ3A1YbKCcraraWu+txjoWzea3YGDkbm19kO9M3KhX7AmYt2hIEOuFieHXwlrAAXtG9xHbSjQ6F4s9a43jnot6/yD5Tks+C+9B5kWzHiBHhJeKHHHe7rZLL61lrB1ltM9OQkZ57d0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ooE8DWa5; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43D555867F3
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 14:32:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.42
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788964353; cv=pass; b=p5bWpHT88MjHRD22d/cvmQbdD19x1KiehW0IpFhl5bnkZaFXQbf2yb6HIXNriqY4c6OhF6obePzVw61bREJzJWJ3gp4q/dvoBE0avwPD3C8gEFP4/2PLVUaUqLCw8Z/PRHPTNEBkiNfMp2jRiqQNhhDzIHH9q0pd+fw8Ltk5VnU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788964353; c=relaxed/simple;
+	bh=pD9TXcj0deCwIDSY/gHovc99tumuugoF4IfHylmVrlQ=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=DJlIhQddt5rW3Hg4jqkJ6qDH8GpxClTQ+HZAENeb5iR5i3J10Yud9wAovYm6LMEWsq35XkVrTia+ZEHMw1Q/v4sZhbZHqub8gRiuVamnop/olp/OhEwHsP8k9kMVZKzQrp8GclsFkxRhSzfTxBk5r/pEQrqsyCrURXQOS34a7OE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Z1R1ZLO9; arc=pass smtp.client-ip=209.85.167.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ooE8DWa5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 111A91F00A3A;
-	Wed,  9 Sep 2026 14:31:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788964323;
-	bh=81t5dUSp9NBhDobvQnuTMVyhlj2QjrqDWTWphqDthVs=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=ooE8DWa5CDIiME+I6yLmCXTKES6hNTyRb7PC8UxkjursSc8yN+HrzSX5UyO6mzMIV
-	 eqKqU+0oFTCr/RTvmo7df6nyKIN/3tYL2Ut4KbBoBqDPVFMQH025G+H3g9edB6dIhD
-	 5jzVh9mjdj3vbNdizWQoV8/MbCU8/u/CI8yb6JFQctbgQcuasxa4z34UqihPB1OhXT
-	 kB/dWNswLQiw+qzzkbmwu3VnbxWY0KL6I3d+Qc2thdBfbAsgEc3g2LLUdGoAO8aulM
-	 9WYEhgR+uCb8cquBu0fepHWMAdhSszvuSH0jxUn/EviRDLNyH85H6lpRXMOkIMF71N
-	 UC7rL6M5zItUQ==
-Message-ID: <d8e9b629-4198-4281-a3b2-d54445201fd2@kernel.org>
-Date: Wed, 9 Sep 2026 16:31:49 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Z1R1ZLO9"
+Received: by mail-lf1-f42.google.com with SMTP id 2adb3069b0e04-5b4ae3e201cso5231191e87.2
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 07:32:32 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788964350; cv=none;
+        d=google.com; s=arc-20260327;
+        b=UDuLdbfxFRTWRfV0vq/eR8Y/rqhSd0LDXcl0r0wfJ8cBg9eB8mZfpmO1+CAWwtYs+O
+         xpGL/8kb12/p/sCrX0DNfU3uvmyFbJEErHCJuv7bAjat4ZGSL5dD2ZXLWPUYP1MGwidd
+         mxSb3Euyz0GouoBvTj2HE11DBuxyVejwgAHFp94Z0f6CWmQYNA3QVAWJVkIYwGEEuQ2w
+         7rAYRBLlftAOf15Hpku5xTGktsIg+Z32LA8q+LAlyKfejGRnncNuCqdiJkkFAdQKvkbC
+         /Sg64zOmHd5qvjMvnNfRENQ7t1NPbI3i3y6YV5umdw+6Wa+5h5qRgolO9jHYVeiIO0c/
+         k7GQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=pD9TXcj0deCwIDSY/gHovc99tumuugoF4IfHylmVrlQ=;
+        fh=ZPccdyYevflq5bBMhuWGeCCJrft26y8TSRnNG4vSXPQ=;
+        b=ImX7KXAaAVUSqNr5ldvJoUi6ab0iCIWkBob/TKUbRddz8zaIa9vOs4UyNvXbn/YYjh
+         +d7nmlMYAJi38ATxNbw6UiZ1VjcN91o0w5q0VklPiLzXjZ0/Aa/YHd9ocZh7WstNwCzY
+         mt1kF7PBViA6HABbHWa1nqGFIrK+5Zz3q27qKx6b7WWB0WWAki1lkSsRacWCsTAnFBgJ
+         hDt/qa7rvdAO84aXYDYtoN4m5qKwReS0ST+L3+3ogP/PEC7hH1FLtUHsxgnzgJe3JHdU
+         LUjQgFG/8xH3I8yujEJr9AQxSivwDjfAm2y47lTu2k7/R1U4jK9B6sWXwZZGOltjioZn
+         LQxQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788964350; x=1789569150; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=pD9TXcj0deCwIDSY/gHovc99tumuugoF4IfHylmVrlQ=;
+        b=Z1R1ZLO9tIz1bQmwyqzaZ/GAiWR5AnitqV9Nddx0whC5cxMRaIIsDA7EA4xsINKKXP
+         MZcCewVY1Ye5iqum1Qz7AYnunCVcnnYpqr3ctUmQ9iwZCrwNxpbMhy0mhhiDnX6JP62f
+         /RZnfha0AuX9mSKCzJb47a+mhAsIHU0763L4AF0lqdmZ5gIzQrPfEgQeI59/VRIzW6fY
+         09xrBJcsqbtr5Wxdt/jb0MvZFsIfxhjmbildZUi2H7xCbYBlhj5aDld7B+deiluQJJ1j
+         p9nGsFmUoYifuG9Bx365VPdnIaWiO6dzwH6S1XxIbcXBOKqN5xDKSpI6e0Jp+913wEvw
+         OIaA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788964350; x=1789569150;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=pD9TXcj0deCwIDSY/gHovc99tumuugoF4IfHylmVrlQ=;
+        b=XeYNB0jr5/9zpJ/ZqomSszMe45a10yzVjtlxrAfOoVJL+mcV+N1Ld0pWWVDx+FK3lq
+         clrtVlsthgArLXQKIQp0wOzfmsHlGfVq+D1U2MlzNpCTpVRQwy9Oi05kcIJGg28Dvqu+
+         HZnl5OrDI1xL4DaWXDGF3jpgiawHmXeZ6mv1EDNYDMYHXXY3O+EsQVuyZZSA7sOQWUEp
+         LSwUze9uGDq1Y6HPEEkd/YcmOZNN0rxFkxmdHBigvWNrgYpX4y0n/vIBHan/BpbHsW4I
+         HhqFm+mr+/yzNBMSA96i0wIdp+HRuHyslcwSjzeecDxwqk0qHfrRV5AWuwoH2J9jV9FI
+         U8jQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzYOeZ8KJoCbT9KnFUs8sdff7LT1AgK4AfulwFoNkaKqXHBxTKN0wZFp/vRopRCDdkaYZekyQW4Qr0jMug=@vger.kernel.org
+X-Gm-Message-State: AFuF++lkPEgMNoS4K/KIoGp2qYO3YJfflm2Wi2vJVh4sPEWgVdLG1s1n
+	al4ldQGeDRFz0yeznEEZN6IaCAPdrjQ4oF8ZENDfJ7ZoaM3V+HT/E0Sd23T3jyhjXprkIlG5bt+
+	KHHJBfNduF32F3mIStwMLRVsrfN9bO1U=
+X-Gm-Gg: AYBFou1v3OLeTcJWNcGmsDNpqVy6UpekoE2w3hoxjhqlu1cqAzLB6tSLqgXaZyAHuyu
+	SUSnO5U77Q5m4fwwOT60U8IhSDZ6kwbUiJVuzYXkEreAJZKg1Gv/orJd+woIk/ZxRR3bxE6LQqM
+	DKYTPGn95Xn5ElJjTgFNNNSjE1zfABnP3sg6zc3rMbGwoX/cVby1wyk5G+f5q7/icBcWNaxrRMs
+	Th44M7XINNOTGlMhzAX9WYZIrtEMOBIqj+5tl387rDf1+WuUJH6/HhWrqGX3ic2UIRMvqfWyjca
+	BZpi31PLqpKbQ2dJp3hx6QlwseEEOQYXruOZd5efdKRVfM2iviJsMrUztUa+S4D1dw+IX7EZlro
+	r1dtKQ+nPiLfwXVMN+JprgeVJ04xEXyhIqQzglty+F8Q=
+X-Received: by 2002:a05:6512:2245:b0:5b6:186e:b79a with SMTP id
+ 2adb3069b0e04-5b6186eb973mr6080393e87.54.1788964349854; Wed, 09 Sep 2026
+ 07:32:29 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 14/14] mm/page-flags: remove PG_private
-To: Zi Yan <ziy@nvidia.com>, "Matthew Wilcox (Oracle)" <willy@infradead.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- Muchun Song <muchun.song@linux.dev>, Lorenzo Stoakes <ljs@kernel.org>,
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>, Baolin Wang <baolin.wang@linux.alibaba.com>,
- Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
- Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
- Gregory Price <gourry@gourry.net>, Ying Huang
- <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>,
- Johannes Weiner <hannes@cmpxchg.org>, Qi Zheng <qi.zheng@linux.dev>,
- Shakeel Butt <shakeel.butt@linux.dev>, Kairui Song <kasong@tencent.com>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- Baoquan He <baoquan.he@linux.dev>, Pasha Tatashin
- <pasha.tatashin@soleen.com>, Pratyush Yadav <pratyush@kernel.org>,
- Jonathan Corbet <corbet@lwn.net>, Jan Kara <jack@suse.cz>,
- Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu
- <mhiramat@kernel.org>, Dave Young <ruirui.yang@linux.dev>,
- Shuah Khan <skhan@linuxfoundation.org>,
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- kexec@lists.infradead.org, linux-doc@vger.kernel.org,
- linux-fsdevel@vger.kernel.org, linux-trace-kernel@vger.kernel.org
-References: <20260907-remove-pg_private-v3-0-6ae22f9d9272@nvidia.com>
- <20260907-remove-pg_private-v3-14-6ae22f9d9272@nvidia.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20260907-remove-pg_private-v3-14-6ae22f9d9272@nvidia.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20260909133247.113923-1-sigefriedhyy@gmail.com> <ab826712-6255-4e9b-b6fb-f6f8c380e779@6wind.com>
+In-Reply-To: <ab826712-6255-4e9b-b6fb-f6f8c380e779@6wind.com>
+From: Yuyang Huang <sigefriedhyy@gmail.com>
+Date: Wed, 9 Sep 2026 23:32:17 +0900
+X-Gm-Features: AcwNN1U-zJe9KiEEMqLOKTFtdT1jP5RPoJOJuwn6aNuKHcG4DvpUskIblRkLEwA
+Message-ID: <CA+7S2vLDaZG=VGzCYWbGUybE=fJyzPoBdM-Wz0T0qp4Sa_EvGg@mail.gmail.com>
+Subject: Re: [PATCH net-next v3 0/4] rtnetlink: dump link-layer multicast addresses
+To: nicolas.dichtel@6wind.com
+Cc: "David S. Miller" <davem@davemloft.net>, David Ahern <dsahern@kernel.org>, 
+	Donald Hunter <donald.hunter@gmail.com>, Eric Dumazet <edumazet@google.com>, 
+	Ido Schimmel <idosch@nvidia.com>, Jakub Kicinski <kuba@kernel.org>, 
+	Kuniyuki Iwashima <kuniyu@google.com>, Nikolaos Gkarlis <nickgarlis@gmail.com>, 
+	Paolo Abeni <pabeni@redhat.com>, Sabrina Dubroca <sd@queasysnail.net>, Shuah Khan <shuah@kernel.org>, 
+	Simon Horman <horms@kernel.org>, Stanislav Fomichev <sdf.kernel@gmail.com>, linux-kernel@vger.kernel.org, 
+	linux-kselftest@vger.kernel.org, netdev@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On 9/8/26 04:56, Zi Yan wrote:
-> folio->private != NULL indicates a folio carries private data, replacing
-> PG_private. All PG_private users are converted. Remove PG_private and
-> reserve the space as __PG_folio for future use.
-> 
-> __DEF_PAGEFLAG_NAME() is added to show __PG_folio.
-> 
-> Also update files in Documentation. hugetlbfs_reserv.rst is outdated and
-> left unchanged. It should be rewritten.
-> 
-> Assisted-by: Claude:claude-opus-4-8
-> Assisted-by: Codex:gpt-5
-> Signed-off-by: Zi Yan <ziy@nvidia.com>
-> To: Andrew Morton <akpm@linux-foundation.org>
-> To: Baoquan He <baoquan.he@linux.dev>
-> To: Mike Rapoport <rppt@kernel.org>
-> To: Pasha Tatashin <pasha.tatashin@soleen.com>
-> To: Pratyush Yadav <pratyush@kernel.org>
-> To: Jonathan Corbet <corbet@lwn.net>
-> To: "Matthew Wilcox (Oracle)" <willy@infradead.org>
-> To: Jan Kara <jack@suse.cz>
-> To: David Hildenbrand <david@kernel.org>
-> To: Steven Rostedt <rostedt@goodmis.org>
-> To: Masami Hiramatsu <mhiramat@kernel.org>
-> Cc: Dave Young <ruirui.yang@linux.dev>
-> Cc: Shuah Khan <skhan@linuxfoundation.org>
-> Cc: Lorenzo Stoakes <ljs@kernel.org>
-> Cc: "Liam R. Howlett" <liam@infradead.org>
-> Cc: Vlastimil Babka <vbabka@kernel.org>
-> Cc: Suren Baghdasaryan <surenb@google.com>
-> Cc: Michal Hocko <mhocko@suse.com>
-> Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-> Cc: kexec@lists.infradead.org
-> Cc: linux-doc@vger.kernel.org
-> Cc: linux-kernel@vger.kernel.org
-> Cc: linux-fsdevel@vger.kernel.org
-> Cc: linux-mm@kvack.org
-> Cc: linux-trace-kernel@vger.kernel.org
-> ---
->  Documentation/admin-guide/kdump/vmcoreinfo.rst |  2 +-
->  Documentation/filesystems/vfs.rst              |  6 +++---
->  include/linux/page-flags.h                     | 19 ++-----------------
->  include/trace/events/mmflags.h                 |  3 ++-
->  kernel/vmcore_info.c                           |  1 -
->  5 files changed, 8 insertions(+), 23 deletions(-)
-> 
-> diff --git a/Documentation/admin-guide/kdump/vmcoreinfo.rst b/Documentation/admin-guide/kdump/vmcoreinfo.rst
-> index 7663c610fe901..5f1df6d080508 100644
-> --- a/Documentation/admin-guide/kdump/vmcoreinfo.rst
-> +++ b/Documentation/admin-guide/kdump/vmcoreinfo.rst
-> @@ -325,7 +325,7 @@ NR_FREE_PAGES
->  On linux-2.6.21 or later, the number of free pages is in
->  vm_stat[NR_FREE_PAGES]. Used to get the number of free pages.
->  
-> -PG_lru|PG_private|PG_swapcache|PG_swapbacked|PG_hwpoison|PG_head_mask
-> +PG_lru|PG_swapcache|PG_swapbacked|PG_hwpoison|PG_head_mask
->  --------------------------------------------------------------------------
->  
->  Page attributes. These flags are used to filter various unnecessary for
-> diff --git a/Documentation/filesystems/vfs.rst b/Documentation/filesystems/vfs.rst
-> index d3a93eec3945f..dec7816303c6a 100644
-> --- a/Documentation/filesystems/vfs.rst
-> +++ b/Documentation/filesystems/vfs.rst
-> @@ -649,8 +649,8 @@ Writeback.
->  
->  The first can be used independently to the others.  The VM can try to
->  release clean pages in order to reuse them.  To do this it can call
-> -->release_folio on clean folios with the private
-> -flag set.  Clean pages without PagePrivate and with no external references
-> +->release_folio on clean folios with folio->private set. Clean pages
-> +without folio->private set and with no external references
->  will be released without notice being given to the address_space.
+> Please, wait 24 hours before sending a new version:
+> https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/Documentation/process/maintainer-netdev.rst#n15
 
-This reads like it would belong into patch #13?
-
->  
->  To achieve this functionality, pages need to be placed on an LRU with
-> @@ -674,7 +674,7 @@ filemap_fdatawait_range, to wait for all writeback to complete.
->  
->  An address_space handler may attach extra information to a page,
->  typically using the 'private' field in the 'struct page'.  If such
-> -information is attached, the PG_Private flag should be set.  This will
-> +information is attached, non-NULL 'private' field will
-
-Same here?
-
-Likely this could have been restructured to cause less head scratches. I'd
-expect any documentation that refers to PG_private to get removed before finally
-removing the bit.
-
-Not the end of the world, just a bit confusing while reviewing.
-
->  cause various VM routines to make extra calls into the address_space
->  handler to deal with that data.
->  
-> diff --git a/include/linux/page-flags.h b/include/linux/page-flags.h
-> index ce7fccd90367b..7b7783c0a5216 100644
-> --- a/include/linux/page-flags.h
-> +++ b/include/linux/page-flags.h
-> @@ -44,10 +44,6 @@
->   * Consequently, PG_reserved for a page mapped into user space can indicate
->   * the zero page, the vDSO, MMIO pages or device memory.
->   *
-> - * The PG_private bitflag is set on pagecache pages if they contain filesystem
-> - * specific data (which is normally at page->private). It can be used by
-> - * private allocations for its own usage.
-> - *
->   * During initiation of disk I/O, PG_locked is set. This bit is set before I/O
->   * and cleared when writeback _starts_ or when read _completes_. PG_writeback
->   * is set before writeback starts and cleared when it finishes.
-> @@ -105,7 +101,7 @@ enum pageflags {
->  	PG_owner_2,		/* Owner use. If pagecache, fs may use */
->  	PG_arch_1,
->  	PG_reserved,
-> -	PG_private,		/* If pagecache, has fs-private data */
-> +	__PG_folio,		/* Do not use: reserved for folio identification */
-
-Do we really have to annotate it with __PG_folio ? I'd just keep it simple and
-have the comment. That also avoids __DEF_PAGEFLAG_NAME just for this use case.
-
-(sorry if this was discussed in previous review rounds)
-
-
-
--- 
-Cheers,
-
-David
+Acked, will be more careful next time.
