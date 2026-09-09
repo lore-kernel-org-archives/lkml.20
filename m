@@ -1,81 +1,69 @@
-Received: from mail-ej1-f52.google.com (mail-ej1-f52.google.com [209.85.218.52])
+Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com [209.85.218.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E59F848592B
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 21:34:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.52
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788989714; cv=pass; b=Qvcmt4zUDfLaV+hc48vVAK/Zo2HgER4+geqdB6DbnQXMg2j6idf9S02VyOPIIk3KKyfmVJH/mgBDr+Ut027+Dj7wLdeL2wZn0M/wfQvQcuL8wMvdxhOZ/tcznrUT45AXDTEWV7O8BIPAulcwzjA93vndlLxvVtpJn2t3+gy7T8w=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788989714; c=relaxed/simple;
-	bh=3oNUmTrYWtNLjHBd0tZgzihnKQzz3N1wdYYyGkA2BrY=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43F892DCF74
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 21:35:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.50
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788989709; cv=none; b=bzfQESRj+u0zCw/3PtCDseki5oRQIG3+MhceitBvUWhml9J31i3Lerl0eczjM8g88vLRIhhov/fNRXT2cNDD42K6+UpwKBMV/ECNHvp/FNBCHzTk1zZIpJslAnZqloU/HLKo5h3dvhDr3ZAK2Z79q/sDodscr6Uz10XeX/GT0Xg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788989709; c=relaxed/simple;
+	bh=JM0o61Y6ltMUDCEIGTB8aYG4/lxWHsy/P9VIG/tnMQE=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=uTkR88Y08e2Ircalm+DDxJvZEhR6WMq2oXkQd5f19eXxhhGonf5Hu2NqOLQXYUrCh+4ORprn4ijpnV9ARRDwT0txa+BjkHFXPygij/nCCFpXSs9nQDVbXvTsIdHpQuBZX9P/dHNZnVhi35/GVd7aA50YW+mKgDwYyLhl9y8yuEI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=paul-moore.com; spf=pass smtp.mailfrom=paul-moore.com; dkim=pass (2048-bit key) header.d=paul-moore.com header.i=@paul-moore.com header.b=au4AayOt; arc=pass smtp.client-ip=209.85.218.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=paul-moore.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=paul-moore.com
+	 To:Cc:Content-Type; b=hNnsKErxcLuEmIwNnMFUKkfPJvOTI0TFvCC0+MSb9on9lTsK/PuBs8dzCLF6HdPn6NmpfxAk0KDwmaqqKYSGj5bsYCnIrrVF37gX9dYV4oqPhuhkXzsi/Ix3q4AzEWgG43y+7DWL45/uSZfBDRZ4wk9WWRnbJKarGYLm6kp00g0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=CyLfGmTf; arc=none smtp.client-ip=209.85.218.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=paul-moore.com header.i=@paul-moore.com header.b="au4AayOt"
-Received: by mail-ej1-f52.google.com with SMTP id a640c23a62f3a-c2938116fefso194307666b.1
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 14:34:58 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788989694; cv=none;
-        d=google.com; s=arc-20260327;
-        b=BZCrKDCOvDNTW7a54hOpFya1A8q5aJV91bnqaPD2alIUSWha+KJ4Y48G0MxUnJ0J2Y
-         SI2osiYISSe/LJQTlhhksFGmJWyzTlP3pN1spP4UzeIFI7l/E6yveXRmLlUCo6MFW8Hq
-         BXp0Us1ab+7a9+VtY+MlfR5ks5ECRmsSZzzXwmHTbIKWmfp3kXJj1h3cPyWluU2KNhx2
-         0mnVS/TrSScBNbX+QJZmu3PGBrnHKhzmoKI1DUuUJ0D+808Ge3IHiwTL7QrWzaUJdEDl
-         /w515i2r93Flj9cno4n+CkZC6d/MtYsJgc1LRgiI0yspaq87Ts86Dep4ZxpXuJcjmMXD
-         AWcw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=v/5kGipgpDimrS6n35sjSMetEnTNyDyUhJUmOMfkSZ0=;
-        fh=a+mVaUCgesfacxPPSZ/LWVMdlg6/hIxKshFj2hTPJsk=;
-        b=g13f3cscSGTWq4S32dsOnDn+7b+fmZxEQLRoyhF8prUw8IZGCbCxEkc6qyjd4S7lK7
-         ZUCfPKMR/0XZLuD4vZsEbaLOHbQKTYGHFWQvep3NhzjmjelxTrEA10ZSSfmHc7neKzu7
-         eVWZIn4JYLSYtzznU2vzKqPHmhN/HC9w8uaIls7QNABbItFZKOKEXvC9d+jx7P9jmrtQ
-         LcZg8uHedPImZxTbhrN2hI1BT3Z28Uolibt/xpVL7L60BT1L2HAt/5PNOFTIKcIyIn0h
-         uyeFPo3N33IpjYg/PFvpmCE7aWnqxmtbwejAi8hl1LBf7NmTv+JUlUz1weygWG39X/Hk
-         GNcw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="CyLfGmTf"
+Received: by mail-ej1-f50.google.com with SMTP id a640c23a62f3a-c15e2dab83eso1121321566b.1
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 14:35:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=paul-moore.com; s=google; t=1788989694; x=1789594494; darn=vger.kernel.org;
+        d=chromium.org; s=google; t=1788989696; x=1789594496; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=v/5kGipgpDimrS6n35sjSMetEnTNyDyUhJUmOMfkSZ0=;
-        b=au4AayOtRxAKx7VLLvNXC1qGB8insGW0x1xoVE721TOiaMX9R1tFikI6fcGzfjzrPO
-         AGAVwVlT1RAxfmUDqjEDkHtNicvREcnCYRxfHmlbIQpCT6432tED7oOaq8qq/kBD7mMm
-         eZWo1im8Buzkg/ni94bV4G6+XTJU3zBnBkLbyofy/k/9DpXF6ENJEIQzfD+/hDKrprKt
-         vd7COyIZS+kEuQuJF1O0uYaN3QCEsfYClsM7avH0TL3GPfkJuSxNDRUAkYI7SLh86DEx
-         I1GCGfpVSIt0Orwx/m8XuIsO8IHQFa76UMG8dbGXcnvL1zUgMRpa587ZHFmQeAahvhbE
-         ftyQ==
+        bh=sMS1hbLMg1gsIduehGePlq8QcJPEKyefk4+J94QrxTY=;
+        b=CyLfGmTfY6NlaBxvKiuOvMJbdO/2j8jasUbtw+vR8AzBYZcX2IGHbndts0fVVYgIpt
+         XpAsJtnWXSvpnJfBULJ5uVVR8foRT3J004Q8u/2zzJAk7wSKzVC3Ibe4XJH7sbtF75D8
+         3SuZpuvdLMJ1moyfmHa1F5LTJ8XvFrdG7nGNs=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788989694; x=1789594494;
+        d=1e100.net; s=20251104; t=1788989696; x=1789594496;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=v/5kGipgpDimrS6n35sjSMetEnTNyDyUhJUmOMfkSZ0=;
-        b=UIFzPv9/owUkiBSEGT3zgDivEzyodycYxNxf4V0kEtQuhcyCAEh39agBL2LTiGAHqc
-         B0LnQdL8XpqgLIKklvUhaoOmiOHZaoOLYU8knJEdyGFKPQdZe+GsnBIxOQcy8OATeLca
-         pp4Jlm3qlIHECDCG7HhBn8QRBs4VzyoqRne0/4h4jRx4qr94IcZg8zWB+KXrS0921oc+
-         6d8vi7uEfBuQqzNQvgiYE/BXCPoJMvoN2dcqJ6oUoT5+JUOxNds2A5OpQ/D7WfBL9uLB
-         Zc/0l//gBVtfO15Kq2HqyRKUZbdpFOQpIlYNUiPYxnP/AiIcTGwAIJz60GcXlOdnkiN3
-         RrAw==
-X-Forwarded-Encrypted: i=1; AKwUvBzr3Y2M1wQY7VANbSaUbNzfJEQNc88LdynbYcMOBgjmycXve7c5cRqsySKrTOFQ1mvpALbcgryaBqIt2XI=@vger.kernel.org
-X-Gm-Message-State: AFuF++njilBuCcGPIINek+1TvLw/t8yZKUfY8NAYWdB194ulv4noMAep
-	RA351c2lCz1kEz5Uuq1xHBZsaH5OTUro+JOV4bNUD951jP9Lqn4ZvTjShVHAIuep1Anfh0cyuiY
-	ZQSSBeIqVDoUsNLXjuRKRee5h7zuon+LvnGdRUn7F
-X-Gm-Gg: AYBFou1dJvn9rnJBRa0SQCBANzCzjMgWPNPFKe7xN2Q6YQpdjTV9sESUtQ8SqDM7u0N
-	UJ7iL9aydjQ2v1Lhllo4J/mW5QbQd4U/X9akGD9rjPOhDnzyAUR29Fwl4cCQv15+/sP56jvo21Z
-	OxRReVn5Jyn6fRdWmQ/U6vSZoZ7HaWInlJ/lIDql/guWGVdTkUBIqYW+QKFeuYIG1EOUNhyYI8y
-	hY9ibQEtHLWwZ/W3Tp69T6pkOY3Tju8upn84xA9yjlP/3X/8X0G0L0bmPpzoQOr1x0pqNUC6Zt5
-	E1DtB27cZfeYwuS4zNDfXbVbOKfqd5v09HY9bqkf+BlxMu4N1xWthp4YKxuAxja3clZgGtYzlfn
-	KkgatSA7RRRY=
-X-Received: by 2002:a05:6402:42c6:b0:6a7:fb24:264e with SMTP id
- 4fb4d7f45d1cf-6a7fb2427d6mr11476660a12.34.1788989693583; Wed, 09 Sep 2026
+        bh=sMS1hbLMg1gsIduehGePlq8QcJPEKyefk4+J94QrxTY=;
+        b=ZmmWWs8Rj3OPizPcd1MJ4DgSaSAlXJBbU98YuWVvGCSxJI2q+wKvmdHWUvAdotiLbS
+         c18uOn3DMM+VW5vcaD7JXgB8x3+V6gkHjpcdLad54HAr961VBtsRiIS/YwoEJ7i+td1w
+         ebZv9wjMU1QJ+aHyqQbDWI2uVbE2lCFKNHY2nAK5HyEr0weAskEVcB2E0jWPawrw7uh6
+         7t4A64PdmBiH8QgemzVcKwEmnjNQPYSssXCWEId4UwHwEfyiCgQpZwH2XRbHT9FUw0Qv
+         dS4Mg3fBP/Uv+8oNZwftnaktQR6J7K71Y4XJf0iBIaWg1LP2i8fCsQQxQEINs3Brr6/u
+         t46Q==
+X-Forwarded-Encrypted: i=1; AKwUvBysVArAZ+vNKaudOaHNlwAlyaPzjfNn7kgPkXe9+CkNUfR+oGd/5MkjL6DpVZLk+o19+d2FEga1ANBA+VE=@vger.kernel.org
+X-Gm-Message-State: AFuF++nOlK6+lEUtCtZ4yOJ4TBp48ahN6R3IZHn5kfajekm+xWjgmSYv
+	G7vgCKV2Qf+0gnWr3u2xmHQYwhXvwoVLx6UwmBEwPnMItoQJDXvTvBOaZ98oIPQaGweEyAveZ51
+	0joLj7A==
+X-Gm-Gg: AYBFou3ipwXYsd8pVoADqzkeW9UGq2AnDXZlwdcCGIDOuvhLkSOBQSLNIbkAkBQkzLz
+	UXDyMf5ConYWjsfSqBQzelQWTOVKNrK0LsieykR/lcRvr2YvhKmJRpXxjwMtP+kt8Sdc96kyJZp
+	CKXKL2WlPvWzSK+sJDwHDG5edrpC8P0GG9Gjd8z/NdAxlo+z6S8zyUf26ZX7Ji7D6QQf2hDYhit
+	5fZhh5fB3vVREDwxnhO0dB9QKavZmxUF395Y4ESG5Ei69LkdJLQORkCCSMfnAY5oGsQAAmgUnRF
+	MUaUicXxipjJ1WldNQDaPCbWZlCENPOQJuEfisVHhtzjLRW5PP+xVSUOYZQq8HNgz3Stxdssq14
+	8b8yefI9vB7slQQU+SiRNxQ/XQ7qlysIS5m2Xzn0xap7uAgY1sTJkHdhpQWos4rFWySQCe/ePTT
+	igMp6Ea35LHJMJZwMmqIULdB2YaEO6+fINVoreGA7oX8yZ7e2LgL3Fl5Rl0R3BXByZ3TAVwSm/4
+	4jRkcrQB++QAG2iuT7VdaBbdmkPzAnzjtWQWQ==
+X-Received: by 2002:a17:907:72c7:b0:c26:30fa:7cf2 with SMTP id a640c23a62f3a-c2630fa7fb2mr1112429366b.13.1788989696477;
+        Wed, 09 Sep 2026 14:34:56 -0700 (PDT)
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com. [209.85.128.51])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c260d5cdf7asm852179266b.58.2026.09.09.14.34.54
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 09 Sep 2026 14:34:55 -0700 (PDT)
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4957eefd361so50377745e9.1
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 14:34:54 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxwIpLRD7eAle9wBoO75a2d/ovopice5/Upz5S6X5pK7QMMfNx6kf+TE5n30AsIILgqUa1FXFiOT4X8cqU=@vger.kernel.org
+X-Received: by 2002:a05:600d:640e:20b0:49c:fc6e:a3e1 with SMTP id
+ 5b1f17b1804b1-49cfc6ea77dmr253931435e9.32.1788989693915; Wed, 09 Sep 2026
  14:34:53 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -83,99 +71,80 @@ List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260909193719.518517-1-utilityemal77@gmail.com> <20260909193719.518517-5-utilityemal77@gmail.com>
-In-Reply-To: <20260909193719.518517-5-utilityemal77@gmail.com>
-From: Paul Moore <paul@paul-moore.com>
-Date: Wed, 9 Sep 2026 17:34:31 -0400
-X-Gm-Features: AcwNN1VsK6p9PaFEMp2PujAdfTIJTXAYr2yXrUJqn7w6sJuHfrRDFgEKLUlYFeg
-Message-ID: <CAHC9VhQHZ+ngFdzKqmnzBh341CGEg-jexu+QYU8=1qXK=u-x-Q@mail.gmail.com>
-Subject: Re: [PATCH bpf-next v3 04/15] lsm: Add the bpf_lsm_policy_release
- kfunc and policy object destructor
-To: Justin Suess <utilityemal77@gmail.com>
-Cc: ast@kernel.org, daniel@iogearbox.net, andrii@kernel.org, 
-	kpsingh@kernel.org, matt@bobrowski.net, mic@digikod.net, 
-	viro@zeniv.linux.org.uk, brauner@kernel.org, kees@kernel.org, 
-	casey@schaufler-ca.com, gnoack@google.com, jack@suse.cz, song@kernel.org, 
-	yonghong.song@linux.dev, martin.lau@linux.dev, eddyz87@gmail.com, 
-	memxor@gmail.com, jolsa@kernel.org, m@maowtm.org, bpf@vger.kernel.org, 
-	linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260908013843.368364-1-justin.yeh@mediatek.com>
+In-Reply-To: <20260908013843.368364-1-justin.yeh@mediatek.com>
+From: Doug Anderson <dianders@chromium.org>
+Date: Wed, 9 Sep 2026 14:34:41 -0700
+X-Gmail-Original-Message-ID: <CAD=FV=Ui1XYRXb6ZqmAgWqF3TZaAcGqfsV6KodqPbk-sGqHdaQ@mail.gmail.com>
+X-Gm-Features: AcwNN1UfpgY7Rw4Gy4MtVJB0f5LgowF3gCGJtAAU-5vzKs2VDiX_yyNNYapd3c4
+Message-ID: <CAD=FV=Ui1XYRXb6ZqmAgWqF3TZaAcGqfsV6KodqPbk-sGqHdaQ@mail.gmail.com>
+Subject: Re: [PATCH v2] HID: i2c-hid: Unfollow the panel on shutdown
+To: Justin Yeh <justin.yeh@mediatek.com>
+Cc: Jiri Kosina <jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>, 
+	Matthias Brugger <matthias.bgg@gmail.com>, 
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+	Maxime Ripard <mripard@kernel.org>, Project_Global_Chrome_Upstream_Group@mediatek.com, 
+	linux-arm-kernel@lists.infradead.org, linux-input@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-mediatek@lists.infradead.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Wed, Sep 9, 2026 at 3:37=E2=80=AFPM Justin Suess <utilityemal77@gmail.co=
-m> wrote:
+Hi,
+
+On Mon, Sep 7, 2026 at 6:38=E2=80=AFPM Justin Yeh <justin.yeh@mediatek.com>=
+ wrote:
 >
-> Add security/bpf_lsm_kfuncs.c, the home of the kfuncs exposing LSM
-> policy objects to BPF programs, with the first of them:
+> i2c_hid_core_shutdown() sends SET_POWER(SLEEP) even for panel followers,
+> but nothing in device_shutdown() guarantees whether the panel, and hence
+> our own power, is still on by the time we get there.
 >
->   bpf_lsm_policy_release(object)                KF_RELEASE
+> Do what i2c_hid_core_remove() does and just unfollow the panel.
+> drm_panel_remove_follower() calls panel_unpreparing() only while the
+> panel is still prepared, which powers us down properly; if it is already
+> unprepared no transfer is attempted at all. On MT8196 the panel is
+> unprepared long before us, so this also drops the ~2s i2c bus timeout
+> from every reboot.
 >
-> The kfuncs are the LSM framework's own BPF interface: there is no
-> per-LSM kfunc and no intermediate security_*() layer.  Each kfunc
-> walks the matching hook's implementation list and calls the one
-> registered by the LSM whose lsmid the policy object carries.  Calling
-> a kfunc for an LSM that is not active or has no policy object support
-> fails at runtime rather than hiding the kfunc at verification time,
-> so BPF program loading is independent of the boot-time LSM
-> configuration.
->
-> A policy object reference is meant to be handed over through a map
-> kptr field, so also register a destructor for struct
-> lsm_policy_object: map-held references are dropped on map teardown,
-> possibly from a context that cannot sleep, which the
-> policy_object_put() hook contract accounts for.  For the same reason
-> the kfunc is not KF_SLEEPABLE, and the filter adds no per-kfunc rule:
-> releasing a reference must be allowed wherever one can be held.  The
-> filter itself is needed because BPF_PROG_TYPE_LSM and
-> BPF_PROG_TYPE_SYSCALL, the two registered program types, share their
-> kfunc lookup buckets with other program types.
->
-> Cc: Paul Moore <paul@paul-moore.com>
-> Cc: KP Singh <kpsingh@kernel.org>
-> Signed-off-by: Justin Suess <utilityemal77@gmail.com>
+> Fixes: 96a37bfd232a ("HID: i2c-hid: Support being a panel follower")
+> Suggested-by: Douglas Anderson <dianders@chromium.org>
+> Signed-off-by: Justin Yeh <justin.yeh@mediatek.com>
 > ---
+> Changes in v2:
+> - Unfollow the panel instead of just skipping SET_POWER, so we no longer
+>   depend on the panel having been unprepared before us (Doug).
+> - Link to v1: https://lore.kernel.org/all/20260904035009.4114363-1-justin=
+.yeh@mediatek.com/
+> ---
+>  drivers/hid/i2c-hid/i2c-hid-core.c | 11 ++++++++++-
+>  1 file changed, 10 insertions(+), 1 deletion(-)
 >
-> Notes:
->     v2->v3:
->         - No change.
+> diff --git a/drivers/hid/i2c-hid/i2c-hid-core.c b/drivers/hid/i2c-hid/i2c=
+-hid-core.c
+> index 0ff07fdab442..c7e46004f513 100644
+> --- a/drivers/hid/i2c-hid/i2c-hid-core.c
+> +++ b/drivers/hid/i2c-hid/i2c-hid-core.c
+> @@ -1355,7 +1355,16 @@ void i2c_hid_core_shutdown(struct i2c_client *clie=
+nt)
+>  {
+>         struct i2c_hid *ihid =3D i2c_get_clientdata(client);
 >
->  MAINTAINERS               |  1 +
->  security/Makefile         |  2 +-
->  security/bpf_lsm_kfuncs.c | 98 +++++++++++++++++++++++++++++++++++++++
->  3 files changed, 100 insertions(+), 1 deletion(-)
->  create mode 100644 security/bpf_lsm_kfuncs.c
+> -       i2c_hid_set_power(ihid, I2C_HID_PWR_SLEEP);
+> +       /*
+> +        * Like in i2c_hid_core_remove(): if we're a follower, the act of
+> +        * unfollowing will cause us to be powered down. Otherwise we nee=
+d to
+> +        * manually do it.
+> +        */
+> +       if (ihid->is_panel_follower)
+> +               drm_panel_remove_follower(&ihid->panel_follower);
+> +       else
+> +               i2c_hid_set_power(ihid, I2C_HID_PWR_SLEEP);
 
-While not a new concern, it has been a few months so I want to mention
-it again to see where things stand with the BPF crowd: are the BPF
-folks still opposed to BPF kfuncs in security/bpf_lsm_kfuncs.c,
-similar to fs/bpf_fs_kfuncs.c?
+This seems right to me. One note is for panel followers if the panel
+_hasn't_ been powered off by now, the drm_panel_remove_follower() call
+will cause "i2c_hid_core_suspend(ihid, true)" to be called. That does
+quite a bit more than just "i2c_hid_set_power(ihid,
+I2C_HID_PWR_SLEEP)". ...but I think that's fine. I would expect most
+systems would be powering off the panel at shutdown time anyway.
 
-If the answer remains yes, the BPF devs are not able to tolerate
-kfuncs under security/, then I'm afraid this patchset is stuck.
-However, if the BPF devs are willing to ACK kfuncs in
-security/bpf_lsm_kfuncs.c, I'll add this patchset to the review queue
-for the LSM tree.
-
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 6215fcb07770..ba816d7ee127 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -5081,6 +5081,7 @@ F:        kernel/bpf/bpf_lsm.c
->  F:     kernel/bpf/bpf_lsm_proto.c
->  F:     kernel/trace/bpf_trace.c
->  F:     security/bpf/
-> +F:     security/bpf_lsm_kfuncs.c
-
-We would need the maintenence of security/bpf_lsm_kfuncs.c to fall to
-the LSM framework, just as the maintenence of bpf_fs_funcs.c falls to
-the VFS.
-
-  % ./scripts/get_maintainer.pl -f fs/bpf_fs_kfuncs.c
-  Alexander Viro
-  Christian Brauner
-  Jan Kara
-  linux-fsdevel@vger
-  linux-kernel@vger
-
---=20
-paul-moore.com
+Reviewed-by: Douglas Anderson <dianders@chromium.org>
