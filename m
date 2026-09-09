@@ -1,152 +1,253 @@
-Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com [209.85.214.177])
+Received: from mta0.migadu.com (out-68.mta0.migadu.com [91.218.175.68])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 098244734DE
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 08:06:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6C8A46984F
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 08:06:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.68
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788941182; cv=none; b=JDWHStEp2wkn6jYRjTuhHeXHeCFNkN/NXe+CmBxp4k3l+5eklUn7SeKGOs2CqvUzTj8VE5bZxabjafERDqsyYvEeGqT4VX4SaSFY36n5f3r1EXl9hjrQ/fvrEiyOnioRQ/Cm1lAjqWJ8A+wJzQ+mLknPWTRcdth16HePZkqmz18=
+	t=1788941193; cv=none; b=P9gaGRmwvL54QePjL5Tv4NTZBsnVDLhawA8DZ4OL1+RX5a/ZJqweE0XE6iFFUdlNbzmraaa45aBacFzTVJNCj2VfTN7/h3aXCZ6RI3UJyF2tfd2XQ12F3QvNHVRIeiIKrVNOOUFJtMT8sAH1xd6JwwaDtWiW0c455GTDIb4bYYo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788941182; c=relaxed/simple;
-	bh=b4LGCy/GrxP1awJTsj7G1lWhqhYhfO4g1y2Zo2OpBU4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=S8q9Zhr8wFEz1Z5zOzbK3Lp1sEOuP2gJh6yG0qKS1gX9Jpiv1nGpMOSD2P2mVTHUz5nndxRrYJWz+YF6WsjRRuwXVWdd1m6Oo9QU35LbHgSSy+yPgO3+jK8bUF9B8caWT5o0Fma2EAMojMnTwiXX/S4VrNKd1SVOWXT1xblXMWc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RQFnFA5H; arc=none smtp.client-ip=209.85.214.177
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788941193; c=relaxed/simple;
+	bh=X0VVMqtqhabg0hwIACKcoi18owcvsnF4Ppg5xDj9FAs=;
+	h=MIME-Version:Date:Content-Type:From:Message-ID:Subject:To:Cc; b=KSwMc0xfDxsJOke4nBT77vrPC/Pw35qxESRzyTsFdQlcB2rb+xb58WQL990QovS/WlE01XSC9LV5Zc7W+V7RAp/c8HMrxd+4QQIE1Cdyx23hxMn3qqxfMvxsyczsv/LP/r6jR+QZPsennxb3c0tvIyV1ZygFmZf62MAfe+JNNXI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=vxHcvEaV; arc=none smtp.client-ip=91.218.175.68
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RQFnFA5H"
-Received: by mail-pl1-f177.google.com with SMTP id d9443c01a7336-2d9db539a54so49563715ad.0
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 01:06:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788941180; x=1789545980; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=PmWvJz1TICTrxOO/Zb6x1aIAwyMn3XoHLpkJReMqVNM=;
-        b=RQFnFA5HLykYJRAD9AxOT7UXrHlzkjUNu0vGe2iMsiGuf3B0HCR+xElZaZ80yQwN//
-         4ak2o7Gg65UdJ+EqR7HvnWQNCk9Vh2n9HMy9v7PBtxGG0uiCkMqBcryQaUR0GcL/BA/Z
-         I8GDAIh1/JT5XqfGp6VilrhFfX0iUwPP7uoXKhUEeIBqp0r50MLtMzgSUPzH4aK2C+Qa
-         afPARpVmglJW1oOjtVHBMmakgVLLXivx8tOXkP7QTU/WXJJfxIn0y7/NyiMZuqDj7NIz
-         YvcM1GdKgs8V8qQN87oaXHgS6k+53G5h4UQY9ESlwFyo4R3rNukFvi5dW+72br5Ynjd9
-         ojMw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788941180; x=1789545980;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=PmWvJz1TICTrxOO/Zb6x1aIAwyMn3XoHLpkJReMqVNM=;
-        b=J/lWP5ddu7NN/WCHvRl1dU4heEoS8cdyCeqoqo1xrIvIon1zgwbWlfN/RVUBqlpFoj
-         qcCLOmkGtqDCLkwtf3hLBaIYC6qeoXLQkq0MDqMiSwVMo1+wvsqzh7R6FjuQO4pnXksQ
-         9NzU8MvsPjeAcbtMpSGY8FoRhb3pJgzn5kLQwwG21W2nCCimSKVQ8BhqI4whvRDTRj4Z
-         eZ88UVNCtDOM4iTBzH4KM1YpzJnKY5+wlisxuRWcshnhoggRIEGXlU3+ZvvmQeSrNAvP
-         GxvRYGrhNEhyJj4BPCiuVLlLZcrJFRtmbeT8jU8nH7qrObW0K++Acyog8aRLAdlIKClH
-         wEww==
-X-Forwarded-Encrypted: i=1; AKwUvBzw7hPe5FWIHQbVSEnU98ngvPo6SN+Gb3jLUFKtsw3in/TazHvXXZfnCFRY9sRrhXHP+o3RBXBQtP+YF/E=@vger.kernel.org
-X-Gm-Message-State: AFuF++md7nICswzY/OlwL6YpriwZz9mvmAEfjI4poi2JNZMyS5+4zMQ6
-	dk6tGLg9NyGvd8oRhzKaRB515fAhKaXDt/T/FabXaAFJKPNKP/hsHxbv
-X-Gm-Gg: AYBFou1RcMK2WbuHDET+kSHl/zR6vZ5DxR1IX8+TvVHVK6ZYIujbGSG9rVl4quM/62X
-	AMBYTIrMN9hT9VlRJhjCUOPPJUkj0RbM3Gd5I3SS8RxGvd8whZGKaN3AnI7dXUJQ2ZvJqPvVfYI
-	VyXjyMpYLvV3RDXl5N1LcF4SR9u+RBkgi5rz4dT0nA62RxIHT/dS6JGDInyy2ZpyxCLyCzdU8Vv
-	O54PpngWbM+Gc8RtFmkmQDoxOchdo3uFwo/a5kC2+h+PQEeTmOFVkWTbl2LF8UBb4fB0W27alts
-	8tdtYIuydLkFoaz7SPQIzzFSSayPcsu/xmL9ZxftCLwHAE0UWQ2Fblb7i/kpwck6MAqKd5DOyVj
-	k7icbFMFTY5GvNDUwhQ2sJvhvaMoLg+zio6XlmSNdAW7PtlBCY1P0+ro2HBhs4xsXl9pN6ksPNY
-	XUpj77zKRGb2Lur8CsuO7CWOiHqu/wewmzad7bZsYgaCSVofkOO1dlwRselM1LPkiawQK0qLNVX
-	BhVCqmc+XFpJ+rltAaRNVErHHM69gFXNHiUAOB9UP0Pp00NDF7cc2J/+/8=
-X-Received: by 2002:a17:903:2ec5:b0:2cf:8131:75e8 with SMTP id d9443c01a7336-2db125c412dmr528690055ad.13.1788941180081;
-        Wed, 09 Sep 2026 01:06:20 -0700 (PDT)
-Received: from localhost.localdomain ([2405:1202:c2a4:2d00:91c9:34c8:7e7b:4100])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2db149c3b80sm69378935ad.63.2026.09.09.01.06.17
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 09 Sep 2026 01:06:19 -0700 (PDT)
-From: Ryohei Hashimoto <laurel.medalist12@gmail.com>
-To: linux-wireless@vger.kernel.org
-Cc: arend.vanspriel@broadcom.com,
-	brcm80211@lists.linux.dev,
-	brcm80211-dev-list.pdl@broadcom.com,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH wireless-next v2] wifi: brcmfmac: log the firmware status when a connect fails
-Date: Wed,  9 Sep 2026 17:06:03 +0900
-Message-ID: <20260909080603.2955-1-laurel.medalist12@gmail.com>
-X-Mailer: git-send-email 2.51.0
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="vxHcvEaV"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=X0VVMqtqhabg0hwIACKcoi18owcvsnF4Ppg5xDj9FAs=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788941188; v=1; x=1789545988;
+ b=vxHcvEaVnh3m2vSNW+TFY2FAogd/6rE2Uwfbx0x7ZjeQHsBe+NGmQa+qBfSn9KNKAucB7JzE
+ 9/Q+MEA66vBA1rcDpIxycJz5Jn+7shwycOU/rawBLu9W+H7cS87gRHZkIzUBompxnQqKAP5faTp
+ H+HP49JgrCMftM19ROkTx5n4=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 59050e53383ca244;
+	Wed, 09 Sep 2026 08:06:27 +0000
+X-Mizu-Trace-ID: 59050e53383ca244
+X-Migadu-Flow: FLOW_OUT
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Date: Wed, 09 Sep 2026 08:06:26 +0000
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+From: "Tianchu Chen" <tianchu.chen@linux.dev>
+Message-ID: <8ee3bdd1c45034200cb1aa9a7e9b575b9584643a@linux.dev>
+TLS-Required: No
+Subject: [PATCH v3] staging: rtl8723bs: fix protected RX frame validation in 
+ decrypt path
+To: gregkh@linuxfoundation.org, hansg@kernel.org
+Cc: linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
 
-brcmf_bss_connect_done() receives the firmware event in @e but discards it
-on the failure path.  Every failed connect is reported to cfg80211 as
-WLAN_STATUS_AUTH_TIMEOUT (16), whatever the firmware actually said, so
-userspace only ever sees:
+From: Tianchu Chen <flynnnchen@tencent.com>
 
-  wlan0: CTRL-EVENT-ASSOC-REJECT bssid=00:00:00:00:00:00 status_code=16
+The RX software decrypt path mishandles crafted protected frames from a
+malicious AP in two ways:
 
-The all-zero BSSID comes from the same place: conn_params is memset to
-zero and profile->bssid has not been filled in when the station never
-associated.
+1) decryptor() never checks that a protected frame is long enough to
+hold the 802.11 header plus the per-cipher trailer.  All of
+rtw_wep_decrypt(), rtw_tkip_decrypt() and rtw_aes_decrypt() compute
 
-status_code=16 therefore carries no information about the cause.  It is not
-an AP response and it does not mean "authentication timed out" - it is the
-only failure value this driver can produce.  This is a recurring source of
-confusion: [1] has been open since 2023 with more than twenty follow-ups
-and no explanation of the code, and covers BCM4345/6, BCM43430 and
-CYW43455 across several kernel versions.  It supersedes [2], filed against
-the firmware repository a day earlier and closed in favour of it.
+	length =3D hdr.len - hdrlen - iv_len;
 
-The firmware's own status (BRCMF_E_STATUS_*) is more specific - FAIL,
-TIMEOUT, NO_NETWORKS, ABORT and so on - and it is already in hand.  Log it
-so the cause can be narrowed down without rebuilding the kernel.
+and act on the result, and recvframe_chkmic() similarly computes
 
-bphy_err() is used rather than brcmf_dbg() or brcmf_info(): it is the form
-the rest of this file uses, and of the three it is the only one that is
-both visible in a distribution kernel and bounded.  brcmf_dbg(CONN)
-expands to no_printk() unless CONFIG_BRCMDBG is set, which is what makes
-the reports in [1] and [2] impossible to act on - the people hitting this
-run stock kernels.  brcmf_info() expands to a plain pr_info() in a
-non-debug build and is not rate limited, and wpa_supplicant retries the
-association every few seconds, so it would flood the log.  bphy_err() is
-guarded by net_ratelimit() there, so a station retrying against an
-unreachable AP prints at most a few lines per second.
+	datalen =3D hdr.len - hdrlen - iv_len - icv_len - 8;
 
-All three fields are printed because only some of them are meaningful on
-each path into the failure branch.  brcmf_is_nonetwork() keys off @status,
-so that is the useful field for a join that never associated - the case in
-[1].  brcmf_is_linkdown() keys off @event_code and @flags and does not look
-at @status at all, so @status can read 0 there; on those events it is
-@reason which carries the 802.11 reason code, as the mapping in
-brcmf_map_fw_linkdown_reason() shows.  Printing the three together lets
-the reader tell which path was taken instead of guessing from one number.
+for TKIP (the 8-byte Michael MIC is not accounted for in icv_len).
+A frame shorter than hdrlen + iv_len + icv_len (+ 8 for TKIP) underflows
+these unsigned subtractions, turning into a ~4 GiB iteration count in
+aes_decipher()/arc4_crypt()/rtw_seccalctkipmic() or a ~4 GiB crc32_le()
+length, causing out-of-bounds reads/writes of up to ~4 GiB starting from
+the rx skb.  Reject such frames in decryptor() before touching the IV;
+this covers all three ciphers and the TKIP MIC check, and also keeps the
+unconditional iv[3] access within the frame.
 
-The status reported to cfg80211 is left alone; changing it would alter what
-userspace sees.
+2) validate_80211w_mgmt() keeps using the frame - two memcpys through
+the stale rx_data pointer and a pkt_len update - before checking
+whether decryptor() returned NULL.  On decrypt failure (e.g. a unicast
+protected deauth/disassoc/action frame with a bad MIC, which this path
+always software-decrypts) the skb has already been freed, so this is a
+use-after-free read/write, and the caller's error path frees the frame
+a second time, drifting free_recvframe_cnt.  Bail out immediately when
+decryptor() fails, freeing the temporary mgmt_DATA buffer first.
 
-[1] https://github.com/RPi-Distro/firmware-nonfree/issues/38
-[2] https://github.com/raspberrypi/firmware/issues/1829
+Discovered by Atuin - Automated Vulnerability Discovery Engine.
 
-Signed-off-by: Ryohei Hashimoto <laurel.medalist12@gmail.com>
+Fixes: 554c0a3abf21 ("staging: Add rtl8723bs sdio wifi driver")
+Assisted-by: LLM
+Cc: stable@vger.kernel.org
+Signed-off-by: Tianchu Chen <flynnnchen@tencent.com>
 ---
-v2:
-  - use bphy_err() instead of brcmf_err(); it is what the rest of
-    cfg80211.c uses and it names the wiphy in the message
-  - correct the commit message: brcmf_is_linkdown() keys off @flags,
-    not @reason
-  - tag the target tree in the subject
-v1: https://lore.kernel.org/linux-wireless/20260909064125.67844-1-laurel.medalist12@gmail.com/
+v3: improve formatting.
+v2: no code change; adds the real-hardware test report requested for
+LLM-assisted staging patches.
 
- drivers/net/wireless/broadcom/brcm80211/brcmfmac/cfg80211.c | 2 ++
- 1 file changed, 2 insertions(+)
+Test report
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D
 
-diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/cfg80211.c b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/cfg80211.c
-index 872c488..114dabb 100644
---- a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/cfg80211.c
-+++ b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/cfg80211.c
-@@ -6522,6 +6522,8 @@ brcmf_bss_connect_done(struct brcmf_cfg80211_info *cfg,
- 			clear_bit(BRCMF_VIF_STATUS_ASSOC_SUCCESS,
- 				  &ifp->vif->sme_state);
- 			conn_params.status = WLAN_STATUS_AUTH_TIMEOUT;
-+			bphy_err(ifp->drvr, "connect failed: event %u status %u reason %u\n",
-+				 e->event_code, e->status, e->reason);
- 		}
- 		conn_params.links[0].bssid = profile->bssid;
- 		conn_params.req_ie = conn_info->req_ie;
+Victim:   Wintel CX-W8 mini PC (Atom Z3735F, on-board RTL8723BS chip, sta=
+ging r8723bs,
+          Debian 13.6.0/Kernel 6.12.94), bought from the second-hand mark=
+et for this
+          test.
+Attacker: ESP32-S3 dev board running custom firmware as a rogue AP. Patch=
+ing a proprietary
+          library is needed. Details available to reviewers upon request.
+
+The decryptor bug is reachable at the association stage: the vulnerable d=
+ecrypt
+path is taken before any key is installed, so the attacker never needs
+to pass key verification - the rogue AP's PSK does not need to match
+the victim's. Knowing an SSID the victim will auto-join is enough.
+
+Once the victim associates, the rogue AP send 802.11 data frames
+with FromDS + Protected bit set and a total length of 24..31 bytes,
+i.e. shorter than their own CCMP IV (hdrlen 24 + iv_len 8).  With no
+key in the HW CAM the frames reach decryptor() with bdecrypted =3D=3D 0,
+and rtw_aes_decrypt() computes length =3D (24..31) - 24 - 8, a ~4 GiB
+underflow fed straight into aes_decipher().
+
+Result: the victim kernel panics within seconds of association.
+Captured via netconsole:
+
+[  939.937797] Oops: general protection fault, probably for non-canonical=
+ address 0x6de15a87d1c57856: 0000 [#1] PREEMPT SMP PTI
+[  939.938075] CPU: 3 UID: 0 PID: 1637 Comm: Xorg Tainted: G         C   =
+      6.12.94+deb13-amd64 #1  Debian 6.12.94-1
+[  939.938288] Tainted: [C]=3DCRAP
+[  939.938368] Hardware name: Insyde Intel CX-W8/Intel CX-W8, BIOS M.W8RA=
+AA01 04/17/2015
+[  939.938515] RIP: 0010:i915_gem_do_execbuffer+0xbd1/0x2950 [i915]
+[  939.939945] Code: e2 fe 48 89 50 20 48 8d 74 24 58 4c 89 e9 48 8d 7c 2=
+4 60 44 89 f2 e8 ce c2 ff ff 85 c0 0f 85 9d 03 00 00 49 8b bd b8 00 00 00=
+ <48> 83 bf 50 04 00 00 00 74 31 e8 10 1b 01 00 85 c0 0f 85 91 18 00
+[  939.940255] RSP: 0018:ffffccdfc0b17788 EFLAGS: 00010246
+[  939.940382] RAX: 0000000000000000 RBX: 0000000000000009 RCX: 00000000f=
+ffffff5
+[  939.940524] RDX: 0000000000000001 RSI: ffff8c5aa8d4d800 RDI: 6de15a87d=
+1c57406
+[  939.940664] RBP: 00000000000001f8 R08: ffff8c5aa92e4a90 R09: ffff8c5aa=
+a953518
+[  939.940805] R10: 0000000000000000 R11: 0000000000000000 R12: 000000000=
+00003a9
+[  939.940942] R13: ffff8c5af99f1680 R14: 0000000000000009 R15: 000000000=
+0000000
+[  939.941081] FS:  00007f3856594b00(0000) GS:ffff8c5afb980000(0000) knlG=
+S:0000000000000000
+[  939.941238] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+[  939.941358] CR2: 00007f3856155770 CR3: 000000002b7e6000 CR4: 000000000=
+01026f0
+[  939.941500] Call Trace:
+[  939.941579]  <TASK>
+[  939.941702]  i915_gem_execbuffer2_ioctl+0x13b/0x260 [i915]
+[  939.943134]  ? __pfx_i915_gem_execbuffer2_ioctl+0x10/0x10 [i915]
+[  939.944543]  drm_ioctl_kernel+0xb0/0x100 [drm]
+[  939.945069]  drm_ioctl+0x277/0x4d0 [drm]
+[  939.945571]  ? __pfx_i915_gem_execbuffer2_ioctl+0x10/0x10 [i915]
+[  939.946997]  __x64_sys_ioctl+0x97/0xc0
+[  939.947119]  do_syscall_64+0x87/0x1b0
+[  939.947235]  ? timerqueue_del+0x2e/0x50
+[  939.947343]  ? tomoyo_init_request_info+0x99/0xc0
+[  939.947470]  ? tomoyo_path_number_perm+0x8c/0x1f0
+[  939.947589]  ? ww_mutex_lock_interruptible+0x18/0x80
+[  939.947725]  ? i915_gem_madvise_ioctl+0x239/0x340 [i915]
+[  939.949150]  ? __pfx_i915_gem_madvise_ioctl+0x10/0x10 [i915]
+[  939.950571]  ? drm_ioctl_kernel+0xb0/0x100 [drm]
+[  939.951086]  ? __check_object_size+0x50/0x210
+[  939.955215]  ? _copy_to_user+0x36/0x50
+[  939.959506]  ? drm_ioctl+0x2a1/0x4d0 [drm]
+[  939.964159]  ? __pfx_i915_gem_madvise_ioctl+0x10/0x10 [i915]
+[  939.969804]  ? arch_exit_to_user_mode_prepare.isra.0+0x16/0xa0
+[  939.974146]  ? syscall_exit_to_user_mode+0x37/0x1b0
+[  939.978488]  ? do_syscall_64+0x93/0x1b0
+[  939.982872]  ? arch_exit_to_user_mode_prepare.isra.0+0x16/0xa0
+[  939.987300]  entry_SYSCALL_64_after_hwframe+0x76/0x7e
+[  939.991768] RIP: 0033:0x7f385691491b
+[  939.996285] Code: 00 48 89 44 24 18 31 c0 48 8d 44 24 60 c7 04 24 10 0=
+0 00 00 48 89 44 24 08 48 8d 44 24 20 48 89 44 24 10 b8 10 00 00 00 0f 05=
+ <89> c2 3d 00 f0 ff ff 77 1c 48 8b 44 24 18 64 48 2b 04 25 28 00 00
+[  940.001138] RSP: 002b:00007ffdb0cf6710 EFLAGS: 00000246 ORIG_RAX: 0000=
+000000000010
+[  940.006061] RAX: ffffffffffffffda RBX: 0000564e32defb08 RCX: 00007f385=
+691491b
+[  940.011048] RDX: 00007ffdb0cf6790 RSI: 0000000040406469 RDI: 000000000=
+0000013
+[  940.016090] RBP: 0000000000000000 R08: 0000000000000000 R09: 000000000=
+0000004
+[  940.021150] R10: 0000000000000020 R11: 0000000000000246 R12: 00007ffdb=
+0cf6790
+[  940.026256] R13: 0000564e32dc3a50 R14: 00000000000000dc R15: 000000000=
+0000013
+[  940.031431]  </TASK>
+
+The oops surfacing in i915 rather than in the driver is expected:
+A non-canonical garbage pointer in an unrelated subsystem is the expected
+signature of the multi-GB linear decipher starting from the rx skb.
+
+ drivers/staging/rtl8723bs/core/rtw_recv.c | 21 ++++++++++++++++++---
+ 1 file changed, 18 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/staging/rtl8723bs/core/rtw_recv.c b/drivers/staging/=
+rtl8723bs/core/rtw_recv.c
+index 7568fc514d7ce..4756e0fedd46f 100644
+--- a/drivers/staging/rtl8723bs/core/rtw_recv.c
++++ b/drivers/staging/rtl8723bs/core/rtw_recv.c
+@@ -426,8 +426,21 @@ static union recv_frame *decryptor(struct adapter *p=
+adapter, union recv_frame *p
+ 	u32  res =3D _SUCCESS;
+=20
+=20	if (prxattrib->encrypt > 0) {
+-		u8 *iv =3D precv_frame->u.hdr.rx_data + prxattrib->hdrlen;
++		u8 *iv;
++		u32 min_len =3D prxattrib->hdrlen + prxattrib->iv_len + prxattrib->icv=
+_len;
+=20
++=09	/* TKIP appends an 8-byte Michael MIC that icv_len doesn't account f=
+or */
++		if (prxattrib->encrypt =3D=3D _TKIP_)
++			min_len +=3D 8;
++
++		/* a protected frame must be long enough to hold the IV and ICV/MIC */
++		if (precv_frame->u.hdr.len < min_len) {
++			rtw_free_recvframe(precv_frame,
++					   &padapter->recvpriv.free_recv_queue);
++			return NULL;
++		}
++
++		iv =3D precv_frame->u.hdr.rx_data + prxattrib->hdrlen;
+ 		prxattrib->key_index =3D (((iv[3]) >> 6) & 0x3);
+=20
+=20		if (prxattrib->key_index > WEP_KEYS) {
+@@ -1395,6 +1408,10 @@ static signed int validate_80211w_mgmt(struct adap=
+ter *adapter, union recv_frame
+ 			if (!mgmt_DATA)
+=20				goto validate_80211w_fail;
+ 			precv_frame =3D decryptor(adapter, precv_frame);
++			if (!precv_frame) {
++				kfree(mgmt_DATA);
++				goto validate_80211w_fail;
++			}
+ 			/* save actual management data frame body */
+ 			memcpy(mgmt_DATA, ptr + pattrib->hdrlen + pattrib->iv_len, data_len);
+ 			/* overwrite the iv field */
+@@ -1402,8 +1419,6 @@ static signed int validate_80211w_mgmt(struct adapt=
+er *adapter, union recv_frame
+ 			/* remove the iv and icv length */
+ 			pattrib->pkt_len =3D pattrib->pkt_len - pattrib->iv_len - pattrib->ic=
+v_len;
+ 			kfree(mgmt_DATA);
+-			if (!precv_frame)
+-				goto validate_80211w_fail;
+ 		} else if (is_multicast_ether_addr(GetAddr1Ptr(ptr)) &&
+ 			(subtype =3D=3D WIFI_DEAUTH || subtype =3D=3D WIFI_DISASSOC)) {
+ 			signed int BIP_ret =3D _SUCCESS;
+--=20
+2.51.0
