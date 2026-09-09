@@ -1,80 +1,65 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from CY3PR05CU001.outbound.protection.outlook.com (mail-westcentralusazon11013024.outbound.protection.outlook.com [40.93.201.24])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5F32369D66
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 06:36:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788935780; cv=none; b=Vy2+87CzVbERxdG/fSET/HUy18SmOFbc78f2tPh6VhCAGRzYMskwKePpOWB2XMnRBbn1dtJ6oFm4pUWb7nHIK7eFUHwX9Nj1AgksXa8C1uoezcXIdQgOmidFqRsAoGckd5o5s4THdA/VGJ3gXcoDQannrJSezbnylCkFvFSd6+Y=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788935780; c=relaxed/simple;
-	bh=lXRzRZHAd9wA5CLHFzcnxNmZHAFUjN83kbVTAkDyk9g=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=XPrK+dLAYW8g16Zs1h0la96ycOeY14Ax/S4ePRtS8HD4noad2QmdA3eePvpBkm9S+RKTJ+92KCs4ePk4MioC69qZ21XR6F1sQJ2gR/+VR3ZGIn19kEW+fp0iDejyZYCn/DZpoTrlChlkUmRZilXxT3oTjDSLPhH9qhsO1RrRWQM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=cRzoqgyK; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=qKhCez59; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=D8jAZf+h; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=hMjaeG2e; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAF9333DEE6
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 06:36:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.201.24
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788935789; cv=fail; b=cXqK494ZmHw1JgwSWOJpF0h4GVrjOrNEabKskN4VeeKbP0IwsAqv0W74yI6rGk8hdjcGFNZypImBMWy2HwRlbnxIZuBySCf4qVPJDquCxsnyDbPrDKSbKcyWpoKHZdupqMfgM/hhgIzuhXz/FfPyuBmh9woGNwc53czZ8gDAnHg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788935789; c=relaxed/simple;
+	bh=SOyjyd+aHPm0OckajGm+EtgtbTzIqrc7XSodKoqJYFI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=f+V0qKLdDrdwsVJrrnrfdzlehB5ZZMVZwuV8W+HlCp41+TfuwNrhNzy6d39q/dkvI9Fml4uMHjiTrav9ASiaK+KGS8aeUdr87ZvuLjCddA/GujCZfUVjiUx1SaVRp0ta6azRKTfOJoNplcjVgrhRlfIWC7MUpA1SPJVPvusgq6A=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=2/uT6m3E; arc=fail smtp.client-ip=40.93.201.24
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="cRzoqgyK";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="qKhCez59";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="D8jAZf+h";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="hMjaeG2e"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 0C0911F7C7;
-	Wed,  9 Sep 2026 06:35:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1788935761; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=5sd51LBID5ZXpkGjay/T8MMAPNeGs/V7W0I0XT5GDgU=;
-	b=cRzoqgyKxfMBhN5Q9OK8ybuab0cVwjzWi5fvptOvVDBCy6nAszrSYa0lLr8bCUvrlL2aZU
-	7GTRL7pXIummqVWUYKEGwk8LoiW4Q/S0yYkkse6et3u1Yk4sCUltSypaAI1jF7RTKqmpQq
-	lRPbDkoaja9sf/C0QOzXc8+TwOW2cms=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1788935761;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=5sd51LBID5ZXpkGjay/T8MMAPNeGs/V7W0I0XT5GDgU=;
-	b=qKhCez59xLfKLgeoL+Hi80bnuYjP+CQRfYEq8svLuqFe5grC0b6eKCcblh2XXG+52+VPhs
-	LmrImtJ0at0HO9DQ==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1788935757; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=5sd51LBID5ZXpkGjay/T8MMAPNeGs/V7W0I0XT5GDgU=;
-	b=D8jAZf+h/ufg2SnfYz4F1JyQ67w+ZyrMxO45W/7qozUrUyClXYCtMNeZwZYn0dVLm+SXur
-	TGOiiEG1ZBJZmLFzDvjvLdFfohHh8H/XJwug9wYXa+THMcNO/d5JBH8Vax0WdOqCaXYbVs
-	7xkcMBvo07tkQv3MNzyVUo17l9NHQVE=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1788935757;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=5sd51LBID5ZXpkGjay/T8MMAPNeGs/V7W0I0XT5GDgU=;
-	b=hMjaeG2eNetg4gevGRkSgSvvK7tyF7rbpoBigDdk0ZL0aD7o19uy5r01p6+MepyCw6nkLK
-	ofj8HF4ANFB2MMBg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 8D28F13354;
-	Wed,  9 Sep 2026 06:35:56 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id BAA7IUz+oGppRQAAD6G6ig
-	(envelope-from <tzimmermann@suse.de>); Wed, 09 Sep 2026 06:35:56 +0000
-Message-ID: <727da7ab-9148-4c80-8810-0f31e9290427@suse.de>
-Date: Wed, 9 Sep 2026 08:35:56 +0200
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="2/uT6m3E"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=f/rbbjOarF/VQOUnZSQ4QG/8fSy+YQW7EasNbs1eGERuTQn4SLTXRlKJXu7AmnbIOYnj9DXJTqn6Ybwt7TSvn0grPyvoAmN3pUk9TKWtr/mxKvHAS2ZTYgFBvxN6dxy+AsPIvmcFYgHE4WRHM/FVSxORl+CvY8NhItrCE1GNH4rNEnZq205Gwq+eL/o9f91HXo6Gn6wHGoOMrSZc85O0LmcJPW1gq4XLDmJs7KuBCf6TiZLo60MqbRqatDxOGkDw+YQ8CuO5hzb9yqonH66RmgzqmDFtSjMESurqFg9aw5V6SLn11KluiVGlFIrKdoN8bSIEvR/3yjSmriKdvErtAw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ER0AKAXtQjkoU/cGM8bHrxUb9lj0MLvmM39NQex1+AE=;
+ b=ql2iNaSl4de24Om8fGc9JYmd9Go7XcuVgz5LvO77YkUY4lFlG4d18HREq1VzkFIXgK7P2yV65UwS8lAxxvAUdAw2UdcbQBIrCGqE+2V4Ih2pDTns7rBV+gNxcL7SoE2hP9dwdrBBsfELZXp4YfNSjXZOnESWGs71YAodHgoe8MULuTjabcwE2mMaT3cRFi+8erx/o1ljFlWaCJMjb7hGxmmsXt8UJD7hK+RwTKjpc1A6ECtMEFg1Z78BU1vvEJ/GstEp0mZ9wy0LKw0Rk4JBbnAjvp+K3EXGq53GOK2ngHavteKa78LF27HZVhK+fmSgoH325ZWwVzJ2I6tbtv1qtg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=nvidia.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ER0AKAXtQjkoU/cGM8bHrxUb9lj0MLvmM39NQex1+AE=;
+ b=2/uT6m3EXslCw+GaDeW+E0M04UBRDhD04b5p5EwRn2Y2WoTpayioiSRyn7uZmx4sjif0Pn8Ewk8w88tjCA3Chj3cdRJDV/bsDVm6OkG/C0Sha9bGrgpFa5r02LvkL0Olfx13WGWKCepLELiLnIhE9jktCScJWGJ8SyiVG2phyeU=
+Received: from CYZPR11CA0004.namprd11.prod.outlook.com (2603:10b6:930:8d::15)
+ by BL1PR12MB5779.namprd12.prod.outlook.com (2603:10b6:208:392::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.15; Wed, 9 Sep
+ 2026 06:36:19 +0000
+Received: from CY4PEPF0000EE34.namprd05.prod.outlook.com
+ (2603:10b6:930:8d:cafe::97) by CYZPR11CA0004.outlook.office365.com
+ (2603:10b6:930:8d::15) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.406.7 via Frontend Transport; Wed, 9
+ Sep 2026 06:36:18 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ CY4PEPF0000EE34.mail.protection.outlook.com (10.167.242.40) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.406.5 via Frontend Transport; Wed, 9 Sep 2026 06:36:18 +0000
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Wed, 9 Sep
+ 2026 01:36:18 -0500
+Received: from [10.136.42.177] (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.46 via Frontend
+ Transport; Wed, 9 Sep 2026 01:36:12 -0500
+Message-ID: <ed191145-d58e-4463-8f54-a7bb86cce646@amd.com>
+Date: Wed, 9 Sep 2026 12:06:06 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -82,174 +67,115 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 04/11] drm/atomic: Create function to insert colorop
- state into a commit
-To: Maxime Ripard <mripard@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: Daniel Stone <daniels@collabora.com>,
- Harry Wentland <harry.wentland@amd.com>,
- Jocelyn Falempe <jfalempe@redhat.com>, =?UTF-8?Q?Jonas_=C3=85dahl?=
- <jadahl@redhat.com>, =?UTF-8?Q?Michel_D=C3=A4nzer?= <mdaenzer@redhat.com>,
- Pekka Paalanen <pekka.paalanen@collabora.com>,
- Sebastian Wick <sebastian.wick@redhat.com>, Simon Ser <contact@emersion.fr>,
- Victoria Brekenfeld <victoria@system76.com>, Xaver Hugl
- <xaver.hugl@kde.org>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-References: <20260908-drm-reset-state-flag-v3-0-905570f387a4@kernel.org>
- <20260908-drm-reset-state-flag-v3-4-905570f387a4@kernel.org>
+Subject: Re: [PATCH v5 0/2] sched: Enable preferred SMT siblings on NVIDIA
+ Olympus
+To: Andrea Righi <arighi@nvidia.com>, Ingo Molnar <mingo@redhat.com>, Peter
+ Zijlstra <peterz@infradead.org>, Juri Lelli <juri.lelli@redhat.com>, Vincent
+ Guittot <vincent.guittot@linaro.org>, Catalin Marinas
+	<catalin.marinas@arm.com>, Will Deacon <will@kernel.org>
+CC: Dietmar Eggemann <dietmar.eggemann@arm.com>, Steven Rostedt
+	<rostedt@goodmis.org>, Ben Segall <bsegall@google.com>, Mel Gorman
+	<mgorman@suse.de>, Valentin Schneider <vschneid@redhat.com>, Mark Rutland
+	<mark.rutland@arm.com>, Christian Loehle <christian.loehle@arm.com>,
+	Shrikanth Hegde <sshegde@linux.ibm.com>, Phil Auld <pauld@redhat.com>, Breno
+ Leitao <leitao@debian.org>, <linux-arm-kernel@lists.infradead.org>,
+	<linux-kernel@vger.kernel.org>
+References: <20260909062649.469633-1-arighi@nvidia.com>
 Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <20260908-drm-reset-state-flag-v3-4-905570f387a4@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Spam-Score: -4.30
-X-Spam-Level: 
-X-Spamd-Result: default: False [-4.30 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-0.999];
-	MIME_GOOD(-0.10)[text/plain];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	ARC_NA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	FREEMAIL_TO(0.00)[kernel.org,linux.intel.com,gmail.com,ffwll.ch];
-	RCPT_COUNT_TWELVE(0.00)[16];
-	MID_RHS_MATCH_FROM(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid,suse.de:email,imap1.dmz-prg2.suse.org:helo,suse.com:url]
-X-Spam-Flag: NO
+From: K Prateek Nayak <kprateek.nayak@amd.com>
+In-Reply-To: <20260909062649.469633-1-arighi@nvidia.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000EE34:EE_|BL1PR12MB5779:EE_
+X-MS-Office365-Filtering-Correlation-Id: e94822c9-0a72-4cc5-9bf1-08df0e3ca7d1
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|7416014|376014|23010399003|1800799024|82310400026|13003099007|10067099003|56012099006|18002099003|11063799006|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	DqxMaK9Bo4TtqpiopVUvtcXbJu1Xqegd8vVHdGIzeD6z6EavOJp/FhE9eQXvvhGx3WVseumOwS8rV+x4KmxfoVyZfJcZ419Uy3dGQDWDu8VQ5FjPtgglrxz1Cg48M+BJH60MEnEzlO3WB2RfAjgzqOGefN/PJ9k+KpRQRNWMyhmG0WlWVKfv0ls6R8SIZy5WsNcoGMnUaFkaWO+aHnTuOJ2va1VKBMWiRn74bScJOwuyrukP/3+JKgUrIBlFb72j6P7V4k5vt8zDWdyRE24uhgM7YB7Vy618eXCfR1q9i7+f4CFmenWhu8vyI8ojOUFeJqf3dYTzuGNe4+2ewyrDPIXNHRzj1lzBWSQ8TYtUN+qH32XA7RfuD3onuQIHsDtg6Y+RgWD8jfUVg+dtRSAbQc5TBBlFAggj1LGX8oTvpFre66icRjUXpTPcxf+WqZbCfS72f4GLwrCZYbIVnkvskty5/b0w2Aaqw4BuWt4hYLl0nbZkhrcUoYi1y5ZWh8NEBwxcHrV8lOuqXl3hi8Ow444QpE64XkHV8utAzjaqXAbb3/5oWDxbMV8lAe7rPvObS+/uWgWvRBnRHECX+ftKcKGVmDgrH2pexhf+2b5v98CC72Gc4PlNjbTXyHJzW5TBZyDEuUqs37TIxK9RiHJH/Pex+FpQt8MV9IIbIF1I4kEqvqwLG2DKk3K7QJ9MbCV/fS1oKwp4brfmQkdx/L9+Kw==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(7416014)(376014)(23010399003)(1800799024)(82310400026)(13003099007)(10067099003)(56012099006)(18002099003)(11063799006)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	YbzXZ6OYrS43p+bKHDnuePfErvrpPFZHbDg6cbQuAKrYhldxrR9vDtNbFIk7EKnWuEJGDIRmCyop1lT8ZwHBU4U0qdVq/gX/iXDFzw8hb5PC0LwAMFw+4CAzUUURuwoWRGbk+MBDdqWxpaKDadyBqU690xjGepGDmsVnDOIx/44zVpvutcgDjLc1vGytQ4wyKkQKXTXOWvbnXpOZ476YO7eiVkliozET+zSy909fyqND31dpFEtzC2Oek0TzYIAs19JdnXbUS3oexidg5FfItjnv1y12qN5hULEa7t52G6t46BE4xLtPtbGOSh+ZvAp7wtkIbvW5I5+OKKFoJY7KY437eOOGVHhe/Cj21wNhBfL8ij3DhaRdOKi+dfHVxiVQpmsAEP8HXa4WD4KHx9QmFyV/kmfSYsHYAF+17QEPxAZUsdHyD28b+qF50+IsPYfn
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Sep 2026 06:36:18.5398
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: e94822c9-0a72-4cc5-9bf1-08df0e3ca7d1
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CY4PEPF0000EE34.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5779
 
+Hello Andrea,
 
+On 9/9/2026 11:56 AM, Andrea Righi wrote:
+> NVIDIA Olympus implements SMT with two symmetric processing elements (PEs).
+> When only one PE is active, the core operates in single-thread mode and
+> that PE can use the full core resources. When both PEs are active, the core
+> operates in two-thread mode and the PEs share those resources. This
+> behavior is common to SMT implementations, but Olympus is particularly
+> sensitive to brief sibling activations because returning from two-thread
+> mode to single-thread mode after a sibling becomes idle is not immediate.
+> As described by commit 293f9611ae735 ("sched/fair: Prefer fully idle cores
+> for NOHZ balancing"):
+> 
+>   Briefly activating an otherwise idle sibling can reduce the performance
+>   available to the other sibling and this effect does not necessarily end
+>   once the activated sibling becomes idle: after the ILB finishes and its
+>   CPU enters WFI, full single-thread performance is restored only after the
+>   sibling has remained idle for a qualification interval (10 Ki cycles on
+>   the tested Vera system).
+> 
+> That change prevents the NOHZ idle load balancer from unnecessarily waking
+> a sibling of a busy PE. However, ordinary task placement can still select
+> either sibling of an idle core and repeated changes of the active PE can
+> keep Olympus cores in two-thread mode despite little or no useful overlap
+> between the siblings.
+> 
+> This series makes PE0 the preferred sibling of an Olympus core using
+> SD_ASYM_PACKING and teaches the fair scheduler's idle-selection paths to
+> honor asymmetric SMT priority. The scheduler first selects a candidate CPU
+> and core according to its existing placement and capacity rules, then
+> chooses the highest-priority available sibling within that core. The
+> generic scheduler behavior is enabled only when an architecture supplies
+> an SD_ASYM_PACKING SMT domain.
+> 
+> PE0 and PE1 have equal steady-state capacity, the preference does not
+> identify a faster PE. PE0 is used only as a canonical choice when both
+> siblings are available. Consistently selecting the same sibling avoids
+> alternating the active PE across wakeups, lets PE1 remain idle for longer,
+> and allows more cores to remain in, or return to, full-resource
+> single-thread mode.
+> 
+> The series was tested on a two-node Vera system using an 88-thread
+> single-precision GEMM on the 88 physical cores of NUMA node 0.
+> 
+> With the workload allowed to choose either sibling of every core, observed
+> throughput improved from approximately 9.4 TFLOP/s on the baseline kernel
+> to approximately 10.1 TFLOP/s with this series applied. Repeated runs also
+> became more predictable because the workload consistently settled on PE0
+> while PE1 remained quiet.
+> 
+> Changes in v5:
+>  - Remove the redundant olympus_prefer_pe0 state (K Prateek Nayak)
+>  - Link to v4: https://lore.kernel.org/r/20260908082345.103087-1-arighi@nvidia.com
 
-Am 08.09.26 um 16:35 schrieb Maxime Ripard:
-> drm_atomic_get_colorop_state() allocates a new colorop state by
-> duplicating the current one and inserts it into the atomic commit as
-> a single operation.
->
-> However, a later change will need to insert a colorop state into a
-> commit without going through the full allocation and duplication path
-> in drm_atomic_get_colorop_state().
->
-> Extract the state insertion logic into a new static
-> drm_atomic_commit_set_colorop_state() helper, and convert
-> drm_atomic_get_colorop_state() to use it.
->
-> Signed-off-by: Maxime Ripard <mripard@kernel.org>
+My replies failed to keep up with your speed on iterations :-)
 
-Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
+Since this is same as v4 and I had taken it for a spin on a
+x86 and an ARM64 server, feel free to include:
 
-with the question of the return value again.
-
-> ---
->   drivers/gpu/drm/drm_atomic.c | 29 +++++++++++++++++++++++------
->   1 file changed, 23 insertions(+), 6 deletions(-)
->
-> diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
-> index f62323679f44..f6a31c9d477d 100644
-> --- a/drivers/gpu/drm/drm_atomic.c
-> +++ b/drivers/gpu/drm/drm_atomic.c
-> @@ -704,10 +704,27 @@ drm_atomic_get_plane_state(struct drm_atomic_commit *state,
->   
->   	return plane_state;
->   }
->   EXPORT_SYMBOL(drm_atomic_get_plane_state);
->   
-> +static int drm_atomic_commit_set_colorop_state(struct drm_atomic_commit *commit,
-> +					       struct drm_colorop *colorop,
-> +					       struct drm_colorop_state *colorop_state)
-> +{
-> +	int index = drm_colorop_index(colorop);
-> +
-> +	drm_modeset_lock_assert_held(&colorop->plane->mutex);
-> +
-> +	commit->colorops[index].state_to_destroy = colorop_state;
-> +	commit->colorops[index].old_state = colorop->state;
-> +	commit->colorops[index].new_state = colorop_state;
-> +	commit->colorops[index].ptr = colorop;
-> +	colorop_state->state = commit;
-> +
-> +	return 0;
-> +}
-> +
->   /**
->    * drm_atomic_get_colorop_state - get colorop state
->    * @state: global atomic state object
->    * @colorop: colorop to get state object for
->    *
-> @@ -723,11 +740,11 @@ EXPORT_SYMBOL(drm_atomic_get_plane_state);
->    */
->   struct drm_colorop_state *
->   drm_atomic_get_colorop_state(struct drm_atomic_commit *state,
->   			     struct drm_colorop *colorop)
->   {
-> -	int ret, index = drm_colorop_index(colorop);
-> +	int ret;
->   	struct drm_colorop_state *colorop_state;
->   
->   	WARN_ON(!state->acquire_ctx);
->   
->   	colorop_state = drm_atomic_get_new_colorop_state(state, colorop);
-> @@ -740,15 +757,15 @@ drm_atomic_get_colorop_state(struct drm_atomic_commit *state,
->   
->   	colorop_state = drm_atomic_helper_colorop_duplicate_state(colorop);
->   	if (!colorop_state)
->   		return ERR_PTR(-ENOMEM);
->   
-> -	state->colorops[index].state_to_destroy = colorop_state;
-> -	state->colorops[index].ptr = colorop;
-> -	state->colorops[index].old_state = colorop->state;
-> -	state->colorops[index].new_state = colorop_state;
-> -	colorop_state->state = state;
-> +	ret = drm_atomic_commit_set_colorop_state(state, colorop, colorop_state);
-> +	if (ret) {
-> +		drm_colorop_atomic_destroy_state(colorop, colorop_state);
-> +		return ERR_PTR(ret);
-> +	}
->   
->   	drm_dbg_atomic(colorop->dev, "Added [COLOROP:%d:%d] %p state to %p\n",
->   		       colorop->base.id, colorop->type, colorop_state, state);
->   
->   	return colorop_state;
->
+Reviewed-by: K Prateek Nayak <kprateek.nayak@amd.com>
+Tested-by: K Prateek Nayak <kprateek.nayak@amd.com>
 
 -- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Jochen Jaser, Andrew McDonald, (HRB 36809, AG Nürnberg)
-
+Thanks and Regards,
+Prateek
 
