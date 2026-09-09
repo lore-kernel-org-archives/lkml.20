@@ -1,75 +1,103 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E165436A363
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 17:14:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D32F492E42
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 17:14:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788974086; cv=none; b=Hy9+KdvRTdK0EdPq6ElDEKGiQ3Rb8fpdUYsvm52pEzucbGcXSO07dmZb8Rv9RJtnziQgI378fZ2Xt6O3rvPUScwyy/tEaE8wVSKNCXtUH2Gls/ZYqEkYPO7Mg5mio4fIda5nFZ0LhnHV9qkMilVg1u2e2S1LhE2API7kWhktFsQ=
+	t=1788974097; cv=none; b=i1niGw9y9NB1bh04Q8gYrKXzg5T9BOWCS1O8YoaZKEcb+b++xqhDipD/RxRP13HE7fR+4PwjCmHhYkbjVXo+x/mgf1aGKWZC5Ti8nwd+DN2hGQpPhPF9POBuRpDBQq8s+nPQlNTeP/uo/nDZEvxHDfZJi6sRPOh0wp81/n3zV8o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788974086; c=relaxed/simple;
-	bh=AhG9uZP5Vc+oU60yw43Lea20JRbSBt/2ZAdLmmE7+58=;
-	h=From:In-Reply-To:References:Cc:Subject:MIME-Version:Content-Type:
-	 Date:Message-ID; b=VeGZpzWKnz26T8yfDkseWpAfxNWW3zz5pBW1bK1QUYTJqwndAW/PtwYwBkdHDbIXYKe5ngcrG3LAvURvLbODlozZ+vEYLxjoFEbXxBwotPa26BUMk8KQ54iDgWFzhjGXtwPc1tfgH0WyjTv7sLuKd2+XZPb3YjJ8NIEAfIsfrMM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=cAYjfa2b; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1788974097; c=relaxed/simple;
+	bh=jX36b/0m50lPNbdXFsUJPDjGHtKBzQtOZC65XB8IpLs=;
+	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
+	 References:Date:Message-Id; b=G92kPxmVvVgU517fq/2+/qYZoLf87Eg1B4wbq2Jiq4ytQ1oieSgC65lJLzkRXPXdg1EQ8MKHtpovDh1NpBcC7JMnMF8H0yb+H5F2WAiJlqfh2u+7uZl6o6fTt8/eJPqi3Ka0kkCa6FPeCu1yX4coMuDxpWxjXmA/XbGBY96NDxc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nmB7O9lr; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="cAYjfa2b"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1788974083;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:to:
-	 cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=wrrcFv43Y6IitaL5MyShgfkwkQfgO8qX9JD4vZRKPPY=;
-	b=cAYjfa2bW9HrwUX+rmvBxfsVpBoH1bTgcmcyZGTlrN2z8mUtI8sDDUgZ1fRxMnCGNOYQW9
-	H8JZ7D2VPd9y+Je/APcYQJ55M9UEvBsnDyD8mJgn/kIzHmcJW6/yztA4Fk4o/yU+C1TF+P
-	VUV7L6VqX2li85LZvmIh38S3yFtsrLs=
-Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-642-v8CazuleNgmALlpzy5bkZw-1; Wed,
- 09 Sep 2026 13:14:40 -0400
-X-MC-Unique: v8CazuleNgmALlpzy5bkZw-1
-X-Mimecast-MFC-AGG-ID: v8CazuleNgmALlpzy5bkZw_1788974077
-Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 94F59195605F;
-	Wed,  9 Sep 2026 17:14:37 +0000 (UTC)
-Received: from warthog.procyon.org.uk (unknown [10.44.32.158])
-	by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 5422F1955F19;
-	Wed,  9 Sep 2026 17:14:35 +0000 (UTC)
-Organization: Red Hat UK Ltd. Registered Address: Red Hat UK Ltd, Amberley
-	Place, 107-111 Peascod Street, Windsor, Berkshire, SI4 1TE, United
-	Kingdom.
-	Registered in England and Wales under Company Registration No. 3798903
-From: David Howells <dhowells@redhat.com>
-In-Reply-To: <1729858.1788973986@warthog.procyon.org.uk>
-References: <1729858.1788973986@warthog.procyon.org.uk> <afd68097-b2b2-47e5-889b-fb077e7a9247@redhat.com> <a385053c-1c4a-4060-a3bb-befa007ddb33@redhat.com> <1714046.1788952509@warthog.procyon.org.uk>
-Cc: dhowells@redhat.com, sorenson@redhat.com,
-    Paulo Alcantara <pc@manguebit.org>, Jeff Layton <jlayton@kernel.org>,
-    linux-fsdevel@vger.kernel.org, netfs@lists.linux.dev,
-    CIFS <linux-cifs@vger.kernel.org>, linux-kernel@vger.kernel.org
-Subject: Re: netfs_read_gaps(): aliased sink folio makes the read destination unreadable, SIGBUS on cifs with signing
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nmB7O9lr"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9CF2B1F000FF;
+	Wed,  9 Sep 2026 17:14:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788974095;
+	bh=b3vZjZsk+GN++tvViwRlo0oHYVyDxomGvHO319w0GOQ=;
+	h=Subject:From:To:Cc:In-Reply-To:References:Date;
+	b=nmB7O9lruhIGjS1BiDxF6ZJyB07xHi0GGmJuIWVfaEcmIhD/hXeiuTRQkzVUgS3tN
+	 OK9XESiMepItDGhH6AG4gkdIYIqREa+3xy0IsPhMu52Zh0+A/oSpw5dznMz2ju+Die
+	 C6ktbkHMvAuQUyOOS6KhNjaRRzDsUlYtziUHBAbSUqttIApmYOoL3PcWHmPpZbomz7
+	 bKjmWE5YczMdZOF4h+6Zrz09AzuUJwm/Av0kANlBd2JrFqYy3Qz3XOTMp/sbwxlpuE
+	 GRm93WOrysD2J1RDWmtQv4JzahkIavyGPEn04IxBPSJDHIZoZc+hKAovvelR7A289s
+	 Yu2TluvX+7FPg==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-ID: <1729916.1788974073.1@warthog.procyon.org.uk>
-Date: Wed, 09 Sep 2026 18:14:33 +0100
-Message-ID: <1729917.1788974073@warthog.procyon.org.uk>
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v2 1/2] memblock tests: model the low allocation limit
+ within dummy memory
+From: Mike Rapoport <rppt@kernel.org>
+To: Tianyi Chen <hi@tychen.cc>
+Cc: rppt@kernel.org, Andrew Morton <akpm@linux-foundation.org>, 
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org
+In-Reply-To: <178874362959.1415955.9346611507889046159.memblock-v2-1@tychen.cc>
+References: <20260906144011.848898-1-hi@tychen.cc>
+ <178874362959.1415955.18132997964995947947.memblock-v2-0@tychen.cc>
+ <178874362959.1415955.9346611507889046159.memblock-v2-1@tychen.cc>
+Date: Wed, 09 Sep 2026 20:14:50 +0300
+Message-Id: <178897409075.1489479.13793114752511118505.b4-review@b4>
+X-Mailer: b4 0.17-dev
 
-David Howells <dhowells@redhat.com> wrote:
+Hi,
 
-> +			folio_unlock(bvec_folio(&bvec[sink_from]));
+> The simulator represents physical addresses using the address of its
+> allocated buffer. That buffer can lie above the default
+> ARCH_LOW_ADDRESS_LIMIT, preventing meaningful memblock_alloc_low()
+> tests.
+> 
+> Use the architecture override in asm/dma.h to place the limit halfway
+> through the MEM_SIZE region registered by setup_memblock(). This leaves
+> registered memory on both sides of the limit. PHYS_MEM_SIZE describes
+> the larger backing allocation, rather than the registered region.
+> Resolve the limit after allocating the buffer. The production allocator
+> is unchanged.
+> 
+> Assisted-by: Codex:GPT-6
+> Signed-off-by: Tianyi Chen <hi@tychen.cc>
+>
+> diff --git a/tools/testing/memblock/asm/dma.h b/tools/testing/memblock/asm/dma.h
+> index 13ff8e5d22ef6..6607408dcf25d 100644
+> --- a/tools/testing/memblock/asm/dma.h
+> +++ b/tools/testing/memblock/asm/dma.h
+> @@ -2,4 +2,10 @@
+>  #ifndef _TOOLS_DMA_H
+>  #define _TOOLS_DMA_H
+>  
+> +#include <linux/types.h>
+> +
+> +phys_addr_t dummy_physical_memory_low_limit(void);
+> +
+> +#define ARCH_LOW_ADDRESS_LIMIT dummy_physical_memory_low_limit()
+> +
+>  #endif
+> diff --git a/tools/testing/memblock/tests/common.c b/tools/testing/memblock/tests/common.c
+> index 3250c8e5124b3..17b95af216b2c 100644
+> --- a/tools/testing/memblock/tests/common.c
+> +++ b/tools/testing/memblock/tests/common.c
+> @@ -118,6 +118,12 @@ phys_addr_t dummy_physical_memory_base(void)
+>  	return (phys_addr_t)memory_block.base;
+>  }
+>  
+> +phys_addr_t dummy_physical_memory_low_limit(void)
+> +{
+> +	/* Split the MEM_SIZE region registered by setup_memblock(), not the buffer. */
 
-Meh.  Nevermind.  There are two of them.
+The comment should not address the review comments ;-)
 
-David
+It should state the universal truth, like "low limit is half of the
+memory registered with setup_memblock()"
+
+-- 
+Sincerely yours,
+Mike.
 
