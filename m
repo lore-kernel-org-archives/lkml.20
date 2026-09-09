@@ -1,186 +1,170 @@
-Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazon11010058.outbound.protection.outlook.com [52.101.84.58])
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57E4D57F738;
-	Wed,  9 Sep 2026 15:54:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.84.58
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788969293; cv=fail; b=HqZHs4GRdq0GTF/c/sG1FU1/p3ijoz2fpooIg2egTnTopG9hu98x9mlyPCT0jlprMOoE7YJ+Yu0AT12ShWTBkugYEirHtKQIiGFxitTd7q1N5cQaYHHkqv39SxIwdBd4xBHVXZldt3Rl16HySp07uE5Lnamn31VxH6KDbofdLmc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788969293; c=relaxed/simple;
-	bh=Lx+sF3q2vNs/SSV+YGLsDtQlruZDKHc4zC/a3lsx7ko=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=V2HfgUYoV3AIrUn7uOYtoMyAcy5enOHxH3t3lcyyA7It0FVBNVaSa2C/j4CFJ1W+vf9FKQznX9Sxlr/8RrH6KjY11724NAW7Y/REbEXtFmp6gAiYgBFo5tNRc523N4XyZ+qkfajtWT4Ji/2JOZkoUAtQ9wea9aVJjpiT528bRxM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=wsDKaOe/; arc=fail smtp.client-ip=52.101.84.58
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 435ED5540A0;
+	Wed,  9 Sep 2026 15:55:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788969302; cv=none; b=XHC8sZ4W8v4PDT/px1hKt2Dyoizc9MYjrHPzGe53+K/fJ8rmSIUZiKbd53ZjoktPywJHqGE8eSlPpnLK6P+HYhSIIF8QvkSxPDgwbGB+r6CtrqF2RzMAkvuPJ7dAcUYvujhmylMmADjAwuYRj+OhHUB0UULFDRd7UwELMVjZLDI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788969302; c=relaxed/simple;
+	bh=xacp76pH4f4rcfngaHSpVs/Um3pFnHmHfcLgMGXukQU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=WcDK+KTaWk8xHO3hI2sQf5nkhr9ohINfV3MroJqF6JkScbD0WBuLsq1z0HqvBuA8N7srgpnuigSEjTjjC055RDELNT4kos/nmv5SffyCNCznh/IIdKlorIlxNNHfsP/SiCHXsuEa+Fgzk6TX8zvMjli20FIX7COFFsMKPwaqW4s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=sDHfamFG; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="wsDKaOe/"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=HZpxjZLQ5Xy4B/s6ul0gq1kSRsUg3fjplx/pyJ8sz6crYLfqzQvhrUeqij+bftHZQza9mYq1NTzbMu6+jMtl45BDCJSbhW9wnB97WmmQYidGOK68ZgYYiSGUjqThwWd//1KhMPPqkA864dECfPyAiafXM2gQVC0DlGnwAWv0kUIAlzme0AJ0z/aBkFnTVv9677XmX+6+olOWWSTkYCKeo31Chro9KK1DhqZt9IZEXAoNcWidAEyTKtsgkb7dL73emBDoSAJP9741WJgmfK2ifWT8b6e+RoXoOWLSXoUQsptZ6s3Pblze0Hi64qGFQFAnR1elFNq+JDzo7IwrO+JcGA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Nw5W0VPLWzYTmn9DO/zWi76opJmz3B3VIUAF532AmVs=;
- b=rWlGctthhRYmwpqv2h+7tscmTEP+6eumollSRD6yJHoPejlKUSXj+s0fJg8qPAODbkkN5apEOL2qLiTugNfqJenePHQ/Ys4p2k016OgZ3mj6brYvyipsUMBfEt3CM8OMRuNxE/mn45KOS4+havKu9gf/YhJKPk0pJI0VOc9h88vFTBIFWGnVSrSPKiQXgEkh+GVMjfDvq9GQjLRVCX5WGQVdnwjTdOSghQLCyt6sahYfo7sS7YlObKMPZKMX/rOWfl1aXSt5bVb/lrsDgueq+IjlV6eKZkbNn7PeRgtLKf77n3playUyPgmxfGZ8lGvkZ/DQ7IUlo1xwhNf8YUA2JQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Nw5W0VPLWzYTmn9DO/zWi76opJmz3B3VIUAF532AmVs=;
- b=wsDKaOe/uK92ub0NsoBvLFU5pLYJS6Alaqxx5XzMDFvddqO8JeWEweF/+XRuGJP60T7bq0LIRG85jE0qhDK/M5477m4te9qL+tAyuDqifbJNeTSkxmVVPhgH95mflAzMqqVPt2VP1O/YofVPDiiiNdcxLRHPlDKAL3nIR2hCp8ySJYjBvuL96Bb7WdzobJHke+e0wClrqkV3lRjmTEC+kR0wrmM4VCypeUi5yxYpBxirs9UCPzACQHnSnbo3XGdAA7BBdnDuUej/y6YTswXZgPiB6X54JjP/VLRF8zJ4pFCWYlAu/8Tej7mT0IGSIAsuKQw5Tt7l+L4ClTQSjcicFQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by AMBPR04MB217899.eurprd04.prod.outlook.com (2603:10a6:20b:7dc::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.15; Wed, 9 Sep
- 2026 15:54:49 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0406.005; Wed, 9 Sep 2026
- 15:54:49 +0000
-Date: Wed, 9 Sep 2026 10:54:41 -0500
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Rosen Penev <rosenp@gmail.com>
-Cc: dmaengine@vger.kernel.org,
-	Ludovic Desroches <ludovic.desroches@microchip.com>,
-	Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
-	"moderated list:MICROCHIP AT91 DMA DRIVERS" <linux-arm-kernel@lists.infradead.org>,
-	open list <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH] dmaengine: at_hdmac: use devm_clk_get_enabled()
-Message-ID: <aqGBQY-VFwVtQuQq@SMW015318>
-References: <20260908212607.590224-1-rosenp@gmail.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260908212607.590224-1-rosenp@gmail.com>
-X-ClientProxiedBy: CYXP220CA0006.NAMP220.PROD.OUTLOOK.COM
- (2603:10b6:930:ee::10) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="sDHfamFG"
+Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 689B1c2p3817675;
+	Wed, 9 Sep 2026 15:54:32 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=gi7ysG
+	Fs76d77h8+hghhZQn9cu0rjkv/slXztI4qsuY=; b=sDHfamFG2CoGd5RkzYgTZ+
+	kkgPxPiaOpIW/s2cGs+TPVaJXbWkhIfpP8kSrcJ7A5YqsyMOX6K9AJ3BBHdqseUp
+	z5W9T9GIRrNAFv3WAX9K1eEgfSr+3aoO9FzCQp3F0K4d7QxNmF0tTwdgtkEuj8wF
+	ShyPMAMYlByrbPUb1/JKEM5Ik5J7QiZRCDzLn2zs8gilQgWzw+2ZwWBO1GYe25Mf
+	7KqIW4ZcynHFOjazioDpUi7Po8GuydmoYyaMyPJqwJkOGFg5m0gw94ipY9K/34BY
+	0TQ1msI0/63zrBZGBXsLN5Sh3rffBleZKUeAFN3tZc3koYKpYDHcX6UqFMdNwd0Q
+	==
+Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4ggbf46x5g-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 09 Sep 2026 15:54:32 +0000 (GMT)
+Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma11.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 689FfEMA028718;
+	Wed, 9 Sep 2026 15:54:31 GMT
+Received: from smtprelay05.fra02v.mail.ibm.com ([9.218.2.225])
+	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4gh03yjxa2-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 09 Sep 2026 15:54:31 +0000 (GMT)
+Received: from smtpav01.fra02v.mail.ibm.com (smtpav01.fra02v.mail.ibm.com [10.20.54.100])
+	by smtprelay05.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 689FsTrM49283546
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Wed, 9 Sep 2026 15:54:29 GMT
+Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 3954520040;
+	Wed,  9 Sep 2026 15:54:29 +0000 (GMT)
+Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 6645D2004B;
+	Wed,  9 Sep 2026 15:54:19 +0000 (GMT)
+Received: from [9.61.255.18] (unknown [9.61.255.18])
+	by smtpav01.fra02v.mail.ibm.com (Postfix) with ESMTPS;
+	Wed,  9 Sep 2026 15:54:18 +0000 (GMT)
+Message-ID: <ce08b0df-2859-428f-afe0-23848da35efc@linux.ibm.com>
+Date: Wed, 9 Sep 2026 21:24:15 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|AMBPR04MB217899:EE_
-X-MS-Office365-Filtering-Correlation-Id: b68bfd62-0bab-4b7a-bbee-08df0e8aadbd
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|19092799006|376014|1800799024|23010399003|366016|11063799006|56012099006|18002099003|22082099003|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	AS/YAG57TyCwpgVWZdxI+7ZCMWcCfVPgbwrpc+spSdRhvQAYXcbdxjn9RoHExbiEu/ERth05URvwno5hbmuwjUeVNSSygQQk9/9QYMJ80ZzZ0Fqg9BA6P8uwQU1u3xbGGy7SGbVibdKa6b0A2LS9/mRBLcLc5PeVwjobHzwoaTIMNtEnhhPV7c5RMeduQzfhy6Rx9iznZyvEzrYljHjv9GOhVUuHlfmGAytK49PUFw0O8FfjBmu6uDVJcks81JhDs82L77F9jMKHNxm007iJtfv4tHomrSovwdFXNi4v6Eh3LPKflbVptdrnCmAWr7fh7uEw+oIOAp6SJgLG88V5yCl+z5qVPP8D54QOsYmyAaAz9Q+6Uiqen+rEmPWr6BQ/ug9tsKnplHIX0u+aX19UIg/odPKrx22MNEfmgDfMtwAPlD9PuyGJ4C8UwSUnqPvMpbSLWScdswK6wswpX1ddZ7sXlrNxMOIH/aGu7vztDwaIKTKRb7muVYi0x4C1hDighsyqogExbOhAEQszPAQX1SUO8JnS/qiK+wghTg7gtC36QyLcD0dWSS8cfZvPyIZ7zztthSv7GAfW/tpCCVQeuIFaX/hRdWoqtq06pFXd+l5zKYmWhFW6rH5KEaFc+dHxwnK1Xk3B/0o5vxs6j3C6roInQnBfO31Zi/Z5zwKht8Y=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(376014)(1800799024)(23010399003)(366016)(11063799006)(56012099006)(18002099003)(22082099003)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?JKe+s5LCWwHCBbcxzb8l2KLIoiQlHaLCLI4ScTe9JsLhVRYIsRCtaShHXxyx?=
- =?us-ascii?Q?B8YbRJXqbP7m1DMMcyXBPuyB5dDn6753JUWbdkth0Xb/ruO24H8cQfDOPVMD?=
- =?us-ascii?Q?EK9S4bg41U+BMePrLYGbFdxzqsBC21fg/yR1M/pSN8ZHhaIz6jd9aL/NytU/?=
- =?us-ascii?Q?grsg+BomMsF38bg1roz8zrbHtuWPEqZzxy58cguPRjL5NZer8JXezDkH7muD?=
- =?us-ascii?Q?9uAAoRM0HyI3s1UidY09cnY6nkeuRTls9rPPB36O3nJbbaAF6ao733g1lpvD?=
- =?us-ascii?Q?iilAHCbYTnboKJbtIe2Mg/kp1zQX/QBnLCo9L0q5oY8DZtKrHFYU1rqfIFgn?=
- =?us-ascii?Q?1iA2u7PCzvrudBYv92gvbn8udNY9hxeFZu1FLQrfTNocPQigMi4xVdfKXbBb?=
- =?us-ascii?Q?mzcn/olHOwALEGiLDaiXwrThVCc3oJNMpDTov4uDi8JUUyGZ1YD7XZ4S3UDE?=
- =?us-ascii?Q?SJOU2De1ATY2jyGo7wSRgs4Z0J73WgwAHXg3/trPLbmXL69+TPo6ZVtHeRg6?=
- =?us-ascii?Q?ql+maVWVcUO2zTod3CgFJzQAu/PrdLtC+SjXe3DRTZfWKHEgtkiAW5xJCuQl?=
- =?us-ascii?Q?PwTDbA0rNqEXULvQLsPN2Tt7ru5b4ujXsFySf174ALkCSzsbNeJp0/ySCSuP?=
- =?us-ascii?Q?j19+UWxYyqdT/yzmG6vJq7oYMIwxcCyCK4JPtPLD828WLBqDbydTk7ltpTpk?=
- =?us-ascii?Q?mmaCnaUYYyllgCoC5jYq0nFu3b0T7OQMnhc+JP5F0F6/fG9s/xGxXVfVM2y4?=
- =?us-ascii?Q?K+GaMkD01mndwJn8sSj2r7dyo/oI7+BN3bzm9g8pQewMyeei7WlYvYOimiqR?=
- =?us-ascii?Q?bmdCwKySyBz/O21YKdwc+o1XBvyJ/T22h0jjRGBsuzs6bEZb4CRlkgr1Sa1g?=
- =?us-ascii?Q?dkzh8IQPGJfnQ1XYQisJ1p8vXAKnRU7ue3lKSZBmY366IxBsrSj/6NetssGl?=
- =?us-ascii?Q?ZjapV9Ey+CfRM3DYw+aZW3yNx/zaxkeNX9DiJS97rlL4yIMUCTTKdTgSnrKc?=
- =?us-ascii?Q?DQpWyQdHh/EoNgPG5SsUM5F12K46+cUyLO9tF98MGpP2sLnUvSD1LqZUQSov?=
- =?us-ascii?Q?9zqqdmHQI9HOMx3OHzxiACiBxlt5DeyNJu7Zo+hAiC3rmUhaCgMyqhX7iBtV?=
- =?us-ascii?Q?wA7YqwvIDlCFhk2zPZeXHdArGpmydAlrNjKePLIG0oBrGMLvNIKkNtJgoMvb?=
- =?us-ascii?Q?n8l0lUvYHe4NklSWiTCROZV0m77yHdIzt6w1S0o834y0OkQ7tbU3ajiLJY6d?=
- =?us-ascii?Q?Kfau2ob8bcsQKO+gjkiqj+vHIiLLU5UsWhdCPplqr2E1GgjGiKjXBUudZdRN?=
- =?us-ascii?Q?X/TD6yOqY7F+0Eb7pI6ol9/A+BCL/wDXfptNA2pypCQasBiQ9tPS8mF+tRsQ?=
- =?us-ascii?Q?BsXjW3iVxynA2QcHDvna6ySpKsqkhN5RhJNtQqXGz3EKC+z1bgZco/kTkIiI?=
- =?us-ascii?Q?7nSZc+ZhcIH0YOzhUAyiyr6E3HeKlQHdKW0BTeJ3ga3S6vdfHIiHR+egQpom?=
- =?us-ascii?Q?9CFRstn2g9cW0tNLK85bvSZf5b7De4VqyMWhK6Iu8PS0rKgxjI0TaMfvihAa?=
- =?us-ascii?Q?ZoznmO6Kh8nfNJKMpow7Hyw+1cuFI9ZhMBzDmfqrcnvGkZ2FNg/qPJuICe6p?=
- =?us-ascii?Q?IaWxTJR7twp1wxyg1nmNN2eZ8f8IuKBgfRLMsouPMPd53ix7+WhWAhWY9Bc/?=
- =?us-ascii?Q?vvzco2v0B9IZ0EO/VTR4LUE/buDPna3p+zgw34U8iEUPr9M5bAIY5TrQgQei?=
- =?us-ascii?Q?X+1Z5RDTLWR1QYpAO01HH/C/28nPybMJH1G9dFkBFMyz14rxhNjW?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b68bfd62-0bab-4b7a-bbee-08df0e8aadbd
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Sep 2026 15:54:49.5999
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: p1UPoQEou/HI5WIpfXENDlYoHUmfQriijWzFWlcTPCfrNJ2uWZhXRhIW1DYQ5nruI6toKrscrhJtHffbfOS58HsLtZBfaf1fBGQXIpadbdpzom00fuMb5PaCqEg9Idtg
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AMBPR04MB217899
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 04/22] selftests/coredump: discard the right amount
+ after the coredump request
+To: Christian Brauner <brauner@kernel.org>, linux-fsdevel@vger.kernel.org
+Cc: Jacob Lalonde <jalalonde@meta.com>, Josef Bacik <josef@toxicpanda.com>,
+        Jann Horn <jannh@google.com>, Alexander Viro <viro@zeniv.linux.org.uk>,
+        Jan Kara <jack@suse.cz>, Andrew Morton <akpm@linux-foundation.org>,
+        David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
+        "Liam R. Howlett" <liam@infradead.org>,
+        Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
+        Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+        Omar Sandoval <osandov@osandov.com>, Jacob Lalonde <jalalonde@fb.com>,
+        Shuah Khan <shuah@kernel.org>, linux-kernel@vger.kernel.org,
+        linux-mm@kvack.org, linux-kselftest@vger.kernel.org,
+        linuxppc-dev@lists.ozlabs.org
+References: <20260820-work-coredump-sparse-v2-0-ba32dd718c51@kernel.org>
+ <20260820-work-coredump-sparse-v2-4-ba32dd718c51@kernel.org>
+Content-Language: en-US
+From: R Nageswara Sastry <rnsastry@linux.ibm.com>
+In-Reply-To: <20260820-work-coredump-sparse-v2-4-ba32dd718c51@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-ORIG-GUID: YRLSf8zqLzgAsmOOvFaxTOyAu1vIvBmv
+X-Proofpoint-GUID: Det6qLESaqsdiuzk7q3rG57lGmI0CNFh
+X-Authority-Analysis: v=2.4 cv=DbEnbPtW c=1 sm=1 tr=0 ts=6aa18138 cx=c_pps
+ a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=iQ6ETzBq9ecOQQE5vZCe:22 a=VwQbUJbxAAAA:8
+ a=VnNF1IyMAAAA:8 a=9XybDkHhOahZXpspZ08A:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA5MDE3MyBTYWx0ZWRfX+ylvdHX5HKLS
+ cYPZpa0eaoRG+YEirsH9P8p7ZQqqy1AX+LT03PBoNx+pjNzvrdPD/BXCxM3Uq+fYFLTCy/UlFjy
+ WIvDQIZdUmBOgA7pfGGPWdHoefd0CNA31SvySJ74xSMTAQ4Iqy2+4vu1NsBZ4snUGwuZNcJ0Mev
+ VESFjaxveCXTNGMQIjwlzO4mZ3VbKH5I4LAVsNGr5ZmmDLYisuzfqM/IbjAhZvpJSauNipvwMib
+ B0R0i5lB8nTzlwrvwDVa0xENC0dXNgQJ29ATyvPx3LNYcz69QbdCjwPgxnLirtxvn4JjsjDx9nw
+ Jecqq/dG1UbB4EfE/Y0zZnwEkJ1H/9rrrEEzzhQqe4pSi7mfrSDeiU6SRfuwpk4n2yMNTYxvcXA
+ lJslZmzTvmT5fBuzJL0u23iGpJgtstIRn34bgUp8HE52Dn6ETRDgKduQuMw8rF4XWHEU99hR1Ki
+ Ml/eHNR7eWD5vZ+IheQ==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA5MDE3MyBTYWx0ZWRfX7zByKMl4hvbv
+ BsMorIwgW0uHJIC+0iy0bMdStEXM18UuiwYNWfaYyrKA3vBxU+hJQPy4HZFUewh+g4NZpKVmJnA
+ WiR1RQwG+BGy0n44x3dmrxBE0qIfHr0=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-08_03,2026-09-09_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 priorityscore=1501 impostorscore=0 adultscore=0 spamscore=0
+ clxscore=1015 suspectscore=0 bulkscore=0 malwarescore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609090173
 
-On Tue, Sep 08, 2026 at 02:26:07PM -0700, Rosen Penev wrote:
-> Replace the devm_clk_get() + clk_prepare_enable() pair with
-> devm_clk_get_enabled(), which handles enable/disable and the
-> unprepare on driver detach automatically.  This lets us drop the
-> err_irq cleanup label and the clk_disable_unprepare() calls in
-> probe error paths and at_dma_remove().
+
+On 20.08.2026 4:39 AM, Christian Brauner wrote:
+> read_coredump_req() gets the leftover wrong twice.
 >
-> Assisted-by: opencode:big-pickle
-> Signed-off-by: Rosen Penev <rosenp@gmail.com>
+> It takes the absolute difference of the two sizes, so a test binary that
+> knows a larger struct coredump_req than the kernel sends tries to discard
+> bytes that were never sent. And it hands recv() sizeof(buffer) instead of
+> the number of bytes it wants. So MSG_WAITALL waits for a whole page.
+> Either one blocks until the kernel closes the socket. Which it won't
+> because it is waiting for the coredump ack...
+>
+> It's benign today because struct coredump_req hasn't grown. But let's fix
+> it for the future. Compute the leftover as what the kernel sent beyond
+> what was consumed.
+>
+> Fixes: 59cd658eaf40 ("selftests/coredump: add coredump server selftests")
+> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+Tested-by: R Nageswara Sastry <rnsastry@linux.ibm.com>
+
+System: ppc64le LPAR (IBM POWER), Linux 7.3-rc2
 > ---
+>   tools/testing/selftests/coredump/coredump_test_helpers.c | 8 ++++----
+>   1 file changed, 4 insertions(+), 4 deletions(-)
+>
+> diff --git a/tools/testing/selftests/coredump/coredump_test_helpers.c b/tools/testing/selftests/coredump/coredump_test_helpers.c
+> index 2a20faf9cb0a..524fa5370593 100644
+> --- a/tools/testing/selftests/coredump/coredump_test_helpers.c
+> +++ b/tools/testing/selftests/coredump/coredump_test_helpers.c
+> @@ -235,10 +235,10 @@ bool read_coredump_req(int fd, struct coredump_req *req)
+>   	fprintf(stderr, "Read coredump request with size %u and mask 0x%llx\n",
+>   		req->size, (unsigned long long)req->mask);
+>   
+> -	if (user_size > kernel_size)
+> -		remaining_size = user_size - kernel_size;
+> -	else
+> +	if (kernel_size > user_size)
+>   		remaining_size = kernel_size - user_size;
+> +	else
+> +		remaining_size = 0;
+>   
+>   	if (PAGE_SIZE <= remaining_size)
+>   		return false;
+> @@ -250,7 +250,7 @@ bool read_coredump_req(int fd, struct coredump_req *req)
+>   	if (remaining_size) {
+>   		char buffer[PAGE_SIZE];
+>   
+> -		ret = recv(fd, buffer, sizeof(buffer), MSG_WAITALL);
+> +		ret = recv(fd, buffer, remaining_size, MSG_WAITALL);
+>   		if (ret != remaining_size)
+>   			return false;
+>   		fprintf(stderr, "Discarded %zu bytes of data after coredump request\n", remaining_size);
+>
+-- 
+Thanks and Regards
+R.Nageswara Sastry
 
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
-
->  drivers/dma/at_hdmac.c | 12 ++----------
->  1 file changed, 2 insertions(+), 10 deletions(-)
->
-> diff --git a/drivers/dma/at_hdmac.c b/drivers/dma/at_hdmac.c
-> index f4d0c72787d1..cae26ea890fa 100644
-> --- a/drivers/dma/at_hdmac.c
-> +++ b/drivers/dma/at_hdmac.c
-> @@ -1994,20 +1994,16 @@ static int __init at_dma_probe(struct platform_device *pdev)
->  	atdma->dma_device.cap_mask = plat_dat->cap_mask;
->  	atdma->all_chan_mask = (1 << plat_dat->nr_channels) - 1;
->
-> -	atdma->clk = devm_clk_get(&pdev->dev, "dma_clk");
-> +	atdma->clk = devm_clk_get_enabled(&pdev->dev, "dma_clk");
->  	if (IS_ERR(atdma->clk))
->  		return PTR_ERR(atdma->clk);
->
-> -	err = clk_prepare_enable(atdma->clk);
-> -	if (err)
-> -		return err;
-> -
->  	/* force dma off, just in case */
->  	at_dma_off(atdma);
->
->  	err = request_irq(irq, at_dma_interrupt, 0, "at_hdmac", atdma);
->  	if (err)
-> -		goto err_irq;
-> +		return err;
->
->  	platform_set_drvdata(pdev, atdma);
->
-> @@ -2126,8 +2122,6 @@ static int __init at_dma_probe(struct platform_device *pdev)
->  	dma_pool_destroy(atdma->lli_pool);
->  err_desc_pool_create:
->  	free_irq(irq, atdma);
-> -err_irq:
-> -	clk_disable_unprepare(atdma->clk);
->  	return err;
->  }
->
-> @@ -2145,8 +2139,6 @@ static void at_dma_remove(struct platform_device *pdev)
->  	at_dma_cleanup_channels(atdma);
->  	dma_pool_destroy(atdma->memset_pool);
->  	dma_pool_destroy(atdma->lli_pool);
-> -
-> -	clk_disable_unprepare(atdma->clk);
->  }
->
->  static void at_dma_shutdown(struct platform_device *pdev)
-> --
-> 2.55.0
->
