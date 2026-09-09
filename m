@@ -1,204 +1,177 @@
-Received: from mail-oo1-f44.google.com (mail-oo1-f44.google.com [209.85.161.44])
+Received: from mail-yx2-f5.google.com (mail-yx2-f5.google.com [74.125.224.133])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06144357A4A
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 17:04:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.161.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84B9424BBEB
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 17:04:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.133
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788973455; cv=pass; b=hrbwoUCpCTiqwgEMNhzQK4ZqnteRJsfZZu4PdytOiBk0HRg5yuSD3iOW+NUkuL+eAyDyyw7aPfYziI//6nTU163/uKmu7YO/TZHQEv4+MnEwX4tMqBgVur1MQQrjFalBfmvTYOWcuvRboeCb/wHUrFgdpZUglUjyZm1C0LdEQ/M=
+	t=1788973478; cv=pass; b=mHhi0lNSzupxV9IagxsLMF6HfCHDh5Mg9SM9E0Lx4H4SaOYp2plrugXqz4VDG10/mAlBIdmOCDkSlxgoWWBjKsypPN88MYmq0qlmDA5EvuUOWzvq38CpVXFMaRNdOk6f94JWR6dPBaUoK7qVqarKKnsQKLGobrGkVy13UaKA1V4=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788973455; c=relaxed/simple;
-	bh=h69Ep7x9kW9YEWONODwlFjRxgb84inWblBh92cqQIJA=;
-	h=From:In-Reply-To:References:MIME-Version:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=lNMJevdAuL5EGvMlyikJfyY92BX6zohH+DY3JucrEJs2w+kmc7vScRp8SlNAqiZXIVunqNgh9NG7c0OOVx9/jyMpQD5yez1VG1TK9me2x1mS0ov3g/V7xA/1TEi7h3/hXoBGxEI6sgYbLPj6skoGv2cvYWjHUOvr9LmHtN0vcEw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=pKbVAd7i; arc=pass smtp.client-ip=209.85.161.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	s=arc-20240116; t=1788973478; c=relaxed/simple;
+	bh=zNRJAWDpmSyQxf+gq4P6PYHSTb8ilgp/59JSal2jEFg=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=qd1H9SlV3msttSZm1D/V8r9MaAt/S92RQQ/wjvvI/QXkgkHf2a4+5WvrjjK0goU277RwiHhBOar7y0/r5PKm/2tpo7GifBGzzYwkRGqCfzMy7FJ1ewy3NTs8DwYTtRK7Ex3+dtJl2pKOenUvLQsxi0znwtjT9u9F659tZdm2+P4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=esX11EV3; arc=pass smtp.client-ip=74.125.224.133
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="pKbVAd7i"
-Received: by mail-oo1-f44.google.com with SMTP id 006d021491bc7-6b12d146e6fso2902764eaf.0
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 10:04:13 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788973453; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="esX11EV3"
+Received: by mail-yx2-f5.google.com with SMTP id 956f58d0204a3-66f2399323dso1674916d50.1
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 10:04:37 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788973476; cv=none;
         d=google.com; s=arc-20260327;
-        b=RTWtwe95blQNqtXnbpmWozpZpkQtorZicH02ObEPUKEvN4BpecY75+4Z8ceaQzyGkL
-         pzKQqqeIxphebKyiKuhaAqaarrC5oGT8S+rpNDTl9NzzJoz7oD6jPwI3AP70FH5pHvmP
-         gIuazG21DVj8xncfrNt0yxq7d1K7pBvoCCLFzkjcrInI247GwTTwWNuwOO2PG8miChqi
-         PNgvQSJwA3yY/CQ2vkYddmys6bQeZ+pB3H4nlrpMoHD+Gakh30zzkQybt5IJXvGKZzEA
-         pzDt9ouJx2B6AXopzi5M51++roK571BUZOyTquRSVQKbKOdyl/aJg04wo2M3Z1XVwlXi
-         AVBg==
+        b=c5L27xiWKI0x8q7FmvYhrXmMrqyMs6zHSIMGuSkW0ARY+Zeh5j+kUCaMJEZKbmu2lr
+         MR6X64WztHT26Xumu483Ht1P8PoQhI57R7w+gy4F0SbL5SkBMIp5U6Uas0xgp8BDlq5l
+         zTNzdSPh9uwSRFuUwsV6f5ekNrgC02xc1ccimf1l7Pe/UFopitoA+wcdrP65nhbBLT4e
+         yPhDqiOe9LgKIkK/zqQJZ3gGSXzlbD9dEN2+UK2+x3kHviEhpHH6tPNTsrVXrPWdTm/d
+         zFHZvngTcQPwhc3Ay5S3XhuUVwbDIiVjMYgBAOov11+7pqoN9CN6eBRzTFjQjhD9GA10
+         LtWQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:mime-version:references:in-reply-to
-         :from:dkim-signature;
-        bh=A/3n7+l6Hk+FAEPnBkeK4yLp6nphYfaKQMZLPlsMb2I=;
-        fh=yhQQGkEtyVdbmMTggfXck1bUcuKFael8cWuPN7joa1U=;
-        b=NUhBRgiAZ1uEqnJdTBRWFagtIQOy98DfFWZaulVt+Bun5XQH3uae9akP9WRmJsGomZ
-         Y27FlJEXW+1VHe5/SBfeEB/58kLALQiJkhnCFPKpU+Ea1J7Q4MKtKpoqsWmqxpoaXtpW
-         6W0PzuedNsuSK7R1V+m6YVi6V/C+kDsnD41+DhvZkWUpa8HpBCtIPPwQO2qFtt90OIS1
-         rXhtRKWAw77DHd+qGUwg/RJk3yTBC8idbiA8/JzBYBa/GdSABa3PH2Ykfeovb0Fx2fXF
-         /x4mTX6rOOTcxpqnCOJipz7gitKtuwj5T8uAgfJdNHt/n5mrHW3yRKBcK/0rnx5b1W2z
-         i1KA==;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :reply-to:in-reply-to:references:mime-version:dkim-signature;
+        bh=h68yUZkKyOQMox/zVW7HECZ4MPmqpPFgYdtPt3ny8hI=;
+        fh=3iuZHXYjeBguw3L/5jYVquQGJSSlXFi3HtrRFGBt9FA=;
+        b=XjXbf8DGmnXI4P55bRVcmvfISN+AyLCP5Ks7I+kjBH+CBSn3jqa0VYCzQlVsyIhIov
+         QeVYIlK6kjQFR/vo4khYf+bIQSROtFKaGkBAaVO+A6dfTHxaHRXVlSeQm92EqHMp+mDi
+         Q1Ar/6iZFv/MMn0j2+DT6QHonMHPXY5yP1zaZRhGNgIIYDEhq+0jWe+6aok8V7NCacr6
+         zQnu/9ZOdbipytXzGMx54QXG5/VWUuHjuwzf0kLuTreZDWOjcYtqLFNKkDG2pu2ouXpN
+         CJKxzp7IgJwmOmYuV1JJirOOwqShF5OmxsNREfRSNJNVb2baHjD5ZFo6XFduels21Kg8
+         56fQ==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788973453; x=1789578253; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:mime-version:references
-         :in-reply-to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=A/3n7+l6Hk+FAEPnBkeK4yLp6nphYfaKQMZLPlsMb2I=;
-        b=pKbVAd7imBHA/x9dCs5p/r92xsxgd3r9nxslzOEyMlr7f7Cj9hHPQiK/ZmGxB1oTVU
-         rxFJbGf3FpjlmHUh+dlyXL8ORQPFbad7WS96PH/awpUHKXF6U9FpBjetvs4pd3OvCO2M
-         Dcgf+wttL4/Z82aScR0ES4CbTWw0B9+6hE6zXS/j8UOSS+J4hutNGPOuBsudsEzGHEIK
-         GpXd/tBk0AgVBM5h7SMZDzaTob2Kg2CmAab/steu9i4z1aJIWjJLDj6FkPNoShcJ0eZx
-         7tq9KVTjDr8Z/wjLcCzrgifur6qW8L3ghsnwgnAJ2kDiSTOeQNmQ4zDQlcDEi069lS/f
-         LGtg==
+        d=gmail.com; s=20251104; t=1788973476; x=1789578276; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:reply-to:in-reply-to:references:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=h68yUZkKyOQMox/zVW7HECZ4MPmqpPFgYdtPt3ny8hI=;
+        b=esX11EV3970/+DlnWiJUQ0JrEiqdjYpR0xOVzhmyO7gZzRA2ZzDLWTK6w3wa0s27l0
+         hbs3g7Zf8mQWRSYpmxZEqpffB+zsoORKdeCZSJmhMisUzeqb7JQPbMa8/Qds1Y9YHLoz
+         YU7i7vEWP2CRduV7ldCz7OXcDe9aaoW/lSN3eVnIbOfNnbx/1J+fuYvAGNGFi5mWIWF4
+         PFAU2fXdB7UFgvt26wgvQIDhxXL0HIENTzEhjDQOitXZxhMpiVKqpmxRG2jnIAq137YP
+         g35+hMHG2fpySTixvvE9RP2s8sv+OFoieqCS6jKYkc72IuiIPL/A2jjlpho/378ed87N
+         2OaA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788973453; x=1789578253;
-        h=content-type:cc:to:subject:message-id:date:mime-version:references
-         :in-reply-to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=A/3n7+l6Hk+FAEPnBkeK4yLp6nphYfaKQMZLPlsMb2I=;
-        b=php1TqLNEZjRBpYQIElnJtC6y4Palwbplzrg7POAwWV/YNPJ2hheEoTIKhkOk4M+10
-         YUIcBny/fhc6jWuAEcnqL9QS83eV7sXCHqnEHma2UXJa2ilEH5nvLq+lzYEyw/XOA4VD
-         pZsBddMRS4vI6frIcaMSdCTgJvBJSPIO8CZ0JlWM5fBFeloCh8ijQ4mc7vlm3KMipiT5
-         ETSWy5qOvt5/hiyuF0T0sBPtrha3IgP0ybHIhtTivOSMv5dSJ0lRbdFU4wBoZ/jy3o4k
-         EW551YIpFd63a8OjMs8j9RbOhA8SHamrYmWLgFJ2UUaK+IK00qyoBej32vO+AV4Zc156
-         gZHA==
-X-Forwarded-Encrypted: i=1; AKwUvBzp7QrOGn2nDzjm5F6Ml4N67wu0kDoRnOmhFEJcXhWd8o84JIOHtzO9H5AVqHm+9zFLYxEBL0R9GavX52U=@vger.kernel.org
-X-Gm-Message-State: AFuF++lpCXJTj7Cu0qvPjsoZaF7l9oA/Se2tDghBIAeHrDN1Oyf/PReu
-	rCPM0407RybfTg0dqpmhQ6Y8o0RBmVgnMkz6yjM0GF59l2grvPKXJDacnLFkb/GWmqiXcSQyPSk
-	sO3js5EClrCApLNblKdhuqAv8TChLDNVoWxxjS4aI
-X-Gm-Gg: AYBFou00ca0o3OiOPt5zz46Qi8lnd3fGjnleXrQoyEq3z327Y2pUfh2kUQslTQw/s6r
-	V21KjkCKhq8zexsHHsGRYTg+zMRQoe4I0t46Ms6LcpG97N9w380y4oTpQB5BAx+ODOsoUqHrsGW
-	D6jsxjuu+jqkiFHX0/rKcZo75EXKlFLyhFWabT6H9FMjOXIL0FCYWOafrsUXcP50NYb5oYAeKV4
-	wEa4VWOzL/A1fRV/UAs4iqpUrFj3/amVdd2NhkfnwWuryAlHavwPwojVf/75AzWiv0XsAcEkDut
-	B4JmRJFbvGKHf3tP4Y0sj0XjjAN0kDSFB0/mM1IgAmARtzCyugyr2Q+JNRyDRyu87gfib90qoP2
-	jAywUCX+Gu+M=
-X-Received: by 2002:a05:6820:1c82:b0:6b1:6c44:d3b1 with SMTP id
- 006d021491bc7-6b6fa8dca94mr19436135eaf.2.1788973451595; Wed, 09 Sep 2026
- 10:04:11 -0700 (PDT)
-Received: from 176938342045 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 9 Sep 2026 10:04:09 -0700
-Received: from 176938342045 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 9 Sep 2026 10:04:09 -0700
-From: Ackerley Tng <ackerleytng@google.com>
-In-Reply-To: <20260904171412.191180-1-joshua.hahnjy@gmail.com>
-References: <20260904171412.191180-1-joshua.hahnjy@gmail.com>
+        d=1e100.net; s=20251104; t=1788973476; x=1789578276;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:reply-to:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=h68yUZkKyOQMox/zVW7HECZ4MPmqpPFgYdtPt3ny8hI=;
+        b=pJQga8Nga9OETvERZhsyw+/VAESwA7pTKhiEF053sQl3ex0FC34uzmf1W9XYtb50pg
+         9nZ81SGnv0ZrvMXEFwiwAquS+9Sc9EMDDGdrjeqeoPIpH4TO/B0T/m2Sk1cs2cPUZS4O
+         3TGoczQzLYK3EOC7fGvg1ckn5lVUeQVHO7PxMdkaQwBjfXBfyWMh9FCjKUmo2QYPXYyD
+         8Ozmst2g/jS9SmtrzuQmRGZqZNz0kS25COkXMU7d/8dxuFQXkZ4m5QEXHbjDROrVzXwz
+         D0OWBkjGdq65W8++7Qjpl7X4id3rPsVsFABsOqHY9vOl80+mzTPxaOd4c53fKtsnEjXL
+         3XyQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxs7LrFXTpeh0yg9Iizz7D3zkqTYV6PSdmBliroh38x3EJUUG+BLKF/Fkc313y8UowF9DFQ8amxXCr4tQQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++mGboZAV12DCzhwyrDLdmXIRYri0vSUJKJxxZoYjYjkHlpF9KxR
+	AYHhlkU34zfz0FqCWj/BdalweaDArPTXbXbBwsWrbCqrkGU7HTH4fWdDXZ0CjIGrEwfc483Ngbv
+	fiKt/yiTetYbYlH+z6aTQSgmhR9JJQTI=
+X-Gm-Gg: AYBFou1kyg9ODpYILoTHigxQrpWBWJfv4EkAmH0OBQvkw6yPAN/Cv0gQP7MYHTmyfAK
+	IWFHpnw22EYK6JIkYBcu8sD4+mHsltuDtWJUni6lfd+zUZZQVgMo+RUdkFvY5AcxYJy8LJFotJ3
+	UGUnSSa6WQ/UAD133o0qmz4YwkTX4GHoZeCdYHYcF7PweSOxmQmAoDI+22zZLtlg593g9jr+diu
+	5b41u12/tOcdjtR5S2jnYpGme1HWmy2sbnQdoQHMTMdjWxUPGP4wmEFMmr73xbkZeMO0/p7aZdb
+	lgkDW5t2qWU9r5PgAj+aRrqICrffhq76CGxq3LXriO41VNw4+RLGwa7DhM1PDPXCPM96slJAjcq
+	EnQullxZ91VqCaZm9HCj9G7GB0TixR2h8ldvagj8zVgb5q6Neh48Zig9qs1L6Z1nFh+ktl/8=
+X-Received: by 2002:a05:690e:43cf:b0:66d:273e:117a with SMTP id
+ 956f58d0204a3-6710ff00773mr1220253d50.39.1788973476283; Wed, 09 Sep 2026
+ 10:04:36 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Wed, 9 Sep 2026 10:04:09 -0700
-X-Gm-Features: AcwNN1V_OL5b4rKvClN1gT5AOJG1MUC1dn0rdqBCDNzmXm8Bb2nF-U4o4S_9uzM
-Message-ID: <CAEvNRgFfSJzvhrO7gEs1DVYV9ES0xjBtGJgqruFo-hSKUSnNZA@mail.gmail.com>
-Subject: Re: [PATCH 1/2] mm: hugetlb: Return -ENOSPC on memcg charge failure
-To: Joshua Hahn <joshua.hahnjy@gmail.com>, 
-	Ackerley Tng via B4 Relay <devnull+ackerleytng.google.com@kernel.org>
-Cc: Alex Shi <alexs@kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
-	David Hildenbrand <david@kernel.org>, Dongliang Mu <dzm91@hust.edu.cn>, 
-	Hongxiang Lou <louhongxiang@huawei.com>, Johannes Weiner <hannes@cmpxchg.org>, 
-	Jonathan Corbet <corbet@lwn.net>, "Liam R. Howlett" <liam@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>, 
-	Miaohe Lin <linmiaohe@huawei.com>, Michal Hocko <mhocko@kernel.org>, 
-	Mike Rapoport <rppt@kernel.org>, Muchun Song <muchun.song@linux.dev>, Nhat Pham <nphamcs@gmail.com>, 
-	Oscar Salvador <osalvador@suse.de>, Peter Xu <peterx@redhat.com>, 
-	Roman Gushchin <roman.gushchin@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
-	Shuah Khan <skhan@linuxfoundation.org>, jthoughton@google.com, fvdl@google.com, 
-	rientjes@google.com, vannapurve@google.com, 
-	Suren Baghdasaryan <surenb@google.com>, Vlastimil Babka <vbabka@kernel.org>, Wupeng Ma <mawupeng1@huawei.com>, 
-	Yanteng Si <si.yanteng@linux.dev>, linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
-	stable@vger.kernel.org
+References: <CAHzb5FEEU3+aw8z6-_3yxDeKgZoLRMGyUSmHettjJvbAetraEg@mail.gmail.com>
+In-Reply-To: <CAHzb5FEEU3+aw8z6-_3yxDeKgZoLRMGyUSmHettjJvbAetraEg@mail.gmail.com>
+Reply-To: www.rokinthanp03@gmail.com
+From: Rokinthan p <rokinthanp03@gmail.com>
+Date: Wed, 9 Sep 2026 22:34:19 +0530
+X-Gm-Features: AcwNN1U-LckANOu25TWKJ6Y_QMHpGD2IzN4hcXhSspsZzhvVHSuyrWdUHiqq9W4
+Message-ID: <CAHzb5FFHj3WG93sR5sXb6RYAYC=v1QctLQstau3b=sDizQ2Ang@mail.gmail.com>
+Subject: Fwd: [PATCH] media: hackrf: defer v4l2_ctrl_auto_cluster() until
+ after error check
+To: Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	cf896de36144391bcde1@syzkaller.appspotmail.com, 
+	syzbot+9f7405999979761b6cfc@syzkaller.appspotmail.com
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Joshua Hahn <joshua.hahnjy@gmail.com> writes:
+---------- Forwarded message ---------
+From: Rokinthan p <rokinthanp03@gmail.com>
+Date: Wed, Sep 9, 2026 at 10:30=E2=80=AFPM
+Subject: [PATCH] media: hackrf: defer v4l2_ctrl_auto_cluster() until
+after error check
+To: Mauro Carvalho Chehab <mchehab@kernel.org>
 
-> On Wed, 02 Sep 2026 01:22:56 -0700 Ackerley Tng via B4 Relay <devnull+ackerleytng.google.com@kernel.org> wrote:
->
->> From: Ackerley Tng <ackerleytng@google.com>
->>
->> When mem_cgroup_charge_hugetlb() fails with -ENOMEM, alloc_hugetlb_folio()
->> currently propagates this error. This results in the page fault handler
->> returning VM_FAULT_OOM.
->>
->> Because HugeTLB allocations are high-order and use __GFP_RETRY_MAYFAIL,
->> they bypass the OOM killer. Returning VM_FAULT_OOM to the #PF handler
->> without triggering the OOM killer (or having it make progress) leads to
->> an infinite loop of retrying the fault.
->>
->> Avoid this loop by returning -ENOSPC when charging fails, which maps to
->> VM_FAULT_SIGBUS, terminating the process cleanly.
->>
->> Make mem_cgroup_charge_hugetlb() fault handling use a common error handling
->> path, the same handling used for hugetlb_cgroup_uncharge_cgroup{,_rsvd}(),
->> which also don't trigger the OOM killer and hence opt to terminate the
->> process with a SIGBUS.
->
-> Hi Ackerley,
->
-> I hope you are doing well! IIRC, this is the same fix as the one in
-> [1] (in spirit) right?
->
 
-Yes, it's the same fix as [1] in spirit.
+In hackrf_probe(), v4l2_ctrl_auto_cluster() is called immediately after
+    allocating the auto and manual bandwidth controls for both the receiver
+    and transmitter.
 
-> I prefer this change since it is more obvious that we return
-> -ENOSPC right there and then. Since this is a fix please feel free to
-> add:
->
-> Reviewed-by: Joshua Hahn <joshua.hahnjy@gmail.com>
->
->> Fixes: 991135774c0e0 ("memcg/hugetlb: introduce mem_cgroup_charge_hugetlb")
->> Cc: stable@vger.kernel.org
->> Signed-off-by: Ackerley Tng <ackerleytng@google.com>
->> ---
->>  mm/hugetlb.c | 14 ++++++++++++--
->>  1 file changed, 12 insertions(+), 2 deletions(-)
->>
->> diff --git a/mm/hugetlb.c b/mm/hugetlb.c
->> index 7857728457952..01b57f6d3b804 100644
->> --- a/mm/hugetlb.c
->> +++ b/mm/hugetlb.c
->> @@ -2823,7 +2823,6 @@ void wait_for_freed_hugetlb_folios(void)
->>   *
->>   * Return: A pointer to the allocated folio, or an ERR_PTR on failure.
->>   *         -ENOSPC if cgroup charging fails or no folio is available.
->> - *         -ENOMEM if mem cgroup charging fails.
->>   */
->>  struct folio *hugetlb_alloc_folio(struct hstate *h,
->>  		struct mempolicy_interpreted *mpoli, u8 alloc_flags)
->> @@ -2896,7 +2895,18 @@ struct folio *hugetlb_alloc_folio(struct hstate *h,
->>  		 * were committed to the folio and freeing the folio
->>  		 * would have cleared those up.
->>  		 */
->> -		return ERR_PTR(ret);
->> +		/*
->> +		 * Return -ENOSPC when this function fails to allocate
->> +		 * or charge a huge page. If a standard (PAGE_SIZE)
->> +		 * page allocation fails, the OOM killer is given a
->> +		 * chance to run, which may resolve the failure on
->> +		 * retry. However, for HugeTLB allocations, the OOM
->> +		 * killer is not triggered.  Returning -ENOMEM (or
->> +		 * anything resulting in VM_FAULT_OOM) would leak to
->> +		 * the #PF handler, causing it to loop indefinitely
->> +		 * retrying the fault.
->> +		 */
->
-> NIT: I do feel like this comment block is a bit verbose, though. We just
-> want to explain why we return -ENOSPC rather than -ENOMEM, maybe we can
-> just explain that OOM killer not triggered --> retrying is futile?
->
-> The change itself looks good though : -) and I don't want to block the
-> fix. We can change the comment later.
->
+    If allocating the master control (dev->rx_bandwidth_auto or
+    dev->tx_bandwidth_auto) fails, e.g. due to memory allocation failure,
+    the pointer is NULL and the error is recorded in the control handler.
+    Calling v4l2_ctrl_auto_cluster() with a NULL master control causes
+    v4l2_ctrl_cluster() to trigger a WARNING:
 
-Got it, please see v2!
+      ncontrols =3D=3D 0 || controls[0] =3D=3D NULL
+      WARNING: drivers/media/v4l2-core/v4l2-ctrls-core.c:2525 at
+  v4l2_ctrl_cluster
 
->> +		return ERR_PTR(-ENOSPC);
->>  	}
->>
->>  	return folio;
->>
->> --
->> 2.55.0.970.g62bdec98f9-goog
->
-> [1] https://lore.kernel.org/linux-mm/20260720-hugetlb-alloc-failure-fixes-v3-2-7d2a169aa9ee@google.com/
+    Fix this by moving the v4l2_ctrl_auto_cluster() invocations down after
+    checking dev->rx_ctrl_handler.error and dev->tx_ctrl_handler.error.
+    If control allocation fails, probe cleanly aborts with an error without
+    attempting to cluster NULL controls.
+
+    Fixes: 81774395a8d9 ("[media] hackrf: new driver")
+    Reported-by: syzbot+cf896de36144391bcde1@syzkaller.appspotmail.com
+    Closes: https://syzkaller.appspot.com/bug?extid=3Dcf896de36144391bcde1
+    Signed-off-by: Rohinthan <rokinthanp03@gmail.com>
+    ---
+     drivers/media/usb/hackrf/hackrf.c | 4 ++--
+     1 file changed, 2 insertions(+), 2 deletions(-)
+
+    diff --git a/drivers/media/usb/hackrf/hackrf.c
+  b/drivers/media/usb/hackrf/hackrf.c
+    --- a/drivers/media/usb/hackrf/hackrf.c
+    +++ b/drivers/media/usb/hackrf/hackrf.c
+    @@ -1427,7 +1427,6 @@ static int hackrf_probe(struct usb_interface *int=
+f,
+         dev->rx_bandwidth =3D v4l2_ctrl_new_std(&dev->rx_ctrl_handler,
+             &hackrf_ctrl_ops_rx, V4L2_CID_RF_TUNER_BANDWIDTH,
+             1750000, 28000000, 50000, 1750000);
+    -    v4l2_ctrl_auto_cluster(2, &dev->rx_bandwidth_auto, 0, false);
+         dev->rx_rf_gain =3D v4l2_ctrl_new_std(&dev->rx_ctrl_handler,
+             &hackrf_ctrl_ops_rx, V4L2_CID_RF_TUNER_RF_GAIN, 0, 12,
+12, 0);
+         dev->rx_lna_gain =3D v4l2_ctrl_new_std(&dev->rx_ctrl_handler,
+    @@ -1439,6 +1438,7 @@ static int hackrf_probe(struct usb_interface *int=
+f,
+             dev_err(dev->dev, "Could not initialize controls\n");
+             goto err_v4l2_ctrl_handler_free_rx;
+         }
+    +    v4l2_ctrl_auto_cluster(2, &dev->rx_bandwidth_auto, 0, false);
+         v4l2_ctrl_grab(dev->rx_rf_gain, !hackrf_enable_rf_gain_ctrl);
+         v4l2_ctrl_handler_setup(&dev->rx_ctrl_handler);
+
+    @@ -1450,7 +1450,6 @@ static int hackrf_probe(struct usb_interface *int=
+f,
+         dev->tx_bandwidth =3D v4l2_ctrl_new_std(&dev->tx_ctrl_handler,
+             &hackrf_ctrl_ops_tx, V4L2_CID_RF_TUNER_BANDWIDTH,
+             1750000, 28000000, 50000, 1750000);
+    -    v4l2_ctrl_auto_cluster(2, &dev->tx_bandwidth_auto, 0, false);
+         dev->tx_lna_gain =3D v4l2_ctrl_new_std(&dev->tx_ctrl_handler,
+             &hackrf_ctrl_ops_tx, V4L2_CID_RF_TUNER_LNA_GAIN, 0, 47,
+1, 0);
+         dev->tx_rf_gain =3D v4l2_ctrl_new_std(&dev->tx_ctrl_handler,
+    @@ -1460,6 +1459,7 @@ static int hackrf_probe(struct usb_interface *int=
+f,
+             dev_err(dev->dev, "Could not initialize controls\n");
+             goto err_v4l2_ctrl_handler_free_tx;
+         }
+    +    v4l2_ctrl_auto_cluster(2, &dev->tx_bandwidth_auto, 0, false);
+         v4l2_ctrl_grab(dev->tx_rf_gain, !hackrf_enable_rf_gain_ctrl);
+         v4l2_ctrl_handler_setup(&dev->tx_ctrl_handler);
