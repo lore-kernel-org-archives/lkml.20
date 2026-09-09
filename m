@@ -1,189 +1,152 @@
-Received: from CH4PR04CU002.outbound.protection.outlook.com (mail-northcentralusazon11013053.outbound.protection.outlook.com [40.107.201.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com [209.85.214.177])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A63244BCAE;
-	Wed,  9 Sep 2026 08:06:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.201.53
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788941170; cv=fail; b=oPacv2eckRYkTTvLfJb4QHC+KMhOub6NafY5QL1r6Gblns+b/sw6yMWDrUO+AlsLgA6CXnfL6IJ1nRoAXWyuq6ugBfuSYFMx8wBk3ZezOhs9dkmmgpkrUkUAyj5hy5CGvMZCJ7AKjXa6c+9IoTZWGNhL5q9GcbBry6ZSRRZjVYA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788941170; c=relaxed/simple;
-	bh=wW6NYAj7DqffwOygaeIbR41u+Pw3qbmpnqLTkZzs7Rs=;
-	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=AIhv7KAOGNHv7IoqbXhWBLVXOWLi6oy9TLlXlB7uxhC4fHnazEjUS6y2mSUOmNQO8TwDz6fdHC3PDpI2VoKEULDVGMfoH3oGvVNvxBf1l+y/X1P8nKIONt3rdUmV0wcZbYLwOWQPRC/HWAvzPIsz/fnbRrT9KANoVG/KSSouoXs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com; spf=pass smtp.mailfrom=altera.com; dkim=pass (2048-bit key) header.d=altera.com header.i=@altera.com header.b=cfQsB4dI; arc=fail smtp.client-ip=40.107.201.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=altera.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 098244734DE
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 08:06:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.177
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788941182; cv=none; b=JDWHStEp2wkn6jYRjTuhHeXHeCFNkN/NXe+CmBxp4k3l+5eklUn7SeKGOs2CqvUzTj8VE5bZxabjafERDqsyYvEeGqT4VX4SaSFY36n5f3r1EXl9hjrQ/fvrEiyOnioRQ/Cm1lAjqWJ8A+wJzQ+mLknPWTRcdth16HePZkqmz18=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788941182; c=relaxed/simple;
+	bh=b4LGCy/GrxP1awJTsj7G1lWhqhYhfO4g1y2Zo2OpBU4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=S8q9Zhr8wFEz1Z5zOzbK3Lp1sEOuP2gJh6yG0qKS1gX9Jpiv1nGpMOSD2P2mVTHUz5nndxRrYJWz+YF6WsjRRuwXVWdd1m6Oo9QU35LbHgSSy+yPgO3+jK8bUF9B8caWT5o0Fma2EAMojMnTwiXX/S4VrNKd1SVOWXT1xblXMWc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RQFnFA5H; arc=none smtp.client-ip=209.85.214.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=altera.com header.i=@altera.com header.b="cfQsB4dI"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=v0w7IQSKdAG5EIQmHFvynSPAL89R58/ArWB0AX6A5ZH6fF4HpPDy28PzWr8zHl70RMs6+Ke8Bu/XvKlNKoDYaY1bbHwyssOdM7d3qHDg2Op1tqDKNU8bjyFWAFn7t76GGV2Jus5iBt5yyBcC3Ipde3e7zCfBqOZE30s00B5e3e/arFTNsB2n4rpBOiVky9GvlJY9rlWH58B5iu2um5J0RsKrolYRx6eL/DUPQeA/Sav2j+GYTU+5IwyBCkckTr0yBBiYCTxyc2YT5S7gsaJTgdFbL0BD22yHpRlX0Sezv8gb6CpDRKHIJY1d2IJeglXr/3C5xrA/nEJ5u6ptbRyqgw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=UvfFMZf498Lb1Oyw9KVVYtUYSD83Ajok/L4/Ow1lUTA=;
- b=xVbyWiETm/ncHEQOBE0I3DiD9EaGGPpZy9sppDN9qGA6sxBV8t3PgTm0kMCFM2GAicU5g1X/xNz/tpSsKZI6qrnXXXx3EWTurjx2/CcksysfAioRQRoJU6z/YNtM5abdvFbnthyRBpvfw/H0zaLVGH0fQ+2kZQikGObNOFDnh3c70U0NJ/dCF1aHjwnec1her7PFUSznQaqFwOlsfjxTBsiaCFumvn5GwcdCSc0Cx7CPbEaaG5m9P6RBOFiC8sASQQ1XVyHcf3q2GgQjEM/fto7htsTUynqrYRNK03rEt9SF52WjB9AHEPcffaZIoGCmbS14PUI+N/8L3PsllJ5h3Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=altera.com; dmarc=pass action=none header.from=altera.com;
- dkim=pass header.d=altera.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=altera.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=UvfFMZf498Lb1Oyw9KVVYtUYSD83Ajok/L4/Ow1lUTA=;
- b=cfQsB4dIV1sa8RnKcRPF81DoW46ohqcMDV/+so2azHkXKBob0Uj26GnSid6LSvHnZwg5TL04IcLaBVAqOrtwVkIeMQjqLbxLPtr0xAJvBSLP8muXWNxJmCPbLk1XffPC3g98gx2JsdWzrIJn+jWK6oWvaS3ZL4DKGk2LMI0WRs7H5bBNEI27nO/6bgWTHcF0jpUJtdRD4YSSI+qVCKcjRKhs5EX4DzZxVjvBW3Xi742fc7w8QyPM8zrGUONh4jgiQ/1L38tdO/+vg819x48IUg7NtK5fGKJLMveiUNN6nMvnmePgx5FL/leBxptospLUpOUjmx6dWIR3MooJ2tKHcA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=altera.com;
-Received: from SJ0PR03MB6964.namprd03.prod.outlook.com (2603:10b6:a03:432::18)
- by PH0PR03MB6480.namprd03.prod.outlook.com (2603:10b6:510:b0::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.15; Wed, 9 Sep
- 2026 08:06:02 +0000
-Received: from SJ0PR03MB6964.namprd03.prod.outlook.com
- ([fe80::b965:bfa8:58fb:e775]) by SJ0PR03MB6964.namprd03.prod.outlook.com
- ([fe80::b965:bfa8:58fb:e775%4]) with mapi id 15.21.0406.005; Wed, 9 Sep 2026
- 08:06:02 +0000
-From: muhammad.nazim.amirul.nazle.asmade@altera.com
-To: Maxime Chevallier <maxime.chevallier@bootlin.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	netdev@vger.kernel.org,
-	devicetree@vger.kernel.org
-Cc: Dinh Nguyen <dinguyen@kernel.org>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Giuseppe Cavallaro <peppe.cavallaro@st.com>,
-	Jose Abreu <joabreu@synopsys.com>,
-	linux-stm32@st-md-mailman.stormreply.com,
-	linux-arm-kernel@lists.infradead.org,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RQFnFA5H"
+Received: by mail-pl1-f177.google.com with SMTP id d9443c01a7336-2d9db539a54so49563715ad.0
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 01:06:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788941180; x=1789545980; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=PmWvJz1TICTrxOO/Zb6x1aIAwyMn3XoHLpkJReMqVNM=;
+        b=RQFnFA5HLykYJRAD9AxOT7UXrHlzkjUNu0vGe2iMsiGuf3B0HCR+xElZaZ80yQwN//
+         4ak2o7Gg65UdJ+EqR7HvnWQNCk9Vh2n9HMy9v7PBtxGG0uiCkMqBcryQaUR0GcL/BA/Z
+         I8GDAIh1/JT5XqfGp6VilrhFfX0iUwPP7uoXKhUEeIBqp0r50MLtMzgSUPzH4aK2C+Qa
+         afPARpVmglJW1oOjtVHBMmakgVLLXivx8tOXkP7QTU/WXJJfxIn0y7/NyiMZuqDj7NIz
+         YvcM1GdKgs8V8qQN87oaXHgS6k+53G5h4UQY9ESlwFyo4R3rNukFvi5dW+72br5Ynjd9
+         ojMw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788941180; x=1789545980;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=PmWvJz1TICTrxOO/Zb6x1aIAwyMn3XoHLpkJReMqVNM=;
+        b=J/lWP5ddu7NN/WCHvRl1dU4heEoS8cdyCeqoqo1xrIvIon1zgwbWlfN/RVUBqlpFoj
+         qcCLOmkGtqDCLkwtf3hLBaIYC6qeoXLQkq0MDqMiSwVMo1+wvsqzh7R6FjuQO4pnXksQ
+         9NzU8MvsPjeAcbtMpSGY8FoRhb3pJgzn5kLQwwG21W2nCCimSKVQ8BhqI4whvRDTRj4Z
+         eZ88UVNCtDOM4iTBzH4KM1YpzJnKY5+wlisxuRWcshnhoggRIEGXlU3+ZvvmQeSrNAvP
+         GxvRYGrhNEhyJj4BPCiuVLlLZcrJFRtmbeT8jU8nH7qrObW0K++Acyog8aRLAdlIKClH
+         wEww==
+X-Forwarded-Encrypted: i=1; AKwUvBzw7hPe5FWIHQbVSEnU98ngvPo6SN+Gb3jLUFKtsw3in/TazHvXXZfnCFRY9sRrhXHP+o3RBXBQtP+YF/E=@vger.kernel.org
+X-Gm-Message-State: AFuF++md7nICswzY/OlwL6YpriwZz9mvmAEfjI4poi2JNZMyS5+4zMQ6
+	dk6tGLg9NyGvd8oRhzKaRB515fAhKaXDt/T/FabXaAFJKPNKP/hsHxbv
+X-Gm-Gg: AYBFou1RcMK2WbuHDET+kSHl/zR6vZ5DxR1IX8+TvVHVK6ZYIujbGSG9rVl4quM/62X
+	AMBYTIrMN9hT9VlRJhjCUOPPJUkj0RbM3Gd5I3SS8RxGvd8whZGKaN3AnI7dXUJQ2ZvJqPvVfYI
+	VyXjyMpYLvV3RDXl5N1LcF4SR9u+RBkgi5rz4dT0nA62RxIHT/dS6JGDInyy2ZpyxCLyCzdU8Vv
+	O54PpngWbM+Gc8RtFmkmQDoxOchdo3uFwo/a5kC2+h+PQEeTmOFVkWTbl2LF8UBb4fB0W27alts
+	8tdtYIuydLkFoaz7SPQIzzFSSayPcsu/xmL9ZxftCLwHAE0UWQ2Fblb7i/kpwck6MAqKd5DOyVj
+	k7icbFMFTY5GvNDUwhQ2sJvhvaMoLg+zio6XlmSNdAW7PtlBCY1P0+ro2HBhs4xsXl9pN6ksPNY
+	XUpj77zKRGb2Lur8CsuO7CWOiHqu/wewmzad7bZsYgaCSVofkOO1dlwRselM1LPkiawQK0qLNVX
+	BhVCqmc+XFpJ+rltAaRNVErHHM69gFXNHiUAOB9UP0Pp00NDF7cc2J/+/8=
+X-Received: by 2002:a17:903:2ec5:b0:2cf:8131:75e8 with SMTP id d9443c01a7336-2db125c412dmr528690055ad.13.1788941180081;
+        Wed, 09 Sep 2026 01:06:20 -0700 (PDT)
+Received: from localhost.localdomain ([2405:1202:c2a4:2d00:91c9:34c8:7e7b:4100])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2db149c3b80sm69378935ad.63.2026.09.09.01.06.17
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Wed, 09 Sep 2026 01:06:19 -0700 (PDT)
+From: Ryohei Hashimoto <laurel.medalist12@gmail.com>
+To: linux-wireless@vger.kernel.org
+Cc: arend.vanspriel@broadcom.com,
+	brcm80211@lists.linux.dev,
+	brcm80211-dev-list.pdl@broadcom.com,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH] dt-bindings: net: snps,dwmac: allow stmmaceth-ocp reset name
-Date: Wed,  9 Sep 2026 01:05:59 -0700
-Message-ID: <20260909080559.2028-1-muhammad.nazim.amirul.nazle.asmade@altera.com>
-X-Mailer: git-send-email 2.43.7
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: SJ0PR13CA0056.namprd13.prod.outlook.com
- (2603:10b6:a03:2c2::31) To SJ0PR03MB6964.namprd03.prod.outlook.com
- (2603:10b6:a03:432::18)
+Subject: [PATCH wireless-next v2] wifi: brcmfmac: log the firmware status when a connect fails
+Date: Wed,  9 Sep 2026 17:06:03 +0900
+Message-ID: <20260909080603.2955-1-laurel.medalist12@gmail.com>
+X-Mailer: git-send-email 2.51.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ0PR03MB6964:EE_|PH0PR03MB6480:EE_
-X-MS-Office365-Filtering-Correlation-Id: 33f2505b-0703-4501-9bf8-08df0e493071
-X-MS-Exchange-AtpMessageProperties: SA
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|7416014|366016|1800799024|376014|10067099003|3023799007|55112099003|18002099003|56012099006|11063799006|921020;
-X-Microsoft-Antispam-Message-Info:
-	8MLcQFKvJdO+1Y70NYniJkB37j4qdf8za5A9qwLRHbEzGnrFt+5p7svTCNYyFLQhtuSmJR29mjpgkboo2R0UYIU5RuEiyJFGnM2s48K2C4TsjTbDDkPsCvKi/qPHRuUnmJtmYqyN0wqM1CR1J1Kx5Rb8eb1OGGknmxjNDYKhI6ojU+N/QrhHPN+XJLlVqGkX5sBdbZC398Bw2nUvnvBz33GYFtnDIYxBMR6h7/zvws8eTpl/utESY2ZyElBB43uSWYcK4k6tkOqTIRZIX61osriIvZf0TQgO/PfpG6fi+8sJ+b/bHVRTrro0lFw/u8uGUQF5PZ54Dv/PqLSBgPi+TS3fAOsFaqbCZOSEJrJ4R/2rEVxn/10auSN1JWyNrf4f9rAdfJSM/oZ+Kvfinq3Jp3uGrvwunsn06caq/N4TGCxu1hCcNJlHiouR8IYcd0pYHua8DA9u5rZRqFyXMO4aP5+/V/gnGBJBhlOdHBbAuT54ZF/2RzLA55HbIU1Yf9BJ1zslpWBCFiI6o/zEbQnnkFOGKCWoa+6/ayTIM3hv8o1/XEg45ATq+hM1GxVqW/WJlmJfK3EaY/4oOavOubJGgZQ48zoGWuS1zOPnD9OQ9hdF1PpyCSQfQbIz/QzdL3+MWbc9yv1q2E7a744dR/NXzu8xgWT/447mrXFDpN3NjU53nR/UYtiTi8Oc6C9VBO0pVbNO9EFIQgmBNrB2zoNjdA==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR03MB6964.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(366016)(1800799024)(376014)(10067099003)(3023799007)(55112099003)(18002099003)(56012099006)(11063799006)(921020);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?CPYezuFF2biPMBZLMq2HI9T7TJzphjk4HFCdSAoeVT95jhTjlwO8N4yfs29r?=
- =?us-ascii?Q?cpa9YtW5YvqlhyflPOjnSdELsIVsDTBm4Rx4/1mlkZXtXdzepWuPNtqxe+06?=
- =?us-ascii?Q?6ZVbkfn0v8Ltnde2g0HeKBUVqm5UAcUN/vfQGxFnKNybnjRaRs4v/xzfxZoB?=
- =?us-ascii?Q?qGTmrhYummTt9pQCIJ6gxOwSCFr380tyCSgVG+WV5lZ78tmu/PJr7orHRDBh?=
- =?us-ascii?Q?WbwbTBpFVG+8ZSMgqcbVV+mAWXop7LJOzDNe2N4wxUXtm42qZATNqNAueKzb?=
- =?us-ascii?Q?oVrpuL5F3nEWTeFn0vA6htJq193Pw9VSLkWeoEzlDqCIIz6OkIp+Glq7jkE8?=
- =?us-ascii?Q?LDsuS9SqpiK++UjkC+1j36kTxuRF8X26qh+T4q5mc9yDQ1lavgsIHSTkpWDD?=
- =?us-ascii?Q?VuIXQIcOevdFkZg2SbOSE/4CrQmPMJ8p+cHbLKEzu0H8IRxxx2SqPNw9dj0N?=
- =?us-ascii?Q?S7mEoMYq5x11mfgDHZaqi/3oQsteprC4El2gyB18yOsKOOw6fQV4VqhtyVrB?=
- =?us-ascii?Q?CfJ0ThkJdBxilNc7559KSTbji4876fK5FtSadxrIYyEAllO6dEfXp3DUw/pa?=
- =?us-ascii?Q?OZnFcahNdZW5HCrpaun0ZKSEuirkbwzzRq/BY5aX6sGMaO6CL/QAeF+qRcyX?=
- =?us-ascii?Q?SP/Wr6PM2qvSqmt2OjoX4yElblam6j/bJIJPMAJ3Z4OjB3fE2oiphAbf76mg?=
- =?us-ascii?Q?7zqMYEMMZzNvn0kW/z4+wjTt3BQK3E+IGyeZM4fx++HQEGyIEP0JQi6vrlmL?=
- =?us-ascii?Q?aeyGrcrKeumFCAd+MGFMw/V/NBKBkSVY5KocJaq7B0SQJld0STCojGUR9M9F?=
- =?us-ascii?Q?h+uuSEnuW6yeoIdoqvKSHhC6i11+Sh+v6jFxBlUiGgQAAdt4E7cpxVE3cObJ?=
- =?us-ascii?Q?+A1jgqJL3ciAkAqib0J8+df51fY5USKAxQejQY9gSnYnjNhqOHqfztp6hojb?=
- =?us-ascii?Q?hhFUBdxB7vTrWz417BfBkxXjsNUDasj/zrJFhbHxrdQiHGH4BiZaUK9Wgkw6?=
- =?us-ascii?Q?L4jwYauWIYNBKFH0lFhfxBu1sDggMdaPYusesldQLMg3SUsjd2yoRK0dzX2+?=
- =?us-ascii?Q?SRusSsVAzYULcOZt0MhcEQ9C59lkvigvTUnTYrSwRaOUr0cD1f5tZ5cuSDoN?=
- =?us-ascii?Q?JjnUqXTTAs3njCra039/Uo2swtMaK2sMd1rkATk+FOXNmZAtaZDAORULopRK?=
- =?us-ascii?Q?PeqmVrsJvnEpIkn6VIOwkKnePW33dQwfe09IX0IGSbe8lDhDfHGVZgGjl/Ml?=
- =?us-ascii?Q?M50rBww6DoAIoXohEMVJk6KXIYBw/WqcaYiFQowZdKBEg4tQRpqr3HkBAVzZ?=
- =?us-ascii?Q?/2OTWEg6QvIPH3EuJfSxWa/kywF/03s6HL2y8SQMpnTLxdaCtFqFT1m15m4V?=
- =?us-ascii?Q?SJJhKMVmJlY415vf7RaanHko2XCA+9GXrPhDSeDu42NIl1cebkbJ0ylSPklQ?=
- =?us-ascii?Q?SCNUWQFOxbrE2VCI2gj1WAEa2w4NKFYFCscd+FARjb5xsO/7zvfLz8H4sFi+?=
- =?us-ascii?Q?hESqkVuCcKefVxJ2aL7O9dqWTlfAVHWi+O1m5eKa1PoHB3eb9dPqsLogSfUF?=
- =?us-ascii?Q?6Sss/B24RVz2SceZvgNJJygsKhKRWmQ1ZJFJXvfDCmj1xQkfXYU5MFXyLXOp?=
- =?us-ascii?Q?BbLr3gEl4lN7Mf2bmQcUGAFb/xXDJvSkhjSBAq1VsZga0jjFHedV3ldxZgs+?=
- =?us-ascii?Q?RnY0US7BF2dURtFFhLhOS91bGsJqze+pKjin+xopHhKfDW9qlABULMqlSjj2?=
- =?us-ascii?Q?EHaF1bEp2+J9J/28T8mJjmuWy+3vHu84TVwMhsxmXdE8IRQBQtbO+yKmQcib?=
-X-MS-Exchange-AntiSpam-MessageData-1: BTRHY/i1k/T/lA==
-X-OriginatorOrg: altera.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 33f2505b-0703-4501-9bf8-08df0e493071
-X-MS-Exchange-CrossTenant-AuthSource: SJ0PR03MB6964.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Sep 2026 08:06:02.1113
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: fbd72e03-d4a5-4110-adce-614d51f2077a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 9VFoOBg7o1E/gh7FbKiAu6pa+TwxCXo3ElhjPTTilrUThLyLoCcN62G6pconNY2CR0fvhwZiyU/rOJHVv+DryR+AVbGMU9+SSGkNS0oF+3vqfrcgHuJfDXboFoejoaU0kvNRGmdGjHdYXznyibwlug==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR03MB6480
+Content-Transfer-Encoding: 8bit
 
-From: Nazim Amirul <muhammad.nazim.amirul.nazle.asmade@altera.com>
+brcmf_bss_connect_done() receives the firmware event in @e but discards it
+on the failure path.  Every failed connect is reported to cfg80211 as
+WLAN_STATUS_AUTH_TIMEOUT (16), whatever the firmware actually said, so
+userspace only ever sees:
 
-Arria10 SoCFPGA DWMAC nodes use reset-names = "stmmaceth",
-"stmmaceth-ocp", which matches what dwmac-socfpga looks up for the
-OCP reset. The generic snps,dwmac binding only allowed "ahb" as the
-second reset name, so Arria10 DTS failed schema validation.
+  wlan0: CTRL-EVENT-ASSOC-REJECT bssid=00:00:00:00:00:00 status_code=16
 
-Allow "stmmaceth-ocp" as an alternative second reset name and drop
-the related TODO from the Altera SoCFPGA DWMAC binding.
+The all-zero BSSID comes from the same place: conn_params is memset to
+zero and profile->bssid has not been filled in when the station never
+associated.
 
-Signed-off-by: Nazim Amirul <muhammad.nazim.amirul.nazle.asmade@altera.com>
+status_code=16 therefore carries no information about the cause.  It is not
+an AP response and it does not mean "authentication timed out" - it is the
+only failure value this driver can produce.  This is a recurring source of
+confusion: [1] has been open since 2023 with more than twenty follow-ups
+and no explanation of the code, and covers BCM4345/6, BCM43430 and
+CYW43455 across several kernel versions.  It supersedes [2], filed against
+the firmware repository a day earlier and closed in favour of it.
+
+The firmware's own status (BRCMF_E_STATUS_*) is more specific - FAIL,
+TIMEOUT, NO_NETWORKS, ABORT and so on - and it is already in hand.  Log it
+so the cause can be narrowed down without rebuilding the kernel.
+
+bphy_err() is used rather than brcmf_dbg() or brcmf_info(): it is the form
+the rest of this file uses, and of the three it is the only one that is
+both visible in a distribution kernel and bounded.  brcmf_dbg(CONN)
+expands to no_printk() unless CONFIG_BRCMDBG is set, which is what makes
+the reports in [1] and [2] impossible to act on - the people hitting this
+run stock kernels.  brcmf_info() expands to a plain pr_info() in a
+non-debug build and is not rate limited, and wpa_supplicant retries the
+association every few seconds, so it would flood the log.  bphy_err() is
+guarded by net_ratelimit() there, so a station retrying against an
+unreachable AP prints at most a few lines per second.
+
+All three fields are printed because only some of them are meaningful on
+each path into the failure branch.  brcmf_is_nonetwork() keys off @status,
+so that is the useful field for a join that never associated - the case in
+[1].  brcmf_is_linkdown() keys off @event_code and @flags and does not look
+at @status at all, so @status can read 0 there; on those events it is
+@reason which carries the 802.11 reason code, as the mapping in
+brcmf_map_fw_linkdown_reason() shows.  Printing the three together lets
+the reader tell which path was taken instead of guessing from one number.
+
+The status reported to cfg80211 is left alone; changing it would alter what
+userspace sees.
+
+[1] https://github.com/RPi-Distro/firmware-nonfree/issues/38
+[2] https://github.com/raspberrypi/firmware/issues/1829
+
+Signed-off-by: Ryohei Hashimoto <laurel.medalist12@gmail.com>
 ---
- .../devicetree/bindings/net/altr,socfpga-stmmac.yaml          | 2 --
- Documentation/devicetree/bindings/net/snps,dwmac.yaml         | 4 ++--
- 2 files changed, 2 insertions(+), 4 deletions(-)
+v2:
+  - use bphy_err() instead of brcmf_err(); it is what the rest of
+    cfg80211.c uses and it names the wiphy in the message
+  - correct the commit message: brcmf_is_linkdown() keys off @flags,
+    not @reason
+  - tag the target tree in the subject
+v1: https://lore.kernel.org/linux-wireless/20260909064125.67844-1-laurel.medalist12@gmail.com/
 
-diff --git a/Documentation/devicetree/bindings/net/altr,socfpga-stmmac.yaml b/Documentation/devicetree/bindings/net/altr,socfpga-stmmac.yaml
-index db93436c96fa..d8f90d36d246 100644
---- a/Documentation/devicetree/bindings/net/altr,socfpga-stmmac.yaml
-+++ b/Documentation/devicetree/bindings/net/altr,socfpga-stmmac.yaml
-@@ -13,8 +13,6 @@ description:
-   This binding describes the Altera SOCFPGA SoC implementation of the
-   Synopsys DWMAC for the Cyclone5, Arria5, Stratix10, Agilex5 and Agilex7
-   families of chips.
--  # TODO: Determine how to handle the Arria10 reset-name, stmmaceth-ocp, that
--  # does not validate against net/snps,dwmac.yaml.
- 
- select:
-   properties:
-diff --git a/Documentation/devicetree/bindings/net/snps,dwmac.yaml b/Documentation/devicetree/bindings/net/snps,dwmac.yaml
-index 2449311c6d28..c7f1a7c11c8d 100644
---- a/Documentation/devicetree/bindings/net/snps,dwmac.yaml
-+++ b/Documentation/devicetree/bindings/net/snps,dwmac.yaml
-@@ -174,7 +174,7 @@ properties:
-     minItems: 1
-     items:
-       - description: GMAC stmmaceth reset
--      - description: AHB reset
-+      - description: AHB or OCP reset
- 
-   reset-names:
-     oneOf:
-@@ -182,7 +182,7 @@ properties:
-           - enum: [stmmaceth, ahb]
-       - items:
-           - const: stmmaceth
--          - const: ahb
-+          - enum: [ahb, stmmaceth-ocp]
- 
-   power-domains:
-     maxItems: 1
--- 
-2.43.7
+ drivers/net/wireless/broadcom/brcm80211/brcmfmac/cfg80211.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
+diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/cfg80211.c b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/cfg80211.c
+index 872c488..114dabb 100644
+--- a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/cfg80211.c
++++ b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/cfg80211.c
+@@ -6522,6 +6522,8 @@ brcmf_bss_connect_done(struct brcmf_cfg80211_info *cfg,
+ 			clear_bit(BRCMF_VIF_STATUS_ASSOC_SUCCESS,
+ 				  &ifp->vif->sme_state);
+ 			conn_params.status = WLAN_STATUS_AUTH_TIMEOUT;
++			bphy_err(ifp->drvr, "connect failed: event %u status %u reason %u\n",
++				 e->event_code, e->status, e->reason);
+ 		}
+ 		conn_params.links[0].bssid = profile->bssid;
+ 		conn_params.req_ie = conn_info->req_ie;
