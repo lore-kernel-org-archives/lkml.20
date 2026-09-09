@@ -1,40 +1,41 @@
-Received: from smtpbguseast1.qq.com (smtpbguseast1.qq.com [54.204.34.129])
+Received: from smtpbg151.qq.com (smtpbg151.qq.com [18.169.211.239])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF164579812
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 14:07:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.204.34.129
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7853577E54
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 14:07:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=18.169.211.239
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788962847; cv=none; b=Gswe7o88dzRNgPOfMsGcA5ypb1BiacwpSnnWB9+6WImSw/Vp+vd/cFYZoLRLQXyNzszv0Db37lRQwy82PMm5VlPolwzlR387LXxl17QWXCUzuVkc0Hh9uGUNASh7jjsoINhmRLwurHLzTn/MOw9Yv6SzMJPHu33G4jq6dmCJq40=
+	t=1788962848; cv=none; b=N77ZUiYM0DyFF7puJFli1SdVgFUYlH4fGpsKl4MvYPrz5rOGUBXt7srSyMOcLRdq4cHK/GDCcUsRekpNlhyt9SJ200i+2uDExEcaBQQrf2GEQwXFcjQ1rbE51seoRb+zve3UU/VxwRyq6Mj3s1SZMUae3b98G5Ju1VDk7sc1IfU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788962847; c=relaxed/simple;
-	bh=w0QtlbTKpWa2vOrkQ4ReD72OhJcbUe7SlfJVrcZKo+s=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=r3YvWbBt9TkN5pwjDepYdFbVe43QMw6ie7YAg4GZE4arJJwouWJFE54HKw5V8Q38d6+LVrEkVKlYVFYTP6xn7PTMVp6VhHeRWYANn9A9oZfahHt1SkwomNykITnMpODSNV9CzOKM98Z4VAbaeqoUf8mZe8JXjMBtemfyc7KPx48=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com; spf=none smtp.mailfrom=linux.spacemit.com; dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b=OGdmQCb8; arc=none smtp.client-ip=54.204.34.129
+	s=arc-20240116; t=1788962848; c=relaxed/simple;
+	bh=wQNud0kEsTSOp1R+Gv0Q92P1f5sdKHbucbO9OsVAuq4=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=Ns0Z77Lp/6FUDeE0tuRhDH2Z4sTdUGsC9utPmDtJtAthhlctad4gJRvg+pDtxVThQKvX3828RIIojhObF7V0zBQIrghFWEfGr+95QHaOA9L82J7JE1oz2wzsrD/ovMh22WMTS8Lkbf4u4TxfhnCFGx3DeNvAluSCa8NSxgyrKIY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com; spf=none smtp.mailfrom=linux.spacemit.com; dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b=mmfDhmGs; arc=none smtp.client-ip=18.169.211.239
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
 Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b="OGdmQCb8"
+	dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b="mmfDhmGs"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
-	s=mxsw2412; t=1788962837;
-	bh=2lqK4nkUEBzZtoYDgRY3977IcZ7JI7mh3h2ZTDbGxbQ=;
-	h=From:Date:Subject:MIME-Version:Message-Id:To;
-	b=OGdmQCb8Zcq+gPs5q1P2UyWuBjPsySQOBkpfSMag2CUQH579gd3G494Nv2K5j0w38
-	 t/ir0yhZqkp9snTfSyuRiAbZliEMCZaHj2oRJJJNYlfTyrnuC5Z20dmfZqQPnjOa4a
-	 t73KuOnQwTDxUqO12K8qMxJ8aHW8WMB+dE1AYhCo=
-X-QQ-mid: zesmtpsz3t1788962836tdc282f0c
-X-QQ-Originating-IP: oMXzk2MIuN6L9wUzy4Z4OAOTi7U5ntfMro+/NaRnODc=
+	s=mxsw2412; t=1788962833;
+	bh=rdxtsC5FGSM610q9x9cjd+jqKpTMaFc1fUwPTup7fho=;
+	h=From:Subject:Date:Message-Id:MIME-Version:To;
+	b=mmfDhmGsr46y3f2ZGP5E1JVKt5wOvOMTrv87S6J9/1yBjFYiYDavqHUfpN4MusR3G
+	 bjAOHAsy8X1d55ccaSahiu2uMDi5Q+bp6Ol3kSxw3b55BnmLFbc3c4rDEwdXmr3pSl
+	 QVAobLjCNEE/pXtA3AqSkD2e5eHLBopL9CAzLl68=
+X-QQ-mid: zesmtpgz6t1788962832t950897d7
+X-QQ-Originating-IP: 46inqLcoNwJCWbThTDJYTUkHgzGHF8rQss84kWW0nCU=
 Received: from = ( [120.237.158.181])
 	by bizesmtp.qq.com (ESMTP) with 
-	id ; Wed, 09 Sep 2026 22:07:13 +0800 (CST)
+	id ; Wed, 09 Sep 2026 22:07:09 +0800 (CST)
 X-QQ-SSF: 0000000000000000000000000000000
 X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 17223578547801668794
+X-BIZMAIL-ID: 11212110114369243432
 EX-QQ-RecipientCnt: 12
 From: Troy Mitchell <troy.mitchell@linux.spacemit.com>
-Date: Wed, 09 Sep 2026 22:07:01 +0800
-Subject: [PATCH 1/5] clk: spacemit: derive PLL rates from hardware
+Subject: [PATCH 0/5] clk: spacemit: preserve and safely synchronize
+ firmware PLLs
+Date: Wed, 09 Sep 2026 22:07:00 +0800
+Message-Id: <20260909-spacemit-pll-init-v1-0-b3065ad5a4ac@linux.spacemit.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -43,9 +44,10 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260909-spacemit-pll-init-v1-1-b3065ad5a4ac@linux.spacemit.com>
-References: <20260909-spacemit-pll-init-v1-0-b3065ad5a4ac@linux.spacemit.com>
-In-Reply-To: <20260909-spacemit-pll-init-v1-0-b3065ad5a4ac@linux.spacemit.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQqDMBCF4avIrA2kQ6jEq4gLE6d1RGPIxFIQ7
+ 25qd+9bvP8AocQk0FYHJPqw8BYKHnUFfhrCmxSPxYAan9rqRkkcPK2cVVwWxaEMbw06h8aiMVB
+ +MdGLv3ez6/+W3c3k8y8E53kBYMoYInUAAAA=
+X-Change-ID: 20260907-spacemit-pll-init-c942bb249244
 To: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
  Jerome Brunet <jbrunet+clk@baylibre.com>, Yixun Lan <dlan@kernel.org>, 
  Alex Elder <elder@riscstar.com>, Inochi Amaoto <inochiama@outlook.com>, 
@@ -54,199 +56,77 @@ Cc: linux-clk@vger.kernel.org, linux-riscv@lists.infradead.org,
  spacemit@lists.linux.dev, linux-kernel@vger.kernel.org, 
  Troy Mitchell <troy.mitchell@linux.spacemit.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5466;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1885;
  i=troy.mitchell@linux.spacemit.com; h=from:subject:message-id;
- bh=w0QtlbTKpWa2vOrkQ4ReD72OhJcbUe7SlfJVrcZKo+s=;
- b=owGbwMvMwCU2g/N9w09jE33G02pJDFkLM9jb9i5ds+lqqIZS5O3Qyl6rmKSj7yK4D6TMzZpy8
- hHbkyU6HaUsDGJcDLJiiizdD3i2FfhE2RYIFPrCzGFlAhnCwMUpABOZ9YfhD+fDl3Gr2qVvXf5o
- zLfhBmu7xpv49Wd+VW7QUFb+8+Go61GG/8GyZsKN3rH/3Pb8jvF4ejpjT6RFpJTfg5ym7z8116g
- e5gAA
+ bh=wQNud0kEsTSOp1R+Gv0Q92P1f5sdKHbucbO9OsVAuq4=;
+ b=owGbwMvMwCU2g/N9w09jE33G02pJDFkLM1iXdUzZ4LTLJfp4yMfj/2NeTdYxkOe8Zuef8q9WT
+ s+PMep4RykLgxgXg6yYIkv3A55tBT5RtgUChb4wc1iZQIYwcHEKwER2fmBk+CO9wdHJ48jkXAc+
+ 5yxnL/adxzznvnZImqVskSXlKPPGgZFhBYeaoOn/d5X1T0/NUlwh6KLcOiEvPEG+Jn96TZTOWnY
+ mAA==
 X-Developer-Key: i=troy.mitchell@linux.spacemit.com; a=openpgp;
  fpr=3FE5535CF1B0E658E57DB59BAE1C2FBEA7DB42E1
 X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpsz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz3a-0
-X-QQ-XMAILINFO: MxX5kg4KifQ2NBTFuR5jNMcWHtyiaAkKng7v1d1+09X1ncQjgQcI5qHn
-	25BECUDrZ18OkfwW/7Q6jVAhOmKfQynQhFmCSDRB/oI2z2c65RsNw62CG5f2h8yYfzQhN2J
-	4DudHEuqhO5FTvUHrClFdWMf7tRskfBzlPN96G0yn7GQGujwBvu0hp7KmiBiBwmbKJdIqu9
-	W7V7e3FlP5xAF/D8ibM0V17QfRmORzsgadwiBUIS4gwYgrsQkB0bc0YqPo5TxGMmSkEciXI
-	FLzNgt9R/cMvriILcHezNQbuO5rHXs7QYOAAZ6g6K7vyeSvg3eAPS6yh0rDa3T5X1YRE7+k
-	3kTw9jfywgdtBazEQhJyi3zdehvtEO/x47ZB5N9XcVtCkj8oPHcbt85pqqY7DgsZh2Iu4tT
-	pf74XLpE3OquX+pkeVQXTJH7LtvPe52pUaUtzntotkaiFDm0g9AjZw95grJR60P1WgBrAVr
-	nOPJT9pODFzpRrkwJMJuqk2/Iip09MTalStPpe9O8jJN/6rjW+tcAVgTlzGUc3XoXjVwhIh
-	tC7P7k0kB2Wgi/ZuxxxV9wzvcHbtZaMD6Wv59Lza3txyu/2FAxs2HFJRCbIDbefI7p86eD8
-	UmhQWeWmDtQL4QfIUGAvRO7KYJ5hZtdlLEOh4Sx50B7aobxDERJjp1IOrCzADveMAdz8rXI
-	4j59yvn2gcsWu5CzR4p0Dq4bSgJxoHT+KgnQXD5YoQoBMw4PFYRhN/AR07oNFlmDLbAqS/G
-	XNTPN211koyLL5PgYR8eoHgm/cYLZ7+hQ+LVz5gEuHIFe6bqtG4HOFMbZsO/kOCdcFxOVKx
-	J2Gte4FPzC7SCuclbWmZg1iY96QS9lO98Kg8APe0DsnsIXmkCsgR6J/X0K+31GOV4vqwVHO
-	6TzxueFyRkfMZZrwGxek44b1fLr2FMhKQnGdFwcdz+BOS7NW3OGxy37ULfmdldq0ALMFqaL
-	1gecikzc+CajRgVpH/sPtWl4u2wsK9vDwn2GxGRXOjVLGmVEqKjPZCBZkNAe4BY/5jJ52hj
-	NSmjuKVO+YcxMt8yIQdr0syH+u5yxRSZQAuCUELOGKDLB90EkJ/3NU+iNkm4pAZqHcKHajr
-	SPD13hR5FiEVg6ZtlNy0NjkgVlDLr/bZ+XbO/2QmaR83ljBHLqe22UN6wNMiM1o4omXru9w
-	EK75Xa6RGTTB55nttetTRviIxWSL/BRAi7gMXMadPjW13yM=
-X-QQ-XMRINFO: Mp0Kj//9VHAxzExpfF+O8yhSrljjwrznVg==
+Feedback-ID: zesmtpgz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz3a-0
+X-QQ-XMAILINFO: MUZVN6GmaGOthUDQyPAmlFeYynRItECDOFA3oHm5nWlc4bGCoibTXueH
+	+mXaq8iaAZHZlFi6bpykLepkfGVsDnfXZmBUCKSAjMLTAxRFGc7LMOUF94bCfsjESfXA3cp
+	NUQtlWknTbKg/HiiTOLuWJcrAe9wmsgnXCYpbTDq0VdFAvYgCkYps8aEetdj8VLtN3c0nKb
+	CgtrJGMVVcime2TeA5H6MtAhDVUh7A00w4UgUt+ZbodUmoPyXdyp/6XBBTHEM3rI2kA5B/B
+	GaoW2N79R+QOCTxZUtgVLf2nfQxmsUAtvABfC2Q+ACgS+A5P6s1DCZsLlRGRGzIqBKtoWWa
+	ggp3qRowbnNFIrLZMIj9Zv3wrM5lIoOTKXIkgjLJlxws5mpr43EzVV0/Ag7+Y0gDZ69dW3y
+	6Ra9SxKpSqtKGj6AUd9aPlAzMRnpYDJF+lSF1tShapdfh848Dp3zHOTQSByWez1rxShEfUx
+	6fNbxxIHpo4JY4SOkqcR05Ps6SaOw/DKJo2ncY//USrMXdJaZeuf0jU2ywht5/xXT5Zwbtn
+	Hrl7mcmAB6wZXuMCLVdTygGjzgBB+MIsUMMu+QR1tf8q2V7kKid/qsVCOIu0gC6E1pD5qdN
+	ld7KSskWRaDhCMqY/wNfaMG2tyOqYU1glBLPU1ZO0s1l7y2mv6mamJb5rM7dQfeJAilNqwT
+	cY3VTHsvJ7uV7jUezbHq8MkjCrQ5o+1tI1xm65ofF94Uu5tqG3ia28A8nEdviItrwlN5rgE
+	laZwL5rlHCWlPo+c46Eps36yu4ataJTxwlaJMhzt6/LuBHsdldJL7ImV5wx7AzfIpR2uAzz
+	rXABNffHbhgMcp44NpRAAC1RQ+/1aC3MfftUy3bhrH4N8oGa3qWE3ZIDiu9tnDsGyFj5sMP
+	k5iEtlFrCSuJbglMJbgXrMbgHb3iLpxS+0VrK0viJggqAhSrCL9TNIciHJyLF0+hGr70O1O
+	Ma4EwsaFEI0I5daqpIBZUCL8rPJKRW9b5xxoFLQTNCnJ8qZSfYOrv3n40S7lfbhAtVDhph9
+	swMSnpdiMl7PBDWYaq8/CkU27v0wCX0KvDrXNiQE4X41nKqqgB3+GhcZDfUzcd8xXhk2X1v
+	BIs4he8p8AqksHvCdktXHONjTzb3zP311OISleOZ85kNJKuknbAOELbx4Jj+gGtW8xFwl8b
+	3ofF
+X-QQ-XMRINFO: MSVp+SPm3vtSI1QTLgDHQqIV1w2oNKDqfg==
 X-QQ-RECHKSPAM: 0
 
-Firmware can program valid PLL settings that have no exact register
-match in the rate table, even when they produce a listed frequency.
-An exact table lookup in recalc_rate() therefore returns zero instead of
-the hardware rate.
+Firmware may leave PLLs running with valid settings absent from Linux's
+rate tables. Replacing those settings during clock registration can
+stop CPUs that depend on them.
 
-Replace the register-table lookup with calculations from the K1 PLL and
-K3 PLLA register fields, accounting for signed and unsigned fractional
-feedback respectively. Return zero for unsupported modes or register
-read failures. Rate selection and programming remain table-based.
+This series removes the init fallback to the first rate-table entry,
+decodes hardware rates directly and preserves unlisted rates. Opt-in
+synchronization applies only to differing parameters for the same
+decoded rate. It temporarily moves mapped CPU consumers to validated
+PLL1 branches and restores their parents after the reprogrammed PLL
+locks. PLL1 itself is not synchronized, and enabled outputs outside the
+managed CPU paths prevent synchronization.
 
-Signed-off-by: Troy Mitchell <troy.mitchell@linux.spacemit.com>
+The series also corrects CPU divider and shared-parent modeling and
+makes MIX rate selection agree with programming. Runtime PLL rate
+changes still require a stopped PLL; automatic DVFS switching and new
+rate-table entries are outside this series.
+
 ---
- drivers/clk/spacemit/ccu_pll.c | 100 +++++++++++++++++++++++++++++++++++------
- 1 file changed, 86 insertions(+), 14 deletions(-)
+Troy Mitchell (5):
+      clk: spacemit: derive PLL rates from hardware
+      clk: spacemit: make MIX rate selection consistent
+      clk: spacemit: describe CPU clock dividers and shared PLL muxes
+      clk: spacemit: reject rate changes to running firmware PLLs
+      clk: spacemit: safely synchronize PLL parameters during init
 
-diff --git a/drivers/clk/spacemit/ccu_pll.c b/drivers/clk/spacemit/ccu_pll.c
-index d4066a0ed4526..c9852fed31017 100644
---- a/drivers/clk/spacemit/ccu_pll.c
-+++ b/drivers/clk/spacemit/ccu_pll.c
-@@ -4,8 +4,10 @@
-  * Copyright (c) 2024-2025 Haylen Chu <heylenay@4d2.org>
-  */
- 
-+#include <linux/bitfield.h>
- #include <linux/clk-provider.h>
- #include <linux/math.h>
-+#include <linux/math64.h>
- #include <linux/regmap.h>
- 
- #include "ccu_common.h"
-@@ -14,12 +16,24 @@
- #define PLL_TIMEOUT_US		3000
- #define PLL_DELAY_US		5
- 
-+#define PLL_SWCR1_PREDIV	GENMASK(13, 12)
-+#define PLL_SWCR1_INTERNAL	BIT(29)
-+#define PLL_SWCR3_INT		GENMASK(30, 24)
-+#define PLL_SWCR3_FRAC		GENMASK(23, 0)
-+
- #define PLL_SWCR3_EN		((u32)BIT(31))
- #define PLL_SWCR3_MASK		GENMASK(30, 0)
- 
- #define PLLA_SWCR2_EN		((u32)BIT(16))
- #define PLLA_SWCR2_MASK		GENMASK(15, 8)
- 
-+#define PLLA_SWCR1_USER_MODE	BIT(25)
-+#define PLLA_SWCR1_INT		GENMASK(22, 16)
-+#define PLLA_SWCR1_REFSEL	GENMASK(15, 14)
-+#define PLLA_SWCR1_FRAC		GENMASK(13, 0)
-+#define PLLA_SWCR3_PREDIV	GENMASK(21, 20)
-+#define PLL_FRAC_BITS		22
-+
- static const struct ccu_pll_rate_tbl *ccu_pll_lookup_best_rate(struct ccu_pll *pll,
- 							       unsigned long rate)
- {
-@@ -115,17 +129,78 @@ static int ccu_pll_set_rate(struct clk_hw *hw, unsigned long rate,
- 	return 0;
- }
- 
--static unsigned long ccu_pll_recalc_rate(struct clk_hw *hw,
--					 unsigned long parent_rate)
-+static int ccu_pll_get_params(struct ccu_pll *pll,
-+			      struct ccu_pll_rate_tbl *params, bool plla)
- {
--	struct ccu_pll *pll = hw_to_ccu_pll(hw);
--	const struct ccu_pll_rate_tbl *entry;
-+	struct ccu_common *common = &pll->common;
-+	int ret;
-+
-+	ret = regmap_read(common->regmap, common->reg_swcr1, &params->swcr1);
-+	if (ret)
-+		return ret;
-+	params->swcr2 = 0;
-+	if (plla) {
-+		ret = regmap_read(common->regmap, common->reg_swcr2, &params->swcr2);
-+		if (ret)
-+			return ret;
-+	}
-+	return regmap_read(common->regmap, common->reg_swcr3, &params->swcr3);
-+}
-+
-+static unsigned long ccu_pll_calc_rate(const struct ccu_pll_rate_tbl *params,
-+				      unsigned long parent_rate)
-+{
-+	u32 swcr1 = params->swcr1, swcr3 = params->swcr3, prediv;
-+	s64 divider;
-+	u64 rate;
-+
-+	/* The programmed divider is not used in internal configuration mode. */
-+	if (swcr1 & PLL_SWCR1_INTERNAL)
-+		return 0;
-+
-+	prediv = FIELD_GET(PLL_SWCR1_PREDIV, swcr1) + 1;
-+	divider = (s64)FIELD_GET(PLL_SWCR3_INT, swcr3) << PLL_FRAC_BITS;
-+	/* The 24-bit fractional code is signed, with an LSB of 2^-22. */
-+	divider += sign_extend32(FIELD_GET(PLL_SWCR3_FRAC, swcr3), 23);
-+	if (divider <= 0)
-+		return 0;
-+
-+	/* Fvco = Fref * Npre * (Nint + Nfrac). */
-+	rate = (u64)parent_rate * prediv * divider;
-+	return DIV_ROUND_CLOSEST_ULL(rate, BIT_ULL(PLL_FRAC_BITS));
-+}
-+
-+static unsigned long ccu_plla_calc_rate(const struct ccu_pll_rate_tbl *params,
-+				       unsigned long parent_rate)
-+{
-+	u32 swcr1 = params->swcr1, swcr2 = params->swcr2;
-+	u32 swcr3 = params->swcr3, prediv, frac;
-+	u64 divider, rate;
-+
-+	/* Decode the software-controlled mode described by the PLL calculator. */
-+	if (!(swcr1 & PLLA_SWCR1_USER_MODE) ||
-+	    (swcr1 & PLLA_SWCR1_REFSEL))
-+		return 0;
-+
-+	prediv = FIELD_GET(PLLA_SWCR3_PREDIV, swcr3) + 1;
-+	frac = FIELD_GET(PLLA_SWCR1_FRAC, swcr1) << 8;
-+	frac |= FIELD_GET(PLLA_SWCR2_MASK, swcr2);
-+	divider = (u64)FIELD_GET(PLLA_SWCR1_INT, swcr1) << PLL_FRAC_BITS;
-+	divider += frac;
- 
--	entry = ccu_pll_lookup_matched_entry(pll);
-+	/* Fvco = Fref * Npre * (Nint + Nfrac), with an unsigned fraction. */
-+	rate = (u64)parent_rate * prediv * divider;
-+	return DIV_ROUND_CLOSEST_ULL(rate, BIT_ULL(PLL_FRAC_BITS));
-+}
- 
--	WARN_ON_ONCE(!entry);
-+static unsigned long ccu_pll_recalc_rate(struct clk_hw *hw,
-+					 unsigned long parent_rate)
-+{
-+	struct ccu_pll_rate_tbl params;
- 
--	return entry ? entry->rate : 0;
-+	if (ccu_pll_get_params(hw_to_ccu_pll(hw), &params, false))
-+		return 0;
-+	return ccu_pll_calc_rate(&params, parent_rate);
- }
- 
- static int ccu_pll_determine_rate(struct clk_hw *hw,
-@@ -232,14 +307,11 @@ static int ccu_plla_set_rate(struct clk_hw *hw, unsigned long rate,
- static unsigned long ccu_plla_recalc_rate(struct clk_hw *hw,
- 					  unsigned long parent_rate)
- {
--	struct ccu_pll *pll = hw_to_ccu_pll(hw);
--	const struct ccu_pll_rate_tbl *entry;
--
--	entry = ccu_plla_lookup_matched_entry(pll);
-+	struct ccu_pll_rate_tbl params;
- 
--	WARN_ON_ONCE(!entry);
--
--	return entry ? entry->rate : 0;
-+	if (ccu_pll_get_params(hw_to_ccu_pll(hw), &params, true))
-+		return 0;
-+	return ccu_plla_calc_rate(&params, parent_rate);
- }
- 
- static int ccu_plla_init(struct clk_hw *hw)
+ drivers/clk/spacemit/ccu-k1.c     |  60 +++--
+ drivers/clk/spacemit/ccu-k3.c     | 137 +++++++---
+ drivers/clk/spacemit/ccu_common.c |  12 +
+ drivers/clk/spacemit/ccu_common.h |   2 +
+ drivers/clk/spacemit/ccu_mix.c    |  35 ++-
+ drivers/clk/spacemit/ccu_mix.h    |  18 ++
+ drivers/clk/spacemit/ccu_pll.c    | 535 +++++++++++++++++++++++++++++++-------
+ drivers/clk/spacemit/ccu_pll.h    |  43 ++-
+ 8 files changed, 689 insertions(+), 153 deletions(-)
+---
+base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+change-id: 20260907-spacemit-pll-init-c942bb249244
 
--- 
-2.55.0
+Best regards,
+--  
+Troy Mitchell <troy.mitchell@linux.spacemit.com>
 
