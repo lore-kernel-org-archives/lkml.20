@@ -1,108 +1,116 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66B5737BE9C;
-	Wed,  9 Sep 2026 17:34:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55A7F29E10B
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 17:36:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788975290; cv=none; b=XJQkYEEzT2UcmUVOHVeyL0hOymIVhjTq3rYdIfzHC47sxSwPQHBT2ILx+7Zn1MTyLQ64tFXdacX9HRpRSQwSLJFaBNR00P8fGUYII45qr8I53Ri62HEWK2w1LIA3WhcSdtaAVdgcjCSHf6ZNWd9FR4uLwp47mc0rDtBJuTKJmzk=
+	t=1788975371; cv=none; b=dcOe6JyGTajV6foM+xg119e6xosCOxktmjbwxAWdMH8ZtyzZeQr+qdVY+LMtPVyrygOK5IcYgx94BMRE55W9qhemW8FbmH+PoGRaugQpj6uafJpwjE+Nli+5at2K6/fhshruOj4+XMaxcQN9VLrJ4InjXGbzWEYeT5bjSAaJ7yw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788975290; c=relaxed/simple;
-	bh=Tr4VdxERUhV8HxN7l33149d0J+8lmjsaWAYgZOwAqAU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Om9XEbucsxHApDTTn4bjssb+5YAz7jMtILulm4lea6Ej2ojnIbEtNnlaqIe04JD7ZXshxVMIwcfOCDXQSih0pT0ogcxLD4aChBbKTGT8is8d4l9/pphmx1/0j9XBL5iXxh8yr7szLZkiCVjQ95UG300CDr5/cX1tFnI8ZOgmI+Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Mvn54j8v; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788975371; c=relaxed/simple;
+	bh=K5xZwe6BB14FgiUoJeEDcecfAKoT6SnPT8CWcokGDbQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=iVMD6CWN6eb8Bp2E4elMrIHioPxQ9KfhSSwKVerNKzVmrQrZeRrJpGVdYGHRaqjMQxAT+HXSdODi7Dud3jO1jy93xAaLSEPm6Bd5OBLwEGMHvjxGs7vFvnFShhwiBvj+VyXdNH8lUBv5HrEkzzS/Xn6aupbS0rAB+7+/480JUfE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MIfZy6hh; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Mvn54j8v"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AAC471F000FF;
-	Wed,  9 Sep 2026 17:34:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788975288;
-	bh=bbP+LPyTIrLymnPyx3C1GnkLD9nptQPBrDixZ3LBabw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Mvn54j8v2Vk5488SjbF3KsiKDQLuwtMXnO46zlphInEv8sn11l2eqbEMu4hGV61G+
-	 cx+rU/PkBan/NnZqIXabA8qJDPBHOTUt039zgnfB9DB5cTmmHL63kqgkx1M+I4AVor
-	 W5EA9xrYavVIkzMe1fnHc4vuYGU0spJrfYPeIh/Q4akx3XndXio1JJ+ba+xny17Uiu
-	 hWrLtFldUpaAhx1FNLzW4iJFbOr4ftCV0dwi9WOGNLK3CmItekCctjwLeWKTMr5T0p
-	 GjU0ESvBW/Uofqzu8k4MvE9a33DRHUGq1007291ruVV8ntHY22Pckl1EMBDi5SR69n
-	 hdJb6e2ACj3eA==
-Date: Wed, 9 Sep 2026 18:34:40 +0100
-From: Mark Brown <broonie@kernel.org>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Sarthak Sharma <sarthak.sharma@arm.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	"Liam R . Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>, Shuah Khan <shuah@kernel.org>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Jonathan Corbet <corbet@lwn.net>, Jason Gunthorpe <jgg@ziepe.ca>,
-	John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>,
-	Leon Romanovsky <leon@kernel.org>, Zi Yan <ziy@nvidia.com>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	Nico Pache <npache@redhat.com>, Ryan Roberts <ryan.roberts@arm.com>,
-	Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
-	Lance Yang <lance.yang@linux.dev>,
-	Anshuman Khandual <anshuman.khandual@arm.com>,
-	Muhammad Usama Anjum <usama.anjum@arm.com>, linux-mm@kvack.org,
-	linux-kselftest@vger.kernel.org, linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v9 6/6] selftests/mm: add a GUP selftest
-Message-ID: <07dab220-8497-4eea-a4d2-b27a6e01eaf8@sirena.org.uk>
-References: <20260904123631.198697-1-sarthak.sharma@arm.com>
- <20260904123631.198697-7-sarthak.sharma@arm.com>
- <b0400430-c3b6-40d5-b476-49189b1cc292@kernel.org>
- <5e0b9365-cbac-4f2d-b915-85edf3093508@arm.com>
- <fadb8870-37f8-46f4-aefb-c21bc3a31e5b@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MIfZy6hh"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49cfbdac7a1so2458365e9.1
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 10:36:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788975368; x=1789580168; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=K5xZwe6BB14FgiUoJeEDcecfAKoT6SnPT8CWcokGDbQ=;
+        b=MIfZy6hhcjpCnoTd5xgZOHbx6gtGOkoOg+wVK0s7Irpy/w8eZ3Prvia751OIkGRtX1
+         jV6S3KsvFi6lrOuNs+B/DlNXe9LNBIinyu+GPOnSh3pIBFQnBMTlS8+psE2Msqo6XVlg
+         yA0ngBnHy+5y9EYkfia/5nWgYiUiujOpDwH5naJr1KdiPLdYnCvQhvVkIPhT96H2QM/c
+         BHjVbexAFRgISY+JZyiXx4ezPfODfc1Xlbt8hJ6r5oByIrjYAFbhVrLTX8NLA2855Va1
+         YM0acd3tOtVU7G7+ktpW2rOC3QHAaPWD+loZjhmctR6KhBJ8mRZuyCm9SCaskHPPvTom
+         +ylQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788975368; x=1789580168;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=K5xZwe6BB14FgiUoJeEDcecfAKoT6SnPT8CWcokGDbQ=;
+        b=VoJS0t1Q878Zx8S+tDfRqXLTu+bkCtALqSUdvjj5pJ6EWVT5g4gpzBnQkFQpMfp1Lm
+         Ql5y/+WbnqukUOE4KiatPZE8E+fO9zj+3nrVd4+h8IL1FrIzagzdq5oKmqA1q+6w/ttt
+         mlwjSIALbCaKPz6k7Dk5ReJAMFwHwaUYVvBeoJqCgi8E8tF8KwDYjAJjRzavK5ljzbJU
+         loxG9L81uU1SWG8RTNPR3Blu/fsEaVNukCvmAKjS/pZ2KYySJkXeFSfkE9NNhorq4vSj
+         brCQFUKRFKxWLQzxhpHXdD7qBaqHrYSNNq4vPgYw16Ed3YHoJgpNLOygu0mD0ZiXITyY
+         uMvg==
+X-Forwarded-Encrypted: i=1; AKwUvByySF6amAiHrE1rYsaqg6oNDVzCUDLs5LgSlinSLQCroda77EB/pce9AMgvr/TqcLSVQCP+RWUHpN15Viw=@vger.kernel.org
+X-Gm-Message-State: AFuF++kDomydSiSt5mnBExM6TMxIg42a8luV75qoxmBTlQr5N5HaVwUD
+	19Iy5OjxSNd10xqXbvLnG/7cSzMBoORkqNg1Qqiob/8MieXN2dCESzK2
+X-Gm-Gg: AYBFou1M+FXFwFk+1YOKefjkCDZzDMjFm7UzL+zwjFBoPPPGwV7vb5bKnbCjI0/Euf5
+	Q8V5u9ljo9eXKw80H87jFzdo8OUSxyAO9RfnBOrgJXgJbkDGwvQDY/3IA4AIju7MQ10Ji1HyiNJ
+	tx3lCbGxhkODwOt3gn53jkiCO142l/qj3SYOk0MRJ2O41nZ5oZgV4XXnF7EUWV0JG/OBj1LWZnl
+	gJkjWLylQX4GD/qk5v+BfxB3F2H1BW3thuY701rE7n5KFU4kaXj2fFk9Mr+Tuo2jbc2E6q7bCMc
+	C3QjjnmLKcnlRXJbpaLEr+jamIw5s6ClalGf7RSNw40ZSwOe8lTcnvsw1+vWJxD6tJtgnA2+kwt
+	KKFRWoWTxq7BQ9OZxILuFOTdJOwcjX0uvNTRU8xWn6SYoQmtaLhst2p4VcQPqpyoGQ3E4f2Cx1L
+	RoYW85piIZRlGIHpSreWRjG3f3r83xz9IbivyDjklKFC1Q1ATLlZsynOqsHzZMIv1zqkB0pKm5c
+	cWVNPzJp3MRBfnEA/5eZ88KZ+iIo1YDQM0Hfv3bYR7SmUfuX8tE6r6LZJxQ+8av3J50UQfEk95u
+	jA==
+X-Received: by 2002:a05:600c:8485:b0:499:5b0f:72b with SMTP id 5b1f17b1804b1-49d01dcc32cmr256409415e9.1.1788975368210;
+        Wed, 09 Sep 2026 10:36:08 -0700 (PDT)
+Received: from OrangePi5-Plus.BB-HOME (20014C4E1B836900B0110705BF092680.dsl.pool.telekom.hu. [2001:4c4e:1b83:6900:b011:705:bf09:2680])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49d26c06f04sm6876575e9.13.2026.09.09.10.36.06
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 09 Sep 2026 10:36:07 -0700 (PDT)
+From: Igor Paunovic <royalnet026@gmail.com>
+To: dri-devel@lists.freedesktop.org
+Cc: Igor Paunovic <royalnet026@gmail.com>,
+	intel-gfx@lists.freedesktop.org,
+	intel-xe@lists.freedesktop.org,
+	linux-rockchip@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Sebastian Reichel <sebastian.reichel@collabora.com>,
+	Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
+	Andrzej Hajda <andrzej.hajda@intel.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Robert Foss <rfoss@kernel.org>,
+	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+	Jonas Karlman <jonas@kwiboo.se>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+	Sandy Huang <hjc@rock-chips.com>,
+	Heiko Stuebner <heiko@sntech.de>,
+	Andy Yan <andy.yan@rock-chips.com>,
+	Jani Nikula <jani.nikula@linux.intel.com>,
+	Rodrigo Vivi <rodrigo.vivi@intel.com>,
+	Ville Syrjala <ville.syrjala@linux.intel.com>,
+	Imre Deak <imre.deak@intel.com>,
+	Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+Subject: Re: [PATCH v2 0/3] drm/dp: shared HDR metadata SDP helper, and max bpc for dw-dp
+Date: Wed,  9 Sep 2026 19:35:37 +0200
+Message-ID: <20260909173542.14030-1-royalnet026@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260909163206.36409-1-royalnet026@gmail.com>
+References: <20260909163206.36409-1-royalnet026@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="KmRz5TkdMlywIsKu"
-Content-Disposition: inline
-In-Reply-To: <fadb8870-37f8-46f4-aefb-c21bc3a31e5b@kernel.org>
-X-Cookie: Postage will be paid by addressee.
+Content-Transfer-Encoding: 8bit
 
+The three patches of this series never reached the lists. The mistake
+is mine: when sending, only the cover letter carried the recipients,
+so the patches went to nobody but my own inbox. I noticed while
+checking the archive after the fact.
 
---KmRz5TkdMlywIsKu
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Resent below as replies to this cover, byte-identical to what should
+have arrived with it. Sorry for the noise.
 
-On Wed, Sep 09, 2026 at 07:03:59PM +0200, David Hildenbrand (Arm) wrote:
-
-> >> 2) Move it to tools/mm/modules or sth like that.
-
-...
-
-> > This is an interesting change. We can keep this open for discussion
-> > here. If required, I can work on this in the future.
-
-> Yes, we should in general try moving all test modules out of the core.
-
-If you're working on this please make sure to take a look at how the
-various automated testing systems cope with modules built under
-selftests (personally I think everything I care about uses tuxmake
-builds, but there's other stuff out there).  I think the answer for a
-bunch of them right now is badly, but I didn't actually go check.
-
---KmRz5TkdMlywIsKu
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqhmLAACgkQJNaLcl1U
-h9BPiQf8CxE4IrSgHLYMJ5iNReJ7dS+KVJWt7vcB5HxJrCVmeLsaDp9p6fQbIG3d
-P14bK7/go0oX5sScOruE0zw+rPFYr7OiSZMDNlYwLTXLVLz5PWrn9r25tDHWeRFS
-F3oy5EsiGyp2GxAzVqk7lqmr/AEQGc0M2aN6wcn7/EShuAb51IHocAegVLZe7EJG
-1jGpOfndf3DfYhtwc+u4QxnCDlyx2JEG8zhR6cPKyBUu0CxxsWmEC2rhyIFk5ruO
-r5qdgt/NJpq02ec5v+V7t1GD61kzGf3FkcnE74o1WeSQ3qOo388w0Z4lvpLZUZ1e
-gCvwOoLhVYcOoMtO5UCnK/cxc0pQyQ==
-=tKSS
------END PGP SIGNATURE-----
-
---KmRz5TkdMlywIsKu--
+Igor
