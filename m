@@ -1,302 +1,145 @@
-Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.153.233])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-170.mta1.migadu.com [95.215.58.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87ACC54DAEF;
-	Wed,  9 Sep 2026 12:23:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.153.233
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A606D550DC7
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 12:23:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788956629; cv=none; b=ta22AMUm1xE25pXr9MGhsGBJq/HYhZfTCu1wT+mh8wieNjkz+dsUqYxnIDCu29fv42NO3l48Yc4b4C2iTcDjxqDGm+TUNKwkH0hcjiXJ2c2hRh7Nx+WhgR9LjOgekpWu0WTRl+dZ2UHv5TOL4C/rrYbJae/iYBWyyraXxPr8bLI=
+	t=1788956631; cv=none; b=MGdH3Qu/2+VYeVwtGzpGmagqIouwgpCaJ0aSASfGbc2MzWQTrAWXJ+lLzPo/dYOow21VT+L+SmCMg0KhKPFUSog2248xDME1awb3Zf+vsugOQnCA/iozju9mFZByvT91l56uh3KcBht518DB6E4ehRiua/cZ572iC7CfVTICg0c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788956629; c=relaxed/simple;
-	bh=Z1hodFjkwo706DlbzsfQGq1Fv/O7E3+lpisnjegX+1g=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
-	 In-Reply-To:To:CC; b=Nf+HIX92VUl1Qy721PjB0WQeuc6T33uQ7I/l3MEhrs2i0MHYiJzzSkjl8aDJJF4SXzRWIR0NwEQrQUEO8qvcXQ1HpGvetUo34zeds08sQpvntq3LHIt+PVM6mfphWWiLYr1dfrX8ERH6Yzc5kHyVhAomtLB7k0XoQcJ1Pf2DiYs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=pjQy1qfE; arc=none smtp.client-ip=68.232.153.233
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
+	s=arc-20240116; t=1788956631; c=relaxed/simple;
+	bh=Cp5gjjtRZvsGv/c5qbUz1QdnpXy0ZN7bcc5rSOhblwE=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=YpdymZ47OTGq+ZYXAMWqdRGqPdgiYm2QLBZ3zxs3DsAg8IfneF8pKv0m62NXfDiYwULeQGABwN11QaPdx/y/Q++qsuoqiNgOfS6E9az3OFytaq5Mm73MM4QAtjkxceEFif4rL/AKL2crWC/aviMr3TjhZdB/RKT02Rzqaw103yo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=uIyhXqeH; arc=none smtp.client-ip=95.215.58.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="pjQy1qfE"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
-  t=1788956631; x=1820492631;
-  h=from:date:subject:mime-version:content-transfer-encoding:
-   message-id:references:in-reply-to:to:cc;
-  bh=Z1hodFjkwo706DlbzsfQGq1Fv/O7E3+lpisnjegX+1g=;
-  b=pjQy1qfEbwFODK6FMLuw8DIbwHxOVaajdux0zgpqRFf4rYoBadffjiaC
-   Mv0B1CGzdi0AZ3yczpRta3lnLPbi7qQfahYjJr0ukaTfBlENhzoJnuSxM
-   wtGaCKv7LXloM6Eb8DrTt6DX2PS0KutK1eoynGFcrO6b+tmJU5AHYZw4U
-   W8f2g0qiFFVtlfnHVkFdQx/t9dbGwETAyhf/in5sAGnm/9lszSpc2uDNZ
-   DUawJoZvWP3BWM4pt8ZjtwM4P48jaHxv8niuBxrK0CvnbmIxBk7ucwfL7
-   FkGr4EHb3hCaEy6puPN+GGxCbLzd/IF+sht3g7683T3Uci5F31ed5qequ
-   w==;
-X-CSE-ConnectionGUID: Hnzo4HVmT5CwU0eOcjjmgA==
-X-CSE-MsgGUID: uca0rH1fQYWBHTVesc8C5Q==
-X-IronPort-AV: E=Sophos;i="6.25,270,1779174000"; 
-   d="scan'208";a="294758083"
-X-Amp-Result: SKIPPED(no attachment in message)
-Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
-  by esa5.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256; 09 Sep 2026 05:23:46 -0700
-Received: from chn-vm-ex02.mchp-main.com (10.10.85.144) by
- chn-vm-ex04.mchp-main.com (10.10.85.152) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.58; Wed, 9 Sep 2026 05:23:41 -0700
-Received: from [127.0.1.1] (10.10.85.11) by chn-vm-ex02.mchp-main.com
- (10.10.85.144) with Microsoft SMTP Server id 15.1.2507.58 via Frontend
- Transport; Wed, 9 Sep 2026 05:23:38 -0700
-From: Ariana Lazar <ariana.lazar@microchip.com>
-Date: Wed, 9 Sep 2026 15:23:34 +0300
-Subject: [PATCH v3 1/2] dt-bindings: iio: adc: add support for PAC1711
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="uIyhXqeH"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=Cp5gjjtRZvsGv/c5qbUz1QdnpXy0ZN7bcc5rSOhblwE=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788956625; v=1; x=1789561425;
+ b=uIyhXqeHFQY6tm2mDkPell3x//ThzzYj2mpeNy2huDtbnqLD2zVo8tbzcx51XVN7CMeXhRI4
+ mMS+CDvSWNo9yr6u8OAcXAgQLVogCT6goVYkUk/8XhQIdWw3yROeaYIrFEIX6S2Csy5ijGykdmk
+ 8NHtGwSBEozCqh+VYdTKVBT0=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 3622ca82deab6042;
+	Wed, 09 Sep 2026 12:23:45 +0000
+X-Mizu-Trace-ID: 3622ca82deab6042
+X-Migadu-Flow: FLOW_OUT
+Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b4a0b384b7so6302e87.0
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 05:23:44 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxGBM0eh5/SorpnDm3nTfOzIEJOvO8aeqW5nBYGsDqVGfHUBNfn7C6E7ce0aVnGWVwibFOqAU45CBrvZA4=@vger.kernel.org
+X-Gm-Message-State: AFuF++ku1SJTIacAIYspEIskgkl2AIXLmXy6owHbNkTZ+WnxtGkMBFmB
+	Gk7c4qvA81RAsgsLlZ8Y5ElxJdERsyUvoUlXbjcK81fZLSvqMhesRQRKI9V97pI7xO0Ji/rREAe
+	Hgs99zMnXu+jvPRAsbysUjRs+FlVpsS+5uhRf5R/L
+X-Received: by 2002:a05:6512:3b14:b0:5ae:b9c5:f29f with SMTP id
+ 2adb3069b0e04-5b7654ce193mr107092e87.2.1788956623620; Wed, 09 Sep 2026
+ 05:23:43 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20260909-pac1711-v3-1-dff81003b82f@microchip.com>
-References: <20260909-pac1711-v3-0-dff81003b82f@microchip.com>
-In-Reply-To: <20260909-pac1711-v3-0-dff81003b82f@microchip.com>
-To: Jonathan Cameron <jic23@kernel.org>, Guenter Roeck <linux@roeck-us.net>,
-	David Lechner <dlechner@baylibre.com>, =?utf-8?q?Nuno_S=C3=A1?=
-	<nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring
-	<robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
-	<conor+dt@kernel.org>
-CC: <linux-iio@vger.kernel.org>, <devicetree@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <linux-hwmon@vger.kernel.org>, Ariana Lazar
-	<ariana.lazar@microchip.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788956615; l=8844;
- i=ariana.lazar@microchip.com; s=20250825; h=from:subject:message-id;
- bh=Z1hodFjkwo706DlbzsfQGq1Fv/O7E3+lpisnjegX+1g=;
- b=S/TAHiZG6PWWxESAqe92MffnT3A18ofEnMgfbvQiHmKrAPavlTRser/0ClsLTSSR/iFRDX4mp
- OFXpETbw0SfCQgMZkH/3T6GxL9AmgJzpWnfKVROs7ex9eXatzB74zia
-X-Developer-Key: i=ariana.lazar@microchip.com; a=ed25519;
- pk=jmvf1fSxcnzZmXfITM3L94IwutM+wqA1POQHiYyD6Dk=
+References: <20260908162223.1683432-1-suzuki.poulose@arm.com>
+ <20260908162223.1683432-11-suzuki.poulose@arm.com> <CA+EHjTw9ReyvsNT=y+-P6ng7VQ6Pvz9PFK9bO71qvTR1pOxx5Q@mail.gmail.com>
+ <6152fc41-65f0-460f-90b4-1454c11bcba6@arm.com>
+In-Reply-To: <6152fc41-65f0-460f-90b4-1454c11bcba6@arm.com>
+From: Fuad Tabba <fuad.tabba@linux.dev>
+Date: Wed, 9 Sep 2026 13:23:07 +0100
+X-Gmail-Original-Message-ID: <CA+EHjTxjk1JLR7Tf5LEfB_xypbUWnw3G3H-FT7bTE=nWTTRgAA@mail.gmail.com>
+X-Gm-Features: AcwNN1UdAORP9MO5wBUrYIVset4_Bi4mGv_qouuDykVa7m9ydt_n5FV9_UkyP28
+Message-ID: <CA+EHjTxjk1JLR7Tf5LEfB_xypbUWnw3G3H-FT7bTE=nWTTRgAA@mail.gmail.com>
+Subject: Re: [PATCH v17 10/20] KVM: arm64: coco: Disable Steal time accounting
+ for coco guests
+To: Suzuki K Poulose <suzuki.poulose@arm.com>
+Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev, maz@kernel.org, 
+	will@kernel.org, catalin.marinas@arm.com, linux-kernel@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, steven.price@arm.com, 
+	aneesh.kumar@kernel.org, oupton@kernel.org, gshan@redhat.com, 
+	joey.gouly@arm.com, yuzenghui@huawei.com, linux-coco@lists.linux.dev, 
+	gankulkarni@os.amperecomputing.com, sdonthineni@nvidia.com, 
+	alpergun@google.com, fj0570is@fujitsu.com, WeiLin.Chang@arm.com, 
+	lpieralisi@kernel.org, enju.kohei@fujitsu.com
+Content-Type: text/plain; charset="UTF-8"
 
-This is the device tree schema for Microchip PAC1711, PAC1721, PAC1811 and
-PAC1821 single-channel power monitor with accumulator. The PAC1711 and
-PAC1721 devices use 12-bit resolution for voltage and current measurements
-and 24 bits for power calculations, while PAC1811 and PAC1821 have 16-bit
-resolution and use 32 bits for power calculations. The 56-bit accumulator
-register accumulates power (energy) or current (Coulomb counter).
+Hi Suzuki,
 
-PAC1711 and PAC1811 measure up to 42V Full-Scale Range, respectively 9V for
-PAC1721 and PAC1821.
+On Wed, 9 Sept 2026 at 12:52, Suzuki K Poulose <suzuki.poulose@arm.com> wrote:
+...
 
-Signed-off-by: Ariana Lazar <ariana.lazar@microchip.com>
----
- .../bindings/iio/adc/microchip,pac1711.yaml        | 183 +++++++++++++++++++++
- MAINTAINERS                                        |   6 +
- 2 files changed, 189 insertions(+)
+> > I think it would be better to leave KVM_CAP_STEAL_TIME reported and
+> > instead reject the configuration for these VMs, returning -EPERM from
+> > the KVM_ARM_VCPU_PVTIME_CTRL attr. A capability query should report
+> > what the kernel supports, not whether a given VM may use it; gating it
+> > per-VM here is also inconsistent, since the !kvm clause leaves the
+> > system-fd cap at 1 while the VM-fd cap reads 0. And -EPERM says that
+>
+>
+> But isn't that we want from a VMM perspective ? i.e., enable PVTIME if
+> it is supported for the given VM (type). Rather than PVTIME is supported
+> by the KVM, so I can go enable it by default. But, we endup getting a
+> failure while we enable it. I encountered this with kvmtool, where
+> CAP_STEAL_TIME is reported true and even the HAS_DEVICE_ATTR goes
+> through fine, but SET_DEVICE_ATTR seemed to fail.
+>
+> Isn't it better to allow the VM to decide if the capability is supported
+> for the given VM type, like we are doing for other capabilities ?
 
-diff --git a/Documentation/devicetree/bindings/iio/adc/microchip,pac1711.yaml b/Documentation/devicetree/bindings/iio/adc/microchip,pac1711.yaml
-new file mode 100644
-index 0000000000000000000000000000000000000000..c10b4b83a08d690b8045a3f42d4e43d17a8058d7
---- /dev/null
-+++ b/Documentation/devicetree/bindings/iio/adc/microchip,pac1711.yaml
-@@ -0,0 +1,183 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/iio/adc/microchip,pac1711.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Microchip PAC1711 Power Monitors with Accumulator
-+
-+maintainers:
-+  - Ariana Lazar <ariana.lazar@microchip.com>
-+
-+description: |
-+  This device is part of the Microchip family of Power Monitors with Accumulator.
-+  Datasheet links:
-+  [PAC1711]: https://ww1.microchip.com/downloads/aemDocuments/documents/MSLD/ProductDocuments/PAC1711-Data-Sheet-DS20007058.pdf
-+  [PAC1721]: https://ww1.microchip.com/downloads/aemDocuments/documents/MSLD/ProductDocuments/PAC1721-Single-Channel-Power-Monitor-with-Accumulator-DS20007088.pdf
-+  [PAC1811]: https://ww1.microchip.com/downloads/aemDocuments/documents/MSLD/ProductDocuments/DataSheets/PAC1811-Data-Sheet-DS20007066.pdf
-+  [PAC1821]: https://ww1.microchip.com/downloads/aemDocuments/documents/MSLD/ProductDocuments/DataSheets/PAC1821-Data-Sheet-DS20007097.pdf
-+
-+  PAC1711, PAC1721, PAC1811 and PAC1821 are Single Channel Power Monitors
-+  with Accumulator, having 12-bit or 16-bit resolution. The devices PAC1711
-+  and PAC1811 can measure up to 42V Full-Scale Range, respectively 9V
-+  Full-Scale Range for PAC1721 and PAC1821.
-+
-+  The accumulation-source property aims to specify what kind of hardware is
-+  intended to be used/available for the user. There are two main cases here:
-+    - the user wants to measure also the current/power consumed before the
-+      driver insertion (e.g. from the boot to user control) and if this is a
-+      runtime setting, the hardware accumulator will be reset by the default
-+      configuration the driver starts with.
-+    - the driver does not know what type of hardware it's dealing with. In
-+      case the part is monitoring the charge/discharge current it does not
-+      make sense in user-space to change the accumulator to calculate energy.
-+      Same if the hardware is intended to calculate energy it does not make
-+      sense in user-space to change to Coulomb counter. Changing the setting
-+      from one mode to another will reset the hardware accumulator inside the
-+      chip.
-+
-+properties:
-+  compatible:
-+    enum:
-+      - microchip,pac1711
-+      - microchip,pac1721
-+      - microchip,pac1811
-+      - microchip,pac1821
-+
-+  reg:
-+    maxItems: 1
-+
-+  vdd-supply: true
-+
-+  "#io-channel-cells":
-+    const: 1
-+
-+  shunt-resistor-micro-ohms:
-+    description:
-+      Value in micro Ohms of the shunt resistor connected between the VSENSE+
-+      and VSENSE- inputs, across which the current is measured. This value is
-+      needed to compute the scaling of the measured current.
-+
-+  label:
-+    description: Unique name to identify which device this is.
-+
-+  microchip,vbus-input-range-microvolt:
-+    description: |
-+      Specifies the voltage range in microvolts chosen for the voltage full
-+      scale range (FSR). The range should be set as <minimum, maximum> by
-+      hardware design and should not be changed during runtime.
-+
-+      The VBUS could be configured into the following full scale range:
-+        - for PAC1711 or PAC1811:
-+            - VBUS has unipolar 0V to 42V FSR (default)
-+            - VBUS has bipolar -42V to 42V FSR
-+            - VBUS has bipolar -21V to 21V FSR
-+        - for PAC1721 or PAC1821:
-+            - VBUS has unipolar 0V to 9V FSR (default)
-+            - VBUS has bipolar -9V to 9V FSR
-+            - VBUS has bipolar -4.5V to 4.5V FSR
-+
-+  microchip,vsense-input-range-microvolt:
-+    description: |
-+      Specifies the voltage range in microvolts chosen for the current full
-+      scale range (FSR). The current is calculated by dividing the vsense
-+      voltage by the value of the shunt resistor. The range should be set as
-+      <minimum, maximum> by hardware design and it should not be changed
-+      during runtime.
-+
-+      The VSENSE could be configured into the following full scale range:
-+        - VSENSE has unipolar 0 mV to 100 mV FSR (default)
-+        - VSENSE has bipolar -100 mV to 100 mV FSR
-+        - VSENSE has bipolar -50 mV to 50 mV FSR
-+    oneOf:
-+      - items:
-+          - const: 0
-+          - const: 100000
-+      - items:
-+          - const: -100000
-+          - const: 100000
-+      - items:
-+          - const: -50000
-+          - const: 50000
-+
-+  microchip,accumulation-source:
-+    $ref: /schemas/types.yaml#/definitions/string
-+    description: |
-+      The Hardware Accumulator may be used to accumulate VPOWER or VSENSE values
-+      for any channel. By setting the accumulator for a channel to accumulate
-+      the VPOWER values gives a measure of accumulated power over a time period,
-+      which is equivalent to energy. Setting the accumulator for a channel to
-+      accumulate VSENSE values gives a measure of accumulated current, which is
-+      equivalent to charge.
-+
-+      The Hardware Accumulator could be configured as:
-+       "energy" - Accumulator accumulates VPOWER (energy)
-+       "charge" - Accumulator accumulates VSENSE (Coulomb Counter)
-+    enum: [energy, charge]
-+    default: energy
-+
-+required:
-+  - compatible
-+  - reg
-+  - vdd-supply
-+  - shunt-resistor-micro-ohms
-+
-+allOf:
-+  - if:
-+      properties:
-+        compatible:
-+          pattern: "^microchip,pac1[78]11$"
-+    then:
-+      properties:
-+        microchip,vbus-input-range-microvolt:
-+          oneOf:
-+            - items:
-+                - const: 0
-+                - const: 42000000
-+            - items:
-+                - const: -42000000
-+                - const: 42000000
-+            - items:
-+                - const: -21000000
-+                - const: 21000000
-+          default: [0, 42000000]
-+  - if:
-+      properties:
-+        compatible:
-+          pattern: "^microchip,pac1[78]21$"
-+    then:
-+      properties:
-+        microchip,vbus-input-range-microvolt:
-+          oneOf:
-+            - items:
-+                - const: 0
-+                - const: 9000000
-+            - items:
-+                - const: -9000000
-+                - const: 9000000
-+            - items:
-+                - const: -4500000
-+                - const: 4500000
-+          default: [0, 9000000]
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    i2c {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        power-monitor@40 {
-+            compatible = "microchip,pac1711";
-+            reg = <0x40>;
-+
-+            shunt-resistor-micro-ohms = <11000000>;
-+            label = "VDD3V3";
-+            vdd-supply = <&vdd>;
-+            microchip,vbus-input-range-microvolt = <(-21000000) 21000000>;
-+            microchip,vsense-input-range-microvolt = <(-50000) 50000>;
-+            microchip,accumulation-source = "energy";
-+        };
-+    };
-+...
-diff --git a/MAINTAINERS b/MAINTAINERS
-index a92290fffa163f9fe8fe3f04bf66426f9a894409..399da37f79fd9768f29cc60aa5384a1ba9fe8afc 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -16337,6 +16337,12 @@ F:	Documentation/devicetree/bindings/nvmem/microchip,sama7g5-otpc.yaml
- F:	drivers/nvmem/microchip-otpc.c
- F:	include/dt-bindings/nvmem/microchip,sama7g5-otpc.h
- 
-+MICROCHIP PAC1711 POWER/CURRENT MONITOR DRIVER
-+M:	Ariana Lazar <ariana.lazar@microchip.com>
-+L:	linux-iio@vger.kernel.org
-+S:	Supported
-+F:	Documentation/devicetree/bindings/iio/adc/microchip,pac1711.yaml
-+
- MICROCHIP PAC1921 POWER/CURRENT MONITOR DRIVER
- M:	Matteo Martelli <matteomartelli3@gmail.com>
- L:	linux-iio@vger.kernel.org
+You're right, per-VM capability reporting. My wires got crossed from
+the pKVM series and the kvmtool fixes. However, I'd still return
+-EPERM rather than -ENXIO from the attribute. The capability exists,
+it's just not permitted for a confidential VM, and -EPERM says exactly
+that, whereas -ENXIO reads as "no such feature".
 
--- 
-2.43.0
+Cheers,
+/fuad
 
+>
+> > steal-time exists but isn't permitted for a confidential VM, whereas
+> > -ENXIO reads as "no such feature".
+>
+> Cheers
+> Suzuki
+>
+>
+> >
+> > Cheers,
+> > /fuad
+> >
+> >>
+> >>   int kvm_arm_pvtime_set_attr(struct kvm_vcpu *vcpu,
+> >> @@ -81,7 +81,7 @@ int kvm_arm_pvtime_set_attr(struct kvm_vcpu *vcpu,
+> >>          int ret = 0;
+> >>          int idx;
+> >>
+> >> -       if (!kvm_arm_pvtime_supported() ||
+> >> +       if (!kvm_arm_pvtime_supported(kvm) ||
+> >>              attr->attr != KVM_ARM_VCPU_PVTIME_IPA)
+> >>                  return -ENXIO;
+> >>
+> >> @@ -110,7 +110,7 @@ int kvm_arm_pvtime_get_attr(struct kvm_vcpu *vcpu,
+> >>          u64 __user *user = (u64 __user *)attr->addr;
+> >>          u64 ipa;
+> >>
+> >> -       if (!kvm_arm_pvtime_supported() ||
+> >> +       if (!kvm_arm_pvtime_supported(vcpu->kvm) ||
+> >>              attr->attr != KVM_ARM_VCPU_PVTIME_IPA)
+> >>                  return -ENXIO;
+> >>
+> >> @@ -126,7 +126,7 @@ int kvm_arm_pvtime_has_attr(struct kvm_vcpu *vcpu,
+> >>   {
+> >>          switch (attr->attr) {
+> >>          case KVM_ARM_VCPU_PVTIME_IPA:
+> >> -               if (kvm_arm_pvtime_supported())
+> >> +               if (kvm_arm_pvtime_supported(vcpu->kvm))
+> >>                          return 0;
+> >>          }
+> >>          return -ENXIO;
+> >> --
+> >> 2.43.0
+> >>
+>
