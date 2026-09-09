@@ -1,195 +1,399 @@
-Received: from mail-yx2-f12.google.com (mail-yx2-f12.google.com [74.125.224.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from sender4-op-o12.zoho.com (sender4-op-o12.zoho.com [136.143.188.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBD7B3A4538
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 19:52:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64FC733E36A;
+	Wed,  9 Sep 2026 19:52:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.12
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788983552; cv=pass; b=uVwNarrEMPGB37SdNCajX4Nvys8GyAXDOF+Staxfcb4Hrn4prvSmGAVxoUnwTU/saF7G6CwRoM5kSZ9AGvyumn83tb2Xlj+LraPkhzvtAZnIWRUJHmPtW2BUXTvQXKP248iCUW8B8XGUg9k/ihjFW9gLgndphiwTDE1mmRRcFOY=
+	t=1788983554; cv=pass; b=hSmZC/h5SuZzP+ODBCv2UwUqKCi+ttasgpnqOFGk4a24yzczc4+Zrboiw0dWOHEJXFoDT1n8AxpHMMYGMg8lHzx7WpzQ38aRaKe+JeUFwbRRxbvW3C0By+H6poWn2m7iMVo8bHApMsXnppFpNwvJhdBJUlKTSbyVwXOlARmp8jk=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788983552; c=relaxed/simple;
-	bh=Vd54AXtbA+BVxVXTBmuGUtVDHo2JVpb2vqgbLrKQDoY=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=fD4GejVnkbxfo6HzJs+dZVbrPzhoJW5ocgGmrFVk9x/+a+G3pCg16gtL2LiPw7pbeWyzuffmH8G9a1+Clzh1P3pc46cW2rMlg8M6my0gJ2A8Ls3ln+lBxtmH/YezRCs5ypd9Jjsp2k0CnOCt3qZQP0spgrsgdg/FdHDTRZ57Ask=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=c000xhyj; arc=pass smtp.client-ip=74.125.224.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1788983554; c=relaxed/simple;
+	bh=BxxQUCpvNrGeJxUkQ/8vF3B5BnzaH1VPpOUrGbpIGA0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=kPKamLC4nu34S0/Spk4HIC3VB/eYodASNlh5fDJ3iaJoA/ofIEC5n/BRMoW+bhka/oJ1mvzGJF23Q9WYbZBSEA1yJRFprZqZtLoEcBv+fT0DTQPL5WwFgF6gQ1YziqIDu5chxYEcZY1cFnZUIegZPgkPagSy8eMkN9wLMg/xwg4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.b=OJJ03vCI; arc=pass smtp.client-ip=136.143.188.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="c000xhyj"
-Received: by mail-yx2-f12.google.com with SMTP id 00721157ae682-85d43da99easo10289537b3.1
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 12:52:30 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788983549; cv=none;
-        d=google.com; s=arc-20260327;
-        b=foTEI6urDZyQpzCTYZkyf1LQNSrQgietKpxJiyoO4M9R6Qkeo3I62Oul2ckLHZ48SY
-         xcBJI4t3djsWJ/ZCQPB10a9iG4MYNFM/hZNOU+iMivHzW3aqyv6QYR/jqYhYsti6FKIu
-         Pm1YDg/J91ltm13ezizqC635I7b5aDRJ7wBJKUmeNcAMikt0O5NpZyBhxEvf5q8/nZpK
-         Na0MhtS47+a8KFtnTe1b3uAe6GGP13WwxANLA2nPy8mKCihi7dPOoMU+wiIGl8UOLq7J
-         fLGs012PbZ+Kewq4O8rPHM5hQL+uV+TJybNbt5In8ZBmXbuQiSJCntAhZ0JJU7yCX9Qg
-         79nA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=JE506qyM+xSDVLQ18Cv32kLGdbyz+6FYOgoc9bYH4MI=;
-        fh=7aE9+MPL1TPlM3Qx28VgSP0DD9SirjpwiEXSd652uso=;
-        b=LsUH7SAGel7DpwDSKBBS9cBAza01bbOPSLUMT+51fbcXV0FkyARTmcf0jRhy5sC0wA
-         9A4AvOnQt65WebxRfne3zbvsxMDoCHvHSO8qn4O2jUtmlcDW8EhX9INltuLKHENdcPD8
-         acLbPL6pD1i7mOAmUqPStsUu6ziOwDMYhsMkzZOZvJE5UuoWIso5uZNGN+d8gvdEyYQN
-         WBGX0MzpJ1FenZ8P9QQyB+Tjp0U6iF2c8ZSM6EyYUFHajGJ7O9kfXk2XTocZjBkpqqU0
-         gkkhClLi6hhGf3QdCGsMJ6RITuwfMoD4Cm7TOJz0HwFE+dDB6Ttx1ld22/ka7prIowKw
-         Oh3w==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1788983549; x=1789588349; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=JE506qyM+xSDVLQ18Cv32kLGdbyz+6FYOgoc9bYH4MI=;
-        b=c000xhyjMnMMURzP1zlvDv/QBpEnhy4hqSKg2rIAUSK8QeWHKD/Tv8VCpxX36r8aqr
-         U9hmHI0J46TrbulCzeJ3pNRzElJeANEAABuVFltaKd4+8++NCWaYmJV6gF+Hyv5dJ5NE
-         CYaHANMTZoRU57K2o/hI0hU0pvtKPa4Ys0hjJL8tJ5GepQkahfBJUyVpC/lggCWwZDnY
-         x6x6015mMxe0sk7VCA0pdeFFK/g9e6I+yYtj2EeGB+/dtPlRnlm+16juq47Eg0K24zn2
-         c8GDm/CmQRpCXrxK4tCLlo9kAnTcjLRNEn1Ko854Q9sMhvebZ61AB8GCke7ALqtUv/tT
-         r8fg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788983549; x=1789588349;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=JE506qyM+xSDVLQ18Cv32kLGdbyz+6FYOgoc9bYH4MI=;
-        b=OBS5YxwqjY2RQFnfmgYBR9dTldfzom/ym6wkElrWT3biajmni+Lvs4Kogt7UA6aAeo
-         IGa/KcE/L5bkVur2nRTfXuQPamuSsPKutnQnS+DRzJcqMbGrENdDqMtRFYEoR4D0GbF7
-         OfGvgr0gsBTsZ2F8PFQqPPRhIwMkvkc9BvuMdxUCFBojxraxSWD9eGsV1mD53Qm2y7D9
-         Xvi7+s5WO6nW3zpHoSlouLeG7G96rn5xUKzyP99Uv+cUGe16GLDsf+QBLxHYXwCuqcxU
-         DmHRj9rjjSZYFCfVdqaXGKgl9MOjVQO9Zf2n1g/iBx93FU4ls7G/ToBkQXQAlFmxfMUe
-         oDxg==
-X-Forwarded-Encrypted: i=1; AKwUvBzU/lJ+Z4xg72L1AccDijPn/dWFN+sNm5CdbdH0NmzcPunfvkpNUH8h8XB14QUykxgX07b9jgfA+yvFSWc=@vger.kernel.org
-X-Gm-Message-State: AFuF++lLI+fT4ZF2h4yT6A0Ky1DAR9l0YdRluLdsJNOx4YEGwK1x6t8k
-	E5Eu4ESapi3Q5XGcavi6FanEsEd0S7uMbO1jb9RcNwoovvApW4QW7hWtlIEaPt/0Jb7ussJjzJl
-	Ion9l5qsmPJRxJyAf++s7+6H3vCMnOf64tkKtmMkCyA==
-X-Gm-Gg: AYBFou2BMvCxZHUHy2oLVqVR2VAE/1ChadB0c+fP7psP3Dprf7c47hys3awx8rK9xQa
-	0hRc6wk342LwewkoFSUOdrD4xJpiPK/hTppar9wkEQ/smW+bZb7HYDeQwt03JtNq65wJARo9ah2
-	YZcJPeagrE0tUillj7peqSuAKSpLCmVp25Ah+Qa20ENNTQt5ORB0jm/E64LXPe44DLmhK9e0xoY
-	7yhIZFSVAY2+Lm88bseVm60IWPcXAi6qSnOBcTSRGXuMFDuw2dlEYDZ4zQI/h/RtvuYLw/+gp/p
-	dyqmX9mjLng+K76sJ4tBa28gYcNhZTKf2geODo06wnl987ORjjVgYoLRl/0C0LjApx1zwB0WlY8
-	NXjNutxgfSDvCcQ==
-X-Received: by 2002:a05:690c:31a:b0:87c:a15f:b667 with SMTP id
- 00721157ae682-88153e6779amr21225247b3.19.1788983549289; Wed, 09 Sep 2026
- 12:52:29 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.b="OJJ03vCI"
+ARC-Seal: i=1; a=rsa-sha256; t=1788983536; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=AcEd6OOi7JpokylyGFUNQom6tLyDx/vexs9GSPQvhW5KvcffjTg0Exmc0+5ErfgmyzA2wgxEEM6GKgbE5kIKYjqQO2D77N/8TWik3V/aUZ7Ak8IcqwV4dq6IrmN+pTVVfZu6kpb4P13t1SEhLsOskKnC/+aRCnzFWlwPU0Fbwl0=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1788983536; h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=OrZz/o2h9z3RoezewYad1fMoe+vz61yO6dJjys7PAtc=; 
+	b=iFEifQjx12JG7dI4nfWUc1fXxFkk6peUtI1enTrb3CbjD1oTGOMwWJpH9CFTG0Dk8cShT8WEZt9qbHYEsLLao315XL3Qlo8jt5nABKMP5/IjU1eUDZb4ii8GLZapmLxYZMBLdyyfKfk2d1kMsmT2g+KebpmVha55SY7YXvcksE8=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=sebastian.reichel@collabora.com;
+	dmarc=pass header.from=<sebastian.reichel@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1788983536;
+	s=zohomail; d=collabora.com; i=sebastian.reichel@collabora.com;
+	h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:MIME-Version:Content-Type:In-Reply-To:Message-Id:Reply-To;
+	bh=OrZz/o2h9z3RoezewYad1fMoe+vz61yO6dJjys7PAtc=;
+	b=OJJ03vCIXmAxd40t4dbidm0qqWaOiakstiXz0eoqxAUeO6qzjs+TEfFzUUFC2u5Y
+	0kgDaQVGmMQAg/gCYodt5nZuBKhkVTWEczA65PVL+POqGQygvsCgcq4+afoTI9YJHYC
+	8I0xs3OvQagH/webm54JzXvQ/xLUNS6PzYclTJLg=
+Received: by mx.zohomail.com with SMTPS id 1788983535510492.3314755419225;
+	Wed, 9 Sep 2026 12:52:15 -0700 (PDT)
+Received: by venus (Postfix, from userid 1000)
+	id 57D29183377; Wed, 09 Sep 2026 21:52:11 +0200 (CEST)
+Date: Wed, 9 Sep 2026 21:52:11 +0200
+From: Sebastian Reichel <sebastian.reichel@collabora.com>
+To: Alexey Charkov <alchark@flipper.net>
+Cc: Lee Jones <lee@kernel.org>, Chris Morgan <macromorgan@hotmail.com>, 
+	Pavel Machek <pavel@ucw.cz>, Krzysztof Kozlowski <krzk@kernel.org>, 
+	Bartlomiej Zolnierkiewicz <b.zolnierkie@samsung.com>, linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 2/4] power: supply: core: Allow getting battery info
+ before psy is registered
+Message-ID: <aqG3p_GKtncRCRI8@venus>
+References: <20260909-bq257xx-init-v2-0-deb4076b1f02@flipper.net>
+ <20260909-bq257xx-init-v2-2-deb4076b1f02@flipper.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260909194450.183693-1-tturner@lineageos.org> <20260909194450.183693-3-tturner@lineageos.org>
-In-Reply-To: <20260909194450.183693-3-tturner@lineageos.org>
-From: Sam Protsenko <semen.protsenko@linaro.org>
-Date: Wed, 9 Sep 2026 14:52:16 -0500
-X-Gm-Features: AcwNN1XFLGvzp87hqDe4D94_SRB5dZ_z-E3RMUBPTQ90wJSi_XkiyxbHOQTg3Lw
-Message-ID: <CAPLW+4=sHV_xOfhDkfZ-TXUaY+BcmHRn25x+YGcmz8Kar6d-gg@mail.gmail.com>
-Subject: Re: [PATCH v4 2/2] arm64: dts: exynos: Add GPU/Mali Bifrost node to Exynos850
-To: Thomas Turner <tturner@lineageos.org>
-Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
-	peter.griffin@linaro.org, alim.akhtar@samsung.com, 
-	linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	thomas_turner@talktalk.net
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="xb76igt5xxhlnlu2"
+Content-Disposition: inline
+In-Reply-To: <20260909-bq257xx-init-v2-2-deb4076b1f02@flipper.net>
+X-Zoho-Virus-Status: 1
+X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/288.959.6
+X-ZohoMailClient: External
+
+
+--xb76igt5xxhlnlu2
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v2 2/4] power: supply: core: Allow getting battery info
+ before psy is registered
+MIME-Version: 1.0
 
-On Wed, Sep 9, 2026 at 2:45=E2=80=AFPM Thomas Turner <tturner@lineageos.org=
-> wrote:
->
-> Add nodes for GPU (Mali Bifrost) to Exynos850. Does not provide support
-> for temperature throttling, DVFS, power domains, governor support,
-> boosting and voltage control. Once PMIC is properly implemented, support
-> will hopefully increase. However, the panfrost driver probes, the
-> Mali-G52 GPU initializes and the core clock is set-up.
->
-> Testing for this patch was done on a device not currently supported by
-> linux, the Galaxy A21s. After enabling this node for that device
-> locally, I was able to test and confirm basic GPU functionality. As of
-> now, this patch has no users which have tested GPU capabilities and so
-> the node has been set to "disabled".
->
-> Here are some logs I pulled:
->
-> panfrost 11500000.gpu: clock rate =3D 377000000
-> panfrost 11500000.gpu: mali-g52 id 0x7212 major 0x0 minor 0x0 status 0x0
-> panfrost 11500000.gpu: features: 00000000,00000df7, issues: 00000000,0000=
-0400
-> panfrost 11500000.gpu: Features: L2:0x07100206 Shader:0x00000000 Tiler:0x=
-00000809 Mem:0x1 MMU:0x00002830 AS:0xff JS:0x7
-> panfrost 11500000.gpu: shader_present=3D0x1 l2_present=3D0x1
-> panfrost 11500000.gpu: [drm] Using Transparent Hugepage
-> [drm] Initialized panfrost 1.6.0 for 11500000.gpu on minor 0
->
-> OpenGL core profile vendor: Mesa
-> OpenGL core profile renderer: Mali-G52 MC1 (Panfrost)
-> OpenGL core profile version: 3.1 (Core Profile) Mesa 26.1.6
-> OpenGL core profile shading language version: 1.40
-> OpenGL compatibility profile vendor: Mesa
-> OpenGL compatibility profile renderer: Mali-G52 MC1 (Panfrost)
-> OpenGL compatibility profile version: 3.1 (Core Profile) Mesa 26.1.6
-> OpenGL compatibility profile shading language version: 1.40
-> OpenGL ES profile vendor: Mesa
-> OpenGL ES profile renderer: Mali-G52 MC1 (Panfrost)
-> OpenGL ES profile version: OpenGL ES 3.1 Mesa 26.1.6
-> OpenGL ES profile shading language version: OpenGL ES GLSL ES 3.10
->
-> Signed-off-by: Thomas Turner <tturner@lineageos.org>
-> Reviewed-and-tested-by: Alexey Klimov <alexey.klimov@linaro.org>
+Hello Alexey,
+
+On Wed, Sep 09, 2026 at 07:41:45PM +0400, Alexey Charkov wrote:
+> Some power supplies, such as battery chargers, may need to program the
+> device parameters based on what their connected battery allows. Current
+> API requires registering the power supply to access battery information,
+> which is problematic because a registered power supply is immediately
+> available to the rest of the system, but the battery parameters may not
+> be set yet in the charger.
+>=20
+> Given that the battery info helpers really only need a fwnode and a struct
+> device to hang devres-allocated resourses on, add a pure dev-based get/put
+> API alongside the existing psy-based one, which can be used to query the
+> battery information before registering the power supply.
+
+Use the new init callback for that, which got introduced in the v7.3
+cycle:
+
+c1eb5905fdce ("power: supply: Add registration init callback")
+
+See for example fdece8642eca ("power: supply: bq25630: Initialize
+hardware before exposing the power supply") for a driver that was
+converted to this.
+
+Greetings,
+
+-- Sebastian
+
+>=20
+> Signed-off-by: Alexey Charkov <alchark@flipper.net>
 > ---
-> Changes in v4:
->   - Add Reviewed-and-tested-by tag
->
-
-If adding the tags is the only change in v4 patch series, there was no
-need to submit v4. When maintainers apply your patches they collect
-all tags from the latest patch version themselves. So you only need to
-collect the tags from the previous version review if you want to
-submit the next version for some actual reasons (not just for merely
-collecting the tags). Sorry if I forgot to explain it clearly.
-
-> Changes in v3:
->   - Re-word commit message to be less ambiguous
->   - Provide some logs in the commit message
->   - Add a blank line before status property
->
-> Changes in v2:
->   - Add a patch addressing the samsung,exynos850-mali compatible string
->
->  arch/arm64/boot/dts/exynos/exynos850.dtsi | 13 +++++++++++++
->  1 file changed, 13 insertions(+)
->
-> diff --git a/arch/arm64/boot/dts/exynos/exynos850.dtsi b/arch/arm64/boot/=
-dts/exynos/exynos850.dtsi
-> index 911643008b9f..721b2b2c4ffb 100644
-> --- a/arch/arm64/boot/dts/exynos/exynos850.dtsi
-> +++ b/arch/arm64/boot/dts/exynos/exynos850.dtsi
-> @@ -310,6 +310,19 @@ cmu_g3d: clock-controller@11400000 {
->                         clock-names =3D "oscclk", "dout_g3d_switch";
->                 };
->
-> +               gpu: gpu@11500000 {
-> +                       compatible =3D "samsung,exynos850-mali", "arm,mal=
-i-bifrost";
-> +                       reg =3D <0x11500000 0x5000>;
-> +                       interrupts =3D <GIC_SPI 126 IRQ_TYPE_LEVEL_HIGH>,
-> +                                    <GIC_SPI 127 IRQ_TYPE_LEVEL_HIGH>,
-> +                                    <GIC_SPI 125 IRQ_TYPE_LEVEL_HIGH>;
-> +                       interrupt-names =3D "job", "mmu", "gpu";
-> +                       clocks =3D <&cmu_g3d CLK_GOUT_G3D_GPU_CLK>;
-> +                       clock-names =3D "core";
+>  drivers/power/supply/power_supply_core.c | 102 ++++++++++++++++++++++---=
+------
+>  include/linux/power_supply.h             |   4 ++
+>  2 files changed, 77 insertions(+), 29 deletions(-)
+>=20
+> diff --git a/drivers/power/supply/power_supply_core.c b/drivers/power/sup=
+ply/power_supply_core.c
+> index 1279785645fb..09473361772f 100644
+> --- a/drivers/power/supply/power_supply_core.c
+> +++ b/drivers/power/supply/power_supply_core.c
+> @@ -725,21 +725,18 @@ struct power_supply *devm_power_supply_get_by_refer=
+ence(struct device *dev,
+>  }
+>  EXPORT_SYMBOL_GPL(devm_power_supply_get_by_reference);
+> =20
+> -int power_supply_get_battery_info(struct power_supply *psy,
+> -				  struct power_supply_battery_info **info_out)
+> +static int __power_supply_get_battery_info(struct device *dev,
+> +					   struct fwnode_handle *srcnode,
+> +					   struct power_supply_battery_info **info_out)
+>  {
+>  	struct power_supply_resistance_temp_table *resist_table;
+>  	struct power_supply_battery_info *info;
+> -	struct fwnode_handle *srcnode, *fwnode;
+> +	struct fwnode_handle *fwnode;
+>  	const char *value;
+>  	int err, len, index, proplen;
+>  	u32 *propdata __free(kfree) =3D NULL;
+>  	u32 min_max[2];
+> =20
+> -	srcnode =3D dev_fwnode(&psy->dev);
+> -	if (!srcnode && psy->dev.parent)
+> -		srcnode =3D dev_fwnode(psy->dev.parent);
+> -
+>  	fwnode =3D fwnode_find_reference(srcnode, "monitored-battery", 0);
+>  	if (IS_ERR(fwnode))
+>  		return PTR_ERR(fwnode);
+> @@ -750,7 +747,7 @@ int power_supply_get_battery_info(struct power_supply=
+ *psy,
+> =20
+> =20
+>  	/* Try static batteries first */
+> -	err =3D samsung_sdi_battery_get_info(&psy->dev, value, &info);
+> +	err =3D samsung_sdi_battery_get_info(dev, value, &info);
+>  	if (!err)
+>  		goto out_ret_pointer;
+>  	else if (err =3D=3D -ENODEV)
+> @@ -765,7 +762,7 @@ int power_supply_get_battery_info(struct power_supply=
+ *psy,
+>  		goto out_put_node;
+>  	}
+> =20
+> -	info =3D devm_kzalloc(&psy->dev, sizeof(*info), GFP_KERNEL);
+> +	info =3D devm_kzalloc(dev, sizeof(*info), GFP_KERNEL);
+>  	if (!info) {
+>  		err =3D -ENOMEM;
+>  		goto out_put_node;
+> @@ -826,7 +823,7 @@ int power_supply_get_battery_info(struct power_supply=
+ *psy,
+>  		else if (!strcmp("lithium-ion-manganese-oxide", value))
+>  			info->technology =3D POWER_SUPPLY_TECHNOLOGY_LiMn;
+>  		else
+> -			dev_warn(&psy->dev, "%s unknown battery type\n", value);
+> +			dev_warn(dev, "%s unknown battery type\n", value);
+>  	}
+> =20
+>  	fwnode_property_read_u32(fwnode, "energy-full-design-microwatt-hours",
+> @@ -877,7 +874,7 @@ int power_supply_get_battery_info(struct power_supply=
+ *psy,
+>  		err =3D len;
+>  		goto out_put_node;
+>  	} else if (len > POWER_SUPPLY_OCV_TEMP_MAX) {
+> -		dev_err(&psy->dev, "Too many temperature values\n");
+> +		dev_err(dev, "Too many temperature values\n");
+>  		err =3D -EINVAL;
+>  		goto out_put_node;
+>  	} else if (len > 0) {
+> @@ -892,28 +889,28 @@ int power_supply_get_battery_info(struct power_supp=
+ly *psy,
+>  		char *propname __free(kfree) =3D kasprintf(GFP_KERNEL, "ocv-capacity-t=
+able-%d",
+>  							 index);
+>  		if (!propname) {
+> -			power_supply_put_battery_info(psy, info);
+> +			power_supply_put_battery_info_from_dev(dev, info);
+>  			err =3D -ENOMEM;
+>  			goto out_put_node;
+>  		}
+>  		proplen =3D fwnode_property_count_u32(fwnode, propname);
+>  		if (proplen < 0 || proplen % 2 !=3D 0) {
+> -			dev_err(&psy->dev, "failed to get %s\n", propname);
+> -			power_supply_put_battery_info(psy, info);
+> +			dev_err(dev, "failed to get %s\n", propname);
+> +			power_supply_put_battery_info_from_dev(dev, info);
+>  			err =3D -EINVAL;
+>  			goto out_put_node;
+>  		}
+> =20
+>  		u32 *propdata __free(kfree) =3D kzalloc_objs(*propdata, proplen);
+>  		if (!propdata) {
+> -			power_supply_put_battery_info(psy, info);
+> +			power_supply_put_battery_info_from_dev(dev, info);
+>  			err =3D -EINVAL;
+>  			goto out_put_node;
+>  		}
+>  		err =3D fwnode_property_read_u32_array(fwnode, propname, propdata, pro=
+plen);
+>  		if (err < 0) {
+> -			dev_err(&psy->dev, "failed to get %s\n", propname);
+> -			power_supply_put_battery_info(psy, info);
+> +			dev_err(dev, "failed to get %s\n", propname);
+> +			power_supply_put_battery_info_from_dev(dev, info);
+>  			goto out_put_node;
+>  		}
+> =20
+> @@ -921,9 +918,9 @@ int power_supply_get_battery_info(struct power_supply=
+ *psy,
+>  		info->ocv_table_size[index] =3D tab_len;
+> =20
+>  		info->ocv_table[index] =3D table =3D
+> -			devm_kcalloc(&psy->dev, tab_len, sizeof(*table), GFP_KERNEL);
+> +			devm_kcalloc(dev, tab_len, sizeof(*table), GFP_KERNEL);
+>  		if (!info->ocv_table[index]) {
+> -			power_supply_put_battery_info(psy, info);
+> +			power_supply_put_battery_info_from_dev(dev, info);
+>  			err =3D -ENOMEM;
+>  			goto out_put_node;
+>  		}
+> @@ -939,14 +936,14 @@ int power_supply_get_battery_info(struct power_supp=
+ly *psy,
+>  		err =3D 0;
+>  		goto out_ret_pointer;
+>  	} else if (proplen < 0 || proplen % 2 !=3D 0) {
+> -		power_supply_put_battery_info(psy, info);
+> +		power_supply_put_battery_info_from_dev(dev, info);
+>  		err =3D (proplen < 0) ? proplen : -EINVAL;
+>  		goto out_put_node;
+>  	}
+> =20
+>  	propdata =3D kzalloc_objs(*propdata, proplen);
+>  	if (!propdata) {
+> -		power_supply_put_battery_info(psy, info);
+> +		power_supply_put_battery_info_from_dev(dev, info);
+>  		err =3D -ENOMEM;
+>  		goto out_put_node;
+>  	}
+> @@ -954,17 +951,17 @@ int power_supply_get_battery_info(struct power_supp=
+ly *psy,
+>  	err =3D fwnode_property_read_u32_array(fwnode, "resistance-temp-table",
+>  					     propdata, proplen);
+>  	if (err < 0) {
+> -		power_supply_put_battery_info(psy, info);
+> +		power_supply_put_battery_info_from_dev(dev, info);
+>  		goto out_put_node;
+>  	}
+> =20
+>  	info->resist_table_size =3D proplen / 2;
+> -	info->resist_table =3D resist_table =3D devm_kcalloc(&psy->dev,
+> +	info->resist_table =3D resist_table =3D devm_kcalloc(dev,
+>  							 info->resist_table_size,
+>  							 sizeof(*resist_table),
+>  							 GFP_KERNEL);
+>  	if (!info->resist_table) {
+> -		power_supply_put_battery_info(psy, info);
+> +		power_supply_put_battery_info_from_dev(dev, info);
+>  		err =3D -ENOMEM;
+>  		goto out_put_node;
+>  	}
+> @@ -982,22 +979,69 @@ int power_supply_get_battery_info(struct power_supp=
+ly *psy,
+>  	fwnode_handle_put(fwnode);
+>  	return err;
+>  }
 > +
-> +                       status =3D "disabled";
-> +               };
+> +int power_supply_get_battery_info(struct power_supply *psy,
+> +				  struct power_supply_battery_info **info_out)
+> +{
+> +	struct fwnode_handle *srcnode;
 > +
->                 cmu_apm: clock-controller@11800000 {
->                         compatible =3D "samsung,exynos850-cmu-apm";
->                         reg =3D <0x11800000 0x8000>;
-> --
-> 2.47.3
->
+> +	srcnode =3D dev_fwnode(&psy->dev);
+> +	if (!srcnode && psy->dev.parent)
+> +		srcnode =3D dev_fwnode(psy->dev.parent);
+> +
+> +	return __power_supply_get_battery_info(&psy->dev, srcnode, info_out);
+> +}
+>  EXPORT_SYMBOL_GPL(power_supply_get_battery_info);
+> =20
+> -void power_supply_put_battery_info(struct power_supply *psy,
+> -				   struct power_supply_battery_info *info)
+> +/**
+> + * power_supply_get_battery_info_from_dev() - Get battery info without a=
+ supply
+> + * @dev: Device holding the "monitored-battery" reference, which also ow=
+ns the
+> + *	 devres allocations made for the returned info
+> + * @info_out: Pointer to store the resulting battery info
+> + *
+> + * Same as power_supply_get_battery_info(), but keyed off a plain device=
+ rather
+> + * than a registered power supply. Chargers that program hardware limits=
+ taken
+> + * from the battery node need those values *before* they can safely regi=
+ster
+> + * their power supply: registering makes the supply callable, so a later=
+ probe
+> + * failure would free driver data underneath a running callback.
+> + *
+> + * Release the result with power_supply_put_battery_info_from_dev().
+> + *
+> + * Return: 0 on success or an error code on failure.
+> + */
+> +int power_supply_get_battery_info_from_dev(struct device *dev,
+> +					   struct power_supply_battery_info **info_out)
+> +{
+> +	return __power_supply_get_battery_info(dev, dev_fwnode(dev), info_out);
+> +}
+> +EXPORT_SYMBOL_GPL(power_supply_get_battery_info_from_dev);
+> +
+> +/**
+> + * power_supply_put_battery_info_from_dev() - Release battery info
+> + * @dev: Device passed to power_supply_get_battery_info_from_dev()
+> + * @info: Battery info to release
+> + */
+> +void power_supply_put_battery_info_from_dev(struct device *dev,
+> +					    struct power_supply_battery_info *info)
+>  {
+>  	int i;
+> =20
+>  	for (i =3D 0; i < POWER_SUPPLY_OCV_TEMP_MAX; i++) {
+>  		if (info->ocv_table[i])
+> -			devm_kfree(&psy->dev, info->ocv_table[i]);
+> +			devm_kfree(dev, info->ocv_table[i]);
+>  	}
+> =20
+>  	if (info->resist_table)
+> -		devm_kfree(&psy->dev, info->resist_table);
+> +		devm_kfree(dev, info->resist_table);
+> +
+> +	devm_kfree(dev, info);
+> +}
+> +EXPORT_SYMBOL_GPL(power_supply_put_battery_info_from_dev);
+> =20
+> -	devm_kfree(&psy->dev, info);
+> +void power_supply_put_battery_info(struct power_supply *psy,
+> +				   struct power_supply_battery_info *info)
+> +{
+> +	power_supply_put_battery_info_from_dev(&psy->dev, info);
+>  }
+>  EXPORT_SYMBOL_GPL(power_supply_put_battery_info);
+> =20
+> diff --git a/include/linux/power_supply.h b/include/linux/power_supply.h
+> index 131cafded72f..f42ae4e3bf81 100644
+> --- a/include/linux/power_supply.h
+> +++ b/include/linux/power_supply.h
+> @@ -865,6 +865,10 @@ extern int power_supply_get_battery_info(struct powe=
+r_supply *psy,
+>  					 struct power_supply_battery_info **info_out);
+>  extern void power_supply_put_battery_info(struct power_supply *psy,
+>  					  struct power_supply_battery_info *info);
+> +extern int power_supply_get_battery_info_from_dev(struct device *dev,
+> +						  struct power_supply_battery_info **info_out);
+> +extern void power_supply_put_battery_info_from_dev(struct device *dev,
+> +						   struct power_supply_battery_info *info);
+>  extern bool power_supply_battery_info_has_prop(struct power_supply_batte=
+ry_info *info,
+>  					       enum power_supply_property psp);
+>  extern int power_supply_battery_info_get_prop(struct power_supply_batter=
+y_info *info,
+>=20
+> --=20
+> 2.55.0
+>=20
+
+--xb76igt5xxhlnlu2
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAmqhuOcACgkQ2O7X88g7
++po/CA//YKaJPv5gHs2J0+fC5nttPNSwBJbsrz8qnwsWi6XT2pp1E6ec0JsKvqff
+5j7YQo3eHXb9JazcO9JXXfdw6nyu1vvqM1fQJqBJAoLWdJrGWviANDbH9aczQ5xr
+fhsMVWKsj85qkhuKtt6gTIuO774ZiWvpsXJ/88UEPuh/TlptGGUWAKfouSMijcE8
+VyKERMYbUiYH/SuvZTpm9e9eTx2/mbO6KWVQseTrkAOKFurdGbRazGgOEkzT0U88
+qJilcrfgoGHMj4D5D/tIL2zcGXohHBV9cIw3ZDyTRhxFy62wHWtUCwWS7HBbb4IH
+mS3rVC0VQ54LS1o0TNZfvuUAY56fNKb8SMP+Gz13ex3KMZ/+z9xrithoHrcBPTAO
+lGWq9+vDNxXpLAdypmYmZANkGX5c26d7kfhd07/wZ2QM0C0srahpiJb3KGQehOaP
+5aWnGpNHLbB4RpajenPi7lJjLHmICvpkAXuSrExKep6jyjuAK8l38iHCnrrTv+uq
+LTcYiDlamrLJf7YPQMDgDbt2dH+ly5mOJYDqrYMDHUT8fTHPwXEWVQSSPFdvJskn
+z+PuokjMHLNocqDxTA6WCeKdnv9gpG48EKd7GxB6TPS/isvNmA+hZ4UgdazFgJBD
+aXRbbibwz/0JPkkT3yToVSMxt7RqUMdgiFP+r7u4BR8MP5OLrU4=
+=r6V7
+-----END PGP SIGNATURE-----
+
+--xb76igt5xxhlnlu2--
