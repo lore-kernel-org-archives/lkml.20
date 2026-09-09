@@ -1,80 +1,127 @@
-Received: from out28-77.mail.aliyun.com (out28-77.mail.aliyun.com [115.124.28.77])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 345123955E7;
-	Wed,  9 Sep 2026 18:06:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.77
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38B00396D0D;
+	Wed,  9 Sep 2026 18:06:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788977168; cv=none; b=JbLUg1YYN77z+Zepywh0Bzi/NPyl5wJBZIJDQSw2kbBaRMQ6Y8zenhFBlDsUwSJUIAyAcvnjMYp7pvf/z1AaIDhvKe3o9RcNHxJRzIHZGols+l9fFgAmFXFggZzyzPWfZ/BIkc54GoEZiwulrbuAbBP5H3B8PdEv8F2t2JhgGtI=
+	t=1788977176; cv=none; b=bKBl74/I5ge+lydtT8Qk0MQSt0AlYmN1/+yN7RepvUg7xSUZlQ+/WS+jmyXA2aO84drsaitYza9vOplVGG1vpsLpS6zinhoGZcD2vq+Wib7Cnu8Oh/32VqAbjee8OyW4RuJdq9hf/JaDSH63lSqxFHu1kK6rCNuqhZb766h/zx0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788977168; c=relaxed/simple;
-	bh=9E+T9hOgRu29T+NHLrQVye5P8lcKnemzwLjrjnZHf7E=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=omvgA52p112u3Pp2VJfkpqrl7gW1lrO6IItIDa7ry+/YM1hJ/1dPrwGyPopjPf+VsE5SqEcDG09wZqzMeb7Jag9gAHJDdY9pImDmuLrI4DTpT6E+lquNpzlMg8tCFgxLa3dd98pOWXFjVgsPPFXu9j9GYktEy+fRv+jOjumur44=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com; spf=pass smtp.mailfrom=xiaopeng.com; dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b=Jlky25kn; arc=none smtp.client-ip=115.124.28.77
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
+	s=arc-20240116; t=1788977176; c=relaxed/simple;
+	bh=O0z6SMZwLE/6z1fvBkL4sSiFDb1SRwe3lPTuC2SFFPo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=kU7XJskD8MCkp0kF229JaFY6UgbzSOap1WgdeScn+Hfrq44yMgLG0RlTFbTE2GHemZPjUI7E7XCLvrNv+KbuJv4YZ5eMp/G6rnovR/4HEmiEPj09taNz15S9BeAAwTjATgFfLnPxgLoUZSQcuAW79zNVVt+l24AX3eH5uGr26Uw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OighcUDS; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b="Jlky25kn"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=xiaopeng.com; s=default;
-	t=1788977156; h=From:To:Subject:Date:Message-ID:MIME-Version;
-	bh=ilb6MMd8fuWTjBsaIfpa76cUkFI2nh511CWhQTWNKSA=;
-	b=Jlky25kn46+PUDCbssRE+YROtnmqBPF9esHV5Og/m6I3wzC7RggklIq6lbwYU2E0Zf6n8oZwLZ0gV4jdXUqhbp5ReEqGumR97u6TQ97gvpwoNdf/qf3nWtvhz34912FNfpKOgtPBy2Pmf51hX7V6VFdtPXasIKMs6bK40bo9m2E=
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.2790607|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_alarm|0.0106812-0.00285087-0.986468;FP=7551090251449564603|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033037021217;MF=liuc63@xiaopeng.com;NM=1;PH=DS;RN=9;RT=9;SR=0;TI=SMTPD_---.j9rv3mG_1788977155;
-Received: from localhost(mailfrom:liuc63@xiaopeng.com fp:SMTPD_---.j9rv3mG_1788977155 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Thu, 10 Sep 2026 02:05:56 +0800
-From: Liu Chao <liuc63@xiaopeng.com>
-To: Robin van der Gracht <robin@protonic.nl>,
-	Oleksij Rempel <o.rempel@pengutronix.de>,
-	Oliver Hartkopp <socketcan@hartkopp.net>,
-	Marc Kleine-Budde <mkl@pengutronix.de>
-Cc: Vincent Mailhol <mailhol@kernel.org>,
-	kernel@pengutronix.de,
-	linux-can@vger.kernel.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/2] can: j1939: check received packet count before completing session
-Date: Thu, 10 Sep 2026 02:05:54 +0800
-Message-ID: <20260909180554.365350-1-liuc63@xiaopeng.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20260908145715.D70BD1F00A3D@smtp.kernel.org>
-References: <20260908145715.D70BD1F00A3D@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OighcUDS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5D75F1F000FF;
+	Wed,  9 Sep 2026 18:06:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788977174;
+	bh=PR7LyVcB/OQaKWh0JIa9p8TXYdnREvEGvQ9Sz9YHWIU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=OighcUDSqngGJ9CNv9qk+KV5pxZ66xYNPMCTky//Dx35FhGvbB8pCGK+zRpjlShGl
+	 YryPAbgZT3pGOP0FEc9/g8S6QmDUFje3Ruk8MjDwqwDGWjfCmk2sZZ99S6v7JRqQ/p
+	 cbumgrKZ8yTtp2cvX/b/7NkVvHJ+ydTv45kzZYnyUDQ6e12sAqjeecDYgiZQi5yzOF
+	 4fe0dHdLoO7p2JPsKHFV0vW6iCd/STFjrRTL7jPPpsUVvioUc0XGpH2mC2pa6hLhAq
+	 yKmLmQ7bCvNH3VbLSYKIWiYkBqF6B0QKL6pAUkbLCv3GAFimRZjdrzr9Qxrj84md7g
+	 mFKBUZep/4yDA==
+Date: Wed, 9 Sep 2026 19:06:09 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Bill Roberts <bill.roberts@foss.arm.com>
+Cc: Jesse Huang <jesse.huang@sifive.com>,
+	"linux-riscv@lists.infradead.org" <linux-riscv@lists.infradead.org>,
+	linux-arm-kernel@lists.infradead.org,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	linux-hardening@vger.kernel.org, linux-api@vger.kernel.org,
+	dave.hansen@linux.intel.com, rick.p.edgecombe@intel.com,
+	debug@rivosinc.com, andrew@sifive.com, kito.cheng@sifive.com
+Subject: Re: Shadow Stack Locking Semantics between arch's
+Message-ID: <522bcf96-499c-491b-aaf0-34e6bbd42929@sirena.org.uk>
+References: <a1946d93-370e-4ca9-85d6-60b4a20ffd47@arm.com>
+ <3bb672e0-7bc3-434f-904e-aa00394dd01f@foss.arm.com>
+ <d20ccb74-69ed-45d7-a810-846904873588@sirena.org.uk>
+ <0ef9f4ab-4c9f-4089-bed3-f7726ec97804@foss.arm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="3cXrEZrAslfzFgWm"
+Content-Disposition: inline
+In-Reply-To: <0ef9f4ab-4c9f-4089-bed3-f7726ec97804@foss.arm.com>
+X-Cookie: Postage will be paid by addressee.
 
-Addressed in v2:
-https://lore.kernel.org/all/20260909173105.158202-1-liuc63@xiaopeng.com/
 
-> Does this inadvertently suppress the diagnostic warning for EOMA size
-> mismatches on transmitter sessions?
+--3cXrEZrAslfzFgWm
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Yes.  v2 emits the warning for both rx and tx and gates only the abort on
-!session->transmission.
+On Wed, Sep 09, 2026 at 12:57:57PM -0500, Bill Roberts wrote:
 
-> Could this error path cause a permanent leak of the session structure
-> and permanently block the SA/DA address pair?
+> > > unsigned long locked =3D 0x2; // Kernel Task State -> LOCK WRITE
+> > > unsigned long cur_val =3D 0x3; // Kernel Task State -> WRITE and SHAD=
+OWSTACK
+> > > ENABLED
+> > > unsigned long new_val =3D 0x0; // Userspace Feature Change via syscal=
+l ->
+> > > DISABLE
+> > > | x86-64 | risc-v | arm64 |
+> > > | ---------- | -------- | --------- |
+> > > | Works=A0 | Fails=A0 | Fails=A0 =A0 =A0|
 
-v2 returns early for sessions already in J1939_SESSION_WAITING_ABORT, so
-the deactivation timer armed by the earlier abort keeps running.  Same
-failure mode as 1809c82aa073 ("net: can: j1939:
-j1939_xtp_rx_rts_session_active(): deactivate session upon receiving the
-second rts").  j1939_session_cancel() is fragile here in general -- the
-cts_one and dat_one cancel paths are still unguarded -- but that is a
-separate patch.
+> > I would not have expected that combination to work at all with the
+> > prctl() (as opposed to arch_prctl()) interface TBH, if you've locked
+> > write on you shouldn't be able to disable it.  The reason that works on
+> > x86 at the minute is that for x86 you can only change one bit at a time
+> > so the new value when disabling is effectively 0x2, not 0x0.
 
-> This is a pre-existing issue, but looking at j1939_session_cancel()
-> exposed by this path, could it trigger an AB-BA deadlock?
+> Yes, this is exactly what I am pointing out. Implementation aside, is that
+> the behavior we want?
 
-Pre-existing, and this series adds no new locking: j1939_xtp_rx_eoma_one()
-calls j1939_session_cancel() from the same RX softirq context as the
-existing cts_one and dat_one cancel paths, so the reachability of the
-cycle is unchanged.  Fixing it means restructuring how
-j1939_session_cancel() cancels the rxtimer under active_session_list_lock;
-that is a separate change.
+It seems more helpful to support changing more than one bit at once.
+
+> > I think for ABI compatibility RISC-V will have to continue accepting 0
+> > as being equivalent to locking PR_SHADOW_STACK_ENABLE (or everything,
+> > but it only supports that one bit right now).
+
+> TL;DR - No users, lets fix it before risc-v lands the userspace side IIUC
+
+Oh, that would be even better if we could do that!  Thanks for checking
+the userspace situation.
+
+> > > 3. riscv should return -EPERM vs -EINVAL
+
+> > If you mean for arch_lock_shadow_stack_status() I think -EINVAL is a
+> > sensible error code when the system or task does not support shadow
+> > stacks, I'm not sure we should return -EPERM at all.  On arm64 we
+> > support locking any bit, not just the ones that we currently know about.
+> > This is for future proofing, userspace can lock unknown flags.
+
+> No, I mean when setting a locked bit via prctl
+> and=A0PR_SET_SHADOW_STACK_STATUS.
+> Currently, the error codes for changing a locked bit:
+> x86: EPERM
+> arm64: EBUSY (Which we discussed offline about changing to EPERM)
+
+Yes, I'll post a patch for that this week all being well.
+
+--3cXrEZrAslfzFgWm
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqhoBAACgkQJNaLcl1U
+h9BQZAf+NudoLDPJlxzRoCSVqeb16MHSW4LVbZcxQP3o6kDklLpNPCi8oNdaNSa6
+p+9kozMAe1v3hCalNkj835zwn83kzLH3w10KXbYWkMib4SoJHt0ejLcZCiKe3kjl
+yfJ8IFCtQM/5WSZY//M6rZHOa1XDirsB+3ORsc2RgbR+0E7QjBj1C4Ch3wdDL1at
+2eFP+aN2QeJ/7VsBk7s9bxwyOkeYZLFX7BSEP74uZQ5HQULOlDVioEkHsuFtWo4X
+OjoyYDxMD2JaMEjPbcGG3uof5VVKJFE5onkID/khZ4U3a0xX8J/4GNT0C31q0Uj5
+OtmSrWul8+KkNSSlj6QCIAyyDIK1BA==
+=G+9c
+-----END PGP SIGNATURE-----
+
+--3cXrEZrAslfzFgWm--
