@@ -1,111 +1,305 @@
-Received: from mail-106104.protonmail.ch (mail-106104.protonmail.ch [79.135.106.104])
+Received: from CH5PR02CU005.outbound.protection.outlook.com (mail-northcentralusazon11012031.outbound.protection.outlook.com [40.107.200.31])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B383D53FD5C;
-	Wed,  9 Sep 2026 14:48:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.104
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788965294; cv=none; b=ov2R6JK8CiGWb9pgyfGcKZEj+oSHOb8QOrcs3ZAX2FxkxrsJbek+KhkZ1Ngw0gN0pcD4VkVvUo0zWj8NVZrKRU690/SSwXU1A1C+3XpI76EuUmvVlnq7mkxYY6wHkeQSqRVLaTyaXyP9U6wNgDrQNtWcI8ERvPWIHw+oiISZ5Vk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788965294; c=relaxed/simple;
-	bh=FH1l0J0w861ll6J8cWgCzFfonI6e9QEAr/ZwFhnKEpw=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=dYEcTwCskeAbwpMpS94Xrr3PHNM3g/lE7m62YESOVXSfKRHvChWui09w8pb9zGzq484BgdQGPVapb88qAyI1z9L68mDtiyZjmLRQhlYKWwUukGIUOT2EANNkgxgTWpKhdxNnDNIWYCPnXm4MFmtb7Bu1rX3Gaa2IVIK/C3NKHzE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=heutEvUr; arc=none smtp.client-ip=79.135.106.104
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6EFF550DB2;
+	Wed,  9 Sep 2026 14:48:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.200.31
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788965313; cv=fail; b=m6SmUxSOI1ZLIkAXfMG5TQ/cu0orcYLWXUBDQ7313fH/AGffCAQb5Pdh9OnqnwooJZkjoFuE6hPI1NZ0Z+wOTPwZTEQYJPW49FMSzRVnTuhB89gAgH0h5bW2cA/oOc2V27qCi/nV1rUGcFJxdUWM25QoreQDjj3iAmI3c2FZqD4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788965313; c=relaxed/simple;
+	bh=aYUIUlmxhaMhY+RnHZON+8ZvAbAWrnDe3Ch+XSvXJ54=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=qzL5VO5KLBMLYKHmfqX64glRHLGwRf1ZkS4zYSaz8bX5rXwJDsC3T+lCKeBmFLRqQIq/Sb72pmBIl1YGWSg2wYPlRIMOK4Ur4fefe2s6g6BoywoSXM4DVr7aRjmJj6UFqXOkbwd4pxsJcLJVbKMpRMHxH5skasf3yqpLY5Nrl7g=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=uGE6BNwQ; arc=fail smtp.client-ip=40.107.200.31
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="heutEvUr"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail; t=1788965281; x=1789224481;
-	bh=9e2xytwfhYr9357vCuzcaoFTrbV5rohrhm5PdDDzSoQ=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=heutEvUrdiuFmplmXJMuc/MIXcK8rDdVN01E9hZKtvupAapM8EQBEfLXHhJHeVnRG
-	 2KrI+D8MvNFYPe9ACX4wwZ2vYNfruxJNL30sDLMYqHwsJg/w7+3xKq+9kiAvvg5vU0
-	 UKamY5cxG3lKfORVNJrJDzGXw6wU8qFicYcySDCPkQq9KJt16dgf94BiJZV7kDIf0P
-	 9QyeHFXJrWjxGinp5lzCyTt1VdKSdGWCVyIDUJhV1qBvK0z/dSdF5D+Y3+HuB6QNKp
-	 4IeuCSHp6HkMsfRGGMJZ8BDzqlH66pkVuPUhxWMRoblSBy/CVa0O+mktugN1dzsDY0
-	 D5j6GOlabvFAw==
-Date: Wed, 09 Sep 2026 14:47:54 +0000
-To: Andrey Korshunov <razor1702@gmail.com>
-From: =?utf-8?B?5a6J5a65?= <HystericalDragons@proton.me>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>, "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>, "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>, "linux-rockchip@lists.infradead.org" <linux-rockchip@lists.infradead.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, Chukun Pan <amadeus@jmu.edu.cn>, jensen <jensenhuang@friendlyarm.com>
-Subject: Re: [PATCH v2 2/3] arm64: dts: rockchip: Split out the common NanoPi RK3528 parts
-Message-ID: <BxIHWWXJmSvUm8NVgiaDUYHBOUaTS9qf4cAXQKfx8UgN_F90zHJpu0fMHWAZr70as9EnmOyj4cUPeFCO2p9JljBigVijrvYWzRpTG0WMm9U=@proton.me>
-In-Reply-To: <20260909134716.879-1-razor1702@gmail.com>
-References: <20260907-r28s-upstream-v2-2-21ab570fc91c@proton.me> <20260909134716.879-1-razor1702@gmail.com>
-Feedback-ID: 91982645:user:proton
-X-Pm-Message-ID: 362103fa24347cf345c686bb025fda6f2830d27f
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="uGE6BNwQ"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=DNEu/CEF5RzvyJSrrW9OQUs+hEO/GO8tw6iShtYLkmLTsDK/NHSuxv7flyV+8e5jDAzemqd6Vj0d3SPa+IwZ7H+UXLXYBJSYUgolZImLBBIzAio9o8Mm4G912vslhjdjj2ia2RWLCrfmnDPZB/XIH+4LrclsDj5+2GTkUR+3c/W69CFiJmWVoIYqtcVa5xHv5FO+IZZIeyOVoCBECD3LhOVaiQ6xxikVWNA3DwkX2uquj6PS66RhHc+2dkJ8Z2Vr6xXgMKSytip8F2lsnNTKLufIFGqDjv3ZD1Mwigge+iB0n/ch7WLd8TuF0I383haeoMgL51h7BQU2OXGeBPSJ/g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=3PaKJDXf1CdCLll5w/H0cIiqsEtxn1GDr+VgVQGTUTk=;
+ b=BX2+ISy/alIe2RIYl1SEl0KI8vead9ecFBIMvN7pCMzc4EAeyjdMpGZNEQaMrex9inoZhG+FZWVJHubiUm/WKsrLmJxnlQYZJjyODXsXSU1DOgJT+zQ3lWnCREqlJFHBPLmaZ9VY44yKNUno53TqbvU7sS3ZyoFahVRvtPznQuGYn/reWZoX9l81FQra+ffZCSyLL+asM/Vgnof6rLE6IoQqrwsG6Y/tRD7ka2UTlWTEyUaemzkhBSg3NQAeMpNurxmbvnZwN3jZQjX9IRcLmuPAHxt8q5RH/+KySc7606vDn36gzRezERJs79V4VikhRMG6nQygZpZOSLW93sGJfw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=3PaKJDXf1CdCLll5w/H0cIiqsEtxn1GDr+VgVQGTUTk=;
+ b=uGE6BNwQhF1bEB/3dw25ddxdOn/rP7QGhFVykYprWIjyisPw5+uPRBG3lt8/+E4RRvwrtKLluclaird6eUG+uvF9nM2Ev7xc3LancJw5KZdhA+eohBhLU+9F19vbVLTYzrLp/cO7P9isHyDwEb7/gQAssJAhGJsxHVYwU/tKjzc7ZrXKdcTU1hw8ySSbdTPRwvjEYQV7LQ7YlcA3R2QKwwRWa91hCWiMrTg5WYedV5CzwYguUEk0LJR17vILXPgrvz1k8g9FNZFgljs5aoHIrwfZe0tzSPwiS2a1CEy6G18mo0cxRgI2/cHoedSaq52vOuph62dmOayriKBy1qF7yQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from IA0PR12MB8374.namprd12.prod.outlook.com (2603:10b6:208:40e::7)
+ by CY5PR12MB6406.namprd12.prod.outlook.com (2603:10b6:930:3d::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.8; Wed, 9 Sep 2026
+ 14:48:19 +0000
+Received: from IA0PR12MB8374.namprd12.prod.outlook.com
+ ([fe80::d85f:4c87:ae84:3f16]) by IA0PR12MB8374.namprd12.prod.outlook.com
+ ([fe80::d85f:4c87:ae84:3f16%5]) with mapi id 15.21.0406.007; Wed, 9 Sep 2026
+ 14:48:19 +0000
+From: Zi Yan <ziy@nvidia.com>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: "Matthew Wilcox (Oracle)" <willy@infradead.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Muchun Song <muchun.song@linux.dev>, Lorenzo Stoakes <ljs@kernel.org>,
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>, Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
+ Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
+ Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
+ Gregory Price <gourry@gourry.net>, Ying Huang <ying.huang@linux.alibaba.com>,
+ Alistair Popple <apopple@nvidia.com>, Johannes Weiner <hannes@cmpxchg.org>,
+ Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>,
+ Kairui Song <kasong@tencent.com>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, Baoquan He <baoquan.he@linux.dev>,
+ Pasha Tatashin <pasha.tatashin@soleen.com>,
+ Pratyush Yadav <pratyush@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+ Jan Kara <jack@suse.cz>, Steven Rostedt <rostedt@goodmis.org>,
+ Masami Hiramatsu <mhiramat@kernel.org>, Dave Young <ruirui.yang@linux.dev>,
+ Shuah Khan <skhan@linuxfoundation.org>,
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ kexec@lists.infradead.org, linux-doc@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org, linux-trace-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 14/14] mm/page-flags: remove PG_private
+Date: Wed, 09 Sep 2026 10:48:17 -0400
+X-Mailer: MailMate (3.0r7028)
+Message-ID: <1BF58667-A9AE-48AA-BA04-F02FB6D5ECF4@nvidia.com>
+In-Reply-To: <d8e9b629-4198-4281-a3b2-d54445201fd2@kernel.org>
+References: <20260907-remove-pg_private-v3-0-6ae22f9d9272@nvidia.com>
+ <20260907-remove-pg_private-v3-14-6ae22f9d9272@nvidia.com>
+ <d8e9b629-4198-4281-a3b2-d54445201fd2@kernel.org>
+Content-Type: text/plain
+Content-Transfer-Encoding: quoted-printable
+X-MS-Reactions: disallow
+X-ClientProxiedBy: BL1PR13CA0268.namprd13.prod.outlook.com
+ (2603:10b6:208:2ba::33) To IA0PR12MB8374.namprd12.prod.outlook.com
+ (2603:10b6:208:40e::7)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: IA0PR12MB8374:EE_|CY5PR12MB6406:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3e36a449-7863-40ee-247c-08df0e816332
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|23010399003|366016|7416014|376014|6133799003|10067099003|11063799006|4143699003|56012099006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	gHZkhrlo2Dlduo0qqPNmk/ck3tigfa+qdshlTz7N2T84ki59fqAvUfQ9nIOYdID6QeikvgIzFjXmU7qNjxPh1uE8A1/j6cWDuTE67SnYLd4SyJQ8HACc/ON+AOe40O1WVQuWIU5bxzfmWmfMNgr03SCoyFYPiO6VQJsZ+t6tO9JDfg3/RQb6byplfL3wL1W+OfuHdo9oVw+t8HpQmWTbuyy0rKhMWq4Bi6VqzQf76hiToqjM2FqKZTN7blcqEvyOdjl5fi7oq4mhOsX+Qz+W4cqNCg3CSZLJKNted3Xxfpm4+ODfq1FG8LE+AJ066D+Gj7j9bPUC2imPqyCf8wkfBoZkTKe8NLkhz/ywZMZZKaprdlO8skU5shOcPUusWUcR7MaZ+5Qlu2WeWF9im/s3fzw+EC5/JPoO9oInmuVVQZvJ/nuPEDkL8Spcbkymc1CEz/lup/uCUe0lBoDNJlDjmij4fDppvxgUEvgT9J4s67YtoKQMk8HZbpovl0Iduiie+VwbY8na3+SAcPl5NLf+UN/pjs8Scnl6HRmjQYZOGVLSCl6PQ1MynXBcHg2WaygYXm27TvFraTPH9L74uFRFTE+gChxwhEYbJ7aFwK5QALVPY9SoJuLAGNS0FPxitBKckPipfMwyrlXbaHeziK9q3ZfQH03pOEMdjgGNpiqz0Zg=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR12MB8374.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(366016)(7416014)(376014)(6133799003)(10067099003)(11063799006)(4143699003)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?an0bGcgXOM433sgRgHC/KNPbThso0gxMPGb6WtE/97slExf2aXADK8QAKBk3?=
+ =?us-ascii?Q?zzACDFClnNoPQzoshnfJzHzkFazmE0gIzNl5cEF1JaQSp2WLm45io8nFwRRf?=
+ =?us-ascii?Q?5o/xdJBN6pSVBMJbjkAm14W/j5XUHzDhhezdA9LgZmXtZ6E0tPWaedoGm3V0?=
+ =?us-ascii?Q?h8sMm2a8788suGTcuSL5VaPjQOuQyEIhqTOv28EjMpd7bUZQQeSEv8wmxnM+?=
+ =?us-ascii?Q?QbvKREp3sX8ONRD+3Qd7GAvUw66UflWJ3t+yIoviaAaDrWkDkEumoKVhH8PJ?=
+ =?us-ascii?Q?4cOPWqtrZ5In/IXBhTWyBqyIiY9dWXmIJk8h3ZtjcoQLoX/fu/ckQ6X1r6as?=
+ =?us-ascii?Q?P1XPq0t4Uo4vuAvbNQNKPGU8zLQFRGM8nrHmijNYjjtpuOTVvWfBI7JtKcC5?=
+ =?us-ascii?Q?Eu8tDle9xsoWIS4RqXgSWhmUcaTBfnMczYfSQwM/wQ/+WIeFlsWpDSwNEdnN?=
+ =?us-ascii?Q?COSF1R1kzSa9gMiHyXAz2vz+L5tY7xK02F/OUDFRTH2pvZpcrpt23sn0cyQ7?=
+ =?us-ascii?Q?wjdozUTfyJNrbsawXMviXeoH+mwsWC+t1fT5f1HX8gqJkxgNXlf0zhDQ2CFX?=
+ =?us-ascii?Q?e/ePOQNUG+ZzujrxWg1szfJTS9rGQg53tI1PEcKJYZ21yEIOzPewHUVChdka?=
+ =?us-ascii?Q?69mXPZj5qEHS1/uJv5wdOMn0wpmRfZn//sm3QUPSzq55/9RafkwScVRr542U?=
+ =?us-ascii?Q?wv1XqTo4YvUrxhA8M9CoQuCgYg14sUDNCCNrAHlm/IRnnFCzckteXfHIhF/5?=
+ =?us-ascii?Q?dxEOnUeorsl+Sd17G9Faw3GgYJXZ0eW4BWHFCqQnLm4KPXIAzmz3w1p+oPja?=
+ =?us-ascii?Q?yzXwyICIl2zgPCXwcAa91J9Q+rD+8d/IMPav01PiRASHdYBpfCT9GoZ2+vXV?=
+ =?us-ascii?Q?j+a+y3y/6t0UATzx35BBln8xcB1LLDcHr2pbZ8r108o+UNEVCCrCWz18q+Dp?=
+ =?us-ascii?Q?h0YXcm0KpZsnoGANeyJ6f1xe9h39VPp02m19/vt08snIZGAGx2t0OEpjctKj?=
+ =?us-ascii?Q?tn2DhzaPsN/GM2UFwWjC4JzBonvlq8fyTCCnydw0MZB2Nsk/veFDp2jY39/o?=
+ =?us-ascii?Q?aB8V6fuEWAKcnHF9j1a/+28e/XKAsR4J9+cAH7S0DGDMrOJ8ZgJVC9g+t3Ll?=
+ =?us-ascii?Q?i2lnqGxaOkcF3QpAkBXt1xtu7Po3HZq9PvDu6bais+d56mHTaav7YRyKlkET?=
+ =?us-ascii?Q?0IJ/wgGWBTvSQ9Bl/KWPz9unnTwq7exmyslmMwUCQH6wye+WHhT/3avCFFsu?=
+ =?us-ascii?Q?ANmatDHksyPhO41qUDSZpmS8V317ZYsDu2R+Os42tnInM940kZsUsHOnf9we?=
+ =?us-ascii?Q?RHMaeL4ye3BCzYf/XcqidSXOuNAGFNMVFt/2nqjC/teO3teDqtaGAj7uF4lu?=
+ =?us-ascii?Q?rosdEnVrbkqmsBLT5jVNGV+CRoqrSvpusUuM8v1Whp1l+sF+hXg1EvpAKzOs?=
+ =?us-ascii?Q?yTL7lSTrCFnb+l17zLcDQxUiQfPHDiQX76QcjmLKPkm5OepM+J5AMIHo+ny6?=
+ =?us-ascii?Q?aZBf9WyKticT5KRJ6mAJnz6X54SLTZnR5632dHr7QHOD/7KZ6vddz5Nsu19f?=
+ =?us-ascii?Q?yrzEOsb+QgMzuR3P9yrquuzrj4v4Apx2AhnwU8UXRLNAfPon1S4wjGz+nPvu?=
+ =?us-ascii?Q?MNOUekqvjU0huUtfx13VU1HxZd6Yqn2e2drPkbmOwusRleAFpwR5yOvIPNbh?=
+ =?us-ascii?Q?ZwtBmG+4rx9DEOgodiaO66NbMJ1yj2ZtpQlByQTBYEupTjTe?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3e36a449-7863-40ee-247c-08df0e816332
+X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8374.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Sep 2026 14:48:18.9376
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: pxgnQgbxOAG0LjhgRcQQOrnaJ02IgYw92HStHGX0usgVEjMN4HnukJVwoZCCi2bz
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6406
 
-On Wed, Sep 09, 2026 at 04:47:16PM +0300, Andrey Korshunov wrote:
+On 9 Sep 2026, at 10:31, David Hildenbrand (Arm) wrote:
 
-> of_mdio_bus_register() reads the PHY ID with get_phy_device() before
-> phy_device_register() fetches the PHY node's reset-gpios, so a PHY that
-> the bootloader left in reset is simply not found:
+> On 9/8/26 04:56, Zi Yan wrote:
+>> folio->private !=3D NULL indicates a folio carries private data, repla=
+cing
+>> PG_private. All PG_private users are converted. Remove PG_private and
+>> reserve the space as __PG_folio for future use.
+>>
+>> __DEF_PAGEFLAG_NAME() is added to show __PG_folio.
+>>
+>> Also update files in Documentation. hugetlbfs_reserv.rst is outdated a=
+nd
+>> left unchanged. It should be rewritten.
+>>
+>> Assisted-by: Claude:claude-opus-4-8
+>> Assisted-by: Codex:gpt-5
+>> Signed-off-by: Zi Yan <ziy@nvidia.com>
+>> To: Andrew Morton <akpm@linux-foundation.org>
+>> To: Baoquan He <baoquan.he@linux.dev>
+>> To: Mike Rapoport <rppt@kernel.org>
+>> To: Pasha Tatashin <pasha.tatashin@soleen.com>
+>> To: Pratyush Yadav <pratyush@kernel.org>
+>> To: Jonathan Corbet <corbet@lwn.net>
+>> To: "Matthew Wilcox (Oracle)" <willy@infradead.org>
+>> To: Jan Kara <jack@suse.cz>
+>> To: David Hildenbrand <david@kernel.org>
+>> To: Steven Rostedt <rostedt@goodmis.org>
+>> To: Masami Hiramatsu <mhiramat@kernel.org>
+>> Cc: Dave Young <ruirui.yang@linux.dev>
+>> Cc: Shuah Khan <skhan@linuxfoundation.org>
+>> Cc: Lorenzo Stoakes <ljs@kernel.org>
+>> Cc: "Liam R. Howlett" <liam@infradead.org>
+>> Cc: Vlastimil Babka <vbabka@kernel.org>
+>> Cc: Suren Baghdasaryan <surenb@google.com>
+>> Cc: Michal Hocko <mhocko@suse.com>
+>> Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+>> Cc: kexec@lists.infradead.org
+>> Cc: linux-doc@vger.kernel.org
+>> Cc: linux-kernel@vger.kernel.org
+>> Cc: linux-fsdevel@vger.kernel.org
+>> Cc: linux-mm@kvack.org
+>> Cc: linux-trace-kernel@vger.kernel.org
+>> ---
+>>  Documentation/admin-guide/kdump/vmcoreinfo.rst |  2 +-
+>>  Documentation/filesystems/vfs.rst              |  6 +++---
+>>  include/linux/page-flags.h                     | 19 ++---------------=
+--
+>>  include/trace/events/mmflags.h                 |  3 ++-
+>>  kernel/vmcore_info.c                           |  1 -
+>>  5 files changed, 8 insertions(+), 23 deletions(-)
+>>
+>> diff --git a/Documentation/admin-guide/kdump/vmcoreinfo.rst b/Document=
+ation/admin-guide/kdump/vmcoreinfo.rst
+>> index 7663c610fe901..5f1df6d080508 100644
+>> --- a/Documentation/admin-guide/kdump/vmcoreinfo.rst
+>> +++ b/Documentation/admin-guide/kdump/vmcoreinfo.rst
+>> @@ -325,7 +325,7 @@ NR_FREE_PAGES
+>>  On linux-2.6.21 or later, the number of free pages is in
+>>  vm_stat[NR_FREE_PAGES]. Used to get the number of free pages.
+>>
+>> -PG_lru|PG_private|PG_swapcache|PG_swapbacked|PG_hwpoison|PG_head_mask=
+
+>> +PG_lru|PG_swapcache|PG_swapbacked|PG_hwpoison|PG_head_mask
+>>  ---------------------------------------------------------------------=
+-----
+>>
+>>  Page attributes. These flags are used to filter various unnecessary f=
+or
+>> diff --git a/Documentation/filesystems/vfs.rst b/Documentation/filesys=
+tems/vfs.rst
+>> index d3a93eec3945f..dec7816303c6a 100644
+>> --- a/Documentation/filesystems/vfs.rst
+>> +++ b/Documentation/filesystems/vfs.rst
+>> @@ -649,8 +649,8 @@ Writeback.
+>>
+>>  The first can be used independently to the others.  The VM can try to=
+
+>>  release clean pages in order to reuse them.  To do this it can call
+>> -->release_folio on clean folios with the private
+>> -flag set.  Clean pages without PagePrivate and with no external refer=
+ences
+>> +->release_folio on clean folios with folio->private set. Clean pages
+>> +without folio->private set and with no external references
+>>  will be released without notice being given to the address_space.
 >
->   mdio_bus stmmac-0: MDIO device at address 1 is missing.
-
-Thanks, the diagnosis is right and I have reproduced the ordering in
-the code: `__of_mdiobus_register()` registers the bus before it walks the
-children. And for a PHY node with only the generic c22 compatible,
-`fwnode_mdiobus_register_phy()` reads the PHY ID via `get_phy_device()`
-before `phy_device_register()` gets as far as requesting reset-gpios.
-
-> Describing the reset on the MAC instead makes stmmac install it
-> as mii_bus->reset, which runs before the bus is scanned:
+> This reads like it would belong into patch #13?
 >
->     &gmac1 {
->         snps,reset-active-low;
->         snps,reset-delays-us =3D <0 20000 100000>;
->         snps,reset-gpio =3D <&gpio4 RK_PC2 GPIO_ACTIVE_LOW>;
->     };
+>>
+>>  To achieve this functionality, pages need to be placed on an LRU with=
 
-But I would rather not use those: snps,reset-gpio, snps,reset-active-low
-and snps,reset-delays-us are all deprecated in snps,dwmac.yaml,
-so a new DTS using them is unlikely to get through netdev.
+>> @@ -674,7 +674,7 @@ filemap_fdatawait_range, to wait for all writeback=
+ to complete.
+>>
+>>  An address_space handler may attach extra information to a page,
+>>  typically using the 'private' field in the 'struct page'.  If such
+>> -information is attached, the PG_Private flag should be set.  This wil=
+l
+>> +information is attached, non-NULL 'private' field will
+>
+> Same here?
+>
+> Likely this could have been restructured to cause less head scratches. =
+I'd
+> expect any documentation that refers to PG_private to get removed befor=
+e finally
+> removing the bit.
+>
+> Not the end of the world, just a bit confusing while reviewing.
 
-The MDIO bus level reset in mdio.yaml solves the same ordering problem
-without using deprecated property. `__mdiobus_register()` asserts and
-releases it before any device on the bus is registered, so it also
-covers the DT described case where the bus is not scanned at all:
+Yeah, I will fold the document changes into the corresponding code change=
+ patches.
 
-=09&mdio1 {
-=09=09reset-delay-us =3D <20000>;
-=09=09reset-gpios =3D <&gpio4 RK_PC2 GPIO_ACTIVE_LOW>;
-=09=09reset-post-delay-us =3D <100000>;
+>
+>>  cause various VM routines to make extra calls into the address_space
+>>  handler to deal with that data.
+>>
+>> diff --git a/include/linux/page-flags.h b/include/linux/page-flags.h
+>> index ce7fccd90367b..7b7783c0a5216 100644
+>> --- a/include/linux/page-flags.h
+>> +++ b/include/linux/page-flags.h
+>> @@ -44,10 +44,6 @@
+>>   * Consequently, PG_reserved for a page mapped into user space can in=
+dicate
+>>   * the zero page, the vDSO, MMIO pages or device memory.
+>>   *
+>> - * The PG_private bitflag is set on pagecache pages if they contain f=
+ilesystem
+>> - * specific data (which is normally at page->private). It can be used=
+ by
+>> - * private allocations for its own usage.
+>> - *
+>>   * During initiation of disk I/O, PG_locked is set. This bit is set b=
+efore I/O
+>>   * and cleared when writeback _starts_ or when read _completes_. PG_w=
+riteback
+>>   * is set before writeback starts and cleared when it finishes.
+>> @@ -105,7 +101,7 @@ enum pageflags {
+>>  	PG_owner_2,		/* Owner use. If pagecache, fs may use */
+>>  	PG_arch_1,
+>>  	PG_reserved,
+>> -	PG_private,		/* If pagecache, has fs-private data */
+>> +	__PG_folio,		/* Do not use: reserved for folio identification */
+>
+> Do we really have to annotate it with __PG_folio ? I'd just keep it sim=
+ple and
+> have the comment. That also avoids __DEF_PAGEFLAG_NAME just for this us=
+e case.
+>
+> (sorry if this was discussed in previous review rounds)
 
-=09=09rgmii_phy: ethernet-phy@1 {
-=09=09=09compatible =3D "ethernet-phy-ieee802.3-c22";
-=09=09=09reg =3D <0x1>;
-=09=09};
-=09};
+No one complained about this yet. :)
 
-with gmac1_rstn_l moved to the MAC's pinctrl-0, since the MDIO bus has
-no device of its own for pinctrl to bind to. There is only one PHY on
-mdio1, so a bus wide reset is equivalent to the per-PHY one.
+I do this because I do not want to change PG_* values after PG_private af=
+ter
+PG_private is removed. And they will be changed back to their original va=
+lues
+when I add PG_folio. That PG_* value churn might be a headache for kdump?=
 
-v3 carries this as patch 1, against the NanoPi Zero2 and ahead of the
-move, so it can be backported:
+If I add PG_folio the last page flag, it can be a one-time change though.=
 
-<https://lore.kernel.org/r/20260909-r28s-upstream-v3-0-ee3e1a34a353@proton.=
-me>
 
-A `Tested-by` on that form would be very welcome, since it is not the
-variant you tested.
-
-> I had an R28S series of my own out before I saw yours; I am dropping it.
-
-Sorry about the duplicated effort.
-
-Thanks,
-Rong An.
+Best Regards,
+Yan, Zi
