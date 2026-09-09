@@ -1,355 +1,141 @@
-Received: from mail-yw1-f177.google.com (mail-yw1-f177.google.com [209.85.128.177])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from flow-a4-smtp.messagingengine.com (flow-a4-smtp.messagingengine.com [103.168.172.139])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16052521223
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 10:41:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 738AA5237BF;
+	Wed,  9 Sep 2026 10:41:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.139
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788950469; cv=none; b=qidVUgGzSM43/yq+b2aAGZd5FKcsqYWbv+CPiEfQcTQe4x6MSVlHLOERc6wj99coE2InxyzA4bn85bYrio5rzZ/6krjvB95q5miA0RdLgwkIyrdj0iVyQSP2IcOZ8nbZLa7sufamw641xYMYMk2oYfAr2B3XWepIG2o8X5OmyEA=
+	t=1788950509; cv=none; b=mBqA/43ZsT7aBHC9lCiLGRV8PcbP/jcS2OZU0fv3jmL9ipRNcrlyjxpvFJ3rDWXTFETuAFVsbZEW8PsFTKkXaDpt7Tl4C+41+xZ3cU/Omy5btKdpRG3MBMs8MIAP48zrSnmErX90W/fReuAbT85rCs5fqdV3JQ+Wh3ENW7HD+mw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788950469; c=relaxed/simple;
-	bh=wCi3pUhWZvq93WjLW4ifiEYeMwDAkqD4CUEmoBl4gEM=;
-	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=RZi4A6kKDEzngNB4Dobf50rPmtYVK1ZJqqUIUOtGnAIgvthWKS77gMc9srTMMuYVAtD5UrBf8v7BHrgyEAytUxUkApVkS65TPcp8oKPFXpptoDUr5K2EvhJGTYrSZfBU29YmCpN9A2BKuyLJN3EoaSEPB+8yZ+xEmG+3QRDo0BI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=uFQXFG0h; arc=none smtp.client-ip=209.85.128.177
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	s=arc-20240116; t=1788950509; c=relaxed/simple;
+	bh=cc1GifQkgQthViehWdOC3osdqIlcQSso+nxuZK0+ISU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=qZvRCs19baGziHmhsOO/Z4deZ9gaUyeGmXWzEkqeEnEIXJQK9KH10p0vofz6YkIyPwiEvtTGY/EIPgx3mtf6DXPOoOM2p4SKO8ki/Nm0igr1N2g6fTa4n8toTSU+64wghaB6sCSsTt0qBU87QopMeuqm5D4i3x3bZkGKh8ROeas=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name; spf=pass smtp.mailfrom=shutemov.name; dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b=JbHeijJI; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=UHhPoVte; arc=none smtp.client-ip=103.168.172.139
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shutemov.name
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="uFQXFG0h"
-Received: by mail-yw1-f177.google.com with SMTP id 00721157ae682-878ed0f17bfso34330427b3.1
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 03:41:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788950467; x=1789555267; darn=vger.kernel.org;
-        h=content-type:mime-version:references:message-id:in-reply-to:subject
-         :cc:to:from:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=PGN+ybR37+qvtDqf9cFN47582j44el3q/H5/GSGFvrU=;
-        b=uFQXFG0hXoimqiWby6dfpdSvwp1ywbxkEFfD0FeBMdu6eVcVqX/qatRdy77+gn1t28
-         pr3ZJH6p0J62kW32d+tHDLRyOhkmZTfuuM3+aI5rapDZserz+Tnrlkf+ZySE48FhYCtr
-         dNzHT8cG7CB++qH1YjPu0SEFSiDn7z2fU4bqPNI6ym0ohv0YhN3m/4v8A/UVzxCO8iXf
-         opoWMkuRstsNVFOQsaGR6flUmhiIQ93WPekU7RlOjR8zRh4AhDkKbI6dkHFA/Ic6uhYI
-         /wvnbtUiVr9xbHNaCoFf+PEN+tG44AJHK0+HlLZ+FMG/tCQsQL/0S+MmOIJyyOU5ARYT
-         GGkQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788950467; x=1789555267;
-        h=content-type:mime-version:references:message-id:in-reply-to:subject
-         :cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=PGN+ybR37+qvtDqf9cFN47582j44el3q/H5/GSGFvrU=;
-        b=DfA6aTKH6ktHdmMlPchryrmw0fkGqeT8dwPhjNZ8/k6GNzyod16yHuodpmX5q8F5O7
-         koTjx25HjXHkwdBjAnd+bCq+hHMn01KtHP9qY+2uZhE3VK8tavCqwI6qo3PEX4dbNChy
-         BUb1Bj0DGBfFPd6GsMTDhLWsLLRuQPtOr+uzPHdHZiTGY/qYrhCh6FQz+hkXLUVBoCLF
-         3beXlu591cAjonULs4FGV0zTaCJ5gltPrFl6cZYkzdrHXJzwLxuPb6dnkoUi3BsqqNYB
-         Ox8zJAOORM8Z34eqQtvBB15n49A7l5IbE+s12A4VA8ibrY3zKXS5T0sQAb+/WEHpwpV0
-         OtKQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxtvIp78ZNhIeYChB0GHCcopwOsWYmVLLEfYaMR5mw6MAnpzecJR52+VYYUEiS5povN6eqz6z3bPxMUmoM=@vger.kernel.org
-X-Gm-Message-State: AFuF++lk0hI6FMkN21eerlEMmrYOVfuLfzQkbYQ5O4XApBhBsZcPMqmP
-	l8J9m09vTjqZKeXHOmJHcSJj/OISbpBh/C+Oqn1wZIHN13IFvwqDz/IqHNB6td1kjQ==
-X-Gm-Gg: AYBFou31PIxe8kRr8uVHmkZYYctEjmIeO9if+bX2CUQt4NX6deDSfqwxmXmW6OMZneP
-	RLYaL5PKJXOs4LiM2+A/QG0CQTcjj+yzWrFaxEN7PDF1L6K0PyXd0iNXBgaViJE8eKvr1KfkF7m
-	g/eNA2LN58jM7EIoamCsz4XeYuHRXgLcjfwld/L/2GfOiqGQB7ulqbt5HrNOVTK2vbRO+Pp8OE1
-	IxuDTn1q8wf+JKYzZyuIgf9z+28UjhnTnjZ93A61pp86/BSraXiyZELyDbMj9k4X6kpOjGWmI11
-	ira/TxWTLuBKdYzV5t71lZ7u5ydslwkJI6c/MhsCBYZUCb+0H5oP816AJe2wf02aJHYREX1WJ64
-	XoUxbUntG2LQ5pB5S6h4TgDF3FB0sbWaG0WXhrO2BD2xX6NyGIc+p7+qsgnn/tO1/uuf4uDOETX
-	XRkTt95nIZiQZM8Bzbrcv9XXaO92oQZHrPYT2nB4FmZ3IvYWUAoDQa/igKLnv7D8xvgRpv+qHCK
-	LA4Zf6A7DRTj13vTA0pQ7wBZ8kS1Ta3pXP7bX4EEELEqhimlRd4BPmrVaQ=
-X-Received: by 2002:a05:690c:e3e8:b0:81e:9826:942c with SMTP id 00721157ae682-8711c7488c4mr132269777b3.0.1788950466181;
-        Wed, 09 Sep 2026 03:41:06 -0700 (PDT)
-Received: from darker.attlocal.net (172-10-233-147.lightspeed.sntcca.sbcglobal.net. [172.10.233.147])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8714ab77c4dsm108323097b3.34.2026.09.09.03.41.01
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 09 Sep 2026 03:41:05 -0700 (PDT)
-Date: Wed, 9 Sep 2026 03:41:01 -0700 (PDT)
-From: Hugh Dickins <hughd@google.com>
-To: Andrew Morton <akpm@linux-foundation.org>
-cc: Ackerley Tng <ackerleytng@google.com>, 
-    Alexander Viro <viro@zeniv.linux.org.uk>, Alexandre Ghiti <alex@ghiti.fr>, 
-    Baolin Wang <baolin.wang@linux.alibaba.com>, 
-    Barry Song <baohua@kernel.org>, Binbin Wu <binbin.wu@linux.intel.com>, 
-    Christian Brauner <brauner@kernel.org>, Christoph Hellwig <hch@lst.de>, 
-    Christoph Lameter <cl@gentwo.org>, 
-    Claudio Imbrenda <imbrenda@linux.ibm.com>, 
-    David Hildenbrand <david@kernel.org>, JP Kobryn <jp.kobryn@linux.dev>, 
-    Jan Kara <jack@suse.cz>, Jens Axboe <axboe@kernel.dk>, 
-    Johannes Weiner <hannes@cmpxchg.org>, Kairui Song <ryncsn@gmail.com>, 
-    Kiryl Shutsemau <kas@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
-    Leonardo Bras <leobras.c@gmail.com>, Lorenzo Stoakes <ljs@kernel.org>, 
-    Marcelo Tosatti <mtosatti@redhat.com>, 
-    Matthew Wilcox <willy@infradead.org>, 
-    Mel Gorman <mgorman@techsingularity.net>, 
-    Miaohe Lin <linmiaohe@huawei.com>, Michal Hocko <mhocko@suse.com>, 
-    Minchan Kim <minchan@kernel.org>, Muchun Song <muchun.song@linux.dev>, 
-    Oscar Salvador <osalvador@suse.de>, Peter Zijlstra <peterz@infradead.org>, 
-    Qi Zheng <qi.zheng@linux.dev>, Rik van Riel <riel@surriel.com>, 
-    Sebastian Andrzej Siewior <bigeasy@linutronix.de>, 
-    Shakeel Butt <shakeel.butt@linux.dev>, 
-    Suren Baghdasaryan <surenb@google.com>, 
-    Vlastimil Babka <vbabka@kernel.org>, 
-    Yang Shi <yang@os.amperecomputing.com>, Yu Zhao <yuzhao@google.com>, 
-    Zach O'Keefe <zokeefe@google.com>, Zi Yan <ziy@nvidia.com>, 
-    linux-block@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
-    linux-kernel@vger.kernel.org, linux-mm@kvack.org
-Subject: [PATCH v2 27/26] mm/fbatch: paranoid folio vmstats in
- folio_batch_move_lru()
-In-Reply-To: <e28f9a94-4339-f8ac-8301-6be3c9b5b7ce@google.com>
-Message-ID: <f86f8e55-3f07-fc87-c64f-f34a3be9a013@google.com>
-References: <e28f9a94-4339-f8ac-8301-6be3c9b5b7ce@google.com>
+	dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b="JbHeijJI";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="UHhPoVte"
+Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
+	by mailflow.phl.internal (Postfix) with ESMTP id 683B913800A7;
+	Wed,  9 Sep 2026 06:41:46 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-01.internal (MEProxy); Wed, 09 Sep 2026 06:41:46 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shutemov.name;
+	 h=cc:cc:content-type:content-type:date:date:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:subject:subject:to:to; s=fm2; t=1788950506; x=
+	1788957706; bh=kqIFoqRiMmH6sRALWBOwhvDCg+hj0QAMm7L7tYbgZ8Q=; b=J
+	bHeijJI8JDTm2/zSH/YR/bRwHqLWQtfEINyG98w7ojO91ZDFr0EgQPEgivHZ+ucu
+	sZ6bb8jsQy/iH1D14wd212njyBe0oDLekefyr91l7N3hDysIHIDjCGfrk1O0wDF9
+	1bIxhbwvtRVRg7cjm1dCqJoILxbvl/ZnQLjsSwnSdgMOr49AxZAb+xSDiCloNjiX
+	4KOKdmL+SoZCiavKfr+Si3ypsY+1nIh7Vm3+nCqdWuNU0T8iN5+4pta6DKrWPQhF
+	x2bVqO7H70TnLcPcWSoiXJmmJIk1LpQG+AM+RUm5riGJOAFcqQMlb9Pqhd6ESlK7
+	5ucqVuVeVS0m1QUSLbUuA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
+	1788950506; x=1788957706; bh=kqIFoqRiMmH6sRALWBOwhvDCg+hj0QAMm7L
+	7tYbgZ8Q=; b=UHhPoVteWjrexluIKwxpq7gHRP0Yn+xrFc4oCt4es9DSZe6/Dmn
+	qZIaERihWm53WQzrF0jT4be0tN+CUWbpOgFMfSfp8k5J+Aqk7YkNacFf67JdVPRx
+	SFjcVGgS6ZIgtHlN1FKtyGxnyvm8lM+0GbZM8P5Y2tyUGlxd+/oxHwaohqcSqfUp
+	Zj6rG8Z31iw7EEfxR7/jfm8bgAD5XLm8zo/I/+gkdoQY8ipnaQVpF7ylJLbxz7p6
+	XBjmvNViWt6breEaFMyjJ5ah0XjA3Q83LBqUomh6dMy/ZwslsCww2axV6Uua21PJ
+	N9BXadM+plZ9X8B2MHwc/msFIKxhlmoYd2A==
+X-ME-Sender: <xms:6jehasVffBFtqSzdA-ZyeOR8gTnGoBU6FWOZV-RQ5snrsX8IPlLC6g>
+    <xme:6jehahTR4zRa-1HpMXSlRSchSB4v6RAeWyayWueVM1xBZPoUl73ljU_0qVgtcvGjW
+    WD1xNSp5RpcPFDGidq6G90VZDpp11bvtYX6BgDGKW99aZlC4VN5X8KW>
+X-ME-Received: <xmr:6jehardkP3jo5HCLH9-rLNYN-9t2nbkdQRSZIu5utqsQ3k4sigEIGrk2L8g>
+X-ME-Proxy-Cause: dmFkZTFtLjv8RYkaq2KOBNDHIDm+JOFoDRz/txBIRtvLfi3jajWftiquSrS7lUz15GDtJw
+    ZOsPoBToNQmmrpwX9wEG/IMwctc1l1Wf1Y2SedqlX3vPWZtcpN5ewOiZ61MuL9Ij4Jnfx3
+    U9v//DrA1CcVS1qE5MG3ShUl2XBgF8Qcaew1nccOXf0rTqAbaAiI2JpvLYyias9OwsKlYG
+    VsbABRmlg2uz3Pv/UHBh4lrmI6JV5VXme4xVA5YQBUZhmlvB7ncMW5ab4sZ0wqYH1bm2TG
+    S1/fVkqzOlhjLLx9BGdAp6Bq3hZ1WVQpTicAaqDxCw8vjzBNsONxFItyag/hXfw8lVx4OO
+    EiWQctQ3P/1Yxu6/5y8fw3oYORhYCFJKG6DuEYt7dJ8btnp38IOAxjWJEsurEK1fRBek0z
+    ztzCjw68d0x2f36ktxCo0MhQGeLaMCNx/gnQZF52aQ8Mlx7YP3RWYVxcqzwqEIruKp/zkF
+    OKkmxSrqWuyobb75H+1KOeuVk3n10uFTmMkhcoY3ib9x8bjUSyKMCt48MsCUTKF88VrEbk
+    L12cdYBGh4TpHzQ0zzKmgMpY9yBvNv5Zaq5OmRtGLRP2Ix1M3m59F39F/Y+4MYV8XTZ9bn
+    hsVdaxTOrKaXZ1VaovGzC6NjKoo2QHgQBevaHeGpILmvpfm15tFUza/k7rew
+X-ME-Proxy: <xmx:6jeharUd_xRCJamGUgRjyUgpu--FkUIIlnru2pddbGp75Le0XK8_Jg>
+    <xmx:6jehapjNfpB6y9Ak3NdphzJu_O1Eas3uMOK7ZjRRPRVkRWRk9Zxm4w>
+    <xmx:6jehahElGdLuV2jqcuOx_gXtqlTde3Z6vk8rtmoSQyCqfUbhgJRDFw>
+    <xmx:6jehanIyyuhe4fiUxZMxKtcHZR9pz6Y96OV3YvNzTXBwnPusel_zTw>
+    <xmx:6jehannmD6nV_zLTPVSsU0c6aTkow2pnkoJVt7vFCaWM-ftkK-ZceVkh>
+Feedback-ID: ie3994620:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 9 Sep 2026 06:41:45 -0400 (EDT)
+Date: Wed, 9 Sep 2026 11:41:44 +0100
+From: Kiryl Shutsemau <kirill@shutemov.name>
+To: Baolin Wang <baolin.wang@linux.alibaba.com>
+Cc: akpm@linux-foundation.org, david@kernel.org, ljs@kernel.org, 
+	rppt@kernel.org, linux-mm@kvack.org, linux-kselftest@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, usama.anjum@arm.com, usama.arif@linux.dev, nico.pache@linux.dev, 
+	ziy@nvidia.com, baohua@kernel.org, dev.jain@arm.com, hughd@google.com, 
+	lance.yang@linux.dev, liam@infradead.org, mhocko@suse.com, ryan.roberts@arm.com, 
+	shuah@kernel.org, surenb@google.com, vbabka@kernel.org, agordeev@linux.ibm.com, 
+	jgg@ziepe.ca, leon@kernel.org, kernel-team@meta.com
+Subject: Re: [PATCH v5 06/19] selftests/mm: stop khugepaged during the
+ MADV_COLLAPSE cases
+Message-ID: <aqE3Vq8Go01c1icS@thinkstation>
+References: <20260908125105.1510704-1-kirill@shutemov.name>
+ <20260908125105.1510704-7-kirill@shutemov.name>
+ <4e064b9d-aea9-485a-8547-3830999cff01@linux.alibaba.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <4e064b9d-aea9-485a-8547-3830999cff01@linux.alibaba.com>
 
-Save mapping and index when adding folio to per-cpu fbatch, check them
-when draining the fbatch, show folio counts at the end of /proc/vmstat
-when CONFIG_DEBUG_VM=y.
+On Wed, Sep 09, 2026 at 05:55:01PM +0800, Baolin Wang wrote:
+> 
+> 
+> On 9/8/26 8:50 PM, Kiryl Shutsemau wrote:
+> > From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
+> > 
+> > __madvise_collapse() turns THP off before each MADV_COLLAPSE, both to keep
+> > khugepaged out of the range and to prove MADV_COLLAPSE ignores the setting.
+> > It clears the global controls only, which is no longer enough.  A per-order
+> > control overrides them, and -s, which makes the cases fault in folios of
+> > one order, leaves that order's control at "always".  khugepaged then
+> > collapses the very range the case is working on, and the case fails on a
+> > collapse that was interfered with rather than refused.
+> 
+> Right. So I think the correct fix tag is b7f16963efe7 ("mm/khugepaged: run
+> khugepaged for all orders"), because before this commit, khugepaged would
+> not try to collapse this range since it only checked whether the PMD order
+> was suitable for collapse.
 
-This is a work-in-progress hack, not intended for kernel release:
-hence the 27/26 leaving it out of the series; but a useful framework
-for study and reassurance on stale fbatch entries.
+Agreed.  The series is in mm-new already; if a respin is needed I will use
+that tag.
 
-Could be extended to the mlock_fbatch, but probably nothing new to learn
-there. May be more useful if separate stats kept for the lru_add fbatch
-and (together) the other four - their characteristics are different.
+> > @@ -547,9 +547,16 @@ static void __madvise_collapse(const char *msg, char *p, int nr_hpages,
+> >   	/*
+> >   	 * Prevent khugepaged interference and tests that MADV_COLLAPSE
+> >   	 * ignores /sys/kernel/mm/transparent_hugepage/enabled
+> > +	 *
+> > +	 * "inherit" rather than "never" so that MADV_COLLAPSE on shmem still
+> > +	 * finds an order to build.
+> >   	 */
+> >   	settings.thp_enabled = THP_NEVER;
+> >   	settings.shmem_enabled = SHMEM_NEVER;
+> > +	for (i = 0; i < NR_ORDERS; i++) {
+> > +		settings.hugepages[i].enabled = THP_INHERIT;
+> > +		settings.shmem_hugepages[i].enabled = SHMEM_INHERIT;
+> > +	}
+> 
+> This looks like a workaround to me. Shouldn't we fix this in shmem instead?
 
-Needs refinement: the current numbers raise more questions than give
-answers. The folio_hoisted, folio_changed, folio_already numbers mostly
-record nothing worse than LRU-eligible folio pages getting freed before
-drain, and soon recycled for fresh LRU-eligible folios: no harm there;
-but these stats do not verify that.
+Good point.
 
-For example, after hours of kernel builds on tmpfs while swapping:
+It can be a follow-up patch.  Do you want to make a proper shmem.c fix
+and update the selftest along with it?
 
-folio_not_got 65750323
-folio_off_lru 357827
-folio_hoisted 10458363
-folio_matched 2888574439
-folio_swapped 113626282
-folio_changed 11558942
-folio_already 12717475
-folio_skipped 705
-
-Signed-off-by: Hugh Dickins <hughd@google.com>
----
- include/linux/vm_event_item.h |  10 ++++
- mm/folio.c                    | 101 +++++++++++++++++++++++++++++++---
- mm/vmstat.c                   |  10 ++++
- 3 files changed, 112 insertions(+), 9 deletions(-)
-
-diff --git a/include/linux/vm_event_item.h b/include/linux/vm_event_item.h
-index 2628ccda076a..4572463fb65f 100644
---- a/include/linux/vm_event_item.h
-+++ b/include/linux/vm_event_item.h
-@@ -179,6 +179,16 @@ enum vm_event_item { PGPGIN, PGPGOUT, PSWPIN, PSWPOUT,
- 		NRSWPIN,
- 		NRSWPOUT,
- #endif /* CONFIG_SWAP */
-+#ifdef CONFIG_DEBUG_VM
-+		FOLIO_NOT_GOT,
-+		FOLIO_OFF_LRU,
-+		FOLIO_HOISTED,
-+		FOLIO_MATCHED,
-+		FOLIO_SWAPPED,
-+		FOLIO_CHANGED,
-+		FOLIO_ALREADY,
-+		FOLIO_SKIPPED,
-+#endif /* CONFIG_DEBUG_VM */
- 		NR_VM_EVENT_ITEMS
- };
- 
-diff --git a/mm/folio.c b/mm/folio.c
-index 7c545e4c090d..9f0cb755595a 100644
---- a/mm/folio.c
-+++ b/mm/folio.c
-@@ -40,19 +40,35 @@
- #define CREATE_TRACE_POINTS
- #include <trace/events/pagemap.h>
- 
-+#ifdef CONFIG_DEBUG_VM
-+#define PARANOID_SIZE FOLIO_BATCH_SIZE
-+#else
-+#define PARANOID_SIZE 0
-+#endif
-+
-+struct mapix {
-+	struct address_space *mapping;
-+	pgoff_t index;
-+};
-+
- struct cpu_fbatches {
- 	/*
--	 * The following folio batches are grouped together because they are protected
--	 * by disabling preemption (and interrupts remain enabled).
-+	 * The following folio batches are grouped together because they are
-+	 * protected by disabling preemption (and interrupts remain enabled).
- 	 */
- 	local_lock_t lock;
- 	struct folio_batch lru_add;
-+	struct mapix mapix0[PARANOID_SIZE];
- 	struct folio_batch lru_activate;
-+	struct mapix mapix1[PARANOID_SIZE];
- 	struct folio_batch lru_deactivate_file;
-+	struct mapix mapix2[PARANOID_SIZE];
- 	struct folio_batch lru_deactivate;
-+	struct mapix mapix3[PARANOID_SIZE];
- 	/* Protecting the following batches which require disabling interrupts */
- 	local_lock_t lock_irq;
- 	struct folio_batch lru_move_tail;
-+	struct mapix mapix4[PARANOID_SIZE];
- };
- 
- static DEFINE_PER_CPU(struct cpu_fbatches, cpu_fbatches) = {
-@@ -60,6 +76,57 @@ static DEFINE_PER_CPU(struct cpu_fbatches, cpu_fbatches) = {
- 	.lock_irq = INIT_LOCAL_LOCK(lock_irq),
- };
- 
-+#if PARANOID_SIZE
-+static void paranoid_count(enum vm_event_item folio_counter)
-+{
-+	count_vm_event(folio_counter);
-+}
-+
-+static void paranoid_save_mapix(struct folio_batch *fbatch)
-+{
-+	int i = fbatch->nr - 1;	/* folio has just been added */
-+	struct mapix *mapix;
-+
-+	mapix = (struct mapix *)(fbatch->folios + ARRAY_SIZE(fbatch->folios));
-+	mapix += i;
-+	mapix->mapping = fbatch->folios[i]->mapping;
-+	mapix->index = fbatch->folios[i]->index;
-+}
-+
-+static void paranoid_check_mapix(struct folio_batch *fbatch, int i)
-+{
-+	struct folio *folio = fbatch->folios[i];
-+	enum vm_event_item folio_counter;
-+	struct mapix *mapix;
-+	unsigned long lru_next = READ_ONCE(folio->lru_next);
-+
-+	if (lru_next & BIT(LRU_NEXT_BATCHED)) {
-+		lru_next ^= (unsigned long)&fbatch->folios[i];
-+		if (lru_next & ~(BIT(NR_LRU_NEXT_FLAGS) - 1))
-+			paranoid_count(FOLIO_HOISTED);
-+	}
-+
-+	mapix = (struct mapix *)(fbatch->folios + ARRAY_SIZE(fbatch->folios));
-+	mapix += i;
-+	if (folio->mapping == mapix->mapping && folio->index == mapix->index) {
-+		folio_counter = FOLIO_MATCHED;
-+	} else if (!folio->mapping || !mapix->mapping) {
-+		/* Truncated? Swapcache? Needs more cleverness */
-+		if (folio->index == mapix->index)
-+			folio_counter = FOLIO_MATCHED;
-+		else
-+			folio_counter = FOLIO_SWAPPED;
-+	} else {
-+		folio_counter = FOLIO_CHANGED;
-+	}
-+	paranoid_count(folio_counter);
-+}
-+#else
-+static void paranoid_count(int event) { }
-+static void paranoid_save_mapix(struct folio_batch *fbatch) { }
-+static void paranoid_check_mapix(struct folio_batch *fbatch, int i) { }
-+#endif
-+
- static void __page_cache_release(struct folio *folio, struct lruvec **lruvecp,
- 		unsigned long *flagsp)
- {
-@@ -135,22 +202,32 @@ static void folio_batch_move_lru(struct folio_batch *fbatch, move_fn_t move_fn)
- 	for (i = 0; i < folio_batch_count(fbatch); i++) {
- 		struct folio *folio = fbatch->folios[i];
- 
--		if (!folio_try_get(folio))
-+		if (!folio_try_get(folio)) {
-+			paranoid_count(FOLIO_NOT_GOT);
- 			continue;
-+		}
- 
--		if (!folio_test_clear_lru(folio))
-+		if (!folio_test_clear_lru(folio)) {
-+			paranoid_count(FOLIO_OFF_LRU);
- 			goto restored_lru;
-+		}
-+
-+		paranoid_check_mapix(fbatch, i);
- 
- 		/* Do not add to LRU if it has already been added */
--		if (move_fn == lru_add && !lru_add_del_folio(folio))
-+		if (move_fn == lru_add && !lru_add_del_folio(folio)) {
-+			paranoid_count(FOLIO_ALREADY);
- 			goto restore_lru;
-+		}
- 
- 		folio_lruvec_relock_irqsave(folio, &lruvec, &flags);
- 		move_fn(lruvec, folio);
- 
- 		/* Do add to LRU if not already there (move_fn skipped) */
--		if (lru_add_del_folio(folio))
-+		if (lru_add_del_folio(folio)) {
- 			lruvec_add_folio(lruvec, folio);
-+			paranoid_count(FOLIO_SKIPPED);
-+		}
- restore_lru:
- 		folio_set_lru(folio);
- 		/* See mm/vmscan.c move_folios_to_lru() comment on ordering */
-@@ -176,16 +253,21 @@ static void folio_batch_move_lru(struct folio_batch *fbatch, move_fn_t move_fn)
- static void __folio_batch_add_and_move(struct folio_batch __percpu *fbatch,
- 		struct folio *folio, move_fn_t move_fn, bool disable_irq)
- {
-+	struct folio_batch *cpu_fbatch;
- 	unsigned long flags;
-+	bool full;
- 
- 	if (disable_irq)
- 		local_lock_irqsave(&cpu_fbatches.lock_irq, flags);
- 	else
- 		local_lock(&cpu_fbatches.lock);
- 
--	if (!folio_batch_add(this_cpu_ptr(fbatch), folio) ||
--			!folio_may_be_lru_cached(folio))
--		folio_batch_move_lru(this_cpu_ptr(fbatch), move_fn);
-+	cpu_fbatch = this_cpu_ptr(fbatch);
-+	full = !folio_batch_add(cpu_fbatch, folio);
-+	paranoid_save_mapix(cpu_fbatch);
-+
-+	if (full || !folio_may_be_lru_cached(folio))
-+		folio_batch_move_lru(cpu_fbatch, move_fn);
- 
- 	if (disable_irq)
- 		local_unlock_irqrestore(&cpu_fbatches.lock_irq, flags);
-@@ -440,6 +522,7 @@ void __folio_add_lru(struct folio *folio, bool mlockit)
- 	}
- 
- 	full = !folio_batch_add(fbatch, folio);
-+	paranoid_save_mapix(fbatch);
- 
- 	/* Ensure folio->lru_next visible to folio_test_clear_lru() callers */
- 	smp_mb__before_atomic();
-diff --git a/mm/vmstat.c b/mm/vmstat.c
-index d66cb67f55ce..cc61ac10782a 100644
---- a/mm/vmstat.c
-+++ b/mm/vmstat.c
-@@ -1507,6 +1507,16 @@ const char * const vmstat_text[] = {
- 	[I(NRSWPIN)]				= "nrswpin",
- 	[I(NRSWPOUT)]				= "nrswpout",
- #endif /* CONFIG_SWAP */
-+#ifdef CONFIG_DEBUG_VM
-+	[I(FOLIO_NOT_GOT)]			= "folio_not_got",
-+	[I(FOLIO_OFF_LRU)]			= "folio_off_lru",
-+	[I(FOLIO_HOISTED)]			= "folio_hoisted",
-+	[I(FOLIO_MATCHED)]			= "folio_matched",
-+	[I(FOLIO_SWAPPED)]			= "folio_swapped",
-+	[I(FOLIO_CHANGED)]			= "folio_changed",
-+	[I(FOLIO_ALREADY)]			= "folio_already",
-+	[I(FOLIO_SKIPPED)]			= "folio_skipped",
-+#endif /* CONFIG_DEBUG_VM */
- #undef I
- #endif /* CONFIG_VM_EVENT_COUNTERS */
- };
 -- 
-2.51.0
-
+  Kiryl Shutsemau / Kirill A. Shutemov
