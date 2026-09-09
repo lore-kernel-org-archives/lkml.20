@@ -1,64 +1,64 @@
-Received: from mail-lf1-f53.google.com (mail-lf1-f53.google.com [209.85.167.53])
+Received: from mail-lf1-f41.google.com (mail-lf1-f41.google.com [209.85.167.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0CA452ED40
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 23:48:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C814D4F6484
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 23:48:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788997708; cv=none; b=W1PTk9LG2ZSq5hFWhS/qdz2cxVJfJTBgSfjmfAe9aokrImrAUGt/sUxGvSC52eljcz9XNgPNeHsOSCHb9VJPO6Cemmu8zGVRCoWUSStj/EI/MUtOgIfL7NMamdMytToqbBhE//+7asoFWK66B0JlII0ILUsBw/v5NnyS1fLov6k=
+	t=1788997711; cv=none; b=sdnODTkPmC2u9KYGd8jJkUmjCPOb6NBAtLb+Rh/Yvy09oSNZQZsszdhODS7RQY8ijIvi4sjtJSR4HPwitbPMcqS8i8Oro0/R1wfuZql5oWGo44XGBhFP0cMk9SdCabO/l0Ha4xyKOlEdzmRvJngZLa28GGxkhAjBhK+LIQ8nyRU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788997708; c=relaxed/simple;
-	bh=G+K6yZL86J94n5ErSMRjznPkkKACsHzlBBj5w8KooVs=;
+	s=arc-20240116; t=1788997711; c=relaxed/simple;
+	bh=fA3I9xtvhB2RFdS0+NqXtoI/Hzh/Ja6h6i48v0kI9+k=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=cRIj3rfwQ1ws0LF5lZoYhRffWc6VC8u/j6e6JSlHzms1Bj5QUElaH8qhQz9mnJ+93Xxhp99m+xj3yrAay5n+OdhUxJQRjO9WoBhtdlTgEvt+HDUCtVUGZ0gdZ8xzf0ShheIlF3zmd4MBuqOeBH2vwdqvw9FXZlXKypxcDGrKuFE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=tBWGWRYY; arc=none smtp.client-ip=209.85.167.53
+	 MIME-Version; b=T61metYthtHe6lLE/rDFpayN7ZcLsRKeLqaHFY9ZWdVE9H6hCAVsuIFCKKmORuipHEZT5Weav7tNdKBSCjqypmkWlAW+d7efxhVWXGGn66qJ6iARAAezdqdJS6mp5+1AUK8gXwEIpsjzASPE/Dftzovw6QiF2XZCuodSa8Rh9+s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GrFBY17f; arc=none smtp.client-ip=209.85.167.41
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="tBWGWRYY"
-Received: by mail-lf1-f53.google.com with SMTP id 2adb3069b0e04-5b6031cbc6bso273637e87.1
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 16:48:26 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GrFBY17f"
+Received: by mail-lf1-f41.google.com with SMTP id 2adb3069b0e04-5b7674fcb26so1351988e87.3
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 16:48:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788997705; x=1789602505; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788997708; x=1789602508; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=P8Y4b3ddmCAFwqmVgH5ZGdYAfFuI96RtEoGFK9BOGP0=;
-        b=tBWGWRYYjJrE6BZxUBY1ZqCaDY8qPibbPSdnmZO8I695Qw+OxAbU4ITco3cGxJcgbM
-         w5TgdA3xXk470bY1UDsinzI2yV9PB7UboB9p5e+Yv6qpH7Dfbwii8M64M3fKe+eJl2gH
-         FO/7SMdpuZWEIodXA92XrEuE9P5QPMhQzS/GXm7B/79TnPfOG2hufsprcHEmhq2QnmNs
-         CwmppdIeP44grH5v5gpKMu4I8pNDRKqJfmRqru+SVYFdRWtxjEzwDoKKBsPj0MLuvnOw
-         qkQH2mTgMofQ+IYZLsd2IRtXwkeUIoUeDuVBzUhXqTlLKtXZVuK9AMeCDCoumPtYmNTs
-         caCQ==
+        bh=oljMkHqtrrFXTraD37aMs/be+Y8zIyNb8eBw0a0WIP0=;
+        b=GrFBY17fO4WpCgAhDbuX5h7lIK/3/vK719iYcHz7vcQFWio0rxuZB62sbKu57gOVsH
+         +1LbfVqJb7ZtTMjzWIvqoNIb2ZRPLAcEwzM8Us6OMACX5Rz/a7XFOJeEvjdE0F358Euj
+         UMVcsiqrTDtc+9NwMfoUqSjT44VSqPSUuDoWnDRBTPlFy0hcFia6S5MdnySFCIdF3tWd
+         iTRZrbw/5J8phRedP4xmkxinzu/AaXNSPtDwZgXRvlXRlrlPzFu/JUtrAjDh7DBOddbR
+         xGa0jDWn+lAC1ugAddHEEvSr+IhUwhuLrTAoimn+EIe8vEdqFZZqL0593DITcdMk7QEU
+         8IzQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788997705; x=1789602505;
+        d=1e100.net; s=20251104; t=1788997708; x=1789602508;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=P8Y4b3ddmCAFwqmVgH5ZGdYAfFuI96RtEoGFK9BOGP0=;
-        b=tAkVohkyD+hpUnND+1oHhWsJNxgnVBdLhqlLIpoyXdOOsm1+gKfikacMUi0JMs+wTf
-         9unajH7ls84i2Hh5roXlfdWpd3vrqDeDyDDvCfr3aUlwk3wxcUsXIvbx/PY/ldq61Kke
-         E91jBgFm4bLfdqkdD843kJQno2Qeexl0py/Go680OXb1NJ3MRygxePrAEtCY+5vZPgb+
-         YR0V0blaLyCnGKr5Ewqltu89rLcgq59S6aLeT090dRhlc1HxPxdS8co0XF/W7YCa7PF7
-         PM+AhGlH5i+1L0BEV9Ml12cgGs1RcSbYiUgYzCLK2TOLDdtcfjnXbLt2RkFmqW/Tpu+h
-         k05g==
-X-Forwarded-Encrypted: i=1; AKwUvBzNtjj/hjPf2I5Xs5qbxkS7G1rNkwC1D9YA6QPX30Rhx5KMnU22pj1jV6HkbVQDwQ7fX8qhW/gKMHIpKGs=@vger.kernel.org
-X-Gm-Message-State: AFuF++k8t/cASS2mrHxrS+8iNQPHLX12b0Vaem5buIiA2eqrd/aMX23l
-	HFsAp6at2+W5/3kvfVoX5UfT4z3BWu9E1KzhvlXXET322R3p1LGy7Le1
-X-Gm-Gg: AYBFou3HnABPr+ljjnMW85ekQpG3N6tKXRlB15vr1lGmptEM0plG2EcP5C0ztexU+EZ
-	El2/wICnlDUPFMCaCM16Xig66kQR9l+uIHaMD5lPk+LciTHK/jFSrOCoy2mavVOvqbX96YlXln7
-	liVK5w3ZlF7JjVYQk61IeBkKjsQhBeunTpG0Uss8AH7uISJDH10+Fvs2Kim69xjx2IpJNS1y6nL
-	jp6wU7Kp3xqrtCJxqiLjIPW3Mb1PIkDTuFzbHhylzTSrZKrwrC6HImxridGyKHrTCFNWAn7q5V3
-	QlGc5OfTKdIPDEfj83DW5xT/QRaAsQPohq+GltbM+wG1RfHZ4fpT2EvCGBQTp9dd2shw5lZw0Dp
-	bI6imvxmGghzhtXRAOIetmqoXNhZJz8Aavi8srPD9Ewd4R4oXZW+1m/9rBg0ETjwB75/gC5ubta
-	Fk5WXqeMm/xKDq3u20Ty+UkG4BDnXMLubmOdxp+wyBWCgtVP1FQjmVEsJQpHGi9+3Stnl59HX4r
-	difeCmCAe8N74yRduYd3Qxl+XafPJUp6Zv0n5h5
-X-Received: by 2002:a05:6512:3b85:b0:5b6:1a7c:59cd with SMTP id 2adb3069b0e04-5b61a7c5a4fmr6010294e87.39.1788997704650;
-        Wed, 09 Sep 2026 16:48:24 -0700 (PDT)
+        bh=oljMkHqtrrFXTraD37aMs/be+Y8zIyNb8eBw0a0WIP0=;
+        b=YKtp7vTbLYp+y7qMZq+SVhDNLtHcsrRSMiTn90YD4qqtqukPaM86SQNURk9GH9lFiS
+         ygt4ybcc2NPgY1wQtAoW10u8wDHMFrRD3vVXZMaM0ccVGIFflU7litkTf5bYFvVL4wIx
+         vdismqrt3PnBTAl/A3A/dghKSJUsmQug+wO69KYWCbkHrbD7jFYbD386t09qj8dw6/JP
+         36dCRlvvC0QYfY4R/auWdbEawoO9NYwfJHf0uWrHSWbcqmYG77d4aR078XUUX7tdkYXq
+         jQeCHQGw51RcTXYFgSjDEy/2o14ZDIB+JxZdkcsksWDnQHov8qj4IHuUseTiqB6NmPhO
+         zcsg==
+X-Forwarded-Encrypted: i=1; AKwUvByZ9KK+8elqavgpNMv42PihMXj0EYo43Kg8c0wWM6OeSpYaMUCx94A3b+FbhN2oxiqnfmjwS80lIjrErUU=@vger.kernel.org
+X-Gm-Message-State: AFuF++lBwrjk/KnkIg81LT2QFqyF3QJ1uRjy9Z9xcaGWP/3ffXXYjGd0
+	D6uRuCTUTbgcIuwWCxRVR+qgYckJI/2vUV4q9k5sTC12vFdl0VyIlNsD
+X-Gm-Gg: AYBFou3UuUmoqHiwc/0Bf//eXVmVJgmM3pvtetp904uCoIaNrFgtjIkaokyn88l5IH7
+	Izs3KISUDK10lxU8QotV7cRKaOYcvhUVcDvEIPOIqhH/0uFgn7aUrok7hDdlxe8t19E4pbI1mxt
+	jE71So0OkPLqG5YaL2T3uvB6Z4+PVElAyBuAjODrVBuScsMbp0kasUT5IuriHpXSf9uWkckzjQN
+	kEnQKe8PQRpHf7rwWzPS3u4cQKypY3qBdIh0PmeRxeWA6zy0b6kdjGl9HpUaor6uDnnxNX+kh8T
+	87MSclRXsfOVRPHJyM/h3vuBvFOzwCnzjS6zkCbn1ElRh4mRPipQgsOX78W/jpd/upK0sPG6+sw
+	o2Y7XLX0w6gvDIsNENM/kAlHc4uNdlHwKyKyxtG1dn72cJl/VJpUWNwKX04Ex/F4hLQnOIYfpdN
+	k6iJ6KiUTVVsHYQP98D0cVXJyCA28IK4IriD9gPFTYeAg/iF8/ps8kk1IAfwp+qiDJfmkazXLJi
+	YfA2uPXzaoxQ+W8+dcukI+uQJ48S7vfFPiLKrQb
+X-Received: by 2002:a05:6512:2511:b0:5b5:e0e8:534a with SMTP id 2adb3069b0e04-5b616ee98abmr6539579e87.1.1788997707687;
+        Wed, 09 Sep 2026 16:48:27 -0700 (PDT)
 Received: from notebook ([93.189.200.242])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b6166ed4cesm4153300e87.26.2026.09.09.16.48.21
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b6166ed4cesm4153300e87.26.2026.09.09.16.48.24
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 09 Sep 2026 16:48:23 -0700 (PDT)
+        Wed, 09 Sep 2026 16:48:26 -0700 (PDT)
 From: Rinat Muhamedgaliev <rinat.muhamedgaliev@gmail.com>
 To: Bjorn Andersson <andersson@kernel.org>,
 	Konrad Dybcio <konradybcio@kernel.org>,
@@ -74,9 +74,9 @@ Cc: David Heidelberg <david@ixit.cz>,
 	linux-pm@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Rinat Muhamedgaliev <rinat.muhamedgaliev@gmail.com>
-Subject: [PATCH v3 1/3] dt-bindings: power: supply: bq27xxx: add generic compatible
-Date: Thu, 10 Sep 2026 02:47:42 +0300
-Message-ID: <20260909234744.1177153-2-rinat.muhamedgaliev@gmail.com>
+Subject: [PATCH v3 2/3] power: supply: bq27xxx: autodetect bq27411 and bq27541
+Date: Thu, 10 Sep 2026 02:47:43 +0300
+Message-ID: <20260909234744.1177153-3-rinat.muhamedgaliev@gmail.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260909234744.1177153-1-rinat.muhamedgaliev@gmail.com>
 References: <20260829205258.26955-1-rinat.muhamedgaliev@gmail.com>
@@ -89,26 +89,97 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add a generic compatible for I2C fuel gauges whose device type is
-determined at probe time.
+Some replaceable battery packs used by OnePlus 6 and OnePlus 6T
+phones contain a bq27411, while others contain a bq27541. These
+devices require different register maps.
+
+Add support for the generic ti,bq27xxx compatible. At probe time,
+issue the DeviceType control command and select the bq27411 or bq27541
+register map from the returned value.
 
 Signed-off-by: Rinat Muhamedgaliev <rinat.muhamedgaliev@gmail.com>
 ---
- Documentation/devicetree/bindings/power/supply/bq27xxx.yaml | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/power/supply/bq27xxx_battery_i2c.c | 39 ++++++++++++++++++++++
+ 1 file changed, 39 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/power/supply/bq27xxx.yaml b/Documentation/devicetree/bindings/power/supply/bq27xxx.yaml
-index bc05400..f2e0170 100644
---- a/Documentation/devicetree/bindings/power/supply/bq27xxx.yaml
-+++ b/Documentation/devicetree/bindings/power/supply/bq27xxx.yaml
-@@ -21,6 +21,7 @@ properties:
-     enum:
-       - ti,bq27200
-       - ti,bq27210
-+      - ti,bq27xxx
-       - ti,bq27500 # deprecated, use revision specific property below
-       - ti,bq27510 # deprecated, use revision specific property below
-       - ti,bq27520 # deprecated, use revision specific property below
+diff --git a/drivers/power/supply/bq27xxx_battery_i2c.c b/drivers/power/supply/bq27xxx_battery_i2c.c
+index 868e95f..718f8e8 100644
+--- a/drivers/power/supply/bq27xxx_battery_i2c.c
++++ b/drivers/power/supply/bq27xxx_battery_i2c.c
+@@ -16,6 +16,11 @@
+ 
+ static DEFINE_IDA(battery_id);
+ 
++#define BQ27XXX_REG_CTRL		0x00
++#define BQ27XXX_DEVICE_TYPE		0x0001
++#define BQ27411_DEVICE_TYPE		0x0421
++#define BQ27541_DEVICE_TYPE		0x0541
++
+ static irqreturn_t bq27xxx_battery_irq_handler_thread(int irq, void *data)
+ {
+ 	struct bq27xxx_device_info *di = data;
+@@ -153,6 +158,32 @@ static void bq27xxx_battery_i2c_devm_ida_free(void *data)
+ 	ida_free(&battery_id, num);
+ }
+ 
++static int bq27xxx_battery_i2c_detect_chip(struct bq27xxx_device_info *di)
++{
++	int ret;
++
++	ret = di->bus.write(di, BQ27XXX_REG_CTRL, BQ27XXX_DEVICE_TYPE,
++			    false);
++	if (ret < 0)
++		return ret;
++
++	ret = di->bus.read(di, BQ27XXX_REG_CTRL, false);
++	if (ret < 0)
++		return ret;
++
++	switch (ret) {
++	case BQ27411_DEVICE_TYPE:
++		di->chip = BQ27411;
++		return 0;
++	case BQ27541_DEVICE_TYPE:
++		di->chip = BQ27541;
++		return 0;
++	default:
++		dev_err(di->dev, "unsupported device type 0x%04x\n", ret);
++		return -ENODEV;
++	}
++}
++
+ static int bq27xxx_battery_i2c_probe(struct i2c_client *client)
+ {
+ 	const struct i2c_device_id *id = i2c_client_get_device_id(client);
+@@ -188,6 +219,12 @@ static int bq27xxx_battery_i2c_probe(struct i2c_client *client)
+ 	di->bus.read_bulk = bq27xxx_battery_i2c_bulk_read;
+ 	di->bus.write_bulk = bq27xxx_battery_i2c_bulk_write;
+ 
++	if (!di->chip) {
++		ret = bq27xxx_battery_i2c_detect_chip(di);
++		if (ret)
++			return ret;
++	}
++
+ 	ret = bq27xxx_battery_setup(di);
+ 	if (ret)
+ 		return ret;
+@@ -225,6 +262,7 @@ static void bq27xxx_battery_i2c_remove(struct i2c_client *client)
+ }
+ 
+ static const struct i2c_device_id bq27xxx_i2c_id_table[] = {
++	{ "bq27xxx", 0 },
+ 	{ "bq27200", BQ27000 },
+ 	{ "bq27210", BQ27010 },
+ 	{ "bq27500", BQ2750X },
+@@ -262,6 +300,7 @@ MODULE_DEVICE_TABLE(i2c, bq27xxx_i2c_id_table);
+ 
+ #ifdef CONFIG_OF
+ static const struct of_device_id bq27xxx_battery_i2c_of_match_table[] = {
++	{ .compatible = "ti,bq27xxx" },
+ 	{ .compatible = "ti,bq27200" },
+ 	{ .compatible = "ti,bq27210" },
+ 	{ .compatible = "ti,bq27500" },
 -- 
 2.55.0
 
