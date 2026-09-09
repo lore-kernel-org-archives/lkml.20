@@ -1,146 +1,106 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89D6C38D
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 00:03:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 682254086A;
+	Wed,  9 Sep 2026 00:04:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.15
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788912236; cv=none; b=I9idlg0QiV9eEiTY5+DX0oOk2Hs/qOKL0U/J/1nr4dfftb2TucCHM+2uoJIuh94Dxysj2AViH+E4ZYUDXZbQtr/nw4+TTGp8QW3rUXL8ewb3yLE1y1ELilbaF8vUEafGRjMsQW3RTAncX4P1D/20T45qgf4VspJamA0EVUaQdcM=
+	t=1788912274; cv=none; b=efZ/95RrcF0TiUNuX8aO1PqE6D/xqApnQOsGZh9DSRv7FOPQX8iMquhrP3CkeFPHFLg9D2GaTfPlC1PuplIxtQGbog4yLcDnxAarmpHToyy21gcT1kXFGOpzKmdMmCAXo6ixv9952wbtH3QV6ZVrmbAdWefKkmtnoXKSnzoc+l0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788912236; c=relaxed/simple;
-	bh=CwPTlr76puzr5ZS0xZM6k38sY+FZTelUS8ByfQVPVC8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=hmpgkjqvo+A/0LUJi3/0s4CTKc41z2Np9GfFSHCnKBHciPwcojcYOgp3mWMfKhMUOUC4og39J3eQwFpyVidsHv7bMRN8BW6mZL4R8N5A+t9yTbwmSbEJ4gqIAuNUkYvq4c6HYoUf0qtUsldP6BhsqmON1vohDB09dD7aBiSrmZA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=C7dASMif; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1788912274; c=relaxed/simple;
+	bh=LVngz5xrrFG04RTWJfBl9aqLp7qEaRWxEYW9CKyLeE4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=S9aLpWa1ijGD/zQqfoJR5VggAEd0J8j1vMd8OLGvVIjV90RUBaUN5g8gWJn+3QCSqGgGqlLAhIzvp/AIeO/tv9XajgOfXKZCbJnSigiYq5axrW7LHTXzyc/dS7zd1Be+0j9AIV2sQMCxKyhJvQ3m30fc8UcF7boKDHJB6GP1mqg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=UzeamnKy; arc=none smtp.client-ip=198.175.65.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="C7dASMif"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1788912233;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=1cLrURbixXtlb2wRM1cT/S3Lx6AO9OF0zqWiE6UKxos=;
-	b=C7dASMifL4kKE1iaSTzGO18mrtViLYZCJclaJrOOKqxu1kZlwj9JriFVBuKPXXNlcSSkxw
-	fXWpgHUmycdOrWDEs3sKBqnfZFS+tTz5aVOIUczkTDp3qEWlgMYAyKil+qfbql5AoFXNsZ
-	IYd9GNMfYGqWJwsnWuz6mQEbjf43U/s=
-Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-569-Yldw-_4gMreCKkUxrKSRrg-1; Tue,
- 08 Sep 2026 20:03:49 -0400
-X-MC-Unique: Yldw-_4gMreCKkUxrKSRrg-1
-X-Mimecast-MFC-AGG-ID: Yldw-_4gMreCKkUxrKSRrg_1788912228
-Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id E9B1B1955F1D;
-	Wed,  9 Sep 2026 00:03:47 +0000 (UTC)
-Received: from fedora (headnet05.pony-001.prod.iad2.dc.redhat.com [10.2.32.117])
-	by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with SMTP id 03CAB1800347;
-	Wed,  9 Sep 2026 00:03:43 +0000 (UTC)
-Received: by fedora (nbSMTP-1.00) for uid 1000
-	oleg@redhat.com; Wed,  9 Sep 2026 02:03:47 +0200 (CEST)
-Date: Wed, 9 Sep 2026 02:03:42 +0200
-From: Oleg Nesterov <oleg@redhat.com>
-To: Frederic Weisbecker <frederic@kernel.org>
-Cc: Thomas Gleixner <tglx@kernel.org>, LKML <linux-kernel@vger.kernel.org>,
-	"Cc: Hyunwoo Kim" <imv4bel@gmail.com>,
-	Christian Brauner <brauner@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	John Stultz <jstultz@google.com>, Ingo Molnar <mingo@kernel.org>,
-	Alexander Viro <viro@zeniv.linux.org.uk>,
-	"Eric W. Biederman" <ebiederm@xmission.com>, stable@vger.kernel.org
-Subject: Re: [patch V2 1/8] signal: Prevent exec() race
-Message-ID: <aqCiXo-h1F5jsp_N@redhat.com>
-References: <20260905181551.738186850@kernel.org>
- <20260905185839.667208455@kernel.org>
- <ap6urw5aAxrKO3Ck@localhost.localdomain>
- <87ik4h2icz.ffs@fw13>
- <ap8bUiYYwQT1nVg5@pavilion.home>
- <875x0g3de3.ffs@fw13>
- <ap_gOSWtPNjwWS1e@localhost.localdomain>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="UzeamnKy"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788912273; x=1820448273;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=LVngz5xrrFG04RTWJfBl9aqLp7qEaRWxEYW9CKyLeE4=;
+  b=UzeamnKyxS3XfC2hc3M7mlM7iNRkeR00aUQOsnF1Q9G93Sq5C1T8lWAy
+   7uWF3F48UyxSXgwGZ64pxiU2HY/B73x+DdValmC5CpzaGsY6H3YIyBD10
+   yy+g5um44kPuO8brTq2njFX71949uSeEGCNbVV2hlWtI77S30rg21toZK
+   xWY3sgh9qftbDXk8nIunWAmvkvCmZlzaPeISeL9Snbz4x25F0z6UPxMV6
+   OlJulGhx0YajMdY+8m9+sDi/+JUPsSGhRS4CJmq3bcB7ezA/1PzU1BtgL
+   NL3HoMX9roF+LqMiSp5NlKrwxHyJUyeOi53Gw0iF2BeDYzKE8/msoS3OB
+   Q==;
+X-CSE-ConnectionGUID: k7oWBNqMSjq58GZnN+B3Zw==
+X-CSE-MsgGUID: cAq94ggmQku84vmXmuhUKw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11900"; a="93025380"
+X-IronPort-AV: E=Sophos;i="6.25,269,1779174000"; 
+   d="scan'208";a="93025380"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Sep 2026 17:04:32 -0700
+X-CSE-ConnectionGUID: hc3g8ajMSU2qNYGaMEhPrg==
+X-CSE-MsgGUID: H74i50FVRBKXxFiJf8KCOA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,269,1779174000"; 
+   d="scan'208";a="276371222"
+Received: from binbinwu-mobl.ccr.corp.intel.com (HELO [10.124.245.162]) ([10.124.245.162])
+  by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Sep 2026 17:04:28 -0700
+Message-ID: <0d3d90e9-be85-4182-8f05-ffdfa24c0378@linux.intel.com>
+Date: Wed, 9 Sep 2026 08:04:26 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <ap_gOSWtPNjwWS1e@localhost.localdomain>
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 0/4] KVM: TDX: Validate directly configurable CPUID
+ bits
+To: Artem Bityutskiy <dedekind1@gmail.com>
+Cc: linux-kernel@vger.kernel.org, kvm@vger.kernel.org, seanjc@google.com,
+ pbonzini@redhat.com, dave.hansen@linux.intel.com, andrew.cooper3@citrix.com,
+ nik.borisov@suse.com, kas@kernel.org, rick.p.edgecombe@intel.com,
+ xiaoyao.li@intel.com, chao.gao@intel.com
+References: <20260827031837.2863609-1-binbin.wu@linux.intel.com>
+ <1f1877f904d0521100d2ca656fc9f0542c46a68b.camel@gmail.com>
+Content-Language: en-US
+From: Binbin Wu <binbin.wu@linux.intel.com>
+In-Reply-To: <1f1877f904d0521100d2ca656fc9f0542c46a68b.camel@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On 09/08, Frederic Weisbecker wrote:
->
-> Old leader                           Exec'ing New leader     CPU 2
-> -----                                -----                   -----
->
-> WRITE q->next = q
-> WRITE q->prev = q
+On 9/8/2026 5:42 PM, Artem Bityutskiy wrote:
+> Hi Binbin,
+> 
+> On Thu, 2026-08-27 at 11:18 +0800, Binbin Wu wrote:
+>>
+>> Specifically, this series builds a KVM-side allowlist of supported TDX
+>> directly configurable CPUID bits to:
+>>  - Filter KVM_TDX_CAPABILITIES
+>>    Replace the hardcoded denylist to only report configurable bits that
+>>    KVM explicitly supports.
+>>  - Validate KVM_TDX_INIT_VM
+>>    Reject any configurable bit that the TDX module allows but KVM does
+>>    not support, as well as CPUID entries with an unexpected subleaf.
+> 
+> Today's denylist only rejects TSX and WAITPKG. Everything else is allowed.
+> 
+> Obviously, the TDX module allows directly setting virtual CPUID values
+> only for a subset of CPUID leaves, not all of them. So "everything else"
+> above is that subset minus TSX and WAITPKG.
+> 
+> My question is: is there a feature in that "everything else" that
+> causes host state clobbering today?
+> 
+> In other words, does this patch only build the infrastructure for
+> addressing future clobbering issues, or does it also fix a specific
+> bug?
 
-Damn ;) I am shy to suggest this again, but if we have _any_
-concerns about the races with list_del_init()...
+The Denylist works fine today. But the TDX module evolves.
+There are new host state clobbering features coming, e.g. FRED.
 
-The lockless flush_sigqueue_list() doesn't need to it, right?
-So perhaps something like below (on top of this series) to avoid
-the (potential) race explicitly?
+The Denylist based solution is not a clean solution:
+- It couples the feature enabling for normal VMs with TDX tightly.
+- Each time a new feature is added in the denylist, it needs to be backported to old KVM versions
 
-Most probably this change is wrong. And in any case we can do better.
-Just to explain what I mean.
-
-In short, I mean that exit_signals() -> flush path can do
-__sigqueue_free(q) without list_del_init(&q->list).
-
-Yes! I agree in advance that if this change can fix something,
-then it fixes the symptom.
-
-But at the same time, why does flush_sigqueue_list(head) need
-list_del_init() before __sigqueue_free() ? AFAICS only to make
-list_empty(head) == true. This looks confusing to me.
-
-Oh, I am sure I missed something again ;)
-
-Oleg.
----
-
-diff --git a/kernel/signal.c b/kernel/signal.c
-index f93d8f77ec1a..32c344ee4769 100644
---- a/kernel/signal.c
-+++ b/kernel/signal.c
-@@ -457,14 +457,19 @@ static void __sigqueue_free(struct sigqueue *q)
- 	kmem_cache_free(sigqueue_cachep, q);
- }
- 
--static void flush_sigqueue_list(struct list_head *head)
-+static void __flush_sigqueue_list(struct list_head *head)
- {
- 	struct sigqueue *q, *tmp;
- 
--	list_for_each_entry_safe(q, tmp, head, list) {
--		list_del_init(&q->list);
-+	list_for_each_entry_safe(q, tmp, head, list)
- 		__sigqueue_free(q);
--	}
-+}
-+
-+static void flush_sigqueue_list(struct list_head *head)
-+{
-+	LIST_HEAD(flush);
-+	list_splice_init(head, &flush);
-+	__flush_sigqueue_list(&flush);
- }
- 
- void flush_sigqueue(struct sigpending *queue)
-@@ -3196,7 +3201,7 @@ void exit_signals(struct task_struct *tsk)
- 
- 	cgroup_threadgroup_change_end(tsk);
- 
--	flush_sigqueue_list(&sigq_list);
-+	__flush_sigqueue_list(&sigq_list);
- 
- 	/*
- 	 * If group stop has completed, deliver the notification.  This
+> 
+> Thanks!
 
