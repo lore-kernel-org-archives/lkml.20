@@ -1,65 +1,66 @@
 Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55A7F29E10B
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 17:36:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F26C376A0B
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 17:36:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788975371; cv=none; b=dcOe6JyGTajV6foM+xg119e6xosCOxktmjbwxAWdMH8ZtyzZeQr+qdVY+LMtPVyrygOK5IcYgx94BMRE55W9qhemW8FbmH+PoGRaugQpj6uafJpwjE+Nli+5at2K6/fhshruOj4+XMaxcQN9VLrJ4InjXGbzWEYeT5bjSAaJ7yw=
+	t=1788975374; cv=none; b=iw+R0pryHMXjDCMnLXui7jsTnHtTA/tGnQNOIWhB0Wc56qOL5ad0GF1cXQ1aBsjArmXLgSU0iCUzpFknXXtZQUFPycxgDS11NledACTuChr6mckienCXnY60ItKxQyUYTXNRG1JsHDfgKHKUQb3YaSica6NrORW665jTqV5ah1Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788975371; c=relaxed/simple;
-	bh=K5xZwe6BB14FgiUoJeEDcecfAKoT6SnPT8CWcokGDbQ=;
+	s=arc-20240116; t=1788975374; c=relaxed/simple;
+	bh=QzfN7SZAAwtIGC2LBQsPhFsxtdu6e3ajEaPL4hbP/XI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=iVMD6CWN6eb8Bp2E4elMrIHioPxQ9KfhSSwKVerNKzVmrQrZeRrJpGVdYGHRaqjMQxAT+HXSdODi7Dud3jO1jy93xAaLSEPm6Bd5OBLwEGMHvjxGs7vFvnFShhwiBvj+VyXdNH8lUBv5HrEkzzS/Xn6aupbS0rAB+7+/480JUfE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MIfZy6hh; arc=none smtp.client-ip=74.125.225.140
+	 MIME-Version:Content-Type; b=ElZmHHOcm7Djx9bPvjyPUlggmwrorqocFL6CNgI5NjdQR/JzVwbuoxw3uhj+rjPuLwIa0xe/uwNM3pIBZxVPrg31LFXSk7buoyeu/8Qo+b2cUyBkH7LCtmS8HE5d+0tBfKTsZVo66SlCMyvC8AkOeFMwQGXPxlx5hG23WtqeCBc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gB1YxOye; arc=none smtp.client-ip=74.125.225.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MIfZy6hh"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49cfbdac7a1so2458365e9.1
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 10:36:10 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gB1YxOye"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-499db1740f2so2579155e9.3
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 10:36:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788975368; x=1789580168; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=K5xZwe6BB14FgiUoJeEDcecfAKoT6SnPT8CWcokGDbQ=;
-        b=MIfZy6hhcjpCnoTd5xgZOHbx6gtGOkoOg+wVK0s7Irpy/w8eZ3Prvia751OIkGRtX1
-         jV6S3KsvFi6lrOuNs+B/DlNXe9LNBIinyu+GPOnSh3pIBFQnBMTlS8+psE2Msqo6XVlg
-         yA0ngBnHy+5y9EYkfia/5nWgYiUiujOpDwH5naJr1KdiPLdYnCvQhvVkIPhT96H2QM/c
-         BHjVbexAFRgISY+JZyiXx4ezPfODfc1Xlbt8hJ6r5oByIrjYAFbhVrLTX8NLA2855Va1
-         YM0acd3tOtVU7G7+ktpW2rOC3QHAaPWD+loZjhmctR6KhBJ8mRZuyCm9SCaskHPPvTom
-         +ylQ==
+        d=gmail.com; s=20251104; t=1788975370; x=1789580170; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=GcSEJLSb+KPAcWrzfd13cySwpnusQrnIcgjvZmkYhdY=;
+        b=gB1YxOyewpnvzIA0YmrnNSZgFpoB0XVHMz7D2TRETkJEhBeSax5XSsiIX/nmyXESni
+         VWUani2JM4AzQuxe0vXpw2wi6nqNGlIt2Y8YpQ48t4Lee8Fleo5/Lt8GZNPl+UDzieKY
+         iBVlKqoGHsCjxxM2QmPWq0gJQ65S/KV6jsmS56hCdG/BbBWsgfLLy9qZlJFI6HrELYe5
+         O2WuTh5e5z6X0LssGyNQy9CFpnjggzRaXljbyHwXQF8SZeToeGNc0fTYj2nLW7Tiyei1
+         /JhNUqTR6i9uElTRbNjpyQc8PNj5Wqs3wwtIpKCpIVdPYY2OCY8ezKrHOV5Byh9pdWnh
+         6yJA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788975368; x=1789580168;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=K5xZwe6BB14FgiUoJeEDcecfAKoT6SnPT8CWcokGDbQ=;
-        b=VoJS0t1Q878Zx8S+tDfRqXLTu+bkCtALqSUdvjj5pJ6EWVT5g4gpzBnQkFQpMfp1Lm
-         Ql5y/+WbnqukUOE4KiatPZE8E+fO9zj+3nrVd4+h8IL1FrIzagzdq5oKmqA1q+6w/ttt
-         mlwjSIALbCaKPz6k7Dk5ReJAMFwHwaUYVvBeoJqCgi8E8tF8KwDYjAJjRzavK5ljzbJU
-         loxG9L81uU1SWG8RTNPR3Blu/fsEaVNukCvmAKjS/pZ2KYySJkXeFSfkE9NNhorq4vSj
-         brCQFUKRFKxWLQzxhpHXdD7qBaqHrYSNNq4vPgYw16Ed3YHoJgpNLOygu0mD0ZiXITyY
-         uMvg==
-X-Forwarded-Encrypted: i=1; AKwUvByySF6amAiHrE1rYsaqg6oNDVzCUDLs5LgSlinSLQCroda77EB/pce9AMgvr/TqcLSVQCP+RWUHpN15Viw=@vger.kernel.org
-X-Gm-Message-State: AFuF++kDomydSiSt5mnBExM6TMxIg42a8luV75qoxmBTlQr5N5HaVwUD
-	19Iy5OjxSNd10xqXbvLnG/7cSzMBoORkqNg1Qqiob/8MieXN2dCESzK2
-X-Gm-Gg: AYBFou1M+FXFwFk+1YOKefjkCDZzDMjFm7UzL+zwjFBoPPPGwV7vb5bKnbCjI0/Euf5
-	Q8V5u9ljo9eXKw80H87jFzdo8OUSxyAO9RfnBOrgJXgJbkDGwvQDY/3IA4AIju7MQ10Ji1HyiNJ
-	tx3lCbGxhkODwOt3gn53jkiCO142l/qj3SYOk0MRJ2O41nZ5oZgV4XXnF7EUWV0JG/OBj1LWZnl
-	gJkjWLylQX4GD/qk5v+BfxB3F2H1BW3thuY701rE7n5KFU4kaXj2fFk9Mr+Tuo2jbc2E6q7bCMc
-	C3QjjnmLKcnlRXJbpaLEr+jamIw5s6ClalGf7RSNw40ZSwOe8lTcnvsw1+vWJxD6tJtgnA2+kwt
-	KKFRWoWTxq7BQ9OZxILuFOTdJOwcjX0uvNTRU8xWn6SYoQmtaLhst2p4VcQPqpyoGQ3E4f2Cx1L
-	RoYW85piIZRlGIHpSreWRjG3f3r83xz9IbivyDjklKFC1Q1ATLlZsynOqsHzZMIv1zqkB0pKm5c
-	cWVNPzJp3MRBfnEA/5eZ88KZ+iIo1YDQM0Hfv3bYR7SmUfuX8tE6r6LZJxQ+8av3J50UQfEk95u
-	jA==
-X-Received: by 2002:a05:600c:8485:b0:499:5b0f:72b with SMTP id 5b1f17b1804b1-49d01dcc32cmr256409415e9.1.1788975368210;
-        Wed, 09 Sep 2026 10:36:08 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1788975370; x=1789580170;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=GcSEJLSb+KPAcWrzfd13cySwpnusQrnIcgjvZmkYhdY=;
+        b=GGYS1eQAmmWQZaP653fu/AhyMcg8IzJ3AEhXKNNmuWeuqxNZSKQbpWLJiLRyYt+vFo
+         XORAww0TEStWDHWaKFIaTs/eynd3TuIHUrlWuYxJl4lDwMr4igM4PeF34fWjqbALbn3a
+         DZnDB/UN5sA/JGdRRqe9HICEftLW+FmJUSMeRNSt3n+vXXcBc6hAK7O2ZfW1QY9PJTTG
+         4JSk48dY0t8gHJvK+y3T73Lvdevdk+M89RAJaHuoRUm0y3VgJB+6m0pNwXXy8a3rH3C4
+         ruU9ygCb6mxQJ5ZH/sklnaAsr135kRIOQFHVFvOz/Q2xgF6P6Cj/ER578Hy6PXvmYb4W
+         lL4A==
+X-Forwarded-Encrypted: i=1; AKwUvBwE5AS8ozzFIfS4S+dyv+THtPJQnq08HYFbDF1rqjhzBJAobQNo8R4uT5cuFsJXBP2Bg6w58K3S1YcK+5A=@vger.kernel.org
+X-Gm-Message-State: AFuF++lDcmSOHISxwF8eUMelBc88lQkG6dtuvefBZkUzA4lEs3kv3Wov
+	KEb/GWxsNOVfqHWK7a35tbsQ/BitrkHl4YdPi6xgkM1Y4uQKTLDIOa7T
+X-Gm-Gg: AYBFou0I512G47vZ1//XDyHkyYxTS/sw7Nw86kkACMRwoiQXXtb1+oXgNC7Y3IcY/UT
+	nDiaijyvz+yQj5g+p0EDVWGXC019UoaOo9GnOvc8MO7Fsr/M+f6a3MUvluc0V2ZomMwvdinMr8+
+	MTtQl91JYS0wWavNOIa/v/nPupuXzdSXxJBHFZVAISMwqjLJ0RItJA2cl13hkWC/Zry1VwWTkXK
+	fzS+UTnVqt6Fy3k56Sl4p5JJs2fo/MrDcSElxhD/J5lDrpUn7Fkt8vBNYDBaXgFrdo3miHs/UeJ
+	GVRBu17l6J0MEBNLVNQZ584/tBd82EGIGkAoJ4bTtZtEzIEkKbcvSyn5iS42Zb22AkPWhrNz1Nr
+	RIPUvAKbFPEmryNZFVZ/k20mmU03l7a2zhTO4v0dEKRlqpaHE+QmGt7rZhRhWd48A1vNJxxxr+y
+	9Py4CiU4tok9fPMBNykiqrewzd5JAgfHyb+yGokn7dH40dyzhXljJdA77NAnx608pSPkVmU8puA
+	SabCeeOC3+L/tm/nWA9eznjauLL8njWFNpb2mRhAEZE3RTQhk6QAWyqvqOjABllUZCEW9cruq70
+	/9E=
+X-Received: by 2002:a05:600c:35cb:b0:49d:1da4:511b with SMTP id 5b1f17b1804b1-49d1da4515bmr96595615e9.1.1788975370286;
+        Wed, 09 Sep 2026 10:36:10 -0700 (PDT)
 Received: from OrangePi5-Plus.BB-HOME (20014C4E1B836900B0110705BF092680.dsl.pool.telekom.hu. [2001:4c4e:1b83:6900:b011:705:bf09:2680])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49d26c06f04sm6876575e9.13.2026.09.09.10.36.06
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49d26c06f04sm6876575e9.13.2026.09.09.10.36.08
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 09 Sep 2026 10:36:07 -0700 (PDT)
+        Wed, 09 Sep 2026 10:36:09 -0700 (PDT)
 From: Igor Paunovic <royalnet026@gmail.com>
 To: dri-devel@lists.freedesktop.org
 Cc: Igor Paunovic <royalnet026@gmail.com>,
@@ -91,9 +92,9 @@ Cc: Igor Paunovic <royalnet026@gmail.com>,
 	Ville Syrjala <ville.syrjala@linux.intel.com>,
 	Imre Deak <imre.deak@intel.com>,
 	Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-Subject: Re: [PATCH v2 0/3] drm/dp: shared HDR metadata SDP helper, and max bpc for dw-dp
-Date: Wed,  9 Sep 2026 19:35:37 +0200
-Message-ID: <20260909173542.14030-1-royalnet026@gmail.com>
+Subject: [PATCH v2 1/3] drm/dp: Add drm_dp_hdr_metadata_infoframe_sdp_pack()
+Date: Wed,  9 Sep 2026 19:35:38 +0200
+Message-ID: <20260909173542.14030-2-royalnet026@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260909163206.36409-1-royalnet026@gmail.com>
 References: <20260909163206.36409-1-royalnet026@gmail.com>
@@ -103,14 +104,265 @@ List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-The three patches of this series never reached the lists. The mistake
-is mine: when sending, only the cover letter carried the recipients,
-so the patches went to nobody but my own inbox. I noticed while
-checking the archive after the fact.
+i915 packs HDR static metadata into an HDR Metadata InfoFrame SDP
+(DP 1.4a spec, Table 2-100 and Table 2-101) with a driver-private
+helper, intel_dp_hdr_metadata_infoframe_sdp_pack(). Nothing in it is
+i915 specific: it converts a generic struct hdmi_drm_infoframe into a
+generic struct dp_sdp.
 
-Resent below as replies to this cover, byte-identical to what should
-have arrived with it. Sorry for the noise.
+Move it to drm_dp_helper.c as drm_dp_hdr_metadata_infoframe_sdp_pack(),
+next to drm_dp_vsc_sdp_pack(), and convert i915 to the new helper. The
+Synopsys DesignWare DisplayPort bridge driver (dw-dp) needs to send the
+same SDP to support HDR and should not have to duplicate the packing
+code.
 
-Igor
+The helper takes a struct drm_device pointer in place of the i915
+display pointer for its two debug messages, and an i915-specific
+comment about GEN11+ GMP register sizes is dropped. No functional
+change.
+
+Assisted-by: LLM checkpatch
+Signed-off-by: Igor Paunovic <royalnet026@gmail.com>
+Acked-by: Jani Nikula <jani.nikula@intel.com>
+---
+ drivers/gpu/drm/display/drm_dp_helper.c | 88 +++++++++++++++++++++++++
+ drivers/gpu/drm/i915/display/intel_dp.c | 84 +----------------------
+ include/drm/display/drm_dp_helper.h     |  4 ++
+ 3 files changed, 95 insertions(+), 81 deletions(-)
+
+diff --git a/drivers/gpu/drm/display/drm_dp_helper.c b/drivers/gpu/drm/display/drm_dp_helper.c
+index e623ccb4c1d8a..7b80937255fe0 100644
+--- a/drivers/gpu/drm/display/drm_dp_helper.c
++++ b/drivers/gpu/drm/display/drm_dp_helper.c
+@@ -25,6 +25,7 @@
+ #include <linux/dynamic_debug.h>
+ #include <linux/errno.h>
+ #include <linux/export.h>
++#include <linux/hdmi.h>
+ #include <linux/i2c.h>
+ #include <linux/init.h>
+ #include <linux/iopoll.h>
+@@ -3672,6 +3673,93 @@ ssize_t drm_dp_vsc_sdp_pack(const struct drm_dp_vsc_sdp *vsc,
+ }
+ EXPORT_SYMBOL(drm_dp_vsc_sdp_pack);
+ 
++/**
++ * drm_dp_hdr_metadata_infoframe_sdp_pack() - pack HDR Metadata InfoFrame SDP
++ * @dev: DRM device
++ * @drm_infoframe: HDMI DRM infoframe carrying the HDR static metadata
++ * @sdp: valid handle to the generic dp_sdp which will be packed
++ * @size: valid size of the passed sdp handle
++ *
++ * Pack a CTA-861 Dynamic Range and Mastering infoframe into an HDR
++ * Metadata InfoFrame SDP, as defined in DP 1.4a spec, Table 2-100 and
++ * Table 2-101.
++ *
++ * Returns: length of sdp on success and error code on failure
++ */
++ssize_t drm_dp_hdr_metadata_infoframe_sdp_pack(struct drm_device *dev,
++					       const struct hdmi_drm_infoframe *drm_infoframe,
++					       struct dp_sdp *sdp,
++					       size_t size)
++{
++	size_t length = sizeof(struct dp_sdp);
++	const int infoframe_size = HDMI_INFOFRAME_HEADER_SIZE + HDMI_DRM_INFOFRAME_SIZE;
++	unsigned char buf[HDMI_INFOFRAME_HEADER_SIZE + HDMI_DRM_INFOFRAME_SIZE];
++	ssize_t len;
++
++	if (size < length)
++		return -ENOSPC;
++
++	memset(sdp, 0, size);
++
++	len = hdmi_drm_infoframe_pack_only(drm_infoframe, buf, sizeof(buf));
++	if (len < 0) {
++		drm_dbg_kms(dev,
++			    "buffer size is smaller than hdr metadata infoframe\n");
++		return -ENOSPC;
++	}
++
++	if (len != infoframe_size) {
++		drm_dbg_kms(dev, "wrong static hdr metadata size\n");
++		return -ENOSPC;
++	}
++
++	/*
++	 * Set up the infoframe sdp packet for HDR static metadata.
++	 * Prepare VSC Header for SU as per DP 1.4a spec,
++	 * Table 2-100 and Table 2-101
++	 */
++
++	/* Secondary-Data Packet ID, 00h for non-Audio INFOFRAME */
++	sdp->sdp_header.HB0 = 0;
++	/*
++	 * Packet Type 80h + Non-audio INFOFRAME Type value
++	 * HDMI_INFOFRAME_TYPE_DRM: 0x87
++	 * - 80h + Non-audio INFOFRAME Type value
++	 * - InfoFrame Type: 0x07
++	 *    [CTA-861-G Table-42 Dynamic Range and Mastering InfoFrame]
++	 */
++	sdp->sdp_header.HB1 = drm_infoframe->type;
++	/*
++	 * Least Significant Eight Bits of (Data Byte Count – 1)
++	 * infoframe_size - 1
++	 */
++	sdp->sdp_header.HB2 = 0x1D;
++	/* INFOFRAME SDP Version Number */
++	sdp->sdp_header.HB3 = (0x13 << 2);
++	/* CTA Header Byte 2 (INFOFRAME Version Number) */
++	sdp->db[0] = drm_infoframe->version;
++	/* CTA Header Byte 3 (Length of INFOFRAME): HDMI_DRM_INFOFRAME_SIZE */
++	sdp->db[1] = drm_infoframe->length;
++	/*
++	 * Copy HDMI_DRM_INFOFRAME_SIZE size from a buffer after
++	 * HDMI_INFOFRAME_HEADER_SIZE
++	 */
++	BUILD_BUG_ON(sizeof(sdp->db) < HDMI_DRM_INFOFRAME_SIZE + 2);
++	memcpy(&sdp->db[2], &buf[HDMI_INFOFRAME_HEADER_SIZE],
++	       HDMI_DRM_INFOFRAME_SIZE);
++
++	/*
++	 * Size of DP infoframe sdp packet for HDR static metadata consists of
++	 * - DP SDP Header(struct dp_sdp_header): 4 bytes
++	 * - Two Data Blocks: 2 bytes
++	 *    CTA Header Byte2 (INFOFRAME Version Number)
++	 *    CTA Header Byte3 (Length of INFOFRAME)
++	 * - HDMI_DRM_INFOFRAME_SIZE: 26 bytes
++	 */
++	return sizeof(struct dp_sdp_header) + 2 + HDMI_DRM_INFOFRAME_SIZE;
++}
++EXPORT_SYMBOL(drm_dp_hdr_metadata_infoframe_sdp_pack);
++
+ /**
+  * drm_dp_get_pcon_max_frl_bw() - maximum frl supported by PCON
+  * @dpcd: DisplayPort configuration data
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+index 113d767e62e9c..d0d3f517df85a 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.c
++++ b/drivers/gpu/drm/i915/display/intel_dp.c
+@@ -5189,84 +5189,6 @@ static ssize_t intel_dp_as_sdp_pack(const struct drm_dp_as_sdp *as_sdp,
+ 	return length;
+ }
+ 
+-static ssize_t
+-intel_dp_hdr_metadata_infoframe_sdp_pack(struct intel_display *display,
+-					 const struct hdmi_drm_infoframe *drm_infoframe,
+-					 struct dp_sdp *sdp,
+-					 size_t size)
+-{
+-	size_t length = sizeof(struct dp_sdp);
+-	const int infoframe_size = HDMI_INFOFRAME_HEADER_SIZE + HDMI_DRM_INFOFRAME_SIZE;
+-	unsigned char buf[HDMI_INFOFRAME_HEADER_SIZE + HDMI_DRM_INFOFRAME_SIZE];
+-	ssize_t len;
+-
+-	if (size < length)
+-		return -ENOSPC;
+-
+-	memset(sdp, 0, size);
+-
+-	len = hdmi_drm_infoframe_pack_only(drm_infoframe, buf, sizeof(buf));
+-	if (len < 0) {
+-		drm_dbg_kms(display->drm,
+-			    "buffer size is smaller than hdr metadata infoframe\n");
+-		return -ENOSPC;
+-	}
+-
+-	if (len != infoframe_size) {
+-		drm_dbg_kms(display->drm, "wrong static hdr metadata size\n");
+-		return -ENOSPC;
+-	}
+-
+-	/*
+-	 * Set up the infoframe sdp packet for HDR static metadata.
+-	 * Prepare VSC Header for SU as per DP 1.4a spec,
+-	 * Table 2-100 and Table 2-101
+-	 */
+-
+-	/* Secondary-Data Packet ID, 00h for non-Audio INFOFRAME */
+-	sdp->sdp_header.HB0 = 0;
+-	/*
+-	 * Packet Type 80h + Non-audio INFOFRAME Type value
+-	 * HDMI_INFOFRAME_TYPE_DRM: 0x87
+-	 * - 80h + Non-audio INFOFRAME Type value
+-	 * - InfoFrame Type: 0x07
+-	 *    [CTA-861-G Table-42 Dynamic Range and Mastering InfoFrame]
+-	 */
+-	sdp->sdp_header.HB1 = drm_infoframe->type;
+-	/*
+-	 * Least Significant Eight Bits of (Data Byte Count – 1)
+-	 * infoframe_size - 1
+-	 */
+-	sdp->sdp_header.HB2 = 0x1D;
+-	/* INFOFRAME SDP Version Number */
+-	sdp->sdp_header.HB3 = (0x13 << 2);
+-	/* CTA Header Byte 2 (INFOFRAME Version Number) */
+-	sdp->db[0] = drm_infoframe->version;
+-	/* CTA Header Byte 3 (Length of INFOFRAME): HDMI_DRM_INFOFRAME_SIZE */
+-	sdp->db[1] = drm_infoframe->length;
+-	/*
+-	 * Copy HDMI_DRM_INFOFRAME_SIZE size from a buffer after
+-	 * HDMI_INFOFRAME_HEADER_SIZE
+-	 */
+-	BUILD_BUG_ON(sizeof(sdp->db) < HDMI_DRM_INFOFRAME_SIZE + 2);
+-	memcpy(&sdp->db[2], &buf[HDMI_INFOFRAME_HEADER_SIZE],
+-	       HDMI_DRM_INFOFRAME_SIZE);
+-
+-	/*
+-	 * Size of DP infoframe sdp packet for HDR static metadata consists of
+-	 * - DP SDP Header(struct dp_sdp_header): 4 bytes
+-	 * - Two Data Blocks: 2 bytes
+-	 *    CTA Header Byte2 (INFOFRAME Version Number)
+-	 *    CTA Header Byte3 (Length of INFOFRAME)
+-	 * - HDMI_DRM_INFOFRAME_SIZE: 26 bytes
+-	 *
+-	 * Prior to GEN11's GMP register size is identical to DP HDR static metadata
+-	 * infoframe size. But GEN11+ has larger than that size, write_infoframe
+-	 * will pad rest of the size.
+-	 */
+-	return sizeof(struct dp_sdp_header) + 2 + HDMI_DRM_INFOFRAME_SIZE;
+-}
+-
+ static void intel_write_dp_sdp(struct intel_encoder *encoder,
+ 			       const struct intel_crtc_state *crtc_state,
+ 			       unsigned int type)
+@@ -5285,9 +5207,9 @@ static void intel_write_dp_sdp(struct intel_encoder *encoder,
+ 		len = drm_dp_vsc_sdp_pack(&crtc_state->infoframes.vsc, &sdp);
+ 		break;
+ 	case HDMI_PACKET_TYPE_GAMUT_METADATA:
+-		len = intel_dp_hdr_metadata_infoframe_sdp_pack(display,
+-							       &crtc_state->infoframes.drm.drm,
+-							       &sdp, sizeof(sdp));
++		len = drm_dp_hdr_metadata_infoframe_sdp_pack(display->drm,
++							     &crtc_state->infoframes.drm.drm,
++							     &sdp, sizeof(sdp));
+ 		break;
+ 	case DP_SDP_ADAPTIVE_SYNC:
+ 		len = intel_dp_as_sdp_pack(&crtc_state->infoframes.as_sdp, &sdp,
+diff --git a/include/drm/display/drm_dp_helper.h b/include/drm/display/drm_dp_helper.h
+index 5b05a7fbe174a..3e3f119775b38 100644
+--- a/include/drm/display/drm_dp_helper.h
++++ b/include/drm/display/drm_dp_helper.h
+@@ -32,6 +32,7 @@
+ struct drm_device;
+ struct drm_dp_aux;
+ struct drm_panel;
++struct hdmi_drm_infoframe;
+ 
+ bool drm_dp_channel_eq_ok(const u8 link_status[DP_LINK_STATUS_SIZE],
+ 			  int lane_count);
+@@ -1035,6 +1036,9 @@ int drm_dp_bw_channel_coding_efficiency(bool is_uhbr);
+ int drm_dp_max_dprx_data_rate(int max_link_rate, int max_lanes);
+ 
+ ssize_t drm_dp_vsc_sdp_pack(const struct drm_dp_vsc_sdp *vsc, struct dp_sdp *sdp);
++ssize_t drm_dp_hdr_metadata_infoframe_sdp_pack(struct drm_device *dev,
++					       const struct hdmi_drm_infoframe *drm_infoframe,
++					       struct dp_sdp *sdp, size_t size);
+ int drm_dp_link_symbol_cycles(int lane_count, int pixels, int dsc_slice_count,
+ 			      int bpp_x16, int symbol_size, bool is_mst);
+ 
+-- 
+2.43.0
+
