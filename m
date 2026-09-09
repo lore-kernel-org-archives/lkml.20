@@ -1,116 +1,93 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from canpmsgout09.his.huawei.com (canpmsgout09.his.huawei.com [113.46.200.224])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0033D5437C2
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 11:27:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA153538D76;
+	Wed,  9 Sep 2026 11:28:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.224
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788953276; cv=none; b=igx8k3ceK27B/MIkO4aFRKGv0WZ2xun1KwSzzu9W5sdSQGM3mxaPcvLymgUHUxZQpBegimsBd5HTGh7QFXF0LFy7QO8FRwrB2+OUF7r728oMnFF1dZjvbruZea+VFgWIvy2EKBxwRBzGUUQ8Fcmdfjj30G71NwhfWsxAwfDMmnc=
+	t=1788953338; cv=none; b=Iu8IsAHnAPDMovX2RxiuDTjW8DVZxlxZSDt7MqYIFBT/k7r2fQnFV2TJcC5fYfttkS3J0lhh/Ts7W2OTyN78M9Ki9w6eGHu4z5tHoxy9EBboiHebRWZrBVn0elzZ1drSDmqVSk2urgoueskcZ0ZiorIhc4CrKuelJu6rQLQhwTQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788953276; c=relaxed/simple;
-	bh=JJBgofp2pe9RCsL65EmLQklp4DEK1h2O8rEip2QGCW4=;
-	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=HvOULQEzUlNn2kLDxFa3p5VYGz2wpwL32wcpmxJDDSQNmpbMh7fOTC/3pF1UgYRRA1czm9E1mtl0MvSCEN1Y6n5WU9rPMNXWl5p3JlBN4sAy6KpabU5Bi+lJF1R0FkwcMAHiD9+1PgiFYm11JxnoLzuVg/LrHHnVfyHUC6VMcEY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fjiZ8XBd; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788953338; c=relaxed/simple;
+	bh=z7rx8ko1Hjnl3eyotsb+7SjBItkzdkQghXn+hraHrPU=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=PG08QhvHI6r63tZHAqOjABRGZ1CbLBRDrY89cxWrvwXN94dt7VmVaRTFF5n4q35/sJgV99800xPBVvGv8Rwi9JIxxKWzvKmtWX6vrabE2QbC7nsbeIsUUfV/3TfxASLjobY7MQbRnrEuROyn/QbGJxHSPMQ4XUlGyubHvzFgHQI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=XmWSwMOi; arc=none smtp.client-ip=113.46.200.224
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fjiZ8XBd"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9AB021F00A3F
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 11:27:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788953273;
-	bh=3jiQyn42rIxemPjlFRLmdJmNQuLfss1eu61probES9o=;
-	h=From:In-Reply-To:References:Date:Subject:To:Cc;
-	b=fjiZ8XBdNPsN183InFRv0uIGqWcQgVMgWYF8Nz1i3uO8x3JtYZ027bGAYG6OmYwHS
-	 B34buxTmhnZs5QLlUGSuvQETka0bRRRQv1m3KwCA8AWUTmrPJ8skJDaxUfIMvGKZFE
-	 nisCHiXVdzZ3WopzUcXJ6LKJ04IuduKPvjfXxRXGS1T0OpbPIynxC/1IcjgUFquYPc
-	 9xWVH6oC6JVqyoYTgb1B6b2EBuWsioHAOP6Sc/C7+BpJqMhysnGtpfgiRtCCovCaDz
-	 51P2TvYfiwAP0lpTJT/MK/tMFl0mr181rUwldfJvyj2QkhLa6b4mTnX3VjPFFLH+IB
-	 30j4Slq3fgQSg==
-Received: by mail-lf1-f41.google.com with SMTP id 2adb3069b0e04-5b6036e9c70so4482521e87.1
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 04:27:53 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBylGxCCkhdAG9MchVfjW8FB/JsmhaSY4KeRz0C6tOtiSwU+wogCYpJRgah6yPrvmjSXtfzWGxeBq3WLjms=@vger.kernel.org
-X-Gm-Message-State: AFuF++neE7/u/0rE/5Tgd03JwZXt8istPYw0JabtwkdB5QQtWswrGRCk
-	B17alh6FM9YWOUm7UigTLQ16TdTbeYUubuIPwTh50lCNDSY9mSwsdQx0DeKourawllrwPdw55Ai
-	z8lWDB453hY7hKlXXgIXicgW2Jr1VsA5S3n6DhK6JHw==
-X-Received: by 2002:a05:6512:3a8d:b0:5b4:a836:13f3 with SMTP id
- 2adb3069b0e04-5b6170525c5mr5848674e87.19.1788953272225; Wed, 09 Sep 2026
- 04:27:52 -0700 (PDT)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 9 Sep 2026 04:27:50 -0700
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 9 Sep 2026 04:27:49 -0700
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <20260909080114.591938-7-herve.codina@bootlin.com>
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="XmWSwMOi"
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=e+lX/tryefGyf3o/T2qlYaAE2kLFzNu3tYBSnkPNQYQ=;
+	b=XmWSwMOiwZnk+xqLuA8Y0r6GMinDcoFeCBlsohRhwg1eCWraQ+TVTx9eorBjIgXT8KYvavdP8
+	fNDlesP7DTxhTtOy9aCNv3Cu7v+/vHkQqMrFFNZpbhxrx31t6b9cJ9SvSM3ot8Zu3MvrdDOCjbL
+	9NdRoFZ/Du/k46jy2f5iv/A=
+Received: from mail.maildlp.com (unknown [172.19.163.200])
+	by canpmsgout09.his.huawei.com (SkyGuard) with ESMTPS id 4hfyw61YLWz1cyQh;
+	Wed,  9 Sep 2026 19:17:58 +0800 (CST)
+Received: from kwepemf100015.china.huawei.com (unknown [7.202.181.14])
+	by mail.maildlp.com (Postfix) with ESMTPS id EBC114055B;
+	Wed,  9 Sep 2026 19:28:51 +0800 (CST)
+Received: from dggphicprd10024.huawei.com (10.243.6.112) by
+ kwepemf100015.china.huawei.com (7.202.181.14) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Wed, 9 Sep 2026 19:28:51 +0800
+From: Abbott Liu <liuwenliang@huawei.com>
+To: <tony.luck@intel.com>, <bp@alien8.de>, <ardb@kernel.org>,
+	<mchehab+huawei@kernel.org>, <rafael.j.wysocki@intel.com>,
+	<guohanjun@huawei.com>, <jic23@kernel.org>, <jason@os.amperecomputing.com>,
+	<danielf@os.amperecomputing.com>, <luoshengwei@huawei.com>,
+	<linux-edac@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+CC: <yangzhuohao1@huawei.com>, <douzhaolei@huawei.com>,
+	<zouyipeng@huawei.com>, <wangbing6@huawei.com>, <nixiaoming@huawei.com>,
+	<liuwenliang@huawei.com>
+Subject: [PATCH v4 1/3] RAS: Fix inverted context info bounds check in ARM processor errors
+Date: Wed, 9 Sep 2026 19:28:30 +0800
+Message-ID: <20260909112832.805314-2-liuwenliang@huawei.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260909112832.805314-1-liuwenliang@huawei.com>
+References: <20260909112832.805314-1-liuwenliang@huawei.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260909080114.591938-1-herve.codina@bootlin.com> <20260909080114.591938-7-herve.codina@bootlin.com>
-Date: Wed, 9 Sep 2026 04:27:49 -0700
-X-Gmail-Original-Message-ID: <CAMRc=MeUtCK1SnOk7aAQrnpmZrSxQ1kK-hrw97TH5TBwFR04MQ@mail.gmail.com>
-X-Gm-Features: AcwNN1XgkJRIkWr-Q-vmNlBTGGna2wUXbTKL0GfXX3gNNSE-nKv4XSkZWRFV2s4
-Message-ID: <CAMRc=MeUtCK1SnOk7aAQrnpmZrSxQ1kK-hrw97TH5TBwFR04MQ@mail.gmail.com>
-Subject: Re: [PATCH v11 06/10] PCI: of: Use fw_devlink_set_device()
-To: Herve Codina <herve.codina@bootlin.com>
-Cc: driver-core@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	linux-pci@vger.kernel.org, linux-sound@vger.kernel.org, 
-	patches@opensource.cirrus.com, linux-gpio@vger.kernel.org, 
-	linux-acpi@vger.kernel.org, linux-cxl@vger.kernel.org, 
-	Allan Nielsen <allan.nielsen@microchip.com>, Horatiu Vultur <horatiu.vultur@microchip.com>, 
-	Daniel Machon <daniel.machon@microchip.com>, Steen Hegelund <steen.hegelund@microchip.com>, 
-	Luca Ceresoli <luca.ceresoli@bootlin.com>, Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
-	stable@vger.kernel.org, 
-	Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>, Richard Cheng <icheng@nvidia.com>, 
-	Andrew Lunn <andrew@lunn.ch>, Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
-	Danilo Krummrich <dakr@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, 
-	Charles Keepax <ckeepax@opensource.cirrus.com>, 
-	Richard Fitzgerald <rf@opensource.cirrus.com>, David Rhodes <david.rhodes@cirrus.com>, 
-	Linus Walleij <linusw@kernel.org>, Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
-	Daniel Scally <djrscally@gmail.com>, Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
-	Sakari Ailus <sakari.ailus@linux.intel.com>, Bartosz Golaszewski <brgl@kernel.org>, 
-	Len Brown <lenb@kernel.org>, Davidlohr Bueso <dave@stgolabs.net>, Jonathan Cameron <jic23@kernel.org>, 
-	Dave Jiang <dave.jiang@intel.com>, Alison Schofield <alison.schofield@intel.com>, 
-	Vishal Verma <vishal.l.verma@intel.com>, Dan Williams <djbw@kernel.org>, 
-	Ira Weiny <iweiny@kernel.org>, Li Ming <ming.li@zohomail.com>, Lizhi Hou <lizhi.hou@amd.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: kwepems200002.china.huawei.com (7.221.188.68) To
+ kwepemf100015.china.huawei.com (7.202.181.14)
 
-On Wed, 9 Sep 2026 10:01:05 +0200, Herve Codina <herve.codina@bootlin.com> said:
-> The code set directly fwnode.dev field.
->
-> Use the dedicated fw_devlink_set_device() helper to perform this
-> operation.
->
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Herve Codina <herve.codina@bootlin.com>
-> Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-> Acked-by: Bjorn Helgaas <bhelgaas@google.com>
-> Reviewed-by: Richard Cheng <icheng@nvidia.com>
-> Acked-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
-> ---
-> Cc stable because used by other patches with Fixes + Cc stable
-> ---
->  drivers/pci/of.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/pci/of.c b/drivers/pci/of.c
-> index a51dff91b196..0f45c5b72458 100644
-> --- a/drivers/pci/of.c
-> +++ b/drivers/pci/of.c
-> @@ -882,7 +882,7 @@ void of_pci_make_host_bridge_node(struct pci_host_bridge *bridge)
->  	 * bus. Avoid any new device creation.
->  	 */
->  	of_node_set_flag(np, OF_POPULATED);
-> -	np->fwnode.dev = &bridge->dev;
-> +	fw_devlink_set_device(&np->fwnode, &bridge->dev);
->  	fwnode_dev_initialized(&np->fwnode, true);
->
->  	ret = of_changeset_apply(cset);
-> --
-> 2.55.0
->
->
+Commit 87880af2d24e ("APEI/GHES: ARM processor Error: don't go past
+allocated memory") added bounds checks for malformed ARM processor
+error records but contained a bug:
 
-Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+  In log_arm_hw_error(), the ctx_info bounds check is inverted. The
+  condition "sz + (long)ctx_info - (long)err >= err->section_length"
+  adds ctx_info->size when the context header is already past the end
+  of the section instead of when it is within bounds. So change the
+  comparison to <=.
+
+Fixes: 87880af2d24e ("APEI/GHES: ARM processor Error: don't go past allocated memory")
+Signed-off-by: Abbott Liu <liuwenliang@huawei.com>
+---
+ drivers/ras/ras.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/ras/ras.c b/drivers/ras/ras.c
+index 03df3db62334..2540538a16a8 100644
+--- a/drivers/ras/ras.c
++++ b/drivers/ras/ras.c
+@@ -74,7 +74,7 @@ void log_arm_hw_error(struct cper_sec_proc_arm *err, const u8 sev)
+ 	for (n = 0; n < err->context_info_num; n++) {
+ 		sz = sizeof(struct cper_arm_ctx_info);
+ 
+-		if (sz + (long)ctx_info - (long)err >= err->section_length)
++		if (sz + (long)ctx_info - (long)err <= err->section_length)
+ 			sz += ctx_info->size;
+ 
+ 		ctx_info = (struct cper_arm_ctx_info *)((long)ctx_info + sz);
+-- 
+2.43.0
+
