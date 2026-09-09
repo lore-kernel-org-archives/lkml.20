@@ -1,112 +1,103 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 977483C108F;
-	Wed,  9 Sep 2026 20:41:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EAC8562609
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 20:41:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788986490; cv=none; b=Q0Ae/V0AaXiMMdfzB89Sketk9jE1YgJzn818RHyB58TVlfZ3Mew3gAd+c8BH9dhJGFYFef3W9tBItgCmqqg5k4wod6vMJCeUR6p5DP/aS7AR5ZLvpkmTt7dLwzSWxxOyFkN8q+P5WGwtf/QSuBdUciLno2FLFaQSopUHH3MMkBk=
+	t=1788986511; cv=none; b=gQl7Q9YT497zcjhrS6TZF3LxeQfp6+HpEA3cKFXT4e9sTp1dQUMw2w8XjjqYXx5WOrn4WbB6YhTg3OSzZ8bZbZhQDp2IOrZE4UuoVj20NnLTb5TeUJZceZxZtW+z3fOltDHJkRXr6v/pV5k2lQMWQbG0eu50WWUsyqFXsYAIl0A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788986490; c=relaxed/simple;
-	bh=Lv695M+ET14zQcMLsFvWiig8OxilxbrUcVHK7NozT+w=;
-	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=ttf4BIA+6L19QnN+l9nlbFKsk1VpivtbDwLlKppEjSgYPe9OUb2oNm5WO/DMP7nwBVGsOE4lcfsxESp/H/JhMAAM325IuCP2Z78l9YDwz/Q/aiipnafVwj+aw7Cd1eHuhiff0EvVDRrzP+BNLbJGI22iuq8rk3832YWE9A3vHTQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GgN8x0gn; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788986511; c=relaxed/simple;
+	bh=lzGikIwP3jt+gebSI9ASbBMxYIDTjcvzLhu0dadRD3g=;
+	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=NQFuB1cOndHHLFQW/WAYzaJAftT2AkU6GEsufVldOhg8FgLDLvHnlSzxpXCSu+kqpmAfmkqCh5lBWkPy2h5f8ss3aJLd3RagZVcUOHsgcbiTb5Ma4PXXQMiivnircH81j53jd5FxzCS32mQ2fD67I3aX6NqRUUIIPXPajhwA7IY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=VDFHeMev; arc=none smtp.client-ip=209.85.214.199
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GgN8x0gn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ABAA31F000FF;
-	Wed,  9 Sep 2026 20:41:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788986471;
-	bh=XlRgql6gXyVqTyyC7XPsHaPGMVDu5J/x8i7A2d7OcWM=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=GgN8x0gnUY4zKgKqn7/6SJcyXo0H85ikpN9dAeR/fTlLRYmPg8yHPKzDJts/9fY4X
-	 eumPerJUS32tN7N+eBgyorKqQ2q2g11AsdzMX1tQtRLkYGplUL18pY5QdxsyTyUFpq
-	 8SgKNnKssNqiedoLNkVTc9yZe80VAR1W49rIHB67Cvv3QdVHSXjtTPfG7aMZnaDVMo
-	 pa0GC91I4C7hUnYVg2ig7BlwYb0tpwRzNeod+pGmJGqxIcWipD8PuHq4PTotQUvf48
-	 0xDEVQzPQzRxRgBP1OsgSrItG+zTc3+W2RXidA0V3fD3pJ6zu9LW5S89kY1y5c1dJI
-	 i40LQTq1Ds7JA==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id D0D24380AAD2;
-	Wed,  9 Sep 2026 20:40:10 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="VDFHeMev"
+Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2dc92350888so24364975ad.3
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 13:41:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1788986492; x=1789591292; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=eQnCep2rVFC6ERkLpw82m7uGzTr5iSCdTDgfzxN2350=;
+        b=VDFHeMev5pnXQuqWlK5DscSbU6oztU5Foif6XfZIkbz/x5Wn/+OKKITJdtIzbf+mVz
+         2yWVMR17CirnHLdUAAtq48kIkX+T2TnwDiqWzSHMVcwhqY5aKSY/EoLcCmBPgtgfzp8u
+         5OHM9Wyb2te5MxAb8KmTVSU1LFRFej36kqENFMYPxgpibEo/LQqlOozSrUwFU9LA3s2w
+         M5XXfZ2fP65weowTLfN7y8Pdq59y08dlQFeZ493GThXTiM8eZUAZZy9w4Q4VA89TMqhq
+         b2CKvuIwp73xXsJsYLk7SqoWNl/k2DSVu2CswSm4nAPE5L2Xs5GC+qwjEAFfcJQcnLNH
+         ud2w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788986492; x=1789591292;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=eQnCep2rVFC6ERkLpw82m7uGzTr5iSCdTDgfzxN2350=;
+        b=K889RjIiZRv00dbh8jU3Qy0EGlL3LDI4/Qxc9VyXOjF4+BiGmdD69TBl3V8WuaHzJi
+         gKKJneKnlC0gBOBqxZAyZuDxsUrsjeUxLCRmKCg3rBdrJlZIatQPHHhqyfOWHW94WGAR
+         ht2No8pNMOekA2Oj4STs0FolCggOJSPckADAz+wprYHoG0vMAMYmzbMNSe2SiHZjjpvP
+         9LA0Xs9l9ICBRNFZmslee+9OezHhYGUiyX8jIAnyrzi7b48TV4k9cHS24ogTBPKf2cUV
+         t2Gvh0ikoYLyyBE+c5Infj01+Ypdx+c7+iia94Puu6/zw4YPL1iF0RYM1byGa+KbmmPm
+         +RrA==
+X-Forwarded-Encrypted: i=1; AKwUvBxSjtFIcW3BltIqTIK5IJephu8jvN/KN/KhTdExk13/+ZOhQC8EB6/+I/gbAOFIAu9/6h/ELZcnuK5jDhM=@vger.kernel.org
+X-Gm-Message-State: AFuF++lJOHoR+DyeMeVkbe6pLxhsmif1xNiT0mKwHYkD2vWP24t/hzp/
+	q69D2MCsMmYTZ7/9dPm/ASPCbv20KZujiYCJNOo2QM3ypk/Kt1/Ic2TlXcRxT8rjAUDQLbpS/jv
+	qPzAclqzJZg==
+X-Received: from dlzz35.prod.google.com ([2002:a05:7022:4a3:b0:143:56d8:251])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:380a:b0:398:d2a0:87ff
+ with SMTP id 98e67ed59e1d1-39d7098094bmr3884030a91.1.1788986491408; Wed, 09
+ Sep 2026 13:41:31 -0700 (PDT)
+Date: Wed,  9 Sep 2026 13:41:18 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net v2 00/15] mptcp: misc fixes for v7.3-rc1
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <178898640963.1048067.13477009364378101406.git-patchwork-notify@kernel.org>
-Date: Wed, 09 Sep 2026 20:40:09 +0000
-References: 
- <20260908-net-mptcp-misc-fixes-7-3-rc1-v2-0-df1de70348b6@kernel.org>
-In-Reply-To: 
- <20260908-net-mptcp-misc-fixes-7-3-rc1-v2-0-df1de70348b6@kernel.org>
-To: Matthieu Baerts <matttbe@kernel.org>
-Cc: martineau@kernel.org, geliang@kernel.org, davem@davemloft.net,
- edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
- netdev@vger.kernel.org, mptcp@lists.linux.dev, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, fw@strlen.de, kalpan.jani@mpiricsoftware.com,
- syzbot+55c2a5c871441261ed14@syzkaller.appspotmail.com, cuitao@kylinos.cn,
- yangang@kylinos.cn, shuah@kernel.org, linux-kselftest@vger.kernel.org,
- luoqing@kylinos.cn, kishen.maloor@intel.com, kuniyu@google.com,
- kmta1236@gmail.com, jakub@cloudflare.com
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.55.0.1003.g10538fe699-goog
+Message-ID: <20260909204122.1993010-1-irogers@google.com>
+Subject: [PATCH v2 0/4] tools build: Fixes for libbfd -lzstd dependency
+From: Ian Rogers <irogers@google.com>
+To: Quentin Monnet <qmo@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
+	Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>, Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
+	Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
+	Emil Tsalapatis <emil@etsalapatis.com>, Ihor Solodrai <ihor.solodrai@linux.dev>, 
+	Josh Poimboeuf <jpoimboe@kernel.org>, Peter Zijlstra <peterz@infradead.org>, 
+	Ingo Molnar <mingo@redhat.com>, Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
+	Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>, 
+	James Clark <james.clark@linaro.org>, Nick Terrell <terrelln@fb.com>, 
+	David Sterba <dsterba@suse.com>, Tomas Glozar <tglozar@redhat.com>, 
+	Costa Shulyupin <costa.shul@redhat.com>, Michael Jeanson <mjeanson@efficios.com>, 
+	Dmitrii Dolgov <9erthalion6@gmail.com>, Leo Yan <leo.yan@arm.com>, linux-kernel@vger.kernel.org, 
+	linux-perf-users@vger.kernel.org
+Cc: bpf@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Hello:
+This is a fuller set of patches from v1 addressing build problems
+linking with libbfd when zstd is a dependency. The original issue was
+exposed on Fedora with perf's build-test. This series separates the
+build from the perf changes and adds in bpftool and objtool fixes
+caught by Sashiko. The changes follow the pattern used by the zlib -lz
+dependency and so appear correct but are untested.
 
-This series was applied to netdev/net.git (main)
-by Jakub Kicinski <kuba@kernel.org>:
+v1: https://lore.kernel.org/linux-perf-users/20260909181030.1870496-1-irogers@google.com/
 
-On Tue, 08 Sep 2026 16:07:05 +0200 you wrote:
-> Here are various unrelated fixes:
-> 
-> - Patch 1: Do not reschedule the RTX timer for sockets that fell back to
->   TCP. A fix for v5.7.
-> 
-> - Patch 2: Avoid copying thmac which will not be used and could be
->   uninitialised. A fix for v5.7.
-> 
-> [...]
+Ian Rogers (4):
+  tools build: Add explicitly sequenced -lzstd to libbfd feature
+    fallback
+  perf build: Add explicitly sequenced -lzstd to libbfd feature fallback
+  bpftool: Add explicitly sequenced -lzstd to libbfd feature fallback
+  objtool: Add explicitly sequenced -lzstd to libopcodes fallback
 
-Here is the summary with links:
-  - [net,v2,01/15] mptcp: do not reschedule the RTX timer for fallback sockets
-    https://git.kernel.org/netdev/net/c/e2ab913f68c7
-  - [net,v2,02/15] mptcp: subflow: no need to copy thmac during ulp_clone
-    https://git.kernel.org/netdev/net/c/29f641951be0
-  - [net,v2,03/15] mptcp: syncookies: remember the request backup flag
-    https://git.kernel.org/netdev/net/c/b76c0e28b392
-  - [net,v2,04/15] mptcp: pm: kernel: drop pending ADD_ADDR when removing ID0
-    https://git.kernel.org/netdev/net/c/2ac7d6e62076
-  - [net,v2,05/15] mptcp: options: handle MPC data + csum reqd + no csum
-    https://git.kernel.org/netdev/net/c/ab36b1a80942
-  - [net,v2,06/15] mptcp: prevent race between disconnect() and rtx
-    https://git.kernel.org/netdev/net/c/85c580b0d859
-  - [net,v2,07/15] selftests: mptcp: fix an UAF in mptcp_connect.c
-    https://git.kernel.org/netdev/net/c/730444f094b1
-  - [net,v2,08/15] mptcp: pm: userspace: fix address ID overflow
-    https://git.kernel.org/netdev/net/c/f9f0068e8813
-  - [net,v2,09/15] mptcp: pm: reset retrans_time when ADD_ADDR entry is reused
-    https://git.kernel.org/netdev/net/c/f968190c0b42
-  - [net,v2,10/15] mptcp: remove unneeded READ_ONCE() annotation
-    https://git.kernel.org/netdev/net/c/caa4a79f74f3
-  - [net,v2,11/15] selftests: mptcp: lib: dump nstat for the right test
-    https://git.kernel.org/netdev/net/c/e1a56368eac1
-  - [net,v2,12/15] selftests: mptcp: lib: get counters for the right test
-    https://git.kernel.org/netdev/net/c/d23c41366e85
-  - [net,v2,13/15] mptcp: options: fix uninit-value in mptcp_write_data_fin
-    https://git.kernel.org/netdev/net/c/b110f1dd6cb6
-  - [net,v2,14/15] mptcp: being below memory limit is a likely() condition
-    https://git.kernel.org/netdev/net/c/a4257a91af7a
-  - [net,v2,15/15] mptcp: avoid pruning for OoW data
-    https://git.kernel.org/netdev/net/c/f01b8275745e
+ tools/bpf/bpftool/Makefile   |  4 ++++
+ tools/build/Makefile.feature |  3 ++-
+ tools/build/feature/Makefile | 12 +++++++++---
+ tools/objtool/Makefile       |  3 ++-
+ tools/perf/Makefile.config   |  3 +++
+ 5 files changed, 20 insertions(+), 5 deletions(-)
 
-You are awesome, thank you!
 -- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
+2.55.0.1003.g10538fe699-goog
 
