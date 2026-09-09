@@ -1,30 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4203B53FD5C
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 15:21:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B6FD56510E
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 15:21:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788967312; cv=none; b=OqTIdcvfupCsorJe5MKRkV/HMlkp5kAnU9dboTovsMkJr5IN64ArEbTGeAH6EGXBDr3CC9w7WYpzQ6nAGYTC3TRFox6h/m7v1B5BjKURzxclDj2Xr58oCQCrinWQDv17NJ8gAiUpm5uqdKhmJeJ+eitv+VERVF7vKgzKyXh/oMM=
+	t=1788967316; cv=none; b=rcidef9TRiTIatIIZadjqhlHv2WbDbpO3j0cZTPIOPor6j7Rf3WpateV6oESlNwLYevYV1T8LRXVf+TwG9b7uRYeQZWw6WVb3Iu28ff6ot+lzdwsBNnPbjBfQM0XkEocVMr8sRk9LVLrsJcLeWqDV6dry39EijRHMbfK5z0PLy0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788967312; c=relaxed/simple;
-	bh=XVl++Mk9ZNqFpv/CgX+remgMDZwByRvy0xg4Ch2NCuw=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=LPCfrcdvz2wbGnlk7QpTojrbxluTPKWIF5GHO5mgDgBJPP2s0ULzDag4dmlIeHFKKS8cG9RW3B6cCQfxUDEhLa1s2TOirvqZW2yVvWjFn//dL/3PwdScbCwalkWldYd+EiiLkfFH2jYFSY2FivOv8WGz6Qa0C9BYG6CUCl89vgE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=d5PNRW3Z; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788967316; c=relaxed/simple;
+	bh=Qs3MYLZvUpQX5nYy6gS9UAuuZFuepVGUHzIMpVHy/NI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=XxfBqctzvEyIVE84F8yC9G3LW+gQTkKK99j5LFw/E5ZUe4jM9WBbNGpr5GXbGrywxhLmYQSxobm5FDIWywrfxvGEQf9QeyxxlGeGSDiZMtmPN8zM4VBmZP47mmCte6eqCt58pJoVf+QY2sE6pqX3Z/RafyYphh4EQZguNpwEd78=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GY8JABX8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="d5PNRW3Z"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 791C21F00A3A;
-	Wed,  9 Sep 2026 15:21:45 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GY8JABX8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A1681F00A3D;
+	Wed,  9 Sep 2026 15:21:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788967311;
-	bh=9WY7r0NkQssOCRN9hzJE97QFWDCBhocvTO0yFH94FX4=;
-	h=From:To:Cc:Subject:Date;
-	b=d5PNRW3ZB2fK1vioa9yelvQHMbaOTourEwBoEK0fzkGpNr2QWRhDbwWMU3n5UL+v2
-	 Ueaj0MqKtEQj46Av4WFf2OvsY6u7Tp44/0yKDASNDVJkv2spsmqGMVP8c8eyVDiC85
-	 ih/UpXzSMH3DzI3JgncvUw/JMm1rWaNlRZqI91kT7BdjIFKVI826ph8iTQ43ySAdWX
-	 lV2Nlkq06UCdCT3vU/FKJvVORXxC90qp3RCZMa6ILEaknEGsSd5Dg/pI96qpDrdVP7
-	 IO8W0Op5s33nj6X8yPj5W6Dih/bUB6o60xIfLEcbeyJZl92vTIueNYIS/5PjTNdAv8
-	 X1kU1M3BQzUmg==
+	s=k20260515; t=1788967314;
+	bh=Wulg3Hwxs05fEFwgUhtvauPw2J8ajR6C2Nn1SZG5koY=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=GY8JABX8ZxjGnRSuFF3nG8+cQkHhN69dRxUsgNQ5dLhdynu9UG/gnz4tizrWlm1eF
+	 5kfEJ8H0hbJbBNVU7xuGRkRI+W4zANrt8xX9hqcYsq4RCtKrupgU0fjqdeszz+K4lN
+	 9FXW2WKGnUkmPX7qWtEHTeDsgSKPJ9Z1NAldzaYNmf+VBvedMW9Auvk+bT+i+J11kw
+	 1bJre0cVYbfHXBApMgj9DlKto9wJVERN2gc02Tkrp95LEkj/3AXwE7y9Zuv/UK4Wsc
+	 6EzXGHiG61a1POg5ZBqsKD8Q5iikq/y9h8/X1ilVYd9x7gRz43Ix+OYjNawbY8NmFf
+	 ctqk5zl8S47Iw==
 From: Jisheng Zhang <jszhang@kernel.org>
 To: Paul Walmsley <pjw@kernel.org>,
 	Palmer Dabbelt <palmer@dabbelt.com>,
@@ -37,11 +38,14 @@ To: Paul Walmsley <pjw@kernel.org>,
 	Vincenzo Frascino <vincenzo.frascino@arm.com>
 Cc: linux-riscv@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
-	kasan-dev@googlegroups.com
-Subject: [PATCH v3 0/5] optimize pgtable_l4|l5_enabled
-Date: Wed,  9 Sep 2026 23:01:53 +0800
-Message-ID: <20260909150158.9313-1-jszhang@kernel.org>
+	kasan-dev@googlegroups.com,
+	Conor Dooley <conor.dooley@microchip.com>
+Subject: [PATCH v3 1/5] riscv: remove RISCV_ALTERNATIVE Kconfig option
+Date: Wed,  9 Sep 2026 23:01:54 +0800
+Message-ID: <20260909150158.9313-2-jszhang@kernel.org>
 X-Mailer: git-send-email 2.51.0
+In-Reply-To: <20260909150158.9313-1-jszhang@kernel.org>
+References: <20260909150158.9313-1-jszhang@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -50,104 +54,396 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-In 2022, I tried to optimize pgtable_l4|l5_enabled use static branch[3]
-But as is known, static branch has some drawbacks. 
+riscv always selects RISCV_ALTERNATIVE now, so we can remove this
+Kconfig option and enable RISCV_ALTERNATIVE code unconditionally.
 
-This series is another round of optmizing pgtable_l4|l5_enabled, but
-with another mechanism. Below the is normal cover-letter.
-
-The pgtable_l4|[l5]_enabled check sits at hot code path, performance
-is impacted a lot. Since pgtable_l4|[l5]_enabled isn't changed after
-boot, we can use alternative mechanism to optimize them.
-
-So the question is whether we can add RISCV_ISA_EXT_SV48/SV5 and use
-riscv_has_extension_*() or not. Per [1] and [2], SV48 and SV57 are ISA
-exensions too. From another side, riscv_has_extension_[un]likely() and
-other related functions report whether the extension is supported and
-enabled on the platform. So SV48 and SV57 can be supported with current
-isa extension alternative mechanism.
-
-However, to use it to optimize pgtable_l4|l5_enabled, we have support
-the "early" characteristic, I.E besides risc_isa bitmap setting, we
-need to support appling alternative early before MMU on.
-
-After that, use it to optimize pgtable_l4|l5_enabled.
-
-For the typical access_ok(addr, 1);
-before the patch:
-
-...
-auipc	a5,0xb43
-lbu	a5,100(a5) # ffffffff80b51f68 <pgtable_l5_enabled>
-bnez	a5,ffffffff8000ef46 <foo+0x56>
-auipc	a5,0xb43
-lbu	a5,91(a5) # ffffffff80b51f69 <pgtable_l4_enabled>
-beqz	a5,ffffffff8000ef5a <foo+0x6a>
-...
-
-after the patch:
-These memory load and test branch instructions are replaced with only
-two j or nop instructions.
-
-Initial test lmbench's lat_syscall write on TH1520 platforms shows that
-the write syscall latency is reduced by about 2.38%.
-
-After that, introduce RISCV_ISA_SV48 and RISCV_ISA_SV57 under NONPORTABLE,
-so that the embedded platforms can choose the best option themselves,
-while still keep the feature of unified one kernel Image for all SV39, SV48
-and SV57 when !NONPORTABLE.
-
-Tested on TH1520 platforms with both RISCV_ISA_SV48 and RISCV_ISA_SV48
-disabled, we saved 20 instructions for access_ok(addr, 1)
-
-Link: https://github.com/riscv/riscv-isa-manual/blob/main/src/profiles/profiles.adoc [1]
-Link: https://riscv.atlassian.net/wiki/spaces/HOME/pages/16154732/Ratified+ISA+Extensions [2]
-Link: https://lore.kernel.org/linux-riscv/20220821140918.3613-1-jszhang@kernel.org/ [3]
-
-Since v2:
-  - simplify isa bitmap filling by the fact that only SV48 and SV57
-    needs the "early" feature
-  - move RISCV_ISA_SV48 and RISCV_ISA_SV57 out of NONPORTABLE
-
-Since v1:
-  - use current isa extension to support SV48/SV57
-  - collect Reviewed-by tag
-  - add patch4 to introduce RISCV_ISA_SV48 and RISCV_ISA_SV57 under
-    NONPORTABLE
-  - add patch5 to unexport _pgtable_l4_enabled and _pgtable_l5_enabled
-
-
-Jisheng Zhang (5):
-  riscv: remove RISCV_ALTERNATIVE Kconfig option
-  riscv: convert pgtable_l4|l5_enabled to inline function
-  riscv: support early isa ext and use it to optimize
-    pgtable_l4|l5_enabled
-  riscv: introduce RISCV_ISA_SV48 and RISCV_ISA_SV57
-  riscv: mm: unexport _pgtable_l4_enabled and _pgtable_l5_enabled
-
- arch/riscv/Kconfig                          | 48 +++++++------
- arch/riscv/Kconfig.errata                   |  5 +-
- arch/riscv/include/asm/alternative-macros.h | 24 -------
- arch/riscv/include/asm/alternative.h        | 12 +---
- arch/riscv/include/asm/cpufeature-macros.h  | 10 +--
- arch/riscv/include/asm/cpufeature.h         |  8 +--
- arch/riscv/include/asm/hwcap.h              |  2 +
- arch/riscv/include/asm/pgalloc.h            | 14 ++--
- arch/riscv/include/asm/pgtable-32.h         |  4 +-
- arch/riscv/include/asm/pgtable-64.h         | 74 +++++++++++++------
- arch/riscv/include/asm/pgtable.h            |  4 +-
- arch/riscv/include/asm/vendor_extensions.h  | 18 ++---
- arch/riscv/include/asm/vmalloc.h            |  5 +-
+Signed-off-by: Jisheng Zhang <jszhang@kernel.org>
+Reviewed-by: Conor Dooley <conor.dooley@microchip.com>
+---
+ arch/riscv/Kconfig                          | 23 --------------------
+ arch/riscv/Kconfig.errata                   |  5 +----
+ arch/riscv/include/asm/alternative-macros.h | 24 ---------------------
+ arch/riscv/include/asm/alternative.h        | 10 ---------
+ arch/riscv/include/asm/cpufeature-macros.h  | 10 ++-------
+ arch/riscv/include/asm/cpufeature.h         |  6 ++----
+ arch/riscv/include/asm/vendor_extensions.h  | 18 ++++++----------
  arch/riscv/kernel/Makefile                  |  2 +-
- arch/riscv/kernel/alternative.c             | 24 +++++--
- arch/riscv/kernel/cpu.c                     |  4 +-
- arch/riscv/kernel/cpufeature.c              | 56 ++++++++++++---
- arch/riscv/mm/init.c                        | 79 ++++++++++++---------
- arch/riscv/mm/kasan_init.c                  | 20 +++---
- arch/riscv/mm/pgtable.c                     |  4 +-
- arch/riscv/mm/ptdump.c                      |  4 +-
- 21 files changed, 235 insertions(+), 186 deletions(-)
+ arch/riscv/kernel/cpufeature.c              |  2 --
+ 9 files changed, 12 insertions(+), 88 deletions(-)
 
+diff --git a/arch/riscv/Kconfig b/arch/riscv/Kconfig
+index f8e26c4bed2b..13b7bb77087e 100644
+--- a/arch/riscv/Kconfig
++++ b/arch/riscv/Kconfig
+@@ -218,7 +218,6 @@ config RISCV
+ 	select PCI_ECAM if (ACPI && PCI)
+ 	select PCI_MSI if PCI
+ 	select RELOCATABLE if !MMU && !PHYS_RAM_BASE_FIXED
+-	select RISCV_ALTERNATIVE
+ 	select RISCV_APLIC
+ 	select RISCV_IMSIC
+ 	select RISCV_INTC
+@@ -539,17 +538,8 @@ config RISCV_COMBO_SPINLOCKS
+ 
+ endchoice
+ 
+-config RISCV_ALTERNATIVE
+-	bool
+-	help
+-	  This Kconfig allows the kernel to automatically patch the
+-	  erratum or cpufeature required by the execution platform at run
+-	  time. The code patching overhead is minimal, as it's only done
+-	  once at boot and once on each module load.
+-
+ config RISCV_ALTERNATIVE_EARLY
+ 	bool
+-	depends on RISCV_ALTERNATIVE
+ 	help
+ 	  Allows early patching of the kernel for special errata
+ 
+@@ -578,7 +568,6 @@ config RISCV_ISA_SUPM
+ config RISCV_ISA_SVNAPOT
+ 	bool "Svnapot extension support for supervisor mode NAPOT pages"
+ 	depends on 64BIT && MMU
+-	depends on RISCV_ALTERNATIVE
+ 	default y
+ 	help
+ 	  Enable support for the Svnapot ISA-extension when it is detected
+@@ -615,7 +604,6 @@ config RISCV_ISA_SSQOSID
+ config RISCV_ISA_SVPBMT
+ 	bool "Svpbmt extension support for supervisor mode page-based memory types"
+ 	depends on 64BIT && MMU
+-	depends on RISCV_ALTERNATIVE
+ 	default y
+ 	help
+ 	   Add support for the Svpbmt ISA-extension (Supervisor-mode:
+@@ -685,7 +673,6 @@ config RISCV_ISA_V_PREEMPTIVE
+ 
+ config RISCV_ISA_ZAWRS
+ 	bool "Zawrs extension support for more efficient busy waiting"
+-	depends on RISCV_ALTERNATIVE
+ 	default y
+ 	help
+ 	  The Zawrs extension defines instructions to be used in polling loops
+@@ -704,7 +691,6 @@ config TOOLCHAIN_HAS_ZABHA
+ config RISCV_ISA_ZABHA
+ 	bool "Zabha extension support for atomic byte/halfword operations"
+ 	depends on TOOLCHAIN_HAS_ZABHA
+-	depends on RISCV_ALTERNATIVE
+ 	default y
+ 	help
+ 	  Enable the use of the Zabha ISA-extension to implement kernel
+@@ -721,7 +707,6 @@ config TOOLCHAIN_HAS_ZACAS
+ 
+ config RISCV_ISA_ZACAS
+ 	bool "Zacas extension support for atomic CAS"
+-	depends on RISCV_ALTERNATIVE
+ 	default y
+ 	help
+ 	  Enable the use of the Zacas ISA-extension to implement kernel atomic
+@@ -766,7 +751,6 @@ config RISCV_ISA_ZBA
+ 
+ config RISCV_ISA_ZBB
+ 	bool "Zbb extension support for bit manipulation instructions"
+-	depends on RISCV_ALTERNATIVE
+ 	default y
+ 	help
+ 	   Add support for enabling optimisations in the kernel when the
+@@ -791,7 +775,6 @@ config RISCV_ISA_ZBC
+ 	bool "Zbc extension support for carry-less multiplication instructions"
+ 	depends on TOOLCHAIN_HAS_ZBC
+ 	depends on MMU
+-	depends on RISCV_ALTERNATIVE
+ 	default y
+ 	help
+ 	   Adds support to dynamically detect the presence of the Zbc
+@@ -813,7 +796,6 @@ config TOOLCHAIN_HAS_ZBKB
+ config RISCV_ISA_ZBKB
+ 	bool "Zbkb extension support for bit manipulation instructions"
+ 	depends on TOOLCHAIN_HAS_ZBKB
+-	depends on RISCV_ALTERNATIVE
+ 	default y
+ 	help
+ 	   Adds support to dynamically detect the presence of the ZBKB
+@@ -827,7 +809,6 @@ config RISCV_ISA_ZBKB
+ config RISCV_ISA_ZICBOM
+ 	bool "Zicbom extension support for non-coherent DMA operation"
+ 	depends on MMU
+-	depends on RISCV_ALTERNATIVE
+ 	default y
+ 	select RISCV_DMA_NONCOHERENT
+ 	select DMA_DIRECT_REMAP
+@@ -843,7 +824,6 @@ config RISCV_ISA_ZICBOM
+ 
+ config RISCV_ISA_ZICBOZ
+ 	bool "Zicboz extension support for faster zeroing of memory"
+-	depends on RISCV_ALTERNATIVE
+ 	default y
+ 	help
+ 	   Enable the use of the Zicboz extension (cbo.zero instruction)
+@@ -856,7 +836,6 @@ config RISCV_ISA_ZICBOZ
+ config RISCV_ISA_ZICBOP
+ 	bool "Zicbop extension support for cache block prefetch"
+ 	depends on MMU
+-	depends on RISCV_ALTERNATIVE
+ 	default y
+ 	help
+ 	  Adds support to dynamically detect the presence of the ZICBOP
+@@ -871,7 +850,6 @@ config RISCV_ISA_ZICBOP
+ config RISCV_ISA_SVRSW60T59B
+ 	bool "Svrsw60t59b extension support for using PTE bits 60 and 59"
+ 	depends on MMU && 64BIT
+-	depends on RISCV_ALTERNATIVE
+ 	default y
+ 	help
+ 	  Adds support to dynamically detect the presence of the Svrsw60t59b
+@@ -1204,7 +1182,6 @@ config RISCV_USER_CFI
+ 	bool "riscv userspace control flow integrity"
+ 	depends on 64BIT && MMU && \
+ 		$(cc-option,-mabi=lp64 -march=rv64ima_zicfiss_zicfilp -fcf-protection=full)
+-	depends on RISCV_ALTERNATIVE
+ 	select RISCV_SBI
+ 	select ARCH_HAS_USER_SHADOW_STACK
+ 	select ARCH_USES_HIGH_VMA_FLAGS
+diff --git a/arch/riscv/Kconfig.errata b/arch/riscv/Kconfig.errata
+index 3c945d086c7d..1a66e5b6f7d1 100644
+--- a/arch/riscv/Kconfig.errata
++++ b/arch/riscv/Kconfig.errata
+@@ -2,7 +2,7 @@ menu "CPU errata selection"
+ 
+ config ERRATA_ANDES
+ 	bool "Andes AX45MP errata"
+-	depends on RISCV_ALTERNATIVE && RISCV_SBI
++	depends on RISCV_SBI
+ 	help
+ 	  All Andes errata Kconfig depend on this Kconfig. Disabling
+ 	  this Kconfig will disable all Andes errata. Please say "Y"
+@@ -23,7 +23,6 @@ config ERRATA_ANDES_CMO
+ 
+ config ERRATA_MIPS
+ 	bool "MIPS errata"
+-	depends on RISCV_ALTERNATIVE
+ 	help
+ 	  All MIPS errata Kconfig depend on this Kconfig. Disabling
+ 	  this Kconfig will disable all MIPS errata. Please say "Y"
+@@ -46,7 +45,6 @@ config ERRATA_MIPS_P8700_PAUSE_OPCODE
+ 
+ config ERRATA_SIFIVE
+ 	bool "SiFive errata"
+-	depends on RISCV_ALTERNATIVE
+ 	help
+ 	  All SiFive errata Kconfig depend on this Kconfig. Disabling
+ 	  this Kconfig will disable all SiFive errata. Please say "Y"
+@@ -98,7 +96,6 @@ config ERRATA_STARFIVE_JH7100
+ 
+ config ERRATA_THEAD
+ 	bool "T-HEAD errata"
+-	depends on RISCV_ALTERNATIVE
+ 	help
+ 	  All T-HEAD errata Kconfig depend on this Kconfig. Disabling
+ 	  this Kconfig will disable all T-HEAD errata. Please say "Y"
+diff --git a/arch/riscv/include/asm/alternative-macros.h b/arch/riscv/include/asm/alternative-macros.h
+index 9619bd5c8eba..629d884578da 100644
+--- a/arch/riscv/include/asm/alternative-macros.h
++++ b/arch/riscv/include/asm/alternative-macros.h
+@@ -2,8 +2,6 @@
+ #ifndef __ASM_ALTERNATIVE_MACROS_H
+ #define __ASM_ALTERNATIVE_MACROS_H
+ 
+-#ifdef CONFIG_RISCV_ALTERNATIVE
+-
+ #ifdef __ASSEMBLER__
+ 
+ .macro ALT_ENTRY oldptr newptr vendor_id patch_id new_len
+@@ -108,28 +106,6 @@
+ 	__ALTERNATIVE_CFG_2(old_c, new_c_1, vendor_id_1, patch_id_1, IS_ENABLED(CONFIG_k_1),	\
+ 				   new_c_2, vendor_id_2, patch_id_2, IS_ENABLED(CONFIG_k_2))
+ 
+-#else /* CONFIG_RISCV_ALTERNATIVE */
+-#ifdef __ASSEMBLER__
+-
+-.macro ALTERNATIVE_CFG old_c
+-	\old_c
+-.endm
+-
+-#define __ALTERNATIVE_CFG(old_c, ...)		ALTERNATIVE_CFG old_c
+-#define __ALTERNATIVE_CFG_2(old_c, ...)		ALTERNATIVE_CFG old_c
+-
+-#else /* !__ASSEMBLER__ */
+-
+-#define __ALTERNATIVE_CFG(old_c, ...)		old_c "\n"
+-#define __ALTERNATIVE_CFG_2(old_c, ...)		old_c "\n"
+-
+-#endif /* __ASSEMBLER__ */
+-
+-#define _ALTERNATIVE_CFG(old_c, ...)		__ALTERNATIVE_CFG(old_c)
+-#define _ALTERNATIVE_CFG_2(old_c, ...)		__ALTERNATIVE_CFG_2(old_c)
+-
+-#endif /* CONFIG_RISCV_ALTERNATIVE */
+-
+ /*
+  * Usage:
+  *   ALTERNATIVE(old_content, new_content, vendor_id, patch_id, CONFIG_k)
+diff --git a/arch/riscv/include/asm/alternative.h b/arch/riscv/include/asm/alternative.h
+index 8407d1d535b8..688c7d1a9ae3 100644
+--- a/arch/riscv/include/asm/alternative.h
++++ b/arch/riscv/include/asm/alternative.h
+@@ -10,8 +10,6 @@
+ 
+ #ifndef __ASSEMBLER__
+ 
+-#ifdef CONFIG_RISCV_ALTERNATIVE
+-
+ #include <linux/init.h>
+ #include <linux/kernel.h>
+ #include <linux/types.h>
+@@ -61,13 +59,5 @@ void thead_errata_patch_func(struct alt_entry *begin, struct alt_entry *end,
+ void riscv_cpufeature_patch_func(struct alt_entry *begin, struct alt_entry *end,
+ 				 unsigned int stage);
+ 
+-#else /* CONFIG_RISCV_ALTERNATIVE */
+-
+-static inline void apply_boot_alternatives(void) { }
+-static inline void apply_early_boot_alternatives(void) { }
+-static inline void apply_module_alternatives(void *start, size_t length) { }
+-
+-#endif /* CONFIG_RISCV_ALTERNATIVE */
+-
+ #endif
+ #endif
+diff --git a/arch/riscv/include/asm/cpufeature-macros.h b/arch/riscv/include/asm/cpufeature-macros.h
+index a8103edbf51f..adaf9e3fb25c 100644
+--- a/arch/riscv/include/asm/cpufeature-macros.h
++++ b/arch/riscv/include/asm/cpufeature-macros.h
+@@ -47,20 +47,14 @@ static __always_inline bool riscv_has_extension_unlikely(const unsigned long ext
+ {
+ 	compiletime_assert(ext < RISCV_ISA_EXT_MAX, "ext must be < RISCV_ISA_EXT_MAX");
+ 
+-	if (IS_ENABLED(CONFIG_RISCV_ALTERNATIVE))
+-		return __riscv_has_extension_unlikely(STANDARD_EXT, ext);
+-
+-	return __riscv_isa_extension_available(NULL, ext);
++	return __riscv_has_extension_unlikely(STANDARD_EXT, ext);
+ }
+ 
+ static __always_inline bool riscv_has_extension_likely(const unsigned long ext)
+ {
+ 	compiletime_assert(ext < RISCV_ISA_EXT_MAX, "ext must be < RISCV_ISA_EXT_MAX");
+ 
+-	if (IS_ENABLED(CONFIG_RISCV_ALTERNATIVE))
+-		return __riscv_has_extension_likely(STANDARD_EXT, ext);
+-
+-	return __riscv_isa_extension_available(NULL, ext);
++	return __riscv_has_extension_likely(STANDARD_EXT, ext);
+ }
+ 
+ #endif /* _ASM_CPUFEATURE_MACROS_H */
+diff --git a/arch/riscv/include/asm/cpufeature.h b/arch/riscv/include/asm/cpufeature.h
+index 739fcc84bf7b..37c9f2a0fb54 100644
+--- a/arch/riscv/include/asm/cpufeature.h
++++ b/arch/riscv/include/asm/cpufeature.h
+@@ -134,8 +134,7 @@ static __always_inline bool riscv_cpu_has_extension_likely(int cpu, const unsign
+ {
+ 	compiletime_assert(ext < RISCV_ISA_EXT_MAX, "ext must be < RISCV_ISA_EXT_MAX");
+ 
+-	if (IS_ENABLED(CONFIG_RISCV_ALTERNATIVE) &&
+-	    __riscv_has_extension_likely(STANDARD_EXT, ext))
++	if (__riscv_has_extension_likely(STANDARD_EXT, ext))
+ 		return true;
+ 
+ 	return __riscv_isa_extension_available(hart_isa[cpu].isa, ext);
+@@ -145,8 +144,7 @@ static __always_inline bool riscv_cpu_has_extension_unlikely(int cpu, const unsi
+ {
+ 	compiletime_assert(ext < RISCV_ISA_EXT_MAX, "ext must be < RISCV_ISA_EXT_MAX");
+ 
+-	if (IS_ENABLED(CONFIG_RISCV_ALTERNATIVE) &&
+-	    __riscv_has_extension_unlikely(STANDARD_EXT, ext))
++	if (__riscv_has_extension_unlikely(STANDARD_EXT, ext))
+ 		return true;
+ 
+ 	return __riscv_isa_extension_available(hart_isa[cpu].isa, ext);
+diff --git a/arch/riscv/include/asm/vendor_extensions.h b/arch/riscv/include/asm/vendor_extensions.h
+index 7437304a71b9..b00149be2627 100644
+--- a/arch/riscv/include/asm/vendor_extensions.h
++++ b/arch/riscv/include/asm/vendor_extensions.h
+@@ -54,11 +54,9 @@ static __always_inline bool riscv_has_vendor_extension_likely(const unsigned lon
+ 	if (!IS_ENABLED(CONFIG_RISCV_ISA_VENDOR_EXT))
+ 		return false;
+ 
+-	if (IS_ENABLED(CONFIG_RISCV_ALTERNATIVE))
+-		return __riscv_has_extension_likely(vendor,
+-						    ext + RISCV_VENDOR_EXT_ALTERNATIVES_BASE);
++	return __riscv_has_extension_likely(vendor,
++					    ext + RISCV_VENDOR_EXT_ALTERNATIVES_BASE);
+ 
+-	return __riscv_isa_vendor_extension_available(VENDOR_EXT_ALL_CPUS, vendor, ext);
+ }
+ 
+ static __always_inline bool riscv_has_vendor_extension_unlikely(const unsigned long vendor,
+@@ -67,11 +65,9 @@ static __always_inline bool riscv_has_vendor_extension_unlikely(const unsigned l
+ 	if (!IS_ENABLED(CONFIG_RISCV_ISA_VENDOR_EXT))
+ 		return false;
+ 
+-	if (IS_ENABLED(CONFIG_RISCV_ALTERNATIVE))
+-		return __riscv_has_extension_unlikely(vendor,
+-						      ext + RISCV_VENDOR_EXT_ALTERNATIVES_BASE);
++	return __riscv_has_extension_unlikely(vendor,
++					      ext + RISCV_VENDOR_EXT_ALTERNATIVES_BASE);
+ 
+-	return __riscv_isa_vendor_extension_available(VENDOR_EXT_ALL_CPUS, vendor, ext);
+ }
+ 
+ static __always_inline bool riscv_cpu_has_vendor_extension_likely(const unsigned long vendor,
+@@ -80,8 +76,7 @@ static __always_inline bool riscv_cpu_has_vendor_extension_likely(const unsigned
+ 	if (!IS_ENABLED(CONFIG_RISCV_ISA_VENDOR_EXT))
+ 		return false;
+ 
+-	if (IS_ENABLED(CONFIG_RISCV_ALTERNATIVE) &&
+-	    __riscv_has_extension_likely(vendor, ext + RISCV_VENDOR_EXT_ALTERNATIVES_BASE))
++	if (__riscv_has_extension_likely(vendor, ext + RISCV_VENDOR_EXT_ALTERNATIVES_BASE))
+ 		return true;
+ 
+ 	return __riscv_isa_vendor_extension_available(cpu, vendor, ext);
+@@ -94,8 +89,7 @@ static __always_inline bool riscv_cpu_has_vendor_extension_unlikely(const unsign
+ 	if (!IS_ENABLED(CONFIG_RISCV_ISA_VENDOR_EXT))
+ 		return false;
+ 
+-	if (IS_ENABLED(CONFIG_RISCV_ALTERNATIVE) &&
+-	    __riscv_has_extension_unlikely(vendor, ext + RISCV_VENDOR_EXT_ALTERNATIVES_BASE))
++	if (__riscv_has_extension_unlikely(vendor, ext + RISCV_VENDOR_EXT_ALTERNATIVES_BASE))
+ 		return true;
+ 
+ 	return __riscv_isa_vendor_extension_available(cpu, vendor, ext);
+diff --git a/arch/riscv/kernel/Makefile b/arch/riscv/kernel/Makefile
+index ebe1c3588177..91353c94bfab 100644
+--- a/arch/riscv/kernel/Makefile
++++ b/arch/riscv/kernel/Makefile
+@@ -48,7 +48,7 @@ always-$(KBUILD_BUILTIN) += vmlinux.lds
+ 
+ obj-y	+= head.o
+ obj-y	+= soc.o
+-obj-$(CONFIG_RISCV_ALTERNATIVE) += alternative.o
++obj-y	+= alternative.o
+ obj-y	+= cpu.o
+ obj-y	+= cpufeature.o
+ obj-y	+= entry.o
+diff --git a/arch/riscv/kernel/cpufeature.c b/arch/riscv/kernel/cpufeature.c
+index d2ec96843456..9915121e9438 100644
+--- a/arch/riscv/kernel/cpufeature.c
++++ b/arch/riscv/kernel/cpufeature.c
+@@ -1217,7 +1217,6 @@ void __init riscv_user_isa_enable(void)
+ 		pr_warn("Zicbop disabled as it is unavailable on some harts\n");
+ }
+ 
+-#ifdef CONFIG_RISCV_ALTERNATIVE
+ /*
+  * Alternative patch sites consider 48 bits when determining when to patch
+  * the old instruction sequence with the new. These bits are broken into a
+@@ -1306,4 +1305,3 @@ void __init_or_module riscv_cpufeature_patch_func(struct alt_entry *begin,
+ 		mutex_unlock(&text_mutex);
+ 	}
+ }
+-#endif
 -- 
 2.53.0
 
