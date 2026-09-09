@@ -1,345 +1,165 @@
-Received: from mail-ot1-f71.google.com (mail-ot1-f71.google.com [209.85.210.71])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E49FD57EDA6
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 16:10:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.71
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7027757F72E
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 16:12:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788970247; cv=none; b=lPPHUR4qGkYJRVXVBow20fx1/0+AcfRNM8bxxDHG3uU15KXYsxgtUXy1Hid8Kb+2k4LF4qyagXSalIdeem6BhQEgvK3dwvSX5Jd6uGiAtsAehHw3B6c7yt0hRYnIzOePJ1SKQRa8BBQPhblkrZR9H/sn3nl/UFSw2+JSPuFLqvc=
+	t=1788970327; cv=none; b=MDPsP+NdfjHVnRRxbP56AJUi7raiuYTqjS4bhTIL5JjU9ofullxrayLuOcnv8yjZmj+DDUP16bLgrQ7M5D5gfmj1IMzsjfCeQUUhG/Hjtv6bNeck+FiSEC3zUJ+An++dFH8C8dtEaoMskF9UYP9icZXT7Y1Hfsa83VUn61GDLUs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788970247; c=relaxed/simple;
-	bh=ClX5gu7ZWQcDIfSGa03/6rAk6DOG+U+q5SX5RhoWhd4=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=R1HY+hFFpbdD4tPmO9AfBJphbsUKak7gQxQgiokDcEC1TSl5Yh3oosXfnnRbwfxn5Cn+p1xB9LZ7S3q+2gZajjGCPNehdgij94vcPMTWSsGOBheedllg/oU46hNraRSLXVYRRXTHvZ4R6E4e9ddgvP3H/DAq61Y3BwMwi0aLkcU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=b2xEobtH; arc=none smtp.client-ip=209.85.210.71
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
+	s=arc-20240116; t=1788970327; c=relaxed/simple;
+	bh=hiRBQugCjUC2qSlftimk1/dBleMnW9pQ7uDf9NI+8s4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=pFUJsaEjHYBYTAlbjahhb+MO28sxitBnyK3/N0lDvGF0+pKDuUz98cH0wOdIh3aJm5nCjPw/Yn0pvBIiGAHpyfHwPOYKY8SVFEMgJmwoun2Vsl402Zy9f0GORFyfQrWg9zobTxGpDVuXq4M6+YPnggMnURcGql/Hh6ca17Wii+Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=fEEL6qQC; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=o4YnEs3p; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="b2xEobtH"
-Received: by mail-ot1-f71.google.com with SMTP id 46e09a7af769-7f36427abfdso8021131a34.3
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 09:10:45 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="fEEL6qQC";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="o4YnEs3p"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1788970325;
+	h=from:from:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=AJ6zoCiMWbIIPldwdYsAIIdGbzVoK/NeTnUzI9OwSjE=;
+	b=fEEL6qQCb8HKV0KV9xlcYaoSJLzk9BHXu5yKVDHIzQ37BQEApQEYrdJJ7n8xpdr7+z8p2V
+	VNbZwv6+D0Nj3vJwrixtVVTEfxbntptCJPkls/+d95JlXOeACOPtnRoczq29cyYRfVSmdG
+	KGeySNg+DmNu6qKutR6PMXiSOrwDhAo=
+Received: from mail-yx1-f72.google.com (mail-yx1-f72.google.com
+ [74.125.224.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-682-NPI3AdH9MMeKFKUxwyCrsg-1; Wed, 09 Sep 2026 12:12:04 -0400
+X-MC-Unique: NPI3AdH9MMeKFKUxwyCrsg-1
+X-Mimecast-MFC-AGG-ID: NPI3AdH9MMeKFKUxwyCrsg_1788970323
+Received: by mail-yx1-f72.google.com with SMTP id 956f58d0204a3-66f7fdefb16so7874163d50.0
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 09:12:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788970245; x=1789575045; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=5rCco+dwti6SuoG/9O0W8ePHYIwuie6+8ypN78bk8dQ=;
-        b=b2xEobtHGbaw76gsFbs+gAzkz2F6xJT8gHmGphP2UcoLQAuu6HFp7NHsEk+wfJcxFf
-         5wBr1mo7rePkBNdBKqcq+4zSj6WS9KwtWJfzwMLf2QhtwQkjmemIIrBPv5xfUAIYmw07
-         kJn6WMoeRf3KHH7Qt/KYdyqO5l9FhWep6WUgLDSTlC7GXBJkUb1iUSOqz9u1qnetrGPX
-         fFOFqJBOPy8iWSOqemPpmwwl57q49WxhseLDc19m7s27cdJ6uWj9j/Cqq70CMucOJbI/
-         ihwzsXGtzTxhK93WhCJGUpnH35kG6qSW26CMrWjGbQMoNbHy7fJ92X8FIacYbMamtO6+
-         QQPQ==
+        d=redhat.com; s=google; t=1788970323; x=1789575123; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:reply-to:user-agent
+         :mime-version:date:message-id:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=AJ6zoCiMWbIIPldwdYsAIIdGbzVoK/NeTnUzI9OwSjE=;
+        b=o4YnEs3pjXs32JV11ZTN+Z07f9sE53EaRa5Xm3vdp8cEAgsWDZMBVw9jetRN+D94I3
+         gZSmF+x9a50/b3OFTPTIK4YhvhSCR7Zf2FoY93z9zGz9Xhio/rhcy7Il11zRyLhtFlBJ
+         Tlx6YTKR5dZsrF6TaW+xjbaJz/hc48HlZY6CQ3YJiL26qFlgiX7gn5LaBBCAwKlWD6fG
+         4ePlgVRUNjFKOtjGOqM0JJmoM8YxBsJyQ6ypBFpAozrTeJ6ze3+xDhEVQOp0P7YlX0zN
+         IrhY+QRjE0Azqw4qkBD7ybxcPRv2J8NifG1LC/10Mx+jb8rWRXkJSihf4pwyLdi5fhDY
+         EIUA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788970245; x=1789575045;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=5rCco+dwti6SuoG/9O0W8ePHYIwuie6+8ypN78bk8dQ=;
-        b=go2DkorQe9pgw9OCywV68Mdd0JrXZnbUa+06c7sVoGLZ736A7Gw5kKnsvO7XTAeoTc
-         il+josnX9nO6kn0G/KsorZpUZvhFVlkcQzo8csmrqJ7oTZ+1SYVZy2eBr5j/PXHoKd+4
-         /wAYFl3Iky2UbTiz/LqmDzkfiHxmh7GrdHWMfGdKCOwlElgMh4349nOhC9IrPWPQNOMf
-         2BlGha7uphlvVvgqb0ziXMhk4ssJ15eLkTr+CtuPVva2MnKi51C2rChv6dE8n7mBWyw0
-         1I/mKi63TTdz319wQ0Q9i/SYqbQqJYRrL2mMfaWWnoU34QUBPFXR9c6Lkus2AmZ1Z7kI
-         bGyQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzmzUkY9uUvhN3Gu1sPgzhzvdA7PSjzEyPmigrYfyAVKjfABjEWHAgvpCYipJEQtXX6bTWTOnj2PULjFjY=@vger.kernel.org
-X-Gm-Message-State: AFuF++n4i7lWdNjjmBTwV7dG9E9vX0uanA2rVdc+Wl3J9W1EioRLR8Uy
-	d7FYgBHpOpzBOccnruZ4jH+7KCw9xU3zobFc8LaDSxTJaQew4b8iZV9/x2zFYAF5bUROyJ4MNeh
-	qfstmx7W49Q==
-X-Received: from dlbuy19.prod.google.com ([2002:a05:7022:1e13:b0:142:d9a6:93e3])
- (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6820:160b:b0:6bd:c2a1:3c48
- with SMTP id 006d021491bc7-6bdc2a13d0cmr4209472eaf.8.1788970244322; Wed, 09
- Sep 2026 09:10:44 -0700 (PDT)
-Date: Wed,  9 Sep 2026 09:10:40 -0700
-In-Reply-To: <20260903045603.3611902-1-irogers@google.com>
+        d=1e100.net; s=20251104; t=1788970323; x=1789575123;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:reply-to:user-agent
+         :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=AJ6zoCiMWbIIPldwdYsAIIdGbzVoK/NeTnUzI9OwSjE=;
+        b=T7OlY/t5x0GoVnbRcKg2YLQFZL/eoGdRCvieZq0WUSftEX73EXIu9Ba5CNRobLKVMp
+         I+MxOOhmSMPpMo1h1iaoAlaehuvq2grL77/f8GifWIyjAUehYcti0cys6Gx+8NkXdwnv
+         iW+YCHj6jbpJCEKV2v/Q8V7wOyOub9Od0D1B4eJRaPddGMdtep9ulEemMq1AjtET3Dkt
+         /E0wARenb+fFbO8VQL7I3dq0LlNTlfpcGZSLBJVvhM0QkFN5I+ZEL46ofzRgVix/TGqS
+         1r2D9aiSZpf5aQy0/LfPD5FOhlXqbNYOcqEit7x703/iJQD3Kij6EdVGms8xShCp3Ism
+         3cgQ==
+X-Forwarded-Encrypted: i=1; AKwUvBx//kAMQrLeShKSHwoPeOSJc6Bb1/7027OVDmbjU0aO6m5f7iCnmMJVbzauCLYmhfIGIKgXNnusJBed6HY=@vger.kernel.org
+X-Gm-Message-State: AFuF++nvjShIfIevOh03Gv+xLONFrgELKY+5ty/iqcM5Nw2OWuPyzEqE
+	m/lvVGNtTxy1WyFgt8HtD+J7Z4+SHp1P+IJwVkFgpULQuq87tb/ZnhqIonaQGl5UQLIOrpFSlW+
+	6LUfb6n5pTYPSi8HlKgESAMA95SR4MqpJ7Ls3+lgZxQofAQkVIuKpQ5E9/YrqLrXRhA==
+X-Gm-Gg: AYBFou2ZdcdHW6kTvgMCy19WxpO2v7UgawFIRPyWB5OxagoStpUL/Ab8zs0qhWdL1GJ
+	V5dpqx7fMDzObv4fVwHmOd+7/vIQWPJEMjKNl2rs/z9ntCTIJ30UnRsUaDra/85EZm5GUQgOO9K
+	ItBamf/bxGtnGL4YdSbw7D+7jNi31k1ORX34lu5fjQyZdHfSh2m7oAsJphLaeRc8FZfRGuVXZVk
+	kVcLKQl28qbR1Wtfogxbg5bhCfR9VQT8b8Rx/3Rm+Igxr1gse0l6E5xiP8gv3WTPpZH/8XnBbmS
+	s+peBcO8rREKWlXTVKvjIW3/j06Vg4v2fTX+keNMXS72OzDLap84e462cZ7H+1bPvjBFR9xmsCJ
+	NJXYXtNpZBmBI5x99fb8SVf29LETwNExVFlFxU/X5
+X-Received: by 2002:a05:690e:bc4:b0:664:c3aa:66f0 with SMTP id 956f58d0204a3-6710371652emr2217253d50.39.1788970323424;
+        Wed, 09 Sep 2026 09:12:03 -0700 (PDT)
+X-Received: by 2002:a05:690e:bc4:b0:664:c3aa:66f0 with SMTP id 956f58d0204a3-6710371652emr2217055d50.39.1788970318005;
+        Wed, 09 Sep 2026 09:11:58 -0700 (PDT)
+Received: from [172.16.0.69] (c-98-227-24-213.hsd1.il.comcast.net. [98.227.24.213])
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-66fb47a8b8fsm12713671d50.2.2026.09.09.09.11.57
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 09 Sep 2026 09:11:57 -0700 (PDT)
+Message-ID: <afd68097-b2b2-47e5-889b-fb077e7a9247@redhat.com>
+Date: Wed, 9 Sep 2026 11:11:56 -0500
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260903045603.3611902-1-irogers@google.com>
-X-Mailer: git-send-email 2.55.0.979.g7e5102b832-goog
-Message-ID: <20260909161041.1745638-1-irogers@google.com>
-Subject: [PATCH v3] perf tests: Improvements to build-test performance
-From: Ian Rogers <irogers@google.com>
-To: irogers@google.com, acme@kernel.org, linux-perf-users@vger.kernel.org, 
-	namhyung@kernel.org
-Cc: adrian.hunter@intel.com, james.clark@linaro.org, jolsa@kernel.org, 
-	leo.yan@arm.com, linux-kernel@vger.kernel.org, mingo@redhat.com, 
-	mjeanson@efficios.com, peterz@infradead.org
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Reply-To: sorenson@redhat.com
+Subject: Re: netfs_read_gaps(): aliased sink folio makes the read destination
+ unreadable, SIGBUS on cifs with signing
+To: David Howells <dhowells@redhat.com>
+Cc: Paulo Alcantara <pc@manguebit.org>, Jeff Layton <jlayton@kernel.org>,
+ linux-fsdevel@vger.kernel.org, netfs@lists.linux.dev,
+ CIFS <linux-cifs@vger.kernel.org>, linux-kernel@vger.kernel.org
+References: <a385053c-1c4a-4060-a3bb-befa007ddb33@redhat.com>
+ <1714046.1788952509@warthog.procyon.org.uk>
+Content-Language: en-US
+From: Frank Sorenson <sorenson@redhat.com>
+In-Reply-To: <1714046.1788952509@warthog.procyon.org.uk>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Replace hardcoded 'make' calls with '$(MAKE)' within tests/make
-to ensure GNU Make jobserver file descriptors are properly inherited
-by nested builds.
 
-Additionally, remove the notorious 'unexport MAKEFLAGS' from
-tools/perf/Makefile. This hack was originally added to prevent
-the wrapper's internal '-j$(JOBS)' override from crashing when parent
-jobserver tokens were present. Instead, use proper GNU Make conditionals
-to check for '-j' or 'jobserver' strings within MAKEFLAGS. If a jobserver
-is already orchestrating the build, gracefully back off and let GNU Make
-manage parallelism natively.
+On 9/9/26 6:15 AM, David Howells wrote:
+> Hi Frank,
+>
+> Can you try this?  It can be triggered manually with something like:
+>
+>     xfs_io -c "w 100 100" -c "r 0 4096" /xfstest.test/foo
 
-Finally, optimize the 'out' target (which processes 'run_O' out-of-tree
-builds) by stripping sequential bottlenecks like $(call clean) from
-isolated tmp directories, and wrapping the target list in a parallel
-sub-make call.
+Hi David,
 
-These combined changes enable 'build-test' out-of-tree targets to
-build completely concurrently without severing jobserver tokens.
+With the patch, generic/759 now runs to successful completion on cifs mounted
+with 'sign'.
 
-Unscientifically measured the change lowered the build-test from
-around 15 minutes to 10 minutes on a 28 threaded Alderlake CPU. Fixing
-the jobserver issues meant the machine remained somewhat usable while
-running the test.
+Two things, though:
 
-Signed-off-by: Ian Rogers <irogers@google.com>
-Assisted-by: Antigravity:gemini-3.1-pro
+1) IIUC, folio_alloc() returns an unlocked folio holding a single reference, so:
 
----
-v3:
- - Added order-only tracking for make_tags_O and make_cscope_O against
-   make_clean_all_O. By parallelizing the 'out' tests in v2, make_clean_all
-   was sporadically deleting the source tree's './tags' file mid-sort while
-   make_tags executed concurrently alongside it, resulting in ctags crashes.
- - Added explicit trap cleanup routines via bash to properly emulate standard
-   GNU Make behavior on SIGINT/SIGTERM. If a user interrupts the test
-   using Ctrl+C, files like 'make_debug_O' and temporal build folders get
-   properly cleaned up. They are only left behind if the test errors out.
-v2:
- - Re-structured build-test array in tools/perf/Makefile into explicit
-   sequential $(MAKE) passes. This prevents in-tree targets (make_static,
-   etc.) from racing to directory corruption when exposed to native
-   jobservers.
- - Added '+' prefix to recipe modifiers in tests/make to prevent jobserver
-   FDs from being stripped before sub-shell evaluation.
- - Replaced hardcoded -j$(cores) limits in the 'out' sub-make step with
-   dynamic jobserver boundary detection to prevent fork-bomb override
-   collisions.
- - Restored missing $(call clean) steps via O_CLEAN conditionals to prevent
-   in-tree polluted runs from breaking out-of-tree sequences.
- - Removed unconditionally appended $(FEATURES_DUMP_FILE) target restrictions
-   from 'out' that threw "No rule to make target" errors on unhandled tests.
- - Fixed 'test_dest_files' to check [ ! -f ] instead of [ ! -x ], removing
-   long-standing ghost warnings for non-executable mode-644 targets
-   like etc/bash_completion.d/perf.
- - Fixed cosmetic string formatting bugs in GNU Make's print_msg banner
-   output.
----
- tools/perf/Makefile   | 35 +++++++++++++++++++-----------
- tools/perf/tests/make | 50 +++++++++++++++++++++++++++----------------
- 2 files changed, 54 insertions(+), 31 deletions(-)
+         if (sink_to >= 0)
+                 for (; sink_from <= sink_to; sink_from++)
+                         folio_unlock(bvec_folio(&bvec[sink_from]));
 
-diff --git a/tools/perf/Makefile b/tools/perf/Makefile
-index 5b713837eede..2cbf4cb5f093 100644
---- a/tools/perf/Makefile
-+++ b/tools/perf/Makefile
-@@ -14,23 +14,29 @@
- .SUFFIXES:
- 
- #
--# We don't want to pass along options like -j:
-+# If no parallel build was requested, do a parallel build with multiple jobs,
-+# based on the number of CPUs online in this system: 'make -j8' on an 8-CPU
-+# system, etc.
- #
--unexport MAKEFLAGS
--
--#
--# Do a parallel build with multiple jobs, based on the number of CPUs online
--# in this system: 'make -j8' on a 8-CPU system, etc.
-+# If MAKEFLAGS contains '-j' or 'jobserver', JOBS is intentionally left
-+# uninitialized so the native GNU Make jobserver can seamlessly control the
-+# parallel bounds of the build.
- #
- # (To override it, run 'make JOBS=1' and similar.)
- #
--ifeq ($(JOBS),)
--  JOBS := $(shell (getconf _NPROCESSORS_ONLN || grep -E -c '^processor|^CPU[0-9]' /proc/cpuinfo) 2>/dev/null)
--  ifeq ($(JOBS),0)
--    JOBS := 1
-+ifeq ($(findstring -j,$(MAKEFLAGS)),)
-+  ifeq ($(findstring jobserver,$(MAKEFLAGS)),)
-+    ifeq ($(JOBS),)
-+      JOBS := $(shell (getconf _NPROCESSORS_ONLN || grep -E -c '^processor|^CPU[0-9]' /proc/cpuinfo) 2>/dev/null)
-+      ifeq ($(JOBS),0)
-+        JOBS := 1
-+      endif
-+    endif
-+    PARALLEL_OPT := -j$(JOBS)
-   endif
- endif
- 
-+
- #
- # Only pass canonical directory names as the output directory:
- #
-@@ -58,11 +64,11 @@ else
- endif
- 
- define print_msg
--  @printf '  BUILD:   Doing '\''make \033[33m-j'$(JOBS)'\033[m'\'' $(BUILD_TYPE) build\n'
-+  @printf '  BUILD:   Doing '\''make\033[33m%s\033[m'\'' $(BUILD_TYPE) build\n' "$(if $(JOBS), -j$(JOBS),)"
- endef
- 
- define make
--  @$(MAKE) -f Makefile.perf --no-print-directory -j$(JOBS) O=$(FULL_O) $(SET_DEBUG) $@
-+  @$(MAKE) -f Makefile.perf --no-print-directory $(PARALLEL_OPT) O=$(FULL_O) $(SET_DEBUG) $@
- endef
- 
- #
-@@ -106,7 +112,10 @@ clean:
- # make -C tools/perf -f tests/make
- #
- build-test:
--	@$(MAKE) SHUF=1 -f tests/make REUSE_FEATURES_DUMP=1 MK=Makefile SET_PARALLEL=1 --no-print-directory tarpkg make_static make_with_gtk2 out
-+	@$(MAKE) SHUF=1 -f tests/make REUSE_FEATURES_DUMP=1 MK=Makefile SET_PARALLEL=1 --no-print-directory tarpkg
-+	@$(MAKE) SHUF=1 -f tests/make REUSE_FEATURES_DUMP=1 MK=Makefile SET_PARALLEL=1 --no-print-directory make_static
-+	@$(MAKE) SHUF=1 -f tests/make REUSE_FEATURES_DUMP=1 MK=Makefile SET_PARALLEL=1 --no-print-directory make_with_gtk2
-+	@$(MAKE) SHUF=1 -f tests/make REUSE_FEATURES_DUMP=1 MK=Makefile SET_PARALLEL=1 --no-print-directory out
- 
- build-test-tarball:
- 	@$(MAKE) -f tests/make REUSE_FEATURES_DUMP=1 MK=Makefile SET_PARALLEL=1 --no-print-directory out
-diff --git a/tools/perf/tests/make b/tools/perf/tests/make
-index d2c2f526e1db..4a865e58f2be 100644
---- a/tools/perf/tests/make
-+++ b/tools/perf/tests/make
-@@ -28,15 +28,17 @@ endif
- 
- PARALLEL_OPT=
- ifeq ($(SET_PARALLEL),1)
--  ifeq ($(JOBS),)
--    cores := $(shell (getconf _NPROCESSORS_ONLN || grep -E -c '^processor|^CPU[0-9]' /proc/cpuinfo) 2>/dev/null)
--    ifeq ($(cores),0)
--      cores := 1
-+  ifeq ($(findstring jobserver,$(MAKEFLAGS))$(findstring -j,$(MAKEFLAGS)),)
-+    ifeq ($(JOBS),)
-+      cores := $(shell (getconf _NPROCESSORS_ONLN || grep -E -c '^processor|^CPU[0-9]' /proc/cpuinfo) 2>/dev/null)
-+      ifeq ($(cores),0)
-+        cores := 1
-+      endif
-+    else
-+      cores=$(JOBS)
-     endif
--  else
--    cores=$(JOBS)
-+    PARALLEL_OPT="-j$(cores)"
-   endif
--  PARALLEL_OPT="-j$(cores)"
- endif
- 
- # As per kernel Makefile, avoid funny character set dependencies
-@@ -230,7 +232,7 @@ test_make_util_pmu_bison_o := test -f $(PERF_O)/util/pmu-bison.o
- 
- define test_dest_files
-   for file in $(1); do				\
--    if [ ! -x $$TMP_DEST/$$file ]; then		\
-+    if [ ! -f $$TMP_DEST/$$file ]; then		\
-       echo "  failed to find: $$file";		\
-     fi						\
-   done
-@@ -310,7 +312,8 @@ clean := @(cd $(PERF); $(MAKE_F) -s $(O_OPT) clean >/dev/null && $(MAKE) -s $(O_
- 
- $(run):
- 	$(call clean)
--	@TMP_DEST=$$(mktemp -d); \
-+	+@TMP_DEST=$$(mktemp -d); \
-+	trap 'rm -rf $@ $$TMP_DEST; exit 130' INT TERM; \
- 	cmd="cd $(PERF) && $(MAKE_F) $($@) $(PARALLEL_OPT) $(O_OPT) DESTDIR=$$TMP_DEST"; \
- 	printf "%*.*s: %s\n" $(max_width) $(max_width) "$@" "$$cmd" && echo $$cmd > $@ && \
- 	( eval $$cmd ) >> $@ 2>&1; \
-@@ -320,7 +323,8 @@ $(run):
- 
- make_with_gtk2:
- 	$(call clean)
--	@TMP_DEST=$$(mktemp -d); \
-+	+@TMP_DEST=$$(mktemp -d); \
-+	trap 'rm -rf $@ $$TMP_DEST; exit 130' INT TERM; \
- 	cmd="cd $(PERF) && $(MAKE_F) $($@) $(PARALLEL_OPT) $(O_OPT) DESTDIR=$$TMP_DEST"; \
- 	printf "%*.*s: %s\n" $(max_width) $(max_width) "$@" "$$cmd" && echo $$cmd > $@ && \
- 	( eval $$cmd ) >> $@ 2>&1; \
-@@ -330,7 +334,8 @@ make_with_gtk2:
- 
- make_static:
- 	$(call clean)
--	@TMP_DEST=$$(mktemp -d); \
-+	+@TMP_DEST=$$(mktemp -d); \
-+	trap 'rm -rf $@ $$TMP_DEST; exit 130' INT TERM; \
- 	cmd="cd $(PERF) && $(MAKE_F) $($@) $(PARALLEL_OPT) $(O_OPT) DESTDIR=$$TMP_DEST"; \
- 	printf "%*.*s: %s\n" $(max_width) $(max_width) "$@" "$$cmd" && echo $$cmd > $@ && \
- 	( eval $$cmd ) >> $@ 2>&1; \
-@@ -339,9 +344,12 @@ make_static:
- 	rm -rf $@ $$TMP_DEST || (cat $@ ; false)
- 
- $(run_O):
-+ifneq ($(O_CLEAN),0)
- 	$(call clean)
--	@TMP_O=$$(mktemp -d); \
-+endif
-+	+@TMP_O=$$(mktemp -d); \
- 	TMP_DEST=$$(mktemp -d); \
-+	trap 'rm -rf $@ $$TMP_O $$TMP_DEST; exit 130' INT TERM; \
- 	cmd="cd $(PERF) && $(MAKE_F) $($(patsubst %_O,%,$@)) $(PARALLEL_OPT) O=$$TMP_O DESTDIR=$$TMP_DEST"; \
- 	printf "%*.*s: %s\n" $(max_width) $(max_width) "$@" "$$cmd" && echo $$cmd > $@ && \
- 	( eval $$cmd ) >> $@ 2>&1 && \
-@@ -363,18 +371,18 @@ endif
- make_kernelsrc:
- 	@echo "- make -C <kernelsrc> $(PARALLEL_OPT) $(K_O_OPT) tools/perf"
- 	$(call clean); \
--	(make -C ../.. $(PARALLEL_OPT) $(K_O_OPT) tools/perf) > $@ 2>&1 && \
-+	($(MAKE) -C ../.. $(PARALLEL_OPT) $(K_O_OPT) tools/perf) > $@ 2>&1 && \
- 	test -x $(KERNEL_O)/tools/perf/perf && rm -f $@ || (cat $@ ; false)
- 
- make_kernelsrc_tools:
- 	@echo "- make -C <kernelsrc>/tools $(PARALLEL_OPT) $(K_O_OPT) perf"
- 	$(call clean); \
--	(make -C ../../tools $(PARALLEL_OPT) $(K_O_OPT) perf) > $@ 2>&1 && \
-+	($(MAKE) -C ../../tools $(PARALLEL_OPT) $(K_O_OPT) perf) > $@ 2>&1 && \
- 	test -x $(KERNEL_O)/tools/perf/perf && rm -f $@ || (cat $@ ; false)
- 
- make_libperf:
- 	@echo "- make -C lib";
--	make -C lib clean >$@ 2>&1; make -C lib >>$@ 2>&1 && rm $@
-+	$(MAKE) -C lib clean >$@ 2>&1; $(MAKE) -C lib >>$@ 2>&1 && rm $@
- 
- FEATURES_DUMP_FILE := $(FULL_O)/BUILD_TEST_FEATURE_DUMP
- FEATURES_DUMP_FILE_STATIC := $(FULL_O)/BUILD_TEST_FEATURE_DUMP_STATIC
-@@ -383,20 +391,22 @@ all: $(run) $(run_O) tarpkg make_kernelsrc make_kernelsrc_tools
- 	@echo OK
- 	@rm -f $(FEATURES_DUMP_FILE) $(FEATURES_DUMP_FILE_STATIC)
- 
--out: $(run_O)
-+out:
-+	$(call clean)
-+	@$(MAKE) -f tests/make $(run_O) PARALLEL_OPT= O_CLEAN=0 $(if $(findstring jobserver,$(MAKEFLAGS))$(findstring -j,$(MAKEFLAGS)),,$(if $(cores),-j$(cores)))
- 	@echo OK
- 	@rm -f $(FEATURES_DUMP_FILE) $(FEATURES_DUMP_FILE_STATIC)
- 
- ifeq ($(REUSE_FEATURES_DUMP),1)
- $(FEATURES_DUMP_FILE):
- 	$(call clean)
--	@cmd="cd $(PERF) && make FEATURE_DUMP_COPY=$@ $(O_OPT) feature-dump"; \
-+	@cmd="cd $(PERF) && $(MAKE) FEATURE_DUMP_COPY=$@ $(O_OPT) feature-dump"; \
- 	echo "- $@: $$cmd" && echo $$cmd && \
- 	( eval $$cmd ) > /dev/null 2>&1
- 
- $(FEATURES_DUMP_FILE_STATIC):
- 	$(call clean)
--	@cmd="cd $(PERF) && make FEATURE_DUMP_COPY=$@ $(O_OPT) LDFLAGS='-static' feature-dump"; \
-+	@cmd="cd $(PERF) && $(MAKE) FEATURE_DUMP_COPY=$@ $(O_OPT) LDFLAGS='-static' feature-dump"; \
- 	echo "- $@: $$cmd" && echo $$cmd && \
- 	( eval $$cmd ) > /dev/null 2>&1
- 
-@@ -416,3 +426,7 @@ endif
- 
- .PHONY: all $(run) $(run_O) tarpkg clean make_kernelsrc make_kernelsrc_tools make_libperf
- endif # ifndef MK
-+
-+# Serialize execution of tasks writing to shared in-tree files
-+make_tags_O: | make_clean_all_O
-+make_cscope_O: | make_clean_all_O
+unlocks something that was never locked, and never drops the reference.
+
+So should these be folio_put() instead?
+
+With CONFIG_DEBUG_VM=y, I think that's a
+VM_BUG_ON_FOLIO(!folio_test_locked(folio), folio) on the first gap
+read with a non-empty dirty region.  My test VM has it off, which is
+why I got a clean pass; but with bpftrace, I see 190 leaked order-0
+sink folios (760 KiB) over one generic/759 run.
+
+2) if netfs_alloc_request() fails, the kfree(bvec) at alloc_error is reachable
+before bvec is assigned, so I think we need to initialize it to NULL at
+declaration.  (It uses mempool->alloc() directly for the read origins rather than
+mempool_alloc(), so it can genuinely return -ENOMEM.):
+
+        struct bio_vec *bvec = NULL;
+
+
+
+With s/folio_unlock/folio_put/ and initializing bvec to NULL:
+
+Tested-by: Frank Sorenson <sorenson@redhat.com>
+
+(but I'll retest without those additions if I'm mistaken... it's happened before)
+
+(as an aside, 'git log -S' on the bvec_set_folio(..., sink, ...) line puts
+the aliasing earlier than the read rewrite -- should the Fixes: be
+7f84a7b9892d ("netfs: Make netfs_read_folio() handle streaming-write
+pages") instead?
+
+Frank
+
 -- 
-2.55.0.979.g7e5102b832-goog
+Frank Sorenson
+sorenson@redhat.com
+Principal Software Maintenance Engineer, filesystems
+Red Hat
 
