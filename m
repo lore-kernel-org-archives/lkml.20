@@ -1,102 +1,135 @@
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93C9846EC98
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 08:08:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66CF043F8A7;
+	Wed,  9 Sep 2026 08:08:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788941324; cv=none; b=r9/McCpq72V8b88uZM4GmVfC1vzaqRjxofZXVyJEuKCLIEbIdR4KGlVypC+wZ5kHWnz15ZL+NyLGhjEQmQDvodZ5MU7PzLatRF+Yp49rQU4vuUEyqnPur578whqTcY5xJD0zt6ZAlgHcs23uInigtej3k6LMewSRzTz15/iMkU8=
+	t=1788941334; cv=none; b=XuEDh7FSHC01PkAgAz2xtFlKVDWyZoWTxhGwWkFlMRKvl9jaYvk9Yf4nihqQycOef9QsbmUpI6E7zkPbIJZn3NC7B8vbCe8ougFjXAbPXf1ETADm2flSvlNxL8vSXU0paba4VH0u1RsX+hNiw8tYF9mjhO4QytIIonzILqMp4n8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788941324; c=relaxed/simple;
-	bh=R2je63BbknUokaDi3WpiVqNteUMA8vRZHwmgqRUZSpI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=EW2m476DjnI2jCD9GjQz/tCVB6UGQrT9b6g+qajTrEzavKOu67hvwby2Due/4u3K2Bo0vFg5NIOT6Fab63SKXgRuJpeyt3PooFDknb0y9dog5R9b1x0bs8DawhZB/OZCDMS6lbMaX95x5ZsOHW347DCK45JK27T8g6EMj2Ev7Vw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EqeAGu3l; arc=none smtp.client-ip=209.85.128.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788941334; c=relaxed/simple;
+	bh=bGStaMYU8yIvPfBkyTgjETA7IHiwhxaw5cb0hq+LHYU=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=AwpHgxXP74XR2pxwye8Z1997//FnNYmQicz+fPS0sHL7DGiWw2NZDZlGIR5DkKQCMcxgrnssxqFHWnSMDCDQugADoweaRMhoSFAxO0my+XX3q5aMiW+ZdHZnJqPC1qs3FkGBt/oKCs0XMOQQnlGqT1oxDz6gUn9pF3hfGARNbXo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IxMdyjOD; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EqeAGu3l"
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-49ccfae359fso48000415e9.3
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 01:08:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788941321; x=1789546121; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=R2je63BbknUokaDi3WpiVqNteUMA8vRZHwmgqRUZSpI=;
-        b=EqeAGu3lDZ5wIt1qBPKH2nmJSryWB+DBCIRKnhhHjUMd6lMA7PmjY19q2YLwgOB7zl
-         yqgEcj4uHp9WA/IFnMM1fo37UIFy3rAAjhZFrNCbOD6i/bCQyLPt+yVd26Qswc4yKznl
-         MZ6iLO3i06u5WUeTLScq/SuwmWsUL7Y5RwaOJZQdgyBNyEnpHJ8z22FFq+YaenMMJqrF
-         TT8Zkw+uEPf2nvJ/LkaRiBQn54LyMe70coN8EtOoROd32BWTVULHh6hL1FhzKEsn2mCm
-         rz12aS8q6LXFx3LoCc6jUyC4N3FReBKyd9zLRvNa0s9M9yPA/6pg4OMY+NWeSLGg0rF2
-         kypQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788941321; x=1789546121;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=R2je63BbknUokaDi3WpiVqNteUMA8vRZHwmgqRUZSpI=;
-        b=YfYAhyq14rt6ltLwezRxioYOKRQiv4A3emK3wQZiXdGnLFKXpPEov/EMIx/MD7/q9o
-         tPpzLGJtygt2+O4jlc1o5j2+1v9E6+k4/msbjcvrS2bVRMsZNEvPAPCMxDHiKPPmskUn
-         Uv6k2nTx785jw3sB+k+p1EvBKU17qsSYTBZAu9BHYONyCK+md7yp8fytOCEbSE6gxUrC
-         sryoFgkpNfc0vQ7BhC37gbYguyju9+H+Ny3RIN3aXPyjbMg5teMOyz2f4UpoasY2GchJ
-         UTbMNHtYMipJ17uKqRL7tm3anek5N9O1RbFt6YqIoySTjY3IVg5TzunAJVFk6WWprhKs
-         KG4A==
-X-Forwarded-Encrypted: i=1; AKwUvBzWVxGLqUHsZkM0HXDpfBDTvHDj/VXRSjzw9prlyaBNb1ZqTDzk8Q8+jEkqG7+CFt+7xxxx+ao27HI/v0M=@vger.kernel.org
-X-Gm-Message-State: AFuF++mOvxIsrSs1xy9wQSLQHYDZit6Eu5kQhA1LJrAHbFGrenFLqd6t
-	jLTZaKK17739D1Hv1tzIVnnI5zdKSsndqfgxfKwnKLSU9bsOQFqtt0t+
-X-Gm-Gg: AYBFou15baLmt+Cu7z0O+fCMyyFiYXIMhej40N5bRpU7agcyMuR+KbLBq+8Jq+g7sGw
-	yeql3AoVwq/4fHELmqnw6eRiZiabTZONYrAfJ4JKjDiWMz+z9T0voJSpAiQcVDlwCE+esWHj4oA
-	LaiuN10SsS7NdGWYXXrPrqnSg75mxRrfR8uZvh2Y8mLZrbbnATGlnAP6vKWyO+n+N8PEw9uA9sG
-	GVl79vH92XNYBZRhXOnadGs5XKr25fX2qp8myB6a1DZHvb+d/p6kbIAPHxgvT0qP+iUSY6/wn6n
-	REdVGUciB2qJcw56EwmOacXWTuLMbC0z9m5RTY7iwmRRI5kmjTmAIXe7DjgT246Hx6V4uyCuqV+
-	PgVs8rRISL+iAup4ox86/RmGGB1u+ZuHOE3JmyzwKobOB8IucTMLrmkvZwQPps2KId9WVua1B8E
-	FDDy8OViJFOpg3ZHYSDtX1Faj+1jcqam3BMU7p7yxlkPYwKq/GEB6s7SoPGU7aLDzdmqMgKMn2n
-	HBq
-X-Received: by 2002:a05:600c:4684:b0:49c:fc6c:be14 with SMTP id 5b1f17b1804b1-49cfc6cc10bmr303543295e9.26.1788941320634;
-        Wed, 09 Sep 2026 01:08:40 -0700 (PDT)
-Received: from deb05.proceq.com ([213.160.61.66])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cf7703cefsm607453595e9.5.2026.09.09.01.08.39
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 09 Sep 2026 01:08:40 -0700 (PDT)
-From: Mehmet Fide <mehmet.fide@gmail.com>
-To: haibo.chen@nxp.com
-Cc: brgl@kernel.org,
-	linusw@kernel.org,
-	aisheng.dong@nxp.com,
-	festevam@gmail.com,
-	Frank.Li@nxp.com,
-	ping.bai@nxp.com,
-	s.hauer@pengutronix.de,
-	kernel@pengutronix.de,
-	imx@lists.linux.dev,
-	linux-gpio@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5 3/3] gpio: mmio: track the direction of chips without direction registers
-Date: Wed,  9 Sep 2026 10:08:39 +0200
-Message-ID: <20260909080839.2297374-1-mehmet.fide@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260909064415.pel5dilh7nrkxz6u@shlinux89>
-References: <20260903075940.2089367-4-mehmet.fide@gmail.com> <20260909064415.pel5dilh7nrkxz6u@shlinux89>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IxMdyjOD"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 2D460C2BCFB;
+	Wed,  9 Sep 2026 08:08:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1788941334;
+	bh=bGStaMYU8yIvPfBkyTgjETA7IHiwhxaw5cb0hq+LHYU=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=IxMdyjODlodjPzETN0ZlTlWGQwo1BDrgoaRYlv+FQ6s3kEotmNPwNfdrAryO9JNFd
+	 PmF3eUBC8xARPcWNJDdAK2WkIWwHzpHNjHMoCxIOrzwftFYbl0cBEdb/KhzeJgJRWB
+	 YdWJjnmvsnMnbBhfYkWGO6eZPCi2GOQQA+2tp+bL4ptYoPHhDxCDuPzYE52re2tRPm
+	 kGy2mFaZz6fvEoxKw5BtwZOQfReE/pDGCtNmrhciwJUGkY1hRfeNosMb1JxLEOZ4zz
+	 no0sbkZF2Bh49F53Vb8ilWVud1xJM/L4xqR+TAsiIV8WruXvRLeos0QSsgUfNZbBla
+	 XUdySNqJ60IXg==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1A84DC79FB8;
+	Wed,  9 Sep 2026 08:08:54 +0000 (UTC)
+From: linuszeng via B4 Relay <devnull+linuszeng.tencent.com@kernel.org>
+Date: Wed, 09 Sep 2026 16:08:53 +0800
+Subject: [PATCH 3/3] mm: page_counter: drop protection fields from struct
+ page_counter
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260909-descriptive-name-v1-3-1828961cb01a@tencent.com>
+References: <20260909-descriptive-name-v1-0-1828961cb01a@tencent.com>
+In-Reply-To: <20260909-descriptive-name-v1-0-1828961cb01a@tencent.com>
+To: Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, 
+ Roman Gushchin <roman.gushchin@linux.dev>, 
+ Shakeel Butt <shakeel.butt@linux.dev>, Muchun Song <muchun.song@linux.dev>, 
+ Andrew Morton <akpm@linux-foundation.org>, 
+ David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+ Maarten Lankhorst <dev@lankhorst.se>, Maxime Ripard <mripard@kernel.org>, 
+ Natalie Vock <nat@pixelcluster.dev>, Tejun Heo <tj@kernel.org>, 
+ =?utf-8?q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>, 
+ Oscar Salvador <osalvador@suse.de>, 
+ Jingxiang Zeng <jingxiangzeng.cas@gmail.com>
+Cc: Michal Hocko <mhocko@suse.com>, cgroups@vger.kernel.org, 
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, linuszeng <linuszeng@tencent.com>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788941332; l=1787;
+ i=linuszeng@tencent.com; s=20260909; h=from:subject:message-id;
+ bh=shz9WUAjddH3Alsemp6w1PbzeLYHyRzk5zeGNg7NEjM=;
+ b=2xbTnqKMfvIkkyGThb5sZPBIowVjmF2rt6clRF6E2moyVUbPwRWuAbXWnddNr77RCDf9wUlxB
+ Bi7dxyJ1ndxAb4B78hc5cPxuy0anDb/3ZihIS8QvYsge+PRe+X+8kCI
+X-Developer-Key: i=linuszeng@tencent.com; a=ed25519;
+ pk=6K54xRzYIRWqatrAPy86M4E0MsI92BVJBhXwz5NdC74=
+X-Endpoint-Received: by B4 Relay for linuszeng@tencent.com/20260909 with
+ auth_id=1017
+X-Original-From: linuszeng <linuszeng@tencent.com>
+Reply-To: linuszeng@tencent.com
 
-From: Mehmet Fide <mehmet.fide@screeningeagle.com>
+From: linuszeng <linuszeng@tencent.com>
 
-Hi Haibo,
+The protection state now lives in struct page_counter_protection, so
+remove the emin/min_usage/children_min_usage, elow/low_usage/
+children_low_usage, min, low and protection_support fields from struct
+page_counter.
 
-On Wed, Sep 09, 2026 at 02:44:15PM +0800, Bough Chen wrote:
-> dir_unreadable is now set from a second source (PINCTRL_BACKEND with no
-> direction register, in addition to GPIO_GENERIC_UNREADABLE_REG_DIR);
-> worth a line in the commit message.
+swap/memsw, kmem, tcpmem and hugetlb counters no longer carry this
+unused state: on 64-bit the structure shrinks from three cache lines to
+two, saving one cache line.
+---
+ include/linux/page_counter.h | 19 +++----------------
+ 1 file changed, 3 insertions(+), 16 deletions(-)
 
-Will do in v6, together with your Reviewed-by on 1/3 and 3/3. Thanks
-for checking the i.MX7ULP/i.MX8ULP side as well.
+diff --git a/include/linux/page_counter.h b/include/linux/page_counter.h
+index b81f16702764..a4dd461523af 100644
+--- a/include/linux/page_counter.h
++++ b/include/linux/page_counter.h
+@@ -43,27 +43,11 @@ struct page_counter {
+ 
+ 	CACHELINE_PADDING(_pad1_);
+ 
+-	/* effective memory.min and memory.min usage tracking */
+-	unsigned long emin;
+-	atomic_long_t min_usage;
+-	atomic_long_t children_min_usage;
+-
+-	/* effective memory.low and memory.low usage tracking */
+-	unsigned long elow;
+-	atomic_long_t low_usage;
+-	atomic_long_t children_low_usage;
+-
+ 	unsigned long watermark;
+ 	/* Latest cg2 reset watermark */
+ 	unsigned long local_watermark;
+ 
+-	/* Keep all the read most fields in a separete cacheline. */
+-	CACHELINE_PADDING(_pad2_);
+-
+-	bool protection_support;
+ 	bool track_failcnt;
+-	unsigned long min;
+-	unsigned long low;
+ 	unsigned long high;
+ 	unsigned long max;
+ 	struct page_counter *parent;
+@@ -73,6 +57,9 @@ struct page_counter {
+ 	 * support memory.min/memory.low (swap, memsw, kmem, tcpmem, ...).
+ 	 */
+ 	struct page_counter_protection *prot;
++
++	/* Keep all the read most fields in a separete cacheline. */
++	CACHELINE_PADDING(_pad2_);
+ } ____cacheline_internodealigned_in_smp;
+ 
+ #if BITS_PER_LONG == 32
 
-Mehmet
+-- 
+2.43.7
+
+
