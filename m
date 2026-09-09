@@ -1,154 +1,159 @@
-Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com [209.85.216.49])
+Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0702C16F288
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 05:16:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.49
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788930964; cv=none; b=glseAgUrSBkK7pqbDKiyqmguJIkIcepHp+Jz/iCa/OW/53jAzyqbyIeLWlkYno1FjZKd921hOw3nlheZHqflbVSY0TyLQz1TaenwpPfqldQv58y12SS/D8ndZX3bDzUWLk60lzrQ5iIu87baI58j6c6TK/CYKZ9PLWFgBiDM6W8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788930964; c=relaxed/simple;
-	bh=Y5VD61VcseLUj3Wx2/Pgy8b5mzwV7DglW1NF+OC3BJU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=BOPe50mQ2QQjvNeAlbVFHxgBrEWzxnrRLJ6jb20GGS9RKQ4hKPrpU3mzDFIP4PwQws80IikrErcrPGYDHeYtHdoJzzvlOrNTIqHNXRUSJgLiZ0vjAtzdjuj5AtsmRPP6vDocirED7293eoY8ulI3VztP8QO5WncxGphqbb62vWk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=mFPfG2jh; arc=none smtp.client-ip=209.85.216.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2028423D7F0
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 05:17:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.43
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788931081; cv=pass; b=nGVruARrGJna5BWdMzm4gOMrM0UDdykPbN85SiY2uGnkO3TMX0k9KovjBvx5kuYOjpOM7gcgjyRB8vHRmu7nfqm92GNkrVpFdo1NS1zTN0R2i4BYdkiThuqcIH43eZpKXGGVbFFTgDiUV+GCaGpTWa1P+rp9dBLQF4LF7pXpq68=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788931081; c=relaxed/simple;
+	bh=lTUeH7uBg1apEPj4h8nGLSJDSLS3Xk4Z953/h7Ad4fE=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=HZ6pKgXVVVCCnAZYSGRhtBMryX/jJ0I9mcG7Dp/5uEXZWaitCBHMZUdkt6XA5NbNb9CMyi8GAlG/Lw5j8MEu1Z3MUFN21hxCHImCMsFBmwEkWb81DppmRTtBVLGLLppsgRa7IMyS67gKykFsinG2OXlmLLRDk7SifouF8p+lLUs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=lO+67OJ3; arc=pass smtp.client-ip=209.85.221.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="mFPfG2jh"
-Received: by mail-pj1-f49.google.com with SMTP id 98e67ed59e1d1-38ea87caafeso4607873a91.3
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 22:16:02 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="lO+67OJ3"
+Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-47ddf7b09e5so6224554f8f.1
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 22:17:59 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788931078; cv=none;
+        d=google.com; s=arc-20260327;
+        b=QQkKBY1xmtSY+VYdi84jmmY9A/raFsdK76fyW3oLrBmkDm0dUBKw7NffaQeVX7weJH
+         296fjuQq5eJekAr2BEOM6QFTKXOI/lN9fJDy87o1wgl2NyjlJcRH5scdaS3FjMpvNAW/
+         3Si9hveEz+1twPBPS+PmzvlpkpTAatW7jUQLvCzTLT+XCJfvTxxjJlKxCtOyFP9Bgb3o
+         KpUgB1TVhq9tnYpOsNMbyoAYVwk41r30cc27a0Qgs+XU6rNWbqxzet9YSn94X+SBht2t
+         1csbgHKkjnJMqSXP2mP+O3o/IvIvzsJ0F7f4WS0h/gN4on08CYVOXkDx9v0CFIprAcZJ
+         tvCg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=tpwg2VYWUV11d9na6aGEr4WCfSoveOTRZKFpwBK71as=;
+        fh=MhfjvuVwQDMjzPuVQFrP+JmdJpKaIv7AaDm9AE1X+xI=;
+        b=pCbhOrTX9SSiE6h21whPySJhKbKEf0LeHI3UEyyNO7Mli32YhlFWmYx7oHWBXzHh5c
+         INttamrTJUViiXFcdJ8Uv8puwY+UHvu85iRSD9nO+xCpz7mn8y/2JGvPwMWUiTyr0qv/
+         AdlbkawxH6ji0qKVACv+xOJF21CEH6UPXt4VQffwWW41XtbMTBeAH5LhMkEcVtrRNDZw
+         leleWHj4gbKMvspO2//XCOR8naywGCm6ZnLo2bkigdtf5/Mn7k70jO1y4asg5skWsa+6
+         rH2o03+f8waFB5Ts0K8KLNMrQ8qzhtMTOvCTVxZoS/mVtrRZvJrFrWz88FBQCcZA9Cd6
+         hOyA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1788930962; x=1789535762; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+        d=google.com; s=20251104; t=1788931078; x=1789535878; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=9Dizj3C/uiB0OjdqiLkkdhcvIiLwfs6+aR2Rr8Cl6Hw=;
-        b=mFPfG2jhclkuDmyJGs7CoKviSqc4YDm/rjsxh1TsgFV/t2L0o/kE3C9NuGFbAEXI0c
-         WrFy/RTDPr/J5kpeDtSfAiLu8wyoUZ2Qm4904yKQ1hRCLFZ4a23k4yv+DpEpgygRIFdu
-         UW5L60iAVdwq8XYsRzhiQyZXZTJIrlP/XsRdFG4mwKaQReAP2/KZJcvuJ+JMgFklot4K
-         M3DjcOa42AARVGTxcxP8DK3eNbpnUk9nJCLd/0wRlz/RG1m4qINw6qkOk9IlH9FMR/h6
-         XEbcil5QLWrARYO9aZRwkCgYKtVeh23vhOwoML51UMuVfmbgWQUXVlcpej5jBqZlvdoE
-         kSTA==
+        bh=tpwg2VYWUV11d9na6aGEr4WCfSoveOTRZKFpwBK71as=;
+        b=lO+67OJ3IGhqll8vXeLvTOahZth0zjaiU3enZNvJ6P4MLNb4rTgDLlPsgs/xCvIr9e
+         Euq/kbR6klL9Anfms2ejYXqd7EmMdXSAtvvk1znTAEyMR5WP2tKzJ96dADwwORfIMRMb
+         oSYSqGMDQQaq5OOW96FoHXvXi3TXdvq39aaoNry/CdJsmeLHea0QlgymNH5CpQSIuj3P
+         gaDl2lwRupsJ1L4/JcRAr4CDlEWtDWYaia+8LZw6sgl/rdnDoeGNLnbget4FP6tJP+J+
+         7nmEqOEvXKtW6isp8j7nF1zcYlEqxIP2iHMXRPasjsX3odleCS6BKTOKkh9NGdmpcnBw
+         z6NQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788930962; x=1789535762;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20251104; t=1788931078; x=1789535878;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=9Dizj3C/uiB0OjdqiLkkdhcvIiLwfs6+aR2Rr8Cl6Hw=;
-        b=GTnrPPm00E6W1dJfz247wd58OCqG57ClRzXGDtm+k9BCZsnyKjASxoefqUC/2YDrvT
-         5FUaRpPbuOlIlI3hWC878N2yx7gZ/Qg4j2nsX/74vvNJsdXU5AWGKLEkuoIjcYZEe1BT
-         m8Yh1/V9Xbw2hy5G07WN/rm06gS1Pb2rSh7uZT53KxHiJcc8Pt22GHtkrTuBoUHMwJga
-         wJkvuS9JffKHhL53n1EqlOOIwobb6YvTxSw4+eV0SavfOZcNZU4KTIc3aMpeSs7Y4oBs
-         0ptTKYjJ+gIezCV+kwSrcCl33Bmu6DAlggh0+U0QmH0DHVYrJVA5Wn4CjYDwCPGrrjcC
-         5mAQ==
-X-Forwarded-Encrypted: i=1; AKwUvBz8UEX1QYJDdNcf64V/aOZ/r0NaK86X56nuZiEwRkFGJ7evjIGGbU9NlkT7RLxltIFQMKgGehKk2DyuDrM=@vger.kernel.org
-X-Gm-Message-State: AFuF++mKoeGQnaSlNli1rOCp6H3N8vo4xpJcH9YJHsfJDx9Opz4WWBjA
-	f5CKJlzzhLvCk/W/4OLwartbQevC5SRPLmLfPYae1xDKJpsPLYWsbjmZUyFyfVLJw7k=
-X-Gm-Gg: AYBFou1erYmR7V81mq18blpBtKi/8jIBRSDuNEttsH3mHhmTwNkO/JqvrerwN9wnhHA
-	lNfC1P1UuR8Ghn4AeCcRBmAIVRUCGPQ1dYpYM+2D4OeCxkAkrVPp/UBhq3sZZIkX9+ggNBXP/ta
-	5u55F9TbiyjjQIFJ5G9snUzpVBDqvOdmno6ys80jUlhIuRDTzI2FK2lyPjXpirFnvMxqS+R/SG9
-	Amsnb0+HoWQpwPlLosiMbHoV5xW/vPlf+5VWrnWlxnM2+/urc/Lrc4ymRzlHMlKGJQTp3My5Kfr
-	I1r4P++htGDtXiMFSrP0GwPvrkMqgjzU3ffJyxVH6/7diyCD8J5RiTLidKxizWIry/emQVbxpjI
-	Vy03ulY8VarKDaKouhL5huL/I5fafq6WE9vKOwqUZC0sd6pxVwJP72wr8slqjgKfz+g+r9jQXg5
-	RlRhJoAugfqm4Xn73+aMsLZZAbwJFk+qIj2l1pKJMbHNRkq1K2nSXjpduReUavGxztuQXDobH7Y
-	w==
-X-Received: by 2002:a17:90a:d003:b0:398:ba9e:75ff with SMTP id 98e67ed59e1d1-39b26273a40mr51002778a91.21.1788930961625;
-        Tue, 08 Sep 2026 22:16:01 -0700 (PDT)
-Received: from localhost ([122.172.87.224])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3397d6d1becsm2904831eec.22.2026.09.08.22.16.00
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 08 Sep 2026 22:16:00 -0700 (PDT)
-Date: Wed, 9 Sep 2026 10:45:57 +0530
-From: Viresh Kumar <viresh.kumar@linaro.org>
-To: Tudor Ambarus <tudor.ambarus@linaro.org>
-Cc: Peter Griffin <peter.griffin@linaro.org>,
-	Viresh Kumar <vireshk@kernel.org>, Nishanth Menon <nm@ti.com>,
-	Stephen Boyd <sboyd@kernel.org>, Sebastian Reichel <sre@kernel.org>,
-	Praveen Talari <praveen.talari@oss.qualcomm.com>,
-	linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
-	andre.draszik@linaro.org, alim.akhtar@samsung.com, krzk@kernel.org,
-	kernel-team@android.com, jyescas@google.com
-Subject: Re: [PATCH] opp: fix use after free in _update_opp_table_clk()
-Message-ID: <aqDrjQVCy9VkjleX@vireshk-B250M-D3H>
-References: <20260908-opp-core-uaf-update-opp-table-v1-1-93d3fc928c5c@linaro.org>
- <dd704898-c51d-46e4-bef2-28d863cdee22@linaro.org>
+        bh=tpwg2VYWUV11d9na6aGEr4WCfSoveOTRZKFpwBK71as=;
+        b=XVrfKCHMTIeYWndgvgOZf9XNubyn0FlLGgDwaMgywUh2pY1fX06pnQhf/UjgakAJuJ
+         UE5NyvmWiU2sKR4kf6A53C28HxdJCdCRWZiB590csQPA5VwsDNcnh2eUnWXyuxiY1wAD
+         vcatOQh5ooHpDFG6Blgu/kE+Dh6o8vcUNWQsyQoP00cz2ZlJKLI61htnlAgrGzWr+146
+         mL/2SsBV+XKNzjZ7yRhoBClX7CM+y2bPrIm6UJbdNYrRzrOCrqsYq1czuENyqXxzrsCe
+         hiey/bkfJ/mhp8K0Z1llYmy46y/SMnohyIBav+CN9bRiKaTHkpHqwQKZh0AxgD/zkQ69
+         q8tA==
+X-Forwarded-Encrypted: i=1; AKwUvBxyCPA09sK4ajnEzGqagQJnUZaYL7yw+b9LTX0s/0akE5dwWi9D3+yAXzh5rR1gmtp1sJSMbiGbi+5MprA=@vger.kernel.org
+X-Gm-Message-State: AFuF++nfynC5FDMzWDxqFQKPO2wbBu5YoY3umKlnSnp2rYpAKTQ6ZWkf
+	+z86dNJmUpSYAj8OzTUCEmBbPIFp387tK/5p9zt4dkXGoiNW3Y1b1bGRCZpCQ97NukNacP2gt1D
+	Z8xXeIQYHuimljuPo3szPU2eq2jbFLzC2emEmqdU=
+X-Gm-Gg: AYBFou1dv8M9agJs+tg7GEOdNo+mpi+YRjKvwbbQDKtWU1qcWIL0H23dTo8EJMFo4dl
+	M1D93/5jlNUdcnETFkvcCp+ci8gwHgNy7hCvpQ1tRYgMrPG4NsBdrBN+AN6xBqE0UwOa1Riz7eh
+	pFbmgZoP5YL+4EZa0G1WzP9AXIk+41hcAMRle58peIBRnTBECaHmTDdLlIiZF7CqY8ohWnkvO86
+	POzYHxzosobQddIYm5B625H/OLgdRIhvULxQqy/FWP0vHmFs2ghb1Ol/JFY97n0rtYO39vebiLe
+	H/KFMv29gdTy5zPNx6trwiwf5k04SwfXPgEE3OCrYHrkn2i2fGsU87jNw7nKZCIPCNdJCLnvJGs
+	fH1xOqt/SwEUs/zn8K0Sa/ljxgZvBrgK2B8LT7um64DyvVgH5ckZZwZlv5p2pnII0q38mLmd53D
+	BQuhtI3lg=
+X-Received: by 2002:a05:600c:3f19:b0:49c:fc6c:be13 with SMTP id
+ 5b1f17b1804b1-49cfc6cc0f4mr295286715e9.25.1788931077754; Tue, 08 Sep 2026
+ 22:17:57 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <dd704898-c51d-46e4-bef2-28d863cdee22@linaro.org>
+References: <20260904034707.268416-1-sh_def@163.com> <appnKwylGK3QUIJ3@slm.duckdns.org>
+In-Reply-To: <appnKwylGK3QUIJ3@slm.duckdns.org>
+From: John Stultz <jstultz@google.com>
+Date: Tue, 8 Sep 2026 22:17:45 -0700
+X-Gm-Features: AcwNN1XZTxQTZZ7aSCZe1KjWtvEMHTatn6Zj5p6jHaQ6JF4P0FCajzYWel3JKFI
+Message-ID: <CANDhNCq5iPq87=iKSJv-XzYzTYJ8Hp+bPJ6SoVfWB3pRa=HypQ@mail.gmail.com>
+Subject: Re: [PATCH v2] sched: Account cgroup CPU time to the execution context
+To: Tejun Heo <tj@kernel.org>
+Cc: Hui Su <sh_def@163.com>, Ingo Molnar <mingo@redhat.com>, 
+	Peter Zijlstra <peterz@infradead.org>, Juri Lelli <juri.lelli@redhat.com>, 
+	Vincent Guittot <vincent.guittot@linaro.org>, Johannes Weiner <hannes@cmpxchg.org>, 
+	Michal Koutny <mkoutny@suse.com>, Dietmar Eggemann <dietmar.eggemann@arm.com>, 
+	Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>, 
+	Valentin Schneider <vschneid@redhat.com>, K Prateek Nayak <kprateek.nayak@amd.com>, cgroups@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 08-09-26, 16:41, Tudor Ambarus wrote:
-> 
-> 
-> On 9/8/26 3:37 PM, Peter Griffin wrote:
-> > dev_pm_opp_put_opp_table() frees the opp_table which is subsquently used
-> > by dev_err_probe(). This causes an Oops during boot on gs101-oriole.
-> > 
-> > cpu cpu0: error 000000006b6b6b6b: Couldn't find clock
-> > Unable to handle kernel paging request at virtual address 006b6b6b6b6b6cd3
-> > ...
-> > Hardware name: Oriole (DT)
-> > pstate: 00400005 (nzcv daif +PAN -UAO -TCO -DIT -SSBS BTYPE=--)
-> > pc : _of_add_table_indexed+0x80/0xbb0
-> > lr : _of_add_table_indexed+0x6c/0xbb0
-> > ...
-> > Call trace:
-> >  _of_add_table_indexed+0x80/0xbb0 (P)
-> >  dev_pm_opp_of_cpumask_add_table+0x70/0x120
-> >  dt_cpufreq_probe+0x23c/0x480
-> >  platform_probe+0x64/0xb8
-> > 
-> > Fixes: 84f05af0975c9 ("opp: Use clk_get_optional() to avoid leaving opp_table->clk as an error pointer")
-> > Signed-off-by: Peter Griffin <peter.griffin@linaro.org>
-> > ---
-> > This UAF regression was introduced in v7.3-rc1, and causes an Oops on
-> > boot for gs101-oriole (in part due to our default upstream kernel dev
-> > config having memory poisoning enabled, hence the 0x6b6b6b6b
-> > pattern). It is intended that this patch should get picked for the
-> > next -rc.
-> > 
-> > Peter
-> > ---
-> > ---
-> >  drivers/opp/core.c | 6 ++++--
-> >  1 file changed, 4 insertions(+), 2 deletions(-)
-> > 
-> > diff --git a/drivers/opp/core.c b/drivers/opp/core.c
-> > index 2fafd983de8f5..c8b941cb81b44 100644
-> > --- a/drivers/opp/core.c
-> > +++ b/drivers/opp/core.c
-> > @@ -1581,6 +1581,7 @@ static struct opp_table *_update_opp_table_clk(struct device *dev,
-> >  					       struct opp_table *opp_table,
-> >  					       bool getclk)
-> >  {
-> > +	int ret;
-> >  	/*
-> >  	 * Return early if we don't need to get clk or we have already done it
-> >  	 * earlier.
-> > @@ -1607,9 +1608,10 @@ static struct opp_table *_update_opp_table_clk(struct device *dev,
-> >  	opp_table->clk = clk_get_optional(dev, NULL);
-> >  
-> >  	if (IS_ERR(opp_table->clk)) {
-> > -		dev_pm_opp_put_opp_table(opp_table);
-> >  		dev_err_probe(dev, PTR_ERR(opp_table->clk), "Couldn't find clock\n");
-> 
-> you can do ret = dev_err_probe(dev, PTR_ERR(opp_table->clk), "Couldn't find clock\n");
-> > -		return ERR_CAST(opp_table->clk);
-> > +		ret = PTR_ERR(opp_table->clk);
-> 
-> and you won't need this duplicated line.
-> 
-> with this addressed:
-> Reviewed-by: Tudor Ambarus <tudor.ambarus@linaro.org>
+On Thu, Sep 3, 2026 at 11:37=E2=80=AFPM Tejun Heo <tj@kernel.org> wrote:
+>
+> On Fri, Sep 04, 2026 at 11:47:07AM +0800, Hui Su wrote:
+> > Proxy execution separates the scheduling context from the execution
+> > context. Commit aa4f74dfd42b ("sched: Fix runtime accounting w/ split
+> > exec & sched contexts") made per-task and thread-group runtime
+> > accounting follow the task that actually executes, while cgroup CPU
+> > usage is charged to the donor.
+> >
+> > When the donor and execution task belong to different cgroups, this
+> > makes a task's execution time count against a different cgroup from the
+> > one the task belongs to.
+> >
+> > Cgroup CPU usage should follow the execution context, matching the
+> > per-task, thread-group, and cgroup user/system accounting. Keep
+> > scheduling state associated with the donor, but charge cgroup CPU
+> > usage to rq->curr.
+> >
+> > A reproducer with the donor and execution task in separate cgroups
+> > showed the execution task accumulating runtime while cgroup CPU usage
+> > was charged to the donor's cgroup. With this change, the execution
+> > task's cgroup accumulates the CPU usage instead. The same behavior was
+> > verified with an RT donor and with legacy cpuacct accounting.
+> >
+> > Fixes: aa4f74dfd42b ("sched: Fix runtime accounting w/ split exec & sch=
+ed contexts")
+> > Suggested-by: Tejun Heo <tj@kernel.org>
+> > Signed-off-by: Hui Su <sh_def@163.com>
+>
+> Provided John is okay with going this way:
+>
+> Acked-by: Tejun Heo <tj@kernel.org>
 
-Applied with the fix. Thanks.
+I believe I'm ok with this if you are. Commit aa4f74dfd42b ("sched:
+Fix runtime accounting w/ split exec & sched contexts") was trying to
+allow the owner's cputime to make sense in top, but we still want the
+donor to be "donating" their time, so I thought the compromise of
+charging the donor's cgroup would make more sense.   I'm imagining
+something like the cpu bandwidth controllers, where it seemed like the
+donor's cgroup is who we'd want to charge, and eventually throttle,
+even though it is donating time to the lock owner to run (since even
+if the lock owner's cgroup was throttled, proxying will let the donor
+"bust" through the limit and run the lock owner using the donor's
+bandwidth - up until the donor's bandwidth was exceeded).
 
--- 
-viresh
+But if it is causing trouble for the accounting, and you think it
+makes more sense the other way, I'll trust your judgement.
+Tentatively:
+   Acked-by: John Stultz <jstultz@google.com>
+
+Eventually I think we'll want to track per-task "donated" and "gifted"
+time so folks can more finely distinguish the accounting.
+
+thanks
+-john
