@@ -1,90 +1,94 @@
-Received: from mail-e842.seohost-mail.eu (mail-e842.seohost-mail.eu [213.239.133.37])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7331C27FB1C;
-	Wed,  9 Sep 2026 14:49:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.239.133.37
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34BC92D73BC;
+	Wed,  9 Sep 2026 14:50:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788965402; cv=none; b=F57dfwcDTm6uKlWXWumFIOgYSD10OPCJHUj6qWIDF9d+r4Jv8rMA4lrRleM0XAwwjtGaoFiJCvwo1PdW6N5FR67ySTerSTTlRYZahUWpDLWG1rUEgWHSeMfp7nzj5uqnyCcfgzYKprvRub9ArJw+NJ3xMZocIBxU813fYuvBJfE=
+	t=1788965411; cv=none; b=giyX6Ys7bRntXYhxis9fkdujeQBkKKUopRtFD+MahFYMazaUbsGDQLNznilFbbbETrwpeqyDthQqnuhJq+hUK8mbRu/R3RPyRIOrWVa+sTyB5OkNp11tY/lnulA0ZAQGhWVtqDG/qnJaL3Yqu2PGvvNN3RiUfkFn7Dbkp+XSbwU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788965402; c=relaxed/simple;
-	bh=XGKpAg0B6i8uXNqCCjlOfsBCteU3bFFpYlXU53Vx9o0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=O8qQe74D02p+BLnhFcZCAZnN6uJa09dX/bjWM2CkbVoyD3ROGl1WIeXGGFWzAk4m3u87QKz6h1yyCMf4WKV/wPq3Wv7qfnw/yKmzzGtVX7uES+FOYHhZDUDfa0r15LnYxLBWVySmw0XtWNUYensR4VtKcqN7wMOXUkNWnfmFx+8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=kubik.pl; spf=pass smtp.mailfrom=kubik.pl; arc=none smtp.client-ip=213.239.133.37
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=kubik.pl
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kubik.pl
-Received: from static-46-238-236-132.awacom.net ([46.238.236.132] helo=localhost)
-	by h84.seohost.pl with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.99.5)
-	(envelope-from <piotr@kubik.pl>)
-	id 1x4Jca-0000000C04w-28zI;
-	Wed, 09 Sep 2026 16:49:56 +0200
-From: Piotr Kubik <piotr@kubik.pl>
-To: Pablo Neira Ayuso <pablo@netfilter.org>,
-	Jozsef Kadlecsik <kadlec@netfilter.org>,
-	Florian Westphal <fw@strlen.de>,
-	Phil Sutter <phil@nwl.cc>,
-	netfilter-devel@vger.kernel.org
-Cc: coreteam@netfilter.org,
-	netdev@vger.kernel.org,
+	s=arc-20240116; t=1788965411; c=relaxed/simple;
+	bh=65/Tclw+6SxUKfCYRbMf+RpwqrWmbCMLTUwSVGHPSTc=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=aDQJu3fiuQ7xnFGXRV9KqVMeaSYefgMgI0oqUR3dLd8ABTZ2wCHWfgvar3tJ6cCGIztIIygdD97zJ+KBKPrXMxCHkCp380rT+iQ5Vk/7ltyajAQv9m56ESQkjGQmLMMexL05qb/c98xqDkSDgIL1O2xe2bvWeKmlDRkq8WBjDYc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PXY6CUJx; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PXY6CUJx"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DF0AE1F00A3A;
+	Wed,  9 Sep 2026 14:50:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788965409;
+	bh=hj53gg4ff9DCPpubSP+QVQemVjU+gS+apEWWkxqCqWs=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=PXY6CUJxcNuepuXUdiOhOYV0+aUvtPS8ELf+WI/LU0tGbsvJxhEI5YI0FFhTX9UNd
+	 DbGmOtFyWqezaBnF6xU9vid0tAG1CIP5eGJJhoS+SWkDFVZdgYukaCAoiOnQGDE8zR
+	 MgCTAYAQjW/X1d7uFh99X8QxATiaVRr48pmLv2aMXnmvr4PMg5m31hptIWyv5UkOxv
+	 p9hZLf3yDo0mq6qj/jEeTBBUd4Ci0VZjQUK7rKh4wn1iR0w1JsHVcX6vTMCkoLygpF
+	 +ZI0OLTpB/qEGDkC1ntbrJhk2uupwnVjD1hzTdCKB8ttMPXXmL66Cag32C1Pl3k1v2
+	 uyII/snvxTwsQ==
+Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
+	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <maz@kernel.org>)
+	id 1x4Jcl-00000006jrE-39Qu;
+	Wed, 09 Sep 2026 14:50:07 +0000
+Date: Wed, 09 Sep 2026 15:50:07 +0100
+Message-ID: <86y0da7a3k.wl-maz@kernel.org>
+From: Marc Zyngier <maz@kernel.org>
+To: Fuad Tabba <fuad.tabba@linux.dev>
+Cc: Thomas Gleixner <tglx@kernel.org>,
+	Radu Rendec <radu@rendec.net>,
+	Kemeng Shi <shikemeng@huaweicloud.com>,
+	Will Deacon <will@kernel.org>,
+	Fuad Tabba <tabba@google.com>,
+	stable@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH nf] netfilter: ctnetlink: fix inverted IPv6 address match in dump filter
-Date: Wed,  9 Sep 2026 16:49:29 +0200
-Message-ID: <20260909144929.2688367-1-piotr@kubik.pl>
-X-Mailer: git-send-email 2.55.0
+Subject: Re: [PATCH 0/3] irqchip/gic-v3: Lifetime and range fixes in the GICv3 and ITS drivers
+In-Reply-To: <20260908142632.2795308-1-fuad.tabba@linux.dev>
+References: <20260908142632.2795308-1-fuad.tabba@linux.dev>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
+ (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Authenticated-Id: piotr@kubik.pl
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: fuad.tabba@linux.dev, tglx@kernel.org, radu@rendec.net, shikemeng@huaweicloud.com, will@kernel.org, tabba@google.com, stable@vger.kernel.org, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-ctnetlink_filter_match_tuple() rejects an entry when
-!ipv6_addr_cmp(filter, entry) is true. ipv6_addr_cmp() is a memcmp() and
-returns 0 for equal addresses, so the condition is true exactly when the
-addresses match: a CTA_FILTER dump with an IPv6 CTA_IP_SRC or CTA_IP_DST
-skips every entry that matches the requested address and returns all the
-others. The IPv4 branch compares with != and behaves correctly.
+On Tue, 08 Sep 2026 15:26:29 +0100,
+Fuad Tabba <fuad.tabba@linux.dev> wrote:
+> 
+> Hi folks,
+> 
+> Three fixes to the GICv3 and ITS drivers, from reviewing the GIC series
+> floating around and chasing down Sashiko's reports.
+> 
+> The first releases the partition node that gic_irq_get_fwspec_info()
+> takes from of_find_node_by_phandle() and never puts. Sashiko raised it
+> on an of/irq patch of mine, and I said a fix was forthcoming [1].
+> 
+> The second widens the per-device MSI clamp, which truncates to zero when
+> GITS_TYPER.ID_bits is at its maximum and then denies every MSI on that
+> ITS. I couldn't find an implementation that reports that maximum, so
+> this is one value at the edge rather than something anyone is hitting.
+> It carries Cc: stable because the commit it fixes was itself
+> backported, so drop the tag if you'd rather.
+> 
+> The third clears vpt_page once its_vpe_teardown() has freed it, so the
+> NULL guard holds if teardown runs again on the same vPE.
+> 
+> Based on Linux 7.3-rc2 (df2908090cda3).
 
-Observed with libnetfilter_conntrack NFCT_FILTER_DUMP_TUPLE: a dump
-filtered on src 2001:db8::10 returned only the unrelated entries, and a
-dump filtered on ::1 returned every entry except the ::1 ones.
-conntrack-tools does not use the tuple filter for -L, which is why this
-went unnoticed.
+Reviewed-by: Marc Zyngier <maz@kernel.org>
 
-Use ipv6_addr_equal() so the IPv6 branch mirrors the IPv4 one.
+	M.
 
-Fixes: cb8aa9a3affb ("netfilter: ctnetlink: add kernel side filtering for dump")
-Cc: stable@vger.kernel.org
-Signed-off-by: Piotr Kubik <piotr@kubik.pl>
----
- net/netfilter/nf_conntrack_netlink.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
-
-diff --git a/net/netfilter/nf_conntrack_netlink.c b/net/netfilter/nf_conntrack_netlink.c
-index 579ada063b1b..ef483699659b 100644
---- a/net/netfilter/nf_conntrack_netlink.c
-+++ b/net/netfilter/nf_conntrack_netlink.c
-@@ -1098,13 +1098,13 @@ static int ctnetlink_filter_match_tuple(struct nf_conntrack_tuple *filter_tuple,
- 		break;
- 	case NFPROTO_IPV6:
- 		if ((flags & CTA_FILTER_FLAG(CTA_IP_SRC)) &&
--		    !ipv6_addr_cmp(&filter_tuple->src.u3.in6,
--				   &ct_tuple->src.u3.in6))
-+		    !ipv6_addr_equal(&filter_tuple->src.u3.in6,
-+				     &ct_tuple->src.u3.in6))
- 			return 0;
- 
- 		if ((flags & CTA_FILTER_FLAG(CTA_IP_DST)) &&
--		    !ipv6_addr_cmp(&filter_tuple->dst.u3.in6,
--				   &ct_tuple->dst.u3.in6))
-+		    !ipv6_addr_equal(&filter_tuple->dst.u3.in6,
-+				     &ct_tuple->dst.u3.in6))
- 			return 0;
- 		break;
- 	}
 -- 
-2.55.0
-
+Without deviation from the norm, progress is not possible.
