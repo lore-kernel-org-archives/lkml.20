@@ -1,110 +1,134 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F04755867E5;
-	Wed,  9 Sep 2026 14:23:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72DA05867E8;
+	Wed,  9 Sep 2026 14:23:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788963798; cv=none; b=OAKe8COPx2l8XQguFZy99MYL62IMMVHWonnliqyIqGotdG6zcaoCYtKZ6YrszOBuZri0bSTK0nd69Y/OW+wdscudZIZeHXhMffBYjUBdI8j30k1/Mc/dwNuQOutiUPGffQ+G1cMU3bXDBOIvXcUZ6W3AjRkHrPwHm1bh6hUSESo=
+	t=1788963803; cv=none; b=g6N4jo2G3B7PK+uci4R9bfeqqxHuw8Yg80vTTNrFZz/Tx3oEHPeFssEmebfBpoyla6sSE3u0wbc5/PDU8d39ZHv9eHvTP8UsDxz4xrRpVKIuug4/FRtNRe4GUP4dmchHcAaA9S/xmMwkG/J2gEa2j2nBtkXm/Bg8tjs+PzvPY+k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788963798; c=relaxed/simple;
-	bh=oFj3LPGOh3YJeEBYfsHZEdVm+PKEWEMJnTwhuquIUwo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Edqjdark0mhIa8xx+QZIdzCYz4mpBfXynctFafTlOeT1GbXWjKocJ2qwj5Ui2683Nj4bRf3+BR9WrijOyY/DNrtaVOv/CPooQJ8GuZ1OsqukCxmzCciGEL/iwSLm3gqIXxGrUeI81HdiG5OHJnmxTiCljjXjDET8BsKlo8bVuf4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=SJqvscfV; arc=none smtp.client-ip=192.198.163.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1788963803; c=relaxed/simple;
+	bh=dy01aDxufwelqexVSCSUVNLfdhvIcd/QeRZKDOC1JFE=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
+	 In-Reply-To:Content-Type; b=gLaQJCKtjSw/7lXkVH2iWkdub4dqDfXzIOtNRfsqEF1RzqyBRChB7xX/cLHP3fJt1TrzLOGHGHbgQdNnmQ8ZRY2M8qfxCOSl9orCkyDlkAbWL4/daF/WD7lu6z7s1Oji/IKqNTkoqE5Dbz1VMhaIUdiCpaFB+w6hqQDxTJiC61I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IQiuCrQG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="SJqvscfV"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788963796; x=1820499796;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=oFj3LPGOh3YJeEBYfsHZEdVm+PKEWEMJnTwhuquIUwo=;
-  b=SJqvscfVwnuTW1fnSxdq0wLWxbsripY5Ompcqmji2OWzKyjh1WIAxm0z
-   LcstSUUnJ1xxfBwdHAvPx/eT7NB6UrhqDKVdbEafJzZpn5pT4Ul30QlP9
-   9H6vHzwVN1ctCNn+jya1rRbavFnoWavW4x0rmQVdSCUVggYmMSV1Lnjt0
-   aU7Z8olRZPnLjGKzZ4fe9GQE/i6clkvUtldl2EUBrAYgJc11j7jJDis5E
-   i/5bu6iHT6mgD04DFrrmkw4FJkNayVRDefx+1CDuviKn2mlI8+AtR1VFJ
-   km+zxBZyanTw1zAouJ/pCSOSRzs5cNlAOx4e81gV3SXoUZ5jj9VMueDxo
-   g==;
-X-CSE-ConnectionGUID: IsonrbN4RvawGHc80fYtvA==
-X-CSE-MsgGUID: pQyqX+xFS2u3UjmtacikKA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11900"; a="99987029"
-X-IronPort-AV: E=Sophos;i="6.25,270,1779174000"; 
-   d="scan'208";a="99987029"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
-  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Sep 2026 07:23:16 -0700
-X-CSE-ConnectionGUID: eby6Ed5rThypWRRduF6EQQ==
-X-CSE-MsgGUID: DnVMhwm5SOyKs9V4wJVftA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,270,1779174000"; 
-   d="scan'208";a="270850516"
-Received: from black.igk.intel.com ([10.91.253.5])
-  by orviesa008.jf.intel.com with ESMTP; 09 Sep 2026 07:23:16 -0700
-Received: by black.igk.intel.com (Postfix, from userid 1008)
-	id 0B13C99; Wed, 09 Sep 2026 16:23:14 +0200 (CEST)
-Date: Wed, 9 Sep 2026 16:23:14 +0200
-From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-To: Linkai Gong <gonglinkai@kylinos.cn>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Xin Ji <xji@analogixsemi.com>, linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] usb: typec: anx7411 - stop the IRQ before destroying
- the workqueue
-Message-ID: <aqFr0gC4b3mn1pbP@black.igk.intel.com>
-References: <20260903082254.1540271-1-gonglinkai@kylinos.cn>
- <20260908060333.4097219-1-gonglinkai@kylinos.cn>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IQiuCrQG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D312F1F00A3A;
+	Wed,  9 Sep 2026 14:23:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788963802;
+	bh=i6W2FGwXgxwv6NRv5ZRSdh10FfBE7WUHV7rXrybSwJ8=;
+	h=Date:Subject:From:To:Cc:References:In-Reply-To;
+	b=IQiuCrQGfz/BNM0KjlCtC6onVCVz8KRUfEkYfYaus7vqqG27w98ZjrAnsKsKOzPHt
+	 4fH96H8AwHsQOjwGzabUEx27K1X7KBLc4EqiSufWnxQ46vitgzJfGTBy28c7C4WAjv
+	 i9byds1do2aeLwOEdHAyfRQyKVWihBqcTTdDplc+OYOi9U7UlUaRe7tayrhF5DOS8W
+	 563z85pdqkMIzG9Mv0VEn2tXd6vjaelbCchqReVT/whqJRFnb23yL6aBQ9Sk1FahoC
+	 D3RCMc6ohPHre8ZPzLd+XuEb8mhS4HWwD7CVFSHJO7Yn6OsdQJPwWo5EIAGHMLllkJ
+	 bM9QojvCuIZvA==
+Message-ID: <fb37c097-4c12-4eb8-9739-e3513127eb35@kernel.org>
+Date: Wed, 9 Sep 2026 16:23:13 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260908060333.4097219-1-gonglinkai@kylinos.cn>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 12/14] treewide: replace PagePrivate() with
+ page_private()
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+To: Zi Yan <ziy@nvidia.com>, "Matthew Wilcox (Oracle)" <willy@infradead.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Muchun Song <muchun.song@linux.dev>, Lorenzo Stoakes <ljs@kernel.org>,
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>, Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
+ Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
+ Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
+ Gregory Price <gourry@gourry.net>, Ying Huang
+ <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>,
+ Johannes Weiner <hannes@cmpxchg.org>, Qi Zheng <qi.zheng@linux.dev>,
+ Shakeel Butt <shakeel.butt@linux.dev>, Kairui Song <kasong@tencent.com>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ Song Liu <song@kernel.org>, Yu Kuai <yukuai@fygo.io>,
+ Ilya Dryomov <idryomov@gmail.com>, Alex Markuze <amarkuze@redhat.com>,
+ Viacheslav Dubeyko <slava@dubeyko.com>, Li Nan <magiclinan@didiglobal.com>,
+ Xiao Ni <xiao@kernel.org>, linux-raid@vger.kernel.org,
+ ceph-devel@vger.kernel.org
+References: <20260907-remove-pg_private-v3-0-6ae22f9d9272@nvidia.com>
+ <20260907-remove-pg_private-v3-12-6ae22f9d9272@nvidia.com>
+ <afc196d8-8e17-4cdd-a6be-94b8816f2a57@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <afc196d8-8e17-4cdd-a6be-94b8816f2a57@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Tue, Sep 08, 2026 at 02:03:33PM +0800, Linkai Gong wrote:
-> The IRQ is devm-managed, so it can still queue plat->work while
-> remove() is tearing the queue down. Disable it first.
+On 9/9/26 16:18, David Hildenbrand (Arm) wrote:
+> On 9/8/26 04:56, Zi Yan wrote:
+>> PG_private is going to be removed and its check is replaced by checking
+>> page->private != NULL.
+>>
 > 
-> Fixes: fe6d8a9c8e64 ("usb: typec: anx7411: Add Analogix PD ANX7411 support")
+> You should likely clarify here that, for these users (the pages they deal with),
+> PG_private is set if and only if page->private != NULL. Consequently, there is
+> no functional change.
 
-Not for stable?
+Ah, in previous patch:
 
-> Signed-off-by: Linkai Gong <gonglinkai@kylinos.cn>
-> ---
-> v2:
-> - keep the minimal remove() race fix; drop the workqueue later if wanted
++static __always_inline int PagePrivate(const struct page *page)
++{
++	return !!page->private;
++}
 
-I don't see any difference compared to v1?
-
-thanks,
-
->  drivers/usb/typec/anx7411.c | 5 ++++-
->  1 file changed, 4 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/usb/typec/anx7411.c b/drivers/usb/typec/anx7411.c
-> index 41df115912b9..c3d36da692e4 100644
-> --- a/drivers/usb/typec/anx7411.c
-> +++ b/drivers/usb/typec/anx7411.c
-> @@ -1566,8 +1566,11 @@ static void anx7411_i2c_remove(struct i2c_client *client)
->  	anx7411_partner_unregister_altmode(plat);
->  	anx7411_unregister_partner(plat);
->  
-> -	if (plat->workqueue)
-> +	if (plat->workqueue) {
-> +		disable_irq(plat->intp_irq);
-> +		cancel_work_sync(&plat->work);
->  		destroy_workqueue(plat->workqueue);
-> +	}
->  
->  	i2c_unregister_device(plat->spi_client);
->  
-> -- 
-> 2.25.1
+So this is not about PG_private *at all* :) Best to clarify that.
 
 -- 
-heikki
+Cheers,
+
+David
