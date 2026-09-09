@@ -1,94 +1,167 @@
-Received: from mail-pg1-f174.google.com (mail-pg1-f174.google.com [209.85.215.174])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDEE057983B
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 20:45:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15F6F3D1CBE;
+	Wed,  9 Sep 2026 20:46:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788986753; cv=none; b=XlzFuhtK75tsM+OFOWJDjddW0Ud2/eL2xjOh5PYF+jkBe12wnm8AciEmgZtkNGu4OjOrinsaqQOCz1z+JootZItQgB+mt5rOnHywzhkCOeH/bkfn+j3CP22kKUgGSwYVF8Ela3TLcF8YZ9hm3wwBAKGbx/vOmJQIzXghqfV+xFI=
+	t=1788986802; cv=none; b=i2CHXWC9mJgoZcLUHF6BY3Wh0qqX+OqfyA0v3InAuIXKyM7kbA8FlvDyYU2z0j0reJukAsqQvDBAHWbO95voyE2kDvPQNNgbXBsD7aDbqSLKBs6QD1YUoX4mPFbCZIccHjSIf9+V4013IsSXh4f+oFXku/5HV1Ucj6+eoNHWoog=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788986753; c=relaxed/simple;
-	bh=EgZSCh+L2dZNhexxdGTyMKZa85FUePBVH8pPZX8mW+c=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=YtvSFPPWLqKBtaAgKTJunZHx9IUPDZJIhl0bRTNKCYqs2vu89YSie9ZdkDzEM4Ra40ZHz0HYz84Qky2YKsAGZD87GOX3DWigJvEC+EUEHGvhuWZHk/4aXTnj+dWfm3n8UhPqHW8/rccj6ZHn0YZJ7uYAsqg/He8/m/AkbW3+4Uo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=V6TYGPtP; arc=none smtp.client-ip=209.85.215.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788986802; c=relaxed/simple;
+	bh=nZRn9fCvkC+4O2mGzt/GA6svu7iNuR/vC5a2wTRKG78=;
+	h=Content-Type:MIME-Version:Message-Id:In-Reply-To:References:
+	 Subject:From:To:Cc:Date; b=DNzo9JM62s/3/Tc453H/vINjRTle45q0QmK4eaBSRI40l3NvYCSHDBdTLCcLXYUQuW4bXAW7o8qV+ddm52iUQNSrFUNcBqT7dyKIf+Ev1S+f7h0eiOIa0GeCQ38vdOx4BKmtzNgWD2twRZi0eQ+JC9U0+bwdJ0X9eL7Cjnuh2JQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HeekvFJ/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="V6TYGPtP"
-Received: by mail-pg1-f174.google.com with SMTP id 41be03b00d2f7-cc4aa0220f2so539622a12.0
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 13:45:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788986742; x=1789591542; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=Qt0NOIhyNLN5/KCcLAm6TLa7xwx0XIh9TdrbTwlVTtE=;
-        b=V6TYGPtP7X173cZbWvfgflv88LpDQAHR5DX+jVBFGXjj5rDVNoFSUL0nHOsYmSQ5pO
-         zDfK36JmA2Kq3lV1cKWGkQZWbfRQZh3f1W6zyiOxa7dEHij12uzWJTGPRpgLx/wnk8V8
-         zpUws/FJAw0iZmLsbmAdsGP7419DPtpHBHZroRi2KU15L2kkC5dYCeKECKgWDkHeLar1
-         YycDRFlAEBXulusLFhD9recGKVFM2jAg/AzskXrhEwVbuXa/dUTwyAzDvdueAdHl6jPv
-         LHMBKdaEFtvn9TTiUUGqlsDUFkETBA14uxbzDPAI7HpXc5EzcuXMO8PH07DaHfK4RBkQ
-         SoGg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788986742; x=1789591542;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Qt0NOIhyNLN5/KCcLAm6TLa7xwx0XIh9TdrbTwlVTtE=;
-        b=Xb2G/f6IJt1nH2pNV+p31Ou3N2ulL2sjfseZhB6sjkwYwMvp47iUzvKQBJ1TzoOxps
-         MfRLn4oeEEvS+g6tPy5YpHMlhJALq0JFmIZcs0L0UC0051uci39WW63BOalbRdUL4oAc
-         2fA0z+O+LzCXSaU31FKkhKIeFakRbEzTiUZBnqyvmMWYshRwPckcISwcb5t6g1Le+CqL
-         I9NRfVJj/qHELjAQNeY0EUoysmJI4nHTp39SKZCTr5kdeRTyJcGTZTEW81MM1+YwRyWX
-         ySIm7EjdRYC6F+irEcj5p9oi4BMuVrZD3TxYuRPl8jMwZ8OctdEDZos8oni5xLoI0d4B
-         Fc5Q==
-X-Forwarded-Encrypted: i=1; AKwUvBwJzd9jQBVWcOdplS47OXpb3Ny/iJmRQsDxeoxHEsbENhfQX1WmbIi1yusrStl0ahCnH7l3J83Vcaxhe9U=@vger.kernel.org
-X-Gm-Message-State: AFuF++nJ+9Bx5OxlVqVuBJtPw5FMPxhWeUr8jHcQ+9uein7pXq+NiKHQ
-	ZJ5CbaqiVRuY+aohvdROurFOeKLrFVQvxJT5sEXMglcFFimSencKWu0M
-X-Gm-Gg: AYBFou0TMX+gabkRu73EP611f2agUo2fkZEDGxDyHaH4ZrsKWKtrTiqp4CkFFA6v3Mm
-	YArEQFQwoCB/R8TPSshrirhnFkTCWZEIfu5gi6hCC/kjBnzIZYo+HjhTMxb0ALOedSnxauS2csW
-	nuxYnR7JfSEdNv5tl3pCM7GVYsA+epnm/QtOTFdKEq0bxFdQx9CHYuMLiAaogp+UVdkOij8FZKW
-	c6X5+Yq+q/mdQhFEcSW4Wu7jLaBK5tSPfUvAWLwhLtwJ4PHwaYCYar0vkU17x9niqpWzWlxYIye
-	Gw6glhXhWiQNbWhd4MB6BbXyl6JELg6uhNnsDe2SummjhKS+A8OluOoQMZWYdvSC/zhZWkrGOz8
-	ere21bFCZ2sG8lM7Qpo6qapM+hhM0Vd77mVLW5qlFYw+SxpTPBvGzYVrxwa+83YLghl7vI6FS0Y
-	TMh445JJkOJch5cORbFdtEFF18Ps+yonw0BZ14oPsiipiLm1+AP7K6ZnQPhVKLF2ZAbt14wUMs1
-	tDQni00maw+r6baByn0ERs=
-X-Received: by 2002:a17:90b:5826:b0:38e:7168:281 with SMTP id 98e67ed59e1d1-39b261b07b6mr57273151a91.10.1788986741452;
-        Wed, 09 Sep 2026 13:45:41 -0700 (PDT)
-Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d770a018fsm1431244a91.2.2026.09.09.13.45.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 09 Sep 2026 13:45:40 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Date: Wed, 9 Sep 2026 13:45:39 -0700
-From: Guenter Roeck <linux@roeck-us.net>
-To: Hemanth Selam <hemanth.selam@gmail.com>
-Cc: Wim Van Sebroeck <wim@linux-watchdog.org>, linux-kernel@vger.kernel.org,
-	linux-watchdog@vger.kernel.org
-Subject: Re: [PATCH 1/2] watchdog: fix typos in comments
-Message-ID: <af8dede4-ac67-49aa-8f60-bbd5cea798b6@roeck-us.net>
-References: <20260904113744.19872-1-hemanth.selam@gmail.com>
- <20260904113744.19872-2-hemanth.selam@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HeekvFJ/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5145A1F00898;
+	Wed,  9 Sep 2026 20:46:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788986789;
+	bh=eWJvB9mF6mBLy6y75rpL5jQ+WxpDzb0LWD0qdKP262c=;
+	h=In-Reply-To:References:Subject:From:To:Cc:Date;
+	b=HeekvFJ/vIYWQVyv1eh05GuzFTeDZcbjqeFSAyRAiHQwuvL3cJ4RGHUUfoCARIInk
+	 E8oTw2COfKxNrK3uQCp696Hpm8j3Xb0MXqR8dA+lTvY5AwfCXb26pbvIPuop50llGX
+	 TLDeTUa4NV6tlhFMRZTPFAUfJBLm7ukR1Qoa8Dj8R0O2c/YzhENsSSTnLsWnqW5UDL
+	 YLvLaxnTtpY5/XnimkjNkETQvvR5q0ueS9jwVdLfacU4HQVlbQIOGl88sm8UKMcKDn
+	 EvMq/N/YcStTfJuuOWJE/LcqdgP0po68D4xWhtZJp+ZNoZVMsgLT5o/SDPZB8RoIfI
+	 bgDTnfGmp9lPw==
+Content-Type: multipart/mixed; boundary="===============3806054765969645054=="
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260904113744.19872-2-hemanth.selam@gmail.com>
+Message-Id: <bfb872ee5fae6215e29bedd01d3a9d4c8f7f38ab6e7b5925b38396b003a3970d@mail.kernel.org>
+In-Reply-To: <20260909193719.518517-15-utilityemal77@gmail.com>
+References: <20260909193719.518517-15-utilityemal77@gmail.com>
+Subject: Re: [PATCH bpf-next v3 14/15] selftests/bpf: Test the LSM policy object kfuncs with Landlock
+From: bot+bpf-ci@kernel.org
+To: utilityemal77@gmail.com,ast@kernel.org,daniel@iogearbox.net,andrii@kernel.org,kpsingh@kernel.org,matt@bobrowski.net,paul@paul-moore.com,mic@digikod.net,viro@zeniv.linux.org.uk,brauner@kernel.org,kees@kernel.org
+Cc: casey@schaufler-ca.com,gnoack@google.com,jack@suse.cz,song@kernel.org,yonghong.song@linux.dev,martin.lau@linux.dev,eddyz87@gmail.com,memxor@gmail.com,jolsa@kernel.org,m@maowtm.org,bpf@vger.kernel.org,linux-security-module@vger.kernel.org,linux-kernel@vger.kernel.org,utilityemal77@gmail.com,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
+Date: Wed,  9 Sep 2026 20:46:28 +0000 (UTC)
 
-On Fri, Sep 04, 2026 at 05:07:40PM +0530, Hemanth Selam wrote:
-> Fix typos in comments, reported by scripts/checkpatch.pl using the
-> misspelling list in scripts/spelling.txt.  Only touches comments, no code
-> changes.
-> 
-> Assisted-by: Cursor:claude-opus-5
-> Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
+--===============3806054765969645054==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-Applied.
+> diff --git a/tools/testing/selftests/bpf/prog_tests/lsm_policy_landlock.c b/tools/testing/selftests/bpf/prog_tests/lsm_policy_landlock.c
+> new file mode 100644
+> index 000000000000..f01ae5be8aef
+> --- /dev/null
+> +++ b/tools/testing/selftests/bpf/prog_tests/lsm_policy_landlock.c
+> @@ -0,0 +1,525 @@
 
-Thanks,
-Guenter
+[ ... ]
+
+> +static int setup_env(struct policy_test_env *env)
+> +{
+> +	env->skel = NULL;
+> +	env->ruleset_fd = -1;
+> +	strcpy(env->tmp_path, "/tmp/lsm_policy_landlock_XXXXXX");
+> +	env->tmp_fd = mkstemp(env->tmp_path);
+> +	if (!ASSERT_GE(env->tmp_fd, 0, "mkstemp"))
+> +		return -1;
+> +
+> +	env->ruleset_fd = create_ruleset();
+> +	if (env->ruleset_fd < 0) {
+> +		if (errno == EOPNOTSUPP || errno == ENOSYS)
+> +			test__skip();
+                          ^^^^^^^^^^^^
+
+A selftests pattern flags this as potentially concerning: skipping with no
+message, so the output carries no hint about which prerequisite is absent.
+
+All five subtests funnel through this path, and both errno values look
+classified correctly here - EOPNOTSUPP when Landlock is built but not
+listed in CONFIG_LSM or in lsm= at boot, ENOSYS when
+CONFIG_SECURITY_LANDLOCK=n.  What is not visible in the output is which of
+the two happened; a reader sees five skips and cannot tell a config
+ordering problem from the feature not being built at all.
+
+Against that, test__skip() in the bpf framework takes no message argument,
+and a bare test__skip() is the usual idiom across prog_tests/, so carrying
+a reason means adding a separate print rather than passing one to an
+existing API.
+
+Would a one-line print naming the missing prerequisite before test__skip()
+be worth adding?
+
+> +		else
+> +			ASSERT_GE(env->ruleset_fd, 0,
+> +				  "landlock_create_ruleset");
+> +		return -1;
+> +	}
+> +
+> +	env->skel = lsm_policy_landlock__open_and_load();
+> +	if (!ASSERT_OK_PTR(env->skel, "skel_open_and_load"))
+> +		return -1;
+
+[ ... ]
+
+> +/*
+> + * Exit codes: 4 = unexpected write outcome, 0 = everything as
+> + * expected.
+> + */
+> +static void format_child_cmd(char *cmd, size_t len, bool expect_write_ok,
+> +			     const char *tmp_path)
+> +{
+> +	if (expect_write_ok)
+> +		snprintf(cmd, len, "echo x > %s || exit 4; exit 0", tmp_path);
+> +	else
+> +		snprintf(cmd, len,
+> +			 "if echo x > %s 2>/dev/null; then exit 4; fi; exit 0",
+                                        ^^^^^^^^^^^^^
+
+Is the redirect order here inverted?  A shell applies redirections left to
+right, so the failure of "> %s" is reported before 2>/dev/null has been
+applied, and the diagnostic goes to the inherited fd 2:
+
+    $ sh -c 'if echo x > /nodir123/f 2>/dev/null; then exit 4; fi; exit 0'
+    sh: 1: cannot create /nodir123/f: Directory nonexistent
+
+    $ sh -c 'if echo x 2>/dev/null > /nodir123/f; then exit 4; fi; exit 0'
+    (no output)
+
+bash behaves the same way, reporting "/nodir123/f: No such file or
+directory" for the first form.
+
+Does that message then land in the selftest output?  test_progs.c only
+reassigns the stdout FILE*:
+
+tools/testing/selftests/bpf/test_progs.c:stdio_hijack_init() {
+    ...
+	fflush(stdout);
+	fflush(stderr);
+
+	stdout = open_memstream(log_buf, log_cnt);
+    ...
+}
+
+and never redirects fd 1 or fd 2 themselves, while the writer here is a
+forked child that inherited the real fd 2.  So each restricted execution
+would print
+
+    sh: 1: cannot create /tmp/lsm_policy_landlock_XXXXXX: Permission denied
+
+which is seven executions across test_restrict_binprm(),
+test_restrict_binprm_concurrent() and test_restrict_binprm_trace().  The
+child's exit status is still 0, so the assertions are unaffected and this
+is stray output rather than a false failure.
+
+Would "echo x 2>/dev/null > %s" do what this was written to do?
+
+> +			 tmp_path);
+> +}
+
+[ ... ]
+
+
+---
+AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
+See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
+
+CI run summary: https://github.com/kernel-patches/bpf/actions/runs/34398515657
+--===============3806054765969645054==--
