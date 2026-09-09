@@ -1,201 +1,264 @@
-Received: from PUWP216CU001.outbound.protection.outlook.com (mail-koreasouthazon11020074.outbound.protection.outlook.com [52.101.156.74])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vk1-f177.google.com (mail-vk1-f177.google.com [209.85.221.177])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDD772C21DF;
-	Wed,  9 Sep 2026 03:57:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.156.74
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9A541E5B68
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 03:57:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.177
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788926252; cv=fail; b=BDufnRf1OnNtScZVG2scYKYJoTOotGZhbMIDpN7+Vj4Vp+dQyh1aLQ0p+Qu+nE+fOajxyA/f4CzM/kwk8sdDaLlGbekxgm/SMVK4Q/Fd/09hJKEg/PeozpI4qjAFNDg9lHyHol6BREKdNOIWHq3bc9Bm7J0a21+l7Jix0/bT5J8=
+	t=1788926269; cv=pass; b=HAdTS9I/qFgIRcQFl7ochq6sOtFxSIFRGAwkF81YGNqH2Wc/Tli77qIC1vmUJQTdLVgObHkWuHCyetLTokuktHP9agP0IVanubGfvb3N31xROoW9ipoyK0yLeJxDUQrfXw3a1b6WdcrUsvmZ5mqd05PwrsGuB2+EULHfORSPc2Y=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788926252; c=relaxed/simple;
-	bh=uQXwAwEnIGs/epvHyhsC7vgHHwrg0WwRWmEHyk7rjyk=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=had+kdhAe9D9ln/ZuZfNwxq5VV744WN6b7xsZdyJYLCsUIeN0HtJmr6HiyEMb693VvID5A0q6U9SIMo+VyafhBlUc3EOdqqcKLWZbFrPqyMqVxJp0BcVAkgADKsPRM10j4cUkGDcMA7JBCpytO9IRjj+wXw0HkvaPhRPl9cp+4w=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chipsnmedia.com; spf=fail smtp.mailfrom=chipsnmedia.com; dkim=pass (2048-bit key) header.d=chipsnmedia.com header.i=@chipsnmedia.com header.b=Jf42n01M; arc=fail smtp.client-ip=52.101.156.74
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chipsnmedia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=chipsnmedia.com
+	s=arc-20240116; t=1788926269; c=relaxed/simple;
+	bh=7xxtT/FL6qpKYeNTfwtqCOBrCCkAL1A25OTh5eI51tI=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=DQ1t5P7576pQXHX+sTVulOvlTL8+H3SLmtVnp0nv93rfjG+yLoWSuNNq+vaigTzSN7xOj3nih6jn1Z1ZVJEjhQh6NBByeGMD90aq+dtPOzg6A+NEgpWjOAYy9Kmcawoehg5FnEaWtB9poQGJ/AOiuIUFHOPHovU86hlB/3RHnxA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sifive.com; spf=pass smtp.mailfrom=sifive.com; dkim=pass (2048-bit key) header.d=sifive.com header.i=@sifive.com header.b=ApAN4HpC; arc=pass smtp.client-ip=209.85.221.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sifive.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sifive.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=chipsnmedia.com header.i=@chipsnmedia.com header.b="Jf42n01M"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Iht1X05pq1zJjeITSQ0lOMPuZ0zr5JAsETskPy9PGPM4/03GlYdD1eVnlyrH1zXC9AX+w7oY2jHSmETa4okElCoE3+PlDaPKHlWA1xbXEIHWSGTuxyb3uorexAasx776HDXQYLjKsNAdW1hqEAFxrfY6j1DDt4dB9qS1hez7kb03K+IEeeokL1B4muBeSHVTuBLU2ZqRXjsY50d0ZrYENoTf5zQ6y31zDznB+G39gPB/xj4RXmkmrVED3Rt511bw+uh61GRlukDsVg4NyvJ3i/btVQGL+oH3rkFxa/eaM1Sv4GEob/1Otbk+zmcDHXhb1e/G2eSIH24PsRwowri2og==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=mEhJqUNzhZEmTy912O8ic1yJeFHM+esxrEsNWG+wR94=;
- b=cTHtR4spUZeiBhOYFVfkaJ2VJWVv25UCNtxOWP7CjcNX72TKuiTN6EodXT2ouzwp57c8iMBYgB82mu5XHF0/ua43/Nmcu1TlNzC6qm4tGD0Jh+Zg/zGPYRobR8THxaFIDbM//ix4AwIm66X10ewyzUdo1jeR7++/HPpMC/eA9ykAEXPFA4yKt8xsJAvCCMuvHxwvUDbH3qmJ7rTkQPVfopiFhReHBcuNkasPJ4SuUI2wRO12z3VZZ6kBCDgfGFbBeslG1EZGI1yZbs+a+O+6oXtNchvNRB21Mqc7PN50yLoO0zxJX2+QMJVQRIXVvXZZ71MhFnOxCYWgvX+m/zodig==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=chipsnmedia.com; dmarc=pass action=none
- header.from=chipsnmedia.com; dkim=pass header.d=chipsnmedia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chipsnmedia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=mEhJqUNzhZEmTy912O8ic1yJeFHM+esxrEsNWG+wR94=;
- b=Jf42n01MR+fOS+lop4DkTprZKf7MhYmNLwteS4tUtqLXi/99psQWE6owqN9dubJ8NDRzikoOPeYb025qhBftcRMbfyXa/Hs1tXcE1fI0XqyCkDfFAa/bOGYVa1KOETUdrz+tJUDQegJw220O1E1UXTWq2jFmQP2KEN3GkJ6tYR4H/wlcYPNqDrq4YiLg29tu3kS//Lzj23YCS3lzkPITgifWuismt7Xr9W7QkRcM/VKsvSnPoot9+xwoM8aTNwmTGarFo0Azpymca7fvRD7XQyytBPErP+MUqKnTuasjWyMOIqirlFyGGSzGToX4NGaLMZwuL00NrQ2j03VJ23pJYw==
-Received: from SLXP216MB1148.KORP216.PROD.OUTLOOK.COM (2603:1096:101:f::14) by
- SE2P216MB290365.KORP216.PROD.OUTLOOK.COM (2603:1096:101:30e::23) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.7; Wed, 9 Sep 2026
- 03:57:24 +0000
-Received: from SLXP216MB1148.KORP216.PROD.OUTLOOK.COM
- ([fe80::8f6c:834c:6cef:7be]) by SLXP216MB1148.KORP216.PROD.OUTLOOK.COM
- ([fe80::8f6c:834c:6cef:7be%5]) with mapi id 15.21.0406.005; Wed, 9 Sep 2026
- 03:57:24 +0000
-From: "jackson.lee" <jackson.lee@chipsnmedia.com>
-To: Thorsten Lannynd <t-lannynd@ti.com>, "linux-media@vger.kernel.org"
-	<linux-media@vger.kernel.org>
-CC: "b-brnich@ti.com" <b-brnich@ti.com>, "k-willis@ti.com" <k-willis@ti.com>,
-	"detheridge@ti.com" <detheridge@ti.com>, Nas Chung
-	<nas.chung@chipsnmedia.com>, Mauro Carvalho Chehab <mchehab@kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: RE: [PATCH] media: chips-media: wave5: Add system suspend/resume
- support
-Thread-Topic: [PATCH] media: chips-media: wave5: Add system suspend/resume
- support
-Thread-Index: AQHdDk2WIrrge8fQ8kC9ywJzcknW57bGAcaA
-Date: Wed, 9 Sep 2026 03:57:24 +0000
-Message-ID:
- <SLXP216MB11485404EB8CB32CE88FAFEEEDB02@SLXP216MB1148.KORP216.PROD.OUTLOOK.COM>
-References: <20260707201655.781174-1-t-lannynd@ti.com>
-In-Reply-To: <20260707201655.781174-1-t-lannynd@ti.com>
-Accept-Language: ko-KR, en-US
-Content-Language: ko-KR
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=chipsnmedia.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: SLXP216MB1148:EE_|SE2P216MB290365:EE_
-x-ms-office365-filtering-correlation-id: 6627ec90-2593-4b22-8c21-08df0e267522
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|1800799024|376014|23010399003|366016|38070700021|10067099003|56012099006|22082099003|18002099003;
-x-microsoft-antispam-message-info:
- L3uYmVBtNIIFU5GCAIH5VLS6kmf+iQZzxOZRFIiFFUfS51vP3Twp0vI99zc8kkLSxiHwLCGHUhIfhN6ywr3RDzMaIFhpbX/OXkrEgXlMfmEOB5KtpdJV5+YuVwYcX+RulW5JGZPVCNnM6B7PXdflmhgNu8gYmSv/N1N3PhQK31k9y71rDWqjVsGt/mrNB+qDLKMlqpyLwTQkqgRzYOv9gCYtTCe5vrUQmnsZWEKknaKt2YxoHWAYcN6trWPFYiwhuCHAKh70TRHHZeyj8FUdTqx6z5sS9v8xEdXL1yIVGXQdwO+RBV3jQEJGEJ4QoiHGKw3Hz6Qt/ToamgrUNKusx7vDAnt1DKkgD0SxSNkIO8opat/eGf5HMQ1Wy+N/osIx337qv+fPtoJTgnIno2n3nUTNIYDIo7yKukCLhmZH/A3ThIE+WOmzmDk4ZGJiE123mtyDKqgSPT28qdQDnA59cf8YRR4blyRc7lYud3qKyGzac8EDobepudu0X3ckGrzE2JexoLkD41Yxt1YXeO/VHC0+m4V/wpHJLeYfKydr3++x7deU/u9FM10wHnN6j5qMBPvvk4QxOgk8GveZVnbgUIDwZwTO0m6tTB7UCJ6JSlrtl2rvUY+XuDpMy8iUAemFYgGQwVktuAsSnlt06a09+g7cHPpL2V8CS6RY7DNAOfLtfop9FeBMwtuDkmXajAvDt5txmE60aU/B4Cl7aNiiXQ==
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SLXP216MB1148.KORP216.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(23010399003)(366016)(38070700021)(10067099003)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?f8/Lc2Z/niJlYFHUZOU7F1vcclGHc/NC1/KLSA25r2NLVgR99ewAorJ64xT+?=
- =?us-ascii?Q?BXkjl/WYRLs5R/ujNiaKPxK2/KTYjxX2PPq7ynhARgEKHlrkmpIezXN/hZjc?=
- =?us-ascii?Q?YpCvMkTL0l7BHcuTKUYXcJXGMp7EfgqXo/pFUrFbgnH0r/RlPCtaIMDFtCPc?=
- =?us-ascii?Q?7T5tOkbH/KrlAHHlqsT9XrUM+EIsVH4xTlYcB88DG+jjayvGrA+rvk3k/sFz?=
- =?us-ascii?Q?5zGiyjXViTvTDjKWnfnRvVzLT37SrkbfoK4auDIoxCz94Y+0992ig5VjLt84?=
- =?us-ascii?Q?45/Qson8+4bPfUedPphp5xLkG5tHRqYD3nW7PLjXiIRyb9BvCmEFkK/dIeHz?=
- =?us-ascii?Q?Vme/IdCz6yG6op72dqEeL6W/dqqMRGyvsMWfYifTCsI61N7MM38OBJ7FvXlu?=
- =?us-ascii?Q?/0GEkUqSoQymXOgg1x+f+HAuZ2xUNP9oHYCGeT9Z8cQ/0KUFVBwtmRaanCpx?=
- =?us-ascii?Q?ChqKOSePus4G+LxxgeBcF8Lrk+H1/BFXGpyEdXj5TV88UXEuBG6uIqryb9HY?=
- =?us-ascii?Q?u2xPvZEbY9fI2GfWWjn0EEfqyXfTfWxwkcbhHSxmdduIAr34kNFBPotOe61V?=
- =?us-ascii?Q?d4wXrZ9o7dax5xTEkQPoiyvAbmZYps41SX71zJIN5WB1PVpLDBdLNTIQNOuz?=
- =?us-ascii?Q?lxeGFfRnZF8TEzQVCpM8hlNJrZ6AAYjEkhA+VLdVGjT/fTfO5zzBfY1HZY9T?=
- =?us-ascii?Q?hh5Q6A84PmX3O9KRFhH5D+acUQ9HuqS9PztopzjkvG7BRuqCJJiGYLN3dDJ2?=
- =?us-ascii?Q?D5IRzrhQBoiVWCBDaadsGP6HXh7eMsgFGGlPvgJW09kMuSO5HxSNDddhUpiz?=
- =?us-ascii?Q?T+ieliIXkMYAgqoNL4raQn7GGk0U2UcRcTE8PXeE92eyQJOs3U3V2b5GBvmM?=
- =?us-ascii?Q?DAe1HXJ2jVNK6RIO1/pfRDutv8qmwonUtUgaHfLJgRPc8Jybg+lBqiaHpJKX?=
- =?us-ascii?Q?J+S2tsZbiSkfuvL3smbjVbHzFtiGBvWOtBy/BFkpNIRlsh5FN/SphChfcztA?=
- =?us-ascii?Q?ObqkNFkx8JjAn4nV6AzckWuvr/h1x8eXAvlYePsplMiAC3Sv7WdZ5m/+3erf?=
- =?us-ascii?Q?K9xP/7x3HrT8miIhF5HgvaeJJHIewhhpj2x5Kww7ARAG8sb8tz0N0/dF2Z7d?=
- =?us-ascii?Q?EvlgPdMQlvDCs/7VyuKB07qqRJ/12zSVAMgoJq/0d2rE5eifn8m59pdNG3D5?=
- =?us-ascii?Q?jJ/IrtPM2O9ehhc/V95wm39MIsj6X3yD3FKXCMT8IXmj7m6j67xoMkYUW1+2?=
- =?us-ascii?Q?Syc/fOz3YvZnG0OwsLZEEid24y72Llm06J+70hwbb3ffMFif/6gax7H8tA+t?=
- =?us-ascii?Q?QK82zoqWHgguYkFsRkxoqbALn39bY3Y8zc+wcsrSFGGataLzQO2Cw+mIw7Sk?=
- =?us-ascii?Q?YFyWXyYakUyKaxl5AFHc/S+PKdF/+8URdltsmN57347d47HIkFVVOeVBOVux?=
- =?us-ascii?Q?oTA8jyHEpEMIZR5afGIBHYOf4Eyitl1z/5GzJ37cLB6o4xSWwwGdv6HpnjjC?=
- =?us-ascii?Q?YkB/D7zjbvVN1gLx52gxAqG1hbbyD9pmBrf54PIkjbgnishCFi235H1I0mLN?=
- =?us-ascii?Q?fRBHG4ui6xi2d4QWAI7rXnZppwmDyHfYw/GfzPEQoSeMoUhS7IJybxij3KaU?=
- =?us-ascii?Q?KBK/GQkiH3rawRBmThl9bMFhuwWm7t+jxMRqENLkwXbtR623TEsOHVTmTyu4?=
- =?us-ascii?Q?fuZsmoEHlXsNVdriNYAcP2rSSP31MeDjVZVA93s4BTZanimzxlAOtN3ytqNt?=
- =?us-ascii?Q?MkQciMLFKg=3D=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=sifive.com header.i=@sifive.com header.b="ApAN4HpC"
+Received: by mail-vk1-f177.google.com with SMTP id 71dfb90a1353d-5bfc54558d5so6972456e0c.0
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 20:57:47 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788926266; cv=none;
+        d=google.com; s=arc-20260327;
+        b=BY/gjoRmKwuuRY4FcV4giYaCZFze03NaXpeFg/I3w9oa2W8Uts+iDQ5Lsq78xcf7tm
+         ynQiYTgt+l57UWlgo55k+KrPNgXmNBSy9tQIu2UZuigYFr0PEw7YXKSm9A/PYPFpLYa4
+         lBAc2sxye619bYzOZ/TAV8iuI0Tx9A9vcYx4L+AmTqAZ5mTE69fJ8ULNvHRuM9d11hkk
+         axU49ts+clMHBAE1P+MG7Ij8Dnd8u6Krs3J+3lg345d9ZHNtWwYkeaADNAiBn20DWmOD
+         +e11jkja8+nHTyWYBOI33G+be19YN/vwvotbwNIP/v3Fqzn/VnO7pOUnEJ9sJQ1esvrn
+         zDdA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=6kH0tSRloKBsA9qiF3oHk70jTIj3t7dVydxj2ubMusk=;
+        fh=GUEXLngrA58nj1xTd1v0cTTTGtcyM7ExT6yMYmAua0M=;
+        b=nDDoDHNw54nRtnZouuFeDF/QMqvpTkpsBbhLKzGPfAiPb7EUL8FqRPFGzwa0CtehWV
+         ByKjOnxSbOmhAjf6VJWLSOLzklFHkp8uEDiMJDxOAbSkq0QZP9LZJa8z/7EA4J6hE4BB
+         smM9uvcR6GsdQiq1s404uEM7VcKqy8fvn9+M3r5WY9IHn2gcLm3NO61VrAy23rsn98NJ
+         8ay2FcIAoDy9teYOCM1Vy4FQLs1wgDFwkhoFd5uGKcoqtq39Uwwsi7nTj97optD2I04V
+         OXAd5/57p2owK9h0LIiC0EKRWV1mma/UDwlFnFQGjPr790/rw+wmE8ajBdgwhXFN04Tw
+         CdqQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=sifive.com; s=google; t=1788926266; x=1789531066; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=6kH0tSRloKBsA9qiF3oHk70jTIj3t7dVydxj2ubMusk=;
+        b=ApAN4HpCUt9W3saYcLuJUkh6CYkvHHf2/UG3VSquNYIjxCWnEkgWmVX5lzXXgELxv/
+         wPw7cYrUxZw8osV0iBawmGrUCoTgfguQMt/5IPkv1MzipBGNkrZjYmm80gQwKVQgGQO3
+         /pCSWSaHM/7xM8fwsmPEteFIbPuj9JcJCgVm9yapoyg6CYZT5IpburPUDbXxxvC0mXx+
+         fUaWpA5UmoMdFSEL6vbGN028y5TieoIF88XByJyuobwN9CRXgUp5vPaCxQnGYZEi9Tzz
+         NOXQTGgSGXdc9Z3JYN1YfyPYTM5AbkKxo2Cs2T0mNWVoexkA/Gb5Rys31BVBblHsxEbi
+         7X+A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788926266; x=1789531066;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=6kH0tSRloKBsA9qiF3oHk70jTIj3t7dVydxj2ubMusk=;
+        b=Dwrp3Y8BO28Tdf7OhQISNExZxr5yXO2c2j/4OOacruq/CRgTaIAqQkc22fKJRe1eiy
+         AdcbUBDIksoH5IUe13Ne8PwRcQ29D7WF7x4/P4o9noO0it9yampnvN2CQ14DyAHEepue
+         z5z9zOBcijEuXuyOrIyFhzwCr/xsGZiWyRx9/zx8ytCs7WZJjfFFCxHhqTw65rLWGrGF
+         5KHKKkZ3/Y5AVJHjl2jDk5xSViUtykxle6FN4K8EXdnVyMqAxJjNR9uwMGR1EHVsTMHC
+         A0ANo4oougWrCvAYD2Wtl3SKDK995Vr3n/SRzI5GQOlcgCR2O8tXZsEyKOLpyjLSgjC1
+         TP2Q==
+X-Forwarded-Encrypted: i=1; AKwUvBy6yx9yQgFFAXHHt9A/T9W8v70LmIYB4crOlmCDfmPuEIXwALPJTB9uPMPTKaPCXYsdot986ENez1kXsXI=@vger.kernel.org
+X-Gm-Message-State: AFuF++nkba8AxbRMCEVjMlFqBTr6w8vC6N6KlhtZMarmScmHQnvtLuHf
+	e20W4wblA3y4qOCqC0UgwrPZpLjtJ7qVJsC9KSB6hBRxltHLBenLrjhfY0p0og3Wdtq4fS4/ce9
+	sNUDJq7v3GtR9piApeRBZSds/guvcfOeyHebYIsPXSQ==
+X-Gm-Gg: AYBFou1FLx0URjUwpctXul+olwcmaULXNug/BXuMTV0wGNrzaRv5Vn8H7gjpkOv6AG2
+	zxIfANRhMD1nHXBrfSvsrc1eo8KTdOrtTVJOPWSxket1jSQnvLu5zfT3ip1LSbjxuaVA3jZTvsh
+	dquO+3fWdkXp4NulAWlhMJUkchDgkTqDg9b/MqsbSC3k+zCSVgnDEqleeCVsm2JyYtFVyzUBTdd
+	df3Ym293Sx6KoAf3OHuxLJO4WREWoR4yesQ8v4NNJvaDiIoQfJ/yR5Z/EKdum1SiXkhbXAUz76m
+	x8hKi8GeMKUc/wauONLlzYmlYqaOi58tkFICQ2NMqSpR7dAMJLn84gc7vg==
+X-Received: by 2002:a05:6123:4204:20b0:5bf:6dd0:36d with SMTP id
+ 71dfb90a1353d-5c7dcf768e3mr8710710e0c.8.1788926266507; Tue, 08 Sep 2026
+ 20:57:46 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: chipsnmedia.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SLXP216MB1148.KORP216.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6627ec90-2593-4b22-8c21-08df0e267522
-X-MS-Exchange-CrossTenant-originalarrivaltime: 09 Sep 2026 03:57:24.6413
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 4d70c8e9-142b-4389-b7f2-fa8a3c68c467
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: Anf5227lFbJ4DLCPv5idMp9rYsCeQ88hIvSSZ3Ijq4ZLITt1Pa32B6W4ytqb/shAIzXxvFJIp+QL9BXpjymSnxHFAnkuv/Xder+fF+onRxE=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SE2P216MB290365
+References: <20260904-perf-evlist-uncore-cpu-b4-v1-1-604b55c025ee@sifive.com>
+ <CAP-5=fX1uKg8AncsP5BVFtchgns5TquOTB10-mR5ury2CaH0sg@mail.gmail.com>
+ <CACpYXwATq8nU9mB2SuNO6kAUNrj8bH3UjQiHd5X6=9VX4YZJgA@mail.gmail.com> <CAP-5=fVw0+Xh6Xovj_Vt1XnTT8Y0fK-+wia=oxwFmPaT06MTBg@mail.gmail.com>
+In-Reply-To: <CAP-5=fVw0+Xh6Xovj_Vt1XnTT8Y0fK-+wia=oxwFmPaT06MTBg@mail.gmail.com>
+From: Nia Su <nia.su@sifive.com>
+Date: Wed, 9 Sep 2026 11:57:35 +0800
+X-Gm-Features: AcwNN1V-pmoH-l-Gdzi-F_XGEUOx1dfZ1iZtFNeHFPHBZclF60TC6XrjBJcvGDY
+Message-ID: <CACpYXwBiF12==Ct1voU-0QcXzMCVqkd3vVJG+4MkYPnZ8rd=WA@mail.gmail.com>
+Subject: Re: [PATCH] perf evlist: don't restrict uncore events to PMU CPUs
+To: Ian Rogers <irogers@google.com>
+Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
+	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
+	Mark Rutland <mark.rutland@arm.com>, 
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>, Jiri Olsa <jolsa@kernel.org>, 
+	Adrian Hunter <adrian.hunter@intel.com>, James Clark <james.clark@linaro.org>, 
+	Thomas Falcon <thomas.falcon@intel.com>, linux-perf-users@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+On Wed, Sep 9, 2026 at 1:11=E2=80=AFAM Ian Rogers <irogers@google.com> wrot=
+e:
+>
+> On Mon, Sep 7, 2026 at 8:23=E2=80=AFPM Nia Su <nia.su@sifive.com> wrote:
+> >
+> > On Fri, Sep 4, 2026 at 11:34=E2=80=AFPM Ian Rogers <irogers@google.com>=
+ wrote:
+> > >
+> > > On Fri, Sep 4, 2026 at 6:45=E2=80=AFAM Nia Su <nia.su@sifive.com> wro=
+te:
+> > > >
+> > > > The PMU CPU map has different semantics for core and uncore PMUs.
+> > > >
+> > > > For core PMUs, pmu_cpus contains the CPUs on which the event can be
+> > > > opened. Intersect the user-requested CPU map with the PMU CPU map t=
+o
+> > > > reject CPUs unsupported by the PMU.
+> > > >
+> > > > For uncore PMUs, pmu_cpus is just the default CPU to open the event=
+ on,
+> > > > not the set of CPUs it can only be opened on.
+> > >
+> > > This isn't quite true. On a dual socket Intel machine, `pmu_cpus` wil=
+l
+> > > contain a CPU to open the event on per-socket.
+> >
+> > Yes, I agree. My description was not precise enough. What I wanted to s=
+ay
+> > was that pmu_cpus provides the default CPU(s) used to open an event. It
+> > is not necessarily an allowlist. A user may specify another valid CPU,
+> > which the PMU driver can resolve to the appropriate control CPU.
+> >
+> > > > The user-requested CPU may
+> > > > override the default and be used directly, and the driver can redir=
+ect
+> > > > the event to the appropriate control CPU.
+> > >
+> > > Agreed.
+> > >
+> > > > Currently, __perf_evlist__propagate_maps() intersects the user-requ=
+ested
+> > > > CPU map with pmu_cpus for all PMUs. If the user-requested CPU is no=
+t in
+> > > > pmu_cpus, the intersection becomes empty and the evsel is removed b=
+efore
+> > > > perf_event_open() is called.
+> > >
+> > > Could you give a command line example of the perf tool doing this? I
+> > > ask because I'm surprised the uncore specifying a CPU behavior has
+> > > been broken. As well as `perf record -C` there is also a somewhat
+> > > newer cpu event qualifier.
+> >
+> > I tested both approaches, but they still fail whenever a perf event is
+> > assigned to a CPU outside the uncore PMU's sysfs cpumask. for example,
+> > assigning the event to CPU 1 fails when the cpumask is 0:
+> >
+> > perf stat -C 1 -e <uncore event> -- <program>
+> >
+> > Here, for an uncore PMU, pmu_cpumask() reads the sysfs cpumask into
+> > pmu->cpus. When the event is created, perf copies pmu->cpus to the
+> > local pmu_cpus variable and then stores it in evsel->core.pmu_cpus.
+> > In this case, evsel->core.pmu_cpus is {0}. The CPU specified with
+> > "-C 1" is stored in evsel->core.cpus as {1}. Then, in this function,
+> > __perf_evlist__propagate_maps() then intersects the two maps, resulting
+> > in an empty map, so the event is removed before reaching the PMU driver=
+.
+> >
+> > > > Skip the intersection when evsel->requires_cpu is true, which is se=
+t for
+> > > > uncore PMUs. is_pmu_core is also false for other non-core PMUs, so
+> > > > gating on it would have loosened this check for them too. Core PMUs
+> > > > continue to be restricted to their PMU CPU map.
+> > > >
+> > > > requires_cpu can also be set for BPF counters regardless of PMU typ=
+e,
+> > > > but only when has_user_cpus is false, so this guard has no effect t=
+here
+> > > > today.
+> > >
+> > > So the separation between libperf and perf is frustrating, and libper=
+f
+> > > lacks the necessary PMU abstraction. Using requires_cpu as a proxy fo=
+r
+> > > an uncore PMU test is okay, but it would be better if we had a boolea=
+n
+> > > flag especially for this. Given this, a comment should be added sayin=
+g
+> > > that requires_cpu is used as a proxy for an uncore PMU. The real
+> > > meaning of requires_cpu is that the event doesn't support
+> > > perf_event_open with a thread.
+> > >
+> > > Thanks,
+> > > Ian
+> >
+> > That makes sense. I=E2=80=99ll add a comment clarifying that requires_c=
+pu is used
+> > as a proxy for uncore PMUs and keep the current approach for now.
+>
+> So I think the flag we can use is `evsel->is_pmu_core` which captures
+> the !uncore behavior. I validated the fixes tag is correct.
 
+I did consider using evsel->is_pmu_core, but it is false not only for
+uncore PMUs,
+but also for software, breakpoint, tracepoint, and other non-core
+events. For uncore
+PMUs, cpumask is stored in pmu->cpus and copied to pmu_cpus; for other PMUs
+without a CPU map, pmu_cpus falls back to the online CPU map.
 
-> -----Original Message-----
-> From: Thorsten Lannynd <t-lannynd@ti.com>
-> Sent: Wednesday, July 8, 2026 5:17 AM
-> To: linux-media@vger.kernel.org
-> Cc: b-brnich@ti.com; k-willis@ti.com; detheridge@ti.com; Nas Chung
-> <nas.chung@chipsnmedia.com>; jackson.lee <jackson.lee@chipsnmedia.com>;
-> Mauro Carvalho Chehab <mchehab@kernel.org>; linux-kernel@vger.kernel.org
-> Subject: [PATCH] media: chips-media: wave5: Add system suspend/resume
-> support
->=20
-> Add SET_SYSTEM_SLEEP_PM_OPS with wave5_system_suspend() and
-> wave5_system_resume() so the driver handles system suspend to RAM. When
-> suspended, Wave5 should gracefully finish the job and shutdown. When
-> resumed, Wave5 should resume the context and finish executing the
-> suspended stream.
->=20
-> Signed-off-by: Thorsten Lannynd <t-lannynd@ti.com>
+Thus, with perf stat -C <offline_cpu> -e task-clock -- sleep 1,
+pmu_cpus falls back to
+the online CPU map while evsel->cpus contains the requested offline
+CPU. Intersecting
+the two maps would therefore filter out the offline CPU, which seems
+reasonable. For
+this reason, I don=E2=80=99t think this flag is appropriate here. What do y=
+ou think?
 
-Reviewed-by: Jackson.Lee <jackson.lee@chipsnmedia.com>
+Thanks,
+Nia
 
-thanks
-
-
-> ---
->  .../platform/chips-media/wave5/wave5-vpu.c    | 30 +++++++++++++++++++
->  1 file changed, 30 insertions(+)
->=20
-> diff --git a/drivers/media/platform/chips-media/wave5/wave5-vpu.c
-> b/drivers/media/platform/chips-media/wave5/wave5-vpu.c
-> index 76d57c6b6..a83640751 100644
-> --- a/drivers/media/platform/chips-media/wave5/wave5-vpu.c
-> +++ b/drivers/media/platform/chips-media/wave5/wave5-vpu.c
-> @@ -254,7 +254,37 @@ static __maybe_unused int wave5_pm_resume(struct
-> device *dev)
->  	return ret;
->  }
->=20
-> +static __maybe_unused int wave5_system_suspend(struct device *dev) {
-> +	struct vpu_device *vpu =3D dev_get_drvdata(dev);
-> +
-> +	if (vpu->v4l2_m2m_dec_dev)
-> +		v4l2_m2m_suspend(vpu->v4l2_m2m_dec_dev);
-> +	if (vpu->v4l2_m2m_enc_dev)
-> +		v4l2_m2m_suspend(vpu->v4l2_m2m_enc_dev);
-> +
-> +	return pm_runtime_force_suspend(dev);
-> +}
-> +
-> +static __maybe_unused int wave5_system_resume(struct device *dev) {
-> +	struct vpu_device *vpu =3D dev_get_drvdata(dev);
-> +	int ret;
-> +
-> +	ret =3D pm_runtime_force_resume(dev);
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	if (vpu->v4l2_m2m_dec_dev)
-> +		v4l2_m2m_resume(vpu->v4l2_m2m_dec_dev);
-> +	if (vpu->v4l2_m2m_enc_dev)
-> +		v4l2_m2m_resume(vpu->v4l2_m2m_enc_dev);
-> +
-> +	return 0;
-> +}
-> +
->  static const struct dev_pm_ops wave5_pm_ops =3D {
-> +	SET_SYSTEM_SLEEP_PM_OPS(wave5_system_suspend, wave5_system_resume)
->  	SET_RUNTIME_PM_OPS(wave5_pm_suspend, wave5_pm_resume, NULL)  };
->=20
-> --
-> 2.34.1
-
+> Thanks,
+> Ian
+>
+> > Thanks,
+> > Nia
+> >
+> > > > Fixes: 811082e4b668 ("perf parse-events: Support user CPUs mixed wi=
+th threads/processes")
+> > > >
+> > > > Assisted-by: Claude Sonnet 5
+> > > > Signed-off-by: Nia Su <nia.su@sifive.com>
+> > > > ---
+> > > >  tools/lib/perf/evlist.c | 3 ++-
+> > > >  1 file changed, 2 insertions(+), 1 deletion(-)
+> > > >
+> > > > diff --git a/tools/lib/perf/evlist.c b/tools/lib/perf/evlist.c
+> > > > index 1f210dadd666ff818a23712ab95acaa659ccf8dc..a1064175f12ba655a9f=
+7fe42e7c7e4c49ae60423 100644
+> > > > --- a/tools/lib/perf/evlist.c
+> > > > +++ b/tools/lib/perf/evlist.c
+> > > > @@ -80,7 +80,8 @@ static void __perf_evlist__propagate_maps(struct =
+perf_evlist *evlist,
+> > > >         }
+> > > >
+> > > >         /* Ensure cpus only references valid PMU CPUs. */
+> > > > -       if (!perf_cpu_map__has_any_cpu(evsel->cpus) &&
+> > > > +       if (!evsel->requires_cpu &&
+> > > > +           !perf_cpu_map__has_any_cpu(evsel->cpus) &&
+> > > >             !perf_cpu_map__is_subset(evsel->pmu_cpus, evsel->cpus))=
+ {
+> > > >                 struct perf_cpu_map *tmp =3D perf_cpu_map__intersec=
+t(evsel->pmu_cpus, evsel->cpus);
+> > > >
+> > > >
+> > > > ---
+> > > > base-commit: 73e3f0710014fe6d4ed98cfc02292f6121db7558
+> > > > change-id: 20260904-perf-evlist-uncore-cpu-b4-418af0f17c80
+> > > >
+> > > > --
+> > > >
