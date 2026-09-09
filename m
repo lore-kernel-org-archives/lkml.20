@@ -1,163 +1,116 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 525CD3B3BE7
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 09:31:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBC403B6C19
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 09:31:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788946323; cv=none; b=J/uMbyT+y8g9fNNfUjYbUaxHQWmYeBKpHIRivQ9YBcpkbfcUYGXmeWbMNUPG+ezofbSpxal19F6v6+ixS/Rv+70MWvllGb4zaWLRbUJYSHSdHqAQZnDK+wfm6SO1tt/fMySmGVZspYG8gOkqgE4gTh7TpRIGqMnQ/rW/dTse6Y8=
+	t=1788946324; cv=none; b=n2aGMKifOke5Iq6eeY5H+2uguqBthbRJwoLbfdrVFpguAojZyoVhpuDsX7nyt8/zEOwAEhxrwmMYqTloJ2//lhMZrfeWt0yfd7qo2QR8uo1ZHCy9DNwrJiawPQWLsdc/deC5ewe1QO7IeRbe1MGipgtqhzAfq2jeKS3+I6YkyUc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788946323; c=relaxed/simple;
-	bh=aaqpDOS9Q9cZvmbCAbQLpx2aBdRlsOav7VgVnknEK0g=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=uYWvYb2Hi0doq9vIBg4TjBarYS21nKiyUKfPjQdcALN+Nw6AKM3zuJCGD1OAQMjWFTbd47yQVB4jPm9cu0mU4Ic6ZoiJQj0DwrOo4D7OMk1A9KDn5LkYlMGdz4SNSugoVjt1/qcJmNceeM4LeDCZ1YzWFmf7PsQXb04VUSlb78o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=E9ORiZoi; arc=none smtp.client-ip=220.197.31.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1788946324; c=relaxed/simple;
+	bh=WoSj30hlm9RVW2enu9HYMvprVkJj9MGVKy2jgFCVopY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=QURSpokk54YgBA0kLALsnBQ/2uXpZ5Fad0O1tUyZhBha+EGeLNvFl1CVIcQPaz3xjsll5Lq5RJd7twbvqBnPQeGV7pCcdt1DU4kMSKPRINYBUSm6FKyXRtQyIhaFE6WejOj6B3BpaqMqNztyzwJ0rg8sFqW2utKTcTG3tIDDNwc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FAlhbD7/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="E9ORiZoi"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=j6
-	BQax1ALxulWvxdR+klhw1jBgkWS9cMRWy4AOIlkWk=; b=E9ORiZoivaGpH5n/np
-	x29ZqGaaYzaqd+IDAmET7IQ7ZFV7WzS96iFwUQXweCC4GNIsrILirkxiYc5l23mk
-	efUZVjaT3UBXFNw2OHq/PRTuHG75VU8tyuSuuuB7KsCJAFJ6b3fNwuyOEDvMuSRM
-	ZrQjvcNDTCYoouIn8mJemuITY=
-Received: from localhost (unknown [])
-	by gzga-smtp-mtada-g0-2 (Coremail) with SMTP id _____wD311ARJ6FqNvVuBg--.47931S2;
-	Wed, 09 Sep 2026 17:29:54 +0800 (CST)
-From: Hui Su <sh_def@163.com>
-To: peterz@infradead.org,
-	mingo@redhat.com,
-	tim.c.chen@linux.intel.com,
-	yu.c.chen@intel.com,
-	kprateek.nayak@amd.com
-Cc: juri.lelli@redhat.com,
-	vincent.guittot@linaro.org,
-	dietmar.eggemann@arm.com,
-	rostedt@goodmis.org,
-	bsegall@google.com,
-	mgorman@suse.de,
-	vschneid@redhat.com,
-	connoro@google.com,
-	jstultz@google.com,
-	arighi@nvidia.com,
-	tj@kernel.org,
-	void@manifault.com,
-	changwoo@igalia.com,
-	linux-kernel@vger.kernel.org,
-	sched-ext@lists.linux.dev
-Subject: [PATCH v4 2/5] sched/numa: Drive NUMA task tick from execution context
-Date: Wed,  9 Sep 2026 18:28:58 +0900
-Message-ID: <20260909092901.2989564-3-sh_def@163.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260909092901.2989564-1-sh_def@163.com>
-References: <20260909092901.2989564-1-sh_def@163.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FAlhbD7/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4E3211F00A3A;
+	Wed,  9 Sep 2026 09:31:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788946311;
+	bh=NFgdN8VYLiotA1X6CX/YGSNfCUyM0k24sUOYaVWvi8s=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=FAlhbD7/F+IcjEEV7rddqYf4nNhaQaTfs5c3xo21KMjITdNOeFjAZSWZVKaNaYWmL
+	 wMocD3eSNpcoYKMuoMoziizaDhGoMMmvjgIMXen0QypHfn/FnFlyqPvwjm8m8Ash0b
+	 2124ADpW42GpbGrOhi0VlcZFAMz346d5LY354EuLixaAlJVI/pJfGkfdksC1RuudwS
+	 x9F0o9gyEeInbzy1PuRoJpJrsFxH0vBJCu3TmD7guzmA0kyF1m9Lcv5JvbykUJdUrA
+	 4RCiNmgSQaL5maYkDiBZroV3NlgMq3ZyMIArG0LpIEX10pNHdftre2gqAgLp2S5gwg
+	 4m/K1qxZswUeQ==
+Message-ID: <5562d89f-29fc-4a35-aaaf-b8aaf49f6cdd@kernel.org>
+Date: Wed, 9 Sep 2026 11:31:45 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD311ARJ6FqNvVuBg--.47931S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxJw1kGr45GFykuF4kWry8Zrb_yoW5CF1fpF
-	s0ka4aq3y7ta1YqF17ZrWDX3WfGwn3A347WFZrGFW8ur1UK3sY9rn3KFySqF4rArW0kFy2
-	vrWj9r17Cr1UKw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jaUDXUUUUU=
-X-CM-SenderInfo: xvkbvvri6rljoofrz/xtbCwhLQMGqhJxIp4AAA3H
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 00/17] mm: Introduce section-based vmemmap optimization
+ for HugeTLB
+To: Muchun Song <songmuchun@bytedance.com>,
+ Andrew Morton <akpm@linux-foundation.org>, Oscar Salvador <osalvador@suse.de>
+Cc: Mike Rapoport <rppt@kernel.org>, Vlastimil Babka <vbabka@kernel.org>,
+ Lorenzo Stoakes <ljs@kernel.org>, Michal Hocko <mhocko@suse.com>,
+ David Laight <david.laight.linux@gmail.com>,
+ "Liam R . Howlett" <liam@infradead.org>,
+ Suren Baghdasaryan <surenb@google.com>, Qi Zheng <qi.zheng@linux.dev>,
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ Muchun Song <muchun.song@linux.dev>
+References: <20260825084608.47437-1-songmuchun@bytedance.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20260825084608.47437-1-songmuchun@bytedance.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Proxy execution separates the scheduling context in rq->donor from the
-execution context in rq->curr. The task tick dispatcher can therefore
-invoke task_tick_fair() for either side of a cross-class proxy
-relationship.
+On 8/25/26 10:45, Muchun Song wrote:
 
-task_tick_numa() operates on state associated with the task actually
-executing, including its mm and NUMA work state. Task-level execution
-runtime is likewise accounted to rq->curr, and task_tick_numa() uses that
-runtime to drive periodic NUMA scanning.
+Rebasing some of my sparse cleanups I have pending for a long time, I stumbled
+into severe conflicts with this, so let me take a closer look.
 
-Split task_tick_fair() into donor and execution-context sections and run
-the NUMA tick only when rq->curr belongs to the fair scheduling class. The
-donor class tick runs first, so execution runtime is accounted before the
-NUMA tick consumes it.
+> This series is split out from the earlier, larger series "mm: Generalize
+> HVO for HugeTLB and device DAX" [1]. While the parent series generalizes
+> vmemmap optimization across HugeTLB and device DAX, this subset addresses
+> a single, self-contained step: making the generic sparse-vmemmap code
+> section-based optimization aware and switching HugeTLB bootmem pages to
+> this path.
 
-Fixes: 7de9d4f94638 ("sched: Start blocked_on chain processing in find_proxy_task()")
-Suggested-by: K Prateek Nayak <kprateek.nayak@amd.com>
-Suggested-by: Tim Chen <tim.c.chen@linux.intel.com>
-Signed-off-by: Hui Su <sh_def@163.com>
----
- kernel/sched/fair.c | 44 +++++++++++++++++++++++---------------------
- 1 file changed, 23 insertions(+), 21 deletions(-)
 
-diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
-index 6f1777799371..a8c7a9a29ace 100644
---- a/kernel/sched/fair.c
-+++ b/kernel/sched/fair.c
-@@ -15061,41 +15061,43 @@ static inline void task_tick_core(struct rq *rq, struct task_struct *curr) {}
-  */
- static void task_tick_fair(struct rq *rq, int queued)
- {
--	struct task_struct *donor = rq->donor;
--	struct sched_entity *se;
-+	struct task_struct *curr = rq->curr, *donor = rq->donor;
- 
--	if (donor->sched_class != &fair_sched_class)
--		return;
-+	if (donor->sched_class == &fair_sched_class) {
-+		struct sched_entity *se = &donor->se;
- 
--	se = &donor->se;
-+		if (se->on_rq) {
-+			unsigned long weight = NICE_0_LOAD;
-+			struct cfs_rq *cfs_rq;
- 
--	if (se->on_rq) {
--		unsigned long weight = NICE_0_LOAD;
--		struct cfs_rq *cfs_rq;
-+			for_each_sched_entity(se) {
-+				cfs_rq = cfs_rq_of(se);
-+				entity_tick(cfs_rq, se, queued);
- 
--		for_each_sched_entity(se) {
--			cfs_rq = cfs_rq_of(se);
--			entity_tick(cfs_rq, se, queued);
-+				weight = __calc_prop_weight(cfs_rq, se, weight);
-+			}
- 
--			weight = __calc_prop_weight(cfs_rq, se, weight);
-+			se = &donor->se;
-+			reweight_eevdf(cfs_rq, se, weight, se->on_rq);
- 		}
--
--		se = &donor->se;
--		reweight_eevdf(cfs_rq, se, weight, se->on_rq);
- 	}
- 
- 	if (queued)
- 		return;
- 
--	if (static_branch_unlikely(&sched_numa_balancing))
--		task_tick_numa(rq, donor);
-+	/* Update state owned by the execution context. */
-+	if (curr->sched_class == &fair_sched_class &&
-+	    static_branch_unlikely(&sched_numa_balancing))
-+		task_tick_numa(rq, curr);
- 
--	task_tick_cache(rq, donor);
-+	if (donor->sched_class == &fair_sched_class) {
-+		task_tick_cache(rq, donor);
- 
--	update_misfit_status(donor, rq);
--	check_update_overutilized_status(task_rq(donor));
-+		update_misfit_status(donor, rq);
-+		check_update_overutilized_status(task_rq(donor));
- 
--	task_tick_core(rq, donor);
-+		task_tick_core(rq, donor);
-+	}
- }
- 
- /*
 -- 
-2.55.0
+Cheers,
 
+David
