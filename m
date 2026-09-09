@@ -1,52 +1,54 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 119E0379C4A;
-	Wed,  9 Sep 2026 17:48:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A6F935C6A0
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 17:48:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788976088; cv=none; b=oXO0+ZPfRmuAKTljod454s6TX2SYgHz/6T10SLmM2dq6VcNG1ZO8YpBmUhpIFn9PPXuB04HJBpHN5wWWRUbrOD6iZUraahhf6biu8RXKa0KSu+I/rN4n1SUYepJ5PFwiSNDxeXLzbBwLs8otDe/5lhXLK7GFpnkGvRhLnSe3qic=
+	t=1788976118; cv=none; b=qqSLJ/nayx2R7jObEV7DmuaW608H5vF55MZAcikdy8hh2DTo/jLMUwCke5KY9noKU1xxRQKqHyEhtUZlwgalf0wCLBvioDrAoAxgiDRFYogZqZ/5vvMB10qdQKHEFpWFpjBeYo1kTNuutlmXq/NaHLe/BoooVuthUz3nJl2x/mI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788976088; c=relaxed/simple;
-	bh=swhipFGCgTw2+IQl8E66bUVOtf8/3I0VhQnKt+ABSJ4=;
+	s=arc-20240116; t=1788976118; c=relaxed/simple;
+	bh=RglOq0TJLVFrlqKF5+4QxlYdXTYxmDBh0r5+m54Q5Lk=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=LCmCAUIf7o7ywGpfI5/PloBesVfmZ9is+/Oi3Kyks0m720sUNAQ9wloKM/QRjgiwLPWEol1UtFE1oXze5UWiNdJEB8JqZH2cHI97YzUDfRGpjWJEtlV56gCXz3O9OvXb8C1oyuJzPgw/rbTxY80Ptm3VUJMPlbU/OwlJvX3dLUs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RYZTmPpA; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=u7Ut9/WyCodMWIT4NNDOlvMq8hEPApVwOZQc4FYnWoJDB8AJ8v/Gy+5l4XEC0y/nMGkG+22w6MFbl4V59ag8Yp0bWYdH3eCKAA1Yn9dpNwFZwbskQ1tmZ9bA9YvinM1EDvTMXO3Tl6gy66ZLcRCEnxHxJYl9ghoM00LIQXrXGsI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FMIaA5Xz; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RYZTmPpA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 67C021F000FF;
-	Wed,  9 Sep 2026 17:48:06 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FMIaA5Xz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 584191F000FF;
+	Wed,  9 Sep 2026 17:48:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788976086;
-	bh=0lq8U7Nns721xEVNEIRFRaavqEdot8DXOm9Nf7pQSj8=;
+	s=k20260515; t=1788976117;
+	bh=KriljTd17afm3LOBC3hK5znRaxV7ItVcfge8hBIqiMo=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=RYZTmPpA8pOUPEq/l/KdVxECpY9zlGVpC7OgrBePY76UiJN/oS+ZtemULPuELihcN
-	 6s+w/9No201Y5nQ73w+ddyzMNCp00I5OWsoyjWAfp6buWHqz46S8cmIilc6o/EOCe5
-	 cCWdEI8mP11BTBYCxhi43XoZQ5Xv+gTTaH1qWYBiS0VRt1j7X2SSKrHH1qmlFJLL9B
-	 49aNZX9a2lNDmc7hF8h3BZCPXsPSeVBTMali7pMufzWo0oGT0jymlbnD7riC9srhSL
-	 YNqw7kfQO8scQzVHd2X3ysNyjue7J3n7hgMX2vUB9AApE6JHkMwKNghb/BXzqx+kYV
-	 XTZf3uKp8lLYA==
-Date: Wed, 9 Sep 2026 07:48:05 -1000
-From: Tejun Heo <tj@kernel.org>
-To: John Stultz <jstultz@google.com>
-Cc: Hui Su <sh_def@163.com>, Ingo Molnar <mingo@redhat.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	Michal Koutny <mkoutny@suse.com>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
-	Valentin Schneider <vschneid@redhat.com>,
-	K Prateek Nayak <kprateek.nayak@amd.com>, cgroups@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] sched: Account cgroup CPU time to the execution
- context
-Message-ID: <aqGb1ar23XBzdaKn@slm.duckdns.org>
-References: <20260904034707.268416-1-sh_def@163.com>
- <appnKwylGK3QUIJ3@slm.duckdns.org>
- <CANDhNCq5iPq87=iKSJv-XzYzTYJ8Hp+bPJ6SoVfWB3pRa=HypQ@mail.gmail.com>
+	b=FMIaA5Xz91YxejmDwDLpzttZWpqcmSE7rKb3dvPWM58iWfAO4HgZsUGfhudFQjfMS
+	 ok48V8Bd+aaZcKBd8EoAVOuIJYqoEjVjHEDSIX86MgCy0STlvB2sNW3nwFbzlM0QbA
+	 MpErlGCmldXlqbieiGMjZU7R9vDZl+mANgMp52GV7mT/eUDIRnmlGXf+NJyQgmiLD1
+	 8gmQtS4yc3izE7kRWrFAyR+1NVpiuXN9tiHFgIXmmmIEemBVQk7UmdU/ehMwlZCEUD
+	 nhPCF+LR/YeYIMcDNgwRR/8Tp+S61wtbNvOvOf2g3NTdYCQVScRYrOU166spTHDnS2
+	 bBhl3xNdk82nw==
+Date: Wed, 9 Sep 2026 18:48:26 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	Suren Baghdasaryan <surenb@google.com>, "Liam R. Howlett" <liam@infradead.org>, 
+	Vlastimil Babka <vbabka@kernel.org>, Shakeel Butt <shakeel.butt@linux.dev>, Zi Yan <ziy@nvidia.com>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, Nico Pache <nico.pache@linux.dev>, 
+	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
+	Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
+	Kiryl Shutsemau <kas@kernel.org>, Mike Rapoport <rppt@kernel.org>, Michal Hocko <mhocko@suse.com>, 
+	Xu Xin <xu.xin16@zte.com.cn>, Chengming Zhou <chengming.zhou@linux.dev>, 
+	Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
+	Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, Chris Li <chrisl@kernel.org>, 
+	Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>, 
+	Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, 
+	Youngjun Park <youngjun.park@lge.com>, Peter Xu <peterx@redhat.com>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, Guilherme Giacomo Simoes <trintaeoitogc@gmail.com>
+Subject: Re: [PATCH] mm: implement and use vma_is_faulted(), silence KCSAN
+Message-ID: <aqGaNT1M-csCCQk0@gremlin>
+References: <20260909-vma-is-faulted-v1-1-3a701f48984a@kernel.org>
+ <3a261c3e-4c26-41b3-b55f-5800ae1081f3@kernel.org>
+ <aqGJx-uQjN8-DEBe@gremlin>
+ <c1f21bf2-71e3-4537-a000-fd0e95257759@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -55,26 +57,118 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <CANDhNCq5iPq87=iKSJv-XzYzTYJ8Hp+bPJ6SoVfWB3pRa=HypQ@mail.gmail.com>
+In-Reply-To: <c1f21bf2-71e3-4537-a000-fd0e95257759@kernel.org>
 
-Hello,
+On Wed, Sep 09, 2026 at 07:32:57PM +0200, David Hildenbrand (Arm) wrote:
+> On 9/9/26 18:36, Lorenzo Stoakes (ARM) wrote:
+> > On Wed, Sep 09, 2026 at 06:24:52PM +0200, David Hildenbrand (Arm) wrote:
+> >> On 9/9/26 18:14, Lorenzo Stoakes (ARM) wrote:
+> >>> Provide a function to abstract the common task of checking whether
+> >>> a VMA is faulted in or not.
+> >>>
+> >>> A VMA or mmap lock must be held when calling this function. For an attached
+> >>> VMA the transitions between unfaulted/faulted state are:
+> >>>
+> >>>        Transition        |              VMA/mmap Lock state
+> >>>  ------------------------|-----------------------------------------------
+> >>>    unfaulted to faulted  | write lock OR read lock + mm->page_table_lock
+> >>>    faulted to unfaulted  | write lock
+> >>>
+> >>> So vma_is_faulted() never provides a false positive (the lock precludes
+> >>> it), but if only a read lock is held, a negative result must be re-checked
+> >>> with mm->page_table_lock held.
+> >>>
+> >>> Detached VMAs cannot be concurrently manipulated as they are removed from
+> >>> the maple tree so require no guarantees.
+> >>>
+> >>> Use data_race() to silence KCSAN about non-existent data races between
+> >>> concurrent vma->anon_vma read/write on optimistic fault tests.
+> >>>
+> >>> Also while here, const-ify vma_is_attached(), vma_assert_stabilised() and
+> >>> dependants.
+> >>>
+> >>> Finally, update the core VMA merge/split, rmap, mremap, KSM and fault
+> >>> preparation callers which test vma->anon_vma directly to use
+> >>> vma_is_faulted() instead.
+> >>>
+> >>> Note that the lockless read in reusable_anon_vma() is doing more than
+> >>> checking whether the VMA is faulted - it is returning the anon_vma to be
+> >>> used on fault, so this check is not altered.
+> >>>
+> >>> There is one odd one out - file_backed_vma_is_retractable() - which holds
+> >>> neither a VMA nor mmap lock and is stabilised by the file rmap lock only.
+> >>>
+> >>> Therefore just add a comment to explain why the direct vma->anon_vma check
+> >>> is required.
+> >>>
+> >>> Reported-by: Guilherme Giacomo Simoes <trintaeoitogc@gmail.com>
+> >>> Closes: https://lore.kernel.org/all/20260829100034.423064-1-trintaeoitogc@gmail.com/
+> >>> Closes: https://lore.kernel.org/all/20260909115723.528501-1-trintaeoitogc@gmail.com/
+> >>> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> >>> ---
+> >>
+> >>
+> >> Is vma_is_faulted() really the right thing to use when wanting to say that we
+> >> (likely) faulted in an anon page?
+> >>
+> >> I think that's highly confusing, considering just MAP_SHARED mappings where that
+> >> will never be true.
+> >
+> > Hmm, yeah.
+> >
+> > I mean there's nowhere you'd do this check where you weren't checking something
+> > that couldn't at least in theory be anon-faulted. But it's confusing vs. shared
+> > you're right.
+> >
+> > vma_is_anon_faulted()?
+>
+> Hm, not sure.
+>
+> 	vma_had_anon_fault()
+>
+> Might sound better.
 
-On Tue, Sep 08, 2026 at 10:17:45PM -0700, John Stultz wrote:
-...
-> But if it is causing trouble for the accounting, and you think it
-> makes more sense the other way, I'll trust your judgement.
-> Tentatively:
->    Acked-by: John Stultz <jstultz@google.com>
-> 
-> Eventually I think we'll want to track per-task "donated" and "gifted"
-> time so folks can more finely distinguish the accounting.
+vma_anon_faulted()
 
-Yeah, I want the cgroup base stats to agree with what's reported for
-threads. This makes it disagree with bw enforcement but I think it makes
-more sense to bridge that gap with explicit stats for proxy execution like
-you're suggesting.
+>
+> Alternatively:
+>
+> 	vma_has_anon_vma()
+>
+> is the obvious thing we're checking.
 
-Thanks.
+No, I want to abstract the mechanism (so later it can be replaced :)
 
--- 
-tejun
+>
+> 	vma_might_have_anon_folios()
+>
+> would be the clearest (no anon_vma -> no anon folios). But semantically that's
+> likely not what you want to check in the code?
+
+That kind of implies you want to interact with those and generally you're asking
+whether an anon fault has occurred.
+
+Also a bit of a mouthful.
+
+>
+>
+> The whole faulted/unfaulted terminology is a bit confusing ...
+
+To me not really?
+
+Actually how about:
+
+vma_anon_rmap_tracked()?
+
+Then it speaks to what anon_vma is actually for, the fact the VMA has an
+anon_vma assigned like that means it is tracked by the anon_vma, and it
+abstracts the actual mechanism?
+
+>
+> --
+> Cheers,
+>
+> David
+
+--
+Cheers, Lorenzo
