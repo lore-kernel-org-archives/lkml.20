@@ -1,144 +1,82 @@
-Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 959A05335B7
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 12:27:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DE6054DAE0
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 12:28:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788956861; cv=none; b=QzHUlBwVbDZKZo8TxYzTbKXu8LYpI21WrJzhH7F/wzgi5QiT7tz75NlJNWrpYusM+fbs7meGeyqCnU0AJzVc2eghS49hFV/TpRU6o/nsEQ/X2TJlWw7aBiC8aPIi1sGPTlOn/H0/xuMODHwqLN7RO5iuQI9u474fFE/leMZHhDM=
+	t=1788956907; cv=none; b=jmLdOp2os5JdgHzRrOR5AkpdXeA8/kkQhlS5jffnkOXxLLtzrM29Y0cvlH2xv1fcgJ0rV+YlfuzJ2Dsf71W0/CrR7FQ74RC7xdqOmI2MlogKl4gBpzgBYZkMxvUrvmagm6DIoX1RLTKCpokuqK3RFsqXLPl05+r9Z0LhlTmAsmU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788956861; c=relaxed/simple;
-	bh=cXtcNvW+hHjgE+kBCwrETYZSKk11SoOD59Xl9Jci4TI=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=SEfEkU2KYaMW796mFXZEFqkPxBdSt+nkvdAu7p4O5ORU5jQZtEfxeNSOGBP7G1AvnbeEmU5WYgPurbTbyWfpta7r7P4KL2Zisv34s9iyx+0nEvDYbCiJoN1dGr2MB5AdBfVCcofybdXY/deLDTdxLtcCqZkQHuRGJzXVQEsaHWU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mdYNE2cE; arc=none smtp.client-ip=209.85.221.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788956907; c=relaxed/simple;
+	bh=Dxo4dgcGKjFuO+BsUoXdCDgwy30tIroweSzR5hSGjgQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=mjq/zDOFOpsiaLQxOswaI2ewZhr9AyOUb8bdkBhJYXztLW1eH7YEuFirCgSudjQD88TnYftQNCvbDJhRrMALsE8qfso2WdfqUKoZuFiPu2yzwR7Mnfs3JXGDcCaJsaHcKKQVHkOQWATh5Bl2ymrqXuqOWloFKwBcJ2ZIp9b999s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=juoso7fu; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mdYNE2cE"
-Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-482dd6ee390so6442144f8f.3
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 05:27:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788956858; x=1789561658; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=fNb37xWCW/T188cHOe2lrBK44SN8Frxj8JBix8SU6qI=;
-        b=mdYNE2cE7w+ECGxOeMY0tNk47DpQ+31GpfqucF2KY1ZIMcqWGcOah7GiRtUVIWZiO9
-         RUBXeeZViwvL/OfpgyfLCIdVyPuZWJ/wM4tWKMv4ksdLVgzVM1F8VVBVxNPQBEs3VYJ0
-         ytjtW6rrXvfSBOq+O6aY+KcWdLcS+iJ9ue7j2iuJuK15RH645UHIiWzCwBymgjOTTqYt
-         95ZSgG2AFaM9UyzU33GEnxv9a9VtI+IXetzAwf8v7smd+Rmp3awCbWw4LmJVIvGQEEHj
-         O8B5Z7oa0qEW3IhTyqtlytr/tFaibs0Ab15AY+MyVcFLfQxyTUnlcCHHM+c2gmeCkLZ6
-         knFQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788956858; x=1789561658;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=fNb37xWCW/T188cHOe2lrBK44SN8Frxj8JBix8SU6qI=;
-        b=ZuCdBwh72YQrI/Qpw/3gaVZqD2gEWqpWpx13n3Afnw/p9KZ3Ohu9eu/Fn2Ph5CyIiz
-         joFGDjrtgJ+y0o31rV497bggeI2BclwFHetup8KKYCfNsww4hu1hlpLU4qArfaUQCnb5
-         uOL76ejCNj6+njpOi6usA2w1ulkqrqKzGnmGdl8E4eIaL2w2Lj6MephsIq/nEV+SLxTe
-         bexcxcwplTcneMdnUMVcF1gbJJPGo5EFoVAtjC/aEe7wl7AYptaL9UTKbKtEHw97Cvdb
-         X0QYrOVaODf+ARnkx5E5SsI34CPaLP9qQolCPL+i/DOB3qg9UGsAenIlYFUqajKhYuMw
-         VOpQ==
-X-Forwarded-Encrypted: i=1; AKwUvBx6Rx3lBCT8FKzGBoy1hbCj/AEtELnBuzruAG9Wpjc2ruOXMV76tq0TRDnzdWwjfpJImha4OgSsF5jK3Ec=@vger.kernel.org
-X-Gm-Message-State: AFuF++l8bbk/qnl8PR+UmtfUx5Zq1FvqUkGZM+WSVR7GZqCRUy1EWiO7
-	i88UdWwNLQ2OtHr1+NTkf/mijRTlIuskkWWM9RawhSUkLbQIMglTq475
-X-Gm-Gg: AYBFou0yB5n6Mi5j1Cv5YpdYqcMhSdTihpQE3FV/EhZji6W3WXUwe2WH1kRuURh07Ix
-	KaHiKdCTKbY+/d7cpKl5PPLsAuR6N+UuEkbxILUTRD2xxdquP41WGO9by32hKjNiBgSMLH/f9hy
-	yDgO8C+aVYSGDHg/opZ1fdDpuHFEcqyYjuaLdR/y1N/jIANyL3aWXGa9WaOzrSelT2OqXRwVwNy
-	34tPhSTMZ6vi1fKAeqNxLAV/ZrNBWD0HoF+vpFsWHxXJ0fEb9brsojinAdcBIeDK++WVQuodzrS
-	iAyt30LzlMptD+TJDM9GfV9Mv9orBpO6VdeJQjdLGS05tHWiVJEgC+PQArDc6Bqzt/CDevxGtWe
-	tMEC1yqQg3E3xNWv8rpZGaR0XBlwyBKoF1Jnwyyss+rg2dCgfXOI4+Hv8guFhNukqPFp2gCK28l
-	t6JhOk/YagfZkmXGbRnZX/iIIlQpSjLfVm7GjFy9Q/4bUd3p57bgZyQhrnMMkQU/hs5m8s6E1Fn
-	F4JDY8BY1Gd4w6rXH5dYw+YA10ajqT2nLoI
-X-Received: by 2002:a05:6000:715:b0:485:8c16:a343 with SMTP id ffacd0b85a97d-4858c16a5e3mr30064053f8f.56.1788956857427;
-        Wed, 09 Sep 2026 05:27:37 -0700 (PDT)
-Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4858bc74298sm39687472f8f.6.2026.09.09.05.27.36
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 09 Sep 2026 05:27:36 -0700 (PDT)
-Date: Wed, 9 Sep 2026 13:27:35 +0100
-From: David Laight <david.laight.linux@gmail.com>
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>,
- "Vlastimil Babka (SUSE)" <vbabka@kernel.org>, Nimrod Oren
- <noren@nvidia.com>, Andrew Morton <akpm@linux-foundation.org>, David
- Hildenbrand <david@kernel.org>, Baolin Wang
- <baolin.wang@linux.alibaba.com>, "Liam R. Howlett" <liam@infradead.org>,
- Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, Dev
- Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, Lance Yang
- <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau
- <kas@kernel.org>, Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan
- <surenb@google.com>, Michal Hocko <mhocko@suse.com>, Brendan Jackman
- <brendan.jackman@linux.dev>, Hugh Dickins <hughd@google.com>, Nirmoy Das
- <nirmoyd@nvidia.com>, Dragos Tatulea <dtatulea@nvidia.com>,
- linux-mm@kvack.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3] mm: remove min_free_kbytes adjustment for THP
-Message-ID: <20260909132735.1fc1a309@pumpkin>
-In-Reply-To: <aqFAOLrybtyo6dd1@gremlin>
-References: <20260901190123.3511535-1-noren@nvidia.com>
-	<d202dcc3-d7d7-4e98-a9a5-3137cfbfd041@kernel.org>
-	<DL9XL8T6UG93.1T1NSJMI8PISK@nvidia.com>
-	<aqBiVp405v2srvSa@cmpxchg.org>
-	<aqEUdmYnnQQRC8yl@gremlin>
-	<20260909113836.6cbe8d17@pumpkin>
-	<aqFAOLrybtyo6dd1@gremlin>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="juoso7fu"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 318B61F00A3D;
+	Wed,  9 Sep 2026 12:28:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788956906;
+	bh=icRL48a7sVyjHVFwn1f2bfTzasP2dnwXxav7dJKrdGA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=juoso7fuBHmCJy6DvLNE6IH8N7Q9D4BB3u2CM86KtVBxuzM2aNxgvcD6f0NmqNKaW
+	 FjlT8FOCUkCSJhjlqY/FGe69xRnKULAgm9PofCauvMHEDVXxpr8DcqouA9foO4Qc3Y
+	 DINuMqgFlz+rFbtCKXe97fkRJRBhWdqxjP9W/hwxlxcx7IeACTMKQ2KCidoTFWB9fU
+	 WcXwSSTvbW1YX3YPAYAsU4PnkWVs0mgaYhx43Uvg4urNYsooOOFe1sQaN1GJ5JgTRt
+	 sfGnYKyZeeP1zjMNrGXvYyliWHvojnh1Bn3gXB97u2KjLLOxgP8P0nNdJ+8gwY53Bu
+	 ZVXEbzMT9c9yA==
+Date: Wed, 9 Sep 2026 13:28:20 +0100
+From: Will Deacon <will@kernel.org>
+To: linux-arm-kernel@lists.infradead.org
+Cc: linux-kernel@vger.kernel.org, Arnd Bergmann <arnd@arndb.de>,
+	Ard Biesheuvel <ardb@kernel.org>,
+	Eric Biggers <ebiggers@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Alexei Starovoitov <ast@kernel.org>,
+	Oliver Upton <oupton@kernel.org>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
+	Marc Zyngier <maz@kernel.org>
+Subject: Re: [PATCH v2 12/14] arm64: image: Remove endianness handling for
+ generating image header
+Message-ID: <aqFQ5PacgD8RaryX@willie-the-truck>
+References: <20260907163726.17104-1-will@kernel.org>
+ <20260907163726.17104-13-will@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260907163726.17104-13-will@kernel.org>
 
-On Wed, 9 Sep 2026 12:18:03 +0100
-"Lorenzo Stoakes (ARM)" <ljs@kernel.org> wrote:
-
-> On Wed, Sep 09, 2026 at 11:38:36AM +0100, David Laight wrote:
-> > On Wed, 9 Sep 2026 09:11:04 +0100
-> > "Lorenzo Stoakes (ARM)" <ljs@kernel.org> wrote:
-> >  
-> > > On Tue, Sep 08, 2026 at 03:30:30PM -0400, Johannes Weiner wrote:  
-> > > > On Tue, Sep 08, 2026 at 08:24:38AM -0400, Zi Yan wrote:  
-> > > > > On Tue Sep 8, 2026 at 7:54 AM EDT, Vlastimil Babka (SUSE) wrote:  
-> > > > > > Given neither of the patchset versions achieved universal acceptance, could
-> > > > > > we try just disabling all the automatic (re)calculations of min_free_kbytes
-> > > > > > the first moment the sysctl gets adjusted from userspace?  
-> > > > >
-> > > > > Sounds good to me. Johannes, WDYT?  
-> > > >
-> > > > +1 That sounds good to me as well.  
-> > >
-> > > Me also! :>)  
-> >
-> > You might want some method of restoring the default behaviour.
-> > Maybe setting to 0 can be used (if that is just silly).  
+On Mon, Sep 07, 2026 at 05:37:23PM +0100, Will Deacon wrote:
+> Since big-endian support for arm64 depends on BROKEN, we don't need to
+> bother jumping through hoops to generate a little-endian kernel image
+> header for a big-endian target. We can just ignore the possibility
+> instead.
 > 
-> I suppose the concern would be an embedded user for some reason enabling
-> CONFIG_TRANSPARENT_HUGEPAGE and then defaulting to THP ->madvise and getting the
-> bigger reserves before somehow disabling it after boot.
+> Acked-by: Catalin Marinas <catalin.marinas@arm.com>
+> Acked-by: Arnd Bergmann <arnd@arndb.de>
+> Acked-by: Marc Zyngier <maz@kernel.org>
+> Acked-by: Eric Biggers <ebiggers@kernel.org>
+> Signed-off-by: Will Deacon <will@kernel.org>
+> ---
+>  arch/arm64/include/asm/assembler.h | 11 -----------
+>  arch/arm64/kernel/head.S           |  4 ++--
+>  arch/arm64/kernel/image.h          | 24 ++----------------------
+>  3 files changed, 4 insertions(+), 35 deletions(-)
 
-Or just testing whether it makes any difference to a workload.
+I think this is another patch I should drop from the series.
 
-David
+I was under the wrong impression that we were using two 32-bit words for
+symbol addresses because of endianness quirks in the linker, but digging
+into the original rationale from Ard [1], this is more fundamental to
+the way in which the PIE toolchain handles ABS64 symbol relocations.
 
-> 
-> But I'm not sure if this is something we really need to worry about?
-> 
-> >
-> > David
-> >  
-> > >
-> > > --
-> > > Cheers, Lorenzo
-> > >  
-> >  
-> 
-> --
-> Cheers, Lorenzo
+Will
 
+[1] https://lore.kernel.org/all/CAKv+Gu8vdk-9N_VVG6XWYLp1SM9ynfcsbxwk2xx1mXYq7qN0Cg@mail.gmail.com/
