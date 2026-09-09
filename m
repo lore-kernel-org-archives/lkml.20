@@ -1,145 +1,114 @@
-Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C90F569F39
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 14:12:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.182
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6F45572691;
+	Wed,  9 Sep 2026 14:14:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788963172; cv=none; b=D8xvGoKQxM9n/9U2g1EdPsKtdp56kTMR43/XNGdZa9u8o/05lfjlBANue9a4LaSlxnxBKFKdgJXYcvVfHN78R9dTKGs3+962Jmaw5MUF87oGwok0zbEX9N7JwhdU4Cs/cthc0NHCnq4x5/VbgtX/mnylrjG7hGhfzIhJL3TPodg=
+	t=1788963263; cv=none; b=o/lkTw5PZQ3DezccZxgWDhor3ZjK9xyOezw5OMECJ8X5gswhs7xfcUonLsiEXrU7c1PZVswe9dv8pgYCC70sQufQoI/qLg4M7a8ivcGt1qQaePs2olL6bVE99ym6sDqFjJXg3m8bVL2LlPEYIz0P+eO9Ej2TFtqYXqexUr0TH08=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788963172; c=relaxed/simple;
-	bh=VAUG9ocA9CuuA3ZZK3/Ji3B3eMK2e7/A4q+kEwaraLM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=DxXHmj6TB+OIBPkJd2rymLEc9yU881mkKwA+a1fdpv3dF5MLXhFWRH7ZoVHmA9CshMgxaGV9aP3RKsqBPmoXHXfR7QXqcKuig2cHYdCFKnTaEcz6bkFnVC+uuXK4k4tNIEaE4SV1qNm5etlGqhRnoxy8P2rchbKEA2WZTCiD6zI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WsLp6Npb; arc=none smtp.client-ip=209.85.214.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788963263; c=relaxed/simple;
+	bh=uOvO7Uzwwoe+4sbG4xOBTQfvrDD2qD2yTL1O7zXzwnA=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=WcOF4GIOAVJqkq2HJaSIakQMfKfoZqdoaZUWrSsp0ii0BaYQOuclc6E57u+1rpOilV1ZkXuV6Lr+NRp7+r4xza7jmlHjurBrWgxPabSlJq5vGOLT14vuAAESbGx/do7rLyBqfuiPlmeJ6qPc3Rny3dYGOB1EyqQQbtBdWGkAlRo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cldoZ0+P; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WsLp6Npb"
-Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2dd05e8b98cso3675295ad.3
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 07:12:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788963170; x=1789567970; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=2bgojeFeUpvXitpM/OgDxaX8mLFSNcZ2WBsJ3E6rjeI=;
-        b=WsLp6NpbmgzdJch+5EILXUgOxbzUM2BSNIp7BshFaCb9mMCv2PqBnXgEvMRn22YPgc
-         2++YHMyZCkDK5zdciAMlg1z9QmDe5Heep0+oWf4QSMNWvCDej1gz5Ddjc9W5ithpw23M
-         jGqKvlqhSOOi6pi2RQM116/P+UvIRgs3OLgc/9/mB6rAADvpjI210lfeGbLcxADrx2oT
-         Z8M5Ukh+GopxegIS1uK3usVbNssrTl8Hq8x/UIcrCNsEYObMnvS5HMG6u+pJIYJKcjsc
-         aCUaftx7XauiMYygVg1KDbCJSvFf8hAT/nAEccI3UxWxsqfy0/g+PGJZo73bQSeNmd8c
-         lnIw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788963170; x=1789567970;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=2bgojeFeUpvXitpM/OgDxaX8mLFSNcZ2WBsJ3E6rjeI=;
-        b=BVUOM8mJZjfzP4NPnA+GVbiVisedYh6o66d7J9LvZrd72KAG592g8ceHC2qJcrMDqN
-         kD94wIXZoz7rTVGp4X2f9pOAofUC0hE/s8ir2wDwhYwsmd3SjjDFjJ8axuK64wuTb1dp
-         bdZtKtQSGvSOnYkpOPaUpEKTZaayoYCeYuesawF5Kpv21jEnQs2hlJjpTV3navW4b1zJ
-         5RZRIeeV8dNM0WCmOXBPGi3Fgkbr6kyxu5QWqitEKvNqad9pKlFCxArXpiLl8ghERY7M
-         rL590xcB/QF7afamXzJvvE3ys9UcF6KDN/VHrjXbF/oYMZq92usem3X8W8s+63EqeATt
-         fcAA==
-X-Gm-Message-State: AFuF++nUX1VzaOBU/q1g29p+MwOf+Hkg+05eBHXtVKwqGDzz2GtD5InQ
-	XMNcn8ONoFoTeTYJQwV28ezV8YAre50WFEmPaMQQ2zuakWUIKL++mxwP
-X-Gm-Gg: AYBFou1mlyVPuUK8auk99Tp4UMQUE1v5C8d+W7OVAoNmRFC1ZvQo2DxSKoJJzS2LVIl
-	bN+J6ua6hC0Xlm0qRRUXkKdJjjU0WGin0sNz1Op1Byj3s5VmWG8MwcdHI+fPt3cCQHeDvjYeaEJ
-	O17qlDgG/GMXqkvk0Reu1vT8y94FTjWjS+s2QP6GnqoR8kx1oanS5xgjytOLsubgBPJL/byiCdI
-	U/aBYhNjtPTqvvicgMf37yh0fwJX1UultHpqIWcqoLVQci5hhYEBOoL0oDDBon/baZWvn6JzjWb
-	QKdpbl9xG8RSJclD2fgpgEzu9VWO4bq7sCzdJR8+lrgbGCLgSzgBc5sml1668jFJD+uAFNOmoGN
-	0bExR0nxs/K6H1uOgEtYNTP7Ee1Kz5qdWo7nI9Q+sdWgSrKHFwMot2TDRJPjCbZByUi9YxE9hgA
-	MsbgIs3HUuQVqEBHa0xr4QjIJkMyf4fhy+tS9C2/JJBmiHNt4JajoqnQeiZebyQuaCKsn02LO8R
-	mkc2lgSTvgfNOZAdATMtn5SMRU19X7r7IQn9VP/X3ne34Te
-X-Received: by 2002:a17:902:8203:b0:2d8:d4d0:792c with SMTP id d9443c01a7336-2db1287779cmr388670795ad.16.1788963170238;
-        Wed, 09 Sep 2026 07:12:50 -0700 (PDT)
-Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2db14ae7637sm74597655ad.79.2026.09.09.07.12.49
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 09 Sep 2026 07:12:49 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Message-ID: <43a1bbe0-0012-44b1-ab0d-0dea1136869a@roeck-us.net>
-Date: Wed, 9 Sep 2026 07:12:48 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cldoZ0+P"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 2BDE4C2BCF4;
+	Wed,  9 Sep 2026 14:14:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1788963263;
+	bh=uOvO7Uzwwoe+4sbG4xOBTQfvrDD2qD2yTL1O7zXzwnA=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=cldoZ0+Pddf03c+LoY8QiT/xygNIojZxyh/GWSqBk/xNVRl4zlyQ9r6eSdFrHmjzc
+	 vD1h24w13vhlgzpyvz30f7TwljokUtF8thBRG1nA36FPwbkewbWzApRLJyWRTpO74r
+	 i0/OizuDDryXBV9c+ff3bzNJjvMjNqj422Ja74fUN7bQYIjb3F6zrm7G/VrG1bvwmW
+	 iS5nSl52yoGonsHCAw0YIcb6BnVAztyYTwJhLBRVse6L1Bs6p6PfTVXIA9XHuyiKG8
+	 glyDA2evfuhwEoOlSghEGCX+iEWkaelwHfk9X6+rWZIxZyaSd1m1rR+e+LeqqjVLOY
+	 +JlxYE4gIbS3g==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 02E8AC79FBF;
+	Wed,  9 Sep 2026 14:14:23 +0000 (UTC)
+From: Roman Vivchar via B4 Relay <devnull+rva333.protonmail.com@kernel.org>
+Subject: [PATCH 0/3] iommu/mediatek-v1: fix the driver + mt6572 support
+Date: Wed, 09 Sep 2026 17:14:04 +0300
+Message-Id: <20260909-6572-iommu-v1-0-de261da09fb2@protonmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 11/14] mfd: remove unused wm8350 driver
-To: Arnd Bergmann <arnd@kernel.org>, Lee Jones <lee@kernel.org>,
- mfd@lists.linux.dev
-Cc: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- Arnd Bergmann <arnd@arndb.de>, linux-hwmon@vger.kernel.org,
- linux-watchdog@vger.kernel.org
-References: <20260909132153.1596191-1-arnd@kernel.org>
- <20260909132153.1596191-12-arnd@kernel.org>
-Content-Language: en-US
-From: Guenter Roeck <linux@roeck-us.net>
-Autocrypt: addr=linux@roeck-us.net; keydata=
- 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
- np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
-In-Reply-To: <20260909132153.1596191-12-arnd@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMTQ5AMBBA4avIrDWhoRVXEYvRDkbiJ62KRNxds
+ fwW713gyTF5qJMLHB3seV0i8jQBM+IykGAbDTKTKtOyEKrUUvA6z0FYJF2hRVSlgRhsjno+v1n
+ T/vahm8js7wHu+wGvI8UlbgAAAA==
+X-Change-ID: 20260724-6572-iommu-dae78adaa65c
+To: Yong Wu <yong.wu@mediatek.com>, "Joerg Roedel (AMD)" <joro@8bytes.org>, 
+ Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Matthias Brugger <matthias.bgg@gmail.com>, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: iommu@lists.linux.dev, linux-mediatek@lists.infradead.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, Roman Vivchar <rva333@protonmail.com>, 
+ stable@vger.kernel.org
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788963261; l=1496;
+ i=rva333@protonmail.com; s=20260510; h=from:subject:message-id;
+ bh=uOvO7Uzwwoe+4sbG4xOBTQfvrDD2qD2yTL1O7zXzwnA=;
+ b=i0i1FiCTJpC+cIW9dxpYnEDhoPKkkIOIjFygBYU4F309XWXCI9cmMfZ1jrIWHFPCUslryK9Ut
+ AV1kpB08YqGA78ZvP3n0xfS1XDtxBw7CPzbjyAHi27A+9Ls0LDEO6in
+X-Developer-Key: i=rva333@protonmail.com; a=ed25519;
+ pk=zww/nWjBGoQ4POXCG0BV6fx2iuXK6jx77rsKPA5YK5Y=
+X-Endpoint-Received: by B4 Relay for rva333@protonmail.com/20260510 with
+ auth_id=777
+X-Original-From: Roman Vivchar <rva333@protonmail.com>
+Reply-To: rva333@protonmail.com
 
-On 9/9/26 06:21, Arnd Bergmann wrote:
-> From: Arnd Bergmann <arnd@arndb.de>
-> 
-> This driver was used on the i.MX31 ADS reference board from Freescale
-> and the smdk6410 reference board from Samsung. Both used platform_data
-> based driver probing and are now gone from the kernel.
-> 
-> Since probing with devicetree has never been supported by wm8350,
-> it is clear that nothing can use the driver on an upstream kernel,
-> and it is unlikely that anyone is still interested in a devicetree
-> conversion, so remove it.
-> 
-> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+This patch series fixes silently broken IOMMU v1 driver and adds mt6572
+SoC support.
 
-Acked-by: Guenter Roeck <linux@roeck-us.net>
+It appears that currently the driver is not working at all... IOMMU core
+will silently reject the component bind unless there's of_xlate callback.
+The fix is pretty straightforward - provide of_xlate callback (based on
+mtk_iommu gen 2 driver) to let IOMMU attach devices.
+
+This makes DRM subsystem use IOMMU like all gen 2 SoCs do.
+It can be verified by reading overlay engine input address.
+Before:
+~ # devmem 0x14007040 32
+0xBB900000
+
+After:
+~ # devmem 0x14007040 32
+0x00000000
+
+Note the changes weren't tested on mt2701, because I don't have such
+hardware.
+
+It's worth mentioning that some bits may apply to mt6582 and 6589,
+however, they seem to have L2 cache for IOMMU, therefore patch 3 has
+MT6572 IOMMU type, and not MT65XX.
+
+Signed-off-by: Roman Vivchar <rva333@protonmail.com>
+---
+Roman Vivchar (3):
+      dt-bindings: iommu: mediatek: add mt6572
+      iommu/mediatek-v1: fix IOMMU device binding
+      iommu/mediatek-v1: add mt6572 support
+
+ .../devicetree/bindings/iommu/mediatek,iommu.yaml  |   3 +
+ drivers/iommu/mtk_iommu_v1.c                       | 158 ++++++++++++---------
+ .../memory/mediatek,mt6572-memory-port.h           |  26 ++++
+ 3 files changed, 123 insertions(+), 64 deletions(-)
+---
+base-commit: 8cd9520d35a6c38db6567e97dd93b1f11f185dc6
+change-id: 20260724-6572-iommu-dae78adaa65c
+
+Best regards,
+--  
+Roman Vivchar <rva333@protonmail.com>
+
 
