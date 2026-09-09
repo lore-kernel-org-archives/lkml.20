@@ -1,38 +1,85 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mx0a-00364e01.pphosted.com (mx0a-00364e01.pphosted.com [148.163.135.74])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6191535E94F;
-	Wed,  9 Sep 2026 17:11:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D184035C69A
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 17:11:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.135.74
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788973869; cv=none; b=KaiABZO+vg4mvnWTX0RHhoKBnZ4uODnVcSVCzJvAENIamMLlfOlE8mujdg0rQ28Koa4d2T8GApQ97vLViQ/RQeLUKKq3AAUzGwz2k44i0emLoCZloEGNJ8b2+wA6uw2G+zs+gZxnq6V64dcmkb5tw2kSAnSG4wYsfEPXWV8k6II=
+	t=1788973870; cv=none; b=KlfOcLgywiV2RPG2j0IopSRSw3qjA56XrrewrtCoErVqhJrE5EonhQ04QYEE+MtaGTut3uVRySgx6cULnjGjunqkDQllgjhYjVqJ48pvsr/bTdoc8l9sBZ5XbeHptnBcYCgPN1LOJxFb7Dndp9BvdAaDr743URByKhwgE5eeFpU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788973869; c=relaxed/simple;
-	bh=JJXmwYHmUvSusX1DyThNrlPnFKXOBGPTJbxZczSEH3E=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=m3QQw+SFsnX2KtI0HngWQxbWPwpICoiIQhlwtjRtmyLmMclpkkSGtvqN8nudzl5XKbpbiuc0SKxgVa180lgxrL9FpBwAtdCn5QuaNLKg9CKEU3DkDJEYjzqHGJhPEktmYirxHeAm5T90VDWk4y2GIoRGoYP8rJnXrEcfpYgLAIk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WiPFH+c5; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1788973870; c=relaxed/simple;
+	bh=rc6pysinAtxTWfmbt7G11fkKqor3YnttVUGOKHDnERk=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=S/oIemd2zq8J5OMHK5m4ib3OBuoZKwyklJX0LYzHPeAb4eUIruSa202Jl93NwgH+TpRWlUheY5xu1bYgRz/5AVTTAMLg12bnWwhkzpNuPaKytjcMJ/b8otiCzvX969KQks556ZAFXER1WQ9SFOOAPq78G779qUnqZ8enGd4+j68=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=columbia.edu; spf=pass smtp.mailfrom=columbia.edu; dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b=lLstiXsk; dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b=xkStEwrc; arc=none smtp.client-ip=148.163.135.74
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=columbia.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=columbia.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WiPFH+c5"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id D2F0EC2BCF4;
-	Wed,  9 Sep 2026 17:11:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1788973868;
-	bh=JJXmwYHmUvSusX1DyThNrlPnFKXOBGPTJbxZczSEH3E=;
-	h=From:Subject:Date:To:Cc:Reply-To:From;
-	b=WiPFH+c5aXnBsj8wkEMV7Y305soM4T+rwThTExLfU5+9TIqfKfh/OL0fpxbe8685V
-	 8CRi3oxfsrPW7DZT/25U8DszFgh5BOleHYqgA+zr+LRCOq3FMOtpawMIOStH3wHSkX
-	 t0CFOllTuK2xrcraW1Oa7MgqGmJRnH9I5roCJ5pZ64HEhvVZNZKSOcb0TZ943jLtoe
-	 +l0E5Vei37KuQsFGRCgP7WxW9mQDFLJ2ECUMt8p4XMIQd/mSuxOrahHJh4A2KwPqM8
-	 Aw5FXx8GdhpD3BMNHFFMzDegMASlL1G8KbhK+HEcTAxMhU3l0DKIDEM4m8G7GLRQzV
-	 zwBOKoDaYwlKg==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B8DF3C79FB6;
-	Wed,  9 Sep 2026 17:11:08 +0000 (UTC)
-From: Ackerley Tng via B4 Relay <devnull+ackerleytng.google.com@kernel.org>
-Subject: [PATCH v2 0/2] Fix bugs in HugeTLB allocation when
- mem_cgroup_charge_hugetlb() fails
-Date: Wed, 09 Sep 2026 10:10:59 -0700
-Message-Id: <20260909-hugetlb-alloc-folio-memcg-charge-error-handling-v2-0-4b4a8a19a7f7@google.com>
+	dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b="lLstiXsk";
+	dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b="xkStEwrc"
+Received: from pps.filterd (m0167072.ppops.net [127.0.0.1])
+	by mx0a-00364e01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 689GZCB3162459
+	for <linux-kernel@vger.kernel.org>; Wed, 9 Sep 2026 13:11:01 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=columbia.edu; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=pps01; bh=lpt2d26XTQe1uORrhGycOSTTTO
+	JsJUi2+IgNx3gMRHY=; b=lLstiXskjuHaqDqOOrjd9ZcnX3iz6WlMj1mX+8Uxfz
+	eQmxdudmLF9VqBgOBqY35n3VSmWb4AzgwVO2ULOoaUdFwWa/q+Amv/pC2ivMCss5
+	bZrEGfDJYInPsq+1vMAU/WZNylbsi0GZZKnIi7nVl5o2I+cFzhS57VgNGAd7n50e
+	uiF8dFvCBr/2cS7NsVFudvVAHDjVkaaw5NyEvakrfbbNcFzYCbOIMhpSTultiZeV
+	OVaClza1+CgwQ9tmvSk2kWmVzxLAHNn4ik/rzpnLz82/T+1AtPUegzij53zTDtlS
+	2A6MRXCq8iUIbE/uU7sRsdLdW5XCrcPr8aSpXU4rkEpg==
+Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com [209.85.160.200])
+	by mx0a-00364e01.pphosted.com (PPS) with ESMTPS id 4gk4fh3ue8-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 13:11:01 -0400 (EDT)
+Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-52ef04756caso121428781cf.1
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 10:11:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=columbia.edu; s=lionmail; t=1788973860; x=1789578660; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=lpt2d26XTQe1uORrhGycOSTTTOJsJUi2+IgNx3gMRHY=;
+        b=xkStEwrcLztU4C4HqGzZlTRx9MW1j7T/v2IaBrt19p9JNnn5/3pxCeqTj8WqHiYfH8
+         YeshfhY2UbqQ+PDr1wxhcM9/tBXLtpjKDUAUqCrFOmqvRulRu+VISEieTjBTh/HkMEtL
+         p497Wlj4zFG4xlMCIpgVYQSu4u3Ld7gQD6se+/O3eYKuoUq/QbE/PvX6Q8SodZqmh0JP
+         q4EwTUqxmsr4v6Jh33QfhCaWrHjQawPP8YhOTSojJJi+BK9JGIzpX0VyXT6EPIAREtCI
+         5llZuKDkYOWhxyx3X/KlcnIxZlRjHpS+JUBaJEQksyWSbMXsdPdggr02Rvw8Cn7fQOLz
+         aRWw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788973860; x=1789578660;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=lpt2d26XTQe1uORrhGycOSTTTOJsJUi2+IgNx3gMRHY=;
+        b=I/TSX0xToHU6oLXiODK46f4QTnxVZ8koCLz1LgpRDAnBX5hgHPumTbb840wJyttsFP
+         ODTpXoXIcaT5FgbAyBVfDXarAKVjdF4oj7g47XcYti/F5x40ahXJzAa+5Qk7JvqeuUKu
+         DmXmUQFkE2hBHtWhq325oLJbyX14qluSpF1v25MqusEommFklxcHShgZtwHaim30qgKF
+         eAqSoz3CVUc5BP+RcFqXJD0axnyMH7xHeov9QhsTE0deFMXfPRY6JEle3mgq5hLChQYa
+         wPDGpZfp8St+tmIsUs9xKdsW+cmak8K3VJ+OsSNEG8ptV53OSDQziOtSlUmkXCOuYXCl
+         4kSQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwLdtcGiDefY+jJIBbZoLGps16XhHFWuTzeKqE89okztRgSaeeEJ7tngrPnt0PHFR3krtS0r9FToA0uyI4=@vger.kernel.org
+X-Gm-Message-State: AFuF++m3VbmsRNnb52uO7Zr3WlONzvbPcl2nT34i5k79ylTVfgk1RoS6
+	8sYzsJoe4gJND/eKWC6njr/EYlOwybRKFPLc7wrpdioMEQbJnfVUz6XNrgGwbW0qv/z36BhU0HL
+	N/UFPWPN/wU9RKMaF4MyofyGXXV7wdFjuNoFO4sFO1MbH/a03ghbbg6KJ56P85w==
+X-Gm-Gg: AYBFou2+5BjYqCoJ10UY2Wklo6pLT2n3ZwmdA4LaScJjZaTM0UtINMa0/IyyWeUfmvh
+	k984RsQJWfymYHo8SHdME3qpqU/5lzWu1puNalp6z3sD1pek8NNzt/vZssl4bfcSqN/aJHBsmHb
+	XTdelD2XPKaVKBZyQWYOmGPcHgSD/A8lsK09gGqKHJW9nYbrXZHlyx9F5oisvICeDKbtahJikRZ
+	Cwrd/Iu4yxUrrHu6wU8RwbvZJ97AEBx0H0jeqfFOpr9+mZJE8waS7/qkd8ryup77HMwuiXFyjd+
+	mh7REDRIEzFBfH450fGt8IaC18LrnU9qr7iZfhWId97IY/DNeJxcAb8+nnCvkpsQ7ztVacWmLz2
+	wv0qhrPYg1YGec2u1oStrBE7ZLLg4tYeNPdxBNs9k3ekdmmEn
+X-Received: by 2002:a05:622a:2516:b0:517:8011:3a4b with SMTP id d75a77b69052e-530a2c4243dmr110781691cf.21.1788973859957;
+        Wed, 09 Sep 2026 10:10:59 -0700 (PDT)
+X-Received: by 2002:a05:622a:2516:b0:517:8011:3a4b with SMTP id d75a77b69052e-530a2c4243dmr110780551cf.21.1788973859333;
+        Wed, 09 Sep 2026 10:10:59 -0700 (PDT)
+Received: from [127.0.1.1] (nat-128-59-176-193.net.columbia.edu. [128.59.176.193])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-5308fc10b78sm64927471cf.30.2026.09.09.10.10.53
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 09 Sep 2026 10:10:57 -0700 (PDT)
+From: Tal Zussman <tz2294@columbia.edu>
+Date: Wed, 09 Sep 2026 13:10:48 -0400
+Subject: [PATCH] btrfs: use u64 for the page indices in
+ heuristic_collect_sample()
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -41,241 +88,87 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIACOToWoC/5WOTQ6CMBCFr2K6dkxbfgKuvIdhAWUokxTGTJFoC
- He3kngAl9/Lm/nepiIKYVTX06YEV4rEcwJ7Pik3trNHoD6xstqWutYGxqfHJXTQhsAOBg7EMOH
- kPKS+pD6KsEC67QPNHoqqtFhmFouhUOnrQ3Cg12G8N4lHigvL+xiwmm/6c9m/XasBDZhhVefWm
- dx0N8/sA14cT6rZ9/0DFpRMqu8AAAA=
-X-Change-ID: 20260901-hugetlb-alloc-folio-memcg-charge-error-handling-5862e632e5f5
-To: Alex Shi <alexs@kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
- David Hildenbrand <david@kernel.org>, Dongliang Mu <dzm91@hust.edu.cn>, 
- Hongxiang Lou <louhongxiang@huawei.com>, 
- Johannes Weiner <hannes@cmpxchg.org>, Jonathan Corbet <corbet@lwn.net>, 
- Joshua Hahn <joshua.hahnjy@gmail.com>, 
- "Liam R. Howlett" <liam@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>, 
- Miaohe Lin <linmiaohe@huawei.com>, Michal Hocko <mhocko@kernel.org>, 
- Mike Rapoport <rppt@kernel.org>, Muchun Song <muchun.song@linux.dev>, 
- Nhat Pham <nphamcs@gmail.com>, Oscar Salvador <osalvador@suse.de>, 
- Peter Xu <peterx@redhat.com>, Roman Gushchin <roman.gushchin@linux.dev>, 
- Shakeel Butt <shakeel.butt@linux.dev>, 
- Shuah Khan <skhan@linuxfoundation.org>, jthoughton@google.com, 
- fvdl@google.com, rientjes@google.com, vannapurve@google.com, 
- Suren Baghdasaryan <surenb@google.com>, Vlastimil Babka <vbabka@kernel.org>, 
- Wupeng Ma <mawupeng1@huawei.com>, Yanteng Si <si.yanteng@linux.dev>
-Cc: linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
- Ackerley Tng <ackerleytng@google.com>, stable@vger.kernel.org
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788973868; l=5588;
- i=ackerleytng@google.com; s=20260225; h=from:subject:message-id;
- bh=JJXmwYHmUvSusX1DyThNrlPnFKXOBGPTJbxZczSEH3E=;
- b=Tr/DEN/PwN2tkgr39zD84Od1pqwQlrkuQNp87eW1zgxYaBQ1Pqn6UK2GbphbhIn6yxjTKonO1
- zZqU5F/yQqoC+3UlrG+86rEo67cdhKkBSu8Kyr7wcqY2R9pLYLnzDEy
-X-Developer-Key: i=ackerleytng@google.com; a=ed25519;
- pk=sAZDYXdm6Iz8FHitpHeFlCMXwabodTm7p8/3/8xUxuU=
-X-Endpoint-Received: by B4 Relay for ackerleytng@google.com/20260225 with
- auth_id=649
-X-Original-From: Ackerley Tng <ackerleytng@google.com>
-Reply-To: ackerleytng@google.com
+Message-Id: <20260909-btrfs-heuristic-u64-index-v1-1-8606b3c89807@columbia.edu>
+X-B4-Tracking: v=1; b=H4sIABeToWoC/yXMwQrCMAyA4VcZORvoRhnUVxEPtk227FAlaWUw9
+ u5WPX6H/z/ASIUMrsMBSm8xeZaO8TJAWh9lIZTcDZObZhdcwFiVDVdqKlYlYZs9Ssm0Y8oxBM+
+ ZR8/Q+5cSy/573+5/W4sbpfodwnl+ADUmDJF9AAAA
+X-Change-ID: 20260909-btrfs-heuristic-u64-index-cdb994fdf14f
+To: David Sterba <dsterba@suse.com>, Chris Mason <mason@kernel.org>
+Cc: Qu Wenruo <wqu@suse.com>, linux-btrfs@vger.kernel.org,
+        linux-kernel@vger.kernel.org, Tal Zussman <tz2294@columbia.edu>
+X-Mailer: b4 0.17-dev-db0b7
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788973852; l=1567;
+ i=tz2294@columbia.edu; s=20250528; h=from:subject:message-id;
+ bh=rc6pysinAtxTWfmbt7G11fkKqor3YnttVUGOKHDnERk=;
+ b=Z/SSveEx0RWg3+66nrs20K2QIMA0SAKh/FZs6GwHWXnO8lsjr0U83fIjJIglJdv9r9fi4V9fl
+ ydmRlI3v6FMD+47h73KbfAjZR1WyaxTPGX44h2g/SaI4o129x7vcFnb
+X-Developer-Key: i=tz2294@columbia.edu; a=ed25519;
+ pk=BIj5KdACscEOyAC0oIkeZqLB3L94fzBnDccEooxeM5Y=
+X-Proofpoint-ORIG-GUID: GBBFv4Ys4Tb2pAgYtuT5CSbIUmozv0FA
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA5MDE5MSBTYWx0ZWRfX03lUaxZ1d5sX
+ 83n6q3rJwF/ySOqR1ckXpIRiALjiqS7OUckHwa3jEgv3bHjK2RgQLGwxWNagH/IOUCBqUUoqf09
+ LW7l4aSfA7Dj4ci3F2Xm8gU18p0ah7X2W78Ey1zAKXqZFl9myWgD
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA5MDE5MSBTYWx0ZWRfXxheHcd//Nked
+ wrPBky/LQ+7CEALJFfqklvD2xb/i2Rk9ZRuhsAmMia65m3XAlRnhnz3mssAb2TFTTce5TtVPB63
+ yphlUn8VPjxfYJYTklvo5mPJOPJid2HMPUDx1I+Q7PlOSOIZ6MBB4oqvbPXkkOQR+T/Z7s9I3mb
+ wVjgdJSczf5ivCo67Sg9Vi0cSUoVk7gYaMfl9yJ5M6bpOlytKiOLicEVpZ14O1LHvGvlD/jdT/y
+ LbHzZ2wfRiwQ0t3KJIRHQor6DJoX9brXEHFdMVZfA+uZiRTcVJoI9VkOMl8A9gNjhsyECKPggmC
+ rT4HIRTc3lfVlbNi3keeIdGATuQJq9ngOniDADpW76xSbgM4lVNgEk7Rq54xNeiwIDpF6flmxRo
+ EJRXFe6eW8Xk46hGy+8oDGzgzJyeN4fwsh7rUN7x0+amPx4YHJkP7oM8sw10CByP1zAZ/AxmLGO
+ ONx/dIV6gZ6huaKV5zg==
+X-Proofpoint-GUID: GBBFv4Ys4Tb2pAgYtuT5CSbIUmozv0FA
+X-Authority-Analysis: v=2.4 cv=LdUMLDfi c=1 sm=1 tr=0 ts=6aa19325 cx=c_pps
+ a=JbAStetqSzwMeJznSMzCyw==:117 a=fJxgZNdXt3opHMdyAp+FXA==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=x7bEGLp0ZPQA:10 a=A0y_DWxS2BwA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=Da8U98TiO7q1upZEImrf:22 a=SsB-OO3BMngHh3ZO9fOt:22
+ a=6w9P9XadSiK96p_W-bMA:9 a=QEXdDO2ut3YA:10 a=uxP6HrT_eTzRwkO_Te1X:22
+X-Proofpoint-Virus-Version: vendor=nai engine=6900 definitions=11900
+ signatures=596817
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=10 adultscore=0 lowpriorityscore=10 clxscore=1015 impostorscore=10
+ phishscore=0 malwarescore=0 priorityscore=1501 suspectscore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609090191
 
-In hugetlb_alloc_folio(), when mem_cgroup_charge_hugetlb() fails, there are
-2 issues:
+index and index_end are derived from the u64 start and end offsets, and
+index is shifted back into a byte offset for offset_in_folio(), which
+needs a cast to u64 to be safe on 32-bit. Make them u64 instead so the
+cast goes away. They still fit pgoff_t where they are passed to
+filemap_get_folio(), as they came from a valid file offset.
 
-1. free_huge_folio() expects a non-refcounted folio and will
-   VM_BUG_ON_FOLIO().
-
-2. -ENOMEM is returned, causing an infinite loop retrying the fault.
-
-This patch series is a subset of patches in [1].
-
-Note: [1] was applied on an earlier version of HugeTLB allocation. In that
-earlier version, VMA reservations were not undone on
-mem_cgroup_charge_hugetlb() failure.
-
-5737df3826dee: ("mm: hugetlb: refactor out hugetlb_alloc_folio()") fixed
-that, since returning an error from hugetlb_alloc_folio() causes
-alloc_hugetlb_folio() to execute vma_end_reservation().
-
-In [2], an earlier revision of [1], "mm: hugetlb: Drop refcount before
-freeing on memcg charge failure" was named "mm: hugetlb: Fix folio refcount
-mismatch on memcg charge failure".
-
-[1] https://lore.kernel.org/all/20260722-hugetlb-alloc-failure-fixes-v4-0-88e8b81970dc@google.com/
-[2] https://lore.kernel.org/all/20260708-hugetlb-alloc-failure-fixes-v2-0-c7f27cbb462b@google.com/
-
-Changes in v2:
-
-+ Made comment before returning -ENOSPC more concise
-
-v1: https://lore.kernel.org/r/20260902-hugetlb-alloc-folio-memcg-charge-error-handling-v1-0-e3e8942c141b@google.com
-
-Here's a reproducer to trigger mem_cgroup_charge_hugetlb() failure:
-
-static void write_file_val(const char *path, const char *val)
-{
-	int fd = open(path, O_WRONLY);
-
-	if (fd < 0) {
-		fprintf(stderr, "Failed to open %s: %s\n", path, strerror(errno));
-		exit(1);
-	}
-	if (write(fd, val, strlen(val)) < 0) {
-		fprintf(stderr, "Failed to write %s to %s: %s\n", val, path, strerror(errno));
-		close(fd);
-		exit(1);
-	}
-	close(fd);
-}
-
-static int is_hugetlb_accounting_enabled(void)
-{
-	char spec[256], file[256], type[256], opts[512];
-	char line[1024];
-	int enabled = 0;
-	FILE *fp;
-
-	fp = fopen("/proc/mounts", "r");
-	if (!fp) {
-		perror("fopen /proc/mounts");
-		return -1;
-	}
-
-	while (fgets(line, sizeof(line), fp)) {
-		if (sscanf(line, "%255s %255s %255s %511s", spec, file, type, opts) == 4) {
-			if (strcmp(file, CGROUP_PATH) == 0 && strcmp(type, "cgroup2") == 0) {
-				if (strstr(opts, "memory_hugetlb_accounting") != NULL)
-					enabled = 1;
-				break;
-			}
-		}
-	}
-	fclose(fp);
-	return enabled;
-}
-
-static int enable_hugetlb_accounting(void)
-{
-	int ret;
-
-	printf("Attempting to remount cgroup2 with memory_hugetlb_accounting...\n");
-	ret = system("mount -o remount,memory_hugetlb_accounting " CGROUP_PATH);
-	if (ret != 0) {
-		fprintf(stderr, "Failed to remount: system() returned %d\n", ret);
-		return -1;
-	}
-	return 0;
-}
-
-int main(int argc, char **argv)
-{
-	struct stat st;
-	size_t size;
-	void *addr;
-	pid_t pid;
-	int enabled;
-	int status;
-	int fd;
-
-	if (stat(CGROUP_PATH, &st) != 0 || !S_ISDIR(st.st_mode)) {
-		fprintf(stderr, "cgroup v2 not mounted at %s\n", CGROUP_PATH);
-		return 1;
-	}
-
-	enabled = is_hugetlb_accounting_enabled();
-	if (enabled < 0)
-		return 1;
-
-	if (!enabled) {
-		if (enable_hugetlb_accounting() != 0) {
-			fprintf(stderr, "Could not enable memory_hugetlb_accounting\n");
-			return 1;
-		}
-		/* Re-check */
-		enabled = is_hugetlb_accounting_enabled();
-		if (enabled <= 0) {
-			fprintf(stderr, "Failed to enable memory_hugetlb_accounting (re-check failed)\n");
-			return 1;
-		}
-		printf("Successfully enabled memory_hugetlb_accounting\n");
-	} else {
-		printf("memory_hugetlb_accounting is already enabled\n");
-	}
-
-	/* Enable memory controller in subtree */
-	fd = open(CGROUP_PATH "/cgroup.subtree_control", O_WRONLY);
-	if (fd >= 0) {
-		(void)write(fd, "+memory", 7);
-		close(fd);
-	}
-
-	if (mkdir(TEST_CGROUP_PATH, 0755) != 0) {
-		if (errno != EEXIST) {
-			perror("mkdir test_reproducer");
-			return 1;
-		}
-	}
-
-	/* Set memory limit to 1MB (less than 2MB hugepage) */
-	write_file_val(TEST_CGROUP_PATH "/memory.max", "1M");
-
-	pid = fork();
-	if (pid < 0) {
-		perror("fork");
-		return 1;
-	}
-
-	if (pid == 0) {
-		/* Child: Move to cgroup */
-		write_file_val(TEST_CGROUP_PATH "/cgroup.procs", "0");
-
-		printf("Child: Attempting to allocate and touch 2MB hugepage...\n");
-		/* Allocate 2MB hugepage */
-		size = 2 * 1024 * 1024;
-		addr = mmap(NULL, size, PROT_READ | PROT_WRITE,
-			    MAP_PRIVATE | MAP_ANONYMOUS | MAP_HUGETLB, -1, 0);
-		if (addr == MAP_FAILED) {
-			perror("Child: mmap MAP_HUGETLB");
-			exit(1);
-		}
-
-		printf("Child: mmap succeeded at %p, touching it now...\n", addr);
-		*(char *)addr = 1;
-
-		printf("Child: Successfully touched page (bug not triggered?).\n");
-		munmap(addr, size);
-		exit(0);
-	}
-
-	/* Parent */
-	waitpid(pid, &status, 0);
-
-	printf("Parent: Child exited. Cleaning up.\n");
-	rmdir(TEST_CGROUP_PATH);
-
-	if (WIFSIGNALED(status)) {
-		printf("Parent: Child killed by signal %d (%s)\n",
-		       WTERMSIG(status), strsignal(WTERMSIG(status)));
-		if (WTERMSIG(status) == SIGBUS)
-			printf("Parent: Child got SIGBUS as expected.\n");
-	} else if (WIFEXITED(status)) {
-		printf("Parent: Child exited with status %d\n", WEXITSTATUS(status));
-	}
-
-	return 0;
-}
-
-Signed-off-by: Ackerley Tng <ackerleytng@google.com>
+Signed-off-by: Tal Zussman <tz2294@columbia.edu>
 ---
-Ackerley Tng (2):
-      mm: hugetlb: Return -ENOSPC on memcg charge failure
-      mm: hugetlb: Drop refcount before freeing on memcg charge failure
+ fs/btrfs/compression.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
- mm/hugetlb.c | 9 ++++++---
- 1 file changed, 6 insertions(+), 3 deletions(-)
+diff --git a/fs/btrfs/compression.c b/fs/btrfs/compression.c
+index 20169d028961..228d1cdd7c29 100644
+--- a/fs/btrfs/compression.c
++++ b/fs/btrfs/compression.c
+@@ -1489,7 +1489,7 @@ static void heuristic_collect_sample(struct inode *inode, u64 start, u64 end,
+ 				     struct heuristic_ws *ws)
+ {
+ 	struct folio *folio;
+-	pgoff_t index, index_end;
++	u64 index, index_end;
+ 	u32 i, curr_sample_pos;
+ 	u8 *in_data;
+ 
+@@ -1517,7 +1517,7 @@ static void heuristic_collect_sample(struct inode *inode, u64 start, u64 end,
+ 		folio = filemap_get_folio(inode->i_mapping, index);
+ 		ASSERT(!IS_ERR(folio));
+ 		in_data = kmap_local_folio(folio,
+-				offset_in_folio(folio, (u64)index << PAGE_SHIFT));
++				offset_in_folio(folio, index << PAGE_SHIFT));
+ 		/* Handle case where the start is not aligned to PAGE_SIZE */
+ 		i = start % PAGE_SIZE;
+ 		while (i < PAGE_SIZE - SAMPLING_READ_SIZE) {
+
 ---
-base-commit: df2908090cda368b01ff43709f51890076c56157
-change-id: 20260901-hugetlb-alloc-folio-memcg-charge-error-handling-5862e632e5f5
+base-commit: 0fa0a3b3b2b007ab40e87245152e1328703a317e
+change-id: 20260909-btrfs-heuristic-u64-index-cdb994fdf14f
 
 Best regards,
---
-Ackerley Tng <ackerleytng@google.com>
-
+--  
+Tal Zussman <tz2294@columbia.edu>
 
