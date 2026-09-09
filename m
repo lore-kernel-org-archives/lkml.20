@@ -1,130 +1,113 @@
-Received: from mail-pf1-f177.google.com (mail-pf1-f177.google.com [209.85.210.177])
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFBE437C0FC
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 17:27:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B519370ACE
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 17:28:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788974824; cv=none; b=G8npAyva9oAeAchHYqHS5nCLi7jKWKSalogYar1pHk3LwclDcvYX8v6Wvf/teV9GDl2cjrFzgsdIl0xHrQnmBAfJXhUVIJ7z4/k8va7Ant3vgQajzUsvjN6MyLxOpLhUNyL4O6Ib0Qb9j30v6vXAbpC4jq0eASfhPYAqs59o//s=
+	t=1788974892; cv=none; b=UbVwBX+pck60n1rmY8JzlzLD+uRJMx1CtyNZJwGSbOZmXebNCSV0z2uIUuu8Bl+vqWRsae1n6jKjfQR1gtShwDUXF4YvZgXk8PKWpKvzZLy5EcFkhS3HntdsS6Fuotx+Jk794IQqiLVHib7+l43VBcPt3gW7e/vdm0Z5vocFtn8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788974824; c=relaxed/simple;
-	bh=SUxP5gT1ZaOy4mmgP6chw0Cr8VRY83cgnbGtN/GeIrM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=LMyQ3CaPJmCZNkOB2qodaMH+vD9YsJzx47q46GV+Act0QWR/udvWtzcwtzttFmqLJaitqd6Udk1gc3D1z8L69bwqaF13y0G2rEwtk+L16cHSxMQSMHCIyfydh21Zs9s/zE2wBjpWS4gGJ1trMkRWsnY+07qvSyC1DZDNezfrQsA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jI6Ly9NO; arc=none smtp.client-ip=209.85.210.177
+	s=arc-20240116; t=1788974892; c=relaxed/simple;
+	bh=8NppacfHdLDtG5JzX2FZPUFkGO0XjyIiwYMs140ZnjM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ZCPcRQrLfhCzV4pQl2VA1eydixnYiMn75vCklfi18voY+1CwiczDBnx1W47JAjYUsf/nvfAzNkQg0fuRxTfTBydqNuTdyxjhvtUBtIzc+CAXl5n2IRSfgYoqrfpsxRpnMTonETZ5F6mfxr8BU2KGicxEc9GyqNGSURoXNisJ9E8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=K0wnXL3e; arc=none smtp.client-ip=74.125.227.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jI6Ly9NO"
-Received: by mail-pf1-f177.google.com with SMTP id d2e1a72fcca58-8558c0b26a8so4425150b3a.3
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 10:27:01 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="K0wnXL3e"
+Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2d90ba1d807so6908295ad.3
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 10:28:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788974821; x=1789579621; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=BxkJmMQiuFGLIVhYvP7iekSRoJyyqxrT2LFSLJP0a4Q=;
-        b=jI6Ly9NOhS1CJVDcDoKjwgjST/iQVlVpolh/hifxBJGV2nz6t+8GlFWLZ4bzANtEHt
-         /Gubm7aHSBwsXnEHDwS28/J38FGObVki5RAT4+MKtWxDxCzdeulLhOlDre6S80gl/1TC
-         7EygHVvY8rB9EzbY4vuEGBvLIXgnThM7ofFVrmOOyUnxK3+Cw8/lUB1Qrw2zcQyD28sq
-         aOwfF4Jak4nLrwlBRcrBmxMV3zq77fRSSDlQwIxXNAn/g3MvLudGjEbIzxRGELLjSs75
-         zSMaaTiP34sWBjEuq0+gSjLhjHao2DyO1AI08J/NXT1fTMGf7TSzj1Dp3m+TJmQDgi3k
-         TF6A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788974821; x=1789579621;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20251104; t=1788974890; x=1789579690; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=BxkJmMQiuFGLIVhYvP7iekSRoJyyqxrT2LFSLJP0a4Q=;
-        b=ZY9pblJDwQN38S7tZM5dbfAEaF+dnQ0ztuNB1MXP1iP21zQroXSqw9MoM8TK3SzTK2
-         szuzhjF9C1l9Bbmgh+Xa+IkEoJGoxyamkWqs5Sc/1jqfzYt4/qUZWzQgwOFRFIixStgy
-         Ffo3u6e0sKYpgRy6TAPvCFNYyI7ZonU0Wggmmj9rwM60zjnoWumtTF7VxQNoEWhhtW/Z
-         F6cYAlJ159SnS+NK4/KbAIbzvUfYBSFDf0KZfkySreV0BKO0D08Q9Ym9CmVDV/DhNAMQ
-         0rf6z5wgVma/aP1Xp8JLnn0FiwIfu3vFNN+2vBbcD2WOfU915X0u6dS0ujgvSQ81pI9x
-         6o0Q==
-X-Forwarded-Encrypted: i=1; AKwUvBwiG2qW4c1ECUR5yfyM41mb9EeSE6JLa8voU1rG79SOD2lnA/X9Z45+5wqbJccGyExSCW/mOU/19BxoG5A=@vger.kernel.org
-X-Gm-Message-State: AFuF++mVWZ3hk+R9+TJkJL1qqomltDdK4VlyyuXmnkWxdbE2UVkeIEUp
-	7bkuPunKfEmR/NK0wXei52X4ymg520ghMbSQff1tms2H7mlnCF6O38Ae
-X-Gm-Gg: AYBFou3xPyQ5S0A1G4D9U17rnvryE6uVZS315Cd8m+5J7oyaXwTwgDmgN4ceGVIFx8C
-	c79E9ENtF/UrLGAeFAaTwTRQMqzVjGYH+iSlZ1dixDbqMBKj4F5+Uf50drpvUQ517VBUVoChn7j
-	BPpt0946Blv3V5E31eggXQe+blP176Tpcsc5xQ+aS3y+xNLnQgViXs7dAnULR5bkXuIGhpzI5RT
-	bapiDGT4rBjlz9WACNN+YcWeTwTFULhQmv9fUJ2sGnFC0ASqF2QrJqvoksbnQc/OlZG7KgXIS9K
-	SoD+ORMRGmHeXrLCuwp72hL1KVAiZS5LtaFwEsdQj9TyNcQLMFZs+Ot3et+sO0v0Dq+3JRHIcIE
-	+/M1s/yOq39w7AAvERnMKXHsAU8lvllxGheQ2GbYzQsBlccEMqI2BCHUUylt6ezrUauCxBnCvMK
-	Svd4TKpSj1phwPHeAS3Wy9eApDugEaMSfResQeA5X6TvpU4nyPGxCzLtrLgpZmPTyT4tBSM58LN
-	BoJbzkiVqbjX/nly61eHDOc6v3wfsTWHIdHiwhlAckN+AcDSl6y
-X-Received: by 2002:a05:6a21:9d84:b0:3d3:af85:eb98 with SMTP id adf61e73a8af0-3da3a16a579mr57975715637.26.1788974820346;
-        Wed, 09 Sep 2026 10:27:00 -0700 (PDT)
-Received: from google.com ([2a00:79e0:2ebe:8:2d43:5153:5c50:643e])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339a534df1sm52422943eec.7.2026.09.09.10.26.57
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 09 Sep 2026 10:26:59 -0700 (PDT)
-Date: Wed, 9 Sep 2026 10:26:55 -0700
-From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-To: Arnd Bergmann <arnd@kernel.org>
-Cc: Lee Jones <lee@kernel.org>, mfd@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	Arnd Bergmann <arnd@arndb.de>, Daniel Thompson <danielt@kernel.org>, 
-	Jingoo Han <jingoohan1@gmail.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
-	Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Guenter Roeck <linux@roeck-us.net>, Linus Walleij <linusw@kernel.org>, 
-	Bartosz Golaszewski <brgl@kernel.org>, Jonathan Cameron <jic23@kernel.org>, 
-	Pavel Machek <pavel@kernel.org>, Michael Hennerich <michael.hennerich@analog.com>, 
-	Support Opensource <support.opensource@diasemi.com>, Sebastian Reichel <sre@kernel.org>, 
-	Alexandre Belloni <alexandre.belloni@bootlin.com>, Helge Deller <deller@gmx.de>, dri-devel@lists.freedesktop.org, 
-	linux-doc@vger.kernel.org, linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-hwmon@vger.kernel.org, patches@opensource.cirrus.com, linux-watchdog@vger.kernel.org, 
-	linux-gpio@vger.kernel.org, linux-iio@vger.kernel.org, linux-input@vger.kernel.org, 
-	linux-leds@vger.kernel.org, linux-pm@vger.kernel.org, linux-rtc@vger.kernel.org, 
-	linux-fbdev@vger.kernel.org, linux-sound@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, 
-	llvm@lists.linux.dev
-Subject: Re: [PATCH 00/14] mfd: unused driver purge
-Message-ID: <aqGWjAuGXq_JHvxk@google.com>
-References: <20260909132153.1596191-1-arnd@kernel.org>
+        bh=7iMcbjfyMphX5/lME4IhFQ/AbOnN1ivDHYpPPxczf78=;
+        b=K0wnXL3e+a0Xg+ju9TofH2rpLNcivHUTzxjaV5C+n0HVnZ62drz9e0wfu/WvR+bnW7
+         VLtYl42chhRnOsAHuZF2eiTN5Z7SHHyfkWbSAZEmVeTtbLpxsEjuFP009veuq6vl0Ky8
+         8nXjjR0v7yIbf4eW6zBYdQBnmChHLUeTUbQLKCN8VbxDw/0nYGuCPeD0yRj9Uzie6vGY
+         BncO31hXgtd3yaSc5CGUc/SKoTCvE5r/1pQ1EgnOvduq/1/X9lN/YuMONSfjtQ6Z8aJr
+         IhQhuxEOXbNxSdWVE6TuC7ytFZHeJa0BH0HRy32ALJ0sEcM/kE98uB3/jO/QAHR6/Gr4
+         3zOA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788974890; x=1789579690;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=7iMcbjfyMphX5/lME4IhFQ/AbOnN1ivDHYpPPxczf78=;
+        b=P3am0R87280a4Ew3Z7ouo27iUy3W31khkRs2O5W2kNFLgVTdfdo7KiylhWEWcNsKKh
+         gLgXhaAuRSmbteG+aYzL/I9P9QQRXM69FdqW0xBhvoDNbvdbvB/TxkaxNv8u8orGK/TP
+         bBX7CvW1S3fmOdxn7sDvzx8Nw/0cgYFeiRxetrZKI6K3Au8W2BXsEWVIqPabsTV+qqHA
+         q8fqZzGsCwcxruE1QyNg0rddMToPwbwA5e1zx+W506Jxr5kZThCoHhLp81VVUedPKjgE
+         YV/z4XyzGfKsFO0ReT5mFmzxYj0GIybfPVntK94QPhe7LQxvK8dX9+y+4fqLd6Hq4tzm
+         fgmw==
+X-Forwarded-Encrypted: i=1; AKwUvBw+igTgft2nzP+zliMs8uX8ZJZJ1Ec4037DywybZOLO78gHTPwZj3MdoAmC0Un/shvZlpA7FSOxXShzze0=@vger.kernel.org
+X-Gm-Message-State: AFuF++lqwCUcqi6fi7cnFEN6jL5Cd9elt5YHcO/m/1zoXIJamb95xBv5
+	oGGMFr8f95P2P6FgElq/g4vee3qfeB1u3R7mJ4GvSCwnSEghgXF6QNPp
+X-Gm-Gg: AYBFou2Nvinuq+mp/KcKCv1iBVun/RVeqFYgkxr9BhzTbH8BIPRL/AYO+dG+Iqiuzxo
+	rF/tdkowIU6dZ7YUyzfifOCJqedG5W1zI4cPJR5Mq3xhmQWCTtLpPyhP7L5tD1UV5x4KBnppzRh
+	kBoSuOAy7e/dZtJ4pWBp7ldEfW3GxOb5oXfVn2hhNqD7PTipE6emnUSZWLmTQh5B0nvB/+T4siu
+	ywGlMIQHuPUBCKLmAQuVqcBxxJ7qNhWwkn2cBlaM+Re6yt+5CI8anxcI6j7rOD+06LK92xR45xk
+	o32RV6Bmwvbgw4HJJIEZtnjeLSmvkMx4kfEwLk6tMOgkyfwN3SVkh7ASBPjLmemV2DOvLjDyvjg
+	Ein5siTpuhq87ElTmpwBYpfGaYNzNrpPlC7IcmpIenGkcqplgiiBwXJ4korJe+nTqGjI90eGug2
+	KIg1A8AHhCzl1+dNBBv2pQTLBHVbF37Z5DEpp1hDmOoIFauGpShbF3vKxzpj75CLNxYKNCIoR5z
+	KGbJBu4YVDJGDglt85GGFZt7A==
+X-Received: by 2002:a17:903:46cd:b0:2db:39da:90f2 with SMTP id d9443c01a7336-2dd07809f49mr31004255ad.8.1788974889883;
+        Wed, 09 Sep 2026 10:28:09 -0700 (PDT)
+Received: from [10.67.48.245] ([192.19.223.252])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2db1497e9e5sm76340935ad.38.2026.09.09.10.28.05
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 09 Sep 2026 10:28:06 -0700 (PDT)
+Message-ID: <04d98c16-9f87-483d-a4e3-b79cc586d537@gmail.com>
+Date: Wed, 9 Sep 2026 10:28:04 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260909132153.1596191-1-arnd@kernel.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 6.18 000/583] 6.18.51-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
+ hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
+ sr@sladewatkins.com
+References: <20260909134237.773280130@linuxfoundation.org>
+Content-Language: en-US, fr-FR
+From: Florian Fainelli <f.fainelli@gmail.com>
+In-Reply-To: <20260909134237.773280130@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Wed, Sep 09, 2026 at 03:21:37PM +0200, Arnd Bergmann wrote:
-> From: Arnd Bergmann <arnd@arndb.de>
+On 9/9/26 06:34, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 6.18.51 release.
+> There are 583 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
 > 
-> As part of my cleanup of old platforms, I had a look at all drivers that
-> may have become unused because the last platform_data or DT definition
-> was removed, or because of unmet Kconfig dependencies.
+> Responses should be made by Fri, 11 Sep 2026 13:40:31 +0000.
+> Anything received after that time might be too late.
 > 
-> These are all the mfd drivers I found. The first ten in the list
-> actually turned out to have been unusable long before my series, and
-> I have added explanations on how I determined this in each patch. The
-> last four patches are still in use in linux-7.3 but become unused after
-> my series [1] that I hope to get merged for 7.4.
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.18.51-rc1.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.18.y
+> and the diffstat can be found below.
 > 
-> Somewhat unorthodox, I took a shortcut here and remove both the mfd drivers
-> and the corresponding subsystem drivers (gpio, hwmon, iio, input, led,
-> media, power, regulator, rtc, video, watchdog, asoc) in a combined patch,
-> to simplify the interdependencies: removing just the mfd driver would
-> leave unselectable or broken drivers in other subsystems.  I also have
-> additional patches for each of the other subsystems, currently a total
-> of 300 patches, many of which still need better testing or proper
-> changelog texts.
+> thanks,
 > 
-> Please let me know if you all think this approach is ok, or if I should
-> explode this further and turn these 14 patches into 70 individual ones
-> by splitting them per subsystem.
+> greg k-h
 
-Sounds good to me, especially if Lee makes an immutable branch from this
-pull so we can all pull it in...
+On ARCH_BRCMSTB using 32-bit and 64-bit ARM kernels, build tested on 
+BMIPS_GENERIC:
 
-Acked-by: Dmitry Torokhov <dmitry.torokhov@gmail.com> # for input
-
-Thanks.
-
+Tested-by: Florian Fainelli <florian.fainelli@broadcom.com>
 -- 
-Dmitry
+Florian
