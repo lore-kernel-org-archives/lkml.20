@@ -1,81 +1,76 @@
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F25238A733
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 06:50:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE958492E38
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 06:51:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788936659; cv=none; b=A6TkWXMgqEkEg2zlvmv5PaX7USfU52bGLD06wrLICebIA5eeNgEvEkESgEkQIkOyX6kjNzzZI5qSqVZIpEVYF+RoVlq8Y8Lg8EsG6k/kBYxTwAgA1WjKApx4S1bTJXV2aAOOvtzTYID+8M0TBnk9Ob67boQwbj0L3JmvXpsXg3s=
+	t=1788936663; cv=none; b=NC99u3ygYiVEh/7XTvFeGK810m5p5hwZ/gk5y+pNyj0NmsH6gFpYBaGCIGcc2MP1FTL1HyjN/S6ekDKye3otLcV+hM8HwRf4YhHBfAIOL2SOnDSmAt36Fen4k79sPuBtLnlbJIANM2Vf5+qq+hyC4D+lSWVdOpLvWmsUEZaFOPI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788936659; c=relaxed/simple;
-	bh=wLDEXefuJ6ysr65joIrk+CDBT5nG781r89dk8ZxIZWg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=QdsiKnrXEX2u2QWsOTdNs2RE4QHzfGhMk0qN6+2QB+2Z50cDI1RGSfcsT5RQzaTpjOvjSFtUqlawJtV0CSIXnvAvSwuHwwhM55kT2de2xhcdODUwDUBImUEfYikF6NoDwT/BM+Hp3bTD/Nknb7CMxwZw1hckSHP/28jiUeYq1tg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DhG8vY9d; arc=none smtp.client-ip=209.85.128.46
+	s=arc-20240116; t=1788936663; c=relaxed/simple;
+	bh=oDkqqmtTJtGBZvqIfArxzM2jLkVcQGCEqnkrKRG+9hQ=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=So3bvkmBAarL5v81lupYJJ23YL66sOdVPeFIhVaSkZZV5iwaPGSFFjAETI9+6oExWtnxiUvvm3zJTWBLiwUNijAlDyqPXerJFpC/mVBw2P0wJJA2BWmbwBBs0Ml7O6GWornkPe8OhbE7pWziAlhQWWcXLWWNNdO/8euzLPHZcA8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mpjPaFeY; arc=none smtp.client-ip=209.85.128.45
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DhG8vY9d"
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-49557167508so64397385e9.1
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 23:50:55 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mpjPaFeY"
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-49cd77e0f95so43679095e9.3
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 23:51:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788936654; x=1789541454; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=wLDEXefuJ6ysr65joIrk+CDBT5nG781r89dk8ZxIZWg=;
-        b=DhG8vY9d+eTinmFNQm775o8Q7jFYyvD1+u3MTW/5lSvEBux2eigyr1PhU5mahAEzcP
-         dM/Nt2OYBu262Q5l5hHK86R8Bez+xHclP6auZyDq+STfLywu1/OK0TseoQL1ElVYfvtK
-         lSHQbb2s9eCEc/lxd6nzx+mWaQjtyayA3DDq7M80BCSvcebflez85PaMXHgMl9DyOsPg
-         ZGv1qBv52krNvgf3OtBtjcn4t9ebevLKaQmNEHoo/hRvmET+0Q5seEqqd9MTev5qjDXv
-         BWAorjpAKi5RUnst19QEjks8lkl6QpIHUkDxsN55Rg/dnmq+QP+eUVjf+p7WIYbEMxVk
-         8abg==
+        d=gmail.com; s=20251104; t=1788936658; x=1789541458; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=vBhD6t+tB+9jZHU6fZGAeov1ImNZWGevF727s90AjNc=;
+        b=mpjPaFeYrPuVnGhRT2SHmF2qxWmwmIFYujyvIHUB1tFA5k4QzomzqeSYnV0n66E7aP
+         I7UtxPrR5AIz4U/PlWoDKBX9yQJ9yeqX3MZr04+jia2wsWzw6AMB6UxS93FjWkQvLE4F
+         QqvBWFWIu2DYuZ5gJM3Z6MMYFYnVQCJynnnz5xsB6q4pVJwKZBKZsSV3ZGjh/cNGBqqp
+         maVWFf81cyjlgaGFR31hX1cnjMXY0Gv94TEcmuv9PqdKMLNrVP7wA94t/ojXC4aL0pJQ
+         pcUSuYmW9ulBhXK4bVaFdd73bS5XI6Zp7zy+cSPXAUxGqJcMzQjUqSaSSm9GCPqEXDdu
+         Wiig==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788936654; x=1789541454;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=wLDEXefuJ6ysr65joIrk+CDBT5nG781r89dk8ZxIZWg=;
-        b=aa3b+0ml+MZMXzjmcsj+FUb5//r/BQ7r5MaK/KNK8m/hIEmCN1qxWQf28d5YVz6OIJ
-         ADuyU46wTMSbXUkhZ0GvGrNWpkcIR8urUdcYSXb2J/KQrFKLXstR1L31NZI5AB1qEohd
-         lyAD6Ntuz7CYPSSVP8CK181mJGtcVBAAOTGnCA2O0pvwG9gma/wBnqrUDDAbI5jOH8CK
-         e1gzyyd2o6K37DrfjE/nrYMh4egkdXhylZ09+knhd4qtmt2l1jAzInSBK51g0xfuXKNd
-         EYkM3Vw/w74wTr/5wDaS+wsIwZsICKBoB8tX6MraPQF7Azv2qi22B4F3bYkcGt2W3sG/
-         Ll1Q==
-X-Forwarded-Encrypted: i=1; AKwUvBzjExtVe3z3beCpOm0UEzKmNe17MiH/h19hIQTGorJwQXWCgIyzVN7qTZBwSvK9v+q/jmHYdgb8QOhVxvk=@vger.kernel.org
-X-Gm-Message-State: AFuF++ljhLOnvagiB2nTUrG4jxquIFPRw0feVs4JSxU1SngximhJcr5S
-	HBnqaiGyGuWqYA+dj4trmSp8oo65iDlG42X9gWznux9hTM80AOe7lQQ=
-X-Gm-Gg: AYBFou3bg89Lot5oXdlRcYxREz5n1IHkdIDfVT0ohk8QbGtYBzb3zLufb0CGGVRVkj2
-	lut/tMaWAjgU5dPM6IFF8Fp0Haty87vnrm1k885LvCjTSOxz5NCWJZj9SLzB30nkLeALYaFmJ9U
-	uMv8HYmJVkqui8n0ifty7EPVgF8/VMJ5MYWyzEJNGf4KTEHBsvDIhiLdnrultfvzYtpAny4MIGH
-	CBaJIhbfQGtWYzF6QK/MziKXpIQ4Ew86/Qn/kQWTlYt6yfp+nHpe8YDtkD9SLDvE+TpE8RBxjhT
-	mYQ1SkHNP4Ug2qsjfd7eDYt2iSJuND1CEQcFHTX2zyJiVvRNSXQAenJGMDo9GMigT3q7lhzevsL
-	r3fZp/LZWBM6eOQ+TSDCMOvhL0iZ8FHlBJKgStPL1RhExa6KViEv3vYchshZCKFBsFuPoK4pcx8
-	OQS7u6TOxt8x9lsVlgJIhykzlwtg5D3mUunmHu/dcEBS0SPre/JbHV/zGNqRkaFk5sUbWb6Yr0g
-	ZyqF6AGOoufPzL3Itox94zklvrRy4CiPQ1NeOJqrYOBuVEk6aiadYzg7Ws=
-X-Received: by 2002:a05:600c:8715:b0:49d:17d4:aff2 with SMTP id 5b1f17b1804b1-49d17d4b01dmr219717855e9.1.1788936653490;
-        Tue, 08 Sep 2026 23:50:53 -0700 (PDT)
-Received: from latitude7275 (84.124.213.91.dyn.user.ono.com. [84.124.213.91])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cf7736132sm443215855e9.12.2026.09.08.23.50.51
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 08 Sep 2026 23:50:52 -0700 (PDT)
-From: "D. Manresa" <dmanresa@gmail.com>
-To: Andy Shevchenko <andriy.shevchenko@intel.com>,
-	Thierry Chatard <tchatard@gmail.com>
-Cc: Lee Jones <lee@kernel.org>,
-	Hans de Goede <hansg@kernel.org>,
-	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Daniel Scally <dan.scally@ideasonboard.com>,
-	linux-kernel@vger.kernel.org,
-	platform-driver-x86@vger.kernel.org,
-	linux-media@vger.kernel.org
-Subject: Re: [PATCH] mfd: intel-lpss: add Dell Latitude 7275 to the resource conflict quirk
-Date: Wed,  9 Sep 2026 08:51:04 +0200
-Message-ID: <20260909065104.15817-1-dmanresa@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <aqDkwTkAsvs8Escx@ashevche-desk.local>
-References: <20260831160754.9857-2-tchatard@gmail.com> <20260908161629.335223-1-dmanresa@gmail.com> <aqDkwTkAsvs8Escx@ashevche-desk.local>
+        d=1e100.net; s=20251104; t=1788936658; x=1789541458;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=vBhD6t+tB+9jZHU6fZGAeov1ImNZWGevF727s90AjNc=;
+        b=FLge4veOPBs8gNW9GtLUpl8c6O/20z206ZVZz6O0IlrDxj76PA6b/6fyzgY6zp/w3u
+         dBNm7R1XFgGKCoG8GovYD+jxdilk7f8zjSap5glHsZSLe8LK1J19voZkRcCHjRzLg9Sx
+         n0fLu7TAU023jPzlxtgcdhp38L/dduLqxcbuyfld/Mq+DOTb9OfOuLWdAYs+DWtj5HJW
+         wF5ZXuGt6c2cX4fAhfgObVhAPWnqQU28a8iVXcZ7/kfIS9olGfmMJSHDpP77kKFVN9S4
+         hlCB9bVGfUC4exrTBJZmrLA9b9mN+G3kR7CXTpcB4jilflPB12htWpIlLZqDbYXd834+
+         25+Q==
+X-Forwarded-Encrypted: i=1; AKwUvBx3JBLmlCSWbBBHasw3/jKV7vlcydQwsY4J47hvY+yyrjM3bPrWPVi5RMIEkoMISmK8/3cqjneFwPTaRH8=@vger.kernel.org
+X-Gm-Message-State: AFuF++m5CSQwUzK3C12gRjIKxohEuWHPXwds/R31x24dV2jzWiU4rUjt
+	V/SPcKfH01AbVnEhGzFcrcBl5voj3KOCgHSoz0O25V1gWK1MwZf149v+
+X-Gm-Gg: AYBFou22mg6Aqiy23vNxUFRObZbDfROUS9uJ5/p8FvbW1ETZlrDnb9tdrU2+gCpVfHM
+	uMZ3/UDpzyXT+T2rRxuSYBJ5gjOmFsXlXElUzxKu69/GDa0D0vXP8dhg87JbEM9OxrJ7xoiMtm4
+	XymSwp/GFfgVDjYP0CrLsyefnnJ7KmMIWkA+P3tbyUR+D+NLRL9S5gyIfXCqt7XxVucbZKMWoWc
+	EsgzToRawK3h83Y3Dkc82dHRFsVFs2c91rE6EtasUKINQJl1IuKNdKINIxC2TUzoPkGr8Isb+4Z
+	TsL8gQllu6UnnbcqKu3mIKOSkotQC77FvzTwFVq1xhYi8EYjuh1+KlTo/GT1R49dyIFlyiqFqrX
+	ubYHC790rIfl6s3Gi0fGQ71OEG1dzuGRhv6F623N+XauaLuWKgMp9KhoeykykqlU82BGEWEZYS7
+	4OEvp+0UpSoHfJpM26S9VLCCXK/0VE5MytFSSHQ+fa4gdFa60tcN5LTAeREZ3xT4UD9j5SGT1QA
+	korUizgBzbJJyx4dWFyxkCBK6IaqCPAn8Tm2m1hWxVf4QS1f06axYKrAWFjvKA5YCzLGc26S0z4
+	nWwZJu/cQzyTVUyFo/oimbMwBLG4/HakBsrHN0ty6aGdQZimTy7p
+X-Received: by 2002:a05:600c:46d1:b0:493:bd2a:93be with SMTP id 5b1f17b1804b1-49cf820c992mr346389645e9.6.1788936658088;
+        Tue, 08 Sep 2026 23:50:58 -0700 (PDT)
+Received: from MacBook-Pro-von-Karl.localdomain (dynamic-095-114-212-219.95.114.pool.telefonica.de. [95.114.212.219])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cf7736132sm443222705e9.12.2026.09.08.23.50.57
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Tue, 08 Sep 2026 23:50:57 -0700 (PDT)
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: Haixu Cui <quic_haixcui@quicinc.com>,
+	"Michael S. Tsirkin" <mst@redhat.com>
+Cc: Karl Mehltretter <kmehltretter@gmail.com>,
+	Jason Wang <jasowangio@gmail.com>,
+	Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
+	=?UTF-8?q?Eugenio=20P=C3=A9rez?= <eperezma@redhat.com>,
+	virtualization@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] virtio-spi: Fix virtio_spi_config kernel-doc
+Date: Wed,  9 Sep 2026 08:49:38 +0200
+Message-Id: <20260909064938.90995-1-kmehltretter@gmail.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -84,12 +79,34 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On Wed, 9 Sep 2026, Andy Shevchenko wrote:
-> Do not fold, just add into the series this one as patch 2, for example.
+struct virtio_spi_config contains max_cs_inactive_ns, but its
+kernel-doc describes max_cs_incative_ns. This leaves the real member
+undescribed and adds a nonexistent member to the generated
+documentation.
 
-Fine by me. Thierry, please carry it as patch 2 of v11 with Hans'
-Reviewed-by; no need to change anything else.
+Correct the spelling.
 
-Thanks Hans and Andy for the quick review.
+Fixes: 6a1f3390fafe ("virtio-spi: Add virtio-spi.h")
+Assisted-by: LLM
+Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+---
+ include/uapi/linux/virtio_spi.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-D.
+diff --git a/include/uapi/linux/virtio_spi.h b/include/uapi/linux/virtio_spi.h
+index 8ab3c970cdd3..459c2276c938 100644
+--- a/include/uapi/linux/virtio_spi.h
++++ b/include/uapi/linux/virtio_spi.h
+@@ -73,7 +73,7 @@
+  * @max_cs_hold_ns: the maximum delay supported before chipselect is deasserted,
+  *   in ns unit, 0 means delay is not supported to introduce before chipselect
+  *   is deasserted.
+- * @max_cs_incative_ns: maximum delay supported after chipselect is deasserted,
++ * @max_cs_inactive_ns: maximum delay supported after chipselect is deasserted,
+  *   in ns unit, 0 means delay is not supported to introduce after chipselect is
+  *   deasserted.
+  */
+
+base-commit: 893e11787f78e43b534e252249ac3fff4d1333f8
+-- 
+2.53.0
