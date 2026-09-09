@@ -1,98 +1,109 @@
-Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44E3557980C
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 14:45:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 611AD29B200
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 14:45:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788965125; cv=none; b=C8bv84IX7E9GfX4D/XIJWOsLFa78ab+8XdMOaR42Qbv1LoUAqkViHbcsgtFHxLnJ0qSa9hjyVwFhGGj7jIgA1wyT97aXBDjyVkUMqKj5uefZHSXymkkU1vVeq0HnLPS99dqynKNSZRzvfKwdsf5a2hM4zyATbL0+IZ0jg+ddkvc=
+	t=1788965148; cv=none; b=f2Q4fwgRwIKBRsFBpzvXueZKOB1IeD+naSo6SUHxwZHxoNlDBz4PxZb0QH1TXre+OCkdbNGgR68zPjBU3jAgqnphdLNI0NUXwIBlbkSyD0eMSEwlNiU2abRpgPP6dVMza0aCjqj8zNcY2ZiJeNd1ql/oxG/P/59X3OYeGV044Nw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788965125; c=relaxed/simple;
-	bh=qgX3F3/chBJajEYG6ONnqTkx0UeYX0YlLIoI1meGgyw=;
-	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
-	 MIME-Version:Content-Type; b=W4swOIAoqbs8ygw0FUz2bFXHDCf7kpPnN40sMkuo+eIo//vlK2DvoZZ9qSgnUz8WbqXyPhhHyZthLFvtfgdGBubwSKZ1lPo8aqewrT+0hC1iw5+LRaEpuUcY+V6z5e5vTowft3xWlLaXQuRUjPEvyhvtWrKkWlKKuIUEel4J2ks=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=rwXItU7p; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=eQ332XR5; arc=none smtp.client-ip=5.75.144.95
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
+	s=arc-20240116; t=1788965148; c=relaxed/simple;
+	bh=cUiIRYQL1jbuM3Apocj0lbpCttRoc41bzAzZJ7CuVHs=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=dtlR5jk7ax5D/lseI/F4KeqzNinuJKonLy3OtMmDA9B3hJSCMbQAT21ShtrRxjMbq/sHm242KVCiO7mgN+nXaoqvEFujPXMnu8LAJ71PU6Lev40O28BT7Lf/8ozUGgI4OSz88v+gonTZzXWMq0FfjDrgvM1k/KLte4axe4Fq8WM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jeUakYx8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="rwXItU7p";
-	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="eQ332XR5"
-DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1788965108; bh=Wm2geJlbtGbU92IZqu+eW8m
-	0JT5CwaWOaBBT2z+SwHo=; b=rwXItU7pH72zB0D/BX831s78+axJv8WNyiUVJbPbmr+v+ca0iv
-	Kp3yNZgIdQmLiSgld1J/BCxtgtSxeME+4jWvWsc9e+X4IlgoXcgBhQXU+cL0tnlaoTVAd4ySEQx
-	i06xtXV6G0oYdk8QxofW096Z4J8JSwmJ8AVo36GkwYATG7j61Vm7Eda4NVACexD0LtomlsW1hIF
-	8Qq9kgOD9J7SY4OkqP1fCO/pUHVqnpqCZ/khJ5czQdZGWVCIOj1eQuNERQYnx+nwDZzz7NkdSzB
-	kGVG3vBcyQzKTifgKzF1Bzg9+xptPOAkeXlbv680MmFQ/89BcTeW460/mE65Mjpbpmw==;
-DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1788965108; bh=Wm2geJlbtGbU92IZqu+eW8m
-	0JT5CwaWOaBBT2z+SwHo=; b=eQ332XR52iPJulGnX5vlJ+6ddc6RAyiihpHC5U83VmpXXhWnrn
-	P9cvLPGuSD7cYw9NHLY7KpxQ8o5zk6ULRXAA==;
-Date: Wed, 09 Sep 2026 15:45:06 +0100
-From: Bradley Morgan <brads@mainlining.org>
-To: Mark Rutland <mark.rutland@arm.com>, Will Deacon <will@kernel.org>
-CC: Catalin Marinas <catalin.marinas@arm.com>, James Morse <james.morse@arm.com>,
- Marc Zyngier <maz@kernel.org>, Ard Biesheuvel <ardb@kernel.org>,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/7] arm64: hibernate: dust off the suspend/cleanup rework
-In-Reply-To: <aqEhTIPqoKj98TRS@J2N7QTR9R3>
-References: <20260825205839.14571-1-brads@mainlining.org> <apgpnjnJ4suhHh-v@J2N7QTR9R3.cambridge.arm.com> <B23E199A-2D3D-48B4-A7E9-9664371A7361@mainlining.org> <apgsm92KtXA7xh6H@J2N7QTR9R3.cambridge.arm.com> <aplRx8f5NprO9dSU@willie-the-truck_quarantine> <aqEhTIPqoKj98TRS@J2N7QTR9R3>
-Message-ID: <CEB74969-03F2-4F98-8FFB-625A39EEAE7D@mainlining.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jeUakYx8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3BB641F00A3A
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 14:45:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788965147;
+	bh=6qAIkeaXELitgGo5KRgF3ZOS5HrR0K2OEuxNRcYKfWM=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=jeUakYx8ACGYA6kI5dBrEDuBu69NLuPEb6q4rMiIpenhrnxV75lU82mB+rJPfhRFC
+	 9IVO1BCW7AgM+2FXrk6zcFpMhoOmxZimQvuULiwq9GpzTaLFsjutwtJ0TLZBdjBZqa
+	 Y1Da8mBRe9vvIwgIMEMF5OTRtkXPfn2q+Z5VibRUoqQ9ASsnGmkXUNO09J6QkrpFOk
+	 z6Nsg4TjaNAd8/JNbb9eURMx0KCGB/JekRfYomI+W0aCSOxOxPM1RgeSuYpUWKpoc0
+	 DcbIWxuXfcMzBzQOLghBsYe6xGcbDCgnOtmqJpjCry5E5mhz8Mrd9kAalcPpFXfhuK
+	 izYK3rci2Td6A==
+Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b5e4f15b79so329293e87.1
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 07:45:47 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzuGTCUxJFtpMFe4e1yffkPyalGG16sVk9Yz04KQGhjg20mPDK3PRwmBFSl27kSW9vS8ntLePK15bhaG8A=@vger.kernel.org
+X-Gm-Message-State: AFuF++nnUDlqVgz2c5U+sOYs0SBrk69iRS2cqpA/V8q4L6zGnb2jPt8D
+	ELHaG/cPX5y+Kutzmcmg6/nOWg5ThdoiUthGEVwY2Ofgt317bEvMtaO/ic7kSr6ynt6rLonYvZj
+	Z6nx5bur3WEHDpJMS/HxaFT1qatxHn2E=
+X-Received: by 2002:a05:6512:ac7:b0:5b6:19e9:faee with SMTP id
+ 2adb3069b0e04-5b898100df8mr680776e87.7.1788965145630; Wed, 09 Sep 2026
+ 07:45:45 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: 8bit
+References: <20260820031253.1636952-1-triet.hoang.dev@gmail.com>
+In-Reply-To: <20260820031253.1636952-1-triet.hoang.dev@gmail.com>
+From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Date: Wed, 9 Sep 2026 16:44:36 +0200
+X-Gmail-Original-Message-ID: <CAJZ5v0hBR1Y+exJN0gg1L5GqjMwxLUPu+GWHHJzbLctoFLFNCA@mail.gmail.com>
+X-Gm-Features: AcwNN1VwvSs2Tv5vesFrvXTCXoyUzEzygRHUBmSinL5h5vFgI1z3PuFZXGj6KO4
+Message-ID: <CAJZ5v0hBR1Y+exJN0gg1L5GqjMwxLUPu+GWHHJzbLctoFLFNCA@mail.gmail.com>
+Subject: Re: [PATCH] ACPI: AC: use DEFINE_SIMPLE_DEV_PM_OPS
+To: Triet Hoang <triet.hoang.dev@gmail.com>
+Cc: linux-acpi@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 9 September 2026 10:05:16 BST, Mark Rutland <mark.rutland@arm.com>
-wrote:
->Hi Will,
+On Thu, Aug 20, 2026 at 5:12=E2=80=AFAM Triet Hoang <triet.hoang.dev@gmail.=
+com> wrote:
 >
->On Thu, Sep 03, 2026 at 11:53:59AM +0100, Will Deacon wrote:
->> it's worth noting that Bradley's patch _does_ fix one of the
->> hibernation problems and has been tested by Vladimir:
->> 
->> https://lore.kernel.org/all/20260809213615.11646-1-include@grrlz.net/
->> 
->> I would prefer to take your complete set of patches, but if you don't
->> want that then should I just take the above for now? Prior to this
->> series, there has been no activity for nearly two years on your branch,
->> so I'd prefer to get _something_ in, even if it only fixes some of the
->> problems.
+> Convert the deprecated SIMPLE_DEV_PM_OPS
+> to DEFINE_SIMPLE_DEV_PM_OPS
 >
->Sorry for the delay.
+> Also use pm_sleep_ptr() when assigning the ops to the driver.
+> This allows the removal of the ifdef CONFIG_PM_SLEEP.
 >
->I'd prefer if you picked up Bradley's single patch for now. I'll follow
->up with a respin of the rest of the cleanup and fixes shortly.
+> Signed-off-by: Triet Hoang <triet.hoang.dev@gmail.com>
+> ---
+>  drivers/acpi/ac.c | 6 ++----
+>  1 file changed, 2 insertions(+), 4 deletions(-)
+>
+> diff --git a/drivers/acpi/ac.c b/drivers/acpi/ac.c
+> index f19d6dd43473..eef0c8e32d73 100644
+> --- a/drivers/acpi/ac.c
+> +++ b/drivers/acpi/ac.c
+> @@ -239,7 +239,6 @@ static int acpi_ac_probe(struct platform_device *pdev=
+)
+>         return 0;
+>  }
+>
+> -#ifdef CONFIG_PM_SLEEP
+>  static int acpi_ac_resume(struct device *dev)
+>  {
+>         struct acpi_ac *ac =3D dev_get_drvdata(dev);
+> @@ -253,9 +252,8 @@ static int acpi_ac_resume(struct device *dev)
+>
+>         return 0;
+>  }
+> -#endif
 
-Oh, so I didn't need to do all that? Urgh..
+And the function above is going to be unused when CONFIG_PM_SLEEP is
+unset, causing the compiler to complain AFAICS.
 
+> -static SIMPLE_DEV_PM_OPS(acpi_ac_pm, NULL, acpi_ac_resume);
+> +static DEFINE_SIMPLE_DEV_PM_OPS(acpi_ac_pm, NULL, acpi_ac_resume);
 >
->Could you add a note to the commit message as to how Vladimir was able
->to trigger a hang with CONFIG_PAGE_POISONING=y and page_poison=on? It's
->helpful for anyone testing a backport, etc.
+>  static void acpi_ac_remove(struct platform_device *pdev)
+>  {
+> @@ -270,7 +268,7 @@ static struct platform_driver acpi_ac_driver =3D {
+>         .driver =3D {
+>                 .name =3D "ac",
+>                 .acpi_match_table =3D ac_device_ids,
+> -               .pm =3D &acpi_ac_pm,
+> +               .pm =3D pm_sleep_ptr(&acpi_ac_pm),
+>         },
+>  };
 >
->With that:
+> --
+> 2.53.0
 >
->Acked-by: Mark Rutland <mark.rutland@arm.com>
->
->For context, when I originally wrote my patches, I hadn't managed to
->trigger failures at top level without additional hacks, and so this
->hadn't been a high priority. Given that Vladimir can trigger this
->specific issue with existing options, it makes sense to pick that up.
->
->I had a vague recollection that this specific fix lead to a secondary
->issue, but digging through my notes I can't see what that would have
->been, and I suspect I had just gotten confused w.r.t. what KVM was
->doing. If I find there was a real secondary issue I'll follow up with a
->fix .
->
->Thanks,
->Mark.
-
---- Thanks!
-https://lore.kernel.org/all/EE579805-42F2-4C58-B752-F28779EEB717@grrlz.net/
