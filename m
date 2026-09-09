@@ -1,161 +1,145 @@
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E324B51475A
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 14:03:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2792C55D882
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 14:04:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788962641; cv=none; b=UDBe6M60rS8AW7CBv0MELkAOmT6ti7eu+b6n6aUvm8KP7zoiwIX+/zetRhbtSgAvStgIp5LN9fJ4h+IQQnMMUR9/9LjyqQTtNsylvU1aMNgZ1+ls1REa9ssQpjTV0A16WMpkIFQilgw2+5/H7Z9oiRERh3kb1lomq4hfoSGyUd8=
+	t=1788962644; cv=none; b=R5fNwjTMyu7AnsUWt4hCrEDir8Tj6ExA842Ay+K8VS9nVTnVXUIEEqC3cVrnuYAbh0ice6j8HOhzWWaDQiKy2Fb8xZ/QrzVgKgOiE2SOT7APVyiVVjpdLrAlnEk1/96RDfb63i9/UqGqlfQZAS08Fu5Z/RYoUm7MoMAJiUDjvIw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788962641; c=relaxed/simple;
-	bh=sag3Q5SZ/Vf4EaEXCrQjc6pPGJRvp/1eWzwYQiiLhHM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=VU6UAyuRvmawwWrzy633ypDby+6ZY3GAHfLTYtg+yq9KxI4+hJ26QlNJcHDhrvdjRNDCu9us9xEoqholtaMpXfCR7QnXB2HzP9nIJLXAjYnAlAFTCdnW4KI1I8pS0gj8BHiC/HZxT/UJ7xw1vp0hznJ0yfk0JjofbZMnqIFfFMA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=csFcISA2; arc=none smtp.client-ip=209.85.128.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788962644; c=relaxed/simple;
+	bh=flAfYKpZIwatzm6YSBJWn1WpTr7IwC7yAuIdmnA9T7Q=;
+	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=e2traSEmmYukxc2+MNNjtL4KRry9kZOnYC1jFiYyUZ131mTPKrAOqtxVTDPFbEDpA5jKO7xCHWY3XyVQNz93vhErYkviagVUhrVPjybcaWYkMqX6PBMFC3QHHI05LB/pLay3FecZpQlInDhUsaFSkAZT8+zC4RiX3JyFNwy7nl4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=f7DiDcNg; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="csFcISA2"
-Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-49d036e0e99so24698625e9.1
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 07:03:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788962637; x=1789567437; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=C81wLIgV9CTs/F+PgQEY8c1J5nQbz2h4oO8nmOwUCUA=;
-        b=csFcISA2c5/+vSPkFBIevWtJgW6rzJXX6+xjqHfKywrNox4fbZZys/bplNWGIu5Ay1
-         2R6qC8ocZItnjJI33AKPqqve8Ktr0+0fRyO4qIyGDFsQiF+aRCzwFhnaMPTz2dibXXTN
-         2mShAb3mwS35qJRO9TzYfW1mJavuqAZnLO+XIU8zkuKdDIkxN4HuxbqdYWSQXlwOR3GL
-         LykLSqQTBDVZ9UU+dACZ+3qxat56PO9w5uGcppD4+McjscL5k5/SfcXg9mTpjUc1zgFb
-         jGS4s/lzuWZFNze/fQNLuahTmP8/lCjwFwgkLvCby4FSzX3SoqgwTcJ2NcV29klqmaBN
-         PfHw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788962637; x=1789567437;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=C81wLIgV9CTs/F+PgQEY8c1J5nQbz2h4oO8nmOwUCUA=;
-        b=Ng7fGSkBlN+lfEhk4ylDxgJidK2tOodK+Gfds9tMNP6mrwVCF2Y4JF68XGyxPp8vrl
-         FIPyW86e5S1sIgrlQFq9XoKGFUdlnoQyqWOUsb6SOHxT7Zo32N9ZsvkWta9kakivUGjn
-         skSiccm5qXL/c6GdZ3dno0YNgi8ktwlPE55zHfCYd48QZ7hEq2PWY2uSazf6C3+t6Gzb
-         0CzFJdt/kZt7Du9/Ltw7adPn6PNzErEZD+ULgPXQklAw8uZJR1ByEzodtJ7SSZzfDlbY
-         +GHejBQD3IcF/sfH+WoRqkHEe4UeVhhdyJX0ugJR+i+cnM5J2ygbaVkfuCP102Sh7Em+
-         QdgQ==
-X-Forwarded-Encrypted: i=1; AKwUvBw69Ke11+7/jvJMK+X5HDmVN3erQxT9tvGiOPQFFkkKfYGzbcjUXR+5k9/cHkxs8JbVfHg48NQn3pqW6dI=@vger.kernel.org
-X-Gm-Message-State: AFuF++mgses5jsEbOzYj7WrEfE1uMfrOWBaC4ITxaSBq5LQtEt4yby/j
-	ZkouiJq7W9o+CWpiq15HAWO/2UNiYj9URBJ2ut3rnnObAJ9lt0JH41uP
-X-Gm-Gg: AYBFou1m5nv9tfQigR65fxb1s25HYCaxrS84CGRhaSx1eNpdQ+o6cLOQhhQOo0Sb7LK
-	weiJV4GN5OOMEVriie97JUu6AOciC0lra4mGUCUURnnuGRGy8q2cdIiEZ8kBmz+9McphQ2bBe/e
-	njcK9YBC3oaSq0D+ehogW45ZBN4PrbSI3KNce0V5LT+jW0b4qHYIuOXGnYY47hMTWoob3SOsXqR
-	GHJemfxmUhxwT1VTC3eJqVUZTyIhUq/4wL315rndS7Auz1TnK0C/wRx0PRc6E83uZfWrkJjCp+c
-	00ra7x5WspK8BlF6ui5xEE5y0MifeB81sLlqgUHLs6Z2R063O5cjyTxX3YD0VFM9IfCqRStn8gX
-	j/QM/c02ssiKLw0+D64NW65TfdCrbDLGgrNCoYLfxUHpLKtV503oRXNSoX3J68WzyJYMLNhet9L
-	qRkXpM8k+jpjSS3SQDsRtkhnLHxb1NSgUix564UVhMIGx5Y8rwg7azdMj7Ryy2+oOFPyxGQeDsB
-	bAlCFQA940I9w243eTavjZcnya5z74dFSelQMN08be7SGN6X27v7Do=
-X-Received: by 2002:a05:600c:c1d7:20b0:49c:ffe3:2b3f with SMTP id 5b1f17b1804b1-49cffe32f58mr232275715e9.3.1788962636654;
-        Wed, 09 Sep 2026 07:03:56 -0700 (PDT)
-Received: from localhost.localdomain (mob-31-26-103-238.net.vodafone.it. [31.26.103.238])
-        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-485885bfdf6sm44956952f8f.34.2026.09.09.07.03.54
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 09 Sep 2026 07:03:56 -0700 (PDT)
-From: Oleg Keri <okerixx@gmail.com>
-To: Vinod Koul <vkoul@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Bjorn Andersson <quic_bjorande@quicinc.com>,
-	Johan Hovold <johan+linaro@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org,
-	linux-phy@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Michael Scott <mike.scott@oss.qualcomm.com>
-Subject: [PATCH] phy: qcom: qmp-combo: hold a runtime PM reference in the typec callbacks
-Date: Wed,  9 Sep 2026 16:03:45 +0200
-Message-ID: <20260909140345.4239-1-okerixx@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="f7DiDcNg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 049061F0155B
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 14:04:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788962643;
+	bh=0qvI3Ij6pHot4GWpLZbVGJuwCMn3p13tzKFz475rd7w=;
+	h=From:In-Reply-To:References:Date:Subject:To:Cc;
+	b=f7DiDcNgtX0V7nhexZdovTM5uwfD8FIy1VWToiVrwFCMZWT4ep6JgIAU9A08oRbCo
+	 AN5nLWLvXgYJ0tGr6wFrfzd3rKYIkdLPqiBR0VzeQED0wp7YlqC4jeS1GMXkHG4/9n
+	 rSRsC4A/6gdv9Gv8AQI600Wb6YYCblzz9DRARCproumk9co1hoW2WRhNGkDft6Tzax
+	 PlG1ifpPiYVwdpSR8gZdxMUAGkHqzxn1Z4gwkjoqczWwZ1lp/WEsPxvp3bMaLysJ7f
+	 oDPtMmEa6U0c/+EmoOFo4is5xc/9+yX8aTqSrj5Pdxa0aAdw1d0RPb3GcrSi18mgHW
+	 RbsjrhA44gWCQ==
+Received: by mail-lj1-f171.google.com with SMTP id 38308e7fff4ca-3a2e985245eso41893751fa.0
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 07:04:02 -0700 (PDT)
+X-Gm-Message-State: AFuF++mJAHzNx0S7EjGdcDI7mBuliUsFxQ3eU/0IgS2W9prBZee4KUCc
+	Tdio9u6KNuYeFj4nII6XoqIjY+1ygScK1ubZicXnXfz/QsRsBPRa8HfbhzUZFrlbkPw5RiD0Taj
+	HvfK7veMGdAOg/oa277Gczr5u8wzFMjcLEnB8kle8bA==
+X-Received: by 2002:a05:651c:a103:10b0:3a4:973c:9387 with SMTP id
+ 38308e7fff4ca-3a4973c96fdmr5064251fa.26.1788962641476; Wed, 09 Sep 2026
+ 07:04:01 -0700 (PDT)
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Wed, 9 Sep 2026 07:03:58 -0700
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Wed, 9 Sep 2026 07:03:57 -0700
+From: Bartosz Golaszewski <brgl@kernel.org>
+In-Reply-To: <20260909132153.1596191-1-arnd@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260909132153.1596191-1-arnd@kernel.org>
+Date: Wed, 9 Sep 2026 07:03:57 -0700
+X-Gmail-Original-Message-ID: <CAMRc=MfvwcvV7yvkXz_YikGxQ8M0_ajgGA3bf==ZpT_Z46v7EA@mail.gmail.com>
+X-Gm-Features: AcwNN1US7FJNeFLdpa5M-NPN5cGI7wXmVw6SZ5lmp-9zPkwIPUzMBGaaTvwumLk
+Message-ID: <CAMRc=MfvwcvV7yvkXz_YikGxQ8M0_ajgGA3bf==ZpT_Z46v7EA@mail.gmail.com>
+Subject: Re: [PATCH 00/14] mfd: unused driver purge
+To: Arnd Bergmann <arnd@kernel.org>
+Cc: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	Arnd Bergmann <arnd@arndb.de>, Daniel Thompson <danielt@kernel.org>, Jingoo Han <jingoohan1@gmail.com>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>, 
+	Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Guenter Roeck <linux@roeck-us.net>, Linus Walleij <linusw@kernel.org>, 
+	Bartosz Golaszewski <brgl@kernel.org>, Jonathan Cameron <jic23@kernel.org>, 
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>, Pavel Machek <pavel@kernel.org>, 
+	Michael Hennerich <michael.hennerich@analog.com>, 
+	Support Opensource <support.opensource@diasemi.com>, Sebastian Reichel <sre@kernel.org>, 
+	Alexandre Belloni <alexandre.belloni@bootlin.com>, Helge Deller <deller@gmx.de>, 
+	dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org, 
+	linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-hwmon@vger.kernel.org, patches@opensource.cirrus.com, 
+	linux-watchdog@vger.kernel.org, linux-gpio@vger.kernel.org, 
+	linux-iio@vger.kernel.org, linux-input@vger.kernel.org, 
+	linux-leds@vger.kernel.org, linux-pm@vger.kernel.org, 
+	linux-rtc@vger.kernel.org, linux-fbdev@vger.kernel.org, 
+	linux-sound@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, 
+	llvm@lists.linux.dev, Lee Jones <lee@kernel.org>, mfd@lists.linux.dev
+Content-Type: text/plain; charset="UTF-8"
 
-qmp_combo_typec_switch_set() and qmp_combo_typec_mux_set() tear the common
-block down and bring it straight back up, calling qmp_combo_com_exit() and
-qmp_combo_com_init() with force=true.  Both release and re-acquire the PHY
-clocks.
+On Wed, 9 Sep 2026 15:21:37 +0200, Arnd Bergmann <arnd@kernel.org> said:
+> From: Arnd Bergmann <arnd@arndb.de>
+>
+> As part of my cleanup of old platforms, I had a look at all drivers that
+> may have become unused because the last platform_data or DT definition
+> was removed, or because of unmet Kconfig dependencies.
+>
+> These are all the mfd drivers I found. The first ten in the list
+> actually turned out to have been unusable long before my series, and
+> I have added explanations on how I determined this in each patch. The
+> last four patches are still in use in linux-7.3 but become unused after
+> my series [1] that I hope to get merged for 7.4.
+>
+> Somewhat unorthodox, I took a shortcut here and remove both the mfd drivers
+> and the corresponding subsystem drivers (gpio, hwmon, iio, input, led,
+> media, power, regulator, rtc, video, watchdog, asoc) in a combined patch,
+> to simplify the interdependencies: removing just the mfd driver would
+> leave unselectable or broken drivers in other subsystems.  I also have
+> additional patches for each of the other subsystems, currently a total
+> of 300 patches, many of which still need better testing or proper
+> changelog texts.
+>
+> Please let me know if you all think this approach is ok, or if I should
+> explode this further and turn these 14 patches into 70 individual ones
+> by splitting them per subsystem.
+>
+> See [2] for the current state of the overall series.
+>
+>      Arnd
+>
+> [1] https://lore.kernel.org/lkml/20260908152808.3928630-1-arnd@kernel.org/
+> [2] https://git.kernel.org/pub/scm/linux/kernel/git/soc/soc.git/log/?h=board-remove-7.3
+>
+> Arnd Bergmann (14):
+>   mfd: remove unused 88pm80x driver
+>   mfd: remove unused rdc321x southbridge support
+>   mfd: remove unused si476x driver
+>   mfd: remove unused wm8400 driver
+>   mfd: remove unused adp5520 driver
+>   mfd: remove unused da903x driver
+>   mfd: remove unused lp8788 driver
+>   mfd: remove unused aat2870 driver
+>   mfd: remove unused lm3533 driver
+>   mfd: remove unused rc5t583 driver
+>   mfd: remove unused wm8350 driver
+>   mfd: remove unused mcp-sa11x0/ucb1x00 driver
+>   mfd: remove unused menelaus driver
+>   mfd: remove unused iPaq micro driver
+>
+>  .../ABI/testing/sysfs-class-backlight         |   11 -
+>  Documentation/admin-guide/devices.txt         |    1 -
+>  .../admin-guide/media/radio-cardlist.rst      |    1 -
+>  Documentation/admin-guide/media/si476x.rst    |  160 --
+>  .../admin-guide/media/v4l-drivers.rst         |    1 -
+>  .../devicetree/bindings/regulator/88pm800.txt |   38 -
+>  Documentation/hwmon/index.rst                 |    1 -
+>  Documentation/hwmon/wm8350.rst                |   30 -
+>  .../watchdog/watchdog-parameters.rst          |    7 -
+>  MAINTAINERS                                   |   14 -
+>  drivers/gpio/Kconfig                          |   22 -
+>  drivers/gpio/Makefile                         |    3 -
+>  drivers/gpio/gpio-adp5520.c                   |  169 --
+>  drivers/gpio/gpio-rdc321x.c                   |  199 --
+>  drivers/gpio/gpio-wm8350.c                    |  144 --
 
-Unlike the PHY operations, which the PHY core always invokes with a
-runtime PM reference held - phy_pm_runtime_get_sync() in phy_init(),
-phy_exit() and phy_power_on() - these two are typec_switch and typec_mux
-callbacks and hold no such reference.  Releasing the clocks is then enough
-to drop the device's last reference, so clk_core_unprepare() runs
-pm_runtime_idle() and re-enters the driver through
-qmp_combo_runtime_suspend(), which disables the very clocks that are being
-torn down:
+For GPIO:
 
-  gcc_usb3_prim_phy_pipe_clk already disabled
-  WARNING: drivers/clk/clk.c:1259 at clk_core_disable+0x298/0x300
-  Workqueue: events_freezable pmic_glink_altmode_worker
-   clk_disable
-   qmp_combo_runtime_suspend
-   pm_generic_runtime_suspend
-   genpd_runtime_suspend
-   rpm_suspend
-   rpm_idle
-   __pm_runtime_idle
-   clk_core_unprepare
-   clk_core_unprepare
-   clk_core_unprepare
-
-qmp_combo_runtime_suspend() only checks init_count, which is still
-non-zero at that point, so it proceeds and the clock enable and prepare
-counts underflow.
-
-Runtime PM is forbidden at probe, so this only becomes reachable once
-userspace opts in through power/control - which is exactly what the
-comment above pm_runtime_forbid() invites it to do.
-
-Hold a runtime PM reference across the teardown and bringup so releasing
-the clocks cannot re-enter the driver's own suspend callback.
-
-Fixes: 2851117f8f42 ("phy: qcom-qmp-combo: Introduce orientation switching")
-Signed-off-by: Oleg Keri <okerixx@gmail.com>
----
- drivers/phy/qualcomm/phy-qcom-qmp-combo.c | 5 +++++
- 1 file changed, 5 insertions(+)
-
-diff --git a/drivers/phy/qualcomm/phy-qcom-qmp-combo.c b/drivers/phy/qualcomm/phy-qcom-qmp-combo.c
-index d77fe94b312c..bf4d29fe1719 100644
---- a/drivers/phy/qualcomm/phy-qcom-qmp-combo.c
-+++ b/drivers/phy/qualcomm/phy-qcom-qmp-combo.c
-@@ -16,6 +16,7 @@
- #include <linux/of_graph.h>
- #include <linux/phy/phy.h>
- #include <linux/platform_device.h>
-+#include <linux/pm_runtime.h>
- #include <linux/regulator/consumer.h>
- #include <linux/reset.h>
- #include <linux/slab.h>
-@@ -4930,6 +4931,8 @@ static int qmp_combo_typec_switch_set(struct typec_switch_dev *sw,
- 	qmp->orientation = orientation;
- 
- 	if (qmp->init_count) {
-+		guard(pm_runtime_active)(qmp->dev);
-+
- 		if (qmp->usb_init_count)
- 			qmp_combo_usb_power_off(qmp->usb_phy);
- 		qmp_combo_com_exit(qmp, true);
-@@ -4997,6 +5000,8 @@ static int qmp_combo_typec_mux_set(struct typec_mux_dev *mux, struct typec_mux_s
- 	qmp->qmpphy_mode = new_mode;
- 
- 	if (qmp->init_count) {
-+		guard(pm_runtime_active)(qmp->dev);
-+
- 		if (qmp->usb_init_count)
- 			qmp_combo_usb_power_off(qmp->usb_phy);
- 
--- 
-2.55.0
-
-
-base-commit: df2908090cda368b01ff43709f51890076c56157
+Acked-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
