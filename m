@@ -1,100 +1,102 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com [67.231.152.168])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8924021ABD7
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 08:34:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788942885; cv=none; b=NMrpKXrwQozceOEmOl8JGzcMqwO+aKdovgronGUm+cnBw3OGiq9MUb9H+a4P4+WS4bSMbiygMpvnKDr30rKi8wJTDxJS6cek6KWfDoZ5qrX6VnV+ZwMuVhlgQD4ADjec0Tvlyw7OOVdX1XNY6hlr5kgiiOPEilrcYVWwT79gi6g=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788942885; c=relaxed/simple;
-	bh=pJPGBRk+cN1hQVyUJDNsHIogDvWgEIuloWQf73ADokg=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C571302753;
+	Wed,  9 Sep 2026 08:35:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=67.231.152.168
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788942936; cv=fail; b=f2F5eVuJq8L9DDgOr1rxb8LLCmTBaHqSoshUTMgitZCL/goBVSBJ3aJSElXO/vMTRUiWEsiVcK9WipJbiHgN4RStLS6OLkgBB1Ob3pLTWFPTpQYkGVeWG1i8wLepfUmME9XavfPIq1KhW6e7b0ihrJJUmjhhbt22mRJNlSsvizw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788942936; c=relaxed/simple;
+	bh=46b063hco25yKIfB1BRmCAtaJreIcR1a4DzT6aqJrEE=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=iFzvs8LmjXPAF9/oDcaUAXLwyVAAUPSLCaq/z6zefaozKj0qEJXEP/kKuMkY3L5L7n/DoUqp6f+8lFfc3taznnLWC4hhlZTaCAfAu0LAZXXe1uZILkvLDswIIenLw55G52oEPwHSy6+kesTg0cvBs9Kd/R7X47USl2wpsg3aewY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=juqHdan1; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=SWPho7pt; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=BOyrN/9fd3vJ0CC8qJ6WOKyKwi7h6/AMYjoeH4be4uzw6BEzlHrhGn5kTbu4vyBh0dng9UbICDivSmITrItIF0krB3oBfiLa42R83I4ZYgtLYC0hMomcdCRcHf/nmlqoO8VFj4I41wL/LESL5vLTXZ8pJlU/FktcaKKvyXPQdo4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=opensource.cirrus.com; spf=pass smtp.mailfrom=opensource.cirrus.com; dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com header.b=oGErQq6g; dkim=pass (1024-bit key) header.d=cirrus4.onmicrosoft.com header.i=@cirrus4.onmicrosoft.com header.b=A27xEEdd; arc=fail smtp.client-ip=67.231.152.168
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=opensource.cirrus.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=opensource.cirrus.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="juqHdan1";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="SWPho7pt"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6892U4IU639490
-	for <linux-kernel@vger.kernel.org>; Wed, 9 Sep 2026 08:34:41 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=4SlGIdM3cTMUMV+JFnfbpS9d
-	9pPhphCilaasH/UUBmk=; b=juqHdan1O+ZWqt4x4J/efiN15firYzahq6lj8bt3
-	avR4jDDbLTtPrv2oGg0/Pd57mNmQA9LREbSrawBwTmRqfTC8yA6F3vyleiPyICVW
-	WG6xkK7P2zazzbryJiTwaxwu3Qyw9mbTlbOugxeDxxAb1K7MR3P5EfkAih1Tasxj
-	B8tkI9T2WF4FobAcLqcJbiiVFYKTiJJ0DdEqA2VIQ0lG11NYCU8+fqip6SedW2uC
-	mpQhJFfmGRrGFRDfGWV847ML1QAmbHl9SlMWG/2TkYRwpZDLgdZaPQ7mHRYk4F7R
-	IXH0J0pSIhcA0yfSSWz7g3XbqMvCG+N22fqEnQ/LL6/goA==
-Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gjxqj9a4h-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 08:34:41 +0000 (GMT)
-Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2db87f759c5so24797665ad.1
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 01:34:41 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com header.b="oGErQq6g";
+	dkim=pass (1024-bit key) header.d=cirrus4.onmicrosoft.com header.i=@cirrus4.onmicrosoft.com header.b="A27xEEdd"
+Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
+	by mx0b-001ae601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6893mxpK584136;
+	Wed, 9 Sep 2026 03:34:15 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=cc
+	:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=PODMain02222019; bh=QL9fJrjfyJIZU//d0G
+	CDBtnnXf0apsdMa1nJJRAEOMQ=; b=oGErQq6gSKVLdBxS8lsMAw0Q7H3cunE4fX
+	gvW0kac0SUoMcj+TOV3FnZrIiiTSlJrivfhPt5V01N2FN/RBJ1k9N8/D2/2r9+N6
+	XvSSVic3PGu00Ofickw9tqdcT7lrYStrMKXdT1o7EKmMN0meW0KhOszQIcwaPPa0
+	h4tt3Pw05Et+4eNvQ877mWYEitt9ijCxK5KdKfe7xhz/m2JOfik+ecrMo3xy2Fzw
+	BD1PIYGu3FhgqCDPljl2mVpBoI1/pJP8KNp6t/NWmUHUyuXFN6+O6KFFX56yEuin
+	6ysX+yhJyjG06UXHw70IpCLc2rpssC/i/aKHs4TN32WIFpgp+0zA==
+Received: from ph0pr06cu001.outbound.protection.outlook.com (mail-westus3azon11021079.outbound.protection.outlook.com [40.107.208.79])
+	by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 4ggfgjvqjh-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Wed, 09 Sep 2026 03:34:15 -0500 (CDT)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Ys7d78D9RxhZ9izXYUjPDKi4QImu10kMIpXu5vsz7kvaOjqGyM4kJdzASGsKYY/lawkK4X+9kIPEix6/aslNhog/uF1gR/bLlFbbQKzIQusZ9GH/642LJ2hhsgTzUccPxJfZv2LvWW88y8+PQNRxMMQ84rYbrFEASYD2A5zQQpQ49/Ti8v6McDhicv4Y9VYmXj4EjFCiEH98AaKwehDps4oH2v6j7p6EmMSQQ2kKeri2GWIHYQX/yeZDfJ9sgSkmanZGamZyM4SdvsxTf2ync1cKAh5XUUwxOMOj1x9ByqY3ZsRvi4lBIH0fwvP+ouRTVzvrQQc0s18N7ni2LWEwQg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=QL9fJrjfyJIZU//d0GCDBtnnXf0apsdMa1nJJRAEOMQ=;
+ b=bf4N3u9jMag9xBqbxMs3D7IufurCmV8Ml9CQgaXUBvYPyjAD5uYa0GEOMz1oL62vtJ08gXnyMPBRO1OHCFKmBcj/dCUGGJrm6c8vQATqsASGrbPZjx8I0aoxDaN0giPPoyKh+xgDwe4oNXIQ2MCIWoAWn0iAUpVeZlZaZhyQfD3uDhZ31/DvfC1ZcIonbgWlQvKyhbvdLDSCr3qLDwr902LXUN7JRr9DqJO/oM6LNKk8uxge3LWChphz9Lqp5ZLSI77wwr6A0e10HrH2STX6FhnH8TNBX569tBrx7OkVeqGtuA1RtKv+EZxreLWzD3JRm1Aj9yNJkqHIvsLb34XAjw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
+ is 84.19.233.75) smtp.rcpttodomain=catcrafts.net
+ smtp.mailfrom=opensource.cirrus.com; dmarc=fail (p=reject sp=reject pct=100)
+ action=oreject header.from=opensource.cirrus.com; dkim=none (message not
+ signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788942881; x=1789547681; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=4SlGIdM3cTMUMV+JFnfbpS9d9pPhphCilaasH/UUBmk=;
-        b=SWPho7ptLsxv5hBYwG7flFC+MZnG92KitWhxtnzZUpmt+5G5/j/pbzowF+ZaGNl59/
-         Y3oXHKJcpO1lE717syqexi7t/ErC9WyN2cicJZXsWa49IE1oeFEqnMy/eDXHC2oNBQPf
-         ssEtK0T9HqSBeicn9JFDqfMFWvIpGLSFWSddxNFa3lSUrc+EfLLrqUYQzH4q2fDhJ+I3
-         ntcqobSF4EAk0qMQbaKDoypa1G8HVWRFuu9PHc5VQjdm92WVK1sL/9PbCIfGUzZlUGog
-         xlBI0gSNvYjn6WeNWPVYm1PJPaPzsegvmZxbHOB0f933EYkWAPWkkYbVgbpPorOjvi0R
-         fFfg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788942881; x=1789547681;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=4SlGIdM3cTMUMV+JFnfbpS9d9pPhphCilaasH/UUBmk=;
-        b=PbSSpyWjy8TwwU5A446ErvQAecBtT0PcCwNs5olXKbfVuiHWjqP1ObSXBIblx1EIk5
-         TRYE/FMI1VNLv2OK9zGOipdM+B0VcFfyi7K9gZFKP2vHzRwYhl2CQjw6OJtW8WK7sAxV
-         fKv4W1maZx/uhOMgeNg5gQ/2Y1uL3DysTsGUBs/qH+9TIuG8j5KbmuTJXnSX7IZjr6gg
-         pLLYQUbyN4t8whsDoQ+O0jl1NNMu2h1whSxJtXVCdiMZj0xQ1BhK0LCWoX+BD295vQcj
-         TJzQUFPkHIEuKeMCbHnaN/l70+mjeZpH2k8eVTObOh7/HH8OeOJgKyNp8+5p+xL3sIkG
-         ZeVA==
-X-Forwarded-Encrypted: i=1; AKwUvBzvLTg4tcyLw7XKE5m9kW5YbETvE8PzZYM/sU/V98KzixKWNPA7XIU5QA6qbcG4DR+a7wz3Uw7qp0cNbLM=@vger.kernel.org
-X-Gm-Message-State: AFuF++lm1vQbqrMwPPpip2kWWLb7YY7XUwJj9Zi0oJX+j9ZQa4fbvU8D
-	Ezk6/zXxWuf8cg9cQoaajwWDA1WB2Gy4FV57aYXrlnyOu5lTOSo7d++PytLvRM5ou7tIguj/FRM
-	jRaiSjJiRnBpMS6cB6+PYbHJfHvQ6jnTdcfE7xDofloZsPGVaX7NcqallNE9xxMYY4Oo=
-X-Gm-Gg: AYBFou1GDxMxi+MvLEJ/qmjIUsANC5JybYOLKVwAA2tz4oYqslQt4YyIZpj0lgAFhF0
-	uHN2kfoH4jWsk2GIb5jpgRKDx5dPrzac7os+hSzFVU6OjJL2ViY4A85yF7p7B2SY4mh1Sun8VUo
-	KXixBXQUjRrrNanro0n6C/Zf17bNkHSAQVF46bO+aIpwGG4BFObxdPKst/rGgb2eqwzPBh98+8/
-	qBeM4KnyzsbvcdqjXNPqu5jSRKr9jqw2Sm0NNGyYnMWQEJrW+yZMZO02xsPMvWNaWeUUAEi+Pni
-	sulA3SjyAnm2xQN5fa0BtcanzHLiRoodz4cN8fKgW6hUO2myOLKYvXHZFUactbqsM5trKkhkY8F
-	b/oC5Bgk+4YtnNu2E0zG9CBbVtAyOM+o3n0f9+dtkdGg=
-X-Received: by 2002:a17:902:c1d4:b0:2d8:d4d0:792e with SMTP id d9443c01a7336-2db128816cdmr310682765ad.18.1788942881089;
-        Wed, 09 Sep 2026 01:34:41 -0700 (PDT)
-X-Received: by 2002:a17:902:c1d4:b0:2d8:d4d0:792e with SMTP id d9443c01a7336-2db128816cdmr310682355ad.18.1788942880587;
-        Wed, 09 Sep 2026 01:34:40 -0700 (PDT)
-Received: from QCOM-aGQu4IUr3Y (i-global052.qualcomm.com. [199.106.103.52])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339befe870sm47133770eec.30.2026.09.09.01.34.36
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 09 Sep 2026 01:34:40 -0700 (PDT)
-Date: Wed, 9 Sep 2026 16:34:34 +0800
-From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-To: Taniya Das <taniya.das@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
-        Brian Masney <bmasney+clk@redhat.com>,
-        Jerome Brunet <jbrunet+clk@baylibre.com>,
-        Rob Herring <robh@kernel.org>,
+ d=cirrus4.onmicrosoft.com; s=selector2-cirrus4-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=QL9fJrjfyJIZU//d0GCDBtnnXf0apsdMa1nJJRAEOMQ=;
+ b=A27xEEddpmcpjAiuQxaJ6ovUeXtUwHNoyyxZyGWN1+DHxoyxdl9bSSTcK13hZefbAw7K0qtlc+ZaFG67aqDjSyMIatrGvTWA96VEfoYd2GsrKAsjtBSnYAHo8dW/5+19Q93ndbAiv8VW3Ax8SKiitKcX1rPwgQbnl2+ZVMtbAso=
+Received: from DS7PR05CA0078.namprd05.prod.outlook.com (2603:10b6:8:57::24) by
+ DM6PR19MB3995.namprd19.prod.outlook.com (2603:10b6:5:24a::13) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.406.6; Wed, 9 Sep 2026 08:34:10 +0000
+Received: from DS3PEPF000099E1.namprd04.prod.outlook.com
+ (2603:10b6:8:57:cafe::7c) by DS7PR05CA0078.outlook.office365.com
+ (2603:10b6:8:57::24) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.5 via Frontend Transport; Wed, 9
+ Sep 2026 08:34:10 +0000
+X-MS-Exchange-Authentication-Results: spf=softfail (sender IP is 84.19.233.75)
+ smtp.mailfrom=opensource.cirrus.com; dkim=none (message not signed)
+ header.d=none;dmarc=fail action=oreject header.from=opensource.cirrus.com;
+Received-SPF: SoftFail (protection.outlook.com: domain of transitioning
+ opensource.cirrus.com discourages use of 84.19.233.75 as permitted sender)
+Received: from edirelay1.ad.cirrus.com (84.19.233.75) by
+ DS3PEPF000099E1.mail.protection.outlook.com (10.167.17.196) with Microsoft
+ SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.406.5
+ via Frontend Transport; Wed, 9 Sep 2026 08:34:09 +0000
+Received: from ediswmail9.ad.cirrus.com (ediswmail9.ad.cirrus.com [198.61.86.93])
+	by edirelay1.ad.cirrus.com (Postfix) with ESMTPS id 1C9AA406545;
+	Wed,  9 Sep 2026 08:34:08 +0000 (UTC)
+Received: from opensource.cirrus.com (ediswmail9.ad.cirrus.com [198.61.86.93])
+	by ediswmail9.ad.cirrus.com (Postfix) with ESMTPSA id 03FA582024C;
+	Wed,  9 Sep 2026 08:34:08 +0000 (UTC)
+Date: Wed, 9 Sep 2026 09:34:06 +0100
+From: Charles Keepax <ckeepax@opensource.cirrus.com>
+To: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+Cc: Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>,
         Krzysztof Kozlowski <krzk+dt@kernel.org>,
         Conor Dooley <conor+dt@kernel.org>,
-        Ajit Pandey <ajit.pandey@oss.qualcomm.com>,
-        Imran Shaik <imran.shaik@oss.qualcomm.com>,
-        Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
-        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH 0/3] clk: qcom: Add Nord DPRX clock controller support
-Message-ID: <aqEaGuCwBRnld3db@QCOM-aGQu4IUr3Y>
-References: <20260907-nords_dprx-v1-0-d472af3f01b1@oss.qualcomm.com>
+        Bard Liao <yung-chuan.liao@linux.intel.com>,
+        Jaroslav Kysela <perex@perex.cz>, Liam Girdwood <lgirdwood@gmail.com>,
+        Maciej Strozek <mstrozek@opensource.cirrus.com>,
+        Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
+        Takashi Iwai <tiwai@suse.com>,
+        Faiz Nabi Kuchay <fkuchay@oss.qualcomm.com>,
+        Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>,
+        patches@opensource.cirrus.com, linux-sound@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 05/11] ASoC: SDCA: add populate_function hw_op for DT
+ function data
+Message-ID: <aqEZ/uv3qzlzt4pe@opensource.cirrus.com>
+References: <20260907083727.733705-1-srinivas.kandagatla@oss.qualcomm.com>
+ <20260907083727.733705-6-srinivas.kandagatla@oss.qualcomm.com>
+ <aqA29pv18mXzTR0G@opensource.cirrus.com>
+ <f1e80aa7-2d92-455c-b7d6-484fb353e01f@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -103,66 +105,97 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260907-nords_dprx-v1-0-d472af3f01b1@oss.qualcomm.com>
-X-Proofpoint-ORIG-GUID: 4uxv3gMQHvMPT4oCVMf3aFnq-4MP2DQT
-X-Proofpoint-GUID: 4uxv3gMQHvMPT4oCVMf3aFnq-4MP2DQT
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA5MDA5NCBTYWx0ZWRfX2PTZIJnJZjQ+
- A0xKZR5Sjv+DLlAXLM/FR5S8vBGrVGVjbAq0uJ2xW9+erg2sem2nHPUCUkd2h1CVsn0an3x+vrL
- KFFgRZkuScJ9w/u5Bu9IQE4/bE/AZHBb03TfwFe0oJ7XDJBAJk+9gxFfYvxD2j1sfgNT6aRnYOP
- jGZjRou97HatPM/MtP8L1te9BCxr7ynlq4NdVyBUkXow3h2X3xrcdqxshmDKL43FG8IVlOoMPBB
- unrsdX4MDJT+/J7qcjxg2GBzXWBHgWuR6mIRKV12vay4coHVNF9ATC0KttFHh6kzrxwaDRs3h8o
- GfnEHcJ+OgEY2Q6Q2/t5WdMCp8mSJkoP+HT8xJOAlNyrP7LgLekKqpD9AxryZiSQGTC5clcI9oe
- +gfzhzBzPYoyZdbyyEgwz2El4trze9ko60Y50kIJGxqbqdPAZF6S/UGIrsqRldlySBKvH975UiJ
- F3LodYA0lMcmAJmJ8eA==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA5MDA5NCBTYWx0ZWRfX4qiiRG72twxZ
- aYV5jkFecSY9ktEco24DOZqVZ/DAKE053dkmONa0Cs9A0Zdtqy1qlwYnFESGt2ZDgWfShaBii0P
- 27vaJlH95cYKpmP+hsnBvsloneCp74U=
-X-Authority-Analysis: v=2.4 cv=f/p4wuyM c=1 sm=1 tr=0 ts=6aa11a21 cx=c_pps
- a=IZJwPbhc+fLeJZngyXXI0A==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
- a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=EUspDBNiAAAA:8 a=IoEm9MQS1YtAEnOBX-UA:9 a=CjuIK1q_8ugA:10
- a=uG9DUKGECoFWVXl0Dc02:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-08_03,2026-09-08_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 impostorscore=0 bulkscore=0 clxscore=1015 phishscore=0
- lowpriorityscore=0 spamscore=0 suspectscore=0 adultscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609090094
+In-Reply-To: <f1e80aa7-2d92-455c-b7d6-484fb353e01f@oss.qualcomm.com>
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS3PEPF000099E1:EE_|DM6PR19MB3995:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4dbb1ed8-074f-4048-3922-08df0e4d1ea2
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|61400799027|23010399003|7416014|376014|82310400026|4143699003|11063799006|56012099006|10067099003|22082099003|18002099003|16102099003;
+X-Microsoft-Antispam-Message-Info:
+	pNoyke4qb39t6Csiy7RyP1uVxBBdMBCuc1qmD7hBmFT2us3USTOfVFhMHk/EgJgZA2mYzed51+qS+cl/EFVE1KFcZAK9zfqqMsp7zJG2vXyu7Xl2kk+QknXA6rOxiPlU39AbLzCbLP1qia7C+/ssLXnGWS67ayUvL1xXaY1dx2e5AZ7EwhAgm/QmDHt4dtQvzPaBqjGK40dncBinlOnN+kLzEBaa5Q0U8u0ZRs8AvzRphgx23SjVAEr4Oc9Ap55PX6tkEvmVaQBqlHPgJIx7x2MpALwgbqPgOBXUyb2nsBmeJpm4tQbY3yl0/xFw/L+KdDTpjeuo9B9nt3QetZPGr4WjgrpwgjbP/t+vDCH3+N1iIVlR2Wf4yj75fIxN0UkvNhecofPjsRFB7N5fgGt2t4pqflJAlsDZ61V3br9pudfysy7R8N16HiDo3P/G6+qQny+VHh3n5WdSpRev0kV8LuHxXB7duDivB6+Mjb07jjt8Y0SQfplOVs6ibUxM+XnlDaVVLw0xnkfZy05CKscimyLtxle39MStyWGWVcBWy+rwjry6PyQw3nRsxbh8IXCx/K8rqvmaoJd45OKZe2WdgfJuLoGBZejdwqdhn1p0ogBoBmLrteb2Oq595pV10uphhU0DoU88oz8OutWWjFFRcMPv12MZUA+IP0EJqGr4jKuB1HdLm+9HWp0FdDjisp697c3aZqxD8AY3a1XlQgQUIg==
+X-Forefront-Antispam-Report:
+	CIP:84.19.233.75;CTRY:GB;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:edirelay1.ad.cirrus.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(61400799027)(23010399003)(7416014)(376014)(82310400026)(4143699003)(11063799006)(56012099006)(10067099003)(22082099003)(18002099003)(16102099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	m1+JE4xlyEYNkpYwsjaoUPyF8YQ08jjGlZQON6b9256UiclQLOMTP24k1sa+WwkyRP4Swqs2vONI89cKROVYu/ZP0NKE0lahuBK5whj5ocHt7tYUjluQTn8TX3ugS5b3Iv8JtypR+UpAEcc3+kSRTcWomd46i3IZ7mOuFhlA+7H+a4kP669GgScQ5yWCh5oPk9oQUsI8loK1Q3Iq8p/22Fjta49muAhd84zHXCG0Dub1+uKtsHS3fS1iljD9bx323Cuk7nflpzWyPNvpsmNK+a+7JxTaoVyWJSZ4xzQkce3eDP51OMnQfKaamjUWBDWzPXSTs09+a2eOcg4LpwNfN7OiU9/ZbKD5jq1Y57Fi14PSCYIuBdN2PdfqpMoLX47h2GIFHiHFPkvhkZ+0krFfsAQ9F8DNspY45a7iZhiSG2kWJblKhapXbOrncRAnLKHl
+X-Exchange-RoutingPolicyChecked:
+	oJDgubtH2AlL+5fqRpz1v1NdTise9+vyqODYzAiOhcsXPebE2s2IlKQfH3t5UXscnUmgTjM3ml6kVPpgolpyRezCo/cXP7TKp9p154zEZBFlAugi8ArLhWtWfO2nT9w0sUIciTK1ovLtoA0YGd7fRSt37Rad7OWXzPvgvYtp+h2WP+FbdXBqXcUS4/KySeJV0998gMhr18dqXqA7NVcTisLK+lCS2Mftz2SzVf/zo3e0VrmFUSu2Qo2WTpUhQDwbJPyuLX15PXMsrodoOEal4P5inidpzpV2FTaqlhb3uulsEBfFFaowErFMoFfHpGjXa/NqDoup5wnYmap9zCGuHA==
+X-OriginatorOrg: opensource.cirrus.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Sep 2026 08:34:09.6372
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4dbb1ed8-074f-4048-3922-08df0e4d1ea2
+X-MS-Exchange-CrossTenant-Id: bec09025-e5bc-40d1-a355-8e955c307de8
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=bec09025-e5bc-40d1-a355-8e955c307de8;Ip=[84.19.233.75];Helo=[edirelay1.ad.cirrus.com]
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: TreatMessagesAsInternal-DS3PEPF000099E1.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR19MB3995
+X-Authority-Analysis: v=2.4 cv=bpd8wkai c=1 sm=1 tr=0 ts=6aa11a07 cx=c_pps
+ a=OrhHz3+zTO+bBwkwaozMtA==:117 a=h1hSm8JtM9GN1ddwPAif2w==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
+ a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s63m1ICgrNkA:10 a=RWc_ulEos4gA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=iX4cTi3TZMoOKdANLEfx:22 a=KfkQE9S9VqCBgivYGm0O:22
+ a=dz5TL3hxkjpnjEL6Y5MA:9 a=CjuIK1q_8ugA:10 a=O8hF6Hzn-FEA:10
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA5MDA5NSBTYWx0ZWRfXy6WKFVJDs9z1
+ RJ59Q/lnZ/Wp3qZXTOsLYJ5C/30cRKDG+AdkdYVHzSZuv68Hd+QAseKpt0QL+4qwudYggwi8HzV
+ OezC/idKQqzY4ONWBuOVNxc77C0+zRv5BWZ4nC0RpvxEbHk4o0RcFatFlojsR+aBP/Ub+u5efIB
+ SE3D/EJFgXuEnxcCBlkyY8o5jD4hS+TbTgLoKTzYpt8HZ+6JH3KBox/hGfMXibsJVhoR9exbF35
+ KdEAOPUMFa3LW6l35OawCVlyGH0EWcawyMulUZKox9MFLUJ2UT7gY4ppG9nzxDRwnUV5y7XxZrx
+ 90PBPVpI/19NBoutHc4P1NKc/qBN8OVPVm6XgKrulf5pNUXHwJ3CiMrT/nAsLtBKqrlqBLYqrhy
+ oDSBBT2YX3ZAYcx9HoepLS2PhJhr0W5gWFR4bBaN6LJKIKedUidyxydMW2HR/0XPMLkNyoW/Fqq
+ tIGHcliGQlXn8Yy5BLA==
+X-Proofpoint-ORIG-GUID: 2T7Wb-3rYp8FxDN0XD6JSWkDMUa3vEOv
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA5MDA5NSBTYWx0ZWRfXzyGWo7k3Rc2J
+ McAlhd1wqaDDp81y11t0m9EL0FA2eKWmkPt8tK0jQD7ovIagmKDXgglMnNxskqQ4x/Z85Fi+Gwu
+ 5X/eRaD0U4FipHC0iltf1Mhj+xerJ88=
+X-Proofpoint-GUID: 2T7Wb-3rYp8FxDN0XD6JSWkDMUa3vEOv
+X-Proofpoint-Spam-Reason: safe
 
-On Mon, Sep 07, 2026 at 01:56:12PM +0530, Taniya Das wrote:
-> Add support for the DisplayPort Receiver (DPRX) clock controllers found
-> on Qualcomm Nord devices. There are two identical DPRX clock controller
-> instances (DPRX0 and DPRX1), each providing clocks for the DPRX core,
-> audio, AHB and video memory paths, along with their core PLLs.
+On Tue, Sep 08, 2026 at 07:00:22PM +0100, Srinivas Kandagatla wrote:
+> On 9/8/26 5:25 PM, Charles Keepax wrote:
+> > On Mon, Sep 07, 2026 at 09:37:19AM +0100, Srinivas Kandagatla wrote:
+> >> -	ret = sdca_parse_function(dev, drv->function);
+> >> +	if (drv->function->desc->node) {
+> >> +		ret = sdca_parse_function(dev, drv->function);
+> >> +	} else if (core->hw_ops && core->hw_ops->populate_function) {
+> >> +		ret = core->hw_ops->populate_function(core->sdw, drv->function);
+> >> +	} else {
+> >> +		dev_err(dev, "no firmware node and no populate_function hook\n");
+> >> +		return -ENOENT;
+> >> +	}
+> > 
+> > Is this the right logic here? I feel like if we have a
+> > populate_function() callback we should call it regardless of if we
 > 
-> The DPRX PLLs are ZONDA_OLE instances whose PLL_ALPHA_VAL register has
-> been widened to 28 bits to carry the fractional word at a finer
-> resolution. The existing alpha-PLL core derives the ALPHA_VAL width
-> solely from the register-map layout and can only express 16 or 40 bits,
-> so the first patch adds an optional per-PLL alpha_width override that,
-> when set, feeds the recalc_rate/round_rate scaling and the Zonda
-> set_rate L-adjust MSB check. This is a prerequisite for the DPRX PLLs to
-> lock to and report the correct rate.
+> something like this?
+> -------------------->cut<---------------------------------
+> if (drv->function->desc->node)
+> 	ret = sdca_parse_function(dev, drv->function);
 > 
-> The series is organised as follows:
+> if (core->hw_ops && core->hw_ops->populate_function)
+> 	ret = core->hw_ops->populate_function(core->sdw, drv->function);
 > 
->   - Patch 1 - alpha-PLL 28-bit ALPHA_VAL width.
->   - Patch 2 - documents the Nord DPRX clock controller device tree
->     bindings.
->   - Patch 3 - adds the two DPRX clock controller drivers.
-> 
-> Signed-off-by: Taniya Das <taniya.das@oss.qualcomm.com>
-> ---
-> Taniya Das (3):
->       clk: qcom: clk-alpha-pll: support a 28-bit ALPHA_VAL width
->       dt-bindings: clock: qcom: document the Nord DPRX Clock Controller
->       clk: qcom: dprxcc: Add Nord DPRX clock controller support
+> if (ret)
+> 	return ret;
 
-Hi Taniya,
+I was thinking more:
 
-May I ask to be copied on all Nord patches? Thanks!
+if (core->hw_ops && core->hw_ops->populate_function) {
+	ret = core->hw_ops->populate_function(core->sdw, drv->function);
+} else if (drv->function->desc->node) {
+	ret = sdca_parse_function(dev, drv->function);
+} else {
+	dev_err(dev, "no firmware node and no populate_function hook\n");
+	return -ENOENT;
+}
 
-Shawn
+Although noticing as I do that it is also a little weird the
+populate_function() callback takes the soundwire device not the
+function device as an argument. I will have a look at the wider
+picture on that.
+
+Thanks,
+Charles
