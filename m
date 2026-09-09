@@ -1,99 +1,133 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8104434982
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 20:29:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 318FD397B09
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 20:29:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788985772; cv=none; b=Z46P5xnIBDYdQfPhRG4FHSkAMXSkzMI29Kx+lrObcFsFhiujSvxCOi+5Z4mF03nZTKA89xcNcz54CCF/5GRPPIz4Q1RLoY905iLj0xeiXfpYF2xuC4Sd7lZHrWA8ROa49wEJBdpq3IKOTXhxE0hkbsHzFq+2orU6i23PqIUCmoc=
+	t=1788985785; cv=none; b=qpsOxjUdSd30JsfpVMNEFS6o7GBS3OhMk82fu3RGx8yOx6uHJSF7elTkzuMlTIp0YBr0fcgElxbpeUWHBYbRvLR19Xp/Qde1hIP1/OTTWCJ+HFpiprNMr9g5Ak6reb9C1bBva4a+WY4LFcwtRA2ojw0fXyrW9lzTtXCqd7bZpf8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788985772; c=relaxed/simple;
-	bh=z+0tLgyCRJJAjKpetPBYp4AGbyWgzkXH+IurDgPiS78=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=d4VVvBwq1LL9zV7KQyo9KkjxuLxSxxhBJnITyzmtilyYvmD1j+h85fSzx4Ah9nzAGExvgxGiU1ZckBklKOIWIr9C734jQvN07dpmOBMyJMgJZWgjy3fgjts9BoHWSUsIIgkqEl6uPRRECVxyW8/5EEjHUebuWUMFZoPnSwGfpuk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Gf870PZ2; arc=none smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+	s=arc-20240116; t=1788985785; c=relaxed/simple;
+	bh=n2O3OIrAFdMmFr0yu/uaSut1SXnpXWM1clMCDkvIz4g=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=X/jfGhGkLEStxsT1MdVz2tkvymhsDJN8KXylzUdlkJ8ZGm/QaWd3/38f67vOnVB3ODQ7+3yr5X2KJwFLeCyAWokfaDWOZ39bmm3/akQRWcYbSXNV2TRmoDcLWNMcRQabrC0Kdatpk4M1PHKjpN2dHATcMFVdaiyckXOQaTJ2xEs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TJZ/KFx4; arc=none smtp.client-ip=209.85.128.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Gf870PZ2"
-Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-396ccafb750so1512859a91.1
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 13:29:28 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TJZ/KFx4"
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4956869750eso56175595e9.2
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 13:29:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788985764; x=1789590564; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=QQ2gcX78zM5THDHJgEgcjT08beP/iAweGRJTqOXZ9/c=;
-        b=Gf870PZ22XfKELmiVeXwwnlhYzjqtlrQXqQ9wBwHKGb8IHRo+KZeHFTaQ7GMirOi9y
-         jLzq9swursocWRRd373GQMFM3dR8C9QAQyCzxnKydvS/g2Ja+424sJOuRwJbl97+4ELz
-         Q8tJPE6kQJvgmWWXJUGgrsBurIykQorLwCTcvgP5VtAEIMxE3Kj8tL5PZCupavsKt2mO
-         q635xqibpof/pRz2ktIHUgojQFOchFTx9fmMCHpnUL+gUWh5+g2cDyR2zniaDW5YQnAZ
-         DXNFQ7ArNgz8OIGkOgxnsrITdLBT7TMz/Hgl5D5e258iPZ+Sc/TMqAq7YG/QKwSdwbaM
-         mtvw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788985764; x=1789590564;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20251104; t=1788985779; x=1789590579; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=QQ2gcX78zM5THDHJgEgcjT08beP/iAweGRJTqOXZ9/c=;
-        b=DhDFl+SOYGZhOSZoLojC7FUCTZjqrOB9uOIOhh7gc4uVXZkwO5NWdG/ifIDPlkYvYO
-         8YEJfiADus69zB00hALgl2PKhzKvZA33NPsr9f5go1n/CCa/M0fVdSlpzn6qzsD3Drvs
-         LqRoTKek1dkC/ANsD/l4B/3Po6kNTPMFrcXj/tLSV4yIHoLscyrKnY+cg8vqHYB222vN
-         ng3wDc1NgrBST1RVvguGlFClCFjxJiUChffhF6qDNRUJQqO0bUkiUUQgXGATpKhBjalE
-         4y3DN7Xdi6zLIusYV0P1ngAHlJInxElEXmGGDN9MG6ZrpN0whY4fv5oTSziuUHj7+0Va
-         SnsA==
-X-Forwarded-Encrypted: i=1; AKwUvByhKvwslkLnTxTZZ2XUOR9TV2um4xkQ2wjKlW7S5jOhGsBge7OZyapscpUZF0oSASjxa7Ev1XfYd24Zkxk=@vger.kernel.org
-X-Gm-Message-State: AFuF++mSPepVHdrRHdHNQtKF+JYp9D4idj1aa4aaeQLHC89Kb2Ffe/hh
-	cWN4qZMPb2qGMPrnJ+h5sTPmfZlppkD0d701nS8trnaz4H2bHnnQwdCn
-X-Gm-Gg: AYBFou3vXHoX3MhOLFN3TeOSnlLkK2bn5aaxOPvlQCm9n4exzABq21QIWK6FlvNyOB6
-	wYqgzuto3G98JzI1Fp7myWlqftx1PnlJC45u1JDiqHdg7U903h5PK9cqoMw6Djy7FuPDXjLnNph
-	tQuFHtNFcaAp3w5Eeh4PkpKjaU9r6QEwUC3cqQZVNw0nUIYpwKycVdo0u6VKkEszRlUqaB4NsSX
-	GvretSGOoif6ITPzteL6UY6QHFhE4kBElTx5cxiylALeWWV3Nfp/rRnbdG4fDFs3gh5QIXUknE4
-	UsEl8v1+klhZiAYwh8lkZXd0Wp5vXOcXViWWM4do0pDZn+fiy9tox+GEQrzuE3GciVomXL/GxKp
-	D4B9IvMvEIaWCQ0chsXGPxiuSjTeUf2uOlY82c3q6WRxjFsG3EoN0AYwelcj1XSs5gZ0s8KYrPt
-	ulHN4c0XspFMs+UNfa6BdIOxD5pwvvZfS4F2mlOfzs0jds7tI0gK1Q4IU2gwubLqO7LFbGC+SVR
-	WVN/ikaGy9Lx1m7EHIeMMw=
-X-Received: by 2002:a17:90b:17c2:b0:398:9be8:ea6a with SMTP id 98e67ed59e1d1-39bac4571cfmr10334634a91.23.1788985764524;
-        Wed, 09 Sep 2026 13:29:24 -0700 (PDT)
-Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d7740383asm1159237a91.7.2026.09.09.13.29.23
+        bh=qckaQ07GIjAycth+WTbJjXIHu8VJsW0kggwIpsbAbME=;
+        b=TJZ/KFx44v+UViRzLR0kAbzUjkD34nLHd7nh7cjoz2P4FUsNjpjtrcwIfrE8ne+UVy
+         AZp+n0hjllq7BK0rP2Us/OFfd8ShsVCDVFGUKxYtDOVuQe0NholSuwuRLjugwYcRiq6Z
+         7ra/84LU7ycnAewMBOfuFxjjgB/VHk+j4KqmpzMShX8e/TZbyU9lTNe14/B0o+uxPgCr
+         MPzZ7rd17jAF4i9DiMuQwL0wpPg5MhZy3qE0JEraB2LM6CYHwqcE2/H0nGslrPfYAwzO
+         szCktNIMZ69atida+RWdfFNbfEcqZPfOPg8H39i0fy0b9xd5u9TVMBLhgNXmqAElDtoE
+         /O1Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788985779; x=1789590579;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=qckaQ07GIjAycth+WTbJjXIHu8VJsW0kggwIpsbAbME=;
+        b=CBcPFfmVp0N2Uy3R58D0gb5MEHMPUgpe2i70GKqqks9MVerw5fxO9Kp7es5JqLeZEg
+         NI78s8l8WG97Zc2GNNAYeA0iZzT67zaLo9IZ0XYvWHjtE11VHHhsqv2FdDnE3ofWVd9v
+         t7DpYxdGmc/RvvvEK8xmvQ1gVzX/WhTlIQRC/AYV6nwE5hWpOiwJYG6fAMB1sQMltqAP
+         zDByFeeNEtapgyfICTvlo/g5EFM24xLbQA852Q6DYZAs8i6V0xHR8KzmxhHVt/CPKHhC
+         Apb4RMNRfAH7pfd0+EcxNhqXWLMQ98NTVjPC5Nm+u873ZW6vANX/FYBeRwavz/SkMf/f
+         tssA==
+X-Forwarded-Encrypted: i=1; AKwUvByCRHR0QC3R1rXg/RBJrJOYdjz+2kX0kYiCbpMMxkHSGwkFzATlXiknYzG9IxyHgDDYjlUfmsbpMJW1uV8=@vger.kernel.org
+X-Gm-Message-State: AFuF++k26UYiVLuxcUafj9JP7dvzy/+CutqN/eHEnbs4qfbTCB47OmDf
+	J+lDnZF8GgzyIp7lo3eUCCvMtNdrlyh6qY9+jEZGbRe+5V/GuOBClnjo
+X-Gm-Gg: AYBFou1+0WdILGNOTmH6dN54rgCe2Vg7ZLxtBxPauHLhD+qg0/iwStEs4d4q17B+3vB
+	1BtkXSwGjXLmkwkdl5Oy8wpX3z9Bn1Iu0HHJNvH4qdAFQD7HAfMthAxmuFxdje0AIq3S1ADN4cs
+	+lDrntea3Ewo43q/bv7VPieGtViGfm4EFGEaK+WAZW5BoITAiaOGbR7np6CvneuoPvwPY5zPheJ
+	qY6tDDmbtbKYMGATm2xRgkCn8iJKIRuDR5qfIwE/Fb7c/ldu0ZsszBd9sg06nBbvA31vnZ1XY5/
+	6VJ3COxt58DeW3RZJnK3kuFeMW7nuRfHGoUKghoZ1JuMMi9JcagAzOaCfOZQeHfy2dEDzMkLtMz
+	6MgBzxCFXO3UMDIEX1ZOQ+MPFhhQP8KczN7V3H7Y7onMPPXsc75VO3HTUG9NXo7kfWzfNjpx4Ie
+	jrO+jAHq8GROd0ReySjfRl7gpCBqAcBYr5Tc8hX4KiHSoVqJ39dVNBoYeX5jBvZ4+sUxCUMOWI0
+	/gqUCAbOyyzzKmweBYKkSRd+yrCEcaxKo8uxV1QRj0Vn8kkntMfJXMsWzc/BvVOSBLSx6e0F+n2
+	YZncA1cb1NCf4Ktk8+o0AFGY9aSDsFthjpsoQ0eetDX3uqainyou/yscmi5G9XNJ/v7mOjQoMEE
+	bgSjv+JUoFnCEnwYo
+X-Received: by 2002:a05:600c:628b:b0:49d:2856:fcf6 with SMTP id 5b1f17b1804b1-49d2856fe91mr2796585e9.15.1788985778747;
+        Wed, 09 Sep 2026 13:29:38 -0700 (PDT)
+Received: from workstation ([85.186.165.159])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49d26b7332asm16723565e9.0.2026.09.09.13.29.36
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 09 Sep 2026 13:29:23 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Date: Wed, 9 Sep 2026 13:29:23 -0700
-From: Guenter Roeck <linux@roeck-us.net>
-To: Zac Lanzon <lanzonza@gmail.com>
-Cc: linux-hwmon@vger.kernel.org, Jean Delvare <jdelvare@suse.com>,
-	Aleksa Savic <savicaleksa83@gmail.com>, linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] hwmon: (asus_rog_ryujin) Add ROG Ryujin III 360
-Message-ID: <7e2e3c81-ac92-44ad-ad9f-19add2879be6@roeck-us.net>
-References: <20260903004054.502171-1-lanzonza@gmail.com>
+        Wed, 09 Sep 2026 13:29:38 -0700 (PDT)
+From: =?UTF-8?q?=C8=98tefan=20Ghe=C8=9Bu?= <stefanghetu9@gmail.com>
+To: Liam Girdwood <lgirdwood@gmail.com>,
+	Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+	Bard Liao <yung-chuan.liao@linux.intel.com>,
+	Daniel Baluta <daniel.baluta@nxp.com>,
+	Mark Brown <broonie@kernel.org>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+	Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
+	Vijendar Mukunda <Vijendar.Mukunda@amd.com>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+	Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>,
+	Rander Wang <rander.wang@intel.com>,
+	sound-open-firmware@alsa-project.org,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org,
+	=?UTF-8?q?=C8=98tefan=20Ghe=C8=9Bu?= <stefanghetu9@gmail.com>
+Subject: [PATCH v2 0/2] ASoC: SOF: xtensa: prevent stack OOB read on DSP panic
+Date: Wed,  9 Sep 2026 23:29:31 +0300
+Message-ID: <20260909202934.37644-1-stefanghetu9@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260903004054.502171-1-lanzonza@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Wed, Sep 02, 2026 at 08:40:54PM -0400, Zac Lanzon wrote:
-> Add the USB product ID of the base ASUS ROG RYUJIN III 360 (0b05:1aa2,
-> USB product string "ROG RYUJIN III"). It uses the same status report
-> layout and cooler duty channel as the RYUJIN III EXTREME, EVA and
-> WHITE editions, so it can share rog_ryujin_iii_info.
-> 
-> Tested on a ROG RYUJIN III 360: coolant temperature, pump speed and
-> internal fan speed report plausible values that track load, and the
-> internal fan follows pwm2 (30% -> 870 RPM, 40% -> 1590 RPM).
-> 
-> Assisted-by: Claude:claude-fable-5-1
-> Signed-off-by: Zac Lanzon <lanzonza@gmail.com>
+This series fixes a stack out-of-bounds read affecting all platforms
+that dump DSP oops/panic info via sof_print_oops_and_stack() (i.MX,
+AMD, Intel atom/bdw/hda-dsp, MediaTek).
 
-Applied.
+Commit 58bb5081cba1 ("ASoC: SOF: Xtensa: dump ar registers to restore
+call stack") added a loop that walks the flexible array member ar[]
+in struct sof_ipc_dsp_oops_xtensa, using plat_hdr.numaregs (a
+firmware-supplied, unbounded count) as the element count. This only
+works correctly for callers that allocate room for ar[], such as the
+Intel IPC4 path. The IPC3 callers listed below allocate xoops on the
+stack with no room for ar[], and were not updated when the loop was
+added, so numaregs walks past the buffer.
 
-Thanks,
-Guenter
+Patch 1/2 fixes the i.MX handler (previously sent standalone; this v2
+includes it in the series after an automated review pass flagged the
+same pattern in five other handlers).
+
+Patch 2/2 applies the identical fix to amd_get_registers(),
+atom_get_registers(), bdw_get_registers(), hda_dsp_get_registers()
+and mtk_adsp_get_registers().
+
+Ștefan Ghețu (2):
+  ASoC: SOF: imx: Prevent stack OOB read in DSP panic dump
+  ASoC: SOF: Prevent stack OOB read in the remaining DSP panic dumps
+
+ sound/soc/sof/amd/acp-common.c           | 1 +
+ sound/soc/sof/imx/imx-common.c           | 1 +
+ sound/soc/sof/intel/atom.c               | 1 +
+ sound/soc/sof/intel/bdw.c                | 1 +
+ sound/soc/sof/intel/hda-dsp.c            | 1 +
+ sound/soc/sof/mediatek/mtk-adsp-common.c | 1 +
+ 6 files changed, 6 insertions(+)
+
+-- 
+2.53.0
+
