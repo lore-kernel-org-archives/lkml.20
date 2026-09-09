@@ -1,165 +1,215 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18AD8559CB7
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 12:38:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DF3A5592F5;
+	Wed,  9 Sep 2026 12:39:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788957500; cv=none; b=BL3JFh7ZFWetRHz35JdAiv7rtumyRI5O/nHdRalQcfF8y1ksWcRFevtFzZOfKdiBHxkmQzoqWTcgv3YiLahCcQsaBNb2axQ7ek4drGSwjcnPpxLPpkB3QeA0jgFXh9xxqte9CLINc8qciYPN9fKENxzshQcQjgH2Xp3iG/A1yq0=
+	t=1788957542; cv=none; b=YkCZy5cZ17/P1shMHRafbMwPWn+u8qWpguLSZC4x4OP3WZfLyrFrGF+VzLK5ZztMzhNfnBtxZDysBv7Ti68b/U7/YSmK6vPxgpSPrIIoO9I4rXIiD0fqF5rzW+ilP4f8I+GHaP+h/emjfTUxxMZqb1OryvHK95f3+1BnhVzJSKs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788957500; c=relaxed/simple;
-	bh=BKzogTZn+EJ5XpNLtcpAdHyL4/z3Wux8oU3vlZWahI8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=JsAn/nvoyjjZcDxkVjk+1E9KTgNN532SFlsSrVeCDRFBmYR9hSCnaYUpPnZfAlxyRxuN28aIfxFi6kwUZTUD/TWCfjYcHvpzOog8DHcee12KcMvf5SfGG6xzF/8r24RJkkk4nR3RvE13pDvYRPd0f6t4Lw0cjTFMMdLqOIioIrM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=LXoTg1Rz; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=IWqE+hS6; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1788957542; c=relaxed/simple;
+	bh=N8e0mHtfrLhJTzcSZsXBav63lynCCymY+XwiF4qZeBg=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=S7zRRJwB29hhjXxx2RiD9/3Kw4zdSYkf46yGtIflQjPn3tOOvExASq+lR0OL4Ho15NX91qXfCyG8V3xIK9hNY42wDIKfCJDoDlPJuqnqzAcHCaaQ0xkesZIWZZCvOfx7Y7SktaLz8ufBU59pM6IKKItfIAqQ2RTQsAy9enTsgSQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aFC9EwKd; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="LXoTg1Rz";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="IWqE+hS6"
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 689CCxTN3053134
-	for <linux-kernel@vger.kernel.org>; Wed, 9 Sep 2026 12:38:18 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	7whHKW8iAgsbvfjm2Z5LvT4KF4Z64VMEUZ/xaZ93QCM=; b=LXoTg1RzaUTu3qXs
-	f1hHeZ9G4NEQQUs8BC63NZSEkOZT6ayPzxcEs2GeD0ZjBDhf0QhodNxp6Y+gnetD
-	o21nIrGYJZOoDfD5LUCIhe7SOnkJWylgWoYFPEI6erpq/RI14LEuNRXkgoNnj7Su
-	zRrzFQgBqOEZwAXPNY98G9crsYlgkpyCAgS7jsk9hPLPptZt6xFnxzYcqBjDrGva
-	/CxJ5Q1pSzmKqIdSPVmjR0ynehrqZnNOC1v4la+kIdp27JKVJXJldspC2s0S8G3v
-	5kY3N0AHLlPFvBd7CXr4fmlVRXktofvrbkBFVUUjmiJ+nySGU/VIw2iJbw7FzJ64
-	OrKvxg==
-Received: from mail-vs1-f69.google.com (mail-vs1-f69.google.com [209.85.217.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gk79202y9-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 12:38:17 +0000 (GMT)
-Received: by mail-vs1-f69.google.com with SMTP id ada2fe7eead31-77969cb40dcso75776137.3
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 05:38:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788957497; x=1789562297; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=7whHKW8iAgsbvfjm2Z5LvT4KF4Z64VMEUZ/xaZ93QCM=;
-        b=IWqE+hS6cCV0guJnsxNl2O+ze/gOkGSwfpf5u3yFAnfOU/j5KaOKHuX/bpeiT+KE5J
-         c0zg6njjrHEzZOr2uLB9vV6gUmenHm4BRodddnXVNb0KborGDu61pIxdk0vClY509DYV
-         J9vAqHBse3zgVCxLi7E5M61JwIoqt/3AlSPZa7EddS4JLTkjWh2fNNQeHqyKDpe11BK2
-         R6yq3jF+onbdsi53rVzNIVUbuxtd6CZm8d4BAXchvq7Vtb87dGnLjkLz2Ehmav+R2GaF
-         pbMSKq0PbJ0AFSV9fQqlya2oRnZnaHbpaO9L1nWfpt4RkDqPAbBshezAgf7rM8EqJpVD
-         jtbg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788957497; x=1789562297;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=7whHKW8iAgsbvfjm2Z5LvT4KF4Z64VMEUZ/xaZ93QCM=;
-        b=JMLcs2NOJGKcWwXdLOIVuCRMUwqAStYOGAJiHbhxpry9Ym/fu8gI7bYzcm8+1pqJ2F
-         vEqqoxSgTDv3MOJJfyctIy7dal+UdgQAGdxKmKeGfJQ5uREkxymAivsPKRVcA7gQmmji
-         kWYtsHbw+5NkAJ2YNmdsaaSpQrNlV07WDUpD1HSdxAuW3uXgjYOz4pvKPZ/MqZGk4Hoz
-         DJaPFedNqySgdFu1FDuNGHQ7Z7/7dswICQPaX96CftYZ8j0kBC85yYLoc+hmgcIYv6ZS
-         /5/WMnx8LiAttNZDn/Y7ouUUFzL/kNyzV75jA4fsLqVRR5SqDIFn9zIWJjifqQRiniBR
-         qnYw==
-X-Forwarded-Encrypted: i=1; AKwUvBzb1Jw363fYEiPC3/5D7lGl+gDDJ6yeVnX93VIxgpEn0IeFxxlES7rmLHgr74TuGP3X+CMUtJ3C77E5sr8=@vger.kernel.org
-X-Gm-Message-State: AFuF++l5QhRt94LZslki7zn1JMnpVva18tAYboKP2ExLLZ8z4DGQRcsT
-	KHzSevhk967By3jAUMAvzH8dTHMwqHics8Cln0O1c7EW+BRnFr5tNB6Z5NIEah1+2SOu05XZH+M
-	PmjRy80ZvocmvXiZGZZWqUz8Z8u/PDlAiYqSocEE2qP9mv0A6k0ANltHnBhOSf4qphd8=
-X-Gm-Gg: AYBFou1kq4N6Em5/wq3SjizfvDshP1DyZl5FYA8r/g/mN/m8rgy399gBPZgQQdakQrc
-	mz7V/orzO+Cjmn9MTIIfjvhLmrYrVFr79Mb3drsqg4SJe0/ckQlvw2sHP1LOMgP2oBbf8xMSxH5
-	SML1XQDznvNR9B6H/WsmCPq8HMfs1gvOA1TVEiUzJSqYADBQjFN/rj9Db9Gs0JNk3GJH0AskeFn
-	UFJTmxSS8KoU4LN8Q8PxUKmWAjboyd6bZJDzBhlJz7n+EfMjixf+KFp0hiD2mAZJeCtyxX7r/Os
-	B66KXl30tKA2Twt8Cz/Ixlu5LBpLzFLugmDuR/OByE6pXigLL3uF4eIBydSf3WoL3njVEVBP6oR
-	sq5JduoGUAWQGk6/HMxwB7A==
-X-Received: by 2002:a05:6102:91b:b0:786:c254:b7f6 with SMTP id ada2fe7eead31-78a6082a131mr3898531137.0.1788957496696;
-        Wed, 09 Sep 2026 05:38:16 -0700 (PDT)
-X-Received: by 2002:a05:6102:91b:b0:786:c254:b7f6 with SMTP id ada2fe7eead31-78a6082a131mr3898514137.0.1788957496296;
-        Wed, 09 Sep 2026 05:38:16 -0700 (PDT)
-Received: from [192.168.202.12] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a98641f38csm1237305a12.13.2026.09.09.05.38.13
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 09 Sep 2026 05:38:15 -0700 (PDT)
-Message-ID: <85ea66bd-65f0-4e05-9928-3cc2e23f02ff@oss.qualcomm.com>
-Date: Wed, 9 Sep 2026 14:38:12 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aFC9EwKd"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0688E1F00A3A;
+	Wed,  9 Sep 2026 12:38:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788957539;
+	bh=joLSSrsFmb2lcxW3W5OuNn3CdYAbfbENeKzl8u5hbCE=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=aFC9EwKdNv5cb72gC40/YaNlY/izlEbVukgbEOEeTcTUNvhDXYKsJEldTPnmQWYd0
+	 cTg8VBwN0d1nSCEzy1Hw1n7mTsC0QpsT37E1sgpCgiFLV8TsPdqLFQEr3H6yXII4jK
+	 A6qGh+azHHi5n1SIMhsAOWaIPH0RlOdp0pd6ZzlN+VKtrzRnfmY3HxC1umWgNT8kAI
+	 g6l1luOpyTDgxa/yORWqReDIUbnsuU1LOaBQyeyxlTLyoViKXDO3U+zMBwoQ8ZdVlt
+	 cuRPxupByWMXc8pjmhe5xbjBnphtC4894dHsanAE1cf3G18xrJHdoREXoFzz/OUDTI
+	 d3sHPcz+bvFIg==
+Subject: Re: [PATCH net-next v7 1/3] dt-bindings: net: wiznet,w5100: convert
+ to DT schema
+From: netdev-bot+sashiko@kernel.org
+To: arthur@marmottus.net
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, arnd@arndb.de, netdev@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ krzysztof.kozlowski@oss.qualcomm.com
+Date: Wed, 09 Sep 2026 12:38:58 +0000
+Message-ID: <178895753846.219967.8860843467900146377@kernel.org>
+In-Reply-To: <20260904-wiznet-link-gpio-v7-1-69f01b70c96f@marmottus.net>
+References: <20260904-wiznet-link-gpio-v7-1-69f01b70c96f@marmottus.net>
+X-sashiko-severity: Low
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 0/3] PCI: qcom: Implement shutdown() to avoid SMMU/NoC
- errors on reboot
-To: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>,
-        Jingoo Han <jingoohan1@gmail.com>,
-        Manivannan Sadhasivam <mani@kernel.org>,
-        Lorenzo Pieralisi <lpieralisi@kernel.org>,
-        =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-        Rob Herring <robh@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>
-Cc: linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org
-References: <20260909-shutdown-v6-0-62b7bd123236@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260909-shutdown-v6-0-62b7bd123236@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=bd1bluPB c=1 sm=1 tr=0 ts=6aa15339 cx=c_pps
- a=5HAIKLe1ejAbszaTRHs9Ug==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
- a=EUspDBNiAAAA:8 a=SpA6wshyjLPcRYPzmHsA:9 a=QEXdDO2ut3YA:10
- a=gYDTvv6II1OnSo0itH1n:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA5MDE0MSBTYWx0ZWRfXwAs2ZOEkc+AI
- LdfR5XnbevfemdEA+SgB2xwQtAx6fUwK78exgPh/SRUAIJCnjvueElDqfhTDme3qRUgSDF5P/5E
- JkVtqNwfABKAzI5oY9jFxy+blI1NeR16Two89QA2FlHYZE7wotTLydU2ssWEIyxE2Xu59EraWTh
- fWT00H4AMkQ8NG7mHgIgQiR2uxfDCnWP5gmv3MlP+LyT2ul/ro13VQtLL9scTPac773B/GH5hPZ
- miqkTmsH7OWYuJdCf1usy304jLPvFwZF0WYLgNnZqXQlaRUuLGCObLnM2OtJnbuDzLW3U9bQItF
- w5Z0vcLLDzszZsWI6se545CQfwi2ccEsvpztpcLgzSUIqacFg1QftUWaUxngokm+k7jjLgQUsoe
- Ua+kuKLGLzBuZMGmeZnwLckYxzJDYPSH4z10LJbz3pmPm88B0LSbMi/lQ7y0ldVgEUlIoD1uSkM
- 1BcQXfQZIU7SQPB/EMA==
-X-Proofpoint-ORIG-GUID: 3VIE6jxIULffMVmQu170zHNraXcWkzVq
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA5MDE0MSBTYWx0ZWRfX1SrhPy1TAVvJ
- 9PyJMqMOgBi9gaYiarI1eEWP9ewUfVGl6U7dtkxECZQL1uB37wIGc/GUmVpdpR2LPpPMkb1syO7
- WBM/CdL/uIdLF+Btc+8EDMsLdikyPVA=
-X-Proofpoint-GUID: 3VIE6jxIULffMVmQu170zHNraXcWkzVq
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-08_03,2026-09-09_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 clxscore=1015 spamscore=0 lowpriorityscore=0 suspectscore=0
- bulkscore=0 impostorscore=0 phishscore=0 priorityscore=1501 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609090141
 
-On 9/9/26 2:24 PM, Krishna Chaitanya Chundru wrote:
-> During system shutdown/reboot, power/clocks to the PCIe controller get
-> removed regardless of link state. If the link is still up when that
-> happens, it can trigger SMMU or NoC errors.
-> 
-> This series adds a shutdown() callback to the Qualcomm PCIe host driver
-> that forces the link into L2/D3cold before shutdown proceeds, reusing
-> the existing suspend_noirq() path.
-> 
-> Patch 1 fixes pci_host_common_d3cold_possible()'s underlying bus walk,
-> which aborts as soon as it finds a device outside D3hot and can
-> therefore miss a later PME-capable device -- something that becomes
-> common once patch 3 starts forcing D3cold entry during shutdown while
-> endpoints may still be in D0.
-> 
-> Patch 2 adds a force parameter to  dw_pcie_suspend_noirq() so that callers can
-> set to make dw_pcie_suspend_noirq() force L2 entry during shutdown/
-> reboot, skipping the D3cold capability check that can otherwise leave
-> the link up if any endpoint hasn't suspended yet.
-> 
-> Patch 3 adds qcom_pcie_shutdown() and wires it up as .shutdown.
-> 
-> Signed-off-by: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
-> ---
-> Changes in v6:
-> - remove return 0 in d3cold_possible() (konrad)
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider:
 
-I re-read it once again and I'm not sure my comment was right..
+Critical: 0 · High: 0 · Medium: 0 · Low: 1 (1)
 
-Konrad
+- [Low] In the newly added
+  Documentation/devicetree/bindings/net/wiznet,w5100.yaml, `spi-max-…
+
+Pre-existing issues:
+- [Low] Documentation/devicetree/bindings/net/wiznet,w5100.yaml (added by
+  this patch) constrains `interrupts` only with a count (`maxItems: 1`…
+
+--
+
+dt-bindings: net: wiznet,w5100: convert to DT schema
+
+This converts the Wiznet w5x00 SPI Ethernet controller binding from plain
+text to a YAML schema, adding the file wiznet,w5100.yaml and deleting
+wiznet,w5x00.txt.  The new schema enumerates the three compatibles,
+constrains reg/interrupts/spi-max-frequency, and carries over the
+Raspberry Pi example.
+
+A couple of questions below about the interrupt and spi-max-frequency
+descriptions.
+
+> diff --git a/Documentation/devicetree/bindings/net/wiznet,w5100.yaml b/Documentation/devicetree/bindings/net/wiznet,w5100.yaml
+> new file mode 100644
+> index 0000000000000..601d828bae927
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/net/wiznet,w5100.yaml
+> @@ -0,0 +1,66 @@
+
+[ ... ]
+
+> +properties:
+> +  compatible:
+> +    enum:
+> +      - wiznet,w5100
+> +      - wiznet,w5200
+> +      - wiznet,w5500
+> +
+> +  interrupts:
+> +    maxItems: 1
+
+[Severity: Low]
+This isn't an issue introduced by this patch, but the interrupt polarity
+disagreement between the binding and the driver is now the only in-tree
+record of it, and the wording that described it is being dropped here.
+
+The deleted wiznet,w5x00.txt said:
+
+  w5x00 natively generates falling edge interrupts, however, additional
+  board logic might invert the signal.
+
+The new schema has no description and no type constraint under
+interrupts, so that information disappears from the tree.
+
+Meanwhile w5100_probe() in drivers/net/ethernet/wiznet/w5100.c hardcodes a
+level-low trigger in both registration paths:
+
+	err = request_threaded_irq(priv->irq, NULL, w5100_interrupt,
+				   IRQF_TRIGGER_LOW | IRQF_ONESHOT,
+				   netdev_name(ndev), ndev);
+	} else {
+		err = request_irq(priv->irq, w5100_interrupt,
+				  IRQF_TRIGGER_LOW, netdev_name(ndev), ndev);
+
+and __setup_irq() in kernel/irq/manage.c applies the driver flags over
+whatever the DT node asked for:
+
+		if (new->flags & IRQF_TRIGGER_MASK) {
+			ret = __irq_set_trigger(desc,
+						new->flags & IRQF_TRIGGER_MASK);
+
+So no interrupts are lost, but the type in a node copied from the example
+is never the one the line is programmed with, and request_irq() fails
+outright on an irqchip that cannot do level triggering.
+
+Would it make sense to either describe/constrain the type as level-low in
+the schema, or have the driver pass IRQF_TRIGGER_NONE and honour the DT
+type?
+
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  spi-max-frequency:
+> +    description:
+> +      According to the w5500 datasheet, the chip allows a maximum of 80 MHz,
+> +      however, board designs may need to limit this value.
+> +    maximum: 80000000
+
+[Severity: Low]
+Should this ceiling be per-compatible?  The description scopes the 80 MHz
+figure to the w5500 only ("According to the w5500 datasheet"), and the
+deleted .txt scoped it the same way ("when accessing the w5500"), but the
+constraint sits in the shared properties block so wiznet,w5100 and
+wiznet,w5200 inherit it too.
+
+The older parts have lower SCLK limits, so a node like:
+
+    ethernet@0 {
+        compatible = "wiznet,w5100";
+        spi-max-frequency = <80000000>;
+        ...
+    };
+
+passes make dt_binding_check with no diagnostic, and w5100-spi.c then
+clocks the bus at that rate.
+
+Other net SPI bindings in the same directory express this per variant
+inside a compatible conditional, for example the spi-max-frequency block
+in Documentation/devicetree/bindings/net/qca,qca7000.yaml:
+
+        spi-max-frequency:
+          default: 8000000
+          maximum: 16000000
+          minimum: 1000000
+
+Would an allOf/if:properties:compatible:contains: block per part be
+better here, or a description explaining why 80 MHz is safe for all
+three?
+
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - interrupts
+> +
+> +unevaluatedProperties: false
+> +
+> +examples:
+
+[ ... ]
+
+> +        ethernet@0 {
+> +            compatible = "wiznet,w5500";
+> +            reg = <0>;
+> +            pinctrl-names = "default";
+> +            pinctrl-0 = <&eth1_pins>;
+> +            interrupt-parent = <&gpio>;
+> +            interrupts = <25 IRQ_TYPE_EDGE_FALLING>;
+
+[Severity: Low]
+This is the same pre-existing mismatch noted above and not something this
+patch introduces; the edge-falling type was in the old .txt example
+verbatim.  Since this example is now the only surviving statement of the
+expected trigger type, is IRQ_TYPE_LEVEL_LOW the value to show, given
+w5100_probe() requests IRQF_TRIGGER_LOW?
+
+Nothing in-tree uses these compatibles today (a grep for wiznet,w5 matches
+only the binding and w5100-spi.c), so no shipped board DT is affected
+either way.
+
+> +            spi-max-frequency = <30000000>;
+> +            local-mac-address = [ a0 b0 c0 d0 e0 f0 ];
+> +        };
+> +    };
+> +...
+
+[ ... ]
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260904-wiznet-link-gpio-v7-0-69f01b70c96f%40marmottus.net
