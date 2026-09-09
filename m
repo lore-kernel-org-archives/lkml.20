@@ -1,69 +1,67 @@
-Received: from mail-qk1-f226.google.com (mail-qk1-f226.google.com [209.85.222.226])
+Received: from mail-pj1-f100.google.com (mail-pj1-f100.google.com [209.85.216.100])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0252A4825AD
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 22:29:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.226
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EABBF48EC82
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 22:29:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.100
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788992962; cv=none; b=Fv0dLrsun2nkQwB1HoupFJx6B73GnnX68GOlgXovo8EQPiEX9oP4aau4cZ4mN3UogfwAaKxgCL25EN1nwnpjwSYXZL7Hu9ghg8/0JMC2e5hEKBAXm8YYUMzMvrSw3FVP9n0s8ljcGNqu8GpG/XT7jVTff/YetL2Cukto+UdOE0I=
+	t=1788992962; cv=none; b=N4L3vinrrPk7WzYelkQv7ftIYXK7MCp5BdN9XR6lDELQI71C38qQX1Lr4mAwDC6LA35nTI68DwCcfcuXRiolacyDBvZG/qW50D6pt1Mvf+CxAzOZ5RAfshPzRh90apQmRJuoJUnWzxY9NWoVC1qwz3QUAEfCiJ/J96ofcr8SVX8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788992962; c=relaxed/simple;
-	bh=WlsOlqUvKm0Axyc+Vr7Lx6IQyXMjzH3K2ebSlJNCLAM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=EQkW600eV7z3t/nTw6hDNv2MUnBSMFRzbULtAihnVRiJFOKOUK7qBDrcVoRg+gftJlMkz2MUfcdbbvfJKXSUgFRIc+dtTtFmk/DQ73QS+deCJ5f/rms+oT40PJio1aFltvzp1eXq4vmK/vqcfFE1lNYg3sOPKXaTqvIhg6m46/4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=purestorage.com; spf=pass smtp.mailfrom=purestorage.com; dkim=pass (2048-bit key) header.d=purestorage.com header.i=@purestorage.com header.b=YlaDTKAO; arc=none smtp.client-ip=209.85.222.226
+	bh=UC0n0v4vYaBJdkv8cGUVcJsYvlxPbTS5WG8JuIhvJeM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Qn5C+F9oHt1Hyd0pLN0Fp6X2SxVABbWR2iBPZ8gRZ+3wrVR7kCFIKxZMYgLxPH6AAeVSlovdu5eyeOeUWv34NOHSIV0qrUN0s5uWs+cnfjrfD5USFeBLdcTn5/G0SJ1szop/H6qzsluva4Pgdw5KbeJP7GSBxd/vkXVFgMk8DGA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=purestorage.com; spf=pass smtp.mailfrom=purestorage.com; dkim=pass (2048-bit key) header.d=purestorage.com header.i=@purestorage.com header.b=UC6XZZWO; arc=none smtp.client-ip=209.85.216.100
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=purestorage.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=purestorage.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=purestorage.com header.i=@purestorage.com header.b="YlaDTKAO"
-Received: by mail-qk1-f226.google.com with SMTP id af79cd13be357-939a5f8d16aso884285a.3
+	dkim=pass (2048-bit key) header.d=purestorage.com header.i=@purestorage.com header.b="UC6XZZWO"
+Received: by mail-pj1-f100.google.com with SMTP id 98e67ed59e1d1-38f57e312ecso270350a91.1
         for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 15:29:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=purestorage.com; s=google2022; t=1788992944; x=1789597744; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=UMfVAOprw3d03YbEriUlDSnVZxTmhvnPgihN27iwNZ0=;
-        b=YlaDTKAOPD8G9f6lPOdiST5HYvAvKoSvlH1Q0SKuFaO04MjE6GXwrFoaECtfMuWseT
-         i6JIP9OpSkWmJrK+hCs5zwirb9PTaYOFEIjPhwYDxXlx0M3W4slMSObihwDMwEK+8Sly
-         JKNS3jSK+MBICrCm6z/UfNqdlcUPH6zO3SXSeob9nWcjF0qeSNpwwm4wk5vSfzAjMpae
-         tI94U6R6t6K8/p5ch9nWGNj4sr5i2Bpp44VbJYIGDBxW/SUzU0dK+fb3ptJmA18VTkta
-         1aQWLCsngoLenxXlVpKPtsi8mzs2edAo/XdAkknk6Nnwomtk7366JjmabSnqOYnZa5ch
-         K6Dw==
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=sAKhWIfpeZ5+jLFDZPzZcWORkKqrMwJSrxhzssQpKO4=;
+        b=UC6XZZWO7Y2WVo+vecCCGpTK5490/d0MCNMvRYhcwMPdbt9jQv3twGsqjOZ4oHjQRu
+         bVen1RumNS2Jj3NS+cI1VWF+gqIUFuwRtBXJZpZtkqyiPi0rs4WxgrP25AE0z8F7mLP2
+         F9pAo49LPwFToA8WKwOkc6wtIbOiz9X0Fbl50lozmPMXeuTWVmbMVMMrlOs+h0K+9wR1
+         h2EsvRDwhnA9bBse6xBEmzCl8Ycs9I2IwyoW3PgCS+KukNxeHxgQz1c7HMm+Md4sRhp5
+         ZFjYkYu/veuIoLEgfaSeb9o3RCZIO1SHUY6CROnURLFCicTNgAyWcIKWTJPGsO4od829
+         +3Dw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20251104; t=1788992944; x=1789597744;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=UMfVAOprw3d03YbEriUlDSnVZxTmhvnPgihN27iwNZ0=;
-        b=BmWDflUnMMnTAVo0NJm8MU95/9akfNGI838oKFIJojv+aEE82RrIxORvYd3w30eE9y
-         kcuYHwWs54oFzvJPPdvJeuwafqmtgI38Nns4jOasJt4F9vlhIf1yvIZmXFj0VdRUAg2a
-         8gBu/JHGQa6KgPX5L9Y+CV/koZGD42vzIp7cvRQyVr6G3IbeEUqiuydeEpQouFlFNQ+8
-         NrSUXWpLAZQKmAaN8w8ShTKuw01tHobCf+O5QS4k1MR/DH5jirWzydw32scvutGimhKK
-         xuY3gyIqSbhnllUOlZDU1TN+Ko5WJE0z8nuawBdF7tz4uyuSNUMA2YbU2Usn6bL2zAcv
-         cYvw==
-X-Forwarded-Encrypted: i=1; AKwUvBxHUL9pt00wA9/77KLArLj9rZc8bf94KxzR/Z6nDUhCTP9x8ZqyXJQ/BaZAXQpwKk6AJw9hCHEdAX/RsLw=@vger.kernel.org
-X-Gm-Message-State: AFuF++nvN11f+hjuuphag5UYcAPWYbPX5YUcDmYnfxQgyMXAYQjF/GJJ
-	gDGilbrKwg3542J3mpYxl8VyXpyYgYBIu69TyAIK2PDehSm1cjMpeQGzJFt4Uldosgnk6Z4Lnpf
-	URc1t2coXZrGlMrwUGPvfN8acwmunpwxHF3SmXqzxUT8Y3hfdk7w+
-X-Gm-Gg: AYBFou3csJiEjHJPAOcSM7MvdAypkOVUTcY4dlD+EgCFdJh4+kWssE+o4NXQSryjAxG
-	aOBccqvM3RWkyT+Q0TMi28loAgOmUzWEdpAxFNh9xXuGNl/1SRf/N3917bgXu1ER7DY7iWnW0KU
-	CddUy7r/pfgczEEZZnl/2qSBk91BtbLum5nhMxhw8hIhyKwAa36NThW1ms2DhKKjfabCU5KLLdk
-	JZmWzkcyWHPJBtJYPEQx4Ec5M8l44T1d/zGDVIkcHrXlJSDhpOKuygdEHj9jClK153t0KCicqwI
-	MQ96sOb+25nlg8Y26bHIglIwyiFYd2TqnmBf0F2HxwEja0D5I4dfs3S0JuaXDy64ueV3Prrj7Rk
-	DqXCAD+Ud2bAgnnrW
-X-Received: by 2002:a05:620a:46a0:b0:939:8a2e:68bc with SMTP id af79cd13be357-939916a0e37mr2963766485a.1.1788992943812;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=sAKhWIfpeZ5+jLFDZPzZcWORkKqrMwJSrxhzssQpKO4=;
+        b=m690L4eB5orUWk5XfcOApvAqW8/YwAkqCr1svqJbqSSgz5pTh88MlpOM0yJKhyKyyz
+         QypYonn1FSFo+6Zju5DWkj3aZxZKPrMT0XRxCKeV+ve8kmLMx4h/kvwqnBbmxsTzzAD3
+         K6+dyLc9xOQlMO8qSSOXvlbH1hTmlSt6GYTmxb1/BP/sV3ZnYkWWvGc3BLsRo7Xmub10
+         /Mv7hUWCvaFIcH57oRoQZxAKYuau0CdzEkrZzz/rILxQeNxclLEDxpepnguA5dJVQEs8
+         knUHa6e2/s2WyQxzug+o5qj7u685tT53kFJUVAVHw07VevyypoI+Hg8+B/gu5qBes9V3
+         3nAw==
+X-Forwarded-Encrypted: i=1; AKwUvBwabkTJ43GVVwy8/KHVdtD0kd1hDsrhWGGZOl9zqVkJN2Ii9ZVLv1gHUEV5D6L1/G4AtUfJxS1e7VgGCNI=@vger.kernel.org
+X-Gm-Message-State: AFuF++mnJk1DvA8R9STm4NiX5TKWQHk+Qpkr8syz75zyAjSEDjU6uncm
+	ZREetrVqrFdQACJUAJNs55zYrOoGPdYBPhee7yyw9TzwEsk4oHCxdnq+l/g3RNNCqwJZloDYr9p
+	uOIE6ECMplxFBDToD3OR+E/JZBmLHW1MabpAaFf36d7Mbgt2xPMZL
+X-Gm-Gg: AYBFou1/ll43Zyfqgnmg9GNCDdlELCVOGvt+HpbGIIgGCkYfy138Iq8JrGseOEGB3oe
+	aqzdgZ3En145WOs6c/Jqk1jpxZqbEjSajWD5mUKAUUw5Tl5S431BbzA/6YMMNp6Dc0ovlcIbibX
+	u7kXzRqTL+rymvfYtKdL5GEeORuMsjmO11zGLpXwBrOAaeAPnANxqva7j6tm+6X4pFtf9Eph2Ub
+	nURO68LdUpS4IbIwI2GbERY/iM3anNzbCdJz+Sfga6d/F1riAzD64OkzHG0cixbbE4mvAGO9c7u
+	VUk9gKC45yuOC6//COBHI86B+yJjoMLEPOX/js2AFGPhfXNp6fGVE1YDOztLTiE2a601IIJ3/yj
+	n1hyJ4fYrGD0J3Ido
+X-Received: by 2002:a17:90b:384d:b0:398:bac0:238e with SMTP id 98e67ed59e1d1-39b3d8377camr32217761a91.6.1788992943615;
         Wed, 09 Sep 2026 15:29:03 -0700 (PDT)
 Received: from c7-smtp-2026.dev.purestorage.com ([2620:125:9017:12:36:3:6:0])
-        by smtp-relay.gmail.com with ESMTPS id 6a1803df08f44-91040757b20sm1488646d6.24.2026.09.09.15.29.03
+        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-39d77406179sm490112a91.5.2026.09.09.15.29.03
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
         Wed, 09 Sep 2026 15:29:03 -0700 (PDT)
 X-Relaying-Domain: purestorage.com
 Received: from dev-csander.dev.purestorage.com (bond0.slc5-n17m28-k8s.dev.purestorage.com [IPv6:2620:125:9025:20::a31:41f])
-	by c7-smtp-2026.dev.purestorage.com (Postfix) with ESMTP id 096AD402B2;
-	Wed,  9 Sep 2026 16:29:03 -0600 (MDT)
+	by c7-smtp-2026.dev.purestorage.com (Postfix) with ESMTP id E70B9402A9;
+	Wed,  9 Sep 2026 16:29:02 -0600 (MDT)
 Received: by dev-csander.dev.purestorage.com (Postfix, from userid 1557716354)
-	id 07299E40322; Wed,  9 Sep 2026 16:29:03 -0600 (MDT)
+	id DE5A0E40322; Wed,  9 Sep 2026 16:29:02 -0600 (MDT)
 From: Caleb Sander Mateos <csander@purestorage.com>
 To: Jens Axboe <axboe@kernel.dk>,
 	Keith Busch <kbusch@kernel.org>,
@@ -74,12 +72,10 @@ Cc: io-uring@vger.kernel.org,
 	linux-block@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Caleb Sander Mateos <csander@purestorage.com>
-Subject: [PATCH 1/6] bio-integrity: remove dead bio_integrity_copy_user() error path
-Date: Wed,  9 Sep 2026 16:28:31 -0600
-Message-ID: <20260909222836.2475352-2-csander@purestorage.com>
+Subject: [PATCH 0/6] io_uring/nvme: support fixed buffer for metadata
+Date: Wed,  9 Sep 2026 16:28:30 -0600
+Message-ID: <20260909222836.2475352-1-csander@purestorage.com>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260909222836.2475352-1-csander@purestorage.com>
-References: <20260909222836.2475352-1-csander@purestorage.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -88,44 +84,62 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-If bio_integrity_add_page() in bio_integrity_copy_user() fails in the
-write case, bio_integrity_copy_user() will return an error after having
-already unpinned the user pages. The release_pages label in
-bio_integrity_map_user() would then unpin the pages a second time.
-Thankfully, bio_integrity_add_page() can't fail here because the
-bio_integrity_payload is freshly allocated, so bip_vcnt is 0. Replace
-the unreachable error path with a WARN_ON_ONCE().
+io_uring NVMe passthrough supports using a "fixed" (registered) buffer
+for data, but not metadata. On high-IOPS workloads, the pinning and
+unpinning overhead for the metadata pages is significant and could be
+avoided if fixed metadata buffers were supported.
 
-Signed-off-by: Caleb Sander Mateos <csander@purestorage.com>
----
- block/bio-integrity.c | 8 +-------
- 1 file changed, 1 insertion(+), 7 deletions(-)
+This patch series adds the necessary plumbing to allow NVMe passthrough
+commands to use fixed buffers for their metadata. The metadata and data
+fixed buffer indices can be specified (or omitted) independently.
+Supporting separate fixed buffers is important as metadata buffers are
+often stored in separate memory from the corresponding data buffers. For
+ublk zero-copy I/Os, sharing a buffer index would be impossible as the
+data buffer is a kernel registered buffer while the metadata buffer is a
+userspace registered buffer.
 
-diff --git a/block/bio-integrity.c b/block/bio-integrity.c
-index b23e2434d80c..8ba8bfa41f8a 100644
---- a/block/bio-integrity.c
-+++ b/block/bio-integrity.c
-@@ -299,19 +299,13 @@ static int bio_integrity_copy_user(struct bio *bio, struct bio_vec *bvec,
- 	else
- 		memcpy(&bip->bip_vec[1], bvec, nr_vecs * sizeof(*bvec));
- 
- 	ret = bio_integrity_add_page(bio, virt_to_page(buf), len,
- 				     offset_in_page(buf));
--	if (ret != len) {
--		ret = -ENOMEM;
--		goto free_bip;
--	}
--
-+	WARN_ON_ONCE(ret != len);
- 	bip->bip_flags |= BIP_COPY_USER;
- 	return 0;
--free_bip:
--	bio_integrity_free(bio);
- free_buf:
- 	kfree(buf);
- 	return ret;
- }
- 
+My main question is which layer the metadata fixed buffer should belong
+to: core io_uring, io_uring_cmd, or NVMe passthrough? In this initial
+implementation, the io_uring_cmd layer stores the metadata buffer node
+and the NVMe passthrough layer defines the UAPI.
+
+The main argument for moving the implementation to a more generic layer
+would be to reuse it for other io_uring request types. For example,
+IORING_RW_ATTR_FLAG_PI could also benefit from a fixed metadata buffer
+option, though this series doesn't implement it yet.
+
+On the other hand, core io_uring_sqe and io_kiocb space is very limited,
+so it may be undesirable to dedicate it for a somewhat niche use case.
+The metadata buffer node storage could be pushed to the NVMe passthrough
+layer after my in-flight series [1] to reclaim nvme_uring_cmd_pdu space.
+However, managing request-scoped resources from a ->uring_cmd()
+implementation is a pain, as the same request can call ->uring_cmd()
+multiple times and may or may not complete when ->uring_cmd() returns,
+depending on the ->uring_cmd() return value. io_req_uring_cleanup(), in
+contrast, provides a single cleanup path for all uring_cmds.
+
+[1]: https://lore.kernel.org/io-uring/20260909155848.2069290-1-csander@purestorage.com/T/
+
+Caleb Sander Mateos (6):
+  bio-integrity: remove dead bio_integrity_copy_user() error path
+  nvme/ioctl: remove struct nvme_uring_data
+  blk-integrity: pass iov_iter to blk_rq_integrity_map_user()
+  nvme/ioctl: pass iov_iter to nvme_map_user_request()
+  io_uring/cmd: support fixed buffer for metadata
+  nvme/ioctl: support fixed buffer for metadata
+
+ block/bio-integrity.c           | 51 ++++++++++--------
+ block/blk-integrity.c           |  7 +--
+ drivers/nvme/host/ioctl.c       | 91 +++++++++++++++++++--------------
+ include/linux/bio-integrity.h   |  1 +
+ include/linux/blk-integrity.h   |  6 +--
+ include/linux/io_uring/cmd.h    | 12 ++++-
+ include/uapi/linux/nvme_ioctl.h |  5 +-
+ io_uring/rsrc.c                 | 28 ++++------
+ io_uring/rsrc.h                 | 17 ++++++
+ io_uring/uring_cmd.c            | 30 ++++++++++-
+ 10 files changed, 160 insertions(+), 88 deletions(-)
+
 -- 
 2.55.0
 
