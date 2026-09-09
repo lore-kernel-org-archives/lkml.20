@@ -1,73 +1,73 @@
-Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com [209.85.216.44])
+Received: from mail-pf1-f173.google.com (mail-pf1-f173.google.com [209.85.210.173])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76FDB530E17
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 10:49:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37C82533593
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 10:49:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788950961; cv=none; b=Fe2vNxesbCj5yAU4gml/weNokGXGI3FSLgiPDszovD6I59k/TS8N2iSGK9PhKM/V8Qy68vJC2Zh1Y2tpGZR4aZd/3lrhXcjULmcGdrDLnEA+SsZzAqDW7BQInuiNsM+Vex896AzhvLwKItdwS1sYyziTOw28einVp2CrK+JiZ2c=
+	t=1788950964; cv=none; b=rGTXEfDbFLK6wFWgcQehBtVefKNwPuqljSeCk2io5GH/VarRqPO8cM+8GVE3OaPTqvrPa7tjUL7tC8Xt+Hqui1CKsBBcLRBxO6a6irPxRoLaSxZnl3A9vtg+SCy5XmX1YH9I07LkV85UJWVjdKoFi8aXTMNemDV2/xYI6shpQ1g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788950961; c=relaxed/simple;
-	bh=HhUiwpApPp1PvQ5DB2B/c6qqcPMEq2cFKx+kv1MDJtk=;
+	s=arc-20240116; t=1788950964; c=relaxed/simple;
+	bh=CpjLaJJjD8vhLCsAVTtlUMrtov9by2/IVfsnz7WVKuE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=VG+3YtGH2nWcNPE1sqMLmMduhB18si6sTvaRu/ulDpVreeAsKOB7+3b0t+byS5UAjO3GHnZI36QtJH+3c+HDKgAAWq2WLnMbAGGZvostXxShFJ86BHjV8slKJIpthOWsJuDYFcEOf1Jx4Mv6gkcOseKAH4YCzgZBy/gg0UdFr/g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gjR1Mlc5; arc=none smtp.client-ip=209.85.216.44
+	 MIME-Version; b=ETUgfH+QUX1imDT8/ZuBS+zF/ElUkosMW9BhWDcDjMEteZIYdSuvPmFcT57CCkBV1shobg2v8ME3hztUi/1pN9sEw6U1xycG9vbP0LD1JQyfoiQvE3ra4oePjjWFqLQGQtSx9NH0GA4AA0T6TNxYKYapxyXNlqQPZfWmtJM1Ikk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=USI14LO8; arc=none smtp.client-ip=209.85.210.173
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gjR1Mlc5"
-Received: by mail-pj1-f44.google.com with SMTP id 98e67ed59e1d1-381b831d535so8913394a91.0
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 03:49:19 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="USI14LO8"
+Received: by mail-pf1-f173.google.com with SMTP id d2e1a72fcca58-8520161fdb9so5713672b3a.3
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 03:49:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788950958; x=1789555758; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788950961; x=1789555761; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=NYYSg4n/Nh940SSb9t8+EI1dJmqGSAca/D+rn4rXdBU=;
-        b=gjR1Mlc5dde6yCZ3V8Nkyl80zz4slF9VIpMOdtsSwx6qE1BDHGuyjkNDkI/wiAlBLe
-         DtgK+PsConGvkl1dGjkSrHcmrjz4lLHgo/22cvvdx69H6hbf+LiS/IVF0JmyDzDqSpYn
-         nXIovB+QUCTqNbX1pSo3LA+YNiC0yyVv3JJHvfzWpdYKSXbXi+RpgGAU2/TmbhCbzC68
-         LSRnKgXXTX0dgBpwoDwX0mtA0gNGxx/h7POhqXEufQEFO09fr3yVgVZUmcPKluQzO4fK
-         8g7wrpJXM2tSJW8RXEb/Lu+KQUHHz2EjYuEmyE7tr/e8ZCMkR5IZIg7KkxFPoG2esSxH
-         SSLQ==
+        bh=c7NhZSXmEgRftQ8I2EcEI/sFWG4uZBvif+OlTpOSwU0=;
+        b=USI14LO85HYD4h4yKdGROOAtgOYz7uMwD1GY+gwSPRTEV7RF3o5SaJKis2jYf6EUr1
+         DsdMQaYH2Kz+ZN7PZFbFrFP2TjI56Hvq6/X8yf8qmzJjZ9YhCuaFo49ke/QzSfUPCuok
+         bxGgFJn7x+00W9yWhN3rMMIrAvCux/W4PAvL35v2mkVzFak2G96ub5QG3YhPQNU/N195
+         CaWfx+jLlPZ2k0as/N+Nr83eXgIGECpS9vHpHdFMZWnLaEk1r9tNoJVosM0+eph5//ZT
+         wYiBMXlsBSJL+RszS+jGHL7Y2jYhijF3oUQ+nriRSKxZLw37dOgCVnr2We0pM5UmwyA4
+         r4sw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788950958; x=1789555758;
+        d=1e100.net; s=20251104; t=1788950961; x=1789555761;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=NYYSg4n/Nh940SSb9t8+EI1dJmqGSAca/D+rn4rXdBU=;
-        b=CYn5AnL8SZ0H7+ta8ybt37s8cWdl4SRbdHhYj2ltVVBI/tpRed38anNmDzflTgH+Bo
-         4txQsKyzATPODvJFH7PVoCY5zNIUWJbVaV/ZKH7mG4uffcasYjT4Wt8aVKbwzGXr+W5v
-         jaew/PcOlLcSQQmf9dr8pOZQjL0PgwdqLmK0vPwvnbFkv2JYxAOkmdZlVNt3fGcmqylt
-         S6nnqtrVULNGw5DnRbR3Pr8tLdC0cRrxlVcolTS39bsZIDFfz7eIwDqVfUxw6sFDqZwr
-         1mLfYAlHrCCe9Sg9KKy8X0ID+jO8fdKpCnkUtpVgNIhQ2s7MnOL3yPMF6U02PW02vN3a
-         X0NQ==
-X-Forwarded-Encrypted: i=1; AKwUvByXOjyCXtgrVMIyTyX8uZ4BGGZf8ejcYy0urHJXU4XijJOLVg/lbDLNkQWhKPNgFgPGnyX57Zvww4dykxw=@vger.kernel.org
-X-Gm-Message-State: AFuF++m3GkWCMdAq60xFhkl6aPqCdNlLSoj1MjWGueAbjBG9tpf7NvNX
-	WVHWRhmC6SzdeEBqquRNzgP5cdbt9c7ZH1XmdMncR20crMkHjxRJqyee
-X-Gm-Gg: AYBFou1WPItVPbzURD7pkrtW/HeT13eNwu2YV09G7uGTxtlvo68//w7ooQ+UH61lhwF
-	DI3zQ6ogScOF0hBaS/JBFKOVFfN6uZrtgkGBS8Lx/Zk7y77gsuKHABnF1dDGXdhe4wf14t/rHFk
-	QbWUcP+joMq3WjL/XqKywtxe0+blJzK1wtmv+Fe1hrNZ1BJttOG5dYAApuipTHNe9YgU7rQ/msX
-	RP9TuxTBmpQhOOC9w/+NNMZdXBQBKsmAHGluvCACQFqpMM2xfrtNBBixKIRqNRL+CiFp/3jucGG
-	ChQ/2gn5Z5mJawMsOjP/nblruAwuWnryQ3lKUDIzfR7Da1mYn/o4K04H74DpKxi45gJWXMLRBhM
-	zp7LKinnG6hL6TemtS1a7/rdlgsobSmhnM792FRVTyS6Uv1kX+M2VUsE+fGXQa95RDG43YyZwrU
-	wsxFEKXcHrTjeLQ1mvlYdIlM6z80YA9NzvtJuE61/KIbcdv8nZjGKbmKyE8A9VVQtwlh71SF2s6
-	JyOs3j54v1RrhEHtLRfqT3Yoadv1TGOQ38=
-X-Received: by 2002:a17:90b:5344:b0:38e:4f41:83df with SMTP id 98e67ed59e1d1-39b261e0f14mr51530680a91.15.1788950958316;
-        Wed, 09 Sep 2026 03:49:18 -0700 (PDT)
+        bh=c7NhZSXmEgRftQ8I2EcEI/sFWG4uZBvif+OlTpOSwU0=;
+        b=XEu6ArchJBpgjHPrgNiaqQbtYD8PnsMdfZcyrVa8+xeBdQSaBrTEZzrfFczjRs+Vre
+         sheIW4ulK969TlKynRvxspFSgBxIDBZ9yWofjNXSPgUIehNI1rVYB+74DH3eTjHjeITx
+         WC0utYBO2BHa2ZA2kccMtXX8Y6EEsZxv/09mQGJwOkZ9ECM+mYQLT7WEGpPx2+3TPuwW
+         QZ3Z/SVAwnQkGwilhfJgroigHIFwSo0UeX4g7OzpLRq0xOkVp21f+V9kjBgmW6liFQHl
+         orw0LCvbXXyoaqc7QhKkazh1od174gUFJdOgKdbD8kMXZcJ7PfwXFTYs8mtH/HCFYF9E
+         aLJA==
+X-Forwarded-Encrypted: i=1; AKwUvByA5vaETDTF1xbMpvDwQCYfAW6xXL/74oe1k04mJPw+2Rt2DeX/ZtH1QKCOaZCT2+qmSFp39kktROjlXnA=@vger.kernel.org
+X-Gm-Message-State: AFuF++k3ooF8ECp992vjUMAVbkZUGW1+xs3mWl8SX8JQe5CQn5FIgcWN
+	wyn75o6+cp0lffqbDApVF7XBQF00KUW8zyeYPVclqrPIKk3h3BtEusx0
+X-Gm-Gg: AYBFou3G6djnboTDRV2SWEZmNMd2/Sm+Le+BEgVQsKAiREbAbxYODSmsYozQ12olOj5
+	NvGqtO1EJTxPB19g7BjI2boSfjqN78DZQ4FgJ1pht1NWoTCZa50+Lbmd3jqtnUSW2UvZDWDrW2A
+	xnG9DlaeZTDFrLPBIpMtAP9AXT7rcHW5XY+2qw/XlfPqIdNXTvxqoDI8G1FfmbJ5ktLm6NYrRkH
+	UQcBA732+9rhZhMp8fztLgXBhepf7dx02fRu8oW8yXWpeZlM0rd2IULmiWg8P6dATBxlJL9Dgpk
+	Km8UgQJwOEG11UrrCNFFbWdgUMSboQApMiaRvJTh9z/OIW6oT2E3vDMu7bctDXo4eN1mmPBtWwY
+	/WFQRPqqSJKMPVd/EiZewpNc6DXGq1tPuVizn+Vxxq1kdq+fh8CZCHSdWzJAth+n14086dbJjqb
+	ni5rnbLTjxgt0OOIQuiN1zm4TtaML+17UHGeVXsFjnPTmsb9vWkGwBxp/rDWwewzVxGUbNOD6JB
+	4qUd7acSJ8MqOsKx4KSLdRi
+X-Received: by 2002:a05:6a21:3943:b0:3c4:1493:6822 with SMTP id adf61e73a8af0-3da3a0aa8cbmr57062584637.18.1788950961428;
+        Wed, 09 Sep 2026 03:49:21 -0700 (PDT)
 Received: from LAPTOP-450UDG4J ([223.185.135.143])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3396e7e477csm12026723eec.29.2026.09.09.03.49.15
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3396e7e477csm12026723eec.29.2026.09.09.03.49.18
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 09 Sep 2026 03:49:17 -0700 (PDT)
+        Wed, 09 Sep 2026 03:49:21 -0700 (PDT)
 From: Yogesh Gaur <yogeshgaur.83@gmail.com>
 To: Ian Abbott <abbotti@mev.co.uk>,
 	H Hartley Sweeten <hsweeten@visionengravers.com>
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	linux-kernel@vger.kernel.org,
 	Yogesh Gaur <yogeshgaur.83@gmail.com>
-Subject: [PATCH 4/6] comedi: dmm32at: validate the IRQ supplied by userspace
-Date: Wed,  9 Sep 2026 16:18:45 +0530
-Message-ID: <20260909104848.1763-5-yogeshgaur.83@gmail.com>
+Subject: [PATCH 5/6] comedi: pcmmio: validate the IRQ supplied by userspace
+Date: Wed,  9 Sep 2026 16:18:46 +0530
+Message-ID: <20260909104848.1763-6-yogeshgaur.83@gmail.com>
 X-Mailer: git-send-email 2.55.0.windows.5
 In-Reply-To: <20260909104848.1763-1-yogeshgaur.83@gmail.com>
 References: <20260909104848.1763-1-yogeshgaur.83@gmail.com>
@@ -80,44 +80,43 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
 comedi boards are configured through the COMEDI_DEVCONFIG ioctl, so
-it->options[1] is a number chosen by userspace. dmm32at passes it to
+it->options[1] is a number chosen by userspace. pcmmio passes it to
 request_irq() without checking it first, which lets an interrupt owned by
 another irqdomain -- a PCI device's IO-APIC GSI, for instance -- be
 claimed for this board. When the owner of that interrupt is later
 released the descriptor is freed while this driver's handler is still
 installed on it.
 
-Every interrupt this board can assert is a legacy ISA one, so the ISA
-range is the right bound; it is also sufficient, because
-mp_chip_data->isa_irq is set only by alloc_isa_irq_from_domain() and
-mp_unmap_irq() returns early when it is set.
+The board's interrupt is routed in software rather than jumpered, and the
+driver notes that "any IRQ from 1-15 is OK", so the ISA range is exactly
+the right bound.
 
 Bound the value before requesting it, as das16m1.c already does. An
 out-of-range value is ignored rather than rejected, so the board still
 attaches without interrupt support, exactly as it does today when
 request_irq() fails.
 
-Fixes: 3c501880ac44 ("Staging: comedi: add dmm32at driver")
+Fixes: 6baef150380d ("Staging: comedi: add pcmmio and pcmuio drivers")
 Assisted-by: LLM
 Signed-off-by: Yogesh Gaur <yogeshgaur.83@gmail.com>
 ---
- drivers/comedi/drivers/dmm32at.c | 3 ++-
+ drivers/comedi/drivers/pcmmio.c | 3 ++-
  1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/comedi/drivers/dmm32at.c b/drivers/comedi/drivers/dmm32at.c
-index d1d9f75e168f..c6a6ba2899e6 100644
---- a/drivers/comedi/drivers/dmm32at.c
-+++ b/drivers/comedi/drivers/dmm32at.c
-@@ -600,7 +600,8 @@ static int dmm32at_attach(struct comedi_device *dev,
- 		return ret;
- 	}
+diff --git a/drivers/comedi/drivers/pcmmio.c b/drivers/comedi/drivers/pcmmio.c
+index f42b7343b4e4..afe2bda91659 100644
+--- a/drivers/comedi/drivers/pcmmio.c
++++ b/drivers/comedi/drivers/pcmmio.c
+@@ -684,7 +684,8 @@ static int pcmmio_attach(struct comedi_device *dev, struct comedi_devconfig *it)
+ 
+ 	pcmmio_reset(dev);
  
 -	if (it->options[1]) {
-+	/* only ISA interrupts are valid on this board */
++	/* the irq is configured in software, so any ISA irq is OK */
 +	if (it->options[1] >= 1 && it->options[1] <= 15) {
- 		ret = request_irq(it->options[1], dmm32at_isr, 0,
+ 		ret = request_irq(it->options[1], interrupt_pcmmio, 0,
  				  dev->board_name, dev);
- 		if (ret == 0)
+ 		if (ret == 0) {
 -- 
 2.55.0.windows.5
 
