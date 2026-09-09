@@ -1,139 +1,146 @@
-Received: from mail-vs2-f12.google.com (mail-vs2-f12.google.com [74.125.227.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13DFC352026
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 15:21:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C3115540A0
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 15:21:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788967267; cv=none; b=fgFm7647jamGbgQhUQDiwB4bX9vzF1kARw+laIy8PTK2nckFtItbPY1XJiaJ1kiFBpuXSOCNGEZnsk8A62AOSFipbfujVETV3lg+hc34fywPTgjkP/mutuB/mawUZLt6r0IP0yGMU8aVVWUVKe4W/LPlyznJGxGM/8zIQ42uND4=
+	t=1788967288; cv=none; b=DdyZAeYgPtU/6v6G52gOXBZPPUVSrDWTt1tdr00AZ0PdwQeGv4YHyX8E0H0OgZIfnCdO8he9qyHrb+VSGriCZ50hCJKR2NHqmO/t1j4dPqB7l31oSNexjnYUZcFRFdlECP42FOdb+1rxxt2ILyXq60jL5zydn7twG8awn7SJQ+4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788967267; c=relaxed/simple;
-	bh=XkIfu4GFpqkkfkfU2ELXJLd/gzXud8DjECfS0dWQbGw=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=CHTRyHdoTNPzQHOnNwY9SP/u/EXj5FsEFdK9e7/wrYOnfYo+0koEMqSjdcfiT2xR9x7mNOmgFxIOG3/PJB7zG/q86e0Ic/OmkL6PCAEJVrxk5//oP59mcj/WEqhdpCAuTdAq2QM6YbdDdiQtXELr5eisiURFjJV41lfAEGoqMY0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.227.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-vs2-f12.google.com with SMTP id 71dfb90a1353d-5c67e518329so503512e0c.0
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 08:21:05 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788967265; x=1789572065;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=2xIh1wPKDMe5t+fT3IE0obOGyRNurvI4tDRD2p56gTg=;
-        b=ZgtexwEpG63yG1cNreP2Ion2BDjanwNGLLqNmqx/YdvVP3n8QpOOFmMbEymvUgiP8Q
-         pSWq33+Ge5frZDHKP3IhTj/8qtOsB5Fu1/CTtnngluxCcHIZhZsLyHeeEg6cQOkii/sk
-         mdiX0zd5EyFRvQ3h8U2W+Dzi8S22YaL3dQA3M7PyJXrgVxfRg8oWH21MMJV0C9n7T/Wu
-         RVQXvY0Ec2/HXhXTwi3aAaSuDNaRBhLbnqKGsC6DwxpHIGXjb5C10VU4ZoF/0AYNlyI2
-         LTyT2+3e3pd0j4gYF1h8/P1pQJFMAgpp4EOOAA6Jx4A+0Qqf0Lgu+s8t8i6FggNADeOq
-         +DCw==
-X-Forwarded-Encrypted: i=1; AKwUvByc3cAePWvP/1V8P/GN6fEhZ8dW/md5+QubaFJrMD3eVYNFPCqd+6PXjNksQB7jFuRlb7Wkr5BjQ+6TO9k=@vger.kernel.org
-X-Gm-Message-State: AFuF++mkxaAJzlxKYWh5xFo8srgh6bXnywQj9AYhb+DLUeEkyAsiDWlK
-	Otkkzpc3zr3DeiF2DstTbP3In09IGkkOhzRtdm7tBB/0JHx1YBMdd/h6z+D/DbrEags=
-X-Gm-Gg: AYBFou13X9UJaTjkGB+TquH7EG+tJAthWeKBwCtjDw+cShta6XDTkCrwD/gJduxAgP1
-	X9BhSvbltNpLGdB+unM1moVjxwXWzIMCHLhYKQve/hlcXKudmCg6GBMf+NbKeKTAHb9+zN5TTmu
-	ez2IukfA5AMCb3XZI1m10jtQORRygp5DoBQZE08Nt1RvIChiJNoLzR1XhEPxMuK3CWSz2Ot1tjt
-	x/gvq4g3OefBuX5u0PPFMMIbaAoHwQIIXzcjWPP5olKmpzl55yjYdz9OrDWYih0j72LaJR2Yw9g
-	0K0ovf64MVtPQ5rnpNt3/LUd1UJWODxF8pQzqXg6IJo0hJ7kRrfNTySrkkH6KZQ6kEMoiC02BNM
-	JdPYyHOcmZENG3ENtdBc+LqyraX4u/WXZMTVX70j1Wj7xLRS0+OR5Qgjnz/59Q3EGjFNFQJnz4b
-	wLqlkVjrl7LjC3FgCTuGghoUiXjp+lF+vxr5WPoL7vBmCzy6XID+lrEqGigdMRU7EU2f0gTJSS2
-	8S+BWKR20zlmsTefKE13xckyiuom+ScA2gW
-X-Received: by 2002:a05:6122:8ca:b0:5c7:f1ba:aa12 with SMTP id 71dfb90a1353d-5c81a890efemr4731770e0c.4.1788967264879;
-        Wed, 09 Sep 2026 08:21:04 -0700 (PDT)
-Received: from mail-vs1-f47.google.com (mail-vs1-f47.google.com. [209.85.217.47])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5c7ec366bb5sm12553348e0c.13.2026.09.09.08.21.04
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 09 Sep 2026 08:21:04 -0700 (PDT)
-Received: by mail-vs1-f47.google.com with SMTP id ada2fe7eead31-78a338fe106so4668748137.0
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 08:21:04 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBy3B+iNZumNfJURNuGTZ3wvkfvxRHD+1rqNou5+3p6IiNoLkE+W4UOj73BxFlOcaE2/oRaozLgmi4NZiUg=@vger.kernel.org
-X-Received: by 2002:a05:6102:8308:b0:76b:2548:560a with SMTP id
- ada2fe7eead31-78a2efe5c6fmr8198191137.16.1788967264493; Wed, 09 Sep 2026
- 08:21:04 -0700 (PDT)
+	s=arc-20240116; t=1788967288; c=relaxed/simple;
+	bh=4YPdhlDaXgYXXCNnsW81RofX21uV4LTfxxjn7hmEX2E=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=WS1k6l+Z6gI+v/53bMtAf0Yq/p4Vb4HMMzyikW1sOhp+uIOvM3T2sZ1XhR9WQ6QXYpyBd5x9zNiDW10Uxgfn/EZE6Jx5wtB8TE9l7IZ5lskzawtkEOTLRasKky5C+5aViAoneVKy9w0jmh3WKOnrB4WQgMPSbKyWJ4InaNt7Vck=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RhDaHzT6; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RhDaHzT6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A28601F00A3A;
+	Wed,  9 Sep 2026 15:21:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788967286;
+	bh=rNUvA2/lQtpBECQm6efuKE8jX/o1YQk5zTI6Hl7HK0o=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=RhDaHzT6GUcF2HWTvpoJElGyNMHmJSDgj1ko7bu6VBsyOE23dRHeBuzp/IgJicJLu
+	 SGssZIMoPGM1cmma2sCr6OUn5ao0t3y4wT8vW9jgt/7g4u0yywdrNV8WKXFO1h/B3x
+	 C/K7+4UXXEdkONlAsqWBc8rN8RsfJaB4RxlA/LC68yqVsvl1mYV5CUymKi+zQM2n6F
+	 GZKZOYNThfxdR3AYELn4ch3N8BdwMOn68fPG97UFAyaIMK8cbqTV9GZF5tx2uSeXlw
+	 nkscrSqXojNmTocE240Fn9la0KKT+WwJPW74gKw6ZXckSdxuj91xMNTmrkRrRjq2dS
+	 LVExWNenhvauQ==
+Date: Wed, 9 Sep 2026 23:01:37 +0800
+From: Jisheng Zhang <jszhang@kernel.org>
+To: Conor Dooley <conor@kernel.org>
+Cc: Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	Andrey Ryabinin <ryabinin.a.a@gmail.com>,
+	Alexander Potapenko <glider@google.com>,
+	Andrey Konovalov <andreyknvl@gmail.com>,
+	Dmitry Vyukov <dvyukov@google.com>,
+	Vincenzo Frascino <vincenzo.frascino@arm.com>,
+	linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org,
+	kasan-dev@googlegroups.com
+Subject: Re: [PATCH v2 3/5] riscv: support early isa ext and use it to
+ optimize pgtable_l4|l5_enabled
+Message-ID: <aqF00YcBdJIupeJr@xhacker>
+References: <20260907151437.7603-1-jszhang@kernel.org>
+ <20260907151437.7603-4-jszhang@kernel.org>
+ <20260907-smashup-darn-93d1ee105a57@spud>
+ <ap-EZ-rb7RJ5ykmG@xhacker>
+ <20260908-baggie-tripping-c2cee6bb4947@spud>
+ <aqCeaXYJEdW78PMV@xhacker>
+ <aqFHr3BWR0XhxMsv@squawk>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260808025724.131943-1-marek.vasut+renesas@mailbox.org>
- <CAMuHMdWvLX7OZSkfEBA34wKtnoZ4asB6rWFJiLa=2+=fezqsCA@mail.gmail.com>
- <f82ae578-fbe7-4834-bdde-d11e194a507f@mailbox.org> <CAMuHMdXQKL_srr80mUmsnznqJ_qxAoh0TdwyvJ41=CN=2pDjCQ@mail.gmail.com>
- <c784aab5-c0c9-424f-9f9d-a0330f60a0ef@mailbox.org>
-In-Reply-To: <c784aab5-c0c9-424f-9f9d-a0330f60a0ef@mailbox.org>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Wed, 9 Sep 2026 17:20:53 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdWi7ou=pbTfHXHfjCLShwqWOcYYd3vpLPmUHzMMNFJ+fA@mail.gmail.com>
-X-Gm-Features: AcwNN1X2mn0ov-erdE-79oChYQokKwSLC2Xb3xUhMRJG7PmcUAF6Kj0jO0aTaU0
-Message-ID: <CAMuHMdWi7ou=pbTfHXHfjCLShwqWOcYYd3vpLPmUHzMMNFJ+fA@mail.gmail.com>
-Subject: Re: [PATCH] arm64: dts: renesas: sparrow-hawk: Add overlay for
- WaveShare 2CH CANFD HAT
-To: Marek Vasut <marek.vasut@mailbox.org>
-Cc: linux-arm-kernel@lists.infradead.org, Conor Dooley <conor+dt@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Magnus Damm <magnus.damm@gmail.com>, 
-	Rob Herring <robh@kernel.org>, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-renesas-soc@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <aqFHr3BWR0XhxMsv@squawk>
 
-Hi Marek,
+On Wed, Sep 09, 2026 at 12:49:09PM +0100, Conor Dooley wrote:
+> On Wed, Sep 09, 2026 at 07:46:49AM +0800, Jisheng Zhang wrote:
+> > > > This assumes SV48 and SV57 are the only "early" users, but
+> > > > other ISA ext may also need "early", who knows. So if future some extensions
+> > > > need the "early", the code is ready, the author doesn't need to care about
+> > > > the isa filling at all.
+> > > > 
+> > > > So I prefer my patch as is. What's your opinion?
+> > > 
+> > > We're about decade into the port being merged and this is the only thing
+> > 
+> > but the isa extension alternative is not, it was introduced by me three
+> > years ago. But no matter how many years, 
+> > 
+> > > behaving in this way. I don't think the code in this patch is worth it on
+> > > the off chance that something else comes along. If it does, we can
+> > 
+> > this makes sense. Let me cook a new version
+> > 
+> > > always fish this implementation back up and use it.
+> > 
+> > > 
+> > > I'd also like to differentiate this code from "needing early", because
+> > > this is about populating the information early in the extension bitmap,
+> > > rather than about actually needing the information. There's no advantage
+> > 
+> > the code after arch/riscv/mm/init.c but before mmu on needs the
+> > bitmap informaion when pgtable_l5|l4_enabled() is called (w/o
+> > USE_EARLY_PGTABLE_LEVELS)
+> 
+> Oh, I must have missed something then, I didn't realise you were
+> patching the alternatives early - I thought you were skipping them until
+> the information became available at the normal time. Sorry bout that.
 
-On Wed, 9 Sept 2026 at 17:16, Marek Vasut <marek.vasut@mailbox.org> wrote:
-> On 9/9/26 9:56 AM, Geert Uytterhoeven wrote:
-> > On Tue, 8 Sept 2026 at 19:02, Marek Vasut <marek.vasut@mailbox.org> wro=
-te:
-> >> On 9/8/26 2:02 PM, Geert Uytterhoeven wrote:
-> >>>> +&pfc {
-> >>>> +       msiof0_pins: spi-ws-2ch-canfd0 {        /* SPI_0 */
-> >>>
-> >>> Node name should be "msiof0".
-> >>
-> >> Do we also have to fix up
-> >> arch/arm64/boot/dts/renesas/r8a779g3-sparrow-hawk.dts this:
-> >>
-> >> "
-> >>    755         msiof1_pins: sound {
-> >>                             ^^^^^
-> >> "
-> >> ?
-> >
-> > Might be a good idea, to increase consistency.
->
-> Submitted as
->
-> [PATCH] arm64: dts: renesas: sparrow-hawk: Align MSIOF1 PFC node name
-> with label
 
-Thanks!
+Aha, your suggestion about the simplifying the isa bitmap filling
+still works.
 
-> >> But I wonder, shouldn't the DTOs contain unique pinmux node names, whi=
-ch
-> >> cannot accidentally overlap with the base DT or other DTO node names ?
-> >
-> > In general, the answer is yes.
-> > In this case it is about pin control subnodes. If the base DTS already
-> > uses msiof0, its original user needs to be disabled by the overlay
-> > anyway.
->
-> The original DTS does not use MSIOF0 .
->
-> I think the proper solution here would be DT connector ?
+> 
+> How bad is the damage btw, if you implement pgtable_l5_enabled() as
+> 
+> static __always_inline bool pgtable_l5_enabled(void)
+> {
+> 	if (riscv_has_extension_likely(RISCV_ISA_EXT_SV57))
+> 		return true;
+> 
+> 	return _pgtable_l5_enabled;
+> }
+> 
+> ? It shouldn't be too bad since it should get expanded to stuff like
+> 
+> 	if (riscv_has_extension_likely(RISCV_ISA_EXT_SV57) || _pgtable_l5_enabled)
+> 
+> by the compiler. I wonder if you can do this and get rid of
+> USE_EARLY_PGTABLE_LEVELS entirely, since the unpatched alternative
+> should return false?
 
-Keeping an eye on Herv=C3=A9's work...
+I know why you want this. AIUI, the early patched alternative is
+still needed outside arch/riscv/mm/init.c but before mmu on. For
+example, on a SV57 capable platform, the set_satp_mode() will detect
+pgtable cap correctly, then _pgtable_l5_enabled = true and
+_pgtable_l4_enabled = true, then any pgtable_l5|l4_enabled() calling
+outside init.c but before mmu on also expects true. so we need to set
+the isa bitmap so that latter apply_early_boot_alternatives() can
+correctly patch .text section for us.
 
-Gr{oetje,eeting}s,
+BTW, the USE_EARLY_PGTABLE_LEVELS is stolen from the x86 world, see
+its USE_EARLY_PGTABLE_L5 ;)
 
-                        Geert
+> 
+> Cheers,
+> Conor.
+> 
+> (btw, I am kinda unavailable til the 22nd, so sorry if I take some time
+> to reply here or to a new revision)
 
---=20
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k=
-.org
+I just sent out v3, could you plz kindly review it when convenient
 
-In personal conversations with technical people, I call myself a hacker. Bu=
-t
-when I'm talking to journalists I just say "programmer" or something like t=
-hat.
-                                -- Linus Torvalds
+> 
+> > 
+> > > gained, as far as I can tell, by setting this early and it only makes
+> > > the code more complicated.
+> > > 
+> > 
+
+
