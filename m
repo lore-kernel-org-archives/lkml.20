@@ -1,148 +1,75 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 357763644C1;
-	Wed,  9 Sep 2026 17:14:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E165436A363
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 17:14:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788974077; cv=none; b=g9kA/beSV2clEhQr2SyDeSEKIZD1u2gaXB8690xmI4tM8v/PE61fooef0jX5bYcvnEJZacGPGGiBm20J+fVlKr6UQeAzn74DD/Ao77Xt5PFGtutEizdFa5Oq0RcuJaSD35rVrnJKiBEkQFwiYSoNzLfprif68lZl4aiwky6CSyM=
+	t=1788974086; cv=none; b=Hy9+KdvRTdK0EdPq6ElDEKGiQ3Rb8fpdUYsvm52pEzucbGcXSO07dmZb8Rv9RJtnziQgI378fZ2Xt6O3rvPUScwyy/tEaE8wVSKNCXtUH2Gls/ZYqEkYPO7Mg5mio4fIda5nFZ0LhnHV9qkMilVg1u2e2S1LhE2API7kWhktFsQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788974077; c=relaxed/simple;
-	bh=RG88/zSF92lK+c4C3v5GpNOCJ5wgcq6kIwGX+7wPwIE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=m/YIwqhFREI4zOpmo9Y3b3+ntPCDu3Qt0PvkscF1z9X1c5A+S7dbQx2OZQpBVnHl3mmODb2+eLO8+GDaKMXEblMytxfyo68SdatpNtg86wxSu/36kbO3Q3DR05yIdj5TBO3ZmjYQnqE5mAuOMxEuKjpd8dENn7k7SHgFGbv4+II=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Tj3NCkjs; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788974086; c=relaxed/simple;
+	bh=AhG9uZP5Vc+oU60yw43Lea20JRbSBt/2ZAdLmmE7+58=;
+	h=From:In-Reply-To:References:Cc:Subject:MIME-Version:Content-Type:
+	 Date:Message-ID; b=VeGZpzWKnz26T8yfDkseWpAfxNWW3zz5pBW1bK1QUYTJqwndAW/PtwYwBkdHDbIXYKe5ngcrG3LAvURvLbODlozZ+vEYLxjoFEbXxBwotPa26BUMk8KQ54iDgWFzhjGXtwPc1tfgH0WyjTv7sLuKd2+XZPb3YjJ8NIEAfIsfrMM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=cAYjfa2b; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Tj3NCkjs"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8AA041F000FF;
-	Wed,  9 Sep 2026 17:14:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788974075;
-	bh=6dv2vvcGbSpShMrWofXwfOBXiT7V+DJOWD8QO9nGBVo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Tj3NCkjsGzfvDlibB9EJILNPTFhGXSWoQM16z/w2VW+JOQeWntoqTDaa9MFhPX01E
-	 ftRJH3TORePkbywM7bBIOObLe5V/SPUo5MZGN/Yyw/8QahyB79h9tA3FxgUgPhALOZ
-	 UlNI8YUTWEg0Q+GMUFgm/o63xnd2Qa+ceLIiOV6A/wn41+Q3q7cNUxFLHgsgOYOkWP
-	 VWC9fxQvQThPK1DkIipUnLyJgZTVdgXkgBhWkMetdi7AeUSS39N/narCUgDWf1aUmb
-	 nbnQ/F8nLhFhtXbE8aNvC3Ep7bsKmGpRxiQG+v7gXZmkqSaA5kafj9nzyFtcQGNtC/
-	 YYAkbuDNxMuOw==
-Date: Wed, 9 Sep 2026 19:14:25 +0200
-From: Manivannan Sadhasivam <mani@kernel.org>
-To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Cc: chunfeng.yun@mediatek.com, vkoul@kernel.org, neil.armstrong@linaro.org, 
-	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, matthias.bgg@gmail.com, 
-	chunkuang.hu@kernel.org, p.zabel@pengutronix.de, justin.yeh@mediatek.com, 
-	linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
-	linux-phy@lists.infradead.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	dri-devel@lists.freedesktop.org, kernel@collabora.com
-Subject: Re: [PATCH v3 06/12] phy: phy-mtk-dp: Support set_lanes in configure
- and properly cleanup
-Message-ID: <mdaumrppvlt5xoeewouxrdaibrgb6sw73byw3qzk47t4xdib24@msutldqcnkup>
-References: <20260707154245.198361-1-angelogioacchino.delregno@collabora.com>
- <20260707154245.198361-7-angelogioacchino.delregno@collabora.com>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="cAYjfa2b"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1788974083;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:to:
+	 cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=wrrcFv43Y6IitaL5MyShgfkwkQfgO8qX9JD4vZRKPPY=;
+	b=cAYjfa2bW9HrwUX+rmvBxfsVpBoH1bTgcmcyZGTlrN2z8mUtI8sDDUgZ1fRxMnCGNOYQW9
+	H8JZ7D2VPd9y+Je/APcYQJ55M9UEvBsnDyD8mJgn/kIzHmcJW6/yztA4Fk4o/yU+C1TF+P
+	VUV7L6VqX2li85LZvmIh38S3yFtsrLs=
+Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-642-v8CazuleNgmALlpzy5bkZw-1; Wed,
+ 09 Sep 2026 13:14:40 -0400
+X-MC-Unique: v8CazuleNgmALlpzy5bkZw-1
+X-Mimecast-MFC-AGG-ID: v8CazuleNgmALlpzy5bkZw_1788974077
+Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 94F59195605F;
+	Wed,  9 Sep 2026 17:14:37 +0000 (UTC)
+Received: from warthog.procyon.org.uk (unknown [10.44.32.158])
+	by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 5422F1955F19;
+	Wed,  9 Sep 2026 17:14:35 +0000 (UTC)
+Organization: Red Hat UK Ltd. Registered Address: Red Hat UK Ltd, Amberley
+	Place, 107-111 Peascod Street, Windsor, Berkshire, SI4 1TE, United
+	Kingdom.
+	Registered in England and Wales under Company Registration No. 3798903
+From: David Howells <dhowells@redhat.com>
+In-Reply-To: <1729858.1788973986@warthog.procyon.org.uk>
+References: <1729858.1788973986@warthog.procyon.org.uk> <afd68097-b2b2-47e5-889b-fb077e7a9247@redhat.com> <a385053c-1c4a-4060-a3bb-befa007ddb33@redhat.com> <1714046.1788952509@warthog.procyon.org.uk>
+Cc: dhowells@redhat.com, sorenson@redhat.com,
+    Paulo Alcantara <pc@manguebit.org>, Jeff Layton <jlayton@kernel.org>,
+    linux-fsdevel@vger.kernel.org, netfs@lists.linux.dev,
+    CIFS <linux-cifs@vger.kernel.org>, linux-kernel@vger.kernel.org
+Subject: Re: netfs_read_gaps(): aliased sink folio makes the read destination unreadable, SIGBUS on cifs with signing
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260707154245.198361-7-angelogioacchino.delregno@collabora.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-ID: <1729916.1788974073.1@warthog.procyon.org.uk>
+Date: Wed, 09 Sep 2026 18:14:33 +0100
+Message-ID: <1729917.1788974073@warthog.procyon.org.uk>
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
 
-On Tue, Jul 07, 2026 at 05:42:39PM +0200, AngeloGioacchino Del Regno wrote:
-> Add support for enabling a specifically requested number of lanes
-> in the .configure() callback and disable all lanes in power off
-> and reset callbacks for proper hardware cleanup.
-> 
-> Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-> ---
->  drivers/phy/mediatek/phy-mtk-dp.c | 75 ++++++++++++++++++++++++++++---
->  1 file changed, 68 insertions(+), 7 deletions(-)
-> 
-> diff --git a/drivers/phy/mediatek/phy-mtk-dp.c b/drivers/phy/mediatek/phy-mtk-dp.c
-> index f6b0e83d4833..2c8bc0b37486 100644
-> --- a/drivers/phy/mediatek/phy-mtk-dp.c
-> +++ b/drivers/phy/mediatek/phy-mtk-dp.c
-> @@ -10,6 +10,7 @@
->   *                     AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
->   */
->  
-> +#include <linux/bitfield.h>
->  #include <linux/delay.h>
->  #include <linux/io.h>
->  #include <linux/mfd/syscon.h>
-> @@ -50,6 +51,9 @@
->  #define DRIVING_PARAM_1_DEFAULT	0x0
->  #define DRIVING_PARAM_2_DEFAULT	0x0
->  
-> +/* DP_PHYD_TX_CTL_0 */
-> +#define PHYD_TX_LN_EN			GENMASK(7, 4)
-> +
->  #define XTP_LN_TX_LCTXC0_SW0_PRE0_DEFAULT	BIT(4)
->  #define XTP_LN_TX_LCTXC0_SW0_PRE1_DEFAULT	(BIT(10) | BIT(12))
->  #define XTP_LN_TX_LCTXC0_SW0_PRE2_DEFAULT	GENMASK(20, 19)
-> @@ -113,6 +117,7 @@ enum mtk_dp_phyd_dig_glb_regidx {
->  	DP_PHYD_SW_RST,
->  	DP_PHYD_BIT_RATE,
->  	DP_PHYD_AUX_RX_CTL,
-> +	DP_PHYD_TX_CTL_0,
->  	DP_PHYD_GLOBAL_MAX
->  };
->  
-> @@ -131,6 +136,7 @@ static const u8 mt8195_phy_dig_glb_regs[DP_PHYD_GLOBAL_MAX] = {
->  	[DP_PHYD_SW_RST] = 0x38,
->  	[DP_PHYD_BIT_RATE] = 0x3c,
->  	[DP_PHYD_AUX_RX_CTL] = 0x40,
-> +	[DP_PHYD_TX_CTL_0] = 0x44,
->  };
->  
->  /**
-> @@ -200,6 +206,7 @@ static int mtk_dp_phy_configure(struct phy *phy, union phy_configure_opts *opts)
->  	struct mtk_dp_phy *dp_phy = phy_get_drvdata(phy);
->  	const struct mtk_dp_phy_pdata *pdata = dp_phy->pdata;
->  	u32 val;
-> +	int i;
->  
->  	if (opts->dp.set_rate) {
->  		const u32 reg_bit_rate = pdata->regs_dig_glb[DP_PHYD_BIT_RATE];
-> @@ -226,6 +233,17 @@ static int mtk_dp_phy_configure(struct phy *phy, union phy_configure_opts *opts)
->  		regmap_write(dp_phy->regmap, pdata->off_dig_glb + reg_bit_rate, val);
->  	}
->  
-> +	if (opts->dp.set_lanes) {
-> +		const u32 reg_dig_tx_ctl = pdata->regs_dig_glb[DP_PHYD_TX_CTL_0];
-> +
-> +		val = 0;
-> +		for (i = 0; i < opts->dp.lanes; i++)
-> +			val |= FIELD_PREP(PHYD_TX_LN_EN, BIT(i));
-> +
-> +		regmap_update_bits(dp_phy->regmap, pdata->off_dig_glb + reg_dig_tx_ctl,
-> +				   PHYD_TX_LN_EN, val);
-> +	}
-> +
->  	regmap_update_bits(dp_phy->regmap,
->  			   pdata->off_dig_glb + pdata->regs_dig_glb[DP_PHYD_PLL_CTL_1],
->  			   TPLL_SSC_EN, opts->dp.ssc ? TPLL_SSC_EN : 0);
-> @@ -263,31 +281,68 @@ static int mtk_dp_phy_power_on(struct phy *phy)
->  	return 0;
->  }
->  
-> +static int mtk_dp_phy_disable_all_lanes(struct mtk_dp_phy *dp_phy)
-> +{
-> +	const struct mtk_dp_phy_pdata *pdata = dp_phy->pdata;
-> +	const u8 *regs = pdata->regs_dig_glb;
-> +	int ret;
-> +	u32 val;
-> +
-> +	ret = regmap_read(dp_phy->regmap, pdata->off_dig_glb + regs[DP_PHYD_TX_CTL_0], &val);
-> +	if (ret)
-> +		return ret;
+David Howells <dhowells@redhat.com> wrote:
 
-Same comment as previous patch.
+> +			folio_unlock(bvec_folio(&bvec[sink_from]));
 
-- Mani
+Meh.  Nevermind.  There are two of them.
 
--- 
-மணிவண்ணன் சதாசிவம்
+David
+
