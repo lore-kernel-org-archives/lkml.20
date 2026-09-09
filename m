@@ -1,114 +1,105 @@
-Received: from mail-oo1-f70.google.com (mail-oo1-f70.google.com [209.85.161.70])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C378B34216C
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 07:58:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.70
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D56403DC878;
+	Wed,  9 Sep 2026 07:58:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788940685; cv=none; b=cFbRg0E1JJg+UztX11BeyYQCXvH8FXTEG1RAf27NPm3Y9nwdI5hEsAvZyyrMcaWwuGX5EBNwFMdT7l4RbtWhs0eoBOQy4cO/sT3zxnOjOoAqMbtf4s3+yoGQOzUpW84GsXsxHbHGo20yCcoWckUB+CvmJbBszNODNr1SOpMG+QE=
+	t=1788940702; cv=none; b=ACUl9dmtz448Sa4gj4USng8bUj8KkTO6+9mhF/AUqVL9apgEqC+YFTfnlrC4xEs7wU0gdhK3gtzzKVkpTBQafnd2x0YfEmZncnp/1I8ZtOWwsfa9lplRaE6DtopsQgLnBI2bPVwPu80QK+9YpeXKLkBVmUqUaKZX585oebVbChY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788940685; c=relaxed/simple;
-	bh=p2kTzOA+YUlJDdy4b0LmMW1RFNwwFMY9nt+xFQqirmM=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=oQonbIPoBwGjj1UynOUZAJfEsszk34KqciSvy6LdDfpoI/p2PBS7y0C3t+6iPVQHvS4WeIYkAGLXmmiOCwIkVHjRPmmt/FkJtvFL4wy5bklBfFTwb6hRXXC2gXJbkFLo5QHkLJFpjNUlRQkfFb5h6FKb+ZRtTgdWv4I++J3CSrA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.161.70
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oo1-f70.google.com with SMTP id 006d021491bc7-6bd74449818so1823471eaf.2
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 00:58:03 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788940682; x=1789545482;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=1TGGI3iyNcmVZeg7ekp5Mr1i3BQnZMp1NeCuSr2Hzbc=;
-        b=SbQDKbD/WIFSXXv1AaYbH74AJuY4wILYTYg5RwT7dGg4UnxuZEWefElVpZjunUN7IT
-         K0vXB/ufH6EjWxUDXcQTtGeI5A5ara21/gMFNK/la/Thmgkz38KYq1ZJRecvVnX+U8yk
-         Zo06L2J77I4pVg0ZMpsN1ZZRlR/m9AUHeLuN/NXMkTIh1Yxe5/b936RabPzjdlKSftG5
-         ks6e5iwF3VksORIM1B4U/o/s9XicEwEJBJ2v2oZTxwB9BNxql6+N+izFnVfxAO08WoyP
-         5qmQHbJzCuPua7xnj/K4ZukR1t5nrZN6X/sGxoJBZ8e8tYWBpNq29iTfGx/wfu8fX9Vn
-         54aQ==
-X-Gm-Message-State: AFuF++mysCAQZ9/QzGrb0RZRCjf0DEcDSFCsG74OpUCL8jllvddSked5
-	yYyh4f3xolGF2TAK3pxdrHR+rLwwblSXv0PAsYyuyxXAk44SvXoCW9qP/8v9Ya/sKa0q77W0hyH
-	J3mSVHAEb/pfsOiO2Ixc9tbM1Fw15UURwG46LE4LZBknlG2zfio6jTGITLuA=
+	s=arc-20240116; t=1788940702; c=relaxed/simple;
+	bh=qbF8Py7zaoy6Xc6VWkTu+v3MqSesXwF5k56kToMBmbA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=jQb0m+r70QsQ6MNWLy04HriuevEKrT9Npj+OlgkMiPub7lRoOAovG2IKA/+emRAWrOqQP1fwMgbvGp1hIrZJg7ib6TinwGAxdVToNxs0AKnDhdPbmHjOX4BnnmIharprGqSoSgYhURbyEJNTEUoZa+dg1DO0yO8LYEqT4Uej9JU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OUB4piiA; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OUB4piiA"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE9FD1F00A3A;
+	Wed,  9 Sep 2026 07:58:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788940700;
+	bh=PWnFaNRftVsLHoAenU5vbpmSu4o5KTXu8Qk5OuN0Zn8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=OUB4piiAG/iMLs5wx4MVywuI930DqI8qv0bLNPt87l1bhHP7Od/2XyZnH3fkxKU98
+	 brr0NjI4SEyY4KQFGfPi7bHEMDPh7N4HHajXBYsWqjCgFRWxFMFbbQy1uyuy1ShE89
+	 34ax4j0ErRACN/6Z55Z4e/UiGrgx+OMNSrPc2wmkHrtGNrlWN5rqsxo1qDoflQt7UG
+	 55vitECZpPaRbVFdp0PqsTwC5XbCb0ZXOhMDIZn/fS5gkHnQAYIox/e3IE6O7KqQgy
+	 f0Of0c2HMulR7gdKkNuPGJsd1siezIPiIIpQRLXytl89xB/5GmWWuCapbUcUUC8Uj2
+	 5JjqMwDfmjDsw==
+Date: Wed, 9 Sep 2026 09:58:12 +0200
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: Hongling Zeng <zenghongling@kylinos.cn>
+Cc: vkoul@kernel.org, neil.armstrong@linaro.org, johan@kernel.org, 
+	kishon@kernel.org, rogerq@ti.com, linux-phy@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, zhongling0719@126.com, stable@vger.kernel.org
+Subject: Re: [PATCH v6 4/4] phy: ti-pipe3: Fix clock leak in init error path
+Message-ID: <lsywnpxioldkbvb6n7pi6uihlnofjdwrhvm7yt3qiarori4hua@c6wueslryla4>
+References: <20260619030214.1779043-1-zenghongling@kylinos.cn>
+ <20260619030214.1779043-5-zenghongling@kylinos.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:1508:b0:6b7:83c5:fdf8 with SMTP id
- 006d021491bc7-6b783c673f9mr17935697eaf.57.1788940682728; Wed, 09 Sep 2026
- 00:58:02 -0700 (PDT)
-Date: Wed, 09 Sep 2026 00:58:02 -0700
-In-Reply-To: <20260909074349.7542-1-syedtayyabfarooq08@gmail.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6aa1118a.f81106d8.285f0a.000f.GAE@google.com>
-Subject: Re: [syzbot] [serial?] KASAN: slab-use-after-free Write in tty_init_dev
-From: syzbot <syzbot+fe63e4d633540f230624@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org, syedtayyabfarooq08@gmail.com, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260619030214.1779043-5-zenghongling@kylinos.cn>
 
-Hello,
+On Fri, Jun 19, 2026 at 11:02:14AM +0800, Hongling Zeng wrote:
+> When regmap_update_bits() fails in ti_pipe3_init() for PCIe mode,
+> the function returns the error without calling ti_pipe3_disable_clocks().
+> This leaves the clocks permanently enabled since the PHY framework won't
+> invoke the .exit callback on init failure.
+> 
+> Fix this by adding proper clock cleanup in the PCIe error path, consistent
+> with how the DPLL program error path handles cleanup.
+> 
+> Fixes: 234738ea3390 ("phy: ti-pipe3: move clk initialization to a separate function")
+> Reported-by: Sashiko AI <sashiko@kernel.org>
+> Closes: https://lore.kernel.org/all/20260518023657.41852C2BCB0@smtp.kernel.org/
+> Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
+> Cc: stable@vger.kernel.org
+> 
+> ---
+> Change in v5:
+>   -Add Fix ignored clock enable return value in init patch
+> ---
+> Change in v6:
+>  -Fix all clock leak paths comprehensively:
+>  -PCIe syscon update failure path
+>  -SATA DPLL lock check path
+>  -SATA errata path in ti_pipe3_exit()
+> ---
+>  drivers/phy/ti/phy-ti-pipe3.c | 11 ++++++++---
+>  1 file changed, 8 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/phy/ti/phy-ti-pipe3.c b/drivers/phy/ti/phy-ti-pipe3.c
+> index 9ec228c2a940..860058f31594 100644
+> --- a/drivers/phy/ti/phy-ti-pipe3.c
+> +++ b/drivers/phy/ti/phy-ti-pipe3.c
+> @@ -518,6 +518,8 @@ static int ti_pipe3_init(struct phy *x)
+>  		val = 0x96 << OMAP_CTRL_PCIE_PCS_DELAY_COUNT_SHIFT;
+>  		ret = regmap_update_bits(phy->pcs_syscon, phy->pcie_pcs_reg,
+>  					 PCIE_PCS_MASK, val);
+> +		if (ret)
+> +			ti_pipe3_disable_clocks(phy);
+>  		return ret;
+>  	}
+>  
+> @@ -531,8 +533,9 @@ static int ti_pipe3_init(struct phy *x)
+>  
+>  	/* SATA has issues if re-programmed when locked */
+>  	val = ti_pipe3_readl(phy->pll_ctrl_base, PLL_STATUS);
+> -	if ((val & PLL_LOCK) && phy->mode == PIPE3_MODE_SATA)
+> -		return ret;
+> +	if ((val & PLL_LOCK) && phy->mode == PIPE3_MODE_SATA) {
+> +		return 0;
 
-syzbot has tested the proposed patch but the reproducer is still triggering an issue:
-WARNING in gs_close
+Why are you returning 0 here and below?
 
-------------[ cut here ]------------
-1
-WARNING: drivers/usb/gadget/function/u_serial.c:741 at gs_close+0x128/0xce0 drivers/usb/gadget/function/u_serial.c:741, CPU#0: syz-executor409/6047
-Modules linked in:
-CPU: 0 UID: 0 PID: 6047 Comm: syz-executor409 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-RIP: 0010:gs_close+0x128/0xce0 drivers/usb/gadget/function/u_serial.c:741
-Code: fe e8 bc 4d 21 fa 41 83 ff 01 74 7c e8 41 53 21 fa 31 ff 44 89 fe e8 a7 4d 21 fa 45 85 ff 0f 85 79 04 00 00 e8 29 53 21 fa 90 <0f> 0b 90 e8 20 53 21 fa 4c 89 ef e8 78 6c e8 03 e8 13 53 21 fa 48
-RSP: 0018:ffffc900062ff6f0 EFLAGS: 00010093
-RAX: 0000000000000000 RBX: ffff888037c32000 RCX: 0000000000000001
-RDX: ffff88803303a580 RSI: ffffffff87eabde7 RDI: ffff88803303a580
-RBP: 1ffff92000c5fee8 R08: 0000000000000005 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000000 R12: ffff8880359cb000
-R13: ffff888037c32388 R14: ffff888037c32184 R15: 0000000000000000
-FS:  00007f0d220bf6c0(0000) GS:ffff8880d5b5d000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 000056076d24c2a0 CR3: 00000000380fc000 CR4: 0000000000352ef0
-Call Trace:
- <TASK>
- tty_release+0x40e/0x1300 drivers/tty/tty_io.c:1718
- tty_open+0x31d/0xe20 drivers/tty/tty_io.c:2119
- chrdev_open+0x234/0x6a0 fs/char_dev.c:411
- do_dentry_open+0x6ab/0x14d0 fs/open.c:996
- vfs_open+0x82/0x3f0 fs/open.c:1101
- do_open fs/namei.c:4837 [inline]
- path_openat+0x19fa/0x2440 fs/namei.c:5000
- do_file_open+0x20e/0x430 fs/namei.c:5029
- do_sys_openat2+0x10f/0x1e0 fs/open.c:1417
- do_sys_open fs/open.c:1423 [inline]
- __do_sys_openat fs/open.c:1439 [inline]
- __se_sys_openat fs/open.c:1434 [inline]
- __x64_sys_openat+0x12d/0x210 fs/open.c:1434
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7f0d23917a1e
-Code: 08 0f 85 f5 e2 ff ff 49 89 fb 48 89 f0 48 89 d7 48 89 ce 4c 89 c2 4d 89 ca 4c 8b 44 24 08 4c 8b 4c 24 10 4c 89 5c 24 08 0f 05 <c3> 90 41 57 41 56 4d 89 c6 41 55 4d 89 cd 41 54 55 53 48 83 ec 08
-RSP: 002b:00007f0d220bf158 EFLAGS: 00000246 ORIG_RAX: 0000000000000101
-RAX: ffffffffffffffda RBX: 00007f0d220bf6c0 RCX: 00007f0d23917a1e
-RDX: 0000000000000002 RSI: 00007f0d23963028 RDI: ffffffffffffff9c
-RBP: 0000000000000021 R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000246 R12: ffffffffffffffd0
-R13: 0000000000000000 R14: 00007ffd1c446780 R15: 00007ffd1c446868
- </TASK>
+- Mani
 
-
-Tested on:
-
-commit:         893e1178 Merge tag 'x86_urgent_for_7.3-rc3' of git://g..
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=1089f125580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=8c5c3949d762a91f
-dashboard link: https://syzkaller.appspot.com/bug?extid=fe63e4d633540f230624
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-patch:          https://syzkaller.appspot.com/x/patch.diff?x=156c2c8e580000
-
+-- 
+மணிவண்ணன் சதாசிவம்
