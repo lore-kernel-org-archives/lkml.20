@@ -1,131 +1,79 @@
-Received: from mail-m16023652195.xmail.ntesmail.com (mail-m16023652195.xmail.ntesmail.com [160.236.52.195])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68ADA492E5D;
-	Wed,  9 Sep 2026 00:44:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=160.236.52.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34146492E3B;
+	Wed,  9 Sep 2026 00:45:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788914702; cv=none; b=KOCbSPzNNH4wYOdBJ3ChbWBIBsH0wxnbJdYWvUxVBX+8osd9a2cpUPsyx73RRYZj6xbq5Ia66EbFgoL9nY0grA8kFYO9AxlD3bI7GP+4e+UISFEqO0pLRVoZp1WqrsMKeWhPXnv8yGQn9hLdZGBrmb2LxqVyfa64NKf2IwgN2uE=
+	t=1788914732; cv=none; b=f3WTBh3+9VEEXSxjLD4hnnNLgp9NcLMwSs4HTyuy7K+kCho/qBKM75MRzpHbT+zOELFTVj34urKqZZvKxzp+MleRCxlM3z+HUYP2TuQYZiEYhI8bPMn7x9eCrf4tjqmFes/4InpgGsFO76iPLu9zVdcnIcVmhgicPJoi2LcGsJo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788914702; c=relaxed/simple;
-	bh=sH4FKnF2NxYQnc2Zi/kCH5M1QzxGotg9J4RDP9ViLaE=;
-	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=QPEFasuRrb1CaN8DKrWmWhjsbSgiolquel4eKRTaHF9MjuZ3paDYhwVd63lUifcRCTxsFEsfGnptbHjZV+tIUZycGRBwPy8NLN/YH+MFohO9rxmlVS3D05dMh39+/HfyIPJ8cp1eO966FQLAj3TmZMvcjDwepA40/jRGX+La+xM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=e9NTEEIW; arc=none smtp.client-ip=160.236.52.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
+	s=arc-20240116; t=1788914732; c=relaxed/simple;
+	bh=TR7MTN1fGXA4hfoTIJ46T+NHldD9mwQQvo8T9xEWdXo=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=AZbfYj5G4Y8GiELfD4sxR+bF6jW0lRg9nswyDIqjuMZ7qr0NKLlK6pJ6qqEk+Zv8/p0Ja9KUnXp9VHN9tyu2R5YfAACuBTPmEh326bJEe40Lp/f4ztzcQbBeMt9n0Nw7Ryk8R90La2X91O12XwEaoBqriAym5YWlU3CTVchoAoY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NRMTXI5L; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="e9NTEEIW"
-Received: from [172.16.12.48] (unknown [61.154.14.86])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 4d08c1d9d;
-	Wed, 9 Sep 2026 08:44:48 +0800 (GMT+08:00)
-Message-ID: <4d441232-6ab5-4865-a70c-f868e8128f7e@rock-chips.com>
-Date: Wed, 9 Sep 2026 08:44:45 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NRMTXI5L"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 540891F00A3A;
+	Wed,  9 Sep 2026 00:45:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788914730;
+	bh=ZNopAaAzl4l7FgpL2NX3Esneyi/PfV8GDqKzg7A+eWw=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=NRMTXI5LTdLH8UBQUVL75Ne4wsGyyqbLlOWfIZh8O5U92WQbxbNUZ0tyc9cMVwhj8
+	 4C9Yt1aAExJ2jT+xMlwTtu24XMlk07ApGbQ3LXvjfjeppJuT+9iBJvrx4snpx3QR1k
+	 20hZHkLkCl20E9nF/dFDNVyuVimE+CGV8bhjVFsbnxmJJ53XrlT9tFfuf5Mp/5Yy9o
+	 w1klF/NP7eKnJOFW4VLKEgnxmWJZAweD7BKR8oX+Z8GasMv8Sr9Ci6AkK/lErrRbuO
+	 kfftRhUZGaHSzN8mSs7LRZOTAv0Oz2tflAz6ylMd8ky9ERtu+pH9BnYhbgY6Pril96
+	 OEigpzFjTAHTg==
+From: SJ Park <sj@kernel.org>
+To: Zenghui Yu <zenghui.yu@linux.dev>
+Cc: SJ Park <sj@kernel.org>,
+	damon@lists.linux.dev,
+	linux-mm@kvack.org,
+	linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	shuah@kernel.org
+Subject: Re: [PATCH] selftests/damon: ignore test-generated damon_dump_output
+Date: Tue,  8 Sep 2026 17:45:22 -0700
+Message-ID: <20260909004523.112863-1-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260908162716.85648-1-zenghui.yu@linux.dev>
+References: 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Cc: shawn.lin@rock-chips.com, Alexey Charkov <alchark@flipper.net>,
- linux-pci@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org,
- kernel@collabora.com
-Subject: Re: [PATCH v6 02/10] PCI: dw-rockchip: Restore vpcie3v3 regulator
- handle
-To: Sebastian Reichel <sebastian.reichel@collabora.com>,
- Lorenzo Pieralisi <lpieralisi@kernel.org>,
- =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
- Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
- Bjorn Helgaas <bhelgaas@google.com>, Heiko Stuebner <heiko@sntech.de>,
- Philipp Zabel <p.zabel@pengutronix.de>, Jingoo Han <jingoohan1@gmail.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- "Yury Norov (NVIDIA)" <yury.norov@gmail.com>,
- Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-References: <20260908-rockchip-pcie-system-suspend-v6-0-fbabcca9921b@collabora.com>
- <20260908-rockchip-pcie-system-suspend-v6-2-fbabcca9921b@collabora.com>
-From: Shawn Lin <shawn.lin@rock-chips.com>
-In-Reply-To: <20260908-rockchip-pcie-system-suspend-v6-2-fbabcca9921b@collabora.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa0839fe00403a4kunm50f3116743e785
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCH0IdVk9MGkseSUJOQ01JTFYVFA
-	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSU
-	9PT0hVSktLVUpCS0tZBg++
-DKIM-Signature: a=rsa-sha256;
-	b=e9NTEEIWqkh7Z68AwWcaKw2n1Tx+hNYucPDaLw/joe2dmc0eusuvJC9uTUS6/osiyrEz/1iXmbi+GcbCQzY84/xyRH5OnH7Tt91mMMAwTo4iuryxRApYrm6MvmZOQZqAOV2qJg2ROIsA16acFLY3yXJ/KzvONULKiDLcOGWCgEw=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
-	bh=8BHp18JK7JZ2Mrw0ZrUESo0RJu+yED+tqkK5PcwM6KM=;
-	h=date:mime-version:subject:message-id:from;
 
-在 2026/09/08 星期二 22:51, Sebastian Reichel 写道:
-> This reverts commit c930b10f17c0 ("PCI: dw-rockchip: Simplify regulator
-> setup with devm_regulator_get_enable_optional()"), which nicely cleaned
-> up the code.
-> 
-> The vpcie3v3 regulator handle is needed to disable the regulator during
-> system suspend (to be added in its own patch).
-> 
+On Wed,  9 Sep 2026 00:27:16 +0800 Zenghui Yu <zenghui.yu@linux.dev> wrote:
 
-Reviewed-by: Shawn Lin <shawn.lin@rock-chips.com>
-
-> Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
-> ---
->   drivers/pci/controller/dwc/pcie-dw-rockchip.c | 23 +++++++++++++++++------
->   1 file changed, 17 insertions(+), 6 deletions(-)
+> From: "Zenghui Yu (Huawei)" <zenghui.yu@linux.dev>
 > 
-> diff --git a/drivers/pci/controller/dwc/pcie-dw-rockchip.c b/drivers/pci/controller/dwc/pcie-dw-rockchip.c
-> index dc85564e5001..f67ad3c31c35 100644
-> --- a/drivers/pci/controller/dwc/pcie-dw-rockchip.c
-> +++ b/drivers/pci/controller/dwc/pcie-dw-rockchip.c
-> @@ -112,6 +112,7 @@ struct rockchip_pcie {
->   	unsigned int clk_cnt;
->   	struct reset_control *rst;
->   	struct gpio_desc *rst_gpio;
-> +	struct regulator *vpcie3v3;
->   	struct irq_domain *irq_domain;
->   	const struct rockchip_pcie_of_data *data;
->   	bool supports_clkreq;
-> @@ -844,15 +845,22 @@ static int rockchip_pcie_probe(struct platform_device *pdev)
->   		return ret;
->   
->   	/* DON'T MOVE ME: must be enable before PHY init */
-> -	ret = devm_regulator_get_enable_optional(dev, "vpcie3v3");
-> -	if (ret < 0 && ret != -ENODEV)
-> -		return dev_err_probe(dev, ret,
-> -				     "failed to enable vpcie3v3 regulator\n");
-> +	rockchip->vpcie3v3 = devm_regulator_get_optional(dev, "vpcie3v3");
-> +	if (IS_ERR(rockchip->vpcie3v3)) {
-> +		if (PTR_ERR(rockchip->vpcie3v3) != -ENODEV)
-> +			return dev_err_probe(dev, PTR_ERR(rockchip->vpcie3v3),
-> +					"failed to get vpcie3v3 regulator\n");
-> +		rockchip->vpcie3v3 = NULL;
-> +	} else {
-> +		ret = regulator_enable(rockchip->vpcie3v3);
-> +		if (ret)
-> +			return dev_err_probe(dev, ret,
-> +					     "failed to enable vpcie3v3 regulator\n");
-> +	}
->   
->   	ret = rockchip_pcie_phy_init(rockchip);
->   	if (ret)
-> -		return dev_err_probe(dev, ret,
-> -				     "failed to initialize the phy\n");
-> +		goto disable_regulator;
->   
->   	ret = reset_control_deassert(rockchip->rst);
->   	if (ret)
-> @@ -885,6 +893,9 @@ static int rockchip_pcie_probe(struct platform_device *pdev)
->   	clk_bulk_disable_unprepare(rockchip->clk_cnt, rockchip->clks);
->   deinit_phy:
->   	rockchip_pcie_phy_deinit(rockchip);
-> +disable_regulator:
-> +	if (rockchip->vpcie3v3)
-> +		regulator_disable(rockchip->vpcie3v3);
->   
->   	return ret;
->   }
-> 
+> sysfs.py and sysfs_no_op_commit_break.py dump the DAMON status collected
+> via drgn_dump_damon_status.py into a damon_dump_output file in the working
+> directory.  Ignore it so that running the tests in-tree does not pollute
+> git status.
 
+Nice catch!  Thank you for finding and fixing this!
+
+> 
+> Signed-off-by: Zenghui Yu (Huawei) <zenghui.yu@linux.dev>
+
+Reviewed-by: SJ Park <sj@kernel.org>
+
+This patch is applied to damon/next [1] tree.  If this patch is not added to
+mm.git in short term (~1 week?), I will ask mm.git maintainer (Andrew Morton)
+to pick this.  So, no action from your side is needed for now.  If it seems I
+also forgot doing that or you cannot wait for my action, please feel free to
+directly ask that to Andrew.
+
+[1] https://origin.kernel.org/doc/html/latest/mm/damon/maintainer-profile.html#scm-trees
+
+
+Thanks,
+SJ
+
+[...]
