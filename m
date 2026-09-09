@@ -1,391 +1,215 @@
-Received: from mail-yx1-f48.google.com (mail-yx1-f48.google.com [74.125.224.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A125F4E80AC
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 10:18:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 017CE3EC2EF;
+	Wed,  9 Sep 2026 10:18:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788949100; cv=none; b=CM4v+CU/JWQNDaAu1yxi1Dy3kpIwuIurRdx0N+ptRUI8XZq/5PFl3InU1Kd6PL+AqDj9QTKYpoIdZETle+6FuYes/X3Th6NY37IgULRYMDQTS1b10OoJhe//5Ew26Q6SB2HnRb++Xdq0LgA8idKCVZ7cI0cWLfCchUF2D7qGH38=
+	t=1788949123; cv=none; b=dHM1+uRUw2A0Zh12e4sAPshTMw+hZ5LvXOCBGVVGtPmYc3KCkfeqnvTEMUAG4sLUW2AzKGGO1+qkgVd9ud+lXyKKttsf3PxHRfon7tCb9+J3Yrh1KPW75AMLLOUz65mCabWi+xIiHxS36EfoVPDY6lSaVriVTu2Ms4Z1qIB8oiw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788949100; c=relaxed/simple;
-	bh=BAoHBLGej7CKU513wAnhWH+90yYgW8iGSWBxT+OzRiU=;
-	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=u+fcvONKduXftY99uVqoPKK3Q1xW1gkk4L865EFdMSHpwwTzAfIKHiEa5aDutNrpffO/WI6FbIBcdRyho9yt90H/dSN2wWA6c34iMmEv9Cbu76WW9TtoiNvZNNjarNqwIi+wy7aP+S8YkuDolcX8+teKzD7udP0EpFhS3t9eUWA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=L/ZR8I0o; arc=none smtp.client-ip=74.125.224.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	s=arc-20240116; t=1788949123; c=relaxed/simple;
+	bh=HOkBWcUYKrgSzQngIAxN1wki9mLP9ltMARDpLSD15Uk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=pC0MrEXNxAWY7Hbj3H3DRiigi6FiHu8z311xIMAsy9AxIyWT3EmY7fTLaG4cnD4RHSTfTz3/Y8a4DZDfuK+hUHcTsoS3wQoPc+fxqtsJmaDOHTe0OWzkIxNqBH2/1ABDctpQh/FWd9mQjc+XBJiZK2oNWK8mrOLN/drerb704qo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ra5Xpq99; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="L/ZR8I0o"
-Received: by mail-yx1-f48.google.com with SMTP id 956f58d0204a3-66fcf87897fso4327790d50.3
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 03:18:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788949093; x=1789553893; darn=vger.kernel.org;
-        h=content-type:mime-version:references:message-id:in-reply-to:subject
-         :cc:to:from:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Vqq1bLSj+HyikJMGO2+S/zPhjWI8z39VCLxfhn2Q3b0=;
-        b=L/ZR8I0o54sm99u0HJWpQa6I95wZu5qeb6NPYlTf2EcCcBqivBJ1PhksUmu5XREHaB
-         hK2CSzQbzRHRUYRQzB3Gcp97Bo2NNPRXj8STiVrOoROM37tnbee3r8n9QVcsnMPdkQqL
-         H64tr7/hEt7OTFFBJxWH7KYsBPYM2LyF6ETt1WOCG0WVb4L/Ge3byNnyptRfT/WOlGxI
-         RJEkGbKcXzelwuCkI6nGz8aXBY6MmxH2hUWdGnQGMd24VPxq3COAmgGbrpkaNWfSluP9
-         zSTZuboa0YXAVhBGA7xdRBq/FbI3GOHX9eI2CmVShgCBmrLvyRwOprmpIDaMh2u1bgHQ
-         pXvQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788949093; x=1789553893;
-        h=content-type:mime-version:references:message-id:in-reply-to:subject
-         :cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Vqq1bLSj+HyikJMGO2+S/zPhjWI8z39VCLxfhn2Q3b0=;
-        b=NRAnwnRq7rsi/V2lI1j5RK+K58K6pOagriy6daHpkSEiQXBkPlX5WLpp3Ea1gvL/BW
-         uzW/w4H7iJxwKofBKKCuqPwx4lwRFj1IXLKgeKyy3HgzUy5aHHypq7iepKDbOGJJI1XD
-         I8P0iQy6LXche4Bo/N7QlVdx181thm0RA3i9f2xl2lNZo7odSk0EPw6UZwW9kKBFM83w
-         +pjZ4o+VZtX+5udSVfinWD+pv/8CGgBSjgqX0R+TCmoYTp4A1k64L3e2FsGefTivDC2F
-         jR3qVOs9gUne7oNLcwEb6OxOFhTwztyPwusF4AktYdnFJ632g5UF/2aakEv4vKsjq5P0
-         utGg==
-X-Forwarded-Encrypted: i=1; AKwUvBxM+nKNQRjMgjuMZgOj320CkpuLQbUPayuT+xChIaU4rm43zqOJs4syVs/sBOos067dLWGaOn9Sh/OOz0Y=@vger.kernel.org
-X-Gm-Message-State: AFuF++nyxsEOHEYnkyQjNcDE3Ig2WR/xjiIBjNpRJBqPSERZlKXIxdZ/
-	dKIOzTXbP8UQw5p1YYUTeXLPkMMFFa3Ffj3HEIva2zEaSepIQWpIDQltMtat0w7tCw==
-X-Gm-Gg: AYBFou26IG0w1oSNQ/zNVt4znySA2WmnSb6aX24wM8sN+7m4LpeGeKzIUfnbrAVuvC5
-	+6LDHzg9T+6Cly+9y8Mt+/ZAQhtR84TBNShehYMt9ii1lQoyFycEnuoebIekUlJxE4uniuBnk1+
-	R1HS/iXjiUwlsV4xKQCJ9G4NkOJIgZ1A7YzJQwsC7bChj+minDaHvqVj8UOblselys0x9+oxyJS
-	FS/IM+/ACvz0019JKHDZgtOfKRniSQV+rn1L4ZC6A3uwOLK4eD7KovLhGY5DRvdkgS2n18X2Iuh
-	19JnCgJIyfUXc6RzxsBc9UFmo0ghzJSIaRQru6KOZlgruOErv6khZawFzQYBX5fxfRkBixEb2Gv
-	SMG7SYE5++q//rbMB9ezaR742UHEEygYFt6MSEZlKqKcjkI5hNiEtpwuCmHXi3EPFAqQYUgnFsi
-	Xpxm2e7VMfYRqYSAOazKUXz1r4/FQw7PyhrmWNsnxJ5s7iOZCHsBUQXZFCHbR9ztRMsf5bqtD1N
-	3Bt8wZZ+BFZ8/Az3SqL1eOA9Mmq1IyiGTVh0wsxejEx7L4TCm8Up1aLAt4=
-X-Received: by 2002:a53:ce92:0:b0:66c:c638:8e88 with SMTP id 956f58d0204a3-66fb58dcc41mr7649439d50.2.1788949092561;
-        Wed, 09 Sep 2026 03:18:12 -0700 (PDT)
-Received: from darker.attlocal.net (172-10-233-147.lightspeed.sntcca.sbcglobal.net. [172.10.233.147])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-66fb48d6ea5sm12216161d50.7.2026.09.09.03.18.08
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 09 Sep 2026 03:18:11 -0700 (PDT)
-Date: Wed, 9 Sep 2026 03:18:07 -0700 (PDT)
-From: Hugh Dickins <hughd@google.com>
-To: Andrew Morton <akpm@linux-foundation.org>
-cc: Ackerley Tng <ackerleytng@google.com>, 
-    Alexander Viro <viro@zeniv.linux.org.uk>, Alexandre Ghiti <alex@ghiti.fr>, 
-    Baolin Wang <baolin.wang@linux.alibaba.com>, 
-    Barry Song <baohua@kernel.org>, Binbin Wu <binbin.wu@linux.intel.com>, 
-    Christian Brauner <brauner@kernel.org>, Christoph Hellwig <hch@lst.de>, 
-    Christoph Lameter <cl@gentwo.org>, 
-    Claudio Imbrenda <imbrenda@linux.ibm.com>, 
-    David Hildenbrand <david@kernel.org>, JP Kobryn <jp.kobryn@linux.dev>, 
-    Jan Kara <jack@suse.cz>, Jens Axboe <axboe@kernel.dk>, 
-    Johannes Weiner <hannes@cmpxchg.org>, Kairui Song <ryncsn@gmail.com>, 
-    Kiryl Shutsemau <kas@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
-    Leonardo Bras <leobras.c@gmail.com>, Lorenzo Stoakes <ljs@kernel.org>, 
-    Marcelo Tosatti <mtosatti@redhat.com>, 
-    Matthew Wilcox <willy@infradead.org>, 
-    Mel Gorman <mgorman@techsingularity.net>, 
-    Miaohe Lin <linmiaohe@huawei.com>, Michal Hocko <mhocko@suse.com>, 
-    Minchan Kim <minchan@kernel.org>, Muchun Song <muchun.song@linux.dev>, 
-    Oscar Salvador <osalvador@suse.de>, Peter Zijlstra <peterz@infradead.org>, 
-    Qi Zheng <qi.zheng@linux.dev>, Rik van Riel <riel@surriel.com>, 
-    Sebastian Andrzej Siewior <bigeasy@linutronix.de>, 
-    Shakeel Butt <shakeel.butt@linux.dev>, 
-    Suren Baghdasaryan <surenb@google.com>, 
-    Vlastimil Babka <vbabka@kernel.org>, 
-    Yang Shi <yang@os.amperecomputing.com>, Yu Zhao <yuzhao@google.com>, 
-    Zach O'Keefe <zokeefe@google.com>, Zi Yan <ziy@nvidia.com>, 
-    linux-block@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
-    linux-kernel@vger.kernel.org, linux-mm@kvack.org
-Subject: [PATCH v2 18/26] mm/fbatch: remove lru_add_drain() and _all() calls
- from various
-In-Reply-To: <e28f9a94-4339-f8ac-8301-6be3c9b5b7ce@google.com>
-Message-ID: <3af1563f-1db3-5974-659a-41463ad7a4c9@google.com>
-References: <e28f9a94-4339-f8ac-8301-6be3c9b5b7ce@google.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ra5Xpq99"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F3CB61F00A3A;
+	Wed,  9 Sep 2026 10:18:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788949121;
+	bh=EpWzNh8tk8iMp/ihCHlSlJUnOvdXh3n7oQBamLU2yf0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Ra5Xpq99VHo9ZhbO+yUb114sbI3WWo7q6smhiaBR6o9zxmwlnHpLFkb31MM/IChGi
+	 3DOxaCp5pqDPrBkk7/mvYX5f2v6nG9q2rn8w6kz0mIWmWCGqAJAcUFe7+hozVgZyjn
+	 NYlhEyqal0B/fGmrsTUR4rIfkSXxiqfYxVpoMLTc1xblbiBFy1jZ+ttWlHm08VBH7i
+	 7R0+h+htd3osUsEt/j7sDpEaoPW7Ve1YLVeOD/qqald9qW0kI2MDOPhska13ArknD1
+	 kBNsAKPUITgeYMaMrycC+6bGZ5lF8S40auju7E2Uvs6GTytGMmDXyC8t5Fu/mKGjFS
+	 dLWbE2FR6xRqA==
+Date: Wed, 9 Sep 2026 12:18:38 +0200
+From: Frederic Weisbecker <frederic@kernel.org>
+To: Thomas Gleixner <tglx@kernel.org>
+Cc: Peter Zijlstra <peterz@infradead.org>,
+	LKML <linux-kernel@vger.kernel.org>,
+	"Cc: Hyunwoo Kim" <imv4bel@gmail.com>,
+	Oleg Nesterov <oleg@redhat.com>,
+	Christian Brauner <brauner@kernel.org>,
+	John Stultz <jstultz@google.com>, Ingo Molnar <mingo@kernel.org>,
+	Alexander Viro <viro@zeniv.linux.org.uk>,
+	"Eric W. Biederman" <ebiederm@xmission.com>, stable@vger.kernel.org
+Subject: Re: [patch V2 1/8] signal: Prevent exec() race
+Message-ID: <aqEyfuKkvk3U__oA@pavilion.home>
+References: <20260905181551.738186850@kernel.org>
+ <20260905185839.667208455@kernel.org>
+ <ap6urw5aAxrKO3Ck@localhost.localdomain>
+ <87ik4h2icz.ffs@fw13>
+ <ap8bUiYYwQT1nVg5@pavilion.home>
+ <875x0g3de3.ffs@fw13>
+ <ap_gOSWtPNjwWS1e@localhost.localdomain>
+ <20260909080407.GR4121339@noisy.programming.kicks-ass.net>
+ <87ecf223n4.ffs@fw13>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <87ecf223n4.ffs@fw13>
 
-Splitting into little patches gets tedious: now that folios on per-cpu
-fbatches no longer hold an extra reference (and have the lru flag set),
-most calls to lru_add_drain(), and more importantly lru_add_drain_all(),
-should be removed.
+Le Wed, Sep 09, 2026 at 11:08:31AM +0200, Thomas Gleixner a écrit :
+> On Wed, Sep 09 2026 at 10:04, Peter Zijlstra wrote:
+> > On Tue, Sep 08, 2026 at 12:15:21PM +0200, Frederic Weisbecker wrote:
+> > Let me try and have a go :-)
+> >
+> >
+> > do_exit()				de_thread() 			posix_timer_fn()
+> >   exit_signal()				  LOCK siglock 			  posix_timer_send_sigqueue()
+> >     LOCK siglock			  UNLOCK siglock 		    t = posix_timer_get_target()
+> >     tsk->flags |= PF_EXITING; 						    LOCK siglock
+> >     UNLOCK siglock			  if (!thread_group_leader) 	      if (!list_empty(sigqueue))
+> >     					    LOCK tasklist_lock
+> >     flush_sigqueue_list();		    if (leader->exit_state)
+> > 					      break;
+> >   ...                                       transfer_pid()
+> > 					    UNLOCK tasklist_lock
+> >   exit_notify()
+> >     LOCK tasklist_lock
+> >     tsk->exit_state = EXIT_ZOMBIE;
+> >     UNLOCK tasklist_lock
+> >
+> >
+> >
+> > Then there is indeed nothing that makes sure posix_timer_fn() sees
+> > sigqueue updates done by do_exit(), because those are ordered by
+> > tasklist_lock, but posix_timer_fn() doesn't care about that.
+> 
+> That's irrelevant because in the above scenario posix_timer_fn() 't'
+> points to the exiting old leader (on the left) because the PID store has
+> not happened yet and it therefore observes PF_EXITING on it so it won't
+> touch the sigqueue. Note, that setting and checking PF_EXITING is
+> serialized by sighand lock, so this is fine.
+> 
+>  do_exit()
+>    exit_signals()
+>      LOCK siglock
+>      tsk->flags |= PF_EXITING
+>      UNLOCK siglock
+> 
+> So after this point anything which looks at tsk->flags under siglock
+> will observe PF_EXITING and not touch the sigqueue. Nothing to see here.
+> 
+> > The easy solution would probably be to do transfer_pid() while holding
+> > siglock?
+> 
+> That'd be only relevant for the situation Frederic is concerned about,
+> i.e. the case where the third party observes the TID swap.
+> 
+> Because with that visible 't' in posix_timer_send_sigqueue() won't be
+> old_leader, which has PF_EXITING set, it will be new_leader which has it
+> not set.
+> 
+> So Frederic is concerned that posix_timer_send_sigqueue() can observe
+> the PID store but not observe the sigqueue stores.
+> 
+> I argue that's not possible:
+> 
+> A:  sigqueue stores
+> 
+> B:   AQUIRE tasklist
+> 
+> C:   exit_state store
+> 
+> D:   RELEASE tasklist
+>      // sigqueue and exit_state stores become globally visible
+>  ------------------------------------------------------------------------
+> 
+> E                               ACQUIRE tasklist
+>  ------------------------------------------------------------------------
+> F                                if (exit_state)
+> 				   swap_pid()
+> G                                     STORE_PID
+> 
+> 				// The PID store can become visible in the
+> 				// system right here so F can observe them before
+> 				// RELEASE tasklist
+> 
+> H                                                             READ PID
+> 							      ....
+> I                                		              ACQUIRE siglock
+> 
+> After #A the sigqueue stores are maybe visible
+> 
+> After #C the exit_state store is maybe visible
+> 
+> After #D both #A and #C are guaranteed to be visible to _ALL_ agents in
+> the system and cannot become magically become invisible after that
+> point.
+> 
+> The new leader cannot swap PIDs before acquiring task list lock and
+> before it observed exit_state != 0 under it. That's fully serialized
+> against the old leader as both hold task list lock for their operations.
+> 
+> #F creates a control dependency, so if the new leader acquires task list
+>    lock before the old it will observe 0, drop the lock and wait. No PID
+>    store obviously.
+> 
+> #G can be come visible immediately but is only guaranteed to be visible
+>    globally at the RELEASE of tasklist lock.
+> 
+> #H can only observe the PID store after the store actually happened in
+>    #G. So it either reads the original PID or the swapped PID.
+> 
+> #I is not really relevant for this. It's only relevant for PF_EXITING
+>    and other stuff which is directly protected by it. And it does not
+>    matter whether it locks the old or the new sighand.
+> 
+> Now let's look at the full chain and what can possibly be visible or not
+> and when:
+> 
+> #A can trickle into the tasklist held section, but not after #D.
+> 
+> #C cannot be reordered against #B and #D
+> 
+> #A is therefore guaranteed to be globally visible _before_ new leader
+>    observes exit_state != 0 in #F under task list lock
+> 
+> #G cannot be reordered against #F and obviously not against #E either.
+> 
+>    It can become visible at any point after the store, but as argued
+>    above that visibility can't be reordered before #A (sigqueue stores)
+>    became visible.
+> 
+> The important part is that the visibility of #A (sigqueue stores) and #G
+> (PID store) is fully ordered through task list lock.
+> 
+> So #H _cannot_ observe #G without observing #A - not even on PowerPC or
+> similar insanities.
+> 
+> No?
 
-Remove lru_add_drain() from compact_zone().
-Remove lru_add_drain_all() from compact_nodes() and compact_store().
-Keep lru_add_drain_cpu_zone() in compact_zone(): it was always a bit of
-a hack, a cheap way to get a local_lock() around pcp drain_pages_zone().
+I've always been told that ordering only works if paired.
+But in practice I must confess I don't know much about hardware details.
 
-Remove lru_add_drain() and lru_add_drain_all() from generic_fadvise(
-POSIX_FADV_DONTNEED), but still retry once on failure; remove outdated
-comment line from mapping_try_invalidate().
+> 
+> Also doing the PID swap under sighand lock is not solving anything
+> either because posix_timer_send_sigqueue() does the lookup without the
+> lock simply because it does not know which task it is upfront. So it
+> would have to redo and validate the lookup with the lock held.
 
-Remove every lru_add_drain() and lru_add_drain_all() from khugepaged.c.
+It does the lookup without the lock but if pid is rewritten inside
+the siglock on the write side and we observe the new pid from read side, then
+acquiring the lock afterwards on the read side also acquires what it has
+released previously (that is, everything that was acquired by tasklist_lock,
+including the list_del_init()).
 
-Remove lru_add_drain_all() from KSM's scan_get_next_rmap_item() restart.
+Not sure if my words are clear but tools/memory-model/litmus-tests/MP+polocks.litmus
+explains that better.
 
-Remove lru_add_drain() from wp_can_reuse_anon_folio() and do_swap_page().
+Thanks.
 
-Remove lru_add_drain(), lru_add_drain_all() from migrate_device_unmap().
-
-Keep lru_add_drain()s in mm/gup.c populate_vma_page_range() and
-faultin_page_range(): good housekeeping after a bulk operation.
-
-Keep lru_add_drain()s in mm/madvise.c: the ones after a bulk op probably
-do want to "Push any new pages onto the LRU now", and update the stats;
-the ones before a bulk op may be trying to stabilize initial conditions,
-or to minimize draining under ptlock.
-
-Keep lru_add_drain_all() in memcg-v1's mem_cgroup_force_empty():
-it probably does want to push onto the LRU and update the stats.
-
-Keep lru_add_drain() after bulk op in mlock_vma_pages_range(), partly
-for "Unevictable kB" accuracy; but remove the lru_add_drain() before it.
-
-Keep lru_add_drain()s in swap_cluster_readahead(), swap_vma_readahead():
-they do want to "Push any new pages onto the LRU now" (akpm 2.5.46).
-
-Keep lru_add_drain()s and lru_add_drain_all() throughout mm/vmscan.c:
-it works on LRUs, so it does need folios to be on an actual LRU.
-
-Signed-off-by: Hugh Dickins <hughd@google.com>
----
- mm/compaction.c     | 12 +-----------
- mm/fadvise.c        | 17 +----------------
- mm/khugepaged.c     | 11 -----------
- mm/ksm.c            | 12 ------------
- mm/memory.c         | 14 ++------------
- mm/migrate_device.c |  9 ---------
- mm/mlock.c          |  1 -
- mm/truncate.c       |  1 -
- 8 files changed, 4 insertions(+), 73 deletions(-)
-
-diff --git a/mm/compaction.c b/mm/compaction.c
-index 1290b9170cb2..5944094253b0 100644
---- a/mm/compaction.c
-+++ b/mm/compaction.c
-@@ -2652,9 +2652,6 @@ compact_zone(struct compact_control *cc, struct capture_control *capc)
- 
- 	trace_mm_compaction_begin(cc, start_pfn, end_pfn, sync);
- 
--	/* lru_add_drain_all could be expensive with involving other CPUs */
--	lru_add_drain();
--
- 	while ((ret = compact_finished(cc)) == COMPACT_CONTINUE) {
- 		int err;
- 		unsigned long iteration_start_pfn = cc->migrate_pfn;
-@@ -2969,9 +2966,6 @@ static int compact_nodes(void)
- {
- 	int ret, nid;
- 
--	/* Flush pending updates to the LRU lists */
--	lru_add_drain_all();
--
- 	for_each_online_node(nid) {
- 		ret = compact_node(NODE_DATA(nid), false);
- 		if (ret)
-@@ -3036,12 +3030,8 @@ static ssize_t compact_store(struct device *dev,
- {
- 	int nid = dev->id;
- 
--	if (nid >= 0 && nid < nr_node_ids && node_online(nid)) {
--		/* Flush pending updates to the LRU lists */
--		lru_add_drain_all();
--
-+	if (nid >= 0 && nid < nr_node_ids && node_online(nid))
- 		compact_node(NODE_DATA(nid), false);
--	}
- 
- 	return count;
- }
-diff --git a/mm/fadvise.c b/mm/fadvise.c
-index b63fe21416ff..f788a5020384 100644
---- a/mm/fadvise.c
-+++ b/mm/fadvise.c
-@@ -143,27 +143,12 @@ int generic_fadvise(struct file *file, loff_t offset, loff_t len, int advice)
- 		if (end_index >= start_index) {
- 			unsigned long nr_failed = 0;
- 
--			/*
--			 * It's common to FADV_DONTNEED right after
--			 * the read or write that instantiates the
--			 * pages, in which case there will be some
--			 * sitting on the local LRU cache. Try to
--			 * avoid the expensive remote drain and the
--			 * second cache tree walk below by flushing
--			 * them out right away.
--			 */
--			lru_add_drain();
--
- 			mapping_try_invalidate(mapping, start_index, end_index,
- 					&nr_failed);
--
- 			/*
--			 * The failures may be due to the folio being
--			 * in the LRU cache of a remote CPU. Drain all
--			 * caches and try again.
-+			 * Retry if any failures, in case they were transient.
- 			 */
- 			if (nr_failed) {
--				lru_add_drain_all();
- 				invalidate_mapping_pages(mapping, start_index,
- 						end_index);
- 			}
-diff --git a/mm/khugepaged.c b/mm/khugepaged.c
-index 75639298efc2..d09f848d3591 100644
---- a/mm/khugepaged.c
-+++ b/mm/khugepaged.c
-@@ -1236,10 +1236,6 @@ static enum scan_result __collapse_huge_page_swapin(struct mm_struct *mm,
- 	if (pte)
- 		pte_unmap(pte);
- 
--	/* Drain LRU cache to remove extra pin on the swapped in pages */
--	if (swapped_in)
--		lru_add_drain();
--
- 	result = SCAN_SUCCEED;
- out:
- 	trace_mm_collapse_huge_page_swapin(mm, swapped_in, referenced, result,
-@@ -2320,8 +2316,6 @@ static enum scan_result collapse_file(struct mm_struct *mm, unsigned long addr,
- 					result = SCAN_FAIL;
- 					goto xa_unlocked;
- 				}
--				/* drain lru cache to help folio_isolate_lru() */
--				lru_add_drain();
- 			} else if (folio_trylock(folio)) {
- 				folio_get(folio);
- 				xas_unlock_irq(&xas);
-@@ -2335,8 +2329,6 @@ static enum scan_result collapse_file(struct mm_struct *mm, unsigned long addr,
- 				page_cache_sync_readahead(mapping, &file->f_ra,
- 							  file, index,
- 							  end - index);
--				/* drain lru cache to help folio_isolate_lru() */
--				lru_add_drain();
- 				folio = filemap_lock_folio(mapping, index);
- 				if (IS_ERR(folio)) {
- 					result = SCAN_FAIL;
-@@ -2975,8 +2967,6 @@ static void khugepaged_do_scan(struct collapse_control *cc)
- 	bool wait = true;
- 	enum scan_result result = SCAN_SUCCEED;
- 
--	lru_add_drain_all();
--
- 	cc->progress = 0;
- 	while (true) {
- 		cond_resched();
-@@ -3208,7 +3198,6 @@ int madvise_collapse(struct vm_area_struct *vma, unsigned long start,
- 	cc->progress = 0;
- 
- 	mmgrab(mm);
--	lru_add_drain_all();
- 
- 	for (addr = hstart; addr < hend; addr += HPAGE_PMD_SIZE) {
- 		enum scan_result result = SCAN_FAIL;
-diff --git a/mm/ksm.c b/mm/ksm.c
-index 49d48d1e0998..890e2c51106d 100644
---- a/mm/ksm.c
-+++ b/mm/ksm.c
-@@ -2625,18 +2625,6 @@ static struct ksm_rmap_item *scan_get_next_rmap_item(struct page **page)
- 		advisor_start_scan();
- 		trace_ksm_start_scan(ksm_scan.seqnr, ksm_rmap_items);
- 
--		/*
--		 * A number of pages can hang around indefinitely in per-cpu
--		 * LRU cache, raised page count preventing write_protect_page
--		 * from merging them.  Though it doesn't really matter much,
--		 * it is puzzling to see some stuck in pages_volatile until
--		 * other activity jostles them out, and they also prevented
--		 * LTP's KSM test from succeeding deterministically; so drain
--		 * them here (here rather than on entry to ksm_do_scan(),
--		 * so we don't IPI too often when pages_to_scan is set low).
--		 */
--		lru_add_drain_all();
--
- 		/*
- 		 * Whereas stale stable_nodes on the stable_tree itself
- 		 * get pruned in the regular course of stable_tree_search(),
-diff --git a/mm/memory.c b/mm/memory.c
-index 8b0c2c735d3d..e9e2199ba5e9 100644
---- a/mm/memory.c
-+++ b/mm/memory.c
-@@ -4313,9 +4313,6 @@ static bool __wp_can_reuse_large_anon_folio(struct folio *folio,
- static bool wp_can_reuse_anon_folio(struct folio *folio,
- 				    struct vm_area_struct *vma)
- {
--	const bool maybe_in_lru_cache = !folio_test_lru(folio);
--	const bool in_swapcache = folio_test_swapcache(folio);
--
- 	if (IS_ENABLED(CONFIG_TRANSPARENT_HUGEPAGE) && folio_test_large(folio))
- 		return __wp_can_reuse_large_anon_folio(folio, vma);
- 
-@@ -4326,16 +4323,9 @@ static bool wp_can_reuse_anon_folio(struct folio *folio,
- 	 *
- 	 * KSM doesn't necessarily raise the folio refcount.
- 	 */
--	if (folio_test_ksm(folio) ||
--	    folio_ref_count(folio) > 1 + maybe_in_lru_cache + in_swapcache)
-+	if (folio_test_ksm(folio))
- 		return false;
--	if (maybe_in_lru_cache)
--		/*
--		 * We cannot easily detect+handle references from
--		 * remote LRU caches or references to LRU folios.
--		 */
--		lru_add_drain();
--	if (folio_ref_count(folio) > 1 + in_swapcache)
-+	if (folio_ref_count(folio) > 1 + folio_test_swapcache(folio))
- 		return false;
- 	if (!folio_trylock(folio))
- 		return false;
-diff --git a/mm/migrate_device.c b/mm/migrate_device.c
-index 009bfa8b212d..7ece4ca0654a 100644
---- a/mm/migrate_device.c
-+++ b/mm/migrate_device.c
-@@ -575,11 +575,8 @@ static unsigned long migrate_device_unmap(unsigned long *src_pfns,
- 	struct folio *fault_folio = fault_page ?
- 		page_folio(fault_page) : NULL;
- 	unsigned long i, restore = 0;
--	bool allow_drain = true;
- 	unsigned long unmapped = 0;
- 
--	lru_add_drain();
--
- 	for (i = 0; i < npages; ) {
- 		struct page *page = migrate_pfn_to_page(src_pfns[i]);
- 		struct folio *folio;
-@@ -600,12 +597,6 @@ static unsigned long migrate_device_unmap(unsigned long *src_pfns,
- 
- 		/* ZONE_DEVICE folios are not on LRU */
- 		if (!folio_is_zone_device(folio)) {
--			if (!folio_test_lru(folio) && allow_drain) {
--				/* Drain CPU's lru cache */
--				lru_add_drain_all();
--				allow_drain = false;
--			}
--
- 			if (!folio_isolate_lru(folio)) {
- 				src_pfns[i] &= ~MIGRATE_PFN_MIGRATE;
- 				restore++;
-diff --git a/mm/mlock.c b/mm/mlock.c
-index 97134eff6b56..971430e6251e 100644
---- a/mm/mlock.c
-+++ b/mm/mlock.c
-@@ -424,7 +424,6 @@ static void mlock_vma_pages_range(struct vm_area_struct *vma,
- 	vma_start_write(vma);
- 	vma_flags_reset_once(vma, new_vma_flags);
- 
--	lru_add_drain();
- 	walk_page_range_vma(vma, start, end, &mlock_walk_ops, NULL);
- 	lru_add_drain();
- 
-diff --git a/mm/truncate.c b/mm/truncate.c
-index 4151f7a167e3..7ea5d513f76a 100644
---- a/mm/truncate.c
-+++ b/mm/truncate.c
-@@ -571,7 +571,6 @@ unsigned long mapping_try_invalidate(struct address_space *mapping,
- 			 */
- 			if (!ret) {
- 				deactivate_file_folio(folio);
--				/* Likely in the lru cache of a remote CPU */
- 				if (nr_failed)
- 					(*nr_failed)++;
- 			}
 -- 
-2.51.0
-
+Frederic Weisbecker
+SUSE Labs
