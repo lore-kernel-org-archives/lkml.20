@@ -1,155 +1,147 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1BEE566C5C;
-	Wed,  9 Sep 2026 13:34:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 468CF582B8A
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 13:34:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788960854; cv=none; b=PDxhLdSP9pqkeqE/+cT5ej8VB7/nykrTQxXIXQQKNyaZqnYhmLfaOkWHVuGvZ+xK4SlC+wlwHgMgT/EkSQXal7Q37QhrAXv9z9Z1kBejDN9wNnXH+D29Dmc5izAcDRhCRcbTqTmSowDcRjPkEs/9o3W6XcUvzjHHccpNmeNO0Zg=
+	t=1788960862; cv=none; b=KgWtOIY+79tns3utWT9p4/qNQwE6GXFn2Qz5Y6PtI+jEsTw3dZ0KzkTju9+vXLEcG2d8n0f+Pet8qQb/Ri1HvITsWsQA5J7DvjIM0zjezhO6vpFlMwo+ZH4E319cbSLfsq9YPK0DbCQmxchFnWPci8Vam/ipz8wp968tRx19i1M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788960854; c=relaxed/simple;
-	bh=vj5TwCzhlLxvUe7A+Bx3R9PGajolUon6lM6RJzWmxHU=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=YLZOWFqeG1xa3swSyD0db8My0AI62kWsFxsSaSJpJGL04GRtYR1CK+UY01LyyGx9pWLyCFvJL4qSR1un54TXODYOT5JOiUHGnBRXUaa8CvlcmpZvQNSGsSLU5z0Ymq4FzCWqIVYdZJx0FRj8FvL+dAC3vxCLHS24K8X4wPnQwEk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VKETAwhb; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788960862; c=relaxed/simple;
+	bh=4su4DqQYMnVIN5ctUhNBs87iw5tUTSE0DpJpve2mjgM=;
+	h=Date:From:To:Cc:Subject:Content-Type:MIME-Version:Message-ID; b=Ivt9BeBd9MdEzaNm1cSEuD0OkRwzJDoQGPug+w9TKWrsdaDQ3WyVMMahXFTxBn5UwZ7BUQiWvmF0wAcw6cC5jZUxCSSs04vRGON9hkYntPjhyeA99J0uSbnDbd6WfOwj2qE49YnNxhPhZFnlBOauna3RQ13j0I8no63lSci1+l8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=hxDamS79; arc=none smtp.client-ip=117.135.210.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VKETAwhb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D97AA1F00A3A;
-	Wed,  9 Sep 2026 13:34:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788960852;
-	bh=Vwf3XHFmLke+N9soz5HJtjy5W6jvA8C1cmDilLBFR0E=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=VKETAwhbvv+EK0Gm31QFMYaYfrQJ2PkX9WiTurdg0GqN2atlcsKeEnI2LT69seS1g
-	 ckmzVzkRoynOrvTlgBNzG1vsWAhQRsMuS1a7vuZYSDXafGxdgK9TNpx4ebCVmVAjM1
-	 xDU1YFvqp0/x0rO09WvuApW6ngX9ZKM5Vkq7BQ8v35OA/CBlRB5ViylH9nulLN/f29
-	 5dnXJYPV5oRwG4/vm/WSmAWMIcDVIe38hgrg+TvfeE1NJrKE8c5xy9uZKJTJnaRbyS
-	 OkQib97F1RX0R0/WJwLRKYGE5XY9OxKPJH/UsYWzVYILEjG7UPdcd15Pipp0iFaPrd
-	 GcwqJZUYV2Rxw==
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Date: Wed, 09 Sep 2026 15:32:55 +0200
-Subject: [PATCH 02/12] mm/sparse: refactor sparse_sections_init()
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="hxDamS79"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
+	Message-ID; bh=4su4DqQYMnVIN5ctUhNBs87iw5tUTSE0DpJpve2mjgM=; b=h
+	xDamS79YF1fJgpFnCy9h6D0b1fLtT4bFtAXvmWsLjCAf7fm5aLZpYIcEszR2VoFo
+	WAsOUxebUbWM4KQThCGpyk0Xd+FFV1KBX9ofe+B+mGfSBlq0Q+ntBQps44QvL1YM
+	EPy4fE3kHRMyMB84Z/bmykkyJ+BKPEWQ2zSDViUG2c=
+Date: Wed, 9 Sep 2026 21:33:58 +0800 (CST)
+From: Shawn <shawnq1@163.com>
+To: almaz.alexandrovich@paragon-software.com
+Cc: ntfs3@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: [PATCH] fs/ntfs3: reject short restart table entries
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
+ 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
+X-NTES-SC: AL_Qu2TCvWdv0Ao7iGcY+kdmEgXg+s9XsSysvog1YZXc+sEpgL39SAKRXtcJmHHycOKFhyotSCKbT1r68FafodJA/+iCU/1lvn7DZlrehsoXA==
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset=GBK
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260909-b4-sparsemem_cleanups-v1-2-008fc8d579fe@kernel.org>
-References: <20260909-b4-sparsemem_cleanups-v1-0-008fc8d579fe@kernel.org>
-In-Reply-To: <20260909-b4-sparsemem_cleanups-v1-0-008fc8d579fe@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>, 
- Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
- Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
- Kairui Song <kasong@tencent.com>, Qi Zheng <qi.zheng@linux.dev>, 
- Shakeel Butt <shakeel.butt@linux.dev>, Barry Song <baohua@kernel.org>, 
- Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
- Wei Xu <weixugc@google.com>, Baoquan He <baoquan.he@linux.dev>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, 
- Brendan Jackman <brendan.jackman@linux.dev>, 
- Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>, 
- Oscar Salvador <osalvador@suse.de>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- "Rafael J. Wysocki" <rafael@kernel.org>, Danilo Krummrich <dakr@kernel.org>, 
- Jan Kiszka <jan.kiszka@siemens.com>, Kieran Bingham <kbingham@kernel.org>
-Cc: linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
- linux-cxl@vger.kernel.org, driver-core@lists.linux.dev, 
- linux-fsdevel@vger.kernel.org, "David Hildenbrand (Arm)" <david@kernel.org>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2859; i=david@kernel.org;
- h=from:subject:message-id; bh=vj5TwCzhlLxvUe7A+Bx3R9PGajolUon6lM6RJzWmxHU=;
- b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLIWJmg1TG/wTlyzoPKR2TK/dRFzncSdjcw5bZd5zM1//
- dqqsVqxo5SFQYyDQVZMkSUo+L7By5fraqvd+Jhh5rAygQxh4OIUgInwTWD4ny5++k5Jx/wO5uki
- oZopr+4wct0S4XQ8sunwR2f+wENn5RgZrr9oaQteGlzRdT11x6xTOw1nq7yNDpm/IaqT039Ki3U
- fNwA=
-X-Developer-Key: i=david@kernel.org; a=openpgp;
- fpr=1BD9CAAD735C4C3A460DFCCA4DDE10F700FF835A
+Message-ID: <72bf4f2c.9eb3.1a08660120d.Coremail.shawnq1@163.com>
+X-Coremail-Locale: zh_CN
+X-CM-TRANSID:ZCgvCgD3Px1GYKFqw1xDAA--.9709W
+X-CM-SenderInfo: pvkd40jtr6il2tof0z/xtbCzwYsOmqhYEbXmAAA39
+X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
 
-memory_present() really identifies+prepares all early sections so the
-initialization in sparse_init() can properly iterating them to
-initialize metadata.
-
-Let's just inline memory_present() into sparse_sections_init() and
-cleaning up the code a bit while at it: make it clear that we are operating
-on pfns.
-
-Note that we call set_section_nid() now only if the section
-was not already created earlier. Now, there is no more inconsistency
-between what we (temporarily) store in ms->section_mem_map and what
-we store in our section->nid array.
-
-Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
----
- mm/sparse.c | 41 +++++++++++++++++------------------------
- 1 file changed, 17 insertions(+), 24 deletions(-)
-
-diff --git a/mm/sparse.c b/mm/sparse.c
-index 6a6d258862904..36e3d854febc5 100644
---- a/mm/sparse.c
-+++ b/mm/sparse.c
-@@ -179,22 +179,27 @@ static inline unsigned long first_present_section_nr(void)
- 	return next_present_section_nr(-1);
- }
- 
--/* Record a memory area against a node. */
--static void __init memory_present(int nid, unsigned long start, unsigned long end)
-+void __init sparse_sections_init(void)
- {
--	unsigned long pfn;
-+	unsigned long pfn, start_pfn, end_pfn;
-+	int i, nid;
-+
-+	sparse_extreme_init();
- 
--	start &= PAGE_SECTION_MASK;
--	mminit_validate_memmodel_limits(&start, &end);
--	for (pfn = start; pfn < end; pfn += PAGES_PER_SECTION) {
--		unsigned long section_nr = pfn_to_section_nr(pfn);
--		struct mem_section *ms;
-+	for_each_mem_pfn_range(i, MAX_NUMNODES, &start_pfn, &end_pfn, &nid) {
-+		start_pfn &= PAGE_SECTION_MASK;
-+		mminit_validate_memmodel_limits(&start_pfn, &end_pfn);
- 
--		sparse_index_init(section_nr, nid);
--		set_section_nid(section_nr, nid);
-+		for (pfn = start_pfn; pfn < end_pfn; pfn += PAGES_PER_SECTION) {
-+			unsigned long section_nr = pfn_to_section_nr(pfn);
-+			struct mem_section *ms;
- 
--		ms = __nr_to_section(section_nr);
--		if (!ms->section_mem_map) {
-+			sparse_index_init(section_nr, nid);
-+			ms = __nr_to_section(section_nr);
-+			if (ms->section_mem_map)
-+				continue;
-+
-+			set_section_nid(section_nr, nid);
- 			ms->section_mem_map = sparse_encode_early_nid(nid) |
- 							SECTION_IS_ONLINE;
- 			__section_mark_present(ms, section_nr);
-@@ -202,18 +207,6 @@ static void __init memory_present(int nid, unsigned long start, unsigned long en
- 	}
- }
- 
--/* Initialize memory section metadata for all system memory. */
--void __init sparse_sections_init(void)
--{
--	unsigned long start, end;
--	int i, nid;
--
--	sparse_extreme_init();
--
--	for_each_mem_pfn_range(i, MAX_NUMNODES, &start, &end, &nid)
--		memory_present(nid, start, end);
--}
--
- #ifndef CONFIG_SPARSEMEM_VMEMMAP
- struct page __init *__populate_section_memmap(unsigned long pfn,
- 		unsigned long nr_pages, int nid, struct vmem_altmap *altmap,
-
--- 
-2.43.0
-
+SGVsbG8sCgpjaGVja19yc3RibCgpIGluIGZzL250ZnMzL2ZzbG9nLmMgYWNjZXB0cyBhIHJlc3Rh
+cnQtdGFibGUgZW50cnkgc2l6ZSBzbWFsbGVyCnRoYW4gdGhlIGZvdXIgYnl0ZXMgaXQgdW5jb25k
+aXRpb25hbGx5IHJlYWRzIGZvciBldmVyeSBlbnRyeS4gIEEgY3JhZnRlZCBOVEZTCiRMb2dGaWxl
+IGNhbiB0aGVyZWZvcmUgY2F1c2UgYSBrZXJuZWwgaGVhcCBvdXQtb2YtYm91bmRzIHJlYWQgd2hp
+bGUgbW91bnRpbmcgYQpyZWFkLW9ubHkgZmlsZXN5c3RlbSBpbWFnZS4KClRoaXMgaXMgYSBtYW51
+YWxseSBjb25zdHJ1Y3RlZCByZXByb2R1Y2VyIGFuZCBkb2VzIG5vdCB1c2Ugc3l6a2FsbGVyLgoK
+SEVBRCBjb21taXQ6ICAgIDk0MGRlNTkwYjgzOWY3MWQ2ZGM4NDYxNjA1MzRiZjIwMjQwMWI4YjcK
+Z2l0IHRyZWU6ICAgICAgIHVwc3RyZWFtIExpbnV4IGNoZWNrb3V0LCBsb2NhbCBicmFuY2ggbWFz
+dGVyCnNvdXJjZSB2ZXJzaW9uOiBMaW51eCA3LjMuMC1yYzEtMDAxMDEtZzk0MGRlNTkwYjgzOQpj
+b21waWxlcjogICAgICAgZ2NjIChVYnVudHUgMTEuNC4wLTF1YnVudHUxfjIyLjA0LjMpLCBHTlUg
+bGQgMi4zOAoKY29uc29sZSBvdXRwdXQ6Cmh0dHBzOi8vZ2lzdC5naXRodWJ1c2VyY29udGVudC5j
+b20vc2hhb3MyNi9hNzM4MmQ5NmQyYTg2YzUxYzI3OWZkOTk0ZDlhMmExYy9yYXcvNmRjZTY2MGQ5
+OWUyNDQyNzVkY2M4N2VmNzkzOTFlMTBhYjY2YjlmMy9jb25zb2xlLW91dHB1dC50eHQKa2VybmVs
+IGNvbmZpZzoKaHR0cHM6Ly9naXN0LmdpdGh1YnVzZXJjb250ZW50LmNvbS9zaGFvczI2L2E3Mzgy
+ZDk2ZDJhODZjNTFjMjc5ZmQ5OTRkOWEyYTFjL3Jhdy82ZGNlNjYwZDk5ZTI0NDI3NWRjYzg3ZWY3
+OTM5MWUxMGFiNjZiOWYzL2tlcm5lbC1jb25maWcudHh0CnJlcHJvZHVjZXI6Cmh0dHBzOi8vZ2lz
+dC5naXRodWJ1c2VyY29udGVudC5jb20vc2hhb3MyNi9hNzM4MmQ5NmQyYTg2YzUxYzI3OWZkOTk0
+ZDlhMmExYy9yYXcvNmRjZTY2MGQ5OWUyNDQyNzVkY2M4N2VmNzkzOTFlMTBhYjY2YjlmMy9wb2Mu
+YwoKVGhlIGV4cGVyaW1lbnQgdXNlcyBRRU1VIFRDRyBvbmx5LiAgTm8gaGFyZHdhcmUsIGtlcm5l
+bCBtb2R1bGUsIGtwcm9iZSwKYWRkcmVzcyBsZWFrLCBvciBtb2RpZmllZCBrZXJuZWwgY29kZSBp
+cyByZXF1aXJlZCBmb3IgdGhlIHRyaWdnZXIuCgpUbyByZXByb2R1Y2UsIGNyZWF0ZSBhIGNsZWFu
+IE5URlMgaW1hZ2Ugb24gdGhlIGhvc3QgYW5kIGFwcGx5IHRoZSBvbi1kaXNrIGxvZwptdXRhdGlv
+biB3aXRoIHBvYy5jOgoKICAgIGNjIC1PMiAtV2FsbCAtV2V4dHJhIC1vIG50ZnMzX21ha2VfcmVz
+dGFydCBwb2MuYwogICAgdHJ1bmNhdGUgLXMgMzJNIG50ZnMzLWNhbmRpZGF0ZS1iYXNlLmltZwog
+ICAgbWtudGZzIC1GIC1RIG50ZnMzLWNhbmRpZGF0ZS1iYXNlLmltZwogICAgY3AgbnRmczMtY2Fu
+ZGlkYXRlLWJhc2UuaW1nIG50ZnMzLWNhbmRpZGF0ZS5pbWcKICAgIC4vbnRmczNfbWFrZV9yZXN0
+YXJ0IG50ZnMzLWNhbmRpZGF0ZS5pbWcgLS1jYW5kaWRhdGUKCkJvb3QgdGhlIHVucGF0Y2hlZCBL
+QVNBTiBrZXJuZWwgaW4gYSBkaXNwb3NhYmxlIFFFTVUgZ3Vlc3QsIHBhc3MKbnRmczMtY2FuZGlk
+YXRlLmltZyBhcyBhIHJlYWQtb25seSBzZWNvbmQgdmlydGlvIGRpc2ssIGFuZCBydW46CgogICAg
+bW91bnQgLXQgcHJvYyBwcm9jIC9wcm9jCiAgICBtb3VudCAtdCB0bXBmcyB0bXBmcyAvdG1wCiAg
+ICBta2RpciAtcCAvdG1wL250ZnMKICAgIG1vdW50IC1vIHJvIC10IG50ZnMzIC9kZXYvdmRiIC90
+bXAvbnRmcwoKVXNlIHRoZSBmb2xsb3dpbmcgUUVNVSBjb21tYW5kIGZvciB0aGUgZGlzcG9zYWJs
+ZSBndWVzdDoKCiAgICBxZW11LWltZyBjcmVhdGUgLWYgcWNvdzIgLUYgcmF3IFwKICAgICAgLWIg
+PGJ1aWxkcm9vdC1iYXNlLWltYWdlPiAvdG1wL250ZnMzLXJlcHJvLXJvb3QucWNvdzIKCiAgICBx
+ZW11LXN5c3RlbS14ODZfNjQgLW0gMkcgLXNtcCAxIFwKICAgICAgLWtlcm5lbCA8bGludXgtdHJl
+ZT4vYXJjaC94ODYvYm9vdC9iekltYWdlIFwKICAgICAgLWFwcGVuZCAncXVpZXQgbG9nbGV2ZWw9
+MSBhY3BpPW9mZiBjb25zb2xlPXR0eVMwIHJvb3Q9L2Rldi92ZGExIGluaXQ9L2Jpbi9zaCcgXAog
+ICAgICAtZHJpdmUgZmlsZT0vdG1wL250ZnMzLXJlcHJvLXJvb3QucWNvdzIsZm9ybWF0PXFjb3cy
+LGlmPXZpcnRpbyBcCiAgICAgIC1kcml2ZSBmaWxlPS90bXAvbnRmczMtY2FuZGlkYXRlLmltZyxm
+b3JtYXQ9cmF3LGlmPXZpcnRpbyxyZWFkb25seT1vbiBcCiAgICAgIC1ub2dyYXBoaWMgLW1vbml0
+b3Igbm9uZSAtbWFjaGluZSBwYyAtbm8tcmVib290IFwKICAgICAgLXZpcnRmcyBsb2NhbCxwYXRo
+PTxyZXNlYXJjaC1yb290Pixtb3VudF90YWc9cmVzZWFyY2gsc2VjdXJpdHlfbW9kZWw9bm9uZQoK
+UmVwbGFjZSA8YnVpbGRyb290LWJhc2UtaW1hZ2U+LCA8bGludXgtdHJlZT4sIGFuZCA8cmVzZWFy
+Y2gtcm9vdD4gd2l0aCBsb2NhbApwYXRocy4gIFRoZSBzZWNvbmQgdmlydGlvIGRpc2sgaXMgL2Rl
+di92ZGIgaW4gdGhlIGd1ZXN0LgoKVGhlIHZ1bG5lcmFibGUga2VybmVsIHJlcG9ydHM6CgogICAg
+QlVHOiBLQVNBTjogc2xhYi1vdXQtb2YtYm91bmRzIGluIGxvZ19yZXBsYXkrMHg2ZmM4LzB4ZjI5
+MAogICAgUmVhZCBvZiBzaXplIDQgYXQgYWRkciBmZmZmODg4MDJhNWNmZWM0IGJ5IHRhc2sgbW91
+bnQvNDkxNAogICAgQ2FsbCBUcmFjZToKICAgICAgbG9nX3JlcGxheQogICAgICBudGZzX2xvYWRs
+b2dfYW5kX3JlcGxheQogICAgICBudGZzX2ZpbGxfc3VwZXIKICAgICAgZ2V0X3RyZWVfYmRldl9m
+bGFncwogICAgICB2ZnNfZ2V0X3RyZWUKICAgICAgcGF0aF9tb3VudAogICAgICBfX3g2NF9zeXNf
+bW91bnQKICAgIFRoZSBidWdneSBhZGRyZXNzIGJlbG9uZ3MgdG8gdGhlIGNhY2hlIGttYWxsb2Mt
+NjQgb2Ygc2l6ZSA2NAogICAgVGhlIGJ1Z2d5IGFkZHJlc3MgaXMgbG9jYXRlZCA0IGJ5dGVzIHRv
+IHRoZSByaWdodCBvZgogICAgYWxsb2NhdGVkIDY0LWJ5dGUgcmVnaW9uCgpUaGUgYWNjZXNzIGlz
+IHJlYWNoZWQgdGhyb3VnaCB0aGUgbm9ybWFsIG1vdW50IHBhdGg6CgogICAgbW91bnQoMikKICAg
+ICAgLT4gbnRmc19maWxsX3N1cGVyKCkKICAgICAgLT4gbnRmc19sb2FkbG9nX2FuZF9yZXBsYXko
+KQogICAgICAtPiBsb2dfcmVwbGF5KCkKICAgICAgLT4gcmVhZF9sb2dfcmVjX2xjYigpCiAgICAg
+IC0+IGZpbmRfbG9nX3JlYygpCiAgICAgIC0+IGNoZWNrX3JzdGJsKCkKICAgICAgLT4gNC1ieXRl
+IG91dC1vZi1ib3VuZHMgcmVhZAoKVGhlIGNyYWZ0ZWQgRFBUIHJlc3RhcnQgdGFibGUgaGFzIHRo
+ZXNlIHJlbGV2YW50IGZpZWxkczoKCiAgICBjbGllbnRfZGF0YV9sZW4gPSAweDQwCiAgICByZXN0
+YXJ0LXRhYmxlIGJ5dGVzID0gMHgyMAogICAgcmVzdGFydC10YWJsZSBzaXplID0gMQogICAgcmVz
+dGFydC10YWJsZSB1c2VkID0gOAogICAgcmVzdGFydC10YWJsZSB0b3RhbCA9IDgKICAgIGVudHJp
+ZXMgPSAweGZmIHggOAoKY2hlY2tfcnN0YmwoKSBjb21wdXRlczoKCiAgICB0cyA9IDEgKiA4ICsg
+c2l6ZW9mKHN0cnVjdCBSRVNUQVJUX1RBQkxFKSA9IDB4MjAKClRoZSBleGlzdGluZyBjaGVja3Mg
+cmVqZWN0IHNpemUgPT0gMCwgYnV0IGFjY2VwdCBzaXplID09IDEuICBUaGUgbG9vcCB0aGVuCmFk
+dmFuY2VzIGJ5IG9uZSBieXRlIHdoaWxlIGxvYWRpbmcgYSBfX2xlMzIgZnJvbSBlYWNoIGVudHJ5
+LiAgRm9yIHRoZSBmaW5hbAplbnRyeSwgdGhlIGZvdXItYnl0ZSBsb2FkIGV4dGVuZHMgYmV5b25k
+IHRoZSBhbGxvY2F0ZWQga21hbGxvYy02NCBvYmplY3QuCgpUaGlzIGlzIGRpc3RpbmN0IGZyb20g
+dGhlIGV4aXN0aW5nIHJlc3RhcnQtdGFibGUgZ3Jvd3RoIGFuZCBEUFQtc3BlY2lmaWMKcGFnZV9s
+Y25zW10gY2FwYWNpdHkgY2hlY2tzOiB0aGUgZ2VuZXJpYyBjaGVja19yc3RibCgpIGZvdXItYnl0
+ZSBsb2FkIGhhcHBlbnMKYmVmb3JlIHRob3NlIGxhdGVyIHZhbGlkYXRpb25zLgoKSW1wYWN0IGFu
+ZCBwcml2aWxlZ2UgYm91bmRhcnk6CgpUaGlzIGlzIGEga2VybmVsIGhlYXAgb3V0LW9mLWJvdW5k
+cyByZWFkIGNhdXNlZCBieSBhIG1hbGljaW91cyBOVEZTIGZpbGVzeXN0ZW0KaW1hZ2UuICBBIHJl
+YWQtb25seSBtb3VudCBpcyBzdWZmaWNpZW50OyB0aGUgaW1hZ2UgZG9lcyBub3QgbmVlZCB0byBi
+ZQp3cml0YWJsZSBhbmQgbm8gc3BlY2lhbCBoYXJkd2FyZSBpcyByZXF1aXJlZC4gIFRoZSBjdXJy
+ZW50IHJlcHJvZHVjZXIgdXNlZApyb290L0NBUF9TWVNfQURNSU4gaW4gdGhlIGRpc3Bvc2FibGUg
+Z3Vlc3QgdG8gYXR0YWNoIHRoZSBibG9jayBpbWFnZSBhbmQgbW91bnQKaXQuICBBbiB1bnByaXZp
+bGVnZWQgZGlyZWN0IG1vdW50IHBhdGggaGFzIG5vdCBiZWVuIGVzdGFibGlzaGVkLiAgTm8gcHJp
+dmlsZWdlCmVzY2FsYXRpb24sIGluZm9ybWF0aW9uIGRpc2Nsb3N1cmUsIG9yIGNvZGUgZXhlY3V0
+aW9uIGhhcyBiZWVuIGRlbW9uc3RyYXRlZC4KClJlamVjdCByZXN0YXJ0LXRhYmxlIGVudHJ5IHNp
+emVzIHNtYWxsZXIgdGhhbiB0aGUgd2lkdGggdXNlZCBieSB0aGUgdmFsaWRhdGlvbgpsb29wOgoK
+Rml4ZXM6IGI0NmFjZDZhNmE2MiAoImZzL250ZnMzOiBBZGQgTlRGUyBqb3VybmFsIikKQ2M6IHN0
+YWJsZUB2Z2VyLmtlcm5lbC5vcmcKU2lnbmVkLW9mZi1ieTogc2hhb3MgPFlPVVJfRU1BSUw+Ci0t
+LQogZnMvbnRmczMvZnNsb2cuYyB8IDIgKy0KIDEgZmlsZSBjaGFuZ2VkLCAxIGluc2VydGlvbigr
+KSwgMSBkZWxldGlvbigtKQoKZGlmZiAtLWdpdCBhL2ZzL250ZnMzL2ZzbG9nLmMgYi9mcy9udGZz
+My9mc2xvZy5jCmluZGV4IGVkNTBjMWQwYzIzZTMuLmMyNGEwNzEzYjg1OTkgMTAwNjQ0Ci0tLSBh
+L2ZzL250ZnMzL2ZzbG9nLmMKKysrIGIvZnMvbnRmczMvZnNsb2cuYwpAQCAtNzQ1LDcgKzc0NSw3
+IEBAIHN0YXRpYyBib29sIGNoZWNrX3JzdGJsKGNvbnN0IHN0cnVjdCBSRVNUQVJUX1RBQkxFICpy
+dCwgc2l6ZV90IGJ5dGVzKQogCiAgICB0cyA9IHJzaXplICogbmUgKyBzaXplb2Yoc3RydWN0IFJF
+U1RBUlRfVEFCTEUpOwogCi0gICBpZiAoIXJzaXplIHx8IHJzaXplID4gYnl0ZXMgfHwKKyAgIGlm
+IChyc2l6ZSA8IHNpemVvZihfX2xlMzIpIHx8IHJzaXplID4gYnl0ZXMgfHwKICAgICAgICByc2l6
+ZSArIHNpemVvZihzdHJ1Y3QgUkVTVEFSVF9UQUJMRSkgPiBieXRlcyB8fCBieXRlcyA8IHRzIHx8
+CiAgICAgICAgbGUxNl90b19jcHUocnQtPnRvdGFsKSA+IG5lIHx8IGZmID4gdHMgLSBzaXplb2Yo
+X19sZTMyKSB8fAogICAgICAgIGxmID4gdHMgLSBzaXplb2YoX19sZTMyKSB8fAoKVmFsaWRhdGlv
+biByZXN1bHRzOgoKICAgIHVuZml4ZWQgS0FTQU4ga2VybmVsOiAgMS8xIHRyaWdnZXIsIEtBU0FO
+IHNsYWItb3V0LW9mLWJvdW5kcwogICAgdW5maXhlZCBzdGFiaWxpdHk6ICAgICAyMC8yMCBtb3Vu
+dC91bW91bnQgZW50cmllcyBjb21wbGV0ZWQ7IG9uZSBzYW1lLXNpdGUgS0FTQU4gcmVwb3J0CiAg
+ICBmaXhlZCBLQVNBTiBrZXJuZWw6ICAgICAxLzEgQS9CIHJ1biwgbW91bnRfZXhpdD0wLCBubyBL
+QVNBTi9PT0IvQlVHIHJlcG9ydAoKVGhlIDIwLzIwIGZpZ3VyZSBpcyB0aGUgc3VjY2Vzc2Z1bCBt
+b3VudC91bW91bnQgZW50cnkgY291bnQsIG5vdCAyMAppbmRlcGVuZGVudCBLQVNBTiByZXBvcnRz
+OyBLQVNBTiBzdXBwcmVzc2VzIHJlcGVhdGVkIHJlcG9ydHMgZnJvbSB0aGUgc2FtZQpzaXRlLgoK
+VGhhbmtzLAoKc2hhb3MK
