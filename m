@@ -1,111 +1,171 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com [209.85.128.70])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B954A550DB1
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 11:56:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 552B6550DBC
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 11:56:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.70
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788954968; cv=none; b=fys5zpOVbmhzt0cQWuiqJYuVqspp9iH0FGY6QcgkAq0E3j8VZx+1ZqAfaLVqOVTV1mKap1NrkLskDg6uE3pnAX22x6FbuQR6gMUCXeCJDsqQ+/b6jkHGjf4Cw3U+PxcXIBJJGNKypXHBs6rhh61U6FhbuaLGkeiw6XJ1xxUJEyk=
+	t=1788954968; cv=none; b=TK+lL/jKRsjDgJc3EuCynesuWDt41xBdtz5Ug6eISAZxFDOXZAfct25K0utE+/GplCwXKjSWSsRBmL4nVTP1E28WzA73UYfKHf6Gyeo/oGSeSnwqTGe3aHTE21bT9qCP0lkKYuE4YpcTmodUJyAOUItrI9xBXTU9sNwg53/wm+g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788954968; c=relaxed/simple;
-	bh=HsLRaYuEbq7ZzzRNl6uSIAKV4rQlZ2M6v1OhzKK4PeA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=EHWsxxlEUI6wvd3fzGl2OsGcLImjzXsN7QCo1yvvOlJpuqI1AVh8k3MadCRxb3pKazQAWOtDZ7X+TvFeHDdzW0xvVakpPM5SEFsD7kLK+SfobcNulDX/WzlWbVWc3j10k0FyRif49rCINGkLJ4Cfklhc3xkbUNmCvnqJvCTBnAY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=b+DYhiOP; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	bh=s1/82MTGgkzbBwlpgHOrnKNXWZF9hy81U2YebCpxGTs=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=IFLmTLB76zjd+QzXtBC95Gh39uxWV1QCJFetNUH8gKSnDkXZc6b6VkWrCk324dzEufHERQv5IyqxFVaF53We5DZemgBqo5vyZMd7rvOp01zx8G8a9DCagBmWAtksyNQRi0SZRC8grBTZtEA5o1VV5ClNKYJYiUn/80Kig4KTKbo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--ardb.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=BUnzup7m; arc=none smtp.client-ip=209.85.128.70
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--ardb.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="b+DYhiOP"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1788954964;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=hUSOoW0g30UFVhZc7yIBkWk1BVCAbM29mk2RKcbK+JY=;
-	b=b+DYhiOPEBzUXzhwFEcgfmHVssRWQPTlOuQcPO/60lUhURaaQSq3HQsM+dw+xGGIvvglG3
-	n7mO8oY8pCIo9kM1fC6OHRwRHEahVGGkC56SA2b3MRXDAvESDTG1hqXolKm/GjouoOlD/d
-	nW/Y8/16fNaemmJ/Ps/7X+TAVFCrt4Y=
-Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-665-LTe7h3VOOKKbGcjQM4I0FQ-1; Wed,
- 09 Sep 2026 07:56:01 -0400
-X-MC-Unique: LTe7h3VOOKKbGcjQM4I0FQ-1
-X-Mimecast-MFC-AGG-ID: LTe7h3VOOKKbGcjQM4I0FQ_1788954959
-Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id ED3CF19541AC;
-	Wed,  9 Sep 2026 11:55:58 +0000 (UTC)
-Received: from thuth-p1g4.redhat.corp (headnet05.pony-001.prod.iad2.dc.redhat.com [10.2.32.117])
-	by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 7D4991956088;
-	Wed,  9 Sep 2026 11:55:53 +0000 (UTC)
-From: Thomas Huth <thuth@redhat.com>
-To: Eric Biggers <ebiggers@kernel.org>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	"David S. Miller" <davem@davemloft.net>,
-	"Jason A. Donenfeld" <Jason@zx2c4.com>,
-	Ard Biesheuvel <ardb@kernel.org>,
-	Paulo Alcantara <pc@manguebit.org>,
-	Namjae Jeon <linkinjeon@kernel.org>
-Cc: linux-crypto@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	Ronnie Sahlberg <ronniesahlberg@gmail.com>,
-	Shyam Prasad N <sprasad@microsoft.com>,
-	Tom Talpey <tom@talpey.com>,
-	Bharath SM <bharathsm@microsoft.com>,
-	linux-cifs@vger.kernel.org,
-	samba-technical@lists.samba.org
-Subject: [PATCH v2 12/13] smb: client: Use hmac_sha256_zeroize_ctx function to clear hmac_sha256_ctx
-Date: Wed,  9 Sep 2026 13:54:48 +0200
-Message-ID: <20260909115455.157093-13-thuth@redhat.com>
-In-Reply-To: <20260909115455.157093-1-thuth@redhat.com>
-References: <20260909115455.157093-1-thuth@redhat.com>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="BUnzup7m"
+Received: by mail-wm1-f70.google.com with SMTP id 5b1f17b1804b1-49b8c651ac0so85270425e9.2
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 04:56:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1788954964; x=1789559764; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=UBQRet/chWy4OOOfuuDBVXfyuNkZdYYoGG6zjY0T2rg=;
+        b=BUnzup7mbsF04KZhUQWvTvTiWgnFYf/1r0V8ZWK6fVKQ9JQh5kjhexDU0XQdg5D9Sa
+         wy3xjqhkbw0yLL0aL9vM9Nd7BzaSGg+rZga5DDL2C4brjNQ3aQb5BLX0iw+6AKCLkjhu
+         6ml6cwZ0k+CWs4Vw6oskocg8wM2pNFeuvicb/jIxQbM+NaciVXvZcyxi3TYoTrRgg3Ci
+         Jlke/9+U14tg72vU5NIy9IWRqWl3Qqq+9UNjAHmU+c9fSHIatUwvY8gEtCeCej1U+Xti
+         25me1c1qrGjXGsZ1F/PYaT2mZd9DKoIoeYd/Deyk6dFKiK0tCrxY3I70XHND4gOr+3ib
+         lN6Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788954964; x=1789559764;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=UBQRet/chWy4OOOfuuDBVXfyuNkZdYYoGG6zjY0T2rg=;
+        b=Xxp8E1u87QuGCzyM2U0qgrHPNW1Y6f1kxvSICE+FFgGrOLvzczBvOcqgKkHW3fTxLR
+         Fcb9UUtm+/6RPAUp93Km3t/YWuqltV0QlIjl3xhlx138d8iyGl2NawkMF5cVY2SgAtPw
+         ne6XFpL7Q+xBS3jKR9BBeS3xv15PuaA7FFcbgwiyFbT2oEznTYUi0/b9+PzQ6+BPtklJ
+         Azx1ij21r1LitoTxfL0NbKFAHQJF9aVKx6URJzF4umN5Hg/8CU+GNndA0PefAOAo4qcl
+         YDoV6ZLIRtFWbbRtesZSMmdxP+cdWo6LXzrvfdMCub2pOQIVs/r3Ye+w1rZKsWA1kWFj
+         345w==
+X-Gm-Message-State: AFuF++lBMIR9uF8lfRQivTUD1ZFUswD5WLAU2PpYByz0Y2mIj27x4T6u
+	VYMJ7VCsSIJc2YOryJBQ0Yt9xl0jzOKkOwzWQTZgkU5JT21rSOLODP5gf5yZI6Q7RaEbD065dQ=
+	=
+X-Received: from wmpm28.prod.google.com ([2002:a05:600c:91c:b0:49b:90c7:d488])
+ (user=ardb job=prod-delivery.src-stubby-dispatcher) by 2002:a05:600d:848e:20b0:495:4d88:e630
+ with SMTP id 5b1f17b1804b1-49cf824f697mr252322075e9.10.1788954964312; Wed, 09
+ Sep 2026 04:56:04 -0700 (PDT)
+Date: Wed,  9 Sep 2026 13:55:39 +0200
+In-Reply-To: <20260909115530.1924665-12-ardb+git@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
+Mime-Version: 1.0
+References: <20260909115530.1924665-12-ardb+git@google.com>
+X-Developer-Key: i=ardb@kernel.org; a=openpgp; fpr=F43D03328115A198C90016883D200E9CA6329909
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2963; i=ardb@kernel.org;
+ h=from:subject; bh=8w5CNhvLDyt2eBYmWjMeec5mW8SnFbz6woyBTfjX6VE=;
+ b=owGbwMvMwCVmkMcZplerG8N4Wi2JIWuhp42oXIilb4t0cMLbFZf8Kxgl1DcsT42/stbh08Xa4
+ +IFE3Z3lLIwiHExyIopsgjM/vtu5+mJUrXOs2Rh5rAygQxh4OIUgIkskGX4K+SWbvqo/xj7nZvC
+ CUonHF7vtHzg8/pWxEomdQ976e/fjBgZOvNK+27s8vC6E3KIzWr9lh08h00vVKs1rJ77qdje9dh ubgA=
+X-Mailer: git-send-email 2.55.0.1003.g10538fe699-goog
+Message-ID: <20260909115530.1924665-20-ardb+git@google.com>
+Subject: [PATCH v2 08/10] efi/libstub: Add support for printing human readable GUIDs
+From: Ard Biesheuvel <ardb+git@google.com>
+To: linux-efi@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org, Ard Biesheuvel <ardb@kernel.org>, 
+	Vincent Mailhol <mailhol@kernel.org>, x86@kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-It's just cosmetics, but now that we have a helper function for clearing
-hmac_sha256_ctx with a __cleanup() statement, we can also use it in the smb
-client code for good measure.
+From: Ard Biesheuvel <ardb@kernel.org>
 
-Signed-off-by: Thomas Huth <thuth@redhat.com>
+Add support for the %pUl printk conversion specifier, which takes a
+pointer to a GUID and prints it in the usual format:
+
+  aaaaaaaa-bbbb-cccc-dddd-dddddddddddd
+
+Co-developed-by: Vincent Mailhol <mailhol@kernel.org>
+Signed-off-by: Vincent Mailhol <mailhol@kernel.org>
+Signed-off-by: Ard Biesheuvel <ardb@kernel.org>
 ---
- fs/smb/client/smb2transport.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+ drivers/firmware/efi/libstub/vsprintf.c | 40 +++++++++++++++++---
+ 1 file changed, 35 insertions(+), 5 deletions(-)
 
-diff --git a/fs/smb/client/smb2transport.c b/fs/smb/client/smb2transport.c
-index c407f30e00401..080864b24a0c5 100644
---- a/fs/smb/client/smb2transport.c
-+++ b/fs/smb/client/smb2transport.c
-@@ -212,7 +212,7 @@ smb2_calc_signature(struct smb_rqst *rqst, struct TCP_Server_Info *server)
- 	unsigned char smb2_signature[SMB2_HMACSHA256_SIZE];
- 	struct kvec *iov = rqst->rq_iov;
- 	struct smb2_hdr *shdr = (struct smb2_hdr *)iov[0].iov_base;
--	struct hmac_sha256_ctx hmac_ctx;
-+	struct hmac_sha256_ctx hmac_ctx __cleanup(hmac_sha256_zeroize_ctx);
- 	struct smb_rqst drqst;
- 	__u64 sid = le64_to_cpu(shdr->SessionId);
- 	u8 key[SMB2_NTLMV2_SESSKEY_SIZE];
-@@ -250,7 +250,6 @@ smb2_calc_signature(struct smb_rqst *rqst, struct TCP_Server_Info *server)
- 		memcpy(shdr->Signature, smb2_signature, SMB2_SIGNATURE_SIZE);
- 
- 	memzero_explicit(key, sizeof(key));
--	memzero_explicit(&hmac_ctx, sizeof(hmac_ctx));
- 	return rc;
+diff --git a/drivers/firmware/efi/libstub/vsprintf.c b/drivers/firmware/efi/libstub/vsprintf.c
+index bd32af6b4f4d..7f6b891a338a 100644
+--- a/drivers/firmware/efi/libstub/vsprintf.c
++++ b/drivers/firmware/efi/libstub/vsprintf.c
+@@ -113,6 +113,9 @@ char *put_dec(char *end, unsigned long long n)
+ 	return p;
  }
  
++/* we are called with base 8, 10 or 16, only, thus don't need "G..."  */
++static const char digits[16] = "0123456789ABCDEF"; /* "GHIJKLMNOPQRSTUVWXYZ"; */
++
+ static
+ char *number(char *end, unsigned long long num, int base, char locase)
+ {
+@@ -121,9 +124,6 @@ char *number(char *end, unsigned long long num, int base, char locase)
+ 	 * produces same digits or (maybe lowercased) letters
+ 	 */
+ 
+-	/* we are called with base 8, 10 or 16, only, thus don't need "G..."  */
+-	static const char digits[16] = "0123456789ABCDEF"; /* "GHIJKLMNOPQRSTUVWXYZ"; */
+-
+ 	switch (base) {
+ 	case 10:
+ 		if (num != 0)
+@@ -144,6 +144,29 @@ char *number(char *end, unsigned long long num, int base, char locase)
+ 	return end;
+ }
+ 
++static char *guid_to_str(const efi_guid_t *guid, char *out, char locase)
++{
++	static const u8 guid_index[UUID_SIZE] = {
++		3, 2, 1, 0, 5, 4, 7, 6, 8, 9, 10, 11, 12, 13, 14, 15,
++	};
++
++	for (int i = 0, p = 0; i < ARRAY_SIZE(guid_index); i++) {
++		u8 byte = guid->b[guid_index[i]];
++
++		out[p++] = locase | digits[byte >> 4];
++		out[p++] = locase | digits[byte & 0xf];
++
++		switch (i) {
++		case 3:
++		case 5:
++		case 7:
++		case 9:
++			out[p++] = '-';
++		}
++	}
++	return out;
++}
++
+ #define ZEROPAD	1		/* pad with zero */
+ #define SIGN	2		/* unsigned/signed long */
+ #define PLUS	4		/* show plus */
+@@ -253,8 +276,7 @@ do {				\
+ int efi_vsnprintf(efi_char16_t *buf, size_t size, const char *fmt, va_list ap,
+ 		  bool crlf)
+ {
+-	/* The maximum space required is to print a 64-bit number in octal */
+-	char tmp[(sizeof(unsigned long long) * 8 + 2) / 3];
++	char tmp[UUID_STRING_LEN];
+ 	char *tmp_end = &tmp[ARRAY_SIZE(tmp)];
+ 	long long num;
+ 	int base;
+@@ -367,6 +389,14 @@ int efi_vsnprintf(efi_char16_t *buf, size_t size, const char *fmt, va_list ap,
+ 			break;
+ 
+ 		case 'p':
++			if (fmt[1] == 'U' && (fmt[2] | 0x20) == 'l') {
++				flags &= LEFT;
++				s = guid_to_str(va_arg(args, efi_guid_t *), tmp, fmt[2] & 0x20);
++				precision = len = UUID_STRING_LEN;
++				fmt += 2;
++				goto output;
++			}
++
+ 			if (precision < 0)
+ 				precision = 2 * sizeof(void *);
+ 			fallthrough;
 -- 
-2.55.0
+2.55.0.1003.g10538fe699-goog
 
