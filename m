@@ -1,126 +1,112 @@
-Received: from mail.mleia.com (mleia.com [178.79.152.223])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com [209.85.216.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26FEB46E000;
-	Wed,  9 Sep 2026 08:28:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.79.152.223
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D47B1470EB1
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 08:30:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788942526; cv=none; b=HDtVtT5KxgAtuknLY7s7MqgWc9Z+MvsTXtEPG6fjd2cxWSC9KljaJrQs9qIJ6Q5+3ak+5m06mHc5uvyHyVdPZC6JWnriSRqDBbxVpwMNbctlEdWGRbN8pV7NEWbul+Tnjdebs3d9Fo28kIDr0CNMGFjKpwv1X93rONxIy0fVQfE=
+	t=1788942645; cv=none; b=UcTA3lrlPaBGLCp+n3RKMzisEJ1ULPd63cQLmD2nH7edaBT07nDHXVW48qID9rn3uYoxJ0R81fIG77oHNJnXCD+B1hj404EpdrZ9urTvfNI30C4cWTmLtQBI8XfMAdOH1jJiGJtsR3aRMhrYltA1IMurs1IN6flWA4gGswRJDG0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788942526; c=relaxed/simple;
-	bh=vfmBXnNeJ1NpJUYwZFwgJkc9eQg51DMt/p2K4/oDTL8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=NlRNz9Giitv8YDFwV4OCKs79Uhlu2Wnz2EeWpj+K/NUEf+cvwUpyJj7qov6xckeOzwQVCB0XAsv9uETCXwo4jkM979J2gnlXah9T5Nc/gYnxB8VZ6G06pNcBg53i6tKhuOdJLkeymV5sjRuJaRnW5h504DDbP9gkbubk+34vxC8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mleia.com; spf=none smtp.mailfrom=mleia.com; dkim=pass (2048-bit key) header.d=mleia.com header.i=@mleia.com header.b=qqEpXggU; dkim=pass (2048-bit key) header.d=mleia.com header.i=@mleia.com header.b=lQbPuJHC; arc=none smtp.client-ip=178.79.152.223
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mleia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=mleia.com
+	s=arc-20240116; t=1788942645; c=relaxed/simple;
+	bh=83UV4H5oW9GOVXeVr5VHR3mV8RREjaWoBNG1Uyn41Ew=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=W7Ixgj09nBJrPM+Da6EwStphS0t5vODq+tMvlVIgBeWKnVPpmbeikyW4IZ2qdPlTB29c3PGo+hkkiGAuJiDgCCk/cmE9rRSUhILMUTCGjMkU80qwnkB+LRHpyGtHMJUa/VKnNxfTuG2AmYE75ynsdSEcJTSMRdcT+4P59JRxOZ4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KWD3WElS; arc=none smtp.client-ip=209.85.216.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mleia.com header.i=@mleia.com header.b="qqEpXggU";
-	dkim=pass (2048-bit key) header.d=mleia.com header.i=@mleia.com header.b="lQbPuJHC"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mleia.com; s=mail;
-	t=1788942522; bh=vfmBXnNeJ1NpJUYwZFwgJkc9eQg51DMt/p2K4/oDTL8=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=qqEpXggU4ubFz3BdyK7idq/XNCa9aAcHQqo7lhT76xOJNC7ccNJhvHdErYC6cfABu
-	 Jdb1nrLOCxV3O4Cz1gxNl7W1wzgGhZksuon3cL2G0AhvEKS+OIB1HQFKW/XZSDs5Lh
-	 hHq+bQ2PC7Bm2dhOcnzz2PpL8W9VCnQKBioGu+dVhXmDC9AddP8NhmyLrmwjXldIQp
-	 GH6i2ZzRIonII5i5Bmc/xNm9XGVIoeqgHT5iDc1QaklfxXtQVv0kkzLrvU7YTQvnSQ
-	 +zArK/yKsOUzbQNUl/oudEqwUl9lvsL5NhDs7DtF+TH0tCa3gU0qYKbxv6aClPKfzw
-	 OzKhYbo0+5vMA==
-Received: from mail.mleia.com (localhost [127.0.0.1])
-	by mail.mleia.com (Postfix) with ESMTP id ED4BF8702D;
-	Wed,  9 Sep 2026 08:28:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mleia.com; s=mail;
-	t=1788942521; bh=vfmBXnNeJ1NpJUYwZFwgJkc9eQg51DMt/p2K4/oDTL8=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=lQbPuJHCUF/s9EUzhJLEsR+4+s06seWE3oYsgcMgjs7C7Cg4K89e/aTL512M8/9JL
-	 Ld2oHt8S6ReEbbZdT9EVFhCrYvZloID0MBZWZZMAp5JCKuF2X2YkJIrzYb5B3GYJyg
-	 cjm0WpR+pOaRQtL6arz9uUdgVnRNlxdp1lM2L/233opCRL4UxR2lA/HJfAnGGQ4ytv
-	 uQjfhU57uJyGaNcKikBKBtP0+I3/4antgAEVE1rRSB9s2PWYMAagDPnit2c7H0Cm/e
-	 KgVxSAum7CmJwrBQ8JU8KM05k/gnNxZNUyvTWXrS6l2EGD+UD8Iy+v61GRa0/ReVaV
-	 HkNxXw1xvOxeg==
-Message-ID: <96ef0d36-51b2-4efe-9f6f-5e4ce6d6046d@mleia.com>
-Date: Wed, 9 Sep 2026 11:28:39 +0300
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KWD3WElS"
+Received: by mail-pj1-f54.google.com with SMTP id 98e67ed59e1d1-3964dfb5b9aso6712153a91.1
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 01:30:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788942639; x=1789547439; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=fHN/SN9hwaOzGl3hreMqIt0mqEZ3PQOgvVl19lBg7Nw=;
+        b=KWD3WElShJv3Zbp9ElZz8WYv0y/3FCDy9dLjGxqPLwbYltoW68GElRmSxeDuSwzlu3
+         atybAAn80D2YBYJ73+6X4rN/6B2/hSffHmGPC4AAe4FjUgVcFSgNGtro5mVq3BQ7q5rU
+         bhEgWIfF0UuZ+rLGoZJnIG1MjVGNSuVISToiUxM0V9Fq0KFe7qv7Jj3lr3W263QBZ+Uj
+         qpcHzouKJtPfvFOe2dbLuzQn3ffv6mk0cYAPfmAtXsRBwAutSHTsW3XuJJyBpVWav23h
+         dlGfnKuTicLtRdtcU12UNeLKK+kojaQrL1KI3o40EVtus7OQfaj8cNnW1ckMfkFCMCl1
+         l55Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788942639; x=1789547439;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=fHN/SN9hwaOzGl3hreMqIt0mqEZ3PQOgvVl19lBg7Nw=;
+        b=JRY1/ClPo68WzVnfBd7EcEP9JR5w7JmCGOKLavhrsxrgINcri5WPKJ1Tjkmt3mc8pJ
+         ANXSBsBYd5TWUsS9EoIb2rtXcPpqbbimvw2FQl8CNHvgFNMBw93+qG+Ek1Ap90q5cWUn
+         SGnRuRMw+rdlQtIXrUt/NS6nw7pSI6eRuzLPldRX6TuikJPSAVQrtL0zhSS+ldEo920L
+         ZzpZP8rsfw/3XmQBcOJcvEcEvxIjHz0LPPSmwu7tii74Q7rqu/tRoum7JCbJRlonY/Lt
+         Khl8wFRyaNoKxXmoLUHtkBIm2D/PscJFrzgEDMo2zOqOal/+VLnOS2NrO2otXXTiz+A4
+         hk9A==
+X-Forwarded-Encrypted: i=1; AKwUvBxmTFDYpoifLtYZU+H7cMaJU0mT1aSjbpatKk7KTIAkq4XKbAWnsFEVW3RuBNM/1ErXkc196Sec3JX/OfU=@vger.kernel.org
+X-Gm-Message-State: AFuF++maui5wN/oxJJnbmT7Tuc+LCIGpQC1vKb7mWJc9+bM5x7GABeSI
+	/SyuSi3H+VECKMbR4eiSXxjKh9yTeZZAm+kuhQM4CwTU/4fWDO0HzmWu
+X-Gm-Gg: AYBFou0Ym1Kar8+kX/pmlWrdnXzAquP6Y8FGxiZ616sR8cxLNo8yh5NrJozPu+drC9u
+	nOdSdpbTixCFwo9wr2zSGjeXSaGANsbAVFZaPJRE6fz9Xvsnl9kw2Hg73gM6nYw1BjZOdMfPLwa
+	dXDY7DddplU9B5M5k9kMLOsqzJRyIV0rmAyEcvhh2zYHWswgxlk5DY1hhHiEkofNL8BhIKgyE6F
+	gZFZxZy48rdZMDFRTI4XbX9p8gqrqD2QlWkmzYbwYL9XWAfVCUbpTYCOPtIYSzRVhJaMxPqmoOQ
+	K5zxZf4np8nRlSE+7/lsiVgRwICgxwxB0URdZ5rMMLzeuKaMk7QL5wXOxeD7bKIPzOSX6jKLo6j
+	pITGBGm12WYwp/CrbRh+FceUUEFDCfJOEE0Ql5TX/VpZHDp0qJi0QPy7UIYP/Mbs/DeXjeF3OgC
+	xnW/x+nyNCc75oRcyDAd4KkcrfpCuQgf8xAGUmzLlN/bp7rNLoG7VUjvmWGhbU+Idkb90hFeC0/
+	FKcSyFXfJRaruU=
+X-Received: by 2002:a17:90b:2ccd:b0:398:9c00:29f0 with SMTP id 98e67ed59e1d1-39b2628fc25mr54300617a91.24.1788942638681;
+        Wed, 09 Sep 2026 01:30:38 -0700 (PDT)
+Received: from isaac-aneek-MS-7C52 ([103.74.86.148])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33987ccf483sm1439095eec.20.2026.09.09.01.30.33
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 09 Sep 2026 01:30:38 -0700 (PDT)
+From: Isaac Aneek Sarker <alvasarker2004@gmail.com>
+To: 
+Cc: alvasarker2004@gmail.com,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Nikolay Kulikov <nikolayof23@gmail.com>,
+	Andrei Khomenkov <khomenkov@mailbox.org>,
+	Dalvin-Ehinoma Noah Aiguobas <fliegbert2@gmail.com>,
+	Khushal Chitturi <khushalchitturi@gmail.com>,
+	Minu Jin <s9430939@naver.com>,
+	Anirban Bose <boses156@gmail.com>,
+	Khasar Munkh-Erdene <02khasar@gmail.com>,
+	Jennifer Guo <guojy.bj@gmail.com>,
+	linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] staging: rtl8723bs: fix unnecessary else block with only a break statement
+Date: Wed,  9 Sep 2026 14:29:38 +0600
+Message-ID: <20260909083010.13064-1-alvasarker2004@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 09/13] ARM: lpc18xx: remove entire platform
-To: Arnd Bergmann <arnd@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Linus Walleij <linusw@kernel.org>, Russell King <linux@armlinux.org.uk>
-Cc: Drew Fustini <fustini@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
- Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- Liviu Dudau <liviu.dudau@arm.com>, Sudeep Holla <sudeep.holla@kernel.org>,
- Lorenzo Pieralisi <lpieralisi@kernel.org>, Frank Li <Frank.Li@nxp.com>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, Stefan Agner <stefan@agner.ch>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Aaro Koskinen <aaro.koskinen@iki.fi>, Andreas Kemnade
- <andreas@kemnade.info>, Kevin Hilman <khilman@baylibre.com>,
- Roger Quadros <rogerq@kernel.org>, Tony Lindgren <tony@atomide.com>,
- Nicolas Ferre <nicolas.ferre@microchip.com>,
- Claudiu Beznea <claudiu.beznea@tuxon.dev>, Andrew Lunn <andrew@lunn.ch>,
- Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
- Gregory Clement <gregory.clement@bootlin.com>,
- Robert Jarzmik <robert.jarzmik@free.fr>,
- Kristoffer Ericson <kristoffer.ericson@gmail.com>,
- Ethan Nelson-Moore <enelsonmoore@gmail.com>,
- Geert Uytterhoeven <geert@linux-m68k.org>,
- Alexander Sverdlin <alexander.sverdlin@siemens.com>,
- Shawn Guo <shawnguo@kernel.org>, Karl Mehltretter <kmehltretter@gmail.com>,
- "David Hildenbrand (Arm)" <david@kernel.org>,
- Nicolas Pitre <npitre@baylibre.com>, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- devicetree@vger.kernel.org, imx@lists.linux.dev,
- linux-stm32@st-md-mailman.stormreply.com, linux-omap@vger.kernel.org,
- Krzysztof Kozlowski <krzk+dt@kernel.org>
-References: <20260908152808.3928630-1-arnd@kernel.org>
- <20260908152808.3928630-10-arnd@kernel.org>
-From: Vladimir Zapolskiy <vz@mleia.com>
-In-Reply-To: <20260908152808.3928630-10-arnd@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-CRM114-Version: 20100106-BlameMichelson ( TRE 0.8.0 (BSD) ) MR-49551924 
-X-CRM114-CacheID: sfid-20260909_082842_007818_F2240E9C 
-X-CRM114-Status: GOOD (  15.50  )
+Content-Transfer-Encoding: 8bit
 
-On 9/8/26 18:27, Arnd Bergmann wrote:
-> From: Arnd Bergmann <arnd@arndb.de>
-> 
-> The NXP LPC18xx and LPC43xx microcontrollers are the more modern
-> version of the classic LPC32xx line, but they lack memory management
-> units.
-> 
-> These microcontrollers all remain in production as of 2026, but
-> there are no known users running Linux on them.
-> 
-> The platform was marked deprecated in the 7.3-LTS release, which
-> will remain supported for a few more years.
-> 
-> Remove support for both LPC18xx and LPC43xx.
-> 
-> Cc: Frank Li <Frank.Li@nxp.com>
-> Cc: Sascha Hauer <s.hauer@pengutronix.de>
-> Cc: Pengutronix Kernel Team <kernel@pengutronix.de>
-> Cc: Fabio Estevam <festevam@gmail.com>
-> Cc: Rob Herring <robh@kernel.org>
-> Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
-> Cc: Conor Dooley <conor+dt@kernel.org>
-> Cc: Vladimir Zapolskiy <vz@mleia.com>
-> Cc: imx@lists.linux.dev
-> Cc: devicetree@vger.kernel.org
-> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+Warning found by checkpatch.pl : else is not generally useful after a
+break or return. The function would reach the break statement after
+if-elseif block even if the else block is not used.
 
-Acked-by: Vladimir Zapolskiy <vz@mleia.com>
+Signed-off-by: Isaac Aneek Sarker <alvasarker2004@gmail.com>
+---
+ drivers/staging/rtl8723bs/core/rtw_recv.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-Since there is no known users of these pretty old NOMMU platforms in
-the Linux kernel, it should be safe to drop them from maintenance.
-
+diff --git a/drivers/staging/rtl8723bs/core/rtw_recv.c b/drivers/staging/rtl8723bs/core/rtw_recv.c
+index 3c82012fdc6c..a203ef8bd6f6 100644
+--- a/drivers/staging/rtl8723bs/core/rtw_recv.c
++++ b/drivers/staging/rtl8723bs/core/rtw_recv.c
+@@ -1789,8 +1789,8 @@ static int enqueue_reorder_recvframe(struct recv_reorder_ctrl *preorder_ctrl, un
+ 			/* Duplicate entry is found!! Do not insert current entry. */
+ 			/* spin_unlock_irqrestore(&ppending_recvframe_queue->lock, irql); */
+ 			return false;
+-		else
+-			break;
++
++		break;
+ 	}
+ 
+ 	/* spin_lock_irqsave(&ppending_recvframe_queue->lock, irql); */
 -- 
-Best wishes,
-Vladimir
+2.53.0
+
