@@ -1,239 +1,241 @@
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C4CC55C1D4
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 13:10:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=205.220.168.131
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788959458; cv=pass; b=AegvK+V24tMstcSv7V5oRucUhpL5v21fFkdko48JT7rzjKLPil2nBjargpjeqifrOqehTLTmYw992gGH8gFzAp8Q09K7/1bHmWwHcP6/4GkO4GUyNupefJh2k3yT7mbpHcHTDYv0CjDnSiOrhcEWs3PWqMi0zdeZV2Tnbald9cY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788959458; c=relaxed/simple;
-	bh=USoy+/1sjsE8gM7fL1ZzAANxBJA3GIi2oiUUyXweKmQ=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=C6i9yrrVIzDhP2jAnVmpMZmdTEfyi7V76ZSScwTwhFo3PxQ1xH5MGc3sm2nbiSRxozGLB3dARiDVAf17RbHREc8FCwCoh9+Qc5lLJkmfBHeCLQl41wMxbfbropQvPvPYCB6E+FP2yq2JOdQkrd4vQU1tMWslphYhISP0mPzoVgs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=W+6uoT1W; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=IvLfIs+T; arc=pass smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 838A455C1A3
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 13:10:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788959459; cv=none; b=dC3+7eBlDUTXj9KDmQyeB4WMWRJeS6Bpfi9wDMzafiOYJvIB34twdZcnAX3ORpsRTo/k5fL3rWAj8op51zh3lan3ql0zbRkIaRWCQF1OiXyaB/rp6WMY/4H4YvA1WPFh9MXDO87OXnVAPTy4rHxmgToNsv5uQcDk2BCXb/aS/58=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788959459; c=relaxed/simple;
+	bh=Ixb/AmdAstOcn9FVhgNt2Xll/IdUyQ44GvDHEBU3aaE=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=CQTNM3HXjUT11dcXlzYjGsam2UEABLWNQBesQlVp5JEKlxoTjdBwGHw+5r2eIV9ZZN+vuMx2Prvuc5qCP6N5SJwp3MtxJXWg+LWR+H2JWm5cfnI+uU3eusOK+dOmqGzmNJoZDLXUMSAQjytAHiH14FBtyXRA2d1kpfMcz2GO9RA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=DAtkTypM; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=i51PaaXQ; arc=none smtp.client-ip=205.220.168.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="W+6uoT1W";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="IvLfIs+T"
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 689CCxd53053161
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="DAtkTypM";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="i51PaaXQ"
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 689BU6ZY599697
 	for <linux-kernel@vger.kernel.org>; Wed, 9 Sep 2026 13:10:56 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	e18YgiYDcY3A71+s9t6tnvZG6iOI2p470IJGpWf+I9Q=; b=W+6uoT1WlKKJVmm6
-	jBFUof9ktWt86eS+f0SztMAYfbEm1jpajPKOOEG47A1dnbqWamS8WJ1bGOrBVd9l
-	2sLqg+iirSIIFwzCjnOeEMp6o9ZUmg4oZHbsquZhFbPw9HAkWu7v5gUtfIZAcHJ3
-	CZTaKI9AtVZ2+4iDIY+8p+Q/JVBnuHnnGTaSBI1ynpvynT53D5IfdATiX6QYNjF+
-	wujvbVBDOr0SVnoOmi0QiJL0JeU1k+nbnYR2WUhLwbUKd35I/P2vvITs9bVbs8ks
-	guuL2/Pc8lAXQzLTPu1IyfAUUgCitjzdxddOusL2++iUQGOftvJ04tLjs+aJt/0P
-	PNtjCw==
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gk79206nb-1
+	AiS2pGqIFKAf7u+eYdTRDO4CKrAlgaifUWeuWMxg02s=; b=DAtkTypMn04wZ1TP
+	WbSui06HmTW3UHNwKc5XLh+GWQiORuQHKnyGnJZyR4d1DQ1IQD9KHBu3EgO/iPeG
+	dYpjgeBb9fRBhgAbKd9a6+U9AHP6bKBHgzs/qurmuXwQ9GrlUDQG+GK9atA8Sfim
+	rxUaDzz8L58Nlptu1RVcPHSLa+sJnBrz2o+zuj5foYpstr4kVNJad3FB6vxAmNPA
+	2+fglSMQUp1L/3ypBIiOql4fNQAOFChaNM9YqsQSl7Ht/uSZJ3/V0fa069EObEU7
+	Dg7RU8QXYi8rNnXyMidz0x3QM6j8RHG6Pq9ANbaCFa5+GeAI6AuVuUC7DlqJkNmd
+	sPd1yQ==
+Received: from mail-vs1-f70.google.com (mail-vs1-f70.google.com [209.85.217.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gjywr22ps-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 13:10:56 +0000 (GMT)
-Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-939a00c45easo546928785a.2
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 06:10:56 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788959456; cv=none;
-        d=google.com; s=arc-20260327;
-        b=T/jV239T1j0iituso7n/8cK4D3wrIZCKDSA/0KUlOE7Qsn03Ljshiktl8j2DZS9NmN
-         9YeEZH6NeGKH9erjktLAlORiPFWj1Gx6u6fCYnaujDzJGdDjxow97gMyO9i1PK5RxAai
-         rZdq7zE1Hp/4cX+1Fggl0wg3ouFUGEkz3wIB99og6jXPTX2rbwHQsPtFaMXi9L7ZeJAS
-         CfCo21STBc7MxvPScNtlQf1TQ5Irso+NIjmr6NUVNOzvpXokWo4Qrc+1ucV9ONqK4dGL
-         7ktaOYVKKbTYYZ3rbgDzQ/Eeur+bMuyZfvmC88tnagCMLVtbsAB5vWVNlOtR7Q8Qksmf
-         YzfQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=e18YgiYDcY3A71+s9t6tnvZG6iOI2p470IJGpWf+I9Q=;
-        fh=dHCmokvp5ablFqnS656O1vVcsrSWKOecDSdnqCoM/j0=;
-        b=CjGGfsmtaEUZxcFPax9ja4np5SmxtOMyr+qE7wEnz3q/xhxjbTerVAntk7zyqlw8H1
-         XsMqREmmkEPtYUQSNadm//LxXRE+Qmlo0mWslfl3DJBS3T2Oq3sH1Yivlf1IF9hnwi7X
-         bwqcJ4jx2OPe1JSuv7e8Fih+oN3YobTsWhHDCG1E0Xto+VEc2yIbb98+tPOGvRvDQato
-         zr3C//nxjbain/E3/oyKv6gi2uJgX4yyk/SsSHkmTrgpQXB1hNdOh/YqilLy7XRYodqW
-         DzgRUbs/KcqFzWXvkZzdy5ilOpF3IMlRZbPNd0WWuBHEVU85D2HHNyfzksLB5jh2CQfT
-         Lk7Q==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 13:10:55 +0000 (GMT)
+Received: by mail-vs1-f70.google.com with SMTP id ada2fe7eead31-78fb9f59781so690503137.1
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 06:10:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788959456; x=1789564256; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=e18YgiYDcY3A71+s9t6tnvZG6iOI2p470IJGpWf+I9Q=;
-        b=IvLfIs+TNExH37c3v4xV5/ut4ULte2kdBwKyka4RwKKFWhpVBlggO53hJQOLuhdoCn
-         DBsdcg6bvZaT1UxJZmy7L1YwSNFc+j+0BaQMoPhr+2R8AfD/Qi5RbVyHJo/ngQ/7JNQu
-         2et0tqTdGxbcMQ5Mi0AZsHw5cDqJnjDjEy+ZtnSsBRy3rda6AOiEODqcjngbeHVwkCF7
-         zNhv6HStRGoPvwpvWIm3VsqKNJyFH4+76aUL0GWtgNr6XEGfwyP/0qegiqb7mJ82q1Aa
-         eD6kFAnXuIz/2huD5OzPAyYyLY2PgjxHwTbXFkqiH0poYczt9lIH3jQr5hjqYQaH/26a
-         Hzqw==
+        d=oss.qualcomm.com; s=google; t=1788959455; x=1789564255; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=AiS2pGqIFKAf7u+eYdTRDO4CKrAlgaifUWeuWMxg02s=;
+        b=i51PaaXQcuIhn0l2B1YVsFMZT1aHPtqAFFEPFAwyc+GMm/hzxeF5t/PNlh8MHF9Q/S
+         /kiR7b/YiCGnb4p7UjKLs9T+RCx9VtMebm9v8TsRJjrQsSCONSBE97k8RktKALmXakXd
+         5/kKlGkP7h60h31AM+l7oAyhZ+XC9L8BdQyRMAlJ0+PVCCYL7DoYKua5h105qr1RpfNO
+         5k/0I3XsogyNe+LNKGPIygVnhSXE6QFEIpbJ5ZAngKNBY+o7oGjjYEJmcw6tZekBewNs
+         tx9LWjWjN9nDIRyXgnixQ7fwkCE7QvOAbTDurlBeFOhcCJ3TCBKTamssWMcWylkCao+V
+         A22Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788959456; x=1789564256;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20251104; t=1788959455; x=1789564255;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=e18YgiYDcY3A71+s9t6tnvZG6iOI2p470IJGpWf+I9Q=;
-        b=AjAUWmWzNEEmG7WNODg4X6M3XQBgJYj8pYtP9Lwqg/Af2Hb/D2Ahb2+uiOkN213kA/
-         hy6lInHnxK79J79lzZ9ST7ECJd7+MXS/yI9kiLsPGN7wgMlIDzINpJdt7IGw8RCriw75
-         eb72cFd9dF+puaBTQdr3OuTYEYIw09t0NW7a2PIxo63j7BgLbejjOVfyhUePaUAkteqH
-         Ca0ZGPK89DJsUzV8tRJz+HOlEaoDX8qTOU+uEW04hj9Ozvf5MOgAa3atIFVqYlNEHg/0
-         q5+pCvU/zlEV78pyWSitaVHuQL7UX+3J1sqBbhrkxadDo/l40odzM4RrxICZ99B4coZ5
-         GE2w==
-X-Forwarded-Encrypted: i=1; AKwUvBxUw9MVBWkM/t3Vu4SZga+IU+LFs5fKoLOcSRJIuOiHSuN63a/L8OCjtDE2nSsqjcpKaXOHwcAmMiBswSI=@vger.kernel.org
-X-Gm-Message-State: AFuF++mTufjAcN9eOjQdheb/Vf4DA8DUhHC8dHUoNPM8eRUXVk3B0qT+
-	bELWqSxXMV2TXtdgYNOiKs40LIkXI2w/Ex9XpRq8Hmk0rDxm5Chqe5UJTKfq1izEPy2/TPEgYXa
-	zPo1Gx7CGci6PPmBuljmm82kgLFCCX3UGwiJdrXZ3zRMICk0hjpOIKMFAaNySqSQBJTnlYZwnv7
-	1YuYKIiQwtguEKcAY71Q12PJZfSWDu1IKlvQEXnkylaw==
-X-Gm-Gg: AYBFou0AKHMf1T1gi/g10TII86kicTGLTR244d1n2I/5zI/eqYmgOEubJlA8B94uCtd
-	naQNcGuKPM5TUuXfp/hRkc80z/Xs5AyRi/GfeFr9Wg33csFZf/2wUX09YvhKmIS/ZpvjLSmNVpa
-	cShEqzOa7NHE97rjjOcdJMrXyXxJGWXwLZBauz76LQTJ83e87KV9OZTLnVOYLA/b53abv4ft80E
-	J8UQGEisdwthKsjhAUmR0sCk+IgqsdCkO0IjvxpWe0sU5I5ChaIBVaum4oMqdNCvRRWMvb0cK0=
-X-Received: by 2002:a05:620a:3186:b0:939:c9e9:81a3 with SMTP id af79cd13be357-939c9e9e6d3mr648185285a.30.1788959450568;
-        Wed, 09 Sep 2026 06:10:50 -0700 (PDT)
-X-Received: by 2002:a05:620a:3186:b0:939:c9e9:81a3 with SMTP id
- af79cd13be357-939c9e9e6d3mr648177885a.30.1788959450098; Wed, 09 Sep 2026
- 06:10:50 -0700 (PDT)
+        bh=AiS2pGqIFKAf7u+eYdTRDO4CKrAlgaifUWeuWMxg02s=;
+        b=MpwfNlpRNGpSbG1taWv1LRA3ffBXlaIE2j6K1c7iG8CRjrFgDkhmW9bUa5Eu1FoEj3
+         JAX4zVcGnCh8y+tbYOgQ7ffBbtlKKYZkFATO4xu6+GQz3F2ktv0+6CaaKqnkvvVleOk/
+         zyG8CjUNDkaW9zbGcM7Nl+99tpdP9ExJrLXBuNK40G4fEdJ5zzmfTg12zdD2w7lE+NJN
+         j6SjXs9dyv8P3yBsXiYwDv54/M0tvFp9GdUbI2xASkJGDnPHmO9h5VdcEq8wM0bYpuig
+         +rz7jy2j9QS7TWDhNiLb7W5Y7oCi8+If4xYYgqrYbx7JgYnO2wSlRhGqQNxyHizjchz9
+         GcwQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxgMvs0j8MXIQD2SWCYOD92bg2n8lPY5MW9/ZozQZDE0KNoPyh1zZdQeLDrxs8vXCFu3SBUpkmXcnIV/1s=@vger.kernel.org
+X-Gm-Message-State: AFuF++nzGRu43tjaXye8Xjuu6dc0veNvWLwE7+9Uqi/pw8x0/ufn6FwO
+	vp2uO0wuNo4U+iMPnR7X5scwDDm9DuK08zBt+YkFtudaWFNpaSu3kxFXy9cSruygf6cXIel5fAR
+	V+jBClJvR0ztNejAp5IzuYxp00pj6nXR6Q61Eum9yeRE+NoY9vlVIkjAk8DM0c9p6qtM1HUu724
+	E=
+X-Gm-Gg: AYBFou3diNp7iM2HJ9kyoladwNlTRk/blN9f3cI6dXeqFFqvSfSPYQWPl7uwAAnP9jy
+	pGoJ8I8EBbzLvSqYPh0kdJCDvJ9MQdzf56CMzhBlq7h0bWJaVjz9wcJg0qfaLrRA5BrrfPGx87F
+	mthZV++pJrd8j6R9a3RV14tYYTe7oNEIeOAjOJpjtk9kqINNFeg7PKqmCHTVSVuSWAM1GMVTzoA
+	9SRSPaKW2lNamWdBgnNbv+YvFTIhF+4/0KQbuS9a7bqB9CRoFWlm2g7DLmQBlDQAFIAlc4GZSQQ
+	NVgklpcZQfi6JiV15w3QDhSNR4rZJFykVO28X0XiQIRsqQCQ/OF+EFoJ4Fp5EekYfiZRPM7RbqM
+	7VIcN/wYZmNYglAbx0Clundo=
+X-Received: by 2002:a05:6102:5e8a:b0:785:eb33:87af with SMTP id ada2fe7eead31-79078210c3amr485362137.10.1788959454511;
+        Wed, 09 Sep 2026 06:10:54 -0700 (PDT)
+X-Received: by 2002:a05:6102:5e8a:b0:785:eb33:87af with SMTP id ada2fe7eead31-79078210c3amr485329137.10.1788959454022;
+        Wed, 09 Sep 2026 06:10:54 -0700 (PDT)
+Received: from [127.0.1.1] ([178.197.219.214])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b8993253b3sm114594e87.52.2026.09.09.06.10.51
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 09 Sep 2026 06:10:52 -0700 (PDT)
+From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Date: Wed, 09 Sep 2026 15:10:36 +0200
+Subject: [PATCH v3 2/7] dtc: dt-check-style: Handle continued lines in
+ check_line_length()
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260909054401.718959-1-zhugl3@xiaopeng.com>
-In-Reply-To: <20260909054401.718959-1-zhugl3@xiaopeng.com>
-From: Loic Poulain <loic.poulain@oss.qualcomm.com>
-Date: Wed, 9 Sep 2026 15:10:38 +0200
-X-Gm-Features: AcwNN1XRBsJQUp_8Vo3_MALJlQYTHzC-PLbfBluaOY_sDn4qJVdQudxsA1DY1GQ
-Message-ID: <CAFEp6-2xNNJ_uNV+fuY8hxcURW0+zoiKgCV92+10PR7oZn_UEQ@mail.gmail.com>
-Subject: Re: [PATCH] net: wwan: t7xx: validate the HS2 message data length
-To: Guanglei Zhu <zhugl3@xiaopeng.com>
-Cc: Chandrashekar Devegowda <chandrashekar.devegowda@intel.com>,
-        Sergey Ryazanov <ryazanov.s.a@gmail.com>,
-        Liu Haijun <haijun.liu@mediatek.com>,
-        Ricardo Martinez <ricardo.martinez@linux.intel.com>,
-        Johannes Berg <johannes@sipsolutions.net>,
-        Andrew Lunn <andrew+netdev@lunn.ch>,
-        "David S. Miller" <davem@davemloft.net>,
-        Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
-        Paolo Abeni <pabeni@redhat.com>, netdev@vger.kernel.org,
-        linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Authority-Analysis: v=2.4 cv=bd1bluPB c=1 sm=1 tr=0 ts=6aa15ae0 cx=c_pps
- a=HLyN3IcIa5EE8TELMZ618Q==:117 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
- a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=eoimf2acIAo5FJnRuUoq:22 a=EgahoUkMAAAA:8 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8
- a=jOW7-oFJvRO1IEPcfKUA:9 a=QEXdDO2ut3YA:10 a=bTQJ7kPSJx9SKPbeHEYW:22
- a=D2SkTF70-_n5gOfERQdM:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA5MDE0NyBTYWx0ZWRfXzIPabeyclBtR
- siGPTxgAGDyXGXDHhqBSrqBYwZ6zpi1muGo76PTyqea1Kqt04mA8JQdmODLuF0O7UdNSR6oR5km
- wDaTDfSYEkyoDIN4Jq96GSCxo1GOnlyzuapTqrk9mnnI8f9YvK1rgHt5reHyrsRxRIS1ExVGsop
- dQMLJ4tIdPBfbPLPkgAa1IeedMVnq49QCY03QP4rI8pvD89nT+HBWC3NJOJOrJosAWb2+8usKqJ
- dzMgdPUl/JVsFFnZ7HoYbMJ6uJFIxSstMwoeJ0+XMi2Bg0DMv/+sJg5pPRxMLSQYEC5dCzGHDik
- cijsCk6kL7MPm6cQ/ChdgD8tkuFulrN11P8kdPdYubEP7/Y0331XG2ZmS7XnUBA7HEnr2RZUuF4
- PZKrU1YKsMy3SrID/zAVEGpQnmswvwgC7fQ4kohgw6GDOm6OPkjGYPIMLJ9MK4dxYEsHA/sn7sM
- csc9S0JSeAHjC0W7ScA==
-X-Proofpoint-ORIG-GUID: Nca-3J2uZmOMsxtm1fYxi7oKGknP_-2T
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA5MDE0NyBTYWx0ZWRfX7eGNAc7lP2VV
- gM2w646sL2v09j+fSSDbJBUAt/SQLEKLWR3uEuOoP1HLUwoeIraPHhdtNDZO2h/PhqhkY/rZ8BD
- hgHTFIYNDPdZabMuHhxoZu92A7aiDi4=
-X-Proofpoint-GUID: Nca-3J2uZmOMsxtm1fYxi7oKGknP_-2T
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260909-b4-dts-style-checker-continued-lines-v3-2-474bb324ae53@oss.qualcomm.com>
+References: <20260909-b4-dts-style-checker-continued-lines-v3-0-474bb324ae53@oss.qualcomm.com>
+In-Reply-To: <20260909-b4-dts-style-checker-continued-lines-v3-0-474bb324ae53@oss.qualcomm.com>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Saravana Kannan <saravanak@kernel.org>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4091;
+ i=krzysztof.kozlowski@oss.qualcomm.com; h=from:subject:message-id;
+ bh=Ixb/AmdAstOcn9FVhgNt2Xll/IdUyQ44GvDHEBU3aaE=;
+ b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBqoVrP3y44K/5QKTimSkeef6hsl1b6Ri9MoiD0+
+ GTehlOA5mCJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCaqFazwAKCRDBN2bmhouD
+ 10qdD/9/+rRPDUfbCB9PEoX6U2Fy8f4AOv+aXooPfKpn1TL9qMi2cQq2aJpiA+OScLO+uyCl9Gm
+ R7CyaMslr8fKXc5CwhXXUVUl/TUfokq0kZD2GgoumgKtoHLvburs3YbyH1UTznKCvOAdN/kH415
+ 0zYW7j7wLGaK3vWNy34Ho4e3UnEJlYxnEVaMhXpFHIHeJ6rNxnIFkz35zrRgwMdbvAwEZ+mLE2W
+ eETQPeN+3ARhqjP3RPOm6wLJZ+GD7YYcvKna69SlRWKQwL1qDa6VNBfPg0eETmrwFLTxwoBNm+L
+ GTNPDQqgyjhAQycvYySVfKcC3g/qfO48Bh+yJPiEP8qF8CqnnEYgF73FSpEfv1M0ceR8ywP1WcT
+ nBSUN9dmPyb42qLg39BqCnm6hiaKcwi4XdhcvOZa7HSWBbfkHky6PwdFjh+JAPupsVm88IV13Hk
+ XFnAMx5jy2jSUGnaqMeYLjrPaEllv7cWaoGm5tkZQqaL0X75mFMvwXWMgmfRU0/Lh+dyRFSFHnm
+ +rhlSWt7+q6xidF65VhCIzHBWrZ2pKE6AuAOBcvj+Ta5JlUTVv0U/U+VuJ7vf4cBDDwdaUERR4g
+ SbMfH6F793sIFwvgGaB7d3kw1f9izxyXKNrS7TYvQZcqchuDfuOuFy9D3jgtT+xUOreICy8ZTFv
+ 36aA03vhFaQWYFg==
+X-Developer-Key: i=krzysztof.kozlowski@oss.qualcomm.com; a=openpgp;
+ fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
+X-Authority-Analysis: v=2.4 cv=a4YAM0SF c=1 sm=1 tr=0 ts=6aa15adf cx=c_pps
+ a=N1BjEkVkxJi3uNfLdpvX3g==:117 a=+bKQE0WJfmhK2875HamI0Q==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=EUspDBNiAAAA:8 a=jHdmtohXv_5nRK-EuSoA:9 a=QEXdDO2ut3YA:10
+ a=crWF4MFLhNY0qMRaF8an:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA5MDE0NyBTYWx0ZWRfXxBU4dUzhwKd/
+ fwqJg9cTZUjw31Ux5A8FPKTvKLdLKSNwhbZuJ/blX6evSZa63oxLc5BQe3TBHQkqmj38DwKxehl
+ 9GgJ0SaFxk+09T+SefVu2VkCnzvE1wG4vG2Il9VTD+o7yUXT5mLNvQ2c9XkO/fW/xvhUuPqtmpY
+ eZ/6ZPmK5lbj555m+ARKIjrNXaV5FzFqMxW8e35U9K+85iW0h2qf3G27xBbSyxBluIqqz3FaGcn
+ TMzzmZ/ivacM75jcJYVJ1h+iBA9czcuWtOEw9DGuQbl6RcD+xdFgzK0hcMb3n9hJje+Ic7Lo9hX
+ lqEZx84afhrhVVDhPdtGxLhnu3CoDHdmM7s4GfV2sFY8S5KCn1CfrV/9/6+F9MHwLEKmHfhUtJA
+ imVwH+5aQ6Gt2DrEcFD6GBeWagosb/fFr70/+8d5aMvwqh55I3fRCeUx7ds7fHVKZeowuDU7rAP
+ iz+dQLc48V4GfHk8O5Q==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA5MDE0NyBTYWx0ZWRfX6NlqH611J4nw
+ n3UUWIvBNszsI57QIA5shCePkiSUvfeqqVo3R+g6C43dSknLXkM2/fHiMQezW3ZTfGl8SCqcohp
+ IeGC2XBp+Q3x7XEm/7h3Rsk55BwPGWU=
+X-Proofpoint-ORIG-GUID: 0Xv8CstdXGhBdCWrzYqhYOJ0irDii9li
+X-Proofpoint-GUID: 0Xv8CstdXGhBdCWrzYqhYOJ0irDii9li
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-09-08_03,2026-09-09_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 clxscore=1015 spamscore=0 lowpriorityscore=0 suspectscore=0
- bulkscore=0 impostorscore=0 phishscore=0 priorityscore=1501 malwarescore=0
+ priorityscore=1501 malwarescore=0 phishscore=0 lowpriorityscore=0 bulkscore=0
+ clxscore=1015 spamscore=0 adultscore=0 impostorscore=0 suspectscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609090147
 
-On Wed, Sep 9, 2026 at 7:44=E2=80=AFAM Guanglei Zhu <zhugl3@xiaopeng.com> w=
-rote:
->
-> control_msg_handler() passes the modem-supplied data_length field of a
-> CTL_ID_HS2_MSG message straight to t7xx_fsm_append_event(), which
-> memcpy()s that many bytes out of the skb.  Nothing compares the field
-> with the actual length of the message, so a modem reporting a larger
-> data_length makes the driver read past the end of the skb and store
-> kernel heap memory in the FSM event.
->
-> 0e7c074cfcd9 ("net: wwan: t7xx: validate port_count against message
-> length in t7xx_port_enum_msg_handler") added this kind of check for
-> the port enumeration path but missed the handshake path.
->
-> Reject the message when data_length does not fit into the skb.
->
-> Fixes: da45d2566a1d ("net: wwan: t7xx: Add control port")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Guanglei Zhu <zhugl3@xiaopeng.com>
+Continued lines are not separate DtsLine items in ctx.lines, so they
+need own iteration.  Rule for length of line is applicable to continued
+values as well.
 
-Reviewed-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+---
+ scripts/dtc/dt-check-style                             | 18 ++++++++++++------
+ scripts/dtc/dt-style-selftest/bad/dts-line-length.dts  |  3 ++-
+ .../dtc/dt-style-selftest/bad/yaml-line-length.yaml    |  3 ++-
+ .../dt-style-selftest/expected/dts-line-length.dts.txt |  1 +
+ .../expected/yaml-line-length.yaml.txt                 |  1 +
+ 5 files changed, 18 insertions(+), 8 deletions(-)
 
-> ---
->
-> Verified in a QEMU guest with a fault injector feeding the driver's
-> control port thread a handshake message whose data_length exceeds the
-> skb: the unpatched driver trips KASAN on a read of 8192 bytes past a
-> 500-byte payload, and the extra bytes land in the FSM event.  With
-> this check the message is rejected, and well-formed handshakes are
-> unaffected.
->  drivers/net/wwan/t7xx/t7xx_port_ctrl_msg.c | 20 +++++++++++++++-----
->  1 file changed, 15 insertions(+), 5 deletions(-)
->
-> diff --git a/drivers/net/wwan/t7xx/t7xx_port_ctrl_msg.c b/drivers/net/wwa=
-n/t7xx/t7xx_port_ctrl_msg.c
-> index f869e4ed9..0f2ead8a7 100644
-> --- a/drivers/net/wwan/t7xx/t7xx_port_ctrl_msg.c
-> +++ b/drivers/net/wwan/t7xx/t7xx_port_ctrl_msg.c
-> @@ -178,22 +178,32 @@ static int control_msg_handler(struct t7xx_port *po=
-rt, struct sk_buff *skb)
->
->         ctrl_msg_h =3D (struct ctrl_msg_header *)skb->data;
->         switch (le32_to_cpu(ctrl_msg_h->ctrl_msg_id)) {
-> -       case CTL_ID_HS2_MSG:
-> +       case CTL_ID_HS2_MSG: {
-> +               u32 data_length;
-> +
->                 skb_pull(skb, sizeof(*ctrl_msg_h));
-> +               data_length =3D le32_to_cpu(ctrl_msg_h->data_length);
->
->                 if (port_conf->rx_ch =3D=3D PORT_CH_CONTROL_RX ||
->                     port_conf->rx_ch =3D=3D PORT_CH_AP_CONTROL_RX) {
->                         int event =3D port_conf->rx_ch =3D=3D PORT_CH_CON=
-TROL_RX ?
->                                     FSM_EVENT_MD_HS2 : FSM_EVENT_AP_HS2;
->
-> -                       ret =3D t7xx_fsm_append_event(ctl, event, skb->da=
-ta,
-> -                                                   le32_to_cpu(ctrl_msg_=
-h->data_length));
-> -                       if (ret)
-> -                               dev_err(port->dev, "Failed to append Hand=
-shake 2 event");
-> +                       if (data_length > skb->len) {
-> +                               dev_err(port->dev, "Invalid HS2 message l=
-ength %u\n",
-> +                                       data_length);
-> +                               ret =3D -EINVAL;
-> +                       } else {
-> +                               ret =3D t7xx_fsm_append_event(ctl, event,=
- skb->data,
-> +                                                           data_length);
-> +                               if (ret)
-> +                                       dev_err(port->dev, "Failed to app=
-end Handshake 2 event");
-> +                       }
->                 }
->
->                 dev_kfree_skb_any(skb);
->                 break;
-> +       }
->
->         case CTL_ID_MD_EX:
->         case CTL_ID_MD_EX_ACK:
-> --
-> 2.43.0
->
+diff --git a/scripts/dtc/dt-check-style b/scripts/dtc/dt-check-style
+index 6d978c4d9832..ff5e715593df 100755
+--- a/scripts/dtc/dt-check-style
++++ b/scripts/dtc/dt-check-style
+@@ -627,16 +627,22 @@ def check_indent_unit_strict(ctx):
+                    'got %r' % unit)
+ 
+ 
++def _check_line_length(dl):
++    if dl.linetype == LineType.BLANK:
++        return
++    cols = _display_col(dl.raw)
++    if cols > 80:
++        yield (dl.lineno,
++                'line exceeds 80 columns (%d)' % cols)
++
++
+ def check_line_length(ctx):
+     """Lines must not exceed 80 columns; tabs count as 8 (see
+     _display_col)."""
+     for dl in ctx.lines:
+-        if dl.linetype == LineType.BLANK:
+-            continue
+-        cols = _display_col(dl.raw)
+-        if cols > 80:
+-            yield (dl.lineno,
+-                   'line exceeds 80 columns (%d)' % cols)
++        yield from _check_line_length(dl)
++        for cont in dl.continuations:
++            yield from _check_line_length(cont)
+ 
+ 
+ def check_mixed_indent_chars(ctx):
+diff --git a/scripts/dtc/dt-style-selftest/bad/dts-line-length.dts b/scripts/dtc/dt-style-selftest/bad/dts-line-length.dts
+index bde91a922477..adf40e3c95f7 100644
+--- a/scripts/dtc/dt-style-selftest/bad/dts-line-length.dts
++++ b/scripts/dtc/dt-style-selftest/bad/dts-line-length.dts
+@@ -14,7 +14,8 @@ soc@0 {
+ 		#size-cells = <1>;
+ 
+ 		foo@1000 {
+-			compatible = "example,test-line-length-this-is-a-very-long-name-indeed-yeah";
++			compatible = "example,test-line-length-this-is-a-very-long-name-indeed-yeah",
++				     "example,test-line-length-this-is-a-very-long-name-indeed-yeah-second";
+ 			reg = <0x1000 0x100>;
+ 		};
+ 	};
+diff --git a/scripts/dtc/dt-style-selftest/bad/yaml-line-length.yaml b/scripts/dtc/dt-style-selftest/bad/yaml-line-length.yaml
+index 6e4140e500b5..6b1209ee4f26 100644
+--- a/scripts/dtc/dt-style-selftest/bad/yaml-line-length.yaml
++++ b/scripts/dtc/dt-style-selftest/bad/yaml-line-length.yaml
+@@ -24,6 +24,7 @@ additionalProperties: false
+ examples:
+   - |
+     foo@1000 {
+-        compatible = "example,test-line-length-this-is-a-very-long-name-indeed-yeah";
++        compatible = "example,test-line-length-this-is-a-very-long-name-indeed-yeah",
++                     "example,test-line-length-this-is-a-very-long-name-indeed-yeah-second";
+         reg = <0x1000 0x100>;
+     };
+diff --git a/scripts/dtc/dt-style-selftest/expected/dts-line-length.dts.txt b/scripts/dtc/dt-style-selftest/expected/dts-line-length.dts.txt
+index 8ed08c309632..9cdb7550b56c 100644
+--- a/scripts/dtc/dt-style-selftest/expected/dts-line-length.dts.txt
++++ b/scripts/dtc/dt-style-selftest/expected/dts-line-length.dts.txt
+@@ -1,2 +1,3 @@
+ # mode=stricter
+ bad/dts-line-length.dts:17: [line-length-dts] line exceeds 80 columns (101)
++bad/dts-line-length.dts:18: [line-length-dts] line exceeds 80 columns (108)
+diff --git a/scripts/dtc/dt-style-selftest/expected/yaml-line-length.yaml.txt b/scripts/dtc/dt-style-selftest/expected/yaml-line-length.yaml.txt
+index 89b36360caa4..f21b823c6136 100644
+--- a/scripts/dtc/dt-style-selftest/expected/yaml-line-length.yaml.txt
++++ b/scripts/dtc/dt-style-selftest/expected/yaml-line-length.yaml.txt
+@@ -1,2 +1,3 @@
+ # mode=strict
+ bad/yaml-line-length.yaml:27: example 0 [line-length] line exceeds 80 columns (81)
++bad/yaml-line-length.yaml:28: example 0 [line-length] line exceeds 80 columns (88)
+
+-- 
+2.53.0
+
