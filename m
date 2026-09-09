@@ -1,248 +1,94 @@
-Received: from mail.cjdns.fr (mail.cjdns.fr [5.135.140.105])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f175.google.com (mail-pg1-f175.google.com [209.85.215.175])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9054C59574B;
-	Wed,  9 Sep 2026 21:22:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.135.140.105
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7703C595736
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 21:22:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788988945; cv=none; b=dSL3q+tU3R/GKY3gKF2lP0drgxhAb6sZE68UmDsb5RTKtCAFtzZoEsUGc9EQ1qdNBx6BlrB+7exiYzrceNTl2+JQrmP3RYtw9hYnKGz6c0zrRImgsuZy9mMP0o8WmkBy2T590jH/aHX8C4Tj7UmHAyrX8dUdTSAdXY5LGC1N9ZA=
+	t=1788988950; cv=none; b=hqC1GAEIdtwDUf0j0s2IOkjN3ZW+SdoA54cEA9I8idByCxiwbe935hoka4ejG5a+RfEmBfGB36wQybjvvBSQiTYD4D7hiVcZ114oAt9S8yyMMmDqvX5r57Q2mB7ohXXuHqlkLxC8/5sxjaH2Lu3EMY5CsdND5rJRUC5OhNt+9eY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788988945; c=relaxed/simple;
-	bh=G9ioAeL7lW+KA+43AM9vqX4kJY0wEV2WPDzrhhfKLeE=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=bCnhVxSXip1/ptup3W+++yVRloOCxEXl8xQ7+ulQBYXtzeHa851Ou9Ce4yuT6u8zK4AxKlfuFwsHn2szB09N/knGCBid1HBf5MQttYzmPuj4mU18Y202C1VutQ4gIf8ewxb1t+4SGzbsuJf/sDwI44UBM6xdattLqeFy9wVbn2c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr; spf=none smtp.mailfrom=cjdns.fr; dkim=pass (2048-bit key) header.d=cjdns.fr header.i=@cjdns.fr header.b=WexsMZQL; arc=none smtp.client-ip=5.135.140.105
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=cjdns.fr
+	s=arc-20240116; t=1788988950; c=relaxed/simple;
+	bh=HtNWfnxnDSSWJZCxMLyZKzkG5I6ufKDMc1VO13LdMqA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=cxOryCFlcgqZwJER4aDTcGwMZLSzeDkqF6wbLqEX4pTOeBZtCIpiDGUDck7hKftRGRiHEBwftSHoTxcD3fa18fnd+40JqgEfedy/koZ4THu3ogXVQ5fzd5/9IC2BTk9AiUuk60T7SKVCA5Ylj9EiTj+nkrCw07PuqQ2yFOMUxSM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=F4eg2CVk; arc=none smtp.client-ip=209.85.215.175
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cjdns.fr header.i=@cjdns.fr header.b="WexsMZQL"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id EB19740935D;
-	Wed,  9 Sep 2026 23:22:16 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cjdns.fr; s=dkim;
-	t=1788988940; h=from:subject:date:message-id:to:cc:mime-version:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=Eh26+fMTBRHost86hhgYFkXWy1BCjqv4Lpa79eE87Vg=;
-	b=WexsMZQLNOm5xpeKwK54w03P0PEIFh/hCTjPusUrn07KG0NvYkQLi0LHusZPpzmgOz4sRX
-	7Ua5+xTBmTqCfHI6bnrYnEiVOuh8bCPfkAJMwd4tOfPb0Di7fTUBwmvGOAYdgrWHO+ec+M
-	aaGmK+xPoq2WVR/x3YYBAgiKsDFDmXDkeF06lLxvVPRRnFH6S4YML0a524SE+Trjdg5Vqe
-	1d88WLkwpFvnVEPgJV2Zm7YIlMQioqO2juPABeF/Sp2a3rNg0MugP+mfayWzK69tTjfOPm
-	0NiFYmi3ETasiUiiwgmOKN4XWqttTXtsAfQ/+hK7JtBeR412Y7P5up4OsBUnXw==
-From: Caleb James DeLisle <cjd@cjdns.fr>
-To: netdev@vger.kernel.org
-Cc: andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	p.zabel@pengutronix.de,
-	matthias.bgg@gmail.com,
-	angelogioacchino.delregno@collabora.com,
-	vadim.fedorenko@linux.dev,
-	maxime.chevallier@bootlin.com,
-	dong100@mucse.com,
-	wangruikang@iscas.ac.cn,
-	25181214217@stu.xidian.edu.cn,
-	hkallweit1@gmail.com,
-	han.junyang@zte.com.cn,
-	xuanzhuo@linux.alibaba.com,
-	enelsonmoore@gmail.com,
-	jes@trained-monkey.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org,
-	naseefkm@gmail.com,
-	b.larsson@gmx.com,
-	Caleb James DeLisle <cjd@cjdns.fr>
-Subject: [PATCH net-next 1/2] dt-bindings: net: econet: add EN751221 ethernet
-Date: Wed,  9 Sep 2026 21:21:45 +0000
-Message-Id: <20260909212146.3184077-2-cjd@cjdns.fr>
-In-Reply-To: <20260909212146.3184077-1-cjd@cjdns.fr>
-References: <20260909212146.3184077-1-cjd@cjdns.fr>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="F4eg2CVk"
+Received: by mail-pg1-f175.google.com with SMTP id 41be03b00d2f7-cc4aa0220f2so558471a12.0
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 14:22:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788988949; x=1789593749; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=OS/hMmRgJkhO3y6TipOYJ+hU/luwN7sov3GRLXL60Lg=;
+        b=F4eg2CVkgNsS3lq5doiVXybDz1N4VTjpS1THKGLHkod3X9W2/d5xV5G+oVMrq7vPIH
+         eGy8vMC++yCJ5dHHnNc/6AfMO7evKMGlRpd0xRICxALcDhS44xCTFIgeylQ7PP79XLvd
+         G1lZuxEfDbBJ+3MJk+YQHS4CbTV3EKBhsEPCE0rWkzChJztU4NbKLQA6+sJPrpX7rMMg
+         tZurWg52PcdsF758xuAhC5WS+Q73DjyiijOBapFDCN5V/Ikzu3rYPdzOSqf5MUJoMrKS
+         VTJyPVhPkjQRTDtM4iiaSHQoAYjQ6IwqRHOCsVpYrArZmCvyE0t6yYt0B5beNc1y1rH4
+         oNOw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788988949; x=1789593749;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=OS/hMmRgJkhO3y6TipOYJ+hU/luwN7sov3GRLXL60Lg=;
+        b=XVXb+o0wXSmpOmZ3tXhRPl2H3cT9gwTcP8nVBC3wvU9gRmOPGe4ykSHCWxEsPPr0/S
+         bOa+eAqry5Bpa/zyrupd7u0YZwPeS7GkrDjJl6BSkSaXrdPQMNCLrScpT0TXyD5FOo2L
+         7F/pTnyqFlqwg7lVnnXMKBzyQ1lxjrH1QqrR2yFXjCH2u46300rbctH9kQ5bZFNKN3Tm
+         dwEB+ORe+zRDqNs5yKEFQdnCeaHCS/lxzj2F6nT1NUxiCK2T3UDrgcf3DHEczjG7wsYz
+         qPGochstPoh4tuOaCcCghpJb9M155GLhyn4eM5WuhugAjEmZptjcZXY19hckdSWxexVT
+         BIgg==
+X-Forwarded-Encrypted: i=1; AKwUvBynY1/xJtxBHK8+Ep5MMhQUds6BJhhdEQc/F1cDFCWjZmD4wjCWzg+uzAjvVFPLSU7zMvTSc7nn4B12CsU=@vger.kernel.org
+X-Gm-Message-State: AFuF++nMKEHFcMINmWmGXLcekgKpu+XnGmJ9TUwnmfvL1+OgGNqihlje
+	L1MEmAHWIFJbZgyvm7svvx2CtVJe0HFywRwjoXzDZX+6CIMkyqwCPYwv
+X-Gm-Gg: AYBFou3LIT7O6kg6jy8xfH4vMlmVQ0Sj+WVPP/DUBBqaFyZ1TOSZVKVVArl2gq+0jRk
+	Jpe3Ikas0+P63/wInBrrLVY0te0EgHEwU61+F4BlL7izjYwD1FuXQaLsSVonoR99jb5X89a4rAD
+	1gpNjVObuYWsJ+F3xXcXYI+AVegnin6XE8AD8Sv0NYaEKtgBiJCOpn6YNHC+mLDA5cWvEFfxoA8
+	jmxgmhgI/U7zMYOPYfUnbe9bV87PtzZyxrQdGL4E+FEumAP5SCVMZITgfEyeB+qZ6f0f5kNQNoH
+	9mjGZQ3oeSKn8Yj8VnAL/mlagpzeuUxc1JNzpp5tcM6IxxFW7/jIChHmlcxlDOeROfiPN6FC7I1
+	YWhAWF4pVfEWquFgGAxQJy/F7AY/+QhaUtCzANJDWYXR6TLTCGG6qRT2UbDT0fwOa5VYuA/Vx/P
+	ks+hClYlrZ/tQ+92OIsiDV9kYL3Muv9qsHsBbeJk+cYvxeuq0saz1bMbxrgjHWNsHgjtYK8WUSJ
+	YBlL2o3Ker+fw==
+X-Received: by 2002:a05:6a21:710c:b0:3cc:b26a:7686 with SMTP id adf61e73a8af0-3da39b5c435mr58092012637.6.1788988948772;
+        Wed, 09 Sep 2026 14:22:28 -0700 (PDT)
+Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc455406f14sm7598314a12.5.2026.09.09.14.22.28
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 09 Sep 2026 14:22:28 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Date: Wed, 9 Sep 2026 14:22:27 -0700
+From: Guenter Roeck <linux@roeck-us.net>
+To: Tzung-Bi Shih <tzungbi@kernel.org>
+Cc: Wim Van Sebroeck <wim@linux-watchdog.org>,
+	Daniel Palmer <daniel@thingy.jp>,
+	Romain Perier <romain.perier@gmail.com>,
+	linux-watchdog@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 9/9] watchdog: msc313e: Replace commas with semicolons
+ in probe()
+Message-ID: <a0514941-f112-4cd1-8683-66ea59cd894b@roeck-us.net>
+References: <20260828161348.13212-1-tzungbi@kernel.org>
+ <20260828161348.13212-10-tzungbi@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260828161348.13212-10-tzungbi@kernel.org>
 
-The EN751221 ethernet controller is somewhat similar to the
-airoha,en7581-eth but it has a different register layout and different
-capabilities of the QDMA engines.
+On Sat, Aug 29, 2026 at 12:13:48AM +0800, Tzung-Bi Shih wrote:
+> Replace commas at the end of statements with semicolons in probe().
+> 
+> Signed-off-by: Tzung-Bi Shih <tzungbi@kernel.org>
 
-The engine is roughly made up of two "QDMA" modules (which provide QoS
-and also DMA), two GDM modules which service the two ports, a PPE
-(packet processing engine) similar to that in mediatek,net, and an
-overall "frame engine" which coordinates the components.
+Applied.
 
-The QDMA modules provide both communication with the CPU and QoS
-prioritized forwarding. For example GDM0 -> QDMA0 -> GDM1 forwarding
-path is possible.
-
-Add DT documentation for the EN751221 ethernet system.
-
-Signed-off-by: Caleb James DeLisle <cjd@cjdns.fr>
----
- .../bindings/net/econet,en751221-eth.yaml     | 127 ++++++++++++++++++
- MAINTAINERS                                   |   6 +
- 2 files changed, 133 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/net/econet,en751221-eth.yaml
-
-diff --git a/Documentation/devicetree/bindings/net/econet,en751221-eth.yaml b/Documentation/devicetree/bindings/net/econet,en751221-eth.yaml
-new file mode 100644
-index 000000000000..5d953eaa16e5
---- /dev/null
-+++ b/Documentation/devicetree/bindings/net/econet,en751221-eth.yaml
-@@ -0,0 +1,127 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/net/econet,en751221-eth.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: EcoNet EN751221 Frame Engine Ethernet controller
-+
-+maintainers:
-+  - Caleb James DeLisle <cjd@cjdns.fr>
-+
-+description:
-+  The frame engine ethernet controller can be found on EcoNet chips
-+  based on the EN751221 SoC.
-+
-+properties:
-+  compatible:
-+    enum:
-+      - econet,en751221-eth
-+      - econet,en7528-eth
-+
-+  reg:
-+    items:
-+      - description: Ethernet device
-+
-+  interrupts:
-+    items:
-+      - description: QDMA0 IRQ
-+      - description: QDMA1 IRQ
-+
-+  resets:
-+    items:
-+      - description: Frame engine
-+      - description: QDMA0
-+      - description: QDMA1
-+      - description: xPON MAC
-+      - description: xPON PHY
-+
-+  reset-names:
-+    items:
-+      - const: fe
-+      - const: qdma0
-+      - const: qdma1
-+      - const: xpon-mac
-+      - const: xpon-phy
-+
-+  "#address-cells":
-+    const: 1
-+
-+  "#size-cells":
-+    const: 0
-+
-+patternProperties:
-+  "^mac@[0-1]$":
-+    type: object
-+    unevaluatedProperties: false
-+    $ref: ethernet-controller.yaml#
-+    description:
-+      Ethernet GMAC port associated to the MAC controller
-+    properties:
-+      compatible:
-+        const: econet,eth-mac
-+
-+      reg:
-+        items:
-+          - description: GMAC port number
-+
-+    required:
-+      - reg
-+      - compatible
-+
-+required:
-+  - compatible
-+  - reg
-+  - interrupts
-+  - resets
-+  - reset-names
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/reset/econet,en751221-scu.h>
-+
-+    soc {
-+      #address-cells = <1>;
-+      #size-cells = <1>;
-+
-+      ethernet: ethernet@1fb50000 {
-+        compatible = "econet,en751221-eth";
-+        reg = <0x1fb50000 0x8000>;
-+
-+        resets = <&scuclk EN751221_FE_RST>,
-+          <&scuclk EN751221_FE_QDMA1_RST>,
-+          <&scuclk EN751221_FE_QDMA2_RST>,
-+          <&scuclk EN751221_XPON_MAC_RST>,
-+          <&scuclk EN751221_XPON_PHY_RST>;
-+        reset-names = "fe", "qdma0", "qdma1",
-+                "xpon-mac", "xpon-phy";
-+
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        interrupt-parent = <&intc>;
-+        interrupts = <21>, <22>;
-+
-+        gmac0: mac@0 {
-+          compatible = "econet,eth-mac";
-+          reg = <0>;
-+          phy-mode = "trgmii";
-+          status = "disabled";
-+
-+          fixed-link {
-+            speed = <1000>;
-+            full-duplex;
-+            pause;
-+          };
-+        };
-+
-+        gmac1: mac@1 {
-+          compatible = "econet,eth-mac";
-+          reg = <1>;
-+          status = "disabled";
-+          phy-mode = "rgmii-rxid";
-+        };
-+      };
-+    };
-diff --git a/MAINTAINERS b/MAINTAINERS
-index b23fb6f2f4ef..7417ca4ccc79 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -9330,6 +9330,12 @@ F:	drivers/irqchip/irq-econet-en751221.c
- F:	include/dt-bindings/clock/econet,en751221-scu.h
- F:	include/dt-bindings/reset/econet,en751221-scu.h
- 
-+ECONET ETHERNET DRIVER
-+M:	Caleb James DeLisle <cjd@cjdns.fr>
-+L:	netdev@vger.kernel.org
-+S:	Maintained
-+F:	Documentation/devicetree/bindings/net/econet,en751221-eth.yaml
-+
- ECONET PCIE PHY DRIVER
- M:	Caleb James DeLisle <cjd@cjdns.fr>
- L:	linux-mips@vger.kernel.org
--- 
-2.39.5
-
+Thanks,
+Guenter
