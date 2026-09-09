@@ -1,88 +1,215 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo1-f70.google.com (mail-oo1-f70.google.com [209.85.161.70])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F250175A95;
-	Wed,  9 Sep 2026 21:02:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EC0A175A95
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 21:03:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.70
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788987772; cv=none; b=lxK+YR+n72rXReWhZqge9pbYhpx8Wt3RuWrnxByo/4aK/D9zg2af8mO+vx7clYnbPccF0vKYvJpnxF13vW/n0HM3zRuMKDA4NtEZgIXJG36YHp9mQEaxVqv1sBnynlWJzWtC2tqyTJ1QJPKiO7BlO+sK+rRqSMH/NdCoWma/Zqg=
+	t=1788987785; cv=none; b=ZcnvPKV+pmV1qnCLTBM9gaadsg+J7d68wKXtY8h6sKF6PbGvQpQMtLUSpnVs3zaaISw0iqJi56wRWzhJS6DgjfTZuhJEK9pzKPPJT/G74f+sUgRo37jLLcMQ7L+hUZSGPEzQw43ktd8gvCCTrQ/kTcsapJS9Q/Y75cR+KSqgR9c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788987772; c=relaxed/simple;
-	bh=R59x8R7psJDZbM9OhsEn3f4kfpzmK0S5REH9S1Cb9iU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=eUBSl5kADY8t0dQJxa+BNGa2fkRce7FmuniIgMSNS7x416oVmtTpTBLwdt5lz1KvHcc7Khc3Ol9IjZbdbYPk2NXLlEq9rtWcfhhg7ivd2N/OGnnDIQoxA6PT/mU3paKBQfXf2jlKYLfTJxr5J+oGoYBpBB9XJwaj3Aba7/tnowQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BT9KHTvJ; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BT9KHTvJ"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 3EAD31F000FF;
-	Wed,  9 Sep 2026 21:02:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788987770;
-	bh=lCvveR41iG6mS89E8edgr/x11J5hy1mj5OqLbwKrgbE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=BT9KHTvJ1TyIbQzlDdCnMxBJOyCC+3dQ/jVDultByePki8yE6FJM3QMAW1OfusR4H
-	 qq72oRVoQo1mv5sxhQqthsHsfDATAUBsi+4unXabcgb2Z7Sc+LGbZqGPBEs1sNXBc/
-	 Sxk8RKhieNKn6T+P6qlJMgP7BxoYjrEYv0TpoVxq04B3c3FxiHIcU/x4+nSJRJe7xc
-	 6nxY3kKAiyTroCqeGSJ8ydk52EREO6rJciwbelvFOK4ifyPGUVxIz4lipqrUsq8b5W
-	 EyY4pKo71FlmGczm8Ps7B6wahXFG8LleSAOXQpVf0RvP31e6Xib+bkliovjCAGxyHa
-	 Rc/st+OhxzgGQ==
-Date: Thu, 10 Sep 2026 00:02:46 +0300
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: Srish Srinivasan <ssrish@linux.ibm.com>
-Cc: linux-integrity@vger.kernel.org, keyrings@vger.kernel.org,
-	James.Bottomley@hansenpartnership.com, zohar@linux.ibm.com,
-	linux-kernel@vger.kernel.org, linux-security-module@vger.kernel.org,
-	nayna@linux.ibm.com, rnsastry@linux.ibm.com
-Subject: Re: [PATCH 1/2] keys/trusted_keys: return immediately after TPM
- unseal failure
-Message-ID: <aqHJdr-S7s-YMduB@kernel.org>
-References: <20260902103120.222326-1-ssrish@linux.ibm.com>
- <20260902103120.222326-2-ssrish@linux.ibm.com>
+	s=arc-20240116; t=1788987785; c=relaxed/simple;
+	bh=8Dqi+S5s+S6r7pWHDxbcdqh44mnZFoWbJIVG700S1Uo=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=AonM4N7LCZkkUcp+uXrnkj4cV0Hj0qKyv1yNSdm19QUSx/CXDbelZZ3D/2NwF8ESxpMh2BvNuWyGfu+nzi6dG1AvzJ0lhx8HVR6g2KjYDdxch/HYntMtmNqRuU9NBBCVlFUGxVm9V9ikCOcHVdgDSYsNHRyjEfW/PqRK2n6Gf5w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.161.70
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oo1-f70.google.com with SMTP id 006d021491bc7-6b1b6df25efso6700398eaf.3
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 14:03:02 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788987782; x=1789592582;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=R4uFlmPis4I2/CDsco/uKwVMubwS7kUjh40D1BNZ658=;
+        b=THXgp2+UHKdilTodaHbsaYveubRO8rAmAKmWi8BmwVBL7heDy/RMLlXUYOKH2Gffu0
+         JPhqwZdP1fhZ64zMB+4qZwK2lghp1aDzWhcvaMblzKVbJ3ZPS9aBxH4ZQrfmrgGOfyoU
+         vODPN9Dfz/KOL/MeGQE/+cgn0k0EQB0hvkKMLyZa169ycTs6l0nJI7ydLXp9vVCU2gtw
+         0P5YaxpXxdn02ARg3R6z+IVElUjAFhR4OeN6RjlDggqamGAw4JQAYJFMTIpLSGypuV1Z
+         u80FMDSCLxyQHa1yj1ER8Kop90rvSo7L/6+ypi9hFf7jg0Qfk4Oqpr4XCrn3qcRSDCOO
+         1FWw==
+X-Forwarded-Encrypted: i=1; AKwUvBzfYX18nN+DR6eC+14ZQGzw69/nCC7U6Oe+nzG7rI2eTWbul8fZh/dZvjxvzAdzFSoYZ46naoZVsL2H6Fs=@vger.kernel.org
+X-Gm-Message-State: AFuF++m/ImsMLWWmzwvhKj54TeVCh8k1W73oAJEsBHmSAac7AKGLsA8s
+	OlpYh7HMUveof2FGeazSiYJPQDnFmhMLQ1Gh0cCC7L0zkLT0METoFDZGOs6VM+txjIGwx7yR5Fq
+	m269Ag2G+91fEgngUIyt6zDIDW5prOgRNBEeXAAC0tvNxA1o7WXK5emBVifo=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260902103120.222326-2-ssrish@linux.ibm.com>
+X-Received: by 2002:a05:6820:1613:b0:6b1:a8b3:3b43 with SMTP id
+ 006d021491bc7-6b6fd7d71c3mr21413292eaf.24.1788987781967; Wed, 09 Sep 2026
+ 14:03:01 -0700 (PDT)
+Date: Wed, 09 Sep 2026 14:03:01 -0700
+In-Reply-To: <20260909202914.275119-1-user@adriano>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6aa1c985.f81106d8.2ab401.0000.GAE@google.com>
+Subject: Re: [syzbot] [serial?] KASAN: slab-use-after-free Write in release_tty
+From: syzbot <syzbot+bca09f5d8b843bbf7571@syzkaller.appspotmail.com>
+To: adrianox@gmail.com, linux-kernel@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-On Wed, Sep 02, 2026 at 04:01:19PM +0530, Srish Srinivasan wrote:
-> trusted_tpm_unseal() proceeds to pcrlock() when the TPM unseal operation
-> fails. If pcrlock() succeeds, its return value overwrites the unseal error,
-> causing key instantiation to succeed.
-> 
-> Return immediately when unseal fails to preserve the original error.
-> 
-> Fixes: 5d0682be3189 ("KEYS: trusted: Add generic trusted keys framework")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Srish Srinivasan <ssrish@linux.ibm.com>
-> ---
->  security/keys/trusted-keys/trusted_tpm1.c | 4 +++-
->  1 file changed, 3 insertions(+), 1 deletion(-)
-> 
-> diff --git a/security/keys/trusted-keys/trusted_tpm1.c b/security/keys/trusted-keys/trusted_tpm1.c
-> index bf0bf7f36970..1168ca235205 100644
-> --- a/security/keys/trusted-keys/trusted_tpm1.c
-> +++ b/security/keys/trusted-keys/trusted_tpm1.c
-> @@ -923,8 +923,10 @@ static int trusted_tpm_unseal(struct trusted_key_payload *p, char *datablob)
->  		ret = tpm2_unseal_trusted(chip, p, options);
->  	else
->  		ret = key_unseal(p, options);
-> -	if (ret < 0)
-> +	if (ret < 0) {
->  		pr_info("key_unseal failed (%d)\n", ret);
-> +		return ret;
-> +	}
->  
->  	if (options->pcrlock) {
->  		ret = pcrlock(options->pcrlock);
-> -- 
-> 2.53.0
-> 
+Hello,
+
+syzbot has tested the proposed patch but the reproducer is still triggering an issue:
+KASAN: slab-use-after-free Read in gs_close
+
+==================================================================
+BUG: KASAN: slab-use-after-free in rt_spin_lock+0x83/0x40 kernel/locking/spinlock_rt.c:56
+BUG: KASAN: slab-use-after-free in rt_spin_lock+0x83/0x400 kernel/locking/spinlock_rt.c:56
+Read of size 1 at addr ffff88802b714488 by task syz-executor158/7333
+
+CPU: 1 UID: 0 PID: 7333 Comm: syz-executor158 Not tainted syzkaller #0 PREEMPT_{RT,(full)} 
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/24/2026
+Call Trace:
+ <TASK>
+ dump_stack_lvl+0xe8/0x150 lib/dump_stack.c:120
+ print_address_description+0x55/0x1e0 mm/kasan/report.c:378
+ print_report+0x58/0x70 mm/kasan/report.c:482
+ kasan_report+0x117/0x150 mm/kasan/report.c:595
+ __kasan_check_byte+0x2a/0x40 mm/kasan/common.c:574
+ kasan_check_byte include/linux/kasan.h:402 [inline]
+ lock_acquire+0x7d/0x350 kernel/locking/lockdep.c:5916
+ rt_spin_lock+0x83/0x400 kernel/locking/spinlock_rt.c:56
+ spin_lock_irq include/linux/spinlock_rt.h:96 [inline]
+ gs_close+0xb9/0xbb0 drivers/usb/gadget/function/u_serial.c:698
+ tty_release+0x35f/0x1680 drivers/tty/tty_io.c:1718
+ __fput+0x42a/0xa80 fs/file_table.c:512
+ fput_close_sync+0x11f/0x240 fs/file_table.c:617
+ __do_sys_close fs/open.c:1560 [inline]
+ __se_sys_close fs/open.c:1545 [inline]
+ __x64_sys_close+0x7e/0x110 fs/open.c:1545
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7fccd3f6ec0e
+Code: 08 0f 85 65 e1 ff ff 49 89 fb 48 89 f0 48 89 d7 48 89 ce 4c 89 c2 4d 89 ca 4c 8b 44 24 08 4c 8b 4c 24 10 4c 89 5c 24 08 0f 05 <c3> 90 41 57 41 56 4d 89 c6 41 55 4d 89 cd 41 54 55 53 48 83 ec 08
+RSP: 002b:00007ffed8338a08 EFLAGS: 00000246 ORIG_RAX: 0000000000000003
+RAX: ffffffffffffffda RBX: 000055556cea1400 RCX: 00007fccd3f6ec0e
+RDX: 0000000000000000 RSI: 0000000000000000 RDI: 0000000000000003
+RBP: 0000000000000008 R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000083a90
+R13: 0000000000083ac2 R14: 00007fccd400bb2c R15: 00007fccd400bb20
+ </TASK>
+
+Allocated by task 7334:
+ kasan_save_stack mm/kasan/common.c:57 [inline]
+ kasan_save_track+0x3e/0x80 mm/kasan/common.c:78
+ poison_kmalloc_redzone mm/kasan/common.c:398 [inline]
+ __kasan_kmalloc+0x93/0xb0 mm/kasan/common.c:415
+ kasan_kmalloc include/linux/kasan.h:263 [inline]
+ __kmalloc_cache_noprof+0x3d5/0x680 mm/slub.c:5563
+ _kmalloc_noprof include/linux/slab.h:991 [inline]
+ _kzalloc_noprof include/linux/slab.h:1312 [inline]
+ gs_port_alloc drivers/usb/gadget/function/u_serial.c:1264 [inline]
+ gserial_alloc_line_no_console+0x23a/0x700 drivers/usb/gadget/function/u_serial.c:1349
+ gserial_alloc_line+0x18/0x90 drivers/usb/gadget/function/u_serial.c:1383
+ acm_alloc_instance+0xc7/0x140 drivers/usb/gadget/function/f_acm.c:891
+ try_get_usb_function_instance drivers/usb/gadget/functions.c:28 [inline]
+ usb_get_function_instance+0xe3/0x2f0 drivers/usb/gadget/functions.c:44
+ function_make+0x127/0x360 drivers/usb/gadget/configfs.c:626
+ configfs_mkdir+0x4f6/0x9e0 fs/configfs/dir.c:1369
+ vfs_mkdir+0x408/0x620 fs/namei.c:5410
+ filename_mkdirat+0x289/0x520 fs/namei.c:5443
+ __do_sys_mkdirat fs/namei.c:5464 [inline]
+ __se_sys_mkdirat+0x35/0x150 fs/namei.c:5461
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+Freed by task 7334:
+ kasan_save_stack mm/kasan/common.c:57 [inline]
+ kasan_save_track+0x3e/0x80 mm/kasan/common.c:78
+ kasan_save_free_info+0x40/0x50 mm/kasan/generic.c:584
+ poison_slab_object mm/kasan/common.c:253 [inline]
+ __kasan_slab_free+0x5c/0x80 mm/kasan/common.c:285
+ kasan_slab_free include/linux/kasan.h:235 [inline]
+ slab_free_hook mm/slub.c:2748 [inline]
+ slab_free mm/slub.c:6499 [inline]
+ kfree+0x1c5/0x6d0 mm/slub.c:6792
+ gserial_free_port+0x240/0x2c0 drivers/usb/gadget/function/u_serial.c:1313
+ gserial_free_line+0xc3/0x1f0 drivers/usb/gadget/function/u_serial.c:1330
+ acm_free_instance+0x39/0x60 drivers/usb/gadget/function/f_acm.c:875
+ usb_put_function_instance+0x95/0xc0 drivers/usb/gadget/functions.c:77
+ config_item_cleanup fs/configfs/item.c:128 [inline]
+ config_item_release+0x13a/0x2d0 fs/configfs/item.c:137
+ configfs_rmdir+0x885/0x950 fs/configfs/dir.c:1580
+ vfs_rmdir+0x3e9/0x6b0 fs/namei.c:5515
+ filename_rmdir+0x292/0x520 fs/namei.c:5572
+ __do_sys_rmdir fs/namei.c:5595 [inline]
+ __se_sys_rmdir+0x2e/0x140 fs/namei.c:5592
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+The buggy address belongs to the object at ffff88802b714000
+ which belongs to the cache kmalloc-2k of size 2048
+The buggy address is located 1160 bytes inside of
+ freed 2048-byte region [ffff88802b714000, ffff88802b714800)
+
+The buggy address belongs to the physical page:
+page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x2b710
+head: order:3 mapcount:0 entire_mapcount:0 nr_pages_mapped:0 pincount:0
+flags: 0x80000000000040(head|node=0|zone=1)
+page_type: f5(slab)
+raw: 0080000000000040 ffff88813ff00000 dead000000000100 dead000000000122
+raw: 0000000000000000 0000000000080008 00000000f5000000 0000000000000000
+head: 0080000000000040 ffff88813ff00000 dead000000000100 dead000000000122
+head: 0000000000000000 0000000000080008 00000000f5000000 0000000000000000
+head: 0080000000000003 fffffffffffffe01 00000000ffffffff 00000000ffffffff
+head: 0000000000000000 0000000000000000 00000000ffffffff 0000000000000008
+page dumped because: kasan: bad access detected
+page_owner tracks the page as allocated
+page last allocated via order 3, migratetype Unmovable, gfp_mask 0xd20c0(__GFP_IO|__GFP_FS|__GFP_NOWARN|__GFP_NORETRY|__GFP_COMP|__GFP_NOMEMALLOC), pid 1, tgid 1 (swapper/0), ts 22801572255
+ set_page_owner include/linux/page_owner.h:33 [inline]
+ post_alloc_hook+0x1f9/0x250 mm/page_alloc.c:1871
+ prep_new_page mm/page_alloc.c:1879 [inline]
+ get_page_from_freelist+0x2591/0x2600 mm/page_alloc.c:3943
+ __alloc_frozen_pages_noprof+0x230/0x5c0 mm/page_alloc.c:5436
+ alloc_slab_page mm/slub.c:3347 [inline]
+ allocate_slab+0x7d/0x620 mm/slub.c:3462
+ new_slab mm/slub.c:3513 [inline]
+ refill_objects+0x2d8/0x350 mm/slub.c:7410
+ refill_sheaf mm/slub.c:2885 [inline]
+ __pcs_replace_empty_main+0x339/0x690 mm/slub.c:4774
+ alloc_from_pcs mm/slub.c:4850 [inline]
+ slab_alloc_node mm/slub.c:4984 [inline]
+ __kmalloc_cache_noprof+0x46f/0x680 mm/slub.c:5559
+ _kmalloc_noprof include/linux/slab.h:991 [inline]
+ _kzalloc_noprof include/linux/slab.h:1312 [inline]
+ usb_hub_create_port_device+0x7d/0xc40 drivers/usb/core/port.c:759
+ hub_configure drivers/usb/core/hub.c:1739 [inline]
+ hub_probe+0x26d6/0x3c20 drivers/usb/core/hub.c:2006
+ usb_probe_interface+0x788/0xe50 drivers/usb/core/driver.c:399
+ call_driver_probe drivers/base/dd.c:-1 [inline]
+ really_probe+0x254/0xae0 drivers/base/dd.c:706
+ __driver_probe_device+0x1e8/0x360 drivers/base/dd.c:868
+ driver_probe_device+0x4f/0x240 drivers/base/dd.c:898
+ __device_attach_driver+0x270/0x410 drivers/base/dd.c:1026
+ bus_for_each_drv+0x25b/0x2f0 drivers/base/bus.c:500
+ __device_attach+0x2c7/0x450 drivers/base/dd.c:1098
+page_owner free stack trace missing
+
+Memory state around the buggy address:
+ ffff88802b714380: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+ ffff88802b714400: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+>ffff88802b714480: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+                      ^
+ ffff88802b714500: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+ ffff88802b714580: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+==================================================================
 
 
-Reviewed-by: Jarkko Sakkinen <jarkko@kernel.org>
+Tested on:
 
-BR, Jarkko
+commit:         50d05c7c Merge tag 'landlock-7.3-rc3' of git://git.ker..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=17722c8e580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=e618aabdc2dca7e6
+dashboard link: https://syzkaller.appspot.com/bug?extid=bca09f5d8b843bbf7571
+compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
+patch:          https://syzkaller.appspot.com/x/patch.diff?x=1578aef9580000
+
