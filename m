@@ -1,320 +1,137 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f178.google.com (mail-pg1-f178.google.com [209.85.215.178])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C3C6534442;
-	Wed,  9 Sep 2026 10:49:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4B935328C3
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 10:49:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.178
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788950965; cv=none; b=YG40ckvtogEWn55VOIAw1Ze5mHAtRGVJ43izDFB1Kpv8JC2gq5R+iNKkvH7udClxdVCVYVXNBFLD8g5xQsj6eLgMdvUks5uRd7bD0HHnJUzoSt3WSS13/Ki+5HjYQiDwOLdXNUGU1c/gdk2ItNtwUVI1Eb4OSY2fo97ia7jKkhc=
+	t=1788950967; cv=none; b=ovmTdD+Z0m4SYiOLlafHPEvww08g4DxyRM59h0xmJ3EyCbS/5XI5UjLNJ1vInzq1sutrDICMe06VKdwtcwTjXaAFRKpeVLqtak9zHrNwUCq0DYzbHYMz68k0aPuQz+s7K62Eo1clzixdc14xTlXI151PW2vtOHqBVCKXBVcgz7Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788950965; c=relaxed/simple;
-	bh=NIbN3x2fe3c1+D//EHq/wwGNl7/JKtKpxd3lOinw0FI=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=KtDsL1cFdEfkOPx95+PUivytQvLBcpq/19EM1mZIsVcQquu7a0BTKtKo3ToJkLygYcErM2ODXgXSmjZszXLumw7Rj7KZaoJ1zAT1Tu6vuyRF0sdDSgIiqnx6OB72iQ5MMWtSqR33GrysJ8QUk2ZxpZiIrWPzydkmfGBALKCJMAk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MfwTXteq; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788950967; c=relaxed/simple;
+	bh=mGTbmang64JjYEa8MhL2eBgNDeYF7cnKrLMsVDldpqU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=XV4USuhJlzNp0CecSQH2n9LdI/1FyqztjncVk+DDEh4cArCPEoRYJtbFSV8Nf3gjLvdtdvFTqAP4Ev5iLDBhOf74ri8CL2RC6Cqdi8FTlbzONLVEdJeAuzIvlAeSlKpNFqvmkqdxJBsBQ0//pVq52faiIxtv4vLet4Ub/jmXDlk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LIJqZ6IA; arc=none smtp.client-ip=209.85.215.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MfwTXteq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EC2451F00A3D;
-	Wed,  9 Sep 2026 10:49:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788950962;
-	bh=cHJTGnwrRP3s7wqMU5rB0oLtvCJJO/80I5mWj7uMgYw=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=MfwTXteqSRZJdBaE5H/wIuq5jiss2ozfPMhlN0tMjVAWzRDqBmHkBW6cLH2W9lXCg
-	 +EKki7JraHF3YjjpxyQhqVhtlUL7IdRs+Ms3lGILEH6IT1jwWByxsp01zF2OUuoXGc
-	 yaS56FPCT0MPN81eYQM5T5A7zhermUJVZa4UCEUFdeUZ6smwltnnetl3Fu2iSUUjDR
-	 l8jsEwtEV9lsT3xDCLi3VoR4O7MASZB3QBnGFTkaV3T3V0BXanZaI6zmMdE6yhztMK
-	 MnDALnGK1yMgmVzGpRl3ppURJmntZKwkhhtO4yMT4V98MSnTSn2Tj1mtGwH/hOpuvr
-	 KZD8FuO+muThw==
-Subject:
- Re: [PATCH net-next v10 2/2] net: phy: add X-Powers AC200/AC300 EPHY driver
-From: netdev-bot+sashiko@kernel.org
-To: james.hilliard1@gmail.com
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, andrew@lunn.ch, hkallweit1@gmail.com,
- linux@armlinux.org.uk, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, arnd@arndb.de, jedrzej.jagielski@intel.com,
- andre.przywara@arm.com, wens@kernel.org, jernej.skrabec@gmail.com,
- maxime.chevallier@bootlin.com, linux-sunxi@lists.linux.dev,
- netdev@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Date: Wed, 09 Sep 2026 10:49:20 +0000
-Message-ID: <178895096044.219967.9072892743673097567@kernel.org>
-In-Reply-To:
- <20260906-submit-acx00-of-dynamic-v1-v10-2-dd272e03b547@gmail.com>
-References: <20260906-submit-acx00-of-dynamic-v1-v10-2-dd272e03b547@gmail.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LIJqZ6IA"
+Received: by mail-pg1-f178.google.com with SMTP id 41be03b00d2f7-cc48fe04342so2279646a12.0
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 03:49:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788950965; x=1789555765; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=wVde/0UXjeqgx2G6fnsoxLCBIhaGKDP8LoxgsoCSsBk=;
+        b=LIJqZ6IAhPp9LipLxlPw6AhxQwbuubYcM4is3LdXMK5p+Eg86S2GwkF4BJCTKOwxNC
+         9ZnLVspTQ/nIjzjRHW+sbke8/OzD7UYlxDR7+vRLVtvdXOJqyozcUhDaOJzOMfwe0one
+         9xpjjyuLYmcElQcXJ3Ku+LMTp88pYcGn8xTpKcNpPtGXJi2TcbFbOtySX9hQhy9RHQA/
+         r9W4M+Bvs2XloNeWDqqeWnLRtm6wxYoMSN0xIpqQyZ24yc/HuE32IZQwmfFsaYX7n905
+         fRWtwfRGGD+GueSmhPQHJPvdF4MkqVP1h+ysexQkdH9HWlQsZM6fpBKsyW2SWi+Qnlut
+         Gt/g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788950965; x=1789555765;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=wVde/0UXjeqgx2G6fnsoxLCBIhaGKDP8LoxgsoCSsBk=;
+        b=o4qEtCtt42be8XGDtGI9eMiNS+Sc/viwq9l47QLLgXD66tTqXCt/QRNJNIGVIRwrkw
+         iNiYPNIkprKcIaCrpl5W1XMuBHZgOSR7gfPmTO2JK6FkwjRF6SiqV1hpI+ZUFBJ4S4yr
+         3Hi90swO1KjgdeDbngQKniDi7TKwMX59pIlWyPFClDe126PMV8FbluZ1qQ8oKkp48qOR
+         LU+OfXCzNXm9riHlpj19T0RQgPkHfb6Zeu9ur9J3dGUs7XuiqM3itgwj7UUs2zDIdXbY
+         QLCa1XLG0po1BFR1ji+DVhnDioZ4kj/fSdlK3Ylmw91PrVRvqEfMToT1ajczdddG7XJz
+         /JFg==
+X-Forwarded-Encrypted: i=1; AKwUvBw6AGNxRJe470llW9OEJfNjMemluzLajFF+YWMaIldMbDqdzTF84ORHULDoBm3uxy6QNn0PNrdxobH7qw8=@vger.kernel.org
+X-Gm-Message-State: AFuF++mFGVoNJ69zua64Y4OcOVhBoWT451HcLJI2vfiuCmg8zDD6m+Tu
+	Guvo+wF9yqn1aiZXiMjJc2pYorxtFxO9UFzSmD23dTxS4jjw1o4hFwEu
+X-Gm-Gg: AYBFou3OBMn4QOrbvZJNRJna2TDjM5WdKH0BCXRQpQMW3tTTQZLLyfAYX56QxUt+UkV
+	6cgAJcWJRtXt0+WrtcfLShZ7r4C0XIC9Gzz5JFic2sx17K9DcntJNt/l27zoL476kF52UM3Xlrt
+	icNa0SiMaPxamTHRe+8kEX9zFJSVbh/FVwEebmOvDqFDX3dr/s5PW/Le8449X+jD4sODhDGd8+4
+	KHd2OLoCnCd3+xH5YZx6Lg4ij6YC+7NpG4n7OzWkyt9ztFDRz6SYsFu8CVYxtXhrjf3osbzWevO
+	eL1hQs/yTb/w/2sn6EMp2WZ/coVU8yngyxYeM+abvuMIzgMpJSSFqtLl3cbXB2yB0kyGemOTanX
+	7uHYmQni+DD9SGXytZuT5kiHZI98oPsfJhChUq4oh3TP9glbhNQMMANQzp78WqWCYWiKiA38hVc
+	tfO3cXKPrA7cfDpxtGO6D/4wEMClLeA6A4O2gRRFavx/PRMccBS/kblCky4dQEmK62yCLIp0Tf+
+	JIo+O61oZEQlnbdnIRx2Ofq
+X-Received: by 2002:a05:6a21:114c:b0:3d1:e510:9052 with SMTP id adf61e73a8af0-3da39ee2689mr53748910637.7.1788950964701;
+        Wed, 09 Sep 2026 03:49:24 -0700 (PDT)
+Received: from LAPTOP-450UDG4J ([223.185.135.143])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3396e7e477csm12026723eec.29.2026.09.09.03.49.21
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 09 Sep 2026 03:49:24 -0700 (PDT)
+From: Yogesh Gaur <yogeshgaur.83@gmail.com>
+To: Ian Abbott <abbotti@mev.co.uk>,
+	H Hartley Sweeten <hsweeten@visionengravers.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-kernel@vger.kernel.org,
+	Yogesh Gaur <yogeshgaur.83@gmail.com>
+Subject: [PATCH 6/6] comedi: pcmuio: validate the IRQs supplied by userspace
+Date: Wed,  9 Sep 2026 16:18:47 +0530
+Message-ID: <20260909104848.1763-7-yogeshgaur.83@gmail.com>
+X-Mailer: git-send-email 2.55.0.windows.5
+In-Reply-To: <20260909104848.1763-1-yogeshgaur.83@gmail.com>
+References: <20260909104848.1763-1-yogeshgaur.83@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 3 potential
-issue(s) to consider:
+comedi boards are configured through the COMEDI_DEVCONFIG ioctl, so
+it->options[1] is a number chosen by userspace. pcmuio passes it to
+request_irq() without checking it first, which lets an interrupt owned by
+another irqdomain -- a PCI device's IO-APIC GSI, for instance -- be
+claimed for this board. When the owner of that interrupt is later
+released the descriptor is freed while this driver's handler is still
+installed on it.
 
-Critical: 0 · High: 0 · Medium: 2 · Low: 1
+Every interrupt this board can assert is a legacy ISA one, so the ISA
+range is the right bound; it is also sufficient, because
+mp_chip_data->isa_irq is set only by alloc_isa_irq_from_domain() and
+mp_unmap_irq() returns early when it is set.
 
-- [Medium] The AC200 backend cannot function in this tree:
-  ac200_ephy_ctl_create() requires the phandle target (x-powers,ac200)…
-- [Medium] When acx00_ephy_control_power_off() fails during suspend,
-  acx00_ephy_suspend() recovers by calling…
-- [Low] The binding and the driver disagree on the width/encoding of the
-  'configuration' NVMEM cell.
+Bound the value before requesting it, as das16m1.c already does. An
+out-of-range value is ignored rather than rejected, so the board still
+attaches without interrupt support, exactly as it does today when
+request_irq() fails.
 
---
+This board takes two interrupts, one per ASIC, so options[1] and
+options[2] both need the check. The existing options[2] == dev->irq case
+is left alone: it covers both ASICs sharing one interrupt and neither
+having one, and by then options[1] has already been validated.
 
-net: phy: add X-Powers AC200/AC300 EPHY driver
+Fixes: 6baef150380d ("Staging: comedi: add pcmmio and pcmuio drivers")
+Assisted-by: LLM
+Signed-off-by: Yogesh Gaur <yogeshgaur.83@gmail.com>
+---
+ drivers/comedi/drivers/pcmuio.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-This adds a new PHY driver for the Fast Ethernet link PHY inside the
-X-Powers AC200 and AC300 companion chips, with two package backends: AC200
-control registers reached over an I2C regmap, and AC300 control registers
-reached through the PHY package helpers.  A few questions below about the
-AC200 provider dependency, the NVMEM configuration cell, and the suspend
-error recovery path.
-
-> diff --git a/drivers/net/phy/Kconfig b/drivers/net/phy/Kconfig
-> index b4ef927fd4a67..d3835597e3795 100644
-> --- a/drivers/net/phy/Kconfig
-> +++ b/drivers/net/phy/Kconfig
-> @@ -484,6 +484,17 @@ config VITESSE_PHY
->  	help
->  	  Currently supports the vsc8244
->  
-> +config XPOWERS_ACX00_PHY
-> +	tristate "X-Powers AC200/AC300 Ethernet PHY"
-> +	depends on COMMON_CLK && NVMEM && OF_MDIO && REGULATOR
-> +	depends on I2C || !I2C
-> +	select PHY_PACKAGE
-> +	help
-> +	  Enable the Fast Ethernet PHY driver shared by the X-Powers AC200
-> +	  and AC300 companion ICs. The driver configures their common MDIO PHY
-> +	  registers and the package-specific AC200 I2C or AC300 MDIO control
-> +	  registers.
-> +
-
-[ ... ]
-
-> diff --git a/drivers/net/phy/xpowers/ac200.c b/drivers/net/phy/xpowers/ac200.c
-> new file mode 100644
-> index 0000000000000..afdd2a3dfbe41
-> --- /dev/null
-> +++ b/drivers/net/phy/xpowers/ac200.c
-> @@ -0,0 +1,314 @@
-
-[ ... ]
-
-> +struct acx00_ephy_control *
-> +ac200_ephy_ctl_create(struct phy_device *phydev,
-> +		      struct device_node *package_node,
-> +		      bool has_calibration, u8 calibration)
-> +{
-
-[ ... ]
-
-> +	ac200_node = of_parse_phandle(package_node, "x-powers,ac200", 0);
-> +	if (!ac200_node)
-> +		return ERR_PTR(dev_err_probe(dev, -EINVAL,
-> +					     "missing x-powers,ac200 reference\n"));
-> +	client = of_find_i2c_device_by_node(ac200_node);
-> +	of_node_put(ac200_node);
-> +	if (!client) {
-> +		ret = IS_ENABLED(CONFIG_I2C) ? -EPROBE_DEFER : -ENODEV;
-> +		return ERR_PTR(dev_err_probe(dev, ret,
-> +					     "AC200 device is not registered\n"));
-> +	}
-
-[ ... ]
-
-> +	device_lock(&client->dev);
-> +	if (device_is_bound(&client->dev))
-> +		priv->regmap = dev_get_regmap(&client->dev, NULL);
-> +	device_unlock(&client->dev);
-> +	if (!priv->regmap) {
-> +		ret = dev_err_probe(dev, -EPROBE_DEFER,
-> +				    "AC200 driver is not ready\n");
-> +		goto out_put_client;
-> +	}
-
-[Severity: Medium]
-Is there anything in this tree that can satisfy this AC200 provider
-contract?
-
-ac200_ephy_ctl_create() requires the x-powers,ac200 phandle target to be a
-registered I2C client that is bound to a driver and that has attached an
-unnamed regmap covering 0x0014, 0x0016, 0x6000 and 0x8004, plus a clkdev
-for clk_get(&client->dev, NULL):
-
-	/* The bound AC200 provider enables and exclusively pins this rate. */
-	clk_rate = clk_get_rate(clk);
-
-Grepping for x-powers,ac200 at this commit matches only these new driver
-files and the package binding added by the preceding patch in the series,
-so nothing under drivers/mfd or elsewhere binds that I2C device, attaches
-the regmap, or registers the clock.
-
-Doesn't that make both the fixed x-powers,ac200-ephy-package path and the
-AC200 selection of x-powers,acx00-ephy-package defer forever with
-"AC200 device is not registered" or "AC200 driver is not ready"?
-
-The commit message states the provider behaviour as an existing fact:
-
-    The companion MFD provider enables and exclusively pins the input
-    clock rate while it is bound.
-
-and the Kconfig help text advertises "the package-specific AC200 I2C or
-AC300 MDIO control registers".  Could the merge dependency on the
-separately submitted provider be stated explicitly in this patch, or the
-provider be included in the series?
-
-[ ... ]
-
-> diff --git a/drivers/net/phy/xpowers/acx00.c b/drivers/net/phy/xpowers/acx00.c
-> new file mode 100644
-> index 0000000000000..932ed4335d843
-> --- /dev/null
-> +++ b/drivers/net/phy/xpowers/acx00.c
-> @@ -0,0 +1,621 @@
-
-[ ... ]
-
-> +static int acx00_ephy_read_nvmem_u16(struct device_node *node,
-> +				     const char *name, u16 *value)
-> +{
-
-[ ... ]
-
-> +	if (!len || len > sizeof(*value)) {
-> +		kfree(buf);
-> +		return len ? -ERANGE : -EINVAL;
-> +	}
-> +
-> +	for (i = 0; i < len; i++)
-> +		val |= (u16)buf[i] << (8 * i);
-
-[Severity: Low]
-Should the binding pin down the width and byte order of the
-"configuration" cell?
-
-This helper accepts a 1-byte cell and assembles the value little-endian,
-so a one-byte cell can never carry bit 8, the AC300 variant bit.  The
-binding for x-powers,acx00-ephy-package documents the bit assignments but
-does not state a minimum cell width or an endianness, and it explicitly
-allows a partial cell:
-
-    A fixed AC200 package may provide only the low calibration bits or
-    omit the cell
-
-[ ... ]
-
-> +	if (selectable) {
-> +		priv->is_ac300 =
-> +			configuration & ACX00_EPHY_CONFIG_VARIANT_AC300;
-> +	} else {
-> +		priv->is_ac300 = fixed_ac300;
-> +		if (has_configuration &&
-> +		    !!(configuration & ACX00_EPHY_CONFIG_VARIANT_AC300) !=
-> +		    priv->is_ac300) {
-> +			ret = dev_err_probe(dev, -EINVAL,
-> +					    "configuration does not match package\n");
-> +			goto out_put_node;
-> +		}
-> +	}
-
-Given the above, a device tree that passes dt_binding_check with a
-one-byte (or big-endian) cell would fail probe here with "configuration
-does not match package" on x-powers,ac300-ephy-package, and would silently
-select the AC200 backend on the generic x-powers,acx00-ephy-package.  Can
-the binding require the two-byte little-endian layout that
-acx00_ephy_read_nvmem_u16() and this check assume?
-
-[ ... ]
-
-> +static int __acx00_ephy_power_on_and_resume(struct phy_device *phydev)
-> +{
-> +	struct acx00_ephy_priv *priv = phydev->priv;
-> +	int ret;
-> +
-> +	lockdep_assert_held(&phydev->lock);
-> +	lockdep_assert_held(&priv->state_lock);
-> +
-> +	ret = acx00_ephy_set_interface(phydev);
-> +	if (ret)
-> +		goto out_power_off;
-> +
-> +	ret = acx00_ephy_control_power_on(priv);
-> +	if (ret)
-> +		goto out_power_off;
-> +
-> +	ret = genphy_resume(phydev);
-> +	if (ret)
-> +		goto out_power_off;
-> +
-> +	/* Powering off the control block loses the vendor-page state. */
-> +	ret = __acx00_ephy_config_init(phydev);
-> +	if (ret)
-> +		goto out_power_off;
-> +
-> +	return 0;
-> +
-> +out_power_off:
-> +	acx00_ephy_control_power_off_warn(priv);
-> +
-> +	return ret;
-> +}
-
-[ ... ]
-
-> +static int acx00_ephy_suspend(struct phy_device *phydev)
-> +{
-
-[ ... ]
-
-> +	ret = genphy_suspend(phydev);
-> +	if (ret)
-> +		goto out_unlock;
-> +
-> +	ret = acx00_ephy_control_power_off(priv);
-> +	if (ret) {
-> +		resume_ret = __acx00_ephy_power_on_and_resume(phydev);
-> +		if (resume_ret)
-> +			phydev_warn(phydev,
-> +				    "failed to recover from suspend error: %pe\n",
-> +				    ERR_PTR(resume_ret));
-> +	}
-
-[Severity: Medium]
-Does this recovery path lose the user's link configuration?
-
-Consider the case where the register writes in ac200_ephy_ctl_disable() or
-ac300_ephy_ctl_disable() succeeded, so the EPHY reset was asserted (and
-for AC300 the input clock was disabled), and only the trailing
-regulator_disable(priv->vcc) failed:
-
-ac200_ephy_ctl_disable()
-	ac200_ephy_ctl_write(priv, AC200_SYS_EPHY_CTL0_REG, 0);  /* reset asserted */
-	...
-	err = regulator_disable(priv->vcc);   /* fails, returned to caller */
-
-The Clause 22 registers are back at reset defaults at that point, but
-__acx00_ephy_power_on_and_resume() only clears the power-down bit through
-genphy_resume() and reapplies the vendor pages plus the EEE advertisement
-in __acx00_ephy_config_init().  There is no genphy_config_aneg() or
-genphy_setup_forced() call to restore phydev->advertising or a configured
-forced speed and duplex.
-
-Since acx00_ephy_suspend() then returns the original error, phy_suspend()
-never sets phydev->suspended and mdio_bus_phy_suspend() propagates the
-failure, so mdio_bus_phy_resume() -> phy_init_hw() is not run for this
-device afterwards.
-
-Doesn't that leave the PHY running with reset-default advertising, or with
-autonegotiation enabled even though a forced mode was configured?
-
-[ ... ]
-
+diff --git a/drivers/comedi/drivers/pcmuio.c b/drivers/comedi/drivers/pcmuio.c
+index d9995cbeecb6..da80bca0bb55 100644
+--- a/drivers/comedi/drivers/pcmuio.c
++++ b/drivers/comedi/drivers/pcmuio.c
+@@ -546,7 +546,8 @@ static int pcmuio_attach(struct comedi_device *dev, struct comedi_devconfig *it)
+ 
+ 	pcmuio_reset(dev);
+ 
+-	if (it->options[1]) {
++	/* only ISA interrupts are valid on this board */
++	if (it->options[1] >= 1 && it->options[1] <= 15) {
+ 		/* request the irq for the 1st asic */
+ 		ret = request_irq(it->options[1], pcmuio_interrupt, 0,
+ 				  dev->board_name, dev);
+@@ -558,7 +559,7 @@ static int pcmuio_attach(struct comedi_device *dev, struct comedi_devconfig *it)
+ 		if (it->options[2] == dev->irq) {
+ 			/* the same irq (or none) is used by both asics */
+ 			devpriv->irq2 = it->options[2];
+-		} else if (it->options[2]) {
++		} else if (it->options[2] >= 1 && it->options[2] <= 15) {
+ 			/* request the irq for the 2nd asic */
+ 			ret = request_irq(it->options[2], pcmuio_interrupt, 0,
+ 					  dev->board_name, dev);
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260906-submit-acx00-of-dynamic-v1-v10-0-dd272e03b547%40gmail.com
+2.55.0.windows.5
+
