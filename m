@@ -1,175 +1,268 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEF9A5581FB
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 12:42:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DA3E560AA0;
+	Wed,  9 Sep 2026 12:42:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788957765; cv=none; b=p3jsFIFonHZINaBdQE+SvdeDOj2qk69GQCBovZz5jM1avysybqq8UCJat6KtgY/doxV4BgGnXd4RDOywOWzY08B+db8GmzX/g7YvBWK/0f7sIPj8vC+L2H5e5fsiC/IcAo+/cs8km9AMQe4yfk1C6KOA19Gd+xvTwT9TH61QeG4=
+	t=1788957772; cv=none; b=ADxTLZwtSK/bLoKfUdhzWCoVkmHTf+TAEIa4SWcj9RJ1h30YfrtJwrw4XQ57tdiGPGAW2F1RQw2M2/ajF1MkGKhpU4oem0PNYXSlCzFutmCPYyvAYi1O1qTttNVNOOOIcWAY932dJ/CQsbAuFtJOP2QzPKxT9ivVaXup2iShRl0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788957765; c=relaxed/simple;
-	bh=0hWrdz4q7rb7I/HCxd1hEn9K+roy/g583HdMM5Nqfwg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=AbtF8/zEJgpdtn7PEaV+U4bZ7/LaiHz97z0eqMcOAlGhtOrREEuAcidTdbqe2LFBleO1IPNZYD6S8C+wmCEFCZyX95X86nOwvW7FcwEJNuDBGDzRtqjBXSmMM3SBb0xj1pNHyjRRzVtulQj9qyW4RXtz3NuBYj1FcpMv3ibsTd4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=V86TYKj4; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=JwhlHyQh; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1788957772; c=relaxed/simple;
+	bh=WBb6uK6GC73BvRQY4tC7qJxxsD+tN2YtViErvIaOjak=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=kGDsomLPFr3HgkNF/kLa0r2rsg2qW+bU1YfrYwV2cNOH1Car9NoXxZ3vinU7qUzyP+PlMV4BMFWCUe6CSNwyXe22m3oGP8ZatJdj8DqQUdLX1j5WioeccTPfRLT02d75fKxW/2ROdtSZ3M89l0ho2Uy7JS7EQCkir1Eiyps+lIU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TGSmw17m; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="V86TYKj4";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="JwhlHyQh"
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 689BU0qE1809804
-	for <linux-kernel@vger.kernel.org>; Wed, 9 Sep 2026 12:42:40 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	IqDBfWmpsbVcFz4ktvchUUk0YUbACLYsKQhJUiknkwc=; b=V86TYKj4QA7r5O+E
-	eFBqgvx4oO+e680cr6J9GvM6DOoTjxM8P033ihrA8i0ZJey4nNFepfWdwAq3olyC
-	kXzPWwyhGMmmRBPSTKizUEOyTteHtYTjZItSLy+dyPszLP2icApNnxvfHRFQjhCY
-	VwDVZCjyBPqNy88IjyB+XL38TAsVEkIIsLi55dEnMosQcAViHMqBvy5WNcQI5ghh
-	XLgG10687Y3r7UtHlTcq7kU+LZyjE1vk06jXZgOlD+46t7diSqAe7EVOWo6cSW9l
-	yFp7dBCpmNAU3i+XVWLPLeOdR05EsUFEtExWP3LQCceIEkuFoKNXxx3hSdvCwxj+
-	ZTLsYw==
-Received: from mail-ot1-f70.google.com (mail-ot1-f70.google.com [209.85.210.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gk4xj0ntv-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 12:42:40 +0000 (GMT)
-Received: by mail-ot1-f70.google.com with SMTP id 46e09a7af769-7ee59eeb8c1so4017872a34.0
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 05:42:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788957760; x=1789562560; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=IqDBfWmpsbVcFz4ktvchUUk0YUbACLYsKQhJUiknkwc=;
-        b=JwhlHyQhO6GBsbQC1bteQnnpKM/2K1vIVAwY+U89T9729bvJJGjY5fLeygdRSKsmxN
-         AydiXVSy3+UDjpjMbleyxJ62BImYh7aQIotTdMoknQxJMjpOhtZv786SK44UtlvXvzcM
-         JOm2b0OjNMR28Ep7hnhg5E2xoBxbYT34ANlvSfjbDsRQ0G635QYNFaWTvZPIVoY/0NC6
-         gwwHtWLY1SEP7FrTs8J2UFZqktUL9FWdCN/UZJL+FxzZXvMTXr0UlFBVBNJ/nMhg8a6Y
-         GvMcjCvZVUOsMinYZQMsjfmbb6YTyr9PfGFAyzsE/e6+3JIRXKOxSGJ6KZElz5T79MmK
-         Dwbw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788957760; x=1789562560;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=IqDBfWmpsbVcFz4ktvchUUk0YUbACLYsKQhJUiknkwc=;
-        b=ZNuXRHcqToxqHyvi4HYu+28K6X6WGktlU7Xz6kzUs9byiM5raGMc/RBU8Q18/KRsTb
-         H54l9I2p8vOjA572D0JSc/73dHbWWMUGCNyv+NujcAIYIpy0t6YQdCD9ZY7WkbHRYbOl
-         yDOGG70HyN8461OlH+0MZ5Ff+ulna2fYhosZj0j1agsN2szeI6us8dmIR5k/url6qy8U
-         XMEMVf/sWnATt1YxpRFxYVCKwXnAg30F/o5oCa+4M+T7zEf6wCNJjA+sJ8V1FTkryLXi
-         NuDwL0ZFqArjwg24q/M0r6Sly/raNWR24NX5d18Mh1tbqBCrDY2TQ7ulDt6m/lhC7/sO
-         9RzA==
-X-Forwarded-Encrypted: i=1; AKwUvBzcJ2D8soUhuo3Bx1EM1/WnpeIFqtxpBbCVeD4vqcf8vvYKHZ1bJ+Tos7DQxDxlt9m4mGsO5leMPVJTJWU=@vger.kernel.org
-X-Gm-Message-State: AFuF++kbcXr8v+LUlz1R4WkG3F6AR3rPYlCrnjOpUJL3vlXo3wpmLCk2
-	IjFOAfcgg4DdnuUgAsxDWcrRLtmd2Wc6TkahEDeWoiVTZhbQnUTqXDMSZFcVwCnrkg+9M+w9yed
-	vZ4+u1xaKwxa3MX6hyjnvi76kjAtMgXg3Z1PzVbW3fqFkEFCgxnLGrF5vv9sID2/IqAY=
-X-Gm-Gg: AYBFou1hzttwrRSuoRBtZONwR54WHhN94G/ZPcdkBLERsauRFQ0irQamlw07KsDYzZa
-	0DOIdsChrzLhejp4cD+rhQJFKdDqWg6Ui25gsKtJsqRHhHhVsr5oVx1PmBMzJ9LR7nvTMz+9rcN
-	TMNvqHee7LJSh0d+D5EfQgs+wdbJ6AVpDizrqu5kpRYfrhdzvqxihqZYoSmy4iAKvdN2P5VrEgF
-	sWYkc336+ZVIhIeEkNFqdSD5dgv4ojpBy45zkr+xwqJmcCGhUlef8WDwZp4c5as6PpNuSz4xH+m
-	hGx/u1LR4oxjkPuUuLU7h0nohr8fJdaKAy+RDRO8O0nZMlVnGN6FTWz5/ERwbaQOFIdFy1gpeHX
-	nmAfdDgQMraSCM38ouy+i8dwr8KYCbS/Z
-X-Received: by 2002:a05:6830:3592:b0:7dc:4947:36a1 with SMTP id 46e09a7af769-7fa1ff60101mr23258961a34.12.1788957760031;
-        Wed, 09 Sep 2026 05:42:40 -0700 (PDT)
-X-Received: by 2002:a05:6830:3592:b0:7dc:4947:36a1 with SMTP id 46e09a7af769-7fa1ff60101mr23258934a34.12.1788957759647;
-        Wed, 09 Sep 2026 05:42:39 -0700 (PDT)
-Received: from [10.218.35.45] ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7fa642bc562sm17603801a34.16.2026.09.09.05.42.35
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 09 Sep 2026 05:42:39 -0700 (PDT)
-Message-ID: <b4dbb384-9169-4892-8be7-5f5ef62be5ff@oss.qualcomm.com>
-Date: Wed, 9 Sep 2026 18:12:34 +0530
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TGSmw17m"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0ED631F00A3D;
+	Wed,  9 Sep 2026 12:42:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788957770;
+	bh=6DTmSoOfHhYhSicAfri7x6hGkSsawCIPjIV+OB1MXR0=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=TGSmw17mdYw8qiUZSiRFwW57TPNQ7qzEohoY2bceZpUAqpFlm9TTUoXyzoFX3J/Gg
+	 Zsm3+h5GBDUNODxbUyUCvL/rJulZ7JU1x7NF18Y3faefBJ4V/a1uNN3ynunKxOQLsy
+	 WMX2HbjE5cj4UVE76ePZedVIkSp719By+9FH7/xiV75c4xfnHgy3qA2bQpVcyxck86
+	 mPb0uni8yxEGbzEBH8B/E6oMzpYDQ/O4LTY9QWTkITD+neOVOn7WekqxXJ/S8nq4fK
+	 9MTHYC+nBCiGAH2JrmvU8mjZ6R33T8U6DVOnXGbvPPtlgK48l2MYiWAsNhViiBaE15
+	 fdZAQgUhOHelw==
+Subject:
+ Re: [PATCH 1/4] selftests: openvswitch: convert %-formatting to f-strings
+From: netdev-bot+sashiko@kernel.org
+To: houminxi@gmail.com
+Cc: netdev@vger.kernel.org, aconole@redhat.com, davem@davemloft.net,
+ dev@openvswitch.org, echaudro@redhat.com, edumazet@google.com,
+ i.maximets@ovn.org, kuba@kernel.org, linux-kernel@vger.kernel.org,
+ linux-kselftest@vger.kernel.org, pabeni@redhat.com, shuah@kernel.org,
+ horms@kernel.org
+Date: Wed, 09 Sep 2026 12:42:49 +0000
+Message-ID: <178895776955.219967.320136497327402821@kernel.org>
+In-Reply-To: <20260905104026.3776396-2-houminxi@gmail.com>
+References: <20260905104026.3776396-2-houminxi@gmail.com>
+X-sashiko-severity: Low
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 0/3] PCI: qcom: Implement shutdown() to avoid SMMU/NoC
- errors on reboot
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        Jingoo Han <jingoohan1@gmail.com>,
-        Manivannan Sadhasivam <mani@kernel.org>,
-        Lorenzo Pieralisi <lpieralisi@kernel.org>,
-        =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-        Rob Herring <robh@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>
-Cc: linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org
-References: <20260909-shutdown-v6-0-62b7bd123236@oss.qualcomm.com>
- <85ea66bd-65f0-4e05-9928-3cc2e23f02ff@oss.qualcomm.com>
-Content-Language: en-US
-From: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
-In-Reply-To: <85ea66bd-65f0-4e05-9928-3cc2e23f02ff@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA5MDE0MiBTYWx0ZWRfX8q3TyAHdkLUj
- 5BIkKaYeUwBz/d0U4dGM2fwkbcw5QbgMS2H2GfUt4PGEoANdByoBhbloKQWSMEQnmavn0qfQQOh
- eRAndwRubgBrzfxq67YQA3XHf2X24QU=
-X-Authority-Analysis: v=2.4 cv=J52aKgnS c=1 sm=1 tr=0 ts=6aa15440 cx=c_pps
- a=7uPEO8VhqeOX8vTJ3z8K6Q==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
- a=EUspDBNiAAAA:8 a=FOk9bOecH7u50CPTZhUA:9 a=QEXdDO2ut3YA:10
- a=EXS-LbY8YePsIyqnH6vw:22
-X-Proofpoint-ORIG-GUID: e7obO0XMzoJpeN7dj3H7PB86kmAiA1sR
-X-Proofpoint-GUID: e7obO0XMzoJpeN7dj3H7PB86kmAiA1sR
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA5MDE0MiBTYWx0ZWRfX7To7wyOJRYG/
- 1wCF7mRTQRUgUlFzW5jWMyZJg7X2Q+LKTFnKz2x2Fe3V3r4wK8Yw2FPzgoAHVp/9YEDK6eVzG4I
- BPGE55cZt15Btk96ph6cN7lptwsr/UplI6WxsjbZ6U9rl6sF/UwVC+plB7btkWcbEGVzVeTlZPD
- b3gBtVtj4H7vq/7vKZoZASqfSVPclOqqMG71/SRhv23JsbThEc2VNk6rVWU5Hzmh9RyVgCg1HbY
- 1yZLSjLmXasDF/PtAhMZVyC4A/4awkOIDZWVUcMVyy//kRyUPRNvMfIfRQZp8TN0xSGJB46Yj5u
- VmuKkvVwfx001YYuFtwVDZLOZ7+k/PPoYhQJDKO/kOfACGcNQ1dS2ALD1EMN0qcA9EKYK/aC6x/
- mJ5D1lgsW5Yk+cMJM8ARXrNVbsBkJtNY9HfCNj0DJB6uMwnWTnKnHPNfhVHGvaNBgrt3DH0WII4
- ScatMiQnkg0Jof6hudQ==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-08_03,2026-09-09_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 priorityscore=1501 spamscore=0 adultscore=0 malwarescore=0
- suspectscore=0 impostorscore=0 bulkscore=0 clxscore=1015 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609090142
 
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider:
 
+Critical: 0 · High: 0 · Medium: 0 (1) · Low: 2 (1)
 
-On 9/9/2026 6:08 PM, Konrad Dybcio wrote:
-> On 9/9/26 2:24 PM, Krishna Chaitanya Chundru wrote:
->> During system shutdown/reboot, power/clocks to the PCIe controller get
->> removed regardless of link state. If the link is still up when that
->> happens, it can trigger SMMU or NoC errors.
->>
->> This series adds a shutdown() callback to the Qualcomm PCIe host driver
->> that forces the link into L2/D3cold before shutdown proceeds, reusing
->> the existing suspend_noirq() path.
->>
->> Patch 1 fixes pci_host_common_d3cold_possible()'s underlying bus walk,
->> which aborts as soon as it finds a device outside D3hot and can
->> therefore miss a later PME-capable device -- something that becomes
->> common once patch 3 starts forcing D3cold entry during shutdown while
->> endpoints may still be in D0.
->>
->> Patch 2 adds a force parameter to  dw_pcie_suspend_noirq() so that callers can
->> set to make dw_pcie_suspend_noirq() force L2 entry during shutdown/
->> reboot, skipping the D3cold capability check that can otherwise leave
->> the link up if any endpoint hasn't suspended yet.
->>
->> Patch 3 adds qcom_pcie_shutdown() and wires it up as .shutdown.
->>
->> Signed-off-by: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
->> ---
->> Changes in v6:
->> - remove return 0 in d3cold_possible() (konrad)
-> I re-read it once again and I'm not sure my comment was right..
-If we return directly without checking the pme capability we might disable
-power to the endpoint and wake up may be broken.
-I taught you pointed that mistake only. we need to check pme capability even
-when device is not in d3hot.
+- [Low] Commit message overstates what the patch achieves: it claims
+  "Convert all 86 instances of %-formatting to f-strings to fix C0209…
+- [Low] The f-string conversion replaces C0209 warnings with a batch of
+  new over-long source lines (C0301 / PEP8 79-column, kernel 80-column…
 
-- Krishna Chaitanya.
->
-> Konrad
+Pre-existing issues:
+- [Medium] In `OvsFlow.ovs_flow_msg.dpstr()`
+  (tools/testing/selftests/net/openvswitch/ovs-dpctl.py:2556) the fifth…
+- [Low] The `del-flows` branch of `main()` in
+  tools/testing/selftests/net/openvswitch/ovs-dpctl.py detects a missing…
 
+--
+
+selftests: openvswitch: convert %-formatting to f-strings
+
+This converts %-formatting (and a few str.format() call sites) in
+tools/testing/selftests/net/openvswitch/ovs-dpctl.py over to f-strings in
+order to silence pylint C0209.  It is described as a pure warning cleanup
+with no behavior change.
+
+[Severity: Low]
+The commit message says:
+
+  "Convert all 86 instances of %-formatting to f-strings to fix
+   C0209 pylint warnings."
+
+Is "all" accurate here?  One literal %-format survives this commit, in
+ovsactions.dpstr():
+
+    try:
+        print_str += datum.dpstr(more)
+    except:
+        print_str += "{ATTR: %s not decoded}" % field[0]
+
+C0209 fires exactly on a literal string used with the % operator, so
+pylint still reports it for this file after this patch.  This one does get
+converted later in the series (in "selftests: openvswitch: add missing
+docstrings in ovs-dpctl.py"), so would it make sense to reword the message
+here rather than claim the file is C0209-clean?
+
+The message also only mentions %-formatting, while the diff additionally
+rewrites str.format() call sites (the UFID string, the sample probability
+and the used_time print).  Could the count and the "all %-formatting"
+wording be adjusted to match what the diff actually touches?
+
+> diff --git a/tools/testing/selftests/net/openvswitch/ovs-dpctl.py b/tools/testing/selftests/net/openvswitch/ovs-dpctl.py
+> index 1615843c225e4..9cd0d8f0ab233 100644
+> --- a/tools/testing/selftests/net/openvswitch/ovs-dpctl.py
+> +++ b/tools/testing/selftests/net/openvswitch/ovs-dpctl.py
+
+[ ... ]
+
+> @@ -413,14 +413,13 @@ class ovsactions(nla):
+>          )
+>  
+>          def dpstr(self, more=False):
+> -            args = "group=%d" % self.get_attr("OVS_PSAMPLE_ATTR_GROUP")
+> +            args = f"group={int(self.get_attr('OVS_PSAMPLE_ATTR_GROUP'))}"
+>  
+>              cookie = self.get_attr("OVS_PSAMPLE_ATTR_COOKIE")
+>              if cookie:
+> -                args += ",cookie(%s)" % \
+> -                        "".join(format(x, "02x") for x in cookie)
+> +                args += f",cookie({''.join((format(x, '02x') for x in cookie))})"
+
+[Severity: Low]
+This conversion trades C0209 for C0301.  The cookie line in
+ovsactions.psample.dpstr() was wrapped under 80 columns before via a line
+continuation and is now over the limit.
+
+The same happens in several other places touched by this patch, all of
+which were within 79 columns before:
+
+  - the NAT IP_MIN / IP_MAX prints in ovsactions.ovs_ct_attr.ovs_nat_attr.dpstr()
+  - the emask print in ovsactions.ovs_ct_attr.dpstr()
+  - the pid print in ovsactions.userspace.dpstr()
+  - the three push_vlan() range-check messages in ovsactions.parse()
+  - the tci / vid range-check messages in ovskey._parse_vlan_from_flowstr()
+  - the encap() trailing-content message in ovskey._parse_encap_from_flowstr()
+  - the port print in print_ovsdp_full()
+
+The file goes from 5 to 16 lines longer than 79 columns.  Since the same
+patch already uses intermediate locals elsewhere (val, pkts/nbytes,
+mhit/mtotal), could those be used here too so no new long lines appear?
+
+For reference, the later patch "selftests: openvswitch: suppress pylint
+complexity warnings" concedes "10 remaining C0301 line-too-long warnings
+(81-89 columns)" at the series tip, so these stay for the whole series.
+
+>  
+> -            return "psample(%s)" % args
+> +            return f"psample({args})"
+
+[ ... ]
+
+> @@ -564,22 +557,18 @@ class ovsactions(nla):
+>              if self.get_attr("OVS_CT_ATTR_FORCE_COMMIT") is not None:
+>                  print_str += "force,"
+>              if self.get_attr("OVS_CT_ATTR_EVENTMASK") is not None:
+> -                print_str += "emask=0x%X," % self.get_attr(
+> -                    "OVS_CT_ATTR_EVENTMASK"
+> -                )
+> +                print_str += f"emask=0x{self.get_attr('OVS_CT_ATTR_EVENTMASK'):X},"
+
+[ ... ]
+
+> @@ -767,32 +754,27 @@ class ovsactions(nla):
+>                      if k == "vid":
+>                          vid = int(v, 0)
+>                          if vid < 0 or vid > 0xFFF:
+>                              raise ValueError(
+> -                                "push_vlan(): vid=%d out of "
+> -                                "range (0-4095)" % vid)
+> +                                f"push_vlan(): vid={int(vid)} out of range (0-4095)")
+>                      elif k == "pcp":
+>                          pcp = int(v, 0)
+>                          if pcp < 0 or pcp > 7:
+>                              raise ValueError(
+> -                                "push_vlan(): pcp=%d out of "
+> -                                "range (0-7)" % pcp)
+> +                                f"push_vlan(): pcp={int(pcp)} out of range (0-7)")
+>                      elif k == "tpid":
+>                          tpid = int(v, 0)
+>                          if tpid < 0 or tpid > 0xFFFF:
+>                              raise ValueError(
+> -                                "push_vlan(): tpid=0x%x out "
+> -                                "of range (0-0xffff)" % tpid)
+> +                                f"push_vlan(): tpid=0x{tpid:x} out of range (0-0xffff)")
+
+[ ... ]
+
+> @@ -2569,16 +2549,14 @@ class OvsFlow(GenericNetlinkSocket):
+>              ufid = self.get_attr("OVS_FLOW_ATTR_UFID")
+>              ufid_str = ""
+>              if ufid is not None:
+> -                ufid_str = (
+> -                    "ufid:{:08x}-{:04x}-{:04x}-{:04x}-{:04x}{:08x}".format(
+> -                        ufid[0],
+> -                        ufid[1] >> 16,
+> -                        ufid[1] & 0xFFFF,
+> -                        ufid[2] >> 16,
+> -                        ufid[2] & 0,
+> -                        ufid[3],
+> -                    )
+> -                )
+> +                u0 = ufid[0]
+> +                u1h = ufid[1] >> 16
+> +                u1l = ufid[1] & 0xFFFF
+> +                u2h = ufid[2] >> 16
+> +                u2l = ufid[2] & 0
+                                ^^^
+
+[Severity: Medium]
+This isn't a bug introduced by this patch, but since the mask is being
+lifted into a freshly written local, is the & 0 intentional?
+
+Every sibling group in OvsFlow.ovs_flow_msg.dpstr() uses a real shift or
+mask (ufid[1] >> 16, ufid[1] & 0xFFFF, ufid[2] >> 16), while u2l is
+unconditionally zero, so the fifth group of the printed UFID always comes
+out as 0000 and two flows differing only in the low half of ufid[2] print
+an identical ufid: string under dump-flows -v.
+
+The packing side in OvsFlow.ovs_flow_msg.parse() drops the same bits:
+
+    uuidRawObj[5] & (0xFF << 32) >> 32,
+
+Since >> binds tighter than &, this is uuidRawObj[5] & 0xFF, so only bits
+0-7 of the UUID node field reach word 2.
+
+openvswitch.sh test_flow_set installs a UFID with a nonzero fifth group:
+
+	local fwd_flow="ufid:00000001-0002-0003-0004-000500060007"
+
+but only asserts on the dumped action, so nothing in-tree catches this.
+Would it be worth using 0xFFFF here (as a separate patch) instead of
+carrying & 0 forward?  It is still present at the series tip.
+
+> +                u3 = ufid[3]
+> +                ufid_str = (f"ufid:{u0:08x}-{u1h:04x}-{u1l:04x}"
+> +                            f"-{u2h:04x}-{u2l:04x}{u3:08x}")
+
+[ ... ]
+
+> @@ -3115,7 +3088,7 @@ def main(argv):
+>      elif hasattr(args, "flsbr"):
+>          rep = ovsdp.info(args.flsbr, 0)
+>          if rep is None:
+> -            print("DP '%s' not found." % args.flsbr)
+> +            print(f"DP '{args.flsbr}' not found.")
+>          ovsflow.del_flows(rep["dpifindex"])
+
+[Severity: Low]
+This is a pre-existing issue and not introduced by this patch, but while
+this branch is being touched: is the missing return 1 here deliberate?
+
+OvsDatapath.info() turns an ENODEV netlink reply into None:
+
+    except NetlinkError as ne:
+        if ne.code == errno.ENODEV:
+            reply = None
+
+so del-flows against a nonexistent datapath prints the message and then
+falls into rep["dpifindex"], raising TypeError: 'NoneType' object is not
+subscriptable.  The adjacent addif / delif / dumpdp / add-flow / mod-flow
+branches all return 1 after the same check.  It is unchanged at the series
+tip.
+
+>  
+>      return 0
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260905104026.3776396-1-houminxi%40gmail.com
