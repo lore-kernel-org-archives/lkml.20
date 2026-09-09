@@ -1,123 +1,146 @@
-Received: from mail-qk2-f5.google.com (mail-qk2-f5.google.com [74.125.230.197])
+Received: from mail-oi1-f173.google.com (mail-oi1-f173.google.com [209.85.167.173])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF32039B969
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 18:29:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.197
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F3193033D6
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 18:30:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788978594; cv=none; b=cue6WA3pX/sSe09a06WYT+SQKYvYDEoi926OpNGUB0RpLyG8P7/NYm9MfHttIGV5Nm33NTiPhL/nfks88j6OGUyBsLwr15khfO5mhmWxq4YZpXZzkvLwZAHPHpHcpsKr/SbbNOE47k2hMfyBkWwG4J0tm8H96DHGPzitco3WIl8=
+	t=1788978661; cv=none; b=XH7f9zTYkt7CQT5ahEP+u4lFajyvQxzevbPoY40gLUUE55A1i/kUfrUDRQwjQh0rqP9CadcgWs2TnCtJCmlX3SJIfAs3H/PJgZXi06HVj1GIXTl3o9D3Rw9920Z4aNVNJbYKR/DEKmNQOMGJpmh0zfQP9DsUd88TJ4kD9HISKso=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788978594; c=relaxed/simple;
-	bh=+CPMrFl/jUrszvFkBjRpPbN5cZST8GT3Y7StztkkvVo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=F/mY62hk9y2SsxMBcecfe3gnYjvzRXoJvrHlvYBPfaqp7b60L1MMi74TNaDMqAoxSC+K+xQIMa6kTgf7mTtKOCWdmD2S5xT9TFHazx9CPmjtRPBdMdcbM3YDjWszpYC7KsMcehaC+jNJ809s84SKX5+Hqz71/L7Ze57JQpxje+w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org; spf=pass smtp.mailfrom=cmpxchg.org; dkim=pass (2048-bit key) header.d=cmpxchg.org header.i=@cmpxchg.org header.b=Fi9RVYqE; arc=none smtp.client-ip=74.125.230.197
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmpxchg.org
+	s=arc-20240116; t=1788978661; c=relaxed/simple;
+	bh=tYk8UUa/ZgTqD0CT9vVm0TZ2uXiT2KxkmRqOOXowsYQ=;
+	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Message-Id:References:To; b=FOH/4afMtLebXHbknvAyYvM6kUHdCAnQBvYllZsdXatHGFtiCQMtsy/lt0NGzovoaiBXhsA/w4F68UG5/KnqPsXnonegiHFwXEpjzX8fRBdXwR/yymz4bTce80sw8oY2fFgFbPwSrL2dkefbVjxYZumxsAWyY7uHZ9Ra+hF7ztY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XGgQnoVc; arc=none smtp.client-ip=209.85.167.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cmpxchg.org header.i=@cmpxchg.org header.b="Fi9RVYqE"
-Received: by mail-qk2-f5.google.com with SMTP id af79cd13be357-939042cc742so316355485a.1
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 11:29:51 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XGgQnoVc"
+Received: by mail-oi1-f173.google.com with SMTP id 5614622812f47-4c18e5e9745so266018b6e.2
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 11:30:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cmpxchg.org; s=google; t=1788978591; x=1789583391; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=pIvedYIS2AeKXYBcXZE100tskW8WcxbKQFbzxJ/h4TY=;
-        b=Fi9RVYqEwZCo0ISOqSKryizFIiVGTqGD4se7Ao0KnA+ndQofn6j3t+YKzrP/mktANx
-         oxiSmf0blYorYyBJxeEGrEsK3uOTgizQw4WCyFkcG5TytkDGovSKE0r/Sp36DkJ0h8b0
-         mAjZ5xvpfY/Pj+dZwZ8+NgWAylRPSa0KFDXASmwYfIDuEIit8gSxzFLRAJ1GVFKGJ7Ps
-         CtDbxpGqbGPa37EyGVU+6uj5irS0w6sPPbqdrIEKM/wjwmGLJYjWnV6pOTJUQ+dNCfuq
-         QXpOVt9yy8Pd6+5MQYiiEsTyWYk52W9RTL4fuSpA8t/VAc61l8UvXxTLsfsQi9pqwTfE
-         8mXw==
+        d=gmail.com; s=20251104; t=1788978659; x=1789583459; darn=vger.kernel.org;
+        h=to:references:message-id:content-transfer-encoding:cc:date
+         :in-reply-to:from:subject:mime-version:content-type:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=2ZORYc3+x0OjlYW5Oa+mInYkoWpL4Uoxgu6dqAXL3dY=;
+        b=XGgQnoVcoCfWDQc6aCbVg67EYB5KGcGPCFDJ9kzqVwCaRPV/iHchxdKd5z+p8CKJef
+         /n5AVVK0mwyu5zTjOGFwsowJvzwa2Tg2UcqUTaLeTf7JCU+a8g6zvvSJX+fiSMrVM4D6
+         r4PUTzZnttRrCHbpR4ORFAeyXhoFX1GbJ2oSNvABH4Dex667ab80wu57ie0Ga2WVz6Ib
+         +BR3egxS218H1wEpLtebmZvAk+cHfEWFEXxi8KFIye6q+xFOhld6rgdLFfW1Jrq+sH73
+         AFg/s4mE+BTG5FIbAZ64Vis63KK1mKJXu8j2tJ8IgwhRjL+kK8VjIt4+5gEdtJxJwpZE
+         HtjA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788978591; x=1789583391;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=pIvedYIS2AeKXYBcXZE100tskW8WcxbKQFbzxJ/h4TY=;
-        b=W1VbxXxiIDvAwZ1ZU0R1ZmIESPZ459TSYu/OuCI8fDABCSbiQVl1jIQ/HC82dvrE2q
-         +849ghTQvRVRflC8L9DmWF0SnzELBLO0kIbcLVOZu4QvK8cgiFy5OdOb5vBJm6/Y/SPq
-         d+LHBtNPCx7fbcADvO+y8XHHSnG+3TdBkz8ccsYNxNu7JFGxDuRNrSovkmmzLZTEbsKb
-         vAm55vyrw5t0xKWoUG8IHnYdPbdQ2ZhlnqCiblMYnZjGr/MZQjqt/lIL6SyeEkpfq9yt
-         MROFBBzoL3xLNV8FLPz2t1XrrX/xCrQThXBuS5WNwGBn4qUDSGqkdO0kTTFXbFYqi1yh
-         4AKQ==
-X-Forwarded-Encrypted: i=1; AKwUvBy9bZa40S3rRsc3agA5ORlFfIl6WJFwiaE/+j0s3KA3U6fjvTfkLbVrJz9gggGWAZXA/vGb1n6S1qoo+i0=@vger.kernel.org
-X-Gm-Message-State: AFuF++nBMrsGeQl/OZQXo/8ANALpj1LriQVNPcR5ARftbbndrHM+ogk7
-	GGKTUsbk4gIMZ1S5HYsXv+nQzmLjz7YiKXRINHxsSZNeIvgoq3WoAafHGczaGaXg6Gk=
-X-Gm-Gg: AYBFou2h9PnATutN6Xf+OY52LvZnOZfDti2rxPLFJ3jMJS16fZ0Tw1cQbvk8u10tXz/
-	ODREJFSPOseFujDz0Isj57zRbPlqfb0arpdBjdwQXcowzrovI6SHalwqqQVzp6GoM6+0NallJ2a
-	c1ulYA0pFZMkpohj+7mSTnz1mFrAM23LpgkAJDNrIMVROEgInMQBYEsj6HWG3HBZkt9Saob8mzw
-	tbiyZ7WC94+FqiVYEx2OEeVNTjiev69hblgqeXTC2crpJwTk5OyN8xq53akxbrhV4xbFYH+x3wH
-	ZBzOXQBpfCNpO30lfGSqtKiVUfS8XK7I3yhc4XV2d+qcQuyJwgbEJjNw75G8hrvNT08kGGsgLsm
-	A3D31pvbIWhGqnWrWum9kWEoV2t/GGz4ij20QJ7nNaQdVMEe/nmz3ELSAskIx5ne0tyg3w7l2KX
-	cU47Fv+Z/SZ5PeZP6p6kzAU/RU3FD2KtWBVkTT9tmZF68/GqNKZMth4RLUTFOf/3gDiPt+Cg==
-X-Received: by 2002:a05:6214:2f8c:b0:910:3451:341 with SMTP id 6a1803df08f44-9103efb48afmr505437276d6.32.1788978590647;
-        Wed, 09 Sep 2026 11:29:50 -0700 (PDT)
-Received: from localhost ([2603:7001:f100:500:365a:60ff:fe62:ff29])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-910490a3a58sm119183276d6.44.2026.09.09.11.29.49
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 09 Sep 2026 11:29:49 -0700 (PDT)
-Date: Wed, 9 Sep 2026 14:29:48 -0400
-From: Johannes Weiner <hannes@cmpxchg.org>
-To: Qinyun Tan <qinyuntan@linux.alibaba.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	Michal Hocko <mhocko@kernel.org>,
-	Roman Gushchin <roman.gushchin@linux.dev>,
-	Shakeel Butt <shakeel.butt@linux.dev>,
-	Muchun Song <muchun.song@linux.dev>,
-	Michal =?iso-8859-1?Q?Koutn=FD?= <mkoutny@suse.com>,
-	David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	Usama Arif <usama.arif@linux.dev>,
-	Dave Chinner <david@fromorbit.com>, Qi Zheng <qi.zheng@linux.dev>,
-	Yosry Ahmed <yosry@kernel.org>, Nhat Pham <nphamcs@gmail.com>,
-	Chengming Zhou <chengming.zhou@linux.dev>,
-	Xunlei Pang <xlpang@linux.alibaba.com>, cgroups@vger.kernel.org,
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 4/4] mm: zswap: mark the zswap shrinker
- SHRINKER_NONSLAB
-Message-ID: <aqGlnALaf-Cvq4kj@cmpxchg.org>
-References: <20260907110111.2286932-1-qinyuntan@linux.alibaba.com>
- <20260907110111.2286932-5-qinyuntan@linux.alibaba.com>
+        d=1e100.net; s=20251104; t=1788978659; x=1789583459;
+        h=to:references:message-id:content-transfer-encoding:cc:date
+         :in-reply-to:from:subject:mime-version:content-type:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=2ZORYc3+x0OjlYW5Oa+mInYkoWpL4Uoxgu6dqAXL3dY=;
+        b=ouiofTCNn00Wfblo8SvUowLc4lMODl2pQXsshsB7DkDcxN7VoZ3YSrtrKy6vyTpThn
+         9NF4XNTX1eKKlM/T/bXBZUVXEjr+bql2UONuW+4nImwwiIDyQf5dCkbAtqrg6plDrhuM
+         1Mikmodo3CPltOPj2seetlVAmJ34Dv/5sn6EIisl0iAyH5HByRebQ8VYKxCZQa6rHkxC
+         4xw7Ov+zcRXOTSigGmrmBuJepxoNc9gUlWEeIu6rDDvPaECbPv4nWGrYiWssepnk0V7Y
+         lwKO4gmc2RjzvjppSD8w8gYO+SzlvRG5SbLMB2WJlxA2IT+a8ypFAZpfmJJhh/wT+Eef
+         JfHA==
+X-Forwarded-Encrypted: i=1; AKwUvBzTGzFDipGzXfwFeYlmDR8IhMbsd9nqoh0QTFXaTjHr/rEwP1QYfNcyD6SUyHodYJbM9/K7iiadZJRVALU=@vger.kernel.org
+X-Gm-Message-State: AFuF++l7OmcCi4wDjTfX06I+JWCN2iqnoixcQ5tqhKG6V/fdb0TFP6+W
+	QUXRr8eK+K94XTycqe55mFwLWUWo4EAvl3aV9wfyCpyrK//oDWUzlhYE
+X-Gm-Gg: AYBFou1Yq/8v10EhfgnF5x808pw4FtukTnNr7fjYk9I1B8b7NATnUEwi1s77Sp0CmiC
+	kN1/jTR4Re7pHIOJS2Jewx4+Un5t9jGx7yWPXXMruEuzVrj22yv5Sn7bMW8t43kMGthWtEjHbQw
+	S24lvHaVD2r2Jt9LbQmFQ0OiSuMBCgeRaUTsXs/QiZ3J6U9uxpEo0x67MAYy9Ir3Ky0y6294Wef
+	WFxpKfc6KbzKDfrFYrgV0A/K5XksJkfjd7TrJg70QET/VHISBtlSiYz0+pXr844pl+J02PA+x4O
+	hQfNf6nRvSET44Oh+vIjkfXo4G5zwzRX3nbTEQERRiA4Ba6w10UDrbUw/X8HWfEAePRCFujqSev
+	9v/WadS6xm/3zqOhsZZYhk+OcUBHiAmpg6B4mdXkpcbBJf+xQ2iHEG+e+epOCNNYST8qh75iHDz
+	cHULAiWWMVC7UNVImvOR8WxbDyeWE92b5Lu2vcsrF9uJ5sWnyIemU1y/UqCn2hIPrKftpbLTpRx
+	YY37Y0IMb/gtMuYwG8Iltez
+X-Received: by 2002:a05:6808:23c4:b0:49b:33c8:4b75 with SMTP id 5614622812f47-4b95f22f676mr27469940b6e.5.1788978658886;
+        Wed, 09 Sep 2026 11:30:58 -0700 (PDT)
+Received: from smtpclient.apple ([69.162.230.54])
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-4b96eaa508asm17622378b6e.1.2026.09.09.11.30.58
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Wed, 09 Sep 2026 11:30:58 -0700 (PDT)
+Content-Type: text/plain;
+	charset=utf-8
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260907110111.2286932-5-qinyuntan@linux.alibaba.com>
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.100.1.1.11\))
+Subject: Re: [PATCH] staging: rtl8723bs: fix coding style in HalBtc8723b2Ant.c
+From: Fahmy Hassan <fahmymohammed@gmail.com>
+In-Reply-To: <CAChV6vw0-6ZjfPCgjQ46mfEpnnJd51EGW-Dt1Wc8SWMkh+AwAg@mail.gmail.com>
+Date: Wed, 9 Sep 2026 12:30:45 -0600
+Cc: gregkh@linuxfoundation.org,
+ linux-kernel@vger.kernel.org,
+ linux-staging@lists.linux.dev
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <51BC5B0F-E643-44ED-A44E-DE275DBFBE63@gmail.com>
+References: <20260908025910.155625-1-fahmymohammed@gmail.com>
+ <20260909123648.174428-1-b9788213@gmail.com>
+ <CAChV6vw0-6ZjfPCgjQ46mfEpnnJd51EGW-Dt1Wc8SWMkh+AwAg@mail.gmail.com>
+To: b9788213@gmail.com
+X-Mailer: Apple Mail (2.3901.100.1.1.11)
 
-On Mon, Sep 07, 2026 at 07:01:11PM +0800, Qinyun Tan wrote:
-> With kmem accounting disabled (cgroup.memory=nokmem), memcg reclaim
-> never invokes the zswap shrinker: a cgroup under memory pressure does
-> not write back its own zswapped pages to make room; they are only
-> written back by global reclaim or once the global pool limit kicks in.
-> 
-> The zswap shrinker is registered memcg-aware but without
-> SHRINKER_NONSLAB, so under nokmem it is treated as a slab shrinker:
-> before commit 03375203e1da ("mm: do not allocate shrinker info with
-> cgroup.memory=nokmem") it was skipped by the !memcg_kmem_online()
-> check in shrink_slab_memcg(); since that commit it is demoted to
-> non-memcg-aware at registration.  But the zswap shrinker is not a slab
-> shrinker: it tracks zswap entries and resolves the owning memcg from
-> the folio's objcg, independent of kmem accounting.
-> 
-> This was noticed by Michal during review of the patch "mm/list_lru:
-> don't copy stale shrinker id from non-memcg-aware shrinkers" [1].
-> 
-> Mark it SHRINKER_NONSLAB so it keeps its memcg awareness and runs
-> under memcg reclaim with nokmem.
-> 
-> [1] https://lore.kernel.org/lkml/697713c4-0857-485b-aba7-c74f37a3c8b4@linux.alibaba.com/
-> 
-> Fixes: b5ba474f3f51 ("zswap: shrink zswap pool based on memory pressure")
-> Suggested-by: Michal Koutný <mkoutny@suse.com>
-> Signed-off-by: Qinyun Tan <qinyuntan@linux.alibaba.com>
-> Acked-by: Usama Arif <usama.arif@linux.dev>
+Hi Bera,
 
-Reviewed-by: Johannes Weiner <hannes@cmpxchg.org>
+Thanks for the suggestion, that makes sense. I will include that change =
+in the next version of the patch.
+Apologies for any garbled emails; I=E2=80=99m still learning this =
+format.=20
+
+Best,
+Fahmy
+
+
+
+
+Fahmy Hassan | C# Backend Engineer
+
+
+Sent from MacOS
+Please consider the environment before printing this e-mail
+
+
+
+> On Sep 9, 2026, at 9:17=E2=80=AFAM, Fahmy Hassan =
+<fahmymohammed@gmail.com> wrote:
+>=20
+> Hi Bera,
+>=20
+> Thanks for the suggestion, that makes sense. I will include that =
+change in the next version of the patch.
+>=20
+> Best,
+> Fahmy
+>=20
+>=20
+>=20
+> On Wed, Sep 9, 2026 at 6:36=E2=80=AFAM <b9788213@gmail.com> wrote:
+> On Mon 7 Sep 2026 20:57:57 -0600, Fahmy Hassan wrote:
+> > Address checkpatch.pl warnings listed in the driver's TODO file:
+> > remove braces around single-statement if/else arms, wrap function
+> > calls that exceed the 100 column limit, and move trailing comments
+> > that pushed lines over the limit onto their own line above the
+> > statement they document.
+>=20
+> ...
+>=20
+> > -                             if (bBtHsOn) {
+> > -                             } else {
+> > +                             if (bBtHsOn)
+> > +                                     ;
+> > +                             else
+> >                                       algorithm =3D =
+BT_8723B_2ANT_COEX_ALGO_PANEDR_HID;
+> > -                             }
+>=20
+> You can use something like
+>=20
+> if (!bBtHsOn)
+>         algorithm =3D BT_8723B_2ANT_COEX_ALGO_PANEDR_HID;
+>=20
+> Thanks,
+> Bera
+
