@@ -1,232 +1,149 @@
-Received: from mail-yw1-f170.google.com (mail-yw1-f170.google.com [209.85.128.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D7AA39E184
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 18:36:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 369BF3955E4
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 18:37:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788979019; cv=none; b=Loy22ZlYZuOSGmMq7jScRE0ix4mfz+w2ZTAxgNZA/P3yigC2gseMtUDn3JJAZYy44jYVrN9DKaHBvJyMwomBv4vyJXyhlbukfyMqRBOFYGAaI7pICLFybvgv+Slp7laOjrMz/azW73hFvqBPQLYetXpWOK4q4nPaNGurgrFKGCc=
+	t=1788979048; cv=none; b=Q5SHquwkXnD+JpF0jTZGAbrPCAS0toqndy8RZWsCetZvE+voTW1njSHMQbFnxKb/YCnRCwH0wk943lFQZa2SVOFKwJ3bKxX/AQIqZT71qjg/7g+TWLduYViKJd5xvda0WVcQ40sceIJj1wnoFCW943LmuCLfTU3Rz/590n7mvjQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788979019; c=relaxed/simple;
-	bh=D0i10eU6R0guQqkbNqxy3VRaXtBFzNg73B8NlbhmR+M=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=h2QfdT0BO9W7lI5soAHt7/YVaYUaoTA2EUG7/Zos++XAjdihSPafJBEumQEOm47NqSu8liEvmrK6IPcmKIuRmh29cpdBo1BcqonPfCB7hLxG/oeQ3GFdb01222dUqXdNfVX8QZprh1A6GzVAaZH55T/DxVe5YU/twd+mPC7744Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com; spf=pass smtp.mailfrom=dubeyko.com; dkim=pass (2048-bit key) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.b=qZB6sOaA; arc=none smtp.client-ip=209.85.128.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dubeyko.com
+	s=arc-20240116; t=1788979048; c=relaxed/simple;
+	bh=CXlmz3Qrz+2s4K8YtyrdzhpAlduZURZcGsKuwFIC6As=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=l2bE3d9BTgHrWSQsOuDa7iuOTbV1o/F8YaUE+CC07njMhFFlrTfdNikl3WhEhkTKTNk/dwdcvhX5Vxy9GxigvQp+LQ5uPVwvCYm1ZyXBggTSN9BdUW/nDYDoJxKOM1x8UsJIDKPgjuUtojYxNvmeuti1x8rmlig9Tk8OXbyT+/I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=FgYIW3k/; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=gx2Y1HrF; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.b="qZB6sOaA"
-Received: by mail-yw1-f170.google.com with SMTP id 00721157ae682-87ab6e5f91eso35197607b3.2
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 11:36:57 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="FgYIW3k/";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="gx2Y1HrF"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 689H85f71938156
+	for <linux-kernel@vger.kernel.org>; Wed, 9 Sep 2026 18:37:26 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=quHjMOAd0R0WYl3Mfy+0+cjO
+	+Cogwa/gMhTd7XTRQYQ=; b=FgYIW3k/Po2qhpHCG60/8qq+u3kn+siHvlJfxmgR
+	YwFS+ioUfPGFropHZGUhADSlIyDZOyBxJXbL8eAFOl1WMiwRQ75nO24TXzjA2482
+	XwV6UkL4+8sGJcwDwWv9zfzyRXMDs55Y8FIR76ilacA39edRNCrefaQBVrlWCwe9
+	EaGKN0yNowRVmPuCnvyLu+ZgGt8Qbmmawj3edF3opVu5c2tZjAX6UJXmMkSnucmR
+	2yquqF2nLKkYMKvbqtfiUWcVjjgjKRHxHrZdLEcN17d7b3u3ggMcwIn57EHvMpG9
+	6mV1iIeQps5cmQ5LG6Z+/s1Kx6pDjpCZK42SqgIm9fwVkA==
+Received: from mail-ua1-f70.google.com (mail-ua1-f70.google.com [209.85.222.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gk559tdt9-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 18:37:25 +0000 (GMT)
+Received: by mail-ua1-f70.google.com with SMTP id a1e0cc1a2514c-97e98448895so543634241.0
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 11:37:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=dubeyko-com.20251104.gappssmtp.com; s=20251104; t=1788979016; x=1789583816; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ztELjN8uO0T8KEevdMrbW3Q6EwKjlbpjwbjsPZRE1cg=;
-        b=qZB6sOaAb+rWa4h146k+RlXv6qT/BPR9+mo6TC+CkoAeSWbSg48OA+eiW4dhDXdz86
-         2kUpL7iUdnkxp2yor8tH1MbWKyTDeZnDhsYZTdGX9bYbYD0nO4Odol1Jd3SAy5q45tzc
-         KtADIIQoHa0LXRa+fjToFV340elqYBr3rBmn6iDaJwD0LPSQAbkcEAY3noRw99Mjfnu6
-         i/XEaA8fhyODw9uAYm4ody1dEJASfRlQ+1l/Rk4UTbyWEfmGwsH7utB8zCjIrzjOTFyk
-         45WGjAaEt8jfwXig0O1n1bRyUqcNuwMUnBWsF7eOPZS+XBTsm+RLPnyx93QbgfeMbUVD
-         Andw==
+        d=oss.qualcomm.com; s=google; t=1788979045; x=1789583845; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=quHjMOAd0R0WYl3Mfy+0+cjO+Cogwa/gMhTd7XTRQYQ=;
+        b=gx2Y1HrFGSluhpdjxLwat45Bew1ZnJ3k+4tc99ixTYqJSm+z4eH3MXU+0hZRhS1LXo
+         Ehwvuk3jN42x3W0dtDEWM4Mp1qoVy8z3JUHyBhfXunhkBPV4rI5F25RTA/Gu3dapmZZ+
+         SvGkd17B5byWytL4YX1zqGQ6Po6aqv4i4mwJeharhOLw+PIPdYiaIKLqnGRKU1rBY/5N
+         JkKCKkfpbE8JZV3fVz5fEgieReXkzWYfqIjRmhYoQ693T86HIAqNmFZKbRG+fqBPnDaJ
+         By/xJaSmyh3ORdHuxyLOn6ntNOukARLXOXIkdIdV+d4HpO+XvopWFxR26SGfEr+7lJfw
+         LDsg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788979016; x=1789583816;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=ztELjN8uO0T8KEevdMrbW3Q6EwKjlbpjwbjsPZRE1cg=;
-        b=HjaH7AAQbx2f+uXpNG+khuDh39r5LmG/Gdxhl7apKGrzEPIHLzgeWe8PYmFR3Gu2/m
-         omRa3GzVhw25FyZDUFTmpzpVo+2vo7ieHuTc408bZ/Ce4h6unlraaK3jqMxFe2NUd1si
-         7/zxh5RG/SbbgXaAGnyLoy3++y70RMiz51MIzS9FCodMqpKi4SomUIyl1kTdxtCi7ohs
-         /yxUaeaTnmEzHFI//i+QAdNfd0enjoizNx3CmoEaHasIulOesCJxU11IBDsHOnshlIg0
-         f6qgndmVHa534MVrNF4zame1ah1DFQMCWnIZDsQlLHTrU3PqhHdsDJfflTf0tng+KM3D
-         UzcA==
-X-Forwarded-Encrypted: i=1; AKwUvBzt3f+0zA+If2Q02IRxcFmzrZJCIqhBLhmjix9i4hxHyQxdRGYjJ9VNhfzfAOISrdNqrO+8Cu7ogIg3bJ8=@vger.kernel.org
-X-Gm-Message-State: AFuF++ldzufZVMujEdcAnp2WHjmzlpHNgI8IhHEeeRhcm0FamcB5njfM
-	F1MRqOFYQ782t4es5dEBFaowY4EpTpwruT92rlEejtjTrtqAiutz1mdfCGwJOnBkMFufEIIbj6N
-	AtYMSp0w=
-X-Gm-Gg: AYBFou3o3+VFYlkwa73g/ZApgR0kD5U6HlCUKbMKr9/xUw9j0RHATMW8Jv3BriLktZu
-	DV5qhSDg2f4uiIXU6Emj8yGyaMG4F/st9BwkRwi9X2ce756q7CvU9mkAEQEmw7oJp+kpTdp6bSE
-	pF1lJwBA9FZY85NtfC2MPDuF9lOzvd/fZ52NvZn0wb8TEFRJtX7xqyn8xCLQyb3Tz9kB1NZ4N3+
-	BOeZDFphcu4PJ4eAKYVQnbVFVeahJIb8dLTIkFJPfy8sQeqvRyhVnon6oRKuBYcu9e+5BL1oetC
-	SAaiuhbZBe4QS7kcAFKysXczSIqCnzxfP30XJ+KbwW64BOfl55vsseVtRQ8NX8d5k/PJ6+x9EYB
-	ZRmT2+9A7z/KcmcM8hq3d1QpvEzaVrcIJy+pxN3wIvkIdPy7uwE24A9jMwBpH2yqUlefQ4KgNcW
-	AbSqD1ZnKz2DpSuKwHJJs09v189k+A16roFONYbWRT5V3/NzNUgiO3i/iN5txorAoKdbntkvBIp
-	xgnqp/6pYazzuLhOy3TEl3qpaGJNT/uTcRrbnxjzAYLZ0Yh+hpQUULmKDjhDIvP3fsvP5Mi6vBu
-	j+xf943tCWqZqAgdC+VVXgkUlwJwNMS0Vp7gz5z7RXyxi+8SGcMftCN1iKCvBM0S+O3GOdqaDEY
-	=
-X-Received: by 2002:a05:690c:f04:b0:84a:ffa1:8118 with SMTP id 00721157ae682-871288defc1mr147308857b3.31.1788979016000;
-        Wed, 09 Sep 2026 11:36:56 -0700 (PDT)
-Received: from ?IPv6:2600:1700:6476:1430:bfe2:d67c:7903:eb5e? ([2600:1700:6476:1430:bfe2:d67c:7903:eb5e])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-881575de059sm7230907b3.18.2026.09.09.11.36.54
+        d=1e100.net; s=20251104; t=1788979045; x=1789583845;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=quHjMOAd0R0WYl3Mfy+0+cjO+Cogwa/gMhTd7XTRQYQ=;
+        b=p0CIedyiC5Oxc8aDa4gOYPcxx29uxz1UCftIMfGt7bcNeHt+dsUCF5J6oOx8jN4sEG
+         QH5Bbqf39w2w/r+jX5y2IOleINgKwxoVD6rJe68UcVLfqWt0npMJ/e/shyNE8+6YxCv2
+         O1IG1p/PWoc7/ULCC1RanKzVhbjUOUozdOVqLBmBn5ExK9QVO9KTRm88VuNoq2W1yD8i
+         ebjihGqVj5vKqZmpjpf81WMrPc7aP0dcb2QzkfDLvAxCLZbRH8j2skb74r8Vaq9XS089
+         YIvMlOUxzGdOUoChhJjd88M4qikLsz3PgpjJq3h6f8v8UknfpX8DcjgXaXuLtC+LJq5h
+         DyQw==
+X-Forwarded-Encrypted: i=1; AKwUvBwTO2M9USlBQo3088VSZU6f7EbC7lI3Ri5eXxmWCsSZMWCp5BHhCy+QFe4ubw7bHxs6RE9Krw2i26j8My0=@vger.kernel.org
+X-Gm-Message-State: AFuF++lG12wx8NiXx/MNiVOIZii+8aH4N8hGzzKpIMSlFAoxLvNKNrbz
+	qT+iDd0faEfgf9pjTb9urta9YAavK30FdU7xDbA1TvjBi3pc9KeRp/W5WnHDJCOt9VLx3Nbyf/g
+	H7NfTlOMzhedaFw+nWHF+ixCjAFBNk5gjrle7a1bL4PVGTC8w+rYx51KwXDjolPsQs5KheTqIGx
+	U=
+X-Gm-Gg: AYBFou3mfJpcm1r7sVL/pWsWmG6FME8ez5HClEldOh+QckS66ZDd4hJne+Hrhfw1pj0
+	3adVFhfKzmB1YDNlonA2C0stFVSN3aDyFcYeJPHx60nQouC8Swrxanh1x/pR5AgQ2bbqj3x/VB5
+	702cul9Zk13Fz9dMctunvlyRDbC9CN0b96N5e9ZH1Au0gC2jLO+reYX6Eo0zwyUdzp7+zvKtJnc
+	kZhRpbdUZ29//jXTXo+irIvWrw+h6ONTCg0T7jBM7GNOxkitzaSw9uMV5qvkPRrRxwbi2UqO/VJ
+	YfmEGYwfmyePUoCs1UyNfUDAv13CbSYxEK8HplJ/bgTZFByahBsJXsw7RnwHjv2gsCrtJ9Xyu+B
+	7E4/FR9fTvT8pN94rJbZJIblyR5ZUMCuJ58iapBa22gz0/x20QStLycHQsObIQlQmjfCm+uB4Sj
+	E2Het7i9RZO/12
+X-Received: by 2002:a05:6102:41a9:b0:784:4d38:ef58 with SMTP id ada2fe7eead31-78a4a57f683mr14834701137.0.1788979045156;
+        Wed, 09 Sep 2026 11:37:25 -0700 (PDT)
+X-Received: by 2002:a05:6102:41a9:b0:784:4d38:ef58 with SMTP id ada2fe7eead31-78a4a57f683mr14834676137.0.1788979044698;
+        Wed, 09 Sep 2026 11:37:24 -0700 (PDT)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b61670537esm3966734e87.66.2026.09.09.11.37.22
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 09 Sep 2026 11:36:54 -0700 (PDT)
-Message-ID: <73cc2e394cc0269a62e2e6503aac5fef2a3ac65a.camel@dubeyko.com>
-Subject: Re: [PATCH] hfsplus: fix recursive tree_lock in
- hfsplus_file_extend()
-From: Viacheslav Dubeyko <slava@dubeyko.com>
-To: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
-Cc: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>, Yangtao Li
-	 <frank.li@vivo.com>, linux-fsdevel@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, 
-	syzbot+f8ce6c197125ab9d72ce@syzkaller.appspotmail.com
-Date: Wed, 09 Sep 2026 11:36:53 -0700
-In-Reply-To: <20260909162057.28071-1-ngocthang2710.1999@gmail.com>
-References: <6adf8403f623448ffa8647b9b5e91397a8256315.camel@dubeyko.com>
-	 <20260909162057.28071-1-ngocthang2710.1999@gmail.com>
-Autocrypt: addr=slava@dubeyko.com; prefer-encrypt=mutual;
- keydata=mQINBGgaTLYBEADaJc/WqWTeunGetXyyGJ5Za7b23M/ozuDCWCp+yWUa2GqQKH40dxRIR
- zshgOmAue7t9RQJU9lxZ4ZHWbi1Hzz85+0omefEdAKFmxTO6+CYV0g/sapU0wPJws3sC2Pbda9/eJ
- ZcvScAX2n/PlhpTnzJKf3JkHh3nM1ACO3jzSe2/muSQJvqMLG2D71ccekr1RyUh8V+OZdrPtfkDam
- V6GOT6IvyE+d+55fzmo20nJKecvbyvdikWwZvjjCENsG9qOf3TcCJ9DDYwjyYe1To8b+mQM9nHcxp
- jUsUuH074BhISFwt99/htZdSgp4csiGeXr8f9BEotRB6+kjMBHaiJ6B7BIlDmlffyR4f3oR/5hxgy
- dvIxMocqyc03xVyM6tA4ZrshKkwDgZIFEKkx37ec22ZJczNwGywKQW2TGXUTZVbdooiG4tXbRBLxe
- ga/NTZ52ZdEkSxAUGw/l0y0InTtdDIWvfUT+WXtQcEPRBE6HHhoeFehLzWL/o7w5Hog+0hXhNjqte
- fzKpI2fWmYzoIb6ueNmE/8sP9fWXo6Av9m8B5hRvF/hVWfEysr/2LSqN+xjt9NEbg8WNRMLy/Y0MS
- p5fgf9pmGF78waFiBvgZIQNuQnHrM+0BmYOhR0JKoHjt7r5wLyNiKFc8b7xXndyCDYfniO3ljbr0j
- tXWRGxx4to6FwARAQABtCZWaWFjaGVzbGF2IER1YmV5a28gPHNsYXZhQGR1YmV5a28uY29tPokCVw
- QTAQoAQQIbAQUJA8JnAAULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBFXDC2tnzsoLQtrbBDlc2cL
- fhEB1BQJoGl5PAhkBAAoJEDlc2cLfhEB17DsP/jy/Dx19MtxWOniPqpQf2s65enkDZuMIQ94jSg7B
- F2qTKIbNR9SmsczjyjC+/J7m7WZRmcqnwFYMOyNfh12aF2WhjT7p5xEAbvfGVYwUpUrg/lcacdT0D
- Yk61GGc5ZB89OAWHLr0FJjI54bd7kn7E/JRQF4dqNsxU8qcPXQ0wLHxTHUPZu/w5Zu/cO+lQ3H0Pj
- pSEGaTAh+tBYGSvQ4YPYBcV8+qjTxzeNwkw4ARza8EjTwWKP2jWAfA/ay4VobRfqNQ2zLoo84qDtN
- Uxe0zPE2wobIXELWkbuW/6hoQFPpMlJWz+mbvVms57NAA1HO8F5c1SLFaJ6dN0AQbxrHi45/cQXla
- 9hSEOJjxcEnJG/ZmcomYHFneM9K1p1K6HcGajiY2BFWkVet9vuHygkLWXVYZ0lr1paLFR52S7T+cf
- 6dkxOqu1ZiRegvFoyzBUzlLh/elgp3tWUfG2VmJD3lGpB3m5ZhwQ3rFpK8A7cKzgKjwPp61Me0o9z
- HX53THoG+QG+o0nnIKK7M8+coToTSyznYoq9C3eKeM/J97x9+h9tbizaeUQvWzQOgG8myUJ5u5Dr4
- 6tv9KXrOJy0iy/dcyreMYV5lwODaFfOeA4Lbnn5vRn9OjuMg1PFhCi3yMI4lA4umXFw0V2/OI5rgW
- BQELhfvW6mxkihkl6KLZX8m1zcHitCpWaWFjaGVzbGF2IER1YmV5a28gPFNsYXZhLkR1YmV5a29Aa
- WJtLmNvbT6JAlQEEwEKAD4WIQRVwwtrZ87KC0La2wQ5XNnC34RAdQUCaBpd7AIbAQUJA8JnAAULCQ
- gHAgYVCgkICwIEFgIDAQIeAQIXgAAKCRA5XNnC34RAdYjFEACiWBEybMt1xjRbEgaZ3UP5i2bSway
- DwYDvgWW5EbRP7JcqOcZ2vkJwrK3gsqC3FKpjOPh7ecE0I4vrabH1Qobe2N8B2Y396z24mGnkTBbb
- 16Uz3PC93nFN1BA0wuOjlr1/oOTy5gBY563vybhnXPfSEUcXRd28jI7z8tRyzXh2tL8ZLdv1u4vQ8
- E0O7lVJ55p9yGxbwgb5vXU4T2irqRKLxRvU80rZIXoEM7zLf5r7RaRxgwjTKdu6rYMUOfoyEQQZTD
- 4Xg9YE/X8pZzcbYFs4IlscyK6cXU0pjwr2ssjearOLLDJ7ygvfOiOuCZL+6zHRunLwq2JH/RmwuLV
- mWWSbgosZD6c5+wu6DxV15y7zZaR3NFPOR5ErpCFUorKzBO1nA4dwOAbNym9OGkhRgLAyxwpea0V0
- ZlStfp0kfVaSZYo7PXd8Bbtyjali0niBjPpEVZdgtVUpBlPr97jBYZ+L5GF3hd6WJFbEYgj+5Af7C
- UjbX9DHweGQ/tdXWRnJHRzorxzjOS3003ddRnPtQDDN3Z/XzdAZwQAs0RqqXrTeeJrLppFUbAP+HZ
- TyOLVJcAAlVQROoq8PbM3ZKIaOygjj6Yw0emJi1D9OsN2UKjoe4W185vamFWX4Ba41jmCPrYJWAWH
- fAMjjkInIPg7RLGs8FiwxfcpkILP0YbVWHiNAabQoVmlhY2hlc2xhdiBEdWJleWtvIDx2ZHViZXlr
- b0BrZXJuZWwub3JnPokCVAQTAQoAPhYhBFXDC2tnzsoLQtrbBDlc2cLfhEB1BQJoVemuAhsBBQkDw
- mcABQsJCAcCBhUKCQgLAgQWAgMBAh4BAheAAAoJEDlc2cLfhEB1GRwP/1scX5HO9Sk7dRicLD/fxo
- ipwEs+UbeA0/TM8OQfdRI4C/tFBYbQCR7lD05dfq8VsYLEyrgeLqP/iRhabLky8LTaEdwoAqPDc/O
- 9HRffx/faJZqkKc1dZryjqS6b8NExhKOVWmDqN357+Cl/H4hT9wnvjCj1YEqXIxSd/2Pc8+yw/KRC
- AP7jtRzXHcc/49Lpz/NU5irScusxy2GLKa5o/13jFK3F1fWX1wsOJF8NlTx3rLtBy4GWHITwkBmu8
- zI4qcJGp7eudI0l4xmIKKQWanEhVdzBm5UnfyLIa7gQ2T48UbxJlWnMhLxMPrxgtC4Kos1G3zovEy
- Ep+fJN7D1pwN9aR36jVKvRsX7V4leIDWGzCdfw1FGWkMUfrRwgIl6i3wgqcCP6r9YSWVQYXdmwdMu
- 1RFLC44iF9340S0hw9+30yGP8TWwd1mm8V/+zsdDAFAoAwisi5QLLkQnEsJSgLzJ9daAsE8KjMthv
- hUWHdpiUSjyCpigT+KPl9YunZhyrC1jZXERCDPCQVYgaPt+Xbhdjcem/ykv8UVIDAGVXjuk4OW8la
- nf8SP+uxkTTDKcPHOa5rYRaeNj7T/NClRSd4z6aV3F6pKEJnEGvv/DFMXtSHlbylhyiGKN2Amd0b4
- 9jg+DW85oNN7q2UYzYuPwkHsFFq5iyF1QggiwYYTpoVXsw
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.1 (by Flathub.org) 
+        Wed, 09 Sep 2026 11:37:22 -0700 (PDT)
+Date: Wed, 9 Sep 2026 21:37:20 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Konrad Dybcio <konradybcio@kernel.org>
+Cc: Georgi Djakov <djakov@kernel.org>, Evan Green <evgreen@chromium.org>,
+        Yassine Oudjana <y.oudjana@protonmail.com>,
+        Dmitry Baryshkov <lumag@kernel.org>,
+        Adam Skladowski <a39.skl@gmail.com>, linux-arm-msm@vger.kernel.org,
+        linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Subject: Re: [PATCH 1/6] interconnect: qcom: Move bcm_div() to common code
+Message-ID: <v7rrdfpcj4wi2mjspxhmnrf466exjshj733osyv5szkiebznvw@qoex3pioyqtm>
+References: <20260909-topic-icc_rpm_smd_qol-v1-0-6dc5b5e97626@oss.qualcomm.com>
+ <20260909-topic-icc_rpm_smd_qol-v1-1-6dc5b5e97626@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260909-topic-icc_rpm_smd_qol-v1-1-6dc5b5e97626@oss.qualcomm.com>
+X-Authority-Analysis: v=2.4 cv=KP1qylFo c=1 sm=1 tr=0 ts=6aa1a765 cx=c_pps
+ a=R6oCqFB+Yf/t2GF8e0/dFg==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22 a=EUspDBNiAAAA:8
+ a=wiZ877acDUlgFteYXlMA:9 a=CjuIK1q_8ugA:10 a=TD8TdBvy0hsOASGTdmB-:22
+X-Proofpoint-ORIG-GUID: KYMBBbNnhJ8t5AFhO6zKrsm_Xj9OfV1J
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA5MDIwOCBTYWx0ZWRfX+Q4wqoyc2zYJ
+ rG3Jp6CUsT52H3HanAaxhUvWjs1RSwBaGKHcR9T4V72A8nGrFhgv7Pc3mJiG5YQeSTsSPRogsjO
+ bYMqrZZ19iK0arjaPanB0x/Uczm9F/c=
+X-Proofpoint-GUID: KYMBBbNnhJ8t5AFhO6zKrsm_Xj9OfV1J
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA5MDIwOCBTYWx0ZWRfX7IeefiJ9mB4S
+ Xqhzi8tGxOyPI+CToAdhxBiyVjjUkvtLd7yMoqwecmHniAjo3KmcRI0C6F8d2IosmUxJIScC1XV
+ RTQjjZbwlmLBt66syQoVeqYgB4VCbOlDek6VQbwI788tFRAnEqH/2hKLozXA8DE9id7xMPpJrOe
+ qYqzBzO5ftJuwHamg4vl8KcxQTNoKQWO6SwceVYTgxPNLKbLRO1tMm1PSjFQVoCMarqfRnPEtSS
+ RjlXH1738sQTpRgJWpisTAbaMuwa6HeQcFjlRHDkh4Kl6itvGNIReXQhWTVUU6uO3+gradlnNgp
+ uF+MKbLstc+D1rzsuQuTqR+BWxJl81tzawYOK+PKZYP+w1HdEmC+bEXBcOw7lM+9GJKEnAhJlZB
+ s55gU57pDSuo1BCZ1xwvQoZR4jw6YmeRu1rCcSbRA5GlPscP246nWPLR46RXWUtevA+9U4OP8h1
+ tmjo4tdGbztSMgcKH6A==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-08_03,2026-09-09_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 lowpriorityscore=0 adultscore=0 spamscore=0 malwarescore=0
+ suspectscore=0 impostorscore=0 bulkscore=0 priorityscore=1501 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609090208
 
-On Wed, 2026-09-09 at 23:20 +0700, Nguyen Ngoc Thang wrote:
-> Hi Slava,
->=20
-> Agreed on all four points, and dropping the btree.c/super.c hunks --
-> you're right on the specifics too: hfs_btree_open() is also called
-> from xattr.c when an attributes tree is created lazily, mid-
-> operation,
-> so it has no business deciding sb->s_flags itself. And re-checking my
-> own super.c hunk: it dereferences sbi->ext_tree/attr_tree
-> unconditionally, which NULL-derefs on remount of a volume with no
-> attributes file (attr_tree is NULL whenever vhdr-
-> >attr_file.total_blocks
-> =3D=3D 0). Glad that didn't go anywhere.
->=20
-> One clarifying question before I attempt that piece: you wrote both
-> "it needs to return the error code from this method" and "set the
-> state of the btree as inconsistent". Those lead to different mounts:
->=20
-> =C2=A0 (a) hfs_btree_open() returns ERR_PTR(-EIO) -> the tree never opens=
-,
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 mount fails outright (same as every other =
-check already in that
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 function).
-> =C2=A0 (b) hfs_btree_open() still returns the tree, with a new
-> inconsistency
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 flag set on it -> mount can succeed read-o=
-nly, existing (valid)
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 data stays reachable.
->=20
-> I'd lean towards (b) -- read-only recovery only works if the tree
-> actually opens -- but that's your call, not mine to assume. Which did
-> you mean, or something else?
+On Wed, Sep 09, 2026 at 06:41:54PM +0200, Konrad Dybcio wrote:
+> From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> 
+> This helper is useful for both SMD_RPM and RPMH code, extract it.
+> 
+> Assisted-by: LLM
+> Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> ---
+>  drivers/interconnect/qcom/bcm-voter.c  | 21 +++++----------------
+>  drivers/interconnect/qcom/icc-common.h |  9 +++++++++
+>  2 files changed, 14 insertions(+), 16 deletions(-)
+> 
 
-Technically speaking, if we have a corrupted fork, then we have no idea
-where metadata structure is located on the volume. It means that we
-cannot read it and we have nothing instead of metadata structure. So,
-this is the situation when FSCK tool needs to work. It sounds like we
-cannot construct the valid b-tree metadata structure anyway. We can
-only return the error. And if it is the hfsplus_fill_super(), then we
-cannot mount file system volume at all. However, we could have not so
-severe issue with b-tree metadata structure. I think that if the first
-extent looks consistent but the other extents contains garbage, then we
-can try to construct the b-tree, mark b-tree as inconsistent, and mount
-file system as READ-ONLY.=20
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
->=20
-> For v2 I'm narrowing to just the recursion fix, changed per your
-> ENOSPC
-> point below:
->=20
-> --- a/fs/hfsplus/extents.c
-> +++ b/fs/hfsplus/extents.c
-> @@ -458,6 +458,14 @@ int hfsplus_file_extend(struct inode *inode,
-> bool zeroout)
-> =C2=A0	if (hip->alloc_blocks =3D=3D hip->first_blocks)
-> =C2=A0		goal =3D hfsplus_ext_lastblock(hip->first_extents);
-> =C2=A0	else {
-> +		/*
-> +		 * The extents overflow file can't grow past its own
-> fork
-> +		 * extents: doing so would re-enter hfs_find_init()
-> on the
-> +		 * extents tree, whose tree_lock is already held
-> here.
-> +		 */
-> +		if (inode->i_ino =3D=3D HFSPLUS_EXT_CNID) {
-> +			res =3D -ENOSPC;
-> +			goto out;
-> +		}
-
-Probably, hfs_bmap_reserve() is the proper place for checking
-capability of growing Extents Overflow file. But it needs to take into
-account that if fork has empty extents, then we can grow the b-tree. We
-have -ENOSPC situation only if we already used all extents in the
-fork.=C2=A0
-
-Thanks,
-Slava.=20
-
-> =C2=A0		res =3D hfsplus_ext_read_extent(inode, hip-
-> >alloc_blocks);
-> =C2=A0		if (res)
-> =C2=A0			goto out;
->=20
-> > Another direction is that we exhausted the volume or volume is so
-> > fragmented that we cannot extend the Extents Overflow file anymore.
-> > [...] we need to check before extending [...] that we have free
-> > extent slots or we can add some space into the latest extent. If
-> > there is no such opportunity, then we need to report -ENOSPC.
->=20
-> Right -- that's the same guard, just under a correct errno. It fires
-> identically whether the fork is corrupted (this report) or the tree
-> has genuinely run out of room to describe itself, without needing to
-> tell those two apart at this call site. Sending this alone as v2 so
-> the deadlock fix isn't blocked on the larger validator design; happy
-> to follow up with the fork-bounds/consistency-flag work separately
-> once (a)/(b) above is settled.
->=20
-> Thanks,
-> Thang
+-- 
+With best wishes
+Dmitry
