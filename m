@@ -1,164 +1,235 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail.avm.de (mail.avm.de [212.42.244.94])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8833E54EEB3
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 15:50:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8353556BA1;
+	Wed,  9 Sep 2026 15:50:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.42.244.94
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788969009; cv=none; b=GmV+CT3r0Pn9hEW5IZ01rT7lEl8oR9lQPGpvjbx3nrXajWSx0+UxW79oVaijJtDgLoGzWautLgrpV2C7q0lkhKqNL8A+l57oiUSpc5wotZW96q0xSzZ6+S3jOYUiOwDsQN1MiDdnaTdQpC0FBkeHVdnb+tZ3lJnGdNt/AV/AXpQ=
+	t=1788969041; cv=none; b=T0ufzPhO6r/mE94afG3s5d/SXcegL4K0m0ssjaxtuoEhPLZxfn6qrb3rTZitWeeX+qcAtlSt713dUZbAidn0z0S9eN9i2U08jquFy4Um7lhxfs0MfcRqGJUKvfa6jA10J7NAcUe88FNVbuNZAxiOc8RiFq+IE6d6OTywSE87Bqw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788969009; c=relaxed/simple;
-	bh=nFE1mVHqzRhOWK279L/SKUnOy2Ov3lQzrqja+W6JOSU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=h1HaIql2XURC4G/qjJUSCJWGJg+IQYGoaToDF7F/KyXsv8eIc0QLr9Ejzu7ohly9AmQ2uTysKwr5zQ/cAiU0X4wPukyN5Z8kNKdubKKCt3LkSjVdXle6NCBLy3E5Ok8BF7vr2S6j7VyNeA0vedKt8y/Q1J5lejHBnaGpQS926do=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=aI93jCLc; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=dQx7zpw7; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1788969041; c=relaxed/simple;
+	bh=LqBQ9RCZWmkZ1w31q/klK3NOgGoEtUX3UlKGrYnFi0M=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=BborVGNifDCe2osDIvvWs9ABcIRnFGBzzl5ZJQkiyRRDTFtnXkRLS+5WuhwNjsLiJ4dBsaUv7WN7SpVbOKjaw1c1ZjEI4BT5YHAcDILDVT/qtEqaSHFOexqIxLckLamDPXQaZZq2c75GRU8G3GLkY8jFXnAeD+NzwFr4ej8mpVo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fritz.com; spf=pass smtp.mailfrom=fritz.com; dkim=pass (2048-bit key) header.d=fritz.com header.i=@fritz.com header.b=LQE01HXD; arc=none smtp.client-ip=212.42.244.94
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fritz.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fritz.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="aI93jCLc";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="dQx7zpw7"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1788969007;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=A7Zn/OFO2zbwAV9G4cd03zWGTSa7F4U3l04SAQu/SgI=;
-	b=aI93jCLcNv5t1CUsVcgfEHY8WjnUBkNVZi7U4M6LXSMj7FbGbicn8AKuxWZxy3NT3/07t9
-	R3BsZ6dm+9W3hQV1Hk8Eg5+mc9lRU9YZg4NOOK/8eTYlQ8crH7QvyIRk097Cg6ICZUp39r
-	0fzEc0PhAvtRfelOX0Xzh6/l4FtxmJQ=
-Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
- [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-652-vnJhO4L7ML6lwJBXva42yA-1; Wed, 09 Sep 2026 11:50:05 -0400
-X-MC-Unique: vnJhO4L7ML6lwJBXva42yA-1
-X-Mimecast-MFC-AGG-ID: vnJhO4L7ML6lwJBXva42yA_1788969005
-Received: by mail-wm1-f70.google.com with SMTP id 5b1f17b1804b1-49cf5bd2f12so80043825e9.1
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 08:50:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1788969004; x=1789573804; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=A7Zn/OFO2zbwAV9G4cd03zWGTSa7F4U3l04SAQu/SgI=;
-        b=dQx7zpw7sCZcpIlpbI1XuxMa78BUOcZL8yRmkqSSTlZisc927/IWi6xLwrflR7pP1D
-         qRvdWgrihWAKV6vGjfBLuJg0oIg58zuFWB5EccMn1dDc1mGZvMiKj26KNHRwTMJs4dZ6
-         Bcfxph64UqcY6OIz27UCB9g4N+RGmCzoIYXonkhsfkdcM3kdaEQymthlVOhSrrdBRvkt
-         OdXcLCPPb6haSxnDrtLVpQmwd90cxp0TiHcFNi622DHavSTgwGHXOA760B/btZMbOTpn
-         S39JJQPjb2Xs9DWZ9a+lhDF85FOtAf6POoMwwISoLt2LLrfHNgJLFjSq9qnB1lz6vqeT
-         aySQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788969004; x=1789573804;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=A7Zn/OFO2zbwAV9G4cd03zWGTSa7F4U3l04SAQu/SgI=;
-        b=JFt5ZZgr8pBT81OvkmpJNxsY21SXh5HjajHOZ+ubqd5qQEpeDmyNq4dNt4BXVYI0YM
-         wUiDhG1+QRpv9YpeyCakIC+1Lym5/nCWn6J34pWi/a0ual+wIcAY+A3cTTEi0i0pfn+q
-         HoujLsrvYtx/+uyPkENVtXZ6Txfb5yAcdRtw78pWgLsc5sPirtb0T6OGjL4i4BBIiOro
-         qmZ34UE0rxoPf+0ZCuw9UKUuL/dDYx0WwXo6IebTq6hKo7kC6KCkkP2B3RQtbjgp3L5z
-         1eh/2ihR6bhBJHXdM0YgLhdnRcD3kMYyyWTHBhRuxh4OFZnR1J8+CMPTt1Ftdtlzf1fX
-         n5fQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxOHQudYSwm4VC4WbbLeRbmbMmeN4GjsB9D5/zkaa54U/QPZspKbycP0ymxDAEB0bOlx+WcsVnl7zYGrOY=@vger.kernel.org
-X-Gm-Message-State: AFuF++niaeI81Ve8b9odZetVDauOS68cqf+qcpXmFxnfykeICDNXRurr
-	OJsiMuxzFb/1L3N3Joqw6niRFP01nn7Xtdhkd143cL3/YPKiQsJ4H+KylUcsjFuEDlsjnY13AEw
-	a20KkbbeeSNTRmdya5bDZXD9SavggqNshMXOvAY1dJFUq5DOqQG5W7C8b6fzhqoms7A==
-X-Gm-Gg: AYBFou2dUyMz8r6YKxQ/PKSFFVZnJIZvKHv0OX+bQVDIAE0lQ0yLTI60TPqitzlVXOY
-	bsPBUFkGp71C7pv17VeF6YXkQBtbXH7qfpoyoCi4JUD1d3jBbEAx8oaVqF2M6mmpmIc9c5JWzzV
-	RVkN4c3STQ2grEPc+7M77S50ZhiDzyKQMz1QMR/SCwChhv/SiyofMV3n1wGwBMX4cGAsotgj3ea
-	2nN/Jkp0hDIEq+L901yRRVNCICMD5haaiYcaOkfZ/h6/kWGVt4k6pbcSt5ovXvn87zD+jTZR687
-	EPkd7KMBKBCSNFKzlQV/9mHW8y8x8UxEjO4PQn2Ernz5B3EY5moMaPiSP6qum2waf7I8vVaxX0M
-	z//m3hGdBsfbhcOQ74nw3qSJPbz7QN1jclQFDmq7gpcymwVKdgw1tDmYEukcGxSa7yuRNtQdVVA
-	==
-X-Received: by 2002:a05:600c:8b05:b0:49c:edd2:855 with SMTP id 5b1f17b1804b1-49cf823c411mr387804175e9.6.1788969004574;
-        Wed, 09 Sep 2026 08:50:04 -0700 (PDT)
-X-Received: by 2002:a05:600c:8b05:b0:49c:edd2:855 with SMTP id 5b1f17b1804b1-49cf823c411mr387803645e9.6.1788969004052;
-        Wed, 09 Sep 2026 08:50:04 -0700 (PDT)
-Received: from [192.168.188.218] (ip232-47-231-195.pool-bba.aruba.it. [195.231.47.232])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49d20fce7a7sm137463835e9.4.2026.09.09.08.50.01
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 09 Sep 2026 08:50:02 -0700 (PDT)
-Message-ID: <121f90e5-a19c-4066-af03-8cf5594bb30f@redhat.com>
-Date: Wed, 9 Sep 2026 17:50:01 +0200
+	dkim=pass (2048-bit key) header.d=fritz.com header.i=@fritz.com header.b="LQE01HXD"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=fritz.com; s=mail;
+	t=1788969026; bh=LqBQ9RCZWmkZ1w31q/klK3NOgGoEtUX3UlKGrYnFi0M=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=LQE01HXDl15hpX77X1BngZEktl5EEsxTLs5FtlisTxv7PkvI7+k/zoI46O8AI+NAA
+	 Bk7npWIs1FXzziq1yyJkrcftWioXfwUSFzAG+Dl0T2NCjGLbw8DpnM7fkGPHPLmKWc
+	 f7O3ljAd9oHxhMwWRKSoPXxGKm1SXdDFSPErWMs8s7PZop6+5CnGNzukjzoGd7+p3D
+	 6t1U6CVlaJHDqhduKgeFDY+ddSMnXo6qD6fes0QXMAkUrfYe6LLpYKsscfsqeezOkJ
+	 8gKo7EmMr5tWg6fWE6yn7T18FaY3+nGICr159pAye4goQWblmLym+A97e6pu7cGDX/
+	 rCLvtaEwiDBdg==
+Received: from [2001:bf0:244:244::78] (helo=mail.avm.de)
+	by mail.avm.de with ESMTP (eXpurgate 4.57.1)
+	(envelope-from <n.schier@fritz.com>)
+	id 6aa18042-8182-7f0000032729-7f00000189ca-1
+	for <multiple-recipients>; Wed, 09 Sep 2026 17:50:26 +0200
+Received: from mail-auth.fritz.com (unknown [IPv6:2001:bf0:244:244::78])
+	by mail.avm.de (Postfix) with ESMTPS;
+	Wed,  9 Sep 2026 17:50:26 +0200 (CEST)
+Date: Wed, 9 Sep 2026 17:50:25 +0200
+From: Nicolas Schier <n.schier@fritz.com>
+To: jim.cromie@gmail.com
+Cc: Jason Baron <jbaron@akamai.com>, Shuah Khan <shuah@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Arnd Bergmann <arnd@arndb.de>, Luis Chamberlain <mcgrof@kernel.org>,
+	Petr Pavlu <petr.pavlu@suse.com>,
+	Daniel Gomez <da.gomez@kernel.org>,
+	Sami Tolvanen <samitolvanen@google.com>,
+	Aaron Tomlin <atomlin@atomlin.com>,
+	Jonathan Corbet <corbet@net.net>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Nathan Chancellor <nathan@kernel.org>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Pavel Machek <pavel@kernel.org>, Len Brown <lenb@kernel.org>,
+	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
+	dri-devel@lists.freedesktop.org, linux-arch@vger.kernel.org,
+	linux-modules@vger.kernel.org, linux-doc@vger.kernel.org,
+	linux-kbuild@vger.kernel.org, linux-pm@vger.kernel.org
+Subject: Re: [PATCH v9 15/39] kbuild, dyndbg: Clean up builtin module-name
+ ambiguities
+Message-ID: <20260909-primitive-nano-hound-8ee2aa@l-nschier-aarch64>
+References: <20260908-dd-cmap-part2-clean-v9-0-3a3f621f4a10@gmail.com>
+ <20260908-dd-cmap-part2-clean-v9-15-3a3f621f4a10@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net v2 15/15] mptcp: avoid pruning for OoW data
-To: netdev-bot+sashiko@kernel.org, matttbe@kernel.org
-Cc: martineau@kernel.org, geliang@kernel.org, davem@davemloft.net,
- edumazet@google.com, kuba@kernel.org, horms@kernel.org,
- netdev@vger.kernel.org, mptcp@lists.linux.dev, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-References: <20260908-net-mptcp-misc-fixes-7-3-rc1-v2-15-df1de70348b6@kernel.org>
- <178896537782.219967.1022060629733006428@kernel.org>
-Content-Language: en-US
-From: Paolo Abeni <pabeni@redhat.com>
-In-Reply-To: <178896537782.219967.1022060629733006428@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="gxR88jqO9rNjCGhR"
+Content-Disposition: inline
+In-Reply-To: <20260908-dd-cmap-part2-clean-v9-15-3a3f621f4a10@gmail.com>
+Organization: FRITZ! Technology GmbH
+x-ms-reactions: disallow
+X-purgate-ID: 149429::1788969026-45F91CAC-7D6342DD/0/0
+X-purgate-type: clean
+X-purgate-size: 5293
+X-purgate: This mail is considered clean (visit https://www.eleven.de for further information)
+X-purgate: clean
+X-pfmilter: host: postfix-mx-03  mail-id: 84D9DA0454  external: no
 
-On 9/9/26 4:49 PM, netdev-bot+sashiko@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential
-> issue(s) to consider:
-> 
-> Critical: 0 · High: 0 · Medium: 1 · Low: 0
-> 
-> - [Medium] Incomplete realization of the patch's stated principle ("do it
->   only when we expect to accept the skb triggering the cleanup"): after…
-> 
-> --
-> 
-> mptcp: avoid pruning for OoW data
-> 
-> This moves the mptcp_try_rmem_schedule() call in mptcp_data_queue_ofo()
-> so that it runs after the out-of-window check instead of before it, which
-> avoids running the destructive OoO queue pruning for skbs that are going
-> to be dropped as out of window.
-> 
->> diff --git a/net/mptcp/protocol.c b/net/mptcp/protocol.c
->> index 4309fca6b119..0098e2830931 100644
->> --- a/net/mptcp/protocol.c
->> +++ b/net/mptcp/protocol.c
->> @@ -313,12 +313,6 @@ static void mptcp_data_queue_ofo(struct mptcp_sock *msk, struct sk_buff *skb)
->>  	u64 seq, end_seq, max_seq;
->>  	struct sk_buff *skb1;
->>  
->> -	if (!mptcp_try_rmem_schedule(sk, skb)) {
->> -		MPTCP_INC_STATS(sock_net(sk), MPTCP_MIB_RCVPRUNED);
->> -		mptcp_drop(sk, skb);
->> -		return;
->> -	}
->> -
->>  	seq = MPTCP_SKB_CB(skb)->map_seq;
->>  	end_seq = MPTCP_SKB_CB(skb)->end_seq;
->>  	max_seq = atomic64_read(&msk->rcv_wnd_sent);
->> @@ -335,6 +329,12 @@ static void mptcp_data_queue_ofo(struct mptcp_sock *msk, struct sk_buff *skb)
->>  		return;
->>  	}
->>  
->> +	if (!mptcp_try_rmem_schedule(sk, skb)) {
->> +		MPTCP_INC_STATS(sock_net(sk), MPTCP_MIB_RCVPRUNED);
->> +		mptcp_drop(sk, skb);
->> +		return;
->> +	}
->> +
-> 
-> [Severity: Medium]
-> The commit message says pruning should be done "only when we expect
-> to accept the skb triggering the cleanup".  Does the new placement
-> fully match that, given the duplicate-data check still happens later in
-> the rbtree walk of mptcp_data_queue_ofo()?
 
-The change suggested here would add quite a bit of complexity for little
-gain, and would diverge MPTCP behavior from TCP. We learned the lesson
-the hard way we need very good reasons to do the latter. I'm pretty sure
-we are better off with the proposed code.
+--gxR88jqO9rNjCGhR
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-/P
+On Tue, Sep 08, 2026 at 06:55:11PM -0600, Jim Cromie via B4 Relay wrote:
+[...]
 
+> diff --git a/Documentation/admin-guide/dynamic-debug-howto.rst b/Document=
+ation/admin-guide/dynamic-debug-howto.rst
+> index 9c2f096ed1d8..99bbae37d34e 100644
+> --- a/Documentation/admin-guide/dynamic-debug-howto.rst
+> +++ b/Documentation/admin-guide/dynamic-debug-howto.rst
+[...]
+> @@ -161,17 +161,21 @@ file
+>  	file kernel/freezer.c	# ie column 1 of control file
+>  	file drivers/usb/*	# all callsites under it
+>  	file inode.c:start_*	# parse :tail as a func (above)
+> -	file inode.c:1-100	# parse :tail as a line-range (above)
+> +	file inode.c:1-100	# parse :tail as a line-range (below)
+> =20
+>  module
+> -    The given string is compared against the module name
+> -    of each callsite.  The module name is the string as
+> -    seen in ``lsmod``, i.e. without the directory or the ``.ko``
+> -    suffix and with ``-`` changed to ``_``.  Examples::
+> -
+> -	module sunrpc
+> -	module nfsd
+> -	module drm*	# both drm, drm_kms_helper
+> +    The query string is compared against the subsystem module name of
+> +    each callsite, as shown in the control file, or its simple name.
+> +    The simple module name is the string as seen in ``lsmod``,
+> +    i.e. without the directory or the ``.ko`` suffix and with ``-``
+> +    changed to ``_``.
+> +    Examples::
+> +
+> +        module nfsd        # simple modname (as from lsmod)
+> +	module init/main   # subsystem modname (as in control file)
+> +	module */main	   # any subsystem ending in main
+> +        module main	   # simple modname, selects same as above
+> +	module drm*	   # both drm, drm_kms_helper
+
+The five lines above have mixed indentation, please switch them all to=20
+one tab (no spaces).
+
+
+[...]
+> diff --git a/scripts/Makefile.lib b/scripts/Makefile.lib
+> index 0a4fdd8bd975..e129c4d10ed8 100644
+> --- a/scripts/Makefile.lib
+> +++ b/scripts/Makefile.lib
+> @@ -23,6 +23,32 @@ modname_flags  =3D -DKBUILD_MODNAME=3D$(call name-fix,=
+$(modname)) \
+>  		 -D__KBUILD_MODNAME=3D$(call name-fix-token,$(modname))
+>  modfile_flags  =3D -DKBUILD_MODFILE=3D$(call stringify,$(modfile))
+> =20
+> +# Dynamic debug subsystem modname with clean heuristic and override supp=
+ort
+> +dd_modname_override =3D $(strip $(firstword $(DD_MODNAME_$(target-stem).=
+o) \
+> +					  $(DD_MODNAME)))
+> +dd_obj :=3D $(strip $(filter-out .,\
+> +		$(patsubst drivers/%,%,\
+> +		$(patsubst arch/$(SRCARCH)/%,%,\
+> +		$(patsubst arch/%/,%,$(obj))))))
+
+May it become problematic if there is a conflict with
+
+  arch/sh/drivers/dma/*
+  arch/sh/drivers/pci/*
+
+vs.
+
+  drivers/dma/*
+  drivers/pci/*
+
+?
+
+
+> +dd_modname_default =3D $(strip $(if $(filter $(notdir $(obj)),$(__modnam=
+e)),\
+> +			 $(__modname),\
+> +			 $(if $(filter main core common util init snapshot \
+> +				       process,$(__modname)),\
+> +			     $(dd_obj),\
+> +			     $(if $(word 2,$(__modname)),\
+> +				 $(dd_obj),\
+> +				 $(if $(dd_obj),$(dd_obj),$(__modname))))))
+
+This looks quite complex.  I _think_ this should be equivalent, but=20
+perhaps a bit more simple to maintenance:
+
+dd_modname_default =3D \
+    $(or \
+	$(filter $(notdir obj), $(__modname)), \
+	$(filter-out main core common util init snapshot process, $(__modname)), \
+	$(dd_obj)))
+
+(Removed $(strip) and the last $(__modname) fallback as both are already=20
+in definition of 'dd_modname'.)
+
+What do you think?
+
+> +dd_modname =3D $(strip $(or $(dd_modname_override),\
+> +			  $(dd_modname_default),\
+> +			  $(__modname)))
+> +dd-name-subst =3D $(subst $(comma),_,$(subst -,_,$(strip $1)))
+> +dd-name-fix-token =3D $(subst $(space),_,$(call dd-name-subst,$1))
+> +dd_tok =3D $(call dd-name-fix-token,$(dd_modname))
+> +dd_modname_flags =3D $(if $(dd_modname),\
+> +	-DKBUILD_DD_MODNAME=3D$(call stringify,$(dd_tok)))
+> +
+> +modfile_flags +=3D $(dd_modname_flags)
+
+dd-name-subst and dd-name-fix-token are not needed, dd_modname_flags is=20
+used only once and can be folded:
+
+
+dd_tok =3D $(call name-fix,$(subst $(space),_,$(dd_modname)))
+
+modfile_flags +=3D $(if (dd_modname), -DKBUILD_DD_MODNAME=3D$(dd_tok))
+
+
+
+
+--=20
+Nicolas
+
+--gxR88jqO9rNjCGhR
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCAAdFiEEDv+Fiet06YHnC6RpiMa8nIiabbgFAmqhgDoACgkQiMa8nIia
+bbiidg/7BYG8ZijzqT3j/cWBGDMsLVNjmGdVCS+irPEL1k9mLd2hBdS6CYcSE73Y
+sDq7YXv3sI9JJncvwWrWmhkc843HIu5Tlv4/pEGlrrjS3yTVSBioMa0Kah4/bPFP
+JzseiIg4yvMAPkvXQOCEx2OEVD54hlgGb+EzOe80Ls1jV5zLuwZl8g9g8XSJATw9
+5BBmQSaw38Glox7/s4tcAM3/wUfr4aU1cxHWVw07b/Xuie5Q66TfGFMPIJg8likY
+6i0HFY0zHNx4KnMZb08FUXzAK5RfSPo0QVuq8TZHS/xT0TQxc39jncFfxJJqOuAR
+JYWvYpWRwSgNtpJX7IM/u6ug1sXTSY8TWDMsH/7NC/qNnFo3ryhMzNdomtWYmbvy
+Pi8vqRfbwYVZuA53U2T/TYMZibt3lP7HzXd9Z8Y9fa84d0rEOmWC1UJgdnlIfsqY
+AQWuFQLjwgFzdqjN0C25HtTm4AD/ks+Ekopxl5WFUjpk0ybWB6K8nkW3T7yLp16N
+BKmKKnXZ8A/lH7X6PicqKI6k71OXvgjB7mCkoh7ccUsCmG8qVBGr4FZ0eSb+C7Oi
+YOBvFciA2TeYzjxI/6bHBHWwdFNDoUKu25kzxQNcHtNryBaj4SBORYyNS9NhuC1+
+OZy1sgU6zRhtfNVLK8uR8/iAPE93+YKwD8hWSgRGAoGc4v5O9HM=
+=uK5f
+-----END PGP SIGNATURE-----
+
+--gxR88jqO9rNjCGhR--
