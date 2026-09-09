@@ -1,30 +1,30 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06F7F3C4551
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 09:31:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 872FD492E5C
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 09:31:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.2
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788946318; cv=none; b=Mk15cwLL2umF5WwtsP2GgdQ6kD8l2AzdiBKEkb7Qb4XV+svzsH5GHS2RPoRy7mkpj6sCuNgL8JPJmeT5rXk2wkb2PdCCsCYdYu4dIKDj+XwxK6IfSGguRPPAgAq6W71PWwUmlPh6mDwpRqhHxJaQl6+xrBC1bQinh7sccBGCYaQ=
+	t=1788946328; cv=none; b=q0xj6wPrhYMjtvNryoD4G6NN+Q4MdIi+ipz9cse086NsIPt8kNSRv/08VjzvoXpE4azD7dxOF/A5GNsTncHUWonRmEFVKrfMrh9hydfCzS3bwrIfTLXc6n4mnmmQrUI4170JK+weK5tFsSikvFxeMLXOrNeDKE9lT7c6tjk4saY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788946318; c=relaxed/simple;
-	bh=IoWeGBdGvnDIYBYlTg5e5KCt5rnvAX3mhuJfEFpdbB4=;
+	s=arc-20240116; t=1788946328; c=relaxed/simple;
+	bh=sZtOrM6LqEaGZnj/DA+GuR8Qt+PbicPLN3ePrrNAQf0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=FuzYIL3tMN6tauwbLOOoK3CVnMZr6x4IzOi31yZCquywRcWmrPMWLT9Mu2XhVEbSwApNo9k4pYaM0xKK4bMyOZU7z2mb/cBzs3TIe3j28vu2rSxXwR6TWIFzvcgjUmtPwXtfUv6gcY1lqV8sAD/wPtNO0ahjXk0sqYiaCj6pBxw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=nfF+uV1j; arc=none smtp.client-ip=220.197.31.3
+	 MIME-Version; b=IXVgFqvu8al8jkQg5HESiZfUTk7D1HCs8TOwcg65TgwfXvGkLG8IhXcDXLes5HxEUKoELY7tK1u6W7JctUZePBM7gcf64B/JJSMAlLNnB5MhgyzDx/4uTM0p+/7WhB2pGykivntEAFFvqkxQZnPdGIaA876cL9MFNitqJxXEKMY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=jQPh8NY5; arc=none smtp.client-ip=220.197.31.2
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="nfF+uV1j"
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="jQPh8NY5"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=rh
-	FFwsHpcmge2L38izgNldpMrnUT4j5IDnTv3DlM0og=; b=nfF+uV1jVP+ic2jGGj
-	3ekJKQQ10mSS6cR1zQpFWcfwNOUqBHewG9p4rdZAVhdRDz1G60H7F2GtuitdaHF4
-	naoiJBinGNjefyRGOGh+pV0SlK100RFn59Pao2AzZ9AK1KIm7ylIhJW9I2S8euhP
-	AWJkw8aiuTaiJ2yQGXPbmBLow=
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=Lx
+	IMRscRls6xcpSeU4En25ja11Xm3g7TFdEKV5Km54g=; b=jQPh8NY5VdHOiLo2J7
+	Lykdx/TZoJTv+EItjWsJa86951Z1nnayvz2egb0CcxNryoRodsiVImMvYeNrzIPZ
+	diiMPMhj1yjl8S9HGiNzjHf6s03DXPmADqckBNpjcE2dB0XV9lyU0BtzoQNyDL2x
+	qqJyKYWAysY0q/IINqwL/dcH8=
 Received: from localhost (unknown [])
-	by gzsmtp4 (Coremail) with SMTP id PygvCgAXECQQJ6Fq+iIwQw--.14950S2;
-	Wed, 09 Sep 2026 17:29:53 +0800 (CST)
+	by gzga-smtp-mtada-g1-4 (Coremail) with SMTP id _____wDnr5sVJ6FqvPS5Bg--.63400S2;
+	Wed, 09 Sep 2026 17:29:58 +0800 (CST)
 From: Hui Su <sh_def@163.com>
 To: peterz@infradead.org,
 	mingo@redhat.com,
@@ -46,9 +46,9 @@ Cc: juri.lelli@redhat.com,
 	changwoo@igalia.com,
 	linux-kernel@vger.kernel.org,
 	sched-ext@lists.linux.dev
-Subject: [PATCH v4 1/5] sched: Dispatch task ticks for donor and execution classes
-Date: Wed,  9 Sep 2026 18:28:57 +0900
-Message-ID: <20260909092901.2989564-2-sh_def@163.com>
+Subject: [PATCH v4 5/5] sched/core: Fix donor slice accounting under proxy execution
+Date: Wed,  9 Sep 2026 18:29:01 +0900
+Message-ID: <20260909092901.2989564-6-sh_def@163.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260909092901.2989564-1-sh_def@163.com>
 References: <20260909092901.2989564-1-sh_def@163.com>
@@ -59,273 +59,137 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PygvCgAXECQQJ6Fq+iIwQw--.14950S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW3AFW3JFWrXFy8CF4rWryUKFg_yoWftry7pF
-	WDXayDGa1DJa1jgryxArWkZa1fWwn3Xa4agFZ3tw4FkF1rKr1FqF1qqF42vr45JrW0vFy2
-	vrWj9rW7Kr18Gw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jaq2NUUUUU=
-X-CM-SenderInfo: xvkbvvri6rljoofrz/xtbC6hHQMGqhJxFlHwAA3c
+X-CM-TRANSID:_____wDnr5sVJ6FqvPS5Bg--.63400S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxXw1rAw43ZF47Xw15ZrW3trb_yoW7JrWfpF
+	Z8ZF1UJw4kta4jgFWUArs5u343K3s3ta45ur4vyayrCr1rtw4FqF10qF1avF4Ykr92kFya
+	vr4I9ry7Cw1Utr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07j3Xo7UUUUU=
+X-CM-SenderInfo: xvkbvvri6rljoofrz/xtbCwRbRMWqhJxYW9AAA3v
 
-Proxy execution can run a task from one scheduling class on behalf of a
-donor from another. Scheduler ticks therefore need to reach both the class
-which owns the scheduling context and the class which owns the execution
-context.
+Core scheduling uses __entity_slice_used() to decide whether the current
+scheduling context has consumed enough of its slice to let a force-idled
+SMT sibling run.
 
-Remove the task argument from sched_class::task_tick() and let each class
-select the state it owns through the runqueue. Add a common task_tick()
-dispatcher which calls the donor class first and, when proxy execution
-splits the classes, the execution class afterwards.
+The check is correctly made against rq->donor, since the slice belongs
+to the scheduling context. With proxy execution, however, task runtime
+is accounted to rq->curr. The donor's sum_exec_runtime therefore does
+not advance while another task executes on its behalf, causing
 
-Calling the donor first preserves the existing runtime-accounting order for
-execution-context consumers. Keep the existing class-specific tick behavior
-donor-gated in this patch, so the change only introduces the new interface
-and dispatch mechanism.
+        se->sum_exec_runtime - se->prev_sum_exec_runtime
 
-Suggested-by: Peter Zijlstra <peterz@infradead.org>
-Link: https://lore.kernel.org/r/20260908104407.GD687043@noisy.programming.kicks-ass.net
+to remain near zero and preventing the force-idle reschedule from
+triggering.
+
+Using rq->curr is not correct either, as that would compare the execution
+task's runtime against its own slice rather than the donor's slice.
+
+Track the donor's task-clock timestamp when it is selected and measure
+the elapsed service using se->exec_start. update_se() advances the donor's
+exec_start from rq_clock_task() even under proxy execution, while the
+accumulated task runtime itself is charged to rq->curr.
+
+Keeping the comparison in the task-clock domain also avoids depending on
+the entity's weight. A vruntime delta accumulated across different
+weights cannot reliably be compared against a slice converted using only
+the current weight.
+
+Only snapshot task entities, as task_tick_core() performs the consumed
+slice check on the donor task.
+
+In non-proxy testing, the task-clock predicate matched the existing
+sum_exec_runtime predicate across HZ=100/250/1000 and nice -10/0/+10.
+Under proxy execution, the donor's sum_exec_runtime delta remained zero
+while the task-clock delta advanced and triggered the force-idle
+reschedule.
+
+Fixes: aa4f74dfd42b ("sched: Fix runtime accounting w/ split exec & sched contexts")
+Suggested-by: Tim Chen <tim.c.chen@linux.intel.com>
 Signed-off-by: Hui Su <sh_def@163.com>
 ---
- kernel/sched/core.c      | 22 +++++++++++++++++++---
- kernel/sched/deadline.c  | 10 +++++++---
- kernel/sched/ext/ext.c   | 10 ++++++++--
- kernel/sched/fair.c      | 25 +++++++++++++++----------
- kernel/sched/idle.c      |  8 ++++----
- kernel/sched/rt.c        | 13 +++++++++----
- kernel/sched/sched.h     |  2 +-
- kernel/sched/stop_task.c |  5 ++---
- 8 files changed, 65 insertions(+), 30 deletions(-)
+ include/linux/sched.h |  3 +++
+ kernel/sched/core.c   |  3 +++
+ kernel/sched/fair.c   | 15 +++++++++------
+ 3 files changed, 15 insertions(+), 6 deletions(-)
 
+diff --git a/include/linux/sched.h b/include/linux/sched.h
+index 8b3d47a325cc..c32d9931129f 100644
+--- a/include/linux/sched.h
++++ b/include/linux/sched.h
+@@ -590,6 +590,9 @@ struct sched_entity {
+ 	u64				sum_exec_runtime;
+ 	u64				prev_sum_exec_runtime;
+ 	u64				vruntime;
++#ifdef CONFIG_SCHED_CORE
++	u64				core_sched_start;
++#endif
+ 	/* Approximated virtual lag: */
+ 	s64				vlag;
+ 	/* 'Protected' deadline, to give out minimum quantums: */
 diff --git a/kernel/sched/core.c b/kernel/sched/core.c
-index b998ef6b87af..05e599665fdd 100644
+index d8a785bec639..87178ec08392 100644
 --- a/kernel/sched/core.c
 +++ b/kernel/sched/core.c
-@@ -892,6 +892,22 @@ void update_rq_clock(struct rq *rq)
- 	update_rq_clock_task(rq, delta);
- }
- 
-+/*
-+ * Run the scheduling-context class first so its runtime update precedes
-+ * execution-context tick work. A different execution class runs second.
-+ * Same-class proxy execution gets one callback; ownership-specific work
-+ * can select rq->donor or rq->curr as appropriate.
-+ */
-+static inline void task_tick(struct rq *rq, int queued)
-+{
-+	const struct sched_class *curr_class = rq->curr->sched_class;
-+	const struct sched_class *donor_class = rq->donor->sched_class;
-+
-+	donor_class->task_tick(rq, queued);
-+	if (sched_proxy_exec() && curr_class != donor_class)
-+		curr_class->task_tick(rq, queued);
-+}
-+
- #ifdef CONFIG_SCHED_HRTICK
- /*
-  * Use HR-timers to deliver accurate preemption points.
-@@ -923,7 +939,7 @@ static enum hrtimer_restart hrtick(struct hrtimer *timer)
- 
- 	rq_lock(rq, &rf);
- 	update_rq_clock(rq);
--	rq->donor->sched_class->task_tick(rq, rq->donor, 1);
-+	task_tick(rq, 1);
- 	rq_unlock(rq, &rf);
- 
- 	return HRTIMER_NORESTART;
-@@ -5799,7 +5815,7 @@ void sched_tick(void)
- 	if (dynamic_preempt_lazy() && tif_test_bit(TIF_NEED_RESCHED_LAZY))
- 		resched_curr(rq);
- 
--	donor->sched_class->task_tick(rq, donor, 0);
-+	task_tick(rq, 0);
- 	if (sched_feat(LATENCY_WARN))
- 		resched_latency = cpu_resched_latency(rq);
- 	calc_global_load_tick(rq);
-@@ -5895,7 +5911,7 @@ static void sched_tick_remote(struct work_struct *work)
- 				u64 delta = rq_clock_task(rq) - curr->se.exec_start;
- 				WARN_ON_ONCE(delta > (u64)NSEC_PER_SEC * 30);
- 			}
--			curr->sched_class->task_tick(rq, curr, 0);
-+			task_tick(rq, 0);
- 
- 			calc_load_nohz_remote(rq);
- 		}
-diff --git a/kernel/sched/deadline.c b/kernel/sched/deadline.c
-index 0663c00c41c0..da7613acab18 100644
---- a/kernel/sched/deadline.c
-+++ b/kernel/sched/deadline.c
-@@ -2873,11 +2873,15 @@ static void put_prev_task_dl(struct rq *rq, struct task_struct *p, struct task_s
-  *
-  * NOTE: This function can be called remotely by the tick offload that
-  * goes along full dynticks. Therefore no local assumption can be made
-- * and everything must be accessed through the @rq and @curr passed in
-- * parameters.
-+ * and all state must be accessed through @rq.
-  */
--static void task_tick_dl(struct rq *rq, struct task_struct *p, int queued)
-+static void task_tick_dl(struct rq *rq, int queued)
- {
-+	struct task_struct *p = rq->donor;
-+
-+	if (p->sched_class != &dl_sched_class)
-+		return;
-+
- 	update_curr_dl(rq);
- 
- 	update_dl_rq_load_avg(rq_clock_pelt(rq), rq, 1);
-diff --git a/kernel/sched/ext/ext.c b/kernel/sched/ext/ext.c
-index 51de1d8b72a1..70815bef5296 100644
---- a/kernel/sched/ext/ext.c
-+++ b/kernel/sched/ext/ext.c
-@@ -3789,9 +3789,15 @@ void scx_tick(struct rq *rq)
- 	update_other_load_avgs(rq);
- }
- 
--static void task_tick_scx(struct rq *rq, struct task_struct *curr, int queued)
-+static void task_tick_scx(struct rq *rq, int queued)
- {
--	struct scx_sched *sch = scx_task_sched(curr);
-+	struct task_struct *curr = rq->donor;
-+	struct scx_sched *sch;
-+
-+	if (curr->sched_class != &ext_sched_class)
-+		return;
-+
-+	sch = scx_task_sched(curr);
- 
- 	update_curr_scx(rq);
- 
+@@ -4602,6 +4602,9 @@ static void __sched_fork(u64 clone_flags, struct task_struct *p)
+ 	p->se.prev_sum_exec_runtime	= 0;
+ 	p->se.nr_migrations		= 0;
+ 	p->se.vruntime			= 0;
++#ifdef CONFIG_SCHED_CORE
++	p->se.core_sched_start		= 0;
++#endif
+ 	p->se.vlag			= 0;
+ 	p->se.rel_deadline		= 0;
+ 	INIT_LIST_HEAD(&p->se.group_node);
 diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
-index ade1eceb39b8..6f1777799371 100644
+index 43d558289856..0528dc4846f3 100644
 --- a/kernel/sched/fair.c
 +++ b/kernel/sched/fair.c
-@@ -15057,12 +15057,17 @@ static inline void task_tick_core(struct rq *rq, struct task_struct *curr) {}
-  *
-  * NOTE: This function can be called remotely by the tick offload that
-  * goes along full dynticks. Therefore no local assumption can be made
-- * and everything must be accessed through the @rq and @curr passed in
-- * parameters.
-+ * and all state must be accessed through @rq.
-  */
--static void task_tick_fair(struct rq *rq, struct task_struct *curr, int queued)
-+static void task_tick_fair(struct rq *rq, int queued)
- {
--	struct sched_entity *se = &curr->se;
-+	struct task_struct *donor = rq->donor;
-+	struct sched_entity *se;
-+
-+	if (donor->sched_class != &fair_sched_class)
-+		return;
-+
-+	se = &donor->se;
- 
- 	if (se->on_rq) {
- 		unsigned long weight = NICE_0_LOAD;
-@@ -15075,7 +15080,7 @@ static void task_tick_fair(struct rq *rq, struct task_struct *curr, int queued)
- 			weight = __calc_prop_weight(cfs_rq, se, weight);
- 		}
- 
--		se = &curr->se;
-+		se = &donor->se;
- 		reweight_eevdf(cfs_rq, se, weight, se->on_rq);
+@@ -6502,6 +6502,10 @@ set_next_entity(struct cfs_rq *cfs_rq, struct sched_entity *se)
  	}
  
-@@ -15083,14 +15088,14 @@ static void task_tick_fair(struct rq *rq, struct task_struct *curr, int queued)
- 		return;
- 
- 	if (static_branch_unlikely(&sched_numa_balancing))
--		task_tick_numa(rq, curr);
-+		task_tick_numa(rq, donor);
- 
--	task_tick_cache(rq, curr);
-+	task_tick_cache(rq, donor);
- 
--	update_misfit_status(curr, rq);
--	check_update_overutilized_status(task_rq(curr));
-+	update_misfit_status(donor, rq);
-+	check_update_overutilized_status(task_rq(donor));
- 
--	task_tick_core(rq, curr);
-+	task_tick_core(rq, donor);
+ 	se->prev_sum_exec_runtime = se->sum_exec_runtime;
++#ifdef CONFIG_SCHED_CORE
++	if (entity_is_task(se))
++		se->core_sched_start = se->exec_start;
++#endif
  }
+ 
+ static bool __dequeue_task(struct rq *rq, struct task_struct *p, int flags);
+@@ -14788,14 +14792,13 @@ static void rq_offline_fair(struct rq *rq)
+ static inline bool
+ __entity_slice_used(struct sched_entity *se, int min_nr_tasks)
+ {
+-	u64 rtime = se->sum_exec_runtime - se->prev_sum_exec_runtime;
+-	u64 slice = se->slice;
++	u64 rtime = se->exec_start - se->core_sched_start;
+ 
+-	return (rtime * min_nr_tasks > slice);
++	return (rtime * min_nr_tasks > se->slice);
+ }
+ 
+ #define MIN_NR_TASKS_DURING_FORCEIDLE	2
+-static inline void task_tick_core(struct rq *rq, struct task_struct *curr)
++static inline void task_tick_core(struct rq *rq, struct task_struct *donor)
+ {
+ 	if (!sched_core_enabled(rq))
+ 		return;
+@@ -14815,7 +14818,7 @@ static inline void task_tick_core(struct rq *rq, struct task_struct *curr)
+ 	 * if we need to give up the CPU.
+ 	 */
+ 	if (rq->core->core_forceidle_count && rq->cfs.h_nr_queued == 1 &&
+-	    __entity_slice_used(&curr->se, MIN_NR_TASKS_DURING_FORCEIDLE))
++	    __entity_slice_used(&donor->se, MIN_NR_TASKS_DURING_FORCEIDLE))
+ 		resched_curr(rq);
+ }
+ 
+@@ -15049,7 +15052,7 @@ static int task_is_throttled_fair(struct task_struct *p, int cpu)
+ 	return throttled_hierarchy(cfs_rq);
+ }
+ #else /* !CONFIG_SCHED_CORE: */
+-static inline void task_tick_core(struct rq *rq, struct task_struct *curr) {}
++static inline void task_tick_core(struct rq *rq, struct task_struct *donor) {}
+ #endif /* !CONFIG_SCHED_CORE */
  
  /*
-diff --git a/kernel/sched/idle.c b/kernel/sched/idle.c
-index eb73b65ce6c4..c1e597b0912a 100644
---- a/kernel/sched/idle.c
-+++ b/kernel/sched/idle.c
-@@ -532,12 +532,12 @@ dequeue_task_idle(struct rq *rq, struct task_struct *p, int flags)
-  *
-  * NOTE: This function can be called remotely by the tick offload that
-  * goes along full dynticks. Therefore no local assumption can be made
-- * and everything must be accessed through the @rq and @curr passed in
-- * parameters.
-+ * and all state must be accessed through @rq.
-  */
--static void task_tick_idle(struct rq *rq, struct task_struct *curr, int queued)
-+static void task_tick_idle(struct rq *rq, int queued)
- {
--	update_curr_idle(rq);
-+	if (rq->donor->sched_class == &idle_sched_class)
-+		update_curr_idle(rq);
- }
- 
- static void switching_to_idle(struct rq *rq, struct task_struct *p)
-diff --git a/kernel/sched/rt.c b/kernel/sched/rt.c
-index 85303add726d..dd058a6ca06b 100644
---- a/kernel/sched/rt.c
-+++ b/kernel/sched/rt.c
-@@ -2535,12 +2535,17 @@ static inline void watchdog(struct rq *rq, struct task_struct *p) { }
-  *
-  * NOTE: This function can be called remotely by the tick offload that
-  * goes along full dynticks. Therefore no local assumption can be made
-- * and everything must be accessed through the @rq and @curr passed in
-- * parameters.
-+ * and all state must be accessed through @rq.
-  */
--static void task_tick_rt(struct rq *rq, struct task_struct *p, int queued)
-+static void task_tick_rt(struct rq *rq, int queued)
- {
--	struct sched_rt_entity *rt_se = &p->rt;
-+	struct task_struct *p = rq->donor;
-+	struct sched_rt_entity *rt_se;
-+
-+	if (p->sched_class != &rt_sched_class)
-+		return;
-+
-+	rt_se = &p->rt;
- 
- 	update_curr_rt(rq);
- 	update_rt_rq_load_avg(rq_clock_pelt(rq), rq, 1);
-diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
-index e656c7059bf8..6a8deddc725b 100644
---- a/kernel/sched/sched.h
-+++ b/kernel/sched/sched.h
-@@ -2718,7 +2718,7 @@ struct sched_class {
- 	 * sched_tick: rq->lock
- 	 * sched_tick_remote: rq->lock
- 	 */
--	void (*task_tick)(struct rq *rq, struct task_struct *p, int queued);
-+	void (*task_tick)(struct rq *rq, int queued);
- 	/*
- 	 * sched_cgroup_fork: p->pi_lock
- 	 */
-diff --git a/kernel/sched/stop_task.c b/kernel/sched/stop_task.c
-index c909ca0d8c87..87b46fc74f81 100644
---- a/kernel/sched/stop_task.c
-+++ b/kernel/sched/stop_task.c
-@@ -68,10 +68,9 @@ static void put_prev_task_stop(struct rq *rq, struct task_struct *prev, struct t
-  *
-  * NOTE: This function can be called remotely by the tick offload that
-  * goes along full dynticks. Therefore no local assumption can be made
-- * and everything must be accessed through the @rq and @curr passed in
-- * parameters.
-+ * and all state must be accessed through @rq.
-  */
--static void task_tick_stop(struct rq *rq, struct task_struct *curr, int queued)
-+static void task_tick_stop(struct rq *rq, int queued)
- {
- }
- 
 -- 
 2.55.0
 
