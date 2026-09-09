@@ -1,51 +1,47 @@
-Received: from mta0.migadu.com (out-26.mta0.migadu.com [91.218.175.26])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from out30-100.freemail.mail.aliyun.com (out30-100.freemail.mail.aliyun.com [115.124.30.100])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFD3644C64E
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 08:17:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.26
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 769893D75BC;
+	Wed,  9 Sep 2026 08:19:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.100
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788941840; cv=none; b=uSUdxDHjSJ8k+FPLQapm4hkwLUskFgrL5E7QE/+OejVWWFhMAHcBMISmWYLNyDxhPhQV7JXe1S0e64E7DEtc/EryI871rl6Hyj+6NuJkVQNduF/ygy7X5lWvR97/+Bs8XmvFT05+EVrk2xogIE6mahKHy9crfPBv+gG402jVwjc=
+	t=1788941968; cv=none; b=kWBWD4lz9OCz/5Xwhe5TfhdYScGCPv+SfbProSWA7vwjFGUNqpSBoqABNEIexwXMDYKtDRkGJHBf48X8Qnr34s0iqKbIn/o1qXA56mVpTnf9+zYYlmfRyiSXoiCigGYoYO7macs/eDjHdTxQrbKaV/ukH0xxo5cyn52rFCejZis=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788941840; c=relaxed/simple;
-	bh=JYUO8pXR1PnHOkY6YjAgcARFrg47TPut/HiP2MoNAoU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=gGQYH9wcfuyuDsaa3d0a6XcRATtzOpgBZYxJKn7GgPT3HkptXvTPKDVb+B+Ndm4zv1Kuw1H1K4gOSaqUQFY4nCKMtyEesoUTGIYrlLb9XqbWzYXcXfkweR+v3D4eI0FmjtKy1x11ycZMideIqoTHekeiBu4ypKfO3X9vdIgYovM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=IBcCeBCp; arc=none smtp.client-ip=91.218.175.26
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1788941968; c=relaxed/simple;
+	bh=Eweh2ZJdfQU7Dv7R4Fi7yHLOyhodOaYwZ8NipnJpAN0=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=M4T7ofaodkQ5z6YlKBHFfdHtviV/yKEm/FsW52kKEkUcaSy/2pUVpePvmm1sO28HKSz2Ii/fs9o4m/f/2Pb8/GduOzwF88wjRJg+I4kB1wrNlip3T/mzYco6GH+XZzxTpQ273a6o7RsJtcJ53KXsjwuM7zu5yRgbYrq7q64u56I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=rE2Djbse; arc=none smtp.client-ip=115.124.30.100
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="IBcCeBCp"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=JYUO8pXR1PnHOkY6YjAgcARFrg47TPut/HiP2MoNAoU=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788941835; v=1; x=1789546635;
- b=IBcCeBCpCXo5z+sCTqzv1Rh87sSqjFNDYXuWCZUjT1+hzMlwMYRtT38IYUwvRgP9ayzedB+H
- oTZic/E7tpBizxsIZTjWdKGYr6yG4LLIQ0QyHogOsqqK3rZlyN5ep7ONJHspjcMmuoKJ2tWtbxV
- Zefrtk+CIINpNfZT85yml16Q=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id d56a796d3ee007f6;
-	Wed, 09 Sep 2026 08:17:14 +0000
-X-Mizu-Trace-ID: d56a796d3ee007f6
-X-Migadu-Flow: FLOW_OUT
-From: Qingfang Deng <qingfang.deng@linux.dev>
-To: Pablo Neira Ayuso <pablo@netfilter.org>,
-	Florian Westphal <fw@strlen.de>,
-	Phil Sutter <phil@nwl.cc>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	netfilter-devel@vger.kernel.org,
-	coreteam@netfilter.org,
-	netdev@vger.kernel.org,
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="rE2Djbse"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1788941961; h=From:To:Subject:Date:Message-Id:MIME-Version;
+	bh=DPj+D/FMh3SGhQq7WXpse/Sshm3bHMv0vOYgTbmCgW0=;
+	b=rE2DjbsedQoaNKWtwwJTdqsqizUvGRgs+DK3tNz7KlmmfjYP6uDzmakNzG3FOH4Va9UcGta/xns1Cngrcth3Y2e4iBlPN7OTkxTs4E46gvbumfeYfLh023pSFoVLCbWGEQrXYz5srEVPg8tF4jmjbC7L8BI5lAy3FTEYtIQy+WE=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R161e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037026112;MF=xueshuai@linux.alibaba.com;NM=1;PH=DS;RN=13;SR=0;TI=SMTPD_---0XAeP4mL_1788941639;
+Received: from localhost.localdomain(mailfrom:xueshuai@linux.alibaba.com fp:SMTPD_---0XAeP4mL_1788941639 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Wed, 09 Sep 2026 16:14:00 +0800
+From: Shuai Xue <xueshuai@linux.alibaba.com>
+To: joro@8bytes.org,
+	iommu@lists.linux.dev,
 	linux-kernel@vger.kernel.org
-Cc: Qingfang Deng <qingfang.deng@linux.dev>
-Subject: [PATCH nf-next] netfilter: flowtable: check namespace before iterating flows
-Date: Wed,  9 Sep 2026 16:17:04 +0800
-Message-ID: <20260909081705.1512600-1-qingfang.deng@linux.dev>
-X-Mailer: git-send-email 2.43.0
+Cc: suravee.suthikulpanit@amd.com,
+	vasant.hegde@amd.com,
+	will@kernel.org,
+	robin.murphy@arm.com,
+	nicolinc@nvidia.com,
+	joerg.roedel@amd.com,
+	stable@vger.kernel.org,
+	oliver.yang@linux.alibaba.com,
+	zhuo.song@linux.alibaba.com,
+	xueshuai@linux.alibaba.com
+Subject: [PATCH] iommu/amd: Flush stale TLB entries when freeing a nested domain ID
+Date: Wed,  9 Sep 2026 16:13:58 +0800
+Message-Id: <20260909081358.83235-1-xueshuai@linux.alibaba.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -54,56 +50,87 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-nf_flow_table_cleanup() walks every registered flow table, checking the
-network namespace for each flow in nf_flow_table_do_cleanup(). As a
-result, tables in other namespaces are still iterated and their cleanup
-work is flushed.
+A nested domain uses its hdom_id as the domain ID tag for the stage-2
+translations programmed into the DTE.  When the last user of a
+gdom_id -> hdom_id mapping goes away, nested_domain_free() returns
+the hdom_id to the global pool without invalidating the TLB entries
+that were cached under that ID while devices were attached.
 
-Compare the flow table's namespace with the device's namespace in
-nf_flow_table_cleanup() and skip nonmatching tables. This avoids
-unnecessary iteration and work flushing, and leaves the per-flow cleanup
-callback to check only the interface index.
+Once the hdom_id is handed out to a different domain, those stale
+entries become reachable through the new owner of the ID, breaking
+DMA isolation between the two domains.
 
-Signed-off-by: Qingfang Deng <qingfang.deng@linux.dev>
+Flush all TLB entries tagged with the hdom_id on the IOMMU of the
+viommu before returning the ID to the pool, the same way
+set_dte_entry() flushes the old domain ID it replaces right after
+calling amd_iommu_update_dte().  This is safe at this point: the
+IOMMU core guarantees that a domain is detached from all devices
+before it is freed, and the mapping's refcount counts nested domain
+objects sharing the mapping rather than devices, so once it drops to
+zero no device translates through the hdom_id anymore.
+
+Fixes: 103f4e7c8544 ("iommu/amd: Add support for nested domain attach/detach")
+Cc: stable@vger.kernel.org
+Assisted-by: Qoder:Qwen-3.8-MAX-Preview
+Signed-off-by: Shuai Xue <xueshuai@linux.alibaba.com>
 ---
- net/netfilter/nf_flow_table_core.c | 17 +++++++----------
- 1 file changed, 7 insertions(+), 10 deletions(-)
+ drivers/iommu/amd/amd_iommu.h | 1 +
+ drivers/iommu/amd/iommu.c     | 2 +-
+ drivers/iommu/amd/nested.c    | 9 +++++++++
+ 3 files changed, 11 insertions(+), 1 deletion(-)
 
-diff --git a/net/netfilter/nf_flow_table_core.c b/net/netfilter/nf_flow_table_core.c
-index 03241d4bfd5e..52cca7a8f141 100644
---- a/net/netfilter/nf_flow_table_core.c
-+++ b/net/netfilter/nf_flow_table_core.c
-@@ -730,14 +730,9 @@ static void nf_flow_table_do_cleanup(struct nf_flowtable *flow_table,
+diff --git a/drivers/iommu/amd/amd_iommu.h b/drivers/iommu/amd/amd_iommu.h
+index a2fe804b038b..97883db687ec 100644
+--- a/drivers/iommu/amd/amd_iommu.h
++++ b/drivers/iommu/amd/amd_iommu.h
+@@ -89,6 +89,7 @@ int amd_iommu_complete_ppr(struct device *dev, u32 pasid, int status, int tag);
+  * This function flushes all internal caches of
+  * the IOMMU used by this driver.
+  */
++void amd_iommu_flush_tlb_domid(struct amd_iommu *iommu, u32 dom_id);
+ void amd_iommu_flush_all_caches(struct amd_iommu *iommu);
+ void amd_iommu_domain_flush_pages(struct protection_domain *domain,
+ 				  u64 address, u64 last, u32 flags);
+diff --git a/drivers/iommu/amd/iommu.c b/drivers/iommu/amd/iommu.c
+index 4dc306a4b5c6..15bc9ddd93f4 100644
+--- a/drivers/iommu/amd/iommu.c
++++ b/drivers/iommu/amd/iommu.c
+@@ -1576,7 +1576,7 @@ static void amd_iommu_flush_tlb_all(struct amd_iommu *iommu)
+ 	iommu_completion_wait(iommu);
+ }
+ 
+-static void amd_iommu_flush_tlb_domid(struct amd_iommu *iommu, u32 dom_id)
++void amd_iommu_flush_tlb_domid(struct amd_iommu *iommu, u32 dom_id)
  {
- 	struct net_device *dev = data;
+ 	struct iommu_cmd cmd;
  
--	if (!dev) {
--		flow_offload_teardown(flow);
--		return;
--	}
--
--	if (net_eq(nf_ct_net(flow->ct), dev_net(dev)) &&
--	    (flow->tuplehash[0].tuple.iifidx == dev->ifindex ||
--	     flow->tuplehash[1].tuple.iifidx == dev->ifindex))
-+	if (!dev ||
-+	    flow->tuplehash[0].tuple.iifidx == dev->ifindex ||
-+	    flow->tuplehash[1].tuple.iifidx == dev->ifindex)
- 		flow_offload_teardown(flow);
+diff --git a/drivers/iommu/amd/nested.c b/drivers/iommu/amd/nested.c
+index 63b53b29e029..d92ee06edb4c 100644
+--- a/drivers/iommu/amd/nested.c
++++ b/drivers/iommu/amd/nested.c
+@@ -265,6 +265,8 @@ static void nested_domain_free(struct iommu_domain *dom)
+ 	struct guest_domain_mapping_info *curr;
+ 	struct nested_domain *ndom __free(kfree) = to_ndomain(dom);
+ 	struct amd_iommu_viommu *aviommu = ndom->viommu;
++	struct amd_iommu *iommu = container_of(aviommu->core.iommu_dev,
++					       struct amd_iommu, iommu);
+ 
+ 	xa_lock_irqsave(&aviommu->gdomid_array, irqflags);
+ 
+@@ -288,6 +290,13 @@ static void nested_domain_free(struct iommu_domain *dom)
+ 	pr_debug("%s: Free gdom_id=%#x, hdom_id=%#x\n",
+ 		__func__, ndom->gdom_id, curr->hdom_id);
+ 
++	/*
++	 * Flush any TLB entries still tagged with this hdom_id before
++	 * returning it to the global pool, so that a future owner of the
++	 * ID can not hit stale stage-2 translations.
++	 */
++	amd_iommu_flush_tlb_domid(iommu, curr->hdom_id);
++
+ 	amd_iommu_pdom_id_free(ndom->gdom_info->hdom_id);
+ 	kfree(curr);
  }
- 
-@@ -754,8 +749,10 @@ void nf_flow_table_cleanup(struct net_device *dev)
- 	struct nf_flowtable *flowtable;
- 
- 	mutex_lock(&flowtable_lock);
--	list_for_each_entry(flowtable, &flowtables, list)
--		nf_flow_table_gc_cleanup(flowtable, dev);
-+	list_for_each_entry(flowtable, &flowtables, list) {
-+		if (net_eq(read_pnet(&flowtable->net), dev_net(dev)))
-+			nf_flow_table_gc_cleanup(flowtable, dev);
-+	}
- 	mutex_unlock(&flowtable_lock);
- }
- EXPORT_SYMBOL_GPL(nf_flow_table_cleanup);
 -- 
-2.43.0
+2.39.3
 
