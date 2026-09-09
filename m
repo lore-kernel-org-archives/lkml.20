@@ -1,208 +1,305 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com [67.231.152.168])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 208BC5476DE;
-	Wed,  9 Sep 2026 16:37:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788971850; cv=none; b=p9nVmMMJ6ZbXGEp8gnTM4gqamzFMFlhsmrtusKhV+sve3O1QGFqXuvwQCis5aKLlvlNzDtK3mMYEqneT0HeNiT+jHj13tcCpv4km1dMwQeEFxvXCIujiCHNGiyQ390dx5+AKB54/ZiGzXfOI9hpdJ0egTFpBDv/fvk5npP6mKmQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788971850; c=relaxed/simple;
-	bh=N/hD3iOvqRwNXu2nhLNrbx6yX4nWYBeXwpJfjKZWovE=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To; b=sl1GMLh5m/78h9sdVvMHECgHm0MeM1Ik2wADiqLR74nPvDuF4P1JYKl3+Wzc9+sNDVsbsBU9zn9ubLis6/f763ZRvmV4vdiMQrxO24ExDdKA0P/YmLWHLvudHPJRfjXxLWflP1IJTPsN4kcJKpjN6OwGDyZnVULa2+WVplJ/N2s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JeLmg2ez; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BE033C9890;
+	Wed,  9 Sep 2026 16:38:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=67.231.152.168
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788971905; cv=fail; b=UYYgGEheynJVPdwNhNzLzPW4mEtbrWUAlYnRtgZFvPYLNLYtsGTLSSRpJo8Nvr1qXNnaljJyOWwJ+7j3bvTIcwY5wXdptBUqr5AyHbvWnH3UJq3SS+Xxv1kOxpUXiB9AjX1nL/2cU3LjsUrDjoaclZ8EBJNiECBPjcJLawOnQz0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788971905; c=relaxed/simple;
+	bh=baNkjlTtDwUoPhI9+3o1Zm7lUpodDSGEu76dNmKUgWw=;
+	h=From:To:Cc:References:In-Reply-To:Subject:Date:Message-ID:
+	 MIME-Version:Content-Type; b=NVzUGLcSbUU4XV3RQL/KdZoJKRkeMutGJiSvzrxN5vmTUY8PROJkEWQO6LOSy4Cfqugu2S5x80sOaDIuxLj4xRWMZQhJPfsI+LQqhkcXftmG0NZn3MCIbFH4ANayMV27Vn8jmH5rycz/1IPWwZA8tnf/NrKQAgdoj4VgNrSpoTo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=opensource.cirrus.com; spf=pass smtp.mailfrom=opensource.cirrus.com; dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com header.b=i9YaJqOX; dkim=pass (1024-bit key) header.d=cirrus4.onmicrosoft.com header.i=@cirrus4.onmicrosoft.com header.b=nVwJbmTK; arc=fail smtp.client-ip=67.231.152.168
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=opensource.cirrus.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=opensource.cirrus.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JeLmg2ez"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8570C1F000FF;
-	Wed,  9 Sep 2026 16:37:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788971848;
-	bh=gnVa7gIkOilsSBkk9SQFHfHhrxiUZ2Bys5czQEdLfeU=;
-	h=Date:From:To:Cc:Subject:In-Reply-To;
-	b=JeLmg2ez+475CGd6yw266s23h9YJ/r7PbdpjdkEgxjQSW8gzAM6GatVpHGNoSmLjZ
-	 kahmX7VjaTQEPtaI/B1laQVFwc/HRIIpzlLQSsjjLiKw+Po+UVIh8ymj6D7evvhwn7
-	 UYl1ImDv4MyVv3pkDg4pKzNcfuY0+gUFlNgrnW6jS1tzg/0xYiP0bBmA6EjyxSOdQB
-	 EawRY11FJeF3iugsxJZacS9Hji0gwZAOXygNVrJAE46b6HraeOtwMS4OjZRgHN36n8
-	 TZd0cenwWRYqCq/0w+QR0nIIVpmV4C3D6XPlJTAX4mc7iAG+WREoS8TC9MnuqdcI6T
-	 BJlIwlLncKF0Q==
-Date: Wed, 9 Sep 2026 11:37:27 -0500
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: Alex Elder <elder@riscstar.com>
-Cc: bhelgaas@google.com, robh@kernel.org, saravanak@kernel.org,
-	herve.codina@bootlin.com, daniel@riscstar.com,
-	mohd.anwar@oss.qualcomm.com, lorenzo.bianconi@oss.qualcomm.com,
-	linux-pci@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5 4/4] PCI: of: introduce of_pci_verify_node()
-Message-ID: <20260909163727.GA230382@bhelgaas>
+	dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com header.b="i9YaJqOX";
+	dkim=pass (1024-bit key) header.d=cirrus4.onmicrosoft.com header.i=@cirrus4.onmicrosoft.com header.b="nVwJbmTK"
+Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
+	by mx0b-001ae601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6895QtGF748719;
+	Wed, 9 Sep 2026 11:37:57 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=
+	PODMain02222019; bh=n9GyTQL0+IrAbJYv8pubv8U1o5Fg4+YOKCFhpvyCky0=; b=
+	i9YaJqOXCo8Uv3k5vFvaf5REsQDMYosaPksuvzxfS0gp87i8lke2X78DEdC0EJVT
+	oxT6CcNaOvYG3laI8JWr0CWABtfvwkinPHPMeEa59TnOuBnQdDkHwwp/W5/Iwf66
+	NYpmdp110LRUNCBBKBEkYhvlQsrz2dO2/1Uj5YNPr3JFeplOVW2nXSPFgZEioflE
+	gSnksp+j3CNAJtKOSKrm88QsTkQwIUX9HsE7eYcy61S4T58QAVOdiFFqxFJDgPh1
+	3CAn06qFWOlc0ZM5I8jn8ttm22v3kjIydrmxTc8gq7D+0H4dfZNg2qD6MgaQKrM+
+	CspDgv6vkmC3ZeLaK7OLDA==
+Received: from sa9pr02cu001.outbound.protection.outlook.com (mail-southcentralusazon11023104.outbound.protection.outlook.com [40.93.196.104])
+	by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 4ggfgjwc54-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Wed, 09 Sep 2026 11:37:57 -0500 (CDT)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=SWIifnmwIORxgHobNm2g1vlAJQUFP5tJbuanjx/r5IZ8Tp9ZiWJXuGsQScheGMf4XonDkgzm9uLQiGhuP6uUCmcdlfnzhjKVl7W/lPkkRGahsW5V/yqK/giK3dqCPnDpBERpd9xKKf3g4azxNx1F52qBkNAirUOa9L4AJp/PLof/Q/RCqVXGtE3MQQWc+C1QLsiRpCPUEOfY8BpWGRMOarW1Ut7iCwUlpIZeCJWh6gyUxMj0VEB1CJ/K9+vRTovgHOkWXGZvlF1Tmb5pOa8WGIn3R+KjJqudVj55jTnyBPiQKAiu9wouZuN6RviP4U7Q/4kTfn/PRvAxiAVnJbXuNA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=n9GyTQL0+IrAbJYv8pubv8U1o5Fg4+YOKCFhpvyCky0=;
+ b=n6K83NfXr62ACfPhPg0TYl+s1MZ7ZqIK8Gka/HC66XD5Giy9+jV5MvKosHhCQwhFEfEHdzyH/JeDDIyhQHKOWp4pOsqYWLiOPtXtHP1UkdcS91lpJ5+TQSzh2LBhS6Ed0Hh60tEYDztg+XOT78VN046dqb9XkjmvWUXOXa+nBYxPmCmNvufaQgaVnTaOrswOvk8RL/ah7JJfEt4nyjRTops8nmNBW55a4gw5eRFeNKktztSZSlST9xRdUBB67k1bQ7/YriWs1riGAwB40YAAzUNy5vxexnqno8fc5URCuCp8p0ox2G0Vdtj90ady7NSNQ/K3giSF7zZqcTuBU6KhvQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
+ is 84.19.233.75) smtp.rcpttodomain=alsa-project.org
+ smtp.mailfrom=opensource.cirrus.com; dmarc=fail (p=reject sp=reject pct=100)
+ action=oreject header.from=opensource.cirrus.com; dkim=none (message not
+ signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=cirrus4.onmicrosoft.com; s=selector2-cirrus4-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=n9GyTQL0+IrAbJYv8pubv8U1o5Fg4+YOKCFhpvyCky0=;
+ b=nVwJbmTKtllxhRu2I0xSJQl5DmHvxugr/lgfRF0FGcbgDiMvvW/8vxpMg7Ew6D9vv7cn/u/fFET076tkTwPZ+S6B0HheQxOUPubF+qLK5WJw7wu62LRQMqHD32SfpFfGBD0DQ7PuUfoGyzuNTZnvj2tBod8t0d2y0oDlD++BYiw=
+Received: from BL1PR13CA0450.namprd13.prod.outlook.com (2603:10b6:208:2c3::35)
+ by BLAPR19MB4563.namprd19.prod.outlook.com (2603:10b6:208:293::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.15; Wed, 9 Sep
+ 2026 16:37:54 +0000
+Received: from BN1PEPF00004682.namprd03.prod.outlook.com
+ (2603:10b6:208:2c3:cafe::86) by BL1PR13CA0450.outlook.office365.com
+ (2603:10b6:208:2c3::35) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.4 via Frontend Transport; Wed, 9
+ Sep 2026 16:37:54 +0000
+X-MS-Exchange-Authentication-Results: spf=softfail (sender IP is 84.19.233.75)
+ smtp.mailfrom=opensource.cirrus.com; dkim=none (message not signed)
+ header.d=none;dmarc=fail action=oreject header.from=opensource.cirrus.com;
+Received-SPF: SoftFail (protection.outlook.com: domain of transitioning
+ opensource.cirrus.com discourages use of 84.19.233.75 as permitted sender)
+Received: from edirelay1.ad.cirrus.com (84.19.233.75) by
+ BN1PEPF00004682.mail.protection.outlook.com (10.167.243.88) with Microsoft
+ SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.406.5
+ via Frontend Transport; Wed, 9 Sep 2026 16:37:53 +0000
+Received: from ediswmail9.ad.cirrus.com (ediswmail9.ad.cirrus.com [198.61.86.93])
+	by edirelay1.ad.cirrus.com (Postfix) with ESMTPS id 15757406559;
+	Wed,  9 Sep 2026 16:37:52 +0000 (UTC)
+Received: from EDIN6ZZ2FY3 (unknown [198.90.190.231])
+	by ediswmail9.ad.cirrus.com (Postfix) with ESMTPSA id 6E06B82024B;
+	Wed,  9 Sep 2026 16:37:51 +0000 (UTC)
+From: "Simon Trimmer" <simont@opensource.cirrus.com>
+To: "'Syed Saba Kareem'" <syed.sabakareem@amd.com>, <vkoul@kernel.org>
+Cc: <broonie@kernel.org>, <Sunil-kumar.Dommati@amd.com>,
+        <Mario.Limonciello@amd.com>, <venkataprasad.potturu@amd.com>,
+        <yung-chuan.liao@linux.intel.com>, <pierre-louis.bossart@linux.dev>,
+        "'Vijendar Mukunda'" <Vijendar.Mukunda@amd.com>,
+        "'Liam Girdwood'" <lgirdwood@gmail.com>,
+        "'Jaroslav Kysela'" <perex@perex.cz>,
+        "'Takashi Iwai'" <tiwai@suse.com>,
+        "'Peter Ujfalusi'" <peter.ujfalusi@linux.intel.com>,
+        "'Daniel Baluta'" <daniel.baluta@nxp.com>,
+        "'Kai Vehmanen'" <kai.vehmanen@linux.intel.com>,
+        "'Sumit Semwal'" <sumit.semwal@linaro.org>,
+        =?utf-8?Q?'Christian_K=C3=B6nig'?= <christian.koenig@amd.com>,
+        "'Mario Limonciello \(AMD\)'" <superm1@kernel.org>,
+        "'Mario Limonciello'" <mario.limonciello@amd.com>,
+        "'open list:SOUNDWIRE SUBSYSTEM'" <linux-sound@vger.kernel.org>,
+        "'open list'" <linux-kernel@vger.kernel.org>,
+        "'moderated list:SOUND - SOUND OPEN FIRMWARE \(SOF\) DRIVERS'" <sound-open-firmware@alsa-project.org>,
+        "'open list:BPF [MISC]:Keyword:\(?:\\b|_\)bpf\(?:\\b|_\)'" <bpf@vger.kernel.org>,
+        "'open list:DMA BUFFER SHARING FRAMEWORK:Keyword:\\bdma_\(?:buf|fence|resv\)\\b'" <linux-media@vger.kernel.org>,
+        "'open list:DMA BUFFER SHARING FRAMEWORK:Keyword:\\bdma_\(?:buf|fence|resv\)\\b'" <dri-devel@lists.freedesktop.org>,
+        "'moderated list:DMA BUFFER SHARING FRAMEWORK:Keyword:\\bdma_\(?:buf|fence|resv\)\\b'" <linaro-mm-sig@lists.linaro.org>
+References: <20260909125605.280973-1-syed.sabakareem@amd.com> <20260909125605.280973-5-syed.sabakareem@amd.com>
+In-Reply-To: <20260909125605.280973-5-syed.sabakareem@amd.com>
+Subject: RE: [PATCH 4/4] soundwire: amd: Add BRA/BPT firmware download support
+Date: Wed, 9 Sep 2026 17:37:50 +0100
+Message-ID: <005f01dd4079$8eb797c0$ac26c740$@opensource.cirrus.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260908213459.2519059-5-elder@riscstar.com>
+Content-Type: text/plain;
+	charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+X-Mailer: Microsoft Outlook 16.0
+Content-Language: en-gb
+Thread-Index: AQGdoSuyUuC41DOMlgdKIIwgCB8tlAJEMkfutzN4owA=
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN1PEPF00004682:EE_|BLAPR19MB4563:EE_
+X-MS-Office365-Filtering-Correlation-Id: d019e31f-b53c-48b5-a4d2-08df0e90b205
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|36860700016|7416014|82310400026|61400799027|376014|10067099003|6133799003|3023799007|16102099003|18002099003|22082099003|5023799004|56012099006|4143699003|11063799006;
+X-Microsoft-Antispam-Message-Info:
+	4qzrKvR3rI7tI/3n0Py8yLcpUSReu/y4Xd7EPy9wDe/zwL/moxcfYoTHpDfi46VWv0VgV40uKUSrbyRO6j53eC/6LvPRFeajTankjoAtj2cq5MQ6Gs9IVfGdodZpIZFIpg725k3AphhVdwVUSONMm3E0EHfuHOfMf5p4ZMFEsVsA1nEARZuSFuw+vEdTnGfCwA6QqxjBJsgheizajc5FpHAWPUWuI8P3a9ouxZF1NoO5AY9XuCElctu0+ikX7nmC0OiaBV0hAHMRo523ujJI0vhalq8/1pjWbOvbGZ5gd2X1g6oplqvde1cUnPgJk8Fo49LbBc2ymKyc86OrCThj8n+MQMgm+Qs2O5Rv0GGfw+aJIHtqcWFiZ/Zm1rJDXgGa+cXimgJu1L3WVS7BUJJaE0riHuOek0lyD6wgmosYHAJaKIgXpzEVXvrOe5ISEfD+tORsKyFM+L+GHTx7jibZw5zGXMsnzkXcsjs0R3lNnpBBUCGeamtIrR4EOvnM+POnYHZ/BRSEgdChjZW/c+eKSJwJc5ClE68Gd9moJXsDC2LN/tnc51ehHuSQyscVaBD9Gil3AOSlO7xBnDhkZOQVIe91G9HIeUg8rO6D9gGz3WjBJQyGSaxCOOs6vDxno/y/WdjaHrVOKYpVvrD/6pwShg==
+X-Forefront-Antispam-Report:
+	CIP:84.19.233.75;CTRY:GB;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:edirelay1.ad.cirrus.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(36860700016)(7416014)(82310400026)(61400799027)(376014)(10067099003)(6133799003)(3023799007)(16102099003)(18002099003)(22082099003)(5023799004)(56012099006)(4143699003)(11063799006);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	jt2Y9DSRQu/SkIwY4rNtdPWs0c9Q7xm82mL9+VxsIiOnPxaQNasKMNh6LG3goYqKLak854jHtwTmVyv3uFD7SexTgSVDMxugb/8FlhMkeaDPQkdMz2HErvX9Tc5f+3hKzOxBDv8BrBgl9sLAhSAya8yF/kFz1Apa1o8DZWxJRc87x8V6ylgGfqy/dgDKzU9FIK0NI04aOFH0xCqAWyXwDNE0GooHN1xpRpFGCqqMclaDx4G0w1wPWwydeR18ViJ63ivMSM8CFdNzctUjA273P4VgvQYNU/WTxrQXuVn2ImeKJ2REQMUX3onyN8IElSGVmu3LP8/iKJyWyUg++EDpdE0boZTAslmy4lrOIk1Y6gUdDcxsA+l0PcaKDtMA88qm7sVE3KtBlfIsm3r7e2IryI9RNkcifDuMaBNk+9rM/PwEUflYf4omQRQUjOZ0wvJX
+X-Exchange-RoutingPolicyChecked:
+	Vc4x3ucK0y3Ktl2qzmtubtLAXcC5yJn4J1TZHymLpaSDDlbSGso6EKR8DCvRKJU06NAOzPrjzsIp/lWz0eUcNcuFLnIxM/GcBo+1EL1cYvKb9ib6qcUWxtHwGzhDnC9zhCnBuNmjt80xxwke8xdGbmfGZMKFaPfi/H+6LotuuahYF3ZRre3RBPv9NAd6XFQ6xqlyRYjj4uS1VXBbcfSqy9Uc/pXwce+UZbaNB69EFtUY37wZWCmtdfrrcfVFdOnLlUQ5hwk/Uq8tO7qAIdPPEfNJk242uUEYzSt5+9m2AwqF68L5OSIxCctJNgsSvihzAoNSm5hwB8wKsUKwfmlDoQ==
+X-OriginatorOrg: opensource.cirrus.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Sep 2026 16:37:53.2472
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: d019e31f-b53c-48b5-a4d2-08df0e90b205
+X-MS-Exchange-CrossTenant-Id: bec09025-e5bc-40d1-a355-8e955c307de8
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=bec09025-e5bc-40d1-a355-8e955c307de8;Ip=[84.19.233.75];Helo=[edirelay1.ad.cirrus.com]
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: TreatMessagesAsInternal-BN1PEPF00004682.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BLAPR19MB4563
+X-Authority-Analysis: v=2.4 cv=bpd8wkai c=1 sm=1 tr=0 ts=6aa18b65 cx=c_pps
+ a=EVpx2ZihuBqvmejMdARm+g==:117 a=h1hSm8JtM9GN1ddwPAif2w==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s63m1ICgrNkA:10 a=RWc_ulEos4gA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=iX4cTi3TZMoOKdANLEfx:22 a=KfkQE9S9VqCBgivYGm0O:22
+ a=VwQbUJbxAAAA:8 a=QyXUC8HyAAAA:8 a=bC-a23v3AAAA:8 a=w1d2syhTAAAA:8
+ a=uZzwGd-9-BIvK6WoOsIA:9 a=QEXdDO2ut3YA:10 a=FO4_E8m0qiDe52t0p3_H:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA5MDE4NiBTYWx0ZWRfX1tAdsbXZ9x6u
+ stDJksiT97yWSp3qwjK0bv0I4SOXEwYcssoP2ziCfGqOut0WYuxbVxP7VOXYdP+1jQLDJ+56FL1
+ miGfgGoKjmQ/JAaRiFbA3ryArJjRuId5GLitYDpFyY448pAxVSvx2SL4VpfbWglfKSAgP2SnAv4
+ vBFcGx3io2FVjpRzcQCuqJyDGBYoaP6i/Y2lmMPOBRijM1ci5U+LmX8YOIPNLyU7HMIAYjxeA0K
+ TQzZnYLgvDThE9n68Si9QFLWXVlixMFWVYgda/8AaaPArWztxbSR2k0trMjrGo/xQI4L3/tCYe/
+ +xJDldpHurIEfS2S/Dyba5yjAriaRAp38LHrVjxcuo/e5+5w3eeS+WGgL6BCWeqNzgqyPdFXcrE
+ fzz4LGapRwro9G+D7xR/ukQ2EopAjacGuEXyJOgksQXps8MnO5Ds2aIJhbL7lASLev7koh6hMZq
+ eSz+akj9gDbmzY8f5ig==
+X-Proofpoint-ORIG-GUID: vT3VdxSoPFjIf6A2ueIhIDFM1cypMhPz
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA5MDE4NiBTYWx0ZWRfXyLHthvaQBywx
+ J9xw3x6jSHug6iColQMATSgFd2h+wtI8aAXDxMG4FLqwW9j5aZiBsm56F0CIBp3885JMbprinTx
+ 9Gdr4I2n8OnmF1wRu1JoNriYmVgYcwY=
+X-Proofpoint-GUID: vT3VdxSoPFjIf6A2ueIhIDFM1cypMhPz
+X-Proofpoint-Spam-Reason: safe
 
-On Tue, Sep 08, 2026 at 04:34:58PM -0500, Alex Elder wrote:
-> Commit 407d1a51921e9 ("PCI: Create device tree node for bridge") linked
-> the PCI enumeration process together with devicetree, creating a devicetree
-> node for discovered PCI bridges.  Its successor commit ae9813db1dc5a ("PCI:
-> Add quirks to generate device tree node for Xilinx Alveo U50") shows how
-> to use a PCI final fixup quirk to also create a devicetree node for a
-> non-bridge PCI device.  These changes allowed devicetree overlays to
-> describe components downstream of a PCI device, by providing a place to
-> attach the overlay.
-> 
-> Note that the dynamic devicetree node is only created if the device didn't
-> already have an assigned node.
-> 
-> Later, commit aa7b4bbcb3a1d ("arm64: dts: qcom: qcs6490-rb3gen2: Add
-> TC9563 PCIe switch node") *pre-defined* devicetree nodes to represent the
-> PCI device nodes that would (also) be discovered via the PCI enumeration
-> process.  The devicetree node in this case is created with the content
-> from the DTS file.  So when a (host) bridge is done being initialized
-> during PCI enumeration, no node is dynamically created (the commits
-> mentioned above do not apply).
-> 
-> Ideally, any pre-defined PCI devicetree node would contain exactly the
-> same information as whatever the dynamic creation process would produce
-> (though it could include more).
-> 
-> However that is not the case for the pre-defined Qualcomm RB3gen2 nodes.
-> And in particular, the endpoint (function) nodes include this property:
-> 
->     device_type = "pci";
-> 
-> This is simply wrong; that property is meant only for bridge nodes.
-> 
-> Rob Herring requested that a runtime check to be added to spot this
-> specific error, only for non-bridge PCI devices.  Herve Codina further
-> suggested we ensure that bridge PCI devices *do* define the device_type
-> property, with value "pci".  We also accept "pciex" as the value of the
-> device_type property for bridges.
+Hi Syed,
+I'll look to try this out this week!
 
-IIUC this patch basically adds a warning for ill-formed DTs but
-doesn't otherwise change any behavior.  Obviously a developer could
-fix the DT, but what would a user do in response to the warning?  
+The code has changed a bit since I last looked at it properly, I had a =
+query in amd_sdw_bpt_wait() and I think this may be missing =
+bra_block_alignment support that recently entered the tree in  =
+https://lore.kernel.org/all/20260728124639.1484973-3-yung-chuan.liao@linu=
+x.intel.com/
 
-Is there something that doesn't work when this warning is emitted, and
-fixing the DT would make it work?  If so, is there any hint that could
-be included in the warning?  E.g., "DT device_type is missing; can't
-support X"?
+commit c0840f8be5d59071096b8e6b42693a0d912b7cba
+Author: Richard Fitzgerald <rf@opensource.cirrus.com>
+Date:   Tue Jul 28 20:46:36 2026 +0800
 
-The commit log doesn't actually say directly what the patch does.  I
-asked gemini to work on it, and it produced this, which is
-straightforward but omits a lot of detail you might want:
+    soundwire: Add bra_block_alignment property support
 
-  PCI: of: Verify "device_type" property for PCI device nodes
+    Add a property to struct sdw_slave_prop equivalent to the Disco
+    property "mipi-sdw-bra-mode-block-alignment".
 
-  According to the Open Firmware PCI Bus Supplement and Devicetree
-  Specification, the `device_type` property is reserved strictly for
-  PCI bridge nodes (with value "pci" or "pciex"). Non-bridge PCI
-  endpoint nodes must not include a `device_type` property.
+    The SoundWire Disco specification defines this as:
 
-  Pre-defined Device Tree nodes representing PCI devices sometimes
-  violate this requirement—such as endpoint nodes incorrectly
-  specifying `device_type = "pci"`, or bridge nodes omitting
-  `device_type` altogether.
+    "The data payload size for this BRA Mode shall be an integer
+    multiple of the value of this Property."
 
-  Introduce of_pci_verify_node() to sanity-check pre-defined Device
-  Tree nodes assigned to PCI devices as they are registered in
-  pci_bus_add_device():
+    Signed-off-by: Richard Fitzgerald <rf@opensource.cirrus.com>
+    Co-developed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
+    Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
+    Reviewed-by: P=C3=A9ter Ujfalusi <peter.ujfalusi@linux.intel.com>
+    Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>
+    Link: =
+https://patch.msgid.link/20260728124639.1484973-3-yung-chuan.liao@linux.i=
+ntel.com
+    Signed-off-by: Vinod Koul <vkoul@kernel.org>
 
-    - Warn if a PCI bridge node lacks a "pci" or "pciex" `device_type`
-      property.
+Thanks,
+-Simon
 
-    - Warn if a non-bridge PCI endpoint node contains a `device_type`
-      property.
+On 9/9/26 13:56, Syed Saba Kareem wrote:
+> ...
+> - Non-contiguous firmware sections are handled by iterating
+>   per-section: large sections use BRA DMA, small sections
+>   (< one BRA frame) fall back to sdw_nwrite/sdw_nread.
 
-I'd like to get Rob's Reviewed-by since I'm not really a DT expert.
+Query about handling of contiguous small sections
 
-> Reviewed-by: Herve Codina <herve.codina@bootlin.com>
-> Signed-off-by: Alex Elder <elder@riscstar.com>
-> ---
->  drivers/pci/bus.c |  1 +
->  drivers/pci/of.c  | 32 ++++++++++++++++++++++++++++++++
->  drivers/pci/pci.h |  3 +++
->  3 files changed, 36 insertions(+)
-> 
-> diff --git a/drivers/pci/bus.c b/drivers/pci/bus.c
-> index 655ed53436d3e..679afbc6d3109 100644
-> --- a/drivers/pci/bus.c
-> +++ b/drivers/pci/bus.c
-> @@ -351,6 +351,7 @@ void pci_bus_add_device(struct pci_dev *dev)
->  	 * are not assigned yet for some devices.
->  	 */
->  	pcibios_bus_add_device(dev);
-> +	of_pci_verify_node(dev);
->  	pci_fixup_device(pci_fixup_final, dev);
->  	if (pci_is_bridge(dev))
->  		of_pci_make_dev_node(dev);
-> diff --git a/drivers/pci/of.c b/drivers/pci/of.c
-> index a51dff91b196d..5a040ed836744 100644
-> --- a/drivers/pci/of.c
-> +++ b/drivers/pci/of.c
-> @@ -1085,3 +1085,35 @@ int of_pci_get_equalization_presets(struct device *dev,
->  	return 0;
->  }
->  EXPORT_SYMBOL_GPL(of_pci_get_equalization_presets);
-> +
-> +/**
-> + * of_pci_verify_node - Sanity check some PCI device node properties
-> + * @pdev: The PCI device whose device node is checked
-> + *
-> + * PCI enumeration authoritatively discovers what we need to know about
-> + * a PCI device.  A devicetree-based platform will represent a PCI root
-> + * bridge with a node, but otherwise devicetree doesn't typically include
-> + * many PCI nodes.  Where such nodes do exist, experience has shown that
-> + * the "device_type" property is sometimes wrong, so warn about that.
-> + */
-> +void of_pci_verify_node(struct pci_dev *pdev)
+> ...
+> --- a/drivers/soundwire/amd_manager.c
+> +++ b/drivers/soundwire/amd_manager.c
+> .....
+> +static int amd_sdw_bpt_wait(struct sdw_bus *bus,
+> +			    struct sdw_slave *slave,
+> +			    struct sdw_bpt_msg *msg)
 > +{
-> +	struct device_node *np = pci_device_to_OF_node(pdev);
-> +	bool device_is_bridge;
-> +	bool device_type_pci;
+> ...
+> +	 * Prepare DP0 via SoundWire framework so the core programs the
+> +	 * peripheral DP0 transport/port registers and issues PREPARECTRL.
+> +	 * This is invoked from the BPT transfer context (firmware callback)
+> +	 * and not from update_status(), so it is safe w.r.t. sdw_dev_lock.
+> +	 */
+> +	ret =3D sdw_prepare_stream(bus->bpt_stream);
+> +	if (ret < 0) {
+> +		dev_err(amd_manager->dev,
+> +			"BPT: sdw_prepare_stream failed: %d\n", ret);
+> +		goto deconfigure_pte;
+> +	}
+> +	dev_dbg(amd_manager->dev,
+> +		"BPT: stream prepared, curr_bank=3D%u next_bank=3D%u
+> state=3D%d\n",
+> +		bus->params.curr_bank, bus->params.next_bank,
+> +		bus->bpt_stream->state);
 > +
-> +	/* Nothing to check if there's no pre-existing devicetree node */
-> +	if (!np)
-> +		return;
-> +
-> +	device_is_bridge = pci_is_bridge(pdev);
-> +	device_type_pci = of_node_is_type(np, "pci") ||
-> +			  of_node_is_type(np, "pciex");
-> +
-> +	/* Bridges should have device type "pci"; endpoints should not */
-> +	if (device_is_bridge == device_type_pci)
-> +		return;
-> +
-> +	dev_err(&pdev->dev, "PCI %s have \"pci\" device_type property\n",
-> +		device_is_bridge ? "bridge should" : "endpoint should not");
-> +}
-> diff --git a/drivers/pci/pci.h b/drivers/pci/pci.h
-> index ba3c3fddddc23..2e33d3bd4b0ba 100644
-> --- a/drivers/pci/pci.h
-> +++ b/drivers/pci/pci.h
-> @@ -1253,6 +1253,7 @@ bool of_pci_supply_present(struct device_node *np);
->  int of_pci_get_equalization_presets(struct device *dev,
->  				    struct pci_eq_presets *presets,
->  				    int num_lanes);
-> +void of_pci_verify_node(struct pci_dev *pdev);
->  #else
->  static inline int
->  of_get_pci_domain_nr(struct device_node *node)
-> @@ -1308,6 +1309,8 @@ static inline int of_pci_get_equalization_presets(struct device *dev,
->  
->  	return 0;
->  }
-> +
-> +static inline void of_pci_verify_node(struct pci_dev *pdev) { }
->  #endif /* CONFIG_OF */
->  
->  struct of_changeset;
-> -- 
-> 2.53.0
-> 
+> +	if (amd_sdw_sections_are_contiguous(msg)) {
+
+Have we dropped handling of when a contiguous transfer is less than =
+bytes_per_frame like in the non-contiguous case?
+
+> +		/*
+> +		 * All sections are contiguous in peripheral address space.
+> +		 * A single BRA call covers the entire firmware image.
+> +		 */
+> +		ret =3D amd_sdw_bra_transfer(amd_manager, slave,
+> +					   msg->sec[0].addr,
+> +					   acp_sys_addr,
+> +					   total_len, is_write,
+> +					   &dma_unsafe);
+> +		if (ret < 0) {
+> +			dev_err(amd_manager->dev,
+> +				"BPT contiguous transfer failed: addr=3D0x%x
+> len=3D%zu ret=3D%d\n",
+> +				msg->sec[0].addr, total_len, ret);
+> +			/*
+> +			 * Skip the read-back copy below so a failed read
+> +			 * cannot return stale DMA buffer contents to the
+> +			 * caller as if the transfer had succeeded.
+> +			 */
+> +			goto deconfigure_pte;
+> +		}
+> +	} else {
+> +		/*
+> +		 * Non-contiguous sections: each section targets a different
+> +		 * peripheral address range.  The ACP BRA DMA engine is
+> +		 * triggered by sdw_enable_stream() (bank switch +
+> CHANNELEN), so
+> +		 * each section needs its own full config -> activate ->
+> +		 * run_dma -> deactivate -> deconfig cycle.
+> +		 *
+> +		 * Sections smaller than one BRA frame (bytes_per_frame)
+> +		 * cannot be transferred via DMA because the engine never
+> +		 * starts for sub-frame payloads.  Use regular SDW register
+> +		 * read/write commands for those tiny sections instead.
+> +		 */
+> +		offset =3D 0;
+> +		for (i =3D 0; i < msg->sections; i++) {
+> +			if (i < 3 || i =3D=3D msg->sections - 1)
+> +				dev_dbg(amd_manager->dev,
+> +					"BPT nc sec[%d/%d]: periph=3D0x%08x
+> len=3D%u acp=3D0x%08x\n",
+> +					i, msg->sections, msg->sec[i].addr,
+> +					msg->sec[i].len,
+> +					acp_sys_addr + (u32)offset);
+> +			if (msg->sec[i].len < prep_params.bytes_per_frame) {
+> +				/*
+> +				 * Section too small for BRA DMA -- use
+> +				 * regular SDW byte-level commands instead.
+> +				 */
+> +				if (is_write)
+> +					ret =3D sdw_nwrite_no_pm(slave,
+> +							       msg->sec[i].addr,
+> +							       msg->sec[i].len,
+> +							       dma_buf +
+> offset);
+> +				else
+> +					ret =3D sdw_nread_no_pm(slave,
+> +							      msg->sec[i].addr,
+> +							      msg->sec[i].len,
+> +							      dma_buf + offset);
+> +				if (ret < 0)
+> ...
+
