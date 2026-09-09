@@ -1,265 +1,200 @@
-Received: from mta0.migadu.com (out-160.mta0.migadu.com [91.218.175.160])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail-4316.protonmail.ch (mail-4316.protonmail.ch [185.70.43.16])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E90838D6A8
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 17:42:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.160
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17857364940;
+	Wed,  9 Sep 2026 17:42:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788975759; cv=none; b=p/syVLFvhSpPxptCE7vf8FPJ0JxZ8ngOh4udu+y/B7dXbk7rEzBJxDjIUojIMKk80zt5YL2QdhA76PqivI+xyPLl+QviekpIXSPMP3j7tIFQfIREb8V7pXoyDDBL5MO+g8WtvbHlsn1Z+PUqiMe7h1hb6jv4Fg+4eNDZVY3aM0E=
+	t=1788975777; cv=none; b=k6B4yz/ox3i9IUrFMRRlMIAQ/PDnox8CJstL8Zm6yZ1EZfjfWLx+JEfs0qrKdvbWVarIpJ+VNOK2F/c/0zTgz/V4/0COFhqmdselpZdI8JdJs+MrRetQSrWkIb30tmz37ffqxwq54ve6+Xeu0QcXH8rg83nAagJS1xHjDM5nQ5E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788975759; c=relaxed/simple;
-	bh=fTEVGWI3xZqNHtli5O7XYQjJwsilEDuETEuMfL8uIPM=;
-	h=Mime-Version:Content-Type:Date:Message-Id:From:To:Cc:Subject:
-	 References:In-Reply-To; b=G3zJQ8L+6B9X+ljmbuyrlzvby/+0QAXVPtHa1h1Y8on4b/vgsi8xfSkltnSR0kyZk/5FPEpqgNPFwgTA8BZT5H2NoewfUswEFaNel9cLVjZhnhNIcnBquxKit1C+IvTZqYeZ5aejfgGJbO4vUdNZMuFWxy4ilqBziZZf15gGL4A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cknow-tech.com; spf=pass smtp.mailfrom=cknow-tech.com; dkim=pass (2048-bit key) header.d=cknow-tech.com header.i=@cknow-tech.com header.b=RF54K1YL; arc=none smtp.client-ip=91.218.175.160
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cknow-tech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cknow-tech.com
+	s=arc-20240116; t=1788975777; c=relaxed/simple;
+	bh=fFT/O0T1JxApXw60wkG0sWmGhdB+/4tt7YtR9kLb3E4=;
+	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=G44Dqo5fWHQ4/jsiDIG/OFt9bAXFsWEZD6PzilULgo3IJZvE2S3VBIuQzFn+F9R2di7Hqj2F813zlbQi4j3ZiwJ8LSXXBx7WtTImS6foQ+4Q0nj7bDVAQ0bNHVPUF9nRcR+F4AA+FdgEa0ttiLu956ENFV3/U1w+JDItGg6qok4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=mP9ST8Ua; arc=none smtp.client-ip=185.70.43.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cknow-tech.com header.i=@cknow-tech.com header.b="RF54K1YL"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=fTEVGWI3xZqNHtli5O7XYQjJwsilEDuETEuMfL8uIPM=;
- c=simple/simple; d=cknow-tech.com;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788975752; v=1; x=1789580552;
- b=RF54K1YLN66eGsOhQnHzlvBKiZTc9tuYeIhf4Dr+eaNoqHxNappwd5aEZ142VCyb4P9UUDOm
- BoWRYyUtZTO7bY7aqVWH42O2gDRw67guvkL9pySNIi1HMZ5C2aQq+TLAgIV+rT8TVj/LRe9UIFh
- ZXo0iV0EeceA7ddksiOfyteB9kIXeItJiBD3jJNiCeGX8Onr0yxa98uMB3SMZFFTvVSoF8aywQR
- lKLVpssPrhFLbmebEkEIyY31IypSAVqDNLBwdHGtaD0mMoL7f5EulfuPdFkwT/WqrrQI5IUNYZr
- wI9T8PO03yfJKlX+IZkrPTG5YpIFhoL/kgYUqIaofqdcA==
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 29aa8afd47eb6454;
-	Wed, 09 Sep 2026 17:42:22 +0000
-X-Mizu-Trace-ID: 29aa8afd47eb6454
-X-Migadu-Flow: FLOW_OUT
+	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="mP9ST8Ua"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
+	s=protonmail3; t=1788975772; x=1789234972;
+	bh=EdUUZ4T4dOpJ+h6sWCjYXYysUiQE8gNL1TQqutWVrH0=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=mP9ST8UaYjotFjQR4VCmgaxTs7qpAySj/4sGQ0QiGVb7nVNFipptoYKJlyXylm0nC
+	 1Dr7or7iAzBQiwTiMPk+QZ1eo5uBojPKdJ4O46xhuVIKqUddtYV1m7c4brio5Wk9RB
+	 FxBsa4n77pQfGZwDGTAEMNDSQSn5Ypp3vOklxRUSyoT9mfdFT8cPYmvJKxHalGVe+U
+	 faCw0rSdVgCSOwdI/5+/SoTwY3FgYYUsZqeiQ3q7QRJXHJvBFkWULO2Sn3Md0hY0pH
+	 Wt6kEy+DWB4zScp20QehD6XrAW06qAZDXhM1P8/XrKZ/KDdLWgWMvH6/7YSNzGtM/j
+	 atap1iGHvtxIw==
+Date: Wed, 09 Sep 2026 17:42:46 +0000
+To: Sakari Ailus <sakari.ailus@linux.intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Andre Gilerson <andre.gilerson@gmail.com>, Dan Scally <dan.scally@ideasonboard.com>
+From: Sergey Lebedev <lsa.uz@pm.me>
+Cc: Hans de Goede <hansg@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, German <germanpapulindez@gmail.com>, linux-media@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [PATCH 0/3] media: Add support for the Sony IMX681
+Message-ID: <20260909174240.80023-1-lsa.uz@pm.me>
+Feedback-ID: 113843758:user:proton
+X-Pm-Message-ID: c97c4f885912dfa030e08134eb65ae63147cb574
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 09 Sep 2026 19:42:18 +0200
-Message-Id: <DLAYZ0FCWA2N.15D8EHX3COH6P@cknow-tech.com>
-From: "Diederik de Haas" <diederik@cknow-tech.com>
-To: <HystericalDragons@proton.me>, "Rob Herring" <robh@kernel.org>,
- "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley"
- <conor+dt@kernel.org>, "Heiko Stuebner" <heiko@sntech.de>
-Cc: <devicetree@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
- <linux-rockchip@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
- "Chukun Pan" <amadeus@jmu.edu.cn>, "jensen" <jensenhuang@friendlyarm.com>,
- "Andrey Korshunov" <razor1702@gmail.com>, "Diederik de Haas"
- <diederik@cknow-tech.com>
-Subject: Re: [PATCH v3 5/5] arm64: dts: rockchip: Follow the DTS coding
- style in the NanoPi RK3528 devicetrees
-X-Mailer: aerc 0.22.0-9-ge948bb7230f4
-References: <20260909-r28s-upstream-v3-0-ee3e1a34a353@proton.me>
- <20260909-r28s-upstream-v3-5-ee3e1a34a353@proton.me>
-In-Reply-To: <20260909-r28s-upstream-v3-5-ee3e1a34a353@proton.me>
 
-On Wed Sep 9, 2026 at 4:33 PM CEST, =E5=AE=89=E5=AE=B9 via B4 Relay wrote:
-> From: =E5=AE=89=E5=AE=B9 <HystericalDragons@proton.me>
->
-> scripts/dtc/dt-check-style --mode=3Dstrict reports two deviations from
+The Sony IMX681 is the user-facing camera on the Microsoft Surface Pro 11 f=
+or
+Business (Intel Lunar Lake, IPU7), enumerated as ACPI device SONY0681. With=
+out
+a driver the camera does not appear at all.
 
-I mentioned dt-check-style as it is a useful tool and it would be
-beneficial if more/all future submissions were also checked with it.
-I would not make it part of the commit message though.
-Just like 'checkpatch' is a tool in the toolbox, so is dt-check-style.
+  1/3  dt-bindings: media: Add Sony IMX681            (mine)
+  2/3  media: i2c: Add Sony IMX681 sensor driver      (Andre Gilerson's)
+  3/3  media: ipu-bridge: Add Sony IMX681             (mine)
 
-> Documentation/devicetree/bindings/dts-coding-style.rst in the shared
+The driver is Andre's work, reverse-engineered from I2C traces taken under
+Windows. I am carrying the submission, not the code: his Signed-off-by is o=
+n
+2/3 with mine beneath it as the person passing it on. He is away until 28
+September, so replies to review in the next few weeks will come from me. I =
+have
+the hardware and the instrumentation is scripted, so anything you want meas=
+ured
+I can measure.
 
-Because the actual reason for this change is a violation of the DTS coding
-style ... which I would put in the commit message.
+Where the numbers come from
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D
 
-> NanoPi RK3528 devicetree and in the NanoPi Zero2 board devicetree:
-> "pinctrl-0" has to sort before "pinctrl-names", and "status" has to be
-> preceded by a blank line when the node has content before it.
->
-> Sort the properties and add the missing blank lines. The generated
-> devicetree blobs are unchanged.
+The parts taken from traces are labelled as such and not dressed up.
+imx681_init_regs[] is 21 register writes whose individual meaning is not kn=
+own.
 
-Making explicit which fixes you've done is fine AFAIC, but not strictly
-needed as the diff already shows it. I would rather use "No functional
-changes.", instead of 'blobs are unchanged'.
+What is derived is written down. The link frequency comes from the PLL
+configuration visible in the same traces - 19.2 MHz EXCK, PLL2_MUL 303,
+PLL2_PRE_DIV 3, giving 1939.2 MHz on the bus and therefore 969.6 MHz per la=
+ne -
+and the pixel rate follows from that, the lane count and the bit depth. The
+gain law and the black level were measured against the sensor rather than r=
+ead
+off a datasheet, because there is no public datasheet for this part.
 
-> The remaining findings of the tool are left alone, as they contradict
-> the established practice in arch/arm64/boot/dts/rockchip: "model"
-> before "compatible", "regulator-name" before the other regulator
-> properties, "regulator-min-microvolt" before "regulator-max-microvolt",
-> "pwms" before "pwm-supply" and "linux,code" before "wakeup-source" or
-> "press-threshold-microvolt".
+Three things we know are arguable, raised here rather than left for review
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
 
-But as you noticed, it's not flawless. My guess is that it actually does
-an alphanumerical sort, while the DTS coding style prescribes a natural
-sorting. Dunno if there's an actual (enforceable) definition for it.
+V4L2_CID_ANALOGUE_GAIN advertises 0..1020, which under the 1024/(1024-code)
+law reads as up to 256x, while the analogue stage stops at code 960. Above =
+that
+the driver makes up the difference digitally, so the total gain still follo=
+ws
+the formula and an AGC's arithmetic is correct - it is buying noise instead=
+ of
+exposure at the top of the range. Splitting it between ANALOGUE_GAIN and
+DIGITAL_GAIN is the obvious alternative. Andre has not given a view on that=
+ one,
+so if you want it, I will prepare it and put it to him rather than answer f=
+or
+him - which may mean it waits for his return at the end of September.
 
-I would not list what I see as tool errors in the commit message though.
+The chip-ID read is a single cci_read with no retry. This machine has faile=
+d it
+twice, once as 0x0081 and once as 0x0000 against 0x0681 - a sensor answerin=
+g
+before it is ready. A retry absorbs that without inventing a longer reset d=
+elay.
+Andre would rather land the driver as written and add this afterwards, and =
+I
+have kept it that way rather than editing his patch.
 
-AFAIC no need for a new version for (just) this though.
+It may not be this sensor's fault: the ov13858 on the same board has now
+returned a wrong chip id once too, 0x1000 against 0xd855, reading it the sa=
+me
+unretried way. Two events are not a conclusion, but a retry is cheap.
 
-My 0.02
+The input clock rate is read and logged but never checked against the 19.2 =
+MHz
+the register sequence assumes. Same disposition: a follow-up, not a silent =
+edit.
 
-Cheers,
-  Diederik
+Testing
+=3D=3D=3D=3D=3D=3D=3D
 
-> Suggested-by: Diederik de Haas <diederik@cknow-tech.com>
-> Signed-off-by: =E5=AE=89=E5=AE=B9 <HystericalDragons@proton.me>
-> ---
->  .../boot/dts/rockchip/rk3528-nanopi-zero2.dts      |  5 +++--
->  arch/arm64/boot/dts/rockchip/rk3528-nanopi.dtsi    | 26 +++++++++++++++-=
-------
->  2 files changed, 21 insertions(+), 10 deletions(-)
->
-> diff --git a/arch/arm64/boot/dts/rockchip/rk3528-nanopi-zero2.dts b/arch/=
-arm64/boot/dts/rockchip/rk3528-nanopi-zero2.dts
-> index 48e4273872..96c537da6a 100644
-> --- a/arch/arm64/boot/dts/rockchip/rk3528-nanopi-zero2.dts
-> +++ b/arch/arm64/boot/dts/rockchip/rk3528-nanopi-zero2.dts
-> @@ -25,8 +25,8 @@ button-recovery {
-> =20
->  	leds {
->  		compatible =3D "gpio-leds";
-> -		pinctrl-names =3D "default";
->  		pinctrl-0 =3D <&led1>, <&led_sys>;
-> +		pinctrl-names =3D "default";
-> =20
->  		led-0 {
->  			color =3D <LED_COLOR_ID_RED>;
-> @@ -59,8 +59,8 @@ usb2_host_5v: regulator-5v0-usb2-host {
->  		compatible =3D "regulator-fixed";
->  		enable-active-high;
->  		gpios =3D <&gpio4 RK_PB5 GPIO_ACTIVE_HIGH>;
-> -		pinctrl-names =3D "default";
->  		pinctrl-0 =3D <&usb20_host1_pwren>;
-> +		pinctrl-names =3D "default";
->  		regulator-name =3D "usb2_host_5v";
->  		regulator-min-microvolt =3D <5000000>;
->  		regulator-max-microvolt =3D <5000000>;
-> @@ -96,5 +96,6 @@ &usb_host0_ohci {
-> =20
->  &usb2phy_host {
->  	phy-supply =3D <&usb2_host_5v>;
-> +
->  	status =3D "okay";
->  };
-> diff --git a/arch/arm64/boot/dts/rockchip/rk3528-nanopi.dtsi b/arch/arm64=
-/boot/dts/rockchip/rk3528-nanopi.dtsi
-> index 1980d14d6f..45e31b90a7 100644
-> --- a/arch/arm64/boot/dts/rockchip/rk3528-nanopi.dtsi
-> +++ b/arch/arm64/boot/dts/rockchip/rk3528-nanopi.dtsi
-> @@ -77,8 +77,8 @@ vcc_3v3: regulator-3v3-vcc {
->  	vcc3v3_sd: regulator-3v3-vcc-sd {
->  		compatible =3D "regulator-fixed";
->  		gpios =3D <&gpio4 RK_PA1 GPIO_ACTIVE_LOW>;
-> -		pinctrl-names =3D "default";
->  		pinctrl-0 =3D <&sdmmc_pwren_l>;
-> +		pinctrl-names =3D "default";
->  		regulator-name =3D "vcc3v3_sd";
->  		regulator-min-microvolt =3D <3300000>;
->  		regulator-max-microvolt =3D <3300000>;
-> @@ -97,8 +97,8 @@ vcc5v0_sys: regulator-5v0-vcc-sys {
->  	vccio_sd: regulator-vccio-sd {
->  		compatible =3D "regulator-gpio";
->  		gpios =3D <&gpio4 RK_PB6 GPIO_ACTIVE_HIGH>;
-> -		pinctrl-names =3D "default";
->  		pinctrl-0 =3D <&sdmmc_vol_ctrl_h>;
-> +		pinctrl-names =3D "default";
->  		regulator-name =3D "vccio_sd";
->  		regulator-min-microvolt =3D <1800000>;
->  		regulator-max-microvolt =3D <3300000>;
-> @@ -152,20 +152,23 @@ &gmac1 {
->  	phy-handle =3D <&rgmii_phy>;
->  	phy-mode =3D "rgmii-id";
->  	phy-supply =3D <&vcc_3v3>;
-> -	pinctrl-names =3D "default";
->  	pinctrl-0 =3D <&rgmii_miim>, <&rgmii_tx_bus2>, <&rgmii_rx_bus2>,
->  		    <&rgmii_rgmii_clk>, <&rgmii_rgmii_bus>, <&gmac1_rstn_l>;
-> +	pinctrl-names =3D "default";
-> +
->  	status =3D "okay";
->  };
-> =20
->  &gpu {
->  	mali-supply =3D <&vdd_logic>;
-> +
->  	status =3D "okay";
->  };
-> =20
->  &i2c1 {
-> -	pinctrl-names =3D "default";
->  	pinctrl-0 =3D <&i2c1m0_xfer>;
-> +	pinctrl-names =3D "default";
-> +
->  	status =3D "okay";
-> =20
->  	hym8563: rtc@51 {
-> @@ -174,8 +177,8 @@ hym8563: rtc@51 {
->  		#clock-cells =3D <0>;
->  		interrupt-parent =3D <&gpio4>;
->  		interrupts =3D <RK_PC1 IRQ_TYPE_LEVEL_LOW>;
-> -		pinctrl-names =3D "default";
->  		pinctrl-0 =3D <&rtc_int_l>;
-> +		pinctrl-names =3D "default";
->  		wakeup-source;
->  	};
->  };
-> @@ -216,19 +219,22 @@ sdmmc_vol_ctrl_h: sdmmc-vol-ctrl-h {
->  };
-> =20
->  &pwm1 {
-> -	pinctrl-names =3D "default";
->  	pinctrl-0 =3D <&pwm1m0_pins>;
-> +	pinctrl-names =3D "default";
-> +
->  	status =3D "okay";
->  };
-> =20
->  &pwm2 {
-> -	pinctrl-names =3D "default";
->  	pinctrl-0 =3D <&pwm2m0_pins>;
-> +	pinctrl-names =3D "default";
-> +
->  	status =3D "okay";
->  };
-> =20
->  &saradc {
->  	vref-supply =3D <&vcc_1v8>;
-> +
->  	status =3D "okay";
->  };
-> =20
-> @@ -241,6 +247,7 @@ &sdhci {
->  	non-removable;
->  	vmmc-supply =3D <&vcc_3v3>;
->  	vqmmc-supply =3D <&vcc_1v8>;
-> +
->  	status =3D "okay";
->  };
-> =20
-> @@ -252,12 +259,14 @@ &sdmmc {
->  	sd-uhs-sdr104;
->  	vmmc-supply =3D <&vcc3v3_sd>;
->  	vqmmc-supply =3D <&vccio_sd>;
-> +
->  	status =3D "okay";
->  };
-> =20
->  &uart0 {
-> -	pinctrl-names =3D "default";
->  	pinctrl-0 =3D <&uart0m0_xfer>;
-> +	pinctrl-names =3D "default";
-> +
->  	status =3D "okay";
->  };
-> =20
-> @@ -266,6 +275,7 @@ &usb_host0_xhci {
->  	maximum-speed =3D "high-speed";
->  	phys =3D <&usb2phy_otg>;
->  	phy-names =3D "usb2-phy";
-> +
->  	status =3D "okay";
->  };
-> =20
+On a Surface Pro 11, front camera, with all three patches applied - and on =
+a
+kernel built from this base, not backported into a distro one:
+
+  # uname -r
+  7.3.0-rc1-imx681-medianext+
+  # dmesg
+  intel-ipu7 0000:00:05.0: Found supported sensor SONY0681:00 (\_SB.PC00.I2=
+C5.CAMF)
+  imx681 i2c-SONY0681:00: IMX681 probed successfully: 3844x2640 @ 969600000=
+ Hz link freq
+  intel_ipu7_isys.isys intel_ipu7.isys.40: bind imx681 3-0010 nlanes is 2 p=
+ort is 2
+
+The first of those lines is 3/3 doing its job: without the ipu-bridge entry=
+ the
+IPU does not recognise SONY0681 and nothing binds. No errors or warnings fr=
+om
+the driver at all.
+
+  streams                  3844x2640 SGRBG10, 30.01 fps
+  brightness vs gain       10.4 / 13.1 / 20.0 / 47.0 for codes 0 / 300 / 70=
+0 / 960
+
+The second line is there because a mean brightness on its own cannot tell a
+dark room from a dead pipeline. Driving the gain and watching the frames fo=
+llow
+it settles that; the captured frames are a recognisable room, right way up.=
+ The
+same sweep on a 7.0.0 kernel with the same driver source gives 11.8 / 14.7 =
+/
+22.7 / 52.8 - the difference is the room, an hour later.
+
+  checkpatch --strict      clean on 2/3 and 3/3; on 1/3 only "does MAINTAIN=
+ERS
+                           need updating?", which 2/3 answers
+  make dt_binding_check    passes, example extracted and compiled
+  build, W=3D1               imx681.o and ipu-bridge.o, no warnings
+
+Based on media/next at f9536a8065 ("media: ipu-bridge: Add support addition=
+al
+link frequency").
+
+German reported this HID as a bug on this list on 3 September and has had n=
+o
+reply since; he is on Cc here. He reaches IPU7 through the staging driver r=
+ather
+than ipu-bridge, so if this goes anywhere there is a second machine on a se=
+cond
+path ready to try it.
+
+  https://lore.kernel.org/linux-media/20260903080854.16266-1-germanpapulind=
+ez@gmail.com/
+
+Andre Gilerson (1):
+  media: i2c: Add Sony IMX681 sensor driver
+
+Sergey Lebedev (2):
+  dt-bindings: media: Add Sony IMX681
+  media: ipu-bridge: Add Sony IMX681
+
+ .../bindings/media/i2c/sony,imx681.yaml       | 107 +++
+ MAINTAINERS                                   |   8 +
+ drivers/media/i2c/Kconfig                     |  10 +
+ drivers/media/i2c/Makefile                    |   1 +
+ drivers/media/i2c/imx681.c                    | 900 ++++++++++++++++++
+ drivers/media/pci/intel/ipu-bridge.c          |   2 +
+ 6 files changed, 1028 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/media/i2c/sony,imx681=
+.yaml
+ create mode 100644 drivers/media/i2c/imx681.c
+
+--=20
+2.53.0
 
 
