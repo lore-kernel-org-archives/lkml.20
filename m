@@ -1,168 +1,218 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.153.233])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81F9D551996
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 12:23:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 851AC54280D;
+	Wed,  9 Sep 2026 12:23:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.153.233
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788956593; cv=none; b=G9EsNlwPJ7b9l5B7fcyLP+RXJZUM2ICZFNa2VOi4vveGlwayfRhukkLJsZK4wXxJGcVWW11K0OFS45JjAoqKJ6ZqL1tcB1es1sA0jlW7VlMTLUy2amgtF3HUlS+GM80lpnM8jeHual5tgTikoPDX3RZVs/pcQUnNoQWAhIN3akA=
+	t=1788956627; cv=none; b=InBLyFktGtRJq7MDI49YvyS3j9GI6tGqQVVDEb2WWoCkX9XJgS23EDfwDtC57vx/rwgK9KeWwfp6P8zRqyavPWRORf9826pQlw0VOrTACC3ywk5trEKO4C/5Io42rovd+ULgcrYL8jCj3pzSKJpXD74P+sUcW5thbidKJE0dlaM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788956593; c=relaxed/simple;
-	bh=I/m51bYBFJMIfVpaVeMrWiBZ03B95wWcbnMIQftSxvk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Xf7n4d4GqSnOgTKp+WID5wTTbc+003SWYzH5iPNLMzqgzm5hfezx0KK0KU5bH9nPosQQ5WzkM9XGtLoFWV9M50459MkMPbrnlX5Lo3+sjYnNv8r6/cm9lDbvEZRHInXO51slyHj2iKQpYOYYBQk1Z948ZKvJCIIlbICQwFpcyyc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=hPW3IlBf; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=CwBbHXat; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1788956627; c=relaxed/simple;
+	bh=wMFKsWN/dcTfZ69KG8lWADaHWCwXAHzH9FtY49sEzOE=;
+	h=From:Subject:Date:Message-ID:MIME-Version:Content-Type:To:CC; b=inFtLg4nlWypegfFmEGcFgYz/7e9nSK1Frsww19jP8CLoculMbJ6BguoJXUp2mDh/n2xT7i/4knrgsWwBuQxdqSn1bdmnd6pB7dFWI4houhTnTtxRrrQOPwFUtFeJFNwvGiMMgb8TJYgzdMEagwO9Bc0quX7IdsYou7XzQA1nE0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=lSgJAr3q; arc=none smtp.client-ip=68.232.153.233
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="hPW3IlBf";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="CwBbHXat"
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 689BU3iU2171596
-	for <linux-kernel@vger.kernel.org>; Wed, 9 Sep 2026 12:23:06 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	40mifBrIeRbLpVD8ylp/3JFiU+dqxXaEMYvEwiY7oQc=; b=hPW3IlBfKZFmKUS+
-	ffM2FgnGgsgP3nq1EAFrAT1ViXYE88EcTRI608VdcLRzmHRpz5w/UjvJaZZoMWpq
-	+SvQ0UBf1DCi46g9SXCWJkvuMO3zjJj3D4O0z2Ep+eGcOiPpY07EMgS0fYiXIQQl
-	e6NqtxN7r6t6t6rkseRLed04oNv3hvK7Jn7zXQC6XkKfH1jjTnO8dfXGo4sfQRDG
-	9HNRcztDEse3o1duqBAYwDH6KeIbOjLBuDa0nX7f4rDW6Jr+bgFx5UeUKFuDf68V
-	/+tKbfITucs6YG3cLE6ZC5dM9I7PIWPYCGRbJtXXqSXQHmjKbL5thLbG2oGV3/fd
-	qNjtxA==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gk5rggd59-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 12:23:06 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-930bd2bfc45so77379385a.1
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 05:23:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788956585; x=1789561385; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=40mifBrIeRbLpVD8ylp/3JFiU+dqxXaEMYvEwiY7oQc=;
-        b=CwBbHXatzfKm1YwegIU9aGgs7+uvaut1cVv5Gn1GaIhCHfm9lyq5EV12lNsqczYexq
-         HUIzg+gdwFT+IPyabahNhEQhOA2XcCksPfyNy594v6bNI7LDuGIT3LalfABIbW0R7avE
-         RM+s78wxmn5x3FKQoGXTr998W1Dq21yiUG5yyLtsSN3gV7p7hsvWdfB271eNI13BV2/h
-         JjVsNpk5SiRhK498Cq+IdfLroPk+CjWKFD6QkgN170QXQpEE2pjHa0osMo9kdQkE+WHV
-         IHXa7gUewlofS6jdejC56aP+c7nOdsN42yGRP8N1BZt0fZAzOdk7bsIWok3emeQF1fai
-         XKEQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788956585; x=1789561385;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=40mifBrIeRbLpVD8ylp/3JFiU+dqxXaEMYvEwiY7oQc=;
-        b=BgobEwXVQZIp3236O3+PTcB34bVYsitxDPjpeOSqkuGjkvvQN/6Y0i7a8La7T8KovN
-         3ubdKxR4ghn6Dnd42GK4q+Y4MeCX/D3iai92STwPexU/aE7WX+nBHZQ4UseXYq6MB2E8
-         S61FgEi2rjIPmGdKQwyd0vXkxZ1raxeG8lTdInIPEZW1K7ueWHkkbZKH43DYFWrvAHiQ
-         jmdSVPmwzZHjaFwj4ao4meFN7T9M18f/8LNYIxu1BhPDQc4N833p1BjjnowYxOZkXePw
-         EPJSaYuuePqbBI5UZh8NlZTWhK4JK0o1VIywlfjfjyFvgWMK20eSLZIZvFZevFOXjAyw
-         n7Ag==
-X-Forwarded-Encrypted: i=1; AKwUvByP0xGjcZJSJgZtoOf+oLmjEKKGHINVBvFPB/f4aaSvTlHwSUxaUSwjkP/2KmNulk4QpRQCjCfdHXqFr6c=@vger.kernel.org
-X-Gm-Message-State: AFuF++msGJz0lf8lGCvrfcsaVvSMWCHxfIqEbkrgu7mqEwT9S+aQ2o4A
-	5XeZab4RMJrWre1YkUAd3+bYuhwbNRGzJAF0F+WL14nXNx7RK6jPEHK6HsrA/hXXU6E6cCk52Q6
-	a2iZWBKuj+PlyDwxwL0Uo8SwF69EY98dWCt78Z/hKEzco/M6NEyCVxb13cLIggwRvx1o=
-X-Gm-Gg: AYBFou2lXhC5zwMLizlvYqFfeOfBLOzFKn39iDU8IFAgua0jRuVQQtiFXDgSTFKZ7uW
-	9HOiLZ1E5mJzvaZ6joRMVbrnYWvGEQ0nCeGdKzhpShAKhIBpJ2nzUWQbTUUl/thX9PGi7+Nlf29
-	zBuKrHQL8HhaZ6wjnIZMkjqRP4TyMgeHOalZRt0oGDd68YYuUHOhCAlOoKHrlg6aOQjKO3FSqWO
-	u9Jt2LSn5leleYHIIx9ZHyRsZZLQD84HSS5A4RRm7EJZsk9XlvPCl/1mR/KOY+NWmMf4h0qN7J0
-	8HJUsL3iTnXhU0Smsax37eY8WDwM8IKZ/Mm1g+ZP6El+gXsrUyl83edm8xMFoJX5Z/TlUtoTmjn
-	JLlTgQ8PfKeenMKaB1tZV0g==
-X-Received: by 2002:a05:620a:43a3:b0:939:b8da:1242 with SMTP id af79cd13be357-939b8da136dmr1176464985a.0.1788956585484;
-        Wed, 09 Sep 2026 05:23:05 -0700 (PDT)
-X-Received: by 2002:a05:620a:43a3:b0:939:b8da:1242 with SMTP id af79cd13be357-939b8da136dmr1176461385a.0.1788956584896;
-        Wed, 09 Sep 2026 05:23:04 -0700 (PDT)
-Received: from [192.168.202.12] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c260d55b306sm759612866b.36.2026.09.09.05.23.03
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 09 Sep 2026 05:23:04 -0700 (PDT)
-Message-ID: <179b5e05-b08e-4023-a184-bcd573213be9@oss.qualcomm.com>
-Date: Wed, 9 Sep 2026 14:23:02 +0200
+	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="lSgJAr3q"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
+  t=1788956630; x=1820492630;
+  h=from:subject:date:message-id:mime-version:
+   content-transfer-encoding:to:cc;
+  bh=wMFKsWN/dcTfZ69KG8lWADaHWCwXAHzH9FtY49sEzOE=;
+  b=lSgJAr3qjFQeX3mwqHfL0GOKi+3RtkwAdgQgozlS1drTKjrF9EYPWFad
+   fndGcfS0qhtV6EB2y+lCjsQHI5lh15G1/RIVIpA5nXRkp4ICN0JVT703i
+   3irLraMqczMr6B9xy93fExE3DieLayjxbutkS4joHFvzyJmxT2Q1+CUYO
+   zPKwVwtPNboOQmWVHIH3LX9lxQXJcEEvCVdLh82rLUcWGHstRjY+POHkN
+   d76iP1KtZCzVeazHma4aTDmi4e2Nf6F4iIgfw/0o7xtRLl8D/m1l7iT0i
+   pDkUoBZTnO885lutZqpKrYSEdALam7+6opf87FnrYtmRMZBJB9hZZOrJp
+   g==;
+X-CSE-ConnectionGUID: CNLrItBCSd+aeqMej9o1Mg==
+X-CSE-MsgGUID: zGJP/6IRT1uq3nAGZUigaQ==
+X-IronPort-AV: E=Sophos;i="6.25,270,1779174000"; 
+   d="scan'208";a="294758080"
+X-Amp-Result: SKIPPED(no attachment in message)
+Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
+  by esa5.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Sep 2026 05:23:43 -0700
+Received: from chn-vm-ex02.mchp-main.com (10.10.87.72) by
+ chn-vm-ex4.mchp-main.com (10.10.87.33) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.2.2562.45; Wed, 9 Sep 2026 05:23:38 -0700
+Received: from [127.0.1.1] (10.10.85.11) by chn-vm-ex02.mchp-main.com
+ (10.10.85.144) with Microsoft SMTP Server id 15.1.2507.58 via Frontend
+ Transport; Wed, 9 Sep 2026 05:23:35 -0700
+From: Ariana Lazar <ariana.lazar@microchip.com>
+Subject: [PATCH v3 0/2] Add support for Microchip PAC1711 Power Monitor
+Date: Wed, 9 Sep 2026 15:23:33 +0300
+Message-ID: <20260909-pac1711-v3-0-dff81003b82f@microchip.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 4/6] arm64: dts: qcom: nord: Add PMAU0102 and PMM8650AU
- PMIC support
-To: Shawn Guo <shengchao.guo@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>
-Cc: Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Bartosz Golaszewski <brgl@kernel.org>,
-        Dhruvin Rajpura <dhruvin.rajpura@oss.qualcomm.com>,
-        Anandu Krishnan E <anandu.e@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        Dhruvin Rajpura <drajpura@qti.qualcomm.com>
-References: <20260904081619.593602-1-shengchao.guo@oss.qualcomm.com>
- <20260904081619.593602-5-shengchao.guo@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260904081619.593602-5-shengchao.guo@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA5MDEzOCBTYWx0ZWRfXyBCvarB0y2E3
- 1jzuOsK5h2mGfRMXYlpAs20Ly0IhK/G3rM+mHk5QRNIjlrqpMm45b3PWXVCXB6zGCC6asI/XAk3
- bjsYtAmTaN3A+6o31ev1eEmzVo5bTWk=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA5MDEzOCBTYWx0ZWRfXwRDbMpOt49vN
- /kimyv2H7t2pZU7ViTAdNPMDqTX7jhgsOOtmNZVPljcHFYjJzcmQZ1ZZa+zi8yrr9EVoRwVbSlL
- 2AIblO9mW4eHr6mb7+pXoKALocxxEdoLxSkmnV4fK2EeBJgnpFBVaAnAb9S5vi5R+/c8b4JphWE
- GIOaBNANp1b2ed8FiuCJA4lifq1Sy8LZOzoX+ydhu47q4oCF8iWsihTD5/yTGJxoW7P2W9cn7cz
- WGWIhShCjZgsgrtWKXcmmP+NqjYjmqjoGc017o1AIj4o2pkeEws8tdPKlmMRUnUZCRToHQ83nCe
- sSMSXsKEXKbuV0Rh7O+kbvO4lwmkXN/gFs3Ksi9W8BDDBN6n2VNo4yHaIvwXOHhosIVv1ySrH+9
- yXoxEyB71IjfJNGEYqF56YlERJg5EfO0nCAWH79Wi7cKOTHLTtJolFo6dyLgtn1mQmIO/+BnGT1
- dDnL62MGfPIbm0r4L/A==
-X-Authority-Analysis: v=2.4 cv=B6qJFutM c=1 sm=1 tr=0 ts=6aa14faa cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
- a=EUspDBNiAAAA:8 a=_OBMBAdlUt7QoIKPFOgA:9 a=QEXdDO2ut3YA:10
- a=IoWCM6iH3mJn3m4BftBB:22
-X-Proofpoint-GUID: Jtg7WTsbDEOJdH-bGXC1al4crMHDX4t_
-X-Proofpoint-ORIG-GUID: Jtg7WTsbDEOJdH-bGXC1al4crMHDX4t_
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-08_03,2026-09-09_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 phishscore=0 spamscore=0 adultscore=0 malwarescore=0
- bulkscore=0 clxscore=1015 impostorscore=0 lowpriorityscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609090138
+X-B4-Tracking: v=1; b=H4sIAMVPoWoC/12MQQ7CIBBFr9KwFjNAC+LKexgXdErtLFoaMETT9
+ O7SJmri8s389xaWfCSf2LlaWPSZEoWpgDpUDAc33T2nrjCTIBuwIPjsUBgheKdah52rAfqOlfU
+ cfU/PvXS9FR4oPUJ87eEstuveECCabyMLDtwabWvrlVbaXEbCGHCg+YhhZFsny4+rwcjTz5XF1
+ WBb3D5W4b+7rusbKTE4k94AAAA=
+X-Change-ID: 20250901-pac1711-d3bacda400fd
+To: Jonathan Cameron <jic23@kernel.org>, Guenter Roeck <linux@roeck-us.net>,
+	David Lechner <dlechner@baylibre.com>, =?utf-8?q?Nuno_S=C3=A1?=
+	<nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring
+	<robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+	<conor+dt@kernel.org>
+CC: <linux-iio@vger.kernel.org>, <devicetree@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <linux-hwmon@vger.kernel.org>, Ariana Lazar
+	<ariana.lazar@microchip.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788956615; l=6496;
+ i=ariana.lazar@microchip.com; s=20250825; h=from:subject:message-id;
+ bh=wMFKsWN/dcTfZ69KG8lWADaHWCwXAHzH9FtY49sEzOE=;
+ b=L04a2ZhhfvHbfTclyVsntJ7ON1wmW8c07BEe5GvKX6og/GOB9ZaQkJ7wJCCu8PyVSsiN/NR0c
+ 2Tnq991N06pA/MkwucBR4YUNJIvpO1uRjAMvgaiGvaqOynHrTrvDgf7
+X-Developer-Key: i=ariana.lazar@microchip.com; a=ed25519;
+ pk=jmvf1fSxcnzZmXfITM3L94IwutM+wqA1POQHiYyD6Dk=
 
-On 9/4/26 10:16 AM, Shawn Guo wrote:
-> From: Dhruvin Rajpura <drajpura@qti.qualcomm.com>
-> 
-> The Nord platform is supplied by two families of PMICs on the SPMI bus:
-> eight PMAU0102 devices on USIDs 4 to 11, and one PMM8650AU on USID 0.
-> Add one dtsi per PMIC type, following the established one-file-per-PMIC
-> convention, and include both of them from nord-rrd.dts.
-> 
-> The eight PMAU0102 instances are labelled pmau0102_e through pmau0102_l
-> after their board designators. Each one provides a GPIO controller, an
-> ADC, and an MBG (Master Bandgap) temperature monitor that reads its die
-> temperature through a DIE_TEMP ADC channel. The monitors use the
-> qcom,pmau0102-mbg-tm compatible with qcom,pm8775-mbg-tm as fallback, and
-> each is hooked up to a thermal zone.
-> 
-> PMM8650AU is the same die as PMM8654AU, so pmm8650au_a reuses the
-> existing pmm8654au ompatibles while the file is named after the part
-> actually populated on the board. It provides PON with a power key,
-> a RTC, and a GPIO controller. The resin is described but left disabled,
-> for boards that wire it up to enable.
-> 
-> Signed-off-by: Dhruvin Rajpura <drajpura@qti.qualcomm.com>
-> Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-> ---
+The PAC1711, PAC1721, PAC1811 and PAC1821 products are single-channel power
+monitors with accumulator. The PAC1711 and PAC1721 devices use 12-bit
+resolution for voltage and current measurements and 24 bits for power
+calculations, while PAC1811 and PAC1821 have 16-bit resolution and use 32
+bits for power calculations. The 56-bit accumulator register accumulates
+power (energy) or current (Coulomb counter).
 
-Acked-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+PAC1711 and PAC1811 measure up to 42V Full-Scale Range, respectively 9V for
+PAC1721 and PAC1821.
 
-Konrad
+Reasons why these devices are more suitable for the IIO subsystem:
+
+1. Hardware capabilities and sampling rates:
+   The device is fundamentally a high-speed ADC with advanced hardware
+   features (e.g., measuring low voltage over a current shunt, calculate
+   power and/or acumulate power/current). When
+   configured to sample a single channel (e.g. current exclusively),
+   the PAC1711 can achieve sampling rates of up to 16,384 samples/second.
+   High-rate sampling is specifically required to enable accurate
+   power/current profiling.
+
+2. Future Features:
+   The currently submitted version of the driver provides the basic
+   hardware interface that could be suitable for HWMON, but later on it is
+   needed to introduce features such as IIO buffer support. High-frequency
+   buffered data capture is essential for profiling high-resolution current
+   consumption on processors, peripherals, battery systems, and industrial
+   low-voltage automation.
+
+3. Consistency:
+   It maintains a unified API across the entire Microchip power and current
+   monitor device family with similar hardware capabilities.
+
+Signed-off-by: Ariana Lazar <ariana.lazar@microchip.com>
+---
+Changes in v3:
+- fix review comments device tree binding:
+    remove interrupts and GPIO properties
+    change VSENSEP to VSENSE+, VSENSEN to VSENSE-
+    explain why we need the accumulation mode as a devicetree property
+
+- fix review comments driver:
+    use NANO macro in defines
+    use anonymous enums
+    rename is_pac18x1_family to has_16bit_resolution
+    use more meaningful names for local variables instead of tmp
+    use guard instead of scoped_guard where possible
+    replace 'Increasing precision' comment from
+     pac1711_in_coulomb_counter_scale_show()
+    rename pac1711_work_periodic_rfsh() to pac1711_work_periodic_refresh()
+    remove ret initialization from pac1711_chip_configure()
+    add explanation for background worker instead of polling data in a
+     comment
+    remove dynamic allocation of the always available channels
+    return 0 in the end of pac1711_retrieve_data()
+    remove comma after NULL entries
+    use FIELD_MODIFY() instead of FIELD_PREP()
+    use consistent one line style
+    verify length instead of return code for I2C reads
+    remove return error code when accumulator overflows
+    correct refresh logic and jiffies timestamp calculation
+    add mutex in pac1711_in_power_acc_raw_show()
+    add mutex when reading power raw values
+    correct wait_time calculation
+    initialize all struct fields when identifying the chip fails
+    handle return code correctly for i2c_smbus_read_i2c_block_data()
+    correct power scale calculation to avoid overflow
+    change vals type from s32 to u32 in pac1711_init_vbus_vsense_ranges()
+    use IIO_ENERGY instead of custom attribute for vpower accumulation
+    add more comments to explain accumulation functionality
+    validate I2C transfer lengths and return -EIO for short transfers
+
+- Link to v2: https://lore.kernel.org/r/20260728-pac1711-v2-0-609bc026093c@microchip.com
+
+Changes in v2:
+- fix review comments device tree binding:
+    add PAC1721, PAC1811 and PAC1821 part numbers
+    add Vbus/Vsense input ranges in attribute definition
+    change accumulation-mode from int to string type
+    remove size and address cells
+    correct interrupts definition and add attributes for the two
+      alerts, microchip,gpio0-mode and microchip,gpio1-mode
+    remove microchip,gpio attribute
+    remove "vbus" accumulation mode
+
+- fix review comments driver:
+    add PAC1721, PAC1811 and PAC1821 part numbers
+    run pahole on reg_data and pac1711_chip_info structs
+    remove average registers - VBUS_AVG and VSENSE_AVG
+    add PAC1721, PAC1811, PAC1821 to features/compatible
+    add missing headers
+    remove rarely used defines like PAC1711_POWER_24B_RES and use the
+      numerical value inline instead
+    use ARRAY_SIZE() instead of define for the number of accumulator
+      related attributes
+    add explanation for bytes length defines
+    use spacing convention space after { and before }
+    remove pac1711_shift_map_tbl in order to use just
+      pac1711_samp_rate_map_tbl and an index saved in struct
+    use read_avail() for sampling_rate
+    change mutex comment in reg_data
+    use fsleep instead of usleep
+    use a local __be16 variable in endianess transformations
+    add missing error returns after dev_err
+    add info_mask_shared_by_all for sampling_frequency
+    use dev_info instead of dev_err_probe in chip_identify
+    generalize input setup functions into one
+    remove device_property_present
+    rename pac1711_single_channel into pac1711_chan_spec
+    rename pac1711_of_parse_channel_config into pac1711_parse_fw
+    remove unneccessary comments in probe
+    define in_shunt_resistor as ext_info instead of custom attribute
+    use calculations only with 16-bit resolution instead of multiple
+     shifting (12-bit registers are left shifted)
+    add scale computations based on new voltage of 9V for PAC1721/PAC1821
+
+v1:
+- first version committed to review
+- Link to v1: https://lore.kernel.org/r/20251015-pac1711-v1-0-976949e36367@microchip.com
+
+---
+Ariana Lazar (2):
+      dt-bindings: iio: adc: add support for PAC1711
+      iio: adc: add support for PAC1711
+
+ .../ABI/testing/sysfs-bus-iio-adc-pac1711          |   24 +
+ .../bindings/iio/adc/microchip,pac1711.yaml        |  183 +++
+ MAINTAINERS                                        |    8 +
+ drivers/iio/adc/Kconfig                            |   11 +
+ drivers/iio/adc/Makefile                           |    1 +
+ drivers/iio/adc/pac1711.c                          | 1304 ++++++++++++++++++++
+ 6 files changed, 1531 insertions(+)
+---
+base-commit: 19272b37aa4f83ca52bdf9c16d5d81bdd1354494
+change-id: 20250901-pac1711-d3bacda400fd
+
+Best regards,
+-- 
+Ariana Lazar <ariana.lazar@microchip.com>
+
