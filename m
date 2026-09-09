@@ -1,78 +1,101 @@
-Received: from BN1PR04CU002.outbound.protection.outlook.com (mail-eastus2azon11010068.outbound.protection.outlook.com [52.101.56.68])
+Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11010041.outbound.protection.outlook.com [52.101.69.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AA5457F736
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 16:22:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.56.68
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCB18568FB9;
+	Wed,  9 Sep 2026 16:22:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.69.41
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788970945; cv=fail; b=Dpnk3AKA3WdByrqRqvIX90tMIY2V+3D93AV1R90Gcqcz34Jd3mXWkBg23p16oY7e7zLG9gD9SyJQUWaW+sGK4w+97rqvDiwPDs+MNCE6azunw2Qhz1Ty26sojw5b+Mo5zv2S/y/JNM+Uq435ez9pxfPR3gqYI9pj81AIWBcpbKw=
+	t=1788970962; cv=fail; b=qTk+gJ0obIeV+WRk+qFUHmYyfN2OEjbJoxZ3/p3aK3awdAcSuQeOlIJzvaTMj0NzT532Jg8q9nSJzvmVrxfVioy3hMAvN0Z1UdYyAbjv2+TvRUVv3AH4H7Tn7B0+8kJFkM/F7SUD/3iXobZ0icIXtOPCX06MxVl4jxf2H1H3I/0=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788970945; c=relaxed/simple;
-	bh=z99vgtApXCAgePzHvH+4XZrAAp3ZZE2iyai4EzZXIyA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=l3oe+icbECpxRB+UTxqkJleKEp/IRUkuRUIXLa9CWA+OJ8nC+x92zjM45TZ59lMtJrhbd01susphK9k+JZp22kv03RQMRpfSrfmM/wjGU501lM0YHuDucM4BzpgGlsJxcEUWxewEQ0l0eIZN3D5nm6YGaYknZ9XfTqxJArORgtA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=TLXk8iQy; arc=fail smtp.client-ip=52.101.56.68
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	s=arc-20240116; t=1788970962; c=relaxed/simple;
+	bh=TIeXBMxCUpWniDDSjmr71NSHJiVV4S01mqH+QE/FXbE=;
+	h=From:Subject:Date:Message-Id:Content-Type:To:Cc:MIME-Version; b=CCj+MY7FSZOsKOwLOjxKLEkaxARgeYhRra37ZkCgRFbAw6nE2XnMiorYW0tcdiFQiZJX7CidDnne3y/SktpqAW8++2t+OTPf7tMGmTjKT8xf8M41XYnemULZ+gyQutJ8KZboKTFZk3Wnswf7sGspvnRLPgxgsworKfaqDS7MlfI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=qDdKUy7n; arc=fail smtp.client-ip=52.101.69.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="TLXk8iQy"
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="qDdKUy7n"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=q2YPfOqbktLa9D7xQ5aHo+BTlAPKNORJfd13Xwwb7idmntx0MnvUrZMubH/o5FObn+L25M6PiRBT//ZsjCywesY8ZRvWo+B19a3VQJN2l+kGmN+PZQOtHYEu7cm0Te/yWORqxwbEkBN75Bt1ObpWHeanGJKkoKGXu3lqBVL/OKy7nOyghBLOGqaWxz6d55AJrRGoAyGY4LN/1wffuYhv3yqFEJkAOChcRIRiQQ/h8xzjosLBpTkVHhlIXE7TZql7kUP2c4MefcR3osBQopQZvqX0+sMNgh+WtAwlLRrnlDVkc4HjXyYbFp5mLy7QDBK7eTY0ahvLWNL4fDpxr8waZA==
+ b=GZePzVaL7Zt5HsxMrkB0vP8zId6bXhy5YGUxnhnJRnNyj6Xxy2b8oz7waNcGTt4IOgSTddLOIiBLzHHwYotClOg4BwPyU8H9PdM7tHwK797+czFzWkirL5l0mf+ZGPSlBREKGjVJ9ksW/g3wZzfaFF3uIqqbHWJPVx7mlogjFIrC3mvf4u+tF8RJaS8Dn+rEyta6hdN1OFvPDCxGsiGTf5DAkKBYhVw/7+b6Ug1U2qGOszRsDkYxLmDD4q0o4qrJc5kR/r6L8qp1LD0RZVp65fQhRVFXRwmd5gkaXnhvqi3HyL7F4tNyVq4w0QDVIWOZ15W3Ebh6dls1Eyqsj/mR0g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=LsT9uDCS6ynS9P8HglVSxvbqQqFErINXoVYW1Vl+EDY=;
- b=dPh4jN0PzqGwBMoUl1bTZwVD7LpFcEDTgQe1tc/+CduwgIFrYnx5Edn+Xva4ie0X9Cvfq1wdl5VPz8jOTXDNNU2PVPuaVIU8WQxRHCQHtn77OZRdQb9B80mUHPWDr3trcfE8lVZiMaLnOupMIVcwcePdmIA+mO6U8zDCnn5uwJQSewCPk1f8RCii+DE6uGxBgPRFMv0xVKHBVcUej28FlQPKuzGVBG9zFiE3ovOtUoubbtIaKYdXTeib4ItGnvniyVWZ4q3LSzs60uPEqipfCfCo0CHrOx7ZPe7+AZMW3Sytm2gw6t1RAEde+QzhCmn2eFUKYQNbq4/pyI6QQ7NkBQ==
+ bh=vg3XXo9vNLmVbG2RcagY4hT2vNPSv4tYbgxs6wGCn8I=;
+ b=DVqsT4dfMuaVUEkxX+dHWW0D0SNKEwsjl1j8wadA3+1GOzp7Avdd+CLicqOl8Zo3i8sVCxmuFrYNAgaslIyb5+swJPG5SR48ZbiQoZZAUjlRkEtNvvUfuAnd5pvWHe0eG308yQ2pz8OgGMcrLNC5b/wtVghSCE7HHQ6gbV7UNzcVVtmB3aqLKO6SgPaAbhadW4XpPbgIWOJPk/Sz7s6SvQaJvLCu81sH/NcRPYesm7GvJcEAV/GaehPRGfWwd5ySE8/cNrwtltQJJkiW0Wgx4F8rPwyvVcOMtLK7IPBplVEJy8y0cERFyPgYiD5xsTXZ6TKZ1T4EjLiZ6lbgteCZBw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=LsT9uDCS6ynS9P8HglVSxvbqQqFErINXoVYW1Vl+EDY=;
- b=TLXk8iQyx68oT5s3joOzSHBY6c0Q9csRpEa+hE9XBR14VIur9Y0/+t4u1nDEkHCGpBx5HX+YJ7xwdULQidNS5ONQW4NWc3ErSkB2qvj/vHAXU2tGqMr8OQOaFLInFGYBeYkI6n9N2KMo6YLgAZUHf2VYzigoqsy+M5JlAZ6wyrFU3mwPB5iiI6RiNOXxoNWjaeR3RlwjPOYL6AP+6EpOKo8MnZXAmuWO/NztZ9E/WnnbbgygXzF6PyhVVw9EIvAQwAanV6CYJVu6p/RuaAYeHhjK4aww+zx16LoBh6OCxJ3hRa1UsQ1VokHWQRLncDjkPRfBv2hllWkLrV+u+HFXQA==
+ bh=vg3XXo9vNLmVbG2RcagY4hT2vNPSv4tYbgxs6wGCn8I=;
+ b=qDdKUy7nCrszHHrWYcZSyLHKx/stGGAvFLmP9NSKLIj/+8nF397Y5uerbcm9MN0d48agETpAsqbUq+dfaaCAc5lboPmkF55Vkiwa8Uut66s5b1/49AGMVG9p58h05wHzy01vHnBkl178yV97bsLkWPK64fYtqOyS2yLxpbcpLXo/QuA+W0apecxM7/N2vcV/1u1rwkngT8lul9WAJqOK+iLLahdYUpt8MLHMr6YexJQJcyQ0f3fnYPMJar4hL/z0TrvuW36GTLRKWqIRtqm7nWCZosz4ZRySMzNVb0ISrPJkNCxJHK5pRrFDLk/urUMp++H75ZF2m+SbhvGo/0sgDw==
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DM6PR12MB4827.namprd12.prod.outlook.com (2603:10b6:5:1d6::14)
- by LV1PR12MB999328.namprd12.prod.outlook.com (2603:10b6:408:3f8::5) with
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by AM0PR04MB6786.eurprd04.prod.outlook.com (2603:10a6:208:184::16) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.14; Wed, 9 Sep
- 2026 16:22:20 +0000
-Received: from DM6PR12MB4827.namprd12.prod.outlook.com
- ([fe80::6261:3040:864b:159c]) by DM6PR12MB4827.namprd12.prod.outlook.com
- ([fe80::6261:3040:864b:159c%5]) with mapi id 15.21.0382.014; Wed, 9 Sep 2026
- 16:22:20 +0000
-Date: Wed, 9 Sep 2026 18:22:12 +0200
-From: Andrea Righi <arighi@nvidia.com>
-To: Vincent Guittot <vincent.guittot@linaro.org>
-Cc: Ingo Molnar <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>,
-	Juri Lelli <juri.lelli@redhat.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
-	Valentin Schneider <vschneid@redhat.com>,
-	K Prateek Nayak <kprateek.nayak@amd.com>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Christian Loehle <christian.loehle@arm.com>,
-	Shrikanth Hegde <sshegde@linux.ibm.com>,
-	Phil Auld <pauld@redhat.com>, Breno Leitao <leitao@debian.org>,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/2] sched/fair: Honor asymmetric SMT priority in idle
- selection
-Message-ID: <aqGHtIo2Bk2irSdu@gpd4>
-References: <20260908082345.103087-1-arighi@nvidia.com>
- <20260908082345.103087-3-arighi@nvidia.com>
- <CAKfTPtAQh6ZndkHC+njYvX0hoDafaC+PX2EBfafDumTHvvgFcg@mail.gmail.com>
- <aqF4sqhjpYjIPgQF@gpd4>
- <CAKfTPtASXty5hOOgmXokCh95w0idU0y12UDua1_vg9m8teF9Rg@mail.gmail.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAKfTPtASXty5hOOgmXokCh95w0idU0y12UDua1_vg9m8teF9Rg@mail.gmail.com>
-X-ClientProxiedBy: MI3PEPF00007541.ITAP293.PROD.OUTLOOK.COM
- (2603:10a6:298:1::4d3) To DM6PR12MB4827.namprd12.prod.outlook.com
- (2603:10b6:5:1d6::14)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.7; Wed, 9 Sep 2026
+ 16:22:36 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0406.005; Wed, 9 Sep 2026
+ 16:22:36 +0000
+From: Frank.Li@oss.nxp.com
+Subject: [PATCH v4 0/4] dmaengine: rename dma_chan::dev to
+ dma_chan::chan_dev for clarity
+Date: Wed, 09 Sep 2026 12:22:27 -0400
+Message-Id: <20260909-dma-chan_dev-rename-v4-0-d8fb6892a70f@nxp.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAMOHoWoC/33NywrCMBAF0F+RrI3k0U6rK/9DRPIYNUJbSTRUS
+ v/dpC6qUFxe5s65AwnoHQayWw3EY3TBdW0KxXpFzFW1F6TOpkwEE8BqLqhtFM2Xk8VIPbaqQQo
+ gQCpTojJbkj7vHs+un9TD8ZPDU9/QPDKVG1cXHp1/TbOR597/hcgpowoqLvm5sqUR+7a/b0zXk
+ OxHMQtbJpcFkQRmtWSlBlNx+BXkt1AsCzIJUJfAuGa6qutZGMfxDftzKHZKAQAA
+X-Change-ID: 20260812-dma-chan_dev-rename-66263ac5eac9
+To: Jacky Huang <ychuang3@nuvoton.com>, Shan-Chun Hung <schung@nuvoton.com>, 
+ Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>, 
+ Paul Cercueil <paul@crapouillou.net>, 
+ Eugeniy Paltsev <Eugeniy.Paltsev@synopsys.com>, 
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+ Binbin Zhou <zhoubinbin@loongson.cn>, 
+ Patrice Chotard <patrice.chotard@foss.st.com>, 
+ =?utf-8?q?Am=C3=A9lie_Delaunay?= <amelie.delaunay@foss.st.com>, 
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+ Steven Rostedt <rostedt@goodmis.org>, 
+ Masami Hiramatsu <mhiramat@kernel.org>, 
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
+ Thierry Reding <thierry.reding@kernel.org>, 
+ Jonathan Hunter <jonathanh@nvidia.com>, 
+ Ludovic Desroches <ludovic.desroches@microchip.com>, 
+ Viresh Kumar <vireshk@kernel.org>, Keguang Zhang <keguang.zhang@gmail.com>, 
+ =?utf-8?q?Andreas_F=C3=A4rber?= <afaerber@suse.de>, 
+ Manivannan Sadhasivam <mani@kernel.org>, Daniel Mack <daniel@zonque.org>, 
+ Haojian Zhuang <haojian.zhuang@gmail.com>, 
+ Robert Jarzmik <robert.jarzmik@free.fr>, Chen-Yu Tsai <wens@kernel.org>, 
+ Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Samuel Holland <samuel@sholland.org>, Kelvin Cao <kelvin.cao@microchip.com>, 
+ Logan Gunthorpe <logang@deltatee.com>, 
+ Laxman Dewangan <ldewangan@nvidia.com>, 
+ Vignesh Raghavendra <vigneshr@ti.com>
+Cc: linux-arm-kernel@lists.infradead.org, dmaengine@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-mips@vger.kernel.org, 
+ linux-stm32@st-md-mailman.stormreply.com, 
+ linux-trace-kernel@vger.kernel.org, linux-tegra@vger.kernel.org, 
+ linux-actions@lists.infradead.org, linux-sunxi@lists.linux.dev, 
+ imx@lists.linux.dev, Frank Li <Frank.Li@nxp.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788970951; l=4485;
+ i=Frank.Li@nxp.com; s=20240130; h=from:subject:message-id;
+ bh=TIeXBMxCUpWniDDSjmr71NSHJiVV4S01mqH+QE/FXbE=;
+ b=EVxziEAr/+5BdiDqxhgUkHwC0rAmtjMUTx5OuzUIBJYSKe80ehtqBozMtIcyU7D/4ezAuhNVd
+ 7XTC+VCYA15CDZJnn47GfstuK+S4x4oo/HAne/2Z3jIoi5bQ+vRLjdj
+X-Developer-Key: i=Frank.Li@nxp.com; a=ed25519;
+ pk=I0L1sDUfPxpAkRvPKy7MdauTuSENRq+DnA+G4qcS94Q=
+X-ClientProxiedBy: PH5P222CA0011.NAMP222.PROD.OUTLOOK.COM
+ (2603:10b6:510:34b::15) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -80,145 +103,164 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6PR12MB4827:EE_|LV1PR12MB999328:EE_
-X-MS-Office365-Filtering-Correlation-Id: c579949b-9ed4-4477-de98-08df0e8e85a7
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|AM0PR04MB6786:EE_
+X-MS-Office365-Filtering-Correlation-Id: 21575512-a53a-4ee3-6189-08df0e8e8f40
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|366016|7416014|376014|23010399003|10067099003|4143699003|11063799006|56012099006|22082099003|18002099003;
+	BCL:0;ARA:13230040|7416014|376014|19092799006|366016|23010399003|1800799024|921020|10067099003|56012099006|11063799006|18002099003|41080700001;
 X-Microsoft-Antispam-Message-Info:
-	mJla1NbzG5xZI2fWztvAwvReI/IaLYMIoB1P2XEV09b3uhfMhCDgMTbrLwEnKtDOR61IXRpUuu1dFP0a427m81oNYbyAlIOg7gJO0jISbh15Uze7VO89FLXgBz4IeXxQAJwvl0Rh3I+abFkQaW3LvLeJzyrtEaEHnhzguG7hvIxsmXnh38psYuF8Q7c21nrFUnKq3k+PXru+H1PbcmpB/hUL3nXHXzmQ/DAmZ6vYYjmUiLQheuRxaUdzyAVrq642n8QmLCHRzRIovKZV7MgNI210paQ8g7i7aoYtUg+kNLAvYruIfKbOBFQraTGcP88cuLCv4F/GR7kVtsNDqXJXkwCOs0ABPvBIuRvwYB3kCz0Lkjnld6cJB0aasYkJIZ7nCaUdfd+7dOv00FHC2CtzMNzgWY8mY7D/ps+hrMY8dft6G4i+F/plW0qA9KSGVPE5yQvhXm+R+srgmLI8DN+xG1Xnev2Sky8YNRpHdFG2HOmZ1Zi692uZV4Ef/3kXSGUV/EEywDlZyURMD/tCAlQ8dOlOCXp1S7QX6jZbUSdrOOB+hr1/f/iVPYwHa/ZgBmBBa1fz17SHywaRHzpp+ReJuVnxTkPuKVmKiqL87JC6jPo8cy4FCJO6wppC0OQUvKPHyhFzx5XHe0mL4AmY/VO3X0DcKQFf3pUKlua99QW6Unw=
+	HP94C6VBBluKBifIyksXv48ak+7qoecbAX+ZyEAe8ENi4Kgr9t5mOtcSC0VvON1CJAvr6mifHvP++zT9ncc9taL/mJe/z1fSS4eNCN0Bd9zDEI9xwB41/A1FIDuW+ZzppEMuJyye8/7Y9CpodBGnkP8I7ieGBZyoUmmtSzwefw2KxAi8of5sAP433B25W5VrV+gMGQ8vIpJ1ynVE0MFExUV1NKOUSa4CpumTF50kHeKdZFV+EY7aq4smYmSkUuCgVV9vM/HMDaLNKKT9ie/Gblny2zwbxAJniyT20Vjnd6O/vm7/UdlbpN2cRl4k60QDRMBiIn102nsbuulruTl9OJHyZYjSRJxOf8ckfzExLWBWujLy7fr2zzAVsRcMbAc5RE5fHSU/dzvyS4bTP36l/tySw4VcIcJl59lzz6mrDjb5Tprh0jAvXRGWPdtlwbn+7xmIQk4D+uRomkhUl4BBeUHIeWV55bfEs7hcKGgs1qEetAtYY34FN6kISaS4BDxYP3rsGjJ+ag+3n/9tqBwPjGwQAAmKqOiNebJPfQcB6F0vY/iCOMPFmse3BJdhrYTLNYGlPSfnBUMogMf+dxveBK0YTQBfz/tQwoZLCV3Ibyh3p8c2/fDm2zoDNEHTGhPoFkICNzeg5D1syHDspzEKhAJSx+NvDT+nPlyXyJRsxeCrFPhHB4TeOtgkXeV4iyC7
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM6PR12MB4827.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(7416014)(376014)(23010399003)(10067099003)(4143699003)(11063799006)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(19092799006)(366016)(23010399003)(1800799024)(921020)(10067099003)(56012099006)(11063799006)(18002099003)(41080700001);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?kvW6grVhAxC0pjhpLS9277h/7d+kWZs6W5jEeIXgQDMWe5hTcFJmdgWtyANq?=
- =?us-ascii?Q?fMzI4Le3Dljwb5cIiTuMIDIyHIkX1EVNny+fkUINGUh20xgIkVXJba6QAKIp?=
- =?us-ascii?Q?Wl589fXJpSuKsz4rz9T5OOJcLLosyGDXNI12CBL6ziUtY/gR8H5zI9Ny69LV?=
- =?us-ascii?Q?Zpm5X8hhQ4al86JT+ztGGEFDCrQ76Gfwz4M2NyhdPosLtjZMomfOGY+jYQi3?=
- =?us-ascii?Q?U2wYPveocyzc1iXUZSiL0gnb/5hFYCeyiYcPJGm5fX44/LZ+HsvuDpTPE7s7?=
- =?us-ascii?Q?q6FcFwMAIeDdbgqjY19iQ2Ei4kV+h0n/XDoBMFQS8Ooh/VdtjRA5r7Ewu1gD?=
- =?us-ascii?Q?jcezIoEjSEZCvHn+nXIUl1cSsWFAPLYVpJryKsPKkZlmj4vALqAcNCBUXHTu?=
- =?us-ascii?Q?W1amOWoTkyMbi8j4ewpuch4+6B+sUWDU1odrAGXno2sjJZjGCSXIGqYHNHIM?=
- =?us-ascii?Q?YSq45mcwRYRXaDxpRoZdGQCe1S+rMilQZrHd5O2rs3YtejvmKtuSy8eRdyhM?=
- =?us-ascii?Q?EN4a54+lEH76A5DqOmeLOuSyfsJu+m49YVKavelqTCZNPOhY+qmSKWjc7thC?=
- =?us-ascii?Q?roHTISxwFtvW3VeSUtoCnSNe+imIn7dm7Kpzwi+PTE3IfAQvWjxjDptfZp6e?=
- =?us-ascii?Q?IOimzIcHyfVt7a6TdV+9r2ICQdxc4noxnJGcKEXExQqUY93ETl10mHqOJTzi?=
- =?us-ascii?Q?cjessgLzRBfs+mtB6+8WOI/8srg/nx5qJlpbPBZGa5d+g79/FlJDUTUCC7JO?=
- =?us-ascii?Q?cfFGJiz0xH+P/KRsBi5X0lj1kiax8BCCxFFAz5zxWcC/1+Yfed/6hPLs9z0J?=
- =?us-ascii?Q?qh6goEXKwmCa7XqEDASxss2A3y7r4t1I6TSrzA5HS3CCr/rjnoNSNohQCB8/?=
- =?us-ascii?Q?B6LXS9djMy80oRKWP2b6k6dV9gBlRDRmIooX5syo8g8ZrLmmfdhoU6iZXXnj?=
- =?us-ascii?Q?nP11vWlisZTF89U3NOg54pWGvWVoxvK0tnj49C5AIjwrlmYmNSFl/k7To2en?=
- =?us-ascii?Q?aDl6xUqsMZ/q/EjrQiRrHwLnVIbXAKiyXeX/+/6FkTx/lbOc4ZjHmtFzMzPk?=
- =?us-ascii?Q?Qtsb90KLPU4ISxu6tKTMLbqugEGV9VwEl3LGFPwekAR8y4U3hCjpaS2P/Txi?=
- =?us-ascii?Q?YAgxgS3Xs9gxoUM8gx0E/aNTrlB2OYDzwoycYWSVvVQgL2trI4mkqtliA0Wu?=
- =?us-ascii?Q?qhYxCUU42hL8qRoCdIUYsym/Pyq2WIilaAyhYOaLHdk3rOY+JH6btY8iTqHQ?=
- =?us-ascii?Q?M2Zvr0s34CEIwi/1boFyYHmvwnWn7ZgDoHqkJy0hmwPbCfjPqhyT4YCroKDz?=
- =?us-ascii?Q?MtHiZ2xRs91DuxfMqgl7MaxFGgkfWpReziBaXaq63XxguL457YTSpWgzos6k?=
- =?us-ascii?Q?mzXW6anKi6QFMMf9Z5TsjXzVCw2xspRbN/eoIbwykCMqnWAdVH8mW2zM3GQx?=
- =?us-ascii?Q?tWDo23U+EQnssAL08/B4jNprgTVZpCzd11AW79vLSuFXejFDDn3qu5LQa0EF?=
- =?us-ascii?Q?oQMYKWHQtMns1aqcBVt62pWZE4u4gVZGj5rCQipabCaN2uRnnhFjc87Nb8wd?=
- =?us-ascii?Q?D4Jaeg6isausK53CdYSmkY9nKNli84fOv/RwgtPVywJ99ihHMuf3/Fqu2mWF?=
- =?us-ascii?Q?+UnWmss/VMFqbKmwdLzbvdMGLf1KCasAZ4vJyHPSa4tyaiettfYAO2XLsrGc?=
- =?us-ascii?Q?IeE/qGvuMJnIXqy8kVDyhDRMGyOIyfaYBD+kkk1Xp7/M3V5ZZfXiJ8p/g/xD?=
- =?us-ascii?Q?ufNcwYvvKA=3D=3D?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c579949b-9ed4-4477-de98-08df0e8e85a7
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4827.namprd12.prod.outlook.com
+	=?utf-8?B?c2NXc3Y5YXpaS1kxektkbExxRDgvaWZnUUVOdjFzOUZNTGd5bDhTZyt5V3JJ?=
+ =?utf-8?B?TjVUVDI4Ullzczd2OUJtNCtXOHpURHR4MmNndTFjT01vTTZ3YXBoTmZxZzJ6?=
+ =?utf-8?B?Q0xIcnVKZUliZWhWUk51a28rTW4zdTlPTW5TUi9keE5wRWxnM0d3VE9DRmtF?=
+ =?utf-8?B?S28zbm96MCtjU1FyL0Q2bXJDWGZLTkpHNkJiV1R5aHN1THR0K1ZCMURBMlZv?=
+ =?utf-8?B?L2REWUVuc3d2WmpvZ3hCVGM0VWpJdWFMUHYyTHQrYUQ0b3dOL2lxbmgxMXQr?=
+ =?utf-8?B?Qy9kTkNmY25BeXVZbkY4WlNZb2dWZTFVM2RXYlAwYlp0VEVVY0VORi9tc243?=
+ =?utf-8?B?bmZGNWthbGg5UURrZzlFSWJTOGRzcDdHSUJUSnZUZWtCeUF2SGdMRW9oT0s3?=
+ =?utf-8?B?NzV4Z0tHaVl5YitQRDZuNFhCOFp2bHFJYld6ZFVqYnFQbHJNZjBWbnZhWk1O?=
+ =?utf-8?B?aTltQW1iRjJVczBmMUxJU0hoWjNGSitqSFRZUXpPS2pyVG5JVkJSTEIzb3d1?=
+ =?utf-8?B?aXk3NjRGd0ZLV1lGT0loa3k0VEs2TVY5dEpRMmdTZTJmQ2lWVkxBSDBySnFh?=
+ =?utf-8?B?dnFMRTBmVTBLNEJ6R1NEV2ZYUXNxVkNKTmhFWXV4QWNXanVmTGg4NHRqVDI5?=
+ =?utf-8?B?VmF5M3RoMzA5d2VtcUhSUEFnY3pyNzVBU0pRaTQ0WCtTWm44UjBhWG5xY21U?=
+ =?utf-8?B?em5UNFBSQUZVM2ZRSGVPK015Y0t0bEc2ZXVxT2FROG5jM0NhRmttNUVpb1dM?=
+ =?utf-8?B?Z24va3BHaTlhcEVKcWkrR0lVQ3Zoc1hXWUJmaCtDdk9CUUNnWXJhWkdtRXYz?=
+ =?utf-8?B?YUthdmQvL203NU9QUS9jUS9vOTd5VEJobDdvc09MeDVUalZLOFVXSkFSVVBw?=
+ =?utf-8?B?ZXF0Q3pFUm02UDVSMW9oY0k1RERKcldicTVoTlZGdGV5RktVQmp4U0ZrdC9R?=
+ =?utf-8?B?MTI5U2RHMWdaSThrbDBnNjZBcjBrZlI1UHBPdzNqTklrdmM4ODYxdDZNV0pr?=
+ =?utf-8?B?RFdnODZGSkRTbjJZU0NBd1ppRHBmLzA4YTVERlFRYmgxeHE5UDhERnZ6Ynk2?=
+ =?utf-8?B?SEM2T1JyeHJyS09tSkhrdjJGYzkrSmlDUVpVU1dmMXl2eWpRaFZKQ0xyM0w1?=
+ =?utf-8?B?OE92YXFKTHZVdTJrRlJnNE55eGhuVTROYVZZYzdqVml4MGhKNUlGZGhEbU5n?=
+ =?utf-8?B?UVZJZmdOU0JzZ1dmazBaNGN0SkJtUldsdjQ4aUp3M1doNTZpWGx2eU5KcCtx?=
+ =?utf-8?B?OWx3b2hpQTRJOVRoYmQvNmJlb2xZS1I1V0NPQ1J2RGh1TkJSMnhOakk2aUdE?=
+ =?utf-8?B?bTVyTXdGZXRyUG12UmN5NmlzR0VMalFQNDBTUmdjV2NlSnZlM2R4UE1iMkE0?=
+ =?utf-8?B?R3piM3lSS1c1d3kvdGZSQnM3WmpsZHFSZkkwei9ZcDkvNGF5b0d6M1MzK1Ba?=
+ =?utf-8?B?bmFUSkVwbSt3b0o5bVI3WXppZmVUdzdiY05vY2tGbjhwRXc3NlUzNlFOcW1s?=
+ =?utf-8?B?NFJhMzc3eVZYNDd1OTI4L291VE9nUzRZTzJXTlBleXFrZjZJUHNROGZJb1ox?=
+ =?utf-8?B?bDEyNkVmY2RyM0toWDdjTldmeVlFZGRTeitkQVJHY2hnSHpqbEtJK2RFUk5w?=
+ =?utf-8?B?UUJidkx1S2o1bnFPamRBZWhxVmhSWTlVS2F0UnI2aUoxMkwyQ1JVVDE4VUxX?=
+ =?utf-8?B?SXJvcWYyNkx4Wkwyb3B3UklNSjlpYncrZGF6UTVhR1RuWVVhV254MEJVd3l0?=
+ =?utf-8?B?bnhoSnhYbVZFamc3elN4ZzNoVnZ0aFJqcGltbC9QOUJBVkN6YWJCTzVwRjJW?=
+ =?utf-8?B?YjA4dDNTY25OUW1lRnVUVHhMSlUwUldPcnAxNmR3WklQd0pJRmJzdzh4WXdZ?=
+ =?utf-8?B?VXUrL3BoVjFCNzJ5UTdDdHNxc3BlbEFlRW1YU25iT0lYcm51ZFlGMFlkUjk3?=
+ =?utf-8?B?T3hua093enJqSzM3VGttdWFVbVNWbGdUcmhhMHJvODBBQi9vOVdycUZLb3N2?=
+ =?utf-8?B?SlN2Y2pSQnRHcTNkd1J0VWNITFdVVU05aGtkenJaUjJwb0NXWHI4WFFTbExn?=
+ =?utf-8?B?Z3BqNlVuUmFMQ0hPWFBvTjkvdERKZVBKMVJOOFdSYitaYTVENEdnenRxUHhR?=
+ =?utf-8?B?NW1sQ0Zuc1ZOK2txV1MxMWxBTisyVWNTcWd5cWo0alRyQ2NLSE0zL3B1aFZz?=
+ =?utf-8?B?RlZZUzJZV1k0d25uU1ozTG1JUzlGR29jaU5XVmw0dGZsaGpqM0ROU0ZqMW4y?=
+ =?utf-8?B?TmRRVU0wd0RGNU1jVnlTQzRBWVoxUGRiemMvOTZ6L1lkYXQ0YjhUMUhUa3JI?=
+ =?utf-8?B?WHdISmt5eDFjNFlsTUlvMnJSVThOemFZUU5BbUxZbEQ2SGNBZkV4bk9Jak9V?=
+ =?utf-8?Q?c8HoM7ISxX74xqKw=3D?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 21575512-a53a-4ee3-6189-08df0e8e8f40
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Sep 2026 16:22:20.1710
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Sep 2026 16:22:36.3396
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: kIS21NRgoTSk6rB12QaDTEugj8HncFC7q1YWPmfnFqjALPCm7Mv+NXgAUcP+H6eFvabWx/0tIgkjkYbYPh9TAw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV1PR12MB999328
+X-MS-Exchange-CrossTenant-UserPrincipalName: xguPNjn/yJfDvexI/uDE6+JDCTl1VlkG494OygR8iBM3a87U0OKxH3Zlxaeg5baAZtHaDELfTGS9rDILGqr0BRu8RtXVNvTuRqwgV1lMA3f2Lg3P4BSZ2ZBS1xT+Nw/g
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR04MB6786
 
-Hi Vincent,
+The current dma_chan structure contains both "device" and "dev". So
 
-On Wed, Sep 09, 2026 at 05:42:43PM +0200, Vincent Guittot wrote:
-> On Wed, 9 Sept 2026 at 17:18, Andrea Righi <arighi@nvidia.com> wrote:
-> >
-> > Hi Vincent,
-> >
-> > On Wed, Sep 09, 2026 at 04:42:44PM +0200, Vincent Guittot wrote:
-> > > On Tue, 8 Sept 2026 at 10:24, Andrea Righi <arighi@nvidia.com> wrote:
-> > > >
-> > > > POWER7 and NVIDIA Olympus use SD_ASYM_PACKING at the shared-capacity SMT
-> > > > level to order hardware threads. Idle CPU selection does not consult
-> > > > that order, so a task can wake on an arbitrary sibling and remain there
-> > > > until load balancing corrects the placement. On these systems, that
-> > > > initial choice can prevent the core from entering its preferred
-> > > > lower-thread resource mode and cause a large and persistent performance
-> > > > loss.
-> > > >
-> > > > When idle selection finds an available CPU in an SMT core, choose the
-> > > > highest-priority available sibling. On SMT2 Olympus this only changes
-> > > > selection on fully idle cores. A partially idle core has only one
-> > > > available CPU. On wider SMT systems such as POWER7, it also fills
-> > > > available siblings in priority order while the core is partially busy.
-> > > >
-> > > > Apply the preference to idle-core and idle-CPU scans,
-> > > > asymmetric-capacity scans, target, previous, recently-used CPU fast
-> > > > paths and the slow path. Inspect the lowest scheduling domain directly,
-> > > > but require both CPUs to share its span because isolcpus can split
-> > > > hardware siblings across scheduling domains.
-> > > >
-> > > > Keep physical-core capacity selection independent from SMT sibling
-> > > > ordering. SD_ASYM_CPUCAPACITY first selects among cores with different
-> > > > maximum capacities, then SD_ASYM_PACKING selects the preferred available
-> > > > sibling inside the chosen core, whose siblings continue to share equal
-> > > > capacity.
-> > > >
-> > > > Reviewed-by: Srikar Dronamraju <srikar@linux.ibm.com>
-> > > > Signed-off-by: Andrea Righi <arighi@nvidia.com>
-> > > > ---
-> > > >  kernel/sched/fair.c     | 85 ++++++++++++++++++++++++++++++++---------
-> > > >  kernel/sched/sched.h    |  6 +++
-> > > >  kernel/sched/topology.c | 36 +++++++++++++++++
-> > > >  3 files changed, 110 insertions(+), 17 deletions(-)
-> > > >
-> > > > diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
-> > > > index b8bd308c2d5b1..37837c36288a0 100644
-> > > > --- a/kernel/sched/fair.c
-> > > > +++ b/kernel/sched/fair.c
-> > > > @@ -8587,6 +8587,35 @@ static inline bool test_idle_cores(int cpu)
-> > > >         return false;
-> > > >  }
-> > > >
-> > > > +/*
-> > > > + * Redirect a CPU to a higher-priority available sibling in its SMT domain,
-> > > > + * subject to task affinity.
-> > > > + */
-> > > > +static inline int select_idle_smt_cpu(struct task_struct *p, int cpu)
-> > > > +{
-> > > > +       struct sched_domain *sd;
-> > > > +       int best = cpu;
-> > > > +       int sibling;
-> > > > +
-> > > > +       if (!sched_smt_asym_active())
-> > >
-> > > I wonder if it's worth creating a new static key. All other pieces
-> > > related to asym packing use sched_smt_active() to opt out the related
-> > > code
-> >
-> > The intent was to keep the additional sd dereference and flag checks out of the
-> > wakeup path for the more common symmetric SMT systems; sched_smt_active()
-> > remains enabled on those systems, the new key lets them return immediately.
-> >
-> > Without it, the additional cost should be small when everything is cache-hot
-> > (roughly a couple of dependent loads, flag tests and branches), but this is a
-> > hot path and a cache miss could make it more noticeable. I haven't measured
-> > whether the saving is significant, though. If the extra key and its topology
-> > accounting are not considered worth the potential saving, we can remove it and
-> > use sched_smt_active() instead.
-> 
-> If we start having a static key per sub part of a feature like the
-> asym packing, that can quickly become unmanageable. In this case we
-> should better have a a static key for whole asym_packing feature
-> instead
+    chan->device->dev refers to the DMA engine device.
+    chan->dev->device refers to the per-channel device instance.
 
-Makes sense, I'll remove the static key and use sched_smt_active().
+Their similar naming makes the distinction unclear and increases reader
+confusion.
 
-Thanks,
--Andrea
+Add union dma_chan::chan_dev to make its purpose explicit and clearly
+identify it as the per-channel device. After all user switch to chan_dev,
+union and dma_chan::dev will be removed.
+
+Update the kernel-doc accordingly. Besides its sysfs usage, the per-channel
+device is also used by some DMA engine drivers for IOMMU mapping and
+therefore deserves a more accurate description.
+
+1st patch add help vchan_chan_name()
+2nd patch use existing helper dma_chan_name() to reduce rename difference.
+3rd patch add (dmaengine|vchan)_chan_dev() helper
+4th patch add union chan_dev for dma_chan::dev for clarity
+
+Need following patch to clean other dma engineer driver, which is not
+in drivers/dma
+
+After complete all rename work, dma_chan::dev can be removed.
+
+Signed-off-by: Frank Li <Frank.Li@nxp.com>
+---
+Changes in v4:
+- move some args to previous line to reduce LOC
+- s/iommu/IOMMU
+- fix multi-line comments at patch4
+- collect reviewed-by tags
+- Link to v3: https://patch.msgid.link/20260904-dma-chan_dev-rename-v3-0-685601b0b788@nxp.com
+
+Changes in v3:
+- add new helper function dmaengine_chan_dev() and vchan_chan_dev() to
+make clear.
+- some reduntant error message will be addressed by new patches.
+- Link to v2: https://patch.msgid.link/20260903-dma-chan_dev-rename-v2-0-0db305b6c716@nxp.com
+
+Changes in v2:
+- rebase to dmaengine/next
+- add vchan_chan_name() help function for vchan case.
+- Link to v1: https://patch.msgid.link/20260812-dma-chan_dev-rename-v1-0-a67131f7d5c2@nxp.com
+
+---
+Frank Li (4):
+      dmaengine: vchan: add vchan_chan_name() to get channel device name
+      dmaengine: use dma_chan_name() helper to get per-channel device name
+      dmaengine: add (dmaengine|vchan)_chan_dev() helper
+      dmaengine: add union chan_dev for dma_chan::dev for clarity
+
+ drivers/dma/arm-dma350.c                       |   2 +-
+ drivers/dma/at_hdmac.c                         |  81 ++++++-------
+ drivers/dma/at_xdmac.c                         | 159 ++++++++++++-------------
+ drivers/dma/dma-jz4780.c                       |  10 +-
+ drivers/dma/dmaengine.c                        |  34 +++---
+ drivers/dma/dw-axi-dmac/dw-axi-dmac-platform.c |  39 +++---
+ drivers/dma/dw-axi-dmac/dw-axi-dmac.h          |  10 --
+ drivers/dma/dw/core.c                          |  47 ++++----
+ drivers/dma/ep93xx_dma.c                       |  37 +++---
+ drivers/dma/idma64.c                           |  10 +-
+ drivers/dma/loongson/loongson1-apb-dma.c       |  23 ++--
+ drivers/dma/loongson/loongson2-apb-cmc-dma.c   |  17 +--
+ drivers/dma/loongson/loongson2-apb-dma.c       |   9 +-
+ drivers/dma/mmp_pdma.c                         |   3 +-
+ drivers/dma/moxart-dma.c                       |  23 ++--
+ drivers/dma/nbpfaxi.c                          |   2 +-
+ drivers/dma/owl-dma.c                          |  21 ++--
+ drivers/dma/pch_dma.c                          |  41 +++----
+ drivers/dma/pxa_dma.c                          |  52 ++++----
+ drivers/dma/st_fdma.c                          |   2 +-
+ drivers/dma/ste_dma40.c                        |  15 +--
+ drivers/dma/stm32/stm32-dma.c                  |  69 +++++------
+ drivers/dma/stm32/stm32-dma3.c                 |  99 ++++++++-------
+ drivers/dma/stm32/stm32-mdma.c                 |  96 +++++++--------
+ drivers/dma/sun4i-dma.c                        |  17 +--
+ drivers/dma/sun6i-dma.c                        |  31 ++---
+ drivers/dma/switchtec_dma.c                    |  14 +--
+ drivers/dma/tegra186-gpc-dma.c                 |   4 +-
+ drivers/dma/tegra20-apb-dma.c                  |   2 +-
+ drivers/dma/ti/k3-udma.c                       |   6 +-
+ drivers/dma/timb_dma.c                         |  63 +++++-----
+ drivers/dma/txx9dmac.c                         |  73 ++++++------
+ drivers/dma/virt-dma.h                         |  16 +++
+ include/linux/dmaengine.h                      |  23 +++-
+ include/trace/events/tegra_apb_dma.h           |   6 +-
+ 35 files changed, 538 insertions(+), 618 deletions(-)
+---
+base-commit: a5f8e3471fc20567df888267885dec3eb340eb37
+change-id: 20260812-dma-chan_dev-rename-66263ac5eac9
+
+Best regards,
+--  
+Frank Li <Frank.Li@nxp.com>
+
