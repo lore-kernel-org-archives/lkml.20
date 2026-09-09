@@ -1,180 +1,120 @@
-Received: from mx0b-00364e01.pphosted.com (mx0b-00364e01.pphosted.com [148.163.139.74])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 316922E1F0E
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 04:25:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.139.74
+Received: from zg8tmtyylji0my4xnjeumjiw.icoremail.net (zg8tmtyylji0my4xnjeumjiw.icoremail.net [162.243.161.220])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id D30ED2D7DDB;
+	Wed,  9 Sep 2026 04:25:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.243.161.220
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788927922; cv=none; b=isu24CoritVDeA6JPln89cBHK8sJCwk1ZVAFbUM/Q7EtXt1nDZkn/K88Scwk2/t/akcPEWv74dn420H7v3Pp0cIrpyYnUwu1oIdU7qx+5w1k188azS77gybSTwRFTL8zrbpAJJWm+tP7IYIJd0RD/Kug+NloUfgEpVJCu7FXzHk=
+	t=1788927925; cv=none; b=VQNhJhVvJoxwe4V53jH356T914SXNHhTqgNx/P1si67FY+I8BPuDhGVYqaaPE6+Y8EKbdsrgtCFpCjywA/cGpuu2l5ckkXdm/s0TJke2cjBmfguxC8mX4Fjgb61G4iO1MzFjXVR5zQk0Wc7T/bI+jZRZlP6Zd6O+Yp9XrZj68Ts=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788927922; c=relaxed/simple;
-	bh=KO8yXtxYH2MCUHZPuhwewSO5ZtrP1TPBrP4qFC82Ig4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Td0EfejXg7CPwobZPQwsjnjtX6nHa+Lgo/5d7pCs5QVBrjM9Ux4WvkDK9VaIrGhkMvtcrqIV8ErOasmLlGGBpAmLpF1ddjaK5rXtKmDkgP0rAjpRUY51VKWHX1ClbJP7RNgtCF5y1X+rMjGkBv+ni7K4sc1cJO+yU48HfxDOsNE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=columbia.edu; spf=pass smtp.mailfrom=columbia.edu; dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b=UzXmIBNa; dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b=JgcKSqZJ; arc=none smtp.client-ip=148.163.139.74
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=columbia.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=columbia.edu
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b="UzXmIBNa";
-	dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b="JgcKSqZJ"
-Received: from pps.filterd (m0167075.ppops.net [127.0.0.1])
-	by mx0b-00364e01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6894In983118410
-	for <linux-kernel@vger.kernel.org>; Wed, 9 Sep 2026 00:25:13 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=columbia.edu; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pps01; bh=iSNP
-	tExQYSX+MMrAE17ZPKsKoZbCJiQGDmfeE4bJ21M=; b=UzXmIBNaP17M3phBLH4u
-	tqDhRBGYAP/2bgl7VUEXw1lgXLTIeSrMhhgJB1Ar8YnRGHSdztm7pBlTEm1HYW+s
-	IsbLT2p3bw4fgjc5V99gjjzNqW+py0DG1ub+pHuaC2wgQPC72rqReWTOgqcgDSSf
-	yFvZESHRbgItqX3K+JFQtMN68q3PGSKGqNcyyvYAi57+A8CbX2K0cdVP5+/BHsLh
-	pxefySrsX9XFtEWh8ECksYAJvQzzvPrn0zfeVebhOTGB1c/Hhqmxm2ICPKbU3Qsy
-	eFyv7MuDLamVZkt6ByJmDysEHFnDtipYUPktarnvKwe53F1+9fCqmVm6f8WXScQ7
-	Tg==
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
-	by mx0b-00364e01.pphosted.com (PPS) with ESMTPS id 4gk0an00j6-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 00:25:13 -0400 (EDT)
-Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-92ec3146553so1247197185a.1
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 21:25:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=columbia.edu; s=lionmail; t=1788927912; x=1789532712; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=iSNPtExQYSX+MMrAE17ZPKsKoZbCJiQGDmfeE4bJ21M=;
-        b=JgcKSqZJDw2+OXhGiKNRsyfETCptIU677Vn4v4if1a5Rx/LylSpWJPMBhbPIayCRm0
-         R9QClJkuVa06jZ2+cjXSLfDqioul2+Ev1YS2zz70DMcThqBVG4SSiuS8DInjrmPezMs3
-         a3Y6Jm7SXo+iw3hzaR9lcE1STH00YXD6zYk+7Kq+LG/VUiMKYEdGN4J9lw24k+1zi4ox
-         5j2rcYqMIBrWtVBd7UHVhiTlM8leVVkUjTnNaTrfH+dxx/UAsXUd2pDmiBCAXe3VGbsO
-         7IHt729U/HA60Q8VJN/zwN/Ou6paVC1LbPUGFzUfHtI8zrsza36LHOUkfBiV/IWmPBYZ
-         o51Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788927912; x=1789532712;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=iSNPtExQYSX+MMrAE17ZPKsKoZbCJiQGDmfeE4bJ21M=;
-        b=OQRiiomT6XVXe0X+7aK/BJPqZHreQezjvm5gVa7nlRBN1MdYNNyp1uhtKtwePjvr6L
-         ZpEOiP4zFCRmGbnUbVTrq9L1iQ9N5ITuVfbPHs2FUiEgXOWb+6wgLFuVBcBJKDAG/rp8
-         7ZgAz/6ZTGfEXBgi/odPMErKRUUGQShY4otsTbxaHaVv9JvFLg+fhUU0OuYRvFfE/NtC
-         9j78q1iLw5PM5jZSVWMYzI5mMnuG+XOsxfZgs2bWECE4sfpD6YWYrv03mLxMnu2CeaiB
-         bufSgAfPUtzld+sguVZsMHhoiX9G+TRC4HzJE+UYivdLHJurGW4800VJEDnXC92ct43K
-         atVg==
-X-Forwarded-Encrypted: i=1; AKwUvBxBLcYfEapimMUWwkgjgGo8qqq9VzaseY0h823DUQBl3L2SzNUyi2A5ZgNvOa2ofl+z7uByPf2O/Ao5MHs=@vger.kernel.org
-X-Gm-Message-State: AFuF++lgCQQ7IQ1LU2DdKzPyml69fglVeFcYKmlEN4LkJalb9h/ZVXJc
-	c2VucKX6tr4k2yJ6yG/XZ4Cj2yflh6Hupg2wljp8D2UfB40mdoEGEb0Y/hUj8vbK5+PBF0mvy9Q
-	VtdzRzcDSlZG363Z325X88WoPyVJxs2kIs4eq9LtvVl8Bp0dzDIcRqbZAkLH2lQ==
-X-Gm-Gg: AYBFou3Khhmr4SS+r4yagPC+RhPpMeeIGM3EpX/HsyC6uQHvk56WXk8w4YcTo2w9U1l
-	duhM1k55Y/shpwUM16sy81JJz9wJC7dgRBWyAfLmyyLIiwokGk7kKO4dRo5/+Ltx9wKy7KZXJo9
-	U0BO51lbZgJlIGhgAdifIYoySybJbvsZOpZXfowbgv6bnPmJr0Aa4ay8YmHivP2/MTmjuusvNKi
-	0E0xxwLJvtfMOe856L6+AUPOijNrSMxfO1lAv8+g60ZNn65dbpjwFhypjm58w6oqVQNUKM6CydU
-	HDCEuZLO0l4YwgzcbHDA6FWxxsREzIETDOru5Ga6X9+E6FhYd4qvDRf1UlfWfCnxOvs85JzFf81
-	cm7pXNqrA85b7HiuG7M/C1BcvYykLQBABFhBmK2NERcEsfD6nuPkyyL8=
-X-Received: by 2002:a05:620a:4494:b0:937:7836:1501 with SMTP id af79cd13be357-93980599a88mr3451987385a.10.1788927912653;
-        Tue, 08 Sep 2026 21:25:12 -0700 (PDT)
-X-Received: by 2002:a05:620a:4494:b0:937:7836:1501 with SMTP id af79cd13be357-93980599a88mr3451978385a.10.1788927911180;
-        Tue, 08 Sep 2026 21:25:11 -0700 (PDT)
-Received: from [192.168.1.62] (dyn-160-39-33-242.dyn.columbia.edu. [160.39.33.242])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-939aff54ae0sm599275785a.8.2026.09.08.21.25.10
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 08 Sep 2026 21:25:10 -0700 (PDT)
-Message-ID: <f5eea2fd-61d7-4cba-bd0d-f6d454b8c221@columbia.edu>
-Date: Wed, 9 Sep 2026 00:25:10 -0400
+	s=arc-20240116; t=1788927925; c=relaxed/simple;
+	bh=Wl4NLwxKQlaHp7ICqYdsXWmdtgAldUVEsEZrgrQdKwE=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=p13v8p4J8Xgw1iBgKRPB2SDAaIMl93dWxPTfHe9NC3i6vmqi5MyRuZEVKHFkaKvIAy2vwk6540dwQOxQObjcOcz2TJusCfWdmDNdDRKrKu+p7GvPJAZsUe4AlgrfaCsyKsE0dELYlcyYI3O+BY0dP6FeV/s2lB9WAxOd3HMmRmM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=162.243.161.220
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
+Received: from zju.edu.cn (unknown [10.98.66.117])
+	by mtasvr (Coremail) with SMTP id _____wA3IT+q36BqsMIBAQ--.6619S3;
+	Wed, 09 Sep 2026 12:25:15 +0800 (CST)
+Received: from localhost.localdomain (unknown [10.98.66.117])
+	by mail-app2 (Coremail) with SMTP id zC_KCgAnl8yp36Bq1ERlBA--.7899S2;
+	Wed, 09 Sep 2026 12:25:14 +0800 (CST)
+From: Fan Wu <fanwu01@zju.edu.cn>
+To: ogabbay@kernel.org
+Cc: dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	koby.elbaz@intel.com,
+	konstantin.sinyuk@intel.com,
+	Fan Wu <fanwu01@zju.edu.cn>
+Subject: [PATCH] accel/habanalabs: fix use-after-free of decoder array on removal
+Date: Wed,  9 Sep 2026 04:23:33 +0000
+Message-Id: <20260909042333.652206-1-fanwu01@zju.edu.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 5/7] btrfs: convert heuristic_collect_sample() to use
- folios
-To: dsterba@suse.cz
-Cc: David Sterba <dsterba@suse.com>, Chris Mason <mason@kernel.org>,
-        Qu Wenruo <wqu@suse.com>,
-        "Matthew Wilcox (Oracle)" <willy@infradead.org>,
-        linux-btrfs@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260907-btrfs-folio-conversions-v2-0-b5fe79f7607b@columbia.edu>
- <20260907-btrfs-folio-conversions-v2-5-b5fe79f7607b@columbia.edu>
- <20260909012633.GI9053@suse.cz>
-Content-Language: en-US
-From: Tal Zussman <tz2294@columbia.edu>
-In-Reply-To: <20260909012633.GI9053@suse.cz>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: XbsAHxl1lZsPzMjDUpmtBgbPh2_318G7
-X-Proofpoint-ORIG-GUID: XbsAHxl1lZsPzMjDUpmtBgbPh2_318G7
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA5MDA0OCBTYWx0ZWRfX0+yK+KDyAeEe
- TGVi/68r+qHDDkJAWtJfu51M+gLv7RQY07/m8L3wc6+hlYEw2OEel9G124nkQCxJ9JXEz6qM/vS
- 5nGMlRitVePx8POzFqiLWFr6oi1O3YRsYyLSLVeW5LJ0GslPGzrbfUwcWfv/66J/9lIfS3c5NQe
- M9+gliZb9bD5zk3QS6IyBINEsv8eFuvqiA/h/oW4CQ80RrMd2WGLZHEHcH6XXqXDSAuW7cfOt3g
- wwrtCXWckni7zB7j2/Ga0bDbtR4+rfrE4tTcN2qnCyXyQuxr4bpZ5vsrao/7DDmIf4/CIxoNAJW
- bZvRYE67oG3mYA3fAdKXgbWa360PGJA7c3xrgn7sa/OPeKTnoyftt85HIadJUT0ickFf/ZKvCVU
- WJ+j5NT+3T2+Du+0EtIp1FODJ+uvvKiNjVoADVZcXNK6zepDqfZTBg4Z2vmZNFz5WmM0gb0DNjw
- 05e3gtdnrji8HZ5rrCw==
-X-Authority-Analysis: v=2.4 cv=dbiwG3Xe c=1 sm=1 tr=0 ts=6aa0dfa9 cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=GaPK54s0Se3oFqK5NkZy0g==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=x7bEGLp0ZPQA:10 a=A0y_DWxS2BwA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=Da8U98TiO7q1upZEImrf:22 a=HpS3TJQ9O3Ob1ozEcmik:22
- a=iox4zFpeAAAA:8 a=OO2bWSZ2hmC-76FcYzMA:9 a=QEXdDO2ut3YA:10
- a=PEH46H7Ffwr30OY-TuGO:22 a=WzC6qhA0u3u7Ye7llzcV:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA5MDA0OCBTYWx0ZWRfX1qFDVbo7f6BF
- Vdro3vNIciCsLPOev42j/N9JSvfY14QdyRW9dlUGSJ54OViDgn3Zs8s86Lyu2P9Zlw2EZdDtaw1
- toJO9otjxDpOAtEEsRpMxd7Q4BSwhyBS/+zlK0aoE+CAGYWnsrMA
-X-Proofpoint-Virus-Version: vendor=nai engine=6900 definitions=11900
- signatures=596817
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 adultscore=0 impostorscore=10 clxscore=1015 priorityscore=1501
- spamscore=0 bulkscore=10 lowpriorityscore=10 malwarescore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609090048
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zC_KCgAnl8yp36Bq1ERlBA--.7899S2
+X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
+X-CM-DELIVERINFO: =?B?XK2YWwXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
+	sfncGSG+szpQCInt5Y8rbJUI1WPFe0A9UKFs1YTwuduIBOmQvZqqXZuwkW8ECt1H6MeYyT
+	6x7/eIh0Wrdk168UJUs=
+X-Coremail-Antispam: 1Uk129KBj93XoW7urWxAw4fCrWDuF13tw13GFX_yoW8uF1rpF
+	WrGFWrAFW7Ga1xCw1Yyay0vFy3u3sI9rWIkF1Ikw4Skrs8Jry8Gw15KF1Y9ry3CrWxZa4j
+	vF4qqrW5uF45JrcCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUU9lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AK
+	xVW0oVCq3wAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc804V
+	CY07AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AK
+	xVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48Icx
+	kI7VAKI48JM4x0Y48IcxkI7VAKI48G6xCjnVAKz4kxMxAIw28IcxkI7VAKI48JMxC20s02
+	6xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_Jr
+	I_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v2
+	6r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj4
+	0_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVWUJVW8
+	JbIYCTnIWIevJa73UjIFyTuYvjxU7gAwDUUUU
 
-On 9/9/26 4:26 AM, David Sterba wrote:
-> On Mon, Sep 07, 2026 at 04:19:59PM -0400, Tal Zussman wrote:
->> Convert the sampling loop to folios. This removes the last caller of
->> find_get_page() in btrfs and saves a call to compound_head() per sampled
->> page. Document that the lookup is not supposed to fail with an ASSERT().
->> 
->> Reviewed-by: Qu Wenruo <wqu@suse.com>
->> Signed-off-by: Tal Zussman <tz2294@columbia.edu>
->> ---
->>  fs/btrfs/compression.c | 10 ++++++----
->>  1 file changed, 6 insertions(+), 4 deletions(-)
->> 
->> diff --git a/fs/btrfs/compression.c b/fs/btrfs/compression.c
->> index 979b2ffbd8fc..fa8b92592321 100644
->> --- a/fs/btrfs/compression.c
->> +++ b/fs/btrfs/compression.c
->> @@ -1488,7 +1488,7 @@ static bool sample_repeated_patterns(struct heuristic_ws *ws)
->>  static void heuristic_collect_sample(struct inode *inode, u64 start, u64 end,
->>  				     struct heuristic_ws *ws)
->>  {
->> -	struct page *page;
->> +	struct folio *folio;
->>  	pgoff_t index, index_end;
->>  	u32 i, curr_sample_pos;
->>  	u8 *in_data;
->> @@ -1514,8 +1514,10 @@ static void heuristic_collect_sample(struct inode *inode, u64 start, u64 end,
->>  
->>  	curr_sample_pos = 0;
->>  	while (index < index_end) {
->> -		page = find_get_page(inode->i_mapping, index);
->> -		in_data = kmap_local_page(page);
->> +		folio = filemap_get_folio(inode->i_mapping, index);
->> +		ASSERT(!IS_ERR(folio));
->> +		in_data = kmap_local_folio(folio,
->> +				offset_in_folio(folio, (u64)index << PAGE_SHIFT));
-> 
-> It would be better to avoid the cast, this is source of subtle errors so
-> we try to avoid that. With demise of 32bit architectures it's less of a
-> problem because index (pgoff_t) is 64 bit type but still.
-> 
-> Please insert a patch that changes the type of index and index_end to
-> u64, we initialize them from a u64 type anyway and we know the value
-> fits to pgoff_t (as argument to filemap_get_folio()).
-> 
+The abnormal decoder interrupt queues the decoder's abnrm_intr_work
+work item on the system workqueue, and the work callback uses the
+decoder entry it is embedded in.
 
-Makes sense, will do.
+hl_device_fini() releases the decoder interrupts through
+cleanup_resources() -> halt_engines() before it calls hl_dec_fini(),
+which frees the decoder array without waiting for these work items.
+A work item queued by one of the last interrupts can still be pending
+and run after the array has been freed.
+
+Fix this by waiting for each decoder's work item in hl_dec_fini()
+before the array is freed. The error path of hl_dec_init() keeps
+freeing the array directly: no interrupt has been requested yet, and
+the entries past the failing one have never been initialized.
+
+This issue was found by an in-house static analysis tool.
+
+Fixes: d7bb1ac89b2f ("habanalabs: add gaudi2 asic-specific code")
+Cc: stable@vger.kernel.org
+Assisted-by: Codex:gpt-5.6
+Co-developed-by: Song Li <songl@zju.edu.cn>
+Signed-off-by: Song Li <songl@zju.edu.cn>
+Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+---
+ drivers/accel/habanalabs/common/decoder.c | 13 ++++++++++++-
+ 1 file changed, 12 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/accel/habanalabs/common/decoder.c b/drivers/accel/habanalabs/common/decoder.c
+index e4802f30c08a..ed0c25934206 100644
+--- a/drivers/accel/habanalabs/common/decoder.c
++++ b/drivers/accel/habanalabs/common/decoder.c
+@@ -85,6 +85,16 @@ static void dec_abnrm_intr_work(struct work_struct *work)
+ 
+ void hl_dec_fini(struct hl_device *hdev)
+ {
++	struct asic_fixed_properties *prop = &hdev->asic_prop;
++	int i;
++
++	if (!hdev->dec)
++		return;
++
++	/* interrupts are gone, but a queued work item may still be pending */
++	for (i = 0; i < prop->max_dec; i++)
++		cancel_work_sync(&hdev->dec[i].abnrm_intr_work);
++
+ 	kfree(hdev->dec);
+ }
+ 
+@@ -119,7 +129,8 @@ int hl_dec_init(struct hl_device *hdev)
+ 	return 0;
+ 
+ err_dec_fini:
+-	hl_dec_fini(hdev);
++	/* No interrupt was requested yet, so no work could be queued. */
++	kfree(hdev->dec);
+ 
+ 	return rc;
+ }
 
