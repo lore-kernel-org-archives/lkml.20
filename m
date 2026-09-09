@@ -1,332 +1,233 @@
-Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com [209.85.128.71])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88C15552931
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 11:56:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.71
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F51754B1D2
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 11:56:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788954970; cv=none; b=IDNvUBqwkwHmtsF3N325KFPVUUA9QspQeZTEu/9Z0e6X/p351arWiR2vwRG/mh362mMD82PHJRNIY/Z+eMcyjCNDF0AfOVOwdZy7JpdDQdut/VGT9q04WMCsggU0M3mUPF28imOrlCS3eGZKeZ0+a6g4bhoD7NUByU1f0y0Q4ME=
+	t=1788954974; cv=none; b=APiyJ8v1kDbYvBvRL6cEO2ohUAWqjFPeMG7lP7g/uS4Q5deAHSS+8LZgKC+/nW5EcqSaqsvdPBGOEZDfEq53yWCuXZYEE/EehKT0Enw3O6jatY5KuMcstj4RS9LizLGSf2fIyRsDauczXAE2q0vMD7AaIL25TwHHT6eDzbdJeis=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788954970; c=relaxed/simple;
-	bh=pRW4HEecg9x05VlvvNHWyO+Xj06f//HTE1CvA11M7fI=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=drF9SN3lpgm8RaNK+7HAWRXTYG36g6yAAHfP4OCv2LEo/FONkpoX5AdrhcH3B5x17EVZCBQ9v/Zag8gyDDfF67LNEx66SwwUQcM5DwV/oZObHe+dr98JZRxKs2wMK+5VWtZ6BsWlDCaP1b4jgnlhjnyQnmMtfkeo+oiCGOVqFtQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--ardb.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=DpyRsEZA; arc=none smtp.client-ip=209.85.128.71
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--ardb.bounces.google.com
+	s=arc-20240116; t=1788954974; c=relaxed/simple;
+	bh=LvHU+WY1XnXcp3J6reMyDn4V7yDRysf1KLcYrbeZDcw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=eur68l1t8yv+/f/oYBm5X5fJgWNqiBfrkUKnt8YsWy400nxWvAmtFuQUqf46BoiL14KvsYKnR7rRpKKsXxD8ZGz0VbNpuFvLTy8RtLuH5ef7FyQesu6E7z2f76W2s9Pdxid4XUeBNhfMKVx+nFJDrTvoWLU3TLbSAOF2uGQ97ak=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=USrI7Zyt; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="DpyRsEZA"
-Received: by mail-wm1-f71.google.com with SMTP id 5b1f17b1804b1-49d0ae342b9so28323895e9.1
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 04:56:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788954967; x=1789559767; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:from:subject
-         :message-id:references:mime-version:in-reply-to:date:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=M1PgB2C5uHj9PbLGcmV0eg0x/me0oU1kp6bOAlQo5bk=;
-        b=DpyRsEZAKKHhuwEhn6S7VedCpwlLL6ZQAhyPdLp7bU/VvT6hst7tfEimQPDcJYtFBW
-         qZo6icMSjOSADZIslGj771L2SPR50Nv1Pod413m70+0E/n9WE0EEGzGqiDX35dD/f8TA
-         5gQ1cTmM/CnAFKSmNcXabv3XXf9OGl+VWWlqS4jZxoNlTr/tGY4CKNd1Wl42lR2spiOV
-         ZpMwHQHy5Ij1Vnnr1lbolVbJ9l1+NPnzusahrPeB3VNb508sstgo6B7p2loQToX6vYXK
-         k6uguxkfq00LhuGabJXOupquDBUdLn6dKSev08V/lMZGHKB7yr6jv/1NzPKpHBKoc9Ue
-         SY8g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788954967; x=1789559767;
-        h=content-transfer-encoding:content-type:cc:to:from:subject
-         :message-id:references:mime-version:in-reply-to:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=M1PgB2C5uHj9PbLGcmV0eg0x/me0oU1kp6bOAlQo5bk=;
-        b=kdVwaoPz9SpfksbiYIZybsUMheyLdCkJFALFnwbSPF34UF8CmP5eY5F3BuSe5QNnO/
-         ao5MZV258l3MLkQpvrQcRh3xuQLUJUKdQf/a0kQTbf3IrbQSYe2xQ5c7GCBfCqA3oC1b
-         n8OMfjgB4GLC0mk2ZKZXpzzkPF7pf/LtpucI6lMdiONlmLqfIFfNgobtizZAqQ64p+E6
-         1I6iKqs7TCBrBg+0S7cj/HR0swwyEh/MzScxY3Hy8Jj6puBkQplpIXHITYIXkAw5iG+X
-         tzFyM3/vOexE6LxZt4Pt8Rj06XgEWrHfD+Cmz1gFM/eWRFqVwhmXQGwZYO+VXb1ymFd2
-         B73w==
-X-Gm-Message-State: AFuF++mDDyW9vKs/aOO5j6SZxWYNq9pfdt3X+8AXjVUT1qBmIYFEZZ4O
-	2kIhx8OubBqgzctCzzummXTDtWTfYbEoIyfBoQWePwG4UD3OeiCxJxZHFocwunXcaqyegN3ksg=
-	=
-X-Received: from wmbeu9.prod.google.com ([2002:a05:600c:81c9:b0:49c:ce06:6657])
- (user=ardb job=prod-delivery.src-stubby-dispatcher) by 2002:a05:600c:81c8:b0:49d:1f10:8b9f
- with SMTP id 5b1f17b1804b1-49d1f109802mr48575265e9.7.1788954966686; Wed, 09
- Sep 2026 04:56:06 -0700 (PDT)
-Date: Wed,  9 Sep 2026 13:55:41 +0200
-In-Reply-To: <20260909115530.1924665-12-ardb+git@google.com>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="USrI7Zyt"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1788954972;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=c4eejlWwd5v95yqiSdhvvCd5zgSHMIu25fflPX5vypA=;
+	b=USrI7ZytmDSG0KDK8JeTaqqE3jJCRoyXknax5IdryPI5PEuiF/B5pzqeiCP3SS2EFq0nQj
+	poKjojZMZlq/g64h8Gv7Ql0nm8gG6WHi/wkDMjORYMQiPXkDiT8xKOMIZRJ/yWGV6W49hB
+	chg5/fbxXsLG9wjwzlWHcZuuvzlYRMo=
+Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-14-8MsdSkmzP-CU4zuPdIGbJA-1; Wed,
+ 09 Sep 2026 07:56:07 -0400
+X-MC-Unique: 8MsdSkmzP-CU4zuPdIGbJA-1
+X-Mimecast-MFC-AGG-ID: 8MsdSkmzP-CU4zuPdIGbJA_1788954965
+Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 29D301800627;
+	Wed,  9 Sep 2026 11:56:05 +0000 (UTC)
+Received: from thuth-p1g4.redhat.corp (headnet05.pony-001.prod.iad2.dc.redhat.com [10.2.32.117])
+	by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 18B4A1956088;
+	Wed,  9 Sep 2026 11:55:59 +0000 (UTC)
+From: Thomas Huth <thuth@redhat.com>
+To: Eric Biggers <ebiggers@kernel.org>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
+	"David S. Miller" <davem@davemloft.net>,
+	"Jason A. Donenfeld" <Jason@zx2c4.com>,
+	Ard Biesheuvel <ardb@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>
+Cc: linux-crypto@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	linux-doc@vger.kernel.org
+Subject: [PATCH v2 13/13] lib/crypto: Add documentation about zeroization of key and context data
+Date: Wed,  9 Sep 2026 13:54:49 +0200
+Message-ID: <20260909115455.157093-14-thuth@redhat.com>
+In-Reply-To: <20260909115455.157093-1-thuth@redhat.com>
+References: <20260909115455.157093-1-thuth@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260909115530.1924665-12-ardb+git@google.com>
-X-Developer-Key: i=ardb@kernel.org; a=openpgp; fpr=F43D03328115A198C90016883D200E9CA6329909
-X-Developer-Signature: v=1; a=openpgp-sha256; l=8323; i=ardb@kernel.org;
- h=from:subject; bh=4dLVPZyjs94kAN2Ujs1pKn8L7TMMSfHm0tBktF2p2CE=;
- b=owGbwMvMwCVmkMcZplerG8N4Wi2JIWuhp90qeZldv7k9n70TizgX+3jvH/3sKcYFLqs18hvk7
- 0468OlFRykLgxgXg6yYIovA7L/vdp6eKFXrPEsWZg4rE8gQBi5OAZjIJQeG/6FvuRTO6qQnb2f7
- 6ypy2OeV7pJipxROq/snZOvuCzlKazL801mZtUnO7XZhsues9fLnc534VnxePPvJrGbz3vLJ+9X PMwAA
-X-Mailer: git-send-email 2.55.0.1003.g10538fe699-goog
-Message-ID: <20260909115530.1924665-22-ardb+git@google.com>
-Subject: [PATCH v2 10/10] efi/libstub: add initial Boot Loader Interface support
-From: Ard Biesheuvel <ardb+git@google.com>
-To: linux-efi@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org, Ard Biesheuvel <ardb@kernel.org>, 
-	Vincent Mailhol <mailhol@kernel.org>, x86@kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
 
-From: Vincent Mailhol <mailhol@kernel.org>
+Add a central document about zeroization in libcrypto so we don't
+have to repeat this information in the individual kernel docs of
+the zeroization functions all over the place.
 
-The Boot Loader Interface (BLI) [1] defines EFI variables that expose
-boot loader state to the running OS. LoaderInfo identifies the boot
-loader, while LoaderDevicePartUUID records the GPT partition UUID of
-the partition containing it.
-
-LoaderDevicePartUUID is used, for example, by systemd-gpt-auto-generator
-[2] to identify the disk the boot loader was launched from and
-automatically detect and mount partitions on it.
-
-GRUB [3] and systemd-boot [4] populate these variables, but when the
-kernel is started directly by EFI firmware, there is no conventional
-external boot loader to provide them. In that case, because the EFI stub
-performs the boot loader role, it should provide the variables itself.
-
-Use LoaderInfo as a sentinel: if it is already set by an earlier boot
-stage or cannot be set, bail out. Otherwise, populate the other BLI
-variables.
-
-Parse the loaded image device path, extract the GUID signature from its
-GPT HD() node and publish it under the Linux loader entry vendor GUID as
-the volatile LoaderDevicePartUUID EFI variable.
-
-Install the efi_bli_set_variables() hook in both the generic efi-stub.c
-path and the x86-specific x86-stub.c path.
-
-[1] The Boot Loader Interface
-Link: https://systemd.io/BOOT_LOADER_INTERFACE/
-
-[2] systemd-gpt-auto-generator
-Link: https://www.freedesktop.org/software/systemd/man/latest/systemd-gpt-a=
-uto-generator.html
-
-[3] GRUB -- =C2=A716.2 bli
-Link: https://www.gnu.org/software/grub/manual/grub/html_node/bli_005fmodul=
-e.html
-
-[4] systemd -- systemd-boot UEFI Boot Manager
-Link: https://github.com/systemd/systemd/blob/main/docs/BOOT.md?plain=3D1#L=
-102
-
-Signed-off-by: Vincent Mailhol <mailhol@kernel.org>
-[ardb: - constify 'image' pointer parameter
-       - pass efi_guid_t* to efi_snprintf()]
-Signed-off-by: Ard Biesheuvel <ardb@kernel.org>
+Signed-off-by: Thomas Huth <thuth@redhat.com>
 ---
- drivers/firmware/efi/libstub/Makefile   |  2 +-
- drivers/firmware/efi/libstub/bli.c      | 87 ++++++++++++++++++++
- drivers/firmware/efi/libstub/efi-stub.c |  1 +
- drivers/firmware/efi/libstub/efistub.h  |  2 +
- drivers/firmware/efi/libstub/x86-stub.c |  1 +
- include/linux/efi.h                     | 22 +++++
- 6 files changed, 114 insertions(+), 1 deletion(-)
+ .../crypto/libcrypto-zeroization.rst          | 129 ++++++++++++++++++
+ Documentation/crypto/libcrypto.rst            |   1 +
+ 2 files changed, 130 insertions(+)
+ create mode 100644 Documentation/crypto/libcrypto-zeroization.rst
 
-diff --git a/drivers/firmware/efi/libstub/Makefile b/drivers/firmware/efi/l=
-ibstub/Makefile
-index 12c0c7deb5cb..564773c89d14 100644
---- a/drivers/firmware/efi/libstub/Makefile
-+++ b/drivers/firmware/efi/libstub/Makefile
-@@ -66,7 +66,7 @@ KBUILD_AFLAGS			:=3D $(KBUILD_CFLAGS) -D__ASSEMBLY__
- lib-y				:=3D efi-stub-helper.o gop.o secureboot.o tpm.o \
- 				   file.o mem.o random.o randomalloc.o pci.o \
- 				   skip_spaces.o lib-cmdline.o lib-ctype.o \
--				   alignedmem.o printk.o vsprintf.o \
-+				   alignedmem.o printk.o vsprintf.o bli.o \
- 				   lib-ucs2_string.o
-=20
- # include the stub's libfdt dependencies from lib/ when needed
-diff --git a/drivers/firmware/efi/libstub/bli.c b/drivers/firmware/efi/libs=
-tub/bli.c
+diff --git a/Documentation/crypto/libcrypto-zeroization.rst b/Documentation/crypto/libcrypto-zeroization.rst
 new file mode 100644
-index 000000000000..b2407f63b743
+index 0000000000000..ba9b05320ad53
 --- /dev/null
-+++ b/drivers/firmware/efi/libstub/bli.c
-@@ -0,0 +1,87 @@
-+// SPDX-License-Identifier: GPL-2.0
++++ b/Documentation/crypto/libcrypto-zeroization.rst
+@@ -0,0 +1,129 @@
++.. SPDX-License-Identifier: GPL-2.0-or-later
 +
-+#include <generated/utsrelease.h>
++Crypto Key Zeroization
++======================
 +
-+#include <linux/efi.h>
-+#include <linux/errno.h>
-+#include <linux/unaligned.h>
++This document describes the conventions for zeroizing crypto structures in the
++kernel.
 +
-+#include "efistub.h"
++.. contents::
 +
-+static efi_guid_t loader_entry_guid =3D LINUX_EFI_LOADER_ENTRY_GUID;
++Overview
++--------
 +
-+static const struct efi_hd_dev_path *
-+efi_bli_find_hd_node(const struct efi_dev_path *path)
-+{
-+	const struct efi_dev_path *node;
-+	u16 node_len;
++Cryptographic key material and intermediate state (such as HMAC contexts) must
++be zeroized after use to prevent sensitive data from lingering on the stack or
++heap, where it could be leaked through memory disclosure vulnerabilities,
++crash dumps, or cold-boot attacks.
 +
-+	for (node =3D path;
-+	     node->header.type !=3D EFI_DEV_END_PATH &&
-+	     node->header.type !=3D EFI_DEV_END_PATH2;
-+	     node =3D (const void *)node + node_len) {
-+		node_len =3D get_unaligned_le16(&node->header.length);
++For memory that has been allocated with kmalloc() or a similar function,
++kfree_sensitive() should be used instead of kfree() to release the memory.
 +
-+		if (node_len < sizeof(node->header))
-+			return NULL;
++For other cases, the kernel provides ``memzero_explicit()`` for clearing the
++memory.  Unlike plain ``memset()``, ``memzero_explicit()`` is guaranteed not
++to be optimized away by the compiler, even when the memory being cleared
++appears to be dead.
 +
-+		if (node->header.type !=3D EFI_DEV_MEDIA ||
-+		    node->header.sub_type !=3D EFI_DEV_MEDIA_HARD_DRIVE)
-+			continue;
++The crypto library builds on ``memzero_explicit()`` by providing typed
++zeroization helpers for each key and context structure.  These helpers serve
++two purposes:
 +
-+		if (node_len < sizeof(node->hd))
-+			return NULL;
++1. They make ``__cleanup()`` annotations possible, so that structures on
++   the stack are automatically zeroized when they go out of scope.
 +
-+		if (node->hd.partition_format !=3D EFI_HD_PARTITION_FORMAT_GPT ||
-+		    node->hd.signature_type !=3D EFI_HD_SIGNATURE_TYPE_GUID)
-+			continue;
++2. They improve readability by replacing ``memzero_explicit(&key, sizeof(key))``
++   with a self-documenting call like ``aes_zeroize_key(&key)``.
 +
-+		return &node->hd;
-+	}
 +
-+	return NULL;
-+}
++What to zeroize
++---------------
 +
-+static void efi_bli_populate_loader_part_uuid(const efi_loaded_image_t *im=
-age)
-+{
-+	static efi_guid_t device_path_guid =3D EFI_DEVICE_PATH_PROTOCOL_GUID;
-+	efi_char16_t partuuid[UUID_STRING_LEN + 1];
-+	const struct efi_hd_dev_path *hd_node;
-+	const struct efi_dev_path *path;
++The following types of structures hold sensitive material and should be
++zeroized after use:
 +
-+	if (efi_bs_call(handle_protocol, efi_table_attr(image, device_handle),
-+			&device_path_guid, (void **)&path) !=3D EFI_SUCCESS)
-+		return;
++- **Key structures** (e.g. ``struct aes_key``, ``struct hmac_sha256_key``):
++  contain expanded round keys or prepared key material.
 +
-+	hd_node =3D efi_bli_find_hd_node(path);
-+	if (!hd_node)
-+		return;
++- **HMAC/MAC context structures** (e.g. ``struct hmac_sha256_ctx``,
++  ``struct aes_cmac_ctx``): contain inner and outer hash states derived from
++  the key.
 +
-+	if (efi_snprintf(partuuid, ARRAY_SIZE(partuuid), "%pUl",
-+			 &hd_node->signature) !=3D UUID_STRING_LEN)
-+		return;
++- **Hash context structures** (e.g. ``struct sha256_ctx``): may contain
++  sensitive data being hashed.
 +
-+	set_efi_var(L"LoaderDevicePartUUID", &loader_entry_guid,
-+		    EFI_VARIABLE_BOOTSERVICE_ACCESS | EFI_VARIABLE_RUNTIME_ACCESS,
-+		    sizeof(partuuid), partuuid);
-+}
++Not all of these require explicit cleanup by callers.  Many ``..._final()``
++functions already zeroize their context internally (see `Automatic vs. manual
++zeroization`_ below).
 +
-+void efi_bli_set_variables(const efi_loaded_image_t *image)
-+{
-+	static efi_char16_t loader_info[] =3D L"Linux EFI stub " UTS_RELEASE;
-+	unsigned long size =3D 0;
 +
-+	if (!image)
-+		return;
++Zeroization helpers
++-------------------
 +
-+	if (get_efi_var(L"LoaderInfo", &loader_entry_guid,
-+			NULL, &size, NULL) !=3D EFI_NOT_FOUND)
-+		return;
++Each crypto structure that callers may need to zeroize should have a
++corresponding inline helper function.  The naming convention is::
 +
-+	if (set_efi_var(L"LoaderInfo", &loader_entry_guid,
-+			EFI_VARIABLE_BOOTSERVICE_ACCESS | EFI_VARIABLE_RUNTIME_ACCESS,
-+			sizeof(loader_info), loader_info) !=3D EFI_SUCCESS)
-+		return;
++    <algorithm>_zeroize_<type>(struct <algorithm>_<type> *p);
 +
-+	efi_bli_populate_loader_part_uuid(image);
-+}
-diff --git a/drivers/firmware/efi/libstub/efi-stub.c b/drivers/firmware/efi=
-/libstub/efi-stub.c
-index 42d6073bcd06..2a95f4ea104a 100644
---- a/drivers/firmware/efi/libstub/efi-stub.c
-+++ b/drivers/firmware/efi/libstub/efi-stub.c
-@@ -165,6 +165,7 @@ efi_status_t efi_stub_common(efi_handle_t handle,
- 	dpy =3D setup_primary_display();
-=20
- 	efi_retrieve_eventlog();
-+	efi_bli_set_variables(image);
-=20
- 	/* Ask the firmware to clear memory on unclean shutdown */
- 	efi_enable_reset_attack_mitigation();
-diff --git a/drivers/firmware/efi/libstub/efistub.h b/drivers/firmware/efi/=
-libstub/efistub.h
-index 880c1d0c464b..4f9e7ae28b6c 100644
---- a/drivers/firmware/efi/libstub/efistub.h
-+++ b/drivers/firmware/efi/libstub/efistub.h
-@@ -1072,6 +1072,8 @@ efi_status_t efi_random_alloc(unsigned long size, uns=
-igned long align,
- 			      int memory_type, unsigned long alloc_min,
- 			      unsigned long alloc_max);
-=20
-+void efi_bli_set_variables(const efi_loaded_image_t *image);
++For example::
 +
- efi_status_t efi_random_get_seed(void);
-=20
- efi_status_t check_platform_features(void);
-diff --git a/drivers/firmware/efi/libstub/x86-stub.c b/drivers/firmware/efi=
-/libstub/x86-stub.c
-index cef32e2c82d8..b762f7f37f28 100644
---- a/drivers/firmware/efi/libstub/x86-stub.c
-+++ b/drivers/firmware/efi/libstub/x86-stub.c
-@@ -1014,6 +1014,7 @@ void __noreturn efi_stub_entry(efi_handle_t handle,
- 	efi_random_get_seed();
-=20
- 	efi_retrieve_eventlog();
-+	efi_bli_set_variables(image);
-=20
- 	setup_graphics(boot_params);
-=20
-diff --git a/include/linux/efi.h b/include/linux/efi.h
-index c35446a0b66f..ecb34be37a87 100644
---- a/include/linux/efi.h
-+++ b/include/linux/efi.h
-@@ -957,6 +957,17 @@ extern int efi_status_to_err(efi_status_t status);
- #define   EFI_DEV_END_INSTANCE			0x01
- #define   EFI_DEV_END_ENTIRE			0xFF
-=20
-+enum efi_hd_partition_format {
-+	EFI_HD_PARTITION_FORMAT_MBR =3D 1,
-+	EFI_HD_PARTITION_FORMAT_GPT,
-+};
++    void aes_zeroize_key(struct aes_key *key);
++    void aes_zeroize_enckey(struct aes_enckey *key);
++    void hmac_sha256_zeroize_ctx(struct hmac_sha256_ctx *ctx);
++    void aes_cmac_zeroize_key(struct aes_cmac_key *key);
++    void aes_cmac_zeroize_ctx(struct aes_cmac_ctx *ctx);
 +
-+enum efi_hd_signature_type {
-+	EFI_HD_SIGNATURE_TYPE_NONE,
-+	EFI_HD_SIGNATURE_TYPE_MBR,
-+	EFI_HD_SIGNATURE_TYPE_GUID,
-+};
++Each helper is a ``static inline`` function in the algorithm's header that
++wraps ``memzero_explicit()``, for example::
 +
- struct efi_generic_dev_path {
- 	u8				type;
- 	u8				sub_type;
-@@ -988,6 +999,16 @@ struct efi_rel_offset_dev_path {
- 	u64				ending_offset;
- } __packed;
-=20
-+struct efi_hd_dev_path {
-+	struct efi_generic_dev_path	header;
-+	u32				partition_number;
-+	u64				partition_start;
-+	u64				partition_size;
-+	efi_guid_t			signature;
-+	u8				partition_format;
-+	u8				signature_type;
-+} __packed;
++    static inline void hmac_sha256_zeroize_ctx(struct hmac_sha256_ctx *ctx)
++    {
++            memzero_explicit(ctx, sizeof(*ctx));
++    }
 +
- struct efi_mem_mapped_dev_path {
- 	struct efi_generic_dev_path	header;
- 	u32				memory_type;
-@@ -1007,6 +1028,7 @@ struct efi_dev_path {
- 		struct efi_pci_dev_path		pci;
- 		struct efi_vendor_dev_path	vendor;
- 		struct efi_rel_offset_dev_path	rel_offset;
-+		struct efi_hd_dev_path		hd;
- 	};
- } __packed;
-=20
---=20
-2.55.0.1003.g10538fe699-goog
++These helpers should include kernel-doc comments following the standard
++conventions::
++
++    /**
++     * hmac_sha256_zeroize_ctx() - Zeroize an hmac_sha256_ctx structure
++     * @ctx: The hmac_sha256_ctx context to zeroize
++     */
++
++
++Using __cleanup for automatic zeroization
++-----------------------------------------
++
++The preferred way to zeroize stack-allocated key and context structures is
++with the ``__cleanup()`` attribute.  This ensures zeroization happens on all
++exit paths, including error returns and early exits.
++
++Note that __cleanup() attributes should not be used in functions that use
++"goto" statements. The benefit of cleanup helpers is the removal of "gotos",
++and that "goto" statements can jump between scopes, so the expectation is
++that usage of "goto" and cleanup helpers is never mixed in the same function.
++
++
++Automatic vs. manual zeroization
++--------------------------------
++
++Many ``..._final()`` functions in the crypto library automatically zeroize
++their context before returning.  When this is the case, the kernel-doc for the
++function documents it::
++
++    After finishing, this zeroizes @ctx.  So the caller does not need to do it.
++
++In these cases, callers on simple code paths (where ``..._final()`` is always
++reached) do not need to add ``__cleanup()`` or explicit zeroization.
++However, ``__cleanup()`` is still recommended whenever there are error paths
++that bypass ``..._final()``, as it ensures zeroization on all paths.
++
++For algorithms where ``_final()`` does *not* zeroize the context (such as the
++SHAKE XOFs, where ``shake_squeeze()`` can be called multiple times), callers
++must explicitly zeroize the context by calling the appropriate helper or using
++``__cleanup()``, for example::
++
++    struct shake_ctx ctx __cleanup(shake_zeroize_ctx);
++
++    shake256_init(&ctx);
++    shake_update(&ctx, data, data_len);
++    shake_squeeze(&ctx, out, out_len);
++    /* ctx is automatically zeroized at end of scope */
+diff --git a/Documentation/crypto/libcrypto.rst b/Documentation/crypto/libcrypto.rst
+index e911e05215979..9533c12caa79d 100644
+--- a/Documentation/crypto/libcrypto.rst
++++ b/Documentation/crypto/libcrypto.rst
+@@ -165,4 +165,5 @@ API documentation
+    libcrypto-signature
+    libcrypto-unauth-encryption
+    libcrypto-utils
++   libcrypto-zeroization
+    sha3
+-- 
+2.55.0
 
