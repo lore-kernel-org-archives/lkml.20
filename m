@@ -1,94 +1,182 @@
-Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
+Received: from mail-yx1-f45.google.com (mail-yx1-f45.google.com [74.125.224.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 120D141D635
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 22:21:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.70
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B3523BBFCB
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 22:21:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788992463; cv=none; b=VXkmbaW7ZZKXS0xcvuC8ap2UBg2XgUHP20BXODezI8iVPyGh8/iV9F97sfJXPsY50rd0R7IPnZiOdSVUswRJPu4/bxkaI8wAK/4cZ6kRmuIv5LFMXEZxqYy8oupvyijeXdaHzT/C3IQALe9Z6aP2IIcvo0bjA6qcnvOMG/0l/eQ=
+	t=1788992463; cv=none; b=FIQc37yH9rUQZsv5DlNY8z/CSiw/ejUa68j9tHlOhSiO5B0XBsoJeZETHlrDxBD72abDtMfqOrpcdv8Dnra8UOl9XK2AvpZ17GgAu+hulGN2cWW6A6Vqob5e/wmLILUcUKMmQhV+Vw1jifeccJdv1WD0/Ni2sxYH2ET87Erh+OY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788992463; c=relaxed/simple;
-	bh=VZ+QrtQv7xI7B3IQVjbQxMe+h2xaBR/0SDyIoRVpkXI=;
-	h=Date:Mime-Version:Message-ID:Subject:From:To:Content-Type; b=UjjkFlgLVM3MoqjoHjmQD2R8jK0YS+FOCIxObKB1u4kQXsHCbYaklhQ4bRmuRwnQvcdIXrv/nxWNfLpW5B4FVv4C8KWB8cQY4LI0fGRJLPHePKABXg4OTUbnAm2A77gdLk8ywxGrUp1juNm+JB1ZB61knTPMKeqHmIFjeU6CaNA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Qs19EF5e; arc=none smtp.client-ip=209.85.216.70
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
+	bh=VLRD/HiFi/GxbQj8PeNPU/EKMxkUn5PB7K/ha5tC76E=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=bHkTDvaQnLav4kvij40Wp1GwhI6AcXqD6o2ZHmfpCGPkY35CuvLBxKnznZgfJ50hmdvCt9dx1TngT1AB79y4XRyuo00XYvug84zvYsJz5ET+CeEgJ0c7TxDPTs+wNI8V4lAHLheGrWXt9keOmk+7lMpRpwaNU1oioS5y5BGtHR4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Qbb1kSK6; arc=none smtp.client-ip=74.125.224.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Qs19EF5e"
-Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-3968bb86fb7so7902361a91.2
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 15:21:01 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Qbb1kSK6"
+Received: by mail-yx1-f45.google.com with SMTP id 956f58d0204a3-66fcf87897fso5835093d50.3
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 15:21:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788992461; x=1789597261; darn=vger.kernel.org;
-        h=content-type:to:from:subject:message-id:mime-version:date:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=/mH/R/7XHDTfSxv2g6sI7/hAPq1nkMVsTHrzOC/yfi4=;
-        b=Qs19EF5e2SeTMSYvwl5Svuhz22bFT6NL8gj098h6+ui26Y5OjiP8J3Iy/94EdvilJX
-         QOJOyWX69En9FLF1Qc0C3scfUeHGjOZh7MB2Exu9ekswOItsD+qlZiF4mdo40bl8pmYv
-         pbv+diwI4Tj8BNq6hl1sfQO1/DEjxasE4/IsalkkQUJAk7Uc+YDMv+KFB3X57yo8/ltd
-         nVYirMhWzlEx+ky5e8xnDINEJfWjVuml6O1IUB0N+fEb1T8Lg8rsdOFDvgcKcff+3qfn
-         IJCJwtWqw85UIouIi2ojPePzj+69As2s6z3/OSiD4lVhnayjqCRtr8eew/gHoxnz5116
-         rBXQ==
+        d=gmail.com; s=20251104; t=1788992460; x=1789597260; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=hPyUNlK5ySA3jIC7v7yMIwiALm7eVfCZWgGZ6vs5Uc4=;
+        b=Qbb1kSK67A5OtUER2gAI4th1AQlDHTYY9v2zjsIp3lFpQ4VpGzDGy8uXJolxOeO8mk
+         zhHTgXUQMsXYVUx5RKXkOE7tMboZTvARsvpqpji3D+c1rgtnEsFvz1ivgjUaTVpN9rLi
+         WlHLMQs1CtLG6xAOBFS4K9+ik7fAj1tPWsWn+2ZBYmGP7X+TlToqNeKj+5L6FisSKtyn
+         jb8nmvY3tMdYeQFxzyak+yf5/GhSc4FFzf5rh2ky/RpzZHf1uBJnEtmFRX0TmPHb5/PU
+         VqwGUbYCUYutBlkWgIWdMniQ5Y9klI8RcyOzzYFBLM1YS1dkXGiso0lOW14YDk/0Dx8P
+         JzkA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788992461; x=1789597261;
-        h=content-type:to:from:subject:message-id:mime-version:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=/mH/R/7XHDTfSxv2g6sI7/hAPq1nkMVsTHrzOC/yfi4=;
-        b=nvUQxjZJ4ZTj9CRphUTwehQCCc+jPgwkU4OeHqvyx4a1xz/t5bMyQnIiqffld6qCf8
-         Du7cp7wgU6Q0oKD5BC0WyRC/l6l6O9cHUTC/Dz1Cn8XO/9eg1B+HSjev/ZMEZORaNZb1
-         0hvsPH9VJ6H4gk6EPzelv/y7BARRBXyWETWpWcipOotwqLndn7OH8ZZyZQr3NVXa33Ke
-         5sibd09GdoCHgMGp/fHYSE5txIU1snKDggCZnV6zrOW/VpWCWY2SYwf6gcRCZDJ7SmkC
-         AMgUKEdXI4bobApeHx1xHkSFI7Utz5RgeQ7xCwqO6OsOPgOXjNYS+XtPmBbS06Cd7YZ+
-         oD5Q==
-X-Forwarded-Encrypted: i=1; AKwUvBwuYWrH1aWJfUO1uCpEko13UGWSgGy1jw7/W1UW/qhQQwdogqliukbHpUnyUVekrEADxDhxRGyY3W3EXzY=@vger.kernel.org
-X-Gm-Message-State: AFuF++lYqg1mCIHvYDJpJJhg0OkgDGirhgBv4wxluFGJRKAWlCJ0Lvsf
-	fG/4q8FnbdbOR3J3/pEWr4GAmu7qekhhZIHzavOw2ur+Oq0AwgNyM78OJoDA7d6IvNKxEVU7LiU
-	7cg1kd6yiMw==
-X-Received: from dlj39.prod.google.com ([2002:a05:7022:527:b0:143:355c:770e])
- (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:264e:b0:398:9bd1:3215
- with SMTP id 98e67ed59e1d1-39b262e28cdmr59756112a91.22.1788992460252; Wed, 09
- Sep 2026 15:21:00 -0700 (PDT)
-Date: Wed,  9 Sep 2026 15:20:48 -0700
+        d=1e100.net; s=20251104; t=1788992460; x=1789597260;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=hPyUNlK5ySA3jIC7v7yMIwiALm7eVfCZWgGZ6vs5Uc4=;
+        b=ERxDmUBiza4A1tyNfjuWBc3m028t13d+8Q6PRuSH4NMhPEJGOGK1mg0pYop8e3+9dW
+         zTOBM81HQ2Vla/U2uXGJw8mwzu4cwCIcFNmMSrqr/AHjtj+8PMALuatBNACVfODrkONl
+         mmd1ZBVTSVP4YDVUlEyRaJ0c/GnwSVtIaPoAEC6QO9kyyLRdFBe6BcnK32q38wl7CqWS
+         RLaGiY+PONLO75X6T7inxhSDYQ7/ndLSuSgOHIr486j2H40dQVKxg/lxC13RvH99YLvz
+         xFjqC0Iwz7KIUNVnb0mZuTybm6KKB9KbdeyuD4GGToRYRyefDxRXhDscqKJatqft8Brb
+         NmiA==
+X-Forwarded-Encrypted: i=1; AKwUvBxz6j4QBid4/29JTmwrv+Cm7qDB6wBep9ojcQYj9kBVlTy96KGz0twKflYtxmq934FtBp4RZRPtUKogNnk=@vger.kernel.org
+X-Gm-Message-State: AFuF++mKCa/6ljvegxTfts986MJa4qhvdFk1FfBeOoatIIDk068e8Sg/
+	0yMC6U4M1IEmSetHwhSrq9O5DQY8du0kNLEgFfB2jZFhKY7IByItLDwK
+X-Gm-Gg: AYBFou3nAGGAllNxGewQw6mfSi+OmqEKe5TZzmvVzTFhZs0SfdpnSRBNgyL/IhADWP+
+	DWBdSSAJf4S7STWm8pFqsgJcHefw0Geh8fBeifQnlJO/4MfOvB7423+20O4wN/iOZaZYT9Q3Wxy
+	bBcTZ7f82JLvJq9IuPO62yM9mp5lbnt4ZJiC2D/UqXXbrFJp2P2O7SHEUKF6GQok6nc6gyrX9+b
+	Zfz4fRfAPv/7kJ0U3PPQyprPXkInaKu0+0jd4mPCr4D9PU5Ull7aq2t8LyZ2n1IzjRgLlCNpmpP
+	RlM2kVEoVk1ONQPH251exzukz4/Zb1TDuwjLoGAL5GeQT4y8jmEAiC+QtNB5hE/5NDFDgO9OEb+
+	PS6FkkyWS6V3TwzC8KhZgpIIYSsBRAJA5QYzc4Wz3wZ/7ZMtiaXtTFCxXXxt+1BM0y5NYIwuOnp
+	vxbuZc+6EJKmXN3Oj79sKzX4nijywPDp0MGNqN3IsX74yQUiRxb1bqH3X9oemB/HZnG4vU4Grfi
+	9swVcVkjGlVcGZjxzD2Aneq548rIQ8a
+X-Received: by 2002:a53:cb09:0:b0:66f:c1bc:4075 with SMTP id 956f58d0204a3-66fc1bc4696mr8411416d50.56.1788992459904;
+        Wed, 09 Sep 2026 15:20:59 -0700 (PDT)
+Received: from zenbox ([2600:1700:18fb:6011:bae:bfc2:7e96:e5c8])
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-66fb4641680sm12956460d50.0.2026.09.09.15.20.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 09 Sep 2026 15:20:59 -0700 (PDT)
+Date: Wed, 9 Sep 2026 18:20:58 -0400
+From: Justin Suess <utilityemal77@gmail.com>
+To: Paul Moore <paul@paul-moore.com>
+Cc: ast@kernel.org, daniel@iogearbox.net, andrii@kernel.org, 
+	kpsingh@kernel.org, matt@bobrowski.net, mic@digikod.net, viro@zeniv.linux.org.uk, 
+	brauner@kernel.org, kees@kernel.org, casey@schaufler-ca.com, gnoack@google.com, 
+	jack@suse.cz, song@kernel.org, yonghong.song@linux.dev, martin.lau@linux.dev, 
+	eddyz87@gmail.com, memxor@gmail.com, jolsa@kernel.org, m@maowtm.org, 
+	bpf@vger.kernel.org, linux-security-module@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH bpf-next v3 04/15] lsm: Add the bpf_lsm_policy_release
+ kfunc and policy object destructor
+Message-ID: <aqHUw6k0Mf83CGFT@zenbox>
+References: <20260909193719.518517-1-utilityemal77@gmail.com>
+ <20260909193719.518517-5-utilityemal77@gmail.com>
+ <CAHC9VhQHZ+ngFdzKqmnzBh341CGEg-jexu+QYU8=1qXK=u-x-Q@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.55.0.1003.g10538fe699-goog
-Message-ID: <20260909222048.2138387-1-irogers@google.com>
-Subject: [PATCH v1] perf test x86: Fix missing __msan_unpoison
-From: Ian Rogers <irogers@google.com>
-To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
-	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, Jiri Olsa <jolsa@kernel.org>, 
-	Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>, 
-	James Clark <james.clark@linaro.org>, linux-perf-users@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAHC9VhQHZ+ngFdzKqmnzBh341CGEg-jexu+QYU8=1qXK=u-x-Q@mail.gmail.com>
 
-__msan_unpoison may need the sanitizer header including for its
-definition.
+On Wed, Sep 09, 2026 at 05:34:31PM -0400, Paul Moore wrote:
+> On Wed, Sep 9, 2026 at 3:37 PM Justin Suess <utilityemal77@gmail.com> wrote:
+> >
+> > Add security/bpf_lsm_kfuncs.c, the home of the kfuncs exposing LSM
+> > policy objects to BPF programs, with the first of them:
+> >
+> >   bpf_lsm_policy_release(object)                KF_RELEASE
+> >
+> > The kfuncs are the LSM framework's own BPF interface: there is no
+> > per-LSM kfunc and no intermediate security_*() layer.  Each kfunc
+> > walks the matching hook's implementation list and calls the one
+> > registered by the LSM whose lsmid the policy object carries.  Calling
+> > a kfunc for an LSM that is not active or has no policy object support
+> > fails at runtime rather than hiding the kfunc at verification time,
+> > so BPF program loading is independent of the boot-time LSM
+> > configuration.
+> >
+> > A policy object reference is meant to be handed over through a map
+> > kptr field, so also register a destructor for struct
+> > lsm_policy_object: map-held references are dropped on map teardown,
+> > possibly from a context that cannot sleep, which the
+> > policy_object_put() hook contract accounts for.  For the same reason
+> > the kfunc is not KF_SLEEPABLE, and the filter adds no per-kfunc rule:
+> > releasing a reference must be allowed wherever one can be held.  The
+> > filter itself is needed because BPF_PROG_TYPE_LSM and
+> > BPF_PROG_TYPE_SYSCALL, the two registered program types, share their
+> > kfunc lookup buckets with other program types.
+> >
+> > Cc: Paul Moore <paul@paul-moore.com>
+> > Cc: KP Singh <kpsingh@kernel.org>
+> > Signed-off-by: Justin Suess <utilityemal77@gmail.com>
+> > ---
+> >
+> > Notes:
+> >     v2->v3:
+> >         - No change.
+> >
+> >  MAINTAINERS               |  1 +
+> >  security/Makefile         |  2 +-
+> >  security/bpf_lsm_kfuncs.c | 98 +++++++++++++++++++++++++++++++++++++++
+> >  3 files changed, 100 insertions(+), 1 deletion(-)
+> >  create mode 100644 security/bpf_lsm_kfuncs.c
+> 
+> While not a new concern, it has been a few months so I want to mention
+> it again to see where things stand with the BPF crowd: are the BPF
+> folks still opposed to BPF kfuncs in security/bpf_lsm_kfuncs.c,
+> similar to fs/bpf_fs_kfuncs.c?
+> 
+> If the answer remains yes, the BPF devs are not able to tolerate
+> kfuncs under security/, then I'm afraid this patchset is stuck.
+> However, if the BPF devs are willing to ACK kfuncs in
+> security/bpf_lsm_kfuncs.c, I'll add this patchset to the review queue
+> for the LSM tree.
+>
+To avocate for the current placement:
 
-Signed-off-by: Ian Rogers <irogers@google.com>
----
- tools/perf/arch/x86/tests/dwarf-unwind.c | 4 ++++
- 1 file changed, 4 insertions(+)
+Placing these kfuncs outside where it is in security/ would
+be very awkward, the kfuncs use lsm internal APIs
+(lsm_for_each_hook, active static keys, lsm dispatch table) that
+have no buisness outside the LSM framework.
 
-diff --git a/tools/perf/arch/x86/tests/dwarf-unwind.c b/tools/perf/arch/x86/tests/dwarf-unwind.c
-index 99d2b7ed016f..3c66dadcab75 100644
---- a/tools/perf/arch/x86/tests/dwarf-unwind.c
-+++ b/tools/perf/arch/x86/tests/dwarf-unwind.c
-@@ -8,6 +8,10 @@
- #include "debug.h"
- #include "tests/tests.h"
- 
-+#if defined(MEMORY_SANITIZER) && !defined(__msan_unpoison)
-+# include <sanitizer/msan_interface.h>
-+#endif
-+
- #define STACK_SIZE 8192
- 
- static int sample_ustack(struct perf_sample *sample,
--- 
-2.55.0.1003.g10538fe699-goog
+And logically, the kfuncs operate entirely on in-tree lsm objects.
 
+> > diff --git a/MAINTAINERS b/MAINTAINERS
+> > index 6215fcb07770..ba816d7ee127 100644
+> > --- a/MAINTAINERS
+> > +++ b/MAINTAINERS
+> > @@ -5081,6 +5081,7 @@ F:        kernel/bpf/bpf_lsm.c
+> >  F:     kernel/bpf/bpf_lsm_proto.c
+> >  F:     kernel/trace/bpf_trace.c
+> >  F:     security/bpf/
+> > +F:     security/bpf_lsm_kfuncs.c
+> 
+> We would need the maintenence of security/bpf_lsm_kfuncs.c to fall to
+> the LSM framework, just as the maintenence of bpf_fs_funcs.c falls to
+> the VFS.
+>
+Agreed.
+
+I intend that any security/ kfuncs go through both LSM and BPF
+review at a minimum. As a bug in any of these kfuncs or their permitted
+calling context / signatures could cause regressions in either subsystem.
+
+Justin
+>   % ./scripts/get_maintainer.pl -f fs/bpf_fs_kfuncs.c
+>   Alexander Viro
+>   Christian Brauner
+>   Jan Kara
+>   linux-fsdevel@vger
+>   linux-kernel@vger
+> 
+> -- 
+> paul-moore.com
