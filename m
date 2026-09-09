@@ -1,71 +1,87 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0275E526A9C;
-	Wed,  9 Sep 2026 16:52:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0878C5650F0;
+	Wed,  9 Sep 2026 16:52:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788972725; cv=none; b=kxNafySjZ/l5lAjaVtMAtYiBaU1gk1i3IzbFCCkIS+fAXZo/GxFkftNePHxwRx6cVEtjFoFxsEgIB7A2mI0VZbyyxWnhEG7n/Q3NaC8UdY6KbG1aDDhkG+USZK4NHflg0EM2pd+zUXBzI918jIoFlEYamT2BxFkS9Olnjq3ybXQ=
+	t=1788972734; cv=none; b=U3J4XiNctqLs42CjIoPAmo2K/1q2etJhaGNQwgz3WZnKt7921cZWKsbey/d++ylbKmFaWDbRjMSc4mtlmjh7IEXYmCvYvautr5r41zwU2SERuzVZOQOF9d/TEF428yeI/Hshqd3H8IuVzBdzRFAaUVIbb6HnishIGMW2SSrTqok=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788972725; c=relaxed/simple;
-	bh=77U0sNB5KVlqdmLgJrpu4tHO39n35SBjSp/QWT3jEL0=;
+	s=arc-20240116; t=1788972734; c=relaxed/simple;
+	bh=lQn2lAir9FmbcFgnCmsBi+UMc2rRhAOD5HAtcyzblbo=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=o5aKrYD7CECeuSrHvabugVXmmfQf5sI8Zzq49NEvCErcEPic/We6WchOxEW4QQ/ze1LZ3vzJR57jtCOnFXaV6yEIHVnNbIECcVri8kiA2IS6kNw9YJiwgkhdO4hZ/C0bUffO/T9WukH/SqUdTDOhthRCvK8sVVH5qDabTCy4ka4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CfC+MCc0; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=MgEejlqwYbhbr0POG4KhkXypbMfrK5+HbQvNuQMYRAVfZd2pSx9Aw/Ug3rl17IJJwSk1qhkPZYsN4dHByNfE4pwY1jmJ2WR3FSwILLvvqZ9qMv7/2oSQFCXXMfznQDMG+1C9mer6CcAy8EtLutrLebAsHuobyIBPToI7cuQFULs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=DWmIPfOG; arc=none smtp.client-ip=178.251.229.89
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CfC+MCc0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 573181F000FF;
-	Wed,  9 Sep 2026 16:51:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788972723;
-	bh=HgC9sEOwgkiHFo9nm8IwcHna7p/hR9fCjHKYivIfM14=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=CfC+MCc0nrX7sMf/aBoff2VzQK24psnb39s3VkoDRq+ZhH3P6alsK7j92SN649FA2
-	 tUPITzXgmaBspYY1PWbUV0Xe+VvZbGNMPtCQMuPYziiEtX6wORnCfKwQUu3mfaqvNC
-	 xVjLr2LssKMqtTMNkIc8gK+Ls02og5sFm/2iZVlAr686Dwx/qUGgseOBLqXw2RRMFo
-	 Y+A6ZRAKwJJAwo9StOnlUkdJLHDJ5Du4eSU5yr0OBveWL3Wwr/JBHZiM47stWgtTQ+
-	 x9tv2u5sEyTUYm2gHMCBe9ere+sf4Ji91HsSBzcj8YAl8glI4XJJ+raDv2lGkpojQu
-	 X1hp2a542rnZg==
-Date: Wed, 9 Sep 2026 18:51:54 +0200
-From: Manivannan Sadhasivam <mani@kernel.org>
-To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Cc: chunfeng.yun@mediatek.com, vkoul@kernel.org, neil.armstrong@linaro.org, 
-	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, matthias.bgg@gmail.com, 
-	chunkuang.hu@kernel.org, p.zabel@pengutronix.de, justin.yeh@mediatek.com, 
-	linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
-	linux-phy@lists.infradead.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	dri-devel@lists.freedesktop.org, kernel@collabora.com
-Subject: Re: [PATCH v3 01/12] dt-bindings: phy: Document MT8195 and MT8196
- DisplayPort PHYs
-Message-ID: <flb6ugxd5ssocnrxqs7vtjfvtjschvscoputms6bruw2uelpf3@xp2eumt5pwmk>
-References: <20260707154245.198361-1-angelogioacchino.delregno@collabora.com>
- <20260707154245.198361-2-angelogioacchino.delregno@collabora.com>
+	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="DWmIPfOG"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 011A6101EDF;
+	Wed, 09 Sep 2026 18:52:02 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
+	s=dkim; t=1788972725;
+	h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 in-reply-to:references; bh=ikpn/6xWU1Pyb3tbfdQJr8tyx90voFpcP63y3bK2J7E=;
+	b=DWmIPfOGsrMNulYtoStR2KaxJp5yfettnMD6+IftuSr+OwD1zdBHCg/DX+n/wEEsil51YW
+	jSa5gZKscSsa8iyCsgOp0Y84MGU4MKVXM3rv/LscjOpyW/Bys33bDC7QCWQRRB+/43nhwg
+	AM90FJwG519bHux/HiDaHSAuU3pR5acPyg2U/Zb3dPOc8qJFrNBkEfVyYEfq2ww1/OiHgw
+	PG3enQPISbRn9HoI8tD04jp7WXdacRh0K9rBNSwzB8bfXSsnDRA5SEbzX5ReJEcCUQEhHD
+	Vwj3mjCVOcd5N9ZM2MkLFJuZScybR/V9T42cMlOwC/RbkemgpUFYyG1wf6aJAQ==
+Date: Wed, 9 Sep 2026 18:52:01 +0200
+From: Pavel Machek <pavel@nabladev.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: stable@vger.kernel.org, patches@lists.linux.dev,
+	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org,
+	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org,
+	patches@kernelci.org, lkft-triage@lists.linaro.org,
+	pavel@nabladev.com, jonathanh@nvidia.com, f.fainelli@gmail.com,
+	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
+	hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
+	sr@sladewatkins.com
+Subject: Re: [PATCH 6.18 000/583] 6.18.51-rc1 review
+Message-ID: <aqGOsXLUZ164rVOF@duo.ucw.cz>
+References: <20260909134237.773280130@linuxfoundation.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: multipart/signed; micalg=pgp-sha1;
+	protocol="application/pgp-signature"; boundary="4XPSkX+TWMH9hFbg"
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260707154245.198361-2-angelogioacchino.delregno@collabora.com>
+In-Reply-To: <20260909134237.773280130@linuxfoundation.org>
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Tue, Jul 07, 2026 at 05:42:34PM +0200, AngeloGioacchino Del Regno wrote:
-> This adds bindings for the DisplayPort and Embedded DisplayPort
-> PHYs found in the MediaTek MT8195 SoC (and variants of) and for
-> the Embedded DisplayPort found in the MT8196 SoC (and variants).
-> 
-> This PHY supports varying impedance calibrations for the various
-> signals to reach an optimal EYE signal pattern for any specific
-> board(s), especially useful for very high bitrates such as HBR3
-> and higher, depending on board design.
-> 
-> Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 
-Acked-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+--4XPSkX+TWMH9hFbg
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-- Mani
+Hi!
 
--- 
-மணிவண்ணன் சதாசிவம்
+> This is the start of the stable review cycle for the 6.18.51 release.
+> There are 583 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+
+CIP testing did not find any problems here:
+
+https://gitlab.com/cip-project/cip-testing/linux-stable-rc-ci/-/tree/linux-6.18.y
+
+Tested-by: Pavel Machek (CIP) <pavel@nabladev.com>
+
+Best regards,
+                                                                Pavel
+
+--4XPSkX+TWMH9hFbg
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iF0EABECAB0WIQRPfPO7r0eAhk010v0w5/Bqldv68gUCaqGOsQAKCRAw5/Bqldv6
+8p0eAJ9vapROQZXU0Ore+HR4U7EWcYS+ZwCfZ5hftmCTwTYqRr/85lCnxWJYpkE=
+=olhY
+-----END PGP SIGNATURE-----
+
+--4XPSkX+TWMH9hFbg--
