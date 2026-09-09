@@ -1,352 +1,414 @@
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57A17352034
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 04:56:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AA8E352034;
+	Wed,  9 Sep 2026 04:57:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788929799; cv=none; b=kFC9YH5ELsuJs2GY03rUQiM5M5HwoFrtNMftpBFZ/68BN1Pf5DBmvJow3CNRtIUJEgwRUeVXkQRLDHkwKbWGuEO0ATOnp6GdJvNtHVRPyjjsPZfGvHpTEwz9ssJrtTPDMutoGFtKMdQ1tIT7zL0I03VfRoaYUyfnt3wgc7Lhbrg=
+	t=1788929826; cv=none; b=lJQ90hZTWZ4F91z3/r1QP4vvlUu5opP0Y1GCBDywvLZlh9XGoVHYdMTrh4H3JTLdFQpLF/3Au6b1c9X5B6f25MyO6GfPdbq2Gkfo3Vehxwa2N4ub42CXmHo2UbzJrhgAS4cNVUjh+0PD1Zx0H4+UJHmrrLJqRk8ioA54vlMdzgA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788929799; c=relaxed/simple;
-	bh=I8x9Xab1quqd7JSPC5TH+cvtiOWpzpmg6wkMXgH4ue0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=onGnUQAbz73xel/BtaaRGkeZ4lLzGuYzXFkD8iaH3g0n1rcFWCv6rnUdcMKnp8ggkchb3YjF+NoWwpl9YNqto4/IC0vSNKXoIB2d6chQ+To0qncDvx8TI0G4ofWCxhyNF5W8pLHxr6qaRsXfp3C7/DpVHPFT3sZI1GhD5vFnIcs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=bnj35BDr; arc=none smtp.client-ip=209.85.128.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	s=arc-20240116; t=1788929826; c=relaxed/simple;
+	bh=tMBEbq3nxe4nO1M0xsqpx6WR0zRku7JRWH15O/ybHN4=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=HUwqijnIACKK2n9KiWVLdLpkcIQj4cIe20dQ/KEDogj44pDe+VFbEimyOI2U/7aYNcPE1zlBYDdZIehaKSRwEH+NSrHn1zPw1P2Obr+Pi0VH2Jpq55709qSJdv5wlSOwm0RYxbPHBs349QKiVVtb/Nro2UJyjojyEg0yE79Vdao=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZUaAYFC0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="bnj35BDr"
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-49b0eab380eso41396965e9.0
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 21:56:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1788929795; x=1789534595; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=sFc8bmCGj5QGO7oxyVLjDmklA5Lt1XayPFSYLp1KLIg=;
-        b=bnj35BDr+8keklk6aXlW/Jo81SxjWgudtaRCaq94HL9+eiOflWwBnibCnHhb/0RoR7
-         gzK1EWyXlk7Wia9mTCJ3cOCcyHwUduq5Ym/ZsxC8CWNo5jLRO6nfAudgyQ+WArdOmABo
-         P9psVag4V746Y1OXBBrPdDh3to8r50ARDSVCmiSKgeGicJ7D5LBKT1QCPFKG2V4i08Eb
-         WmY8mgKkHLAF8uA2dkhI68bAd5fppxF4W3szjhKtXO4sK9XjUZXR2L/L/EEzpmsqhF4g
-         b1VENCWlfxyqMbAbCDuVbtapHPmNIVsZ0FE9hg0Q19JPQlMmseqaIp1GUN41xdUJk9ge
-         welw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788929795; x=1789534595;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=sFc8bmCGj5QGO7oxyVLjDmklA5Lt1XayPFSYLp1KLIg=;
-        b=LVWMj1CHISQuGs6w7XWWjGwlwuvQpQt+k4jVxIUfIyi2xH0EvjGS8aMEqlYMv+hExe
-         Gc3Hdke9itv4rx1adZg3TcwQq0teDX74McQzU1yNlDvRMY6+DhXoBEOEBEc66EaLdaQT
-         NWlN2zrUI8TD28FA1WrzHIcIK40BLYZgHZ/q9r3qBK+sx7i4VQAgYiqfFvfqb9cyOmZb
-         RMOASyT5Yhxm0VMnC0+DD9j+v1g309XAndEVrh+Tp/5iTd7Lg1RgTSkSO6sIgjbB9WIj
-         XTLMA6WciiJaFH61tjpJEWiNiclBjLywF2cq0jPa6o68CtulczbSFRyPU4QMS/kxi4/B
-         eO4w==
-X-Forwarded-Encrypted: i=1; AKwUvBxpmZDldICYpvthU4Brr5fM+cxAB3zZ8la/VsCv3DO52BsxKUIBoxWfjuXrMA3j4jgNc86DSs6gxze85mI=@vger.kernel.org
-X-Gm-Message-State: AFuF++mQIsu0qroO0dNqE6B83TxwUFw32fQI3sdNKRt0/9pzRfqGjOHW
-	zvowSMRTO3QZDpHJt2ORoi44gNEhxTuSfkMGSnma4SrCFhT6wJsBigwz4WREX2UxpPowYukXGkq
-	Ayp88FKHo/A==
-X-Gm-Gg: AYBFou2VFcQkUERbwshZkTt7Xx47hw0uIQMaqKCTUA5U5J1ga79DRD5IOFh1JnVBiwK
-	oTe03LJjOZJwgkRH4adAEcgmIEQ1+S5l4h9E1McQ9AmIKCUA7T7yCmJXdV0SYpma/PhM3Qm4Uwr
-	fTV1ZZy7EphnXtdKqGOSZyQJz9fPIss4QXmLND4oQyc76VfJhn5DAFaJJIlSPvh4B6H7+slTuDg
-	deCJHWkGmX8GLV3D/DMXtwZZn14r9JUAprD4EdGjQoLYzJCOEp19W74V88oqDTaemUlpmE+mfn8
-	Gr/uVbXeXGxoK2zisLOWmhsK73i8qPrWFEPkMZVspQHgaAKSPxPSTqpPze7SdeIIxxh23zj23V6
-	pzUPJqTVLtL6tsY3DvuQ+mktKzIphAE8ZgI2L/eBGiOpDGLKrSS0tdjUF80Rq0qo1eTj3hz7oQG
-	ag6F5m18+lBf7I3/uAHje/qmv3vAMpJG1PEcXLVpKapnL/qVk72lxBfhL+N4ypo8A=
-X-Received: by 2002:a05:600d:849b:10b0:49c:f13d:ffe6 with SMTP id 5b1f17b1804b1-49cf13e05d9mr300132095e9.10.1788929795405;
-        Tue, 08 Sep 2026 21:56:35 -0700 (PDT)
-Received: from [172.16.0.229] ([159.196.52.54])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b08d0d7e8sm37417273a91.16.2026.09.08.21.56.30
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 08 Sep 2026 21:56:34 -0700 (PDT)
-Message-ID: <5b72f456-4b62-490a-956b-9ca40ca1054c@suse.com>
-Date: Wed, 9 Sep 2026 14:26:27 +0930
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZUaAYFC0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ABDCD1F00A3A;
+	Wed,  9 Sep 2026 04:57:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788929823;
+	bh=R7Ov8iuVdfDMZnkHJ71WczwfnTH/fvSUB1E9xX1KPQQ=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=ZUaAYFC0DjvAjy943b0zwm59bjFv5lqI28I5fqNtnDCbAFNl9SbR26g6vUHz3yduy
+	 vVtyyHEXTCbjpIErM2+4L+oFmDkV5A03iMMHcASWlCk2XGV09tnDo5pJ4BWR5LecqX
+	 kPLsdWOuiRC3uelBuWN7rW6nZpxVf9vru9g42gTFHXfAveVmseQUueM/3Vq+FnCRw5
+	 YsjGpaHLa42dpM1NL+k/bdpH5SUiBKNMKAHNz086Vy5Neb2DBuPrU5wN/HMD0oCVfF
+	 p8BXWGTBuHx2rmVzZKlE3/iSYJKX1hUD4eqpuEJ4wq0slRRdOFd5d9nFviqR8GAxcK
+	 6aAvTDGyunYCQ==
+Subject:
+ Re: [PATCH net v4] ip_tunnel: reserve FOU/GUE headroom before encapsulation
+From: netdev-bot+sashiko@kernel.org
+To: nicoyip.dev@gmail.com
+Cc: dsahern@kernel.org, idosch@nvidia.com, netdev@vger.kernel.org,
+ davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+ horms@kernel.org, lucien.xin@gmail.com, u9012063@gmail.com,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Date: Wed, 09 Sep 2026 04:57:02 +0000
+Message-ID: <178892982217.219967.9823652987530749000@kernel.org>
+In-Reply-To: <20260904165544.1362052-1-nicoyip.dev@gmail.com>
+References: <20260904165544.1362052-1-nicoyip.dev@gmail.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/7] btrfs: tests: convert test_find_delalloc() to use
- folios
-To: Tal Zussman <tz2294@columbia.edu>, David Sterba <dsterba@suse.com>,
- Chris Mason <mason@kernel.org>
-Cc: "Matthew Wilcox (Oracle)" <willy@infradead.org>,
- linux-btrfs@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260907-btrfs-folio-conversions-v2-0-b5fe79f7607b@columbia.edu>
- <20260907-btrfs-folio-conversions-v2-2-b5fe79f7607b@columbia.edu>
-Content-Language: en-US
-From: Qu Wenruo <wqu@suse.com>
-Autocrypt: addr=wqu@suse.com; keydata=
- xsBNBFnVga8BCACyhFP3ExcTIuB73jDIBA/vSoYcTyysFQzPvez64TUSCv1SgXEByR7fju3o
- 8RfaWuHCnkkea5luuTZMqfgTXrun2dqNVYDNOV6RIVrc4YuG20yhC1epnV55fJCThqij0MRL
- 1NxPKXIlEdHvN0Kov3CtWA+R1iNN0RCeVun7rmOrrjBK573aWC5sgP7YsBOLK79H3tmUtz6b
- 9Imuj0ZyEsa76Xg9PX9Hn2myKj1hfWGS+5og9Va4hrwQC8ipjXik6NKR5GDV+hOZkktU81G5
- gkQtGB9jOAYRs86QG/b7PtIlbd3+pppT0gaS+wvwMs8cuNG+Pu6KO1oC4jgdseFLu7NpABEB
- AAHNGFF1IFdlbnJ1byA8d3F1QHN1c2UuY29tPsLAlAQTAQgAPgIbAwULCQgHAgYVCAkKCwIE
- FgIDAQIeAQIXgBYhBC3fcuWlpVuonapC4cI9kfOhJf6oBQJnEXVgBQkQ/lqxAAoJEMI9kfOh
- Jf6o+jIH/2KhFmyOw4XWAYbnnijuYqb/obGae8HhcJO2KIGcxbsinK+KQFTSZnkFxnbsQ+VY
- fvtWBHGt8WfHcNmfjdejmy9si2jyy8smQV2jiB60a8iqQXGmsrkuR+AM2V360oEbMF3gVvim
- 2VSX2IiW9KERuhifjseNV1HLk0SHw5NnXiWh1THTqtvFFY+CwnLN2GqiMaSLF6gATW05/sEd
- V17MdI1z4+WSk7D57FlLjp50F3ow2WJtXwG8yG8d6S40dytZpH9iFuk12Sbg7lrtQxPPOIEU
- rpmZLfCNJJoZj603613w/M8EiZw6MohzikTWcFc55RLYJPBWQ+9puZtx1DopW2jOwE0EWdWB
- rwEIAKpT62HgSzL9zwGe+WIUCMB+nOEjXAfvoUPUwk+YCEDcOdfkkM5FyBoJs8TCEuPXGXBO
- Cl5P5B8OYYnkHkGWutAVlUTV8KESOIm/KJIA7jJA+Ss9VhMjtePfgWexw+P8itFRSRrrwyUf
- E+0WcAevblUi45LjWWZgpg3A80tHP0iToOZ5MbdYk7YFBE29cDSleskfV80ZKxFv6koQocq0
- vXzTfHvXNDELAuH7Ms/WJcdUzmPyBf3Oq6mKBBH8J6XZc9LjjNZwNbyvsHSrV5bgmu/THX2n
- g/3be+iqf6OggCiy3I1NSMJ5KtR0q2H2Nx2Vqb1fYPOID8McMV9Ll6rh8S8AEQEAAcLAfAQY
- AQgAJgIbDBYhBC3fcuWlpVuonapC4cI9kfOhJf6oBQJnEXWBBQkQ/lrSAAoJEMI9kfOhJf6o
- cakH+QHwDszsoYvmrNq36MFGgvAHRjdlrHRBa4A1V1kzd4kOUokongcrOOgHY9yfglcvZqlJ
- qfa4l+1oxs1BvCi29psteQTtw+memmcGruKi+YHD7793zNCMtAtYidDmQ2pWaLfqSaryjlzR
- /3tBWMyvIeWZKURnZbBzWRREB7iWxEbZ014B3gICqZPDRwwitHpH8Om3eZr7ygZck6bBa4MU
- o1XgbZcspyCGqu1xF/bMAY2iCDcq6ULKQceuKkbeQ8qxvt9hVxJC2W3lHq8dlK1pkHPDg9wO
- JoAXek8MF37R8gpLoGWl41FIUb3hFiu3zhDDvslYM4BmzI18QgQTQnotJH8=
-In-Reply-To: <20260907-btrfs-folio-conversions-v2-2-b5fe79f7607b@columbia.edu>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
 
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider:
 
+Critical: 0 · High: 0 (2) · Medium: 2 (2) · Low: 0 (2)
 
-在 2026/9/8 05:49, Tal Zussman 写道:
-> This removes the last btrfs callers of find_or_create_page(),
-> find_lock_page(), SetPageDirty(), ClearPageDirty(), and get_page(), and
-> 15 calls to compound_head(). The folio lookups return an ERR_PTR instead
-> of NULL, so adjust the error handling.
-> 
-> Update the comments and test messages accordingly.
-> 
-> The test still works in PAGE_SIZE units, which relies on the test inode
-> never getting large folios, so assert that the folios are order-0 where
-> that matters.
-> 
-> Signed-off-by: Tal Zussman <tz2294@columbia.edu>
+- [Medium] Incomplete fix: the patch establishes the invariant "reserve
+  ip_encap_hlen() bytes before ip_tunnel_encap() pushes the FOU/GUE+UDP…
+- [Medium] Undisclosed on-the-wire behaviour change: moving
+  ip_tunnel_encap() from before the route lookup to after it…
 
-Reviewed-by: Qu Wenruo <wqu@suse.com>
+Pre-existing issues:
+- [High] The IPv4 fix leaves the identical headroom-underflow race
+  reachable in the IPv6 tunnel transmit path.
+- [High] Peer call-site inconsistency with a concrete functional
+  consequence: after this patch ip_tunnel_xmit() calls ip_tunnel_encap()…
+- [Medium] Residual race not covered by the fix, in the GRE header build
+  the commit message's timeline explicitly names.
+- [Medium] Same bug class in a sibling caller: net/ipv6/sit.c
+  ipip6_tunnel_xmit() sizes its headroom from a racy read of…
+- [Low] Reported concern (refuted for the ICMP/-E2BIG decision): the
+  concern states that `pkt_size = skb->len + encap_hlen - tunnel_hlen`…
+- [Low] `ipencap = data_race(tunnel->encap)` (net/ipv4/ip_tunnel.c:772)
+  only suppresses the KCSAN report; it does not make the 8-byte four-…
 
-Thanks,
-Qu> ---
->   fs/btrfs/tests/extent-io-tests.c | 99 +++++++++++++++++++++-------------------
->   1 file changed, 51 insertions(+), 48 deletions(-)
-> 
-> diff --git a/fs/btrfs/tests/extent-io-tests.c b/fs/btrfs/tests/extent-io-tests.c
-> index 6eb55bfb2bd4..e7aa8bc04706 100644
-> --- a/fs/btrfs/tests/extent-io-tests.c
-> +++ b/fs/btrfs/tests/extent-io-tests.c
-> @@ -112,8 +112,8 @@ static int test_find_delalloc(u32 sectorsize, u32 nodesize)
->   	struct btrfs_root *root = NULL;
->   	struct inode *inode = NULL;
->   	struct extent_io_tree *tmp;
-> -	struct page *page;
-> -	struct page *locked_page = NULL;
-> +	struct folio *folio;
-> +	struct folio *locked_folio = NULL;
->   	/* In this test we need at least 2 file extents at its maximum size */
->   	u64 max_bytes = BTRFS_MAX_EXTENT_SIZE;
->   	u64 total_dirty = 2 * max_bytes;
-> @@ -152,23 +152,26 @@ static int test_find_delalloc(u32 sectorsize, u32 nodesize)
->   	btrfs_extent_io_tree_init(NULL, tmp, IO_TREE_SELFTEST);
->   
->   	/*
-> -	 * First go through and create and mark all of our pages dirty, we pin
-> -	 * everything to make sure our pages don't get evicted and screw up our
-> +	 * First go through and create and mark all of our folios dirty, we pin
-> +	 * everything to make sure our folios don't get evicted and screw up our
->   	 * test.
->   	 */
->   	for (pgoff_t index = 0; index < (total_dirty >> PAGE_SHIFT); index++) {
-> -		page = find_or_create_page(inode->i_mapping, index, GFP_KERNEL);
-> -		if (!page) {
-> -			test_err("failed to allocate test page");
-> -			ret = -ENOMEM;
-> +		folio = __filemap_get_folio(inode->i_mapping, index,
-> +				FGP_LOCK | FGP_ACCESSED | FGP_CREAT, GFP_KERNEL);
-> +		if (IS_ERR(folio)) {
-> +			test_err("failed to allocate test folio");
-> +			ret = PTR_ERR(folio);
->   			goto out;
->   		}
-> -		SetPageDirty(page);
-> +		/* The ranges below assume page sized folios. */
-> +		ASSERT(folio_order(folio) == 0);
-> +		folio_set_dirty(folio);
->   		if (index) {
-> -			unlock_page(page);
-> +			folio_unlock(folio);
->   		} else {
-> -			get_page(page);
-> -			locked_page = page;
-> +			folio_get(folio);
-> +			locked_folio = folio;
->   		}
->   	}
->   
-> @@ -179,8 +182,7 @@ static int test_find_delalloc(u32 sectorsize, u32 nodesize)
->   	btrfs_set_extent_bit(tmp, 0, sectorsize - 1, EXTENT_DELALLOC, NULL);
->   	start = 0;
->   	end = start + PAGE_SIZE - 1;
-> -	found = find_lock_delalloc_range(inode, page_folio(locked_page), &start,
-> -					 &end);
-> +	found = find_lock_delalloc_range(inode, locked_folio, &start, &end);
->   	if (!found) {
->   		test_err("should have found at least one delalloc");
->   		goto out_bits;
-> @@ -191,8 +193,8 @@ static int test_find_delalloc(u32 sectorsize, u32 nodesize)
->   		goto out_bits;
->   	}
->   	btrfs_unlock_extent(tmp, start, end, NULL);
-> -	unlock_page(locked_page);
-> -	put_page(locked_page);
-> +	folio_unlock(locked_folio);
-> +	folio_put(locked_folio);
->   
->   	/*
->   	 * Test this scenario
-> @@ -201,17 +203,18 @@ static int test_find_delalloc(u32 sectorsize, u32 nodesize)
->   	 *           |--- search ---|
->   	 */
->   	test_start = SZ_64M;
-> -	locked_page = find_lock_page(inode->i_mapping,
-> -				     test_start >> PAGE_SHIFT);
-> -	if (!locked_page) {
-> -		test_err("couldn't find the locked page");
-> +	locked_folio = filemap_lock_folio(inode->i_mapping,
-> +					  test_start >> PAGE_SHIFT);
-> +	if (IS_ERR(locked_folio)) {
-> +		test_err("couldn't find the locked folio");
-> +		locked_folio = NULL;
->   		goto out_bits;
->   	}
-> +	ASSERT(folio_order(locked_folio) == 0);
->   	btrfs_set_extent_bit(tmp, sectorsize, max_bytes - 1, EXTENT_DELALLOC, NULL);
->   	start = test_start;
->   	end = start + PAGE_SIZE - 1;
-> -	found = find_lock_delalloc_range(inode, page_folio(locked_page), &start,
-> -					 &end);
-> +	found = find_lock_delalloc_range(inode, locked_folio, &start, &end);
->   	if (!found) {
->   		test_err("couldn't find delalloc in our range");
->   		goto out_bits;
-> @@ -223,12 +226,12 @@ static int test_find_delalloc(u32 sectorsize, u32 nodesize)
->   	}
->   	if (process_folio_range(inode, start, end,
->   				PROCESS_TEST_LOCKED | PROCESS_UNLOCK)) {
-> -		test_err("there were unlocked pages in the range");
-> +		test_err("there were unlocked folios in the range");
->   		goto out_bits;
->   	}
->   	btrfs_unlock_extent(tmp, start, end, NULL);
-> -	/* locked_page was unlocked above */
-> -	put_page(locked_page);
-> +	/* locked_folio was unlocked above */
-> +	folio_put(locked_folio);
->   
->   	/*
->   	 * Test this scenario
-> @@ -236,16 +239,17 @@ static int test_find_delalloc(u32 sectorsize, u32 nodesize)
->   	 *                    |--- search ---|
->   	 */
->   	test_start = max_bytes + sectorsize;
-> -	locked_page = find_lock_page(inode->i_mapping, test_start >>
-> -				     PAGE_SHIFT);
-> -	if (!locked_page) {
-> -		test_err("couldn't find the locked page");
-> +	locked_folio = filemap_lock_folio(inode->i_mapping,
-> +					  test_start >> PAGE_SHIFT);
-> +	if (IS_ERR(locked_folio)) {
-> +		test_err("couldn't find the locked folio");
-> +		locked_folio = NULL;
->   		goto out_bits;
->   	}
-> +	ASSERT(folio_order(locked_folio) == 0);
->   	start = test_start;
->   	end = start + PAGE_SIZE - 1;
-> -	found = find_lock_delalloc_range(inode, page_folio(locked_page), &start,
-> -					 &end);
-> +	found = find_lock_delalloc_range(inode, locked_folio, &start, &end);
->   	if (found) {
->   		test_err("found range when we shouldn't have");
->   		goto out_bits;
-> @@ -265,8 +269,7 @@ static int test_find_delalloc(u32 sectorsize, u32 nodesize)
->   	btrfs_set_extent_bit(tmp, max_bytes, total_dirty - 1, EXTENT_DELALLOC, NULL);
->   	start = test_start;
->   	end = start + PAGE_SIZE - 1;
-> -	found = find_lock_delalloc_range(inode, page_folio(locked_page), &start,
-> -					 &end);
-> +	found = find_lock_delalloc_range(inode, locked_folio, &start, &end);
->   	if (!found) {
->   		test_err("didn't find our range");
->   		goto out_bits;
-> @@ -278,36 +281,36 @@ static int test_find_delalloc(u32 sectorsize, u32 nodesize)
->   	}
->   	if (process_folio_range(inode, start, end,
->   				PROCESS_TEST_LOCKED | PROCESS_UNLOCK)) {
-> -		test_err("pages in range were not all locked");
-> +		test_err("folios in range were not all locked");
->   		goto out_bits;
->   	}
->   	btrfs_unlock_extent(tmp, start, end, NULL);
->   
->   	/*
-> -	 * Now to test where we run into a page that is no longer dirty in the
-> +	 * Now to test where we run into a folio that is no longer dirty in the
->   	 * range we want to find.
->   	 */
-> -	page = find_get_page(inode->i_mapping,
-> -			     (max_bytes + SZ_1M) >> PAGE_SHIFT);
-> -	if (!page) {
-> -		test_err("couldn't find our page");
-> +	folio = filemap_get_folio(inode->i_mapping,
-> +				  (max_bytes + SZ_1M) >> PAGE_SHIFT);
-> +	if (IS_ERR(folio)) {
-> +		test_err("couldn't find our folio");
->   		goto out_bits;
->   	}
-> -	ClearPageDirty(page);
-> -	put_page(page);
-> +	ASSERT(folio_order(folio) == 0);
-> +	folio_clear_dirty(folio);
-> +	folio_put(folio);
->   
->   	/* We unlocked it in the previous test */
-> -	lock_page(locked_page);
-> +	folio_lock(locked_folio);
->   	start = test_start;
->   	end = start + PAGE_SIZE - 1;
->   	/*
-> -	 * Currently if we fail to find dirty pages in the delalloc range we
-> +	 * Currently if we fail to find dirty folios in the delalloc range we
->   	 * will adjust max_bytes down to PAGE_SIZE and then re-search.  If
->   	 * this changes at any point in the future we will need to fix this
->   	 * tests expected behavior.
->   	 */
-> -	found = find_lock_delalloc_range(inode, page_folio(locked_page), &start,
-> -					 &end);
-> +	found = find_lock_delalloc_range(inode, locked_folio, &start, &end);
->   	if (!found) {
->   		test_err("didn't find our range");
->   		goto out_bits;
-> @@ -319,7 +322,7 @@ static int test_find_delalloc(u32 sectorsize, u32 nodesize)
->   	}
->   	if (process_folio_range(inode, start, end, PROCESS_TEST_LOCKED |
->   				PROCESS_UNLOCK)) {
-> -		test_err("pages in range were not all locked");
-> +		test_err("folios in range were not all locked");
->   		goto out_bits;
->   	}
->   	ret = 0;
-> @@ -328,8 +331,8 @@ static int test_find_delalloc(u32 sectorsize, u32 nodesize)
->   		dump_extent_io_tree(tmp);
->   	btrfs_clear_extent_bit(tmp, 0, total_dirty - 1, (unsigned)-1, NULL);
->   out:
-> -	if (locked_page)
-> -		put_page(locked_page);
-> +	if (locked_folio)
-> +		folio_put(locked_folio);
->   	process_folio_range(inode, 0, total_dirty - 1,
->   			    PROCESS_UNLOCK | PROCESS_RELEASE);
->   	iput(inode);
-> 
+--
 
+ip_tunnel: reserve FOU/GUE headroom before encapsulation
+
+This moves ip_tunnel_encap() in ip_tunnel_xmit() to run after the route
+lookup, PMTU handling and skb_cow_head(), snapshots tunnel->encap into a
+local copy used for both ip_encap_hlen() and ip_tunnel_encap(), and adds
+an encap_hlen argument to tnl_update_pmtu() so the inner packet size is
+still computed as skb->len + encap_hlen - tunnel_hlen.
+
+Link: https://lore.kernel.org/netdev/b58876297f7d45de008f2e94b6ecab8b2ed84d21.1786088695.git.petalzu987@gmail.com/
+
+A few questions on the changelog first.
+
+>   CPU 0 (ipgre_changelink)        CPU 1 (ipgre_xmit)
+>   install GUE encapsulation
+>                                   reserve the old needed_headroom
+>   publish larger GRE flags
+>   update tunnel->tun_hlen
+>                                   push the larger GRE header
+>                                   push the GUE and UDP headers
+>   update dev->needed_headroom
+
+[Severity: Medium]
+This isn't a bug introduced by this patch, but since the table names
+"publish larger GRE flags" and "update tunnel->tun_hlen" as steps of the
+race, is the GRE header build itself still exposed after this change?
+
+ipgre_xmit() snapshots the flags, but __gre_xmit() then does a separate,
+later read of tunnel->tun_hlen:
+
+net/ipv4/ip_gre.c:__gre_xmit() {
+	...
+	gre_build_header(skb, tunnel->tun_hlen,
+			 flags, proto, tunnel->parms.o_key,
+			 test_bit(IP_TUNNEL_SEQ_BIT, flags) ?
+			 htonl(atomic_fetch_inc(&tunnel->o_seqno)) : 0);
+	...
+}
+
+ipgre_changelink() stores the new parms.o_flags and only afterwards calls
+ipgre_link_update(), which sets tunnel->tun_hlen, so hdr_len and flags can
+come from different generations.
+
+With new flags and an old tun_hlen of 4, gre_build_header() computes
+ptr = greh + hdr_len - 4 == greh and writes the sequence number over
+greh->flags/protocol, and the key/checksum words land before greh.
+
+With old flags (none set) and a new tun_hlen of 16, 16 bytes are pushed but
+the SEQ/KEY/CSUM branch is skipped, so 12 bytes of uninitialised headroom
+go on the wire.
+
+Neither case can underflow skb->head (the reservation always leaves at
+least 20 bytes after the GRE push), so this is not the skb_under_panic()
+the patch targets. Would deriving tun_hlen from the flags snapshot with
+gre_calc_hlen() close it the same way the encap snapshot does here?
+
+> The IPv6 analogue of this headroom reservation is still work in
+> progress.
+
+[Severity: High]
+This is a pre-existing issue and the changelog says as much, but for the
+record on what remains reachable: ip6_tnl_xmit() sizes the reservation from
+one early read of t->encap_hlen:
+
+net/ipv6/ip6_tunnel.c:ip6_tnl_xmit() {
+	unsigned int psh_hlen = sizeof(struct ipv6hdr) + t->encap_hlen;
+	unsigned int max_headroom = psh_hlen;
+	...
+	if (skb_cow_head(skb, max_headroom))
+		goto tx_err_dst_release;
+	...
+	err = ip6_tnl_encap(skb, t, &proto, fl6);
+}
+
+ip6gre_changelink_common()/ip6_tnl_changelink() -> ip6_tnl_encap_setup()
+can replace TUNNEL_ENCAP_NONE with GUE plus REMCSUM between the length read
+and the encap build, and the transmit path takes no lock.
+
+Reserved is 40 + encap_old + LL_RESERVED_SPACE(tdev); pushed after the cow
+is encap_new + 40. With encap_old = 0, encap_new = 20 (udphdr 8 + guehdr 4
++ GUE_LEN_PRIV 4 + GUE_PLEN_REMCSUM 4) and LL_RESERVED_SPACE(tdev) = 16 for
+an Ethernet underlay, that is a 4 byte deficit, so the skb_push() inside
+__gue_build_header()/fou_build_udp() hits skb_under_panic() and BUG().
+
+__gre6_xmit() has the same shape: it reserves a possibly stale
+dev->needed_headroom before reading the current GRE parameters. Is the
+IPv6 follow-up expected in the same series, given this one is tagged for
+stable?
+
+> diff --git a/net/ipv4/ip_tunnel.c b/net/ipv4/ip_tunnel.c
+> index e6bcf01411d0b..a8c846aab30c6 100644
+> --- a/net/ipv4/ip_tunnel.c
+> +++ b/net/ipv4/ip_tunnel.c
+> @@ -512,14 +512,15 @@ EXPORT_SYMBOL_GPL(ip_tunnel_encap_setup);
+>  static int tnl_update_pmtu(struct net_device *dev, struct sk_buff *skb,
+>  			    struct rtable *rt, __be16 df,
+>  			    const struct iphdr *inner_iph,
+> -			    int tunnel_hlen, __be32 dst, bool md)
+> +			    int tunnel_hlen, __be32 dst, bool md,
+> +			    int encap_hlen)
+>  {
+>  	struct ip_tunnel *tunnel = netdev_priv(dev);
+>  	int pkt_size;
+>  	int mtu;
+>  
+>  	tunnel_hlen = md ? tunnel_hlen : tunnel->hlen;
+> -	pkt_size = skb->len - tunnel_hlen;
+> +	pkt_size = skb->len + encap_hlen - tunnel_hlen;
+
+[Severity: Low]
+This is a pre-existing property rather than something the patch breaks, but
+it is worth noting for anyone reading the new formula: encap_hlen is a
+snapshot while tunnel->hlen here is a plain read, and the GRE bytes already
+on the skb came from yet another read of tunnel->tun_hlen in __gre_xmit().
+
+On the df branch the skew cancels, because the same tunnel_hlen is
+subtracted from dst_mtu():
+
+	mtu = dst_mtu(&rt->dst) - (sizeof(struct iphdr) + tunnel_hlen);
+
+so mtu < pkt_size reduces to
+sizeof(struct iphdr) + gre_len_on_skb + encap_snapshot + inner > dst_mtu,
+which is correct whichever generation tunnel->hlen came from.
+
+Only the df == 0 branch, where mtu comes from dst_mtu(skb_dst)/dev->mtu,
+keeps a residual skew of up to the GRE/encap delta during a reconfiguration
+window, and that skew existed before this patch too. Is that reading
+correct, or is there a case where the new term makes the df == 0 branch
+worse?
+
+> @@ -629,7 +630,7 @@ void ip_md_tunnel_xmit(struct sk_buff *skb, struct net_device *dev,
+>  	if (test_bit(IP_TUNNEL_DONT_FRAGMENT_BIT, key->tun_flags))
+>  		df = htons(IP_DF);
+>  	if (tnl_update_pmtu(dev, skb, rt, df, inner_iph, tunnel_hlen,
+> -			    key->u.ipv4.dst, true)) {
+> +			    key->u.ipv4.dst, true, 0)) {
+>  		ip_rt_put(rt);
+>  		goto tx_error;
+>  	}
+
+[Severity: Medium]
+The changelog says of this function:
+
+  "ip_md_tunnel_xmit() is left unchanged. It takes FOU/GUE parameters
+   from the skb metadata dst, not from the device configuration, so it
+   is not exposed to this race."
+
+The race is indeed different here, but does the invariant the patch
+establishes ("reserve ip_encap_hlen() bytes before ip_tunnel_encap()
+pushes") still hold on this path?
+
+ip_md_tunnel_xmit() pushes the encap first:
+
+	if (ip_tunnel_encap(skb, &tun_info->encap, &proto, &fl4) < 0)
+		goto tx_error;
+
+and grows the headroom only later, without an encap term:
+
+	headroom += LL_RESERVED_SPACE(rt->dst.dev) + rt->dst.header_len;
+	if (skb_cow_head(skb, headroom)) {
+		...
+	}
+	ip_tunnel_adj_headroom(dev, headroom);
+
+So the UDP/GUE push has no reservation from this function, and the
+dev->needed_headroom advertised by ip_tunnel_adj_headroom() under-reports
+the metadata encap size for subsequent packets.
+
+The metadata encap is live: bpf_skb_set_fou_encap() sets
+info->encap.type = TUNNEL_ENCAP_FOU/GUE together with sport/dport and
+TUNNEL_ENCAP_FLAG_CSUM.
+
+The ipip collect_md path looks like the thinnest case, since it does no
+skb_cow_head() at all before the call:
+
+net/ipv4/ipip.c:ipip_tunnel_xmit() {
+	...
+	if (tunnel->collect_md)
+		ip_md_tunnel_xmit(skb, dev, ipproto, 0);
+	...
+}
+
+For GRE collect_md, ip_tunnel_bind_dev() currently leaves slack
+(needed_headroom is at least 56 versus at most 16 bytes of GRE plus 12
+bytes of BPF-settable GUE), so no deterministic crash could be
+constructed; for ipip there is no pre-push cow, but no caller delivering
+an skb with under 12 bytes of headroom was identified either. Would it be
+worth either restructuring this function the same way, or noting in the
+changelog that its headroom accounting is also missing ip_encap_hlen()?
+
+[Severity: High]
+This is a pre-existing issue and not introduced by this patch, but the
+patch fixes the same ordering on the ip_tunnel_xmit() side, so it may
+belong in the series: ip_md_tunnel_xmit() still calls ip_tunnel_encap()
+before dst_cache_get_ip4()/ip_route_output_key(), so fl4.saddr is
+unresolved when the outer UDP checksum is built.
+
+net/ipv4/fou_core.c:fou_build_udp() {
+	...
+	udp_set_csum(!(e->flags & TUNNEL_ENCAP_FLAG_CSUM), skb,
+		     fl4->saddr, fl4->daddr, skb->len);
+	...
+}
+
+On this path fl4.saddr == key->u.ipv4.src, and bpf_skb_set_tunnel_key()
+leaves that at 0 unless the program sets local_ipv4, while defaulting the
+checksum on:
+
+net/core/filter.c:bpf_skb_set_tunnel_key() {
+	...
+	__assign_bit(IP_TUNNEL_CSUM_BIT, info->key.tun_flags,
+		     !(flags & BPF_F_ZERO_CSUM_TX));
+	...
+}
+
+bpf_skb_set_fou_encap() turns that into TUNNEL_ENCAP_FLAG_CSUM. The
+pseudo-header then uses saddr = 0 while iptunnel_xmit() writes the
+route-selected fl4.saddr into the outer IP header, so does every such
+packet leave with a UDP checksum the receiver rejects in
+udp4_csum_init()/udp_rcv()?
+
+Nothing else appears to fill key.u.ipv4.src on this path: the only caller
+of dev_fill_metadata_dst(), which would set it via
+gre_fill_metadata_dst(), is openvswitch's output_userspace().
+
+> @@ -765,7 +768,10 @@ void ip_tunnel_xmit(struct sk_buff *skb, struct net_device *dev,
+>  			    tunnel->net, READ_ONCE(tunnel->parms.link),
+>  			    tunnel->fwmark, skb_get_hash(skb), 0);
+>  
+> -	if (ip_tunnel_encap(skb, &tunnel->encap, &protocol, &fl4) < 0)
+> +	/* Snapshot encap; ipgre_changelink() can update it concurrently. */
+> +	ipencap = data_race(tunnel->encap);
+
+[Severity: Low]
+This is a pre-existing exposure rather than a new one, but the comment plus
+data_race() could be read as asserting the snapshot is coherent. Does
+data_race() do anything beyond silencing KCSAN for this 8 byte, four field
+copy?
+
+The writer publishes the fields separately, starting with a memset:
+
+net/ipv4/ip_tunnel.c:ip_tunnel_encap_setup() {
+	memset(&t->encap, 0, sizeof(t->encap));
+	...
+}
+
+so a snapshot can observe type == TUNNEL_ENCAP_GUE with dport == 0, or
+with flags == 0 (no CSUM/REMCSUM the peer expects), or a fully zeroed copy
+in which case type == TUNNEL_ENCAP_NONE and the packet goes out with no
+encapsulation.
+
+For headroom safety the patch is clearly an improvement, since
+ip_encap_hlen() and ip_tunnel_encap() now consume the same local copy
+instead of reading tunnel->encap twice. Would publishing the encap
+configuration through RCU or a seqcount be the more robust follow-up?
+
+> +	encap_hlen = ip_encap_hlen(&ipencap);
+> +	if (encap_hlen < 0)
+>  		goto tx_error;
+>  
+>  	if (connected && md) {
+
+[ ... ]
+
+> @@ -845,6 +852,11 @@ void ip_tunnel_xmit(struct sk_buff *skb, struct net_device *dev,
+>  
+>  	ip_tunnel_adj_headroom(dev, max_headroom);
+>  
+> +	if (ip_tunnel_encap(skb, &ipencap, &protocol, &fl4) < 0) {
+> +		ip_rt_put(rt);
+> +		goto tx_error;
+> +	}
+> +
+
+[Severity: Medium]
+Does moving the call to this point also change what goes on the wire?
+ip_tunnel_init_flow() sets fl4.saddr = tnl_params->saddr, which is 0 for a
+tunnel created without a local address, and fl4.saddr is only resolved
+during the route lookup:
+
+net/ipv4/fib_semantics.c:fib_select_path() {
+	if (fl4->flowi4_oif)
+		goto check_saddr;
+	...
+}
+
+Before this change fou_build_udp() ran right after
+ip_tunnel_init_flow(), so udp_set_csum() built the pseudo-header with
+saddr == 0 while iptunnel_xmit() later wrote the route-selected saddr into
+the outer IP header. After the change the pseudo-header uses the real
+source address.
+
+For a tunnel such as:
+
+	ip link add gre1 type gre remote R encap gue encap-csum
+
+with no local address, the emitted outer UDP checksum therefore differs
+before and after. That looks like a fix rather than a regression, but the
+changelog is framed purely as a headroom fix and carries Fixes: and
+Cc: stable. Could the reorder and its checksum effect be described there,
+so backporters and bisecting users are not surprised?
+
+[Severity: Medium]
+This isn't a bug introduced by this patch and is outside its stated scope,
+but net/ipv6/sit.c has the same reserve-then-push inversion and is not
+mentioned as WIP.
+
+ipip6_tunnel_xmit() sizes the reservation from a racy read of
+tunnel->hlen:
+
+net/ipv6/sit.c:ipip6_tunnel_xmit() {
+	int t_hlen = tunnel->hlen + sizeof(struct iphdr);
+	...
+	max_headroom = LL_RESERVED_SPACE(tdev) + t_hlen;
+
+	if (skb_headroom(skb) < max_headroom || skb_shared(skb) ||
+	...
+	if (ip_tunnel_encap(skb, &tunnel->encap, &protocol, &fl4) < 0) {
+	...
+}
+
+and iptunnel_xmit() then pushes another 20 bytes of IP header.
+ipip6_changelink() -> ip_tunnel_encap_setup() publishes t->encap before
+t->encap_hlen and t->hlen, so a concurrent transmit can reserve
+LL_RESERVED_SPACE + old_hlen + 20 and then push up to 20 bytes of GUE/UDP
+with REMCSUM plus 20 bytes of IP. With encap_old = 0, encap_new = 20 and
+LL_RESERVED_SPACE(tdev) = 16 that is a 4 byte deficit and skb_under_panic().
+
+No deterministic trigger could be built, since LL_RESERVED_SPACE rounding
+and SKB_DATA_ALIGN slack in skb_realloc_headroom() usually leave spare
+bytes, so this is only structurally reachable. Should sit get the same
+snapshot-then-reserve treatment?
+
+>  	iptunnel_xmit(NULL, rt, skb, fl4.saddr, fl4.daddr, protocol, tos, ttl,
+>  		      df, !net_eq(tunnel->net, dev_net(dev)), 0);
+>  	return;
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260904165544.1362052-1-nicoyip.dev%40gmail.com
