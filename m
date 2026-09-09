@@ -1,159 +1,417 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88D20585974;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 255DB584956;
 	Wed,  9 Sep 2026 16:44:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788972283; cv=none; b=kYAlDbAufQ8wHeUkcUPPQmnfVxWqhps5QU/mqJMlE95SuEvwXtDzIjIfHatCL2b/OE6DxCUwZv/F5BGo3e2Xtb7oFrtowMyDXzXXfH7ICXUBAhM26cMWkXhuiFnT85jAaEEjfDDVOyy9UxoMp8X8lWPZrWKK9h/lETje7dwvlaE=
+	t=1788972284; cv=none; b=E+DYdh29UDZ7HPU1qf5TO+dnD/icvqQa2Y7I3jbWMqQIZ9ycSb4NH68XiVeGFfD9WpA1OxJdCQyRvm1vdwgMj7kaMd1X5qiqkAkx4l0cCXx3rgRbhkymCXfGGdi/2T1oNKrWCQNix+s24PUVUMM+FY5M8lJpD5yxaqGla8lZnXw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788972283; c=relaxed/simple;
-	bh=h1TOCNSkj5R56lNH3DJ3hUBmUSsPSkXgQfnKFDYvvQg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=qqHNYooEZlfFj9d3uSg8a1RKCyUoPUZ5HjYFCHaamRdndEHzL+LxrUxGvECd7BRejO0q0uaDbMX+irmxYcp2ai/xBYDb30xoZ/GMUuITGxQZvyMQD9fAl4FWbqPZEtuY9AyVUp+odPF3jPmiCaRN4Gf92UeXCOlq6KxVTQ9NgjA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SvkfUBrj; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788972284; c=relaxed/simple;
+	bh=RT6mNfqsM9ElhveCMY8bc9XzHG8yhd0VyNVNHzlyUXU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=VxYLqYFx4f7nXFdFGC3B2Znp3v/+AB5IzKnk84UE3r0njTSqa3+3JsUY957lQy+E+SH6kF8knN0gHlKofMoNhfpxEaBIPeUgnroUwN3FeKf3LISlPddcofWe1EGW+cBrDOyBeSyMzfL/N2osYwgCo2LKQEC+XnEzK6JRV/vJhSA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=VoklmvxN; arc=none smtp.client-ip=178.251.229.89
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SvkfUBrj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F14881F000FF;
-	Wed,  9 Sep 2026 16:44:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788972281;
-	bh=Bapc0YSkMfnvYk3VlSbyVwcwaxlxEF/qdP5fqXt2FVU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=SvkfUBrj+qqUCItjJr4thxIOtrO+WmcNQus9iN7o7fjn21Kjri7ciOsZZbXojK8eq
-	 ebmrsmEhjQ8lMe6NScH5NJJVO7FkHjSrPlMJAzs9SeDQJIL0euxfAANelWLDPoYw1X
-	 CcSIvP/FGlOivDpnH/QksUP428gC7WgcKMjXSRAyqMHuiTJd6wYCdFyF9iWecTST2l
-	 DPfn0SayJdOumRm8EjJ0YaCf7wOVn5AtF52jH/K7lyYBUkf1LvlE8O39pf5s+r01dw
-	 hpz3MZmyVQYZqDR+4GQ6n1zp4Q8/XwEUokZ3xCVu0XLtYHfY7rf+QXRgnY7M4GG9HF
-	 fN2FuuSzCKwhQ==
-Date: Wed, 9 Sep 2026 17:44:16 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Kiryl Shutsemau <kas@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, "Liam R. Howlett" <liam@infradead.org>, 
-	Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
-	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
-	Usama Arif <usama.arif@linux.dev>, Guo Ren <guoren@kernel.org>, Brian Cain <bcain@kernel.org>, 
-	Geert Uytterhoeven <geert@linux-m68k.org>, Dinh Nguyen <dinguyen@kernel.org>, 
-	Simon Schuster <schuster.simon@siemens-energy.com>, Jonas Bonn <jonas@southpole.se>, 
-	Stefan Kristiansson <stefan.kristiansson@saunalahti.fi>, Stafford Horne <shorne@gmail.com>, 
-	Yoshinori Sato <ysato@users.sourceforge.jp>, Rich Felker <dalias@libc.org>, 
-	John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>, Paul Walmsley <pjw@kernel.org>, 
-	Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
-	Alexandre Ghiti <alex@ghiti.fr>, Russell King <linux@armlinux.org.uk>, 
-	Vineet Gupta <vgupta@kernel.org>, Michal Simek <monstr@monstr.eu>, Chris Zankel <chris@zankel.net>, 
-	Max Filippov <jcmvbkbc@gmail.com>, Will Deacon <will@kernel.org>, 
-	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin <npiggin@gmail.com>, 
-	Peter Zijlstra <peterz@infradead.org>, "David S. Miller" <davem@davemloft.net>, 
-	Andreas Larsson <andreas@gaisler.com>, Richard Henderson <richard.henderson@linaro.org>, 
-	Matt Turner <mattst88@gmail.com>, Magnus Lindholm <linmag7@gmail.com>, 
-	Catalin Marinas <catalin.marinas@arm.com>, Mark Rutland <mark.rutland@arm.com>, 
-	Huacai Chen <chenhuacai@kernel.org>, WANG Xuerui <kernel@xen0n.name>, 
-	Thomas Bogendoerfer <tsbogend@alpha.franken.de>, "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>, 
-	Helge Deller <deller@gmx.de>, Madhavan Srinivasan <maddy@linux.ibm.com>, 
-	Michael Ellerman <mpe@ellerman.id.au>, "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, 
-	Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
-	Alexander Gordeev <agordeev@linux.ibm.com>, Christian Borntraeger <borntraeger@linux.ibm.com>, 
-	Sven Schnelle <svens@linux.ibm.com>, Richard Weinberger <richard@nod.at>, 
-	Anton Ivanov <anton.ivanov@cambridgegreys.com>, Johannes Berg <johannes@sipsolutions.net>, 
-	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
-	Arnd Bergmann <arnd@arndb.de>, Vlastimil Babka <vbabka@kernel.org>, 
-	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
-	Michal Hocko <mhocko@suse.com>, Jason Gunthorpe <jgg@ziepe.ca>, 
-	John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, linux-csky@vger.kernel.org, linux-hexagon@vger.kernel.org, 
-	linux-m68k@lists.linux-m68k.org, linux-openrisc@vger.kernel.org, linux-sh@vger.kernel.org, 
-	linux-riscv@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
-	linux-snps-arc@lists.infradead.org, linux-arch@vger.kernel.org, sparclinux@vger.kernel.org, 
-	linux-alpha@vger.kernel.org, loongarch@lists.linux.dev, linux-mips@vger.kernel.org, 
-	linux-parisc@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, linux-s390@vger.kernel.org, 
-	linux-um@lists.infradead.org, Hugh Dickins <hughd@google.com>, Qi Zheng <qi.zheng@linux.dev>
-Subject: Re: [PATCH v2 11/12] mm: make userland page table freeing RCU-safe
-Message-ID: <aqGMqVxJCWbZePmW@gremlin>
-References: <20260908-rcu-pagetable-freeing-v2-0-1f60b64e878e@kernel.org>
- <20260908-rcu-pagetable-freeing-v2-11-1f60b64e878e@kernel.org>
- <aqEivRP0LmJZcgEx@thinkstation>
+	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="VoklmvxN"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id AF52D1029BD;
+	Wed, 09 Sep 2026 18:44:35 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
+	s=dkim; t=1788972276; h=from:subject:date:message-id:to:cc:mime-version:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=a1p0i5qyTCCTsFGcrc4bVvn41tpM5QHqaETfHXGnndQ=;
+	b=VoklmvxND5oWmEMSzlDWhzuEjft1DVpIjCb7yjBVWu1I1IpsaNQx127GJF1pTKWg/bl9Hc
+	MuYcG4s4xRaQAI0/RHRxoC52FYnARgG2UvDhEX9kGGgb8Wlt4Me5vX8IkcZj28uLo+2WkG
+	GNnLaTqcNE2Kxm3HrzoO7YKr8pho06+/VSexhEmyr4gs5iju17nJfBiUhrg5CIXk/DZ6HU
+	dfZ7ltvUMZKHVh6TNAobhB4gj7mj91M3LDicX1bCCfrG96Zjx5mH/OMUCw+29MtVN7a1m9
+	F2fpg2EBiX/yHwMYo9MV5sa3/lKWVegSBbYE9Xi+go5VWxdIgFdJaXsv4YSIow==
+From: Marek Vasut <marex@nabladev.com>
+To: linux-arm-kernel@lists.infradead.org
+Cc: Marek Vasut <marex@nabladev.com>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Michal Simek <michal.simek@amd.com>,
+	Rob Herring <robh@kernel.org>,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 2/2] arm64: zynqmp: Add ifm ZynqMP VHIP6 EvalBoard
+Date: Wed,  9 Sep 2026 18:43:24 +0200
+Message-ID: <20260909164423.97288-2-marex@nabladev.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260909164423.97288-1-marex@nabladev.com>
+References: <20260909164423.97288-1-marex@nabladev.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <aqEivRP0LmJZcgEx@thinkstation>
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Wed, Sep 09, 2026 at 10:15:13AM +0100, Kiryl Shutsemau wrote:
-> On Tue, Sep 08, 2026 at 01:32:20PM +0100, Lorenzo Stoakes (ARM) wrote:
-> > Now every architecture has been converted to support
-> > CONFIG_MMU_GATHER_RCU_TABLE_FREE, this configuration option no longer makes
-> > any sense to keep around.
-> >
-> > Therefore remove it, and remove all the dead code that existed for
-> > !CONFIG_MMU_GATHER_RCU_TABLE_FREE architectures previously.
-> >
-> > Additionally, CONFIG_MMU_GATHER_TABLE_FREE is no longer necessary, as all
-> > architectures instead use CONFIG_HAVE_ARCH_TLB_REMOVE_TABLE when a custom
-> > __tlb_remove_table() is required, so remove this too.
-> >
-> > A number of architectures only enabled CONFIG_MMU_GATHER_RCU_TABLE_FREE if
-> > CONFIG_MMU was set, however the mmu_gather logic only actually does
-> > something meaningful if CONFIG_MMU is set (mmu_gather.c is only compiled in
-> > this case, for instance).
-> >
-> > As a result, there's no need to gate any of this logic on CONFIG_MMU
-> > explicitly.
-> >
-> > CONFIG_PT_RECLAIM however does have a strict dependency on CONFIG_MMU, so
-> > make this dependency explicit.
-> >
-> > Additionally, correct comments to remove references to non-RCU page table
-> > gathering and make it clear that this is not 'semi-RCU', nor has it been
-> > since commit 1fb3d8c20bfa ("mm/mmu_gather: replace IPI with
-> > synchronize_rcu() when batch allocation fails").
-> >
-> > With this change in place the kernel policy is now that all page tables are
->
-> You missed s/all/userspace/ from v1.
+Add support for ifm ZynqMP VHIP6 EvalBoard reference design.
+The board is populated with four ethernet ports, QSPI NOR,
+eMMC, UART and USB host interfaces.
 
-Hmm I thought I got this... will fix on respin!
+Signed-off-by: Marek Vasut <marex@nabladev.com>
+---
+Cc: Conor Dooley <conor+dt@kernel.org>
+Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
+Cc: Michal Simek <michal.simek@amd.com>
+Cc: Rob Herring <robh@kernel.org>
+Cc: devicetree@vger.kernel.org
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: linux-kernel@vger.kernel.org
+---
+NOTE: Checkpatch complains about ethernet-phy-id2000.a240 being
+      undocumented, but the TI DP83822I is generic C45 PHY that
+      is valided by Documentation/devicetree/bindings/net/ethernet-phy.yaml
+---
+ arch/arm64/boot/dts/xilinx/Makefile           |   1 +
+ .../dts/xilinx/zynqmp-vhip6-evalboard.dts     | 321 ++++++++++++++++++
+ 2 files changed, 322 insertions(+)
+ create mode 100644 arch/arm64/boot/dts/xilinx/zynqmp-vhip6-evalboard.dts
 
->
-> > freed after an RCU grace period, and thus it is now safe to unconditionally
-> > perform page table walks under RCU, safe in the knowledge that page tables
-> > will not be freed underneath the walker.
->
->
-> > @@ -151,24 +148,15 @@
-> >   *  This might be useful if your architecture has size specific TLB
-> >   *  invalidation instructions.
-> >   *
-> > - *  MMU_GATHER_TABLE_FREE
-> > - *
-> > - *  This provides tlb_remove_table(), to be used instead of tlb_remove_page()
-> > - *  for page directores (__p*_free_tlb()).
-> > - *
-> > - *  Useful if your architecture has non-page page directories.
-> > + *  Page directories (__p*_free_tlb()) are always freed via tlb_remove_table(),
-> > + *  after an RCU grace period (see mm/mmu_gather.c).
-> >   *
-> > - *  When used, an architecture is expected to provide __tlb_remove_table() or
-> > - *  use the generic __tlb_remove_table(), which does the actual freeing of these
-> > - *  pages.
-> > + * This serialises against software page-table walkers, including architectures
-> > + * which do not use IPIs for remote TLB invalidates.
->
-> Indentation is broken.
+diff --git a/arch/arm64/boot/dts/xilinx/Makefile b/arch/arm64/boot/dts/xilinx/Makefile
+index 70fac0b276df0..936ddf6eb80a6 100644
+--- a/arch/arm64/boot/dts/xilinx/Makefile
++++ b/arch/arm64/boot/dts/xilinx/Makefile
+@@ -1,5 +1,6 @@
+ # SPDX-License-Identifier: GPL-2.0
+ dtb-$(CONFIG_ARCH_ZYNQMP) += avnet-ultra96-rev1.dtb
++dtb-$(CONFIG_ARCH_ZYNQMP) += zynqmp-vhip6-evalboard.dtb
+ dtb-$(CONFIG_ARCH_ZYNQMP) += zynqmp-zc1232-revA.dtb
+ dtb-$(CONFIG_ARCH_ZYNQMP) += zynqmp-zc1254-revA.dtb
+ dtb-$(CONFIG_ARCH_ZYNQMP) += zynqmp-zc1751-xm015-dc1.dtb
+diff --git a/arch/arm64/boot/dts/xilinx/zynqmp-vhip6-evalboard.dts b/arch/arm64/boot/dts/xilinx/zynqmp-vhip6-evalboard.dts
+new file mode 100644
+index 0000000000000..0e1d1baf40a82
+--- /dev/null
++++ b/arch/arm64/boot/dts/xilinx/zynqmp-vhip6-evalboard.dts
+@@ -0,0 +1,321 @@
++// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
++/*
++ * ifm Zynq UltraScale+ MPSoC VHIP6 Evaluation Board
++ *
++ * Copyright (C) 2022-2026 Fedor Ross, ifm ecomatic gmbh
++ */
++
++/dts-v1/;
++
++#include <dt-bindings/gpio/gpio.h>
++#include <dt-bindings/interrupt-controller/irq.h>
++#include <dt-bindings/phy/phy.h>
++
++#include "zynqmp.dtsi"
++#include "zynqmp-clk-ccf.dtsi"
++
++/ {
++	model = "ifm ZynqMP VHIP6 Evaluation Board";
++	compatible = "ifm,zynqmp-vhip6-evalboard", "ifm,zynqmp-vhip6", "xlnx,zynqmp";
++
++	aliases {
++		ethernet0 = &gem0;
++		ethernet1 = &gem1;
++		ethernet2 = &gem2;
++		ethernet3 = &gem3;
++		gpio0 = &gpio;
++		i2c0 = &i2c0;
++		i2c1 = &i2c1;
++		rtc0 = &i2crtc;
++		serial0 = &uart0;
++		spi0 = &qspi;
++		usb0 = &usb0;
++		usb1 = &usb1;
++	};
++
++	chosen {
++		bootargs = "clk_ignore_unused";
++		stdout-path = "serial0:115200n8";
++	};
++
++	memory@0 {
++		device_type = "memory";
++		reg = <0x0 0x0 0x0 0x40000000>;
++	};
++};
++
++&dwc3_1 {
++	dr_mode = "host";
++	maximum-speed = "high-speed";
++	status = "okay";
++};
++
++&gem0 {
++	phy-handle = <&phy0>;
++	phy-mode = "mii";
++	status = "okay";
++
++	mdio0: mdio {
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		phy0: phy@1 {	/* TI DP83822I */
++			compatible = "ethernet-phy-id2000.a240",
++				     "ethernet-phy-ieee802.3-c45";
++			reg = <1>;
++			reset-gpios = <&gpio 78 GPIO_ACTIVE_LOW>;
++			reset-assert-us = <10>;
++			reset-deassert-us = <10>;
++		};
++	};
++};
++
++&gem1 {
++	phy-handle = <&phy1>;
++	phy-mode = "rgmii-rxid";
++	status = "okay";
++
++	mdio1: mdio {
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		phy1: phy@1 {	/* TI DP83822I */
++			compatible = "ethernet-phy-id2000.a240",
++				     "ethernet-phy-ieee802.3-c45";
++			reg = <1>;
++			max-speed = <100>;
++			reset-gpios = <&gpio 8 GPIO_ACTIVE_LOW>;
++			reset-assert-us = <10>;
++			reset-deassert-us = <10>;
++			tx-internal-delay-ps = <1>;
++		};
++	};
++};
++
++&gem2 {
++	phy-handle = <&phy2>;
++	phy-mode = "mii";
++	status = "okay";
++
++	mdio2: mdio {
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		phy2: phy@1 {	/* TI DP83822I */
++			compatible = "ethernet-phy-id2000.a240",
++				     "ethernet-phy-ieee802.3-c45";
++			reg = <1>;
++			reset-gpios = <&gpio 79 GPIO_ACTIVE_LOW>;
++			reset-assert-us = <10>;
++			reset-deassert-us = <10>;
++		};
++	};
++};
++
++&gem3 {
++	phy-handle = <&phy3>;
++	phy-mode = "mii";
++	status = "okay";
++
++	mdio3: mdio {
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		phy3: phy@1 {	/* TI DP83822I */
++			compatible = "ethernet-phy-id2000.a240",
++				     "ethernet-phy-ieee802.3-c45";
++			reg = <1>;
++			reset-gpios = <&gpio 80 GPIO_ACTIVE_LOW>;
++			reset-assert-us = <10>;
++			reset-deassert-us = <10>;
++		};
++	};
++};
++
++&gpio {
++	status = "okay";
++	gpio-line-names =
++		/* GPIO 0 - 77 */
++		"", "", "", "", "", "", "", "", "", "",	"", "", "", "", "", "",
++		"", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",
++		"", "", "", "", "",
++		"ifm_device_info_eeprom_wp",
++		"", "", "", "", "", "", "", "", "", "",
++		"", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",
++		"", "", "", "", "", "", "", "", "", "", "", "", "", "",
++		/* EMIO 0 - 96 */
++		"", "", "", "", "", "", "", "",	"", "",	"", "", "", "", "", "",
++		"", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",
++		"", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",
++		"", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",
++		"", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",
++		"", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "";
++};
++
++&i2c0 {
++	clock-frequency = <400000>;
++	status = "okay";
++
++	lm75@48 {
++		compatible = "national,lm75";
++		reg = <0x48>;
++	};
++
++	eeprom@50 {
++		compatible = "atmel,24c128";
++		reg = <0x50>;
++		label = "ifm-logging";
++		wp-gpios = <&gpio 36 GPIO_ACTIVE_HIGH>;
++	};
++};
++
++&i2c1 {
++	clock-frequency = <400000>;
++	status = "okay";
++
++	eeprom@51 {
++		compatible = "atmel,24c128";
++		reg = <0x51>;
++		label = "ifm-deviceinfo";
++		wp-gpios = <&gpio 37 GPIO_ACTIVE_HIGH>;
++
++		nvmem-layout {
++			compatible = "fixed-layout";
++			#address-cells = <1>;
++			#size-cells = <1>;
++
++			vhip-signature@0 {
++				reg = <0x0 0x4>;
++			};
++
++			vhip-version@4 {
++				reg = <0x4 0x4>;
++			};
++
++			vhip-size@8 {
++				reg = <0x8 0x4>;
++			};
++
++			device-serial@c {
++				reg = <0xc 0x10>;
++			};
++
++			order-number@1c {
++				reg = <0x1c 0x20>;
++			};
++
++			article-name@3c {
++				reg = <0x3c 0x20>;
++			};
++
++			article-rev@5c {
++				reg = <0x5c 0x4>;
++			};
++
++			hardware-rev@60 {
++				reg = <0x60 0x4>;
++			};
++
++			product-type@64 {
++				reg = <0x64 0x20>;
++			};
++
++			software-compatibility@84 {
++				reg = <0x84 0x4>;
++			};
++
++			manufacturing-date@88 {
++				reg = <0x88 0x20>;
++			};
++
++			production-order-number@a8 {
++				reg = <0xa8 0x20>;
++			};
++
++			/* Each MAC address is padded to 8 Bytes */
++			cfg_eeprom_mac1: mac-address-1@c8 {
++				reg = <0xc8 0x8>;
++			};
++
++			cfg_eeprom_mac2: mac-address-2@d0 {
++				reg = <0xd0 0x8>;
++			};
++
++			cfg_eeprom_mac3: mac-address-3@d8 {
++				reg = <0xd8 0x8>;
++			};
++
++			cfg_eeprom_mac4: mac-address-4@e0 {
++				reg = <0xe0 0x8>;
++			};
++
++			cfg_eeprom_mac5: mac-address-5@e8 {
++				reg = <0xe8 0x8>;
++			};
++
++			cfg_eeprom_mac6: mac-address-6@f0 {
++				reg = <0xf0 0x8>;
++			};
++
++			cfg_eeprom_mac7: mac-address-7@f8 {
++				reg = <0xf8 0x8>;
++			};
++
++			cfg_eeprom_mac8: mac-address-8@100 {
++				reg = <0x100 0x8>;
++			};
++
++			next-block-offset@108 {
++				reg = <0x108 0x4>;
++			};
++
++			section-crc@10c {
++				reg = <0x10c 0x4>;
++			};
++		};
++	};
++
++	i2crtc: rtc@52 {
++		compatible = "microcrystal,rv3028";
++		reg = <0x52>;
++	};
++};
++
++&qspi {
++	status = "okay";
++
++	flash@0 {
++		compatible = "jedec,spi-nor";
++		reg = <0x0>;
++		spi-max-frequency = <80000000>;
++		spi-tx-bus-width = <1>;
++		spi-rx-bus-width = <4>;
++	};
++};
++
++&sdhci0 {
++	xlnx,mio-bank = <0x0>;
++	status = "okay";
++};
++
++&spi0 {
++	status = "okay";
++
++	eeprom@0 {
++		compatible = "atmel,at25";
++		reg = <0x0>;
++		address-width = <16>;
++		pagesize = <64>;
++		size = <32768>;
++		spi-max-frequency = <60000000>;
++	};
++};
++
++&uart0 {
++	status = "okay";
++};
++
++&usb1 {
++	reset-gpios = <&gpio 77 1>;
++	status = "okay";
++};
+-- 
+2.53.0
 
-Ugh I thought I fixed this before I respun too, doh!
-
-Will fix.
-
->
-> --
->   Kiryl Shutsemau / Kirill A. Shutemov
-
---
-Cheers, Lorenzo
