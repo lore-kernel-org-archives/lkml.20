@@ -1,177 +1,246 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 272D05328CE;
-	Wed,  9 Sep 2026 11:13:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20A70538D83;
+	Wed,  9 Sep 2026 11:13:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788952395; cv=none; b=nR6ANJqpAkqWgVB9igWlAWXwTkiaksiOgFoRune1f3i3Ahmw7qOLJPa2R/+EEylG3TbxdcpPBhjY9WU/aotHHjUaTLwGs6d8A8WD1u5rLlbNQDfdGutpei5Ez5XmiLT6SfUzSj8qJtgWzZv9mRJz3QBgf1ZAQL40BSfPvWZj7n4=
+	t=1788952399; cv=none; b=dbDILgLiqF3Z0O7gNM0u3bZS9EqlHc1k0PcAI90dXu/akv2U9pqW2pTScwlMsUOtOnX2i6fRAvt2yQ9E8LuCQfGeQ/XOpTBsKYLj0lLVcBYEQNNxqaJrZEMQpFwlt2LmGMIpaibiLFbzePfttjCfRbFX7rb7iB4WQ7WCYyjcFP8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788952395; c=relaxed/simple;
-	bh=vypM7GmJ5Phl86G7W1xD5IJBbIeGQQosbEwJ/ZjggjM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=owialX411Z6bpmeoNII6oXwtHPgyxAE7WC9PMxpqWC7a2AoQZYfHG+zqG+k1VYi+S9KILQ8sncz+BXVnSaf8rbGqDw22mtpwQrNo0BPefG1Ef9nqu9RI7kAl841jn/WxAQO85p0REvHrprhpIaxg7mrIBsDYBz+SzaJ3sr0pfvQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ShPN8HII; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788952399; c=relaxed/simple;
+	bh=d0CT5LGqZR35B5OgYQAKyxH4fep5wcjcjjQa7huTUzk=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=mB/CI4mXhjBD7F8hgxzD+SsgJZ4SFjVnVRdVtA2JiCU7Xei++utnwIf6f5gLva2scIBZ8UefUxwCOBhsaAnFEAtEqPQ4iMO/x5rVQOXwkOAMzex7cYj9w6GMy5a/OcwYUwf0hjbSNIx/DKqFew/Cxn04/OnVzBZ1KVmKYGONN2o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KA0OUDUI; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ShPN8HII"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AA4B01F00A3E;
-	Wed,  9 Sep 2026 11:13:06 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KA0OUDUI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F28F11F00ACA;
+	Wed,  9 Sep 2026 11:13:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788952387;
-	bh=ngMscP67M93287oXTGrViIN/OWZ9/3SHVfrrJ06sBKo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ShPN8HII79W94cOfU6EBM13SwZTDw5LJJLbKJuMs/Lb9uodDdougj3w3X9+iH5ESt
-	 N/SISPp+CDZqK6fcMwEXbeWXlNRf+6IuLK+h0YNPOXwr66Ps0QCfMAfyJBJep8uU/e
-	 m+wnZAObEbS9dUOmtVLoj009bXZ46yYFS3vzBHO+S2QdYTD7/AG/TuhxGmgYiFl8s4
-	 3mr9ZOtRhl0Kd+VzjPb+P0uJdCXJ1rkgnBCnrgXVI5vJL+G3GQEDGDCcLWlONzlFle
-	 IAMBNCwFdTVocBz0Hyfn724FbDY2uUN1qKU+n+Vj62I7u0VhYPeOYC9Aq+Nf03e2G6
-	 pO+3rYLww0f+Q==
-Date: Wed, 9 Sep 2026 08:13:04 -0300
-From: Arnaldo Carvalho de Melo <acme@kernel.org>
-To: Matt Turner <mattst88@gmail.com>
-Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
-	Namhyung Kim <namhyung@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	James Clark <james.clark@linaro.org>, linux-kernel@vger.kernel.org,
-	linux-perf-users@vger.kernel.org
-Subject: Re: [PATCH v8 0/3] perf tools: port UI from GTK2 to GTK4
-Message-ID: <aqE_QOp-x1aOQsCX@x2>
-References: <20260908-perf-gtk2-v8-0-e90d5d155f0d@gmail.com>
+	s=k20260515; t=1788952394;
+	bh=XKCnvJpSb1QJ7+qbULM8SiCBq7ZJ82f58JoZ6/MR7NM=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=KA0OUDUIHAhRnI5QhUP2EpJLjFC4jkI4kKEQTVlvYX6nsYLN1UnQqkG02XU0LdW28
+	 Khw3zN5MbRWsnIZ0Uo6HBiMunHs+p86GqOO+qVyMgyBOri90oVo4lXmvhOgB6NJIfP
+	 EIrI8Mk+ceNJWGro+C8k3AMhEJ7s2s8+G7LZGeWsLGLFFRYjMdUuJP1y0FG1YAlFb3
+	 KVI/M3YwFBcFWW9EsH/ghdK29nHO0mVXVNpcmxsQ71vn5awvk9mg3Uny+K52JSpp4T
+	 1EyHfcu29MlYocMGQ7AG6jvxKPHlgUT7dzWVi1Nr73T6F3MBK1jsynqE2/9fXldIi7
+	 jPtUmMiEqrljQ==
+From: Lee Jones <lee@kernel.org>
+To: lee@kernel.org,
+	Ping Cheng <ping.cheng@wacom.com>,
+	Jason Gerecke <jason.gerecke@wacom.com>,
+	Jiri Kosina <jikos@kernel.org>,
+	Benjamin Tissoires <bentiss@kernel.org>,
+	Aaron Skomra <aaron.skomra@wacom.com>,
+	Peter Hutterer <peter.hutterer@who-t.net>,
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: stable@vger.kernel.org
+Subject: [PATCH v10 3/5] HID: wacom: Fix Use-After-Free in wacom_intuos_pad
+Date: Wed,  9 Sep 2026 11:12:25 +0000
+Message-ID: <c861d21f863c023ac89878c170a00fe8c80405d9.1788868602.git.lee@kernel.org>
+X-Mailer: git-send-email 2.55.0.1007.g17ff1f9808-goog
+In-Reply-To: <fa3cb42f7b58c1b3022d8208969a81882783a5ec.1788868602.git.lee@kernel.org>
+References: <fa3cb42f7b58c1b3022d8208969a81882783a5ec.1788868602.git.lee@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260908-perf-gtk2-v8-0-e90d5d155f0d@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Tue, Sep 08, 2026 at 10:50:33PM -0400, Matt Turner wrote:
-> GTK2 is long dead upstream and increasingly hard to keep building on
-> current distros. This series ports perf's GTK-based report browser to
-> GTK4 and fixes it up so it's actually loadable at runtime after the
-> port.
-> 
-> Patch 1 does the mechanical port (build system, widget API changes),
-> including the leftover-GTK2-call and signal-handling fixes that were a
-> separate patch 3 in v4. Patch 2 fixes a runtime issue found after the
-> port that prevented the browser from loading. Patch 3 fixes two stack
-> buffer overflows in the hierarchy view that predate the port.
+wacom_intuos_pad() accesses wacom->shared->touch_input locklessly
+inside the interrupt handler context.  If the Touch sibling device
+is disconnected, wacom_remove_shared_data() clears 'touch_input'
+outside any lock, creating a Time-of-Check to Time-of-Use (TOCTOU)
+race condition where a preempted reader in interrupt context
+dereferences the freed pointer, leading to a Use-After-Free.
 
-I'm tentatively merging this, will test build on my distro container set
-and perform some testing, thanks for working on this!
+Resolve this by introducing RCU protection for the touch_input
+pointer:
 
-- Arnaldo
+ - Annotate 'touch_input' in wacom_shared struct with __rcu
+ - Wrap all lockless readers in wacom_wac.c with guard(rcu)() and
+   rcu_dereference() using a unified wacom_report_touch_mute()
+   helper
+ - Update writers in wacom_sys.c using rcu_assign_pointer()
+ - Call synchronize_rcu() in wacom_remove_shared_data() to ensure
+   all active RCU readers have finished before the input device is
+   freed
+
+Also wrap wacom_set_shared_values() and touch/pen assignments in
+wacom_add_shared_data() inside the wacom_udev_list_lock to serialize
+concurrent probe assignments, and verify that 'shared->touch == hdev'
+before setting touch_input to prevent concurrent sibling probe state
+desynchronization.
+
+Cc: stable@vger.kernel.org
+Fixes: 961794a00eab ("Input: wacom - add reporting of SW_MUTE_DEVICE events")
+Signed-off-by: Lee Jones <lee@kernel.org>
+---
+v1 -> v2:  Split and use RCU as per Dmitry's review
+v2 -> v3:  Sashiko fixes
+v3 -> v4:  Dmitry's review [redundant check and guard()]
+v4 -> v5:  Jason's review [split, remove "awkward if"]
+v5 -> v6:  No change
+v6 -> v7:  No change
+v7 -> v8:  No functional change - cleaned up a stray whitespace/blank line deletion hunk
+v8 -> v9:  No change
+v9 -> v10: No change
+
+ drivers/hid/wacom_sys.c | 23 ++++++++++++++++-------
+ drivers/hid/wacom_wac.c | 36 ++++++++++++++++++------------------
+ drivers/hid/wacom_wac.h |  2 +-
+ 3 files changed, 35 insertions(+), 26 deletions(-)
+
+diff --git a/drivers/hid/wacom_sys.c b/drivers/hid/wacom_sys.c
+index 4eed2c189017..10f7de515ea2 100644
+--- a/drivers/hid/wacom_sys.c
++++ b/drivers/hid/wacom_sys.c
+@@ -875,10 +875,16 @@ static void wacom_remove_shared_data(void *res)
+ 		data = container_of(wacom_wac->shared, struct wacom_hdev_data,
+ 				    shared);
  
-> Signed-off-by: Matt Turner <mattst88@gmail.com>
-> ---
-> Changes in v8:
-> - Fix perf_gtk__add_hierarchy_entries() to restore hpp->buf/hpp->size
->   unconditionally after formatting each entry, not just before
->   recursing into children: leaf entries left the buffer state
->   advanced, so the next sibling in the traversal inherited a
->   shrunk hpp->size and an already-advanced hpp->buf, eventually
->   running hpp->size to 0 and pointing bf past the end of the
->   stack buffer for the strim(bf) call (reported in v7 review)
-> - Link to v7: https://lore.kernel.org/r/20260906-perf-gtk2-v7-0-1ece839fbca0@gmail.com
-> 
-> Changes in v7:
-> - Add patch 3: fix two stack buffer overflows in the hierarchy view
->   (perf_gtk__show_hierarchy()'s unbounded strcat() into a 512-byte
->   buffer, and an advance_hpp() size_t underflow in
->   perf_gtk__add_hierarchy_entries()). Both predate the GTK4 port
-> - Link to v6: https://lore.kernel.org/r/20260906-perf-gtk2-v6-0-695d1c01aaa1@gmail.com
-> 
-> Changes in v6:
-> - Explicitly include <string.h> in annotate.c (strcpy()) and
->   <stdarg.h>/<stdio.h> in hists.c (va_list, snprintf()) instead of
->   relying on transitive includes, which isn't guaranteed on musl
-> - Link to v5: https://lore.kernel.org/r/20260906-perf-gtk2-v5-0-e8747a65c240@gmail.com
-> 
-> Changes in v5:
-> - Fold v4's patch 3 into patch 1, since sigprocmask() only blocks
->   delivery to the calling thread: it did nothing to stop the signal
->   handler from running concurrently on another thread and doesn't make
->   the handler's GSList calls async-signal-safe either
-> - Defer perf_gtk__exit() on SIGINT/SIGQUIT/SIGTERM to a GLib source via
->   g_unix_signal_add() instead of running it straight out of a real
->   signal handler, so it always runs on the main-loop thread, serialized
->   with perf_gtk__error()'s updates to perf_gtk__error_loops, instead of
->   racing them from arbitrary signal-handler context
-> - Keep a real handler for SIGSEGV/SIGFPE, since those are synchronous
->   faults with no "later" to defer to, but pare it down to reporting and
->   reraising the default disposition: there's no safe way to run
->   GTK/GLib code from the faulting context itself
-> - Link to v4: https://lore.kernel.org/r/20260906-perf-gtk2-v4-0-97e92ee07214@gmail.com
-> 
-> Changes in v4:
-> - Fix gtk_widget_show()/gtk_widget_hide() calls left over from the GTK2
->   port: both were removed in GTK 4. Replace with gtk_widget_set_visible(),
->   adding a small wrapper for the info-bar "response" signal callback
-> - Block SIGSEGV/SIGFPE/SIGINT/SIGQUIT/SIGTERM around the
->   perf_gtk__error_loops list updates in perf_gtk__error(): the signal
->   handler (perf_gtk__signal() -> perf_gtk__exit() ->
->   perf_gtk__quit_error_dialog()) walks that same list and could fire
->   mid-update, corrupting it
-> - Link to v3: https://lore.kernel.org/r/20260906-perf-gtk2-v3-0-e1f2086214a0@gmail.com
-> 
-> Changes in v3:
-> - Fix GMainLoop leak if perf_gtk__error() is called re-entrantly: track
->   active loops in a list instead of a single global pointer
-> - Add explicit <stdarg.h>/<stdio.h> includes instead of relying on
->   transitive inclusion, which musl doesn't guarantee
-> - Drop the gtk4-infobar feature check and HAVE_GTK_INFO_BAR_SUPPORT:
->   GtkInfoBar has been unconditionally available since well before GTK 4,
->   and the check was failing outright due to its deprecation warning
-> - Link to v2: https://lore.kernel.org/r/20260906-perf-gtk2-v2-0-3eccff053cd1@gmail.com
-> 
-> Changes in v2:
-> - Fix error dialog's nested GMainLoop hanging if the parent window
->   closes or a signal arrives while the dialog is open (quit from
->   "destroy", not just "response")
-> - Fix build with GTK_INFO_BAR_SUPPORT: gtk_info_bar_get_content_area()
->   is gone in GTK 4, use gtk_info_bar_add_child() instead
-> - Fix use-after-free in the progress dialog on manual close
-> - Fix reuse of an exhausted va_list in the vasprintf() failure path
-> - Link to v1: https://lore.kernel.org/r/20260906-perf-gtk2-v1-0-7564bf8523a9@gmail.com
-> 
-> ---
-> Matt Turner (3):
->       tools: port perf ui from GTK 2 to GTK 4
->       perf tools: make the GTK4 report browser actually loadable at runtime
->       perf tools gtk: fix two hierarchy-view stack buffer overflows
-> 
->  tools/build/Makefile.feature                     |  4 +-
->  tools/build/feature/Makefile                     | 10 +--
->  tools/build/feature/test-gtk2-infobar.c          | 12 ---
->  tools/build/feature/{test-gtk2.c => test-gtk4.c} |  4 +-
->  tools/perf/Documentation/perf-report.txt         |  2 +-
->  tools/perf/Makefile                              |  2 +-
->  tools/perf/Makefile.config                       | 27 +++----
->  tools/perf/Makefile.perf                         |  6 +-
->  tools/perf/builtin-annotate.c                    |  8 +-
->  tools/perf/builtin-report.c                      |  8 +-
->  tools/perf/scripts/install-build-deps.sh         |  4 +-
->  tools/perf/tests/make                            |  4 +-
->  tools/perf/ui/gtk/annotate.c                     | 36 ++++-----
->  tools/perf/ui/gtk/browser.c                      | 96 ++++++++++++++++++-----
->  tools/perf/ui/gtk/gtk.h                          | 16 ++--
->  tools/perf/ui/gtk/hists.c                        | 72 +++++++++---------
->  tools/perf/ui/gtk/progress.c                     | 40 +++++++---
->  tools/perf/ui/gtk/setup.c                        |  5 +-
->  tools/perf/ui/gtk/util.c                         | 97 ++++++++++++++----------
->  tools/perf/ui/setup.c                            |  2 +-
->  tools/perf/util/annotate.c                       | 11 +++
->  tools/perf/util/annotate.h                       | 12 +--
->  22 files changed, 278 insertions(+), 200 deletions(-)
-> ---
-> base-commit: 9f0346dcbea363787186c94ef94dd01aaa215afa
-> change-id: 20260906-perf-gtk2-555ca04bb652
-> 
-> Best regards,
-> -- 
-> Matt Turner <mattst88@gmail.com>
+-		if (wacom_wac->shared->touch == wacom->hdev)
+-			wacom_wac->shared->touch = NULL;
+-		else if (wacom_wac->shared->pen == wacom->hdev)
+-			wacom_wac->shared->pen = NULL;
++		scoped_guard(mutex, &wacom_udev_list_lock) {
++			if (wacom_wac->shared->touch == wacom->hdev) {
++				wacom_wac->shared->touch = NULL;
++				rcu_assign_pointer(wacom_wac->shared->touch_input, NULL);
++			} else if (wacom_wac->shared->pen == wacom->hdev) {
++				wacom_wac->shared->pen = NULL;
++			}
++		}
++
++		synchronize_rcu();
+ 
+ 		kref_put(&data->kref, wacom_release_shared_data);
+ 		wacom_wac->shared = NULL;
+@@ -915,6 +921,7 @@ static int wacom_add_shared_data(struct hid_device *hdev)
+ 	mutex_unlock(&wacom_udev_list_lock);
+ 
+ 	retval = devm_add_action_or_reset(&hdev->dev, wacom_remove_shared_data, wacom);
++
+ 	return retval;
+ }
+ 
+@@ -2354,9 +2361,11 @@ static void wacom_set_shared_values(struct wacom_wac *wacom_wac)
+ 	}
+ 
+ 	if (wacom_wac->features.device_type & WACOM_DEVICETYPE_TOUCH) {
+-		wacom_wac->shared->type = wacom_wac->features.type;
+-		wacom_wac->shared->touch_input = wacom_wac->touch_input;
+-		wacom_wac->shared->touch = wacom->hdev;
++		if (wacom_wac->shared->touch == wacom->hdev || !wacom_wac->shared->touch) {
++			wacom_wac->shared->type = wacom_wac->features.type;
++			wacom_wac->shared->touch = wacom->hdev;
++			rcu_assign_pointer(wacom_wac->shared->touch_input, wacom_wac->touch_input);
++		}
+ 	} else if (wacom_wac->features.device_type & WACOM_DEVICETYPE_PEN) {
+ 		/* Pairs with smp_load_acquire() in wacom_sibling_pending() */
+ 		smp_store_release(&wacom_wac->shared->pen, wacom->hdev);
+diff --git a/drivers/hid/wacom_wac.c b/drivers/hid/wacom_wac.c
+index 30df866feac8..c5227530f291 100644
+--- a/drivers/hid/wacom_wac.c
++++ b/drivers/hid/wacom_wac.c
+@@ -510,6 +510,18 @@ static void wacom_intuos_schedule_prox_event(struct wacom_wac *wacom_wac)
+ 	}
+ }
+ 
++static void wacom_report_touch_mute(struct wacom_wac *wacom_wac, bool mute)
++{
++	struct input_dev *touch_input;
++
++	guard(rcu)();
++	touch_input = rcu_dereference(wacom_wac->shared->touch_input);
++	if (touch_input) {
++		input_report_switch(touch_input, SW_MUTE_DEVICE, mute);
++		input_sync(touch_input);
++	}
++}
++
+ static int wacom_intuos_pad(struct wacom_wac *wacom)
+ {
+ 	struct wacom_features *features = &wacom->features;
+@@ -650,12 +662,8 @@ static int wacom_intuos_pad(struct wacom_wac *wacom)
+ 	input_report_key(input, KEY_CONTROLPANEL, menu);
+ 	input_report_key(input, KEY_INFO, info);
+ 
+-	if (wacom->shared && wacom->shared->touch_input) {
+-		input_report_switch(wacom->shared->touch_input,
+-				    SW_MUTE_DEVICE,
+-				    !wacom->shared->is_touch_on);
+-		input_sync(wacom->shared->touch_input);
+-	}
++	if (wacom->shared)
++		wacom_report_touch_mute(wacom, !wacom->shared->is_touch_on);
+ 
+ 	input_report_abs(input, ABS_RX, strip1);
+ 	input_report_abs(input, ABS_RY, strip2);
+@@ -2168,7 +2176,7 @@ static void wacom_wac_pad_event(struct hid_device *hdev, struct hid_field *field
+ 	 */
+ 	if ((equivalent_usage == WACOM_HID_WD_MUTE_DEVICE) ||
+ 	   (equivalent_usage == WACOM_HID_WD_TOUCHONOFF)) {
+-		if (wacom_wac->shared->touch_input) {
++		if (wacom_wac->shared) {
+ 			bool *is_touch_on = &wacom_wac->shared->is_touch_on;
+ 
+ 			if (equivalent_usage == WACOM_HID_WD_MUTE_DEVICE && value)
+@@ -2176,9 +2184,7 @@ static void wacom_wac_pad_event(struct hid_device *hdev, struct hid_field *field
+ 			else if (equivalent_usage == WACOM_HID_WD_TOUCHONOFF)
+ 				*is_touch_on = value;
+ 
+-			input_report_switch(wacom_wac->shared->touch_input,
+-					    SW_MUTE_DEVICE, !(*is_touch_on));
+-			input_sync(wacom_wac->shared->touch_input);
++			wacom_report_touch_mute(wacom_wac, !(*is_touch_on));
+ 		}
+ 		return;
+ 	}
+@@ -3396,11 +3402,8 @@ static int wacom_wireless_irq(struct wacom_wac *wacom, size_t len)
+ 
+ 		if ((wacom->shared->type == INTUOSHT ||
+ 		    wacom->shared->type == INTUOSHT2) &&
+-		    wacom->shared->touch_input &&
+ 		    wacom->shared->touch_max) {
+-			input_report_switch(wacom->shared->touch_input,
+-					SW_MUTE_DEVICE, data[5] & 0x40);
+-			input_sync(wacom->shared->touch_input);
++			wacom_report_touch_mute(wacom, data[5] & 0x40);
+ 		}
+ 
+ 		pid = get_unaligned_be16(&data[6]);
+@@ -3435,11 +3438,8 @@ static int wacom_status_irq(struct wacom_wac *wacom_wac, size_t len)
+ 
+ 	if ((features->type == INTUOSHT ||
+ 	    features->type == INTUOSHT2) &&
+-	    wacom_wac->shared->touch_input &&
+ 	    features->touch_max) {
+-		input_report_switch(wacom_wac->shared->touch_input,
+-				    SW_MUTE_DEVICE, data[8] & 0x40);
+-		input_sync(wacom_wac->shared->touch_input);
++		wacom_report_touch_mute(wacom_wac, data[8] & 0x40);
+ 	}
+ 
+ 	if (data[9] & 0x02) { /* wireless module is attached */
+diff --git a/drivers/hid/wacom_wac.h b/drivers/hid/wacom_wac.h
+index 126bec6e5c0c..a8bbba4a6f37 100644
+--- a/drivers/hid/wacom_wac.h
++++ b/drivers/hid/wacom_wac.h
+@@ -285,7 +285,7 @@ struct wacom_shared {
+ 	/* for wireless device to access USB interfaces */
+ 	unsigned touch_max;
+ 	int type;
+-	struct input_dev *touch_input;
++	struct input_dev __rcu *touch_input;
+ 	struct hid_device *pen;
+ 	struct hid_device *touch;
+ 	bool has_mute_touch_switch;
+-- 
+2.55.0.979.g7e5102b832-goog
+
