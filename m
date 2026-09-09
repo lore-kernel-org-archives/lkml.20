@@ -1,134 +1,105 @@
-Received: from mail-pf1-f171.google.com (mail-pf1-f171.google.com [209.85.210.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B16A3DC4C6
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 09:28:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.171
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 261043E49C3
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 09:28:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788946105; cv=none; b=BFgwFvDirtPGq/9FKRgyRorACxa0t3WxrWe11SmU0fmYngE+peeu/8nhvoeKyvYCVbGZirOLcdMBSo4pLLcpA6O1LH3D2Ycz3UR3u0H9H6geWasec2EbJuKvYOBVBHqbVn3u9IFtdq0WcoVJatqbtZ2jt9yzj5Xy1nZ9kMfQ8Wo=
+	t=1788946109; cv=none; b=KQL5aI1DyuaBXkqddswLICqWrJ2IQj1PWcS2UvC8LkRzBQxn73pWYAO4+yazAKKDHrwTa9/is4fHtGObrfaLRk+Cuq1XYtMlE9ddbyITVf6dmLFXn/SodjYiAvvajZeEJFYQgtdYbMF/B4ooXO5hfdREKLQcvq3ehBEzN56hE5Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788946105; c=relaxed/simple;
-	bh=w1bKyQWKw8iEtesnaXqouFCOrAm6kxtFiyY3O7rUloY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=XG2By2r5nyENwt+8ZAF9VKRLlV6jZ4RuJrOD7uu7LiBlZgS9PJxn2mtxRQouiEAPmBdkiCryZxB4PN2G7pwRoKBiUxBnPjVGnWM3791cuxxLQuMhSgHxYgBu2W6HmjcK79FdybrKK15Q4Z8Sae37yZkKUPqyjgK4BQuHKDz4omY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pCeKaH1J; arc=none smtp.client-ip=209.85.210.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788946109; c=relaxed/simple;
+	bh=prBHfafX4xJGVIFwqDLDyAlGiDruB1/Xr0x5BUzkQg8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=JnIg+3kie38NXzLi28XrHkjCj584bjwclEX1ba0mNJFcKS1BzJE6WlnTC5vqP/b7wOhERNgMvOllxJUggeZSKftkzatZzBB8g4Sx5boBHV2NWmwbRa2szxCaGgucE9NPl8/Jy/0jWrsRvZ5DrPViBiRN3vyzOjA+AfhL8Y9XG5w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=BbUNzyz2; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pCeKaH1J"
-Received: by mail-pf1-f171.google.com with SMTP id d2e1a72fcca58-855d2bfae95so6488514b3a.1
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 02:28:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788946091; x=1789550891; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Lj2u/Zjo691deIvNQnGk0TPSNETy/c4N8X1lSk8Bcfw=;
-        b=pCeKaH1JttdvYhBGl60y3e0PfTY4j38fxgwvxoHrXuWHJOnHoJ4+4Y1e26gIO9Tmjd
-         W/YZTSHMJFrhUSafmPjJVXZa7DtZ7s05t0AFoI9SI7iVwk69vEpBOJqasB9hty2Vtqle
-         uAKfIVZ46Hwl+NG10YCUHmEeNVtOtP9HczoUzR+sD8CevNJjlj6Zf2xBLubLUcKRCeEq
-         Y19D9ULkLWkZ2SGJzneKU8oy/NFdax4UN55FH/CRYA/7F8JHlrB8h1wJuib2cz6swT3K
-         dZ98C/vcDjdVQJ43KN3sNCjJ9YG6UcFEd+kPpU6br43PnFfxmV9/RkICcxfQr4F6cr4U
-         ddEQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788946091; x=1789550891;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Lj2u/Zjo691deIvNQnGk0TPSNETy/c4N8X1lSk8Bcfw=;
-        b=gpH7pF8OQr/RUra5pkEtmbDLit47pUc/34z/ji6tUjjHHhc8f4lspOL2YBljvjc61X
-         sxCIoV642ZmMuHpw7kNQBuqpdky3ufCvPQvF+ZjgN4/3pm1HQLcBQsI+Z2owehewcLx0
-         2orsSvCEPXg/c64Mpat2KaGP6cLsqgAjcePbtGOMvHLly4TnFhRnps+7iIF7xCzpvrHW
-         A8W+AlG890PpvLvZ6rDCpMXRuIlXKAzZHd5uco/5VfQX3usQQe8gmeBhD15+pg0MX98L
-         HIMkmBsvk+Owi9nZNWrhcRd3a/kPg1ygT6aLNRL2xcVrx7A2kl90unvVM2qAYEnGQAFO
-         N9Qg==
-X-Forwarded-Encrypted: i=1; AKwUvByyEkpNs5v7Pk98Em66w0CXEJNsU+qc7KxG6MuqyzCtcySRES3HRJOj4hEYhcgpQsP2d4s7hgOi1AQd8fQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++n41zR/Y/Jjjbyv5xPHABQop79cTbS1F/VIb1a+alyPgusnHEdg
-	FxprrfCB23Z599SOhsWocv/AAkW8w5RC+YLyBjEJh5oLYTq96SK49ljr
-X-Gm-Gg: AYBFou3Pz9odm6bVM87j6NY1V+QTco/26DfLS2csZz0G59+d4gRMlJCXrFJLRk3qwXK
-	bNszRBCwmHJP/iTRQGGVbhILwzJRrkVHI76Uu5rjK17faTrR/bl6ziETGWnSZ3Y4lSwpYml4jtg
-	nA/CD7NPW5Nc3z4tGK0XLs00RaqsRJQ5dVxp4+7qf72ofYLoIWfXOLkIpMO+yAtQReZ/FbGt5wp
-	WTIgUJoYTBNiSqtsh9A6rQCfveddtREY3TAMldHSLpuhCh0ZPfzJkj6dFJJrLp/ET0cnjeQFmbz
-	3/lePERSPJMesItjledoicYP1nh4xn+B9w2sU42f/OPJG/iXKMaXp/AdeYsY5WydWPT7dVj1h/j
-	e4cLFgCGzjBUurUgRcOT6SmlKG1Vgmf2pc+LdIUfsAe2miKk1kwH1YTqnKH1wBFsJp7vbGt4grM
-	T2pup6TCkN+tUDVXXxn+f4vAJvEiO8y7jpKvryMWCp06kk2ZMarX2oBBzP1U+vE08D1xdGphb7l
-	C88Ois3JdAG
-X-Received: by 2002:a05:6a00:2d0d:b0:857:73c3:4468 with SMTP id d2e1a72fcca58-85ffeadd911mr33200033b3a.23.1788946091221;
-        Wed, 09 Sep 2026 02:28:11 -0700 (PDT)
-Received: from Aaron-M6 ([188.253.120.162])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-868e3aaab85sm484904b3a.22.2026.09.09.02.28.06
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 09 Sep 2026 02:28:10 -0700 (PDT)
-From: Yaozhong Li <yaozhonguwl@gmail.com>
-To: Lee Jones <lee@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Heiko Stuebner <heiko@sntech.de>,
-	Chris Zhong <zyw@rock-chips.com>,
-	Zhang Qing <zhangqing@rock-chips.com>
-Cc: mfd@lists.linux.dev,
-	devicetree@vger.kernel.org,
-	linux-rockchip@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org,
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="BbUNzyz2"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id BDA9B1576;
+	Wed,  9 Sep 2026 02:28:15 -0700 (PDT)
+Received: from localhost (unknown [10.2.196.114])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 18A063F528;
+	Wed,  9 Sep 2026 02:28:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1788946099; bh=prBHfafX4xJGVIFwqDLDyAlGiDruB1/Xr0x5BUzkQg8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=BbUNzyz2Ny1yvMPXzKTpg43CCE/Pk8wT85L8tLMbT7JYrVy/3nRWdGl/qVVMPR7+G
+	 P6DLLN1GlWSkGHyWBoXkfOgrP7nMDLqw/I9IcxjRRbPkNMc4ogxQT/myyFBE3meNJb
+	 Joz6hHTPn4tiS2Gf/Fj48Be5n3p3Knee9CqvwY9g=
+Date: Wed, 9 Sep 2026 10:28:17 +0100
+From: Leo Yan <leo.yan@arm.com>
+To: Jie Gan <jie.gan@oss.qualcomm.com>
+Cc: Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Mike Leach <mike.leach@arm.com>,
+	James Clark <james.clark@linaro.org>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Yeoreum Yun <yeoreum.yun@arm.com>,
+	Tingwei Zhang <tingwei.zhang@oss.qualcomm.com>,
+	coresight@lists.linaro.org, linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
-	Yaozhong Li <yaozhonguwl@gmail.com>
-Subject: [RFC PATCH 3/3] arm64: dts: rockchip: fix power-off on Firefly-RK3399
-Date: Wed,  9 Sep 2026 17:27:28 +0800
-Message-ID: <20260909092728.1859-4-yaozhonguwl@gmail.com>
-X-Mailer: git-send-email 2.55.0.windows.3
-In-Reply-To: <20260909092728.1859-1-yaozhonguwl@gmail.com>
-References: <20260909092728.1859-1-yaozhonguwl@gmail.com>
+	linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [PATCH] coresight: Fix clock refcount imbalance on platform
+ probe failure
+Message-ID: <20260909092817.GC200420@e132581.arm.com>
+References: <20260907-fix-clk-issue-v1-1-efe81fa2b697@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260907-fix-clk-issue-v1-1-efe81fa2b697@oss.qualcomm.com>
 
-poweroff on this board drops the rails and immediately brings them back
-up, so it reboots instead of staying off and U-Boot reports a power-on
-reset.
+Hi Jie,
 
-Firefly's BSP drives GPIO1_D0 and GPIO1_B5 low during shutdown, before
-writing the RK808's shutdown bit. Mainline does not describe GPIO1_D0 at
-all, and describes GPIO1_B5 as the backlight enable GPIO - the vendor's
-own backlight node has no enable GPIO. Nothing therefore releases either
-line at power-off, and while the backlight owns GPIO1_B5 it can hold it
-asserted, which is enough to make the board come back up on its own.
+Thanks for fixing! It is shame that my single patch caused issues both
+in driver's probe and remove - I have to admit that I don't understand
+runtime PM's state machine.
 
-Describe both lines in the PMIC node and drop the backlight enable-gpios,
-with the settle time the vendor uses.
+TBC, this patch only fixes probe. The driver's remove is fixed in:
+https://lore.kernel.org/linux-arm-kernel/20260710-fix-clock-refcount-unbalance-v3-0-a37a1fb17981@oss.qualcomm.com/
 
-Fixes: 171582e00db1 ("arm64: dts: rockchip: add support for firefly-rk3399 board")
-Signed-off-by: Yaozhong Li <yaozhonguwl@gmail.com>
----
- arch/arm64/boot/dts/rockchip/rk3399-firefly.dts | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+The series above and this patch should be picked up together so can
+have complete fix.
 
-diff --git a/arch/arm64/boot/dts/rockchip/rk3399-firefly.dts b/arch/arm64/boot/dts/rockchip/rk3399-firefly.dts
-index 0568dfa..75b75fe 100644
---- a/arch/arm64/boot/dts/rockchip/rk3399-firefly.dts
-+++ b/arch/arm64/boot/dts/rockchip/rk3399-firefly.dts
-@@ -27,7 +27,6 @@ chosen {
- 
- 	backlight: backlight {
- 		compatible = "pwm-backlight";
--		enable-gpios = <&gpio1 RK_PB5 GPIO_ACTIVE_HIGH>;
- 		pwms = <&pwm0 0 25000 0>;
- 		brightness-levels = <
- 			  0   1   2   3   4   5   6   7
-@@ -327,6 +326,9 @@ rk808: pmic@1b {
- 		pinctrl-names = "default";
- 		pinctrl-0 = <&pmic_int_l>;
- 		system-power-controller;
-+		power-hold-gpios = <&gpio1 RK_PD0 GPIO_ACTIVE_HIGH>,
-+				   <&gpio1 RK_PB5 GPIO_ACTIVE_HIGH>;
-+		power-hold-delay-ms = <200>;
- 		wakeup-source;
- 
- 		vcc1-supply = <&vcc_sys>;
--- 
-2.55.0.windows.3
+> The probe wrapper then unconditionally calls pm_runtime_put()
+> regardless of whether the inner probe succeeded, so on failure this
+> also fires runtime_suspend() and disables the same clocks a first
+> time.
 
+pm_runtime_put() can be used for success case, but for the failure
+case, we should disable the runtime PM but not release reference:
+https://docs.kernel.org/power/runtime_pm.html#runtime-pm-initialization-device-probing-and-removal
+
+> @@ -632,11 +632,14 @@ static int catu_platform_probe(struct platform_device *pdev)
+>  	pm_runtime_enable(&pdev->dev);
+>  
+>  	ret = __catu_probe(&pdev->dev, res);
+> -	pm_runtime_put(&pdev->dev);
+> -	if (ret)
+> +	if (ret) {
+> +		pm_runtime_put_noidle(&pdev->dev);
+>  		pm_runtime_disable(&pdev->dev);
+
+Nitpick: please reverse the sequence between pm_runtime_put_noidle()
+and pm_runtime_disable(). As we need to first disable runtime PM for
+the device, then release usage reference.
+
+Since the driver core will reset device's active state, AI told me that
+calling pm_runtime_set_suspended() is redundant. It is still good to
+explicitly call it for bookkeeping. This can be aligned with the change
+in driver remove.
+
+Thus, please update the flow:
+
+        pm_runtime_disable(&pdev->dev);
+        pm_runtime_set_suspended(dev);
+        pm_runtime_put_noidle(&pdev->dev);
+
+With the update:
+
+Reviewed-by: Leo Yan <leo.yan@arm.com>
