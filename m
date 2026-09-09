@@ -1,149 +1,164 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com [209.85.215.199])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D2643ACF0B;
-	Wed,  9 Sep 2026 19:11:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 543B83AD53F
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 19:11:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788981095; cv=none; b=RXudwOKK8Huvm4xviTvv92blQOvV49ti4HbK36GJ8yojF2yuqhSH/Wv8fpkhsJtZs9v4V2sb0FLbqRCKGARn6yTE67+Sq0pDXYRNPdkTw1c1HE8GAC/hG1FqCnuxNnHJnPNrcmgMDwGsE7WsuC1iwdFcYlHFDq4wF/fVsWMmPQk=
+	t=1788981100; cv=none; b=jy0izSsuD/ieKEfU0Ou7NTik2QP9wY7P3IfW4MHm+dJvc38A+UB4XqSAj18dLiJhhEIJhO+kcm5VGzbmfmtFmfpEJDhEoM7ObaJMmLQGStgBAAn1UlMq62F7Dl5ouOmD4vH0zxnExLPE5h5b0064obov9x/LfkStZlxn/BwnozQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788981095; c=relaxed/simple;
-	bh=ibMGoZNFVcERL68F6QE3UT1XnEua4MeDZrrFkasR/M0=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=n7+lczvpphPf21GdyozBaNwyymI9XmJMFuBdElJZp6OXLu2a17b8OfIXmyAFX8wBBl3Lj0/IsceTw2mevyrp5ZsgxZX1Fl1uZd4uw0a+UYs1NItEg8Mu07BWGiJ5+f7mVo/FxGz5bVGF0hvcP898cB8nIiy1ffnD5qFoBK4SjH4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=O+hkhVly; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788981100; c=relaxed/simple;
+	bh=1/xnnu591Pdp9yuovipzpNQsLPugxzWuJoSOIxa70hs=;
+	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=YwclV+82TF0xXzh/6e9lR4UNoRe+7m8ME0zKhs7xI2x39jL9gFhNOEguwHLifTdDm/NolACs7Ha3WvTtvdIitzVm+bcrZczG1MSMH/QGqRE0pwjD7VjCKwrX0utw/WKZwNoLDOzhwt/qT5drqa6PB44hPI78LTPJKRthhuAbOIg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--hramamurthy.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=mHxCBd5I; arc=none smtp.client-ip=209.85.215.199
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--hramamurthy.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="O+hkhVly"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 85B731F000FF;
-	Wed,  9 Sep 2026 19:11:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788981092;
-	bh=YrVzVZFAj9c+kcR8ihQIElO4jyvfEdwPLoLRmPTnBUo=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=O+hkhVlyjoV8DOkR2ZAwgJx0L7Peef5U/bwWbqjnDRVO3wbBKQeLxgeOU5BzdUgFq
-	 j6zHQkqUxn+v1Ra4FTCz7REcg9+HxGqWj/9o2kT8+PiKl4mp6HmpS1bKDcm3yKfIK+
-	 EusHsD6RaK0zQeRvq2cEsBYXd8tfF/GbcZQSlA7RqVT9TA3tY9q5ZdHlH5CQ54FArD
-	 lC+upPE1mdfV0mzcs4UzBI/ixJjc0Uu2DggmKuaqdOAPZg/tgh4LFufwh6e5Dm51nT
-	 BrZeqa8HRREen3UBlGVg/mVprCS17n3ffqoxiTe0Mk2H3RX1/EpqsMPuMIe1nlnq9o
-	 f2R3CPYXwSvOA==
-Date: Wed, 9 Sep 2026 20:11:26 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Li Ming <ming.li@zohomail.com>
-Cc: Shaikh Kamaluddin <shaikhkamal2012@gmail.com>, Davidlohr Bueso
- <dave@stgolabs.net>, Dave Jiang <dave.jiang@intel.com>, Alison Schofield
- <alison.schofield@intel.com>, Vishal Verma <vishal.l.verma@intel.com>, Dan
- Williams <djbw@kernel.org>, Ira Weiny <iweiny@kernel.org>,
- linux-cxl@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] cxl/events: Return IRQ_NONE when no event is pending
-Message-ID: <20260909201126.091cc7f0@jic23-hlaptop>
-In-Reply-To: <fc844c0b-e429-4c0d-9113-35a1635c03a3@zohomail.com>
-References: <20260906155705.13252-1-shaikhkamal2012@gmail.com>
-	<20260907194824.615e47ff@jic23-huawei>
-	<fc844c0b-e429-4c0d-9113-35a1635c03a3@zohomail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="mHxCBd5I"
+Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-cc489e7a701so4107518a12.2
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 12:11:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1788981098; x=1789585898; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=WBgvG785AfFM/VOj79CCPL3tGNM1lGOecSdx0YvOvuY=;
+        b=mHxCBd5IWf54h/mf0Pg6KVWXCft/hTf2WJzG/+EHW8kEjWz0i4hu94GYWjKD4ZDp+w
+         kpEmIcOflEHM7KY0noAQyr6NbRXsMPBpVdJsxt9+TSpkZz20fq3QihxwEg6cphdOvTAd
+         xb2Am0sgy3MJzxvEQgj3d9FoKyWf9xjRmT+K+K4GibHetnJXvtrI9+DQacL3nvQJt4ML
+         M729L+ZcI96KKry8xK9UV9gqDxvQ5qoIYBIxYarXLelkhSR7kLsJf41xi/UJZsXugeRh
+         ROhkm/lz2FDTn22lQM3q7Q5aKbAaaIhV7Jrl3Ba25ZHBrvOa6AE2ragIKAd9mTLp6gam
+         xjhQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788981098; x=1789585898;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=WBgvG785AfFM/VOj79CCPL3tGNM1lGOecSdx0YvOvuY=;
+        b=GXJEElgGkidOr564ejDqocaUHgYxC4piUF+me1Mm4xT4b7y12tnAnGHgUgn7MuF0k5
+         HcedR1MBQvGAlEM+nWmIKFwWGxwOpzoiJ1RXSe5/VoNyMpe8mNfsZKK02WZ7Prt2kUwI
+         D9vYSHSFMAHU5HX1isQ01Wf6GuXNI0Kq4is45HdyYOdcOjKpun2gAz0C1PJeu5hwAxkP
+         6grPrfLI6wsfrqg+SYXm9I6dmsRAK6aHklbftelsvjXxtc8t1N6eEjO9/HX7ZJk8MHhV
+         QHH25ZuugnPUWE0DM8vqnkZTEsRWos5ZsmHjDwwlwTDgLEnuxt2IU6KH1SKHEjl9FN7u
+         BB9A==
+X-Forwarded-Encrypted: i=1; AKwUvBwsLMNH2oA7BlNWRXcwAbcITGzi5ABy2ubqUMYZBMFaLFVvUARPL3Yf5OJPK8sW0EDf05wWGfsHzl4N/rI=@vger.kernel.org
+X-Gm-Message-State: AFuF++kCLgzC1hrNgoRdb5D9NfNGsj4oYkzlIivHz4hz/5C4Lbbda7gh
+	pyRZaxVWJvMRjwWulOsrvAvg0T5g+35VfPjrF2rGywfH7FhYQKHJJlrMedkUj57l8UukLG4QQIw
+	BCbbMFQf5zXr90Y17Mc64J+cPVg==
+X-Received: from pjbcu10.prod.google.com ([2002:a17:90a:fa8a:b0:39d:63bc:3af])
+ (user=hramamurthy job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a17:90b:2b43:b0:398:ab03:95b2 with SMTP id 98e67ed59e1d1-39d709e5464mr3792495a91.10.1788981097465;
+ Wed, 09 Sep 2026 12:11:37 -0700 (PDT)
+Date: Wed,  9 Sep 2026 19:11:23 +0000
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.55.0.1003.g10538fe699-goog
+Message-ID: <20260909191136.3811892-1-hramamurthy@google.com>
+Subject: [PATCH net-next v6 00/12] gve: AdminQ mode related refactors
+From: Harshitha Ramamurthy <hramamurthy@google.com>
+To: netdev@vger.kernel.org
+Cc: joshwash@google.com, hramamurthy@google.com, andrew+netdev@lunn.ch, 
+	davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, 
+	ast@kernel.org, daniel@iogearbox.net, hawk@kernel.org, 
+	john.fastabend@gmail.com, sdf@fomichev.me, jordanrhee@google.com, 
+	willemb@google.com, nktgrg@google.com, maolson@google.com, thostet@google.com, 
+	jacob.e.keller@intel.com, debarghyak@google.com, kees@kernel.org, 
+	bpf@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	przemyslaw.kitszel@intel.com
+Content-Type: text/plain; charset="UTF-8"
 
-On Wed, 9 Sep 2026 10:08:14 +0800
-Li Ming <ming.li@zohomail.com> wrote:
+This series is preparing the driver for the addition of a new control
+plane mode(MailboxQ) by commonizing and reusing as much code as possible.
+MailboxQ is a new control plane infrastructure which uses mailbox queues.
+This is a new control plane to communicate with the device when the driver
+is running on bare-metal instances as well as newer versions of the device.
 
-> =E5=9C=A8 2026/9/8 02:48, Jonathan Cameron =E5=86=99=E9=81=93:
-> > On Sun,  6 Sep 2026 21:27:05 +0530
-> > Shaikh Kamaluddin <shaikhkamal2012@gmail.com> wrote:
-> > =20
-> >> CXL event interrupts may share an MSI/MSI-X vector with other event
-> >> logs or device features. Consequently, cxl_event_thread() is registered
-> >> with IRQF_SHARED and must determine whether an interrupt belongs to the
-> >> event-log facility.
-> >>
-> >> The handler masks the Device Event Status register to the event logs
-> >> supported by the driver. However, when no supported status bit is set,
-> >> it exits the processing loop and still returns IRQ_HANDLED.
-> >>
-> >> Track whether at least one supported event status bit was observed.
-> >> Return IRQ_NONE when there was no event to service, while continuing to
-> >> return IRQ_HANDLED after processing one or more event logs. =20
-> > What is the practical result of this change?
-> > I think it will only affect the spurious interrupt detection so
-> > to me it looks like a cleanup rather than a fix.  Is there
-> > any path by which we actually lose interrupts as a result of this?
-> > =20
-> >> Fixes: a49aa8141b65 ("cxl/mem: Wire up event interrupts")
-> >> =20
-> > No blank lines in tag blocks.  There are a number of tools that rely
-> > on there not being any and as such there are also scripts that run
-> > on various upstream trees that will send us annoying emails if this
-> > blank line is still here!  I'm not sure why this mistake in patch
-> > formatting is so common as there are plenty of docs without the
-> > blank lines!
-> > =20
-> >> Signed-off-by: Shaikh Kamaluddin <shaikhkamal2012@gmail.com> =20
-> > A suggestion for an alternative implementation below.
-> > =20
-> >> ---
-> >>   drivers/cxl/pci.c | 5 ++++-
-> >>   1 file changed, 4 insertions(+), 1 deletion(-)
-> >>
-> >> diff --git a/drivers/cxl/pci.c b/drivers/cxl/pci.c
-> >> index c7c91e8dc51d..8b560cae91f2 100644
-> >> --- a/drivers/cxl/pci.c
-> >> +++ b/drivers/cxl/pci.c
-> >> @@ -515,6 +515,7 @@ static irqreturn_t cxl_event_thread(int irq, void =
-*id)
-> >>   	struct cxl_dev_id *dev_id =3D id;
-> >>   	struct cxl_dev_state *cxlds =3D dev_id->cxlds;
-> >>   	struct cxl_memdev_state *mds =3D to_cxl_memdev_state(cxlds);
-> >> +	bool handled =3D false;
-> >>   	u32 status;
-> >>  =20
-> >>   	do {
-> >> @@ -527,11 +528,13 @@ static irqreturn_t cxl_event_thread(int irq, voi=
-d *id)
-> >>   		status &=3D CXLDEV_EVENT_STATUS_ALL;
-> >>   		if (!status) =20
-> > 			return IRQ_NONE;
-> >
-> > And don't need the other changes. =20
->=20
-> Hi Jonathan,
->=20
->=20
-> I think we should not return IRQ_NONE here, because the loop could run=20
-> multiple times untill no event record, so we always get a status with=20
-> 0x0 value in the last loop. In that case, we still need to return=20
-> IRQ_HANDLED.
+This series contains 2 main changes to the gve driver's existing control
+plane(AdminQ):
+1) refactor some initialization/teardown path methods to make it work for
+   both control planes.
+2) add gve_ctrl_ops structure to the driver for various control plane
+   operations
 
-Ah excellent point.  Ignore me.  Any dance to return here needs
-a handled variable to be checked so ends up just being moving the
-return.  Maybe that's worth doing but not important.
+The refactors are mainly around the init, reset and recover paths so that
+functionalities could be moved into the control ops like 'set_num_queues',
+'set_num_ntfy_blks' etc.
 
-Jonathan
+This patch series only sets the control ops for AdminQ mode. This is
+intended as a preparation for adding MailboxQ mode in upcoming series
+which will add the new control plane infrastructure and then introduce
+the corresponding control ops for MailboxQ mode.
 
->=20
->=20
-> Ming
->=20
-> > =20
-> >>   			break;
-> >> +
-> >> +		handled =3D true;
-> >>   		cxl_mem_get_event_records(mds, status);
-> >>   		cond_resched();
-> >>   	} while (status);
-> >>  =20
-> >> -	return IRQ_HANDLED;
-> >> +	return handled ? IRQ_HANDLED : IRQ_NONE;
-> >>   }
-> >>  =20
-> >>   static int cxl_event_req_irq(struct cxl_dev_state *cxlds, u8 setting)
-> >>
-> >> base-commit: 7098e9cd98a05c0c5de2fae0c2465f9d966fdd07
-> >> prerequisite-patch-id: 92e40cd60a697020faac475dcc77ba63b33434ea
-> >> prerequisite-patch-id: 10027ad5d9aed85806047f807b3a76273b6c4a77 =20
+The entire list of future patches can be found here for reference:
+https://github.com/hramamurthy12/linux/commits/gve-mailbox-queues/
+
+Changes in v6:
+- update commit message to be more consistent with code (patch 1,9 Sashiko)
+- call out MTU validation change (patch 1, Sashiko)
+- A few other Sashiko related fixes (error propagation in patch 2, drop double
+  logging in patch 5, drop unintentional type conversion in patch 11)
+- v5: https://lore.kernel.org/netdev/20260903215606.31633-1-hramamurthy@google.com/
+
+Changes in v5:
+- This series contains 12 patches since 3 patches from v4 were applied
+- Picked up Przemek Kitszel's Reviewed-by tag
+- Honor device provided default no. of Qs and max rx buffer size correctly (patch 1, Sashiko)
+- drop unnecessary header files and __maybe_unused tag (patch 4, Sashiko)
+- fix workqueue disable count, destroy rings before stopping Qs, stop queues in error path
+  in gve_close, preserve ordering of gve_turndown->gve_destroy_rings->gve_queues_stop
+  during close and reset (patch 6, Sashiko)
+- drop double logging in all paths for queue creation/destruction (patch 11, Sashiko)
+- v4: https://lore.kernel.org/netdev/20260814021406.3044324-1-hramamurthy@google.com/ 
+
+Changes in v4:
+- Reduce code churn by placing new functions directly in gve_adminq.c, introducing final tab spacing
+  and using local variable (Przemek Kitszel)
+- Fix kdoc formatting and drop spurious management interrupt(patch 9)
+- Propagate release_db_resources naming change (patch 12)
+- Remove double logging in destroy queues path (patch 14)
+- v3: https://lore.kernel.org/netdev/20260803184630.3813311-1-hramamurthy@google.com/
+
+Changes in v3:
+- Fix driver compatibility verification in the reset and recovery paths (patches 2, 8).
+- Mark gve_adminq_get_device_properties() with __maybe_unused ahead of its usage (patch 7).
+- Refine error handling and resource cleanup in reset, probe, and queue creation paths (patches 8, 9, 11, 14).
+- Keep IRQ doorbell allocation/release in control plane resource helpers (patch 12).
+- Minor fixes: fix TOCTOU issue for link speed, correct kdoc comments, and remove redundant teardown calls (patches 4, 11, 15). 
+- v2: https://lore.kernel.org/netdev/20260602235900.3050782-1-hramamurthy@google.com/
+
+Changes in v2:
+- Rebased against latest net-next to resolve apply failure for patch 5
+- Fixed a few typos in commit messages of patch 9 and 14
+- Fixed a kdoc warning in patch 9
+- v1: https://lore.kernel.org/netdev/20260601175437.3767283-1-hramamurthy@google.com/
+
+Harshitha Ramamurthy (6):
+  gve: add struct gve_device_info to hold device properties
+  gve: introduce control plane operations structure
+  gve: introduce ctrl ops to set vectors and Qs
+  gve: introduce gve_adminq_get_device_properties()
+  gve: refactor gve_init_priv for reset path
+  gve: add ctrl ops for queue operations
+
+Joshua Washington (6):
+  gve: simplify reset logic
+  gve: add gve_ctrl_ops for gve initialization/teardown sequences
+  gve: split up notify block allocation and setup paths
+  gve: introduce new methods to handle IRQ doorbells
+  gve: setup and teardown management interrupts
+  gve: add link status/speed ctrl ops
+
+ drivers/net/ethernet/google/gve/gve.h         |  87 +-
+ drivers/net/ethernet/google/gve/gve_adminq.c  | 380 ++++++--
+ drivers/net/ethernet/google/gve/gve_adminq.h  |  30 +-
+ drivers/net/ethernet/google/gve/gve_ethtool.c |   5 +-
+ .../net/ethernet/google/gve/gve_flow_rule.c   |  15 +-
+ drivers/net/ethernet/google/gve/gve_main.c    | 881 +++++++++---------
+ 6 files changed, 870 insertions(+), 528 deletions(-)
+
+-- 
+2.55.0.979.g7e5102b832-goog
 
