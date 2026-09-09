@@ -1,153 +1,332 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+Received: from mta1.migadu.com (out-95.mta1.migadu.com [95.215.58.95])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C61EA55C1D6
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 12:59:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.227.140
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788958769; cv=pass; b=SxKP6Ngq4UYUaGXv/bXJ/bNbhxDwVrulU2mM+h4xIC+dO/I409B7OB2UtIHteQ3a+eG5k98GoY66wcqa7ucOd+w2Yg+lr+4tjDoPEKf6Ix/jinj/QbjWYEyLdRzcYaCER1rXU8ufYGhDkJLxOhXeCf2A2r6B26vHOhSKprfjJb0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788958769; c=relaxed/simple;
-	bh=i1HbAAmLLEsFjOnWR9bXHueuoEhrvxEd4xap4Bi/h/A=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=RIJYKcfRf71ce6TwVY0smmc5ryrkzqzo122G0M9jnksBghu14f5uS4Luuk4q/m0KaBZfIH4quokkyvFX5hIT0FdiukkLK0ZYW/l+waL7EgYkCXTNJYHDWsTkOn7/acuebCfzFjxlDt59Dp+2rX/ZJoaOdmX9Oi5M9iHwBifM9ME=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=b8jdgobp; arc=pass smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CF2B549389
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 12:59:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.95
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788958787; cv=none; b=ZiUTeUimomuuo5rYjIwVpjve4JWl8UfHw8MiXOReGtEfqiWNzU6+kCmg03nwSPiBUoQufOjZbVWL4WrqkdUm2YU0Z7GQ3scaeD7XKrFHYLNHIfoLi/WUR7Y8wlKUOCCjafCjyXtEcObc06pPMRLHyC1PFiPTKDOZMgdYk4SeXtE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788958787; c=relaxed/simple;
+	bh=3O/8KHYbKIzs1YhR+mXrt8jL3rOGkrXjzfsWjUm1AeA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=f3SFPWjpSJ/qZW6cmoNmqM21BaU89J+mtU7NAUxr7cR1hyQfqDQiZWmRXmtsGrY5FPh6CsULRTgSFpLjs0QrmO5hLIaTO4CkSLxq8hO6fGQnzl4zcd2uHh07jJxThIiaWiLFu9k4XfGUzQLoDyCQAJtCgVgiHoRbkw3GCUJV5ng=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=FebCfLSo; arc=none smtp.client-ip=95.215.58.95
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="b8jdgobp"
-Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-39666bed444so650373a91.1
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 05:59:27 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788958767; cv=none;
-        d=google.com; s=arc-20260327;
-        b=rxtnIcH1bttQF7xxQ3HBgOFLhlU+lsTMYAIRYd9ccpyEozUe2L7hpLPLHDhdypxfG/
-         9IyiU13QQpImOGs82CqsHH6uBJYT6ybd3PEv5UiQwKBNsycqzBcf4hapc0K7Hx3g+uCe
-         ZNvxf8DW1toiqBwA6LQE5GIQ57OJ7Oab/PgU6uOfFPfUQ/BuBy4bRbPvEA90//tw9Tbp
-         4hndw4UraveIDkz4hK3CXw5RT4xlxLW8PtUdh1skvrmI+xg52N8MgS5jYM9ueAx1DWNk
-         hbVjKvzbRhi/eGdZd0/8OFwQaXjir9g2Oml2XuioY8GD8L9VHAUTdB7ehgbqxBIoGHlu
-         Yk4A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=i1HbAAmLLEsFjOnWR9bXHueuoEhrvxEd4xap4Bi/h/A=;
-        fh=vS+oj4rKbxGqDYmDjb/mFbUquK48h4OvzTebcHhqtRU=;
-        b=V4tnczw7RyzHr5zaQVYcFsgaqp3HEKV+H1vBgNitW7Y6zePevUUxotw+3FC/KGptWV
-         YcQwth77qfTi3LWKcpqe1tYUo3POKUKWrmModpouVsGygXvurA+ZvNv89aniljG2OLYw
-         CZaechUlqGrPLL4PhGI35dyxNx97cLM/aJHOcWQe1HXAIY1psSO6i8/3K9tNYkjhRXxX
-         trHa/nVgX///hl6RvFs8ToKk7tRhCjI6LOJ3BXUx+64x/R3v8gttxqYBQg0QB53pO3SI
-         djnHAeoq3t6K4g+9YHnJepSnnhTnTt1oaNSZ8nKV2CfUPjuUlMKJVYDIrNAIQmw/Naz/
-         CtQg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788958767; x=1789563567; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=i1HbAAmLLEsFjOnWR9bXHueuoEhrvxEd4xap4Bi/h/A=;
-        b=b8jdgobpf6iJotPCt++6HS1J65D8oOCUtiAvw7bxOnm30uNVMENIz+xN63rhab1PO0
-         6SWPMFrF0x9OzBV7nwBlofsQ5UfThkTqMOmSPh92d3YqDnSXPLgxyDRWyGwrZEIKgLQa
-         egJuvXBIulCz1E5U4g1z5I8qK6yWEnim27+7z20Bb8G1gx9a2ePzK8MgZKNGIwPT4GlF
-         zNT1HFz/e4tw/lmQQGBBUVDnsB/ao0ANBTLj74hLGxuScKDR3huGLbWQl9+eBdN/gA2S
-         Y6P6TaJV9MdyCXmG6zWs09pjhSMycM/SMVSA463TU8mBqC4DxhQtCT9Erw9liO2TDGpJ
-         rhSQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788958767; x=1789563567;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=i1HbAAmLLEsFjOnWR9bXHueuoEhrvxEd4xap4Bi/h/A=;
-        b=eb8UqAO0lGRijkbRTkoddoyzFLS9l3FcNIRnjBs8eVMCeZVILrXSFhumXS1Gb4QA8h
-         +2whsF42KMsKuDgm02kheVezR24zoGd0QmagezAYSq0xPLZXlI+24dCRIgOaa6cIjl5Y
-         0ZJl/llW32m5qbWqtky/W/N1BwAQckwo+NHR31s4sqMmel7jQLeOoWS8tsQ1bJkOxMsc
-         L9Maq0NvekXTw+CZ7s07/UjDoGzTBaWzkH2G579yXTf8qLI3zKHHK4t/N4jA6LE2GZik
-         Jg1v9hYERQ7ikKY0Ifun94qnebXVDMbN0wqxu9g/lFioXYnrkmoNCGm2O9GOxYwYKD3O
-         za4g==
-X-Forwarded-Encrypted: i=1; AKwUvBzEIYqbbhSrRm9vQJuSp581oekoOO6/x9wI76fSARm4ePyE8ztKwszIe9NVEND5LBe2XpH6/JZMJ4g0dUY=@vger.kernel.org
-X-Gm-Message-State: AFuF++mRMb4lB9fCcHPPqt4amftsAvTsuituLb4ZitqFheGrank1N6T3
-	REImlaNg+XGRs3x7IfWJCNMLw3YD5/sohBN3R1Ac25B7p3El/8srw9JAow0BWWB6YsOR8SaXXsw
-	oOIUeXgXHIVtpBywCK+VN50Y0wfaxqJI=
-X-Gm-Gg: AYBFou0yHAxuLgmM39alsvgPQxStbZYiuNZxXZ+ZKU1yqUb6Y8gU9Z2HNVD+s2B02Gx
-	QKJdSaT4sHzuBcTkjUpAWOP9bDcGS1DO/813sJ/53N5z9C8oBQNFn6e5m7wWof5IIRWy6A/uVZw
-	N0hd6GEAT09Kg/Nrnzw4Fmp/CJYi3CNA5zFkbuD/sVFK/O0/Oq5ztAC5qkSSz/x+zY3eXpSb3Xc
-	Ajz+E48BgULFmXr2GRXDvrGaFXIshk69CDs1nfMLZ5sW2VcO96/0tIoxlTYoIFUCsxucJdS+cot
-	Nf9m1XCX+JsPfrwMhmsjoykqmZN0kRxD7F1sZzIRZMZgP4ootl7jau4iV/viBN/rTO98+1Q8rHS
-	fCKXEheRo5t/uzouwKbWr9obo+vhBcil0jiLgA8UVCtrmgs0KSFJ++ZkonQrXiuj5pdmrv7GBbb
-	gzpFW1g4Y+0VFYc9QmFF6rroGUAHR1+RSdUtnTc7iYFyZQAsB8XdU=
-X-Received: by 2002:a17:90b:2888:b0:398:cee0:67dc with SMTP id
- 98e67ed59e1d1-39b2699849cmr33697284a91.5.1788958766896; Wed, 09 Sep 2026
- 05:59:26 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="FebCfLSo"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=3O/8KHYbKIzs1YhR+mXrt8jL3rOGkrXjzfsWjUm1AeA=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788958781; v=1; x=1789563581;
+ b=FebCfLSo0uvT1r2oT4tC2ZZMnvpOEw+ZCXyhVf42FkVGcAKKGWiAchh6x61JmtmNG/0jeLkE
+ 0+aKDBM2H/B/hSYjQq1raLw5+9EvbA4011beHIRF3Frd4XRj+FP3SsHoDlVjKemRxQLI2grEtkc
+ GgHkbV+v1Ml1450G7gJ6eXg0=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id d6310b345bcbb34d;
+	Wed, 09 Sep 2026 12:59:41 +0000
+X-Mizu-Trace-ID: d6310b345bcbb34d
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <a2a2d7f0-8869-4d85-95d5-e436f743c163@linux.dev>
+Date: Wed, 9 Sep 2026 18:29:35 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260908-build-speedup-v1-0-5dc1ac01672d@kernel.org>
- <20260908-build-speedup-v1-20-5dc1ac01672d@kernel.org> <t8iID_-Rgtrxxg-f1ZfdOg1xmm7YedvOT4pgDFEXKxoIeu29-JooZ3SSlbze088O0kLSOdgP7xN_Bo9Xm_lO1x51Gd-gIgT-tFPfwM_gCEw=@protonmail.com>
-In-Reply-To: <t8iID_-Rgtrxxg-f1ZfdOg1xmm7YedvOT4pgDFEXKxoIeu29-JooZ3SSlbze088O0kLSOdgP7xN_Bo9Xm_lO1x51Gd-gIgT-tFPfwM_gCEw=@protonmail.com>
-From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Date: Wed, 9 Sep 2026 14:59:13 +0200
-X-Gm-Features: AcwNN1Vwugoxsn23N3HKo79fRO4c4hCKpdWpUEii2k3VTwCoJF2DILgisLp6T0w
-Message-ID: <CANiq72=rUrjFD8dHggtO5g0D5Yu-LjO4s7t=+yoKtteD56KfXw@mail.gmail.com>
-Subject: Re: [PATCH 20/23] kbuild: rust: parallelise rustc front end
-To: =?UTF-8?B?QmrDtnJuIEJhcm9u?= <bjorn3_gh@protonmail.com>
-Cc: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>, Linus Torvalds <torvalds@linux-foundation.org>, 
-	Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
-	Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling <morbo@google.com>, 
-	Justin Stitt <justinstitt@google.com>, Masahiro Yamada <masahiroy@kernel.org>, 
-	Alexey Gladkov <legion@kernel.org>, Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
-	Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
-	"H. Peter Anvin" <hpa@zytor.com>, Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, Arnd Bergmann <arnd@arndb.de>, 
-	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
-	Mark Rutland <mark.rutland@arm.com>, Ard Biesheuvel <ardb@kernel.org>, 
-	Ilias Apalodimas <ilias.apalodimas@linaro.org>, Josh Poimboeuf <jpoimboe@kernel.org>, 
-	Peter Zijlstra <peterz@infradead.org>, Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
-	Gary Guo <gary@garyguo.net>, Benno Lossin <lossin@kernel.org>, 
-	Andreas Hindborg <a.hindborg@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
-	Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, 
-	Daniel Almeida <daniel.almeida@collabora.com>, Tamir Duberstein <tamird@kernel.org>, 
-	Alexandre Courbot <acourbot@nvidia.com>, =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
-	Jonathan Corbet <corbet@lwn.net>, Randy Dunlap <rdunlap@infradead.org>, linux-kbuild@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, llvm@lists.linux.dev, 
-	linux-riscv@lists.infradead.org, linux-arch@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-efi@vger.kernel.org, 
-	rust-for-linux@vger.kernel.org, linux-doc@vger.kernel.org, 
-	Jens Axboe <axboe@kernel.dk>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC bpf-next 5/6] bpf: support low-32 subreg scalar linking for
+ sign-extending movs
+To: Eduard Zingerman <eddyz87@gmail.com>, ast@kernel.org,
+ daniel@iogearbox.net, andrii@kernel.org, memxor@gmail.com
+Cc: martin.lau@linux.dev, song@kernel.org, yonghong.song@linux.dev,
+ jolsa@kernel.org, emil@etsalapatis.com, ihor.solodrai@linux.dev,
+ john.fastabend@gmail.com, shuah@kernel.org, bpf@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org
+References: <20260814231945.3884596-1-vineet.gupta@linux.dev>
+ <20260814231945.3884596-6-vineet.gupta@linux.dev>
+ <d43e9adedfeced52ccf5eafea9f2aec01b79f413.camel@gmail.com>
+From: Vineet Gupta <vineet.gupta@linux.dev>
+Content-Language: en-US
+In-Reply-To: <d43e9adedfeced52ccf5eafea9f2aec01b79f413.camel@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Wed, Sep 9, 2026 at 12:22=E2=80=AFPM Bj=C3=B6rn Baron <bjorn3_gh@protonm=
-ail.com> wrote:
->
-> There are still several known reproducibility issues for the parallel
-> frontend[1] and at least until fairly recently there were also deadlock
-> issues and incorrect errors[2], so I would not recommend enabling it with=
-out
-> an explicit request from the user. Perhaps even only allow it on nightly
-> rustc for now, then you don't need to check which of the two spellings of
-> the flag is supported.
+On 8/19/26 11:48 AM, Eduard Zingerman wrote:
+>> @@ -570,9 +572,18 @@ static bool regsafe(struct bpf_verifier_env *env, struct bpf_reg_state *rold,
+>>   		 * on a path that predates this series, which is a pruning change
+>>   		 * that wants measuring on its own; it is deliberately left
+>>   		 * alone here.
+>> +		 *
+>> +		 * Only demand a match when the old state carries a link at all.
+>> +		 * These flags are only ever set together with an ->id, so
+>> +		 * rold->id == 0 implies none is set, and the only case this
+>> +		 * admits is "old knows no low-32 relationship, cur does" -- cur
+>> +		 * is then strictly more constrained than old, which is the safe
+>> +		 * direction for pruning. The reverse is still rejected. Without
+>> +		 * this a register that first acquires a link inside a loop would
+>> +		 * never match its pre-loop state and pruning would not converge.
+>>   		 */
+>>   		if (rold->id &&
+>> -		    (rold->flags & BPF_FLAG_SUBREG_ZEXT) != (rcur->flags & BPF_FLAG_SUBREG_ZEXT))
+>> +		    (rold->flags & BPF_FLAG_SUBREG) != (rcur->flags & BPF_FLAG_SUBREG))
+>>   			return false;
+> Same comment as for ZEXT patch.
 
-Thanks a lot for taking a look Bj=C3=B6rn.
+The prior zext patch compares ->subreg with enum distinguishing zext and 
+sext: no sext specific code needed.
 
-If there are still major issues even in nightly, then I would say
-let's not add it yet -- some users/CIs are testing with nightly
-routinely, so it is probably best to avoid surprises for them. (If
-someone wants to test the flag, they can still pass it manually.)
+>> diff --git a/kernel/bpf/verifier.c b/kernel/bpf/verifier.c
+>> index 8a802d49d0a4..45cb67dc3999 100644
+>> --- a/kernel/bpf/verifier.c
+>> +++ b/kernel/bpf/verifier.c
+>> @@ -14976,6 +14976,8 @@ static int adjust_reg_min_max_vals(struct bpf_verifier_env *env,
+>>   	return 0;
+>>   }
+>>   
+>> +static void reconstruct_sext32(struct bpf_reg_state *reg, struct bpf_reg_state *src);
+> Nit: is it possible to avoid forward declaration?
 
-On the other hand, if there are no major issues left and it is just
-reproducibility issues, then I guess we could add it to help figure
-those issues out and avoid surprises later on.
+Removed.
 
-> By the way, currently backend parallelism is entirely disabled due to the
-> usage of --emit obj (which forces -Ccodegen-units=3D1). For -O2/3 builds
+>>   /* check validity of 32-bit and 64-bit arithmetic operations */
+>>   static int check_alu_op(struct bpf_verifier_env *env, struct bpf_insn *insn)
+>>   {
+>> @@ -15052,15 +15054,65 @@ static int check_alu_op(struct bpf_verifier_env *env, struct bpf_insn *insn)
+>>   							insn->src_reg);
+>>   						return -EACCES;
+>>   					} else if (src_reg->type == SCALAR_VALUE) {
+>> +						int sz = insn->off >> 3;
+>>   						bool no_sext;
+>> +						bool subreg_link;
+>>   
+>>   						no_sext = reg_umax(src_reg) < (1ULL << (insn->off - 1));
+>> -						if (no_sext)
+>> +						/*
+>> +						 * When no_sext, dst == src exactly, so link them
+>> +						 * (existing behavior). When !no_sext for a 32-bit sign
+>> +						 * extension the low 32 bits are still identical (sext
+>> +						 * preserves them), so form a BPF_FLAG_SUBREG_SEXT
+>> +						 * link: a later narrowing of the low 32 bits
+>> +						 * propagates here, and sync_linked_regs() rebuilds
+>> +						 * the high half via reconstruct_sext32().
+>> +						 *
+>> +						 * An ADD_CONST-linked src is excluded for the same
+>> +						 * reason as in the zero-extending arm below:
+>> +						 * assign_scalar_id_before_mov() would clear its
+>> +						 * base+delta link, and a combined subreg+delta link
+>> +						 * isn't modeled anyway. Unlike that arm a self-mov is
+>> +						 * NOT excluded -- r0 = (s32)r0 is the case this is
+>> +						 * here for.
+>> +						 */
+>> +						subreg_link = (sz == 4) &&
+>> +							      !(src_reg->flags & BPF_FLAG_ADD_CONST);
+>> +
+>> +						if (no_sext || subreg_link)
+>>   							assign_scalar_id_before_mov(env, src_reg);
+>>   						*dst_reg = *src_reg;
+>> -						if (!no_sext)
+>> -							clear_scalar_id(dst_reg);
+>> -						coerce_reg_to_size_sx(dst_reg, insn->off >> 3);
+>> +						if (!no_sext) {
+>> +							if (subreg_link && src_reg->id) {
+>> +								/* ->id already copied above */
+>> +								dst_reg->flags = (dst_reg->flags & ~BPF_FLAG_SUBREG) |
+>> +										 BPF_FLAG_SUBREG_SEXT;
+>> +							} else {
+>> +								clear_scalar_id(dst_reg);
+>> +							}
+>> +						}
+>> +						/*
+>> +						 * coerce_reg_to_size_sx() falls back to the full sext
+>> +						 * range when smin/smax straddle the sign boundary (e.g.
+>> +						 * an errno-or-zero value clamped to [-4095, 0]). For a
+>> +						 * register tracked as the sign-extension of its low 32
+>> +						 * bits the high half IS that sign-extension, so rebuild
+>> +						 * the tighter 64-bit range from the low bounds, taken
+>> +						 * from a snapshot because coerce overwrites them.
+>> +						 *
+>> +						 * Gated on sz == 4, not on the flag alone: an (s8)/(s16)
+>> +						 * mov whose src is already SEXT-linked copies the flag
+>> +						 * across in the *dst_reg = *src_reg above, and a 32-bit
+>> +						 * reconstruction must not run for a narrower operation.
+>> +						 */
+>> +						if (sz == 4 && (dst_reg->flags & BPF_FLAG_SUBREG_SEXT)) {
+>> +							struct bpf_reg_state sext_src = *dst_reg;
+>> +
+>> +							coerce_reg_to_size_sx(dst_reg, sz);
+>> +							reconstruct_sext32(dst_reg, &sext_src);
+> It does not make sense to maintain two functions that do register sign
+> extension. If coerce_reg_to_size_sx() is not precise enough for the
+> 32-bit case, then it should be adapted instead of special-cased.
 
-Yeah, we even set `-Ccodegen-units=3D1` explicitly at the moment, so we
-would need to change that too (and likely make it an option, because
-normally end users will want the best results, while developers may
-want speed of iteration).
+Adapting coerce_reg_to_size_sx () update is now a standalone patch, with 
+it's own test.
 
-Cheers,
-Miguel
++       if (size == 1) {
++               field_smin = S8_MIN;
++               field_smax = S8_MAX;
++       } else if (size == 2) {
++               field_smin = S16_MIN;
++               field_smax = S16_MAX;
++       } else {
++               /* size == 4 */
++               field_smin = S32_MIN;
++               field_smax = S32_MAX;
++       }
++
++       /*
++        * The range already fits the field, so (sN)v == v for every 
+value the
++        * register can hold and the sign extension changes nothing. The 
+tests
++        * below cannot reach this case once smin is negative: a 
+negative smin
++        * and a non-negative smax never share their high bits.
++        */
++       if (reg_smin(reg) >= field_smin && reg_smax(reg) <= field_smax)
++               return;
+
+
+It existing usage is retained in check_alu_op, w/o any reconstruct business.
+
+However in sync routine reconstruct_sext32 is needed, see below....
+
+>> +						} else {
+>> +							coerce_reg_to_size_sx(dst_reg, sz);
+>> +						}
+>>   					} else {
+>>   						mark_reg_unknown(env, regs, insn->dst_reg);
+>>   					}
+>> @@ -15107,7 +15159,15 @@ static int check_alu_op(struct bpf_verifier_env *env, struct bpf_insn *insn)
+>>   						if (!is_src_reg_u32) {
+>>   							if (wide_subreg_link && src_reg->id) {
+>>   								/* ->id already copied above */
+>> -								dst_reg->flags |= BPF_FLAG_SUBREG_ZEXT;
+>> +								/*
+>> +								 * Zero-extension: high bits are 0, not a
+>> +								 * sign-extension of the low field. Drop any
+>> +								 * SUBREG_SEXT copied from a sext-linked src
+>> +								 * so sync_linked_regs() rebuilds dst by
+>> +								 * zero-extension, not reconstruct_sext32().
+>> +								 */
+>> +								dst_reg->flags = (dst_reg->flags & ~BPF_FLAG_SUBREG) |
+>> +										 BPF_FLAG_SUBREG_ZEXT;
+> Nit: please find a way to reduce indentation (e.g. less if-nesting, or a utility function).
+
+Flattened.
+
+>>   							} else {
+>>   								clear_scalar_id(dst_reg);
+>>   							}
+>> @@ -15961,6 +16021,32 @@ static void collect_linked_regs(struct bpf_verifier_env *env,
+>>   	}
+>>   }
+>>   
+>> +/*
+>> + * Set @reg to the sign-extension of the low 32 bits currently held by @src.
+>> + * A BPF_FLAG_SUBREG_SEXT-linked register came from a 32-bit sign
+>> + * extension (r0 = (s32)r0): it shares @src's low 32 bits and its high bits are
+>> + * the sign-extension of that low field. Only the value fields are written;
+>> + * @reg's linkage fields (id, delta, flags) are left intact by
+>> + * the caller (___mark_reg_known touches only var_off/r64/r32). Callers must
+>> + * ensure no ADD_CONST delta is involved (see sync_linked_regs()).
+>> + */
+>> +static void reconstruct_sext32(struct bpf_reg_state *reg, struct bpf_reg_state *src)
+> Nit: let's rename src -> known_reg, to make reading sync_linked_regs() simpler.
+
+Done.
+
+
+>> +{
+>> +	s32 s32min = reg_s32_min(src);
+>> +	s32 s32max = reg_s32_max(src);
+>> +
+>> +	if (s32min == s32max) {
+>> +		/* Low 32 bits are constant -> the whole value is the sext constant. */
+>> +		___mark_reg_known(reg, (u64)(s64)s32min);
+>> +	} else {
+>> +		/* Sign-extension is monotonic over the signed-32 range. */
+>> +		reg_set_srange64(reg, (s64)s32min, (s64)s32max);
+>> +		reg_set_srange32(reg, s32min, s32max);
+>> +		reg->var_off = tnum_range((u64)(s64)s32min, (u64)(s64)s32max);
+> Note that known lower 32-bits of the known_reg->var_off are lost,
+> we might benefit from adding a dedicated tnum_sext().
+
+Added.
+
+>> +		reg_bounds_sync(reg);
+>> +	}
+>> +}
+>> +
+>>   /* For all R in linked_regs, copy known_reg range into R
+>>    * if R->id == known_reg->id.
+>>    */
+>> @@ -15984,17 +16070,21 @@ static void sync_linked_regs(struct bpf_verifier_env *env, struct bpf_verifier_s
+>>   		 * A low-32 linked register shares only the base's low 32 bits;
+>>   		 * the flag says how its high bits are derived. For
+>>   		 * BPF_FLAG_SUBREG_ZEXT they are zero (32-bit zero-extending mov).
+>> +		 * For BPF_FLAG_SUBREG_SEXT they are the sign-extension of the low
+>> +		 * field (32-bit sign extension).
+>>   		 * Rebuild it from known_reg's low 32 bits accordingly, but only
+>>   		 * when neither side carries an ADD_CONST delta -- with a delta
+>>   		 * the low bits differ from the base by that delta and the combined
+>>   		 * subreg+ADD_CONST reconstruction isn't modeled here, so leave reg
+>>   		 * unchanged (sound, just less precise).
+>>   		 */
+>> -		if (reg->flags & BPF_FLAG_SUBREG_ZEXT) {
+>> +		if (reg->flags & BPF_FLAG_SUBREG) {
+>>   			if (!((reg->flags | known_reg->flags) & BPF_FLAG_ADD_CONST)) {
+>> -				{
+>> +				if (reg->flags & BPF_FLAG_SUBREG_SEXT) {
+>> +					reconstruct_sext32(reg, known_reg);
+>> +				} else {
+> Let's move this branch to a dedicated utility function as well.
+
+This is all simplified in-place now.
+
+-                       reconstruct_zext32(reg, known_reg);
++                       if (reg->subreg == SUBREG_ZEXT)
++                               reconstruct_zext32(reg, known_reg);
++                       else
++                               reconstruct_sext32(reg, known_reg);
+
+
+
+coerce_reg_to_size_sx() reads the 64-bit smin/smax, while a 32-bit 
+compare narrows the 32-bit range.
+
+For a simple test (actually added)
+
+call %[bpf_get_prandom_u32];
+r6 = r0;
+r7 = (s32)r6;         /* forms the link */
+if w6 != -1 goto 1f;  /* narrows r6's low 32 to all ones */
+if r7 == -1 goto 1f;  /* r7 must follow, sign-extended */
+r0 /= 0;              /* reachable only if it didn't */
+1:
+r0 = 0;
+exit;
+
+With coerce_reg_to_size_sx(reg, 4) it fails
+
+2: (bf) r7 = (s32)r6   ; 
+R7=scalar(id=1.lo32sx,smin=0xffffffff80000000,smax=0x7fffffff)
+3: (56) if w6 != 0xffffffff goto pc+2
+  R6=scalar(id=1,smin=0x80000000ffffffff,smin32=-1,smax32=-1,var_off=(0xffffffff; 
+0xffffffff00000000))
+      R7=scalar(id=1.lo32sx,smin=0xffffffff80000000,smax=0x7fffffff) 
+  <-- unchanged
+
+With sext_32_to_64() it passes:
+
+3: (56) if w6 != 0xffffffff goto pc+2
+  R6=scalar(id=1,smin=0x80000000ffffffff,smin32=-1,smax32=-1,var_off=(0xffffffff; 
+0xffffffff00000000))
+      R7=-1   <-- reconstructed
+
+Thx,
+-Vineet
