@@ -1,51 +1,56 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C50F569F0F;
-	Wed,  9 Sep 2026 16:55:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id BA07F349CD1;
+	Wed,  9 Sep 2026 16:55:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788972903; cv=none; b=UEMQFoDXINjrdoOrsfIGT4FinSuMqHQlaYGy4/rJewv5tYZFAlUU7N5z7yBv8FdYua2MYA97bbMgIbpVJ/t9xJc+pHzFInf2YjMreUIzDQrh48gaMgLJ0SHh94Qgwot1G8sfSl6K2At4M26tEfDQJ/4cNLTmHXLpA/Sxr14xvaQ=
+	t=1788972928; cv=none; b=Dyio6f4d1vL95aMaZ84trYYzlA+Q1Xw2zER9BACH9nS7jq+LHvxAZlxCQ+EVJ5xdcKhT4jU8OuFxcNCMCsbt/CbW4mQaWcdinw5Z6pfe1ngcpVeqb9WaBN93YPrTTQVaAV0Q9mmnKw8aeCPyEVQjiKvycvafi8kIcHETuhZP5hM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788972903; c=relaxed/simple;
-	bh=nqpDu2o3hK3qr20tvru4ckpxujP1K23ZlO4JGYYlMdM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=RIhpdVXVOigigZueeAtQIkG5Gh7rOerz/pW+bnQC+VrXGiUZwo76nK0Vq+3O2hy3rzJU5HHwuOX31bBAeiA0jmVQ2vqWC4rAxkjDTst1Cb4nQdimQ3rSkS2Tw/ePcC7tN7RX8lflVZzEn7kGgeqwNMRR/Kz8gG/QBBcjQuFUQRo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jBayZFm0; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788972928; c=relaxed/simple;
+	bh=0ZZI/KQsrsxir9xpZ2e67XFkv+lIjYBkixLNLg+JqcA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Disposition; b=NJxu+VY8FTe8iYbB/o7mSZMKTkjJ+vukYl4/Zxj9GoLC/BILAsvLmM2SR1EQv2OjvHvT0QzinTZu6MKlUnPZy8HfHIYzetYg/uf1o+LZjxOfZ6EJrTXB7+PegkuYz2EweNXapEZDNIBx8FdV/nu38XR7OfKHS8r30fmdG18WKX4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=p7E4Iz8A; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jBayZFm0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 97C401F000FF;
-	Wed,  9 Sep 2026 16:55:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788972901;
-	bh=xrZiWkO/Cig928w3Hg0lcA4NQRdYMH+CxvejqzEbOxo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=jBayZFm0zOZtOV/v6V/j6XvGE/wtPFLdi3lhON81fWBU5akr3AmKRrbF+wFpvFRiN
-	 otWfZbXcUpKbpH8HJyQj2s1imtaqHlKCdXs38ur0R8US9enl32LAU4a0qPiWw/Tach
-	 HNqNB3KObm3DaMxItwekuERLPTFf6I1ViX5eni75KKQ2tevrSdH5CkSCAgG9Up4qrE
-	 X/uXCSH0sVRMNWIWAhH4uzv2+Y9H0+w2fNviIGzldWpiLDTGMw+RI4GzqiX0bIWrpq
-	 fg+tbFAf82bSYRVS+b+YF7JsD4vaYYnwpnzp4pJWfILi5jNFO1HfKCNi17jfxoQ5hq
-	 xTJpYrRVFYsTA==
-Date: Wed, 9 Sep 2026 18:54:54 +0200
-From: Andi Shyti <andi.shyti@kernel.org>
-To: wangjia@ultrarisc.com
-Cc: Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
-	Daniel Lezcano <daniel.lezcano@kernel.org>, Thomas Gleixner <tglx@kernel.org>, 
-	Samuel Holland <samuel.holland@sifive.com>, Anup Patel <anup@brainfault.org>, 
-	Mark Brown <broonie@kernel.org>, Mika Westerberg <mika.westerberg@linux.intel.com>, 
-	Eugeniy Paltsev <Eugeniy.Paltsev@synopsys.com>, Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Paul Walmsley <paul.walmsley@sifive.com>, Palmer Dabbelt <palmer@sifive.com>, 
-	Conor Dooley <conor@kernel.org>, linux-riscv@lists.infradead.org, linux-spi@vger.kernel.org, 
-	linux-i2c@vger.kernel.org, dmaengine@vger.kernel.org
-Subject: Re: [PATCH v2 06/10] dt-bindings: i2c: dw: Add compatible for
- UltraRISC DP1000 SoC
-Message-ID: <aqGOXnv2meGnCKzh@zenone.zhora.eu>
-References: <20260907-ultrarisc-dts-v2-0-5eb4c97477c5@ultrarisc.com>
- <20260907-ultrarisc-dts-v2-6-5eb4c97477c5@ultrarisc.com>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="p7E4Iz8A"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 987061576;
+	Wed,  9 Sep 2026 09:55:22 -0700 (PDT)
+Received: from LeoBrasDK.cambridge.arm.com (LeoBrasDK.cambridge.arm.com [10.2.212.21])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 24FB73F7B4;
+	Wed,  9 Sep 2026 09:55:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1788972926; bh=0ZZI/KQsrsxir9xpZ2e67XFkv+lIjYBkixLNLg+JqcA=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=p7E4Iz8AEmwE9eJUybEYpXA9pQPs+YN2nE6ETxwxK8uhWohpguGgbsJ11vYrUCiVF
+	 oRqlb18xdfzpoDUW/sRj7s7zRMJSUlXUwINHO3u8NJ97dOFg8YgNtWvAahNwrYX2Qp
+	 eKi8URD5ojwhccTUcvGBZKwjXsK8MtkPlsklYUzM=
+From: Leonardo Bras <leo.bras@arm.com>
+To: Mark Brown <broonie@kernel.org>
+Cc: Leonardo Bras <leo.bras@arm.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Marc Zyngier <maz@kernel.org>,
+	Joey Gouly <joey.gouly@arm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Shuah Khan <shuah@kernel.org>,
+	Oliver Upton <oupton@kernel.org>,
+	Fuad Tabba <fuad.tabba@linux.dev>,
+	Peter Maydell <peter.maydell@linaro.org>,
+	Wei-Lin Chang <weilin.chang@arm.com>,
+	Yao Yuan <yaoyuan@linux.alibaba.com>,
+	linux-arm-kernel@lists.infradead.org,
+	linux-doc@vger.kernel.org,
+	kvmarm@lists.linux.dev,
+	linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v20 11/14] KVM: selftests: arm64: Add GCS to set_id_regs
+Date: Wed,  9 Sep 2026 17:55:22 +0100
+Message-ID: <aqGPeT8sKx3Lh_Mx@LeoBrasDK>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260901-arm64-gcs-v20-11-f31750bdfadb@kernel.org>
+References: <20260901-arm64-gcs-v20-0-f31750bdfadb@kernel.org> <20260901-arm64-gcs-v20-11-f31750bdfadb@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -54,24 +59,35 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260907-ultrarisc-dts-v2-6-5eb4c97477c5@ultrarisc.com>
+Content-Transfer-Encoding: 8bit
 
-Hi Jia,
+On Tue, Sep 01, 2026 at 10:47:09PM +0100, Mark Brown wrote:
+> Now that GCS is configurable via the ID registers update set_id_regs to
+> cover ID_AA64PFR1_EL1.GCS.
+> 
+> Signed-off-by: Mark Brown <broonie@kernel.org>
+> ---
+>  tools/testing/selftests/kvm/arm64/set_id_regs.c | 1 +
+>  1 file changed, 1 insertion(+)
+> 
+> diff --git a/tools/testing/selftests/kvm/arm64/set_id_regs.c b/tools/testing/selftests/kvm/arm64/set_id_regs.c
+> index 7429a1055df5..34e59fbbbe89 100644
+> --- a/tools/testing/selftests/kvm/arm64/set_id_regs.c
+> +++ b/tools/testing/selftests/kvm/arm64/set_id_regs.c
+> @@ -154,6 +154,7 @@ static const struct reg_ftr_bits ftr_id_aa64pfr0_el1[] = {
+>  
+>  static const struct reg_ftr_bits ftr_id_aa64pfr1_el1[] = {
+>  	REG_FTR_BITS(FTR_LOWER_SAFE, ID_AA64PFR1_EL1, DF2, 0),
+> +	REG_FTR_BITS(FTR_LOWER_SAFE, ID_AA64PFR1_EL1, GCS, 0),
+>  	REG_FTR_BITS(FTR_LOWER_SAFE, ID_AA64PFR1_EL1, CSV2_frac, 0),
+>  	REG_FTR_BITS(FTR_LOWER_SAFE, ID_AA64PFR1_EL1, SSBS, ID_AA64PFR1_EL1_SSBS_NI),
+>  	REG_FTR_BITS(FTR_LOWER_SAFE, ID_AA64PFR1_EL1, BT, 0),
 
-On Mon, Sep 07, 2026 at 05:54:45PM +0800, Jia Wang via B4 Relay wrote:
-> From: Jia Wang <wangjia@ultrarisc.com>
-> 
-> The DP1000 integrates four DesignWare APB I2C controllers. I2C1 supports
-> SMBus, while I2C0, I2C2, and I2C3 support standard I2C transfers. Each
-> controller has one register range and uses separate reference and APB
-> interface clocks.
-> 
-> Add the DP1000-specific compatible string with the generic one as a
-> fallback.
-> 
-> Signed-off-by: Jia Wang <wangjia@ultrarisc.com>
+Check this register for this GCS field, any value >= 0 is safe.
+Used to test setting id_regs IIUC.
 
-Just this patch, pushed to i2c/i2c.
+If that's correct, then:
+Reviewed-by: Leonardo Bras <leo.bras@arm.com>
 
 Thanks,
-Andi
+Leo
