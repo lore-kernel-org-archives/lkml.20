@@ -1,144 +1,107 @@
-Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com [210.118.77.11])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 547433ADBAF
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 09:31:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.118.77.11
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id B743A3E40E7;
+	Wed,  9 Sep 2026 09:31:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788946301; cv=none; b=Nz1mbx9F9o6H1S4CfV766t2mzDwW2QWHQ80o09wbnYKTpMFC5dU+JB+T5oZgmOvMi5zCu3ZhNWyv+Xd89BWsRR5xKm47b2WXNqk8PS9flQDYDu4xt7jE0XM+GD9AxeZDuBeLIVfanJuVeMvkvZPoQJWlr/ESSRwvKUqag8rSgL0=
+	t=1788946308; cv=none; b=lTv6R91iPFmofYG/6dUxkoGFjUxEeTYCJGKbvJu0oZ0D6goXgOJTzvsFZwA8tGQZGuJoE5QzReDCfp0+WHeBXc8R/jdOKiOvn9oUWu2IIUSXZiamgZc92fy70g4dUfzhfmnRVdYhTlc2TiIYYPBZTz2rnwwXitBdoNvqiPNfCNk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788946301; c=relaxed/simple;
-	bh=Wogea+KEzeap1Lp6Hh6RIuEaHRo08Y+0sJrsM3lFcUw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:From:In-Reply-To:
-	 Content-Type:References; b=fxfftyG6nvP4LSD4vfoCMRHwW6x3GtnHvSqlcKIRGf9Brps3tFUZQGt1MmNvPO5uu/i8pCrpRLtk/yzowlwjwVnDuMyhhrCX8Q/xtFHyhRrdGC1Qqc6dk7vvFfSsGs57Ky6lQzeL8nyhWQPcvEeSlKNOF08HreZ4IzWxmnRUtzE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=oGti7xWP; arc=none smtp.client-ip=210.118.77.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	s=arc-20240116; t=1788946308; c=relaxed/simple;
+	bh=U/TSjfiyoy1kR4oMlsX6WetGoZU/9+forBtwTZDVlgA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=e+yKCF0UDiBs2fMXvTpCloOKrtDCJuZLA9v1pCVTHJwKRhHzfK4YUNpBfJmoCT2eW3VQtSBeEvEpjxrbIGccSI8Mpo4Qsoj1jxhCcdWdSXrr92hw45DUxvz8x15cYeguHr6W5VdF3a5ZTivX3J9cknbJaZY2dL2cbw8pYvZESbE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=YCsca2mo; arc=none smtp.client-ip=13.77.154.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="oGti7xWP"
-Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
-	by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id 20260909093113euoutp0171e8efe072090a6d2a54af12ffb33aeb~TnShETdar0419904199euoutp01h
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 09:31:13 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com 20260909093113euoutp0171e8efe072090a6d2a54af12ffb33aeb~TnShETdar0419904199euoutp01h
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1788946273;
-	bh=HO6oHU6+x0iADCv4F2Kq7ObM80NEpWfdqWcE+sOXJ0Q=;
-	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
-	b=oGti7xWP0pC3X47vHVzo4vTBtvFK5a4HXHQWqUNXMVwatbYB5MrrTRGWkT9uLyar1
-	 0Od4Rg2VrudnHJkPl//xuBQm5ucHz95VZigqFvjo30ugVXW3P32lZqT7ErxGnafVJF
-	 D6BUb9f8u1PfrK9KjZSP6lEkfQK+aoclF5dOO674=
-Received: from eusmtip1.samsung.com (unknown [203.254.199.221]) by
-	eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
-	20260909093113eucas1p1e60dc5b40650691465cd1d37f79afac1~TnSg0i0Va2506425064eucas1p1i;
-	Wed,  9 Sep 2026 09:31:13 +0000 (GMT)
-Received: from [106.210.134.192] (unknown [106.210.134.192]) by
-	eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
-	20260909093112eusmtip1f94adf08cb3dd111e0ae7ce9444f53cb~TnSf8xVsD1514415144eusmtip1W;
-	Wed,  9 Sep 2026 09:31:12 +0000 (GMT)
-Message-ID: <3d764722-a52e-46a9-8db2-4bd7d5178546@samsung.com>
-Date: Wed, 9 Sep 2026 11:31:11 +0200
+	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="YCsca2mo"
+Received: from [192.168.1.70] (unknown [4.194.122.170])
+	by linux.microsoft.com (Postfix) with ESMTPSA id 0727520B7128;
+	Wed,  9 Sep 2026 02:30:43 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 0727520B7128
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+	s=default; t=1788946247;
+	bh=UImAoP06X/mSbbiARCqbMx2kej7THt6I1rcHgFKHVsA=;
+	h=Date:Subject:To:References:From:In-Reply-To:From;
+	b=YCsca2moKVD3MxWmfxPcMRv6pDUwe32Sh3Cyho5rDJO/Yudx8HO+sUplPtjGR1L12
+	 avqJ3MoVDUnwvD5ikRTmViIDxxETtRKGoWVB1MGnAC1ePW6qQXUYw/AhYQ7YJu0Vr2
+	 zYgISlgxEUtyMCC+MftQD9JIAYDm2DcPkYzyIYs0=
+Message-ID: <c8b6e10f-dd52-4c74-8d16-268563d8bc1f@linux.microsoft.com>
+Date: Wed, 9 Sep 2026 15:01:22 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Betterbird (Windows)
-Subject: Re: [PATCH v2] dma-mapping: don't trace the DMA address when the
- allocation fails
-To: Donggeun Yoo <donggeunyoo.kernel@gmail.com>, Steven Rostedt
-	<rostedt@goodmis.org>, Masami Hiramatsu <mhiramat@kernel.org>
-Cc: Robin Murphy <robin.murphy@arm.com>, Mathieu Desnoyers
-	<mathieu.desnoyers@efficios.com>, Sean Anderson <sean.anderson@linux.dev>,
-	iommu@lists.linux.dev, linux-trace-kernel@vger.kernel.org,
-	linux-kernel@vger.kernel.org
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] PCI: hv: Warn when wait_for_response() waits
+ indefinitely
+To: Sahil Chandna <sahilchandna@linux.microsoft.com>, kys@microsoft.com,
+ haiyangz@microsoft.com, wei.liu@kernel.org, decui@microsoft.com,
+ longli@microsoft.com, lpieralisi@kernel.org, kwilczynski@kernel.org,
+ mani@kernel.org, robh@kernel.org, bhelgaas@google.com,
+ linux-hyperv@vger.kernel.org, linux-pci@vger.kernel.org,
+ linux-kernel@vger.kernel.org, mhklinux@outlook.com
+References: <20260908113009.3005964-1-sahilchandna@linux.microsoft.com>
 Content-Language: en-US
-From: Marek Szyprowski <m.szyprowski@samsung.com>
-In-Reply-To: <20260907120124.603373-1-donggeunyoo.kernel@gmail.com>
+From: Naman Jain <namjain@linux.microsoft.com>
+In-Reply-To: <20260908113009.3005964-1-sahilchandna@linux.microsoft.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-CMS-MailID: 20260909093113eucas1p1e60dc5b40650691465cd1d37f79afac1
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-RootMTR: 20260907120135eucas1p2e978bcaf868b9446219dc1fb6ad11bc0
-X-EPHeader: CA
-X-CMS-RootMailID: 20260907120135eucas1p2e978bcaf868b9446219dc1fb6ad11bc0
-References: <CGME20260907120135eucas1p2e978bcaf868b9446219dc1fb6ad11bc0@eucas1p2.samsung.com>
-	<20260907120124.603373-1-donggeunyoo.kernel@gmail.com>
 
-On 07.09.2026 14:01, Donggeun Yoo wrote:
-> dma_alloc_attrs() passes *dma_handle to trace_dma_alloc() without
-> checking whether the allocation succeeded. No backend writes it on
-> failure: dma_direct_alloc(), iommu_dma_alloc() and the dma_map_ops
-> instances assign it only on the path that returns a buffer. Callers
-> usually pass an uninitialized automatic variable, so a failed allocation
-> records whatever the stack held, next to the virt_addr=(null) that marks
-> the record as an error:
->
->  dma_alloc: dmatrace dir=BIDIRECTIONAL dma_addr=deadbeefdeadbeef
->  size=1099511627776 virt_addr=0000000000000000
->
-> The device coherent pool path reaches the same call: a non-zero return
-> from dma_alloc_from_dev_coherent() means the request was handled, not
-> that it succeeded, so cpu_addr is NULL and dma_handle is untouched once
-> the pool runs out.
->
-> For an allocation event a NULL virt_addr already means the request
-> failed, so the address field carries nothing. Report 0 for it in the
-> event class rather than at each call site, which covers dma_alloc_pages()
-> and dma_alloc_sgt_err() as well.
->
-> Fixes: 038eb433dc14 ("dma-mapping: add tracing for dma-mapping API calls")
-> Fixes: 68b6dbf1f441 ("dma-mapping: trace more error paths")
-> Suggested-by: Marek Szyprowski <m.szyprowski@samsung.com>
-> Signed-off-by: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
 
-Applied to dma-mapping-fixes, thanks!
 
+On 9/8/2026 5:00 PM, Sahil Chandna wrote:
+> A guest can wait indefinitely in wait_for_response() for the host to
+> send either a rescind message or a packet completion. If the
+> host does not send either, the guest can remain blocked with no
+> diagnostic indicating a reason.
+> This was observed during a guest kernel upgrade in which the
+> host-side application handling the PCI channel faulted, causing the
+> guest to never receive the completion request.
+> Add a warning in wait_for_response() when the wait exceeds
+> a timeout so that such a hang is visible in the guest's kernel log
+> and can be correlated with host-side state.
+> 
+> Suggested-by: Michael Kelley <mhklinux@outlook.com>
+> Signed-off-by: Sahil Chandna <sahilchandna@linux.microsoft.com>
 > ---
-> v2:
-> - report 0 in the event class instead of splitting the two call sites,
->   as suggested by Marek. kernel/dma/mapping.c is untouched now, so
->   debug_dma_alloc_coherent() keeps being called for a failed allocation
->   and decides for itself what to do with it.
-> - tested on x86_64 rather than compile-tested only.
-> v1: https://lore.kernel.org/linux-iommu/20260905071919.30784-1-donggeunyoo.kernel@gmail.com/
->
-> Tested with a module that puts a known value in the caller's handle and
-> then asks for 1 TiB from a 32-bit capable device, with the dma_alloc
-> event enabled. Before, the record carries the caller's stale value; after,
-> it carries 0:
->
->  -dma_addr=deadbeefdeadbeef size=1099511627776 virt_addr=0000000000000000
->  +dma_addr=0 size=1099511627776 virt_addr=0000000000000000
->
-> A PAGE_SIZE request from the same device, as a control, reports its real
-> address on both kernels, matching the handle the caller got back.
->
-> This changes what the record contains, not what the caller does:
-> *dma_handle is still read to build the tracepoint arguments, since those
-> are evaluated before the static branch.
->
->  include/trace/events/dma.h | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/include/trace/events/dma.h b/include/trace/events/dma.h
-> index 9df02c1511de..b06d8f99922d 100644
-> --- a/include/trace/events/dma.h
-> +++ b/include/trace/events/dma.h
-> @@ -134,7 +134,7 @@ DECLARE_EVENT_CLASS(dma_alloc_class,
->  	TP_fast_assign(
->  		__assign_str(device);
->  		__entry->virt_addr = virt_addr;
-> -		__entry->dma_addr = dma_addr;
-> +		__entry->dma_addr = virt_addr ? dma_addr : 0;
->  		__entry->size = size;
->  		__entry->flags = flags;
->  		__entry->dir = dir;
->
-> base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+> Changes since v2:
+> - Add counter based timeout instead of introducing another timer
+> Link to v2: https://lore.kernel.org/all/20260902115854.2629164-1-sahilchandna@linux.microsoft.com/
+> 
+> Changes since v1:
+> - Removed periodic warning to one time warning in 2 minutes
+> - Include vmbus relid and stuck PCI msg.
+> Link to v1: https://lore.kernel.org/all/20260825051850.2438816-1-sahilchandna@linux.microsoft.com/
+>   drivers/pci/controller/pci-hyperv.c | 46 ++++++++++++++++++++++-------
+>   1 file changed, 36 insertions(+), 10 deletions(-)
+> 
+> diff --git a/drivers/pci/controller/pci-hyperv.c b/drivers/pci/controller/pci-hyperv.c
+> index 89816a2bd7cd..bd07402c47ed 100644
+> --- a/drivers/pci/controller/pci-hyperv.c
+> +++ b/drivers/pci/controller/pci-hyperv.c
+> @@ -1040,19 +1040,38 @@ static void put_pcichild(struct hv_pci_dev *hpdev)
+> 
+>   /*
+>    * There is no good way to get notified from vmbus_onoffer_rescind(),
+> - * so let's use polling here, since this is not a hot path.
+> + * so let's use polling here, since this is not a hot path. If
+> + * wait_for_response() has been polling for 2 minutes
+> + * without either a rescind or completion, add a warning.
+>    */
+> +#define PCI_RESPONSE_HANG_TICKS 1200
+> +
 
-Best regards
--- 
-Marek Szyprowski, PhD
-Samsung R&D Institute Poland
+Nit, I think this variable name could be misleading, as this represents 
+a loop counter for a retry logic, but not exactly *ticks* from kernel 
+terminology.
 
+I would have preferred something like: PCI_RESPONSE_WARN_POLL_COUNT.
+
+Rest LGTM.
+
+Reviewed-by: Naman Jain <namjain@linux.microsoft.com>
+
+Regards,
+Naman Jain
