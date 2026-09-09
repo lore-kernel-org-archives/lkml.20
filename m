@@ -1,97 +1,104 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail.cyberchaos.dev (mail.cyberchaos.dev [195.39.247.168])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 546B6348C7B
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 07:34:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7C183AD518;
+	Wed,  9 Sep 2026 07:34:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.39.247.168
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788939278; cv=none; b=F3MueByT9TUROKKTdFCvb4/IAgHn73ouS1ZVYTp7vNDxRJseNrp7aOV9RqGTq3yY5anO6d6rWq/1MmCOt7Nit1tcu+pUz1vW9rB+DHsTc5EMz9dhRVwB0J0oZBauI6hlJk2lMAUbRBCDnmsyTNH7MW/+6iAc97KXBdbmjts7Wbk=
+	t=1788939302; cv=none; b=C1r/7DRlaFmr+HFfWJjMcAfA4Mc2axQTTgicIJAe7pLXvwWJBmPEMo5TBdWLuVAFMD1c+LozN+0t2bpzJvC/zn/wLxGE3r3DcxIJQpECMYv9asBNMBhaTfLo/NBcqhx719zDL+HuofmI/qb9ZA3x+IkxgnCON06qmJIDI0Kycas=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788939278; c=relaxed/simple;
-	bh=CczCbysowyp09bTB4RwlKpI0GONpEfI6a0e2p7j5C/I=;
-	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=ZLvEPFjasKvIGhpRZIw2s91m+yK2Zesj0QM+XVTthqdaMCOaueyifohWtKI80ja3UyAJH2+e4bZ56NhQlsvzfTBQXHwKAw4yppFZTSKs9czicCmCBZRyZ9m379sbUgGLvToKwZ951fdtcy2HD4UVKDIoERB8xNBzlyRV3NpWdDw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Nsev6Ua/; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788939302; c=relaxed/simple;
+	bh=GfxKyBaoyH40ew/NzikCqRTPnYe0Nah/k/DFGQ43UcE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=J/p6dJougVnvrRhkfbbulPhmUJpSpsFS2SsCm/KzvCvxrDpyKlm/aDBI5yOuqeLyO5tlHq4vEcZmq73uL4bx7Z3Let2KrZuPlQ+oTfJHbyj4SfI6OdNMpIF8wNDHKrbl+o7DTbVpOkziyqEEFUd/ZtpT2y+9kUKRCZcqmOrAhEc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cyberchaos.dev; spf=pass smtp.mailfrom=cyberchaos.dev; dkim=pass (1024-bit key) header.d=cyberchaos.dev header.i=@cyberchaos.dev header.b=cHFRKjSc; arc=none smtp.client-ip=195.39.247.168
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cyberchaos.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cyberchaos.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Nsev6Ua/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CA5351F00A3A;
-	Wed,  9 Sep 2026 07:34:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788939276;
-	bh=YV6vJiHkxKjkEjy7Pkh7XDkO297AeAXSrU8Uen/TxIg=;
-	h=Date:Cc:Subject:To:References:From:In-Reply-To;
-	b=Nsev6Ua/o/ASiY9cpHKfyZ6CGMPHWj8KU6JZPyNZ7JiDJNts4cA7KvE5aSlqjlC+o
-	 0JgBRBR6YDyw2dflhgWi12IGJ3JHCPSLrOFaW/fODdcYkxmuGG7R3hQDQSu30siTgy
-	 vE1Kv1ZfLUd9ir1dhAGnN5lG/VTs/G0caDgdLjGRe7Kc6Sg5SdipjLtXo6Xyib9hlM
-	 mg7Wcp1r+lhh/xYeznid0vj9++KZDYe8zRUFOY0rtj6rIe2ciUW2j+M0GC3kusA4h+
-	 w2/mazZFV0ARdc4zeMI+/oZJfBkX+f9oSjpgVIuH17b+4TFISefVKJc3zqMUcgov/L
-	 PP+uL1FuGbQIA==
-Message-ID: <823eac07-808f-4b8e-a289-538ace853e12@kernel.org>
-Date: Wed, 9 Sep 2026 15:34:33 +0800
+	dkim=pass (1024-bit key) header.d=cyberchaos.dev header.i=@cyberchaos.dev header.b="cHFRKjSc"
+Message-ID: <76d1c5c8-f051-4365-b113-e18be5aaa9a0@cyberchaos.dev>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cyberchaos.dev;
+	s=mail; t=1788939287;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=RgZ0tWkgjiEUeT5VerSLaz3Hth8Pz9PPnVSIhaTxQI8=;
+	b=cHFRKjScczQSvT5fk2vci/k6J/UV5FTWYurvqzFFWVUn1fA2Kh5oWSI+1YO961ZY1/IpSr
+	ejRHJtV2AjhqFNRjv/Lni2aKJYWsvSIxKs8f2pplBh2bm7cHSUzzkoOkBcZ/Yi8ScqrgDH
+	zcWIzhxf9XQ0eOliYI5xsUMfBiN7f8Q=
+Date: Wed, 9 Sep 2026 09:34:43 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Cc: chao@kernel.org, linux-f2fs-devel@lists.sourceforge.net,
- Barry Song <baohua@kernel.org>, Juan Yescas <jyescas@google.com>,
- Pengfei Li <lipengfei28@xiaomi.com>, Dev Jain <Dev.Jain@arm.com>,
- linux-kernel@vger.kernel.org, David Hildenbrand <David.Hildenbrand@arm.com>,
- Bo Zhang <zhangbo56@xiaomi.com>, Kalesh Singh <kaleshsingh@google.com>,
- Jaegeuk Kim <jaegeuk@kernel.org>, Ryan Roberts <Ryan.Roberts@arm.com>
-Subject: Re: [f2fs-dev] [PATCH 06/14] f2fs: prepare mmap write faults for
- large folios
-To: Nanzhe Zhao <nzzhao.sigma@gmail.com>
-References: <eecd3a49-d252-4d36-9e5a-44ac3eb02108@kernel.org>
- <20260907073434.2349510-1-zhaonanzhe@xiaomi.com>
+Subject: Re: [PATCH 4/6] dt-bindings: interrupt-controller: apple,aic2: Add
+ apple,t8140 compatible
+To: Krzysztof Kozlowski <krzk@kernel.org>, Nick Chan <towinchenmi@gmail.com>
+Cc: Yureka Lilian <yureka@cyberchaos.dev>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Lorenzo Pieralisi <lpieralisi@kernel.org>,
+ Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>,
+ Neal Gompa <neal@gompa.dev>, Hector Martin <marcan@marcan.st>,
+ Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>,
+ Wim Van Sebroeck <wim@linux-watchdog.org>, Guenter Roeck
+ <linux@roeck-us.net>, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, asahi@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org, linux-watchdog@vger.kernel.org
+References: <20260904-apple-a18-pro-initial-devicetrees-v1-0-0c25401d165d@cyberchaos.dev>
+ <20260904-apple-a18-pro-initial-devicetrees-v1-4-0c25401d165d@cyberchaos.dev>
+ <4e65ef39-cf1b-49d4-a899-da36acb442c2@gmail.com>
+ <20260909-advanced-marble-lorikeet-eebeef@quoll>
+ <76ad4ffe-82b8-42ec-abbe-a8c35ed8705f@kernel.org>
 Content-Language: en-US
-From: Chao Yu <chao@kernel.org>
-In-Reply-To: <20260907073434.2349510-1-zhaonanzhe@xiaomi.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+From: Yureka Lilian <yureka@cyberchaos.dev>
+In-Reply-To: <76ad4ffe-82b8-42ec-abbe-a8c35ed8705f@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On 9/7/26 15:34, Nanzhe Zhao wrote:
-> On Thu, 27 Aug 2026 20:36:02 +0800, Chao Yu wrote:
->> We only need to call f2fs_get_block_locked() for vmf->page?
+
+On 9/9/26 09:32, Krzysztof Kozlowski wrote:
+> On 09/09/2026 09:31, Krzysztof Kozlowski wrote:
+>> On Sat, Sep 05, 2026 at 04:25:36PM +0800, Nick Chan wrote:
+>>> Yureka Lilian 於 2026/9/5 凌晨3:49 寫道:
+>>>> The Apple t8140 (A18 Pro) SoC uses an AIC3 as interrupt controller, same as
+>>>> the M1-M4 SoCs.
+>>>>
+>>>> Signed-off-by: Yureka Lilian <yureka@cyberchaos.dev>
+>>>> ---
+>>>>   Documentation/devicetree/bindings/interrupt-controller/apple,aic2.yaml | 1 +
+>>>>   1 file changed, 1 insertion(+)
+>>>>
+>>>> diff --git a/Documentation/devicetree/bindings/interrupt-controller/apple,aic2.yaml b/Documentation/devicetree/bindings/interrupt-controller/apple,aic2.yaml
+>>>> index 1cb886785173..e3cadc5ad39d 100644
+>>>> --- a/Documentation/devicetree/bindings/interrupt-controller/apple,aic2.yaml
+>>>> +++ b/Documentation/devicetree/bindings/interrupt-controller/apple,aic2.yaml
+>>>> @@ -46,6 +46,7 @@ properties:
+>>>>                 - apple,t6030-aic3
+>>>>                 - apple,t6031-aic3
+>>>>                 - apple,t8132-aic3
+>>>> +              - apple,t8140-aic3
+>>> the title should be "... Add t8140 compatible" describing the hardware corresponding
+>>> to the added compatible since the compatible being added is not "apple,t8140".
+>> Commit msg is correct, it does exactly what you wrote, no?
 >>
->> Hi Barry, could you please help to confirm this? Only vmf->page contain dirty
->> data, rather than whole large folio contain dirty data?
-> 
-> Thanks for the review. Here is the write-fault path on current
-> mainline (mm/memory.c):
-> 
-> do_pte_missing()                          memory.c:4561
->   -> do_fault()                           memory.c:5964
->     -> do_shared_fault()                  memory.c:5914
->       -> __do_fault() -> filemap_fault()  : fault in folio (may be 16KB)
->       -> do_page_mkwrite(vmf, folio)      : page_mkwrite ONCE per folio (memory.c:5936)
->          -> vma->vm_ops->page_mkwrite(vmf)  memory.c:3684
->       -> finish_fault()                   memory.c:5617
->          -> set_pte_range()               memory.c:5558
->             if (write)
->                 entry = maybe_mkwrite(pte_mkdirty(entry), vma);   memory.c:5575
->             set_ptes(vma->vm_mm, addr, vmf->pte, entry, nr);      memory.c:5586
-> 
-> So page_mkwrite is entered once per folio, and afterwards the PTEs of
-> all subpages are installed writable in one go - writes to other
-> subpages of the same folio will not fault again. That is why
-> f2fs_vm_page_mkwrite() preallocates/marks dirty_len rather than
-> handling vmf->page only.
-> 
-> I'll add a comment in f2fs_vm_page_mkwrite() in the next version to
-> make the point clear.
+>>> (Alternatively, if you mention the compatible in title, say "...Add apple,t8140-aic3" as
+>>> "compatible" is already implied)
+>> That would be repeating diff, so not really helpful.
+>
+> Ah, you meant the subject of the patch...
+>
+>
+> Best regards,
+> Krzysztof
 
-I see, we'd better limit the upper boundary of folio order in order to avoid
-large write amplification, since even user only write 4k page via mmap, it will
-dirty entire large folio, IIUC.
 
-To Jaegeuk, Daeho, any comments?
+That's how I parsed it too. Removed the "apple," from the subject, so 
+it's just "dt-bindings: interrupt-controller: apple,aic2: Add t8140 
+compatible".
 
-Thanks,
 
-> 
-> Thanks,
-> Nanzhe
+- Yureka
 
