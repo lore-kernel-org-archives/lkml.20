@@ -1,120 +1,187 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78509331EBE
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 02:36:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA26230648C;
+	Wed,  9 Sep 2026 02:36:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788921404; cv=none; b=GkdiSzJ/UD94fRNEuEDQtnu56tcIKA0vW/18ooJpBifj5R2Mlm8VdfQb68AYXCjNvU04eciL8p1BGgC4yIudBrKxBabhHimpxTTziEyxYn+E7BtVxEX+3Z/A4wh+vLnKswLkZojUsDedqRvqU+O874Zm1pGfS1Y86BZxvpmfJ60=
+	t=1788921418; cv=none; b=VRzFUBepYiZLhuo7BmulrWumoNH4UVAmHnYfA8QVD2LTCboQqec8cwxSsrHFRYLEPQ/9C/eflORRywS55ZKSdt/qo2rJkT4Dpa8EfMaaxND5kATphv+3vQyBzPg+K953Vn+6BRwvtk+8ABhRmfaq0bJi+tPoRHUGdDoI5ZnruyI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788921404; c=relaxed/simple;
-	bh=YuS/5Fo7C95mugHRqUJPea8gdiCg8mTCok24xWc9Mko=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=QVISvswkILE9Pg/kv6FOffIbVsSmlgGQ2XPyhRKBtrfUF6HNyDvZEyUuXR4TnrDmoPB/5HUJhN33Gh597iBjIIGPxAEJmFhRwVewJoI4xtj/SbImZQD+Y37ft0ffWU1+qejYiS8e1EltnDWo/hizK8sdDEsNh1PwuisUI3dBbWM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=pu3+x7ze; arc=none smtp.client-ip=220.197.31.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1788921418; c=relaxed/simple;
+	bh=MdMRKcr4RCcIckMKiox054ELsgROHZ/zrOl7J0fhazo=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=GN8bMcwv2RSnrlne+wu8ExjDIGvMqQTYYV7Eaw27LbLs+hE25q2NPEwAmsCgY9Foy2FFcfxI9+NIImHVUlSQfoiXTwVcvWqrYa3FhLSX2k5E+4liEhHiJlD8hj57K6W5J01WQWEyugKeqrsDNYHh6nDn6M62kO97ndoFkt+qQ3Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PAxvAivo; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="pu3+x7ze"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=3X
-	7M8wd36LdkjWaRhem4HHD64AbWVsJuXoeZADo2jJE=; b=pu3+x7ze/ba44xU2s1
-	QGQt/R5WsHwZiLHtTfXTFqYHE1Q0SbZwy4ZGgE7IIoce1t6SOYxzAFcYBQNLfKqw
-	+U9AYyBFEzQ4Tu73QMImvHUDXHePQRnnN9ktFkRRJtIQYNc0aYoaNV5aRsEt4PjN
-	s/fdtd5GrJ3bQoRe4wNhuix90=
-Received: from XLL-9950X.localdomain (unknown [])
-	by gzga-smtp-mtada-g1-0 (Coremail) with SMTP id _____wB38SYOxqBq_1b3BQ--.26192S2;
-	Wed, 09 Sep 2026 10:36:00 +0800 (CST)
-From: Longlong Xia <xialonglong2025@163.com>
-To: akpm@linux-foundation.org,
-	david@kernel.org,
-	linux-mm@kvack.org
-Cc: xu.xin16@zte.com.cn,
-	chengming.zhou@linux.dev,
-	linux-kernel@vger.kernel.org,
-	Longlong Xia <xialonglong@kylinos.cn>
-Subject: [PATCH 1/1] mm/ksm: trylock the mmap lock in the unstable tree walk
-Date: Wed,  9 Sep 2026 10:35:07 +0800
-Message-ID: <20260909023507.1408925-1-xialonglong2025@163.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PAxvAivo"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 011C11F00A3A;
+	Wed,  9 Sep 2026 02:36:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788921413;
+	bh=7SnHjoka3biYXsU/usMnvGvxju6EcnroAMwKl7/BMn0=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=PAxvAivoBVWJl8aNUDPk7Q3Eb+LmKGduCMb4I2WXGuv+8kk0AqabYIBOZE0Lxxunc
+	 rCUDELZFcpOZTc4L/Qnud3yYfOeCSoAclz/oHL01ra9d8nXK/6LUtreIXMvld8sIr9
+	 3/Nr1aHBSqEoSIhRYHWAiT+vUfxoE5iK1EjvNMdzQ66nvpWMhDVUofI2EwUg+B14rq
+	 3kPIs2fSAJy2wX2H62KjG5lu61Sm0W7TlJvq818p47VcrhAIF6TBd5Nj3rhGe//LDt
+	 Os0FXAzvztZ1Ps5JTq7AytxXqIOq88tIklY2wOp7j0PDFTHAA56iHGI9sMdozI9Mts
+	 oxij27YLB1i2Q==
+Subject: Re: [PATCH net] octeontx2-pf: fix null RX segment address free
+From: netdev-bot+sashiko@kernel.org
+To: nshettyj@marvell.com
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, gakula@marvell.com,
+ sgoutham@marvell.com, rkannoth@marvell.com, sbhatta@marvell.com,
+ bbhushan2@marvell.com, andrew+netdev@lunn.ch, davem@davemloft.net,
+ edumazet@google.com, kuba@kernel.org, pabeni@redhat.com
+Date: Wed, 09 Sep 2026 02:36:52 +0000
+Message-ID: <178892141248.219967.7550488863478080555@kernel.org>
+In-Reply-To: <20260903143516.2697708-1-nshettyj@marvell.com>
+References: <20260903143516.2697708-1-nshettyj@marvell.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wB38SYOxqBq_1b3BQ--.26192S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxCrW7Kw15uF4Dur4fur48WFg_yoW5Jw4xpF
-	y7Ka4jkr48Jr15u3s2ya1kuFW5u3s7KFZxG3yfta43Arn8JwnrGrWftFy8WF1UWF1Skws0
-	vr4jva4DKayDXaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07joGQDUUUUU=
-X-CM-SenderInfo: x0ldz0pqjo00rjsqjki6rwjhhfrp/xtbC9xB4cWqgxhCKNQAA3N
 
-From: Longlong Xia <xialonglong@kylinos.cn>
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider:
 
-Every node that unstable_tree_search_insert() descends through is
-revalidated by get_mergeable_page(), which takes the mmap_read_lock
-of the mm the node's rmap_item belongs to. These are taken while
-ksmd holds ksm_thread_mutex, so a single mm whose mmap lock is
-being written to - a process busily mmap'ing or munmap'ing -
-stalls the whole scanner, for every KSM user on the system.
+Critical: 0 · High: 2 · Medium: 0 · Low: 0
 
-Use mmap_read_trylock() instead. The trade-off is that pages of a
-contended mm may need more full scans to merge; in return, ksmd
-latency no longer depends on unrelated mmap activity of the
-scanned processes.
+- [High] Incomplete fix: the zero-`seg_addr` guard is added only to
+  `otx2_free_rcv_seg()`, leaving the bug class the commit message claims…
+- [High] The new guard in `otx2_free_rcv_seg()` (otx2_txrx.c:260-261)
+  uses `return`, which aborts the inner per-segment loop *and* the outer…
 
-Testing, on a 4 vCPU QEMU x86_64 guest with ksmd at
-pages_to_scan=100000 and sleep_millisecs=0, 5 runs per kernel
-(median reported; baseline is the parent commit):
+--
 
-1. A contender process registers a 64 MiB MADV_MERGEABLE area of
-   unique pages and runs two threads looping mmap/munmap of
-   256 MiB, so its mmap lock is held for writing much of the
-   time.
-2. Once that churn is running, a quiet victim process registers
-   32 MiB of 2048 unique pages duplicated 4 times.
-3. Sample /sys/kernel/mm/ksm counters and ksmd's /proc stats
-   every 0.5 s for ~2 min of churn, then stop the churn and
-   sample until the victim finishes merging.  The same phases
-   run without the churn as an uncontended control.
+octeontx2-pf: fix null RX segment address free
 
-Results (median of 5 runs):
+The patch adds a check in otx2_free_rcv_seg() so that a segment address
+which reads back as zero is not handed to aura_freeptr().  It targets the
+multi-segment reclaim path introduced by b1bc8457e9d0.
 
-- contended ksmd scan rate: 11,473 -> 58,397 pages/s (5.1x)
-- contended victim merge time: 10.4 s -> 1.7 s; the contended
-- contended ksmd CPU per scanned page: 13.4 us -> 3.5 us
-- ksmd time in uninterruptible sleep under churn: 78% -> 57%;
-- uncontended (control): merge time 0.65s vs 0.62s, scan rate
-  259K vs 247K pages/s and ksmd CPU 3.9 vs 4.0 us per page,
-  unchanged within ~5%.
+> diff --git a/drivers/net/ethernet/marvell/octeontx2/nic/otx2_txrx.c b/drivers/net/ethernet/marvell/octeontx2/nic/otx2_txrx.c
+> index 8d2d607bc92f..a9aefd14ae52 100644
+> --- a/drivers/net/ethernet/marvell/octeontx2/nic/otx2_txrx.c
+> +++ b/drivers/net/ethernet/marvell/octeontx2/nic/otx2_txrx.c
+> @@ -256,9 +256,12 @@ static void otx2_free_rcv_seg(struct otx2_nic *pfvf, struct nix_cqe_rx_s *cqe,
+>  	while (start < end) {
+>  		sg = (struct nix_rx_sg_s *)start;
+>  		seg_addr = &sg->seg_addr;
+> -		for (seg = 0; seg < sg->segs; seg++, seg_addr++)
+> +		for (seg = 0; seg < sg->segs; seg++, seg_addr++) {
+> +			if (unlikely(!*seg_addr))
+> +				return;
 
-Assisted-by: Zcode:GLM-5.3
-Signed-off-by: Longlong Xia <xialonglong@kylinos.cn>
----
- mm/ksm.c | 9 ++++++++-
- 1 file changed, 8 insertions(+), 1 deletion(-)
+[Severity: High]
+Should this be continue instead of return?
 
-diff --git a/mm/ksm.c b/mm/ksm.c
-index 49d48d1e0998..3cfb09a926ff 100644
---- a/mm/ksm.c
-+++ b/mm/ksm.c
-@@ -820,7 +820,14 @@ static struct page *get_mergeable_page(struct ksm_rmap_item *rmap_item)
- 	struct folio_walk fw;
- 	struct folio *folio;
- 
--	mmap_read_lock(mm);
-+	/*
-+	 * We trylock because we don't want ksmd to wait for an mm that is
-+	 * busy changing its memory layout: we prefer to skip this page and
-+	 * let the next full scan retry it, like the folio trylock in
-+	 * try_to_merge_one_page().
-+	 */
-+	if (!mmap_read_trylock(mm))
-+		return NULL;
- 	vma = find_mergeable_vma(mm, addr);
- 	if (!vma)
- 		goto out;
+The return leaves both the inner per-segment loop and the outer
+while (start < end) walk over the remaining SG sub-descriptors, so if
+slot N reads zero, slots N+1..segs-1 and every later SG word inside
+(desc_sizem1 + 1) * 16 are never returned to the aura.
+
+struct nix_rx_sg_s in otx2_struct.h describes segs as a count, not a
+null-terminated list:
+
+	u64 segs       : 2;
+	...
+	u64 seg_addr;
+	u64 seg2_addr;
+	u64 seg3_addr;
+
+and the peer walk in otx2_rcv_pkt_handler() processes every advertised
+slot of every SG word, so the two readers of the same descriptor now
+disagree about its meaning.
+
+Neither caller re-scans the CQE afterwards.  otx2_check_rcv_errors()
+does:
+
+	/* Free buffer back to pool */
+	if (cqe->sg.segs)
+		otx2_free_rcv_seg(pfvf, cqe, qidx);
+	return true;
+
+and otx2_cleanup_rx_cqes() bumps processed_cqe, continues, and later
+rings the CQ doorbell.  Can the skipped pointers leak the RX buffers
+here, i.e. lose them from the NPA aura and, on the teardown path, leave
+pages charged to the page_pool with their DMA mappings still installed
+so page_pool_destroy() sees inflight pages?
+
+The commit message describes a per-segment condition ("when the segment
+address is null"), which reads more like a skip of the single bad slot
+than an abort of the whole reclaim loop.
+
+>  			pfvf->hw_ops->aura_freeptr(pfvf, qidx,
+>  						   *seg_addr & ~0x07ULL);
+> +		}
+>  		start += sizeof(*sg);
+>  	}
+>  }
+
+[Severity: High]
+If a segment address in an RX CQE can be observed as zero, does the fix
+cover the other readers of the same descriptor words?
+
+otx2_rcv_pkt_handler() performs the identical walk with no zero test at
+all:
+
+	start = (void *)sg;
+	end = start + ((cqe->parse.desc_sizem1 + 1) * 16);
+	while (start < end) {
+		sg = (struct nix_rx_sg_s *)start;
+		seg_addr = &sg->seg_addr;
+		seg_size = (void *)sg;
+		for (seg = 0; seg < sg->segs; seg++, seg_addr++) {
+			if (otx2_skb_add_frag(pfvf, skb, *seg_addr,
+					      seg_size[seg], parse, cq->cq_idx))
+				cq->pool_ptrs++;
+		}
+		start += sizeof(*sg);
+	}
+
+The pre-check in otx2_rx_napi_handler() only looks at the first word:
+
+		if (cqe->hdr.cqe_type == NIX_XQE_TYPE_INVALID ||
+		    !cqe->sg.seg_addr) {
+
+so seg2_addr, seg3_addr and any later SG sub-descriptor reach
+otx2_skb_add_frag() unchecked.  With a zero iova that function does:
+
+	va = phys_to_virt(otx2_iova_to_phys(pfvf->iommu_domain, iova));
+	...
+	page = virt_to_page(va);
+
+and publishes a page the driver never allocated into the GRO skb, with
+skb_mark_for_recycle() run on it later.  When nr_frags has reached
+MAX_SKB_FRAGS it also does:
+
+	pfvf->hw_ops->aura_freeptr(pfvf, qidx, iova & ~0x07ULL);
+
+which is the same invalid free the commit message says it is preventing,
+only on the fast path.  Can this happen?
+
+The same question applies to the caller that motivates this change.  In
+otx2_cleanup_rx_cqes() only the multi-segment case goes through the
+patched helper:
+
+		if (cqe->sg.segs > 1) {
+			otx2_free_rcv_seg(pfvf, cqe, cq->cq_idx);
+			continue;
+		}
+		iova = cqe->sg.seg_addr - OTX2_HEAD_ROOM;
+
+		otx2_free_bufs(pfvf, pool, iova, pfvf->rbsize);
+
+With seg_addr == 0 the subtraction underflows, and otx2_free_bufs() in
+otx2_common.c then does virt_to_head_page(phys_to_virt(pa)) followed by
+page_pool_put_full_page() / dma_unmap / put_page() on a page derived from
+that address.  Does this branch need the same guard?
+
 -- 
-2.43.0
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260903143516.2697708-1-nshettyj%40marvell.com
