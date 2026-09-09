@@ -1,174 +1,156 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 785B328CF5F;
-	Wed,  9 Sep 2026 15:43:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6684A560AA6
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 15:45:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788968600; cv=none; b=k4rlI3zNXhskLcN6ja1S5ro1VblqxUcW0gjs20XC3npGUJcKxzCkBk4qIZuyO50PVukpASZXBpiBOpbq1Ale6DoAnpJrsrlId7rUf70IHqPiKHIgf7l1gwiGMLo6aRtPsBq4qJvWn7/2xiRzU34aAMc+zz8lRvbZ+qqHLd/aooQ=
+	t=1788968704; cv=none; b=CmLXW88+1EU6H1HYbR5BuRJVT2DpYggxegMDF3Tk1/j1HlZdyU+K372HCdzpCtf9hFJwKrpMvlZYdcduWuXvq+CP1IK+yP1MjtMc3SIGhdK9eLQ/E+iypsLhS17sen5IGigBg8PGAqfw6T/B/B9sE5wPs8GFG5gtklW6/hKQqCs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788968600; c=relaxed/simple;
-	bh=BKOjuZe/TjsyErnkKp4gXbWAgqDfmYIiNG/rqw5kX0Q=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Za5zOXICf1xwD2dOcqdApg4KBr0lFTNBer/uFAo16BCNU87Sl0xm8OhCh/5s4PS1BN9XpCEDnrak+8woa4FcS7j362HRzuDF3gabwBmkfV0QPxsPLaGIo1+RIm6AmoCmydSnyD1NrX70elnxFGqAwX/k1g0piQ3qs3Jr/a3TIko=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=S3xLF1ge; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788968704; c=relaxed/simple;
+	bh=tlXMq73KJhLbqOa3sBQb6U+eAptv38yQqOaGm+TCraA=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Z41/raDrSEhCwfe8Kfjg8XsRT6QA/XGM5963uVCzEjw7LghwCsxWqaNIlyLyhGPhnYlU/aiQhltHR0MseaYhvQqMGOtuTFsZHLURAN+9nO+a2rHXrdVoQFF8aD1n5avoDH8fLuvk11ev+SvFHzDWtW808bCu6tDOBhcI7Qqpr68=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org; spf=pass smtp.mailfrom=linuxfoundation.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=A/OyTfDW; arc=none smtp.client-ip=74.125.228.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="S3xLF1ge"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7FAC91F00A3D;
-	Wed,  9 Sep 2026 15:43:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788968598;
-	bh=QVOhNByUr6r71RUlJ+rEEyf00velzFdvLZ3C2AMRt2U=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=S3xLF1ge328RJxZlMfKf+h+Rr0rHffvj//0Ye1Nj1Yt/3i0Hs+6FpVCIz2UjPtSzt
-	 e+epimZH/KIvzoG2oeXzFOD0U50ZJvPBPStJncIs/6C0r3nsk6FGUgTY6zCR8HNv69
-	 dq3an9Q5ssTHyCNCKLMAeLq0QO9QDq9cEFs4ekvkctLo8VZCdnqI2dF5ps8LSluE/x
-	 nkB5iPG1HttRVac8M9rvpQgB23RrqYPtAKueLaetQFCJEUc5DTCb8R0Y9YBxrdPqbx
-	 kRFiRPgn7mg+NcwDvqbVgyBb6fbw0LEzPcjJ/4xY+6CxdE+1Aeq7+9dVWL6aIZmrOb
-	 U76GUSckln3BQ==
-Message-ID: <cc6eb4bd-3c4d-42f4-ab48-d381f7b6a2f5@kernel.org>
-Date: Wed, 9 Sep 2026 17:43:00 +0200
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="A/OyTfDW"
+Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c254f9f0b23so235126666b.0
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 08:45:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linux-foundation.org; s=google; t=1788968700; x=1789573500; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=B7MDRo1IEz0/ztB5k2AgA6IiU/moC5VF/pQ54TqLA70=;
+        b=A/OyTfDW46RNmttzMiG687FoUixKKLC0W6IBclq3qu9F8wt7zrPKZ41TPvkWwGtcY8
+         3gD1JLIoDyhCxz5Te8e4rCgn2aZofn6m+VsSF4X76uAc/OzMSX6KPnzF19guInlqitp2
+         BokgfbOZOojJgEV1AHkJSmS8dOKBErwRew+HU=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788968700; x=1789573500;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=B7MDRo1IEz0/ztB5k2AgA6IiU/moC5VF/pQ54TqLA70=;
+        b=HuUMAiDGaE3I0jly5TCvI/y1urgTP1xxUi5Ia6ZjvFp9BIUAtSVJrrw4kfaHzpVTvE
+         opWeQ87HlREOnkV0ZTsDnILFeyuWeLaZAU4wjviLJ7k8yH+Gx2OaPyD2/Rkg07u3SjRL
+         wgrQnLxBYy9SZ6ndvAyO0PXVdc5FawKhFGqMGBFsTz5KKoGG3UPf1Q19MBAYNTWww3yh
+         F8KXQngZM6hwAft9KZ1nQMBlyjC0iXeRNo/zPyVxFANPDWDUFO+jPmjy0d5TuXU4Kweo
+         U7gFm2dGe26OP9jLFD20IlhkzemtQ08wlAuJIlja8tg43PuEJTJs6KNYkiRCH6NochOh
+         O/gA==
+X-Forwarded-Encrypted: i=1; AKwUvBwKA5KcL7FVy7Dmd/BB241yiOvZRF8KfOOPPn/s2zeQFVh8hpd1x/OS+EXA6nQb3DTKLKT3yFY73ICJ49s=@vger.kernel.org
+X-Gm-Message-State: AFuF++k6p1gV27uxaR66tOWPlPh/HSbEca3yfRfgMU3BCKHLEFUuKvYH
+	GZuksiZXpzc30M7Xe0ZNfOkvL6pRHjmjx6d2xMElg0eeHJrxoT5X9hy+F02KvjjPmTd7FLN16cQ
+	5fHegldQE0h38
+X-Gm-Gg: AYBFou2HVZApCWYDAMlVW+XtMYqEiGL0VfHopMN3aopayKX1BNtbxgo2EL5ow6wtGHg
+	B+sRyGNuYLB+FBfzUQsjidex85TXjUYP9ZfzWSMBLOGOSxdbQ+ZCFP8/hVLXgzcQcVYI/oMS9M7
+	Ws22jxvLLGvQDDG8aeoTg0KSO6UTGUL78qm+4tR8k2WqE+AEeIriLhKcb2C8nZLs1lQeFkpGcxy
+	Z1yQSAgikR3GypPscqcxqop8U21gqADyyU6F2FZDBkawb0FBCXtaMo2Zbjgnk67BBGgcHLJzoiU
+	Rgs7J3pCv1fX8nDhy7vhgns53mRs8M2EUrkll+HVSESSucplJaPyXjUjtwPbCFP3Ee4QqGAKn+b
+	ShlaG9dNu9Svhz+rau6aZ8Hyj5M4bCl4wfsNBU3Nx6Vb780txgYn2/DjScqMcscI9CYzI8Iddu3
+	6+Tl8qTxk3NobFcRAlPptX0zyhjAlciLF7oEog3W7M1Z58zQWHg3OSkdkxAzSxwGlDdpI9n7+Bl
+	ocdS7oyosNIRmoEeQh0RJGszeLvVQ==
+X-Received: by 2002:a17:906:9f8c:b0:c25:58e:83ff with SMTP id a640c23a62f3a-c292af1f9c8mr482110866b.10.1788968700490;
+        Wed, 09 Sep 2026 08:45:00 -0700 (PDT)
+Received: from mail-ed2-x10.google.com (mail-ed2-x10.google.com. [2a00:1450:4864:33::10])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c260d5497cbsm801875766b.34.2026.09.09.08.45.00
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 09 Sep 2026 08:45:00 -0700 (PDT)
+Received: by mail-ed2-x10.google.com with SMTP id 4fb4d7f45d1cf-6a60591ae45so2057421a12.2
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 08:45:00 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzkt2h6j6FbIlFM2IO+k6GoKp5C4h9H+kScMdNORM6gcAoDA9Q3JGhm+xvwH53MY7k3kE5XHO+D5+JTS8A=@vger.kernel.org
+X-Received: by 2002:a05:6402:3817:b0:6a6:58e:f84b with SMTP id
+ 4fb4d7f45d1cf-6a98dfd77b1mr5256449a12.9.1788968246832; Wed, 09 Sep 2026
+ 08:37:26 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v12 19/45] KVM: guest_memfd: Zero page while getting pfn
-To: ackerleytng@google.com, aik@amd.com, andrew.jones@linux.dev,
- binbin.wu@linux.intel.com, brauner@kernel.org, chao.p.peng@linux.intel.com,
- jmattson@google.com, jthoughton@google.com, michael.roth@amd.com,
- oupton@kernel.org, pankaj.gupta@amd.com, qperret@google.com,
- rick.p.edgecombe@intel.com, rientjes@google.com, shivankg@amd.com,
- steven.price@arm.com, willy@infradead.org, wyihan@google.com,
- yan.y.zhao@intel.com, forkloop@google.com, pratyush@kernel.org,
- suzuki.poulose@arm.com, aneesh.kumar@kernel.org, liam@infradead.org,
- Paolo Bonzini <pbonzini@redhat.com>, Sean Christopherson
- <seanjc@google.com>, Thomas Gleixner <tglx@kernel.org>,
- Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
- Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
- "H. Peter Anvin" <hpa@zytor.com>, Steven Rostedt <rostedt@goodmis.org>,
- Masami Hiramatsu <mhiramat@kernel.org>,
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
- Shuah Khan <shuah@kernel.org>, Vishal Annapurve <vannapurve@google.com>,
- Andrew Morton <akpm@linux-foundation.org>, Chris Li <chrisl@kernel.org>,
- Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>,
- Nhat Pham <nphamcs@gmail.com>, Barry Song <baohua@kernel.org>,
- Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>,
- Wei Xu <weixugc@google.com>, Youngjun Park <youngjun.park@lge.com>,
- Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>,
- Kiryl Shutsemau <kas@kernel.org>, Baoquan He <baoquan.he@linux.dev>,
- Jason Gunthorpe <jgg@ziepe.ca>, John Hubbard <jhubbard@nvidia.com>,
- Peter Xu <peterx@redhat.com>, tarunsahu@google.com,
- Randy Dunlap <rdunlap@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>,
- Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
- Fuad Tabba <fuad.tabba@linux.dev>
-Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-trace-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
- linux-kselftest@vger.kernel.org, linux-mm@kvack.org,
- linux-coco@lists.linux.dev, Xiaoyao Li <xiaoyao.li@intel.com>
-References: <20260830-gmem-inplace-conversion-v12-0-85e5fd25252a@google.com>
- <20260830-gmem-inplace-conversion-v12-19-85e5fd25252a@google.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20260830-gmem-inplace-conversion-v12-19-85e5fd25252a@google.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20260908-build-speedup-v1-0-5dc1ac01672d@kernel.org>
+In-Reply-To: <20260908-build-speedup-v1-0-5dc1ac01672d@kernel.org>
+From: Linus Torvalds <torvalds@linux-foundation.org>
+Date: Wed, 9 Sep 2026 08:37:10 -0700
+X-Gmail-Original-Message-ID: <CAHk-=wieaheq8rXSps3xRZpNNMQMEj9BH5gU+Dh4q_ZgokO51Q@mail.gmail.com>
+X-Gm-Features: AcwNN1XKEJS_S8eITIntw19v_mcHyut1QfPlZfjowWaI1qZq5Mivgkqwhzm7f_s
+Message-ID: <CAHk-=wieaheq8rXSps3xRZpNNMQMEj9BH5gU+Dh4q_ZgokO51Q@mail.gmail.com>
+Subject: Re: [PATCH 00/23] kbuild: significantly speed up kernel builds
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
+	Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling <morbo@google.com>, 
+	Justin Stitt <justinstitt@google.com>, Masahiro Yamada <masahiroy@kernel.org>, 
+	Alexey Gladkov <legion@kernel.org>, Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
+	Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
+	"H. Peter Anvin" <hpa@zytor.com>, Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, Arnd Bergmann <arnd@arndb.de>, 
+	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
+	Mark Rutland <mark.rutland@arm.com>, Ard Biesheuvel <ardb@kernel.org>, 
+	Ilias Apalodimas <ilias.apalodimas@linaro.org>, Josh Poimboeuf <jpoimboe@kernel.org>, 
+	Peter Zijlstra <peterz@infradead.org>, Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
+	Gary Guo <gary@garyguo.net>, =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+	Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
+	Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
+	=?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+	Jonathan Corbet <corbet@lwn.net>, Randy Dunlap <rdunlap@infradead.org>, linux-kbuild@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, llvm@lists.linux.dev, 
+	linux-riscv@lists.infradead.org, linux-arch@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-efi@vger.kernel.org, 
+	rust-for-linux@vger.kernel.org, linux-doc@vger.kernel.org, 
+	Jens Axboe <axboe@kernel.dk>
+Content-Type: text/plain; charset="UTF-8"
 
-On 8/31/26 02:25, Ackerley Tng via B4 Relay wrote:
-> From: Ackerley Tng <ackerleytng@google.com>
-> 
-> Move the folio initialization logic from kvm_gmem_get_pfn() into
-> __kvm_gmem_get_pfn() to also zero pages if the page is to be used in
-> kvm_gmem_populate().
-> 
-> With in-place conversion, the existing data in a guest_memfd page can be
-> populated into guest memory through platform-specific ioctls.
-> 
-> Without first zeroing the page obtained using __kvm_gmem_get_pfn(), it
-> might contain uninitialized host memory, which would leak to the guest if
-> the populate completes.
-> 
-> guest_memfd pages are zeroed at most once in the page's entire lifetime
-> with guest_memfd, and that is tracked using the uptodate flag.
-> 
-> Zeroing the page in __kvm_gmem_get_pfn() is chosen over zeroing in
-> kvm_gmem_get_folio() since other flows, such as a future write() syscall,
-> can get a page, write to the page and then set page uptodate without
-> zeroing.
-> 
-> There may be some performance penalty due to redundant zeroing, but this
-> would pale in comparison to the cost of actually assigning the page to the
-> VM.
-> 
-> This aligns with the concept of zeroing before first use - the other place
-> where zeroing happens is in kvm_gmem_fault_user_mapping().
-> 
-> On populate failure, the page is not re-zeroed, since on SNP, if firmware
-> rejects a CPUID page, the expected CPUID values provided by firmware are
-> returned to userspace via page contents. More generally, page contents may
-> be modified on populate failure.
-> 
-> Don't mark the page uptodate again after populating, since the page would
-> already be marked uptodate before the post_populate() call.
-> 
-> Reviewed-by: Fuad Tabba <tabba@google.com>
-> Tested-by: Shivank Garg <shivankg@amd.com>
-> Reviewed-by: Xiaoyao Li <xiaoyao.li@intel.com>
-> Reviewed-by: Binbin Wu <binbin.wu@linux.intel.com>
-> Signed-off-by: Ackerley Tng <ackerleytng@google.com>
-> ---
+On Tue, 8 Sept 2026 at 13:55, Lorenzo Stoakes (ARM) <ljs@kernel.org> wrote:
+>
+> A typical kernel build consists of a frustratingly large amount of time
 
-Reviewed-by: David Hildenbrand (Arm) <david@kernel.org>
+.. you're preaching to the choir.
 
--- 
-Cheers,
+>                 == allmodconfig FULL build ==
+>
+>                         before    after     delta
+>                       ----------------------------------
+> Threadripper, gcc       345.3s   275.2s    -70.1s (-20%)
 
-David
+Well, that's certainly very encouraging. We should do this. I sent out
+some emails as just reactions to individual patches, but I have no
+numbers to back any of those emails up, and I never actually applied
+this series to my tree - they were all based on reading the patches
+themselves.
+
+That said:
+
+> An LLM was used to first determine where the bottlenecks were then to
+> figure out how to improve them.
+>
+> It generated a lot of code, much of it hideous.
+
+This made me scared to look at the patches originally, and I held off
+in fear that the patches would be horrible and this build time
+improvement would be hugely controversial garbage code.
+
+But:
+
+> I extensively audited and rewrote a lot of it, and heavily edited commit
+> messages, the cover letter and comments.
+
+None of the patches look at all horrible to me. You clearly excised
+the hideous parts. All of my reactions were of the type "this could
+probably be taken _further_" rather than me throwing my hands up in
+disgust.
+
+So the Rust parallelism thing clearly isn't ready based on feedback
+from that quarter, but the rest looked safe and innocuous. I'm all for
+merging this, although it should obviously go in through the right
+channels. Mostly the kbuild tree, although some of it clearly would be
+other cases - the objtool change in particular is fairly substantial
+and needsobjtool people to approve. It didn't look all that
+contentious, but still..
+
+Anyway, I'd love for this all to go in. Build times are a pet peeve of mine.
+
+              Linus
