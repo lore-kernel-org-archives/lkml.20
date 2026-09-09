@@ -1,123 +1,120 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+Received: from canpmsgout09.his.huawei.com (canpmsgout09.his.huawei.com [113.46.200.224])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A15447124E;
-	Wed,  9 Sep 2026 08:51:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A0713B38A4;
+	Wed,  9 Sep 2026 08:51:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.224
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788943898; cv=none; b=HEn1yZYKd9vxmFbajQsAT88a5S3NviEUXFe4B4izL/0E7DH7KtDeFzZOsuTvCd/1y4KBeHYuzR4giXMOAikj6OOqU5jZz2OOak3tuNUIJFTIgl798o5oJawHhnxlCUg0t+c1A43A6fGdPXoraKYcuoCRRDPAoD3H6BlikWhigco=
+	t=1788943901; cv=none; b=Ylei3h9hA5/f1qyddDwctVjsS57mMejBsoE2v1/mTNm0v79stIqgXzUFLbIZ2sF2MTViJ37Ds2wcz5NHXlc5CIN49duwfMXmKiN7rnYSRWshid3LAAyoEO3OiMThJkzpS43V9f3Zkrs7oMQ9yOJF6rR3m//PO+fg8Qke2M+Uc0w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788943898; c=relaxed/simple;
-	bh=Inx1GMMAL9hTofIIG5CeNr2zKHZu0vdSWjUErNB5P+Q=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=hbiUNSjzcthuLhF/B02d+997jzR9H3z8p+BWRRdN5Q1WejV/mhcbTvoIJq8wLO397nthhquU1T2Bmn8eb590j1QN5isTRFGTAaAj86MdN4aC5t282+B1lG9AAnNB8g+LP1EPt76hX2ztYvXVhP79zb7RCUsZijd04iMFZRb2sOs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=zLyb9Fwu; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=N/A0UM8L; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	s=arc-20240116; t=1788943901; c=relaxed/simple;
+	bh=rmAfvRAxUOXqtAFM315JLQUWFOzi+wtWHpygUfIixQY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=R2wRlhp3IrcWsjfVn/8jkYVfikYYccccNpm9QOWHXCMoUg8tiu1MiFZyNePbMtHG/eqD6eDfDIhyPGyVbubqEuy/oJ0NHK1bLocQmu9TChVYyctkE74C9yLY/KPU6Nko7oaPuBHzmkeH3A9IgnIPebZLVCV7kPkNJwR3q4o8FNg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=u8EPErGc; arc=none smtp.client-ip=113.46.200.224
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="zLyb9Fwu";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="N/A0UM8L"
-From: =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1788943882;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=csWZa+FXPkZtKlamZnzOe5wDFOkHxV9+VSViUYlt1Zs=;
-	b=zLyb9Fwu7jbI0CwCPLxrGbMAjONAtXhsvd2aOXrsZeTIM+Vd6cAkXeT/9cSCtBgc6rUvND
-	gGL505R+4si2jE3aeqnbSbLIG8k98l5iRxrDYXFAKQOWMVSkZxKFlP21c6TSMA2i/iy116
-	/ylwRK8HcPiR9PgT8J7h2y8C76UQ6h/hhfKtVfvGj6xJZzmOon5VHgnFpIj7kux2X934+R
-	88gvKVckykd4QMY7I4EvAl22PfX5GKMA8NcVnV99WfoKqT9h3DM3L6nfOz4IF1LXAzPclD
-	t74OiDujJWbszZsh0qrw62upWw14+r6iyZ4jcroh7b+1fqc9tncGYHc7XAbHiw==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1788943882;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=csWZa+FXPkZtKlamZnzOe5wDFOkHxV9+VSViUYlt1Zs=;
-	b=N/A0UM8L3DUA6/r4Ux30sANcZeIqXCYs4ZXEjCKOONRgT4pANRJ15Uu4BotsUrawfjPr6e
-	4wH9FEacXhaQoNBg==
-Date: Wed, 09 Sep 2026 10:51:16 +0200
-Subject: [PATCH 03/15] vdso/getrandom: Define fallback
- __arch_get_vdso_u_rng_data() in getrandom.c
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="u8EPErGc"
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=2ePDNUAfAQ3wJb48EOS828muxTyZ9V+mesfFPhrCI+k=;
+	b=u8EPErGci2dvvoRgmrw/1JI+J0jvgL6nxVIbn+At4oieJ810pavVdUuK6Gcy9C7an7Eqt+64u
+	zRc1aH84x3aTvAf74KPbpVZA4ImnJqhOwjJK7h+vTGVmUHd8w1cosIokO5AmSSMsAb9Oy1OUHDM
+	gJxZs6XRc8LqQ1Eigc6jgps=
+Received: from mail.maildlp.com (unknown [172.19.163.214])
+	by canpmsgout09.his.huawei.com (SkyGuard) with ESMTPS id 4hfvQQ11X6z1cyPY;
+	Wed,  9 Sep 2026 16:40:30 +0800 (CST)
+Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
+	by mail.maildlp.com (Postfix) with ESMTPS id C50F240580;
+	Wed,  9 Sep 2026 16:51:23 +0800 (CST)
+Received: from [10.67.109.254] (10.67.109.254) by
+ kwepemk200008.china.huawei.com (7.202.194.74) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Wed, 9 Sep 2026 16:51:21 +0800
+Message-ID: <4b1b136d-78fd-4629-8efd-08e750af2bc9@huawei.com>
+Date: Wed, 9 Sep 2026 16:51:20 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 01/40] arm_mpam: Ensure in_reset_state is false after
+ applying configuration
+To: Ben Horgan <ben.horgan@arm.com>
+CC: <amitsinght@marvell.com>, <baisheng.gao@unisoc.com>,
+	<baolin.wang@linux.alibaba.com>, <carl@os.amperecomputing.com>,
+	<dave.martin@arm.com>, <david@kernel.org>, <dfustini@baylibre.com>,
+	<fenghuay@nvidia.com>, <gshan@redhat.com>, <james.morse@arm.com>,
+	<jonathan.cameron@huawei.com>, <kobak@nvidia.com>, <lcherian@marvell.com>,
+	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+	<peternewman@google.com>, <punit.agrawal@oss.qualcomm.com>,
+	<quic_jiles@quicinc.com>, <reinette.chatre@intel.com>,
+	<rohit.mathew@arm.com>, <scott@os.amperecomputing.com>,
+	<sdonthineni@nvidia.com>, <tan.shaopeng@fujitsu.com>,
+	<xhao@linux.alibaba.com>, <catalin.marinas@arm.com>, <will@kernel.org>,
+	<corbet@lwn.net>, <maz@kernel.org>, <oupton@kernel.org>,
+	<joey.gouly@arm.com>, <suzuki.poulose@arm.com>, <kvmarm@lists.linux.dev>,
+	<zengheng4@huawei.com>, <linux-doc@vger.kernel.org>
+References: <20260313144617.3420416-1-ben.horgan@arm.com>
+ <20260313144617.3420416-2-ben.horgan@arm.com>
+From: Jinjie Ruan <ruanjinjie@huawei.com>
+In-Reply-To: <20260313144617.3420416-2-ben.horgan@arm.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260909-vdso-asm-generic-vsyscall-h-v1-3-63ae856cc659@linutronix.de>
-References: <20260909-vdso-asm-generic-vsyscall-h-v1-0-63ae856cc659@linutronix.de>
-In-Reply-To: <20260909-vdso-asm-generic-vsyscall-h-v1-0-63ae856cc659@linutronix.de>
-To: Andy Lutomirski <luto@kernel.org>, Thomas Gleixner <tglx@kernel.org>, 
- Vincenzo Frascino <vincenzo.frascino@arm.com>
-Cc: linux-kernel@vger.kernel.org, linux-s390@vger.kernel.org, 
- linux-arch@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- loongarch@lists.linux.dev, linux-mips@vger.kernel.org, 
- linuxppc-dev@lists.ozlabs.org, linux-riscv@lists.infradead.org, 
- sparclinux@vger.kernel.org, 
- =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788943875; l=1595;
- i=thomas.weissschuh@linutronix.de; s=20240209; h=from:subject:message-id;
- bh=Inx1GMMAL9hTofIIG5CeNr2zKHZu0vdSWjUErNB5P+Q=;
- b=S5UXcl0xftPFhFxyzIYGTlv2hiN5xVRt8TcojCGkIIJlfpcJoQYHo8t1Vw1w+qVFkJDkfU+DX
- KiIc9K+4lvbCboRLbKhU8xLm4rTxtAlsgsM1YN6LzOWh2SHeS6QsfsX
-X-Developer-Key: i=thomas.weissschuh@linutronix.de; a=ed25519;
- pk=pfvxvpFUDJV2h2nY0FidLUml22uGLSjByFbM6aqQQws=
+X-ClientProxiedBy: kwepems500002.china.huawei.com (7.221.188.17) To
+ kwepemk200008.china.huawei.com (7.202.194.74)
 
-__arch_get_vdso_u_rng_data() is only used in getrandom.c. vsyscall.h
-has become a dumping ground for different kinds of fallbacks.
 
-Move the fallback function definition into getrandom.c,
-similar to other fallbacks.
 
-Signed-off-by: Thomas Weißschuh <thomas.weissschuh@linutronix.de>
----
- include/asm-generic/vdso/vsyscall.h | 7 -------
- lib/vdso/getrandom.c                | 7 +++++++
- 2 files changed, 7 insertions(+), 7 deletions(-)
+在 2026/3/13 22:45, Ben Horgan 写道:
+> From: Zeng Heng <zengheng4@huawei.com>
+> 
+> The per-RIS flag, in_reset_state, indicates whether or not the MSC
+> registers are in reset state, and allows avoiding resetting when they are
+> already in reset state. However, when mpam_apply_config() updates the
+> configuration it doesn't update the in_reset_state flag and so even after
+> the configuration update in_reset_state can be true and mpam_reset_ris()
+> will skip the actual register restoration on subsequent resets.
+> 
+> Once resctrl has a MPAM backend it will use resctrl_arch_reset_all_ctrls()
+> to reset the MSC configuration on unmount and, if the in_reset_state flag
+> is bogusly true, fail to reset the MSC configuration. The resulting
+> non-reset MSC configuration can lead to persistent performance restrictions
+> even after resctrl is unmounted.
+> 
+> Fix by clearing in_reset_state to false immediately after successful
+> configuration application, ensuring that the next reset operation
+> properly restores MSC register defaults.
+> 
+> Fixes: 09b89d2a72f3 ("arm_mpam: Allow configuration to be applied and restored during cpu online")
+> Signed-off-by: Zeng Heng <zengheng4@huawei.com>
+> Acked-by: Ben Horgan <ben.horgan@arm.com>
+> [Horgan: rewrite commit message to not be specific to resctrl unmount]
+> Signed-off-by: Ben Horgan <ben.horgan@arm.com>
+> ---
+> Subject was originally:
+> arm_mpam: Fix MPAM reset on resctrl unmount by clearing in_reset_state
+> ---
+>  drivers/resctrl/mpam_devices.c | 1 +
+>  1 file changed, 1 insertion(+)
+> 
+> diff --git a/drivers/resctrl/mpam_devices.c b/drivers/resctrl/mpam_devices.c
+> index 1eebc2602187..0fd6590a9b5c 100644
+> --- a/drivers/resctrl/mpam_devices.c
+> +++ b/drivers/resctrl/mpam_devices.c
+> @@ -2692,6 +2692,7 @@ int mpam_apply_config(struct mpam_component *comp, u16 partid,
+>  					 srcu_read_lock_held(&mpam_srcu)) {
+>  			arg.ris = ris;
+>  			mpam_touch_msc(msc, __write_config, &arg);
+> +			ris->in_reset_state = false;
 
-diff --git a/include/asm-generic/vdso/vsyscall.h b/include/asm-generic/vdso/vsyscall.h
-index fe12fb1fb442..cdf7b39cd349 100644
---- a/include/asm-generic/vdso/vsyscall.h
-+++ b/include/asm-generic/vdso/vsyscall.h
-@@ -4,13 +4,6 @@
- 
- #ifndef __ASSEMBLER__
- 
--#ifndef __arch_get_vdso_u_rng_data
--static __always_inline const struct vdso_rng_data *__arch_get_vdso_u_rng_data(void)
--{
--	return &vdso_u_rng_data;
--}
--#endif
--
- #ifndef __arch_update_vdso_clock
- static __always_inline void __arch_update_vdso_clock(struct vdso_clock *vc)
- {
-diff --git a/lib/vdso/getrandom.c b/lib/vdso/getrandom.c
-index 2851afa9154f..6ff46549281c 100644
---- a/lib/vdso/getrandom.c
-+++ b/lib/vdso/getrandom.c
-@@ -19,6 +19,13 @@
- /* Bring in default accessors */
- #include <vdso/vsyscall.h>
- 
-+#ifndef __arch_get_vdso_u_rng_data
-+static __always_inline const struct vdso_rng_data *__arch_get_vdso_u_rng_data(void)
-+{
-+	return &vdso_u_rng_data;
-+}
-+#endif
-+
- #define MEMCPY_AND_ZERO_SRC(type, dst, src, len) do {				\
- 	while (len >= sizeof(type)) {						\
- 		__put_unaligned_t(type, __get_unaligned_t(type, src), dst);	\
+Reviewed-by: Jinjie Ruan <ruanjinjie@huawei.com>
 
--- 
-2.55.0
+>  		}
+>  		mutex_unlock(&msc->cfg_lock);
+>  	}
 
