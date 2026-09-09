@@ -1,143 +1,155 @@
-Received: from mta0.migadu.com (out-179.mta0.migadu.com [91.218.175.179])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EE5153A8A5
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 12:00:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0736354B1BA;
+	Wed,  9 Sep 2026 12:00:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=60.244.123.138
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788955233; cv=none; b=N62ZjTl7Oae5i443eMO4/w2SS+QTLPlb62TrZQrCVbaHstgm09k/Awb+q3duMcufteoH+c8clM9W7D6R2GGBk7JmiS3LnGujjt8TexXzx1V4ngNCxFUxYKkHreStxeCkp89wkWF7SreXaBvZZG6fqDGPXrfBA61cd5hBu2jHiFY=
+	t=1788955240; cv=none; b=G70OL1dElnzc6hm4BFE32dfNyBZDF6KsaAsCNZVa6lmtmbxwiokjZ4jbEBsFvUmIzH/gjUaop3creUoPJZkC3R//Zc9lDBK97MCqcyeU4pMuGgY2rDBPBxvxhiP9xpvTAWBDU2U/zoemz9SSw8HKVLaW3p1pl5zhnwDieh9WE9k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788955233; c=relaxed/simple;
-	bh=SwCnXXsaf+fnrTsFYwqQVitrQ3IBYAM246XJcfjgCMM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=VzFcrUldp2J+X+IaxDufoKah8mncJ3gDJiVXso2z5VFqdfhIRD0SabjXjSzdshA+DMdgTMj0u6hrNABGNRO7HM7Gaxag1PBIKsnJdWsWSZGJzBn+nZZJDOr94Fgk3WQlop1YuELqLS733/oOWsC/hX3UMzwPQAo1FLt8uvdtyZg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=tJxIezej; arc=none smtp.client-ip=91.218.175.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1788955240; c=relaxed/simple;
+	bh=EoetN9/NImTDhaoE0wS8sS+HTR5LBrab8isYMPt9PPI=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=KWveWMmiGuah2Azw8+rfd/vWoEiI1wRlHnBOvFC4ZfAgkYs7JR0AdWzlVQoU/KS/V8XYBWOirwtFxLtc4El8FouMxVFDTndh2+1UetZgerGDgB9b1rbj/wXB2QplUT9X4s3h3Yz7JxHN2ngSICYHVPzGmSbKvCfIqXe++nqca1E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com; spf=pass smtp.mailfrom=mediatek.com; dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b=XLnIsUNr; arc=none smtp.client-ip=60.244.123.138
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mediatek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="tJxIezej"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=SwCnXXsaf+fnrTsFYwqQVitrQ3IBYAM246XJcfjgCMM=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788955228; v=1; x=1789560028;
- b=tJxIezejdWMqrldv6KuK3+fv2knycsSL08OcGIXbQcrWpeKJxiOcmvIDo61qepZxkHiQHwMf
- 1B7v0f3MJt7UViXmPHBNLm+sSxSr7ZLQnZPgW1PJ3ZaZSfUBRm67ruzvU0rexSzLZPpUlK3Wig3
- Q5wNHqLCbafhrS4OPTRHEwhg=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 1d4edfe393dee372;
-	Wed, 09 Sep 2026 12:00:26 +0000
-X-Mizu-Trace-ID: 1d4edfe393dee372
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <102f6ff6-46f9-4734-a056-694eb2c0129b@linux.dev>
-Date: Wed, 9 Sep 2026 20:00:19 +0800
+	dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b="XLnIsUNr"
+X-UUID: 0b561940ac4611f1b1788b6acf885367-20260909
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com; s=dk;
+	h=Content-Type:Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:CC:To:From; bh=ddDa8Pcac/66Av7vO+vyv+NZ+Btz97Nekx/77mfvno0=;
+	b=XLnIsUNrYb7pI49IJxpUdEBLCD96jjXaLUI8SCJUY4uJnggYmqv8G4FJ00tqBIfYVleeTiEVgIxvrCv3Gq2WRzCR8XpuQ3dttLvIQbOyYhBIIWdUsP/dz+s92Jps8gi8TqhSeOZ2dToUakwle4FDBcYRfIHhc/3cHWVQ7iyF8no=;
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:6739e390-e04c-4e82-98d5-10c1ff79e2c7,IP:0,U
+	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+	release,TS:0
+X-CID-META: VersionHash:7db8b62,CLOUDID:76cb1728-9ebf-4787-bb42-3cd26eee85aa,B
+	ulkID:nil,BulkQuantity:0,SF:81|82|102|836|865|888|898,TC:-5,Content:0|15|5
+	0|99,EDM:-3,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:nil,BEC:-1,COL:0,OSI:0,
+	OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 0b561940ac4611f1b1788b6acf885367-20260909
+Received: from mtkmbs14n2.mediatek.inc [(172.21.101.76)] by mailgw01.mediatek.com
+	(envelope-from <chris.lu@mediatek.com>)
+	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
+	with ESMTP id 1323661430; Wed, 09 Sep 2026 20:00:26 +0800
+Received: from mtkmbs11n2.mediatek.inc (172.21.101.187) by
+ mtkmbs11n2.mediatek.inc (172.21.101.187) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.29; Wed, 9 Sep 2026 20:00:25 +0800
+Received: from mtksitap99.mediatek.inc (10.233.130.16) by
+ mtkmbs11n2.mediatek.inc (172.21.101.73) with Microsoft SMTP Server id
+ 15.2.2562.29 via Frontend Transport; Wed, 9 Sep 2026 20:00:25 +0800
+From: Chris Lu <chris.lu@mediatek.com>
+To: Marcel Holtmann <marcel@holtmann.org>, Johan Hedberg
+	<johan.hedberg@gmail.com>, Luiz Von Dentz <luiz.dentz@gmail.com>
+CC: Sean Wang <sean.wang@mediatek.com>, Will Lee <will-cy.Lee@mediatek.com>,
+	SS Wu <ss.wu@mediatek.com>, linux-bluetooth
+	<linux-bluetooth@vger.kernel.org>, linux-kernel
+	<linux-kernel@vger.kernel.org>, linux-mediatek
+	<linux-mediatek@lists.infradead.org>, Chris Lu <chris.lu@mediatek.com>, Paul
+ Menzel <pmenzel@molgen.mpg.de>
+Subject: [PATCH 3/3] Bluetooth: btmtk: Replace magic numbers with WMT packet flag enum
+Date: Wed, 9 Sep 2026 20:00:11 +0800
+Message-ID: <20260909120011.1198001-4-chris.lu@mediatek.com>
+X-Mailer: git-send-email 2.45.2
+In-Reply-To: <20260909120011.1198001-1-chris.lu@mediatek.com>
+References: <20260909120011.1198001-1-chris.lu@mediatek.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC 1/2] mm/mglru: add tracepoint for folio isolation
-To: Barry Song <baohua@kernel.org>
-Cc: Steven Rostedt <rostedt@goodmis.org>,
- Masami Hiramatsu <mhiramat@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- Johannes Weiner <hannes@cmpxchg.org>,
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- David Hildenbrand <david@kernel.org>, Michal Hocko <mhocko@kernel.org>,
- Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>,
- Lorenzo Stoakes <ljs@kernel.org>, Kairui Song <kasong@tencent.com>,
- Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>,
- Wei Xu <weixugc@google.com>, linux-kernel@vger.kernel.org,
- linux-trace-kernel@vger.kernel.org, linux-mm@kvack.org,
- Ridong Chen <chenridong@xiaomi.com>
-References: <20260907042447.2450663-1-ridong.chen@linux.dev>
- <20260907042447.2450663-2-ridong.chen@linux.dev>
- <CAGsJ_4zT0HcbkQjdPFPBeaqbGcYp4WE6sghDzz=0evhhupCs3g@mail.gmail.com>
-From: Ridong Chen <ridong.chen@linux.dev>
-In-Reply-To: <CAGsJ_4zT0HcbkQjdPFPBeaqbGcYp4WE6sghDzz=0evhhupCs3g@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
+The flag field of a BTMTK_WMT_PATCH_DWNLD packet tells the device where
+the packet sits in the download sequence, but both download loops write
+the bare values 1, 2 and 3, so the reader has to infer the meaning from
+the surrounding conditionals.
 
+Add enum btmtk_wmt_pkt_flag and use it in btmtk_setup_firmware_79xx()
+and btmtk_setup_firmware(). No functional change.
 
-On 9/9/2026 2:40 PM, Barry Song wrote:
-> On Mon, Sep 7, 2026 at 12:25 PM Ridong Chen <ridong.chen@linux.dev> wrote:
->>
->> From: Ridong Chen <chenridong@xiaomi.com>
->>
->> MGLRU's scan_folios() and evict_folios() emit the classic-LRU
->> tracepoints trace_mm_vmscan_lru_isolate() and
->> trace_mm_vmscan_lru_shrink_inactive(). Those predate MGLRU and are
->> indistinguishable from the classic-LRU path: they carry no generation,
->> sequence, memcg or swappiness context, so a trace of an MGLRU run cannot
->> tell which memcg a given scan/evict belongs to, nor how far reclaim has
->> progressed through the generations.
->>
->> Add mm_mglru_isolate_folios, emitted once per isolate_folios() call with
->> the memcg id, the type actually scanned, the effective swappiness, the
->> scanned/isolated counts, and the anon/file min_seq and max_seq. The
->> min_seq/max_seq triplet ties each isolation to the generation layout it
->> ran against, which the classic-LRU tracepoints cannot express.
->>
->> This is emitted at the isolate_folios() layer, which is MGLRU-specific
->> and has no classic-LRU counterpart, so it neither changes nor duplicates
->> the existing scan/evict tracepoints.
->>
-> 
-> I have no objection to MGLRU having some tracepoints. However, one
-> major concern is that the code is changing rapidly, so the tracepoints
-> may not be stable. We would need to maintain them as the code evolves.
-> 
+The other bare flag values in this driver belong to different WMT
+opcodes (BTMTK_WMT_FUNC_CTRL, BTMTK_WMT_RST, BTMTK_WMT_SEMAPHORE and so
+on), where the field means something else entirely, so they are left
+alone.
 
-Indeed. GEN-LRU has been available for several years now, and many vendors are 
-already using it, so adding tracepoints is a necessary step.
+Signed-off-by: Chris Lu <chris.lu@mediatek.com>
+Reviewed-by: Paul Menzel <pmenzel@molgen.mpg.de>
+Assisted-by: Claude:claude-opus-5
+---
+ drivers/bluetooth/btmtk.c | 12 ++++++------
+ drivers/bluetooth/btmtk.h |  9 +++++++++
+ 2 files changed, 15 insertions(+), 6 deletions(-)
 
->> Assisted-by: Claude:claude-opus-4-8
->> Signed-off-by: Ridong Chen <chenridong@xiaomi.com>
->> ---
->>   include/trace/events/vmscan.h | 47 +++++++++++++++++++++++++++++++++++
->>   mm/vmscan.c                   |  9 ++++++-
->>   2 files changed, 55 insertions(+), 1 deletion(-)
->>
-> [...]
->> diff --git a/mm/vmscan.c b/mm/vmscan.c
->> index 8409ea4bbf37..771fe6827939 100644
->> --- a/mm/vmscan.c
->> +++ b/mm/vmscan.c
-> [...]
->> @@ -4876,6 +4877,12 @@ static int isolate_folios(unsigned long nr_to_scan, struct lruvec *lruvec,
->>                  goto retry;
->>          }
->>
->> +done:
->> +       trace_mm_mglru_isolate_folios(mem_cgroup_id(lruvec_memcg(lruvec)),
->> +                                     type, swappiness, total_scanned, *isolated,
->> +                                     lrugen->min_seq[LRU_GEN_ANON],
->> +                                     lrugen->min_seq[LRU_GEN_FILE],
->> +                                     lrugen->max_seq);
-> 
-> Maybe `scan_folios()` would be a better place for this, as it can more
-> directly reflect what we're doing for each type.
-> 
-
-scan_folios() already contains the trace_mm_vmscan_lru_isolate 
-tracepoint(traditional tracepoint), but it lacks any GEN-LRU-specific 
-information. Adding another tracepoint there would be redundant. Therefore, I 
-placed the new tracepoint in isolate_folios(), where it can capture GEN-LRU's 
-specific details. Additionally, it can indicate whether a fallback to the other 
-type has occurred.
-
-> 
->>          return total_scanned;
->>   }
->>
-> 
-> Best Regards
-> Barry
-
+diff --git a/drivers/bluetooth/btmtk.c b/drivers/bluetooth/btmtk.c
+index cf4f40349afa..660ed5b02841 100644
+--- a/drivers/bluetooth/btmtk.c
++++ b/drivers/bluetooth/btmtk.c
+@@ -300,12 +300,12 @@ int btmtk_setup_firmware_79xx(struct hci_dev *hdev, const char *fwname,
+ 			while (dl_size > 0) {
+ 				dlen = min_t(int, 250, dl_size);
+ 				if (first_block == 1) {
+-					flag = 1;
++					flag = BTMTK_WMT_PKT_START;
+ 					first_block = 0;
+ 				} else if (dl_size - dlen <= 0) {
+-					flag = 3;
++					flag = BTMTK_WMT_PKT_END;
+ 				} else {
+-					flag = 2;
++					flag = BTMTK_WMT_PKT_CONTINUE;
+ 				}
+ 
+ 				wmt_params.flag = flag;
+@@ -384,7 +384,7 @@ int btmtk_setup_firmware(struct hci_dev *hdev, const char *fwname,
+ 
+ 	fw_size -= 30;
+ 	fw_ptr += 30;
+-	flag = 1;
++	flag = BTMTK_WMT_PKT_START;
+ 
+ 	wmt_params.op = BTMTK_WMT_PATCH_DWNLD;
+ 	wmt_params.status = NULL;
+@@ -394,9 +394,9 @@ int btmtk_setup_firmware(struct hci_dev *hdev, const char *fwname,
+ 
+ 		/* Tell device the position in sequence */
+ 		if (fw_size - dlen <= 0)
+-			flag = 3;
++			flag = BTMTK_WMT_PKT_END;
+ 		else if (fw_size < fw->size - 30)
+-			flag = 2;
++			flag = BTMTK_WMT_PKT_CONTINUE;
+ 
+ 		wmt_params.flag = flag;
+ 		wmt_params.dlen = dlen;
+diff --git a/drivers/bluetooth/btmtk.h b/drivers/bluetooth/btmtk.h
+index bc26148ec544..e8ad281a93a0 100644
+--- a/drivers/bluetooth/btmtk.h
++++ b/drivers/bluetooth/btmtk.h
+@@ -67,6 +67,15 @@ enum {
+ 	BTMTK_WMT_ON_PROGRESS,
+ };
+ 
++/* Position of a BTMTK_WMT_PATCH_DWNLD packet within a download sequence,
++ * carried in struct btmtk_wmt_hdr's flag field.
++ */
++enum btmtk_wmt_pkt_flag {
++	BTMTK_WMT_PKT_START = 1,
++	BTMTK_WMT_PKT_CONTINUE = 2,
++	BTMTK_WMT_PKT_END = 3,
++};
++
+ struct btmtk_wmt_hdr {
+ 	u8	dir;
+ 	u8	op;
 -- 
-Best regards
-Ridong
+2.45.2
 
