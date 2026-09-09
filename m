@@ -1,187 +1,229 @@
-Received: from BL0PR03CU003.outbound.protection.outlook.com (mail-eastusazon11012032.outbound.protection.outlook.com [52.101.53.32])
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A899F476049
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 13:57:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.53.32
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788962238; cv=fail; b=UpnB5iGmheOtp+6vxRZFM7RuAm6GXShPQb6/qt5P07u2z0uLfBJLtQVy1eVhSZl1IAuo5Y+rpZPkbFoRaAD/to+N8+mtnn0MyUQ2gS5AhHgrD7tj5rP51wIwQO5BjNTfKFN7F0dOppi7nTdi/oNgy1WVTC6y6pYBiacjh/Vz6o8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788962238; c=relaxed/simple;
-	bh=ItBrIOyGhPmfuGo4t7BHQoIYMhGCzhqHkunbJc8656Y=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=rqaaOujaGgSemTzOVCPyA3qWN8TFU/c1OGwF7ASnG+cmA9KlKboJ65NH6iW5M4LtXUhDJlF5039JWc1g3DEU9qY8nQbycjruUI3RdIUZmMfKSymRaGvEVUKmBMSB01pPJc6336mK3EBqWrPBKLmNLJKpGtN6tnvy68EHgDPoIxU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=W05s4Wah; arc=fail smtp.client-ip=52.101.53.32
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E68F85632BC;
+	Wed,  9 Sep 2026 13:57:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788962253; cv=none; b=t6E2Y8Kr9ECdbjisHkGH4clnQ2elUcU7+9jDKS4qRxiqR4cwd5hVwEpq2HB4YF4F12IT0SVDufG77j4M/p2yf91Lldt5VYoH45HGYAWmLEqBgQqbcu5gfYIWfylxTk20rftL9zBXLOHXPLTyhgVrowUglo7nuGmGVwoHWfiPTGc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788962253; c=relaxed/simple;
+	bh=1dMM77xohsh0uUWWK5pc/n57DMoFbPH5U47NaaYCfYw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=F25+bTGRGNKh3yKCAii04a1+HIE1xP7n3kR8LSJUKpX7ujlta7EJSl+XSjxP9HaqqtZagAshWO1Ct2is6+/K2GyCPI1djtqleYHwmO+fRrYz476nN5CwEQbOzdYnjgJaiaAend4W1O0v48zFdiYACCIybWiRkZuO9zD+vE6qk5A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=rdqBzICV; arc=none smtp.client-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="W05s4Wah"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=iVxGlTCOOqkkK+0A8jRvx0u8IL6gO/oO4E2h5xKqypZvptyHfmQLPd1lewnVYWZLiC7m8WaCDs52WAw4QKoajaFKoQlVRIxDCB27wx8ehDeXF+2UD5nXTtOM4G1UCWKVqlvN3jz01QTy9DIg7Bf3EyHhmYLy7d1jsiVGeVuKgNC+v8/8yv8rn6touQt1f2E0znGhGdBCaLTEQriFJ8rWAQuD4nUL9nXIQgoYPq+7JiompM02Sc51mV0q35SdgOa/6/Bacfc8h1mjTl4gfjpVn/Uy2c6s9DWPiUnEJfHe6uyGF0/pDz2+X7949MbwITBX9WnNLrrPAUk1VEtiMNgREw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=j3VMbNmywhVlar9ZuhJoEpWNBCtC2idH5q8rDCnOAA0=;
- b=AFSww96QkgCd4hpaSsHuTPHJQ/8saX40vXpwETa5l9gveMfEdwxZNALXpoGE9McDd6Dlow6gCr+9LjxVA3A7ITALJZYzxdp7HPz6vRQ2mk2OBba+TXAyyzLGHMq8eJQWVw4HHmF9N6qof8SQKCElKBkiwddVytE3+XhbX1Q+nX0LdUbjaycDuirmRsgnUHgxDlyBvsRjqhkUcYPmhqkifa80Q4mAVkzKZGHOXioamDRSpPW+zBmlHjWHns0LALxJixJhwvFKdRxzzNsIwGPtWLBw13JGlMM9X9Xq0kEAjIL5BUCi7CWF+xYfv6DjKe5Skh160o83LK3PQnAcBsHwDw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=j3VMbNmywhVlar9ZuhJoEpWNBCtC2idH5q8rDCnOAA0=;
- b=W05s4WahjUwSjTCyjz4p0fT48dw9DNF92+V0vzHf17FtVmXS92/h5HaNbnNS+k1BIhnZcq4tH0CP0sf/F4RSG10Qnr4ir/FjB+dRTs2TI5O1ggDS6l36JlhMvM7tJ+swpe2+vqM06uX03gFk5BrQWhlCaGfAY2dw1KMEW5o0XYc=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by SA1PR12MB9516.namprd12.prod.outlook.com (2603:10b6:806:45b::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.7; Wed, 9 Sep 2026
- 13:57:12 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0406.005; Wed, 9 Sep 2026
- 13:57:12 +0000
-Message-ID: <5cfbf5d7-8729-4924-8ed6-eabfb53600cb@amd.com>
-Date: Wed, 9 Sep 2026 15:57:08 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] drm/sched: document the RCU dependency
-To: phasta@kernel.org, malhyuk97@gmail.com, tursulin@ursulin.net,
- matthew.brost@intel.com, dakr@kernel.org
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- mdaenzer@redhat.com, alessio.belle@imgtec.com, luigi.santivetti@imgtec.com
-References: <20260909131808.2201-1-christian.koenig@amd.com>
- <20260909131808.2201-3-christian.koenig@amd.com>
- <9dedaa001c468be2afaf6ab19cd4f8cd96d0a8c7.camel@mailbox.org>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <9dedaa001c468be2afaf6ab19cd4f8cd96d0a8c7.camel@mailbox.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR0P281CA0116.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:a8::18) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="rdqBzICV"
+Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 689B1aIQ3839613;
+	Wed, 9 Sep 2026 13:57:02 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=pp1; bh=jQ6Txq0OWN8sohjwx
+	cHNee3Hnk5lvEZRjiLQ/oqdqXs=; b=rdqBzICVBO8aGXFutNBP42JxX3kJQi86n
+	acanPMtaRiyUoHUmqaZ1kqTJxVHF4z08WMCNVnfBrUMZUAksB+IgEOwvqDvIecas
+	o7phd0112jCoSJeqsLYQjxObg8rzKV+XKxoTXIhTbZ0X89J09peLkfZ0NxgwFq1o
+	pBYsV4Z/Sx9h5V7E51soblY56Wyzsr4Q7U6sQmt3WfN5/myJQf+9ZuO+yLVynqBW
+	Q90yZu8k6vY+xIOb7hWfHGvg6Ux5zFyzDTisRqYQKBOteH5TUK83/Ss92OhSMU+o
+	sYiIoj4BYrL9m2+Z5ixlK2NY7RMWkmxARXBdbWOxbHMv01ggmMgCA==
+Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4ggbhf5vg8-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 09 Sep 2026 13:57:01 +0000 (GMT)
+Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma13.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 689DuF58026468;
+	Wed, 9 Sep 2026 13:57:00 GMT
+Received: from smtprelay06.fra02v.mail.ibm.com ([9.218.2.230])
+	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4ggymgjeue-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 09 Sep 2026 13:57:00 +0000 (GMT)
+Received: from smtpav01.fra02v.mail.ibm.com (smtpav01.fra02v.mail.ibm.com [10.20.54.100])
+	by smtprelay06.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 689Dus3B43188724
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Wed, 9 Sep 2026 13:56:55 GMT
+Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 4E3E92004D;
+	Wed,  9 Sep 2026 13:56:54 +0000 (GMT)
+Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 7FEFB20040;
+	Wed,  9 Sep 2026 13:56:44 +0000 (GMT)
+Received: from li-7bb28a4c-2dab-11b2-a85c-887b5c60d769.ibm.com.com (unknown [9.124.210.73])
+	by smtpav01.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Wed,  9 Sep 2026 13:56:44 +0000 (GMT)
+From: Shrikanth Hegde <sshegde@linux.ibm.com>
+To: linux-kernel@vger.kernel.org, mingo@kernel.org, peterz@infradead.org,
+        juri.lelli@redhat.com, vincent.guittot@linaro.org,
+        yury.norov@gmail.com, kprateek.nayak@amd.com, iii@linux.ibm.com,
+        corbet@lwn.net, meted@linux.ibm.com, ynorov@nvidia.com
+Cc: sshegde@linux.ibm.com, tglx@kernel.org, gregkh@linuxfoundation.org,
+        pbonzini@redhat.com, seanjc@google.com, vschneid@redhat.com,
+        huschle@linux.ibm.com, rostedt@goodmis.org, dietmar.eggemann@arm.com,
+        maddy@linux.ibm.com, srikar@linux.ibm.com, hdanton@sina.com,
+        chleroy@kernel.org, vineeth@bitbyteword.org, frederic@kernel.org,
+        arighi@nvidia.com, pauld@redhat.com, christian.loehle@arm.com,
+        tj@kernel.org, tommaso.cucinotta@gmail.com, maz@kernel.org,
+        rafael@kernel.org, rdunlap@infradead.org, kernellwp@gmail.com,
+        linux-doc@vger.kernel.org, jgross@suse.com,
+        virtualization@lists.linux.dev, sunlightlinux@gmail.com
+Subject: [PATCH v13 02/13] cpumask: Introduce cpumask_intersects_and
+Date: Wed,  9 Sep 2026 19:26:06 +0530
+Message-ID: <20260909135617.871006-3-sshegde@linux.ibm.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260909135617.871006-1-sshegde@linux.ibm.com>
+References: <20260909135617.871006-1-sshegde@linux.ibm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SA1PR12MB9516:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2268aa04-491f-4c97-6c06-08df0e7a3fac
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|23010399003|376014|7416014|1800799024|4143699003|11063799006|10067099003|56012099006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	tKR+dVCZmyqCeAArqU7FvN66/MDbTf7wlyzmz1om5o9Qbv/Jz/K1CsQwatxIqRw0RUW7+YVtBaae0+zMxLW56GY9GQsf1xbPMbBcawbIFvnGyT5QgQtngvMr0I4E6G2S2OkKP4d20a2hXgq/+fmmHwUeOO3tCB0LBrBaVr/2nZ/wpEWmzhEbXSbvvZUbr0CYZoZAKwfRObYdqY9kV2yiaK2z1hQVDuIOkxbJoQMTk0cs2tm5OEamuuHRHqGIN9AhLLo4SIdV9gEXjH+R+Qdp/R3vxk7bLQSisKL2c1ayBjYDuGJIu21/oFT3KQawiUjsE1diB35bLT5FfV5fANpIgVQsqwAgp7apF2AayC1xsHJTVDz3Nkw3HQ6D9u5qBQniUoiPi0XByjg6YUyuOHvZXnD89AUBQ67DkbMEzhlbg391/lZE09IR+oCdDkJWeVH+WeSdJPqRICzi3cd+kLh54O+vEDLAzGPx769C0cDVwHgoPqfKrGYm+pJylUyrd89c8ikP2vfAGkqcgMfnyBVfdkqlfgbtREwdd5m7/RqDhVhIOb/NGJeI+ZXGdqVfx8V/URYvNUpaDaIh620WDDIq6M6rzsGP9CumuWWbEbymuRGdzQUC0wUBXmQn1ls45hYJAx9DW+fuo75M5FGoqACodvP0Yjlr4nNq7TtyUYpeDAc=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(376014)(7416014)(1800799024)(4143699003)(11063799006)(10067099003)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?K2JoZ2ZOck1hT2FMbXFYTzRzMlNIdEZJdG5rdWxlZy9pYnFacFhDeGczNEp3?=
- =?utf-8?B?cVhFYWRLcXB2cFFndllmb3VPSkE2M29YUThWWHRqeGJJY20xV2NnSW1YWm9Y?=
- =?utf-8?B?WFlXVGhOWXJTVDFvWTNFcDNZalkyeHRJakFkT2FYOVhSVVVqdG56UnIyWUFI?=
- =?utf-8?B?elF5c3VTZ1RLQ0pqNDFPWEorWDB6WXVIazZIbjdaQXBLRFk3VGFkalNaUGlm?=
- =?utf-8?B?Q2hXcFo5a2wwejJ5WXRwUjlZK1dwYmpjRjhLYjBYMmVsR2MwRXh1Tk5yZlBJ?=
- =?utf-8?B?SVF0aVdhSDhzNjlkM0E4dkVwTkRsdkp2cEVmWDVWV2txQStXOTdaQVBDV0dL?=
- =?utf-8?B?RmpSdHhzZTloVmpBM2YrWmg5SU5iZjdPVFplellYWEhBL1JKZ3NqT3JGS2lw?=
- =?utf-8?B?YmY4ckc5ZjZWOXZkYjZVelpvODE0YnNUU0txbE1TYU9LNjlCbWNRVTA3bkJD?=
- =?utf-8?B?dlZhU3RlbHRLQ2t6VXZJUzZHaVRWZGZCSmYzeVpheThrV29JWUF0bGwxeDhV?=
- =?utf-8?B?U1BIZEYydEtnbC9VbDFCWG05SVovZVJScDZuSmN4dmlQVEpqR1Fjd0IwckNH?=
- =?utf-8?B?M3p0b3JlWjJzaTMvajFYOHZwNlB2T3BETC9ieXdBZHVKekxMZWJaMWRPeEpX?=
- =?utf-8?B?WFFHU3p6SGRVK1lCNGI3ZlJla1hsbzFrQkZ0Rmo0dDl6NVRqK1ZpWVJ3V2Nz?=
- =?utf-8?B?ODNuOCtqRWttWk5XUUVpbHVQcGVDWFBNZWErSFZEb3JiQTY4Vmc0UGVzSEp2?=
- =?utf-8?B?Uk55eGlFbi9ZN3VZYWQxRlpoSWlWc0NOZ3lpZTdaKzBraHhNYkpIbWhNVExE?=
- =?utf-8?B?UWhyek53ZENsVjBoVmNObFY0Q3RTcnRWVmtXNXZOa0lhdnIvdXdwcFVIU0xa?=
- =?utf-8?B?dnEwUThtKzc1elRRNHl4VzZpekg5QkJSUVpUc1NJZjFPYjZmTEhnY1ptL3lC?=
- =?utf-8?B?NHNLZmpxRE9JdHU0akJSamkwNXNxaDRCVm9FMnpGSU5GM1lYbStHMVEwcmZZ?=
- =?utf-8?B?aUprTjBxU1hsL01OTEIzbUR1dm05RWdPR1B6amN6NlkvZVRMa2NCM3lhQlAz?=
- =?utf-8?B?aEpGZHBzWktxcHlmYVhOSkZmYTJ6NnRUeXpXWm55N00xVTMyRWlUWHQzTEsx?=
- =?utf-8?B?WE9yck5QSUI1THAwa0FiNzRqOXZwUExEeVg4aGROVXFvRUVKYmwrZHVrRlJH?=
- =?utf-8?B?N2sxeXY2b09iQjFWT0R4ZDZjakYrdW8rQUV1eVJickovczExYXhlVDBSWXhZ?=
- =?utf-8?B?ZGFTRTBtWEZ5elBHRjJaZVppUFROWVorN1R6cE1YYmdWaExEUTF1M2ZjTGRL?=
- =?utf-8?B?YnBaRFNmUDJGeVFpQVA2RTVrUW9vdEExKytEMjczZ0w4eWs2aFYzUC82L3l1?=
- =?utf-8?B?MFo5djk4Ym4yb1BYSWVNMlZHM2lxekJZN0FRSHpyQ2tSME9Qdk1tV1BndXdw?=
- =?utf-8?B?VDhENXFSRWdtdm9sMjZZa1FZaVRxWlh4V1g3TjgvNkNINkFMQ0JEeW1wTENu?=
- =?utf-8?B?NUVBMVFXM3BEUmpNbEt4TjJNblpQZVliWGt4K2NNYWlRZndkMVc2U3ZRUE50?=
- =?utf-8?B?endSVkdlV2JtWjR6YXVkdC9PMG9VT2lUVWxBdHFwQkU1YjE3OTNycHVLeGln?=
- =?utf-8?B?dmFZMkVDMzd4WUVKUTh0dlllb3N2ZlduYlJwNi91Y2NKSWx6USszSjZFTjFp?=
- =?utf-8?B?blEwb2thUnNLUmlQSmNRZEFIeVAwaUU3ZVFPY0lFRUdIUUh0MGJyejdSUkpV?=
- =?utf-8?B?THprd0xWSnovVERSR3VwWjl2RW9YN2l6WTJUa2ZqR094RmdtcWFIVElaM1NC?=
- =?utf-8?B?dXVXOVgvY21CMnBWYTZ3MlFGRDhaSGtORTZTbnlwejFrNXFpRU1yOU9qVFRx?=
- =?utf-8?B?dlRiVkRKN2tJdXhadU1vNDgybWxHalkrM3k5cEZMYVgvWlU4bjBOdFRJaHRE?=
- =?utf-8?B?Ri9uUnN6UVRyQTlYK1B4N001VlhIMnN2clQ5bzAwRUJQTnV0STVDakRjeTRV?=
- =?utf-8?B?ajZGVmRFUEZia1RRa1NEU3lvbWpSWW5vNFZHSUxQNE9yWVBxbnYrSU5jLzBP?=
- =?utf-8?B?cjNJV0hnVFBkK241QzcwNlhNd2t1Z0UrV2g5L3hySnN2NUVmNjdsU0luMkJp?=
- =?utf-8?B?eGJvOG9kZWc0bHhJdE5Ub3JZYnQyLzkzRUNoTjhXVXF3RmZhOVIrU3p5Qmsv?=
- =?utf-8?B?LzBQcUxWWmlBVzE4dGZLaTRicXlWNUxBTnROWjVXRjNZUWkwam50bXdrYkd3?=
- =?utf-8?B?TU9zZ1g4bWZ1QlI5ZTd5K1NGa3hBWnU0WGpZRjQwUWFaMitwRmp4ZGFIN08r?=
- =?utf-8?Q?mr9YYs+RdIGcIme+ip?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2268aa04-491f-4c97-6c06-08df0e7a3fac
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Sep 2026 13:57:12.8067
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: TdgQrj+AwwW9lG2axU2bF1FZK8vaqQfoFBaCyP5qWuJk5+F0wu611iTJc/l/RwZ6
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB9516
+Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-GUID: _O2w0Pgc0t928lSVQ-iOedVncPhvR7Uj
+X-Authority-Analysis: v=2.4 cv=RIaD2Yi+ c=1 sm=1 tr=0 ts=6aa165ad cx=c_pps
+ a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
+ a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
+ a=RzCfie-kr_QcCd8fBx8p:22 a=pGLkceISAAAA:8 a=VnNF1IyMAAAA:8
+ a=Op-pV2-EWUbyySEFqtoA:9
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA5MDE1MSBTYWx0ZWRfX+Ox32gbVHRI2
+ XYoyQUwIKLJ2baTvDlz8SfU7EMZdrVHQIx6vo2Tv/paWHHljbQM6ldZ3FM+hiVrc/23Ev3HeSPa
+ QOXrar2XKaLtEBVE/IqZ6VA9lUSo1Ak=
+X-Proofpoint-ORIG-GUID: Q_ikTkJAvCLWNxfgGyP-6Jg_0Y343as-
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA5MDE1MSBTYWx0ZWRfX5FeK7Lxz1brl
+ 5Fg9/arPLFRFcRyh0SloNuNSIA8OqIk56hrf+BbAEQJgg6sJnbWjDWslHb0BhkP30r1MIuHYJJi
+ NEwbwVLUGKA/ScIhNtUxNd6lZrsdVs/VVmA4HGV7Fltm0DBLBPUSVTMqaVH/41sgvKWwfOsdbBq
+ B68hQ3qq6a2aHk2rWOPouSABcVIIVXIjrcCB6xBWeeP2V6gWmGdU1HbNUzj4tgob8PNXrJeAYWS
+ EFsAHrnVt2qm+zGtTYhdKzPlqEiVHr7YtvANZAblcppQ3lPAq143oNFMADvi7SjtPSy9w9UhKZr
+ SgjBm8cmppKEBKKYJoXQuGuoMfCHpfOWcs51apzv4DkMY22Z76TAgLvJYbnZh1qtQwYTSeFi4kw
+ n1S/L9AnJHgUPOvNg6C3FTtpCfnHI3ww7m8jFgOa3vNe24qqTGc/VLyJOWT5samACn8zjrfUqGU
+ Sel0WjmqVVi19uaqk9Q==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-08_03,2026-09-09_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 suspectscore=0 malwarescore=0 priorityscore=1501 bulkscore=0
+ adultscore=0 phishscore=0 clxscore=1015 impostorscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609090151
 
-On 9/9/26 15:55, Philipp Stanner wrote:
-> On Wed, 2026-09-09 at 15:14 +0200, Christian König wrote:
->> Tvrkos patches added RCU protection to the returned strings from
->> get_timeline_name()/get_driver_name() callbacks of the dma_fence
->> backends.
->>
->> This fixed use after free problems for a couple of drivers, but we never
->> documented the consequences for the drm_sched_fence.
->>
->> Add a few words on the function documentation to note that we need an
->> RCU grace period between signaling the last scheduler fence and
->> scheduler teardown.
->>
->> Signed-off-by: Christian König <christian.koenig@amd.com>
->> ---
->>  drivers/gpu/drm/scheduler/sched_main.c | 4 ++++
->>  1 file changed, 4 insertions(+)
->>
->> diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/scheduler/sched_main.c
->> index 6cb6f9546493..22103cb07782 100644
->> --- a/drivers/gpu/drm/scheduler/sched_main.c
->> +++ b/drivers/gpu/drm/scheduler/sched_main.c
->> @@ -1203,6 +1203,10 @@ static void drm_sched_cancel_remaining_jobs(struct drm_gpu_scheduler *sched)
->>   * is implemented, all jobs will be canceled through it and afterwards cleaned
->>   * up through &struct drm_sched_backend_ops.free_job. If cancel_job is not
->>   * implemented, memory could leak.
->> + *
->> + * The scheduler fences timeline name is returned protected by the signaled
->> + * status and RCU, so an RCU grace period is necessary between signaling the
->> + * last scheduler fence and tearing down the scheduler who originated it.
->>   */
-> 
-> The API user does not signal a "scheduler fence", typically. Are you
-> referring to the hardware-fence?
+Introduce bitmap_intersects_and() to determine whether the intersection
+of three bitmaps is non-empty. Unlike cpumask_first_and_and(), this
+returns immediately when an intersecting word is found and does not
+calculate the first matching bit.
 
-Yes, of course. Signaling the HW fence then causes the scheduler fence to signal as well.
+Add cpumask_intersects_and() as the corresponding cpumask wrapper.
 
-> 
-> The user must signal all hardware-fences, which will cause all
-> finished-fences (which are at the root of the addressed problem) to be
-> signaled.
-> 
-> So what you probably want to say is "The user must wait one RCU grace
-> period between signaling the last hardware-fence and calling this
-> function because …".
+A subsequent patch uses the helper to determine whether a task
+has a CPU that is present in its affinity mask, the preferred CPU mask,
+and task possible CPU mask.
 
-k, going to fix that.
+Suggested-by: Yury Norov <yury.norov@gmail.com>
+Signed-off-by: Shrikanth Hegde <sshegde@linux.ibm.com>
+---
+ include/linux/bitmap.h  | 14 ++++++++++++++
+ include/linux/cpumask.h | 18 ++++++++++++++++++
+ lib/bitmap.c            | 17 +++++++++++++++++
+ 3 files changed, 49 insertions(+)
 
-Thanks,
-Christian.
-
-> 
-> 
-> P.
+diff --git a/include/linux/bitmap.h b/include/linux/bitmap.h
+index 7df1573a409c..adafbcf2016b 100644
+--- a/include/linux/bitmap.h
++++ b/include/linux/bitmap.h
+@@ -52,6 +52,7 @@ struct device;
+  *  bitmap_complement(dst, src, nbits)          *dst = ~(*src)
+  *  bitmap_equal(src1, src2, nbits)             Are *src1 and *src2 equal?
+  *  bitmap_intersects(src1, src2, nbits)        Do *src1 and *src2 overlap?
++ *  bitmap_intersects_and(src1, src2, src3, nbits) Do *src1, *src2 and *src3 overlap?
+  *  bitmap_subset(src1, src2, nbits)            Is *src1 a subset of *src2?
+  *  bitmap_empty(src, nbits)                    Are all bits zero in *src?
+  *  bitmap_full(src, nbits)                     Are all bits set in *src?
+@@ -181,6 +182,9 @@ void __bitmap_replace(unsigned long *dst,
+ 		      const unsigned long *mask, unsigned int nbits);
+ bool __bitmap_intersects(const unsigned long *bitmap1,
+ 			 const unsigned long *bitmap2, unsigned int nbits);
++bool __bitmap_intersects_and(const unsigned long *bitmap1,
++			     const unsigned long *bitmap2,
++			     const unsigned long *bitmap3, unsigned int nbits);
+ bool __bitmap_subset(const unsigned long *bitmap1,
+ 		     const unsigned long *bitmap2, unsigned int nbits);
+ unsigned int __bitmap_weight(const unsigned long *bitmap, unsigned int nbits);
+@@ -445,6 +449,16 @@ bool bitmap_intersects(const unsigned long *src1, const unsigned long *src2, uns
+ 		return __bitmap_intersects(src1, src2, nbits);
+ }
+ 
++static __always_inline
++bool bitmap_intersects_and(const unsigned long *src1, const unsigned long *src2,
++			   const unsigned long *src3, unsigned int nbits)
++{
++	if (small_const_nbits(nbits))
++		return ((*src1 & *src2 & *src3) & BITMAP_LAST_WORD_MASK(nbits)) != 0;
++	else
++		return __bitmap_intersects_and(src1, src2, src3, nbits);
++}
++
+ static __always_inline
+ bool bitmap_subset(const unsigned long *src1, const unsigned long *src2, unsigned int nbits)
+ {
+diff --git a/include/linux/cpumask.h b/include/linux/cpumask.h
+index 4c8bb6953107..7c8f16797f94 100644
+--- a/include/linux/cpumask.h
++++ b/include/linux/cpumask.h
+@@ -824,6 +824,24 @@ bool cpumask_intersects(const struct cpumask *src1p, const struct cpumask *src2p
+ 						      small_cpumask_bits);
+ }
+ 
++/**
++ * cpumask_intersects_and - (*src1p & *src2p & *src3p) != 0
++ * @src1p: the first input
++ * @src2p: the second input
++ * @src3p: the third input
++ *
++ * Return: true if AND of the three cpumasks is non-empty,
++ *	   otherwise false
++ */
++static __always_inline
++bool cpumask_intersects_and(const struct cpumask *src1p,
++			    const struct cpumask *src2p,
++			    const struct cpumask *src3p)
++{
++	return bitmap_intersects_and(cpumask_bits(src1p), cpumask_bits(src2p),
++				 cpumask_bits(src3p), small_cpumask_bits);
++}
++
+ /**
+  * cpumask_subset - (*src1p & ~*src2p) == 0
+  * @src1p: the first input
+diff --git a/lib/bitmap.c b/lib/bitmap.c
+index ed685127a107..d1cb8a507c60 100644
+--- a/lib/bitmap.c
++++ b/lib/bitmap.c
+@@ -308,6 +308,23 @@ bool __bitmap_intersects(const unsigned long *bitmap1,
+ }
+ EXPORT_SYMBOL(__bitmap_intersects);
+ 
++bool __bitmap_intersects_and(const unsigned long *bitmap1,
++			     const unsigned long *bitmap2,
++			     const unsigned long *bitmap3, unsigned int bits)
++{
++	unsigned int k, lim = bits / BITS_PER_LONG;
++
++	for (k = 0; k < lim; ++k)
++		if (bitmap1[k] & bitmap2[k] & bitmap3[k])
++			return true;
++
++	if (bits % BITS_PER_LONG)
++		if ((bitmap1[k] & bitmap2[k] & bitmap3[k]) & BITMAP_LAST_WORD_MASK(bits))
++			return true;
++	return false;
++}
++EXPORT_SYMBOL(__bitmap_intersects_and);
++
+ bool __bitmap_subset(const unsigned long *bitmap1,
+ 		     const unsigned long *bitmap2, unsigned int bits)
+ {
+-- 
+2.52.0
 
