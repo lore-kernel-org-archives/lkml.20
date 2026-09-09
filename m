@@ -1,107 +1,163 @@
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id B743A3E40E7;
-	Wed,  9 Sep 2026 09:31:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 525CD3B3BE7
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 09:31:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788946308; cv=none; b=lTv6R91iPFmofYG/6dUxkoGFjUxEeTYCJGKbvJu0oZ0D6goXgOJTzvsFZwA8tGQZGuJoE5QzReDCfp0+WHeBXc8R/jdOKiOvn9oUWu2IIUSXZiamgZc92fy70g4dUfzhfmnRVdYhTlc2TiIYYPBZTz2rnwwXitBdoNvqiPNfCNk=
+	t=1788946323; cv=none; b=J/uMbyT+y8g9fNNfUjYbUaxHQWmYeBKpHIRivQ9YBcpkbfcUYGXmeWbMNUPG+ezofbSpxal19F6v6+ixS/Rv+70MWvllGb4zaWLRbUJYSHSdHqAQZnDK+wfm6SO1tt/fMySmGVZspYG8gOkqgE4gTh7TpRIGqMnQ/rW/dTse6Y8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788946308; c=relaxed/simple;
-	bh=U/TSjfiyoy1kR4oMlsX6WetGoZU/9+forBtwTZDVlgA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=e+yKCF0UDiBs2fMXvTpCloOKrtDCJuZLA9v1pCVTHJwKRhHzfK4YUNpBfJmoCT2eW3VQtSBeEvEpjxrbIGccSI8Mpo4Qsoj1jxhCcdWdSXrr92hw45DUxvz8x15cYeguHr6W5VdF3a5ZTivX3J9cknbJaZY2dL2cbw8pYvZESbE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=YCsca2mo; arc=none smtp.client-ip=13.77.154.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
+	s=arc-20240116; t=1788946323; c=relaxed/simple;
+	bh=aaqpDOS9Q9cZvmbCAbQLpx2aBdRlsOav7VgVnknEK0g=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=uYWvYb2Hi0doq9vIBg4TjBarYS21nKiyUKfPjQdcALN+Nw6AKM3zuJCGD1OAQMjWFTbd47yQVB4jPm9cu0mU4Ic6ZoiJQj0DwrOo4D7OMk1A9KDn5LkYlMGdz4SNSugoVjt1/qcJmNceeM4LeDCZ1YzWFmf7PsQXb04VUSlb78o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=E9ORiZoi; arc=none smtp.client-ip=220.197.31.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="YCsca2mo"
-Received: from [192.168.1.70] (unknown [4.194.122.170])
-	by linux.microsoft.com (Postfix) with ESMTPSA id 0727520B7128;
-	Wed,  9 Sep 2026 02:30:43 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 0727520B7128
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
-	s=default; t=1788946247;
-	bh=UImAoP06X/mSbbiARCqbMx2kej7THt6I1rcHgFKHVsA=;
-	h=Date:Subject:To:References:From:In-Reply-To:From;
-	b=YCsca2moKVD3MxWmfxPcMRv6pDUwe32Sh3Cyho5rDJO/Yudx8HO+sUplPtjGR1L12
-	 avqJ3MoVDUnwvD5ikRTmViIDxxETtRKGoWVB1MGnAC1ePW6qQXUYw/AhYQ7YJu0Vr2
-	 zYgISlgxEUtyMCC+MftQD9JIAYDm2DcPkYzyIYs0=
-Message-ID: <c8b6e10f-dd52-4c74-8d16-268563d8bc1f@linux.microsoft.com>
-Date: Wed, 9 Sep 2026 15:01:22 +0530
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="E9ORiZoi"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=j6
+	BQax1ALxulWvxdR+klhw1jBgkWS9cMRWy4AOIlkWk=; b=E9ORiZoivaGpH5n/np
+	x29ZqGaaYzaqd+IDAmET7IQ7ZFV7WzS96iFwUQXweCC4GNIsrILirkxiYc5l23mk
+	efUZVjaT3UBXFNw2OHq/PRTuHG75VU8tyuSuuuB7KsCJAFJ6b3fNwuyOEDvMuSRM
+	ZrQjvcNDTCYoouIn8mJemuITY=
+Received: from localhost (unknown [])
+	by gzga-smtp-mtada-g0-2 (Coremail) with SMTP id _____wD311ARJ6FqNvVuBg--.47931S2;
+	Wed, 09 Sep 2026 17:29:54 +0800 (CST)
+From: Hui Su <sh_def@163.com>
+To: peterz@infradead.org,
+	mingo@redhat.com,
+	tim.c.chen@linux.intel.com,
+	yu.c.chen@intel.com,
+	kprateek.nayak@amd.com
+Cc: juri.lelli@redhat.com,
+	vincent.guittot@linaro.org,
+	dietmar.eggemann@arm.com,
+	rostedt@goodmis.org,
+	bsegall@google.com,
+	mgorman@suse.de,
+	vschneid@redhat.com,
+	connoro@google.com,
+	jstultz@google.com,
+	arighi@nvidia.com,
+	tj@kernel.org,
+	void@manifault.com,
+	changwoo@igalia.com,
+	linux-kernel@vger.kernel.org,
+	sched-ext@lists.linux.dev
+Subject: [PATCH v4 2/5] sched/numa: Drive NUMA task tick from execution context
+Date: Wed,  9 Sep 2026 18:28:58 +0900
+Message-ID: <20260909092901.2989564-3-sh_def@163.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260909092901.2989564-1-sh_def@163.com>
+References: <20260909092901.2989564-1-sh_def@163.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] PCI: hv: Warn when wait_for_response() waits
- indefinitely
-To: Sahil Chandna <sahilchandna@linux.microsoft.com>, kys@microsoft.com,
- haiyangz@microsoft.com, wei.liu@kernel.org, decui@microsoft.com,
- longli@microsoft.com, lpieralisi@kernel.org, kwilczynski@kernel.org,
- mani@kernel.org, robh@kernel.org, bhelgaas@google.com,
- linux-hyperv@vger.kernel.org, linux-pci@vger.kernel.org,
- linux-kernel@vger.kernel.org, mhklinux@outlook.com
-References: <20260908113009.3005964-1-sahilchandna@linux.microsoft.com>
-Content-Language: en-US
-From: Naman Jain <namjain@linux.microsoft.com>
-In-Reply-To: <20260908113009.3005964-1-sahilchandna@linux.microsoft.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD311ARJ6FqNvVuBg--.47931S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxJw1kGr45GFykuF4kWry8Zrb_yoW5CF1fpF
+	s0ka4aq3y7ta1YqF17ZrWDX3WfGwn3A347WFZrGFW8ur1UK3sY9rn3KFySqF4rArW0kFy2
+	vrWj9r17Cr1UKw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jaUDXUUUUU=
+X-CM-SenderInfo: xvkbvvri6rljoofrz/xtbCwhLQMGqhJxIp4AAA3H
 
+Proxy execution separates the scheduling context in rq->donor from the
+execution context in rq->curr. The task tick dispatcher can therefore
+invoke task_tick_fair() for either side of a cross-class proxy
+relationship.
 
+task_tick_numa() operates on state associated with the task actually
+executing, including its mm and NUMA work state. Task-level execution
+runtime is likewise accounted to rq->curr, and task_tick_numa() uses that
+runtime to drive periodic NUMA scanning.
 
-On 9/8/2026 5:00 PM, Sahil Chandna wrote:
-> A guest can wait indefinitely in wait_for_response() for the host to
-> send either a rescind message or a packet completion. If the
-> host does not send either, the guest can remain blocked with no
-> diagnostic indicating a reason.
-> This was observed during a guest kernel upgrade in which the
-> host-side application handling the PCI channel faulted, causing the
-> guest to never receive the completion request.
-> Add a warning in wait_for_response() when the wait exceeds
-> a timeout so that such a hang is visible in the guest's kernel log
-> and can be correlated with host-side state.
-> 
-> Suggested-by: Michael Kelley <mhklinux@outlook.com>
-> Signed-off-by: Sahil Chandna <sahilchandna@linux.microsoft.com>
-> ---
-> Changes since v2:
-> - Add counter based timeout instead of introducing another timer
-> Link to v2: https://lore.kernel.org/all/20260902115854.2629164-1-sahilchandna@linux.microsoft.com/
-> 
-> Changes since v1:
-> - Removed periodic warning to one time warning in 2 minutes
-> - Include vmbus relid and stuck PCI msg.
-> Link to v1: https://lore.kernel.org/all/20260825051850.2438816-1-sahilchandna@linux.microsoft.com/
->   drivers/pci/controller/pci-hyperv.c | 46 ++++++++++++++++++++++-------
->   1 file changed, 36 insertions(+), 10 deletions(-)
-> 
-> diff --git a/drivers/pci/controller/pci-hyperv.c b/drivers/pci/controller/pci-hyperv.c
-> index 89816a2bd7cd..bd07402c47ed 100644
-> --- a/drivers/pci/controller/pci-hyperv.c
-> +++ b/drivers/pci/controller/pci-hyperv.c
-> @@ -1040,19 +1040,38 @@ static void put_pcichild(struct hv_pci_dev *hpdev)
-> 
->   /*
->    * There is no good way to get notified from vmbus_onoffer_rescind(),
-> - * so let's use polling here, since this is not a hot path.
-> + * so let's use polling here, since this is not a hot path. If
-> + * wait_for_response() has been polling for 2 minutes
-> + * without either a rescind or completion, add a warning.
->    */
-> +#define PCI_RESPONSE_HANG_TICKS 1200
-> +
+Split task_tick_fair() into donor and execution-context sections and run
+the NUMA tick only when rq->curr belongs to the fair scheduling class. The
+donor class tick runs first, so execution runtime is accounted before the
+NUMA tick consumes it.
 
-Nit, I think this variable name could be misleading, as this represents 
-a loop counter for a retry logic, but not exactly *ticks* from kernel 
-terminology.
+Fixes: 7de9d4f94638 ("sched: Start blocked_on chain processing in find_proxy_task()")
+Suggested-by: K Prateek Nayak <kprateek.nayak@amd.com>
+Suggested-by: Tim Chen <tim.c.chen@linux.intel.com>
+Signed-off-by: Hui Su <sh_def@163.com>
+---
+ kernel/sched/fair.c | 44 +++++++++++++++++++++++---------------------
+ 1 file changed, 23 insertions(+), 21 deletions(-)
 
-I would have preferred something like: PCI_RESPONSE_WARN_POLL_COUNT.
+diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
+index 6f1777799371..a8c7a9a29ace 100644
+--- a/kernel/sched/fair.c
++++ b/kernel/sched/fair.c
+@@ -15061,41 +15061,43 @@ static inline void task_tick_core(struct rq *rq, struct task_struct *curr) {}
+  */
+ static void task_tick_fair(struct rq *rq, int queued)
+ {
+-	struct task_struct *donor = rq->donor;
+-	struct sched_entity *se;
++	struct task_struct *curr = rq->curr, *donor = rq->donor;
+ 
+-	if (donor->sched_class != &fair_sched_class)
+-		return;
++	if (donor->sched_class == &fair_sched_class) {
++		struct sched_entity *se = &donor->se;
+ 
+-	se = &donor->se;
++		if (se->on_rq) {
++			unsigned long weight = NICE_0_LOAD;
++			struct cfs_rq *cfs_rq;
+ 
+-	if (se->on_rq) {
+-		unsigned long weight = NICE_0_LOAD;
+-		struct cfs_rq *cfs_rq;
++			for_each_sched_entity(se) {
++				cfs_rq = cfs_rq_of(se);
++				entity_tick(cfs_rq, se, queued);
+ 
+-		for_each_sched_entity(se) {
+-			cfs_rq = cfs_rq_of(se);
+-			entity_tick(cfs_rq, se, queued);
++				weight = __calc_prop_weight(cfs_rq, se, weight);
++			}
+ 
+-			weight = __calc_prop_weight(cfs_rq, se, weight);
++			se = &donor->se;
++			reweight_eevdf(cfs_rq, se, weight, se->on_rq);
+ 		}
+-
+-		se = &donor->se;
+-		reweight_eevdf(cfs_rq, se, weight, se->on_rq);
+ 	}
+ 
+ 	if (queued)
+ 		return;
+ 
+-	if (static_branch_unlikely(&sched_numa_balancing))
+-		task_tick_numa(rq, donor);
++	/* Update state owned by the execution context. */
++	if (curr->sched_class == &fair_sched_class &&
++	    static_branch_unlikely(&sched_numa_balancing))
++		task_tick_numa(rq, curr);
+ 
+-	task_tick_cache(rq, donor);
++	if (donor->sched_class == &fair_sched_class) {
++		task_tick_cache(rq, donor);
+ 
+-	update_misfit_status(donor, rq);
+-	check_update_overutilized_status(task_rq(donor));
++		update_misfit_status(donor, rq);
++		check_update_overutilized_status(task_rq(donor));
+ 
+-	task_tick_core(rq, donor);
++		task_tick_core(rq, donor);
++	}
+ }
+ 
+ /*
+-- 
+2.55.0
 
-Rest LGTM.
-
-Reviewed-by: Naman Jain <namjain@linux.microsoft.com>
-
-Regards,
-Naman Jain
