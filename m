@@ -1,152 +1,163 @@
-Received: from mta0.migadu.com (out-122.mta0.migadu.com [91.218.175.122])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 206CB568FD9
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 15:39:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.122
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E6015650ED;
+	Wed,  9 Sep 2026 15:40:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788968396; cv=none; b=mWmzjmvx4CC8Pm23hxqhqJ2foGCRhP0uNS8OwDMZd5a7l85yDdea1dcR9pAWJdnofEpBGxjAZsxVgMUgqGOvhMnDHCRQ4QQbCEGylTSGCqWNsCBbAhrRZlMHSwxdL+xsaie/V975/fttstHbUbkbMX+1Y3aLf2mB1Ljhwh+h358=
+	t=1788968422; cv=none; b=Z+Bm9ffwGXEsc/JBO5L9ANmI7PgzQ3mnICftiYfjtyErznLY9VCDlS/130yExj/YZNsaWPOinucrrY2QEE4z6RAiyH5J3b1oqKE8efXp0YKM8hlZsm//jyqrn5aiIZAahMvvPirUtwPVOUKw7fdzEuVVWjLLWQjbz83MoMw4mDQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788968396; c=relaxed/simple;
-	bh=fzj4Ws8lKIWrjEiyGIpoIDsUvXAXaL99aEWk2VGWV7s=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=g4A91c25h744DM3v1ax0FQWx4qNHx07YYY1anntAzLjiSWnyFlaTgiJMhpAJYoEcjI9CxtGlJt25AeiqYU3NIn1khK7sLd7KyPWsVWyCrZARuRcHjU+nuY5Yj8BW24+tzNqz9dUtokO4W6Wj3b6aXroSqi3Hsc1TT+WXEP921G0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=vFfUnaFs; arc=none smtp.client-ip=91.218.175.122
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1788968422; c=relaxed/simple;
+	bh=OTpD1mn++QZ6cnu/XQdOkc8XsknDB0Wm8sUuOPNTh+g=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=PyMNCtlU0ByJfui+vLt27A7oib1QEahPfYXGxD9sCGeyAVSGIj9bypt0ti0DU+9JKurOJtmchmkXnsYLn1sH8Vy5CrWnF8zUJd+Iu+7hNyWoQSljGemAcynZ+KdorWS7/L6qUEJuJYVFaqBk3wkEvdmwaNJrxvENXXwdNfMjwYk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=b67FWDHV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="vFfUnaFs"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=fzj4Ws8lKIWrjEiyGIpoIDsUvXAXaL99aEWk2VGWV7s=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788968391; v=1; x=1789573191;
- b=vFfUnaFs0Ol0/yoJQQ3j9uMjQuSUqmBYMp8H9vaPLwW81Qc6+FzdGoeuZK+Ki4Dj11ng0aA9
- u43xNl7lYMl4LCg1YcVGGECU+WvdttYdYxp9jr3wiZISBQo7hqvyfPm5Q1MApgOtWAa3Cg6Sxcj
- TAdVlH5zUqReRnHK4t0RhleE=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 7dcc242b5665a7b6;
-	Wed, 09 Sep 2026 15:39:41 +0000
-X-Mizu-Trace-ID: 7dcc242b5665a7b6
-X-Migadu-Flow: FLOW_OUT
-Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b4a0b384b7so8784e87.0
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 08:39:41 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBw0RfrizaA+K8Ht1rWMSYukz9Dg7IyrfABLA9noSlqFiL8UkIcK/4hKz/gkzrSslfKZBfguAaS48WodlXI=@vger.kernel.org
-X-Gm-Message-State: AFuF++nlfSZeIwY9dNi1JE/yPbymvSZLuxfUTo/ktfkwelN2M/UYiFcw
-	3V5qqcgc7TRlkMDiIIUeNV/VXbDzDFCXt/2xFYKnI65bxKk1piVudRqruo9G0i42PsnS/Yz2Ipd
-	9XMEvmi2L+G/DomGfBVsZFKHejwxQkzI7RQqLN0bK
-X-Received: by 2002:a05:6512:1296:b0:5ae:cf5f:4a88 with SMTP id
- 2adb3069b0e04-5b764bb8a14mr142455e87.8.1788968380386; Wed, 09 Sep 2026
- 08:39:40 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="b67FWDHV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE5D41F00A3A;
+	Wed,  9 Sep 2026 15:40:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788968421;
+	bh=AXYYQlIGAZBrAHu4CUr6VQDiXrusLKFHKO4tw/xbR/o=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=b67FWDHVrvKlADudVooPhLmJOQAbQa4r/JfwC9gUSiN2XwdjDzXh8PDhLIbwBJ2Bl
+	 N6Vzk3XSxn9iwept0h4EbsT1QjEwa1ArTZoWsrAUs3sRxTkLtG3u6Tqn48pqVF4w42
+	 Hbr0VynPh2dln0S6/KgjarMmfPtDZf/8puPSLa3d6dAowUIbor3F3E8wZW4gfkHAy7
+	 ioBnUGH/HGUgh73jIHLXiP9er2c5LG71oVhLkOGVgFSr+kjgVMlPqHXLGlxCQA7ZS5
+	 LcMe5V5KBReJ3ihsKdA8eubDNI8HqYBjN9XKnu0HuBHiiD05yVhAVNYtvLFO27T70K
+	 2JOkNN9/OsV+Q==
+Message-ID: <26f620c7-043a-4cb3-a74b-29069bded0dd@kernel.org>
+Date: Wed, 9 Sep 2026 17:40:00 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260807164322.2970811-2-sebastianene@google.com> <20260807164322.2970811-3-sebastianene@google.com>
-In-Reply-To: <20260807164322.2970811-3-sebastianene@google.com>
-From: Fuad Tabba <fuad.tabba@linux.dev>
-Date: Wed, 9 Sep 2026 16:39:03 +0100
-X-Gmail-Original-Message-ID: <CA+EHjTw8H90YZmwbVu6gwe+2+D6QsDLybKcncLcCFSsK4kT+gw@mail.gmail.com>
-X-Gm-Features: AcwNN1Xn11LM3S-N1a2DBr7wA2T25hY8d1olPDXuf0s4eEIGVNgdvX4H2BSTCmw
-Message-ID: <CA+EHjTw8H90YZmwbVu6gwe+2+D6QsDLybKcncLcCFSsK4kT+gw@mail.gmail.com>
-Subject: Re: [PATCH v2 01/13] KVM: arm64: Donate MMIO to the hypervisor
-To: Sebastian Ene <sebastianene@google.com>, Mostafa Saleh <smostafa@google.com>
-Cc: catalin.marinas@arm.com, joey.gouly@arm.com, mark.rutland@arm.com, 
-	maz@kernel.org, oupton@kernel.org, rananta@google.com, 
-	Sascha.Bischoff@arm.com, suzuki.poulose@arm.com, will@kernel.org, 
-	kvmarm@lists.linux.dev, android-kvm@google.com, bgrzesik@google.com, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	nathan@kernel.org, perlarsen@google.com, seiden@linux.ibm.com, 
-	tglx@kernel.org, vdonnefort@google.com, vladimir.murzin@arm.com, 
-	yuzenghui@huawei.com, zenghui.yu@linux.dev
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v12 12/45] KVM: guest_memfd: Always fault from guest_memfd
+ if in-place conversion is enabled
+To: ackerleytng@google.com, aik@amd.com, andrew.jones@linux.dev,
+ binbin.wu@linux.intel.com, brauner@kernel.org, chao.p.peng@linux.intel.com,
+ jmattson@google.com, jthoughton@google.com, michael.roth@amd.com,
+ oupton@kernel.org, pankaj.gupta@amd.com, qperret@google.com,
+ rick.p.edgecombe@intel.com, rientjes@google.com, shivankg@amd.com,
+ steven.price@arm.com, willy@infradead.org, wyihan@google.com,
+ yan.y.zhao@intel.com, forkloop@google.com, pratyush@kernel.org,
+ suzuki.poulose@arm.com, aneesh.kumar@kernel.org, liam@infradead.org,
+ Paolo Bonzini <pbonzini@redhat.com>, Sean Christopherson
+ <seanjc@google.com>, Thomas Gleixner <tglx@kernel.org>,
+ Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
+ Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+ "H. Peter Anvin" <hpa@zytor.com>, Steven Rostedt <rostedt@goodmis.org>,
+ Masami Hiramatsu <mhiramat@kernel.org>,
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ Shuah Khan <shuah@kernel.org>, Vishal Annapurve <vannapurve@google.com>,
+ Andrew Morton <akpm@linux-foundation.org>, Chris Li <chrisl@kernel.org>,
+ Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>,
+ Nhat Pham <nphamcs@gmail.com>, Barry Song <baohua@kernel.org>,
+ Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>,
+ Wei Xu <weixugc@google.com>, Youngjun Park <youngjun.park@lge.com>,
+ Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>,
+ Kiryl Shutsemau <kas@kernel.org>, Baoquan He <baoquan.he@linux.dev>,
+ Jason Gunthorpe <jgg@ziepe.ca>, John Hubbard <jhubbard@nvidia.com>,
+ Peter Xu <peterx@redhat.com>, tarunsahu@google.com,
+ Randy Dunlap <rdunlap@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ Fuad Tabba <fuad.tabba@linux.dev>
+Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-trace-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
+ linux-kselftest@vger.kernel.org, linux-mm@kvack.org,
+ linux-coco@lists.linux.dev
+References: <20260830-gmem-inplace-conversion-v12-0-85e5fd25252a@google.com>
+ <20260830-gmem-inplace-conversion-v12-12-85e5fd25252a@google.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20260830-gmem-inplace-conversion-v12-12-85e5fd25252a@google.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi Mostaf, Seb,
+On 8/31/26 02:25, Ackerley Tng via B4 Relay wrote:
+> From: Ackerley Tng <ackerleytng@google.com>
+> 
+> If a guest_memfd memslot is created but the guest_memfd does not have the
+> GUEST_MEMFD_FLAG_MMAP set, KVM still fulfils guest faults by looking up the
+> memslot's userspace_addr.
+> 
+> Set KVM_MEMSLOT_GMEM_ONLY if in-place conversion is enabled so that the
+> guest_memfd's memory will be used for both shared and private memory. With
+> in-place conversion, guest_memfd will be the only backing memory for the
+> memslot.
+> 
+> No validation is performed to require userspace_addr to be a mapping from
+> the associated guest_memfd because even after validation, userspace is free
+> to remap something else at the provided userspace_addr.
+> 
+> userspace_addr will still be used by functions like kvm_read_guest(), and
+> if userspace_addr does not match up with the corresponding memory in the
+> memslot's guest_memfd (whether userspace_addr points to the wrong offset or
+> some non-guest_memfd memory, etc), that is a user error.
+> 
+> Requiring both shared and private memory to come from the only associated
+> guest_memfd simplifies invalidation in stage 2 page tables. On a PUNCH_HOLE
+> operation on a guest_memfd, the invalidation is now guaranteed to be
+> invalidating only memory mapped from the given guest_memfd.
+> 
+> Suggested-by: Sean Christopherson <seanjc@google.com>
+> Signed-off-by: Ackerley Tng <ackerleytng@google.com>
+> ---
 
-On Fri, 7 Aug 2026 at 17:43, Sebastian Ene <sebastianene@google.com> wrote:
->
-> From: Mostafa Saleh <smostafa@google.com>
-...
-> +int __pkvm_host_donate_hyp_mmio(phys_addr_t addr, size_t size)
-> +{
-...
-> +       /*
-> +        * We set HYP as the owner of the MMIO pages in the host stage-2, for:
-> +        * - host aborts: host_stage2_adjust_range() would fail for invalid non zero PTEs.
-> +        * - recycle under memory pressure: host_stage2_unmap_dev_all() would call
-> +        *   kvm_pgtable_stage2_unmap() which will not clear non zero invalid ptes (counted).
-> +        * - other MMIO donation: Would fail as we check that the PTE is valid or empty.
-> +        */
-> +       ret = host_stage2_try(kvm_pgtable_stage2_annotate, &host_mmu.pgt,
-> +                             addr, size, &host_s2_pool,
-> +                             KVM_HOST_INVALID_PTE_TYPE_DONATION,
-> +                             FIELD_PREP(KVM_HOST_DONATION_PTE_OWNER_MASK, PKVM_ID_HYP));
+Yeah, that matches what we discussed in the call
 
-Before this patch the hyp linear map held nothing but memory, and this
-adds the first device mapping to it. That places it outside
-`fix_host_ownership()`, whose scope is the memblock list, so nothing
-at init verifies the ownership. It's correct as written: the donation
-writes the host stage-2 annotation itself.
+Reviewed-by: David Hildenbrand (Arm) <david@kernel.org>
 
-This has already gone wrong once with the hyp stacks. The fix [1] adds
-`pkvm_check_host_ownership()` over the private range, which fails init
-on a leaf that isn't hyp-owned. I'd move this mapping there rather
-than leave it outside any ownership walk.
-
-...
-
-> +int __pkvm_hyp_donate_host_mmio(phys_addr_t addr, size_t size)
-> +{
-...
-> +               virt = __hyp_va(addr + offset);
-> +               if (kvm_pgtable_hyp_unmap(&pkvm_pgtable, (u64)virt, PAGE_SIZE) != PAGE_SIZE)
-> +                       goto err_with_unmap;
-
-Sashiko is right, even though this is benign for now. `ret` is still 0
-from the `kvm_pgtable_get_leaf()` above, so a short unmap runs the
-rollback and returns success. Could it set an error before the goto?
-
-...
-
-> @@ -1161,13 +1161,12 @@ static int stage2_unmap_walker(const struct kvm_pgtable_visit_ctx *ctx,
->         kvm_pte_t *childp = NULL;
->         bool need_flush = false;
->
-> -       if (!kvm_pte_valid(ctx->old)) {
-> -               if (stage2_pte_is_counted(ctx->old)) {
-> -                       kvm_clear_pte(ctx->ptep);
-> -                       mm_ops->put_page(ctx->ptep);
-> -               }
-> +       /*
-> +        * That also ignores stage2_pte_is_counted() instead of clearing
-> +        * the PTE as the MMIO can be owned by the hypervisor.
-> +        */
-> +       if (!kvm_pte_valid(ctx->old))
->                 return 0;
-> -       }
-
-This changes `kvm_pgtable_stage2_unmap()` for every caller, for a
-reason specific to `host_stage2_unmap_dev_all()`. The others are
-`__unmap_stage2_range()` and the two guest unmaps in `mem_protect.c`;
-as far as I can tell none is affected today, but
-`stage2_pte_is_counted()`'s comment still describes the old behaviour.
-
-What's changing isn't what the walk does, it's what counts as a
-counted entry, and that isn't the same question for the host stage-2
-as for a guest's. Could that be stated at the call site instead?
-
-I couldn't work out what "That" refers to in the new comment.
-
+-- 
 Cheers,
-/fuad
 
-[1] https://lore.kernel.org/all/20260908110713.1540304-1-fuad.tabba@linux.dev/
-
->
->         if (kvm_pte_table(ctx->old, ctx->level)) {
->                 childp = kvm_pte_follow(ctx->old, mm_ops);
-> --
-> 2.55.0.654.g21b8a5bc05-goog
->
+David
