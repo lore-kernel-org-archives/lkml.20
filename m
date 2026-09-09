@@ -1,124 +1,153 @@
-Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com [209.85.214.174])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9A4E37FF5A
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 22:35:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F3C348EC8B;
+	Wed,  9 Sep 2026 22:35:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788993348; cv=none; b=eiuiL74Xr4jKJTDmF+vgDa3FGMC/Kbv7pjJ/9BGSWSQVEL33huGGVczmjBuWhoRPjV5OATMpdnNoCTulUy+OgdX0G6bE1RxKIZeR0kBkWKMomAAKSgEyzKgt1VYaFfhqwTQoqMbhlI+QKyNreyNJvLCUypb5j2N0PPja+SXMZwo=
+	t=1788993364; cv=none; b=Uta/mtmAGzKZR1Ysft+Tx/HnV0l4ORl7ZoAWBi44rRrdOMfnThmIFe2AP1X19Jv7fZwFPN4uV4a/lU9mymMju8sBEdx97RLJZULav3p+gIQ1yk4ZtsMx6klbu9Xc4t7+2tVTeE69QW8cqrHK+6UtOYZBr5fs+HvOB47iJ3Rl1js=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788993348; c=relaxed/simple;
-	bh=2V/bTApWvXnVcZzt8OWfLMXyFfCUlDhbWBFDxeU/6kk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Od91s94O7oQsRc3P3NA2oGPi9vhqZHvo7s+koPKcaz1LBUbUuMkDB5TwTH+3ON90ASIdr6tZg6dzXpEiCPelTfBLz4ksE03qUHvxJlfWLFkTKPAK21Cyt/f1XFb3XShJO7XD9rUMNeceigzT4vpKH8qkQpEeSRYhzLBjO74pzNs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=m5wd6EWG; arc=none smtp.client-ip=209.85.214.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788993364; c=relaxed/simple;
+	bh=Sk89NQbShkfzb2tElxtF+545+YomVAsAnuWgUPrliSw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=PStgDa7GeY7nxpOhU1y1gBtBeQGiHtNyDjerIuPCNwLmu7brfLtDn1iUiIrpT2rLLVnNfRQ6OM70T3FneB0zAM4lsM6fl4FBJY8tO19+eVftVskye1rYzEHzNwAsVihKKE/merG7sJ1O5pYz4nv+v4jGksgg2TmW34kpl3V7M2s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=X8/PH8ht; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="m5wd6EWG"
-Received: by mail-pl1-f174.google.com with SMTP id d9443c01a7336-2d560775ca2so46331675ad.1
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 15:35:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788993323; x=1789598123; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=g2mR7d/eCrXCqtnsUBaBZRSoRQmcpPDbLqLjlbgkBnc=;
-        b=m5wd6EWGzZRbLeeAEZ8+kknh/kTOOPweMLBExnHuRxnXCdNJmSglvbthUFj86cs0PN
-         d7V5PRLebjg2jmjmd9EoI3dT8iGiojswqJW+PMDlpVrUslfbRmsYmF74vMpGssrtJlTH
-         LsSz5AJ7ci8r0irSoWusEOqxoZPi/xm/GiTmu5v2obkbDufs9KI8gtFvIXH+I0lmNBdR
-         aukcGu+skjVR3UUOMn2xWn/kUggPxAvAFOc971eUfyNVisOLyj1KrIHUO/3WuQKOyO2f
-         p7yCs0YplOmD9Tdvoj9RjDWHeEJntpyEh7z0rckipezKFzkL3qLwDLLDLHNodpHutjrC
-         5Hlw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788993323; x=1789598123;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=g2mR7d/eCrXCqtnsUBaBZRSoRQmcpPDbLqLjlbgkBnc=;
-        b=gTNMyUPd3a9Ns6NKkGZRebz/UpZLfmsX9UEN9W4/WMuzlq38SCIbyfRcSMgBUXz44a
-         x+YfKCu9zRPoig1jjwwwOzYHbuOYF2EnXp6erpNao06/crNE0hT4pejVgyddQ67vVQXS
-         y675/eQDIERyiDMfd8azBugoNkteYGgzKOZyVEnTNXKLOHSz2VvNSswEtra6JGWjjDMY
-         ss5BdTjO60WC4T0WuvXX+T7OqnA4RCmww6j0r5BryUvoaQNmplxfuVL19I+E634OiK0K
-         JGjqUY7MUvE9HA9Slrb+Pt+5oNt6U0UZxI2YIhUlKUhqoo8NnGh8paFmd2+SEMlrYVbL
-         rkzQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzxUZViJhqS1i2RwWUdOaqSFI2PZoOe1iLSJF2eY3EvBRNt90Ck8Zse43XIVBcVymt0u4FoF3jYXqqtIbk=@vger.kernel.org
-X-Gm-Message-State: AFuF++lUDER54qkk7oKB2gXFkkvB5nytMubTYStQimg22D1vT1Vjo2tv
-	RtALzzbgl0i/VL/tl1PIkCg241aMcwikcBzHrluMoE3IsrS7c5aNr5QetPl8EA==
-X-Gm-Gg: AYBFou0MDLWL2kNZS4ij0m9My019v8JqwI1RuZufu6/74LbY5L2nsAry0H4bvEpT2cx
-	uVfz6K36jTYzYaoQWVXIbXiVhB/0DL00hRH1o8AQoRRMf1Z0/ZHgbogyRzKSluXILmbDlYT9ppl
-	XCzxWismaD7vu5nwLYC/9gzplMrspyfL6CGY3MjxjZvju+IOXnD/ZRWB7zi7whls1cNb22fGD+h
-	ApAhvdDr3fU4K4qOqMfvqnEZGZu6wnmV9tIHPVH9fI+zssBkGPGVLspXHJjbuA8J6S6JkvzvIOg
-	+nSmLXp+zRseApqoMZinUAWXtMsV/pNaELhw7otFiM15qXn7EFzN6/NvzsR53t+qEKrpGhA70Ua
-	Sexfi7dp+yIJGeflmwvCjKmCJQXB82wLuADpD9VRRGEhovh6iuXUCNz3MfLrSpYYUa2NZP9aCpU
-	V2eexI4N1msqqpJHy7Wa29bIT073aMxYrXYbIt5c0wRQWC5x74i1GMexKBrtyEgg1AGTv3kSJzk
-	nEP0R8iaKqapAFK2VLRWKTdS+nOYlxWoyPnN1UKSi7LhJTMZGZ5+2aYXlPsoEZ6M3NNuzkyuLuJ
-	1UBMG8IEv8IalaJFVEqc3jwDKEuV2T68bsWp/yEF6L4Bnvl7
-X-Received: by 2002:a17:902:7004:b0:2d8:d4d3:3fbc with SMTP id d9443c01a7336-2db12629346mr405572845ad.16.1788993322973;
-        Wed, 09 Sep 2026 15:35:22 -0700 (PDT)
-Received: from ryzen.lan ([2601:644:8000:7a86::e35])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2db1497df04sm79247975ad.41.2026.09.09.15.35.21
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 09 Sep 2026 15:35:22 -0700 (PDT)
-From: Rosen Penev <rosenp@gmail.com>
-To: linux-mtd@lists.infradead.org
-Cc: Miquel Raynal <miquel.raynal@bootlin.com>,
-	Richard Weinberger <richard@nod.at>,
-	Vignesh Raghavendra <vigneshr@ti.com>,
-	linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH] mtd: rawnand: ndfc: use devm_kasprintf for mtd name
-Date: Wed,  9 Sep 2026 15:35:21 -0700
-Message-ID: <20260909223521.67572-1-rosenp@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="X8/PH8ht"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C259B1F000FF;
+	Wed,  9 Sep 2026 22:35:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788993332;
+	bh=awFuhuT81/R4r+seHT1DvBy4LdLo8zxP0ir3gEeauas=;
+	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
+	b=X8/PH8ht37xlu8MW096CVcJg6qdujG/W14wHslRcgR6VKnxyMOFhOWX88BODeVaIL
+	 hNAPK4QN84yBz3294VIcZM+pHTN9B6fT6DF5py6BQK6zLGSmaK0CF3+LHTPwOJ0ACk
+	 iVIJngmR7Hi7lCav2Y3OuG/X6HHTQ3+fCZX+DjQMUam45bSjio1YFSs4DTQypYoEsi
+	 ke0wMSievXN+s2d9XLHaR8h//1NqJVRq/h00o/1Ypdark7SRdfqmHkjSAKImF8Xrq2
+	 ap0j2ccQA5dbv9F1KYIPyg30VOn/gozA4Tga1eQuzaanZx6y+RvOgf3LgxvH3exMem
+	 +linMcd1QBfBw==
+Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
+	id 91F35CE054B; Wed,  9 Sep 2026 15:35:32 -0700 (PDT)
+Date: Wed, 9 Sep 2026 15:35:32 -0700
+From: "Paul E. McKenney" <paulmck@kernel.org>
+To: Kunwu Chan <kunwu.chan@gmail.com>
+Cc: jiangshanlai@gmail.com, josh@joshtriplett.org, rostedt@goodmis.org,
+	mathieu.desnoyers@efficios.com, rcu@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 04/13] rcutorture: Add atomic-SRCU support to torture.sh
+Message-ID: <26b68ec0-2f21-4dc2-bfcf-20cbc38f4ceb@paulmck-laptop>
+Reply-To: paulmck@kernel.org
+References: <20260907075829.2073224-1-kunwu.chan@linux.dev>
+ <20260907075829.2073224-5-kunwu.chan@linux.dev>
+ <fc49190e-6cec-435d-b853-db906a1e33e3@paulmck-laptop>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <fc49190e-6cec-435d-b853-db906a1e33e3@paulmck-laptop>
 
-Convert the mtd->name allocation from kasprintf() plus a manual kfree()
-in the error path and in ndfc_remove() to the managed
-devm_kasprintf() helper. The name is now released automatically with
-the device, removing the need for explicit cleanup.
+On Tue, Sep 08, 2026 at 04:34:41PM -0700, Paul E. McKenney wrote:
+> On Mon, Sep 07, 2026 at 03:58:20PM +0800, Kunwu Chan wrote:
+> > From: Kunwu Chan <kunwu.chan@gmail.com>
+> > 
+> > Add the --do-atomic-srcu argument to torture.sh, which runs the
+> > SRCU-N, SRCU-P, and SRCU-T scenarios, thus covering both Tree SRCU
+> > (SRCU-N and SRCU-P) and Tiny SRCU (SRCU-T), with
+> > rcutorture.reader_flavor=0x10 appended to the boot parameters so
+> > that it takes precedence over each scenario's own reader-flavor
+> > setting.  This exercises srcu_read_lock_atomic(),
+> > srcu_read_unlock_atomic(), and synchronize_srcu_atomic().
+> > 
+> > As with other torture.sh tests, the --do-kcsan argument runs a
+> > KCSAN+PROVE_LOCKING variant of this test.
+> > 
+> > Signed-off-by: Kunwu Chan <kunwu.chan@gmail.com>
+> 
+> Queued for testing and review, thank you!
 
-Assisted-by: opencode:hy3-free
-Signed-off-by: Rosen Penev <rosenp@gmail.com>
----
- drivers/mtd/nand/raw/ndfc.c | 7 ++-----
- 1 file changed, 2 insertions(+), 5 deletions(-)
+I did take the liberty of changing "do_atomic_srcu=no" to
+"do_atomic_srcu=yes" in order to increase test coverage.
 
-diff --git a/drivers/mtd/nand/raw/ndfc.c b/drivers/mtd/nand/raw/ndfc.c
-index d6db04d48c45..d7b119028a71 100644
---- a/drivers/mtd/nand/raw/ndfc.c
-+++ b/drivers/mtd/nand/raw/ndfc.c
-@@ -162,8 +162,8 @@ static int ndfc_chip_init(struct ndfc_controller *ndfc,
- 		return -ENODEV;
- 	nand_set_flash_node(chip, flash_np);
- 
--	mtd->name = kasprintf(GFP_KERNEL, "%s.%pOFn", dev_name(&ndfc->ofdev->dev),
--			      flash_np);
-+	mtd->name = devm_kasprintf(&ndfc->ofdev->dev, GFP_KERNEL, "%s.%pOFn",
-+				   dev_name(&ndfc->ofdev->dev), flash_np);
- 	if (!mtd->name) {
- 		ret = -ENOMEM;
- 		goto err;
-@@ -177,8 +177,6 @@ static int ndfc_chip_init(struct ndfc_controller *ndfc,
- 
- err:
- 	of_node_put(flash_np);
--	if (ret)
--		kfree(mtd->name);
- 	return ret;
- }
- 
-@@ -246,7 +244,6 @@ static void ndfc_remove(struct platform_device *ofdev)
- 	ret = mtd_device_unregister(mtd);
- 	WARN_ON(ret);
- 	nand_cleanup(chip);
--	kfree(mtd->name);
- }
- 
- static const struct of_device_id ndfc_match[] = {
--- 
-2.55.0
+							Thanx, Paul
 
+> > ---
+> >  .../selftests/rcutorture/bin/torture.sh       | 24 +++++++++++++++++++
+> >  1 file changed, 24 insertions(+)
+> > 
+> > diff --git a/tools/testing/selftests/rcutorture/bin/torture.sh b/tools/testing/selftests/rcutorture/bin/torture.sh
+> > index f0083891ee81..8885812d866a 100755
+> > --- a/tools/testing/selftests/rcutorture/bin/torture.sh
+> > +++ b/tools/testing/selftests/rcutorture/bin/torture.sh
+> > @@ -68,6 +68,7 @@ do_clocksourcewd="${ifnotaarch64}"
+> >  do_rt=yes
+> >  do_rcutasksflavors="${ifnotaarch64}" # FIXME: Back to "yes" when SMP=n auto-avoided
+> >  do_srcu_lockdep=yes
+> > +do_atomic_srcu=no
+> >  do_rcu_rust=no
+> >  
+> >  # doyesno - Helper function for yes/no arguments
+> > @@ -103,6 +104,7 @@ usage () {
+> >  	echo "       --do-rcu-rust / --do-no-rcu-rust / --no-rcu-rust"
+> >  	echo "       --do-scftorture / --do-no-scftorture / --no-scftorture"
+> >  	echo "       --do-srcu-lockdep / --do-no-srcu-lockdep / --no-srcu-lockdep"
+> > +	echo "       --do-atomic-srcu / --do-no-atomic-srcu / --no-atomic-srcu"
+> >  	echo "       --duration [ <minutes> | <hours>h | <days>d ]"
+> >  	echo "       --guest-cpu-limit N"
+> >  	echo "       --kcsan-kmake-arg kernel-make-arguments"
+> > @@ -148,6 +150,7 @@ do
+> >  		do_kcsan=yes
+> >  		do_clocksourcewd="${ifnotaarch64}"
+> >  		do_srcu_lockdep=yes
+> > +		do_atomic_srcu=yes
+> >  		;;
+> >  	--do-allmodconfig|--do-no-allmodconfig|--no-allmodconfig)
+> >  		do_allmodconfig=`doyesno "$1" --do-allmodconfig`
+> > @@ -183,6 +186,7 @@ do
+> >  		do_kcsan=no
+> >  		do_clocksourcewd=no
+> >  		do_srcu_lockdep=no
+> > +		do_atomic_srcu=no
+> >  		;;
+> >  	--do-normal|--do-norm|--do-no-normal|--do-no-norm|--no-normal|--no-norm)
+> >  		do_normal=`doyesno "$1" --do-normal`
+> > @@ -212,6 +216,9 @@ do
+> >  	--do-srcu-lockdep|--do-no-srcu-lockdep|--no-srcu-lockdep)
+> >  		do_srcu_lockdep=`doyesno "$1" --do-srcu-lockdep`
+> >  		;;
+> > +	--do-atomic-srcu|--do-no-atomic-srcu|--no-atomic-srcu)
+> > +		do_atomic_srcu=`doyesno "$1" --do-atomic-srcu`
+> > +		;;
+> >  	--duration)
+> >  		checkarg --duration "(minutes)" $# "$2" '^[0-9][0-9]*\(m\|h\|d\|\)$' '^error'
+> >  		mult=1
+> > @@ -497,6 +504,23 @@ then
+> >  	torture_set "rcutorture" tools/testing/selftests/rcutorture/bin/kvm.sh --allcpus --duration "$duration_rcutorture" --configs "$configs_rcutorture" --trust-make
+> >  fi
+> >  
+> > +# Test atomic SRCU across Tree SRCU (SRCU-N and SRCU-P) and Tiny SRCU
+> > +# (SRCU-T).  The reader flavor selects srcu_read_lock_atomic() and
+> > +# synchronize_srcu_atomic().  Tiny SRCU requires SMP=n, which aarch64
+> > +# does not support.
+> > +if test "$do_atomic_srcu" = "yes"
+> > +then
+> > +	torture_bootargs="rcutorture.reader_flavor=0x10"
+> > +	configs_atomic_srcu="SRCU-N SRCU-P"
+> > +	if test "$ifnotaarch64" = yes
+> > +	then
+> > +		configs_atomic_srcu="$configs_atomic_srcu SRCU-T"
+> > +	fi
+> > +	torture_set "atomic-srcu" tools/testing/selftests/rcutorture/bin/kvm.sh \
+> > +		--allcpus --duration "$duration_rcutorture" \
+> > +		--configs "$configs_atomic_srcu" --trust-make
+> > +fi
+> > +
+> >  if test "$do_locktorture" = "yes"
+> >  then
+> >  	torture_bootargs="torture.disable_onoff_at_boot"
+> > -- 
+> > 2.43.0
+> > 
