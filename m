@@ -1,546 +1,194 @@
-Received: from BL0PR03CU003.outbound.protection.outlook.com (mail-eastusazon11012010.outbound.protection.outlook.com [52.101.53.10])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C04A35674F
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 04:01:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.53.10
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788926466; cv=fail; b=aWk0AYlIPiM6Ju5m9zVXiNGEmoKU7sX1W78ypfjrQNn483KDlYkwTJrc1K83NWedPmdIEMVndGj1DZZkhfyEe1iZTqjrZmvQMbtuMvtTU8DcezpF0K8WNgd9z0eoCIGFcFQ+DSBYRU8Fy/vBr4ap0hmKzciy+z2gVqz5AY+KmcE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788926466; c=relaxed/simple;
-	bh=VObYjq2QSkzXkFu/wYqFSKFkVhry1yCj/LfOixjX+s0=;
-	h=From:Date:Subject:Content-Type:Message-Id:References:In-Reply-To:
-	 To:Cc:MIME-Version; b=cZDczH2yM0x/ZfTs/f8V4wmqPkZ0ga7LuZZLcQHLz3qX15j5DkRF+ig1W1fSf/qsFAbkaNoufPi+519d6Yjh+mUxMWWph7+tt53rDF+XDARu59ZnunJC1uUVJWBKivY0vqamG2hamExpdSVCIJp1pxp6024f+e0mkImQZMtgNkY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=WMy4+7US; arc=fail smtp.client-ip=52.101.53.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40086492E34
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 04:06:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788926772; cv=none; b=n6gp+vyEIcQYbPbd0ohFh6k2TdhwNF8POxGID3hcWGi07N9isyryfr5kNkK9Nd57Ml5HpkXcH71Xqsycl4HvQ1QochVB73HsI9ANFb5SpLp3bcFGbGzqnD4Uc7NRhtQenbHFaemKnKqfUy6XNKRodjPB1RLknMMpfC6RF1Cv+gA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788926772; c=relaxed/simple;
+	bh=ZRoxIR8iUpuvzhaGrv1RGMVbu3048LD7OcEqrqpEc1c=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=MUAnG1VYK+s1Rg5Av9T+cOD20FDwlsfqS0cbIGQP9PYR2TlJldhku6GpYOeQd4hNCAxTLoI5qiVSkNf+9AkVfjOsgCljCJcfAAlqhMNV+r2AITFBnvqc3PC/S0RTgnDjbAw1TFuIQM+wEXSH5Ss03MjGQRzu4FPbjtD/pWa4VEM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=KMmpulum; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=UjTMp0T1; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="WMy4+7US"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=JCqcc+G1lK/MEIZ9opPECl94QK9QxD3ambM9HgN6TEq+gRAtItMk8qn2/FC0n9dt6mHY6J3NLoRFcTZ30UcpCGAiC0bdq1xdeHRfXxnSYwaBFO7/W1HW3datqUzTEnum/uKB9F48SKX+HpPYwDM3uaPAbgboJ8WmxUixGQuvam64yrUl0dNu96xsgsnokj2dRV5MNTdTyB+gpFu8iB0ykLaL2rU/su67HoYhJ7fub8Qo53ospFYRGYlT1zMXoflnkY64ulMbVVQj0uN0vonOsdGZ5URgJ2LheS/BdaBjKVCFQCiE+4sZQq4usrqAvQupna5rriMSfEUbuKdYesrH4Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=wDSARerljZgu1Ih5Jw3k4TvWtnU+WAE2s2Akt6NMglE=;
- b=rEkLqXvotCu4y+yCCVJs+5ZudvttnZxIwWTLlmLGkR//gvTc1AxByE+euP711sKhyY3TDrzazO6CrmhHd7r2T17rACgdvVA2y7H6nuT9XnVF2IYNAOG6kpOla8htk9b+bYQK01h/GVM4gPXHRZ19rIQBitgBjUEL6SmahLPjfIVHsAe6xZs5LZGM0zNyKs4jpgSDuaC0dn7Ej0N4kqMb9gSGP5e+bo0TzsTsypl4qww3ON3IdZVoIOYOiX+RxBAW2ihqzbwNwowWc+diSSI4vArzSQay5MxBq2Fz0MaFQqpMwDCj76SYoAItf3CC63502dug6hRMZLb/Jj1lz+ay7Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=wDSARerljZgu1Ih5Jw3k4TvWtnU+WAE2s2Akt6NMglE=;
- b=WMy4+7USY9jMix3B54HSp3HkUABF5bAPaTTmsJNusGUYTq/QOazo0/n8ETGn5vyGfY+05QHPIQCivb3wOf259LXHXIus6Gzw+zGsjFN6GSt1X6oxspkPWKx4jWh5Ob7ZxV0q6sNjXJtLT50fhDcbpbe2SQyyW6z6+6FLONCiIyMSGvmIIyqyUW1BSb5zy6cIbROArmjCO+FBwt4QpWPKTKk3mFXK/yiQdDJf4R9CP6d1RK4tXtxJePgelbuHvLv+SbEW9hwCAreM7mLQh/0RUo8m3bDwtRdmnVUPHePY1O0yMQkb0CnT95e3b2R3IG6hN2kzoHerGh4b/5wAF2bpTA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DS0PR12MB6413.namprd12.prod.outlook.com (2603:10b6:8:ce::10) by
- DS0PR12MB8070.namprd12.prod.outlook.com (2603:10b6:8:dc::15) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.406.7; Wed, 9 Sep 2026 04:00:53 +0000
-Received: from DS0PR12MB6413.namprd12.prod.outlook.com
- ([fe80::e82a:6673:4142:37fa]) by DS0PR12MB6413.namprd12.prod.outlook.com
- ([fe80::e82a:6673:4142:37fa%5]) with mapi id 15.21.0406.005; Wed, 9 Sep 2026
- 04:00:53 +0000
-From: Eliot Courtney <ecourtney@nvidia.com>
-Date: Wed, 09 Sep 2026 12:59:54 +0900
-Subject: [PATCH 16/16] gpu: nova-core: mm: Add BAR1 memory management
- self-tests
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20260909-mmrebase-v1-16-8dd5d4225d2e@nvidia.com>
-References: <20260909-mmrebase-v1-0-8dd5d4225d2e@nvidia.com>
-In-Reply-To: <20260909-mmrebase-v1-0-8dd5d4225d2e@nvidia.com>
-To: Danilo Krummrich <dakr@kernel.org>, 
- Alexandre Courbot <acourbot@nvidia.com>
-Cc: Alice Ryhl <aliceryhl@google.com>, John Hubbard <jhubbard@nvidia.com>, 
- Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>, 
- nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Eliot Courtney <ecourtney@nvidia.com>, 
- Joel Fernandes <joelagnelf@nvidia.com>
-X-Mailer: b4 0.15.2
-X-ClientProxiedBy: TY4P301CA0111.JPNP301.PROD.OUTLOOK.COM
- (2603:1096:405:37b::10) To DS0PR12MB6413.namprd12.prod.outlook.com
- (2603:10b6:8:ce::10)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="KMmpulum";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="UjTMp0T1"
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 688MgRgo482453
+	for <linux-kernel@vger.kernel.org>; Wed, 9 Sep 2026 04:06:04 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	d1+atJR6FDQQspxnJlEifDjkb7d3prg4wHIrPk7shYw=; b=KMmpulumqUHxy974
+	LfPhlTuVkXLjKQydr+Jk37/5pYuE/aYqT4tC0rtx0xep6Z5Zc5hGXyE6V9uyi5mI
+	L/V60lpVH2wyw0p2Mlpo4yQ1GB03B1HDEsfLxPszNNFMi7DZk1e9HUT7emg9Z9+U
+	eF4pf8YDJaolfMdnwLk2Ob1sp2FIqKSbWnKarkKJyWBWmndlFso0JGU1WEB8FdBd
+	XQVtgWOwao48Xfz+/PMa8Wz8mhMsX0OMm7QVNVEgUiSagatS+4lNxS8npn2CZD6j
+	2tPNYbq0BQEv+Gkv8oI6hdQcVuQmAs33AnuBsN8FisVBXZ1s3GOeUYeNVpULDJZQ
+	QvTgpA==
+Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gjqf1j0hc-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 04:06:04 +0000 (GMT)
+Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-381250979d5so6623122a91.0
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 21:06:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1788926763; x=1789531563; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=d1+atJR6FDQQspxnJlEifDjkb7d3prg4wHIrPk7shYw=;
+        b=UjTMp0T1j3VVNySwD6yEiRExrCP17XQ2n/pDWHis8LLlP31LfX8yqyL4Z3R4vlyvBQ
+         uUF1496Kc/yWTkIcoTMG3xyQO3rOS+D3neY9p4CGTS39ghr96nI6G2h1p63QgAP82+xn
+         4bcwb5lzGaa3MHfDuxV6QVUBteUIcUfEVRF8K9z33hgOpSsebxqIE7drSY/j4843M1lX
+         oJJL2f+RosiIN38t6oMoaNZ9vCjMUPnoz1kfdXO41Hx8p/vwNXyI+6eq7/ez7rwpHacd
+         0b+fPZP9rQViJmWyevtTKSzKfsoWys3hFdkVKEduEX/fzXfXm2TCjHswXTfruXUv4z+3
+         jp+A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788926763; x=1789531563;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=d1+atJR6FDQQspxnJlEifDjkb7d3prg4wHIrPk7shYw=;
+        b=h50Gwmx7OU3rg7TD1yCB8hcfbdaOyV3ml8afr8AL/KcGKskrLXHllcO9nrpMFC2dwe
+         S8UOIHPMwoV+utLc4/q9YO1YWJzcfYB3hdIPwKarrxtZmohpxutDD4gEFFnoV/q+XUCr
+         UfRHko5EaLa++3T1IdRa/Cutz4wGKYjerx6p7yu0DYSSzqnLV4XOvjldgLfS59f3bOu2
+         4XoOYz9NUcQQxlVp6RoZbhIsqMqZ5uSRi0wOwipXKSE0cmWAy1uR2r2lPDZGyZmM3qmG
+         UEU//lsWcO+4xtPw1wAE7LFhrLikP+UyRHpHlN4OVSCKu9UWU8D1o0JVmEcLQlY0uBy6
+         E9rA==
+X-Forwarded-Encrypted: i=1; AKwUvBxTLT2xoFbZUciiD9DsP7fdjXHDOpQuF8gremAP6Bb2uufUyxeE2p3ZiVJd9jeCI5uKBsXVn2LE95dGQcE=@vger.kernel.org
+X-Gm-Message-State: AFuF++m1zd25geEKmeD5tYjcAvfLwezsIrqfvC7VtCXEnKLH2Hw+mvoc
+	+snJ16iTAv/AZn9JwFUcErJfuIWfixvZQK0fOBxN7sgW8hMG2HO55P3Dq420jq1IdAI9sEwWrx/
+	udw+iroIr+S26COXc8nQKvcWp9oQ7DdOMD8V7AfCMb3p2B49kXjNwd+z0WGE5lSZhtSs=
+X-Gm-Gg: AYBFou0BizKBHlOhVg3VNVDPanngtVfHonf41sqCvndp8N75EYw7C7pP04AhdOTA91G
+	arCupob8hLIhQGYidsGx6yLLdH9BbDwdJaf8H1Hc9mb+LrKwMQ4FaJgvs3peyp19BjjOzCr/iYl
+	x923iQJQz9Vh7dtryruzsgKIt+pfbpsQ4kiUs1ME0h+nXyZPByTuvbtwXX5+ylpEH6QzSprE3qr
+	8y9XoDftPif08h/QswEkUrjNOTYS7hVi/fZ4a73z2R5rUN2z68S+bHwWhz1Ao54aSwuExVsClAa
+	WlvQBKxQDCTo+5P55AkhtuNlGeX6ODfJvKomuftf2AYNhIzuAXruTidHxZG2/QWlbe51Ki4Csp1
+	CqCFh15no9WackxpjRAVcxen7IVuw+XLW3w==
+X-Received: by 2002:a17:90b:2749:b0:398:d292:e6d5 with SMTP id 98e67ed59e1d1-39b26304385mr50410119a91.24.1788926763187;
+        Tue, 08 Sep 2026 21:06:03 -0700 (PDT)
+X-Received: by 2002:a17:90b:2749:b0:398:d292:e6d5 with SMTP id 98e67ed59e1d1-39b26304385mr50410062a91.24.1788926762690;
+        Tue, 08 Sep 2026 21:06:02 -0700 (PDT)
+Received: from [10.218.39.50] ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339a534df1sm46654957eec.7.2026.09.08.21.05.59
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 08 Sep 2026 21:06:02 -0700 (PDT)
+Message-ID: <dfcecd58-d6ec-4694-81b6-fe6d45d4a7d4@oss.qualcomm.com>
+Date: Wed, 9 Sep 2026 09:35:57 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR12MB6413:EE_|DS0PR12MB8070:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3517869c-18c6-4a08-94e5-08df0e26f1a1
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|23010399003|10070799003|376014|366016|10067099003|6133799003|22082099003|18002099003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	44msYEh8j5g6IBxV0+3nxM3AwQT2kbj3He138hwh90/ZATarfIyP0kCO46t0KMZRLyWyld2Qv9vWSUgERerWSiINDH0uI3Rw6BMkkWPk4qyMBoRTQZKP/ArMONiVSdKOyuxWECya+3ryKo4IewnZJHsjIiL2NFb997cKbsMPQwMAwCHzcMkOhsmYa9wU1Qb+Dvo8Sy2j+rSaGUCe/9AjuRvLbfWj1DA0m1fELHnKQ19cEUfq0dBIITUEU0Mu3p5S+7l3mm32fRqRraY6LhOhqIjK4d1od5Lbuj/YrQiC/RLF+3wrQDUqYqKXL58rqKDtP+T5OyDce7gorSs6F91MSafpNWSG+L4rqM6jLRl2wCixHOyWkNAVtxUYzaUxThKpViSDrEFZdtAvDM4b3FXNrRvqclyuheT62Z7NUsi1Wqa+JGmc9Vb7ZecPZhCltFO5BAY8YmrffIVZM/5TBzm8dj3Ohz7dSzJPwQePspNx14AHET51Q+apBpSOqXBkYPlD/do2+X4fMyY0EJ0/qZB/nuB80nKo27qur/EvURXrAhsV6pAWvwm8dDUWW4lEd8tcaW/hyY3bTY0lnjkERnrCqOEH5Fl7TJICxr4AEilZWrahJEDZWEFQcDG3cGSgdxftiVkeByBtYdqXVdvqBMVmjedbQ/bpv9US5eAsBfumC7o=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR12MB6413.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(10070799003)(376014)(366016)(10067099003)(6133799003)(22082099003)(18002099003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?NDdkUnhkMGRHbnBHdkE4SXhMR1M2VFloZ0RVaktCL0tRQ1lFOUtLVlQxYkNW?=
- =?utf-8?B?Q2lxeFd1QndNenNvemxQWVRDQmo0SmRVLzZIUS80TFYzNEZ2UjNid1FEN2V2?=
- =?utf-8?B?RHFqNmEzSnl0VGh1SWtwSzFXakIra1gxZUZDa05XM08veFJrNDl4L3c2N1Bp?=
- =?utf-8?B?MThickt3QVU3dC9XRStwbGVkV2ZFa05TQTkrVlN3S2krdmhTdWVaMGpFTEJk?=
- =?utf-8?B?a3hHbmtqNmllME15OEZRalBUTU1VL1o0eDFVQnk2NUUzcGpyaStnNFBlUmQv?=
- =?utf-8?B?UmdFMmE1RXExSmoxV1B1T1I5OTM5OXdiQ3VEQUJTVjJWdTZFcDE5UWRtSTNQ?=
- =?utf-8?B?R09SaEJEWloxclloWG1xZ21sL1IrMzJCYUVtL1NZNC8xQUIvaXZvaURoWStI?=
- =?utf-8?B?cGVQZXFIZXlZcWczQWk2M0RZZGtDYTQwWXVhWGloRy9INWVRbloyUmloVnFv?=
- =?utf-8?B?VXZvbTdFMXpuSWdLRkFpcVN6cXVxcFh2K1hzdEFvT3NRTktvS3NReWpUZ3dx?=
- =?utf-8?B?V054ODZyQ2ExTGY5L3h2eTM4OFEzeVo3RTBDVEVvS1o2WmJ6UFRFcisrRzR2?=
- =?utf-8?B?d2ljNmNkeFBzQTBvSzFLaGUrVUY5RW5HdldpZDlUanYzeTZEVE56N3pXQ0wy?=
- =?utf-8?B?bE9tTFkwaWRjMlgxNXhWR09MMDJPa3NEWlB2TjA0ZktmMWVqeDlWVUNYckRl?=
- =?utf-8?B?bTlLVFQ1dzFGM3J4ZU1ZUktCWC8xSXZLTm12bnhQam5XN1R0ejlZY01lUWxx?=
- =?utf-8?B?dzFBb1FHV1dKdkNYVzBma3FrL09BQk53a0xqRFZWTzk2VGl3Y2dpdHNzZCtS?=
- =?utf-8?B?WHFuTGJxOTllQlYzUlE3Vzc1ZVZta0J2b1R2R1hCbysyU3Z0d3pYVlJhajAw?=
- =?utf-8?B?Sy9tSzRsZ3RaNzBOb1ZpdFZJajFVRUpvWXZLVGZydWZuY2NJbGQxQjhvNGsy?=
- =?utf-8?B?L3pZVHhOZ0tKQzZTcEdMc2NObDlkOVZKbHdSalpxZVM3QkUzam1OTDVIbkVB?=
- =?utf-8?B?S2NBdHhpcEFDSDIwYmU0Y0xCWW96bnpmM0M1Y2lPc0YrMnZRWDNaKzQ1NTNJ?=
- =?utf-8?B?MitleDVrVytVYmRXc1FVUXBqcWNKVUxMcUNiaDg2YXVKS250RGgrbG9ySVFH?=
- =?utf-8?B?TUdCUTRPU3lQQ2R6RGdlQzVTeEh4OERldnFKSDh6VEZSWDRhUXR2Yk1BTlZi?=
- =?utf-8?B?ZkI4WDkxN2lpV1R6NEt5bmhMT3hCNytOV2Rva2oyRkJneEhLcnA1QkpyNmJ5?=
- =?utf-8?B?bmVoS1VDSGVZVllpWTEyVFM5N2syOEx4VTBWZUhjUjFPOGdsZ3krTG5yVkp5?=
- =?utf-8?B?c1V1MUN6YTM1Z0dOS2Y5b2Q2V0tBNThwZDlhaVczOGJBeWdLWTU3R3VRRlJH?=
- =?utf-8?B?SGNWR0RGc1dTUFRDU29tS2w4MllTOE5VMTFYVElGcGNhbnVtY3VKVjFMQ0Zj?=
- =?utf-8?B?T3kwVUJLc01ZM1dNaUM1N0xLVTIzNXpTYVhGVEVCV0lXUitGOGZNTlNPZVJ6?=
- =?utf-8?B?MlZ3SFFVK3BqRGo3YkpXNWt2ZE9VY2RBNForNURGZW1Rb0EzSlVwOXlQS0Jy?=
- =?utf-8?B?aC9kREhkVmVSdHQ2K1hUSDFxRFlDUC9lSVAvbVJwSmw0MUJWS0JCNnNYa2Va?=
- =?utf-8?B?N1cxZ3lqNXpBN0hUL01SNXBnWUFtTklxR1BNK2U0K05yaWwrNWNsYW1KME9i?=
- =?utf-8?B?aWRRTDNIQWNpb25lYnBNMjF4TTJVdzZEMXUyV2ZWRTBhR1h6U3FaSFlITXRE?=
- =?utf-8?B?T1JJVVlwTzRyL0FiS3J0dGVwM09hUlovejVtRDc4UUQ2TjYraFMxZUlIQTZQ?=
- =?utf-8?B?aE1SVE0wUUNyampJMXdhd3FTT200VEtzTWp0aEJuTXVSVDRvSkVmY3ZsSWZL?=
- =?utf-8?B?eldYUXdhM1ZscjRBNW11bm9na25QZERmWndPUVlTMFIxOW53U3ZEbWs0VkYr?=
- =?utf-8?B?ejVoWHVPL2dZV1Y3VlptVEJtZ1UvQWJ3RVdSOHhITlVCemlDclg1VFg3VURu?=
- =?utf-8?B?ZFZZZWg3dTI3VC9mcFdTU055TVcwbm44T3VhM2VXZmh4c3NtRVVYbDVjUUU2?=
- =?utf-8?B?QVJlWERyY2hidHIwYXh5UWtKNE0wZEhTZlFQaXc4eDdrTVRzM0pndG1LazN5?=
- =?utf-8?B?L2o1eGxEdFZvakdSdDFKM2RPYWR0TFRlT0p6dVYrWldiWm1SeEU4NXJqOG1n?=
- =?utf-8?B?ZzNiNUtWd0p5akNqN0xqRm9hTGFGbkFjRXI3OVZBVkM4UytRSGdyR3JRWHhx?=
- =?utf-8?B?QzU5NUdWZUI5b01sQ3NXOTY5SUU0SndVcE9ZdmtaZ2E3Ym8yYlFGSm1vd1h5?=
- =?utf-8?B?WHVhSFVtVm45QmFsL29aY1huK0g5UWtIRCtZMm5rT3FOc2w3akVENjRMWWV1?=
- =?utf-8?Q?vEgOKZwoBYzseqMm2Az6EH3h+rpdHQyPDXMTcqhBnLV1S?=
-X-MS-Exchange-AntiSpam-MessageData-1: xM2IBFIuKQwXqg==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3517869c-18c6-4a08-94e5-08df0e26f1a1
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6413.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Sep 2026 04:00:53.6493
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: X+mX+zZ/uY3cEm0eggrJBWCBpEE2cY5E1ut2swDWXXPfSkSjKv6TpKqVgQhiAhUq1JZfP4m2aAGYPkCeRCnUqg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8070
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4] iommu/io-pgtable-arm: Add support for contiguous hint
+ bit
+To: Jason Gunthorpe <jgg@ziepe.ca>, Daniel Mentz <danielmentz@google.com>
+Cc: Prakash Gupta <prakash.gupta@oss.qualcomm.com>,
+        Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+        "Joerg Roedel (AMD)" <joro@8bytes.org>, linux-arm-msm@vger.kernel.org,
+        linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev,
+        linux-kernel@vger.kernel.org
+References: <20260804-iommu_contig_hint-v4-1-d7a47ed5db98@oss.qualcomm.com>
+ <CAE2F3rBQQEHsksOyE2ojQPbMd_vvFqaFMC2RzT0B6KkxMB5YgQ@mail.gmail.com>
+ <c84e61b1-785e-4a47-9082-c5111bf35fd4@oss.qualcomm.com>
+ <CAE2F3rC80=ZpiHVtmRDU6f8g4AwV_RrJ-Zqr0Xi7zbUc0fsQog@mail.gmail.com>
+ <9c28300b-a17f-4324-b9d5-8fc800e4d794@oss.qualcomm.com>
+ <CAE2F3rDdogf1jGsD2ekGqT7X692fFyqv=H-8iM5OTu8AdHHoJg@mail.gmail.com>
+ <CAE2F3rAeq_CPeaDxuh40v41v2f=68oD2TqK9DYSPKz9F74kqeg@mail.gmail.com>
+ <20260908164746.GC2543240@ziepe.ca>
+Content-Language: en-US
+From: Vijayanand Jitta <vijayanand.jitta@oss.qualcomm.com>
+In-Reply-To: <20260908164746.GC2543240@ziepe.ca>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA5MDA0MyBTYWx0ZWRfX5Kt8cnCtn4Tq
+ jTZaJcHkbtAdE0WENoW5GT9UkendxtLD3kfqfq4T0RaOFUcL6ldWjh6Qi5mAHfYe7zxv70u68Ch
+ TZG3yI/NeijIID9Ncc485rFN0NQHaH3aQKmNO1Pp4IVzkTAzGMN2DBYnKH/AWJdeIhPx0/AbkP0
+ dGfhIt8Y85GGHNKMDIOztFwoeYhfHPUH7SmIGpZ8ZqEiNELo+/vSWf3iaEa7AB4OOMcYKCk6iv1
+ EgdlK9mmxWonkindNbU+yikRQOz2FVnUQGSnLcQ7mvLvekYTbrFBBSw9U77Bm/Z5oAfAGqsxebS
+ D/QxIGKwhkE92gf08g5SCjkpNZZ4GQlzI1Z1KWT9fsFT0p1hkC0mm3K+5UDcR1H4DtNa7ODx/I9
+ zcxvi+NcmCbGwIMMURSy3KPuIAKg/gTDheO6DoApzbeLY8kD89gfImt8Wo4VkQaOs+bv0RXWjWW
+ ZcdjMcZyDAbxskMGR9w==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA5MDA0MyBTYWx0ZWRfX45Bm9BFe+laB
+ gLhx8zdAIb1EO1iAcOwxKpDnqZ21vIsXNIs/RKjZ8Ng9AjhFBMiJkb3iegCsH5PK2ASLuxmXPDc
+ a+pEHH2ePV1VK6ORaC/ZRWm1/M4p6F4=
+X-Proofpoint-GUID: yDnSqv2-gqon0TKQTqkYrlwogp9ZpVDN
+X-Authority-Analysis: v=2.4 cv=JY2Ma0KV c=1 sm=1 tr=0 ts=6aa0db2c cx=c_pps
+ a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
+ a=VwQbUJbxAAAA:8 a=1XWaLZrsAAAA:8 a=zcW-mOqCcEHC3mfLxN4A:9 a=QEXdDO2ut3YA:10
+ a=uKXjsCUrEbL0IQVhDsJ9:22
+X-Proofpoint-ORIG-GUID: yDnSqv2-gqon0TKQTqkYrlwogp9ZpVDN
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-08_03,2026-09-08_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 clxscore=1015 malwarescore=0 lowpriorityscore=0 phishscore=0
+ suspectscore=0 adultscore=0 priorityscore=1501 spamscore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609090043
 
-From: Joel Fernandes <joelagnelf@nvidia.com>
 
-Add self-tests for BAR1 access during driver probe when
-CONFIG_NOVA_CORE_SELFTESTS is enabled (default disabled). This results in
-testing the Vmm, GPU buddy allocator and BAR1 region all of which should
-function correctly for the tests to pass.
 
-Signed-off-by: Joel Fernandes <joelagnelf@nvidia.com>
-[ecourtney: use existing self-test runner and CONFIG_NOVA_CORE_SELFTESTS]
-[ecourtney: update for mutable GpuMm, PRAMIN views and VramAddress raw API]
-[ecourtney: restore the conditional dead_code expect]
-Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
----
- drivers/gpu/nova-core/gpu.rs          |   9 +-
- drivers/gpu/nova-core/mm.rs           |  12 +-
- drivers/gpu/nova-core/mm/bar_user.rs  | 251 ++++++++++++++++++++++++++++++++++
- drivers/gpu/nova-core/mm/pagetable.rs |  24 ++++
- drivers/gpu/nova-core/mm/vmm.rs       |   1 +
- 5 files changed, 293 insertions(+), 4 deletions(-)
+On 9/8/2026 10:17 PM, Jason Gunthorpe wrote:
+> On Tue, Sep 08, 2026 at 09:36:35AM -0700, Daniel Mentz wrote:
+>>>> That said, install_leaf() is shared by other callers that reach it through
+>>>> ops->map_pages() directly, without going through iommu_pgsize(). panthor_vm_map_pages()
+>>>> (drivers/gpu/drm/panthor/panthor_mmu.c) is one -- it allocates its io_pgtable_ops via
+>>>> alloc_io_pgtable_ops(ARM_64_LPAE_S1, ...), same as any other LPAE consumer, but does its
+>>>> own chunking with a local get_pgsize() that only ever returns SZ_4K or SZ_2M, with no
+>>>> notion of the 64K/32M CONT boundaries. That can hand install_leaf() exactly the mixed
+>>>> iova=paddr=0x1000, pgcount=34 shape in a single call (panfrost's map loop uses the same
+>>>> get_pgsize() and hits the same case). So the prefix/aligned-group/suffix handling in
+>>>> install_leaf() is still needed for that path.
+>>>
+>>> Maybe other people can chime in here, but I feel, from an API
+>>> perspective, we should have only one way to make of use iopgtable. I
+>>> think we should just mandate that users honor the updated value for
+>>> pgtbl_cfg.pgsize_bitmap (and pgtbl_cfg.ias) after the
+>>> alloc_io_pgtable_ops() call and then choose page sizes appropriately.
+>>> Otherwise, we end up with two pieces of code in the kernel solving the
+>>> same problem. panthor_mmu won't be able to take advantage of the
+>>> contiguous bit until it gets updated accordingly, and that's ok.
+>>
+>> On this note, I want to point out that I tried something similar in
+>> 2025 (see https://lore.kernel.org/linux-iommu/20250430231924.1481493-1-danielmentz@google.com/).
+>> The feedback I received from Jason at the time was:
+>>
+>> "Wouldn't it be better to use the pgsize_bitmap and rely on the core
+>> code to indicate that a contiguous page size is being used, so it can
+>> trivially set the PTE bit without doing all this extra work?"
+> 
+> Still think this is right, Panthor is not using it well if it doesn't
+> jump through all the hoops. Probably there should be an general entry
+> point for map/unmap that does the right stuff for the DRM drivers to
+> call.
+> 
+> Jason
 
-diff --git a/drivers/gpu/nova-core/gpu.rs b/drivers/gpu/nova-core/gpu.rs
-index f72a92e045e5..f5bdfdea803a 100644
---- a/drivers/gpu/nova-core/gpu.rs
-+++ b/drivers/gpu/nova-core/gpu.rs
-@@ -482,7 +482,14 @@ pub(crate) fn run_selftests(self: Pin<&mut Self>, pdev: &pci::Device<device::Bou
-         let dev = pdev.as_ref();
-         let regions = &this.gsp_static_info.usable_fb_regions;
- 
--        if let Err(err) = crate::mm::selftest::run(dev, this.mm, regions) {
-+        if let Err(err) = crate::mm::selftest::run(
-+            dev,
-+            this.mm,
-+            regions,
-+            this.bar_user,
-+            this.gsp_static_info.bar1_pde_base,
-+            this.spec.chipset,
-+        ) {
-             dev_err!(dev, "self-tests failed: {:?}\n", err);
-         }
-     }
-diff --git a/drivers/gpu/nova-core/mm.rs b/drivers/gpu/nova-core/mm.rs
-index e04497256519..a5bc4042577b 100644
---- a/drivers/gpu/nova-core/mm.rs
-+++ b/drivers/gpu/nova-core/mm.rs
-@@ -3,7 +3,7 @@
- 
- //! Memory management subsystems.
- 
--#![expect(dead_code)]
-+#![cfg_attr(not(CONFIG_NOVA_CORE_SELFTESTS), expect(dead_code))]
- 
- /// Implements `From` conversions between a frame-number type and `Bounded<u64, N>`.
- ///
-@@ -202,6 +202,7 @@ pub(crate) struct VirtualAddress(u64) {
- 
- impl VirtualAddress {
-     /// Create a new virtual address from a raw value.
-+    #[expect(dead_code)]
-     pub(crate) const fn new(addr: u64) -> Self {
-         Self::from_raw(addr)
-     }
-@@ -297,7 +298,8 @@ pub(crate) mod selftest {
- 
-     use kernel::{
-         device,
--        sizes::SizeConstants, //
-+        sizes::SizeConstants,
-+        sync::Arc, //
-     };
- 
-     use super::*;
-@@ -307,6 +309,9 @@ pub(crate) fn run(
-         dev: &device::Device<device::Bound>,
-         mm: &mut GpuMm<'_>,
-         usable_fb_regions: &[Range<u64>],
-+        bar_user: &Arc<bar_user::BarUser<'_>>,
-+        bar1_pdb: u64,
-+        chipset: Chipset,
-     ) -> Result {
-         // VRAM span the self-tests are free to overwrite, from the chosen test base.
-         const SELFTEST_SPAN: u64 = u64::SZ_64M;
-@@ -325,6 +330,7 @@ pub(crate) fn run(
-             return Ok(());
-         };
- 
--        pramin::selftest::run(dev, mm.pramin_mut(), VramAddress::from_raw(base))
-+        pramin::selftest::run(dev, mm.pramin_mut(), VramAddress::from_raw(base))?;
-+        bar_user::run_self_test(dev, mm, bar_user, bar1_pdb, chipset)
-     }
- }
-diff --git a/drivers/gpu/nova-core/mm/bar_user.rs b/drivers/gpu/nova-core/mm/bar_user.rs
-index ef1d8e6f8c9c..1bef01d147ad 100644
---- a/drivers/gpu/nova-core/mm/bar_user.rs
-+++ b/drivers/gpu/nova-core/mm/bar_user.rs
-@@ -31,6 +31,9 @@
-     num::IntoSafeCast,
- };
- 
-+#[cfg(CONFIG_NOVA_CORE_SELFTESTS)]
-+use kernel::device;
-+
- /// BAR1 user interface for virtual memory mappings.
- ///
- /// Owns the [`Vmm`] for the BAR1 address space.
-@@ -84,6 +87,7 @@ pub(crate) struct BarUserAccess<'gpu> {
-     mapped: Option<MappedRange>,
- }
- 
-+#[expect(dead_code)]
- impl BarUserAccess<'_> {
-     /// Tear down the BAR1 mapping.
-     pub(crate) fn release(mut self, mm: &mut GpuMm<'_>) -> Result {
-@@ -169,3 +173,250 @@ fn drop(&mut self) {
-         // identifying the leaked VA range.
-     }
- }
-+
-+/// Run MM subsystem self-tests during probe.
-+///
-+/// Tests page table infrastructure and `BAR1` MMIO access using the `BAR1`
-+/// address space. Uses the `GpuMm`'s buddy allocator to allocate page tables
-+/// and test pages as needed.
-+#[cfg(CONFIG_NOVA_CORE_SELFTESTS)]
-+pub(crate) fn run_self_test(
-+    dev: &device::Device<device::Bound>,
-+    mm: &mut GpuMm<'_>,
-+    bar_user: &Arc<BarUser<'_>>,
-+    bar1_pdb: u64,
-+    chipset: Chipset,
-+) -> Result {
-+    use kernel::gpu::buddy::{
-+        GpuBuddyAllocFlags,
-+        GpuBuddyAllocMode, //
-+    };
-+    use kernel::ptr::Alignment;
-+    use kernel::sizes::{
-+        SZ_16K,
-+        SZ_32K,
-+        SZ_4K,
-+        SZ_64K, //
-+    };
-+
-+    // Test patterns.
-+    const PATTERN_PRAMIN: u32 = 0xDEAD_BEEF;
-+    const PATTERN_BAR1: u32 = 0xCAFE_BABE;
-+
-+    let bar1 = bar_user.bar1;
-+    dev_info!(dev, "MM: Starting self-test...\n");
-+
-+    let pdb_addr = VramAddress::from_raw(bar1_pdb);
-+
-+    // Check if initial page tables are in VRAM.
-+    if crate::mm::pagetable::check_pdb_valid(mm.pramin_mut(), pdb_addr, chipset).is_err() {
-+        dev_info!(dev, "MM: Self-test SKIPPED - no valid VRAM page tables\n");
-+        return Ok(());
-+    }
-+
-+    // Set up a test page from the buddy allocator.
-+    let test_page_blocks = KBox::pin_init(
-+        mm.buddy().alloc_blocks(
-+            GpuBuddyAllocMode::Simple,
-+            SZ_4K.into_safe_cast(),
-+            Alignment::new::<SZ_4K>(),
-+            GpuBuddyAllocFlags::default(),
-+        ),
-+        GFP_KERNEL,
-+    )?;
-+    let test_vram_offset = test_page_blocks.iter().next().ok_or(ENOMEM)?.offset();
-+    let test_vram = VramAddress::from_raw(test_vram_offset);
-+    let test_pfn = Pfn::from(test_vram);
-+
-+    // Create a VMM of size 64K to track virtual memory mappings.
-+    let mut vmm = Vmm::new(pdb_addr, chipset.mmu_version(), SZ_64K.into_safe_cast())?;
-+
-+    // Create a test mapping.
-+    let mapped = vmm.map_pages(mm, &[test_pfn], None, true)?;
-+    let test_vfn = mapped.vfn_start;
-+
-+    // Pre-compute test addresses for the PRAMIN to BAR1 read test.
-+    let vfn_offset: usize = test_vfn.raw().into_safe_cast();
-+    let bar1_base_offset = vfn_offset.checked_mul(PAGE_SIZE).ok_or(EOVERFLOW)?;
-+    let bar1_read_offset: usize = bar1_base_offset + 0x100;
-+    let vram_read_addr = test_vram + 0x100;
-+
-+    // Test 1: Write via PRAMIN, read via BAR1.
-+    mm.pramin_mut()
-+        .window_at::<u32>(vram_read_addr)?
-+        .view()
-+        .write_val(PATTERN_PRAMIN);
-+
-+    // Read back via BAR1 aperture.
-+    let bar1_value = bar1.try_read32(bar1_read_offset)?;
-+
-+    let test1_passed = if bar1_value == PATTERN_PRAMIN {
-+        true
-+    } else {
-+        dev_err!(
-+            dev,
-+            "MM: Test 1 FAILED - Expected {:#010x}, got {:#010x}\n",
-+            PATTERN_PRAMIN,
-+            bar1_value
-+        );
-+        false
-+    };
-+
-+    // Cleanup - invalidate PTE.
-+    vmm.unmap_pages(mm, mapped)?;
-+
-+    // Test 2: Two-phase prepare/execute API.
-+    let prepared = vmm.prepare_map(mm, 1, None)?;
-+    let mapped2 = vmm.execute_map(mm, prepared, &[test_pfn], true)?;
-+    let readback = vmm.read_mapping(mm, mapped2.vfn_start)?;
-+    let test2_passed = if readback == Some(test_pfn) {
-+        true
-+    } else {
-+        dev_err!(dev, "MM: Test 2 FAILED - Two-phase map readback mismatch\n");
-+        false
-+    };
-+    vmm.unmap_pages(mm, mapped2)?;
-+
-+    // Test 3: Range-constrained allocation with a hole — exercises block.size()-driven
-+    // BAR1 mapping. A 4K hole is punched at base+16K, then a single 32K allocation
-+    // is requested within [base, base+36K). The buddy allocator must split around the
-+    // hole, returning multiple blocks (expected: {16K, 4K, 8K, 4K} = 32K total).
-+    // Each block is mapped into BAR1 and verified via PRAMIN read-back.
-+    //
-+    // Address layout (base = 0x10000):
-+    //   [    16K    ] [HOLE 4K] [4K] [ 8K ] [4K]
-+    //   0x10000       0x14000  0x15000 0x16000 0x18000 0x19000
-+    let range_base: u64 = SZ_64K.into_safe_cast();
-+    let sz_4k: u64 = SZ_4K.into_safe_cast();
-+    let sz_16k: u64 = SZ_16K.into_safe_cast();
-+    let sz_32k_4k: u64 = (SZ_32K + SZ_4K).into_safe_cast();
-+
-+    // Punch a 4K hole at base+16K so the subsequent 32K allocation must split.
-+    let _hole = KBox::pin_init(
-+        mm.buddy().alloc_blocks(
-+            GpuBuddyAllocMode::Range(range_base + sz_16k..range_base + sz_16k + sz_4k),
-+            SZ_4K.into_safe_cast(),
-+            Alignment::new::<SZ_4K>(),
-+            GpuBuddyAllocFlags::default(),
-+        ),
-+        GFP_KERNEL,
-+    )?;
-+
-+    // Allocate 32K within [base, base+36K). The hole forces the allocator to return
-+    // split blocks whose sizes are determined by buddy alignment.
-+    let blocks = KBox::pin_init(
-+        mm.buddy().alloc_blocks(
-+            GpuBuddyAllocMode::Range(range_base..range_base + sz_32k_4k),
-+            SZ_32K.into_safe_cast(),
-+            Alignment::new::<SZ_4K>(),
-+            GpuBuddyAllocFlags::default(),
-+        ),
-+        GFP_KERNEL,
-+    )?;
-+
-+    let mut test3_passed = true;
-+    let mut total_size = 0usize;
-+
-+    for block in blocks.iter() {
-+        total_size += IntoSafeCast::<usize>::into_safe_cast(block.size());
-+
-+        // Map all pages of this block.
-+        let page_size: u64 = PAGE_SIZE.into_safe_cast();
-+        let num_pages: usize = (block.size() / page_size).into_safe_cast();
-+
-+        let mut pfns = KVec::new();
-+        for j in 0..num_pages {
-+            let j_u64: u64 = j.into_safe_cast();
-+            pfns.push(
-+                Pfn::from(VramAddress::from_raw(
-+                    block.offset() + j_u64.checked_mul(page_size).ok_or(EOVERFLOW)?,
-+                )),
-+                GFP_KERNEL,
-+            )?;
-+        }
-+
-+        let mapped = vmm.map_pages(mm, &pfns, None, true)?;
-+        let bar1_base_vfn: usize = mapped.vfn_start.raw().into_safe_cast();
-+        let bar1_base = bar1_base_vfn.checked_mul(PAGE_SIZE).ok_or(EOVERFLOW)?;
-+
-+        for j in 0..num_pages {
-+            let page_bar1_off = bar1_base + j * PAGE_SIZE;
-+            let j_u64: u64 = j.into_safe_cast();
-+            let page_phys = block.offset()
-+                + j_u64
-+                    .checked_mul(PAGE_SIZE.into_safe_cast())
-+                    .ok_or(EOVERFLOW)?;
-+
-+            bar1.try_write32(PATTERN_BAR1, page_bar1_off)?;
-+
-+            let pramin_val = mm
-+                .pramin_mut()
-+                .window_at::<u32>(VramAddress::from_raw(page_phys))?
-+                .view()
-+                .read_val();
-+
-+            if pramin_val != PATTERN_BAR1 {
-+                dev_err!(
-+                    dev,
-+                    "MM: Test 3 FAILED block offset {:#x} page {} (val={:#x})\n",
-+                    block.offset(),
-+                    j,
-+                    pramin_val
-+                );
-+                test3_passed = false;
-+            }
-+        }
-+
-+        vmm.unmap_pages(mm, mapped)?;
-+    }
-+
-+    // Verify aggregate: all returned block sizes must sum to allocation size.
-+    if total_size != SZ_32K {
-+        dev_err!(
-+            dev,
-+            "MM: Test 3 FAILED - total size {} != expected {}\n",
-+            total_size,
-+            SZ_32K
-+        );
-+        test3_passed = false;
-+    }
-+
-+    // Release Tests 1-3's Vmm before Test 4 constructs a fresh BarUser on
-+    // the same PDB.
-+    drop(vmm);
-+
-+    // Test 4: Exercise `BarUser::map()` end-to-end.
-+    let bar_user = Arc::pin_init(
-+        BarUser::new(pdb_addr, chipset, SZ_64K.into_safe_cast(), bar1)?,
-+        GFP_KERNEL,
-+    )?;
-+    let access = bar_user.map(mm, &[test_pfn], true)?;
-+
-+    // Write pattern via PRAMIN, read via BarUserAccess.
-+    mm.pramin_mut()
-+        .window_at::<u32>(test_vram)?
-+        .view()
-+        .write_val(PATTERN_BAR1);
-+
-+    let readback = access.try_read32(0)?;
-+    let test4_passed = if readback == PATTERN_BAR1 {
-+        true
-+    } else {
-+        dev_err!(
-+            dev,
-+            "MM: Test 4 FAILED - Expected {:#010x}, got {:#010x}\n",
-+            PATTERN_BAR1,
-+            readback
-+        );
-+        false
-+    };
-+    access.release(mm)?;
-+
-+    if test1_passed && test2_passed && test3_passed && test4_passed {
-+        dev_info!(dev, "MM: All self-tests PASSED\n");
-+        Ok(())
-+    } else {
-+        dev_err!(dev, "MM: Self-tests FAILED\n");
-+        Err(EIO)
-+    }
-+}
-diff --git a/drivers/gpu/nova-core/mm/pagetable.rs b/drivers/gpu/nova-core/mm/pagetable.rs
-index ffc69fbdb067..de2f8ea5aeef 100644
---- a/drivers/gpu/nova-core/mm/pagetable.rs
-+++ b/drivers/gpu/nova-core/mm/pagetable.rs
-@@ -396,3 +396,27 @@ fn from(val: AperturePde) -> Self {
-         Bounded::from_expr(val as u64 & 0x3)
-     }
- }
-+
-+/// Check if the PDB has valid, VRAM-backed page tables.
-+#[cfg(CONFIG_NOVA_CORE_SELFTESTS)]
-+fn check_pdb_inner<M: MmuConfig>(pramin: &mut pramin::Pramin<'_>, pdb_addr: VramAddress) -> Result {
-+    let raw = pramin.window_at::<u64>(pdb_addr)?.view().read_val();
-+
-+    if !M::Pde::from_raw(raw).is_valid_vram() {
-+        return Err(ENOENT);
-+    }
-+    Ok(())
-+}
-+
-+/// Check if the PDB has valid, VRAM-backed page tables, dispatching by MMU version.
-+#[cfg(CONFIG_NOVA_CORE_SELFTESTS)]
-+pub(super) fn check_pdb_valid(
-+    pramin: &mut pramin::Pramin<'_>,
-+    pdb_addr: VramAddress,
-+    chipset: crate::gpu::Chipset,
-+) -> Result {
-+    match MmuVersion::from(chipset.arch()) {
-+        MmuVersion::V2 => check_pdb_inner::<MmuV2>(pramin, pdb_addr),
-+        MmuVersion::V3 => check_pdb_inner::<MmuV3>(pramin, pdb_addr),
-+    }
-+}
-diff --git a/drivers/gpu/nova-core/mm/vmm.rs b/drivers/gpu/nova-core/mm/vmm.rs
-index 411710d03f7a..51b500a27233 100644
---- a/drivers/gpu/nova-core/mm/vmm.rs
-+++ b/drivers/gpu/nova-core/mm/vmm.rs
-@@ -126,6 +126,7 @@ fn drop(&mut self) {
- /// Directory Base (`PDB`) address. Used for Channel, BAR1 and BAR2 mappings.
- pub(crate) struct Vmm {
-     /// Page Directory Base address for this address space.
-+    #[expect(dead_code)]
-     pdb_addr: VramAddress,
-     /// Page table walker for reading existing mappings.
-     pt_walk: PtWalk,
+Thanks Daniel and Jason for the detailed feedback.
 
--- 
-2.55.0
+I agree that CONT-sized mappings should be selected by the caller using the
+effective pgtbl_cfg.pgsize_bitmap, rather than having io-pgtable-arm perform a
+second round of prefix/group/suffix splitting.
 
+Based on this, I will remove that logic from arm_lpae_install_leaf(). The only
+effect is that direct io_pgtable_ops users such as Panthor and Panfrost will not
+benefit from the contiguous hint.
+
+Updating Panthor/Panfrost and adding a common map/unmap entry point for direct
+io_pgtable_ops users are separate API changes, I think this can be taken up
+as a separate follow-up series.
+
+Thanks,
+Vijay
