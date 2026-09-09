@@ -1,353 +1,273 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEEB545C6FF;
-	Wed,  9 Sep 2026 21:49:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94582344DAE;
+	Wed,  9 Sep 2026 21:50:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788990578; cv=none; b=pXpoYTK3npElItAMUqv+suwEy//4TH2ur/F60UWZBSgcW9qFdUCo3VhTtJRzWayUiPMATqngjwPoJpG0YuvzvnutnM+McvzY4wI7ZdiqKYidXnO4X2YCT4+uRJX9tkZi37MngZXEHqGixRVCeTie23ij3brpig1BVEmkMXDMkOI=
+	t=1788990652; cv=none; b=i3ZIasxM+nJirrx9pMuB3BzOXQPGPnMKYOsvQfuqW4RPMAnk00wYbclE5u9uUv+fS4HtGQ79hDXRbjX49K1oUUn0rRkYx0tooPZ7/DWT1y2HItcHu5e1eQWzD0sGyy4U2HeLcRQupmXw0RYVtdA0QTaF/QUnfUQ4Ex9ejuhNwqs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788990578; c=relaxed/simple;
-	bh=C/qLou+bdSzowJRVddbVn5Ugw92s7DEQSzLndpwgEvg=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=fKppHTpECwcuWHRy7AIk+U2sEYClP1zG1MoLrKOrjLPLiFDXCvx1kn/1F+JjhOwQSL1sviQxBJHzxpqnVRw19d+HFKxVRuwazIgMcHOMe8jTdj2zq0sn8QPg7+X9UMgraJhVmOyIl3gQebllBwsSeMxbT1iIE1mJMvc2qg3rq9o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AePG5bg7; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1788990652; c=relaxed/simple;
+	bh=pDid7rjntruX2H4VEdeeqsdi59XnWiUaYIdYa5Jg+pg=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=hF+Xt/JYng9wU6Cz9FtSzAFw49GGzsEUwybajdRCFG2KVkDvzCDq0J8BaN4nzWOwqA+XdZAFqfVDmewVUBLws1BvUDFXhEVOZ4VQ7amaBWyv4Qli1ifl4gWhyBv+xsnoEUyyIDpmws0UU6JD1gjKR5/7io3vDCKu0IftQbYvHHo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IKXBB2OX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AePG5bg7"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id CC12DC2BCF5;
-	Wed,  9 Sep 2026 21:49:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1788990577;
-	bh=C/qLou+bdSzowJRVddbVn5Ugw92s7DEQSzLndpwgEvg=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=AePG5bg7bQ9Kcg7m1I5zN2FvPjPZocMuf5r8Xx1ZZxvn0bNqhTKFKqjE7zgEjg3/R
-	 14ErZWITLSfQkjBHnB0eiysmMIEZai4QJEPmpjuwDI+q+ejkhteXFb0k03Zg3NJymz
-	 LVoFbC+hjC3uOXEZEm7tOkUC0ekqgi4dTx3SzL51kiV4Mqif6KllEKbYtp/nCcmeSE
-	 cww3LxVvENGdFRW4NNhaFVlaaHYweMhpAp4z19xpG0h5FxGgd8yofCk8yjbje3YE8G
-	 DXrRK8NntOwsJ8ztqCqwERco3POaAl6pJDBY4JK8XicijTEw3wbO40YOn7I76KI/vH
-	 bd4w/FanbUz2g==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A9A69C79FBB;
-	Wed,  9 Sep 2026 21:49:37 +0000 (UTC)
-From: Ackerley Tng via B4 Relay <devnull+ackerleytng.google.com@kernel.org>
-Date: Wed, 09 Sep 2026 14:49:26 -0700
-Subject: [PATCH v2 1/4] mm: hugetlb: Track used_hpages when getting/putting
- pages from subpool
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IKXBB2OX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5613E1F000FF;
+	Wed,  9 Sep 2026 21:50:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788990648;
+	bh=SBgTT3VIWig+VgekORUqrYlktN0bs73d9DwAiyf9MpQ=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=IKXBB2OXUFUgcjdpMoqQuDCznorx5HEjNfzuxwg9G7zxBN/vvAtnxrGii/tp1m0iM
+	 Szz0AQgsCXLF6PAA9fWdr13BTpGnWc/g5mS06ztymMdfyiz0F5wop/yVjPELhmxSPA
+	 prdC2qlgVw6ykcasFwrYpVeF9k0qCJYOJEGzuxFoY+nCrTj5f/SnIovAElGXxS2bIe
+	 YMBaS+7Eumu63/XbChQY1wSHGBf/deJVcHNtFHFEIyTNcPpLrblGa21mLlZPxmWfev
+	 Z168gTCHoNwscwDgQ+70FTj4azjPfVNLNuOQW3OfmVW3SCxdZkYR7InFHKnkCxCBdq
+	 5j8E2PVPkf95g==
+Subject:
+ Re: [PATCH v2] net: stmmac: clear dma_conf in __stmmac_open error path
+From: netdev-bot+sashiko@kernel.org
+To: zhaojinming@uniontech.com
+Cc: maxime.chevallier@bootlin.com, andrew+netdev@lunn.ch, davem@davemloft.net,
+ edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+ mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com, horms@kernel.org,
+ ansuelsmth@gmail.com, Jose.Abreu@synopsys.com, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Date: Wed, 09 Sep 2026 21:50:46 +0000
+Message-ID: <178899064691.219967.12835853245703806626@kernel.org>
+In-Reply-To: =?utf-8?q?=3C20260904-fix-stmmac-mtu-change-use-after-free-v2-1?=
+ =?utf-8?q?-91e680476921=40uniontech=2Ecom=3E?=
+References: =?utf-8?q?=3C20260904-fix-stmmac-mtu-change-use-after-free-v2-1-?=
+ =?utf-8?q?91e680476921=40uniontech=2Ecom=3E?=
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20260909-hugetlb-subpool-always-track-used-v2-1-30c5d83b572a@google.com>
-References: <20260909-hugetlb-subpool-always-track-used-v2-0-30c5d83b572a@google.com>
-In-Reply-To: <20260909-hugetlb-subpool-always-track-used-v2-0-30c5d83b572a@google.com>
-To: Alex Shi <alexs@kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
- David Hildenbrand <david@kernel.org>, Dongliang Mu <dzm91@hust.edu.cn>, 
- Hongxiang Lou <louhongxiang@huawei.com>, 
- Johannes Weiner <hannes@cmpxchg.org>, Jonathan Corbet <corbet@lwn.net>, 
- Joshua Hahn <joshua.hahnjy@gmail.com>, 
- "Liam R. Howlett" <liam@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>, 
- Miaohe Lin <linmiaohe@huawei.com>, Michal Hocko <mhocko@kernel.org>, 
- Mike Rapoport <rppt@kernel.org>, Muchun Song <muchun.song@linux.dev>, 
- Nhat Pham <nphamcs@gmail.com>, Oscar Salvador <osalvador@suse.de>, 
- Peter Xu <peterx@redhat.com>, Randy Dunlap <rdunlap@infradead.org>, 
- Roman Gushchin <roman.gushchin@linux.dev>, 
- Shakeel Butt <shakeel.butt@linux.dev>, 
- Shuah Khan <skhan@linuxfoundation.org>, 
- Suren Baghdasaryan <surenb@google.com>, Usama Arif <usama.arif@linux.dev>, 
- Vlastimil Babka <vbabka@kernel.org>, Wupeng Ma <mawupeng1@huawei.com>, 
- Yanteng Si <si.yanteng@linux.dev>, fvdl@google.com, jthoughton@google.com, 
- rientjes@google.com, vannapurve@google.com
-Cc: linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-mm@kvack.org, Ackerley Tng <ackerleytng@google.com>, 
- stable@vger.kernel.org
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788990577; l=12004;
- i=ackerleytng@google.com; s=20260225; h=from:subject:message-id;
- bh=4OB6fqpvzzGnqc/A00KP3+bVbl3dmq+Xdyw7zsryO5I=;
- b=Xa5BJGhK24KwXiumolIPlGn3y/ZkVDE8cQvJZdE5pQ1YaOAopwCi1GKcKXHgILgztP9Q3Jb9+
- cMYzQtAyn8zBPBM8jFJYc6zbzH7OYV3YuWZq4Xdb+G7wiAogVmMUsx0
-X-Developer-Key: i=ackerleytng@google.com; a=ed25519;
- pk=sAZDYXdm6Iz8FHitpHeFlCMXwabodTm7p8/3/8xUxuU=
-X-Endpoint-Received: by B4 Relay for ackerleytng@google.com/20260225 with
- auth_id=649
-X-Original-From: Ackerley Tng <ackerleytng@google.com>
-Reply-To: ackerleytng@google.com
 
-From: Ackerley Tng <ackerleytng@google.com>
+Thank you for your contribution! Sashiko AI review found 4 potential
+issue(s) to consider:
 
-HugeTLB subpools currently only track used_hpages when the user
-configures a size limit.
+Critical: 0 · High: 2 (1) · Medium: 2 · Low: 0
 
-This is buggy since when there are existing allocations from the
-subpool that would have satisfied the minimum reservations,
-hugepage_subpool_put_pages() will still restore a reservation to the
-subpool. See below for an example of a false reservation.
+- [High] The new `memset(&priv->dma_conf, 0, sizeof(priv->dma_conf))` at
+  drivers/net/ethernet/stmicro/stmmac/stmmac_main.c:4193 also zeroes the…
+- [High] On the `irq_error` path the MAC and all DMA channels are already
+  running, but the unwind never stops them, so the descriptor rings the…
+- [Medium] The new memset() at stmmac_main.c:4193 also wipes the per-TX-
+  queue TBS state in `priv->dma_conf.tx_queue[].tbs` (STMMAC_TBS_EN /…
+- [Medium] The whole-struct clear at stmmac_main.c:4193 also erases
+  persistent user configuration held in `priv->dma_conf.dma_rx_size` /…
 
-In addition, the subpool is considered free prematurely, is freed, and
-this ends up causing a use-after-free.
+Pre-existing issues:
+- [High] After a failed reopen the driver leaves every NAPI instance
+  disabled while the netdevice stays logically running, and the next…
 
-The fix is to always track used_hpages within subpools, which is also
-beneficial in general because with that information, reservation
-tracking is also fully managed within hugepage_subpool_put_pages().
+--
 
-The subpool always knows how many pages were allocated through it. Every
-page allocated through the subpool increments used_hpages, regardless of
-whether a reservation was taken from it.
+net: stmmac: clear dma_conf in __stmmac_open error path
 
-Conceptually, now, every allocation involving a subpool uses a page from
-the subpool, which must be returned to the subpool. Every page taken from
-the subpool tries to use a subpool reservation. Restoring a page to the
-subpool reservations only if the page was taken from subpool
-reservations. (If used_hpages >= min_hpages, the page must have not have
-been taken from the reservations.)
+This adds a memset of priv->dma_conf on the error paths of
+__stmmac_open(), so that the struct no longer points at the descriptor
+resources the callers free after a failed open.  A few questions about
+what else that whole-struct clear erases, and about the state the failed
+open leaves behind.
 
-Always tracking used_hpages provides the subpool with information of both
-used and reserved counts to make the correct decision for both max_size and
-min_size correctly.
+Link to v1: https://lore.kernel.org/r/20260903-fix-stmmac-mtu-change-use-after-free-v1-1-c81dc7d6d18a@uniontech.com
 
-With used_hpages always tracked, subpool_is_free() can be simplified, such
-that the subpool can be declared free if there are no more pages in use.
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> index 24656b35350b1..4369e64faf9f8 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> @@ -4190,6 +4190,7 @@ static int __stmmac_open(struct net_device *dev,
+>  
+>  	stmmac_release_ptp(priv);
+>  init_error:
+> +	memset(&priv->dma_conf, 0, sizeof(priv->dma_conf));
+       ^^^^^^
 
-Also update the
+[Severity: High]
+Can this memset turn the per-queue txtimer hrtimers into invalid ones?
 
-+ Documentation for used_hpages in the subpool struct, since it no longer
-  matters whether the used pages count against the maximum.
-+ Docstring for hugepage_subpool_{get,put}_pages
-+ Documentation to use active voice, and remove some details in favor of
-  having details documented in the docstring
+The struct hrtimer txtimer lives inside priv->dma_conf.tx_queue[], and on
+the irq_error path stmmac_init_coalesce() has already initialized them:
 
-Also update statfs reporting. Previously, if max_hpages is negative,
-used_hpages is static at 0, so returning max_hpages - used_hpages returns
--1 and is always correct. Now, if the subpool doesn't have a maximum
-requested size, indicate no limit for free pages (-1). If it does have a
-maximum size, report the difference between the requested size and the
-number of used pages. This difference is always positive, because if the
-mount does have a maximum size, hugepage_subpool_get_pages() ensures that
-the subpool usage never exceeds the maximum.
+  struct stmmac_tx_queue *tx_q = &priv->dma_conf.tx_queue[chan];
+  ...
+  hrtimer_setup(&tx_q->txtimer, stmmac_tx_timer, CLOCK_MONOTONIC,
+                HRTIMER_MODE_REL);
 
-Fixes: 1c5ecae3a93fa ("hugetlbfs: add minimum size accounting to subpools")
-Signed-off-by: Ackerley Tng <ackerleytng@google.com>
-Cc: stable@vger.kernel.org
----
- Documentation/mm/hugetlbfs_reserv.rst              | 17 +----
- .../translations/zh_CN/mm/hugetlbfs_reserv.rst     | 11 +---
- fs/hugetlbfs/inode.c                               |  8 ++-
- include/linux/hugetlb.h                            |  4 +-
- mm/hugetlb.c                                       | 73 +++++++++++++---------
- 5 files changed, 55 insertions(+), 58 deletions(-)
+After the memset those timers are all-zero, so timer->base is NULL.  Every
+teardown path walks them unconditionally, in __stmmac_release(),
+stmmac_suspend() and stmmac_xdp_release():
 
-diff --git a/Documentation/mm/hugetlbfs_reserv.rst b/Documentation/mm/hugetlbfs_reserv.rst
-index a49115db18c76..d244583fdcbc3 100644
---- a/Documentation/mm/hugetlbfs_reserv.rst
-+++ b/Documentation/mm/hugetlbfs_reserv.rst
-@@ -314,21 +314,8 @@ huge pages.  If they can not be reserved, the mount fails.
- The routines hugepage_subpool_get/put_pages() are called when pages are
- obtained from or released back to a subpool.  They perform all subpool
- accounting, and track any reservations associated with the subpool.
--hugepage_subpool_get/put_pages are passed the number of huge pages by which
--to adjust the subpool 'used page' count (down for get, up for put).  Normally,
--they return the same value that was passed or an error if not enough pages
--exist in the subpool.
--
--However, if reserves are associated with the subpool a return value less
--than the passed value may be returned.  This return value indicates the
--number of additional global pool adjustments which must be made.  For example,
--suppose a subpool contains 3 reserved huge pages and someone asks for 5.
--The 3 reserved pages associated with the subpool can be used to satisfy part
--of the request.  But, 2 pages must be obtained from the global pools.  To
--relay this information to the caller, the value 2 is returned.  The caller
--is then responsible for attempting to obtain the additional two pages from
--the global pools.
--
-+hugepage_subpool_get/put_pages() use the number of huge pages passed to adjust
-+the subpool 'used page' count.
- 
- COW and Reservations
- ====================
-diff --git a/Documentation/translations/zh_CN/mm/hugetlbfs_reserv.rst b/Documentation/translations/zh_CN/mm/hugetlbfs_reserv.rst
-index 20947f8bd0654..ae1f1f31477fc 100644
---- a/Documentation/translations/zh_CN/mm/hugetlbfs_reserv.rst
-+++ b/Documentation/translations/zh_CN/mm/hugetlbfs_reserv.rst
-@@ -246,15 +246,8 @@ hugepage_subpool的min_hpages字段中被跟踪。在挂载时，hugetlb_acct_me
- 被调用以预留指定数量的巨页。如果它们不能被预留，挂载就会失败。
- 
- 当从子池中获取或释放页面时，会调用hugepage_subpool_get/put_pages()函数。
--hugepage_subpool_get/put_pages被传递给巨页数量，以此来调整子池的 “已用页面” 计数
--（get为下降，put为上升）。通常情况下，如果子池中没有足够的页面，它们会返回与传递的相同的值或
--一个错误。
--
--然而，如果预留与子池相关联，可能会返回一个小于传递值的返回值。这个返回值表示必须进行的额外全局
--池调整的数量。例如，假设一个子池包含3个预留的巨页，有人要求5个。与子池相关的3个预留页可以用来
--满足部分请求。但是，必须从全局池中获得2个页面。为了向调用者转达这一信息，将返回值2。然后，调用
--者要负责从全局池中获取另外两个页面。
--
-+它们负责所有子池的统计核算，并跟踪与子池相关联的预留。
-+hugepage_subpool_get/put_pages()函数使用传入的巨页数量来调整子池的“已用页面”计数。
- 
- COW和预留
- ==========
-diff --git a/fs/hugetlbfs/inode.c b/fs/hugetlbfs/inode.c
-index 7611a8470ea26..5113f743f6fc7 100644
---- a/fs/hugetlbfs/inode.c
-+++ b/fs/hugetlbfs/inode.c
-@@ -1109,8 +1109,12 @@ static int hugetlbfs_statfs(struct dentry *dentry, struct kstatfs *buf)
- 
- 			spin_lock_irq(&sbinfo->spool->lock);
- 			buf->f_blocks = sbinfo->spool->max_hpages;
--			free_pages = sbinfo->spool->max_hpages
--				- sbinfo->spool->used_hpages;
-+			if (sbinfo->spool->max_hpages == -1) {
-+				free_pages = -1;
-+			} else {
-+				free_pages = sbinfo->spool->max_hpages -
-+					     sbinfo->spool->used_hpages;
-+			}
- 			buf->f_bavail = buf->f_bfree = free_pages;
- 			spin_unlock_irq(&sbinfo->spool->lock);
- 			buf->f_files = sbinfo->max_inodes;
-diff --git a/include/linux/hugetlb.h b/include/linux/hugetlb.h
-index 16c4c4caa126c..4551ff3023640 100644
---- a/include/linux/hugetlb.h
-+++ b/include/linux/hugetlb.h
-@@ -39,8 +39,8 @@ struct hugepage_subpool {
- 	spinlock_t lock;
- 	long count;
- 	long max_hpages;	/* Maximum huge pages or -1 if no maximum. */
--	long used_hpages;	/* Used count against maximum, includes */
--				/* both allocated and reserved pages. */
-+	long used_hpages;	/* Used page count, includes both */
-+				/* allocated and reserved pages. */
- 	struct hstate *hstate;
- 	long min_hpages;	/* Minimum huge pages or -1 if no minimum. */
- 	long rsv_hpages;	/* Pages reserved against global pool to */
-diff --git a/mm/hugetlb.c b/mm/hugetlb.c
-index 4f6f58bf3db6c..e72e22f887478 100644
---- a/mm/hugetlb.c
-+++ b/mm/hugetlb.c
-@@ -130,12 +130,8 @@ static inline bool subpool_is_free(struct hugepage_subpool *spool)
- {
- 	if (spool->count)
- 		return false;
--	if (spool->max_hpages != -1)
--		return spool->used_hpages == 0;
--	if (spool->min_hpages != -1)
--		return spool->rsv_hpages == spool->min_hpages;
- 
--	return true;
-+	return spool->used_hpages == 0;
- }
- 
- static inline void unlock_or_release_subpool(struct hugepage_subpool *spool,
-@@ -193,13 +189,18 @@ void hugepage_put_subpool(struct hugepage_subpool *spool)
- 	unlock_or_release_subpool(spool, flags);
- }
- 
--/*
-- * Subpool accounting for allocating and reserving pages.
-- * Return -ENOMEM if there are not enough resources to satisfy the
-- * request.  Otherwise, return the number of pages by which the
-- * global pools must be adjusted (upward).  The returned value may
-- * only be different than the passed value (delta) in the case where
-- * a subpool minimum size must be maintained.
-+/**
-+ * hugepage_subpool_get_pages - Get pages from a subpool
-+ * @spool: pointer to subpool structure (may be NULL)
-+ * @delta: number of pages to allocate or reserve
-+ *
-+ * Check and update subpool page usage counts when allocating or
-+ * reserving @delta hugepages.
-+ *
-+ * Context: Takes spool->lock using spin_lock_irq().
-+ * Return: Non-negative number of reservations that cannot be
-+ *         satisfied by the subpool, or -ENOMEM if the subpool maximum
-+ *         limit would be exceeded.
-  */
- static long hugepage_subpool_get_pages(struct hugepage_subpool *spool,
- 				      long delta)
-@@ -211,15 +212,14 @@ static long hugepage_subpool_get_pages(struct hugepage_subpool *spool,
- 
- 	spin_lock_irq(&spool->lock);
- 
--	if (spool->max_hpages != -1) {		/* maximum size accounting */
--		if ((spool->used_hpages + delta) <= spool->max_hpages)
--			spool->used_hpages += delta;
--		else {
--			ret = -ENOMEM;
--			goto unlock_ret;
--		}
-+	if (spool->max_hpages != -1 &&
-+	    spool->used_hpages + delta > spool->max_hpages) {
-+		ret = -ENOMEM;
-+		goto unlock_ret;
- 	}
- 
-+	spool->used_hpages += delta;
-+
- 	/* minimum size accounting */
- 	if (spool->min_hpages != -1 && spool->rsv_hpages) {
- 		if (delta > spool->rsv_hpages) {
-@@ -240,11 +240,19 @@ static long hugepage_subpool_get_pages(struct hugepage_subpool *spool,
- 	return ret;
- }
- 
--/*
-- * Subpool accounting for freeing and unreserving pages.
-- * Return the number of global page reservations that must be dropped.
-- * The return value may only be different than the passed value (delta)
-- * in the case where a subpool minimum size must be maintained.
-+/**
-+ * hugepage_subpool_put_pages - Release pages back to a subpool
-+ * @spool: pointer to subpool structure (may be NULL)
-+ * @delta: number of pages to free or unreserve
-+ *
-+ * Check and update subpool page usage counts when freeing or
-+ * unreserving @delta hugepages.
-+ *
-+ * Context: Takes spool->lock using spin_lock_irqsave(). May release
-+ *          and free @spool if its usage count and references reach
-+ *          zero.
-+ * Return: Non-negative number of reservations that the subpool cannot
-+ *         absorb.
-  */
- static long hugepage_subpool_put_pages(struct hugepage_subpool *spool,
- 				       long delta)
-@@ -257,19 +265,24 @@ static long hugepage_subpool_put_pages(struct hugepage_subpool *spool,
- 
- 	spin_lock_irqsave(&spool->lock, flags);
- 
--	if (spool->max_hpages != -1)		/* maximum size accounting */
--		spool->used_hpages -= delta;
-+	spool->used_hpages -= delta;
- 
- 	 /* minimum size accounting */
- 	if (spool->min_hpages != -1 && spool->used_hpages < spool->min_hpages) {
--		if (spool->rsv_hpages + delta <= spool->min_hpages)
-+		/*
-+		 * limit is the maximum number of reservations that
-+		 * can be restored to this subpool.
-+		 */
-+		long limit = spool->min_hpages - spool->used_hpages;
-+
-+		if (spool->rsv_hpages + delta <= limit)
- 			ret = 0;
- 		else
--			ret = spool->rsv_hpages + delta - spool->min_hpages;
-+			ret = spool->rsv_hpages + delta - limit;
- 
- 		spool->rsv_hpages += delta;
--		if (spool->rsv_hpages > spool->min_hpages)
--			spool->rsv_hpages = spool->min_hpages;
-+		if (spool->rsv_hpages > limit)
-+			spool->rsv_hpages = limit;
- 	}
- 
- 	/*
+  for (chan = 0; chan < priv->plat->tx_queues_to_use; chan++)
+          hrtimer_cancel(&priv->dma_conf.tx_queue[chan].txtimer);
+
+and hrtimer_cancel() -> hrtimer_try_to_cancel() -> hrtimer_active() has no
+NULL check:
+
+  base = READ_ONCE(timer->base);
+  seq = raw_read_seqcount_begin(&base->seq);
+
+A failed reopen in stmmac_change_mtu() just returns the error, so the
+interface stays IFF_UP and the next ip link set down, suspend or XDP
+attach reaches those zeroed timers.
+
+The commit message says the memset leaves "the state consistent regardless
+of the caller" - but priv->dma_conf is the live object all of those paths
+dereference.  Would it be better to invalidate only the freed resource
+pointers, or to leave the timers alone, rather than clearing the whole
+struct?
+
+[Severity: Medium]
+Does this also drop the per-queue TBS state?
+
+tc_setup_etf() in stmmac_tc.c keeps the ETF/launch-time offload state
+only in priv->dma_conf:
+
+  if (!(priv->dma_conf.tx_queue[qopt->queue].tbs & STMMAC_TBS_AVAIL))
+          return -EINVAL;
+
+  if (qopt->enable)
+          priv->dma_conf.tx_queue[qopt->queue].tbs |= STMMAC_TBS_EN;
+
+and the loop at the top of __stmmac_open() exists to carry that bit across
+a reopen:
+
+  for (int i = 0; i < priv->plat->tx_queues_to_use; i++)
+          if (priv->dma_conf.tx_queue[i].tbs & STMMAC_TBS_EN)
+                  dma_conf->tx_queue[i].tbs = priv->dma_conf.tx_queue[i].tbs;
+
+After the memset both STMMAC_TBS_EN and STMMAC_TBS_AVAIL are gone while
+the etf qdisc is still installed, so a following tc ... etf call returns
+-EINVAL.
+
+On the next successful open stmmac_setup_dma_desc() re-derives only AVAIL
+from plat->tx_queues_cfg[].tbs_en and stmmac_hw_setup() re-arms the
+hardware:
+
+  int enable = tx_q->tbs & STMMAC_TBS_AVAIL;
+
+  stmmac_enable_tbs(priv, priv->ioaddr, enable, chan);
+
+but stmmac_xmit() only programs the launch time when tx_q->tbs &
+STMMAC_TBS_EN.  Does that mean launch times are silently ignored from
+then on, with no error reported anywhere?
+
+[Severity: Medium]
+The same clear erases the ring geometry the user configured through
+ethtool -G.  stmmac_reinit_ringparam() stores it directly in the struct
+being zeroed:
+
+  priv->dma_conf.dma_rx_size = rx_size;
+  priv->dma_conf.dma_tx_size = tx_size;
+
+  if (netif_running(dev))
+          ret = stmmac_open(dev);
+
+and stmmac_setup_dma_desc() reads it back, treating 0 as "never
+configured":
+
+  dma_conf->dma_tx_size = priv->dma_conf.dma_tx_size;
+  dma_conf->dma_rx_size = priv->dma_conf.dma_rx_size;
+
+  if (!dma_conf->dma_tx_size)
+          dma_conf->dma_tx_size = DMA_DEFAULT_TX_SIZE;
+  if (!dma_conf->dma_rx_size)
+          dma_conf->dma_rx_size = DMA_DEFAULT_RX_SIZE;
+
+So after ethtool -G followed by a failed ip link set up,
+stmmac_get_ringparam() reports rx_pending 0 / tx_pending 0 - a value
+stmmac_set_ringparam() itself rejects as below DMA_MIN_RX_SIZE /
+DMA_MIN_TX_SIZE - and the next successful open quietly allocates default
+sized rings.  Is losing the configured sizes intended here?
+
+There is a second consumer: stmmac_xdp_open() uses priv->dma_conf in
+place without recomputing the sizes or dma_buf_sz:
+
+  ret = alloc_dma_desc_resources(priv, &priv->dma_conf);
+  ...
+  ret = init_dma_desc_rings(dev, &priv->dma_conf, GFP_KERNEL);
+
+Would a zeroed conf describe zero-length rings to the hardware there?
+
+[Severity: High]
+This isn't a bug introduced by this patch, but it affects the same
+failure path the commit message says it makes consistent, so it seems
+worth raising here: after a failed reopen, NAPI is left disabled while
+netif_running() is still true, and the next teardown calls napi_disable()
+on it again.
+
+stmmac_change_mtu() calls __stmmac_release() (which runs
+stmmac_disable_all_queues() -> __stmmac_disable_all_queues() ->
+napi_disable() per queue) and then __stmmac_open().  NAPI is re-enabled
+only on the success path:
+
+  stmmac_enable_all_queues(priv);
+  netif_tx_start_all_queues(priv->dev);
+
+so both error labels return with NAPI disabled.  napi_disable_locked()
+in net/core/dev.c leaves the state bits set and a second call waits on
+them:
+
+  while (val & (NAPIF_STATE_SCHED | NAPIF_STATE_NPSVC)) {
+          usleep_range(20, 200);
+          val = READ_ONCE(n->state);
+  }
+
+Nothing clears those bits because napi_enable() is never called, so does
+the following ip link set down, suspend, stmmac_xdp_release(),
+stmmac_reinit_ringparam() or stmmac_reset_subtask() hang there while
+holding rtnl_lock?
+
+If that is the case, the release-side unwind never reaches the
+free_dma_desc_resources() the commit message describes, so does the
+memset on its own actually make the post-failure state safe?
+
+>  	return ret;
+>  }
+>  
+
+[Severity: High]
+One more question about the same error path: are the DMA engines still
+running when the callers free the rings?
+
+stmmac_hw_setup() programs every channel with the new dma_conf ring
+addresses, enables MAC Rx/Tx, and ends with:
+
+  /* Start the ball rolling... */
+  stmmac_start_all_dma(priv);
+
+If stmmac_request_irq() then fails, the irq_error path only does
+phylink_stop(), the per-queue hrtimer_cancel() loop and
+stmmac_release_ptp() - there is no stmmac_stop_all_dma().  Compare
+__stmmac_release(), which stops the engines first:
+
+  /* Stop TX/RX DMA and clear the descriptors */
+  stmmac_stop_all_dma(priv);
+
+  /* Release and free the Rx/Tx resources */
+  free_dma_desc_resources(priv, &priv->dma_conf);
+
+Both callers of __stmmac_open() free immediately after the failure, for
+example in stmmac_change_mtu():
+
+  free_dma_desc_resources(priv, dma_conf);
+  kfree(dma_conf);
+
+Can the Rx DMA engine keep writing incoming frames into those unmapped
+and freed descriptors and buffers?  After a failed MTU change the
+interface stays IFF_UP, so nothing else stops the engines.  Should the
+error path stop the DMA and disable the MAC instead of (or in addition
+to) clearing priv->dma_conf?
 
 -- 
-2.55.0.1007.g17ff1f9808-goog
-
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260904-fix-stmmac-mtu-change-use-after-free-v2-1-91e680476921%40uniontech.com
