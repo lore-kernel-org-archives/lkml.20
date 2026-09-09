@@ -1,170 +1,179 @@
-Received: from mail-lj1-f177.google.com (mail-lj1-f177.google.com [209.85.208.177])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012025.outbound.protection.outlook.com [40.93.195.25])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03B8A423783
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 20:21:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EA65425866;
+	Wed,  9 Sep 2026 20:23:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.195.25
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788985304; cv=pass; b=h6pRgaB7caX6cUrxgHYi+Sk3xWbLsG182wzCDrtn7iDMPqYQKN7diVX47V2aQO4y75T7SYHETse8hDSGdlJA1pSBXb2NVgEVQcfabfRgaXEIa4qCAPGqlwus+QBvKtcOj6aXW957mIpOKyRoWr3ocSgGpMkqmeXneJBDFU7ovY4=
+	t=1788985443; cv=fail; b=nvy7rroFXWRLHqDMBa6j9+41BGCBkt5s2WdoWVJImqoAv/+1blyxtbsLhHQrvOi4AZL3jZitf0P8F5QezNjS+NHHB+eopvpPYmuPL5Ix8/+l9P9U5GhKXSRK9T0hBbp/At4+E2s8HHbDdm76avy5kO5d288ckfxyohuL/a5SlaM=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788985304; c=relaxed/simple;
-	bh=0VHC4PV1n3kvmpJBB03kx86ZwKDGKzt09AXVkbRvG6M=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=b4apKu6dzEa3FWXj/ugz/w5Ko+iCbcOWx3HzWJxXHV5kYE8wOZDVbfblehsxnliDjotyLl5drIJelYOCn5CPj4LLSQV/QR6UuHVaal2Mr3L7rd6WG0LZa+/1gSjz/CLrMNTzmaJkDu/Mu9IUZ3Q6Oh6hXpoXMVlpI8aOhvm28uc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LUIaaVuJ; arc=pass smtp.client-ip=209.85.208.177
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788985443; c=relaxed/simple;
+	bh=a6RnOfOu/BmY65rCbhfrsU6jtMq4Gn51oJTj75bU6z8=;
+	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=DOsZpsQP9kAJJJrqNufjdCXRm2/4mMrC09enUmIoHcovhcvCSFu1IKcJJ9AZ0lZQbR2nWzpckH6AGnJYo+jt2ByzFnCR6FCPpXCQYM/fASzZ5IDsG3x5BXOV6jnxx0Vlm567lG4q0UcQVELIiBxpgBKlk5scVfLGaYFFBUE6h4w=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=MxBozvAM; arc=fail smtp.client-ip=40.93.195.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LUIaaVuJ"
-Received: by mail-lj1-f177.google.com with SMTP id 38308e7fff4ca-3a468f4c547so41143111fa.0
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 13:21:41 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788985296; cv=none;
-        d=google.com; s=arc-20260327;
-        b=p3Yye1iQB2Um+4FlqEI3z3wZcMZeTF3iD2yDdGyk9LV0dPnazwnOQJGUbigvohcwaH
-         Q0uTBeNRXO3B5elak1ZQJZeqBuRH0ZdxGQZodu7HpoXqhccVWRDL2GrZOLraVUpclIXm
-         0pJy1TWumRE6VhKXea2nhrCQdmOLL05rSpkY+T4v1foy1ir3B/gQhfL0U6WRNh9xlW0I
-         DAYe74eMLNF9IT1ei61NLuF1Wt5Q+5sDUcqdardDPv0CvnCsLGJuqB/BA1MRyp+Yop/9
-         mjBZ9FsfXDncLRGmowkbuD4jwk/pZAxU8phwO3ZvhaRDG0GigdaDvJSJiObxOKjOqCFE
-         GtPw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=KA2VpArXTb8DPUcHb4yt2Z+i5iQStht727IOnEs/FJU=;
-        fh=QP+8uj9dC8B8GAot2nizqrD9aWezTmGqCCEMOquA9NM=;
-        b=FM4LqeJwnJbQKpkSDti+oD6CYX7rHgKNO4aWSNYZCFwa7S38tDOwvOzAmTEUdEuEB2
-         ryl5Kaz0o8R8hjm5md99UTGjNHSMmk3uHlTzkebYHyu53fgMjAK7S73ugzFWKtS2uj7M
-         2nBQkRwzX+S39qBVVSkGt2JTudmlZyJBAaoRNt4zeFR+3Wel+F+PtasbrrzvQQaOgLcK
-         jxj4DSIb3EAtOieSiPgkYuE4GtfzFK87qXzMw4VAn8Mbswi2noIDNOFUU8Pw5WIexZ0p
-         PABPfcwHrphJ7oWkLEzhqyGPNr9Bybx18dzVBA94MVZl69KucKpT7SI4YCP8Y/Zg2ezR
-         ZUxA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788985296; x=1789590096; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=KA2VpArXTb8DPUcHb4yt2Z+i5iQStht727IOnEs/FJU=;
-        b=LUIaaVuJod11/3g/t6MbNyyoSX0CGO7oms/3y74cxk2EqkM2BDpR1KUNdVBrhuAfA9
-         bSMPndRxSTkcgUpnYqN9zDlJgMWyAIZ1UlS4m1CFX6RVka/csj2ljbMnaDf/WDF0xUDh
-         p2RzP3hZ0yLqEloDhD4nDMUMHpuQiLu3xcB5SXR3tnbFjOiY3ZxDtdXHK9mR1nh+VEF4
-         TTnh0U90Ta5H05+5Kn4Vu/aOoDSE/k82LatXfdQtFVmsxCKPCz6dRSa3x5X9sCT78Hxh
-         Q/o0uo7WWnZte+3/JDYeSMruLATwmPWM3pOGCjLoBwn3RAf8UCyqjrKgQFa8QCOsHz5l
-         zJgw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788985296; x=1789590096;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=KA2VpArXTb8DPUcHb4yt2Z+i5iQStht727IOnEs/FJU=;
-        b=AaYS3MjrWXqCe0GOBJeUXkT7fT9SLEvipe+5Qmnjfq3feeJ/9LO3BMw1LHr8ak3bll
-         sm83O6xhO+BmfJrdqIwDsLrpt0MJzna4KF914qvlPFdydrTJKPMP7UyilRSMDViSadqa
-         /6uJtJ2Wax+1NhyiN7XPhImxQYZ7dyYSMnvv56GdbKV3Yy8gJyPEEcFD4FWdZuSKt/Pz
-         76PDTIFgHF1wqekN39+MJygHsNYcaMfuALoJ9a/85nVGIzZJTGyU0UhDBhkSgHtsHnl0
-         IvMSkfyT/tPRNr0ZIqJvDwITYACSpAU3/ysrrV2g5l7k4up2eTl93EJZQjNo+l6O7rRM
-         7//w==
-X-Forwarded-Encrypted: i=1; AKwUvBznXz6b7DItY7tj9JstkNijIQ4TgrXtD4Hefwd9lB3dHQKdPBTQTvdf8ffbgxTGMJvbbNi81PortCNVVLQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++mHytPmolXqriRAzmVK/BImJ9GR7EHOn8f8gBTO1O8jHZ/eXbVx
-	mq4WbBJgd0DUU35GkD5u7Vhf450xkGpnsetaKXxQd5629O4tH58L2WzL7i/qFYhuCtzbaVfnXnB
-	vpcbj9xi5eRBq/5BuhJT70ZbcZZTsCyU=
-X-Gm-Gg: AYBFou3RGx8A8mwPAXoDrRdGLdMLQyan2b2cr5Fx7U3kq2SpvaBqdhLUhc23N868DXW
-	lwWZ82B4pPf0MRh4r3/w4kPXGPry4IoLPIGRtxjJyWKMTbuxKXD+GhR8+cxWzjeKFgCQnzE0fZK
-	jYw7oCY8lW/uWcJthvU4aFpRAT/Fs37P5ccOIep+X6+krAnj3Q8wk4O5XzmfjUBjCj5NQKkqhy3
-	pZPyXeRP7AN80B2J2goTT1DeWs9L6dAKchbvBVEmTyQXg8iZvoPRvoOzRHFj5mzlzgL0D7yWnXt
-	iqW8IqKjlSZzOoq5IlHgED8fex13xKrNc/pHxqUrRaiPusgI9LxWVG7sQaDY5msx7S6xmok7vm6
-	zJiSww2hEt/+ihzlDKs2SFhgmp/BeX61lexiAi9Is0Bma
-X-Received: by 2002:a05:651c:b0f:b0:3a3:749e:31a4 with SMTP id
- 38308e7fff4ca-3a58d92c643mr3500071fa.24.1788985296110; Wed, 09 Sep 2026
- 13:21:36 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="MxBozvAM"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=GZYv4UhFQS/sDIWqf8LNH2lQyNlC6S1ds5Ewons+xntAKZyig9RG1Qg2vgP9nlu2i9342ogE6gV0U0grOsNSX5Ke5vl43xgA0PtzCt29BdjZyhA3q8TISOFebuWUz4UGAVNDd0+Vwxedaf6pWZo0R0CsZgOdDN3mkLPEJ+ROb8FDAoVRi5Mkt2CdYJVOOG5ivn82JigFNgJkEqNvpUVyY5kem6PB9ISZqHFpMIMPuKUMSN2fHfNtSox6PwELXIT5Fjnneb6nwIeSLBCCgpQ9ngETR+Uhi66qubDxPeUYuj6ZJcTQ9Z0EhWQ1Wzb+EmbqbZdUfJy/JLT+q7IuwBlUsg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=6IPMvnNNt8HtJGBGXKXHohKK2hbZ0nCkpJMV4xDBdQ0=;
+ b=dN7DdqzDUrBg10zw2OgPe8geK4htT/hcRAcxgVTtPJTO+YfwWd5jSJg8c3c9gmX+XBtLNDywyO4C2QqWttJ8pl4V9nGqM6sVPOAPI+vXHhkkgbMnCs0KmqSjLBGlM/n0lm4U+KxVfs0q6WAqFJar/Q3F+QR3sEzA2ty/IN5BH/Ebp9grjpRVh58kG7taCBuyA16TUOLlWSg+VwzcQDJMRt1EhSyTCgVtR4Lby771lGZBBLmkh+TuQPIuGUQ/emgsjb3iToiZ7wtBbmeUaPtty5FpguU3xDHPitsaTaYzR26PZs7pzgdR4rdfidDfUB8JGScU7l2hbjbXNmDJnc86dw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=6IPMvnNNt8HtJGBGXKXHohKK2hbZ0nCkpJMV4xDBdQ0=;
+ b=MxBozvAMuR7nhZzbEwcLmeSSZ5XGN5g9VLJndj6i8QFBMwmuCN1qnRKtLkevQok0J+0A9RJwcJiZtUxFiWWjKwYAQeqP8CIs7MmNkBn3TqGiBlAf+ckY1l4ihND0jXL1I9Ttvo/6RV2jOwgWTzLkrhpRVFy+mDPvP9O0TsU48SvQqf60Pe/OVQJRS5UOUGZa86H/5WoTP+PIKRujXKZP4/u5tqtWRVyXdJJMjRKftq5QPC3X8eszqTRfb6eja/Qw/m/Pq1cPGBy38wKkDkfsnX2w1ihDkA3wyOOiFD9pqV7wvT9tuDfGfddIIRDss21D1Cqcwu/GGbgTWyJ1b/IQYg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DM4PR12MB5182.namprd12.prod.outlook.com (2603:10b6:5:395::24)
+ by SJ0PR12MB7081.namprd12.prod.outlook.com (2603:10b6:a03:4ae::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.8; Wed, 9 Sep 2026
+ 20:23:49 +0000
+Received: from DM4PR12MB5182.namprd12.prod.outlook.com
+ ([fe80::120d:ace8:656:fac2]) by DM4PR12MB5182.namprd12.prod.outlook.com
+ ([fe80::120d:ace8:656:fac2%6]) with mapi id 15.21.0406.007; Wed, 9 Sep 2026
+ 20:23:47 +0000
+From: Edwin Peer <epeer@nvidia.com>
+To: dakr@kernel.org,
+	aliceryhl@google.com,
+	phasta@kernel.org,
+	sumit.semwal@linaro.org,
+	christian.koenig@amd.com
+Cc: jhubbard@nvidia.com,
+	rust-for-linux@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	linux-media@vger.kernel.org,
+	linaro-mm-sig@lists.linaro.org,
+	linux-kernel@vger.kernel.org,
+	Edwin Peer <epeer@nvidia.com>
+Subject: [PATCH drm-rust-next] rust: dma_fence: gate abstractions on CONFIG_DMA_SHARED_BUFFER
+Date: Wed,  9 Sep 2026 13:23:27 -0700
+Message-ID: <20260909202327.33285-1-epeer@nvidia.com>
+X-Mailer: git-send-email 2.50.1
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: SJ0PR13CA0102.namprd13.prod.outlook.com
+ (2603:10b6:a03:2c5::17) To DM4PR12MB5182.namprd12.prod.outlook.com
+ (2603:10b6:5:395::24)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260908152808.3928630-1-arnd@kernel.org> <20260908152808.3928630-9-arnd@kernel.org>
-In-Reply-To: <20260908152808.3928630-9-arnd@kernel.org>
-From: Fabio Estevam <festevam@gmail.com>
-Date: Wed, 9 Sep 2026 17:21:24 -0300
-X-Gm-Features: AcwNN1XhCWWR_p45edJ2cAUvnO6YnDwGtKUGW17Fe3LwHfhT5TU0cNccQ42bU4E
-Message-ID: <CAOMZO5Bw72SkBChbRLg+FaYZ34ENAW95-0+LrgcrESu_YtNXFQ@mail.gmail.com>
-Subject: Re: [PATCH 08/13] ARM: imx: remove nommu support
-To: Arnd Bergmann <arnd@kernel.org>, Jesse Taube <mr.bossman075@gmail.com>, 
-	Giulio Benetti <giulio.benetti@benettiengineering.com>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>, Alexandre Belloni <alexandre.belloni@bootlin.com>, 
-	Linus Walleij <linusw@kernel.org>, Russell King <linux@armlinux.org.uk>, 
-	Drew Fustini <fustini@kernel.org>, Arnd Bergmann <arnd@arndb.de>, Rob Herring <robh@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Liviu Dudau <liviu.dudau@arm.com>, 
-	Sudeep Holla <sudeep.holla@kernel.org>, Lorenzo Pieralisi <lpieralisi@kernel.org>, 
-	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
-	Pengutronix Kernel Team <kernel@pengutronix.de>, Vladimir Zapolskiy <vz@mleia.com>, Stefan Agner <stefan@agner.ch>, 
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>, 
-	Aaro Koskinen <aaro.koskinen@iki.fi>, Andreas Kemnade <andreas@kemnade.info>, 
-	Kevin Hilman <khilman@baylibre.com>, Roger Quadros <rogerq@kernel.org>, 
-	Tony Lindgren <tony@atomide.com>, Nicolas Ferre <nicolas.ferre@microchip.com>, 
-	Claudiu Beznea <claudiu.beznea@tuxon.dev>, Andrew Lunn <andrew@lunn.ch>, 
-	Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>, 
-	Gregory Clement <gregory.clement@bootlin.com>, Robert Jarzmik <robert.jarzmik@free.fr>, 
-	Kristoffer Ericson <kristoffer.ericson@gmail.com>, Ethan Nelson-Moore <enelsonmoore@gmail.com>, 
-	Geert Uytterhoeven <geert@linux-m68k.org>, Alexander Sverdlin <alexander.sverdlin@siemens.com>, 
-	Shawn Guo <shawnguo@kernel.org>, Karl Mehltretter <kmehltretter@gmail.com>, 
-	"David Hildenbrand (Arm)" <david@kernel.org>, Nicolas Pitre <npitre@baylibre.com>, linux-doc@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	devicetree@vger.kernel.org, imx@lists.linux.dev, 
-	linux-stm32@st-md-mailman.stormreply.com, linux-omap@vger.kernel.org, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM4PR12MB5182:EE_|SJ0PR12MB7081:EE_
+X-MS-Office365-Filtering-Correlation-Id: e205b15a-43fc-4862-fd82-08df0eb04078
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|7416014|366016|23010399003|1800799024|10067099003|56012099006|11063799006|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	zCk0/kpBZXfyX0U5XVbclXBVQlD0PjD6OYYPlv9Bfi8Ed6LkntXw6w4Gu/wEhO7vpFMq7qmPQ5L++XWClchP3CSrJX4yTXgWVmVssrb3QvB6R7O35sWkpLe0MOjBV5uZaTlhLWBOBPtiNeB4apuIkKqKUNzu6EEymWkzraNnfJPbk8n5mSIUrkkGaIJO1r4evJ+I9n7ZZoWtZIPTes08iSwobIT898vaMRu6IGb141lD50fNNwkVcGTWsCSalzee1PDlxaDGvX/FCJkRVZL87/uNmMhFpC8YLblH+FALX1/KokIn469/P0oXxp9/Kr/slA96TSInfk36oAeZTNkaCXT6oQ+7N7N/FFlUkyUMmW5f1nos647sWwfJXH27yn6WuigBPdBG9FVGwPaOA3B7ZvHDTkPj9jZK4IgExNUHq4y8vmGFQuRLqYUNoLk8U6fgd9QwkTvXvx99EUExccSwZnVNaHzBDcPXiQ7519KYiLMAQk0pWnSlv96efzEKtlPHUmCEJys3paxwZglHg+/TiLDlQ21MKL6niTdAMiq0IJSXsMqVDy/kn5vvLVNuYPQkkFp2SodPvag+hTzX3pZxM/2ijqXrekloVSF8dDSoeJ/NnE7AmT7n0o8jvN+lYmnvJggNTf4ob3vrFfiaAuYSfw==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR12MB5182.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(366016)(23010399003)(1800799024)(10067099003)(56012099006)(11063799006)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?7FCV5GoVb8GwoVsvce6bd4xMoGgMoIv2/K7towm2Nz3Z85OHYyLZejBWnILQ?=
+ =?us-ascii?Q?NmzewSPQPU7AzTwAhxSPHwX3aA3PFYYZrC4QrKl+atCwfIFhS6/+N4caZPIp?=
+ =?us-ascii?Q?DZOIx+Koa0GLGwB8bk3mDwa33X7J/0jQLCYCO/n1xt0QmikWxJLHl/RD4JcY?=
+ =?us-ascii?Q?4g0jejmd2SYqZzVubfuo41mJU6+RV5o81B3mGT06l63/Ol5TTYaIMRU7bcQg?=
+ =?us-ascii?Q?xQa5djAIgjhEr5msWIjiFmGMhn4S7jQLL7uS/YhkNtkhkHF0/WVJEMfJbhpQ?=
+ =?us-ascii?Q?63dWjbchu0SvTt7VmHAH/fqLxoS8k8nfCUhkmNWCLT7vNEVVwfHZScrvrHJI?=
+ =?us-ascii?Q?d+tSWAraikYNVWhYb4+cIDaJuLmG15w83AgZyWyDRHVBR8SA2JX/RMlpYSv9?=
+ =?us-ascii?Q?4KHgloZk00bEfRFf8rgpbY6Wq4HJz2m5wum4knAsu91mrGPAnkIeyJ3KEXml?=
+ =?us-ascii?Q?ITzRIs4N1IV5O0rdfEVw5NBXs3kGfCzvgMIYJu8R9TZRHWcPXcS85UyHnhUn?=
+ =?us-ascii?Q?pXZVwTkmbBIW0mwSLJosjo9dFhQSGQUsYVlcWm0FEoDNSuvdX143IEzmsupo?=
+ =?us-ascii?Q?PGj193RppYAjx2LdfUyfomO0wo6nYiacnjKQ7b28fhVVj00Nf4PRBAJl3MEN?=
+ =?us-ascii?Q?asY4DWqqZNhAQp0II1L1Bc+YaEVAnoFI7AMtdpiesOtXLb7v5zu9O5Plnxgd?=
+ =?us-ascii?Q?cZ3RIMzNIKWo3cSSCOmA2oC3vByljS+6aY66qfehYwJZPEbL5OnbSHBrVdXv?=
+ =?us-ascii?Q?Zf9VwCCuvLyMBOkQEmH0si4MQ95BheXaZQM/sYspyAOrWgisRHY7gpOsk9+i?=
+ =?us-ascii?Q?QvzCWByAgIGD1i8fGBWxBaMrX9TYdPX/uBE3Msivk06jrvpJKr5oYytrStsl?=
+ =?us-ascii?Q?c4wfvqWV2bY5U6Da/AslvjZQoj52ffRqfJmsQO22BDqkN9dUC39ltJ1sY1Te?=
+ =?us-ascii?Q?d4sQfyPzotoWv71t5eGcV8ObCEVk+nAsRoSccmHMz8EvGf5ByH/5zjJbLSdu?=
+ =?us-ascii?Q?fxP6J7TrdOfIdbRnkN/KB5rPv9kIy0vVHIyJVEuHVZo8XhiwpdjeeAqeHImM?=
+ =?us-ascii?Q?0Pou9XJXdwAM52lsdrFRRXMBI1rUD7nrIJl8X2ggsnd3shqmKcFGqM/3552z?=
+ =?us-ascii?Q?T3j1quRnKoZTeSFSjaKbR9/H67p/gGXIpAlEn7exjQuE8XGfEXOJZT7Mu8Kn?=
+ =?us-ascii?Q?RzMyl8bPA2OptYLr58ruPLRHbYlxmgHlzZQAFNvrhOlfqeizCV74ZZn/a9sO?=
+ =?us-ascii?Q?TLGzLcINWwCrecLGISYYbr7Je4bQuET++hnwQgxEnIrVHnXFeGp73NhA/V7A?=
+ =?us-ascii?Q?UN3Z3fNgQGsaTR35nDM6bsN5cMIHxx2aYkEfEfK2+Vn/iO5B0PS6n4T37Ls1?=
+ =?us-ascii?Q?s6p5NYolx+x3mj50dLJ/u9bHkXRws/UyORH5a02HNkQ+v0jEwvzAYsyxZ+PY?=
+ =?us-ascii?Q?GmaaaWJJ2mtdtrdRiOk1lk5GB3ppY9YRNgqtzMoCdRnO1nh6VBvrZpZ4VviN?=
+ =?us-ascii?Q?QUow2Z+8isunekE8G7JdDyJH4tUiFyzmsKyi8X2bOshu8i2en+qDAwcWz9vP?=
+ =?us-ascii?Q?LM48BQSNqUrDpL4uBf3fP6m88W4oddU5r4dtSmPGABMmCa+XFbVJFvte7CC+?=
+ =?us-ascii?Q?BkW3ZGayCP+1u300qB3sFO+NIoc3MwPGQd266AH8IrLc2/Ab2mnykbYDCnKC?=
+ =?us-ascii?Q?IUWAfLepFjsjj2UK2iCNjL83wfP+SZWg15jz3Nt16CUdL/Gm?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e205b15a-43fc-4862-fd82-08df0eb04078
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5182.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Sep 2026 20:23:46.9760
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: x1FXzaGXmuvrsRe6ZAf/QXvaP+WXYpIUhAmuClRZHP7CyZWr4B6M/agiENjwAvfui5507eG0mz6kenEpHMnTYg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB7081
 
-On Tue, Sep 8, 2026 at 12:29=E2=80=AFPM Arnd Bergmann <arnd@kernel.org> wro=
-te:
->
-> From: Arnd Bergmann <arnd@arndb.de>
->
-> The i.MX platform has grown support for three separate product
-> lines using Cortex-M based microcontrollers over the years:
->
->  - i.MX RT1050, a high-end microcontroller
->  - Vybrid vf610 suppors running Linux on either the Cortex-A5
->    CPU or the Cortex-M4 MCU
->  - i.MX7D similarly can run Linux on the Cortex-A7 or the
->    Cortex-M4
->
-> There are no known upstream users of any of those three, so
-> drop support and simplify the platform to assume that an MMU
-> is present.
->
-> Cc: Frank Li <Frank.Li@nxp.com>
-> Cc: Sascha Hauer <s.hauer@pengutronix.de>
-> Cc: Pengutronix Kernel Team <kernel@pengutronix.de>
-> Cc: Fabio Estevam <festevam@gmail.com>
-> Cc: Stefan Agner <stefan@agner.ch>
-> Cc: Rob Herring <robh@kernel.org>
-> Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
-> Cc: Conor Dooley <conor+dt@kernel.org>
-> Cc: Vladimir Zapolskiy <vz@mleia.com>
-> Cc: Giulio Benetti <giulio.benetti@benettiengineering.com>
-> Cc: devicetree@vger.kernel.org
-> Cc: imx@lists.linux.dev
-> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
-> ---
->  arch/arm/boot/dts/nxp/imx/Makefile            |    2 -
->  arch/arm/boot/dts/nxp/imx/imxrt1050-evk.dts   |   72 -
->  arch/arm/boot/dts/nxp/imx/imxrt1050-pinfunc.h |  993 -----------
->  arch/arm/boot/dts/nxp/imx/imxrt1050.dtsi      |  160 --
->  arch/arm/boot/dts/nxp/imx/imxrt1170-pinfunc.h | 1561 -----------------
->  arch/arm/boot/dts/nxp/vf/Makefile             |    2 -
->  arch/arm/boot/dts/nxp/vf/vf610m4-colibri.dts  |   61 -
->  arch/arm/boot/dts/nxp/vf/vf610m4-cosmic.dts   |   88 -
->  arch/arm/boot/dts/nxp/vf/vf610m4.dtsi         |   61 -
->  arch/arm/configs/imxrt_defconfig              |   35 -
->  arch/arm/configs/vf610m4_defconfig            |   39 -
->  arch/arm/mach-imx/Kconfig                     |   27 +-
->  arch/arm/mach-imx/Makefile                    |    3 -
->  arch/arm/mach-imx/mach-imx7d-cm4.c            |   18 -
->  arch/arm/mach-imx/mach-imxrt.c                |   19 -
+The dma_fence abstractions added by commit 3282d5916019 ("rust: Add
+dma_fence abstractions") are compiled unconditionally, but the C
+`dma_fence_*` symbols they reference live in
+drivers/dma-buf/dma-fence.c, which is only built when
+CONFIG_DMA_SHARED_BUFFER=y. Kernels with CONFIG_RUST=y and
+CONFIG_RUST_KERNEL_DOCTESTS=y but CONFIG_DMA_SHARED_BUFFER=n fail
+to link:
 
-The imxrt1050-evk dts is used in U-Boot.
+  ld.lld: error: undefined symbol: dma_fence_release
+  >>> referenced by usercopy_64.c
+  >>>               vmlinux.o:(rust_helper_dma_fence_put)
+  ... dma_fence_signal{,_locked}, dma_fence_context_alloc,
+      dma_fence_init, dma_fence_{add,remove}_callback ...
 
-Adding Jesse and Giulio, who use this platform in U-Boot.
+Wrap the dma_fence.c helper include in the same
+`pub mod dma_buf;` in rust/kernel/lib.rs with a matching #[cfg].
+
+Fixes: 3282d5916019 ("rust: Add dma_fence abstractions")
+Signed-off-by: Edwin Peer <epeer@nvidia.com>
+Reviewed-by: John Hubbard <jhubbard@nvidia.com>
+---
+ rust/helpers/helpers.c | 2 +-
+ rust/kernel/lib.rs     | 1 +
+ 2 files changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/rust/helpers/helpers.c b/rust/helpers/helpers.c
+index 609689fba3dd..2c5eecc091c4 100644
+--- a/rust/helpers/helpers.c
++++ b/rust/helpers/helpers.c
+@@ -57,8 +57,8 @@
+ #include "cred.c"
+ #include "device.c"
+ #include "dma.c"
+-#include "dma_fence.c"
+ #ifdef CONFIG_DMA_SHARED_BUFFER
++#include "dma_fence.c"
+ #include "dma-resv.c"
+ #endif
+ #include "drm.c"
+diff --git a/rust/kernel/lib.rs b/rust/kernel/lib.rs
+index 72f5527ba66c..f9ef36217bb5 100644
+--- a/rust/kernel/lib.rs
++++ b/rust/kernel/lib.rs
+@@ -67,6 +67,7 @@
+ pub mod device_id;
+ pub mod devres;
+ pub mod dma;
++#[cfg(CONFIG_DMA_SHARED_BUFFER)]
+ pub mod dma_buf;
+ pub mod driver;
+ #[cfg(CONFIG_DRM = "y")]
+-- 
+2.50.1 (Apple Git-155)
+
