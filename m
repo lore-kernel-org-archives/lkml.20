@@ -1,166 +1,194 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ua1-f43.google.com (mail-ua1-f43.google.com [209.85.222.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCAA0348C4C;
-	Wed,  9 Sep 2026 19:30:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B60D348C4C
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 19:31:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788982260; cv=none; b=WqKBOPJV0P88Im4VATCMyk9Q3B0G8RINfqpd/Sw4LpsL83bHMqJtMxWIpGY8/Ewoth+pC67Yhv1Kw1BtCZwnOwoRkcd6S9lpv9gPnlx2pJbaY7scy4ZSD+2iFsbEgkChL7j21s6PjGVp0ZT2Zbf8UDlJvlGGtnCto2b6epGWpME=
+	t=1788982270; cv=none; b=FTKiJEZ97gfEfMuzbTSQFJZr//OoanqdHcBi5CJVB/pFUMXANC8vlx85yXFvDcqFsREMQrxdgKvKOwbTLu9OJSP5r9p006pDKXgSv5dgoLwzn21odjflzl4s9UVyAfIX78h1Cw+Q1cN8Zs/oHxGSlzOoMtDSqT4poKWbAsKI1o0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788982260; c=relaxed/simple;
-	bh=Ev3df10mxNmGPEkApvaW5+98Bhm5asRrNwNxP3EKuO4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=SJgLJcH6LBHCwKJFbbHBMG6DJE3ymIVnVmJHJDjVpy0da+6AyZGtm8kelAMcHzSGnZZe7aSMNPJHiqdWF/X+sBkezx8aQPOmkP2AvWy1cnrdmWeTugW3hF1Knm0lVv8IyhXmb6VBcla+zMzcX4KTKewlVXzdPStANsoOA8U4jAM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fU4Hvas7; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788982270; c=relaxed/simple;
+	bh=OGmMUhZHrOr6boThLHu7z77I7dRpjo6IF+jPmVb2rpE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=bXru32wTpKHKosWN1xdzpuD31ZR1VvigbQ7mtwlzFjKPYxGcgBei+PbyqvlgFQBFt6NLv4HhlYESF9L0haHJUpRWLUS+nkkwd7Ut72owDV3bW/QBytar7NKaFRbJ2/DCtK797yH1j5xqicuIWTWZCc6Ai4RyNNX+pJyiLkKYw2Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GWZceMpb; arc=none smtp.client-ip=209.85.222.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fU4Hvas7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 279A81F000FF;
-	Wed,  9 Sep 2026 19:30:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788982258;
-	bh=h0KtUzQENRX3k+Qj7Puxd8aLhSB7ZM+KtB0tKaGla1c=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=fU4Hvas7aGnAa5dJsVNL8C1FJdMChTrp0kGAH9Wu4G0YznEME05BTWcV8MGyR3+Oy
-	 PHkr7LQhNEysr1eI8z+6eFN4pSQTEXtBeNt0iby1xH+RmaUWtVZ0nqVzp6W2F2YVWS
-	 IxF8oUqykYV7qZj4DOZKM847niUNM7M5yOP0O+f/cQhDeHuG6XOPH9uz1VeMEi+VQj
-	 aAIHT0AHaePlxGuV5tKbYYpVVnEwCJZDoU6gfmqJr43NdIlI+HWXNW/403V9BRuxLD
-	 i46ptSWtnODqtbIFZnUYU+VZqpYYoZUpLxIJm+ciiS0N6iKqQkfp95FmYeP8DbdHA5
-	 1m/kzzQ+vMOIg==
-Date: Wed, 9 Sep 2026 15:30:55 -0400
-From: Namhyung Kim <namhyung@kernel.org>
-To: "Mi, Dapeng" <dapeng1.mi@linux.intel.com>
-Cc: Peter Zijlstra <peterz@infradead.org>, Ian Rogers <irogers@google.com>,
-	Andi Kleen <ak@linux.intel.com>, Ingo Molnar <mingo@redhat.com>,
-	Arnaldo Carvalho de Melo <acme@kernel.org>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Eranian Stephane <eranian@google.com>, linux-kernel@vger.kernel.org,
-	linux-perf-users@vger.kernel.org, Dapeng Mi <dapeng1.mi@intel.com>,
-	Zide Chen <zide.chen@intel.com>,
-	Falcon Thomas <thomas.falcon@intel.com>,
-	Xudong Hao <xudong.hao@intel.com>,
-	Gennady Kupava <gennady.kupava@gmail.com>,
-	Ravi Bangoria <ravi.bangoria@amd.com>
-Subject: Re: [PATCH 2/2] perf/x86: Disable precise sampling for
- PERF_SAMPLE_STACK_USER
-Message-ID: <aqGz7324WTIwJ_8U@google.com>
-References: <20260908075102.540715-1-dapeng1.mi@linux.intel.com>
- <20260908075102.540715-2-dapeng1.mi@linux.intel.com>
- <20260908084906.GO4121339@noisy.programming.kicks-ass.net>
- <1691a05c-49a6-4b16-8bad-cb3c004ed07c@linux.intel.com>
- <20260908101914.GQ4121339@noisy.programming.kicks-ass.net>
- <aqAlddsFPYJvRhFr@tassilo>
- <CAP-5=fWbSNYpt8p3e+pqjY+xhqs8WrzsBfPaKB1NLBm88mH8Yg@mail.gmail.com>
- <20260909081101.GS4121339@noisy.programming.kicks-ass.net>
- <19a610df-530a-4397-9fb6-a1e12251c987@linux.intel.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GWZceMpb"
+Received: by mail-ua1-f43.google.com with SMTP id a1e0cc1a2514c-9809ce25a29so132087241.1
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 12:31:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788982267; x=1789587067; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=bu4GfVzH8DhuwM8RYplW9+YvYURtPxANRKmn9IzC2Nw=;
+        b=GWZceMpbzLLRqJsp+gj217Q/gqjCB+2Rjfk0dQLnihPLBCxDzM4EOoOxfPCQ84DVp9
+         G+M8kj6m9oLbSek8k6sAVWWstklMtXP3F8gVaQoyhQ3kMpwKQyjFRZzLNLEqNAnXlhKk
+         iA3CamGvzV3Xa9wbk20Ym0DFO+tQzEapC5bUfxxQA3thzig331xcT4LjDkXmnXoInHvp
+         UOaI7P48ETNP7qE7PNCt82di3bCmhJ76ZMDfNEunbI0gMdon472/Kzb7Piy4mX7RpV6w
+         dBZZdUGX8cuoFsV6JabIFs2l54VXTeic1BFE1v31eXbP72WvWyAFs+FVhLutwWwpgTzk
+         gr+A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788982267; x=1789587067;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=bu4GfVzH8DhuwM8RYplW9+YvYURtPxANRKmn9IzC2Nw=;
+        b=iXumqBvkr332080fj4B9KAiDDmw7S+8tQjkJX3tqn0NydCyNViJ02gV1GlTgKLwPj3
+         AmGgCb+gAI+YMLX4CieuhCQTYVmIHPQcltfeSQboPSnFK1eTGlGt6GY48+kPnV0rDRrL
+         OkJ7h+TP2xpbLX6tebY3YbU8Uty0TdKGrpH+HmDnNtQgEPBR6o08/x2cABgTAKDHdNyA
+         SBxinTkgdm/hbPj5fg3pJ88xpUKY9zkwgOGCM+LwlzkTp2/yAT57bP0uA+LVNGo+wXpb
+         7ba6LFESvIGccP4JZCt3O6/Sj0HtdUaofrWPKezasNK90MLq+akKBiLqibdF0uGZn/xU
+         R1pg==
+X-Forwarded-Encrypted: i=1; AKwUvBzOAJVvRwB2+WMTeGN3JrdebwZuw8ie5FrqByo/UzM1r0kmyi630uOCQM3x26I3ydp6MfAimxT56jVG6Fo=@vger.kernel.org
+X-Gm-Message-State: AFuF++m53L5pdOV1VAmVS3dcl/T7YyHDWlXRlOpP0rUvXMr/GWxD1Ypi
+	YYQ+UAb8JO9zblBLroHCWBH0+OZJVDPHlBlMNw7CCGK3MTr+Ngf4WJDq
+X-Gm-Gg: AYBFou2NVJjvCrxkpQLgvrZtZN5OJy1jaJwKruiPNC+JRsIUSV7T5ArFdaBIG2ygtX+
+	km27O9OlzJBsJXEW/7jNke+J/FN9LzukrpxwxGSTqI2LeT4XxwCTne0drfn+XX4XujlNdZ7zgT+
+	UIsFuExw2MjYYQFz8ic07qIMxI3TIRUttmmiq5nyXlPZhycY6fkSPhVp09dWoJYNvKW6MUaX4I1
+	NlrO18V4xmTlRO28W5goVIqWyvIPEx4JPDh7hOOo2BsIsdjA5rEecJN+pfGpvm1DG+Cte7qd77B
+	ldCTbGBNQAB4wY8uPWkKRslTZvfdKnWIK+Vv1cUYm5uQVMNA4gZp8xBxFiWeNa5fAJdxNdOc1Iz
+	u/4WEdhyT4IP12+6n25+rW9S7gbR7VFCJOe97UsXYLqnYT0KHmYcHYkG6FLIc1f0WMIkzSxB5qk
+	2zUjsGSmbWKFdHkU2WrM0UfIJXVHEC/kMTGqK9EnKUywB94gfgyTWhzinfxbVXA0A=
+X-Received: by 2002:a05:6102:578c:b0:774:ce64:242f with SMTP id ada2fe7eead31-790db2da0e4mr366570137.20.1788982266782;
+        Wed, 09 Sep 2026 12:31:06 -0700 (PDT)
+Received: from localhost ([47.201.34.27])
+        by smtp.gmail.com with UTF8SMTPSA id ada2fe7eead31-78a47ae301fsm11646230137.7.2026.09.09.12.31.05
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 09 Sep 2026 12:31:06 -0700 (PDT)
+From: Andrew Udvare <audvare@gmail.com>
+To: Takashi Iwai <tiwai@suse.com>,
+	Jaroslav Kysela <perex@perex.cz>
+Cc: linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Andrew Udvare <audvare@gmail.com>
+Subject: [PATCH] ALSA: hda/realtek: Fix speaker dropouts on MSI GE66 Raider 11UE
+Date: Wed,  9 Sep 2026 15:31:04 -0400
+Message-ID: <20260909193104.26508-1-audvare@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <19a610df-530a-4397-9fb6-a1e12251c987@linux.intel.com>
 
-Hello,
+The speakers on this laptop are driven by a Realtek ALC1316 smart amplifier
+sitting behind the ALC298 processing-coefficient tunnel. Nothing configures
+it, so it runs on its power-up defaults with silence detection enabled: the
+speaker path is muted after roughly 0.2 s of quiet and takes roughly 0.4 s
+to reopen. Anything arriving in that window is lost, so the beginning of
+every sound that follows a pause is cut off. It is most obvious with speech
+synthesis, where the first syllable of each utterance disappears, but it
+affects music equally. Headphones do not pass through the amplifier and are
+never affected.
 
-I missed this thread before sending my previous reply.
+Measured on the affected machine with generated tones: isolated 150 ms
+bursts spaced one second apart are inaudible, the same bursts spaced 100 ms
+apart are heard, and a continuous tone loses only its first 0.4 s.
 
-On Wed, Sep 09, 2026 at 05:36:45PM +0800, Mi, Dapeng wrote:
-> 
-> On 9/9/2026 4:11 PM, Peter Zijlstra wrote:
-> > On Tue, Sep 08, 2026 at 01:56:56PM -0700, Ian Rogers wrote:
-> >> On Tue, Sep 8, 2026 at 8:10 AM Andi Kleen <ak@linux.intel.com> wrote:
-> >>>> That's what we already do, no? I have distinct memories of making the
-> >>>> stack unwind use the NMI regs rather then the PEBS regs.
-> >>>>
-> >>>>> In my opinion, it could even make the thing worse. User
-> >>>>> requires to get precise samplings, but perf silently returns imprecise
-> >>>>> records, this would mislead user.
-> >>>> Mostly just the unwind might be off a little, the rest is accurate. This
-> >>>> has been the case 'forever'. Performance analysis isn't for silly
-> >>>> people, if they can't deal with a little fuzz then perhaps they're in
-> >>>> the wrong business.
-> >>> Is the main problem that the stack doesn't agree? Perhaps there
-> >>> could be a check for regs->rsp == pebs->user rsp (if in user space)
-> >>> to detect problematic samples.
-> >>>
-> >>> The question is how to report it and who should do the checking.
-> >>>
-> >>> It may need new fields in the ABI either to communicate the extra PEBS RSP
-> >>> or a bit to indicate that there might be a mismatch.
-> >>>
-> >>> I guess checking in the kernel and reporting an error might be simpler
-> >>> and maybe cleaner, but it would likely limit more advanced recovery
-> >>> possibilities.
-> >>>
-> >>> Are there other mismatches that break the unwinding? Perhaps the same
-> >>> for RBP?
-> >> For DWARF unwinding any register may be the source of a frame pointer
-> >> (e.g. the OpenSSL library would use R11 rather than RBP).
-> >>
-> >> There is redundancy on x86 you can sample the PERF_REG_X86_IP register
-> >> in the user register and there is PERF_SAMPLE_IP in the sample event
-> >> itself.
-> >>
-> >> My understanding is that IBS can only sample IP and so for precise
-> >> samples we can use PERF_SAMPLE_IP as the precise location and the user
-> >> register PERF_REG_X86_IP as the interrupt IP - this would match the
-> >> other register values in the interrupt.
-> >>
-> >> In DWARF unwinding, we initialize the register state using the sampled
-> >> user registers:
-> > Oh, I had trouble reading yesterday :/ This is about USER_STACK, not
-> > CALLCHAIN.
-> 
-> Yes, this is about USR_STACK. The CALLCHAIN doesn't suffer this issue since
-> perf already returns an IP chain and user space can directly map them to
-> the symbols without depending on any register or stack snapshots. :)
-> 
-> 
-> >
-> > I think we should try very hard to not use USER_STACK, it is an
-> > abomination. Instead we really should improve CALLCHAIN to be more
-> > useful. There are a pile of patches for kernel based unwinders,
-> > including for .eh_frame (if only I had time to actually go look at
-> > them).
+Add a fixup that programs the amplifier's initialisation sequence at codec
+init, which turns silence detection off. Writes go through the tunnel with
+coefficient 0x22 selecting the amplifier, 0x23 carrying the 16-bit
+register, 0x24 and 0x25 the value's high and low halves, and 0x26
+committing.
 
-That would be great!
+Link: https://github.com/thesofproject/sof/issues/5842
+Signed-off-by: Andrew Udvare <audvare@gmail.com>
+---
+ sound/hda/codecs/realtek/alc269.c | 50 +++++++++++++++++++++++++++++++
+ 1 file changed, 50 insertions(+)
 
-> >
-> > And we should probably look at doing a shadow stack based unwinder as
-> > well.
-
-Cool. It'd be nice to see that happen.
-
-> >
-> > This USER_STACK is really the absolute worst possible option. And
-> > perhaps refusing PEBS+USER_STACK makes sense.
-> 
-> If no others insist to implement the precise USER_STACK sampling (what Ian
-> suggested), I would give up for sending the drafted precise USER_STACK
-> sampling patches. Per my understanding, refusing precise USER_STACK
-> sampling what current version does is a cleaner and simpler way.
-> Supporting precise USER_STACK sampling inevitably complexes the PEBS/IBS
-> handling.
-
-I think precise is for IP and it's not clear if it applies to other REGS
-too.  But agree that it'd be simpler to reject.
-
-> 
-> BTW, currently perf tools already support the events creation fallback. As
-> long as user doesn't explicitly require precise USER_STACK sampling, the
-> USER_STACK sampling (--call-graph dwarf) would automatically fallback to
-> the PMI-based USER_STACK sampling after the initial precise USER_STACK
-> sampling try fails. So it won't really lead to the USER_STACK sampling fails. 
-
-That's true.  perf tools can fallback to auto-reduce the precise level
-unless it's requested manually.  If we go on this direction, I think we
-should mention this in the man page though.  Probably the condition is
-precise_ip + USER_REGS + USER_STACK.
-
-Thanks,
-Namhyung
+diff --git a/sound/hda/codecs/realtek/alc269.c b/sound/hda/codecs/realtek/alc269.c
+index ecc9c6e6a..8f55c3c00 100644
+--- a/sound/hda/codecs/realtek/alc269.c
++++ b/sound/hda/codecs/realtek/alc269.c
+@@ -1840,6 +1840,48 @@ struct alc298_samsung_amp_desc {
+ 	unsigned short init_seq[2][2];
+ };
+ 
++/*
++ * The MSI GE66 Raider 11UE drives its speakers through a Realtek ALC1316 smart
++ * amplifier, reached over the ALC298 coefficient tunnel. Left unconfigured the
++ * amplifier's silence detection mutes the speaker path after about 0.2 s of
++ * quiet and takes about 0.4 s to reopen, so the start of every sound that
++ * follows a pause is lost. Headphones do not pass through the amplifier and are
++ * unaffected.
++ *
++ * Tunnel layout for ALC286/ALC298: coefficient 0x22 selects the amplifier, 0x23
++ * carries the 16-bit register, 0x24 and 0x25 the value's high and low halves,
++ * and 0x26 commits. Bit 4 of the commit word is a self-clearing go bit.
++ */
++static void alc298_fixup_alc1316_amp(struct hda_codec *codec,
++				     const struct hda_fixup *fix, int action)
++{
++	static const unsigned short init_seq[][2] = {
++		{ 0x0000, 0x01 }, { 0xc001, 0x14 }, { 0xc003, 0x00 }, { 0xc004, 0x11 },
++		{ 0xc005, 0x00 }, { 0xc006, 0x00 }, { 0xc007, 0x11 }, { 0xc008, 0x11 },
++		{ 0xc009, 0x00 }, { 0xc730, 0x06 }, { 0xc612, 0x16 }, { 0xc00f, 0xf7 },
++		{ 0xc00a, 0xd8 }, { 0xc00b, 0xb7 }, { 0xc60b, 0xff }, { 0xc60c, 0x37 },
++		{ 0xc605, 0xf0 }, { 0xc020, 0x00 }, { 0xc022, 0xd6 }, { 0xc023, 0x00 },
++		{ 0xc025, 0xd6 }, { 0xc602, 0x07 }, { 0xc603, 0x07 }, { 0xd101, 0x00 },
++		{ 0xc093, 0x80 }, { 0xc090, 0x87 }, { 0xc091, 0x11 }, { 0xc614, 0x20 },
++		{ 0xc615, 0x0a }, { 0xc616, 0x02 }, { 0xc617, 0x00 }, { 0xc050, 0x80 },
++		{ 0xc051, 0x7f }, { 0xc052, 0x00 }, { 0xc053, 0x70 }, { 0xc054, 0x00 },
++		{ 0xc0a2, 0x01 }, { 0xc09d, 0x80 }, { 0xc09c, 0x71 }
++	};
++	int i;
++
++	if (action != HDA_FIXUP_ACT_INIT)
++		return;
++
++	alc_write_coef_idx(codec, 0x22, 0x0010);
++
++	for (i = 0; i < ARRAY_SIZE(init_seq); i++) {
++		alc_write_coef_idx(codec, 0x23, init_seq[i][0]);
++		alc_write_coef_idx(codec, 0x24, 0x0000);
++		alc_write_coef_idx(codec, 0x25, init_seq[i][1]);
++		alc_write_coef_idx(codec, 0x26, 0xb031);
++	}
++}
++
+ static void alc298_fixup_samsung_amp(struct hda_codec *codec,
+ 				     const struct hda_fixup *fix, int action)
+ {
+@@ -4211,6 +4253,7 @@ enum {
+ 	ALC236_FIXUP_HP_15_FD0XXX,
+ 	ALC236_FIXUP_LENOVO_INV_DMIC,
+ 	ALC298_FIXUP_SAMSUNG_AMP,
++	ALC298_FIXUP_MSI_GE66_ALC1316_AMP,
+ 	ALC298_FIXUP_SAMSUNG_AMP_V2_2_AMPS,
+ 	ALC298_FIXUP_SAMSUNG_AMP_V2_4_AMPS,
+ 	ALC298_FIXUP_LG_GRAM_STYLE_14,
+@@ -6006,6 +6049,10 @@ static const struct hda_fixup alc269_fixups[] = {
+ 		.type = HDA_FIXUP_FUNC,
+ 		.v.func = alc295_fixup_hp_pavilion_mute_led_1b,
+ 	},
++	[ALC298_FIXUP_MSI_GE66_ALC1316_AMP] = {
++		.type = HDA_FIXUP_FUNC,
++		.v.func = alc298_fixup_alc1316_amp,
++	},
+ 	[ALC298_FIXUP_SAMSUNG_AMP] = {
+ 		.type = HDA_FIXUP_FUNC,
+ 		.v.func = alc298_fixup_samsung_amp,
+@@ -7933,6 +7980,8 @@ static const struct hda_quirk alc269_fixup_tbl[] = {
+ 	SND_PCI_QUIRK(0x144d, 0xc1cc, "Samsung Galaxy Book3 Ultra (NT960XFH)", ALC298_FIXUP_SAMSUNG_AMP_V2_4_AMPS),
+ 	SND_PCI_QUIRK(0x1458, 0x900e, "Gigabyte G5 KF5 (2023)", ALC2XX_FIXUP_HEADSET_MIC),
+ 	SND_PCI_QUIRK(0x1458, 0xfa53, "Gigabyte BXBT-2807", ALC283_FIXUP_HEADSET_MIC),
++	SND_PCI_QUIRK(0x1462, 0x12fb, "MSI GE66 Raider 11UE",
++		      ALC298_FIXUP_MSI_GE66_ALC1316_AMP),
+ 	SND_PCI_QUIRK(0x1462, 0xb120, "MSI Cubi MS-B120", ALC283_FIXUP_HEADSET_MIC),
+ 	SND_PCI_QUIRK(0x1462, 0xb171, "Cubi N 8GL (MS-B171)", ALC283_FIXUP_HEADSET_MIC),
+ 	SND_PCI_QUIRK(0x152d, 0x1082, "Quanta NL3", ALC269_FIXUP_LIFEBOOK),
+@@ -8515,6 +8564,7 @@ static const struct hda_model_fixup alc269_fixup_models[] = {
+ 	{.id = ALC298_FIXUP_HUAWEI_MBX_STEREO, .name = "huawei-mbx-stereo"},
+ 	{.id = ALC256_FIXUP_MEDION_HEADSET_NO_PRESENCE, .name = "alc256-medion-headset"},
+ 	{.id = ALC298_FIXUP_SAMSUNG_AMP, .name = "alc298-samsung-amp"},
++	{.id = ALC298_FIXUP_MSI_GE66_ALC1316_AMP, .name = "alc298-alc1316-amp"},
+ 	{.id = ALC298_FIXUP_SAMSUNG_AMP_V2_2_AMPS, .name = "alc298-samsung-amp-v2-2-amps"},
+ 	{.id = ALC298_FIXUP_SAMSUNG_AMP_V2_4_AMPS, .name = "alc298-samsung-amp-v2-4-amps"},
+ 	{.id = ALC256_FIXUP_SAMSUNG_HEADPHONE_VERY_QUIET, .name = "alc256-samsung-headphone"},
+-- 
+2.47.3
 
