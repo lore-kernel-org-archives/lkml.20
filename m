@@ -1,230 +1,129 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo1-f46.google.com (mail-oo1-f46.google.com [209.85.161.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B619E38C2A0;
-	Wed,  9 Sep 2026 17:33:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37FBC38B7D2
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 17:33:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788975195; cv=none; b=A2k3nzjg6MBpMTQb8Aw+BGPRp+qx1DlDHbIO3ACKXuSejpSKJIQoEz7yP56Ed18QmclUR82oJBHpeC7bMy5TZnURFQDOfYaUo1uHP4pSUqSzR1QyOWJiZxM7U5jf9feI58NtGBTJh0FBXPreqbWZcKyrFyznFcJ6GEdJ6OlZcPc=
+	t=1788975231; cv=none; b=OYXH8C5gNG00FRwOMVbRYZRy5LuQP3L9h8agtZhy8yHS3X6zFZmR0njnFTj5niP0dVEIXZpErqXgytrqQ5DGAzAt50TyEMxLUrwHx7T3r5JHBLTA9cf5O0+OHAcvCSZt1r5qP2EtdLKPpaN40lCIBI02LnONhbsEDq3JpIgB5Sw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788975195; c=relaxed/simple;
-	bh=8e65vqBqS2+xPNtfIXxAIdUPEoHFNmQ9ODmWLxPHkS8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=G9KOjg0FxbGMKWN/c1LmI4FFwyLbV2JLTHlHHmZNqp0012YV+kRNGArMsUdMoDnff8x/8bIwh3ph3KROi0JSPXa8WmvNFHl2+niNoQYg7bA8Y6ot4oTDWrPpF1hOHyAwL4GzI2O52tqq5AJy/ytAbKDW6ZWrsWEtgwlPTodvIow=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=0WGoVxJM; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1788975231; c=relaxed/simple;
+	bh=9u+KwAb1TPcFPVuhKhGmv1E5ZeXisuF3FsqOK0m16pg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Ie4UVXhYVEv+rYnEf6ogU8jNmGd93wmFyWsd4KJZAMokYg6qaGtqgZ8usg0i5XRCWbkA/h9Ddm8SK9JrZK3bERES9BnR7HJ49RiWn0pk9xxnuTL/Jw2hN1+Cv9EN0NBBnych11Kp6Z8MVpbErE1h62ItcBi9jzwzvBD6T8OmiC4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BI+FnjZm; arc=none smtp.client-ip=209.85.161.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="0WGoVxJM"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=Qqzky4NioK/O0Csy4TAuIV9g/PeGeOmc1R35TVZNWDY=; b=0WGoVxJMhT2iQsWfTdyG9M1Zh+
-	gTiJslqIatvt11Rrm9MsM1MiJOqD/cYccENxUdvfs6EClGwMO6EW0PjC/tXJv6zwKO9fg8r8N+nLG
-	qd8SXt3YjPGWtQs55BsAwWT0DUgYRagC1CMA9F1eCAowbSuE7rDdReSx0fWyatk3mpYk=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1x4MA3-004GBP-Gl; Wed, 09 Sep 2026 19:32:39 +0200
-Date: Wed, 9 Sep 2026 19:32:39 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: David Yang <mmyangfl@gmail.com>
-Cc: Kyle Switch <kyle.switch@motor-comm.com>, olteanv@gmail.com,
-	davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
-	pabeni@redhat.com, horms@kernel.org, linux@armlinux.org.uk,
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
-	ming.xu@motor-comm.com, xiaolin.xu@motor-comm.com,
-	jianmin.wang@motor-comm.com, wei.zhang@gl-inet.com,
-	sijia.huang@gl-inet.com
-Subject: Re: [PATCH net-next v6 6/6] net: dsa: motorcomm: Add support for
- Motorcomm YT922x
-Message-ID: <0aa20394-2042-4c52-b30b-cdd742d4da65@lunn.ch>
-References: <20260908083614.2210505-1-kyle.switch@motor-comm.com>
- <20260908083614.2210505-7-kyle.switch@motor-comm.com>
- <CAAXyoMMLpaD5B4QojC0OKHxOFfPfFGpsS2nxCMT9e=nJeo8beg@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BI+FnjZm"
+Received: by mail-oo1-f46.google.com with SMTP id 006d021491bc7-6b1b9c3af5cso4992498eaf.2
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 10:33:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788975229; x=1789580029; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=aRf99SMBmtl+VTLk0zBUOwJpiJLfRXga4UGT3MjWHTQ=;
+        b=BI+FnjZmDneBYigR25MjdRJqjT82N3DMxlvSRxnLleKRhrNsFzyiWtVUUkkBOqlDMT
+         atT1IM8X0NM8qhaagZV2Ogre+pM3MxzJuYxEd2a0NFRvyP2mhYOECMIBvuXmImqskmfx
+         5yvQ54c1GYeK5i+6gmL7Gz4CRBJeRlQOmMjQOHdICW4Be7p4VdEaHZfRgl2fJXDMhLRL
+         4OHQdL5y15iB25XvBVW23XVgg154eww9vmpkujop7JMV2hAIarJum4Vhn/nENodhEYBq
+         T/FKoiLTrsk2Pr4fxJ2K9gT9VCpLAubC20KETyRqW24lt+/GIsDqjK4JH7qYObTAsE1B
+         WV1A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788975229; x=1789580029;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=aRf99SMBmtl+VTLk0zBUOwJpiJLfRXga4UGT3MjWHTQ=;
+        b=Aj6PSjR+NppxL78mnQ1T/JZBV9Pmjmuk9l//t2hnjPGEKVTsAWtfyjEwtZDDcT4/JC
+         tr8tDztLVvJLPOU6h9eyfHPXMrl7iw6ZZVbUm4HyEF0vR5JgjV48hO40gtTk4xC3aJoB
+         uxBMUCE9hdtbIEmZLSB/BSjoN1vYB5xP8XwhxElwIYqm5/JV5UGwQS6kKTeRKbTiZ+hH
+         9Gq6R1/QM0m20CpzugWhOIy43bk4+QO3BaePaqESg4HaGALtpTq34pkFdj9lZqV0dGFh
+         hS1e4lmkkjMYKi6Nx1zDjhtGy21YbK8Cj6qwC9mjOxLADZNGVHeZD7yewsTWSkApoEe9
+         KXtw==
+X-Forwarded-Encrypted: i=1; AKwUvBwet4q+eOgsybQBfBnUy5AKoQAKzyk3zfX6nCNNVndDTzZeeoKEjGNiEco6mk3+ZGifP2Zu1ef/XjUgH3M=@vger.kernel.org
+X-Gm-Message-State: AFuF++nWETKmlShTTNAr7k1ggUM6IduOYjOQX+hbbnud11/cDNaGeHKl
+	hUF6sUW1+LMAZhZw+u/vasghWiP9CtGiFQ6mewu/PxuLRMpljMELl2Os
+X-Gm-Gg: AYBFou0Q1/2c0ilwdeVGFNNR8iH1/GVS3fKqCFPidtWKhgc2XrvwHEBkXH8AcDbYiSZ
+	l2jYgxnR2wU5KOCT08MeywzHD3Vi5UN50uoMi3u+ThgF/yIDmx0FlEeciQEeP1lK0Ng8MbMiN/d
+	ocZoAnFxB4r2LDuofdZ76vjfUCDigI1X1AO/P9DdMiTD96voOJw5RtQyCuKDMXfKOBxrvoKxwjH
+	rqhHPqUJZ7RUu7hxClazLl5krVNLon5hEmelPobopMvfgzPEhpvTWu6Z0fQ4nYOZoAJf0pppZA+
+	i70OJ4/1VsBZoxxb2uhCcHIiPJTOelbW7V1apgr0WAFG7LdBJs3CH3LxMvTbn7SHwUoAS0NH7X5
+	Pf0rRghdehTT3wysNpTHMYzaETHy381pJ7yAb8nx3JOILMOsxnqRNqQX8nvsExRQd+aTbzQrkm7
+	yeEN6HC+f9qsnaUtLM/SFmbefab3uROcEEEZHUSjiTN0QbdOGP27iMWbcucUEFWNDwZzUH7kKBP
+	B+VHp4GZj744ZNTsdmSNZLFQ0LKOyf9rX05r997NAQDayIzysu6pzDDS2zr1TuaPBM=
+X-Received: by 2002:a05:6820:1888:b0:6b7:46fc:1cb with SMTP id 006d021491bc7-6b746fc0236mr17849545eaf.42.1788975228770;
+        Wed, 09 Sep 2026 10:33:48 -0700 (PDT)
+Received: from memorizer.fox-kitefin.ts.net (47-163-111-11.bng01.bytw.tx.frontiernet.net. [47.163.111.11])
+        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6bac11fc29bsm10396408eaf.6.2026.09.09.10.33.46
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 09 Sep 2026 10:33:47 -0700 (PDT)
+From: Yudi Yang <2000jedi@gmail.com>
+To: Tyrel Datwyler <tyreld@linux.ibm.com>,
+	Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Bjorn Helgaas <bhelgaas@google.com>
+Cc: Michael Ellerman <mpe@ellerman.id.au>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	Christophe Leroy <chleroy@kernel.org>,
+	Ritesh Harjani <ritesh.list@gmail.com>,
+	Shrikanth Hegde <sshegde@linux.ibm.com>,
+	Michael Bringmann <mwb@linux.vnet.ibm.com>,
+	linux-pci@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org,
+	linux-kernel@vger.kernel.org,
+	Yudi Yang <2000jedi@gmail.com>
+Subject: [PATCH] PCI: rpaphp: Fix stack overflows when constructing DRC names
+Date: Wed,  9 Sep 2026 12:33:00 -0500
+Message-ID: <20260909173300.1144301-1-2000jedi@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAAXyoMMLpaD5B4QojC0OKHxOFfPfFGpsS2nxCMT9e=nJeo8beg@mail.gmail.com>
+Content-Transfer-Encoding: 8bit
 
-> > +/**
-> > + * Initialize serdes configuration based on interface mode.
-> > + */
-> > +static int yt922x_sds_init(struct yt921x_priv *priv, int port,
-> > +                          phy_interface_t interface)
-> > +{
-> > +       int addr;
-> > +       u16 data;
-> > +       int res;
-> > +
-> > +       addr = yt922x_sds_phyaddr_get
-> > +               (port, YT922X_PHY_REG_TYPE_SDS_COMMON_EXT,
-> > +                YT922X_PHY_REG_SPACE_SGMII);
-> > +       if (addr < 0)
-> > +               return -EINVAL;
-> > +       /* write protect */
-> > +       res = yt921x_intif_ext_write(priv, addr, 0x4be, 0xd);
-> > +       if (res)
-> > +               return res;
-> > +       /* CDR */
-> > +       if (interface == PHY_INTERFACE_MODE_100BASEX) {
-> > +               res = yt921x_intif_ext_write(priv, addr, 0x406, 0x0);
-> > +               if (res)
-> > +                       return res;
-> > +               res = yt921x_intif_ext_write(priv, addr, 0x416, 0x3458);
-> > +               if (res)
-> > +                       return res;
-> > +       } else {
-> > +               res = yt921x_intif_ext_write(priv, addr, 0x406, 0x800);
-> > +               if (res)
-> > +                       return res;
-> > +               res = yt921x_intif_ext_write(priv, addr, 0x416, 0x4558);
-> > +               if (res)
-> > +                       return res;
-> > +       }
-> > +       /* PLL */
-> > +       if (interface == PHY_INTERFACE_MODE_USXGMII) {
-> > +               res = yt921x_intif_ext_write(priv, addr, 0x43a, 0x1006);
-> > +               if (res)
-> > +                       return res;
-> > +               res = yt921x_intif_ext_write(priv, addr, 0x43f, 0x3029);
-> > +               if (res)
-> > +                       return res;
-> > +               res = yt921x_intif_ext_write(priv, addr, 0x42a, 0xf070);
-> > +               if (res)
-> > +                       return res;
-> > +       } else {
-> > +               res = yt921x_intif_ext_write(priv, addr, 0x43d, 0x207d);
-> > +               if (res)
-> > +                       return res;
-> > +               res = yt921x_intif_ext_write(priv, addr, 0x43c, 0x207d);
-> > +               if (res)
-> > +                       return res;
-> > +               res = yt921x_intif_ext_write(priv, addr, 0x43f, 0x3032);
-> > +               if (res)
-> > +                       return res;
-> > +               res = yt921x_intif_ext_write(priv, addr, 0x43a, 0x6);
-> > +               if (res)
-> > +                       return res;
-> > +               res = yt921x_intif_ext_write(priv, addr, 0x42a, 0xf070);
-> > +               if (res)
-> > +                       return res;
-> > +       }
-> > +       /* VCO */
-> > +       res = yt921x_intif_ext_write(priv, addr, 0x439, 0xC0);
-> > +       if (res)
-> > +               return res;
-> > +       /* Vdac */
-> > +       res = yt921x_intif_ext_write(priv, addr, 0x492, 0x7f7f);
-> > +       if (res)
-> > +               return res;
-> > +       res = yt921x_intif_ext_write(priv, addr, 0x491, 0x7f);
-> > +       if (res)
-> > +               return res;
-> > +       /* Eye */
-> > +       res = yt921x_intif_ext_write(priv, addr, 0x454, 0xf14);
-> > +       if (res)
-> > +               return res;
-> > +       res = yt921x_intif_ext_write(priv, addr, 0x497, 0xa44);
-> > +       if (res)
-> > +               return res;
-> > +       res = yt921x_intif_ext_write(priv, addr, 0x4cd, 0x0);
-> > +       if (res)
-> > +               return res;
-> > +
-> > +       res = yt921x_intif_ext_write(priv, addr, 0x4af, 0x45e3);
-> > +       if (res)
-> > +               return res;
-> > +       res = yt921x_intif_ext_write(priv, addr, 0x48a, 0xfff);
-> > +       if (res)
-> > +               return res;
-> > +       res = yt921x_intif_ext_write(priv, addr, 0x408, 0x7c00);
-> > +       if (res)
-> > +               return res;
-> > +       res = yt921x_intif_ext_write(priv, addr, 0x4d6, 0x7f);
-> > +       if (res)
-> > +               return res;
-> > +       res = yt921x_intif_ext_write(priv, addr, 0x44f, 0xff08);
-> > +       if (res)
-> > +               return res;
-> > +       /* FFE */
-> > +       res = yt921x_intif_ext_write(priv, addr, 0x48e, 0x7d00);
-> > +       if (res)
-> > +               return res;
-> > +       res = yt921x_intif_ext_write(priv, addr, 0xd, 0x60f);
-> > +       if (res)
-> > +               return res;
-> > +       /* CTLE */
-> > +       res = yt921x_intif_ext_write(priv, addr, 0x4b0, 0x804);
-> > +       if (res)
-> > +               return res;
-> > +       res = yt921x_intif_ext_write(priv, addr, 0x4b1, 0x7774);
-> > +       if (res)
-> > +               return res;
-> > +       res = yt921x_intif_ext_write(priv, addr, 0x4af, 0x45e7);
-> > +       if (res)
-> > +               return res;
-> > +       res = yt921x_intif_ext_write(priv, addr, 0x3, 0x5603);
-> > +       if (res)
-> > +               return res;
-> > +
-> > +       msleep(20);
-> > +       res = yt921x_intif_ext_write(priv, addr, 0x492, 0x7fff);
-> > +       if (res)
-> > +               return res;
-> > +       res = yt921x_intif_ext_write(priv, addr, 0x492, 0x7f7f);
-> > +       if (res)
-> > +               return res;
-> > +       /* CTLE */
-> > +       res = yt921x_intif_ext_write(priv, addr, 0x2000, 0x40);
-> > +       if (res)
-> > +               return res;
-> > +       res = yt921x_intif_ext_write(priv, addr, 0x2000, 0x0);
-> > +       if (res)
-> > +               return res;
-> > +
-> > +       if (interface == PHY_INTERFACE_MODE_SGMII) {
-> > +               res = yt921x_intif_ext_write(priv, addr, 0x1042, 0x48c);
-> > +               if (res)
-> > +                       return res;
-> > +       }
-> > +       /* soft reset */
-> > +       addr = yt922x_sds_phyaddr_get(port, YT922X_PHY_REG_TYPE_MII,
-> > +                                     YT922X_PHY_REG_SPACE_SGMII);
-> > +       if (addr < 0)
-> > +               return res;
-> > +       res = yt921x_intif_read(priv, addr, 0x0, &data);
-> > +       if (res)
-> > +               return res;
-> > +       data &= ~(1 << 15);
-> > +       res = yt921x_intif_write(priv, addr, 0x0, data);
-> > +       if (res)
-> > +               return res;
-> > +       addr = yt922x_sds_phyaddr_get(port, YT922X_PHY_REG_TYPE_MII,
-> > +                                     YT922X_PHY_REG_SPACE_USXGMII);
-> > +       if (addr < 0)
-> > +               return res;
-> > +       res = yt921x_intif_read(priv, addr, 0x0, &data);
-> > +       if (res)
-> > +               return res;
-> > +       data |= 1 << 15;
-> > +       res = yt921x_intif_write(priv, addr, 0x0, data);
-> > +       if (res)
-> > +               return res;
-> > +
-> > +       return 0;
-> > +}
-> 
-> No one else, except you, can maintain this stuff. Drop it for now and
-> discuss it later.
+The drc-name-prefix field of ibm,drc-info is supplied by firmware and
+is not limited to fit within MAX_DRC_NAME_LEN. Using sprintf() to append
+a suffix can therefore overflow the stack buffers used for DRC names.
+Use snprintf() and reject names that would be truncated.
 
-There also appears to be similar magic in the PHY driver. Can this be
-consolidated?
+Fixes: 2fcf3ae508c2 ("hotplug/drc-info: Add code to search ibm,drc-info property")
+Cc: stable@vger.kernel.org
+Signed-off-by: Yudi Yang <2000jedi@gmail.com>
+---
+ drivers/pci/hotplug/rpaphp_core.c | 11 ++++++++---
+ 1 file changed, 8 insertions(+), 3 deletions(-)
 
-	Andrew
+diff --git a/drivers/pci/hotplug/rpaphp_core.c b/drivers/pci/hotplug/rpaphp_core.c
+index 2316de0fd198..39109a50fee6 100644
+--- a/drivers/pci/hotplug/rpaphp_core.c
++++ b/drivers/pci/hotplug/rpaphp_core.c
+@@ -252,8 +252,11 @@ static int rpaphp_check_drc_props_v2(struct device_node *dn, char *drc_name,
+ 		/* Found it */
+ 		if (my_index >= drc.drc_index_start && my_index <= drc.last_drc_index) {
+ 			int index = my_index - drc.drc_index_start;
+-			sprintf(cell_drc_name, "%s%d", drc.drc_name_prefix,
+-				drc.drc_name_suffix_start + index);
++
++			if (snprintf(cell_drc_name, sizeof(cell_drc_name), "%s%u",
++				     drc.drc_name_prefix,
++				     drc.drc_name_suffix_start + index) >= sizeof(cell_drc_name))
++				return -EINVAL;
+ 			break;
+ 		}
+ 	}
+@@ -355,7 +358,9 @@ static int rpaphp_drc_info_add_slot(struct device_node *dn)
+ 	if (!is_php_type(drc.drc_type))
+ 		return 0;
+ 
+-	sprintf(drc_name, "%s%d", drc.drc_name_prefix, drc.drc_name_suffix_start);
++	if (snprintf(drc_name, sizeof(drc_name), "%s%u", drc.drc_name_prefix,
++		     drc.drc_name_suffix_start) >= sizeof(drc_name))
++		return -EINVAL;
+ 
+ 	slot = alloc_slot_struct(dn, drc.drc_index_start, drc_name, drc.drc_power_domain);
+ 	if (!slot)
+-- 
+2.43.0
+
