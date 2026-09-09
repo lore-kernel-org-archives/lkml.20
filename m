@@ -1,101 +1,151 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f71.google.com (mail-ej1-f71.google.com [209.85.218.71])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37D0954CF78
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 11:55:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1ED1654A7FB
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 11:55:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.71
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788954960; cv=none; b=sYH4NRxjB8pecViATtbY5sAhbFWcW7rcLfr1bMeTb2jXkdYYrpfjYbMw1K21Y85AigeQ5Lt8OSmE0jfIkNuZB/9Oj0Mp6CuKqilVn/1ZwWBPos9ZyFFABv8HNFKqqzHfXn16cEwr+qaAFDUyjHARUVe/0tNQ04zhq4I847CEKHI=
+	t=1788954960; cv=none; b=NBJXH6q7tM0xzbevWF8lT+Z8oLfUmkyHEb+h66vvyPiPStJ4kbGtRcD8sMvlP/R92spTwYA9Dnoj63aDa32SRX+syUfYEE6Cdbqy++ke4d2kHMcSgoUJzPsJlK2z7f81/M5O8S+CVVdU7BSzirZzKeS6pROFyeFN3idFM5iDsB4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788954960; c=relaxed/simple;
-	bh=GNqEgrb/+sZ74TXSrcPeteUL+J+8OTzaBVlLilJkm0o=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=qv6TzOqUB4rHU88ck+k6dX52we181gzO3UEEeNUww+WD4O8EXjqrEAAe+yJ6FQ+V/CW31Ds+w+I/JzDTAS+JUrcPeg6uS7VpeandmIQ5bFkzwgkyBTIPX77WvIafBbR8x867aEBCR2x4r9zW8ADi1YGvnRXGYGYiTETPlUFVXds=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=dKCpaUAi; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	bh=sGZSDI9LoB4j8Q58me441VivPfwEK65+W5D4R01Y4jw=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=s6SKB6mgWSQ8/oQkJb3IJUW2imvlfaVL/tZBn/wt10mM3ge17HGOZ1ETjhvRC5bCrSQputXo+7sTmDz1/0onIDZowb5IRKthetrKzotZqWSipO9F/r9Sbp2KOMqzTLlljHqiyq1bSwaifCNNKqvRaoOeHljj2rLjLis2XPr3WZw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--ardb.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=viFGTJg/; arc=none smtp.client-ip=209.85.218.71
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--ardb.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="dKCpaUAi"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1788954957;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=DzI3o5Wk9Ztm1nJZ2Q+wYHNX0B3JnIKhbrRiMd/8awY=;
-	b=dKCpaUAiaVKtqzqOGJ+bAk2CC4TjyW0VfoV6g229MgznEGfC0jNzthg2GCVVEVE7K6LnrR
-	IaYxWHJdDNlJLgjjqTQpXjm5aavhJA9PQ+O1Nn7pyFjfFz/sCFTGt+EgmFDYWgdgy6Xi//
-	sQGDlDCbxjV3Eyww/OaGdjzfapeghm8=
-Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-230-NWfyhj1OPraS-1r2Ux0jCA-1; Wed,
- 09 Sep 2026 07:55:51 -0400
-X-MC-Unique: NWfyhj1OPraS-1r2Ux0jCA-1
-X-Mimecast-MFC-AGG-ID: NWfyhj1OPraS-1r2Ux0jCA_1788954949
-Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id B535F1955DDC;
-	Wed,  9 Sep 2026 11:55:48 +0000 (UTC)
-Received: from thuth-p1g4.redhat.corp (headnet05.pony-001.prod.iad2.dc.redhat.com [10.2.32.117])
-	by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id A6D5B195608D;
-	Wed,  9 Sep 2026 11:55:44 +0000 (UTC)
-From: Thomas Huth <thuth@redhat.com>
-To: Eric Biggers <ebiggers@kernel.org>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	"David S. Miller" <davem@davemloft.net>,
-	"Jason A. Donenfeld" <Jason@zx2c4.com>,
-	Ard Biesheuvel <ardb@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	x86@kernel.org
-Cc: linux-crypto@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	"H. Peter Anvin" <hpa@zytor.com>
-Subject: [PATCH v2 10/13] x86/purgatory: Compile purgatory.c with -D__NO_FORTIFY
-Date: Wed,  9 Sep 2026 13:54:46 +0200
-Message-ID: <20260909115455.157093-11-thuth@redhat.com>
-In-Reply-To: <20260909115455.157093-1-thuth@redhat.com>
-References: <20260909115455.157093-1-thuth@redhat.com>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="viFGTJg/"
+Received: by mail-ej1-f71.google.com with SMTP id a640c23a62f3a-c251c140b41so404018466b.3
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 04:55:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1788954956; x=1789559756; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=/8G2xiGwGscqCz2TsV89VXPggp4ynR4SYjKKcXLzYJM=;
+        b=viFGTJg/ClyL8LKBVVDztDXA7aBs2dnWkBLyL6ykO5nQK0cmevhFGlnhjEUomrSABP
+         XBASyLQWt7fEk7f5lPtiwfAKWqZB1ci2crYfVYCsH0dTlszSaIYDbKdEn30m1f4sLjEw
+         aF7BbrcH2BqtyleROj6VPx20S0n28TYh4v/DyhdLz6gsoRe7dkYFea3IqjU3zkB+GGFe
+         MhS0cnWAor3PuttfhKCdQQlE51fLWWOhTu6r/en+3kbDvp7Hzazv064rnm4+0NVEhXXx
+         BuOElkhxIJSr7fGP1oEsF6HCScWaqpNuQm6y+SwaIPMiaHUq9HPzMrvwgrO0mSAxtOBN
+         G8Iw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788954956; x=1789559756;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=/8G2xiGwGscqCz2TsV89VXPggp4ynR4SYjKKcXLzYJM=;
+        b=KQcVDdcyRtFUF3rDpz4QDyKNu4/kq6sziM23oIxhlrQSoFp46KD0ZGvBbqeFzXYZn3
+         +sfjk1xl4+hVK2iil0yHahnuWz3I0Jhf3dsTK7hEb5VwHfoPx9IMAmEUiKceltuMVPLr
+         EzwYQOqRelxmJJmzqfDddhwkqX2YSg51+pXK9Ah6A9xyyazxO0Z0pQHjGvoy03qI21e7
+         fCD5UL8VRoP78mMOUmXmSKDyffI+MqjITNuRpvtfZ6Ca2OBbTC1hPdBh0ErsLyDcK6f5
+         vI5Mvrwbm4NAv5KGh5KTDxZ1t+2N59WMHOrSxhPZ3tdBu/k4qL3fE07kxFIRdKAuQraS
+         5dFg==
+X-Gm-Message-State: AFuF++mYR6EWxxdgeDh4Qa6p0PDJiLb+DmtJ47F0VmSVvIWKeEr6L292
+	2wx4xoptGTA9SRpc/4AYYfVBK7bpItKVYDe+NSH0fqBL8Ot7/WpkP4piEzcl+NbFezmdVtT15Q=
+	=
+X-Received: from ejbb16.prod.google.com ([2002:a17:906:30d0:b0:c29:3b60:12fd])
+ (user=ardb job=prod-delivery.src-stubby-dispatcher) by 2002:a17:906:2083:b0:c26:1649:47ba
+ with SMTP id a640c23a62f3a-c26164956afmr846902566b.48.1788954956190; Wed, 09
+ Sep 2026 04:55:56 -0700 (PDT)
+Date: Wed,  9 Sep 2026 13:55:32 +0200
+In-Reply-To: <20260909115530.1924665-12-ardb+git@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
+Mime-Version: 1.0
+References: <20260909115530.1924665-12-ardb+git@google.com>
+X-Developer-Key: i=ardb@kernel.org; a=openpgp; fpr=F43D03328115A198C90016883D200E9CA6329909
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2537; i=ardb@kernel.org;
+ h=from:subject; bh=jHiqT7EJ3nijNDYj+fN+c7L8/vUmjy+4wIUAjyL6m/c=;
+ b=owGbwMvMwCVmkMcZplerG8N4Wi2JIWuhp4kAjx6TWD23a7nuIsmEa/eN34avUfQz3relLKGfP
+ 9f10oWOUhYGMS4GWTFFFoHZf9/tPD1RqtZ5lizMHFYmkCEMXJwCcJOZGP4pdZRman658sWTM2a7
+ uvm+3sCXUoVx5hcMbojIf1A+ePcsw18xGUH724VXPkrt87lzTs8t+pXXJl5FIaaq/Lu5iR8m9XI CAA==
+X-Mailer: git-send-email 2.55.0.1003.g10538fe699-goog
+Message-ID: <20260909115530.1924665-13-ardb+git@google.com>
+Subject: [PATCH v2 01/10] x86/boot: Drop pointless re-implementation of panic()
+From: Ard Biesheuvel <ardb+git@google.com>
+To: linux-efi@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org, Ard Biesheuvel <ardb@kernel.org>, 
+	Vincent Mailhol <mailhol@kernel.org>, x86@kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-A subsequent patch will add #include <linux/string.h> to <crypto/sha2.h>
-to use memzero_explicit() there. This will introduce a conflict with the
-purgatory code: purgatory.c includes both, the <crypto/sha2.h> header and
-the arch/x86/boot/string.h header. The latter provides its own prototypes
-for a lot of string functions which clash with the fortified macros
-from <linux/string.h>. To avoid the problem, compile the code in
-purgatory.c with -D__NO_FORTIFY, so <linux/string.h> can properly be
-included from <crypto/sha2.h> in the purgatory, too.
+From: Ard Biesheuvel <ardb@kernel.org>
 
-Signed-off-by: Thomas Huth <thuth@redhat.com>
+The decompressor has its own implementation of panic(), which is based
+on the vsnprintf() routine provided by the EFI stub.
+
+Relying on the EFI stub from code that does not execute in the context
+of the EFI boot services is a bad idea. It is also completely pointless
+in this case, given that the only user of this version of panic() only
+passes a compile time constant string, without any printf conversions.
+
+So use error() instead of panic() in that case, and drop the panic()
+implementation entirely. This is needed so that the EFI stub's
+vsnprintf() can be modified in a manner that is incompatible with the
+expectations of this caller.
+
+Signed-off-by: Ard Biesheuvel <ardb@kernel.org>
 ---
- arch/x86/purgatory/Makefile | 1 +
- 1 file changed, 1 insertion(+)
+ arch/x86/boot/compressed/error.c | 19 -------------------
+ arch/x86/boot/compressed/error.h |  1 -
+ arch/x86/boot/compressed/mem.c   |  2 +-
+ 3 files changed, 1 insertion(+), 21 deletions(-)
 
-diff --git a/arch/x86/purgatory/Makefile b/arch/x86/purgatory/Makefile
-index 5ce1d42630000..9191e3cffc30b 100644
---- a/arch/x86/purgatory/Makefile
-+++ b/arch/x86/purgatory/Makefile
-@@ -12,6 +12,7 @@ $(obj)/sha256.o: $(srctree)/lib/crypto/sha256.c FORCE
- 	$(call if_changed_rule,cc_o_c)
+diff --git a/arch/x86/boot/compressed/error.c b/arch/x86/boot/compressed/error.c
+index 19a8251de506..ce5ed7d8265e 100644
+--- a/arch/x86/boot/compressed/error.c
++++ b/arch/x86/boot/compressed/error.c
+@@ -22,22 +22,3 @@ void error(char *m)
+ 	while (1)
+ 		asm("hlt");
+ }
+-
+-/* EFI libstub  provides vsnprintf() */
+-#ifdef CONFIG_EFI_STUB
+-void panic(const char *fmt, ...)
+-{
+-	static char buf[1024];
+-	va_list args;
+-	int len;
+-
+-	va_start(args, fmt);
+-	len = vsnprintf(buf, sizeof(buf), fmt, args);
+-	va_end(args);
+-
+-	if (len && buf[len - 1] == '\n')
+-		buf[len - 1] = '\0';
+-
+-	error(buf);
+-}
+-#endif
+diff --git a/arch/x86/boot/compressed/error.h b/arch/x86/boot/compressed/error.h
+index 31f9e080d61a..87062dea9a20 100644
+--- a/arch/x86/boot/compressed/error.h
++++ b/arch/x86/boot/compressed/error.h
+@@ -6,6 +6,5 @@
  
- CFLAGS_sha256.o := -D__DISABLE_EXPORTS -D__NO_FORTIFY
-+CFLAGS_purgatory.o += -D__NO_FORTIFY
+ void warn(const char *m);
+ void error(char *m) __noreturn;
+-void panic(const char *fmt, ...) __noreturn __cold;
  
- # When profile-guided optimization is enabled, llvm emits two different
- # overlapping text sections, which is not supported by kexec. Remove profile
+ #endif /* BOOT_COMPRESSED_ERROR_H */
+diff --git a/arch/x86/boot/compressed/mem.c b/arch/x86/boot/compressed/mem.c
+index 0e9f84ab4bdc..e1c017b55184 100644
+--- a/arch/x86/boot/compressed/mem.c
++++ b/arch/x86/boot/compressed/mem.c
+@@ -37,7 +37,7 @@ void arch_accept_memory(phys_addr_t start, phys_addr_t end)
+ 	/* Platform-specific memory-acceptance call goes here */
+ 	if (early_is_tdx_guest()) {
+ 		if (!tdx_accept_memory(start, end))
+-			panic("TDX: Failed to accept memory\n");
++			error("TDX: Failed to accept memory\n");
+ 	} else if (early_is_sevsnp_guest()) {
+ 		snp_accept_memory(start, end);
+ 	} else {
 -- 
-2.55.0
+2.55.0.1003.g10538fe699-goog
 
