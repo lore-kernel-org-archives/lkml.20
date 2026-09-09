@@ -1,178 +1,229 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C650550DA7
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 12:12:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85C63550DB5;
+	Wed,  9 Sep 2026 12:12:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788955944; cv=none; b=Hm+JE7aC0k5YW8MQLinYNnklY/4twMAt3QTdSyzvHR9qk5iCo65bjflAYDEN4SAC7A8PsaOzNjOubi3KVurHdncbrepTbqfopUojNXBE8zeMnp3S926zlujn1hF2qtYyRP/lsJjx4JOAgq0/UeZWs12/fijZmuzXZHmTfI4hZp4=
+	t=1788955948; cv=none; b=kyn60ePlewH+tS43S0FbD6x8D2jVR34a2YKIn7Fqvb3y1ZxNykRxi89+Fsmzl2zMWnxQec/2eFf+NNBI/yiZYWcSiWF2DLsv+SuTL57e1BqPYINjcDIVdJ7Jk+nI311ionBeeYHMZMWgUADdMEDj8Ap08WZBOfb7+Hf0AJnjdcc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788955944; c=relaxed/simple;
-	bh=31CCzmJ9mUdDNRl82f6pdz6H2VXsBhLBUJvmcItofrY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=sPelSsJwlqZTVjDywCJuNFlDAWrQhl+0v3JtWRE54jSLglGX0cgoDCXKJg9rvy8csA70K2F3XpkFiQGR+Jp6aZIF9s4t/6y9Ol1EkZ8vuq8ZSQl1Y5aWbYkqzDF8DdpMK8fxEssxEfjnm8g6Afxsh8WkB+6Wm6h02/yy3vRg7tU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=JRIeJlJl; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=OJdKI+p8; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1788955948; c=relaxed/simple;
+	bh=0eza9hmbmpnwwdzaEK4z2Fzrj7wxNCMz0u5gRrWgeH8=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=WRJYxlRsR39l+vo4gGr320gnhjZhCFuQgDz4kngNcxa8WGLT7j9gfYkDUpBr34skAzXi7Av49A26uWr/Py+SnzFugEK3omoA887TGvnkcb1ZdeNbcZAqU8GwnWEiyVvs8DtPDzEJDhD/8vCpcF/+6T8D8RP9DZxEjKOZrf1ecNo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MSp2dZvG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="JRIeJlJl";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="OJdKI+p8"
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 689BUF1X1810365
-	for <linux-kernel@vger.kernel.org>; Wed, 9 Sep 2026 12:12:20 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=1BTQYNCRWWifNWNawrPpsyR4
-	zn15wpTVJTQ9AFXK2Mw=; b=JRIeJlJl8X6YtscUPWlEZoXb8vqsBhqoyCyD1I6m
-	Wj+dD6VyxADamLU74QTGu9HSfnT1V1kZxb+ah3kPfV/T9NcmB8bzEFgzjuEE7/4R
-	jAbWaZkHxXUbn1qFUFEx9k3vaE9prYApK2To0IolK5RgLj9VtH0yQoyd0wiKopYm
-	udC2EDIuT8wsUrr7FcyV1jzD8qpa2qNf75tJlXwJGfmSolLtEmltFxtTOtetwrl6
-	zxAOXylgiD7AaCnfd2TcAXpSniHeyTSGTIaZ7g7Gbu6KYfWn93knDlg/9lUzicUc
-	2bN1TBGMuzPzr51geupqZVCM+8cwogNfNzcHsO99NCTplQ==
-Received: from mail-vs1-f72.google.com (mail-vs1-f72.google.com [209.85.217.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gk4xj0jf5-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 12:12:19 +0000 (GMT)
-Received: by mail-vs1-f72.google.com with SMTP id ada2fe7eead31-78a6d5cc851so470034137.0
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 05:12:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788955939; x=1789560739; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=1BTQYNCRWWifNWNawrPpsyR4zn15wpTVJTQ9AFXK2Mw=;
-        b=OJdKI+p8um+KDYErEnBlW+HIUmnG2vSXkyFgsVpYVKtAfQFbfTW87GYnN+xn8+NbBq
-         zYIc9JobNkog75UlP3Dv7A3okIFSgX91J78obmPA/HXbc2xLu30EcJBKYTHO6FhjrkZM
-         d83S1uVJ4dFr3qq+V98K2TsFcurWE16FEtAtVvB16IkUd8EGKB4AvXcWxugJlfy/FPQE
-         zGXSXPFwpzOYXB2VbvGwHAx7pIF54iZfPZSdfc2oEbn303ZYpZvjpavsU7bqiKh1t2m8
-         k+dTlVlMfii0/v9v1f2LxajAdQjIOKGXkIpS42eT9b2i7XD5rlbE4K58K4VSZCRek0Ot
-         y05A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788955939; x=1789560739;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=1BTQYNCRWWifNWNawrPpsyR4zn15wpTVJTQ9AFXK2Mw=;
-        b=KwIjetKGpGX8O3X9K1Et4uhzgbI3KeUBrZQRNvVFt4uUTFZo25HEVMN3lkLFLalhIr
-         xKGGtPO6G121ZYsy8G0ZexFNRZYX3XnvWepK5aC90pvr8PuCIchTWLX/DT1FdnCl7jgk
-         uYU+62m5JKqnuOkrTanFJx1ihraZ5udxZ4P8JIvY8R4noGfrFSLpA93A25h1RTZULiEr
-         okuIml3nALYbCFXkudMmZyA1LtVJ8vYvl/kBYNMiiyElfXbOe8pvXrREnjJfrtUhOZit
-         PjAVwPzbExQOJmvsoTjGy4EUEK5vP1POnBNI0fJkMBEfMpkfv1yU6TZaUCM5wYnn19hV
-         4zaA==
-X-Forwarded-Encrypted: i=1; AKwUvByR5dr46ColcztDs82W8cebHOpS15s6uMmUMiIs9pjrcw29zAMkcSN54X17LGsNooXLZ1/Bff1Lp/pj538=@vger.kernel.org
-X-Gm-Message-State: AFuF++lGa7JjD0afNIKMPs6r72W1wadVhWyFB/679H5Y0qVRZQkdYg4/
-	ng1lYkXcMuu4tXlmpfdy0TJNvVTfPeQFMk8PrlLG27/rjDlBOvwhrsJEolEpXnPoBERvr2hzJz4
-	KmQyOEiFGH3btBAY/bNofnUdBl/l9UkzAH8QvA2XR2PVkRxcbk7i/FONUzMFaNf/Yk1s=
-X-Gm-Gg: AYBFou2Z+H+lWZ2D5ZeoPKgKJl8du/BfCd0yfyx+O4NLNA7i+F3UMnMiudnwNarIGNZ
-	5rO8keec1Ln1zDsZxFwX8bpGMGgMBXOlOeDq0qmjrADJCwYECZbsDdN1De8svTV2+AFrll8Dwoz
-	4KBn3mFHMB+9ZcL0riEvQm3fX3PpzpaZUWCVv9ehoOiMPqARJtkMK4OeD6jrKCjG6AOadmPkeOs
-	eHYosTB9jasPInUCNs+Fk4qFXTKlEzzGfQcGFjxsmzfWn3Xuli8Rlqy0sM+nM9byVF3msPbWWTh
-	E6JPuoeU/EOKQjD5KyI3OewjZImJzt+70C9GZ239b1U1MABYGk7UXErwVdMxOoBUncTK7TsQUru
-	gv4NndIKR0/FGDfHUrvyvYKlgEsZWtwqWxBw4Z7vScERDNWgl502QsKM9nLRlZYKBZ8FqG2XRkY
-	nfi+TBqNk2zWf1
-X-Received: by 2002:a05:6102:54a6:b0:785:e069:6c5 with SMTP id ada2fe7eead31-790776ffba8mr289216137.8.1788955939230;
-        Wed, 09 Sep 2026 05:12:19 -0700 (PDT)
-X-Received: by 2002:a05:6102:54a6:b0:785:e069:6c5 with SMTP id ada2fe7eead31-790776ffba8mr289186137.8.1788955938751;
-        Wed, 09 Sep 2026 05:12:18 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b74cbfdfd7sm3249322e87.75.2026.09.09.05.12.17
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 09 Sep 2026 05:12:17 -0700 (PDT)
-Date: Wed, 9 Sep 2026 15:12:15 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Alexander Koskovich <akoskovich@pm.me>
-Cc: Sebastian Reichel <sre@kernel.org>, linux-arm-msm@vger.kernel.org,
-        linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH RFC] power: reset: qcom-pon: Drop reason shift for PMK8350
-Message-ID: <4tghecpbblnbyqbdj2y2ma553sswccycw3hflspqoxrvr3d2kq@q5jzvzwq3jah>
-References: <20260907-pon-pbs-v1-1-cff2f5810769@pm.me>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MSp2dZvG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 74E1E1F00A3A;
+	Wed,  9 Sep 2026 12:12:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788955947;
+	bh=K1YQsi/7IjjFywqyLFJ6weEnZEs1+TwcBvIgqZHVF5w=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=MSp2dZvGMIlaC0h43j9Os59YWqitOgaiQ2aqKSgiM2RKRolfvSVrdE2iCAOY141ec
+	 XAZ1L23Uv7xIrdCh5HOEe9eM2VsphL310mFuRCnaMbBXDhgzHQw0tb2bLS/dEaDw6k
+	 1DeHFu1WO2E8KOCaSr0Yp5ja+I377j8uqtnxwyNipCM/DBurZ07dDZhobuhb6440Np
+	 Mqu/r5dZvQ3OaPg0ce4z6S+rKuHPKCP3xiAEKW5YNxUnNQD60cHtYi1d9XZkXVJxsW
+	 +a4FJriPkKv9qNxIILm/zMm0uyMeK/qiJFIGG4hXvPCtJopdN22aC/RJr32Jmfnqwt
+	 RVsL8SOVDU7Ag==
+Subject:
+ Re: [PATCH net-next v2 3/4] net: dsa: Add tag handling for SoC-e switches
+From: netdev-bot+sashiko@kernel.org
+To: v.strassheim@linutronix.de
+Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, andrew@lunn.ch,
+ olteanv@gmail.com, davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+ pabeni@redhat.com, horms@kernel.org, linux@armlinux.org.uk,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ netdev@vger.kernel.org, martin.kaistra@linutronix.de,
+ b.spranger@linutronix.de
+Date: Wed, 09 Sep 2026 12:12:25 +0000
+Message-ID: <178895594594.219967.10703472718792333808@kernel.org>
+In-Reply-To:
+ <20260903-devel-vstrassheim-soce-dsa-ml-v2-3-fb0587cb466b@linutronix.de>
+References:
+ <20260903-devel-vstrassheim-soce-dsa-ml-v2-3-fb0587cb466b@linutronix.de>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260907-pon-pbs-v1-1-cff2f5810769@pm.me>
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA5MDEzNiBTYWx0ZWRfXzMsl8Ra7pI5g
- dpbbHKxu50Fn6Yh2wZ/O+CAVl5yaLYnV9eGclEECnHa2GL/q3FtLKWqx7UoHZVnF7ZXbEH+x3ZQ
- b4vANSu8Gpx55JtLIdn1h/1mhhmPkBs=
-X-Authority-Analysis: v=2.4 cv=J52aKgnS c=1 sm=1 tr=0 ts=6aa14d24 cx=c_pps
- a=DUEm7b3gzWu7BqY5nP7+9g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22 a=XjHw8PULWccToXi1muEA:9
- a=CjuIK1q_8ugA:10 a=-aSRE8QhW-JAV6biHavz:22
-X-Proofpoint-ORIG-GUID: ncPN9-nqQYxvUfJN4ewLCbhBTApbpR3m
-X-Proofpoint-GUID: ncPN9-nqQYxvUfJN4ewLCbhBTApbpR3m
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA5MDEzNiBTYWx0ZWRfX1pO4600FE6XB
- /g1HxKPPiAoCrhjriMPIMLDcZuZclGIfZZ9SvYhr4AlXgaoDFbpSBAxJ0WwaOKIDvDE2Dj2Gaox
- bl/Bej/u3ULqJbcY+hxYF8N2tDA4Gd+H2SH15F5wIcFU2gdXyklAhlmi+HffYvY6ITNq17djUiK
- vqRMZOkOeO6k2jryrvaJO93vtxw/1EvaXh6F3j99go3Zkzcgm039+nocz1B+PWQMZP+DcjliLHx
- DpFvuM/eBgJA9sQL2O1soOOwUcNDyvlYc4OWqKNakY0tky7oRpqHBsAGiY/+NdKF+oNtcLOzuCD
- fPKbyzJEKK9V2Tzvp/1cmBzFHF1dCNU+Dd8nt7kMsy4oRGBWxruRX6qYGrKKmahDin2CDelag/F
- YNzDBc5YGWYUAXf4pJIQ1DWNHDZO0MgzUIw0g42yEzqwkMafBejRg2CC4OZUMeRQzLIrVQXKgcA
- hF0QmPaEjjhF5okkmLw==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-08_03,2026-09-09_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 priorityscore=1501 spamscore=0 adultscore=0 malwarescore=0
- suspectscore=0 impostorscore=0 bulkscore=0 clxscore=1015 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609090136
 
-On Mon, Sep 07, 2026 at 04:44:29PM +0000, Alexander Koskovich wrote:
-> On the PMK8350 the SOFT_RB_SPARE register does not exist, the reset
-> reason is instead kept in SDAM and written through the reboot-reason
-> nvmem cell.
-> 
-> Signed-off-by: Alexander Koskovich <akoskovich@pm.me>
-> ---
-> Would like some feedback on this as I'm seeing conflicting results,
-> SOFT_RB_SPARE does not exist on HLOS but it looks like the downstream
-> qpnp-power-on driver writes to XVDD_RB_SPARE2 for GEN3, which is on PBS.
-> 
-> Though, targets like waipio don't seem to have access to write to PBS
-> from HLOS? Get SPMI errors when I try. Didn't have an issue doing so on
-> milos though.
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider:
 
-It well might be that the PMIC has the spare register but whether it
-gets used or not depends on the platform (and the firmware) rather than
-the PMIC.
+Critical: 0 · High: 0 · Medium: 1 · Low: 1
 
-> 
-> Besides, the bindings doesn't allow reboot modes on PMK8350 so maybe
-> setting no reason shift is correct regardless so it gets skipped?
-> ---
->  drivers/power/reset/qcom-pon.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/power/reset/qcom-pon.c b/drivers/power/reset/qcom-pon.c
-> index 7e108982a582..9cd55f5536b4 100644
-> --- a/drivers/power/reset/qcom-pon.c
-> +++ b/drivers/power/reset/qcom-pon.c
-> @@ -90,7 +90,7 @@ static const struct of_device_id qcom_pon_id_table[] = {
->  	{ .compatible = "qcom,pm8941-pon", .data = (void *)NO_REASON_SHIFT },
->  	{ .compatible = "qcom,pms405-pon", .data = (void *)GEN1_REASON_SHIFT },
->  	{ .compatible = "qcom,pm8998-pon", .data = (void *)GEN2_REASON_SHIFT },
-> -	{ .compatible = "qcom,pmk8350-pon", .data = (void *)GEN2_REASON_SHIFT },
-> +	{ .compatible = "qcom,pmk8350-pon", .data = (void *)NO_REASON_SHIFT },
->  	{ }
->  };
->  MODULE_DEVICE_TABLE(of, qcom_pon_id_table);
-> 
-> ---
-> base-commit: 944a035ecca915ae947905dcfb03f2b9dc6d032c
-> change-id: 20260907-pon-pbs-76b7ecaafe33
-> 
-> Best regards,
-> -- 
-> Alexander Koskovich <akoskovich@pm.me>
-> 
-> 
+- [Medium] sdsa_rcv() (net/dsa/tag_sdsa.c, lines 86-87) unconditionally
+  destroys every received frame whose SDSA header has the VLAN-info bit…
+- [Low] Concern (INVALIDATED by series context): 'the new DSA tag
+  protocol DSA_TAG_PROTO_SDSA / CONFIG_NET_DSA_TAG_SDSA has no in-tree…
+
+--
+
+net: dsa: Add tag handling for SoC-e switches
+
+This adds a new DSA tagger for SoC-e switches, which insert an 8-byte SDSA
+header with EtherType 0xdcdc between the source MAC address and the original
+EtherType.  Both TO_CPU and FROM_CPU directions are handled, while the VLAN
+metadata fields in the header are left clear on transmit and rejected on
+receive.
+
+> diff --git a/net/dsa/Kconfig b/net/dsa/Kconfig
+> index 23b4b74004ed5..0032ccd3badf6 100644
+> --- a/net/dsa/Kconfig
+> +++ b/net/dsa/Kconfig
+> @@ -188,6 +188,12 @@ config NET_DSA_TAG_RZN1_A5PSW
+>  	  Renesas RZ/N1 embedded switch that uses an 8 byte tag located after
+>  	  destination MAC address.
+>  
+> +config NET_DSA_TAG_SDSA
+> +	tristate "Tag driver for SoC-e switches using EtherType SDSA headers"
+> +	help
+> +	  Say Y or M if you want to enable support for tagging frames for the
+> +	  SoC-e switches.
+> +
+
+[Severity: Low]
+This isn't a bug, just a note so it does not get raised again during review.
+Taken on its own, this patch adds a tagger and a protocol id with no in-tree
+user.  The next patch in the series, "net: dsa: soce: Add basic support for
+SoC-e switch IP cores", adds drivers/net/dsa/soce/ whose Kconfig contains
+select NET_DSA_TAG_SDSA and whose soce_get_tag_protocol() returns
+DSA_TAG_PROTO_SDSA, so the tagger is reachable by the end of the series.
+
+[ ... ]
+
+> diff --git a/net/dsa/tag_sdsa.c b/net/dsa/tag_sdsa.c
+> new file mode 100644
+> index 0000000000000..83bccd65b1b1d
+> --- /dev/null
+> +++ b/net/dsa/tag_sdsa.c
+> @@ -0,0 +1,123 @@
+
+[ ... ]
+
+> +/* SDSA tag byte layout (after the 12-byte MAC header):
+> + * Bytes 0-1: SDSA EtherType (0xDCDC)
+> + * Bytes 2-3: Reserved
+> + * Byte 4:    Frame type (bits 7-6), VLAN-info bit (bit 5), port[9:5] (bits 4-0)
+> + * Byte 5:    Port[4:0] (bits 7-3)
+> + * Bytes 6-7: PCP (bits 7-5) / CFI (bit 4) / VID (bits 3-0 + byte 7), only
+> + *            meaningful when the VLAN-info bit is set.
+> + */
+
+[ ... ]
+
+> +static struct sk_buff *sdsa_xmit(struct sk_buff *skb, struct net_device *dev)
+> +{
+
+[ ... ]
+
+> +	tag->port_lo = FIELD_PREP(SDSA_TAG_PORT_LO_MASK, dp->index);
+> +	tag->vlan = 0;
+> +
+> +	return skb;
+> +}
+> +
+> +static struct sk_buff *sdsa_rcv(struct sk_buff *skb, struct net_device *dev)
+> +{
+
+[ ... ]
+
+> +	/* SDSA VLAN information is not supported. */
+> +	if (tag->frame_type_port_hi & SDSA_TAG_VLAN_BIT)
+> +		goto out_drop;
+
+[Severity: Medium]
+Can this drop every VLAN-tagged frame destined for the CPU?
+
+The layout comment in this file states that bytes 6-7 carry PCP/CFI/VID and
+are "only meaningful when the VLAN-info bit is set", so the hardware appears
+to move the frame's VLAN identity out of the frame body and into the tag.
+
+The SDSA layout looks like a close relative of Marvell (E)DSA: proprietary
+EtherType, two reserved bytes, command in bits 7-6 of the first tag byte,
+port in bits 7-3 of the second byte, and the VLAN indication in bit 5.  In
+tag_dsa.c that bit means the frame arrived VLAN-tagged and the tagger
+reconstructs the 802.1Q header rather than dropping the frame:
+
+net/dsa/tag_dsa.c:dsa_rcv_ll() {
+	...
+	if (dsa_header[0] & 0x20) {
+		u8 new_header[4];
+
+		/* Insert 802.1Q ethertype and copy the VLAN-related
+		 * fields, but clear the bit that will hold CFI (since
+		 * DSA uses that bit location for another purpose).
+		 */
+		new_header[0] = (ETH_P_8021Q >> 8) & 0xff;
+		new_header[1] = ETH_P_8021Q & 0xff;
+		new_header[2] = dsa_header[2] & ~0x10;
+		new_header[3] = dsa_header[3];
+	...
+}
+
+If the SoC-e core sets bit 5 for ordinary tagged ingress in any supported
+configuration, all such traffic towards the CPU is freed here.  The driver
+added later in the series only programs SOCE_TAG_ALL_FRAMES_ENABLE and
+SOCE_CUSTOM_RULES_TAGGING_ENABLE in soce_sw_enable_tagging() and implements
+no VLAN operations at all, so nothing turns this hardware behaviour off.
+Is it known that the core never sets that bit?
+
+The drop itself is a bare kfree_skb() with no drop reason, counter, or
+ratelimited message, so from userspace the resulting loss is hard to tell
+apart from a link or MAC problem.  Would kfree_skb_reason() be worth using
+for these paths?
+
+On the transmit side, sdsa_xmit() writes tag->vlan = 0 with the VLAN-info
+bit left clear while any 802.1Q header stays inline in the payload.  If the
+switch expects the egress VLAN identity in the tag, as the Marvell-style
+parts do in tag_dsa.c:
+
+net/dsa/tag_dsa.c:dsa_xmit_ll() {
+	...
+	if (skb->protocol == htons(ETH_P_8021Q) &&
+	    (!br_dev || br_vlan_enabled(br_dev))) {
+		...
+		dsa_header[0] = (cmd << 6) | 0x20 | tag_dev;
+	...
+}
+
+would FROM_CPU frames then be injected as untagged/PVID-assigned with the
+inline 802.1Q header treated as opaque payload?
+
+The commit message does say the field could not be tested:
+
+    SDSA VLAN metadata generation could not be tested on the available
+    switch configuration yet. Leave these fields clear on transmit and
+    reject receive headers which mark the metadata as valid.
+
+Could the receive side pass such frames up (or at least count them) instead
+of discarding them, so an untested field does not turn into silent packet
+loss?
+
+> +
+> +	/* Determine the source port from the two port fields. */
+> +	source_port = FIELD_GET(SDSA_TAG_PORT_HI_MASK,
+> +				tag->frame_type_port_hi) <<
+> +		      SDSA_TAG_PORT_HI_SHIFT;
+> +	source_port |= FIELD_GET(SDSA_TAG_PORT_LO_MASK, tag->port_lo);
+> +
+> +	skb->dev = dsa_conduit_find_user(dev, 0, source_port);
+> +	if (!skb->dev)
+> +		goto out_drop;
+
+[ ... ]
+
+> +out_drop:
+> +	kfree_skb(skb);
+> +	return NULL;
+> +}
+
+[ ... ]
 
 -- 
-With best wishes
-Dmitry
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260903-devel-vstrassheim-soce-dsa-ml-v2-0-fb0587cb466b%40linutronix.de
