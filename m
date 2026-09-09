@@ -1,174 +1,160 @@
-Received: from mail-ed1-f52.google.com (mail-ed1-f52.google.com [209.85.208.52])
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42FE9568FA3
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 15:41:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.52
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788968497; cv=pass; b=vCcHRpeU036dyfEPEZ2SIiWvV7XkF7C4E34jIsaHsGfiXx7KP4jYsT+BVr7BZmu4aPyZglCf5lSDV6Fk3YdOx7r+f2NvTubRZTqBLxLwgLipEfcyudjTi6wIwsWgW1z0OwOFKrqunymCJ/C9Ix4LAV/ANnrA5xZLqTbO/PKi2XI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788968497; c=relaxed/simple;
-	bh=DA26JrnX3E4RsZIWoSih3Ec3dRXpu4nzTbYX02OsN68=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=RhvjXmlV3sH9kHPLhwrpaHiTMUT6wu+n9i6ClLRtdBjtOr8ViOeSjKiJ195xs8Cor02o8dMXi4N2HyWn/zSBLXgyrit+1/x4l1rzT3Tg7DadErcVgVIFOk4aswvcZm7ZOZsG2cPmuXDx/8Hoo7jVYoL03nymu+5LRrVYGH/mZ0w=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=ch+N7G8j; arc=pass smtp.client-ip=209.85.208.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 352B8563FB4
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 15:42:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788968526; cv=none; b=ULveIVPO5Ch1oR8BXQGDGUxPOA0jK3UvaSjs7g0BSTTsJpJOxYFi/OqwPkQpHO4S6wyhBwUi1ZDGUYV/e6FKPDLBDRqYkhNj3Uq3+qX6qyQIDC03FJDk/yfi2c8+SRcwcBSG289bGkcclFQA2Hb1WRV4feZV9dgRl2nYYyySHYo=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788968526; c=relaxed/simple;
+	bh=g0LSu/WqHQM8vzTp6V9PCbL1O3KFI/kS4kQdJe8Ge80=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=B77cQbhCmwPypfrSmSAhcQfmFUY+Op8eNGIW+1Oi4cOz+OKQGbdB9uTYkPYUgjkr8SHWWyyY/5DtRyu2t9C3flXWyoru2KAPhSoEACCNgpAG3GRH7rgdq7EQ+V6jc7gIs6XW/v2mTf2jJaN/OT4sdqSawNzg8qcMMpOxDYaFVmg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net; spf=pass smtp.mailfrom=flipper.net; dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.b=9XWMIxIG; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flipper.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="ch+N7G8j"
-Received: by mail-ed1-f52.google.com with SMTP id 4fb4d7f45d1cf-6a9a20a5e72so342550a12.0
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 08:41:36 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788968494; cv=none;
-        d=google.com; s=arc-20260327;
-        b=cSv2fQFIG5o5/4ocWd1mhKHspyF4envpuz1JV9aq5/ei/cOEPE16gSH5VBNgfpMOVR
-         T40CYN7fWh3hzjs+StufVuzVoVZ00LYhNLKqhIDpt9jvPVE7Me9DbpEQBcJpbAnRkyXC
-         4c/B6AMamW7bG4S21ws40Ss3Te5bQnLNN8Wa46V8N6wKHhkCW4YNktq8tJkybTZOESah
-         LVbU9pvNWBOjBUIOZGlkpGr5kw1ytoKsd/yWZpd/fyImlrOK5MsqzqsfM05w8Eg3exNB
-         5UWoQi64sLhrlGWIqxOzxe3SmcWWZ0d/XBk35Ikdg6KDS882gavFjcozSUBE+0R1tjHS
-         8eXw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=OE746Q3CGcAa+cfSWox7gIp7vBDUlJHpBAlocTfV07Q=;
-        fh=T4yeZ4kGc35/U3tZGtsttntwCPA9+UnHDErXXYKkXlA=;
-        b=FjENQ7RpQEilvh175T6aMjM4HCsmA6LL26i9QlJsgxRDyvBQfXY63yALidCnE+FbzQ
-         DftqJ08fJnVyboWM6S9vg96i9v/ClP3X+SiWxxJCtWMWJVj/vqCgXQUI5mgnZDpBeUmw
-         sWfCtqfhtSFkr8PyVkqAwuEymO3hXbLawpbxzJbYYzcDHNM4TgAgNzhvLHnEHEKCekID
-         B8Rwc8OGJoryV7PGHys9TeEMiI6zoJH/4PE+pB2G9YkC1U1bnFFXyrYqN5tNdhk3oqMC
-         8wKTMBepEp2gNpK2U/UGnbF57b3ulZpAjKIH8p31Y/RjdYtRsxuHCFYrA3cxA+ZQFrkf
-         JBeA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.b="9XWMIxIG"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ccfd61ecaso4643115e9.3
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 08:42:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1788968494; x=1789573294; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=OE746Q3CGcAa+cfSWox7gIp7vBDUlJHpBAlocTfV07Q=;
-        b=ch+N7G8jzN5Pyok572cOXew8dwRJn/VKCzarLoHV5wvb2ejWx3uJ8G/XcgO9eK6McW
-         iL6fwE869SdreUR9A3g8Cw1tCf4xa0uznkH1p0l5J/QqMYJuGoGH2f6HmlAmbY/kVQmV
-         L5w6BbcBKWTUTHJ/adXRdEsyz2taxDW3f28lGJN1b3kTRX/412kZAchT1rWK1GKtTh06
-         fmZ7UkQYavLfZaSIQ1/OsOYaFktM+vAtq+ilwBPKXq2GmSh3dtD7nD7Ei5/b6OXf0W+U
-         GeQ0K1Jf5YVX4M3OlGIDwm6/+b7ymV7cc0OYkzYwEPwISt1U+7jHCv+Gm/iClUei9Gbm
-         QKDQ==
+        d=flipper.net; s=google; t=1788968523; x=1789573323; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=Jdw2hZ27DBy1i8yzmj6RxolBCvaZBi48LgdLvbRyGYM=;
+        b=9XWMIxIGH/kAzz2Kb4Sferzp7K3qFOpDBQucec/XJGZf1KxGWSqu4JN1CtccBqLQA6
+         yxEisQlUK2TYr4sJv+QS+aYuIf8mmtLFAFdJc/3VwHoMPy/PZThDHpn9OsyTi8lJ07NS
+         DG2wqrX8HD/GhpEzbWJ2NbGV9ZG5V/1k64yE9qCrYQw1Ym7pG1Cx06siDUGi9IyHUsf+
+         FNoG0tVTYP1nOzJPfhL5kC46o+gj6Gad5hveZF6yDvSc+5I15DrhSko0mjy84b0PTMB0
+         /rCTxqiaXfOthYWNsC3rP1ymcd+AKdS0Pv/cCWVpQc01SqbSgZX77Qun3rMJdQkoMYZB
+         dcUg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788968494; x=1789573294;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+        d=1e100.net; s=20251104; t=1788968523; x=1789573323;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to:content-type;
-        bh=OE746Q3CGcAa+cfSWox7gIp7vBDUlJHpBAlocTfV07Q=;
-        b=Ugv1vJpZHi5Rkrh46PlHpa2Fzhj05NYKNU3305m0nHfjfP3XO1+9bTT1xqm+7H91Xz
-         wGEUdQ2gYH3qRbVzz/kfEsA/n2pYm4ijzbaRqZ2EZXAGj3O7Su2efJ9gCkm6u0BDnsCD
-         pVSA0dH2CVWQ9B2xAKk+KhTJqJBFDCLnxg9EDo3W0JxEJDZ3K7cx5Aqr87hRVF7Nl7I0
-         AGbvrpDPwsH1Kx0193tdBPRwLh1759PSeDwQTeOhAtqJ8HrERKYkdQQ6/TEYAtB24z1v
-         1/ugjKvOmLlJz8XaNKni/g4BWyhWhdAmPoIjucshZ60EA79/4pFSbTX6ngsPudgU4GN0
-         3n6g==
-X-Forwarded-Encrypted: i=1; AKwUvBwvR3R166CfcTxrHi8JYFcjTE+tlYa5pDt8lvT/GS0uByl5r+vgv58dK832rcEg2mm4R1JNlbzXc0CFFmQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++mTO9pAz+trogHdtxwBAICS3+LqkvTCHPcPKYXV57ftptRvMTlc
-	/o/a0kmvVPcI1gd6Smbu1aHjBBc6wZsma7FkPoWQ1P/z9nZGBRIQmAqCCGE/pJLOOpA/ReZFhOO
-	fxFu5q+j3FJhcJ6THwJ+TrsG+U4uD7UYRGP35Fi1zyQ==
-X-Gm-Gg: AYBFou1CgO8lH3DcyafAsjpZ+9KeCJ090hB/B+WBwyv9MsuNdSyNtJ5ATH/GKiCT44w
-	g+VoKY9rIXyhH964p9szTA9dUT//aM+yhShgoNwfBSXdf9ijslIJSe9ZrSwRWzrkjmp3xXl9PjR
-	YNrXDMPewH7SrRtnGIhQqQ8e7NmCyfCzuGn5h94YnOJO5E3uE9oJ+qxQL/PBtFlJqY1RYtGKXVq
-	avs+jdYcS7lfI//pODKYAl0jv8Xmvjz7TwmOo5jph++LPlFw4PKcdwv1XTCRhxMqrFKgh5gNt+1
-	cm6xp8AqhVSk1yNQfk4F+ycj2yb/DfEvOTzsT7xWNTBJFjo9ss9qCNdH8DnIxtSmnS1AAIgxKqI
-	dI3QCdI3GUpT6
-X-Received: by 2002:a05:6402:20db:b0:6a9:9766:59ad with SMTP id
- 4fb4d7f45d1cf-6a997665c9dmr1429015a12.43.1788968494461; Wed, 09 Sep 2026
- 08:41:34 -0700 (PDT)
+        bh=Jdw2hZ27DBy1i8yzmj6RxolBCvaZBi48LgdLvbRyGYM=;
+        b=k8npk/sYjqE713+z76YdB0MxXV0j/i/JWLlCrkCZCrPaLUJyP4NREbtfwcIP3++GXz
+         cBJiFiV9TzhxsUWCNDqgBg2foE5rJP18v2sGcdlMoyghaCCiLjrgKd9yYv4QVUzqhbr/
+         QdoTmefIEUicKQN4FEzoodor46bdWmc4Tg1rtXb0ZwOEriLNJWC28/C35toCRg+/tLxH
+         bFQsV54tTUcL2okqjnTE3bkzgrXzueIph7cWy6PmpKvob9SKAqDHukRNim/MRQeQlyam
+         PWpOEL78MEQQ//nTTjqYcaQqC7c8mfr9BmsC9WJhoMaXCjGLSmtuKBL/1pranj5UVcA9
+         sBNw==
+X-Forwarded-Encrypted: i=1; AKwUvBys52kuSNLPC0ROduJYw2qnAbCGArHUZ6K+I41JtxXLe9l3o4feHlZA23njhy0qsvn6IrZuTZ6yrVeLaIE=@vger.kernel.org
+X-Gm-Message-State: AFuF++k/zLYnJmqIG9OylePbVdqmTf4/E9ao0ZzPA/NE93f4C9G7k+R5
+	Pu4wTaftF3NvFx2sOJ3K/qu19k/tzAfQRl6g+RT/D0fWLiO/whAFQeyEmV9MiYPY+MQ=
+X-Gm-Gg: AYBFou294l8Dveui2iVMbohewvvgkUeay5ed69Mna1eBdrxe6xHgBJO14+94SEqQ0Dn
+	T4YZdD7sbBkGtbFjaZxR8u8+3pN7XLgPpLQ6TNCMLa216739Utaf5MqZRhx/bc8xKP8wwOuNCf4
+	hnutUBF/ss0+BpGacAVukPChZXKHMZggZQrIF65JPJLzQBvKoewmOYWTs0w343ZusmOLUa6sW84
+	xeP2tXYUCDv01ylQo10orHp3gawsRy3JNBc0mgDWTuw+LHg/aT+PsdgknueVMF3rqiRnkwuVRGy
+	6+gojx81lyg0jTBY9a6Jy7x6ujjKlROW+5Rb2K7we7srJac86HbQ/ziQi6R0upz03HAS23WLQIv
+	mvr7JZwaJ7W9LsyhDQt+NH29pIg+2o78MZx+XQ7l15Q0RT6CerZWDBOYBvIYWQEOqVU58CYoeRO
+	9hbu+Atn5yVbGgUu1T0DAZOtrLImSSKnGkibQyIi8ni1iBEgmvaf6NeaF6z/Wt38PcFrgosvc9R
+	SUxg5S6fpoC92E7l4zt0mNICkDaUh1vEINJV/KhalyT+iKM1l80CNMhB8wqXQ==
+X-Received: by 2002:a05:600c:8b16:b0:49c:c0d4:53d9 with SMTP id 5b1f17b1804b1-49d258dfc5fmr17857275e9.14.1788968523269;
+        Wed, 09 Sep 2026 08:42:03 -0700 (PDT)
+Received: from alchark-surface.localdomain (bba-2-51-220-108.alshamil.net.ae. [2.51.220.108])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cf7740d44sm1042068015e9.15.2026.09.09.08.41.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 09 Sep 2026 08:42:01 -0700 (PDT)
+From: Alexey Charkov <alchark@flipper.net>
+Subject: [PATCH v2 0/4] power: supply: Fix probe time race against driver
+ teardown and battery parsing
+Date: Wed, 09 Sep 2026 19:41:43 +0400
+Message-Id: <20260909-bq257xx-init-v2-0-deb4076b1f02@flipper.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260908-samples-rpmsg-fix-mtu-print-v1-1-f995518f0a46@kernel.org>
-In-Reply-To: <20260908-samples-rpmsg-fix-mtu-print-v1-1-f995518f0a46@kernel.org>
-From: Mathieu Poirier <mathieu.poirier@linaro.org>
-Date: Wed, 9 Sep 2026 09:41:23 -0600
-X-Gm-Features: AcwNN1VbOKjQ5djFohUS65OPwyBM-GC5UpqwPhHbfkhdGunWingdbYpulrxuNtM
-Message-ID: <CANLsYkw6BmxHu5r0g=oLJqWCFrrU38vh2y-WVHHX14SwEf7uFw@mail.gmail.com>
-Subject: Re: [PATCH] samples: rpmsg: Fix mtu printk specifiers
-To: Nathan Chancellor <nathan@kernel.org>
-Cc: Bjorn Andersson <andersson@kernel.org>, Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>, 
-	Tanmay Shah <tanmay.shah@amd.com>, linux-remoteproc@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3WNyw6CMBBFf4XM2pppiTxc+R+GBa1TGWNKbSvBE
+ P7dgmuXJzn33AUiBaYI52KBQBNHHl0GdSjADL27k+BbZlCoKmyxFvqlTvU8C3achLVYatJYm7K
+ CPPGBLM977tr9OL71g0zaGpsxcExj+Ox/k9y8P+lJChSyx0arlmRfNRf7ZO8pHB0l6NZ1/QIuQ
+ x/gvAAAAA==
+X-Change-ID: 20260907-bq257xx-init-ff03beb07c36
+To: Sebastian Reichel <sre@kernel.org>, Lee Jones <lee@kernel.org>, 
+ Chris Morgan <macromorgan@hotmail.com>, Pavel Machek <pavel@ucw.cz>, 
+ Krzysztof Kozlowski <krzk@kernel.org>, 
+ Bartlomiej Zolnierkiewicz <b.zolnierkie@samsung.com>
+Cc: Sebastian Reichel <sebastian.reichel@collabora.com>, 
+ linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Alexey Charkov <alchark@flipper.net>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3143; i=alchark@flipper.net;
+ h=from:subject:message-id; bh=g0LSu/WqHQM8vzTp6V9PCbL1O3KFI/kS4kQdJe8Ge80=;
+ b=owGbwMvMwCW2adGNfoHIK0sZT6slMWQtrLON+2eevGuuf7QPzzlri6uBvYzX900UuHZd5O0je
+ a7r0RxbOiayMIhxMViKKbLM/bbEdqoR36xdHh5fYeawMoEMkRZpYAACFga+3MS8UiMdIz1TbUM9
+ QyMdYx0jBi5OAZjqnm2MDAtnf8zfkmFdmL8p86bVqqLO+WaX26XfPH7mFrfqYKtc7B+GP9w2m1d
+ 1bjuwe4/0TY857TZCxROcL+Vf4dox630H+9TnizgB
+X-Developer-Key: i=alchark@flipper.net; a=openpgp;
+ fpr=9DF6A43D95320E9ABA4848F5B2A2D88F1059D4A5
 
-On Tue, 8 Sept 2026 at 16:10, Nathan Chancellor <nathan@kernel.org> wrote:
->
-> When building rpmsg_client_sample.c for a 32-bit platform, such as
-> during arm allmodconfig, there are a few warnings due to using an
-> incorrect specifier for mtu:
->
->   samples/rpmsg/rpmsg_client_sample.c:68:59: error: format specifies type 'long' but the argument has type 'ssize_t' (aka 'int') [-Werror,-Wformat]
->      68 |                 dev_warn(&rpdev->dev, "invalid rpmsg MTU size = %ld\n", mtu);
->         |                                                                 ~~~     ^~~
->         |                                                                 %zd
->   ...
->   samples/rpmsg/rpmsg_client_sample.c:72:50: error: format specifies type 'long' but the argument has type 'ssize_t' (aka 'int') [-Werror,-Wformat]
->      72 |         dev_info(&rpdev->dev, "rpmsg MTU size = %ld\n", mtu);
->         |                                                 ~~~     ^~~
->         |                                                 %zd
->   ...
->   samples/rpmsg/rpmsg_client_sample.c:79:17: error: format specifies type 'long' but the argument has type 'ssize_t' (aka 'int') [-Werror,-Wformat]
->      78 |                         "message size %zu exceeds rpmsg MTU size %ld\n",
->         |                                                                  ~~~
->         |                                                                  %zd
->      79 |                         strlen(MSG), mtu);
->         |                                      ^~~
->
-> Use '%zd', the proper specifier for a 'ssize_t' variable, to clear up
-> the warning. Additionally, modify the last dev_err() call in
-> rpmsg_sample_probe() to reuse msg_len instead of calling strlen(MSG)
-> again and use '%zd' throughout the string consistently.
->
-> Fixes: 1029c89bafc7 ("samples: rpmsg: Add MTU size info")
-> Signed-off-by: Nathan Chancellor <nathan@kernel.org>
-> ---
->  samples/rpmsg/rpmsg_client_sample.c | 8 ++++----
->  1 file changed, 4 insertions(+), 4 deletions(-)
->
+If a bus holding the battery-equipped power supply goes down right after
+it registered, it leads to massive fireworks as the driver starts to tear
+down its resources while callers from other contexts are already eager to
+process events using this driver's callbacks (and their private data).
 
-Applied.
+In current power supply core it's further aggravated by the fact that the
+battery parsing code expects a psy struct from the caller, which is only
+available once the device has been registered, so the device gets
+registered with its hardware constraints (e.g. charging current) not yet
+fully filled in.
 
-Thanks,
-Mathieu
+Fix the former by preventing the unregistration of the psy device before
+its callbacks complete, and the latter by providing a battery parsing
+helper which doesn't require a psy struct from the caller (as it doesn't
+strictly need one).
 
-> diff --git a/samples/rpmsg/rpmsg_client_sample.c b/samples/rpmsg/rpmsg_client_sample.c
-> index 4c43436aadb6..8c629065c64c 100644
-> --- a/samples/rpmsg/rpmsg_client_sample.c
-> +++ b/samples/rpmsg/rpmsg_client_sample.c
-> @@ -65,18 +65,18 @@ static int rpmsg_sample_probe(struct rpmsg_device *rpdev)
->
->         mtu = rpmsg_get_mtu(rpdev->ept);
->         if (mtu < 0) {
-> -               dev_warn(&rpdev->dev, "invalid rpmsg MTU size = %ld\n", mtu);
-> +               dev_warn(&rpdev->dev, "invalid rpmsg MTU size = %zd\n", mtu);
->                 return mtu;
->         }
->
-> -       dev_info(&rpdev->dev, "rpmsg MTU size = %ld\n", mtu);
-> +       dev_info(&rpdev->dev, "rpmsg MTU size = %zd\n", mtu);
->
->         msg_len = strlen(MSG);
->         /* make sure our message fits in a single rpmsg buffer */
->         if (msg_len > mtu) {
->                 dev_err(&rpdev->dev,
-> -                       "message size %zu exceeds rpmsg MTU size %ld\n",
-> -                       strlen(MSG), mtu);
-> +                       "message size %zd exceeds rpmsg MTU size %zd\n",
-> +                       msg_len, mtu);
->                 return -EMSGSIZE;
->         }
->
->
-> ---
-> base-commit: 70e14d5db3a01a44f6c3217bb3dda2dd5828a507
-> change-id: 20260908-samples-rpmsg-fix-mtu-print-1903f03216ef
->
-> Best regards,
-> --
-> Cheers,
-> Nathan
->
+While here, fix up these issues in bq257xx where all of it was discovered.
+
+Signed-off-by: Alexey Charkov <alchark@flipper.net>
+---
+Changes in v2:
+- Use psy->removing as the predicate for detecting unregistration instead
+  of use_cnt, because a leaking caller can leave use_cnt non-zero even
+  after the device is being removed, and ->removing already exists and is
+  used by the removal function anyway (Sashiko)
+- Don't rearrange the existing short-circuit check for use_cnt and the
+  availability of the callback in the psy struct to avoid breakage (Sashiko)
+- Drop the patch making the bq257xx_external_power_changed() return early
+  upon I2C read failures, otherwise a transient I2C failure in updating
+  cached status fields could lead to missed updates to charging current or
+  input current, which is worse (Sashiko). Those status fields are re-read
+  upon every property update anyway
+- Amend patch description of patch 3 (formerly 4) to explicitly state the
+  potential use of unallocated memory, and add a Fixes: tag accordingly
+- Link to v1: https://patch.msgid.link/20260907-bq257xx-init-v1-0-1a08b29e1a68@flipper.net
+
+To: Sebastian Reichel <sre@kernel.org>
+To: Pavel Machek <pavel@ucw.cz>
+To: Bartlomiej Zolnierkiewicz <b.zolnierkie@samsung.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+To: Lee Jones <lee@kernel.org>
+To: Chris Morgan <macromorgan@hotmail.com>
+Cc: linux-pm@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: Sebastian Reichel <sebastian.reichel@collabora.com>
+
+---
+Alexey Charkov (4):
+      power: supply: core: prevent unregistering a power supply while a callback runs
+      power: supply: core: Allow getting battery info before psy is registered
+      power: supply: bq257xx: Use psy directly instead of driver data
+      power: supply: bq257xx: Parse battery info before registering power supply
+
+ drivers/power/supply/bq257xx_charger.c   |  52 +++++++------
+ drivers/power/supply/power_supply_core.c | 128 +++++++++++++++++++++++--------
+ include/linux/power_supply.h             |  14 ++++
+ 3 files changed, 142 insertions(+), 52 deletions(-)
+---
+base-commit: c68a982815dcce5464e3bf2a31ac94f5146c04ca
+change-id: 20260907-bq257xx-init-ff03beb07c36
+
+Best regards,
+--  
+Alexey Charkov <alchark@flipper.net>
+
