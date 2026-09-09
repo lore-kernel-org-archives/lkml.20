@@ -1,186 +1,157 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C42C43BBFD8
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 21:39:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F8543C3C16;
+	Wed,  9 Sep 2026 21:40:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788990008; cv=none; b=hTW41wAUGWZG4m3z0RPOMjigntHHJliRCWhBnR6b4XaAWtFlazGEL6uT0i0q/EMsqGCsVTLe9EQJxHAwuu2uJ1jTGqNwOd1fz3NYI0z/oHObRV/zlCwEZAmvG2zdtVeM86DKy6UxTZCR4QoxzjEAYfnEaoTuGOaqLgBqaN1LChc=
+	t=1788990026; cv=none; b=pwR83zqRgbvY3a4hDuwBydhw+PH7PAOzXUlSdtgoMk0r6XGn86pL61aZ9iBTL7Txv8rnO6v7IxT4LAjnMaXIE0S5KsQZ6QwalQg4A+elcZ6RNeB4TcJ6IypWqEywD4s5B5SwGD8WAA+EX8GrTzsjbXprhydxzj7E2xRwSqqp11k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788990008; c=relaxed/simple;
-	bh=AlBtpgfRVu8vEObii+chGfiT3YBbebpadbPpl0qtalo=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=FQAt9Sd+526s7emYp9pZAIk5fuGy52MA/0Em2XHgDAsz4Ulze4rIRANHGyYYen6OPC3fhm/sTgUt/AsMEkMt1SALxEADH0ZgibkUHSf2rqkx7uPvU52o7O65jcgaLGyFEuTEZ1bgoB1iVs8TPdRjfXpvt3m+vG8kAoW17I8pqTQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Mbq/9tLU; arc=none smtp.client-ip=74.125.225.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788990026; c=relaxed/simple;
+	bh=xfVJea4uY5edbVA/Kqv7Xt2stEqupQMgz6KCOci0o0g=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=RRCz0zXAhvmv91nn0Ff9pn7XguS1Ughb63OOpaEzc097NePUeAJE78G18SjMo7DrptzFPE11QgxTx/WH6deV9Tse85ZUQigzoGV5jcZaVSibISrQg1pxb7YwCWENesBojDB4VcTPQqAhaKVZq2Cp0aXwnoWsFror0ijOc2ESkj0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EkSeHm9N; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Mbq/9tLU"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-482f6356256so1157385f8f.1
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 14:39:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788989993; x=1789594793; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=GEVD0ONiRBgZcGn2NlyLse7rj8h6967aW8UFFN5/dyY=;
-        b=Mbq/9tLUwVonvH2qdQIpPUA9ZkNkOlspbdT3ZO3j6oclwaaytXiKwlta82wAWrmQW2
-         k1BpLWx3asPdNsmjNekJAdophdWD6DYO7fHd0HHSSym3z33k3xJOzdQ5qa8w1qOYsH/K
-         bhJXUJVb4dvLKxdQhS4qZ737LLzWn3CJ5qk6mNS/7+63oUJ26ncLYCDlo3WcJGqSmUEs
-         lzfLzDAGq/lHuTqTokzPZxditRrtyHQxx7NuzipoUSFClXnDxv/Twa8xxoR9pAtg9uj8
-         aQeLBlc4lDHIMsgGuDJJPlO33wRaGN8ILZEIKW1TsjeFH6Qf9vp/uAB1mK6v5ajBsxk4
-         MNAw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788989993; x=1789594793;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=GEVD0ONiRBgZcGn2NlyLse7rj8h6967aW8UFFN5/dyY=;
-        b=Dz18FDfRdErdC4aPaYusM5cuDzlONXz7/MRrAS0ikOksx0WQjQdGkMnm/zBc9Dw4wy
-         8IQBSigebQwd80dyUTTYeZZ7QyYmm5WxIou4i+nxiIV0CBszHwK/aMPNU+lOpg7/La9J
-         XCdbuNr+9sssogsCJvs+1nt3s+J3e6Lm+WmM2fggUqH8zssEArI5k6W4N0cdjMgOGoK3
-         vTddQovEPcUZzYrNWLAxF5LLtu9wEw9XgFQLE4ITuLSF2IeqIx5jzRYjhsLbyS5ooCih
-         j5Dz0MYRMAF3dyTlkTmKicOBrYkgMmOpKBQzYNPczT168XEsmyGo9YY0g+WxEWP3VGRc
-         +cfQ==
-X-Forwarded-Encrypted: i=1; AKwUvBycH1XIjTvSNPoof+CPyhZ1WmOp0hZUcp3xVBLzyHrBzwaydzjiyJAMhxdWmNBXbV4xB7+7UT0eY7BcRac=@vger.kernel.org
-X-Gm-Message-State: AFuF++nLZ8NLfvnnnelqFiADDmBNJQ1TG7VH0iSJSnaHsOU0R0g+/wHl
-	u2OzbCyX6qjqdLfQCD6qR3bG6wxb/bsUKwYeYsg75ilYMUX9/MrbioCF
-X-Gm-Gg: AYBFou02ffuF8OlkiTUDcMkZPfVrMS5KpM1Ujf/atiL9DSyVv/D3cghh8pT4m9zK9rz
-	56MlnBgMpuyQh6CPdc3FmX2ACP5Hh9DSmHhANTaZPA6cSA3vBFx6NBq8zsZ+CCt81HmA+MQ/1hW
-	lKafjKVDsEvfZ9cB5vtDV8mCBHhhyEvOaciYPwu04ssSssuU+OZLjCP3lmQD6Q3rdrINZPUJ6kP
-	0e1VV/ZfO/C4JwhH3wTQRHYfNsv3TUTR2CTS699vlyZtpJxT7uT38VOLB6jt5ihc/aNrXLLlb4N
-	5TWUpOa9ePNjlaKumctNtJoBeuHKGDKrxsXyvjMKBsXjextC3UguHm2Tr/fmYmbSAjvXPrZKIXu
-	JD/03tacr7uZocpRV0ZPjeASTwkOipXXgOQK/6PLeRcsYp06eFf6UzKz6hDaOZOhutHlAE0Y1Dq
-	hYjdlLt7LCSZ1TH83TprBjFRO0G9obAzOatYreWBkqvB9P4ze7ivzn7QEZZwxNCfZlT8J4JdoiO
-	Wn+bYIBjoXPQvqRbynIX62I0ndIGyKKCgni
-X-Received: by 2002:a05:6000:4607:b0:485:a32b:1ee8 with SMTP id ffacd0b85a97d-486e0fa01ecmr1480012f8f.20.1788989992817;
-        Wed, 09 Sep 2026 14:39:52 -0700 (PDT)
-Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4859162f354sm38982359f8f.20.2026.09.09.14.39.51
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 09 Sep 2026 14:39:52 -0700 (PDT)
-Date: Wed, 9 Sep 2026 22:39:51 +0100
-From: David Laight <david.laight.linux@gmail.com>
-To: "H. Peter Anvin" <hpa@zytor.com>
-Cc: Borislav Petkov <bp@alien8.de>, Mauricio Faria de Oliveira
- <mfo@igalia.com>, Thomas Gleixner <tglx@kernel.org>, Ingo Molnar
- <mingo@redhat.com>, Dave Hansen <dave.hansen@linux.intel.com>,
- x86@kernel.org, Juergen Gross <jgross@suse.com>, Alexey Dobriyan
- <adobriyan@gmail.com>, Boris Ostrovsky <boris.ostrovsky@oracle.com>, Jan
- Beulich <jbeulich@suse.com>, Brian Gerst <brgerst@gmail.com>,
- kernel-dev@igalia.com, linux-kernel@vger.kernel.org,
- xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v9 2/5] x86/asm, x86/boot: expose inline memcmp()
-Message-ID: <20260909223951.1fe5fe25@pumpkin>
-In-Reply-To: <95D5AACE-1D91-402A-9B6B-8D03C3D90705@zytor.com>
-References: <20260822-pvh-kasan-inline-v9-0-e70ef3b75b6a@igalia.com>
-	<20260822-pvh-kasan-inline-v9-2-e70ef3b75b6a@igalia.com>
-	<20260906170116.GRap2cXOY6ENSzAXUJ@fat_crate.local>
-	<E4FDF95C-3FAB-41DB-8EA0-8A26B964B38D@zytor.com>
-	<d1b9ff734b918889eaf8885d64141bc3@igalia.com>
-	<20260908193229.GFaqBizWcssBoewNSo@fat_crate.local>
-	<e74c5a6b-ed9c-40c6-b9d7-ff04ee8c099e@zytor.com>
-	<20260909093831.095b89cb@pumpkin>
-	<8b00b7d2-2bd3-4871-9908-9fe1568d2690@zytor.com>
-	<20260909202838.28071bff@pumpkin>
-	<95D5AACE-1D91-402A-9B6B-8D03C3D90705@zytor.com>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EkSeHm9N"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5F61F1F000FF;
+	Wed,  9 Sep 2026 21:40:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788990013;
+	bh=Q65d2+vKaeIvv1aFsZlNeZwHA/AqvMGseC0yWChkYPw=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=EkSeHm9NrHRF4EN0XUN3SyzkBkhH7n4ABKoVlOWsi3M9NiEqoKQkXqqZRuQiVYHff
+	 d6zAdSXr3JeNlhG3Y0ea2feamIG1tXlNG9MW+YEIc5Es/vBnjDuL3sOFtIm0FRRkD0
+	 uZh9XRm6rbRDEONCDe700aC8EVotLENpOF/Mw8qmjILDtELBqX532Gt9C+qUfOQv9H
+	 Kw4tGt+mAGZzJXus6Yn0WGWc7itSMXNdSho94OElCwhll98YTE1rNHTC4WRNtTcvpu
+	 0lDscfq8PUx96tphDiFuuQcAla0PEysd7OrusMSYayZhEpmcuk8Ddh0Kk0KBePdems
+	 fn2ux5Z6gQnLg==
+Subject: Re: [PATCH net v4] net: wwan: qcom_bam_dmux: account network packets
+From: netdev-bot+sashiko@kernel.org
+To: sinyavin@gmail.com
+Cc: stephan@gerhold.net, stephan.gerhold@linaro.org,
+ loic.poulain@oss.qualcomm.com, ryazanov.s.a@gmail.com,
+ johannes@sipsolutions.net, andrew+netdev@lunn.ch, davem@davemloft.net,
+ edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+ linux-arm-msm@vger.kernel.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Date: Wed, 09 Sep 2026 21:40:11 +0000
+Message-ID: <178899001185.219967.6678486297703743680@kernel.org>
+In-Reply-To: <20260904183737.2994139-1-sinyavin@gmail.com>
+References: <20260904183737.2994139-1-sinyavin@gmail.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
 
-On Wed, 09 Sep 2026 12:33:40 -0700
-"H. Peter Anvin" <hpa@zytor.com> wrote:
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider:
 
-> On September 9, 2026 12:28:38 PM PDT, David Laight <david.laight.linux@gmail.com> wrote:
-> >On Wed, 9 Sep 2026 06:43:01 -0700
-> >"H. Peter Anvin" <hpa@zytor.com> wrote:
-> >  
-> >> On 2026-09-09 01:38, David Laight wrote:  
-> >> >>
-> >> >> Here is an out-of-line compact memcmp() which works for both 16/32 and 64 bits:
-> >> >>    
-> >> <broken code removed>
-> >>   
-> >> >>
-> >> >> On 64 bits it compiles to:
-> >> >>
-> >> >> 0000000000000000 <memcmp>:
-> >> >>    0:   48 89 d1                mov    %rdx,%rcx
-> >> >>    3:   31 d2                   xor    %edx,%edx
-> >> >>    5:   31 c0                   xor    %eax,%eax
-> >> >>    7:   f3 a6                   repz cmpsb (%rdi),(%rsi)
-> >> >>    9:   0f 97 c2                seta   %dl
-> >> >>    c:   0f 92 c0                setb   %al
-> >> >>    f:   29 d0                   sub    %edx,%eax    
-> >> > 
-> >> > That isn't the object code from the source ...
-> >> >     
-> >> And that's the ultimate hint that a cut and paste error had happened.
-> >> 
-> >> This was the actual source code.
-> >> 
-> >> int memcmp(const void *s1, const void *s2, size_t len)
-> >> {
-> >>     int lt, gt;
-> >> 
-> >>     /*
-> >>      * Note: for the benefit of 64-bit code, xDI and xSI are reversed
-> >>      * compared with what CMPSB uses; hence SETA and SETB are also reversed.
-> >>      *
-> >>      * The XOR statements set ZF = 1, CF = 0, which is required to handle
-> >>      * the case len == 0 correctly.
-> >>      */
-> >>     asm volatile("xor %[lt],%[lt] ; "
-> >>                  "xor %[gt],%[gt] ; "
-> >>                  "repe cmpsb ; "
-> >>                  "seta %b[lt] ; "
-> >>                  "setb %b[gt]"
-> >>                  : "+D" (s1), "+S" (s2), "+c" (len),
-> >>                    [lt] "=&q" (lt), [gt] "=&q" (gt)
-> >>                  : : "cc", "memory");
-> >>     return gt - lt;
-> >> }
-> >>   
-> >
-> >Try:
-> >
-> >int memcmp_2(const void *s1, const void *s2, unsigned long len)
-> >{
-> >    signed char lt, gt;
-> >
-> >    asm volatile("repe cmpsb ; "
-> >                 "seta %[lt] ; "
-> >                 "setb %[gt]"
-> >                 : "+D" (s1), "+S" (s2), "+c" (len),
-> >                   [lt] "=&q" (lt), [gt] "=&q" (gt)
-> >                 : : "cc", "memory");
-> >    return (signed char)(gt - lt);
-> >}
-> >
-> >https://www.godbolt.org/z/6hrxGxb18
-> >
-> >Saves the XORs - go away completely in the usual case of 'if (memcpy(....))'.
-> >The 'mess' on the return statement moves the sign extend after the
-> >subtract.
-> >
-> >David  
-> 
-> The xors are explicitly in the asm to deal with the len = 0 case (this is for the out of line version!)
-> 
-> We need to enter with ZF = 1 CF = 0.
+Critical: 0 · High: 0 · Medium: 1 · Low: 0
 
-And, of course, I knew that.
-They also zero the high 24bits of the registers.
-Given the setup cost of 'repe cmpsb' I suspect the xor just add code
-bytes.
+- [Medium] In `bam_dmux_netdev_start_xmit()` the new
+  `dev_sw_netstats_tx_add(netdev, 1, len)`…
 
-David
+--
 
+net: wwan: qcom_bam_dmux: account network packets
 
+The BAM-DMUX data path did not update the netdev packet and byte counters,
+so userspace saw zero traffic.  This adds per-CPU software statistics with
+NETDEV_PCPU_STAT_TSTATS and dev_get_tstats64(), counting TX in
+bam_dmux_netdev_start_xmit() and RX in bam_dmux_cmd_data().
+
+> diff --git a/drivers/net/wwan/qcom_bam_dmux.c b/drivers/net/wwan/qcom_bam_dmux.c
+> index cc6ace8d64371..03360301c8ee5 100644
+> --- a/drivers/net/wwan/qcom_bam_dmux.c
+> +++ b/drivers/net/wwan/qcom_bam_dmux.c
+
+[ ... ]
+
+> @@ -357,17 +358,19 @@ static netdev_tx_t bam_dmux_netdev_start_xmit(struct sk_buff *skb,
+>  		if (!atomic_long_fetch_or(BIT(skb_dma - dmux->tx_skbs),
+>  					  &dmux->tx_deferred_skb))
+>  			queue_pm_work(&dmux->tx_wakeup_work);
+> -		return NETDEV_TX_OK;
+> -	}
+> +	} else {
+> +		if (!bam_dmux_skb_dma_submit_tx(skb_dma))
+> +			goto drop;
+>  
+> -	if (!bam_dmux_skb_dma_submit_tx(skb_dma))
+> -		goto drop;
+> +		dma_async_issue_pending(dmux->tx);
+> +	}
+>  
+> -	dma_async_issue_pending(dmux->tx);
+> +	dev_sw_netstats_tx_add(netdev, 1, len);
+>  	return NETDEV_TX_OK;
+
+[Severity: Medium]
+Is it intended that dev_sw_netstats_tx_add() now also covers the deferred
+branch, where nothing has been submitted to the DMA engine yet?
+
+In the active <= 0 case the skb is only marked in dmux->tx_deferred_skb and
+bam_dmux_tx_wakeup_work() is queued.  The descriptor is prepared later in
+that worker, which can bail out before submitting anything:
+
+drivers/net/wwan/qcom_bam_dmux.c:bam_dmux_tx_wakeup_work() {
+	ret = pm_runtime_resume_and_get(dmux->dev);
+	if (ret < 0) {
+		dev_err(dmux->dev, "Failed to resume: %d\n", ret);
+		return;
+	}
+	...
+	for_each_set_bit(i, &pending, BAM_DMUX_NUM_SKB) {
+		bam_dmux_skb_dma_submit_tx(&dmux->tx_skbs[i]);
+	}
+	...
+}
+
+bam_dmux_runtime_resume() can return -ETIMEDOUT from any of its three 2
+second waits on the remote modem, or -ENXIO when the TX channel cannot be
+requested, for example after a modem crash or power collapse.  In that case
+the worker returns with the packet still sitting in dmux->tx_skbs[], while
+tx_packets/tx_bytes have already been incremented for it and tx_dropped is
+never touched.
+
+The other failure mode is the return value of the same helper being ignored
+in the worker:
+
+drivers/net/wwan/qcom_bam_dmux.c:bam_dmux_skb_dma_submit_tx() {
+	desc = dmaengine_prep_slave_single(dmux->tx, skb_dma->addr,
+					   skb_dma->skb->len, DMA_MEM_TO_DEV,
+					   DMA_PREP_INTERRUPT);
+	if (!desc) {
+		dev_err(dmux->dev, "Failed to prepare TX DMA buffer\n");
+		return false;
+	}
+	...
+}
+
+So the two callers of bam_dmux_skb_dma_submit_tx() end up with opposite
+accounting: start_xmit() counts a drop via dev_core_stats_tx_dropped_inc(),
+the worker counts nothing at all.
+
+The commit message says the counters are updated "after the driver has
+prepared and accepted them", which explains counting at accept time, but
+would it be better to account the deferred packets from
+bam_dmux_tx_wakeup_work() once submission succeeds, and to increment
+tx_dropped there when it does not?
+
+> drop:
+>  	bam_dmux_tx_done(skb_dma);
+> +	dev_core_stats_tx_dropped_inc(netdev);
+>  	dev_kfree_skb_any(skb);
+>  	return NETDEV_TX_OK;
+>  }
+
+[ ... ]
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260904183737.2994139-1-sinyavin%40gmail.com
