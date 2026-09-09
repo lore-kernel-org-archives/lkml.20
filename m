@@ -1,305 +1,215 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from CHN02-SH0-obe.outbound.protection.partner.outlook.cn (mail-sh0chn02on2118.outbound.protection.partner.outlook.cn [139.219.146.118])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81215492E38
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 06:52:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788936737; cv=none; b=g6rMGjo48qtO0+QcKcf5Z9CyZytAW8NEi4T1cKCbSQlPbL+TK6q/tC2UNvGK+U2YRI1IRhO1wqHcsPEARMjvu4CmEVCQg9zVZUfccUgkLALiakh41tam/9aFtxfIuMifNuYuZRMZJARYcgbrvAkSzPGKEJ5tZcilURdKI0/8xPg=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788936737; c=relaxed/simple;
-	bh=OMsmwJt+7xKbpZQjLc3OaHfFgkWMc/9OD8sv89Xj3Zs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=KnfEhMD5BRQgAfbmfxiUNceBMMD0ZSBTB40bt6L6PNX1hn3wQMy02hJYK7Sd5TquWxtPd/oz54ioFhQQHG8JZWyO502wztuuI+0M3BgyYHFM1KfgUh8mxdb9XmxOdjypBnrln2Om7COYxkAVz2zm8NZuVwEHZIrjK7C+3pjl4+8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=v+plabNE; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=nEH0lAf9; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=gu+5AEWN; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=Tc0tr02Y; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="v+plabNE";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="nEH0lAf9";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="gu+5AEWN";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="Tc0tr02Y"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 22187219FE;
-	Wed,  9 Sep 2026 06:52:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1788936729; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=cTt0jFB4+zQipgMujsRjRecWNFqUaVl5wuX8dC/vqwk=;
-	b=v+plabNEMMlL5CS/NLEx9p4dMTPWFXNYkiuIKXSvvUjDNVczgU5a5gyOlTzTPRnYNv9BRF
-	OTVUXNGpGKs7yIKv5srGD/yL8RApHoC9JymkwIRF3SXtneQwnaYeaAQgphZ3GW00RSD0dp
-	edL+JhcZ0T3z0LVMq+gmnuyoJfwa7iw=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1788936729;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=cTt0jFB4+zQipgMujsRjRecWNFqUaVl5wuX8dC/vqwk=;
-	b=nEH0lAf9Ba+IiozM9frriYkJuYYEc2ZJrBeJxEUK0DigeAQRRI+aIRSEabSW8EpMwDcFaN
-	gMZ5bmoQPPN7/DDg==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1788936725; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=cTt0jFB4+zQipgMujsRjRecWNFqUaVl5wuX8dC/vqwk=;
-	b=gu+5AEWNwxIObakbGBg1FJyyvonGroxc/+Y5D1DHVNwT/mRpjyenOFcY18zRUNZBkXMCTd
-	CP+tu+RtH9qH2LvWsMW0xBDjRhjrcDpdnamYslNsIqdXpFY6GQbSrlZsMUJ0twJczEkXAI
-	ZsB/IU6V7Ui09t9QyMJBmIQe8YqQ0p8=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1788936725;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=cTt0jFB4+zQipgMujsRjRecWNFqUaVl5wuX8dC/vqwk=;
-	b=Tc0tr02YJKvVGufqSo1zSvIGw+jsn3ST8u/eYo6w8zzpe4jiE11glpFqL/xc68kkRDOvgy
-	+kZuENZvVhpeCBAw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 7F93F1347F;
-	Wed,  9 Sep 2026 06:52:04 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id RIpSHRQCoWqVVQAAD6G6ig
-	(envelope-from <tzimmermann@suse.de>); Wed, 09 Sep 2026 06:52:04 +0000
-Message-ID: <00b9f0f0-baf4-4407-b2cb-055949edd48c@suse.de>
-Date: Wed, 9 Sep 2026 08:52:03 +0200
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFE1833E36A;
+	Wed,  9 Sep 2026 06:52:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=139.219.146.118
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788936739; cv=fail; b=uOmXDq+1y1inSotoGxULjom2aI1UtJ1YnNfxZO/mjJj+Nu7W3eWmPICzAoZ55r30rKt+3Bo2nTAE3mmoElMHO8f+AtCmMWfO6wOrGjQipNKIKQ/NDPZV5vzoNxtaM8XIjDEjry2xcFLPqDjFmx7QZ2E8RzJBPzpNuM4qrAhFzy0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788936739; c=relaxed/simple;
+	bh=wH3tnC1x8QVRnqZUzBW+dfu+TqsW/CuW6tcUfPCyCBg=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=WcY2d3THXBk+GIDiT1fNeAMFNOHL/EM/ZUnfugUQ+B9lEaPGxQH4bEoMmeTUajjUUcIRBZjEQz7gpZTFYxwUKqRsGmemBYq6VoQpguVgXnrzNOSYYUz6hxmqevJ+YBGyzObKMnS477Ck7yJe4JM8QA6KKnXU4PYYG4fD2Yu1ykA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com; spf=pass smtp.mailfrom=starfivetech.com; arc=fail smtp.client-ip=139.219.146.118
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starfivetech.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Qxz26fLuuY+RQFx1oJsQQu6B8wtoLY46VDjBznZktyI+ASom8P5SXxGeB+0XSn6un4xhlJXe02y9l/Ha5SbsStRq8SWWcsY9UWGC/ajU9pGHZTV8ePOQHzQRoJs5CUCuCWE9E7BV8EuJJxzVQ+1tHiu+TLPNsv79D5f4Ej6mQXpz9Zag84ToeQTYDJGLnHeIIfCiXNu09sZNvUZAdfqBqOfzJP+AJRo+k6uNmMyXzybkPApvG1dFMzZVS3GhprAv18Pq8mi4wcJQTubWK0wHI1gVPR2JMLcCNzcBStX/z7bvcuJjWsJqsu9VULTK2kTG+laugZGNTnYzAQ1ozP5iSg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=wH3tnC1x8QVRnqZUzBW+dfu+TqsW/CuW6tcUfPCyCBg=;
+ b=RZTxBL3vExyBjBrat5ffIBMFn/BQkU5Fhk2//VVJf//CFDXChEbUOUa47nxTP/TNqvwaG6gjw7rWbt33okMGaRD/E4gz84SZjqpb/bZxR3AobxA40SUvyEhXT+5h0/bFNc9waSUk5lU6SRBx8/zLqI9NpVu20qlap2kjzrHFV4dbW6/Et1BAsWNuF0w/X93eMsw4TTW0f2WvTyh5hWStX1tGeDJ2Ow3Nlsm5yv/DAkFsD1DlKqXygQXc2q1vkhWDfGDYPVLDUwEcDEx/otcfgj5HCj4fpyK9nszBrAT0J4gC6n5p5D4MwJm7dkzOtrOeOarkb5lLx5kJbV4L/wwHUg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=starfivetech.com; dmarc=pass action=none
+ header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
+Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c550:17::6) by ZQ4PR01MB1138.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c550:17::7) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.18; Wed, 9 Sep
+ 2026 06:52:06 +0000
+Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+ ([fe80::e7d4:256c:b066:850d]) by
+ ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn ([fe80::e7d4:256c:b066:850d%4])
+ with mapi id 15.21.0339.017; Wed, 9 Sep 2026 06:52:06 +0000
+From: Changhuang Liang <changhuang.liang@starfivetech.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>, Linus Walleij <linusw@kernel.org>,
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Emil Renner Berthing <kernel@esmil.dk>,
+	Paul Walmsley <pjw@kernel.org>, Albert Ou <aou@eecs.berkeley.edu>, Palmer
+ Dabbelt <palmer@dabbelt.com>, Alexandre Ghiti <alex@ghiti.fr>, Philipp Zabel
+	<p.zabel@pengutronix.de>, Bartosz Golaszewski <brgl@kernel.org>
+CC: "linux-gpio@vger.kernel.org" <linux-gpio@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-riscv@lists.infradead.org" <linux-riscv@lists.infradead.org>, Lianfeng
+ Ouyang <lianfeng.ouyang@starfivetech.com>
+Subject: Re: [PATCH v6 03/21] dt-bindings: pinctrl: Add
+ starfive,jhb100-sys0-pinctrl
+Thread-Topic: [PATCH v6 03/21] dt-bindings: pinctrl: Add
+ starfive,jhb100-sys0-pinctrl
+Thread-Index:
+ AQHdN2ImqvaIx8mSbUaeHyzzD+v1QLa0qs+AgAEkaZCAAHWtgIAAA1cAgAABZ4CAAAK9MIAPhrWAgAANmpA=
+Date: Wed, 9 Sep 2026 06:52:06 +0000
+Message-ID:
+ <ZQ4PR01MB1202D6E0502B941B170D1C56F2B02@ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn>
+References: <20260829025720.23915-1-changhuang.liang@starfivetech.com>
+ <20260829025720.23915-4-changhuang.liang@starfivetech.com>
+ <f474f659-8234-4dfb-85cc-06d2cc295107@kernel.org>
+ <ZQ4PR01MB1202DDBD0436E8F580EB6575F2AA2@ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn>
+ <ac4c6b24-02c7-4dc3-89e4-45aa335255d3@kernel.org>
+ <ZQ4PR01MB120205984FB23C0776BD0D0AF2AA2@ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn>
+ <08c6dad7-8b0d-4daf-908e-5af875306f0f@kernel.org>
+ <ZQ4PR01MB1202123864865439817E1549F2AA2@ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn>
+ <95b7ad43-9c68-4830-a35c-7cb29ca9b75f@kernel.org>
+In-Reply-To: <95b7ad43-9c68-4830-a35c-7cb29ca9b75f@kernel.org>
+Accept-Language: zh-CN, en-US
+Content-Language: zh-CN
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=starfivetech.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: ZQ4PR01MB1202:EE_|ZQ4PR01MB1138:EE_
+x-ms-office365-filtering-correlation-id: c48e9432-93bb-4cd8-cd0c-08df0e3edcfa
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|376014|7416014|23010399003|366016|1800799024|56012099006|4143699003|38070700021|10067099003|921020|18002099003|22082099003;
+x-microsoft-antispam-message-info:
+ xz6TClkQJXOz2rEAF9sHlS03udZ9f6U0O8STOng6HPTihzC1rfCkHD2n8Zx4axbehxFhNx0SXUVgPvxS1Uaqz9k9FL4zBMnGrxdQ0MWe2BKPoxW4rIQVFieGphJHifU7Kir851F0USN028QayiRPRzTRbSIBDcx/Y0YEUh3zc0zX0/cZy3prLNrcEWvIKxjV+CQbrVTJ7FwiJOURRpWXPM07BXtIUo8u3tG0KwU0X0oClkGAFYfpdIXaqD6yb/UQCXpZTaG7vEnmNgvtV1DnPo2/bNZIM5DbYoQwvq9KEB4tvacsGlG3i/8xK4NF4vxO3z2urHSidrLzGZNJoxdiBPQ5Qcib/7Jz8ShdZ2K/jN25GltmIfWxC5+r326KzXfPag10QEFMq7/16ZTE0SLZuTcffAxBGe/nrxDQqpheYMB6s+dWQCA9s9qnMAA63mkcm0X5Ox+0xoZQsvO5cyr2hwQ4MOIBhm66Wk1dNkI66ESGgIqTMBy5h7Lo+4vTm2MBMDwjTQQxMvSZlsg1HQZ88NhyteCf0fA7J71ifB71Fs5oVBb+pv4R9RqlhrZoqTWAdTyyeeUAW/+Cm6dHo5MQ3w==
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:zh-cn;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(23010399003)(366016)(1800799024)(56012099006)(4143699003)(38070700021)(10067099003)(921020)(18002099003)(22082099003);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?utf-8?B?akhYcUd5ZHBaS2JjaUNRQy9NVEtjSkQ5TzFOT09VRk9VRXdmWlZlbmlEeXF6?=
+ =?utf-8?B?bGY4WWVsYUVVQ0xFaFhwSmxFNWxjdzcxMk14S2k3TWlBNUhZUTZLdmZJMy94?=
+ =?utf-8?B?dWFESXVyZWtZaWpEUGNEbGNNekhPWTdEVkpmWlMyYWROdmFUNjNiRnBHS1Nk?=
+ =?utf-8?B?TFpNZ3A1OWp4cG5pZENxZk9VVEJtTW94L1JTbDdMWWJwdW0wWHNvcTZlY2tY?=
+ =?utf-8?B?VFFuZkJyem5IRmV4SWM4Y3p2RU1BUExyYnBLRUxTZ0h3NUxjdTJqZmJzZnRZ?=
+ =?utf-8?B?aEVSdFpBV3h1TGpHTFEvdndOWFNKMkFPVE1mbk1mbmFsZ0QyZEF4VDd6aXlI?=
+ =?utf-8?B?MVFHMEFjOVUzK0Q1TDY5YXN2U0ZvTSswbUJCcEQ1cUxKVUVpb0lDZCtZQ0Fl?=
+ =?utf-8?B?Wmp0L3I2aDRVc0ZaL3lwUngyL0dVVHQxYUtGMHJFWm1CN2xibnpyclIzcVJm?=
+ =?utf-8?B?bmUrT1NYdzJicGxCN0NVV1ZXNTFZQzJzTnBRUWRvVGtPU0JKTUVGUjdCeGdJ?=
+ =?utf-8?B?RWZhRHQ1N2dLdjBBUTNHenpZQzFXdlQrTUFtaW82VUR2MWlxT1hwbWZyaFV3?=
+ =?utf-8?B?c2o2NTNEZktabEx5dVB4VHdrVEt0dDFJclozNWN2OVgyZ205MjJjVS9Wa0l4?=
+ =?utf-8?B?dGR2aFJQMUN3YyszWXRxU1YydEhwanVBWUpUTldUalh1TFEyZU9ZK0JyRkZL?=
+ =?utf-8?B?MW5nVVE1Z2hBNTJEWEJBYXJITTV3ZExkUys0QnEwWS9jUlhBT1BCdjJET2o2?=
+ =?utf-8?B?U2VNaTUyRnZkbjhLSmx4SlZtNDdIQ04vQzhaWEYxRVV4Zi9RYUF3SEFndFJH?=
+ =?utf-8?B?cUMybjdyem9TS1lhUDVHWnZ0cEk4QjVNRGFRejRiRjFnaVUwcUVkeGRJZ2s2?=
+ =?utf-8?B?RU1hMi9mUWt1U3ptRCtaOTZ4NGpjZDRCcFh5ZXJ0Y1NFWEZLZ3U3Y2tkelhy?=
+ =?utf-8?B?OTZPa1RCa3crNVVTek55Q3BXbFJTQVFjQTVxenVLd3FoenJUOHBhdnJwUFJM?=
+ =?utf-8?B?azBVa2hKNlh5WVE3a2ovV3ROUkE2ZkluZWhxazc4cWJxUS9TV2c0dkVQWjkz?=
+ =?utf-8?B?Y2VzeTlMUzRUb2dWazk4KzRqRUN2cmVXL0YzM1ZoY0xidEdzK1hJeThsek5o?=
+ =?utf-8?B?cE5kM3NpeS9KcUF2Sm1LcStIU2tOZ2o0WnF2anl0aENYY0hBZStlR2hWMEov?=
+ =?utf-8?B?QnN6RXZmZTY4Q2ljbjRTTmtlWlBEZEs1WWJPSlp3NWdLNFpycjVITXhKZkdT?=
+ =?utf-8?B?TVl5Z3FPWHNXVm5GS0hiSU5vSk1hSVp5Y0pUekZUL3UrekY3eHhENng0anBL?=
+ =?utf-8?B?TEFBQlY2K3I5empWZ1ZqcTVDYm5BMjNvQUFHd3VDcnFHZldpanpWZUVkU3Q2?=
+ =?utf-8?B?MVFCcTA3VFI1RXBwalVuUFB6elAyc0R5bVZMYkJ6OStrZXJVNm95eDlEVi9W?=
+ =?utf-8?B?YWFYQXc1UlY0enl0aGRLNDBzU0R4LzllZ2trK2RwUXp3TWlIQWhIM3JHSkkx?=
+ =?utf-8?B?WTdIU1ZDa2t5T1M3WnM0RFdiUTFaeTRxMFl0Q3BBWFZENFFMODdXbjU3VDRx?=
+ =?utf-8?B?NGJIcXBMMnhsYTNESllKK1c0eTdGajFnMHIrYmYyVjN0WGRjK3YwSHhXaHZS?=
+ =?utf-8?B?ZnRlbno3SEZ4UFRWZEhldTgwSzVHOTZudDY5c2psdEl2VVhjelNHUS9NY0Ri?=
+ =?utf-8?B?Rmx4d2VPWFZCNHh2UFpQdHZlZ0JBVzF4VnM2RERyL29HaG05V3ZURUMwSlNB?=
+ =?utf-8?B?MXAyOW44eFlnTTZZMHphb1lzR3dMaDZleHRRVnRnQmg1d1c1MXdqR3R5VkJR?=
+ =?utf-8?B?Ykl0WG91RWFMdWp4N2w0TE9ub0lDUVloZkNsYmR0bXcrQ1djSjF3Ly9RY2Nq?=
+ =?utf-8?B?MGVXN1Bnc2tWRjdzUlo3QlM0U0MyN3ZaSnI1a1QyMi9Wb2RTRmt6T2h6K21h?=
+ =?utf-8?B?SjdvNTJvSkw0M2ZNT0Y5cXN3dlA2N1dUMmV6a0xFZHlZcUJOOThvUW5NL2NV?=
+ =?utf-8?B?clJQZUZpUWFETm1GRTNaRVExUW1iRU5uVm9mQ3FlNUY1azRZTFNuTXV0UXhG?=
+ =?utf-8?B?cm5CVktlUjJVQVZKNkgrbnNiSkVzd3VZUkJrM0xkYUFLaFdCbWJMTkVEQ1R6?=
+ =?utf-8?B?a1ZBWFkrSHFDWlBQNTUzckpqTFEvT3JWRGUvTlZvaHlhNmZ5cCtueEF1Y1hG?=
+ =?utf-8?B?UFVrTkJqazdaRmhFT3JkWmlPdDJIOFVSc2pQcG5CZVVDYnhwcGFhQlZrZmw0?=
+ =?utf-8?B?WG1QQm0vME1QT2RMb2ZHV3VrY290REJpT2FHZy9VZThtYVlrR2ZNS2MydXBP?=
+ =?utf-8?B?ZUllZzBYdXUyQlFqYmNldVhFY0JXcmRJK3dJckVtbXZJVjRwNzFIQTJzRSs1?=
+ =?utf-8?Q?tFNvMmT9DSHM+CPE=3D?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 06/11] drm/atomic: Create function to insert connector
- state into a commit
-To: Maxime Ripard <mripard@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: Daniel Stone <daniels@collabora.com>,
- Harry Wentland <harry.wentland@amd.com>,
- Jocelyn Falempe <jfalempe@redhat.com>, =?UTF-8?Q?Jonas_=C3=85dahl?=
- <jadahl@redhat.com>, =?UTF-8?Q?Michel_D=C3=A4nzer?= <mdaenzer@redhat.com>,
- Pekka Paalanen <pekka.paalanen@collabora.com>,
- Sebastian Wick <sebastian.wick@redhat.com>, Simon Ser <contact@emersion.fr>,
- Victoria Brekenfeld <victoria@system76.com>, Xaver Hugl
- <xaver.hugl@kde.org>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-References: <20260908-drm-reset-state-flag-v3-0-905570f387a4@kernel.org>
- <20260908-drm-reset-state-flag-v3-6-905570f387a4@kernel.org>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <20260908-drm-reset-state-flag-v3-6-905570f387a4@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Spam-Score: -4.30
-X-Spam-Level: 
-X-Spamd-Result: default: False [-4.30 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-0.999];
-	MIME_GOOD(-0.10)[text/plain];
-	ARC_NA(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[16];
-	MIME_TRACE(0.00)[0:+];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	FREEMAIL_TO(0.00)[kernel.org,linux.intel.com,gmail.com,ffwll.ch];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	RCVD_TLS_ALL(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid,imap1.dmz-prg2.suse.org:helo,suse.com:url]
-X-Spam-Flag: NO
+X-OriginatorOrg: starfivetech.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+X-MS-Exchange-CrossTenant-Network-Message-Id: c48e9432-93bb-4cd8-cd0c-08df0e3edcfa
+X-MS-Exchange-CrossTenant-originalarrivaltime: 09 Sep 2026 06:52:06.7566
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: YjnSHWixTXRE5Foiy9MKxgnOHpHRmnSvWLKsIN5r7Kx7HDYJtwsSiTM/ZPh7qx8SeAq+TeLs3g4/SNh9cumk7sk+HJFVhCVATkWxKeyE3RIG7sVUfPUcz2XlC1E+ZT7i
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZQ4PR01MB1138
 
-
-
-Am 08.09.26 um 16:35 schrieb Maxime Ripard:
-> drm_atomic_get_connector_state() allocates a new connector state by
-> duplicating the current one and inserts it into the atomic commit as
-> a single operation.
->
-> However, a later change will need to insert a connector state into a
-> commit without going through the full allocation and duplication path
-> in drm_atomic_get_connector_state().
->
-> Extract the state insertion logic, including the dynamic array
-> reallocation, into a new static
-> drm_atomic_commit_set_connector_state() helper, and convert
-> drm_atomic_get_connector_state() to use it.
->
-> Signed-off-by: Maxime Ripard <mripard@kernel.org>
-> ---
->   drivers/gpu/drm/drm_atomic.c | 67 +++++++++++++++++++++++++++-----------------
->   1 file changed, 42 insertions(+), 25 deletions(-)
->
-> diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
-> index 1be4af940ed1..19678e8a2bd4 100644
-> --- a/drivers/gpu/drm/drm_atomic.c
-> +++ b/drivers/gpu/drm/drm_atomic.c
-> @@ -1412,10 +1412,46 @@ drm_atomic_get_new_crtc_for_encoder(struct drm_atomic_commit *state,
->   
->   	return conn_state->crtc;
->   }
->   EXPORT_SYMBOL(drm_atomic_get_new_crtc_for_encoder);
->   
-> +static int drm_atomic_commit_set_connector_state(struct drm_atomic_commit *commit,
-> +						 struct drm_connector *connector,
-> +						 struct drm_connector_state *connector_state)
-> +{
-> +	struct drm_mode_config *config = &connector->dev->mode_config;
-> +	int index;
-> +
-> +	drm_modeset_lock_assert_held(&config->connection_mutex);
-> +
-> +	index = drm_connector_index(connector);
-> +	if (index >= commit->num_connector) {
-> +		struct __drm_connnectors_state *c;
-> +		int alloc = max(index + 1, config->num_connector);
-> +
-> +		c = krealloc_array(commit->connectors, alloc,
-> +				   sizeof(*commit->connectors), GFP_KERNEL);
-
-This entire branch looks like it mostly open-codes the functionality of 
-krealloc_array(). If you can use __GFP_ZERO here, it appears that this 
-whole branching could be collapsed to a single unconditional 
-reallocation plus an update of num_connector.
-
-Best regards
-Thomas
-
-> +		if (!c)
-> +			return -ENOMEM;
-> +
-> +		commit->connectors = c;
-> +		memset(&commit->connectors[commit->num_connector], 0,
-> +		       sizeof(*commit->connectors) * (alloc - commit->num_connector));
-> +
-> +		commit->num_connector = alloc;
-> +	}
-> +
-> +	drm_connector_get(connector);
-> +	commit->connectors[index].state_to_destroy = connector_state;
-> +	commit->connectors[index].old_state = connector->state;
-> +	commit->connectors[index].new_state = connector_state;
-> +	commit->connectors[index].ptr = connector;
-> +	connector_state->state = commit;
-> +
-> +	return 0;
-> +}
-> +
->   /**
->    * drm_atomic_get_connector_state - get connector state
->    * @state: global atomic state object
->    * @connector: connector to get state object for
->    *
-> @@ -1430,53 +1466,34 @@ EXPORT_SYMBOL(drm_atomic_get_new_crtc_for_encoder);
->    */
->   struct drm_connector_state *
->   drm_atomic_get_connector_state(struct drm_atomic_commit *state,
->   			  struct drm_connector *connector)
->   {
-> -	int ret, index;
-> +	int ret;
->   	struct drm_mode_config *config = &connector->dev->mode_config;
->   	struct drm_connector_state *connector_state;
->   
->   	WARN_ON(!state->acquire_ctx);
->   	drm_WARN_ON(state->dev, state->checked);
->   
->   	ret = drm_modeset_lock(&config->connection_mutex, state->acquire_ctx);
->   	if (ret)
->   		return ERR_PTR(ret);
->   
-> -	index = drm_connector_index(connector);
-> -
-> -	if (index >= state->num_connector) {
-> -		struct __drm_connnectors_state *c;
-> -		int alloc = max(index + 1, config->num_connector);
-> -
-> -		c = krealloc_array(state->connectors, alloc,
-> -				   sizeof(*state->connectors), GFP_KERNEL);
-> -		if (!c)
-> -			return ERR_PTR(-ENOMEM);
-> -
-> -		state->connectors = c;
-> -		memset(&state->connectors[state->num_connector], 0,
-> -		       sizeof(*state->connectors) * (alloc - state->num_connector));
-> -
-> -		state->num_connector = alloc;
-> -	}
-> -
->   	connector_state = drm_atomic_get_new_connector_state(state, connector);
->   	if (connector_state)
->   		return connector_state;
->   
->   	connector_state = connector->funcs->atomic_duplicate_state(connector);
->   	if (!connector_state)
->   		return ERR_PTR(-ENOMEM);
->   
-> -	drm_connector_get(connector);
-> -	state->connectors[index].state_to_destroy = connector_state;
-> -	state->connectors[index].old_state = connector->state;
-> -	state->connectors[index].new_state = connector_state;
-> -	state->connectors[index].ptr = connector;
-> -	connector_state->state = state;
-> +	ret = drm_atomic_commit_set_connector_state(state, connector, connector_state);
-> +	if (ret) {
-> +		connector->funcs->atomic_destroy_state(connector, connector_state);
-> +		return ERR_PTR(ret);
-> +	}
->   
->   	drm_dbg_atomic(connector->dev, "Added [CONNECTOR:%d:%s] %p state to %p\n",
->   			 connector->base.id, connector->name,
->   			 connector_state, state);
->   
->
-
--- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Jochen Jaser, Andrew McDonald, (HRB 36809, AG Nürnberg)
-
-
+SGksIEtyenlzenRvZiwNCg0KPiBPbiAzMC8wOC8yMDI2IDEwOjU3LCBDaGFuZ2h1YW5nIExpYW5n
+IHdyb3RlOg0KPiA+IEhpLCBLcnp5c3p0b2YNCj4gPg0KPiA+IFRoYW5rcyBmb3IgdGhlIHJldmll
+dy4NCj4gPg0KPiA+PiBPbiAzMC8wOC8yMDI2IDEwOjQyLCBDaGFuZ2h1YW5nIExpYW5nIHdyb3Rl
+Og0KPiA+Pj4gSGksIEtyenlzenRvZg0KPiA+Pj4NCj4gPj4+IFRoYW5rcyBmb3IgdGhlIHJldmll
+dy4NCj4gPj4+DQo+ID4+Pj4gT24gMzAvMDgvMjAyNiAwMzoyOSwgQ2hhbmdodWFuZyBMaWFuZyB3
+cm90ZToNCj4gPj4+Pj4gSGksIEtyenlzenRvZg0KPiA+Pj4+Pg0KPiA+Pj4+PiBUaGFua3MgZm9y
+IHRoZSByZXZpZXcuDQo+ID4+Pj4+DQo+ID4+Pj4+PiBPbiAyOS8wOC8yMDI2IDA0OjU3LCBDaGFu
+Z2h1YW5nIExpYW5nIHdyb3RlOg0KPiA+Pj4+Pj4+ICsjaWZuZGVmIF9fRFRfQklORElOR1NfUElO
+Q1RSTF9TVEFSRklWRV9KSEIxMDBfSF9fDQo+ID4+Pj4+Pj4gKyNkZWZpbmUgX19EVF9CSU5ESU5H
+U19QSU5DVFJMX1NUQVJGSVZFX0pIQjEwMF9IX18NCj4gPj4+Pj4+PiArDQo+ID4+Pj4+Pj4gKy8q
+IHN5czAgcGFkIG51bWJlcnMgKi8NCj4gPj4+Pj4+PiArI2RlZmluZSBQQUROVU1fU1lTMF9HUElP
+X0EwCQkJCTANCj4gPj4+Pj4+PiArI2RlZmluZSBQQUROVU1fU1lTMF9HUElPX0ExCQkJCTENCj4g
+Pj4+Pj4+PiArI2RlZmluZSBQQUROVU1fU1lTMF9HUElPX0EyCQkJCTINCj4gPj4+Pj4+PiArI2Rl
+ZmluZSBQQUROVU1fU1lTMF9HUElPX0EzCQkJCTMNCj4gPj4+Pj4+DQo+ID4+Pj4+PiBJIGNvdWxk
+IG5vdCBmaW5kIGhvdyB5b3VyIGRyaXZlciB1c2VzIHRoZXNlLCBzbyBhcmUgeW91IHN1cmUgaXQn
+cw0KPiA+Pj4+Pj4gYSBiaW5kaW5nIGNvbnN0YW50IGZvciB0aGUgU1c/DQo+ID4+Pj4+DQo+ID4+
+Pj4+IFllcywgdGhlc2UgYXJlIG5vdCB1c2VkIGluIHRoZSBkcml2ZXIsIGJ1dCBpbiBQQVRDSCA2
+LzgvMTAvMTIsDQo+ID4+Pj4+IGV0Yy4sIHNvbWUgZGVmaW5pdGlvbnMgZm9yIG90aGVyIEdQSU9z
+IGFyZSBzdGlsbCB1c2VkLiBUaGVyZWZvcmUsDQo+ID4+Pj4+IEkgaGF2ZSB1bmlmb3JtbHkgZGVm
+aW5lZCB0aGVtIGluIHRoZSBiaW5kaW5nLCBhbmQgdGhleSB3aWxsIGJlDQo+ID4+Pj4+IHByb3Zp
+ZGVkIHRvIHRoZQ0KPiA+Pj4+IGRldmljZSB0cmVlIGZvciB1c2UgbGF0ZXIuDQo+ID4+Pj4NCj4g
+Pj4+PiBJIGFtIGNvbmZ1c2VkLiBUaGUgZHJpdmVyIGluIHRoZXNlIHBhdGNoZXMgNi84LzEwLzEy
+IGRvZXMgaW5jbHVkZQ0KPiA+Pj4+IHRoZSBoZWFkZXIgYnV0IGRvZXMgbm90IHVzZSB0aGVtLiBX
+aHkgZG8geW91IGluY2x1ZGUgdW51c2VkDQo+ID4+Pj4gaGVhZGVycz8gT3Igd2hhdCBpcyBleGFj
+dGx5IHRoZSB1c2U/DQo+ID4+Pg0KPiA+Pj4gSSdtIHNvcnJ5LCBJIG1pc3NlZCBvbmUgdGhpbmcu
+IEFjdHVhbGx5LCB0aGUgY3VycmVudCBwYXRjaGVzDQo+ID4+IDQvNi84LzEwLzEyLzE0LzE2LzE4
+LzIwIGFsbCB1c2UgdGhpczoNCj4gPj4+DQo+ID4+PiBGb3IgZXhhbXBsZSwgaW4gcGF0Y2ggNDoN
+Cj4gPj4+DQo+ID4+PiBzdGF0aWMgY29uc3Qgc3RydWN0IGpoYjEwMF9waW5jdHJsX2Z1bmNfbWFw
+cyBqaGIxMDBfZnVuY19tYXBzX3N5czBbXSA9DQo+IHsNCj4gPj4+IAl7IC5mdW5jID0gImF1eHB3
+cmdvb2QiLAkJLnZhbCA9IDEgfSwNCj4gPj4+IAl7IC5mdW5jID0gImdwaW8iLAkJLnZhbCA9IDAs
+DQo+ID4+PiAJICAubWF4X3BpbiA9DQo+ID4+IEpIQjEwMF9GVU5DX01BUFNfTUFYX1BJTihQQURO
+VU1fU1lTMF9HUElPX0EyKSB9LA0KPiA+Pj4gCXsgLmZ1bmMgPSAiZ3BpbyIsCQkudmFsID0gMSwN
+Cj4gPj4+IAkgIC5tYXhfcGluID0NCj4gPj4gSkhCMTAwX0ZVTkNfTUFQU19NQVhfUElOKFBBRE5V
+TV9TWVMwX0dQSU9fQTMpIH0sDQo+ID4+PiAJeyAuZnVuYyA9ICJoYmxlZCIsCQkudmFsID0gMSB9
+LA0KPiA+Pj4gCXsgLmZ1bmMgPSAicGUycnN0X291dCIsCQkudmFsID0gMCB9LA0KPiA+Pj4gfTsN
+Cj4gPj4+DQo+ID4+PiBUaGVzZSBkZWZpbml0aW9ucyBhcmUgdXNlZCBpbiBgc3RydWN0IGpoYjEw
+MF9waW5jdHJsX2Z1bmNfbWFwc2Agb3INCj4gPj4+IGBzdHJ1Y3QNCj4gPj4gcGludnJlZl9kZXNj
+YC4NCj4gPj4NCj4gPj4gT0ssIEkgd2FzIGxvb2tpbmcgZm9yIFBBRE5VTV9TWVMwX0dQSU9fQTAu
+DQo+ID4+DQo+ID4+IFdoeSBkbyB5b3UgbmVlZCB1bnVzZWQgY29uc3RhbnRzPyBUaGUgY29uc3Rh
+bnRzIGluIGJpbmRpbmcgaGVhZGVycw0KPiA+PiBhcmUgaW50ZXJmYWNlIGJldHdlZW4gRFRTIGFu
+ZCBkcml2ZXJzLCBub3QgaGFyZHdhcmUgdmFsdWVzLiBZb3UgZG8NCj4gPj4gbm90IG5lZWQgdG8g
+c3RvcmUgdGhlcmUgaGFyZHdhcmUgdmFsdWVzLCBzbyB3aGF0IGlzIHRoZSBiZW5lZml0IG9mDQo+
+ID4+IGRlZmluaW5nIFBBRE5VTV9TWVMwX0dQSU9fQTA/IFdoeSBjYW4ndCBQQUROVU1fU1lTMF9H
+UElPX0EyDQo+IHN0YXJ0IGF0DQo+ID4+IGluZGV4IDA/DQo+ID4NCj4gPiBIZXJlLCBpdCBpcyBh
+bHNvIHByb3ZpZGVkIGZvciB1c2UgYnkgdGhlIGRldmljZSB0cmVlIGxhdGVyLiBGb3IgZXhhbXBs
+ZToNCj4gPg0KPiA+IAlhdXhwb3dlcmdvb2QwX3BpbnM6IGF1eHBvd2VyZ29vZDAtZ3JwIHsNCj4g
+PiAJCWF1eHBvd2VyZ29vZDAtcGlucyB7DQo+ID4gCQkJcGlucyA9IDxQQUROVU1fU1lTMF9HUElP
+X0EwPjsNCj4gPiAJCQlmdW5jdGlvbiA9ICJhdXhwd3Jnb29kIjsNCj4gPiAJCQlpbnB1dC1lbmFi
+bGU7DQo+ID4gCQl9Ow0KPiA+IAl9Ow0KPiA+DQo+ID4gCWF1eHBvd2VyZ29vZDFfcGluczogYXV4
+cG93ZXJnb29kMS1ncnAgew0KPiA+IAkJYXV4cG93ZXJnb29kMS1waW5zIHsNCj4gPiAJCQlwaW5z
+ID0gPFBBRE5VTV9TWVMwX0dQSU9fQTE+Ow0KPiA+IAkJCWZ1bmN0aW9uID0gImF1eHB3cmdvb2Qi
+Ow0KPiA+IAkJCWlucHV0LWVuYWJsZTsNCj4gPiAJCX07DQo+ID4gCX07DQo+ID4NCj4gPiBUaGUg
+cGlucyBwcm9wZXJ0eSBjb3JyZXNwb25kcyB0byB0aGUgc3BlY2lmaWMgR1BJTyBvZmZzZXQsIHNv
+DQo+IFBBRE5VTV9TWVMwX0dQSU9fQTIgY2Fubm90IHN0YXJ0IGF0IGluZGV4IDAuDQo+IA0KPiBE
+aWQgeW91IGV2ZW4gcmVhZCBteSByZXBseT8gT3IgeW91IGp1c3QgcmVzcG9uZCB3aGF0ZXZlciB0
+byB0aWNrIHRoZQ0KPiBjaGVja2JveCBvZiByZXNwb25kaW5nIHRvIG1haW50YWluZXI/DQo+IA0K
+PiBBR0FJTjoNCj4gIllvdSBkbyBub3QgbmVlZCB0byBzdG9yZSB0aGVyZSBoYXJkd2FyZSB2YWx1
+ZXMiDQo+IA0KPiBEbyB5b3UgdW5kZXJzdGFuZCB0aGUgdGVybSBBQkkgYmV0d2VlbiBzb2Z0d2Fy
+ZSBhbmQgRFRTPyBJcyBpbiB0aGlzIHRlcm0NCj4gYW55dGhpbmcgYWJvdXQgeW91ciBhY3R1YWwg
+aGFyZHdhcmUgbnVtYmVycz8gTm8uDQoNCllvdSBhcmUgcmlnaHQsIGFuZCBJIG5vdyBzZWUgSSB3
+YXMgYW5zd2VyaW5nIGEgZGlmZmVyZW50IHF1ZXN0aW9uIHRoYW4gdGhlIG9uZQ0KWW91IGFza2Vk
+LiANCg0KU28gSSdkIGxpa2UgdG8gZG91YmxlLWNoZWNrOiBpbiB0aGUgbmV4dCB2OCB2ZXJzaW9u
+LCBJJ2xsIHBsYWNlIHRoZSBjdXJyZW50bHkgdW5tb2RpZmllZCANCmBzdGFyZml2ZSxqaGIxMDAt
+cGluY3RybC5oYCB1bmRlciBgYXJjaC9yaXNjdi9ib290L2R0cy9zdGFyZml2ZS9gLiBGb3IgdGhl
+IG1hY3JvIA0KZGVmaW5pdGlvbnMgdXNlZCBieSB0aGUgZHJpdmVyIChlLmcuLCBgUEFETlVNX1NZ
+UzBfR1BJT19BMmAsIGBQQUROVU1fU1lTMF9HUElPX0EzYCksIA0KSSdtIG5vdCBlbnRpcmVseSBz
+dXJlIHdoZXJlIHRvIHB1dCB0aG9zZSBkcml2ZXItdXNlZCBkZWZpbml0aW9ucyBub3cuIE15IHBs
+YW4gaXMgdG8gcGxhY2UgDQp0aGVtIGRpcmVjdGx5IGludG8gdGhlIHJlbGV2YW50IGRvbWFpbiAo
+YHN5czBgKSBmaWxlIGBwaW5jdHJsLXN0YXJmaXZlLWpoYjEwMC08ZG9tYWluPi5jYC4gDQpXb3Vs
+ZCB0aGlzIGNoYW5nZSBiZSBhY2NlcHRhYmxlPw0KDQpCZXN0IFJlZ2FyZHMsDQpDaGFuZ2h1YW5n
+DQoNCg==
