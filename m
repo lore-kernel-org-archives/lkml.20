@@ -1,127 +1,182 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EC95492E38;
-	Wed,  9 Sep 2026 06:52:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30B8833E36A
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 06:52:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788936746; cv=none; b=HTpT7ZrsLCfhG4Ft81ZkULxBAK4/ynNPyJpBOzMxbw6zGWpZrop7J18WhkWm4uCiVDqfU4XWvF7H/52lG9886HWi07H66FOvKGkCQluUx11s/DdmC4f28cS9S9oMeEoFYQQM0yrZ8swOW5Laru5ZlWB+knYEYOOSXZjXpAyg+Is=
+	t=1788936771; cv=none; b=pN+IdTC3bvmJrbFdGvLjs2qZoicza5OM5Li2uNPewLpBsuPukYWPgrWgjki9FYn/MJIRqrNt5xiU1sT8yY6e06uN1DHSNveX5cFyMAux6nV8TH7RwJjgAXkfyvDi+s7bS3lpFzUqE4xZKAOLW9Cybr1S/iOWUyDObEiRHJFhzXY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788936746; c=relaxed/simple;
-	bh=LONT0DKE+9SCNjgieWEZ+i8DCs1kVltxxrXetY3R3VU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=K7UKM7ZEVPi63XT8KlxO7dHMUfJewqgDLleIy/8marrQ7dbcSpaNogxOPgK/Kx+ZumcxmIyXWNM5LAUJmuYZsOKTpg2vMyY9D8hFOXYWjaPEmCfGe3tcRNiyoi/PGXxmw1F+2fn/29/rzd84FjSPu7FPqiSndacpZYq4/AeN7So=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KireBhf9; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788936771; c=relaxed/simple;
+	bh=/3ZwDm9+bTrvaAe2Rt3yKtt3btJtNucJnyLnBSRrLIU=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=Amy9C+g3TZbfni3fApYiDpTgDpj8g+BcH2mhhcWkKZNYONQhmYMYyUSkHHNL4QeGlgBDKJUoTvPSOnjIHCh6IKT16vUaXWeMTfC9r29EJcMC2ZBlSsW5UPh6IqxypDOMEkeRcofsWdXXkpzDIJ3aloWVj8zEu/4/0HIZheiAqTY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Flz5ridc; arc=none smtp.client-ip=74.125.225.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KireBhf9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 254241F00A3A;
-	Wed,  9 Sep 2026 06:52:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788936745;
-	bh=Az+kn0Xdpm9Dy+lCkH+sjazkd1iX28UAJ+tZEyK5eaQ=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=KireBhf9f605OUyOErA4FJYaE++WOhOWZNgKLsTtC4TNHT42mL8UTF4tjwA0S2uHn
-	 nrvhf2s4ZsPsaAK9dcf1zNNP4tPJEIw2w2Q6ViaE25MYDRziNGrDtb14MAZksUCY4F
-	 dBw//7Ylx1GNkNghzNDAb+bQk7YsI4/7lGJtkBxkHYO1WsUDe7JlB6gVwUwAU2Ldtz
-	 wfetkRBm0JIgW5ep73+ftce5PL0cUHvYYrMpchfbxRArXf/KFcT/7Ph1AnRvzNxc7X
-	 wTyumeMI2T0fpUIJzsjjXrUM8w712YVDDtGur+SW+g0pwQeYMq/R74azpUJgKQBP42
-	 vK7tE1rJUKW5A==
-Message-ID: <90736548-168f-461d-961c-2b113f5a73f0@kernel.org>
-Date: Wed, 9 Sep 2026 08:52:19 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Flz5ridc"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-482f6356257so818735f8f.0
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 23:52:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788936768; x=1789541568; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :references:in-reply-to:date:cc:to:from:subject:message-id:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=OjVTYo1HpRW2IUi6y6KzSORlT0uOvmPBVl8YlcyvYsA=;
+        b=Flz5ridcc8H0Fd0WPdtcfpPyztWn+Euxju9u2oQz3y+k5WaXOx2/YIGi+JI2OK5dqd
+         wu0uECiNzLZkT+wQfwx2oC9VI6vByTZ8DT26yKbFhdtbromQnhKw+P221/wTxzTV2Af7
+         1JcMnOtLx1h9QpT8SXBMaGlpWCTC1ZotDvLVQXF9Iv6ummjQebURcLBazHTFLY2jf44J
+         LtLUrUnUkOK729KI9UNDh0zo2wQdIvzrHUVmi55Tf6BbEGOGpXUYs6J9GGDQ8B39pNGY
+         IseRhS28us84H43evdasnoGbxHEyXerv477K5nxs160LE5BvW2vCLMVngpL5VP2N517B
+         7ZNA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788936768; x=1789541568;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=OjVTYo1HpRW2IUi6y6KzSORlT0uOvmPBVl8YlcyvYsA=;
+        b=CnkhBKLiGO2DQNL46UUeHPrdiQwCfY+Q6cWuALZMqsK5CBFV2P7UgiPAd6Mmq4XQ0i
+         ZfGboi44qesauBOxFF9MYPLTbXZCKyVHV1kyfuUvTfVfSDw8QxaPyTk6O4tMAjcO4+7p
+         9r9xt3t5p804y+1VplF6WDxIaU8P1FS4KTQWxabUmmmt7wFLhBz+rS4R1ceh8Fcxs4RL
+         iqynuhNHOgCXVCiqdl4nAKJRVxLglalCbFYsQ9AiDNTL08Cin9iGNApKNWfkS0sfc8Fd
+         FL2u9UjqYjfUj6uikw8qaQw+M44YeB7c6kcmEx7mwDT/8uWbetHebo0OvIReOTxtQaJi
+         2Gng==
+X-Forwarded-Encrypted: i=1; AKwUvByPOrbhOrqFTlxkeoXnJqOeGxn2T3s471O9EkvBMfjg+jvPgtkOkaNPqCZQF/Ho4aQ7j4NpjO41fxNGIOI=@vger.kernel.org
+X-Gm-Message-State: AFuF++lY3cDJYwhF9cQGyt/i2HqHQaA1vVSHMEanEcONj2zjIWoRqM0P
+	eC+km0N1JDUcy/f1mP1uMFqwuyGy4NCAepCvCWHH5nN0xfLiBXqFRLVw
+X-Gm-Gg: AYBFou1uuyEXYDg/m+iiZyguMuZnINksgZzPNDeLApNNlf4oRpQD856i6N8rrZRoO4r
+	1Q0w6nAbn+ysiCrvgm+ECoG6n166A6z2BdEbWPUHe52a3A7gS/lFTqDz91B69g6ksGLnzAEs/Ok
+	qxXWOe/kOSeQUyPXEEfTbu8Iolsuz1WchwTPIr2bt/Zs5tuguh3WbRCllQym+sKlgPcb/shWPUA
+	u9Xyyu3r/5NAe8ZutEUesW0MhfXT1F/cg88zM9Pzl2yLpR0SI2AL/isKMcQ3RmW2b/VyPD7bkUi
+	gGekjjmdMJt8RXYCMk8uSaRVWXC8fbpRkeTy2bmLiOTM1K0/YkCdN/c2Ibkp9zF54gBC4xVtb3X
+	l8dFJ74jJ+9i9jEFMyac8aX4ucv8z2oLSU8HxghMAEmVQ3/oMGKbuJJ9LWxmpqw11A2MMLgAFIV
+	pmqzXkLIMOBaGUSizKNR+XoqalyaUXQfB8AaXy51GTDmkDiVLdknefF0zfjvEX11hYE8/jmeLvV
+	H4=
+X-Received: by 2002:adf:e10a:0:b0:485:8ca6:5ac5 with SMTP id ffacd0b85a97d-485a2443b9amr11571339f8f.22.1788936768072;
+        Tue, 08 Sep 2026 23:52:48 -0700 (PDT)
+Received: from [10.245.244.251] ([134.191.227.46])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-485883acd33sm41318447f8f.18.2026.09.08.23.52.45
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 08 Sep 2026 23:52:47 -0700 (PDT)
+Message-ID: <5faff363852572d59e34c876173d73c93734bd3c.camel@gmail.com>
+Subject: Re: [PATCH v3 0/4] KVM: TDX: Validate directly configurable CPUID
+ bits
+From: Artem Bityutskiy <dedekind1@gmail.com>
+To: "Edgecombe, Rick P" <rick.p.edgecombe@intel.com>, "kvm@vger.kernel.org"
+	 <kvm@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+	 <linux-kernel@vger.kernel.org>, "binbin.wu@linux.intel.com"
+	 <binbin.wu@linux.intel.com>
+Cc: "Gao, Chao" <chao.gao@intel.com>, "seanjc@google.com"
+ <seanjc@google.com>,  "dave.hansen@linux.intel.com"	
+ <dave.hansen@linux.intel.com>, "kas@kernel.org" <kas@kernel.org>, "Li,
+ Xiaoyao"	 <xiaoyao.li@intel.com>, "pbonzini@redhat.com"
+ <pbonzini@redhat.com>,  "andrew.cooper3@citrix.com"	
+ <andrew.cooper3@citrix.com>, "nik.borisov@suse.com" <nik.borisov@suse.com>
+Date: Wed, 09 Sep 2026 09:52:44 +0300
+In-Reply-To: <58c185c82658819454a9950f37c6424226a098bb.camel@intel.com>
+References: <20260827031837.2863609-1-binbin.wu@linux.intel.com>
+		 <32b51faabf60f6e87d9fdebbf2c3fe5a45fbff1c.camel@gmail.com>
+	 <58c185c82658819454a9950f37c6424226a098bb.camel@intel.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/1] ARM: dts: draeger: Add socfpga devicetree for
- Draeger's M48 board.
-To: Petko Manolov <petko.manolov@konsulko.com>
-Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
- robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, dinguyen@kernel.org
-References: <20260908111011.960876-1-petko.manolov@konsulko.com>
- <20260908111011.960876-2-petko.manolov@konsulko.com>
- <3dbe92ee-805f-496d-9a7d-94c837e674b5@kernel.org>
- <20260909065059.GB10420@carbon.k.g>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20260909065059.GB10420@carbon.k.g>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-On 09/09/2026 08:50, Petko Manolov wrote:
-> On 26-09-09 08:36:23, Krzysztof Kozlowski wrote:
->> On 08/09/2026 13:10, Petko Manolov wrote:
->>> Signed-off-by: Petko Manolov <petko.manolov@konsulko.com>
->>
->> Please run scripts/checkpatch.pl on the patches and fix reported warnings.
->> After that, run also 'scripts/checkpatch.pl --strict' on the patches and
->> (probably) fix more warnings. Some warnings can be ignored, especially from
->> --strict run, but the code here looks like it needs a fix. Feel free to get in
->> touch if the warning is not clear.
->>
->>
->>> ---
->>>  .../devicetree/bindings/arm/altera.yaml       |   1 +
->>>  arch/arm/boot/dts/intel/socfpga/Makefile      |   1 +
->>>  .../socfpga/socfpga_cyclone5_draeger_m48.dts  | 130 ++++++++++++++++++
->>>  3 files changed, 132 insertions(+)
->>>  create mode 100644 arch/arm/boot/dts/intel/socfpga/socfpga_cyclone5_draeger_m48.dts
->>>
->>> diff --git a/Documentation/devicetree/bindings/arm/altera.yaml b/Documentation/devicetree/bindings/arm/altera.yaml
->>> index 3030cf46fe74..8ed1ba733510 100644
->>> --- a/Documentation/devicetree/bindings/arm/altera.yaml
->>> +++ b/Documentation/devicetree/bindings/arm/altera.yaml
->>
->> Same comments. Binding should not be part of other patches.
-> 
-> Does this mean i should submit the bindings related patches first?
+On Tue, 2026-09-08 at 22:31 +0000, Edgecombe, Rick P wrote:
+> We are kind of discussing what recommendations we should give about how
+> msr_preservation.pdf should be defined for new CPUID bit based features. =
+So
+> saying to follow msr_preservation.pdf is self referential.
 
-Please read both submitting patches documents.
+OK, thanks for elaborating. The e-mail was vague about that.
 
-Best regards,
-Krzysztof
+> Again, please do not treat the TDX specs as something to be handed down a=
+nd
+> "followed". I think this is something to get used to for TDX. I mean, ups=
+tream
+> never wants to adapt to platform arch that fits awkwardly, but it's even =
+tougher
+> to swallow when the arch is mostly SW defined. And further, the people wo=
+rking
+> on the TDX arch want to hear such requirements from upstream.
+
+Agreed, that matches my understanding. Reminders are useful in general,
+but this was not that case.
+
+> Here, the thing to discuss is how TDX should define new features that wil=
+l
+> clobber host state (e.g. bits that would appear in msr_preservation.pdf a=
+s not
+> being preserved).
+>=20
+> There have been several PUCK discussions on the problem this series is ta=
+ckling,
+> and actually several attempts to solve the problem during the base series=
+. More
+> recently a host clobbering control was proposed that attempted to make it=
+ safe,
+> but it was not accepted. That proposal brought up the topic of whether ha=
+ving
+> select states clobbered was actually an unproven optimization.
+>=20
+> Now that we are moving back to an allow list type solution, what guidance=
+ should
+> we give on this other surfaced topic. Since TDX shares some save/restore =
+logic
+> with normal VMs, we should have it work well with that code. So forgettin=
+g about
+> the performance optimization question, how to have it work in a sensible =
+way
+> with the shared code paths.
+
+Rick,
+
+In general, the TDX case and the VMX case behaving the same way is
+best. I thought that consistency is always obviously a good thing,
+but let me acknowledge it explicitly.
+
+I was trying to dig deeper into the proposal and analyze it.
+
+<cite>
+The proposal is to have TDX simply match VMX behavior, i.e. on return
+from TDH.VP.ENTER, state that VMX would restore from the VMCS host
+fields is restored, and state that VMX would leave as the guest value
+is clobbered.  That keeps a single model for VMM, and means enabling a
+new feature for TDs requires the same work flow as enabling it for VMX.
+</cite>
+
+My point was that hardware behaves differently for VMX guests and for
+the VMM<->TDX. This is not about following "boss specs", it is what the
+SDM describes.
+
+For VMX, the VMCS host-state area is loaded by hardware on VM exit
+(SDM 27.5). For SEAMCALL and SEAMRET, the SDM seems to say they operate
+like an SMM VM exit and a VM entry returning from SMM (SDM 35.1), and
+those save state into the guest-state area of the transfer VMCS
+(SDM 34.15.2.2).
+
+VMX:
+  VM entry =3D load guest state from guest-state area
+  VM exit  =3D save guest state into guest-state area,
+             load host state from host-state area
+
+TDX:
+  SEAMCALL =3D save host state into SEAM VMCS guest-state area,
+             load module state from SEAM VMCS host-state area
+  SEAMRET  =3D restore host state from SEAM VMCS guest-state area
+
+I may be reading the SDM wrong, let me know.
+
+So there are differences, and I was hoping to:
+- Be corrected if I misinterpret the SDM and how things work.
+- Get comments on whether the proposal took this into account.
+- Get comments on how this affects, or does not affect, the proposal.
+
+Thanks, Artem.
