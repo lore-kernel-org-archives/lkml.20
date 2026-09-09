@@ -1,135 +1,80 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 847B358598F
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 20:40:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAEC53C4B6F;
+	Wed,  9 Sep 2026 20:41:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788986473; cv=none; b=oQgqOlpNPKuf6O0MbW3WWicMJqa1gcpaC417IWFcgBCO7sVukwxDXuhQ9eWOsB88CNgWg/2aaTBE2HWh5RkJx4KQlUucHtUj4OlX7+cwgDYzC9+QQuAlm3BUWHswWrHkMN7sG9EixOc8zhdYTYGx7RJTnh76T2kPbK48TLtRJJc=
+	t=1788986485; cv=none; b=KtdKUvT7ZJvfdNOXTTknc4BQyrLFvM4Qy+uuuZESPtFamfJfuuqprK6Gs3ijM/tEPZGetfM2r8j35qnRgNvLPHwTQAJVrWi0dndN4qC3wYJavRQzrNdw0xJ6k38HCeQ1YFcJ6qCr18qPcF7PzB5ffQNIswd9H6PbUr9n1PKk/IQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788986473; c=relaxed/simple;
-	bh=dVKIiNAEgVbAcUmEZV6u+JTcPDwaNXloRQ0M0HcerBs=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=IJYbeXo/HY+i+QJotsnSxRM+FPuX06vjAhpZ07H+1RxPK2zwNKCuXc31zJD7Tszxt5ol4C2jc47C5utlb5lMpDXPAhAUt3j9hQTQtHNmett2L0VppONJOsbA47CZTUQrC0hBO0JCj8dKORq7Oi6Ojmph9RRK+5IM4tiYNp35mBI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=n8xP1iDM; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788986485; c=relaxed/simple;
+	bh=ukHD+YLjXnIDABKJcQo8x5gwNr/XGasbypYzUBvbS/c=;
+	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc; b=RXI+uWU9B49UmV+PXVJ6PyktF3zi/Ot9lIUDO67ZqHoKyhzyWHKCjUfRUyTic7H81EEypn6GteaOi9vIOU/ThZhoMeLO4vro42L1e3/1cgh9rFJThxxXNqG1s3ygx+rMJmL7hymWiwTDsswzDl9Sz35OMZzpyyTNXOqGBLAIG9g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iTvlE+q0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="n8xP1iDM"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49cd5462b69so9414625e9.1
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 13:40:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788986451; x=1789591251; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=BMGCVsS43Or0QvhvusoStvupM2eWy3k0/84tq8T1pu0=;
-        b=n8xP1iDMRj8LCqfLe/W0QVzRI9T+A4T+YmnXRgi5ny6Dzmw3A7a7BXPiPR/0A5kdIl
-         94nlY+hOTZNyDZKaCvSwOvU9nwOWMnBvq9ZmU3N7dObmEyqtx2F7+DjAGsT9OEUhABke
-         tntIxCRQw8RaYh/n+qqVNqEImKb59naDYccPCvdSjsNJuc4+TqAgpWZQU3Nc/WMLJ/mc
-         27g7Y9TV61N5g/k1oHEWKDmvcCivR2hWJzfTA75jzHZOzu52CdgNpzLmSp0QKiTpQsRd
-         rls4qbFNTkL0nv834NeMhaEUOhZOSlOFgcg6515/YfzYJHICBZ57hnCNhhoYQrK/l7u6
-         RazQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788986451; x=1789591251;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=BMGCVsS43Or0QvhvusoStvupM2eWy3k0/84tq8T1pu0=;
-        b=hXPu/QJfXv6eRJNXL1Qv+JuwCjl6kUrxqGrq955XCXVhIKBjX5z5UwZ6J46Yj06Bmr
-         TfJ2nvIlboxEjMpNO7McW8ROYG/LyOIgwfwN87y15dz/9u+kHLQuYVrUzZqmGCHRMRvJ
-         Ny7wrRwN3vuELyp+7f/MtVZtNB7dyaMXJG5GXXraH2BjOJNwcx1wZAtXZsoQbmY64kH6
-         uN6Mxo9EWVISK5CnMJ0Q84vWTS77ofrvBytDr1K+3qnQVEJWV+uM3+yP/1AM8dcavDtC
-         VbZxLgNnh4haIPHWzNmVl1X335McnSU0bvmL2/BduUo9RGTIX9VIJE4l7KaM/gafujvY
-         ru7w==
-X-Forwarded-Encrypted: i=1; AKwUvBzeaGMHNgyHQ6v8E2K+flARVHsLPDv/uWofEhu62auMsUfbEVChB5gqHDrSseCMu5wlqOP7V4+ScQ7iEJA=@vger.kernel.org
-X-Gm-Message-State: AFuF++les31sHdA/EHc6xccWMe/M7u4COoYQDovexbXcx4irouWnMFl/
-	EyMGhzu8zudjdsaWRG3yTaLM4tzNAuvaAxPd0Z6794QKQanBvY+amUY/
-X-Gm-Gg: AYBFou2FdVMvcqb/Q3GA5ctqeUBEUlLe+LHU5Jz8Il4ho6PBJEiTOus8CiiyuqmHBfY
-	t/j3VdhC1ht74458Oe8ZFiZaSH/X0VUGdS9jCi0KcUR/4WD2REnX5C3iP68DxkQ3CxV9aLlt4to
-	cUCB2k/DhMlccVonNKln9oKhfWrgxescLderMb+mgVDP2oq7JC2ZIrmiP3UkrzRdkVSZlYxhMgB
-	sbl7AogiaPLTuWUQ8oF+6ivBBQu6ItORiK4zlPDGcdCZI9b31ezgiG2pPeHFQBCeqE6tb+WcQmD
-	DmkEmAv66/aibSRrPr7ZPnbzM4G2edGP0VYm3d5N9HCvGbs2BNFRVZU0YYYK/AyT8SEXLZPbLD4
-	sMM15DH50n04yUcbzECSoIN3Xyy/wWltjEgVge48HK4cERGbovWdfxqe/y3bbp7WuYMmM5QeRun
-	xgqAlrOJl/+h5/UOvXkfVFffJLnw6OdQG2iQWhludhcob3IzRSVWMt8Cv1cOjTXl/WaIYCqvCTj
-	vvhqmgd40tc2ILcjQ3xFyWahmWLVdv/iH25wj9mOo+sy9WmD0wpS3pyjKAVbW0Emw0zaZGg9hWn
-	2iHgl8dYVBbwougJxYjiaAy40r0lTz0AisZLZyauUP7y4opmJwCm/DMNUmBtropu4A1k7bXcgwV
-	FwtFFkf+wBTXGISYz
-X-Received: by 2002:a05:600c:34c9:b0:49d:1deb:a629 with SMTP id 5b1f17b1804b1-49d1f21ae8dmr155804825e9.2.1788986450686;
-        Wed, 09 Sep 2026 13:40:50 -0700 (PDT)
-Received: from workstation ([85.186.165.159])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49d26c437besm17171315e9.11.2026.09.09.13.40.48
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 09 Sep 2026 13:40:50 -0700 (PDT)
-From: =?UTF-8?q?=C8=98tefan=20Ghe=C8=9Bu?= <stefanghetu9@gmail.com>
-To: Liam Girdwood <lgirdwood@gmail.com>,
-	Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
-	Bard Liao <yung-chuan.liao@linux.intel.com>,
-	Daniel Baluta <daniel.baluta@nxp.com>,
-	Mark Brown <broonie@kernel.org>
-Cc: Kai Vehmanen <kai.vehmanen@linux.intel.com>,
-	Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
-	Vijendar Mukunda <Vijendar.Mukunda@amd.com>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
-	sound-open-firmware@alsa-project.org,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	=?UTF-8?q?=C8=98tefan=20Ghe=C8=9Bu?= <stefanghetu9@gmail.com>
-Subject: [PATCH] ASoC: SOF: imx: Prevent stack OOB read in DSP panic dump
-Date: Wed,  9 Sep 2026 23:40:42 +0300
-Message-ID: <20260909204042.46656-2-stefanghetu9@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260909204042.46656-1-stefanghetu9@gmail.com>
-References: <20260909204042.46656-1-stefanghetu9@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iTvlE+q0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F92F1F00893;
+	Wed,  9 Sep 2026 20:41:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788986473;
+	bh=iUzflG7B0N9sDNtHEMAJvZLywGxQmMBQk8bi50rj9xc=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=iTvlE+q0dwtB1f+prYRCkN5WxKSpz5u6xbqYV+XwIE4VHCQd3+lWwFYarHBC71W6F
+	 gKM1pIqpIE9hQkBhlff48EKFZ7r2nvvfxUghUQr//dY6pigbO+JFJF9D5mNNrBWZ4E
+	 wITyXJ6kYNnUgxr6JsapLgwUDokKExGeYgJfBNX71ZWnoXT5hAjs+sIRUmmZswXKjw
+	 ff5i1sh+JcPL1y633cl4RtwtIWZmRpZNBIDnjV1hOrUL48fqQS5m42ELwc3jyj2eC3
+	 JLxPoVa9tzMd8acGM2GWhdB2RKFn8OB8KEbSbmKVfZUKWWVI/Q92AjPSewE2SpDjPm
+	 mi0X1uMPvGenA==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 56A11380AAD2;
+	Wed,  9 Sep 2026 20:40:12 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH net] net: dsa: tag_brcm: legacy FCS: request needed
+ tailroom
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <178898641089.1048067.423729789793911145.git-patchwork-notify@kernel.org>
+Date: Wed, 09 Sep 2026 20:40:10 +0000
+References: <20260908165047.2786340-1-bestswngs@gmail.com>
+In-Reply-To: <20260908165047.2786340-1-bestswngs@gmail.com>
+To: Weiming Shi <bestswngs@gmail.com>
+Cc: florian.fainelli@broadcom.com, jonas.gorski@gmail.com, andrew@lunn.ch,
+ olteanv@gmail.com, davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+ pabeni@redhat.com, horms@kernel.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, noltari@gmail.com, xmei5@asu.edu,
+ co+28eef7d8af9428e6@bugs.sh, stable@vger.kernel.org
 
-Commit 58bb5081cba1 ("ASoC: SOF: Xtensa: dump ar registers to restore
-call stack") added a shared Xtensa helper that iterates over a flexible
-array of AR registers (`ar[]`) controlled by `plat_hdr.numaregs`.
+Hello:
 
-While Intel IPC4 allocates dynamic storage for the AR block, the i.MX
-IPC3 path reads the oops message into a stack-allocated struct without
-backing storage for `ar[]`, while leaving `numaregs` unvalidated. This
-causes a stack out-of-bounds read when printing a DSP panic.
+This patch was applied to netdev/net.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
 
-Clear `numaregs` to 0 on i.MX since the AR block is not fetched or
-supported on this platform, preventing unsafe out-of-bounds memory
-accesses in the shared Xtensa helper.
+On Wed,  9 Sep 2026 00:50:47 +0800 you wrote:
+> The legacy FCS tagger calculates the CRC over skb->len bytes starting at
+> skb->data. When a nonlinear skb reaches the tagger, this reads past the
+> linear head into unrelated slab memory.
+> 
+> The tagger appends an Ethernet FCS but does not declare that tailroom. As a
+> result, DSA leaves NETIF_F_SG and NETIF_F_FRAGLIST enabled on the user
+> port, and nonlinear skbs can reach the CRC calculation.
+> 
+> [...]
 
-Fixes: 58bb5081cba1 ("ASoC: SOF: Xtensa: dump ar registers to restore call stack")
-Signed-off-by: Ștefan Ghețu <stefanghetu9@gmail.com>
----
- sound/soc/sof/imx/imx-common.c | 1 +
- 1 file changed, 1 insertion(+)
+Here is the summary with links:
+  - [net] net: dsa: tag_brcm: legacy FCS: request needed tailroom
+    https://git.kernel.org/netdev/net/c/5be081b83abd
 
-diff --git a/sound/soc/sof/imx/imx-common.c b/sound/soc/sof/imx/imx-common.c
-index 7a03c8cc5dd4..436fe49246ba 100644
---- a/sound/soc/sof/imx/imx-common.c
-+++ b/sound/soc/sof/imx/imx-common.c
-@@ -34,6 +34,7 @@ void imx8_get_registers(struct snd_sof_dev *sdev,
- 
- 	/* first read registers */
- 	sof_mailbox_read(sdev, offset, xoops, sizeof(*xoops));
-+	xoops->plat_hdr.numaregs = 0;
- 
- 	/* then get panic info */
- 	if (xoops->arch_hdr.totalsize > EXCEPT_MAX_HDR_SIZE) {
+You are awesome, thank you!
 -- 
-2.53.0
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
 
