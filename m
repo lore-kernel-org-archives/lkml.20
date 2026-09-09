@@ -1,86 +1,109 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5BCD57F724;
-	Wed,  9 Sep 2026 15:57:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FD7457C70B
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 15:58:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.19
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788969467; cv=none; b=HS+t/S+BVGuHqtFgi5tM/JneBska2jwRAmuCZoStbos8Lv/krmmtyCuhqLhbl8EZ5kvilfWQdbebhsQUVdyATgT3pKorFst66NJSH/N76AE6umqnltK6J9/D21o77kDtu2qLhukxVFchxLRCS4jHTouuVe8MBH2z9JNEMsie2NY=
+	t=1788969482; cv=none; b=sPY9B5gp4NdOXN/7VDNzjMMX8IxR10+sQgiTecaaXEFOdgzWTdvA+YwQw2T6HL18HygR/5DQ07nPHo2Ez4+RrJWs5exOrtacLGrDCVrRnX2GFcgAk8zTZQI+mdAwEl/AKcXzxslO5e7xUWSNeP3bm7T9PFfOqv67j/IVPcvxQig=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788969467; c=relaxed/simple;
-	bh=UsacJRO0IBOW9sLjrzVfAphSQbsb3cBIkkc+0EyhgYM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=fwNBlduRx5+0Jnz0x6e4//73Ji0FUtF1rilyYYYVEAMwDBYDNcpe/8CiFVbn79dkaQDwnVFjw/mXqDyFRly29i+UNFZ15Hn4LQQfcHf3wwVmwLl8mgDABQKwd6yJHm+BicanL6R0wh6gtrQRQ1J+FNTSdEijP7e22AngrzBj3ZY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LzJQr+nC; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788969482; c=relaxed/simple;
+	bh=cbDBndLD0r2payapstoz7DgAfghRCbvI5tIkdP+SShA=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=MDuxw0OQMRShe/sEKQ4ml3eqikYARxx8OSuJZxVVdE6ZK133U7QY4g6kfP6QtwzHjGCKtDJLpwUgZQRlg6tpkWOnwUKBsTFy0y/9Xqryb4+g8PpAqgHIW0A9U+iUKxiSKEve9lKQNq6GRmhqnrM+zsI2TZROJ7JKBZMxrPHaWQg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=N8BabzuM; arc=none smtp.client-ip=198.175.65.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LzJQr+nC"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 253A41F00A3A;
-	Wed,  9 Sep 2026 15:57:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788969466;
-	bh=M9SJYyQzXEllRJjMf5EQlh0KIDDZNzKZkAIQnq79Cj0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=LzJQr+nCyPi33SJReLNL8c80/99/Buxzle2qTznrBj9VPeh+cMg4cQkqIClrX4Arg
-	 PJknStCgoBaf7vcD4RKLx8tvQuTZUmmLCPjbqYNI4FbeFtlVywYVrupXjaAMRIKuFo
-	 aEcjTXN12I/Zr+IwGZSVgCN+NtncoqeldQoBRj1U07XC96pCDOS1slSlCrNBLSfE7T
-	 c/I2o2H5Ly/UrU8A3ryfL09UdBonOYJ9Rdg0jXzqme4vlHzl2U9B5+7aEGPLWQYHK8
-	 QL0ox84t5PlOOHjo9LAvwwTy8rA+b1/h8CXGMTqE1iylDFAX3WGXiB0dikfX61V20J
-	 0z7f5NKArp9Uw==
-Date: Wed, 9 Sep 2026 18:57:42 +0300
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: Jiangshan Yi <yijiangshan@kylinos.cn>
-Cc: peterhuewe@gmx.de, jgg@ziepe.ca, ross.philipson@oracle.com,
-	stefanb@linux.ibm.com, linux-integrity@vger.kernel.org,
-	linux-kernel@vger.kernel.org, 13667453960@163.com,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] tpm: Fix auth session leak in tpm2_get_random() error
- path
-Message-ID: <aqGB9gxUv5IThT_q@kernel.org>
-References: <20260902074839.417419-1-yijiangshan@kylinos.cn>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="N8BabzuM"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788969481; x=1820505481;
+  h=from:to:cc:subject:in-reply-to:references:date:
+   message-id:mime-version;
+  bh=cbDBndLD0r2payapstoz7DgAfghRCbvI5tIkdP+SShA=;
+  b=N8BabzuMWHm+KQkL21xijUYylik9ux4+fRc11j1MqRrF/jHFEOPfX7o1
+   9JV0QtlB5ZkgfIMq4bLvhcHZYpr463QuoZuVviBhQbNxrbAnzvjdRRqCj
+   sJ7Z6p9VoEK2OUmwDoQyRxCOAuC5sJUN6MfYhtnHzrgy8nR/t7ZO91oFQ
+   oD46K5ZFkzyN9CU9xfU4nLfsTqNfsJHDc5FLFoL/ypyrFFpKzrlXUfWdk
+   wN0UEhMs2Le05XdIL5ot0/aEPDjI99VW59vT/lxaIxCuwgp0MAI37EuRg
+   E7TEvbKqIHe3NPBdP97O0dWy6DvIhKnNfWV8pCjqRS3logp3QHTycR+XB
+   w==;
+X-CSE-ConnectionGUID: zq9a6zt4RreYiB9vBQVMlA==
+X-CSE-MsgGUID: bg9bAB7OTn+l8wY2iNalPg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11900"; a="89328951"
+X-IronPort-AV: E=Sophos;i="6.25,270,1779174000"; 
+   d="scan'208";a="89328951"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Sep 2026 08:57:55 -0700
+X-CSE-ConnectionGUID: +E3rG8htRSigs3yfiJASpg==
+X-CSE-MsgGUID: Mzw9OwFmSaeEBMIdxI7oug==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,270,1779174000"; 
+   d="scan'208";a="301240656"
+Received: from fpallare-mobl4.ger.corp.intel.com (HELO localhost) ([10.245.245.20])
+  by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Sep 2026 08:57:47 -0700
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Maxime Ripard <mripard@kernel.org>
+Cc: Luca Ceresoli <luca.ceresoli@bootlin.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Thomas Zimmermann
+ <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter
+ <simona@ffwll.ch>, Andrzej Hajda <andrzej.hajda@intel.com>, Neil Armstrong
+ <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, Laurent
+ Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman
+ <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, Jessica
+ Zhang <jesszhan0024@gmail.com>, Linus Walleij <linusw@kernel.org>, Inki
+ Dae <inki.dae@samsung.com>, Jagan Teki <jagan@amarulasolutions.com>, Marek
+ Szyprowski <m.szyprowski@samsung.com>, Albert Esteve <aesteve@redhat.com>,
+ Anusha Srivatsa <asrivats@redhat.com>, Dmitry Baryshkov
+ <dmitry.baryshkov@oss.qualcomm.com>, Hui Pu <Hui.Pu@gehealthcare.com>, Ian
+ Ray <ian.ray@gehealthcare.com>, Thomas Petazzoni
+ <thomas.petazzoni@bootlin.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Ville =?utf-8?B?U3lyasOkbMOk?=
+ <ville.syrjala@linux.intel.com>
+Subject: Re: [PATCH RFC v2 05/19] drm/panel: embed a drm_bridge into every
+ drm_panel
+In-Reply-To: <aqFsTzyf1YbQkh6W@houat>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+References: <20260903-drm-bridge-every-panel-v2-0-2ab8ee24538e@bootlin.com>
+ <20260903-drm-bridge-every-panel-v2-5-2ab8ee24538e@bootlin.com>
+ <678ddef7e56703d9adffff5c490d4857af515343@intel.com>
+ <aqEqx0zBQgmUgwqL@houat>
+ <3efb06a30baae6ba1bfcf2be449bf207a30f674d@intel.com>
+ <aqFsTzyf1YbQkh6W@houat>
+Date: Wed, 09 Sep 2026 18:57:44 +0300
+Message-ID: <f098a1ca30e3ca400b08c909d476a5752c70a6cb@intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260902074839.417419-1-yijiangshan@kylinos.cn>
+Content-Type: text/plain
 
-On Wed, Sep 02, 2026 at 03:48:39PM +0800, Jiangshan Yi wrote:
-> When tpm_buf_fill_hmac_session() fails in tpm2_get_random(), the error
-> path returns without calling tpm2_end_auth_session(), leaking the auth
-> session. All other error paths in the function handle this correctly.
-> 
-> Fixes: 3d9e043dab0a ("tpm-buf: Memory-safe allocations")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Jiangshan Yi <yijiangshan@kylinos.cn>
-> ---
->  drivers/char/tpm/tpm2-cmd.c | 4 +++-
->  1 file changed, 3 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/char/tpm/tpm2-cmd.c b/drivers/char/tpm/tpm2-cmd.c
-> index 48cec39995fe..96e0e06bbbf0 100644
-> --- a/drivers/char/tpm/tpm2-cmd.c
-> +++ b/drivers/char/tpm/tpm2-cmd.c
-> @@ -281,8 +281,10 @@ int tpm2_get_random(struct tpm_chip *chip, u8 *dest, size_t max)
->  		}
->  		tpm_buf_append_u16(buf, num_bytes);
->  		err = tpm_buf_fill_hmac_session(chip, buf);
-> -		if (err)
-> +		if (err) {
-> +			tpm2_end_auth_session(chip);
->  			return err;
-> +		}
->  
->  		err = tpm_transmit_cmd(chip, buf,
->  				       offsetof(struct tpm2_get_random_out,
-> -- 
-> 2.25.1
-> 
+On Wed, 09 Sep 2026, Maxime Ripard <mripard@kernel.org> wrote:
+> On Wed, Sep 09, 2026 at 05:02:58PM +0300, Jani Nikula wrote:
+>> On Wed, 09 Sep 2026, Maxime Ripard <mripard@kernel.org> wrote:
+>> > I really wish i915 was at least *trying* to fit within the larger model
+>> > basically everybody else uses. I understand that it's a large
+>> > undertaking and regression prone and everything, but I'm also concerned
+>> > about having the "we can't because of i915" or "supported by everybody
+>> > else but i915" on a regular basis now.
+>> 
+>> Okay, let's hear it, please name a few things where i915 is alone in
+>> doing something bonkers that amd, radeon, nouveau also don't do, and
+>> what would be the changes that would bring i915 closer to everybody
+>> else?
+>
+> Where did I say "bonkers"?
+>
+> But since you're asking, because it doesn't implement .reset, we had that
+> conversation this week for
+>
+> https://lore.kernel.org/r/20260908-drm-reset-state-flag-v3-0-905570f387a4@kernel.org
 
-Thanks for the fix.
+You mean struct drm_crtc_funcs .reset?
 
-Reviewed-by: Jarkko Sakkinen <jarkko@kernel.org>
-
-BR, Jarkko
+-- 
+Jani Nikula, Intel
