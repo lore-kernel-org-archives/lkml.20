@@ -1,161 +1,138 @@
-Received: from mta0.migadu.com (out-159.mta0.migadu.com [91.218.175.159])
+Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D3C8492E53
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 02:58:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.159
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F11C1DA62E
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 02:58:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788922688; cv=none; b=he7vY4IahC/f2cnKTklJOmxAPOcQOr5ODBXw4bm2W2+VV2yAPCcpkrNqqW3zDmtRrnLXbmjyRnso9VC5daAA9J/GS51b7rDkjhxn+vhlD/1Bwf9vXk5EiBhK+vxjYbqlLCDj8M5vhph2L2wxkaqgtF7QrwRlF6h8H6Ene03HLTY=
+	t=1788922711; cv=none; b=izIliTiRW/6OehBTzQQIJeMa7vR9hBAMpUINmbBzT7XECR99kKOZSlUGeTumu28lMya31X9t5B0dtCfOaEr6vIKFGMG4vAy6zD2O3meDev3MFQzW1p8uSy9HMSWlR2JZWdrwpJYBEQ0LQyCy7Zahp2TQCbCWepEAJXoLmvwYQGY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788922688; c=relaxed/simple;
-	bh=lkc5mj4lW16ivPJ8rrhfx1h8FyU/NRPzkzLjWPo4X0M=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=T7Xsbn4NHg/Up/VH6V8fBzqHm5fUytq2J1SQxgN3LVY0ebwAi+5FpWNw/nLwqpXjZ/3w4NiS2Vxx1jNEXW7pb60XeyjLAB5tTUqj66aDFB7fVNqPhLz440n97YhGV8Ia0FTpaVPb48sn4QZactQOsv0zLtBf384NGCE2yXwZqiY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=OWYdSwjV; arc=none smtp.client-ip=91.218.175.159
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1788922711; c=relaxed/simple;
+	bh=/yp9+cIos9koMvxwxLGdm08i9KRBbhwCZbpxjbWIwKc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=kLKbmyRc06SVWrIlB6tRU1OmerDpG06nkPr5UzgqrdhEyzdngZNa8eOMUcIs+D+z1WAm2TS8kNz92LlRGPygYoXDtZfWMXd4uDUUkrzdHWqMZZIJZnuVfllURAKER2YaUeZLuySBjjINztEJj9vIGZZ9BDVhlA0WokMgWt1zksA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=R88goYEB; arc=none smtp.client-ip=74.125.228.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="OWYdSwjV"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=lkc5mj4lW16ivPJ8rrhfx1h8FyU/NRPzkzLjWPo4X0M=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788922682; v=1; x=1789527482;
- b=OWYdSwjVUpqSs+Vn9TqxkwcuUFMkZZ1dLMwV2lC7v0Wm684n7rs+xina7S/m4Lxf125Q00gf
- SSdpynspMaDujlnhBGp2zpa8Cx2z1IF7xKCT/BYXsBtBAc1yjeZYuCGXQh8/ntHwaukQ66H88Et
- aXjL34Q8Z6T/ku2aDa4gc13s=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id b0e8a5b124b5113c;
-	Wed, 09 Sep 2026 02:58:02 +0000
-X-Mizu-Trace-ID: b0e8a5b124b5113c
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <8bbee583-6f21-4817-bfeb-2d60057380a3@linux.dev>
-Date: Wed, 9 Sep 2026 10:57:34 +0800
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="R88goYEB"
+Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc1cebad4afso470294a12.0
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 19:58:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788922710; x=1789527510; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=gc/4LmELTKxt6hwR9Cs57QnS0HmHAvtDF3Qbdi4WaKk=;
+        b=R88goYEBOzq9uBcVnFHZSFyRP32+83KfNLrXi+zCc8t1fJhpB95F3FwHbD0Ho23uHC
+         teBq+rB24KA1BmNvzd+5krxYSB8nrYJ3Vp0cSYIaZ0QJkKYOgplyvOlQqPJnBiTaIMVK
+         +s7DBude3PP9TdQ9xKuHgLxyK7SVmkoMuuJqrwAMGinZMxX7Uz6stD93AU7oE84CbXzQ
+         wYUF+fJHtfe6XBRrufOEN2lxhfcj1xMS1tsurL6vfyQocDuObO8ePWdVZY9i0XfObMzU
+         jT+IaopXPo3vD+mLdjrP162ylkHxvaRCxzb+YBHRXhzDWkFQH/quZvcVniyBM0Fda/hk
+         Dtkg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788922710; x=1789527510;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=gc/4LmELTKxt6hwR9Cs57QnS0HmHAvtDF3Qbdi4WaKk=;
+        b=Z/IFqZCagsHIuqdkzflkinZQUOH59CgBuT9zaOToYjm02oysfznTRTx8zOFo3siGzV
+         xfQn8UDdGE7H4z8LCsngxWapmPc6cj44gGxEfnoTOhwFgTjM5g817uxfJQtxpBIsv8VS
+         zDAhgI3UPmHMYAh3RKze41uhcr55pbc9hBpuQXw4fKINkBNpDQCxmAHIrXhvoEXdmeeG
+         fSzwUzp74HvsnXSoEyp1ze0AEEg+7LaV1BWREu6efnJesdoE09RXDuNuIRY+1r9PXdQF
+         dHA4WOHwpQySp0IlnmCafu+LJrqpPrlsnMplHXuSLlXA5EwCnAXtEqPnyHrmCCAG4ws3
+         ufxw==
+X-Forwarded-Encrypted: i=1; AKwUvBxHBJGCNMdfMh+eEnche/9dfzgC40GEpjC96TYVPbhgm6kavMiY0BGtAjY0IK845NiacdULenh0Yrrgwzs=@vger.kernel.org
+X-Gm-Message-State: AFuF++mApUGbtNa47TWwTd52h28tE+NhDDURjDqLewhzRoobVTnVjEwN
+	YJIddCqVST9n+jmL0em9KGthvXfGs9qPw2Hg4vvZxwJEXGQE4sUxnRx/
+X-Gm-Gg: AYBFou3ZMeBmbav18nUPDp5bolI5/w0vYsepBSEimqr6itE6ftanSIagKn8ui/j+HA/
+	l9bYfbzP+w+6PBFhKSneQ603z/RNkn+PNzIJhBhJNReCaNwSxLQ53GoPHFY7J5v4DXKKF7YS5Lq
+	cpnOxHj7GlddSViHgxQJzPI2XuvW0UfAwQRPpJBqtUTIuRfkE4/s8LPJz6KKGor6UC/chVjncK6
+	MiO4YHCS7rcwvNslKohbouHGEaA7rWEjtnr6sZRklQT9BF3qvl+chvvpkOwMHbAUpSsVUKEpVnR
+	5CW7MyHzVB/yCd9IoZX+G+/hRdml7syII8Szchn5ZG+naUplTjgmXwRK/B99F50R4b46ePwEO6+
+	hkuzqnuyxGMT5xmh0f4c4Sj7oqWSK+Q+qJHbC6BeQPGsrn4Y/oNN6CsIu+57gt+iuQPoKoQ8lmq
+	IJY33vOz/S9z9Vaj1P9IEOvh8aQE0W60y0t9gzUENh0oLfyrZ/aElTWK6F65Ss4MJZUoFc1XMqN
+	aPkysfeBlI+rA==
+X-Received: by 2002:a17:90b:5485:b0:396:b918:c2a with SMTP id 98e67ed59e1d1-39bac34a3cemr4635597a91.12.1788922709582;
+        Tue, 08 Sep 2026 19:58:29 -0700 (PDT)
+Received: from localhost.localdomain ([240e:b8f:1df9:a600:c693:b19f:ada0:748])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b08c39451sm35077172a91.7.2026.09.08.19.58.25
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 08 Sep 2026 19:58:28 -0700 (PDT)
+From: Vernon Yang <vernon2gm@gmail.com>
+To: akpm@linux-foundation.org,
+	david@kernel.org,
+	ljs@kernel.org
+Cc: nico.pache@linux.dev,
+	ryan.roberts@arm.com,
+	dev.jain@arm.com,
+	baohua@kernel.org,
+	lance.yang@linux.dev,
+	usama.arif@linux.dev,
+	zokeefe@google.com,
+	linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org,
+	stable@vger.kernel.org,
+	Vernon Yang <yanglincheng@kylinos.cn>
+Subject: [PATCH v5 0/3] mm: khugepaged: fix tracepoint UAF
+Date: Wed,  9 Sep 2026 10:58:00 +0800
+Message-ID: <20260909025804.3233645-1-vernon2gm@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net v2] tcp: fix data-race in tcp_recv_should_stop
-To: quanyeyang@proton.me, Eric Dumazet <edumazet@google.com>,
- Neal Cardwell <ncardwell@google.com>, Kuniyuki Iwashima <kuniyu@google.com>,
- "David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
- "Matthieu Baerts (NGI0)" <matttbe@kernel.org>,
- Geliang Tang <geliang@kernel.org>, Mat Martineau <martineau@kernel.org>
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260909-mptcp-sk-err-net-v2-1-5044abecac90@proton.me>
-From: Jiayuan Chen <jiayuan.chen@linux.dev>
-In-Reply-To: <20260909-mptcp-sk-err-net-v2-1-5044abecac90@proton.me>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
+From: Vernon Yang <yanglincheng@kylinos.cn>
 
-On 9/9/26 10:05 AM, Quanye Yang via B4 Relay wrote:
-> From: Quanye Yang <quanyeyang@proton.me>
->
-> BUG: KCSAN: data-race in do_recvmmsg / mptcp_recvmsg
->
-> read-write (marked) to 0xffff8880134d391c of 4 bytes by task 2619 on cpu 1:
->   instrument_atomic_read_write include/linux/instrumented.h:113 [inline]
->   sock_error include/net/sock.h:2565 [inline]
->   do_recvmmsg+0x50c/0x580 net/socket.c:3049
->   __sys_recvmmsg net/socket.c:3144 [inline]
->   __do_sys_recvmmsg net/socket.c:3167 [inline]
->   __se_sys_recvmmsg net/socket.c:3160 [inline]
->   __x64_sys_recvmmsg+0x161/0x180 net/socket.c:3160
->   x64_sys_call+0x19c7/0x1ca0 arch/x86/include/generated/asm/syscalls_64.h:300
->   do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
->   do_syscall_64+0xde/0x3d0 arch/x86/entry/syscall_64.c:84
->   entry_SYSCALL_64_after_hwframe+0x77/0x7f
->
-> read to 0xffff8880134d391c of 4 bytes by task 2620 on cpu 0:
->   tcp_recv_should_stop include/net/tcp.h:3086 [inline]
->   mptcp_recvmsg+0x54d/0xd50 net/mptcp/protocol.c:2466
->   inet_recvmsg+0x204/0x210 net/ipv4/af_inet.c:894
->   sock_recvmsg_nosec net/socket.c:1151 [inline]
->   sock_recvmsg+0x11a/0x140 net/socket.c:1173
->   ____sys_recvmsg+0x14b/0x3c0 net/socket.c:2933
->   ___sys_recvmsg+0x116/0x160 net/socket.c:2975
->   __sys_recvmsg net/socket.c:3008 [inline]
->   __do_sys_recvmsg net/socket.c:3014 [inline]
->   __se_sys_recvmsg net/socket.c:3011 [inline]
->   __x64_sys_recvmsg+0xeb/0x160 net/socket.c:3011
->   x64_sys_call+0x1319/0x1ca0 arch/x86/include/generated/asm/syscalls_64.h:48
->   do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
->   do_syscall_64+0xde/0x3d0 arch/x86/entry/syscall_64.c:84
->   entry_SYSCALL_64_after_hwframe+0x77/0x7f
->
-> value changed: 0x0000006b -> 0x00000000
->
-> Reported by Kernel Concurrency Sanitizer on:
-> CPU: 0 UID: 0 PID: 2620 Comm: syz.2.33 Not tainted 7.2.0-g39d4f32c5d53 #76 PREEMPT(full)
-> Hardware name: QEMU Ubuntu 26.04 PC (i440FX + PIIX, 1996), BIOS 1.17.0-debian-1.17.0-1ubuntu1 04/01/2014
->
-> do_recvmmsg() calls sock_error() without the socket lock. sock_error()
-> clears sk_err with xchg(), which races with the unmarked load in
-> tcp_recv_should_stop(). The same race exists for plain TCP with
-> concurrent recvmmsg() readers; KCSAN reported it on an MPTCP socket
-> because mptcp_recvmsg() uses this helper.
->
-> Use READ_ONCE() for the lockless peek. No extra ordering is needed:
-> the value is only used to decide whether receiving should stop.
-> This does not consume sk_err; the check-then-sock_error() TOCTOU
-> on the no-data paths is a separate issue.
->
-> Fixes: eb477fdd6803 ("tcp: add recv_should_stop helper")
+The khugepaged tracepoints take a folio pointer and call folio_pfn(),
+but by then the folio may no longer be valid: freed after folio_put(),
+folio_unlock() or pte_unmap_unlock(), or not a folio at all but an
+xarray-encoded swap entry. On classic SPARSEMEM, dereferencing it oopses
+khugepaged as soon as the trace event is enabled; on other memory models
+it merely prints a bogus pfn.
 
+Pass the pfn to the tracepoints directly, captured while the folio is
+still pinned, closing the use-after-free windows in
+mm_khugepaged_scan_file(), mm_khugepaged_scan_pmd() and
+mm_khugepaged_collapse_file().
 
-Is the Fixes tag right? eb477fdd6803 only moved the existing check
-into a helper, the plain read was already there before.
+This series is based on mm-new + revert v4.
 
+V4 -> V5:
+- Use a single trace statement.
+- Collect Acked-by.
 
-> Reported-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
-> Closes: https://github.com/multipath-tcp/mptcp_net-next/issues/632
-> Signed-off-by: Quanye Yang <quanyeyang@proton.me>
-> ---
-> Link: https://lore.kernel.org/all/14749060-d011-41e7-9a4b-754eb5bd9d5b@redhat.com/
-> ---
-> Changes in v2:
-> - add Reported-by and Closes for the MPTCP syzkaller report
-> - Link to v1: https://patch.msgid.link/20260908-mptcp-sk-err-net-v1-1-da71aaec9afd@proton.me
-> ---
->   include/net/tcp.h | 3 ++-
->   1 file changed, 2 insertions(+), 1 deletion(-)
->
-> diff --git a/include/net/tcp.h b/include/net/tcp.h
-> index 436495ff2271..c61d8678eafd 100644
-> --- a/include/net/tcp.h
-> +++ b/include/net/tcp.h
-> @@ -3082,7 +3082,8 @@ enum skb_drop_reason tcp_inbound_hash(struct sock *sk,
->   
->   static inline int tcp_recv_should_stop(struct sock *sk)
->   {
-> -	return sk->sk_err ||
-> +	/* sk_err can be cleared locklessly by sock_error(). */
-> +	return READ_ONCE(sk->sk_err) ||
->   	       sk->sk_state == TCP_CLOSE ||
->   	       (sk->sk_shutdown & RCV_SHUTDOWN) ||
->   	       signal_pending(current);
+V3 -> V4:
+- Only trace the PFN if it really was problematic.
+- Calling the respective trace_xxx() functions separately on success and
+  failure.
+- Set new_pfn once after successful alloc_charge_folio().
 
+V2 -> V3:
+- Place folio_pfn() inside the xas_for_each() loop in PATCH#1.
+- Already defaulted the pfn value to -1, to simple it in PATCH#2.
 
-The lockless writers are sock_error() from SO_ERROR and recvmmsg(),
-so every plain read of sk_err on a TCP socket has the same race, not 
-only this helper:
-     tcp_recvmsg_locked
-     tcp_sendmsg_locked
-     tcp_splice_read
-     sk_stream_wait_memory
-     tcp_bpf_sendmsg
-     tcp_bpf_recvmsg_parser
-     mptcp_splice_read
-     mptcp_recvmsg
+V1 -> V2:
+- Instead of passing the folio, just pass the pfn directly.
+- Using the folio_pfn() before dropping the reference or the page table
+  lock.
 
-I'd drop the Fixes tag, target net-next and annotate all of them like 
-e13ec3da05d1, instead of pointing at a MPTCP commit.
+V4 : https://lore.kernel.org/linux-mm/20260828055926.346744-1-vernon2gm@gmail.com/
+V3 : https://lore.kernel.org/linux-mm/20260824092935.73892-1-vernon2gm@gmail.com/
+V2 : https://lore.kernel.org/linux-mm/20260815051924.194810-1-vernon2gm@gmail.com/
+V1 : https://lore.kernel.org/linux-mm/20260811133655.267739-1-vernon2gm@gmail.com/
 
-Eric, Matthieu, does that sound OK?
+Vernon Yang (3):
+  mm: khugepaged: fix swap entry value to folio_pfn()
+  mm: khugepaged: fix folio is used after pte_unmap_unlock()
+  mm: khugepaged: fix folio is used after folio_put/unlock()
 
+ include/trace/events/huge_memory.h | 18 +++++++++---------
+ mm/khugepaged.c                    | 21 ++++++++++++++++++---
+ 2 files changed, 27 insertions(+), 12 deletions(-)
+
+--
+2.53.0
 
