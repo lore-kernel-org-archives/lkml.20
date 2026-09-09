@@ -1,136 +1,95 @@
-Received: from mail-yw1-f176.google.com (mail-yw1-f176.google.com [209.85.128.176])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from out203-205-221-236.mail.qq.com (out203-205-221-236.mail.qq.com [203.205.221.236])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71DAB33D4F3
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 04:38:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.176
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788928706; cv=pass; b=Uzs1/yp/EAvFxNYxs8cSuXpxWmdexQWI1q8ZjI1XJMS1Bh7yAPqYvBw9yY77+r6Psh8e+RlLeF9lFLW4PeG81JC/ixB5EyWR97C12/IyZffNK3Kb6wZRXvtqOiOLXI8UFvZ3bKfzUpV1tG44aiaUNfb+77PLGm5QYdoWbzTNz70=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788928706; c=relaxed/simple;
-	bh=/+3eKYYz03dUBjHcHqHQIQKyut0iHUO9Sr1nrn4fiWA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=qORGfZch3ZRYLdGuHVPa93py/KSaBqbgmxMNX9hoKLdupbKHc+slfMMxZmEU7CF0ZyGyUsRHsgijzCneAPKzquQpjloty6YEeV2M+XvMGb708rcJ7zsrLyV/mCEf2eZW7svG64A2d5EUgGXgt9/ehBKPffoqmpkyC0MaKkIeUH0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=etsalapatis.com; spf=pass smtp.mailfrom=etsalapatis.com; dkim=pass (2048-bit key) header.d=etsalapatis-com.20251104.gappssmtp.com header.i=@etsalapatis-com.20251104.gappssmtp.com header.b=G+slYNMJ; arc=pass smtp.client-ip=209.85.128.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=etsalapatis.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=etsalapatis.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33214377AB3;
+	Wed,  9 Sep 2026 04:41:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.205.221.236
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788928921; cv=none; b=Oaa6ihlBNBq0QP5KhjAq+igDnDzqa7DiXqZiZ6inbtWj/35wKzv9E4tbZOWlLYkYAhDBUBClcbtw4LSzNO59aC1C0BWKqOTBEzPAzth9h8oS3opwhKV3z2hfDrNd/MH9mQbbHmgDYRBInmArBuzkbKLwfvCJ8+2L5FXKiRS+vr0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788928921; c=relaxed/simple;
+	bh=s2yjAHNDLB07BSbJc/coYe6HeRmtC7vzriPhUyytqgA=;
+	h=Message-ID:From:To:Cc:Subject:Date:MIME-Version; b=K3hVQkffCV4nhDYDMN911t7i5aHaq5uRWfu5DQmKyo0NNUoOwVZzUNFz3xfITRr212pxC7eP7jJXHUjbU6PF9Gt4BTuiNhmefbStBoCxKiE+eO8AO8VW7J+ChMFYrILSSBfzDnRyTpmIWBr3lkOmgtW7KyWGJSDrrPfXB3feGEQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=umtfwx0S; arc=none smtp.client-ip=203.205.221.236
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=etsalapatis-com.20251104.gappssmtp.com header.i=@etsalapatis-com.20251104.gappssmtp.com header.b="G+slYNMJ"
-Received: by mail-yw1-f176.google.com with SMTP id 00721157ae682-87ffa98d4a9so2469597b3.3
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 21:38:24 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788928703; cv=none;
-        d=google.com; s=arc-20260327;
-        b=UmakmEBjDsfoaCwNvLUH4b1L/MKSLx0DcA/i/Lx4EeGvr+93l9NaVPF6eCxlsP6X6X
-         QgXlLut/zf/wRBaEkfW2bXPF49GNsy0acqUDjaMw7Y4eNba5o2AbkCqaZsrcupe1h3m0
-         rJStNEk08AmUfzP3/kH6NujX9xgoJ9L+lrW+IRDj+bAyFx/8Hoi2zBdJYX/RDJnrKzSd
-         ukWaEy9TjgltQcO5WlLeCN6BYJMLgaH24q5PXODrc34SgNPxI5lPUQKEimqRJvnyeGPL
-         /zY2AxKUW1Iwfry/FcbinlBPpLs9RQETuyw4JgaA0dl/NDOzPsbCwUkoc3W3F+TVioWO
-         Fawg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=Teu6cC+d3LHtdtN3ePnM4eTc17lML+xatDJgJtdz0Ns=;
-        fh=D+0OhiNyUOgDkyp6v6XZm98ewgWzx3pQDc+jqfFG8nM=;
-        b=IoH1eG8ej97Y9anqFZqz/aIv37cihKutyD4kiZ12nRM8pUmeNGn+bFpaXC6S8ZmdIj
-         T3qfvmgqZzNKvmNjsV7gtpJJtNX0zbq2VjYMyXaemWc5+PsPt2gGiayTXhEBHhMMoq28
-         MQFvhfA4KboDf05xpf+3iCqA38rmDhwe4mO6h6+XAQhcHK+7S34saB/uUG+ebVOUhnQq
-         ePjdR419NvlkTfTuzIYqZCh/1y6rJVb6sxxOAGR4mDMKUXLBcYIG4gXIoUrbkyxAcOsv
-         3EbSV/au2T6M1LfD9BoWhnlxihhOZ8qiehN5VznSJrWl/GDzxTZu/rjAqkh4DN0gFSU5
-         GFcw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=etsalapatis-com.20251104.gappssmtp.com; s=20251104; t=1788928703; x=1789533503; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Teu6cC+d3LHtdtN3ePnM4eTc17lML+xatDJgJtdz0Ns=;
-        b=G+slYNMJ4NeYNov1rDcn3MJkqULMh4eAK7gcukOQB6HThKx6bB05QZKrqxMyyNZDg6
-         qQ7nlvJQp27dtcDujIxhQMxrNeKZLOKfUDGMeyKDpOoKLk+ad9bSIcI6ezlT7yHqihsk
-         h0Z9SjcyRDJfbVk7Jgx28PATGsWAs51SmRg95r0crWFucxkJW8J1+uEaU+5sr50mvVGO
-         BJnLvXTi9B1YqaxczK7sUZF1nJGRAh8x7jTDRAi4DLB9+sOju+Vx8XMcD7aVlcEZE98h
-         u+qKtDkafzy077tmVLUxRqtWLbgCF/FbzhwTCAH6OaWKd9dYs3x7OqEmuwpwC+Df3YPo
-         UjGg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788928703; x=1789533503;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Teu6cC+d3LHtdtN3ePnM4eTc17lML+xatDJgJtdz0Ns=;
-        b=PG0RQDeBIeDMYsfhfDK95voTAsm9URcHtCos01I+1bE+4Qhx8afD3Cifq0yZcUY3dG
-         y/aGLvyr3Hy7aHOGG99ZSEYxqAZ1BjxoDKMV+wUKFNrU4pstaMXO+DGQ/Z5kHlcJBKDk
-         Xfv4TtVfpIoPYFrEitlr4WSheobUMshZQxJrOt2QWlMj2uQBpSloyuw+1K/AZgkZiTKw
-         TqkU8bMlGqqlXurl5Fm8E7wipa2giYUakJ8RYsLQPNTUJQzlG0EZ5R+idEdys3W4AA8R
-         w5X+zB5csSSedL72UkqoRptb+9Da+lL3kltROGmNggfHiQ06oUi/UdStUv2doAA3wtKI
-         FN5g==
-X-Forwarded-Encrypted: i=1; AKwUvBxtJqolnYjvdyICaB4Cv2C7376sMi3UP44oO5fBSnYXS3+FeOAYTCnE/EiwvlHnegXbza/D+AC3anb3Kew=@vger.kernel.org
-X-Gm-Message-State: AFuF++l7uXPex0wzsQcx7Hbzp7ETT6awwmwVhXIErADpz+azMa1+7tF1
-	x52O63NLg2ifu+zwirR3cnxnKdStOMpFB89AhO4vVQ3DH3HnHOXQas7XahcS/K96lywOj9eNbHk
-	sNmOhJHy0bRdlqFu7G958OduvuYAZBoKTjJ3iyUygsw==
-X-Gm-Gg: AYBFou2mGG/qMXwILVZ2x5kaZZnrVoUtlXJeXnptQM0A3NfVG10o08VdMLvyM6g7198
-	ALScgBHDkSKllVrNnzV5No0s6fXIszoUnJh89oWsGdEQNCYWUmbk7b24LW6iDM9ohzEG86yg8TP
-	bVLOTEZGTneuZUnjTzhE0aL4anVLel8i65uFPAmAUhcTuPbuxfpYgzm4pCoXh5btVGzNQHOCV5G
-	DXBytczLNWtIiaUlKRbGj7wbjwaE/Nnr5+NY/mRuTZ5hO7g9a9auKvPAWNFFNEqEfKSDwwHoIXV
-	oEoKuQz8Qt3U02xONCD4H/3qs/JR5bx3F9DlEr3ZKhojrAWx3DFA1rA=
-X-Received: by 2002:a05:690c:e3e9:b0:870:820e:da66 with SMTP id
- 00721157ae682-87127d2ca36mr124113977b3.23.1788928703258; Tue, 08 Sep 2026
- 21:38:23 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="umtfwx0S"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1788928906; bh=le3zYg6i/W0Zm1Onw0+jhfRKYIZSerIckXAnh81wAOM=;
+	h=From:To:Cc:Subject:Date;
+	b=umtfwx0SC5Hz3kwXYWhUlA0o6k01JyNb1laPl9AEEY2teAp3dTWE5eJEERS85Fh1K
+	 uMCsm+kFyz2eWMngXwpTq3aYyVw2kbAMJWmV19gbPGI4gOudSZ7Vepg8BJdN/bry77
+	 f3twmHObAqSVkqOvP5A37haYDVz6xWuMOwpZES64=
+Received: from LAPTOP-7R15B00L ([183.220.99.26])
+	by newxmesmtplogicsvrsza63-0.qq.com (NewEsmtp) with SMTP
+	id A62234DC; Wed, 09 Sep 2026 12:41:34 +0800
+X-QQ-mid: xmsmtpt1788928894tzy5gfg8b
+Message-ID: <tencent_60DAC4127B362B6743CB0BFA2C31982FD807@qq.com>
+X-QQ-XMAILINFO: OOkYTTCdPTHEL0tyowzprNb+00H3pepti5SuKBNYCQP6ylu0888z0KX5tbrHFK
+	 j4pH/GHyei2fwVyplYm2Rdb8+nU9IhR5DuxvML88DMtsdoliKo1yr9o5LfoV6KxIPHzaFO9CtWSB
+	 ZhLcM347YpPNW2D0KPwZdyYYZtFRM5UYOmgheb77sjXvpu8W0ljsQtL3BBXdH5JhPz8mXyY5Rbb3
+	 XnB6zh5IYK30MN7YcPf09UZEtP44ElxQbUNjO4aDXyj8S2pUT4OEGaA7vTY2NtBuRDc6c0ZXz2fY
+	 nfSPYOfFvjvFdrpMksy7CY+p6WhmcT73Bw6moyfnFJiN0xgK/kvhTcl7oh+eB3LJgxznam4QMDGt
+	 eYUU/fFLpIBQdsj4E2WObbyonhjwooD46rkW8gv8UqBBNtRmhU6c108FVwn+acly6r5O/VTy0WGV
+	 EQOTY11Grlf0er18BuISjBsHJEGyteO3/QHmNH1TG8eXNuRHCGtPf8iYtcuBwTgS54L1GjO7TBO5
+	 9FN2re0AGtq5gB2Soo3wVRadZmIHpcfJXHcr8V1rDMcdubiiRkjf9j/+e/qLD1vU98uuU0VEG1oz
+	 c0a9/iYBIFkPTtbh8F9o+DNMvZwnw7JGnkq4R3/iFK7RVINB37ftZQWNdTsuRCFBjtlgvGkdbdx1
+	 HU8wC8YlK496N1F8PhWgtLnDdSv0AzNW/celRoOluJ/bBwaaPp8sTka2x92E9xJX8evn6oKJOFYQ
+	 3o/kfpP2wG29Pd5N3OK4psfftrRrZtMd0O0GvVujuJKKEsC20joq/UXs6Ot41zR4Jjo33LiHrT0W
+	 p/8gFywv82XEX9UdjNlEpANplQ0jIIeBFklk9o0Wle7ZWzQio2pI61vveGj2E157v9j2rnoyQKGc
+	 KN+FC6L+s4UQimi13XNYmGj9wEajQu22iToQXXikIHii2Xn7f0BZknlhrKwFuTOPsdbMJCGHWgA2
+	 L5VQmrs1EOVPciXBxAvMrcZAMiidrQ8hivODdKUXVLjFB2qR2eugcJOSC3FGViwQx7J1KhQoYUXs
+	 9ODciX4F6gTOvQKTFXNQxy2hCaosP1pG9BvKvEEPqvELGm6SEJ
+X-QQ-XMRINFO: MPJ6Tf5t3I/ylTmHUqvI8+Wpn+Gzalws3A==
+From: blaze <1466528493@qq.com>
+To: rafael@kernel.org,
+	viresh.kumar@linaro.org
+Cc: linux-pm@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	blaze <1466528493@qq.com>
+Subject: [PATCH] cpufreq: qoriq: Fix clk reference leak in get_bus_freq()
+Date: Wed,  9 Sep 2026 12:41:22 +0800
+X-OQ-MSGID: <20260909044122.1880-1-1466528493@qq.com>
+X-Mailer: git-send-email 2.53.0.windows.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260903150351.12725-1-colin.i.king@gmail.com>
-In-Reply-To: <20260903150351.12725-1-colin.i.king@gmail.com>
-From: Emil Tsalapatis <emil@etsalapatis.com>
-Date: Wed, 9 Sep 2026 00:38:11 -0400
-X-Gm-Features: AcwNN1WAFyR_AVCv1IXGTjGY0PGid8q5kgFayEO3Y82fm5jIlHk6g71DHjJvDXg
-Message-ID: <CABFh=a7YTi2U2-cx4b5zejWv6MXE-VG-u7K410pPbtJiw6qbWQ@mail.gmail.com>
-Subject: Re: [PATCH][next] selftests/bpf: test_xsk: Fix spelling mistake
- "conigure" -> "configure"
-To: Colin Ian King <colin.i.king@gmail.com>
-Cc: Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
-	Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>, Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
-	Yonghong Song <yonghong.song@linux.dev>, Ihor Solodrai <ihor.solodrai@linux.dev>, 
-	Shuah Khan <shuah@kernel.org>, Maciej Fijalkowski <maciej.fijalkowski@intel.com>, 
-	Bastien Curutchet <bastien.curutchet@bootlin.com>, bpf@vger.kernel.org, 
-	linux-kselftest@vger.kernel.org, kernel-janitors@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Thu, Sep 3, 2026 at 11:05=E2=80=AFAM Colin Ian King <colin.i.king@gmail.=
-com> wrote:
->
-> There is a spelling mistake in an assert message. Fix it.
->
-> Signed-off-by: Colin Ian King <colin.i.king@gmail.com>
+clk_get() acquires a reference to the clock which must be released with
+clk_put() when no longer needed. In get_bus_freq(), the clock reference
+obtained by clk_get() is used only to read the frequency via
+clk_get_rate(), but clk_put() is never called, causing a clock reference
+count leak on every invocation.
 
-Reviewed-by: Emil Tsalapatis <emil@etsalapatis.com>
-> ---
->  tools/testing/selftests/bpf/prog_tests/xsk.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/tools/testing/selftests/bpf/prog_tests/xsk.c b/tools/testing=
-/selftests/bpf/prog_tests/xsk.c
-> index 6e2f63ee2a6c..772f3dd7ce64 100644
-> --- a/tools/testing/selftests/bpf/prog_tests/xsk.c
-> +++ b/tools/testing/selftests/bpf/prog_tests/xsk.c
-> @@ -75,7 +75,7 @@ static void test_xsk(const struct test_spec *test_to_ru=
-n, enum test_mode mode)
->         if (!ASSERT_OK_PTR(ifobj_rx, "create ifobj_rx"))
->                 goto delete_tx;
->
-> -       if (!ASSERT_OK(configure_ifobj(ifobj_tx, ifobj_rx), "conigure ifo=
-bj"))
-> +       if (!ASSERT_OK(configure_ifobj(ifobj_tx, ifobj_rx), "configure if=
-obj"))
->                 goto delete_rx;
->
->         ret =3D get_hw_ring_size(ifobj_tx->ifname, &ifobj_tx->ring);
-> --
-> 2.55.0
->
+Fix this by calling clk_put() before returning the frequency.
+
+Fixes: 1b6f255990ae ("cpufreq: qoriq: Enhance the support of clock from DTS")
+Signed-off-by: blaze <1466528493@qq.com>
+---
+ drivers/cpufreq/qoriq-cpufreq.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/cpufreq/qoriq-cpufreq.c b/drivers/cpufreq/qoriq-cpufreq.c
+index 0000000..1111111 100644
+--- a/drivers/cpufreq/qoriq-cpufreq.c
++++ b/drivers/cpufreq/qoriq-cpufreq.c
+@@ -62,7 +62,9 @@ static u32 get_bus_freq(void)
+ 			       __func__, PTR_ERR(pltclk));
+ 		return PTR_ERR(pltclk);
+ 	}
+
+-	return clk_get_rate(pltclk);
++	sysfreq = clk_get_rate(pltclk);
++	clk_put(pltclk);
++	return sysfreq;
+ }
+
+ static struct qoriq_cpu_data *qoriq_cpu_data;
+--
+2.43.0
+
