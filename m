@@ -1,227 +1,197 @@
-Received: from mail-yx1-f50.google.com (mail-yx1-f50.google.com [74.125.224.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BB55389473
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 09:42:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 675993C871E
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 09:42:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788946938; cv=none; b=VbvvYjWFsqvHD3cMB07Gh65UewMa4XTQMJvhPE+f0Zdd3Na8o4jsjp1C0WLOH1PodKIeNVdRh/xVVoKVozTWq3UepSZgDxj0bKHldw4Ky7NHihgQ4umWtD5+ctkcs16l4xiPr6UU1A0hY3SuL4TsDW8ioTBaMAgUtNxX+yz3jnY=
+	t=1788946975; cv=none; b=uQZpjZfxK8E4byKGbg68ocsASSGHeoFShtTHZaqnzipqlJDP3B29lSE8GS8LKlWoNhE5FmP78etPnWtMWu6FdQ2FJ7xSXuwyLiI3S6LUeJjm9ItYUR5rEecSdZYJaYqxVDXOQzeCVyt9FkdXVJEaKYSHzuraJzPaabwRvdM8IkE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788946938; c=relaxed/simple;
-	bh=N/QTtPy3Eq36G6jCKFgYYujyz3PwIl5VjjdzH4vnlfY=;
-	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=YW2Qn+raOWWfJRj/9VWwYOmCTF4jdeujwaHxWK4zVf738IiwPuheu8dWNVZOKQnQggksSlP3SFfCQRZSUGQC6GHcJIJuyIiOFec0FFymFfK5XWC4PdogB9tINTXAWt6Al0JaxRrub4hVYciW3ReTJ72a61+SKr+50Pn+qW1wN60=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=HcRhWs0M; arc=none smtp.client-ip=74.125.224.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	s=arc-20240116; t=1788946975; c=relaxed/simple;
+	bh=nAQBbg9Zs0y2Qf9x9IGuBTOq7gf12GSRPT0y06wSXn0=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=RwnuGbLn5qi2v25UeSYxHhleceKKqWvsyxgV+CEeer5OAV6QLJq/JwouAx72T9c+nTH8Km59/g6e47LuLrmLRtIv57t/51hDweInSMiNnxN5cWFiE/s+MuibOMdkasxu3TH/XEqhZsGRycTKjDJJr5c727zDfa2jyBbv1P917EM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=NlmZT3s+; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=QCFGw+SJ; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="HcRhWs0M"
-Received: by mail-yx1-f50.google.com with SMTP id 956f58d0204a3-66f7f62e915so6259435d50.3
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 02:42:17 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="NlmZT3s+";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="QCFGw+SJ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1788946971;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=k5ADtFhBnmPz3rZHAoQiP2HyIk15/rYOjED5HrGOPIQ=;
+	b=NlmZT3s+IakJBW3DPywyLqFFZTNROyT1ARcnQ2igyj95nUmocZNsHcbpW+yzaukS+dHybo
+	nGYp+XnB0zyXt7wDQktoH4lOX1vgAsxD4glu3CMKG5UNjXvwRHqP7Ijn3SddPJ1nBilGjc
+	H1TEKXKth6iFPbjRs27EpyLb/Kl2I6w=
+Received: from mail-ed1-f72.google.com (mail-ed1-f72.google.com
+ [209.85.208.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-611-ZRxcPgXpNO2GQmb_EbvQmw-1; Wed, 09 Sep 2026 05:42:50 -0400
+X-MC-Unique: ZRxcPgXpNO2GQmb_EbvQmw-1
+X-Mimecast-MFC-AGG-ID: ZRxcPgXpNO2GQmb_EbvQmw_1788946969
+Received: by mail-ed1-f72.google.com with SMTP id 4fb4d7f45d1cf-6a36683ee94so4137665a12.0
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 02:42:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788946936; x=1789551736; darn=vger.kernel.org;
-        h=content-type:mime-version:references:message-id:in-reply-to:subject
-         :cc:to:from:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=+ZhIjaKSKu0jnDwRfSlp/FTaG5xLy46pxEQXC6FqYeA=;
-        b=HcRhWs0MZClW1Z66abZaVnOFx91ik7apWsDxqQBmAPPsCGETn8eTjhzQ1UpbjEFJHo
-         /GvxoAxhjCsF9BMxMoh+veQRo61WlM7guQss/g7xDLj0ujkyhZlr8s/BPOkGZjs/STb7
-         A8P51g1RhmJ0UsC0XcO8WfO5Z8bWoHzK72srU1kr6t6W+14Usb6GguWw++CIdljQBi9a
-         G9k24gGyLZbwbO1Oj8EmOB4ySbmdzpmNqdc4jrL17lOo9p4Eo7OGD67ETqjJegfIB/fG
-         WxniyFu5Z1bXuCg/eGi6KEaZuHehM35z2N8V+KJr1JRYSPs9CBSRF3Mait4j4rH+lpLS
-         3bWg==
+        d=redhat.com; s=google; t=1788946969; x=1789551769; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-disposition:content-type
+         :mime-version:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=k5ADtFhBnmPz3rZHAoQiP2HyIk15/rYOjED5HrGOPIQ=;
+        b=QCFGw+SJfPxIDCqTpfCv2NEOh0vlyj52QvOzFgdo59VK41YNPq8B3yu0ri3nbUuz8l
+         3djv6MSjiHbyocxf3u6W/d11iX+ReS8l4RB+IXDgGV5y5YUZr6cSXgA/87Nh8ISBVZVy
+         174p/zVVb8dTfueBDrbFqmddMu/kGBwC3DLPDjSaKDiVs6U4Hbld/5KT6SAMyfDW0jzL
+         2F+SInIXXmMSe6PWNL0bUxH7vDN577PS90IYINKE2plovfm4Zh3er8fh9XU5GHsyukHy
+         rbs4BAwnQFSS/dYUxlGi4GZ6MCKP8on+I9ahubDDpWpv5ibhVVH61xOX330x0jaP0Wsi
+         iqOQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788946936; x=1789551736;
-        h=content-type:mime-version:references:message-id:in-reply-to:subject
-         :cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=+ZhIjaKSKu0jnDwRfSlp/FTaG5xLy46pxEQXC6FqYeA=;
-        b=s2J9v/ifKhOYXkpcDJ+XOHuE7yTG8ZHjyyy9A9Cl/87Qytxdyxvmmf7LbVUUaRoEIP
-         aMe5N0zKP5+edKSeYO8Bfl08mMfmtHQjRmJnD+3TD3WCY5nqlQgI+O8q3DXMvmuWB+qy
-         K0cyYM13Y35DBBABqhP9ZzqcNVY3v0qXNpV9dSpzZMnr0Yvv7caD3St8RoYRiotS9iVY
-         9g4601aey75EIpxAEuhSoest0IlvzLaJ6v9Jyj0JaXz7UaPHp74e0i2H5OAMb0Evb8Gl
-         ipG00m5GjiNBXy3NXu+8HYaiUZhwCYyBuKoaC1BOPoZI7W20kTYIVzsXbNZUi2f0hwBE
-         tF+g==
-X-Forwarded-Encrypted: i=1; AKwUvByNCrGU+s+Uzms0tGn3mL0UPb+t6io+QZFpATxBMGotrETahwJZo+q8YSCR5ZY3W8ePIuvUa8/hfz351J0=@vger.kernel.org
-X-Gm-Message-State: AFuF++lkm48KHd9yDEmL9ZIwzqomWzME9XZdEMhBSLSStqLsUbuUmhY/
-	yfJ41w6OHQ3sUF0DOyfGWP3OQtiUTBQzts9cNd8iEywQKCEveHERt49vXM219NDb5Q==
-X-Gm-Gg: AYBFou3cTmzbE9ax12sSnAKNLIlSjAY79u4jpnsPcFQh9uFq30jYiV3adfqGdTi7fxk
-	j4rzDg5nQ29mHNB2JZMQ/WmMmC32hDx0ss4gMTThEFUkE4mh8tSIqpslhZK3BM5MILFwhN2nnph
-	8RqV+8kK2JIFxPf1k5T+dEO582Vgv9lycRhKlXXuxgIgW8agHG7m3IT1N2Z2x1E+1KAMt7xS37B
-	1TURRzGzYsT916QWWyZlfyHXpNrqtO2odni3aoZUVRctKyntgXqS8OwiEDxIDqY+Baf/AysM+RO
-	QvosrNfEWRZJK7eQPVw+rXzOOTeRezcHQ9ect3DVoCOBu+AKBVYfZQqy9B/IkorSY7D7qNHyTs3
-	+fgdUsPBKpUEa2GwI1eI0jLSEuXgJBzOfsWYN3lbmkAKWDUjA1XiHd/lxp4luCypD2poQlk6C0q
-	qhdmgPgtRoGoXkToj6pYSNmL9kwxwV9y4Ft5ZgTvqJWU8H0MAG311p+axmtCQpazwSRfIqz9dke
-	2NQf3pJXyVqMery7LtYADB3d4uMUWLynD0F7TH/A2OVhuo6a763msrdBcmu
-X-Received: by 2002:a53:a043:0:b0:66f:c1be:3187 with SMTP id 956f58d0204a3-66fc1be358emr5989382d50.94.1788946935368;
-        Wed, 09 Sep 2026 02:42:15 -0700 (PDT)
-Received: from darker.attlocal.net (172-10-233-147.lightspeed.sntcca.sbcglobal.net. [172.10.233.147])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-66fb47a8b8fsm12141411d50.2.2026.09.09.02.42.11
+        d=1e100.net; s=20251104; t=1788946969; x=1789551769;
+        h=content-transfer-encoding:content-disposition:content-type
+         :mime-version:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=k5ADtFhBnmPz3rZHAoQiP2HyIk15/rYOjED5HrGOPIQ=;
+        b=ca9/ffOGTDHvciZ87a+kKD3O7fIQe6Y1kRlJi10oF6MtZ7Rc61GpiMtapSsGpx0jq8
+         x0a0CYMWrXwf3hwnx1LwbLDUSg9zRU4XcnXZOgabn4RNMq3wNgN5zN8Ja/DXAcLxKNdQ
+         m2EQdKOs7/Vt9baIDN5/eESsEl54+sqQ6IfkU5/BpdzfogynMUvVBkawXESwwawc4Vc0
+         nHSHGV2FTqckXZyT6P2j2JllVkRcclQUDnUEuqMR9lO5ghljWUaT7aTshmzUIs4fADhu
+         EjtntlQ5NSEM5DW66X6BncQRczIrDTfXqFoMicfizdayooRzKjy0jYN5pWfucWH6LU2h
+         4qig==
+X-Forwarded-Encrypted: i=1; AKwUvBym4vo9pYc75ZZaT2zW96e9hHECdwjsqw+25OtWo3+mtigJkrM3P7mBr+2hIBVO7mWdv+A4aNbZciPVOPA=@vger.kernel.org
+X-Gm-Message-State: AFuF++mSojoFf/pr/XlLAa86+wmooKHJk9UeuEpz1nTulf80FnOZtg31
+	rp5GBltfZhQBGgWDmRdZVbTu0B3gHWFp0Xr/klE+zQ1Dse31WJ/+rNq/aDHxeBKjGwx/9+FwpwF
+	FyGmvboyVisiuOqFj8Yh2cAwPZ7uhScFk6coe7R4OpahC1m8D1kkXKt8SnWIJpM+sWA==
+X-Gm-Gg: AYBFou1snzp95o8gHM80A2XTpj0dbcOgPSgWnxfYBdYE9FlCOGimZcV8jG06B6HkC6k
+	hb7in5/wgEVoB+AfwjTOp0CQm/sgcdDvpQE80oPfFmb4L2E17dEyEaMbro65hIUqOepXRtyutP6
+	4VAoAUrZ+sS0H91MZQKb4Mzg4/C282o5Ce1m0nZcNGR5aqyD29X48jP1jFpAeullVfH+k4qtiek
+	4UsTxB4gog3WnHEftoSmO5YPs0VxuuL5YOOnFQeWolqWAcXgDnE3mxC9jCSNuQJdy0CL9SchJEF
+	8nFrOP0Rm4njXCFaC9qHU+MKDND6/sQJ0acy7axo7qEW1l9ACpLJ9c2CDrSw4A+Gkp/hJZcxEFl
+	/6N2/KAoAu81n3CHXFce+kdk=
+X-Received: by 2002:a05:6402:2552:b0:6a7:ea54:390 with SMTP id 4fb4d7f45d1cf-6a7ea542471mr11986141a12.33.1788946968894;
+        Wed, 09 Sep 2026 02:42:48 -0700 (PDT)
+X-Received: by 2002:a05:6402:2552:b0:6a7:ea54:390 with SMTP id 4fb4d7f45d1cf-6a7ea542471mr11986120a12.33.1788946968355;
+        Wed, 09 Sep 2026 02:42:48 -0700 (PDT)
+Received: from redhat.com (IGLD-80-230-79-236.inter.net.il. [80.230.79.236])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a9857ce120sm1226086a12.4.2026.09.09.02.42.46
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 09 Sep 2026 02:42:14 -0700 (PDT)
-Date: Wed, 9 Sep 2026 02:42:10 -0700 (PDT)
-From: Hugh Dickins <hughd@google.com>
-To: Andrew Morton <akpm@linux-foundation.org>
-cc: Ackerley Tng <ackerleytng@google.com>, 
-    Alexander Viro <viro@zeniv.linux.org.uk>, Alexandre Ghiti <alex@ghiti.fr>, 
-    Baolin Wang <baolin.wang@linux.alibaba.com>, 
-    Barry Song <baohua@kernel.org>, Binbin Wu <binbin.wu@linux.intel.com>, 
-    Christian Brauner <brauner@kernel.org>, Christoph Hellwig <hch@lst.de>, 
-    Christoph Lameter <cl@gentwo.org>, 
-    Claudio Imbrenda <imbrenda@linux.ibm.com>, 
-    David Hildenbrand <david@kernel.org>, JP Kobryn <jp.kobryn@linux.dev>, 
-    Jan Kara <jack@suse.cz>, Jens Axboe <axboe@kernel.dk>, 
-    Johannes Weiner <hannes@cmpxchg.org>, Kairui Song <ryncsn@gmail.com>, 
-    Kiryl Shutsemau <kas@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
-    Leonardo Bras <leobras.c@gmail.com>, Lorenzo Stoakes <ljs@kernel.org>, 
-    Marcelo Tosatti <mtosatti@redhat.com>, 
-    Matthew Wilcox <willy@infradead.org>, 
-    Mel Gorman <mgorman@techsingularity.net>, 
-    Miaohe Lin <linmiaohe@huawei.com>, Michal Hocko <mhocko@suse.com>, 
-    Minchan Kim <minchan@kernel.org>, Muchun Song <muchun.song@linux.dev>, 
-    Oscar Salvador <osalvador@suse.de>, Peter Zijlstra <peterz@infradead.org>, 
-    Qi Zheng <qi.zheng@linux.dev>, Rik van Riel <riel@surriel.com>, 
-    Sebastian Andrzej Siewior <bigeasy@linutronix.de>, 
-    Shakeel Butt <shakeel.butt@linux.dev>, 
-    Suren Baghdasaryan <surenb@google.com>, 
-    Vlastimil Babka <vbabka@kernel.org>, 
-    Yang Shi <yang@os.amperecomputing.com>, Yu Zhao <yuzhao@google.com>, 
-    Zach O'Keefe <zokeefe@google.com>, Zi Yan <ziy@nvidia.com>, 
-    linux-block@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
-    linux-kernel@vger.kernel.org, linux-mm@kvack.org
-Subject: [PATCH v2 01/26] mm/fbatch: remove !CONFIG_SMP special case of
- folio_activate()
-In-Reply-To: <e28f9a94-4339-f8ac-8301-6be3c9b5b7ce@google.com>
-Message-ID: <b482561f-6620-d41d-eea0-a7f2a05cc444@google.com>
-References: <e28f9a94-4339-f8ac-8301-6be3c9b5b7ce@google.com>
+        Wed, 09 Sep 2026 02:42:47 -0700 (PDT)
+Date: Wed, 9 Sep 2026 05:42:45 -0400
+From: "Michael S. Tsirkin" <mst@redhat.com>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: kvm@vger.kernel.org, virtualization@lists.linux-foundation.org,
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+	astellman@stellman-greene.com, dongli.zhang@oracle.com,
+	eperezma@redhat.com, graf@amazon.com, kmehltretter@gmail.com,
+	linfeng.sun.dev@gmail.com, lvivier@redhat.com, mst@redhat.com,
+	nikhilljatt@gmail.com, physicalmtea@gmail.com,
+	xiongweimin@kylinos.cn, yuz08559@gmail.com
+Subject: [GIT PULL] vhost,vdpa,virtio: fixes
+Message-ID: <20260909054245-mutt-send-email-mst@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+X-Mutt-Fcc: =sent
 
-3.0 commit eb709b0d062e ("mm: batch activate_page() to reduce lock
-contention") brought in an ifdef CONFIG_SMP around activate batching:
-https://lore.kernel.org/linux-mm/20100805140755.501af8a7.akpm@linux-foundation.org/
-shows a sensitivity to bloat that day, not any incompatibility with UP.
+The following changes since commit df2908090cda368b01ff43709f51890076c56157:
 
-No other batching here has a UP alternative, and it's a bit confusing:
-simplify mm/folio.c a little by removing it now.
+  Linux 7.3-rc2 (2026-09-06 15:07:20 -0700)
 
-Certainly we can reduce UP bloat (and/or 32-bit bloat) by, say, lowering
-FOLIO_BATCH_SIZE from 31: traditionally 16, 14, 15, then raised to 31 by
-6.9 commit 9cecde80aae0 ("mm: increase folio batch size"); or by giving
-just the static per-cpu folio batches a type of their own with a smaller
-array size on UP (1? or a little batching worthwhile even on UP?). But
-not right now, it's orthogonal to this series.
+are available in the Git repository at:
 
-And I suspect that the old ifdef led to lru_activate being placed last,
-whereas it's usually the second most popular fbatch: move it there, to
-match cpu_needs_drain() comment "Check these in order of likelihood that
-they're not zero".
+  https://git.kernel.org/pub/scm/linux/kernel/git/mst/vhost.git tags/for_linus
 
-Signed-off-by: Hugh Dickins <hughd@google.com>
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-Reviewed-By: Vlastimil Babka (SUSE) <vbabka@kernel.org>
----
- mm/folio.c | 40 ++++++----------------------------------
- 1 file changed, 6 insertions(+), 34 deletions(-)
+for you to fetch changes up to 48a4ee65e677559776349128e6a81a6041986c99:
 
-diff --git a/mm/folio.c b/mm/folio.c
-index 50a6dbe55998..c093ca900a3e 100644
---- a/mm/folio.c
-+++ b/mm/folio.c
-@@ -48,12 +48,10 @@ struct cpu_fbatches {
- 	 */
- 	local_lock_t lock;
- 	struct folio_batch lru_add;
-+	struct folio_batch lru_activate;
- 	struct folio_batch lru_deactivate_file;
- 	struct folio_batch lru_deactivate;
- 	struct folio_batch lru_lazyfree;
--#ifdef CONFIG_SMP
--	struct folio_batch lru_activate;
--#endif
- 	/* Protecting the following batches which require disabling interrupts */
- 	local_lock_t lock_irq;
- 	struct folio_batch lru_move_tail;
-@@ -283,15 +281,6 @@ static void lru_activate(struct lruvec *lruvec, struct folio *folio)
- 	count_memcg_events(lruvec_memcg(lruvec), PGACTIVATE, nr_pages);
- }
- 
--#ifdef CONFIG_SMP
--static void folio_activate_drain(int cpu)
--{
--	struct folio_batch *fbatch = &per_cpu(cpu_fbatches.lru_activate, cpu);
--
--	if (folio_batch_count(fbatch))
--		folio_batch_move_lru(fbatch, lru_activate);
--}
--
- void folio_activate(struct folio *folio)
- {
- 	if (folio_test_active(folio) || folio_test_unevictable(folio) ||
-@@ -301,25 +290,6 @@ void folio_activate(struct folio *folio)
- 	folio_batch_add_and_move(folio, lru_activate);
- }
- 
--#else
--static inline void folio_activate_drain(int cpu)
--{
--}
--
--void folio_activate(struct folio *folio)
--{
--	struct lruvec *lruvec;
--
--	if (!folio_test_clear_lru(folio))
--		return;
--
--	lruvec = folio_lruvec_lock_irq(folio);
--	lru_activate(lruvec, folio);
--	lruvec_unlock_irq(lruvec);
--	folio_set_lru(folio);
--}
--#endif
--
- static void __lru_cache_activate_folio(struct folio *folio)
- {
- 	struct folio_batch *fbatch;
-@@ -628,6 +598,10 @@ void lru_add_drain_cpu(int cpu)
- 		trace_mm_lru_add_drain_tp(cpu, nr_folios);
- 	}
- 
-+	fbatch = &fbatches->lru_activate;
-+	if (folio_batch_count(fbatch))
-+		folio_batch_move_lru(fbatch, lru_activate);
-+
- 	fbatch = &fbatches->lru_move_tail;
- 	/* Disabling interrupts below acts as a compiler barrier. */
- 	if (data_race(folio_batch_count(fbatch))) {
-@@ -650,8 +624,6 @@ void lru_add_drain_cpu(int cpu)
- 	fbatch = &fbatches->lru_lazyfree;
- 	if (folio_batch_count(fbatch))
- 		folio_batch_move_lru(fbatch, lru_lazyfree);
--
--	folio_activate_drain(cpu);
- }
- 
- /**
-@@ -759,11 +731,11 @@ static bool cpu_needs_drain(unsigned int cpu)
- 
- 	/* Check these in order of likelihood that they're not zero */
- 	return data_race(folio_batch_count(&fbatches->lru_add) ||
-+			 folio_batch_count(&fbatches->lru_activate) ||
- 			 folio_batch_count(&fbatches->lru_move_tail) ||
- 			 folio_batch_count(&fbatches->lru_deactivate_file) ||
- 			 folio_batch_count(&fbatches->lru_deactivate) ||
- 			 folio_batch_count(&fbatches->lru_lazyfree) ||
--			 folio_batch_count(&fbatches->lru_activate) ||
- 			 need_mlock_drain(cpu)) ||
- 		has_bh_in_lru(cpu, NULL);
- }
--- 
-2.51.0
+  vduse: return compat ioctl results directly (2026-09-08 03:58:27 -0400)
+
+----------------------------------------------------------------
+vhost,vdpa,virtio: fixes
+
+Just a ton of small fixes all over the place.
+
+Also includes virtio and virtio-rng MAINTAINERS updates.
+
+Signed-off-by: Michael S. Tsirkin <mst@redhat.com>
+
+----------------------------------------------------------------
+Alexander Graf (1):
+      virtio_ring: fix stale descriptor flags after a failed packed add
+
+Andrew Stellman (1):
+      virtio-pci: return IRQ_HANDLED after non-zero ISR
+
+Dongli Zhang (2):
+      vhost-scsi: use kvzalloc for vq array allocation
+      vhost-scsi: clamp max_io_vqs module parameter
+
+Eugenio Pérez (1):
+      virtio: add Eugenio Pérez as Maintainer
+
+Jia Jia (4):
+      virtio_console: do not free control-out buffers on remove
+      vhost/vdpa: reject VRING_NUM larger than device max
+      vduse: validate virtqueue alignment
+      vhost: invalidate vring access on IOTLB transitions
+
+Karl Mehltretter (2):
+      virtio: fix use-after-free in unregister_virtio_device()
+      virtio_input: stop callbacks before unregistering input device
+
+Laurent Vivier (1):
+      MAINTAINERS: Add a section for virtio-rng
+
+Linfeng Sun (4):
+      vdpa_sim_blk: reject out-of-range sector starts
+      vdpa_sim_net: check TX pull result before RX copy
+      vhost: limit outstanding IOTLB misses per virtqueue
+      vduse: return compat ioctl results directly
+
+Nikhil (1):
+      vduse: do not take dev->rwsem in the virtqueue kick path
+
+Xiong Weimin (8):
+      virtio_mmio: disable IRQ wake before free_irq
+      vdpa/pds: check virtqueue notify mapping
+      vdpa: alibaba: Keep DRIVER_OK clear if IRQ setup fails
+      vdpa: solidrun: Free IRQs after request failure
+      vdpa: ifcvf: Put device on unsupported feature error
+      vdpa: octeon_ep: Check dev_set_name() in dev add
+      virtio-vdpa: Use queue id when setting vq affinity
+      virtio_input: reset device if input_register_device() fails
+
+Yu Zhang (2):
+      vhost-vdpa: don't install the eventfd_ctx_fdget() error in config_ctx
+      vhost-vdpa: protect config_ctx from being freed under the config callback
+
+ MAINTAINERS                              | 13 ++++-
+ drivers/char/virtio_console.c            | 21 ++++++-
+ drivers/vdpa/alibaba/eni_vdpa.c          |  5 +-
+ drivers/vdpa/ifcvf/ifcvf_main.c          |  3 +-
+ drivers/vdpa/octeon_ep/octep_vdpa_main.c |  2 +
+ drivers/vdpa/pds/vdpa_dev.c              |  6 ++
+ drivers/vdpa/solidrun/snet_main.c        |  6 +-
+ drivers/vdpa/vdpa_sim/vdpa_sim_blk.c     |  3 +-
+ drivers/vdpa/vdpa_sim/vdpa_sim_net.c     |  7 ++-
+ drivers/vdpa/vdpa_user/vduse_dev.c       | 36 +++++++++---
+ drivers/vhost/net.c                      |  2 +
+ drivers/vhost/scsi.c                     | 49 +++++++++++-----
+ drivers/vhost/vdpa.c                     | 88 +++++++++++++++++++++--------
+ drivers/vhost/vhost.c                    | 95 ++++++++++++++++++++++++++++++--
+ drivers/vhost/vhost.h                    |  4 ++
+ drivers/vhost/vsock.c                    |  2 +
+ drivers/virtio/virtio.c                  |  2 +-
+ drivers/virtio/virtio_input.c            |  9 ++-
+ drivers/virtio/virtio_mmio.c             | 16 +++++-
+ drivers/virtio/virtio_pci_common.c       |  4 +-
+ drivers/virtio/virtio_ring.c             | 38 +++++++++++--
+ drivers/virtio/virtio_vdpa.c             |  5 +-
+ 22 files changed, 342 insertions(+), 74 deletions(-)
 
