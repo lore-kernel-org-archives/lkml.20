@@ -1,333 +1,164 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDBAA3AB28D;
-	Wed,  9 Sep 2026 06:33:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788935604; cv=none; b=emSyJX4HYLb96ODQv1E5ED8Yx5gVZHooc8Lri7OS1ryIcDgBXXgeQHYLApzk/ZFXtg8nOirqs7vDuXj7JZFETtiFRJRxeN1NHSL0/zsE9ltc0lDYXja49koXXNXC4XKYhNAKD+hubbWAwVJsKHfuGjRUtvRmfl88LV9Xc1w4uwI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788935604; c=relaxed/simple;
-	bh=1oY0lUZFS58y/nRPk09bnTUKONvvIzoY/b09ILGgkDM=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=ZIA0unxCvr9WFjWr0eI6WsaALdfhUJgf/jt2dzVsN6Rj4UJGJBNO1bBMiy6O9EUEVb67vuXY70Hv07CC37DCLOfUHUYfT42hu91bk8WJZgKXPAFeYLTvBybu9ScnLn9mxVel/S9kfngChDdyGyed3hzlfnaD3mxOCFNc95Tvd7k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GtDmcdHU; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71145348C76
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 06:33:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=205.220.180.131
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788935627; cv=pass; b=JVeoesV2J0Gjhpj2guYoK4kBcXUkixNjNQpzM59F3YTkuXZUeTJF9c9ZZntsEE3JEgIsTbgAzTBbGzgMJ8U3JD9N8uLsew21Z2JQSQ/lrFWzlSUw+i1rm4rmvh4AIeGJMAhUArONZSmQof9RxMY+f5SfV889ZZvwFc2OG7o4Lcw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788935627; c=relaxed/simple;
+	bh=18Zr3UdkPL5YGneMwhBfVyFM5vzCFjokkjS/4aofckw=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=MnjxDZuEBNXmOUJIvQfd96V4AwmYYWB0EpenPgzdhe+GXntwIBmnlzzVv7vfM8QLZ1t+pwUc9S1EsHXY2lXPZxUS+Q3ylgb9xxtIMpfxO7Ubb+RJtsXuULQ0wbmzypVwEPVw4aXormBPkZOkM3Fe2kQl74VQkrMZvmbfRlz3b+g=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Zb3O9jTD; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=E+UmiBp5; arc=pass smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GtDmcdHU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB0831F00A3A;
-	Wed,  9 Sep 2026 06:33:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788935602;
-	bh=6vArauM+vSzXzZz67RSyA0Eapj1t9miTelCnPUy4yGo=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=GtDmcdHUI3UTrA+5cLL76PHVR/RpqBc9cVJIxPSOYo8cX7CXnkicQ2SXzPPf0aY+X
-	 Yl74BdnyvNKUFkAoyEQBDncVKDqZSYefY3qKUUjGIgBvzuvUYgmz9di5sbDneVvcYZ
-	 y5ghpDX8HWsz0fAp1J3dm7t/jMdlFnqFOdoxK82YabbnzS/GdXiXi5Z1ip/0RrvCiH
-	 PjOeE5bWadHD7HhzgSkQbXeECDKz8UYlimHJ5mITRaqZN6+0AfuFv4bi+WFbTZx+gj
-	 PZPyEfMlrpHG1vFpz9Qf6BONNAYzRh8qeLx6pS0wLIR8XxM4+rsfCDkcGYA18EtxdH
-	 t+sWCnfbwHBuw==
-Subject: Re: [PATCH net-next v6 5/5] net: phy: release phydev->psec from
- phy_device_remove() again
-From: netdev-bot+sashiko@kernel.org
-To: github@szelinsky.de
-Cc: o.rempel@pengutronix.de, kory.maincent@bootlin.com, andrew+netdev@lunn.ch,
- hkallweit1@gmail.com, linux@armlinux.org.uk, davem@davemloft.net,
- edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, corey@leavitt.info,
- jelonek.jonas@gmail.com, horms@kernel.org, olek2@wp.pl,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Date: Wed, 09 Sep 2026 06:33:21 +0000
-Message-ID: <178893560151.219967.4509880385605166044@kernel.org>
-In-Reply-To: <20260906153102.959217-6-github@szelinsky.de>
-References: <20260906153102.959217-6-github@szelinsky.de>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Zb3O9jTD";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="E+UmiBp5"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6896MTlY129581
+	for <linux-kernel@vger.kernel.org>; Wed, 9 Sep 2026 06:33:45 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=F6ybEqTWr7PTGYwKjzBDvKVQ
+	3R5C9k69c4zwqDv/bw8=; b=Zb3O9jTDa7TD3YF5CyohMezRJnRYfRROVFjO9ENt
+	a6+cMTTOzkJ1jdnqKiEf4Snc/tZb1VvPHpMi4wYl866F0UHYbF4YCyXeytCHz+OE
+	5aRd8+iqX+8qoq9kQ+6FrjSWtZab/I0T9Eg6Ddvg+zt3xZHqjzLWqaSUqaLs+YB6
+	rC7hSZxYkdmMFAnWj2FYW4hTuXobdP3fxpCvrNvos35xcqov05tUdrMVI7bxSW7q
+	91G/1/N600LxVgYa8hf78A/77fHItvLIcIyv4EECHJhkeF4+ATf46nvVstzGOiYU
+	cYanulIdjdx2rvpJDarP9ttc2t2DLJlgN9dwPk0EsBlJqA==
+Received: from mail-yx1-f71.google.com (mail-yx1-f71.google.com [74.125.224.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gjntpk3bg-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 06:33:45 +0000 (GMT)
+Received: by mail-yx1-f71.google.com with SMTP id 956f58d0204a3-66c73057f18so4108256d50.3
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 23:33:45 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788935625; cv=none;
+        d=google.com; s=arc-20260327;
+        b=We6+APayyEjZumWdJALloW3OscXMwdwYrExK0z+0pqCG0NPEPhxYfns7r6Pe6X8x55
+         nyJWfQCnWESVbMiVTNuCat9ZGiZ9LbWWGC2Alarjm9IlQxBppgvYNpm0gmDWuIzKAzEi
+         n5oxQVdLzZULQdr/+AGQ2tI7J/I+7kxunc9s0JsCtHXjgZt0KSbgaHUvhZ+NROx8Yd2c
+         A3f7OjCsINKnj9E6b3dgW4Of96+C/KPSuxkuGoNP+T3avBwMXZyKH1y1RGvaTJkP2PEM
+         daKFVdlJhlTfXfpg8kYNnR5QP5igY7z++s//RUjhfDl/rRpwj+UfxoPOH7gET/fXYp+H
+         apSg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=F6ybEqTWr7PTGYwKjzBDvKVQ3R5C9k69c4zwqDv/bw8=;
+        fh=9+0wMXBSTSxKjPiLpKOkAdNCz4VyJiGvEcGPi4DOBEQ=;
+        b=Oxzzqwe9953//FTKl2OUTmwxiz+DeqS4k0PUQ62vS2sIFfTwliViWJJ1Fk/Uq4riS3
+         gQzXClpFcX4utjd+KEafqpMtFtZ6I7VSiUmMV/0G3glsJ9KoiezBefKVimgotNzROEEm
+         u7DP/4W9YX2JV/xDiaFqTyWr/ursiUWHKYFi1iJRyfwsCN4GwFJCUk2o4u7dpkgK3a0D
+         9ylpHI59oe0ODjyrpPBCexQjFEXY44V12N+/EBO6iZtuYoFysXsoCOysIhkravBP4jNH
+         6lo88Uh85OHC+VCmrpupN5GC9zurGZQAr3LFDHJnLqn0cOgA57FxAF8hb1zAsbAnR6DM
+         zvIw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1788935625; x=1789540425; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=F6ybEqTWr7PTGYwKjzBDvKVQ3R5C9k69c4zwqDv/bw8=;
+        b=E+UmiBp5BRAVIODiR25zkv7V9V5Fkeb8NFapeLUY5tC73bEleyocPmiNJZMIXuFxei
+         OZlJXBScH63McmhsAsSZNbNbG3ImsgyoL2bfsJyp9tbvMX92K0trrOfT29krlsEmEuk8
+         jG2OCcL0+yfWdBeYwIJBq16a//EeJmeOATum8ikS6zfJkID+yOzFXaZh2XiPs6rd68u5
+         dG/BMtVAt5QJ4n3Eg/Sle2Xm78hq8JnfRghQ2Hojno5S02pcgDB2WIxu/pzPhBhOWOje
+         CNL0Q8KOZ2GeWzfz9FhHdUis9+U1CIgRUc7a/F3iwrvUchtNvdmp2/jD2OLynU7DI0tK
+         DveA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788935625; x=1789540425;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=F6ybEqTWr7PTGYwKjzBDvKVQ3R5C9k69c4zwqDv/bw8=;
+        b=a/h/zTpBvM0D0pvrIW2AwWX/N8dM0ehtQOHx+e3mw/5dpRJW5cZjBUbTNFXTIIZyS4
+         G6BprmOhn42Z3ECkJQktmF2LvoNZzD5jhqvfK0edrnkOEaAhKln3Y8WWupZf0wEjcSti
+         WJAUg3nnuBxVkF6cGFpUzdyzoHVxM7snUpdQkAM728NP8/VTHmB8S5miBMoJL/1svYkV
+         zWPgnKDl0aLX9wfdCYSk3uhLUlOfewlH97VNuSWPTsud/TyFIwQ2sskhL73CJ2k6Sqza
+         mfGOWPn1dXOUe5Q4MmHZ+VPeRXrKXqlvWTOHCZf9nMH0uVgmhXiODpr0ssW1HysiRRq+
+         pNjQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzHtXfhJ3rYROxYZYW0lyurSajgwUN4wZQf0Wxp7zpNpp9bsbHd/fb27LovzrcRJA0iJ1rIwmeeY++vtyY=@vger.kernel.org
+X-Gm-Message-State: AFuF++n7oOwbAFaXWFxo0COK+xcxs/PJiffE3Rog9JiDbh0nrs5gIX8C
+	Mi36NAWQhLTwANHVN15XpabdX/R+h6OqH0CJ/stAUgHuWRcKFpcXFCH8BfBt9ZPqSLjelZ9an1I
+	tIjclBaHYswPzkfC1y/+zVxCda+qedgzSW/7bRFeRv3lzcRMb8/v9FpSn10mS/uVQ6s0NxdjJOT
+	oPtaGF+vMTGAcClRFBwUI9X5areMaUXCkzG6u586Eh6w==
+X-Gm-Gg: AYBFou0dg596vrQPSFna1ETceRGJpqukSEIUqSsaZ5jdc+u1eS6I7/X+KlHOfYDXq69
+	kE+xZ82jMFhCKidgWGG7/ad3RYG0+fLZGam4rUy3/v44NOygY7Ck0VzRq20ReHAEWPnJw9l1M5M
+	KBIEByDQMdejqeJ4pQGFLwlpnQAhz8VSSloB90G49M8WBMDPaq8G0J887EVg==
+X-Received: by 2002:a53:b604:0:b0:66f:c1be:84c8 with SMTP id 956f58d0204a3-66fc1be8c6emr6652764d50.54.1788935624949;
+        Tue, 08 Sep 2026 23:33:44 -0700 (PDT)
+X-Received: by 2002:a53:b604:0:b0:66f:c1be:84c8 with SMTP id
+ 956f58d0204a3-66fc1be8c6emr6652744d50.54.1788935624539; Tue, 08 Sep 2026
+ 23:33:44 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+References: <20260907-b4-qaif-shikra-audio-v5-0-6d8ad9ba5c9f@oss.qualcomm.com> <5e6d52cb-53f6-4af2-b1f6-d894d8dcca9e@sirena.org.uk>
+In-Reply-To: <5e6d52cb-53f6-4af2-b1f6-d894d8dcca9e@sirena.org.uk>
+From: Harendra Gautam <harendra.gautam@oss.qualcomm.com>
+Date: Wed, 9 Sep 2026 12:03:33 +0530
+X-Gm-Features: AcwNN1WQUsj5OMuHNikswDVbQA10l--Mx-WHy294kAjPi8kkiskKKrtmL0NvCDU
+Message-ID: <CAC-tS8BnLzKrtz_rJ-ScQwbfcvFuj5ptOBzXgCSCgUaC_gUCVw@mail.gmail.com>
+Subject: Re: [PATCH v5 00/10] ASoC: qcom: Add QAIF driver for Shikra audio platform
+To: Mark Brown <broonie@kernel.org>
+Cc: Srinivas Kandagatla <srini@kernel.org>,
+        Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+        Takashi Iwai <tiwai@suse.com>,
+        Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+        linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>,
+        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+        Sarath Ganapathiraju <sarath.ganapathiraju@oss.qualcomm.com>,
+        Kumar Anurag Singh <kumar.singh@oss.qualcomm.com>,
+        Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
+Content-Type: text/plain; charset="UTF-8"
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA5MDA3MiBTYWx0ZWRfXzzHlSNIrV4JC
+ uZILWA9G9dtslGp+PC2jL7XuxZ+8EDDYetKoCX6+0fZHwHtnC0VoU/EJQK9RDXpX7TNLX2tTlci
+ NnEQsN207Cnyh69zkohcak8BXMT1ntV7ec6hFW2Kg22m8FXukabqIhFvWlfHHO21jL6CGfVMFyE
+ O1VCGEP52RFslXJa9/1p1aDY9hmlI+CopV28S+jkVRiLAxRAwuxPje1kVSfaM2zIrYXI2gs5/2h
+ pcXaEHxpZkrOsIVUHjJCW1h7g/RvTJ1QArB8ZEfRVmAyypirnYsx1n6Lz7pdox2JLGRVtKoSC7a
+ zA1mgEu46gquq9VR+ZbZlL6Gb9YNwP5mRyd9V//eaSJQ0YyAvBo3ASiU3fB0DGIL2qCSfM19OLq
+ mKp0g5CBxekSITOUBnjpDMY5ulUDutCIwnrOnHaHn4hMxBIwlybz7qTOC2sL4dEBh6opp1RxjPy
+ XBeDwOBhlSgq3B6YtAA==
+X-Authority-Analysis: v=2.4 cv=N+AZ0W9B c=1 sm=1 tr=0 ts=6aa0fdc9 cx=c_pps
+ a=ngMg22mHWrP7m7pwYf9JkA==:117 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=rJkE3RaqiGZ5pbrm-msn:22 a=-dXBdVp_9Me3CGyqtu0A:9 a=QEXdDO2ut3YA:10
+ a=yHXA93iunegOHmWoMUFd:22
+X-Proofpoint-ORIG-GUID: -TtCMtKF4TSFVMhR-QioUK8SrX_iBG90
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA5MDA3MiBTYWx0ZWRfX2ETZwOxu3dOc
+ jhZpVn9y0g5AhI3rtq2UrevVlsHabfFV0ui0VixtBIx3oh8bG4l7XlA56KntdB/Fi5QPGJBY8Wm
+ a7FhzWeHDcKDlKBP2UgDi+tRr42NeHk=
+X-Proofpoint-GUID: -TtCMtKF4TSFVMhR-QioUK8SrX_iBG90
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-08_03,2026-09-08_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 lowpriorityscore=0 priorityscore=1501 suspectscore=0
+ clxscore=1015 impostorscore=0 bulkscore=0 malwarescore=0 spamscore=0
+ adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2609090072
 
-Thank you for your contribution! Sashiko AI review found 4 potential
-issue(s) to consider:
-
-Critical: 0 · High: 2 (1) · Medium: 2 · Low: 0
-
-- [High] The commit claims that after this change phydev->psec "can no
-  longer outlive the PSE controller", but the same freed-array sink…
-- [High] phy_device_remove() now drops phydev->psec and releases
-  pse_phy_lock() *before* device_del(), i.e. before the phy leaves the…
-- [Medium] In-series regression fixed by a later patch of the same
-  series, with no attribution.
-- [Medium] Memory leak of pse_control on the error path of
-  phy_device_register() if device_add() fails.
-
-Pre-existing issues:
-- [High] phylib clears only the forward link on detach (phydev->psec =
-  NULL in phy_pse_detach_one() and in the newly added block in…
-
---
-
-net: phy: release phydev->psec from phy_device_remove() again
-
-This moves the final pse_control_put() of phydev->psec out of
-phy_device_release() and back into phy_device_remove(), where it now runs
-under pse_phy_lock() just before device_del().  The stated reason is that a
-device_del()'d but still pinned phy is invisible to the PSE_UNREGISTERED
-bus walk, so a deferred put could outlive the PSE controller.
-
-Link: https://lore.kernel.org/netdev/20260703071025.100797-1-pabeni@redhat.com/
-
-A few questions below.
-
-> diff --git a/drivers/net/phy/phy_device.c b/drivers/net/phy/phy_device.c
-> index e8d894bbfa7aa..bb120045c406e 100644
-> --- a/drivers/net/phy/phy_device.c
-> +++ b/drivers/net/phy/phy_device.c
-> @@ -223,19 +223,8 @@ static void phy_mdio_device_free(struct mdio_device *mdiodev)
->  
->  static void phy_device_release(struct device *dev)
->  {
-> -	struct phy_device *phydev = to_phy_device(dev);
-> -
-> -	/* bus_for_each_dev() holds get_device() across each iteration
-> -	 * step, deferring this release callback until any in-flight PSE
-> -	 * notifier walk has advanced past this phy. pse_control_put()
-> -	 * takes pse_list_mutex, so this path must run in sleepable
-> -	 * context.
-> -	 */
-> -	might_sleep();
-> -	pse_control_put(phydev->psec);
-> -
->  	fwnode_handle_put(dev->fwnode);
-> -	kfree(phydev);
-> +	kfree(to_phy_device(dev));
->  }
-
-[Severity: Medium]
-With the put gone from the release callback, phy_device_remove() is
-the only place phylib ever drops phydev->psec.  Do the error paths of
-phy_device_register() still reach it?
-
-As far as I can tell they do not: if device_add() fails,
-phy_device_register() logs "failed to add", jumps to out:, asserts the
-reset and calls mdiobus_unregister_device(), then returns the error to
-the caller, which typically just phy_device_free()s the phy.
-phy_device_remove() is never invoked, and phy_device_release() is now
-only fwnode_handle_put() plus kfree().
-
-The window matters because device_add() puts the device on the
-mdio_bus_type klist in bus_add_device() before dpm_sysfs_add() and the
-remaining steps, any of which can still fail and roll back.  While the
-phy sits on that klist a concurrent PSE_REGISTERED walk
-(bus_for_each_dev(&mdio_bus_type, ..., phy_pse_attach_one) under
-pse_phy_lock()) can see it, and phy_try_attach_pse() will set
-phydev->psec via of_pse_control_get() because psec is still NULL.  On
-the failure return nothing puts that reference: the struct pse_control
-stays on pcdev->pse_control_head with attached_phydev pointing at
-memory that is about to be kfree()d, and the try_module_get(pcdev->owner)
-taken in pse_control_get_internal() is never dropped, pinning the PSE
-driver module for the lifetime of the system.  Keeping the put in
-phy_device_release() happened to cover this case for free.
-
-This is a cold path, but could the same locked put be factored into a
-small helper (say phy_pse_detach(phydev)) and called from both
-phy_device_remove() and the out: label of phy_device_register()?  Or
-do you consider a put in the release callback still warranted as a
-backstop for phys that never reach phy_device_remove() at all?
-
-Related question: if phy_device_register() itself attaches the psec
-before any of its remaining failure points, the leak would not even
-need a concurrent notifier walk -- can you confirm the ordering there?
-
-[Severity: Medium]
-Is the use-after-free described in the changelog reachable in any released
-tree?  In the baseline this series applies to, phy_device_remove() already
-contained:
-
-	unregister_mii_timestamper(phydev->mii_ts);
-	pse_control_put(phydev->psec);
-
-and phy_device_release() had no PSE put at all.  The deferral being undone
-here was added earlier in this same submission by "net: phy: own
-phydev->psec via PSE notifier and remove fwnode_mdio hook", whose own
-changelog says the put "moves from phy_device_remove() to
-phy_device_release()".
-
-Should this hunk simply be folded into that patch instead of appearing as a
-separate commit?  As posted, the two intermediate commits of the series
-carry the live use-after-free on pcdev->pi[] that this commit removes, so
-bisecting an unrelated phy or PSE problem into that window hits it.
-
-The two sibling patches are referenced by quoted title only, with no SHA,
-no Fixes: tag and no statement that they belong to the same series.  Could
-that be made explicit either way, so a maintainer or stable backporter can
-tell whether a Fixes:/backport is needed here?  If the commits do stay
-separate, the introducing patch's changelog is left permanently documenting
-a deferral rationale that no longer matches the tree.
-
-> @@ -1265,6 +1254,16 @@ EXPORT_SYMBOL(phy_device_register);
->  void phy_device_remove(struct phy_device *phydev)
->  {
->  	unregister_mii_timestamper(phydev->mii_ts);
-> +
-> +	/* Detach synchronously, before the phy leaves the bus, so the put cannot
-> +	 * outlive the PSE controller (an off-bus but still-pinned phy is missed by
-> +	 * the PSE_UNREGISTERED walk). pse_phy_lock() serialises against that walk.
-> +	 */
-> +	pse_phy_lock();
-> +	pse_control_put(phydev->psec);
-> +	phydev->psec = NULL;
-> +	pse_phy_unlock();
-> +
->  	device_del(&phydev->mdio.dev);
-
-[Severity: High]
-Can a concurrent PSE_REGISTERED walk re-attach a psec to this phy after the
-put has already run?
-
-The lock is dropped here, and the phy only leaves the mdio_bus_type klist
-much later, inside device_del() -> bus_remove_device():
-
-drivers/base/bus.c:bus_remove_device() {
-	...
-	if (klist_node_attached(&dev->p->knode_bus))
-		klist_del(&dev->p->knode_bus);
-	...
-}
-
-bus_for_each_dev() does not skip devices whose device_del() is in progress,
-so throughout kill_device(), BUS_NOTIFY_DEL_DEVICE, dpm_sysfs_remove() and
-the sysfs teardown the phy is still reachable from:
-
-phy_pse_notifier_event() {
-	case PSE_REGISTERED:
-		pse_phy_lock();
-		bus_for_each_dev(&mdio_bus_type, NULL, NULL,
-				 phy_pse_attach_one);
-		pse_phy_unlock();
-}
-
-phy_pse_attach_one() -> phy_try_attach_pse() then sees dev->type ==
-&mdio_bus_phy_type, of_node still set, and psec == NULL because this hunk
-just cleared it:
-
-	if (phydev->psec)
-		return;
-
-	psec = of_pse_control_get(np, phydev);
-	...
-	phydev->psec = psec;
-
-Which path releases that new reference?  phy_pse_detach_one() can no longer
-see the phy once it is off the klist, the put in phy_device_remove() has
-already run, and phy_device_release() is now just fwnode_handle_put() plus
-kfree().  That looks like a leaked struct pse_control left on
-pcdev->pse_control_head with attached_phydev pointing at freed memory, plus
-the try_module_get(pcdev->owner) reference taken in
-pse_control_get_internal(), which would pin the PSE driver module for good.
-
-The changelog says "whichever runs first clears phydev->psec, the other sees
-NULL".  Does that hold for PSE_REGISTERED, which creates a reference rather
-than clearing one?
-
-Would placing the locked put after device_del(), still synchronously in
-phy_device_remove(), close this?  Then either the put wins and the walk
-cannot see the off-klist phy, or the walk wins and the put releases whatever
-it attached.
-
-[Severity: High]
-The changelog states the put "can no longer outlive the PSE controller".  Is
-that accurate given the attach side?
-
-pse_controller_unregister() fires the notifier, frees pcdev->pi[], and only
-then removes the controller from the list:
-
-drivers/net/pse-pd/pse_core.c:pse_controller_unregister() {
-	blocking_notifier_call_chain(&pse_controller_notifier,
-				     PSE_UNREGISTERED, pcdev);
-
-	pse_flush_pw_ds(pcdev);
-	pse_release_pis(pcdev);
-	...
-	mutex_lock(&pse_list_mutex);
-	list_del(&pcdev->list);
-	mutex_unlock(&pse_list_mutex);
-}
-
-pse_release_pis() does kfree(pcdev->pi) without clearing pcdev->pi or
-pcdev->nr_lines.  pse_phy_lock() is held only for the duration of the
-notifier walk inside phy_pse_notifier_event(), which ends before
-pse_release_pis() runs, so between the end of the walk and that list_del the
-controller is still resolvable:
-
-phy_device_register() -> phy_try_attach_pse() -> of_pse_control_get()
-
-of_pse_match_pi() then reads pcdev->pi[i].np out of the freed array, and
-pse_control_get_internal() reads and writes it:
-
-	pcdev->pi[index].admin_state_enabled = ret;
-	psec->ps = devm_regulator_get_exclusive(pcdev->dev,
-						rdev_get_name(pcdev->pi[index].rdev));
-
-The resulting psec lands in phydev->psec, and its eventual put reaches the
-same freed-array dereference the changelog says is eliminated:
-
-drivers/net/pse-pd/pse_core.c:__pse_control_release() {
-	if (psec->pcdev->pi[psec->id].admin_state_enabled)
-		regulator_disable(psec->ps);
-}
-
-The documented contract in include/linux/pse-pd/pse.h says subscribers "must
-not acquire new references for it" after PSE_UNREGISTERED, but nothing on
-the subscriber side can enforce that while the controller stays on
-pse_controller_list.
-
-Would making the controller unresolvable before pse_release_pis() (list_del,
-or an unregistering flag tested under pse_list_mutex), and having
-pse_release_pis() NULL out pcdev->pi and zero nr_lines, be needed for the
-claim to hold?
-
-[Severity: High]
-This isn't a bug introduced by this patch, but only the forward link is
-cleared here; nothing in phylib ever invalidates the reverse link
-psec->attached_phydev.  pse_core sets it once, and only when it allocates a
-fresh psec:
-
-drivers/net/pse-pd/pse_core.c:pse_control_get_internal() {
-	psec->attached_phydev = phydev;
-}
-
-An existing psec at the same PI index is merely kref_get()'d and the new
-phydev pointer discarded, so the back-pointer stays bound to whichever phy
-attached first and survives that phy's detach.  It is dereferenced here:
-
-drivers/net/pse-pd/pse_core.c:pse_control_get_netdev() {
-	ASSERT_RTNL();
-
-	if (!psec || !psec->attached_phydev)
-		return NULL;
-
-	return psec->attached_phydev->attached_dev;
-}
-
-The NULL check cannot detect a freed phy.  pse_send_ntf_worker() takes a
-transient reference and then blocks:
-
-	psec = pse_control_find_by_id(pcdev, ntf.id);
-	rtnl_lock();
-	netdev = pse_control_get_netdev(psec);
-
-If the phy removal completes in that window (this put drops phylib's
-reference while the psec stays alive on the worker's kref, then
-phy_mdio_device_free() -> put_device() -> phy_device_release() -> kfree()),
-does the worker dereference the freed phy_device and hand a garbage
-net_device pointer to ethnl_pse_send_ntf()?
-
-Same window existed with the put in phy_device_release() and in the
-baseline, so this is not a new problem, but should phylib also clear
-psec->attached_phydev on detach?
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260906153102.959217-1-github%40szelinsky.de
+> >   qaif-platform.c: PCM platform component. Handles DMA buffer allocation
+> >   (dma_alloc_pages()), PCM ops (open/close/hw_params/prepare/trigger/
+> >   pointer/mmap/copy), table-driven two-level IRQ dispatch with
+> >   period-elapsed notification, and component suspend/resume across power
+> >   collapse.
+>
+> I didn't notice the suspend/resume support in the series?
+You are right, the cover letter is misleading. The driver uses runtime
+PM suspend/resume (pm_runtime_force_suspend/resume) for power
+collapse, not PCM-level suspend/resume. Will correct the cover letter
+description or any other misleading text in the next version.
+-Harendra
