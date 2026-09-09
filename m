@@ -1,737 +1,252 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9FDC39A4DF
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 18:53:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.227.140
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788980002; cv=pass; b=JfISiQ267AVgJgkRl+gG5iIUBsT8YO8/c3x9pVSb+raPhvjy5LigwC27tgVxT2ZaVzGJ+DxmvtnqNERt422RPi/9wSyjaQ3D9uKGDDyN0Jgz9tFXFqQIYrKxekjZlOY3y+bcOjiRQIm2BSEAxBKJ8Og+wXO3daybLFG+SxH5JEk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788980002; c=relaxed/simple;
-	bh=FNubIDG5wgFUsm/iu7cCt3VMMPE4VLZLAfc5C4LLUZg=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=CkTvMGVcQ0UEg4/sjzys9FKEhKrtmBF9AHv4tJM5jsRyTS5dnKoxGGhCVfKHRZeBH0XygLbAtulUoOpCqj+bpNrXpcX3p80PI+WOPEPrBtvOsvuNvbhmyvLRu8iUEP7f0Koc9qZIRIufgFwk+cSthKFUYgsH0nvJ6EorPCOFHw0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qzNZiiCU; arc=pass smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FFC55592EC
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 18:55:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788980123; cv=none; b=VWF8r4Xj/9bDUNaivuh9Ly1U0W3HkKejd1omaSmNvEcb9dunjZKUXyyGNXY5L+lBN/uHtdClQ0v9kWCBqJYI/sdGeks3dhktGwsNzFgAF5HvkiIDdHj5mr9kLESGe2433EdcXKlEITaEEFHE40wb51UKDVZ/qm+FC8QBHRheYyw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788980123; c=relaxed/simple;
+	bh=U1NdQA2aJNUMNdQHV1yvInMQLf5QuGfXhDOBIEUVFTg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Gqq+Tnpykxd2aUBNR4Fvz626mFyvYXJSgjmyQ88hobnEDAYtMt6Dm2V4i8gzEiATerMLd+gykYwqoI8nSfQ9C+zpVgI9BpIjfi08w2zRjwRACCSWciI987ANAOEDDctmE1oBxbaHIeK40HiyOJ26X+bu0ZCrIlMJ7Ab596HfgSs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=UBKV82pF; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=IirCt3Gu; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qzNZiiCU"
-Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-396ccafb752so1504170a91.0
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 11:53:20 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788980000; cv=none;
-        d=google.com; s=arc-20260327;
-        b=BtTanV11WYG6exX9riChNLdvt8Zy+sqjiTGDaS0e/A5xYfotJRcLhhhYCy6eQCbJ32
-         JKA4ZZxiC01KKQx8VM57rhQcdDUNn49mbIkAxOvyPxqPoTf1x+oGV1b9oey42n6epPfN
-         mLpaMg7LZk40lSK7h76x/WHmWuaR7wA8L3N0pUx0t4QqmcPNAMqFB/LfxVQcywNr1FFW
-         +5Yl0JyeByEcR1BffvioYylb+jnp/ncSHnfXY464B+9kaf438AaH2W4e4Vii6V87dBxj
-         exF1YehHfQkr0DE5dGst89NZoGxjTfV6kER4+k3ZaiwMq9QYMOKXz+Xk1RmqdaG/q/Pg
-         IOVA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=7bo8j7urNEoHfAQCdX/pGIDDKawq9OM4TCkZUvTILLI=;
-        fh=SGOoNgmsNNZWRANQp724i15W1arYgCe0fOsK90O9Lrs=;
-        b=r7jX1KPn+kWF9bHZs8G7LKCADbCs2mzNz6bbHybiHvxptvOzTJzY+S9Yvfis1YEs7k
-         1lFyrXdXxmqutKzDSXDHPmUgBKga0GrlJvO4aQfj2nEkW3VkDlhx1v59aq9yXkKC0ug1
-         uIcgIj3ZccgB/BSsVkx7wYnQqnmWIAvcFueMdfPqQevqQFuR+ClcwzP73kYYw7qzMh7P
-         fMb4ZpUrmhCgwiqlPV/fD4EMf9wUUF9pqU3twziILLOaI5YYkJKL3M91Zf8p+ZbjHwBI
-         0YXJA8jZR+M3QoyeQGjr9xHiGrmKeEKdoi47o4HehFVN7SWz3paVeRR+prYw3iEGRb3V
-         Mttw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="UBKV82pF";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="IirCt3Gu"
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 689IgDfh3140067
+	for <linux-kernel@vger.kernel.org>; Wed, 9 Sep 2026 18:55:19 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=M5rvIWGTIvOTCE3UxEp1CtwJ
+	p24SA8aalhpVBxX9P4c=; b=UBKV82pFgJhLWH2fGpTDOEjWYD13vt/8iJpHl8CP
+	Wr99KKnwqJFy13Qd4uny+m/WphgkXa5cJ/2iqk8KchWGMv5GOzJvBZtqW0J53X5e
+	DWwKK2h8e1LdBzzOU2ilj3+96RVr853RiUg4DYPAh/ekLdJUW2vgs6Qah9bZKqzn
+	KKlCQF1AO6wDQd7rTmmaXaUUWjurunrQcUcPH50lY3way1V77/rcx5jZnZSdakXk
+	QoFrzV2r0wmw4j+vXJLlgjQk80PSz1wG92C0GQiY8FcFYOZsu2bsWmlCXHsExeCK
+	TOAWRQYBg3W1cogKlmAWR3bNqjA89QvEyn6+ocAG5M1UEA==
+Received: from mail-vs1-f70.google.com (mail-vs1-f70.google.com [209.85.217.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gkcyg01ms-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 18:55:18 +0000 (GMT)
+Received: by mail-vs1-f70.google.com with SMTP id ada2fe7eead31-78fa7ff1a44so342650137.1
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 11:55:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788980000; x=1789584800; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=7bo8j7urNEoHfAQCdX/pGIDDKawq9OM4TCkZUvTILLI=;
-        b=qzNZiiCUGGLdZgzl+M1ZIsBs5RkUnlH4xqVwUcQNg67IFb4ASz3jdMfUW3oJ6irngs
-         B8kQdLcNBCkpTire1nm/o1UiI0L4us30n8hsLtXFFnfOFVKLJrhZsMQ58XM3sgWEXe5Z
-         NztFX6oDXys+pnfw/UBobwDioSMtNMEnYWMYeYME9qABZ/oA/AGXgu/ZfByDR4PrGQmH
-         GUwXiA8QK56B3va61QX83665kNGpZHieb5lUDrCA/I8ghqDVHx4S6xiUV1yYs3lUt0ue
-         uyL60awhY59jCA6SUUGcUhiec10FUJQ55cOF9XnG7eUWjC873szBVrRJ89gffGvvlW4N
-         Lt8g==
+        d=oss.qualcomm.com; s=google; t=1788980118; x=1789584918; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=M5rvIWGTIvOTCE3UxEp1CtwJp24SA8aalhpVBxX9P4c=;
+        b=IirCt3GuGiCMboTbA3d4HgfwpRQGh4tvs3IA9686PXb2KsPWswH4WeZ7rkML9EJX60
+         NAo+k+NA+ipBJu/MOAH5VNnroxp9po9TqPOmO/0U+f0TslYncH+WDxbM8JdajdY1bK2U
+         8YsuMxbkXM5rZ0DjAzyQUb0GymdPbHcH+cLhdULSiNh2M+9V38ahujt2O4Pcz5ZqTHjA
+         hife1/IjTndzyC/NiXfBiKnlzbw+wOk4nqcyCfq4fcJltMhGygPVjwdOlkd+DPvGfZI6
+         jHtDWEW4+lRiaiSfADliZPDbmpBtzoaOpQkU33bkLl052XejRxlgrYCfUgYmJnT7r0SJ
+         gANw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788980000; x=1789584800;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=7bo8j7urNEoHfAQCdX/pGIDDKawq9OM4TCkZUvTILLI=;
-        b=dxjdk6A8+7u5/LX8YkfhlrKQewLVCDdd5/3Bj5Q9030eaMCzfG8ZoSfFRZ/M1P4iG4
-         SKSJkpanMuRxjlwAHEV/6nEDPlmKS0ANa4d/BSw6cSMn2+FmAss2IvU06fp04jVUt+j3
-         62hcvJJdBGfu3XHTQHtsXwcAeiv0+rwiBxqR3WeBQNhMiqEqgCIO7mnPC6sEjRgYATas
-         TynWtBNWMOoeseNl0e9w0CSSj9ky30RaOeZdUbQOR311tvpo24M8P5rqjvaVJr5LWw01
-         jVApVrzOe2LtTIsZYRvyv6cwBidvrtogLPUp1oaazvmN7RBfiALx0Ewn9KFwNNxUq0BC
-         tP3w==
-X-Forwarded-Encrypted: i=1; AKwUvBxWYs1b2gg49nKy9+HOBy80g5CdEprYciimvwwjnOZku4OBTyzWCA7qY2MEY+Lsai6ang2rK2wEwYVwQtY=@vger.kernel.org
-X-Gm-Message-State: AFuF++kgshHrb6kjpsHaiU9yozLLu97xV9x2ShEJOpyjveVlycdmnxU2
-	U6eoc1f9BBeun9sFK4tB81k6KqwQxvXYLV32OOlGIQRXF7iJZqwldNmj6s0T16iUWGj4qx+LzAI
-	dUwWYoUlE9KvX5S70UJ8SjC02fgtO8Nw=
-X-Gm-Gg: AYBFou2n1PAvZu5/F1gdQqD3Z+kj+vejy36I1ux6iefwegsNs+NGyTD9YtBWJMcZzCO
-	m5A0MhxrKlavooOFljn5TOjH95rGRGvB3kkZDAQgpOhki7dvxNqwxT7KC4RjIwuBrVHhfy/T8yT
-	xqFcEyXX18g47T47NGFNwnLoL5Fg79ZbhFyxEV2f0spnff2Q4ORWeiIRx1NLdvJJT8YNXDLEPlV
-	V6qlp92MILAff2QGmySnHD1xyCUgf/KfxlPNZA2Bnsm3IbppbBZCqiMYVWZkeH2KquTSJgfl1/S
-	+oOa5pu1u63tDfZfmXnx5PvqKY/Zg1GbefdTk7PGWwfoUseet/he4Rg=
-X-Received: by 2002:a17:90a:d60b:b0:390:8361:a532 with SMTP id
- 98e67ed59e1d1-39bac197a01mr11334339a91.7.1788979995203; Wed, 09 Sep 2026
- 11:53:15 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1788980118; x=1789584918;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=M5rvIWGTIvOTCE3UxEp1CtwJp24SA8aalhpVBxX9P4c=;
+        b=r08IkOXY2l7vriVtAo6N7Fk67BB70g5q6iXPEDnFBV1UzudYtyiQFVNouvkUkXQqR6
+         jx1JDuZpywD0uGO6b4AIzjK5Sw1t95tS31v85xXhCYMZOPso/HKOJGRgHvXFaMAb1IqG
+         49dzb9hm/U2h4YyE4fYstAR3q0GTGP0eQ8zotrNpxe5GkmjibNny/7A8U+lUo+uvIcfs
+         xiV5VoP/rsY/Hz56xnFC4VoHWI5A71/qRR5vq+8nqG8ovrVp1QVyRCVbzUa/2kFLum0W
+         KfEspukjoPqlb2z3Y6musgOUtOFMidio3f7qjrAOUR48aOYG8M4/QlrPa1W9crw+sE7Q
+         u7hA==
+X-Forwarded-Encrypted: i=1; AKwUvBwUxqwVPNIH0VHPtULu1mhuopfnaXvY43KnUhQiWJ8uSjGazFcmX/wlYfxQ1EExeizG3tPeembUJItbOFA=@vger.kernel.org
+X-Gm-Message-State: AFuF++mk4sW7sWyyK/vaCcxgaKDVPS8SCorTZRbTq4I5LmTX32vjTNaw
+	F/RzzIR0QiUdCOUjIVkG4V/OTtnyKOq3IR0S4gSbZQq1Gi7ZL//IhBC9a2olTv7AiHyzn/1LsLy
+	Mg5kCKeu8ta9bI9kR+IjKUaEzd8xxO4hYx7f9JNa010WvO5w4aMVbbVVMBz/sIQmexaU=
+X-Gm-Gg: AYBFou17Zajya5OAdaYSta8UoBWMP4xXx8hIF1Xd8HB2n53QwHmCSDleUzrNvg0LcLX
+	AdkvSvqpgh0RzxoSvRUBPAMlbHXlQhPjQsGdmgBwGTTzHhUjSKFno+R3V2W3VfE2GI82lmUbIzd
+	8PcM+YToZMmGkqkJfbh1MZouPNVmG+uGWdUZtz9VrFEGJuKROaiou084DNwLGD0eRAyeLlQinvs
+	fI2y5FYsYFShndOlxppB0yxqhHRQHH9LSXZ/N1YGdNJyq8JvfE1bxhJF7Bylow7Nsgm4EvkQ1KF
+	YRPF2YTzgtaNZ1bsgo+nA6vI9XJaXj2RYWQBLl4ikxD45PeR58HcxoJ0GJlScvGmghfgakDc32I
+	015J1WaA7vUOBXQ==
+X-Received: by 2002:a05:6102:6b01:b0:785:3211:f5e4 with SMTP id ada2fe7eead31-78a4a6c8a04mr16623457137.4.1788980117660;
+        Wed, 09 Sep 2026 11:55:17 -0700 (PDT)
+X-Received: by 2002:a05:6102:6b01:b0:785:3211:f5e4 with SMTP id ada2fe7eead31-78a4a6c8a04mr16623409137.4.1788980116994;
+        Wed, 09 Sep 2026 11:55:16 -0700 (PDT)
+Received: from localhost ([188.216.77.92])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49d26d49d57sm9738765e9.14.2026.09.09.11.55.15
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 09 Sep 2026 11:55:15 -0700 (PDT)
+Date: Wed, 9 Sep 2026 20:55:15 +0200
+From: Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>
+To: Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
+        "David S. Miller" <davem@davemloft.net>,
+        Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+        Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Andrew Davis <afd@ti.com>,
+        Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>,
+        Russell King <linux@armlinux.org.uk>,
+        Richard Cochran <richardcochran@gmail.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Alexandre Torgue <alexandre.torgue@foss.st.com>,
+        Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+        Jose Abreu <joabreu@synopsys.com>,
+        Maxime Chevallier <maxime.chevallier@bootlin.com>,
+        Maxime Coquelin <mcoquelin.stm32@gmail.com>, netdev@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org,
+        linux-stm32@st-md-mailman.stormreply.com,
+        linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH net-next v2 9/9] net: stmmac: qcom-ethqos: add Shikra
+ EMAC support
+Message-ID: <aqGrk9TLx8RJ4Xzr@lore-desk>
+References: <20260908-shikra_ethernet-v2-0-bbe3389d0652@oss.qualcomm.com>
+ <20260908-shikra_ethernet-v2-9-bbe3389d0652@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <CAAAbPi4w+YO=W8vFr63wy6++1WQ2mHUDVfUDKyWR8xcTWKXCKw@mail.gmail.com>
- <1fdd17c6-a0ab-42de-8362-8e1374d42fac@amd.com> <bc542e80-e572-452b-81ba-53e57ed3126e@amd.com>
- <30fed968a6f54a6c81eca4ee23ea4166@realtek.com> <CAAAbPi4MekJAyNsCAi2Ww9QHVVrrGkW2cdDTrrpttZYmh7yZHw@mail.gmail.com>
- <3fa3de8f2bf24041ba9c029e0984abfb@realtek.com>
-In-Reply-To: <3fa3de8f2bf24041ba9c029e0984abfb@realtek.com>
-From: Cristian Timohi <cristiantimohi@gmail.com>
-Date: Wed, 9 Sep 2026 21:53:02 +0300
-X-Gm-Features: AcwNN1WyFY0fAsZyxA6XpDPpJiG7oVialU5cQVBbdZKEm-JcW7XTiHEKU2uS00U
-Message-ID: <CAAAbPi42OGPN2ctOpa0VKZP6xKvG12tO6s4u44sDnz+gvJ+diw@mail.gmail.com>
-Subject: Re: [BUG] ASoC/AMD ACP70/RT721: ASUS TUF Gaming A14 FA401EA speakers
- silent and headphone jack buzzes on playback
-To: Jack Yu <jack.yu@realtek.com>
-Cc: Syed Saba Kareem <syed.sabakareem@amd.com>, "Mukunda,Vijendar" <vijendar.mukunda@amd.com>, 
-	"Flove(HsinFu)" <flove@realtek.com>, 
-	"venkataprasad.potturu@amd.com" <venkataprasad.potturu@amd.com>, 
-	"linux-sound@vger.kernel.org" <linux-sound@vger.kernel.org>, Oder Chiou <oder_chiou@realtek.com>, 
-	"vkoul@kernel.org" <vkoul@kernel.org>, 
-	"yung-chuan.liao@linux.intel.com" <yung-chuan.liao@linux.intel.com>, 
-	"pierre-louis.bossart@linux.dev" <pierre-louis.bossart@linux.dev>, "broonie@kernel.org" <broonie@kernel.org>, 
-	"lgirdwood@gmail.com" <lgirdwood@gmail.com>, 
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
-	"Dommati, Sunil-kumar" <Sunil-kumar.Dommati@amd.com>, Fish690103 <fish690103@realtek.com>, 
-	=?UTF-8?B?TWlrZSBMaW4gKOael+abieiDvSk=?= <mikelin@realtek.com>
-Content-Type: multipart/mixed; boundary="0000000000001ff374065b115d23"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="hx4+qUIsDXNsQO4F"
+Content-Disposition: inline
+In-Reply-To: <20260908-shikra_ethernet-v2-9-bbe3389d0652@oss.qualcomm.com>
+X-Authority-Analysis: v=2.4 cv=YZYodARf c=1 sm=1 tr=0 ts=6aa1ab96 cx=c_pps
+ a=N1BjEkVkxJi3uNfLdpvX3g==:117 a=WpTaRW6qxYHRGzLzQsVYzg==:17
+ a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22 a=EUspDBNiAAAA:8
+ a=DFbXc3gujWXi7Ms4cGQA:9 a=CjuIK1q_8ugA:10 a=AyJwBSL0_NbV6ZD5tKsA:9
+ a=crWF4MFLhNY0qMRaF8an:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA5MDIxMSBTYWx0ZWRfX9EcrYo8rpZUs
+ R5SxeOhj5SojGJoiwMMdJAdscvN60l4K7GRYcLxjRIvGnDgC1r0y/Q7Yn5bcXGh079Oe+kRPeOq
+ L1O8TJukpZld8VoXoyVdgB6NxTvrjmo=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA5MDIxMSBTYWx0ZWRfX7/UV2jPbPfIV
+ sW8t4LUPnWgK3+wEojbXwY6bIduaUD5uEc4Ut0VQiw55fzkNRUINF1e2K4NiVyBobpiRHfo3zdU
+ /qK1FmQR3DkCkv0pcFn3oxu5YbDhwetpMEsiYBaRbmIFTRrreCk2Xz8X17Ktc70xskHfwvr65tu
+ 3tEJU65x81EdWNfTEdWO5CZfXNfJqzmsAasRb31YXO2H6C06gZB7TQQmEyB+Fm5/ZGqmCead02+
+ MC5/dBMTodxIfcPfFEsOYHlE1jw5XVoWT285je+x0rxU+smxjhk/Fh3gJrElDRJHJOLO1wjb7KQ
+ luO02H5MrCcivaP7tBCJuMJqKBTGtklR9p0bA7nuP+8gRPZvBRKaFkZz97U9d73BFmCCgNf5DTl
+ iNOABKlg8fq8l89S4Ei7n6+De5Q63dKiDYeh3SVmrvXGQq6RJka89MrLcbo9eOR1g2kDF5UMcGT
+ xKOf3DOdMtB2IfwMBqg==
+X-Proofpoint-GUID: B_gwYcYDmUEPhBVy4BsM3oW0G1t8qVJk
+X-Proofpoint-ORIG-GUID: B_gwYcYDmUEPhBVy4BsM3oW0G1t8qVJk
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-08_03,2026-09-09_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 suspectscore=0 lowpriorityscore=0 impostorscore=0 adultscore=0
+ bulkscore=0 phishscore=0 spamscore=0 clxscore=1015 priorityscore=1501
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609090211
 
---0000000000001ff374065b115d23
-Content-Type: text/plain; charset="UTF-8"
+--hx4+qUIsDXNsQO4F
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-Hi Jack,
+> Shikra integrates two Qualcomm ETHQOS controllers based on the Synopsys
+> GMAC IP, similar to previous platforms.  Register qcom,shikra-ethqos
+> backed by a new shikra_data descriptor that enables the three NOC clocks
+> required for DMA memory access (axi-noc, pcie-tile-axi-noc, stmmaceth)
+> all at 120 MHz, and the 36-bit DMA address width.
+>=20
+> As part of the NOC clock voting logic, the qcom-ethqos glue driver takes
+> a second enable reference on the "stmmaceth" clock, which is already
+> enabled by the stmmac core. All three clocks in shikra_noc_clks[] must
+> run at 120 MHz for NOC access, and managing "stmmaceth" through the same
+> clk_bulk path keeps the rate-setting and enable/disable together.
+>=20
+> Signed-off-by: Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>
+> ---
+>  .../ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c    | 31 ++++++++++++++++=
+++++++
+>  1 file changed, 31 insertions(+)
+>=20
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c b/dr=
+ivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
+> index 8871d285941162c72e2a8f79d2eef915d9283796..c474f1e5a043777a52bcbff8a=
+488640f6dbdca30 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
+> @@ -328,6 +328,36 @@ static const struct ethqos_emac_driver_data emac_v4_=
+0_0_data =3D {
+>  	},
+>  };
+> =20
+> +static const struct ethqos_noc_clk_cfg shikra_noc_clks[] =3D {
+> +	{ "axi-noc", 120000000 },
+> +	{ "pcie-tile-axi-noc", 120000000 },
+> +	{ "stmmaceth", 120000000 },
+> +};
+> +
+> +static const struct ethqos_emac_driver_data shikra_data =3D {
+> +	.dma_addr_width =3D 36,
+> +	.has_emac_ge_3 =3D true,
+> +	.noc_clk_cfg =3D shikra_noc_clks,
+> +	.num_noc_clks =3D ARRAY_SIZE(shikra_noc_clks),
+> +	.rgmii_config_loopback_en =3D false,
+> +	.dwmac4_addrs =3D {
 
-Done.
+nit: this part seems in common between emac_v3_0_0, emac_v4_0_0 and
+shikraemac_v3_0_0, emac_v3_0_0 and shikra.
+Can we add a common definition? E.g.
 
-I completely removed the "Update preset for all functions" patch and
-rebuilt the RT721 module. The test kernel now contains only:
+static const struct dwmac4_addrs qcom_emac_dwmac4_addrs {
+	...
+};
 
-ASoC: rt721-sdca: Adjust latency control to fix no-sound issue
-a20afec40ea1012659861e58374c1bcde2e18a43
+Regards,
+Lorenzo
 
-I attached the four requested register dumps:
+> +		.dma_chan =3D 0x00008100,
+> +		.dma_chan_offset =3D 0x1000,
+> +		.mtl_chan =3D 0x00008000,
+> +		.mtl_chan_offset =3D 0x1000,
+> +		.mtl_ets_ctrl =3D 0x00008010,
+> +		.mtl_ets_ctrl_offset =3D 0x1000,
+> +		.mtl_txq_weight =3D 0x00008018,
+> +		.mtl_txq_weight_offset =3D 0x1000,
+> +		.mtl_send_slp_cred =3D 0x0000801c,
+> +		.mtl_send_slp_cred_offset =3D 0x1000,
+> +		.mtl_high_cred =3D 0x00008020,
+> +		.mtl_high_cred_offset =3D 0x1000,
+> +		.mtl_low_cred =3D 0x00008024,
+> +		.mtl_low_cred_offset =3D 0x1000,
+> +	},
+> +};
+> +
+>  static int ethqos_dll_configure(struct qcom_ethqos *ethqos)
+>  {
+>  	struct device *dev =3D &ethqos->pdev->dev;
+> @@ -962,6 +992,7 @@ static const struct of_device_id qcom_ethqos_match[] =
+=3D {
+>  	{ .compatible =3D "qcom,qcs404-ethqos", .data =3D &emac_v2_3_0_data},
+>  	{ .compatible =3D "qcom,sa8775p-ethqos", .data =3D &emac_v4_0_0_data},
+>  	{ .compatible =3D "qcom,sc8280xp-ethqos", .data =3D &emac_v3_0_0_data},
+> +	{ .compatible =3D "qcom,shikra-ethqos", .data =3D &shikra_data},
+>  	{ .compatible =3D "qcom,sm8150-ethqos", .data =3D &emac_v2_1_0_data},
+>  	{ }
+>  };
+>=20
+> --=20
+> 2.34.1
+>=20
+>=20
 
-* speaker-sdw.txt
-* speaker-mbq.txt
-* headphone-sdw.txt
-* headphone-mbq.txt
+--hx4+qUIsDXNsQO4F
+Content-Type: application/pgp-signature; name=signature.asc
 
-For the speaker dumps, I used direct playback on:
+-----BEGIN PGP SIGNATURE-----
 
-hw:CARD=3Damdsoundwire,DEV=3D2
+iHUEABYKAB0WIQTquNwa3Txd3rGGn7Y6cBh0uS2trAUCaqGrkwAKCRA6cBh0uS2t
+rArrAP9R8xEG+zLWVTIluHMbwn06eRZVDw4njA5XwSEu+LwHrQEAo4TJM5euvbra
+4jutQknO4Wvvhxx1ELycGgKuzOGCTw0=
+=m+rn
+-----END PGP SIGNATURE-----
 
-For the headphone dumps, headphones were connected and playback was running=
- on:
-
-plughw:CARD=3Damdsoundwire,DEV=3D0
-
-Playback was kept running continuously until both the normal SDW and
-MBQ register dumps had completed.
-
-The two dumps for each scenario were captured immediately one after
-the other while playback was still active.
-
-Please let me know if you would like any additional register dumps or tests=
-.
-
-Thanks,
-Cristian
-
-On Wed, Sep 9, 2026 at 11:21=E2=80=AFAM Jack Yu <jack.yu@realtek.com> wrote=
-:
->
-> Hi Cristian,
->
-> Please don't use "Update preset for all functions" patch and still keep b=
-elow patch
->
-> ASoC: rt721-sdca: Adjust latency control to fix no-sound issue
-> a20afec40ea1012659861e58374c1bcde2e18a43
->
-> after above steps, please dump the registers in below path during playbac=
-k for both scenarios (speaker playback and headphone playback).
->
-> /sys/kernel/debug/regmap/<sdw addr>/registers
-> /sys/kernel/debug/regmap/<sdw MBQ-addr>/registers
->
-> Our FAE will also try to borrow devices from ASUS for further debugging.
->
-> Regards,
-> Jack
->
-> > -----Original Message-----
-> > From: Cristian Timohi <cristiantimohi@gmail.com>
-> > Sent: Wednesday, September 9, 2026 4:50 AM
-> > To: Jack Yu <jack.yu@realtek.com>
-> > Cc: Syed Saba Kareem <syed.sabakareem@amd.com>; Mukunda,Vijendar
-> > <vijendar.mukunda@amd.com>; Flove(HsinFu) <flove@realtek.com>;
-> > venkataprasad.potturu@amd.com; linux-sound@vger.kernel.org; Oder Chiou
-> > <oder_chiou@realtek.com>; vkoul@kernel.org;
-> > yung-chuan.liao@linux.intel.com; pierre-louis.bossart@linux.dev;
-> > broonie@kernel.org; lgirdwood@gmail.com; linux-kernel@vger.kernel.org;
-> > Dommati, Sunil-kumar <Sunil-kumar.Dommati@amd.com>; Fish690103
-> > <fish690103@realtek.com>; Mike Lin (=E6=9E=97=E6=9B=89=E8=83=BD) <mikel=
-in@realtek.com>
-> > Subject: Re: [BUG] ASoC/AMD ACP70/RT721: ASUS TUF Gaming A14 FA401EA
-> > speakers silent and headphone jack buzzes on playback
-> >
-> >
-> > External mail : This email originated from outside the organization. Do=
- not
-> > reply, click links, or open attachments unless you recognize the sender=
- and
-> > know the content is safe.
-> >
-> >
-> >
-> > Hi Jack, Vijendar, all,
-> >
-> > I tested both Realtek changes on the ASUS TUF Gaming A14 FA401EA (BIOS
-> > FA401EA.304).
-> >
-> > For reference, audio works correctly under the factory-installed Window=
-s 11 on
-> > this exact hardware: both the internal speakers and the
-> > 3.5 mm headphone output worked normally.
-> >
-> > Test kernel:
-> >
-> > current torvalds/linux master
-> > HEAD before the test: 5acbae5f7
-> > a20afec40ea1 cherry-picked
-> > local kernel: 7.3.0-rc2-fa401ea-rt721+
-> > Speaker fix: a20afec40ea1
-> > =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> >
-> > I first tested only:
-> >
-> > ASoC: rt721-sdca: Adjust latency control to fix no-sound issue
-> > a20afec40ea1012659861e58374c1bcde2e18a43
-> >
-> > Unfortunately, the internal speakers remain completely silent.
-> >
-> > Direct ALSA playback on the SmartAmp PCM opens and runs normally:
-> >
-> > speaker-test
-> > -D hw=3Damdsoundwire,DEV=3D2
-> > -c 2 -r 48000 -F S16_LE -t wav
-> >
-> > There are no relevant RT721/SoundWire errors during playback, but there=
- is no
-> > physical speaker output.
-> >
-> > So a20afec40ea1 alone does not fix the speaker issue on this FA401EA un=
-it.
-> >
-> > "Update preset for all functions" patch
-> > =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> >
-> > I then applied Jack's:
-> >
-> > 0001-ASoC-rt721-sdca-Update-preset-for-all-functions.patch
-> >
-> > The patch applies cleanly on top of the above kernel.
-> >
-> > With the patch unmodified, however, both playback paths fail to open wi=
-th
-> > -ENODATA.
-> >
-> > The RT721 remains attached:
-> >
-> > sdw:0:1:025d:0721:01: Attached
-> >
-> > but dmesg reports:
-> >
-> > rt721-sdca sdw:0:1:025d:0721:01: Defer on undeferrable control: 5810100
-> > rt721-sdca sdw:0:1:025d:0721:01: Defer on undeferrable control: 5810100
-> > rt721-sdca sdw:0:1:025d:0721:01: ASoC error (-61): at
-> > snd_soc_pcm_component_pm_runtime_get() on sdw:0:1:025d:0721:01
-> > SDW1-PIN1-PLAYBACK-SmartAmp: ASoC error (-61): at __soc_pcm_open() on
-> > SDW1-PIN1-PLAYBACK-SmartAmp
-> >
-> > The same runtime PM error also occurs for the SimpleJack playback path.
-> >
-> > I traced this to the new write in rt721_sdca_jack_preset():
-> >
-> > regmap_write(rt721->mbq_regmap, 0x5810100, 0x8021);
-> >
-> > Experimental 0x5810100 -> 0x5810000 test
-> > =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> >
-> > As a local experiment only, I changed that single write from:
-> >
-> > regmap_write(rt721->mbq_regmap, 0x5810100, 0x8021);
-> >
-> > to:
-> >
-> > regmap_write(rt721->mbq_regmap, 0x5810000, 0x8021);
-> >
-> > This restores normal PCM opening. The -61 / "Defer on undeferrable
-> > control: 5810100" messages disappear completely.
-> >
-> > With this experimental change and the rest of the preset patch unchange=
-d:
-> >
-> > Internal speakers:
-> >
-> > PCM opens and streams normally
-> > still completely silent
-> >
-> > 3.5 mm headphones:
-> >
-> > PCM opens and streams normally
-> > no intelligible audio is produced
-> > importantly, the previous buzzing noise is now gone
-> >
-> > I also repeated the zero-PCM test:
-> >
-> > timeout 10s bash -c '
-> > dd if=3D/dev/zero bs=3D192000 2>/dev/null |
-> > aplay -D hw=3Damdsoundwire,DEV=3D0
-> > -t raw -f S16_LE -r 48000 -c 2
-> > '
-> >
-> > Previously this caused continuous buzzing while the playback path was a=
-ctive.
-> >
-> > With the new preset patch plus the experimental 0x5810100 -> 0x5810000
-> > change, the headphone output is completely silent during zero-PCM
-> > playback: no buzz, but also no audio during normal playback.
-> >
-> > Summary
-> >
-> > a20afec40ea1 only:
-> >
-> > speakers: silent
-> > headphone behavior unchanged
-> >
-> > a20afec40ea1 + preset patch as provided:
-> >
-> > RT721 stays Attached
-> > playback cannot open
-> > 0x5810100 causes -ENODATA / runtime PM failure
-> >
-> > a20afec40ea1 + preset patch + experimental 0x5810100 -> 0x5810000:
-> >
-> > PCM playback works again
-> > speakers remain silent
-> > headphones remain silent
-> > previous headphone buzz is eliminated
-> > no relevant RT721/SoundWire errors in dmesg
-> >
-> > It therefore looks like the new preset does affect the analog headphone=
- state
-> > on this hardware, since it removes the buzzing, but the codec still doe=
-s not
-> > produce actual audio.
-> >
-> > Please let me know if you would like me to test different register valu=
-es or
-> > provide register/debug dumps from this state.
-> >
-> > Bugzilla:
-> > https://bugzilla.kernel.org/show_bug.cgi?id=3D221958
-> >
-> > Thanks,
-> > Cristian
-> >
-> > On Fri, Sep 4, 2026 at 9:01=E2=80=AFAM Jack Yu <jack.yu@realtek.com> wr=
-ote:
-> > >
-> > > Loop more
-> > >
-> > > Hi Mukunda,
-> > >
-> > > Regarding to speakers silent issue, a patch has been merged as below
-> > >
-> > > [1/1] ASoC: rt721-sdca: Adjust latency control to fix no-sound issue
-> > >       https://git.kernel.org/broonie/sound/c/a20afec40ea1
-> > >
-> > > and for headphone buzzes issue on playback, could you merge the attac=
-hed
-> > patch and check if buzzes issue can be fixed?
-> > >
-> > > Regards,
-> > > Jack
-> > >
-> > > > -----Original Message-----
-> > > > From: Syed Saba Kareem <syed.sabakareem@amd.com>
-> > > > Sent: Thursday, September 3, 2026 4:41 PM
-> > > > To: Mukunda,Vijendar <vijendar.mukunda@amd.com>; Cristian Timohi
-> > > > <cristiantimohi@gmail.com>; Jack Yu <jack.yu@realtek.com>;
-> > > > Flove(HsinFu) <flove@realtek.com>
-> > > > Cc: venkataprasad.potturu@amd.com; linux-sound@vger.kernel.org; Ode=
-r
-> > > > Chiou <oder_chiou@realtek.com>; vkoul@kernel.org;
-> > > > yung-chuan.liao@linux.intel.com; pierre-louis.bossart@linux.dev;
-> > > > broonie@kernel.org; lgirdwood@gmail.com;
-> > > > linux-kernel@vger.kernel.org; Dommati, Sunil-kumar
-> > > > <Sunil-kumar.Dommati@amd.com>
-> > > > Subject: Re: [BUG] ASoC/AMD ACP70/RT721: ASUS TUF Gaming A14
-> > FA401EA
-> > > > speakers silent and headphone jack buzzes on playback
-> > > >
-> > > >
-> > > > External mail : This email originated from outside the organization=
-.
-> > > > Do not reply, click links, or open attachments unless you recognize
-> > > > the sender and know the content is safe.
-> > > >
-> > > >
-> > > >
-> > > > On 9/3/26 11:11, Mukunda,Vijendar wrote:
-> > > > >
-> > > > >
-> > > > > On 9/2/26 22:13, Cristian Timohi wrote:
-> > > > >> [You don't often get email from cristiantimohi@gmail.com. Learn
-> > > > >> why this is important at
-> > > > >> https://aka.ms/LearnAboutSenderIdentification ]
-> > > > >>
-> > > > >> ****
-> > > > >> Resending as plain text, as the previous message was rejected by
-> > > > >> the vger.kernel.org mailing list due to an HTML MIME part.
-> > > > >> Apologies to recipients who received the previous copy directly.
-> > > > >> ***
-> > > > >>
-> > > > >> Hello,
-> > > > >>
-> > > > >> I'm reporting an audio issue on an ASUS TUF Gaming A14 FA401EA
-> > > > >> (Ryzen AI MAX+ 392) using AMD ACP70 SoundWire and a Realtek RT72=
-1
-> > > > >> SDCA codec.
-> > > > >>
-> > > > >> I have reproduced the issue on a clean current vanilla 7.3-rc1
-> > > > >> kernel, so this does not appear to be Fedora-, PipeWire-, or
-> > > > >> desktop-specific.
-> > > > >>
-> > > > >> Current clean test environment
-> > > > >> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> > > > >>
-> > > > >> Distribution:
-> > > > >>      Fedora 45
-> > > > >>
-> > > > >> Kernel:
-> > > > >>      7.3.0-0.rc1.260901.786262be.417.vanilla.fc45.x86_64
-> > > > >>
-> > > > >> snd_acp_sdw_legacy_mach quirk:
-> > > > >>      -1
-> > > > >>
-> > > > >> There are no remaining custom snd_acp_sdw_legacy_mach/modprobe
-> > > > >> overrides in the current reproduction environment.
-> > > > >>
-> > > > >> Hardware
-> > > > >> =3D=3D=3D=3D=3D=3D=3D=3D
-> > > > >>
-> > > > >> Laptop:
-> > > > >>      ASUS TUF Gaming A14 FA401EA
-> > > > >>
-> > > > >> DMI product:
-> > > > >>      TUF Gaming A14 FA401EA
-> > > > >>
-> > > > >> DMI board:
-> > > > >>      FA401EA
-> > > > >>
-> > > > >> BIOS:
-> > > > >>      FA401EA.304
-> > > > >>
-> > > > >> CPU/APU:
-> > > > >>      AMD Ryzen AI MAX+ 392
-> > > > >>
-> > > > >> Audio:
-> > > > >>      AMD ACP70 SoundWire
-> > > > >>      Realtek RT721 SDCA
-> > > > >>
-> > > > >> The SoundWire bus exposes one peripheral:
-> > > > >>
-> > > > >>      sdw:0:1:025d:0721:01: Attached
-> > > > >>
-> > > > >> I do not see TAS2783 devices enumerated on this unit.
-> > > > >>
-> > > > >> Known-good cases
-> > > > >> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> > > > >>
-> > > > >> The laptop's built-in speakers worked correctly under the
-> > > > >> factory-installed Windows 11.
-> > > > >>
-> > > > >> USB audio also works correctly under Linux. I tested Corsair
-> > > > >> Virtuoso USB headphones and normal audio playback works.
-> > > > >>
-> > > > >> Therefore the issue appears specific to the internal AMD ACP70 -=
->
-> > > > >> SoundWire -> RT721 audio path.
-> > > > >>
-> > > > >> Actual behavior
-> > > > >> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> > > > >>
-> > > > >> Internal speakers:
-> > > > >>      Completely silent.
-> > > > >>
-> > > > >> 3.5 mm headphone jack:
-> > > > >>      No intelligible audio is produced.
-> > > > >>      When the analog audio path becomes active, the headphones
-> > > > produce
-> > > > >>      a continuous buzzing noise. The buzz stops when the
-> > playback/path
-> > > > >>      is deactivated.
-> > > > >>
-> > > > >> Opening the desktop sound control panel can also trigger the
-> > > > >> buzzing while the analog audio path is active.
-> > > > >>
-> > > > >> ALSA playback devices
-> > > > >> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> > > > >>
-> > > > >> The amd-soundwire card exposes:
-> > > > >>
-> > > > >>      device 0:
-> > > > >>      SDW1-PIN0-PLAYBACK-SimpleJack rt721-sdca-aif1-0
-> > > > >>
-> > > > >>      device 2:
-> > > > >>      SDW1-PIN1-PLAYBACK-SmartAmp rt721-sdca-aif2-2
-> > > > >>
-> > > > >> Direct ALSA reproduction
-> > > > >> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D
-> > > > >>
-> > > > >> Internal speakers:
-> > > > >>
-> > > > >>      speaker-test -D hw:CARD=3Damdsoundwire,DEV=3D2 \
-> > > > >>          -c 2 -r 48000 -F S16_LE -t wav
-> > > > >>
-> > > > >> The PCM stream starts normally without an ALSA error, but there
-> > > > >> is no physical speaker output.
-> > > > >>
-> > > > >> Analog headphones:
-> > > > >>
-> > > > >>      aplay -D plughw:CARD=3Damdsoundwire,DEV=3D0 \
-> > > > >>          /usr/share/sounds/alsa/Front_Left.wav
-> > > > >>
-> > > > >> No speech is heard. The headphone output only buzzes while the
-> > > > >> audio path is active.
-> > > > >>
-> > > > >> Zero-PCM test
-> > > > >> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> > > > >>
-> > > > >> I also sent only zero-valued PCM samples:
-> > > > >>
-> > > > >>      timeout 10s bash -c '
-> > > > >>      dd if=3D/dev/zero bs=3D192000 2>/dev/null |
-> > > > >>      aplay -D hw:CARD=3Damdsoundwire,DEV=3D0 \
-> > > > >>            -t raw -f S16_LE -r 48000 -c 2
-> > > > >>      '
-> > > > >>
-> > > > >> The headphone jack still buzzes while the zero-PCM stream is act=
-ive.
-> > > > >>
-> > > > >> Therefore the buzz does not appear to represent corrupted
-> > > > >> application audio; merely activating playback is sufficient to p=
-roduce it.
-> > > > >>
-> > > > >> Mixer / UCM
-> > > > >> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> > > > >>
-> > > > >> Speaker:
-> > > > >>
-> > > > >>      Speaker Switch =3D on
-> > > > >>      rt721 FU06 Playback Volume =3D 87,87
-> > > > >>
-> > > > >> Headphones:
-> > > > >>
-> > > > >>      Headphone Switch =3D on
-> > > > >>      rt721 FU05 Playback Volume =3D 87,87
-> > > > >>
-> > > > >> I also explicitly enabled the corresponding Speaker and
-> > > > >> Headphones UCM devices. This did not change the result.
-> > > > >>
-> > > > >> ASoC DAPM during speaker playback
-> > > > >> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> > > > >>
-> > > > >> I inspected debugfs while speaker-test on the SmartAmp PCM was
-> > > > >> actively running.
-> > > > >>
-> > > > >> All relevant widgets were ON:
-> > > > >>
-> > > > >>      Speaker: On
-> > > > >>      rt721 DP3 Speaker Playback: On
-> > > > >>          stream DP3 Speaker Playback active
-> > > > >>      rt721 DP3RX: On
-> > > > >>      rt721 FU 21: On
-> > > > >>      rt721 FU 23: On
-> > > > >>      rt721 PDE 41: On
-> > > > >>      rt721 SPK: On
-> > > > >>
-> > > > >> The DAPM graph therefore appears to activate the entire expected
-> > > > >> speaker path:
-> > > > >>
-> > > > >>      DP3 Speaker Playback
-> > > > >>        -> DP3RX
-> > > > >>        -> FU 21 / FU 23
-> > > > >>        -> SPK
-> > > > >>        -> Speaker
-> > > > >>
-> > > > >> but the physical speakers remain silent.
-> > > > >>
-> > > > >> Kernel messages
-> > > > >> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> > > > >>
-> > > > >> RT721 attaches successfully.
-> > > > >>
-> > > > >> I see:
-> > > > >>
-> > > > >>      rt721-sdca sdw:0:1:025d:0721:01:
-> > > > >>      Driver needs fixing: Unsorted reg_defaults, sorting the cop=
-y
-> > > > >>
-> > > > >> On an earlier 7.2.x boot I also observed:
-> > > > >>
-> > > > >>      soundwire sdw:0:1:025d:0721:01:
-> > > > >>      PARITY error detected before INT mask is enabled
-> > > > >>
-> > > > >> I did not observe additional SoundWire/RT721 errors when startin=
-g
-> > > > >> or stopping playback.
-> > > > >>
-> > > > >> Kernels tested
-> > > > >> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> > > > >>
-> > > > >> The same issue was reproduced on:
-> > > > >>
-> > > > >>      Fedora 44:
-> > > > >>      7.2.2-300.fc44.x86_64
-> > > > >>
-> > > > >>      Fedora 45:
-> > > > >>      7.2.2-300.fc45.x86_64
-> > > > >>
-> > > > >>      Vanilla mainline:
-> > > > >>      7.3.0-0.rc1.260901.786262be.417.vanilla.fc45.x86_64
-> > > > >>
-> > > > >>      CachyOS kernel:
-> > > > >>      7.2.2-cachyos1.fc45.x86_64
-> > > > >>
-> > > > >> The current reproduction is on the clean vanilla 7.3-rc1 kernel.
-> > > > >>
-> > > > >> Previous experiments
-> > > > >> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> > > > >>
-> > > > >> Before testing clean mainline, I also built a Fedora 7.2.2 kerne=
-l
-> > > > >> locally and experimentally changed the RT721 speaker endpoint in=
-:
-> > > > >>
-> > > > >>      sound/soc/amd/acp/amd-acp70-acpi-match.c
-> > > > >>
-> > > > >> from:
-> > > > >>
-> > > > >>      .aggregated =3D 0
-> > > > >>      .group_id =3D 0
-> > > > >>
-> > > > >> to:
-> > > > >>
-> > > > >>      .aggregated =3D 1
-> > > > >>      .group_id =3D 1
-> > > > >>
-> > > > >> This did not change the behavior.
-> > > > >>
-> > > > >> I also tested that custom kernel with:
-> > > > >>
-> > > > >>      options snd_acp_sdw_legacy_mach quirk=3D32768
-> > > > >>
-> > > > >> The kernel reported:
-> > > > >>
-> > > > >>      amd_sdw amd_sdw: Overriding quirk 0x1 =3D> 0x8000
-> > > > >>
-> > > > >> but there was still no speaker output.
-> > > > >>
-> > > > >> Those experimental overrides have been removed. The current
-> > > > >> vanilla
-> > > > >> 7.3-rc1 reproduction uses quirk=3D-1 and no custom modprobe opti=
-ons.
-> > > > >>
-> > > > >> Question
-> > > > >> =3D=3D=3D=3D=3D=3D=3D=3D
-> > > > >>
-> > > > >> Could this FA401EA variant require a different RT721-only
-> > > > >> topology,
-> > > > >> ACP70 configuration, SoundWire setup, or codec initialization qu=
-irk?
-> > > > >>
-> > > > >> The fact that all-zero PCM causes the analog headphone output to
-> > > > >> buzz while the stream is active may be particularly relevant.
-> > > > >>
-> > > > >> I'm happy to test patches or provide register/debug output.
-> > > > >>
-> > > > >> I can also provide full alsa-info, kernel journal, lspci output,
-> > > > >> SoundWire sysfs state, mixer state, and DAPM debugfs output.
-> > > > >
-> > > > > Could you please log a Bugzilla ticket adding ACPI dump, dmi
-> > > > > information and along with alsa info output?
-> > > > ++RTK Team
-> > > >
-> > > > Similar kind of issue reported in another mail thread, realtek is w=
-orking on
-> > it.
-> > > >
-> > > > @jack could you please comment on it.
-> > > >
-> > > > >>
-> > > > >> Thank you.
-> > > > >> Cristian
-> > > > >
-
---0000000000001ff374065b115d23
-Content-Type: application/zip; name="rt721-regdump.zip"
-Content-Disposition: attachment; filename="rt721-regdump.zip"
-Content-Transfer-Encoding: base64
-Content-ID: <f_mtugh6ks0>
-X-Attachment-Id: f_mtugh6ks0
-
-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
---0000000000001ff374065b115d23--
+--hx4+qUIsDXNsQO4F--
