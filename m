@@ -1,98 +1,125 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
+Received: from mail-m155115.qiye.163.com (mail-m155115.qiye.163.com [101.71.155.115])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E1D013D53C
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 02:11:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9077C1D4606;
+	Wed,  9 Sep 2026 02:12:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.71.155.115
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788919884; cv=none; b=Di9MT67ETiy/4fgMEgOT6f7jSz3OSVmZI24888It9Wd7YkRARvIgT/VDWWW1Zw34OK7zVrmyHN5pF62pO/ftz+gNKWpV9QjqScEsYmYdBivhd8KwZ0mscWkuqj/k/B+hj+XpgxRB9ofyQFyxjUHygL4VgusIrMI9dsVAh5Tbsvk=
+	t=1788919954; cv=none; b=FajIq414nHd1LMCrvl6DOb2YLZ1h5yWYBgZmvp1EVfhKguHmoA0HUs6D7xT8Ag9oDH3Hg8/3uKzBF6Tw3YtJpGYGd47MmJcyFMJLX6HqWQ0XkrXdalqOZrRQL6y64ANgdtCFuGkOR2A6Nmm//M6coV/LvDzGRBwwW1QW06ZSM/w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788919884; c=relaxed/simple;
-	bh=a8cakg1yeDkjHbYo8Ktv25Z8VV1M1tAeE0U7JKEAwQg=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=aqnqxj/Wl1urr0HDZlfvOT0iDugiKeFitirseQPT7F5P6sDlhqsN6KFj9bIK4PuyPxuPGsaoiPe7gHOY+jOgXgch8VHQjngFrWf8iJCWs+r3RlgWKV+G4YwVUOVT7coXbGZSFPSg1OKos1U3Kb2XhrvE+vO16WfLAREFsQJcYiQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=GUtjE5gk; arc=none smtp.client-ip=117.135.210.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1788919954; c=relaxed/simple;
+	bh=s4Er3CcgxMh8NZ3RtDzUBec2wo9/lN8HlEU7UoDE2LE=;
+	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=oO60bKQmobasYy/5pmSMtfob7ZY+3dmwlTi3CgqH3W1O332pboSIWxjaeZ36iHnDOQIuv+IaZzzpfheITAIx+SM1g39izsMitCRO+TRpz05F0YFSylpL97sIyvedisBwiocMQViiyNhIiqYaHKTn/tG6YoTnn7HTT8iu/za2qjg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=M85xuT2J; arc=none smtp.client-ip=101.71.155.115
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="GUtjE5gk"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=Os
-	29JjWfkxr7t/VcAOmRQsXtZJrkASAMJNjIK8EpuJI=; b=GUtjE5gkFGe+ASI6Or
-	ZyeKaf5jYmAtIgYwteCz/mcJKcXKpu1qs625tp6Wz6ScS1TCjdb941ldz1HjyQvg
-	0tZdlUrxM0J0KcjWjkAJqtMUf3KUlxlh10IEcLPUeUBV7vZB+oE1xGKqbxV4g0wa
-	0iLqGiOZgBbEEDamZ4SFVX6Zk=
-Received: from localhost.localdomain (unknown [])
-	by gzga-smtp-mtada-g0-1 (Coremail) with SMTP id _____wDXLCAHwKBqR+oJBg--.30561S2;
-	Wed, 09 Sep 2026 10:10:15 +0800 (CST)
-From: oushixiong1025@163.com
-To: Louis Chauvet <louis.chauvet@bootlin.com>
-Cc: Haneen Mohammed <hamohammed.sa@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Melissa Wen <melissa.srw@gmail.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>,
-	Leandro Ribeiro <leandro.ribeiro@collabora.com>,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	Shixiong Ou <oushixiong@kylinos.cn>
-Subject: [PATCH] drm/vkms: Fix vertical read step for R1/R2/R4 formats
-Date: Wed,  9 Sep 2026 10:10:14 +0800
-Message-Id: <20260909021014.105512-1-oushixiong1025@163.com>
-X-Mailer: git-send-email 2.25.1
+	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="M85xuT2J"
+Received: from [172.16.12.48] (unknown [58.22.7.114])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 4d0922f42;
+	Wed, 9 Sep 2026 08:56:45 +0800 (GMT+08:00)
+Message-ID: <f26552c9-0950-4206-8d39-b615e3737651@rock-chips.com>
+Date: Wed, 9 Sep 2026 08:56:44 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Cc: shawn.lin@rock-chips.com, Alexey Charkov <alchark@flipper.net>,
+ linux-pci@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org,
+ kernel@collabora.com
+Subject: Re: [PATCH v6 04/10] PCI: dw-rockchip: Add helper function for
+ enhanced LTSSM control mode
+To: Sebastian Reichel <sebastian.reichel@collabora.com>,
+ Lorenzo Pieralisi <lpieralisi@kernel.org>,
+ =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+ Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
+ Bjorn Helgaas <bhelgaas@google.com>, Heiko Stuebner <heiko@sntech.de>,
+ Philipp Zabel <p.zabel@pengutronix.de>, Jingoo Han <jingoohan1@gmail.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ "Yury Norov (NVIDIA)" <yury.norov@gmail.com>,
+ Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+References: <20260908-rockchip-pcie-system-suspend-v6-0-fbabcca9921b@collabora.com>
+ <20260908-rockchip-pcie-system-suspend-v6-4-fbabcca9921b@collabora.com>
+From: Shawn Lin <shawn.lin@rock-chips.com>
+In-Reply-To: <20260908-rockchip-pcie-system-suspend-v6-4-fbabcca9921b@collabora.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wDXLCAHwKBqR+oJBg--.30561S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7WFy5Cw45KFy8uF1rWw1UAwb_yoW8Ww4rpF
-	43Gryvqr4rtr4Fv3WIyay8Cry3uwsxWFW5trW7G34Ygr1F9ryUur95Kr9IkFWkKFn7CrnF
-	qFs8Jr98Z3WUGrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jnzVbUUUUU=
-X-CM-SenderInfo: xrxvxxx0lr0wirqskqqrwthudrp/xtbC4Qj0BGqgwAijVwAA3v
+X-HM-Tid: 0aa083aad1c203a4kunm88587246440179
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFDSUNOT01LS0k3V1kYFggdWUFKV1ktWUFJV1kPCRoVCBIfWUFZGkhJGlYfHh4aTk9KHR
+	pJQk1WFRQJFhoXVRMBExYaEhckFA4PWVdZGBILWUFZTkNVSUlVTFVKSk9ZV1kWGg8SFR0UWUFZT0
+	tIVUpLSU9PT0hVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=M85xuT2JXX3DURsJ++iD9e9zee9YmU6/UQ/FVBMxz6V/w1u5rksNrh9mykBTETEjSIMOoPHrMaRbvXqsDmjzKzaYQeIXyCT9Nv/6OvTBPVkWib9HHNbW/eRMhpG//5nsZt2obyb/gGPfRX8AFyEG4JdqlOqZIV+QCTDB/TdGEBc=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
+	bh=7MYZRtAVw85vCznj5/QFIWvq8+/sZ52tn4n6V859Sc4=;
+	h=date:mime-version:subject:message-id:from;
 
-From: Shixiong Ou <oushixiong@kylinos.cn>
+在 2026/09/08 星期二 22:51, Sebastian Reichel 写道:
+> Remove code duplication and improve readability by introducing a new
+> function to setup the enhanced LTSSM mode.
+> 
 
-get_block_step_bytes() returns pitches * block_w as the vertical step for
-READ_TOP_TO_BOTTOM and READ_BOTTOM_TO_TOP, but consecutive rows are
-pitches * block_h bytes apart (block_h is 1 for R1/R2/R4). Vertical reads
-therefore sample every block_w-th row instead of every row, and walk past
-the end of the framebuffer, when 90/270-rotating or reflecting R1/R2/R4
-planes. Use the block height instead, matching packed_pixels_offset().
+Reviewed-by: Shawn Lin <shawn.lin@rock-chips.com>
 
-Signed-off-by: Shixiong Ou <oushixiong@kylinos.cn>
----
- drivers/gpu/drm/vkms/vkms_formats.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/gpu/drm/vkms/vkms_formats.c b/drivers/gpu/drm/vkms/vkms_formats.c
-index dfb8e13cba87..1e3a6af9cea5 100644
---- a/drivers/gpu/drm/vkms/vkms_formats.c
-+++ b/drivers/gpu/drm/vkms/vkms_formats.c
-@@ -103,11 +103,11 @@ static int get_block_step_bytes(struct drm_framebuffer *fb, enum pixel_read_dire
- 	case READ_RIGHT_TO_LEFT:
- 		return -fb->format->char_per_block[plane_index];
- 	case READ_TOP_TO_BOTTOM:
--		return (int)fb->pitches[plane_index] * drm_format_info_block_width(fb->format,
--										   plane_index);
--	case READ_BOTTOM_TO_TOP:
--		return -(int)fb->pitches[plane_index] * drm_format_info_block_width(fb->format,
-+		return (int)fb->pitches[plane_index] * drm_format_info_block_height(fb->format,
- 										    plane_index);
-+	case READ_BOTTOM_TO_TOP:
-+		return -(int)fb->pitches[plane_index] * drm_format_info_block_height(fb->format,
-+										     plane_index);
- 	}
- 
- 	return 0;
--- 
-2.25.1
-
-
-No virus found
-		Checked by Hillstone Network AntiVirus
+> Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+> ---
+>   drivers/pci/controller/dwc/pcie-dw-rockchip.c | 24 ++++++++++++++----------
+>   1 file changed, 14 insertions(+), 10 deletions(-)
+> 
+> diff --git a/drivers/pci/controller/dwc/pcie-dw-rockchip.c b/drivers/pci/controller/dwc/pcie-dw-rockchip.c
+> index 7472ec78b473..6f84b07406d4 100644
+> --- a/drivers/pci/controller/dwc/pcie-dw-rockchip.c
+> +++ b/drivers/pci/controller/dwc/pcie-dw-rockchip.c
+> @@ -696,6 +696,18 @@ static irqreturn_t rockchip_pcie_ep_sys_irq_thread(int irq, void *arg)
+>   	return IRQ_HANDLED;
+>   }
+>   
+> +static void rockchip_pcie_enable_enhanced_ltssm_control_mode(struct rockchip_pcie *rockchip,
+> +							     u32 flags)
+> +{
+> +	u32 val;
+> +
+> +	/* Enable the enhanced control mode of signal app_ltssm_enable */
+> +	val = FIELD_PREP_WM16(PCIE_LTSSM_ENABLE_ENHANCE, 1);
+> +	if (flags)
+> +		val |= FIELD_PREP_WM16(flags, 1);
+> +	rockchip_pcie_writel_apb(rockchip, val, PCIE_CLIENT_HOT_RESET_CTRL);
+> +}
+> +
+>   static int rockchip_pcie_configure_rc(struct platform_device *pdev,
+>   				      struct rockchip_pcie *rockchip)
+>   {
+> @@ -719,9 +731,7 @@ static int rockchip_pcie_configure_rc(struct platform_device *pdev,
+>   		return ret;
+>   	}
+>   
+> -	/* LTSSM enable control mode */
+> -	val = FIELD_PREP_WM16(PCIE_LTSSM_ENABLE_ENHANCE, 1);
+> -	rockchip_pcie_writel_apb(rockchip, val, PCIE_CLIENT_HOT_RESET_CTRL);
+> +	rockchip_pcie_enable_enhanced_ltssm_control_mode(rockchip, 0);
+>   
+>   	rockchip_pcie_writel_apb(rockchip,
+>   				 PCIE_CLIENT_SET_MODE(PCIE_CLIENT_MODE_RC),
+> @@ -765,13 +775,7 @@ static int rockchip_pcie_configure_ep(struct platform_device *pdev,
+>   		return ret;
+>   	}
+>   
+> -	/*
+> -	 * LTSSM enable control mode, and automatically delay link training on
+> -	 * hot reset/link-down reset.
+> -	 */
+> -	val = FIELD_PREP_WM16(PCIE_LTSSM_ENABLE_ENHANCE, 1) |
+> -	      FIELD_PREP_WM16(PCIE_LTSSM_APP_DLY2_EN, 1);
+> -	rockchip_pcie_writel_apb(rockchip, val, PCIE_CLIENT_HOT_RESET_CTRL);
+> +	rockchip_pcie_enable_enhanced_ltssm_control_mode(rockchip, PCIE_LTSSM_APP_DLY2_EN);
+>   
+>   	rockchip_pcie_writel_apb(rockchip,
+>   				 PCIE_CLIENT_SET_MODE(PCIE_CLIENT_MODE_EP),
+> 
 
