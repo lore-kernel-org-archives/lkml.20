@@ -1,132 +1,93 @@
-Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 011DE4766BF;
-	Wed,  9 Sep 2026 08:11:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.92.199
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 334CE38CFE1;
+	Wed,  9 Sep 2026 08:12:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788941483; cv=none; b=NP/PN5sGf/+8N2hi0bcxWZIjLLZ44rKK7a3EJERhVFnnK3rehwbYdMq5AqEBgLbOc+ZnYFD7UMXJ3u0Elzt3/TmsxE/vrh05Xju+8BctBrcNSh8uzohbdzZos+lf1/notkJXMkbbEQptyuJpj266xsSaSEZStJc1r/QeuoU4xqM=
+	t=1788941525; cv=none; b=W/GEO8A3u82gErWauMQnCMFb8gEFsSH3L9iC0O7PIqihV7aW0pi/mgs2xvrcyoEKNej4cKv1RiBm7yKlJuJYIKMCb/fZX+vFx0Y/iWXY1riyxpt4wbT/nRvejKB9JcESChiJywtAUt7yUYKoTnDW/mlSMnCvF/Z2mrdNwEw8KEo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788941483; c=relaxed/simple;
-	bh=YF6FUyNL8hVQ+dIR8Zrr5vQjbpWebhdEiRG7jyN1SSc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=L5GncbdPH30AltOk8HRDvd7CmMzE8Ca9X6vOCVQV6psjbhIP0yL1hF1WtgHEQRrhtVKXDYUuFHQkpwpNlSFijszhWS6qIIY3FEf1iVMSu7bA1JLLS/ZXGmrvNT7RP511NW22rC7D7YEASglRYtFr11KGrScBLU2qLutoVjnp77w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=kQhywArT; arc=none smtp.client-ip=90.155.92.199
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	s=arc-20240116; t=1788941525; c=relaxed/simple;
+	bh=GaY6f8fhEOXebtecp+sLG5gXB/EVaGxFcy+c3bl2LB0=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=ogEIRfu9UHtViBHWuudhAAf2qgxj7OOx8hxvaKCi7oxe/K5mYbbWKzKouz0oi3EmlvfXBmQ+RQxTgaReryZwMUbYTUuL8ocJq1K9Vmw3XU6EAZj/mjJqtkkeeBKbgipwUwELLJFjR0ebauwNWn1Y6L/15LJDQK7iOBsBWKP5os8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=T1Vei0Zc; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="kQhywArT"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Transfer-Encoding:
-	Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:
-	Sender:Reply-To:Content-ID:Content-Description;
-	bh=eHB0Nf1xfgtREpHnA9gnjy2hVoSWAV9y7zVXfbdUlQc=; b=kQhywArTNsTHVDFQQTi8u05Ckj
-	8dQXL929MmJce4OG/G9A+LiNgrF2Ix92v81HpGpARRoHuNifKJkMp88Pg/0nHk33m3jSWGhDPH4Q5
-	rw3OEV2/LAB112uzEXUXBlg+FAK3+eno49EY1eFthAThzTnfV9a53gqsM8tFo2O5C8wgJSu+zYOgv
-	Myz4EeLCn+WONbdcEG7nW0vgSt4mIDadfQBl6pvqF+pMpKFMqBA5GyQGxHUvMZfDI7S7spHCt0sEN
-	WH7HJWyDwF/SL9D7SQ7VGPcX31fPKXMaORizCA+Xq7PdsUc4ejiqULRcBOLRX73KnTJVS9EBAOv3e
-	adyVdObQ==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by desiato.infradead.org with esmtpsa (Exim 4.99.2 #2 (Red Hat Linux))
-	id 1x4DOZ-00000000tIe-2xhe;
-	Wed, 09 Sep 2026 08:11:03 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id C40CD30036F; Wed, 09 Sep 2026 10:11:01 +0200 (CEST)
-Date: Wed, 9 Sep 2026 10:11:01 +0200
-From: Peter Zijlstra <peterz@infradead.org>
-To: Ian Rogers <irogers@google.com>
-Cc: Andi Kleen <ak@linux.intel.com>,
-	"Mi, Dapeng" <dapeng1.mi@linux.intel.com>,
-	Ingo Molnar <mingo@redhat.com>,
-	Arnaldo Carvalho de Melo <acme@kernel.org>,
-	Namhyung Kim <namhyung@kernel.org>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Eranian Stephane <eranian@google.com>, linux-kernel@vger.kernel.org,
-	linux-perf-users@vger.kernel.org, Dapeng Mi <dapeng1.mi@intel.com>,
-	Zide Chen <zide.chen@intel.com>,
-	Falcon Thomas <thomas.falcon@intel.com>,
-	Xudong Hao <xudong.hao@intel.com>,
-	Gennady Kupava <gennady.kupava@gmail.com>,
-	Ravi Bangoria <ravi.bangoria@amd.com>
-Subject: Re: [PATCH 2/2] perf/x86: Disable precise sampling for
- PERF_SAMPLE_STACK_USER
-Message-ID: <20260909081101.GS4121339@noisy.programming.kicks-ass.net>
-References: <20260908075102.540715-1-dapeng1.mi@linux.intel.com>
- <20260908075102.540715-2-dapeng1.mi@linux.intel.com>
- <20260908084906.GO4121339@noisy.programming.kicks-ass.net>
- <1691a05c-49a6-4b16-8bad-cb3c004ed07c@linux.intel.com>
- <20260908101914.GQ4121339@noisy.programming.kicks-ass.net>
- <aqAlddsFPYJvRhFr@tassilo>
- <CAP-5=fWbSNYpt8p3e+pqjY+xhqs8WrzsBfPaKB1NLBm88mH8Yg@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="T1Vei0Zc"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id CA5AAC2BCFC;
+	Wed,  9 Sep 2026 08:12:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1788941524;
+	bh=GaY6f8fhEOXebtecp+sLG5gXB/EVaGxFcy+c3bl2LB0=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=T1Vei0ZcZr0GRHMAX8SpopiHwa7ViqI1F+bu3D1v5Ocnd6lh40XZsM9rS+fzHvLb5
+	 D5fcf/IqUh2babwqiukvvnCHtzkuY2l2mdE88Jn0mbmnm7uGPjE9OJE/u2jP/pFZis
+	 seR91NwFEFJFB+OXWowkfqysmpVpvbadMhkzb1qIXRVJEZQGA4tgS+jO7cq8RTKK0v
+	 vcWW9IvPwC0lxEAKyOEGm0mDjI9plFe75oJNa55gesomDKT9GqshITwq44XQ+J3w/7
+	 qrCsRT6IKz/K2nLVpXkOU+p3rxOJiLplSVmdnkVwtc+rDv03RSkiG5Ei11Umb5Oh7h
+	 sikBk8SaSBYFQ==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A9BF5C79FB8;
+	Wed,  9 Sep 2026 08:12:04 +0000 (UTC)
+From: Joel Selvaraj via B4 Relay <devnull+foss.joelselvaraj.com@kernel.org>
+Date: Wed, 09 Sep 2026 01:11:59 -0700
+Subject: [PATCH 1/4] mailmap: update Joel Selvaraj's email address
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAP-5=fWbSNYpt8p3e+pqjY+xhqs8WrzsBfPaKB1NLBm88mH8Yg@mail.gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260909-update-email-address-v1-1-94a240f9469e@joelselvaraj.com>
+References: <20260909-update-email-address-v1-0-94a240f9469e@joelselvaraj.com>
+In-Reply-To: <20260909-update-email-address-v1-0-94a240f9469e@joelselvaraj.com>
+To: Neil Armstrong <neil.armstrong@linaro.org>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ devicetree@vger.kernel.org, Joel Selvaraj <foss@joelselvaraj.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788941524; l=809;
+ i=foss@joelselvaraj.com; s=20260909; h=from:subject:message-id;
+ bh=KfWlaqHF//2UprpPY6mCM27F9EEMcI/pUqHOiV1Fdas=;
+ b=p/SvXrdgooOYa5zsVaumVxUoo5aRmok8IdVXXUmW4AzD8RpeKo+2oYqKgOXpGua/UBK/qz/3D
+ 8pnvjlJv3DpDaNRL4axKfjXKDt9atpvpWgoETCUh9H8hODxlzsCZZPy
+X-Developer-Key: i=foss@joelselvaraj.com; a=ed25519;
+ pk=UUJ1v4UQJ/nljqj3NjsWt5H4mphWQ7etpQ4Z7JiR2yo=
+X-Endpoint-Received: by B4 Relay for foss@joelselvaraj.com/20260909 with
+ auth_id=1018
+X-Original-From: Joel Selvaraj <foss@joelselvaraj.com>
+Reply-To: foss@joelselvaraj.com
 
-On Tue, Sep 08, 2026 at 01:56:56PM -0700, Ian Rogers wrote:
-> On Tue, Sep 8, 2026 at 8:10 AM Andi Kleen <ak@linux.intel.com> wrote:
-> >
-> > > That's what we already do, no? I have distinct memories of making the
-> > > stack unwind use the NMI regs rather then the PEBS regs.
-> > >
-> > > > In my opinion, it could even make the thing worse. User
-> > > > requires to get precise samplings, but perf silently returns imprecise
-> > > > records, this would mislead user.
-> > >
-> > > Mostly just the unwind might be off a little, the rest is accurate. This
-> > > has been the case 'forever'. Performance analysis isn't for silly
-> > > people, if they can't deal with a little fuzz then perhaps they're in
-> > > the wrong business.
-> >
-> > Is the main problem that the stack doesn't agree? Perhaps there
-> > could be a check for regs->rsp == pebs->user rsp (if in user space)
-> > to detect problematic samples.
-> >
-> > The question is how to report it and who should do the checking.
-> >
-> > It may need new fields in the ABI either to communicate the extra PEBS RSP
-> > or a bit to indicate that there might be a mismatch.
-> >
-> > I guess checking in the kernel and reporting an error might be simpler
-> > and maybe cleaner, but it would likely limit more advanced recovery
-> > possibilities.
-> >
-> > Are there other mismatches that break the unwinding? Perhaps the same
-> > for RBP?
-> 
-> For DWARF unwinding any register may be the source of a frame pointer
-> (e.g. the OpenSSL library would use R11 rather than RBP).
-> 
-> There is redundancy on x86 you can sample the PERF_REG_X86_IP register
-> in the user register and there is PERF_SAMPLE_IP in the sample event
-> itself.
-> 
-> My understanding is that IBS can only sample IP and so for precise
-> samples we can use PERF_SAMPLE_IP as the precise location and the user
-> register PERF_REG_X86_IP as the interrupt IP - this would match the
-> other register values in the interrupt.
-> 
-> In DWARF unwinding, we initialize the register state using the sampled
-> user registers:
+From: Joel Selvaraj <foss@joelselvaraj.com>
 
-Oh, I had trouble reading yesterday :/ This is about USER_STACK, not
-CALLCHAIN.
+Map my old, no longer active, jsfamily.in address to my current one.
 
-I think we should try very hard to not use USER_STACK, it is an
-abomination. Instead we really should improve CALLCHAIN to be more
-useful. There are a pile of patches for kernel based unwinders,
-including for .eh_frame (if only I had time to actually go look at
-them).
+Signed-off-by: Joel Selvaraj <foss@joelselvaraj.com>
+---
+ .mailmap | 1 +
+ 1 file changed, 1 insertion(+)
 
-And we should probably look at doing a shadow stack based unwinder as
-well.
+diff --git a/.mailmap b/.mailmap
+index 742244a422c32..516c877ef9cf3 100644
+--- a/.mailmap
++++ b/.mailmap
+@@ -458,6 +458,7 @@ Jisheng Zhang <jszhang@kernel.org> <Jisheng.Zhang@synaptics.com>
+ Jishnu Prakash <quic_jprakash@quicinc.com> <jprakash@codeaurora.org>
+ Joe Damato <joe@dama.to> <jdamato@fastly.com>
+ Joel Granados <joel.granados@kernel.org> <j.granados@samsung.com>
++Joel Selvaraj <foss@joelselvaraj.com> <jo@jsfamily.in>
+ Johan Hovold <johan@kernel.org> <jhovold@gmail.com>
+ Johan Hovold <johan@kernel.org> <johan@hovoldconsulting.com>
+ John Crispin <john@phrozen.org> <blogic@openwrt.org>
 
-This USER_STACK is really the absolute worst possible option. And
-perhaps refusing PEBS+USER_STACK makes sense.
+-- 
+2.55.0
+
+
