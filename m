@@ -1,178 +1,140 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC4F1356A37;
-	Wed,  9 Sep 2026 07:02:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C54A3C3442;
+	Wed,  9 Sep 2026 07:02:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788937362; cv=none; b=r8IzeP/3cbwVAN/dMHpDRRV804cQ+mitnLYws7C2XWdwTrvMoVN/c7ajfmWCt6CYBkeCLyRAujCCpPX+GdohFbSdN0DBcqPSrth+Rz6UQoCZif9Yx7mlfLujUH7CAqGFtMqun7Nc2V6T4sqCtLsnPxlm4CzwWnwYaybsQ6evN1c=
+	t=1788937363; cv=none; b=m7no8JUYtq31BLZ/LuCsAZbj1nazTAYEAZ/FtWrn6sN6O1PgvZvrBfdnx2Ijt7SPnqjYuQ5IfaK1L0XYhyxLTFzQW03bmb1R4yemRMOuVleZ4uwNzT2sEdOvRMHN4MJOK/seiY0NJFF+oGuSvMJndEs8mQaLAF0/x51urzXmriI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788937362; c=relaxed/simple;
-	bh=X+p/elP5znXz4MB+5bGyv4tE0rEZTl6txlKb1psgtMc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Fu2en4aQCd/We6vCnd0Kma7hKUjV48zSzgaWEeUUdZw6Ec4TUFJsA6kE8TmeZoj4R2Uspf9GkIUE8GuQpId/TFjkqePEYBtiCbLZ51a+0Je1d8/1lI2lRZwUyi5Oh3Sl1WC01EdcF4AXrEs+MSlEH+XuCB2E33QoNnUoo27Sq50=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Sp7q3RS/; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788937363; c=relaxed/simple;
+	bh=o1NZ0vBW6mxpxJJDMylLYlSK+5v7GDAbtjyI1HKx8vw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=U6Nx8rycSeLA2RFv9MXc2OYQ+fhiqBG4Jr2z1N51VgobiPNXdS2/QPDqxEr8+bhfuqIZonvpwCkzpuEpadPXy5e5uww/MkDC76fIyaIm6037N3i3qUnLmt2U1sBuz3OCXK3cehl214PMQI2POGAyFo19gXT6dUukAWfaa5sQAqc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bk5jbQ2w; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Sp7q3RS/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C8B8F1F00A3A;
-	Wed,  9 Sep 2026 07:02:35 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bk5jbQ2w"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5F8361F00A3D;
+	Wed,  9 Sep 2026 07:02:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788937360;
-	bh=MN+dOdcZgKnOYNLGoEa/8edxId6RZtSoX5rv7uwx14c=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Sp7q3RS/k1YrPFVv5B0KdxlDcBrWuM8hOB+yNshAo8fRKBeoJn0Blhxyn3re1+I8f
-	 WxOIaRR1h6UxwtPTyjr1T/OZzKHuYsAfiJWI/WMXF3/cwR6c3G2fbe6kXRI6AYmDy+
-	 CtfCL7awHNkCHeeqrnBWx9wSGN6rd5UnuH3qnV+/SJqMnEkg//zH+EhtYRRd0KMz3A
-	 RrxTrwNzrkQv5ueS/xj5v9Q6RsCjLyZI3G+RwjU8fFiCTIhDVXH3YGFy+ZIc+iTvIa
-	 K6i40NEM/5m35CZKkv8rs0OEi9Wo+5rij0nJ9r0th1xpR2xbQplhmkDF71xJqnh1/S
-	 K1JJk/ZRUXFZg==
-Date: Wed, 9 Sep 2026 09:02:31 +0200
-From: Manivannan Sadhasivam <mani@kernel.org>
-To: Nitin Rawat <nitin.rawat@oss.qualcomm.com>
-Cc: krzk+dt@kernel.org, robh@kernel.org, conor+dt@kernel.org, 
-	andersson@kernel.org, konradybcio@kernel.org, James.Bottomley@hansenpartnership.com, 
-	mkp@kernel.org, linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-scsi@vger.kernel.org, 
-	Ziqi Chen <ziqi.chen@oss.qualcomm.com>
-Subject: Re: [PATCH V1 1/2] scsi: ufs: ufs-qcom: Add specified gear support
- for multi gear scaling
-Message-ID: <4vpqu77mkga4syxisysq2mvby7fhf7qfasasvnzubskj3tq34n@5hm56swqkuqg>
-References: <20260829074355.946543-1-nitin.rawat@oss.qualcomm.com>
- <20260829074355.946543-2-nitin.rawat@oss.qualcomm.com>
- <stik7u2o6ydje6ws7cyrltmdw4wz6iyximnxeyegw2f562b2bv@4m2sueuuzisb>
- <50e348ef-2d9a-4197-84ca-99d3902cbc37@oss.qualcomm.com>
+	s=k20260515; t=1788937362;
+	bh=DCF8vaNDCXLDMHLpgWcpZg0k7Oe+VlZnoW6I7XmbY8Y=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=bk5jbQ2wDDJkUs4DPrVQkrKbrZWROzcgXtJnRtvF7JeiKldbqV9zg7ZxJQAfn7SKz
+	 HmD+/yGDDirwFr+l1oCLKsiB1g5WbhQ+pguzM1c+t3U7eEpwpgCCU46HdffruL11xR
+	 9nzdmp/YyOvfORIIXM/znuBd824hyFKwQEdrFfFwkJoeiq0721CgTG7+xnF/xrmDbB
+	 ypCc6QSZoRzxVgTpbnwUg4s7Wm6MsHD97v841PqRcKpyKZ0sApkolQTBZOR6Tcqmbi
+	 Fdew7bwUJbIL/R4POBI6gG3DlhcLInE1PG35UJgfIGPO1O9JVN7zXjKuFy5uKC6iDH
+	 MFAxs3t9/LSWw==
+Message-ID: <1b7ad739-a46c-4505-a5eb-71789dc6e9b2@kernel.org>
+Date: Wed, 9 Sep 2026 09:02:34 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <50e348ef-2d9a-4197-84ca-99d3902cbc37@oss.qualcomm.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 03/21] dt-bindings: pinctrl: Add
+ starfive,jhb100-sys0-pinctrl
+To: Changhuang Liang <changhuang.liang@starfivetech.com>,
+ Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Emil Renner Berthing <kernel@esmil.dk>,
+ Paul Walmsley <pjw@kernel.org>, Albert Ou <aou@eecs.berkeley.edu>,
+ Palmer Dabbelt <palmer@dabbelt.com>, Alexandre Ghiti <alex@ghiti.fr>,
+ Philipp Zabel <p.zabel@pengutronix.de>, Bartosz Golaszewski <brgl@kernel.org>
+Cc: "linux-gpio@vger.kernel.org" <linux-gpio@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "linux-riscv@lists.infradead.org" <linux-riscv@lists.infradead.org>,
+ Lianfeng Ouyang <lianfeng.ouyang@starfivetech.com>
+References: <20260829025720.23915-1-changhuang.liang@starfivetech.com>
+ <20260829025720.23915-4-changhuang.liang@starfivetech.com>
+ <f474f659-8234-4dfb-85cc-06d2cc295107@kernel.org>
+ <ZQ4PR01MB1202DDBD0436E8F580EB6575F2AA2@ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn>
+ <ac4c6b24-02c7-4dc3-89e4-45aa335255d3@kernel.org>
+ <ZQ4PR01MB120205984FB23C0776BD0D0AF2AA2@ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn>
+ <08c6dad7-8b0d-4daf-908e-5af875306f0f@kernel.org>
+ <ZQ4PR01MB1202123864865439817E1549F2AA2@ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn>
+ <95b7ad43-9c68-4830-a35c-7cb29ca9b75f@kernel.org>
+ <ZQ4PR01MB1202D6E0502B941B170D1C56F2B02@ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <ZQ4PR01MB1202D6E0502B941B170D1C56F2B02@ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Wed, Sep 09, 2026 at 10:34:58AM +0530, Nitin Rawat wrote:
+On 09/09/2026 08:52, Changhuang Liang wrote:
+>>>
+>>> The pins property corresponds to the specific GPIO offset, so
+>> PADNUM_SYS0_GPIO_A2 cannot start at index 0.
+>>
+>> Did you even read my reply? Or you just respond whatever to tick the
+>> checkbox of responding to maintainer?
+>>
+>> AGAIN:
+>> "You do not need to store there hardware values"
+>>
+>> Do you understand the term ABI between software and DTS? Is in this term
+>> anything about your actual hardware numbers? No.
 > 
+> You are right, and I now see I was answering a different question than the one
+> You asked. 
 > 
-> On 9/2/2026 9:32 PM, Manivannan Sadhasivam wrote:
-> > On Sat, Aug 29, 2026 at 01:13:54PM +0530, Nitin Rawat wrote:
-> > > From: Ziqi Chen <ziqi.chen@oss.qualcomm.com>
-> > > 
-> > > The UFS clock frequency and gear speed do not necessarily have a strict
-> > > one-to-one correspondence on all platforms. Introduce a device tree
-> > > based configuration interface that allows specifying the HS gear
-> > > speed for each supported operating frequency via the "opp-level"
-> > > property in the OPP table. When this property is not configured, the
-> > > driver falls back to the default frequency-to-gear mapping table.
-> > > 
-> > > Signed-off-by: Ziqi Chen <ziqi.chen@oss.qualcomm.com>
-> > > Signed-off-by: Nitin Rawat <nitin.rawat@oss.qualcomm.com>
-> > > ---
-> > >   drivers/ufs/host/ufs-qcom.c | 30 ++++++++++++++++++++++++++----
-> > >   1 file changed, 26 insertions(+), 4 deletions(-)
-> > > 
-> > > diff --git a/drivers/ufs/host/ufs-qcom.c b/drivers/ufs/host/ufs-qcom.c
-> > > index 0f2e083b04fd..aa2ac2cd2b69 100644
-> > > --- a/drivers/ufs/host/ufs-qcom.c
-> > > +++ b/drivers/ufs/host/ufs-qcom.c
-> > > @@ -2460,8 +2460,9 @@ static unsigned long ufs_qcom_opp_freq_to_clk_freq(struct ufs_hba *hba,
-> > >   	bool found = false;
-> > > 
-> > >   	opp = dev_pm_opp_find_freq_exact_indexed(hba->dev, freq, 0, true);
-> > > -	if (IS_ERR(opp)) {
-> > > -		dev_err(hba->dev, "Failed to find OPP for exact frequency %lu\n", freq);
-> > > +	if (IS_ERR_OR_NULL(opp)) {
-> > > +		dev_err(hba->dev, "%s: Failed to find OPP for exact frequency %lu\n",
-> > > +			__func__, freq);
-> > 
-> > Don't bring back the '__func__' marking please...
-> Sure, will take in next patchset
-> 
-> 
-> > 
-> > >   		return 0;
-> > >   	}
-> > > 
-> > > @@ -2489,12 +2490,32 @@ static unsigned long ufs_qcom_opp_freq_to_clk_freq(struct ufs_hba *hba,
-> > > 
-> > >   static u32 ufs_qcom_freq_to_gear_speed(struct ufs_hba *hba, unsigned long freq)
-> > >   {
-> > > -	u32 gear = UFS_HS_DONT_CHANGE;
-> > > +	struct dev_pm_opp *opp;
-> > >   	unsigned long unipro_freq;
-> > > +	u32 gear = UFS_HS_DONT_CHANGE;
-> > 
-> > Nit: Preserve reverse Xmas order.
-> Sure, will take in next patchset
-> 
-> > 
-> > > 
-> > >   	if (!hba->use_pm_opp)
-> > >   		return gear;
-> > > 
-> > > +	opp = dev_pm_opp_find_freq_exact_indexed(hba->dev, freq, 0, true);
-> > > +	if (IS_ERR_OR_NULL(opp)) {
-> > > +		dev_err(hba->dev, "%s: Failed to find OPP for exact frequency %lu\n",
-> > > +			__func__, freq);
-> > 
-> > Drop '__func__' here and below.
-> Sure, will take in next patchset
-> 
-> > 
-> > > +		return gear;
-> > > +	}
-> > > +
-> > > +	/* Get HS gear speed from 'opp-level' */
-> > > +	gear = dev_pm_opp_get_level(opp);
-> > > +	dev_pm_opp_put(opp);
-> > > +
-> > > +	/*
-> > > +	 * Greater than max gear means that there is no specified gear configured in DT
-> > > +	 * or the specified gear is invalid.
-> > > +	 */
-> > > +	if (gear <= hba->max_pwr_info.info.gear_rx)
-> > > +		return gear;
-> > 
-> > Sashiko pointed out a valid concern with this check, please take a look.
-> 
-> I reviewed the bot's comment. The concern raised applies to the case where
-> the gear value provided through the device tree is higher (for example, 5)
-> than what a UFS 3.x device can support. After link startup and negotiation,
-> hba->max_pwr_info.info.gear_rx would be 4. In this scenario, the condition
-> below evaluates to false:
-> 
-> 
-> > +	if (gear <= hba->max_pwr_info.info.gear_rx)
-> > +		return gear;
-> 
-> Execution then falls back to the switch-case logic. If the current frequency
-> does not match any of the predefined entries, the function returns
-> UFS_HS_DONT_CHANGE, which effectively maps to the minimum gear. Shahiko's
-> suggestion is to instead return the device's maximum negotiated gear using:
-> 
-> A couple of points to note:
-> 
-> 1. If the current frequency does not match any of the expected frequency
-> entries, that is already an existing issue. In such a case, simply returning
-> the maximum negotiated gear may not be correct because we do not know the
-> actual gear corresponding to the currently programmed frequency.
-> 
-> 2. The patch under review does not change this existing behavior. It only
-> addresses the handling of gear values that are within the negotiated device
-> capabilities and does not alter the fallback path when the frequency lookup
-> fails.
-> 
-> 
-> Considering the above points, I believe no changes are required for this
-> patch at this time.
-> We can revisit this behavior separately and evaluate potential optimizations
-> in a future patch if needed.
-> 
+> So I'd like to double-check: in the next v8 version, I'll place the currently unmodified 
+> `starfive,jhb100-pinctrl.h` under `arch/riscv/boot/dts/starfive/`. For the macro 
+> definitions used by the driver (e.g., `PADNUM_SYS0_GPIO_A2`, `PADNUM_SYS0_GPIO_A3`), 
+> I'm not entirely sure where to put those driver-used definitions now. My plan is to place 
+> them directly into the relevant domain (`sys0`) file `pinctrl-starfive-jhb100-<domain>.c`. 
+> Would this change be acceptable?
 
-Fair enough.
+Your driver has already bunch of magic numbers all over, so I don't get
+why this value is somehow special, but if it is, you can have defines in
+the driver directly or in the driver header.
 
-- Mani
-
--- 
-மணிவண்ணன் சதாசிவம்
+Best regards,
+Krzysztof
