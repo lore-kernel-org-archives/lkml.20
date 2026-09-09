@@ -1,166 +1,123 @@
-Received: from mail-yx1-f44.google.com (mail-yx1-f44.google.com [74.125.224.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 944333EDE63
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 10:01:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BF003B0AFB
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 10:01:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788948093; cv=none; b=EKlmT6XyK9ZqWmJ/ZzRSHfsPxZHmSOpm6QNcLrsBdkhD/EaTdoLbWkiBIAiynb+Rog+xecf3CKmwH6EQhP+upoSt6CCNGBrk1ailXa29VbnRvNukwezEb7seOisrJkfQuGl0TgMfAw6xtXfJJT0WCYcNfM/+X7NrSTSDfMW0xD4=
+	t=1788948094; cv=none; b=usjZ9WNhL9AGLChZc6eCWIWUxv03GU8sBMXOyFqwnWzncB/RlRHnSVvHZmgVdsxS/x/2FJgsMuIh8rhDRNl8GNnVDbh0PqyHDr0Tl1WZrR9BIoqmoBw+4g3KgaYwPCNeTX9Q2eX2pRhIBRnjH6snug2OLkUBTacga24XDVraE+4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788948093; c=relaxed/simple;
-	bh=XRPintYB66K90WWvosFbfNFMrCSstXNSaa8RFhDin48=;
-	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=hoSYBqXyOVzgXxoK8pgUd7yb5wszXOAaF2PcKxSPuIWe9rkMOxHa5I+8m3lMReYQDebPX9T2npOMUK4BcuJgB4VIXu9dojfh/P7QuE3wYgNikNYsEy4wUBiNZElOxfY8k08T0Y5KKoZDuSnNMFmPKQ14lvAO5eV88FcuiNN6mKw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=knKN5ddo; arc=none smtp.client-ip=74.125.224.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	s=arc-20240116; t=1788948094; c=relaxed/simple;
+	bh=sxIYMTJx1FBfAYQTD6rLSrNDjJO5DZlDsKqOQmTIib4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=GXvFgV6cBHWYvBxc7Hc2SDJTdfahIQseQwH9l8PZgwgkEXZjmZyr/f0wMIfsSB+iRu1yq35rYFTbg9jCWMULUMFm7Nvo9lm0xkxQBB08SDm/72eQQOANO9WqJL63bBJ7egjDmgzfztI7Uf1L33ZhHzFRdUqKDfZ58N/+ERV4MA0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CPTlmLpd; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="knKN5ddo"
-Received: by mail-yx1-f44.google.com with SMTP id 956f58d0204a3-66fcf87897fso4303946d50.3
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 03:01:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788948089; x=1789552889; darn=vger.kernel.org;
-        h=content-type:mime-version:references:message-id:in-reply-to:subject
-         :cc:to:from:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=uNBljcBd5pVR40/qSQbRzR+DUQkxJ6419XWxuVBt6mg=;
-        b=knKN5ddo70WoGAqNT1cXYO4RFeqwvEyrgjfzjOTWh0ZI7z0eldN3H9OZHWMzP8Acyc
-         tkz5Nq+NpL9Cl5yMr8vTo0h9DtLwMvjbjnDgVE8UFTKEmvfFzDvpIlPVvcrimFFtQsEo
-         9LMLjq2kA6FBn+PaMr1Wioy/GDYPYiJ+jn72tqftRAgcEk9VbaqC4hfgdzSPCARhEotX
-         w4SSP7FiMBXRm2/0SbJmABzHUA1B8TZXd/3bFMQTALw7vLkROtUu6a2BAfQX7j4rcz1J
-         dtvgs9uG01uy8plVKUXdLdoz0XvRykaSAj+NBOUpnmtxaC9UCWL3SAKZbwYtnXRJGMsw
-         df8A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788948089; x=1789552889;
-        h=content-type:mime-version:references:message-id:in-reply-to:subject
-         :cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=uNBljcBd5pVR40/qSQbRzR+DUQkxJ6419XWxuVBt6mg=;
-        b=lz4Fbf08LbxyyDXl/9108WGuFPIZ2f/uFIkw0qMeTZ0a4RhERsV2Fq+FWzj2IJ+pi8
-         z4EUZ0wYWzfJW4URx9EpjwdxutiDMEPDBNg1FVFgMWVzzYVqqFBBGGqnDBxzURRUtSoT
-         CcsXFakjtt2bRMmSU+TG/EHahcfsa1YLSucyroNRy9GyeOhjUI2zfr5eVGhLgkWCtZ+3
-         kmNZp8kp1boJdLvaNNLSEZyQVQOxj2y+xoITw1QNclRpLVsXJRNQmjxt47dVa1ZUbz+b
-         nA9b8FmaqkQTn/Z7niqG7jXFvRrDEIV1s6IQRt6wFyo80RXuFHpO7FfXAI/ss9nBmif7
-         C5JA==
-X-Forwarded-Encrypted: i=1; AKwUvBxa3u74kMDRWZ6nlTuADHk6GqDJ33CEQVIY7OmZbSW2lh3gYofoHvrMdhFkVSVv0qE3MlO1fgvOAURiDVQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++lEB3/wXxX7kNWTQ1EwyPcai3rjn+twy/QhXJjVEbKJxDIHcWsw
-	1xt7vfIXulydb0jChsP/oezY5FeK1eo+oOWi161pkB9vNoyVrwv2I5/UxdGoVjT/wg==
-X-Gm-Gg: AYBFou3GCFDaEi1xRbR0Rs1qQbitSLCD87DA3IFAyMdxV8EgH5hBVSR24DJ0ihFcgUt
-	3MF0mu1WTry4BDs92SnetwR8EGOOyAXv2MbnB4saPbCKlbrCYoBiHdOFEsDcogS6OGtGyqe2XZT
-	v40wWgB/jEbd2qTM5FTmMH9EZr0eNnyghJWCTB+UsuL2Cy3zNa028KiFahmALJzMq6S/wRyWDOp
-	L12wO84k4s4F8YCjKBZjeM7CF4b0blU3J09jS73UWty1NIa5Q7jX4+d/kM8hBqoF5xP4be8CZ8k
-	GloXHsT0j8AcZurkrfLDw+8pf3NK8buqDWBSHUFPtxPSQmkFe6eM5uMafKb6U+XAbhyNKLMlOsv
-	MhB4nY1e9sFELrWoHrRkwaBFOkecSVddvWYsiMXG9i17olkSI5nwM4YnW4xf7MwWymmPqVhf+KC
-	OlG7kJvOxQl/AmPZeFieaCbOf+1mYRGuRoIPnFCDK2V4hb+QU/wpZHr278eQ9sYSpPtpUt6OLSe
-	xk0SXwSIicT59kybSMNmtovJ9Ib+mPYtteyh1/PGniIqe3BXSn9WiTHl38=
-X-Received: by 2002:a05:690c:88:b0:864:6f4d:ef7f with SMTP id 00721157ae682-87121acbbc5mr139590577b3.7.1788948088169;
-        Wed, 09 Sep 2026 03:01:28 -0700 (PDT)
-Received: from darker.attlocal.net (172-10-233-147.lightspeed.sntcca.sbcglobal.net. [172.10.233.147])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8714a0b654dsm107264887b3.25.2026.09.09.03.01.23
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 09 Sep 2026 03:01:26 -0700 (PDT)
-Date: Wed, 9 Sep 2026 03:01:22 -0700 (PDT)
-From: Hugh Dickins <hughd@google.com>
-To: Andrew Morton <akpm@linux-foundation.org>
-cc: Ackerley Tng <ackerleytng@google.com>, 
-    Alexander Viro <viro@zeniv.linux.org.uk>, Alexandre Ghiti <alex@ghiti.fr>, 
-    Baolin Wang <baolin.wang@linux.alibaba.com>, 
-    Barry Song <baohua@kernel.org>, Binbin Wu <binbin.wu@linux.intel.com>, 
-    Christian Brauner <brauner@kernel.org>, Christoph Hellwig <hch@lst.de>, 
-    Christoph Lameter <cl@gentwo.org>, 
-    Claudio Imbrenda <imbrenda@linux.ibm.com>, 
-    David Hildenbrand <david@kernel.org>, JP Kobryn <jp.kobryn@linux.dev>, 
-    Jan Kara <jack@suse.cz>, Jens Axboe <axboe@kernel.dk>, 
-    Johannes Weiner <hannes@cmpxchg.org>, Kairui Song <ryncsn@gmail.com>, 
-    Kiryl Shutsemau <kas@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
-    Leonardo Bras <leobras.c@gmail.com>, Lorenzo Stoakes <ljs@kernel.org>, 
-    Marcelo Tosatti <mtosatti@redhat.com>, 
-    Matthew Wilcox <willy@infradead.org>, 
-    Mel Gorman <mgorman@techsingularity.net>, 
-    Miaohe Lin <linmiaohe@huawei.com>, Michal Hocko <mhocko@suse.com>, 
-    Minchan Kim <minchan@kernel.org>, Muchun Song <muchun.song@linux.dev>, 
-    Oscar Salvador <osalvador@suse.de>, Peter Zijlstra <peterz@infradead.org>, 
-    Qi Zheng <qi.zheng@linux.dev>, Rik van Riel <riel@surriel.com>, 
-    Sebastian Andrzej Siewior <bigeasy@linutronix.de>, 
-    Shakeel Butt <shakeel.butt@linux.dev>, 
-    Suren Baghdasaryan <surenb@google.com>, 
-    Vlastimil Babka <vbabka@kernel.org>, 
-    Yang Shi <yang@os.amperecomputing.com>, Yu Zhao <yuzhao@google.com>, 
-    Zach O'Keefe <zokeefe@google.com>, Zi Yan <ziy@nvidia.com>, 
-    linux-block@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
-    linux-kernel@vger.kernel.org, linux-mm@kvack.org
-Subject: [PATCH v2 10/26] mm/fbatch: remove several uses of
- mlock_drain_local()
-In-Reply-To: <e28f9a94-4339-f8ac-8301-6be3c9b5b7ce@google.com>
-Message-ID: <9633684f-e5c4-d92b-8295-5cccaa18fc36@google.com>
-References: <e28f9a94-4339-f8ac-8301-6be3c9b5b7ce@google.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CPTlmLpd"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8FF501F00A3A;
+	Wed,  9 Sep 2026 10:01:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788948092;
+	bh=50crNXE5RPe0jaXCbPjDytOJ0kKcHrcQdEPYCvw1FdI=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=CPTlmLpdtRe13Z/QNkefitntnzkSGJ0UFa/dUjSKGCx8ubF3aINeJRYUIvneVno7u
+	 Nii27xkpOI5cQ3jjji1qFPnENW550TEBdl8WssIPiTFo3X+Ra3xvOSspwGhqd3gMhV
+	 xDO2U0kQFtvWxWaxRcWJJ3Tt6gKvtFFTNogaEoOeGsRA6ZPZDl6TP7bcshjLV1ks8C
+	 bpFgKFI9LVMaFK/5nUv2V0qyPOUDQs23NImXg50CxqbIf7lnNr1W6/wUSZUEhWJRsb
+	 ZpMW5w9cit1n0QySPbq7Lp25lW4VsATDNYQ30FviV2FVuS0K1dKQ+9iQYf5x13Ah2h
+	 7mdgruxK3kRhA==
+Message-ID: <e57a6b75-24b3-4adc-9257-f578e86b6256@kernel.org>
+Date: Wed, 9 Sep 2026 12:01:27 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 12/17] mm/sparse: inline usemap allocation into
+ sparse_init_nid()
+To: Muchun Song <songmuchun@bytedance.com>,
+ Andrew Morton <akpm@linux-foundation.org>, Oscar Salvador <osalvador@suse.de>
+Cc: Mike Rapoport <rppt@kernel.org>, Vlastimil Babka <vbabka@kernel.org>,
+ Lorenzo Stoakes <ljs@kernel.org>, Michal Hocko <mhocko@suse.com>,
+ David Laight <david.laight.linux@gmail.com>,
+ "Liam R . Howlett" <liam@infradead.org>,
+ Suren Baghdasaryan <surenb@google.com>, Qi Zheng <qi.zheng@linux.dev>,
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ Muchun Song <muchun.song@linux.dev>
+References: <20260825084608.47437-1-songmuchun@bytedance.com>
+ <20260825084608.47437-13-songmuchun@bytedance.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20260825084608.47437-13-songmuchun@bytedance.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Remove several uses of mlock_drain_local(): they were workarounds for
-when that sequence of operations tended to leave folios in mlock_fbatch
-with debilitating raised refcount (and no good if the task changed CPU).
+On 8/25/26 10:46, Muchun Song wrote:
+> After removing SPARSEMEM_VMEMMAP_PREINIT, sparse_init_nid() no longer
+> needs the transient sparse_usagebuf state and its helper wrappers.
+> 
+> Allocate the usemap buffer directly in sparse_init_nid(), pass it to
+> sparse_init_one_section(), and drop sparse_usage_init(),
+> sparse_usage_fini(), and sparse_init_early_section().
+> 
+> Signed-off-by: Muchun Song <songmuchun@bytedance.com>
+> Acked-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+> ---
+> v2:
+> - Collect Acked-by from Mike Rapoport
+> ---
 
-Signed-off-by: Hugh Dickins <hughd@google.com>
----
- mm/huge_memory.c | 2 --
- mm/migrate.c     | 2 --
- mm/rmap.c        | 4 ----
- 3 files changed, 8 deletions(-)
 
-diff --git a/mm/huge_memory.c b/mm/huge_memory.c
-index d53e5443b802..3628b5bd1359 100644
---- a/mm/huge_memory.c
-+++ b/mm/huge_memory.c
-@@ -3570,8 +3570,6 @@ static bool __discard_anon_folio_pmd_locked(struct vm_area_struct *vma,
- 	folio_remove_rmap_pmd(folio, pmd_page(orig_pmd), vma);
- 	zap_deposited_table(mm, pmdp);
- 	add_mm_counter(mm, MM_ANONPAGES, -HPAGE_PMD_NR);
--	if (vma->vm_flags & VM_LOCKED)
--		mlock_drain_local();
- 	folio_put(folio);
- 
- 	return true;
-diff --git a/mm/migrate.c b/mm/migrate.c
-index 15b45832bcfa..1939d6ed19c9 100644
---- a/mm/migrate.c
-+++ b/mm/migrate.c
-@@ -447,8 +447,6 @@ static bool remove_migration_pte(struct folio *folio,
- 				folio_add_file_rmap_pte(folio, new, vma);
- 			set_pte_at(vma->vm_mm, pvmw.address, pvmw.pte, pte);
- 		}
--		if (READ_ONCE(vma->vm_flags) & VM_LOCKED)
--			mlock_drain_local();
- 
- 		trace_remove_migration_pte(pvmw.address, pte_val(pte),
- 					   compound_order(new));
-diff --git a/mm/rmap.c b/mm/rmap.c
-index d1819fd69938..1ee42d60d77d 100644
---- a/mm/rmap.c
-+++ b/mm/rmap.c
-@@ -2396,8 +2396,6 @@ static bool try_to_unmap_one(struct folio *folio, struct vm_area_struct *vma,
- 		}
- finish_unmap:
- 		folio_remove_rmap_ptes(folio, page, nr_pages, vma);
--		if (vma->vm_flags & VM_LOCKED)
--			mlock_drain_local();
- 		folio_put_refs(folio, nr_pages);
- 
- 		/*
-@@ -2771,8 +2769,6 @@ static bool try_to_migrate_one(struct folio *folio, struct vm_area_struct *vma,
- 			hugetlb_remove_rmap(folio);
- 		else
- 			folio_remove_rmap_pte(folio, subpage, vma);
--		if (vma->vm_flags & VM_LOCKED)
--			mlock_drain_local();
- 		folio_put(folio);
- 	}
- 
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+
+
 -- 
-2.51.0
+Cheers,
 
+David
