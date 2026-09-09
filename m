@@ -1,102 +1,225 @@
-Received: from mail-ed1-f69.google.com (mail-ed1-f69.google.com [209.85.208.69])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3329C54DAD4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E869549382
 	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 11:56:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.69
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788954962; cv=none; b=AcPufm2Z/e4kr37DAbPtlHSN17MaOWlxHU/Etrk3uRIcggPVhb/sJAYZqoi7cBdd9ms6Xw5ixnZWA8+xt0b7ES9kHm5EJGuTRhouUJOQtucWzYz8M/nTqFG7IYKRexYtwVazAcvpHZJR1kYEW2g3cgcJL8xCX/OaF6v4FwCb2DQ=
+	t=1788954962; cv=none; b=FLuv7uovGUE+F8IhxkLhs2fulZYPlytYwOBqP5ZvDePU/hMLfGU3bR5qTbTbKbFKppDDFdNIp7/6taGYOp+tjrJbacWpgZm2/fH6vy1eRJn8giYwdbgGf7pKw0mWzefnjWEnibdcIM81l7h6vEXaxbA5pRCsngk4YWltCMoOOpI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788954962; c=relaxed/simple;
-	bh=tcpQtPG1LqjWHQcdYdyBj3c6VFVNWxy+XZ+d+QXhJr4=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=FmU49roPeSae983o+bCN0gP2U4jINOGQiHAG2EZIGZrDk4kc6wj4mnSmc98T5d+EPVjIhVwciyGSp0Ja1Zjt1a/3he5iD6mfXD0LLuubm/dC6MLWUuF6HNoqaEXy73fbm9P1PdPIpx/uQPogymFPuo6GqNKJglRZESQqYx649vA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--ardb.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=AGES0Dby; arc=none smtp.client-ip=209.85.208.69
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--ardb.bounces.google.com
+	bh=YRlrtKyXwLbw4eW7KpPvW3BJocezw5keC+TIN5TBhrc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=UgCxEe/xlUi70Zqb0OjIbNONcoW8UojFLE1o9aU2lRDnyFE3bYpkQVIaXCGxXTY3BRX2x7DE4C8ecXTjuwbIWJpvLjmZxVBU3HTWGVcJ80jBHFW4yKrNCSCvGNqZx/TrSdCu6GzLL67dJWl/rOxDvaW1/LVdO7WcLCCitSvQTXE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=XmCrSAAX; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="AGES0Dby"
-Received: by mail-ed1-f69.google.com with SMTP id 4fb4d7f45d1cf-6a57aa07476so6013539a12.3
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 04:56:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788954958; x=1789559758; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Pd/4A8F8XRZbl4sQpabJjlKenkBbaEXlaZ5AQnmnAzk=;
-        b=AGES0DbySFOzYybzmCWoEYhXnbGh5GuQ5vOHFKZhk9Y20YlXe97iaXOvrXwycocnIL
-         7+U5LU4ct+AWZKk+JRR8+o+CyMIxxn1l4X/6ERfr1722W78ynJXk5tqzKWc/Fvs/p6sX
-         mWcrcZ6EtwaoIdQ/VFsPUsBaHVpi7cV859RB+1WN3ysTYQmXSmXxdiIFN/Zw4KKnF1e9
-         zTiJhzUbcZIXD/0gnvVV8yU3kSRDVh9BRrJmy0h7gmLJdELJ1yaxAijlgyOphx94yWhz
-         CTRYdEL88uDrvUh3vwg/gWtp1rAkMTB30LpG7K34btRLV6/ThvxiKW10AOmXkDLe/I/W
-         LXqg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788954958; x=1789559758;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Pd/4A8F8XRZbl4sQpabJjlKenkBbaEXlaZ5AQnmnAzk=;
-        b=Mn4o9uP+/6VmZqvBr6cCnwRE3ACGxpG9zz84oPJVlzNcCAp5tjn8MDtBaBESv2G3CI
-         atmw5XiGhy+NDgllKe/ffUEVCNw0c8eGclhjAP25SJ3wsQk7aJVRK7NmKOr0IN2GP2IN
-         8XPFg9ual3H6M5disDkMzWGJOkQ0ZrH2krCN/PggEAhU8bVkyhBXAM17EaDikyTT0d5z
-         65rEzfTjnmXtUXrXhDb6qImIzholwSMzFa9/0FWsPGN13W3wmmYwHH1//XPHqAfsGfwO
-         bnqh9FlOn1eshJNoCR4t61GTymct4qpdrMXBU+rHGV84I71OsD/NQOmq7uBNDwQYlcGI
-         RRTw==
-X-Gm-Message-State: AFuF++lvLL4BJXhFVfxd/pZmo9a3R9YG8uvzh5zzYEjOqJ/iC7UpPmDa
-	5nUSF7he/pect5ct/4g6TsJeckQWdXQwnLYaIINQDZl9os3rJUKR4q2uIcIHGhc5/ASPf2J8vA=
-	=
-X-Received: from edvf14.prod.google.com ([2002:a05:6402:160e:b0:6a8:210f:72ce])
- (user=ardb job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6402:27ce:b0:6a6:7882:89f2
- with SMTP id 4fb4d7f45d1cf-6a7e8f9623cmr12327207a12.17.1788954958326; Wed, 09
- Sep 2026 04:55:58 -0700 (PDT)
-Date: Wed,  9 Sep 2026 13:55:34 +0200
-In-Reply-To: <20260909115530.1924665-12-ardb+git@google.com>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="XmCrSAAX"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1788954959;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=yb4CuTUSxfTCYuQhpYM23905HoUYR/P0WubB8WL7ZiU=;
+	b=XmCrSAAX5gDwYL1j0r2aQldrOpemu/yvEpGOsghgT2dQ1NHhFUcSUgstd/e/gdedJUhbvL
+	QbuexUKVkC2nL9WZL5/f38JYx10Ra9xrs4dY2hyq5gn6vWHXlnqZVo8BHDmgkBilux4AwK
+	karmQuc2PBomK4sFa6LfJ1+XnOAUSKY=
+Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-434-x5JThsaLNImD3OvPAT6jUw-1; Wed,
+ 09 Sep 2026 07:55:54 -0400
+X-MC-Unique: x5JThsaLNImD3OvPAT6jUw-1
+X-Mimecast-MFC-AGG-ID: x5JThsaLNImD3OvPAT6jUw_1788954952
+Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id C36451800622;
+	Wed,  9 Sep 2026 11:55:52 +0000 (UTC)
+Received: from thuth-p1g4.redhat.corp (headnet05.pony-001.prod.iad2.dc.redhat.com [10.2.32.117])
+	by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 7D4181956088;
+	Wed,  9 Sep 2026 11:55:49 +0000 (UTC)
+From: Thomas Huth <thuth@redhat.com>
+To: Eric Biggers <ebiggers@kernel.org>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
+	"David S. Miller" <davem@davemloft.net>,
+	"Jason A. Donenfeld" <Jason@zx2c4.com>,
+	Ard Biesheuvel <ardb@kernel.org>
+Cc: linux-crypto@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>
+Subject: [PATCH v2 11/13] lib/crypto: sha2: Provide functions for zeroizing SHA2 hmac_sha* structures
+Date: Wed,  9 Sep 2026 13:54:47 +0200
+Message-ID: <20260909115455.157093-12-thuth@redhat.com>
+In-Reply-To: <20260909115455.157093-1-thuth@redhat.com>
+References: <20260909115455.157093-1-thuth@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260909115530.1924665-12-ardb+git@google.com>
-X-Developer-Key: i=ardb@kernel.org; a=openpgp; fpr=F43D03328115A198C90016883D200E9CA6329909
-X-Developer-Signature: v=1; a=openpgp-sha256; l=705; i=ardb@kernel.org;
- h=from:subject; bh=/LdgSZFzZjtYA02calFNa+IAiCgEi1RyLw02qhfaQIg=;
- b=owGbwMvMwCVmkMcZplerG8N4Wi2JIWuhp9nb/j1SGZxHnZ6Ln7iTX91mUVK8sXuaeKjllpfbd
- /yU5ajsKGVhEONikBVTZBGY/ffdztMTpWqdZ8nCzGFlAhnCwMUpABNZWs3wV7j6vcbHsJrQ5q15
- c5f/FQsIapx6UzLj0R9F4xdNG0UiWBl+s3TMWFXpkMNsEWGzqnxllszBua//2d8y4V7zd/WmSYW TmAA=
-X-Mailer: git-send-email 2.55.0.1003.g10538fe699-goog
-Message-ID: <20260909115530.1924665-15-ardb+git@google.com>
-Subject: [PATCH v2 03/10] lib/ucs2_string: Suppress modinfo when
- __DISABLE_EXPORTS is set
-From: Ard Biesheuvel <ardb+git@google.com>
-To: linux-efi@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org, Ard Biesheuvel <ardb@kernel.org>, 
-	Vincent Mailhol <mailhol@kernel.org>, x86@kernel.org
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
 
-From: Ard Biesheuvel <ardb@kernel.org>
+In certain cases crypto code functions need to zeroize their local SHA2
+hmac_sha*_key or hmac_sha*_ctx structures after use to avoid leaking
+sensitive material on the stack.
+Provide hmac_sha*_zeroize_key() and hmac_sha*_zeroize_ctx() helper
+functions that can be used with __cleanup() to automatically zeroize
+the structure when it goes out of scope.
 
-Allow the UCS-2 string library to be reused in the EFI stub, by
-suppressing the modinfo data that is usually emitted so that the library
-can be built as a module.
-
-Signed-off-by: Ard Biesheuvel <ardb@kernel.org>
+Signed-off-by: Thomas Huth <thuth@redhat.com>
 ---
- lib/ucs2_string.c | 2 ++
- 1 file changed, 2 insertions(+)
+ include/crypto/sha2.h | 73 +++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 73 insertions(+)
 
-diff --git a/lib/ucs2_string.c b/lib/ucs2_string.c
-index d66fef9c9b81..f75fb4f7961a 100644
---- a/lib/ucs2_string.c
-+++ b/lib/ucs2_string.c
-@@ -165,5 +165,7 @@ ucs2_as_utf8(u8 *dest, const ucs2_char_t *src, unsigned long maxlength)
- }
- EXPORT_SYMBOL(ucs2_as_utf8);
+diff --git a/include/crypto/sha2.h b/include/crypto/sha2.h
+index 7bb8fe169daf2..22fbc37ae8407 100644
+--- a/include/crypto/sha2.h
++++ b/include/crypto/sha2.h
+@@ -7,6 +7,7 @@
+ #define _CRYPTO_SHA2_H
  
-+#ifndef __DISABLE_EXPORTS
- MODULE_DESCRIPTION("UCS2 string handling");
- MODULE_LICENSE("GPL v2");
-+#endif
+ #include <linux/types.h>
++#include <linux/string.h>
+ 
+ #define SHA224_DIGEST_SIZE	28
+ #define SHA224_BLOCK_SIZE	64
+@@ -210,6 +211,15 @@ struct hmac_sha224_key {
+ 	struct __hmac_sha256_key key;
+ };
+ 
++/**
++ * hmac_sha224_zeroize_key() - Zeroize an hmac_sha224_key structure
++ * @key: The hmac_sha224_key to zeroize
++ */
++static inline void hmac_sha224_zeroize_key(struct hmac_sha224_key *key)
++{
++	memzero_explicit(key, sizeof(*key));
++}
++
+ /**
+  * struct hmac_sha224_ctx - Context for computing HMAC-SHA224 of a message
+  * @ctx: private
+@@ -218,6 +228,15 @@ struct hmac_sha224_ctx {
+ 	struct __hmac_sha256_ctx ctx;
+ };
+ 
++/**
++ * hmac_sha224_zeroize_ctx() - Zeroize an hmac_sha224_ctx structure
++ * @ctx: The hmac_sha224_ctx context to zeroize
++ */
++static inline void hmac_sha224_zeroize_ctx(struct hmac_sha224_ctx *ctx)
++{
++	memzero_explicit(ctx, sizeof(*ctx));
++}
++
+ /**
+  * hmac_sha224_preparekey() - Prepare a key for HMAC-SHA224
+  * @key: (output) the key structure to initialize
+@@ -414,6 +433,15 @@ struct hmac_sha256_key {
+ 	struct __hmac_sha256_key key;
+ };
+ 
++/**
++ * hmac_sha256_zeroize_key() - Zeroize an hmac_sha256_key structure
++ * @key: The hmac_sha256_key to zeroize
++ */
++static inline void hmac_sha256_zeroize_key(struct hmac_sha256_key *key)
++{
++	memzero_explicit(key, sizeof(*key));
++}
++
+ /**
+  * struct hmac_sha256_ctx - Context for computing HMAC-SHA256 of a message
+  * @ctx: private
+@@ -422,6 +450,15 @@ struct hmac_sha256_ctx {
+ 	struct __hmac_sha256_ctx ctx;
+ };
+ 
++/**
++ * hmac_sha256_zeroize_ctx() - Zeroize an hmac_sha256_ctx structure
++ * @ctx: The hmac_sha256_ctx context to zeroize
++ */
++static inline void hmac_sha256_zeroize_ctx(struct hmac_sha256_ctx *ctx)
++{
++	memzero_explicit(ctx, sizeof(*ctx));
++}
++
+ /**
+  * hmac_sha256_preparekey() - Prepare a key for HMAC-SHA256
+  * @key: (output) the key structure to initialize
+@@ -623,6 +660,15 @@ struct hmac_sha384_key {
+ 	struct __hmac_sha512_key key;
+ };
+ 
++/**
++ * hmac_sha384_zeroize_key() - Zeroize an hmac_sha384_key structure
++ * @key: The hmac_sha384_key to zeroize
++ */
++static inline void hmac_sha384_zeroize_key(struct hmac_sha384_key *key)
++{
++	memzero_explicit(key, sizeof(*key));
++}
++
+ /**
+  * struct hmac_sha384_ctx - Context for computing HMAC-SHA384 of a message
+  * @ctx: private
+@@ -631,6 +677,15 @@ struct hmac_sha384_ctx {
+ 	struct __hmac_sha512_ctx ctx;
+ };
+ 
++/**
++ * hmac_sha384_zeroize_ctx() - Zeroize an hmac_sha384_ctx structure
++ * @ctx: The hmac_sha384_ctx context to zeroize
++ */
++static inline void hmac_sha384_zeroize_ctx(struct hmac_sha384_ctx *ctx)
++{
++	memzero_explicit(ctx, sizeof(*ctx));
++}
++
+ /**
+  * hmac_sha384_preparekey() - Prepare a key for HMAC-SHA384
+  * @key: (output) the key structure to initialize
+@@ -798,6 +853,15 @@ struct hmac_sha512_key {
+ 	struct __hmac_sha512_key key;
+ };
+ 
++/**
++ * hmac_sha512_zeroize_key() - Zeroize an hmac_sha512_key structure
++ * @key: The hmac_sha512_key to zeroize
++ */
++static inline void hmac_sha512_zeroize_key(struct hmac_sha512_key *key)
++{
++	memzero_explicit(key, sizeof(*key));
++}
++
+ /**
+  * struct hmac_sha512_ctx - Context for computing HMAC-SHA512 of a message
+  * @ctx: private
+@@ -806,6 +870,15 @@ struct hmac_sha512_ctx {
+ 	struct __hmac_sha512_ctx ctx;
+ };
+ 
++/**
++ * hmac_sha512_zeroize_ctx() - Zeroize an hmac_sha512_ctx structure
++ * @ctx: The hmac_sha512_ctx context to zeroize
++ */
++static inline void hmac_sha512_zeroize_ctx(struct hmac_sha512_ctx *ctx)
++{
++	memzero_explicit(ctx, sizeof(*ctx));
++}
++
+ /**
+  * hmac_sha512_preparekey() - Prepare a key for HMAC-SHA512
+  * @key: (output) the key structure to initialize
 -- 
-2.55.0.1003.g10538fe699-goog
+2.55.0
 
