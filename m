@@ -1,129 +1,101 @@
-Received: from mta0.migadu.com (out-1.mta0.migadu.com [91.218.175.1])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9231938E8D0
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 07:46:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C29325F99F;
+	Wed,  9 Sep 2026 07:46:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788939987; cv=none; b=aAsP+rBObyaeR9W5R87tMEkaBC2TFy8uf3xmg+Zw2eemBJ1ZTDF0ih1dGLft5EJi2fx0b8mMSKaTHYWN296DcHXVD19e4Cgr2zeL7IF/9U+/Rw0bw+gHdn6xhgMTUtT03r4XahjM8IFp2VHKFLS5fyWQnLfxulDwCV9TYek2GoQ=
+	t=1788939985; cv=none; b=unPjbrVZpgl/ukjUGPbuCYyaxvJkX1bXgQOuP5bavdZm0dOc5OasixUNEWYV4PpQQOfcJ7imgrCs7+LdBjzL7ydQwXfLXhWf/00ReN7Y5NkK/Pua7R+Q+/AG9su6JCbX5+zlyVjwfyoknJUAstGgS3JfEcBCtU+7VFdlYY8dRM8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788939987; c=relaxed/simple;
-	bh=FHAVAgnPTkkVTucfD73+axRxGRKhYp+PvfqXkQoGNzY=;
+	s=arc-20240116; t=1788939985; c=relaxed/simple;
+	bh=8+DQOmtJYZx/yS4aLqQ5/JqJVJptFIvKArI/32tgYA4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=VTDDfQ8KDdAJgB0udmY5/HUeNAmo8hIWM1sedKzwvX56Wpj6sUgskUmACxAuULYLNNnoHcpQVp7wPMTYMW8rc5FDtC1+EM+zSAR9mbK+5NnMp4yuQOrioRdBMoXT2mAqaMRFK20YyNe4ZY3KaJWoPrBp46bf+gg3BCjqcuuyH0I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=AWe5UMiK; arc=none smtp.client-ip=91.218.175.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	 MIME-Version:Content-Type; b=f0UALjIo+J0mB8y9l9+g1ecWEH037hSrQo8I2Ol8hjVoz3EXF75Usf8XqyW4xykz6voUmF+njmjHC8YvAKEyQWvk9Vgv7PETXbQcP4m+E+HYF/kBh41AUcUBklRpPOfBUqVpOiv1yVxSf/urbk7ccK7BqahbaEW5ewExxF5N/vA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZuEyznG6; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="AWe5UMiK"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=FHAVAgnPTkkVTucfD73+axRxGRKhYp+PvfqXkQoGNzY=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788939983; v=1; x=1789544783;
- b=AWe5UMiK4qBgpXXl8qisMH/2TIBTsgjLsp6WhNOEVt7ZUhhW0a5xWIH0Jx4G6JApqG+h1y1O
- 4Bqa0o+lLw+y4qB5VSWT4lwFgI7hg5bAy5l43Z0Jbong7F0Y/ZsB0cbiUnahbK5CLgxURJ8Ta5Z
- WoxJY95aqLUZUGGUwRHLhqO0=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id bb76d9970d045c24;
-	Wed, 09 Sep 2026 07:46:23 +0000
-X-Mizu-Trace-ID: bb76d9970d045c24
-X-Migadu-Flow: FLOW_OUT
-From: luka.gejak@linux.dev
-To: Ping-Ke Shih <pkshih@realtek.com>
-Cc: linux-wireless@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZuEyznG6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DBDE01F00A3A;
+	Wed,  9 Sep 2026 07:46:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788939984;
+	bh=un5ps1LXN7VYcaa1H033LR3Ds9PxcSRKTwukOxcljiU=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=ZuEyznG6fSqfCOABFU5OPaGqj+BCXfaZz5gKrVQCs+oyYcGUlHv/IQuL8EJy++hUB
+	 RySoLNzgC8WR/r1WVtNcHXWmXc6T3qbBXLYkYe1V+WslIVT1Rm9U+rWmyKCRIZKtXP
+	 ugvC5Br2uiqMKtL0gDdUeWYHbdlkm+gLsCuavksdvZFV7J3fM3fD1aHjUMGrJ4jH5X
+	 kRTWzGZy5obaox9qb+SEBc2dP2JkQGNgJQ2azg7+RxLqp+WGNTYOWvwKmT7MDXe3tD
+	 KE5IBS+dvm5YaXTS3CDOpYNuxJ+BFmjqGht6nKUFZ+UqDVtWwOezI5YcVEULn2fgll
+	 Ee0cNJT8ZUIFw==
+From: Christian Brauner <brauner@kernel.org>
+To: Bill Wendling <morbo@google.com>
+Cc: Christian Brauner <brauner@kernel.org>,
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
+	Bradley Morgan <brads@mainlining.org>,
+	=?UTF-8?q?Thomas=20Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>,
+	Kees Cook <kees@kernel.org>,
+	Aleksa Sarai <cyphar@cyphar.com>,
+	Jan Kara <jack@suse.cz>,
+	Nathan Chancellor <nathan@kernel.org>,
+	Miguel Ojeda <ojeda@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Nicolas Schier <nsc@kernel.org>,
+	Gary Guo <gary@garyguo.net>,
+	Alice Ryhl <aliceryhl@google.com>,
+	Douglas Anderson <dianders@chromium.org>,
+	Anand Moon <linux.amoon@gmail.com>,
+	Oleg Nesterov <oleg@redhat.com>,
+	codemender-patching+linux@google.com,
 	linux-kernel@vger.kernel.org,
-	Michael Straube <straube.linux@gmail.com>,
-	Peter Robinson <pbrobinson@gmail.com>,
-	Bitterblue Smith <rtl8821cerfe2@gmail.com>,
-	Luka Gejak <luka.gejak@linux.dev>
-Subject: [PATCH v11 4/7] wifi: rtw88: sdio: zero the padding added to a TX transfer
-Date: Wed,  9 Sep 2026 09:45:53 +0200
-Message-ID: <20260909074556.55709-5-luka.gejak@linux.dev>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260909074556.55709-1-luka.gejak@linux.dev>
-References: <20260909074556.55709-1-luka.gejak@linux.dev>
+	linux-hardening@vger.kernel.org
+Subject: Re: [PATCH v5 1/2] userns: Add __counted_by_ptr attribute to struct uid_gid_map
+Date: Wed,  9 Sep 2026 09:46:12 +0200
+Message-ID: <20260909-tanzmusik-obwohl-einlegen-d10f1e000df0@brauner>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260908222734.3048684-1-morbo@google.com>
+References: <20260908222734.3048684-1-morbo@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1660; i=brauner@kernel.org; h=from:subject:message-id; bh=8+DQOmtJYZx/yS4aLqQ5/JqJVJptFIvKArI/32tgYA4=; b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWQt5DsxwVpyybxVi8umMTRcuiSc6jRx3yS9suMvZwref H9F2T+wtqOUhUGMi0FWTJHFod0kXG45T8Vmo0wNmDmsTCBDGLg4BWAiK1sYGTbsTe/f05ZS3Wuy 4aFc9zqRKtWmF+lVe+8uOZ1sMinBzZeRYaNE3bd38Wf6J0UGXSn+rTuxJvCSjaf5qrySjrn/uOY k8gEA
+X-Developer-Key: i=brauner@kernel.org; a=openpgp; fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 Content-Transfer-Encoding: 8bit
 
-From: Luka Gejak <luka.gejak@linux.dev>
+On Tue, 08 Sep 2026 22:27:29 +0000, Bill Wendling wrote:
+> The compiler attribute __counted_by_ptr associates a pointer field of a
+> struct with a sibling field within the same struct that specifies the
+> element count of the allocated memory. This enables KASAN and fortified
+> bounds-checking to detect out-of-bounds accesses to the pointer field at
+> runtime.
+> 
+> We can add the __counted_by_ptr attribute to the 'forward' and 'reverse'
+> pointer fields of 'struct uid_gid_map', which are counted by
+> 'nr_extents'. Since 'nr_extents' is defined in a sibling anonymous
+> struct inside an anonymous union, the nearest common non-anonymous
+> struct level is 'struct uid_gid_map' itself, which is supported by the
+> compiler.
+> 
+> [...]
 
-rtw_sdio_write_port() rounds the transfer up with sdio_align_size() and
-then hands that length to sdio_memcpy_toio() while the skb still only
-holds skb->len bytes. The difference, between one and 511 bytes, is read
-from beyond the end of the frame and transmitted. Whether it stays
-inside the skb's allocation depends on how much tailroom the skb happens
-to have, so this is at best sending uninitialised memory over the air.
+Applied to the namespace-7.4.misc branch of the vfs/vfs.git tree.
+Patches in the namespace-7.4.misc branch should appear in linux-next soon.
 
-Pad the skb up to the transfer size first. __skb_pad() zeroes the added
-bytes, reallocates a cloned skb rather than writing into a buffer a
-clone still shares, and leaves skb->len alone, so nothing else in the
-transmit path has to change.
+Please report any outstanding bugs that were missed during review in a
+new review to the original patch series allowing us to drop it.
 
-It must not free the skb on failure: rtw_sdio_write_data() frees the skb
-itself and rtw_sdio_process_tx_queue() requeues it, so both callers
-still own it and would double free.
+It's encouraged to provide Acked-bys and Reviewed-bys even though the
+patch has now been applied. If possible patch trailers will be updated.
 
-Found while reworking this path for the RTL8723BS. Measured on RTL8723BS
-hardware, padding the transfer costs nothing observable: uplink is
-19.5 to 19.8 Mbit/s padded against 20.9 to 21.1 Mbit/s unpadded in an
-interleaved A/B, with scans, reconnection and a UDP flood clean in both.
-The other SDIO parts sharing this path are untested; I have only the
-RTL8723BS.
+Note that commit hashes shown below are subject to change due to rebase,
+trailer updates or similar. If in doubt, please check the listed branch.
 
-Fixes: 65371a3f14e7 ("wifi: rtw88: sdio: Add HCI implementation for SDIO based chipsets")
-Signed-off-by: Luka Gejak <luka.gejak@linux.dev>
----
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/vfs/vfs.git
+branch: namespace-7.4.misc
 
-Notes:
-    New in v11.
-    
-      Ping-Ke asked for this to come before the RTL8723BS accounting patch
-      rather than after the series, so that it backports on its own and so
-      that it is clear it is an existing problem rather than something the
-      RTL8723BS work introduced.
-    
-      The pad_size local is the shape he asked for on v9: declared at the
-      top, computed unconditionally, and tested with if (pad_size > 0).
-
- drivers/net/wireless/realtek/rtw88/sdio.c | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
-
-diff --git a/drivers/net/wireless/realtek/rtw88/sdio.c b/drivers/net/wireless/realtek/rtw88/sdio.c
-index 5b40d74b16ee..8466abad972a 100644
---- a/drivers/net/wireless/realtek/rtw88/sdio.c
-+++ b/drivers/net/wireless/realtek/rtw88/sdio.c
-@@ -636,6 +636,7 @@ static int rtw_sdio_write_port(struct rtw_dev *rtwdev, struct sk_buff *skb,
- 			       enum rtw_tx_queue_type queue)
- {
- 	struct rtw_sdio *rtwsdio = (struct rtw_sdio *)rtwdev->priv;
-+	size_t pad_size;
- 	bool bus_claim;
- 	size_t txsize;
- 	u32 txaddr;
-@@ -646,6 +647,17 @@ static int rtw_sdio_write_port(struct rtw_dev *rtwdev, struct sk_buff *skb,
- 		return -EINVAL;
- 
- 	txsize = sdio_align_size(rtwsdio->sdio_func, skb->len);
-+	pad_size = txsize - skb->len;
-+
-+	if (pad_size > 0) {
-+		/*
-+		 * __skb_pad() must not free the skb on failure: both callers
-+		 * still own it, one requeues it and the other frees it.
-+		 */
-+		ret = __skb_pad(skb, pad_size, false);
-+		if (ret)
-+			return ret;
-+	}
- 
- 	ret = rtw_sdio_check_free_txpg(rtwdev, queue, txsize);
- 	if (ret)
--- 
-2.55.0
-
+[1/2] userns: Add __counted_by_ptr attribute to struct uid_gid_map
+      https://git.kernel.org/vfs/vfs/c/b31397fe3007
+[2/2] userns: Add KUnit test suite for uid_gid_map
+      https://git.kernel.org/vfs/vfs/c/f6f1a2496ba5
