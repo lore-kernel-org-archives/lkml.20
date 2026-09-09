@@ -1,159 +1,138 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com [209.85.214.180])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A37D81F16B;
-	Wed,  9 Sep 2026 00:25:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22294492E5D
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 00:28:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788913528; cv=none; b=YR2y1aOYz1LdD7CZoaV/T8KKLUS7qYdo7+svLKUWUsLbqmXY4c9ZN13OEutamu+szQO70+TQaZs1lg+xv5KN+FKhdaaRsc6Z9+26gqmS44RHyk2/1cYI5B5FnLc+VivkCTcZF8SZGEbMqpcAOU6B9jfLfPq4wfNbVjGK4tK/NgE=
+	t=1788913716; cv=none; b=GwhOO10AxUu22FpCXY1KFyGGwZVT9llo2toepZuOIB0RXXR/lDpNni/ztL1D1ByvwQgdqYYr6hb4remu/V1edYMgA8f7ZiseV4SchUk9NNtxReFy+KnksglMG7dInIMj4SeqqAoXOF4a4x/8rHH+NwU7oOYB+NAP4FC3Wkxae40=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788913528; c=relaxed/simple;
-	bh=7w+aLP9GxKpSZ5Hud12Wkv8BfWqYjAe+WIUt/+HMdnc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=VgFjsVduEoqhHYP9tSMkdgJu3NsEpBLSGch1MwyrpiuubiG2n2hqSYkcYt9DH/F8MVSnFZ3Xb5AzPS4fEa6YQHPpRdOf6seRBPEvU4sPxbna4ZOUhXlpe1y8uX0jw5BoslbYZT63HaRv35siEplydrdh2foA7v3mo2K7X77RKgY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=1P1Z7n/8; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=MXPvRxOa; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=fpGTkZS3; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=ffbI9gxR; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	s=arc-20240116; t=1788913716; c=relaxed/simple;
+	bh=wOOFbcMB0D57W+KLzn4V9bAvKXI+GY8YT90YemBAyp4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=P0Tc43XGMlQZm1g511Qg+fJRLy0zLBCQ+MBpz8WJJAyHNOc6M6EVY26l3PTLNFjBaJSc8BPM4qz2Vd5r7pR/ufSJsklTwHbV701xulS64ZyhJYCQ/dKVOiRR3vTE2asTk1pNPsLREO5I8e/Sw33UA19HsrIZ/hBQjHtQrdAj+5w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=G2GD9Z2J; arc=none smtp.client-ip=209.85.214.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="1P1Z7n/8";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="MXPvRxOa";
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="fpGTkZS3";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="ffbI9gxR"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 1777621A0A;
-	Wed,  9 Sep 2026 00:25:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1788913520;
-	h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
-	 cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=4onBu054LSY/uF7WM8nXm9GLARR1Lx+akTHTwT/AQhI=;
-	b=1P1Z7n/811kTFms4O4+Ykcqf5oceHryqrZS8HKs+zGz3M6OviTMs/jzUtcPBsAjunaQDEs
-	prNNPXO94axrFu0WEUBoqESe1cnNrVk19iF6t2LqSXG40RLKG0Orwmafk+6mMeG4cAQN/Y
-	m3WgNqRsvUxCsckzWXXbnS2RR82jPBo=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1788913520;
-	h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
-	 cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=4onBu054LSY/uF7WM8nXm9GLARR1Lx+akTHTwT/AQhI=;
-	b=MXPvRxOaLgeIwgrQzwUmlV5vtZgXiwByTzMkvi1O1GkJPWjjOYIBpCpe29uzbqLKscypsm
-	WOZDjuIz8Q6iNEAQ==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1788913516;
-	h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
-	 cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=4onBu054LSY/uF7WM8nXm9GLARR1Lx+akTHTwT/AQhI=;
-	b=fpGTkZS3PjC443zgnw+SovyduUVJcDACqbwzTXDD846pcyWsmVC88mOMvWnDQISvPTy/qC
-	m+dtRtcGfGwBr0O27blYcDVu/3II/WZSQx1ascJjr6c/wOQwWaIuUOdXEW40TVKSxaXFE2
-	wE+QJ/UQQpOas4bh91tizAljLmCZ2xA=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1788913516;
-	h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
-	 cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=4onBu054LSY/uF7WM8nXm9GLARR1Lx+akTHTwT/AQhI=;
-	b=ffbI9gxRVcXRhP8nKQj5jF4QWEzKDGdecaPEj9/8KaHUfcmJYb05yaWkYAIXqzBCIzEc0j
-	T/xS31bsMPyzlvAA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id DF3F813354;
-	Wed,  9 Sep 2026 00:25:15 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id SjBKNmunoGpGQgAAD6G6ig
-	(envelope-from <dsterba@suse.cz>); Wed, 09 Sep 2026 00:25:15 +0000
-Date: Wed, 9 Sep 2026 02:25:06 +0200
-From: David Sterba <dsterba@suse.cz>
-To: Alex Romosan <aromosan@gmail.com>
-Cc: linux-kernel@vger.kernel.org, linux-btrfs <linux-btrfs@vger.kernel.org>
-Subject: Re: commit 108cc873398932af589c295f78c348513b8d70d9 breaks
- update-grub on btrfs root filesystem
-Message-ID: <20260909002506.GF9053@twin.jikos.cz>
-Reply-To: dsterba@suse.cz
-References: <CAKLYgeL7nrA4nXcewdv9Fqg_s=3GS=vmoypnEiZBKQ7rySZFuQ@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="G2GD9Z2J"
+Received: by mail-pl1-f180.google.com with SMTP id d9443c01a7336-2cfbbdfa60bso45724175ad.3
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 17:28:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788913714; x=1789518514; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=lYPbCU8yItARlsLn9J/sS/uldVFQSebBvmwOe0YRnh4=;
+        b=G2GD9Z2JyZXIsVYWdQLi67J7LXecbvoe/rJ0k5Ln5NvSE1HTHl5tTUjvB7jJ6c1DSR
+         etftBwUfBwMf9b07rCMVIs8kWLQXFY4pG91mkYQiVmt9yucZp7nvSvbcgTQUczecDrFT
+         L6NChZDFcf1f4lGSHEJYKdJ2fw+Tg7pk6XLK2lVlrQSBJjBGSbjH+iN6czxyQfz46r+p
+         adVP5eA+Si8p0g2gV/pgRUkTRVKIHW2IXhyiwdB7lQ+tiIHHUFJ+sD0NeCV08terRxzZ
+         OnovmgnSlEYylISMTyeiv2V+8kyDNq9Ay52+IZwMeEdujUl5KgawEVfOwyK3bVPpdxBV
+         FgGA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788913714; x=1789518514;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=lYPbCU8yItARlsLn9J/sS/uldVFQSebBvmwOe0YRnh4=;
+        b=HJ9edbVP6MgVVx2Y9bZgx1IhX8FW5I8uCJo9e1A+DESvx9MNUS2GfaO0ko/HCjDsSj
+         brv3iSud6aRwteWubXuPb3X3tn0i8Me4MGR9qzmkiEc3VKV0of5VGer1EfzR5uiuOF9H
+         MTPi1o17FK2iQFlSyk1a1lyNpGNEe1PdiSn3e+BTO8NbfmoocUQTwYKv4zS7jpFRK3So
+         zn9xFZEXJSLIvoaWY5NjyIpZUuAnITyQ8SoiFuGIcq/Hyhv3xdnlt8yzQDJgrZiwevKJ
+         c5FedtEuPiVtoz4nvkGToDo8exOuKudlXFyQGGulKnqmFvuyXqGEEAYRBdW62EHJlusI
+         YDJQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxWQkqZ9WLIespIvKkkugJU3suTi3ZZ5604o8v35kNFEkNhVB7VL2llsqDwnn74tOUIqtr7mRNPxrp5N+c=@vger.kernel.org
+X-Gm-Message-State: AFuF++l8tROizvF/UMSf8XG6Z9I+V4WjLJEyncVZLMqOFnsT7ya1VUkP
+	LWWZ0gL5Ssc4N4ekaDLc/D+TveUEGXITevnxHwC6VT0jEyClmgUJJ2lq
+X-Gm-Gg: AYBFou2dRfR3DsXJWkJ8VsM/GDDJo6XlL4kptrmpA9VbFUEDsEc5e6rA8Yd21hqfWg/
+	fj2ILDwcjrG6MEgxbDXL3Ab762HR++shpJinsYmbShTt5/gI9gTt/B8FtDVrJypaMHz8zr3kCVg
+	eJQjHw0aQ+c+keSZtVoYR3RrPzpcF4zFu6bNoC/5KDgpVXAUBPUQX6Zdd12DoRaLblk2PTLDTGk
+	ayiFK9HS5ys9goyfUczvjLoRD78occ/vLpU0jfXy+Duvrqeu2yfRUa+1dIqGLil/AnwP0jjWQg7
+	GIMopwSGkdVJ65ZD+F2PJ4ZAxLbArz9ZB/Q5Uv5ispMsZ/TExIjWkbohIpeA2SZhkVRxd5Y96Ot
+	+NH/sA0ZJIOV5fFv3pGaVrLCECJD01HL3+P3VOKEAEiZCiaN5Re1fbq+6afc+0wgNmnXCgB/kzg
+	tIhIfLkMAvW8kvdMpOfUR7XfUvFgp7lvzuzELW4udT7DKhLapQp33AIg==
+X-Received: by 2002:a17:903:289:b0:2da:e67a:87d4 with SMTP id d9443c01a7336-2db1268128dmr476008115ad.19.1788913714218;
+        Tue, 08 Sep 2026 17:28:34 -0700 (PDT)
+Received: from bloom.localdomain ([2604:3d09:178e:e100::3820])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2db18a1eb47sm63337795ad.48.2026.09.08.17.28.32
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 08 Sep 2026 17:28:33 -0700 (PDT)
+From: Ivy Lopez <skunkolee@gmail.com>
+To: ionut@badula.org,
+	andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: horms@kernel.org,
+	Ivy Lopez <skunkolee@gmail.com>
+Subject: [PATCH net-next v3] net: starfire: fix ioaddr sign-extension causing ioremap() failure
+Date: Tue,  8 Sep 2026 18:28:29 -0600
+Message-ID: <20260909002829.224639-1-skunkolee@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260908124119.GW40544@horms.kernel.org>
+References: <20260908124119.GW40544@horms.kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAKLYgeL7nrA4nXcewdv9Fqg_s=3GS=vmoypnEiZBKQ7rySZFuQ@mail.gmail.com>
-User-Agent: Mutt/1.5.23.1-rc1 (2014-03-12)
-X-Spam-Level: 
-X-Spam-Score: -4.00
-X-Spam-Flag: NO
-X-Spamd-Result: default: False [-4.00 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	HAS_REPLYTO(0.30)[dsterba@suse.cz];
-	NEURAL_HAM_SHORT(-0.20)[-0.999];
-	MIME_GOOD(-0.10)[text/plain];
-	FREEMAIL_TO(0.00)[gmail.com];
-	RCVD_TLS_ALL(0.00)[];
-	ARC_NA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_THREE(0.00)[3];
-	REPLYTO_ADDR_EQ_FROM(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.com:url];
-	RCVD_COUNT_TWO(0.00)[2];
-	REPLYTO_DOM_NEQ_TO_DOM(0.00)[]
+Content-Transfer-Encoding: 8bit
 
-On Tue, Sep 08, 2026 at 11:59:43PM +0200, Alex Romosan wrote:
-> Please Cc me as I am not subscribed to the list.
-> 
-> Running my own compiled kernel without initramfs on a lenovo thinkpad
-> x1 carbon gen 7.  The linux disk is the only disk on the system. Since
-> version 7.3-rc1 i haven't been able to to a grub-update, instead i get
-> this error:
-> 
-> /usr/sbin/grub-probe: error: cannot find a device for / (is /dev mounted?).
-> 
-> 7.2 is fine. a git-bisect identified commit
-> 108cc873398932af589c295f78c348513b8d70d9 as being the culprit.
-> reverting this commit from 7.3-rc2 allowed me to run grub-update
-> again.
-> 
-> this is not the first time i reported grub-update being broken on
-> btrfs. i reported exactly the same problem on jan 8, 2024
-> (https://lkml.iu.edu/hypermail/linux/kernel/2401.1/00596.html). maybe
-> the discussion that followed would help come up with a fix that will
-> make everybody happy.
+ioaddr is declared as a signed long, but is assigned the result of
+pci_resource_start(), which returns an unsigned resource_size_t.
+On configurations where the BAR address has its high bit set, the
+value sign-extends when passed to ioremap(), producing a bogus
+64-bit address and causing device probe to fail:
 
-I remember debugging that one, https://bugzilla.kernel.org/show_bug.cgi?id=218353
-Reverting 108cc8733989 ("btrfs: fix a lockdep caused by path resolution
-during device scan") would bring back the lockdep warning and there is a
-locking problem.
+  ioremap: invalid physical address fffffffffe480000
+  starfire 0000:08:04.0: cannot Remap 0x80000 @ 0xfe480000, aborting
 
-The commit says it's fixing 2e8b6bc0ab41 ("btrfs: avoid unnecessary
-device path update for the same device"), the difference is in lines
+Change ioaddr to resource_size_t, matching both the return type of
+pci_resource_start() and the type ioremap() expects for its physical
+address argument, rather than unsigned long, which is not guaranteed
+to be wide enough on all configurations. Switch the associated error
+print to %pa accordingly.
 
-(https://bugzilla.suse.com/show_bug.cgi?id=1230641)
+Link: https://bugzilla.kernel.org/show_bug.cgi?id=198035
+Signed-off-by: Ivy Lopez <skunkolee@gmail.com>
+---
+---
+v2: use resource_size_t instead of unsigned long, and switch the
+    error print to %pa, per Simon Horman's review.
+v3: rebase against net-next, no content changes, per Simon Horman.
+---
+ drivers/net/ethernet/adaptec/starfire.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
--       } else if (!device->name || strcmp(device->name->str, path)) {
-+	} else if (!device->name || !is_same_device(device, path)) {
+diff --git a/drivers/net/ethernet/adaptec/starfire.c b/drivers/net/ethernet/adaptec/starfire.c
+index f1109d90e1fc..b2f3998e128b 100644
+--- a/drivers/net/ethernet/adaptec/starfire.c
++++ b/drivers/net/ethernet/adaptec/starfire.c
+@@ -634,7 +634,7 @@ static int starfire_init_one(struct pci_dev *pdev,
+ 	int i, irq, chip_idx = ent->driver_data;
+ 	struct net_device *dev;
+ 	u8 addr[ETH_ALEN];
+-	long ioaddr;
++	resource_size_t ioaddr;
+ 	void __iomem *base;
+ 	int drv_flags, io_size;
+ 	int boguscnt;
+@@ -664,8 +664,8 @@ static int starfire_init_one(struct pci_dev *pdev,
+ 
+ 	base = ioremap(ioaddr, io_size);
+ 	if (!base) {
+-		dev_err(d, "cannot remap %#x @ %#lx, aborting\n",
+-			io_size, ioaddr);
++		dev_err(d, "cannot remap %#x @ %pa, aborting\n",
++			io_size, &ioaddr);
+ 		goto err_out_free_res;
+ 	}
+ 
+-- 
+2.55.0
 
-Which gets changed to (by 108cc8733989):
-
--       } else if (!device->name || !is_same_device(device, path)) {
-+       } else if (!device->name || device->devt != path_devt) {
-
-Each change is reaction to a bug, I don't see a clear fix which will
-make it work in all cases.
