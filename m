@@ -1,150 +1,202 @@
-Received: from mail-qv2-f12.google.com (mail-qv2-f12.google.com [74.125.230.140])
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6F5F43F4AF
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 22:41:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.140
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788993708; cv=pass; b=aPp1VDTohDtQ9H8nDwHWvkHRtjMDYTN7uucJdLGf2VJRkFaX+fU1Dd1uHJOb/u90R/GMAyO8nFENnVG06Qrm0ayaBLEa9CKeV94/X5+K+26AY2wsxYz8FX7+ZnZOU2g0j/gzola9+XAoBOC47Oq2HpMNH5LSaOctjUCh+V22DQM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788993708; c=relaxed/simple;
-	bh=NTWMXK3qBllEwS5xxNNJmOXFEuix2lqI2KW5LUWH0nk=;
-	h=From:In-Reply-To:References:MIME-Version:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=RsUv1Ks3N5nAo+m5qGYXjHEKLCTD5paSfm89xHCYbnORbqpF6KdcuWzgdFEmgLW2HBAZsTIU9MBIgRMevDKjPQDprcOc6kdp8Fcv/nk1A96HFIlUG5036AbRZpHCJo71FZtijPCffVkfgBBVBAVRl7JSujhQNEyqOTlfurDNAHw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=G2rqbkcd; arc=pass smtp.client-ip=74.125.230.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FDF44A688C
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 22:43:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788993822; cv=none; b=By2gO3uo10KZE2CgDO7XZBhWmks4/bkJKgjlsLkSeXNvUuhWAZj9CpJdnI3E50r5k9lyR084zqiOwkjgEEW+YAujXJKMmfgi5x/VkU8eY0BbhVdf0Sb+v8B5769luWi5uV9RuUG0uE2xftOV3YcGl1s5K+dzlqTruJY7mVW6E/o=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788993822; c=relaxed/simple;
+	bh=qPuG5p0RFzxZ5A/zFAdZehA6Nlq32FKjBYxY1oi1wb8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ptMMS+DFcSZiqSHtv7++HFasckMC2KiTEWclftFfLEkeKRe8KCRGiwEXm1HpgX2VafnYil7uYLnZ99pTuBMwMY/EOwXRXrSRZlqyGBgMGoIUjQp70I1i0bbI4M8tPg/LK3+N06NQ1l4iRQFxwb8CN3R5ZpjG7zZ0m8qRR9h+gyo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=eLUModup; arc=none smtp.client-ip=74.125.225.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="G2rqbkcd"
-Received: by mail-qv2-f12.google.com with SMTP id 6a1803df08f44-90cdfbd148cso17420366d6.1
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 15:41:43 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788993698; cv=none;
-        d=google.com; s=arc-20260327;
-        b=R4gWty1Lm/CUP5l5kjWr8/afAa4OO5UGdveHslQYkWRgZFHND8Dfr1jRghbon5sZsb
-         6aYGtv0K4ipSmUCWWspNqZLnoHxWybZHtxNPHUOYXqHypN1a+CRpQK8R+dK8yNDiz479
-         MOW8UuEYOlV1D7MQemUPzn3wb3h+dDZrFwxj1WEtaGt0fBge8Mdr+PtFmUT0cAsP0zyk
-         YA8LRiVxozzAgDDkSVEKINGRxmJWrYxUx04zKXrLmSst2nb6T6/9qfinKs7xXpbYklm4
-         o6NHUbRvkBCjJutQQXztc6mnWvS4DXsxkqQ3Lf2BHjAH1+KdSJSI/djx/cRHTGCq2hO0
-         1L/A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:mime-version:references:in-reply-to
-         :from:dkim-signature;
-        bh=K7y90OKfcw5Kem65C7oA0LNo0uX7jIHf03YJVGFM0dg=;
-        fh=GyeOdIWkpXiBM2dWa6slLHcYKwUqmJ8MX3yKNxIJUCY=;
-        b=FkQ2IaAIQAc/TOlsxr616S8SvtV05uDzBL+vsNFVDdhlOJ8K6xAe/cf0X3xU/aq0hN
-         s2sCQmntWaoPfT2fj5IoKIJYEKg1OZ/vDb22A2nwyIIUEYYYzd79Ye9qAzzRqhKwNEM0
-         PnKCadzHVs8bwcxbuzG0lDfpn6JybjLYYKe/5Agj5KqjvmqgVzQ0InoEXBdtYSEtpI6T
-         MKQu26A5rNZE9OIt35wJXUba4JyToV9j+b47TLxMEl5/8u5IKnKgRewK739vQdzpTLg6
-         wlTBJETyWltgDhz/Fxhc4ekdjHmEptsAEw0PHJ8Ldg6UH23i5bS8YoxlxeT+wxhlv6gV
-         l1gg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="eLUModup"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-48434392b02so666976f8f.3
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 15:43:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788993698; x=1789598498; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:mime-version:references
-         :in-reply-to:from:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20251104; t=1788993809; x=1789598609; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=K7y90OKfcw5Kem65C7oA0LNo0uX7jIHf03YJVGFM0dg=;
-        b=G2rqbkcdAr8tmLVUFqM9mdb/wGB3yaWC7Ys+HxXHpvuyU4TxjC/z2rCxCtc5RHaJkE
-         Nabtmse/5Y7cQKBLwqW1DLuOk52CmzCmNGhIxRDAWPS9ecNe7UJcIOUDFo3HsGh3F65m
-         O9cAPg5qIMovmw/N+e8WKKKzdTxUyF+v05AjXv48R6ZO+/LEzT+BqDj06Js2iSkSVLEg
-         93Wm0GH0710DVzUecZtrwmpMfdE7uhDSkq1CG3uGWIaNvzaJ+vIa41reLT3IShT6ONWo
-         cVcgnOOyCO6hK3bVOcCrTXtACRZhbIXgFtW4oQqlnD2TDB/KS8gQF0q6lIcXEgT4wRP0
-         EHTg==
+        bh=02KomAtCOkWbCrlEbmnlwwKlgNzCkBBNmKfqlS9ULZs=;
+        b=eLUModupHQlUOC88E8IknMW/6Ov5cgnOoqxE0iP7NohSPsBO85AUxOVmUNRf6zvEZU
+         6ZFWkx/R1kSK2zld5Dpdp55MNx2ZdgrEBbScYYQ7O5C51LxPYwbeA6fvXPWR8Z6k8MZI
+         PxLnHI3k4fHNHg5xlBudEovb08OygKjWwtXUHe542MmtBm/Q82usNErM6yPBlGQAmFi9
+         /sUicuF3gqaKV2t0BkiP4j+eUQ47W8TMuDyIiPKFDf4rjEC6YunFrlgkmE5qYsysIrWw
+         LFS2FuOqLHrTIRzdA0mCFOp5hqr0v+BExqwxCc7I/BjO6RoQlXJQR+bF4mDcJrT+Fp2C
+         RQww==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788993698; x=1789598498;
-        h=content-type:cc:to:subject:message-id:date:mime-version:references
-         :in-reply-to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=K7y90OKfcw5Kem65C7oA0LNo0uX7jIHf03YJVGFM0dg=;
-        b=XlgoDtXOohbY4uHr+tOBqCIT4u3rwwu4Bb6pGeRMRHLUOi5nNaraKlXp27o5GhymvT
-         jwxTnT2MlGFKxRr2hVR+jyevXAzSkQAYhk/s8N3YH8DezyXkq5mCVRpzN4RiHP0oqf0N
-         L5rpIu8I8bDFZ/2WM2RoF/erpEcI7XVXaDUNxcYkPnRBh1m4c3c6kTeyjDeahCMyj/WD
-         Gg4YppnZAYZnG1CMhiV14j/naKsKKMyYmxhV0ET0UqEAAoUXioHQWIKgaZSmVCQU9uF0
-         OcQWGkC0vOSv3cLDJ6WNFxYLbu6P44hw0KeXyc6UyTyVCIOMiiIFT9PKK2R12ue1d5oS
-         u9WQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzumzm/8c+XF62/qocArfkt2bcIlJZGU/eI4igOpqKpIGIqyFbUE6M7haBjFLO7C6qu/EAr244pp+8VSvs=@vger.kernel.org
-X-Gm-Message-State: AFuF++lOYg/DnL29CEAlasLsuy/rJfzIfTpSXVoXhSCLX1RLKuoqblYE
-	HgimW6oi7En+fjYPgVYh08Q2i9tAUZZlJk6dCi/AOruLmW6BjwXXLjaDTRxbWFzBXlSQteTAFBr
-	aq5nFbaKTKdZJSYRxm1UiDTfwl660Owuu8D7zMyQ6
-X-Gm-Gg: AYBFou1T1jm3KGFV+H4LUbmlm6fi7la+w3BUQMFhEyzVke05FgmIOGNgewVy5I528Gs
-	rTYBO7n4jBRStD6x1NhyOBKW2T0xYZhB6/qMDIbQVfsTKoXsfc7Sn5wn12eZI/JWx7sxD1DCXC4
-	eyHpyaTThnaPjN4NQ0+m9quExJvxAan/tsoKzwXLYhBSYVHeXovuwOg/WqhQ2MrePIDos7bOUen
-	n81IGk/fbTOQNT3xpI0Tn1kJsdM2ZozGWIJhWm9BgDdr06rYNYcUl+vq2nPp+x6dN5a+PW2U/fz
-	IuQ7c6918Q7m2dCxQYDmYlDSSKg9z15ybGN5Pn2UdKffRyI7sPJkNdOZOrvpO9urITjSh9t4dBQ
-	fXZrG5E7uzg5ZRyXEhZzYGxcjUeZjn80iBvqEPV2n
-X-Received: by 2002:a05:6214:4891:b0:910:345b:954a with SMTP id
- 6a1803df08f44-9106b448140mr149416676d6.37.1788993697090; Wed, 09 Sep 2026
- 15:41:37 -0700 (PDT)
-Received: from 176938342045 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 9 Sep 2026 15:41:36 -0700
-Received: from 176938342045 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 9 Sep 2026 15:41:35 -0700
-From: Ackerley Tng <ackerleytng@google.com>
-In-Reply-To: <20260902194657.79075-1-gourry@gourry.net>
-References: <20260902194657.79075-1-gourry@gourry.net>
+        d=1e100.net; s=20251104; t=1788993809; x=1789598609;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=02KomAtCOkWbCrlEbmnlwwKlgNzCkBBNmKfqlS9ULZs=;
+        b=baT7AwIMRSInfOxNJP9f05vBy5VCkWFLLZpNDK0ZSr5+1cJxA68rUTje3VCcWrhjzE
+         khZnL1RFEhK0ykKPIJIfNlBm2waIeOZmjQVYh1+HcLq9fy0KdEIUNOs3aPgP/Mr8uemM
+         fnuYGUcWrSSJz+x6pY6FA1b5RlrHsGNBHwkraB518Ys/Im541se7+4bjLo7Z/RLQxAL1
+         5tKrQhY+HbXxFTnF0CC8LCT42CoTj2ytxBGlm3eZmNGXywGy+PhhW//dXesPVjV5vl7B
+         kOY1XNyQgnngLJqDZmfsWTqkbhIQ0RVQ5PoefuAKBbdjYxSiUe2WM7A58/OuUnxBwTLp
+         zNqA==
+X-Forwarded-Encrypted: i=1; AKwUvBz8mMzyTt8yMpOmZlTAjTYFwMAGX2HHJJpsgy4/bPuWTmylg2SUZYOsuY+Q/SNwsz0cO4gBcz4MHr/h8c0=@vger.kernel.org
+X-Gm-Message-State: AFuF++n6n5aTTPJDuixUZqvEAcgN34vNE4MqDioPq2prY4tbo7wgjWRS
+	uhDbK6mGFiAUVlKMi1m8mTzAzQsRqLAGtVTFa6j8DgbksIq/jfJgFMApyYV57a/Y
+X-Gm-Gg: AYBFou2qOCBn2Cvpr1Xil/fDnaaojbmjC5lw9Hc0HU3l0WUlgjbK0PcEFV54ICHFL+M
+	YFC2GVuJNn4ZoA8G4IG94amTLi2gIN20GqO4Yi6i0zgG0clLtr7SRhdBwA79VndJnkjzAkHKDU3
+	k71WD5dtl83oAymebnhZbPTMb5b1siOifKuBhYYC8T98cmkM/UZWnmPLfjeqe7FyRxSKrDDjKL9
+	c2U1nIJInZw/ZHULEtO4HNmqIZLVXc8uLze4PgpNoU8BXJwPh9JTLpXppSegyvdKmTKgWiz2iGR
+	viW5a+t2CHtugxWkksChvyi3JwK7RqHPgJGIH5eJ427jZKQJg8OkJGchsrtt1kxzlIyAxTIfFeh
+	g4Ai5cDTX/Y64g+zt1FClCVsVp2eS8vzZwsKyLHBIZUbp6Oy/t2wTtZeBLHmPSXi02vSG4ppfD/
+	pvCelGBL6YJNVOlOXl2BtAzU2qCCnlmEyLXj7n4AnXgvo3A+dVoaGA6FCG6ZCrrZjc12uvTxAfF
+	oC8zAGw0DeBXlR30OMK8s+OlQwhMHRI1syHH+ewVld/2nKRyZaH9yN7yEnaaEVmFac=
+X-Received: by 2002:a05:6000:2313:b0:484:3310:c4fc with SMTP id ffacd0b85a97d-485c23ef4e3mr7849785f8f.23.1788993808575;
+        Wed, 09 Sep 2026 15:43:28 -0700 (PDT)
+Received: from [10.128.10.232] (195-23-151-163.net.novis.pt. [195.23.151.163])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-485883a9234sm46358486f8f.14.2026.09.09.15.43.27
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 09 Sep 2026 15:43:28 -0700 (PDT)
+Sender: Julian Braha <julian.braha@gmail.com>
+Message-ID: <d3addcc8-070d-40e9-abea-ca23956d5cc8@gmail.com>
+Date: Wed, 9 Sep 2026 23:43:27 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Wed, 9 Sep 2026 15:41:35 -0700
-X-Gm-Features: AcwNN1WgHJXiyXU_ZBa_1-DE36OkQO7Bg_jMLCkg3DfJNHdXNcM4XNk-5IPdjJI
-Message-ID: <CAEvNRgHWyBaBpZ4Bem1Eu86b-cuEA7NkyjxTJ4D3FnpGe1B2Yg@mail.gmail.com>
-Subject: Re: [PATCH 0/5] KVM: guest_memfd: bind backing memory to a NUMA node
-To: Gregory Price <gourry@gourry.net>, linux-mm@kvack.org
-Cc: kvm@vger.kernel.org, linux-kselftest@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, kernel-team@meta.com, pbonzini@redhat.com, 
-	seanjc@google.com, akpm@linux-foundation.org, david@kernel.org, 
-	ziy@nvidia.com, matthew.brost@intel.com, joshua.hahnjy@gmail.com, 
-	rakie.kim@sk.com, byungchul@sk.com, ying.huang@linux.alibaba.com, 
-	apopple@nvidia.com, shuah@kernel.org
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] kconfig: preserve the final answer when input has no
+ newline
+To: Erkan Erdem <hexvalid@gmail.com>, Nathan Chancellor <nathan@kernel.org>,
+ Nicolas Schier <nsc@kernel.org>
+Cc: linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling
+ <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
+ llvm@lists.linux.dev
+References: <20260907103739.23212-2-hexvalid@gmail.com>
+Content-Language: en-US
+From: Julian Braha <julianbraha@gmail.com>
+In-Reply-To: <20260907103739.23212-2-hexvalid@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Gregory Price <gourry@gourry.net> writes:
+Hi Erkan,
 
-> guest_memfd allocates its folios through a per-inode shared mempolicy.
->
-> Today that policy can only be set after the fact, with mbind() on a host
-> mmap of the fd. That requires the fd to be mappable, and it cannot reach
-> folios that are only ever guest-faulted. Neither holds for a
-> non-mappable (confidential) guest_memfd.
->
-> Add GUEST_MEMFD_FLAG_BIND_NODE and a node field to struct
-> kvm_create_guest_memfd. When set, KVM builds an MPOL_BIND policy for the
-> requested node and installs it over the whole inode, so every folio is
-> allocated there with no userspace mbind().
->
+On 9/7/26 11:37, Erkan Erdem wrote:
+> conf_string() unconditionally removes the last character returned by
+> fgets(), assuming that it is a newline. When redirected input ends
+> without a newline, the last character is part of the answer instead.
+> For example, feeding 42 to an integer prompt stores 4, and feeding
+> 0xff to a hexadecimal prompt stores 0xf. Both commands succeed despite
+> silently changing the supplied value.
+> 
+> Strip the newline with strcspn() so that a complete answer at EOF is
+> preserved. Keep the existing handling of newline-terminated and empty
+> answers unchanged.
+> 
+> Add regression tests for string, int and hex answers, with and without
+> a final newline, in oldaskconfig and oldconfig.
+> 
+> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+> Assisted-by: LLM
+> Signed-off-by: Erkan Erdem <hexvalid@gmail.com>
+> ---
+> 
+> Changes in v2, addressing Julian Braha's review:
+> - Add an in-tree regression test under scripts/kconfig/tests for string,
+>   int and hex answers, with and without a final newline, in oldconfig
+>   and oldaskconfig. The shared test harness is unchanged.
+> - Submit this fix independently of the checkkconfigsymbols.py change.
+> - Refresh Cc from scripts/get_maintainer.pl, including the LLVM contacts.
+> 
+> v1: https://lore.kernel.org/all/20260905123237.40670-1-hexvalid@gmail.com/
+> 
+> An AI coding assistant found the issue, prepared the fix and changelog,
+> and ran the original verification. The assistant also prepared the new
+> regression test and this v2 revision.
+> 
+> Validation:
+> - Built original and fixed conf with Clang on macOS and GCC in an
+>   x86_64 Linux container, using -Wall -Wmissing-prototypes
+>   -Wstrict-prototypes -Werror.
+> - On both platforms, the original conf fails all six unterminated-input
+>   cases and passes all six newline-terminated controls.
+> - The fixed conf passes the complete 33-test Kconfig suite on both
+>   platforms, including all 12 new cases.
+> - This tests the host configuration tool; a complete kernel was not built.
+> 
+>  scripts/kconfig/conf.c                        |  2 +-
+>  .../kconfig/tests/conf_no_newline/__init__.py | 32 +++++++++++++++++++
+>  2 files changed, 33 insertions(+), 1 deletion(-)
+>  create mode 100644 scripts/kconfig/tests/conf_no_newline/__init__.py
+> 
+> diff --git a/scripts/kconfig/conf.c b/scripts/kconfig/conf.c
+> index fe8ba09b0..46c9ca646 100644
+> --- a/scripts/kconfig/conf.c
+> +++ b/scripts/kconfig/conf.c
+> @@ -343,7 +343,7 @@ static int conf_string(struct menu *menu)
+>  			}
+>  			/* fall through */
+>  		default:
+> -			line[strlen(line)-1] = 0;
+> +			line[strcspn(line, "\n")] = 0;
+>  			def = line;
+>  		}
+>  		if (def && sym_set_string_value(sym, def))
+> diff --git a/scripts/kconfig/tests/conf_no_newline/__init__.py b/scripts/kconfig/tests/conf_no_newline/__init__.py
+> new file mode 100644
+> index 000000000..0fca696d2
+> --- /dev/null
+> +++ b/scripts/kconfig/tests/conf_no_newline/__init__.py
+> @@ -0,0 +1,32 @@
+> +# SPDX-License-Identifier: GPL-2.0
+> +"""
+> +Preserve complete string, int and hex answers at end of input.
+> +"""
+> +
+> +import subprocess
+> +
+> +import pytest
+> +
+> +from conftest import CONF_PATH
+> +
+> +
+> +@pytest.mark.parametrize('mode', ['--oldaskconfig', '--oldconfig'])
+> +@pytest.mark.parametrize('newline', ['', '\n'], ids=['eof', 'newline'])
+> +@pytest.mark.parametrize('symbol_type, value, expected', [
+> +    ('string', 'abcdef', '"abcdef"'),
+> +    ('int', '42', '42'),
+> +    ('hex', '0xff', '0xff'),
+> +])
+> +def test(mode, newline, symbol_type, value, expected, tmp_path, monkeypatch):
 
-Instead of a custom API to ensure all guest_memfd allocations come from
-a single node, how about these options?
+Please follow the style of the existing Kconfig tests.
 
-1. Using cgroups/cpuset to constrain allocations (could be troublesome
-   if the guest memory is not preallocated, unless the vCPU threads are
-   running with the cpuset config)
+For example, the function signature should look like 'def test(conf):'
 
-2. Process-level NUMA policy
+> +    (tmp_path / 'Kconfig').write_text(
+> +        'config TEST\n\t{} "Test value"\n'.format(symbol_type))
 
-3. Why not request the guest_memfd to be mmap-able just to be able to
-   set a memory policy?
+And you should keep a minimal Kconfig file in the directory, instead of
+having the test create a temporary file each time it runs.
 
-4. How about something like fbind() that takes an fd and offset range
-   instead of mbind(), which has a prerequisite on mmap()?
+> +    monkeypatch.setenv('srctree', str(tmp_path))
+> +    monkeypatch.setenv('KCONFIG_DEFCONFIG_LIST', '')
+> +
+> +    result = subprocess.run([CONF_PATH, mode, 'Kconfig'],
+> +                            input=value + newline, text=True,
+> +                            stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+> +                            cwd=tmp_path, timeout=10)
+> +
+> +    assert result.returncode == 0, result.stderr
+> +    assert 'CONFIG_TEST={}\n'.format(expected) in (tmp_path / '.config').read_text()
+> 
+> base-commit: 4d7d9486c04d917265f64c55bd23b2cc4fe7749c
 
-This doesn't exist yet, but I'm hoping to discuss this at LPC 2026:
-
-5. What if you could pass an fd representing a mount to guest_memfd at
-   creation time, so to make all the allocations come from a single node
-
-    Step 1: Create a tmpfs mount, specify mpol for mount to MPOL_BIND
-    Step 2: Get some fd representing the tmpfs mount, hand that to
-            guest_memfd at creation time
-    Step 3: guest_memfd allocations will always come from that tmpfs
-            mount, and abide by that tmpfs mount's memory policy.
-
-May I know more about the use case behind this new feature?
-
->
-> [...snip...]
->
+- Julian Braha
