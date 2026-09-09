@@ -1,229 +1,134 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C27C9568FAC
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 14:08:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A019550DB2
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 14:08:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788962885; cv=none; b=hPvW74MSTOkSgNsLh6L6PdTjqwn5UDybaY1eA7Gx0D85ZkkuKNqzTe6YrgjoZbz2aItz3ohVs/IVgiy5C59trOLrGutnLIqXi4FE7jVuATELZUCnIWToJ+GyVtLV0lWKfSuvzj/aFPNm4PonrT6k+M02ZElREBj6XMsmn1NsKp8=
+	t=1788962917; cv=none; b=sd61oOMWBqwzTBqEApLU93Fh0cANVCtaViQPw1wmMmq5sW7Yh7z388z1TiR9j1a6XNm1F4r8H/8LKBX4jT6HwBHoMr6XM6EHvi69WgdU2zhSu1Y7CTsVLwyqSLv9Y0iH3x9fjR4IUN/tjZgNdcpaButUHMcuAsokaROUXofRv0s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788962885; c=relaxed/simple;
-	bh=RWamXQB5lXNQZK4wY26JhvFyuxLqlBrnxJnzqcIbJto=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=eP3zoSgkhM0DvBEMmVtFzAfJrSC0BZW9VFe797I6PDXeXox0jaM1b2ZsLtWX+KeHUMho+NvoEacTeo1rAylA3Egen3UepIDidvJTGzPh2TT0k4xAyTZ919DMvPwfriV3P71a/WE7crdkR9iAgIX5ZQdQo4hqQvdI9M9JWtGbzs8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fHiQnsD7; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788962917; c=relaxed/simple;
+	bh=9HbugYz/pYdC/cG1I/ccf5Fqr7JLyMLydPSVYhaBuN4=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=sUuH3R2Aa3af7UHHusGvwrKDzHbRSPqnI8wSFfGNOWC+wG9wwipq+kGj9mIroV+2erUMQjAo9USliccsZNf2okgDUZjPzw28hHf+5gnMbksdWfLnj2ojma5kuUkCWCoV8aq6MqIj6anqQra9TVLvhl1vigNIkymVovLb0L7dMHo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CHIKQDc2; arc=none smtp.client-ip=209.85.128.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fHiQnsD7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9011A1F00A3A;
-	Wed,  9 Sep 2026 14:07:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788962883;
-	bh=VDyWmM40aiKxKbQ6FoW/MOveUW0JhOGKh0dq4VK12n0=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=fHiQnsD74keMxuuA2tajHNZcaFeCB4NkxmK8z2CQ7BeRU2CpuTeQCmXhPg7N3FRV5
-	 EjuYtAjpIbsL3Ro+Z9NrrC+e8MazPnwsUteb74EApWrDV08qjGM/hUQfkcOxtWJSf6
-	 7rF6NYfn0N4Dp/Mc3H6QAUF2jZoYrbp+DZWKNTazmi/WhMkbIrjZzEzBWE82fXLyt0
-	 clmrkMabbXuBy/vXbGLcU6ib701LtotePPJghNZXVPYgi80eJmKVef9GFYXnfhxZJU
-	 kebP2Abi03MXzEmX+3WAYSf4jDdwPQewH5jBt/41TQWaEBl5kyEMblFBrEng1mEk7o
-	 ezXBT/E2eDUtQ==
-Message-ID: <0569af12-8e32-457d-9d1f-9b879d6485d0@kernel.org>
-Date: Wed, 9 Sep 2026 16:07:53 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CHIKQDc2"
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-498028b3d5eso56237705e9.1
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 07:08:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788962913; x=1789567713; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=DnHKDNRI8iYm5ZtC0djEPukDxOPGWya2GFDssTDt+Pk=;
+        b=CHIKQDc20DOXCag7kbTgnR4a6iJUeKK8xSByBRSJDtfE291hPocgU8NsjphQ1X76X0
+         LIvo5PDrjR/qxGa0hu285ckN+7GjHtNhYT1RKaLiKxXt3Al6KrXJZ3FHGW7obpnf3FSQ
+         6pRP/ej+LrwGnEnXONTx4GChqAv92vhcWjutoMxIfjpaloroe2au8yZRfG/2dHBdCfWI
+         INPc/+aRLmsX28b9T0bFqWqnkvrFrXO4uzP6jJIUMlPtGHdg8od4AkMHkRoxmr577tKy
+         /LxoL3CfpM6GtBULVSTPjQzajbB6B9AEoSIKZsgSqH0aMgfB6+hhVRs/SFW1CIGB1uxx
+         dY3A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788962913; x=1789567713;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=DnHKDNRI8iYm5ZtC0djEPukDxOPGWya2GFDssTDt+Pk=;
+        b=acvJArzSpJd0ThYGDsPEuaJuoK6SxyN8ZdK8+73pzOSRHE8F8fDorlCjuIi12zXu7s
+         JhTnVehvSqiBqFaHE/hJ4bnP6vT4KIWh7oYzf659ZdJ1rF4vZ1VW2msWpXYEGhJCxhuh
+         o+FNVXoqHFYboQqzZlU9e7f8gbSE71OU0RY79OQRgdXlinHmSYT+ElYMaJ8DF61N6DvF
+         myK3iLUe+gqqr4F3UL3A9F+PZ4eCMDf4vYlocMFk6rjt0zpdZHaJqyZP+Im5dKQR7f2p
+         nAmml34ukHLHu2qBn6+okTNJd/FQJfQILSp/AuDWjvyGDBUNsKWiAGlYBv38yNb5q85W
+         eV0A==
+X-Forwarded-Encrypted: i=1; AKwUvBwHfVge7x6IS7R9h9dAxYGbKvSmWl/cqQbHw2e+8HomlIUhdPUsFyPh8PpCY0Ag4EMwdSL7oHmTZg9vHYw=@vger.kernel.org
+X-Gm-Message-State: AFuF++n7NxjKHutQC/qFdeDl+ZC2FOofVyFCxcl0xRKSIBS1pUwfh42V
+	fJajP4UVWhxI5AsitjThVqGyzNRYntBzv1lhx+1XKZLJlrPP1wVja4PV
+X-Gm-Gg: AYBFou1gvKkG4bGY9nf4bhylaq4aCaqqsToN7SaPHQVMZumveMgncx6AlNSjc/gRwpH
+	Jkz0eyKrSfLilqf5fYj0EXIUJCRnGIxVYkRmXGBtgSvCcd/R8hkTzo7dfT0H1uxRJtfvDQnvy0y
+	CK8Ftue/6NvEJDqaJ1iVwM0YB5pDSkedPEQ7MXZlApQK7sjYF1+1uENbnoeLvNySWMam5rkiPG3
+	wOVGGv8/Mm1ytuPS1mW8+1doGodCNdNMVgahRLEDUpycqDQmqw9LWSgcgU9S2wLF8SyvjLswgu9
+	gQ6Q3llFeg2h9WFLStyPD4VmZ9zygNINq5bodyA54aMQhbJtXpX87pfb4Ifv0lHxVBp3f55D9CS
+	GsiWuTacXPKRP6CEFVrOBL526bZpDW1m16o8eEDYqqCCDUouQ6NoqY1MeqG8vraaz4428FAUHLB
+	GDoz8v/xwv8tUA66drk505ceGplw44/2QypyN+loC7xyt1676W08wWFLG4V2rj07hqtvXDgv8na
+	iaCYBq+hcnzRyed+pQSejHsTwwH
+X-Received: by 2002:a05:6000:4a1e:b0:482:f0dc:b4f7 with SMTP id ffacd0b85a97d-48587091b97mr39900449f8f.4.1788962913235;
+        Wed, 09 Sep 2026 07:08:33 -0700 (PDT)
+Received: from [192.168.0.253] (5403F394.catv.pool.telekom.hu. [84.3.243.148])
+        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-485883927a3sm34278510f8f.11.2026.09.09.07.08.31
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 09 Sep 2026 07:08:32 -0700 (PDT)
+From: Gabor Juhos <j4g8y7@gmail.com>
+Date: Wed, 09 Sep 2026 16:08:25 +0200
+Subject: [PATCH] spi: spi-qpic-snand: avoid writing QPIC_EBI2_ECC_BUF_CFG
+ register
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 01/14] mm/zsmalloc: replace PG_private with pointer
- comparison
-To: Zi Yan <ziy@nvidia.com>, "Matthew Wilcox (Oracle)" <willy@infradead.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- Muchun Song <muchun.song@linux.dev>, Lorenzo Stoakes <ljs@kernel.org>,
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>, Baolin Wang <baolin.wang@linux.alibaba.com>,
- Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
- Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
- Gregory Price <gourry@gourry.net>, Ying Huang
- <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>,
- Johannes Weiner <hannes@cmpxchg.org>, Qi Zheng <qi.zheng@linux.dev>,
- Shakeel Butt <shakeel.butt@linux.dev>, Kairui Song <kasong@tencent.com>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- Minchan Kim <minchan@kernel.org>,
- Sergey Senozhatsky <senozhatsky@chromium.org>
-References: <20260907-remove-pg_private-v3-0-6ae22f9d9272@nvidia.com>
- <20260907-remove-pg_private-v3-1-6ae22f9d9272@nvidia.com>
- <60fe39c2-d92f-4bd0-be33-04d702f8f753@kernel.org>
- <DLA1CJU4WHQE.3Q2C0RE1IW97Y@nvidia.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <DLA1CJU4WHQE.3Q2C0RE1IW97Y@nvidia.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20260909-qpic-snand-avoid-ebi2-reg-write-v1-1-9b1b1466cc75@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3NMQ7CMAxG4atUnrFkTEEKV0EMSeOWf0mLgwpS1
+ bsTdfyW9zaq5rBK924jtxUVc2k4nzoaXrFMxsjNpKI3CRL4vWDgWmLJHNcZmS1B2W3ir+NjLEG
+ lv2rq0yVRqyxuI37H4fHc9z/mREapcQAAAA==
+X-Change-ID: 20260909-qpic-snand-avoid-ebi2-reg-write-0920452b4b3b
+To: Mark Brown <broonie@kernel.org>, 
+ Md Sadre Alam <md.alam@oss.qualcomm.com>, 
+ Sricharan Ramabadhran <quic_srichara@quicinc.com>, 
+ Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
+Cc: linux-spi@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Gabor Juhos <j4g8y7@gmail.com>
+X-Mailer: b4 0.14.3
 
-On 9/8/26 17:21, Zi Yan wrote:
-> On Tue Sep 8, 2026 at 11:07 AM EDT, David Hildenbrand (Arm) wrote:
->> On 9/8/26 04:56, Zi Yan wrote:
->>> zsmalloc uses PG_private to indicate first zpdesc in a zspage chain. It is
->>> equivalent to check zpdesc == zspage->first_zpdesc. Replace
->>> is_first_zpdesc() with zpdesc == zspage->first_zpdesc in obj_allocated().
->>>
->>> For get_first_zpdesc(), first_zpdesc is from zspage->first_zpdesc, so
->>> replace is_first_zpdesc() with first_zpdesc->zspage == zspage, the second
->>> requirement of a zspage chain, where all zpdescs point to the same zspage.
->>>
->>> is_first_zpdesc(), is only used in VM_BUG_ON_PAGE(), so performance impact
->>> should be negligible. While at it, change VM_BUG_ON() to
->>> VM_WARN_ON_ONCE_PAGE().
->>>
->>> It prepares for a future commit that remove PG_private.
->>>
->>> No functional change intended.
->>>
->>> Assisted-by: Claude:claude-opus-4-8
->>> Assisted-by: Codex:gpt-5
->>
->> Assied-by: LLM :)
->>
->>> To: Minchan Kim <minchan@kernel.org>
->>> To: Sergey Senozhatsky <senozhatsky@chromium.org>
->>> To: Andrew Morton <akpm@linux-foundation.org>
->>> Cc: linux-mm@kvack.org
->>> Cc: linux-kernel@vger.kernel.org
->>> Acked-by: Johannes Weiner <hannes@cmpxchg.org>
->>> Signed-off-by: Zi Yan <ziy@nvidia.com>
->>> ---
->>
->> Nice cleanup, one comment below.
->>
->> Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-> 
-> Thanks.
->>
->>>  mm/zpdesc.h   |  2 +-
->>>  mm/zsmalloc.c | 24 ++++++------------------
->>>  2 files changed, 7 insertions(+), 19 deletions(-)
->>>
->>> diff --git a/mm/zpdesc.h b/mm/zpdesc.h
->>> index b8258dc78548d..4fd81c2e80769 100644
->>> --- a/mm/zpdesc.h
->>> +++ b/mm/zpdesc.h
->>> @@ -26,8 +26,8 @@
->>>   * with memcg_data.
->>>   *
->>>   * Page flags used:
->>> - * * PG_private identifies the first component page.
->>>   * * PG_locked is used by page migration code.
->>> + * The first component page has zpdesc->zspage->first_zpdesc == zpdesc
->>>   */
->>>  struct zpdesc {
->>>  	unsigned long flags;
->>> diff --git a/mm/zsmalloc.c b/mm/zsmalloc.c
->>> index 825022a7a328f..24526185fd31f 100644
->>> --- a/mm/zsmalloc.c
->>> +++ b/mm/zsmalloc.c
->>> @@ -290,11 +290,6 @@ struct zs_pool {
->>>  	atomic_t compaction_in_progress;
->>>  };
->>>  
->>> -static inline void zpdesc_set_first(struct zpdesc *zpdesc)
->>> -{
->>> -	SetPagePrivate(zpdesc_page(zpdesc));
->>> -}
->>> -
->>>  static inline void zpdesc_inc_zone_page_state(struct zpdesc *zpdesc)
->>>  {
->>>  	inc_zone_page_state(zpdesc_page(zpdesc), NR_ZSPAGES);
->>> @@ -476,11 +471,6 @@ static void record_obj(unsigned long handle, unsigned long obj)
->>>  	WRITE_ONCE(*(unsigned long *)handle, obj);
->>>  }
->>>  
->>> -static inline bool __maybe_unused is_first_zpdesc(struct zpdesc *zpdesc)
->>> -{
->>> -	return PagePrivate(zpdesc_page(zpdesc));
->>> -}
->>
->> I would keep this helper, reworking it and moving all comments regarding *how*
->> first detection works in there
->>
->> -static inline bool __maybe_unused is_first_zpdesc(struct zpdesc *zpdesc)
->> +static inline bool __maybe_unused is_first_zpdesc(const struct zpdesc *zpdesc)
->>  {
->> -       return PagePrivate(zpdesc_page(zpdesc));
->> +       /* Only the first zpdesc has its zspage->first_zpdesc set to itself. */
->> +       return zpdesc == zpdesc->zspage->first_zpdesc;
->>  }
-> 
-> That is the version I had in RFC[1]. But how it works is not only
+The description of commit bfb34eced559 ("mtd: rawnand: qcom: avoid writing
+to obsolete register") says this:
 
-Ah, great minds think alike.
+  "QPIC_EBI2_ECC_BUF_CFG register got obsolete from QPIC V2.0 onwards.
+  Avoid writing this register if QPIC version is V2.0 or newer."
 
-> 1) "Only the first zpdesc has its zspage->first_zpdesc set to itself.", but also
-> 2) all zpdescs point to the same zspage.
-> 
-> obj_allocated() checks for 1, since zspage comes from zspage and
-> the requirment 2 is tautology.
-> 
-> get_first_zpdesc() checks for 2, since first_zpdesc comes from zspage's
-> first_zpdesc, another tautology.
-> 
-> I also had a version to spell out both[2], but Johannes did not lik it,
+Although the referenced commit is related to the 'qcom-nandc' driver,
+however the hardware supported by the current driver is also based on
+QPIC v2.0 so we should avoid writing that register here as well.
 
-yeah, agreed.
+Remove the register writing code to avoid undefined behaviour.
 
-> because it[2] is a "super predicates", making the required checks unclear.
+Fixes: 7304d1909080 ("spi: spi-qpic: add driver for QCOM SPI NAND flash Interface")
+Signed-off-by: Gabor Juhos <j4g8y7@gmail.com>
+---
+ drivers/spi/spi-qpic-snand.c | 4 ----
+ 1 file changed, 4 deletions(-)
 
-Oh well :)
+diff --git a/drivers/spi/spi-qpic-snand.c b/drivers/spi/spi-qpic-snand.c
+index 61b1f2eb19ce..05efe6313b7f 100644
+--- a/drivers/spi/spi-qpic-snand.c
++++ b/drivers/spi/spi-qpic-snand.c
+@@ -765,8 +765,6 @@ static int qcom_spi_read_cw_raw(struct qcom_nand_controller *snandc, u8 *data_bu
+ 
+ 	qcom_write_reg_dma(snandc, &snandc->regs->addr0, NAND_ADDR0, 2, 0);
+ 	qcom_write_reg_dma(snandc, &snandc->regs->cfg0, NAND_DEV0_CFG0, 3, 0);
+-	qcom_write_reg_dma(snandc, &snandc->regs->ecc_buf_cfg, NAND_EBI2_ECC_BUF_CFG, 1, 0);
+-
+ 	qcom_write_reg_dma(snandc, &snandc->regs->erased_cw_detect_cfg_clr,
+ 			   NAND_ERASED_CW_DETECT_CFG, 1, 0);
+ 	qcom_write_reg_dma(snandc, &snandc->regs->erased_cw_detect_cfg_set,
+@@ -1104,8 +1102,6 @@ static void qcom_spi_config_page_write(struct qcom_nand_controller *snandc)
+ {
+ 	qcom_write_reg_dma(snandc, &snandc->regs->addr0, NAND_ADDR0, 2, 0);
+ 	qcom_write_reg_dma(snandc, &snandc->regs->cfg0, NAND_DEV0_CFG0, 3, 0);
+-	qcom_write_reg_dma(snandc, &snandc->regs->ecc_buf_cfg, NAND_EBI2_ECC_BUF_CFG,
+-			   1, NAND_BAM_NEXT_SGL);
+ }
+ 
+ static void qcom_spi_config_cw_write(struct qcom_nand_controller *snandc)
 
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+---
+base-commit: cb2ad3c020579bf51fb0d702db9cf64af9698377
+change-id: 20260909-qpic-snand-avoid-ebi2-reg-write-0920452b4b3b
 
+Best regards,
 -- 
-Cheers,
+Gabor Juhos <j4g8y7@gmail.com>
 
-David
