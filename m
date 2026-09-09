@@ -1,136 +1,96 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vs2-f12.google.com (mail-vs2-f12.google.com [74.125.227.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 984075540A0;
-	Wed,  9 Sep 2026 15:14:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63C7753446B
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 15:14:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788966881; cv=none; b=fpRzlrE8fjxyUM+jOfJY+xUpPYNZwp39W0D6eEEHC5G++rlSFpphmWZh+5+FznhFD+mR9iIs+VRMIzdccoAQkb8Zj7+N3gaMokbtn/D2DB3yx00eRzaSlHJgFy/dYvHJRZnsYB5Eneo3LWB+d2acysOWAom2OqebpI487eXUNWA=
+	t=1788966893; cv=none; b=jBTv4yERDnc74TFgEOdoN17RP5GF9abxb1SJMEmvQSvGUTNYjlbtas12J90G+EXvtgMhy7iwgBU5ed6NdFB1jb8HCdkWB6CzhK7K4uVNaSmeiVErYz+IMW4NKoMPXwe/fm0yRGpMCGWuUb4x4jqMML6wlEOD71JGbIEIJkAnqM0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788966881; c=relaxed/simple;
-	bh=8npCBXpMMx72O1FVfnTCPtoWEDyS6khmpjvCDK3R0LI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=u8yEtF2k0U55jXrq4hjr1VjsaQar9i6444UmAF97p56KqhpTee3cGK1p4QGDJCae1d/zdRgxo9MjqEgFCN/9pGgfZdQOM1Xp4d6m61LWdsu8YXRHAeUdqqoO78anYQHPxl6nKIfOg8OUvMvfQ4DGfIiIQkYrcCnJYtWmO8+VW3o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fvP3xlxO; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fvP3xlxO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F1311F00A3A;
-	Wed,  9 Sep 2026 15:14:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788966880;
-	bh=SWWl36l+kSSIfXjjs43bn9G6WA3Ypw8Y0smzTmvKDFk=;
-	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
-	b=fvP3xlxOqrifu76NmZO+YiYlUB2RhQulCVFW4MwwwwErLJsE20TGGcMoSMbDRT4et
-	 hfsOTdOwuCswBL9oBjrqq5eTZwmtrWp1IwbKLxz/zeu48S6zSBwyVfFJd6H/SZfhoY
-	 SdwAeLboV3BtSWW8L+xSH6SvdXBGeFIBAhyqTRNVDEwd1tj2QBC2tgLEveywRhxunQ
-	 c6wSgnawqWxr0A1QOofuXLNbBRw6g+f/xbGyOc/OlKceDnw5nDxyJSEgmMPlyMta2T
-	 Hyb5vfiER9UdQrZDRMeojskYlF0SVYQRAC7zuaEUQMegi86Pn7l/aArvLIr88/3c3i
-	 hSD3V62ornSOw==
-Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
-	id 4ED71CE0850; Wed,  9 Sep 2026 08:14:40 -0700 (PDT)
-Date: Wed, 9 Sep 2026 08:14:40 -0700
-From: "Paul E. McKenney" <paulmck@kernel.org>
-To: Steven Rostedt <rostedt@goodmis.org>
-Cc: Vladimir Murzin <vladimir.murzin@arm.com>,
-	Chunfeng Yun <chunfeng.yun@mediatek.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	linux-usb@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [BUG/PATCH] drivers/usb/mtu3: Work around mtu3_log_ep
- double-indirection issue
-Message-ID: <0e929dba-7ff9-4d3e-800e-4a77dbd84c8b@paulmck-laptop>
-Reply-To: paulmck@kernel.org
-References: <a3ee0655-d818-48e0-84d1-475e6c16c991@paulmck-laptop>
- <d7bb2cf4-11c3-468c-8749-99cc408299c7@arm.com>
- <b6c621eb-6d20-4e00-ac05-af122b630ca5@paulmck-laptop>
- <20260909093417.4880999e@gandalf.local.home>
+	s=arc-20240116; t=1788966893; c=relaxed/simple;
+	bh=CECANy83eJ476WV9+m8Z1DPlG6IR5GvieLQvKQjJhkQ=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=hTK2kVts6oDpGP0PCmgL2oJsP+BRRdLWJnVtrVgaH2j9+gPVpt2N3eJjmHzNp/Wn9VLHQssghAXw3kN+pDS17nJM+rZWM3mQ7Cy+29Qw3QoFsYeVZgsKBeBZtRPsgVY1nVKY4yH5ecgCmP3x/w1thekYEapds646OQD+FBwSX3Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.227.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-vs2-f12.google.com with SMTP id ada2fe7eead31-785643199c4so123735137.2
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 08:14:51 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788966890; x=1789571690;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=haSiNz9f37NiWVNy2OnhpaaLVM7uwzgfEK4yu5ZD+M0=;
+        b=mygR+2bMoJtFzlWkhpEO0ThsrCUutAFzrSXVHcGPTAHh+w8sgyUM6/+ZSPMkH8CzaN
+         kXw1pCuJtuyfJulpimRyO6a2hXE7xQfR2e6KgV/+aOaYWdoYY7VOhUK+NbfdoaKk8H4l
+         BSx+plJGB3ZpxCFOzt+Z3sHGCgR3tVdgCZt/f7RCOhC5mHpTfH5RvJ+/cN8q0m9ptKRE
+         6VddunlBL1msqYKLZxgqUgn0Zwi6bXCsB0ezE6R7fi0ljqxIKrCyp16NRUj1b6Xd2yRp
+         o5e29qCALke4SkiruHSxLSFjCjf4q9Fl13V0HN9RpbWPirxigKE9rPlj8IFkIYXx+Qp4
+         ybfQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwtp5O/OT+YFZmF21V6MNmUohYJMjsm/WqNp4yiH2RM/a5Mzn1mn/suBrmsRQIbGVoDGuUWIcf1KSCwkkw=@vger.kernel.org
+X-Gm-Message-State: AFuF++n/QYpXSdzDY1/Fzj2csR0RYBuuJNqx78TWZzLx85h/QnXKBU82
+	SgnfDsqoMpH2+XxvFkbFvlJlrA+na90s023iLgWYtDhFdvLma7NpTvY3jkl9IjZWekhupg==
+X-Gm-Gg: AYBFou2pkKZutKc9/1L+3ebEwYSixyac0jzawCyM4tkWT3gjOfvC65cefFpmcs2y6XA
+	AgqMAf5NSonCpKW/gegA+762j7DWBph1EpZDiOQyWY6TFEuRrudDk0vALNyhzRYVVineLCnFvoW
+	CpLjWgXiKn2p+XkFguO4d+hDm7anemYN8r6MAArEOSjlvJkIZ+UykZWzaueSHV/Oo2/YgpnvPo4
+	gqbd9OucnavXWugtPBALqKd1EaHhq2GgoGqAorcMfv/tGxmJLraXusE3UECEfuiRacc575CRTVE
+	W+jFwQKweTddKxk2dP6TI66/O3TmGn/zAyAnxTn1X4+uPKlMco582SvaNu7esaNytz5acMdtcNV
+	wYQjNjKfmGQwdv+GQ+cP01kKKnG9Cn3eMO5dM3Tl9PrWNepfSXJ4ygtwL8gyxRDkSqMY79FfLWr
+	rEkfobJsvKXDrJIfqBnwktes7VPr7KnyPrdeQ29fInYoTAcaBUhgMu12Wk+uVw+FfEka8UYOF5p
+	+bEqT/PyTXjsat88NoHIisAQqDOR4UXE2In
+X-Received: by 2002:a05:6102:2911:b0:785:c643:a415 with SMTP id ada2fe7eead31-79077c0c5cemr1056790137.12.1788966890084;
+        Wed, 09 Sep 2026 08:14:50 -0700 (PDT)
+Received: from mail-vs2-f12.google.com (mail-vs2-f12.google.com. [74.125.227.12])
+        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-78a4764e321sm11519483137.0.2026.09.09.08.14.49
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 09 Sep 2026 08:14:49 -0700 (PDT)
+Received: by mail-vs2-f12.google.com with SMTP id ada2fe7eead31-78830951c65so138936137.3
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 08:14:49 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBw8N+uPJF67U7rM5iWujiZnBYEZ5jr9LEcMA+qAHMpb7yZX6ncSEFgAX0KmM3Ge/rptoZWrcVg4DKOo3Sg=@vger.kernel.org
+X-Received: by 2002:a05:6102:f9a:b0:786:7a59:a313 with SMTP id
+ ada2fe7eead31-7907800afe0mr1252914137.13.1788966889473; Wed, 09 Sep 2026
+ 08:14:49 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260909093417.4880999e@gandalf.local.home>
+References: <20260908-subsys_initcall-v1-0-cbccf4cd4288@redhat.com> <20260908-subsys_initcall-v1-1-cbccf4cd4288@redhat.com>
+In-Reply-To: <20260908-subsys_initcall-v1-1-cbccf4cd4288@redhat.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Wed, 9 Sep 2026 17:14:38 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdXKQMn_3ZeCmjdPH1KiBDc83Eodp5vhOd+yZYwz7p0sJA@mail.gmail.com>
+X-Gm-Features: AcwNN1UB2bvnyx_MDMU6btLmRb2JR3XbtnsQvALz2JEMNNgbbOmmr-5JjuTx89A
+Message-ID: <CAMuHMdXKQMn_3ZeCmjdPH1KiBDc83Eodp5vhOd+yZYwz7p0sJA@mail.gmail.com>
+Subject: Re: [PATCH 1/4] driver: core: add subsys_driver() macro
+To: Brian Masney <bmasney@redhat.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
+	Danilo Krummrich <dakr@kernel.org>, Bjorn Andersson <andersson@kernel.org>, Stephen Boyd <sboyd@kernel.org>, 
+	Jerome Brunet <jbrunet+clk@baylibre.com>, driver-core@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+	linux-clk@vger.kernel.org, linux-renesas-soc@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Wed, Sep 09, 2026 at 09:34:17AM -0400, Steven Rostedt wrote:
-> On Tue, 8 Sep 2026 11:08:33 -0700
-> "Paul E. McKenney" <paulmck@kernel.org> wrote:
-> 
-> > > > Apparently, the code should instead create another entry in
-> > > > TP_STRUCT__entry(), and do the double-indirection TP_fast_assign() instead
-> > > > of TP_printk().  But simply removing the offending double indirection
-> > > > in TP_printk() gets this splat out of the way of other debugging.  
-> > > 
-> > > Indeed, splat has gone after applying the patch.
-> > > 
-> > > Thanks
-> > > Vladimir  
-> > 
-> > Does this less hacky patch do the trick?
-> 
-> Nope!
-> 
-> 
-> > diff --git a/drivers/usb/mtu3/mtu3_trace.h b/drivers/usb/mtu3/mtu3_trace.h
-> > index 89870175d63561..6477ad3ddc66f6 100644
-> > --- a/drivers/usb/mtu3/mtu3_trace.h
-> > +++ b/drivers/usb/mtu3/mtu3_trace.h
-> > @@ -224,6 +224,7 @@ DECLARE_EVENT_CLASS(mtu3_log_ep,
-> >  		__field(unsigned int, flags)
-> >  		__field(unsigned int, direction)
-> >  		__field(struct mtu3_gpd_ring *, gpd_ring)
-> > +		__field(dma_addr_t *, gpd_ring_dma)
-> >  	),
-> >  	TP_fast_assign(
-> >  		__assign_str(name);
-> > @@ -235,12 +236,13 @@ DECLARE_EVENT_CLASS(mtu3_log_ep,
-> >  		__entry->flags = mep->flags;
-> >  		__entry->direction = mep->is_in;
-> >  		__entry->gpd_ring = &mep->gpd_ring;
-> > +		__entry->gpd_ring_dma = &mep->gpd_ring->dma;
-> 
-> You are still saving the address of some memory into the ring buffer.
-> 
-> 
-> >  	),
-> >  	TP_printk("%s: type %s maxp %d slot %d mult %d burst %d ring %p/%pad flags %c:%c%c%c:%c",
->                                                                         ^^^^
-> 
-> That %pad dereferences the pointer passed to it.
-> 
-> >  		__get_str(name), usb_ep_type_string(__entry->type),
-> >  		__entry->maxp, __entry->slot,
-> >  		__entry->mult, __entry->maxburst,
-> > -		__entry->gpd_ring, &__entry->gpd_ring->dma,
-> > +		__entry->gpd_ring, __entry->gpd_ring_dma,
-> 
-> That will read the address saved in the ring buffer and dereference it.
-> 
-> Remember, the above TP_fast_assign() logic gets executed when the
-> tracepoint is triggered. The TP_printk() is executed when the user reads
-> the trace buffer. That could be seconds, minutes, hours, days, even months
-> later!
-> 
-> You can't trust that the memory you are dereferencing will not be freed
-> when the user reads the trace.
-> 
-> The original patch is not hacky. It is actually the correct way of handling
-> this.
+On Tue, 8 Sept 2026 at 19:47, Brian Masney <bmasney@redhat.com> wrote:
+> Add a new macro subsys_driver() to eliminate some boilerplate code in
+> drivers that need to register earlier in the boot at the subsys_initcall
+> level.
+>
+> Signed-off-by: Brian Masney <bmasney@redhat.com>
+> Assisted-by: Claude:claude-opus-4-8
 
-Very well, "git revert" followed by "git cherry-pick" of the original.
-Or someone can feel free to pull in the original from earlier in this
-thread.
+Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
 
-Either way, thank you!
+Gr{oetje,eeting}s,
 
-							Thanx, Paul
+                        Geert
 
-> -- Steve
-> 
-> 
-> >  		__entry->flags & MTU3_EP_ENABLED ? 'E' : 'e',
-> >  		__entry->flags & MTU3_EP_STALL ? 'S' : 's',
-> >  		__entry->flags & MTU3_EP_WEDGE ? 'W' : 'w',
-> 
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
