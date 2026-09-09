@@ -1,152 +1,305 @@
-Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com [209.85.218.41])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8676C3AA1A8
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 06:51:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81215492E38
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 06:52:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788936666; cv=none; b=hEbKWjYSr17kHuWnPOYd4hJ2ZmdafAdlGFI9pmy0WzUraweYDF9scYGsXuriM2dBDHW+dG8M53GZLdtXwTb42wXUBkzf25hQZeckHEoFZwMAhvFDv/emi2T7GH4OqEchhoDm7xTJg1hUuhnV7WZaOhmpPmIKTD7e3NH4q2zFZkA=
+	t=1788936737; cv=none; b=g6rMGjo48qtO0+QcKcf5Z9CyZytAW8NEi4T1cKCbSQlPbL+TK6q/tC2UNvGK+U2YRI1IRhO1wqHcsPEARMjvu4CmEVCQg9zVZUfccUgkLALiakh41tam/9aFtxfIuMifNuYuZRMZJARYcgbrvAkSzPGKEJ5tZcilURdKI0/8xPg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788936666; c=relaxed/simple;
-	bh=fcitUKDpF9kThgeapaT1KFefDBj1kbnOTZBG7H6CkT4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Ro0bxkdsnTmpJNPU+3hF8DuXBn+S5qqVu6buYkcC14fJ1WJ0BzW7Y41DOP1X61m+OY2VeLmUf+bej8Up88vJ4lq1BR716EjkK7mq2CUx0c8ApaS/vX4ug/T+yjL3VH88Xm3xgr7FqBOf4MBMssrVe6YG37sCqFyg9XdzDYoKQbM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=konsulko.com; spf=pass smtp.mailfrom=konsulko.com; dkim=pass (1024-bit key) header.d=konsulko.com header.i=@konsulko.com header.b=j6Vl6JnS; arc=none smtp.client-ip=209.85.218.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=konsulko.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=konsulko.com
+	s=arc-20240116; t=1788936737; c=relaxed/simple;
+	bh=OMsmwJt+7xKbpZQjLc3OaHfFgkWMc/9OD8sv89Xj3Zs=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=KnfEhMD5BRQgAfbmfxiUNceBMMD0ZSBTB40bt6L6PNX1hn3wQMy02hJYK7Sd5TquWxtPd/oz54ioFhQQHG8JZWyO502wztuuI+0M3BgyYHFM1KfgUh8mxdb9XmxOdjypBnrln2Om7COYxkAVz2zm8NZuVwEHZIrjK7C+3pjl4+8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=v+plabNE; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=nEH0lAf9; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=gu+5AEWN; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=Tc0tr02Y; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=konsulko.com header.i=@konsulko.com header.b="j6Vl6JnS"
-Received: by mail-ej1-f41.google.com with SMTP id a640c23a62f3a-c250c6a6a6eso748842466b.0
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 23:51:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=konsulko.com; s=google; t=1788936661; x=1789541461; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=EpsiGeLnMZIMyyW3N1yYpr4ElxKQISOJwtmVdkcRVSc=;
-        b=j6Vl6JnSvKz8kYM6mNjpvPKRJ7u5qaD6PgtEgwJZlp1s9tuiBa6KZ8ZoD7nE1Wuxcd
-         01WOOZ9UuPCZUt2R5n3jYeGIzV/Q4xsN56YtyvGpJaesUo/6I8D4EtXx5OKwz2aGLuk0
-         Kjqi7tTz6n+c3UsMEwbggi8ckyaqyiJ8zG6WI=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788936661; x=1789541461;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=EpsiGeLnMZIMyyW3N1yYpr4ElxKQISOJwtmVdkcRVSc=;
-        b=Woqdu2Hn2HfTL6WFWaaH9kBvJPY9fwNknNP+lZzaEkTybBH060StLHRdKuhjhqfqeW
-         wbF6xMrAIVi7lW13wNGLsbEBa2UNfVpFh3T/1PZykv3EETuNHFV2Bf2qx6XwS/XWTDSw
-         Ar1ICsOa1S2QRY6NNNTKCA0qDMLX8TSujsmNM5X3TCX8lLDCviaXxW3tqquIZiU7FK7s
-         pWHzPihi6uugpbRTnAqiLS3dR7OctDVbsNDApafKKQiD7viugmR18QfHOrlJYn6YVnyS
-         QNYFWYVoEhYFl2HfVS8hrPDtJfR9GfgvdDjHpt34EffMYe/OdqqimiCs38TUSmHXlBG/
-         scpA==
-X-Gm-Message-State: AFuF++m/eCsW60BAo9xLpOEklf2vTrA334xg7vXYGdDPoJRz78oZmK73
-	/yBy71EDBR2m4UYqW2+Kvm9B4M7kKWgLkf+D8JpeV70gNrESWy3X0GqmwkDQpBdKmS0=
-X-Gm-Gg: AYBFou0HZzSVx0p3ygc2kENLrR0ah+FzIzKBtsGz4xKqGMbiauKvTm5prEas0Y0CvSR
-	V6Wk444XM//eSLAeeymwYSmy7gUhdos2U2Pc1/hBMKga+WKHssWozDmJpozNs9u1XYbRFwWDGXz
-	yUGX9Vduotldhka4qxxOJ+vFpRfqi1v9E+LgAp39NBtOGZzD/Nd9P74yOjDVUWtpFQSB8fNHE/7
-	cPRLoCEmbeLZeiaNqxL2AIjTlopAR1dTI0g+LlonYMFzxWyj06YintOtiA8h6OXJ+gEO8eXf3Oy
-	2WkWRj5aSOjyi5h+IxzMHELUJXZLEXEXkB2lRifjb0arms3IemdMZGCoMkUxthh6d4qAwCeH7Ew
-	tg8cqStjKawDDCUNVz2fFeafGJ77XwKnb+gR3613eI8gYtR6viILSUZlLQgYNO27+tmSbWDB6FY
-	+n+aNl264wXaeEVaB4SeAYmK8H3qEmjw/0DYsleJFRnXLII6PZ33pqZy3+d76g0W83EQwDn6hYI
-	U+YLg==
-X-Received: by 2002:a17:906:c116:b0:c26:19de:9add with SMTP id a640c23a62f3a-c2619dea99emr1231458066b.28.1788936660938;
-        Tue, 08 Sep 2026 23:51:00 -0700 (PDT)
-Received: from carbon.k.g ([85.187.61.220])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c260d5768c2sm701752366b.39.2026.09.08.23.50.59
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 08 Sep 2026 23:51:00 -0700 (PDT)
-Date: Wed, 9 Sep 2026 09:50:59 +0300
-From: Petko Manolov <petko.manolov@konsulko.com>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
-	dinguyen@kernel.org
-Subject: Re: [PATCH v2 1/1] ARM: dts: draeger: Add socfpga devicetree for
- Draeger's M48 board.
-Message-ID: <20260909065059.GB10420@carbon.k.g>
-References: <20260908111011.960876-1-petko.manolov@konsulko.com>
- <20260908111011.960876-2-petko.manolov@konsulko.com>
- <3dbe92ee-805f-496d-9a7d-94c837e674b5@kernel.org>
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="v+plabNE";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="nEH0lAf9";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="gu+5AEWN";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="Tc0tr02Y"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 22187219FE;
+	Wed,  9 Sep 2026 06:52:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1788936729; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=cTt0jFB4+zQipgMujsRjRecWNFqUaVl5wuX8dC/vqwk=;
+	b=v+plabNEMMlL5CS/NLEx9p4dMTPWFXNYkiuIKXSvvUjDNVczgU5a5gyOlTzTPRnYNv9BRF
+	OTVUXNGpGKs7yIKv5srGD/yL8RApHoC9JymkwIRF3SXtneQwnaYeaAQgphZ3GW00RSD0dp
+	edL+JhcZ0T3z0LVMq+gmnuyoJfwa7iw=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1788936729;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=cTt0jFB4+zQipgMujsRjRecWNFqUaVl5wuX8dC/vqwk=;
+	b=nEH0lAf9Ba+IiozM9frriYkJuYYEc2ZJrBeJxEUK0DigeAQRRI+aIRSEabSW8EpMwDcFaN
+	gMZ5bmoQPPN7/DDg==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1788936725; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=cTt0jFB4+zQipgMujsRjRecWNFqUaVl5wuX8dC/vqwk=;
+	b=gu+5AEWNwxIObakbGBg1FJyyvonGroxc/+Y5D1DHVNwT/mRpjyenOFcY18zRUNZBkXMCTd
+	CP+tu+RtH9qH2LvWsMW0xBDjRhjrcDpdnamYslNsIqdXpFY6GQbSrlZsMUJ0twJczEkXAI
+	ZsB/IU6V7Ui09t9QyMJBmIQe8YqQ0p8=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1788936725;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=cTt0jFB4+zQipgMujsRjRecWNFqUaVl5wuX8dC/vqwk=;
+	b=Tc0tr02YJKvVGufqSo1zSvIGw+jsn3ST8u/eYo6w8zzpe4jiE11glpFqL/xc68kkRDOvgy
+	+kZuENZvVhpeCBAw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 7F93F1347F;
+	Wed,  9 Sep 2026 06:52:04 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id RIpSHRQCoWqVVQAAD6G6ig
+	(envelope-from <tzimmermann@suse.de>); Wed, 09 Sep 2026 06:52:04 +0000
+Message-ID: <00b9f0f0-baf4-4407-b2cb-055949edd48c@suse.de>
+Date: Wed, 9 Sep 2026 08:52:03 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <3dbe92ee-805f-496d-9a7d-94c837e674b5@kernel.org>
-
-On 26-09-09 08:36:23, Krzysztof Kozlowski wrote:
-> On 08/09/2026 13:10, Petko Manolov wrote:
-> > Signed-off-by: Petko Manolov <petko.manolov@konsulko.com>
-> 
-> Please run scripts/checkpatch.pl on the patches and fix reported warnings.
-> After that, run also 'scripts/checkpatch.pl --strict' on the patches and
-> (probably) fix more warnings. Some warnings can be ignored, especially from
-> --strict run, but the code here looks like it needs a fix. Feel free to get in
-> touch if the warning is not clear.
-> 
-> 
-> > ---
-> >  .../devicetree/bindings/arm/altera.yaml       |   1 +
-> >  arch/arm/boot/dts/intel/socfpga/Makefile      |   1 +
-> >  .../socfpga/socfpga_cyclone5_draeger_m48.dts  | 130 ++++++++++++++++++
-> >  3 files changed, 132 insertions(+)
-> >  create mode 100644 arch/arm/boot/dts/intel/socfpga/socfpga_cyclone5_draeger_m48.dts
-> > 
-> > diff --git a/Documentation/devicetree/bindings/arm/altera.yaml b/Documentation/devicetree/bindings/arm/altera.yaml
-> > index 3030cf46fe74..8ed1ba733510 100644
-> > --- a/Documentation/devicetree/bindings/arm/altera.yaml
-> > +++ b/Documentation/devicetree/bindings/arm/altera.yaml
-> 
-> Same comments. Binding should not be part of other patches.
-
-Does this mean i should submit the bindings related patches first?
-
-> > @@ -47,6 +47,7 @@ properties:
-> >            - enum:
-> >                - altr,socfpga-cyclone5-socdk
-> >                - denx,mcvevk
-> > +              - draeger,M48
-> >                - ebv,socrates
-> >                - macnica,sodia
-> >                - novtech,chameleon96
-> > diff --git a/arch/arm/boot/dts/intel/socfpga/Makefile b/arch/arm/boot/dts/intel/socfpga/Makefile
-> > index 8df0976da01c..cdcea11abdfa 100644
-> > --- a/arch/arm/boot/dts/intel/socfpga/Makefile
-> > +++ b/arch/arm/boot/dts/intel/socfpga/Makefile
-> > @@ -11,6 +11,7 @@ dtb-$(CONFIG_ARCH_INTEL_SOCFPGA) += \
-> >  	socfpga_arria10_mercury_aa1_st1_emmc.dtb \
-> >  	socfpga_arria10_mercury_aa1_st1_qspi.dtb \
-> >  	socfpga_arria10_mercury_aa1_st1_sdmmc.dtb \
-> > +	socfpga_cyclone5_draeger_m48.dtb \
-> >  	socfpga_cyclone5_mercury_sa1_pe1_emmc.dtb \
-> >  	socfpga_cyclone5_mercury_sa1_pe1_qspi.dtb \
-> >  	socfpga_cyclone5_mercury_sa1_pe1_sdmmc.dtb \
-> > diff --git a/arch/arm/boot/dts/intel/socfpga/socfpga_cyclone5_draeger_m48.dts b/arch/arm/boot/dts/intel/socfpga/socfpga_cyclone5_draeger_m48.dts
-> > new file mode 100644
-> > index 000000000000..423c76cd1d4a
-> > --- /dev/null
-> > +++ b/arch/arm/boot/dts/intel/socfpga/socfpga_cyclone5_draeger_m48.dts
-> > @@ -0,0 +1,130 @@
-> > +// SPDX-License-Identifier: GPL-2.0+
-> > +/*
-> > + *  (C) Copyright 2020 Draeger and Licensors, info@draeger.com
-> > + */
-> > +#include "socfpga_cyclone5.dtsi"
-> > +
-> > +/ {
-> > +	model = "Draeger M48 Cyclone V SoC";
-> > +	compatible = "draeger,M48", "altr,socfpga-cyclone5", "altr,socfpga";
-> > +
-> > +	chosen {
-> > +		bootargs = "earlyprintk";
-> 
-> That's not a mainline suitable argument, drop.
-
-These DTs are meant for u-boot only usage, but OK, will drop the bootargs.
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 06/11] drm/atomic: Create function to insert connector
+ state into a commit
+To: Maxime Ripard <mripard@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: Daniel Stone <daniels@collabora.com>,
+ Harry Wentland <harry.wentland@amd.com>,
+ Jocelyn Falempe <jfalempe@redhat.com>, =?UTF-8?Q?Jonas_=C3=85dahl?=
+ <jadahl@redhat.com>, =?UTF-8?Q?Michel_D=C3=A4nzer?= <mdaenzer@redhat.com>,
+ Pekka Paalanen <pekka.paalanen@collabora.com>,
+ Sebastian Wick <sebastian.wick@redhat.com>, Simon Ser <contact@emersion.fr>,
+ Victoria Brekenfeld <victoria@system76.com>, Xaver Hugl
+ <xaver.hugl@kde.org>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+References: <20260908-drm-reset-state-flag-v3-0-905570f387a4@kernel.org>
+ <20260908-drm-reset-state-flag-v3-6-905570f387a4@kernel.org>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <20260908-drm-reset-state-flag-v3-6-905570f387a4@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Spam-Score: -4.30
+X-Spam-Level: 
+X-Spamd-Result: default: False [-4.30 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-0.999];
+	MIME_GOOD(-0.10)[text/plain];
+	ARC_NA(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[16];
+	MIME_TRACE(0.00)[0:+];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FREEMAIL_TO(0.00)[kernel.org,linux.intel.com,gmail.com,ffwll.ch];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	RCVD_TLS_ALL(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid,imap1.dmz-prg2.suse.org:helo,suse.com:url]
+X-Spam-Flag: NO
 
 
-		Petko
+
+Am 08.09.26 um 16:35 schrieb Maxime Ripard:
+> drm_atomic_get_connector_state() allocates a new connector state by
+> duplicating the current one and inserts it into the atomic commit as
+> a single operation.
+>
+> However, a later change will need to insert a connector state into a
+> commit without going through the full allocation and duplication path
+> in drm_atomic_get_connector_state().
+>
+> Extract the state insertion logic, including the dynamic array
+> reallocation, into a new static
+> drm_atomic_commit_set_connector_state() helper, and convert
+> drm_atomic_get_connector_state() to use it.
+>
+> Signed-off-by: Maxime Ripard <mripard@kernel.org>
+> ---
+>   drivers/gpu/drm/drm_atomic.c | 67 +++++++++++++++++++++++++++-----------------
+>   1 file changed, 42 insertions(+), 25 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
+> index 1be4af940ed1..19678e8a2bd4 100644
+> --- a/drivers/gpu/drm/drm_atomic.c
+> +++ b/drivers/gpu/drm/drm_atomic.c
+> @@ -1412,10 +1412,46 @@ drm_atomic_get_new_crtc_for_encoder(struct drm_atomic_commit *state,
+>   
+>   	return conn_state->crtc;
+>   }
+>   EXPORT_SYMBOL(drm_atomic_get_new_crtc_for_encoder);
+>   
+> +static int drm_atomic_commit_set_connector_state(struct drm_atomic_commit *commit,
+> +						 struct drm_connector *connector,
+> +						 struct drm_connector_state *connector_state)
+> +{
+> +	struct drm_mode_config *config = &connector->dev->mode_config;
+> +	int index;
+> +
+> +	drm_modeset_lock_assert_held(&config->connection_mutex);
+> +
+> +	index = drm_connector_index(connector);
+> +	if (index >= commit->num_connector) {
+> +		struct __drm_connnectors_state *c;
+> +		int alloc = max(index + 1, config->num_connector);
+> +
+> +		c = krealloc_array(commit->connectors, alloc,
+> +				   sizeof(*commit->connectors), GFP_KERNEL);
+
+This entire branch looks like it mostly open-codes the functionality of 
+krealloc_array(). If you can use __GFP_ZERO here, it appears that this 
+whole branching could be collapsed to a single unconditional 
+reallocation plus an update of num_connector.
+
+Best regards
+Thomas
+
+> +		if (!c)
+> +			return -ENOMEM;
+> +
+> +		commit->connectors = c;
+> +		memset(&commit->connectors[commit->num_connector], 0,
+> +		       sizeof(*commit->connectors) * (alloc - commit->num_connector));
+> +
+> +		commit->num_connector = alloc;
+> +	}
+> +
+> +	drm_connector_get(connector);
+> +	commit->connectors[index].state_to_destroy = connector_state;
+> +	commit->connectors[index].old_state = connector->state;
+> +	commit->connectors[index].new_state = connector_state;
+> +	commit->connectors[index].ptr = connector;
+> +	connector_state->state = commit;
+> +
+> +	return 0;
+> +}
+> +
+>   /**
+>    * drm_atomic_get_connector_state - get connector state
+>    * @state: global atomic state object
+>    * @connector: connector to get state object for
+>    *
+> @@ -1430,53 +1466,34 @@ EXPORT_SYMBOL(drm_atomic_get_new_crtc_for_encoder);
+>    */
+>   struct drm_connector_state *
+>   drm_atomic_get_connector_state(struct drm_atomic_commit *state,
+>   			  struct drm_connector *connector)
+>   {
+> -	int ret, index;
+> +	int ret;
+>   	struct drm_mode_config *config = &connector->dev->mode_config;
+>   	struct drm_connector_state *connector_state;
+>   
+>   	WARN_ON(!state->acquire_ctx);
+>   	drm_WARN_ON(state->dev, state->checked);
+>   
+>   	ret = drm_modeset_lock(&config->connection_mutex, state->acquire_ctx);
+>   	if (ret)
+>   		return ERR_PTR(ret);
+>   
+> -	index = drm_connector_index(connector);
+> -
+> -	if (index >= state->num_connector) {
+> -		struct __drm_connnectors_state *c;
+> -		int alloc = max(index + 1, config->num_connector);
+> -
+> -		c = krealloc_array(state->connectors, alloc,
+> -				   sizeof(*state->connectors), GFP_KERNEL);
+> -		if (!c)
+> -			return ERR_PTR(-ENOMEM);
+> -
+> -		state->connectors = c;
+> -		memset(&state->connectors[state->num_connector], 0,
+> -		       sizeof(*state->connectors) * (alloc - state->num_connector));
+> -
+> -		state->num_connector = alloc;
+> -	}
+> -
+>   	connector_state = drm_atomic_get_new_connector_state(state, connector);
+>   	if (connector_state)
+>   		return connector_state;
+>   
+>   	connector_state = connector->funcs->atomic_duplicate_state(connector);
+>   	if (!connector_state)
+>   		return ERR_PTR(-ENOMEM);
+>   
+> -	drm_connector_get(connector);
+> -	state->connectors[index].state_to_destroy = connector_state;
+> -	state->connectors[index].old_state = connector->state;
+> -	state->connectors[index].new_state = connector_state;
+> -	state->connectors[index].ptr = connector;
+> -	connector_state->state = state;
+> +	ret = drm_atomic_commit_set_connector_state(state, connector, connector_state);
+> +	if (ret) {
+> +		connector->funcs->atomic_destroy_state(connector, connector_state);
+> +		return ERR_PTR(ret);
+> +	}
+>   
+>   	drm_dbg_atomic(connector->dev, "Added [CONNECTOR:%d:%s] %p state to %p\n",
+>   			 connector->base.id, connector->name,
+>   			 connector_state, state);
+>   
+>
+
+-- 
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Jochen Jaser, Andrew McDonald, (HRB 36809, AG Nürnberg)
+
+
