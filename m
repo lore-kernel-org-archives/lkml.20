@@ -1,95 +1,263 @@
-Received: from out203-205-221-192.mail.qq.com (out203-205-221-192.mail.qq.com [203.205.221.192])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CDA739E176;
-	Wed,  9 Sep 2026 04:43:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.205.221.192
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788929033; cv=none; b=ZAzb2dpnCV8S/hdS2emZabu0lWMQ+HzeumaRyFalxcFoEIWbZ3n8mgUmFr759od8r0jPW8i8RYTHzuwyrBNrNoychjxdGJy0LK5uqEzW6FD+F1GG/kApjQfrQttLyMtZ7TFCB/YcYOIkhBVM9f+NxcjX1rX2A5tD+hv9HD5s4Fc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788929033; c=relaxed/simple;
-	bh=yxAt3PlSqUlQiqn+8k0QYBuAiGauP/Zz/z6EAf3ppgk=;
-	h=Message-ID:From:To:Cc:Subject:Date:MIME-Version; b=XO62RVoPwOKtFZ6mUKFq0cODKMAMD4mxwYhOQfQorSrDEdOtqNFw1wAS/TAtq8N6TQBepbKG8dpmms7YjXBM7dO+A6Mnxvw8SdRf3qbITudobvV6/T2FH3dacZhRVOZBCYoayhUOSTMeAV7BBZSoq2FgV872CSUHiiu8RKAq+WE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=uWUi+q+Y; arc=none smtp.client-ip=203.205.221.192
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D78935C6BF
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 04:44:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.227.140
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788929099; cv=pass; b=ITT6JS4sI2AH3npxWKHofOcXdKAlPHJhvOqLZJjGv2xxbQhf+u/fgfV6Tv1fJ5vYBiqYhFMjNlJ/yGeHcroQKCcWwPg687nv4oKNQpVEfk8oVJQtoCnY2GUDx+oYdK+TdYfZugVG3kK9xGZiekjfdT5UIt2bII0eClOyZ6vqNLI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788929099; c=relaxed/simple;
+	bh=3svEKaHfGaq/kOZo3u0CMncNwF10yJJZpEhbUWM0dTE=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=VGATMbmw294T1rQPGjDnDLLdEGrTRbo3wjbjRK6/od99cJNC1a3CGN/ToutElit77Q8P5O1SPaC+kqCpee570z1sLCTLQkdvNp4v86cNY9AVGOTg0fx0Lmb1Ti+ouFSaJqkhWWOmdnzgtd8Zh5ZN3eMeqFteu+Gt5SYwL+4as3o=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=TnXh/1PT; arc=pass smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="uWUi+q+Y"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1788929021; bh=NN8Zs7o+RVvMVzRrD4E/zEGWsMyj2EFFgU9lxKlMsKE=;
-	h=From:To:Cc:Subject:Date;
-	b=uWUi+q+YJq6Q9yuM7kDX+mgVU7YN7fVu/MrFxHt2fB/trEnjqAD+QsqTSsA4QceTx
-	 4V0f+SalTn3KCAnUfF7/h/sjl6P7c78rUOSy9ziH02Mx74fcHTxBpBMJBE7Gb5lx2X
-	 D3RgpWAR49TR0CjyEYj1bwdKoTKHZ7uCGP/xeSBo=
-Received: from LAPTOP-7R15B00L ([183.220.99.26])
-	by newxmesmtplogicsvrszc56-0.qq.com (NewEsmtp) with SMTP
-	id AE60008D; Wed, 09 Sep 2026 12:43:38 +0800
-X-QQ-mid: xmsmtpt1788929018txsas71sy
-Message-ID: <tencent_0D58C9974B2D7889109BACF393650FFD8706@qq.com>
-X-QQ-XMAILINFO: NhsePn6g3vMqfRExNpLZnAjNn8F6qIabxPPXtvvG08qkt/0dxTDvrxFkH+njUO
-	 Y7gjJwbl+Oye/NnnsZ2DbRC6OKEsmSz4H7+xgif1i3wcFanV1hrb+k2TlkP0ftD7FimChyL+zQpC
-	 si/Geeo2mjyZs0WxBH6FWqQ4JLcsgUnOoE9B8fvpC3YLa9TaGyyuhSX7ybi9j7a+gq1jRe4hyjz+
-	 z0zoShdfCxZj6X7N7HjjqQWol+lquPsV0ryfuQhhTk6cZY8Zi2fXnqyHqAQNWXEDsJDgMYHpUjsY
-	 YI6mJdXr6LqWb9ki/a0X5Ppaphkb4z6Jk+g9hiXNBrqvSVpGPGizLLZ8L89DokpqfG7naiNDyB5Y
-	 M6FL8SBTXLDNYtoEn9BdwpvHZPULL8pV2ssC5OM+gNrjhZpsltEVD3dlCLAdLKtM1Ut5fvouRC2v
-	 KU+/CsEoLkfeWTI1hG5b33E7ZzZL4E/3KsoNSGwU3JIYjyhbPRPM6tbI7JKmZCL/hhu83IsGZRQ4
-	 crm6CaJgqhjVUaQ9vE3NT3Vrxt/rzUA5B17cPFfs2K9h7v/kIKllD7TTnQTOWEcCg+GjyD385/G2
-	 SHUiXvrS3PHqJjnobtWLQBmkIJXDEwSgKQJiw8FHrY/8hc93HSBi7emaRlF0own9v2PMfEByHQDv
-	 TGgqXAukomiPBkbTXHeoChLhbE7P+X42g5D19V5ViQma2P7XlLvLssrbncbQPdvwznXKtTjpyhdl
-	 zVUQLhbjeCC4KlAlUlVeNA4TD05JdoIkUR+5TwgTJ9iFy66SFIxgwF9gQ0K1Oyhk2u167KI/Kvz0
-	 S3vQpCn+XfjhgLU4IqtqP0dkt2evWaKi5so4bvJZJ4JiE7MbROAB0t5APVsU9LbibmJrUwtOz4uI
-	 eYDlRL5pqmHvNfjlWbqPTg3XlaSlR+S6DgtGIBi/LQ9xjaJ9/ipnvLPfVD9mkR/3z0LDy00ut43n
-	 BzddKH/8EfomYut1C7sVDl31bLZAb3C1EocoEpN19nI3MmbvrapOuyBu9AK0pcrwo103Gt/WBKGE
-	 XRQAkFcANFsGgArTVvLvxPGUrxBhAPIZUIOV7D47lqYpAWKAHWY2VSCSxGWBsFYzXxUEKkXw==
-X-QQ-XMRINFO: OWPUhxQsoeAVwkVaQIEGSKwwgKCxK/fD5g==
-From: blaze <1466528493@qq.com>
-To: kernel@esmil.dk,
-	hal.feng@starfivetech.com
-Cc: linux-clk@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	blaze <1466528493@qq.com>
-Subject: [PATCH] clk: starfive: jh7110: Fix clk reference leak for pll0_out in jh7110_syscrg_probe()
-Date: Wed,  9 Sep 2026 12:43:31 +0800
-X-OQ-MSGID: <20260909044331.579-1-1466528493@qq.com>
-X-Mailer: git-send-email 2.53.0.windows.1
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="TnXh/1PT"
+Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-396ccafb752so641455a91.0
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 21:44:57 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788929097; cv=none;
+        d=google.com; s=arc-20260327;
+        b=scIj7nkGTSaxhJkeoPBV5oMQsnxSGUJuJHjQETKVb8pXogq9g8m8uBF5X50Ndrq7sz
+         KoOx4LDLUtelSDJGIPJm3okj97BNb8mX1P1LwnDT+vOiikMR/KN49F1JQhAEApkrtnfr
+         mrYzQJom/iQGXp1BXa9GOD/aWNVzeN+STNtOpQnpzqR0+6i1xX9UF+JbJJlVrOK6kgfI
+         iwDFUjKE8WvGbOoC8kZsUumKMmcyTzqxYC/IhV+bEWxpjJYb4WsbFfRTGMOypgJnprpK
+         EYkXfQOnVKCmPnlJ/Gp7q9WZoykMWRjZGamYa47kzeCrT+xhfE56TJ1b3Ik12DzsoOTR
+         fXEg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=ju7SuTTIBf8rTvIMLLG6zQ41U8RGiQrFPUiOKv5pUY0=;
+        fh=ySfY53Vmqpx07y5cH0Pf545F9I2q1IG7LywPRu6YDKQ=;
+        b=XCDQT7Q9vRYLq+97h93fjw8gfw7b1ajcj0jEpeGqaNOMmqs0zYfOfjKY+dG85TDR4F
+         DJ47DfMDHoCI1rxRfS6OfLKDwnsEpCJioRjnYIV//iFniZtiPg0bND7l1UmIvzI4FoBo
+         vs7AIgc17zxuDpRkd5PW1LKIfbnt99rFNeMXX40+h7tXd/ErzX1SCslY2DrlG9tAJYrp
+         YV0eXrFR8qGl44A/wuRGIMZU8bSFFc/onwavEgTqb7y55kkpYAhV50zqVbq9Q+ywP4tL
+         1U1lks06b329xFMzej4rrKiPm+HnWaA1JH4XlovxutZTteLJyUrYa5koTUgnxweB9H1M
+         w77w==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1788929097; x=1789533897; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ju7SuTTIBf8rTvIMLLG6zQ41U8RGiQrFPUiOKv5pUY0=;
+        b=TnXh/1PTsvaAzpVyvTPjyFDdxrCdwJ2dcIZb/eZQ5yIrOfSbftmEYraXCrVRQcE/Cd
+         NbPKvfzR6rk/g3WwamCied5wHGcjs+bFxnxyJOA6rLgres3is6w73B0L/xHGPCv/2OOf
+         yHIclZLJmyEcE+k06PNx+F0JWSgftkcvLahnsuLYjg4FIbAAwE94JZKMI5Nj9aYZ8O8D
+         JAqyM/xeQxFWZetfE7XfsvDi3/9vPk3fu2HltrWgGZFtxRvUfd/WhNAWn7jTy/f/gF3O
+         yPOGYAemOcS27Z+vr4VfqongWs60diKJNpnLSyVFwdlMmOWUpjMjuufP6JcjX2pQ1rWw
+         2ugg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788929097; x=1789533897;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ju7SuTTIBf8rTvIMLLG6zQ41U8RGiQrFPUiOKv5pUY0=;
+        b=C7iXSFTv0QRYqgjmrZbPwDpK1WEfC5Sm6Ky2GORhjiwUA3geWZF8wppG3RS0Ni3R6I
+         JnQAllQ/FZdMXCWKAFUtrMq2c1hPqo/AZDYYHTF9u9/tdawUjqA41wN2tWO8AUtIInng
+         X7HMMfKbk68OTq9eVjg00Abz4/s4JF8PUbEiSprzLvmNtnRBCN+vw73Bbje/lsEaY+YL
+         fucJjjSUEwHCIUG/k6f9kz/3ncvJqHLMZz2JZe+q66oh0a0rFAjfZnqAH0WLf89fhq4u
+         toh9Omu8JolojbsT/d6MlMsvOPcRggsimEcGtV4OHWtZZg+MiwIt/TCJ2/38IKs1rKwr
+         QsZQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxyMMG3ts0/o7APPXAGgY3Wdr6muTyvlGASgkW6mGzdlluYzN/0KRrIO/TNkGxL3z2Ov12YWc2fEumM9eo=@vger.kernel.org
+X-Gm-Message-State: AFuF++mtDmvvjaARwhqc8GKZS5hyfxcgvLzKCpE+4RLfQA1RNwgLAQN+
+	qkwtjByJNudRha8OugwxjSbkPocb8EK1eRHaSIf9rP76Ifr85/uAsqY+Lz8bUJYdx/MVAu54kkl
+	XB5rOnKlPW+3XQKFvwyhT2IUoL893RKyEKINs30xR
+X-Gm-Gg: AYBFou0MVnEduglzldG0h0vrVwzgPAZXxyb9j/lhkFAjhgBb2sJslOmWDVVg/zhTaSR
+	ggQJmW7dSYQ0aM0zPu/JXWE9f3K3305nJX6adfjNKLoC6UtDfhyTySBTU4zWTIf83fQ6UNaJqHY
+	xM5p1RlCqtWoweW3gcscmU/F7oA+7O14LFHJrua9TXRhx1gm9esVCh7D+5jnn6JcgIZCe2Gl/x3
+	ybFJ/vdY4se9v7M+HNcsN2yXKTq2bCHLLifIVtFYvPjtFYZLzVFZZ7kAv4GaDmpUt01/JWfjfVI
+	BqN9QNqmE0b21nI7c30D0aKcEps+bPryaqTBgpNIvRyro7BWPwK9QFha0EI9vBQvQwSN7W2Ub46
+	FdpCEO/ttHQ59WEMvsaoG2DydcICUBftLFPvJgrV4J3qcynwSCymECFmno+Hv/H8Tzok=
+X-Received: by 2002:a17:90b:5485:b0:396:b918:c2a with SMTP id
+ 98e67ed59e1d1-39bac34a3cemr5391070a91.12.1788929096668; Tue, 08 Sep 2026
+ 21:44:56 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260906030429.2085375-1-xmei5@asu.edu> <CAJwJo6asOVa21T==+n7qdso1DBvH6Y3rXo24DdieAQS6XeTutw@mail.gmail.com>
+In-Reply-To: <CAJwJo6asOVa21T==+n7qdso1DBvH6Y3rXo24DdieAQS6XeTutw@mail.gmail.com>
+From: Kuniyuki Iwashima <kuniyu@google.com>
+Date: Tue, 8 Sep 2026 21:44:45 -0700
+X-Gm-Features: AcwNN1WU3N1Z_n3o-LBfKOjs8mI-QxbQ-KQSqXbqITays-pmKu02oWr-sEtiZYY
+Message-ID: <CAAVpQUDuHr4WxEOUwikYqdG9FncoY09LOMGDPciHex2bQ51ePQ@mail.gmail.com>
+Subject: Re: [PATCH net v2] net/tcp-ao: don't dereference NULL current_key/rnext_key
+To: Dmitry Safonov <0x7f454c46@gmail.com>
+Cc: Xiang Mei <xmei5@asu.edu>, Jiayuan Chen <jiayuan.chen@linux.dev>, 
+	Eric Dumazet <edumazet@google.com>, Neal Cardwell <ncardwell@google.com>, 
+	"David S . Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Simon Horman <horms@kernel.org>, netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Salam Noureddine <noureddine@arista.com>, David Ahern <dsahern@kernel.org>, co+2c72469dbbec34af@bugs.sh, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-In jh7110_syscrg_probe(), the handling of the three PLL clock outputs
-(pll0_out, pll1_out, pll2_out) follows the same pattern: clk_get() is
-called, and on success clk_put() is called before setting the pll entry
-to NULL. However, the pll0_out branch is missing clk_put(), unlike
-pll1_out and pll2_out which correctly call clk_put(pllclk).
+On Tue, Sep 8, 2026 at 9:31=E2=80=AFPM Dmitry Safonov <0x7f454c46@gmail.com=
+> wrote:
+>
+> Hi Xiang,
+>
+> Thanks for your report and the proposed fix.
+> I remember I wanted to write tests for re-connect() on the same
+> socket, but never found time for this, as it's not really used in BGP,
+> as far as I'm aware.
+>
+> On Sun, 6 Sept 2026 at 04:04, Xiang Mei <xmei5@asu.edu> wrote:
+> >
+> > TCP_AO_DEL_KEY with del_async=3D1 is accepted in TCP_LISTEN and NULLs
+> > current_key and rnext_key; tcp_ao_connect_init() clears them on a
+> > reconnect.  Five readers dereference them without a check.
+> >
+> > tcp_ao_time_wait() leaves tp->ao_info pointing at the tcp_ao_info it
+> > hands the TIME_WAIT socket, and tcp_done() skips inet_csk_destroy_sock(=
+)
+> > on the tcp_fin() FIN_WAIT2 path, so the full socket stays in TCP_CLOSE
+> > with its fd open, sharing that object.  An unprivileged
+> > connect(AF_UNSPEC) + listen() then clears rnext_key while the TIME_WAIT
+> > socket reads it from softirq, and tcp_v4_timewait_ack() dereferences it=
+.
+> > The segment need not be authenticated: tcp_v4_rcv()'s do_time_wait: pat=
+h
+> > skips tcp_inbound_hash().
+> >
+> > Check both fields and drop the segment when the key is gone; without on=
+e
+> > no valid signature can be produced.  In tcp_inbound_ao_hash() this must
+> > be a drop rather than a fallthrough to the keyid lookup, which would le=
+t
+> > the peer pick the verification key that rnext_key pins.
+> >
+> > This removes the dereferences only; the two sockets still share one
+> > mutable tcp_ao_info, leaving snd_sne, lisn and sk_omem_alloc racy.  The
+> > first Fixes: is where the unchecked read came from, not the sharing.
+> >
+> >   Oops: general protection fault, probably for non-canonical address
+> >     0xdffffc0000000010: 0000 [#1] SMP KASAN NOPTI
+> >   KASAN: null-ptr-deref in range [0x0000000000000080-0x0000000000000087=
+]
+> >   RIP: 0010:tcp_v4_rcv (net/ipv4/tcp_ipv4.c:1055 net/ipv4/tcp_ipv4.c:23=
+33)
+> >   Call Trace:
+> >    <IRQ>
+> >    ip_protocol_deliver_rcu (net/ipv4/ip_input.c:207)
+> >    ip_local_deliver (net/ipv4/ip_input.c:262)
+> >    ip_rcv (net/ipv4/ip_input.c:612)
+> >    __netif_receive_skb_one_core (net/core/dev.c:6264)
+> >    process_backlog (net/core/dev.c:6728)
+> >    net_rx_action (net/core/dev.c:8007)
+> >    handle_softirqs (kernel/softirq.c:645)
+> >    </IRQ>
+> >   Kernel panic - not syncing: Fatal exception in interrupt
+> >
+> > Fixes: decde2586b34 ("net/tcp: Add TCP-AO sign to twsk")
+> > Fixes: 0a3a809089eb ("net/tcp: Verify inbound TCP-AO signed segments")
+> > Cc: stable@vger.kernel.org
+> > Reported-by: co+2c72469dbbec34af@bugs.sh
+> > Closes: https://lore.kernel.org/all/YG9s0PiBKJZcXAKld3MToa1IVRJOUoKiaA5=
+7%40bugs.sh/
+> > Signed-off-by: Xiang Mei <xmei5@asu.edu>
+> > ---
+> > v2: drop the incomplete v1 fix; adding missing checks to avoid null-der=
+ef
+> >
+> >  net/ipv4/tcp_ao.c   | 6 ++++++
+> >  net/ipv4/tcp_ipv4.c | 4 ++++
+> >  net/ipv6/tcp_ipv6.c | 2 ++
+> >  3 files changed, 12 insertions(+)
+> >
+> > diff --git a/net/ipv4/tcp_ao.c b/net/ipv4/tcp_ao.c
+> > index bb7bbc20ba3f..9c2e5c8c8fe3 100644
+> > --- a/net/ipv4/tcp_ao.c
+> > +++ b/net/ipv4/tcp_ao.c
+> > @@ -857,6 +857,8 @@ int tcp_ao_prepare_reset(const struct sock *sk, str=
+uct sk_buff *skb,
+> >                         return -ENOENT;
+> >                 *traffic_key =3D snd_other_key(*key);
+> >                 rnext_key =3D READ_ONCE(ao_info->rnext_key);
+> > +               if (!rnext_key)
+> > +                       return -ENOENT;
+>
+> I think this is quite a big hammer to fix the re-connect() issue.
+> In theory, we could even restrict connect()/listen() after TCP_CLOSE,
 
-Additionally, when clk_notifier_register() fails, the error path returns
-without releasing the clock reference, leaking it.
+As there were too many rehash issues, we disallowed it.
 
-Fix this by calling clk_put(pllclk) after clk_notifier_register(),
-matching the pattern used for pll1_out and pll2_out. Placing clk_put()
-before the error check covers both the success and error paths.
+8cc3aef0cb19 tcp: Do not allow buggy transitions between ehash and lhash2.
 
-Fixes: cc46f7c9edc4 ("clk: starfive: jh7110: Add PLL clock source support")
-Signed-off-by: blaze <1466528493@qq.com>
----
- drivers/clk/starfive/clk-starfive-jh7110-sys.c | 1 +
- 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/clk/starfive/clk-starfive-jh7110-sys.c b/drivers/clk/starfive/clk-starfive-jh7110-sys.c
-index 0000000..1111111 100644
---- a/drivers/clk/starfive/clk-starfive-jh7110-sys.c
-+++ b/drivers/clk/starfive/clk-starfive-jh7110-sys.c
-@@ -432,6 +432,7 @@ static int __init jh7110_syscrg_probe(struct platform_device *pdev)
- 		priv->pll_clk_nb.notifier_call = jh7110_pll0_clk_notifier_cb;
- 		ret = clk_notifier_register(pllclk, &priv->pll_clk_nb);
-+		clk_put(pllclk);
- 		if (ret)
- 			return ret;
- 		priv->pll[0] = NULL;
---
-2.43.0
-
+> but I think I have an idea how to address it "properly".
+>
+> I have a draft of a patch; I'll test it today and send it for review.
+>
+> >                 *keyid =3D rnext_key->rcvid;
+> >                 *sne =3D tcp_ao_compute_sne(READ_ONCE(ao_info->snd_sne)=
+,
+> >                                           snd_basis, seq);
+> > @@ -1026,6 +1028,8 @@ tcp_inbound_ao_hash(struct sock *sk, const struct=
+ sk_buff *skb,
+> >                  * matching the rcvid in the mkt.
+> >                  */
+> >                 key =3D READ_ONCE(info->rnext_key);
+> > +               if (!key)
+> > +                       goto key_not_found;
+> >                 if (key->rcvid !=3D aoh->keyid) {
+> >                         key =3D tcp_ao_established_key(sk, info, -1, ao=
+h->keyid);
+> >                         if (!key)
+> > @@ -1045,6 +1049,8 @@ tcp_inbound_ao_hash(struct sock *sk, const struct=
+ sk_buff *skb,
+> >                 if (err)
+> >                         return err;
+> >                 current_key =3D READ_ONCE(info->current_key);
+> > +               if (!current_key)
+> > +                       return SKB_DROP_REASON_TCP_AOFAILURE;
+> >                 /* Key rotation: the peer asks us to use new key (RNext=
+) */
+> >                 if (unlikely(aoh->rnext_keyid !=3D current_key->sndid))=
+ {
+> >                         trace_tcp_ao_rnext_request(sk, skb, current_key=
+->sndid,
+> > diff --git a/net/ipv4/tcp_ipv4.c b/net/ipv4/tcp_ipv4.c
+> > index 9f053eb8b46e..93e073065b1b 100644
+> > --- a/net/ipv4/tcp_ipv4.c
+> > +++ b/net/ipv4/tcp_ipv4.c
+> > @@ -1052,6 +1052,10 @@ static void tcp_v4_timewait_ack(struct sock *sk,=
+ struct sk_buff *skb,
+> >                 key.traffic_key =3D snd_other_key(key.ao_key);
+> >                 key.sne =3D READ_ONCE(ao_info->snd_sne);
+> >                 rnext_key =3D READ_ONCE(ao_info->rnext_key);
+> > +               if (!rnext_key) {
+> > +                       inet_twsk_put(tw);
+> > +                       return;
+> > +               }
+> >                 key.rcv_next =3D rnext_key->rcvid;
+> >                 key.type =3D TCP_KEY_AO;
+> >  #else
+> > diff --git a/net/ipv6/tcp_ipv6.c b/net/ipv6/tcp_ipv6.c
+> > index df9c29eb5c1f..0fb75d139430 100644
+> > --- a/net/ipv6/tcp_ipv6.c
+> > +++ b/net/ipv6/tcp_ipv6.c
+> > @@ -1182,6 +1182,8 @@ static void tcp_v6_timewait_ack(struct sock *sk, =
+struct sk_buff *skb,
+> >                 key.traffic_key =3D snd_other_key(key.ao_key);
+> >                 /* rcv_next switches to our rcv_next */
+> >                 rnext_key =3D READ_ONCE(ao_info->rnext_key);
+> > +               if (!rnext_key)
+> > +                       goto out;
+> >                 key.rcv_next =3D rnext_key->rcvid;
+> >                 key.sne =3D READ_ONCE(ao_info->snd_sne);
+> >                 key.type =3D TCP_KEY_AO;
+> > --
+> > 2.43.0
+> >
+>
+> Thanks again,
+>              Dmitry
