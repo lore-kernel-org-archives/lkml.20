@@ -1,138 +1,167 @@
-Received: from pdx-out-013.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-013.esa.us-west-2.outbound.mail-perimeter.amazon.com [34.218.115.239])
+Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013026.outbound.protection.outlook.com [40.107.159.26])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0000B3B2D24;
-	Wed,  9 Sep 2026 08:55:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=34.218.115.239
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788944161; cv=none; b=DAzxK9n2HQJ28B8T4LxybJEpxWBg1n+i5vkYr/3tUTjkIjOhMa2uFaSo18Qhxq/a3Jy0inCNm+BF1oRttW/RcKHwpMtgWxyvx7szbYI9VqSXmfspCy54J6ojc/t/nAaSS2r8yzWRDR+x3AOFQI08ZEPxTnZxyO+ze+i6rP/K+TE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788944161; c=relaxed/simple;
-	bh=D9U5g7q9v+rnJDJNy22p+Pe5KS+zbVIaqFGLV1VvEt0=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=mrzihXkJ8WYQ0+w9M+7ZsJnAenH6MsbqC1B1FtqPUgcs1yQUngYC5aClEWuelNecfpDtEKfmt//Tfmki0SZiT3Yw4cv0hVNfxI/dGxpewwUqM6b8AIg4c0LR5ePV1vbzM2mk8RJwHrICKswIud6d94vHmqA5a8brzqCcRGdy+5M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de; spf=pass smtp.mailfrom=amazon.de; dkim=pass (2048-bit key) header.d=amazon.de header.i=@amazon.de header.b=aqAkk7t3; arc=none smtp.client-ip=34.218.115.239
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C49EA188CC9
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 08:56:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.159.26
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788944205; cv=fail; b=I1B4pTrfwzv7769cZmUMd5zMUsA2cHC3FMovNucVJclIfOBoCrdX13uDp+Hrc8HnNmDndrjAOHvCMU0PlYkYg/QilmmtSrHsweVOMJZAcRh5s5+ml/VddF9McdCUFUTpVBjsiUIFKIkS2B7zzPEsTA+kXSTBThSRIL3kvzI5yf8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788944205; c=relaxed/simple;
+	bh=CgoyKUkOAgghmIiLlueTgd3dxP43HQMj+kaZN+VSxhY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=YO10KCzMvFId5SXnrmkjSVDbwmFan8AdzZq1vNoGUtRVgziM6bmSic2gdhV9DI9P9npKOMJ8d3P5gaHbCH6Noqifoiz5YxjgIg+QYwjCooeRoSXsbfXSxX21QT1/innZK6miXbUnFV1ndUyxkWJMr2KMPCEaVM40U94sL9Avo9I=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=duUZWElS; arc=fail smtp.client-ip=40.107.159.26
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amazon.de header.i=@amazon.de header.b="aqAkk7t3"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.de; i=@amazon.de; q=dns/txt; s=amazoncorp2;
-  t=1788944159; x=1820480159;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=mWBjSLBU925hAFawF2eAchvZnolvusgBQ8n8QxE9OVM=;
-  b=aqAkk7t3za2X2SBwJ7fxe/XKoEsj6ZOlCEiDtfXGj0ZligTpaPbPg++8
-   6VKmOxadJDWTgCxuSpWH8epcIWXGoiL3e30OzniiTVH457IyjZnyHkLLv
-   M/RvQWk+Ko+DhOeQc6a2nGKodvTNa44fKn0mbAhWG+zXDvQtYaGsqFpOk
-   Wyl1buguQ6i2hvis8Mn8glKqo9xCngfsiKH97nr0QIiT+2F/sxAMC9MOn
-   EV9g9T3KFUA4N+lhdgOvfl2gshW48i/BHFqOubCr9up97NMwC3bhyTvzG
-   MV+85TzhyiEaLPutlyQVOt8Kn0NPS+xbFOZsaABHBRv97nI+gqZFtM0RE
-   g==;
-X-CSE-ConnectionGUID: d0JHdyqaQPmU7Dfjyo4vJw==
-X-CSE-MsgGUID: EQnoxXBEQd+tMXMHwqWNjQ==
-X-IronPort-AV: E=Sophos;i="6.25,270,1779148800"; 
-   d="scan'208";a="27991648"
-Received: from ip-10-5-0-115.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.0.115])
-  by internal-pdx-out-013.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Sep 2026 08:55:57 +0000
-Received: from EX19MTAUWB001.ant.amazon.com [205.251.233.104:22904]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.15.196:2525] with esmtp (Farcaster)
- id 4952f932-5e69-4f2d-92d6-ffc2bd750591; Wed, 9 Sep 2026 08:55:57 +0000 (UTC)
-X-Farcaster-Flow-ID: 4952f932-5e69-4f2d-92d6-ffc2bd750591
-Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWB001.ant.amazon.com (10.250.64.248) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.45;
- Wed, 9 Sep 2026 08:55:57 +0000
-Received: from dev-dsk-doebel-1a-7b355d76.us-east-1.amazon.com (10.169.119.5)
- by EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.46;
- Wed, 9 Sep 2026 08:55:56 +0000
-From: Bjoern Doebel <doebel@amazon.de>
-To: Andrew Lunn <andrew+netdev@lunn.ch>, "David S . Miller"
-	<davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub Kicinski
-	<kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>
-CC: Willem de Bruijn <willemb@google.com>, <netdev@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, Bjoern Doebel <doebel@amazon.de>,
-	<stable@vger.kernel.org>
-Subject: [PATCH net] loopback: orphan zerocopy frags before releasing the sender in loopback_xmit()
-Date: Wed, 9 Sep 2026 08:55:42 +0000
-Message-ID: <20260909085542.3370986-1-doebel@amazon.de>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="duUZWElS"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=j2oeNDmUg+Q+gQNBp2H9T9QbM8YA+dPsdCSlUuXxpii4hT2LkiA1f6iWX8S7pe7VYji/Ec7nP6ORbCxR2rINXWAjqcMlvM6+1bIM6ijDU/CP7ku0OUjfmz1ij6Qfp27DG+/woXRX3cGRN30QdFSfTfhXqnrNAjepzmy8y7MLgdfzx/HDtkkR3EP3/Hjy7CAIXwZDIjNSQQzCqjmv7kLWx5QsviY+LvTRlXlUc5usd2GxkTKJSHhdQTL1mAQVF9nh1E7Jx6WNXkjHepX+m0t6sMeaQkqw64C88i96far9bPrRhkYglkUaFRc+N6R0JWLRPwmP3LpYJpV2lb0k7CjhXA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=sGZwkLXnuY4+/QwJcLfdSxe/Big0L54fZ395euLjrVI=;
+ b=JVV6I4cFc7DGXlJoIYto0iu7T0zAx5JBMfEYMIzw9m4uiBZiWzcjV1d49knIC6HMsbfplqufbEkHl5olBm2PkOs0Vkc+Yysrh92Iatq9r5m2UXmurnaTDrEjTMn2fyCnKbWmElvVlZaHQEyMCyTeMOhWUU4eVfMFOIzqj7/fzSnpR3NV/RA72T6gMrMmJwu6oNLNrB2O+kBH6nW4e28y4y2K2+MrKNFPmWqTLMvn1iKfdEU6VNSbl/fszstS3bZ2r/QvBmeu5tv6uqNPBn3/eLtf4HtJJZxhtzBmINCM9D/J6Xu3kKXt1qFnbwo4Ct+41N40zinZBgxefMw3S8FtBA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=sGZwkLXnuY4+/QwJcLfdSxe/Big0L54fZ395euLjrVI=;
+ b=duUZWElSQzP1ci48xAHs18LdIO7QO6IGjjrcnbLHBCZypevYjd5C13kozUP36SBkVvJEI3+HgvRzy0Kqwcwl2eh7JJMoUK6FYWC28vfi08VKB99ajAisikK9xbg0VQhsnQXz6psspimEc0lhjBoEsBY97uQZGGOlEobg6ComB4tH2iyfZY+cTDcZYJrMmYjBO+issmnegyzgMQy691RJW8FdVIwXH5eRkXKaHzwjpiOl+FxZLs9CY3sIuACX1eplKTQcEMmNLaPd/VTrafgcU/dSNI3mFGvA+2smLhNooEBY0WpJMe0j4D17ukldpamE/Q/vya3lUJfFgIlc4yDCZg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+Received: from GVXPR04MB12290.eurprd04.prod.outlook.com
+ (2603:10a6:150:319::13) by AM8PR04MB7266.eurprd04.prod.outlook.com
+ (2603:10a6:20b:1d6::20) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.8; Wed, 9 Sep 2026
+ 08:56:40 +0000
+Received: from GVXPR04MB12290.eurprd04.prod.outlook.com
+ ([fe80::1739:3404:2175:33dd]) by GVXPR04MB12290.eurprd04.prod.outlook.com
+ ([fe80::1739:3404:2175:33dd%3]) with mapi id 15.21.0382.012; Wed, 9 Sep 2026
+ 08:56:40 +0000
+Date: Wed, 9 Sep 2026 11:56:35 +0300
+From: Ioana Ciornei <ioana.ciornei@nxp.com>
+To: Vincent Jardin <vjardin@free.fr>
+Cc: "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, 
+	Laurentiu Tudor <laurentiu.tudor@nxp.com>, linuxppc-dev@lists.ozlabs.org, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, stable+noautosel@kernel.org
+Subject: Re: [PATCH] bus: fsl-mc: register the object drivers after
+ misc_class exists
+Message-ID: <ihh2hdeove5tj37mk53htlyzwfnnn4tzufumzcnkza6kkr5yoc@rs2ojo5lod6q>
+References: <20260901-for-upstream-fsl-mc-initcall-order-v1-1-36ffe48f767d@free.fr>
+ <fmmf72ypmmooyxszz3l47xabdhvetowgvbmbjmvj6bumuh5onh@pntmny63urbg>
+ <ap7mmR_4QV0k88dK@L30177.local>
+ <dvnnk7fnk57x7gf4mc25codec62xtpbe4v7omhjguqxd25ssmu@pqqjwe5xif4q>
+ <aqA1FKnhAA6iIuyH@L10892.iliad.local>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <aqA1FKnhAA6iIuyH@L10892.iliad.local>
+X-ClientProxiedBy: AS4P191CA0011.EURP191.PROD.OUTLOOK.COM
+ (2603:10a6:20b:5d5::9) To GVXPR04MB12290.eurprd04.prod.outlook.com
+ (2603:10a6:150:319::13)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: EX19D036UWC003.ant.amazon.com (10.13.139.214) To
- EX19D001UWA001.ant.amazon.com (10.13.138.214)
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GVXPR04MB12290:EE_|AM8PR04MB7266:EE_
+X-MS-Office365-Filtering-Correlation-Id: 437c819d-d6a0-44cc-d10d-08df0e504392
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|366016|23010399003|1800799024|19092799006|10067099003|6133799003|18002099003|22082099003|56012099006|4143699003|11063799006|41080700001;
+X-Microsoft-Antispam-Message-Info:
+	3I8JSJMlNS38RHrfWX9mQLsmL6JZUlRnpaDNwwnM+xqKvpn4zXDj4/e80Ye72RxcbmqYXedpL7O5xztnOsmKag0/KynVCiM5BONaI1I2LQptlFK1Uxf417+74QyfX2/+shRaY4AuFHOlvlS3GI2cFfk0Iwd5tGFB+DzXBHtw3E8f1uhlThD88cWt2EfQopea1rf0YGUilLG1zWsEsB9IRl8fID7x8GVsNvj3NconRWYlKqsEzPq20NZDe85l5zch39av0bxAk3pq//9LRV5W1LMqRgLLPHorXiXy6p4qLp84jgmkWmoQPRHZi+xHWYw0eYK1ZJJq5TP0N0MH9MoTJEJ9XmsJvEiDxD2hHp/Nw6AAQPpVBJPjcu/f8YaPaI44R3IpE49n9SIivJZwoLN/mLCJLhS8629iq39YJrXKRvvZMSlZ8ncp4vXVEfhW3r8hwKEFmNfIVAJ4gX2J6hIWJP6BxDcCy09uhv0HGLKTWLl+ePteZWpX5PLzhlEge5XrRWfaGVDYqnIOGTYOr/FlgRSsV7oUsL7KIxyTW8uxlhWniDorza1uhxkjH7+3yvLNWoff+GO7AYsxzb8KUQcjHkV9C/J6cKf2uiX9T3N85v7o0Ix9zsy6Om6nLv4WPzyEaMpVpnwJyxSqRAfZmsFXCaKAMlbDPx205BLPeSDU1pnxH/xNBhgbkw+1sfqjzEnx56zRMaaNHWE33JKkfIECcA==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GVXPR04MB12290.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(23010399003)(1800799024)(19092799006)(10067099003)(6133799003)(18002099003)(22082099003)(56012099006)(4143699003)(11063799006)(41080700001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?X14nL7tNU4S5v9kiH6NZ6wo6/gSfyiS6YwQD2hR7ZaWDZqe3JO/yYjn/c7Iz?=
+ =?us-ascii?Q?2B90vyYvC05DOh6Lvw41B3ASltakvEvmI7QGaj8920oyjYhYKcMCwRcIgPx6?=
+ =?us-ascii?Q?77vxE0cL9JXEI12sc0TP/eB1KM7Y1tQLG1jnFVUN2sbmJkBUbmxscq+RScwg?=
+ =?us-ascii?Q?yJAqSI61ecn+Gqq5Gt8nyyoVkoKnu+wHjc3jmPfr6XbwSriXqXWwfrNoj7Sv?=
+ =?us-ascii?Q?ZjEfye38uEgYf3JVnyeNUkMAKgcCJzrKiOL8WvABCs/knAO3f6Tr9ZJfDVwj?=
+ =?us-ascii?Q?w702Eoyh+QxoMDUxT5zuSuZYHYPCNHe7VklLi3ifNUdQK4ykDR8hvuP6YW8L?=
+ =?us-ascii?Q?F3CW+XE9B31HYSKaUl9NXHYkArgTlMlIbOEDCS9JwXbSGTNfiVeRTtsLBcNA?=
+ =?us-ascii?Q?ZHmOjeXRupZDZk5WlowBiUb+hYYVvJxYsJnKzOZcD+s9FRRn5nFcSCCn7r85?=
+ =?us-ascii?Q?70zP6Siw7z4DjjPs+ut0iUyV3taOxz1AJB521N2hl5tcVFvlsr51l0qlDGrr?=
+ =?us-ascii?Q?P8Awjvwe+0Sv6oFSL0X+J5mWz5tWccbxUGJKLs7X4AlrJ6zzBU0OCFTJ8RBN?=
+ =?us-ascii?Q?vxuHkwsE+fo71B5Qhm0VZji86lFOonkk8IB3+bSYMFV/6QKvMTCUqr79xKH3?=
+ =?us-ascii?Q?eHGK8P542cisyJpBGbot2xHkj0AEMvE3kHHHViRHgs+MYOQNWi4aoa1uw0u1?=
+ =?us-ascii?Q?i61Z2ngw1cKDThj7IEwcF0RhC2Bs9x09XF1WB72Jz8lEjEZemnVlBohZUasT?=
+ =?us-ascii?Q?E0Md4MhxJYyUFE5/KptYbAIVG9pxi+lscL3RXqfkRDcOMkNq5zzldq1sbB/Z?=
+ =?us-ascii?Q?ljGXIJUG2rKGx79EVe/5KeXEDm4Alnlro1mdafUKMW7QHYLUEbUtviIvDXnX?=
+ =?us-ascii?Q?fnHB7KhAS+iQ+7lkLv5pOfwTOfMphwiQX6yoAR1VdbfBusLqEnZAwhiorDNf?=
+ =?us-ascii?Q?07ZfwGz2TOfGAHwDhZOj1odccLgXtyYqbLeLRSjEGPWzbXOxfd/pFbolNrAi?=
+ =?us-ascii?Q?W7oWot1mgeknOcgM3rkyH5htTMVeb02FHpanZzFS5ukUJLgfdQB61nGXgd2z?=
+ =?us-ascii?Q?dnwaek+XQFcJVC62iPafxsAyclyfT2M0qP6FK6riq+iJxAKF9+16PlwY6jMU?=
+ =?us-ascii?Q?FU7d0409YkMXKgZjAA8IUhLT6VPFUl4TVXEM3vmaQSzIwd5qRC8SLxzIgCnk?=
+ =?us-ascii?Q?Kx3/cMfxLQZocJYffVwjeGoQrhkuyUpS1iHESDKh9Do31ljXWHuDZsQ4j3eA?=
+ =?us-ascii?Q?TJisOFbT4DhosBjkrfChS8siZkHJZyOPKfMAhUnQjZp9hNu272zZAeRT5OA4?=
+ =?us-ascii?Q?DU6zXVBLJung64ZXBNgiW+x91f6YOStJFOjuz+e6d0PcVfKRzu1t5xeUGIcJ?=
+ =?us-ascii?Q?rdDqj25/h+70gA0PsnIFHcNhJvH6kKMk/SDeBwbm4LvD7owgi/pK9Rk6MONZ?=
+ =?us-ascii?Q?jkCJ9cTl+nhNBW2asCoSAehdtA6zLrjhxUdTNqbCy4jGVzL/HD0xAW8k+CFr?=
+ =?us-ascii?Q?NA2k0iLqKZS7orKzyKUK1j9vLCC9YTdzIq+dYFvXsIqzZAYpctK+ddkshWZ/?=
+ =?us-ascii?Q?HiCVhyEv8MumovxfFhMNycjzPj5dyqsq3biHPLtt5UgYpSy9TMnyw3z3MpMI?=
+ =?us-ascii?Q?7xC+lRSW1QJj1xTUKgKwpNtI9lv2S3xxCLt+Pl8Eq89Fdi3Wo903/H8GAQHf?=
+ =?us-ascii?Q?UzdKAYlr2S68E8ZF97ALnyBH+EJ1J2KgCnrjD1BorYlTAugpQBQO4fCU7uOi?=
+ =?us-ascii?Q?kq0XccgOvg=3D=3D?=
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 437c819d-d6a0-44cc-d10d-08df0e504392
+X-MS-Exchange-CrossTenant-AuthSource: GVXPR04MB12290.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Sep 2026 08:56:40.5188
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 6T0IQEassZoZz6/AzuUDGGe9bjihmd/cZ1kroqU+dA+GIpWF1/0NRu1/jkDmE5pKKwYA+4I03GiQaa9I4CkDwg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM8PR04MB7266
 
-AF_PACKET PACKET_TX_RING transmission over the loopback interface can
-silently corrupt packet payloads in flight. tpacket_fill_skb() builds
-the transmit skb using zerocopy frags. loopback_xmit() then calls bare
-skb_orphan(), which runs skb->destructor (tpacket_destruct_skb()) and
-marks the ring slot TP_STATUS_AVAILABLE, telling userspace the buffer is
-reusable while the in-flight skb frags still reference that buffer.
+On Tue, Sep 08, 2026 at 06:17:24PM +0200, Vincent Jardin wrote:
+> Hi Ioana,
+> 
+> > I am indeed in the case in which the uapi support is builtin but the
+> > dprc.1 probing is deferred, thus it will get executed after misc_init()
+> > had a chance to run.
+> > 
+> > The deferral happens because of_dma_configure_id() returns EPROBE_DEFER
+> > since it waits for arm-ssmu to probe. How did you get past this
+> > deferral?
+> 
+> I think I isolated the difference: I guess you have smmu enabled while I
+> did disable it. I checked and when smmu is enabled back, the issue does
+> not show up anymore. But it is not my goal.
 
-This is ok if the packet gets processed immediately in loopback's xmit
-path before userspace gets a chance to reuse the frag buffer. However,
-if the packet gets redirected for instance to another CPU (via RPS),
-this opens a window where userspace may already write new data into the
-frag buffer before the receiver reads the original content.
+I am not trying to convince you that the patch is not necessary, I am
+just trying to identify the scope of the issue correctly.
 
-Reproducer using txring_overwrite from the net:run_afpackettests selftest:
+> 
+> I do have with my dts,
+>         &smmu {
+>                 status = "disabled";
+>         };
+> 
+> for the mc to load, you need:
+>         fsl_mc: fsl-mc@80c000000 {
+>                 compatible = "fsl,qoriq-mc";
+>                 ...
+>                 iommu-map = <0 &smmu 0 0>;
+>                 dma-coherent;
+>         };
+> 
+> it seems due to,
+> of_dma_configure_id() -> of_iommu_configure() ends up with "no IOMMU" and
+> it returns 0 instead of -EPROBE_DEFER.
+> 
+> So the root DPRC, populated at arch_initcall_sync, probes now
+> synchronously, before misc_init() registers misc_class at subsys_initcall
+> and so dprc.1 is created classless. (I hope I did not miss something).
 
-  ip netns add ns && ip -netns ns link set lo up
-  ip netns exec ns sh -c \
-      'echo 100 > /sys/class/net/lo/queues/rx-0/rps_cpus'
-  taskset -c 0 ip netns exec ns ./txring_overwrite
+With smmu disabled from the DT, I can now reproduce the problem.
 
-Commit 5cd8d46ea156 ("packet: copy user buffers before orphan or clone")
-is meant to trigger this copy from the skb_orphan_frags{_rx}() call
-sites, but loopback_xmit() calls bare skb_orphan() before any of them
-run. Address this by taking a kernel-private copy of the skb frags
-before going down the receive path.
-
-Fixes: 5cd8d46ea156 ("packet: copy user buffers before orphan or clone")
-Cc: stable@vger.kernel.org
-Signed-off-by: Bjoern Doebel <doebel@amazon.de>
-Assisted-by: Kiro:claude-opus-5
----
-Verified that the reproducer in the commit message fails 100% right now
-and no longer fails after the patch.
----
- drivers/net/loopback.c | 17 +++++++++++++++++
- 1 file changed, 17 insertions(+)
-
-diff --git a/drivers/net/loopback.c b/drivers/net/loopback.c
-index 1fb6ce6843ade..31ae10a9d7911 100644
---- a/drivers/net/loopback.c
-+++ b/drivers/net/loopback.c
-@@ -72,6 +72,23 @@ static netdev_tx_t loopback_xmit(struct sk_buff *skb,
- {
- 	int len;
- 
-+	/* The skb_orphan() below will run the skb's destructor, which
-+	 * for AF_PACKET TX-ring senders marks the slot as TP_STATUS_AVAILABLE
-+	 * again, even though it still has zerocopy frags pointing to it that
-+	 * will only be copied later in the receive path's
-+	 * skb_orphan_frags_rx(). As such, if the receive path gets deferred,
-+	 * for example by RPS steering the packet to another CPU, this creates
-+	 * a race where userspace may fill in new data into the frag before the
-+	 * old data gets copied out.
-+	 *
-+	 * Take a kernel-private copy.
-+	 */
-+	if (unlikely(skb_orphan_frags_rx(skb, GFP_ATOMIC))) {
-+		dev_core_stats_tx_dropped_inc(dev);
-+		kfree_skb_reason(skb, SKB_DROP_REASON_SKB_UCOPY_FAULT);
-+		return NETDEV_TX_OK;
-+	}
-+
- 	skb_tx_timestamp(skb);
- 
- 	/* do not fool net_timestamp_check() with various clock bases */
--- 
-2.50.1
-
+Thanks!
