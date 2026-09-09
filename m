@@ -1,165 +1,205 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C3BB53A8A5;
-	Wed,  9 Sep 2026 10:49:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 873E03E2747
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 10:50:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788950983; cv=none; b=gx7+CU7T8wloJ3DvXKE0S2QaigJW4zyv5TcxHPKf4y06UTNzhJko3nfju84YO079Ex01D8nA8zCtBINYMcUrYAsSsrlpL9JVRI0pnmq6Bbr71Wax1wHxsKCo2/v/t35eVOWPs+guDCEy7IqBULmUJrQUK8Sytqyifiyob6xfS90=
+	t=1788951037; cv=none; b=cGaLajtyXZQQ2SAk/XJ2i2CRzXDjjFQl/A5KrYN2cDaXCRR4ALge3UvXyzV9DVARcLDRLTmwGgRNK+j+o39SQQ0rQFjSWhsBkqcxYUwKZHlqj/k3x+uuoxzunWnlrJYg/AOnS+KBa4eVPZwk5v0gLqDYWtxhKSa8X4UUpZrX8uk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788950983; c=relaxed/simple;
-	bh=sSaHce3/qZzCbrOudBOCyhDSZYi1NxJWO36thRGVzKA=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=NBkoY8g0OW7Z3t3Eorl98NwXeDWsJR2SmMY4rGXykUaQg/pJLOj8qXuGC2Fm0rPV8+4cwsYR2cjG1YEO+MofQqx2ANA/um4WdRbY9F3RheDHXEq3XzyBW1uOHzxpR/5F+iwR2Q+765eomuO9UEGJC6JoDrGQlEB4GGSjO1hAmaI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=T3x18ENG; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1788951037; c=relaxed/simple;
+	bh=sUsFmxcsJOH4J75gptcCGWMET9SeFLvoaoCguFzSpjg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=lZSERUBWy0b1sc05w1cathWNS0Ya2tuIvV2HXxeTxSiIoCwXhvVA1Y2cfPw1NraU5LtOJCzU/Ou6YajjR3G0pwH6xLQm/a3eLPHmw7hT+NtUdKK6jUcqjJp1MxFz260kz59u9awQ7pf037opVcFNtnq3gUsT5hBWPpMDM2nIdMs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=AbzRY52f; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=UpG3Dd42; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="T3x18ENG"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 23454C2BCFB;
-	Wed,  9 Sep 2026 10:49:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1788950983;
-	bh=sSaHce3/qZzCbrOudBOCyhDSZYi1NxJWO36thRGVzKA=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=T3x18ENGagWDsM6r/NMWuGwlT0S4XHvcH+KbNnuvFycRk6F+qWpRmI62cy0KP9fBa
-	 W8XD6AP8isiSG3wSw4fx4Uo7eiNQWknlxT8sUQqZEAz8gtlvsH8wKnMU55hDewKMPq
-	 3WnWcJMGjTxBO7gZiDGPuuzCKN54Xnjw99KFs27u3NNh6EziOSubeKfsxUDWEglt31
-	 Rq1uotdc6FkiVzvSHMcLSkirsPbTKo+m3vihfZdKNVpN742ZTeE0oii+tDkv5gODej
-	 Z2iYHQlNglqqC0+AAcEp5xUG8qHE2viSwP007CwWL+ibOUfdOpbj+182R1wZuH0S0c
-	 kuYF5lN7J7W9g==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 027EAC79FAD;
-	Wed,  9 Sep 2026 10:49:43 +0000 (UTC)
-From: Roman Vivchar via B4 Relay <devnull+rva333.protonmail.com@kernel.org>
-Date: Wed, 09 Sep 2026 13:48:51 +0300
-Subject: [PATCH v3 2/3] nvmem: mtk-efuse: add support for 32-bit aligned
- reads
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="AbzRY52f";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="UpG3Dd42"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 689ASceq1048663
+	for <linux-kernel@vger.kernel.org>; Wed, 9 Sep 2026 10:50:34 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	1VO9wh0dUp0/+9XImT57Fep8YYUvqKJedWEKtcwpe4Y=; b=AbzRY52fVklas5il
+	4ErKj5aJ3GiB46XbRSlg5rE5aCSVbEMbXYCkjP30EcWoHayz9qri/4eiNbcI74wE
+	yXqt/Cqu+3uGfL4rVHhCXEqDVLjiC17asDoy28qQghcPspYZ+UFvY0TqIG824SZh
+	J8uytHnTrZEe3fc8Roh/LSBB8EDJAuDiFeVhjRWMLafJPJsWVN9PvAuiojFxNQNA
+	HkGHhmLG/cc0WveFKELy7+tErcDPHjU4o8R+W1zk17/G7pTMHF7OEXXCVDIewMkc
+	ZIUrlltxajj3ZhQc4BCVwnwRaQIlkVV3pKKb4nssfDZbixTGntPAYQTgjkJMq6qi
+	IiB9Hw==
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gk559r7eq-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 10:50:34 +0000 (GMT)
+Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-9390890ae83so71991985a.3
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 03:50:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1788951033; x=1789555833; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=1VO9wh0dUp0/+9XImT57Fep8YYUvqKJedWEKtcwpe4Y=;
+        b=UpG3Dd42WYpVclr4w8EfZkjg9eovaK09T+F7wPgbnMwLOHAytXAOIVkt7AErU00KVE
+         3ke4ARlYohoLx+aRwFBVOr+mLk3ptEczOlnnJHLLr90CNjEFHNSzAeOQ+590OcDFjKf2
+         BodtC5AG2wb4aNNBAhMg6FrEpYJY8eRipg18rmRZTrC6h8j4GEq7KpwgA2yYB8MXEMTx
+         f5d0RyZT8Pv6uPRKjqZB2lTgeHqIjn88hmMBUxVQsj5OWJ1hP900CJTxiqwLyo5nYD85
+         uK8wzqELHZM74Ibp6qK5Y26jdEd2ckDR4ahsaDL1aJv9vMpSlDsbJ5ffbSbv1tNISh+g
+         gwCQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788951033; x=1789555833;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=1VO9wh0dUp0/+9XImT57Fep8YYUvqKJedWEKtcwpe4Y=;
+        b=TcpiLpf3LO2f/ImgeX0Vlepfedjbpj5vsNpQ1c0IRZpliJqslnOLrZoVteiFny43iD
+         ge4ZE1dtRrTxApNKx5LXBzUNzqsnyZvOA+NFHgXC4U8gtTvvJHyQG5g05O3ufjgoykz0
+         p1ieKJzrc5rO/uqvcpx0xbjSJRKHLHTwkWvv3uum7ObhPwLUieu+lY7NQf7J69bJqEMS
+         874ydbDj1jNMEtjKDlrvDUsix2/KHEaUSIqkq0mX2hr9t5GlYiw8XSTxaTDcnhWzIK0x
+         AglnTh8DU759x0LCBRHWVD6wu47X0hSqOwBXwmcZUkGuL7qGbINIZ1XMu0IoXm8zk1C4
+         8kBw==
+X-Forwarded-Encrypted: i=1; AKwUvBzDV0ZojheCjV/GFkv9K1jWs9yS8vifTUrLQNUz8DpYZK01pT5ggZ6t3Fbtly3fqtkQPD2W/+KGZ5NziSs=@vger.kernel.org
+X-Gm-Message-State: AFuF++lSE+jYadMQ9+ybFzXFzu3Likz/KJcMzycljLXHVSsiFvChMyqz
+	Aw4PQHWnqSTbp2KLmsjLd+gN0jxAgiQYflTbcU/eFaazwqqUHXHnAQzJlSBaziYY+J48Jja6xp7
+	i2gSmzCehh0sakVC/wGx6cSlmc+9Oov8v8oAkRTe+fdwbEeJDoo924yGMeHIuXipbvpc=
+X-Gm-Gg: AYBFou2qnd5E+5R4r7qGhug5lvjTo2DULDab5T01Cc5f/0nL2AMR3IOjDyWGofKSRUa
+	hUN5ZkrMEOpZjR2NdFZryJjrYbAcWfrmNhZ++PCZKQ70LjYFEd8d7UccDJxacUSLMl5GCmBLgs1
+	e1lIWigplaxP/jxTkA8fIpDkny3MMeU3HODBOj4DJOJ8kgfsv7zcCpdS76ybldRF3jYET750lWN
+	iyRNa595KH+7h41Ky7i3m/UtgJnQ2OxgNjNQXlHIS4QdvS3NQorMCyaj4hDRRso2fjGrsp3e7S+
+	JaAjBKME/H5JU5FP5+c63DJ7F9V5lGtfBi+mDhSK+nWmVH2MIrVlyN6sG1ZRgRMp/qQ1VcUx2zp
+	Tuy+zHoo+84YH9qqoNvx2YA==
+X-Received: by 2002:a05:620a:2913:b0:939:5924:e319 with SMTP id af79cd13be357-939914ccf18mr2247441185a.0.1788951033559;
+        Wed, 09 Sep 2026 03:50:33 -0700 (PDT)
+X-Received: by 2002:a05:620a:2913:b0:939:5924:e319 with SMTP id af79cd13be357-939914ccf18mr2247437485a.0.1788951032996;
+        Wed, 09 Sep 2026 03:50:32 -0700 (PDT)
+Received: from [192.168.202.12] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a839344fe8sm2022203a12.5.2026.09.09.03.50.30
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 09 Sep 2026 03:50:31 -0700 (PDT)
+Message-ID: <f33c39a3-890b-44d3-9944-d694a707afff@oss.qualcomm.com>
+Date: Wed, 9 Sep 2026 12:50:29 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 1/3] PCI: host-common: Fix early bus-walk exit in
+ d3cold_possible()
+To: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>,
+        Jingoo Han <jingoohan1@gmail.com>,
+        Manivannan Sadhasivam <mani@kernel.org>,
+        Lorenzo Pieralisi <lpieralisi@kernel.org>,
+        =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+        Rob Herring <robh@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>
+Cc: linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org
+References: <20260905-shutdown-v5-0-f0c6bafa1d4f@oss.qualcomm.com>
+ <20260905-shutdown-v5-1-f0c6bafa1d4f@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260905-shutdown-v5-1-f0c6bafa1d4f@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260909-6572-nvmem-v3-2-c0c441656431@protonmail.com>
-References: <20260909-6572-nvmem-v3-0-c0c441656431@protonmail.com>
-In-Reply-To: <20260909-6572-nvmem-v3-0-c0c441656431@protonmail.com>
-To: Srinivas Kandagatla <srini@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Matthias Brugger <matthias.bgg@gmail.com>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
- Andrew-CT Chen <andrew-ct.chen@mediatek.com>, 
- Lala Lin <lala.lin@mediatek.com>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
- Roman Vivchar <rva333@protonmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788950981; l=2506;
- i=rva333@protonmail.com; s=20260510; h=from:subject:message-id;
- bh=XhoHgsfcc5OEe7HZ0qvJcNLLqZAnK9nL4IMC1zVANXE=;
- b=KyhS1lFLzJ4JQxSLs/7UgLqXwsNsVrgbAoyJT4edsudSB2Wkf0BJRXPzJMnQEZjps1u0kCQ3A
- QURiR1R0x7lBosdOILwyLYVSDe1SlX+pP52AUCC8rIU5/E9RFh91oz1
-X-Developer-Key: i=rva333@protonmail.com; a=ed25519;
- pk=zww/nWjBGoQ4POXCG0BV6fx2iuXK6jx77rsKPA5YK5Y=
-X-Endpoint-Received: by B4 Relay for rva333@protonmail.com/20260510 with
- auth_id=777
-X-Original-From: Roman Vivchar <rva333@protonmail.com>
-Reply-To: rva333@protonmail.com
+X-Authority-Analysis: v=2.4 cv=KP1qylFo c=1 sm=1 tr=0 ts=6aa139fa cx=c_pps
+ a=50t2pK5VMbmlHzFWWp8p/g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
+ a=EUspDBNiAAAA:8 a=BuD4T0Y0vivPUdseitkA:9 a=QEXdDO2ut3YA:10
+ a=IoWCM6iH3mJn3m4BftBB:22
+X-Proofpoint-ORIG-GUID: _wxXUoqD9WwWQM2yxST1Jl0zp-j8p1oh
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA5MDEyMCBTYWx0ZWRfX44JtlVTLMsqP
+ xOT91Zw8M8a3udv0LJzr9A26/H1l/0FrdvpyOiHPkLbOjrnFK/IwiGyeCINrmnYhw5BBcByz5nL
+ a0TO60lXvLpxC6hefz3X2xX++gKCRm8=
+X-Proofpoint-GUID: _wxXUoqD9WwWQM2yxST1Jl0zp-j8p1oh
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA5MDEyMCBTYWx0ZWRfX7I5BuuBTkBLb
+ JebKLDbE6SarnFnj4270JdykV01ypREjoUvsvvjsDycgd1QlWwwfCPi6jRcp1DQHbhC1MCTF/M7
+ 7pYzVR7SEGkjI0rcwis4TqgBvjjNnxKxjwBYrqOQkeZvMlMPrkIx0uly6RUsg124qieYOrUDR25
+ 1r8plrLG6CQmz4vqjSVomhu14biWbEHV75dGbGDb985OfrMVkE5w37lWL028/G9zCUpLHrTOJKN
+ xbqTlp8nH3/+A0Ij9eJ7jdPD6+WStgcHzDUNH3Xp1BOPscE+jIVOhVGKyed3tndbwr7xpsXDKW8
+ iMs5lI5LAR9+pooatF0i/qf7BbkfZM7q0//JeQj/ETFISRUSRpduZPOCOLtGyqXU1dfDfGBBSGt
+ nHbp6u/67JmrFDf6SBtc7aSMqoCd75FAhlHrNETXr+8DZQVlwe574gvKgULi8HRML95qiZ8abO9
+ fzqmE2BB+pvfydrFo7g==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-08_03,2026-09-08_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 lowpriorityscore=0 adultscore=0 spamscore=0 malwarescore=0
+ suspectscore=0 impostorscore=0 bulkscore=0 priorityscore=1501 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609090120
 
-From: Roman Vivchar <rva333@protonmail.com>
+On 9/5/26 2:48 AM, Krishna Chaitanya Chundru wrote:
+> __pci_host_common_d3cold_possible() returns -EOPNOTSUPP for the first
+> downstream device it finds outside PCI_D3hot, and pci_walk_bus() aborts
+> the walk as soon as its callback returns nonzero. Any device enumerated
+> after the disqualifying one -- including a wakeup-enabled, PME-from-D3cold
+> capable endpoint -- is then never visited, so pme_capable can come back
+> false even though such a device exists on the bus.
+> 
+> Since pci_host_common_d3cold_possible() already returns false whenever
+> any device disqualifies D3cold, aborting the walk buys nothing for the
+> plain suspend path: the overall bool result is unaffected. But it
+> silently drops pme_capable detection for any device ordered after the
+> disqualifying one.
+> 
+> This matters for the upcoming shutdown path in particular: unlike plain
+> suspend, shutdown forces the link into L2/D3cold regardless of whether
+> pci_host_common_d3cold_possible() itself allows it (see the following
+> "force_d3cold" changes), so at shutdown time it's common for an
+> endpoint to still be in D0 and disqualify D3cold while a later,
+> PME-capable device is never visited. dw_pcie_suspend_noirq() still
+> uses "pme_capable" to set pci->pp.skip_pwrctrl_off, so an inaccurate
+> result here can cause Vaux/wakeup support to be dropped for a device
+> that actually supports PME from D3cold.
+> 
+> Signed-off-by: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
+> ---
+>  drivers/pci/controller/pci-host-common.c | 17 +++++++----------
+>  1 file changed, 7 insertions(+), 10 deletions(-)
+> 
+> diff --git a/drivers/pci/controller/pci-host-common.c b/drivers/pci/controller/pci-host-common.c
+> index a23907a875e5..78bc4c8c9656 100644
+> --- a/drivers/pci/controller/pci-host-common.c
+> +++ b/drivers/pci/controller/pci-host-common.c
+> @@ -274,22 +274,19 @@ static int __pci_host_common_d3cold_possible(struct pci_dev *pdev,
+>  	if (!pdev->dev.driver && !pci_is_enabled(pdev))
+>  		return 0;
+>  
+> -	if (pdev->current_state != PCI_D3hot)
+> -		goto exit;
+> +	if (pdev->current_state != PCI_D3hot) {
+> +		*flags &= ~PCI_HOST_D3COLD_ALLOWED;
+> +		return 0;
+> +	}
 
-Some MediaTek SoCs, such as mt6572, don't support 8-bit reads, leading
-to zeroes or garbage data. 32-bit aligned reads must be used instead.
+The way I read the commit message, this return shouldn't be here
 
-Introduce a 'mtk_reg_read_aligned' helper to enforce 32-bit aligned
-register access. All reads will be performed by reading 4-byte words
-and masking them.
+Konrad
 
-Signed-off-by: Roman Vivchar <rva333@protonmail.com>
----
- drivers/nvmem/mtk-efuse.c | 35 ++++++++++++++++++++++++++++++++++-
- 1 file changed, 34 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/nvmem/mtk-efuse.c b/drivers/nvmem/mtk-efuse.c
-index af953e1d9230..178b9d85f813 100644
---- a/drivers/nvmem/mtk-efuse.c
-+++ b/drivers/nvmem/mtk-efuse.c
-@@ -4,6 +4,7 @@
-  * Author: Andrew-CT Chen <andrew-ct.chen@mediatek.com>
-  */
- 
-+#include <linux/align.h>
- #include <linux/device.h>
- #include <linux/module.h>
- #include <linux/mod_devicetable.h>
-@@ -14,12 +15,37 @@
- 
- struct mtk_efuse_pdata {
- 	bool uses_post_processing;
-+	bool needs_aligned_read;
- };
- 
- struct mtk_efuse_priv {
- 	void __iomem *base;
- };
- 
-+static int mtk_reg_read_aligned(void *context,
-+				unsigned int reg, void *_val, size_t bytes)
-+{
-+	struct mtk_efuse_priv *priv = context;
-+	u8 *val = _val;
-+	u32 i, pos, shift, val32;
-+
-+	for (i = 0; i < bytes; i++, val++) {
-+		pos = reg + i;
-+
-+		/*
-+		 * Read on 32-bit word boundary or if it's the first
-+		 * iteration
-+		 */
-+		if (i == 0 || IS_ALIGNED(pos, 4))
-+			val32 = readl(priv->base + (pos & ~3));
-+
-+		shift = (pos & 3) * 8;
-+		*val = (val32 >> shift) & 0xff;
-+	}
-+
-+	return 0;
-+}
-+
- static int mtk_reg_read(void *context,
- 			unsigned int reg, void *_val, size_t bytes)
- {
-@@ -82,7 +108,12 @@ static int mtk_efuse_probe(struct platform_device *pdev)
- 	econfig.add_legacy_fixed_of_cells = true;
- 	econfig.stride = 1;
- 	econfig.word_size = 1;
--	econfig.reg_read = mtk_reg_read;
-+
-+	if (pdata->needs_aligned_read)
-+		econfig.reg_read = mtk_reg_read_aligned;
-+	else
-+		econfig.reg_read = mtk_reg_read;
-+
- 	econfig.size = resource_size(res);
- 	econfig.priv = priv;
- 	econfig.dev = dev;
-@@ -103,10 +134,12 @@ static int mtk_efuse_probe(struct platform_device *pdev)
- 
- static const struct mtk_efuse_pdata mtk_mt8186_efuse_pdata = {
- 	.uses_post_processing = true,
-+	.needs_aligned_read = false,
- };
- 
- static const struct mtk_efuse_pdata mtk_efuse_pdata = {
- 	.uses_post_processing = false,
-+	.needs_aligned_read = false,
- };
- 
- static const struct of_device_id mtk_efuse_of_match[] = {
-
--- 
-2.55.0
-
-
+>  
+>  	if (device_may_wakeup(&pdev->dev)) {
+> -		if (!pci_pme_capable(pdev, PCI_D3cold))
+> -			goto exit;
+> -		else
+> +		if (pci_pme_capable(pdev, PCI_D3cold))
+>  			*flags |= PCI_HOST_PME_D3COLD_CAPABLE;
+> +		else
+> +			*flags &= ~PCI_HOST_D3COLD_ALLOWED;
+>  	}
+>  
+>  	return 0;
+> -
+> -exit:
+> -	*flags &= ~PCI_HOST_D3COLD_ALLOWED;
+> -
+> -	return -EOPNOTSUPP;
+>  }
+>  
+>  /**
+> 
