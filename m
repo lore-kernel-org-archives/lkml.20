@@ -1,93 +1,207 @@
-Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail-106120.protonmail.ch (mail-106120.protonmail.ch [79.135.106.120])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 012AB48F82F
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 20:46:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1866943F8D4
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 20:47:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.120
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788986826; cv=none; b=RpTjW3r9WI/30wUzlFw40oo7x6YIT2nx9Z1iru0dB4EwbyTheQByTka9X4yGbmZg6l+gCpj2kF1b5lx295LKKSQseqO/XhQjuci9gs9Cv2h576UBUIrApsyJRdzTVamd1yYVBBOGMi6DtR1lzf67fFsFNNU5diAMjcCev9RLaqk=
+	t=1788986842; cv=none; b=LlJHFqyXFTch249nh+QE99iIfWO5yOeQi3/fTHoh1Af4QJ1r+CGtBOthycAszaxNzg+aeKdBUJJ0Ptv5q4l+SFxTCD6YXMlcFPMHHAFFHQuvj8InO9yzzcwsbrMsY7KhxumRMuQAyUt2JOLn7deCDy2OHjjkR/0jYsYBJyFhTiI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788986826; c=relaxed/simple;
-	bh=qvRiWt5c2pR02hAjYA1D3/lp/tkyWi1Ndcm6jnLH1Dg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=tPAAviQ85ROtXHsHVnrCnltd4tMBY2fKeL6wF3K7GHDD1vHjsQ7clKnbmRtyuk2vKB9H+QgaZTzg4Gl1XzsYlOZGj98WL9bNDsL16RCOnR+GRaB2wSe0BiOtk8ewf77+MKjHdn+gPBN+JgHUcqXDEyZ+UYBNBfcRJHVLc4619oI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=m6EhK2YE; arc=none smtp.client-ip=209.85.214.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788986842; c=relaxed/simple;
+	bh=ZU8YTTlzkNKsk+YFMVAdXTY9Z7QXxSJjAl1Q33+ioAk=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Scfsd83gbCuk5w+rJmyCIxDC6xGdAafKPU1ST6VfKVNgbfWBuoZkIi2IA+RSWlly9qzlwdR2Wr8s6IRkvefEXrjnLy9HLEXy7XiuoDH63+3nfWg2Clt9bV7Suvm1gStO0I+JNDfh/r+wv/ZxtYrJYUutdfo/TD+AHK5PfC4xB1U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=Q9/51Ve2; arc=none smtp.client-ip=79.135.106.120
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="m6EhK2YE"
-Received: by mail-pl1-f169.google.com with SMTP id d9443c01a7336-2dd020a2e44so10384015ad.1
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 13:46:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788986812; x=1789591612; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=+pVpYIqXSgR+sbP5ifOxjba32i7axh0MwsGHd9mcNYo=;
-        b=m6EhK2YEEfaq9Q5Ha/DlD6EbQjISrY4jo7VXgtsmIuFPlSzYcoaOoaP3g8HIcrxqer
-         si75WIcr1DxUfRLwowC9WVVjWX80v9IMfLiqxDbZBtKTlF1eJm/hh9WPzVQ1JTaWpNQf
-         /qHT84h7lvi2dtJSJCIwfO+tLE6LdxbJBZge5NVWAmEPERSUAsPnozGoWfvrTODYsl7F
-         12NxT8aJkSoeHEehtgEgwmN0rEdop3FuGi06ED7YqVNKLmlmGzoT4A7ViWBtTLy/MKHu
-         mnKDySYvbexdl1C1slj4LBGF1sdcLMkeR9vqQOmWodUYopojrM28qNTZNEMIUoGvgcbC
-         qf3Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788986812; x=1789591612;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=+pVpYIqXSgR+sbP5ifOxjba32i7axh0MwsGHd9mcNYo=;
-        b=iq3yTV/WOu5jhGNn3SKFQtX+UyyGzgXvLXWwOogxmTOTWmsEzuHtEOytOyGdh7rMep
-         UHU9Xv/+iDgEBrf9fECc57f5Pbec/WEKGzSXDufLadki3FSgsgu4HEuk44cnAV3wqX8l
-         VMplAOXO3kEUdIi9u/Q1aSv20clF5K2UAeki1mEhVjTAzJDNHZUzfXjaN68amR6jY+bZ
-         pFradj9zO3kZ9VxyfjONGsScvqY2VrVhAREDO2yg7LpIovy8vU1jgJbXJzwwfx6x18KP
-         TNp7t/Ir2QbKCVqYmKefkaP9FWv4xDoa05Im/K+nJCczSYqR8GQYQ5vXT08aZ8AHNeKU
-         ULfA==
-X-Forwarded-Encrypted: i=1; AKwUvByNW5N23MTcPAn6XSmvJxWHxyczuJ92Qk2K2GPADRIRo6UN/Rxd2i0pTeqkDxLYcsNVZhxZayMDV99lDHA=@vger.kernel.org
-X-Gm-Message-State: AFuF++mESO8V9Twlxi3ewbsoopdgGY56dQTlo5F4c0fgysMlfuYIrUZf
-	zmgPqOX34iJRnCQavbN1wuikLX4njlvNx0dYr45GO/+63ptbLuagVbagGLkMoQ==
-X-Gm-Gg: AYBFou0yfb+HPYeISh3YecFNRhFu1hRqOIxc84HGoThCJsPgim746xaHV4B6D+S+cRL
-	anHydatRgaRJCJqDH4loPlVUqlWBbsejK8Z1IQSX7v8qRGLRVahzFm0JwbqZT+cwpotVDjdKPRM
-	RFOWc/7hFASM0mq2/BTzTXfiG2W3EAD6VMHGUxdgZlZTUxHKAWu3CjZ/h8E5g7taplVaBCrdUR1
-	HPsU46zzHBlSYItj3rYosYCD7OTXhLA23GZLexMC5fxUcfed+rv5xeXUkUa8/pT8dW1tgug9rah
-	HKMPNpo+3YO0bWk3GPNrstNUxheZfHs3Lfwt1J+Bdr4lJ7S5jT26peMH4ApMSKnuGj/Fe84VwIk
-	24yPP8iolXPWUr2gejqcNX7qtY1V5bxtpQeUEsxBPprg1V7XQRfMWxLB0FnIfadiVsjfG03CxK2
-	J2l6ZPGmti3g02Z1ecZSg+LSDrBvWIDT3IuPBxeMq0onGJM28iNrvDLX4/Vl4JXMZKF5Ak4A1yR
-	pqZODalv7f9
-X-Received: by 2002:a17:90b:2b4e:b0:398:9be9:ab8f with SMTP id 98e67ed59e1d1-39b2622b9ecmr55550499a91.20.1788986812401;
-        Wed, 09 Sep 2026 13:46:52 -0700 (PDT)
-Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d775c02b4sm1227247a91.14.2026.09.09.13.46.51
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 09 Sep 2026 13:46:51 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Date: Wed, 9 Sep 2026 13:46:51 -0700
-From: Guenter Roeck <linux@roeck-us.net>
-To: Hemanth Selam <hemanth.selam@gmail.com>
-Cc: Wim Van Sebroeck <wim@linux-watchdog.org>, linux-kernel@vger.kernel.org,
-	linux-watchdog@vger.kernel.org
-Subject: Re: [PATCH 2/2] watchdog: fix repeated words in comments
-Message-ID: <9e0336c0-26cb-4ff0-a1a1-b838896130c7@roeck-us.net>
-References: <20260904113744.19872-1-hemanth.selam@gmail.com>
- <20260904113744.19872-3-hemanth.selam@gmail.com>
+	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="Q9/51Ve2"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
+	s=protonmail3; t=1788986830; x=1789246030;
+	bh=lABxs6VEi+8CS6nFugnKUAy5WADKPTGxiYP0lOC9JLI=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=Q9/51Ve27fIwlYItLOfztKFg1+MvKQN6KrdZovFBD5sp6ZVmmMFQDsFaYC7GBnuAP
+	 h482L8BHuh/KxE+bN/1LbtiSLTIfDbwIEsDXZacI6tKH3NbLCU+vtK4KMr+8w/HuG3
+	 3Tl7JHoAZIeFWCdcl9BygBt/cCfPNSX9M2kIpzfEH6Heftmt2nlkE+3IQfdvsDu2Jt
+	 eKRfjdJR7NWNiskVdPtmt/z/XNS2JTrWJJGJxThag+vUEUVOdHHRE77PoNJSo06NGs
+	 Qjxr5tfudJuZjAEM+dqH0sdgsCRHykOYidTgOYBUUITSi9DgDXKdWqhKTXHf0qazcu
+	 GeF3h8Q8ub1nA==
+Date: Wed, 09 Sep 2026 20:47:04 +0000
+To: Luiz Augusto von Dentz <luiz.dentz@gmail.com>, Marcel Holtmann <marcel@holtmann.org>
+From: Sergey Lebedev <lsa.uz@pm.me>
+Cc: "Vladimir V . Kondratyev" <vladimirkondratyev2@gmail.com>, Ravindra <ravindra@intel.com>, Ferenc Lengyel <dev@lengyelf.eu>, Chethan Tumkur Narayan <chethan.tumkur.narayan@intel.com>, Ravishankar Srivatsa <ravishankar.srivatsa@intel.com>, Paul Menzel <pmenzel@molgen.mpg.de>, Kiran K <kiran.k@intel.com>, Chandrashekar Devegowda <chandrashekar.devegowda@intel.com>, Mahalingeshwara Chambarakatta <mahalingeshwara.chambarakatta@intel.com>, Arnd Bergmann <arnd@arndb.de>, linux-bluetooth@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/2] Bluetooth: btintel_pcie: fix PM flow for S0ix, S3 and S4
+Message-ID: <20260909204654.91282-1-lsa.uz@pm.me>
+In-Reply-To: <CABBYNZJfH4F1-Hy1eiOrzuU1nzTbMbue3EqMT5gfHs60wFw9QA@mail.gmail.com>
+References: <20260909123416.71919-1-lsa.uz@pm.me> <20260909123416.71919-3-lsa.uz@pm.me> <CABBYNZJfH4F1-Hy1eiOrzuU1nzTbMbue3EqMT5gfHs60wFw9QA@mail.gmail.com>
+Feedback-ID: 113843758:user:proton
+X-Pm-Message-ID: 7bba8913a876a238097641328487cca3ecdf0597
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260904113744.19872-3-hemanth.selam@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, Sep 04, 2026 at 05:07:41PM +0530, Hemanth Selam wrote:
-> Drop words accidentally written twice, reported by checkpatch.pl as a
-> possible repeated word.  Only touches comments, no code changes.
-> 
-> Assisted-by: Cursor:claude-opus-5
-> Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
+Thank you for the pointer. That review reached no list at all: not
+linux-bluetooth, not devicetree, and not sashiko's own sashiko-reviews list=
+,
+which I checked over 31 August to 9 September. It exists only on the site, =
+so
+without you going to look we would not have known it was there.
 
-Applied.
+One of its three findings is real, reproducible, and worse than it claims. =
+I
+have measured it rather than argued about it, and the fix is below. The oth=
+er
+two are at the end, more briefly.
+
+A missed alive interrupt now costs the controller, not just the suspend
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+
+1/2 makes set_dxstate() return success when the register says the target st=
+ate
+was reached but the interrupt never arrived. That is correct about the
+hardware and silent about data->alive_intr_ctxt, which only the interrupt
+handler ever moves. So the tracker is left saying D0 after a suspend that
+actually reached D3.
+
+On resume the handler then runs with a stale D0 context while the hardware =
+is
+already heading to D0, takes neither branch, and sets neither signal_waitq =
+nor
+submit_rx. btintel_pcie_reset_ia() and btintel_pcie_start_rx() are the only
+things that re-arm the RX rings, and nothing else on the resume path calls
+them.
+
+Measured with the same fixture as my 2 September matrix - one alive interru=
+pt
+dropped inside the handler, before it touches anything, which is the state =
+a
+genuinely missed one leaves:
+
+  no injection      SP11RX: ctxt d3 -> d0, submit_rx=3D1     device unchang=
+ed
+  interrupt dropped SP11RX: ctxt d0 -> d0, submit_rx=3D0     ...then:
+
+    Bluetooth: hci0: Received hw exception interrupt
+    Bluetooth: hci0: command 0x0c01 tx timeout
+    Bluetooth: hci0: Opcode 0x0c1a failed: -110
+    btintel_pcie 0000:00:14.7: resetting
+
+and the controller comes back as a new hci index. So it is not only that RX
+stops: the firmware throws an exception, two HCI commands time out, the dri=
+ver
+FLRs it, and every paired device is gone until something re-pairs.
+
+The fix
+=3D=3D=3D=3D=3D=3D=3D
+
+Do in the fallback what the handler's branch would have done. It mirrors th=
+e
+handler's own call site, which also ignores start_rx()'s return:
+
+@@ -4204,11 +4204,25 @@ static int btintel_pcie_set_dxstate(struct btintel_=
+pcie_data *data, u32 dxstate)
+ =09=09if (dxstate =3D=3D BTINTEL_PCIE_STATE_D0) {
+-=09=09=09if (btintel_pcie_in_d0(data))
++=09=09=09if (btintel_pcie_in_d0(data)) {
++=09=09=09=09data->alive_intr_ctxt =3D BTINTEL_PCIE_D0;
++=09=09=09=09btintel_pcie_reset_ia(data);
++=09=09=09=09btintel_pcie_start_rx(data);
+ =09=09=09=09return 0;
++=09=09=09}
+ =09=09} else {
+-=09=09=09if (btintel_pcie_in_d3(data))
++=09=09=09if (btintel_pcie_in_d3(data)) {
++=09=09=09=09data->alive_intr_ctxt =3D BTINTEL_PCIE_D3;
+ =09=09=09=09return 0;
++=09=09=09}
+ =09=09}
+
+Both halves are needed, and I only know that because setting the context al=
+one
+looked like a complete fix until I dropped the interrupt on the way up
+instead:
+
+  build                     drop on D3 entry        drop on D0 entry
+  as posted                 wedged, FLR, new hci    -
+  context only              clean                   wedged, FLR, new hci
+  context + RX re-arm       clean, 3 of 3           clean, 3 of 3
+
+Three cycles of each plus three controls: no "hw exception" and no "resetti=
+ng"
+in any of the nine, and the hci index never moved. One caveat about my own
+instrument: I also counted HCI events during a scan after each resume, and =
+one
+*control* run returned zero with the device plainly healthy, so that counte=
+r is
+not trustworthy on its own. The exception and reset lines are what never
+misfired.
+
+What I propose to do
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+
+Fold it into 1/2 and send the series as v2. My reasoning is that a fix for =
+an
+unmerged patch in the same series belongs inside it rather than on top, but=
+ I
+hold that loosely and a separate patch is just as easy if you prefer it for
+review.
+
+It changes Vladimir's logic rather than adding to it, so: Vladimir, say if =
+you
+would rather carry it yourself and I will hold. Otherwise I will send v2 in=
+ a
+day or two, unless Luiz would rather see it sooner.
+
+The second finding, which I could not measure
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+
+Moving data->gp0_received =3D false out of the retry loop means a late inte=
+rrupt
+from attempt N can satisfy wait_event_timeout() at the top of attempt N+1, =
+and
+"if (status) return 0;" has no hardware check behind it - the register re-r=
+ead
+1/2 adds sits on the timeout path only. So the function can report success
+having just written wr_sleep_cntrl() and waited for nothing, right after th=
+e
+previous iteration read the hardware and found it *not* in the target state=
+.
+
+Real by reading, but unmeasured: my fixture drops interrupts and does not d=
+elay
+them, so I cannot produce a late one. Saying so rather than implying I test=
+ed
+it.
+
+The third, which is pre-existing and not this series'
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D
+
+set_dxstate() clears the GP0 cause with btintel_pcie_clr_reg_bits(), which =
+is
+a read-modify-write. BTINTEL_PCIE_CSR_MSIX_HW_INT_CAUSES looks
+write-1-to-clear: the interrupt handler acknowledges it by writing back exa=
+ctly
+what it read. If so the call does the opposite of both halves of its job - =
+it
+writes 0 to GP0, which clears nothing, and 1 to whatever else was pending i=
+n
+that register, retiring HWEXP, GP1 or FWTRIG unserviced.
+
+Neither patch touches that line, so it is not this series' business, but
+someone at Intel may want it.
 
 Thanks,
-Guenter
+Sergey
+
