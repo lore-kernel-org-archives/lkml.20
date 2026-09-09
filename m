@@ -1,139 +1,163 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FD2113D53C;
-	Wed,  9 Sep 2026 01:20:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E14F10785;
+	Wed,  9 Sep 2026 01:26:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788916825; cv=none; b=pOT5sfsmi2xTlJNL/uY5g70oIZRWj5oL9ZsvpjZtOXcHUVjjL6h4npv4CmQbMgZDeHY0bdz4bBWopgTP+T52uc0qBja50VxP+6GbQAyBHJ8tGg8rAmk8o/+bQP9HhQdioIZCdeX8Kc68tAsN/JZWtPfGqKu9IM8xD0bV5jAT9Oc=
+	t=1788917204; cv=none; b=g7gSt1c7IIqO53Kq7OHf/nmPHLzOS1nL0Zr1CwV/i+d74cusUAJ3S9tut9bd1pm2RB7rVoM9QNCeonPpJTnb1K1W46pRc1B7PrqrgzIW849U5g8ltJsGZ8A+5EuetHtKDir2QN+M+DqPpJQd7TsRvi0FV5jFdbkGzinwQPogVfg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788916825; c=relaxed/simple;
-	bh=QDRn14T19zkyR72KdJ9/AXEWcrC7lV3OiIVXOiph4+U=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=rITW9vGPAVbugBCTphby/hAijCiF3zHMY4CvwJgGgSKoVK4leSjvzZqKYVb6Hx3q8O4/5eZklJkFW28GyXsqNOQnZmD6K85Ctu0gBeCOYmPgnjfslvVt8bTkBp4dvR918slY3KIFdFEVYSctu32UGXZtXD7yd2eapqsaSRDrbIg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=OQcaGNrs; arc=none smtp.client-ip=192.198.163.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1788917204; c=relaxed/simple;
+	bh=TdUKSG7SsrE/DEqDLI5cKMO96BLd8pma7nzupDSV+A8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=EYVz75Uh3FxLfPoAVM1VjyJYYgQk5/fM/yPl4kY58d35IrjkNEiCE5W4SzcrswbSENtxwUg83jhXMW5xdjZ6q3E0KMdFduz5mgD4wg+8K5X0G7DoAY31/oDfnLCPzAmNJUnYCj/DhR6eLJt+lKj2+lNe+77HXJaGx11kCEE9y20=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=nU9yCU7+; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=ufbL1J+J; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=gEkI0IAC; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=PzeKBIfJ; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="OQcaGNrs"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788916823; x=1820452823;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=QDRn14T19zkyR72KdJ9/AXEWcrC7lV3OiIVXOiph4+U=;
-  b=OQcaGNrsQtr7dCM+GMucSjmD0sgDcaBDfFQIvFEt2W/hnbRe0TvDamY0
-   qCJOxY+TcBh4t/hXJtG6JYz9HXkHePfkC/K0d7HKs4zyuWwS5peB8eEQb
-   OxpTHynnD3oRGm1lJOe1XMoIBKBll8emDP4S8gqBXS8XAh/DPS/bxnKPD
-   bFvx8+5/szTxbsQpjhQbQxWgfWtrwEND4ndBh0A8ggVDtVajcwgiL8lFN
-   EVj8zfJyrRT28igsLgbUliSce1Eez0Sy8+JK5lvm7GEGWcGQtAMvEEuE8
-   0NCJ7M7qY9J49iCZimWAfCuMWFpZYpkj8HigmO1tlqhIw8jkql700KiAU
-   Q==;
-X-CSE-ConnectionGUID: FrWCozNFQLqjEkfsm9yR/A==
-X-CSE-MsgGUID: +dcEjUJIR1usqySAw6EXTw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11900"; a="76893443"
-X-IronPort-AV: E=Sophos;i="6.25,270,1779174000"; 
-   d="scan'208";a="76893443"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
-  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Sep 2026 18:20:22 -0700
-X-CSE-ConnectionGUID: ZOwVBNcSShieWAZmJjbt0A==
-X-CSE-MsgGUID: p/P6WzAgTa6VAJ6aY2yhFw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,270,1779174000"; 
-   d="scan'208";a="296103680"
-Received: from dapengmi-mobl1.ccr.corp.intel.com (HELO [10.124.241.239]) ([10.124.241.239])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Sep 2026 18:20:19 -0700
-Message-ID: <cb7d5114-be2e-4e14-acf3-a2d18c5eec82@linux.intel.com>
-Date: Wed, 9 Sep 2026 09:20:16 +0800
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="nU9yCU7+";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="ufbL1J+J";
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="gEkI0IAC";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="PzeKBIfJ"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 5CA6921A1F;
+	Wed,  9 Sep 2026 01:26:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1788917200;
+	h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+	 cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=I2Vqjon6wigWZz0HSaSgjgezA9FjjNrLKtTCfWO1/zA=;
+	b=nU9yCU7+uYerhSVH2i7BpFnohqFjP4u/UlxRq5pcyHfe8u2a7XfBeZRCGuolVAmu5aGdZW
+	TKNvasI5r6jKxORdzrvRkssSRlPXasiGq7RfwBca/PEqWXUzonYfb6T/UsHkRnArOxmgc0
+	8wFfwOawy9TathoYVtCtiuo39Mc1TF8=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1788917200;
+	h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+	 cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=I2Vqjon6wigWZz0HSaSgjgezA9FjjNrLKtTCfWO1/zA=;
+	b=ufbL1J+JPUmwhhmiLJCZRTah3zMyjeNuAMQym3QmxBik7j0SsmznkkR/3mhenBZikNKypy
+	KFUBuKPgj6aH5qDw==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1788917199;
+	h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+	 cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=I2Vqjon6wigWZz0HSaSgjgezA9FjjNrLKtTCfWO1/zA=;
+	b=gEkI0IACBz/3KN0TB4pIBHrNka8Q9izc0cearD4XyV+qVhH8dJRIq57uh7Ai28macGau1o
+	9rRc6NRJjzhrwIOX17oOmT2cKHeWtOhMp77jnBaERBVjvN+TJbdGKaqhDrNM3rs6JvjIlB
+	+KU+rorlvfND4ylplsB1DnUbF5lE3cI=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1788917199;
+	h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+	 cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=I2Vqjon6wigWZz0HSaSgjgezA9FjjNrLKtTCfWO1/zA=;
+	b=PzeKBIfJ26Xygclq3l9vRC3IBV6oU/aVe+OdpseMjCXbU29BhNd+T+fff1fzNsPdgwBTQ+
+	Io7d9UMbR8RhzLCA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 10F501347F;
+	Wed,  9 Sep 2026 01:26:39 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id HMiLA8+1oGqGewAAD6G6ig
+	(envelope-from <dsterba@suse.cz>); Wed, 09 Sep 2026 01:26:39 +0000
+Date: Wed, 9 Sep 2026 03:26:33 +0200
+From: David Sterba <dsterba@suse.cz>
+To: Tal Zussman <tz2294@columbia.edu>
+Cc: David Sterba <dsterba@suse.com>, Chris Mason <mason@kernel.org>,
+	Qu Wenruo <wqu@suse.com>,
+	"Matthew Wilcox (Oracle)" <willy@infradead.org>,
+	linux-btrfs@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 5/7] btrfs: convert heuristic_collect_sample() to use
+ folios
+Message-ID: <20260909012633.GI9053@suse.cz>
+Reply-To: dsterba@suse.cz
+References: <20260907-btrfs-folio-conversions-v2-0-b5fe79f7607b@columbia.edu>
+ <20260907-btrfs-folio-conversions-v2-5-b5fe79f7607b@columbia.edu>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] perf/x86: Disable precise sampling for
- PERF_SAMPLE_STACK_USER
-To: Peter Zijlstra <peterz@infradead.org>
-Cc: Ingo Molnar <mingo@redhat.com>, Arnaldo Carvalho de Melo
- <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>,
- Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- Andi Kleen <ak@linux.intel.com>, Eranian Stephane <eranian@google.com>,
- linux-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org,
- Dapeng Mi <dapeng1.mi@intel.com>, Zide Chen <zide.chen@intel.com>,
- Falcon Thomas <thomas.falcon@intel.com>, Xudong Hao <xudong.hao@intel.com>,
- Gennady Kupava <gennady.kupava@gmail.com>,
- Ravi Bangoria <ravi.bangoria@amd.com>
-References: <20260908075102.540715-1-dapeng1.mi@linux.intel.com>
- <20260908075102.540715-2-dapeng1.mi@linux.intel.com>
- <20260908084906.GO4121339@noisy.programming.kicks-ass.net>
- <1691a05c-49a6-4b16-8bad-cb3c004ed07c@linux.intel.com>
- <20260908101914.GQ4121339@noisy.programming.kicks-ass.net>
-Content-Language: en-US
-From: "Mi, Dapeng" <dapeng1.mi@linux.intel.com>
-In-Reply-To: <20260908101914.GQ4121339@noisy.programming.kicks-ass.net>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260907-btrfs-folio-conversions-v2-5-b5fe79f7607b@columbia.edu>
+User-Agent: Mutt/1.5.23.1-rc1 (2014-03-12)
+X-Spam-Score: -4.00
+X-Spam-Level: 
+X-Spamd-Result: default: False [-4.00 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	HAS_REPLYTO(0.30)[dsterba@suse.cz];
+	NEURAL_HAM_SHORT(-0.20)[-0.996];
+	MIME_GOOD(-0.10)[text/plain];
+	RCVD_TLS_ALL(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[7];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	TO_DN_SOME(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,imap1.dmz-prg2.suse.org:helo,columbia.edu:email,suse.cz:replyto,suse.cz:mid];
+	FROM_HAS_DN(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	REPLYTO_ADDR_EQ_FROM(0.00)[];
+	REPLYTO_DOM_NEQ_TO_DOM(0.00)[]
+X-Spam-Flag: NO
 
+On Mon, Sep 07, 2026 at 04:19:59PM -0400, Tal Zussman wrote:
+> Convert the sampling loop to folios. This removes the last caller of
+> find_get_page() in btrfs and saves a call to compound_head() per sampled
+> page. Document that the lookup is not supposed to fail with an ASSERT().
+> 
+> Reviewed-by: Qu Wenruo <wqu@suse.com>
+> Signed-off-by: Tal Zussman <tz2294@columbia.edu>
+> ---
+>  fs/btrfs/compression.c | 10 ++++++----
+>  1 file changed, 6 insertions(+), 4 deletions(-)
+> 
+> diff --git a/fs/btrfs/compression.c b/fs/btrfs/compression.c
+> index 979b2ffbd8fc..fa8b92592321 100644
+> --- a/fs/btrfs/compression.c
+> +++ b/fs/btrfs/compression.c
+> @@ -1488,7 +1488,7 @@ static bool sample_repeated_patterns(struct heuristic_ws *ws)
+>  static void heuristic_collect_sample(struct inode *inode, u64 start, u64 end,
+>  				     struct heuristic_ws *ws)
+>  {
+> -	struct page *page;
+> +	struct folio *folio;
+>  	pgoff_t index, index_end;
+>  	u32 i, curr_sample_pos;
+>  	u8 *in_data;
+> @@ -1514,8 +1514,10 @@ static void heuristic_collect_sample(struct inode *inode, u64 start, u64 end,
+>  
+>  	curr_sample_pos = 0;
+>  	while (index < index_end) {
+> -		page = find_get_page(inode->i_mapping, index);
+> -		in_data = kmap_local_page(page);
+> +		folio = filemap_get_folio(inode->i_mapping, index);
+> +		ASSERT(!IS_ERR(folio));
+> +		in_data = kmap_local_folio(folio,
+> +				offset_in_folio(folio, (u64)index << PAGE_SHIFT));
 
-On 9/8/2026 6:19 PM, Peter Zijlstra wrote:
-> On Tue, Sep 08, 2026 at 04:56:22PM +0800, Mi, Dapeng wrote:
->> On 9/8/2026 4:49 PM, Peter Zijlstra wrote:
->>> On Tue, Sep 08, 2026 at 03:51:02PM +0800, Dapeng Mi wrote:
->>>> PERF_SAMPLE_STACK_USER needs to return the user stack and user registers
->>>> to user space when the PMI exits. Since the skid from the PEBS/IBS sample
->>>> and PMI delivery, the PEBS/IBS register snapshot (especially IP/SP/BP)
->>>> can diverge from the user stack at PMI return. That mismatch breaks DWARF
->>>> unwinding.
->>>>
->>>> Precise sampling provides no benefit in this case, so disable PEBS/IBS
->>>> precise sampling and allow only PMI-based sampling when
->>>> PERF_SAMPLE_STACK_USER is requested.
->>>>
->>>> Reported-by: Gennady Kupava <gennady.kupava@gmail.com>
->>>> Closes: https://lore.kernel.org/all/CAPu-DQqF0aF6=GS8Z6KKWeeX_V5LiXeKU_rJQZC+uGg8zuTPNw@mail.gmail.com/
->>>> Cc: Ravi Bangoria <ravi.bangoria@amd.com>
->>>> Fixes: c5ebcedb566e ("perf: Add ability to attach user stack dump to sample")
->>>> Signed-off-by: Dapeng Mi <dapeng1.mi@linux.intel.com>
->>> This breaks long standing existing behaviour.
->> Yeah, but it seems there is no better way to fix this issue.
-> Breaking things that worked before isn't fixing.. people get upset.
->
->> An alternative way to fix this issue is still to return the PMI
->> context register state rather than the PEBS precise registers for user
->> stack sampling, but this actually falls back the imprecise PMI-based
->> sampling. 
-> That's what we already do, no? I have distinct memories of making the
-> stack unwind use the NMI regs rather then the PEBS regs.
+It would be better to avoid the cast, this is source of subtle errors so
+we try to avoid that. With demise of 32bit architectures it's less of a
+problem because index (pgoff_t) is 64 bit type but still.
 
-Unfortunately it's not. :(
-
-Currently pt_regs->ip would be unconditionally overwritten by PEBS/IBS
-snapshotted IP register value, and then the pt_regs->ip is used to
-generated the SAMPLE_IP.
-
-    if (filtered_sample_type & PERF_SAMPLE_IP) {
-        data->ip = perf_instruction_pointer(event, regs);
-        data->sample_flags |= PERF_SAMPLE_IP;
-    }
-
-As Ian suggested, the better way to fix this issue could be to decouple
-PERF_SAMPLE_IP and PERF_REG_X86_IP. PERF_SAMPLE_IP still stores the precise
-IP from PEBS/IBS, but the whole user register snapshot keeps the PMI
-context registers. DWARF depends on the user register snapshot to unwind
-the call chain instead of PERF_SAMPLE_IP.
-
-I would follow this way and send V2 patches. 
-
-Thanks.
-
-
->
->> In my opinion, it could even make the thing worse. User
->> requires to get precise samplings, but perf silently returns imprecise
->> records, this would mislead user. 
-> Mostly just the unwind might be off a little, the rest is accurate. This
-> has been the case 'forever'. Performance analysis isn't for silly
-> people, if they can't deal with a little fuzz then perhaps they're in
-> the wrong business.
+Please insert a patch that changes the type of index and index_end to
+u64, we initialize them from a u64 type anyway and we know the value
+fits to pgoff_t (as argument to filemap_get_folio()).
