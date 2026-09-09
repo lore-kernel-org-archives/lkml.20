@@ -1,253 +1,139 @@
-Received: from mta0.migadu.com (out-68.mta0.migadu.com [91.218.175.68])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6C8A46984F
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 08:06:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.68
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7ED0946F480
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 08:06:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788941193; cv=none; b=P9gaGRmwvL54QePjL5Tv4NTZBsnVDLhawA8DZ4OL1+RX5a/ZJqweE0XE6iFFUdlNbzmraaa45aBacFzTVJNCj2VfTN7/h3aXCZ6RI3UJyF2tfd2XQ12F3QvNHVRIeiIKrVNOOUFJtMT8sAH1xd6JwwaDtWiW0c455GTDIb4bYYo=
+	t=1788941206; cv=none; b=oBEt12l7IMZ+SQI4qYCq25aQCXUN/jYzo9P1DzplPfLbeetQ8Gq6faDviVQ+AI2e0VCbMbjg/xi1XowakCIrhYICLE7XCDUReN9lO5N8QPPB7qsRFFFMreUBWNf8qv8Msu/jHts4HeDKWBHt44mubt41fhOKKsbQEhbFsj+QA/M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788941193; c=relaxed/simple;
-	bh=X0VVMqtqhabg0hwIACKcoi18owcvsnF4Ppg5xDj9FAs=;
-	h=MIME-Version:Date:Content-Type:From:Message-ID:Subject:To:Cc; b=KSwMc0xfDxsJOke4nBT77vrPC/Pw35qxESRzyTsFdQlcB2rb+xb58WQL990QovS/WlE01XSC9LV5Zc7W+V7RAp/c8HMrxd+4QQIE1Cdyx23hxMn3qqxfMvxsyczsv/LP/r6jR+QZPsennxb3c0tvIyV1ZygFmZf62MAfe+JNNXI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=vxHcvEaV; arc=none smtp.client-ip=91.218.175.68
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1788941206; c=relaxed/simple;
+	bh=N9z1K2SBrT9/svi51BfJs09jC4ZMQFUjvTpV6sRzPL0=;
+	h=From:To:Cc:Subject:MIME-Version:Content-Type:Date:Message-ID; b=Y5jeSi6B2/CnLZPg0WP/CeF5gaaTKStiz44vtplTWduDa3POpcAhHe0EWG1RQri35kxmEH5tpE/T6JQF3r6nffXydqBmzOO0aYUMFBvkqd/EC+w6MS9XOTthPywibq/J5QJR2kTPhayo4loIYjHSfjlZveFbPG/jo9d/eMIPsLU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Puwk+s/y; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="vxHcvEaV"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=X0VVMqtqhabg0hwIACKcoi18owcvsnF4Ppg5xDj9FAs=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788941188; v=1; x=1789545988;
- b=vxHcvEaVnh3m2vSNW+TFY2FAogd/6rE2Uwfbx0x7ZjeQHsBe+NGmQa+qBfSn9KNKAucB7JzE
- 9/Q+MEA66vBA1rcDpIxycJz5Jn+7shwycOU/rawBLu9W+H7cS87gRHZkIzUBompxnQqKAP5faTp
- H+HP49JgrCMftM19ROkTx5n4=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 59050e53383ca244;
-	Wed, 09 Sep 2026 08:06:27 +0000
-X-Mizu-Trace-ID: 59050e53383ca244
-X-Migadu-Flow: FLOW_OUT
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Puwk+s/y"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1788941203;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=RPfNlsD27FEZu3u7e8EknywRWsoD80LV38mFdatAh9w=;
+	b=Puwk+s/ygWvF36OzVw3aUqEjFgwUygyjH/CvGuXG0EhRJPRQgPOgF82oS/TudLEVwpvRVF
+	1jl5+uHMRoizDi7ClRzybP6iUmwEFHyBCxMZF75I0fMX6QS+qqZAsQHo+USvEBDVUxSD5T
+	bEIpijDUgxKNMwzE1qYF7SKCYpmU4CE=
+Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-179-YDBOeEJyPCSEDI1t1kGT9w-1; Wed,
+ 09 Sep 2026 04:06:38 -0400
+X-MC-Unique: YDBOeEJyPCSEDI1t1kGT9w-1
+X-Mimecast-MFC-AGG-ID: YDBOeEJyPCSEDI1t1kGT9w_1788941196
+Received: from mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.95])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id F15E418005A4;
+	Wed,  9 Sep 2026 08:06:35 +0000 (UTC)
+Received: from warthog.procyon.org.uk (unknown [10.44.32.158])
+	by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 6F77940E;
+	Wed,  9 Sep 2026 08:06:32 +0000 (UTC)
+Organization: Red Hat UK Ltd. Registered Address: Red Hat UK Ltd, Amberley
+	Place, 107-111 Peascod Street, Windsor, Berkshire, SI4 1TE, United
+	Kingdom.
+	Registered in England and Wales under Company Registration No. 3798903
+From: David Howells <dhowells@redhat.com>
+To: Jens Axboe <axboe@kernel.dk>
+Cc: dhowells@redhat.com, Keith Busch <kbusch@kernel.org>,
+    Hannes Reinecke <hare@kernel.org>, Christoph Hellwig <hch@lst.de>,
+    Alexander Viro <viro@zeniv.linux.org.uk>,
+    Paulo Alcantara <pc@manguebit.org>, netfs@lists.linux.dev,
+    linux-block@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+    linux-kernel@vger.kernel.org
+Subject: [PATCH v4] block: Fix start and length check added to iov_iter_extract_bvecs()
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Wed, 09 Sep 2026 08:06:26 +0000
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset="us-ascii"
+Content-ID: <1667274.1788941191.1@warthog.procyon.org.uk>
 Content-Transfer-Encoding: quoted-printable
-From: "Tianchu Chen" <tianchu.chen@linux.dev>
-Message-ID: <8ee3bdd1c45034200cb1aa9a7e9b575b9584643a@linux.dev>
-TLS-Required: No
-Subject: [PATCH v3] staging: rtl8723bs: fix protected RX frame validation in 
- decrypt path
-To: gregkh@linuxfoundation.org, hansg@kernel.org
-Cc: linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
+Date: Wed, 09 Sep 2026 09:06:31 +0100
+Message-ID: <1667275.1788941191@warthog.procyon.org.uk>
+X-Scanned-By: MIMEDefang 3.6 on 10.30.177.95
 
-From: Tianchu Chen <flynnnchen@tencent.com>
+Commit 14b007e17881 added an address check using iter_iov_addr() and a
+length check using iter_iov_len() to iov_iter_extract_bvecs(), but these
+cannot be used so and are unsafe in this circumstance as the functions hav=
+e
+hardwired assumptions about the iterator type.  They should only be used
+with ITER_UBUF or ITER_IOVEC-type iterators; they shouldn't be used with
+ITER_BVEC, ITER_KVEC, ITER_FOLIOQ, ITER_XARRAY or ITER_DISCARD iterators.
 
-The RX software decrypt path mishandles crafted protected frames from a
-malicious AP in two ways:
+This proves to be a problem for cachefiles as an iterator of type
+ITER_FOLIOQ is passed and iter_iov_addr() and iter_iov_len() both
+malfunction because iter->__iov in iter_iov() is not pointing to an iovec
+array.
 
-1) decryptor() never checks that a protected frame is long enough to
-hold the 802.11 header plus the per-cipher trailer.  All of
-rtw_wep_decrypt(), rtw_tkip_decrypt() and rtw_aes_decrypt() compute
+Fix this by using iov_iter_alignment() instead.
 
-	length =3D hdr.len - hdrlen - iv_len;
-
-and act on the result, and recvframe_chkmic() similarly computes
-
-	datalen =3D hdr.len - hdrlen - iv_len - icv_len - 8;
-
-for TKIP (the 8-byte Michael MIC is not accounted for in icv_len).
-A frame shorter than hdrlen + iv_len + icv_len (+ 8 for TKIP) underflows
-these unsigned subtractions, turning into a ~4 GiB iteration count in
-aes_decipher()/arc4_crypt()/rtw_seccalctkipmic() or a ~4 GiB crc32_le()
-length, causing out-of-bounds reads/writes of up to ~4 GiB starting from
-the rx skb.  Reject such frames in decryptor() before touching the IV;
-this covers all three ciphers and the TKIP MIC check, and also keeps the
-unconditional iv[3] access within the frame.
-
-2) validate_80211w_mgmt() keeps using the frame - two memcpys through
-the stale rx_data pointer and a pkt_len update - before checking
-whether decryptor() returned NULL.  On decrypt failure (e.g. a unicast
-protected deauth/disassoc/action frame with a bad MIC, which this path
-always software-decrypts) the skb has already been freed, so this is a
-use-after-free read/write, and the caller's error path frees the frame
-a second time, drifting free_recvframe_cnt.  Bail out immediately when
-decryptor() fails, freeing the temporary mgmt_DATA buffer first.
-
-Discovered by Atuin - Automated Vulnerability Discovery Engine.
-
-Fixes: 554c0a3abf21 ("staging: Add rtl8723bs sdio wifi driver")
-Assisted-by: LLM
-Cc: stable@vger.kernel.org
-Signed-off-by: Tianchu Chen <flynnnchen@tencent.com>
+Fixes: 14b007e17881 ("block: validate user space vectors during extraction=
+")
+Signed-off-by: David Howells <dhowells@redhat.com>
+Reviewed-by: Keith Busch <kbusch@kernel.org>
+cc: Hannes Reinecke <hare@kernel.org>
+cc: Christoph Hellwig <hch@infradead.org>
+cc: Jens Axboe <axboe@kernel.dk>
+cc: Alexander Viro <viro@zeniv.linux.org.uk>
+cc: Paulo Alcantara <pc@manguebit.org>
+cc: netfs@lists.linux.dev
+cc: linux-block@vger.kernel.org
+cc: linux-fsdevel@vger.kernel.org
 ---
-v3: improve formatting.
-v2: no code change; adds the real-hardware test report requested for
-LLM-assisted staging patches.
+ lib/iov_iter.c |   18 ++++++++++++++++--
+ 1 file changed, 16 insertions(+), 2 deletions(-)
 
-Test report
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D
+diff --git a/lib/iov_iter.c b/lib/iov_iter.c
+index 6665372ecf71..2072c04e99d0 100644
+--- a/lib/iov_iter.c
++++ b/lib/iov_iter.c
+@@ -1921,15 +1921,29 @@ ssize_t iov_iter_extract_bvecs(struct iov_iter *it=
+er, struct bio_vec *bv,
+ 		unsigned short max_vecs, unsigned mem_align_mask,
+ 		iov_iter_extraction_t extraction_flags)
+ {
+-	unsigned long start =3D (unsigned long)iter_iov_addr(iter);
+ 	unsigned short entries_left =3D max_vecs - *nr_vecs;
+ 	unsigned short nr_pages, i =3D 0;
+ 	size_t left, offset, len;
+ 	struct page **pages;
+ 	ssize_t size;
+ =
 
-Victim:   Wintel CX-W8 mini PC (Atom Z3735F, on-board RTL8723BS chip, sta=
-ging r8723bs,
-          Debian 13.6.0/Kernel 6.12.94), bought from the second-hand mark=
-et for this
-          test.
-Attacker: ESP32-S3 dev board running custom firmware as a rogue AP. Patch=
-ing a proprietary
-          library is needed. Details available to reviewers upon request.
-
-The decryptor bug is reachable at the association stage: the vulnerable d=
-ecrypt
-path is taken before any key is installed, so the attacker never needs
-to pass key verification - the rogue AP's PSK does not need to match
-the victim's. Knowing an SSID the victim will auto-join is enough.
-
-Once the victim associates, the rogue AP send 802.11 data frames
-with FromDS + Protected bit set and a total length of 24..31 bytes,
-i.e. shorter than their own CCMP IV (hdrlen 24 + iv_len 8).  With no
-key in the HW CAM the frames reach decryptor() with bdecrypted =3D=3D 0,
-and rtw_aes_decrypt() computes length =3D (24..31) - 24 - 8, a ~4 GiB
-underflow fed straight into aes_decipher().
-
-Result: the victim kernel panics within seconds of association.
-Captured via netconsole:
-
-[  939.937797] Oops: general protection fault, probably for non-canonical=
- address 0x6de15a87d1c57856: 0000 [#1] PREEMPT SMP PTI
-[  939.938075] CPU: 3 UID: 0 PID: 1637 Comm: Xorg Tainted: G         C   =
-      6.12.94+deb13-amd64 #1  Debian 6.12.94-1
-[  939.938288] Tainted: [C]=3DCRAP
-[  939.938368] Hardware name: Insyde Intel CX-W8/Intel CX-W8, BIOS M.W8RA=
-AA01 04/17/2015
-[  939.938515] RIP: 0010:i915_gem_do_execbuffer+0xbd1/0x2950 [i915]
-[  939.939945] Code: e2 fe 48 89 50 20 48 8d 74 24 58 4c 89 e9 48 8d 7c 2=
-4 60 44 89 f2 e8 ce c2 ff ff 85 c0 0f 85 9d 03 00 00 49 8b bd b8 00 00 00=
- <48> 83 bf 50 04 00 00 00 74 31 e8 10 1b 01 00 85 c0 0f 85 91 18 00
-[  939.940255] RSP: 0018:ffffccdfc0b17788 EFLAGS: 00010246
-[  939.940382] RAX: 0000000000000000 RBX: 0000000000000009 RCX: 00000000f=
-ffffff5
-[  939.940524] RDX: 0000000000000001 RSI: ffff8c5aa8d4d800 RDI: 6de15a87d=
-1c57406
-[  939.940664] RBP: 00000000000001f8 R08: ffff8c5aa92e4a90 R09: ffff8c5aa=
-a953518
-[  939.940805] R10: 0000000000000000 R11: 0000000000000000 R12: 000000000=
-00003a9
-[  939.940942] R13: ffff8c5af99f1680 R14: 0000000000000009 R15: 000000000=
-0000000
-[  939.941081] FS:  00007f3856594b00(0000) GS:ffff8c5afb980000(0000) knlG=
-S:0000000000000000
-[  939.941238] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-[  939.941358] CR2: 00007f3856155770 CR3: 000000002b7e6000 CR4: 000000000=
-01026f0
-[  939.941500] Call Trace:
-[  939.941579]  <TASK>
-[  939.941702]  i915_gem_execbuffer2_ioctl+0x13b/0x260 [i915]
-[  939.943134]  ? __pfx_i915_gem_execbuffer2_ioctl+0x10/0x10 [i915]
-[  939.944543]  drm_ioctl_kernel+0xb0/0x100 [drm]
-[  939.945069]  drm_ioctl+0x277/0x4d0 [drm]
-[  939.945571]  ? __pfx_i915_gem_execbuffer2_ioctl+0x10/0x10 [i915]
-[  939.946997]  __x64_sys_ioctl+0x97/0xc0
-[  939.947119]  do_syscall_64+0x87/0x1b0
-[  939.947235]  ? timerqueue_del+0x2e/0x50
-[  939.947343]  ? tomoyo_init_request_info+0x99/0xc0
-[  939.947470]  ? tomoyo_path_number_perm+0x8c/0x1f0
-[  939.947589]  ? ww_mutex_lock_interruptible+0x18/0x80
-[  939.947725]  ? i915_gem_madvise_ioctl+0x239/0x340 [i915]
-[  939.949150]  ? __pfx_i915_gem_madvise_ioctl+0x10/0x10 [i915]
-[  939.950571]  ? drm_ioctl_kernel+0xb0/0x100 [drm]
-[  939.951086]  ? __check_object_size+0x50/0x210
-[  939.955215]  ? _copy_to_user+0x36/0x50
-[  939.959506]  ? drm_ioctl+0x2a1/0x4d0 [drm]
-[  939.964159]  ? __pfx_i915_gem_madvise_ioctl+0x10/0x10 [i915]
-[  939.969804]  ? arch_exit_to_user_mode_prepare.isra.0+0x16/0xa0
-[  939.974146]  ? syscall_exit_to_user_mode+0x37/0x1b0
-[  939.978488]  ? do_syscall_64+0x93/0x1b0
-[  939.982872]  ? arch_exit_to_user_mode_prepare.isra.0+0x16/0xa0
-[  939.987300]  entry_SYSCALL_64_after_hwframe+0x76/0x7e
-[  939.991768] RIP: 0033:0x7f385691491b
-[  939.996285] Code: 00 48 89 44 24 18 31 c0 48 8d 44 24 60 c7 04 24 10 0=
-0 00 00 48 89 44 24 08 48 8d 44 24 20 48 89 44 24 10 b8 10 00 00 00 0f 05=
- <89> c2 3d 00 f0 ff ff 77 1c 48 8b 44 24 18 64 48 2b 04 25 28 00 00
-[  940.001138] RSP: 002b:00007ffdb0cf6710 EFLAGS: 00000246 ORIG_RAX: 0000=
-000000000010
-[  940.006061] RAX: ffffffffffffffda RBX: 0000564e32defb08 RCX: 00007f385=
-691491b
-[  940.011048] RDX: 00007ffdb0cf6790 RSI: 0000000040406469 RDI: 000000000=
-0000013
-[  940.016090] RBP: 0000000000000000 R08: 0000000000000000 R09: 000000000=
-0000004
-[  940.021150] R10: 0000000000000020 R11: 0000000000000246 R12: 00007ffdb=
-0cf6790
-[  940.026256] R13: 0000564e32dc3a50 R14: 00000000000000dc R15: 000000000=
-0000013
-[  940.031431]  </TASK>
-
-The oops surfacing in i915 rather than in the driver is expected:
-A non-canonical garbage pointer in an unrelated subsystem is the expected
-signature of the multi-GB linear decipher starting from the rx skb.
-
- drivers/staging/rtl8723bs/core/rtw_recv.c | 21 ++++++++++++++++++---
- 1 file changed, 18 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/staging/rtl8723bs/core/rtw_recv.c b/drivers/staging/=
-rtl8723bs/core/rtw_recv.c
-index 7568fc514d7ce..4756e0fedd46f 100644
---- a/drivers/staging/rtl8723bs/core/rtw_recv.c
-+++ b/drivers/staging/rtl8723bs/core/rtw_recv.c
-@@ -426,8 +426,21 @@ static union recv_frame *decryptor(struct adapter *p=
-adapter, union recv_frame *p
- 	u32  res =3D _SUCCESS;
-=20
-=20	if (prxattrib->encrypt > 0) {
--		u8 *iv =3D precv_frame->u.hdr.rx_data + prxattrib->hdrlen;
-+		u8 *iv;
-+		u32 min_len =3D prxattrib->hdrlen + prxattrib->iv_len + prxattrib->icv=
-_len;
-=20
-+=09	/* TKIP appends an 8-byte Michael MIC that icv_len doesn't account f=
-or */
-+		if (prxattrib->encrypt =3D=3D _TKIP_)
-+			min_len +=3D 8;
+-	if ((start | iter_iov_len(iter)) & mem_align_mask)
++	/*
++	 * DMA engines typically have both memory address and length alignment
++	 * requirements, so check these against the alignment mask.  For UBUF,
++	 * IOVEC and KVEC, only the current segment will be extracted from; for
++	 * everything else we might extract from multiple segments, so we need
++	 * to check those too.
++	 */
++	if (likely(iter_is_ubuf(iter) ||
++		   iter_is_iovec(iter) ||
++		   iov_iter_is_kvec(iter))) {
++		unsigned long start =3D (unsigned long)iter_iov_addr(iter);
 +
-+		/* a protected frame must be long enough to hold the IV and ICV/MIC */
-+		if (precv_frame->u.hdr.len < min_len) {
-+			rtw_free_recvframe(precv_frame,
-+					   &padapter->recvpriv.free_recv_queue);
-+			return NULL;
-+		}
-+
-+		iv =3D precv_frame->u.hdr.rx_data + prxattrib->hdrlen;
- 		prxattrib->key_index =3D (((iv[3]) >> 6) & 0x3);
-=20
-=20		if (prxattrib->key_index > WEP_KEYS) {
-@@ -1395,6 +1408,10 @@ static signed int validate_80211w_mgmt(struct adap=
-ter *adapter, union recv_frame
- 			if (!mgmt_DATA)
-=20				goto validate_80211w_fail;
- 			precv_frame =3D decryptor(adapter, precv_frame);
-+			if (!precv_frame) {
-+				kfree(mgmt_DATA);
-+				goto validate_80211w_fail;
-+			}
- 			/* save actual management data frame body */
- 			memcpy(mgmt_DATA, ptr + pattrib->hdrlen + pattrib->iv_len, data_len);
- 			/* overwrite the iv field */
-@@ -1402,8 +1419,6 @@ static signed int validate_80211w_mgmt(struct adapt=
-er *adapter, union recv_frame
- 			/* remove the iv and icv length */
- 			pattrib->pkt_len =3D pattrib->pkt_len - pattrib->iv_len - pattrib->ic=
-v_len;
- 			kfree(mgmt_DATA);
--			if (!precv_frame)
--				goto validate_80211w_fail;
- 		} else if (is_multicast_ether_addr(GetAddr1Ptr(ptr)) &&
- 			(subtype =3D=3D WIFI_DEAUTH || subtype =3D=3D WIFI_DISASSOC)) {
- 			signed int BIP_ret =3D _SUCCESS;
---=20
-2.51.0
++		if ((start | iter_iov_len(iter)) & mem_align_mask)
++			return -EINVAL;
++	} else if (iov_iter_alignment(iter) & mem_align_mask) {
+ 		return -EINVAL;
++	}
+ =
+
+ 	/*
+ 	 * Move page array up in the allocated memory for the bio vecs as far as
+
