@@ -1,405 +1,98 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oa1-f69.google.com (mail-oa1-f69.google.com [209.85.160.69])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B214C545DAA
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 11:38:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07925526AA4
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 11:38:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.69
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788953917; cv=none; b=p0hI0/bETGdG1Yu3AOgeG02YHjUX8Osdvp1wpsTQS48WRuaYmBLFbLfLtpt8kFnTbLSCFlU6iRiDppJtQtTY6OunfzPRFi9awNj+lhhdlvpPy5ZxhfemrZl5bRbyXo9RhQu38kb2A+GZWh3HbnOhiayT+4+g5+iYUfW5xBodkEQ=
+	t=1788953927; cv=none; b=YjvAiG+a0mpG7xzT+vRkx0Ulqpil8ouZjHdY0BUQBHCGQSFbDTIPXpXJSvdU5balGZIkog4nlAucf4Fpi2iI4OTI/3O86duig3H+Myf7Tz1rE/m5ztFt80J1oPOElgWwqyBfVL010ol5TMs4L8N9j0X6oe6EQIv+/QGr4vvhVko=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788953917; c=relaxed/simple;
-	bh=MzxyBSVYryBOVMa686J4QeAfdXRxLnO7XSuBNAzzuz8=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=R3i4tB2yVA7g+wlEMV/I3JuEi/b4x2XY7wesit40FMgTEtNnSIkOAaZROhU+ElBDJTPsULHwe7mOuV7CKd8nAoUOwuMA/75BoaYe3NbtVOrJ9hd0ugxcKzXXfalZUW4ydrcR+JJmMyxZRKsbrIgz/HvjV9nYDjjQIhzLP98E8cA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WmnBaijn; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WmnBaijn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F22C51F00A3A;
-	Wed,  9 Sep 2026 11:38:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788953915;
-	bh=jR6zNtDV5i+znbq7oCsuk/BSKdlW/ZX2pVlDFBasStA=;
-	h=From:Date:Subject:To:Cc;
-	b=WmnBaijn2F/y/TvW+KyrZeGXts0nblS9YpJnW0x0nIu8b4ktnW/PpMZo8+Aoqnfqh
-	 ebKZxVXH4gRL8KQiNAMQKJ+UCvFn8Y/3BMQwJPckEX2KRMBuZfId6U5aiL/9S+WfhP
-	 OhquT/6nEJGtxeQXAEuYywSKf5axOrTULFCCnriymh7jsf3HTxJWZapTmLNeCCbKKw
-	 3ivzmc7E4UoxN5PnkwIcqbbKycZEtLALchjKvtpnJQnKNoG0rGY3+PsXn1/vXhzJSl
-	 Bq2JdVz92Ct2hLBi0j4wjZdgarUY0LJWV8eAto4LfNFo9XIsqvQbLtVxWte1HMYBJ6
-	 0SH5muJ7QTNKA==
-From: Maxime Ripard <mripard@kernel.org>
-Date: Wed, 09 Sep 2026 13:38:12 +0200
-Subject: [PATCH] drm/vkms: Move frame_info into vkms_plane_state
+	s=arc-20240116; t=1788953927; c=relaxed/simple;
+	bh=Mhs810cizJKySl2mnFN2EMhZS8XcDJJuFGQZHuszD+0=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=gfUfdmM7CTp0P4FhUrvfvdksmvAP7miVoRyR50j5dQnvU9Eaxc2X2k0Y4t1zlZ7CJ19d1JO0U78BNVCh43mz2UEMbS340hVtiAXCv0MPnRnKrgpRzTL56//mu1/nWBJGwJ91njPETTu/9RmGNrHEKlLnRrHgTkkMIcddjMSLryA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.160.69
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oa1-f69.google.com with SMTP id 586e51a60fabf-45952ce9ee0so8251087fac.1
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 04:38:45 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788953925; x=1789558725;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=E8wZYV3Ikx8jqCP55tY3Hjb1bQaLE6QwiQrRHWceMT4=;
+        b=TMi3NinHAKyOU3hRxVqV6ikcOH8Du26AOHBctWqsFHBWh3V8VqUVDhejD0YotPl3jW
+         vAjAMxkMW3I8Y+Fnl5U5ozqxnNqRMdrF2qixkePgbLfUJWoeEprO4NMkMXAtxlN1jtjH
+         NxpFr/r780CWB5A93BkcCEQsA/ocrvwwpGQi3RZTfnVG2pYdWKunYXE8xhlHFDfPouoS
+         pqbPWLAbiEBPgVIPNlXpfDnlgeCn+Agg6xni6clZwrW6wg/Vxlkns5AMNBuQUdNOOkpF
+         R2N0JPf4wUej58USkd4PN5HdibRDoLVU87HoOQD3mW1X43ewISQzEviluAtFsUjQYqyp
+         +wRQ==
+X-Gm-Message-State: AFuF++l0m39dvO4QZy8IdFBcvgHyh8IDxh8MTruvlksyqppk+WTcDfcx
+	WzMJWWql8Qm/inMlBR/qA1Y8m0X0rQqFhEW89JWN2nU2laOgfVVOKRkr+btDE/Rq5MwXV0MhdUN
+	/7a4OPoPrPTgFeMDHRHFp45XRHHFB5INU69A9TAsXHCrl86K/DYvL+D7LEJU=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260909-drm-vkms-frame-info-v1-1-f0cb0e593901@kernel.org>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x2MQQqAIBAAvxJ7bsGKSvtKdIhcawk1VohA+nvSc
- RhmMiQSpgRTlUHo5sQxFGjqCrZjDTsh28LQqnZQRhm04vE+fUInqy82uIhjp5teKzdYvUEpLyH
- Hz3+dl/f9ACnJSP5lAAAA
-X-Change-ID: 20260909-drm-vkms-frame-info-7381580f6d8c
-To: Louis Chauvet <louis.chauvet@bootlin.com>, 
- Haneen Mohammed <hamohammed.sa@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Melissa Wen <melissa.srw@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Maxime Ripard <mripard@kernel.org>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=15099; i=mripard@kernel.org;
- h=from:subject:message-id; bh=MzxyBSVYryBOVMa686J4QeAfdXRxLnO7XSuBNAzzuz8=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFkLXc3lpRo+HCrgXVXbzZK/Qkpg17L5BnxpK8VbdC9NW
- 6J5TlOiYyoLgzAng6yYIssTmbDTy9sXVznYr/wBM4eVCWQIAxenAEzkyGnG+uS14ZmpzT/8ahWd
- KyVi7i703rDrnPqDrttLHBapZDwoe/y0Wn7vZoE3c+s2Ku+20En+xdjQu0A5qZM/yWaf4S99Ld9
- JSo/W9Ha98X3S+jf0d4OK4uIb67gu5vJ1cDe4P9fX70qfqAUA
-X-Developer-Key: i=mripard@kernel.org; a=openpgp;
- fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
+X-Received: by 2002:a05:6820:807:b0:6b7:46fc:1d2 with SMTP id
+ 006d021491bc7-6b746fc02e5mr19466380eaf.49.1788953924896; Wed, 09 Sep 2026
+ 04:38:44 -0700 (PDT)
+Date: Wed, 09 Sep 2026 04:38:44 -0700
+In-Reply-To: <6a73d173.5aeeccc9.207e63.000a.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6aa14544.f614420e.2bf292.0016.GAE@google.com>
+Subject: Forwarded: [PATCH] test
+From: syzbot <syzbot+2a3de29133b40e8f69f3@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-The vkms_frame_info structure is allocated separately in
-vkms_plane_duplicate_state() and freed in vkms_plane_destroy_state(),
-but has the exact same lifetime as the vkms_plane_state that contains
-it.
+For archival purposes, forwarding an incoming command email to
+linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com.
 
-This separate allocation is fragile: frame_info is only allocated in
-duplicate_state, so any other path that creates a vkms_plane_state
-produces a state with a NULL frame_info pointer. Both
-vkms_plane_atomic_update() and vkms_plane_destroy_state() dereference
-it unconditionally when a CRTC is set.
+***
 
-Embed frame_info directly in vkms_plane_state. The structure is
-zero-initialized as part of the kzalloc, removing the need for a
-separate allocation and its error handling in duplicate_state, and the
-matching kfree in destroy_state.
+Subject: [PATCH] test
+Author: adrianox@gmail.com
 
-Signed-off-by: Maxime Ripard <mripard@kernel.org>
+#syz test
 ---
-Cc: hamohammed.sa@gmail.com
-Cc: louis.chauvet@bootlin.com
-Cc: melissa.srw@gmail.com
----
- drivers/gpu/drm/vkms/vkms_composer.c | 30 +++++++++++-----------
- drivers/gpu/drm/vkms/vkms_drv.h      |  2 +-
- drivers/gpu/drm/vkms/vkms_formats.c  | 48 ++++++++++++++++++------------------
- drivers/gpu/drm/vkms/vkms_plane.c    | 21 +++-------------
- 4 files changed, 44 insertions(+), 57 deletions(-)
+ drivers/media/usb/as102/as102_drv.c | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/vkms/vkms_composer.c b/drivers/gpu/drm/vkms/vkms_composer.c
-index 899120cd07ac..0fc915a954ba 100644
---- a/drivers/gpu/drm/vkms/vkms_composer.c
-+++ b/drivers/gpu/drm/vkms/vkms_composer.c
-@@ -309,11 +309,11 @@ static void clamp_line_coordinates(enum pixel_read_direction direction,
- 				   int *src_y_start, int *dst_x_start, int *pixel_count)
- {
- 	/* By default the start points are correct */
- 	*src_x_start = src_line->x1;
- 	*src_y_start = src_line->y1;
--	*dst_x_start = current_plane->frame_info->dst.x1;
-+	*dst_x_start = current_plane->frame_info.dst.x1;
+diff --git a/drivers/media/usb/as102/as102_drv.c b/drivers/media/usb/as102/as102_drv.c
+index 6b1d3528a0a7..a6dd675689f5 100644
+--- a/drivers/media/usb/as102/as102_drv.c
++++ b/drivers/media/usb/as102/as102_drv.c
+@@ -287,6 +287,12 @@ int as102_dvb_register(struct as102_dev_t *as102_dev)
+ 	struct device *dev = &as102_dev->bus_adap.usb_dev->dev;
+ 	int ret;
  
- 	/* Get the correct number of pixel to blend, it depends of the direction */
- 	switch (direction) {
- 	case READ_LEFT_TO_RIGHT:
- 	case READ_RIGHT_TO_LEFT:
-@@ -337,23 +337,23 @@ static void clamp_line_coordinates(enum pixel_read_direction direction,
- 		if (*src_x_start < 0) {
- 			*pixel_count += *src_x_start;
- 			*dst_x_start -= *src_x_start;
- 			*src_x_start = 0;
- 		}
--		if (*src_x_start + *pixel_count > current_plane->frame_info->fb->width)
--			*pixel_count = max(0, (int)current_plane->frame_info->fb->width -
-+		if (*src_x_start + *pixel_count > current_plane->frame_info.fb->width)
-+			*pixel_count = max(0, (int)current_plane->frame_info.fb->width -
- 				*src_x_start);
- 		break;
- 	case READ_BOTTOM_TO_TOP:
- 	case READ_TOP_TO_BOTTOM:
- 		if (*src_y_start < 0) {
- 			*pixel_count += *src_y_start;
- 			*dst_x_start -= *src_y_start;
- 			*src_y_start = 0;
- 		}
--		if (*src_y_start + *pixel_count > current_plane->frame_info->fb->height)
--			*pixel_count = max(0, (int)current_plane->frame_info->fb->height -
-+		if (*src_y_start + *pixel_count > current_plane->frame_info.fb->height)
-+			*pixel_count = max(0, (int)current_plane->frame_info.fb->height -
- 				*src_y_start);
- 		break;
- 	}
- }
- 
-@@ -372,24 +372,24 @@ static void blend_line(struct vkms_plane_state *current_plane, int y,
- {
- 	int src_x_start, src_y_start, dst_x_start, pixel_count;
- 	struct drm_rect dst_line, tmp_src, src_line;
- 
- 	/* Avoid rendering useless lines */
--	if (y < current_plane->frame_info->dst.y1 ||
--	    y >= current_plane->frame_info->dst.y2)
-+	if (y < current_plane->frame_info.dst.y1 ||
-+	    y >= current_plane->frame_info.dst.y2)
- 		return;
- 
- 	/*
- 	 * dst_line is the line to copy. The initial coordinates are inside the
- 	 * destination framebuffer, and then drm_rect_* helpers are used to
- 	 * compute the correct position into the source framebuffer.
- 	 */
--	dst_line = DRM_RECT_INIT(current_plane->frame_info->dst.x1, y,
--				 drm_rect_width(&current_plane->frame_info->dst),
-+	dst_line = DRM_RECT_INIT(current_plane->frame_info.dst.x1, y,
-+				 drm_rect_width(&current_plane->frame_info.dst),
- 				 1);
- 
--	drm_rect_fp_to_int(&tmp_src, &current_plane->frame_info->src);
-+	drm_rect_fp_to_int(&tmp_src, &current_plane->frame_info.src);
- 
- 	/*
- 	 * [1]: Clamping src_line to the crtc_x_limit to avoid writing outside of
- 	 * the destination buffer
- 	 */
-@@ -409,21 +409,21 @@ static void blend_line(struct vkms_plane_state *current_plane, int y,
- 	 * - Invert the rotation. This assumes that
- 	 *   dst = drm_rect_rotate(src, rotation) (dst and src have the
- 	 *   same size, but can be rotated).
- 	 * - Apply the offset of the source rectangle to the coordinate.
- 	 */
--	drm_rect_translate(&src_line, -current_plane->frame_info->dst.x1,
--			   -current_plane->frame_info->dst.y1);
-+	drm_rect_translate(&src_line, -current_plane->frame_info.dst.x1,
-+			   -current_plane->frame_info.dst.y1);
- 	drm_rect_rotate_inv(&src_line, drm_rect_width(&tmp_src),
- 			    drm_rect_height(&tmp_src),
--			    current_plane->frame_info->rotation);
-+			    current_plane->frame_info.rotation);
- 	drm_rect_translate(&src_line, tmp_src.x1, tmp_src.y1);
- 
- 	/* Get the correct reading direction in the source buffer. */
- 
- 	enum pixel_read_direction direction =
--		direction_for_rotation(current_plane->frame_info->rotation);
-+		direction_for_rotation(current_plane->frame_info.rotation);
- 
- 	/* [2]: Compute and clamp the number of pixel to read */
- 	clamp_line_coordinates(direction, current_plane, &src_line, &src_x_start, &src_y_start,
- 			       &dst_x_start, &pixel_count);
- 
-@@ -537,11 +537,11 @@ static int check_iosys_map(struct vkms_crtc_state *crtc_state)
- {
- 	struct vkms_plane_state **plane_state = crtc_state->active_planes;
- 	u32 n_active_planes = crtc_state->num_active_planes;
- 
- 	for (size_t i = 0; i < n_active_planes; i++)
--		if (iosys_map_is_null(&plane_state[i]->frame_info->map[0]))
-+		if (iosys_map_is_null(&plane_state[i]->frame_info.map[0]))
- 			return -1;
- 
- 	return 0;
- }
- 
-diff --git a/drivers/gpu/drm/vkms/vkms_drv.h b/drivers/gpu/drm/vkms/vkms_drv.h
-index 0933e4ce0ff0..381483aa4fb0 100644
---- a/drivers/gpu/drm/vkms/vkms_drv.h
-+++ b/drivers/gpu/drm/vkms/vkms_drv.h
-@@ -147,11 +147,11 @@ struct conversion_matrix {
-  *		     struct vkms_plane_state must ensure that this pointer is valid
-  * @conversion_matrix: matrix used for yuv formats to convert to rgb
-  */
- struct vkms_plane_state {
- 	struct drm_shadow_plane_state base;
--	struct vkms_frame_info *frame_info;
-+	struct vkms_frame_info frame_info;
- 	pixel_read_line_t pixel_read_line;
- 	struct conversion_matrix conversion_matrix;
- };
- 
- struct vkms_plane {
-diff --git a/drivers/gpu/drm/vkms/vkms_formats.c b/drivers/gpu/drm/vkms/vkms_formats.c
-index 964b574d9ed7..7f1f29b589e8 100644
---- a/drivers/gpu/drm/vkms/vkms_formats.c
-+++ b/drivers/gpu/drm/vkms/vkms_formats.c
-@@ -319,14 +319,14 @@ EXPORT_SYMBOL_IF_KUNIT(argb_u16_from_yuv161616);
- static void function_name(const struct vkms_plane_state *plane, int x_start,			\
- 			      int y_start, enum pixel_read_direction direction, int count,	\
- 			      struct pixel_argb_u16 out_pixel[])				\
- {												\
- 	struct pixel_argb_u16 *end = out_pixel + count;						\
--	int step = get_block_step_bytes(plane->frame_info->fb, direction, 0);			\
-+	int step = get_block_step_bytes(plane->frame_info.fb, direction, 0);			\
- 	u8 *src_pixels;										\
- 												\
--	packed_pixels_addr_1x1(plane->frame_info, x_start, y_start, 0, &src_pixels);		\
-+	packed_pixels_addr_1x1(&plane->frame_info, x_start, y_start, 0, &src_pixels);		\
- 												\
- 	while (out_pixel < end) {								\
- 		pixel_type *(pixel_name) = (pixel_type *)src_pixels;				\
- 		*out_pixel = (callback)(__VA_ARGS__);						\
- 		out_pixel += 1;									\
-@@ -377,20 +377,20 @@ static void function_name(const struct vkms_plane_state *plane, int x_start,			\
- static void Rx_read_line(const struct vkms_plane_state *plane, int x_start,
- 			 int y_start, enum pixel_read_direction direction, int count,
- 			 struct pixel_argb_u16 out_pixel[])
- {
- 	struct pixel_argb_u16 *end = out_pixel + count;
--	int bits_per_pixel = drm_format_info_bpp(plane->frame_info->fb->format, 0);
-+	int bits_per_pixel = drm_format_info_bpp(plane->frame_info.fb->format, 0);
- 	u8 *src_pixels;
- 	int rem_x, rem_y;
- 
--	WARN_ONCE(drm_format_info_block_height(plane->frame_info->fb->format, 0) != 1,
-+	WARN_ONCE(drm_format_info_block_height(plane->frame_info.fb->format, 0) != 1,
- 		  "%s() only support formats with block_h == 1", __func__);
- 
--	packed_pixels_addr(plane->frame_info, x_start, y_start, 0, &src_pixels, &rem_x, &rem_y);
-+	packed_pixels_addr(&plane->frame_info, x_start, y_start, 0, &src_pixels, &rem_x, &rem_y);
- 	int bit_offset = (8 - bits_per_pixel) - rem_x * bits_per_pixel;
--	int step = get_block_step_bytes(plane->frame_info->fb, direction, 0);
-+	int step = get_block_step_bytes(plane->frame_info.fb, direction, 0);
- 	int mask = (0x1 << bits_per_pixel) - 1;
- 	int lum_per_level = 0xFFFF / mask;
- 
- 	if (direction == READ_LEFT_TO_RIGHT || direction == READ_RIGHT_TO_LEFT) {
- 		int restart_bit_offset;
-@@ -501,19 +501,19 @@ static void function_name(const struct vkms_plane_state *plane, int x_start,			\
- 		 struct pixel_argb_u16 out_pixel[])						\
- {												\
- 	u8 *plane_1;										\
- 	u8 *plane_2;										\
- 												\
--	packed_pixels_addr_1x1(plane->frame_info, x_start, y_start, 0,				\
-+	packed_pixels_addr_1x1(&plane->frame_info, x_start, y_start, 0,				\
- 			       &plane_1);							\
--	packed_pixels_addr_1x1(plane->frame_info,						\
--			       x_start / plane->frame_info->fb->format->hsub,			\
--			       y_start / plane->frame_info->fb->format->vsub, 1,		\
-+	packed_pixels_addr_1x1(&plane->frame_info,						\
-+			       x_start / plane->frame_info.fb->format->hsub,			\
-+			       y_start / plane->frame_info.fb->format->vsub, 1,			\
- 			       &plane_2);							\
--	int step_1 = get_block_step_bytes(plane->frame_info->fb, direction, 0);			\
--	int step_2 = get_block_step_bytes(plane->frame_info->fb, direction, 1);			\
--	int subsampling = get_subsampling(plane->frame_info->fb->format, direction);		\
-+	int step_1 = get_block_step_bytes(plane->frame_info.fb, direction, 0);			\
-+	int step_2 = get_block_step_bytes(plane->frame_info.fb, direction, 1);			\
-+	int subsampling = get_subsampling(plane->frame_info.fb->format, direction);		\
- 	int subsampling_offset = get_subsampling_offset(direction, x_start, y_start);		\
- 	const struct conversion_matrix *conversion_matrix = &plane->conversion_matrix;		\
- 												\
- 	for (int i = 0; i < count; i++) {							\
- 		pixel_1_type *(pixel_1_name) = (pixel_1_type *)plane_1;				\
-@@ -546,24 +546,24 @@ static void planar_yuv_read_line(const struct vkms_plane_state *plane, int x_sta
- {
- 	u8 *y_plane;
- 	u8 *channel_1_plane;
- 	u8 *channel_2_plane;
- 
--	packed_pixels_addr_1x1(plane->frame_info, x_start, y_start, 0,
-+	packed_pixels_addr_1x1(&plane->frame_info, x_start, y_start, 0,
- 			       &y_plane);
--	packed_pixels_addr_1x1(plane->frame_info,
--			       x_start / plane->frame_info->fb->format->hsub,
--			       y_start / plane->frame_info->fb->format->vsub, 1,
-+	packed_pixels_addr_1x1(&plane->frame_info,
-+			       x_start / plane->frame_info.fb->format->hsub,
-+			       y_start / plane->frame_info.fb->format->vsub, 1,
- 			       &channel_1_plane);
--	packed_pixels_addr_1x1(plane->frame_info,
--			       x_start / plane->frame_info->fb->format->hsub,
--			       y_start / plane->frame_info->fb->format->vsub, 2,
-+	packed_pixels_addr_1x1(&plane->frame_info,
-+			       x_start / plane->frame_info.fb->format->hsub,
-+			       y_start / plane->frame_info.fb->format->vsub, 2,
- 			       &channel_2_plane);
--	int step_y = get_block_step_bytes(plane->frame_info->fb, direction, 0);
--	int step_channel_1 = get_block_step_bytes(plane->frame_info->fb, direction, 1);
--	int step_channel_2 = get_block_step_bytes(plane->frame_info->fb, direction, 2);
--	int subsampling = get_subsampling(plane->frame_info->fb->format, direction);
-+	int step_y = get_block_step_bytes(plane->frame_info.fb, direction, 0);
-+	int step_channel_1 = get_block_step_bytes(plane->frame_info.fb, direction, 1);
-+	int step_channel_2 = get_block_step_bytes(plane->frame_info.fb, direction, 2);
-+	int subsampling = get_subsampling(plane->frame_info.fb->format, direction);
- 	int subsampling_offset = get_subsampling_offset(direction, x_start, y_start);
- 	const struct conversion_matrix *conversion_matrix = &plane->conversion_matrix;
- 
- 	for (int i = 0; i < count; i++) {
- 		*out_pixel = argb_u16_from_yuv161616(conversion_matrix,
-diff --git a/drivers/gpu/drm/vkms/vkms_plane.c b/drivers/gpu/drm/vkms/vkms_plane.c
-index 6ee5c3f3207c..2fd4edf2d190 100644
---- a/drivers/gpu/drm/vkms/vkms_plane.c
-+++ b/drivers/gpu/drm/vkms/vkms_plane.c
-@@ -53,25 +53,15 @@ static const u32 vkms_formats[] = {
- 
- static struct drm_plane_state *
- vkms_plane_duplicate_state(struct drm_plane *plane)
- {
- 	struct vkms_plane_state *vkms_state;
--	struct vkms_frame_info *frame_info;
- 
- 	vkms_state = kzalloc_obj(*vkms_state);
- 	if (!vkms_state)
- 		return NULL;
- 
--	frame_info = kzalloc_obj(*frame_info);
--	if (!frame_info) {
--		DRM_DEBUG_KMS("Couldn't allocate frame_info\n");
--		kfree(vkms_state);
--		return NULL;
--	}
--
--	vkms_state->frame_info = frame_info;
--
- 	__drm_gem_duplicate_shadow_plane_state(plane, &vkms_state->base);
- 
- 	return &vkms_state->base.base;
- }
- 
-@@ -79,21 +69,18 @@ static void vkms_plane_destroy_state(struct drm_plane *plane,
- 				     struct drm_plane_state *old_state)
- {
- 	struct vkms_plane_state *vkms_state = to_vkms_plane_state(old_state);
- 	struct drm_crtc *crtc = vkms_state->base.base.crtc;
- 
--	if (crtc && vkms_state->frame_info->fb) {
-+	if (crtc && vkms_state->frame_info.fb) {
- 		/* dropping the reference we acquired in
- 		 * vkms_primary_plane_update()
- 		 */
--		if (drm_framebuffer_read_refcount(vkms_state->frame_info->fb))
--			drm_framebuffer_put(vkms_state->frame_info->fb);
-+		if (drm_framebuffer_read_refcount(vkms_state->frame_info.fb))
-+			drm_framebuffer_put(vkms_state->frame_info.fb);
++	/* init bus mutex for token locking */
++	mutex_init(&as102_dev->bus_adap.lock);
++
++	/* init start / stop stream mutex */
++	mutex_init(&as102_dev->sem);
++
+ 	ret = dvb_register_adapter(&as102_dev->dvb_adap,
+ 			   as102_dev->name, THIS_MODULE,
+ 			   dev, adapter_nr);
+@@ -341,12 +347,6 @@ int as102_dvb_register(struct as102_dev_t *as102_dev)
+ 		goto efereg;
  	}
  
--	kfree(vkms_state->frame_info);
--	vkms_state->frame_info = NULL;
+-	/* init bus mutex for token locking */
+-	mutex_init(&as102_dev->bus_adap.lock);
 -
- 	__drm_gem_destroy_shadow_plane_state(&vkms_state->base);
- 	kfree(vkms_state);
- }
- 
- static void vkms_plane_reset(struct drm_plane *plane)
-@@ -141,11 +128,11 @@ static void vkms_plane_atomic_update(struct drm_plane *plane,
- 
- 	fmt = fb->format->format;
- 	vkms_plane_state = to_vkms_plane_state(new_state);
- 	shadow_plane_state = &vkms_plane_state->base;
- 
--	frame_info = vkms_plane_state->frame_info;
-+	frame_info = &vkms_plane_state->frame_info;
- 	memcpy(&frame_info->src, &new_state->src, sizeof(struct drm_rect));
- 	memcpy(&frame_info->dst, &new_state->dst, sizeof(struct drm_rect));
- 	frame_info->fb = fb;
- 	memcpy(&frame_info->map, &shadow_plane_state->data, sizeof(frame_info->map));
- 	drm_framebuffer_get(frame_info->fb);
-
----
-base-commit: 99c95ce1b07081d7944d637ba7d72d835c0d520a
-change-id: 20260909-drm-vkms-frame-info-7381580f6d8c
-
-Best regards,
+-	/* init start / stop stream mutex */
+-	mutex_init(&as102_dev->sem);
+-
+ 	/*
+ 	 * try to load as102 firmware. If firmware upload failed, we'll be
+ 	 * able to upload it later.
 -- 
-Maxime Ripard <mripard@kernel.org>
+2.51.0
 
