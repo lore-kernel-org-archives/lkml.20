@@ -1,125 +1,112 @@
-Received: from mail-ot1-f69.google.com (mail-ot1-f69.google.com [209.85.210.69])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D679852B1C4
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 11:27:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.69
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02A8B51C321
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 11:27:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788953250; cv=none; b=srjx/3mAXYY+tOakTwNWcRuKjSXrlX5j2Wein4AnmwTK9vGj2tZD1rxL2Kp7Qx3wv6lamheJixDHrfP7qxA5+wuj3VylX3GbwV3et8pQGOsP4FxE8y1Fr8qiDekJQnGSCZk5qzJEyE+Nuha897BzzBGt8r66u1x66CNet1ukqr0=
+	t=1788953262; cv=none; b=kZdGn3ir30xB0h/7BrfatBJIsnRMdbDU6S/0G1Yj9dfLzrH4uzREEJUtyWzUwzCGH8BhDOT3Krw+wgZ9wP1BNtFmiUJf/FlkfEtzjgsnTebQiXIZ+KxRJ0+hJC18CQPM/ix8w+GpxJfIVid6RCT1V9dF2l/rgcmkGKotULFKFPo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788953250; c=relaxed/simple;
-	bh=w9ltMKPC7FxIL2LdZjYaFQY9LYuMDWYBPJFCSHRx4Es=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=F+0a4yhRefG2WV5g/sen4jOr/rCiBYRPw3RCDqLw7DgU5kEbbSAqYKXnqYmMT+Y4gcHmG2O7tRL//DXYndKjNSE+lHJCtaRpB/PhQqiZG4N1iPM7Q6YSOzsDss9Sd5tdhMacJ6LBe4/wLye4PCQcKiKZhhSVvkjX+XMxyhiV0Q8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.210.69
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-ot1-f69.google.com with SMTP id 46e09a7af769-7f94a2da216so7387897a34.1
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 04:27:28 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788953248; x=1789558048;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=f1CvJn7NYjTtkQkEwkFRULKmMA7w0g21i7peffLilg8=;
-        b=fiKSG4rxoBIdSFWyfS4bvznM4eCA6tBWp0xw7dyZZml3RqqDe/ojbaX8B4QB0gPLpT
-         sP1TfcE6DzC0Ko9EZGCrEpfDuk3SzQHwmolPAJpGUT9KMkZLeMUTe2VAjWDLu2nsn2rC
-         NeD7k9/wmCU855OUdE6cNiqdCaI/kVdgq9QIpn2xxKdHCL72COqiKmww8+KZBiyc/Wek
-         tPRtuu0+wIXRxodxei76ydeBbE/hGcQwA7KPMWr91aLc+V0F/dopcE8KCykAFLyfucsw
-         CAA3ZVDAywu15eXorEx+kudAIlA4y7TqdMoTWdJ6VMoyiPesZuXoAILWJvsQgeFECQKe
-         T67Q==
-X-Gm-Message-State: AFuF++lN+zOQNfAYqLKDiU+P+4ooDjx7K0mInqG36Tx8Z+OFYMF0L//r
-	uMAiFpyrQFHJOp1dq6tNZIpLqqLQT8Smi8uao9cQxib8cnJ+tgvf2kwKcr4j2fJhyVR61e+JFD3
-	+BqDwn3pFaDYe2K8zsP1fj4ck5Alw1JjLHi6wANdgxs/bTpMGZ9fbyv0+Ssc=
+	s=arc-20240116; t=1788953262; c=relaxed/simple;
+	bh=MDBBmeOGt1jJA2QyqYyZpKdJgVhokM9Hyvk+N6kJG7Y=;
+	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=SDeY2wOEgHORZz9KEHKvk5vRWfPgJr2LAWDf5ivVdRYn2c845CmZbVk9LrU6JtTYx42umqjjpnQisuH++2Qj6uP+rmy1VHiRCPXnv/ANNAkzYTsNIHctpfLGvQPRiRJsr5vf3UjaVsO3UnDdDabXVZuuIeS2zQkKWKWJS9MSckc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=g/5oxAk6; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="g/5oxAk6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D736F1F00ADE
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 11:27:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788953260;
+	bh=osuKNlWwkgDC1U1icT/Qoh45Es9k9O509Xjy31GoFe8=;
+	h=From:In-Reply-To:References:Date:Subject:To:Cc;
+	b=g/5oxAk6rFs9X8uCuS8aKIxpQhjg+Afx5XxH08fGGI+xuKmzaPE/BW/tDbqXh0xNz
+	 sW2k8acJ1ScZuyS7HWFkoQZ1OVJNQLpegosiENm5x+ERvxwcgFXqQz0rmp+BDQMQrV
+	 rhkNjmzEf0P1fDlv0E+IsLEWZRasu+TjRlsk8FJBsaSwhERUqtspV+aAAIFcytZ9QX
+	 RzmWriL9yTUDBmLUeqvhlruCA78o1uAJcEOSHlOpBrn0/nr9Y/TwWszZYrpayGl6Yf
+	 q3Ub1vtMDNSZLSsd4WVQm+0Q55Xwqe23CBmRpE6tKGzFOubBHTTisOS24FSPijXPoQ
+	 WXc/i/dD3EEvg==
+Received: by mail-lf1-f51.google.com with SMTP id 2adb3069b0e04-5b2b92065ffso5246012e87.1
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 04:27:40 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwhlACJB66gi2z42pk/uGtzEv027X1nMGUgPdtiXU+1FMREturtQslyWPdQJydx6B7ccijWL3jmQHJtbzY=@vger.kernel.org
+X-Gm-Message-State: AFuF++nLsrphI67RbpI/HGZHR+xU2sDDXCZICYMTKcolauE3IMVClXLQ
+	KpeES6nIJfcWt8Pgmw0W4LvaDJQNfi6FuQHCshB2fA3gqQdUUSJGSVRDrLEmUyvJeHFwW9EabMF
+	MvfQsm/ud/6afuxqVmoSCIUIL9oXrweaPTh9IU4B3vA==
+X-Received: by 2002:a05:6512:234a:b0:5b6:1a7c:aa0d with SMTP id
+ 2adb3069b0e04-5b61a7cac20mr5414087e87.37.1788953259475; Wed, 09 Sep 2026
+ 04:27:39 -0700 (PDT)
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Wed, 9 Sep 2026 04:27:38 -0700
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Wed, 9 Sep 2026 04:27:37 -0700
+From: Bartosz Golaszewski <brgl@kernel.org>
+In-Reply-To: <20260909080114.591938-6-herve.codina@bootlin.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:200f:b0:6b9:7d9e:5708 with SMTP id
- 006d021491bc7-6bdc949e3b9mr5591427eaf.3.1788953247713; Wed, 09 Sep 2026
- 04:27:27 -0700 (PDT)
-Date: Wed, 09 Sep 2026 04:27:27 -0700
-In-Reply-To: <6aa12989.f2639fcc.29487d.0000.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6aa1429f.6e6c5f9e.28f11f.0024.GAE@google.com>
-Subject: Re: [syzbot] [raid?] kernel BUG in raid5_run
-From: syzbot <syzbot+1f5a7de91d547763f4c8@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org, linux-raid@vger.kernel.org, 
-	magiclinan@didiglobal.com, song@kernel.org, syzkaller-bugs@googlegroups.com, 
-	xiao@kernel.org, yukuai@fnnas.com, yukuai@fygo.io
+References: <20260909080114.591938-1-herve.codina@bootlin.com> <20260909080114.591938-6-herve.codina@bootlin.com>
+Date: Wed, 9 Sep 2026 04:27:37 -0700
+X-Gmail-Original-Message-ID: <CAMRc=Mf8Hp1k+s0A3+T0XCWbm0mzV3rGDOd0=gkM0x+arqf2fw@mail.gmail.com>
+X-Gm-Features: AcwNN1UF2eAGvBL-3uNx_wKL96_0i716IzDQOeLpWlE0LgzqTry7SnN7eIT7jms
+Message-ID: <CAMRc=Mf8Hp1k+s0A3+T0XCWbm0mzV3rGDOd0=gkM0x+arqf2fw@mail.gmail.com>
+Subject: Re: [PATCH v11 05/10] cxl/test: Use fw_devlink_set_device()
+To: Herve Codina <herve.codina@bootlin.com>
+Cc: driver-core@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	linux-pci@vger.kernel.org, linux-sound@vger.kernel.org, 
+	patches@opensource.cirrus.com, linux-gpio@vger.kernel.org, 
+	linux-acpi@vger.kernel.org, linux-cxl@vger.kernel.org, 
+	Allan Nielsen <allan.nielsen@microchip.com>, Horatiu Vultur <horatiu.vultur@microchip.com>, 
+	Daniel Machon <daniel.machon@microchip.com>, Steen Hegelund <steen.hegelund@microchip.com>, 
+	Luca Ceresoli <luca.ceresoli@bootlin.com>, Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+	Jonathan Cameron <jonathan.cameron@huawei.com>, Richard Cheng <icheng@nvidia.com>, 
+	Andrew Lunn <andrew@lunn.ch>, Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
+	Danilo Krummrich <dakr@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, 
+	Charles Keepax <ckeepax@opensource.cirrus.com>, 
+	Richard Fitzgerald <rf@opensource.cirrus.com>, David Rhodes <david.rhodes@cirrus.com>, 
+	Linus Walleij <linusw@kernel.org>, Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+	Daniel Scally <djrscally@gmail.com>, Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
+	Sakari Ailus <sakari.ailus@linux.intel.com>, Bartosz Golaszewski <brgl@kernel.org>, 
+	Len Brown <lenb@kernel.org>, Davidlohr Bueso <dave@stgolabs.net>, Jonathan Cameron <jic23@kernel.org>, 
+	Dave Jiang <dave.jiang@intel.com>, Alison Schofield <alison.schofield@intel.com>, 
+	Vishal Verma <vishal.l.verma@intel.com>, Dan Williams <djbw@kernel.org>, 
+	Ira Weiny <iweiny@kernel.org>, Li Ming <ming.li@zohomail.com>, Lizhi Hou <lizhi.hou@amd.com>
 Content-Type: text/plain; charset="UTF-8"
 
-syzbot has found a reproducer for the following issue on:
+On Wed, 9 Sep 2026 10:01:04 +0200, Herve Codina <herve.codina@bootlin.com> said:
+> The code set directly fwnode.dev field.
+>
+> Use the dedicated fw_devlink_set_device() helper to perform this
+> operation.
+>
+> Signed-off-by: Herve Codina <herve.codina@bootlin.com>
+> Reviewed-by: Dave Jiang <dave.jiang@intel.com>
+> Reviewed-by: Jonathan Cameron <jonathan.cameron@huawei.com>
+> Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+> Reviewed-by: Richard Cheng <icheng@nvidia.com>
+> ---
+>  tools/testing/cxl/test/cxl.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/tools/testing/cxl/test/cxl.c b/tools/testing/cxl/test/cxl.c
+> index 547ebc97bf59..e21e45fe1572 100644
+> --- a/tools/testing/cxl/test/cxl.c
+> +++ b/tools/testing/cxl/test/cxl.c
+> @@ -1678,7 +1678,7 @@ static void mock_companion(struct acpi_device *adev, struct device *dev)
+>  	device_initialize(&adev->dev);
+>  	fwnode_init(&adev->fwnode, NULL);
+>  	device_set_node(dev, &adev->fwnode);
+> -	adev->fwnode.dev = dev;
+> +	fw_devlink_set_device(&adev->fwnode, dev);
+>  }
+>
+>  #ifndef SZ_64G
+> --
+> 2.55.0
+>
+>
 
-HEAD commit:    5acbae5f7eb3 Merge tag 'powerpc-7.3-2' of git://git.kernel..
-git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
-console output: https://syzkaller.appspot.com/x/log.txt?x=1574d749580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=8c5c3949d762a91f
-dashboard link: https://syzkaller.appspot.com/bug?extid=1f5a7de91d547763f4c8
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=1774d749580000
-
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+1f5a7de91d547763f4c8@syzkaller.appspotmail.com
-
-------------[ cut here ]------------
-kernel BUG at drivers/md/raid5.c:8117!
-Oops: invalid opcode: 0000 [#1] SMP KASAN NOPTI
-CPU: 2 UID: 0 PID: 6026 Comm: syz-executor387 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-RIP: 0010:raid5_run+0x11a7/0x1670 drivers/md/raid5.c:8117
-Code: 03 00 00 41 8b ae d0 01 00 00 31 ff 89 ee e8 f0 f6 82 f9 48 c7 44 24 10 00 00 00 00 85 ed 0f 84 44 f4 ff ff e8 6a fc 82 f9 90 <0f> 0b e8 62 fc 82 f9 49 8d 86 e0 00 00 00 48 89 c2 48 89 44 24 60
-RSP: 0018:ffffc90003c879f8 EFLAGS: 00010293
-RAX: 0000000000000000 RBX: 0000000000000000 RCX: 0000000000000000
-RDX: ffff88802bdb2580 RSI: ffffffff888914a6 RDI: ffff88802bdb2580
-RBP: 0000000000000001 R08: 0000000000000005 R09: 0000000000000000
-R10: 0000000000000001 R11: 0000000000000001 R12: 0000000000000008
-R13: 0000000000000000 R14: ffff88802cfb0000 R15: ffff88802cfb0028
-FS:  00005555884d2400(0000) GS:ffff8880d5d5d000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 00007fff95c66058 CR3: 000000005631b000 CR4: 0000000000352ef0
-Call Trace:
- <TASK>
- md_run+0xc2f/0x2510 drivers/md/md.c:6779
- do_md_run+0x36/0x660 drivers/md/md.c:6880
- array_state_store+0x9c5/0xcf0 drivers/md/md.c:4765
- md_attr_store+0x1c5/0x330 drivers/md/md.c:6158
- sysfs_kf_write+0xf2/0x150 fs/sysfs/file.c:145
- kernfs_fop_write_iter+0x3e0/0x5f0 fs/kernfs/file.c:345
- new_sync_write fs/read_write.c:595 [inline]
- vfs_write+0x6af/0x1050 fs/read_write.c:687
- ksys_write+0x12a/0x250 fs/read_write.c:739
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7fe6b68b8a77
-Code: 48 89 fa 4c 89 df e8 98 1d 00 00 8b 93 08 03 00 00 59 5e 48 83 f8 fc 74 1a 5b c3 0f 1f 84 00 00 00 00 00 48 8b 44 24 10 0f 05 <5b> c3 0f 1f 80 00 00 00 00 83 e2 39 83 fa 08 75 de e8 23 ff ff ff
-RSP: 002b:00007ffd56632d40 EFLAGS: 00000202 ORIG_RAX: 0000000000000001
-RAX: ffffffffffffffda RBX: 00005555884d2400 RCX: 00007fe6b68b8a77
-RDX: 0000000000000006 RSI: 00007fe6b68f21aa RDI: 0000000000000003
-RBP: 0000000000000032 R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000202 R12: 00007fe6b68f21aa
-R13: 00007fe6b68f4500 R14: 0000000000000002 R15: 00007fe6b68f44b0
- </TASK>
-Modules linked in:
----[ end trace 0000000000000000 ]---
-RIP: 0010:raid5_run+0x11a7/0x1670 drivers/md/raid5.c:8117
-Code: 03 00 00 41 8b ae d0 01 00 00 31 ff 89 ee e8 f0 f6 82 f9 48 c7 44 24 10 00 00 00 00 85 ed 0f 84 44 f4 ff ff e8 6a fc 82 f9 90 <0f> 0b e8 62 fc 82 f9 49 8d 86 e0 00 00 00 48 89 c2 48 89 44 24 60
-RSP: 0018:ffffc90003c879f8 EFLAGS: 00010293
-RAX: 0000000000000000 RBX: 0000000000000000 RCX: 0000000000000000
-RDX: ffff88802bdb2580 RSI: ffffffff888914a6 RDI: ffff88802bdb2580
-RBP: 0000000000000001 R08: 0000000000000005 R09: 0000000000000000
-R10: 0000000000000001 R11: 0000000000000001 R12: 0000000000000008
-R13: 0000000000000000 R14: ffff88802cfb0000 R15: ffff88802cfb0028
-FS:  00005555884d2400(0000) GS:ffff8880d5d5d000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 00007fff95c66058 CR3: 000000005631b000 CR4: 0000000000352ef0
-
-
----
-If you want syzbot to run the reproducer, reply with:
-#syz test: git://repo/address.git branch-or-commit-hash
-If you attach or paste a git patch, syzbot will apply it before testing.
+Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
