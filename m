@@ -1,165 +1,212 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B261353EEB
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 09:23:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0291E3D6664;
+	Wed,  9 Sep 2026 09:24:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788945837; cv=none; b=VveMRYUhe3gj7VGoTufpgEaQ14DkENvqhyM60pNiOWIAIb3xwQRqXRR6Zw4Wg+OW2IhYaeXciNvy/DG7lz3fGxC8PK+ccuC1KyAcVXx6TNbANPrxDEa7XG4zriJELpXXDipkzZiyD4Vlvrxh1fdgVoFqaV36RPCrSbqdmVZ3jVQ=
+	t=1788945888; cv=none; b=K/TMX03kCktBr2qNCMfroKY9saf+aKIFNOoU4vH4S670bAXEZY674WqTmtmH2Z/4X0Rt7XKVb0HaXCVynNs63hCxFGGqsrUB++LZuN5h4vGgn8wbd4DZzV+5T018+65y4Mjz6uLDPVMYOG+Co1b27ZyIk+rOM++baeZ3G0sik7s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788945837; c=relaxed/simple;
-	bh=MefwGGus+1Q/IuGojqThe9twVN1fqV7QINFZMvuhCDQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=f2MJ081QAUDcSQ1b0wGzTRENfH80VsTl9jUbp8o/kVUxFZYxgI3Ro7RkBleVpIJbqoSIrTFmz0JlmdbAPU2aJYYBdTcVsrPSozBB1tyAAKmGAAjeJBMwNaRtvd10t9DPPpyI+EMNTfAtKBRALnLcUpVuApQ+dQxpW/nfsmVK1JE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=SIHsBrc2; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=VPyXt7tr; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1788945888; c=relaxed/simple;
+	bh=9+bm5oEDo0srrI28L4tLmxJZ+mPiWBRVfLLAJe1RaA4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Qr/MgyFTm9djIDUMjP4P2Mn2PjDuckG1OYA8GHp3x+0Fj+/XhnBxr3mx2LiHhY4hLPiZDY5Ch0LyVqiot+I8cFcmRQRWbetEfM3+6vwxh1XZ2Yq+y0bxXsnxMK6Xpy1Qr4eFJQRocQ43WbnkXtCtnTPbFTIFY2BDFKJ61NNTbYk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WPCpNNRd; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="SIHsBrc2";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="VPyXt7tr"
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6898Zf5Y1189208
-	for <linux-kernel@vger.kernel.org>; Wed, 9 Sep 2026 09:23:55 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	gWyEGgxT4E7X9KltLLkSGf6POqbL5iNCiSRb74gc82E=; b=SIHsBrc2LY11MYJc
-	HPBKaHwKbKAo0/VmYro9lMRr+FAcUXpfbqdCs0I8WbVsbJ9ZP6FfkrErJWYo9Wkb
-	mnqRjQHECn8g93u+5+qBxcpoPCjd4qGRjfu1JOW4egFMf3dVJzMuBIxTbVXyt+M6
-	51yQjK3FDdWomqcM0C+5xpjRRAGATTvaEG7sPCnuxG+GAi3329KCp5yDhFVBedI6
-	B6OzyqNaK0D+zw5g+scUSTWyMzkNQ65P3t9fxVoFt7UMVsZw0/aJPzq7yQI8yqNb
-	4wU0HF9OUM2YSNJ9DdPbY57WjZ/AnUy/jRuqNOeqr9fwzpCRLyF/gsBvOjmaaQBr
-	Zh0scg==
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gjxtm1h3m-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 09:23:55 +0000 (GMT)
-Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-9390890ae83so70863485a.3
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 02:23:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788945835; x=1789550635; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=gWyEGgxT4E7X9KltLLkSGf6POqbL5iNCiSRb74gc82E=;
-        b=VPyXt7trWgrW1E695mc/hcGJCwKOHKmaWuZTDoi9A2lg5VgjPCheWX3KW2+adRq/5p
-         uBR8ykBuTyh0f4X5rSp1ZUQLs8qt74pe22PfmKhOoi4jgTOkN3436eZSvGiTSIBQeaxG
-         ++e4eDpadSSG6ukZ/P2hF8NW6+y+tCnDlETiC28gU7rZV/go9/iHjsTXapxj8R4NXDHo
-         UXowQxrGL1Uj0mKnrptfLOz27ANdDkDIVx7I0IXqob7CXyordY10sSMFx9BzJI4aMOPx
-         qkt/jaORfpQ7XdjL10JzcFvXPjJaVOAxjqL1tcQ5EBY7fr6xhAh0AiwtnROdLtY0z2Lp
-         oVwQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788945835; x=1789550635;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=gWyEGgxT4E7X9KltLLkSGf6POqbL5iNCiSRb74gc82E=;
-        b=ZxbYtv0ztQkeVzBFDeAtn5ttrW8zcDfHplanEeJu1J6SNqA1qlYvoKhWxmZu0oWau9
-         MIrKgMWXPcKdRxAydaG6y3sLXBsnB1uPQ6pYzzpnYg3d3MIQZIByesudFSZ8HQVJkrjG
-         J47zKfzXFnkAE8dBBOMYxXQ/5gVzJpsbkcuaoJXfmaHeu/n20nwFoLTy4xqKmk2slLf9
-         UzHjywkK4qi8G1N0CJQUAUvd8QqRmRtQR3pBSXsALG1kSMQ0U6/6t4gwqk6wnx2vEZYP
-         FSxkibdVY/oQAwHjuffyHt4XF1kH6uVgoQuz77BELD4P5qaZLjcbXTEKFEDmGGB9OOtq
-         Y0QA==
-X-Forwarded-Encrypted: i=1; AKwUvBxaZwMOT4MVu8SgmNjlNencqLBCo0t0pB0I2z8kJy2MSZZG26NQMZjTFhDWc/N8QTAbgbGCsQ/9JSdaUeU=@vger.kernel.org
-X-Gm-Message-State: AFuF++mC/MH4ab3KY4RGoBTFHPx3ykWiXaY0Xc7M5p8aGrernXBL/aC7
-	miKhgqZOqj6QjflhmcjYIWr6vIZr93OIDYuGVQqY+/HPewbZYU4atSzZz47HAbGcEjrI6EsuTX7
-	M7ogFW1MdU/l6hX/DpcK8aLL7erQOcVIKt6CztP7oXy69uRXdLfjRqTSXq3uFYAr687w=
-X-Gm-Gg: AYBFou1l1I5DoziEpBnpofk4sYJIEF7agThNyRTtmzYVUzvaCSulDNFHIUEhFiV4KI4
-	Qg6ddgWjopNwJoIdRJL9a8fOzs8RH89OqVi9SiRhJXt9+JGAcRzbqjNOqvEt3QbJnUz2k2+ZyA5
-	7NEpmqgCt1nTi3wT114tLaeFOhGPotwPlVaY8f4LoN840hRplKkqpgGeUxr6HKksz1Op3++f4yS
-	mmRfxGFpbFR+qoM3yXNgFinTn/VrnoANRluzvwc+ColgFFjcItbJx5I1alPbcscFpjsXIA5nik9
-	KudCnIVdCJJIsv3HYyM9UQgCMJl7WWhDSjVPqQMn1cX4AxQhpYjDAeR2gyaguOpghE0HI8D5pEA
-	yojIVR4hj4w4MOFD36c0ZYQ==
-X-Received: by 2002:a05:620a:2913:b0:939:5924:e319 with SMTP id af79cd13be357-939914ccf18mr2213638485a.0.1788945834581;
-        Wed, 09 Sep 2026 02:23:54 -0700 (PDT)
-X-Received: by 2002:a05:620a:2913:b0:939:5924:e319 with SMTP id af79cd13be357-939914ccf18mr2213612185a.0.1788945829338;
-        Wed, 09 Sep 2026 02:23:49 -0700 (PDT)
-Received: from [192.168.202.12] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a7e68c42c2sm6520490a12.14.2026.09.09.02.23.47
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 09 Sep 2026 02:23:48 -0700 (PDT)
-Message-ID: <387b1aa6-f168-4fb8-95d1-895f74805767@oss.qualcomm.com>
-Date: Wed, 9 Sep 2026 11:23:46 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WPCpNNRd"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 420891F00A3A;
+	Wed,  9 Sep 2026 09:24:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788945886;
+	bh=nfrCF2g2kP9K2twlNtCkjBDUEX8FE2jfXjcc77olkz4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=WPCpNNRdqmAOzJKeAhJyM/qgdzFD5BDME+mzm/D0LYvQ35AZoE4IRpxt25A1WsWHU
+	 sdtDrJ2SzE2rLe+38qA+kIZiPHpWx7DG5zabqjD8m1sFFCGh28tbh/24A8lpUJIFJA
+	 90PNWxQUDtx1JhX6wZlw2KH++f/ocL2mGqqXk69QhjvNpTik/9nRjZtzYlg1RJ/Zvl
+	 2+czxp/V1dBm2oQ0APDu3O2qm08FKwHORszxVq5qWcLy82Dh04OpvMPiPUpaNhJR8+
+	 k+H4+6SF+XD0j+iaWt0h1ot8PSJlBtASdm2va8Gh1AI1D+S801KAs3R2kItf6C9Obz
+	 Kas5gMq8eNKdQ==
+Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
+	by mailfauth.ams.internal (Postfix) with ESMTP id 068B4198003A;
+	Wed,  9 Sep 2026 05:24:24 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-05.internal (MEProxy); Wed, 09 Sep 2026 05:24:39 -0400
+X-ME-Sender: <xms:yCWhagjYqM8NelhkAwJe6-ToA6Pzkvu6YtUuREipYL8qYrOUVJyZgA>
+    <xme:yCWhahcYpVlF2jXB-c-ousju5AbfDlLNpcEkn0zv2-Bjj7RPxt0_wkhT2Cf8-Pnij
+    cSAWf2i6zi5CzYjAj4myvtoY3SVxZH49D0dZWTUPSHvSeZS42olVEH5>
+X-ME-Received: <xmr:yCWhangpq_Xwfwy2xpDLszI3Y5M-fiq-dcyxthWV1UYxPh0xCcAL_3OGJTU>
+X-ME-Proxy-Cause: dmFkZTFezydZ8FO8du2voecZC8AJNWBjGdsMbkEpRuZb1pJQCW8oQ/07jIMET6eEJr7fJk
+    jK9b6/RVqplj/hwhlVFzNnuocUhGgqg++Dch+Fm39jov+euRCynPx3rDxn0l47uIcRTbRe
+    l+xEzXbGBcRtTkTfbYEXOMv4wH/lwQzt9buwKydCbN0FMAoNRBVHjKw/0cNgJBZE1BhGh1
+    JIXdKXcVftccaMtpxVBgo74J6jWGt3VGDg3iw3wOFkhLBvYixt8JDYpFgoMYQzIsuuDFfO
+    TmxjKB4+9FqzGw50TIvRfIkKnb0q9Uf+9J1G9dVByYDZGVfHLSHUlaveJL4gG3BOiwlNKu
+    W94uMmoQw8nCimvgXUVlZxRFenvsExaDrMIxjkEpClNVWT8tTK0cUg3hfPedKUKzNTSxyw
+    PQo3wSULgn+sr5Li/cuB2N6JbBdIRHieJsLH5DmSrr71RvsAofAw1M8uaPgyS5jmndiHxA
+    zgS7f4oYsB34Klb9A5GIOP450BEQMbKt+S+wq27jxTPVFVkAOI0leIfTeRPDSAMJ/S5Cvj
+    F+Dp6/7hHUv6nzA8YtErGhpxUI3elZWjTSI/dwCeUc77iE929sk0qwionLasDve2qpQnkr
+    zdh7bJtqaOjuGUMpQqo0lzAFv6JNtn6CdttnT8jAZQyBSC+9JMBThNfmCvrw
+X-ME-Proxy: <xmx:yCWhalvo38zscZUuzJiw__SF5Cd_YDtR8z07XGTBNrbfYO5Cja9FfQ>
+    <xmx:yCWhaiC0jOQX0tYTam7Zn1UWsfu1g3GdKzOlHCzy4BasscJ1cL77Fg>
+    <xmx:yCWhauPWpiwQW3Rbs1815_1XTbFTmY2R-MnEDNPuvSylJB8Tsj4RsQ>
+    <xmx:yCWhagXzxSKsQG2dZ9P7Q4ciV-MKMH6LZvuOOY606G4QQG_ATA2T-w>
+    <xmx:yCWhagVlhDnkLY1TVIAZHeCxMfQiuASa1ZoQzqTmswaPwqncjPDP919B>
+Feedback-ID: i10464835:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 9 Sep 2026 05:24:22 -0400 (EDT)
+Date: Wed, 9 Sep 2026 10:24:21 +0100
+From: Kiryl Shutsemau <kas@kernel.org>
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+ 	David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>,
+ 	Baolin Wang <baolin.wang@linux.alibaba.com>,
+ "Liam R. Howlett" <liam@infradead.org>,
+ 	Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
+ Dev Jain <dev.jain@arm.com>, 	Barry Song <baohua@kernel.org>,
+ Lance Yang <lance.yang@linux.dev>, 	Usama Arif <usama.arif@linux.dev>,
+ Guo Ren <guoren@kernel.org>, Brian Cain <bcain@kernel.org>,
+ 	Geert Uytterhoeven <geert@linux-m68k.org>,
+ Dinh Nguyen <dinguyen@kernel.org>,
+ 	Simon Schuster <schuster.simon@siemens-energy.com>,
+ Jonas Bonn <jonas@southpole.se>,
+ 	Stefan Kristiansson <stefan.kristiansson@saunalahti.fi>,
+ Stafford Horne <shorne@gmail.com>,
+ 	Yoshinori Sato <ysato@users.sourceforge.jp>,
+ Rich Felker <dalias@libc.org>,
+ 	John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
+ Paul Walmsley <pjw@kernel.org>, 	Palmer Dabbelt <palmer@dabbelt.com>,
+ Albert Ou <aou@eecs.berkeley.edu>, 	Alexandre Ghiti <alex@ghiti.fr>,
+ Russell King <linux@armlinux.org.uk>, 	Vineet Gupta <vgupta@kernel.org>,
+ Michal Simek <monstr@monstr.eu>, Chris Zankel <chris@zankel.net>,
+ 	Max Filippov <jcmvbkbc@gmail.com>, Will Deacon <will@kernel.org>,
+ 	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
+ Nick Piggin <npiggin@gmail.com>, 	Peter Zijlstra <peterz@infradead.org>,
+ "David S. Miller" <davem@davemloft.net>,
+ 	Andreas Larsson <andreas@gaisler.com>,
+ Richard Henderson <richard.henderson@linaro.org>,
+ 	Matt Turner <mattst88@gmail.com>, Magnus Lindholm <linmag7@gmail.com>,
+ 	Catalin Marinas <catalin.marinas@arm.com>,
+ Mark Rutland <mark.rutland@arm.com>,
+ 	Huacai Chen <chenhuacai@kernel.org>, WANG Xuerui <kernel@xen0n.name>,
+ 	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+ "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
+ 	Helge Deller <deller@gmx.de>, Madhavan Srinivasan <maddy@linux.ibm.com>,
+ 	Michael Ellerman <mpe@ellerman.id.au>,
+ "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+ 	Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
+ 	Alexander Gordeev <agordeev@linux.ibm.com>,
+ Christian Borntraeger <borntraeger@linux.ibm.com>,
+ 	Sven Schnelle <svens@linux.ibm.com>,
+ Richard Weinberger <richard@nod.at>,
+ 	Anton Ivanov <anton.ivanov@cambridgegreys.com>,
+ Johannes Berg <johannes@sipsolutions.net>,
+ 	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+ Borislav Petkov <bp@alien8.de>,
+ 	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+ "H. Peter Anvin" <hpa@zytor.com>, 	Arnd Bergmann <arnd@arndb.de>,
+ Vlastimil Babka <vbabka@kernel.org>, 	Mike Rapoport <rppt@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>, 	Michal Hocko <mhocko@suse.com>,
+ Jason Gunthorpe <jgg@ziepe.ca>, 	John Hubbard <jhubbard@nvidia.com>,
+ Peter Xu <peterx@redhat.com>, linux-mm@kvack.org,
+ 	linux-kernel@vger.kernel.org, linux-csky@vger.kernel.org,
+ linux-hexagon@vger.kernel.org, 	linux-m68k@lists.linux-m68k.org,
+ linux-openrisc@vger.kernel.org, linux-sh@vger.kernel.org,
+ 	linux-riscv@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ 	linux-snps-arc@lists.infradead.org, linux-arch@vger.kernel.org,
+ sparclinux@vger.kernel.org, 	linux-alpha@vger.kernel.org,
+ loongarch@lists.linux.dev, linux-mips@vger.kernel.org,
+ 	linux-parisc@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
+ linux-s390@vger.kernel.org, 	linux-um@lists.infradead.org,
+ Hugh Dickins <hughd@google.com>, Qi Zheng <qi.zheng@linux.dev>
+Subject: Re: [PATCH v2 12/12] mm: change the contract for free_pgtables(),
+ update docs
+Message-ID: <aqEkfKww9XDq15ZF@thinkstation>
+References: <20260908-rcu-pagetable-freeing-v2-0-1f60b64e878e@kernel.org>
+ <20260908-rcu-pagetable-freeing-v2-12-1f60b64e878e@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] arm64: dts: qcom: sdm845-sony-tama: Add battery
- properties
-To: Shujath Mohd <shujath@outlook.in>, Abel Vesa <abel.vesa@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, andersson@kernel.org,
-        konradybcio@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
-        conor+dt@kernel.org
-References: <PUZPR01MB51418AF84C1FC5F640144D57C3B22@PUZPR01MB5141.apcprd01.prod.exchangelabs.com>
- <5enkadptjkxm5mmjjwtqehm4futxejzwewevoewlpeedjhszbb@dsfsfewasuiu>
- <TYZPR01MB513102932A34B982696E2AD2C3B12@TYZPR01MB5131.apcprd01.prod.exchangelabs.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <TYZPR01MB513102932A34B982696E2AD2C3B12@TYZPR01MB5131.apcprd01.prod.exchangelabs.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA5MDEwNCBTYWx0ZWRfXxeYJNS0BEVVa
- 0OE/zl44yqAfXM703WjvFcA1EOs1NxwvG+/6BJ8MHWVJkBti2dBr6foNpMfZ8g6OBb8BJ5nUbmC
- XgXuEIlGJiCVqnEtKFYZ7igb7Ij+mZA=
-X-Proofpoint-GUID: QtLHn0hlgXpQjI3KLx6oB4-FNx8yas8y
-X-Authority-Analysis: v=2.4 cv=F+1nsKhN c=1 sm=1 tr=0 ts=6aa125ab cx=c_pps
- a=HLyN3IcIa5EE8TELMZ618Q==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=WY477xrWUYgG2yMJyFQA:9 a=3ZKOabzyN94A:10
- a=QEXdDO2ut3YA:10 a=bTQJ7kPSJx9SKPbeHEYW:22
-X-Proofpoint-ORIG-GUID: QtLHn0hlgXpQjI3KLx6oB4-FNx8yas8y
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA5MDEwNCBTYWx0ZWRfX+NtHDxNoWLgY
- JVbDj2BlwCpxV2wHDviT8OPgDMgGgZPqYj1IthtTqQPiv3VXKMrsAnjqE1T5beS8F/k3s9N2jwI
- LMBIPoytrDcc+H6k6FVM46KCYiEfA1iiq9gOInKU57GxVmoAEJKvHqxp0H6LH/idN5XRTI5bdtP
- AmL0/x1fBYU8eGUFDM2Ejw2ERg6M0zu3JPyCcBch1F+Ks810p503phBUTpDOlEQHMmvXtgCfwlk
- n4SH44JP6OiTFbcucIRcdLx5I+a0ly0xIFLFlZNGhwIm6n9NB3jVUmsKrVHdiMg+Obsp7yl64Gf
- XbknFfhRT2g+tkxzxrd1aLAyusAV7W36zN3ni4hxoUUe8MznuZ6VdPDfhmzWZNCU5TZPEjgj6YT
- FRqFGeQrOxWodmdcWNQYyuybpVjhPUyNblfNi5IYNwMKDcgmzcStGcqbuGDnYkujaU/ZysGWurE
- 6tqonaOUVrnGqCL5GQQ==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-08_03,2026-09-08_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 priorityscore=1501 impostorscore=0 spamscore=0 adultscore=0
- phishscore=0 suspectscore=0 lowpriorityscore=0 bulkscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609090104
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260908-rcu-pagetable-freeing-v2-12-1f60b64e878e@kernel.org>
 
-On 9/8/26 9:56 AM, Shujath Mohd wrote:
-> Just the commit message, nothing in files
+On Tue, Sep 08, 2026 at 01:32:21PM +0100, Lorenzo Stoakes (ARM) wrote:
+> Now that page tables are freed after an RCU grace period, it is safe for
+> read-only page table walkers to walk page table ranges that are being
+> concurrently torn down, provided the mm is kept alive via mmgrab().
 > 
-> On 8 September 2026 12:49:24 pm IST, Abel Vesa <abel.vesa@oss.qualcomm.com> wrote:
->> On 26-09-07 21:33:08, Shujath Mohd wrote:
->>> Add simple-battery nodes describing the design capacity and voltage
->>> limits of the Xperia TAMA batteries.
->>>
->>> The Xperia XZ2, XZ2 Compact, and XZ3 use 3.4 V as the drained
->>> battery voltage and 4.245 V as the fully charged voltage.
->>>
->>> Signed-off-by: Shujath Mohd <shujath@outlook.in>
->>
->> So what changed since v1 ?
+> It is however unsafe for writers to do so, as they must obtain an
+> appropriate lock to do so safely.
+> 
+> Update the pte_offset_map_lock()'s comment block to reflect this.
+> 
+> Similarly update the process addresses documentation.
+> 
+> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> ---
+>  Documentation/mm/process_addrs.rst |  6 ++++++
+>  mm/pgtable-generic.c               | 15 +++++++++++----
+>  2 files changed, 17 insertions(+), 4 deletions(-)
+> 
+> diff --git a/Documentation/mm/process_addrs.rst b/Documentation/mm/process_addrs.rst
+> index a7296f251799..1e65b139f355 100644
+> --- a/Documentation/mm/process_addrs.rst
+> +++ b/Documentation/mm/process_addrs.rst
+> @@ -537,6 +537,12 @@ We establish basic locking rules when interacting with page tables:
+>  * When changing a page table entry the page table lock for that page table
+>    **must** be held, except if you can safely assume nobody can access the page
+>    tables concurrently (such as on invocation of :c:func:`!free_pgtables`).
+> +* Page tables may be *walked* under RCU alone, as page tables are freed only
+> +  after an RCU grace period has elapsed. However, any entry found must be
+> +  revalidated after the page table lock is taken (such as the
+> +  :c:func:`!pmd_same` recheck performed by :c:func:`!pte_offset_map_lock`)
+> +  before it is acted upon. Changing an entry always requires the page table
+> +  lock.
 
+This says the PTL plus a recheck is enough to act on the entry. It is
+not: free_pte_range() clears the PMD without the PTL, so pmd_same() can
+pass and the table is torn down right after. That is the case we settled
+on for the pte_offset_map_lock() comment, and the two now disagree.
 
-For context, everyone is expected to provide a brief changelog between
-revisions
+Something like "Changing an entry requires the page table lock and one
+of the locks that excludes teardown (mmap or VMA lock)" would match the
+comment.
 
-There's a pretty in-depth piece of documentation regarding all the
-(well, probably "most") such expectations:
+>  * Reads from and writes to page table entries must be *appropriately*
+>    atomic. See the section on atomicity below for details.
+>  * Populating previously empty entries requires that the mmap or VMA locks are
+> diff --git a/mm/pgtable-generic.c b/mm/pgtable-generic.c
+> index b91b1a98029c..a127e3e8f9b9 100644
+> --- a/mm/pgtable-generic.c
+> +++ b/mm/pgtable-generic.c
+> @@ -385,10 +385,17 @@ pte_t *pte_offset_map_rw_nolock(struct mm_struct *mm, pmd_t *pmd,
+>   * Note: "RO" / "RW" expresses the intended semantics, not that the *kmap* will
+>   * be read-only/read-write protected.
+>   *
+> - * Note that free_pgtables(), used after unmapping detached vmas, or when
+> - * exiting the whole mm, does not take page table lock before freeing a page
+> - * table, and may not use RCU at all: "outsiders" like khugepaged should avoid
+> - * pte_offset_map() and co once the vma is detached from mm or mm_users is zero.
+> + * Note that free_pgtables(), used after unmapping detached vmas or when exiting
+> + * the whole mm, does not take a page table lock before freeing a page table.
+> + *
+> + * As page table freeing itself is RCU-safe, page table readers can safely run
+> + * concurrently with page table teardown.
+> + *
+> + * However, writers CANNOT as, without a lock being held, nothing prevents
+> + * concurrent teardown.
+> + *
+> + * Also note that the PGD itself is freed at mmdrop() time, not under RCU - so
+> + * the walker must keep the mm alive either by pinning the mm or the VMA.
+>   */
+>  pte_t *pte_offset_map_lock(struct mm_struct *mm, pmd_t *pmd,
+>  			   unsigned long addr, spinlock_t **ptlp)
+> 
+> -- 
+> 2.55.0
+> 
 
-https://docs.kernel.org/process/submitting-patches.html
-
-And the b4 tool was created to take care of most of the annoying ones:
-
-https://b4.docs.kernel.org/en/latest/ 
-
-which everyone (contributors and maintainers alike) is encouraged to use
-
-Konrad
+-- 
+  Kiryl Shutsemau / Kirill A. Shutemov
