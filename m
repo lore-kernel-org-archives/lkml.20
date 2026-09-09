@@ -1,157 +1,137 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56E0B184540;
-	Wed,  9 Sep 2026 15:16:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA4AC140E5F;
+	Wed,  9 Sep 2026 15:16:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788966972; cv=none; b=Nlj9qqEIUTwc48iXzgWzwd1u6B06PiqPII9PfCrpxhgYwXZVd0xigBeVbP6nio4LJ+dzpUWRYzuvg3eoNMx47mti6423X8Gm/KJYX/ssJlxmiaPUpnudyfk4iLhsePUxVL+zYxp0vUd6lNddfSJHcloUXo/tblEWc/pR/PiDN14=
+	t=1788966975; cv=none; b=lxLwNtKQjhYMfmlDid8Sr3w/onv9BPGvBqPua19Uwkh29u9cRExuJ1FS6L+4Nykb8YF/Hjo6/DWeq5lashbpdM1zoCudYyK5Pcc4/c+2cqTMAxCsf6/yVUKa41ESaWE+ZQVeLkyl7nHQ/QTy/D45DBlBjJ6Q8/4tMhTyNXzdFXQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788966972; c=relaxed/simple;
-	bh=tg5yxBv7c7C7xb37aoXpzahE7awVAo/i6IJkGaqCacQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=UhRiL8GpWCquiMzYKPPuUMU1TWLawZoxQdtncv7Rk4GJiqSRfkpbBXt7NkfI9x2rOpNwZC97PdTygcf3g7CcXobyDQjuNBFGJa9lQoldZO7j2RDdm4OUt/8E97ZmyyPmremBvywoKCuY3HM2/+ATyf9Mi9i5rYusN7qAn0hoSRg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=e6WdlCrZ; arc=none smtp.client-ip=198.175.65.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1788966975; c=relaxed/simple;
+	bh=d1C/K+qzAGkECgE2nmKdB/9huiH2yRLjMBqnaAqSwvI=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=HgqEvM05TtL//uJtZf6kKAdkId8VyNd0XWbadmGZGvWhiiC5CSyMFbTidFnGK+Jg1uLPcjh9M8HIrg/brA998Y0htB7KFkZt4O8fope2V4F7JFFVkdDaPeYcopvbsJVZvugjhL90cqhEBv0YbclogF2p8UUlsLnae/ptjXVO2ts=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=g7Z5EE3i; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="e6WdlCrZ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788966970; x=1820502970;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=tg5yxBv7c7C7xb37aoXpzahE7awVAo/i6IJkGaqCacQ=;
-  b=e6WdlCrZw0SkH82SDBDlXK9BwveCJlD8CO/S6eB1Ccs3AfIkJ9VzSaxH
-   /k3TjaipqTXYCLC7ARBsRyilkpK7hNR9564MOGfA/rIFJzAYqDRcPaA0+
-   9t39t9KCyWSEja0Poq79fIAZqgDohNKx97OKV/8g9worh1RiUm3vW0nvz
-   EoOj0Z8r2+aXHn1uEMN13/FZ/Vqqps6CH7f0antbtYKmVxxpGpwQ8/ENs
-   j5ClGbL0I+ydNQmbawnXiMyc1L+r2mJsF/zk2kcSj6VQbpUpUxPY7gbx0
-   sHQzbdH9SJm8zVJmZhlmKs5EoOwSmoz3VsqJD13KjreTWEP5+HsOfJmUa
-   g==;
-X-CSE-ConnectionGUID: k7i58fCVQLqv7YlcjvtI2A==
-X-CSE-MsgGUID: p/bo45SZR72lJsgSQB/7gA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11900"; a="100558744"
-X-IronPort-AV: E=Sophos;i="6.25,270,1779174000"; 
-   d="scan'208";a="100558744"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
-  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Sep 2026 08:16:10 -0700
-X-CSE-ConnectionGUID: ABVBP+68SaOnxxdqhKA+YA==
-X-CSE-MsgGUID: Y9ZM0ItwRkmvLPolUJJ3tg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,270,1779174000"; 
-   d="scan'208";a="274863366"
-Received: from lkp-server01.sh.intel.com (HELO a3e91e2cf319) ([10.239.97.150])
-  by orviesa003.jf.intel.com with ESMTP; 09 Sep 2026 08:16:09 -0700
-Received: from kbuild by a3e91e2cf319 with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1x4K1t-000000000W0-2VBk;
-	Wed, 09 Sep 2026 15:16:05 +0000
-Date: Wed, 9 Sep 2026 23:15:15 +0800
-From: kernel test robot <lkp@intel.com>
-To: Oleg Keri <okerixx@gmail.com>,
-	"Derek J. Clark" <derekjohn.clark@gmail.com>,
-	Mark Pearson <mpearson-lenovo@squebb.ca>,
-	Jiri Kosina <jikos@kernel.org>,
-	Benjamin Tissoires <bentiss@kernel.org>
-Cc: oe-kbuild-all@lists.linux.dev, linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] HID: lenovo: suppress phantom radio control input on
- Yoga Slim 7x Gen 11
-Message-ID: <202609092332.pk1AmDaL-lkp@intel.com>
-References: <20260908091907.5653-1-okerixx@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="g7Z5EE3i"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F039F1F00A3A;
+	Wed,  9 Sep 2026 15:16:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788966973;
+	bh=bhd3hV9Ncs4ZoE2VlMtH3ehZccDZvSN+z+UENB407Nw=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=g7Z5EE3iyWaOpRoD3Z4aGLJ2QzG3YnrNUVP+s14zDiV9nw+E2wmHKDEL8PFfMoAGV
+	 o8lr3N7pi6uF9v/Aa7PBFl/qo4DAolrIzA6QCCnss8VTnZgF4zUt0pDinZ23BvL6j9
+	 V3FjQ2AaANsNvNQ+j2iUqsgzdoVnTqP+JDmFae7xOVsvON75QT7130E+oEaN19190I
+	 W9Gjk376bgN8Oph5MZqM3AdLHyoKMjc5D82gpPclVBlJx7U4l8ugYjFkRXXiOnU0xt
+	 5s245t9y8ViIhtDg9oIPqOhZURCyjKXznE2s9E9X83sd78aRGKVPz1BDvj5MwgqtOK
+	 3wbXnyP6+2LPw==
+Subject: Re: [PATCH net-next v3 1/6] net: dsa: motorcomm: Rename MIB stuffs
+From: netdev-bot+sashiko@kernel.org
+To: mmyangfl@gmail.com
+Cc: netdev@vger.kernel.org, andrew@lunn.ch, olteanv@gmail.com,
+ davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+ linux@armlinux.org.uk, linux-kernel@vger.kernel.org
+Date: Wed, 09 Sep 2026 15:16:12 +0000
+Message-ID: <178896697251.219967.12696740711142321048@kernel.org>
+In-Reply-To: <20260906131414.2683362-2-mmyangfl@gmail.com>
+References: <20260906131414.2683362-2-mmyangfl@gmail.com>
+X-sashiko-severity: Low
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260908091907.5653-1-okerixx@gmail.com>
 
-Hi Oleg,
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider:
 
-kernel test robot noticed the following build errors:
+Critical: 0 · High: 0 · Medium: 0 · Low: 1
 
-[auto build test ERROR on 5e036ce12de91c6fd674dad33b169c6150be2a7a]
-
-url:    https://github.com/intel-lab-lkp/linux/commits/Oleg-Keri/HID-lenovo-suppress-phantom-radio-control-input-on-Yoga-Slim-7x-Gen-11/20260908-111907
-base:   5e036ce12de91c6fd674dad33b169c6150be2a7a
-patch link:    https://lore.kernel.org/r/20260908091907.5653-1-okerixx%40gmail.com
-patch subject: [PATCH] HID: lenovo: suppress phantom radio control input on Yoga Slim 7x Gen 11
-config: sh-allyesconfig (https://download.01.org/0day-ci/archive/20260909/202609092332.pk1AmDaL-lkp@intel.com/config)
-compiler: sh4-linux-gcc (GCC) 16.1.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260909/202609092332.pk1AmDaL-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202609092332.pk1AmDaL-lkp@intel.com/
-
-All errors (new ones prefixed by >>):
-
-   drivers/hid/hid-lenovo.c: In function 'lenovo_input_mapping':
->> drivers/hid/hid-lenovo.c:523:14: error: 'I2C_DEVICE_ID_ITE_LENOVO_YOGA_SLIM_7X_G11_KEYBOARD' undeclared (first use in this function); did you mean 'I2C_DEVICE_ID_ITE_LENOVO_YOGA_SLIM_7X_KEYBOARD'?
-     523 |         case I2C_DEVICE_ID_ITE_LENOVO_YOGA_SLIM_7X_G11_KEYBOARD:
-         |              ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-         |              I2C_DEVICE_ID_ITE_LENOVO_YOGA_SLIM_7X_KEYBOARD
-   drivers/hid/hid-lenovo.c:523:14: note: each undeclared identifier is reported only once for each function it appears in
-   In file included from drivers/hid/hid-lenovo.c:30:
-   drivers/hid/hid-lenovo.c: At top level:
->> drivers/hid/hid-lenovo.c:1584:41: error: 'I2C_DEVICE_ID_ITE_LENOVO_YOGA_SLIM_7X_G11_KEYBOARD' undeclared here (not in a function); did you mean 'I2C_DEVICE_ID_ITE_LENOVO_YOGA_SLIM_7X_KEYBOARD'?
-    1584 |                      USB_VENDOR_ID_ITE, I2C_DEVICE_ID_ITE_LENOVO_YOGA_SLIM_7X_G11_KEYBOARD) },
-         |                                         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   include/linux/hid.h:817:64: note: in definition of macro 'HID_DEVICE'
-     817 |         .bus = (b), .group = (g), .vendor = (ven), .product = (prod)
-         |                                                                ^~~~
-
-
-vim +523 drivers/hid/hid-lenovo.c
-
-   488	
-   489	static int lenovo_input_mapping(struct hid_device *hdev,
-   490			struct hid_input *hi, struct hid_field *field,
-   491			struct hid_usage *usage, unsigned long **bit, int *max)
-   492	{
-   493		switch (hdev->product) {
-   494		case USB_DEVICE_ID_LENOVO_TPKBD:
-   495			return lenovo_input_mapping_tpkbd(hdev, hi, field,
-   496								usage, bit, max);
-   497		case USB_DEVICE_ID_LENOVO_CUSBKBD:
-   498		case USB_DEVICE_ID_LENOVO_CBTKBD:
-   499			return lenovo_input_mapping_cptkbd(hdev, hi, field,
-   500								usage, bit, max);
-   501		case USB_DEVICE_ID_LENOVO_TPIIUSBKBD:
-   502		case USB_DEVICE_ID_LENOVO_TPIIBTKBD:
-   503			return lenovo_input_mapping_tpIIkbd(hdev, hi, field,
-   504								usage, bit, max);
-   505		case USB_DEVICE_ID_IBM_SCROLLPOINT_III:
-   506		case USB_DEVICE_ID_IBM_SCROLLPOINT_PRO:
-   507		case USB_DEVICE_ID_IBM_SCROLLPOINT_OPTICAL:
-   508		case USB_DEVICE_ID_IBM_SCROLLPOINT_800DPI_OPTICAL:
-   509		case USB_DEVICE_ID_IBM_SCROLLPOINT_800DPI_OPTICAL_PRO:
-   510		case USB_DEVICE_ID_LENOVO_SCROLLPOINT_OPTICAL:
-   511			return lenovo_input_mapping_scrollpoint(hdev, hi, field,
-   512								usage, bit, max);
-   513		case USB_DEVICE_ID_LENOVO_TP10UBKBD:
-   514			return lenovo_input_mapping_tp10_ultrabook_kbd(hdev, hi, field,
-   515								       usage, bit, max);
-   516		case USB_DEVICE_ID_LENOVO_X12_TAB:
-   517		case USB_DEVICE_ID_LENOVO_X12_TAB2:
-   518		case USB_DEVICE_ID_LENOVO_X13_TAB:
-   519		case USB_DEVICE_ID_LENOVO_X1_TAB:
-   520		case USB_DEVICE_ID_LENOVO_X1_TAB2:
-   521		case USB_DEVICE_ID_LENOVO_X1_TAB3:
-   522			return lenovo_input_mapping_x1_tab_kbd(hdev, hi, field, usage, bit, max);
- > 523		case I2C_DEVICE_ID_ITE_LENOVO_YOGA_SLIM_7X_G11_KEYBOARD:
-   524			return lenovo_input_mapping_yoga7x_g11_kbd(hdev, hi, field, usage, bit, max);
-   525		default:
-   526			return 0;
-   527		}
-   528	}
-   529	
+- [Low] Stale comment after the rename:
+  `drivers/net/dsa/motorcomm/chip.c:41` still reads "/* Must agree with…
 
 --
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+
+net: dsa: motorcomm: Rename MIB stuffs
+
+This renames yt921x_read_mib() to yt921x_mib_read(), yt921x_poll_mib() to
+yt921x_mib_poll(), and struct yt921x_mib to struct yt921x_mib_stats, in
+preparation for a larger MIB refactor.  No functional change is intended.
+
+> diff --git a/drivers/net/dsa/motorcomm/chip.c b/drivers/net/dsa/motorcomm/chip.c
+> index d663af010f431..ad5fe1ccb1d71 100644
+> --- a/drivers/net/dsa/motorcomm/chip.c
+> +++ b/drivers/net/dsa/motorcomm/chip.c
+> @@ -545,11 +545,11 @@ yt921x_mbus_ext_init(struct yt921x_priv *priv, struct device_node *mnp)
+>  }
+>  
+>  /* Read and handle overflow of 32bit MIBs. MIB buffer must be zeroed before. */
+> -static int yt921x_read_mib(struct yt921x_priv *priv, int port)
+> +static int yt921x_mib_read(struct yt921x_priv *priv, int port)
+>  {
+>  	struct yt921x_port *pp = &priv->ports[port];
+>  	struct device *dev = to_device(priv);
+> -	struct yt921x_mib *mib = &pp->mib;
+> +	struct yt921x_mib_stats *mib = &pp->mib;
+>  	int res = 0;
+
+[ ... ]
+
+> diff --git a/drivers/net/dsa/motorcomm/chip.h b/drivers/net/dsa/motorcomm/chip.h
+> index 83cd454955ddb..805febb486838 100644
+> --- a/drivers/net/dsa/motorcomm/chip.h
+> +++ b/drivers/net/dsa/motorcomm/chip.h
+> @@ -861,7 +861,7 @@ enum yt921x_fdb_entry_status {
+>  #define yt921x_port_is_internal(port) ((port) < 8)
+>  #define yt921x_port_is_external(port) ((port) == 8 || (port) == 9)
+>  
+> -struct yt921x_mib {
+> +struct yt921x_mib_stats {
+>  	u64 rx_broadcast;
+>  	u64 rx_pause;
+>  	u64 rx_multicast;
+
+[Severity: Low]
+Should the comment above yt921x_mib_descs[] in chip.c be renamed too?  It
+still points at the old type name:
+
+drivers/net/dsa/motorcomm/chip.c
+	/* Must agree with yt921x_mib
+	 *
+	 * Unstructured fields (name != NULL) will appear in get_ethtool_stats(),
+	 * ...
+	 */
+	static const struct yt921x_mib_desc yt921x_mib_descs[] = {
+
+After this commit there is no struct yt921x_mib left in the tree, so the
+comment names a type that no longer exists.
+
+This comment is also the only thing documenting the invariant that
+yt921x_mib_read() relies on:
+
+	for (size_t i = 0; i < ARRAY_SIZE(yt921x_mib_descs); i++) {
+		const struct yt921x_mib_desc *desc = &yt921x_mib_descs[i];
+		u32 reg = YT921X_MIBn_DATA0(port) + desc->offset;
+		u64 *valp = &((u64 *)mib)[i];
+
+The descriptor table order and count must match the u64 field order and
+count of the (now renamed) struct, and there is no static_assert() or
+BUILD_BUG_ON() tying ARRAY_SIZE(yt921x_mib_descs) to
+sizeof(struct yt921x_mib_stats) / sizeof(u64).  The invariant itself still
+holds here (39 descriptors, 39 u64 fields, same order), so this is only a
+comment-versus-definition mismatch.
+
+Worth noting for the rest of the series: by the end of the series the same
+comment survives in drivers/net/dsa/motorcomm/mib.c, but struct yt921x_mib
+has been reintroduced there as a different container type (work, syncp,
+stats, data[]).  At that point the comment points at a struct that the
+table must not agree with, since the table has to match
+struct yt921x_mib_stats.  Would it make sense to update the comment in this
+patch, and possibly add a compile-time assertion on the entry count?
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260906131414.2683362-1-mmyangfl%40gmail.com
