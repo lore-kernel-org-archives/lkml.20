@@ -1,33 +1,33 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DC9B5427E2;
-	Wed,  9 Sep 2026 11:24:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 34A7D5437F6;
+	Wed,  9 Sep 2026 11:24:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788953051; cv=none; b=iqkEBoIG5VUmfT2txfOLWbfWlRWkyp9tU5bCJjYu+BI2qjejM0prjYaooWxqoB0Jdr06qDpXnDh7hP4n45WfEVv2QMDsAhWM5g1ceyQb7YFRqOKe9jyeI1Uf2YBGwNvCc2VI7hvi3CFmVs+rthX14cLhvVGtLRojTUVwMzNyGvc=
+	t=1788953057; cv=none; b=k5Sm/S0LLatTsp2Eh5irZhKMgjylOuvxwFXuj5MTvPqLqLBx2hFKn6+Yv3DLA2mQXEuf993gAtp/lFqBxnEt+SHZCLDevDoHXzD5pRAbax5ulhMyqY0qr9i3ON2NL9tNTNXYNV6O5JTuPRVMR6Q8rkS0SNjedYmhChaFjsQCOzk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788953051; c=relaxed/simple;
-	bh=/F2t/Uq8IPUCABLqE6ue7gTeeL1hInqTVzeqBu+4o14=;
+	s=arc-20240116; t=1788953057; c=relaxed/simple;
+	bh=y74L0DLhbdt+Ower+oXr1Vl+Ik+e0ELSA4xWXm212qs=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=jDwpYSAk6Ov2au5etiG9diwm5mSeSA/tWpm8WA1MgbfhUi77qz1jfrFmw3GHfokXepTPzQpLtZgnOeq1cJnDdiApVT9XJjoiV4EuGiZaY9rgM9CFHnfbDgGIXSiiysRztYIBt7Ltr5e6rgHG0UzwPmNdKaM5ebaVGtemnTwW0Xg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JzrIT9vU; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=TXdXuSNMOB2RwaMtjCMIZaIGfSL4+Onsk6d+HqiLfbMo8ebw6pEh6nj9Ix28hPTi5ABVAUF8h8m8Nd/VdoQ5PDe0tNRVNRdn7wAJEJzBAHc97yLkGAzgFW9SltcPh/jzMNRwY25Lgq6rGLlBRv4eOxV+9w5nO2BKc3g0rW5PEec=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=XNqERASC; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JzrIT9vU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C4B691F00A3D;
-	Wed,  9 Sep 2026 11:24:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788953050;
-	bh=uHekCidMeo5wbTQLA0ISsEzIRynEmrNc4aEvGPZ6XU0=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=JzrIT9vU2Ev90WuzxqXPCs1Qq4B1ThJVgTsG2XRgjNI8XTJ3WOgf/xUafTLKlea0E
-	 KzrTmwu0iS9jl/mGOvEH9JLvFO5DAWMIeAVUf7aSzYWdaCh8wu6EAB0yj0RJC4dviE
-	 eh3jKB0hWKrYQEHoWUJOXsuepRZjIo92lkDflG7uZ0kFqmk+1vKZcs5swU8TU23f6t
-	 AtiBZWPbJuLAYKsLMQl5kweJOncnRfihT8xMvhe89sjLdkcRzFs8lVpHzw2xhAlRfk
-	 8YZTXeI6bavHrXYCJcou+VnkkoYevNyZ02xAkKEWIvpttWxejLObWjlbLPGd/5f6ds
-	 6uAO3byrs6PKg==
-Message-ID: <4aee70eb-bd1d-4320-8921-e55bb8e0d176@kernel.org>
-Date: Wed, 9 Sep 2026 13:24:02 +0200
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="XNqERASC"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id B23621691;
+	Wed,  9 Sep 2026 04:24:10 -0700 (PDT)
+Received: from [10.2.197.99] (ewhatever.cambridge.arm.com [10.2.197.99])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 4F8C13F528;
+	Wed,  9 Sep 2026 04:24:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1788953054; bh=y74L0DLhbdt+Ower+oXr1Vl+Ik+e0ELSA4xWXm212qs=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=XNqERASChp/Zp7Dp+uULGdCu5WA7QNGKEVyJWabIpdbt8Y78BBxn4OORUFIRldKuI
+	 1cu+VTjUhYFKXb/5zHsKA3zVVIKksgKzB2m/zOGShHJqd4k8sZxmp2/sZBRIhZECs5
+	 68eDhqzMxdiHZM71Q3QwzE6Oz5yh79foLy6c1Zxk=
+Message-ID: <6c899477-40a9-443b-8f0a-0fb85beca3b3@arm.com>
+Date: Wed, 9 Sep 2026 12:24:09 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -35,94 +35,115 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH PRELIMINARY 1/5] arm64: dts: qcom: shikra-iqs-som: fix
- GPIO138 reservation
-To: Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Komal Bajaj <komal.bajaj@oss.qualcomm.com>,
- Anurag Pateriya <apateriy@qti.qualcomm.com>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Richard Cochran <richardcochran@gmail.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>,
- Maxime Chevallier <maxime.chevallier@bootlin.com>
-Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, netdev@vger.kernel.org
-References: <20260908-shikra_ethernet_dts-v1-0-69c0c5c7c124@oss.qualcomm.com>
- <20260908-shikra_ethernet_dts-v1-1-69c0c5c7c124@oss.qualcomm.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
+Subject: Re: [PATCH v17 02/20] KVM: arm64: Avoid including linux/kvm_host.h in
+ kvm_pgtable.h
+To: Fuad Tabba <fuad.tabba@linux.dev>
+Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev, maz@kernel.org,
+ will@kernel.org, catalin.marinas@arm.com, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, steven.price@arm.com,
+ aneesh.kumar@kernel.org, oupton@kernel.org, gshan@redhat.com,
+ joey.gouly@arm.com, yuzenghui@huawei.com, linux-coco@lists.linux.dev,
+ gankulkarni@os.amperecomputing.com, sdonthineni@nvidia.com,
+ alpergun@google.com, fj0570is@fujitsu.com, WeiLin.Chang@arm.com,
+ lpieralisi@kernel.org, enju.kohei@fujitsu.com
+References: <20260908162223.1683432-1-suzuki.poulose@arm.com>
+ <20260908162223.1683432-3-suzuki.poulose@arm.com>
+ <CA+EHjTzGeHCWV=ooEv-P79NNqTDi-A+7y5BFvZRR0z8RwavoeA@mail.gmail.com>
 Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20260908-shikra_ethernet_dts-v1-1-69c0c5c7c124@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
+From: Suzuki K Poulose <suzuki.poulose@arm.com>
+In-Reply-To: <CA+EHjTzGeHCWV=ooEv-P79NNqTDi-A+7y5BFvZRR0z8RwavoeA@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 08/09/2026 08:23, Mohd Ayaan Anwar wrote:
-> The GPIO mappings on the IQS variant differ from the CQ variants.
-> GPIO138 is connected to the RGMII1_RX_CTL pin rather than the NFC ESE
-> Secure IO pin; the latter is connected to GPIO49. This incorrect
-> reservation causes the probe of the second Ethernet port to fail:
+On 09/09/2026 12:22, Fuad Tabba wrote:
+> On Tue, 8 Sept 2026 at 17:22, Suzuki K Poulose <suzuki.poulose@arm.com> wrote:
+>>
+>> From: Steven Price <steven.price@arm.com>
+>>
+>> To avoid future include cycles, drop the linux/kvm_host.h include in
+>> kvm_pgtable.h and include the lightweight headers required for the types
+>> and inline helpers used there. Additionally provide a forward
+>> declaration for struct kvm_s2_mmu as it's only used as a pointer in this
+>> file.
+>>
+>> Both pgtable.c and kvm_pkvm.h relied on the indirect inclusion of
+>> kvm_host.h, so make that explicit.
+>>
+>> Signed-off-by: Steven Price <steven.price@arm.com>
+>> ---
+>> New patch in v13
 > 
->   shikra-tlmm 500000.pinctrl: error -EINVAL: pin-138 (5d20000.ethernet)
->   shikra-tlmm 500000.pinctrl: error -EINVAL: could not request pin 138
->   (GPIO_138) from group gpio138 on device 500000.pinctrl
->   qcom-ethqos 5d20000.ethernet: Error applying setting, reverse things back
-> 
-> Replace gpio138 with gpio49 in the reserved list.
-> 
-> Fixes: 779aead2dace ("arm64: dts: qcom: shikra: Add gpio-reserved-ranges to tlmm")
-> Signed-off-by: Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>
-> ---
->  arch/arm64/boot/dts/qcom/shikra-iqs-som.dtsi | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
+> Is this meant to be here (the "New in patch 13")?
 
-This looks duplicating:
-https://lore.kernel.org/all/20260820085347.822-1-xueyao.an@oss.qualcomm.com/
+Just trying to carry the legacy, but yes, you're right. I could remove
+it. v13, is so ancient now :-)
 
-Best regards,
-Krzysztof
+
+> 
+> Reviewed-by: Fuad Tabba <fuad.tabba@linux.dev>
+
+Cheers
+Suzuki
+
+
+> 
+> Cheers,
+> /fuad
+> 
+> 
+>> ---
+>>   arch/arm64/include/asm/kvm_pgtable.h | 6 +++++-
+>>   arch/arm64/include/asm/kvm_pkvm.h    | 2 +-
+>>   arch/arm64/kvm/hyp/pgtable.c         | 1 +
+>>   3 files changed, 7 insertions(+), 2 deletions(-)
+>>
+>> diff --git a/arch/arm64/include/asm/kvm_pgtable.h b/arch/arm64/include/asm/kvm_pgtable.h
+>> index 41a8687938eb6..c2e4b29e605fc 100644
+>> --- a/arch/arm64/include/asm/kvm_pgtable.h
+>> +++ b/arch/arm64/include/asm/kvm_pgtable.h
+>> @@ -8,9 +8,13 @@
+>>   #define __ARM64_KVM_PGTABLE_H__
+>>
+>>   #include <linux/bits.h>
+>> -#include <linux/kvm_host.h>
+>> +#include <linux/kvm_types.h>
+>> +#include <linux/rbtree_types.h>
+>> +#include <linux/rcupdate.h>
+>>   #include <linux/types.h>
+>>
+>> +struct kvm_s2_mmu;
+>> +
+>>   #define KVM_PGTABLE_FIRST_LEVEL                -1
+>>   #define KVM_PGTABLE_LAST_LEVEL         3
+>>
+>> diff --git a/arch/arm64/include/asm/kvm_pkvm.h b/arch/arm64/include/asm/kvm_pkvm.h
+>> index beea00e693a0a..54a618d887fa4 100644
+>> --- a/arch/arm64/include/asm/kvm_pkvm.h
+>> +++ b/arch/arm64/include/asm/kvm_pkvm.h
+>> @@ -7,9 +7,9 @@
+>>   #define __ARM64_KVM_PKVM_H__
+>>
+>>   #include <linux/arm_ffa.h>
+>> +#include <linux/kvm_host.h>
+>>   #include <linux/memblock.h>
+>>   #include <linux/scatterlist.h>
+>> -#include <asm/kvm_host.h>
+>>   #include <asm/kvm_pgtable.h>
+>>
+>>   /* Maximum number of VMs that can co-exist under pKVM. */
+>> diff --git a/arch/arm64/kvm/hyp/pgtable.c b/arch/arm64/kvm/hyp/pgtable.c
+>> index b74dd5ce1efd3..f48253b9d88b5 100644
+>> --- a/arch/arm64/kvm/hyp/pgtable.c
+>> +++ b/arch/arm64/kvm/hyp/pgtable.c
+>> @@ -8,6 +8,7 @@
+>>    */
+>>
+>>   #include <linux/bitfield.h>
+>> +#include <linux/kvm_host.h>
+>>   #include <asm/kvm_pgtable.h>
+>>   #include <asm/stage2_pgtable.h>
+>>
+>> --
+>> 2.43.0
+>>
+
