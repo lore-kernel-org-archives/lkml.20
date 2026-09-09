@@ -1,107 +1,128 @@
-Received: from fhigh-b6-smtp.messagingengine.com (fhigh-b6-smtp.messagingengine.com [202.12.124.157])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9725559CB4;
-	Wed,  9 Sep 2026 12:59:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.157
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id AEA643DA7DF;
+	Wed,  9 Sep 2026 13:00:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788958794; cv=none; b=LRU3EyCNx+iWgMLqHa6oXJPIujAZkrUGXdYhQvYZy2HlvnC2sECUGcIn7u718oL7nvAROJ38a1Z0+OmimpQTJFgcp3U3d3GSVETYDFDoa9U5Befr2o8Obsd3+ew5E4AWTGrsKrtoIwD40AD1+/ujEBXkfPbGMefnYTOFYIztHUU=
+	t=1788958817; cv=none; b=Pvempw6nVD25/ejVqMCk6gGBgPxp+YZoUBvPufuMPbpCb5FDP6hRs6Ymia5W8735yt+A/+w/R5To3xZ73ZBrt8OgzaWV/4sDsZsDsKSVZl5Xgb5xgib2ZeLH8/Hhhl+r7M//rleR6ru7hs+p5KEd7xHqhRyg3lFcpfwnCvngoyM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788958794; c=relaxed/simple;
-	bh=Re0UMbz5B6dYFekMWDGv0Lf0R8sUJ2XLn2aDHe5PKYA=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=nMDSx26BqD+uFyShCVjuwWrfIxWLFEX8UQb5eLInBAK3QNUxCY6HtitkrJ7ClNujpaOFEJfer7TfX8hD8ejqSY0jRrPic2ezMUWX85FzQiXfEiEfbmF2ykHy0rWu5B5GKIfEpQnLwHtSzFyOKyulWI5hLxngSy19+BFZ54LhVYc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de; spf=pass smtp.mailfrom=arndb.de; dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b=Ak9iCaz3; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=BC68zb9J; arc=none smtp.client-ip=202.12.124.157
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
+	s=arc-20240116; t=1788958817; c=relaxed/simple;
+	bh=COoomdSG2FlqAOqhScp/Ic2bx4OeDuloT0b59UMRbdY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Disposition; b=K7edIsdE+ZvdqCn4lotMVsSje4uQk9jIAC2bOGHinmVTVWXUTu4fKBTUCpTjBpk7aah3s/HsOaddGQ3SjrARm8q6sxNA8RSbO5iiGQaYNRLZs+SCBZ5mRaV/gQCcVM67L0QA1IDazeV0pLZAbDSHXOLpmUyf+942jRCWJw4Jb+Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=s58mQgbn; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b="Ak9iCaz3";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="BC68zb9J"
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailfhigh.stl.internal (Postfix) with ESMTP id 1704A7A014F;
-	Wed,  9 Sep 2026 08:59:50 -0400 (EDT)
-Received: from ams-imap-03 ([10.64.2.23])
-  by ams-compute-02.internal (MEProxy); Wed, 09 Sep 2026 08:59:51 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm3; t=1788958790;
-	 x=1789045190; bh=8zhf+TDQlcHC0meo8ZuIOg6sMT5mzZL/5LvCcOMce9A=; b=
-	Ak9iCaz3Vvy5xQna7YMOa3pK4fcThlfPL3IGGuWL1Dw181Ce+3R0NRPLDWzCTQS5
-	2aQCRLOHB7pnNVvx9d1jf8imyFeXwVxRMUz6Xieucig2pA+DherQJk702oOo5tgN
-	VJY7zBFfoNSch5Ark5kYvp3Jv91RP+2AFiFrIUcIyz+k0J29qBEnqbQ9k+lGP/Cm
-	bc6vr0tlmDUKLI9UVEobUFOiwgwqpWDasN6lwE61KSxZW+3n232BC5uFD0nUMCII
-	U7wzoTMXDkDyOHvtDtia3ZacFVpWtBG9ma8DnAZH2o69VdZ3dwpCq/fa74pmiOlb
-	QTZ+/M3vvVu8xHjOoLSt6w==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1788958790; x=
-	1789045190; bh=8zhf+TDQlcHC0meo8ZuIOg6sMT5mzZL/5LvCcOMce9A=; b=B
-	C68zb9JZQVIQysYE4aN0gj68s5tFIMlC+yR2HwUT9Ifc7lRVDOvh6pSC9kEHtfgb
-	aDVs8+FRyHFmGxrDLo/BlGLIWYexVCvtuSI0keZhvI5XILMAxma0SUYpbTMxUp9g
-	F1eAupzQGoqS2tJh+S8IJzDx6rx2YZPJ7TXp478MUqoZKIEEqGaq++s3c3tGOOkF
-	Ak7Su/uOa9yC9Tew9eKcCT8fwM96tyitgja2mu97umYXeSQZPMxQqB0Pau/RGxMw
-	+1hTg8vGFXoe/qD/q7Xxmb97CwqtD0hvo4MjDIXTwo0zwT0bYi+GjuRaq3v3w+s+
-	agZInSK8mplMXisvvJdLQ==
-X-ME-Sender: <xms:QlihaqnMVRlouthNQiUEIbY4JQUEVM3syUbp_q_4LxwINFKduafJtA>
-    <xme:QlihasrNwvSPjqdnye2OVZLyBbVwBxy5BT8_TkbUxp4jwh1l43QuGFHOIpmPk7-aj
-    wk5pa8nwptuhFrjOIY4I1n-RCi2QDfHTzC79xD-zrbxALWrp0pRjBwH>
-X-ME-Proxy-Cause: dmFkZTGC31vnJ0JaqweK8/cFweDRiv/H0v3Nt7W19WG8LEDceLMjqRU37OJJuUmpCp7KwN
-    5ozi9WQE4bdAY3NwgJtevaehhtPCT6Y/fG30NzzoWbe+kNmQ7ywN1gPrA3IokSTIlasO3s
-    saJLGKgJXTjKehqYyt/sg/MHyq7nW5N2DJXTVEDunpVaUbYUGKLh+qxt5JootlEPtP0wr3
-    jXngtqCZCQBofm9yG2IZG/9+FGq5L+ojROYGuC7bvEZroBQCFiUtxpZys4DzJJ2QhrWWSc
-    7DjUx8WdXkUfYCxtNqcnyXOD517Ug5qVbv0zWzLyBMw3J0sq9QmG7ptzQQOSSE/rGeKYco
-    0BOe29H0B/E7IOX4pgRm/HcQEfjQmgBrn/JZWW9y7nRFaaNXkucilj5kCbzeriDRxAiNFw
-    4As6Lk95v2knoYjNysiDxrUNPfZA5YE6RL7TVwguqmu8Cu0wJDmtUhdhlgFyAH2VAeYn3T
-    PakmzKXPtqRWpFIcSddem6FbmyV5qvKS/bZ6/M2bW97CTSJWBSlSaDSmTaYW9pdqPVOFfn
-    xEV5CnqgG53HwriUrJIQFmgnf8edJl2TDmI7iK85zV2/WEyHmz8TW+isM1zkExY0pvhCI7
-    g8lx3DpAJ4RCfhLQ2xv3e0qHiuAtcG2kAQ7tHxjD9ZD6CsTi/Mummv3ungpg
-X-ME-Proxy: <xmx:RFihajVuORHTR3BxOzW8vwq98g_W30Wa5cTqRitwuOpUAM1aOqkUPg>
-    <xmx:RFihauJqB7B0ofIe2eiB-BE0EY9ewsDC9qpNGA1pQwUd5y5E0TfM8Q>
-    <xmx:RFihajBjpaiYKf_tj-dxj06cPo6w8L4PYoJKLoRq1K03wqrhvgEYaA>
-    <xmx:RFihaucQVYOxwWpQScrj64-t94cSC90wLoT50c3CE9niUikQ5dQZYA>
-    <xmx:RlihavqK2_u7agAVOD5lTR1dV7atSAhfDW8Y1JHuQUGPFOMKgo_cT5nI>
-Feedback-ID: i56a14606:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id D99BC32A007E; Wed,  9 Sep 2026 08:59:46 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="s58mQgbn"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 52BEA1691;
+	Wed,  9 Sep 2026 06:00:11 -0700 (PDT)
+Received: from LeoBrasDK.cambridge.arm.com (LeoBrasDK.cambridge.arm.com [10.2.212.21])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 545113F7B4;
+	Wed,  9 Sep 2026 06:00:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1788958815; bh=COoomdSG2FlqAOqhScp/Ic2bx4OeDuloT0b59UMRbdY=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=s58mQgbnP66N0tSsR0ISNWZsvL2/PwI5BHGINryKYJdKCuLFiMKLHOvStA5xDsP4h
+	 HqJj8VAURT88yoH+vmDsR5Yo4Ea99qNf7dbdm+V55Qia3YuxFhOXOL8gqZ/CPX+7VP
+	 LVy3xukrI30eMDBzoMp9lI45Uq4J0Wnq6ZUaoJPQ=
+From: Leonardo Bras <leo.bras@arm.com>
+To: Mark Brown <broonie@kernel.org>
+Cc: Leonardo Bras <leo.bras@arm.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Marc Zyngier <maz@kernel.org>,
+	Joey Gouly <joey.gouly@arm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Shuah Khan <shuah@kernel.org>,
+	Oliver Upton <oupton@kernel.org>,
+	Fuad Tabba <fuad.tabba@linux.dev>,
+	Peter Maydell <peter.maydell@linaro.org>,
+	Wei-Lin Chang <weilin.chang@arm.com>,
+	Yao Yuan <yaoyuan@linux.alibaba.com>,
+	linux-arm-kernel@lists.infradead.org,
+	linux-doc@vger.kernel.org,
+	kvmarm@lists.linux.dev,
+	linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v20 07/14] KVM: arm64: Forward GCS exceptions to nested guests
+Date: Wed,  9 Sep 2026 14:00:06 +0100
+Message-ID: <aqFYVnIgvXGXzHk7@LeoBrasDK>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260901-arm64-gcs-v20-7-f31750bdfadb@kernel.org>
+References: <20260901-arm64-gcs-v20-0-f31750bdfadb@kernel.org> <20260901-arm64-gcs-v20-7-f31750bdfadb@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ThreadId: APMnH2YU8Ow3
-Date: Wed, 09 Sep 2026 14:59:26 +0200
-From: "Arnd Bergmann" <arnd@arndb.de>
-To: "Julian Braha" <julianbraha@gmail.com>, lgirdwood@gmail.com,
- "Mark Brown" <broonie@kernel.org>, "Jaroslav Kysela" <perex@perex.cz>,
- tiwai@suse.com
-Cc: "Charles Keepax" <ckeepax@opensource.cirrus.com>,
- linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org
-Message-Id: <b703cbad-b3f9-49ce-aba6-f83c365bb99c@app.fastmail.com>
-In-Reply-To: <20260909125636.3560050-1-julianbraha@gmail.com>
-References: <20260909125636.3560050-1-julianbraha@gmail.com>
-Subject: Re: [RESEND PATCH] ALSA: ASoC: fix unmet dependency for SND_SOC_DB1200
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
 
-On Wed, Sep 9, 2026, at 14:56, julianbraha wrote:
-> SND_SOC_DB1200 selects SND_SOC_WM8731_I2C without ensuring its
-> dependency, I2C is enabled. This causes an unmet dependency when
-> SND_SOC_DB1200 is enabled without I2C.
->
-> Let's add a dependency on I2C, as similar options in this subsystem do.
->
-> This unmet dependency was found by kconfirm, a static analysis tool for
-> Kconfig.
->
-> Fixes: 9dc15f81baf2 ("ASoC: wm8731: Factor out the I2C and SPI bus code 
-> into separate modules")
->
-> Signed-off-by: julianbraha <julianbraha@gmail.com>
+On Tue, Sep 01, 2026 at 10:47:05PM +0100, Mark Brown wrote:
+> For nested guests where HFGITR_EL2.nGCSSTR_EL1 is clear or when there are
+> L2 GCS data check exceptions we need to forward the exception to the guest.
+> Add handling to do so.
+> 
+> Signed-off-by: Mark Brown <broonie@kernel.org>
+> ---
+>  arch/arm64/kvm/handle_exit.c | 18 +++++++++++++++---
+>  1 file changed, 15 insertions(+), 3 deletions(-)
+> 
+> diff --git a/arch/arm64/kvm/handle_exit.c b/arch/arm64/kvm/handle_exit.c
+> index db37678dcb05..a8198e96fcb4 100644
+> --- a/arch/arm64/kvm/handle_exit.c
+> +++ b/arch/arm64/kvm/handle_exit.c
+> @@ -304,12 +304,24 @@ static int handle_svc(struct kvm_vcpu *vcpu)
+>  	return 1;
+>  }
+>  
+> +/*
+> + * We might get GCS exceptions that need to be forwarded to the
+> + * hypervisor when a nested guest has HFGITR_EL2.nGCSSTR_EL1 clear, or
+> + * for a GCS data check exception for a L2 guest.
+> + */
+>  static int kvm_handle_gcs(struct kvm_vcpu *vcpu)
+>  {
+> -	/* We don't expect GCS, so treat it with contempt */
+> -	if (kvm_has_feat(vcpu->kvm, ID_AA64PFR1_EL1, GCS, IMP))
+> -		WARN_ON_ONCE(1);
+> +	if (!kvm_has_gcs(vcpu->kvm)) {
+> +		kvm_inject_undefined(vcpu);
+> +		return 1;
+> +	}
+>  
+> +	if (vcpu_has_nv(vcpu)) {
+> +		kvm_inject_nested_sync(vcpu, kvm_vcpu_get_esr(vcpu));
+> +		return 1;
+> +	}
+> +
+> +	WARN_ON_ONCE(1);
+>  	kvm_inject_undefined(vcpu);
+>  	return 1;
+>  }
 
-Acked-by: Arnd Bergmann <arnd@arndb.de>
+Oh handle_gcs, if kvm_has_gcs() && kvm_has_nv() -> Inject synchronous 
+exception. Makes sense.
+
+(it kept bothering me that the !gcs and the gcs case do the same thing, 
+except for a warn_once. So I thougt on suggesting:
+
++	if (!kvm_has_gcs(vcpu->kvm))
++		goto inject_undef;
+[...]
++	WARN_ON_ONCE(1);
++inject_undef:
+>       kvm_inject_undefined(vcpu);
+>       return 1;
+
+But after it was done it did not look better.)
+
+
+So, FWIW:
+Reviewed-by: Leonardo Bras <leo.bras@arm.com>
+
+Thanks!
+Leo
