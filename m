@@ -1,160 +1,87 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com [209.85.128.70])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 015A743CE7E;
-	Wed,  9 Sep 2026 09:36:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 788C145348D
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 09:37:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.70
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788946617; cv=none; b=lRdl/XMo0GtMpJZRqfPyhudIjP1exm+4EpSC9OI/HMc8J24KSxgRsU33D9znyj3TJP5T0hamXxtidUvX3B4Zqo5J/WsulalKG7udt2LX5pbSbZ03iY6Q9LjznoYD0Y0HLw4JFyEZRTqTr3Lsodh6uAZLHTDW1/jEfClbxHoN8YA=
+	t=1788946639; cv=none; b=gVMqoOJoavPjAda+zTdY+YGffsIX0ahUXYtljMU0z6aKsvetrzjVMbfFiah+hxDWX+wjY/bPQzi6ALcgMPKxV1yF+21VE2CQMVtujDtNGjApNPbcV/O9u9pDazHuR8nvuw4eMJ9FPLftPJmFuVV//e3D5LoPAW7oDxycCSRXDP4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788946617; c=relaxed/simple;
-	bh=gtdN4LNeuPVCb5WEafuay1ViQVfuEkdz9joF72/XfMo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=D5hXyzBiLgzWUHXyIyTrzzCt3L1k14dRcHBsbH9cvq3CXQgPL0lzBe4aLri+KQ4HZ5/9oFI52l0rYfXst5kq/mmtM+ZAzYf1aWiiKyI3COZ5LB6cTZbozqeQIjzi3/9smVcmghps1y+7GH1Or8Sr1Tz57cEFbfOixgIBKevY2qI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=IsH31zph; arc=none smtp.client-ip=198.175.65.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1788946639; c=relaxed/simple;
+	bh=CoR+vQjBubRI4wv3EktisroBpu3v3oIwSCS6EuZEAYs=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=bGAH5tvJFXadYS3TwNjNd9Ljp4ymBxcsmq5bDdMgme/J8xeIAwLI5326ksuryko+0GsKW/cfdTA2OQpreEUr/Guc7iBZXAu3D6qd49JWC9+Ce/QBUGmcxNl9gZpau+i4D++UY4HsbL7H/KjvRQd8eZdt1UaAW9J/tteUExN4ch8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=pFt4uUWD; arc=none smtp.client-ip=209.85.128.70
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="IsH31zph"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788946613; x=1820482613;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=gtdN4LNeuPVCb5WEafuay1ViQVfuEkdz9joF72/XfMo=;
-  b=IsH31zphQfRTTo7pq5iRulOeDe0fHeqRDtOexa3MwaTnfMng7ADLMurj
-   /bMaYC2uWRvTrumhrCW7hPZBxf20D5VAdH2E3iSgv6dyobJaDdrpgYkTb
-   UpuH0ATffZ3zzlD1G0QXDzOT07T827MO3HjyV80RRvwT48PGxMUHlEh/1
-   ImhHWmMydxinh5WCzUV/gcFGg8PJhrzTvIzX/HneMTurUj1TQDJPTq1OS
-   V8Sq322998bXwTFOLJQodfi43ZxFJlmDKBy+7Bijsqy0MeGgQSou0lr4d
-   wBA71xCU+bqZdq217Y3o87crrri/K4yPkQ3Ru/3+iA+ElmWl5cKCAk8RU
-   Q==;
-X-CSE-ConnectionGUID: bd28EUVWQziUe5DHr4oAJA==
-X-CSE-MsgGUID: lPwZG/lnSZiAxN7msKMZ9w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11900"; a="89397072"
-X-IronPort-AV: E=Sophos;i="6.25,270,1779174000"; 
-   d="scan'208";a="89397072"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
-  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Sep 2026 02:36:51 -0700
-X-CSE-ConnectionGUID: a616dES4QkikDtTccGBMuA==
-X-CSE-MsgGUID: iyw9qPkWSwqDH20+p4eCsA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,270,1779174000"; 
-   d="scan'208";a="266980263"
-Received: from dapengmi-mobl1.ccr.corp.intel.com (HELO [10.124.241.239]) ([10.124.241.239])
-  by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Sep 2026 02:36:47 -0700
-Message-ID: <19a610df-530a-4397-9fb6-a1e12251c987@linux.intel.com>
-Date: Wed, 9 Sep 2026 17:36:45 +0800
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="pFt4uUWD"
+Received: by mail-wm1-f70.google.com with SMTP id 5b1f17b1804b1-49cdc4080ddso32691175e9.1
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 02:37:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1788946633; x=1789551433; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=CoR+vQjBubRI4wv3EktisroBpu3v3oIwSCS6EuZEAYs=;
+        b=pFt4uUWD/uFr9iWectDGs9IfshhdzMdo5NtOOMGPKE1aaWS26gjmqizlUGu9XVo38q
+         eKm5rMzihT59HVAb+7G175cc074xPO6kLP5rzL+A8rTpcx6JO2V6XbZ1AjRSSf5vxEhg
+         iEFdRx+KQ8y9SdyqO5HES+XF6wpBFkU4+CDSuLVtdH0UmilvfQFO+IL/xXhIbCcsBwNX
+         /uafc41c+b+Y60bmNsYAJBnFOiRVff7ibK79ZKWF/Q1DzMPYf66z5TroIvwuYjye43A9
+         nqiEU1UlM86+9KLZSqcLXnrFUJZFRQ8mk810mIyubG9e2cTEIapi+WFkWRiEUtWOejIc
+         OWZg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788946633; x=1789551433;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=CoR+vQjBubRI4wv3EktisroBpu3v3oIwSCS6EuZEAYs=;
+        b=aPHg5p+FhDSIeOtP/S6AJV4epaQ31R7W0xB5VZv9NdX86xTlu0gi2eJQS6js7kBuxd
+         NeLCs1Q10nGnwGuQ2Ey1zKKJIxTFlyDv865X1Z4x0sZFFMaMNTIiQ8WaFKsDU9pwWFjh
+         0XkS3/bhrOrwepvVCXuKaFCsLBzUP2P+UIVtTwTeLONPE2OqWdr8kHjBB7Gh3AhkvttK
+         EDXjJmWoVeWd7QCa2tpkJiV0+/HmYx4m9txF0ZoulV6bPXa6x/+YD7Qpvei+M5TYxCGQ
+         NUp72H/RfpLSRSsHfdRdDnIDU/wqYT/uuyYISiad8a+Vyq+GCxmzcvAi7SiemgSHILEk
+         lhHQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxOs8YaRyWZUAvYOqKvX8FPGJTend7aPuyVyZmAxisocskcI847rE/awEV3p9yiOliX9gaRNxb3s/BU+tE=@vger.kernel.org
+X-Gm-Message-State: AFuF++lguf6wLhLExtedC1irsSyzbp/S3ahszEq6RR/bbkO7OKt64Xxf
+	af+WhaH1SHxxiorGqp0HACUtyKJ8RGvNCRhBsp9UoaX7zGGTzy8bkIaUIabM2mw39ueFPKE0Ifm
+	IMHUrScJ2BL+tFg1u1w==
+X-Received: from wmnu16.prod.google.com ([2002:a05:600c:4410:b0:49c:f5c2:d311])
+ (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:600c:1c21:b0:49d:1e79:35d6 with SMTP id 5b1f17b1804b1-49d1e79368dmr64831015e9.14.1788946632676;
+ Wed, 09 Sep 2026 02:37:12 -0700 (PDT)
+Date: Wed, 9 Sep 2026 09:37:11 +0000
+In-Reply-To: <20260826131213.1820408-2-beata.michalska@arm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] perf/x86: Disable precise sampling for
- PERF_SAMPLE_STACK_USER
-To: Peter Zijlstra <peterz@infradead.org>, Ian Rogers <irogers@google.com>
-Cc: Andi Kleen <ak@linux.intel.com>, Ingo Molnar <mingo@redhat.com>,
- Arnaldo Carvalho de Melo <acme@kernel.org>,
- Namhyung Kim <namhyung@kernel.org>, Adrian Hunter <adrian.hunter@intel.com>,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- Eranian Stephane <eranian@google.com>, linux-kernel@vger.kernel.org,
- linux-perf-users@vger.kernel.org, Dapeng Mi <dapeng1.mi@intel.com>,
- Zide Chen <zide.chen@intel.com>, Falcon Thomas <thomas.falcon@intel.com>,
- Xudong Hao <xudong.hao@intel.com>, Gennady Kupava
- <gennady.kupava@gmail.com>, Ravi Bangoria <ravi.bangoria@amd.com>
-References: <20260908075102.540715-1-dapeng1.mi@linux.intel.com>
- <20260908075102.540715-2-dapeng1.mi@linux.intel.com>
- <20260908084906.GO4121339@noisy.programming.kicks-ass.net>
- <1691a05c-49a6-4b16-8bad-cb3c004ed07c@linux.intel.com>
- <20260908101914.GQ4121339@noisy.programming.kicks-ass.net>
- <aqAlddsFPYJvRhFr@tassilo>
- <CAP-5=fWbSNYpt8p3e+pqjY+xhqs8WrzsBfPaKB1NLBm88mH8Yg@mail.gmail.com>
- <20260909081101.GS4121339@noisy.programming.kicks-ass.net>
-Content-Language: en-US
-From: "Mi, Dapeng" <dapeng1.mi@linux.intel.com>
-In-Reply-To: <20260909081101.GS4121339@noisy.programming.kicks-ass.net>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+References: <20260826131213.1820408-1-beata.michalska@arm.com> <20260826131213.1820408-2-beata.michalska@arm.com>
+Message-ID: <aqEox8rYYBcfxtrN@google.com>
+Subject: Re: [PATCH v3 1/3] rust: add runtime PM support
+From: Alice Ryhl <aliceryhl@google.com>
+To: Beata Michalska <beata.michalska@arm.com>
+Cc: ojeda@kernel.org, dakr@kernel.org, gregkh@linuxfoundation.org, 
+	rafael@kernel.org, boqun@kernel.org, gary@garyguo.net, 
+	bjorn3_gh@protonmail.com, lossin@kernel.org, a.hindborg@kernel.org, 
+	tmgross@umich.edu, daniel.almeida@collabora.com, 
+	boris.brezillon@collabora.com, work@onurozkan.dev, samitolvanen@google.com, 
+	acourbot@nvidia.com, rust-for-linux@vger.kernel.org, 
+	driver-core@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	linux-pm@vger.kernel.org
+Content-Type: text/plain; charset="utf-8"
 
+On Wed, Aug 26, 2026 at 03:10:55PM +0200, Beata Michalska wrote:
+> +/// Result type returned by runtime PM callbacks.
+> +pub type PMCallbackResult<T> = Result<Option<T>, (Option<T>, Error)>;
 
-On 9/9/2026 4:11 PM, Peter Zijlstra wrote:
-> On Tue, Sep 08, 2026 at 01:56:56PM -0700, Ian Rogers wrote:
->> On Tue, Sep 8, 2026 at 8:10 AM Andi Kleen <ak@linux.intel.com> wrote:
->>>> That's what we already do, no? I have distinct memories of making the
->>>> stack unwind use the NMI regs rather then the PEBS regs.
->>>>
->>>>> In my opinion, it could even make the thing worse. User
->>>>> requires to get precise samplings, but perf silently returns imprecise
->>>>> records, this would mislead user.
->>>> Mostly just the unwind might be off a little, the rest is accurate. This
->>>> has been the case 'forever'. Performance analysis isn't for silly
->>>> people, if they can't deal with a little fuzz then perhaps they're in
->>>> the wrong business.
->>> Is the main problem that the stack doesn't agree? Perhaps there
->>> could be a check for regs->rsp == pebs->user rsp (if in user space)
->>> to detect problematic samples.
->>>
->>> The question is how to report it and who should do the checking.
->>>
->>> It may need new fields in the ABI either to communicate the extra PEBS RSP
->>> or a bit to indicate that there might be a mismatch.
->>>
->>> I guess checking in the kernel and reporting an error might be simpler
->>> and maybe cleaner, but it would likely limit more advanced recovery
->>> possibilities.
->>>
->>> Are there other mismatches that break the unwinding? Perhaps the same
->>> for RBP?
->> For DWARF unwinding any register may be the source of a frame pointer
->> (e.g. the OpenSSL library would use R11 rather than RBP).
->>
->> There is redundancy on x86 you can sample the PERF_REG_X86_IP register
->> in the user register and there is PERF_SAMPLE_IP in the sample event
->> itself.
->>
->> My understanding is that IBS can only sample IP and so for precise
->> samples we can use PERF_SAMPLE_IP as the precise location and the user
->> register PERF_REG_X86_IP as the interrupt IP - this would match the
->> other register values in the interrupt.
->>
->> In DWARF unwinding, we initialize the register state using the sampled
->> user registers:
-> Oh, I had trouble reading yesterday :/ This is about USER_STACK, not
-> CALLCHAIN.
+So I think my number one feedback is that it would be really nice to get
+rid of this Option.
 
-Yes, this is about USR_STACK. The CALLCHAIN doesn't suffer this issue since
-perf already returns an IP chain and user space can directly map them to
-the symbols without depending on any register or stack snapshots. :)
+> +/// Runtime PM data stored within the `struct device_private' during
 
+Should be ` ... ` rather than ' to render correctly in html docs.
 
->
-> I think we should try very hard to not use USER_STACK, it is an
-> abomination. Instead we really should improve CALLCHAIN to be more
-> useful. There are a pile of patches for kernel based unwinders,
-> including for .eh_frame (if only I had time to actually go look at
-> them).
->
-> And we should probably look at doing a shadow stack based unwinder as
-> well.
->
-> This USER_STACK is really the absolute worst possible option. And
-> perhaps refusing PEBS+USER_STACK makes sense.
-
-If no others insist to implement the precise USER_STACK sampling (what Ian
-suggested), I would give up for sending the drafted precise USER_STACK
-sampling patches. Per my understanding, refusing precise USER_STACK
-sampling what current version does is a cleaner and simpler way.
-Supporting precise USER_STACK sampling inevitably complexes the PEBS/IBS
-handling.
-
-BTW, currently perf tools already support the events creation fallback. As
-long as user doesn't explicitly require precise USER_STACK sampling, the
-USER_STACK sampling (--call-graph dwarf) would automatically fallback to
-the PMI-based USER_STACK sampling after the initial precise USER_STACK
-sampling try fails. So it won't really lead to the USER_STACK sampling fails. 
-
-Thanks.
-
-
+Alice
