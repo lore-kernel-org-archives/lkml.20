@@ -1,162 +1,62 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 91B1046984F;
-	Wed,  9 Sep 2026 08:25:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A73243F8D4;
+	Wed,  9 Sep 2026 08:26:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788942330; cv=none; b=AkHdhBA6m8f24HpYAVIAaHr+vOM0ZYN2umbwHnNEoMhv9ZYvyujJgkvIiCV5iFurz46WPuYZimL0U1nSDXYH7AQtA33uUWbsQfdtCkc8ceRoX6srePnyQSXuswe56V4adx+DeRfaoBoyS7WNzA0E22YK+DV0S8taE0dOkTfg/jU=
+	t=1788942389; cv=none; b=QAgHZ5seKzhEc3W216lBeLIF/7H5s4/8R/5Q0h9DRrwfzxs75QGALOrmrRB4hlg2HVBaBbfIsVqY3n35ouDSqPFTwKyZv/vLTx/4NGajWpZFNbeQE7krB+fBLCTluD/zSqRaphRAaF5o/wmmoAH0CjtqPFpdXUaQeUmIa8GqPC0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788942330; c=relaxed/simple;
-	bh=N24DhcCC5ydA9nr2zsNvy8r3yE4PWUoxuwS0bDkHXGM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=NJ+m1/Qt0A5OWpLKeNkiUHUS+QaZvhydCCjTvBVzSCgC4tzw4hDItjlanayTi7GFyy8tcuC+GunSfAUm8MPdhXfT/NH4Ts44xJzTgrAjP1nyK/2X0eDDH4ak41vea3ayRr+Ei5/afeiezE7fDX9ltz57jH5Vopq85nawZD64zCw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=Ing/0ysP; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1788942389; c=relaxed/simple;
+	bh=3HL2xlzweF3ntRDobRFAjcOI9mzIS+oicd6CAejua20=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=d1VW+d/ro28+eh40j0MVn8rxXfY/ErgVwtqLitGE6pqz0yQTt6cZxv+0GBQoe0nozSjoJcDnG0GPgJC/qR6Z64jhCyDiVDJPvu4BNJy4ecoQWS3xgD411RYYhGZ2aawcJew41LaCS+IAdbVYsilASey3U3lRi9YyVenbZODmbOw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lmOQijkz; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="Ing/0ysP"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 3ACB51576;
-	Wed,  9 Sep 2026 01:25:21 -0700 (PDT)
-Received: from [10.2.197.99] (ewhatever.cambridge.arm.com [10.2.197.99])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id D21C23F86C;
-	Wed,  9 Sep 2026 01:25:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1788942324; bh=N24DhcCC5ydA9nr2zsNvy8r3yE4PWUoxuwS0bDkHXGM=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=Ing/0ysP1l94WDE2visx2y8ApcV1aD4pOHBc2/CvCfjdX59lB3dHvS/pA1ieQ8+4K
-	 Mki0U3i0ObXJB8GhUpnMkFyhjRr4zVW/0Q9fk3qRFpUJyiftQu1YoR4p7vYb9puCAb
-	 p9Ix0TzUWBl2hkWAUsOIwnfHiowf7LmPqbBb+XW4=
-Message-ID: <5e6ce734-d2e8-40b5-a76a-a6c591047123@arm.com>
-Date: Wed, 9 Sep 2026 09:25:20 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lmOQijkz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A70B1F00A3A;
+	Wed,  9 Sep 2026 08:26:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788942386;
+	bh=QIGfvCfOQJAE4icgenOha77EcH8CayIs5qvqBgou88A=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=lmOQijkzsS43CgNsuhr1NodI2f94LyoS5ZUF/Bbf3EDX4VBK3xK9zPp8xDv+ENd0O
+	 01F+pUt/inTAFYA26A/C+htkBXDnZHeZGPqc/pW9SrZo+sm1i0kY/c0JlVBpVhKi3M
+	 9Uf4UdMDqI8yYukCElCliPsDrg6AmQf1YVmKUjJmX0zPsT3rQBOs6P1bzrBt7x0t1h
+	 TOWogpCVNC7UHvFnPefO/Mu/LAJbcjmTXtsWTtmPoYFpZ1BwklfRq3EmjxY3JJEpXh
+	 sqIBl7XWqTivIVlOJkUkTAR5GT/FILAl6vLfmvK9wSthIWXPQxQfSShrtKrdrWzCH6
+	 1m8ejAFPBL+rg==
+Date: Wed, 9 Sep 2026 10:26:21 +0200
+From: Thorsten Blum <blum@kernel.org>
+To: Michael Tretter <m.tretter@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH RESEND] media: i2c: isl7998x: Inline
+ i2c_check_functionality() check
+Message-ID: <aqEYLaBDiXIqU9pl@kernel.org>
+References: <20260909075032.409159-2-blum@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v17 5/7] firmware: arm_rmm: Activate the RMM
-To: Gavin Shan <gshan@redhat.com>, kvm@vger.kernel.org, kvmarm@lists.linux.dev
-Cc: maz@kernel.org, will@kernel.org, catalin.marinas@arm.com,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- steven.price@arm.com, aneesh.kumar@kernel.org, oupton@kernel.org,
- joey.gouly@arm.com, tabba@google.com, yuzenghui@huawei.com,
- linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com,
- sdonthineni@nvidia.com, alpergun@google.com, fj0570is@fujitsu.com,
- WeiLin.Chang@arm.com, lpieralisi@kernel.org, enju.kohei@fujitsu.com
-References: <20260907095942.1140734-1-suzuki.poulose@arm.com>
- <20260907095942.1140734-6-suzuki.poulose@arm.com>
- <aac304fa-a371-4210-8703-74281c9748f8@redhat.com>
-Content-Language: en-US
-From: Suzuki K Poulose <suzuki.poulose@arm.com>
-In-Reply-To: <aac304fa-a371-4210-8703-74281c9748f8@redhat.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260909075032.409159-2-blum@kernel.org>
 
-On 09/09/2026 05:29, Gavin Shan wrote:
-> Hi Suzuki,
+On Wed, Sep 09, 2026 at 09:50:33AM +0200, Thorsten Blum wrote:
+> Inline the i2c_check_functionality() check, since the function returns a
+> boolean status rather than an error code.
 > 
-> On 9/7/26 7:59 PM, Suzuki K Poulose wrote:
->> From: Steven Price <steven.price@arm.com>
->>
->> Activate the RMM after the basic configuration. This is a memory 
->> transferring,
->> stateful operation.
->>
->> Signed-off-by: Steven Price <steven.price@arm.com>
->> Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>
->> ---
->> Changes since v16:
->>   * Split into a new patch
->> ---
->>   drivers/firmware/arm_rmm/rmi.c | 17 +++++++++++++++--
->>   include/linux/arm-rmi-cmds.h   | 11 +++++++++++
->>   2 files changed, 26 insertions(+), 2 deletions(-)
->>
->> diff --git a/drivers/firmware/arm_rmm/rmi.c b/drivers/firmware/ 
->> arm_rmm/rmi.c
->> index 42c973c3a98bb..d969c8738efde 100644
->> --- a/drivers/firmware/arm_rmm/rmi.c
->> +++ b/drivers/firmware/arm_rmm/rmi.c
->> @@ -641,7 +641,8 @@ static int rmi_configure(void)
->>   static int __init arm64_init_rmi(void)
->>   {
->> -    int ret;
->> +    int ret = 0;
->> +    struct rmi_sro_state *sro = NULL;
-> 
-> Why we need to initialize those local variables ('ret' and 'sro')? :-)
-> Also, we can use the scope-based cleanup function supported by cleanup.h
-> for @sro.
-> 
->      struct smi_sro_state *sro __free(kfree) = NULL;
-> 
-> With the scope-based cleanup in place, we needn't explict 'kfree(sro)' at
-> end of this function.
-> 
+> Reviewed-by: Michael Tretter <m.tretter@pengutronix.de>
+> Signed-off-by: Thorsten Blum <blum@kernel.org>
+> ---
+>  drivers/media/i2c/isl7998x.c | 3 +--
+>  1 file changed, 1 insertion(+), 2 deletions(-)
 
-Ack.
+I just sent this to Wolfram directly as part of a small series [1] for
+him to apply. Please ignore this earlier resend from today.
 
->>       /* Continue without realm support if we can't agree on a version */
->>       ret = rmi_check_version();
->> @@ -656,7 +657,19 @@ static int __init arm64_init_rmi(void)
->>       if (ret)
->>           return ret;
->> -    return 0;
->> +    /* Activate the RMM */
->> +    sro = kmalloc_obj(*sro);
->> +    if (!sro)
->> +        return -ENOMEM;
-> 
->      if (!sro) {
->          pr_err("Unable to alloc SRO object for RMM activation\n");
->          return -ENOMEM;
->      }
-> 
-
-Ack
-
->> +
->> +    ret = rmi_rmm_activate(sro);
->> +    if (ret) {
->> +        pr_err("RMM activate failed\n");
->> +        ret = ret < 0 ? ret : -ENXIO;
->> +    }
->> +
->> +    kfree(sro);
->> +    return ret;
->>   }
->>   /*
->> diff --git a/include/linux/arm-rmi-cmds.h b/include/linux/arm-rmi-cmds.h
->> index fed0f3421895d..dea7c7004d35f 100644
->> --- a/include/linux/arm-rmi-cmds.h
->> +++ b/include/linux/arm-rmi-cmds.h
->> @@ -64,6 +64,17 @@ static inline int rmi_rmm_config_set(unsigned long 
->> cfg_ptr)
->>       return res.a0;
->>   }
->> +/**
->> + * rmi_rmm_activate() - Activate the RMM
->> + * @sro: Preallocated SRO context to be used
->> + *
->> + * Return: 0 on success, positive RMI result code or negative Linux 
->> error code
->> + */
->> +static inline long rmi_rmm_activate(struct rmi_sro_state *sro)
->> +{
->> +    return rmi_sro_memxfer_cmd(sro, GFP_KERNEL, SMC_RMI_RMM_ACTIVATE);
->> +}
->> +
-> 
-> rmi_rmm_acvivate() would be used for once by rmi.c::arm64_init_rmi(). Lets
-> not expose the function by combining the logic to rmi.c::arm64_init_rmi().
-
-Have done that already in my local tree.
-
-
-Thanks for the review.
-
-Cheers
-Suzuki
-
-
+[1] https://lore.kernel.org/r/20260909082053.410739-4-blum@kernel.org/
