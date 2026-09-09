@@ -1,205 +1,133 @@
-Received: from mail-yw1-f181.google.com (mail-yw1-f181.google.com [209.85.128.181])
+Received: from mail-yx2-f12.google.com (mail-yx2-f12.google.com [74.125.224.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD472569F16
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 15:03:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3323E4FB9AE
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 15:03:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788966190; cv=none; b=hr1sWI75pAGnjNWlvk8g9ODhJTf57M1Z7gtoqPESOCYF7ZHEWgqX3Es88tQvRN1xz67kaLP8QIfmz7nVQe9Ar3XVtSKCBd4tf+ChmechuyphiE3/NuwEBZbTYFgty74pAQDYp0qcnAO+at3jdKrZNDKEXcr1TwaZdgu7uzj5Ho0=
+	t=1788966213; cv=none; b=ql18757oT6gL+CXIEJQZhN6EzlT1aVo3X1EL2j5A54Ko8AecsIpo2AMYvdd6UrGAOpfskwUOrSi2ZcoLYJvJntQbuYYWJNLEHuhaaTZKV0npZHs+61SQfKzKSpcYFjVpUz86BoYEUvQDt++xFM93WUxZVciG8dT13NXXSdvE1FM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788966190; c=relaxed/simple;
-	bh=vg5wLuB4etETWKLml46RDi0Srj8Dfg2y4E8bi7SKsf8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=HSxFIUkzJuBIPwb5OuAdzvf5WO/MA0iPXJWvD6I31mvj/ZfuP5jgQPaj9z3aYxcuJYNq17PcmkFfV4+1O6wb6PVSYoeWXqXC1d+bsLUIB/c0+nY//mDNyi/8LPe4mkQ4UYdC3OQo07kGhSscTLNY/r1iXnejTQIGirS601UEjjQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.tenstorrent.com; spf=pass smtp.mailfrom=tenstorrent.com; dkim=pass (2048-bit key) header.d=tenstorrent.com header.i=@tenstorrent.com header.b=dGYoOzDY; arc=none smtp.client-ip=209.85.128.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.tenstorrent.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tenstorrent.com
+	s=arc-20240116; t=1788966213; c=relaxed/simple;
+	bh=HHNm5/zc77jcYLLmGgqPDR+NQaIoL0CJyojjLcJtZKc=;
+	h=Date:From:To:Cc:Message-ID:In-Reply-To:References:Subject:
+	 MIME-Version:Content-Type; b=iRcuYoS6gVKnGd8goS1Bvu7+0qVhNiO0IJQsWpSvNiruqh0a0Op/2PXQ6slXDE162h8Ws1pNQ1KKBaPqW7PMcu0ttygPKq4QkAwjYD+DvM7pKpQxH5COwlKj2nAWtUMMegchtx9RlbIJs0uFe69i+0DVk+OiobNP2ChtrpjKkuM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pe4eIKu1; arc=none smtp.client-ip=74.125.224.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tenstorrent.com header.i=@tenstorrent.com header.b="dGYoOzDY"
-Received: by mail-yw1-f181.google.com with SMTP id 00721157ae682-81ecf499af9so82218257b3.1
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 08:03:06 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pe4eIKu1"
+Received: by mail-yx2-f12.google.com with SMTP id 956f58d0204a3-66e56a1b327so1176607d50.0
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 08:03:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=tenstorrent.com; s=google; t=1788966185; x=1789570985; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=rRcHj/Y7sCFM6BIjv/vAHj4iQa4l8MfJuugG+12Z+qU=;
-        b=dGYoOzDYjNUA665jd/1/qmNfByNncUCzGuUoQgGgCL53PFNHCfdoL9MX65yUcn/qvH
-         nNBP0FOo1k23vq5l7OLdZxMpYDqsRkqCgx3e7EytETcyl1PYDJLxErUymc0Kc/eVGNCA
-         Q9wJeFAxNVrRy/v8aWGt7c4AN+8Sxv4OiW/CqI0arYQBBl/hHUFtugthg9LUbycmu/Ev
-         NzmTozGaNq0wzKg7z/v2hV5CUsWGFgjZFE6l1cLoC2Uw2Q4sjI5m8NnLsnArAB5Jeblu
-         T+yO9kq1LWDg3rHRRqc0W4tPbq1zB6n+7roChTGFQeTna3wD8IgTBmDw92FEEphr3Lld
-         vn2Q==
+        d=gmail.com; s=20251104; t=1788966211; x=1789571011; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:subject
+         :references:in-reply-to:message-id:cc:to:from:date:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=08HkDWgh1+HEX92rfdOLS5P3VBFy/7LtpPCQPcLhVmk=;
+        b=pe4eIKu1NcigxbYAhfQnp88yJbDzdBiP5VV/aE31+JK7IdCbd1L4QsQb2xQLMRr9k3
+         +Fqatxp0DXKcVvUb3E3kmU+YLT1WF9jXPx32jZSnDU9TJpg4BXW0XAq2ztqfNzXccuDu
+         KzUZ0L5jEZJVam0tlzVAhiSqIO2ZNachSXJJvgHkRn1P2Fm5GSYDBd/wk7jhV6MZAS5i
+         ODan5nEmAplPSPIsBenby5tTpO2eKhGVMh7UNuPeLB0GgtP1d32CZn1CvdFinc7XK1/N
+         Rf+qwkh6p4U4I3ZTHDQOYNJ0WkdIWWOgh1ejZTFa+QtvvhYV4dKyCargmcK8Sz/XY0HA
+         eAvw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788966185; x=1789570985;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20251104; t=1788966211; x=1789571011;
+        h=content-transfer-encoding:content-type:mime-version:subject
+         :references:in-reply-to:message-id:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=rRcHj/Y7sCFM6BIjv/vAHj4iQa4l8MfJuugG+12Z+qU=;
-        b=AM+JdkaWxREiVbNVBLNidjEGSQlafpaphk5khkHXbHHCxlqkaxkz6LXYik/1P+pVYT
-         OXtVxRJS5nbQ1u7CzarxUilMUN9XDkEH0cFhvOe39RdrbUM7on0VgvQg71n5J9LSF4qx
-         rCwhyyLjWcMd4nHV8R0RmsGLQuBMRULLC3HiPyFVRWhnRJz3+fbFuRpX9ktWcD1ICZov
-         NbvwhnbtgQ0/9+BWmvj8eNQU9kNlgw0d4nas6H8B/vw1OwB3NVHMH8e62MHRVOz8eVQ+
-         J7H07LPP8MKvtchlVIEawAW/jnFlE6WO7jskARsKGsiG+kq6zZ8Yhg4l297i8loy2nso
-         LXHQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzV6++irmEaM4yK6m6ny4N3EX2qXaEMojvRvwUICFoWOIiAuu3dBHlkp2yjYFfxP8mq/dU0viJLUWfrN1Q=@vger.kernel.org
-X-Gm-Message-State: AFuF++kMQS1Q/1Q88KkWefuhI3twi+EEwSacJoI9CTnB8If37ndG779/
-	bQ6N8/ceWR1k6SZXc/PSPVoX3thQsy3UXgZ+1vS9u2RLVyijIY1RVM97z5vGP0pnlYua4sN6O0Y
-	oPteSC/c=
-X-Gm-Gg: AYBFou11+oS4wraOgQFb2lGECFmolveipZ3uyx+2/3iCcy6a/pDBfvHqZhaO5Xf3n+C
-	I2rOuRYo7xvsR2/tStF4uQREQ0rWrSTEu9uecg7ZMgCAjmawePv384blsw7fW/sUhvulRh/OaJS
-	dU9SPeP9yHeDpU1aZppuVmvjrxmNShRq7rvun+mW44LkaMPu0c57ez7je2NWyUSY9ynS75IBOlR
-	lDxq0Z8+1CpP4HAAnkDORdvRwLqFCwc6UT58xqyWikaXstmOKE5/hb71aeype1ipt8kA/IHn7Iz
-	upsRCS+n26/xkjkXMhkFaxWXhLSe5quzTis8+A/saRV17LkPpvYD/AW4qk8nDmUfb8fyPhTY9vv
-	wrFNyn3h8j9LlTM3SFxmKf03s50JDkrH5ofsMsgRct1O0bw6RHEo1zKxLCGVX6+altX/Fp+6N8r
-	SoeJMsKN9cbnUzm1vm7Om4U3GdGWzI/aH0CtLLE65q2l5JT1/etFoj3rBuK+CTsmVOdr8gdoEAV
-	iF/pjmLO65RSfNn/s8hdTRxc4fwBNv+4WBP/eZV9EEh33KfJw==
-X-Received: by 2002:a05:690c:94:b0:842:255f:4372 with SMTP id 00721157ae682-87127c2f703mr132533027b3.25.1788966185505;
-        Wed, 09 Sep 2026 08:03:05 -0700 (PDT)
-Received: from toolbox ([12.55.13.134])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8713d68fd00sm114995377b3.0.2026.09.09.08.03.02
+        bh=08HkDWgh1+HEX92rfdOLS5P3VBFy/7LtpPCQPcLhVmk=;
+        b=PyMBU/fgQPHn89HTclsj8qtHn1OT5jSN7N8fFpp84BXgs6W6IOieoL3zy4x3010iXQ
+         WtjAS/hHVqbK6CHyLYwM3lYhE3irlLPMvSFn0qERZSmqk6kppAS/QCO+yiZhSsTlGlAq
+         Q6bXxYy9/7jL5xAC6idO7y3mIHaX5s7UMydqna7386vZd7TzLZ21GwbidAMRQredCx3L
+         12oinPD5uQNH0xxDbhurSOvAADvIxOlIAECOaT3Ls3S+cPm7/E6bD3E0fjAqeZEH69kc
+         uCRqppbZb3yTmxA/fF5pDqZS1e+O+/cXyLlAtZHTcoQNqhK3WdddTBw51Pp/YGJlg2DC
+         WlLA==
+X-Forwarded-Encrypted: i=1; AKwUvBx92/TcayJ0ILaTk+preL9K09RrL6KxVBsr2nL+7cAE3mYx2VLYWZgFRayzU7sBOKW0XhofZ0Hl+RtYVo0=@vger.kernel.org
+X-Gm-Message-State: AFuF++lW72Os/U9pAOGM3R+2iANgzGkwecej/34TLwUW5ETEtj49/Hgl
+	VKYrdPgZs+CxDpbUOiBKgg4Rn+BFF9xqCQTT6qAVjMLF5CKfNQ7iX0MD
+X-Gm-Gg: AYBFou2mlJfdrAQ5Zpu7c7Pakgf3B7JnTXZxR7PoeYmpp0e03KNIKd/WVUMG/5Qc1nR
+	TzVQXWrmBEAYDcKk2b090vAobEB+bqm/r2jCvlziimBiIsIa2npC+EuUQv/GJBXxk6M26Rt/7+M
+	rk8VFUp91KhJ40lynzpoBb6ZpttZ7r46Up4Cvl4SlTxbm+bBt08EvfZLEgycu3Oo9cNsSDq0Zrw
+	NdLIsmv/M5InmXSYxy/R7b0uSeYWQNBMLLu6X7JmjY+pWKYzgY7pzUX8Q+BvGr3Ta0+V2MBb/aS
+	Fia7r0KU8a0mTQYg77+XuRG+Ou3k+4hUDKNykYq3a3SvX9hK+gzouhbp7nh5XhiOs9uLesByt2A
+	atJSWRsOOliNgs3VopaJ9z4l+nMTdllWYKgx8xumAlHIgS8Akprgh3mDBTI8uX1s3CJzPWRVwPN
+	PdNStMsjm2o+e6VLWDzyPn8bsahZhITAAUGxv0Hh0hEmdbsmceXz5GTr+QHlbViLEL+MF4zEIO9
+	O5vSEOMaPmp0LBfXfbWXFTXYR65jb7wndb4qU83dpWG36kvP57B
+X-Received: by 2002:a05:690c:9:b0:836:ec9b:b468 with SMTP id 00721157ae682-87f2a0de993mr31193367b3.34.1788966209661;
+        Wed, 09 Sep 2026 08:03:29 -0700 (PDT)
+Received: from gmail.com (234.207.85.34.bc.googleusercontent.com. [34.85.207.234])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-87149316347sm113552517b3.15.2026.09.09.08.03.28
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 09 Sep 2026 08:03:03 -0700 (PDT)
-Date: Wed, 9 Sep 2026 10:02:45 -0500
-From: Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>
-To: Aamir Ahmed <elb12345@hotmail.co.uk>
-Cc: Drew Fustini <dfustini@oss.tenstorrent.com>, 
-	Joel Stanley <jms@oss.tenstorrent.com>, Stephen Boyd <sboyd@kernel.org>, 
-	Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>, 
-	linux-riscv@lists.infradead.org, linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Kees Cook <kees@kernel.org>, linux-hardening@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] clk: tenstorrent: Assign .num before accessing .hws
-Message-ID: <sf2wvxw5aojiffi6bwtvowvde4vh4o3gk4l2tgf77icc2pd62m@gtvsxcv6thot>
-References: <AS8P251MB00013BD9A093C06D2D60E10EC8B42@AS8P251MB0001.EURP251.PROD.OUTLOOK.COM>
+        Wed, 09 Sep 2026 08:03:28 -0700 (PDT)
+Date: Wed, 09 Sep 2026 11:03:28 -0400
+From: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
+To: Bjoern Doebel <doebel@amazon.de>, 
+ Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S . Miller" <davem@davemloft.net>, 
+ Eric Dumazet <edumazet@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, 
+ Paolo Abeni <pabeni@redhat.com>
+Cc: Willem de Bruijn <willemb@google.com>, 
+ netdev@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, 
+ Bjoern Doebel <doebel@amazon.de>, 
+ stable@vger.kernel.org
+Message-ID: <willemdebruijn.kernel.e4612d16d68@gmail.com>
+In-Reply-To: <20260909085542.3370986-1-doebel@amazon.de>
+References: <20260909085542.3370986-1-doebel@amazon.de>
+Subject: Re: [PATCH net] loopback: orphan zerocopy frags before releasing the
+ sender in loopback_xmit()
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <AS8P251MB00013BD9A093C06D2D60E10EC8B42@AS8P251MB0001.EURP251.PROD.OUTLOOK.COM>
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: 7bit
 
-On Sat, Sep 05, 2026 at 09:48:35PM +0100, Aamir Ahmed wrote:
-> Commit f316cdff8d67 ("clk: Annotate struct clk_hw_onecell_data with
-> __counted_by") annotated the hws member of 'struct clk_hw_onecell_data'
-> with __counted_by, which informs the bounds sanitizer (UBSAN_BOUNDS)
-> about the number of elements in .hws[], so that it can warn when .hws[]
-> is accessed out of bounds. As noted in that change, the __counted_by
-> member must be initialized with the number of elements before the first
-> array access happens, otherwise there will be a warning from each access
-> prior to the initialization because the number of elements is zero.
-> This occurs in atlantis_prcm_clocks_register() due to .num being
-> assigned only after every clock has been stored in .hws[]. With
-> CONFIG_UBSAN_BOUNDS and a compiler that implements __counted_by (GCC
-> 15.1+ or Clang 20.1+), this triggers an array-index-out-of-bounds report
-> during probe, and with CONFIG_UBSAN_TRAP the first store traps so the
-> clock provider never registers.
+Bjoern Doebel wrote:
+> AF_PACKET PACKET_TX_RING transmission over the loopback interface can
+> silently corrupt packet payloads in flight. tpacket_fill_skb() builds
+> the transmit skb using zerocopy frags. loopback_xmit() then calls bare
+> skb_orphan(), which runs skb->destructor (tpacket_destruct_skb()) and
+> marks the ring slot TP_STATUS_AVAILABLE, telling userspace the buffer is
+> reusable while the in-flight skb frags still reference that buffer.
 > 
-> Move the .num initialization to right after the allocation.
+> This is ok if the packet gets processed immediately in loopback's xmit
+> path before userspace gets a chance to reuse the frag buffer. However,
+> if the packet gets redirected for instance to another CPU (via RPS),
+> this opens a window where userspace may already write new data into the
+> frag buffer before the receiver reads the original content.
 > 
+> Reproducer using txring_overwrite from the net:run_afpackettests selftest:
+> 
+>   ip netns add ns && ip -netns ns link set lo up
+>   ip netns exec ns sh -c \
+>       'echo 100 > /sys/class/net/lo/queues/rx-0/rps_cpus'
+>   taskset -c 0 ip netns exec ns ./txring_overwrite
+> 
+> Commit 5cd8d46ea156 ("packet: copy user buffers before orphan or clone")
+> is meant to trigger this copy from the skb_orphan_frags{_rx}() call
+> sites, but loopback_xmit() calls bare skb_orphan() before any of them
+> run. Address this by taking a kernel-private copy of the skb frags
+> before going down the receive path.
+> 
+> Fixes: 5cd8d46ea156 ("packet: copy user buffers before orphan or clone")
 > Cc: stable@vger.kernel.org
-> Fixes: 23c8ebc95284 ("clk: tenstorrent: Add Atlantis clock controller driver")
-> Assisted-by: LLM
-> Signed-off-by: Aamir Ahmed <elb12345@hotmail.co.uk>
-> ---
-> Found while auditing the remaining clk_hw_onecell_data users that assign
-> .num only after touching .hws[], following the fixes already merged for
-> clk-s2mps11 (3e14c7207a97), exynos-clkout (cf33f0b7df13) and
-> clk-raspberrypi (6dc445c19050). The audit, the fix and this changelog
-> were drafted with an LLM assistant and reviewed by hand.
-> 
-> Compile-tested only (W=1, no warnings) on x86_64 with GCC 13.3, via
-> COMPILE_TEST with CONFIG_TENSTORRENT_ATLANTIS_PRCM=m. GCC 13.3 does not
-> implement __counted_by (CC_HAS_COUNTED_BY needs GCC 15.1+ or Clang
-> 20.1+), so the build only confirms that the change compiles; the
-> sanitizer path was not exercised. I do not have the hardware, so this is
-> not runtime-tested and no UBSAN report was captured.
+> Signed-off-by: Bjoern Doebel <doebel@amazon.de>
+> Assisted-by: Kiro:claude-opus-5
 
-With CONFIG_UBSAN_TRAP, probe fails like this in the QEMU tt-atlantis
-machine
+Thanks for the report. We're receiving a number of these.
 
-[    0.236357] Kernel BUG [#1]
-[    0.236483] Modules linked in:
-[    0.236699] CPU: 0 UID: 0 PID: 1 Comm: swapper/0 Not tainted 7.1.0-00145-g42d8a0e21d1a #2 PREEMPTLAZY 
-[    0.236778] Hardware name: Tenstorrent Atlantis RISC-V Machine (DT)
-[    0.236833] epc : atlantis_prcm_probe+0x18e/0x194
-[    0.237107]  ra : atlantis_prcm_probe+0xbe/0x194
-[    0.237123] epc : ffffffff8060ed7a ra : ffffffff8060ecaa sp : ff20000000043b30
-[    0.237134]  gp : ffffffff8173c808 tp : ff600001801f0cc0 t0 : ffffffff812db9e8
-[    0.237143]  t1 : 8d795c92de4feea0 t2 : 0000000000000000 s0 : ff20000000043b90
-[    0.237153]  s1 : ffffffff816d3b88 a0 : 0000000000000000 a1 : 0000000000000002
-[    0.237161]  a2 : 0000000000000000 a3 : ffffffff81777080 a4 : 0000000000000000
-[    0.237170]  a5 : 0000000000000000 a6 : ff60000180ee8000 a7 : ff20000000043954
-[    0.237178]  s2 : ff60000180380810 s3 : ff60000180eedc40 s4 : ff60000180ee8000
-[    0.237187]  s5 : ff60000180eedc48 s6 : 0000000000000038 s7 : 0000000000000000
-[    0.237196]  s8 : ffffffff810a4b78 s9 : 0000000000000000 s10: 0000000000000000
-[    0.237204]  s11: 0000000000000000 t3 : 0000000000000020 t4 : ffffffffffffffff
-[    0.237223]  t5 : ff20000000600000 t6 : ff6000018040793e ssp : 0000000000000000
-[    0.237232] status: 0000000200000120 badaddr: ffffffff8060ed7a cause: 0000000000000003
-[    0.237288] [<ffffffff8060ed7a>] atlantis_prcm_probe+0x18e/0x194
-[    0.237346] [<ffffffff806924f2>] platform_probe+0x66/0xac
-[    0.237356] [<ffffffff8068f9ec>] really_probe+0x8c/0x23c
-[    0.237367] [<ffffffff8068fc0c>] __driver_probe_device+0x70/0x110
-[    0.237376] [<ffffffff8068fd82>] driver_probe_device+0x2e/0x108
-[    0.237385] [<ffffffff8068ffc6>] __driver_attach+0x6a/0x168
-[    0.237394] [<ffffffff8068d944>] bus_for_each_dev+0x60/0xb0
-[    0.237403] [<ffffffff8068f48e>] driver_attach+0x1a/0x24
-[    0.237412] [<ffffffff8068ec92>] bus_add_driver+0xca/0x1ec
-[    0.237423] [<ffffffff80690c96>] driver_register+0x3e/0xdc
-[    0.237432] [<ffffffff80691c2c>] __platform_driver_register+0x1c/0x24
-[    0.237457] [<ffffffff80c30f16>] atlantis_prcm_driver_init+0x1a/0x24
-[    0.237473] [<ffffffff8001012c>] do_one_initcall+0x5c/0x1c8
-[    0.237483] [<ffffffff80c01396>] kernel_init_freeable+0x236/0x2cc
-[    0.237493] [<ffffffff80ad82dc>] kernel_init+0x1c/0x14c
-[    0.237503] [<ffffffff80011c74>] ret_from_fork_kernel+0x18/0x170
-[    0.237511] [<ffffffff80ae2342>] ret_from_fork_kernel_asm+0x16/0x18
-[    0.237598] Code: bf6d 55fd b5dd 854a 9617 00cc 0613 9326 55b5 b799 (9002) 57d1 
-[    0.237743] ---[ end trace 0000000000000000 ]---
-[    0.237956] Kernel panic - not syncing: Fatal exception in interrupt
+This issue is not limited to loopback. It is indeed possible to insert
+skb_orphan_frags(_rx) statements before skb_orphan in specific
+callsites.
 
-Reviewed-by: Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>
+But that is not sufficient in all cases, and a game of whack-a-mole
+where we may miss instances.
 
-Regards
-Anirudh Srinivasan
-
->
-> Based on v7.3-rc1.
-> 
->  drivers/clk/tenstorrent/atlantis-prcm.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/clk/tenstorrent/atlantis-prcm.c b/drivers/clk/tenstorrent/atlantis-prcm.c
-> index 6d4386eeb7d..a68534a295c 100644
-> --- a/drivers/clk/tenstorrent/atlantis-prcm.c
-> +++ b/drivers/clk/tenstorrent/atlantis-prcm.c
-> @@ -796,6 +796,8 @@ static int atlantis_prcm_clocks_register(struct device *dev,
->  	if (!clk_data)
->  		return -ENOMEM;
->  
-> +	clk_data->num = num_clks;
-> +
->  	for (i = 0; i < data->num; i++) {
->  		struct clk_hw *hw = data->hws[i];
->  		struct atlantis_clk_common *common =
-> @@ -809,8 +811,6 @@ static int atlantis_prcm_clocks_register(struct device *dev,
->  		clk_data->hws[common->clkid] = hw;
->  	}
->  
-> -	clk_data->num = num_clks;
-> -
->  	return devm_of_clk_add_hw_provider(dev, of_clk_hw_onecell_get, clk_data);
->  }
->  
-> 
-> base-commit: 654ae5d73c05bd2943d65636ce6cd0aa46e62f18
-> -- 
-> 2.53.0.windows.1
-> 
-> 
-> _______________________________________________
-> linux-riscv mailing list
-> linux-riscv@lists.infradead.org
-> http://lists.infradead.org/mailman/listinfo/linux-riscv
+I'm reviewing the options. The alternative, a deep fix in tx_ring,
+appears to be non-trivial so not without risk itself.
