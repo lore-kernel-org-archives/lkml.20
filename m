@@ -1,105 +1,133 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from m16.mail.126.com (m16.mail.126.com [117.135.210.9])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F8ED3D5663
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 07:41:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 211D739A807;
+	Wed,  9 Sep 2026 07:41:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.9
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788939675; cv=none; b=YYFKAPeWdwGkLxn+AzMlkHmCe5C+MzhHnvjkYat05xYquU82GcSSiB3ulsIs6nlyjlAiUL2UJncr53uwQV8qXtprq9SVRvDDD7elKaw29GRh3q/P3rfU+1H6FZ1Rq5qo90ni2XV6IxMadvdNbLpC3z5tu0U2m/IxrRcObN4vIpo=
+	t=1788939684; cv=none; b=UcFozc4EllOeIT6YlzEYe/8K2I8C7Ry6qGHgFczx1uWxmUzTLTHbbvDJCl1+Hz87n49L3zrLQ+kmRhfaZ4OVkeVcEnBAG2KvG5b6+6ij9Po2UcGcI4En8sLdTKTQky151I7OYnd2Lwhn6pZA1sH0nwsO5nRzzmnQbaxPvYaDOFY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788939675; c=relaxed/simple;
-	bh=MlcVH8AYjIrsfuFaNwlFo7SIgqFCihQaoevoEAWBcAI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=j1veaBswRI9XL4JF9lM4Pk4t4gnmurl68XH54OzFNXSD2MKmmAeY7jQ4BI294JzUlaUkeSe9Cao6TPWLkaxy6xPEDhyP6DJ81RuXmJ8lnPrVgRrMWPvhk5QuJ0h3LotxJx1zud1JhcRnFns1fowCe1cMxrZhoHap34BAyibSNcQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RjZMoR3N; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788939684; c=relaxed/simple;
+	bh=Y7IMMoAe0P9D+WRSBkVBPj9oQEY3shNsdP/66A1tL4I=;
+	h=Message-ID:Date:From:MIME-Version:To:CC:Subject:References:
+	 In-Reply-To:Content-Type; b=K27hrBhcayzAAipGuYhoXq+RYh9haDy7V3qDHs8ZRUJnU/6FxcO8s9yuHLxFIldAHjXy69npAZ0SmkcPAk4ZNZuopuJnFX4QNwfa0uYiiIwwqEHIPyLCl049mDLDE+t3q16eyGiZVcsxsXx2607pFu9FpE3BV8qLbDOoiIaPEhM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com; spf=pass smtp.mailfrom=126.com; dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b=BQWwQEFN; arc=none smtp.client-ip=117.135.210.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=126.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RjZMoR3N"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5137A1F00A3A;
-	Wed,  9 Sep 2026 07:41:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788939673;
-	bh=lSeFjDW5eiBGIVae8tX1ju2okgaGaYVEwgaaxEkYskg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=RjZMoR3Nf4/Wv0M+CqCWKgdOfCRbVGjtRB+2VRTRPq0nqKlEar9bFX/AG4yQ61CT0
-	 oPTmDI2RZrYC1mqkzgmNQy89SuetLM7Pc+LVUOlpSNvmTjG0BHKVvgAOXvh34rXEdT
-	 PmGxiliYMFkIJgQXCKrzGqOD72TycJWYaQ6JHps7qtmYx/pWyGi1wec3oHN0qWBD7d
-	 3SYp6Oje+1+IJaeZxF6oCAW0jpxo6+Ukfa3+0BUrggMPFufa/2euNlXTxEpMuLY21B
-	 hZUnw8jZJI/4PnjyJ7PMPXn2FXraL3h6QP5mez6kbXsXwlkbBdEBzI7csDNtmv8q5T
-	 7u0JxlPaBYVoQ==
-Date: Wed, 9 Sep 2026 09:41:06 +0200
-From: Manivannan Sadhasivam <mani@kernel.org>
-To: Hongling Zeng <zenghongling@kylinos.cn>
-Cc: vkoul@kernel.org, neil.armstrong@linaro.org, johan@kernel.org, 
-	kishon@kernel.org, rogerq@ti.com, linux-phy@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, zhongling0719@126.com
-Subject: Re: [PATCH v6 1/4] phy: ti-pipe3: Fix ignored clock enable return
- value  in init
-Message-ID: <rws3cizw777sqpaioxhxmzbzs6ofifnq4ja7nzswotwqir6sfk@47kay4qi2fut>
-References: <20260619030214.1779043-1-zenghongling@kylinos.cn>
- <20260619030214.1779043-2-zenghongling@kylinos.cn>
+	dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b="BQWwQEFN"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
+	s=s110527; h=Message-ID:Date:From:MIME-Version:To:Subject:
+	Content-Type; bh=4mhyiuXHdkylIUvNmVFXSgeIj+5kPbmYba+P1UHgLak=;
+	b=BQWwQEFNU6pIwfslX/GRUvhdQ4UUt//wHQmg4W2mhyqtLR5IsLaO3VXLrzjw9U
+	3lczSi5mI64qhsqykYJx+aD1VYH4FPQ9LEdlnKKh77wLG8M48kUMNZs/oCI49Sxh
+	3KxftANAu/oCtYU5srbsorHAVOo1S38HeLeEdjz8UMWUo=
+Received: from localhost.localdomain (unknown [])
+	by gzsmtp4 (Coremail) with SMTP id PykvCgD3X1yBDaFqM2k+HQ--.2132S2;
+	Wed, 09 Sep 2026 15:40:49 +0800 (CST)
+Message-ID: <6AA10D61.6030403@126.com>
+Date: Wed, 09 Sep 2026 15:40:17 +0800
+From: Hongling Zeng <zhongling0719@126.com>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:31.0) Gecko/20100101 Thunderbird/31.2.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+To: Dave Chinner <dgc@kernel.org>
+CC: Hongling Zeng <zenghongling@kylinos.cn>, cem@kernel.org, 
+ darrick.wong@oracle.com, chandanrlinux@gmail.com, 
+ linux-xfs@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org
+Subject: Re: [PATCH v2] xfs: bound logged region access in inode buffer recovery
+References: <20260907080450.314067-1-zenghongling@kylinos.cn> <ap8ucHIw-pKLhh9c@dread> <6A9F7022.6020206@126.com> <ap-sV2Cc5U5fNMmo@dread> <6A9FBDB3.20705@126.com> <aqCTfSqqywJ5qKcY@dread>
+In-Reply-To: <aqCTfSqqywJ5qKcY@dread>
+Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260619030214.1779043-2-zenghongling@kylinos.cn>
+X-CM-TRANSID:PykvCgD3X1yBDaFqM2k+HQ--.2132S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxAr1UZFy7tF1kWF4kJF1xGrg_yoW5Kr17pF
+	WfKa18urWkJ34IvrykAF48JaySgrZ5Ga9xGr98t34DAFn8KrnxKFWvya1Y9Fy7CrnYg34j
+	vw4jyw4qg34UAaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07j-WrJUUUUU=
+X-CM-SenderInfo: x2kr0wpolqwiqxrzqiyswou0bp/xtbBoQJmN2qhDYIqCgAA3W
 
-On Fri, Jun 19, 2026 at 11:02:11AM +0800, Hongling Zeng wrote:
-> ti_pipe3_init() ignores the return value of ti_pipe3_enable_clocks(),
-> which can lead to:
-> 
-> 1. Unclocked hardware access if clock enable fails
-> 2. Unbalanced clock disables in error paths
-> 
-> ti_pipe3_enable_clocks() returns an error code when clock enable fails
-> and rolls back any partially enabled clocks. If we ignore this error
-> and continue, we access hardware without proper clocking, which can
-> cause bus errors.
-> 
-> Additionally, if we reach error paths later in the function and call
-> ti_pipe3_disable_clocks(), we'll be disabling already-disabled clocks,
-> causing unbalanced disable warnings.
-> 
-> Fix this by checking the return value of ti_pipe3_enable_clocks()
-> and returning early if it fails.
-> 
-> Fixes: 234738ea3390 ("phy: ti-pipe3: move clk initialization to a separate function")
-> Reported-by: Sashiko AI <sashiko@kernel.org>
-> Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
 
-Reviewed-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+在 2026年09月09日 07:00, Dave Chinner 写道:
+> On Tue, Sep 08, 2026 at 03:48:03PM +0800, Hongling Zeng wrote:
+>> 在 2026年09月08日 14:33, Dave Chinner 写道:
+>>> Don't take the design doc as being complete or correct - it's a
+>>> working document and really only serves as the initial high level
+>>> plan I fleshed out.
+>>>
+>>> Indeed, I implemented a chunk of it yesterday afternoon (i.e.
+>>> before I saw your patch this morning) and my findings change quite a
+>>> bit of the generic infrastructure to make it handle the transaction
+>>> header without having to special case it. So from that perspective,
+>>> it's already out of date...
+>>>
+>>> I'll post what I have in the series later this afternoon so you can
+>>> get up to speed.
+> Ok, I just posted my current WIP to the log-verification-1 branch in
+> my kernel.org repo
+> (https://git.kernel.org/pub/scm/linux/kernel/git/dgc/linux-xfs.git)
+>
+> This is completely untested, I've only made sure it compiles. Don't
+> expect it to work. If you do start adding to it, build on top of it
+> and point me to the git repo where all your new work can be found.
+>
+> What I've implemented so far is the refactoring necessary to
+> implement generic handling of log item verification and decoding,
+> converted the special case transhdr decoding to use the generic
+> infrastructure, and implemented fairly complete ophdr validation,
+> including validation of the log unmount record (which isn't
+> validated in any way right now).
+>
+> Design has changed to use methods for item specific region count
+> checking, as well as adding a completion method that allows item
+> types to consume the item rather than queuing it for later recovery
+> (both needed for the transhdr conversion). Implementation has been
+> refined to avoid decoding ophdrs until sufficient validation has
+> been performed to guarantee the buffer pointer is sane and is long
+> enough to contain a full ophdr, and then it valdates the rest of the
+> ophdr before passing it to the processing code.
+>
+> The next steps are to start implementing the per-item type
+> validation functions.
+>
+> I also noticed that the head/tail search code that reads log
+> record headers doesn't really do much validation on the log record
+> headers. We probably need to address that, too, so we can detect
+> corrupted headers during the head/tail search and avoid finding
+> incorrect head/tail records as a result.
+>
+>> Once your series is posted I'll start with review and the
+>> recoveryloop / logprint-based testing, then take the per-type
+>> validate_region() / validate_item() implementations on top of your
+>> iterator.
+> I think it's probably better that you first read the code yourself
+> and develop an understanding of what needs to be done without the
+> aid of an LLM. See if you can find bugs in what I've already done
+> -without- an LLM - you will learn the code at the same time, and
+> then be in a much better place to guide an LLM through later stages
+> of development.
+>
+> Cheers,
+>
+> Dave.
+>
+Thanks for posting the WIP series.
 
-One comment below.
+I’ll work from the log-verification-1 branch and first study the generic
+iterator and item handling rather than extending the old special cases.
+I’ll pay particular attention to arbitrary continuation fragments,
+zero-length first fragments, transaction-header completion, and cleanup
+on malformed input.
 
-> 
-> ---
-> Change in v5:
->   -Add Fix ignored clock enable return value in init patch
-> ---
-> Change in v6:
->   -Fix all clock leak paths comprehensively
->   -PCIe syscon update failure path
->   -SATA DPLL lock check path (also fix incorrect return logic)
->   -SATA errata path in ti_pipe3_exit()
-> ---
->  drivers/phy/ti/phy-ti-pipe3.c | 5 ++++-
->  1 file changed, 4 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/phy/ti/phy-ti-pipe3.c b/drivers/phy/ti/phy-ti-pipe3.c
-> index b5543b5c674c..b8c055893742 100644
-> --- a/drivers/phy/ti/phy-ti-pipe3.c
-> +++ b/drivers/phy/ti/phy-ti-pipe3.c
-> @@ -500,7 +500,10 @@ static int ti_pipe3_init(struct phy *x)
->  	u32 val;
->  	int ret = 0;
+I’ll review the existing code for bugs before adding the per-item 
+validation functions, and will point you to my repository once I have
+work based on the branch.
 
-Now this initialization becomes redundant.
+Thanks,
+Hongling
 
-- Mani
-
--- 
-மணிவண்ணன் சதாசிவம்
