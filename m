@@ -1,308 +1,142 @@
-Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com [209.85.214.180])
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DB25399350
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 18:14:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.180
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788977678; cv=none; b=AERgrT1R18gKo0XiWFY2fPq5bMAKanEitL/Cs9Z6lcN+jYkh6LmPo7B0en4dXDCNLTkpLuoIMDScSp+VMqlsuPWFvHGLSz3qA6N8uWh8/L5JVjBoLjL4ofJgwndp9GpeDctyAdD9E9JPjh6KdNB9zO2d8+3+DDe2AJ3XqMoYSVU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788977678; c=relaxed/simple;
-	bh=fjag8XIUmwjppadXqwfJ6ZDWGEnY4H5nf0oJuiI0lVo=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=D18T1yHqxO027tWYDyMxymlPY5rcucT8xb+/orFjWRSeFXsveY33C9VZDWi4LGTnRV5M+vD1fMEmI5GxHi4IkRx4cgpDoqMEGzgv3MjARpUvVDBywrD4ufZp5gNJFxEeWO0zdxyi7lcM5DpWbsNkx5YW9kZWPBTG6WeEadUjuKo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HTrGZZZu; arc=none smtp.client-ip=209.85.214.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39AEB38C427
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 18:14:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.225.76
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788977692; cv=pass; b=mKUeGayFimmD4dSU5jIrjqtx/bZh9XaTvHJiTCW+zRhcRDvREb7OTF5adkQ7O9RnRgkIVOsB+dZIWjmXluDstaTh9TVwiOSleyVbtFCSxuPolmiKVhVTVSRD9adVAumI/dOWf1rJyR7kDyuBwphiySQjv8nAaECCVkU84FAF0m4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788977692; c=relaxed/simple;
+	bh=8Rbwum/U7LCRDIoamxX4vkzVMHdBBlYCRplQYltoFwY=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=mztszfr+rzCINim8ZPQukYHxpJlTg0xZSU7FskRdGd9KBGzHLhuvroNcXlH3+xevbT9KQ4cCld4Sn/CQlhkD3Yf9M/us3mf1KptXdTTE+f0lkiveIb1J7R18NDrqtXisOy2B+YjKrvl3LtA7D5JpGna/xPNPOsZoq12c+r7G+7Y=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WN95Zj4o; arc=pass smtp.client-ip=74.125.225.76
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HTrGZZZu"
-Received: by mail-pl1-f180.google.com with SMTP id d9443c01a7336-2cc891373e0so65690805ad.2
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 11:14:36 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WN95Zj4o"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-482f62ccdb1so877420f8f.1
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 11:14:50 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788977689; cv=none;
+        d=google.com; s=arc-20260327;
+        b=RwbdM9F5tPE3RiolovoBKUD50sFmvrJrypoYNG63wfqOfIzkpqt4MBBt5s9sYNn+IO
+         VYvy72Bzve0NrswxwUTIeuFTk4s2y5qASBHD/M2AN1lsHyID7q91qHzen/485Rf0dwn9
+         8RDOuNQ9xYZSXpSs2c43QnoMy5apagtCCou4De6ezAgjdm671NnIwQUFy5HDq0uFUxaT
+         VyXpMu3+CBOyDdYsIYeDqSZlXw6EH4jWIkw7BOtievn/NvssLiGXpJP84KUNkJ0UDJJb
+         kRJyVxol3514V39rZ58+7TO0h8tjtQ7GfxMOwJKqePXIC2Gh51dFIXDwPeeeV9Q50MUB
+         zkXg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=yzFysYL2ZWVkcNchNmKkU5ZyseGFGQP3llm4Y/4N/1o=;
+        fh=NBaSbVF+Dz6J1StPr4N8FWZGGxcjfvsqmqnYZy9cn6E=;
+        b=op9uWFTHUAkx/B2ldwbyd4tjUvUERwmP/eArl29Ksre+R/n1QLS1LqDMFCUhnULeQf
+         AcQ/U1BZRvfXsoTzPVBdG2Xd04sra+wT92qHMTyLT59OnMyOcAbBPpz7EchI0k4f/AQ/
+         ESNZz0sP2qboYLnPwG5nLVbcKRspRB1aB85YqicTC/Vu8QFNeTULBdAIcqaGaOCwZCc6
+         jP0l0YdiJVHeimgOFG/F1WgUAlnR2cedEFbpyZeyl2twhU0l6x95JMRxbF4XtbTd80G9
+         CfHltadCXLvpdEmTbLfhS/UeREyJZl5VNB0rpdLk7K1G+oHeraI08k7leaTy7O7Cmjmh
+         4U2Q==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788977676; x=1789582476; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=pwhnjkKX5SffmqWRw89HSGPh7x+52vp6lBn4P2+YAcc=;
-        b=HTrGZZZuTelIjegkzf3iDO8IhpG4BN2tCcdgYGuzNevEvROJuzwHpN8T9g1K0wKbca
-         c2sroGJwwbYMMFfvrSAmyl9IoItRGsVx64074gfuK5qb2jcpn82ROsOb9aP/1KMtwgL2
-         q0cxH08tybowQP35VAm3Zm7QQp17QFBVy588n7OSUM5Ry4CHoLXXQLr7Yr/2l8g4TMqS
-         z0mwGHDKxPrZCK00XPxzELsVJUFuyh0rwPncR0WAt0UNA0QN6SXuV9r0lF3lPHimPLay
-         9yBLRfTMK0e5JhWGCjm8oNgfPDUrvSiJQ8RYUTkTzb/AwQK2cpJC51UXk/zO8KMnyaE+
-         n9zA==
+        d=gmail.com; s=20251104; t=1788977689; x=1789582489; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=yzFysYL2ZWVkcNchNmKkU5ZyseGFGQP3llm4Y/4N/1o=;
+        b=WN95Zj4oHPDimCRJ23gIbpFry0UwEXlhDdqIy7oXlIOXscy9lcHC4y65WXj4efS/0u
+         aCl/y60hye6neCwBzOYsFFOQnw+oO0Gx7+a/lZdC7gkZy5YcFwb9nBiXh1lCxEzPqtlJ
+         17KfwWxd5uCV+Fy8qmDe5PW5NJj40kMmgdKJ+FM8M5O4iH4scT+pwyCX3LbAsGyyvyF7
+         0JdhkGfFZMOcJKjOWEK9IBYc4Sx9mSVlKsBlUKJIdUHH52ZqBvesmxKG0kcy7/1PF4Dx
+         2xMRUJCPA1nfRzY5D3uM9zMFW9pNuQ47u7fWcGDc2uBwa8CGANtZMjjGrLj3KSbIK8qG
+         7iQg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788977676; x=1789582476;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=pwhnjkKX5SffmqWRw89HSGPh7x+52vp6lBn4P2+YAcc=;
-        b=qxFUs1I1Z6lpZ8BouICOh+O1x5YthOeOmVny1d4cmEQZP078/thbWGNFXQRz78Na6P
-         gSAKrCo+d0IUdKUy4E7P9hZLb3YpBFkL3iaKF5D73neizKtg5MLgR7wqfG5RvUcmF3QL
-         dkukD8IqxUWwkZaHXRgeW4dReLQw6IrykPtffR9u3zdtIcJ4LykySIZElwsVvXR/S9lz
-         qslkN9kCrlrS82hJ2i8eps99mKCPj8dU5ky5kBsWZB4XzkTMuiurX2rD5L2UqwwNWQua
-         CdVhjWDkabWcnb8A00KTZ2vqkP2YLDnL8/kxVIFAd8PChwA5liCoOj5MPEOIxs8cWwa7
-         0AVg==
-X-Forwarded-Encrypted: i=1; AKwUvBzd+MuZoZf4goXAmU2c8lTH3o8R3geBG8jIC/KbQV0LdAibETlWWN2gR1kFPSoC7eSUl26SyCJ9qezBMW8=@vger.kernel.org
-X-Gm-Message-State: AFuF++kyXT/BSsxpelzP7hbh2iVkcO7c2VicLuV/kl5YcdD0b5XxNL2h
-	NC1JRhzj2u0x2hglzZrAyg+liJ94Mi9kQVhthTTLJys0oUrsNR2UlxR7
-X-Gm-Gg: AYBFou2+euS8LpeUqBShs3zlzg4LIEyw2HYaqIP+MIDYxmwU7dPx99Ze5nOFLBKcXAM
-	Vusdc78Nv91CpvRA26GpiRpd9FJu5Fk1NcKWyDA+5vgUSRxpbxdHo91YS8H69AjVxa5Gkq6/3GP
-	rLxQzHGSNguYKB+Ly1+x25j6AnVyLspcAw+wbFpBpWg/ZQT5RK7PP61+eg6W+9qSuno0jg7uncL
-	36WC5NifXQJ201ag9Z0p2Y6n1oK55OkEZAaxvCZPUD6kRnEDqcEJgid4jNmEmN5Gevu2juGDnNG
-	pcY5rLyP6J8/y2+kVx9TjpZlmtKRrOys6b/5a1g9fcSUy1ih44xK0RFSXP6O/RDtDko2iblLJ/t
-	+IjO8pEHkpYhyYkKfUoNJfD1sRSzIoIgChXjd6HIm+bf4veopgEcQiX1VLmYv0yYIsmkUeRZZ7G
-	gS1yoHjFAQghUWwHoFtVQJeAu1IolT8d8I7zLRGellLTPuMXcZB89i7Pi7BDpx7jOD/1JE3zePi
-	YpY8X1OGCEftwzO
-X-Received: by 2002:a17:903:2f86:b0:2db:210f:c104 with SMTP id d9443c01a7336-2db210fc254mr424562675ad.10.1788977676106;
-        Wed, 09 Sep 2026 11:14:36 -0700 (PDT)
-Received: from leonardoc-nb ([67.159.246.222])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2db1495b57fsm77694195ad.24.2026.09.09.11.14.32
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 09 Sep 2026 11:14:35 -0700 (PDT)
-From: Leonardo Costa <leoreis.costa@gmail.com>
-To: u-kumar1@ti.com,
-	nm@ti.com,
-	vigneshr@ti.com,
-	kristo@kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org
-Cc: leonardo.costa@toradex.com,
-	linux-arm-kernel@lists.infradead.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2] arm64: dts: ti: k3-am69-aquila: Add Toradex DSI to LVDS adapter with the 10.1" V2 display
-Date: Wed,  9 Sep 2026 15:12:09 -0300
-Message-ID: <20260909181332.1081552-1-leoreis.costa@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        d=1e100.net; s=20251104; t=1788977689; x=1789582489;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=yzFysYL2ZWVkcNchNmKkU5ZyseGFGQP3llm4Y/4N/1o=;
+        b=iZEp38IIdvCf3+tscuqQkT18fxaV0qs8UG0cKDNMQ/owYJfo82IdDfxaA+E2Sj2nfZ
+         bR3aUtAeltZdoU7KUR6hYPvafb/BcHAUY/QdCCXsYDiC1EU5cWe+E9PMDx52r4fRgG8u
+         pNoz2LZgWJevz+OefpDyH7agbP5slZyW9mImKZKfSlzAe4QweRIJyqULCBizeNf2muwB
+         gbMqz5/TGQhQpbtfNP2LNigpWqNN/LzFLxWk0FMtp2UqCzYE/3MGTBGUNu1OdwzaGgFw
+         IOw7rWGNhObT3GMErAvqoNhhTNAv2gA1G6OMLbtNTDm1J2vXpi/xiiAm18nPMlu55CGN
+         yoHg==
+X-Forwarded-Encrypted: i=1; AKwUvBzEO/hSTGifUAc1QQZW4Qx+qMA1CPpps2sgadGXQHrjQ+PPUqr+oXOSPZKJTkrumq7NY79v8kfhgeJx6ZU=@vger.kernel.org
+X-Gm-Message-State: AFuF++ktgUhxWcfKHXDGlqUdgcVZGLDPyooSCoiDTqMrX0hFSXQpl7vF
+	fSbOpZ8jdCwl/2NwdhloM+gaeWit1B/ZxB24pwDs9z8Tj/XyBRizWSuZKZkxtoYhpgl9pK5LkXP
+	VgGNsmVec6ZOD2xAwud2+GtXF841YIzs=
+X-Gm-Gg: AYBFou2Mp2SUhhPsQ19qCcXFRlJDet7v4YT8KCAQkW8ToEpwjkGLjj4drH8a1dgiB6w
+	5sZ7/Rewh4yL/IeYWKWOhogYxAghvM+YmjS0VHKEbLHdLZ4PnmLOb0EouuZwuy691YwzovBP8Q5
+	DO2cMJjVUyI0p6SKCYDo5XoE/6CIvg6yO+5jbeHHFurUyNgWxfhJqpghaCgGOsvGubKyKyQtexa
+	CFDtieabZVkls8n+JY4BpiNRaA3EJOd2mDU7jkb1Aezo/Cv0hf21wsh3LRVXua8Uha7au6wMJiA
+	ul0CoduH8wRs9OrzBpeebORJznjteC+u1Ia7C8Wg1eOWfvM3aH9JAr5WRs81lnvVEaqpjFzo+AQ
+	yITWDzzVATVI=
+X-Received: by 2002:a05:6000:1a87:b0:485:8ddf:7a5e with SMTP id
+ ffacd0b85a97d-486e0f6c965mr825042f8f.11.1788977689104; Wed, 09 Sep 2026
+ 11:14:49 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260907161938.1932355-1-usama.arif@linux.dev>
+In-Reply-To: <20260907161938.1932355-1-usama.arif@linux.dev>
+From: Nhat Pham <nphamcs@gmail.com>
+Date: Wed, 9 Sep 2026 11:14:37 -0700
+X-Gm-Features: AcwNN1X__zB3pEsdnxmwwgsAIlWtg2QfI_AHwOPpV_fdj1oiSItGXQAyV9ijLiw
+Message-ID: <CAKEwX=PDTPk3d-e7z2GYka33jatuqxy-ES3uSfyg=-L65YMaLw@mail.gmail.com>
+Subject: Re: [PATCH] mm: zswap: don't fail a large-folio swapin whose range is
+ not in zswap
+To: Usama Arif <usama.arif@linux.dev>
+Cc: yosry@kernel.org, Andrew Morton <akpm@linux-foundation.org>, chengming.zhou@linux.dev, 
+	hannes@cmpxchg.org, linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
+	kernel-team@meta.com, stable@vger.kernel.org, Alexandre Ghiti <alex@ghiti.fr>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Leonardo Costa <leonardo.costa@toradex.com>
+On Mon, Sep 7, 2026 at 9:20=E2=80=AFAM Usama Arif <usama.arif@linux.dev> wr=
+ote:
+>
+> thp_swapin_suitable_orders() and shmem_swap_alloc_folio() sample
+> zswap_never_enabled() to decide whether a swapin may use a large folio.
+> zswap_load() samples the same one-way static key again once the read
+> reaches it.  Nothing serialises the two reads, and in between the task
+> allocates and pins a high-order folio, which can sleep.
+>
+> If zswap is enabled for the first time in that window, a large folio that
+> was correctly permitted reaches zswap_load(), which rejects every large
+> folio with -EINVAL.  swap_read_folio() treats anything other than -ENOENT
+> as "zswap handled it" and skips the backing-device read, so the folio
+> comes back unlocked and not uptodate: SIGBUS for an anonymous fault, -EIO
+> for shmem.  The data is intact on the swap device - it was written there
+> before zswap was ever enabled - and the not-uptodate folio stays in the
+> swap cache, so every retry of the fault fails the same way.  With
+> panic_on_warn the WARN takes the machine down rather than the task.
+>
+> Scan the range instead of rejecting the folio.  The caller has pinned
+> every slot before issuing the read, so zswap cannot start a store or a
+> writeback into the range and the scan is stable.  If nothing in the range
+> is in zswap it is all on the backing device: return -ENOENT and let
+> swap_read_folio() read it.
+>
+> A range that does have a slot in zswap is still refused, because zswap
+> stores large folios as order-0 entries and cannot reconstruct one.  That
+> stays reachable - a slot shared with another task can be stored inside
+> the same window - and refusing is correct, since the alternative is
+> returning the stale device copy.  Report it as -EIO rather than -EINVAL:
+> the request is valid, zswap just cannot serve it.  The only caller
+> distinguishes -ENOENT from everything else, so that part is a
+> documentation fix.
+>
+> Fixes: 242d12c98174 ("mm: support large folios swap-in for sync io device=
+s")
+> Cc: stable@vger.kernel.org
+> Co-developed-by: Alexandre Ghiti <alex@ghiti.fr>
+> Signed-off-by: Alexandre Ghiti <alex@ghiti.fr>
+> Signed-off-by: Usama Arif <usama.arif@linux.dev>
 
-Add a device tree overlay for the Toradex DSI to LVDS Adapter with the
-Toradex Capacitive Touch Display 10.1" LVDS V2. The adapter connects to the
-Aquila DSI_1 interface. It is based on the Texas Instruments SN65DSI84
-DSI-to-LVDS bridge and drives an Opto Logic SCX1001511GGC49 10.1" WXGA TFT
-LCD LVDS panel. Touch input is provided by an ILITEK ILI251x capacitive
-touch controller.
-
-Link: https://developer.toradex.com/hardware/accessories/add-ons/dsi-lvds-adapter
-Link: https://developer.toradex.com/hardware/accessories/displays/capacitive-touch-display-101inch-lvds
-Signed-off-by: Leonardo Costa <leonardo.costa@toradex.com>
----
-Changes in v2:
-- Add comment explaining the panel timings difference between this
-  overlay and the ones for the native LVDS interface (without the DSI to
-  LVDS bridge).
-- Add information in the hardware pin comments about which signals in
-  the DSI to LVDS bridge each pin connects to.
-- Add comment explaining why the rising edge is used on the TOUCH_INT#
-  signal.
-- Link to v1: https://lore.kernel.org/all/20260803173705.2268792-1-leoreis.costa@gmail.com/T/#
----
- arch/arm64/boot/dts/ti/Makefile               |   5 +
- ...dsi-to-lvds-v2-panel-cap-touch-10inch.dtso | 161 ++++++++++++++++++
- 2 files changed, 166 insertions(+)
- create mode 100644 arch/arm64/boot/dts/ti/k3-am69-aquila-dsi-to-lvds-v2-panel-cap-touch-10inch.dtso
-
-diff --git a/arch/arm64/boot/dts/ti/Makefile b/arch/arm64/boot/dts/ti/Makefile
-index 795978e962ee..536a34e132ed 100644
---- a/arch/arm64/boot/dts/ti/Makefile
-+++ b/arch/arm64/boot/dts/ti/Makefile
-@@ -225,6 +225,7 @@ dtb-$(CONFIG_ARCH_K3) += k3-am69-aquila-dev.dtb
- dtb-$(CONFIG_ARCH_K3) += k3-am69-aquila-dev-dsi-to-hdmi.dtb
- dtb-$(CONFIG_ARCH_K3) += k3-am69-aquila-dsi-to-hdmi.dtbo
- dtb-$(CONFIG_ARCH_K3) += k3-am69-aquila-dsi-to-lvds-panel-cap-touch-10inch.dtbo
-+dtb-$(CONFIG_ARCH_K3) += k3-am69-aquila-dsi-to-lvds-v2-panel-cap-touch-10inch.dtbo
- dtb-$(CONFIG_ARCH_K3) += k3-am69-aquila-panel-cap-touch-10inch-dsi.dtbo
- dtb-$(CONFIG_ARCH_K3) += k3-am69-aquila-panel-cap-touch-7inch-dsi.dtbo
- dtb-$(CONFIG_ARCH_K3) += k3-am69-sk.dtb
-@@ -389,6 +390,9 @@ k3-am69-aquila-dev-csi-ov5640-dtbs := \
- k3-am69-aquila-dev-dsi-to-lvds-panel-cap-touch-10inch-dtbs := \
- 	k3-am69-aquila-dev.dtb \
- 	k3-am69-aquila-dsi-to-lvds-panel-cap-touch-10inch.dtbo
-+k3-am69-aquila-dev-dsi-to-lvds-v2-panel-cap-touch-10inch-dtbs := \
-+	k3-am69-aquila-dev.dtb \
-+	k3-am69-aquila-dsi-to-lvds-v2-panel-cap-touch-10inch.dtbo
- k3-am69-sk-csi2-dual-imx219-dtbs := k3-am69-sk.dtb \
- 	k3-j721e-sk-csi2-dual-imx219.dtbo
- k3-am69-sk-pcie0-ep-dtbs := k3-am69-sk.dtb \
-@@ -491,6 +495,7 @@ dtb- += k3-am625-beagleplay-csi2-ov5640.dtb \
- 	k3-am69-aquila-dev-csi-ov5640-24mhz.dtb \
- 	k3-am69-aquila-dev-csi-ov5640.dtb \
- 	k3-am69-aquila-dev-dsi-to-lvds-panel-cap-touch-10inch.dtb \
-+	k3-am69-aquila-dev-dsi-to-lvds-v2-panel-cap-touch-10inch.dtb \
- 	k3-am69-sk-csi2-dual-imx219.dtb \
- 	k3-am69-sk-pcie0-ep.dtb \
- 	k3-j7200-evm-pcie1-ep.dtb \
-diff --git a/arch/arm64/boot/dts/ti/k3-am69-aquila-dsi-to-lvds-v2-panel-cap-touch-10inch.dtso b/arch/arm64/boot/dts/ti/k3-am69-aquila-dsi-to-lvds-v2-panel-cap-touch-10inch.dtso
-new file mode 100644
-index 000000000000..92e270611f05
---- /dev/null
-+++ b/arch/arm64/boot/dts/ti/k3-am69-aquila-dsi-to-lvds-v2-panel-cap-touch-10inch.dtso
-@@ -0,0 +1,161 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later OR MIT
-+/*
-+ * Copyright (c) Toradex
-+ *
-+ * Toradex DSI to LVDS Adapter on Aquila DSI_1 with Capacitive Touch Display
-+ * 10.1" V2 Used on Development Board (J44). DSI_1 is exposed via a Samtec
-+ * LSS-130 connector.
-+ *
-+ * https://developer.toradex.com/hardware/accessories/displays/capacitive-touch-display-101inch-lvds
-+ * https://www.toradex.com/accessories/capacitive-touch-display-10.1-inch-lvds
-+ * https://developer.toradex.com/hardware/accessories/add-ons/dsi-lvds-adapter
-+ * https://www.toradex.com/accessories/verdin-dsi-to-lvds-adapter
-+ */
-+
-+/dts-v1/;
-+/plugin/;
-+
-+#include <dt-bindings/gpio/gpio.h>
-+#include <dt-bindings/interrupt-controller/irq.h>
-+
-+&{/} {
-+	backlight_pwm3: backlight-pwm3 {
-+		compatible = "pwm-backlight";
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&pinctrl_gpio_19_dsi_1>;
-+		brightness-levels = <0 45 63 88 119 158 203 255>;
-+		default-brightness-level = <4>;
-+		/* Aquila GPIO_19_DSI_1 (AQUILA B44) - DSI_1_BKL_EN_LVDS */
-+		enable-gpios = <&main_gpio0 13 GPIO_ACTIVE_HIGH>;
-+		/* Aquila PWM_3_DSI (AQUILA B46) - PWM_3_DSI_LVDS */
-+		pwms = <&main_ehrpwm5 0 6666667 0>;
-+	};
-+
-+	panel-lvds-bridge {
-+		compatible = "optologic,scx1001511ggc49", "panel-lvds";
-+		backlight = <&backlight_pwm3>;
-+		data-mapping = "vesa-24";
-+		height-mm = <136>;
-+		width-mm = <217>;
-+
-+		/*
-+		 * The timings here are different from the nominal ones for the
-+		 * SCX1001511GGC49 display. The clock-frequency, along with the
-+		 * other timings, are adjusted from experimentation to work
-+		 * consistently with the DSI to LVDS bridge (TI SN65DSI84)
-+		 * across Toradex modules that use it.
-+		 */
-+		panel-timing {
-+			clock-frequency = <70000000>;
-+			hactive = <1280>;
-+			hback-porch = <55>;
-+			hfront-porch = <55>;
-+			hsync-len = <45>;
-+			vactive = <800>;
-+			vback-porch = <5>;
-+			vfront-porch = <5>;
-+			vsync-len = <3>;
-+			de-active = <1>;
-+			hsync-active = <0>;
-+			vsync-active = <0>;
-+			pixelclk-active = <0>;
-+		};
-+
-+		port {
-+			panel_lvds_bridge_in: endpoint {
-+				remote-endpoint = <&dsi_lvds_bridge_out>;
-+			};
-+		};
-+	};
-+};
-+
-+&dphy_tx0 {
-+	status = "okay";
-+};
-+
-+&dsi0 {
-+	status = "okay";
-+};
-+
-+&dsi0_ports {
-+	#address-cells = <1>;
-+	#size-cells = <0>;
-+
-+	port@0 {
-+		reg = <0>;
-+
-+		dsi0_out: endpoint {
-+			remote-endpoint = <&dsi_lvds_bridge_in>;
-+		};
-+	};
-+
-+	port@1 {
-+		reg = <1>;
-+
-+		dsi0_in: endpoint {
-+			remote-endpoint = <&dpi2_out>;
-+		};
-+	};
-+};
-+
-+&dss_ports {
-+	#address-cells = <1>;
-+	#size-cells = <0>;
-+
-+	port@2 {
-+		reg = <2>;
-+
-+		dpi2_out: endpoint {
-+			remote-endpoint = <&dsi0_in>;
-+		};
-+	};
-+};
-+
-+&i2c_dsi_0 {
-+	#address-cells = <1>;
-+	#size-cells = <0>;
-+
-+	bridge@2c {
-+		compatible = "ti,sn65dsi84";
-+		reg = <0x2c>;
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&pinctrl_gpio_20_dsi_1>;
-+		/* Aquila GPIO_20_DSI_1 (AQUILA B45) - LVDS_EN */
-+		enable-gpios = <&main_gpio0 18 GPIO_ACTIVE_HIGH>;
-+
-+		ports {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+
-+			port@0 {
-+				reg = <0>;
-+
-+				dsi_lvds_bridge_in: endpoint {
-+					remote-endpoint = <&dsi0_out>;
-+					data-lanes = <1 2 3 4>;
-+				};
-+			};
-+
-+			port@2 {
-+				reg = <2>;
-+
-+				dsi_lvds_bridge_out: endpoint {
-+					remote-endpoint = <&panel_lvds_bridge_in>;
-+				};
-+			};
-+		};
-+	};
-+
-+	touchscreen@41 {
-+		compatible = "ilitek,ili251x";
-+		reg = <0x41>;
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&pinctrl_gpio_17_dsi_1>, <&pinctrl_gpio_18_dsi_1>;
-+		/* Aquila GPIO_17_DSI_1 (AQUILA B42) - TOUCH_INT# */
-+		/* Rising edge avoids spurious interrupts from the noisy falling edge. */
-+		interrupt-parent = <&main_gpio0>;
-+		interrupts = <12 IRQ_TYPE_EDGE_RISING>;
-+		/* Aquila GPIO_18_DSI_1 (AQUILA B43) - TOUCH_RESET# */
-+		reset-gpios = <&main_gpio0 31 GPIO_ACTIVE_LOW>;
-+	};
-+};
+Acked-by: Nhat Pham <nphamcs@gmail.com>
