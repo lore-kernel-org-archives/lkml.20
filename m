@@ -1,82 +1,82 @@
-Received: from mail-lj1-f169.google.com (mail-lj1-f169.google.com [209.85.208.169])
+Received: from mail-lj1-f177.google.com (mail-lj1-f177.google.com [209.85.208.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6A1440B10C
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 20:18:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03B8A423783
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 20:21:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.177
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788985087; cv=pass; b=Q4foFSw4kWXatiUpIKJfwBOtL6z2O+TduyVH1afmL/2ROVyyAGBhWYc17UfHUCsQlontsFG0L6NsY84tl/DaCcs5qs3unek8eKSNernkKra3fUddl76mj89dn1qjF3iizmQ+EeH1AR2jkXMoKcifVf6vjSvfS9JgGzwmHNc6lFU=
+	t=1788985304; cv=pass; b=h6pRgaB7caX6cUrxgHYi+Sk3xWbLsG182wzCDrtn7iDMPqYQKN7diVX47V2aQO4y75T7SYHETse8hDSGdlJA1pSBXb2NVgEVQcfabfRgaXEIa4qCAPGqlwus+QBvKtcOj6aXW957mIpOKyRoWr3ocSgGpMkqmeXneJBDFU7ovY4=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788985087; c=relaxed/simple;
-	bh=r0SYPe6/MLvVhiIoMkAkIXOuQ6dRGOznaSyuFqfT4PU=;
+	s=arc-20240116; t=1788985304; c=relaxed/simple;
+	bh=0VHC4PV1n3kvmpJBB03kx86ZwKDGKzt09AXVkbRvG6M=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=WPgSQYfRDUDPeyae/udINMWGW1qNBBXOPTw66i/TY544fxApK32CNeiqMAi0Qkn6nG9x38oVeKzCfH5GZ+9AzvSdJFQze0l5cZnvtq1USrB6nqn5h23qJLGrGsYtkQglLdDJtOtvsM+lKyGbCL0G/nOR+PtQDVKgGCIRtK67CqU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=smJQALHJ; arc=pass smtp.client-ip=209.85.208.169
+	 To:Cc:Content-Type; b=b4apKu6dzEa3FWXj/ugz/w5Ko+iCbcOWx3HzWJxXHV5kYE8wOZDVbfblehsxnliDjotyLl5drIJelYOCn5CPj4LLSQV/QR6UuHVaal2Mr3L7rd6WG0LZa+/1gSjz/CLrMNTzmaJkDu/Mu9IUZ3Q6Oh6hXpoXMVlpI8aOhvm28uc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LUIaaVuJ; arc=pass smtp.client-ip=209.85.208.177
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="smJQALHJ"
-Received: by mail-lj1-f169.google.com with SMTP id 38308e7fff4ca-3a58eb29192so4263381fa.3
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 13:18:01 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788985078; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LUIaaVuJ"
+Received: by mail-lj1-f177.google.com with SMTP id 38308e7fff4ca-3a468f4c547so41143111fa.0
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 13:21:41 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788985296; cv=none;
         d=google.com; s=arc-20260327;
-        b=njIzuc7KSouamJcIykX0uL+BtlMvOtt38HUy7xcVbvum0/6dlmmFXC4iurjzMw1phd
-         +4jM4OYtvD/DlmZOlPLCZhJButvL9sVmaXEznhOEag4+k40bkvPlexOKzKXZesslbuVN
-         632fhEG4oaZjLa12f7EZQAc1rS2/eAvnR+3ecd2gzRU2szAoc8R8FdA5J18ZfQzVGrWe
-         SQ15y3OYBDW1ScbyCR9gD5/iNeLfa+HE2T4qGQcx3rx/Q08xag3zZpEJnhA7BZxR1NbO
-         sRLPeyFxmkpJRlltJ0B3q9PZUJVOU/oHzAnbLWR3pFCgYo677dxSHNZQKYp1WwFyzeKK
-         3T5g==
+        b=p3Yye1iQB2Um+4FlqEI3z3wZcMZeTF3iD2yDdGyk9LV0dPnazwnOQJGUbigvohcwaH
+         Q0uTBeNRXO3B5elak1ZQJZeqBuRH0ZdxGQZodu7HpoXqhccVWRDL2GrZOLraVUpclIXm
+         0pJy1TWumRE6VhKXea2nhrCQdmOLL05rSpkY+T4v1foy1ir3B/gQhfL0U6WRNh9xlW0I
+         DAYe74eMLNF9IT1ei61NLuF1Wt5Q+5sDUcqdardDPv0CvnCsLGJuqB/BA1MRyp+Yop/9
+         mjBZ9FsfXDncLRGmowkbuD4jwk/pZAxU8phwO3ZvhaRDG0GigdaDvJSJiObxOKjOqCFE
+         GtPw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=rU/edVWvN0al2QuqioTnSDLV4+asJJGA8jcDggwnG3A=;
-        fh=pPwQ8K6n+/RmrZrjPyqAh12sjc0mzbk/XnbHVJphWO4=;
-        b=WXQ1s6wJWQeSM2EEDTPoXGVrOAKQfmodXQ8oAD2y3PfRHNfoOdEtzncAvIZci+/fxz
-         /TLqIBEH9EfQgcSsc+8o0kR0bzTL67WOgpeblCMzqTwF9YFj/L9znUMHoR+KoAjnwoQF
-         RfjIXf/o44NhZJtAjqV8OBNFXQdzc3Y84aJxzUcGKG4azTE0xJrm+3Sme2VGOUDsgLmA
-         lznm2iowxGT+YsIFzMF6SNyjIcmMv0cEk9kxq4gwFpQEVnKMgF9QTwab5HxFyBl8LtbI
-         0JJ5pPbXuApZlfp6leGLmj5EN5pkPvHjQDFA7vtMsqsjV8vu/Cy19El+Q9nAAAuNp8SW
-         k+EA==;
+        bh=KA2VpArXTb8DPUcHb4yt2Z+i5iQStht727IOnEs/FJU=;
+        fh=QP+8uj9dC8B8GAot2nizqrD9aWezTmGqCCEMOquA9NM=;
+        b=FM4LqeJwnJbQKpkSDti+oD6CYX7rHgKNO4aWSNYZCFwa7S38tDOwvOzAmTEUdEuEB2
+         ryl5Kaz0o8R8hjm5md99UTGjNHSMmk3uHlTzkebYHyu53fgMjAK7S73ugzFWKtS2uj7M
+         2nBQkRwzX+S39qBVVSkGt2JTudmlZyJBAaoRNt4zeFR+3Wel+F+PtasbrrzvQQaOgLcK
+         jxj4DSIb3EAtOieSiPgkYuE4GtfzFK87qXzMw4VAn8Mbswi2noIDNOFUU8Pw5WIexZ0p
+         PABPfcwHrphJ7oWkLEzhqyGPNr9Bybx18dzVBA94MVZl69KucKpT7SI4YCP8Y/Zg2ezR
+         ZUxA==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788985078; x=1789589878; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788985296; x=1789590096; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=rU/edVWvN0al2QuqioTnSDLV4+asJJGA8jcDggwnG3A=;
-        b=smJQALHJEKLggOAUE3JHMc4GrHnhEz7kBOpoYZ+TN9qx1gucc9icC6ZGkjkY25N0Hc
-         hwOKnXbTnOmQlCMiX8WY7Wbjwvsib1tfB2qyB6MqkouZEUe5OjkyThv3qA5myAKF01PX
-         BmLKDkjM5hOjVkYHLAanr63ETq0E9LC2GSoZqoox6EZvrQR6uYEu/UVdyTXh2zgSk1V2
-         M024205Bv8hrlzM4HVPzmnPrUR/+dlNMyqZLhQMLQvjtwdq7uJLqGI2km027Yh8QgtFu
-         7WIf3RmVmKLsaxk6qGoIS24SCB7zbMPTLBu8TI43Ok91YY3/KlWDJj6JYoMwuHjkDq5x
-         NhtA==
+        bh=KA2VpArXTb8DPUcHb4yt2Z+i5iQStht727IOnEs/FJU=;
+        b=LUIaaVuJod11/3g/t6MbNyyoSX0CGO7oms/3y74cxk2EqkM2BDpR1KUNdVBrhuAfA9
+         bSMPndRxSTkcgUpnYqN9zDlJgMWyAIZ1UlS4m1CFX6RVka/csj2ljbMnaDf/WDF0xUDh
+         p2RzP3hZ0yLqEloDhD4nDMUMHpuQiLu3xcB5SXR3tnbFjOiY3ZxDtdXHK9mR1nh+VEF4
+         TTnh0U90Ta5H05+5Kn4Vu/aOoDSE/k82LatXfdQtFVmsxCKPCz6dRSa3x5X9sCT78Hxh
+         Q/o0uo7WWnZte+3/JDYeSMruLATwmPWM3pOGCjLoBwn3RAf8UCyqjrKgQFa8QCOsHz5l
+         zJgw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788985078; x=1789589878;
+        d=1e100.net; s=20251104; t=1788985296; x=1789590096;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=rU/edVWvN0al2QuqioTnSDLV4+asJJGA8jcDggwnG3A=;
-        b=BOMdzHGxHanWMdN0VnrvRoPIGLyJFqaLCQIRRKEs0z1zj7qQPR4TvvzxUnxYieJ+Fo
-         JwzCWJdeKWvd1HIt2k9gJT+OnGGFSjbb2BxPVsjP5CuaWKNbEOz7RLKRAjRwC8Riy282
-         XCKkL8HHZezmLa7nUZ+Uitega5qZZ0CJgPKJADAxuWho3wDajZ8uMq0vFplN8YJTXhAD
-         PuP2ym9IoMAeK1iTtPTMFTRqyaqGKscpg7Jseh9D48Sj7FVgV/jMZ6G5c5vo1BTotHg6
-         l7CwIljEfh1fb8DT/4G2uza8/PUGE3bMuNpz4Bf/2//EA2zL2+Dr7zBAOLJXAkew0IwR
-         ZbbQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxU84T2UdaPxn3VrpYnMIOW0M/El2e25VRrYqcAuXUZ0kt17g9VRPp2mk0x13RjXpZUrwTR52mPr17zo/s=@vger.kernel.org
-X-Gm-Message-State: AFuF++m74dwy0l7n5y1HqZD9DDau/5TGlST7uDkfMKKibu6D1fFbpS1H
-	WxEJFOVakUTC91PbJWd2UzeVT2AzDmPoLK0Eea4m7Z49u3gDB4WsK4NDhxEW4cZ7VKvtk/56zcZ
-	HUb+jAqvbCT4NpKpkInTUx7+Sk94p8ns=
-X-Gm-Gg: AYBFou0oTy01aWxI/eR4ZfrwwD2MJ2mlon0r0wm9vnw06PMfp2oy1O42wDcLsj1Gzlm
-	Q1LcI8awuM97re+UWYbNjGNNKb+jvybE79nTDgO7zDycQ0W6OF4eSRgf1+d37P0XJhmWAlPYOin
-	lNS4yxIiGbYaVcG3TjPq65638Pel4gi2eWK+tlDEHX+SoKI2S2Q3TpYvMZSE5u2QO+V966a6h2v
-	9JB1bulNAgWc+ddmasPfBTSuZccxzZ3puZHZ+GKIupOeaXvK5+o8IaTajyQ5DDfWjOxallujbPs
-	r7MjOyhpruuBf6Ji5m8vP9J3OSdfGzwByiHuHKZCtNyWvhu+ZbQEFbXMylU3KR7FTDJXHZZv2sX
-	j2OuhFGZdrxlmoBZvKXCsntib+4aLj0v+2fOkCu8nUT3O
-X-Received: by 2002:a05:6512:acd:b0:5b6:1a7c:fd86 with SMTP id
- 2adb3069b0e04-5b61a7cfdb9mr6159278e87.44.1788985077633; Wed, 09 Sep 2026
- 13:17:57 -0700 (PDT)
+        bh=KA2VpArXTb8DPUcHb4yt2Z+i5iQStht727IOnEs/FJU=;
+        b=AaYS3MjrWXqCe0GOBJeUXkT7fT9SLEvipe+5Qmnjfq3feeJ/9LO3BMw1LHr8ak3bll
+         sm83O6xhO+BmfJrdqIwDsLrpt0MJzna4KF914qvlPFdydrTJKPMP7UyilRSMDViSadqa
+         /6uJtJ2Wax+1NhyiN7XPhImxQYZ7dyYSMnvv56GdbKV3Yy8gJyPEEcFD4FWdZuSKt/Pz
+         76PDTIFgHF1wqekN39+MJygHsNYcaMfuALoJ9a/85nVGIzZJTGyU0UhDBhkSgHtsHnl0
+         IvMSkfyT/tPRNr0ZIqJvDwITYACSpAU3/ysrrV2g5l7k4up2eTl93EJZQjNo+l6O7rRM
+         7//w==
+X-Forwarded-Encrypted: i=1; AKwUvBznXz6b7DItY7tj9JstkNijIQ4TgrXtD4Hefwd9lB3dHQKdPBTQTvdf8ffbgxTGMJvbbNi81PortCNVVLQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++mHytPmolXqriRAzmVK/BImJ9GR7EHOn8f8gBTO1O8jHZ/eXbVx
+	mq4WbBJgd0DUU35GkD5u7Vhf450xkGpnsetaKXxQd5629O4tH58L2WzL7i/qFYhuCtzbaVfnXnB
+	vpcbj9xi5eRBq/5BuhJT70ZbcZZTsCyU=
+X-Gm-Gg: AYBFou3RGx8A8mwPAXoDrRdGLdMLQyan2b2cr5Fx7U3kq2SpvaBqdhLUhc23N868DXW
+	lwWZ82B4pPf0MRh4r3/w4kPXGPry4IoLPIGRtxjJyWKMTbuxKXD+GhR8+cxWzjeKFgCQnzE0fZK
+	jYw7oCY8lW/uWcJthvU4aFpRAT/Fs37P5ccOIep+X6+krAnj3Q8wk4O5XzmfjUBjCj5NQKkqhy3
+	pZPyXeRP7AN80B2J2goTT1DeWs9L6dAKchbvBVEmTyQXg8iZvoPRvoOzRHFj5mzlzgL0D7yWnXt
+	iqW8IqKjlSZzOoq5IlHgED8fex13xKrNc/pHxqUrRaiPusgI9LxWVG7sQaDY5msx7S6xmok7vm6
+	zJiSww2hEt/+ihzlDKs2SFhgmp/BeX61lexiAi9Is0Bma
+X-Received: by 2002:a05:651c:b0f:b0:3a3:749e:31a4 with SMTP id
+ 38308e7fff4ca-3a58d92c643mr3500071fa.24.1788985296110; Wed, 09 Sep 2026
+ 13:21:36 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -86,11 +86,12 @@ MIME-Version: 1.0
 References: <20260908152808.3928630-1-arnd@kernel.org> <20260908152808.3928630-9-arnd@kernel.org>
 In-Reply-To: <20260908152808.3928630-9-arnd@kernel.org>
 From: Fabio Estevam <festevam@gmail.com>
-Date: Wed, 9 Sep 2026 17:17:46 -0300
-X-Gm-Features: AcwNN1WKZQyaGADU6lkE-GsXnisq5MVghkNUlNC3CqrQiDAXJmgIgXPSi_5sivU
-Message-ID: <CAOMZO5B4q01XRGRfK_LoR1SWkvdP-_fbSHrE4BYq7gVf7k0Xwg@mail.gmail.com>
+Date: Wed, 9 Sep 2026 17:21:24 -0300
+X-Gm-Features: AcwNN1XhCWWR_p45edJ2cAUvnO6YnDwGtKUGW17Fe3LwHfhT5TU0cNccQ42bU4E
+Message-ID: <CAOMZO5Bw72SkBChbRLg+FaYZ34ENAW95-0+LrgcrESu_YtNXFQ@mail.gmail.com>
 Subject: Re: [PATCH 08/13] ARM: imx: remove nommu support
-To: Arnd Bergmann <arnd@kernel.org>
+To: Arnd Bergmann <arnd@kernel.org>, Jesse Taube <mr.bossman075@gmail.com>, 
+	Giulio Benetti <giulio.benetti@benettiengineering.com>
 Cc: Krzysztof Kozlowski <krzk@kernel.org>, Alexandre Belloni <alexandre.belloni@bootlin.com>, 
 	Linus Walleij <linusw@kernel.org>, Russell King <linux@armlinux.org.uk>, 
 	Drew Fustini <fustini@kernel.org>, Arnd Bergmann <arnd@arndb.de>, Rob Herring <robh@kernel.org>, 
@@ -112,7 +113,7 @@ Cc: Krzysztof Kozlowski <krzk@kernel.org>, Alexandre Belloni <alexandre.belloni@
 	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
 	devicetree@vger.kernel.org, imx@lists.linux.dev, 
 	linux-stm32@st-md-mailman.stormreply.com, linux-omap@vger.kernel.org, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Giulio Benetti <giulio.benetti@benettiengineering.com>
+	Krzysztof Kozlowski <krzk+dt@kernel.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
@@ -153,3 +154,17 @@ te:
 >  arch/arm/boot/dts/nxp/imx/imxrt1050-pinfunc.h |  993 -----------
 >  arch/arm/boot/dts/nxp/imx/imxrt1050.dtsi      |  160 --
 >  arch/arm/boot/dts/nxp/imx/imxrt1170-pinfunc.h | 1561 -----------------
+>  arch/arm/boot/dts/nxp/vf/Makefile             |    2 -
+>  arch/arm/boot/dts/nxp/vf/vf610m4-colibri.dts  |   61 -
+>  arch/arm/boot/dts/nxp/vf/vf610m4-cosmic.dts   |   88 -
+>  arch/arm/boot/dts/nxp/vf/vf610m4.dtsi         |   61 -
+>  arch/arm/configs/imxrt_defconfig              |   35 -
+>  arch/arm/configs/vf610m4_defconfig            |   39 -
+>  arch/arm/mach-imx/Kconfig                     |   27 +-
+>  arch/arm/mach-imx/Makefile                    |    3 -
+>  arch/arm/mach-imx/mach-imx7d-cm4.c            |   18 -
+>  arch/arm/mach-imx/mach-imxrt.c                |   19 -
+
+The imxrt1050-evk dts is used in U-Boot.
+
+Adding Jesse and Giulio, who use this platform in U-Boot.
