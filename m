@@ -1,204 +1,191 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C83EB3624B3;
-	Wed,  9 Sep 2026 17:13:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BB1F332EA0
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 17:13:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788973994; cv=none; b=FVZfCCEVQopWZ2ep5Qj1zaIHwUoS3ngVhyocHFRe94zPrG8q2bhXzyWKDEg0XFmDUJLyoJPktz0ETFeEgN+JeFCpgW6C+Cz463L1lP/uauVC4U066NCrS6O40spoLnTCkO/vqPS26Ru2fDYauRRRwYw05MPDsj/EpcIo7zmJT3U=
+	t=1788974002; cv=none; b=l/bfkIzszxiUcH7e8GKWjOwp6ZWkH4Sc3lJ5Bc5umKglM7f2w1RvPKZ6929y0isk4//Ew/o75XhAzH31OjoIuTckVxFFDCpWaxRhvgfpxhOw8ikBWdF0BiUyv/NInsPxkd/7ib9WkBkOo4vXta7lwjd7dnspRrGAkREstJuwTAk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788973994; c=relaxed/simple;
-	bh=S64L27A589o2OosVp4GFVwB1Um/5ijreRPMBZviTrlM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=oMLXe+vwvbhcbvwga5syGUcGepNyrtY1n+h+R50LlH8LlGvtdbfqeVPKd3jzxgbCmeOWV2XX0okRC/R/nroQoTDZPlIRhKMpDosBy56k+UorJ725Z0W1yu8My0AWhuVfdS9KQZDbRimUYhi7AZLsNRtYB+iVn+JGXRfwYYmUYXw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GKOoGJXk; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788974002; c=relaxed/simple;
+	bh=Dvelg2xfRPt+GEBXYOdSLVS/wF4eTLVcXc9LhLKkpgo=;
+	h=From:In-Reply-To:References:To:Cc:Subject:MIME-Version:
+	 Content-Type:Date:Message-ID; b=Pzm41MwduiSfRpzFatTxa2V+cmtXzVGbh0vPwG8LY91e9FsOx4u3t/dzvNsMbXlxa9NEE6j7gf61+Ll8cS286eXkyzGJ+1JuXS5VslQIyK0vLopzlQqmjMAAWklcIsilIzXs9ixu02vJpLGykTG/MU/p0DqwuNjVhbAE5YnfU38=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=YcQzkByQ; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GKOoGJXk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B9E4E1F000FF;
-	Wed,  9 Sep 2026 17:13:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788973992;
-	bh=Ufuh8rHe8RzDWREZVOB5iC/Zr56vWlipFdG7yg5JHjw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=GKOoGJXkIXdtEkoH8v22EkCC9f7VeSkTOqIvgxY5y+FryZ0ErUlrWtG3z4kwXWhBL
-	 sl6pQ7mxbKA+D/7GdWzuINNHi6XXFlNlmLAEfwQjuZ1YVGupC41GCQMQIiNyda762l
-	 YLNkpRPx8BbByXoSyENmsVVbLCb9q9ntzh5ty6l381mX/OcmUn8iQnyB+Xi3mmHMsV
-	 VHxGUuRtjczB5xoW+nphOxpzA84U58F+NruTp7SoliIfUTSLE486bTMyoEWU69a6Th
-	 pr71TsinuVKccKsy+oYwAoDMXrRxdotH0rZFyJFA10PuVVqecsRIC3NpzNXOFNR+dv
-	 bnVgXyavOmjnw==
-Date: Wed, 9 Sep 2026 19:13:02 +0200
-From: Manivannan Sadhasivam <mani@kernel.org>
-To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Cc: chunfeng.yun@mediatek.com, vkoul@kernel.org, neil.armstrong@linaro.org, 
-	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, matthias.bgg@gmail.com, 
-	chunkuang.hu@kernel.org, p.zabel@pengutronix.de, justin.yeh@mediatek.com, 
-	linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
-	linux-phy@lists.infradead.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	dri-devel@lists.freedesktop.org, kernel@collabora.com
-Subject: Re: [PATCH v3 05/12] phy: phy-mtk-dp: Implement power_on and
- power_off PHY callbacks
-Message-ID: <qi7ond5pdug5o56qi2i3btqbp6quljanei3v27kbbrbebcquxi@g7kfqgjc3s76>
-References: <20260707154245.198361-1-angelogioacchino.delregno@collabora.com>
- <20260707154245.198361-6-angelogioacchino.delregno@collabora.com>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="YcQzkByQ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1788973998;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ZRfKNGkawxZEEz9tQqGkbnM4yy5E2ATyItYlCc0VsaI=;
+	b=YcQzkByQftwcmRmJy78qQd++OYuToQ1TVukzJF4c6v4k1yS4wicCXUb16iJ5wWF49zXrfz
+	tI6NtmrLlQkcFAOEvuF0gZRSxWEe+vwoHeoPRbV6vQsj9SiD0VvSNCy2nU8CeqY9hclFRm
+	oGrkp+lVVPrSs5tnNjCVZXfiABxblTo=
+Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-690-tCCd9euFNRK1NjEfRlWKug-1; Wed,
+ 09 Sep 2026 13:13:12 -0400
+X-MC-Unique: tCCd9euFNRK1NjEfRlWKug-1
+X-Mimecast-MFC-AGG-ID: tCCd9euFNRK1NjEfRlWKug_1788973990
+Received: from mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.95])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 64D6D19540C3;
+	Wed,  9 Sep 2026 17:13:10 +0000 (UTC)
+Received: from warthog.procyon.org.uk (unknown [10.44.32.158])
+	by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 258EE767;
+	Wed,  9 Sep 2026 17:13:07 +0000 (UTC)
+Organization: Red Hat UK Ltd. Registered Address: Red Hat UK Ltd, Amberley
+	Place, 107-111 Peascod Street, Windsor, Berkshire, SI4 1TE, United
+	Kingdom.
+	Registered in England and Wales under Company Registration No. 3798903
+From: David Howells <dhowells@redhat.com>
+In-Reply-To: <afd68097-b2b2-47e5-889b-fb077e7a9247@redhat.com>
+References: <afd68097-b2b2-47e5-889b-fb077e7a9247@redhat.com> <a385053c-1c4a-4060-a3bb-befa007ddb33@redhat.com> <1714046.1788952509@warthog.procyon.org.uk>
+To: sorenson@redhat.com
+Cc: dhowells@redhat.com, Paulo Alcantara <pc@manguebit.org>,
+    Jeff Layton <jlayton@kernel.org>, linux-fsdevel@vger.kernel.org,
+    netfs@lists.linux.dev, CIFS <linux-cifs@vger.kernel.org>,
+    linux-kernel@vger.kernel.org
+Subject: Re: netfs_read_gaps(): aliased sink folio makes the read destination unreadable, SIGBUS on cifs with signing
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260707154245.198361-6-angelogioacchino.delregno@collabora.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-ID: <1729857.1788973986.1@warthog.procyon.org.uk>
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 09 Sep 2026 18:13:06 +0100
+Message-ID: <1729858.1788973986@warthog.procyon.org.uk>
+X-Scanned-By: MIMEDefang 3.6 on 10.30.177.95
 
-On Tue, Jul 07, 2026 at 05:42:38PM +0200, AngeloGioacchino Del Regno wrote:
-> Add .power_on() and .power_off() callbacks to mtk_dp_phy_dev_ops
-> to be able to call those with phy_power_on() and phy_power_off()
-> API in the DisplayPort driver to be able to stop using all of
-> those hardcoded register writes in that external driver.
-> 
-> Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-> ---
->  drivers/phy/mediatek/phy-mtk-dp.c | 88 +++++++++++++++++++++++++++++++
->  1 file changed, 88 insertions(+)
-> 
-> diff --git a/drivers/phy/mediatek/phy-mtk-dp.c b/drivers/phy/mediatek/phy-mtk-dp.c
-> index 20974650d940..f6b0e83d4833 100644
-> --- a/drivers/phy/mediatek/phy-mtk-dp.c
-> +++ b/drivers/phy/mediatek/phy-mtk-dp.c
-> @@ -21,6 +21,9 @@
->  
->  #define MTK_DP_PHY_MAX_LANES		4
->  
-> +/* DP_PHYA_GLB_FORCE_CTRL_1 */
-> +#define CKM_CKTX0_EN_FORCE_MODE		BIT(10)
-> +
->  /* DP_PHYD_PLL_CTL_1 */
->  #define TPLL_SSC_EN			BIT(3)
->  
-> @@ -38,6 +41,11 @@
->  #  define DP_GLB_SW_RST_XTAL_CLK	BIT(2)
->  #  define DP_GLB_SW_RST_MAIN_LINK	BIT(3)
->  
-> +/* DP_PHYD_AUX_RX_CTL */
-> +#define PHYD_DIG_DPAUX_RX_EN		BIT(0)
-> +#define PHYD_DIG_XTP_GLB_CKDET_EN	BIT(1)
-> +#define PHYD_DIG_DPAUX_RX_DEGLITCH_EN	BIT(2)
-> +
->  #define DRIVING_PARAM_0_DEFAULT	0x0
->  #define DRIVING_PARAM_1_DEFAULT	0x0
->  #define DRIVING_PARAM_2_DEFAULT	0x0
-> @@ -88,6 +96,12 @@
->  #define DRIVING_PARAM_8_DEFAULT	(XTP_LN_TX_LCTXCP1_SW2_PRE1_DEFAULT | \
->  				 XTP_LN_TX_LCTXCP1_SW3_PRE0_DEFAULT)
->  
-> +enum mtk_dp_phya_ana_glb_regidx {
-> +	DP_PHYA_GLB_FORCE_CTRL_0,
-> +	DP_PHYA_GLB_FORCE_CTRL_1,
-> +	DP_PHYA_GLOBAL_MAX
-> +};
-> +
->  enum mtk_dp_phyd_dig_lane_regidx {
->  	DP_PHYD_LAN_DRIVING_PARAM_0,
->  	DP_PHYD_LAN_MAX
-> @@ -98,9 +112,15 @@ enum mtk_dp_phyd_dig_glb_regidx {
->  	DP_PHYD_PLL_CTL_1,
->  	DP_PHYD_SW_RST,
->  	DP_PHYD_BIT_RATE,
-> +	DP_PHYD_AUX_RX_CTL,
->  	DP_PHYD_GLOBAL_MAX
->  };
->  
-> +static const u8 mt8195_phy_ana_glb_regs[DP_PHYA_GLOBAL_MAX] = {
-> +	[DP_PHYA_GLB_FORCE_CTRL_0] = 0x30,
-> +	[DP_PHYA_GLB_FORCE_CTRL_1] = 0x34,
-> +};
-> +
->  static const u8 mt8195_phy_dig_lane_regs[DP_PHYD_LAN_MAX] = {
->  	[DP_PHYD_LAN_DRIVING_PARAM_0] = 0x2c,
->  };
-> @@ -110,21 +130,26 @@ static const u8 mt8195_phy_dig_glb_regs[DP_PHYD_GLOBAL_MAX] = {
->  	[DP_PHYD_PLL_CTL_1] = 0x14,
->  	[DP_PHYD_SW_RST] = 0x38,
->  	[DP_PHYD_BIT_RATE] = 0x3c,
-> +	[DP_PHYD_AUX_RX_CTL] = 0x40,
->  };
->  
->  /**
->   * struct mtk_dp_phy_pdata - Platform data and defaults for MediaTek DP/eDP PHY
-> + * @off_ana_glb:    Base offset for dptx_phyd_sifslv_ana_glb
->   * @off_dig_glb:    Base offset for dptx_phyd_sifslv_dig_glb
->   * @off_dig_lane:   Base offsets for dptx_phyd_sifslv_dig_lan (for each lane)
-> + * @regs_ana_glb:   Register (layout) offsets for ana_glb
->   * @regs_dig_glb:   Register (layout) offsets for dig_glb
->   * @regs_dig_lane:  Register (layout) offsets for dig_lan
->   */
->  struct mtk_dp_phy_pdata {
->  	/* Register offsets */
-> +	u16 off_ana_glb;
->  	u16 off_dig_glb;
->  	u16 off_dig_lane[MTK_DP_PHY_MAX_LANES];
->  
->  	/* Register maps */
-> +	const u8 *regs_ana_glb;
->  	const u8 *regs_dig_glb;
->  	const u8 *regs_dig_lane;
->  };
-> @@ -208,6 +233,65 @@ static int mtk_dp_phy_configure(struct phy *phy, union phy_configure_opts *opts)
->  	return 0;
->  }
->  
-> +static int mtk_dp_phy_power_on(struct phy *phy)
-> +{
-> +	struct mtk_dp_phy *dp_phy = phy_get_drvdata(phy);
-> +	const struct mtk_dp_phy_pdata *pdata = dp_phy->pdata;
-> +	const u8 *regs_dig = pdata->regs_dig_glb;
-> +	const u8 *regs_ana = pdata->regs_ana_glb;
-> +	int ret;
-> +
-> +	/* Enable AUX Channel with RX De-Glitch and input clock detection */
-> +	ret = regmap_write(dp_phy->regmap,
-> +			   pdata->off_dig_glb + regs_dig[DP_PHYD_AUX_RX_CTL],
-> +			   PHYD_DIG_DPAUX_RX_EN |
-> +			   PHYD_DIG_XTP_GLB_CKDET_EN |
-> +			   PHYD_DIG_DPAUX_RX_DEGLITCH_EN);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = regmap_clear_bits(dp_phy->regmap,
-> +				pdata->off_ana_glb + regs_ana[DP_PHYA_GLB_FORCE_CTRL_1],
-> +				CKM_CKTX0_EN_FORCE_MODE);
-> +	if (ret) {
-> +		/* Shut down AUX channel */
-> +		regmap_write(dp_phy->regmap,
-> +			     pdata->off_dig_glb + regs_dig[DP_PHYD_AUX_RX_CTL], 0);
-> +		return ret;
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static int mtk_dp_phy_power_off(struct phy *phy)
-> +{
-> +	struct mtk_dp_phy *dp_phy = phy_get_drvdata(phy);
-> +	const struct mtk_dp_phy_pdata *pdata = dp_phy->pdata;
-> +	const u8 *regs_dig = pdata->regs_dig_glb;
-> +	const u8 *regs_ana = pdata->regs_ana_glb;
-> +	int ret_cktx, ret_aux;
-> +
-> +	ret_cktx = regmap_set_bits(dp_phy->regmap,
-> +				   pdata->off_ana_glb + regs_ana[DP_PHYA_GLB_FORCE_CTRL_1],
-> +				   CKM_CKTX0_EN_FORCE_MODE);
-> +
-> +	/* Disable RX unconditionally */
-> +	ret_aux = regmap_write(dp_phy->regmap,
-> +			       pdata->off_dig_glb + regs_dig[DP_PHYD_AUX_RX_CTL], 0);
-> +	if (ret_aux) {
-> +		dev_err(&phy->dev, "Could not disable AUX RX: %d\n", ret_aux);
+How's the attached look?
 
-Since the regmap is MMIO based, I don't think you'll hit these failures.
+David
+---
+commit bc3adc29e9ed4bd564527690bb553d17ee9a24be
+Author: David Howells <dhowells@redhat.com>
+Date:   Wed Sep 9 11:36:30 2026 +0100
 
-- Mani
+    netfs: Fix netfs_read_gaps() to use separate sink folios
+    =
 
--- 
-மணிவண்ணன் சதாசிவம்
+    Fix netfs_read_gaps() to use separate folios rather than re-using a si=
+ngle
+    sink folio to discard the unwanted data so that cifs checksum checking=
+ sees
+    all the data that was fetched.
+    =
+
+    Fixes: 7f84a7b9892d ("netfs: Make netfs_read_folio() handle streaming-=
+write pages")
+    Reported-by: Frank Sorenson <sorenson@redhat.com>
+    Closes: https://lore.kernel.org/r/a385053c-1c4a-4060-a3bb-befa007ddb33=
+@redhat.com/
+    Signed-off-by: David Howells <dhowells@redhat.com>
+    Tested-by: Frank Sorenson <sorenson@redhat.com>
+    cc: Paulo Alcantara <pc@manguebit.org>
+    cc: Namjae Jeon <linkinjeon@kernel.org>
+    cc: netfs@lists.linux.dev
+    cc: linux-cifs@vger.kernel.org
+    cc: linux-fsdevel@vger.kernel.org
+
+diff --git a/fs/netfs/buffered_read.c b/fs/netfs/buffered_read.c
+index 424df70a5c30..0f5220461f8e 100644
+--- a/fs/netfs/buffered_read.c
++++ b/fs/netfs/buffered_read.c
+@@ -482,15 +482,14 @@ static int netfs_read_gaps(struct file *file, struct=
+ folio *folio)
+ 	struct netfs_group *group =3D netfs_folio_group(folio);
+ 	struct netfs_folio *finfo =3D netfs_folio_info(folio);
+ 	struct netfs_inode *ctx =3D netfs_inode(mapping->host);
+-	struct folio *sink =3D NULL;
+-	struct bio_vec *bvec;
++	struct bio_vec *bvec =3D NULL;
+ 	unsigned int from =3D finfo->dirty_offset;
+ 	unsigned int to =3D from + finfo->dirty_len;
+-	unsigned int off =3D 0, i =3D 0;
++	unsigned int off =3D 0;
+ 	size_t flen =3D folio_size(folio);
+ 	size_t nr_bvec =3D flen / PAGE_SIZE + 2;
+ 	size_t part;
+-	int ret;
++	int ret, i =3D 0, sink_from =3D -1, sink_to =3D -1;
+ =
+
+ 	_enter("%lx", folio->index);
+ =
+
+@@ -515,24 +514,23 @@ static int netfs_read_gaps(struct file *file, struct=
+ folio *folio)
+ 	if (!bvec)
+ 		goto discard;
+ =
+
+-	sink =3D folio_alloc(GFP_KERNEL, 0);
+-	if (!sink) {
+-		kfree(bvec);
+-		goto discard;
+-	}
+-
+ 	trace_netfs_folio(folio, netfs_folio_trace_read_gaps);
+ =
+
+-	rreq->direct_bv =3D bvec;
+-	rreq->direct_bv_count =3D nr_bvec;
+ 	if (from > 0) {
+ 		bvec_set_folio(&bvec[i++], folio, from, 0);
+ 		off =3D from;
+ 	}
++	sink_from =3D i;
+ 	while (off < to) {
++		struct folio *sink =3D folio_alloc(GFP_KERNEL, 0);
++
++		if (!sink)
++			goto discard;
+ 		part =3D min_t(size_t, to - off, PAGE_SIZE);
+-		bvec_set_folio(&bvec[i++], sink, part, 0);
++		bvec_set_folio(&bvec[i], sink, part, 0);
+ 		off +=3D part;
++		sink_to =3D i;
++		i++;
+ 	}
+ 	if (to < flen)
+ 		bvec_set_folio(&bvec[i++], folio, flen - to, to);
+@@ -553,8 +551,10 @@ static int netfs_read_gaps(struct file *file, struct =
+folio *folio)
+ 		folio_mark_uptodate(folio);
+ 	}
+ =
+
+-	if (sink)
+-		folio_put(sink);
++	if (sink_to >=3D 0)
++		for (; sink_from <=3D sink_to; sink_from++)
++			folio_unlock(bvec_folio(&bvec[sink_from]));
++	kfree(bvec);
+ 	folio_unlock(folio);
+ 	netfs_put_request(rreq, netfs_rreq_trace_put_return);
+ 	return ret < 0 ? ret : 0;
+@@ -563,6 +563,10 @@ static int netfs_read_gaps(struct file *file, struct =
+folio *folio)
+ 	netfs_put_failed_request(rreq);
+ alloc_error:
+ 	folio_unlock(folio);
++	if (sink_to >=3D 0)
++		for (; sink_from <=3D sink_to; sink_from++)
++			folio_put(bvec_folio(&bvec[sink_from]));
++	kfree(bvec);
+ 	return ret;
+ }
+ =
+
