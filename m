@@ -1,90 +1,130 @@
-Received: from mail-oo2-f43.google.com (mail-oo2-f43.google.com [74.125.231.171])
+Received: from mail-lj1-f172.google.com (mail-lj1-f172.google.com [209.85.208.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCF9527A907
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 01:15:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.171
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788916518; cv=none; b=GA/O3etueyVtN6wZr5LZAGmQAviZIf5IfJItE4Ipnu2AJPH5CPTZW8b3rXmoSiNrcFRDceJfROSMNMac0SDmZQsHjiSmSWzw0pkBFa3gCCuzWI4zlMiRcixRSRa9DnGiAr7exNmOmsaDK4S5aWM6GJOv/YqdtgJcxIbdH+yp+gY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788916518; c=relaxed/simple;
-	bh=z88fBECguwFUQ3oqHlOVu8JMuEaPOtdR+gKmUFDZRQA=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:References:
-	 In-Reply-To:Content-Type; b=GLUygiH8J6yY/fyVohWEq7KzlfMD6oFWqtqjlvo4YeboGIgA6Q8TiRZ5+Bvj8i8G7g/PmJmJHXHszd7f0gRcIT8YGWjgYoMhB7EhS48hHc69h0+Zev+hLcQaPvMVN7NEseQ/T5oYfBvB7u362aSAyTW97INUJu+O/9ZKep+BeOI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk; spf=pass smtp.mailfrom=kernel.dk; dkim=pass (2048-bit key) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.b=zCJZb78p; arc=none smtp.client-ip=74.125.231.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.dk
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8511A27A907
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 01:15:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.172
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788916551; cv=pass; b=Un4yre3VJVug9x5GhVwLWoEEchR007rZiT4i8plLQYcDdtCwf0bUDnJR6wxcvN+ocNr8w+mX2oyJYlvdoxeTUels5digU4LQWrJYc3uZmKrBBO+DJLRWn6RM9rTNwd3d0RYRxpXoMmnPf8FyvwwAD39QwWreGVCdnXwpEapS0QQ=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788916551; c=relaxed/simple;
+	bh=MQSwhbdiJCeNBOXOMm+u2E1bHED2yNrmentBhrbYLAI=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=GzAw1Vb3XfuJDLqK9OY7lmnJdWaTchJNxcbYXwvZJ5TR7IRjI9DKAvt984TbnDm1zOHXnt1LSatzwbClZIp2cIcOhMSUd88CJ32TkKn6YSvLo3r9c3LO9kvVWcXLX79KpmNbQSElmZAnzjv2Pei8e1CAUtmVo2DvF7pIBPw/CTM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XgRfgUkj; arc=pass smtp.client-ip=209.85.208.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.b="zCJZb78p"
-Received: by mail-oo2-f43.google.com with SMTP id 46e09a7af769-7f4f1354074so308205a34.0
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 18:15:16 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XgRfgUkj"
+Received: by mail-lj1-f172.google.com with SMTP id 38308e7fff4ca-3a305310ddaso49142081fa.0
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 18:15:49 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788916547; cv=none;
+        d=google.com; s=arc-20260327;
+        b=rHzJmdwJK04xhsD8oRTWgiqLbrZXc7tOHfT+WK7vECH3BJbsFuhoM+QrsGkgAyooxz
+         b3tboAvlHQpy/yW8zScwtPPRz04v6tPMNlmJb3AsGwG+P48iYlfXZF6qxyblzeMKyRAQ
+         zuAsW78ewe4h/9+Yl5uO+i5BAf/wRyyV+cFXgixkmdoatqCYsjl156/zQyvxrb3bd4S6
+         u9VTecxtAHL3lKSfJx9MYAlXpnyLV2BEuJLJu2VlU+mHGOzve9/AKXs3uKp1BqGcQf0V
+         CJYuyfNmeF+a/IdwfAubg7UiFlMHQw1CYaKpYPIVmHBvNxaLbFNyjbqfnj8+nsX5ZLY5
+         oolA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=0TTx+LiFvOB0q6Xwa3UfI6WzvnZa/o+6Kwi8basQ/fc=;
+        fh=NHwkunEKEkarRsGXzFK24lRLz3PoZ8PWb2VJWSuMJ4o=;
+        b=PLB6nftTUqUHnnyvqJkK3JzQZRt93nQYFQkz/hRFQjOwTrhEfhH/Ehq55OisyUzOmV
+         vRodDAbvH29BsCNZGeZg6n/nPr2FljXS55yK5TidE7MTMEqfn6wUiKNemfIQjHHskusn
+         tr4g+yIPF6gklWG2BZFh480dhEs6UiLusM9F7ojfuARBMZ/nRiL/GT2ADHeyv0vmYwWH
+         /l+GC5GCWtxJ+j1zQ/35sq4zX/F8kYUrOZmxshtingOzWsGInmYYUtmO9XTIFtap9SDu
+         13m/Jekr2JFXvDyn7Mehp0T/TsFWf95reOSg5YhlptvjkdK9/cr/TS8t+l4tzMIlryJ+
+         v1Pg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kernel-dk.20251104.gappssmtp.com; s=20251104; t=1788916516; x=1789521316; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:to:from:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=C0F+BhJXWav79HJUvCDEB8apDuPRzW6Sy5FYxm9DXY8=;
-        b=zCJZb78pZbogNRl6478FadGCvHkH3DSVPHCVkwxsJeIWNmnsuHjejJEDQRV0tXcq5W
-         J1LvDH9Fa7OyX/+I+Y2fzPgapAOdOCkYGJtfHNRUEHPGMFYJiNsjIz6MWN8Heyj0Gh+1
-         g/SfhEXdZ+ysdKncLzXYgUXoM6o0buD1agMO04ECfN5J23MvZb8TFDUMZ6qhll38/R6f
-         ov5ZFUPpVEtp2BIWVZfQDwRFSvdNx9izQwvShQWvUb13KQD+orZvzeEdc2SnJ9U9uaCf
-         x2OWi0akDWHh2OfD8gkGkXLsBkVh7eUAiM6QZ868QsHowevjig3nEi3i3JTYwmUd+rrj
-         Judw==
+        d=gmail.com; s=20251104; t=1788916547; x=1789521347; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=0TTx+LiFvOB0q6Xwa3UfI6WzvnZa/o+6Kwi8basQ/fc=;
+        b=XgRfgUkjK6mNHRl7hxl+8eb8pymDKZQJ9YyHy+h/PGbdlwy0AuD5A0cXWgrHr5/ukK
+         oOppDsIAZziIHEnfOpLUdDKA2iObLQuBaiCXvoXZz2Py+C004F3O+MECyqYYkbW5lE6z
+         NQIvpbeTRn/ZySrrDtqP2LPCnqXOfUKfn4KmsS8GM/JDzMjo+9FtbngC8kCf3robtOLf
+         PR5g6WghGCLtW7T3RdHc/aoggsu2UpXXhKrv98Y2b28UujQYwId7MkzpFZb71BnjXsfV
+         wKgbuEO0KXkZLaIsBn1uEz5FdxFOjlliHSZnMvsZmkEdp8aQI6n4DzjNIcKlDQxYB0/B
+         7KRA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788916516; x=1789521316;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:to:from:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=C0F+BhJXWav79HJUvCDEB8apDuPRzW6Sy5FYxm9DXY8=;
-        b=BvUuQz6HcivPCPer97jBUJz7NCGk3ZlbRmxbpUhfmfHadF6ZKo4B+v91gTEDGABUZg
-         ASVigp5e3LunOqiz7vAMmvEuBBqgHeKQTAO0IM0y6eRkCRkhdhn3hivDOi27oFYhoqps
-         6k+Dtloat2qxKG13ksX7kjFP5OsjPxx9R4JQLCBGpANv8TaK4T3IKIyd32NgGb0nNnYv
-         ggKnwa300GFRSlIeHEAxkOUm/IBUuFN/t5/LIBC5LbyaXCMl0la8196P3sQpVyx6LfdK
-         kWh5KJOHebD6LEqPwIoDT+vgk2YbBwQCjGdeVwb6WR/YNwogRwN2h97WMrDToLwBgZxa
-         3jFQ==
-X-Forwarded-Encrypted: i=1; AKwUvBy1XIoBGR0G5F/1pANcg9D+UOLUx4mO7lThTZkgdyxsna4CpqGlkDLPfZyQ4np+WGm3bC35qPFIeSsZ+pM=@vger.kernel.org
-X-Gm-Message-State: AFuF++n3x0v4r5Cabd8flCdo2fVplTl84aTSO5fPiPJaXq/KTOUjmgEt
-	qJqbdmt7kgy2KoZIJ9ipEdJmC0Zprlx+ZwjFL4aIR2+p5dRV6u9yewpxSH5vuPN8z+0=
-X-Gm-Gg: AYBFou3GR6F4SLQnUHKsdmg2MDOQiGcnubFlyZkHspWVAcPx1h6pOXVv3vRpRCgpgH3
-	wnbmpewzQH7kzkG/toB01GRzxxKNOWpJ4KjQ1a8vgJmVy9iXKCNqUwp8ePNNN2B03gW7Ts5eznl
-	bTI2tmSfpWtwYOC+INC8iP0W/Xl3ID4S6lBPoxCI/IRKUdhIQ4iHwl5rnzqlLPpfiz771ZI1RFx
-	aTcwUX1n5lskr174+AqdIt5AnkRnVpxQqOp3QdKJMEfVyKOeAxV1X6JOC8RKOgq1vm5Rf1P+yBr
-	POx0/Przpn5BRn/TRgHDMrjTKYgcETEm2qtPiZrTncxZ88dMQOOG2qrr/fOmsKxQBW1ACw4Xk4l
-	lu+bCX8g5iyY+4p/tznsXgnZnWV7w0bCYd2Ka3HFQxyq7KUX2RrkFRdaSDTIGTaqXd8kN+QNn+X
-	Gl2XA1U17FlpgxWibONXHSP1sUm8ALFeE0rGvnMmNRztaGNr/jTkT1i8lijLrEKGljg6k4O8VjU
-	fnes4c4jaEJnT6QUXqhcqbEnGJeJeBwA1HP+6KUq3qVhs0FJBAVZaecTA==
-X-Received: by 2002:a05:6820:8595:10b0:6bd:fd44:9045 with SMTP id 006d021491bc7-6bdfd4498c6mr636514eaf.3.1788916515696;
-        Tue, 08 Sep 2026 18:15:15 -0700 (PDT)
-Received: from [192.168.1.150] ([198.8.77.157])
-        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6b6dbedc6a0sm18374727eaf.5.2026.09.08.18.15.13
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 08 Sep 2026 18:15:14 -0700 (PDT)
-Message-ID: <b191cba9-d863-4bfc-8729-be60cf66f1d7@kernel.dk>
-Date: Tue, 8 Sep 2026 19:15:13 -0600
+        d=1e100.net; s=20251104; t=1788916547; x=1789521347;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=0TTx+LiFvOB0q6Xwa3UfI6WzvnZa/o+6Kwi8basQ/fc=;
+        b=SbGOXI17qffwhcY38L8XzpJpzNJb2COtVwRwSgSL0KdzSlk5t6wA4yqlO6ZQf53kFv
+         oripxfeDlz7UlVoSQ+0G9lCUavR7+yjh5NreZwV3O32jbTiWB0DzgrKNVA2bLcmB3q2t
+         7z2Fd3SQ6LcBKL805WusCKnigP7/bnKyg+4Dfw7haFVNMiX3+844eWgAKuEnz4l4jgGz
+         cHA+DXwwwqEkIUxh69WjUPtEB+PiOGRqKDlkvWtQrpBRyVhG6xxEGKzpLnhft/TXbiGk
+         XcQW7U6dBrzph4d5dKSgw7rZmTSh0fshFgjyMFa/maCSD9Ua2wVkudpUUHR3OK39rPDB
+         qItA==
+X-Forwarded-Encrypted: i=1; AKwUvBz0WFFQJPVhymx6FU882f43OzmMzFjWWaWr8F4AjnNZyBu6p4R2QUPw9fNX5E32DBsxb6n5GErokTpHDcA=@vger.kernel.org
+X-Gm-Message-State: AFuF++kfGBFjKNzGsKQVxqMD8RWJZ0IHuhzwFGJbzPYMiwvJ1iHVl5NN
+	cbyx8IT/umITCEfc0snb6xIAdkwW7ggy8vVkuhet8UOsUIua37X1VmV0e14ZZtCbvAoNJIGZ7c1
+	KxmpLAAQjny6Ba4NIf+MAOoFGHUBjPDQ=
+X-Gm-Gg: AYBFou11NvDWfKFts2rl8kmR8tpbpUP+tkf6X2ABAzBJkNVPt4i23gpOZHH/dc5qACY
+	GuQOpVD3TLtqWDV+F0CqEwTH7uov2I8AfGbXVQlcnZz+BEqyfpGhpWzVsp9C9ZZpQDxEQanKgUU
+	RqCvvanxEn1VFn9rGnD21X08XQTTnMmdWEbIZH05q4EAmNfka7wupbee6CGR8JYi/l5etHeELOk
+	c6r8QUpt3KUHKb0kqZeisB8ETqN+UM8BYsPRA0gFykYUamCTJabzkkqZzIZATL2m1yCk0/KWMn4
+	AMON3HmhnvFNLmU28UI0Rp73Gs+LQvpen64UVSdBjs41dR77jYDetCB+wg1bKKWQoVCDVXXA0xq
+	HRVOl516v69Y=
+X-Received: by 2002:a2e:a98c:0:b0:3a1:eb3d:d30 with SMTP id
+ 38308e7fff4ca-3a371ba9be1mr37005571fa.10.1788916547185; Tue, 08 Sep 2026
+ 18:15:47 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [syzbot] [io-uring?] [ext4?] INFO: task hung in io_write
-From: Jens Axboe <axboe@kernel.dk>
-To: syzbot <syzbot+2eb3d983669d3e49d4fa@syzkaller.appspotmail.com>,
- io-uring@vger.kernel.org, linux-ext4@vger.kernel.org,
- linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
-References: <6aa0876e.f81106d8.285f0a.0005.GAE@google.com>
- <31ab7ab6-2cf5-4fcb-a6cb-05fab461e742@kernel.dk>
-Content-Language: en-US
-In-Reply-To: <31ab7ab6-2cf5-4fcb-a6cb-05fab461e742@kernel.dk>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20260905093932.43726-1-sigefriedhyy@gmail.com>
+ <20260905093932.43726-2-sigefriedhyy@gmail.com> <1673485d-5529-415b-b1b6-60e27291e3bf@kernel.org>
+In-Reply-To: <1673485d-5529-415b-b1b6-60e27291e3bf@kernel.org>
+From: Yuyang Huang <sigefriedhyy@gmail.com>
+Date: Wed, 9 Sep 2026 10:15:35 +0900
+X-Gm-Features: AcwNN1VKTW3usIKu3ouYSVflf7oviyQs0HuBjHgGBr26olQ879IgU8NHIR61XhA
+Message-ID: <CA+7S2v+vdR-=XJYNrmY5djFPW+4uLtHJYaV3iDsmuCEQcB9FMQ@mail.gmail.com>
+Subject: Re: [PATCH net-next 1/3] rtnetlink: add AF_PACKET multicast dumps
+To: David Ahern <dsahern@kernel.org>
+Cc: "David S. Miller" <davem@davemloft.net>, Donald Hunter <donald.hunter@gmail.com>, 
+	Eric Dumazet <edumazet@google.com>, Ido Schimmel <idosch@nvidia.com>, 
+	Jakub Kicinski <kuba@kernel.org>, Kuniyuki Iwashima <kuniyu@google.com>, 
+	Nikolaos Gkarlis <nickgarlis@gmail.com>, Paolo Abeni <pabeni@redhat.com>, 
+	Sabrina Dubroca <sd@queasysnail.net>, Shuah Khan <shuah@kernel.org>, Simon Horman <horms@kernel.org>, 
+	Stanislav Fomichev <sdf.kernel@gmail.com>, linux-kernel@vger.kernel.org, 
+	linux-kselftest@vger.kernel.org, netdev@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/axboe/linux.git io_uring-7.3
+On Wed, Sep 9, 2026 at 12:56=E2=80=AFAM David Ahern <dsahern@kernel.org> wr=
+ote:
+>
+> On 9/5/26 4:39 AM, Yuyang Huang wrote:
+> > +static int rtnl_dump_mcaddr(struct sk_buff *skb, struct netlink_callba=
+ck *cb)
+> > +{
+> > +     struct net *net =3D sock_net(skb->sk);
+> > +     unsigned int flags =3D NLM_F_MULTI;
+> > +     struct {
+> > +             unsigned long ifindex;
+> > +             int addr_idx;
+> > +     } *ctx =3D (void *)cb->ctx;
+> > +     struct net_device *dev;
+> > +     int ifindex =3D 0;
+> > +     int err =3D 0;
+> > +
+> > +     if (cb->strict_check) {
+>
+> this is new code. It should only work with strict checking.
 
-Forgot to push it out... Let's kick it again.
+Thanks for the advice, I will fix it in patchset v2.
 
--- 
-Jens Axboe
+Thanks,
 
+Yuyang
