@@ -1,216 +1,101 @@
-Received: from SN4PR0501CU005.outbound.protection.outlook.com (mail-southcentralusazon11011055.outbound.protection.outlook.com [40.93.194.55])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 228565964E0;
-	Wed,  9 Sep 2026 14:21:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.194.55
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788963706; cv=fail; b=s7AIIWDZboEa3iLNopYzr/zB+72uP+2dWP+VAqWVnvQvoU2QJ/j50c8XKMVA1OfVnBVzjicuZD+Ey74QZLmaWRF8zzHNJqM7npQN8IAZ9xvxR16T4NWHkIcjvY6wb5pdl61zqjx//EwSb4GpWZ+rnfd0h0X8m35H9xS0bEeWBsk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788963706; c=relaxed/simple;
-	bh=n/Emb784ujvTbfD5TJTYVWkQz17F79Dg01+7Csb97+o=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=haBTgA7UrFvFu1XAWX6vy0x+0Wrad0OIIBSbRuVNLjJt8SnMvOdi6dvS7C+j8bheAZTb+MGNTRknXiXv3fwk0Uj8AErwVlIzf+mHb+H8KNYVbXf3eMFAg4x+x1uZg+07lPc2JQApZJrLNCAn6LbSFPz24Wo8sXHU6ibenDEXwpo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=3tH6VCoL; arc=fail smtp.client-ip=40.93.194.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D40CD3CFF49;
+	Wed,  9 Sep 2026 14:22:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788963753; cv=none; b=Dh4OWqKEQN8RzmGnUivd6LAR/3GlBulxds+ZE6ZsHT1nwS+08vErq1+QK+mxssXFgCe19Z0+tPPfsXO3KNjXlNHSR66CIi7qLTKNW5jmBis5B5kcFf4r4sMMs3swdJ1R77dzNrNinR7rEu6PDcgRDC3BCyNSmgFkvebI1NPnzuw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788963753; c=relaxed/simple;
+	bh=xhaQtXKXvGz1RizoQa7SuL6Y+tbxk3SF34NiCq25TtY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=hu41MpNKw//ubixiRiqUpTfZdDjVmhImrcFGIYBzvlKHvUcwiWIZbaR/E6Wq+tYW/HZecHbTv4gOlu/tGiH4bGkEdrhTNGNOHM2g6T6PBV9IwVm1Wh6AWzOH9SlYki0I6Gv8rsJIWkB3EDqw5XtG0ag+IvwIANav76MW/AJZ0B0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=I3WQzUYy; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="3tH6VCoL"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=NM/8y4VaxHA3NFJNcfB0HkFrDN8V29zUFxIEvtLSiQh6FJ7sDAQ7ED1qRoXFG7JsgMEfy8Gsl07lLb7b9Yvo5SSK0wfzudn60+W8fNYy0m8iA4aoGui2pVHEqqLQ4MPN1/hdskCACv3R92cOOpOurM0rq9E0j+ND7GRAtSPxRN20uxyut5JcV3Ck4WffGnnpVgEcM65XS6j+AsMFZs5UJCJmMLRDF4jAthsH+Oh4bMO1oNvum+s+v3fAevAILR85L22W6V2/S5uZIBEl2sKw+S16RKedbklX/4n7FddM8idqCmXUUJoaxfxPwjvCGHExqBk1bBT9Zu29Hfm3KoE9Bw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=7E/kv/H5ufDQ85jNTsAkh48mf3JkECJWRHkbqHnSx7k=;
- b=BxmrBMt7+l9QP/3bpvYR26raLC/ArQc8EiTKySLRx/gP1wP4FavjXpbt1wm0QQ4pw7g8w3mI0JLzwpDs0M/59mu9R1ReGDOnSWsrljkO7UujpfNq3Qm7kFGH8PWUKv6sNJnr/LA6qhELzL1daERWvWSRCF9LlYy0VanfRTFQCCHbY7zWnvUFs07E3+KhqYwvic2EEF0jEGFm6vGlfGQBYIVF08bcdUyH3McT6fjZLLQFAqiBnnOXvKa/9G1f3flgMHCZ8eRYxC6qWQj3ZpHKmt07I/v5X3QMlFDHzER2eSwjEpPo8NVtTL49n737EK/JI8c0z4yGhsOvD8W9d9aNTA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=bootlin.com smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=7E/kv/H5ufDQ85jNTsAkh48mf3JkECJWRHkbqHnSx7k=;
- b=3tH6VCoL+TIRG597GiItf6rQFKaMRpKSlKmUcOIpxM2BTiSGNijm4kIqFyVENQVUOHdmolIJJ9Q58DAhKS1dAK+uNnU9do8i8i/t/5Uq2eq+ogkg20Br+ToJHVjeABy8ZXj4vSmt7fWP9zOPQbWsADt/FxM7sFXvtlyrp/pCL8o=
-Received: from SJ0PR03CA0036.namprd03.prod.outlook.com (2603:10b6:a03:33e::11)
- by SN7PR12MB7977.namprd12.prod.outlook.com (2603:10b6:806:340::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.7; Wed, 9 Sep 2026
- 14:21:37 +0000
-Received: from SJ1PEPF000037BB.namprd05.prod.outlook.com
- (2603:10b6:a03:33e:cafe::7b) by SJ0PR03CA0036.outlook.office365.com
- (2603:10b6:a03:33e::11) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.406.8 via Frontend Transport; Wed, 9
- Sep 2026 14:21:37 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- SJ1PEPF000037BB.mail.protection.outlook.com (10.167.244.202) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.406.5 via Frontend Transport; Wed, 9 Sep 2026 14:21:36 +0000
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Wed, 9 Sep
- 2026 09:21:09 -0500
-Received: from xhdvineethc40.xilinx.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.46 via Frontend
- Transport; Wed, 9 Sep 2026 09:21:07 -0500
-From: Vineeth Karumanchi <vineeth.karumanchi@amd.com>
-To: <theo.lebrun@bootlin.com>, <conor.dooley@microchip.com>,
-	<andrew+netdev@lunn.ch>, <davem@davemloft.net>, <edumazet@google.com>,
-	<kuba@kernel.org>, <pabeni@redhat.com>
-CC: <vineeth.karumanchi@amd.com>, <git@amd.com>, <netdev@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>
-Subject: [PATCH net-next v2 3/4] net: macb: Add MQPRIO qdisc hardware offload support
-Date: Wed, 9 Sep 2026 19:50:55 +0530
-Message-ID: <20260909142056.1433875-4-vineeth.karumanchi@amd.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260909142056.1433875-1-vineeth.karumanchi@amd.com>
-References: <20260909142056.1433875-1-vineeth.karumanchi@amd.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="I3WQzUYy"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8CED51F00A3A;
+	Wed,  9 Sep 2026 14:22:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788963752;
+	bh=Pk1B8WY2LVSwCYtQsLVOVpVrwdeq2SzwuwcAh4JLsyY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=I3WQzUYyylKqYJS5qmsgtV4gCaBjFEJYODcC8Ol3i3kBCe2qTrc5wzzZNNy4kF7ij
+	 8pZMcrWK2JFQFt3KXt2LCmR0gY6JjzAAUj7SLD3O44QFr+LDHBDnSGzjJq2i1A5esv
+	 WQ/mxgnq/ZIfTB3Sw6DGSX81V+jiVwk3Xg+uc6Vo5k3b/humXMJcjQ/TwY2F+Shm3v
+	 R7yFCwfbbcoXINobG4EEvcVgDaAm1bZ5cKxJ84+SXKZqdc4B1YjEjMydoXY9AXcm2x
+	 k9tQ6yabRw+huoALoDMWZNBCDcyVj6/awBwzLz7HZAXgAWaQCg/ZJBXt1SzsvNgMI4
+	 IPvSDHhFEdzjQ==
+Date: Wed, 9 Sep 2026 15:22:17 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Cc: Linus Torvalds <torvalds@linux-foundation.org>, 
+	Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
+	Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling <morbo@google.com>, 
+	Justin Stitt <justinstitt@google.com>, Masahiro Yamada <masahiroy@kernel.org>, 
+	Alexey Gladkov <legion@kernel.org>, Thomas Gleixner <tglx@kernel.org>, 
+	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
+	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, Arnd Bergmann <arnd@arndb.de>, 
+	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
+	Mark Rutland <mark.rutland@arm.com>, Ard Biesheuvel <ardb@kernel.org>, 
+	Ilias Apalodimas <ilias.apalodimas@linaro.org>, Josh Poimboeuf <jpoimboe@kernel.org>, 
+	Peter Zijlstra <peterz@infradead.org>, Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
+	Gary Guo <gary@garyguo.net>, =?utf-8?B?QmrDtnJu?= Roy Baron <bjorn3_gh@protonmail.com>, 
+	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+	Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
+	Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
+	Onur =?utf-8?B?w5Z6a2Fu?= <work@onurozkan.dev>, Jonathan Corbet <corbet@lwn.net>, 
+	Randy Dunlap <rdunlap@infradead.org>, linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	llvm@lists.linux.dev, linux-riscv@lists.infradead.org, linux-arch@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-efi@vger.kernel.org, rust-for-linux@vger.kernel.org, 
+	linux-doc@vger.kernel.org, Jens Axboe <axboe@kernel.dk>
+Subject: Re: [PATCH 20/23] kbuild: rust: parallelise rustc front end
+Message-ID: <aqFre1PzEBhrQDpZ@gremlin>
+References: <20260908-build-speedup-v1-0-5dc1ac01672d@kernel.org>
+ <20260908-build-speedup-v1-20-5dc1ac01672d@kernel.org>
+ <CANiq72m5C5tNKUWTYYerBt81KtqRLgr-S4c5XLUN1uY5n7mqiQ@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF000037BB:EE_|SN7PR12MB7977:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8022ee94-0084-4807-2ba4-08df0e7da824
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|23010399003|36860700016|82310400026|1800799024|11063799006|10067099003|22082099003|18002099003|6133799003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	fF6VSyTVdEQg1BLXVJRvsCxJN43c57RiE3CacYuVU+a9ss/D7owTnBJuYmyAOmHyKzUXGmGH/Ip5Ct1jSfls+bNd3Ia4CKUaPe991GXCkMduwcdJ17uBuRAMAo9tdVrZFj+/yIZSL7n4l0zPZYpKj2JwTUVSPMOUBgWIh6zXv2E3vXnWnx98FaVcLoEA9s896oAikZz67FaewUu5gGPeb30MAfQx8wfEoW0tfz0p4aTXu2R1D9hhRS+2NiMkUD9ihgOUyTFEXS0lPt3jVUgBXWSTpW2Wrgv5LrUUMMJ0+tz5PJjyXaTD5JhExC+COAP2VV/qbFGTR35AgOQP1lZcfwzAE/epacEeYNKTzXh2HBiGTFEEpereB7nnXm4JdrUTOQNGCoXpSO75XJpTXJtI+mlTkoLCpeFwaRneIDs6PQkYDaaudIdyd5QRy75HhI2vCIhBTjoJDb8kXN3JF6xBg+LNd7lyC+bnEq2ganYcjdHjA/BjV33e3p96ea7bnkDFeXs6ODItpS3OTZ4x9Lf3LRHfGSZSjFzhs8R4Wz2Cgd1K63otvgvyBEpsyI0RYbfPS7m5UARL990ILZHwFKekEmWqBonRtcAcxXv3hSoXLl79FWlXtDvC7LSH+lc8wlr3nlOwKa8F/I3hbiXPQOOuMSvix9PJnEk5wsewGH9AiOUj2tes5og0CZUjVlsiqZ6XULBAkdvKZzWGj6kqv6JKqg==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(23010399003)(36860700016)(82310400026)(1800799024)(11063799006)(10067099003)(22082099003)(18002099003)(6133799003)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	ulmo0QQzeSAdbHweQgUaNmWZr6oYcTSusDAp6IVulAbQfDH0aRvwXe0yv/1m9E5kj3T2Fa4yI1eB9qD6NuguvCz1V0ribUUrtaHleg5zSzkR9zUc1sfBxyKQyxphSMwJhU7DGnipmOZrAT0txgcxxBPhvMUwgGvdyvyNIwFdym5gENEk4bRSk/UlbP5WFSejDAzbNhjN6Vo8vP9RvTJRzTGOcBNHdVeIku1jFxhrS49VgOuTGaRSt/jL5WtEYFB1F/Zk0SEszVhT3+vMeWM9cr8Dkai4+cjqozYgczKSgY9w+0hhha2ITnYymo5ADqa1PFni/xyvJDo3PouDTLKTbmvcnEknTWgJauuFt0ELrWQQ5CW/yUUnMZZiJNuuthC4FV25Xw3WRqolDiCtZlEWOt5P8wah0EPk42a8ZIyj+QOtv0uf57K32+9eSzvq52Id
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Sep 2026 14:21:36.3276
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8022ee94-0084-4807-2ba4-08df0e7da824
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SJ1PEPF000037BB.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7977
+In-Reply-To: <CANiq72m5C5tNKUWTYYerBt81KtqRLgr-S4c5XLUN1uY5n7mqiQ@mail.gmail.com>
 
-Add support for TC_SETUP_QDISC_MQPRIO hardware offload, allowing
-traffic class to queue mapping via the mqprio qdisc.
+On Tue, Sep 08, 2026 at 11:13:04PM +0200, Miguel Ojeda wrote:
+> On Tue, Sep 8, 2026 at 10:59 PM Lorenzo Stoakes (ARM) <ljs@kernel.org> wrote:
+> >
+> > A future -j/--jobs option is planned for
+> > rustc:(rust-lang/compiler-team#1005), so check to see if this available and
+> > if so use it.
+>
+> This is already implemented in nightly as far as I can tell. If it
+> weren't, we shouldn't add it, even if planned.
+>
+> (By the way, could you please add Link tags for those URLs?)
 
-Implement macb_setup_mqprio() which configures TC-to-queue mappings
-through netdev_set_num_tc() and netdev_set_tc_queue(), and resets
-them when num_tc is zero. The driver advertises TC_MQPRIO_HW_OFFLOAD_TCS
-offload level.
+Ack, will do.
 
-Add macb_tc_query_caps() to report mqprio capabilities. Setting
-validate_queue_counts to true delegates queue count and overlap
-validation to the mqprio core via mqprio_validate_queue_counts(),
-avoiding redundant checks in the driver.
+>
+> > +config RUSTC_HAS_JOBS
+> > +       def_bool $(rustc-option,-j8)
+> > +
+> > +config RUSTC_HAS_ZTHREADS
+> > +       def_bool $(rustc-option,-Zthreads=8)
+>
+> We can simplify using `RUSTC_VERSION` for these like we do elsewhere.
 
-Signed-off-by: Vineeth Karumanchi <vineeth.karumanchi@amd.com>
----
-Changes in v2:
-- No functional change; rebased on net-next, which renamed the
-  struct net_device pointer to "netdev" (was "dev"/"ndev").
+Ack also!
 
- drivers/net/ethernet/cadence/macb_main.c | 59 ++++++++++++++++++++++++
- 1 file changed, 59 insertions(+)
+>
+> Cheers,
+> Miguel
 
-diff --git a/drivers/net/ethernet/cadence/macb_main.c b/drivers/net/ethernet/cadence/macb_main.c
-index ff7e02d3fab8..67150ff03066 100644
---- a/drivers/net/ethernet/cadence/macb_main.c
-+++ b/drivers/net/ethernet/cadence/macb_main.c
-@@ -4492,6 +4492,60 @@ static int macb_setup_taprio(struct net_device *netdev,
- 	return err;
- }
- 
-+static int macb_setup_mqprio(struct net_device *netdev,
-+			     struct tc_mqprio_qopt_offload *mqprio)
-+{
-+	struct tc_mqprio_qopt *qopt = &mqprio->qopt;
-+	u8 num_tc = qopt->num_tc;
-+	int err;
-+	u8 i;
-+
-+	/* Handle reset case early */
-+	if (!num_tc) {
-+		netdev_reset_tc(netdev);
-+		return 0;
-+	}
-+
-+	/* Configure traffic classes */
-+	qopt->hw = TC_MQPRIO_HW_OFFLOAD_TCS;
-+
-+	err = netdev_set_num_tc(netdev, num_tc);
-+	if (err)
-+		return err;
-+
-+	for (i = 0; i < num_tc; i++) {
-+		err = netdev_set_tc_queue(netdev, i, qopt->count[i],
-+					  qopt->offset[i]);
-+		if (err)
-+			goto err_reset_tc;
-+
-+		netdev_dbg(netdev, "MQPRIO: TC%d -> queue %u (count=%u)\n",
-+			   i, qopt->offset[i], qopt->count[i]);
-+	}
-+
-+	return 0;
-+
-+err_reset_tc:
-+	netdev_reset_tc(netdev);
-+	return err;
-+}
-+
-+static int macb_tc_query_caps(struct net_device *netdev,
-+			      struct tc_query_caps_base *base)
-+{
-+	switch (base->type) {
-+	case TC_SETUP_QDISC_MQPRIO: {
-+		struct tc_mqprio_caps *caps = base->caps;
-+
-+		caps->validate_queue_counts = true;
-+
-+		return 0;
-+	}
-+	default:
-+		return -EOPNOTSUPP;
-+	}
-+}
-+
- static int macb_setup_tc(struct net_device *netdev, enum tc_setup_type type,
- 			 void *type_data)
- {
-@@ -4500,6 +4554,9 @@ static int macb_setup_tc(struct net_device *netdev, enum tc_setup_type type,
- 	if (!netdev || !type_data)
- 		return -EINVAL;
- 
-+	if (type == TC_QUERY_CAPS)
-+		return macb_tc_query_caps(netdev, type_data);
-+
- 	bp = netdev_priv(netdev);
- 
- 	if (unlikely(!(netdev->hw_features & NETIF_F_HW_TC)))
-@@ -4512,6 +4569,8 @@ static int macb_setup_tc(struct net_device *netdev, enum tc_setup_type type,
- 	}
- 
- 	switch (type) {
-+	case TC_SETUP_QDISC_MQPRIO:
-+		return macb_setup_mqprio(netdev, type_data);
- 	case TC_SETUP_QDISC_TAPRIO:
- 		return macb_setup_taprio(netdev, type_data);
- 	default:
--- 
-2.43.0
-
+--
+Cheers, Lorenzo
