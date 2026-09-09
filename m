@@ -1,33 +1,67 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B21437646A;
-	Wed,  9 Sep 2026 17:23:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EE00377010
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 17:23:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788974603; cv=none; b=XZkhEaj7ZhrG0W5qJ6E9PWeOwKJzAao9BUpr1eTU1PVOrTcvtML+GweC7K5gCX1c3o51QJKUCU5C4U/HnSHWAGCtJGHEgwNe+bKfKsWXB6SQq9ya/FKSFQI56iS3fO2h236O9K8eHvmx5r17s6qLCiHogo7TeSdCcYOjK4AC/8M=
+	t=1788974604; cv=none; b=qy69KnyPM2jpfui8bYhhKUBiVuFL2U2fRIfG/E+x3Ictx3LhUZmskt7os8T1LkBfujMQa6iyQgQCSHB5LdKXZHbXlcqeskheTokNAspo3qArBASbFhdmuQNmDNy+U4pziqCquoLleX56bRvz7FFCFYwhyob6pxNv3YxLVd8Kug8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788974603; c=relaxed/simple;
-	bh=FaqonzSisf7fzRpv8fncwVVioCLlYc2ZWkzdQpFYJjw=;
+	s=arc-20240116; t=1788974604; c=relaxed/simple;
+	bh=Ma/L5v3/MIxJsem7izls5YWzD6Lvnm0x0/IZS472r/k=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=a/OH2e0HlZnWTdkkCW7ZKU6tKWxJhr4L4+OzXOIJmPBvQUGN6eW62edI6YOnVm2/nsRvdfARmUMz6cyIcCQoyNoxL868zcXHNd+7a0ScxZOypJhybZ1dGxsIHQj70Djevxv2AEI/D0Zqw/XJS1vHqAS7f9tD4W0arwJ/CqhuQsc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bDYa0m6y; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=fpxP15SZoiC63ETXW4UEgy80II9M/uqIMuvVMwinRtW1aM+JlbspOok59jTI8n+bw8Eiunz6kDt9kuhKClkIXgI3nsO5t77Nj7jzSwOZENc1NP/0ehzgi0nL3qaJWuppMQV7944O6F9C7kiZKysteEbz0r0SUSQZjCeB151No6g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=ZXjya9uc; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bDYa0m6y"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 563E01F000FF;
-	Wed,  9 Sep 2026 17:23:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788974602;
-	bh=MCHSdPZk4zbn59kxK4VxfMJiTngtjItSycfJsFzJGs4=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=bDYa0m6ymveTw0HTGhDflIHkFJVZ6GnutFwAxlS0dnTV93M0i+vTGPjDB/xLJrUNQ
-	 1a0DPsSCrlJe2SPeOdeGGqCukduQ+BHvb6mMYVy4+V4ZLwJWeT2XDAckf22U215/P7
-	 hUHXF+M1stjZ7/4DPBQw9qxLMfak2L3FlpuRHlpJ+c/2EgbEpz2gLU0GyRgmO92zlA
-	 ZNKBf+MuuUntdCZet/bCi1BSWnv0+EUx0ZcJJd6V4JezjZRGitiNmaGuuxRIZk+BGw
-	 SHxdlwNKF5h85NTEXdvIIhjzcNbqGPJEdvLZVa73xGq4hC7cfgCi68gUdJfX87c1eO
-	 MlaqchPPFVn/Q==
-Message-ID: <19e428e5-d8bc-4abb-b052-e23442464cba@kernel.org>
-Date: Wed, 9 Sep 2026 19:23:16 +0200
+	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="ZXjya9uc"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49cc9f581c4so9007745e9.0
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 10:23:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1788974600; x=1789579400; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=wiZKD6CltG7hf1k/8sp0Tt8gHPp1c75neCIdHUU3hrk=;
+        b=ZXjya9ucptK6Uknx41A3wNMle/kzi0pyzSSA8sPDDc1idGRFs9pPg7xEwsGSdDjAV0
+         iCTMeQK585+NA/B2LQDzPL5+eEfMKQnSLMvCPY1aABfDVERICQPikVZVF1wCkaWKDSQk
+         y0V2azjdFv8XgFH1YmcuT5d0Gb8IG6do3tJTe0a705Fm82f7mXr06wfepx0K+xs49Xm/
+         XuweYqX2Df7dEP+RM1M0AvejvURl3Uw/i4N+S/t3hzE8QTtYOyaf/v/ygZ7UbRD2qnyI
+         0U435Z3aoZZeok8QBN6TBdSIzGUGKi0lvZkxFojZNwNBCnKvuQppkgA+Pe+/ZdZ6g7vY
+         ZSuQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788974600; x=1789579400;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=wiZKD6CltG7hf1k/8sp0Tt8gHPp1c75neCIdHUU3hrk=;
+        b=I3Tw047UL8j7ljcFE5thaGVT4l5i+ip+Te4OtBtaz5y6X3HX33EqNsKtf1wHnZXHrZ
+         4zbCvRecZYJyMDvc+GUVGabaCW+/Ht11RzZXDtuvc4WRmLHAIia3bv727JEwyikIQCJE
+         58sEl31AfQKyi4mF+4s9FDWbFB2qfNFax2uKEswbl3SjcHjZlRN/nmbMYKmXGe32C+v8
+         JKc1y0OijebK1EHIataIVNHkbAlcaHshWD7rJ+Jm9CS56wz4U3uxnVld2EYddm0Zoy9g
+         tMdSrupXWxnmVm5FJ/9WtkOxcaivnY7t3bbLCE86+kZ3zKZNMUTgMGz1OoiG+OrBU89k
+         RHiw==
+X-Forwarded-Encrypted: i=1; AKwUvBxL9LyZhAKE500qcdwVTrhQKTBMxEpx3XfHYFK0nFnIPcdnSDd4Hi60bxLkOHLwWJ9h438KDOSQJyfiAfM=@vger.kernel.org
+X-Gm-Message-State: AFuF++mZcsmeNW4lYyrUKwBnhdU1Sc7PDZbdrpUlvEW9VJLezQZQqzf0
+	JviRZGZGsUE9XGOA6Nt6HLou5lEZz9vXPYfv4MDPaIuwbA6leC9JZd5X4MEWN/NeFwg=
+X-Gm-Gg: AYBFou2LhB7RPHAua+p44BU9AQeryeAnZoEStPAkzQuJz/fOMepTWOPPB6Mz94fkqQc
+	bMa2YGRDjUp1PivEGleaZxAUsbEzs8nQALdBO7KiyYulpkLbXj9od2EZOl91zHu3eXsGYXvr3We
+	9RuE6DyyXGZ1bsD8HM4HCOC+aMFV/l0043/kI4xsGBWNeWox2Cin3Q2ZS2dS2xrYkZVdD6UW/AZ
+	4yHQChw/CqnCo0U9M5V6Kgb0TroaROE2NBM3BxzFmSrM0qk22JDcn+FFFgBPw5URr0JWWHsNew8
+	Tri1ZN5ESo2wbMCCeyXC5H4i7rRdCBmwj73qPA+JRYpnW7Inr0ksOfdShnSJIzpmMmpDkWISjwN
+	98sTA7SBMDPkPNWr30a1coZEiAjFdpKI9QlC1KGeJmS6rNmw1FRFxNMYkxh8hZRNv+wv3ylgdEZ
+	xZqd1NvHWzW9oO1ogghlmsjkmWycfxdXh9cMqyZU+KXM9uhnnKTHQ2iJyUZVS7EDG3m8n9t5g=
+X-Received: by 2002:a05:600d:8647:10b0:499:59fd:dbfc with SMTP id 5b1f17b1804b1-49d26d863famr3428865e9.1.1788974600288;
+        Wed, 09 Sep 2026 10:23:20 -0700 (PDT)
+Received: from [172.22.22.28] ([73.62.185.64])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49d26bf332esm5336325e9.8.2026.09.09.10.23.17
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 09 Sep 2026 10:23:19 -0700 (PDT)
+Message-ID: <c2d7637a-a99b-435a-b625-0f9d8e94111a@riscstar.com>
+Date: Wed, 9 Sep 2026 12:23:15 -0500
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -35,110 +69,216 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 4/5] proc/task_mmu: read proc/pid/smaps_rollup under
- per-vma lock
-To: Suren Baghdasaryan <surenb@google.com>, akpm@linux-foundation.org
-Cc: liam@infradead.org, ljs@kernel.org, vbabka@kernel.org,
- willy@infradead.org, jannh@google.com, paulmck@kernel.org, pfalcato@suse.de,
- linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- linux-fsdevel@vger.kernel.org
-References: <20260907063918.3432401-1-surenb@google.com>
- <20260907063918.3432401-5-surenb@google.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
+Subject: Re: [PATCH v5 4/4] PCI: of: introduce of_pci_verify_node()
+To: Bjorn Helgaas <helgaas@kernel.org>
+Cc: bhelgaas@google.com, robh@kernel.org, saravanak@kernel.org,
+ herve.codina@bootlin.com, daniel@riscstar.com, mohd.anwar@oss.qualcomm.com,
+ lorenzo.bianconi@oss.qualcomm.com, linux-pci@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260909163727.GA230382@bhelgaas>
 Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20260907063918.3432401-5-surenb@google.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+From: Alex Elder <elder@riscstar.com>
+In-Reply-To: <20260909163727.GA230382@bhelgaas>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+
+On 9/9/26 11:37 AM, Bjorn Helgaas wrote:
+> On Tue, Sep 08, 2026 at 04:34:58PM -0500, Alex Elder wrote:
+>> Commit 407d1a51921e9 ("PCI: Create device tree node for bridge") linked
+>> the PCI enumeration process together with devicetree, creating a devicetree
+>> node for discovered PCI bridges.  Its successor commit ae9813db1dc5a ("PCI:
+>> Add quirks to generate device tree node for Xilinx Alveo U50") shows how
+>> to use a PCI final fixup quirk to also create a devicetree node for a
+>> non-bridge PCI device.  These changes allowed devicetree overlays to
+>> describe components downstream of a PCI device, by providing a place to
+>> attach the overlay.
+>>
+>> Note that the dynamic devicetree node is only created if the device didn't
+>> already have an assigned node.
+>>
+>> Later, commit aa7b4bbcb3a1d ("arm64: dts: qcom: qcs6490-rb3gen2: Add
+>> TC9563 PCIe switch node") *pre-defined* devicetree nodes to represent the
+>> PCI device nodes that would (also) be discovered via the PCI enumeration
+>> process.  The devicetree node in this case is created with the content
+>> from the DTS file.  So when a (host) bridge is done being initialized
+>> during PCI enumeration, no node is dynamically created (the commits
+>> mentioned above do not apply).
+>>
+>> Ideally, any pre-defined PCI devicetree node would contain exactly the
+>> same information as whatever the dynamic creation process would produce
+>> (though it could include more).
+>>
+>> However that is not the case for the pre-defined Qualcomm RB3gen2 nodes.
+>> And in particular, the endpoint (function) nodes include this property:
+>>
+>>      device_type = "pci";
+>>
+>> This is simply wrong; that property is meant only for bridge nodes.
+>>
+>> Rob Herring requested that a runtime check to be added to spot this
+>> specific error, only for non-bridge PCI devices.  Herve Codina further
+>> suggested we ensure that bridge PCI devices *do* define the device_type
+>> property, with value "pci".  We also accept "pciex" as the value of the
+>> device_type property for bridges.
+> 
+> IIUC this patch basically adds a warning for ill-formed DTs but
+> doesn't otherwise change any behavior.  Obviously a developer could
+> fix the DT, but what would a user do in response to the warning?
+
+You are correct.  It really is meant for developers, not users,
+and no user should ever see these warnings.
+
+> Is there something that doesn't work when this warning is emitted, and
+> fixing the DT would make it work?  If so, is there any hint that could
+> be included in the warning?  E.g., "DT device_type is missing; can't
+> support X"?
+
+I discovered this the hard way...  I'm implementing a PCI endpoint
+bus, and didn't realize that endpoints should not have the device_type
+property (= "pci") specified.  These endpoints *did* specify that
+property, and as a result, address mapping for the pci-ep-bus didn't
+work.
+
+To be honest I don't know the consequences of this property being
+missing for a PCI bridge device.  I do know the problem I encountered
+if it's specified with value "pci" for an endpoint node.  I have no
+objection to making the message more informative, but it might not
+really cover all the things that won't work as a result.
+
+The DTS files have been fixed:
+   https://lore.kernel.org/lkml/20260902214321.1721477-1-elder@riscstar.com/
+(And as a result, a few verbs above should be made past tense.)
+
+I created this patch simply in response to Rob's suggestion, and
+updated it based on Herve's.
 
 
-> -	vma_start = vma->vm_start;
-> -	do {
-> -		smap_gather_stats(priv, vma, &mss, vma->vm_start);
-> -		last_vma_end = vma->vm_end;
-> +	if (!IS_ERR(vma) && vma != get_gate_vma(lock_ctx->mm))
-> +		vma_start = vma->vm_start;
-> +
-> +	while (vma) {
-> +		if (IS_ERR(vma)) {
-> +			ret = PTR_ERR(vma);
-> +			goto out_unlock;
-> +		}
-> +
+I could update the description to look more like what you got
+Gemini to produce.  That talks about some context that I did
+not provide, but it also lacks some of the other context (like
+when/why PCI devices even have devicetree nodes, and how I
+discovered it).
 
-Can we add a comment whey we break (and not e.g., continue) whenw e hit the gate
-VMA?
+> The commit log doesn't actually say directly what the patch does.  I
+> asked gemini to work on it, and it produced this, which is
+> straightforward but omits a lot of detail you might want:
+> 
+>    PCI: of: Verify "device_type" property for PCI device nodes
+> 
+>    According to the Open Firmware PCI Bus Supplement and Devicetree
+>    Specification, the `device_type` property is reserved strictly for
+>    PCI bridge nodes (with value "pci" or "pciex"). Non-bridge PCI
+>    endpoint nodes must not include a `device_type` property.
+> 
+>    Pre-defined Device Tree nodes representing PCI devices sometimes
+>    violate this requirement—such as endpoint nodes incorrectly
+>    specifying `device_type = "pci"`, or bridge nodes omitting
+>    `device_type` altogether.
+> 
+>    Introduce of_pci_verify_node() to sanity-check pre-defined Device
+>    Tree nodes assigned to PCI devices as they are registered in
+>    pci_bus_add_device():
+> 
+>      - Warn if a PCI bridge node lacks a "pci" or "pciex" `device_type`
+>        property.
+> 
+>      - Warn if a non-bridge PCI endpoint node contains a `device_type`
+>        property.
+> 
+> I'd like to get Rob's Reviewed-by since I'm not really a DT expert.
 
-(I seriously don't kmow ... should I know? :) )
+I agree, I think we need that since it was his suggestion.
 
-> +		if (vma == get_gate_vma(lock_ctx->mm))
-> +			break;
->  
->  		/*
-> -		 * Release mmap_lock temporarily if someone wants to
-> -		 * access it for write request.
-> +		 * If after retaking the lock, already reported VMA grew or
-> +		 * merged with the next one, smap_gather_stats() will gather
-> +		 * stats for the remaining portion by starting at last_vma_end.
->  		 */
-> -		if (mmap_lock_is_contended(mm)) {
-> -			vma_iter_invalidate(&vmi);
-> -			unlock_ctx_mm(&priv->lock_ctx);
-> -			ret = lock_ctx_mm(&priv->lock_ctx);
-> -			if (ret) {
-> -				release_task_mempolicy(priv);
-> -				goto out_put_mm;
-> -			}
-> +		smap_gather_stats(priv, vma, &mss, last_vma_end);
-> +		last_vma_end = vma->vm_end;
+I don't mind spinning version 6 to update the description
+and possible the warning message.  I'll leave that up to you
+(or Rob) to request that before it gets accepted.
 
-I skimmed over the remaining bits, hoping the VMA lock experts will review in
-detail :)
+Thanks.
 
--- 
-Cheers,
+					-Alex
+> 
+>> Reviewed-by: Herve Codina <herve.codina@bootlin.com>
+>> Signed-off-by: Alex Elder <elder@riscstar.com>
+>> ---
+>>   drivers/pci/bus.c |  1 +
+>>   drivers/pci/of.c  | 32 ++++++++++++++++++++++++++++++++
+>>   drivers/pci/pci.h |  3 +++
+>>   3 files changed, 36 insertions(+)
+>>
+>> diff --git a/drivers/pci/bus.c b/drivers/pci/bus.c
+>> index 655ed53436d3e..679afbc6d3109 100644
+>> --- a/drivers/pci/bus.c
+>> +++ b/drivers/pci/bus.c
+>> @@ -351,6 +351,7 @@ void pci_bus_add_device(struct pci_dev *dev)
+>>   	 * are not assigned yet for some devices.
+>>   	 */
+>>   	pcibios_bus_add_device(dev);
+>> +	of_pci_verify_node(dev);
+>>   	pci_fixup_device(pci_fixup_final, dev);
+>>   	if (pci_is_bridge(dev))
+>>   		of_pci_make_dev_node(dev);
+>> diff --git a/drivers/pci/of.c b/drivers/pci/of.c
+>> index a51dff91b196d..5a040ed836744 100644
+>> --- a/drivers/pci/of.c
+>> +++ b/drivers/pci/of.c
+>> @@ -1085,3 +1085,35 @@ int of_pci_get_equalization_presets(struct device *dev,
+>>   	return 0;
+>>   }
+>>   EXPORT_SYMBOL_GPL(of_pci_get_equalization_presets);
+>> +
+>> +/**
+>> + * of_pci_verify_node - Sanity check some PCI device node properties
+>> + * @pdev: The PCI device whose device node is checked
+>> + *
+>> + * PCI enumeration authoritatively discovers what we need to know about
+>> + * a PCI device.  A devicetree-based platform will represent a PCI root
+>> + * bridge with a node, but otherwise devicetree doesn't typically include
+>> + * many PCI nodes.  Where such nodes do exist, experience has shown that
+>> + * the "device_type" property is sometimes wrong, so warn about that.
+>> + */
+>> +void of_pci_verify_node(struct pci_dev *pdev)
+>> +{
+>> +	struct device_node *np = pci_device_to_OF_node(pdev);
+>> +	bool device_is_bridge;
+>> +	bool device_type_pci;
+>> +
+>> +	/* Nothing to check if there's no pre-existing devicetree node */
+>> +	if (!np)
+>> +		return;
+>> +
+>> +	device_is_bridge = pci_is_bridge(pdev);
+>> +	device_type_pci = of_node_is_type(np, "pci") ||
+>> +			  of_node_is_type(np, "pciex");
+>> +
+>> +	/* Bridges should have device type "pci"; endpoints should not */
+>> +	if (device_is_bridge == device_type_pci)
+>> +		return;
+>> +
+>> +	dev_err(&pdev->dev, "PCI %s have \"pci\" device_type property\n",
+>> +		device_is_bridge ? "bridge should" : "endpoint should not");
+>> +}
+>> diff --git a/drivers/pci/pci.h b/drivers/pci/pci.h
+>> index ba3c3fddddc23..2e33d3bd4b0ba 100644
+>> --- a/drivers/pci/pci.h
+>> +++ b/drivers/pci/pci.h
+>> @@ -1253,6 +1253,7 @@ bool of_pci_supply_present(struct device_node *np);
+>>   int of_pci_get_equalization_presets(struct device *dev,
+>>   				    struct pci_eq_presets *presets,
+>>   				    int num_lanes);
+>> +void of_pci_verify_node(struct pci_dev *pdev);
+>>   #else
+>>   static inline int
+>>   of_get_pci_domain_nr(struct device_node *node)
+>> @@ -1308,6 +1309,8 @@ static inline int of_pci_get_equalization_presets(struct device *dev,
+>>   
+>>   	return 0;
+>>   }
+>> +
+>> +static inline void of_pci_verify_node(struct pci_dev *pdev) { }
+>>   #endif /* CONFIG_OF */
+>>   
+>>   struct of_changeset;
+>> -- 
+>> 2.53.0
+>>
 
-David
