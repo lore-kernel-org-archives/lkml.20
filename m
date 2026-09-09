@@ -1,139 +1,219 @@
-Received: from mail-qk1-f170.google.com (mail-qk1-f170.google.com [209.85.222.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D00B256E06C
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 16:59:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25CA053FD54
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 16:59:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788973173; cv=none; b=j8Hmlb4KE2KLBoXlmY8ROKa8z6Jwh5UqONTT0sIgI3N7Zn57q34jjljhauobOVugWyUeadYBRxg7sejxtdde2At0Bg9TPI9b4n9gzO0AcmKcbDdYc6kd5Ecp++wGQ3rT5xKf58D1HgugVsMfGyF52H42oX9UPPigFzAz9ZPbH0I=
+	t=1788973199; cv=none; b=VLkX0Lzi9Y8PlfDneVKwQB7F7KQdh6i/rww1b2UB+1MCf+TRgw8HJ5fiWsdBYalA2lQ+tFQL+mG5UkjabmLEF+uaLLjKKxZmJcwefTpHuby+EMWQk0E+pYfBvdofJ4biZrPLH2Ge7JHz183kPcNKt27pIFI5oEPSNeFxAKBCR0M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788973173; c=relaxed/simple;
-	bh=rj4viG58U0ANXfxVZ4RrFE31NhkHdx71+5e/Am26pAg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=QTFF56AgXU4JP8wkJ1JhMLg/ONhkoHp5WR1VEfI6sQZ12HjBjMV+t4RAfw44QH7maiwiNpW3SnFjY1cLEdWjtkvpaSiE30vPGG1u4K3Li71efK7cIAYde6Bl+PERDFPtK+Az1vAOO0Ztx/TKb/yVoywlW3a+GwJ3O5u2RoL5+Ik=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu; spf=fail smtp.mailfrom=g.harvard.edu; dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b=IoqfmLSC; arc=none smtp.client-ip=209.85.222.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=g.harvard.edu
+	s=arc-20240116; t=1788973199; c=relaxed/simple;
+	bh=3ZoTCmvqkdETJBOj3O8zkoBbtgKjyIAK4uQI6bwSwY4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Iq7rvy2wRifeHrOTkxXSOpiWe8h9XehRtWJwgbnfNTBwwejI4/Ru2zSyn1a0hRC84Rbfid84TdjdKtMkPyKl7Biyyp7Xt5lRDbMTlcuylOrWt3JUkrRRBhQw6ufhX4Bn4ed2VqKSfK2c4gZpUOYWA7gW6aknN1EYlS43HQIJrR8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HGxHi5X1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b="IoqfmLSC"
-Received: by mail-qk1-f170.google.com with SMTP id af79cd13be357-9399daa3c8eso323960785a.1
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 09:59:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=rowland.harvard.edu; s=google; t=1788973170; x=1789577970; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=+EHbIY/Ywlf9FLSv7Ev5/Wuo8w+C3q1oqLdJpQ1+dBE=;
-        b=IoqfmLSCrKzaQx2KEcRp+7kaSip7eT8piOdMAYiSukd0UhkDytgNfhU9mZKmqVpBlO
-         PCgIfWPJtCAW9PqnrFrzUD4qfx0qs5HXjSF8fiSNzH9vRAPNbqgWBFAK+g2DNoaWiYsd
-         czVqe0y/0rSWJhdjNMrCB0bcFDEk/UGoO+278hPsZE//dfSSKAOaZxI6MymrtHY59siT
-         i6g89Sop2Js0pZTLxFSDCyLNrveWhAh2YTvSuff1xs3acKbQqSYyqMa4W5PcLJQvVfLO
-         mWt5YssOgowsPS4X3+rs7v+Xaghy+XaLm+qM6/icTDRLowK8BcjgL3S5GxzDYaAaNrnp
-         PpOQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788973170; x=1789577970;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=+EHbIY/Ywlf9FLSv7Ev5/Wuo8w+C3q1oqLdJpQ1+dBE=;
-        b=DTwhk6dFEG1JxYiff7upNgOov/u9jhe/Gx0I7I+euxnmm36d8WoN4L/VUZNQ8k2w3B
-         n5oO6O7s9sR2i1a/IWC2Zf0mU3BiwkvpLo4Y3XNPK0MLkNSZgEtZYcxVuleDJMdXbTRC
-         JKmMll3exdvRGe/r9xN9I0uJuwz0nY2AKeAvfUN3a8VcrDfjS8cSDiXmAcn+6LqB1fGM
-         2jTUmoVKct2ISHMBazowYWQLSLiTPe7KAgUxSHXrbNz4l4MZGRXr9OGUgxTneWMjbrSB
-         qMVDFa2iBC+cQC9ngJjmOu+0UCUhijdlEzo0haf4FGDeMrqCkOntz2/RO8K0l2cHlPjv
-         +gqg==
-X-Forwarded-Encrypted: i=1; AKwUvByvE/JKieE4A1y9DEZ6vjoqYyGQhrRKorFJYoSdVSmg/BP41euyBSZscdKH4Adps+fmfWk8+/tz3vVc28s=@vger.kernel.org
-X-Gm-Message-State: AFuF++lOZU58wtqp4Gzf/EwLCdwCqPnNK5iSedOoW8j8DYqOWuEeTxdb
-	1cz1JWths/QlW7fHkAFrHTJSYGqysFYxqaEr5tmUcFF08+kDLJrR9mjYgo5nYQCE5g==
-X-Gm-Gg: AYBFou3qYWImjH323t+1Zyjb6wagC+ldT0SWkFkjNre7kW43kDdSspZ2lbLdl13mC1w
-	aRfMvWKGvSUC1hEHEzjzXA0Zr7MbvnqmM26Dg11mx1Gnwku72i+QKd2xwSo8pp14TpXCcBMdwbh
-	K8vKUHt4UBlUisK/8/DFsgvO0haPwNCN77fEq305xosBrMFia3ig5QKHdfW9Pkv2hZCT2mTzhKo
-	n+q3u/gEdL1Msc5Qh4kUergCeIGy9wh+JktNie/8zjLJP3AyNvLYsZatarTTE6U9wmIBHByoKga
-	LP8WCpaqEgg7YmgbC0jrT46MTt6eRrONfzQfyii/zJczOGX5CNtgFNnRTslxJ5JmOGa0DX0Wf//
-	zaXr0ckFTG/OnnuTVX2c07+rYdLxMsmDith9r6cjWN1Wo4oFp7UyglcLmRpZe4yvPldq8fDMIGv
-	pTkGHn8jLzwTvxOuANa+LFdHeGcmyM/N/7vf2JNfbH+QtlLO4Uqoc4ufw1C0B5J0Iwt8SK+SvWW
-	ENYd+JKN0gkubTKFrhSBTFrne2AmiYZzTcBDqewhLM=
-X-Received: by 2002:a05:620a:4721:b0:939:a003:7127 with SMTP id af79cd13be357-939a0037342mr2809210285a.52.1788973170370;
-        Wed, 09 Sep 2026 09:59:30 -0700 (PDT)
-Received: from rowland.harvard.edu ([2607:fb60:1011:2006:2008:aeb7:73d7:d8ff])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-9399cf10c7dsm1027567985a.15.2026.09.09.09.59.25
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 09 Sep 2026 09:59:25 -0700 (PDT)
-Date: Wed, 9 Sep 2026 12:59:23 -0400
-From: Alan Stern <stern@rowland.harvard.edu>
-To: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
-Cc: gregkh@linuxfoundation.org, linux-usb@vger.kernel.org,
-	usb-storage@lists.one-eyed-alien.net, linux-kernel@vger.kernel.org,
-	syzbot+356ae236154297f0d60d@syzkaller.appspotmail.com
-Subject: Re: [PATCH] usb: storage: ene_ub6250: set transport_reset to avoid
- NULL deref
-Message-ID: <f97797b6-52ff-4c40-80b8-eb9c6bc42228@rowland.harvard.edu>
-References: <20260909162710.28740-1-ngocthang2710.1999@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HGxHi5X1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9C81A1F000FF;
+	Wed,  9 Sep 2026 16:59:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788973196;
+	bh=P6G4VNpwhpXlLhjVq/kdRQP+Q5U8JxjhnWl2ivHdL58=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=HGxHi5X1wkkztSUobbCILvTlRsfOY7LnJ3KTOjPX0l7odb6o+J/uI1/R4WGZxpeRU
+	 XPCYkK7HhyFgwz2d2/SvcVzlAvFJcpQ3+2z2lcc86ZH0TsW45xY00eBI8jNnRmLeWU
+	 kA35nBILIMVHtdySHkZ8M+wNEKBFLCEWZS2JEgzNIM86ZS0lkdTEzIlEwKjEtBNr8x
+	 YqZHodcEhWYOhxQA0+cTt52EuqjmEA8ls55FqclzZriy0oHpCymA8EPlYTETCzQwy3
+	 U3HLWZTfIe9w80700dWV3ZI25HSrA4Zl0+9bkoouf7MiwmbmKnbtkSbQsUkeKB1DCC
+	 /2blUit7vaygQ==
+Message-ID: <d1ede193-bc56-46de-9d0d-fc037ddf835d@kernel.org>
+Date: Wed, 9 Sep 2026 18:59:52 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260909162710.28740-1-ngocthang2710.1999@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] mm/hugetlb: fix overbroad MMU notifiers for unshared PMDs
+To: Li Zhe <lizhe.67@bytedance.com>, Andrew Morton <akpm@linux-foundation.org>
+Cc: muchun.song@linux.dev, osalvador@suse.de, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, aiqi.i7@bytedance.com
+References: <20260831091023.66581-1-lizhe.67@bytedance.com>
+ <20260831173220.72ab28190a44a305dacf4d04@linux-foundation.org>
+ <47a6817e-e98e-4a00-8e2c-6a66d15ddb37@kernel.org>
+ <874e7793-877a-40a5-97ce-11dd5b9ee9ba@bytedance.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <874e7793-877a-40a5-97ce-11dd5b9ee9ba@bytedance.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Wed, Sep 09, 2026 at 11:27:10PM +0700, Nguyen Ngoc Thang wrote:
-> ene_ub6250_probe() sets us->transport but never sets
-> us->transport_reset. get_transport() only fills in transport_reset
-> for the standard USB_PR_CB/CBI/BULK protocols; since this driver
-> matches on VID/PID alone, a device can report any bInterfaceProtocol
-> value and still bind, leaving transport_reset NULL.
+On 9/8/26 09:09, Li Zhe wrote:
+> On 9/7/26 11:29 PM, David Hildenbrand (Arm) wrote:
+>> On 9/1/26 02:32, Andrew Morton wrote:
+>>>
+>>> Thanks.
+>>>
+>>> So a modest performance improvement?
+>> Is that worth the complexity, though?
 > 
-> When the transport then reports an error, usb_stor_invoke_transport()
-> calls us->transport_reset(us) in its Handle_Errors path, dereferencing
-> a NULL function pointer:
 > 
->   BUG: kernel NULL pointer dereference, address: 0000000000000000
->   RIP: 0010:0x0
->   Call Trace:
->    usb_stor_invoke_transport+0x55a/0x1a40 drivers/usb/storage/transport.c:926
->    usb_stor_control_thread+0x44c/0x8f0 drivers/usb/storage/usb.c:462
->    kthread+0x38b/0x480 kernel/kthread.c:436
-> 
-> Set transport_reset to usb_stor_Bulk_reset, matching the same pattern
-> already used by the other subdrivers with a custom transport function
-> (alauda, datafab, jumpshot, karma).
-> 
-> Reported-by: syzbot+356ae236154297f0d60d@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=356ae236154297f0d60d
-> Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
-> ---
+> That is a fair concern.
 
-Is there any reason to think that usb_stor_Bulk_reset is appropriate for 
-the ene_ub6250?
+In you setup, are the page tables ever being shared? I suspect you just run a VM
+with no other processes actually sharing the memory?
 
-Probably a better solution would be either to make usb_stor_probe2() 
-check that us->transport_reset isn't NULL, or even better, make 
-scsiglue.c:device_reset() fail immediately if us->transport_reset is 
-NULL.  Either one of these would work if some other subdriver forgets to 
-set transport_reset.
+One idea would be to just remember whether any sharing ever happened for a
+hugetlb file.
 
-Alan Stern
+> 
+> I tried to simplify the approach. Instead of computing the exact PUD
+> sub-ranges that contain shared PMD tables, this version keeps the
+> existing adjust_range_if_pmd_sharing_possible() logic unchanged and only
+> adds an actual shared-PMD check as a gate before it.
+> 
+> So the behavior becomes:
+> 
+>    - if no shared PMD table is found, keep the notifier range unchanged;
+>    - if any shared PMD table is found, fall back to the existing
+>      conservative PUD-sized expansion.
+> 
+> This should still avoid the unnecessary 1G KVM invalidation for the
+> common unshared-PMD case, while keeping the range expansion policy
+> unchanged when a shared PMD is present.
+> 
+> The resulting diff would look like this:
+> 
+> diff --git a/mm/hugetlb.c b/mm/hugetlb.c
+> index 816dde7..7a61fc3 100644
+> --- a/mm/hugetlb.c
+> +++ b/mm/hugetlb.c
+> @@ -5355,10 +5357,12 @@ void __hugetlb_zap_begin(struct vm_area_struct *vma,
+>       if (!vma->vm_file)    /* hugetlbfs_file_mmap error */
+>           return;
+> 
+> -    adjust_range_if_pmd_sharing_possible(vma, start, end);
+>       hugetlb_vma_lock_write(vma);
+> -    if (vma->vm_file)
+> +    if (vma->vm_file) {
+>           i_mmap_lock_write(vma->vm_file->f_mapping);
+> +        if (range_has_shared_pmd(vma, *start, *end))
+> +            adjust_range_if_pmd_sharing_possible(vma, start, end);
+> +    }
+>   }
+> 
+>   void __hugetlb_zap_end(struct vm_area_struct *vma,
+> @@ -5397,7 +5401,9 @@ void unmap_hugepage_range(struct vm_area_struct 
+> *vma, unsigned long start,
+> 
+>       mmu_notifier_range_init(&range, MMU_NOTIFY_CLEAR, 0, vma->vm_mm,
+>                   start, end);
+> -    adjust_range_if_pmd_sharing_possible(vma, &range.start, &range.end);
+> +    if (range_has_shared_pmd(vma, range.start, range.end))
+> +        adjust_range_if_pmd_sharing_possible(vma, &range.start,
+> +                             &range.end);
+>       mmu_notifier_invalidate_range_start(&range);
+>       tlb_gather_mmu(&tlb, vma->vm_mm);
+> 
+> @@ -6958,6 +6964,52 @@ void adjust_range_if_pmd_sharing_possible(struct 
+> vm_area_struct *vma,
+>           *end = ALIGN(*end, PUD_SIZE);
+>   }
+> 
+> +static bool range_has_shared_pmd(struct vm_area_struct *vma,
+> +                 unsigned long start, unsigned long end)
+> +{
+> +    unsigned long v_start = ALIGN(vma->vm_start, PUD_SIZE);
+> +    unsigned long v_end = ALIGN_DOWN(vma->vm_end, PUD_SIZE);
+> +    struct hstate *h = hstate_vma(vma);
+> +    struct mm_struct *mm = vma->vm_mm;
+> +    unsigned long address;
+> +
+> +    if (huge_page_size(h) != PMD_SIZE)
+> +        return false;
+> +
+> +    /*
+> +     * First apply the same cheap test as
+> +     * adjust_range_if_pmd_sharing_possible(). Only the PUD-aligned
+> +     * intersection can contain shared PMD tables.
+> +     */
+> +    if (!(vma->vm_flags & VM_MAYSHARE) || !(v_end > v_start) ||
+> +        end <= v_start || start >= v_end)
+> +        return false;
+> +
+> +    start = max(ALIGN_DOWN(start, PUD_SIZE), v_start);
+> +    end = min(ALIGN(end, PUD_SIZE), v_end);
+> +
+> +    hugetlb_vma_assert_locked(vma);
+> +    i_mmap_assert_write_locked(vma->vm_file->f_mapping);
+> +
+> +    for (address = start; address < end; address += PUD_SIZE) {
+> +        pte_t *ptep;
+> +        bool shared;
+> +
+> +        ptep = hugetlb_walk(vma, address, PMD_SIZE);
+> +        if (!ptep)
+> +            continue;
+> +
+> +        spin_lock(huge_pte_lockptr(h, mm, ptep));
+> +        shared = ptdesc_pmd_is_shared(virt_to_ptdesc(ptep));
+> +        spin_unlock(huge_pte_lockptr(h, mm, ptep));
 
->  drivers/usb/storage/ene_ub6250.c | 2 ++
->  1 file changed, 2 insertions(+)
-> 
-> diff --git a/drivers/usb/storage/ene_ub6250.c b/drivers/usb/storage/ene_ub6250.c
-> index ed49a3bc859c..3137c2cdd021 100644
-> --- a/drivers/usb/storage/ene_ub6250.c
-> +++ b/drivers/usb/storage/ene_ub6250.c
-> @@ -2350,6 +2350,8 @@ static int ene_ub6250_probe(struct usb_interface *intf,
-> 
->  	us->transport_name = "ene_ub6250";
->  	us->transport = ene_transport;
-> +	/* get_transport() only sets this for the standard USB_PR_* protocols */
-> +	us->transport_reset = usb_stor_Bulk_reset;
->  	us->max_lun = 0;
-> 
->  	result = usb_stor_probe2(us);
-> --
-> 2.43.0
-> 
+I really don't like this piece of code to optimize something that is already
+questionable in practice: overcommiting hugetlb folios for VMs.
+
+Can you share some more details which mechanism ends up zapping hugetlb folios
+for the VM?
+
+If it's virtio-balloon's free-page-reporting, you should likely disable that for
+the VM.
+
+-- 
+Cheers,
+
+David
