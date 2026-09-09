@@ -1,362 +1,226 @@
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
+Received: from mail-yw1-f171.google.com (mail-yw1-f171.google.com [209.85.128.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD2363BFACA
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 19:37:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1EA53C10B0
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 19:37:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788982651; cv=none; b=UX6+G7D5HqBu9le1B2MnaLzatgZoaYfOBa2vPwHDJ7Pb2o+cWrFY1fqoVg2wkZE8Z1elJbRNl45I/1GPw/UKh4pSK71CbGtsAkLCPQFdQFnCUTxUXdor22A/kJAIF9Yql7SyuK8RpGfnNpzQTK3tUxoGujkVW2d+a5AiSaLOquU=
+	t=1788982664; cv=none; b=mPfxQB1fM1GFOqamL1WtksEZNTqRd+ymA89u34cQDUskN2Ak0M6s7cJ8A8MgJl+IPdNHJ++QO6hDoPx2t11ywVBb4UVRbm2TISfwDfnwuCfJieXl/TM6BTlRxEpisUVacMBzIFZyI9TeSUZ6PLj/8HaFkIHrRaLtA1nRzSaKYS8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788982651; c=relaxed/simple;
-	bh=C7VwzFJv62xo0oL16lkSPk1ImXglzc2NWBysuU8eCC0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=MU/SiB16oqJpnS1/2LkQeEjy4fvcD5Tqn4XBZ3vqFYZZWU+moKDjZKGOFmp9fnPM5OLTF/t1oa5kFaeN2uZJMPK7q1C0FHOceOILQRJ4/Gv50ODq+MbSmr/uEJIwCgzZndsGiVk2XDVZqBHdbqGUJnApknj7efWF2RxQcPB+utw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BBY0Krxf; arc=none smtp.client-ip=209.85.128.43
+	s=arc-20240116; t=1788982664; c=relaxed/simple;
+	bh=AVov50Izs6mTW2/vlm9mOaKyn9GZMvc84xHZVo4j9kg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=FgKzNGnUcXZxVaIAEQjbxJfj3ZRDBDWfGythj6Re0cHhZfVYMxKyagMpb46OTNNtOr/799w/3Jjlz9AjIov75DTw8rKCHtkghc1B9ScrwH+lQCoJwvfdu3j7NAhlGQvYGAEO3fhI2n+jXczRduFFeC+KXTEgNdTQyekj8vbOcNk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Dag8zkC0; arc=none smtp.client-ip=209.85.128.171
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BBY0Krxf"
-Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-49954b88fffso45979225e9.0
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 12:37:28 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Dag8zkC0"
+Received: by mail-yw1-f171.google.com with SMTP id 00721157ae682-86cba60d4f2so48974997b3.1
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 12:37:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788982647; x=1789587447; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=rN/co/MiO63+I4OwBOH7CBrIhRmyKBo1K8jSxxz7cd0=;
-        b=BBY0Krxf7a1gFgfyJQCgYaaeYD91c4+dcWVhwgYTm9qLrerNy94U4XBslyKOS05f/j
-         5lQTplONBqvup1aGz2Q14BjqiDdZWdXhcNCA8iw3f+QdwLXyOGOQXztAk4ZeFP41YgsM
-         Sum9R+H6jRemXw1JK5dIwmABSIFJrprfq3LwwrQ/gI7mLtIXO+UKAlEROPh+enlxxaII
-         YAHYGnD674bfCfuxeYVASshxdmVOiZTOOTWb9agr9R686qY3mywcGmTTyhPpWr/tUjRS
-         p4VmJMX16W7LdNVrpqzetXPjtTqNdZ1nRZ4uWYejpwXgCSiyBzmQbfXkgjcgOAgGs9oh
-         XJYA==
+        d=gmail.com; s=20251104; t=1788982659; x=1789587459; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=3RWDfMkpqZ2EnvloMST4DPLeQM31Xw13F0J6nj96sv8=;
+        b=Dag8zkC0jJaq45mqDUA0xkMvEFzAXfvQA4fTdZHBbNfObhwH0p4ZgSIfyEyckosAxD
+         VKX7H5TqKGjWc7hri7XMV2ku6Fpk1tk8NvIhtbYAxIMpZTTuq247rCGaXxB0sSnjPb00
+         SDMTXCSHxITmjgt9cnGR3HN813qYaCQA9alL+GZQ10PsVakoFZvQKKeCAPXZ/rEncD4b
+         EEhhL1uj2tGkXreflvUU8AwiPaAHgMOTElUGwoRulOnLbaLte3DW0tXsWNHpO950mJZ4
+         0IBGg7xsm+J28Y9mkoD/Ndp4CS6gVaZhgDnMFbdLGwihV3rh+APxbrozZP36N/G2e88s
+         1NvQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788982647; x=1789587447;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=rN/co/MiO63+I4OwBOH7CBrIhRmyKBo1K8jSxxz7cd0=;
-        b=iEOJFZTza7GAI6Tj3POVWre2MtRbNP1IBy2k8HJZHKY4BPdVZskThNbUhyKTHnhX4R
-         5Bw4oEEwiR3WHGfzdKEMROkPf7hFDYM64aLlR8eDuVavqkEbEsEidL2fd7PgLVeMwiIe
-         7MMS97qqnsvL/nwsg4itshcuPP/SH4U71Lvh2Y+1cSFSyZCCjmPAEolTpwan6t1NH17a
-         s0ggMNOC1/DJKuOSbM++GLKQ1vAPO3OrJhApakm+IsnTd27Iq+Ju69VxstmU8NP1dtmw
-         vGmo7Nj6lGGKGTOq3cK0dgTOFNH2+blzum7QXUPNRoe4OCiFMNt5kqYor+LyBzQ4AYCW
-         VCYw==
-X-Forwarded-Encrypted: i=1; AKwUvBzUbzSWkX7D8VYs/3zhE4l+GgvAaOuhAAta6WhTi/ObjPureBGHS3X4pXuMXtouqo51ENH4Dp+N26VBxws=@vger.kernel.org
-X-Gm-Message-State: AFuF++nN/H5z0u8CJ6IONKnX5SjC8IvTuVTeLHYSwoF26MIzX2u/f1Tg
-	HGxCkjXwEu+D1Z1+1rCyY+r7jNBjCdqabqqHXOmlg3wZPPRPB5EQIqIx
-X-Gm-Gg: AYBFou3jXOITEPFbgEKdLQ/IGeNPN4MIMU8X4EZ45ENWKR0zf2m7Q5xiMtmuFEdNnqH
-	SaZ743JW1eLlwgkqlMpkAf8JqaEF/kBzlKPIoOdKFTY7JuzQ/RdNxWCpj6KRkR9cTLPpw7Q4fuc
-	JyXy8Oty8J/ZbyG9nCbGyF2KmsqcBsqhv2L0Q02DLYhNivVe0Lp+toKGcSWtvyM8OfoKihcFCwD
-	jgvYprpSZhpxb6YpMUykmXP/aHjvbxnuQmO/DsUT5oPOlDuhKmQ4wzk0KsRleOozXv7Mn750o1s
-	WqEN7enMcCdJBoQB8TbmKQHbaSqInB6djPxBNyzAhwR6GmmKnBcdoajohnefQgbB1VjzwMBLMJL
-	wJUDOYgYXTr4O03LoPGaI2ENACXMUBjTqHUHEeqUEINGHhT0EtPQbBf0cXHyX7Pnf54M2tzDl0T
-	0WeKHzydhO8ghHK8eKDAA1yeLYUsGMleMy3iPckvZdOVdY3we8+xmHfhMUAey+N3kKYI/2obEpS
-	c8amu/9s9kIH+K2q0wSk2KLtNLE6UYNG/qgnIPvi4E9/VuOnIBnKC8pjBWt0vs+xmxabSkKh27Q
-	DCgPdD+wNg==
-X-Received: by 2002:a05:600c:474a:b0:49c:e42b:a4ac with SMTP id 5b1f17b1804b1-49cf823f60amr335765905e9.11.1788982646565;
-        Wed, 09 Sep 2026 12:37:26 -0700 (PDT)
-Received: from iku.Home ([2a06:5906:61b:2d00:d357:e592:d56c:d3b5])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49d26be64a5sm13123995e9.6.2026.09.09.12.37.25
+        d=1e100.net; s=20251104; t=1788982659; x=1789587459;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=3RWDfMkpqZ2EnvloMST4DPLeQM31Xw13F0J6nj96sv8=;
+        b=n5aPNCH0wsVwq4RsnovEjlbmcVOLYV6BWxIGPXo53DMfNShcQ3UO4jqt3mjksQpgHN
+         VAYoCmrrP8t7vJijNtSRO6rwDdMcH+sX/CnBO7JVJW0mHLAuHiX0qfGR9DeGKpGe2Zkx
+         mMuj8N2o7xJKisbqkqszcKcNj/aYaUdrNu7+kT/7k2h7xh6lpDJAqnbqIeSN19vR59/7
+         hcC3ZLyXzZlYWmsORbKod+e3Q7Jg7HkGC5bwvtS97c8IciO11A1mIeJBbEM6Xebheev5
+         hRJorRhMXedPMoH8vavtoag1oDQQDotZ9r00f7b1VvklX9rFdFmxlHtuItk0VmJDz1Vq
+         peKg==
+X-Forwarded-Encrypted: i=1; AKwUvBwFdDl0z+bZblpE+YoDlWk7ckIVv1g6A3ik4b//PtarFYSAHAETcDeNsxs6u0Sr4ry57Q/BMLF/eNV+zAk=@vger.kernel.org
+X-Gm-Message-State: AFuF++lI9JiBeadUAh9auQZZqswej1gFYupPW2FrmkXbqhLBC4a3Ot+2
+	s4Tf81aDVbInwFxRqgo8saMKuOtGtNiXLKVhPing19hn+yAv+Jry8zox
+X-Gm-Gg: AYBFou2wrAbA+4QRpgfCEax60uOvGxD8vXefJx40q9SqgNRr/UI49Uc8qO4YJmPZHBH
+	/fpKHJKxxwUC9mEU6rIQFPVaGNaRDSoHaP6HeBGMtK88NlFpGorR2JyzwTELQbZKit4YM24Jxfs
+	nypUBXMuP8DHUcdjWPlxgRrkJWRNwMXxxCG3gTCYUMB+8WVeI2i/Ej+KSl8JriES9MhSAYK9A93
+	iH4zi5eiivQQaIvsss0u70h1LraFgPbMWmMuLXEvUOnTBKF2CsJsVemB/lr2qzH7//5XPmu+o+h
+	EHCP01t+UutakUrdSkaX1DCCUEWvxE9z/hHURpNKb5XRhsGMf8ieHi80nuSkelFn6ELQfWJnTbG
+	wptH7xzO+VzT6WfO/CX5TqQDRXYju3/KCRN5S0eC3UwcV/21EqjtxKcw/MhLionEWTw8yw6MMTZ
+	kKdS2TKmUGa/npa2CjtIh9UaO4eYmIGsm4ZoU0R675sftZQjrB4J+1Z8nNsZRRLL6KFt25YYFNZ
+	xc2kdsF1tVHXZ/erq2PmxzHpR9QWhz0
+X-Received: by 2002:a05:690c:6910:b0:873:5c6b:a313 with SMTP id 00721157ae682-8735c6ba5a9mr120378907b3.65.1788982658508;
+        Wed, 09 Sep 2026 12:37:38 -0700 (PDT)
+Received: from zenbox ([2600:1700:18fb:6011:bae:bfc2:7e96:e5c8])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-871493155d3sm115277577b3.16.2026.09.09.12.37.37
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 09 Sep 2026 12:37:26 -0700 (PDT)
-From: Prabhakar <prabhakar.csengg@gmail.com>
-X-Google-Original-From: Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-To: Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: linux-renesas-soc@vger.kernel.org,
-	devicetree@vger.kernel.org,
+        Wed, 09 Sep 2026 12:37:38 -0700 (PDT)
+From: Justin Suess <utilityemal77@gmail.com>
+To: ast@kernel.org,
+	daniel@iogearbox.net,
+	andrii@kernel.org,
+	kpsingh@kernel.org,
+	matt@bobrowski.net,
+	paul@paul-moore.com,
+	mic@digikod.net,
+	viro@zeniv.linux.org.uk,
+	brauner@kernel.org,
+	kees@kernel.org
+Cc: casey@schaufler-ca.com,
+	gnoack@google.com,
+	jack@suse.cz,
+	song@kernel.org,
+	yonghong.song@linux.dev,
+	martin.lau@linux.dev,
+	eddyz87@gmail.com,
+	memxor@gmail.com,
+	jolsa@kernel.org,
+	m@maowtm.org,
+	bpf@vger.kernel.org,
+	linux-security-module@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	dmaengine@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	Prabhakar <prabhakar.csengg+renesas@gmail.com>,
-	Biju Das <biju.das.jz@bp.renesas.com>,
-	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Subject: [RFC PATCH 1/3] soc: renesas: rz-sysc: Configure AOF registers from dma-ranges
-Date: Wed,  9 Sep 2026 20:36:37 +0100
-Message-ID: <20260909193640.8069-2-prabhakar.mahadev-lad.rj@bp.renesas.com>
+	Justin Suess <utilityemal77@gmail.com>
+Subject: [PATCH bpf-next v3 00/15] BPF interface for applying Landlock rulesets
+Date: Wed,  9 Sep 2026 15:37:03 -0400
+Message-ID: <20260909193719.518517-1-utilityemal77@gmail.com>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260909193640.8069-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
-References: <20260909193640.8069-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Howdy,
 
-Some RZ SoCs contain bus masters that can only generate 32-bit addresses
-but need to access memory located above the 4 GiB boundary. The System
-Controller (SYSC) provides Address Offset Function (AOF) registers that
-translate the upper address bits on a per-master basis to extend the
-accessible physical address range.
+This series lets BPF programs apply an existing, userspace-created
+Landlock ruleset to a program during exec.  The goal is unchanged
+from the RFC [1], v1 [2], and v2 [3]: BPF does not create, inspect,
+or mutate Landlock policy, it only decides whether a ruleset that
+was already created and validated through Landlock's existing
+userspace API should be applied, based on runtime exec context.
+The policy is in place before the first instruction of the new
+program runs, closing the race a userspace supervisor cannot.
 
-Each such master only ever places bits [29:0] of its own address
-directly onto the interconnect. Bits [31:30] of that same 32-bit
-address are not used as address bits at all -- instead they select
-one of four 6-bit fields (Reg0-Reg3) in the master's SYS_AOFn
-register. The selected field supplies the corresponding bits [34:30]
-or [35:30] of the actual bus transaction, effectively splitting the
-master's native 4 GiB address space into four independently
-relocatable 1 GiB windows and letting each be redirected anywhere in
-a 35-bit (masters limited to DDR0/DDR1 access) or 36-bit (masters
-that can also reach PCIe0/PCIe1) physical address space.
+v3 is v2 rebased onto bpf-next, plus small fixes; the design is
+unchanged.  The Landlock prerequisites (the ruleset/domain split,
+the tracepoint series, and LANDLOCK_RESTRICT_SELF_NO_NEW_PRIVS)
+went upstream in the 7.3 merge window, so the series now applies
+directly to bpf-next.
 
-Add generic infrastructure to configure the AOF registers from the
-firmware-provided dma-ranges property instead of relying on hardcoded
-register programming. Each supported bus master is described by its MMIO
-base address, corresponding SYS_AOF register index, and address width.
-At probe time, the driver matches the bus master against this
-description -- via the addressable child node of a devicetree
-"simple-bus" wrapper carrying dma-ranges -- and programs the appropriate
-AOF register by decomposing each dma-ranges entry into the 1 GiB-aligned
-segments it maps to, translating the child (device-side) address into
-the field it selects and the parent (physical) address into the value
-written to that field.
+The interface, for reference:
 
-Validate the dma-ranges entries before programming the hardware by
-checking 1 GiB alignment on both the child and parent addresses,
-ensuring the described child range does not exceed the master's own
-4 GiB address space (i.e. does not require more than the four available
-1 GiB translation windows), and verifying that the requested physical
-target is representable within the bus master's address width.
+  bpf_lsm_policy_from_fd(fd, flags)         KF_ACQUIRE | KF_RET_NULL | KF_SLEEPABLE
+  bpf_lsm_policy_acquire(object)            KF_ACQUIRE | KF_RCU | KF_RET_NULL
+  bpf_lsm_policy_release(object)            KF_RELEASE
+  bpf_lsm_policy_apply_bprm(object, bprm, flags)  KF_SLEEPABLE
 
-Populate the AOF description table for the RZ/V2H SDHI controllers,
-which use SYS_AOF16-18.
+The kfuncs are LSM-generic: they operate on struct
+lsm_policy_object, which the owning LSM embeds in its own policy
+structure, and dispatch to that LSM through four ordinary LSM hooks
+(policy_object_from_fd, policy_object_get, policy_object_put,
+bprm_apply_policy_object).  No kfunc argument names an LSM anywhere
+in the interface, yet it is not an ioctl-like multiplexer.
+Landlock is the first provider.
 
-Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
----
- drivers/soc/renesas/r9a09g057-sys.c |   9 +++
- drivers/soc/renesas/rz-sysc.c       | 118 ++++++++++++++++++++++++++++
- drivers/soc/renesas/rz-sysc.h       |  22 ++++++
- 3 files changed, 149 insertions(+)
+Rather than repeating the whole design here, see the v2
+cover letter [3] for the details, as the core design and API are
+identical to the previous iteration.
 
-diff --git a/drivers/soc/renesas/r9a09g057-sys.c b/drivers/soc/renesas/r9a09g057-sys.c
-index 308492c31acb..960fcba668b3 100644
---- a/drivers/soc/renesas/r9a09g057-sys.c
-+++ b/drivers/soc/renesas/r9a09g057-sys.c
-@@ -82,6 +82,12 @@ static void rzv2h_sys_print_id(struct device *dev,
- 		dev_warn(dev, "CA55 PLL is not set to 1.7GHz\n");
- }
- 
-+static const struct rz_aof_unit rzv2h_aof_units[] = {
-+	{ .base = 0x15c00000, .index = 16, .addr_bits = 35 }, /* SDHI0 -> SYS_AOF16 */
-+	{ .base = 0x15c10000, .index = 17, .addr_bits = 35 }, /* SDHI1 -> SYS_AOF17 */
-+	{ .base = 0x15c20000, .index = 18, .addr_bits = 35 }, /* SDHI2 -> SYS_AOF18 */
-+};
-+
- static const struct rz_sysc_soc_id_init_data rzv2h_sys_soc_id_init_data __initconst = {
- 	.family = "RZ/V2H",
- 	.id = 0x847a447,
-@@ -89,6 +95,9 @@ static const struct rz_sysc_soc_id_init_data rzv2h_sys_soc_id_init_data __initco
- 	.revision_mask = GENMASK(31, 28),
- 	.specific_id_mask = GENMASK(27, 0),
- 	.print_id = rzv2h_sys_print_id,
-+	.aof_units = rzv2h_aof_units,
-+	.num_aof_units = ARRAY_SIZE(rzv2h_aof_units),
-+	.aof_base = 0x0500,
- };
- 
- static bool rzv2h_regmap_readable_writeable_reg(unsigned int reg)
-diff --git a/drivers/soc/renesas/rz-sysc.c b/drivers/soc/renesas/rz-sysc.c
-index 0e92c415d4be..2dae4a0de99b 100644
---- a/drivers/soc/renesas/rz-sysc.c
-+++ b/drivers/soc/renesas/rz-sysc.c
-@@ -11,6 +11,7 @@
- #include <linux/io.h>
- #include <linux/mfd/syscon.h>
- #include <linux/of.h>
-+#include <linux/of_address.h>
- #include <linux/platform_device.h>
- #include <linux/regmap.h>
- #include <linux/slab.h>
-@@ -28,6 +29,121 @@ struct rz_sysc {
- 	struct device *dev;
- };
- 
-+static const struct rz_aof_unit *
-+rz_aof_lookup(const struct rz_sysc_soc_id_init_data *soc_data, u32 base)
-+{
-+	unsigned int i;
-+
-+	for (i = 0; i < soc_data->num_aof_units; i++)
-+		if (soc_data->aof_units[i].base == base)
-+			return &soc_data->aof_units[i];
-+
-+	return NULL;
-+}
-+
-+static int rz_aof_parse_bus(struct rz_sysc *sysc,
-+			    const struct rz_sysc_soc_id_init_data *soc_data,
-+			    struct device_node *bus_np)
-+{
-+	const struct rz_aof_unit *unit;
-+	struct device_node *child;
-+	struct resource res;
-+	const __be32 *ranges;
-+	int naddr, nsize, cell_sz, len, nentries, i;
-+	u32 reg_val = 0;
-+
-+	child = NULL;
-+	for_each_child_of_node(bus_np, child) {
-+		if (of_address_to_resource(child, 0, &res) == 0)
-+			break;
-+	}
-+	if (!child) {
-+		dev_warn(sysc->dev, "%pOF: no addressable child found\n", bus_np);
-+		return -EINVAL;
-+	}
-+
-+	if (!of_device_is_available(child)) {
-+		dev_dbg(sysc->dev, "%pOF: %pOF is disabled, skipping AOF setup\n",
-+			bus_np, child);
-+		of_node_put(child);
-+		return 0;
-+	}
-+
-+	unit = rz_aof_lookup(soc_data, (u32)res.start);
-+	of_node_put(child);
-+	if (!unit) {
-+		dev_warn(sysc->dev, "%pOF: no AOF unit for base %pa\n", bus_np, &res.start);
-+		return -ENODEV;
-+	}
-+
-+	naddr = of_n_addr_cells(bus_np);
-+	nsize = of_n_size_cells(bus_np);
-+	cell_sz = (naddr * 2 + nsize) * sizeof(u32);
-+
-+	ranges = of_get_property(bus_np, "dma-ranges", &len);
-+	if (!ranges || !cell_sz || len % cell_sz) {
-+		dev_err(sysc->dev, "%pOF: malformed dma-ranges\n", bus_np);
-+		return -EINVAL;
-+	}
-+	nentries = len / cell_sz;
-+
-+	for (i = 0; i < nentries; i++) {
-+		const __be32 *p = ranges + i * (naddr * 2 + nsize);
-+		u64 child_addr = of_read_number(p, naddr);
-+		u64 parent_addr = of_read_number(p + naddr, naddr);
-+		u64 size = of_read_number(p + 2 * naddr, nsize);
-+		unsigned int nseg = DIV_ROUND_UP_ULL(size, SZ_1G);
-+		unsigned int sel0 = (child_addr >> 30) & 0x3;
-+		u64 tgt0 = parent_addr >> 30;
-+		unsigned int s;
-+
-+		if (child_addr & (SZ_1G - 1) || parent_addr & (SZ_1G - 1)) {
-+			dev_err(sysc->dev, "%pOF: entry %d not 1GiB aligned\n", bus_np, i);
-+			return -EINVAL;
-+		}
-+
-+		for (s = 0; s < nseg; s++) {
-+			unsigned int sel = sel0 + s;
-+			u64 tgt = tgt0 + s;
-+
-+			if (sel > 3) {
-+				dev_err(sysc->dev, "%pOF: entry %d overflows the 4 fields\n",
-+					bus_np, i);
-+				return -EINVAL;
-+			}
-+			if (unit->addr_bits == 35 && (tgt & BIT(5))) {
-+				dev_err(sysc->dev,
-+					"%pOF: target 0x%llx needs bit[5], unit is 35-bit only\n",
-+					bus_np, tgt << 30);
-+				return -EINVAL;
-+			}
-+			reg_val &= ~(0x3fu << (sel * 8));
-+			reg_val |= (tgt & 0x3f) << (sel * 8);
-+		}
-+	}
-+
-+	writel(reg_val, sysc->base + SYS_AOF_OFFSET(soc_data->aof_base, unit->index));
-+
-+	return 0;
-+}
-+
-+static void rz_sysc_setup_aof(struct rz_sysc *sysc,
-+			      const struct rz_sysc_soc_id_init_data *soc_data)
-+{
-+	struct device_node *np;
-+
-+	if (!soc_data->aof_units || !soc_data->num_aof_units)
-+		return;
-+
-+	for_each_node_with_property(np, "dma-ranges") {
-+		if (!of_device_is_compatible(np, "simple-bus"))
-+			continue;
-+
-+		if (rz_aof_parse_bus(sysc, soc_data, np))
-+			dev_warn(sysc->dev, "AOF setup failed for %pOF\n", np);
-+	}
-+}
-+
- static int rz_sysc_soc_init(struct rz_sysc *sysc, const struct of_device_id *match)
- {
- 	const struct rz_sysc_init_data *sysc_data = match->data;
-@@ -137,6 +253,8 @@ static int rz_sysc_probe(struct platform_device *pdev)
- 	if (ret)
- 		return ret;
- 
-+	rz_sysc_setup_aof(sysc, data->soc_id_init_data);
-+
- 	regmap_cfg->name = "rz_sysc_regs";
- 	regmap_cfg->reg_bits = 32;
- 	regmap_cfg->reg_stride = 4;
-diff --git a/drivers/soc/renesas/rz-sysc.h b/drivers/soc/renesas/rz-sysc.h
-index e55f3258d703..481d5d5a0577 100644
---- a/drivers/soc/renesas/rz-sysc.h
-+++ b/drivers/soc/renesas/rz-sysc.h
-@@ -12,6 +12,18 @@
- #include <linux/sys_soc.h>
- #include <linux/types.h>
- 
-+/**
-+ * struct rz_aof_unit - RZ AOF unit description
-+ * @base: MMIO base of the master IP (low 32 bits; all < 4G)
-+ * @index: index of SYS_AOFn (0-based)
-+ * @addr_bits: address width of the master IP (35 or 36 bits)
-+ */
-+struct rz_aof_unit {
-+	u32 base;
-+	u8 index;
-+	u8 addr_bits;
-+};
-+
- /**
-  * struct rz_syc_soc_id_init_data - RZ SYSC SoC identification initialization data
-  * @family: RZ SoC family
-@@ -21,6 +33,10 @@
-  * @specific_id_mask: SYSC SoC ID specific ID mask
-  * @print_id: print SoC-specific extended device identification
-  * @pwrrdy_pwrseq: has pwrrdy register controlled through power sequencer
-+ * @aof_units: array of AOF units for this SoC, or NULL if it has none
-+ * @num_aof_units: number of entries in @aof_units
-+ * @aof_base: offset of SYS_AOF0 from the SYSC base; ignored if @aof_units is NULL
-+ *            (this offset is SoC-specific, unlike the fixed inter-register stride)
-  */
- struct rz_sysc_soc_id_init_data {
- 	const char * const family;
-@@ -31,8 +47,14 @@ struct rz_sysc_soc_id_init_data {
- 	void (*print_id)(struct device *dev, void __iomem *sysc_base,
- 			 struct soc_device_attribute *soc_dev_attr);
- 	bool pwrrdy_pwrseq;
-+	const struct rz_aof_unit *aof_units;
-+	unsigned int num_aof_units;
-+	u32 aof_base;
- };
- 
-+#define SYS_AOF_STRIDE			0x0004
-+#define SYS_AOF_OFFSET(aof_base, n)	((aof_base) + ((n) * SYS_AOF_STRIDE))
-+
- /**
-  * struct rz_sysc_init_data - RZ SYSC initialization data
-  * @soc_id_init_data: RZ SYSC SoC ID initialization data
+Changes since v2
+===
+
+- Rebased onto bpf-next; prerequisites are now met.
+- The kfunc filter's BPF_LSM_CGROUP case is dropped: since
+  commit 5b038319be44 ("bpf: Reject sleepable BPF_LSM_CGROUP
+  programs at load time") such programs cannot be sleepable, so
+  KF_SLEEPABLE already excludes them from the apply kfunc, making
+  that case redundant.
+- The apply_bprm patch now documents why the attach-point filter,
+  not the verifier's argument typing, is the authorization boundary:
+  trusted linux_binprm pointers are also available at the other bprm
+  hooks and to tp_btf programs via the exec tracepoints, which share
+  the LSM programs' kfunc registration bucket.
+- Fixed a pipe fd leak on the fork() error path of
+  test_restrict_binprm_discard() (Sashiko AI review).
+
+Changes since v1 are summarized in the v2 cover letter [3].
+
+The series is structured with LSM framework patches first: patches
+1-2 add the hooks, 3 is trivial macro motion, 4-7 the kfuncs, 8 the
+interface documentation, and 9 its LSM-independent selftests.  The
+Landlock provider follows: patches 10-13 add it, 14 its selftests,
+and 15 its documentation.
+
+[1] https://lore.kernel.org/linux-security-module/20260407200157.3874806-1-utilityemal77@gmail.com/
+[2] https://lore.kernel.org/bpf/20260731022047.189137-1-utilityemal77@gmail.com/
+[3] https://lore.kernel.org/bpf/20260831145858.3869191-1-utilityemal77@gmail.com/
+
+Justin Suess (15):
+  lsm: Add the LSM policy object lifetime hooks
+  lsm: Add the bprm_apply_policy_object LSM hook
+  lsm: Move the lsm_for_each_hook() macro to security/lsm.h
+  lsm: Add the bpf_lsm_policy_release kfunc and policy object destructor
+  lsm: Add the bpf_lsm_policy_from_fd kfunc
+  lsm: Add the bpf_lsm_policy_acquire kfunc
+  lsm: Add the bpf_lsm_policy_apply_bprm kfunc
+  lsm: Document the LSM policy object interface
+  selftests/bpf: Add tests for the LSM policy object kfuncs
+  landlock: Expose the ruleset fd lookup to the rest of Landlock
+  landlock: Factor the credential restriction out of
+    landlock_restrict_self()
+  landlock: Free rulesets after an RCU grace period
+  landlock: Implement the LSM policy object hooks
+  selftests/bpf: Test the LSM policy object kfuncs with Landlock
+  landlock: Document the BPF policy interface
+
+ Documentation/security/landlock.rst           |  38 ++
+ Documentation/security/lsm-development.rst    |  49 ++
+ Documentation/trace/events-landlock.rst       |   5 +-
+ MAINTAINERS                                   |   1 +
+ include/linux/lsm_hook_defs.h                 |   6 +
+ include/linux/security.h                      |  11 +
+ include/trace/events/landlock.h               |  15 +-
+ kernel/bpf/bpf_lsm.c                          |   4 +
+ kernel/bpf/verifier.c                         |   3 +
+ security/Makefile                             |   2 +-
+ security/bpf_lsm_kfuncs.c                     | 247 ++++++++
+ security/landlock/Makefile                    |   2 +
+ security/landlock/bpf.c                       | 152 +++++
+ security/landlock/bpf.h                       |  21 +
+ security/landlock/cred.c                      | 148 ++++-
+ security/landlock/cred.h                      |  47 ++
+ security/landlock/limits.h                    |   4 +
+ security/landlock/ruleset.c                   |  30 +-
+ security/landlock/ruleset.h                   |  75 ++-
+ security/landlock/setup.c                     |   2 +
+ security/landlock/syscalls.c                  | 105 +---
+ security/lsm.h                                |   6 +
+ security/security.c                           |   5 -
+ tools/testing/selftests/bpf/config            |   1 +
+ tools/testing/selftests/bpf/config.x86_64     |   2 +-
+ .../bpf/prog_tests/lsm_policy_kfuncs.c        |  54 ++
+ .../bpf/prog_tests/lsm_policy_landlock.c      | 525 ++++++++++++++++++
+ .../selftests/bpf/progs/lsm_policy_kfuncs.c   |  52 ++
+ .../bpf/progs/lsm_policy_kfuncs_failure.c     | 154 +++++
+ .../selftests/bpf/progs/lsm_policy_landlock.c | 142 +++++
+ 30 files changed, 1785 insertions(+), 123 deletions(-)
+ create mode 100644 security/bpf_lsm_kfuncs.c
+ create mode 100644 security/landlock/bpf.c
+ create mode 100644 security/landlock/bpf.h
+ create mode 100644 tools/testing/selftests/bpf/prog_tests/lsm_policy_kfuncs.c
+ create mode 100644 tools/testing/selftests/bpf/prog_tests/lsm_policy_landlock.c
+ create mode 100644 tools/testing/selftests/bpf/progs/lsm_policy_kfuncs.c
+ create mode 100644 tools/testing/selftests/bpf/progs/lsm_policy_kfuncs_failure.c
+ create mode 100644 tools/testing/selftests/bpf/progs/lsm_policy_landlock.c
+
+
+base-commit: af0b84a9215d951d16f26b7ee34353b970cf5d4e
 -- 
 2.55.0
 
