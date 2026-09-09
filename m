@@ -1,122 +1,124 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lf2-f12.google.com (mail-lf2-f12.google.com [74.125.229.204])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A88F555D87B;
-	Wed,  9 Sep 2026 13:19:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788959959; cv=none; b=uD8ejriNOV9JOmviMaOx8azQEMvIdQ0KmrkQdtN22MrB7+z7eGveJugfstzdGpkH5oOy2iVDBIE8MLLt0FncVgA6uz+P4Qsdbp8H2ZEq+1EgzuIDRVAvYrbq6nKzMqN/5C0hgMznJ1sMX47K+yNjU/Z6fbv55lFe13GLnOuPyO8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788959959; c=relaxed/simple;
-	bh=D+0JTv0vjj7jVq9/XgjezPU8HO5CeV6B7pgjm/VaupU=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=M3XZpIYxjgJepFKg1nxSMsY3sZGmQQ8+SjdIx8AWsvyrhXWbj86DcSNg3DivR/i+O1MSVY0TaRiE0RqN7qFvLO3qxHPsdc7kE10TdJQ9Smm+WGLK+3aLY1Ccl1AlaRp/YqEaijwQTB6J6RNvU4XDImTLHDpGDrE2vQa1of0lcOo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jifU7nYa; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D782D552955
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 13:19:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.229.204
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788959972; cv=pass; b=LKD82NSokN4ZHQoKlWWMfew30r6KkNHfXZCikrQRBHcLKqACYToNgKYr7hjNNB9AcxziAnjfZKpUlpBg/g5X5DjaoAQK30Sby0hYWE9zvpWoHFcPC9tEYhAkxaEVfhQng21N1SjXZ3o2X9Q7tjfoZftMvE0XQxQqjp2DV0hEm/4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788959972; c=relaxed/simple;
+	bh=/lXKMho56Iawzotjf9gqPSSOK8+fhDi4DHNzWXgEKCw=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=crLozaKkcshm7KrST8F7aCurYNb+CNFxZxUhQXCxBN57HrNyXCGBp0YAIHpvh+h2xcv+mfOQt0m1P3HKm+oC+utBpAvWtSY7R11EamMdWAdWyf4b2tEqKwaWIFHFVYwoqzK95A0CtVl2fymbzQgfmLdF1aRXyigc+wEE4/FrzpA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=bg16aLBQ; arc=pass smtp.client-ip=74.125.229.204
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jifU7nYa"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 76D361F00A3A;
-	Wed,  9 Sep 2026 13:19:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788959953;
-	bh=VF44nhzHiC16881Gb5iN9h+Bgx6pDfvd8nvJKSSNfOA=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=jifU7nYaAmhEue3ZYS6hL0mgYz8TAE2Dz8MLMyM0RGevIig9ehKh8qykWRHAfYsiA
-	 z1r8vfttWhtJrvznAsmQdAhsI/5V6KgHMyMbZ/wH2+uJ2FV0zXLba5O84c8wX2KyOO
-	 Q7Y3zuCqdn+GB6I4hS8XN9KVqJgl7OnRW79NXrj2KrVp4RyTXQ6ceX9oCDWI52ZRyt
-	 HhNRMTB96EMZ47gBlPlLYwLjBDhkZTbdV5P4lhJsbs6/6bxgnjoFay7J0A1QF71p1D
-	 Sb7KNx7hgZzzTIj/pbNoW+dmFMMwYtT6Bn3s5MjKIaX6Szh+RRcbCsIuBuHJbes2yo
-	 FFL2fdsv3bxnw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 2/5] mm/memory-failure: libstub: install the
- poisoned-memory EFI table
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "David Hildenbrand" <david@kernel.org>, "Vlastimil Babka" <vbabka@kernel.org>, "Naoya
- Horiguchi" <nao.horiguchi@gmail.com>, "Breno Leitao" <leitao@debian.org>, "Mike
- Rapoport" <rppt@kernel.org>, "Michal Hocko" <mhocko@suse.com>, "Ingo Molnar" <mingo@redhat.com>, "Zi
- Yan" <ziy@nvidia.com>, "Dave Hansen" <dave.hansen@linux.intel.com>, "Thomas
- Gleixner" <tglx@kernel.org>, "Borislav Petkov" <bp@alien8.de>, "Johannes
- Weiner" <hannes@cmpxchg.org>, "H. Peter Anvin" <hpa@zytor.com>, "Lorenzo
- Stoakes" <ljs@kernel.org>, "Miaohe Lin" <linmiaohe@huawei.com>, "Andrew
- Morton" <akpm@linux-foundation.org>, "Ard Biesheuvel" <ardb@kernel.org>, kas@kernel.org, "Ilias
- Apalodimas" <ilias.apalodimas@linaro.org>, "Liam R. Howlett" <liam@infradead.org>, x86@kernel.org, "Suren
- Baghdasaryan" <surenb@google.com>, "Brendan Jackman" <brendan.jackman@linux.dev>
-Cc: harry@kernel.org, linux-efi@vger.kernel.org, riel@surriel.com, linux-kernel@vger.kernel.org, linux-mm@kvack.org, kexec@lists.infradead.org, rmikey@meta.com, kernel-team@meta.com
-In-Reply-To: <20260909-hwpoison-kho-v4-2-359313564495@debian.org>
-References: <20260909-hwpoison-kho-v4-0-359313564495@debian.org>
- <20260909-hwpoison-kho-v4-2-359313564495@debian.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 09 Sep 2026 13:19:11 +0000
-Message-Id: <20260909131911.76D361F00A3A@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="bg16aLBQ"
+Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b78e073980so3559e87.1
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 06:19:27 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788959965; cv=none;
+        d=google.com; s=arc-20260327;
+        b=lcarXCNbdozuZkoBZAqG2WigBq7GZ1x2o2AYpCYYzxZ74XZrXLivgmg6atzd9JUCRA
+         IeF+B6Nh5zGgCnjBU/Tsoc35iF+ZcAFUeWQwflDE67TLmjvHdLceGzI50ajjrRMbm7+w
+         UEBNRpxdtge6fTe8Eb3jBre4aGRDkLOSlI3/zwuE+2XlnCbIxP58EyU/BNzoW7hdpnls
+         CLe81XF49fAbxFqgbk6Vi4aMyEk38MlDKk//VFLuqhiOsG0F3bVi40MMtckIHSogl0Kh
+         cZLkjdg//naSGPnpjXDaP/hyahj72yuuP0tjAgm+bPUaYbRKtL5AD3NkCVQCIa1E2iOp
+         lpYA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=STg7xRV8j3OkHmv1a51bOo5IRu3aXP7QERSx2DeQDNI=;
+        fh=2C4Oqhxr5lvrhbPPw4LtPnXoM50E1BLBHA6yVkfPVZM=;
+        b=MNB0l8piWmUO5IWM51J7lCd0r/wPxCNFxRnByZGSNosug7DegLRxbhReduWUKBpjJW
+         7p++AywWD5WzU74THWrpVlOV5yDVWUDqlF9lNunoxF2yvMI5ODzlK7t/QfbcWass1SVb
+         5h3oAC75laeVhixRuR9NChu7xvrlvN9DDsOcBwn5BeKKTo5anslZkgZI4d8f71wdFt2y
+         oxXQZgDZOqSMuXja7gRoc/WXXQgoPdoSDo9/mRYFhO1j7tFrp1mvlv7d+XBvbbdRup8F
+         1rntpen9xPb79u5wyhew3Q8zdm1w4V8hpDbmgup2UTx9bSPa/pX56J64t3DrEDzTw46+
+         gNKg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1788959965; x=1789564765; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=STg7xRV8j3OkHmv1a51bOo5IRu3aXP7QERSx2DeQDNI=;
+        b=bg16aLBQErZSfg/UYii5Gj+e0MESaN1WfVGqoK7a0bhP7Au9XBBm3ZlsbH1Tr8F/Zk
+         QsQuC7FLLtehU6no+vxRdg5q7SuQ1KLHqeW1uBjY1CHd6pmdoRTD7FsLNpdff5+NhTCO
+         eJpSTk6cuMCQN/cvUK2PA7Ds6xmNC2pYXlxj3rUb0tDWvwKuhDnbxY3smdWvxJEs7J6p
+         YqlEz7R0PlqSR87KAt+53EJSXHtOUnqlC9Y9r7/YJV1iClD7fXeRZeZ0k9ARZVyBmJ61
+         yfXIXJlBmA+/0JJgxJGz4dDJ47HgyjTLpohYF16em7mzruNiUnjGMxqE5xgoX6d8AdRY
+         1qDA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788959965; x=1789564765;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=STg7xRV8j3OkHmv1a51bOo5IRu3aXP7QERSx2DeQDNI=;
+        b=Mk0Nms/0t9gABKHFSNZ7H2tFGO5cHp7K+3jUMyMP7UdH+ijGThluzEuJlpwDMTQpbd
+         e6FKS+MVt4sSU4FGseWDAO9CbjX7bVd8AvkwLo95KGNRanUPV7h0O4dAZP+XTy3aMLTT
+         /wK222WV3mAl2npf91LUUGUnQfObYlTAYt0lEN3RaWyRWwvVHatSvBDFAHOl1ZlBA+6r
+         AgPKuSAX+N43cV2wm9HlCZiiXsOU18MQWhcXooy/h5De72ExedRiM+t+2IwoJ9p5SjUb
+         3vZYeYUzshCYNr3TA/zPQf2g/7cBIb+VNYCGv84PzyUtZG0P5xfrp+IkvlkI/yoR7awB
+         lPvA==
+X-Forwarded-Encrypted: i=1; AKwUvBx+3/peWfkC04xwyk8+aPHBacXNoyRajPs0z6AJATDE7exPsKmHgJLYtY0u8KuoD6xBu3vG29hFr/JFIds=@vger.kernel.org
+X-Gm-Message-State: AFuF++mVPX2A61dI1afhl/QeONwOVsRH2RmWrKq80tfD4qzbJenwl73f
+	N1kHye2ILECo3RntP2NVBrJbfpVEqbitiUbvAoMLYmbR66HiF0k6uAgZr+ZhSOsZVkT3MwRs2Jd
+	ryef0EbnhUJHS1IWDRTkvGqd0j4Dk3MGn/k4TfMId
+X-Gm-Gg: AYBFou1CWomZADOXqKd58seAYwfgBk2JQCXD0oG1Y7Zt8QqpGdp/KA47tb831r/lwlR
+	wVN8FPv+prPEuMwiBTnM8tugVXsY6i8632jOvk+Iq/QWu+fApZzKn1og28jkVCtrwIfeSX40ZIw
+	amuycaa5+t3LjqQWHdY7JYuI5dVXt8HeGCyybbzXS9wzaZIbSCOOmpmdUFIJQxGjUwd79WuSb+V
+	coeuzxWBSeEKjpPIdcST52BSfkmBnhiFmAdW1ityfxd3A/h3zz9IqN6mcZzlIz5Bm9S1iGPQy8K
+	aIHAqWsopZrBTLybLNRj/s2Ts+/KzfOH7lC4LAqrY2gRGxyhJzvEpPta/sio7vcnEwefKHYZze/
+	2YaKJsUWYHQ==
+X-Received: by 2002:a05:6512:234e:b0:5b6:bea:f091 with SMTP id
+ 2adb3069b0e04-5b764bba2f4mr141895e87.10.1788959964067; Wed, 09 Sep 2026
+ 06:19:24 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <20260908162223.1683432-1-suzuki.poulose@arm.com>
+In-Reply-To: <20260908162223.1683432-1-suzuki.poulose@arm.com>
+From: Fuad Tabba <tabba@google.com>
+Date: Wed, 9 Sep 2026 14:18:47 +0100
+X-Gm-Features: AcwNN1W9J0hO2XvyP_iEth4oT8xwRLULtx1NyAOMY4yUoohn2-IYZWX_G_vBhiM
+Message-ID: <CA+EHjTzr-r1FRuJ-X3E38_SSHsNSz_vdO-8sFOtBdsiB3V_x=g@mail.gmail.com>
+Subject: Re: [PATCH v17 00/20] KVM: arm64: CCA: Add basic plumbing for Realms
+To: Suzuki K Poulose <suzuki.poulose@arm.com>
+Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev, maz@kernel.org, 
+	will@kernel.org, catalin.marinas@arm.com, linux-kernel@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, steven.price@arm.com, 
+	aneesh.kumar@kernel.org, oupton@kernel.org, gshan@redhat.com, 
+	joey.gouly@arm.com, yuzenghui@huawei.com, linux-coco@lists.linux.dev, 
+	gankulkarni@os.amperecomputing.com, sdonthineni@nvidia.com, 
+	alpergun@google.com, fj0570is@fujitsu.com, WeiLin.Chang@arm.com, 
+	lpieralisi@kernel.org, enju.kohei@fujitsu.com
+Content-Type: text/plain; charset="UTF-8"
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Critical] Integer truncation in efi_poison_alloc leads to a massive heap=
- buffer overflow during memset on 32-bit or mixed-mode systems.
---
+Hi Suzuki,
 
-commit 626632820fe1fdcddc73aaeb109705cbddc9828c
-Author: Breno Leitao <leitao@debian.org>
-Subject: mm/memory-failure: libstub: install the poisoned-memory EFI table
+On Tue, 8 Sept 2026 at 17:22, Suzuki K Poulose <suzuki.poulose@arm.com> wrote:
+...
+>  3) NEW: Enlighten KVM arm64 about the different VM types and use call backs for
+>    the VM type, rather than spilling the is_this_type_of_vm() everywhere. This is
+>    not complete yet, but it is largely functional. Adds VCPU and Stage2 MMU related
+>    callbacks with support for the existing VM types.
 
-This patch introduces functionality in the EFI stub to create and install a
-poisoned-memory EFI configuration table. It walks the UEFI memory map to fi=
-nd
-the RAM range and allocates a bitmap to track poisoned memory granules.
+A design thought on the vm_flavor dispatch tables. They're
+hand-maintained arrays indexed by enum, and a gap fails silently at
+runtime, not at build: arm64_vm_s2_ops[] has no VM_REALM row, so a
+realm VM would get NULL ops.
 
-> diff --git a/drivers/firmware/efi/libstub/efi-stub-helper.c b/drivers/fir=
-mware/efi/libstub/efi-stub-helper.c
-> index 48f93f7758e9e..5cbe675491333 100644
-> --- a/drivers/firmware/efi/libstub/efi-stub-helper.c
-> +++ b/drivers/firmware/efi/libstub/efi-stub-helper.c
-[ ... ]
-> +static struct linux_efi_poisoned_memory *efi_poison_alloc(u64 phys_base,
-> +							  u64 bitmap_size)
-> +{
-> +	struct linux_efi_poisoned_memory *pm;
-> +	efi_status_t status;
-> +
-> +	status =3D efi_bs_call(allocate_pool, EFI_ACPI_RECLAIM_MEMORY,
-> +			     sizeof(*pm) + bitmap_size, (void **)&pm);
+How about something like declaring it unsized with
+BUILD_BUG_ON(ARRAY_SIZE(arm64_vm_s2_ops) != VM_FLAVOR_MAX), as
+host_hcall does? A non-NULL check of the selected ops' mandatory
+callbacks at VM init would catch the s2_ops naming typo Sashiko
+caught, where the rows point at zeroed forward-declared structs.
 
-[Severity: Critical]
-Could sizeof(*pm) + bitmap_size overflow 32 bits on 32-bit or mixed-mode
-systems? If the EFI memory map describes a very large physical address space
-(such as a 32PB physical address provided by an untrusted hypervisor in a
-TDX/SEV environment), bitmap_size could approach 4GB.
-
-Because the size argument to allocate_pool is a UINTN, a value like
-0x100000008 (sizeof(*pm) + 0xFFFFFFF0) would truncate to 8 bytes on 32-bit
-EFI systems, resulting in an undersized allocation.
-
-> +	if (status !=3D EFI_SUCCESS)
-> +		return NULL;
-> +
-> +	pm->version =3D 1;
-> +	pm->unit_size =3D EFI_POISON_UNIT_SIZE;
-> +	pm->phys_base =3D phys_base;
-> +	pm->size =3D bitmap_size;
-> +	memset(pm->bitmap, 0, bitmap_size);
-
-[Severity: Critical]
-If the allocate_pool calculation overflowed and truncated as described abov=
-e,
-does this memset trigger an out-of-bounds write regression?
-
-Since bitmap_size (e.g., 0xFFFFFFF0) fits within a 32-bit size_t, memset
-will use the large untruncated size, potentially overwriting up to 4GB of E=
-FI
-boot services memory following the undersized allocation.
-
-> +
-> +	return pm;
-> +}
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260909-hwpoison-k=
-ho-v4-0-359313564495@debian.org?part=3D2
+Cheers,
+/fuad
