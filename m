@@ -1,152 +1,69 @@
-Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com [209.85.128.70])
+Received: from mail-oo1-f69.google.com (mail-oo1-f69.google.com [209.85.161.69])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B024B54DACD
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 11:56:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.70
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D63855505F3
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 11:56:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.69
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788954963; cv=none; b=fIlctKGJc9SyUROgOIWXu+qZn23I7fgCLXeeEnTpCRz8AEILwRQxDITBFeOZF8vDJUnKHcHcguYwzIeYHorOSBgvXvqpmCbdgykioJbMrz3wA97oGClky4nU2F8Dl/MYDzJdZ3PsvSB098mVatuwexNoZt+sOxQb8bxTI8lamOg=
+	t=1788954966; cv=none; b=gcWSe6i+TF0InW6U4bD1GqeFseGvRY9VIxjZkhEeyLY3W7czAhtnPOuOBMxHCrcDJ8WXsibI4sDTQBmVsxj4opkGdvyfZTaujndkNQnP2DuuQ9x1BqWg8+UDqEHYgcpFYo0D7c9mZT85l5eZkNmIm1qO7jx6d2iP1H0RHMQWt10=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788954963; c=relaxed/simple;
-	bh=X6rSS2Ud/nPCzc6nAeL1YpQCFMZ1iQCr+SIHwWuezlI=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=k5Fnz8j83hrG/3uembFGUqWPliOvL9HYRvG4eWtwideW2OhFrpLGp13pekoINPFsf4Rxx146K6MfvZprieRbsgtcqYzDoaMlNL01KKXNWsekt9f3rhZ+AVaPq29u2s3L4xZqCksPHo6Ow1N93FtbR7POZ5h6wJGtWmCM5QrhbqA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--ardb.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Ilu7rR+V; arc=none smtp.client-ip=209.85.128.70
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--ardb.bounces.google.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Ilu7rR+V"
-Received: by mail-wm1-f70.google.com with SMTP id 5b1f17b1804b1-4957287363bso45648935e9.0
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 04:56:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788954960; x=1789559760; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=SJt8ZcdZG9yVISY4f4k7yj08nGsSFwJkPsldz9PZDh0=;
-        b=Ilu7rR+VTURlTU0BhiSVcrdfrxklIcawRizCNO+M3rEW46QRMfKhMMqxu/s9ID5ome
-         cyAktLjoG2DL6Rw512DVnyL9ogUUYvQoDXo2hZqe4BRUkVlc73KHSBSJem13eo7KT9J/
-         +6X/PexOwbtW3I/y+6ORQwVN6MNIOkQUDA5/eiymJQfFvi5YY2Uc7MEAspi2eWkpwJiP
-         hbAPFhST4MADQbfJ+nmhx4XrTwHeCPWBa2roEffeCoD2kbwYC7b7h/iPTZPzt3pAl1RT
-         3oFyVCUsCaluGn9CErxm0WVhEOWYfqP4vBYl9zeJASNgw+4XSHu0MnUd2JgOTmbRzrVu
-         TqFQ==
+	s=arc-20240116; t=1788954966; c=relaxed/simple;
+	bh=+LEjRxDKBzzhHyokBjaINBX4C5I8qUusFGu3tU+npng=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=W0Y2LfYCYRdPOg1sh4SUp7vWhskX4CmZKjtDXymLr9HM9pu/Q6kNbklQIk3lleZeRgxQUnXNjnQzp1TrjeCtIORqxOp6WDL843HiF0fsiRTDRI9LXiYgjhiVxfsbvuM2G6IOuCPBZhvHE/Su5xUH5hMjJiNYdtgxpzXarVfPFQQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.161.69
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oo1-f69.google.com with SMTP id 006d021491bc7-6b1281dd14aso5569307eaf.2
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 04:56:04 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788954960; x=1789559760;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=SJt8ZcdZG9yVISY4f4k7yj08nGsSFwJkPsldz9PZDh0=;
-        b=hk+1dPrZxBDRjbJ9Yb1JsfUO0kHFT+vq3x30uFYZJOFfBlRTeiY3EJnymXLJD/q+py
-         LOQZ9gbY+mWvnPWgcOd9GFcK88T6y5xx42PaEQpRRAJ3jVBri7XVYWc0J3UZjgnlPLpL
-         NUpU9o1CVxSJOCEwT5SCRL5XcyY1DuYwEGXCNOqhECy0MXTTRsCmftblbn23qwAGPooX
-         I/mFI/941hjfwsM0SIYKf7en2sHXhh4EcmiAFGFJEkSmEBv1hOBO84MbRCKnhYHpBnEz
-         h2jWzpJ2WTzhtxhXr48IYN37Ew4xdrk6TF8pP2Faa9t/DdFUdLdgxdLbQJdrhJ5/dRXi
-         45iQ==
-X-Gm-Message-State: AFuF++nri1sO3tqb6AI6kH5cXYaBcVD6h9maymMK6XA7QQHNQzg02n43
-	ip2mZfqlose2f89J5gBV6myc8fNIftiGL4zK2Kp1bqNeh2FTU5mdJxz03ar2qKcwZJjsjendkw=
-	=
-X-Received: from wmpm28.prod.google.com ([2002:a05:600c:91c:b0:49b:90c7:d488])
- (user=ardb job=prod-delivery.src-stubby-dispatcher) by 2002:a05:600d:8446:20b0:49c:fc7a:22d5
- with SMTP id 5b1f17b1804b1-49cfc7a2342mr240560935e9.4.1788954959579; Wed, 09
- Sep 2026 04:55:59 -0700 (PDT)
-Date: Wed,  9 Sep 2026 13:55:35 +0200
-In-Reply-To: <20260909115530.1924665-12-ardb+git@google.com>
+        d=1e100.net; s=20251104; t=1788954963; x=1789559763;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=2R1hsQrSk9jwwfP5p8QXcvxJvDhdt31BNYDAo7xoJh4=;
+        b=b60/bb1giQdBP+ciE+rIcGhlsB4QZ4pumuOxjSDiu32ETyt/yEpoNzYbJzGBgt/t18
+         bRMBvsKQWQY5uu/PHzHS/MzezuqCLd1jF5E450utXLbWs7dAkWKVII0Xa+h5LNhFvW6e
+         yhlg2lranZl4S0nnGNLNfJRax099zGeJyS1f+IPMDRXiEIh7ZfEHxfRzleQBBh5+Y/bS
+         yw+KsbZ0IwsIxDvojSPt53tv13RdO/ruXYo09vJOiD1CdWf0FFjIERE0I28QVUBvA9mn
+         FNBwzkFLZAJSuxdih90BpbWR+2QAg4VzGDls0wghlM2doiVbwJ5Qbu+oZt7WwAzWCkW3
+         moKw==
+X-Gm-Message-State: AFuF++n7Pi8Mzms+31d8lDaj+QENhHDyl5PqW9ekqYKFYyBKE5VFQY3q
+	4EfI1iu4N/p2+LLRQr2PNVkycAwfjMqFI34qUk58K7AfwU8kAdaTj826Y5WrSGAbYahWu6cArRl
+	YNR7TE0bsAFqHh5AvXBa80QB8ayhaFikA0Jo7ivi6nP0vVB6aHXNpcmiWvF0=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260909115530.1924665-12-ardb+git@google.com>
-X-Developer-Key: i=ardb@kernel.org; a=openpgp; fpr=F43D03328115A198C90016883D200E9CA6329909
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2725; i=ardb@kernel.org;
- h=from:subject; bh=Ou0gz9BnagvIIpYFujImcdi2acgBEwyYNpUmbejvkVs=;
- b=owGbwMvMwCVmkMcZplerG8N4Wi2JIWuhp7lEzXwPlyTBkm0iYjZr2H+vW18zZZvVGvVJUpcXV
- VbEr2rvKGVhEONikBVTZBGY/ffdztMTpWqdZ8nCzGFlAhnCwMUpABPh3M7I8KKdpf9BxcSO5kfm
- k/UqPl7jePvD49q/K0Jed5cYn2gKNGdkeNkjpz9B4Oy2yys+/HxS0RWQXjcv2SJxipU5Y96nuQs 2sQAA
-X-Mailer: git-send-email 2.55.0.1003.g10538fe699-goog
-Message-ID: <20260909115530.1924665-16-ardb+git@google.com>
-Subject: [PATCH v2 04/10] lib/ucs2_string: Split out ucs2_as_utf8_l() taking a
- separate limit
-From: Ard Biesheuvel <ardb+git@google.com>
-To: linux-efi@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org, Ard Biesheuvel <ardb@kernel.org>, 
-	Vincent Mailhol <mailhol@kernel.org>, x86@kernel.org
+MIME-Version: 1.0
+X-Received: by 2002:a05:6820:f034:b0:6b7:46fc:1ce with SMTP id
+ 006d021491bc7-6b746fc039amr17201226eaf.45.1788954963730; Wed, 09 Sep 2026
+ 04:56:03 -0700 (PDT)
+Date: Wed, 09 Sep 2026 04:56:03 -0700
+In-Reply-To: <20260909113541.8544-1-syedtayyabfarooq08@gmail.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6aa14953.6e6c5f9e.28f11f.0025.GAE@google.com>
+Subject: Re: [syzbot] [serial?] KASAN: slab-use-after-free Write in tty_init_dev
+From: syzbot <syzbot+fe63e4d633540f230624@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org, syedtayyabfarooq08@gmail.com, 
+	syzkaller-bugs@googlegroups.com
 Content-Type: text/plain; charset="UTF-8"
 
-From: Ard Biesheuvel <ardb@kernel.org>
+Hello,
 
-ucs2_as_utf() takes a maxlength argument, which specifies how many bytes
-the function is permitted to store into the destination buffer.
+syzbot tried to test the proposed patch but the build/boot failed:
 
-The same value is used as an upper bound for the ucs2_strnlen()
-invocation, which is reasonable in the general case, as each UCS-2
-character produces at least one byte of UTF-8 output, and so there is
-never a need to process more than 'maxlength' UCS-2 characters.
+drivers/usb/gadget/function/u_serial.c:743:26: error: expected ';' before '}' token
 
-However, if the UCS-2 string is not NUL terminated, ucs2_strnlen() may
-read past the end of the buffer if 'maxlength' is set to a high value.
 
-Current callers pass UCS-2 strings that are expected to be NUL
-terminated, but for processing the load options in the EFI stub, a
-version is needed that takes a separate limit argument. So split that
-off from the current implementation.
+Tested on:
 
-Signed-off-by: Ard Biesheuvel <ardb@kernel.org>
----
- include/linux/ucs2_string.h | 11 ++++++++++-
- lib/ucs2_string.c           |  6 +++---
- 2 files changed, 13 insertions(+), 4 deletions(-)
-
-diff --git a/include/linux/ucs2_string.h b/include/linux/ucs2_string.h
-index c499ae809c7d..74f23ca5a967 100644
---- a/include/linux/ucs2_string.h
-+++ b/include/linux/ucs2_string.h
-@@ -14,7 +14,16 @@ ssize_t ucs2_strscpy(ucs2_char_t *dst, const ucs2_char_t *src, size_t count);
- int ucs2_strncmp(const ucs2_char_t *a, const ucs2_char_t *b, size_t len);
- 
- unsigned long ucs2_utf8size(const ucs2_char_t *src);
-+unsigned long
-+ucs2_as_utf8_l(u8 *dest, const ucs2_char_t *src, unsigned long limit,
-+	       unsigned long maxlength);
-+
-+static inline
- unsigned long ucs2_as_utf8(u8 *dest, const ucs2_char_t *src,
--			   unsigned long maxlength);
-+			   unsigned long maxlength)
-+{
-+	return ucs2_as_utf8_l(dest, src, ucs2_strnlen(src, maxlength),
-+			      maxlength);
-+}
- 
- #endif /* _LINUX_UCS2_STRING_H_ */
-diff --git a/lib/ucs2_string.c b/lib/ucs2_string.c
-index f75fb4f7961a..2df9bef79eea 100644
---- a/lib/ucs2_string.c
-+++ b/lib/ucs2_string.c
-@@ -132,11 +132,11 @@ EXPORT_SYMBOL(ucs2_utf8size);
-  * final NUL character.
-  */
- unsigned long
--ucs2_as_utf8(u8 *dest, const ucs2_char_t *src, unsigned long maxlength)
-+ucs2_as_utf8_l(u8 *dest, const ucs2_char_t *src, unsigned long limit,
-+	       unsigned long maxlength)
- {
- 	unsigned int i;
- 	unsigned long j = 0;
--	unsigned long limit = ucs2_strnlen(src, maxlength);
- 
- 	for (i = 0; maxlength && i < limit; i++) {
- 		u16 c = src[i];
-@@ -163,7 +163,7 @@ ucs2_as_utf8(u8 *dest, const ucs2_char_t *src, unsigned long maxlength)
- 		dest[j] = '\0';
- 	return j;
- }
--EXPORT_SYMBOL(ucs2_as_utf8);
-+EXPORT_SYMBOL(ucs2_as_utf8_l);
- 
- #ifndef __DISABLE_EXPORTS
- MODULE_DESCRIPTION("UCS2 string handling");
--- 
-2.55.0.1003.g10538fe699-goog
+commit:         893e1178 Merge tag 'x86_urgent_for_7.3-rc3' of git://g..
+git tree:       upstream
+kernel config:  https://syzkaller.appspot.com/x/.config?x=8c5c3949d762a91f
+dashboard link: https://syzkaller.appspot.com/bug?extid=fe63e4d633540f230624
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+patch:          https://syzkaller.appspot.com/x/patch.diff?x=12abaa15580000
 
