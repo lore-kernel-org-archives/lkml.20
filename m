@@ -1,113 +1,163 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC83A18DB35;
-	Wed,  9 Sep 2026 06:10:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF94C376A06
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 06:10:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788934214; cv=none; b=Bg7Cjly/T1EKWGd8syD6/MY0DGHvcJeSogQPO1eZ2GaKa2bswGMJupDx3d029Vcrh5LlZ0n32IaCPLa01wL0SYC1Mw7D+Vhhhe7JDKojEBVZEWnLwtjMS7gjyILO8EOmQkz4MjRYfXvopTMsQ0OT+/RwbLea/ScB3U0JFx5uV6M=
+	t=1788934262; cv=none; b=Jz6ME7rzCwG1h4PPtmFRqzGgk1WKRgA9OeFMtwqD33gcY+IuOqXrIp1h1TrgnFmltfb9Qm4xxBPa9Id5MI8C3NM1ixVjemq4XQik8eEToxNbzwb4uSOz/8CqFClPtc7aUh614pbouHVffzJcP7ZJQx3tt3L9Fgy4Ly6O0wzviQI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788934214; c=relaxed/simple;
-	bh=iLvK5koVMLb2qPO/VCWjVuq/8qm2q0mgWBFwM3kwN2s=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=DkGZuZO5tknZ1aJ9LmcjlHOEP9d3LC9XjAhIIyV5S2FLlrR+Exbe5Mw1bWjoC5lLjX1B7beMDpjbAoelel570ZE5jQbSPLX8fVCusI9YBWJjjXxdis9qpdcLlWeyY1bXooPrBTiCQdrkOKzQv4IxOTaDBbWdotC2hmmCTYy/mY0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=qWyMGqcf; arc=none smtp.client-ip=117.135.210.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1788934262; c=relaxed/simple;
+	bh=2iI7+hsSt6Pmjb6ifN1OdgNX0gZcw9BkmoyEoH4S+XM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Pny+tHd4JPlcLL/TVRtx2QDKGXeK/C7SAmKjkZM3Ld2Zv5sFsarpsBLSngXNzF/wnYe9+xEE8OJBR5bfl6AVgSjm4hHLEA1CC6ye3qQYxPyOpuD3E6b5GmdFqc3fJgjEPc4G/b4P2uFpEGFYnLC+GXwUQb8xzeNS9h8wqyKG1DQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=et7hQjrU; arc=none smtp.client-ip=209.85.221.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="qWyMGqcf"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=CQ
-	f10nkRRln1bJkiOeszGQ9fnPOoBo5zbMRzixDC9+E=; b=qWyMGqcfa1rgV8E7oh
-	Z69rlWXSQaREsNy8FkIoTClFEKJj226i/HeSzt/qqxt0NWGnHxXdLKKt0wHvtAO9
-	skn3T1ASgbwLsEnPcCq+nJOmfpdFPFOYn7fPaDnL6SB5tqb0JuqKBheOtPoV1zpi
-	pxL7QVr5yzJsTki5stJSA1hQI=
-Received: from localhost (unknown [])
-	by gzga-smtp-mtada-g0-3 (Coremail) with SMTP id _____wBnI_Tq96BqwDFYBg--.22927S2;
-	Wed, 09 Sep 2026 14:08:43 +0800 (CST)
-From: Hui Su <sh_def@163.com>
-To: John Stultz <jstultz@google.com>,
-	Tejun Heo <tj@kernel.org>
-Cc: Hui Su <sh_def@163.com>,
-	Ingo Molnar <mingo@redhat.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	Michal Koutny <mkoutny@suse.com>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Ben Segall <bsegall@google.com>,
-	Mel Gorman <mgorman@suse.de>,
-	Valentin Schneider <vschneid@redhat.com>,
-	K Prateek Nayak <kprateek.nayak@amd.com>,
-	cgroups@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] sched: Account cgroup CPU time to the execution context
-Date: Wed,  9 Sep 2026 15:08:43 +0900
-Message-ID: <20260909060843.2524877-1-sh_def@163.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <CANDhNCq5iPq87=iKSJv-XzYzTYJ8Hp+bPJ6SoVfWB3pRa=HypQ@mail.gmail.com>
-References: <20260904034707.268416-1-sh_def@163.com> <appnKwylGK3QUIJ3@slm.duckdns.org> <CANDhNCq5iPq87=iKSJv-XzYzTYJ8Hp+bPJ6SoVfWB3pRa=HypQ@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="et7hQjrU"
+Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-48442ea8f59so4626373f8f.1
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 23:10:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1788934257; x=1789539057; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=os4SWo7VFONZBHRCMPqcSTHrGMNYmyYABYQjLTTOy4c=;
+        b=et7hQjrUd8K8N4vaIWJBOqDiKO2Ubn9xSBRYCWfDvJv86qrZIVhgr2YiwCUGTZoAyl
+         0jGaA9HCD9zWYshuZa0r0G7+3zA9NKGByGz7PdhakmwsppbEvhebiv9Dlfz/uZbbS4ib
+         NaZdVHHqKn5yznmZCrIDh6Rju5PvyAUd8HrvvqdenE2Mb2B5Xc4ftLFc1eY12TjIB+w1
+         usRocPOMt9jqn5kG5ITzv8zLMei1XyZcwNyUSADE14W96TbARHW9SPvjoh++XlMx4HWl
+         5H496o/9eF3z0OiiwVjIoWnj/vJ5PnfY+P/eoDTNb0938Xo5PBWDFc04nTh7lsYvbDzC
+         0nzg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788934257; x=1789539057;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=os4SWo7VFONZBHRCMPqcSTHrGMNYmyYABYQjLTTOy4c=;
+        b=ePfodcyY6b58Av021NIP6HWcGtd4OHj39maPCKx2/qrJelNMBoAJ1MbYj74FC/wO3W
+         Tomes26BO55WjmkLeffvYhM1/C3fOanYfPMgQDdoQKEhlUN9jE3TN9fLSQKR9YhemNEd
+         Jlj1zxTPTjDMRnU37b4jXSE4dEjooPqJtn7qYfkr2XDRtu+6nergW4t2DLi1GvUdk93P
+         g6ww6mP4pA4YWwHn5nzvs62pShNT5KZwvKD4zuqWmAFMI1ohhA4pR9iUQrM4OeW+dUYP
+         LUFu/O43/CKQVD7DOShdj7iOupryEdf/STQTjRwh+D14aO8CaNQ48D7NjrzKDbiurx1q
+         45Xw==
+X-Forwarded-Encrypted: i=1; AKwUvBxk+9f0UE7o0iBzxdpn+Xst0lzmS6z/WscFouurSN2OAZxkicm5wIHDXexD3BqLQebuRTAdyisMAgs6CRk=@vger.kernel.org
+X-Gm-Message-State: AFuF++nK9Ekwb0ycHr36HXoXgqOpCZxWTyrqo0oWtNSTda6r2Ja4UCD2
+	gSqitmRUeELWHfloJ3r0Rq+eM7bt6YNCysFhAjQQfJHY1dy40UmTAe6p7kHPW3GvipY=
+X-Gm-Gg: AYBFou2HoNpUve5DHz60OlVpjXnqlVL4FXcKZPnFMm1jyGuN34a3sesqVMcQ95OzMEl
+	DbjOkO7DiafWde9Z2YNrVxPR0nSKMZH8QrBbYG9EYLAQt0XuVXrjiGmRVDH4BJdRMDMRU3Mybs2
+	mYhwG2k3xtSsEd/aqWyfOiXA5/q0Hv7B1gx/5ojAK2BocV4HtV+wppZMs4kvYaIRcokf1351WaP
+	NWojIHPy7K05rn7lR586J03H8mqXi28WGDyF5y5ELeoLAwjaqBWapSLYkfJrCEp2Z9vq5CQEN5M
+	k6yWPGdsW2TpF40FsUnTPrreEv80yZvJrqDM8gsFIuw+E6SRV69IIhq+mTLEDeGRrT/+1baBslO
+	1gq2Yo8lswrsfFrWY7X3EUqutO0aiY2ov9fn7JfQt3d/xvwRKwWtp2Zo/pmYBr00mV6CHjPt7U/
+	3FN+M0txnmMYJLWZcf4OvCMBT3jbtyEq6+GGb6kdhmHPqO/bumdgUZiCSZRERD03U=
+X-Received: by 2002:a05:600c:138a:b0:49c:f13d:ffeb with SMTP id 5b1f17b1804b1-49cf13e0642mr424219605e9.15.1788934257023;
+        Tue, 08 Sep 2026 23:10:57 -0700 (PDT)
+Received: from [172.16.0.229] ([159.196.52.54])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-143243767e1sm34889401c88.6.2026.09.08.23.10.51
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 08 Sep 2026 23:10:55 -0700 (PDT)
+Message-ID: <f4a415f9-1e3a-4b26-a2a4-61bcc98eb39f@suse.com>
+Date: Wed, 9 Sep 2026 15:40:47 +0930
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 0/7] btrfs: convert some struct page users to folios
+To: Tal Zussman <tz2294@columbia.edu>, David Sterba <dsterba@suse.com>,
+ Chris Mason <mason@kernel.org>
+Cc: "Matthew Wilcox (Oracle)" <willy@infradead.org>,
+ linux-btrfs@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260907-btrfs-folio-conversions-v2-0-b5fe79f7607b@columbia.edu>
+Content-Language: en-US
+From: Qu Wenruo <wqu@suse.com>
+Autocrypt: addr=wqu@suse.com; keydata=
+ xsBNBFnVga8BCACyhFP3ExcTIuB73jDIBA/vSoYcTyysFQzPvez64TUSCv1SgXEByR7fju3o
+ 8RfaWuHCnkkea5luuTZMqfgTXrun2dqNVYDNOV6RIVrc4YuG20yhC1epnV55fJCThqij0MRL
+ 1NxPKXIlEdHvN0Kov3CtWA+R1iNN0RCeVun7rmOrrjBK573aWC5sgP7YsBOLK79H3tmUtz6b
+ 9Imuj0ZyEsa76Xg9PX9Hn2myKj1hfWGS+5og9Va4hrwQC8ipjXik6NKR5GDV+hOZkktU81G5
+ gkQtGB9jOAYRs86QG/b7PtIlbd3+pppT0gaS+wvwMs8cuNG+Pu6KO1oC4jgdseFLu7NpABEB
+ AAHNGFF1IFdlbnJ1byA8d3F1QHN1c2UuY29tPsLAlAQTAQgAPgIbAwULCQgHAgYVCAkKCwIE
+ FgIDAQIeAQIXgBYhBC3fcuWlpVuonapC4cI9kfOhJf6oBQJnEXVgBQkQ/lqxAAoJEMI9kfOh
+ Jf6o+jIH/2KhFmyOw4XWAYbnnijuYqb/obGae8HhcJO2KIGcxbsinK+KQFTSZnkFxnbsQ+VY
+ fvtWBHGt8WfHcNmfjdejmy9si2jyy8smQV2jiB60a8iqQXGmsrkuR+AM2V360oEbMF3gVvim
+ 2VSX2IiW9KERuhifjseNV1HLk0SHw5NnXiWh1THTqtvFFY+CwnLN2GqiMaSLF6gATW05/sEd
+ V17MdI1z4+WSk7D57FlLjp50F3ow2WJtXwG8yG8d6S40dytZpH9iFuk12Sbg7lrtQxPPOIEU
+ rpmZLfCNJJoZj603613w/M8EiZw6MohzikTWcFc55RLYJPBWQ+9puZtx1DopW2jOwE0EWdWB
+ rwEIAKpT62HgSzL9zwGe+WIUCMB+nOEjXAfvoUPUwk+YCEDcOdfkkM5FyBoJs8TCEuPXGXBO
+ Cl5P5B8OYYnkHkGWutAVlUTV8KESOIm/KJIA7jJA+Ss9VhMjtePfgWexw+P8itFRSRrrwyUf
+ E+0WcAevblUi45LjWWZgpg3A80tHP0iToOZ5MbdYk7YFBE29cDSleskfV80ZKxFv6koQocq0
+ vXzTfHvXNDELAuH7Ms/WJcdUzmPyBf3Oq6mKBBH8J6XZc9LjjNZwNbyvsHSrV5bgmu/THX2n
+ g/3be+iqf6OggCiy3I1NSMJ5KtR0q2H2Nx2Vqb1fYPOID8McMV9Ll6rh8S8AEQEAAcLAfAQY
+ AQgAJgIbDBYhBC3fcuWlpVuonapC4cI9kfOhJf6oBQJnEXWBBQkQ/lrSAAoJEMI9kfOhJf6o
+ cakH+QHwDszsoYvmrNq36MFGgvAHRjdlrHRBa4A1V1kzd4kOUokongcrOOgHY9yfglcvZqlJ
+ qfa4l+1oxs1BvCi29psteQTtw+memmcGruKi+YHD7793zNCMtAtYidDmQ2pWaLfqSaryjlzR
+ /3tBWMyvIeWZKURnZbBzWRREB7iWxEbZ014B3gICqZPDRwwitHpH8Om3eZr7ygZck6bBa4MU
+ o1XgbZcspyCGqu1xF/bMAY2iCDcq6ULKQceuKkbeQ8qxvt9hVxJC2W3lHq8dlK1pkHPDg9wO
+ JoAXek8MF37R8gpLoGWl41FIUb3hFiu3zhDDvslYM4BmzI18QgQTQnotJH8=
+In-Reply-To: <20260907-btrfs-folio-conversions-v2-0-b5fe79f7607b@columbia.edu>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wBnI_Tq96BqwDFYBg--.22927S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7Ary7tr4DGw1xZFyxWFyfJFb_yoW8ur18pa
-	nYyw1DtFn5JF4fKF4xCw4jqa4ftw4Syrs8tFWDJ347Ar13GFyrGr1IkrWUCF9rJrs3ZF1q
-	vw1F9FyI9anFvwUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pRo89ZUUUUU=
-X-CM-SenderInfo: xvkbvvri6rljoofrz/xtbC6gz7W2qg9+xSYAAA3l
 
-On Tue, Sep 8, 2026 at 10:17 PM John Stultz <jstultz@google.com> wrote:
->
-> I believe I'm ok with this if you are. Commit aa4f74dfd42b ("sched:
-> Fix runtime accounting w/ split exec & sched contexts") was trying to
-> allow the owner's cputime to make sense in top, but we still want the
-> donor to be "donating" their time, so I thought the compromise of
-> charging the donor's cgroup would make more sense. I'm imagining
-> something like the cpu bandwidth controllers, where it seemed like the
-> donor's cgroup is who we'd want to charge, and eventually throttle,
-> even though it is donating time to the lock owner to run (since even
-> if the lock owner's cgroup was throttled, proxying will let the donor
-> "bust" through the limit and run the lock owner using the donor's
-> bandwidth - up until the donor's bandwidth was exceeded).
->
-> But if it is causing trouble for the accounting, and you think it
-> makes more sense the other way, I'll trust your judgement.
-> Tentatively:
->    Acked-by: John Stultz <jstultz@google.com>
->
-> Eventually I think we'll want to track per-task "donated" and "gifted"
-> time so folks can more finely distinguish the accounting.
->
-> thanks
-> -john
 
-Thanks John and Tejun.
 
-One distinction that may help here is that this patch only changes the
-cgroup CPU usage accounting performed by cgroup_account_cputime(). It
-does not change CFS bandwidth accounting.
+在 2026/9/8 05:49, Tal Zussman 写道:
+> This series converts three areas of btrfs that still use struct page:
+> 
+> 1. The extent-io tests. test_find_delalloc() uses the page APIs, and the
+>     extent buffer memory checks assume one page per folio.
+> 
+> 2. Compression. btrfs_compr_pool_scan() walks the folio pool as struct
+>     page, the last use of page->lru in btrfs, and the heuristic sampler
+>     is the last caller of find_get_page().
+> 
+> 3. Super block reads. btrfs_read_disk_super() and the zoned super block
+>     log comparison are the last page cache lookups by page in btrfs.
+> 
+> Tested with KASAN, lockdep, DEBUG_VM and the btrfs selftests enabled.
+> xfstests' compress group under compress=zstd and the btrfs group both
+> pass.
 
-Under proxy execution, update_curr() still accounts CFS bandwidth
-through account_cfs_rq_runtime() on the cfs_rq associated with the
-scheduling context. Thus, the donor's scheduling bandwidth continues
-to be consumed as before; this patch does not change the bandwidth or
-throttling behavior John described.
-
-The change here only makes the observable cgroup CPU usage accounting
-follow the task that actually executed, in line with the per-task,
-thread-group, and cgroup user/system accounting.
-
-The donated/gifted accounting you mention sounds useful for exposing
-both sides explicitly, but I agree that would be separate follow-up
-work.
+Now pushed to for-next branch.
 
 Thanks,
-Hui
+Qu
+
+> 
+> ---
+> Changes in v2:
+> - Add tags (Thanks Qu!)
+> - Patch 2: Assert that test_find_delalloc()'s folios are order-0, per Qu
+> - Drop the v1 free space cache patches (8-10), per Qu. The v1 space
+>    cache will be removed instead
+> - Link to v1: https://patch.msgid.link/20260906-btrfs-folio-conversions-v1-0-834b9d7b06f5@columbia.edu
+> 
+> ---
+> Tal Zussman (7):
+>        btrfs: tests: rename process_page_range() to process_folio_range()
+>        btrfs: tests: convert test_find_delalloc() to use folios
+>        btrfs: tests: use eb folio helpers in extent buffer memory checks
+>        btrfs: convert btrfs_compr_pool_scan() to use folios
+>        btrfs: convert heuristic_collect_sample() to use folios
+>        btrfs: fix stale function references in compression comments
+>        btrfs: use folios for reading super blocks from the block device
+> 
+>   fs/btrfs/compression.c           |  20 +++---
+>   fs/btrfs/tests/extent-io-tests.c | 131 +++++++++++++++++++++------------------
+>   fs/btrfs/volumes.c               |  16 +++--
+>   fs/btrfs/zoned.c                 |  12 ++--
+>   4 files changed, 93 insertions(+), 86 deletions(-)
+> ---
+> base-commit: 69b26c13e520480d1869171e2c2b8a59f0c857ec
+> change-id: 20260905-btrfs-folio-conversions-47950cc1faca
+> 
+> Best regards,
+> --
+> Tal Zussman <tz2294@columbia.edu>
 
