@@ -1,153 +1,166 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A31D157981D
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 15:56:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 631E3576EB5;
+	Wed,  9 Sep 2026 15:56:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788969379; cv=none; b=f1gFPGwcJfU3U+A6Xkh6sMlIHelJ1D03+7Und4+NX01A0OZneo6cEZQVe8ArjOBNbDZftfJ+MZjcY4msM5kp33+zUvLjJb+gxOvrEWT3sgZppeZ1Zg01mOAIdV7zqV2oTODXUuQ8NusQIPgdNBpkzd6Qy07Cao8NgPD5bgGAX68=
+	t=1788969389; cv=none; b=fmmy09aSUAENivEfCBuhqFu+YR9N8s5BmI7+RCqdryGqS5xyIBrvVNsqlfiR+M2J8WISTCUWYNupouMCkJ0iUJ5C1droOJIdzslKF00dXKaSB2j5mEea/hImdHlqqd4adD7hGGEXuoyCyl4j/DlCsTdgA8UDNEH5oJCN76SeYz0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788969379; c=relaxed/simple;
-	bh=Wo1oQHJMQhyzMY4Tc7A4+R9/AJNBJHtl11NbPQXWfaU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=G/QcAs5B1YO4eHGRQbBXeW8xqdy09xM4H5ge9rWz5m9QMgA9/L+PgXebxZTFxR4aLUCvYZ3WkBi/XUEwOSaMqmbwELxriCe7tVpkGfAvW3Gm9uOZrb27SScwj/0oF0XB8h50DNLWF3WbnragIHXsZCE4XUNI9cYgbo2yOtlkxUE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IW67PV++; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788969389; c=relaxed/simple;
+	bh=tzYWo6KlLxc9IRVPAs2Zfg3WpJgNPz5JrjELokVwlvI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=VYeksIUbaJJ1OIpV1giVTLgdYOD9h52y+AO6b9f/SV1YLieBjBlJ/1vfQy5upivxTnxAPJnQqNVHSh++S2+bZMDUdIKYY9FCaq14aXEuHvaZ47iCu0CQUtp4gPyKAGSqK3rdjYjl/PwT9B6gZgWRJQl9+OHVMQ3bnGBF2ppoLm4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=FMssZj3I; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IW67PV++"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A3C11F00A3A;
-	Wed,  9 Sep 2026 15:56:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788969378;
-	bh=yBDgeSYZv0PufE0a7WqXAhwhnJNnCbha7zPdFE4f0Hw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=IW67PV++7ldSiCvvRWh8DNc6weOFPthrysMIYQog217PgTfdBhN6/wySOtcusDtbl
-	 Gqnucd9A8LRc0LZiCBVxhPr/zL/W1aBP7xjKGRDkFhCuTFKXr9n9c6LR9vMp9hCica
-	 a6Yxtd4Ah2hs2VwJpdY5850TKfuE4I/E5u332P2QZE+kvwC7yBLGKbgOx/1sL6ooXt
-	 Lw1xi1LIVvXIBUmMRhmerfg6HDxaP/GNHfwTIa6GjLZpYKK/fB2FIx900sQdkMqGMs
-	 uAahLji2eB5Lchx8cZQCBUvMGmZqsPPc/W9yMj6RUN77DhY2koN+UAKTWSR0q9+SKl
-	 NYn4/cILtTy1w==
-Date: Wed, 9 Sep 2026 08:56:18 -0700
-From: Kees Cook <kees@kernel.org>
-To: Richard Weinberger <richard.weinberger@gmail.com>
-Cc: Richard Weinberger <richard@nod.at>,
-	Jaeyoung Chung <jjy600901@snu.ac.kr>,
-	David Woodhouse <dwmw2@infradead.org>,
-	linux-mtd <linux-mtd@lists.infradead.org>,
-	linux-kernel <linux-kernel@vger.kernel.org>, eulgyukim@snu.ac.kr
-Subject: Re: [BUG] general protection fault in jffs2_xattr_delete_inode
-Message-ID: <202609090841.F0395BF40@keescook>
-References: <20260819182805.4020838-1-jjy600901@snu.ac.kr>
- <849183271.921.1787173413104.JavaMail.zimbra@nod.at>
- <CAFLxGvyZO_EDo-YM_EybZG3u7aNUoNiThhvbhQCrOPD7mPV6GA@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="FMssZj3I"
+Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 689B1X1I1930784;
+	Wed, 9 Sep 2026 15:55:59 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=Sce/uz
+	tndfW37P8gMF0nv16T+Mi/jlJMpTVKgOTFgZ8=; b=FMssZj3IdgEr2/3P4E5aFT
+	G/jY2NoyLN15GmeQGIPLXl42wf0vweP3NURUSD4zuolrtYCselLgmA78PMhoirxg
+	C7SbXE3z8lHF1krIOuKM4PPfFf98LVIzwK5lnCh5k8IduJ8+RLDyG5yIAXpWdVSA
+	BiYCPnjjgr4XWNqPl2l52MLk6A/89kmgVbaIazSJisYjkKu5Wj7RpbRPmiv290DZ
+	X5nIZRAd3soSWdaC9PhjqCZBC5j7bPN/ocYVusWolfL/Vri2JTYEeIxc1DOybeKV
+	JImraHUIfMzhcwnd9HGkL9137qoOhUzv7sz/6Yo3DcPPnFc8kk/kryWA63dTkhnQ
+	==
+Received: from ppma12.dal12v.mail.ibm.com (dc.9e.1632.ip4.static.sl-reverse.com [50.22.158.220])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4ggbqk6w0t-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 09 Sep 2026 15:55:58 +0000 (GMT)
+Received: from pps.filterd (ppma12.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma12.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 689FfELl030398;
+	Wed, 9 Sep 2026 15:55:57 GMT
+Received: from smtprelay07.fra02v.mail.ibm.com ([9.218.2.229])
+	by ppma12.dal12v.mail.ibm.com (PPS) with ESMTPS id 4ggwdqk9fw-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 09 Sep 2026 15:55:57 +0000 (GMT)
+Received: from smtpav01.fra02v.mail.ibm.com (smtpav01.fra02v.mail.ibm.com [10.20.54.100])
+	by smtprelay07.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 689FttaS50266558
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Wed, 9 Sep 2026 15:55:55 GMT
+Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id C91912004D;
+	Wed,  9 Sep 2026 15:55:55 +0000 (GMT)
+Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id D123D20043;
+	Wed,  9 Sep 2026 15:55:45 +0000 (GMT)
+Received: from [9.61.255.18] (unknown [9.61.255.18])
+	by smtpav01.fra02v.mail.ibm.com (Postfix) with ESMTPS;
+	Wed,  9 Sep 2026 15:55:45 +0000 (GMT)
+Message-ID: <1aa7922b-b4df-41cb-ae68-b30911d79fc6@linux.ibm.com>
+Date: Wed, 9 Sep 2026 21:25:41 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAFLxGvyZO_EDo-YM_EybZG3u7aNUoNiThhvbhQCrOPD7mPV6GA@mail.gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 07/22] coredump: pin the protocol struct sizes
+To: Christian Brauner <brauner@kernel.org>, linux-fsdevel@vger.kernel.org
+Cc: Jacob Lalonde <jalalonde@meta.com>, Josef Bacik <josef@toxicpanda.com>,
+        Jann Horn <jannh@google.com>, Alexander Viro <viro@zeniv.linux.org.uk>,
+        Jan Kara <jack@suse.cz>, Andrew Morton <akpm@linux-foundation.org>,
+        David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
+        "Liam R. Howlett" <liam@infradead.org>,
+        Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
+        Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+        Omar Sandoval <osandov@osandov.com>, Jacob Lalonde <jalalonde@fb.com>,
+        Shuah Khan <shuah@kernel.org>, linux-kernel@vger.kernel.org,
+        linux-mm@kvack.org, linux-kselftest@vger.kernel.org,
+        linuxppc-dev@lists.ozlabs.org
+References: <20260820-work-coredump-sparse-v2-0-ba32dd718c51@kernel.org>
+ <20260820-work-coredump-sparse-v2-7-ba32dd718c51@kernel.org>
+Content-Language: en-US
+From: R Nageswara Sastry <rnsastry@linux.ibm.com>
+In-Reply-To: <20260820-work-coredump-sparse-v2-7-ba32dd718c51@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-ORIG-GUID: jfK6QYX9rSz6AehGyXgypsfX2jEJ0xhI
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA5MDE3MyBTYWx0ZWRfX7eAvsE81oftc
+ zK6QGa5PMW9YkjCKbKX6bnd4WQe1Dfgd/KBuLDH6DSybe0Jitudak0US/Q35TpvkAOqdqS2hjs/
+ 7Hf+CR4Po8sth87TH3OciUQCexanZHA=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA5MDE3MyBTYWx0ZWRfX5Jc2pZn8f4jG
+ OYsJftEzQC+7CqQ2Vz6n/5+oOo2Yp6E8xNL31UjT6JONSsP5Z53VtL3hxPmfp+ERmiSilRI8WqA
+ rSDypCf1bZZnjqmuWUdh/oRC+J5S7FKMcqoPNr+IeX2eu+aHlnh4GPIscQBxr9taZhDXlna9XNc
+ EYMUHZ9F4k0rEbqCTk6aMB0/P1j1sbbv05Qa/DMCEjWrVmrLyjUO7IjMxVERw/hPqCriJKFy1qA
+ oLKSnR9TvfD2iYXLwr5g4Iz/vn1GM3AwynlO4U1AhehL/Q2W1b+BBdzIkxM4RsJAmUydLXZBJ9W
+ n7ckitFWYUOPG4+sR2YyQbDQUUSuCrWqqzWKQSj982t68HCtaTlzkSnAEg4hBijCw8MZ0oSHEQR
+ TrA+rsICd7jKHEJi9PRodAFNzffsYmd65Sfg418aTtcu3q2wIJicVA3ix6YhcLEFtRXAiYFaXwK
+ W18BlXYHdm8Fhw+T8Jw==
+X-Authority-Analysis: v=2.4 cv=JaKMa0KV c=1 sm=1 tr=0 ts=6aa1818f cx=c_pps
+ a=bLidbwmWQ0KltjZqbj+ezA==:117 a=bLidbwmWQ0KltjZqbj+ezA==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=uAbxVGIbfxUO_5tXvNgY:22 a=VwQbUJbxAAAA:8
+ a=VnNF1IyMAAAA:8 a=NJxpvL3WiEoOf_JFIIQA:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-GUID: 08QPXMT9X_k5Ehc6UCPAmMY1r5Km4PMe
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-08_03,2026-09-09_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 spamscore=0 phishscore=0 impostorscore=0 lowpriorityscore=0
+ adultscore=0 bulkscore=0 priorityscore=1501 suspectscore=0 clxscore=1015
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609090173
 
-On Wed, Sep 09, 2026 at 07:59:21AM +0200, Richard Weinberger wrote:
-> On Wed, Aug 19, 2026 at 11:03 PM Richard Weinberger <richard@nod.at> wrote:
-> >
-> > ----- Ursprüngliche Mail -----
-> > > Von: "Jaeyoung Chung" <jjy600901@snu.ac.kr>
-> >
-> > [...]
-> >
-> > > RIP: 0010:jffs2_xattr_delete_inode+0x38/0x300 fs/jffs2/xattr.c:602
-> > > Code: 41 55 41 54 53 48 83 ec 50 48 89 3c 24 48 85 f6 74 2a 49 89 f6 49 bd 00 00
-> > > 00 00 00 fc ff df 48 8d 5e 28 48 89 d8 48 c1 e8 03 <42> 0f b6 04 28 84 c0 0f 85
-> > > 90 02 00 00 83 3b 00 74 14 48 83 c4 50
-> > > RSP: 0018:ffff888104ad7918 EFLAGS: 00010203
-> > > RAX: 0c8c8c8c8c8c8c91 RBX: 646464646464648c RCX: 0000000000000001
-> > > RDX: 0000000000000001 RSI: 6464646464646464 RDI: ffff888108260000
-> > > RBP: dffffc0000000000 R08: ffff888104ad7987 R09: 1ffff1102095af30
-> > > R10: dffffc0000000000 R11: ffffed102095af31 R12: 1ffff11022349cfc
-> > > R13: dffffc0000000000 R14: 6464646464646464 R15: 1ffff11022349ce8
-> > > FS:  00007863627186c0(0000) GS:ffff88815e8ac000(0000) knlGS:0000000000000000
-> > > CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-> > > CR2: 0000786362717f78 CR3: 000000010795c000 CR4: 00000000000006f0
-> > > Call Trace:
-> > > <TASK>
-> > > jffs2_do_clear_inode+0x4d/0x2f0 fs/jffs2/readinode.c:1418
-> > > evict+0x353/0x700 fs/inode.c:825
-> > > jffs2_new_inode+0x443/0xce0 fs/jffs2/fs.c:-1
-> > > jffs2_create+0x87/0x300 fs/jffs2/dir.c:182
-> > > lookup_open fs/namei.c:4508 [inline]
-> > > open_last_lookups fs/namei.c:4608 [inline]
-> > > path_openat+0xe3c/0x29b0 fs/namei.c:4860
-> > > do_file_open+0x19d/0x360 fs/namei.c:4892
-> > > do_sys_openat2+0x9a/0x100 fs/open.c:1368
-> > > do_sys_open fs/open.c:1374 [inline]
-> > > __do_sys_openat fs/open.c:1390 [inline]
-> > > __se_sys_openat fs/open.c:1385 [inline]
-> > > __x64_sys_openat+0xf8/0x130 fs/open.c:1385
-> > > do_syscall_x64 arch/x86/entry/syscall_64.c:63 [inline]
-> > > do_syscall_64+0xf7/0x370 arch/x86/entry/syscall_64.c:94
-> > > entry_SYSCALL_64_after_hwframe+0x76/0x7e
-> > > RIP: 0033:0x78636301e829
-> >
-> > So, the partially created inode is evicted in the create path.
-> > Does this change help?
-> >
-> > diff --git a/fs/jffs2/os-linux.h b/fs/jffs2/os-linux.h
-> > index 86ab014a349c..a9906f9e3638 100644
-> > --- a/fs/jffs2/os-linux.h
-> > +++ b/fs/jffs2/os-linux.h
-> > @@ -57,6 +57,7 @@ static inline void jffs2_init_inode_info(struct jffs2_inode_info *f)
-> >         f->target = NULL;
-> >         f->flags = 0;
-> >         f->usercompr = 0;
-> > +       f->inocache = NULL;
-> >  }
 
-Tested-by: Kees Cook <kees@kernel.org>
-Fixes: 1da177e4c3f41 ("Linux-2.6.12-rc2")
+On 20.08.2026 4:39 AM, Christian Brauner wrote:
+> COREDUMP_REQ_SIZE_VER0 and COREDUMP_ACK_SIZE_VER0 define the initial
+> struct sizes.
+>
+> Assert that both published sizes still match their structs. While at it
+> fix some issues with docs.
+>
+> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+Tested-by: R Nageswara Sastry <rnsastry@linux.ibm.com>
 
-I reproduced this and tested your fix. It reproduces immediately under
-v7.3-rc2 (df2908090cda3), x86_64 defconfig plus the options from the
-report and CONFIG_KASAN=y, with the reporter's delay patch and their C
-reproducer used verbatim. Booted under qemu with four CPUs.
-
-The patch fixes it. Note that the bug is not XATTR specific:
-jffs2_do_clear_inode() dereferences f->inocache four more times after the
-jffs2_xattr_delete_inode() call, so CONFIG_JFFS2_FS_XATTR only decides
-which dereference happens first. With XATTR=n the same reproducer faults
-one line later instead:
-
-  RIP: 0010:jffs2_do_clear_inode+0x68/0x3a0
-
-which is "deleted = f->inocache && !f->inocache->pino_nlink". The patch
-fixes that configuration too.
-
-Note that if you wanted this to be more robust, you could wrap
-everything between sem and vfs_inode in a struct_group, and then use
-memset in jffs2_init_inode_info:
-
- struct jffs2_inode_info {
-...
-        struct mutex sem;
-+       struct_group(info,
-...
-+       );
-        struct inode vfs_inode;
- };
-
-...
-
-static inline void jffs2_init_inode_info(struct jffs2_inode_info *f)
-{
-	/* Make sure RB_ROOT is zero-filled. */
-	BUILD_BUG_ON(sizeof(RB_ROOT) != sizeof((RB_ROOT).rb_node));
-	BUILD_BUG_ON((RB_ROOT).rb_node != NULL);
-	memset(&f->info, 0, sizeof(f->info));
-}
-
--Kees
-
+System: ppc64le LPAR (IBM POWER), Linux 7.3-rc2
+> ---
+>   fs/coredump.c                 | 2 ++
+>   include/uapi/linux/coredump.h | 4 ++--
+>   2 files changed, 4 insertions(+), 2 deletions(-)
+>
+> diff --git a/fs/coredump.c b/fs/coredump.c
+> index 24a6405ea242..c696b46c97ff 100644
+> --- a/fs/coredump.c
+> +++ b/fs/coredump.c
+> @@ -759,6 +759,8 @@ static inline bool coredump_sock_send(struct file *file, struct coredump_req *re
+>   	return ret == sizeof(*req);
+>   }
+>   
+> +static_assert(sizeof(struct coredump_req) == COREDUMP_REQ_SIZE_VER0);
+> +static_assert(sizeof(struct coredump_ack) == COREDUMP_ACK_SIZE_VER0);
+>   static_assert(sizeof(enum coredump_mark) == sizeof(__u32));
+>   
+>   static inline bool coredump_sock_mark(struct file *file, enum coredump_mark mark)
+> diff --git a/include/uapi/linux/coredump.h b/include/uapi/linux/coredump.h
+> index dc3789b78af0..662e0468da6e 100644
+> --- a/include/uapi/linux/coredump.h
+> +++ b/include/uapi/linux/coredump.h
+> @@ -30,11 +30,11 @@ enum {
+>    * member is set to the size of struct coredump_req and provides a hint
+>    * to userspace how much data can be read. Userspace may use MSG_PEEK to
+>    * peek the size of struct coredump_req and then choose to consume it in
+> - * one go. Userspace may also simply read a COREDUMP_ACK_SIZE_VER0
+> + * one go. Userspace may also simply read a COREDUMP_REQ_SIZE_VER0
+>    * request. If the size the kernel sends is larger userspace simply
+>    * discards any remaining data.
+>    *
+> - * The coredump_req->mask member is set to the currently know features.
+> + * The coredump_req->mask member is set to the currently known features.
+>    * Userspace may only set coredump_ack->mask to the bits raised by the
+>    * kernel in coredump_req->mask.
+>    *
+>
 -- 
-Kees Cook
+Thanks and Regards
+R.Nageswara Sastry
+
