@@ -1,108 +1,112 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60453582B9C
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 14:28:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC34C54CF4A;
+	Wed,  9 Sep 2026 14:29:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788964127; cv=none; b=hFSBy+xLY152bFWMfNBxfHEoyuaNjUSUrhJAQjx6ytDeWF0nEpnofhqSVYoljDlyJu7bISqlAzsFg/qwPYVUBSmDzhsGNWTc0cIbyjYkcrgy/R3mTc0u50td2w3e1CcZ6/8FRxPbg1wey9QDTiXwdoU4TtkfLx6JDHHxKm86AYc=
+	t=1788964178; cv=none; b=oPH0kcqLiMvDN+Lpp5rxBFmiZQ0wKB04QA7whJr8Z7GjTsOo4TQ0bmwTRY+wXSyRY3U94l8MVGK8ZDjthLZMVlKoZAcbSVaIpXSc9QCNbQin8aKMbtnkgogWpLwjne3SGK6g26v/vVt0EmRd1e9lO8jGik5OVSUNeJhThKaGCuo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788964127; c=relaxed/simple;
-	bh=oj01JFfB6AavahYppTc9T4EaPEzdF+98Q38ewNDpUTY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=fesLdwIG7s+LZZMSajIt7N+W8i6h+xHbr1i/Wrm1/wg5V1KYQisziv8X5zF6o9M0LrbaUTxxJT1AohPCNGeGJTaQn/PoFsEa5kDZIwU4+ae1jO/8OXW/BzsmiDI1f15ZcQ1Zok+wtLjgs7k+v/YbUxTd8AIpqFV0cZ1kH5oO1OM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Z7QMs4Ri; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788964178; c=relaxed/simple;
+	bh=ZnKVmdJ0+txybHfevcWKArBIPP2qSbbM8PODeHjNXDk=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=cZtSQ1nj0sihrTcDr4l9XwfNwMBIcP0S5KVEimkMHMYGWKHq7yWzo0S/Aw0o87ivlyRM0xxh31KWiawNqhS5yOytXLV/wWKzIjKPB0Abd27eB/vcvKXE1u3+nGoybi+cJ5mvaKUIx2eyaqsORfzxAsloV59eY0/ajKO7veBPdJk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mp3Gp/IS; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Z7QMs4Ri"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9FED01F00A3A;
-	Wed,  9 Sep 2026 14:28:45 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mp3Gp/IS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AAAF51F00A3D;
+	Wed,  9 Sep 2026 14:29:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788964126;
-	bh=oj01JFfB6AavahYppTc9T4EaPEzdF+98Q38ewNDpUTY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Z7QMs4RiqWS030pqfJQFKcD4kpDjcDp9BD5a+akwoYLqcUihHv+wSZ6QhT0us4Ivx
-	 na8itMh1dn35cgoDZE7Z6YvcVVOtBzcXk9tDFNZs6aaQFijXwVCnTmpplCq3jQrp69
-	 Zm0FQd/eFwcb2/eXBhnoPHXpIEtOl58BkbyXyLiZLpzsqLzBcyLOu8bF69rvZIZcU7
-	 HoeL79Z/qDBO3qBe/fQnhB5yOR1wgneYTr9XlTk/T5lqf4IBT5Xpyg5aQSMY3IkQ11
-	 tstkpmU9RfUkygK+f1e+l4DfhNj4l46RU299qS29x4XBWbzJ1ZhHeTlajAMluRH4Gl
-	 /KdgW/jOcGFxw==
-Date: Wed, 9 Sep 2026 16:28:42 +0200
-From: Maxime Ripard <mripard@kernel.org>
-To: Jani Nikula <jani.nikula@linux.intel.com>
-Cc: Luca Ceresoli <luca.ceresoli@bootlin.com>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Thomas Zimmermann <tzimmermann@suse.de>, 
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	Andrzej Hajda <andrzej.hajda@intel.com>, Neil Armstrong <neil.armstrong@linaro.org>, 
-	Robert Foss <rfoss@kernel.org>, Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
-	Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
-	Jessica Zhang <jesszhan0024@gmail.com>, Linus Walleij <linusw@kernel.org>, 
-	Inki Dae <inki.dae@samsung.com>, Jagan Teki <jagan@amarulasolutions.com>, 
-	Marek Szyprowski <m.szyprowski@samsung.com>, Albert Esteve <aesteve@redhat.com>, 
-	Anusha Srivatsa <asrivats@redhat.com>, Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
-	Hui Pu <Hui.Pu@gehealthcare.com>, Ian Ray <ian.ray@gehealthcare.com>, 
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
-	Ville =?utf-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
-Subject: Re: [PATCH RFC v2 05/19] drm/panel: embed a drm_bridge into every
- drm_panel
-Message-ID: <aqFsTzyf1YbQkh6W@houat>
-References: <20260903-drm-bridge-every-panel-v2-0-2ab8ee24538e@bootlin.com>
- <20260903-drm-bridge-every-panel-v2-5-2ab8ee24538e@bootlin.com>
- <678ddef7e56703d9adffff5c490d4857af515343@intel.com>
- <aqEqx0zBQgmUgwqL@houat>
- <3efb06a30baae6ba1bfcf2be449bf207a30f674d@intel.com>
+	s=k20260515; t=1788964176;
+	bh=Se2xxe/a85TgX4HpduI7NMXMmiSfdyKReYm83RyVZEQ=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=mp3Gp/ISYu0vSbDYm62I7Ze2c9HBeBzaxBegbj7Cl4LJvu2Cx3R6+UlQwruZjt7+m
+	 nbe2ijWJ7BVOVYQIahZ2RFFG5QxULySNYH9SM7TRKwVIj5K4ueimVojMtsRljmJHs0
+	 EjeFE/7bZQFanQIMoanZftO80yY+hcueMbxpeMYbPYzq97Ge8z3zcavsjAQt5jh7h7
+	 qBkR6cKZiFwCGD4emGSIg3Fc2lbBn/IDdWNAAHpyT2tom3krouV/+GC1Omj1QX6K8W
+	 32cchiGfWPaaU0DzqsB5qpgof+r6+e/bm2qjoUJTY1GM7f1hKNl4afbeUeVz9+L0rG
+	 uWTOrfen2DUfg==
+Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
+	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <maz@kernel.org>)
+	id 1x4JIs-00000006jPD-2fdc;
+	Wed, 09 Sep 2026 14:29:34 +0000
+Date: Wed, 09 Sep 2026 15:29:29 +0100
+Message-ID: <86zexq7b1y.wl-maz@kernel.org>
+From: Marc Zyngier <maz@kernel.org>
+To: Mark Brown <broonie@kernel.org>
+Cc: Oliver Upton <oupton@kernel.org>,
+	Fuad Tabba <fuad.tabba@linux.dev>,
+	Joey Gouly <joey.gouly@arm.com>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	linux-arm-kernel@lists.infradead.org,
+	kvmarm@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] KVM: arm64: Enable S1PIE for hVHE
+In-Reply-To: <e3c716c2-66ef-4dd0-bcae-6df4ff814e48@sirena.org.uk>
+References: <20260908-kvm-arm64-nvhe-pie-v2-1-79e42d28cc08@kernel.org>
+	<861pb24v45.wl-maz@kernel.org>
+	<e3c716c2-66ef-4dd0-bcae-6df4ff814e48@sirena.org.uk>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
+ (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha384;
-	protocol="application/pgp-signature"; boundary="xvg2t2buvlbvtces"
-Content-Disposition: inline
-In-Reply-To: <3efb06a30baae6ba1bfcf2be449bf207a30f674d@intel.com>
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: broonie@kernel.org, oupton@kernel.org, fuad.tabba@linux.dev, joey.gouly@arm.com, seiden@linux.ibm.com, suzuki.poulose@arm.com, yuzenghui@huawei.com, catalin.marinas@arm.com, will@kernel.org, mark.rutland@arm.com, linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev, linux-kernel@vger.kernel.org
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
+On Wed, 09 Sep 2026 13:17:33 +0100,
+Mark Brown <broonie@kernel.org> wrote:
+> 
+> > > +alternative_if ARM64_HAS_TCR2
+> > > +	ldr	x1, [x0, #NVHE_INIT_TCR2_EL2]
+> > > +	msr	REG_TCR2_EL2, x1
+> > > +alternative_else_nop_endif
+> 
+> > S1PIE implies TCR2. Why the additional alternatives?
+> 
+> That is true but TCR2 does not imply S1PIE, I wrote things this way so
+> that TCR2 is initialised even if we end up on a system where that is
+> present but S1PIE is not (or S1PIE is present but has been disabled by a
+> command line override).  This is during startup so it seemed reasonable
+> to write things in a straightforward and easy to read fashion.
 
---xvg2t2buvlbvtces
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH RFC v2 05/19] drm/panel: embed a drm_bridge into every
- drm_panel
-MIME-Version: 1.0
+Fair enough.
 
-On Wed, Sep 09, 2026 at 05:02:58PM +0300, Jani Nikula wrote:
-> On Wed, 09 Sep 2026, Maxime Ripard <mripard@kernel.org> wrote:
-> > I really wish i915 was at least *trying* to fit within the larger model
-> > basically everybody else uses. I understand that it's a large
-> > undertaking and regression prone and everything, but I'm also concerned
-> > about having the "we can't because of i915" or "supported by everybody
-> > else but i915" on a regular basis now.
->=20
-> Okay, let's hear it, please name a few things where i915 is alone in
-> doing something bonkers that amd, radeon, nouveau also don't do, and
-> what would be the changes that would bring i915 closer to everybody
-> else?
+> > TBH, I think this is completely going the wrong way. Why can't we
+> > write this as a discrete enumeration of the permission combination we
+> > support (all 3 of them), and map that to the correct index?
+> 
+> I was deliberately following a similar pattern to that used for the host
+> kernel, intended to minimise code changes.  I will rework so we have an
+> alternative path for S1PIE rather than trying to share.
 
-Where did I say "bonkers"?
+I think it is fine to keep the same indices as the kernel for
+permissions that map to something that can be expressed with direct
+permissions.
 
-But since you're asking, because it doesn't implement .reset, we had that
-conversation this week for
+But indirect permissions are not additive, and therefore shouldn't be
+constructed as such. They are also more expressive, and there will
+be a point where we will want to have other permissions that cannot be
+expressed by "emulating" direct permissions (Execute-Only springs to
+mind).
 
-https://lore.kernel.org/r/20260908-drm-reset-state-flag-v3-0-905570f387a4@k=
-ernel.org
+At this stage, this is not churn. This is an investment.
 
-Maxime
+	M.
 
---xvg2t2buvlbvtces
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCaqFtDwAKCRAnX84Zoj2+
-doBSAX46K8ejTapIIYk/SeycKWdQwI0tlzsXrMG+ZW7UOhK2h/7KaVEyj4ZDsGjK
-dz9VoPgBfAiC3uX8Vw2zw6OMzOZKaidwZ1GSyeGkNSFBaiRnGT6VYthRJkFjw6Kp
-CxhOEjtOwg==
-=l7Kh
------END PGP SIGNATURE-----
-
---xvg2t2buvlbvtces--
+-- 
+Without deviation from the norm, progress is not possible.
