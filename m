@@ -1,160 +1,157 @@
-Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com [209.85.216.49])
+Received: from mail-yw1-f182.google.com (mail-yw1-f182.google.com [209.85.128.182])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D05E35C6A0
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 17:19:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E17735C6A0
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 17:19:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788974389; cv=none; b=g1N6XmDUK/MSbFce1O3Q3BpxCZPPcL+EIab7/5edppMKKiRJHPgE9OpHtmL/2vWpHRF7C8xD4AvfQjFPq6a+OnEHUVOhP5MOdGmu7Of0FXJfU799v7LIIOdNk8x/lsIIz9Qmw8J0jjCL/OEO1lYKkjgcUO/mPHlg9NyRxKq3OPI=
+	t=1788974399; cv=none; b=i1upbfPb18lHsX78Q3vLhb8+1mFIvotwDXZKshd4viQG12FSmrjkEKt4acSFCmbjGlvnzvw3pgD6ZadiWRSWH5A3FbHcN4T2jRPIFtylHZt/kmyIoPShyc1zIACBN3CYSLHR2IUSeYuGvvHPjhhFYffdKFbIvvfKKBorEifs6aQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788974389; c=relaxed/simple;
-	bh=IlcZ7axc1icPaRsnATE3TTEkSRdrgKhV9fd+K+TYx+Q=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=dt5oRUK6T6M/NoTVLwmhQaPN3tDhWvpe/cRHXg1PcPrW2aICvPmNBVIHNyrsn3Hg6qns2WbJyybJsyfIJZXy7d9QuJ5O2o/ds4lCoTZMqmOAMsvwjQPhNhV8D05HCdy842ZsO19J4R8ERJClzMOwq+dY/tk1OpdRXAYKpwIS4Z4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=beBJrA5e; arc=none smtp.client-ip=209.85.216.49
+	s=arc-20240116; t=1788974399; c=relaxed/simple;
+	bh=Z0gb6PYt93u0VY6izJ56KhmshtzSyI7O+7Ihrl0lCmU=;
+	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=M5nj5TgIhz6Kd/CllpNHhm++mFDPcyiTVdP0oG/xMAW+GfFqLCP2Wf05n6LsutxJ+lntX6E1K3P3uSC+5tJsPL8mVAMQqUBXRhs3vLGA60viJsc+fNL64SuHZgXNeVSEidn5Qg/r32K+OkAeU4O2cACufhtr6XSAVuWu7pZQPps=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=STgRybsR; arc=none smtp.client-ip=209.85.128.182
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="beBJrA5e"
-Received: by mail-pj1-f49.google.com with SMTP id 98e67ed59e1d1-38759bcd877so6601495a91.2
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 10:19:47 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="STgRybsR"
+Received: by mail-yw1-f182.google.com with SMTP id 00721157ae682-8565d77c277so83999997b3.0
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 10:19:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788974387; x=1789579187; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=DMRip1Y+oPvNX5PgfN0DgCOA+dU2bWxzbPCzDRfdUU4=;
-        b=beBJrA5eoszoD1Nr2DYlaVj/yst75vyw+Z496KCAbew9i5HU9CcTjRGW4fKSsLUJPw
-         taOO6sMcucm1LxBBEe74A0r3mILSmmYimM0e48pS67e1EXmry6jz4OcfthboF623VRpi
-         7RRBBo/HWsNjQHHYK99vYifyQjVaZauCIm/yUbw8bhiG9LkKQYttuKKHWadafhKOxeVI
-         WFj4DjENZZJzgz904S/hErs88NFU3BTgtXaiLQjgoasz6X5x4YNlaZT3ayLtDoPAF7Eq
-         z4l2ab1VKyaxDWMtSXF40OdhG0HPv14pXTDlyh3LkxtrwiLLuBR+urTVyi87i3l2q9UQ
-         vQKQ==
+        d=gmail.com; s=20251104; t=1788974397; x=1789579197; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:date:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=3PRZsX/KYek6emU5v5tZYtdcbcg2qPIIdPrtfdDH6As=;
+        b=STgRybsRtARGtsuhO+1QN9o3hXIkfNhWO6PIp70FROV2pAL7A+a6j+nBax0a2aZbIv
+         tEEvWFlghRPEaTtTcIJQy3yoUjLobKH8iwmyOLQmBhfF17/ydjgg+rRSC0DynLnhKisS
+         tvKY/jBEAX2tzHe3/N1P6wELMSCFbr8K8vwJrnSYLyhtck8yEvVXzgmzRp/lrxqDbMTb
+         kv5ZRwQ+YYcmqnDK8gGHplIxn16eoQYMaKfNtCbO+lhiOTPLcsio/ZDnfziv736zEvkQ
+         29Tiuorelh4DuO4jJGvZveTryZ2x4C11Vl5yjnoi/6v64nzOKo08VTup5tZZaoY9QKH2
+         /umg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788974387; x=1789579187;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=DMRip1Y+oPvNX5PgfN0DgCOA+dU2bWxzbPCzDRfdUU4=;
-        b=P+9+zt/KCHMZirwo6dcbgOnokRw/IAL/e+oG8jizc8l9sFuBxVmuzfE8MoM6R1Q1Nf
-         fizc97EHIp+CmdU3XvaufXZ6PNKROcrv+VnpQYX7MTlE8KOvdnT1OnxP/Ydr/y5AbDd+
-         62qag5HAS/kb0X09pfkxZYlKAX6iFRhXshKRhUpmef8aKfoz61n6Bq/TI70zA58H/0M3
-         tarTgYXa98bta1ZO24aQ3gxSBXFTb2NZkXE56IHNdLmrzGINiHZWlJQP5gs6y3aeO7cs
-         FpHMZKNFw8aLX6dF96SW4ypPN21Yq14HlZAbGXyJkjJXtliyQ3HrCJ8ByVhfCHFZn0zR
-         WbsQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzDPCcDCdDSIATzAJmadQKT5XouCxOWnnBfK42rsMnolWV1O3w0sYekXy0JGAcYMqjWe0HfJW3wDrgJ/Xs=@vger.kernel.org
-X-Gm-Message-State: AFuF++nuoR4JK4vsvt8Qtx0DLDbwQscG7/O1kWZ15H+ixXRiLeIC3D8P
-	/vJxKisYGeMTCfuRpZouyLVY+zsC7pAt60U3KscLDBXxTIvH+WbZff29c6cKBA==
-X-Gm-Gg: AYBFou0rgpDdk72P1AZUyz0Xr+9rD5kbwNq3C2EGauYcJbz6/e2dXQEoz/AOVwCzLNs
-	f06h0dChDopZWWRqhsFHeGNFX2cY91NjccXXDrHkcy/QCIPhQbxoAjG14Qnky9wmdAgKKpkW90G
-	QCOm2OpaYzJJLIeFKERXVC6RqfQwynnoem5+W8U+bP0D/JFjK9JCxRSUg0qaFv8CXA+2ahiZci3
-	H4xqhJ1ImHV0A9LmieCiQVissyZXLdhyL0taJvRGe4L9yTRZAK1qRAqHdAH+bnKF7PHfHempY8D
-	9Pj6HVCj0fWAjs1EWe5hd01CXBOfyXZbUBkp/AF11g8LCUjTZIGRUxECbCYDyaLap1QUmqz1vvy
-	mreleg3xTfnq8u50lLsXDPc3wxQiGZ3ExxftfeXPEPjn2o7MAvFTH1/RN/Q79n7DuBtT79F1LrQ
-	L8lc7H/vf/gwu+UKaeaWreNF9Xv32NWcQ8iRkOd3krIqxnPBHatVmABtdSCsPQS0uQRJhu8Ek94
-	DD0KmYVhAfQh5dHIEg=
-X-Received: by 2002:a17:90b:3c48:b0:398:e436:384 with SMTP id 98e67ed59e1d1-39b260d335dmr55306923a91.1.1788974387271;
-        Wed, 09 Sep 2026 10:19:47 -0700 (PDT)
-Received: from thangnn-ASUS.. ([2405:4802:1d38:5c70:24ba:44ee:a9ec:98f1])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d770e3bf4sm388181a91.7.2026.09.09.10.19.30
+        d=1e100.net; s=20251104; t=1788974397; x=1789579197;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=3PRZsX/KYek6emU5v5tZYtdcbcg2qPIIdPrtfdDH6As=;
+        b=YnsRCHFAmJyyZ0xluPM6C/b61So0FjXQDynbqpaOMfQ2+Z7O72yAIcc1z+SdLlqz0M
+         BD9xAthamgvjrl7UPwAYtmErzFGe30qLKmq8eXmvgf9p8JnS2pgaTXoF6FZ0c5xy1tKm
+         Fqj/9ACodnBiqsj22cl6l8HJOiqOUQsTDVuFR86iwXNJtODr/e2VTQ6SBfRcbB2K0BkI
+         lxJrnM1Lz4+By9Cy2yMDjq87YY2m1QGJ0HBpPhEX0Dq/Bx8rUC0sAGroJVI43A+SfD2b
+         MsndaoOHuqKTL130cQhjye7xfZmwCaAkx++ld/nnx3wt7TS2jGDnMc+aDonGNJZrFwVd
+         001Q==
+X-Gm-Message-State: AFuF++mDpQl3J90R2RjlLD6TQG8lGe7hgMPPGxfguTLPfqsea4EF19+3
+	h1CRLMArCqtxshW4jabwhHOeMzDDmBAP7S1nEHFEXBEDsHue9GtRE4B6
+X-Gm-Gg: AYBFou22npDjKzKeHNHFzghhrBr+LBmN3RjYl5lFJRA6+BgU5mlcIXmn0Q5s4PE5sRc
+	Q4mpEkkNAZaK4NhO6dAzYECS7bIOCGXn+t2aRCyhuQjcUqUbtD4musE2oldVulwXTrjD6FpBnqS
+	C6kmt60TBlFTvuV+6GvPlIRL62nNUnYPenQrvN9Uz54PzTU5xfLkZfdWqX6qp0kg6yIkz9Qo1BS
+	M/6hQZZS2HpN9fH+GYou9dBZGD7fF9fwtSTkl7gBZYI6WEN5rbnecGWiKo0x5nKirzJqxsADOfb
+	h7oXbJU8OFTVZyLIvHyeugWdFedpKUDffEex70+buuz3McpLkwDcVtl5jIl/JGeJ6v2E8qbfHYm
+	03VmuUfWfmlt8ug07Vc98tF0jgLdl8EGeqylsYxAwGJhMWOcjedZ1EtNF9NGmUKc2vjhmxIx988
+	ld7uktUx6RDwzjV8IJ1Ek18rhhcCsNPAPw9F/ZE6i294iP0V8rCE5GIUDsIne0eCI5UxnhFxfGR
+	qfBmFaZbW5IXW87e8sWoYQuwp0owaNfofccUEw=
+X-Received: by 2002:a05:690c:620f:b0:841:773e:8d86 with SMTP id 00721157ae682-871232363dfmr149350847b3.15.1788974396825;
+        Wed, 09 Sep 2026 10:19:56 -0700 (PDT)
+Received: from localhost (c-73-105-0-191.hsd1.fl.comcast.net. [73.105.0.191])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8714b62bc77sm114405657b3.39.2026.09.09.10.19.56
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 09 Sep 2026 10:19:32 -0700 (PDT)
-From: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
-To: stern@rowland.harvard.edu
-Cc: gregkh@linuxfoundation.org,
-	linux-usb@vger.kernel.org,
-	usb-storage@lists.one-eyed-alien.net,
-	linux-kernel@vger.kernel.org,
-	syzbot+356ae236154297f0d60d@syzkaller.appspotmail.com,
-	Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
-Subject: [PATCH v2] usb: storage: ene_ub6250: set transport_reset to avoid NULL deref
-Date: Thu, 10 Sep 2026 00:19:26 +0700
-Message-ID: <20260909171926.54111-1-ngocthang2710.1999@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260909171736.53927-1-ngocthang2710.1999@gmail.com>
-References: <20260909171736.53927-1-ngocthang2710.1999@gmail.com>
+        Wed, 09 Sep 2026 10:19:56 -0700 (PDT)
+From: Yury Norov <yury.norov@gmail.com>
+X-Google-Original-From: Yury Norov <ynorov@nvidia.com>
+Date: Wed, 9 Sep 2026 13:19:55 -0400
+To: Shrikanth Hegde <sshegde@linux.ibm.com>
+Cc: linux-kernel@vger.kernel.org, mingo@kernel.org, peterz@infradead.org,
+	juri.lelli@redhat.com, vincent.guittot@linaro.org,
+	yury.norov@gmail.com, kprateek.nayak@amd.com, iii@linux.ibm.com,
+	corbet@lwn.net, meted@linux.ibm.com, tglx@kernel.org,
+	gregkh@linuxfoundation.org, pbonzini@redhat.com, seanjc@google.com,
+	vschneid@redhat.com, huschle@linux.ibm.com, rostedt@goodmis.org,
+	dietmar.eggemann@arm.com, maddy@linux.ibm.com, srikar@linux.ibm.com,
+	hdanton@sina.com, chleroy@kernel.org, vineeth@bitbyteword.org,
+	frederic@kernel.org, arighi@nvidia.com, pauld@redhat.com,
+	christian.loehle@arm.com, tj@kernel.org,
+	tommaso.cucinotta@gmail.com, maz@kernel.org, rafael@kernel.org,
+	rdunlap@infradead.org, kernellwp@gmail.com,
+	linux-doc@vger.kernel.org, jgross@suse.com,
+	virtualization@lists.linux.dev, sunlightlinux@gmail.com
+Subject: Re: [PATCH v13 07/13] sched/fair: Load balance only among preferred
+ CPUs
+Message-ID: <aqGVMR2m_NF76tv3@yury>
+References: <20260909135617.871006-1-sshegde@linux.ibm.com>
+ <20260909135617.871006-8-sshegde@linux.ibm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260909135617.871006-8-sshegde@linux.ibm.com>
 
-ene_ub6250_probe() sets us->transport but never sets
-us->transport_reset. get_transport() only fills in transport_reset
-for the standard USB_PR_CB/CBI/BULK protocols; since this driver
-matches on VID/PID alone, a device can report any bInterfaceProtocol
-value and still bind, leaving transport_reset NULL.
+On Wed, Sep 09, 2026 at 07:26:11PM +0530, Shrikanth Hegde wrote:
+> When a CPU is marked as non-preferred, any load pulled towards it is
+> pointless since the task will be pushed out again in the next tick.
+> So, consider only preferred CPUs for load balancing.
+> 
+> This ensures load balancing does not fight against the push task mechanism
+> which happens at the tick. Also, this stops active balancing from happening
+> on a non-preferred CPU pulling the load.
+> 
+> This also means there is no load balancing if a task is pinned only to
+> non-preferred CPUs. They will continue to run where they were previously
+> running before the CPUs were marked as non-preferred.
+> 
+> Bail out early for NEWIDLE balancing, as load balancing is done only on
+> preferred CPUs. Note that idle balancing is allowed to go through, since
+> that naturally updates nohz.next_balance when all the idle CPUs are
+> non-preferred.
+> 
+> Also, optimization in find_new_ilb() is skipped. The steal governor driver,
+> which is introduced in later patches, updates the preferred CPUs state in
+> descending order. find_new_ilb() checks for idle CPUs in ascending order.
+> Hence, in most common scenarios, the idle CPU found by find_new_ilb() will
+> already be a preferred CPU. When all idle CPUs are non-preferred, the first
+> idle CPU has to be chosen anyway. All of this is naturally handled in
+> find_new_ilb() currently. Adding additional complexity to it for rare
+> edge cases is not necessary.
+> 
+> Signed-off-by: Shrikanth Hegde <sshegde@linux.ibm.com>
 
-When the transport then reports an error, usb_stor_invoke_transport()
-calls us->transport_reset(us) in its Handle_Errors path, dereferencing
-a NULL function pointer:
+Reviewed-by: Yury Norov <ynorov@nvidia.com>
 
-  BUG: kernel NULL pointer dereference, address: 0000000000000000
-  RIP: 0010:0x0
-  Call Trace:
-   usb_stor_invoke_transport+0x55a/0x1a40 drivers/usb/storage/transport.c:926
-   usb_stor_control_thread+0x44c/0x8f0 drivers/usb/storage/usb.c:462
-   kthread+0x38b/0x480 kernel/kthread.c:436
-
-Set transport_reset to usb_stor_Bulk_reset: ene_send_scsi_cmd()
-already frames its command/status packets with the shared
-struct bulk_cb_wrap/bulk_cs_wrap from include/linux/usb/storage.h
-and only ever transfers over us->send_bulk_pipe/recv_bulk_pipe, i.e.
-this device speaks the Bulk-Only Transport wire protocol underneath
-its own SCSI translation layer, so the Bulk-Only reset is the correct
-recovery action for it, matching the pattern already used by the
-other subdrivers with a custom transport function (alauda, datafab,
-jumpshot, karma).
-
-Also harden usb_stor_probe2()'s existing sanity check to require
-transport_reset alongside transport and proto_handler, so a future
-subdriver making the same mistake fails to probe instead of crashing
-on the first error recovery.
-
-Reported-by: syzbot+356ae236154297f0d60d@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=356ae236154297f0d60d
-Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
----
-v2: per Alan Stern's review, justify why usb_stor_Bulk_reset is the
-    correct choice for ene_ub6250, and additionally harden
-    usb_stor_probe2()'s NULL check to cover transport_reset so other
-    subdrivers can't hit the same bug.
-
- drivers/usb/storage/ene_ub6250.c | 2 ++
- drivers/usb/storage/usb.c        | 6 ++++--
- 2 files changed, 6 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/usb/storage/ene_ub6250.c b/drivers/usb/storage/ene_ub6250.c
-index ed49a3bc859c..3137c2cdd021 100644
---- a/drivers/usb/storage/ene_ub6250.c
-+++ b/drivers/usb/storage/ene_ub6250.c
-@@ -2350,6 +2350,8 @@ static int ene_ub6250_probe(struct usb_interface *intf,
-
- 	us->transport_name = "ene_ub6250";
- 	us->transport = ene_transport;
-+	/* get_transport() only sets this for the standard USB_PR_* protocols */
-+	us->transport_reset = usb_stor_Bulk_reset;
- 	us->max_lun = 0;
-
- 	result = usb_stor_probe2(us);
-diff --git a/drivers/usb/storage/usb.c b/drivers/usb/storage/usb.c
-index 064c7fc8e368..823a4b2e9033 100644
---- a/drivers/usb/storage/usb.c
-+++ b/drivers/usb/storage/usb.c
-@@ -1100,8 +1100,10 @@ int usb_stor_probe2(struct us_data *us)
- 	int result;
- 	struct device *dev = &us->pusb_intf->dev;
-
--	/* Make sure the transport and protocol have both been set */
--	if (!us->transport || !us->proto_handler) {
-+	/* Make sure the transport, its reset method, and the protocol
-+	 * have all been set
-+	 */
-+	if (!us->transport || !us->transport_reset || !us->proto_handler) {
- 		result = -ENXIO;
- 		goto BadDevice;
- 	}
---
-2.43.0
+> ---
+>  kernel/sched/fair.c | 8 +++-----
+>  1 file changed, 3 insertions(+), 5 deletions(-)
+> 
+> diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
+> index b8bd308c2d5b..4ef1167b8c73 100644
+> --- a/kernel/sched/fair.c
+> +++ b/kernel/sched/fair.c
+> @@ -13473,7 +13473,7 @@ static int sched_balance_rq(int this_cpu, struct rq *this_rq,
+>  	};
+>  	bool need_unlock = false;
+>  
+> -	cpumask_and(cpus, sched_domain_span(sd), cpu_active_mask);
+> +	cpumask_and(cpus, sched_domain_span(sd), cpu_preferred_mask);
+>  
+>  	schedstat_inc(sd->lb_count[idle]);
+>  
+> @@ -14588,10 +14588,8 @@ static int sched_balance_newidle(struct rq *this_rq, struct rq_flags *rf)
+>  	 */
+>  	this_rq->idle_stamp = rq_clock(this_rq);
+>  
+> -	/*
+> -	 * Do not pull tasks towards !active CPUs...
+> -	 */
+> -	if (!cpu_active(this_cpu))
+> +	/* Do not pull tasks towards !preferred CPUs */
+> +	if (!cpu_preferred(this_cpu))
+>  		return 0;
+>  
+>  	/*
+> -- 
+> 2.52.0
