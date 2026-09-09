@@ -1,207 +1,125 @@
-Received: from mail-106120.protonmail.ch (mail-106120.protonmail.ch [79.135.106.120])
+Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com [165.173.180.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1866943F8D4
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 20:47:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.120
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788986842; cv=none; b=LlJHFqyXFTch249nh+QE99iIfWO5yOeQi3/fTHoh1Af4QJ1r+CGtBOthycAszaxNzg+aeKdBUJJ0Ptv5q4l+SFxTCD6YXMlcFPMHHAFFHQuvj8InO9yzzcwsbrMsY7KhxumRMuQAyUt2JOLn7deCDy2OHjjkR/0jYsYBJyFhTiI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788986842; c=relaxed/simple;
-	bh=ZU8YTTlzkNKsk+YFMVAdXTY9Z7QXxSJjAl1Q33+ioAk=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Scfsd83gbCuk5w+rJmyCIxDC6xGdAafKPU1ST6VfKVNgbfWBuoZkIi2IA+RSWlly9qzlwdR2Wr8s6IRkvefEXrjnLy9HLEXy7XiuoDH63+3nfWg2Clt9bV7Suvm1gStO0I+JNDfh/r+wv/ZxtYrJYUutdfo/TD+AHK5PfC4xB1U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=Q9/51Ve2; arc=none smtp.client-ip=79.135.106.120
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B685455168;
+	Wed,  9 Sep 2026 20:47:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.180.11
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788986890; cv=pass; b=AAHMDv1sixzzzFQKCe5zeDhJgyYi0uXuLVpwzrnzqL8zKRiUsKSb/cQQdvgyjgl8oWH2fc1XtSSCU+S5owqkvicilhRpxJajvxs+wIm50cdKkyI7L1SwF1aio7u8qIFbEwe6AcqTmuytvJggCNb0vDZS/5hrViQXVxJTPDwgb0o=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788986890; c=relaxed/simple;
+	bh=pHtG0m8Je8BRoRwqJyRinhzByYeDiQyntG8bh5dq2Q0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Y6NiaewGDjJsW6ETV8VGLlXlEXVBdNxwjZk2Xx0kr4+mDJPxQxQ1mNLhzurmMPwNG7SNU4RKCUKG1qPqXpPZxNsNT8ik4qOjuMXWwN4qcipOeX2FR9kHMP2dVu1IMO6QR/2+Lngv/BfxUZrEYL1WGJYbenOa2JlA1c7igskcGF0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.b=ICk7Z8SM; arc=pass smtp.client-ip=165.173.180.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="Q9/51Ve2"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1788986830; x=1789246030;
-	bh=lABxs6VEi+8CS6nFugnKUAy5WADKPTGxiYP0lOC9JLI=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=Q9/51Ve27fIwlYItLOfztKFg1+MvKQN6KrdZovFBD5sp6ZVmmMFQDsFaYC7GBnuAP
-	 h482L8BHuh/KxE+bN/1LbtiSLTIfDbwIEsDXZacI6tKH3NbLCU+vtK4KMr+8w/HuG3
-	 3Tl7JHoAZIeFWCdcl9BygBt/cCfPNSX9M2kIpzfEH6Heftmt2nlkE+3IQfdvsDu2Jt
-	 eKRfjdJR7NWNiskVdPtmt/z/XNS2JTrWJJGJxThag+vUEUVOdHHRE77PoNJSo06NGs
-	 Qjxr5tfudJuZjAEM+dqH0sdgsCRHykOYidTgOYBUUITSi9DgDXKdWqhKTXHf0qazcu
-	 GeF3h8Q8ub1nA==
-Date: Wed, 09 Sep 2026 20:47:04 +0000
-To: Luiz Augusto von Dentz <luiz.dentz@gmail.com>, Marcel Holtmann <marcel@holtmann.org>
-From: Sergey Lebedev <lsa.uz@pm.me>
-Cc: "Vladimir V . Kondratyev" <vladimirkondratyev2@gmail.com>, Ravindra <ravindra@intel.com>, Ferenc Lengyel <dev@lengyelf.eu>, Chethan Tumkur Narayan <chethan.tumkur.narayan@intel.com>, Ravishankar Srivatsa <ravishankar.srivatsa@intel.com>, Paul Menzel <pmenzel@molgen.mpg.de>, Kiran K <kiran.k@intel.com>, Chandrashekar Devegowda <chandrashekar.devegowda@intel.com>, Mahalingeshwara Chambarakatta <mahalingeshwara.chambarakatta@intel.com>, Arnd Bergmann <arnd@arndb.de>, linux-bluetooth@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/2] Bluetooth: btintel_pcie: fix PM flow for S0ix, S3 and S4
-Message-ID: <20260909204654.91282-1-lsa.uz@pm.me>
-In-Reply-To: <CABBYNZJfH4F1-Hy1eiOrzuU1nzTbMbue3EqMT5gfHs60wFw9QA@mail.gmail.com>
-References: <20260909123416.71919-1-lsa.uz@pm.me> <20260909123416.71919-3-lsa.uz@pm.me> <CABBYNZJfH4F1-Hy1eiOrzuU1nzTbMbue3EqMT5gfHs60wFw9QA@mail.gmail.com>
-Feedback-ID: 113843758:user:proton
-X-Pm-Message-ID: 7bba8913a876a238097641328487cca3ecdf0597
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.b="ICk7Z8SM"
+ARC-Seal: i=1; a=rsa-sha256; t=1788986871; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=drae9vsfOfgkeLGIQ7LpxvdwOxbXFRRAdfXrK4Xvsfb7nuBLTWKEXp/NVQB0Mf7sVVVbc1kJiEUpHWbr1fXnxwIugfYGxM5fi5N5GRno+9yFzgdZGePKgVN6ShhF4PjE2ZFIo2jWQwVdRMX9lXH27RkJIaybNZVbk1fa7v5Ljf8=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1788986871; h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=Ihk8jq0E6v1GzqxnoCZD7Cb65oa33zaHTJ4K81BNNBk=; 
+	b=EW1mghZ/811Oe2FgtTr35iKdBzx4M440ZLH/i3QcFE7Af733YRQgX1x0dJoOYmOwJ/jAd63IQW5xLApIdoUMtuw2Wo2VCkKZ/0a8GjbntlTW0QNeLW0qUiKVuGnFFkCFFBk1r3rk6zvetcDXzCKacmjZsQoVcLQociyjkMVud6k=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=sebastian.reichel@collabora.com;
+	dmarc=pass header.from=<sebastian.reichel@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1788986871;
+	s=zohomail; d=collabora.com; i=sebastian.reichel@collabora.com;
+	h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:MIME-Version:Content-Type:In-Reply-To:Message-Id:Reply-To;
+	bh=Ihk8jq0E6v1GzqxnoCZD7Cb65oa33zaHTJ4K81BNNBk=;
+	b=ICk7Z8SM8ezCStVpMLuJX9cuqt1TSAiB9stwOsm/zls8pSc25OyBgoPHP2Nkni9m
+	jSVmkOyyWukbtHbqKMsSo8IacbwBPo4+DpqU4KEFskjCZKLeAt3TACq4aGqw3WM2fQ8
+	aYdMY3w1ZbWjJ9Ksh8Sba5AFFXiKfJ7ReGPsLNqs=
+Received: by mx.zohomail.com with SMTPS id 1788986869418187.2155406658627;
+	Wed, 9 Sep 2026 13:47:49 -0700 (PDT)
+Received: by venus (Postfix, from userid 1000)
+	id A790C183377; Wed, 09 Sep 2026 22:47:46 +0200 (CEST)
+Date: Wed, 9 Sep 2026 22:47:46 +0200
+From: Sebastian Reichel <sebastian.reichel@collabora.com>
+To: Maurizio Casciano <mauriziocasciano7@gmail.com>
+Cc: Hans de Goede <hansg@kernel.org>, linux-pm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] power: supply: core: Honor supplied-from with CONFIG_OF=y
+Message-ID: <aqHFUSdrYUR1DJ6L@venus>
+References: <20260901145156.3177187-1-mauriziocasciano7@gmail.com>
+ <c9cf1a69-9136-4f64-b223-aa038520a0a9@kernel.org>
+ <CAO7O_xi-BYfGb428q1TO4ERp059-BOq78PZR5Ad-bs1ikVkmZQ@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="eym42znvk5xrfmaw"
+Content-Disposition: inline
+In-Reply-To: <CAO7O_xi-BYfGb428q1TO4ERp059-BOq78PZR5Ad-bs1ikVkmZQ@mail.gmail.com>
+X-Zoho-Virus-Status: 1
+X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/288.982.46
+X-ZohoMailClient: External
+
+
+--eym42znvk5xrfmaw
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH] power: supply: core: Honor supplied-from with CONFIG_OF=y
+MIME-Version: 1.0
 
-Thank you for the pointer. That review reached no list at all: not
-linux-bluetooth, not devicetree, and not sashiko's own sashiko-reviews list=
-,
-which I checked over 31 August to 9 September. It exists only on the site, =
-so
-without you going to look we would not have known it was there.
+Hi,
 
-One of its three findings is real, reproducible, and worse than it claims. =
-I
-have measured it rather than argued about it, and the fix is below. The oth=
-er
-two are at the end, more briefly.
+On Tue, Sep 01, 2026 at 07:04:28PM +0200, Maurizio Casciano wrote:
+> Thank you for the review.
+>=20
+> I agree that firmware-node references should retain priority over the
+> legacy name-based mechanism. The "supplied-from" property should only be
+> used as a fallback when no "power-supplies" references are present,
+> including the case where the consumer has no firmware node.
+>=20
+> For v2 I will preserve the existing order as follows:
+>=20
+> 1. honor an explicitly pre-populated supplied_from list;
+> 2. resolve "power-supplies" firmware-node references when present;
+> 3. fall back to the name-based "supplied-from" property only when no
+>    references were specified.
+>=20
+> Errors while resolving specified references, including -EPROBE_DEFER,
+> will still be propagated rather than triggering the fallback.
+>=20
+> I will wait for Sebastian's opinion before posting v2.
 
-A missed alive interrupt now costs the controller, not just the suspend
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+Ack.
 
-1/2 makes set_dxstate() return success when the register says the target st=
-ate
-was reached but the interrupt never arrived. That is correct about the
-hardware and silent about data->alive_intr_ctxt, which only the interrupt
-handler ever moves. So the tracker is left saying D0 after a suspend that
-actually reached D3.
+Also FWIW the power-supply core has been migrated to be fully fwnode
+based, so the CONFIG_OF is not really correct anymore anyways. Let's
+have a single implementation for power_supply_check_supplies().
 
-On resume the handler then runs with a stale D0 context while the hardware =
-is
-already heading to D0, takes neither branch, and sets neither signal_waitq =
-nor
-submit_rx. btintel_pcie_reset_ia() and btintel_pcie_start_rx() are the only
-things that re-arm the RX rings, and nothing else on the resume path calls
-them.
+Greetings,
 
-Measured with the same fixture as my 2 September matrix - one alive interru=
-pt
-dropped inside the handler, before it touches anything, which is the state =
-a
-genuinely missed one leaves:
+-- Sebastian
 
-  no injection      SP11RX: ctxt d3 -> d0, submit_rx=3D1     device unchang=
-ed
-  interrupt dropped SP11RX: ctxt d0 -> d0, submit_rx=3D0     ...then:
+--eym42znvk5xrfmaw
+Content-Type: application/pgp-signature; name="signature.asc"
 
-    Bluetooth: hci0: Received hw exception interrupt
-    Bluetooth: hci0: command 0x0c01 tx timeout
-    Bluetooth: hci0: Opcode 0x0c1a failed: -110
-    btintel_pcie 0000:00:14.7: resetting
+-----BEGIN PGP SIGNATURE-----
 
-and the controller comes back as a new hci index. So it is not only that RX
-stops: the firmware throws an exception, two HCI commands time out, the dri=
-ver
-FLRs it, and every paired device is gone until something re-pairs.
+iQIzBAABCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAmqhxecACgkQ2O7X88g7
++prbzg/+PXQ8TLG3HiJHwMJe0m4xar9ZomTdZsXalWCRJH1Nq+A4AYxa91+tBh0a
+vT9lPkpfRojtlxggiKnew7FjD84aPr9/PwYPCybfWzAuzgy+eF/ukHKKLQHqYejT
+b7z/TTp5ImIS/8HB1PBds5Xp8h1qr3hi40puJvjdF4eqfMVHMqCPpSECMDpWkAdL
+c7LSz+8Rw4u/GiXhaE1WSXxD7pQRwvy6sRYkMNo5i9y/cZry96ZVYZomp5BdHr6L
+psyLyhVA30yhCFFeE/skyxiW6YMOZn/oVxMviATpTTVHQMIyiL4VI0GmlbXDj6gm
+W+v5cqAPi+0ug8oOTXFknQ2zhqKCdCJLHphxkY+gDJZsKQCeJNDjzINSVay7LI/J
+GUl+t3t/8TlITvu8UIC1bLtKHVk+5otWc7dwvdJiZQClPZFcmK5EP8WEWFFshcya
+UztPc8Pke5I5eACKacsYaRbK/NZzkoKj3SdYW7DHtNzDefmYCjDk781UeCcYYr5J
+Xh2vQRZ158CD4IhlRYMzaaRCZKP0BKyywG5Nkweb962xjxTsrZNMMrHVVWVAJ22d
+ePrLA5NWv/KmvjB7h/WqcEQ0KWXDCXCPE79rIa+ES6a/MITSHSjQXXGmrQLrqWbc
+l1gGyDpX8cfl+wXHuglrzQtyenl+STakzYUJialH9oZJREU8/PI=
+=ojYG
+-----END PGP SIGNATURE-----
 
-The fix
-=3D=3D=3D=3D=3D=3D=3D
-
-Do in the fallback what the handler's branch would have done. It mirrors th=
-e
-handler's own call site, which also ignores start_rx()'s return:
-
-@@ -4204,11 +4204,25 @@ static int btintel_pcie_set_dxstate(struct btintel_=
-pcie_data *data, u32 dxstate)
- =09=09if (dxstate =3D=3D BTINTEL_PCIE_STATE_D0) {
--=09=09=09if (btintel_pcie_in_d0(data))
-+=09=09=09if (btintel_pcie_in_d0(data)) {
-+=09=09=09=09data->alive_intr_ctxt =3D BTINTEL_PCIE_D0;
-+=09=09=09=09btintel_pcie_reset_ia(data);
-+=09=09=09=09btintel_pcie_start_rx(data);
- =09=09=09=09return 0;
-+=09=09=09}
- =09=09} else {
--=09=09=09if (btintel_pcie_in_d3(data))
-+=09=09=09if (btintel_pcie_in_d3(data)) {
-+=09=09=09=09data->alive_intr_ctxt =3D BTINTEL_PCIE_D3;
- =09=09=09=09return 0;
-+=09=09=09}
- =09=09}
-
-Both halves are needed, and I only know that because setting the context al=
-one
-looked like a complete fix until I dropped the interrupt on the way up
-instead:
-
-  build                     drop on D3 entry        drop on D0 entry
-  as posted                 wedged, FLR, new hci    -
-  context only              clean                   wedged, FLR, new hci
-  context + RX re-arm       clean, 3 of 3           clean, 3 of 3
-
-Three cycles of each plus three controls: no "hw exception" and no "resetti=
-ng"
-in any of the nine, and the hci index never moved. One caveat about my own
-instrument: I also counted HCI events during a scan after each resume, and =
-one
-*control* run returned zero with the device plainly healthy, so that counte=
-r is
-not trustworthy on its own. The exception and reset lines are what never
-misfired.
-
-What I propose to do
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-
-Fold it into 1/2 and send the series as v2. My reasoning is that a fix for =
-an
-unmerged patch in the same series belongs inside it rather than on top, but=
- I
-hold that loosely and a separate patch is just as easy if you prefer it for
-review.
-
-It changes Vladimir's logic rather than adding to it, so: Vladimir, say if =
-you
-would rather carry it yourself and I will hold. Otherwise I will send v2 in=
- a
-day or two, unless Luiz would rather see it sooner.
-
-The second finding, which I could not measure
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-
-Moving data->gp0_received =3D false out of the retry loop means a late inte=
-rrupt
-from attempt N can satisfy wait_event_timeout() at the top of attempt N+1, =
-and
-"if (status) return 0;" has no hardware check behind it - the register re-r=
-ead
-1/2 adds sits on the timeout path only. So the function can report success
-having just written wr_sleep_cntrl() and waited for nothing, right after th=
-e
-previous iteration read the hardware and found it *not* in the target state=
-.
-
-Real by reading, but unmeasured: my fixture drops interrupts and does not d=
-elay
-them, so I cannot produce a late one. Saying so rather than implying I test=
-ed
-it.
-
-The third, which is pre-existing and not this series'
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D
-
-set_dxstate() clears the GP0 cause with btintel_pcie_clr_reg_bits(), which =
-is
-a read-modify-write. BTINTEL_PCIE_CSR_MSIX_HW_INT_CAUSES looks
-write-1-to-clear: the interrupt handler acknowledges it by writing back exa=
-ctly
-what it read. If so the call does the opposite of both halves of its job - =
-it
-writes 0 to GP0, which clears nothing, and 1 to whatever else was pending i=
-n
-that register, retiring HWEXP, GP1 or FWTRIG unserviced.
-
-Neither patch touches that line, so it is not this series' business, but
-someone at Intel may want it.
-
-Thanks,
-Sergey
-
+--eym42znvk5xrfmaw--
