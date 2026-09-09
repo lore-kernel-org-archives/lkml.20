@@ -1,62 +1,62 @@
 Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDAC153D0BC;
-	Wed,  9 Sep 2026 23:58:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6794352FE5A;
+	Wed,  9 Sep 2026 23:58:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788998293; cv=none; b=rKoPztuEsipHZzIknEUf0/PQpEGrZBAf5L2IXbutaJcpe8h45DMbUz8YW5rDnzMkSKD5EksfaqgJdfdwtRU4gTum0rnwMan5mjDS3j/4fo/QJmmNzNvbPczSHdB34gsQTFj0SMDaj/2mzXXqtRUzVD3Jzdc8K3i0Zp+/EM24UPg=
+	t=1788998294; cv=none; b=KXvcqSrsQVmW7Zyj0HqwXBWCbXzQukzivdnVQTTU3ECtnjfIxd1A9EdSuhFH00APAlUN14kSnbBmzsBt4I4Ct+xKWDIDV1Bxekf9SX5LvLVT/66er8o6vY0Q3uDdMEPKdGdNxijSrDqjFVUHUV5PVXVm0XoO+Xm3EENg5jU2PTM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788998293; c=relaxed/simple;
-	bh=5AbxDxnl0gJjsxzzwM3Huo530Yd70sFnyObGz2PBSN4=;
+	s=arc-20240116; t=1788998294; c=relaxed/simple;
+	bh=3ldf2RubOHXaLVieyPPbIPvefqN1Gr8SfV3HdCw7k5c=;
 	h=Date:From:To:Subject:Cc:In-Reply-To:References:MIME-Version:
-	 Message-ID:Content-Type; b=u3I3sQ7YT52X3abZwMTw/0Q2LbeIQx+9qksI/rkP7HVdsvQ5gs8PXJNaXdX3BxJP6c90W6UhZ4uMQeRs18yFoxI37Sf4IalRaD5DCiLc1KWGWeC9RCjtdzieOZsjhVvjuJKevczVaX4LxjWcMqLS3e4W6bWNDJu1Zu6tF1L4zyE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=o6FggQl8; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=yzSiZ98S; arc=none smtp.client-ip=193.142.43.55
+	 Message-ID:Content-Type; b=ZoOne0GOh9nO8JI4uzsX4/Q/JRir42qAZt/WCtCqgeP1TjyhFRHFSjVWg1jH8Br3E9Y2hY0toZ2AGzndXQLCfQVeF5BnWOUVC+9mvj4TYzveC5LD8vLL16tg+BV7JW/TG7/0QzuOPf5oyDPfQbbWBBbjfkQ15H/hziIBfWymOXQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=kqQD1Tr4; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=tg254KzG; arc=none smtp.client-ip=193.142.43.55
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="o6FggQl8";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="yzSiZ98S"
-Date: Wed, 09 Sep 2026 23:58:02 -0000
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="kqQD1Tr4";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="tg254KzG"
+Date: Wed, 09 Sep 2026 23:58:04 -0000
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1788998284;
+	s=2020; t=1788998286;
 	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=NHBGIDQ61aXoaODIEobnvnQfK2zvK98XYIulSEWAe1g=;
-	b=o6FggQl8PzdzmNO/OJ3PuwpG+v7VhmlpwSkOMkUmGuLh5E3JW9bcSmvFc/AWpNeAqFkEKo
-	bhQRgOFsl4P0n5kx8n2SFDQH5qBctuwskDzdE8ixqlMczmQQdX8o0JofIiwl+TpREZ+G4K
-	/kN8r5OFe76tTcekj1jfn6e2eaen6rQ678ShqYKxSe/UG2vYLL5Wg0ThYQZYMvLFIVcoHo
-	mLmaz8kTjGzZBqtkdOsZOVr/7l4MEde7rQu78yDxKOp4jneKzjRWHukGw5csHpiPqyozWq
-	bHbqTFIYhb3zgy8DuIiDrnh8GoewVsxomvVUdHAXzEjkh/y+CH0KWm+61YXIIQ==
+	bh=NMOOdhqe0cMWnljQ/qeVzCY27so7kxxMRbXpMlioNA8=;
+	b=kqQD1Tr44Ttu6/bE925Y7SuaK3z532oXyapR9L1X43UwzXGal/QPDQ2ax49GSw1Qk+wv+6
+	5nL0b0IhZyVP18RP1yT2GiDb8N70O9Nj4IhzLbq2GmLGsU5l8wSe/MGPOwL5oXPtYHhaoP
+	m8n2DLCQPTaEn+YR/w5YqH/gLdls5+2Q3MTXry9SLBiAO3e/7Q7QfcyFFMZc9yljjeci0g
+	VjCq1FRzL+/iLEmFO11ggm6RjmAUp2A8yhzES1zYnIJTyHI13xOjPS4fapGVr8HfHjJd4z
+	hDrXAVYsWsOuKyIJxz+LpBCxna6Nuf8GmeiIasykQmLhHxHMzhUDk5J+p2t6ZA==
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1788998284;
+	s=2020e; t=1788998286;
 	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=NHBGIDQ61aXoaODIEobnvnQfK2zvK98XYIulSEWAe1g=;
-	b=yzSiZ98S9hDJ4ZJpWvqJjTG/+WnCxXk+6NZ8+EtVgpSYpI7mHVf/eFVQV3L3iBOxJISsea
-	C9fHMsrJUVoBzyDQ==
+	bh=NMOOdhqe0cMWnljQ/qeVzCY27so7kxxMRbXpMlioNA8=;
+	b=tg254KzG7Tc01r89k48pA2vT+B2WqNFQAzq/5wXqZpO8sp4MiJXUVHaQNJAoeYwJryspVr
+	pzkblCMoAJ2cuGCw==
 From: "tip-bot2 for Eric Biggers" <tip-bot2@linutronix.de>
 Sender: tip-bot2@linutronix.de
 Reply-to: linux-kernel@vger.kernel.org
 To: linux-tip-commits@vger.kernel.org
-Subject: [tip: x86/fpu] um: Check for missing AVX and AVX-512 xstate bits
+Subject: [tip: x86/fpu] x86/fpu: Check for missing AVX and AVX-512 xstate bits
 Cc: Eric Biggers <ebiggers@kernel.org>, "Borislav Petkov (AMD)" <bp@alien8.de>,
  Christoph Hellwig <hch@lst.de>, x86@kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20260901145740.42337-3-ebiggers@kernel.org>
-References: <20260901145740.42337-3-ebiggers@kernel.org>
+In-Reply-To: <20260901145740.42337-2-ebiggers@kernel.org>
+References: <20260901145740.42337-2-ebiggers@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <178899828270.623050.7421120434095232253.tip-bot2@tip-bot2>
+Message-ID: <178899828430.623050.8638024070858129406.tip-bot2@tip-bot2>
 Robot-ID: <tip-bot2@linutronix.de>
 Robot-Unsubscribe:
  Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
@@ -66,127 +66,92 @@ Content-Transfer-Encoding: quoted-printable
 
 The following commit has been merged into the x86/fpu branch of tip:
 
-Commit-ID:     19c5d90800a24096697dd6c66237218b7ea417ee
-Gitweb:        https://git.kernel.org/tip/19c5d90800a24096697dd6c66237218b7ea=
-417ee
+Commit-ID:     518aa9948e4f2ba69b7066371d3ac8e4d31d604e
+Gitweb:        https://git.kernel.org/tip/518aa9948e4f2ba69b7066371d3ac8e4d31=
+d604e
 Author:        Eric Biggers <ebiggers@kernel.org>
-AuthorDate:    Tue, 01 Sep 2026 07:57:34 -07:00
+AuthorDate:    Tue, 01 Sep 2026 07:57:33 -07:00
 Committer:     Borislav Petkov (AMD) <bp@alien8.de>
-CommitterDate: Sat, 05 Sep 2026 08:16:47 -07:00
+CommitterDate: Wed, 02 Sep 2026 10:35:40 -07:00
 
-um: Check for missing AVX and AVX-512 xstate bits
+x86/fpu: Check for missing AVX and AVX-512 xstate bits
 
-If the CPU declares AVX or AVX-512 support, verify that all the
-corresponding bits are set in the XCR0 register.  If any are missing,
-warn and don't set the corresponding X86_FEATURE_* flags.
+If the CPU declares AVX or AVX-512 support, verify that the corresponding
+xstate bits are also set.  If not, warn and clear them.
 
-This eliminates the perceived need for UML-supporting AVX and AVX-512
-optimized code in the kernel (that is, lib/raid/ currently) to start
-checking the XCR0 bits in addition to X86_FEATURE_AVX*.
-
-This aligns UML with the vast majority of userspace programs, which
-check the XCR0 bits before considering AVX and AVX-512 to be supported,
-as per the procedure documented in Intel's CPU manual.
+This eliminates the perceived need for AVX and AVX-512 optimized code in the
+kernel to call cpu_has_xfeatures().  That has never been universally done,
+which strongly suggests that it has never really been needed in practice, but
+this should remove any remaining doubt.
 
 Signed-off-by: Eric Biggers <ebiggers@kernel.org>
 Signed-off-by: Borislav Petkov (AMD) <bp@alien8.de>
 Acked-by: Christoph Hellwig <hch@lst.de>
-Link: https://patch.msgid.link/20260901145740.42337-3-ebiggers@kernel.org
+Link: https://patch.msgid.link/20260901145740.42337-2-ebiggers@kernel.org
 ---
- arch/um/kernel/um_arch.c | 78 ++++++++++++++++++++++++++++++++++++++-
- 1 file changed, 77 insertions(+), 1 deletion(-)
+ arch/x86/kernel/fpu/xstate.c | 25 +++++++++++++++++++++++--
+ 1 file changed, 23 insertions(+), 2 deletions(-)
 
-diff --git a/arch/um/kernel/um_arch.c b/arch/um/kernel/um_arch.c
-index e4ee693..9d53cc6 100644
---- a/arch/um/kernel/um_arch.c
-+++ b/arch/um/kernel/um_arch.c
-@@ -264,12 +264,88 @@ unsigned long brk_start;
-=20
- #define MIN_VMALLOC (32 * 1024 * 1024)
-=20
-+static u64 __init read_xcr0(void)
-+{
-+	u32 a, b, c, d;
-+
-+	asm volatile("cpuid"
-+		     : "=3Da"(a), "=3Db"(b), "=3Dc"(c), "=3Dd"(d)
-+		     : "a"(0), "c"(0));
-+	if (a >=3D 1) { /* max_leaf >=3D 1 */
-+		asm volatile("cpuid"
-+			     : "=3Da"(a), "=3Db"(b), "=3Dc"(c), "=3Dd"(d)
-+			     : "a"(1), "c"(0));
-+		if (c & (1 << 27)) { /* XSAVE enabled by OS */
-+			asm volatile("xgetbv" : "=3Dd"(d), "=3Da"(a) : "c"(0));
-+			return ((u64)d << 32) | a;
-+		}
-+	}
-+	return 0;
-+}
-+
-+static void __init validate_and_set_cpu_cap(int cap, u64 xcr0)
-+{
-+	/*
-+	 * Check for missing xstate features right away, so that there's no
-+	 * perceived need for all optimized code in the kernel to do so.
-+	 */
-+	switch (cap) {
-+	case X86_FEATURE_AVX:
-+	case X86_FEATURE_AVX2:
-+	case X86_FEATURE_AVX_VNNI:
-+	case X86_FEATURE_FMA:
-+	case X86_FEATURE_VAES:
-+	case X86_FEATURE_VPCLMULQDQ:
-+		if ((xcr0 & 0x7) !=3D 0x7) {
-+			static bool warned;
-+
-+			if (!warned) {
-+				os_warn("Disabling AVX support due to missing xstate features\n");
-+				warned =3D true;
-+			}
-+			return;
-+		}
-+		break;
-+	case X86_FEATURE_AVX512F:
-+	case X86_FEATURE_AVX512BW:
-+	case X86_FEATURE_AVX512CD:
-+	case X86_FEATURE_AVX512DQ:
-+	case X86_FEATURE_AVX512ER:
-+	case X86_FEATURE_AVX512IFMA:
-+	case X86_FEATURE_AVX512PF:
-+	case X86_FEATURE_AVX512VBMI:
-+	case X86_FEATURE_AVX512VL:
-+	case X86_FEATURE_AVX512_4FMAPS:
-+	case X86_FEATURE_AVX512_4VNNIW:
-+	case X86_FEATURE_AVX512_BF16:
-+	case X86_FEATURE_AVX512_BITALG:
-+	case X86_FEATURE_AVX512_FP16:
-+	case X86_FEATURE_AVX512_VBMI2:
-+	case X86_FEATURE_AVX512_VNNI:
-+	case X86_FEATURE_AVX512_VP2INTERSECT:
-+	case X86_FEATURE_AVX512_VPOPCNTDQ:
-+		if ((xcr0 & 0xe7) !=3D 0xe7) {
-+			static bool warned;
-+
-+			if (!warned) {
-+				os_warn("Disabling AVX-512 support due to missing xstate features\n");
-+				warned =3D true;
-+			}
-+			return;
-+		}
-+		break;
-+	}
-+	set_cpu_cap(&boot_cpu_data, cap);
-+}
-+
- static void __init parse_host_cpu_flags(char *line)
+diff --git a/arch/x86/kernel/fpu/xstate.c b/arch/x86/kernel/fpu/xstate.c
+index a7b6524..97cfd4f 100644
+--- a/arch/x86/kernel/fpu/xstate.c
++++ b/arch/x86/kernel/fpu/xstate.c
+@@ -806,7 +806,7 @@ static u64 __init guest_default_mask(void)
+ void __init fpu__init_system_xstate(unsigned int legacy_size)
  {
-+	u64 xcr0 =3D read_xcr0();
+ 	unsigned int eax, ebx, ecx, edx;
+-	u64 xfeatures;
++	u64 xfeatures, mask;
+ 	int err;
  	int i;
-+
- 	for (i =3D 0; i < 32*NCAPINTS; i++) {
- 		if ((x86_cap_flags[i] !=3D NULL) && strstr(line, x86_cap_flags[i]))
--			set_cpu_cap(&boot_cpu_data, i);
-+			validate_and_set_cpu_cap(i, xcr0);
- 	}
- }
 =20
+@@ -818,6 +818,8 @@ void __init fpu__init_system_xstate(unsigned int legacy_s=
+ize)
+ 	if (!boot_cpu_has(X86_FEATURE_XSAVE)) {
+ 		pr_info("x86/fpu: x87 FPU will use %s\n",
+ 			boot_cpu_has(X86_FEATURE_FXSR) ? "FXSAVE" : "FSAVE");
++		/* Disable all dependent flags too */
++		setup_clear_cpu_cap(X86_FEATURE_XSAVE);
+ 		return;
+ 	}
+=20
+@@ -833,7 +835,8 @@ void __init fpu__init_system_xstate(unsigned int legacy_s=
+ize)
+ 	cpuid_count(CPUID_LEAF_XSTATE, 1, &eax, &ebx, &ecx, &edx);
+ 	fpu_kernel_cfg.max_features |=3D ecx + ((u64)edx << 32);
+=20
+-	if ((fpu_kernel_cfg.max_features & XFEATURE_MASK_FPSSE) !=3D XFEATURE_MASK_=
+FPSSE) {
++	mask =3D XFEATURE_MASK_FPSSE;
++	if ((fpu_kernel_cfg.max_features & mask) !=3D mask) {
+ 		/*
+ 		 * This indicates that something really unexpected happened
+ 		 * with the enumeration.  Disable XSAVE and try to continue
+@@ -844,6 +847,24 @@ void __init fpu__init_system_xstate(unsigned int legacy_=
+size)
+ 		goto out_disable;
+ 	}
+=20
++	mask |=3D XFEATURE_MASK_YMM;
++	if (boot_cpu_has(X86_FEATURE_AVX)) {
++		if ((fpu_kernel_cfg.max_features & mask) !=3D mask) {
++			pr_err(FW_BUG
++			       "x86/fpu: Disabling AVX support due to missing xstate features\n");
++			setup_clear_cpu_cap(X86_FEATURE_AVX);
++		}
++	}
++
++	mask |=3D XFEATURE_MASK_AVX512;
++	if (boot_cpu_has(X86_FEATURE_AVX512F)) {
++		if ((fpu_kernel_cfg.max_features & mask) !=3D mask) {
++			pr_err(FW_BUG
++			       "x86/fpu: Disabling AVX-512 support due to missing xstate features=
+\n");
++			setup_clear_cpu_cap(X86_FEATURE_AVX512F);
++		}
++	}
++
+ 	if (fpu_kernel_cfg.max_features & XFEATURE_MASK_APX &&
+ 	    fpu_kernel_cfg.max_features & (XFEATURE_MASK_BNDREGS | XFEATURE_MASK_BN=
+DCSR)) {
+ 		/*
