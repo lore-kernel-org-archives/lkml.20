@@ -1,164 +1,263 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71145348C76
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 06:33:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=205.220.180.131
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788935627; cv=pass; b=JVeoesV2J0Gjhpj2guYoK4kBcXUkixNjNQpzM59F3YTkuXZUeTJF9c9ZZntsEE3JEgIsTbgAzTBbGzgMJ8U3JD9N8uLsew21Z2JQSQ/lrFWzlSUw+i1rm4rmvh4AIeGJMAhUArONZSmQof9RxMY+f5SfV889ZZvwFc2OG7o4Lcw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788935627; c=relaxed/simple;
-	bh=18Zr3UdkPL5YGneMwhBfVyFM5vzCFjokkjS/4aofckw=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=MnjxDZuEBNXmOUJIvQfd96V4AwmYYWB0EpenPgzdhe+GXntwIBmnlzzVv7vfM8QLZ1t+pwUc9S1EsHXY2lXPZxUS+Q3ylgb9xxtIMpfxO7Ubb+RJtsXuULQ0wbmzypVwEPVw4aXormBPkZOkM3Fe2kQl74VQkrMZvmbfRlz3b+g=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Zb3O9jTD; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=E+UmiBp5; arc=pass smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E9313AAF6A
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 06:34:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788935675; cv=none; b=abjjswKz64H1LldM0617ORzfOkVhY55umi/BM1gMKZMxYkxOsqcqoRkGW98/5KSPUhP8a1t20IFIxp+56wxc74i+Xy3EHUder1v1AEbS6radxdkY7zWUkByOfGjXeo133RJFhaksvTy/E0N9sXwn/sAxzYuLUf3z9QoQapA1EEU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788935675; c=relaxed/simple;
+	bh=7FaoR89JXXtsTZU0syWiptmO5B1HnTPyKQaySIpwv3U=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=VI6vSn2wY2fmFCIYr8JCPmKcpkpkzztf3R+oTySBbOby2DNvIV4JL/zJJ9toDTXE7W9G2TaePY66SIB23zoGMPJ45pFI1+zBIJZwZv/VZ/ncCSD1TxxfVbBRIxYntYrbV3ECqcBAMLyogPv/Om8DdVSnr9mQqFMATNTmIT/E0pc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=qc7a0T7I; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=HtlYJRlW; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=m6o3RiO9; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=z1DdhI9m; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Zb3O9jTD";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="E+UmiBp5"
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6896MTlY129581
-	for <linux-kernel@vger.kernel.org>; Wed, 9 Sep 2026 06:33:45 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=F6ybEqTWr7PTGYwKjzBDvKVQ
-	3R5C9k69c4zwqDv/bw8=; b=Zb3O9jTDa7TD3YF5CyohMezRJnRYfRROVFjO9ENt
-	a6+cMTTOzkJ1jdnqKiEf4Snc/tZb1VvPHpMi4wYl866F0UHYbF4YCyXeytCHz+OE
-	5aRd8+iqX+8qoq9kQ+6FrjSWtZab/I0T9Eg6Ddvg+zt3xZHqjzLWqaSUqaLs+YB6
-	rC7hSZxYkdmMFAnWj2FYW4hTuXobdP3fxpCvrNvos35xcqov05tUdrMVI7bxSW7q
-	91G/1/N600LxVgYa8hf78A/77fHItvLIcIyv4EECHJhkeF4+ATf46nvVstzGOiYU
-	cYanulIdjdx2rvpJDarP9ttc2t2DLJlgN9dwPk0EsBlJqA==
-Received: from mail-yx1-f71.google.com (mail-yx1-f71.google.com [74.125.224.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gjntpk3bg-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 06:33:45 +0000 (GMT)
-Received: by mail-yx1-f71.google.com with SMTP id 956f58d0204a3-66c73057f18so4108256d50.3
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 23:33:45 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788935625; cv=none;
-        d=google.com; s=arc-20260327;
-        b=We6+APayyEjZumWdJALloW3OscXMwdwYrExK0z+0pqCG0NPEPhxYfns7r6Pe6X8x55
-         nyJWfQCnWESVbMiVTNuCat9ZGiZ9LbWWGC2Alarjm9IlQxBppgvYNpm0gmDWuIzKAzEi
-         n5oxQVdLzZULQdr/+AGQ2tI7J/I+7kxunc9s0JsCtHXjgZt0KSbgaHUvhZ+NROx8Yd2c
-         A3f7OjCsINKnj9E6b3dgW4Of96+C/KPSuxkuGoNP+T3avBwMXZyKH1y1RGvaTJkP2PEM
-         daKFVdlJhlTfXfpg8kYNnR5QP5igY7z++s//RUjhfDl/rRpwj+UfxoPOH7gET/fXYp+H
-         apSg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=F6ybEqTWr7PTGYwKjzBDvKVQ3R5C9k69c4zwqDv/bw8=;
-        fh=9+0wMXBSTSxKjPiLpKOkAdNCz4VyJiGvEcGPi4DOBEQ=;
-        b=Oxzzqwe9953//FTKl2OUTmwxiz+DeqS4k0PUQ62vS2sIFfTwliViWJJ1Fk/Uq4riS3
-         gQzXClpFcX4utjd+KEafqpMtFtZ6I7VSiUmMV/0G3glsJ9KoiezBefKVimgotNzROEEm
-         u7DP/4W9YX2JV/xDiaFqTyWr/ursiUWHKYFi1iJRyfwsCN4GwFJCUk2o4u7dpkgK3a0D
-         9ylpHI59oe0ODjyrpPBCexQjFEXY44V12N+/EBO6iZtuYoFysXsoCOysIhkravBP4jNH
-         6lo88Uh85OHC+VCmrpupN5GC9zurGZQAr3LFDHJnLqn0cOgA57FxAF8hb1zAsbAnR6DM
-         zvIw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788935625; x=1789540425; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=F6ybEqTWr7PTGYwKjzBDvKVQ3R5C9k69c4zwqDv/bw8=;
-        b=E+UmiBp5BRAVIODiR25zkv7V9V5Fkeb8NFapeLUY5tC73bEleyocPmiNJZMIXuFxei
-         OZlJXBScH63McmhsAsSZNbNbG3ImsgyoL2bfsJyp9tbvMX92K0trrOfT29krlsEmEuk8
-         jG2OCcL0+yfWdBeYwIJBq16a//EeJmeOATum8ikS6zfJkID+yOzFXaZh2XiPs6rd68u5
-         dG/BMtVAt5QJ4n3Eg/Sle2Xm78hq8JnfRghQ2Hojno5S02pcgDB2WIxu/pzPhBhOWOje
-         CNL0Q8KOZ2GeWzfz9FhHdUis9+U1CIgRUc7a/F3iwrvUchtNvdmp2/jD2OLynU7DI0tK
-         DveA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788935625; x=1789540425;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=F6ybEqTWr7PTGYwKjzBDvKVQ3R5C9k69c4zwqDv/bw8=;
-        b=a/h/zTpBvM0D0pvrIW2AwWX/N8dM0ehtQOHx+e3mw/5dpRJW5cZjBUbTNFXTIIZyS4
-         G6BprmOhn42Z3ECkJQktmF2LvoNZzD5jhqvfK0edrnkOEaAhKln3Y8WWupZf0wEjcSti
-         WJAUg3nnuBxVkF6cGFpUzdyzoHVxM7snUpdQkAM728NP8/VTHmB8S5miBMoJL/1svYkV
-         zWPgnKDl0aLX9wfdCYSk3uhLUlOfewlH97VNuSWPTsud/TyFIwQ2sskhL73CJ2k6Sqza
-         mfGOWPn1dXOUe5Q4MmHZ+VPeRXrKXqlvWTOHCZf9nMH0uVgmhXiODpr0ssW1HysiRRq+
-         pNjQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzHtXfhJ3rYROxYZYW0lyurSajgwUN4wZQf0Wxp7zpNpp9bsbHd/fb27LovzrcRJA0iJ1rIwmeeY++vtyY=@vger.kernel.org
-X-Gm-Message-State: AFuF++n7oOwbAFaXWFxo0COK+xcxs/PJiffE3Rog9JiDbh0nrs5gIX8C
-	Mi36NAWQhLTwANHVN15XpabdX/R+h6OqH0CJ/stAUgHuWRcKFpcXFCH8BfBt9ZPqSLjelZ9an1I
-	tIjclBaHYswPzkfC1y/+zVxCda+qedgzSW/7bRFeRv3lzcRMb8/v9FpSn10mS/uVQ6s0NxdjJOT
-	oPtaGF+vMTGAcClRFBwUI9X5areMaUXCkzG6u586Eh6w==
-X-Gm-Gg: AYBFou0dg596vrQPSFna1ETceRGJpqukSEIUqSsaZ5jdc+u1eS6I7/X+KlHOfYDXq69
-	kE+xZ82jMFhCKidgWGG7/ad3RYG0+fLZGam4rUy3/v44NOygY7Ck0VzRq20ReHAEWPnJw9l1M5M
-	KBIEByDQMdejqeJ4pQGFLwlpnQAhz8VSSloB90G49M8WBMDPaq8G0J887EVg==
-X-Received: by 2002:a53:b604:0:b0:66f:c1be:84c8 with SMTP id 956f58d0204a3-66fc1be8c6emr6652764d50.54.1788935624949;
-        Tue, 08 Sep 2026 23:33:44 -0700 (PDT)
-X-Received: by 2002:a53:b604:0:b0:66f:c1be:84c8 with SMTP id
- 956f58d0204a3-66fc1be8c6emr6652744d50.54.1788935624539; Tue, 08 Sep 2026
- 23:33:44 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="qc7a0T7I";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="HtlYJRlW";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="m6o3RiO9";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="z1DdhI9m"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id F2689219AC;
+	Wed,  9 Sep 2026 06:34:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1788935662; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=xJObUBGnkUxW+wvrR5z6kByIYO+JORY2AXipapUkFwA=;
+	b=qc7a0T7If+JsyHF/eKR/ej/8FQoszKLVTq+l5QYOxRCaHA3kMyajuRqXzij3Xu1C6DIdo0
+	qcWS2G3wD0QHRCoXIGbULSH3eDC7xMj7zc3Sh8BQtOuTxGqrHuDtCM8XeheqACcvfJNQGd
+	edb3jTwbTLZriimde/UsUHyswt+DbG0=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1788935662;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=xJObUBGnkUxW+wvrR5z6kByIYO+JORY2AXipapUkFwA=;
+	b=HtlYJRlWQpBG1o24fwSpl1qfRfe0+kBdeCcw/ZADpdoeABOqm9MTETS7Z3wSsFtnwFmi7Q
+	/heYXe/pm/R+3sAg==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1788935658; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=xJObUBGnkUxW+wvrR5z6kByIYO+JORY2AXipapUkFwA=;
+	b=m6o3RiO9uwp8n1SAb/qlvmVD5Lf7xPqnido8/ihsXM59/WQdeFnEJCdYMshV++pilSVOdB
+	2BhvC0K/C/7U9HjbLh7CriV0BfjRZRszIcTuD/bvBYlqRXXZndvB7vCf9LFHc51kS5ksO8
+	ssXn0aACF+sjdiwTD9mq/l7lLIM4dZQ=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1788935658;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=xJObUBGnkUxW+wvrR5z6kByIYO+JORY2AXipapUkFwA=;
+	b=z1DdhI9m/mIhKAli2W8sqPqH8Sq73selusIXmLdrjNOdy1b5jo7LeKpAQpwj6R3qUeT2TW
+	b/X2G0HlnDz3/dBQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 663D8138D2;
+	Wed,  9 Sep 2026 06:34:17 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id pVbAF+n9oGr6QwAAD6G6ig
+	(envelope-from <tzimmermann@suse.de>); Wed, 09 Sep 2026 06:34:17 +0000
+Message-ID: <0553006c-9cc9-47dc-8ac9-e71e4c617968@suse.de>
+Date: Wed, 9 Sep 2026 08:34:16 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260907-b4-qaif-shikra-audio-v5-0-6d8ad9ba5c9f@oss.qualcomm.com> <5e6d52cb-53f6-4af2-b1f6-d894d8dcca9e@sirena.org.uk>
-In-Reply-To: <5e6d52cb-53f6-4af2-b1f6-d894d8dcca9e@sirena.org.uk>
-From: Harendra Gautam <harendra.gautam@oss.qualcomm.com>
-Date: Wed, 9 Sep 2026 12:03:33 +0530
-X-Gm-Features: AcwNN1WQUsj5OMuHNikswDVbQA10l--Mx-WHy294kAjPi8kkiskKKrtmL0NvCDU
-Message-ID: <CAC-tS8BnLzKrtz_rJ-ScQwbfcvFuj5ptOBzXgCSCgUaC_gUCVw@mail.gmail.com>
-Subject: Re: [PATCH v5 00/10] ASoC: qcom: Add QAIF driver for Shikra audio platform
-To: Mark Brown <broonie@kernel.org>
-Cc: Srinivas Kandagatla <srini@kernel.org>,
-        Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
-        Takashi Iwai <tiwai@suse.com>,
-        Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
-        linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>,
-        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-        Sarath Ganapathiraju <sarath.ganapathiraju@oss.qualcomm.com>,
-        Kumar Anurag Singh <kumar.singh@oss.qualcomm.com>,
-        Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
-Content-Type: text/plain; charset="UTF-8"
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA5MDA3MiBTYWx0ZWRfXzzHlSNIrV4JC
- uZILWA9G9dtslGp+PC2jL7XuxZ+8EDDYetKoCX6+0fZHwHtnC0VoU/EJQK9RDXpX7TNLX2tTlci
- NnEQsN207Cnyh69zkohcak8BXMT1ntV7ec6hFW2Kg22m8FXukabqIhFvWlfHHO21jL6CGfVMFyE
- O1VCGEP52RFslXJa9/1p1aDY9hmlI+CopV28S+jkVRiLAxRAwuxPje1kVSfaM2zIrYXI2gs5/2h
- pcXaEHxpZkrOsIVUHjJCW1h7g/RvTJ1QArB8ZEfRVmAyypirnYsx1n6Lz7pdox2JLGRVtKoSC7a
- zA1mgEu46gquq9VR+ZbZlL6Gb9YNwP5mRyd9V//eaSJQ0YyAvBo3ASiU3fB0DGIL2qCSfM19OLq
- mKp0g5CBxekSITOUBnjpDMY5ulUDutCIwnrOnHaHn4hMxBIwlybz7qTOC2sL4dEBh6opp1RxjPy
- XBeDwOBhlSgq3B6YtAA==
-X-Authority-Analysis: v=2.4 cv=N+AZ0W9B c=1 sm=1 tr=0 ts=6aa0fdc9 cx=c_pps
- a=ngMg22mHWrP7m7pwYf9JkA==:117 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
- a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=rJkE3RaqiGZ5pbrm-msn:22 a=-dXBdVp_9Me3CGyqtu0A:9 a=QEXdDO2ut3YA:10
- a=yHXA93iunegOHmWoMUFd:22
-X-Proofpoint-ORIG-GUID: -TtCMtKF4TSFVMhR-QioUK8SrX_iBG90
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA5MDA3MiBTYWx0ZWRfX2ETZwOxu3dOc
- jhZpVn9y0g5AhI3rtq2UrevVlsHabfFV0ui0VixtBIx3oh8bG4l7XlA56KntdB/Fi5QPGJBY8Wm
- a7FhzWeHDcKDlKBP2UgDi+tRr42NeHk=
-X-Proofpoint-GUID: -TtCMtKF4TSFVMhR-QioUK8SrX_iBG90
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-08_03,2026-09-08_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 lowpriorityscore=0 priorityscore=1501 suspectscore=0
- clxscore=1015 impostorscore=0 bulkscore=0 malwarescore=0 spamscore=0
- adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2609090072
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 03/11] drm/atomic: Create function to insert plane
+ state into a commit
+To: Maxime Ripard <mripard@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: Daniel Stone <daniels@collabora.com>,
+ Harry Wentland <harry.wentland@amd.com>,
+ Jocelyn Falempe <jfalempe@redhat.com>, =?UTF-8?Q?Jonas_=C3=85dahl?=
+ <jadahl@redhat.com>, =?UTF-8?Q?Michel_D=C3=A4nzer?= <mdaenzer@redhat.com>,
+ Pekka Paalanen <pekka.paalanen@collabora.com>,
+ Sebastian Wick <sebastian.wick@redhat.com>, Simon Ser <contact@emersion.fr>,
+ Victoria Brekenfeld <victoria@system76.com>, Xaver Hugl
+ <xaver.hugl@kde.org>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+References: <20260908-drm-reset-state-flag-v3-0-905570f387a4@kernel.org>
+ <20260908-drm-reset-state-flag-v3-3-905570f387a4@kernel.org>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <20260908-drm-reset-state-flag-v3-3-905570f387a4@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Spam-Score: -4.30
+X-Spam-Level: 
+X-Spamd-Result: default: False [-4.30 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-0.999];
+	MIME_GOOD(-0.10)[text/plain];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	FREEMAIL_TO(0.00)[kernel.org,linux.intel.com,gmail.com,ffwll.ch];
+	RCPT_COUNT_TWELVE(0.00)[16];
+	MID_RHS_MATCH_FROM(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid,suse.de:email,suse.com:url,imap1.dmz-prg2.suse.org:helo]
+X-Spam-Flag: NO
 
-> >   qaif-platform.c: PCM platform component. Handles DMA buffer allocation
-> >   (dma_alloc_pages()), PCM ops (open/close/hw_params/prepare/trigger/
-> >   pointer/mmap/copy), table-driven two-level IRQ dispatch with
-> >   period-elapsed notification, and component suspend/resume across power
-> >   collapse.
+
+
+Am 08.09.26 um 16:35 schrieb Maxime Ripard:
+> drm_atomic_get_plane_state() allocates a new plane state by
+> duplicating the current one and inserts it into the atomic commit as
+> a single operation.
 >
-> I didn't notice the suspend/resume support in the series?
-You are right, the cover letter is misleading. The driver uses runtime
-PM suspend/resume (pm_runtime_force_suspend/resume) for power
-collapse, not PCM-level suspend/resume. Will correct the cover letter
-description or any other misleading text in the next version.
--Harendra
+> However, a later change will need to insert a plane state into a
+> commit without going through the full allocation and duplication path
+> in drm_atomic_get_plane_state().
+>
+> Extract the state insertion logic into a new static
+> drm_atomic_commit_set_plane_state() helper, and convert
+> drm_atomic_get_plane_state() to use it.
+>
+> Signed-off-by: Maxime Ripard <mripard@kernel.org>
+
+Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
+
+But there's a question below.
+
+> ---
+>   drivers/gpu/drm/drm_atomic.c | 29 +++++++++++++++++++++++------
+>   1 file changed, 23 insertions(+), 6 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
+> index 153d959bd4ff..f62323679f44 100644
+> --- a/drivers/gpu/drm/drm_atomic.c
+> +++ b/drivers/gpu/drm/drm_atomic.c
+> @@ -624,10 +624,27 @@ static int drm_atomic_connector_check(struct drm_connector *connector,
+>   	}
+>   
+>   	return 0;
+>   }
+>   
+> +static int drm_atomic_commit_set_plane_state(struct drm_atomic_commit *commit,
+> +					     struct drm_plane *plane,
+> +					     struct drm_plane_state *plane_state)
+> +{
+> +	int index = drm_plane_index(plane);
+> +
+> +	drm_modeset_lock_assert_held(&plane->mutex);
+> +
+> +	commit->planes[index].state_to_destroy = plane_state;
+> +	commit->planes[index].old_state = plane->state;
+> +	commit->planes[index].new_state = plane_state;
+> +	commit->planes[index].ptr = plane;
+> +	plane_state->state = commit;
+> +
+> +	return 0;
+
+I've notices that in other commits as well: why does it have a return 
+value when the function cannot fail?  If there isn't a need later on, it 
+should preferably by removed.
+
+Best regards
+Thomas
+
+> +}
+> +
+>   /**
+>    * drm_atomic_get_plane_state - get plane state
+>    * @state: global atomic state object
+>    * @plane: plane to get state object for
+>    *
+> @@ -642,11 +659,11 @@ static int drm_atomic_connector_check(struct drm_connector *connector,
+>    */
+>   struct drm_plane_state *
+>   drm_atomic_get_plane_state(struct drm_atomic_commit *state,
+>   			  struct drm_plane *plane)
+>   {
+> -	int ret, index = drm_plane_index(plane);
+> +	int ret;
+>   	struct drm_plane_state *plane_state;
+>   
+>   	WARN_ON(!state->acquire_ctx);
+>   	drm_WARN_ON(state->dev, state->checked);
+>   
+> @@ -665,15 +682,15 @@ drm_atomic_get_plane_state(struct drm_atomic_commit *state,
+>   
+>   	plane_state = plane->funcs->atomic_duplicate_state(plane);
+>   	if (!plane_state)
+>   		return ERR_PTR(-ENOMEM);
+>   
+> -	state->planes[index].state_to_destroy = plane_state;
+> -	state->planes[index].ptr = plane;
+> -	state->planes[index].old_state = plane->state;
+> -	state->planes[index].new_state = plane_state;
+> -	plane_state->state = state;
+> +	ret = drm_atomic_commit_set_plane_state(state, plane, plane_state);
+> +	if (ret) {
+> +		plane->funcs->atomic_destroy_state(plane, plane_state);
+> +		return ERR_PTR(ret);
+> +	}
+>   
+>   	drm_dbg_atomic(plane->dev, "Added [PLANE:%d:%s] %p state to %p\n",
+>   		       plane->base.id, plane->name, plane_state, state);
+>   
+>   	if (plane_state->crtc) {
+>
+
+-- 
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Jochen Jaser, Andrew McDonald, (HRB 36809, AG Nürnberg)
+
+
