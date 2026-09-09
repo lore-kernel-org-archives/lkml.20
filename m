@@ -1,69 +1,69 @@
-Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B454559CAF
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 13:07:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBEC3242D65
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 13:07:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788959266; cv=none; b=DXvzpBjzXLJ8GQsu7OmT2ppZxNed5XGbwTiNNMqal41ktY+7KR0hH3Q3+FnDxHZpHbdmlQcdWZ6ebnE+XlG+6HaLRT/0ign8xzgvYRtMFljcTpGsY5oU1yB9XWvBW28ldidWaPvv7OF7JAtv4E3JQ+Q1f+M4tSmj3+J0woLjeQI=
+	t=1788959268; cv=none; b=RdMhbgUuJntKXTM1jTYE2XEdjeN923kV8mMuxkilVCVxUV2vVkDjZOj1YFXNfBQ+7lHrLYKChY0RrY2Vv3qZ74Xaih+/5UWzcqCmzsh3fgD3wCcBpRS1M3gT2QS708eMB1fSdBXPhcUnU3Pr+6GlA/T6sGBDccuCHjynKGVc1Ow=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788959266; c=relaxed/simple;
-	bh=F9UtKl4B6t8wbkHKbIW9J3bu7weHA8+ItYSrU6pYN94=;
+	s=arc-20240116; t=1788959268; c=relaxed/simple;
+	bh=E/My9ncjedyj86RSIW4IqQNhl5mZctXdRI+O7IRN0Xg=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=TQN9UzJ67a1R3dqkRNNYIY8M9d/sureo3XS9jPFJzF18KDUmTIbruaEFnphSi4JsZSaAgPQPr9g2V2AL6XV3qk5bxWswCREihwcNds7Sce9sIialjNmL8raWQDw+62+JIv2KO2kJuwzUwv4LXs+Kj7T/M1GcmvBMbpniwXMCCaA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=EfR/VxvL; arc=none smtp.client-ip=209.85.221.47
+	 In-Reply-To:To:Cc; b=t+9pzUCf+PPv2E6Xxde7hIi+4nH1Owm7lD9DDonPk3zthd8yvpchWw87LBOmVniP6m04NZ6C18vURSR45LUW/ulqjNvigxJnVsbJwbTcRZnfPvYYtItgFyToCaIoET1K6FaTiYPx2epSOYUpAV7+64oU6o3VpQl99damC2KduGo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=glOVeoF+; arc=none smtp.client-ip=74.125.225.76
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="EfR/VxvL"
-Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-482f2ee53e7so4316532f8f.1
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 06:07:43 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="glOVeoF+"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-48434392b02so177294f8f.3
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 06:07:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1788959262; x=1789564062; darn=vger.kernel.org;
+        d=linaro.org; s=google; t=1788959263; x=1789564063; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=sf3kDe6vLMOFTu1A3Jzs1A3L0YjE2Jrq1HnW9/y61N0=;
-        b=EfR/VxvLvORVzx3CQFn1gMWVNu/fXjCGd+u36+4FAemU/s6vbzUo+RbLeqO4J5be62
-         d9C1/3fc6O/H5B2ujjZ1GZ9H2S2628TKTamawG1rLcUWzqTshOFKlD3Gpx/jhbRMWK5S
-         v03WGmIsVvSP9OeOUdooO98v4BPD6sgt1Mi131ZXGsv2rCT/wQsGojTu6Hhp8Q2SiX89
-         5gNiR4VHgeA0wZpsjYpfwYZ0tNq5ki7ixWXyEmOTA1A3dN+lzUaV+giYNGWM/W94v15L
-         xpGSWsjT3T4Jd+7DYsu65eqWhZEumJaEFdNAUWslsROt0GQh5waIj0KTsYqFlCZttZLy
-         iFMg==
+        bh=vhQ8dnMMSXYBO5z0OmAAA57hjGRa0PP2+u3YEd9RJZE=;
+        b=glOVeoF+Do9INs0Bh5wRgoEoLThg7VvB9q5V1DCGf1TXftcmg5fmiOgZrw6+eBIvZD
+         c8PhsmEl42lFWW++d9i+c0R9aoTAFyxC2AMmMuhao+DqZ4eaVYzR8O/+kLqe+UhJv0y6
+         nIA5CDbwlvxTZHiwqkKicpsBFwwEqZwE1xgYUtgWjKNWJMQr1ymtyj5NeLNFDlyy85zU
+         vP57XIjgCpPd31tVFb8e1Cxbf9wFBfvrMmHzOJE+xVQzVu5EUILF54WkS+H/l5h2XSHt
+         7Ss88wJX2J4NBj7U3/HlqaBuycp0KbzuZUup/PNdoxMHW/xsMFrg1Gv0fjwjsXOrrrz3
+         0d+Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788959262; x=1789564062;
+        d=1e100.net; s=20251104; t=1788959263; x=1789564063;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=sf3kDe6vLMOFTu1A3Jzs1A3L0YjE2Jrq1HnW9/y61N0=;
-        b=RXqGoQX9RbuYv05dhOIORUp/xc6yr2zEZRr6Wz1vdt5E83AK95IrhC0yB+LvD9TyyK
-         FXM8J3kMGTEPw8pOY/TjNWJnQgs5ygcuEjartGYdL5uDuv4kYU9dzeJr9HWN8qJDwdp6
-         4/HjeR39pn05nZ5HyIekZozMMLXngyxF7Srs2lorRNNXAZFyX93tibnF5F7ruWiE9WoU
-         EoWR3q3a3sn+Wu/eTi37pPZFtypHw/l6WHPtz9+Q4gxYb5AbF2byjW8jo4KM66r9T/VI
-         XHbzTUgqIkAY+MtEMxJ/lCrJbO+X1UyXRHAQetqZzVZPeg1Z5Ki8FJupMvjbmRolL/By
-         I8lg==
-X-Forwarded-Encrypted: i=1; AKwUvBxeXJ5Vb5dImeJoGSc7UqYpHq/+U78fHDdse9e7865/JfZ0XgmQzxA9agtS2DNS3uwlA/MkQmbTVcdOsTA=@vger.kernel.org
-X-Gm-Message-State: AFuF++mbELgVlrwSDliB+uzwIn27aTEMhGY/Z0eklMWQPVtRRU1fHcxU
-	lW285tBbh84JMkAmaqcSm375uYCRbX9xshUiwvpHzJMX5ieJkGx14ruJhSuJuNp44Ls=
-X-Gm-Gg: AYBFou1qPGx95UAW11jaZ50sE+KGp9vbvR2U2n76IH6KS0xwxZgn8L6wUSaENlbUkkU
-	MvLFdle+DC6BSVuw5ayGf7iLDG3HgK6jZL7VWshgkm3rTVAxSY/kKtVvM/3Rv+SKyPxBxPwrKwx
-	pwU5+ONH9A/jSjh2l634xa7PgfBbuNQoKiuvnOm+bPq7Hacqqk/uIEGbuJgIkf2twwazH4eTAiu
-	NlJ/0x3HoMFDX93doiV25eVVF8sznafT7b/Y9wrhNBu4qr90sjUcu3Uowlgtdv+Ih2qAIziFcoI
-	dv9QJAmDFEhakdX9sQBQ8zFZD2Yl8H7TQEB3ZUV8fzth1ncRqtyBPjjDszA/do8hl/+ruyoZDnu
-	txtAdBdmnjvRhSWjy6omIPnySxun2g2dJHtGWkbYzPHijYUascDHfZnq03mT98daAc7OsBJvtpG
-	72g8bFz8s4n5ty4FymLQ9GWTZIwjIhD05oRR+NVF9ciL8/WnwSsgUAqgYQL0C3Zy5wHBafZSXVe
-	XktTnVgT37bBIqcYqM=
-X-Received: by 2002:a05:6000:40c9:b0:485:b0a2:6e0e with SMTP id ffacd0b85a97d-485b0a26ffcmr3240438f8f.24.1788959262300;
-        Wed, 09 Sep 2026 06:07:42 -0700 (PDT)
+        bh=vhQ8dnMMSXYBO5z0OmAAA57hjGRa0PP2+u3YEd9RJZE=;
+        b=ggdHAWdZLHdJUuBB1EhGgUx29MBQelOKdK4O3CeqVAbqlw4KKNfRGCezc+w8lUf0bn
+         LtV+wlb2qQ4CP7EZwa+x8MbZj6rr2USJ+qMsaIJ+RgE5TfKcVIhKoyns2KwcjCU/5+1B
+         6GymFtU+LQbskuu7ffLAvt+0a6Kuq4+t2MdJeBn7mpIMjX7E5lgAco09vN3vbReh3nV0
+         OiJKzs24rmOqdozDsWBxQV71+USBzEpzC2z+FihBk4wbTk8GCdsnvRk8JG4JQGPQnOdJ
+         A9dstNmNuvshtpY9ou0PKoTwX6kEpw6Xhn582zQYRklWL7kZYMvsllUnN9IIvxVopaB3
+         1CdA==
+X-Forwarded-Encrypted: i=1; AKwUvByyibYlHgUg4z5XKq+LiZHWIWnz6h69LkMUv2ehJ/aoYCWmlDNVDWXXjEhdDkMtsCeVDm3aEN091iqclN4=@vger.kernel.org
+X-Gm-Message-State: AFuF++nC+k6OQkQ+je/8OO3G0n+jsofShhJqnYWKf8QjZ3ikpeKO8ee3
+	D8qA0GShMCTFDZ0K7mejXzL2PfRFbJ17xChPT+lR0By8nMbj0JEGl3YqFsKrw8TbakM=
+X-Gm-Gg: AYBFou2LNyfTQ2/MPL6SCidEyHjc8mQ6wYHsPdIAfX3MJlVWZr//chhS0v8Ws6raWDi
+	7YmEKmBfuK8VQvi/h+br8AyAdGQ96PaKnkJwDq3ykdswGJpTqeyv3DPFQDOD3GkeW7O4pLMARTQ
+	NkrkVmLZZ5ZylM6oTuzrxI6XXyfeuPJjfgUCXrAm3lxTcumDbKMsjVrWsRShS42Yv+vRn8cMQzu
+	PN0v8IrOtKdLoDJetoTroTWpEzOpjbiVgWjKrreUbtovYMZz4rZjD+qFWU0dS1QoLZS4QnVBvIw
+	NsSE/sVeHMFbjeUCydX6MdtEcCM3aJSWl38OKs/mu5NQbVrOISVfdzj4DL3a9IGfZU9UzZ7DnNa
+	vq3Y/uxp4Jrxeem+paqC4hkMhLogLvNNclywnS/Ath8B5D5SHmHl0eB/zM+dWDnO6qxoj1NzH5X
+	zU2SyzBUbQXOXHANT8kTViXiMCITbFF9CZ9FHAZntKq/kU6fJfWfmQGJMVRznk5Ys8U/fsCEw0L
+	EcBXrIOzrFbxdUJggo=
+X-Received: by 2002:a05:6000:4801:b0:482:f61c:7cdd with SMTP id ffacd0b85a97d-485ba5ac39bmr3264342f8f.4.1788959263366;
+        Wed, 09 Sep 2026 06:07:43 -0700 (PDT)
 Received: from arrakeen.starnux.net ([2a01:e0a:106d:1080:52eb:f6ff:feb3:451a])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-485883927a3sm34031175f8f.11.2026.09.09.06.07.41
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-485883927a3sm34031175f8f.11.2026.09.09.06.07.42
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 09 Sep 2026 06:07:41 -0700 (PDT)
+        Wed, 09 Sep 2026 06:07:42 -0700 (PDT)
 From: Neil Armstrong <neil.armstrong@linaro.org>
-Date: Wed, 09 Sep 2026 15:07:37 +0200
-Subject: [PATCH v2 1/2] drm/msm/a6xx: Add CX AO Counter registers used for
- a750 GPUs
+Date: Wed, 09 Sep 2026 15:07:38 +0200
+Subject: [PATCH v2 2/2] drm/msm/a6xx: Use CX AO Counter register for
+ timestamp on a750 GPUs
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -72,7 +72,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260909-topic-sm8650-gmu-a750-timestamp-reg-v2-1-091d74958951@linaro.org>
+Message-Id: <20260909-topic-sm8650-gmu-a750-timestamp-reg-v2-2-091d74958951@linaro.org>
 References: <20260909-topic-sm8650-gmu-a750-timestamp-reg-v2-0-091d74958951@linaro.org>
 In-Reply-To: <20260909-topic-sm8650-gmu-a750-timestamp-reg-v2-0-091d74958951@linaro.org>
 To: Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>, 
@@ -87,44 +87,58 @@ Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
  Neil Armstrong <neil.armstrong@linaro.org>
 X-Mailer: b4 0.15.1
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1220;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1668;
  i=neil.armstrong@linaro.org; h=from:subject:message-id;
- bh=F9UtKl4B6t8wbkHKbIW9J3bu7weHA8+ItYSrU6pYN94=;
- b=owEBbQKS/ZANAwAKAXfc29rIyEnRAcsmYgBqoVobyq26GnIpkdy6FzKAuEhbx9QR7aKpHnSmPRKH
- ZinVqHaJAjMEAAEKAB0WIQQ9U8YmyFYF/h30LIt33NvayMhJ0QUCaqFaGwAKCRB33NvayMhJ0V5nD/
- 0eM0YwQTU29l+Cb7wkg9KONqEkXNSerFYyomOk1Ei/FYnvg0Sg25LM96S6UX0iOADZ+xQ5jjEevn3b
- Bn5ZHvWwKTNA2BS0GiLZvkrihtzql2KaKpekViV6IV6cjb9CU+f+AL1q7ho1TuwX1ZvGnB5p4sGfWM
- unzFyHyEoCD4o+xwLkKfB0Y6xsRnwHtg3ulEodDFOTXPy0+fIotoLLo0c2nOXjtuY4Yh5ppI+aV7yX
- NKqge6DZEg6dTyELZXchyy23uqYpVzz1rZ0/POkgTCMCUmFZgsYcgX/nquHJuvrfVtvyWdAEmo9PSl
- qE/tL9CCOqpNrD12B02e5mvVWuz708IBVV5stqr9ERhI/iDMxT5Vw6HNUCAqkreWhTaF/qVcUcn6l6
- fgBLreutoP1mQk7eUgXJxVttd4jSCvp+Q68C610TsV5fUTG8n4ynwmzcjQ+ZdmhbY1GFkD3UqVulii
- 1CCqIZbErl64jwcrrgph6bR13NtiEEGRicy75zWFahqxifo3rE2d3bMVY/107zTqfqAljKyklBi0XI
- 8JoC9ZON7ESbaQ6DfoRT166ze9U3OOdDsLpJDi7H8Y21cmtLZrRfLnydVJFAl3F/PTbdSw8DjlE+WI
- k/hbukm+4jSYwmJXCuSh7tAR9T2F8xoJ45FsfsAkbNAyvcJY14AODjrNhMrw==
+ bh=E/My9ncjedyj86RSIW4IqQNhl5mZctXdRI+O7IRN0Xg=;
+ b=owEBbQKS/ZANAwAKAXfc29rIyEnRAcsmYgBqoVobWagEdlOIJeGoAoJPEc+PsgA62XSekFt8u4+f
+ NGykKkOJAjMEAAEKAB0WIQQ9U8YmyFYF/h30LIt33NvayMhJ0QUCaqFaGwAKCRB33NvayMhJ0UCLD/
+ 9/68Amb6nPQBbNDUn9tZp6XTD/MFUbly5GKO4KLPe49oaJZW+c11rEhm1ovfjdxqDfpQJAlPlCwPmS
+ Kmh9meLsu/ducAS2/94ZtoCdvB5+Mcoc1xj6vIn16ieX9NwWKXEYAMhmbW2om58IJDCBEjzxmNoHqQ
+ 5BWLqRWAKUOmD2xmyVml87hCBuQVD2esSDtvqdLHp97IaN8QwyFaH9edtkrvfjCEg4sQZ9MiHOSp8G
+ qKTDYb5LLaxBRY3Njsj9AbLvaEe8aVJfOJWhAGhcsS7g+76oOVyPKUrgX5UD//WNcSLL10mKLpU2kG
+ PZzyQGIMPbdAA5eqVUBdtMHwTvBcdcuh01t8PPOYtx3fIoUtsowBTgD5R8xOWerK5NbJX/de4tT4QB
+ RCthPJqJnkTJJiL77e15WuBNsw/3jSHenieNdSHspCz2L/T3OdvJMR4iDkJlM/o/HyfbESFv8qHR2U
+ O+igVfLnjGS/02pmHwPA3/QpwD8kSOH4/mv/Yr4vsvCoiS/+HpaxB4cK/VSRRTMeKWM2YfZFQ3Mvi2
+ SISu9F+RSk4krwGgYk+unRMxsVypJRcFsHGAFpQYByz3lMeFTx66cgpjt+Wjm78U7fAyAmXk+xLaj7
+ 1bQM2lmU9+QPTZPgKPGqLL+/BN5ef4DyvRHgnnEyd15DS8eT5FdCWmuGn7dg==
 X-Developer-Key: i=neil.armstrong@linaro.org; a=openpgp;
  fpr=89EC3D058446217450F22848169AB7B1A4CFF8AE
 
-The a750 uses the CX AO Counters instead of the GMU_ALWAYS_ON_COUNTER
-register on A6xx and other A7xx GPUs.
+The a750 uses the GMU CX AO Counters instead of the GMU_ALWAYS_ON_COUNTER
+register on A6xx and other A7xx GPUs, use it when running a A750 GPU.
+
+The GMU_ALWAYS_ON_COUNTER at offset 0x1f888 doesn't seem to exist
+on the SM8650 A750 GMU and returns 0, but the CX AO counter at offset
+0x1f880 returns some proper timestamp data.
 
 Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
 ---
- drivers/gpu/drm/msm/registers/adreno/a6xx_gmu.xml | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 12 +++++++++---
+ 1 file changed, 9 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/registers/adreno/a6xx_gmu.xml b/drivers/gpu/drm/msm/registers/adreno/a6xx_gmu.xml
-index 33404eb18fd0..b3082738c99d 100644
---- a/drivers/gpu/drm/msm/registers/adreno/a6xx_gmu.xml
-+++ b/drivers/gpu/drm/msm/registers/adreno/a6xx_gmu.xml
-@@ -141,6 +141,8 @@ xsi:schemaLocation="https://gitlab.freedesktop.org/freedreno/ rules-fd.xsd">
- 	<reg32 offset="0x1f9f0" name="GMU_BOOT_KMD_LM_HANDSHAKE"/>
- 	<reg32 offset="0x1f957" name="GMU_LLM_GLM_SLEEP_CTRL"/>
- 	<reg32 offset="0x1f958" name="GMU_LLM_GLM_SLEEP_STATUS"/>
-+	<reg32 offset="0x1f880" name="GMU_CX_AO_COUNTER_L" variants="A7XX"/>
-+	<reg32 offset="0x1f881" name="GMU_CX_AO_COUNTER_H" variants="A7XX"/>
- 	<reg32 offset="0x1f888" name="GMU_ALWAYS_ON_COUNTER_L" variants="A6XX-A7XX"/>
- 	<reg32 offset="0x1f840" name="GMU_ALWAYS_ON_COUNTER_L" variants="A8XX-"/>
- 	<reg32 offset="0x1f889" name="GMU_ALWAYS_ON_COUNTER_H" variants="A6XX-A7XX"/>
+diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+index f9de9329dee3..081e79ea4652 100644
+--- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
++++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+@@ -23,9 +23,15 @@ static u64 a6xx_gmu_get_timestamp(struct msm_gpu *gpu)
+ 	u64 count_hi, count_lo, temp;
+ 
+ 	do {
+-		count_hi = gmu_read(&a6xx_gpu->gmu, REG_A6XX_GMU_ALWAYS_ON_COUNTER_H);
+-		count_lo = gmu_read(&a6xx_gpu->gmu, REG_A6XX_GMU_ALWAYS_ON_COUNTER_L);
+-		temp = gmu_read(&a6xx_gpu->gmu, REG_A6XX_GMU_ALWAYS_ON_COUNTER_H);
++		if (adreno_is_a750_family(adreno_gpu)) {
++			count_hi = gmu_read(&a6xx_gpu->gmu, REG_A7XX_GMU_CX_AO_COUNTER_H);
++			count_lo = gmu_read(&a6xx_gpu->gmu, REG_A7XX_GMU_CX_AO_COUNTER_L);
++			temp = gmu_read(&a6xx_gpu->gmu, REG_A7XX_GMU_CX_AO_COUNTER_H);
++		} else {
++			count_hi = gmu_read(&a6xx_gpu->gmu, REG_A6XX_GMU_ALWAYS_ON_COUNTER_H);
++			count_lo = gmu_read(&a6xx_gpu->gmu, REG_A6XX_GMU_ALWAYS_ON_COUNTER_L);
++			temp = gmu_read(&a6xx_gpu->gmu, REG_A6XX_GMU_ALWAYS_ON_COUNTER_H);
++		}
+ 	} while (unlikely(count_hi != temp));
+ 
+ 	return (count_hi << 32) | count_lo;
 
 -- 
 2.34.1
