@@ -1,75 +1,110 @@
-Received: from out162-62-57-137.mail.qq.com (out162-62-57-137.mail.qq.com [162.62.57.137])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A9B834041B
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 06:29:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.62.57.137
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4307E2E266C
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 06:30:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788935377; cv=none; b=EKNKrhrH2IlxNhVJHEgELlQCEeeMshlWLrm507aQts2xPfGrIHUqEyuTBEBE3uX2w3+mKI9FlaT/Vn0YXdYha34Po8fX1DCCCV+sxhZQkt8s1UHD9ZIZszQu0MDOfjdz+QIqA+qtlK/79TUZ0+ddzX7wBNlkP2pNv/rQnlZ4tX4=
+	t=1788935441; cv=none; b=E06feQNgSwBtkez06aXAYpzrfIPxXA+SHbvTndQbdcos0C6EmtGCRT8uosg3GwJzlup/Nu+sorz0nqExNptxybDXnhpmh4o7+rz7X9aJPbADOmg1f3cJvIMOd+8O5ktZRWsUUbUFDJsViznbAPS1UQ8pAIia8RxZG7vK0INv77s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788935377; c=relaxed/simple;
-	bh=+pdap0uuKbgUosOmANRUk/9FWBKtG/h+1HwPpPjHqds=;
-	h=From:To:Cc:Subject:Mime-Version:Content-Type:Date:Message-ID:
-	 References:In-Reply-To; b=SFHrxjKO5x7l8OIq8n6fZ9YW4gZQ1DjkyyonMtJ4CNgSkXCLi4y2A0Ca4+CvU+XMSps7u/p8le0Ouz0sih0DIkwTASzl9quawoNuW4thg2X24Yer0Uqnu7OWyNgIF3KyBpG11ptBcW0Ea49hIUKrQUDsTMIijxYNsuySH/cXEGE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=dxH19Z0K; arc=none smtp.client-ip=162.62.57.137
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	s=arc-20240116; t=1788935441; c=relaxed/simple;
+	bh=TbvdMU5uBRwk78kw9thSCvNvr4Qo+KDKUggC7rePmx8=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=DRVWbMdgDmvz222v8X5PR1oaZrC5ZMJN045av9tmN9evUyuQj6Py0HiJ96/v155Qn3l2lhCd9J19U61UuaUWcNKGhelTXx0o8VpyIvh091FFW/iE3bzasVooshTTBt5Yik5KwXZhQk6c+NCl93VanCplyP366dvQkx3k4B81UW8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MEdYQeKO; arc=none smtp.client-ip=209.85.221.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="dxH19Z0K"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1788935363; bh=+pdap0uuKbgUosOmANRUk/9FWBKtG/h+1HwPpPjHqds=;
-	h=From:To:Cc:Subject:Date:References:In-Reply-To;
-	b=dxH19Z0KKkFbAQefwAc5DO9SgqdIykbdo9l9hAPvGKfm5cWEoHRkeeoRvxGSJst+R
-	 kx3tagDs2WCfahZFWAhsaan895UhMCbzpcmlLMaSUbo3iCzyiguSWSpbiaYRKKm3PR
-	 u0RuAah/FvbaPOdrTLUZC/XKEPAlrQUq0f0VSC5E=
-X-QQ-XMRINFO: Mp0Kj//9VHAxzExpfF+O8yhSrljjwrznVg==
-X-QQ-XMAILINFO: McF9JvsryK5Jcya3w+KH97a3P5xXcr7RMjBnG+rEcCCWzNC9IH3WVGp6sTNGXW
-	 s/qYu6oYEOp36cyxBBIxDQc+bGnh831VmBy64GLTwROHQ1eK6qL3eXQBC+MMSi0ZlRhzTJKtfwoJf
-	 pfXJ69iKHquhSEZN7+GRfwRlzofl43O1gVkMog5lCS/+wo8lCaWRlaiPvdvxp+etUaEqrt4cJgwCY
-	 u2Oz7YUquYH/RDzZXnQmV5OpI6K6JTCmQD65sEzo6eCSEyZ7BXvVa93mbNah3NL+l78iFP3Ez4dug
-	 rR0IAfnZup899cnaPpa9QI7abhA64I42x+1BpCPjYItF0y1qElaxJDxA22vAfzRMEWyWgaAcdEfXy
-	 Ixweue/j2ixELDnfS7hUzuF/LxOlSlILbxvR0WCL9bluYz5nljkhekJ1iT/vvsCHue07lIMAXur9P
-	 vruwu7RTojGVl0ijdq1IJ53njkUmIJcbxvO+a3QMf3mvUHt+O8urfoI3BFZDF8hOxlds5yF/uFXOX
-	 pPKA4/8YuBzO4m5D4Uj1YGQLHh5IY5RVmzDCazyI/4/F3NuR7qDD9mSUxOJwZ7/xZ6FANBAmhHvIW
-	 30KBcGAuDOxITm9Esu9kWrY0ZG9Bb85xHjHMPX91dtYI3CpMFFztt208Q6OhfsVOOt4KWxUREIUin
-	 6+TFJXtMwSToEOaffjA1hpzSdo7Hmzdry17m3+2KkN6gHqCLS1oOYCdL7JYW5GBfytXzhue4DIrz0
-	 SrslpLlOsLaexwSdcOn5HT2uzhcfBM3OS9sSZoF/R1famtRU+geZl+zFEbnDRRXOXh4ybioOowqP0
-	 Hr2LNNxXXHZynsFVj7rUgomH8zauJFo26MZ5U9HJsVc8JI+d3hHpNwvXi4BZ/d6c6l34ahmJ1IFoT
-	 MoHWaFAhpqRSW9cW3VJVDbaFPVxmWPIPXQSu4YQKQNSze4qNLKjXZpzUPXB0URGmZGxiuo3V7ggS3
-	 X2OKgW1WJ/BX5s66gDn36NkXntSn++n+f/QPa536gjAU+a/6OGQ3scTUlcCP6IfegGUrJCXg==
-From: "=?utf-8?B?Wm9uZ3poZW4gRmVuZw==?=" <1768315307@qq.com>
-To: "=?utf-8?B?TWlxdWVsIFJheW5hbA==?=" <miquel.raynal@bootlin.com>
-Cc: "=?utf-8?B?bGludXgtbXRk?=" <linux-mtd@lists.infradead.org>, "=?utf-8?B?bGludXgta2VybmVs?=" <linux-kernel@vger.kernel.org>, "=?utf-8?B?cmljaGFyZA==?=" <richard@nod.at>, "=?utf-8?B?dmlnbmVzaHI=?=" <vigneshr@ti.com>
-Subject: Re: [PATCH v3] mtd: spinand: cache the last read page to avoid redundant SPI operations
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MEdYQeKO"
+Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-48441a2ba1bso3937471f8f.1
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 23:30:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788935438; x=1789540238; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=oWVSfJYhAn6e2RRpwRhzeBGFUz50IiA+3fKcwx4qg9M=;
+        b=MEdYQeKOgiP8FUwSk1uE6xe4E6ThKnBqsC+0BKoi59ZVWG7xuyC4OVHUdqLIrC0LGk
+         SihcSvqN851j4K3exSigNIuRIKNB5avu/JLzMGTXppGpnKMYhV18RnZTvdOGRpUP55XB
+         6Ve+XetMcXZnnla1XttT3TTXYFuogrR+A7f4SFL+8HsQgyMWozKqU0oe7pCCLQsX5LMe
+         wqxUa5FjrE+17wl7MfZs29A+RvOl1dZrIMi1FaV8AOk4w/9UlyqU6Fr+mvkTEy/Rvefb
+         XZ5KePngDG965WhEFJdgjVCU9bhfAuzTNmfM09S1UNxKF503hLxpUR8n8d7WSZTYHngd
+         5QtA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788935438; x=1789540238;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=oWVSfJYhAn6e2RRpwRhzeBGFUz50IiA+3fKcwx4qg9M=;
+        b=F/2IwMH7iKIctMvKbYW2xPlc1HLonNpqXWg54Or3xOU4XHqOabEPWvOSsbehS4lU5q
+         EyivS6C0yX9Ka8y7GhypnFABcNYFpuXoW3CP9g2C2FXG86XSt+PePkaib7bm0pUlQE2H
+         z+VkHtMRptLDWb+CdHzj4iTKXWAdE7f4wkg7RcwwW6QYq6JlAnqxF1mY7lHZ7K9UWjlS
+         eCoFqu7xvEV8QFmr2DmbLn6UATjb59rjtWqRtoiH+CR78Wz1MAVraqJAsniSqrEDb7Lp
+         eXv2I3Sb9nMwpR57jS1H7GisqPboSmp/zl+opqN+BeFyEOWvLoxLKT0ZxDyjmMWOHwRO
+         0yng==
+X-Forwarded-Encrypted: i=1; AKwUvBxjWR5hWIrifrLHP/rci4Kz4Ygvhc9eh7mUw+uN2Pi0xfYesLhoyrp+3YlxbvE5t9pjtNexsnMTGxsVD/M=@vger.kernel.org
+X-Gm-Message-State: AFuF++nSsk1U3GFsnb535h3BTgTcFcLTNeGP8YsumHvHZD+Nwz/kF4u/
+	mAUiYj3goK3kEpitJtVYG61VEBU9xfC9KUkuB7o/xBU+rLihOZqEt1UL
+X-Gm-Gg: AYBFou2su3yfyATAo8ebw8Z4ufbnCFE+4+aMkyfkOuTJQw3GEPOa2HvkZR8f9I8bcxG
+	4mh8h9rZ5EdNLNEcjXuMyBVa4kAH4JbtIn6uDmKwif2J55JfXgerrmRnU51zOlXV8RcMYg/Oppu
+	1KuKRTi/ULfgUM6UW4PvXXGJzhZHQikBPKuXwcHtHiRg8ShfoI/MI0tgaLxBG05crmZfLS7BNA/
+	ZTmMK9BOQLbrh/AX3xqMSvKBIQkJbIvWjaMAjiLbO7jK6UEDdRRH8xqPTi1xMJcyZsGZDLLHrsM
+	rv4BibXY4BevoOud/BlMzsEIRgZpoCfchUEdxh6g2oiPEovoUTylcp0sryHP66nBhBN9kJcDw+5
+	yVATyQ1XqnYwII5IbNbt7pwtWHgKJFDtUH+/dg++7bOZ3VEzR6jSEYZq5TI2tSP3DO1T2p/m1TC
+	Onr1yYCSWxMuTVlhvpWMgyh4+GT07QrbDrOXS0I88AWPG8mOD9dXYsob03zGozF5Czw76jTInls
+	VvmOoVWs/bygIirSXACVu67vy9bVI/GaDC1P87WehqJWFmuOVQW6z6wR+HJ7BZyEvJPUYYpTCSX
+	dfIluR5gxvkeloqaoFq8ronAWf+qRJQEr4Egd0Gvc54Dy10yTrOR
+X-Received: by 2002:adf:e19e:0:b0:47f:e377:8d61 with SMTP id ffacd0b85a97d-485872a3f3dmr36403866f8f.11.1788935438109;
+        Tue, 08 Sep 2026 23:30:38 -0700 (PDT)
+Received: from MacBook-Pro-von-Karl.localdomain (dynamic-095-114-212-219.95.114.pool.telefonica.de. [95.114.212.219])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-485885bfe14sm41956154f8f.35.2026.09.08.23.30.36
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Tue, 08 Sep 2026 23:30:37 -0700 (PDT)
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: Steven Rostedt <rostedt@goodmis.org>
+Cc: Karl Mehltretter <kmehltretter@gmail.com>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Vincent Donnefort <vdonnefort@google.com>,
+	linux-trace-kernel@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] tracing: Fix ring_buffer_read_page_size() kernel-doc
+Date: Wed,  9 Sep 2026 08:29:17 +0200
+Message-Id: <20260909062917.89482-1-kmehltretter@gmail.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain;
-	charset="utf-8"
-Content-Transfer-Encoding: base64
-Date: Wed, 9 Sep 2026 14:29:21 +0800
-X-Priority: 3
-Message-ID: <tencent_ADBE12933F3EE6A4DFBD640C15CB67442305@qq.com>
-X-QQ-MIME: TCMime 1.0 by Tencent
-X-Mailer: QQMail 2.x
-X-QQ-Mailer: QQMail 2.x
-References: <tencent_4C47F17C98F6F164274CEE84638558D62308@qq.com>
-	<tencent_E818586423F2F16D98DEF1EC2723EE4A6308@qq.com>
-	<87o6e7u8jt.fsf@bootlin.com>
-In-Reply-To: <87o6e7u8jt.fsf@bootlin.com>
-X-QQ-mid: xmseua17-0t1788935361t91bksk78
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-SGkgTWlxdWVsLAoKVGhhbmtzIGZvciB0aGUgZmVlZGJhY2suIEkgY2hlY2tlZCB0aGUgZW1h
-aWwgdGhyZWFkIGFuZCBwYXRjaHdvcmssIGJ1dApjb3VsZG4ndCBmaW5kIHRoZSBTYXNoaWtv
-IHJldmlldyBjb21tZW50cyBmb3IgdjMuIFRoZSB2MiBTYXNoaWtvCmNvbXBsYWludHMgYWJv
-dXQ6CgoxLiBDYWNoZSBub3QgaW52YWxpZGF0ZWQgd2hlbiBkYXRhYnVmIGlzIG92ZXJ3cml0
-dGVuIGJ5IG5vbi1jYWNoZWFibGUKICAgcmVhZHMgKFJBVywgY29udGludW91cywgT09CLW9u
-bHkpCjIuIFBhZ2VzIHdpdGggdW5jb3JyZWN0YWJsZSBFQ0MgZXJyb3JzIGJlaW5nIGNhY2hl
-ZAoKaGF2ZSBhbHJlYWR5IGJlZW4gYWRkcmVzc2VkIGluIHYzLgoKQ291bGQgeW91IHBsZWFz
-ZSBmb3J3YXJkIHRoZSByZW1haW5pbmcgU2FzaGlrbyBjb21wbGFpbnRzIG9yIHBvaW50IG1l
-CnRvIHdoZXJlIEkgY2FuIGZpbmQgdGhlbT8gSSdkIGxpa2UgdG8gYWRkcmVzcyB0aGVtIGJl
-Zm9yZSB5b3VyIGh1bWFuCnJldmlldy4KClRoYW5rcywKWm9uZ3poZW4=
+ring_buffer_read_page_size() takes a parameter named rpage, but its
+kernel-doc describes page. As a result, kernel-doc reports rpage as
+undescribed and page as an excess parameter description.
 
+Rename the documentation entry to match the function.
+
+Fixes: dae8dda341d2 ("tracing: Fix subbuf resize races with trace_pipe_raw readers")
+Assisted-by: LLM
+Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+---
+ kernel/trace/ring_buffer.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/kernel/trace/ring_buffer.c b/kernel/trace/ring_buffer.c
+index 9c03a555a6ba..0e30c7bd6045 100644
+--- a/kernel/trace/ring_buffer.c
++++ b/kernel/trace/ring_buffer.c
+@@ -7384,7 +7384,7 @@ EXPORT_SYMBOL_GPL(ring_buffer_read_page_data);
+ 
+ /**
+  * ring_buffer_read_page_size - get size of the read page.
+- * @page:  the page to get the size from
++ * @rpage:  the page to get the size from
+  *
+  * Returns size of the page in bytes.
+  */
+
+base-commit: 893e11787f78e43b534e252249ac3fff4d1333f8
+-- 
+2.53.0
