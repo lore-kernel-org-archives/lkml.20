@@ -1,126 +1,103 @@
-Received: from mail-oo2-f43.google.com (mail-oo2-f43.google.com [74.125.231.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A1B857F731
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 16:19:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.231.171
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788970747; cv=pass; b=uZW7MXAR1cay7tQGnZ+I3u9I61cpCRJYxwLBO+aV2o3jv4guYDSijnlEWObs3STq9Vabo8ukzLV2UeA63aPfIhhfK4Qw3pfKXQB0jbbUVqjlKWJSuGBbq8YoLu6AL8kaekEIzUc2XAclIYKmRMVQkaMFigJboRPUI5y/6Mu/r3A=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788970747; c=relaxed/simple;
-	bh=jNYZ/e9tA0bZ+daU+gREuhraXiyCzcdRSOIl2qdMcWI=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=rn8sciuRmoKB1z5HhECoWpHwWOWbBkS82eoS64ruxhkQbnrIz/W5d5KG2ghBiXPrtAoPBGytIpvsgHEUmw/wUsTlWtThVo5Hd92AjsDV4rupWc+WZab7FvLv55znQsk4b9gA5bqdKtMZL4qw9vFOErPYhwNiNa01lGzsM1d4FYs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=X6m3Pr6V; arc=pass smtp.client-ip=74.125.231.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id A254957D22F
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 16:19:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788970748; cv=none; b=LPt/ngbqOrEIDHjy/p7yfyZPHxoPrxDfijXkC08ij1DJd1FDYqA3tcUqfXiO2O4Pu38l/szTmbW9uKisS8FgD5BaWpKzmpMUIA9QiSAOMsGtqSv0VK+3Qbes6w7FIaACcFK0TAx4C8zAqiHYKcfjsmn98+KGe05E4fxtIC/iHx0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788970748; c=relaxed/simple;
+	bh=sNl01wYfVmtWRGiTAfaWvA0bgs2vxHpkcP2rJB+nGPw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=uHgvS+eXkwMARX8xJRiSc2cuS+5HdWIxY9aO9Fn/ruElwd1/KdjyAvN/yIezO37b1ZIXVB/FDRpMMZ2vZAvs6NmaHcMQ/m4kwhxNr6m9Clik390HMwRdbWTTsHS911L3KMb8y4goveLpbMqMEIjrNC9x/gD+Y2tq+XE1zP/0gwY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=nKVXyx90; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="X6m3Pr6V"
-Received: by mail-oo2-f43.google.com with SMTP id 006d021491bc7-6b1ae716892so553889eaf.0
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 09:19:06 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788970745; cv=none;
-        d=google.com; s=arc-20260327;
-        b=ecmmoypLaXBJmxFZm/vsbUnvJxqD+8d+6f/JbJfYC8tv6CAy+nxW85/ouZe0agLbnx
-         2gurH0czhBEBk9a/YqKTII6SrDZB1P18iT4W6ZYlRlv2Kw/w5FefEMd5fvWHnbi/CGXH
-         DEroGSZRc631+BW/AzxkLMB5X/HcLPZJd+533B+LIA4QgpLZ15ct2Z68HaojGgeHI5Ht
-         8XGRMy0YIhSyWRQGqPhZKk3W01I8pwbXuj8NfiviTF29D3q18E3WAwa06Pi08iL7BBwt
-         GIcAiKdD6y9S9UvHxiBkStvzSajzJ4s8u17oe1qrFcpAmYkTzsHfRVJTIQLJapASIm4K
-         wmCg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=hAUbchDH9m45dgmc18rC+fxqU5ICx7ntiYK3bF/7BEw=;
-        fh=d4xZGfcFhOjWRfhuiPREeiByUAtvDuewYwSZBTu9zGc=;
-        b=F/QH72t3QkmhKFz9PeNfnWrkaoVfULj0IJsrR7jp/QaeSgA7tGk0KguIiSQAcMm05P
-         7sRX5auyuVKfMTEYKzjt2fFri/wqei1z/Y0sH0CyG3LUwpEC1RlNGIZiOoD3tx67NdHO
-         7em+fvGss3a3Pny0CsmNHXXlViF9lhrS1VrJ6lsnLtv4AVwrv5z2xmmp5wH24VrHj6gg
-         amzkWu3vVgbHyfDuG0WXf4Ngz7dZ4TXF1z54ePym8vm+53wg25cExCPReXq8le39W20U
-         CeU0WE2mOpg9EZtzEY+U687/O+MjAsiNPVn1jJDSwy+MDj3pp9+fC+PesMrsFP8zRwlQ
-         UDEQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788970745; x=1789575545; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=hAUbchDH9m45dgmc18rC+fxqU5ICx7ntiYK3bF/7BEw=;
-        b=X6m3Pr6VVhpvjgQjK1nepn79bcB1/ht3RripIDXTwx2TBUxQxS5G7l8KOqZG6nz/Zh
-         FwXiJspPnxBqgbcBy25r0esh2HHyE6PsPsdEAN9noKdHODPXXHf8wYONY77oC9bW56LE
-         C+n/2PuxOXREvykaeuK4KMoNDJ2BIsetvftganLOm5gcZv9M0El7JR44Ta35L2WoYHzb
-         52Rx81HUPylSk0wxvYzqS7wyI35FbqcvWPitoghVZzc3/V+lCWysHuTQplqDoKMYm1I7
-         NizaIIjKrA/YCMsgzq8a7SL0BOyJG5jZTPq+8UxCJzQMr9/IdFvKuPfAF6DsXUzuHveS
-         IUrA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788970745; x=1789575545;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=hAUbchDH9m45dgmc18rC+fxqU5ICx7ntiYK3bF/7BEw=;
-        b=llN2DAT+eB0sEc68OUXc+AFEYDxcOcmGmEGveSyh/K7YOtjoZ+5glF9ksMdVY3pXIY
-         /aK5jXzQj7+rhBmfMS5Lo1y4JYZRWHGiKPclbu7xBtDDfuTMJn43TAW8qqlB8F4pwQu+
-         MTwjrsxGVHddxTJpL2d8zUhvLR255KszNzhcwOEP63NrYOcx30vUgInob0de7AgouhB6
-         kFzU8UeHWgTsbtHsPREI9SulB7/9LjJ8/8cnpKIxj4lwT3tNqIUmQXXzmXDfCRa4EcT4
-         HMPfS7zsiFnTBLN5Ibv0dP/4xivLAUFjLi9la6rT7GbhR008vxAkDLojmMurN8sOI/xk
-         5PXA==
-X-Forwarded-Encrypted: i=1; AKwUvBw9h3KA3t5T5huvl51KqiDYJXxZJsIxWpSXzueJi9r3E4mLJdFP0YzlXZ8JHD7JQcSEET6Dl5YVnNJ6VIA=@vger.kernel.org
-X-Gm-Message-State: AFuF++k5lACkw7GDKqDNtzf/xurHHBunerUVgdBER55KShHWk1//Q4pc
-	3b7sTTO690tEWTrfGyeJPG1ZLKK4D5pPwrdomUWbamIMctkrDd45VNHaT1BSAFVayzaW/L9/cEb
-	m9Sl9AAqHEAEUB3A44C2lQvBMx95oipw=
-X-Gm-Gg: AYBFou1T6x9Kdc05Od6FIxhwEVEHKnpseiICphUrExv5WdRnaA/usnoDt3dEpp1Gdwl
-	rlAZnZt05E51D6bo+u7Eq7WRK5Aa6a6hmMhGX0I+UzJzHq04pwkXfXcdkLvRGlBDHuc3mmTiYjz
-	8nrVQkDCApCuUsTBIfjRIpWruAvGyie5aPCKVU1uVXBv/fEIEX95gj7ZhVDWNIwvRgsnmSXCsUc
-	BtboU+8hOYFgOkYGQBeityyFpcC/WKbLx1QR9BocSCFLVazdLCx9cpxETDPU9kZcy/AjZKxEfGn
-	Sd2Qj2iI5bqrH0n2hWAXaopbNEuSPxFvkLchgquK3K/uxY15fF8lkeO4gaR1tk3XqZb1qB5Uqn6
-	wvO5hq4PYCsoeIxFjGw6NBjg=
-X-Received: by 2002:a05:6820:4c10:b0:6b1:62fd:3b4d with SMTP id
- 006d021491bc7-6bdcc1a4333mr7206501eaf.21.1788970745040; Wed, 09 Sep 2026
- 09:19:05 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="nKVXyx90"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id BAB2D1570;
+	Wed,  9 Sep 2026 09:19:00 -0700 (PDT)
+Received: from [10.2.212.23] (e121345-lin.cambridge.arm.com [10.2.212.23])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 704AD3F7B4;
+	Wed,  9 Sep 2026 09:19:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1788970744; bh=sNl01wYfVmtWRGiTAfaWvA0bgs2vxHpkcP2rJB+nGPw=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=nKVXyx90ODUZ0WIJfhwgNyVL6A/WyzuXJXV+JFGdEEu7jWfbfBQg0XSKTzdofE5w/
+	 MnrJypXMSSS4iCWhf98F9Dk4drRXNiMg15RPj72U8kcVnlV/8IYGzcC5VNas02aFCK
+	 i4wxJOrZEeK1Fja4zWiTwRiqbI1uFZG+/8HWojR8=
+Message-ID: <2fb3bda7-cd64-4dc0-99f8-c0fda8d42cf9@arm.com>
+Date: Wed, 9 Sep 2026 17:19:01 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260908083614.2210505-1-kyle.switch@motor-comm.com> <20260908083614.2210505-2-kyle.switch@motor-comm.com>
-In-Reply-To: <20260908083614.2210505-2-kyle.switch@motor-comm.com>
-From: David Yang <mmyangfl@gmail.com>
-Date: Thu, 10 Sep 2026 00:18:28 +0800
-X-Gm-Features: AcwNN1WNDNfMVmBhvlW6uZJv5v4eYnI30Ge-2mYnVT8Vfeo53MpIQ6A1zZKhmlE
-Message-ID: <CAAXyoMNkvyVN435bUwWuN+q8UmKbwnWbn+=uWt-nC2omBk94Lg@mail.gmail.com>
-Subject: Re: [PATCH net-next v6 1/6] net: dsa: motorcomm: initialize
- dsa_switch based on chipid
-To: Kyle Switch <kyle.switch@motor-comm.com>
-Cc: andrew@lunn.ch, olteanv@gmail.com, davem@davemloft.net, 
-	edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, 
-	linux@armlinux.org.uk, netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	ming.xu@motor-comm.com, xiaolin.xu@motor-comm.com, 
-	jianmin.wang@motor-comm.com, wei.zhang@gl-inet.com, sijia.huang@gl-inet.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] perf/arm-cmn: Fix {wp_dev_sel2, wp_dev_sel} limited to
+ 0/1 when MXP_MULTIPLE_DTM_EN is TRUE
+To: Shouping Wang <allen.wang@hj-micro.com>, will@kernel.org
+Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ mark.rutland@arm.com, peter.du@hj-micro.com, andy.xu@hj-micro.com
+References: <20260819105443.668784-1-allen.wang@hj-micro.com>
+From: Robin Murphy <robin.murphy@arm.com>
+Content-Language: en-GB
+In-Reply-To: <20260819105443.668784-1-allen.wang@hj-micro.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Tue, Sep 8, 2026 at 4:36=E2=80=AFPM Kyle Switch <kyle.switch@motor-comm.=
-com> wrote:
-> +       if (major =3D=3D YT9215_MAJOR || major =3D=3D YT9218_MAJOR)
-> +               mode =3D YT92XX_MODE_YT921X;
+On 19/08/2026 11:54 am, Shouping Wang wrote:
+> When MXP_MULTIPLE_DTM_EN is TRUE, each DTM will monitor at most
+> two device ports. In this case, {wp_dev_sel2, wp_dev_sel} will
+> only use values 2'b00 and 2'b01 per DTM.
+> 
+> Previously the setting allowed values beyond the supported range
+> per DTM, which could cause each DTM to select invalid ports when
+> MXP_MULTIPLE_DTM_EN is TRUE.
+> 
+> Fix this by applying `dev %= 2` to clamp the selection value to
+> the valid range when MXP_MULTIPLE_DTM_EN is TRUE.
+> 
+> Fixes: 60d1504070c2 ("perf/arm-cmn: Support new IP features")
+> Signed-off-by: Shouping Wang <allen.wang@hj-micro.com>
+> ---
+>   drivers/perf/arm-cmn.c | 4 ++++
+>   1 file changed, 4 insertions(+)
+> 
+> diff --git a/drivers/perf/arm-cmn.c b/drivers/perf/arm-cmn.c
+> index 40c05c519a1d..13ccbf2a7345 100644
+> --- a/drivers/perf/arm-cmn.c
+> +++ b/drivers/perf/arm-cmn.c
+> @@ -1392,6 +1392,7 @@ static void arm_cmn_claim_wp_idx(struct arm_cmn_dtm *dtm,
+>   
+>   static u32 arm_cmn_wp_config(struct perf_event *event, int wp_idx)
+>   {
+> +	struct arm_cmn *cmn = to_cmn(event->pmu);
+
+Nit: may as well refactor the is_cmn600 condition to reference cmn->part 
+directly too.
+
+>   	u32 config;
+>   	u32 dev = CMN_EVENT_WP_DEV_SEL(event);
+>   	u32 chn = CMN_EVENT_WP_CHN_SEL(event);
+> @@ -1404,6 +1405,9 @@ static u32 arm_cmn_wp_config(struct perf_event *event, int wp_idx)
+>   	if (is_cmn600)
+>   		grp &= 1;
+>   
+> +	if (cmn->multi_dtm)
+> +		dev %=  2;
 > +
-> +       for (i =3D 0; i < ARRAY_SIZE(yt92xx_series_table); ++i)
-> +               if (yt92xx_series_table[i].mode =3D=3D mode)
-> +                       return &yt92xx_series_table[i];
 
-Still redundant lookups here.
+Let's just make the whole setting of CMN_DTM_WPn_CONFIG_WP_DEV_SEL2 
+conditional on !multi_dtm, like for exclusive and combine further down 
+(note that the CMN-600 "grp &= 1" is different, since that's more about 
+sanitising invalid input values rather than the register encoding itself.)
 
-> -       ds->priv =3D priv;
+Thanks,
+Robin.
 
-ds->priv is gone in the new register.
+>   	config = FIELD_PREP(CMN_DTM_WPn_CONFIG_WP_DEV_SEL, dev) |
+>   		 FIELD_PREP(CMN_DTM_WPn_CONFIG_WP_CHN_SEL, chn) |
+>   		 FIELD_PREP(CMN_DTM_WPn_CONFIG_WP_GRP, grp) |
 
->  static const struct of_device_id yt921x_of_match[] =3D {
-> -       { .compatible =3D "motorcomm,yt9215" },
-> -       {}
-> +       {
-> +               .compatible =3D "motorcomm,yt9215",
-> +       },
-> +       { /* sentinel */ }
-
-Leftovers.
