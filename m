@@ -1,258 +1,239 @@
-Received: from mail-lf1-f48.google.com (mail-lf1-f48.google.com [209.85.167.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7BA0577E36
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 16:57:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0116A298CAF;
+	Wed,  9 Sep 2026 16:57:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788973031; cv=none; b=ZXl8LU1yZJmiUrnwiCQ0oSbiWzGJwgSZK3IUbnbMRC9SuJ+Z/RR/rxlkg758Wre2qhbZTNYwLrxdXGVD6QdshdB+M0YTYOpI9MIkjxCThZTJXFg3dQaFPuT9cy/bsTuxFx3788px1i07ZLFkncb/YLqIUUvFGaeh4RY6LHkmvkc=
+	t=1788973039; cv=none; b=LXQULssgvDpVS2eKOyI/qIazTk0RkD4IYJANg1UrbkPt6jFf8IIU+3I954HsqmlKRP2BQHgdFOv5qdjTyNbeBx9yJkpCyWHQ7DsahzEGAcc2cYypEh9R7Zms23hJR86Ycvplg2BxcWqVLlaiVuukPyAMNPbianDka8hx0VSZceM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788973031; c=relaxed/simple;
-	bh=+mndSaO7EOm/QRmteyLUtnEpZJMGXpFkzLWAzwkFSxY=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=H1xkaVs/61uDHS/WnC5HfCxozcuBE4VHJfI9SK9szNLC9ziGSJlV2pNjoXtf8YENTnS/WPV8r7ymLqW4BI9QtfI7iAdaDQCtsh/YOVl+kiS7wixbrL8b9KUZbR8baJc56vif3qaRQRSqSN6Eih1Vr6Yity1WhCbYCkSzqcB7Stg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=gkfW3pqo; arc=none smtp.client-ip=209.85.167.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	s=arc-20240116; t=1788973039; c=relaxed/simple;
+	bh=Vmx0X4nzunNaL7FUjY7UkS9yt6Dza+5LT0xMtWzBaSk=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=GgayKgTy4TIJSLqhLSbYWTjmaRWE+q65dl+bHmwjJworqkudQ/60P2WmniTUrSYVFrXWVDfB9/InTSPJlYvQ5fIYMepLWvk8neeYcJengwESo0wjUl29+GKXeIkL2P5dm6k0ZvbpnHIYI12lCDP/g23eUDjId11WVTZ9LvjN8zI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IxssZqQ8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="gkfW3pqo"
-Received: by mail-lf1-f48.google.com with SMTP id 2adb3069b0e04-5b4ae3e201cso5389283e87.2
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 09:57:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1788973027; x=1789577827; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=2CR/xuPBfJUaIkIrsi5gmAz0JqvQr7Lu6iPE454B+34=;
-        b=gkfW3pqoSUOO1+gyWtM7G4sf7SI7c2NwVKFd72THcDEaSWNj4c/dXWhI8CUdy6N+8A
-         C2gM2UPcjMpLfcb9Qq2hOLHISw6fAbh64m2a/tvgnDAp1LWXAszIl3vF8wc4Y6BjAX3A
-         lUUXYpmJsNMXxx/kC7ZZWstqnN8PjYZ2Ku6QI=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788973027; x=1789577827;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=2CR/xuPBfJUaIkIrsi5gmAz0JqvQr7Lu6iPE454B+34=;
-        b=N5Efdgef5Wd3yutbjZic5RYjmgGbqlWmy2GryUZdxVTC5wOdQORlvornrUqbQxE94P
-         tAUlcBqldgX+EUPcRIHNRVBku88LkUgTBpve8UwUnzXdF6A40lnj4JjNQZw1e4UVqoGt
-         9i1KemFYhfDRUANwhInz9sS+758xH1C3phkbT17Bfum1Kq864DraukYgM1TX5wuJl6kQ
-         sfxoG4tQT7j7gCJMktzcGHMT6wdiDtO0ItfmUWGGebrflTTzWwIXehpCvhbijCj3XcT6
-         WzihYrereKQ/2A2E7EnJu0x1iing8fWgOFesYttbCSGj86wkoDD/++mgTGLPQlElCrAT
-         UKLw==
-X-Forwarded-Encrypted: i=1; AKwUvBx7iT3MsVJk3v9YFdvv30e1tRJ86xC4+0wsy8UU8wns8RgmcQXLZU7+q+EUSls/hFjTqdDh6Nw+BeNWWsM=@vger.kernel.org
-X-Gm-Message-State: AFuF++nYR4PrK2RDDWEtc9hlrUhLAK2RRP59aOpG8BGyVDLigkKi92vM
-	aH61UgSzrj6/ysaeQCQ36cvwLa/B1diQsZ0WNvIW1SE58potQzVMSZHicG0v+UBeAkeysSO/Whm
-	4F1Fe5Q==
-X-Gm-Gg: AYBFou3Yxf5i0iRGsafvD6+tREl4aQYNH/P55M2OVwtEdhmhxZ6w8/UEsHY0v+ioIGe
-	BboWCGZoiUl9AZ+Lsmy/3B7BiruM3WfKLVhbGCD0bqKEep2Z/c5Pc0k33wUccjOLC84iD62lGme
-	xz1ExLMnSlNr37v62D4z2LRVbl1O4qRkF3i6J3qGvwGZtsNUwGCzDPU1g8RKJDqwmdGgww0LYFQ
-	xTMlhncOCVHbxWUT14hrywv2muSps8LApSsKjPVPLnPDwwL9xOnXSdfLOyX1jSEOKW0ZZcIzr7Y
-	rjz1L5+IvKagzwaDZ/EaBurOpJk5ycoEAcMl4Wxdzg9WJpfrz/iuSSYZAoWgaMSg1/j4Y1Svkuz
-	ZG9omvGtguowTVAaLjgNr1J6a7FOm+TzjhVWdMC4qvI9c5q0wxI1KXVpzEsem0osjj6d0zuCIxL
-	IZVJSseUg1tuBm8y4AYbRlUmLtRdOMMzrnTC4258ncCe/CivFochlr4exsPe4j6k5Z8QB8znaux
-	mRIiuItvF6T5A10QPYJb8k/zM+gz7W5BJxUzw==
-X-Received: by 2002:a05:6512:2388:b0:5b2:e947:b3de with SMTP id 2adb3069b0e04-5b616edeb9cmr5453250e87.7.1788973026656;
-        Wed, 09 Sep 2026 09:57:06 -0700 (PDT)
-Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com. [209.85.221.42])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b61670afcasm3930570e87.79.2026.09.09.09.57.05
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 09 Sep 2026 09:57:06 -0700 (PDT)
-Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-4843f205a5bso4071768f8f.1
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 09:57:05 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwxKYtlVCLerm20CzO6FM08DKc4FHouXCgiF2mUFfenfXWldbJm2cKPfRl6X9A9UiWw4KmLTjwCxE/CeY0=@vger.kernel.org
-X-Received: by 2002:a05:6000:41d8:b0:485:8a46:b3cd with SMTP id
- ffacd0b85a97d-4858a46b548mr36544508f8f.53.1788973024061; Wed, 09 Sep 2026
- 09:57:04 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IxssZqQ8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C00631F000FF;
+	Wed,  9 Sep 2026 16:57:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788973037;
+	bh=bAVhB1TR9T/6sa4eS8RCZ3jxJOT8Df+ARcoVYLoq5pk=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=IxssZqQ8/rZ7Yyxopzlc3VfYRTHj4RJpjZ/0kMrq1b5qcf65t7dPG9KbYrxwOnDMo
+	 ymFTQ2hcdjI7rDv3HRKhN5NNRELIp8lMPJHPL9a9c8BTzWVGaMmhwFDVo/UkosdxUp
+	 OiVfzkfxtEavaAIUO5mn0l5uOdLKRnexaaCp+0GFZn0pkDRWutDaeWTl6N+/N91roY
+	 lc8zouRqgeqXP8jOY5X1sUU1aBWSv1Bw3xqZvByJaefjZ6eWw3otsbhxycuog8KxYF
+	 uDr83TuW64uhlpjLk9YBxJNKNxUbCwF2+dhoiw+eXwbDAkUNYP3XU0KFX4ghi2FKSW
+	 T9AYJQfMMOytw==
+Subject: Re: [PATCH v3 net-next] net: phy: air_en8811h: select LED GPIO pins
+ based on AN8811HB package variant
+From: netdev-bot+sashiko@kernel.org
+To: weiting.lee@airoha.com
+Cc: netdev@vger.kernel.org, andrew@lunn.ch, hkallweit1@gmail.com,
+ linux@armlinux.org.uk, davem@davemloft.net, kuba@kernel.org,
+ edumazet@google.com, pabeni@redhat.com, linux-kernel@vger.kernel.org,
+ bjorn@mork.no, ericwouds@gmail.com, frank-w@public-files.de,
+ joseph.lin@airoha.com, wenshin.chung@airoha.com, lucien.jheng@airoha.com,
+ albert-al.lee@airoha.com
+Date: Wed, 09 Sep 2026 16:57:16 +0000
+Message-ID: <178897303632.219967.12350879229326827803@kernel.org>
+In-Reply-To: <20260907015638.2875763-1-weiting.lee@airoha.com>
+References: <20260907015638.2875763-1-weiting.lee@airoha.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260714222338.2965707-1-dianders@chromium.org>
- <20260714152138.7.I5cef580a62c86ba6c3465ad336fa509afbdf1476@changeid>
- <CABb+yY3_xBvQVFHEs=v39u7+TLjJRaVv3sg5pGgd0YxCruZ8Tw@mail.gmail.com>
- <CAD=FV=X-fAJp=EG_yTAg+QQgNYRCt25947oHGHZuq-FEyirK0g@mail.gmail.com> <CABb+yY2CH5A1ixfX9czgtEwsP95FN-2JVzN_wmRDRNsSuZY5PQ@mail.gmail.com>
-In-Reply-To: <CABb+yY2CH5A1ixfX9czgtEwsP95FN-2JVzN_wmRDRNsSuZY5PQ@mail.gmail.com>
-From: Doug Anderson <dianders@chromium.org>
-Date: Wed, 9 Sep 2026 09:56:52 -0700
-X-Gmail-Original-Message-ID: <CAD=FV=XiguzS7nH1sE=BkXt+7G6-hhqyz5u3sjc4zAA9H7KqJg@mail.gmail.com>
-X-Gm-Features: AcwNN1WrrHTviMXpNF4XGy-eLDipuRr6WDvDf1_K-q05FH7VVpPgr4KG1SIBOUQ
-Message-ID: <CAD=FV=XiguzS7nH1sE=BkXt+7G6-hhqyz5u3sjc4zAA9H7KqJg@mail.gmail.com>
-Subject: Re: [PATCH 7/7] mailbox: goog-mba: Introduce the goog-mba mailbox driver
-To: Jassi Brar <jassisinghbrar@gmail.com>
-Cc: Joonwon Kang <joonwonkang@google.com>, Subhash Jadavani <sjadavani@google.com>, 
-	Tudor Ambarus <tudor.ambarus@linaro.org>, Lucas Wei <lucaswei@google.com>, 
-	Brian Norris <briannorris@chromium.org>, Peter Griffin <peter.griffin@linaro.org>, 
-	=?UTF-8?Q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	linux-samsung-soc@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-Hi,
+Thank you for your contribution! Sashiko AI review found 3 potential
+issue(s) to consider:
 
-On Wed, Sep 9, 2026 at 9:34=E2=80=AFAM Jassi Brar <jassisinghbrar@gmail.com=
-> wrote:
->
-> On Wed, Sep 9, 2026 at 10:53=E2=80=AFAM Doug Anderson <dianders@chromium.=
-org> wrote:
-> >
-> > Hi,
-> >
-> > On Sat, Sep 5, 2026 at 6:20=E2=80=AFPM Jassi Brar <jassisinghbrar@gmail=
-.com> wrote:
-> > >
-> > > Hi Douglas,
-> > >
-> > > On Tue, Jul 14, 2026 at 5:24=E2=80=AFPM Douglas Anderson <dianders@ch=
-romium.org> wrote:
-> > > ....
-> > > > +
-> > > > +/**
-> > > > + * goog_mba_handle_tx_interrupt() - Handle interrupt that remote A=
-cked our msg.
-> > > > + * @goog_mbox: The mailbox info.
-> > > > + */
-> > > > +static void goog_mba_handle_tx_interrupt(struct goog_mbox_info *go=
-og_mbox)
-> > > > +{
-> > > > +       unsigned int reqs_completed;
-> > > > +       int i;
-> > > > +
-> > > > +       /*
-> > > > +        * ACK interrupt needs to be cleared before reading CLIENT_=
-OUTSTANDING_MSG.
-> > > > +        * Then if a "race" happens and another message gets Acked =
-after we clear
-> > > > +        * but before we read CLIENT_OUTSTANDING_MSG then the worst=
- that will
-> > > > +        * happen is we'll get a followup interrupt that will show =
-0 reqs_completed.
-> > > > +        */
-> > > > +       writel(CLIENT_IRQ_STATUS_ACK_INT, goog_mbox->iomem + CLIENT=
-_IRQ_STATUS_OFFSET);
-> > > > +
-> > > > +       if (goog_mbox->queue_mode) {
-> > > > +               u32 outstanding_msgs;
-> > > > +
-> > > > +               outstanding_msgs =3D readl(goog_mbox->iomem + CLIEN=
-T_OUTSTANDING_MSG);
-> > > > +               spin_lock(&goog_mbox->lock);
-> > > > +
-> > > > +               if (goog_mbox->outstanding_msgs >=3D outstanding_ms=
-gs) {
-> > > > +                       reqs_completed =3D goog_mbox->outstanding_m=
-sgs - outstanding_msgs;
-> > > > +               } else {
-> > > > +                       /*
-> > > > +                        * The hardware's track of outstanding mess=
-ages should always
-> > > > +                        * be less than or equal to the number of m=
-essages we queued.
-> > > > +                        * If it thinks there are more messages out=
-standing than we
-> > > > +                        * queued, something is wrong. Assume nothi=
-ng was completed.
-> > > > +                        */
-> > > > +                       dev_warn_ratelimited(goog_mbox->mba->dev,
-> > > > +                                            "%pOFP: unexpected out=
-standing msgs: %u -> %u\n",
-> > > > +                                            goog_mbox->np, goog_mb=
-ox->outstanding_msgs,
-> > > > +                                            outstanding_msgs);
-> > > > +                       reqs_completed =3D 0;
-> > > > +               }
-> > > > +               goog_mbox->outstanding_msgs =3D outstanding_msgs;
-> > > > +               spin_unlock(&goog_mbox->lock);
-> > > > +
-> > > > +               trace_goog_mba_process_q_txdone(goog_mbox, reqs_com=
-pleted, outstanding_msgs);
-> > > > +       } else {
-> > > > +               reqs_completed =3D 1;
-> > > > +               trace_goog_mba_process_nq_txdone(goog_mbox);
-> > > > +       }
-> > > > +
-> > > > +       for (i =3D 0; i < reqs_completed; i++)
-> > > > +               mbox_chan_txdone(&goog_mbox->chan, 0);
-> > >
-> > > The patchset doesn't say much about the clients but if the platform
-> > > works like this, I have a strong feeling we can do without introducin=
-g
-> > > mbox_controller.has_queue.
-> > > Just use the msg_data[] ringbuffer -- we can avoid changing the core
-> > > internals and you will still get ACK for each message.
-> > > What are the clients going to be like?
-> >
-> > I don't think we can get rid of `mbox_controller.has_queue`.
-> > Specifically, the queue mode allows the mailbox controller to handle
-> > multiple outstanding transactions simultaneously to reduce latency.
-> > Imagine host (Linux) interrupt latency is 100us and we want to send 3
-> > mailbox messages. Let's say queuing a mailbox message takes 10us.
-> > We'll say that the remote interrupt latency is 50us. Timing would look
-> > something like this:
-> >
-> > 0.000000: Client sends msg #1 and mbox controller initiates the xfer
-> > 0.000010: Client sends msg #2 and mbox controller initiates the xfer
-> > 0.000020: Client sends msg #3 and mbox controller initiates the xfer
-> > 0.000050: Remote gets IRQ, sees 3 messages, and ACKs them all.
-> > 0.000150: ACK IRQ arrives; mbox controller sends 3 txdone
-> >
-> > ...so all 3 messages are sent / ACKed in 150us.
-> >
-> > Without letting the mailbox controller queue, we'd end up more like thi=
-s:
-> >
-> > 0.000000: Client sends msg #1 and mbox controller initiates the xfer
-> > 0.000050: Remote gets IRQ, sees msg #1, ACKs it.
-> > 0.000150: ACK IRQ arrives; mbox controller sends txdone
-> > 0.000150: mbox core notes txdone and sends msg #2
-> > 0.000200: Remote gets IRQ, sees msg #2, ACKs it.
-> > 0.000300: ACK IRQ arrives; mbox controller sends txdone
-> > 0.000300: mbox core notes txdone and sends msg #3
-> > 0.000350: Remote gets IRQ, sees msg #3, ACKs it.
-> > 0.000450: ACK IRQ arrives; mbox controller sends txdone
-> >
-> I don't mean that ...
+Critical: 0 · High: 0 · Medium: 1 · Low: 2
 
-Ah, sorry for misunderstanding!
+- [Medium] Multi-bit hardware field implicitly cast to a boolean
+  evaluates to true for any non-zero value, potentially misidentifying…
+- [Low] The commit message states that "Using a fixed GPIO assignment
+  causes incorrect LED behavior on one of the variants", i.e. it…
+- [Low] The in-file comment at drivers/net/phy/air_en8811h.c:188-192
+  documents the default LED-to-GPIO mapping unconditionally ("GPIO5 <->…
 
-> though even that may be more acceptable to the
-> clients than you think. What class of clients are there?
+--
 
-As far as I can tell, the mailbox controller is used for pretty much
-everything in the system, so latency is pretty critical. Want a clock
-turned on? You gotta send a mailbox message. Want a power domain
-turned on? Mailbox message.
+net: phy: air_en8811h: select LED GPIO pins based on AN8811HB package variant
 
-I don't think we can just drop the queuing support...
+This patch reads the AN8811HB package variant from the read-only silicon
+identification bits in AN8811HB_HWTRAP2 during an8811hb_probe() and stores
+it in priv->is_an8811hbcn.  A new helper an8811hb_led_gpio_setup() then
+programs either GPIO 0/1/15 (AN8811HBCN) or GPIO 3/4/5 (AN8811HBN) from
+an8811hb_config_init().
 
+No Link: tags were present in the commit header.
 
-> I am suggesting to consider TX-Is-Done when send_data() returns, i.e
-> tx submitted is seen as transferred. You anyway  don't catch
-> transmission errors. That way you fill all slots without blocking on
-> the first message and achieve this same throughput.
-> Without knowing the clients I am not sure if that can't be done.
+> diff --git a/drivers/net/phy/air_en8811h.c b/drivers/net/phy/air_en8811h.c
+> index ec7c44ca68e7d..b6eac8dc63d9f 100644
+> --- a/drivers/net/phy/air_en8811h.c
+> +++ b/drivers/net/phy/air_en8811h.c
 
-We need to know the txdone and thus we can't do what you're proposing.
-In general, queuing mailboxes are used in cases where the remote side
-enables a resource like a clock or power domain. Different tasks in
-the system may independently turn on/off these resources, so allowing
-them to work "in parallel" makes sense. ...but each task needs to know
-for sure when its resource is finished turning on. If we just imagine
-3 clocks we want to turn on.
+[ ... ]
 
-clk_enable(clk_a)
-clk_enable(clk_b)
-clk_enable(clk_c)
+> @@ -1077,10 +1090,49 @@ static int en8811h_leds_setup(struct phy_device *phydev)
+>  	return ret;
+>  }
+>  
+> +static int an8811hb_led_gpio_setup(struct phy_device *phydev)
+> +{
+> +	struct en8811h_priv *priv = phydev->priv;
+> +	int ret;
+> +
+> +	if (priv->is_an8811hbcn) {
+> +		/* AN8811HBCN: LED GPIOs are 0, 1, 15 */
+> +		ret = air_phy_buckpbus_reg_modify(phydev, AN8811HB_GPIO_OUTPUT,
+> +						  AN8811HB_GPIO_OUTPUT_0115,
+> +						  AN8811HB_GPIO_OUTPUT_0115);
+> +		if (ret < 0)
+> +			return ret;
 
-Those 3 calls can be made in 3 different contexts from 3 different
-drivers. We want all 3 enables happening in parallel with each other
-(not one after another), but each call needs to know when its function
-is done.
+[Severity: Low]
 
-Does that make sense?
+This isn't a bug, but should the LED mapping comment above the trigger
+defaults be qualified per package now?
 
--Doug
+The only in-tree description of which LED index drives which pin sits
+above AIR_DEFAULT_TRIGGER_LED0/1/2 and is written unconditionally:
+
+  /* Default LED setup:
+   * GPIO5 <-> LED0  On: Link detected, blink Rx/Tx
+   * GPIO4 <-> LED1  On: Link detected at 2500 or 1000 Mbps
+   * GPIO3 <-> LED2  On: Link detected at 2500 or  100 Mbps
+   */
+
+Those same defaults are applied by en8811h_leds_setup(), which is called
+from both en8811h_probe() and an8811hb_probe().  After this patch the
+GPIO 3/4/5 wording only holds for EN8811H and AN8811HBN, since on
+AN8811HBCN the identical trigger defaults now drive pads 0, 1 and 15 via
+AN8811HB_GPIO_OUTPUT_0115 plus the SEL1/SEL2 mux codes.
+
+Could the comment mention the AN8811HBCN pin assignment as well?
+
+> +
+> +		ret = air_phy_buckpbus_reg_modify(phydev, AN8811HB_GPIO_SEL1,
+> +						  AN8811HB_GPIO_SEL1_0_MASK |
+> +						  AN8811HB_GPIO_SEL1_1_MASK,
+> +						  AN8811HB_GPIO_SEL1_0 |
+> +						  AN8811HB_GPIO_SEL1_1);
+> +		if (ret < 0)
+> +			return ret;
+> +
+> +		ret = air_phy_buckpbus_reg_modify(phydev, AN8811HB_GPIO_SEL2,
+> +						  AN8811HB_GPIO_SEL2_15_MASK,
+> +						  AN8811HB_GPIO_SEL2_15);
+> +		if (ret < 0)
+> +			return ret;
+> +	} else {
+> +		/* AN8811HBN: LED GPIOs are 3, 4, 5 */
+> +		ret = air_phy_buckpbus_reg_modify(phydev, AN8811HB_GPIO_OUTPUT,
+> +						  AN8811HB_GPIO_OUTPUT_345,
+> +						  AN8811HB_GPIO_OUTPUT_345);
+> +		if (ret < 0)
+> +			return ret;
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+
+[ ... ]
+
+> @@ -1269,10 +1327,11 @@ static int an8811hb_config_init(struct phy_device *phydev)
+>  		return ret;
+>  	}
+>  
+> -	/* Restore LED GPIO output enables after MCU initialization. */
+> -	ret = air_phy_buckpbus_reg_modify(phydev, AN8811HB_GPIO_OUTPUT,
+> -					  AN8811HB_GPIO_OUTPUT_345,
+> -					  AN8811HB_GPIO_OUTPUT_345);
+> +	ret = an8811hb_led_gpio_setup(phydev);
+> +	if (ret < 0) {
+> +		phydev_err(phydev, "Failed to set up LED GPIO: %d\n", ret);
+> +		return ret;
+> +	}
+>  	return ret;
+>  }
+
+[Severity: Low]
+
+Should this carry a Fixes: tag?  The commit message says:
+
+  "Using a fixed GPIO assignment causes incorrect LED behavior on one of
+   the variants."
+
+That describes a user-visible defect in code that already shipped, but
+there is no Fixes: tag and no stable annotation.
+
+The AN8811HB entry and .config_init = an8811hb_config_init came in with
+5afda1d734ed ("net: phy: air_en8811h: add Airoha AN8811HB support"), and
+the unconditional AN8811HB_GPIO_OUTPUT_345 write being replaced here was
+moved into config_init by 3498acda6b68 ("net: phy: air_en8811h: restore
+AN8811HB LED GPIO after MCU restart").
+
+The driver binds with phy_id_compare_model(phydev->phy_id,
+AN8811HB_PHY_ID), so AN8811HBCN parts already bind to this driver in
+released kernels and get GPIO 3/4/5 forced as outputs while their LEDs
+are on GPIO 0/1/15.
+
+If this is a fix for those kernels, could a Fixes: tag be added?  If it
+is instead enablement of a newly supported package, could the changelog
+be reworded so it does not describe existing behaviour as incorrect?
+
+[ ... ]
+
+> @@ -1115,6 +1167,12 @@ static int an8811hb_probe(struct phy_device *phydev)
+>  	/* MDIO_DEVS1/2 empty, so set mmds_present bits here */
+>  	phydev->c45_ids.mmds_present |= MDIO_DEVS_PMAPMD | MDIO_DEVS_AN;
+>  
+> +	/* Detect package variant */
+> +	ret = air_phy_buckpbus_reg_read(phydev, AN8811HB_HWTRAP2, &reg_val);
+> +	if (ret < 0)
+> +		goto err_dev_create;
+> +	priv->is_an8811hbcn = FIELD_GET(AN8811HB_HWTRAP2_PKG, reg_val);
+> +
+>  	ret = en8811h_leds_setup(phydev);
+>  	if (ret < 0)
+>  		goto err_dev_create;
+
+[Severity: Medium]
+AN8811HB_HWTRAP2_PKG is GENMASK(14, 12), so FIELD_GET() yields a
+3-bit value here, but it is stored straight into the bool
+priv->is_an8811hbcn.  Any non-zero package code therefore collapses to
+true, which means the whole variant decision in
+an8811hb_led_gpio_setup() rests on the unstated assumption that
+AN8811HBCN is the only encoding with a non-zero value and AN8811HBN
+reads back exactly 0.
+
+If the field can take any other value - a second AN8811HBN encoding, a
+reserved code, or a future package - it lands in the
+AN8811HB_GPIO_OUTPUT_0115 branch and the driver drives GPIO 0/1/15
+plus the SEL1/SEL2 mux for a part whose LEDs are not on those pads.
+That failure mode is silent: the LEDs simply do not work, and there is
+nothing in the source that documents what the encoding actually is.
+
+Could you define the expected package identifiers as named constants
+and compare against them explicitly, e.g. something like
+
+	pkg = FIELD_GET(AN8811HB_HWTRAP2_PKG, reg_val);
+	priv->is_an8811hbcn = (pkg == AN8811HB_HWTRAP2_PKG_HBCN);
+
+so that unknown codes fall into the conservative branch rather than
+being treated as AN8811HBCN?  If the hardware really only ever reports
+two values and 0 is guaranteed to mean AN8811HBN, please say so in a
+comment next to the assignment, since the reader cannot tell that from
+the mask alone.  Also, is it worth warning (or failing probe) on an
+unrecognised package code rather than silently picking a GPIO mapping?
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260907015638.2875763-1-weiting.lee%40airoha.com
