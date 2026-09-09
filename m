@@ -1,111 +1,87 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FCE639D6EC;
-	Wed,  9 Sep 2026 18:26:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAB6039CCF2;
+	Wed,  9 Sep 2026 18:26:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788978410; cv=none; b=GcAqk2sFQV6EOEBRdg2tcwn/i2DHhtgGd558hEKhdbaUW+Mjb1k3Vp9PFtJGJ745scddViYNHsS2EnnzKygaPl5+9MzZwHYwrEaxnsZ8XxNSF7sPNalxy3Tu4K5nyetDXEJSfRZRUQouPCLbXT/CY4ruZF0iR4MzQv5vEkQNfes=
+	t=1788978412; cv=none; b=hCUm6h+B0U9bxNqM5fEt6WQqIuPVr7ThbW6lrsf3y4IRSB4VqoXCw3NNDR8285cqpBF3JN2TU+H7PMh+bL9+YIpXE0uB9ocjePcQ5KcqBkDnKGkQUQeQ2TGDqefvvLaCJYiCiPlWj7eODmuHjB8b4gimNlBkib4NTYoQfSvFsyw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788978410; c=relaxed/simple;
-	bh=NMuB+VaofqHfoe6kmK5xWNMKnVtJfloO3J+b1Ch3CVI=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=MoAhkGM2xpancfm06AO0UQ7tO4dcnoLk2KV1qaF6SRVdNDAiLeG345v78aUSfs8PvhCsrw/wq3FBBXf6VOhkErKPiQ0nhVdvgfFfiAhhiMjf1hvaQ3MG49ea5yC4T8bWR5Blv40jmogVsJ/rUkVWQTl50CW37EUg9Anv397HezY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=fQggdRTQ; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1788978412; c=relaxed/simple;
+	bh=K8rrqh3/6E8jrKBiRWiBPgDBJlRVk5CIwHrppPtaUZg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=dLvnOmq8M4NPvn+jiH4/1uto1sMVerGfbK57tsjG/yLDMdUsRyagpu0fPiZkr+u/rVo59iRjc5e5QGpw8nLIWcqHPcV405yiN+ePkQZP9dK1bwp0rhsb3wschQruskVqqeik8KALV5LZqONgfCgVWR650gKgLaqfaK80hoCl+mE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=hjlKBDq6; arc=none smtp.client-ip=178.251.229.89
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="fQggdRTQ"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 7E92F4E415B8;
-	Wed,  9 Sep 2026 18:26:47 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 5339460448;
-	Wed,  9 Sep 2026 18:26:47 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 2786411C7AF95;
-	Wed,  9 Sep 2026 20:26:42 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1788978402; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=QMVPjWVxoxXUCreQUwC+/mioLnDGc64lMOUrq7iP8Bk=;
-	b=fQggdRTQCL8y4undPsIrTN/IOkXM5lrcra1KGgx7RTXfKAvSmXdGgm2X9g+bvCSk7c7ZpC
-	326BMl7Djpp2tUPWRl3YGjL5if3pgjBxx2nSUlZnk350D7Zb1tyfQtcBhuyEH6lSHO/xKf
-	890ODXWZ7IAl7kHWrcTJgWqqacHmUyWXV/njQLP0v8n6KooSfX5FzoIWojlBeYhw3AFR7f
-	YdrGjMjY6S7egEqDU9BsVmgCLpAfqf9hhEPUsCjoRqLnaem9WD+M067dTDCB4lGPAOjnwG
-	FCDvc7sPyDB41U06IT+JLutffT83b3uT+PDY9iBSV5iPAHgb7TosGT0iTjWjuA==
-From: Paul Louvel <paul.louvel@bootlin.com>
-Date: Wed, 09 Sep 2026 20:25:56 +0200
-Subject: [PATCH 3/3] hwmon: (nct6775) Add support for NCT6122D
+	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="hjlKBDq6"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 37E28102998;
+	Wed, 09 Sep 2026 20:26:44 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
+	s=dkim; t=1788978404; h=from:subject:date:message-id:to:cc:mime-version:
+	 content-transfer-encoding; bh=6Va4MpYmnsWUKI1RsgHH0AX/wGRzl8dw6JPvOAFcqGc=;
+	b=hjlKBDq6eW3la8lPRrCl+CS3pl3w5YviUNQDs1L3T53SqWMkUAvAYx3vjNFMGbiC53iFVU
+	LeTCzWQydXrR1zeeAmALYaEsi9ZM6BNyfHEL6vXK3f9nIhS9LhqwOtpG7yMFX1V/CBQE2a
+	uwo05S+16R//9hNPzNJ/Jnjnudr6RlO25G/U6zAmT7H9fYTbAsFIMxA2EFjTrtvZQLD3Pt
+	TGYx40cVpQwbxmL1emJ1isxgKN4iQjucD2JpndJjOV9PlVMg+c0Uh7Og2u9rHGU1WPTWHG
+	gTkQzEtcVGZM6a/AgiCBW4coXougUuc6otV+iBjXdByn4G9QDKpT0CWV14XLmA==
+From: Marek Vasut <marex@nabladev.com>
+To: linux-arm-kernel@lists.infradead.org
+Cc: Marek Vasut <marex@nabladev.com>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Michal Simek <michal.simek@amd.com>,
+	Rob Herring <robh@kernel.org>,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2 1/2] dt-bindings: soc: xilinx: Document ifm ZynqMP VHIP6 EvalBoard
+Date: Wed,  9 Sep 2026 20:26:04 +0200
+Message-ID: <20260909182641.165383-1-marex@nabladev.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260909-bootlin-hwmon-nct6126-v1-3-4e85615fef10@bootlin.com>
-References: <20260909-bootlin-hwmon-nct6126-v1-0-4e85615fef10@bootlin.com>
-In-Reply-To: <20260909-bootlin-hwmon-nct6126-v1-0-4e85615fef10@bootlin.com>
-To: Guenter Roeck <linux@roeck-us.net>, Jonathan Corbet <corbet@lwn.net>, 
- Shuah Khan <skhan@linuxfoundation.org>, 
- Randy Dunlap <rdunlap@infradead.org>
-Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
- linux-hwmon@vger.kernel.org, linux-doc@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Paul Louvel <paul.louvel@bootlin.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788978382; l=1535;
- i=paul.louvel@bootlin.com; s=20260313; h=from:subject:message-id;
- bh=NMuB+VaofqHfoe6kmK5xWNMKnVtJfloO3J+b1Ch3CVI=;
- b=IlnoN5lxRVHlvwpdf30LY26Pt3wwQ7orGfK5oOpae7y4vV9QHK2Kv/HuqEofdlu9MdmJvJgVK
- 4dDN1j+ypZ+AbPQtWpXpMYIlUmD+Iguz9/ApxtFppWrLHGy+4JvXOA0
-X-Developer-Key: i=paul.louvel@bootlin.com; a=ed25519;
- pk=eLW50NT18UAvUT5cAcYf88zNbBCZDLFXuptpyLVhVIU=
+Content-Transfer-Encoding: 8bit
 X-Last-TLS-Session-Version: TLSv1.3
 
-The NCT6122D hardware monitor is the same as the NCT6126D, the only
-difference if the number of UARTs: two instead of six.
-Add it to the driver using the nct6126 chip kind to avoid code
-duplication.
+Document ifm ZynqMP VHIP6 EvalBoard reference design binding.
+The board is populated with four ethernet ports, QSPI NOR,
+eMMC, UART and USB host interfaces.
 
-Assisted-by: opencode:z-ai/glm-5.3-flash
-Signed-off-by: Paul Louvel <paul.louvel@bootlin.com>
+Signed-off-by: Marek Vasut <marex@nabladev.com>
 ---
- drivers/hwmon/nct6775-platform.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+Cc: Conor Dooley <conor+dt@kernel.org>
+Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
+Cc: Michal Simek <michal.simek@amd.com>
+Cc: Rob Herring <robh@kernel.org>
+Cc: devicetree@vger.kernel.org
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: linux-kernel@vger.kernel.org
+---
+V2: No change
+---
+ Documentation/devicetree/bindings/soc/xilinx/xilinx.yaml | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-diff --git a/drivers/hwmon/nct6775-platform.c b/drivers/hwmon/nct6775-platform.c
-index a8ef58d3a883..d359c28f3e0f 100644
---- a/drivers/hwmon/nct6775-platform.c
-+++ b/drivers/hwmon/nct6775-platform.c
-@@ -25,7 +25,7 @@ enum sensor_access { access_direct, access_asuswmi };
- static const char * const nct6775_sio_names[] __initconst = {
- 	[nct6106] = "NCT6106D",
- 	[nct6116] = "NCT6116D",
--	[nct6126] = "NCT6126D",
-+	[nct6126] = "NCT6122D/NCT6126D",
- 	[nct6775] = "NCT6775F",
- 	[nct6776] = "NCT6776D/F",
- 	[nct6779] = "NCT6779D",
-@@ -77,6 +77,7 @@ MODULE_PARM_DESC(fan_debounce, "Enable debouncing for fan RPM signal");
+diff --git a/Documentation/devicetree/bindings/soc/xilinx/xilinx.yaml b/Documentation/devicetree/bindings/soc/xilinx/xilinx.yaml
+index c9f99e0df2b35..49ef4e0c68501 100644
+--- a/Documentation/devicetree/bindings/soc/xilinx/xilinx.yaml
++++ b/Documentation/devicetree/bindings/soc/xilinx/xilinx.yaml
+@@ -44,6 +44,11 @@ properties:
+           - const: xlnx,zynq-zed
+           - const: xlnx,zynq-7000
  
- #define SIO_NCT6106_ID		0xc450
- #define SIO_NCT6116_ID		0xd280
-+#define SIO_NCT6122_ID		0xd2a0
- #define SIO_NCT6126_A_ID	0xd283
- #define SIO_NCT6126_B_ID	0xd284
- #define SIO_NCT6775_ID		0xb470
-@@ -1035,6 +1036,9 @@ static int __init nct6775_find(int sioaddr, struct nct6775_sio_data *sio_data)
- 		else
- 			sio_data->kind = nct6116;
- 		break;
-+	case SIO_NCT6122_ID:
-+		sio_data->kind = nct6126;
-+		break;
- 	case SIO_NCT6775_ID:
- 		sio_data->kind = nct6775;
- 		break;
-
++      - items:
++          - const: ifm,zynqmp-vhip6-evalboard
++          - const: ifm,zynqmp-vhip6
++          - const: xlnx,zynqmp
++
+       - items:
+           - enum:
+               - xlnx,zynqmp-zc1751
 -- 
-2.55.0
+2.53.0
 
