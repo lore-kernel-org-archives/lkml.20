@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CAC45678D8
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 14:00:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED6C0550DA6
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 14:00:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788962418; cv=none; b=g8lyka4H87PNMow8T66mJ6GNT15me69VwdrLzclqAKrXEOE77KtxiMWsY2GfexSRAqLt/g0h4lcRtHq6Vig42a45pQCECczwntfMSiubySKa6MUTKdIZB/n68wr5upUIDVvqrip4mnHPyqc/QCSvKUoYq4Rpv6GZmFwtcubeRdw=
+	t=1788962429; cv=none; b=gVSqanpZuYHrLzRPxl/1XnFbLkkdp9Z+YwS6t+hbBHu7f9FWkMrNBH2ha85LBYXYAkNkZFqmEh4mJM6td6ZcE1wps+ku7Vz3TNtDuDXWdZBRuvRum09p1tYj5UD8b8X9TPb/6ajvsSMU/b1y8NDbwsPYCzYUe2Eer4jJJLMoams=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788962418; c=relaxed/simple;
-	bh=sQDDy36fbU3U7ZX2Xo0QP06ch5GWUL1PBMRa+v/+mUw=;
+	s=arc-20240116; t=1788962429; c=relaxed/simple;
+	bh=q0X9WcGtgMcc/LaC87Pv6GUoI1chdvq6dcdwra/lilc=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=j+1X6pbz1Mrx7dX9aOPnk8zKBRnElh5+4mIruP8LzV0zTr0bNa7bXRjpP/2UqTqVNfArazMuXVbTc3Oi2qYpnT31Vlgf7DbqPgKcicTNHqOKc2wArGVi+09N58boqYVWEaHbD+cBW/ZUZdibcJmWcFuwOc0SmAcISiuKIM1ZaMo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HaYpXkOJ; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=RkvV1kAd9q/0LcjYjX3oDmYN63/bmABfjX/446PEFFeMukxQBndLJ5Yazc4CaEwqjmeaUYFm+RODmz73leYmlx7jszpTthvmFW/+UGt5eqqsKGmuPrv90jNmxd+g04VWielljdlANm2X3KOjM8cnkDgNwOZORi1oEU9r2JG2DdU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nMiClv1f; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HaYpXkOJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 158771F00A3D;
-	Wed,  9 Sep 2026 14:00:09 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nMiClv1f"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4ACEF1F00AC4;
+	Wed,  9 Sep 2026 14:00:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788962417;
-	bh=zsyDLTFW2Hz/9GXfJii6CbsUgSsot8+rPVl4PmdEaRI=;
+	s=k20260515; t=1788962427;
+	bh=xYPaXFevKaKGglLFP894aQ9Q2tDiAAKyzOg7R7AUw/M=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=HaYpXkOJXHKZr+F98OGIEWsn64zfl0q8h2boe60eMkj66Cpr7mHAr8AI7FI8UWHV/
-	 oSYz8yO8NeP9j53QL6ITDYUpzaS9oqGU6mSuEGhig09FjDEOZSgb3cupLDXbfnhq8G
-	 sHumnqOJF+Kk6bY3QCIwgNJtMpo+MDO/1HrQWj9Wx5BjZfwFN6XRV4skAe8IUEz45J
-	 1jAqUpjLE0C/baa4Nmex2f1GcJANWXvHuZb+jX4nZ0nb6Rt9c6aunWN+pV5yO9TdGD
-	 ihxeDNQFqGquwv957h8OkJ/cs4tU+nVZ3vYcnjEedxM1rFN6acwiXChjASylsMDkqj
-	 KOQaUl+Udm41A==
-Message-ID: <d0aa1ccd-d99f-4fa5-98c2-21cea0f413c7@kernel.org>
-Date: Wed, 9 Sep 2026 16:00:08 +0200
+	b=nMiClv1f3FTqqXWOX+v2hm7AwnZYICX7p9jnt49fV1gm+A1HQ9JLyH/fAM8CGpK8y
+	 ap2t1jkiQG3JYX/pLH4RtA3HEo4FrN05+8EjgkNL9dNJ28iH85oUuVa4spd2BH03k5
+	 ZJaKeSLB438Ymhe6783X6K2K6BXQ/HFiErAw5CygVA5s36HyNjilVxZujU17Xnpijz
+	 mr+/zRPTbJ/nz6R5a3c7iYAFe1SINvA70B9ZUvTWV/5AbDLKxmDht6BNj8g/QP9h/V
+	 CZNYWh9+6DVW16SGOIlF9E7TY9CXw1HHi979DSzsqAj65Ivv10ESqMdYZAh9/qKuWE
+	 BvpXtrcBuJLyg==
+Message-ID: <e1e59b35-39a9-48ca-8c01-0b9db8202094@kernel.org>
+Date: Wed, 9 Sep 2026 16:00:19 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -35,8 +35,8 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/8] mm/swap: add folio_swap_entry() and
- folio_page_swap_entry()
+Subject: Re: [PATCH v2 3/8] mm/rmap: use folio_page_swap_entry() in
+ ttu_anon_swapbacked_folio()
 To: Tal Zussman <tz2294@columbia.edu>,
  Andrew Morton <akpm@linux-foundation.org>, Chris Li <chrisl@kernel.org>,
  Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>,
@@ -56,7 +56,7 @@ To: Tal Zussman <tz2294@columbia.edu>,
 Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org
 References: <20260908-folio_swap_entry-v2-0-ee6d01dfa5e1@columbia.edu>
- <20260908-folio_swap_entry-v2-1-ee6d01dfa5e1@columbia.edu>
+ <20260908-folio_swap_entry-v2-3-ee6d01dfa5e1@columbia.edu>
 From: "David Hildenbrand (Arm)" <david@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=david@kernel.org; keydata=
@@ -103,80 +103,21 @@ Autocrypt: addr=david@kernel.org; keydata=
  3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
  CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
  qIws/H2t
-In-Reply-To: <20260908-folio_swap_entry-v2-1-ee6d01dfa5e1@columbia.edu>
+In-Reply-To: <20260908-folio_swap_entry-v2-3-ee6d01dfa5e1@columbia.edu>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 9/8/26 17:16, Tal Zussman wrote:
-> A folio in the swap cache occupies folio_nr_pages() contiguous swap
-> entries starting at folio->swap, so a page's swap entry is just
-> folio->swap plus the page's index in the folio. page_swap_entry() hides
-> this behind a compound_head() call, and callers that already have the
-> folio sometimes open-code the arithmetic instead.
+> We already have the folio here, so use folio_page_swap_entry() instead
+> of going through page_swap_entry(). This saves a call to
+> compound_head().
 > 
-> Add folio_swap_entry(), which takes a folio and a page index, and
-> folio_page_swap_entry() for callers that have the page.
+> No functional change.
 > 
 > Signed-off-by: Tal Zussman <tz2294@columbia.edu>
 > ---
->  include/linux/swap.h | 33 +++++++++++++++++++++++++++++++++
->  1 file changed, 33 insertions(+)
-> 
-> diff --git a/include/linux/swap.h b/include/linux/swap.h
-> index fc290e29e4a9..1d979e76e78a 100644
-> --- a/include/linux/swap.h
-> +++ b/include/linux/swap.h
-> @@ -272,6 +272,39 @@ struct swap_info_struct {
->  	const struct swap_ops *ops;
->  };
->  
-> +/**
-> + * folio_swap_entry - Return the swap entry for a page within a folio.
-> + * @folio: The folio.
-> + * @idx: The index of the page within the folio.
-> + *
-> + * A folio in the swap cache occupies folio_nr_pages() contiguous swap
-> + * entries starting at folio->swap. The caller must ensure the folio is
-> + * in the swap cache and that @idx is within the folio.
-> + */
-> +static inline
-> +swp_entry_t folio_swap_entry(const struct folio *folio, unsigned long idx)
-> +{
-> +	swp_entry_t entry = folio->swap;
-> +
-> +	VM_WARN_ON_ONCE_FOLIO(idx >= folio_nr_pages(folio), folio);
-> +	entry.val += idx;
-> +	return entry;
-> +}
-> +
-> +/**
-> + * folio_page_swap_entry - Return the swap entry of a page in a folio.
-> + * @folio: The folio containing @page.
-> + * @page: A page within @folio.
-> + *
-> + * The caller must ensure the folio is in the swap cache and that @page
-> + * is part of @folio.
-> + */
-> +static inline swp_entry_t folio_page_swap_entry(const struct folio *folio,
-> +		const struct page *page)
-> +{
-> +	return folio_swap_entry(folio, folio_page_idx(folio, page));
-> +}
-> +
->  static inline swp_entry_t page_swap_entry(struct page *page)
->  {
->  	struct folio *folio = page_folio(page);
-> 
 
-"Return the swap entry for a page within a folio" vs. "Return the swap entry of
-a page in a folio."
-
-yet only of the variants has a "page" in the name :)
-
-A bit confusing.
-
-Not immediately sure how it could be done cleaner. The minority of cases seem to
-use folio_swap_entry.
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
 
 -- 
 Cheers,
