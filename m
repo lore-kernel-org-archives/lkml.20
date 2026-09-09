@@ -1,133 +1,136 @@
-Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yw1-f176.google.com (mail-yw1-f176.google.com [209.85.128.176])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17F6C355F5F;
-	Wed,  9 Sep 2026 04:37:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.171
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788928678; cv=none; b=cEeh5QDgazWlqFCReAMoYWog3ejiSA7AlxXVT3WnRi6pZjt6cywDu90ZaLXbMRVp6JnXstA2xSLSjssR/+/tBR0CvtxZmczjWqXtlIVIDNDUQ3pqyLc3MeGzFRpi29NLxLyM88uJk59eRRsj2TUczUzM9K9WKXwakTdIsjWxKgw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788928678; c=relaxed/simple;
-	bh=lRyIVsgUeJhjJ7BccB4WbwegZoXXAKiZ0z0jlEpN61Q=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=DsbyCuwnXwSdUyvmwFPYmPKeKnEM6oSBhzo72R8GhU5tgfZMvGINbZI0bEuF0chma/49f3Q1q3SwX2VUYqUq2Wg64qUmDKbBtxQBRZuiQu9z/EopBxD107F4M86qPIERsXAaz9JumCEz56eOJ7q1VxmVyEmbynCa8GKnQwaGAh0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=nlJLR6MB; arc=none smtp.client-ip=80.241.56.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71DAB33D4F3
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 04:38:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.176
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788928706; cv=pass; b=Uzs1/yp/EAvFxNYxs8cSuXpxWmdexQWI1q8ZjI1XJMS1Bh7yAPqYvBw9yY77+r6Psh8e+RlLeF9lFLW4PeG81JC/ixB5EyWR97C12/IyZffNK3Kb6wZRXvtqOiOLXI8UFvZ3bKfzUpV1tG44aiaUNfb+77PLGm5QYdoWbzTNz70=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788928706; c=relaxed/simple;
+	bh=/+3eKYYz03dUBjHcHqHQIQKyut0iHUO9Sr1nrn4fiWA=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=qORGfZch3ZRYLdGuHVPa93py/KSaBqbgmxMNX9hoKLdupbKHc+slfMMxZmEU7CF0ZyGyUsRHsgijzCneAPKzquQpjloty6YEeV2M+XvMGb708rcJ7zsrLyV/mCEf2eZW7svG64A2d5EUgGXgt9/ehBKPffoqmpkyC0MaKkIeUH0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=etsalapatis.com; spf=pass smtp.mailfrom=etsalapatis.com; dkim=pass (2048-bit key) header.d=etsalapatis-com.20251104.gappssmtp.com header.i=@etsalapatis-com.20251104.gappssmtp.com header.b=G+slYNMJ; arc=pass smtp.client-ip=209.85.128.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=etsalapatis.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=etsalapatis.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="nlJLR6MB"
-Received: from smtp202.mailbox.org (smtp202.mailbox.org [IPv6:2001:67c:2050:b231:465::202])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4hfp2R50Z0zMlBh;
-	Wed, 09 Sep 2026 06:37:51 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1788928671;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=GN/vfEfIssNYISWQGVk3lddr9BJex5fLw0q2sOxtz78=;
-	b=nlJLR6MBBs/x+s+8I9cXqVZVsZ2iZrPgMLKP9O4z8+bokX4JxRa3OM9Hmbw9IVpSDhpkE3
-	y2ZF943Az7gl8iroIc4RYFZAFrOkmeXYt075fn6S3HHG9Xe9Go/ZJ157fMX0mklnm8SJsn
-	5vKCAHxRI6HKtyzhDRXlumyG0XEtS/XqwtGSW9VDjxExKA0nsYu4uIUCTzG156ZLjTL7mU
-	ser9CJGE33mkA2WGDb5vHij1A+YamBVBrfAoMozvyFYTUE22RpDnpAMznRaBiraNDmcVN9
-	YZVer3nHh7WOCN63DmcUxiGtLSLGNLvelc0IRZUzhUkdGxNOtE/IQ5AnZd5vXg==
-Message-ID: <e563766f-359e-4133-9960-1b691bc0c774@mailbox.org>
-Date: Wed, 9 Sep 2026 04:34:40 +0200
+	dkim=pass (2048-bit key) header.d=etsalapatis-com.20251104.gappssmtp.com header.i=@etsalapatis-com.20251104.gappssmtp.com header.b="G+slYNMJ"
+Received: by mail-yw1-f176.google.com with SMTP id 00721157ae682-87ffa98d4a9so2469597b3.3
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 21:38:24 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788928703; cv=none;
+        d=google.com; s=arc-20260327;
+        b=UmakmEBjDsfoaCwNvLUH4b1L/MKSLx0DcA/i/Lx4EeGvr+93l9NaVPF6eCxlsP6X6X
+         QgXlLut/zf/wRBaEkfW2bXPF49GNsy0acqUDjaMw7Y4eNba5o2AbkCqaZsrcupe1h3m0
+         rJStNEk08AmUfzP3/kH6NujX9xgoJ9L+lrW+IRDj+bAyFx/8Hoi2zBdJYX/RDJnrKzSd
+         ukWaEy9TjgltQcO5WlLeCN6BYJMLgaH24q5PXODrc34SgNPxI5lPUQKEimqRJvnyeGPL
+         /zY2AxKUW1Iwfry/FcbinlBPpLs9RQETuyw4JgaA0dl/NDOzPsbCwUkoc3W3F+TVioWO
+         Fawg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=Teu6cC+d3LHtdtN3ePnM4eTc17lML+xatDJgJtdz0Ns=;
+        fh=D+0OhiNyUOgDkyp6v6XZm98ewgWzx3pQDc+jqfFG8nM=;
+        b=IoH1eG8ej97Y9anqFZqz/aIv37cihKutyD4kiZ12nRM8pUmeNGn+bFpaXC6S8ZmdIj
+         T3qfvmgqZzNKvmNjsV7gtpJJtNX0zbq2VjYMyXaemWc5+PsPt2gGiayTXhEBHhMMoq28
+         MQFvhfA4KboDf05xpf+3iCqA38rmDhwe4mO6h6+XAQhcHK+7S34saB/uUG+ebVOUhnQq
+         ePjdR419NvlkTfTuzIYqZCh/1y6rJVb6sxxOAGR4mDMKUXLBcYIG4gXIoUrbkyxAcOsv
+         3EbSV/au2T6M1LfD9BoWhnlxihhOZ8qiehN5VznSJrWl/GDzxTZu/rjAqkh4DN0gFSU5
+         GFcw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=etsalapatis-com.20251104.gappssmtp.com; s=20251104; t=1788928703; x=1789533503; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Teu6cC+d3LHtdtN3ePnM4eTc17lML+xatDJgJtdz0Ns=;
+        b=G+slYNMJ4NeYNov1rDcn3MJkqULMh4eAK7gcukOQB6HThKx6bB05QZKrqxMyyNZDg6
+         qQ7nlvJQp27dtcDujIxhQMxrNeKZLOKfUDGMeyKDpOoKLk+ad9bSIcI6ezlT7yHqihsk
+         h0Z9SjcyRDJfbVk7Jgx28PATGsWAs51SmRg95r0crWFucxkJW8J1+uEaU+5sr50mvVGO
+         BJnLvXTi9B1YqaxczK7sUZF1nJGRAh8x7jTDRAi4DLB9+sOju+Vx8XMcD7aVlcEZE98h
+         u+qKtDkafzy077tmVLUxRqtWLbgCF/FbzhwTCAH6OaWKd9dYs3x7OqEmuwpwC+Df3YPo
+         UjGg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788928703; x=1789533503;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Teu6cC+d3LHtdtN3ePnM4eTc17lML+xatDJgJtdz0Ns=;
+        b=PG0RQDeBIeDMYsfhfDK95voTAsm9URcHtCos01I+1bE+4Qhx8afD3Cifq0yZcUY3dG
+         y/aGLvyr3Hy7aHOGG99ZSEYxqAZ1BjxoDKMV+wUKFNrU4pstaMXO+DGQ/Z5kHlcJBKDk
+         Xfv4TtVfpIoPYFrEitlr4WSheobUMshZQxJrOt2QWlMj2uQBpSloyuw+1K/AZgkZiTKw
+         TqkU8bMlGqqlXurl5Fm8E7wipa2giYUakJ8RYsLQPNTUJQzlG0EZ5R+idEdys3W4AA8R
+         w5X+zB5csSSedL72UkqoRptb+9Da+lL3kltROGmNggfHiQ06oUi/UdStUv2doAA3wtKI
+         FN5g==
+X-Forwarded-Encrypted: i=1; AKwUvBxtJqolnYjvdyICaB4Cv2C7376sMi3UP44oO5fBSnYXS3+FeOAYTCnE/EiwvlHnegXbza/D+AC3anb3Kew=@vger.kernel.org
+X-Gm-Message-State: AFuF++l7uXPex0wzsQcx7Hbzp7ETT6awwmwVhXIErADpz+azMa1+7tF1
+	x52O63NLg2ifu+zwirR3cnxnKdStOMpFB89AhO4vVQ3DH3HnHOXQas7XahcS/K96lywOj9eNbHk
+	sNmOhJHy0bRdlqFu7G958OduvuYAZBoKTjJ3iyUygsw==
+X-Gm-Gg: AYBFou2mGG/qMXwILVZ2x5kaZZnrVoUtlXJeXnptQM0A3NfVG10o08VdMLvyM6g7198
+	ALScgBHDkSKllVrNnzV5No0s6fXIszoUnJh89oWsGdEQNCYWUmbk7b24LW6iDM9ohzEG86yg8TP
+	bVLOTEZGTneuZUnjTzhE0aL4anVLel8i65uFPAmAUhcTuPbuxfpYgzm4pCoXh5btVGzNQHOCV5G
+	DXBytczLNWtIiaUlKRbGj7wbjwaE/Nnr5+NY/mRuTZ5hO7g9a9auKvPAWNFFNEqEfKSDwwHoIXV
+	oEoKuQz8Qt3U02xONCD4H/3qs/JR5bx3F9DlEr3ZKhojrAWx3DFA1rA=
+X-Received: by 2002:a05:690c:e3e9:b0:870:820e:da66 with SMTP id
+ 00721157ae682-87127d2ca36mr124113977b3.23.1788928703258; Tue, 08 Sep 2026
+ 21:38:23 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Subject: Re: [PATCH v3] PCI: rcar-gen4: Limit Max_Read_Request_Size and
- Max_Payload_Size to 256 Bytes
-To: Rong Zhang <i@rong.moe>, Bjorn Helgaas <helgaas@kernel.org>
-Cc: Jiaxun Yang <jiaxun.yang@flygoat.com>, linux-pci@vger.kernel.org,
- stable@vger.kernel.org, =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?=
- <kwilczynski@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Koichiro Den <den@valinux.co.jp>, Lorenzo Pieralisi <lpieralisi@kernel.org>,
- Magnus Damm <magnus.damm@gmail.com>, Manivannan Sadhasivam
- <mani@kernel.org>, Rob Herring <robh@kernel.org>,
- Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
- linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
- Ziyao Li <liziyao@uniontech.com>, Huacai Chen <chenhuacai@loongson.cn>,
- Richard Zhu <hongxing.zhu@nxp.com>
-References: <20260903202706.GA2234456@bhelgaas>
- <41f323cbed2da4fa3913dfd62b5595bc3d5228da.camel@rong.moe>
- <9f0d8887-9332-4919-bee9-c165361e2ea3@mailbox.org>
- <f66d7e55bb388c550e70fc425f1b911e40e0d578.camel@rong.moe>
-Content-Language: en-US
-From: Marek Vasut <marek.vasut@mailbox.org>
-In-Reply-To: <f66d7e55bb388c550e70fc425f1b911e40e0d578.camel@rong.moe>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-MBO-RS-META: chfpd9wiyfed5n4788txtbqrw9sp9p6f
-X-MBO-RS-ID: 7b2f3847791e0361f4b
+References: <20260903150351.12725-1-colin.i.king@gmail.com>
+In-Reply-To: <20260903150351.12725-1-colin.i.king@gmail.com>
+From: Emil Tsalapatis <emil@etsalapatis.com>
+Date: Wed, 9 Sep 2026 00:38:11 -0400
+X-Gm-Features: AcwNN1WAFyR_AVCv1IXGTjGY0PGid8q5kgFayEO3Y82fm5jIlHk6g71DHjJvDXg
+Message-ID: <CABFh=a7YTi2U2-cx4b5zejWv6MXE-VG-u7K410pPbtJiw6qbWQ@mail.gmail.com>
+Subject: Re: [PATCH][next] selftests/bpf: test_xsk: Fix spelling mistake
+ "conigure" -> "configure"
+To: Colin Ian King <colin.i.king@gmail.com>
+Cc: Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
+	Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>, Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
+	Yonghong Song <yonghong.song@linux.dev>, Ihor Solodrai <ihor.solodrai@linux.dev>, 
+	Shuah Khan <shuah@kernel.org>, Maciej Fijalkowski <maciej.fijalkowski@intel.com>, 
+	Bastien Curutchet <bastien.curutchet@bootlin.com>, bpf@vger.kernel.org, 
+	linux-kselftest@vger.kernel.org, kernel-janitors@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 9/6/26 7:07 PM, Rong Zhang wrote:
+On Thu, Sep 3, 2026 at 11:05=E2=80=AFAM Colin Ian King <colin.i.king@gmail.=
+com> wrote:
+>
+> There is a spelling mistake in an assert message. Fix it.
+>
+> Signed-off-by: Colin Ian King <colin.i.king@gmail.com>
 
-Hello Rong,
-
-I apologize for my delayed reply.
-
->>> If you need more information I can do some more experiments with the PCIe
->>> switch card.
->>
->> Please look at the commit message [1] , that lists the exact test and
->> the PCIe NVMe SSD which triggers the data corruption (let me know if
->> something is unclear). I think any PCIe NVMe SSD which is non-HMB with
->> MRRS on the SSD size that is > MRRS on the controller side will trigger
->> this issue too.
->>
-> 
-> Unfortunately I don't have any non-HMB NVMe SSD, and it's unlikely I'll
-> get one anytime soon due to the crazy price. Before the AI supply chain
-> crisis, I bought several NVMe SSDs, but I chose HMB ones as they generate
-> less heat and consume less electricity.
-
-Maybe this could be reproduced even with another PCIe device with 
-MRRS=512 or more, which posts MRd to the PCIe controller with MRRS=128 
-or 256. The AHCI controller might be capable of that. I only have the 
-SSD as a reproducer, but there could easily be more.
-
->> If you could reproduce it on the Loongson, then yes, it
->> is affected. You might have to disable the current MRRS workaround in
->> the Loongson PCIe driver though as it might hide the issue.
-> 
-> Due to the lack of non-HMB NVMe SSDs, I can't reproduce the exact same
-> issue. Theoretically I may try to mess around with the AHCI controller
-> (see the mentioned commit below) by manually overriding MRRS, as my
-> device's firmware already clamps it. We will see...
-
-Does the AHCI controller have MRRS higher than the PCIe controller ?
-
-> The firmware of many Loongson devices (except for some MIPS-based ones,
-> see the commit message of commit ef61a0405742 ("PCI: loongson: Limit MRRS
-> to 256")) already clamps MRRS for most PCIe devices, which has proven
-> that the 7A1000/7A2000 chipset does need the MRRS quirk.
-
-This still only applies the MRRS limit to the PCIe controller, not to 
-all devices on the bus, correct ?
-
-I would like to find out whether all the devices (not only the 
-controller) on the PCIe bus on Loongson must have MRRS limited or not.
--> If yes, then I should start preparing core patches
--> If no, then this quirk might specific to this controller
-
-> Therefore, you
-> can just go ahead with preparing the core patches without the need of
-> waiting for my test result. It seems that your approach is not going to
-> change the current fixup effects in a significant way, so it should be
-> fine.
-
-[...]
-
-Thank you for your help !
-
--- 
-Best regards,
-Marek Vasut
+Reviewed-by: Emil Tsalapatis <emil@etsalapatis.com>
+> ---
+>  tools/testing/selftests/bpf/prog_tests/xsk.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/tools/testing/selftests/bpf/prog_tests/xsk.c b/tools/testing=
+/selftests/bpf/prog_tests/xsk.c
+> index 6e2f63ee2a6c..772f3dd7ce64 100644
+> --- a/tools/testing/selftests/bpf/prog_tests/xsk.c
+> +++ b/tools/testing/selftests/bpf/prog_tests/xsk.c
+> @@ -75,7 +75,7 @@ static void test_xsk(const struct test_spec *test_to_ru=
+n, enum test_mode mode)
+>         if (!ASSERT_OK_PTR(ifobj_rx, "create ifobj_rx"))
+>                 goto delete_tx;
+>
+> -       if (!ASSERT_OK(configure_ifobj(ifobj_tx, ifobj_rx), "conigure ifo=
+bj"))
+> +       if (!ASSERT_OK(configure_ifobj(ifobj_tx, ifobj_rx), "configure if=
+obj"))
+>                 goto delete_rx;
+>
+>         ret =3D get_hw_ring_size(ifobj_tx->ifname, &ifobj_tx->ring);
+> --
+> 2.55.0
+>
