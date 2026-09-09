@@ -1,145 +1,116 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2792C55D882
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 14:04:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FB07563FCF;
+	Wed,  9 Sep 2026 14:04:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788962644; cv=none; b=R5fNwjTMyu7AnsUWt4hCrEDir8Tj6ExA842Ay+K8VS9nVTnVXUIEEqC3cVrnuYAbh0ice6j8HOhzWWaDQiKy2Fb8xZ/QrzVgKgOiE2SOT7APVyiVVjpdLrAlnEk1/96RDfb63i9/UqGqlfQZAS08Fu5Z/RYoUm7MoMAJiUDjvIw=
+	t=1788962658; cv=none; b=Nd6h36s7pfijErg+tckDtdsoqbGv+fGKhyiWv6OVxZBXd5ryUHhIkOWJBGGtMjhbcM3C3ffQy9IumSraMIzpltK4Ok8zhDn3axzByHGTKo0ULvk/kdZlSUjQSe6IFycNjX/QOH5l+4rSMGJsZSABY2VEGnsES4yoQh0DhRJt6zk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788962644; c=relaxed/simple;
-	bh=flAfYKpZIwatzm6YSBJWn1WpTr7IwC7yAuIdmnA9T7Q=;
-	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=e2traSEmmYukxc2+MNNjtL4KRry9kZOnYC1jFiYyUZ131mTPKrAOqtxVTDPFbEDpA5jKO7xCHWY3XyVQNz93vhErYkviagVUhrVPjybcaWYkMqX6PBMFC3QHHI05LB/pLay3FecZpQlInDhUsaFSkAZT8+zC4RiX3JyFNwy7nl4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=f7DiDcNg; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788962658; c=relaxed/simple;
+	bh=fKrB/U0Fkc84EdTBQ6P2uNZCoUXlmjMlVMrrxMNAX2w=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=okiWBUMgFvTPdYZetcXmkxFKGTJudFuZeTQYkZWEHkmZBjvL648PMCsWaI7/QM0UT86fnf1O2NFFLgnoZANQvRg1547XDXSNzv7nDpYKqW/IRwxLD961FVI4MkpVlMjA6+goTfZ7IpiA2/FCXFhuq2PRpcMBIjCvi2ERPjMHE7c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bZV5HI9n; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="f7DiDcNg"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 049061F0155B
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 14:04:03 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bZV5HI9n"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1C98E1F00A3E;
+	Wed,  9 Sep 2026 14:04:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788962643;
-	bh=0qvI3Ij6pHot4GWpLZbVGJuwCMn3p13tzKFz475rd7w=;
-	h=From:In-Reply-To:References:Date:Subject:To:Cc;
-	b=f7DiDcNgtX0V7nhexZdovTM5uwfD8FIy1VWToiVrwFCMZWT4ep6JgIAU9A08oRbCo
-	 AN5nLWLvXgYJ0tGr6wFrfzd3rKYIkdLPqiBR0VzeQED0wp7YlqC4jeS1GMXkHG4/9n
-	 rSRsC4A/6gdv9Gv8AQI600Wb6YYCblzz9DRARCproumk9co1hoW2WRhNGkDft6Tzax
-	 PlG1ifpPiYVwdpSR8gZdxMUAGkHqzxn1Z4gwkjoqczWwZ1lp/WEsPxvp3bMaLysJ7f
-	 oDPtMmEa6U0c/+EmoOFo4is5xc/9+yX8aTqSrj5Pdxa0aAdw1d0RPb3GcrSi18mgHW
-	 RbsjrhA44gWCQ==
-Received: by mail-lj1-f171.google.com with SMTP id 38308e7fff4ca-3a2e985245eso41893751fa.0
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 07:04:02 -0700 (PDT)
-X-Gm-Message-State: AFuF++mJAHzNx0S7EjGdcDI7mBuliUsFxQ3eU/0IgS2W9prBZee4KUCc
-	Tdio9u6KNuYeFj4nII6XoqIjY+1ygScK1ubZicXnXfz/QsRsBPRa8HfbhzUZFrlbkPw5RiD0Taj
-	HvfK7veMGdAOg/oa277Gczr5u8wzFMjcLEnB8kle8bA==
-X-Received: by 2002:a05:651c:a103:10b0:3a4:973c:9387 with SMTP id
- 38308e7fff4ca-3a4973c96fdmr5064251fa.26.1788962641476; Wed, 09 Sep 2026
- 07:04:01 -0700 (PDT)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 9 Sep 2026 07:03:58 -0700
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 9 Sep 2026 07:03:57 -0700
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <20260909132153.1596191-1-arnd@kernel.org>
+	s=k20260515; t=1788962656;
+	bh=jEjB5+SmYpe1jV4B6kvt1MmnXfzrPfDtBLhTiuYoc8Q=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=bZV5HI9ni1qoer7WyAzgqHcmDNXDCkP6yMaAYv82nIdNvytJfea+tswZdYH/n1kO3
+	 xH7HiXbus+CJ24iXvAlS7zz0lwENIoJbFTO+7k8wHFv0svv2VFMyngh0Tua+XCQtpB
+	 5MUrRIVoRkGncsFxs8GUMJy3gm0VfYD50LMM4KPxP9foxpkK2dCzb9KzieqYur3UTl
+	 XPZ00hyL15YOnYCbN9O6hw2aKEafU+JExRoW8OiygrC51XPE5g2gM35psx4KhXauEz
+	 q6Vsff2H6UqTxk+kbF0srjTUBtktHrEQJtd1lL1q2FnsG9HARhT4ubEgpeHNoePYL5
+	 NZMGkA26dKDDg==
+From: SJ Park <sj@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: SJ Park <sj@kernel.org>,
+	damon@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org
+Subject: [PATCH REPOST 1/5] mm/damon/vaddr: support prep_probes
+Date: Wed,  9 Sep 2026 07:04:03 -0700
+Message-ID: <20260909140408.104699-2-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260909140408.104699-1-sj@kernel.org>
+References: <20260909140408.104699-1-sj@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260909132153.1596191-1-arnd@kernel.org>
-Date: Wed, 9 Sep 2026 07:03:57 -0700
-X-Gmail-Original-Message-ID: <CAMRc=MfvwcvV7yvkXz_YikGxQ8M0_ajgGA3bf==ZpT_Z46v7EA@mail.gmail.com>
-X-Gm-Features: AcwNN1US7FJNeFLdpa5M-NPN5cGI7wXmVw6SZ5lmp-9zPkwIPUzMBGaaTvwumLk
-Message-ID: <CAMRc=MfvwcvV7yvkXz_YikGxQ8M0_ajgGA3bf==ZpT_Z46v7EA@mail.gmail.com>
-Subject: Re: [PATCH 00/14] mfd: unused driver purge
-To: Arnd Bergmann <arnd@kernel.org>
-Cc: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	Arnd Bergmann <arnd@arndb.de>, Daniel Thompson <danielt@kernel.org>, Jingoo Han <jingoohan1@gmail.com>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>, 
-	Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Guenter Roeck <linux@roeck-us.net>, Linus Walleij <linusw@kernel.org>, 
-	Bartosz Golaszewski <brgl@kernel.org>, Jonathan Cameron <jic23@kernel.org>, 
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>, Pavel Machek <pavel@kernel.org>, 
-	Michael Hennerich <michael.hennerich@analog.com>, 
-	Support Opensource <support.opensource@diasemi.com>, Sebastian Reichel <sre@kernel.org>, 
-	Alexandre Belloni <alexandre.belloni@bootlin.com>, Helge Deller <deller@gmx.de>, 
-	dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org, 
-	linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-hwmon@vger.kernel.org, patches@opensource.cirrus.com, 
-	linux-watchdog@vger.kernel.org, linux-gpio@vger.kernel.org, 
-	linux-iio@vger.kernel.org, linux-input@vger.kernel.org, 
-	linux-leds@vger.kernel.org, linux-pm@vger.kernel.org, 
-	linux-rtc@vger.kernel.org, linux-fbdev@vger.kernel.org, 
-	linux-sound@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, 
-	llvm@lists.linux.dev, Lee Jones <lee@kernel.org>, mfd@lists.linux.dev
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-On Wed, 9 Sep 2026 15:21:37 +0200, Arnd Bergmann <arnd@kernel.org> said:
-> From: Arnd Bergmann <arnd@arndb.de>
->
-> As part of my cleanup of old platforms, I had a look at all drivers that
-> may have become unused because the last platform_data or DT definition
-> was removed, or because of unmet Kconfig dependencies.
->
-> These are all the mfd drivers I found. The first ten in the list
-> actually turned out to have been unusable long before my series, and
-> I have added explanations on how I determined this in each patch. The
-> last four patches are still in use in linux-7.3 but become unused after
-> my series [1] that I hope to get merged for 7.4.
->
-> Somewhat unorthodox, I took a shortcut here and remove both the mfd drivers
-> and the corresponding subsystem drivers (gpio, hwmon, iio, input, led,
-> media, power, regulator, rtc, video, watchdog, asoc) in a combined patch,
-> to simplify the interdependencies: removing just the mfd driver would
-> leave unselectable or broken drivers in other subsystems.  I also have
-> additional patches for each of the other subsystems, currently a total
-> of 300 patches, many of which still need better testing or proper
-> changelog texts.
->
-> Please let me know if you all think this approach is ok, or if I should
-> explode this further and turn these 14 patches into 70 individual ones
-> by splitting them per subsystem.
->
-> See [2] for the current state of the overall series.
->
->      Arnd
->
-> [1] https://lore.kernel.org/lkml/20260908152808.3928630-1-arnd@kernel.org/
-> [2] https://git.kernel.org/pub/scm/linux/kernel/git/soc/soc.git/log/?h=board-remove-7.3
->
-> Arnd Bergmann (14):
->   mfd: remove unused 88pm80x driver
->   mfd: remove unused rdc321x southbridge support
->   mfd: remove unused si476x driver
->   mfd: remove unused wm8400 driver
->   mfd: remove unused adp5520 driver
->   mfd: remove unused da903x driver
->   mfd: remove unused lp8788 driver
->   mfd: remove unused aat2870 driver
->   mfd: remove unused lm3533 driver
->   mfd: remove unused rc5t583 driver
->   mfd: remove unused wm8350 driver
->   mfd: remove unused mcp-sa11x0/ucb1x00 driver
->   mfd: remove unused menelaus driver
->   mfd: remove unused iPaq micro driver
->
->  .../ABI/testing/sysfs-class-backlight         |   11 -
->  Documentation/admin-guide/devices.txt         |    1 -
->  .../admin-guide/media/radio-cardlist.rst      |    1 -
->  Documentation/admin-guide/media/si476x.rst    |  160 --
->  .../admin-guide/media/v4l-drivers.rst         |    1 -
->  .../devicetree/bindings/regulator/88pm800.txt |   38 -
->  Documentation/hwmon/index.rst                 |    1 -
->  Documentation/hwmon/wm8350.rst                |   30 -
->  .../watchdog/watchdog-parameters.rst          |    7 -
->  MAINTAINERS                                   |   14 -
->  drivers/gpio/Kconfig                          |   22 -
->  drivers/gpio/Makefile                         |    3 -
->  drivers/gpio/gpio-adp5520.c                   |  169 --
->  drivers/gpio/gpio-rdc321x.c                   |  199 --
->  drivers/gpio/gpio-wm8350.c                    |  144 --
+DAMON virtual address space operation set (vaddr) is not supporting
+prep_probes.  Add the support.
 
-For GPIO:
+Signed-off-by: SJ Park <sj@kernel.org>
+---
+ mm/damon/vaddr.c | 40 ++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 40 insertions(+)
 
-Acked-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+diff --git a/mm/damon/vaddr.c b/mm/damon/vaddr.c
+index af9e1b82454cc..20f4784f17817 100644
+--- a/mm/damon/vaddr.c
++++ b/mm/damon/vaddr.c
+@@ -483,6 +483,45 @@ static unsigned int damon_va_check_accesses(struct damon_ctx *ctx)
+ 	return max_nr_accesses;
+ }
+ 
++static void damon_va_prep_probe_region(struct damon_ctx *ctx,
++		struct mm_struct *mm, struct damon_region *r,
++		struct damon_probe *probe)
++{
++	struct damon_prep *p;
++
++	damon_for_each_prep(p, probe) {
++		switch (p->action) {
++		case DAMON_PREP_SET_PGIDLE:
++			damon_va_mkold(mm, r->sampling_addr);
++			break;
++		default:
++			break;
++		}
++	}
++}
++
++static void damon_va_prep_probes(struct damon_ctx *ctx, bool set_samples)
++{
++	struct damon_target *t;
++	struct mm_struct *mm;
++	struct damon_region *r;
++	struct damon_probe *p;
++
++	damon_for_each_target(t, ctx) {
++		mm = damon_get_mm(t);
++		if (!mm)
++			continue;
++		damon_for_each_region(r, t) {
++			if (set_samples)
++				r->sampling_addr = damon_rand(ctx, r->ar.start,
++						r->ar.end);
++			damon_for_each_probe(p, ctx)
++				damon_va_prep_probe_region(ctx, mm, r, p);
++		}
++		mmput(mm);
++	}
++}
++
+ static bool damos_va_filter_young_match(struct damos_filter *filter,
+ 		struct folio *folio, struct vm_area_struct *vma,
+ 		unsigned long addr, pte_t *ptep, pmd_t *pmdp)
+@@ -911,6 +950,7 @@ static int __init damon_va_initcall(void)
+ 		.update = damon_va_update,
+ 		.prepare_access_checks = damon_va_prepare_access_checks,
+ 		.check_accesses = damon_va_check_accesses,
++		.prep_probes = damon_va_prep_probes,
+ 		.target_valid = damon_va_target_valid,
+ 		.cleanup_target = damon_va_cleanup_target,
+ 		.apply_scheme = damon_va_apply_scheme,
+-- 
+2.47.3
