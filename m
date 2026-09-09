@@ -1,175 +1,235 @@
-Received: from mail-pf1-f175.google.com (mail-pf1-f175.google.com [209.85.210.175])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAF9F326951
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 02:40:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 016801DA62E;
+	Wed,  9 Sep 2026 02:40:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788921629; cv=none; b=mgPHDFI4Wt2mpuedZWF9P2lx8AilojiJALSL6fGWmxBm7Q3WdP3NaDunPkD14EN6xHKI+LUUUur2l3xW78VOPpxNIlZ12w7f1p++zqIru5y4dV+6Y2uhEshfC9Mce1i4ozc1+TZWyfJIKIdt0UlCwchAGm8XlDw5FA7v+Qb7720=
+	t=1788921640; cv=none; b=T2pyl73FQI+tJRb3rOpqKBrIrxSr8IiKT+Ps4Ehts5rTp6UqWLw+Dm3H9DWU+BnrDSJKXSx4CjU/g4n82H6nlYiy14BC1O1DiRshXOgD3ezZH4mDGHK2b0suwqTJyq3e57yAgnf69Gd6OEzca9mgxbD5WYpqjrjpIVXRu3IDrIY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788921629; c=relaxed/simple;
-	bh=X1Xh75puVEIf2AgK7qiR8Iu8yQ2Qw0GXyTIhKX5ee8E=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=D6QPOAoRq4UsH8FwdMTAGUZu2SEKhn6iWMc1fWqGEQZh8+3JoKsnGQtMKY9uOa6zS+MbAAhCc+QqVNntZmFrm/dkyIKuLIwt8goAIVKbIQDTvv+wrcQ0XM3+QlOFlC83EWzB0muQHHtSM9tuQaVTLjiEjJbDVP7OTA7AAfuYOYA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HlGPVekw; arc=none smtp.client-ip=209.85.210.175
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788921640; c=relaxed/simple;
+	bh=Y4/uvQfaNAaeaQy49shc2raTT0F4gsY2zjvtCAIUsnA=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=sXLVfMTFKTPMWcAcO8BqkGLrZ5ZJk8AZiDpR4DR3i2iv+4wmsCaLLYM13xGzm+71YDYN2zexfIBu8bB3hMAD3HuUh2cgHyc8iBfarNlAVbg02phBpmsASTlhD9IZiHkvORgsgoLf9y7o5VIVTeU0gDSiS7eAvMVAsitFBjM8im0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YVrytb68; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HlGPVekw"
-Received: by mail-pf1-f175.google.com with SMTP id d2e1a72fcca58-8557c3f270eso3508133b3a.3
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 19:40:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788921626; x=1789526426; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=/fZqpQBGjzjI/DxAL3lk605xnvz1wTJmXUd/sLpFD+Q=;
-        b=HlGPVekw2RyG3wytO5zN/19Es33hbLKy0WSnXvb1Q841eId/oLFiGJPDTt+RZzssg+
-         YOzXaI2NVXX+kGMo2yyL7i8SpFHfD87TYNEfV+wlalWYmn3I682+KqJXaLK+gCBGrvn0
-         zM5OwWEtjYNyRu2WgFO7wuMjqnwPZAdVEDI56k4C8JiJfCMjVxb07qzjQ1a0AlaodsKk
-         7J8tUnu9CIdi0P6bd0c4p5AssSA9+OkTxOmRqi5cAOqt2IiVLQ1358AxqzM9usZVaCLE
-         ohSFyh3LRXqnHqLWAYnz0CkuuyXEdSTDh858WaPgf3UPeS49bysVo7zk9PAa08/MFDi2
-         ZYQw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788921626; x=1789526426;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=/fZqpQBGjzjI/DxAL3lk605xnvz1wTJmXUd/sLpFD+Q=;
-        b=flbkXZ1Ry+UPqr4N9xw27f/hfadQT/rmxw00danwDmAQ9NdcyOGDdhTtkBmsZmrIo9
-         My7XvgbotlJd05Ov3kKT9/IeSnQw+VQy5GvlpqzTN5fPKLt5f5fxL70O4SbQdDGoCECW
-         mxEnHb6j1VjjoUE2r1tLVvByA6FBz1zEHCO2J9rdOQmCFirQaqgnItlCzX3Q0R7lP74W
-         fxYdlEJ5FA6yXPc4gdJaQCgfhHRj0SSjLDo8wqK3xjUT+HWcjG9OtSiKpSYdwI6piLZ1
-         1hK5lABIGRe6pKFDZOaM9yVKKLk+yYmwXn+rnJRqnpmNXspYrFRFBY0vR7fmF85W6pQf
-         J3tw==
-X-Forwarded-Encrypted: i=1; AKwUvByZzuRkPHEkNd0NclPlOf1zaMwxOJ0cIUvUp3uyqX7WpNkNGpTPf8H8F9ly2ltIoeoGcpfw6wHsODoM5kQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++k7j2gnDDUi7gtYLKS65OUI4jS6sNO0CxkkhGZT5/YHlAExKPng
-	4t/NkJ5HbqOYVsMbbB4BOfrkkc721lg7NwsaDAfkYeFECdceAOeCoMXZ
-X-Gm-Gg: AYBFou3s6UTriQlcaPkCtaxIpS1ZohiP0r41/iVVYNbfFSiOVofbyk0zDOiwPxYWQ4E
-	g3+naSt87qUxfmHSNkaECAftYT1+/WpvKlJnqlylr43MmND+5BplEz7CY7K38a/qvGp0htXVzFP
-	SzJlBht0trqreMuktSz5E5rzodbspxOaXLnsiOkup95t10LV7j5s4hr/at8VUvwNl3WjfGLr+ZE
-	r9HW2N1zvBE+G3uOvypa/iNdSykKhzCYttUmZC477h0RHfl2VcVCSibeaJdpVkWIuU/XadnpxSY
-	KsiNs7assmKAv4LUOteAN74aEuAnVnDZ6KPeUu6Y0KhXKtWejjZYN85FfgivMtQQ0HFQgiZM4/s
-	pmvm8bdIDnOaVnR3fsr3iBKbi60XzlsEFLdVyBrZfq6g5btnL/51umr8aAECDUbhYhLA4WvZJSh
-	KXWijuocgFKmTOdvRHlavTK8iZQ+h19eZOmrPRp7w0AHrekW3SfNtEh7iAzvmW1NCBw2fJAUuEP
-	YB9tC1X2CBPhcGoG5vFbRIPlOeN41j05oyl1I1ZZjbo3NDh7kg8PCw/T719kvoENW0bN1UeNpi/
-	XMxvO//bDWMV+kaYU/88YRAFzZxJB4yVunWp27tNK3HSWkHpqOpF6/dpLAFdeTfo1gjdHJ9j+5i
-	SHiknodaDr7E4
-X-Received: by 2002:a05:6a00:f0e:b0:847:770f:da4c with SMTP id d2e1a72fcca58-8616b17644bmr44258694b3a.16.1788921625629;
-        Tue, 08 Sep 2026 19:40:25 -0700 (PDT)
-Received: from bad.. ([43.227.225.58])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-86152045f74sm6270814b3a.10.2026.09.08.19.40.19
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 08 Sep 2026 19:40:25 -0700 (PDT)
-From: Nikhil <nikhilljatt@gmail.com>
-To: ast@kernel.org,
-	daniel@iogearbox.net,
-	andrii@kernel.org,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com
-Cc: eddyz87@gmail.com,
-	memxor@gmail.com,
-	martin.lau@linux.dev,
-	song@kernel.org,
-	yonghong.song@linux.dev,
-	jolsa@kernel.org,
-	john.fastabend@gmail.com,
-	sdf@fomichev.me,
-	horms@kernel.org,
-	dsahern@gmail.com,
-	hawk@kernel.org,
-	razor@blackwall.org,
-	stable@vger.kernel.org,
-	bpf@vger.kernel.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH bpf] bpf: fix reading neigh ha in bpf_fib_lookup()
-Date: Wed,  9 Sep 2026 08:10:11 +0530
-Message-ID: <20260909024011.1252694-1-nikhilljatt@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YVrytb68"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E03C81F00A3A;
+	Wed,  9 Sep 2026 02:40:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788921638;
+	bh=MBhd9VYr8BvFFmih3TusNdRdgJdW9WFWWU89XE2/9M8=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=YVrytb68HDpOPc5HN9rZxsdWN3ycTC+35Y1lcRH/SXxUktFtTf/XkF86A+AuFR1zw
+	 Dy2ziTwQoyHQqhGWgljtEY7rRcYO2UElCS83dUJO5wCNL+Kcba+lhAPUa9eZaoZjws
+	 sjabJQu/oXbxMNwtNk+q9BEWqNPa/3w/kz9LzUh8tVRuNkqzuyD6SiKkaOD/+J35t4
+	 Kh6P1Nrl8Yzb+aLBk8EbzQKnKicnK6ed8zwwtbrmqQNs67OnzpGXn3IC3Yp0Yjaf9P
+	 ilU2DH0NirQX138RBFVOQIK45YGgcZqPPpAiK2mBqZXj6RTnBXw1kXigqrONT9dr6Z
+	 YTTNBWRwj4rug==
+Subject: Re: [PATCH net] octeontx2-pf: fix invalid aura pointer free
+From: netdev-bot+sashiko@kernel.org
+To: nshettyj@marvell.com
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, gakula@marvell.com,
+ sgoutham@marvell.com, rkannoth@marvell.com, sbhatta@marvell.com,
+ bbhushan2@marvell.com, andrew+netdev@lunn.ch, davem@davemloft.net,
+ edumazet@google.com, kuba@kernel.org, pabeni@redhat.com
+Date: Wed, 09 Sep 2026 02:40:37 +0000
+Message-ID: <178892163740.219967.5154070424316445732@kernel.org>
+In-Reply-To: <20260903143941.2698880-1-nshettyj@marvell.com>
+References: <20260903143941.2698880-1-nshettyj@marvell.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-bpf_ipv4_fib_lookup() and bpf_ipv6_fib_lookup() copy the neighbour's
-link layer address into params->dmac without any synchronisation, but
-neigh_update() writes neigh->ha under write_seqlock(&neigh->ha_lock)
-exactly because there are lockless readers.  A BPF program calling
-bpf_fib_lookup() while the neighbour is being updated can therefore be
-handed a torn address, and XDP/tc then forwards the packet to a bogus
-L2 destination.
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider:
 
-neigh_ha_snapshot() cannot be used here because it copies dev->addr_len
-bytes while params->dmac is only ETH_ALEN long (an IPoIB egress device
-has addr_len 20 and would overflow into params->smac), so open-code the
-seqlock loop around the ETH_ALEN copy.
+Critical: 0 · High: 2 (1) · Medium: 0 · Low: 0
 
-Same problem and same fix as commit 57549ab90791 ("net: bridge: arp/nd
-proxy: fix reading neigh ha") and commit b824059a673b ("vxlan: fix
-reading neigh ha").
+- [High] The patch is a no-op: it changes `u64 ptrs[2];` to `u64 ptrs[2]
+  = {0};` in `cn10k_aura_freeptr()`…
+- [High] `cn10k_refill_pool_ptrs()`
+  (drivers/net/ethernet/marvell/octeontx2/nic/cn10k.c:136-142) uses `if…
 
-Reproduced on x86_64 under qemu: a dummy device holds a permanent
-neighbour whose lladdr is flipped between aa:aa:aa:aa:aa:aa and
-bb:bb:bb:bb:bb:bb with RTM_NEWNEIGH, while an XDP program driven by
-BPF_PROG_TEST_RUN calls bpf_fib_lookup() in a loop and checks that all
-six bytes of the returned dmac are equal.  Before this patch: 211 torn
-addresses out of 16300000 lookups (last one aa:aa:aa:aa:bb:bb).  After
-this patch: 0 out of 38060000 lookups.
+Pre-existing issues:
+- [High] `cn10k_aura_freeptr()` protects the shared per-CPU LMTST line
+  only with `get_cpu()`/`put_cpu()` (preempt_disable), but the very same…
 
-Fixes: 87f5fc7e48dd ("bpf: Provide helper to do forwarding lookups in kernel FIB table")
-Cc: stable@vger.kernel.org
-Signed-off-by: Nikhil <nikhilljatt@gmail.com>
----
- net/core/filter.c | 18 ++++++++++++++++--
- 1 file changed, 16 insertions(+), 2 deletions(-)
+--
 
-diff --git a/net/core/filter.c b/net/core/filter.c
-index 61940e753552..6fdb85c9af44 100644
---- a/net/core/filter.c
-+++ b/net/core/filter.c
-@@ -6298,6 +6298,20 @@ static const struct bpf_func_proto bpf_skb_get_xfrm_state_proto = {
- #endif
- 
- #if IS_ENABLED(CONFIG_INET) || IS_ENABLED(CONFIG_IPV6)
-+/* Take a stable snapshot of the neighbour's link layer address.
-+ * neigh_ha_snapshot() can not be used here because it copies dev->addr_len
-+ * bytes while params->dmac is only ETH_ALEN long.
-+ */
-+static void bpf_fib_dmac_snapshot(u8 *dmac, const struct neighbour *neigh)
-+{
-+	unsigned int seq;
-+
-+	do {
-+		seq = read_seqbegin(&neigh->ha_lock);
-+		memcpy(dmac, neigh->ha, ETH_ALEN);
-+	} while (read_seqretry(&neigh->ha_lock, seq));
-+}
-+
- static int bpf_fib_set_fwd_params(struct net_device *dev,
- 				  struct bpf_fib_lookup *params,
- 				  u32 flags, u32 mtu, u32 in_ifindex)
-@@ -6491,7 +6505,7 @@ static int bpf_ipv4_fib_lookup(struct net *net, struct bpf_fib_lookup *params,
- 
- 	if (!neigh || !(READ_ONCE(neigh->nud_state) & NUD_VALID))
- 		return BPF_FIB_LKUP_RET_NO_NEIGH;
--	memcpy(params->dmac, neigh->ha, ETH_ALEN);
-+	bpf_fib_dmac_snapshot(params->dmac, neigh);
- 	memcpy(params->smac, dev->dev_addr, ETH_ALEN);
- 
- set_fwd_params:
-@@ -6644,7 +6658,7 @@ static int bpf_ipv6_fib_lookup(struct net *net, struct bpf_fib_lookup *params,
- 	neigh = __ipv6_neigh_lookup_noref(dev, dst);
- 	if (!neigh || !(READ_ONCE(neigh->nud_state) & NUD_VALID))
- 		return BPF_FIB_LKUP_RET_NO_NEIGH;
--	memcpy(params->dmac, neigh->ha, ETH_ALEN);
-+	bpf_fib_dmac_snapshot(params->dmac, neigh);
- 	memcpy(params->smac, dev->dev_addr, ETH_ALEN);
- 
- set_fwd_params:
+octeontx2-pf: fix invalid aura pointer free
+
+This changes the local ptrs[2] array in cn10k_aura_freeptr() to be
+zero-initialized, with the stated intent of not freeing empty or
+uninitialized buffer addresses to the aura during receive buffer cleanup.
+
+> diff --git a/drivers/net/ethernet/marvell/octeontx2/nic/otx2_common.h b/drivers/net/ethernet/marvell/octeontx2/nic/otx2_common.h
+> index eecee612b7b2..231fd8586b42 100644
+> --- a/drivers/net/ethernet/marvell/octeontx2/nic/otx2_common.h
+> +++ b/drivers/net/ethernet/marvell/octeontx2/nic/otx2_common.h
+> @@ -845,7 +845,7 @@ static inline void __cn10k_aura_freeptr(struct otx2_nic *pfvf, u64 aura,
+>  static inline void cn10k_aura_freeptr(void *dev, int aura, u64 buf)
+>  {
+>  	struct otx2_nic *pfvf = dev;
+> -	u64 ptrs[2];
+> +	u64 ptrs[2] = {0};
+>  
+>  	ptrs[1] = buf;
+>  	get_cpu();
+
+[Severity: High]
+Does this change have any effect on what is submitted to hardware?  Both
+words of ptrs[] look like they are overwritten before they are consumed.
+cn10k_aura_freeptr() assigns ptrs[1] right after the declaration:
+
+	u64 ptrs[2] = {0};
+
+	ptrs[1] = buf;
+	get_cpu();
+	/* Free only one buffer at time during init and teardown */
+	__cn10k_aura_freeptr(pfvf, aura, ptrs, 2);
+	put_cpu();
+
+and __cn10k_aura_freeptr() assigns ptrs[0] unconditionally, then copies
+exactly sizeof(u64) * num_ptrs (16 bytes for num_ptrs == 2) into the LMT
+line before the flush:
+
+	count_eot = (num_ptrs - 1) & 0x3ULL;
+	/* Set AURA ID to free pointer */
+	ptrs[0] = (count_eot << 32) | (aura & 0xFFFFF);
+	...
+	memcpy((u64 *)lmt_info->lmt_addr, ptrs, sizeof(u64) * num_ptrs);
+	/* Perform LMTST flush */
+	cn10k_lmt_flush(val, tar_addr);
+
+So the LMTST payload appears bit-identical with and without the patch.
+
+The commit message says "Do not free empty or uninitialized buffer addresses
+to the aura.  This avoids freeing bad pointers during receive buffer
+cleanup."  Where is that filtering done?  No check on buf was added, and the
+receive cleanup callers still hand raw hardware-supplied addresses straight
+to the aura:
+
+drivers/net/ethernet/marvell/octeontx2/nic/otx2_txrx.c:otx2_free_rcv_seg() {
+	for (seg = 0; seg < sg->segs; seg++, seg_addr++)
+		pfvf->hw_ops->aura_freeptr(pfvf, qidx,
+					   *seg_addr & ~0x07ULL);
+}
+
+drivers/net/ethernet/marvell/octeontx2/nic/otx2_txrx.c:otx2_skb_add_frag() {
+	pfvf->hw_ops->aura_freeptr(pfvf, qidx, iova & ~0x07ULL);
+}
+
+The other implementation of the same dev_hw_ops.aura_freeptr slot,
+otx2_aura_freeptr(), is not touched either and does no validation:
+
+	otx2_write128(buf, (u64)aura | BIT_ULL(63), addr);
+
+Should the pointer validation live in the shared callers, or in both
+freeptr implementations, instead?  As it stands the Fixes: tag and the
+resulting stable backport would suggest a pointer-corruption fix landed
+where the generated code is unchanged.
+
+[Severity: High]
+If the intent is to stop empty pointers reaching the aura, is
+cn10k_refill_pool_ptrs() in cn10k.c the place that needs the guard?  The
+num_ptrs contract of __cn10k_aura_freeptr() is one header word plus one word
+per pointer, but the allocation failure path decrements it:
+
+	int num_ptrs = 1;
+	...
+	while (cq->pool_ptrs) {
+		if (otx2_alloc_buffer(pfvf, cq, &bufptr)) {
+			if (num_ptrs--)
+				__cn10k_aura_freeptr(pfvf, cq->cq_idx, ptrs,
+						     num_ptrs);
+			break;
+		}
+		...
+		num_ptrs++;
+		if (num_ptrs == NPA_MAX_BURST || cq->pool_ptrs == 0) {
+			__cn10k_aura_freeptr(pfvf, cq->cq_idx, ptrs,
+					     num_ptrs);
+			num_ptrs = 1;
+		}
+	}
+
+num_ptrs is never 0 there: it starts at 1 and is reset to 1 after every
+burst flush, so if (num_ptrs--) is always true.  When the allocation fails
+with nothing pending, __cn10k_aura_freeptr() is called with num_ptrs == 0,
+which in the helper gives count_eot = (0 - 1) & 0x3 == 3, skips the
+if (num_ptrs > 2) sizing block so tar_addr[6:4] stays 0 (one valid 128-bit
+word announced), performs a zero-byte memcpy, and still flushes:
+
+	memcpy((u64 *)lmt_info->lmt_addr, ptrs, sizeof(u64) * num_ptrs);
+	cn10k_lmt_flush(val, tar_addr);
+
+Since cn10k_lmt_flush() is a steorl that makes hardware read the per-CPU
+LMT line at flush time, does this re-publish whatever was left in that line
+by the previous flush (the previous burst's first pointer, or a stale SQE
+word from cn10k_sqe_flush())?
+
+And when the failure happens mid-burst with k pointers already stored
+(num_ptrs == k + 1), the decrement makes the flush describe only k - 1
+pointers, so ptrs[k] is never returned to the aura even though
+cq->pool_ptrs was already decremented for it.  Is that buffer leaked?
+
+A duplicate or stale pointer in the aura also matters at teardown, where
+otx2_free_aura_ptr() drains it:
+
+drivers/net/ethernet/marvell/octeontx2/nic/otx2_common.c {
+		iova = otx2_aura_allocptr(pfvf, pool_id);
+		while (iova) {
+			if (type == AURA_NIX_RQ)
+				iova -= OTX2_HEAD_ROOM;
+			otx2_free_bufs(pfvf, pool, iova, size);
+}
+
+so a duplicate becomes a second put_page()/page_pool_put_full_page(), and a
+zero pointer ends the while (iova) drain early, leaving the rest of the
+buffers behind.  Would something like
+if (num_ptrs > 1) __cn10k_aura_freeptr(pfvf, cq->cq_idx, ptrs, num_ptrs);
+be closer to the intent?
+
+[Severity: High]
+This is a pre-existing issue and not introduced by this patch, but since the
+touched function is the one publishing to the shared per-CPU LMT line: is
+get_cpu()/put_cpu() sufficient serialization here?  preempt_disable() does
+not mask softirqs, and the same line is written and flushed from softirq
+context by cn10k_refill_pool_ptrs() (NAPI), cn10k_sqe_flush()
+(ndo_start_xmit) and the cn10k_ipsec transmit path.
+
+The critical region in __cn10k_aura_freeptr() is not atomic:
+
+	dma_wmb();
+	memcpy((u64 *)lmt_info->lmt_addr, ptrs, sizeof(u64) * num_ptrs);
+	/* Perform LMTST flush */
+	cn10k_lmt_flush(val, tar_addr);
+
+A process-context caller reached while the interface is up is
+otx2_qos_sq_aura_pool_init() in qos_sq.c:
+
+		err = otx2_alloc_rbuf(pfvf, pool, &bufptr, pool_id, ptr);
+		if (err)
+			goto sqb_free;
+		pfvf->hw_ops->aura_freeptr(pfvf, pool_id, bufptr);
+
+It is called from otx2_qos_enable_sq() via TC htb offload, which only
+refuses OTX2_FLAG_INTF_DOWN, and it holds the sleeping pfvf->mbox.lock, so
+BH is enabled.  If a NET_RX or NET_TX softirq lands on the same CPU between
+the memcpy and the flush, does the process-context flush end up publishing
+the softirq's aura/pointer pair (a duplicate free into that aura, or a stale
+SQE word read as an aura plus pointer) while its own buf is never freed?
+
+Worth noting that otx2_alloc_rbuf() immediately above wraps its work in
+local_bh_disable()/local_bh_enable(), while the aura_freeptr() call right
+after it runs with preempt_disable() only.
+
 -- 
-2.43.0
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260903143941.2698880-1-nshettyj%40marvell.com
