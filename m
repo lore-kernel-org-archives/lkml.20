@@ -1,523 +1,207 @@
-Received: from zg8tmtyylji0my4xnjeumjiw.icoremail.net (zg8tmtyylji0my4xnjeumjiw.icoremail.net [162.243.161.220])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8A45E3064B5;
-	Wed,  9 Sep 2026 04:26:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.243.161.220
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C9253382DA
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 04:29:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788928002; cv=none; b=EGmYGqhHOIOZJl4pk27BzBhYTKwpn04WTyay7MLBpF5isvbW1kqquEj1lOyuyf/v1k2a0MO4XpNbMXrOPHlz5Hj6ODyVQBKnLlHeODgsQaLxDcvYbqDNu4BLhGqNHk3gkLRNYUUhuC/gKmNwXUyFbHbdyT4PvLG2Z5xUGgmh5RE=
+	t=1788928166; cv=none; b=M7YvNNldA9glTGgCMUjY+NQ+5sDpozADqodcoBz1qP+WKBkRF/b4oYQnVEWw3zjn/gP8XlVcGk+ukAOQ6U8OAiiEBSc5Fz1sJnAl4zyvXvzv4WPIxigvY1eHBe30A8ghyDbqXQ2rS7Btxl4hnfSvYG/vB4W8Lw/3owbklQfRRPw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788928002; c=relaxed/simple;
-	bh=Qqpp4gOT9O/92eHAD9KcfTo3dU3Imea3OvJo79wsidU=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=oenLygxp4NNdMsfvJwu2OpqyfpfCWDS0B0gw4dP2cQ7NYLhSg6tWbuw2mQEynUcm4FJtuIh3sBblfUOeYnxvKoFr6GuOgY3w1CnykK0EIS8ONEcr4XIQJ1v2eE3fGA1vrs31UA6PBgjt7q0XwNkGG8CAfrtTk4TrqHfdUlofeNA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=162.243.161.220
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
-Received: from zju.edu.cn (unknown [10.98.66.117])
-	by mtasvr (Coremail) with SMTP id _____wA38z3036Bqr8MBAQ--.31926S3;
-	Wed, 09 Sep 2026 12:26:28 +0800 (CST)
-Received: from localhost.localdomain (unknown [10.98.66.117])
-	by mail-app2 (Coremail) with SMTP id zC_KCgAXY8fy36BqekVlBA--.3645S2;
-	Wed, 09 Sep 2026 12:26:26 +0800 (CST)
-From: Fan Wu <fanwu01@zju.edu.cn>
-To: netdev@vger.kernel.org
-Cc: kys@microsoft.com,
-	haiyangz@microsoft.com,
-	wei.liu@kernel.org,
-	decui@microsoft.com,
-	longli@microsoft.com,
-	andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	linux-hyperv@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Fan Wu <fanwu01@zju.edu.cn>,
-	Simon Horman <horms@kernel.org>,
-	Song Li <songl@zju.edu.cn>
-Subject: [PATCH net v3] net: mana: fix reset work race with device removal
-Date: Wed,  9 Sep 2026 04:25:29 +0000
-Message-Id: <20260909042529.652301-1-fanwu01@zju.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1788928166; c=relaxed/simple;
+	bh=WTn05/4QycXhxqRWks5EqAjlR8e86BCzz+vfMc6TDRE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=odjKCBvWg52/2bR6Zv8JoADfunF3epcrAYgA2+3n3YC2zMrS0b2eCxApeX/5WfMbhuURtfxa2h/aNp1kxbiy42Ic9BUyxN0pclmJtl/FEB7D40F/rQAF1tOUB6OMcytAuC+ApEGBnC8W/DINELFEOpJF9mG4Cxt7JV72Zc/xDno=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=LGUi96nV; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=EmPFeAu5; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="LGUi96nV";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="EmPFeAu5"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1788928163;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Nh6M4VZCYgC4q2LdczwdgMA5ELYVwccRqILicmGF2f4=;
+	b=LGUi96nVVP5ewTjOaQk1h7clWnXbVLTE6Wnzm1CS76i3AATFVCPI9brEI3jny+hL4fwGNs
+	KMuAnmHtQXEcG4zxcSMKPWSaUYM8VXPq4Cm/LZ45eRK5eD+o2goVDYpon3QlivOoUYiain
+	fz/fL1+RztXS+a9SVnLI5LQIyd26Z8g=
+Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com
+ [209.85.216.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-663-TU8q3DFLPeacy9GNuGB-rg-1; Wed, 09 Sep 2026 00:29:22 -0400
+X-MC-Unique: TU8q3DFLPeacy9GNuGB-rg-1
+X-Mimecast-MFC-AGG-ID: TU8q3DFLPeacy9GNuGB-rg_1788928161
+Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-395543dc382so749356a91.0
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 21:29:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1788928161; x=1789532961; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Nh6M4VZCYgC4q2LdczwdgMA5ELYVwccRqILicmGF2f4=;
+        b=EmPFeAu50xW5vOqAf3VuxXMCtwy7CYeoLd+ZDi1oQHUoRRFivygD9WsIQugNaAR0LO
+         p3jC1NDB1ADEEFkULyI0o4DiJVJ7JRf+HZhYl2BGoLEh/63JjG/a30E+FmqTappLkKS2
+         EEj3b9J30qiOtSuKIb7+qHwLH80hiEEhW9UPgSWfvPQiAqQ6yJLCp/xlPbkvlgBwNx5h
+         IJf1C6gZ/Kb9lY9Lmcrygv/BMYQ73+SKYKpKqLyuGqOVWUrXyeXr2i4VZGvKqDu/4Kaq
+         Ey2QFWAkLCKYR6xqXKxzf4r9g6GVSK2kyIT0abkxB3hUmhnIeiv6whpzicPikpaXGvkw
+         Oizw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788928161; x=1789532961;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Nh6M4VZCYgC4q2LdczwdgMA5ELYVwccRqILicmGF2f4=;
+        b=YD+oOZA9bu+gdmhrFoWL5fJpSlZ9n8vWeXdLmzOPCr8sc8ruErD+6CiOBf/+Is8YCO
+         sTeR9c+HoVn9izwxuuyevDL4GO5epntXGjTszYwF2wBJY7pvAHl4H7NU4N1hj0LH88vS
+         tU98fLcttB2ZIBDmYFcPSxseqWbqHelBhhRswbseMgIedvmRbRHkOT4EsVSIV1cNUj3n
+         VU2exHnrm5xAUaza9DwxcDuOcUMxxLk65RZnEL/WyqOG0w86OoTBzYcAwsW2clFUgXZL
+         /WXfvtn6VC4NSlS71hCDe/POLEYx0JqjlcCc+9FWA2Wt4A3wL5ccDZ+4UBWdG1r6ZGvg
+         4LSg==
+X-Forwarded-Encrypted: i=1; AKwUvBwOlPtTTtc64QFr2jdW6KOh1Xs87/RTGF1sCIc5NMem0XUU3Z//s4P6ATl67YSC/lKq3kynPH9w1G27rBg=@vger.kernel.org
+X-Gm-Message-State: AFuF++l46xEOKS3lbV/NS8HSA8wbFThv1Ev11QWvQ4KVX3kCQ49lvdCX
+	ovn2+owcsKI7BHXduVjFSYgI0gFd8YC8UY7eTwN+EDDV5fgANf22HcZb7fnU2EfKZsQWetI4ppv
+	D2p6MgLPE18TTaO6D44kWfWJRyKmK7AVO+dHKkL52l2z7t7NRHqAYxD7TlXEXPseXCQ==
+X-Gm-Gg: AYBFou1W9SvP9grJOCrP4odKeZtZMjqTZFYLm0HXscC46tjgdhQxreq1YBibOodX50f
+	LEKcDFfUJ2Guf0uwmOUsVEWAcouZfLLsDaxDJcssvZZiM9vGhvbj56ekT+eJdeQRyjfjl+AckFI
+	2J9xFZ39X1tEK8uCQI64OVfNDaki6canqz8Dg81IgW2H6q6gNEkKtdvlRV4qEUpUMu0NnowenF+
+	drSyBi5lLfqnCMuphb7beEYZl5RAvlffb4n+Fzlo0M6Oxn3bk+CT3GlqcwDmabny0c0NFbZAl/r
+	BXW/2t91ddVHCuUwANJYoOpN7a/gVhgxclK0iLIKXirJ+X65cMr/kMcoZT9uJkq14qsHU1R0oSO
+	6x7+9Yc5Gl79I5gtuUOL2Mfiasfch1x30A3fuGkVMkg==
+X-Received: by 2002:a17:90b:564c:b0:37f:e326:6557 with SMTP id 98e67ed59e1d1-39b2612338dmr54737966a91.4.1788928160900;
+        Tue, 08 Sep 2026 21:29:20 -0700 (PDT)
+X-Received: by 2002:a17:90b:564c:b0:37f:e326:6557 with SMTP id 98e67ed59e1d1-39b2612338dmr54737906a91.4.1788928160430;
+        Tue, 08 Sep 2026 21:29:20 -0700 (PDT)
+Received: from [192.168.68.52] (n175-34-8-244.mrk21.qld.optusnet.com.au. [175.34.8.244])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39ba0a7b2c3sm5544813a91.0.2026.09.08.21.29.10
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 08 Sep 2026 21:29:19 -0700 (PDT)
+Message-ID: <aac304fa-a371-4210-8703-74281c9748f8@redhat.com>
+Date: Wed, 9 Sep 2026 14:29:08 +1000
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zC_KCgAXY8fy36BqekVlBA--.3645S2
-X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
-X-CM-DELIVERINFO: =?B?hCHZJgXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
-	sfncGSG+szpQCInt5Y8rbJUI3YiYbUo3BkQrjymOT79oCrx7Ki6tqaYx5XFgMNKrPsxBS5
-	i6YV2p7DLt/eT/YL1L8=
-X-Coremail-Antispam: 1Uk129KBj9fXoW3tF1xAr4kury5JF1fZF1fuFX_yoW8Xw15Ao
-	WfXrnxXw4rt3y5C3yktrykJFy3uFW093Z8XF48uFZrAw1UX3Wjk348Cr13Jwn8WF1rK342
-	va4fXwn7uF90vwnrl-sFpf9Il3svdjkaLaAFLSUrUUUUUb8apTn2vfkv8UJUUUU8wcxFpf
-	9Il3svdxBIdaVrn0xqx4xG64xvF2IEw4CE5I8CrVC2j2Jv73VFW2AGmfu7bjvjm3AaLaJ3
-	UjIYCTnIWjp_UUUOj7kC6x804xWl14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI
-	8IcIk0rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xG
-	Y2AK021l84ACjcxK6xIIjxv20xvE14v26w1j6s0DM28EF7xvwVC0I7IYx2IY6xkF7I0E14
-	v26r4UJVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAF
-	wI0_GcCE3s1lnxkEFVAIw20F6cxK64vIFxWle2I262IYc4CY6c8Ij28IcVAaY2xG8wAqjx
-	CEc2xF0cIa020Ex4CE44I27wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAF
-	wI0_Jrv_JF1lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0x
-	vY0x0EwIxGrwACjcxG0xvY0x0EwIxGrVCF72vEw4AK0wACI402YVCY1x02628vn2kIc2xK
-	xwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r
-	1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_GFv_WrylIxkGc2Ij
-	64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr
-	0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF
-	0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x07jUGYJUUUUU=
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v17 5/7] firmware: arm_rmm: Activate the RMM
+To: Suzuki K Poulose <suzuki.poulose@arm.com>, kvm@vger.kernel.org,
+ kvmarm@lists.linux.dev
+Cc: maz@kernel.org, will@kernel.org, catalin.marinas@arm.com,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ steven.price@arm.com, aneesh.kumar@kernel.org, oupton@kernel.org,
+ joey.gouly@arm.com, tabba@google.com, yuzenghui@huawei.com,
+ linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com,
+ sdonthineni@nvidia.com, alpergun@google.com, fj0570is@fujitsu.com,
+ WeiLin.Chang@arm.com, lpieralisi@kernel.org, enju.kohei@fujitsu.com
+References: <20260907095942.1140734-1-suzuki.poulose@arm.com>
+ <20260907095942.1140734-6-suzuki.poulose@arm.com>
+Content-Language: en-US
+From: Gavin Shan <gshan@redhat.com>
+In-Reply-To: <20260907095942.1140734-6-suzuki.poulose@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-The reset service work is queued on the system workqueue and can
-outlive mana_gd_remove(), which frees the GDMA context. It may
-then dereference gc through the stale service work.
+Hi Suzuki,
 
-Embed the service work in gdma_context and make GC_IN_SERVICE describe
-whether it may still access gc. Removal and probe unwind close new
-admission with GC_REMOVING and wait for an admitted cycle to retire
-before clearing drvdata and freeing gc. Service exits retire before
-taking the PCI rescan/remove lock, avoiding a lock-cycle with remove.
+On 9/7/26 7:59 PM, Suzuki K Poulose wrote:
+> From: Steven Price <steven.price@arm.com>
+> 
+> Activate the RMM after the basic configuration. This is a memory transferring,
+> stateful operation.
+> 
+> Signed-off-by: Steven Price <steven.price@arm.com>
+> Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>
+> ---
+> Changes since v16:
+>   * Split into a new patch
+> ---
+>   drivers/firmware/arm_rmm/rmi.c | 17 +++++++++++++++--
+>   include/linux/arm-rmi-cmds.h   | 11 +++++++++++
+>   2 files changed, 26 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/firmware/arm_rmm/rmi.c b/drivers/firmware/arm_rmm/rmi.c
+> index 42c973c3a98bb..d969c8738efde 100644
+> --- a/drivers/firmware/arm_rmm/rmi.c
+> +++ b/drivers/firmware/arm_rmm/rmi.c
+> @@ -641,7 +641,8 @@ static int rmi_configure(void)
+>   
+>   static int __init arm64_init_rmi(void)
+>   {
+> -	int ret;
+> +	int ret = 0;
+> +	struct rmi_sro_state *sro = NULL;
 
-Do not admit service work while probe is still constructing or
-unwinding the device. Latch reset events seen during probe and let
-the probe rollback/recovery path handle them; a boundary recheck
-preserves events racing probe completion.
+Why we need to initialize those local variables ('ret' and 'sro')? :-)
+Also, we can use the scope-based cleanup function supported by cleanup.h
+for @sro.
 
-The service work stays on the system workqueue because a reset cycle
-destroys and re-creates gc->service_wq.
+	struct smi_sro_state *sro __free(kfree) = NULL;
 
-This issue was found by an in-house static analysis tool.
+With the scope-based cleanup in place, we needn't explict 'kfree(sro)' at
+end of this function.
 
-Fixes: fbe346ce9d62 ("net: mana: Handle Reset Request from MANA NIC")
-Cc: stable@vger.kernel.org
-Reviewed-by: Simon Horman <horms@kernel.org>
-Assisted-by: Codex:gpt-5.6
-Co-developed-by: Song Li <songl@zju.edu.cn>
-Signed-off-by: Song Li <songl@zju.edu.cn>
-Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
----
+>   
+>   	/* Continue without realm support if we can't agree on a version */
+>   	ret = rmi_check_version();
+> @@ -656,7 +657,19 @@ static int __init arm64_init_rmi(void)
+>   	if (ret)
+>   		return ret;
+>   
+> -	return 0;
+> +	/* Activate the RMM */
+> +	sro = kmalloc_obj(*sro);
+> +	if (!sro)
+> +		return -ENOMEM;
 
-Changes since v2 (<20260905023602.425827-1-fanwu01@zju.edu.cn>,
-https://lore.kernel.org/netdev/20260905023602.425827-1-fanwu01@zju.edu.cn):
+	if (!sro) {
+		pr_err("Unable to alloc SRO object for RMM activation\n");
+		return -ENOMEM;
+	}
 
-- Dropped the now-unused cleanup_mana_rdma and cleanup_mana labels in
-  the probe error path (Simon Horman).
+> +
+> +	ret = rmi_rmm_activate(sro);
+> +	if (ret) {
+> +		pr_err("RMM activate failed\n");
+> +		ret = ret < 0 ? ret : -ENXIO;
+> +	}
+> +
+> +	kfree(sro);
+> +	return ret;
+>   }
+>   
+>   /*
+> diff --git a/include/linux/arm-rmi-cmds.h b/include/linux/arm-rmi-cmds.h
+> index fed0f3421895d..dea7c7004d35f 100644
+> --- a/include/linux/arm-rmi-cmds.h
+> +++ b/include/linux/arm-rmi-cmds.h
+> @@ -64,6 +64,17 @@ static inline int rmi_rmm_config_set(unsigned long cfg_ptr)
+>   	return res.a0;
+>   }
+>   
+> +/**
+> + * rmi_rmm_activate() - Activate the RMM
+> + * @sro: Preallocated SRO context to be used
+> + *
+> + * Return: 0 on success, positive RMI result code or negative Linux error code
+> + */
+> +static inline long rmi_rmm_activate(struct rmi_sro_state *sro)
+> +{
+> +	return rmi_sro_memxfer_cmd(sro, GFP_KERNEL, SMC_RMI_RMM_ACTIVATE);
+> +}
+> +
 
-Changes since v1 (<20260805143812.220509-1-fanwu01@zju.edu.cn>,
-https://lore.kernel.org/netdev/20260805143812.220509-1-fanwu01@zju.edu.cn):
+rmi_rmm_acvivate() would be used for once by rmi.c::arm64_init_rmi(). Lets
+not expose the function by combining the logic to rmi.c::arm64_init_rmi().
 
-- Dropped the device_lock() serialisation: holding the driver-core
-  device lock across mana_gd_suspend() + msleep() + mana_gd_resume()
-  blocks unbind, reboot, device PM and all PCI hotplug for up to a
-  full reset cycle, and can deadlock against the
-  flush_workqueue()/destroy_workqueue() of gc->service_wq.
+>   /**
+>    * rmi_features() - Read feature register
+>    * @index: Feature register index
 
-- Replaced it with admission/drain gates: GC_REMOVING closes new
-  admission and the freeing paths wait for an admitted cycle to
-  retire (clear_bit_unlock/test_bit_acquire pairing) before clearing
-  drvdata and calling vfree(); the failed-resume rescan no longer
-  reopens admission, and mana_tx_timeout() also skips queue-reset
-  work during removal.
-
-- No longer admit service work before the probe completes (the
-  reset-event handler no longer overloads GC_PROBE_SUCCEEDED with a
-  mid-probe latch); the FPGA reconfig exit and the probe-failure
-  recovery path are gated as well.
-
-- Reference series for the HWC lifecycle model:
-  https://lore.kernel.org/netdev/20260813174243.3044348-1-longli@microsoft.com
----
- .../net/ethernet/microsoft/mana/gdma_main.c   | 178 +++++++++++++-----
- drivers/net/ethernet/microsoft/mana/mana_en.c |  11 +-
- include/net/mana/gdma.h                       |  14 +-
- 3 files changed, 150 insertions(+), 53 deletions(-)
-
-diff --git a/drivers/net/ethernet/microsoft/mana/gdma_main.c b/drivers/net/ethernet/microsoft/mana/gdma_main.c
-index f92b2d0..28544f0 100644
---- a/drivers/net/ethernet/microsoft/mana/gdma_main.c
-+++ b/drivers/net/ethernet/microsoft/mana/gdma_main.c
-@@ -678,10 +678,38 @@ out:
- 	pci_unlock_rescan_remove();
- }
- 
--static void mana_serv_fpga(struct pci_dev *pdev)
-+/* Retire one service cycle: GC_IN_SERVICE is the last state published
-+ * by the work, so remove() and the probe unwind may free gc once it
-+ * is clear.  Must run before the exit paths take pci_lock_rescan_remove():
-+ * removal can be waiting on the bit while holding that lock.
-+ */
-+static void mana_service_done(struct gdma_context *gc)
-+{
-+	/* Pairs with test_bit_acquire() on the wait side. */
-+	clear_bit_unlock(GC_IN_SERVICE, &gc->flags);
-+	/* wake_up_var() requires a full barrier between the update of the
-+	 * waited-on variable and the wake.
-+	 */
-+	smp_mb__after_atomic();
-+	wake_up_var(&gc->flags);
-+}
-+
-+/* Retire a cycle whose exit removes the device: close admission
-+ * first so no new cycle can be admitted in the retire window.
-+ */
-+static void mana_service_done_removing(struct gdma_context *gc)
-+{
-+	set_bit(GC_REMOVING, &gc->flags);
-+	mana_service_done(gc);
-+}
-+
-+static void mana_serv_fpga(struct pci_dev *pdev, struct gdma_context *gc)
- {
- 	struct pci_bus *bus, *parent;
- 
-+	if (gc)
-+		mana_service_done_removing(gc);
-+
- 	pci_lock_rescan_remove();
- 
- 	bus = pdev->bus;
-@@ -706,9 +734,8 @@ out:
- 	pci_unlock_rescan_remove();
- }
- 
--static void mana_serv_reset(struct pci_dev *pdev)
-+static void mana_serv_reset(struct pci_dev *pdev, struct gdma_context *gc)
- {
--	struct gdma_context *gc = pci_get_drvdata(pdev);
- 	struct hw_channel_context *hwc;
- 	int ret;
- 
-@@ -738,6 +765,7 @@ static void mana_serv_reset(struct pci_dev *pdev)
- 	if (ret == -ETIMEDOUT || ret == -EPROTO) {
- 		/* Perform PCI rescan on device if we failed on HWC */
- 		dev_err(&pdev->dev, "MANA service: resume failed, rescanning\n");
-+		mana_service_done_removing(gc);
- 		mana_serv_rescan(pdev);
- 		return;
- 	}
-@@ -748,22 +776,25 @@ static void mana_serv_reset(struct pci_dev *pdev)
- 		dev_info(&pdev->dev, "MANA reset cycle completed\n");
- 
- out:
--	clear_bit(GC_IN_SERVICE, &gc->flags);
-+	mana_service_done(gc);
- }
- 
--static void mana_do_service(enum gdma_eqe_type type, struct pci_dev *pdev)
-+static void mana_do_service(enum gdma_eqe_type type, struct pci_dev *pdev,
-+			    struct gdma_context *gc)
- {
- 	switch (type) {
- 	case GDMA_EQE_HWC_FPGA_RECONFIG:
--		mana_serv_fpga(pdev);
-+		mana_serv_fpga(pdev, gc);
- 		break;
- 
- 	case GDMA_EQE_HWC_RESET_REQUEST:
--		mana_serv_reset(pdev);
-+		mana_serv_reset(pdev, gc);
- 		break;
- 
- 	default:
- 		dev_err(&pdev->dev, "MANA service: unknown type %d\n", type);
-+		if (gc)
-+			mana_service_done(gc);
- 		break;
- 	}
- }
-@@ -779,12 +810,26 @@ static void mana_recovery_delayed_func(struct work_struct *w)
- 	spin_lock_irqsave(&work->lock, flags);
- 
- 	while (!list_empty(&work->dev_list)) {
-+		struct gdma_context *gc;
-+
- 		dev = list_first_entry(&work->dev_list,
- 				       struct mana_dev_recovery, list);
- 		list_del(&dev->list);
- 		spin_unlock_irqrestore(&work->lock, flags);
- 
--		mana_do_service(dev->type, dev->pdev);
-+		/* Serialize the drvdata lookup and admission against
-+		 * probe/remove.  Do not call sleeping functions while
-+		 * holding the device lock.
-+		 */
-+		device_lock(&dev->pdev->dev);
-+		gc = pci_get_drvdata(dev->pdev);
-+		if (gc)
-+			mana_schedule_serv_work(gc, dev->type);
-+		device_unlock(&dev->pdev->dev);
-+
-+		if (!gc)
-+			mana_do_service(dev->type, dev->pdev, NULL);
-+
- 		pci_dev_put(dev->pdev);
- 		kfree(dev);
- 
-@@ -796,48 +841,49 @@ static void mana_recovery_delayed_func(struct work_struct *w)
- 
- static void mana_serv_func(struct work_struct *w)
- {
--	struct mana_serv_work *mns_wk;
--	struct pci_dev *pdev;
--
--	mns_wk = container_of(w, struct mana_serv_work, serv_work);
--	pdev = mns_wk->pdev;
-+	struct gdma_context *gc = container_of(w, struct gdma_context, serv_work);
-+	struct pci_dev *pdev = to_pci_dev(gc->dev);
- 
--	if (pdev)
--		mana_do_service(mns_wk->type, pdev);
-+	mana_do_service(gc->serv_type, pdev, gc);
- 
-+	/* The rescan exits of mana_do_service() remove the device, which
-+	 * frees gc before returning.  Only touch the pdev and the module
-+	 * reference from here on; both are held until this point drops them.
-+	 */
- 	pci_dev_put(pdev);
--	kfree(mns_wk);
- 	module_put(THIS_MODULE);
- }
- 
- int mana_schedule_serv_work(struct gdma_context *gc, enum gdma_eqe_type type)
- {
--	struct mana_serv_work *mns_wk;
--
- 	if (test_and_set_bit(GC_IN_SERVICE, &gc->flags)) {
- 		dev_info(gc->dev, "Already in service\n");
- 		return -EBUSY;
- 	}
- 
-+	/* Pairs with set_bit(GC_REMOVING) + smp_mb__after_atomic() in
-+	 * mana_gd_remove(): the test_and_set_bit() above is fully ordered,
-+	 * so either this read sees GC_REMOVING and the cycle aborts, or
-+	 * remove() observes GC_IN_SERVICE and waits for the cycle to retire
-+	 * before it frees gc.
-+	 */
-+	if (test_bit(GC_REMOVING, &gc->flags)) {
-+		dev_info(gc->dev, "Device is being removed\n");
-+		mana_service_done(gc);
-+		return -EBUSY;
-+	}
-+
- 	if (!try_module_get(THIS_MODULE)) {
- 		dev_info(gc->dev, "Module is unloading\n");
--		clear_bit(GC_IN_SERVICE, &gc->flags);
-+		mana_service_done(gc);
- 		return -ENODEV;
- 	}
- 
--	mns_wk = kzalloc(sizeof(*mns_wk), GFP_ATOMIC);
--	if (!mns_wk) {
--		module_put(THIS_MODULE);
--		clear_bit(GC_IN_SERVICE, &gc->flags);
--		return -ENOMEM;
--	}
--
- 	dev_info(gc->dev, "Start MANA service type:%d\n", type);
--	mns_wk->pdev = to_pci_dev(gc->dev);
--	mns_wk->type = type;
--	pci_dev_get(mns_wk->pdev);
--	INIT_WORK(&mns_wk->serv_work, mana_serv_func);
--	schedule_work(&mns_wk->serv_work);
-+
-+	gc->serv_type = type;
-+	pci_dev_get(to_pci_dev(gc->dev));
-+	queue_work(system_wq, &gc->serv_work);
- 	return 0;
- }
- 
-@@ -957,14 +1003,20 @@ static void mana_gd_process_eqe(struct gdma_queue *eq)
- 	case GDMA_EQE_HWC_RESET_REQUEST:
- 		dev_info(gc->dev, "Recv MANA service type:%d\n", type);
- 
--		if (!test_and_set_bit(GC_PROBE_SUCCEEDED, &gc->flags)) {
-+		if (!test_bit(GC_PROBE_SUCCEEDED, &gc->flags)) {
- 			/*
--			 * Device is in probe and we received a hardware reset
--			 * event, the probe function will detect that the flag
--			 * has changed and perform service procedure.
-+			 * Probe not completed: latch the event and let the
-+			 * probe roll back, the recovery path will rescan.
-+			 * Never admit service work before probe success;
-+			 * the success re-check below preserves an event
-+			 * racing probe completion.
- 			 */
--			dev_info(gc->dev,
--				 "Service is to be processed in probe\n");
-+			if (!test_and_set_bit(GC_SERVICE_DURING_PROBE,
-+					      &gc->flags))
-+				dev_info(gc->dev,
-+					 "Service is to be processed in probe\n");
-+			else if (test_bit(GC_PROBE_SUCCEEDED, &gc->flags))
-+				mana_schedule_serv_work(gc, type);
- 			break;
- 		}
- 		mana_schedule_serv_work(gc, type);
-@@ -2546,6 +2598,7 @@ static int mana_gd_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
- 
- 	gc->bar0_va = bar0_va;
- 	gc->dev = &pdev->dev;
-+	INIT_WORK(&gc->serv_work, mana_serv_func);
- 	xa_init(&gc->irq_contexts);
- 
- 	err = mana_gd_setup(pdev);
-@@ -2558,22 +2611,37 @@ static int mana_gd_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
- 
- 	err = mana_rdma_probe(&gc->mana_ib);
- 	if (err)
--		goto cleanup_mana;
-+		goto service_quiesce;
- 
- 	/*
- 	 * If a hardware reset event has occurred over HWC during probe,
--	 * rollback and perform hardware reset procedure.
-+	 * rollback and perform hardware reset procedure.  Storing the
-+	 * success bit before the latch check pairs with the handler's
-+	 * latch-then-recheck, so an event racing probe completion is
-+	 * admitted rather than lost.
- 	 */
--	if (test_and_set_bit(GC_PROBE_SUCCEEDED, &gc->flags)) {
-+	set_bit(GC_PROBE_SUCCEEDED, &gc->flags);
-+	if (test_and_set_bit(GC_SERVICE_DURING_PROBE, &gc->flags)) {
- 		err = -EPROTO;
--		goto cleanup_mana_rdma;
-+		goto service_quiesce;
- 	}
- 
- 	return 0;
- 
--cleanup_mana_rdma:
-+service_quiesce:
-+	/* The stats work can admit a service cycle once mana_probe()
-+	 * has run: close admission and retire an in-flight cycle
-+	 * before any teardown, like mana_gd_remove() does.  Earlier
-+	 * failure points cannot have admitted service work.
-+	 */
-+	set_bit(GC_REMOVING, &gc->flags);
-+	/* Pairs with the ordered test_and_set_bit(GC_IN_SERVICE) in
-+	 * mana_schedule_serv_work().
-+	 */
-+	smp_mb__after_atomic();
-+	wait_var_event(&gc->flags,
-+		       !test_bit_acquire(GC_IN_SERVICE, &gc->flags));
- 	mana_rdma_remove(&gc->mana_ib);
--cleanup_mana:
- 	mana_remove(&gc->mana, false);
- cleanup_gd:
- 	mana_gd_cleanup_device(pdev);
-@@ -2581,6 +2649,14 @@ unmap_bar:
- 	xa_destroy(&gc->irq_contexts);
- 	pci_iounmap(pdev, bar0_va);
- free_gc:
-+	/* Backstop: drain before every vfree(). */
-+	set_bit(GC_REMOVING, &gc->flags);
-+	/* Pairs with the ordered test_and_set_bit(GC_IN_SERVICE) in
-+	 * mana_schedule_serv_work().
-+	 */
-+	smp_mb__after_atomic();
-+	wait_var_event(&gc->flags,
-+		       !test_bit_acquire(GC_IN_SERVICE, &gc->flags));
- 	pci_set_drvdata(pdev, NULL);
- 	vfree(gc);
- release_region:
-@@ -2624,6 +2700,20 @@ static void mana_gd_remove(struct pci_dev *pdev)
- {
- 	struct gdma_context *gc = pci_get_drvdata(pdev);
- 
-+	/* Close admission and retire an in-flight cycle before any
-+	 * teardown: the service work is the only user of gc that
-+	 * remove() does not otherwise synchronise with.  The service
-+	 * exits retire before taking the PCI rescan/remove lock, so
-+	 * this wait cannot deadlock against them.
-+	 */
-+	set_bit(GC_REMOVING, &gc->flags);
-+	/* Pairs with the ordered test_and_set_bit(GC_IN_SERVICE) in
-+	 * mana_schedule_serv_work().
-+	 */
-+	smp_mb__after_atomic();
-+	wait_var_event(&gc->flags,
-+		       !test_bit_acquire(GC_IN_SERVICE, &gc->flags));
-+
- 	pci_disable_sriov(pdev);
- 
- 	mana_rdma_remove(&gc->mana_ib);
-@@ -2635,6 +2725,8 @@ static void mana_gd_remove(struct pci_dev *pdev)
- 
- 	pci_iounmap(pdev, gc->bar0_va);
- 
-+	/* Prevent late recovery work from using freed gc. */
-+	pci_set_drvdata(pdev, NULL);
- 	vfree(gc);
- 
- 	pci_release_regions(pdev);
-diff --git a/drivers/net/ethernet/microsoft/mana/mana_en.c b/drivers/net/ethernet/microsoft/mana/mana_en.c
-index 7a1ac85..67c7e7e 100644
---- a/drivers/net/ethernet/microsoft/mana/mana_en.c
-+++ b/drivers/net/ethernet/microsoft/mana/mana_en.c
-@@ -924,8 +924,8 @@ static void mana_tx_timeout(struct net_device *netdev, unsigned int txqueue)
- 		return;
- 	}
- 
--	/* Already in service, hence tx queue reset is not required.*/
--	if (test_bit(GC_IN_SERVICE, &gc->flags))
-+	if (test_bit(GC_IN_SERVICE, &gc->flags) ||
-+	    test_bit(GC_REMOVING, &gc->flags))
- 		return;
- 
- 	/* Note: If there are pending queue reset work for this port(apc),
-@@ -4056,9 +4056,12 @@ static void mana_gf_stats_work_handler(struct work_struct *work)
- 		dev_warn(gc->dev,
- 			 "Gf stats wk handler: gf stats query timed out.\n");
- 		/* As HWC timed out, indicating a faulty HW state and needs a
--		 * reset.
-+		 * reset.  Never admit service work before the probe has
-+		 * completed: a probe that is failing unwinds netdevs and the
-+		 * HWC channel itself and cannot drain a cycle.
- 		 */
--		mana_schedule_serv_work(gc, GDMA_EQE_HWC_RESET_REQUEST);
-+		if (test_bit(GC_PROBE_SUCCEEDED, &gc->flags))
-+			mana_schedule_serv_work(gc, GDMA_EQE_HWC_RESET_REQUEST);
- 		return;
- 	}
- 	schedule_delayed_work(&ac->gf_stats_work, MANA_GF_STATS_PERIOD);
-diff --git a/include/net/mana/gdma.h b/include/net/mana/gdma.h
-index 308950f..fd4b967 100644
---- a/include/net/mana/gdma.h
-+++ b/include/net/mana/gdma.h
-@@ -228,12 +228,6 @@ enum gdma_page_type {
- 
- #define GDMA_INVALID_DMA_REGION 0
- 
--struct mana_serv_work {
--	struct work_struct serv_work;
--	struct pci_dev *pdev;
--	enum gdma_eqe_type type;
--};
--
- struct gdma_mem_info {
- 	struct device *dev;
- 
-@@ -420,6 +414,8 @@ struct gdma_irq_context {
- enum gdma_context_flags {
- 	GC_PROBE_SUCCEEDED	= 0,
- 	GC_IN_SERVICE		= 1,
-+	GC_REMOVING		= 2,
-+	GC_SERVICE_DURING_PROBE	= 3,
- };
- 
- struct gdma_context {
-@@ -479,6 +475,12 @@ struct gdma_context {
- 
- 	struct workqueue_struct *service_wq;
- 
-+	/* The in-flight MANA service cycle, queued on the system workqueue:
-+	 * a reset cycle destroys and re-creates @service_wq.
-+	 */
-+	struct work_struct	serv_work;
-+	enum gdma_eqe_type	serv_type;
-+
- 	unsigned long		flags;
- 
- 	/* Protect access to GIC context */
+Thanks,
+Gavin
 
