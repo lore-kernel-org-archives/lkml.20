@@ -1,94 +1,80 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34BC92D73BC;
-	Wed,  9 Sep 2026 14:50:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB50856E056;
+	Wed,  9 Sep 2026 14:50:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788965411; cv=none; b=giyX6Ys7bRntXYhxis9fkdujeQBkKKUopRtFD+MahFYMazaUbsGDQLNznilFbbbETrwpeqyDthQqnuhJq+hUK8mbRu/R3RPyRIOrWVa+sTyB5OkNp11tY/lnulA0ZAQGhWVtqDG/qnJaL3Yqu2PGvvNN3RiUfkFn7Dbkp+XSbwU=
+	t=1788965427; cv=none; b=DEkAY6YVJHFWHbPEx4bKwaopboNvIz8Br5vDMXY1yKtCock3bU7YGD0owU2Hor+TsoiG/+5q1M2sZ3jubhxTtUfnxzupUzZDh2DfGWHrnhwpkTn8kYYixvA3ZP4UPITIrzEYdxk5sKhO/JsujitKPfkcVmbV2q4Nr3OGafSAtkg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788965411; c=relaxed/simple;
-	bh=65/Tclw+6SxUKfCYRbMf+RpwqrWmbCMLTUwSVGHPSTc=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=aDQJu3fiuQ7xnFGXRV9KqVMeaSYefgMgI0oqUR3dLd8ABTZ2wCHWfgvar3tJ6cCGIztIIygdD97zJ+KBKPrXMxCHkCp380rT+iQ5Vk/7ltyajAQv9m56ESQkjGQmLMMexL05qb/c98xqDkSDgIL1O2xe2bvWeKmlDRkq8WBjDYc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PXY6CUJx; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788965427; c=relaxed/simple;
+	bh=ZBBPndz1fW7NuLQ71yvYcEakQmFLnfPAhhQsq5ssCq0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=cR+Zp3y1knHzIzz5uL2uVb1Empv+RxLqrgvqDtYbBK8+7C/mk3t09trVYIbb1Dca/cPtTXsezgxr+SuhvWJogGjr/f13W0icm6sxj2/cppePW3XqjJZpSE4wCnV3V66jfpPDRQo/rRyX9yvjBXeD7Ul0QLS3Lnr0a9jDSAFeSgA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iEBkTrum; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PXY6CUJx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DF0AE1F00A3A;
-	Wed,  9 Sep 2026 14:50:09 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iEBkTrum"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4EC231F00ADB;
+	Wed,  9 Sep 2026 14:50:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788965409;
-	bh=hj53gg4ff9DCPpubSP+QVQemVjU+gS+apEWWkxqCqWs=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=PXY6CUJxcNuepuXUdiOhOYV0+aUvtPS8ELf+WI/LU0tGbsvJxhEI5YI0FFhTX9UNd
-	 DbGmOtFyWqezaBnF6xU9vid0tAG1CIP5eGJJhoS+SWkDFVZdgYukaCAoiOnQGDE8zR
-	 MgCTAYAQjW/X1d7uFh99X8QxATiaVRr48pmLv2aMXnmvr4PMg5m31hptIWyv5UkOxv
-	 p9hZLf3yDo0mq6qj/jEeTBBUd4Ci0VZjQUK7rKh4wn1iR0w1JsHVcX6vTMCkoLygpF
-	 +ZI0OLTpB/qEGDkC1ntbrJhk2uupwnVjD1hzTdCKB8ttMPXXmL66Cag32C1Pl3k1v2
-	 uyII/snvxTwsQ==
-Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
-	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <maz@kernel.org>)
-	id 1x4Jcl-00000006jrE-39Qu;
-	Wed, 09 Sep 2026 14:50:07 +0000
-Date: Wed, 09 Sep 2026 15:50:07 +0100
-Message-ID: <86y0da7a3k.wl-maz@kernel.org>
-From: Marc Zyngier <maz@kernel.org>
-To: Fuad Tabba <fuad.tabba@linux.dev>
-Cc: Thomas Gleixner <tglx@kernel.org>,
-	Radu Rendec <radu@rendec.net>,
-	Kemeng Shi <shikemeng@huaweicloud.com>,
-	Will Deacon <will@kernel.org>,
-	Fuad Tabba <tabba@google.com>,
-	stable@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/3] irqchip/gic-v3: Lifetime and range fixes in the GICv3 and ITS drivers
-In-Reply-To: <20260908142632.2795308-1-fuad.tabba@linux.dev>
-References: <20260908142632.2795308-1-fuad.tabba@linux.dev>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
- FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
- (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+	s=k20260515; t=1788965426;
+	bh=+osS1iwoLcBfFmAbGsFKJXyRFHqPINgGxFsDWgPyCTM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=iEBkTrumhQZdhL6aTpIUNIrFm9+DAKFfF/MtkC3/5gVfDRl/h3JSXoTHnNDhIQawo
+	 75lb/zFilcCwGCcox4hRnKMvyvwjiyskSr4AjAdj2iCG0VkvgR37fUOdsaUs+S1zQX
+	 TyqL2PqwFw/1wztEOxwVPuxp/nuUPM5rnUYpEYeO0LPJCxt9Lb4/QYr+GfeCrdpFll
+	 kPuZw1Xd9K70lE+/bIBmiykIqykJv7Rg7o5adkLuICZ07yjetlRIY3KrwCGN+89riZ
+	 68gFOtPntHlHbrpTL0sSyiFxB43PanmSSf8NN1Cr22ffnxy5q3QkKAS4pLcxpXiFkg
+	 NATjkfZgXlp/A==
+Date: Wed, 9 Sep 2026 10:50:23 -0400
+From: Namhyung Kim <namhyung@kernel.org>
+To: Tengda Wu <wutengda@huaweicloud.com>
+Cc: james.clark@linaro.org, xueshuai@linux.alibaba.com,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	Peter Zijlstra <peterz@infradead.org>, leo.yan@linux.dev,
+	Li Huafei <lihuafei1@huawei.com>, Ian Rogers <irogers@google.com>,
+	Kim Phillips <kim.phillips@arm.com>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>, Bill Wendling <morbo@google.com>,
+	Nick Desaulniers <nick.desaulniers+lkml@gmail.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Zecheng Li <zli94@ncsu.edu>, linux-perf-users@vger.kernel.org,
+	linux-kernel@vger.kernel.org, llvm@lists.linux.dev
+Subject: Re: [PATCH v5 02/26] perf llvm: Fix arm64 adrp instruction
+ disassembly mismatch with objdump
+Message-ID: <aqFyLznYVOiPPIeR@google.com>
+References: <cover.1788872630.git.wutengda@huaweicloud.com>
+ <aca3c51ca091bdf0c4b49b0721fbbf78a05abcf1.1788872630.git.wutengda@huaweicloud.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-SA-Exim-Connect-IP: 185.219.108.64
-X-SA-Exim-Rcpt-To: fuad.tabba@linux.dev, tglx@kernel.org, radu@rendec.net, shikemeng@huaweicloud.com, will@kernel.org, tabba@google.com, stable@vger.kernel.org, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-X-SA-Exim-Mail-From: maz@kernel.org
-X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <aca3c51ca091bdf0c4b49b0721fbbf78a05abcf1.1788872630.git.wutengda@huaweicloud.com>
 
-On Tue, 08 Sep 2026 15:26:29 +0100,
-Fuad Tabba <fuad.tabba@linux.dev> wrote:
+On Tue, Sep 08, 2026 at 01:05:05PM +0000, Tengda Wu wrote:
+> The operands of 'adrp' instructions parsed by libllvm are currently
+> represented as raw immediates rather than the "address <symbol+offset>"
+> format used by objdump. This inconsistency causes arm64_mov__parse()
+> to fail when parsing these instructions during post-processing.
 > 
-> Hi folks,
+> Example of the mismatch:
+>   Current: adrp  x18, 8014
+>   Objdump: adrp  x18, ffff800081f5f000 <this_cpu_vector>
 > 
-> Three fixes to the GICv3 and ITS drivers, from reviewing the GIC series
-> floating around and chasing down Sashiko's reports.
+> Fix this by manually extracting the target address from the raw adrp
+> instruction via symbol_lookup_callback(). The address is then converted
+> to a specific symbol during symbol__disassemble_llvm() and formatted
+> to match objdump's output, ensuring compatibility with existing
+> parsers.
 > 
-> The first releases the partition node that gic_irq_get_fwspec_info()
-> takes from of_find_node_by_phandle() and never puts. Sashiko raised it
-> on an of/irq patch of mine, and I said a fix was forthcoming [1].
-> 
-> The second widens the per-device MSI clamp, which truncates to zero when
-> GITS_TYPER.ID_bits is at its maximum and then denies every MSI on that
-> ITS. I couldn't find an implementation that reports that maximum, so
-> this is one value at the edge rather than something anyone is hitting.
-> It carries Cc: stable because the commit it fixes was itself
-> backported, so drop the tag if you'd rather.
-> 
-> The third clears vpt_page once its_vpe_teardown() has freed it, so the
-> NULL guard holds if teardown runs again on the same vPE.
-> 
-> Based on Linux 7.3-rc2 (df2908090cda3).
+> Signed-off-by: Tengda Wu <wutengda@huaweicloud.com>
 
-Reviewed-by: Marc Zyngier <maz@kernel.org>
+Reviewed-by: Namhyung Kim <namhyung@kernel.org>
 
-	M.
-
--- 
-Without deviation from the norm, progress is not possible.
+Thanks,
+Namhyung
