@@ -1,105 +1,84 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74D88314A98;
-	Wed,  9 Sep 2026 17:00:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D0F529D291;
+	Wed,  9 Sep 2026 17:02:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788973256; cv=none; b=Kt8jhdR4MGYyU/zX/kzQUig5f/o60jLbDp2dPpK9LbMrYdW41RdbdHeaPwsCy1yNlU/YWp8VTR5KnWufm+rhgnLVzcyj31ru22xZEOKxGicwHt4ODXAnCb/a7V6EzBR65/fVs8sBGo4hIfqaIdl4os/keZRp125SPVeSH+ZvkL0=
+	t=1788973342; cv=none; b=pj7rzG0CDgfHJs6TA79U46UfXhbzojOgoKkrjgL5DtCg8ieFSI4fZhge09wFfbR3la82ut0sWhjzdGlUM9F9PKTxMaeAOC8ufGkzkSKgu8MUoFmlmAm6opCPX+VQpXZtRDujWIyK67yXaqSDRLgKbLI7iGus1hxTLC1oSJffCJk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788973256; c=relaxed/simple;
-	bh=Y/UIq031XmUZ5ZfP5/0PQAgB9eZRuRYbgPHSxMOJLfI=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=D7bnA2wlTy19MnO8XHhBNNSBM7S8fVsLNNbi1Da3SO7SS4JgELCFxptaCccx/GMYzIf7ber8YyN3qxZ7FF/N8iPKEvyNnXT5ozlCtKEj68eYAchM/gU83ownEksFwPYCbOkQBruVL9JgbWUF5ll8WoVaKaffGeCbjq7xI8CqXNo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=I9BP+1Vz; arc=none smtp.client-ip=198.175.65.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1788973342; c=relaxed/simple;
+	bh=nRyjr9gAPzzEWH3ZNwWFFh2AvVacwc7h1yyJgn+T160=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Djea6OcPk9zpFATtn3HJHscjHNF1mLx2bWlkI2JfKkc3B1CledvRyzSG3PafihxlbZNN0bzHSRUwAzBgmZpioDeoz1cIUZUVxFMatM9wXqfeyjd47yjDGAcPt7hnuiENxjVDstAA1zM7o3ivzTxwn/LurCllFEPWx1n3t25mZzM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BvHsEybh; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="I9BP+1Vz"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788973254; x=1820509254;
-  h=from:to:cc:subject:in-reply-to:references:date:
-   message-id:mime-version;
-  bh=Y/UIq031XmUZ5ZfP5/0PQAgB9eZRuRYbgPHSxMOJLfI=;
-  b=I9BP+1VzkOM8xYnLnJKE8e3n+XlufuFpbjh/GLnucoXyE05rlXm0lPLW
-   zDeR0NqRkQAc8XiLEmY+kk6vNKCd6mgT3T/0pgonu/ZedFfwtppuRTSt6
-   jIPWZhY2/XJ1oo4xEYqoUbOaJy0Sk8EW3uFPmwflPjSQXF84tpayVriKt
-   4MMC1IvBBkf1qk8f8qUa3AtSj0JnRgAvDT4lb8f64DVz0dMkZsjZxFxSN
-   5TwlF7ImBeJ6pe2z/2HSLHTTXQ+npAmU+TLjhEOu4vSeZPU+p8qq2hS9O
-   OATZRgVufUXqvctFf0VQ7RU1EQv44gyGsJQcT8POAnwSTp0ujoBUw4Zyf
-   w==;
-X-CSE-ConnectionGUID: ouCzSsBvQa+HVMgenRaDuA==
-X-CSE-MsgGUID: obuP5LFPRsmt0Mo+8EEoPQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11900"; a="93098618"
-X-IronPort-AV: E=Sophos;i="6.25,270,1779174000"; 
-   d="scan'208";a="93098618"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
-  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Sep 2026 10:00:53 -0700
-X-CSE-ConnectionGUID: fkKchdwgRxWLRLcc7uJdtQ==
-X-CSE-MsgGUID: 8ab9o6KmRpC8CTAQmm6hOA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,270,1779174000"; 
-   d="scan'208";a="267084887"
-Received: from fpallare-mobl4.ger.corp.intel.com (HELO localhost) ([10.245.245.20])
-  by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Sep 2026 10:00:50 -0700
-From: Jani Nikula <jani.nikula@intel.com>
-To: Manuel Ebner <manuelebnerli@mailbox.org>, Jonathan Corbet
- <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>
-Cc: Manuel Ebner <manuelebnerli@mailbox.org>, SJ Park <sj@kernel.org>,
- workflows@vger.kernel.org, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] Documentation: deprecated.rst: add to syntax highlighting
-In-Reply-To: <20260909141255.1367539-2-manuelebnerli@mailbox.org>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <20260909141255.1367539-2-manuelebnerli@mailbox.org>
-Date: Wed, 09 Sep 2026 20:00:47 +0300
-Message-ID: <d35909dea037d1ac5c6a919bf1a7d53d8d5fddb4@intel.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BvHsEybh"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB8C11F000FF;
+	Wed,  9 Sep 2026 17:02:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788973340;
+	bh=DE9TKoe8bwCUSFbC5qwEZF5hRWO7Ho+OMN9J/HSOi+4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=BvHsEybhbyBhohT255O8m66DWBprZJ0jHpZJ9nttr9EfnqWParDrLvXM68xOR+ceT
+	 adjAKMH8V9z7oUDawSh03tPXtiAkiFv2rMtMIEHmy+4/hsQ9YLvQjTBofwdOi1La8k
+	 l6kv4/TGLmc5Dlm5/3Yc3+/1jTE2vH3am+N2xfd/DyQDU0bvFavz5fIi5WMyNnK9Qi
+	 8D0qTO1D+YwbX7Dize9bFAE/ROsQpb6Fkel0iR1beFJtEPXy0BMGYUAZZ5SNn8J+GP
+	 HgHLrdn6YhpuSD6BBH9uAF713ewDuN163ZtMfdRbEQz+hBIGGnvE6yZ+SUz2yEG3ER
+	 cA8EdV8lCN9Mg==
+Date: Wed, 9 Sep 2026 19:02:11 +0200
+From: "Oscar Salvador (SUSE)" <osalvador@kernel.org>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>, Kairui Song <kasong@tencent.com>,
+	Qi Zheng <qi.zheng@linux.dev>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	Barry Song <baohua@kernel.org>,
+	Axel Rasmussen <axelrasmussen@google.com>,
+	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>,
+	Baoquan He <baoquan.he@linux.dev>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	Brendan Jackman <brendan.jackman@linux.dev>,
+	Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>,
+	Oscar Salvador <osalvador@suse.de>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Jan Kiszka <jan.kiszka@siemens.com>,
+	Kieran Bingham <kbingham@kernel.org>, linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org, linux-cxl@vger.kernel.org,
+	driver-core@lists.linux.dev, linux-fsdevel@vger.kernel.org
+Subject: Re: [PATCH 01/12] mm/sparse: move mem_section init to
+ sparse_extreme_init()
+Message-ID: <aqGREyCqExRFNCQz@localhost.localdomain>
+References: <20260909-b4-sparsemem_cleanups-v1-0-008fc8d579fe@kernel.org>
+ <20260909-b4-sparsemem_cleanups-v1-1-008fc8d579fe@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260909-b4-sparsemem_cleanups-v1-1-008fc8d579fe@kernel.org>
 
-On Wed, 09 Sep 2026, Manuel Ebner <manuelebnerli@mailbox.org> wrote:
-> Mark key words 'gfp' and 'GFP_KERNEL' for syntax-highlighting.
->
-> Suggested-by: SJ Park <sj@kernel.org>
-> Signed-off-by: Manuel Ebner <manuelebnerli@mailbox.org>
-> ---
-> Suggestion:
->  https://lore.kernel.org/all/20260430010332.114100-1-sj@kernel.org/
-> ---
->  Documentation/process/deprecated.rst | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/Documentation/process/deprecated.rst b/Documentation/process/deprecated.rst
-> index 22a5e62c9..4d4d29b97 100644
-> --- a/Documentation/process/deprecated.rst
-> +++ b/Documentation/process/deprecated.rst
-> @@ -404,7 +404,7 @@ become, respectively::
->  	ptr = kmalloc_flex(*ptr, flex_member, count [, gfp] );
->  	__auto_type ptr = kmalloc_obj(struct foo [, gfp] );
->  
-> -The argument gfp is optional, the default value is GFP_KERNEL.
-> +The argument `gfp` is optional, the default value is `GFP_KERNEL`.
->  If `ptr->flex_member` is annotated with __counted_by(), the allocation
->  will automatically fail if `count` is larger than the maximum
->  representable value that can be stored in the counter member associated
+On Wed, Sep 09, 2026 at 03:32:54PM +0200, David Hildenbrand (Arm) wrote:
+> Let's just avoid another pair of ifdef inside a function. While at it,
+> switch to INTERNODE_CACHE_BYTES by just defining a fallback in cache.h
+> as well, given that the x86 variant already provides one.
+> 
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 
-Single backquotes in rst mean "interpreted text" [1], not markdown style
-code.
+Acked-by: Oscar Salvador <osalvador@suse.de>
 
-
-BR,
-Jani.
-
-
-[1] https://docutils.sourceforge.io/docs/ref/rst/roles.html
-
+ 
 
 -- 
-Jani Nikula, Intel
+Oscar Salvador
+SUSE Labs
