@@ -1,255 +1,168 @@
-Received: from mail-oo1-f97.google.com (mail-oo1-f97.google.com [209.85.161.97])
+Received: from mail.tuxedocomputers.com (mail.tuxedocomputers.com [157.90.84.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2353D577E26
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 15:59:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.97
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 615ED55C324
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 15:59:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=157.90.84.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788969572; cv=none; b=c18BL3NkIbV5dzt/JJCVQIK3xVPcYw+fCBi6PnjVPUk/Knm33jNwHS8AOvckfBQEyV0beao/29SJ/kcZsvY+uhlO5/G4MtjD8cF5wg8XYijwnp48NGjNaLVSIkLE1qcT2n7QJ3d6oniLKReQJxsHe7/5gQu9JPH5QHnatq0pie4=
+	t=1788969583; cv=none; b=NrRMldKhHjc9UoyT3eFoWLs6nDGDW7H1j7xVPocVFF+IviftoV+BDRUjY2vjWM5NyZg0t1wUPnhXszFJzLeR51f7akhBVfb2056AaXhm0MZXv4JivvAAlAd2f8CV2axtSqPRtQjWkoP/zjnD/RiTYdJjLIctkRkEvpXmo/h90eM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788969572; c=relaxed/simple;
-	bh=m8PHHIvMElAA04zgDUMJs6ZPuE/FVKypUdqvJz4oiy8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=fnXHvwaDZNofgMlPItiQXsN4k8gO+9Cly5sINncb1quLfWmSJrdd1ZVjn2BxUu9NCvsn5s6cH21yltpIvxB6TGmhFMWoSuFT4GRnfv0FayHlVaiYh+M621P2UVQzB1xM7dGIwT3temI0htSReNn0dlm2H0ugiognIs3IdWIulb4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=purestorage.com; spf=pass smtp.mailfrom=purestorage.com; dkim=pass (2048-bit key) header.d=purestorage.com header.i=@purestorage.com header.b=dvqarzwV; arc=none smtp.client-ip=209.85.161.97
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=purestorage.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=purestorage.com
+	s=arc-20240116; t=1788969583; c=relaxed/simple;
+	bh=D+go4GIYsY2fNBBDWwejnLBnsV1M6H5H8E2sDV3mf0Q=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
+	 In-Reply-To:Content-Type; b=rRP7gN8jROSMvCSsgNRJB4JS1WCep2Nk2QhYDjOWlTzNXxWq1InpemRRb/+3eE+smRvUCUzg1h+siBS+0FhTI6b8QKGG8q/ozs0CHDtoEkBTxFXGQ8+NMC5UD+Aq2ZANw5wLihHed5Y/ivdwFeRCYLXjY2a3zizgEmGJf5CgffU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=tuxedocomputers.com; spf=pass smtp.mailfrom=tuxedocomputers.com; dkim=pass (1024-bit key) header.d=tuxedocomputers.com header.i=@tuxedocomputers.com header.b=Is9kMMCF; arc=none smtp.client-ip=157.90.84.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=tuxedocomputers.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tuxedocomputers.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=purestorage.com header.i=@purestorage.com header.b="dvqarzwV"
-Received: by mail-oo1-f97.google.com with SMTP id 006d021491bc7-6b6811e8940so32234eaf.0
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 08:59:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=purestorage.com; s=google2022; t=1788969568; x=1789574368; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=X+pMe6zV5KmHjmCdDkn3PgSMEGRc3mfq+qsXjrF4xPM=;
-        b=dvqarzwVym6eOHVDNEKY9ewNfgqudh9asCrWKbQCJBbHMfULjrOc+MQDlQWzCudV/W
-         /XloHEJgEDujVoyUn2gfEtNIXLxtYc05O1B3DhqQTarSPCsuLUy1D1bTMEykfvDOnv8q
-         oLOZCHGbnHIxwPdVyyB3y5TQBWWPrCNPg2FdMXEtYBEZrSrIrdsLllGkBhoTWtaztuAH
-         GIuiwN/Ua0rsfC350TtZ2wYrHosrL03UaxM/l3MvSj+Tu+cu2lnI+Jbcl8kR6h+wKc8/
-         dbUAACBugQmKghPROvnh+3DTHqiItItYWEQUGz4UQx6TEcedrREA50S1S/NAs3cLI/Er
-         j6vw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788969568; x=1789574368;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=X+pMe6zV5KmHjmCdDkn3PgSMEGRc3mfq+qsXjrF4xPM=;
-        b=Fn1KHuvsYuVycMJm8Kuwlj9RGFwaBzxF3WZagPktIQkQvMT0q08fxLqNFdgbC+VfJ4
-         aTglNf8iSr7LgOV3eFUvzHRbNlKw/3XBAXG3NQ56hWzUIroqPF9IkSrnXcLWvFNh+pfW
-         LiKUWSbf3Gg81EhAd2buUmVmaAHUmZbJ2290HkOcMHSju0gdLwGJNfyU/yzQOYxPpEgf
-         l7Kfq3VvfxfYTR0fNXGXqy6sm1eO7M8aymB3h7ZT0hPgtCYSZAV047owh2oRU8lfWZVf
-         i6ikq+yX0esKGgcpRsvzBc49zdAmzi+dFdglUERmv0/wQnesPNTqbDFxLyXf9pYN8exj
-         DXrw==
-X-Forwarded-Encrypted: i=1; AKwUvBxmZKhEkPQaTeew9MEwzhEfEyVLBKcwWFmZRGo9tHZHMw/ldQxMwq0wdN9oO1hIl5yT1hKrvpLJ5T58xjk=@vger.kernel.org
-X-Gm-Message-State: AFuF++kGYtwqsG5x376BPlzS/hiVreiuq/jBTShdNg5rehJOg+A9csvh
-	xOXHuBdf31XQCw2fiYfSy8d363O0J676dL7t6ZO6c0q/cacBAfEq0XEMDGVjccdFUE4bVC6JLl+
-	9dRT+ouTM+099idHU8os2VQUHNQz6/ZXmjIzST4QPqhRBAXfTWbk0
-X-Gm-Gg: AYBFou0VlcURG6AByUPiMl9paOYOhf7nQNnrP9gvs8qLjP8DnlNu57WL0tePzTNHC0o
-	lsCNdxlJ9J0VoVALMo83kp3C3VD+Ips5s2E9DEgVsoL8LhneCdoGetgk2PA08Jd77s8EHy6F0NV
-	md9WgnPsL+pbswVmbJJ2j0oYAQCVfRs9FF1jXuM3lEMha+90spidIDh+AdUdlCNH4Quv6YrLCvL
-	TnejDcSNepZHzTCScaYpMtdkf9u9dQu77EgYq8oS2mY1arEUqsAC3IYWwWVwCSJ2a6Mdcg6QhAs
-	ssDNQbvdXNIOOQyEM9K5bihX0VmJB93HDqL9pFEsoXEVXOtLNvp0fBQOKdeFFvM2SkOu+bRPa21
-	1hIiodANN4vlHbb14iw==
-X-Received: by 2002:a05:6830:3c8e:b0:7f4:37a9:6df9 with SMTP id 46e09a7af769-7fb77233fb0mr18560557a34.0.1788969567677;
-        Wed, 09 Sep 2026 08:59:27 -0700 (PDT)
-Received: from c7-smtp-2026.dev.purestorage.com ([2620:125:9017:12:36:3:6:0])
-        by smtp-relay.gmail.com with ESMTPS id 46e09a7af769-7f9f668f694sm2368876a34.4.2026.09.09.08.59.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 09 Sep 2026 08:59:27 -0700 (PDT)
-X-Relaying-Domain: purestorage.com
-Received: from dev-csander.dev.purestorage.com (bond0.slc5-n17m28-k8s.dev.purestorage.com [IPv6:2620:125:9025:20::a31:41f])
-	by c7-smtp-2026.dev.purestorage.com (Postfix) with ESMTP id 3435E402AE;
-	Wed,  9 Sep 2026 09:59:27 -0600 (MDT)
-Received: by dev-csander.dev.purestorage.com (Postfix, from userid 1557716354)
-	id 310C2E4026F; Wed,  9 Sep 2026 09:59:27 -0600 (MDT)
-From: Caleb Sander Mateos <csander@purestorage.com>
-To: Jens Axboe <axboe@kernel.dk>,
-	Keith Busch <kbusch@kernel.org>,
-	Christoph Hellwig <hch@lst.de>,
-	Sagi Grimberg <sagi@grimberg.me>
-Cc: Joanne Koong <joannelkoong@gmail.com>,
-	Ming Lei <tom.leiming@gmail.com>,
-	io-uring@vger.kernel.org,
-	linux-nvme@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Caleb Sander Mateos <csander@purestorage.com>
-Subject: [PATCH v3 2/3] io_uring/cmd: split io_uring_cmd_set_res() from io_uring_cmd_done()
-Date: Wed,  9 Sep 2026 09:58:47 -0600
-Message-ID: <20260909155848.2069290-3-csander@purestorage.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260909155848.2069290-1-csander@purestorage.com>
-References: <20260909155848.2069290-1-csander@purestorage.com>
+	dkim=pass (1024-bit key) header.d=tuxedocomputers.com header.i=@tuxedocomputers.com header.b="Is9kMMCF"
+Received: from [10.10.12.8] (business-24-134-105-141.pool2.vodafone-ip.de [24.134.105.141])
+	(Authenticated sender: wse@tuxedocomputers.com)
+	by mail.tuxedocomputers.com (Postfix) with ESMTPSA id B0F7D2FC0076;
+	Wed,  9 Sep 2026 17:59:36 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tuxedocomputers.com;
+	s=default; t=1788969577;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=R742K260h+prY0Wjg3U/nzTCp2+H6DNxhAQ73zIGadA=;
+	b=Is9kMMCF+XNHsV35p8D+rFCEAJX/D3Gqg80t3q5jKImvy5tCQY49wzu3TdnADZgKx2bT0j
+	a+r3vw0zYALZRcqlH2tqLhP38rPAYvzE8UDip8MM1LPioeJZ8RC96hy6RZw/Xya5PLWDOp
+	0Z1pJyX+IXbHMujH7sPDxYRNwhv5sRQ=
+Authentication-Results: mail.tuxedocomputers.com;
+	auth=pass smtp.auth=wse@tuxedocomputers.com smtp.mailfrom=wse@tuxedocomputers.com
+Message-ID: <1e0bd720-cda9-483e-a9a0-e221f7df14a9@tuxedocomputers.com>
+Date: Wed, 9 Sep 2026 17:59:36 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] drm/intel: Add quirk to disable rc6 on some TUXEDO
+ devices
+From: Werner Sembach <wse@tuxedocomputers.com>
+To: Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin
+ <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Matthew Brost <matthew.brost@intel.com>,
+ =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
+Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, intel-xe@lists.freedesktop.org
+References: <20260908200707.65516-1-wse@tuxedocomputers.com>
+ <20260908200707.65516-2-wse@tuxedocomputers.com>
+ <7764d157c4bd6f832adeb7860baded67ae151901@intel.com>
+ <267b62f1-cc8e-4fa3-87fe-aedd5cba914b@tuxedocomputers.com>
+Content-Language: en-US
+In-Reply-To: <267b62f1-cc8e-4fa3-87fe-aedd5cba914b@tuxedocomputers.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-In preparation for setting the io_uring NVMe passthru CQE results from
-the blk-mq request completion rather than the task work callback, split
-out functions io_uring_cmd_set_res{,32}() from __io_uring_cmd_done().
-io_uring_cmd_done{,32}() now call io_uring_cmd_set_res{,32}() and then
-__io_uring_cmd_done(). This allows __io_uring_cmd_done() to be made
-CQE-size-agnostic, with 3 fewer arguments.
 
-Signed-off-by: Caleb Sander Mateos <csander@purestorage.com>
-Reviewed-by: Joanne Koong <joannelkoong@gmail.com>
----
- include/linux/io_uring/cmd.h | 34 ++++++++++++++++++++++++++++------
- io_uring/uring_cmd.c         | 19 +------------------
- 2 files changed, 29 insertions(+), 24 deletions(-)
-
-diff --git a/include/linux/io_uring/cmd.h b/include/linux/io_uring/cmd.h
-index 331dcbefe72f..2e4368d611ee 100644
---- a/include/linux/io_uring/cmd.h
-+++ b/include/linux/io_uring/cmd.h
-@@ -1,10 +1,11 @@
- /* SPDX-License-Identifier: GPL-2.0-or-later */
- #ifndef _LINUX_IO_URING_CMD_H
- #define _LINUX_IO_URING_CMD_H
- 
- #include <uapi/linux/io_uring.h>
-+#include <linux/io_uring.h>
- #include <linux/io_uring_types.h>
- #include <linux/blk-mq.h>
- 
- /* only top 8 bits of sqe->uring_cmd_flags for kernel internal use */
- #define IORING_URING_CMD_CANCELABLE	(1U << 30)
-@@ -39,10 +40,28 @@ static inline void io_uring_cmd_private_sz_check(size_t cmd_sz)
- #define io_uring_cmd_to_pdu(cmd, pdu_type) ( \
- 	io_uring_cmd_private_sz_check(sizeof(pdu_type)), \
- 	((pdu_type *)&(cmd)->pdu) \
- )
- 
-+static inline void io_uring_cmd_set_res(struct io_uring_cmd *cmd, s32 ret)
-+{
-+	struct io_kiocb *req = cmd_to_io_kiocb(cmd);
-+
-+	if (ret < 0)
-+		req_set_fail(req);
-+	io_req_set_res(req, ret, 0);
-+}
-+
-+static inline void io_uring_cmd_set_res32(struct io_uring_cmd *cmd, s32 ret, u64 res2)
-+{
-+	struct io_kiocb *req = cmd_to_io_kiocb(cmd);
-+
-+	if (ret < 0)
-+		req_set_fail(req);
-+	io_req_set_res32(req, ret, 0, res2, 0);
-+}
-+
- #if defined(CONFIG_IO_URING)
- int io_uring_cmd_import_fixed(u64 ubuf, unsigned long len, int rw,
- 			      struct iov_iter *iter,
- 			      struct io_uring_cmd *ioucmd,
- 			      unsigned int issue_flags);
-@@ -54,15 +73,16 @@ int io_uring_cmd_import_fixed_vec(struct io_uring_cmd *ioucmd,
- 
- /*
-  * Completes the request, i.e. posts an io_uring CQE and deallocates @ioucmd
-  * and the corresponding io_uring request.
-  *
-+ * io_uring_cmd_set_res()/io_uring_cmd_set_res32() must be called first.
-+ *
-  * Note: the caller should never hard code @issue_flags and is only allowed
-  * to pass the mask provided by the core io_uring code.
-  */
--void __io_uring_cmd_done(struct io_uring_cmd *cmd, s32 ret, u64 res2,
--			 unsigned issue_flags, bool is_cqe32);
-+void __io_uring_cmd_done(struct io_uring_cmd *, unsigned issue_flags);
- 
- void __io_uring_cmd_do_in_task(struct io_uring_cmd *ioucmd,
- 			    io_req_tw_func_t task_work_cb,
- 			    unsigned flags);
- 
-@@ -105,12 +125,12 @@ static inline int io_uring_cmd_import_fixed_vec(struct io_uring_cmd *ioucmd,
- 						int ddir, struct iov_iter *iter,
- 						unsigned issue_flags)
- {
- 	return -EOPNOTSUPP;
- }
--static inline void __io_uring_cmd_done(struct io_uring_cmd *cmd, s32 ret,
--		u64 ret2, unsigned issue_flags, bool is_cqe32)
-+static inline void __io_uring_cmd_done(struct io_uring_cmd *cmd,
-+				       unsigned issue_flags)
- {
- }
- static inline void __io_uring_cmd_do_in_task(struct io_uring_cmd *ioucmd,
- 			    io_req_tw_func_t task_work_cb, unsigned flags)
- {
-@@ -171,17 +191,19 @@ static inline void *io_uring_cmd_ctx_handle(struct io_uring_cmd *cmd)
- }
- 
- static inline void io_uring_cmd_done(struct io_uring_cmd *ioucmd, s32 ret,
- 				     unsigned issue_flags)
- {
--	return __io_uring_cmd_done(ioucmd, ret, 0, issue_flags, false);
-+	io_uring_cmd_set_res(ioucmd, ret);
-+	__io_uring_cmd_done(ioucmd, issue_flags);
- }
- 
- static inline void io_uring_cmd_done32(struct io_uring_cmd *ioucmd, s32 ret,
- 				       u64 res2, unsigned issue_flags)
- {
--	return __io_uring_cmd_done(ioucmd, ret, res2, issue_flags, true);
-+	io_uring_cmd_set_res32(ioucmd, ret, res2);
-+	__io_uring_cmd_done(ioucmd, issue_flags);
- }
- 
- int io_buffer_register_bvec(struct io_uring_cmd *cmd, struct request *rq,
- 			    void (*release)(void *), unsigned int index,
- 			    unsigned int issue_flags);
-diff --git a/io_uring/uring_cmd.c b/io_uring/uring_cmd.c
-index 726a659f38c3..3d5d8b5f4ebb 100644
---- a/io_uring/uring_cmd.c
-+++ b/io_uring/uring_cmd.c
-@@ -136,40 +136,23 @@ void __io_uring_cmd_do_in_task(struct io_uring_cmd *ioucmd,
- 	req->io_task_work.func = task_work_cb;
- 	__io_req_task_work_add(req, flags);
- }
- EXPORT_SYMBOL_GPL(__io_uring_cmd_do_in_task);
- 
--static inline void io_req_set_cqe32_extra(struct io_kiocb *req,
--					  u64 extra1, u64 extra2)
--{
--	req->big_cqe.extra1 = extra1;
--	req->big_cqe.extra2 = extra2;
--}
--
- /*
-  * Called by consumers of io_uring_cmd, if they originally returned
-  * -EIOCBQUEUED upon receiving the command.
-  */
--void __io_uring_cmd_done(struct io_uring_cmd *ioucmd, s32 ret, u64 res2,
--		       unsigned issue_flags, bool is_cqe32)
-+void __io_uring_cmd_done(struct io_uring_cmd *ioucmd, unsigned issue_flags)
- {
- 	struct io_kiocb *req = cmd_to_io_kiocb(ioucmd);
- 
- 	if (WARN_ON_ONCE(req->flags & REQ_F_APOLL_MULTISHOT))
- 		return;
- 
- 	io_uring_cmd_del_cancelable(ioucmd, issue_flags);
- 
--	if (ret < 0)
--		req_set_fail(req);
--
--	io_req_set_res(req, ret, 0);
--	if (is_cqe32) {
--		if (req->ctx->flags & IORING_SETUP_CQE_MIXED)
--			req->cqe.flags |= IORING_CQE_F_32;
--		io_req_set_cqe32_extra(req, res2, 0);
--	}
- 	io_req_uring_cleanup(req, issue_flags);
- 	if (req->flags & REQ_F_IOPOLL) {
- 		/* order with io_do_iopoll() checking ->iopoll_completed */
- 		smp_store_release(&req->iopoll_completed, 1);
- 	} else if (issue_flags & IO_URING_F_COMPLETE_DEFER) {
--- 
-2.55.0
-
+Am 09.09.26 um 15:45 schrieb Werner Sembach:
+> Hi Jani,
+>
+> Am 09.09.26 um 08:32 schrieb Jani Nikula:
+>> On Tue, 08 Sep 2026, Werner Sembach <wse@tuxedocomputers.com> wrote:
+>>> Some TUXEDO devices have random rare hard resets during video streaming.
+>> Is there a gitlab issue for this?
+> Not yet, but I can make one, presumably here? 
+> https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items?sort=created_date&state=opened&first_page_size=20 
+>
+Now there is one: https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/17013
+>>
+>>> Disabling rc6 fixes this. Until the root cause is found this is a pragmatic
+>>> workaround.
+>> The way to do this is to add your own local struct pci_device_id array
+>> somewhere, and use pci_match_id() or similar on it.
+>>
+>> We're *not* going to change the high level device info or PCI ID
+>> definitions for this.
+> OK, can do it in v2, was mislead here by the INTEL_QUANTA_VGA_DEVICE which 
+> also depends on specific sub-ids so thought it is ok to add also very specific 
+> entries here.
+>>
+>> Ugly stuff needs to be localized and hidden away.
+>
+> I probably do it somewhere around the where the HAS_RC6 macro is called? Sadly 
+> that's not a function so can't directly integrate it easily.
+>
+> Best regards,
+>
+> Werner
+>
+>>
+>>
+>> BR,
+>> Jani.
+>>
+>>
+>>> Signed-off-by: Werner Sembach <wse@tuxedocomputers.com>
+>>> ---
+>>>   drivers/gpu/drm/i915/i915_pci.c | 11 +++++++++++
+>>>   include/drm/intel/pciids.h      | 22 ++++++++++++++++++++++
+>>>   2 files changed, 33 insertions(+)
+>>>
+>>> diff --git a/drivers/gpu/drm/i915/i915_pci.c b/drivers/gpu/drm/i915/i915_pci.c
+>>> index 2f03f95945f1b..a52b56bedcf4f 100644
+>>> --- a/drivers/gpu/drm/i915/i915_pci.c
+>>> +++ b/drivers/gpu/drm/i915/i915_pci.c
+>>> @@ -687,6 +687,16 @@ static const struct intel_device_info adl_p_info = {
+>>>       .dma_mask_size = 39,
+>>>   };
+>>>   +static const struct intel_device_info adl_p_tux_ibp8_quirk_info = {
+>>> +    GEN12_FEATURES,
+>>> +    PLATFORM(INTEL_ALDERLAKE_P),
+>>> +    .platform_engine_mask =
+>>> +        BIT(RCS0) | BIT(BCS0) | BIT(VECS0) | BIT(VCS0) | BIT(VCS2),
+>>> +    .__runtime.ppgtt_size = 48,
+>>> +    .dma_mask_size = 39,
+>>> +    .has_rc6 = 0,
+>>> +};
+>>> +
+>>>   #undef GEN
+>>>     #define XE_HP_PAGE_SIZES \
+>>> @@ -863,6 +873,7 @@ static const struct pci_device_id pciidlist[] = {
+>>>       INTEL_DG1_IDS(INTEL_VGA_DEVICE, &dg1_info),
+>>>       INTEL_RPLS_IDS(INTEL_VGA_DEVICE, &adl_s_info),
+>>>       INTEL_RPLU_IDS(INTEL_VGA_DEVICE, &adl_p_info),
+>>> +    INTEL_RPLP_TUX_IBP8_QUIRK_IDS(INTEL_VGA_DEVICE, 
+>>> &adl_p_tux_ibp8_quirk_info),
+>>>       INTEL_RPLP_IDS(INTEL_VGA_DEVICE, &adl_p_info),
+>>>       INTEL_DG2_IDS(INTEL_VGA_DEVICE, &dg2_info),
+>>>       INTEL_ATS_M_IDS(INTEL_VGA_DEVICE, &ats_m_info),
+>>> diff --git a/include/drm/intel/pciids.h b/include/drm/intel/pciids.h
+>>> index 7a4a5658942d2..e4f74916a62c2 100644
+>>> --- a/include/drm/intel/pciids.h
+>>> +++ b/include/drm/intel/pciids.h
+>>> @@ -712,6 +712,28 @@
+>>>       MACRO__(0xA7AC, ## __VA_ARGS__), \
+>>>       MACRO__(0xA7AD, ## __VA_ARGS__)
+>>>   +#define INTEL_RPLP_TUX_IBP8_QUIRK_IDS(MACRO__, ...) \
+>>> +    MACRO__##_SUB(0xA720, 0x1D05, 0x124A, ## __VA_ARGS__), \
+>>> +    MACRO__##_SUB(0xA720, 0x1D05, 0x124C, ## __VA_ARGS__), \
+>>> +    MACRO__##_SUB(0xA720, 0x1D05, 0x124E, ## __VA_ARGS__), \
+>>> +    MACRO__##_SUB(0xA720, 0x1D05, 0x130F, ## __VA_ARGS__), \
+>>> +    MACRO__##_SUB(0xA7A0, 0x1D05, 0x124A, ## __VA_ARGS__), \
+>>> +    MACRO__##_SUB(0xA7A0, 0x1D05, 0x124C, ## __VA_ARGS__), \
+>>> +    MACRO__##_SUB(0xA7A0, 0x1D05, 0x124E, ## __VA_ARGS__), \
+>>> +    MACRO__##_SUB(0xA7A0, 0x1D05, 0x130F, ## __VA_ARGS__), \
+>>> +    MACRO__##_SUB(0xA7A8, 0x1D05, 0x124A, ## __VA_ARGS__), \
+>>> +    MACRO__##_SUB(0xA7A8, 0x1D05, 0x124C, ## __VA_ARGS__), \
+>>> +    MACRO__##_SUB(0xA7A8, 0x1D05, 0x124E, ## __VA_ARGS__), \
+>>> +    MACRO__##_SUB(0xA7A8, 0x1D05, 0x130F, ## __VA_ARGS__), \
+>>> +    MACRO__##_SUB(0xA7AA, 0x1D05, 0x124A, ## __VA_ARGS__), \
+>>> +    MACRO__##_SUB(0xA7AA, 0x1D05, 0x124C, ## __VA_ARGS__), \
+>>> +    MACRO__##_SUB(0xA7AA, 0x1D05, 0x124E, ## __VA_ARGS__), \
+>>> +    MACRO__##_SUB(0xA7AA, 0x1D05, 0x130F, ## __VA_ARGS__), \
+>>> +    MACRO__##_SUB(0xA7AB, 0x1D05, 0x124A, ## __VA_ARGS__), \
+>>> +    MACRO__##_SUB(0xA7AB, 0x1D05, 0x124C, ## __VA_ARGS__), \
+>>> +    MACRO__##_SUB(0xA7AB, 0x1D05, 0x124E, ## __VA_ARGS__), \
+>>> +    MACRO__##_SUB(0xA7AB, 0x1D05, 0x130F, ## __VA_ARGS__)
+>>> +
+>>>   /* RPL-P */
+>>>   #define INTEL_RPLP_IDS(MACRO__, ...) \
+>>>       MACRO__(0xA720, ## __VA_ARGS__), \
