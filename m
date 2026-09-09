@@ -1,151 +1,115 @@
-Received: from CO1PR03CU002.outbound.protection.outlook.com (mail-westus2azon11010012.outbound.protection.outlook.com [52.101.46.12])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62E0129B77E
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 16:47:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.46.12
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788972464; cv=fail; b=dPhlZd9J7HxaswsHvJkUg39w0UaMNoRLl0/A8afBMLg0p9BSsQvYavihTM0S4Qk72iAOO78wkRy2ywyBm162gnCEN9AYpkOyImP3aQcuuMoHhGEGiyzzKoBI4F0tI/3Nge4gwGFDi06c3W7IVUei19o1xvpcqbApetXMpUYBpAM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788972464; c=relaxed/simple;
-	bh=Ae3Bkw4J7YjN3b9zPLUkae1pYvMGou5rhgT9LFeCtKI=;
-	h=Content-Type:Subject:From:To:Cc:In-Reply-To:References:Date:
-	 Message-Id:MIME-Version; b=qaRLDhlXHJ0UV3rU2ksXjsh226acGVu5lC2ITPzZIotcs3uL3X3ENzVv17Ka3UwMFirv70sO10WZ0Qi3hsJzPCr47lwHhkhkkJxukrl1axeXBvSFA7kvR+WCgXYnh4Zh4HY1UaH8B5+QegTA9EcqmGqKrE5oPQ66mNsk69QTPbY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=SQxEFF9W; arc=fail smtp.client-ip=52.101.46.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81BE453FD2B;
+	Wed,  9 Sep 2026 16:49:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788972583; cv=none; b=PebsL+CRFr2AMrtW+9bWi3F7NxJ/3rUIUdu4VQZk2nNGtbaxF3pNYzENKMChHIU4Hh64WeW/Ke3I9axgfvpoBZrSpdGUp7akWFj3nG+GGVL/Z4u1AHoLivVf566TTNXXibKt6JIb/NBLOeqJcqzaDXKl3F9j48JUqbsiDTpytAE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788972583; c=relaxed/simple;
+	bh=bJW1tgJxo4gENcvU9KvW5CwFcvtaLi4Tvtj+Kg8yOTM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=pYPQ8QLcUiGN3X2Ggqvh7NHvyL2oAhnbDzIgd25IVL0qH40CB8ntXDndWVhIqUq4JQfvhBGdpleO9INq6sbiBupaZ6NQ0mDb+5HPLtEcm2bFjOsEWMEsEhzDE5dS5iwBGhunztdaY2UhcmxRP5CiTeJSYT4r3y75w0kfeClDxKk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BDdimfjC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="SQxEFF9W"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=MqV9v0vKsLWr8tX74uHyJsB6KcWaN/eDdYxFBrAF9LypT2vTKT3SAOpP2bXc+Ofb6mjQwwTDeY10ZXm2sj+prX2156N1T5QnPm3sDaMSd6c4A5dxDjTWvM8Cw7ijXz3UQLij07rU1uot0DnKHHKii2xYrLZAO/KjpMACp45jIPpui17n1hsy8G/sp9cvIGALxOGGa2ccDzRrAwvxaEaNS3dp9Wu9vrNku7vRGUOWyn4jmbI+du7x9xgOTVaoUqONWqQOWMdq1wOh1nCMGA61AH8WcQ4ICLg11g/jr40UGWzwkmH5Mfoeb0fRehYB9YQBaNTZ0R8QC4akefeXfYEs1w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=6wTg27hJRSiJsZEIddFIHXyby3ndLLwctrrhwudCMPo=;
- b=VAudu8GHDyN1h5ZAtrGDztpSd5nGQAaseC1UNwqsEFSlCmIXmcggtTGL+pt399mJH6YahjtImT2yWyg99EzMTiFacS6/UnuOljAAgvwxe85FaUDwtdxztKyCZMC1wwaG4j5/Pk9pW6NRmsBZAkxahl2ArA12rXnS37jC1eIsCBHTR0dKnMPVpt/V6+Felie1kIZJvvqGMCj4t3dkqqX5z/cR8JpP6j/i8Yv1/15Ua+ud08NQ0ATDOT326QEb/1V6pAHtljTiLpKBUJjBPIzxkq96bUjjnNca4OsIrT9d7+JdVJVWMiw8z9XIOAGwwRlBVcIiGkwSEjv7MErq2HQhNw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=6wTg27hJRSiJsZEIddFIHXyby3ndLLwctrrhwudCMPo=;
- b=SQxEFF9WTBsPzDlXMdeepmnXg7Lybf96OSolCRWFcyZfGphuFTfSUEASjNgTMM2FKf3jCHmwIEdPI8gM2sPmdm2LGshf+Q+ULxVxJxCdGP2EJRTIDY7tkBHKz7IbswPegEohLqQ7khexc9vLxVb5jk11uhgNQ4YzsFAYsaTnN3FbrM7xlwSTMb7c+yQAPeKtLg7mztrrWjtJVc0NjMJgyeUQZrI6WKnhql8HdotFM9EAReZHe1pdl+Udy02kINmIihvQHD2X7JJ0LXGij4+iiAN8rRSsCzJ2Pu09UIS/pz6LLCWI86t+91IrrNd+7iVmvCXnyv6F/t4BOCI8uLylxQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from LV8PR12MB9620.namprd12.prod.outlook.com (2603:10b6:408:2a1::19)
- by BL4PR12MB9536.namprd12.prod.outlook.com (2603:10b6:208:590::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.8; Wed, 9 Sep 2026
- 16:47:38 +0000
-Received: from LV8PR12MB9620.namprd12.prod.outlook.com
- ([fe80::299d:f5e0:3550:1528]) by LV8PR12MB9620.namprd12.prod.outlook.com
- ([fe80::299d:f5e0:3550:1528%4]) with mapi id 15.21.0406.007; Wed, 9 Sep 2026
- 16:47:38 +0000
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH] iommupt/kunit: Unmap in the tests before freeing the
- domain
-From: Jason Gunthorpe <jgg@nvidia.com>
-To: Yuanhe Shu <xiangzao@linux.alibaba.com>
-Cc: joro@8bytes.org, will@kernel.org, jgg@ziepe.ca, robin.murphy@arm.com, 
- baolu.lu@linux.intel.com, kevin.tian@intel.com, smostafa@google.com, 
- praan@google.com, skhawaja@google.com, iommu@lists.linux.dev, 
- linux-kernel@vger.kernel.org, Jason Gunthorpe <jgg@nvidia.com>
-In-Reply-To: <20260831064256.2233356-1-xiangzao@linux.alibaba.com>
-References: <20260831064256.2233356-1-xiangzao@linux.alibaba.com>
-Date: Wed, 09 Sep 2026 13:47:34 -0300
-Message-Id: <178897245484.4136580.9709345085141985794.b4-review@b4>
-X-Mailer: b4 0.17-dev
-X-ClientProxiedBy: YT4PR01CA0268.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:109::11) To LV8PR12MB9620.namprd12.prod.outlook.com
- (2603:10b6:408:2a1::19)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BDdimfjC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5152E1F000FF;
+	Wed,  9 Sep 2026 16:49:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788972582;
+	bh=CtmdG6WXQsfL+iqlX99cR+kUk06H7B+pqUNW8uqAW5c=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=BDdimfjC4kJnh2nelU1CQ87s2cKn5KwuSGaFlUT8TuCSMQzYokvf+LtOMEvQUEJWP
+	 sJlkaFF2WM8ocTVMTycl/89Ej7MkFfAgRO3h1+jhPeAXMVy3E2kPACtmZsDulf8HrF
+	 R6l+0vE+M3sfXKNSGZtXxMb97JoFsiqtknCNNxOWxYmsKI1rNK2W8UD869cAQ4N7Ds
+	 jy9GvYpnUsqi0jKPlNrNqTN9/LOaEbFnmXKa8eoP5UY7jXCey7kyZrfa7vc5NLdnAJ
+	 WH9dWyjEEaeNOQTmaF9JVMqCTPDVPtTncEbha3YfI4w2a/sZsdJoKXa/VCX9cgW304
+	 IG1iAcKx5xwIQ==
+Date: Wed, 9 Sep 2026 18:49:31 +0200
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: Andreas Zdziarstek <andreas.zdziarstek@gmail.com>
+Cc: Vinod Koul <vkoul@kernel.org>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Heiko Stuebner <heiko@sntech.de>, 
+	Jonas Karlman <jonas@kwiboo.se>, Frank Wang <frank.wang@rock-chips.com>, 
+	Louis Chauvet <louis.chauvet@bootlin.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org, linux-phy@lists.infradead.org, 
+	linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org, linux-usb@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [RFC PATCH v1 0/2] phy: rockchip: inno-usb2: fix USB gadget
+ hot-plug on peripheral-only OTG ports
+Message-ID: <6ly7ywoptz5ipixy65mh4bibf6cqj237nxa6ujuy23o3rvql3l@zxceopmephl3>
+References: <20260706223627.113814-1-andreas.zdziarstek@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LV8PR12MB9620:EE_|BL4PR12MB9536:EE_
-X-MS-Office365-Filtering-Correlation-Id: f2021009-16e1-490f-bd3b-08df0e920e88
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|23010399003|376014|7416014|366016|6133799003|18002099003|22082099003|5023799004|11063799006|56012099006|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	VaD3R/sAYKgYfrMLmYMKy2mC0/BAqNlgI51iCgHTHiRRytPfR6HotBJiwRH+ZwrB/tuRCXePESLIRAriAjrWvOW96PJZyJXdZKf3/a4aYB65q/OwqzIea/McaULRCkazab3Q/HmKeCXPejBoe9xAFM/b94ka+2vvX4wdQeTIXsEzORDHh6wQf9XlOBK9xkLwJ8JM8BBZWqwovXpbtjfNniGlJtG0L+nWLMrdGxVyO7QVv06ID+F8dRZPuoZCDjBaQd3kMBuNeQ/prfGiJ93eXKRiopO7t2IrZOczV7qMk2NUY0plgfBfgoMbYtlXmSxgWg+uer3rakN/+6Fc5nlfNhVxUpXSdlu+Tgrtq6tuc4OuC5chbiJj49FwatUJrL0QYjaG2Zlh9o2MwPdYM3PSBQjUCasjqB7cwzRVLV1kdr3dXXYgZca7p6fJnDrEXPbgYisNPexYhB5X/Ey5Lofsx/pm6d0h4vJ+1rrAwZJ9AceEDc0V2aw22kCL52Q2g3StOkEBXVcF2/Q5wC3R3AOFJzFpxFRuB0iH88oEaWSYyb7ED8ZsITGgvJawFiBjAyRA2gvkUrwjVzRBfGVxvlwqZ7OSK1NhejdtdNSUoyb4zT6lpNxwCk8Zcb4H6vPRsv46ON3prbomyu5Me0fBRPdhlYTH19ANAqR3h8K72BYdiuU=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LV8PR12MB9620.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(376014)(7416014)(366016)(6133799003)(18002099003)(22082099003)(5023799004)(11063799006)(56012099006)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?VXNHZ291dmVYdTAvYkFGRmpBSnpVWlhxOUdsTFllcDJPbWdNaGZ1SDFmZ0pk?=
- =?utf-8?B?Ylk1VWYrTmJoVzFHSXJXY0RyZzllNEFkL1FFcS9MWmlDRDVDSXduN0VFZkRV?=
- =?utf-8?B?SFhDNGk2ME5INWNDMEFMNERycGRjelIybzhLMnZWV1RaMW1LYjIyV0pYckdz?=
- =?utf-8?B?SVBlOGZ0SFV0alhNRWdZQys5QW5yVE1pcVk4TkRQalFvL2cwcXFUQWdPdFpO?=
- =?utf-8?B?dWgrdlZBWGFqWmNheW5UTjk1QnlMOXdZV2szRVY3YWlOQW8wTWdpTlpvTlFj?=
- =?utf-8?B?OHZkN2g5UUVyRFVkVktGM1JqcmY1SzkvOHBNRjg5NjZaN2ZMRld6cGI1cVMx?=
- =?utf-8?B?ZXpXMkxSeTAyMHQ5cXBlR2ZjZHZveS9sanVRWGF0TWg5TU5iV3dQKzRSalFz?=
- =?utf-8?B?RGNoeFErM0pqOXNEWUFjM2VsZlBSVDFreXhybFVtamxQeXozSkNCdVNvOUJm?=
- =?utf-8?B?RG9UUUpzeXNwWWNjeGd3UDM1MzVsaXNaUGtTWFZZSWE1T2hhQ0RrTk0xbE01?=
- =?utf-8?B?a2RxTEp2SEo4bEtacGRSdWsyMGI5M1IyUkIrZ2JpRDUzZWRmRmw3V0o3OE9F?=
- =?utf-8?B?UFBMS3BkWUgvUTNzYU1IMEdkS3dOSkpUWE5JUWl3ZjFXaEZyYzlWMzR4Sjd3?=
- =?utf-8?B?d1BDQ2l1ZStNNFhtODg5NjBOdmlvTVphbEM0TlZWallaZlhMMERpTndsblkz?=
- =?utf-8?B?eUpzaFlxd1o4aGs1dnJVS3RpMldkZ3FsWXVvNGVpU3BuOXhTNnR0SnROL3cv?=
- =?utf-8?B?TzRYZ25VVXpDNUtNUFBleTU4ZElCaUpxMWRHK2VBQWh0dm9ad1hPSUdrc0N4?=
- =?utf-8?B?M1pBMFpqdWUyVkZQb2VkNVZURllFNHdEcEpuUDlrL0NseDBSZ3o4TzV0MHVY?=
- =?utf-8?B?eWNrT0xTU2JaWE9FU0RnUTlKZWVHQUFVaytLelZxNVpoMklNSFZPN0pVUGtG?=
- =?utf-8?B?UmQ2K0JIRVUvR25YVU1HTGZWWUFNdWVMUG9idERKYmwzT1lKbmF5TDRaV3ZZ?=
- =?utf-8?B?WlJjSUJDa3VFdWpGSHlLQ3hMNG9YeTlTZnk3ajBkVWZ3bktQSjZ0N2Rjb3NF?=
- =?utf-8?B?c1U4cEVvM0RPV1VIRWVQbGwvQnRsdzVYQTluZ2JHRUkxQkptaGVna2NrZUFY?=
- =?utf-8?B?NnhNbDl6aithbXl0U0F3RnR5WFVnRnd6MGxUYkJRL0ZCSU9qK1BsajZnaGpU?=
- =?utf-8?B?YkVpcG9RM1FVR0dYcTdSUVhwbzdoWEVidGtVV05PQ1MwQk0yMXZmQTdKV2ov?=
- =?utf-8?B?ZUVKNW5VM0NwODdLbkhEcE51Wm5ZMk1PQzRGL1dFVnprS2tpUnBMWEVOZ0VG?=
- =?utf-8?B?WlA5YkU1VTZqQVdTVW1lTmNFYWU0b3BUWnhyWkxEa01aQlk3UUtjYVZNQlZR?=
- =?utf-8?B?WWtmNEt3bU1Xb2FqUFFGWUEvUjY5VTJDNGgrekxjbVR3cG91WWpuTWx1a3I0?=
- =?utf-8?B?V3dRYzgzc3A0cHN1b2xmOHZlaWprTmdhMGJJWXFkeUhOblI4cXphU01DbmJp?=
- =?utf-8?B?d3lkbWl2bTkyeVRnNDFBdlRaMEFhL3JLL2hOc0MzSnJEQkxuTXhSbTR2ajBO?=
- =?utf-8?B?SmhOVHdEaWlIdkN5T3duTEZSbG9Fc091ZVVieUgxUHJ3dDhqNU80MWwrNng0?=
- =?utf-8?B?NGNlUUFCbmtOOHlLbkVQQ3NLZUVYRDdhcUY0OWkrWUY4NlluZzllMlN0Z296?=
- =?utf-8?B?Z3RQVmR5S1RKdUVkd2dST1BOeWxveTRQWFJRMTJYVlAwZUlSWTlHSk9TYjIz?=
- =?utf-8?B?Mk9zM0hSdysyeWNqRElaeUFNci9WUS8xdU1xOUpKY0EyWVZMZk9OVFdOb1Vy?=
- =?utf-8?B?bVgxYk9RQ0g5NDkrZTdaeUwwNVJTOTc3QW43bDM4bDNseFhhbll0ekZhMGRW?=
- =?utf-8?B?Y2FLVCtCbnZsa0N6eFgwT3B3OUh5WHRqOXRIWmdIcGhKQkdqc0EvMThaWlkr?=
- =?utf-8?B?RW1xcmU3cGZjSzRGZE5xM29kWFU4MThGU0JCbEZwUXlTOUY5RGs2RXROYVpG?=
- =?utf-8?B?RG1VZUlMRTZ2am5kaDJOeUJnMlYyajNVemZJWWt0S01Sd2dqTVJsWjA0UzNa?=
- =?utf-8?B?enppZjhwTHRGTTBoZlI1eWVNNEVvbmVDeXpCVzk2Umx4aVZkQUJUVGpueGRF?=
- =?utf-8?B?dXhvWHVBNHZwV242Zmw0Qkd1WXhHWUR0UjJoRmNJWFdWZ2tQbk9yM3IvM1Jy?=
- =?utf-8?B?NVQ3SVNiY2hkV09nbzRxaWtKczBhdHlJNnVjTmFVTlJpODM0c0lHcXp3bFlU?=
- =?utf-8?B?MU5Ka1EvS0lla0JTOG9iNHRubXhEN2Y1UmpQN3c3bXFKbDQrMW5VR2V6Z05y?=
- =?utf-8?Q?7hh1P4qwK8+k5zls+r?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f2021009-16e1-490f-bd3b-08df0e920e88
-X-MS-Exchange-CrossTenant-AuthSource: LV8PR12MB9620.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Sep 2026 16:47:38.3547
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: /gPLC6jkLSxYhZijv+qjH1bWYo2VgniCRx8SSZM31P7b2dBvDxNjyhRwwpLAPgay
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL4PR12MB9536
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260706223627.113814-1-andreas.zdziarstek@gmail.com>
 
-On Mon, 31 Aug 2026 14:42:56 +0800, Yuanhe Shu <xiangzao@linux.alibaba.com> wrote:
-> test_increase_level(), test_pgsize_boundary() and test_mixed() leave
-> their mappings installed and let pt_kunit_iommu_exit() free the whole
-> table, while the other cases unmap and then check that the table is
-> empty.
+On Tue, Jul 07, 2026 at 12:36:25AM +0200, Andreas Zdziarstek wrote:
+> Hi All,
 > 
-> Besides being inconsistent, the mappings which survive into
-> pt_iommu_deinit() keep the IOMMU_DEBUG_PAGEALLOC references that
-> iommu_map() took on the mapped pages.  Nothing drops them, so with
-> iommu.debug_pagealloc=1 the pages behind the hard-coded test OAs stay
-> counted as IOMMU-mapped and every later allocation or free of one of
-> them reports:
+> I had an interesting time trying out the USB OTG micro-USB port on the
+> Odroid-M1S (Rockchip RK3566) on the mainline Kernel. My intention was to
+> set up a cdc_ncm+cdc_acm peripheral gadget as a hot-pluggable debug
+> port.
 > 
-> [...]
+> For the most part that went swimmingly. Just not quite with the
+> hot-plugging. The apparent first problem was that peripheral mode only
+> works if the host is connected at boot time of the RK3566 Kernel,
+> regardless if the dr_mode settings is "otg" or "peripheral". When no
+> connection is present at boot, gadget setup fails with a
+> "failed to enable ep0out" error and the port seems to end up in an
+> unrecoverable state afterwards.
+> 
+> I investigated a little as to why. With my very limited understanding
+> of the subsystems involved, I think I have identified some problems.
+> All seem largely related to each other.
+> 
+> * The M1S references its 5V OTG VBUS switch as phy-supply of the OTG
+>   port in its DT. The phy core unconditionally enables that on phy
+>   power_on. From then on it powers its own VBUSDET input, making further
+>   cable VBUS detection impossible. Also, apparently, after reading the
+>   schematic, that means even with a cable connected at boot (and
+>   peripheral mode therefore working), the board will try to back-power
+>   the host. Seems my host port is pretty robust, luckily.
+> * The inno-usb2 driver seems to generally lack DRP power supply VBUS
+>   switching support? At least PHY and VBUS supply are semantically
+>   treated the same.
+> * The inno-usb2 driver's state machine powers off the Phy in several
+>   places: on an initial no-VBUS sample, on DCP detection and on
+>   disconnect. That seems to happen unrelated to controller-initiated
+>   phy_power_on/off calls and looks like the main cause the gadget setup
+>   fails and then borks the controller state.
+> 
+> My proposed fixes are in two places:
+> 
+> * set the micro-USB M1S port to "peripheral" in DTS and remove the
+>   supply node. The board has two USB-A host ports, so device mode is the
+>   most likely usage scenario for the microUSB and real compliant DRP
+>   does not seem to be in the cards in the current state. Also, this
+>   fixes the potentially harmful back-powering issue. (2nd patch)
+> * keep the inno-usb2 phy driver from autonomously powering off when in
+>   peripheral mode. This makes hot-plugging and gadget-setup without a
+>   connected cable work. (1st patch)
+> 
 
-Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
+I'm not an USB expert, but your proposed fix does cause high power consumption
+by keeping PHY always ON even when the cable is not connected.
+
+To fix this issue properly, first I would investigate whether
+rockchip_usb2phy_power_on() is called during cable connect or not and also at
+the right time i.e., before the DWC3 gadget driver starts to drive the
+interface. If there is a race here, it would still cause the interface to be not
+up.
+
+- Mani
 
 -- 
-Jason
+மணிவண்ணன் சதாசிவம்
