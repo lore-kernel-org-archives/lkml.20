@@ -1,270 +1,111 @@
-Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com [209.85.128.72])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0904B54EEC7
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 11:56:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B954A550DB1
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 11:56:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788954964; cv=none; b=ZX/yN/Gzi7WNU8wYvu8ivcJmHUOR3xzIukdslRPx/12f8NfaSyFYPFIRjK7EQGEXBBctIYqsVWs4ZzOGrO6S0+JA0mEqEE/BDTZ+E3TEGlhTARh9JjciNjIaVUc8Yk30pZXJVSqO7s4s5yTqpoRuBVqp/QDgs9T6Lda6hN0zqXc=
+	t=1788954968; cv=none; b=fys5zpOVbmhzt0cQWuiqJYuVqspp9iH0FGY6QcgkAq0E3j8VZx+1ZqAfaLVqOVTV1mKap1NrkLskDg6uE3pnAX22x6FbuQR6gMUCXeCJDsqQ+/b6jkHGjf4Cw3U+PxcXIBJJGNKypXHBs6rhh61U6FhbuaLGkeiw6XJ1xxUJEyk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788954964; c=relaxed/simple;
-	bh=ku20SOigH8CJ8SYKLPGcw9FWogCbCHali0pAF7pIo/Y=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=dt8yJuUzRXmNGZQhSReef3oQ6EAOjvesuhcXEShrFk7Upkyb4Bi/3c3kUCLDGonsNY3qxKPHRgz5frL+mQHoVzxZhrqQCf4sfk7WBgoGfP3D8nTaW7trHmXNfVKwU2jOmQHWA42YXdfUyEoFDmBpPSQG8En/rFoupCAyO3ApDhY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--ardb.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Xb0iYXJA; arc=none smtp.client-ip=209.85.128.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--ardb.bounces.google.com
+	s=arc-20240116; t=1788954968; c=relaxed/simple;
+	bh=HsLRaYuEbq7ZzzRNl6uSIAKV4rQlZ2M6v1OhzKK4PeA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=EHWsxxlEUI6wvd3fzGl2OsGcLImjzXsN7QCo1yvvOlJpuqI1AVh8k3MadCRxb3pKazQAWOtDZ7X+TvFeHDdzW0xvVakpPM5SEFsD7kLK+SfobcNulDX/WzlWbVWc3j10k0FyRif49rCINGkLJ4Cfklhc3xkbUNmCvnqJvCTBnAY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=b+DYhiOP; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Xb0iYXJA"
-Received: by mail-wm1-f72.google.com with SMTP id 5b1f17b1804b1-4994cf6cdb9so41229995e9.3
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 04:56:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788954961; x=1789559761; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=5sXaakZK3FdjYjcilMqr9ZDO21ZR7yjsXqS533qtI9o=;
-        b=Xb0iYXJARnEJ7HWqHHH+ipsAY67B4Ls/3RYgkGowGlG12VLtWNOw9ziSTYCQ1NvABh
-         Qzm+rGPN8Ej4T0PTb/pSOgmNHjrzRHobW/4Oc75oXGtbXdlyFT5R7/VpgiDp8TBQnOyy
-         lfrpFIWvd93SpuQx1OTOsMxwg3X9RdLI9BThyXpz+PTe+hatLxzI3oP8SIp6OzNXIjln
-         cWgXy6XUf/0YxSPEhucj6fH3F65hMc7GGcap49ySivwjR+hav2MvDHH8U6dFsgsKg1cO
-         xpcsfTDCRaE/cC89/4LxLExBb59SCu0WMUH6icvXhoSSx9KKv/4mYuur3SJeo3qihrFa
-         FFsw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788954961; x=1789559761;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=5sXaakZK3FdjYjcilMqr9ZDO21ZR7yjsXqS533qtI9o=;
-        b=gzbnTE/72cbhCixez0/4aEiPI+U0buVgo6cuUVVVPapNWvpMzR+ba3j8OwfUQQhnt9
-         eltg5DsIIstxEfFLFxw597bTMedIXtxEKgMhavR6aMkn310q5O4v9sg/ZQVMGNFpfCTf
-         7Wq1O5aFzGWgMbHeLHuQpb7RQpvJgfTPy1sPWzxGGZ8va0eJluVs1EGh3oOCl5HC4Ur1
-         Dxz+abZ28ki7hU10AAD5J2NpUiUTpl3/JmBtxbq3bWgzMC3i8gxZHqFz0ZEzvigFAnHp
-         Mb44kLFhW1mcXe+/nJIHvUGvFbP4zGREL9OwIbwcSG1YDv7yItniQk6qBk5lfQHYnc9J
-         C6Ww==
-X-Gm-Message-State: AFuF++lIh0w2cQACeZXbX87ucCrpC+V7VhGAxV3ka0/ReuTe7olXvIlf
-	rpr3Xu4OJDu+FyIAELr6Wo02geetwpSUzk6DL1P30pgIyGVYBYzElJE2jHwb7VBrjMM08uFkOw=
-	=
-X-Received: from wmoy23.prod.google.com ([2002:a05:600c:17d7:b0:49c:e6be:fb62])
- (user=ardb job=prod-delivery.src-stubby-dispatcher) by 2002:a05:600c:310e:b0:49c:fa21:1c84
- with SMTP id 5b1f17b1804b1-49cfa211ce7mr321466165e9.25.1788954960859; Wed, 09
- Sep 2026 04:56:00 -0700 (PDT)
-Date: Wed,  9 Sep 2026 13:55:36 +0200
-In-Reply-To: <20260909115530.1924665-12-ardb+git@google.com>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="b+DYhiOP"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1788954964;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=hUSOoW0g30UFVhZc7yIBkWk1BVCAbM29mk2RKcbK+JY=;
+	b=b+DYhiOPEBzUXzhwFEcgfmHVssRWQPTlOuQcPO/60lUhURaaQSq3HQsM+dw+xGGIvvglG3
+	n7mO8oY8pCIo9kM1fC6OHRwRHEahVGGkC56SA2b3MRXDAvESDTG1hqXolKm/GjouoOlD/d
+	nW/Y8/16fNaemmJ/Ps/7X+TAVFCrt4Y=
+Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-665-LTe7h3VOOKKbGcjQM4I0FQ-1; Wed,
+ 09 Sep 2026 07:56:01 -0400
+X-MC-Unique: LTe7h3VOOKKbGcjQM4I0FQ-1
+X-Mimecast-MFC-AGG-ID: LTe7h3VOOKKbGcjQM4I0FQ_1788954959
+Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id ED3CF19541AC;
+	Wed,  9 Sep 2026 11:55:58 +0000 (UTC)
+Received: from thuth-p1g4.redhat.corp (headnet05.pony-001.prod.iad2.dc.redhat.com [10.2.32.117])
+	by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 7D4991956088;
+	Wed,  9 Sep 2026 11:55:53 +0000 (UTC)
+From: Thomas Huth <thuth@redhat.com>
+To: Eric Biggers <ebiggers@kernel.org>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
+	"David S. Miller" <davem@davemloft.net>,
+	"Jason A. Donenfeld" <Jason@zx2c4.com>,
+	Ard Biesheuvel <ardb@kernel.org>,
+	Paulo Alcantara <pc@manguebit.org>,
+	Namjae Jeon <linkinjeon@kernel.org>
+Cc: linux-crypto@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	Ronnie Sahlberg <ronniesahlberg@gmail.com>,
+	Shyam Prasad N <sprasad@microsoft.com>,
+	Tom Talpey <tom@talpey.com>,
+	Bharath SM <bharathsm@microsoft.com>,
+	linux-cifs@vger.kernel.org,
+	samba-technical@lists.samba.org
+Subject: [PATCH v2 12/13] smb: client: Use hmac_sha256_zeroize_ctx function to clear hmac_sha256_ctx
+Date: Wed,  9 Sep 2026 13:54:48 +0200
+Message-ID: <20260909115455.157093-13-thuth@redhat.com>
+In-Reply-To: <20260909115455.157093-1-thuth@redhat.com>
+References: <20260909115455.157093-1-thuth@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260909115530.1924665-12-ardb+git@google.com>
-X-Developer-Key: i=ardb@kernel.org; a=openpgp; fpr=F43D03328115A198C90016883D200E9CA6329909
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6503; i=ardb@kernel.org;
- h=from:subject; bh=gKNtPYPXH1wWBdst62Gf5YPrCrwaAq8jBD0FshjFfRc=;
- b=owGbwMvMwCVmkMcZplerG8N4Wi2JIWuhp0VTtr6k0wK3FN6lU6v2HnJv+Jn/nKPoiezW/2uUZ
- asW3e/vKGVhEONikBVTZBGY/ffdztMTpWqdZ8nCzGFlAhnCwMUpABP5t5Xhn6HTsxaDWKMtD3Yf
- uzVLwpo1tHPJAa71nVU7dqdlfLD5ksnwP1W0N95y+7u5h+Sb/kZMSnxxLCyIr/ZijYWk+KTNItk i3AA=
-X-Mailer: git-send-email 2.55.0.1003.g10538fe699-goog
-Message-ID: <20260909115530.1924665-17-ardb+git@google.com>
-Subject: [PATCH v2 05/10] efi/libstub: Use ucs2_string library for UTF-16 to
- UTF-8 conversion
-From: Ard Biesheuvel <ardb+git@google.com>
-To: linux-efi@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org, Ard Biesheuvel <ardb@kernel.org>, 
-	Vincent Mailhol <mailhol@kernel.org>, x86@kernel.org
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
 
-From: Ard Biesheuvel <ardb@kernel.org>
+It's just cosmetics, but now that we have a helper function for clearing
+hmac_sha256_ctx with a __cleanup() statement, we can also use it in the smb
+client code for good measure.
 
-Don't rely on sprintf() with a wide string conversion modifier to
-convert the command line from UTF-16 to UTF-8. Instead, use the
-existing ucs2 string library routine that does the same. Note that while
-UEFI claims support for UTF-16, in practice it ignores surrogate pairs
-entirely, and so the simplified UCS-2 character set (where each
-character takes up exactly 2 bytes) is sufficient here.
-
-This removes the only user of sprintf() in the EFI stub, so drop that
-function as well.
-
-Since boot memory is plentiful on UEFI systems, just establish a worst
-case upper bound for the size of the buffer (which can never exceed
-COMMAND_LINE_SIZE), and allocate that first. Then, perform the
-conversion, and only fall back to processing the command line character
-by character if that resulted in truncation. This makes the common
-execution path much simpler.
-
-Signed-off-by: Ard Biesheuvel <ardb@kernel.org>
+Signed-off-by: Thomas Huth <thuth@redhat.com>
 ---
- drivers/firmware/efi/libstub/Makefile          |   3 +-
- drivers/firmware/efi/libstub/efi-stub-helper.c | 100 ++++++++------------
- drivers/firmware/efi/libstub/vsprintf.c        |  11 ---
- 3 files changed, 41 insertions(+), 73 deletions(-)
+ fs/smb/client/smb2transport.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-diff --git a/drivers/firmware/efi/libstub/Makefile b/drivers/firmware/efi/libstub/Makefile
-index 77a2b2d74f3f..12c0c7deb5cb 100644
---- a/drivers/firmware/efi/libstub/Makefile
-+++ b/drivers/firmware/efi/libstub/Makefile
-@@ -66,7 +66,8 @@ KBUILD_AFLAGS			:= $(KBUILD_CFLAGS) -D__ASSEMBLY__
- lib-y				:= efi-stub-helper.o gop.o secureboot.o tpm.o \
- 				   file.o mem.o random.o randomalloc.o pci.o \
- 				   skip_spaces.o lib-cmdline.o lib-ctype.o \
--				   alignedmem.o printk.o vsprintf.o
-+				   alignedmem.o printk.o vsprintf.o \
-+				   lib-ucs2_string.o
+diff --git a/fs/smb/client/smb2transport.c b/fs/smb/client/smb2transport.c
+index c407f30e00401..080864b24a0c5 100644
+--- a/fs/smb/client/smb2transport.c
++++ b/fs/smb/client/smb2transport.c
+@@ -212,7 +212,7 @@ smb2_calc_signature(struct smb_rqst *rqst, struct TCP_Server_Info *server)
+ 	unsigned char smb2_signature[SMB2_HMACSHA256_SIZE];
+ 	struct kvec *iov = rqst->rq_iov;
+ 	struct smb2_hdr *shdr = (struct smb2_hdr *)iov[0].iov_base;
+-	struct hmac_sha256_ctx hmac_ctx;
++	struct hmac_sha256_ctx hmac_ctx __cleanup(hmac_sha256_zeroize_ctx);
+ 	struct smb_rqst drqst;
+ 	__u64 sid = le64_to_cpu(shdr->SessionId);
+ 	u8 key[SMB2_NTLMV2_SESSKEY_SIZE];
+@@ -250,7 +250,6 @@ smb2_calc_signature(struct smb_rqst *rqst, struct TCP_Server_Info *server)
+ 		memcpy(shdr->Signature, smb2_signature, SMB2_SIGNATURE_SIZE);
  
- # include the stub's libfdt dependencies from lib/ when needed
- libfdt-deps			:= fdt_rw.c fdt_ro.c fdt_wip.c fdt.c \
-diff --git a/drivers/firmware/efi/libstub/efi-stub-helper.c b/drivers/firmware/efi/libstub/efi-stub-helper.c
-index f27f2e1f0019..4b51a0bf0e66 100644
---- a/drivers/firmware/efi/libstub/efi-stub-helper.c
-+++ b/drivers/firmware/efi/libstub/efi-stub-helper.c
-@@ -12,6 +12,7 @@
- #include <linux/efi.h>
- #include <linux/kernel.h>
- #include <linux/overflow.h>
-+#include <linux/ucs2_string.h>
- #include <asm/efi.h>
- #include <asm/setup.h>
- 
-@@ -334,81 +335,58 @@ char *efi_convert_cmdline(efi_loaded_image_t *image)
- {
- 	const efi_char16_t *options = efi_table_attr(image, load_options);
- 	u32 options_size = efi_table_attr(image, load_options_size);
--	int options_bytes = 0, safe_options_bytes = 0;  /* UTF-8 bytes */
--	unsigned long cmdline_addr = 0;
--	const efi_char16_t *s2;
--	bool in_quote = false;
-+	unsigned long options_chars = 0;
-+	unsigned long cmdline_bytes;
- 	efi_status_t status;
--	u32 options_chars;
-+	char *cmdline_addr;
- 
- 	if (options_size > 0)
- 		efi_measure_tagged_event((unsigned long)options, options_size,
- 					 EFISTUB_EVT_LOAD_OPTIONS);
- 
- 	efi_apply_loadoptions_quirk((const void **)&options, &options_size);
--	options_chars = options_size / sizeof(efi_char16_t);
--
--	if (options) {
--		s2 = options;
--		while (options_bytes < COMMAND_LINE_SIZE && options_chars--) {
--			efi_char16_t c = *s2++;
--
--			if (c < 0x80) {
--				if (c == L'\0' || c == L'\n')
--					break;
--				if (c == L'"')
--					in_quote = !in_quote;
--				else if (!in_quote && isspace((char)c))
--					safe_options_bytes = options_bytes;
--
--				options_bytes++;
--				continue;
--			}
--
--			/*
--			 * Get the number of UTF-8 bytes corresponding to a
--			 * UTF-16 character.
--			 * The first part handles everything in the BMP.
--			 */
--			options_bytes += 2 + (c >= 0x800);
--			/*
--			 * Add one more byte for valid surrogate pairs. Invalid
--			 * surrogates will be replaced with 0xfffd and take up
--			 * only 3 bytes.
--			 */
--			if ((c & 0xfc00) == 0xd800) {
--				/*
--				 * If the very last word is a high surrogate,
--				 * we must ignore it since we can't access the
--				 * low surrogate.
--				 */
--				if (!options_chars) {
--					options_bytes -= 3;
--				} else if ((*s2 & 0xfc00) == 0xdc00) {
--					options_bytes++;
--					options_chars--;
--					s2++;
--				}
--			}
--		}
--		if (options_bytes >= COMMAND_LINE_SIZE) {
--			options_bytes = safe_options_bytes;
--			efi_err("Command line is too long: truncated to %d bytes\n",
--				options_bytes);
--		}
--	}
-+	if (options)
-+		options_chars = ucs2_strnlen(options,
-+					     options_size / sizeof(efi_char16_t));
- 
--	options_bytes++;	/* NUL termination */
-+	/* Each UCS-2 char takes up at most 3 UTF-8 bytes */
-+	cmdline_bytes = min(3 * options_chars, COMMAND_LINE_SIZE - 1) + 1;
- 
--	status = efi_bs_call(allocate_pool, EFI_LOADER_DATA, options_bytes,
-+	status = efi_bs_call(allocate_pool, EFI_LOADER_DATA, cmdline_bytes,
- 			     (void **)&cmdline_addr);
- 	if (status != EFI_SUCCESS)
- 		return NULL;
- 
--	snprintf((char *)cmdline_addr, options_bytes, "%.*ls",
--		 options_bytes - 1, options);
-+	if (ucs2_as_utf8_l(cmdline_addr, options, options_chars,
-+			   cmdline_bytes) >= COMMAND_LINE_SIZE) {
-+		/*
-+		 * The output fills up the entire buffer, and may have been
-+		 * truncated. This can only happen when options_bytes equals
-+		 * COMMAND_LINE_SIZE.
-+		 *
-+		 * Work backwards through the buffer to find a safe truncation
-+		 * point (i.e., a blank character not inside a quoted string).
-+		 */
-+		int safe_pos[2] = {};
-+		int in_quote = 0;
-+
-+		for (int i = COMMAND_LINE_SIZE - 1; i >= 0; i--) {
-+			char c = cmdline_addr[i];
-+
-+			if (!c)
-+				return cmdline_addr;
-+			else if (c == '"')
-+				in_quote ^= 1;
-+			else if (!safe_pos[in_quote] && isspace(c))
-+				safe_pos[in_quote] = i;
-+		}
-+
-+		efi_err("Command line is too long: truncated to %d bytes\n",
-+			safe_pos[in_quote]);
-+		cmdline_addr[safe_pos[in_quote]] = '\0';
-+	}
- 
--	return (char *)cmdline_addr;
-+	return cmdline_addr;
+ 	memzero_explicit(key, sizeof(key));
+-	memzero_explicit(&hmac_ctx, sizeof(hmac_ctx));
+ 	return rc;
  }
  
- /**
-diff --git a/drivers/firmware/efi/libstub/vsprintf.c b/drivers/firmware/efi/libstub/vsprintf.c
-index 71c71c222346..dba136679172 100644
---- a/drivers/firmware/efi/libstub/vsprintf.c
-+++ b/drivers/firmware/efi/libstub/vsprintf.c
-@@ -551,14 +551,3 @@ int vsnprintf(char *buf, size_t size, const char *fmt, va_list ap)
- 
- 	return pos;
- }
--
--int snprintf(char *buf, size_t size, const char *fmt, ...)
--{
--	va_list args;
--	int i;
--
--	va_start(args, fmt);
--	i = vsnprintf(buf, size, fmt, args);
--	va_end(args);
--	return i;
--}
 -- 
-2.55.0.1003.g10538fe699-goog
+2.55.0
 
