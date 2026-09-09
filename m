@@ -1,152 +1,111 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-106104.protonmail.ch (mail-106104.protonmail.ch [79.135.106.104])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A67A579820
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 14:48:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B383D53FD5C;
+	Wed,  9 Sep 2026 14:48:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.104
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788965302; cv=none; b=ZyrhrWJqEtrGK+JtXFPlfxqkoQs1uSQB632zZ/A+BfPl+twOZS5taW5bs0DC7PVdgjS8L+TDVm2tBXhl1p4yRFcW+vJqwQkBTZgCHT2Ysu+MdJ3hqhR1Ign8q+lRtmUlBG0DbBzYGnMvM9jX+G7ET38ndGWT03vZ+/tg76XWggk=
+	t=1788965294; cv=none; b=ov2R6JK8CiGWb9pgyfGcKZEj+oSHOb8QOrcs3ZAX2FxkxrsJbek+KhkZ1Ngw0gN0pcD4VkVvUo0zWj8NVZrKRU690/SSwXU1A1C+3XpI76EuUmvVlnq7mkxYY6wHkeQSqRVLaTyaXyP9U6wNgDrQNtWcI8ERvPWIHw+oiISZ5Vk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788965302; c=relaxed/simple;
-	bh=SoWe4XDLLneiNldftimsQNnBplrAFFWx4n5mTvWlLeE=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=EqGTUZYLo9oit+TE1MwjSXGNz0p9zBVuYURBYbpc1U5/VrL0xdb176S5ZirRMlhHIJQICF4cXGL+RjKraA3EPTSOLsFX/Gkk+HW1SxduSSQyFBILXDjFklUm0W7ab37cPVNm6F8Cntjc9X7GN/loh5JrAhggNC85Ntdia3y8vDk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RkHt4pwD; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788965294; c=relaxed/simple;
+	bh=FH1l0J0w861ll6J8cWgCzFfonI6e9QEAr/ZwFhnKEpw=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=dYEcTwCskeAbwpMpS94Xrr3PHNM3g/lE7m62YESOVXSfKRHvChWui09w8pb9zGzq484BgdQGPVapb88qAyI1z9L68mDtiyZjmLRQhlYKWwUukGIUOT2EANNkgxgTWpKhdxNnDNIWYCPnXm4MFmtb7Bu1rX3Gaa2IVIK/C3NKHzE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=heutEvUr; arc=none smtp.client-ip=79.135.106.104
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RkHt4pwD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A0E01F00A3F
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 14:48:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788965301;
-	bh=6KCL6qY2IiSfBzoydX0rsP5u/mEDjQaNr8NglV8uPMo=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=RkHt4pwDMWmFc19MTfHAy6htYA6SPctwfS1lj0+uEDA6c7B95C29K6JQ/7geNn91i
-	 0rj6QgDekwlHGTot2D5Y6tJ0qDC1O69RFQ8sZMt9jYU6f2N1LZGcAPvME9l40IBgeg
-	 GFZBAwQaq7ujE9WwYd0LGJYj1yJs1oZSFll0jmQL1PGtFLD1N0T0txGb1aPAB1IJ+q
-	 lCYm66cCdvMQeqsX1Nf/7Awrdlu3wAuf3WOCVpuDeyK5Wm/BxCUuWWWzGQoCn1vqg7
-	 j56k1mwldZZG3+KwKw2VCuH3e+DT3bZ1u0f+DZC3ozQfGe6HY2Y/FxPjP/ydVbfYVm
-	 q9SPFdXyBzB7g==
-Received: by mail-lr2-f12.google.com with SMTP id 38308e7fff4ca-3a4c427d9cdso2631431fa.0
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 07:48:21 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBx4DKzW9cp0A3VDhbzKYieGshFco8khrytecpEhHStVxMMpSGFrntlyGUh1U3tnrh6Z1nEq8ft5MOQKzHg=@vger.kernel.org
-X-Gm-Message-State: AFuF++l+JqetFhfMkz1Rem/I/U9jhhMR+TjHYbpReDjfAJygXUJBNpJ2
-	t3HnZgovq9cC7vUSiHW6/3y9QVqcRl5GV4r/KLycMPxm2Qat47XNYUvS65wYhtPbTgkqbQmeTC+
-	rGPmHn4bgI01hlEiDjW0ZRYMmhi5vXpk=
-X-Received: by 2002:a05:651c:19a9:b0:3a3:1674:a814 with SMTP id
- 38308e7fff4ca-3a58d33e002mr3464211fa.2.1788965299489; Wed, 09 Sep 2026
- 07:48:19 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="heutEvUr"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+	s=protonmail; t=1788965281; x=1789224481;
+	bh=9e2xytwfhYr9357vCuzcaoFTrbV5rohrhm5PdDDzSoQ=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=heutEvUrdiuFmplmXJMuc/MIXcK8rDdVN01E9hZKtvupAapM8EQBEfLXHhJHeVnRG
+	 2KrI+D8MvNFYPe9ACX4wwZ2vYNfruxJNL30sDLMYqHwsJg/w7+3xKq+9kiAvvg5vU0
+	 UKamY5cxG3lKfORVNJrJDzGXw6wU8qFicYcySDCPkQq9KJt16dgf94BiJZV7kDIf0P
+	 9QyeHFXJrWjxGinp5lzCyTt1VdKSdGWCVyIDUJhV1qBvK0z/dSdF5D+Y3+HuB6QNKp
+	 4IeuCSHp6HkMsfRGGMJZ8BDzqlH66pkVuPUhxWMRoblSBy/CVa0O+mktugN1dzsDY0
+	 D5j6GOlabvFAw==
+Date: Wed, 09 Sep 2026 14:47:54 +0000
+To: Andrey Korshunov <razor1702@gmail.com>
+From: =?utf-8?B?5a6J5a65?= <HystericalDragons@proton.me>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>, "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>, "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>, "linux-rockchip@lists.infradead.org" <linux-rockchip@lists.infradead.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, Chukun Pan <amadeus@jmu.edu.cn>, jensen <jensenhuang@friendlyarm.com>
+Subject: Re: [PATCH v2 2/3] arm64: dts: rockchip: Split out the common NanoPi RK3528 parts
+Message-ID: <BxIHWWXJmSvUm8NVgiaDUYHBOUaTS9qf4cAXQKfx8UgN_F90zHJpu0fMHWAZr70as9EnmOyj4cUPeFCO2p9JljBigVijrvYWzRpTG0WMm9U=@proton.me>
+In-Reply-To: <20260909134716.879-1-razor1702@gmail.com>
+References: <20260907-r28s-upstream-v2-2-21ab570fc91c@proton.me> <20260909134716.879-1-razor1702@gmail.com>
+Feedback-ID: 91982645:user:proton
+X-Pm-Message-ID: 362103fa24347cf345c686bb025fda6f2830d27f
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260820033653.1682804-1-triet.hoang.dev@gmail.com>
-In-Reply-To: <20260820033653.1682804-1-triet.hoang.dev@gmail.com>
-From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Date: Wed, 9 Sep 2026 16:47:10 +0200
-X-Gmail-Original-Message-ID: <CAJZ5v0gNLspde-oi9Bi+LKT_NbpSYCLmdqUSkNvKS_kgFnB90g@mail.gmail.com>
-X-Gm-Features: AcwNN1WWb7xCM6B2UGqkPyo4D4Aw-LeWGyzimjdPKCb4wk0gHbWh1Trh9ik8m7M
-Message-ID: <CAJZ5v0gNLspde-oi9Bi+LKT_NbpSYCLmdqUSkNvKS_kgFnB90g@mail.gmail.com>
-Subject: Re: [PATCH] ACPI: button: use DEFINE_SIMPLE_DEV_PM_OPS
-To: Triet Hoang <triet.hoang.dev@gmail.com>
-Cc: rafael@kernel.org, lenb@kernel.org, linux-acpi@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-On Thu, Aug 20, 2026 at 5:37=E2=80=AFAM Triet Hoang <triet.hoang.dev@gmail.=
-com> wrote:
->
-> Convert the deprecated SIMPLE_DEV_PM_OPS
-> to DEFINE_SIMPLE_DEV_PM_OPS
->
-> Also use pm_sleep_ptr() when assigning the ops to the driver.
-> This allows the removal of the ifdef CONFIG_PM_SLEEP
-> and unnecessary forward declarations of 4 functions.
->
-> No intentional functional impact.
->
-> Signed-off-by: Triet Hoang <triet.hoang.dev@gmail.com>
-> ---
->  drivers/acpi/button.c | 36 ++++++++++++------------------------
->  1 file changed, 12 insertions(+), 24 deletions(-)
->
-> diff --git a/drivers/acpi/button.c b/drivers/acpi/button.c
-> index 3836ee75dd66..d4cb942b754f 100644
-> --- a/drivers/acpi/button.c
-> +++ b/drivers/acpi/button.c
-> @@ -147,28 +147,6 @@ static const struct dmi_system_id dmi_lid_quirks[] =
-=3D {
->         {}
->  };
->
-> -static int acpi_button_probe(struct platform_device *pdev);
-> -static void acpi_button_remove(struct platform_device *pdev);
-> -
-> -#ifdef CONFIG_PM_SLEEP
-> -static int acpi_button_suspend(struct device *dev);
-> -static int acpi_button_resume(struct device *dev);
-> -#else
-> -#define acpi_button_suspend NULL
-> -#define acpi_button_resume NULL
-> -#endif
-> -static SIMPLE_DEV_PM_OPS(acpi_button_pm, acpi_button_suspend, acpi_butto=
-n_resume);
-> -
-> -static struct platform_driver acpi_button_driver =3D {
-> -       .probe =3D acpi_button_probe,
-> -       .remove =3D acpi_button_remove,
-> -       .driver =3D {
-> -               .name =3D "acpi-button",
-> -               .acpi_match_table =3D button_device_ids,
-> -               .pm =3D &acpi_button_pm,
-> -       },
-> -};
-> -
->  struct acpi_button {
->         struct acpi_device *adev;
->         struct device *dev;             /* physical button device */
-> @@ -491,7 +469,6 @@ static u32 acpi_button_event(void *data)
->         return ACPI_INTERRUPT_HANDLED;
->  }
->
-> -#ifdef CONFIG_PM_SLEEP
->  static int acpi_button_suspend(struct device *dev)
->  {
->         struct acpi_button *button =3D dev_get_drvdata(dev);
-> @@ -521,7 +498,6 @@ static int acpi_button_resume(struct device *dev)
->         }
->         return 0;
->  }
-> -#endif
+On Wed, Sep 09, 2026 at 04:47:16PM +0300, Andrey Korshunov wrote:
 
-And the function above is going to be unused when CONFIG_PM_SLEEP is
-unset, causing the compiler to complain AFAICS.
+> of_mdio_bus_register() reads the PHY ID with get_phy_device() before
+> phy_device_register() fetches the PHY node's reset-gpios, so a PHY that
+> the bootloader left in reset is simply not found:
+>
+>   mdio_bus stmmac-0: MDIO device at address 1 is missing.
 
->  static int acpi_lid_input_open(struct input_dev *input)
->  {
-> @@ -753,6 +729,18 @@ static void acpi_button_remove(struct platform_devic=
-e *pdev)
->                 acpi_lid_forget(button->adev);
->  }
+Thanks, the diagnosis is right and I have reproduced the ordering in
+the code: `__of_mdiobus_register()` registers the bus before it walks the
+children. And for a PHY node with only the generic c22 compatible,
+`fwnode_mdiobus_register_phy()` reads the PHY ID via `get_phy_device()`
+before `phy_device_register()` gets as far as requesting reset-gpios.
+
+> Describing the reset on the MAC instead makes stmmac install it
+> as mii_bus->reset, which runs before the bus is scanned:
 >
-> +static DEFINE_SIMPLE_DEV_PM_OPS(acpi_button_pm, acpi_button_suspend, acp=
-i_button_resume);
-> +
-> +static struct platform_driver acpi_button_driver =3D {
-> +       .probe =3D acpi_button_probe,
-> +       .remove =3D acpi_button_remove,
-> +       .driver =3D {
-> +               .name =3D "acpi-button",
-> +               .acpi_match_table =3D button_device_ids,
-> +               .pm =3D pm_sleep_ptr(&acpi_button_pm),
-> +       },
-> +};
-> +
->  static int param_set_lid_init_state(const char *val,
->                                     const struct kernel_param *kp)
->  {
-> --
-> 2.53.0
->
+>     &gmac1 {
+>         snps,reset-active-low;
+>         snps,reset-delays-us =3D <0 20000 100000>;
+>         snps,reset-gpio =3D <&gpio4 RK_PC2 GPIO_ACTIVE_LOW>;
+>     };
+
+But I would rather not use those: snps,reset-gpio, snps,reset-active-low
+and snps,reset-delays-us are all deprecated in snps,dwmac.yaml,
+so a new DTS using them is unlikely to get through netdev.
+
+The MDIO bus level reset in mdio.yaml solves the same ordering problem
+without using deprecated property. `__mdiobus_register()` asserts and
+releases it before any device on the bus is registered, so it also
+covers the DT described case where the bus is not scanned at all:
+
+=09&mdio1 {
+=09=09reset-delay-us =3D <20000>;
+=09=09reset-gpios =3D <&gpio4 RK_PC2 GPIO_ACTIVE_LOW>;
+=09=09reset-post-delay-us =3D <100000>;
+
+=09=09rgmii_phy: ethernet-phy@1 {
+=09=09=09compatible =3D "ethernet-phy-ieee802.3-c22";
+=09=09=09reg =3D <0x1>;
+=09=09};
+=09};
+
+with gmac1_rstn_l moved to the MAC's pinctrl-0, since the MDIO bus has
+no device of its own for pinctrl to bind to. There is only one PHY on
+mdio1, so a bus wide reset is equivalent to the per-PHY one.
+
+v3 carries this as patch 1, against the NanoPi Zero2 and ahead of the
+move, so it can be backported:
+
+<https://lore.kernel.org/r/20260909-r28s-upstream-v3-0-ee3e1a34a353@proton.=
+me>
+
+A `Tested-by` on that form would be very welcome, since it is not the
+variant you tested.
+
+> I had an R28S series of my own out before I saw yours; I am dropping it.
+
+Sorry about the duplicated effort.
+
+Thanks,
+Rong An.
