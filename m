@@ -1,127 +1,97 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from outpost1.zedat.fu-berlin.de (outpost1.zedat.fu-berlin.de [130.133.4.66])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38B00396D0D;
-	Wed,  9 Sep 2026 18:06:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 690AC374E60;
+	Wed,  9 Sep 2026 18:06:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=130.133.4.66
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788977176; cv=none; b=bKBl74/I5ge+lydtT8Qk0MQSt0AlYmN1/+yN7RepvUg7xSUZlQ+/WS+jmyXA2aO84drsaitYza9vOplVGG1vpsLpS6zinhoGZcD2vq+Wib7Cnu8Oh/32VqAbjee8OyW4RuJdq9hf/JaDSH63lSqxFHu1kK6rCNuqhZb766h/zx0=
+	t=1788977200; cv=none; b=nQdYO2Vh6hoCQ9/o3hhytqD6SuKLyoJ6zxUA9kHD1qNXD8q3+ujfGOqfa+2rwogWVrbaRvky+Bo3aZRlIiui0SOFKHDWr/i+PbBp8vuzd6gsykJjsvepCW0+YoIMfEjLMc+YmPgCVP2cp+wYyhx4vWEA3ZVSKu6TLYpUqMNSRQc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788977176; c=relaxed/simple;
-	bh=O0z6SMZwLE/6z1fvBkL4sSiFDb1SRwe3lPTuC2SFFPo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=kU7XJskD8MCkp0kF229JaFY6UgbzSOap1WgdeScn+Hfrq44yMgLG0RlTFbTE2GHemZPjUI7E7XCLvrNv+KbuJv4YZ5eMp/G6rnovR/4HEmiEPj09taNz15S9BeAAwTjATgFfLnPxgLoUZSQcuAW79zNVVt+l24AX3eH5uGr26Uw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OighcUDS; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788977200; c=relaxed/simple;
+	bh=l0m3Ux5xZ0vuhSpFRUUWmk714VYfYDaSZlcTIzFt8Ok=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=Wu84tHwHi60VMQTh6ZMqrpCMx6BwiCHY1o44VILhyaovNIhOdR8dFEn2JQd5c0rebipQbn0IxeON6kD6204TpZ/Gfyhy5yQCHimFmJgn/A8Sn/jtPE0hMs3OycL2R+74Hv4cx3Uveb/jcJ8R8OTSW4Tacw5iyq807xlOF8DqOo0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=physik.fu-berlin.de; spf=pass smtp.mailfrom=zedat.fu-berlin.de; dkim=pass (2048-bit key) header.d=fu-berlin.de header.i=@fu-berlin.de header.b=ZHSodg0P; arc=none smtp.client-ip=130.133.4.66
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=physik.fu-berlin.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zedat.fu-berlin.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OighcUDS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5D75F1F000FF;
-	Wed,  9 Sep 2026 18:06:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788977174;
-	bh=PR7LyVcB/OQaKWh0JIa9p8TXYdnREvEGvQ9Sz9YHWIU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=OighcUDSqngGJ9CNv9qk+KV5pxZ66xYNPMCTky//Dx35FhGvbB8pCGK+zRpjlShGl
-	 YryPAbgZT3pGOP0FEc9/g8S6QmDUFje3Ruk8MjDwqwDGWjfCmk2sZZ99S6v7JRqQ/p
-	 cbumgrKZ8yTtp2cvX/b/7NkVvHJ+ydTv45kzZYnyUDQ6e12sAqjeecDYgiZQi5yzOF
-	 4fe0dHdLoO7p2JPsKHFV0vW6iCd/STFjrRTL7jPPpsUVvioUc0XGpH2mC2pa6hLhAq
-	 yKmLmQ7bCvNH3VbLSYKIWiYkBqF6B0QKL6pAUkbLCv3GAFimRZjdrzr9Qxrj84md7g
-	 mFKBUZep/4yDA==
-Date: Wed, 9 Sep 2026 19:06:09 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Bill Roberts <bill.roberts@foss.arm.com>
-Cc: Jesse Huang <jesse.huang@sifive.com>,
-	"linux-riscv@lists.infradead.org" <linux-riscv@lists.infradead.org>,
-	linux-arm-kernel@lists.infradead.org,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	linux-hardening@vger.kernel.org, linux-api@vger.kernel.org,
-	dave.hansen@linux.intel.com, rick.p.edgecombe@intel.com,
-	debug@rivosinc.com, andrew@sifive.com, kito.cheng@sifive.com
-Subject: Re: Shadow Stack Locking Semantics between arch's
-Message-ID: <522bcf96-499c-491b-aaf0-34e6bbd42929@sirena.org.uk>
-References: <a1946d93-370e-4ca9-85d6-60b4a20ffd47@arm.com>
- <3bb672e0-7bc3-434f-904e-aa00394dd01f@foss.arm.com>
- <d20ccb74-69ed-45d7-a810-846904873588@sirena.org.uk>
- <0ef9f4ab-4c9f-4089-bed3-f7726ec97804@foss.arm.com>
+	dkim=pass (2048-bit key) header.d=fu-berlin.de header.i=@fu-berlin.de header.b="ZHSodg0P"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=fu-berlin.de; s=fub01; h=MIME-Version:Content-Transfer-Encoding:
+	Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:From:
+	Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:
+	Content-Transfer-Encoding:Content-ID:Content-Description:In-Reply-To:
+	References; bh=OpboOaOWUbhlwyhTIuDYmVK+kuJNqamu/RLlaR+oHOQ=; t=1788977196;
+	x=1789581996; b=ZHSodg0P9IM3XigihLz34mQ+sh9FfvEN7vgVRgq9Sx0ZV4i2Bw4k3cp3gyyVm
+	RkU0c5KNy8vI4zop66wL9RvV0HBQQSvyjGIOQYFnlWreElOSzNpbUyTmb5OBmSX6EFyYuXKdY1XHH
+	UlawXOaLQZ7LwOR5rNZr2fDsCaxNyDd5JvLv8PsVj6pVUMs2+wjdf3nGRB/He9TthXTqdZPTg2+cm
+	kD0W88U1ytIAwIToqnTCtOu5fnsMQ71Wsc0z0bvdv/kjsjYE4xER7hZO1PRlZJn7Gd9pwj3JmJBXk
+	sPik4Pz5C/CKuzW6MZ4CisEZrkIc4JAhmWupaiSk7ep/Ypl4wQ==;
+Received: from inpost2.zedat.fu-berlin.de ([130.133.4.69])
+          by outpost.zedat.fu-berlin.de (Exim 4.99)
+          with esmtps (TLS1.3)
+          tls TLS_AES_256_GCM_SHA384
+          (envelope-from <glaubitz@zedat.fu-berlin.de>)
+          id 1x4Mgl-00000000HDV-1cU5; Wed, 09 Sep 2026 20:06:27 +0200
+Received: from p5dc55206.dip0.t-ipconnect.de ([93.197.82.6] helo=suse-laptop.fritz.box)
+          by inpost2.zedat.fu-berlin.de (Exim 4.99)
+          with esmtpsa (TLS1.3)
+          tls TLS_AES_256_GCM_SHA384
+          (envelope-from <glaubitz@physik.fu-berlin.de>)
+          id 1x4Mgl-00000001qN6-0Yx8; Wed, 09 Sep 2026 20:06:27 +0200
+Message-ID: <299ae94b6fc60cc660b2a5492052ca1375f22001.camel@physik.fu-berlin.de>
+Subject: Re: [PATCH 0/2] sh: mach-x3proto: convert gpio-keys to software
+ nodes
+From: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
+To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Cc: Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski
+ <brgl@kernel.org>,  Arnd Bergmann	 <arnd@arndb.de>,
+ linux-sh@vger.kernel.org, linux-kernel@vger.kernel.org,  Yoshinori Sato
+ <ysato@users.sourceforge.jp>, Rich Felker <dalias@libc.org>
+Date: Wed, 09 Sep 2026 20:06:26 +0200
+In-Reply-To: <aqGP2P3-44dmCyjz@google.com>
+References: <20260704-sh-x3proto-swnode-v1-0-0c039549dc46@gmail.com>
+	 <aqGP2P3-44dmCyjz@google.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="3cXrEZrAslfzFgWm"
-Content-Disposition: inline
-In-Reply-To: <0ef9f4ab-4c9f-4089-bed3-f7726ec97804@foss.arm.com>
-X-Cookie: Postage will be paid by addressee.
+X-Original-Sender: glaubitz@physik.fu-berlin.de
+X-ZEDAT-Hint: PO
 
+Hi Dmitry,
 
---3cXrEZrAslfzFgWm
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+On Wed, 2026-09-09 at 10:00 -0700, Dmitry Torokhov wrote:
+> On Sat, Jul 04, 2026 at 10:04:36PM -0700, Dmitry Torokhov wrote:
+> > This series converts the legacy gpio-keys platform device on the SH-X3
+> > Prototype board to use software nodes and static properties.
+> >=20
+> > This is part of the ongoing effort to remove platform data support
+> > from the gpio-keys driver, allowing it to rely purely on generic
+> > device properties.
+> >=20
+> > The first patch adds the software node to the GPIO controller, and
+> > the second patch performs the conversion for the gpio-keys device.
+> >=20
+> > Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+>=20
+> Hi John,
+>=20
+> Could this be applied please or maybe you want me to make some changes?
 
-On Wed, Sep 09, 2026 at 12:57:57PM -0500, Bill Roberts wrote:
+I have reserved the upcoming Saturday for kernel review now.
 
-> > > unsigned long locked =3D 0x2; // Kernel Task State -> LOCK WRITE
-> > > unsigned long cur_val =3D 0x3; // Kernel Task State -> WRITE and SHAD=
-OWSTACK
-> > > ENABLED
-> > > unsigned long new_val =3D 0x0; // Userspace Feature Change via syscal=
-l ->
-> > > DISABLE
-> > > | x86-64 | risc-v | arm64 |
-> > > | ---------- | -------- | --------- |
-> > > | Works=A0 | Fails=A0 | Fails=A0 =A0 =A0|
+If I find anything, I'll let you know.
 
-> > I would not have expected that combination to work at all with the
-> > prctl() (as opposed to arch_prctl()) interface TBH, if you've locked
-> > write on you shouldn't be able to disable it.  The reason that works on
-> > x86 at the minute is that for x86 you can only change one bit at a time
-> > so the new value when disabling is effectively 0x2, not 0x0.
+Adrian
 
-> Yes, this is exactly what I am pointing out. Implementation aside, is that
-> the behavior we want?
-
-It seems more helpful to support changing more than one bit at once.
-
-> > I think for ABI compatibility RISC-V will have to continue accepting 0
-> > as being equivalent to locking PR_SHADOW_STACK_ENABLE (or everything,
-> > but it only supports that one bit right now).
-
-> TL;DR - No users, lets fix it before risc-v lands the userspace side IIUC
-
-Oh, that would be even better if we could do that!  Thanks for checking
-the userspace situation.
-
-> > > 3. riscv should return -EPERM vs -EINVAL
-
-> > If you mean for arch_lock_shadow_stack_status() I think -EINVAL is a
-> > sensible error code when the system or task does not support shadow
-> > stacks, I'm not sure we should return -EPERM at all.  On arm64 we
-> > support locking any bit, not just the ones that we currently know about.
-> > This is for future proofing, userspace can lock unknown flags.
-
-> No, I mean when setting a locked bit via prctl
-> and=A0PR_SET_SHADOW_STACK_STATUS.
-> Currently, the error codes for changing a locked bit:
-> x86: EPERM
-> arm64: EBUSY (Which we discussed offline about changing to EPERM)
-
-Yes, I'll post a patch for that this week all being well.
-
---3cXrEZrAslfzFgWm
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqhoBAACgkQJNaLcl1U
-h9BQZAf+NudoLDPJlxzRoCSVqeb16MHSW4LVbZcxQP3o6kDklLpNPCi8oNdaNSa6
-p+9kozMAe1v3hCalNkj835zwn83kzLH3w10KXbYWkMib4SoJHt0ejLcZCiKe3kjl
-yfJ8IFCtQM/5WSZY//M6rZHOa1XDirsB+3ORsc2RgbR+0E7QjBj1C4Ch3wdDL1at
-2eFP+aN2QeJ/7VsBk7s9bxwyOkeYZLFX7BSEP74uZQ5HQULOlDVioEkHsuFtWo4X
-OjoyYDxMD2JaMEjPbcGG3uof5VVKJFE5onkID/khZ4U3a0xX8J/4GNT0C31q0Uj5
-OtmSrWul8+KkNSSlj6QCIAyyDIK1BA==
-=G+9c
------END PGP SIGNATURE-----
-
---3cXrEZrAslfzFgWm--
+--=20
+ .''`.  John Paul Adrian Glaubitz
+: :' :  Debian Developer
+`. `'   Physicist
+  `-    GPG: 62FF 8A75 84E0 2956 9546  0006 7426 3B37 F5B5 F913
