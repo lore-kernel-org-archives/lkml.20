@@ -1,124 +1,142 @@
-Received: from mail-qk2-f12.google.com (mail-qk2-f12.google.com [74.125.230.204])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0016f401.pphosted.com (mx0b-0016f401.pphosted.com [67.231.156.173])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE75F342523
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 03:00:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.204
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788922816; cv=pass; b=C1rL5it3kRgmuxglgx3ov53ufL0aC0He3Ajd1iRKshESiX80C7+uLew1R5CtVXdBPUdJ5XRu5lQQNuZaEQb+cDxKBYicPuw65hfG+PbEopzycUWRELFPawfvKdgrjGKvq0b1trHreRitz74MeEx9OKF1TDP7ZfRdpYp0Mh4GGzQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788922816; c=relaxed/simple;
-	bh=XdTIc4oZ+lLZ+9rfLfVE8M/CDDUoEJMVePTOn9JPzfY=;
-	h=MIME-Version:In-Reply-To:References:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=vFygu1IKHFQmuSe3iF16uQ7d8++yTv8SKjKEWSMTFz4GFqBvf1MVzyfrRboul8Cbb5hYigtQJejWlactQgUUPAnhei6xYhrKhUyg6CAw8Wuxkt3qHCkT4U9KqTRY1w88SevPS2BlpbAeIa8UC708T5Nmc97OTzD7uBYHbi/lFXk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aWyInKnp; arc=pass smtp.client-ip=74.125.230.204
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54BC13002B9;
+	Wed,  9 Sep 2026 03:00:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=67.231.156.173
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788922842; cv=none; b=WdbGG+irsB4tx/W93wumM0WsxEc0C1yb4O/zTWb5uAOJG9IRNJ0WvnHp2nZAtbUVfiKDt8e4uhPbeCBwi+qWbnsJbGyzIxoraWz3U2LtviRLWfnspjGzHII/74Z4f+wigvmAHj1wDNHutkW5CZESC6GbvF41q2Ivb0jiQdIYtG0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788922842; c=relaxed/simple;
+	bh=mrwQ2By5KA5YhupV20hH2vaWpSk2nCO94j7xM1x+LNk=;
+	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Dl4AaYYoTGxkkc5nGKKy1h4J3hCaeTBIB9C5+cgXeC8MVPT/PNTtZZSllryYe20vNtH2drKVhEV+yBZ6XDmrahYUhy9ERGcw1qgtWy8oPYqE79+/XN6rtj7x/Z8Nz0cRGlUmxxE/PNmrOTMSvSvMPFHqtonsOqO74XXxDr/T+LY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=marvell.com; spf=pass smtp.mailfrom=marvell.com; dkim=pass (2048-bit key) header.d=marvell.com header.i=@marvell.com header.b=IdUKOaFx; arc=none smtp.client-ip=67.231.156.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=marvell.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=marvell.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aWyInKnp"
-Received: by mail-qk2-f12.google.com with SMTP id af79cd13be357-93910cadeb0so60689885a.3
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 20:00:14 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788922813; cv=none;
-        d=google.com; s=arc-20260327;
-        b=cL2J80l7X8k8qWr0UTc7O+MCNzR0rGAtgFpIzdjMsdAJ9otMPv7DZDH+kYgrY4UOtC
-         EwUB3vOKwMMNWyiuQpVrNV4R0x31l9BySG24+U4Uw379ET82zrBXW5RS6b+Ps8xTtn8e
-         Yx40qwyOKm2jh8W04YygW+7YYZ09WuLg3EJEgSE1CeSFbT5EBV6IA9HlBBgSBPCF42bv
-         e43gZNFkrBZXzfEt5dcKMaCxZb69qHYOYCY8V/VvTDVFcn8TDhWwdbN76z9PleJ76rCp
-         RKeovd/r9wo/zikcbYMmQdtZfri7eTY8woC0WXn+6R/D4LBKniyOkYvh93OGp3vPHKv2
-         5rWg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:references:in-reply-to
-         :mime-version:dkim-signature;
-        bh=XdTIc4oZ+lLZ+9rfLfVE8M/CDDUoEJMVePTOn9JPzfY=;
-        fh=rleIMPfv/8HJUqMI42Iw/lWPlD+bj84/TUjTk4wY4l4=;
-        b=safbJYGDwLYAACTePo1e2BDxRRxa/wes10QS6gevy2pYQ0rNNBEKYZdYev28sFpwrM
-         j7DYOsJid3f4ufmtfrvxML9VqMRHF9UWEW3lDsMGit8zvNvLgZcSCWOAVGF+jwjJvOMh
-         qC8e2gie5DyDhc04ftXsSRTemH1NhtqqaCSJKM6I1mZTVBYSB4ywp1VD9BVQUQyGpT/G
-         b7wSSYPtbJE6IIGfrEpND/3k8rNfafAhrtdTDaz1D/0purMDz92fatd2akBjnNNN2V5J
-         7PGdog6EKt11HTBLnop1qJwE6kRT3CTFTQ80E0czldAuzskaQJ8jrYx4gM+OjxsuY6m5
-         19og==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788922813; x=1789527613; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:references
-         :in-reply-to:mime-version:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=XdTIc4oZ+lLZ+9rfLfVE8M/CDDUoEJMVePTOn9JPzfY=;
-        b=aWyInKnpkLs8TZyBsz3jS8shsE+rTjgSIllXsZBAvsxrAY5XHbi0RZzFiZekKlNnWH
-         o7mJeTF5S5YYpmHdSTaWVw/5po9DXGBnScQuut0sfIQH6/jcy3JZJgDnYPcUKod2bDZW
-         dbVTicf9d+1nl/j+oKtlCOjZ2Sgh2dV8X/57ToO+liC3QRcks5f2qEDnAggxGxqpSVsE
-         RraBc9zkXR7DCORXg51UrQKfJ60NJxulkj+Il3bIsQ07zovVnidSlZ32v9tVkwX+Cbr3
-         9rgHymcSui9B7QXt4TEdp2Jqdu0HuJXIYJW7tNshWTLDHX9tOm64fCGynmx8GkH/eSFp
-         SayA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788922813; x=1789527613;
-        h=content-type:cc:to:subject:message-id:date:from:references
-         :in-reply-to:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=XdTIc4oZ+lLZ+9rfLfVE8M/CDDUoEJMVePTOn9JPzfY=;
-        b=EA+cMjmnBanAjxxvkstAp4BevEcYoMXQuUZClDxPDXkRT9T36kUgReu84Wv8hgZ9Cs
-         ktAcvof4Z8pqqOKadmTz2Mf9AvmWXEuF1BucCNua23RTFy01DDNLBLYI+wezZNl2GzQk
-         uwH5kAacTmGOHdrcqpjfQ6iJPlaA+sfartfdustwz/vVS0D20mijXOyriK5Src1PaVVL
-         wnFM7HwENiMZLOGsX12oOekru749lu0Cwu1A3gRuej8SaPy+wNj8kG38rEbjEkCTuQEU
-         CE1/Op8vC7/XahAzLLQ0HvJByftFinTI1M4R81Yqvxtej7yl5ELZyeacRX9rFlZF9nct
-         fWpQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxrrk9PpeJoSyCMB+B6bGQL5XfqK9RkF+CIRQBrToZ0XifIVvqLtPRDHmteKURYe45uROW6X2voBYrbBgo=@vger.kernel.org
-X-Gm-Message-State: AFuF++ltBYija2PFTlmBkkgQfU+GTqCl+mOAiCoycHFeFgq9zvpzDrD9
-	L6k60vl6NljDRZBZVYO5TtAHC8qKLRSpm2k/Kmo4T8EZ6h8nyAzaW56qhe7i3Si6eygPXRUWtzN
-	sZJgipKd4PoJ2LyXWGsFDVQ9UzRlp2kg=
-X-Gm-Gg: AYBFou2YmjI1T9mKnlJFSkFzLw/RtyqO1QsRJuJa6W6A5oqf0D096NgiXNNYwvpxtHk
-	8n7gqW50Ej8TTLIBa9Yut/IBzVjiYmT0ShdHB7I/S4QFXZYqBs2vvdJ4R5yK/nuUmWx+RueoXEm
-	aryxScvzm8M0d/MNsWvlsI5OMaN9cwHc5TTvJkd7XCrrlAYALCFccHuYUPrrfz7H739OEq7SuE4
-	71U/Dle7fjYIWgnEsfKThGn4hz4SzIHPeC9U2XL/Eho5r6JmcMCY+WkcjGBOSEasGdLTHxByWU9
-	dL6swkCDMCg37ICuQcLKW6a8vHs21KRu07G/gRBpos+2mvHp0/bFbxxXnANgR4azGMCjD/UDIdb
-	nMyI1we8=
-X-Received: by 2002:a05:620a:25cd:b0:939:6d2a:6e38 with SMTP id
- af79cd13be357-939c94a60ccmr496550285a.33.1788922808660; Tue, 08 Sep 2026
- 20:00:08 -0700 (PDT)
-Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
- Tue, 8 Sep 2026 20:00:07 -0700
-Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
- Tue, 8 Sep 2026 20:00:07 -0700
+	dkim=pass (2048-bit key) header.d=marvell.com header.i=@marvell.com header.b="IdUKOaFx"
+Received: from pps.filterd (m0045851.ppops.net [127.0.0.1])
+	by mx0b-0016f401.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 688MhggF2378353;
+	Tue, 8 Sep 2026 19:59:32 -0700
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=marvell.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=pfpt0220; bh=U/qNu6FwisjxU9TKceSqPCJAD
+	tUcZ+bZC8JUoQmjpRo=; b=IdUKOaFxSYAoiigblV+hLmCngdUeEXskiw2X6s5l5
+	qx4fOrPG+Gk+GFNufKJ9+CS77x77sAlgHDzSpInxjjgnt+Fz4PtVbB68lcPiSVO7
+	HcCtkgUbmIyUMM8Cd4W5woN28ZaS1nhSl9TVSsYfSZwwRwPeo5/VJJ/IRYi6T9zQ
+	7dDI7XxyXa2VJPS7FPPMg2i8ObVSc+q0MrLrRmfPRz4mPIFzTFl9hJcnNjQNtmS+
+	Ts054htHRlzcLEIussTPSpD/USYYtIzmoK5vGErVr4TImlq2o/rah2YMb3mw1N2G
+	5HPaILJUKsgs3xZadPfbOGbjVCmrVIO7dyNkjeUudRETQ==
+Received: from dc6wp-exch02.marvell.com ([4.21.29.225])
+	by mx0b-0016f401.pphosted.com (PPS) with ESMTPS id 4gjh5nubg3-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 08 Sep 2026 19:59:32 -0700 (PDT)
+Received: from DC6WP-EXCH02.marvell.com (10.76.176.209) by
+ DC6WP-EXCH02.marvell.com (10.76.176.209) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.25; Tue, 8 Sep 2026 19:59:32 -0700
+Received: from maili.marvell.com (10.69.176.80) by DC6WP-EXCH02.marvell.com
+ (10.76.176.209) with Microsoft SMTP Server id 15.2.1544.25 via Frontend
+ Transport; Tue, 8 Sep 2026 19:59:31 -0700
+Received: from rkannoth-OptiPlex-7090 (unknown [10.28.36.165])
+	by maili.marvell.com (Postfix) with SMTP id 476063F7071;
+	Tue,  8 Sep 2026 19:59:29 -0700 (PDT)
+Date: Wed, 9 Sep 2026 08:29:23 +0530
+From: Ratheesh Kannoth <rkannoth@marvell.com>
+To: Heyang Tan <thy15333007817@163.com>
+CC: <netdev@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+        <sgoutham@marvell.com>, <gakula@marvell.com>, <sbhatta@marvell.com>
+Subject: Re: [PATCH v3] octeontx2-af: use seq_file for rsrc_alloc debugfs
+Message-ID: <aqDLi-xfsssfP59e@rkannoth-OptiPlex-7090>
+References: <20260909015437.1042-1-thy15333007817@163.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-In-Reply-To: <aqC8FSpnNxxitHtA@kbusch-mbp>
-References: <20260825043220.9047-1-subtexel@gmail.com> <aqC8FSpnNxxitHtA@kbusch-mbp>
-From: Rickey Bartlett <subtexel@gmail.com>
-Date: Tue, 8 Sep 2026 20:00:07 -0700
-X-Gm-Features: AcwNN1URJeEI6vN5n3SLQUw3o4dUjE0Z8AbsVwapea8qPKaPu8ioQRo6rmD2po0
-Message-ID: <CAAqcVzwV2z9Oi02Mgj4at7Gvy6qdqV=iLBgqTg9J6O7i0KZrDw@mail.gmail.com>
-Subject: Re: [PATCH] PCI: vmd: Flush initiator posted writes before demuxing
- interrupts on Meteor Lake
-To: Keith Busch <kbusch@kernel.org>
-Cc: Nirmal Patel <nirmal.patel@linux.intel.com>, 
-	Jonathan Derrick <jonathan.derrick@linux.dev>, Lorenzo Pieralisi <lpieralisi@kernel.org>, 
-	Krzysztof Wilczynski <kwilczynski@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, 
-	Kai-Heng Feng <kai.heng.feng@canonical.com>, Manivannan Sadhasivam <mani@kernel.org>, linux-pci@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20260909015437.1042-1-thy15333007817@163.com>
+X-Authority-Analysis: v=2.4 cv=duPrzVg4 c=1 sm=1 tr=0 ts=6aa0cb94 cx=c_pps
+ a=gIfcoYsirJbf48DBMSPrZA==:117 a=gIfcoYsirJbf48DBMSPrZA==:17
+ a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=l0iWHRpgs5sLHlkKQ1IR:22 a=QXcCYyLzdtTjyudCfB6f:22 a=VwQbUJbxAAAA:8
+ a=Byx-y9mGAAAA:8 a=DeVBWs9PZeKcyMnSSBgA:9 a=CjuIK1q_8ugA:10
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA5MDAzMSBTYWx0ZWRfX3Dncgj56f8Q/
+ 6fksoEQP+zAvChTo2aXfFR/msoKAVNvbP/1hqFAaUldsEwwdkd30+29dzgqDdV5wDdOsJq4+Lpc
+ wIitVMLfy/IVjV9cZ+lRgnYZsdWRkOI=
+X-Proofpoint-GUID: REKTTLdOUsJeouSPEyTkbx4CSOaYULCq
+X-Proofpoint-ORIG-GUID: REKTTLdOUsJeouSPEyTkbx4CSOaYULCq
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA5MDAzMSBTYWx0ZWRfXy0qkh+AwOKnt
+ GpO5GZt05gpr+AECmtwN51FGQcmHMnOryhknA2q8QViJlVMA6HAKnw76z43b1UR6ro0g6cyjDmK
+ oG/YsS4w9Gy/8MzEPFo5UQ550L33t6Hu22ExiuNVWI1LGavqwHoUgxnSKTM+zR382Cv9r4Jl4/m
+ qhGnwVMJlsuliCZm1Zl7VlzLmwaqN/fCSl/gSLVtohmQrX0Ax0cWulVNJwqsTPKFFhocXh9W2qm
+ wnGnugTv3jEgVeDYUlTFcC/Uk2UJ5TN8RKMxuPiAFs49A5OppYWGLm1PXmJUrymSFKMyRuKclNF
+ 8Cy1JgQbXcvqKNUN/MNPd8od3deWu2hl84avZ17k0UDI7FNjwxBSiL56D0/cXaEOrfERljLcIVg
+ DJeg9EP59d100l+QvKiCDFM6GBoWvQ8DkvVeHHni+4udCfF8WROwe23e7TChcH30GbBHLpVTlFs
+ 6jcUbOaqtLHlwBiTTJQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-08_03,2026-09-08_03,2025-10-01_01
 
-On Tue, Sep 08, 2026 at 07:53:25PM -0600, Keith Busch wrote:
-> I am just not sure if reading config space is necessary vs memory space
-> (maybe it doesn't matter), or if this errata requires reading from every
-> potential interrupting device to flush preceeding transactions vs just a
-> single posted transaction to anything in the domain.
+On 2026-09-09 at 07:24:37, Heyang Tan (thy15333007817@163.com) wrote:
+> The rsrc_alloc debugfs reader writes rows directly to userspace without
+> respecting the caller's read count. It also uses the current row length as
+> the userspace stride, which can corrupt output when rows have different
+> widths.
+>
+> Use seq_file to handle userspace buffer sizes, offsets, and partial reads.
+>
+> The LF list formatter is used both to determine the widest column and skip
+> PF/VF rows with no resources, and to emit the final table. Let it measure
+> the formatted length when no seq_file is supplied, and write directly to
+> the seq_file during rendering. This preserves the pre-scan behavior while
+> removing the temporary string buffers.
+>
+> Fixes: 23205e6d06d4 ("octeontx2-af: Dump current resource provisioning status")
+> Assisted-by: LLM Codex
+> Signed-off-by: Heyang Tan <thy15333007817@163.com>
+>
+> Changes in v3:
+> - Format LF lists directly in the seq_file buffer and remove temporary buffers.
+> - Measure, rather than emit, LF lists during width calculation and row scans.
+> - Explain the two formatter modes in a code comment.
+> - Preserve column alignment with seq_setwidth() and seq_pad().
+> - Reorder local declarations in reverse Christmas tree order.
+>
+> Link: https://lore.kernel.org/netdev/20260906141129.1730-1-thy15333007817@163.com/
+> ---
+>  .../marvell/octeontx2/af/rvu_debugfs.c        | 114 +++++++++++-------
+>  1 file changed, 69 insertions(+), 45 deletions(-)
+>
+> diff --git a/drivers/net/ethernet/marvell/octeontx2/af/rvu_debugfs.c b/drivers/net/ethernet/marvell/octeontx2/af/rvu_debugfs.c
+> index fcbf4ba0e10a..1f177851e76d 100644
+> --- a/drivers/net/ethernet/marvell/octeontx2/af/rvu_debugfs.c
+> +++ b/drivers/net/ethernet/marvell/octeontx2/af/rvu_debugfs.c
+> @@ -646,10 +646,29 @@ static ssize_t rvu_dbg_lmtst_map_table_display(struct file *filp,
+>
+>  RVU_DEBUG_FOPS(lmtst_map_table, lmtst_map_table_display, NULL);
+>
+> -static void get_lf_str_list(const struct rvu_block *block, int pcifunc,
+> -			    char *lfs)
+> +static int get_num_digits(int number)
+>  {
+> -	int lf = 0, seq = 0, len = 0, prev_lf = block->lf.max;
+> +	int width = 1;
+> +
+> +	while (number >= 10) {
+> +		number /= 10;
+> +		width++;
+> +	}
+> +
+> +	return width;
+> +}
 
-Thanks for the ack.
-
-I don't think config vs memory matters for ordering either; I only
-tested config. It has a register that is safe to read on any child
-without knowing what the device is, which is why I used it.
-
-The only negative result I have is the VMD's own BAR, which is above
-the domain rather than in it, so that does not answer whether one read
-to any child would cover the others. With a single NVMe on this
-machine I could not test one sharer flushing another. The erratum text
-names the MSI initiator, so I kept it per-initiator rather than assume
-the wider case. If someone with two drives behind the same VMD vector
-can show one read is enough, dropping to one read per vmd_irq is a
-small change on top.
+Sorry for the confusion here! My previous comment was strictly a "nice-to-have"
+suggestion and wasn't intended to trigger a larger scope expansion. Given that
+this is a targeted bug fix, keeping the diff minimal and low-risk is the
+priority. Your v2 patch addressed the core issue cleanly without unnecessary
+churn. Could you please revert/repost the v2 version as v4 ? We can always handle any
+extra cleanup in a separate follow-up to net-next if needed. Thanks for your help.
