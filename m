@@ -1,264 +1,299 @@
-Received: from mail-vk1-f177.google.com (mail-vk1-f177.google.com [209.85.221.177])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9A541E5B68
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 03:57:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.177
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788926269; cv=pass; b=HAdTS9I/qFgIRcQFl7ochq6sOtFxSIFRGAwkF81YGNqH2Wc/Tli77qIC1vmUJQTdLVgObHkWuHCyetLTokuktHP9agP0IVanubGfvb3N31xROoW9ipoyK0yLeJxDUQrfXw3a1b6WdcrUsvmZ5mqd05PwrsGuB2+EULHfORSPc2Y=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788926269; c=relaxed/simple;
-	bh=7xxtT/FL6qpKYeNTfwtqCOBrCCkAL1A25OTh5eI51tI=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=DQ1t5P7576pQXHX+sTVulOvlTL8+H3SLmtVnp0nv93rfjG+yLoWSuNNq+vaigTzSN7xOj3nih6jn1Z1ZVJEjhQh6NBByeGMD90aq+dtPOzg6A+NEgpWjOAYy9Kmcawoehg5FnEaWtB9poQGJ/AOiuIUFHOPHovU86hlB/3RHnxA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sifive.com; spf=pass smtp.mailfrom=sifive.com; dkim=pass (2048-bit key) header.d=sifive.com header.i=@sifive.com header.b=ApAN4HpC; arc=pass smtp.client-ip=209.85.221.177
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sifive.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sifive.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 647AC492E46
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 03:59:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788926383; cv=none; b=pl3LQ7SARpcX5IJ4PKUxfUk3kYZRaZP3ychcK1XqRHe1QqrvYrh7Q8MIWW+NuW4bWoRsT0hRbsFmC324XTUyCi0rD8/3RTAdWx/O7QFFY18U2+v7fjEoLk+2xo4ny1DbKc9XCi80MikWXb26Kq8HzvuGbhK1dkLL0reO2ORadAo=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788926383; c=relaxed/simple;
+	bh=2THYNffvwCglri5gcZ2Ebn39/VQBIIwzg0MunjajrU0=;
+	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Message-Id:References:To; b=sXkBO+ZYytMD58+ON7TGf88+We/+GSKIUuigIQuwhHy+HGv4ZeeB/zgUBF+xFASrPg8Vo6Qx/4aXO8A7145vLAMM5Oxmo0f546bh2RwccE1o9O2cOOFtlEXMV3kkh6uijWnuMAg1S7JU3XZg3BFnE9dr2IYwjA12x0y+nuyUaRI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=ROxV0aJI; arc=none smtp.client-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sifive.com header.i=@sifive.com header.b="ApAN4HpC"
-Received: by mail-vk1-f177.google.com with SMTP id 71dfb90a1353d-5bfc54558d5so6972456e0c.0
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 20:57:47 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788926266; cv=none;
-        d=google.com; s=arc-20260327;
-        b=BY/gjoRmKwuuRY4FcV4giYaCZFze03NaXpeFg/I3w9oa2W8Uts+iDQ5Lsq78xcf7tm
-         ynQiYTgt+l57UWlgo55k+KrPNgXmNBSy9tQIu2UZuigYFr0PEw7YXKSm9A/PYPFpLYa4
-         lBAc2sxye619bYzOZ/TAV8iuI0Tx9A9vcYx4L+AmTqAZ5mTE69fJ8ULNvHRuM9d11hkk
-         axU49ts+clMHBAE1P+MG7Ij8Dnd8u6Krs3J+3lg345d9ZHNtWwYkeaADNAiBn20DWmOD
-         +e11jkja8+nHTyWYBOI33G+be19YN/vwvotbwNIP/v3Fqzn/VnO7pOUnEJ9sJQ1esvrn
-         zDdA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=6kH0tSRloKBsA9qiF3oHk70jTIj3t7dVydxj2ubMusk=;
-        fh=GUEXLngrA58nj1xTd1v0cTTTGtcyM7ExT6yMYmAua0M=;
-        b=nDDoDHNw54nRtnZouuFeDF/QMqvpTkpsBbhLKzGPfAiPb7EUL8FqRPFGzwa0CtehWV
-         ByKjOnxSbOmhAjf6VJWLSOLzklFHkp8uEDiMJDxOAbSkq0QZP9LZJa8z/7EA4J6hE4BB
-         smM9uvcR6GsdQiq1s404uEM7VcKqy8fvn9+M3r5WY9IHn2gcLm3NO61VrAy23rsn98NJ
-         8ay2FcIAoDy9teYOCM1Vy4FQLs1wgDFwkhoFd5uGKcoqtq39Uwwsi7nTj97optD2I04V
-         OXAd5/57p2owK9h0LIiC0EKRWV1mma/UDwlFnFQGjPr790/rw+wmE8ajBdgwhXFN04Tw
-         CdqQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=sifive.com; s=google; t=1788926266; x=1789531066; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=6kH0tSRloKBsA9qiF3oHk70jTIj3t7dVydxj2ubMusk=;
-        b=ApAN4HpCUt9W3saYcLuJUkh6CYkvHHf2/UG3VSquNYIjxCWnEkgWmVX5lzXXgELxv/
-         wPw7cYrUxZw8osV0iBawmGrUCoTgfguQMt/5IPkv1MzipBGNkrZjYmm80gQwKVQgGQO3
-         /pCSWSaHM/7xM8fwsmPEteFIbPuj9JcJCgVm9yapoyg6CYZT5IpburPUDbXxxvC0mXx+
-         fUaWpA5UmoMdFSEL6vbGN028y5TieoIF88XByJyuobwN9CRXgUp5vPaCxQnGYZEi9Tzz
-         NOXQTGgSGXdc9Z3JYN1YfyPYTM5AbkKxo2Cs2T0mNWVoexkA/Gb5Rys31BVBblHsxEbi
-         7X+A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788926266; x=1789531066;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=6kH0tSRloKBsA9qiF3oHk70jTIj3t7dVydxj2ubMusk=;
-        b=Dwrp3Y8BO28Tdf7OhQISNExZxr5yXO2c2j/4OOacruq/CRgTaIAqQkc22fKJRe1eiy
-         AdcbUBDIksoH5IUe13Ne8PwRcQ29D7WF7x4/P4o9noO0it9yampnvN2CQ14DyAHEepue
-         z5z9zOBcijEuXuyOrIyFhzwCr/xsGZiWyRx9/zx8ytCs7WZJjfFFCxHhqTw65rLWGrGF
-         5KHKKkZ3/Y5AVJHjl2jDk5xSViUtykxle6FN4K8EXdnVyMqAxJjNR9uwMGR1EHVsTMHC
-         A0ANo4oougWrCvAYD2Wtl3SKDK995Vr3n/SRzI5GQOlcgCR2O8tXZsEyKOLpyjLSgjC1
-         TP2Q==
-X-Forwarded-Encrypted: i=1; AKwUvBy6yx9yQgFFAXHHt9A/T9W8v70LmIYB4crOlmCDfmPuEIXwALPJTB9uPMPTKaPCXYsdot986ENez1kXsXI=@vger.kernel.org
-X-Gm-Message-State: AFuF++nkba8AxbRMCEVjMlFqBTr6w8vC6N6KlhtZMarmScmHQnvtLuHf
-	e20W4wblA3y4qOCqC0UgwrPZpLjtJ7qVJsC9KSB6hBRxltHLBenLrjhfY0p0og3Wdtq4fS4/ce9
-	sNUDJq7v3GtR9piApeRBZSds/guvcfOeyHebYIsPXSQ==
-X-Gm-Gg: AYBFou1FLx0URjUwpctXul+olwcmaULXNug/BXuMTV0wGNrzaRv5Vn8H7gjpkOv6AG2
-	zxIfANRhMD1nHXBrfSvsrc1eo8KTdOrtTVJOPWSxket1jSQnvLu5zfT3ip1LSbjxuaVA3jZTvsh
-	dquO+3fWdkXp4NulAWlhMJUkchDgkTqDg9b/MqsbSC3k+zCSVgnDEqleeCVsm2JyYtFVyzUBTdd
-	df3Ym293Sx6KoAf3OHuxLJO4WREWoR4yesQ8v4NNJvaDiIoQfJ/yR5Z/EKdum1SiXkhbXAUz76m
-	x8hKi8GeMKUc/wauONLlzYmlYqaOi58tkFICQ2NMqSpR7dAMJLn84gc7vg==
-X-Received: by 2002:a05:6123:4204:20b0:5bf:6dd0:36d with SMTP id
- 71dfb90a1353d-5c7dcf768e3mr8710710e0c.8.1788926266507; Tue, 08 Sep 2026
- 20:57:46 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="ROxV0aJI"
+Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 688N1xhB2300030;
+	Wed, 9 Sep 2026 03:59:33 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=2IXyS4
+	dcdYBbk52hJjcl6POTvaPWlpDlJcvd2bgPQD8=; b=ROxV0aJIvB0wo1u01sCtyv
+	Q4z0aY0ah3HR4I4vmB34JGREXKNFyV0eTgHW9mpmnzYVr8/2itDYrk4RN4bVCcmc
+	9LsoVP8+cd2Zz6qPeSvpjnDvJWdrCJdFz8Yr0Emf4cHPnAsnVtQoarsNu1vq1L2L
+	Q+r0JYMJnssJy2V539mSZjhTQ9EQ+MWngGPORTy/nDk89AZzfWGShJsNjCnNDWoI
+	prs9CF4ec2BEUxY67s2KQhEtmt0AFKwMhZm+jK0eQLt6lLKsv2Q4EXDucjslmKJL
+	IJ9/LiXNRCnZ/kex9zeM5NNnoAhcdy15aDTs/rdQ3iSIh+0sd4X5bKqaB2r3Dxww
+	==
+Received: from ppma12.dal12v.mail.ibm.com (dc.9e.1632.ip4.static.sl-reverse.com [50.22.158.220])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4ggbhf34t5-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 09 Sep 2026 03:59:33 +0000 (GMT)
+Received: from pps.filterd (ppma12.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma12.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 6893fFNn015289;
+	Wed, 9 Sep 2026 03:59:32 GMT
+Received: from smtprelay02.dal12v.mail.ibm.com ([172.16.1.4])
+	by ppma12.dal12v.mail.ibm.com (PPS) with ESMTPS id 4ggwdqg6c4-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 09 Sep 2026 03:59:32 +0000 (GMT)
+Received: from smtpav01.dal12v.mail.ibm.com (smtpav01.dal12v.mail.ibm.com [10.241.53.100])
+	by smtprelay02.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6893xWnJ34996530
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Wed, 9 Sep 2026 03:59:32 GMT
+Received: from smtpav01.dal12v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 1934558059;
+	Wed,  9 Sep 2026 03:59:32 +0000 (GMT)
+Received: from smtpav01.dal12v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 6EAC758057;
+	Wed,  9 Sep 2026 03:59:30 +0000 (GMT)
+Received: from smtpclient.apple (unknown [9.123.0.173])
+	by smtpav01.dal12v.mail.ibm.com (Postfix) with ESMTPS;
+	Wed,  9 Sep 2026 03:59:30 +0000 (GMT)
+Content-Type: text/plain;
+	charset=utf-8
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260904-perf-evlist-uncore-cpu-b4-v1-1-604b55c025ee@sifive.com>
- <CAP-5=fX1uKg8AncsP5BVFtchgns5TquOTB10-mR5ury2CaH0sg@mail.gmail.com>
- <CACpYXwATq8nU9mB2SuNO6kAUNrj8bH3UjQiHd5X6=9VX4YZJgA@mail.gmail.com> <CAP-5=fVw0+Xh6Xovj_Vt1XnTT8Y0fK-+wia=oxwFmPaT06MTBg@mail.gmail.com>
-In-Reply-To: <CAP-5=fVw0+Xh6Xovj_Vt1XnTT8Y0fK-+wia=oxwFmPaT06MTBg@mail.gmail.com>
-From: Nia Su <nia.su@sifive.com>
-Date: Wed, 9 Sep 2026 11:57:35 +0800
-X-Gm-Features: AcwNN1V-pmoH-l-Gdzi-F_XGEUOx1dfZ1iZtFNeHFPHBZclF60TC6XrjBJcvGDY
-Message-ID: <CACpYXwBiF12==Ct1voU-0QcXzMCVqkd3vVJG+4MkYPnZ8rd=WA@mail.gmail.com>
-Subject: Re: [PATCH] perf evlist: don't restrict uncore events to PMU CPUs
-To: Ian Rogers <irogers@google.com>
-Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
-	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
-	Mark Rutland <mark.rutland@arm.com>, 
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>, Jiri Olsa <jolsa@kernel.org>, 
-	Adrian Hunter <adrian.hunter@intel.com>, James Clark <james.clark@linaro.org>, 
-	Thomas Falcon <thomas.falcon@intel.com>, linux-perf-users@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3864.600.51.1.1\))
+Subject: =?utf-8?Q?Re=3A_=5Bmainline=5D_powerpc/TM=3A_Unexpected_TM_Bad_Th?=
+ =?utf-8?Q?ing_during_core_dump_on_POWER9_=287=2E1=E2=80=91rc1=29?=
+From: Venkat <venkat88@linux.ibm.com>
+In-Reply-To: <d18c4a14-c26f-460e-a04f-2998bc4e9e25@linux.ibm.com>
+Date: Wed, 9 Sep 2026 09:29:17 +0530
+Cc: linuxppc-dev <linuxppc-dev@lists.ozlabs.org>,
+        Madhavan Srinivasan <maddy@linux.ibm.com>,
+        LKML <linux-kernel@vger.kernel.org>,
+        Christophe Leroy <christophe.leroy@csgroup.eu>
 Content-Transfer-Encoding: quoted-printable
+Message-Id: <DC72ED6B-156C-4EEB-A32B-2F5629F5AC00@linux.ibm.com>
+References: <364996ce-aba2-4213-8d20-7dd481b43fe6@linux.ibm.com>
+ <d18c4a14-c26f-460e-a04f-2998bc4e9e25@linux.ibm.com>
+To: Madhavan Srinivasan <maddy@linux.ibm.com>
+X-Mailer: Apple Mail (2.3864.600.51.1.1)
+X-TM-AS-GCONF: 00
+X-Proofpoint-GUID: OMpjB8Psd7KYoBm6h9h4Ed69GfUq9F5n
+X-Authority-Analysis: v=2.4 cv=RIaD2Yi+ c=1 sm=1 tr=0 ts=6aa0d9a5 cx=c_pps
+ a=bLidbwmWQ0KltjZqbj+ezA==:117 a=bLidbwmWQ0KltjZqbj+ezA==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=5KLPUuaC_9wA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22 a=RzCfie-kr_QcCd8fBx8p:22
+ a=VnNF1IyMAAAA:8 a=MYg0dNiN2xP4QECReYwA:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA5MDAzNyBTYWx0ZWRfX0eYyKAanKhk1
+ DZqei4Aqa7Uirr9S4fNWSfZkcf899N7pUhoEoRZMDD8RMq0fm8Dr+y+9q1mT4CZqLeV2u8QKbKh
+ Jgj1xMicrzk8sCNkGP36sAzenO0N3fs=
+X-Proofpoint-ORIG-GUID: OMpjB8Psd7KYoBm6h9h4Ed69GfUq9F5n
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA5MDAzNyBTYWx0ZWRfX34FZLi13i9HH
+ IIsdqcHbFUl7B0MZ5NLvSCofMvO/FyOvTUKpCNrXVWqZ4GN6x+eCmYRZWVUZaX69GJwxwvwVVmp
+ 12d8GltfySmU/jQ9mrrbOAbxdFlSC4sPhrHo18OaHmz3UJ4URCod63TA3NoBKBbU7yUnC8EMBGt
+ 5AdZHMM5g2mKdHcrf0cPstvGImUTqDtUDEtKECfdHMjIUNdK2FMtQH/ZnHgcatBD7G267KVsb06
+ Wa7xHBA3bMKF3sIu33eIx75ivO6d9uH+IMv+0/pmdw0ApzKXhTgLuXBmOwE/xvTSU3TwUpjsz8Y
+ LnBnkfbues1hkSIiko3qrS5rq8DhvZrdUCEsPeLr55UOrpc2Rr//OdpgCwpCe68QJzT7nriMyli
+ qzeiCc1z4ImCP3RgaKyV5nm5UwjtNO9E9RyKldV3gGc59OAAe7kNNktjKvtCClrrcx/L5N1ewhO
+ Me8OLMjW+CWhlk8j7Jg==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-08_03,2026-09-08_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 suspectscore=0 malwarescore=0 priorityscore=1501 bulkscore=0
+ adultscore=0 phishscore=0 clxscore=1015 impostorscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609090037
 
-On Wed, Sep 9, 2026 at 1:11=E2=80=AFAM Ian Rogers <irogers@google.com> wrot=
-e:
->
-> On Mon, Sep 7, 2026 at 8:23=E2=80=AFPM Nia Su <nia.su@sifive.com> wrote:
-> >
-> > On Fri, Sep 4, 2026 at 11:34=E2=80=AFPM Ian Rogers <irogers@google.com>=
- wrote:
-> > >
-> > > On Fri, Sep 4, 2026 at 6:45=E2=80=AFAM Nia Su <nia.su@sifive.com> wro=
-te:
-> > > >
-> > > > The PMU CPU map has different semantics for core and uncore PMUs.
-> > > >
-> > > > For core PMUs, pmu_cpus contains the CPUs on which the event can be
-> > > > opened. Intersect the user-requested CPU map with the PMU CPU map t=
-o
-> > > > reject CPUs unsupported by the PMU.
-> > > >
-> > > > For uncore PMUs, pmu_cpus is just the default CPU to open the event=
- on,
-> > > > not the set of CPUs it can only be opened on.
-> > >
-> > > This isn't quite true. On a dual socket Intel machine, `pmu_cpus` wil=
-l
-> > > contain a CPU to open the event on per-socket.
-> >
-> > Yes, I agree. My description was not precise enough. What I wanted to s=
-ay
-> > was that pmu_cpus provides the default CPU(s) used to open an event. It
-> > is not necessarily an allowlist. A user may specify another valid CPU,
-> > which the PMU driver can resolve to the appropriate control CPU.
-> >
-> > > > The user-requested CPU may
-> > > > override the default and be used directly, and the driver can redir=
-ect
-> > > > the event to the appropriate control CPU.
-> > >
-> > > Agreed.
-> > >
-> > > > Currently, __perf_evlist__propagate_maps() intersects the user-requ=
-ested
-> > > > CPU map with pmu_cpus for all PMUs. If the user-requested CPU is no=
-t in
-> > > > pmu_cpus, the intersection becomes empty and the evsel is removed b=
-efore
-> > > > perf_event_open() is called.
-> > >
-> > > Could you give a command line example of the perf tool doing this? I
-> > > ask because I'm surprised the uncore specifying a CPU behavior has
-> > > been broken. As well as `perf record -C` there is also a somewhat
-> > > newer cpu event qualifier.
-> >
-> > I tested both approaches, but they still fail whenever a perf event is
-> > assigned to a CPU outside the uncore PMU's sysfs cpumask. for example,
-> > assigning the event to CPU 1 fails when the cpumask is 0:
-> >
-> > perf stat -C 1 -e <uncore event> -- <program>
-> >
-> > Here, for an uncore PMU, pmu_cpumask() reads the sysfs cpumask into
-> > pmu->cpus. When the event is created, perf copies pmu->cpus to the
-> > local pmu_cpus variable and then stores it in evsel->core.pmu_cpus.
-> > In this case, evsel->core.pmu_cpus is {0}. The CPU specified with
-> > "-C 1" is stored in evsel->core.cpus as {1}. Then, in this function,
-> > __perf_evlist__propagate_maps() then intersects the two maps, resulting
-> > in an empty map, so the event is removed before reaching the PMU driver=
-.
-> >
-> > > > Skip the intersection when evsel->requires_cpu is true, which is se=
-t for
-> > > > uncore PMUs. is_pmu_core is also false for other non-core PMUs, so
-> > > > gating on it would have loosened this check for them too. Core PMUs
-> > > > continue to be restricted to their PMU CPU map.
-> > > >
-> > > > requires_cpu can also be set for BPF counters regardless of PMU typ=
-e,
-> > > > but only when has_user_cpus is false, so this guard has no effect t=
-here
-> > > > today.
-> > >
-> > > So the separation between libperf and perf is frustrating, and libper=
-f
-> > > lacks the necessary PMU abstraction. Using requires_cpu as a proxy fo=
-r
-> > > an uncore PMU test is okay, but it would be better if we had a boolea=
-n
-> > > flag especially for this. Given this, a comment should be added sayin=
-g
-> > > that requires_cpu is used as a proxy for an uncore PMU. The real
-> > > meaning of requires_cpu is that the event doesn't support
-> > > perf_event_open with a thread.
-> > >
-> > > Thanks,
-> > > Ian
-> >
-> > That makes sense. I=E2=80=99ll add a comment clarifying that requires_c=
-pu is used
-> > as a proxy for uncore PMUs and keep the current approach for now.
->
-> So I think the flag we can use is `evsel->is_pmu_core` which captures
-> the !uncore behavior. I validated the fixes tag is correct.
 
-I did consider using evsel->is_pmu_core, but it is false not only for
-uncore PMUs,
-but also for software, breakpoint, tracepoint, and other non-core
-events. For uncore
-PMUs, cpumask is stored in pmu->cpus and copied to pmu_cpus; for other PMUs
-without a CPU map, pmu_cpus falls back to the online CPU map.
 
-Thus, with perf stat -C <offline_cpu> -e task-clock -- sleep 1,
-pmu_cpus falls back to
-the online CPU map while evsel->cpus contains the requested offline
-CPU. Intersecting
-the two maps would therefore filter out the offline CPU, which seems
-reasonable. For
-this reason, I don=E2=80=99t think this flag is appropriate here. What do y=
-ou think?
+> On 15 May 2026, at 10:59=E2=80=AFAM, Venkat Rao Bagalkote =
+<venkat88@linux.ibm.com> wrote:
+>=20
+>=20
+> On 28/04/26 5:48 pm, Venkat Rao Bagalkote wrote:
+>> Greetings!!
+>>=20
+>> IBM CI has reported a kernel crash while running =
+selftests/powerpc/signal on a POWER9 pSeries system.
+>>=20
+>> I attempted to reproduce this issue manually, but was not successful =
+so far.
+>=20
+> I=E2=80=99m now able to reproduce this issue reliably and =
+consistently. The reproduction steps are simple:
+>=20
+> Run selftests/powerpc/signal
+>=20
 
-Thanks,
-Nia
+This issue is still present in 7.3-rc2 as well. Please let me know, if =
+it=E2=80=99s invalid bug, I will make appropriate changes to my CI set =
+up.
 
-> Thanks,
-> Ian
->
-> > Thanks,
-> > Nia
-> >
-> > > > Fixes: 811082e4b668 ("perf parse-events: Support user CPUs mixed wi=
-th threads/processes")
-> > > >
-> > > > Assisted-by: Claude Sonnet 5
-> > > > Signed-off-by: Nia Su <nia.su@sifive.com>
-> > > > ---
-> > > >  tools/lib/perf/evlist.c | 3 ++-
-> > > >  1 file changed, 2 insertions(+), 1 deletion(-)
-> > > >
-> > > > diff --git a/tools/lib/perf/evlist.c b/tools/lib/perf/evlist.c
-> > > > index 1f210dadd666ff818a23712ab95acaa659ccf8dc..a1064175f12ba655a9f=
-7fe42e7c7e4c49ae60423 100644
-> > > > --- a/tools/lib/perf/evlist.c
-> > > > +++ b/tools/lib/perf/evlist.c
-> > > > @@ -80,7 +80,8 @@ static void __perf_evlist__propagate_maps(struct =
-perf_evlist *evlist,
-> > > >         }
-> > > >
-> > > >         /* Ensure cpus only references valid PMU CPUs. */
-> > > > -       if (!perf_cpu_map__has_any_cpu(evsel->cpus) &&
-> > > > +       if (!evsel->requires_cpu &&
-> > > > +           !perf_cpu_map__has_any_cpu(evsel->cpus) &&
-> > > >             !perf_cpu_map__is_subset(evsel->pmu_cpus, evsel->cpus))=
- {
-> > > >                 struct perf_cpu_map *tmp =3D perf_cpu_map__intersec=
-t(evsel->pmu_cpus, evsel->cpus);
-> > > >
-> > > >
-> > > > ---
-> > > > base-commit: 73e3f0710014fe6d4ed98cfc02292f6121db7558
-> > > > change-id: 20260904-perf-evlist-uncore-cpu-b4-418af0f17c80
-> > > >
-> > > > --
-> > > >
+This is blocking for me.
+
+Traces:
+
+[12689.799298] Unexpected TM Bad Thing exception at c00000000000dbac =
+(msr 0x8000000302a03031) tm_scratch=3D800000010280b033
+[12689.799318] Oops: Unrecoverable exception, sig: 6 [#1]
+[12689.799323] LE PAGE_SIZE=3D64K MMU=3DHash  SMP NR_CPUS=3D8192 NUMA =
+pSeries
+[12689.799330] Modules linked in: nvram(E) rpadlpar_io(E) rpaphp(E) =
+bonding(E) tls(E) rfkill(E) nft_fib_inet(E) nft_fib_ipv4(E) =
+nft_fib_ipv6(E) nft_fib(E) nft_reject_inet(E) nf_reject_ipv4(E) =
+nf_reject_ipv6(E) nft_reject(E) nft_ct(E) nft_chain_nat(E) hvcs(E) =
+hvcserver(E) pseries_rng(E) sg(E) vmx_crypto(E) drm(E) fuse(E) =
+drm_panel_orientation_quirks(E) xfs(E) nvme_tcp(E) nvme_fabrics(E) =
+nvme_core(E) sr_mod(E) sd_mod(E) cdrom(E) ibmvscsi(E) ibmveth(E) =
+scsi_transport_srp(E) dm_mirror(E) dm_region_hash(E) dm_log(E) dm_mod(E)
+[12689.799397] CPU: 0 UID: 0 PID: 1159004 Comm: sigfuz Tainted: G        =
+    E       7.3.0-rc2-next-20260907 #1 PREEMPT=20
+[12689.799405] Tainted: [E]=3DUNSIGNED_MODULE
+[12689.799408] Hardware name: IBM,8375-42A POWER9 (architected) 0x4e0202 =
+0xf000005 of:IBM,FW950.80 (VL950_131) hv:phyp pSeries
+[12689.799414] NIP:  c00000000000dbac LR: c0000000008657f0 CTR: =
+0000000000000046
+[12689.799419] REGS: c00000002e86fd60 TRAP: 0700   Tainted: G            =
+E        (7.3.0-rc2-next-20260907)
+[12689.799425] MSR:  8000000302a03031 <SF,VEC,VSX,FP,ME,IR,DR,LE,TM[SE]> =
+ CR: 48004840  XER: 00000000
+[12689.799444] CFAR: c00000000000da68 IRQMASK: 0=20
+[12689.799444] PACATMSCRATCH: 800000010280b033=20
+[12689.799444] GPR00: 0000000000000000 c000000050ff7590 c000000001ba8100 =
+c0000003ccf6dd00=20
+[12689.799444] GPR04: c00000031027dd00 0000000000010000 0000000000000000 =
+0000000000002300=20
+[12689.799444] GPR08: 0000000000000000 0000000000000000 0000000000000000 =
+0000000000000000=20
+[12689.799444] GPR12: 0000000000000000 c0000000030d0000 0000000000000000 =
+0000000000000000=20
+[12689.799444] GPR16: 0000000000000000 0000000000000000 0000000000000000 =
+0000000000000000=20
+[12689.799444] GPR20: 0000000000000000 0000000000000000 0000000000000000 =
+c000000045beab00=20
+[12689.799444] GPR24: 0000000000000000 0000000000000001 c00c000000f33d80 =
+0000000010010000=20
+[12689.799444] GPR28: c00000004575fe00 c000000050ff7b38 0000000010000000 =
+c00c000000c409c0=20
+[12689.799507] NIP [c00000000000dbac] =
+interrupt_return_srr_kernel+0x15c/0x18c
+[12689.799518] LR [c0000000008657f0] dump_user_range+0x100/0x570
+[12689.799525] Call Trace:
+[12689.799529] [c000000050ff7690] [c0000000008657f0] =
+dump_user_range+0x100/0x570
+[12689.799536] [c000000050ff7770] [c00000000085aefc] =
+elf_core_dump+0x52c/0x5c0
+[12689.799545] [c000000050ff7980] [c000000000864a20] =
+coredump_write+0xe0/0x410
+[12689.799552] [c000000050ff7a10] [c000000000864e10] =
+do_coredump.constprop.0+0xc0/0x4e0
+[12689.799559] [c000000050ff7af0] [c00000000086558c] =
+vfs_coredump+0x35c/0x4c0
+[12689.799565] [c000000050ff7c30] [c000000000256808] =
+get_signal+0x918/0xad0
+[12689.799573] [c000000050ff7d20] [c000000000021ba8] =
+do_signal+0x78/0x330
+[12689.799582] [c000000050ff7dc0] [c0000000014f6d48] =
+irqentry_exit+0x358/0x990
+[12689.799589] [c000000050ff7e20] [c00000000002f554] =
+program_check_exception+0xd4/0x100
+[12689.799596] [c000000050ff7e50] [c000000000009b2c] =
+program_check_common_virt+0x3bc/0x3c0
+[12689.799604] ---- interrupt: 700 at 0x10001e8c
+[12689.799610] NIP:  0000000010001e8c LR: 0000000010001e74 CTR: =
+00007fffba290590
+[12689.799615] REGS: c000000050ff7e80 TRAP: 0700   Tainted: G            =
+E        (7.3.0-rc2-next-20260907)
+[12689.799620] MSR:  8000000302a0f033 =
+<SF,VEC,VSX,EE,PR,FP,ME,IR,DR,RI,LE,TM[SE]>  CR: 240044a0  XER: 00000000
+[12689.799640] CFAR: 00007fffba2905bc IRQMASK: 0=20
+[12689.799640] PACATMSCRATCH: 800000010280b033=20
+[12689.799640] GPR00: 0000000010001e74 00007fffa2fdd3c0 0000000010027f00 =
+0000000022bde198=20
+[12689.799640] GPR04: 00007fffa2fdd384 00007fffba48004c 00007fffba480090 =
+00007fffba480048=20
+[12689.799640] GPR08: 00000001457bc331 0000000022bde198 0000000000000000 =
+0000000022bde198=20
+[12689.799640] GPR12: 00007fffba290590 00007fffa2fe68e0 0000000000000000 =
+00007fffa2fdf1e0=20
+[12689.799640] GPR16: 0000000000000000 00007fffa2fdf8e0 0000000000000720 =
+0000000000000000=20
+[12689.799640] GPR20: 0000000000000000 00007fffba580000 000000000080e9e0 =
+00007fffa27d0000=20
+[12689.799640] GPR24: 0000000000000001 00007ffff129f3a0 0000000000000000 =
+00007fffa2fde8f8=20
+[12689.799640] GPR28: 000000000000000a 0000000000000000 00000000100201bc =
+000000000011af5c=20
+[12689.799703] NIP [0000000010001e8c] 0x10001e8c
+[12689.799707] LR [0000000010001e74] 0x10001e74
+[12689.799711] ---- interrupt: 700
+[12689.799714] Code: 7c8903a6 7ca103a6 f8010020 e8410040 e8610048 =
+e8810050 e8a10058 40c6001c 7ccff120 e8c10060 e8010030 e8210038 =
+<4c000024> 48000000 7ccff120 f92d0080=20
+[12689.799736] ---[ end trace 0000000000000000 ]---
+
+Regards,
+Venkat.
+> Regards,
+>=20
+> Venkat.
+>=20
+>>=20
+>> Below are the details of the crash as reported by CI.
+>>=20
+>> Crash Details:
+>>=20
+>> [ 9798.880148] Unexpected TM Bad Thing exception at c00000000000dbac
+>>               (msr 0x8000000302a03031) tm_scratch=3D800000010280b033
+>> [ 9798.880160] Oops: Unrecoverable exception, sig: 6 [#1]
+>> [ 9798.880165] LE PAGE_SIZE=3D64K MMU=3DHash SMP NR_CPUS=3D8192 NUMA =
+pSeries
+>> [ 9798.880173] Modules linked in: nvram(E) rpadlpar_io(E) rpaphp(E) =
+...
+>> [ 9798.880233] CPU: 8 UID: 0 PID: 1039530 Comm: sigfuz
+>>               Tainted: G            E       7.1.0-rc1 #1 PREEMPT
+>> [ 9798.880245] Hardware name: IBM,8375-42A POWER9 (architected)
+>>               hv:phyp pSeries
+>> [ 9798.880251] NIP:  c00000000000dbac LR: 0000000010001e58
+>> [ 9798.880262] MSR:  8000000302a03031 =
+<SF,VEC,VSX,FP,ME,IR,DR,LE,TM[SE]>
+>>=20
+>>=20
+>> Call Trace:
+>>=20
+>>=20
+>> NIP [c00000000000dbac] interrupt_return_srr_kernel+0x15c/0x18c
+>> Call Trace:
+>> tm_reclaim_thread
+>> flush_tmregs_to_thread
+>> vsr_get
+>> regset_get_alloc
+>> fill_thread_core_info.isra.0
+>> fill_note_info
+>> elf_core_dump
+>> coredump_write
+>> do_coredump
+>> vfs_coredump
+>> get_signal
+>> do_signal
+>> do_notify_resume
+>> interrupt_exit_user_prepare_main
+>> interrupt_exit_user_prepare
+>> interrupt_return_srr_user
+>>=20
+>>=20
+>> Please let me know if further details are required.
+>>=20
+>>=20
+>> If you happen to fix this issue, please add below tag.
+>>=20
+>> Reported-by: Venkat Rao Bagalkote <venkat88@linux.ibm.com>
+>>=20
+>>=20
+>>=20
+>> Regards,
+>>=20
+>> Venkat.
+>>=20
+>>=20
+
