@@ -1,203 +1,138 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9C6F3D967A
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 12:49:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E0CD470126
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 12:49:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788958145; cv=none; b=PHLjbTRpuOR0ZPEXPnbQsGopPUvYYHw5k0X7xxLmvAYw/mox6dzYuCKBSegMhDfQqQGllMcG+dh0r3z/AddfkGjJb1PWBWu+bGfhG3lalLDpI5TftX9DszW0DQteCpZBu//chmRfZubfkkb7l06c+PwZ/rpvIcIobFYqvEi3fpo=
+	t=1788958147; cv=none; b=Q4rELiVIcVYLPNZKRmq64ZV9DpowtqpTz8fg5ZNhwnLR7ZcjMdSNEYgHokuYQEj7haeNAX4PR8HlRQm4Ky7BujQOTAl9Q4N5QQTVjEgWkPFHMQg3fseGfrgKdoxGuNyy+3358k9RIApphuiyJHMirzvPL+7/EsdhfIQnUGPTzf0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788958145; c=relaxed/simple;
-	bh=mzbcbjNcDnG7b1cMtDPYgMYpmGnleVU0pOD4fqhwAGE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=TG3r4c/J9BPnRuHdhMaNRtS9Qasgf5JaJ7VguBhZXXfowTyrXKMtQF2PX8iBBW6cTPLKyGGlfozIu1lr3yOmcV6Nmwz2XkGimvH/xr6eOFsy0doZMiZ7B20MUUeVb9xYcpCiaYwg5oD9LgUI2y7F7y5KGTnqs1VavJND1QKZeU4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ihpsg7zT; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788958147; c=relaxed/simple;
+	bh=hN5YqIuRrbX9JeIHbZFR38P+bgEjxMdH+mpTAANDP9Y=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=WmuEwKCih8pSaGBl2HZRBx396dDEKAEMXgl0iu3GSPm26dU2HmA+7I+mWmOJOFbXOWrmXXewwh38S/CId7QiGOcobUi+iXGEShpUt+Nomcn8PFQ8vU2tCUmcNGktolxkDfD1mC3DGhdRfbaOXutA2BGcwlnrySeBfAZTz40HwjU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LrdC8CoM; arc=none smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ihpsg7zT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4AA2C1F00A3A;
-	Wed,  9 Sep 2026 12:48:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788958143;
-	bh=UeqpL36l3dlEIn9tPEeks2LG3oiHF6m9Q3Dm+vsjlY0=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=ihpsg7zTtPBvi4+Os8u/1ED3tUrdC9elm20t4ZSzvBE9Bkx4e6b7G1ij7jXXses4N
-	 2P5PWnIJ7hACkVVCEhrCtdfGv1nIq8YAOhgwcd+wgfkpib0lD1YcLByZ7rgA5qOppM
-	 70MsqMVlNj4SfK5N/oZQ0WexzasmdicY9pWcO5mU31Q5E6d7+WH/OMoMbKv56uhqfr
-	 oShcWJy2lXM7w/ywj0JU41Hr8OoM4FxpTgq7iiZEWvb4eNwcvsUgLkBwQ27HL/INuX
-	 2YSSUzuIbpCilwu21fzlQsl/3MYNNg7Lzv0aymQKMIqSljSl+P2XyhINnen+7hbBrJ
-	 TYkY3cgk4OjIg==
-Message-ID: <83a8743b-9cbb-42a5-9ff5-718297916a76@kernel.org>
-Date: Wed, 9 Sep 2026 14:48:54 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LrdC8CoM"
+Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2db22383fe8so1548345ad.2
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 05:49:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788958145; x=1789562945; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=KGx4vLZZaltL+dPFi+7Q7o/I6lu7iduAD/4ZglDevmE=;
+        b=LrdC8CoMLsopAHoHE1L8k24Ga6u437GaG/VGCV5grvG20frR83PdjoSOPLwt2r0Anp
+         JvpwqpSDapbkrLoH2zLvmv5l3iyYKWjoPIkNzDEwJWnzIJ2iOJEMy9+m5Hhj7yZlsY9R
+         EBnHI5vplQNQB+fBnVSfZIwrHT1LR+6D3rTMcm9UPn9P0MKv/R2J2U6fYXXtrftH0r1d
+         tItr0PfgXVh8toj2IGW3Qg1TfaaQaiM8iS3dNXBAZTb/gh/25JwKBdzaIS97l6vp71Zu
+         FRxIvOgw8GzbPzOrzpG0bo9IBXTdnmMQcufqcmNy0lOI/7ZxUyyd25s0QU/VJuKoB8ZE
+         kn+w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788958145; x=1789562945;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=KGx4vLZZaltL+dPFi+7Q7o/I6lu7iduAD/4ZglDevmE=;
+        b=lNSP+rh0meUP8c7Nm/UjLXNNAw9WpEEfn2Kw3bSzdVctMOq3ZVR41ppSTCSn7z/ksH
+         iVMWxwjig8x4NB5bRri0KvkR0NRSLFOZ2nin9yBtZuhw4XDUeXK4mD3ehaUOtPQM18or
+         V0kuQtuT66DXPdV+Qc+2ikLe8EAVKeUIC7o5HAGqGuW/USIh7lND0V1WX82gAmOMlvSe
+         l0urJqvleK70xyi8fMKxkN/Bl5k/fJxqs6GcuVNu6pFshU72kc8S6QV9qISmS2o0j/KF
+         l/8w0zKoA0vhAWYTtPFuX95HssCvT1Oo7Z3TADeq8xsl2AS7oTJS4LF2bcHItEhD5frd
+         BcCQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxxCpo63JsTcimS2UyW2ZfSp+jWWuxx5VEPwVNigncJ7BWyMFEKf5nMOvaK5r9vpp4dMdvYAnz6FtdpAsk=@vger.kernel.org
+X-Gm-Message-State: AFuF++kA1M1iVf3CHUKtKSKv9+GfXCGGIIBN3mmUq1wQBCkT607ahEOi
+	p5Aov7zipoBcOnUMkXENyOgklXwWiw0IQiEVUcTpDDiUJPqjHWISiVjl
+X-Gm-Gg: AYBFou3DL6n9Uv36wYepM/gJQNjttnBzT4HVivFfeWN43A4ytqZMjAlj95ntaS9eGpC
+	YDzhChG726NpndOIaJjP1WyM7cDbmFSC+xnWlG1+W42avklJpFSHnYhKFPrJLDZTyX6JtCHAM+M
+	A5Rk+wKmSh+GvW2v9ez9nFH55RL11DDBatqoc2QjGIe0zc4+nyZcmErgFZzd9DP7zTQuiaBmZnf
+	JwcZvk2jKcbji0/f4JJ7n1+uKCQ44liHpvcj3k2XDJ2Isx9MBAr1KhkNwukpJgckxtS9c5Kf42c
+	GIoKUSt+sT6V6NLSQcEyXEDDVpXqW5iV8EkTgey10lxVMGcb1FQFIC+Au3MVxzBHgPHgZxfUb1L
+	NapUgNLsYXfvgJqaQkbDfNk9PHl11Gx1zEXv/aQ+o2sc8oPKZaxc/gSpJBbVAwe7hgaXSwiF31G
+	7KNoJtDlsHgIaGR06W2xuB1t9CfHUANgK4J8ozmJBQng1Lul7M1qRTWWoQ2MgKpAWvlSag5TBS9
+	g==
+X-Received: by 2002:a17:903:350c:b0:2d8:d4d3:da4d with SMTP id d9443c01a7336-2dd07ccc33bmr14553335ad.17.1788958144625;
+        Wed, 09 Sep 2026 05:49:04 -0700 (PDT)
+Received: from adriano.lan ([2803:9810:3d22:1608:e46d:9e65:1b2a:35eb])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339885ca07sm50266670eec.1.2026.09.09.05.49.02
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 09 Sep 2026 05:49:04 -0700 (PDT)
+From: Adriano Cordova <adrianox@gmail.com>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: Hans Verkuil <hverkuil+cisco@kernel.org>,
+	Pierrick Hascoet <pierrick.hascoet@abilis.com>,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Adriano Cordova <adrianox@gmail.com>,
+	syzbot+2a3de29133b40e8f69f3@syzkaller.appspotmail.com,
+	stable@vger.kernel.org
+Subject: [PATCH v2] media: as102: initialize mutexes before registering frontend
+Date: Wed,  9 Sep 2026 09:48:58 -0300
+Message-ID: <20260909124858.213790-1-adrianox@gmail.com>
+X-Mailer: git-send-email 2.51.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 06/14] f2fs: stop using PG_private
-To: Tal Zussman <tz2294@columbia.edu>
-Cc: Zi Yan <ziy@nvidia.com>, "Matthew Wilcox (Oracle)" <willy@infradead.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- Muchun Song <muchun.song@linux.dev>, Lorenzo Stoakes <ljs@kernel.org>,
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>, Baolin Wang <baolin.wang@linux.alibaba.com>,
- Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
- Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
- Gregory Price <gourry@gourry.net>, Ying Huang
- <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>,
- Johannes Weiner <hannes@cmpxchg.org>, Qi Zheng <qi.zheng@linux.dev>,
- Shakeel Butt <shakeel.butt@linux.dev>, Kairui Song <kasong@tencent.com>,
- linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- Jaegeuk Kim <jaegeuk@kernel.org>, Chao Yu <chao@kernel.org>,
- linux-f2fs-devel@lists.sourceforge.net
-References: <20260907-remove-pg_private-v3-0-6ae22f9d9272@nvidia.com>
- <20260907-remove-pg_private-v3-6-6ae22f9d9272@nvidia.com>
- <e5792e81-e8a5-42e1-aafe-58dc603f4968@kernel.org>
- <178889163877.1334491.3646957026033534678.b4-reply@b4>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <178889163877.1334491.3646957026033534678.b4-reply@b4>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 9/8/26 20:20, Tal Zussman wrote:
-> On 2026-09-08 17:47 +0200, David Hildenbrand (Arm) wrote:
->> On 9/8/26 04:56, Zi Yan wrote:
->>> f2fs sets its PAGE_PRIVATE_* flags in page->private and checking
->>> page->private != NULL is equivalent to checking PG_private. Change
->>> PagePrivate() to page_private(). Meanwhile, in set_page_private_##name(),
->>> page->private is first set to 0/NULL before an PAGE_PRIVATE_* flag is set,
->>> but it can cause confusion when PG_private is removed and
->>> page->private != NULL is used instead. Change it to initialize
->>> page->private to PAGE_PRIVATE_NOT_POINTER instead and retain the original
->>> semantics.
->>>
->>> It prepares for a future commit that removes PG_private.
->>>
->>> No functional change intended.
->>>
->>> Assisted-by: Claude:claude-opus-4-8
->>> Assisted-by: Codex:gpt-5
->>> To: Jaegeuk Kim <jaegeuk@kernel.org>
->>> To: Chao Yu <chao@kernel.org>
->>> Cc: linux-f2fs-devel@lists.sourceforge.net
->>> Cc: linux-kernel@vger.kernel.org
->>> Acked-by: Usama Arif <usama.arif@linux.dev>
->>> Acked-by: Chao Yu <chao@kernel.org>
->>> Signed-off-by: Zi Yan <ziy@nvidia.com>
->>> ---
->>>  fs/f2fs/f2fs.h | 8 ++++----
->>>  1 file changed, 4 insertions(+), 4 deletions(-)
->>>
->>> diff --git a/fs/f2fs/f2fs.h b/fs/f2fs/f2fs.h
->>> index 9940a6cecf1a2..2f7ab5888b078 100644
->>> --- a/fs/f2fs/f2fs.h
->>> +++ b/fs/f2fs/f2fs.h
->>> @@ -2691,7 +2691,7 @@ static inline bool folio_test_f2fs_##name(const struct folio *folio)	\
->>>  }									\
->>>  static inline bool page_private_##name(struct page *page) \
->>>  { \
->>> -	return PagePrivate(page) && \
->>> +	return page_private(page) && \
->>>  		test_bit(PAGE_PRIVATE_NOT_POINTER, &page_private(page)) && \
->>>  		test_bit(PAGE_PRIVATE_##flagname, &page_private(page)); \
->>>  }
->>> @@ -2710,9 +2710,9 @@ static inline void folio_set_f2fs_##name(struct folio *folio)		\
->>>  }									\
->>>  static inline void set_page_private_##name(struct page *page) \
->>>  { \
->>> -	if (!PagePrivate(page)) \
->>> -		attach_page_private(page, (void *)0); \
->>> -	set_bit(PAGE_PRIVATE_NOT_POINTER, &page_private(page)); \
->>> +	if (!page_private(page)) \
->>> +		attach_page_private(page, \
->>> +				(void *)BIT(PAGE_PRIVATE_NOT_POINTER)); \
->>>  	set_bit(PAGE_PRIVATE_##flagname, &page_private(page)); \
->>>  }
->>
->> Very weird interface. Why do we even need the page-based interface still?
->>
->> $ git grep -E "(set|clear)_page_private"
->> compress.c:             clear_page_private_gcing(cc->rpages[i]);
->> compress.c:                     set_page_private_gcing(cc->rpages[i]);
->> compress.c:             clear_page_private_gcing(cic->rpages[i]);
->> f2fs.h:static inline void set_page_private_##name(struct page *page) \
->> f2fs.h:static inline void clear_page_private_##name(struct page *page) \
->>
->> Seeing code like:
->>
->> clear_page_private_gcing(cc->rpages[i]);
->> if (folio_test_writeback(page_folio(cc->rpages[i])))
->> 	end_page_writeback(cc->rpages[i]);
->>
->> Makes me wonder whether we can just use the folio helper instead?
->>
->> In f2fs_iget(), we enable large folios only when !f2fs_compressed_file(inode).
->>
->> So naive me would assume that we can just get rid of the
->> set_page_private_/clear_page_private_ stuff entirely.
->>
-> 
-> I have a WIP series of ~30 patches converting much of the remaining page
-> users in f2fs (including the below) to folios. Still have to do some
-> testing and clean it up, but hoping to send it out in the next couple of
-> weeks (in the hopes of eliminating some more folio_compat.c functions by
-> next cycle...)
+The bus adapter mutex and the stream mutex are initialized after the
+frontend has been registered, but the frontend's stream control
+callback as102_stream_ctrl() takes the bus adapter mutex, which can be
+used before it is initialized:
 
-Indeed best to wait a bit before flooding -mm even more, it's rather a lot at
-this point.
+	INFO: trying to register non-static key.
+	...
+	as102_stream_ctrl+0x27/0xc0 drivers/media/usb/as102/as102_drv.c:259
+	dvb_frontend_open+0x7eb/0x1410 drivers/media/dvb-core/dvb_frontend.c:2825
 
-In the context of this series, it would be great if you could review whether the
-diff I proposed would get the job done, thanks!
+Initialize the mutexes before registering the adapter and frontend.
 
+Fixes: 41b44e041811 ("[media] staging: as102: Initial import from Abilis")
+Reported-by: syzbot+2a3de29133b40e8f69f3@syzkaller.appspotmail.com
+Tested-by: syzbot+2a3de29133b40e8f69f3@syzkaller.appspotmail.com
+Link: https://syzkaller.appspot.com/bug?extid=2a3de29133b40e8f69f3
+Cc: stable@vger.kernel.org
+Signed-off-by: Adriano Cordova <adrianox@gmail.com>
+---
+Changes since v1:
+	- Succesfully tested agains new repro. Added 'Tested-by' tag
+
+ drivers/media/usb/as102/as102_drv.c | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
+
+diff --git a/drivers/media/usb/as102/as102_drv.c b/drivers/media/usb/as102/as102_drv.c
+index 6b1d3528a0a7..a6dd675689f5 100644
+--- a/drivers/media/usb/as102/as102_drv.c
++++ b/drivers/media/usb/as102/as102_drv.c
+@@ -287,6 +287,12 @@ int as102_dvb_register(struct as102_dev_t *as102_dev)
+ 	struct device *dev = &as102_dev->bus_adap.usb_dev->dev;
+ 	int ret;
+ 
++	/* init bus mutex for token locking */
++	mutex_init(&as102_dev->bus_adap.lock);
++
++	/* init start / stop stream mutex */
++	mutex_init(&as102_dev->sem);
++
+ 	ret = dvb_register_adapter(&as102_dev->dvb_adap,
+ 			   as102_dev->name, THIS_MODULE,
+ 			   dev, adapter_nr);
+@@ -341,12 +347,6 @@ int as102_dvb_register(struct as102_dev_t *as102_dev)
+ 		goto efereg;
+ 	}
+ 
+-	/* init bus mutex for token locking */
+-	mutex_init(&as102_dev->bus_adap.lock);
+-
+-	/* init start / stop stream mutex */
+-	mutex_init(&as102_dev->sem);
+-
+ 	/*
+ 	 * try to load as102 firmware. If firmware upload failed, we'll be
+ 	 * able to upload it later.
 -- 
-Cheers,
+2.51.0
 
-David
