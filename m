@@ -1,144 +1,75 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from out162-62-57-137.mail.qq.com (out162-62-57-137.mail.qq.com [162.62.57.137])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2A12357D08
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 06:29:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A9B834041B
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 06:29:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.62.57.137
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788935361; cv=none; b=SJMopE1v02ej0M58YzVrn0sHwldBXQXCY1owKFcJeUY0a8Vx4PQ3mNVBrAlVle14wmY6sStvUfE8Opt7ibdJvFsZkyZa9XZto6qpjVO+8lKfwfYfCeSff81BY7W3Yx2vbfJH61ZwkSykJmoggPSWTirrAEp8+8dgEx97QgEZMpQ=
+	t=1788935377; cv=none; b=EKNKrhrH2IlxNhVJHEgELlQCEeeMshlWLrm507aQts2xPfGrIHUqEyuTBEBE3uX2w3+mKI9FlaT/Vn0YXdYha34Po8fX1DCCCV+sxhZQkt8s1UHD9ZIZszQu0MDOfjdz+QIqA+qtlK/79TUZ0+ddzX7wBNlkP2pNv/rQnlZ4tX4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788935361; c=relaxed/simple;
-	bh=GApF9KA7a7An3y3e0JIVJ0bz/r94i/L+WtuY8JrvS10=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Vt6SV1WYl/dvkyevY+Tx24fcX0oki6q5adqJsc7WmVZRbF+jSGV7D/dtBbug6zalyzCs1U9EFSjuCDxpNGm6cna7LnonZBuWGOinndd9rj/XOh8sO3LSh07BXoJJvb/2620ExEC2CfuQX5CS3uOUU5o7vSYAsjFZisIoYDeYFPs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=LNkndGI+; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=JjUCDJ6M; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1788935377; c=relaxed/simple;
+	bh=+pdap0uuKbgUosOmANRUk/9FWBKtG/h+1HwPpPjHqds=;
+	h=From:To:Cc:Subject:Mime-Version:Content-Type:Date:Message-ID:
+	 References:In-Reply-To; b=SFHrxjKO5x7l8OIq8n6fZ9YW4gZQ1DjkyyonMtJ4CNgSkXCLi4y2A0Ca4+CvU+XMSps7u/p8le0Ouz0sih0DIkwTASzl9quawoNuW4thg2X24Yer0Uqnu7OWyNgIF3KyBpG11ptBcW0Ea49hIUKrQUDsTMIijxYNsuySH/cXEGE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=dxH19Z0K; arc=none smtp.client-ip=162.62.57.137
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="LNkndGI+";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="JjUCDJ6M"
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6896BL4v1274463
-	for <linux-kernel@vger.kernel.org>; Wed, 9 Sep 2026 06:29:16 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=UuVzlSB31qLhxRy93vlak5xk
-	hcEfOZHHWWOiuFWT7KI=; b=LNkndGI+F2sVu3y5Jk29Y6qr8RzZHDbUDldUWiet
-	jDNwQBuB1w53SE5u7S6smxLJvGwsbmuQizXPBfXnrHsCJMLMzvmSs1Z8V5d+Ex2q
-	QYYjDQps+IxT4+nUEawE6bDduSv+xQrhJF5ccgaQ84bjKaz786cGcUOYA8y1YED8
-	InVhv7bYQnLFb4v36zcGVO9EOLrmPRUZ1z8XCGHuFrToVlGpcg4tpUnRhJA75NbV
-	G4Tpge1Axdb1PhY5KFtXcJYoUi6Zbgw1uVVAdnxYAOj9yB8+lQiDzlJ/5SN0oqou
-	8IOwNIEBYCNoYFRKYzTR2OlIEAiBOXaFQfyLtkEWEP+A6Q==
-Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com [209.85.215.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gjqdw2m8j-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 06:29:16 +0000 (GMT)
-Received: by mail-pg1-f197.google.com with SMTP id 41be03b00d2f7-cbe77d6864dso8044178a12.2
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 23:29:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788935356; x=1789540156; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=UuVzlSB31qLhxRy93vlak5xkhcEfOZHHWWOiuFWT7KI=;
-        b=JjUCDJ6MYGkhy1Z8JVs0iQooCFNn2aF1q0DperjyXqjqsAPVTMLcxjUeHu/JgoDNdT
-         anwYZyL2ihKPi8om9wqpCN/2pqwG3risJy5OkrjSFgL0VPp1wBhE/WSac99yu30iA+F1
-         qbmM+FwNu0xiHewN0ZurQnqHb6LLrjuMnkBgfb3zK/XG19XfT898FYrNy5fuvcqZPxAy
-         Z/OJ4PO4fOfW6yvDqn0dWXVZBjUW2bk2L5PDP0q5PdgqO7YPk07YmW+t0adhK79fQnR0
-         ZzCPkSkNkLhuR3ghdpvo17epyHCfDYeXr+WaRemahCgvjwQbtCE5P1e/QhFFDvQDEAlc
-         Cw5w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788935356; x=1789540156;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=UuVzlSB31qLhxRy93vlak5xkhcEfOZHHWWOiuFWT7KI=;
-        b=WXbzabyQ49nSoYdIvbhl7+fIch7wHsSRloKNIWpQPlz/nQu+jETwsL4xWjruC9MLKa
-         2jSlpyLLmPZCevQhpZaDLfM83tkJYcRrjQ8ikuJmNeCB7r1I0Fi8NC3qACxh1DLe/Gqs
-         bgG3XtzsWde1Zl6ePyfd3K8FS7pRHj3sd0pJ6waD0CkOXkkgTboc7B4BVksBAFK/w2pa
-         ZpPS8fQT22aqK4u6YiaBRU6lkOlym+unCcspTQ7OdaRp/cE6x8NV4Sr8i8+v4Lu/HGmp
-         i92cUyYqyM0Uia6uTUCl3zgCc8HbVj2e1c4rxw8uqWqpEACrqFoGrgnkRc2qgrMhdJk8
-         P13A==
-X-Forwarded-Encrypted: i=1; AKwUvBwp3CQhItH9zr0HZdypR3cyry8rsZi/wxk5D+ybn7KdD1Uywr0Ur/V2ycCpPzD+wKDjxRGdCaOx/WiGDXo=@vger.kernel.org
-X-Gm-Message-State: AFuF++kpS0jJ1QRhK6YAJMsIiUoxJ2bULqbkKkqbPzNr56TioKoTLFuj
-	bYh2tlYJ3I64VYE3W7+8lD8sjlBD4TQMDmzew0DZO5uKpMnGNVLaEDgA5oyaH1H9SsjX4lMxsXD
-	qoZwjGSMa/iYCNcxsvtlU2F/XMoKHRy53vMOvg9G+aNEukIiJLwDEDKipTOG4389Ay1o=
-X-Gm-Gg: AYBFou2/2IWc7HyOIgETt0kO2eC60ptcomHxB0I8b/Sftp1pGs+SZXvEps0GiMylo6I
-	ep3P4qgqL+2lPsDG0RElOCtrjsh6G25xknzM58ROr8kT4PkZpYFEUjWnJZ0kRx3Tbrp6EEGtJPl
-	FHYqsbBCp4DwDsdrvSZwru/sEn7FukdRmebhSZnzP4vUXeIcRFR1fgTV//Tcpd94vYmVUQia5v3
-	HDoMnLwoiveNM6k35MYmZJqSkbHCUm0R3CDVvdhSRZacP2NpUxQMOxV0W+RbA5+L5TfH1EhkbD6
-	KvSTBk1NkN2LxFJrjEKQa9JiLQpxNCxCA7yzgTGQ2Rl3xg0p+T12OZRHTabZeYw5o22IVJb5ZCu
-	i+B1bW7FJboC8dlWGagJXq3/LbJI=
-X-Received: by 2002:a05:6a20:9630:b0:3cc:ebeb:3efe with SMTP id adf61e73a8af0-3da39ee18ecmr51556885637.9.1788935355840;
-        Tue, 08 Sep 2026 23:29:15 -0700 (PDT)
-X-Received: by 2002:a05:6a20:9630:b0:3cc:ebeb:3efe with SMTP id adf61e73a8af0-3da39ee18ecmr51556828637.9.1788935355402;
-        Tue, 08 Sep 2026 23:29:15 -0700 (PDT)
-Received: from hu-mojha-hyd.qualcomm.com ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339a534df1sm47823081eec.7.2026.09.08.23.29.11
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 08 Sep 2026 23:29:14 -0700 (PDT)
-Date: Wed, 9 Sep 2026 11:59:07 +0530
-From: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Cc: Georgi Djakov <djakov@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org,
-        linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-arm-kernel@lists.infradead.org,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Subject: Re: [PATCH v2 0/3] interconnect: qcom: Some defconfig/defaults
- cleanups and improvements
-Message-ID: <20260909062907.f43ahkic5bnv6qja@hu-mojha-hyd.qualcomm.com>
-References: <20260515-interconnect-qcom-clean-arm64-v2-0-adeebc73596d@oss.qualcomm.com>
+	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="dxH19Z0K"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1788935363; bh=+pdap0uuKbgUosOmANRUk/9FWBKtG/h+1HwPpPjHqds=;
+	h=From:To:Cc:Subject:Date:References:In-Reply-To;
+	b=dxH19Z0KKkFbAQefwAc5DO9SgqdIykbdo9l9hAPvGKfm5cWEoHRkeeoRvxGSJst+R
+	 kx3tagDs2WCfahZFWAhsaan895UhMCbzpcmlLMaSUbo3iCzyiguSWSpbiaYRKKm3PR
+	 u0RuAah/FvbaPOdrTLUZC/XKEPAlrQUq0f0VSC5E=
+X-QQ-XMRINFO: Mp0Kj//9VHAxzExpfF+O8yhSrljjwrznVg==
+X-QQ-XMAILINFO: McF9JvsryK5Jcya3w+KH97a3P5xXcr7RMjBnG+rEcCCWzNC9IH3WVGp6sTNGXW
+	 s/qYu6oYEOp36cyxBBIxDQc+bGnh831VmBy64GLTwROHQ1eK6qL3eXQBC+MMSi0ZlRhzTJKtfwoJf
+	 pfXJ69iKHquhSEZN7+GRfwRlzofl43O1gVkMog5lCS/+wo8lCaWRlaiPvdvxp+etUaEqrt4cJgwCY
+	 u2Oz7YUquYH/RDzZXnQmV5OpI6K6JTCmQD65sEzo6eCSEyZ7BXvVa93mbNah3NL+l78iFP3Ez4dug
+	 rR0IAfnZup899cnaPpa9QI7abhA64I42x+1BpCPjYItF0y1qElaxJDxA22vAfzRMEWyWgaAcdEfXy
+	 Ixweue/j2ixELDnfS7hUzuF/LxOlSlILbxvR0WCL9bluYz5nljkhekJ1iT/vvsCHue07lIMAXur9P
+	 vruwu7RTojGVl0ijdq1IJ53njkUmIJcbxvO+a3QMf3mvUHt+O8urfoI3BFZDF8hOxlds5yF/uFXOX
+	 pPKA4/8YuBzO4m5D4Uj1YGQLHh5IY5RVmzDCazyI/4/F3NuR7qDD9mSUxOJwZ7/xZ6FANBAmhHvIW
+	 30KBcGAuDOxITm9Esu9kWrY0ZG9Bb85xHjHMPX91dtYI3CpMFFztt208Q6OhfsVOOt4KWxUREIUin
+	 6+TFJXtMwSToEOaffjA1hpzSdo7Hmzdry17m3+2KkN6gHqCLS1oOYCdL7JYW5GBfytXzhue4DIrz0
+	 SrslpLlOsLaexwSdcOn5HT2uzhcfBM3OS9sSZoF/R1famtRU+geZl+zFEbnDRRXOXh4ybioOowqP0
+	 Hr2LNNxXXHZynsFVj7rUgomH8zauJFo26MZ5U9HJsVc8JI+d3hHpNwvXi4BZ/d6c6l34ahmJ1IFoT
+	 MoHWaFAhpqRSW9cW3VJVDbaFPVxmWPIPXQSu4YQKQNSze4qNLKjXZpzUPXB0URGmZGxiuo3V7ggS3
+	 X2OKgW1WJ/BX5s66gDn36NkXntSn++n+f/QPa536gjAU+a/6OGQ3scTUlcCP6IfegGUrJCXg==
+From: "=?utf-8?B?Wm9uZ3poZW4gRmVuZw==?=" <1768315307@qq.com>
+To: "=?utf-8?B?TWlxdWVsIFJheW5hbA==?=" <miquel.raynal@bootlin.com>
+Cc: "=?utf-8?B?bGludXgtbXRk?=" <linux-mtd@lists.infradead.org>, "=?utf-8?B?bGludXgta2VybmVs?=" <linux-kernel@vger.kernel.org>, "=?utf-8?B?cmljaGFyZA==?=" <richard@nod.at>, "=?utf-8?B?dmlnbmVzaHI=?=" <vigneshr@ti.com>
+Subject: Re: [PATCH v3] mtd: spinand: cache the last read page to avoid redundant SPI operations
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260515-interconnect-qcom-clean-arm64-v2-0-adeebc73596d@oss.qualcomm.com>
-X-Proofpoint-ORIG-GUID: EagF28behjS4BT7b9V8ohweSKKvHVVXX
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA5MDA3MSBTYWx0ZWRfX/PxZ0yvEel0z
- BbV424jkh+eJdR3elwF+E8DBm2S00CBTci7Tw4nIdVdb7HsidvYHI8l/6csdtb8LFp4b6ygSEak
- X3hnOIyCOrsYTrOfbLnPbu3Z+RsTJuY=
-X-Proofpoint-GUID: EagF28behjS4BT7b9V8ohweSKKvHVVXX
-X-Authority-Analysis: v=2.4 cv=Bo2tB4X5 c=1 sm=1 tr=0 ts=6aa0fcbc cx=c_pps
- a=rz3CxIlbcmazkYymdCej/Q==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
- a=bC-a23v3AAAA:8 a=EUspDBNiAAAA:8 a=K9csx1bNu7bmPCVkKm4A:9 a=CjuIK1q_8ugA:10
- a=bFCP_H2QrGi7Okbo017w:22 a=FO4_E8m0qiDe52t0p3_H:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA5MDA3MSBTYWx0ZWRfX7Hg3zM6XaDyw
- TG1C0cyFMgDmRpN43EIaPW02AbIV6cXTKI1Cd3vTWskceLm8rgnyjeL5fERLKxmERqSsOi/LuXa
- pSMfqm5WsF80rx47p3dxBuW+83s1DkQzdbprqe6ve2kx+c8N/p9poHRIeHceE2flwm6yShAZVLk
- IAkFuzJShDMwrU5PBqhZeFlP6/ISXhcLnM5e5EURJ98O0CluuQk+oG8Jo74jJikXcBXjDJPUSeJ
- Zk9/F/s+TZnoPc2pibRDr1TFKirIkRKHF70tcFiZWUxPBXpHwV2X9fpXR+j0AyMo3iF1jxpSSej
- m4KzLi18f6e5htOMjrQgbjWHkQ2eXveth50RvWAnfTkTisjAUgWmtIR9jMavB09NXenXqe1JZRQ
- 9VXq5LnHYBmNZjSmZaGL0ttEWCaY3URdBW5ehTP0WfuHrNgCrgVv9uPnmKIUV0WQbqslNiFglfW
- MRtchz2G1nFKKuVR+bA==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-08_03,2026-09-08_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 suspectscore=0 bulkscore=0 impostorscore=0 adultscore=0
- malwarescore=0 spamscore=0 priorityscore=1501 lowpriorityscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609090071
+Mime-Version: 1.0
+Content-Type: text/plain;
+	charset="utf-8"
+Content-Transfer-Encoding: base64
+Date: Wed, 9 Sep 2026 14:29:21 +0800
+X-Priority: 3
+Message-ID: <tencent_ADBE12933F3EE6A4DFBD640C15CB67442305@qq.com>
+X-QQ-MIME: TCMime 1.0 by Tencent
+X-Mailer: QQMail 2.x
+X-QQ-Mailer: QQMail 2.x
+References: <tencent_4C47F17C98F6F164274CEE84638558D62308@qq.com>
+	<tencent_E818586423F2F16D98DEF1EC2723EE4A6308@qq.com>
+	<87o6e7u8jt.fsf@bootlin.com>
+In-Reply-To: <87o6e7u8jt.fsf@bootlin.com>
+X-QQ-mid: xmseua17-0t1788935361t91bksk78
 
-On Fri, May 15, 2026 at 02:11:05PM +0200, Krzysztof Kozlowski wrote:
-> Changes in v2:
-> - Patch #3: Switch to built-in for everything, with explanation in
->   commit msg.
-> - Tags
-> - Link to v1: https://patch.msgid.link/20260428-interconnect-qcom-clean-arm64-v1-0-e6bc3f7832db@oss.qualcomm.com
-> 
-> Similarly to clocks and pinctrl, interconnects should not be a user
-> visible choice.
+SGkgTWlxdWVsLAoKVGhhbmtzIGZvciB0aGUgZmVlZGJhY2suIEkgY2hlY2tlZCB0aGUgZW1h
+aWwgdGhyZWFkIGFuZCBwYXRjaHdvcmssIGJ1dApjb3VsZG4ndCBmaW5kIHRoZSBTYXNoaWtv
+IHJldmlldyBjb21tZW50cyBmb3IgdjMuIFRoZSB2MiBTYXNoaWtvCmNvbXBsYWludHMgYWJv
+dXQ6CgoxLiBDYWNoZSBub3QgaW52YWxpZGF0ZWQgd2hlbiBkYXRhYnVmIGlzIG92ZXJ3cml0
+dGVuIGJ5IG5vbi1jYWNoZWFibGUKICAgcmVhZHMgKFJBVywgY29udGludW91cywgT09CLW9u
+bHkpCjIuIFBhZ2VzIHdpdGggdW5jb3JyZWN0YWJsZSBFQ0MgZXJyb3JzIGJlaW5nIGNhY2hl
+ZAoKaGF2ZSBhbHJlYWR5IGJlZW4gYWRkcmVzc2VkIGluIHYzLgoKQ291bGQgeW91IHBsZWFz
+ZSBmb3J3YXJkIHRoZSByZW1haW5pbmcgU2FzaGlrbyBjb21wbGFpbnRzIG9yIHBvaW50IG1l
+CnRvIHdoZXJlIEkgY2FuIGZpbmQgdGhlbT8gSSdkIGxpa2UgdG8gYWRkcmVzcyB0aGVtIGJl
+Zm9yZSB5b3VyIGh1bWFuCnJldmlldy4KClRoYW5rcywKWm9uZ3poZW4=
 
-Is there a conclusion on this series? As I was depending on this series for
-Hawi interconnect config enablement.
-
--- 
--Mukesh Ojha
