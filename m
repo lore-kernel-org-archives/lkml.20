@@ -1,57 +1,72 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from flow-b6-smtp.messagingengine.com (flow-b6-smtp.messagingengine.com [202.12.124.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29E1C53FD5C
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 14:47:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FF715678DE;
+	Wed,  9 Sep 2026 14:48:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788965279; cv=none; b=OTW8ehaASuqpmsU/sbFudlyfLgu4HbpGIVKBse71jK8YMGU831xRgcA26tgRXsgelYkJIP6OocwO86lRqv/5bAMorWmvYOiWdFMi5eeRUPu1c0iJBz/ndbRRYWFV3yMVZ+MzqchgzUDbh7HAl5e65OfIcwbJQh0fLZP/BvcoQWI=
+	t=1788965297; cv=none; b=RMGo9DWvCLsp00USR+dE+dFy2b5Xj77efU/8oWpLId67lEP3Z0RkkIn71/Rvi+oVecrbbrfDJKBcGmfShDgE+/16c78O+UdbyXSI+XszNNvB23MSHv43llA+wTjIj2G9uiNCZOXeqGHkgrnQxqpKNNit1W4FPsDaQxZ/lTK7rXo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788965279; c=relaxed/simple;
-	bh=rN/Nn/FHT/BBJCC/zhF1JHzEHTGfpG0/9yuiaZTDQQ0=;
+	s=arc-20240116; t=1788965297; c=relaxed/simple;
+	bh=DANpDz5O88+3yz2h+TOOCaNSRoYS8C1lLHKO92u+I0A=;
 	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=SkriUV3UWlRn98C05E9eHfcVsYwtTUQSrTMr1585Et6tj+YiHZi1zYqWQG4wqWvxko+ijG+jWjaF0dICvGaAfSeRFCt4+suGuJbbw4xykTWS1Xhmdwaes3FPfkprnscnvwk66g8jeeqMFtnR60ck2NR7mbhc2fQxlwW9Q6mjZeE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=awhZr7Oj; arc=none smtp.client-ip=100.103.45.18
+	 Subject:Content-Type; b=W57J61snAqEqUH1v4fIiLCkBY7s76KBzMHT8tTaH9T0KwZ7WAR0dEk91aaih/R9tDAO5Ori0o9CSt3EGGbT+5ruSBN+93jcbokfyCzE9AlbUVcU21ra3rIhFRy1IW114gFEK+QSa6o2a9jGdVxmQAM5tRCtMXM02ScOhKgQ7u7w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de; spf=pass smtp.mailfrom=arndb.de; dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b=edOR2XRq; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=U9oCnZzC; arc=none smtp.client-ip=202.12.124.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="awhZr7Oj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5080B1F00A3D;
-	Wed,  9 Sep 2026 14:47:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788965277;
-	bh=305fiDZR5O30XyYnejmNt8DXKRI31wkY0vRofwAAD4Q=;
-	h=Date:From:To:Cc:In-Reply-To:References:Subject;
-	b=awhZr7OjJSAVgDPd7BzIYZff0FoY6KwXF3pqCD9z/mNoIJWbToG2L1lTJMTv8271f
-	 Dmr/UqYcm/LT/9XojJDSKQpi9/JgzVhqxSmocGc8yiLehPxRlKU71uEcSNrlOAdzkR
-	 r8yE2vrHmLWaaoK7XoMzgQuo+iylyfEt1bEXZc8rKhglvmxE99aVBA2S9iUmDKLpNi
-	 2GrF/po8+e5Y1PS29c+mxQQNIbk5+7G5wpYvR9VF/sbPZaKxH2ld7GJitNGI/uSJJm
-	 DdxBLs0MPW7ygDCru2iHi01gniGIRVXRyOIMzOcm652Vj/0gzVRMGy1N1LVB5A8v88
-	 fvvsILtTmb95w==
+	dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b="edOR2XRq";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="U9oCnZzC"
 Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailfauth.ams.internal (Postfix) with ESMTP id A4D75198003A;
-	Wed,  9 Sep 2026 10:47:54 -0400 (EDT)
-Received: from ams-imap-11 ([10.64.2.31])
-  by ams-compute-02.internal (MEProxy); Wed, 09 Sep 2026 10:47:54 -0400
-X-ME-Sender: <xms:lXGhalsJpXFCBjo_K3bvHiiBuzsJiOJeG96f1ivVJUtfw3ic8tAuqA>
-    <xme:lXGhapSRHw_5ZqAHSvUhZJODY4NNznJyd-ClKtHphmi3uzVQ5g22quM3OXEH62ZOQ
-    AtmIeQVMfPWMqpnJ5oASUy1xfuD2IayapsdLOJrcKenZyVkvisU91OS>
-X-ME-Proxy-Cause: dmFkZTE6jmqC424uS50ngBXddaPLMfJzFShd+1mTL0Ixo+2iSVYras5InCqXE6NTcXbwJj
-    blle7PySdPpumsjtyWm7gKb+QFtda9yypgBSD/tGgHWlaQzIaeqPqHd+JXpc+hHQ7cNnwp
-    bx/EVJvlyTofZ/JA8PThZhe594JSfmn+cmcpXl9DSqaoShAAWLC7MFAwSI/Knogapul3g5
-    /GpcynIMWR7hq+SLxVUK7ASoGqyAh7edjCF0RO34X2CrBuOmnHnAki9dV6WSXefxAOETRL
-    Y8S58oOxIqzGZi7jKElLzjU9t9opg1Dpo8i8+I3BPclrRAeyP9iDr2SDYeKKmpYeckwzFA
-    VuGG0qxaUE3VzLBKTxJ7QRsOtrnpJ7uoKpMGSGQP+lrWf5swrzuIMO15r8hWWSGi+Jq8AW
-    VlQbk9QotDYCbFZkJb2X9MtFJ59KADeOlXu05UJZVjwaxHPosLKGjtE9XCPICGlkCPNlZn
-    Xk7Twd21fa9s4I4jrGJ8lox7ZtGwI0CVuilgbD4HM9QyCOr3+fGlE2prt4hv9Ir0ga46UG
-    GyJWCJZtIZ1NVdunaJcz//hPli6MyXJQihxpszckpaX2jT2tyd33qv2gToQ/l8FEn8R2oj
-    BQyKzngPCRzo/Jwyf4v9KPdujqT7Xgsi05wMzp/XXAkbq34p7yxD6jLJsHRQ
-X-ME-Proxy: <xmx:mnGham6Acb4iT1vA9qm3Lr1t9oU8OIUGoheuL9VEG-DiTldY1xj-8g>
-    <xmx:mnGham2EsdJWyC2SA5GUYRnyfpV1ifoldQMroELi1I1DvNyAWROEXA>
-    <xmx:mnGhar77y1ix8YaN9_NS8HZiCq8iec08hm6soV_k0sIRr-bnd_U0Jw>
-    <xmx:mnGhahrtoSs6QcVfrl1Xz9fNDcOgGZ8pPKcg4brx7CnunmDkZjKbXg>
-    <xmx:mnGharV_tFyeApxnmSPSCH6YG4Pam3hCsuzLELRJML0H6O-x9MSms6l9>
-Feedback-ID: ice86485a:Fastmail
+	by mailflow.stl.internal (Postfix) with ESMTP id ECD971300FD5;
+	Wed,  9 Sep 2026 10:48:09 -0400 (EDT)
+Received: from ams-imap-03 ([10.64.2.23])
+  by ams-compute-02.internal (MEProxy); Wed, 09 Sep 2026 10:48:14 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm3; t=1788965289;
+	 x=1788972489; bh=7Sf1OydxtJEVq81Rg4jscjKjaiC0B3auBQbEfBVyOBM=; b=
+	edOR2XRqt7+DfOXGudRSD6BrdL1bF5sqrn9v6EqdKgeA+/erWMgnAY42ODb+7mYO
+	vj32XTPHue5DJEyR1N28xHgCZz2al3ec0dTRgSi3sLCQDxXGe2iCq04aMBPDa3vs
+	FRc9njMaUqboKD+lh+FLEVNGEUUwUbDUmSxyTDF++nGLA6zUAIFCUhP5+FtH6E8y
+	mTQx2XHjQn+CvQWdHYW9gDF8hOt1exL51bxu3FWdWfB/M8TljmNcIY6SDPVJ95kz
+	m7qgsWILtPM7JQ60jQ6cbXC99tHUqpKMVwGW85GP8b83r76neE2Hwp0Yc8NByVsP
+	qHsZovzIFQxV0KQMh5H+vw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1788965289; x=
+	1788972489; bh=7Sf1OydxtJEVq81Rg4jscjKjaiC0B3auBQbEfBVyOBM=; b=U
+	9oCnZzCRAlpf8z0iDO4Ik36vULuiCRqOlzVIoLsbMb23ctt1HzOoQCg5oEfW7xER
+	KlRpgGsXuJ2/DBkTPwg7CKYo5sd3kyMzRsMYdgDTiK1IhZUNby5zt61BS0RVeI7L
+	ghfFn2TzAKE4UW2slNiU4mrEbMpbqRx0pL/BKh7jMKIacYFNRdoxIbQyhqykZwJi
+	CXNHr9V5jX3sMBKOBL/p0/3PqexLxdTt8mE3/xCzgZySEAXzNpC0EJ2NiyNKvWP7
+	WlT08Rbbinuf3m40vqj+Gm66+pzLzi4UzIs3B/ZPbRWXhQwmex/BNheYgdKgeQZS
+	xTlV7BeIZmtMDyWWIdJ3A==
+X-ME-Sender: <xms:oXGhagtFCVjMuSrNINj070xWbgle3zQCA6S6ZA7B0U5neaTPPvxWWg>
+    <xme:oXGhaoQbrdvXGJ6KHHH8Up4t1QabZ5lHMGI4ZS62N2jsLjDBJy47wB8OqcsIWcSi7
+    H0mlJCCatwQh_BP0ekrd7MN-vavOmW_ewRGMKW6tvTZOEv5bMDOZkXa>
+X-ME-Proxy-Cause: dmFkZTGRw7pJGNg9x4eyP9g2Oo1DXn7SBZCTc/fBE1J6f2Fvw8mIQviGvrfvBUF8Yz5cPc
+    sTJxVd20sVrcxL8FNQouu2b/qPCmDWn8NEAsnm2qXZNER3jeufoYAEcSYO1RMcO4b6r2Tu
+    zIN5rrzJeBXMlqg0gKgHNK4Po9NVJss2gjzWWwIbXYVZJW50LS3dJQkcxeJmqKm1MimBur
+    AFRfPPaNDoXwXf9HpNWtsVgaop38c5pY5A5SlYGzjelRb1rayeBd+80ZTdArTJsnnJBVt6
+    vfobAC6whIpyzO6D4Nj1gOXQFJD4y17okJ7Sa8hF7qAHpCVPWcHe/ueCHIcvje4CQJY/By
+    CMrtaSpqZNb2Fd4fbxt5mAze5P8YGyK1gZX0xN+SZNVwIPYgnxRyu26wRrW5qrJl5u90KV
+    B+KQOVgLC2bOlZgo2LvoKitv1tUnTuicSoyr5CxXbid1wctIC7ksAx/pNU6lvZULcTJVMu
+    TS4GELfWLTmFaqJS0Aw7oz3Sl5+boc4+AjOdYazYXvtZivi3ZATckKc9BHy363OMxaTXEU
+    b3Nu/Eky1cc1APwl+QlpPGSbmXyKNXg8xEtrMoT2/+e9vKjzEedKGnSZhcP+Eytd0wXsJc
+    AZgU7GHpFzELLx2O8crKw/TWK0N0qZjtrTAxsCYDC3pBtJwaF2fPdBrI1q+g
+X-ME-Proxy: <xmx:pnGhas5P8OR8G51w3IBhc_Zadvo1JjINWXdn8rSnknEOYeQmiwm8Dg>
+    <xmx:pnGhak1eOby6alFdvbuvlxs1Hk7aNl4reJxLnQ3z0VUZpsoGcthJfQ>
+    <xmx:pnGhaglx6SV68g1Luwe1v0x64snP-mzbZy-_PFfqwqAgLXqjK32Qkg>
+    <xmx:pnGhaljFV5c4XssIDTc-MH84xjzfvx0bM2cONTuzuy0wF-yajOlFrA>
+    <xmx:qXGhamkfWdroY54p64G_GajNGnPGFNQP8IgzpU369_Lv6URwwOyIorSC>
+Feedback-ID: i56a14606:Fastmail
 Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id A5932F8007D; Wed,  9 Sep 2026 10:47:49 -0400 (EDT)
+	id DE08632A007E; Wed,  9 Sep 2026 10:48:01 -0400 (EDT)
 X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -59,255 +74,85 @@ List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Wed, 09 Sep 2026 16:47:27 +0200
-From: "Ard Biesheuvel" <ardb@kernel.org>
-To: "Breno Leitao" <leitao@debian.org>,
- "Ilias Apalodimas" <ilias.apalodimas@linaro.org>,
- "Miaohe Lin" <linmiaohe@huawei.com>,
- "Naoya Horiguchi" <nao.horiguchi@gmail.com>,
- "Andrew Morton" <akpm@linux-foundation.org>,
- "Kiryl Shutsemau (Meta)" <kas@kernel.org>, kexec@lists.infradead.org,
- "David Hildenbrand" <david@kernel.org>, "Lorenzo Stoakes" <ljs@kernel.org>,
- "Liam R. Howlett" <liam@infradead.org>,
- "Vlastimil Babka" <vbabka@kernel.org>, "Mike Rapoport" <rppt@kernel.org>,
- "Suren Baghdasaryan" <surenb@google.com>, "Michal Hocko" <mhocko@suse.com>,
- "Thomas Gleixner" <tglx@kernel.org>, "Ingo Molnar" <mingo@redhat.com>,
- "Borislav Petkov" <bp@alien8.de>,
- "Dave Hansen" <dave.hansen@linux.intel.com>, x86@kernel.org,
- "H . Peter Anvin" <hpa@zytor.com>,
- "Brendan Jackman" <brendan.jackman@linux.dev>,
- "Johannes Weiner" <hannes@cmpxchg.org>, "Zi Yan" <ziy@nvidia.com>
-Cc: linux-efi@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-mm@kvack.org, rmikey@meta.com, riel@surriel.com, harry@kernel.org,
- kernel-team@meta.com
-Message-Id: <2c9a7bef-3189-4f78-a6cb-61d2f7afd643@app.fastmail.com>
-In-Reply-To: <20260909-hwpoison-kho-v4-2-359313564495@debian.org>
-References: <20260909-hwpoison-kho-v4-0-359313564495@debian.org>
- <20260909-hwpoison-kho-v4-2-359313564495@debian.org>
-Subject: Re: [PATCH v4 2/5] mm/memory-failure: libstub: install the poisoned-memory EFI
- table
+X-ThreadId: APaZlxbVBos-
+Date: Wed, 09 Sep 2026 16:47:41 +0200
+From: "Arnd Bergmann" <arnd@arndb.de>
+To: "Johan Hovold" <johan@kernel.org>, "Arnd Bergmann" <arnd@kernel.org>
+Cc: "Lee Jones" <lee@kernel.org>, mfd@lists.linux.dev,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ "Daniel Thompson" <danielt@kernel.org>,
+ "Jingoo Han" <jingoohan1@gmail.com>,
+ "Mauro Carvalho Chehab" <mchehab@kernel.org>,
+ "Liam Girdwood" <lgirdwood@gmail.com>, "Mark Brown" <broonie@kernel.org>,
+ "Rob Herring" <robh@kernel.org>,
+ "Krzysztof Kozlowski" <krzk+dt@kernel.org>,
+ "Conor Dooley" <conor+dt@kernel.org>,
+ "Guenter Roeck" <linux@roeck-us.net>,
+ "Linus Walleij" <linusw@kernel.org>,
+ "Bartosz Golaszewski" <brgl@kernel.org>,
+ "Jonathan Cameron" <jic23@kernel.org>,
+ "Dmitry Torokhov" <dmitry.torokhov@gmail.com>,
+ "Pavel Machek" <pavel@kernel.org>,
+ "Michael Hennerich" <michael.hennerich@analog.com>,
+ "Support Opensource" <support.opensource@diasemi.com>,
+ "Sebastian Reichel" <sre@kernel.org>,
+ "Alexandre Belloni" <alexandre.belloni@bootlin.com>,
+ "Helge Deller" <deller@gmx.de>, dri-devel@lists.freedesktop.org,
+ linux-doc@vger.kernel.org, linux-media@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-hwmon@vger.kernel.org,
+ patches@opensource.cirrus.com, linux-watchdog@vger.kernel.org,
+ "open list:GPIO SUBSYSTEM" <linux-gpio@vger.kernel.org>,
+ linux-iio@vger.kernel.org, linux-input@vger.kernel.org,
+ linux-leds@vger.kernel.org, linux-pm@vger.kernel.org,
+ linux-rtc@vger.kernel.org, linux-fbdev@vger.kernel.org,
+ linux-sound@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
+ llvm@lists.linux.dev
+Message-Id: <ac367ab8-e57e-4d2f-b1cf-abda8eb6e530@app.fastmail.com>
+In-Reply-To: <aqFi1qGC2QMzMAq9@hovoldconsulting.com>
+References: <20260909132153.1596191-1-arnd@kernel.org>
+ <20260909132153.1596191-10-arnd@kernel.org>
+ <aqFi1qGC2QMzMAq9@hovoldconsulting.com>
+Subject: Re: [PATCH 09/14] mfd: remove unused lm3533 driver
 Content-Type: text/plain
 Content-Transfer-Encoding: 7bit
 
-Hello Breno,
+On Wed, Sep 9, 2026, at 15:44, Johan Hovold wrote:
+> On Wed, Sep 09, 2026 at 03:21:46PM +0200, Arnd Bergmann wrote:
+>> From: Arnd Bergmann <arnd@arndb.de>
+>> 
+>> This driver has apparently never had any users, as it does not support
+>> devicetree probing, and no lm3533_platform_data definition ever
+>> existed upstream.
+>
+> I don't believe we ever required board files to be upstreamed?
 
-Apologies for chiming in late.
+No, but there is a general requirement that code must be usable.
 
-On Wed, 9 Sep 2026, at 15:05, Breno Leitao wrote:
-> A EFI config table can only be installed while boot services are still
-> up, so the stub has to create it; the running kernel can only flip bits
-> in a table that already exists.
->
+With my series to drop almost all Arm board files, the use
+of platform_data becomes so obscure that it becomes reasonable
+to assume that any driver that requires platform_data and does
+not already have an upstream definition for it is fundamentally
+broken.
 
-This is true, but that also means a config table could have a 'next' field
-pointing to an allocation that was added later.
+The only platforms that still use board files now are:
 
-There is a EFI memreserve table based on this principle: this is a hack
-that we added for the arm64 GICv3 LPI table handling, which is a braindead
-piece of kit that must use the same physical allocation as the previous
-kernel. It is not currently enabled on x86.
+arm/omap1
+arm/s3c
+m68k/coldfire
+mips/alchemy
+mips/bcm63xx
+mips/rb532
+mips/txx9
+sh/sh77xx
 
-Please consider whether or not that is more suitable, and can be repurposed
-or shared. (Feel free to make changes to the current format if needed).
+All of these are now over 20 years old, so I don't expect anyone
+to add new board support or maintain boards for them except for
+what is already upstream.
 
-I don't have a strong preference either way, but I feel the 2M granularity
-may be a bit wasteful, no?
+> There's also on-going work to enable devicetree support for this one:
+>
+> 	https://lore.kernel.org/lkml/20260617080031.99156-1-clamor95@gmail.com/
 
-> Size the bitmap from the span the UEFI memory map describes, which
-> efi_get_ram_range() walks since the stub has no max_pfn. Bit 0 covers
-> the bottom of that span, recorded in phys_base, so a machine whose RAM
-> starts high does not pay for the hole below it. Memory the firmware
-> hot-adds later sits outside the span and is not carried across a kexec.
->
-> One table has to serve every architecture, and they do not agree on what
-> becomes RAM: x86 decides by descriptor type, arm64 by attribute. So
-> efi_get_ram_range() does not filter at all and spans every descriptor in
-> the map. Sizing wide only costs bitmap bytes; sizing narrow silently
-> drops the records for every frame outside the span.
->
-> At one bit per 2M that is 64K per TiB, and 256M at the 4PB x86
-> architectural maximum. The 2M granule is called "unit" here, and the
-> table carries it so the granule can change later without breaking the
-> kernels already reading it.
->
-> Allocate it as EFI_ACPI_RECLAIM_MEMORY so the next kernel does not take
-> it for free RAM, and install it empty.
->
-> A table installed by an earlier boot rides the system table across kexec
-> and is reused as-is.
->
-> x86 does not go through efi_stub_common(), so the generic stub and the
-> x86 stub each need the call; on x86 it has to come before exit_boot(),
-> which is the last point a configuration table can be installed.
->
-> Signed-off-by: Breno Leitao <leitao@debian.org>
-> ---
->  drivers/firmware/efi/libstub/efi-stub-helper.c | 100 +++++++++++++++++++++++++
->  drivers/firmware/efi/libstub/efi-stub.c        |   1 +
->  drivers/firmware/efi/libstub/efistub.h         |   6 ++
->  drivers/firmware/efi/libstub/x86-stub.c        |   2 +
->  4 files changed, 109 insertions(+)
->
-> diff --git a/drivers/firmware/efi/libstub/efi-stub-helper.c 
-> b/drivers/firmware/efi/libstub/efi-stub-helper.c
-> index 48f93f7758e9e..5cbe675491333 100644
-> --- a/drivers/firmware/efi/libstub/efi-stub-helper.c
-> +++ b/drivers/firmware/efi/libstub/efi-stub-helper.c
-> @@ -774,3 +774,103 @@ void efi_remap_image(unsigned long image_base, 
-> unsigned alloc_size,
->  			efi_warn("Failed to remap data region non-executable\n");
->  	}
->  }
-> +
-> +#ifdef CONFIG_EFI_POISONED_MEMORY
-> +/*
-> + * Find the base and top of the memory, so, we can create the bitmap 
-> for
-> + * the full range.
-> + */
-> +static efi_status_t efi_get_ram_range(u64 *base, u64 *top)
-> +{
-> +	struct efi_boot_memmap *map __free(efi_pool) = NULL;
-> +	u64 ram_base = ULLONG_MAX, ram_top = 0;
-> +	efi_status_t status;
-> +	int i, nr_desc;
-> +
-> +	status = efi_get_memory_map(&map, false);
-> +	if (status != EFI_SUCCESS)
-> +		return status;
-> +
-> +	nr_desc = map->map_size / map->desc_size;
-> +	for (i = 0; i < nr_desc; i++) {
-> +		efi_memory_desc_t *d;
-> +
-> +		d = efi_memdesc_ptr((unsigned long)map->map, map->desc_size, i);
-> +		ram_base = min(ram_base, d->phys_addr);
-> +		ram_top = max(ram_top,
-> +			      d->phys_addr + d->num_pages * EFI_PAGE_SIZE);
-> +	}
-> +	if (!ram_top || ram_base == ULLONG_MAX)
-> +		return EFI_NOT_FOUND;
-> +
-> +	*base = round_down(ram_base, EFI_POISON_UNIT_SIZE);
-> +	*top = round_up(ram_top, EFI_POISON_UNIT_SIZE);
-> +
-> +	return EFI_SUCCESS;
-> +}
-> +
-> +/* The size of the bitmap */
-> +static u64 efi_poison_bitmap_size(u64 span)
-> +{
-> +	u64 bytes = DIV_ROUND_UP(DIV_ROUND_UP(span, EFI_POISON_UNIT_SIZE),
-> +				 BITS_PER_BYTE);
-> +
-> +	return round_up(bytes, sizeof(unsigned long));
-> +}
-> +
-> +static struct linux_efi_poisoned_memory *efi_poison_alloc(u64 
-> phys_base,
-> +							  u64 bitmap_size)
-> +{
-> +	struct linux_efi_poisoned_memory *pm;
-> +	efi_status_t status;
-> +
-> +	status = efi_bs_call(allocate_pool, EFI_ACPI_RECLAIM_MEMORY,
-> +			     sizeof(*pm) + bitmap_size, (void **)&pm);
-> +	if (status != EFI_SUCCESS)
-> +		return NULL;
-> +
-> +	pm->version = 1;
-> +	pm->unit_size = EFI_POISON_UNIT_SIZE;
-> +	pm->phys_base = phys_base;
-> +	pm->size = bitmap_size;
-> +	memset(pm->bitmap, 0, bitmap_size);
-> +
-> +	return pm;
-> +}
-> +
-> +/* This needs to be done while boot service is still active */
-> +void install_poisoned_memory_table(void)
-> +{
-> +	efi_guid_t poisoned_memory_table_guid = 
-> LINUX_EFI_POISONED_MEMORY_TABLE_GUID;
-> +	struct linux_efi_poisoned_memory *pm;
-> +	u64 ram_base, ram_top, bitmap_size;
-> +	efi_status_t status;
-> +
-> +	/* A table installed by an earlier boot rides the system table across 
-> kexec. */
-> +	pm = get_efi_config_table(poisoned_memory_table_guid);
-> +	if (pm) {
-> +		if (pm->version != 1)
-> +			efi_err("Unknown version of poisoned-memory table\n");
-> +		return;
-> +	}
-> +
-> +	if (efi_get_ram_range(&ram_base, &ram_top) != EFI_SUCCESS) {
-> +		efi_err("Failed to size the poisoned-memory table!\n");
-> +		return;
-> +	}
-> +
-> +	bitmap_size = efi_poison_bitmap_size(ram_top - ram_base);
-> +	pm = efi_poison_alloc(ram_base, bitmap_size);
-> +	if (!pm) {
-> +		efi_err("Failed to allocate poisoned-memory table!\n");
-> +		return;
-> +	}
-> +
-> +	status = efi_bs_call(install_configuration_table,
-> +			     &poisoned_memory_table_guid, pm);
-> +	if (status != EFI_SUCCESS) {
-> +		efi_bs_call(free_pool, pm);
-> +		efi_err("Failed to install poisoned-memory config table!\n");
-> +	}
-> +}
-> +#endif
-> diff --git a/drivers/firmware/efi/libstub/efi-stub.c 
-> b/drivers/firmware/efi/libstub/efi-stub.c
-> index 235c9738da2d6..22a315e2814a1 100644
-> --- a/drivers/firmware/efi/libstub/efi-stub.c
-> +++ b/drivers/firmware/efi/libstub/efi-stub.c
-> @@ -179,6 +179,7 @@ efi_status_t efi_stub_common(efi_handle_t handle,
->  			 EFI_RT_SUPPORTED_SET_VIRTUAL_ADDRESS_MAP);
-> 
->  	install_memreserve_table();
-> +	install_poisoned_memory_table();
-> 
->  	status = efi_boot_kernel(handle, image, image_addr, cmdline_ptr);
-> 
-> diff --git a/drivers/firmware/efi/libstub/efistub.h 
-> b/drivers/firmware/efi/libstub/efistub.h
-> index fd91fc15ec810..44436869c4efe 100644
-> --- a/drivers/firmware/efi/libstub/efistub.h
-> +++ b/drivers/firmware/efi/libstub/efistub.h
-> @@ -1169,6 +1169,12 @@ efi_enable_reset_attack_mitigation(void) { }
-> 
->  void efi_retrieve_eventlog(void);
-> 
-> +#ifdef CONFIG_EFI_POISONED_MEMORY
-> +void install_poisoned_memory_table(void);
-> +#else
-> +static inline void install_poisoned_memory_table(void) { }
-> +#endif
-> +
->  struct sysfb_display_info *alloc_primary_display(void);
->  struct sysfb_display_info *__alloc_primary_display(void);
->  void free_primary_display(struct sysfb_display_info *dpy);
-> diff --git a/drivers/firmware/efi/libstub/x86-stub.c 
-> b/drivers/firmware/efi/libstub/x86-stub.c
-> index 0bae0f06b6763..3136132b9628a 100644
-> --- a/drivers/firmware/efi/libstub/x86-stub.c
-> +++ b/drivers/firmware/efi/libstub/x86-stub.c
-> @@ -1024,6 +1024,8 @@ void __noreturn efi_stub_entry(efi_handle_t 
-> handle,
-> 
->  	setup_unaccepted_memory();
-> 
-> +	install_poisoned_memory_table();
-> +
->  	status = exit_boot(boot_params, handle);
->  	if (status != EFI_SUCCESS) {
->  		efi_err("exit_boot() failed!\n");
->
-> -- 
-> 2.53.0-Meta
+Ok, I've dropped this patch, thanks for pointing this one out!
+
+      Arnd
