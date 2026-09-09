@@ -1,107 +1,129 @@
-Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E15B3B38BC;
-	Wed,  9 Sep 2026 21:46:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.92.199
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCDC23BFACC;
+	Wed,  9 Sep 2026 21:47:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788990414; cv=none; b=XWhDCqXpz/0q7tlvf7tVUEo1njuMrLRxAWrob9snTyzSALG7/PHvc1CRSX6M2J2CdAE6fq21snvoMpxTVef5hfIHhDQE49YTMxJljLi/ZPUJX+mUVzJcvkVzi4JT0em0rwDSA/ZFoafVkl4p/SNZHV5bf7SxUO9ASnI9mIlyQQA=
+	t=1788990434; cv=none; b=nkg7eJ6NsJymBdCl/FgQi2aYoxD7wTVb5khjLrnfKo108qS5lXiN9bsA/9bKnNAGmB+BmLIZWZcVnqCxXklyUGSvX7zKexsXpX5SLCMSuPUxYqPfJRtpZ4+cDajQKVjv8vLx4PmlxBRXRmU2xAgr2ex/aGJBFkbN2TFha+6OVDg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788990414; c=relaxed/simple;
-	bh=ZHl08cqEOBKSJmhhtJEkeOTc5gq+R7I+L0XkKJK3IUE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=MheYwmTWHWy2a60SdmsoBgOF5fceKXjHYtpbCSNfCtjtxZw3PO//AMPjFGjBCV60m75e9kYYx0BvG4zN4xLOzZSNcfVxUuNboznLDJBn7+MTcGsCJBp5d3iR7mk88idExFSThpbagmtVXR2mPzALcXi6XFD0vRIgDfqIBbjltHg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=Bfg77qhx; arc=none smtp.client-ip=90.155.92.199
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	s=arc-20240116; t=1788990434; c=relaxed/simple;
+	bh=PttVx/ZUCS3iUKjrDv7JX04JrZYSS5c4PkRppv3kF7k=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=Ee7ySi+jR+Q7iwRDJLQYLDscrf+mwN82eoS2qIcGuD3wRof3+arusb13Avukt67XKWp/WM8mYBLLLHbfARTslDsv41b++nznxgAYsxUctBe4Le/fnVJdP5c0oZjR8dS073TyYPfioe32Rvv5f6Rz/OC2nzL1W77BXCpxPzag4FQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CM1jE2ki; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="Bfg77qhx"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=f6WNUc7+ccLtCGhgxedehU0mIM9y5RDc0/iE/jkmqtI=; b=Bfg77qhxtGC5hNL12v7G11D26v
-	PcgN347bttFKmlJs3saw2LMy5Dm9HZ05mQKT4Vs6Ewcvz/Ja6XyCuqW7bnmza0oHiIiUquT49JFek
-	UNZgChWp72DD5/QTWqEPXZg4k5HYipU+4t6dPPCfT61eCUjWZFeXAz8nBGnuzKRKqxgV9bq8rKVnl
-	SYZnDvMQXYlvoeSqpnTB9MCP5IJX1mfyOWWn64+h0dEMVcs2OUCEUS2ozbF65MZw5fMy4NWQPCTds
-	VIBdAjzRtxCqZHgpDwoJARhg2Nwetd3qJ2h0mCP5IVnKGjlksK8muVBthSusdvJBPwpXSeWHmYSof
-	c3f14PAA==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by desiato.infradead.org with esmtpsa (Exim 4.99.2 #2 (Red Hat Linux))
-	id 1x4Q7m-00000001iSF-2woe;
-	Wed, 09 Sep 2026 21:46:34 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id 2D25F300A9A; Wed, 09 Sep 2026 23:46:33 +0200 (CEST)
-Date: Wed, 9 Sep 2026 23:46:33 +0200
-From: Peter Zijlstra <peterz@infradead.org>
-To: Steven Rostedt <rostedt@goodmis.org>
-Cc: Ye Liu <ye.liu@linux.dev>, Thomas Gleixner <tglx@kernel.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Ingo Molnar <mingo@redhat.com>, Will Deacon <will@kernel.org>,
-	Boqun Feng <boqun@kernel.org>,
-	"Paul E. McKenney" <paulmck@kernel.org>,
-	Frederic Weisbecker <frederic@kernel.org>,
-	Neeraj Upadhyay <neeraj.upadhyay@kernel.org>,
-	Joel Fernandes <joelagnelf@nvidia.com>,
-	Josh Triplett <josh@joshtriplett.org>,
-	Uladzislau Rezki <urezki@gmail.com>,
-	Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Josh Poimboeuf <jpoimboe@kernel.org>, Ye Liu <liuye@kylinos.cn>,
-	Michal Hocko <mhocko@suse.com>, mic@digikod.net, oleg@redhat.com,
-	david@kernel.org, linmiaohe@huawei.com, nao.horiguchi@gmail.com,
-	gnoack3000@gmail.com, ljs@kernel.org, sj@kernel.org,
-	rientjes@google.com, shakeel.butt@linux.dev, xu.xin16@zte.com.cn,
-	chengming.zhou@linux.dev, tony.luck@intel.com,
-	reinette.chatre@intel.com, x86@kernel.org, paul@paul-moore.com,
-	jmorris@namei.org, serge@hallyn.com, pavel@kernel.org,
-	lance.yang@linux.dev, pmladek@suse.com, longman@redhat.com,
-	mathieu.desnoyers@efficios.com, jiangshanlai@gmail.com,
-	qiang.zhang@linux.dev, dietmar.eggemann@arm.com, bsegall@google.com,
-	mgorman@suse.de, vschneid@redhat.com, kprateek.nayak@amd.com,
-	mark.rutland@arm.com, Dave.Martin@arm.com, james.morse@arm.com,
-	babu.moger@amd.com, linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org,
-	rcu@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org,
-	linux-security-module@vger.kernel.org
-Subject: Re: [PATCH v2 5/8] kernel: convert process/thread iterators to
- for_each_*_rculock
-Message-ID: <20260909214633.GN776954@noisy.programming.kicks-ass.net>
-References: <20260907081334.1152889-1-ye.liu@linux.dev>
- <20260907081334.1152889-6-ye.liu@linux.dev>
- <20260908074228.GW4120091@noisy.programming.kicks-ass.net>
- <20260909120911.39032d13@gandalf.local.home>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CM1jE2ki"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 389131F00893;
+	Wed,  9 Sep 2026 21:47:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788990423;
+	bh=uuFvVYJoHxWOPg4L2VXKOq9qm6k3RQC4qvQt29QFY6E=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=CM1jE2kirabr4C5dOeOZ2560aTwcLVhyPTUAHRsttFxvpRgkVWzRJ9Ekh/hNoxcvL
+	 UxgjS6Co3KYEAQMzM2d29g7h2SWKs9UZc9/r9jnE5R6gPI14ZrBut/+j4UiOKVlhfT
+	 2a37wMtyuEgP3ewBAOYQ3rNo6Jbz67ELGlwrBOIXTDilIInXMREvA/rv+8wLA0+tUV
+	 RV13YFofjVRsKQ00NMBDSMnQiY8EcuLoyo1gcQfxzhixL2cU4RXUy9J2fftU440S34
+	 ++fflDx0zFlF3qFA3DkY/R7voVNK9CG7XqyAUVpSEWS/uDUT6FSOmYWCFg023yUhZx
+	 WGZek9RmvVrNA==
+Subject:
+ Re: [PATCH net-next 1/9] dt-bindings: net: ti,dp83867: add supply properties
+From: netdev-bot+sashiko@kernel.org
+To: mohd.anwar@oss.qualcomm.com
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, afd@ti.com, andrew@lunn.ch, hkallweit1@gmail.com,
+ linux@armlinux.org.uk, richardcochran@gmail.com, andersson@kernel.org,
+ konradybcio@kernel.org, alexandre.torgue@foss.st.com, peppe.cavallaro@st.com,
+ joabreu@synopsys.com, maxime.chevallier@bootlin.com,
+ mcoquelin.stm32@gmail.com, netdev@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Date: Wed, 09 Sep 2026 21:47:01 +0000
+Message-ID: <178899042172.219967.3850665440981574441@kernel.org>
+In-Reply-To: <20260904-shikra_ethernet-v1-1-a50765996035@oss.qualcomm.com>
+References: <20260904-shikra_ethernet-v1-1-a50765996035@oss.qualcomm.com>
+X-sashiko-severity: Low
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260909120911.39032d13@gandalf.local.home>
 
-On Wed, Sep 09, 2026 at 12:09:11PM -0400, Steven Rostedt wrote:
-> On Tue, 8 Sep 2026 09:42:28 +0200
-> Peter Zijlstra <peterz@infradead.org> wrote:
-> 
-> > >  kernel/cpu.c             |  4 +---
-> > >  kernel/freezer.c         |  4 +---
-> > >  kernel/hung_task.c       | 11 ++++-------
-> > >  kernel/locking/lockdep.c |  4 +---
-> > >  kernel/rcu/update.c      |  4 +---
-> > >  kernel/sched/core.c      |  3 +--
-> > >  kernel/sched/debug.c     |  4 +---
-> > >  kernel/trace/fgraph.c    |  8 ++------
-> > >  kernel/unwind/deferred.c |  3 +--
-> > >  9 files changed, 13 insertions(+), 32 deletions(-)  
-> > 
-> > This is not something that can be applied.
-> 
-> I believe you mean to break it up into individual subsystems. kernel/ is
-> not its own subsystem, it contains many different ones.
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider:
 
-Just so.
+Critical: 0 · High: 0 · Medium: 0 · Low: 1
+
+- [Low] Concern (invalidated): the four newly documented supply
+  properties (vdda-2p5-supply, vdd-1p0-supply, vdda-1p8-supply, vddio-…
+
+--
+
+dt-bindings: net: ti,dp83867: add supply properties
+
+This documents four power supply properties for the DP83867 PHY
+(vdda-2p5-supply, vdd-1p0-supply, vdda-1p8-supply and vddio-supply),
+matching the two-supply and three-supply configurations described in the
+datasheet plus the separate VDDIO rail.
+
+> diff --git a/Documentation/devicetree/bindings/net/ti,dp83867.yaml b/Documentation/devicetree/bindings/net/ti,dp83867.yaml
+> index 4bc1f98fd9fe5..e78f08ded3d0d 100644
+> --- a/Documentation/devicetree/bindings/net/ti,dp83867.yaml
+> +++ b/Documentation/devicetree/bindings/net/ti,dp83867.yaml
+> @@ -118,6 +118,20 @@ properties:
+>        Transmitt FIFO depth- see dt-bindings/net/ti-dp83867.h for applicable
+>        values.
+>  
+> +  vdda-2p5-supply:
+> +    description: 2.5V analog supply (connected to the VDDA2P5 pins).
+> +
+> +  vdd-1p0-supply:
+> +    description: 1.0V digital core supply (connected to the VDD1P0 pins).
+> +
+> +  vdda-1p8-supply:
+> +    description: 1.8V analog supply (connected to the VDDA1P8 pins).
+> +
+> +  vddio-supply:
+> +    description: |
+> +      I/O supply (connected to the VDDIO pins). The supply can be 1.8V,
+> +      2.5V or 3.3V.
+> +
+
+[Severity: Low]
+One question came up while reviewing this in isolation: do these four
+property names have a consumer anywhere?
+
+Looking at the rest of the series, they do. The following patch,
+"net: phy: dp83867: add regulator supply management", adds
+dp83867_power_on() in drivers/net/phy/dp83867.c, which walks exactly
+these names:
+
+  static const char * const supply_names[] = {
+          "vdda-2p5", "vdd-1p0", "vdda-1p8", "vddio",
+  };
+  ...
+          ret = devm_regulator_get_enable_optional(dev, supply_names[i]);
+
+and dp83867_probe() calls it:
+
+          ret = dp83867_power_on(phydev);
+          if (ret)
+                  return ret;
+
+So the names match and devm_regulator_get_enable_optional() handles the
+disable/put on teardown. No change requested here; noting it only so the
+binding-only patch is not read as documenting unused properties.
+
+One remaining observation, and it belongs to the driver patch rather than
+this one: a rail such as VDDIO that gates the MDIO interface itself cannot
+be brought up from a PHY probe callback, since probe only runs after the
+PHY ID has already been read over MDIO. Is that ordering expected to be
+handled by the MDIO bus or board regulator-always-on instead?
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260904-shikra_ethernet-v1-0-a50765996035%40oss.qualcomm.com
