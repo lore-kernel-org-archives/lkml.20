@@ -1,125 +1,133 @@
-Received: from out28-121.mail.aliyun.com (out28-121.mail.aliyun.com [115.124.28.121])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 922AC34F483;
-	Wed,  9 Sep 2026 05:44:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.121
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7BAD37C903;
+	Wed,  9 Sep 2026 05:44:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788932656; cv=none; b=mBLmMMbt+U2KInT49VD9nHPYabvGpmS6wJy0f4SNX6cZa6LtMTszVWYXvEk/0ysNg/aGViH7J3pJUk/+qaH3NHadLbhXQF7pSOjadJ9pa0aBMLXdsPUFIC7h4JrfgYRAr/MERQ8chQDxfVGq62KEgNaaMQE1NeRPKeul5MmULIw=
+	t=1788932680; cv=none; b=QIL26X/ifzAf/L9HuG5vt9LPFlEPar+oEcXmUfiuwN1TQ9RN/mjVeK7f0DtTGMISV1rcxTHz8wcsTJ9frDPGVtDFrMQdeLB2JOaSqeSgyBQHq4y5gRbuyjor7JJAiUqIvZbrP88SNe/UzSbsb0OzxI9cvnA+VF5JWp7cWDTFb2I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788932656; c=relaxed/simple;
-	bh=ncL1TZaUvrafoNmevXZ2l6gNwmK0Gf7X0LneI3k+DaY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=KjHOd0WfunI26lCWXjfho6Sdt/l5ZnU5IX4FlcHOJ3feKNDQK9c7V1cXnqR415p2KkiNGeusXubc/KiUjdf6pM5natqWJvQJDpKkJ/8DufK1V0Mkc80mN8/caFLTp8VFPlaQUbeE57V4fjBa0T2qRR//wbQyXwpv5EdXR63zoGA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com; spf=pass smtp.mailfrom=xiaopeng.com; dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b=sUOy8V56; arc=none smtp.client-ip=115.124.28.121
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b="sUOy8V56"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=xiaopeng.com; s=default;
-	t=1788932643; h=From:To:Subject:Date:Message-ID:MIME-Version;
-	bh=clFMEoaK0/ropSvPOKmrmoJ/NX3PTGHrk1ZEqEfZ2Gw=;
-	b=sUOy8V56Hts7+VMLHZRqB5ibeq5aDMG9g4bwT5VUOaBhh+0Ife+pQpYrjTALIdeWFjxA9db+7/bYt1sOZWmcWu3cCsV7hceTvyfBmxeotXeQHOWmsC6G+BYqlGNdivqcV5tuzImwTl65EASjXUoar6a/+BLkFGNmBsOD1w4tgXE=
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.169033|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_alarm|0.00438728-0.000974205-0.994639;FP=11404490654595305044|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033023018039;MF=zhugl3@xiaopeng.com;NM=1;PH=DS;RN=14;RT=14;SR=0;TI=SMTPD_---.j9ME9Bu_1788932641;
-Received: from DESKTOP-UL5U09E.xiaopeng.local(mailfrom:zhugl3@xiaopeng.com fp:SMTPD_---.j9ME9Bu_1788932641 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Wed, 09 Sep 2026 13:44:02 +0800
-From: Guanglei Zhu <zhugl3@xiaopeng.com>
-To: Chandrashekar Devegowda <chandrashekar.devegowda@intel.com>,
-	Loic Poulain <loic.poulain@oss.qualcomm.com>,
-	Sergey Ryazanov <ryazanov.s.a@gmail.com>
-Cc: Liu Haijun <haijun.liu@mediatek.com>,
-	Ricardo Martinez <ricardo.martinez@linux.intel.com>,
-	Johannes Berg <johannes@sipsolutions.net>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH] net: wwan: t7xx: validate the HS2 message data length
-Date: Wed,  9 Sep 2026 13:44:01 +0800
-Message-ID: <20260909054401.718959-1-zhugl3@xiaopeng.com>
-X-Mailer: git-send-email 2.43.0
+	s=arc-20240116; t=1788932680; c=relaxed/simple;
+	bh=WnsctUHK1jq217/nF8GOsjdDP+LdgHlKq5T70Pzgr+Q=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=CZxfO0MRPMTVGQKp7QIkW560VUu5c0jUzrhlDv7E/KhpJTzJpeQItk0xAjCyYPcjeO9TYp/6A+jPGbR6PC0IHeYWpnbddF8HtNt6DVec2dYga7SqKNUzklLY7a6JyKAHWBO+wGeZmEQr6XQjJIUqDOFHh9k5HQ1JZVvbo6IEk0w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from edelgard.fodlan.icenowy.me (unknown [112.94.100.66])
+	by APP-03 (Coremail) with SMTP id rQCowAD3_Doq8qBqbs49Bw--.1368S2;
+	Wed, 09 Sep 2026 13:44:11 +0800 (CST)
+Message-ID: <f74168b54fe8f070b7cfe79dc2fc83a63c2e8842.camel@iscas.ac.cn>
+Subject: Re: [PATCH v6 1/6] dt-bindings: display: verisilicon,dc: add
+ support for nuvoton,ma35d1-dcu
+From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+To: Joey Lu <a0987203069@gmail.com>, maarten.lankhorst@linux.intel.com, 
+	mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
+ simona@ffwll.ch, 	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org
+Cc: ychuang3@nuvoton.com, schung@nuvoton.com, yclu4@nuvoton.com, 
+	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Date: Wed, 09 Sep 2026 13:44:10 +0800
+In-Reply-To: <20260908092840.225220-2-a0987203069@gmail.com>
+References: <20260908092840.225220-1-a0987203069@gmail.com>
+	 <20260908092840.225220-2-a0987203069@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: base64
+User-Agent: Evolution 3.58.3 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:rQCowAD3_Doq8qBqbs49Bw--.1368S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxArW8uFWkGryUArWUXrWrZrb_yoWrWF48pF
+	95tFWUJryxJrn3Xr4UKr1jyFyUJw1kJw1DJr1xXF1UKr4UJr10qr4Ygr1qgF15Jr48Xry5
+	JF1UWr17Zr12yr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUPCb7Iv0xC_tr1lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xII
+	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVWxJr0_GcWl84ACjcxK6I
+	8E87Iv6xkF7I0E14v26F4UJVW0owAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC
+	0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr
+	1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI48JM4xvF2IEb7IF0Fy264kE64k0F24l
+	FcxC0VAYjxAxZF0Ex2IqxwACI402YVCY1x02628vn2kIc2xKxwCY1x0262kKe7AKxVWUtV
+	W8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v2
+	6r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_GFv_WrylIxkGc2
+	Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_
+	Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMI
+	IF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UMVCEFcxC0VAYjxAxZFUvcSsGvfC2KfnxnUUI
+	43ZEXa7IU8-Aw3UUUUU==
+X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
 
-control_msg_handler() passes the modem-supplied data_length field of a
-CTL_ID_HS2_MSG message straight to t7xx_fsm_append_event(), which
-memcpy()s that many bytes out of the skb.  Nothing compares the field
-with the actual length of the message, so a modem reporting a larger
-data_length makes the driver read past the end of the skb and store
-kernel heap memory in the FSM event.
-
-0e7c074cfcd9 ("net: wwan: t7xx: validate port_count against message
-length in t7xx_port_enum_msg_handler") added this kind of check for
-the port enumeration path but missed the handshake path.
-
-Reject the message when data_length does not fit into the skb.
-
-Fixes: da45d2566a1d ("net: wwan: t7xx: Add control port")
-Cc: stable@vger.kernel.org
-Signed-off-by: Guanglei Zhu <zhugl3@xiaopeng.com>
----
-
-Verified in a QEMU guest with a fault injector feeding the driver's
-control port thread a handshake message whose data_length exceeds the
-skb: the unpatched driver trips KASAN on a read of 8192 bytes past a
-500-byte payload, and the extra bytes land in the FSM event.  With
-this check the message is rejected, and well-formed handshakes are
-unaffected.
- drivers/net/wwan/t7xx/t7xx_port_ctrl_msg.c | 20 +++++++++++++++-----
- 1 file changed, 15 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/net/wwan/t7xx/t7xx_port_ctrl_msg.c b/drivers/net/wwan/t7xx/t7xx_port_ctrl_msg.c
-index f869e4ed9..0f2ead8a7 100644
---- a/drivers/net/wwan/t7xx/t7xx_port_ctrl_msg.c
-+++ b/drivers/net/wwan/t7xx/t7xx_port_ctrl_msg.c
-@@ -178,22 +178,32 @@ static int control_msg_handler(struct t7xx_port *port, struct sk_buff *skb)
- 
- 	ctrl_msg_h = (struct ctrl_msg_header *)skb->data;
- 	switch (le32_to_cpu(ctrl_msg_h->ctrl_msg_id)) {
--	case CTL_ID_HS2_MSG:
-+	case CTL_ID_HS2_MSG: {
-+		u32 data_length;
-+
- 		skb_pull(skb, sizeof(*ctrl_msg_h));
-+		data_length = le32_to_cpu(ctrl_msg_h->data_length);
- 
- 		if (port_conf->rx_ch == PORT_CH_CONTROL_RX ||
- 		    port_conf->rx_ch == PORT_CH_AP_CONTROL_RX) {
- 			int event = port_conf->rx_ch == PORT_CH_CONTROL_RX ?
- 				    FSM_EVENT_MD_HS2 : FSM_EVENT_AP_HS2;
- 
--			ret = t7xx_fsm_append_event(ctl, event, skb->data,
--						    le32_to_cpu(ctrl_msg_h->data_length));
--			if (ret)
--				dev_err(port->dev, "Failed to append Handshake 2 event");
-+			if (data_length > skb->len) {
-+				dev_err(port->dev, "Invalid HS2 message length %u\n",
-+					data_length);
-+				ret = -EINVAL;
-+			} else {
-+				ret = t7xx_fsm_append_event(ctl, event, skb->data,
-+							    data_length);
-+				if (ret)
-+					dev_err(port->dev, "Failed to append Handshake 2 event");
-+			}
- 		}
- 
- 		dev_kfree_skb_any(skb);
- 		break;
-+	}
- 
- 	case CTL_ID_MD_EX:
- 	case CTL_ID_MD_EX_ACK:
--- 
-2.43.0
+5ZyoIDIwMjYtMDktMDjkuoznmoQgMTc6MjggKzA4MDDvvIxKb2V5IEx15YaZ6YGT77yaCj4gQWRk
+IHRoZSBOdXZvdG9uIE1BMzVEMSBEQ1VsdHJhTGl0ZSAobnV2b3RvbixtYTM1ZDEtZGN1KSB0byB0
+aGUKPiBiaW5kaW5nLgo+IFRoZSBEQ1VsdHJhTGl0ZSB1c2VzIG9ubHkgZm91ciBjbG9ja3MgKGNv
+cmUsIGF4aSwgYWhiLCBwaXgwKSBhbmQgb25lCj4gcmVzZXQgKGNvcmUpLCB3aXRoIGEgc2luZ2xl
+IG91dHB1dCBwb3J0Lgo+IAo+IFRoZSBNQTM1RDEgY2xvY2sgY29udHJvbGxlciBnYXRlcyB0aGUg
+Y29yZSwgQVhJIGFuZCBBSEIgY2xvY2tzIHdpdGggYQo+IHNpbmdsZSBiaXQsIGJ1dCBlYWNoIHJl
+bWFpbnMgYSBkaXN0aW5jdCBjbG9jayBsaW5lIGZlZWRpbmcgdGhlIElQCj4gd2l0aAo+IGl0cyBv
+d24gcmF0ZSBjb25zdHJhaW50cywgc28gYWxsIGZvdXIgbXVzdCBzdGlsbCBiZSBsaXN0ZWQKPiBp
+bmRpdmlkdWFsbHkKPiBpbiB0aGUgZGV2aWNldHJlZTsgY29yZSwgYXhpIGFuZCBhaGIgaGFwcGVu
+IHRvIHNoYXJlIHRoZSBzYW1lIGNsb2NrCj4gcGhhbmRsZS4KClRoaXMgaXMgd2VpcmQsIGJ1dCBJ
+IG11c3QgYWRtaXQgdGhhdCB3ZSdyZSBsaW1pdGVkIGJ5IHRoZSBDb21tb24gQ2xvY2sKRnJhbWV3
+b3JrIGhlcmUsIHNvIEkgY2Fubm90IGdpdmUgYSBiZXR0ZXIgc29sdXRpb24gZWl0aGVyLgoKQW55
+d2F5IGxldCdzIHNldHRsZSB3aXRoIHRoZSBjdXJyZW50IHJlc3VsdC4KCj4gCj4gTW92ZSB0aGUg
+Y2xvY2tzL2Nsb2NrLW5hbWVzIG1pbkl0ZW1zIHRvIDQgYW5kIHJlc2V0cy9yZXNldC1uYW1lcwo+
+IG1pbkl0ZW1zIHRvIDEgYXQgdGhlIHRvcCBsZXZlbCwgc2luY2UgdGhhdCBpcyB0aGUgbG93ZXN0
+IGNvdW50IGFueQo+IHN1cHBvcnRlZCB2YXJpYW50IG5lZWRzLsKgIEFkZCBhbiBhbGxPZi9pZiBi
+bG9jayB0aGF0IHRpZ2h0ZW5zIHRoZQo+IGNvbnN0cmFpbnQgYmFjayB1cCB0byB0aGUgZml4ZWQg
+NS1jbG9jay8zLXJlc2V0IHRvcG9sb2d5IHJlcXVpcmVkIGJ5Cj4gdGhlIGV4aXN0aW5nIHRoZWFk
+LHRoMTUyMC1kYzgyMDAgY29tcGF0aWJsZSwgYW5kIGFub3RoZXIgb25lIHRoYXQKPiBjYXBzCj4g
+dGhlIG5ldyBudXZvdG9uLG1hMzVkMS1kY3UgY29tcGF0aWJsZSBhdCB0aGUgNC1jbG9jay8xLXJl
+c2V0IGNvdW50IGl0Cj4gYWN0dWFsbHkgd2lyZXMgdXAuCj4gCj4gU2lnbmVkLW9mZi1ieTogSm9l
+eSBMdSA8YTA5ODcyMDMwNjlAZ21haWwuY29tPgo+IC0tLQo+IMKgLi4uL2JpbmRpbmdzL2Rpc3Bs
+YXkvdmVyaXNpbGljb24sZGMueWFtbMKgwqDCoMKgwqAgfCA0NAo+ICsrKysrKysrKysrKysrKysr
+KysKPiDCoDEgZmlsZSBjaGFuZ2VkLCA0NCBpbnNlcnRpb25zKCspCj4gCj4gZGlmZiAtLWdpdAo+
+IGEvRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL2Rpc3BsYXkvdmVyaXNpbGljb24s
+ZGMueWFtbAo+IGIvRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL2Rpc3BsYXkvdmVy
+aXNpbGljb24sZGMueWFtbAo+IGluZGV4IDkxOWE5MDAxMjIwMTIuLjc3Mzk2NjY3N2QwZjQgMTAw
+NjQ0Cj4gLS0tIGEvRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL2Rpc3BsYXkvdmVy
+aXNpbGljb24sZGMueWFtbAo+ICsrKyBiL0RvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5n
+cy9kaXNwbGF5L3ZlcmlzaWxpY29uLGRjLnlhbWwKPiBAQCAtMTcsNiArMTcsNyBAQCBwcm9wZXJ0
+aWVzOgo+IMKgwqDCoMKgIGl0ZW1zOgo+IMKgwqDCoMKgwqDCoCAtIGVudW06Cj4gwqDCoMKgwqDC
+oMKgwqDCoMKgwqAgLSB0aGVhZCx0aDE1MjAtZGM4MjAwCj4gK8KgwqDCoMKgwqDCoMKgwqDCoCAt
+IG51dm90b24sbWEzNWQxLWRjdQo+IMKgwqDCoMKgwqDCoCAtIGNvbnN0OiB2ZXJpc2lsaWNvbixk
+YyAjIERDIElQcyBoYXZlIGRpc2NvdmVyYWJsZSBJRC9yZXZpc2lvbgo+IHJlZ2lzdGVycwo+IMKg
+Cj4gwqDCoCByZWc6Cj4gQEAgLTI2LDYgKzI3LDcgQEAgcHJvcGVydGllczoKPiDCoMKgwqDCoCBt
+YXhJdGVtczogMQo+IMKgCj4gwqDCoCBjbG9ja3M6Cj4gK8KgwqDCoCBtaW5JdGVtczogNAo+IMKg
+wqDCoMKgIGl0ZW1zOgo+IMKgwqDCoMKgwqDCoCAtIGRlc2NyaXB0aW9uOiBEQyBDb3JlIGNsb2Nr
+Cj4gwqDCoMKgwqDCoMKgIC0gZGVzY3JpcHRpb246IERNQSBBWEkgYnVzIGNsb2NrCj4gQEAgLTM0
+LDYgKzM2LDcgQEAgcHJvcGVydGllczoKPiDCoMKgwqDCoMKgwqAgLSBkZXNjcmlwdGlvbjogUGl4
+ZWwgY2xvY2sgb2Ygb3V0cHV0IDEKPiDCoAo+IMKgwqAgY2xvY2stbmFtZXM6Cj4gK8KgwqDCoCBt
+aW5JdGVtczogNAo+IMKgwqDCoMKgIGl0ZW1zOgo+IMKgwqDCoMKgwqDCoCAtIGNvbnN0OiBjb3Jl
+Cj4gwqDCoMKgwqDCoMKgIC0gY29uc3Q6IGF4aQo+IEBAIC00MiwxMiArNDUsMTQgQEAgcHJvcGVy
+dGllczoKPiDCoMKgwqDCoMKgwqAgLSBjb25zdDogcGl4MQo+IMKgCj4gwqDCoCByZXNldHM6Cj4g
+K8KgwqDCoCBtaW5JdGVtczogMQo+IMKgwqDCoMKgIGl0ZW1zOgo+IMKgwqDCoMKgwqDCoCAtIGRl
+c2NyaXB0aW9uOiBEQyBDb3JlIHJlc2V0Cj4gwqDCoMKgwqDCoMKgIC0gZGVzY3JpcHRpb246IERN
+QSBBWEkgYnVzIHJlc2V0Cj4gwqDCoMKgwqDCoMKgIC0gZGVzY3JpcHRpb246IENvbmZpZ3VyYXRp
+b24gQUhCIGJ1cyByZXNldAo+IMKgCj4gwqDCoCByZXNldC1uYW1lczoKPiArwqDCoMKgIG1pbkl0
+ZW1zOiAxCj4gwqDCoMKgwqAgaXRlbXM6Cj4gwqDCoMKgwqDCoMKgIC0gY29uc3Q6IGNvcmUKPiDC
+oMKgwqDCoMKgwqAgLSBjb25zdDogYXhpCj4gQEAgLTc5LDYgKzg0LDQ1IEBAIHJlcXVpcmVkOgo+
+IMKgwqAgLSByZXNldC1uYW1lcwo+IMKgwqAgLSBwb3J0cwo+IMKgCj4gK2FsbE9mOgo+ICvCoCAt
+IGlmOgo+ICvCoMKgwqDCoMKgIHByb3BlcnRpZXM6Cj4gK8KgwqDCoMKgwqDCoMKgIGNvbXBhdGli
+bGU6Cj4gK8KgwqDCoMKgwqDCoMKgwqDCoCBjb250YWluczoKPiArwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoCBjb25zdDogdGhlYWQsdGgxNTIwLWRjODIwMAo+ICvCoMKgwqAgdGhlbjoKPiArwqDCoMKg
+wqDCoCBwcm9wZXJ0aWVzOgo+ICvCoMKgwqDCoMKgwqDCoCBjbG9ja3M6Cj4gK8KgwqDCoMKgwqDC
+oMKgwqDCoCBtaW5JdGVtczogNQo+ICsKPiArwqDCoMKgwqDCoMKgwqAgY2xvY2stbmFtZXM6Cj4g
+K8KgwqDCoMKgwqDCoMKgwqDCoCBtaW5JdGVtczogNQo+ICsKPiArwqDCoMKgwqDCoMKgwqAgcmVz
+ZXRzOgo+ICvCoMKgwqDCoMKgwqDCoMKgwqAgbWluSXRlbXM6IDMKPiArCj4gK8KgwqDCoMKgwqDC
+oMKgIHJlc2V0LW5hbWVzOgo+ICvCoMKgwqDCoMKgwqDCoMKgwqAgbWluSXRlbXM6IDMKPiArCj4g
+K8KgIC0gaWY6Cj4gK8KgwqDCoMKgwqAgcHJvcGVydGllczoKPiArwqDCoMKgwqDCoMKgwqAgY29t
+cGF0aWJsZToKPiArwqDCoMKgwqDCoMKgwqDCoMKgIGNvbnRhaW5zOgo+ICvCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgIGNvbnN0OiBudXZvdG9uLG1hMzVkMS1kY3UKPiArwqDCoMKgIHRoZW46Cj4gK8Kg
+wqDCoMKgwqAgcHJvcGVydGllczoKPiArwqDCoMKgwqDCoMKgwqAgY2xvY2tzOgo+ICvCoMKgwqDC
+oMKgwqDCoMKgwqAgbWF4SXRlbXM6IDQKPiArCj4gK8KgwqDCoMKgwqDCoMKgIGNsb2NrLW5hbWVz
+Ogo+ICvCoMKgwqDCoMKgwqDCoMKgwqAgbWF4SXRlbXM6IDQKPiArCj4gK8KgwqDCoMKgwqDCoMKg
+IHJlc2V0czoKPiArwqDCoMKgwqDCoMKgwqDCoMKgIG1heEl0ZW1zOiAxCj4gKwo+ICvCoMKgwqDC
+oMKgwqDCoCByZXNldC1uYW1lczoKPiArwqDCoMKgwqDCoMKgwqDCoMKgIG1heEl0ZW1zOiAxCgpN
+YXliZSBpdCdzIHJlYXNvbmFibGUgdG8gcmVzdHJpY3QgbWF4IHBvcnQgY291bnQgdG8gMSBmb3Ig
+TUEzNUQxPwpBbHRob3VnaCBJIGFtIG5vdCBzdXJlIGFib3V0IGhvdyB0byBkbyB0aGlzLi4uCgpU
+aGFua3MsCkljZW5vd3kKCj4gKwo+IMKgYWRkaXRpb25hbFByb3BlcnRpZXM6IGZhbHNlCj4gwqAK
+PiDCoGV4YW1wbGVzOgo=
 
