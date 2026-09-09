@@ -1,112 +1,147 @@
-Received: from mail-oo2-f42.google.com (mail-oo2-f42.google.com [74.125.231.170])
+Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com [209.85.214.180])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B25C84657E5
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 22:23:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB08839CCED
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 22:24:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788992623; cv=none; b=hEPjBpN0ZUuZUOYkCKhFdcHOmxtuiojwnfQjDP5Uus+qYsIDYdLRH1wXBv6DbO+nFa1zdqKKyHkRosgeJi6th+Zjlj1vVxg27BpzspNAqIf5gZUr4kCMDJrlyDLfMqNfmDNZ0d+5BRit8BAa1dsD3E1xSA0d6Yqh6YclwmGlveU=
+	t=1788992676; cv=none; b=iZ+dIzlJfzwJIZgH1JMoKMDX2eBEIujIgc2wjC6Bx3K496VJG7fGAHSJjlIZqGadn0VF4uxvo3A5tGtSp79l5CVHutJxUd0s86Uy6xQ26EN5Du1iskJFU0CMj4MXujXk0aVvuxVh/w1pKuijYfAzMVhaVPDTLNYITGdaeifAO3E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788992623; c=relaxed/simple;
-	bh=jyZXnNk97yXcYJ3VFSCOyUv/maueSIIrc4Yrg9UCJBg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=qamAJ71MKJI04HAH5uUXQ/3ggTqEqjLDY3i46wjHAO1J+JM/vfBW+l2aixOJOWfYu56ZL8kVVs3Hzkt5MWNMnezEjpDjqmoj0yUdRfm5oGEKk8r/IzFpy070W4lkyRNADdTeQsDV5itECK9e0+TApwn++rmz6W+tnVaUq6dcGj8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org; spf=pass smtp.mailfrom=linuxfoundation.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=SbZNK0tG; arc=none smtp.client-ip=74.125.231.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
+	s=arc-20240116; t=1788992676; c=relaxed/simple;
+	bh=plArU9jlAhXUMcLHIAmidbgt8bZqZJWLKcgaxNX2C2E=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=uvK1tvmV2RYsbB0IAFdhCDIU2dRtuXvGlEXmpUyGIFbDM1x92DLkVesLdU27vE0cQl4NlIVxOJnvxaVw/YA2vjK/y0wk9D1TE9h0wqCHXCdHDVD3g/SPvjflNmvsRG+kAewhBXH/kJ1b8Wn+2mMyo6I+mHXH8ir0ZzDHUjhHrF8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fjd4nq40; arc=none smtp.client-ip=209.85.214.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="SbZNK0tG"
-Received: by mail-oo2-f42.google.com with SMTP id 46e09a7af769-7fc4034841cso799092a34.3
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 15:23:41 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fjd4nq40"
+Received: by mail-pl1-f180.google.com with SMTP id d9443c01a7336-2d6fe26ef1cso67764215ad.2
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 15:24:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linuxfoundation.org; s=google; t=1788992620; x=1789597420; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Ij5mdruxx0QOfzgtgcdh5/VG5w9myB0k3AU4Kebg3MY=;
-        b=SbZNK0tGOr0mkEihQpUVT551NacfPI2gDSI8ecrr4zsgIfOBwhTUhsMBGdceq7dRVu
-         y3SDnmipxj5OTZyf5hNH/WTVxETgAhdOnaDi/ojJCv4vSF6XpRHVFuJIOsUlBYRu094Z
-         /XJFjuTksuwGMM/HHsrqvlN1Q4bZljZaNpeqI=
+        d=gmail.com; s=20251104; t=1788992674; x=1789597474; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=IoCf21jwmykRsUWM5Fodjr5t8KndX12WFcMHhxMu9LI=;
+        b=fjd4nq4073GK3HZGG+sX7P7KCQIEaXaPIiA1YnLAyvm53Z0Aysd0RUmYnuVogaj8re
+         6bWGHpZAX6mgkSGeOHa2mbW7UbSRbhUvgVGnnA2xlOgMLZBWiGdUZxIGhORmX4NDR3X1
+         ArR1g0brlAmNWE29x7OZc/n0e/FKRcOQ5dLhxdUZrkggSoKpZ7wpoDx8xvdtSczzilks
+         LmI4tLSoAeZ6+bu1QDPIu3YRqBogyNarGphz5xI50zFYlOFS9QRzwojJOfJyezjDbJ1C
+         GMxDfdztqLEL1xxTS4nTIwBJwtzTotHcvs32e7Jv81hocbQ8NiITh9OdFf28rcMB/olM
+         PUJA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788992620; x=1789597420;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20251104; t=1788992674; x=1789597474;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Ij5mdruxx0QOfzgtgcdh5/VG5w9myB0k3AU4Kebg3MY=;
-        b=r577hlCe6W5xWn4VACvfho79SChKFl8GBNRo8iR2JQOhn/MMqDSGU9Nz23ei5cbV3E
-         nqwJKPPfK145Pr+zYN31Yw25/yKVdB2B+iKFJfsrBKvOJ0njhmpqENAimWXm2k8cFvas
-         TROwRWPp+dDBGb4mCWpa2JfGAHoDP9G+PGTMqaYNBiTcGzI0E2upbXzSlF1LbrtDFYaO
-         6tBrmOtkYa/ePk8Qlb+BIoQoB3IQ/CbMcOg+L0HrKlmYVnqrtXC48UewTY8seNEJyWAj
-         bvHDw60NBOTtwjNsIZkoDDTutmLpybptyFq2pL6zGMXqFu0kP2eQXjsThtqSXkMKzQBa
-         uNtQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwsBZV2HtXEBh6O3BEENowWaYaUYm8ETik6CR4ruMz1s4FDJ18JYavVgcYroNsX4wedZFwT6eBIwP3Xu84=@vger.kernel.org
-X-Gm-Message-State: AFuF++mbwASKosdbrrlIOvraOHnISKBxy7DvPa6Mpt2E4itsw+C3S43s
-	uqi3TMbZ0TPH2vv31F9Nmw5D1eoHLrM6JMK+m6fXK5D89scpBSqtasLDNHbZ2gUBFTs=
-X-Gm-Gg: AYBFou3+SLb0WCNg2vxn4oquiH17A3AroDr4zBoVoW3Th/XwxKrx/bS3KtUqIs5NwYW
-	vpnJGCmZoeiy0VYZpRjS3VWbzbaAiPFFk0pIZM5Q2Bf2Qj7F1VA/U12rHqQz5agx9H7+eIkqcu4
-	dUkzXQf9sOr9q8nhbWuhZ4mMMn2pMCFgnLQMij5AwYpY7GMqlupYdQ5228T1/WVVrdEqcKODfSB
-	zv1tzHouuaS6AzfjwK0YYByrS3H21mhocCtjIQFlui0VR9V6Ykdqnja1pPckwbEA3ajXTrImtsF
-	nhjCcGQqZ1SecgxGTgFh1IuAsXJ0vyyNYQv6yEQLIp2DE/xKEjM3KoA3LW5TP2JzRBn4fTc6Wqz
-	O8xCE/scwJYlRoruFY0lj5cqUd9FLRpLCCc3BOGVrIk4NkRS5hMzIyujhLXAJ+H3F9AZB8HxSsb
-	2s4otR8r8nVymKEX3V7WHGt9a49p+4RefuVM6SGcJz9AZX1W/o/hoM6Hid4BzdXc6aLO4WqhE3+
-	J1UDR00
-X-Received: by 2002:a05:6830:6404:b0:7eb:3af8:8c09 with SMTP id 46e09a7af769-8020daad7b4mr3472081a34.3.1788992620614;
-        Wed, 09 Sep 2026 15:23:40 -0700 (PDT)
-Received: from [192.168.1.128] ([38.15.57.99])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7fcef193dc2sm12594318a34.19.2026.09.09.15.23.38
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 09 Sep 2026 15:23:40 -0700 (PDT)
-Message-ID: <8b138fb3-a5c6-45b9-b881-1c4d76bd1921@linuxfoundation.org>
-Date: Wed, 9 Sep 2026 16:23:36 -0600
+        bh=IoCf21jwmykRsUWM5Fodjr5t8KndX12WFcMHhxMu9LI=;
+        b=eO9yUxT8fkMO8oQWeY8c2oWzP/fYAi82TxnD/QICHr6lHOwmLvoSIc9YDIN5NWl0R/
+         XnO1uKMkIoy5GzjBtFxaUFu3mrnU3awiEFtLZW1TO09B+Qa7VOoHtX2LDKQufk4AtZEo
+         rsLhTgtgqSelZv1b/YF+YvZPKfHYDOcT2ez2SYHA0JJdlpGyQmooCByXtWoqjK1tn+LV
+         ewPjBAeQPPoUF4mZrsMarQ/nJFlIiomck5wnx1TYIQ7MMbNmN5rF6rXuYvUZM9AZn8/n
+         K9ER+PjYtx1AGxHBHAhwCBngqgWsGtLJvBbyUqekS0zLM6D6tuwPrOWkk3W/QFugCVGK
+         6RBQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxd1r46nr/QMTECK58hGhP3hlBcm9nN0eVN0hZo8D9sq43ctplhfgStdstMb1PsImK4Pc1DOU24iXWWwhY=@vger.kernel.org
+X-Gm-Message-State: AFuF++kIdo5/HNJ6oRv0wFfdtt185TRGuNQnZ3XhPOpGB5rvI1kjoSEZ
+	iGGp5cmIKmCPoK/wHH0yZKO/FvVwJXHXOXZrkW/yc0n5iHjT6lAq95Ik
+X-Gm-Gg: AYBFou0UzT05x/AoNafUkfh/YzWOtEh18QDBNjCIcG2Zc02C68Nt04PU8g2S77vSxJp
+	B+j3/rDLON5cxLpSdbAEaq16Y9SKVioqQQxk3wrASxU8xh0cfb8CgyRFRZ8Vh1xehaOzW4fKdyl
+	3RBALzYLZbf1Q7rGye4n7QhN1AFdjlsjXRH5qGXPbc+F+K7OZhwNAck0I5aM+cEzkG5up1+YH4y
+	xnAWJ71Q367PYS/TTliLEknDKnphd09cZgVc7DiMfWWA0exFwuyV2jt6TOAYCu5E5SALO077PFs
+	EjXEKbOv9ibZvk1UpZDmXeqln45ISNH4lEnweffRZ6EJMypsCyhYEId7hyvG2GUOo0KZcrZIwwq
+	N+ydB2gQzw8E4puOEvbzHuf+5y35ZiKbP/kxRAxHe1BZz2fI1+c1IY+jdReXslAxF2MUgUGV/98
+	Urb8vHOR4K9YK1XsoJhWhDi1cWjhotXM05hGAU+MMgT4mLkRI0Src4Cv0KgOwxbCl2NcuHGhGXX
+	i64ktkZdAopcGTDlvutTvcf6z8GyS91rjDY3i2IuhWtu+tVXXsIUxR3LUyIpQp4lsWyJTeRtnoE
+	g7S2TlE7aaQgfID3hfNl7gAfAcmZt3RlCjsQDZhjSwIFYV/0
+X-Received: by 2002:a17:90b:17c2:b0:38e:659b:f366 with SMTP id 98e67ed59e1d1-39b25f1c5bdmr52789528a91.0.1788992674060;
+        Wed, 09 Sep 2026 15:24:34 -0700 (PDT)
+Received: from ryzen.lan ([2601:644:8000:7a86::e35])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d7e83d9cdsm244763a91.11.2026.09.09.15.24.33
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 09 Sep 2026 15:24:33 -0700 (PDT)
+From: Rosen Penev <rosenp@gmail.com>
+To: linux-mmc@vger.kernel.org
+Cc: Adrian Hunter <adrian.hunter@intel.com>,
+	Ulf Hansson <ulfh@kernel.org>,
+	linux-kernel@vger.kernel.org (open list)
+Subject: [PATCH] mmc: sdhci-pxav3: avoid of_node
+Date: Wed,  9 Sep 2026 15:24:32 -0700
+Message-ID: <20260909222432.62847-1-rosenp@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6.18 000/583] 6.18.51-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com,
- Shuah Khan <skhan@linuxfoundation.org>
-References: <20260909134237.773280130@linuxfoundation.org>
-Content-Language: en-US
-From: Shuah Khan <skhan@linuxfoundation.org>
-In-Reply-To: <20260909134237.773280130@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 9/9/26 07:34, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 6.18.51 release.
-> There are 583 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
-> 
-> Responses should be made by Fri, 11 Sep 2026 13:40:31 +0000.
-> Anything received after that time might be too late.
-> 
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.18.51-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.18.y
-> and the diffstat can be found below.
-> 
-> thanks,
-> 
-> greg k-h
-> 
+Use device handlers instead of of_node ones for simplicity.
 
-Compiled and booted on my test system. No dmesg regressions.
+As this driver is effectively OF only, it ends up behaving the same.
 
-Tested-by: Shuah Khan <skhan@linuxfoundation.org>
+Change is_bool to present as no-1-8-v is not specified as a bool in dts,
+but as either present or not.
 
-thanks,
--- Shuah
+Signed-off-by: Rosen Penev <rosenp@gmail.com>
+---
+ drivers/mmc/host/sdhci-pxav3.c | 10 ++++------
+ 1 file changed, 4 insertions(+), 6 deletions(-)
+
+diff --git a/drivers/mmc/host/sdhci-pxav3.c b/drivers/mmc/host/sdhci-pxav3.c
+index 181b4989c74d..f39764ffd4a0 100644
+--- a/drivers/mmc/host/sdhci-pxav3.c
++++ b/drivers/mmc/host/sdhci-pxav3.c
+@@ -123,7 +123,7 @@ static int mv_conf_mbus_windows(struct platform_device *pdev,
+ static int armada_38x_quirks(struct platform_device *pdev,
+ 			     struct sdhci_host *host)
+ {
+-	struct device_node *np = pdev->dev.of_node;
++	struct device *dev = &pdev->dev;
+ 	struct sdhci_pltfm_host *pltfm_host = sdhci_priv(host);
+ 	struct sdhci_pxa *pxa = sdhci_pltfm_priv(pltfm_host);
+ 	struct resource *res;
+@@ -155,7 +155,7 @@ static int armada_38x_quirks(struct platform_device *pdev,
+ 	 * controller has different capabilities than the ones shown
+ 	 * in its registers
+ 	 */
+-	if (of_property_read_bool(np, "no-1-8-v")) {
++	if (device_property_present(dev, "no-1-8-v")) {
+ 		host->caps &= ~SDHCI_CAN_VDD_180;
+ 		host->mmc->caps &= ~MMC_CAP_1_8V_DDR;
+ 	} else {
+@@ -364,14 +364,13 @@ MODULE_DEVICE_TABLE(of, sdhci_pxav3_of_match);
+ static struct sdhci_pxa_platdata *pxav3_get_mmc_pdata(struct device *dev)
+ {
+ 	struct sdhci_pxa_platdata *pdata;
+-	struct device_node *np = dev->of_node;
+ 	u32 clk_delay_cycles;
+ 
+ 	pdata = devm_kzalloc(dev, sizeof(*pdata), GFP_KERNEL);
+ 	if (!pdata)
+ 		return NULL;
+ 
+-	if (!of_property_read_u32(np, "mrvl,clk-delay-cycles",
++	if (!device_property_read_u32(dev, "mrvl,clk-delay-cycles",
+ 				  &clk_delay_cycles))
+ 		pdata->clk_delay_cycles = clk_delay_cycles;
+ 
+@@ -402,7 +401,6 @@ static int sdhci_pxav3_probe(struct platform_device *pdev)
+ 	struct sdhci_pltfm_host *pltfm_host;
+ 	struct sdhci_pxa_platdata *pdata = pdev->dev.platform_data;
+ 	struct device *dev = &pdev->dev;
+-	struct device_node *np = pdev->dev.of_node;
+ 	struct sdhci_host *host = NULL;
+ 	struct sdhci_pxa *pxa = NULL;
+ 	const struct of_device_id *match;
+@@ -433,7 +431,7 @@ static int sdhci_pxav3_probe(struct platform_device *pdev)
+ 	/* enable 1/8V DDR capable */
+ 	host->mmc->caps |= MMC_CAP_1_8V_DDR;
+ 
+-	if (of_device_is_compatible(np, "marvell,armada-380-sdhci")) {
++	if (device_is_compatible(dev, "marvell,armada-380-sdhci")) {
+ 		ret = armada_38x_quirks(pdev, host);
+ 		if (ret < 0)
+ 			goto err_mbus_win;
+-- 
+2.55.0
+
