@@ -1,63 +1,65 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF4A33BED79
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 19:37:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 501073BFE3B
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 19:37:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788982651; cv=none; b=DNsLRcQbm3mk/iQFGYrM8SGvQemXi9o+6GounjfcTC/GilqSM82gMuokNl1xJPyKnLu2Q7y7WQ0sBF0ksa2GYwoZwa47LkIcyE07zpsNVORNqybhaNv0fWp2mF73dxq6bgczVv8UuOWEAfQZipRr/o1fWH8Td8W+jKViedWS03c=
+	t=1788982652; cv=none; b=AM+gSZxS0OLejkVIXYLKd+6xXPSXXh1c4keHbAyewE6/kxoGoODie+O1VYD7nK8IpIqZ/GwctKKXHy6pQWv75073N/QDCQ6aRdO/phoj0lUnJe502N3CA8N1U/VvI5c+rfwXpI6B8C4yeRGO1hhbGt/CFVIODYxWeK3qdQKnvx8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788982651; c=relaxed/simple;
-	bh=W6elITVW+fgqHlsz574xVSedWEx1ljCkHQGGPON+6dA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=FKzxlbgVAoBMvLMtbZbiI6ZFZLnN/TuuzTgpeJFU0l9MtrZFh6/yubgbBS1gbQM7iYXvtYAisbyKxOZ4QWNURcvzUwbC5w4pA3Af4wjAb6UyWkdxNjZc/+gNYql91dSBGlipRqPTKCPf7fqrtcypwbFyInc61rCGNPzUiOVlnfk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jSlz83Sg; arc=none smtp.client-ip=74.125.225.140
+	s=arc-20240116; t=1788982652; c=relaxed/simple;
+	bh=RN+2l8Ry5cU7Y+SQkk4XBFHCoYkQHFINdSGrSv0wojQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=aGjtbfx+JsM+pIWAPyie007PplTsKLCfSGnyEiAbaWXOJTJe223mqVPYcKKEWGoMf+3A6q4OdyBwQZREYfjEqESG2NL9pAaWqlUv2+NNQuqpzpuNDMi1mTVIWhSN37hkffJcXDn1+s/obOWS2gbE87auxyLL5aN1slHMcV8/yI4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KZAaKhWK; arc=none smtp.client-ip=209.85.128.48
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jSlz83Sg"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49cd6185db7so15413655e9.1
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 12:37:27 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KZAaKhWK"
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-49cf4f81d86so48979335e9.2
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 12:37:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788982646; x=1789587446; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=g0uOGw37DdE82nU6QUlJPa/gKDAK3HdlyhewoX5a9k8=;
-        b=jSlz83SgvXKlNYn4ZYygcu7NmKRFIOgCuVePzFHygumIc/S8jbGEBt5lvcx0hAvpgS
-         /jvZtd+dqslGSngyZjjecXrtbZmiHOCzMB+o88eq6uOVLl4w03HVnx2KqQtEpv0WfNzq
-         Onuuzq5IBssGT2J7Bw8teZcafDYuvvEHwxWFegwUapd4fVJI+4yKIs0YdM5Jbprd/iDU
-         LvuNqRYnldwSRI0/3j2nXBFvghgsFzTT6Gp6IAUirswqjb3cbhtcPpxkVj/S9Tji1UJ+
-         VjR6UanDcRPGcqmIkdEl3s6AuHMyrw5SsK8hH7MYconpLR8ArIU7IGty2lXdRCT0fC+Q
-         P/dg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788982646; x=1789587446;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1788982648; x=1789587448; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=g0uOGw37DdE82nU6QUlJPa/gKDAK3HdlyhewoX5a9k8=;
-        b=j/w94/e9iultt+ZsLA8nD/IoNLGLOegqb3BGe96Si9y4zAG6TgBRDwlcONqWZD0ELX
-         /C9/Us6mpB3UYUAQTVCDN0bG6uh9QyQyfvypVtHc47EazYAL9UuTDxVadPaCu19d/KWi
-         PUfnarHF1A9//gCARt/F1aTjzKcDFgw9rNY5YusNBGTF91GN5t/nNlQBh9ZHlv4YRFji
-         Clq4p8yvPKrrOiaM1/3GVnozs4fR2QBJ7zGHGkmXI8fpNLwRWxXOWMTiVV1aq669zuFL
-         G4VCzxi1klJqeMwQLaPA9oK9CWqEwcWvSIRB9nC9ndpOWDBcq18kksZ7Wmx+ZwtzlZLa
-         /k5A==
-X-Forwarded-Encrypted: i=1; AKwUvByaW5lNaj+uTObKA0IGoBZwGQcpPJ9pA/COj7aSgNNSGue1j0RW0/EExTExlmq4MDNCfByNKwrHohrt8EM=@vger.kernel.org
-X-Gm-Message-State: AFuF++lY4v6vKY+s88D0GGYZ6ZYSrN8ZPNK4hNXuNSn3EU6baGKD5qET
-	Qn6fO4QA5wWzrrgkmxe8lvHQmhfsFKksEZFR7TUclfqG/UJnL0pm19Bb
-X-Gm-Gg: AYBFou35Q1ckUi78bGjMvCJMZRKcRRF09q1qBjIRiX96Q5udmrNCfURbsYg3bcGU1Vd
-	P2Jgp1gJFGN6FI4qxZSPMtwFeksQztcWwyvhiGFsBjA2zb9ht7Zw9EshUnlDIotNcGk0drCB1jf
-	lHh9t2Cjg9B7JfXcMK0L2WNqgw9YwJeB5djNBSkMAsFx1CJQgr75NGABklX7eohehgVwYk+PjUr
-	he/8P1Lp4MwyHxxn6PKp+Wiht2Cu0bRucXj0WbaX/RdsDMqvpNlvCzgCbWDvCKJrI8cUXB2wEva
-	1EJgvPg3l3T5P99et/8g8ICotKmNnOplselK6kgs/oukWLsF7TKErQgNn0USSUOkxgfqjkU/+MJ
-	admMs0rFaWZB3+9Gxjpnj3ChPDqBBekRu+K2ERXDc4a+bLdj/ubiy9IS+FPfgWpbZ2A7pSZTn0V
-	4sTCAbQUQvZg2+qlrN9NzY62TYG1l24pb4qWutaqBhaaCz809qhxOFShehnn0Cpu5ttue4RUxxD
-	3bJV6ky5AJKG4srB3a3wa3Cw6aUeXyIOFf0dLk4p5jriZutg7iFkSfreF3V+jmEDLMIOOHh+jMK
-	5OsfnBS5aw==
-X-Received: by 2002:a05:600c:c4b8:b0:49c:f13e:e52 with SMTP id 5b1f17b1804b1-49d26dcbc5emr9770855e9.15.1788982645812;
-        Wed, 09 Sep 2026 12:37:25 -0700 (PDT)
+        bh=phDmBn0qMNYKxqReRuAEO8P3Gi0eFxNdFtNGKUME1DM=;
+        b=KZAaKhWKHEzwGluEC1dehoXQWFWkKWawi1YLvku2Tj2PZReu8uzKVBiyzLGeflpHHN
+         kJA6P3/z018/XqYnb/N1f6VIXdv4M8LUz4L0uBMHtJ1l8FGB7co7uCTgfvdwEdeSDT3P
+         CTnrnFMXnDHTkT60nqY5PGfZDgGECr4cOu3LR6MAkRksh0LYbqouLLaoCeUH29G7xR50
+         3KhpBRBU6gcQ+t8l+Qg0mZL4Zwi7lWkarRvg7b9eOfmLs5tcTStBP57O2MsxCc4gzCdB
+         KOdCL5KMX/8hbaX1nB1keRBhGVA0DFOnHoMuqJV6XswmxBwl/nMGIQJ2bkhyLliEsePJ
+         Oq+w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788982648; x=1789587448;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=phDmBn0qMNYKxqReRuAEO8P3Gi0eFxNdFtNGKUME1DM=;
+        b=U6H2bNYbPjS085QkvJ02RVz3emcYeZ51xfzAsVZ92Crnbk4mibDvGhqdIiCVae8tsp
+         VlkytiO1bFDzrjfAtrMLKhvQKUYQ32ivMqdD7cWWCi9mKGRgdQhfOh1yPtCfbj7gB2sm
+         Xw8BfhqrPl02r8RTew9ynO/H4tjpnJKtpHlCFFZgy2ZGhIgPJhe8d6oeM9zsNXCUU3tI
+         aaewHEKVqXnhSsW6sD84/nJdbXrAX/H1shmmNzeXabeswdfhrLJV6g+BKqb4PT6gaNHN
+         gkbOd4K4akehowYXmxNtqcNMLlOvCxpiQLxQCLRC5lBE63243oZYkUDEF6fUPdqJYGJ1
+         iFIA==
+X-Forwarded-Encrypted: i=1; AKwUvBxaf/Yyi5Tfg6a9/g8rckkZcPWjbdsTui4FHlixTVkPi91pkQ3S8FLyFOCfUz5AyeaUfJEzVeceO9/n7VU=@vger.kernel.org
+X-Gm-Message-State: AFuF++lIgUiFJevqLMEgtskG38IKEXq0QKeb0DhfXHwq9egoyXVgU/yk
+	sjVCB5Yvs8PMg1e9OGvwopYSmAqOJR6KJXip0aPEU0SnQaPEMXAxZjlP
+X-Gm-Gg: AYBFou3DrZ1uAxcm02nUh6NelFgO2KV/Llive6dz66wLo2mV7A7by2gEyWSPqhC1Z77
+	cb3qtWXTgapN/JYXDdpcJWGMqdzfXdSV+4ILljeH1oS2GLk8lUTrpEaQTuZUlFvJ5F1vYUqV89j
+	/k8DrTXWpL9QQfA5UMxCCl81iPHidZBcs5CG7IRCsjMXYzUqPGJm9Ppdogf9JsxdPJ6sNtl5wgX
+	SbtzdKD7bvjGAclNejlYwbXxm20+Ij43HxRTHVFUEj9xyp0djcAgrH6hfxBmUw44DVF/8hmnd4T
+	Ef7gFSfMJjyE4tgs6rhQMFsLLycyM8c1rT7anVRwQPhDrtm+YmgJxROfBUBYkGUJ5lSiURmbPJg
+	7yf+N22n8QCVAJYQfHMTKb6VR73aJkHAcboCBXCFNrBHGtkSUukkOhbgIfF8tpjNdymlDxFs9mN
+	gbUDws8FaYgH5ZO5WkqiAq2/vlY/gz0Xbx4RM0E2H5nRDtyXr3TzeME79wqoO+pmsQEI0rcjyAk
+	Qd3B3d0nJB1tCCf/szw8giT/w3fzjcW2pa//8CboNphcz9Hx0/XvUsoB1N1wnFKaQmXjVxyhC6e
+	waIbJjGzmw==
+X-Received: by 2002:a05:600c:6298:b0:49d:17d4:d6ad with SMTP id 5b1f17b1804b1-49d17d4d6e7mr144087385e9.23.1788982647983;
+        Wed, 09 Sep 2026 12:37:27 -0700 (PDT)
 Received: from iku.Home ([2a06:5906:61b:2d00:d357:e592:d56c:d3b5])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49d26be64a5sm13123995e9.6.2026.09.09.12.37.25
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49d26be64a5sm13123995e9.6.2026.09.09.12.37.27
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 09 Sep 2026 12:37:25 -0700 (PDT)
+        Wed, 09 Sep 2026 12:37:27 -0700 (PDT)
 From: Prabhakar <prabhakar.csengg@gmail.com>
 X-Google-Original-From: Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 To: Geert Uytterhoeven <geert+renesas@glider.be>,
@@ -74,10 +76,12 @@ Cc: linux-renesas-soc@vger.kernel.org,
 	Biju Das <biju.das.jz@bp.renesas.com>,
 	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
 	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Subject: [RFC PATCH 0/3] soc: renesas: Add address extension support for RZ/V2H
-Date: Wed,  9 Sep 2026 20:36:36 +0100
-Message-ID: <20260909193640.8069-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+Subject: [RFC PATCH 3/3] arm64: dts: renesas: r9a09g057h44-rzv2h-evk: Move SDHI1 dma range from 8-12 GiB
+Date: Wed,  9 Sep 2026 20:36:39 +0100
+Message-ID: <20260909193640.8069-4-prabhakar.mahadev-lad.rj@bp.renesas.com>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260909193640.8069-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+References: <20260909193640.8069-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -88,168 +92,67 @@ Content-Transfer-Encoding: 8bit
 
 From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 
-Hi all,
+Relocate SDHI1's AOF-remapped DMA window to physical 8-12 GiB
+(0x2_0000_0000-0x2_ffff_ffff), by updating the dma-ranges entry on
+aof_sdhi1_bus so that SDHI1's full 4 GiB device-side address space
+(child base 0x0, size 4 GiB) is linearly remapped starting at parent
+base 0x2_0000_0000.
 
-This series adds support for the SYS_AOF (Address Offset Function)
-address extension mechanism on RZ/V2H, and enables it for the SDHI
-internal DMAC so SD/eMMC DMA buffers are no longer confined to the
-low 4 GiB of physical memory.
+Since SDHI1's DMA-visible addresses no longer correspond 1:1 to
+ordinary system RAM, buffers handed to it must be guaranteed to
+physically reside within this window. Add a restricted-dma-pool
+reserved-memory region covering the same 8-12 GiB range and attach
+it to sdhi1 via memory-region, so the kernel bounces SDHI1's DMA
+buffers through this pool instead of allowing dma_alloc_coherent()/
+dma_map_sg() to hand back arbitrary physical pages outside the range
+the programmed SYS_AOF17 fields can actually reach.
 
-Background
-==========
+Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+---
+ .../boot/dts/renesas/r9a09g057h44-rzv2h-evk.dts  | 16 ++++++++++++++++
+ 1 file changed, 16 insertions(+)
 
-RZ/V2H contains bus masters (SDHI, USB, GBETH, VCD, DSI, LCDC, ISP,
-DMAC, ...) that can only generate a 32-bit address on their own
-bus. The SYS controller's SYS_AOFn registers let bits [31:30] of the
-address such a master issues select one of four independently
-configurable 6-bit fields; the selected field supplies the
-corresponding upper bits ([34:30] or [35:30]) actually driven onto
-the AXI interconnect, with bits [29:0] passed straight through. This
-splits each master's native 4 GiB space into four relocatable 1 GiB
-windows, letting it reach a 35-bit (DDR0/DDR1) or 36-bit (+PCIe0/
-PCIe1) physical address space. See RZ/V2H Group Hardware User's
-Manual, Figure 1.7-2 and Sections 1.7.3.2 and 4.3.3.2.88-90,
-reproduced here in text form:
-
-                     +--------------------+
-                     |       Master       |
-                     |  32-bit address    |
-                     |      [31:0]        |
-                     +----------+---------+
-                                |
-              +-----------------+-------------------+
-              | bits [31:30]                        | bits [29:0]
-              | select field                        | passed through
-              v                                     |
-    +---------------------------------+             |
-    |         SYS_AOFn register       |             |
-    |  +------+------+------+------+  |             |
-    |  | Reg3 | Reg2 | Reg1 | Reg0 |  |             |
-    |  |  11  |  10  |  01  |  00  |  |             |
-    |  +--+---+--+---+--+---+--+---+  |             |
-    +-----|------|------|------|------+             |
-          +------+------+------+ supplies           |
-                     |    [35:30] or [34:30]        |
-                     v                              v
-              +-------------------------------------+
-              |          AXI interconnect           |
-              |        35- or 36-bit address        |
-              +--------------------+----------------+
-                                   |
-                                   v
-     +-----------------------------------------------------+
-     |               Physical address space                |
-     |  F_FFFF_FFFFh +-----------------------------------+ |
-     |               |          PCIe1 - 23 GiB           | |
-     |  A_4000_0000h +-----------------------------------+ |
-     |               |          PCIe0 - 24 GiB           | |
-     |  4_4000_0000h +-----------------------------------+ |
-     |               |           DDR1 - 8 GiB            | |
-     |  2_4000_0000h +-----------------------------------+ |
-     |               |           DDR0 - 8 GiB            | |
-     |  0_4000_0000h +-----------------------------------+ |
-     |               |  SRAM, peripheral, xSPI - 1 GiB   | |
-     |  0_0000_0000h +-----------------------------------+ |
-     +-----------------------------------------------------+
-
-     Four 1 GiB windows, each independently redirectable to
-     any 1 GiB-aligned target above; 35-bit-limited masters
-     must keep bit [5] of every field clear (1.7.3.2.1).
-
-In case the image isnt formatted correctly please refer the link
-https://raw.githubusercontent.com/prabhakarlad/img/refs/heads/main/Screenshot%202026-08-12%20162004.png
-
-Without this, SDHI (and other masters in the same category) are
-limited to buffers in the low 4 GiB.
-
-Approach
-========
-
-Rather than hardcoding SYS_AOFn programming per board, this series
-derives it from the devicetree dma-ranges property already used to
-describe DMA address translation:
-
- - Patch 1 adds generic AOF parsing/programming infrastructure to
-   the rz-sysc driver. Each SoC lists its AOF-capable masters as
-   (MMIO base, SYS_AOFn index, address width) tuples; at probe time,
-   the driver walks "simple-bus" wrapper nodes carrying a dma-ranges
-   property, matches the wrapped device against that table by MMIO
-   base, and programs the corresponding SYS_AOFn fields directly
-   from the dma-ranges translation. Devices with status = "disabled"
-   are skipped. Malformed or out-of-range entries (misaligned,
-   exceeding the master's own 4 GiB space, or requiring bit [5] on a
-   35-bit-limited master) are rejected.
-
- - Patch 2 moves the SDHI nodes in r9a09g057.dtsi into per-instance
-   simple-bus wrapper nodes with a default, no-op (DDR0-targeting)
-   dma-ranges -- no functional change for boards that don't further
-   override it.
-
- - Patch 3 demonstrates a non-default window on the RZ/V2H EVK:
-   SDHI1's dma-ranges is pointed at an 8-12 GiB DDR1 window, backed
-   by a restricted-dma-pool reserved-memory region so buffers handed
-   to SDHI1 are guaranteed to physically land inside the range the
-   programmed SYS_AOF17 fields can actually reach.
-
-Boards that do not override an SDHI instance's dma-ranges see no
-functional change: the default wrapper mapping added in patch 3 is
-an identity remap onto DDR0's native address.
-
-Trade-offs
-==========
-
-- Attaching a restricted-dma-pool to a device makes every DMA transfer
-for that device bounce unconditionally (is_swiotlb_force_bounce()),
-regardless of whether the buffer's physical address would otherwise
-have been directly usable.
-- Each master will require a restricted-dma-pool.
-
-Testing
-=======
-
-Tested on the RZ/V2H EVK (r9a09g057h44-rzv2h-evk) with SDHI1 remapped
-to an 8-12 GiB DDR1 window, running repeated large-file dd read/write
-and mmc_test against an SD card, with no functional errors observed.
-While running mmc_test a loss of ~4% was seen for read/write tests as
-the mmc_test module allocated the memory using GFP_DMA flag.
-
-This series does not yet cover the remaining AOF-capable masters
-(USB, GBETH, VCD/DSI/LCDC/ISP, DMAC channels).
-
-Request for feedback
-=====================
-The ~4% loss above comes from restricted-dma-pool's unconditional
-bounce policy (is_swiotlb_force_bounce()): every SDHI transfer is
-copied through the pool, even when the source buffer's physical
-address would already have been usable without any copy at all.
-This is a direct consequence of using restricted-dma-pool as the
-correctness mechanism for a device whose real addressing constraint
-doesn't map onto the flat dma_mask/dma-ranges model the generic DMA
-layer otherwise assumes.
-
-Before optimizing this further, I'd like inputs on whether
-restricted-dma-pool is the right tool here. Suggestions and pointers
-to prior art for similar SoC address-extension/aperture hardware would
-be very welcome.
-
-Thanks for reviewing.
-
-Cheers,
-Prabhakar
-
-Lad Prabhakar (3):
-  soc: renesas: rz-sysc: Configure AOF registers from dma-ranges
-  arm64: dts: renesas: r9a09g057: Move SDHI nodes into bus nodes
-  arm64: dts: renesas: r9a09g057h44-rzv2h-evk: Move SDHI1 dma range from
-    8-12 GiB
-
- arch/arm64/boot/dts/renesas/r9a09g057.dtsi    | 123 +++++++++++-------
- .../dts/renesas/r9a09g057h44-rzv2h-evk.dts    |  16 +++
- drivers/soc/renesas/r9a09g057-sys.c           |   9 ++
- drivers/soc/renesas/rz-sysc.c                 | 118 +++++++++++++++++
- drivers/soc/renesas/rz-sysc.h                 |  22 ++++
- 5 files changed, 240 insertions(+), 48 deletions(-)
-
+diff --git a/arch/arm64/boot/dts/renesas/r9a09g057h44-rzv2h-evk.dts b/arch/arm64/boot/dts/renesas/r9a09g057h44-rzv2h-evk.dts
+index 0926ab891fa5..6845d576af42 100644
+--- a/arch/arm64/boot/dts/renesas/r9a09g057h44-rzv2h-evk.dts
++++ b/arch/arm64/boot/dts/renesas/r9a09g057h44-rzv2h-evk.dts
+@@ -99,6 +99,17 @@ reg_3p3v: regulator-3p3v {
+ 		regulator-always-on;
+ 	};
+ 
++	reserved-memory {
++		#address-cells = <2>;
++		#size-cells = <2>;
++		ranges;
++
++		sdhi1_aof_pool: sdhi1-aof-pool@200000000 {
++			compatible = "restricted-dma-pool";
++			reg = <0x2 0x00000000 0x0 0x08000000>;
++		};
++	};
++
+ 	vqmmc_sdhi1: regulator-vccq-sdhi1 {
+ 		compatible = "regulator-gpio";
+ 		regulator-name = "SDHI1 VccQ";
+@@ -130,6 +141,10 @@ y1: y1-clock {
+ 	};
+ };
+ 
++&aof_sdhi1_bus {
++	dma-ranges = <0x0 0x00000000 0x2 0x00000000  0x1 0x00000000>;
++};
++
+ &audio_extal_clk {
+ 	clock-frequency = <22579200>;
+ };
+@@ -542,6 +557,7 @@ &scif {
+ };
+ 
+ &sdhi1 {
++	memory-region = <&sdhi1_aof_pool>;
+ 	pinctrl-0 = <&sdhi1_pins>;
+ 	pinctrl-1 = <&sdhi1_pins>;
+ 	pinctrl-names = "default", "state_uhs";
 -- 
 2.55.0
 
