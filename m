@@ -1,90 +1,84 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 371323A7D73;
-	Wed,  9 Sep 2026 20:01:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5D7F53D9550;
+	Wed,  9 Sep 2026 20:01:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788984073; cv=none; b=EvF47PPE/5+eCGb9Lq82GTtpPe/eJbBON6JQWkjjBhA2xYiambGiO0XUT3gjtAEWm+TtFFavkkXvTQxWOxvmc41iw7tupVgHY+JzCuTVURJibOUBJOKzQdCoBgCZKeWTkqC3cWLBPIumPNvVEZfXCTyy0umCqPHueypri2yYtQI=
+	t=1788984077; cv=none; b=r8ZlfAOH7PF6eBVfTu2crIIm5s7MmozGuOvSUNazbiqg+6pi5q455OgdaA/77A80X7OpvfyB79lzMkItet2xeg1YHooNAjdMAIv48ewUUXpJOOGl3ipYhylBNFIHXLFDFqfvyHoEMiL+f5rw68FuPLjYkcTso0oh9Bp5+8og+eM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788984073; c=relaxed/simple;
-	bh=MgD8IUvjAyNLLzUP4FV0FPGqVKoOSoWalFsNEThTgnM=;
-	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=A4ZXQHjVZjnzfa0AX8Gpt/JbAS48q2EGr1rUVqA87AKWRCN3bU1Cjhbng1MDdvfYAfDpwjPFw0qhDG45oS/KRL8lBjYSmX/Ix5135HttzK2xCjlCswid4UyumJxgngadq5e+fvWXKkrQgH7T174hkHOX8fOca0/7/oWY8HtNaOg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=m4UeDj1B; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788984077; c=relaxed/simple;
+	bh=rNi5YhSEeETSE5FQBog3k1r0aviOJOf+s/njOtyxBZE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=k44KNalpfk7d54IpQpZvPeGCLAQ9lXwL4Ey0IHTRyQfWhgKCjS6tl9Dn5pfDwBs/rtlkopUWh4I1APfSvlqYkhdHqFsCQhkPYSAWABm/ryKrGx/7cWOA1HssYzWorhrNXEQECLYK4y4FI3RZI9gPGVkZDFuwfMk7+OX3eazUN28=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.arm.com; spf=pass smtp.mailfrom=foss.arm.com; dkim=pass (1024-bit key) header.d=foss.arm.com header.i=@foss.arm.com header.b=HnL3iTWU; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="m4UeDj1B"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 69C261F000FF;
-	Wed,  9 Sep 2026 20:01:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788984070;
-	bh=bVBsQziOCe6FlhZ7FOhLXPVigWP9VPum8a09dM9B1yA=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=m4UeDj1B7G91HQS0eZdqF49gYa9L23JR9ZXcVGtJVNjYN5Jp8aMWME3NaiErkVxNz
-	 um73vM1eQ8sDJHozb1LYD8YkxZTYl860ydUN0kJIFvNb42bkH/QFsPbZJehhvDvy6d
-	 t4LK5bfl15QXBfya92kjm4YBgc9g3gzKf4xGdac5FxoNaB1B1PWLrv+FNm4yVED3+D
-	 VPB2mK1jn3E37fLJf86/SfPCfqrrRMR7LGc+kM6LCCBWcUMlpH7MTGjtDvaeamEP9O
-	 lO5RQ0SfSJOfrCYDle7I/dMU4KHoBFGgM1dQ+zrZW/yzX+y/rVzbKx3Dlm39DiwnZs
-	 Wo40p4VPhO7LQ==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 93B39380AA74;
-	Wed,  9 Sep 2026 20:00:09 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (1024-bit key) header.d=foss.arm.com header.i=@foss.arm.com header.b="HnL3iTWU"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id AB42B1570;
+	Wed,  9 Sep 2026 13:01:07 -0700 (PDT)
+Received: from [10.211.55.7] (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id BAF703F7B4;
+	Wed,  9 Sep 2026 13:01:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=foss.arm.com; s=main;
+	t=1788984071; bh=rNi5YhSEeETSE5FQBog3k1r0aviOJOf+s/njOtyxBZE=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=HnL3iTWUzI5pHllYz6CCHmcPV3JTw+s6qzHZZToyX8cY0TBKM130vVtUdiL2JwN+G
+	 /8IMNBhLGf6IMvg5JAecf3/j2SujtIhDOIUmv1SnU6JOhvLB1iobKgEx/gCGbaofGy
+	 u6UNzBwtszGomEhOE5GTTi+QO1cB/EndPZx3QVr4=
+Message-ID: <c5367968-0e0d-4583-8ac9-efb3bb5b2983@foss.arm.com>
+Date: Wed, 9 Sep 2026 15:01:10 -0500
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: Shadow Stack Locking Semantics between arch's
+To: Mark Brown <broonie@kernel.org>,
+ "Edgecombe, Rick P" <rick.p.edgecombe@intel.com>
+Cc: Jesse Huang <jesse.huang@sifive.com>,
+ "linux-riscv@lists.infradead.org" <linux-riscv@lists.infradead.org>,
+ linux-arm-kernel@lists.infradead.org,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ linux-hardening@vger.kernel.org, linux-api@vger.kernel.org,
+ dave.hansen@linux.intel.com, rick.p.edgecombe@intel.com, debug@rivosinc.com,
+ andrew@sifive.com, kito.cheng@sifive.com
+References: <a1946d93-370e-4ca9-85d6-60b4a20ffd47@arm.com>
+ <3bb672e0-7bc3-434f-904e-aa00394dd01f@foss.arm.com>
+ <d20ccb74-69ed-45d7-a810-846904873588@sirena.org.uk>
+ <0ef9f4ab-4c9f-4089-bed3-f7726ec97804@foss.arm.com>
+ <522bcf96-499c-491b-aaf0-34e6bbd42929@sirena.org.uk>
+Content-Language: en-US
+From: Bill Roberts <bill.roberts@foss.arm.com>
+In-Reply-To: <522bcf96-499c-491b-aaf0-34e6bbd42929@sirena.org.uk>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH 0/3] Bluetooth: btmtk: Harden firmware parsing and improve
- logging
-From: patchwork-bot+bluetooth@kernel.org
-Message-Id: 
- <178898400812.1032931.449738913453021907.git-patchwork-notify@kernel.org>
-Date: Wed, 09 Sep 2026 20:00:08 +0000
-References: <20260909120011.1198001-1-chris.lu@mediatek.com>
-In-Reply-To: <20260909120011.1198001-1-chris.lu@mediatek.com>
-To: Chris Lu <chris.lu@mediatek.com>
-Cc: marcel@holtmann.org, johan.hedberg@gmail.com, luiz.dentz@gmail.com,
- sean.wang@mediatek.com, will-cy.Lee@mediatek.com, ss.wu@mediatek.com,
- linux-bluetooth@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-mediatek@lists.infradead.org
 
-Hello:
+>>>> unsigned long locked = 0x2; // Kernel Task State -> LOCK WRITE
+>>>> unsigned long cur_val = 0x3; // Kernel Task State -> WRITE and SHADOWSTACK
+>>>> ENABLED
+>>>> unsigned long new_val = 0x0; // Userspace Feature Change via syscall ->
+>>>> DISABLE
+>>>> | x86-64 | risc-v | arm64 |
+>>>> | ---------- | -------- | --------- |
+>>>> | Works  | Fails  | Fails     |
+>>> I would not have expected that combination to work at all with the
+>>> prctl() (as opposed to arch_prctl()) interface TBH, if you've locked
+>>> write on you shouldn't be able to disable it.  The reason that works on
+>>> x86 at the minute is that for x86 you can only change one bit at a time
+>>> so the new value when disabling is effectively 0x2, not 0x0.
+>> Yes, this is exactly what I am pointing out. Implementation aside, is that
+>> the behavior we want?
+> It seems more helpful to support changing more than one bit at once.
++ Rick in "to", I want him to weigh in as well.
 
-This series was applied to bluetooth/bluetooth-next.git (master)
-by Luiz Augusto von Dentz <luiz.von.dentz@intel.com>:
-
-On Wed, 9 Sep 2026 20:00:08 +0800 you wrote:
-> Three changes to the shared btmtk firmware download path, all in
-> preparation for MT7928 support but useful on their own.
-> 
-> Patch 1 bounds-checks the firmware image before the section map walk in
-> btmtk_setup_firmware_79xx(). Today the section count, the section map
-> array and each section's offset/length come straight out of the file and
-> are never compared against fw->size, so a truncated or corrupted file
-> makes the driver read past the end of request_firmware()'s buffer. The
-> section count is a __le32 from the file, so on 32-bit builds multiplying
-> it by the 64-byte map size wraps a size_t and a bound computed without an
-> overflow check would come out small enough to accept the file; both
-> helpers order their arithmetic so nothing can wrap. A section count of
-> zero is rejected too, since it passes every size check but would leave
-> the download loop with nothing to do and still report success.
-> 
-> [...]
-
-Here is the summary with links:
-  - [1/3] Bluetooth: btmtk: Validate the firmware layout before parsing it
-    https://git.kernel.org/bluetooth/bluetooth-next/c/71147d59cb23
-  - [2/3] Bluetooth: btmtk: Improve BT firmware logging
-    https://git.kernel.org/bluetooth/bluetooth-next/c/4a7b93f08d13
-  - [3/3] Bluetooth: btmtk: Replace magic numbers with WMT packet flag enum
-    https://git.kernel.org/bluetooth/bluetooth-next/c/1b737f2ef168
-
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
+I think we're still miscommunicating.  The issue is, that in the current
+interface for x86 via arch_prctl, which is one bit at a time, the explicit
+locking of write can be undone via turning off the shadow stack. Should
+that succeed, or should that fail since it implicitly turns off write? 
+Should
+we preserve that as we port to prctl? Should we change that in x86
+arch_prctl, was that intended?
 
