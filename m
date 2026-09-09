@@ -1,135 +1,152 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B75D5576EB8;
-	Wed,  9 Sep 2026 15:53:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D096576EB8;
+	Wed,  9 Sep 2026 15:53:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788969230; cv=none; b=KdWGVl6W9gQZ/NGmbesk2mi+d13v58bpAAD/2ZHEzoFhhf7qv/mroe0DrdB44xYXFyyuy+1yrDKBxbM4BaGV5wpKSQ7GeU5oPZGEmfRanRPNofQEortLS2n9LKrH5oXV4xGHbb7TYGVuNvCgP+2vOXCZJqTZi28m564CM/DHCp8=
+	t=1788969234; cv=none; b=NfwWvkdb6KtBKNStvdqyo+kMrRA9Z19IRee3digS2QS9gc0+po/rLeV2zqMp3yw74/wgyY1LKOV/Aopz+TQ/x6hSO6XCj1/Bb+PHVJoTqtK+IAJAL/hXtUit2sIfh5k0XTffF9SiyjbHAeYnqK9sC9rd7NNcMNp16mH5f664NPE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788969230; c=relaxed/simple;
-	bh=Lw23bxYF2SeVxe2c2uvX0H1QkXIsH944jUEI8MagQVk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=fU8l64p+txa2nCUXhgBhv4/7yOZI1q/lcMYyV/GKG7Aj5BRm9YGO1dwke6IghiATLSfQUv30tbhJTQWYZgXjp4Wr+eHba4XNi0cBtjCP5pelVy2HbeAQ5gTxYnaq78z/zuhNTutVBRq4sW+DhgJ3q7md77gV3DgmCD3F4doqcsM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dlqiTQX+; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788969234; c=relaxed/simple;
+	bh=dUjHsZuyDv1l8FbpCpEgVt+StsM7dxMMLWPLdFQAmW0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=NCxrsAXLnmcd4uM8n7PlRgsp0uUZlU73Ka8xPFgNDBy0m9s0I85PWhjsWMuysxdkVqT044PbVthdQzfYmeKIhgAwVBnHipTCGLvK3lwPiXkzG6Cwy8teEFFe/xwpT2GxiihSQ7LOY7yL5p0VMozfR0YDKXcCJduIGO+Eh+HQeas=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=FkZShthZ; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dlqiTQX+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3F9701F00A3D;
-	Wed,  9 Sep 2026 15:53:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788969228;
-	bh=d6P8nm47c75PBnxXGfDXABoraSULENG6UjLUERO0Rq4=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=dlqiTQX+iMDMb1qXIXZYay9dfUlyORepD3vScebEO37aWVzwCkzCDyMAqxf+d/Yhe
-	 JYMtlmqPlcM5T73uAZF0iAA8cNO4s79GLzTFEsc5QcIjoSXK93um942NhlK+O5+qDU
-	 ErXMZo7H8Igu/mrMs5U0N8JAkPSKVTIScvIzUy1x6BJrmVltcVM1kyl+aQm06lI2Dn
-	 1qjzk8KKcpkHTzEj9Ie5amDCq73rxHeY47gRNhMJqej7v/q94/lbyZY0AsRZVzaP0f
-	 zU87RqdgUwFcWHOZydhE/DErioLnsZk6mLON4waRp7Ag0M0r8+urlx9Fa1aOWHj1wF
-	 JM5aAGwQf7PCQ==
-From: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>
-Cc: linux-kernel@vger.kernel.org,
-	linux-trace-kernel@vger.kernel.org,
-	Sang-Heon Jeon <ekffu200098@gmail.com>
-Subject: [PATCH 1/3] bootconfig: Reject unexpected data after null character
-Date: Thu, 10 Sep 2026 00:53:45 +0900
-Message-ID: <178896922501.177508.6894964926791268965.stgit@devnote2>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <178896921555.177508.434402948295885560.stgit@devnote2>
-References: <178896921555.177508.434402948295885560.stgit@devnote2>
-User-Agent: StGit/0.19
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="FkZShthZ"
+Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 689B1hXA1930950;
+	Wed, 9 Sep 2026 15:53:24 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=9fEv8C
+	VQ+LcrjyrEyKWNY8tE1ZC5nOC4fuPxuTwwtWQ=; b=FkZShthZPf6z6Inxuhf+uF
+	iNXUzguRjPZq6PaXhqShCZ3McDp20T3UU5KU3cjMrWdZqtNCUuSuqfdkm8GvIvLF
+	dd72+XGKDtIjz69shK+IZlKQChWqyKHmF6exXT0UkgZBSqDxfU9Ur7ERBXMUX80P
+	s0bhDfhWZtFY8AxXcf0pCGiGI5KikMBri/OGHlqKcjofQOFEa0vOHAVhylAiOQpt
+	uCOLt6833VHDacYxqLq1mLTEtUp5aex8n856rgslbajZo+ccvWXcR2TgU4TdVmIw
+	4EHKN7jBzQE3ENXFaCKAqQK2azDDhu9EJCVqra+ip00luEloiWqmnR79lR7H0gcw
+	==
+Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4ggbqk6vp0-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 09 Sep 2026 15:53:23 +0000 (GMT)
+Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma22.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 689FfE6N015367;
+	Wed, 9 Sep 2026 15:53:22 GMT
+Received: from smtprelay05.fra02v.mail.ibm.com ([9.218.2.225])
+	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4ggwswb807-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 09 Sep 2026 15:53:22 +0000 (GMT)
+Received: from smtpav01.fra02v.mail.ibm.com (smtpav01.fra02v.mail.ibm.com [10.20.54.100])
+	by smtprelay05.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 689FrJXq50987368
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Wed, 9 Sep 2026 15:53:20 GMT
+Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id D9F5A2004B;
+	Wed,  9 Sep 2026 15:53:19 +0000 (GMT)
+Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 4CF0E20043;
+	Wed,  9 Sep 2026 15:53:10 +0000 (GMT)
+Received: from [9.61.255.18] (unknown [9.61.255.18])
+	by smtpav01.fra02v.mail.ibm.com (Postfix) with ESMTPS;
+	Wed,  9 Sep 2026 15:53:09 +0000 (GMT)
+Message-ID: <30360c50-0238-40e8-b598-bdfda1141cc8@linux.ibm.com>
+Date: Wed, 9 Sep 2026 21:23:06 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 02/22] coredump: refuse negative skips
+To: Christian Brauner <brauner@kernel.org>, linux-fsdevel@vger.kernel.org
+Cc: Jacob Lalonde <jalalonde@meta.com>, Josef Bacik <josef@toxicpanda.com>,
+        Jann Horn <jannh@google.com>, Alexander Viro <viro@zeniv.linux.org.uk>,
+        Jan Kara <jack@suse.cz>, Andrew Morton <akpm@linux-foundation.org>,
+        David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
+        "Liam R. Howlett" <liam@infradead.org>,
+        Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
+        Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+        Omar Sandoval <osandov@osandov.com>, Jacob Lalonde <jalalonde@fb.com>,
+        Shuah Khan <shuah@kernel.org>, linux-kernel@vger.kernel.org,
+        linux-mm@kvack.org, linux-kselftest@vger.kernel.org,
+        linuxppc-dev@lists.ozlabs.org
+References: <20260820-work-coredump-sparse-v2-0-ba32dd718c51@kernel.org>
+ <20260820-work-coredump-sparse-v2-2-ba32dd718c51@kernel.org>
+Content-Language: en-US
+From: R Nageswara Sastry <rnsastry@linux.ibm.com>
+In-Reply-To: <20260820-work-coredump-sparse-v2-2-ba32dd718c51@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-ORIG-GUID: pYL1X5j4L64D3lhY8GC7_PxezJajFPeA
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA5MDE3MyBTYWx0ZWRfXyZQ2yeCYTZ8Y
+ 0zY5ztZt9jhIlCwPuIHMWYJZeFMN1RfSvZmQxlYKHYhZCliMI/1/l/3Wg0EpWXDDd6lWozX46Rp
+ BOsUhsvxP3K7Gf6k9YxbUWZBPcLY48o=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA5MDE3MyBTYWx0ZWRfX5MyolTbYyMTx
+ 81rdDfK4pUyI4nx4v6Y9Tq/r/gVfH0lueULm43ZNa2On7UJUzNwVwdVblnzuc6TdwypX9OVkabd
+ mY7Y+a3Um2ewoWxHnuzkeZMU9B9ZEx8zXreAkdyeB0s9N4qbY4sE3Mi+N9nw47/d2BRpkyMNGvD
+ 3NamjGc8COyszi5eNpC2WHmCm6ZnIaCNR9nVGU8PKzrDMBSZz7UZmsQZ2GC97VMvBlLdIC1rSRX
+ cnRoYJFT+Rf7HW7PJ/28KPLDCHwRT7HIo66pa7r9Oacak+UAvogwSvhdsx8cRtWmtDzjGv5q3Tx
+ MRgAeULZKoh4YyzTCo7msiB5MQSn0j7ly8YqteQYeKytKoC6USiarP/25m9uwlz0MZyki4TDtFE
+ 9HQGoeP/j1znxi3DPlsn/xA5Dz4ToJDJEyWtDxCPse+ktxUKAo6Dlm+UeqHdrTyl+tA5+qewgyB
+ 79OOPB5Pjo8vswDjYfA==
+X-Authority-Analysis: v=2.4 cv=JaKMa0KV c=1 sm=1 tr=0 ts=6aa180f3 cx=c_pps
+ a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=uAbxVGIbfxUO_5tXvNgY:22 a=VwQbUJbxAAAA:8
+ a=VnNF1IyMAAAA:8 a=0fa85O3lyfMzuANSHggA:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-GUID: x7FvKhawyt97Kk1EQB6_XHSAe9xWv9Jr
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-08_03,2026-09-09_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 spamscore=0 phishscore=0 impostorscore=0 lowpriorityscore=0
+ adultscore=0 bulkscore=0 priorityscore=1501 suspectscore=0 clxscore=1015
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609090173
 
-From: Masami Hiramatsu (Google) <mhiramat@kernel.org>
 
-If a bootconfig buffer contains an intermediate null character in the
-middle of the configuration, xbc_parse_tree() stops at the null character
-because string delimiter searches (e.g. strpbrk()) stop at '\0', and
-cleanly breaks out of the loop without error. As a result, any
-configuration data following the intermediate null character is silently
-ignored, allowing unparsed or potentially malicious data to be hidden
-after an early termination.
+On 20.08.2026 4:39 AM, Christian Brauner wrote:
+> The dump_skip_to() helper calculates a relative skip based on the
+> absolute positon of the coredump:
+>
+> 	cprm->to_skip = pos - cprm->pos;
+>
+> That's easy to mess up for callers and one already did. This risk
+> endless zero PAGE_SIZE loops or overwriting already written coredump
+> data thereby corrupting the dump.
+>
+> I don't think skipping backwards has any meaning. So warn and refuse.
+>
+> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+Tested-by: R Nageswara Sastry <rnsastry@linux.ibm.com>
 
-Fix this in xbc_parse_tree() by checking that no non-null data remains
-between the parser termination point and the end of the input buffer.
-Trailing null characters (such as alignment padding in initrd) continue
-to be accepted as valid.
-
-Also update apply_xbc() in tools/bootconfig/main.c to calculate the
-buffer size based on the loaded file size rather than strlen(), so that
-files with intermediate null characters are not truncated before
-validation.
-
-Assisted-by: Antigravity:gemini-3.8-flash
-Signed-off-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
----
- lib/bootconfig.c                    |    7 +++++++
- tools/bootconfig/main.c             |    4 +++-
- tools/bootconfig/test-bootconfig.sh |   12 ++++++++++++
- 3 files changed, 22 insertions(+), 1 deletion(-)
-
-diff --git a/lib/bootconfig.c b/lib/bootconfig.c
-index aba11caf6903..0ec2874db9c7 100644
---- a/lib/bootconfig.c
-+++ b/lib/bootconfig.c
-@@ -1116,6 +1116,13 @@ static int __init xbc_parse_tree(void)
- 		}
- 	} while (!ret);
- 
-+	if (!ret) {
-+		while (p < xbc_data + xbc_data_size - 1 && *p == '\0')
-+			p++;
-+		if (p < xbc_data + xbc_data_size - 1)
-+			ret = xbc_parse_error("Unexpected data after null character", p);
-+	}
-+
- 	return ret;
- }
- 
-diff --git a/tools/bootconfig/main.c b/tools/bootconfig/main.c
-index 7dc9fff9b637..6035404733c3 100644
---- a/tools/bootconfig/main.c
-+++ b/tools/bootconfig/main.c
-@@ -422,7 +422,9 @@ static int apply_xbc(const char *path, const char *xbc_path)
- 		pr_err("Failed to load %s : %d\n", xbc_path, ret);
- 		return ret;
- 	}
--	size = strlen(buf) + 1;
-+	size = ret;
-+	if (size == 0 || buf[size - 1] != '\0')
-+		size++;
- 	csum = xbc_calc_checksum(buf, size);
- 
- 	/* Backup the bootconfig data */
-diff --git a/tools/bootconfig/test-bootconfig.sh b/tools/bootconfig/test-bootconfig.sh
-index fc69f815ce4a..530ce7e28d63 100755
---- a/tools/bootconfig/test-bootconfig.sh
-+++ b/tools/bootconfig/test-bootconfig.sh
-@@ -180,6 +180,18 @@ EOF
- $BOOTCONF -a $TEMPCONF $INITRD 2> $OUTFILE
- xpass grep -q "1:1" $OUTFILE
- 
-+echo "Intermediate null character test"
-+printf "key = value\n\0extra = data\n" > $TEMPCONF
-+xfail $BOOTCONF -a $TEMPCONF $INITRD
-+$BOOTCONF -a $TEMPCONF $INITRD 2> $OUTFILE
-+xpass grep -q "Unexpected" $OUTFILE
-+
-+echo "Trailing null character test"
-+printf "key = value\n\0" > $TEMPCONF
-+xpass $BOOTCONF -a $TEMPCONF $INITRD
-+$BOOTCONF $INITRD > $OUTFILE
-+xpass grep -q "value" $OUTFILE
-+
- echo "=== expected failure cases ==="
- for i in samples/bad-* ; do
-   xfail $BOOTCONF -a $i $INITRD
+System: ppc64le LPAR (IBM POWER), Linux 7.3-rc2
+> ---
+>   fs/coredump.c | 2 ++
+>   1 file changed, 2 insertions(+)
+>
+> diff --git a/fs/coredump.c b/fs/coredump.c
+> index e68a76ff92a3..ac4e922c9cb9 100644
+> --- a/fs/coredump.c
+> +++ b/fs/coredump.c
+> @@ -1261,6 +1261,8 @@ EXPORT_SYMBOL(dump_emit);
+>   
+>   void dump_skip_to(struct coredump_params *cprm, unsigned long pos)
+>   {
+> +	if (WARN_ON_ONCE(pos < cprm->pos))
+> +		return;
+>   	cprm->to_skip = pos - cprm->pos;
+>   }
+>   EXPORT_SYMBOL(dump_skip_to);
+>
+-- 
+Thanks and Regards
+R.Nageswara Sastry
 
