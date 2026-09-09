@@ -1,192 +1,132 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6B1447044D;
-	Wed,  9 Sep 2026 08:11:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 011DE4766BF;
+	Wed,  9 Sep 2026 08:11:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.92.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788941476; cv=none; b=I8Td56Ug+WL8wtzln7azj1+7iBoPbvGDSyQK4qV/LStzpjB36A3BrMJwWCgXn5z1HvEaY72oS29zqqFbJ9ST2p4I3Aq/JKgXf19RdFMc0tqNDfEJ9vDBljr1iz00GvkXiCd8uMyHh2deqxxnPQYMk25/WR9Q+gp/oPWPIrCBGw4=
+	t=1788941483; cv=none; b=NP/PN5sGf/+8N2hi0bcxWZIjLLZ44rKK7a3EJERhVFnnK3rehwbYdMq5AqEBgLbOc+ZnYFD7UMXJ3u0Elzt3/TmsxE/vrh05Xju+8BctBrcNSh8uzohbdzZos+lf1/notkJXMkbbEQptyuJpj266xsSaSEZStJc1r/QeuoU4xqM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788941476; c=relaxed/simple;
-	bh=x/SqSBRrCxdKTh87Zh912gsOD694mizX4HTJfoDWE64=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=hoG1yVlEbroaRdtlFl/o1afC50A5Cc81YiDZ9Bu8ZitoL8/SxszkAoXTpgek4DiqCQSOJM3dO0VOtK84o+4gnKbMqIQyjm7JCv5TKNVBLv/bZlGqgImzfAP/B27yasKooIL5u9VlsGKLYLI5JFOVTKFTCrSvdT4uyzarIJMkiD0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=b8wRu/0O; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=9OLkoNhO; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=axZkKbtu; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=w32/qxR2; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	s=arc-20240116; t=1788941483; c=relaxed/simple;
+	bh=YF6FUyNL8hVQ+dIR8Zrr5vQjbpWebhdEiRG7jyN1SSc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=L5GncbdPH30AltOk8HRDvd7CmMzE8Ca9X6vOCVQV6psjbhIP0yL1hF1WtgHEQRrhtVKXDYUuFHQkpwpNlSFijszhWS6qIIY3FEf1iVMSu7bA1JLLS/ZXGmrvNT7RP511NW22rC7D7YEASglRYtFr11KGrScBLU2qLutoVjnp77w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=kQhywArT; arc=none smtp.client-ip=90.155.92.199
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="b8wRu/0O";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="9OLkoNhO";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="axZkKbtu";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="w32/qxR2"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 5775D1F7AF;
-	Wed,  9 Sep 2026 08:11:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1788941468; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=rllXxWvekPGT6JcUJVm6kAFGd9AsgnX6R5dLdCZfjD8=;
-	b=b8wRu/0Ofl9SQJo9TV0LiNUgFnoIgUfQxNGstWJtgs5cAsPedA52k0stm4gyz6zcR501DT
-	y2K6xMFXh/bdWm+ugePznsrHgQYeeOX3oHWnRRVYOYt37vXRtcmLQFw5iYOV+mG50DNoOt
-	pLiafH3OOgYGY7T3Lv6c3SqboBntLqU=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1788941468;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=rllXxWvekPGT6JcUJVm6kAFGd9AsgnX6R5dLdCZfjD8=;
-	b=9OLkoNhOAGX53forjZe8iIvwwmxofOJDbWQVGX4oIDSblZxbF1+1GpiW8R6XRXrODsVKa6
-	3Yv7qgXiBGiqDpDg==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=axZkKbtu;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b="w32/qxR2"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1788941464; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=rllXxWvekPGT6JcUJVm6kAFGd9AsgnX6R5dLdCZfjD8=;
-	b=axZkKbtu7gCvAKJv0Q3EjFTAarhdbfzvkSp/mt0VbAY6kDH6czWqRI9T3KKNTUPzOaodBE
-	xLmTncPsUAT8rwOIX0QjJQZJLru4JDgtex7fID2u7T9aUpfFYxFsIwm5B0Q3B4u62yXw6O
-	86nux5XfG+GNdDFa2jZwbIToLpMb/eE=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1788941464;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=rllXxWvekPGT6JcUJVm6kAFGd9AsgnX6R5dLdCZfjD8=;
-	b=w32/qxR2D+ztjV/yI6qgHAIARrAUzRQl6/GLgciTbMLPBq+nLTY+KEZrUZVWmDNq8YR+I3
-	tP1YxzybaypWHMCw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id B2E7413354;
-	Wed,  9 Sep 2026 08:11:03 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id S30sKpcUoWouIwAAD6G6ig
-	(envelope-from <tzimmermann@suse.de>); Wed, 09 Sep 2026 08:11:03 +0000
-Message-ID: <a8f71685-6c49-4d52-a084-1153183a6f7a@suse.de>
-Date: Wed, 9 Sep 2026 10:11:02 +0200
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="kQhywArT"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Transfer-Encoding:
+	Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:
+	Sender:Reply-To:Content-ID:Content-Description;
+	bh=eHB0Nf1xfgtREpHnA9gnjy2hVoSWAV9y7zVXfbdUlQc=; b=kQhywArTNsTHVDFQQTi8u05Ckj
+	8dQXL929MmJce4OG/G9A+LiNgrF2Ix92v81HpGpARRoHuNifKJkMp88Pg/0nHk33m3jSWGhDPH4Q5
+	rw3OEV2/LAB112uzEXUXBlg+FAK3+eno49EY1eFthAThzTnfV9a53gqsM8tFo2O5C8wgJSu+zYOgv
+	Myz4EeLCn+WONbdcEG7nW0vgSt4mIDadfQBl6pvqF+pMpKFMqBA5GyQGxHUvMZfDI7S7spHCt0sEN
+	WH7HJWyDwF/SL9D7SQ7VGPcX31fPKXMaORizCA+Xq7PdsUc4ejiqULRcBOLRX73KnTJVS9EBAOv3e
+	adyVdObQ==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by desiato.infradead.org with esmtpsa (Exim 4.99.2 #2 (Red Hat Linux))
+	id 1x4DOZ-00000000tIe-2xhe;
+	Wed, 09 Sep 2026 08:11:03 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id C40CD30036F; Wed, 09 Sep 2026 10:11:01 +0200 (CEST)
+Date: Wed, 9 Sep 2026 10:11:01 +0200
+From: Peter Zijlstra <peterz@infradead.org>
+To: Ian Rogers <irogers@google.com>
+Cc: Andi Kleen <ak@linux.intel.com>,
+	"Mi, Dapeng" <dapeng1.mi@linux.intel.com>,
+	Ingo Molnar <mingo@redhat.com>,
+	Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Namhyung Kim <namhyung@kernel.org>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Eranian Stephane <eranian@google.com>, linux-kernel@vger.kernel.org,
+	linux-perf-users@vger.kernel.org, Dapeng Mi <dapeng1.mi@intel.com>,
+	Zide Chen <zide.chen@intel.com>,
+	Falcon Thomas <thomas.falcon@intel.com>,
+	Xudong Hao <xudong.hao@intel.com>,
+	Gennady Kupava <gennady.kupava@gmail.com>,
+	Ravi Bangoria <ravi.bangoria@amd.com>
+Subject: Re: [PATCH 2/2] perf/x86: Disable precise sampling for
+ PERF_SAMPLE_STACK_USER
+Message-ID: <20260909081101.GS4121339@noisy.programming.kicks-ass.net>
+References: <20260908075102.540715-1-dapeng1.mi@linux.intel.com>
+ <20260908075102.540715-2-dapeng1.mi@linux.intel.com>
+ <20260908084906.GO4121339@noisy.programming.kicks-ass.net>
+ <1691a05c-49a6-4b16-8bad-cb3c004ed07c@linux.intel.com>
+ <20260908101914.GQ4121339@noisy.programming.kicks-ass.net>
+ <aqAlddsFPYJvRhFr@tassilo>
+ <CAP-5=fWbSNYpt8p3e+pqjY+xhqs8WrzsBfPaKB1NLBm88mH8Yg@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] rust/drm/gem: initialize callbacks with
- ..pin_init::zeroed()
-To: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Cc: Klara Modin <klarasmodin@gmail.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Danilo Krummrich <dakr@kernel.org>,
- Alice Ryhl <aliceryhl@google.com>, Miguel Ojeda <ojeda@kernel.org>,
- Alex Deucher <alexander.deucher@amd.com>, Mukul Joshi <mukul.joshi@amd.com>,
- Felix Kuehling <felix.kuehling@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Thorsten Leemhuis <linux@leemhuis.info>,
- Manuel Ebner <manuelebner@mailbox.org>, Gary Guo <gary@garyguo.net>,
- dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <20260908175427.47207-1-klarasmodin@gmail.com>
- <2642740a-b894-47bd-b26e-cabdaa14d8b8@suse.de>
- <CANiq72ntt_2n03UReCt6zFD_AvTMvNE6O+v3E3sURTsqW6x4Ng@mail.gmail.com>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <CANiq72ntt_2n03UReCt6zFD_AvTMvNE6O+v3E3sURTsqW6x4Ng@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-Spam-Level: 
-X-Rspamd-Action: no action
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Queue-Id: 5775D1F7AF
-X-Spamd-Result: default: False [-3.01 / 50.00];
-	BAYES_HAM(-3.00)[99.99%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FREEMAIL_TO(0.00)[gmail.com];
-	ARC_NA(0.00)[];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	RCPT_COUNT_TWELVE(0.00)[18];
-	MIME_TRACE(0.00)[0:+];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	FREEMAIL_CC(0.00)[gmail.com,ffwll.ch,kernel.org,google.com,amd.com,leemhuis.info,mailbox.org,garyguo.net,lists.freedesktop.org,vger.kernel.org];
-	RCVD_TLS_ALL(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
-	TAGGED_RCPT(0.00)[];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	DKIM_TRACE(0.00)[suse.de:+];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url,suse.de:dkim,suse.de:email,suse.de:mid,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo]
-X-Spam-Flag: NO
-X-Spam-Score: -3.01
+In-Reply-To: <CAP-5=fWbSNYpt8p3e+pqjY+xhqs8WrzsBfPaKB1NLBm88mH8Yg@mail.gmail.com>
 
-Hi
+On Tue, Sep 08, 2026 at 01:56:56PM -0700, Ian Rogers wrote:
+> On Tue, Sep 8, 2026 at 8:10 AM Andi Kleen <ak@linux.intel.com> wrote:
+> >
+> > > That's what we already do, no? I have distinct memories of making the
+> > > stack unwind use the NMI regs rather then the PEBS regs.
+> > >
+> > > > In my opinion, it could even make the thing worse. User
+> > > > requires to get precise samplings, but perf silently returns imprecise
+> > > > records, this would mislead user.
+> > >
+> > > Mostly just the unwind might be off a little, the rest is accurate. This
+> > > has been the case 'forever'. Performance analysis isn't for silly
+> > > people, if they can't deal with a little fuzz then perhaps they're in
+> > > the wrong business.
+> >
+> > Is the main problem that the stack doesn't agree? Perhaps there
+> > could be a check for regs->rsp == pebs->user rsp (if in user space)
+> > to detect problematic samples.
+> >
+> > The question is how to report it and who should do the checking.
+> >
+> > It may need new fields in the ABI either to communicate the extra PEBS RSP
+> > or a bit to indicate that there might be a mismatch.
+> >
+> > I guess checking in the kernel and reporting an error might be simpler
+> > and maybe cleaner, but it would likely limit more advanced recovery
+> > possibilities.
+> >
+> > Are there other mismatches that break the unwinding? Perhaps the same
+> > for RBP?
+> 
+> For DWARF unwinding any register may be the source of a frame pointer
+> (e.g. the OpenSSL library would use R11 rather than RBP).
+> 
+> There is redundancy on x86 you can sample the PERF_REG_X86_IP register
+> in the user register and there is PERF_SAMPLE_IP in the sample event
+> itself.
+> 
+> My understanding is that IBS can only sample IP and so for precise
+> samples we can use PERF_SAMPLE_IP as the precise location and the user
+> register PERF_REG_X86_IP as the interrupt IP - this would match the
+> other register values in the interrupt.
+> 
+> In DWARF unwinding, we initialize the register state using the sampled
+> user registers:
 
-Am 09.09.26 um 10:05 schrieb Miguel Ojeda:
-> On Wed, Sep 9, 2026 at 10:01 AM Thomas Zimmermann <tzimmermann@suse.de> wrote:
->> Please see my bug report at [1].  This patch fixes half of it. I still get
-> I think fixing that is the respin that Klara meant in
->
->    https://lore.kernel.org/rust-for-linux/aqBf1UYNR-Q3T-cs@soda.int.kasm.eu/
+Oh, I had trouble reading yesterday :/ This is about USER_STACK, not
+CALLCHAIN.
 
-Sure. I do have Tyr enabled FTR.
+I think we should try very hard to not use USER_STACK, it is an
+abomination. Instead we really should improve CALLCHAIN to be more
+useful. There are a pile of patches for kernel based unwinders,
+including for .eh_frame (if only I had time to actually go look at
+them).
 
-Best regards
-Thomas
+And we should probably look at doing a shadow stack based unwinder as
+well.
 
->
-> Cheers,
-> Miguel
-
--- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Jochen Jaser, Andrew McDonald, (HRB 36809, AG Nürnberg)
-
-
+This USER_STACK is really the absolute worst possible option. And
+perhaps refusing PEBS+USER_STACK makes sense.
