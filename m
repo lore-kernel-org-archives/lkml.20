@@ -1,186 +1,125 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail.mleia.com (mleia.com [178.79.152.223])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E059445198F;
-	Wed,  9 Sep 2026 08:24:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 536EA453A48;
+	Wed,  9 Sep 2026 08:24:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.79.152.223
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788942264; cv=none; b=hpHeYvjFZi4PdV7iEqAmOXJcNp1f69p4Fjp7Y/nO+uu1x623Q76GRVp5DrMdSKB3M1giDiWOaScZ6J5Dlw5ulR9e0Kc0JCy3bD0TuSsLL/N5k4BOlIPSeRcQu+Emnn4CkWb9I2KrMSBj8zoAOP2kINkCfxMsaxJej8xCVCNi+xI=
+	t=1788942291; cv=none; b=WOn8LQt4CeVIw+Rz/yXbZt5fi4Cy1hstbHDyEHIJuX/ak0wHteAn76luAUQUV2DVco2TuvmeORc5NKDUTmqiqQFe0eBMrXwYdy5TzHPoGB4dC5Tz7ZS0M+AsVWyyvcUkT7z5aWWSpFFyq05nbg8DaIYi3q/co2gzkSqCfUN2+F0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788942264; c=relaxed/simple;
-	bh=mR91vloxV6Hp66WTXzqOaUNBRbGtfUkKENJ2XwBeD1w=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=a5GQsoBWzmPhNnl4sbuEjn53AIaPybcYWGopQmXGmBAwjV949DfOwQ+ByAef+3xap2CaWQUICmPX8tSpvax/V+7ZkhkxkloMYD8yc9WxtPNoZ/G+FHI2TLR889bdWyzDAppu0lyoTQlv0/XH49IVzjh9xx6UC+1EAzeAV3PiuGA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NordMoUk; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788942291; c=relaxed/simple;
+	bh=DALhJgrp1N9sdmCEOJnvPHzTPos7appyxxVQnOEMFCw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=KEoSjjoEyP1FsyWWzkhZmdG0ypvoPqxXNq1/mKiNwlqBMMp29j+sEbecf2bJNOM6J5/KnXFr4X8ie3eg2WIX3g80gk2JzojkcvChNMtd+iCPGpqXUAx3FXMzbBSKq24WMJhyIJCsmcG4T3d5bw6HCI3PzsDWrYvuhJz35cQajEc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mleia.com; spf=none smtp.mailfrom=mleia.com; dkim=pass (2048-bit key) header.d=mleia.com header.i=@mleia.com header.b=rvGrjhs4; dkim=pass (2048-bit key) header.d=mleia.com header.i=@mleia.com header.b=rvGrjhs4; arc=none smtp.client-ip=178.79.152.223
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mleia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=mleia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NordMoUk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B4A41F00A3A;
-	Wed,  9 Sep 2026 08:24:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788942262;
-	bh=0mroZzVdGpauTVtWMXSdkV71fbKcgK+KZHBfEpQg5Wo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=NordMoUk9DXgi2iqJT+k1El9CrYoWpfiHN8+oyuPmhrqdaD9LWcEDlJ5ZFlFl3r0w
-	 Y3N2MK/+i/CswtnxS+PcRPYMYoamTbSgkor6RnXOM/hh0adSdAOHyW0qp6gOeAByeA
-	 IO9DS0V3eGb96fJkxVfBtIJnM1XHfDHVlIYUrjuTps5L7DnMnUPZ+0OTd1XwvIZbiU
-	 9OyCarX+e428UV8lYdgaGK0I46vquuhkVHGswXeZo3BsDfraIiuE76b33cL9EqDTx7
-	 BhoBBRu+jdzlnKYYuF+RfInm2o2XpA8H8pvvpsfOf/Kjfza6fh+SpTLjJA2z6CqdWM
-	 sC59myHTrlQhg==
-Date: Wed, 9 Sep 2026 10:24:13 +0200
-From: Manivannan Sadhasivam <mani@kernel.org>
-To: "Thomas Richard (TI)" <thomas.richard@bootlin.com>
-Cc: Marc Kleine-Budde <mkl@pengutronix.de>, 
-	Vincent Mailhol <mailhol@kernel.org>, Vinod Koul <vkoul@kernel.org>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
-	Gregory CLEMENT <gregory.clement@bootlin.com>, richard.genoud@bootlin.com, Udit Kumar <u-kumar1@ti.com>, 
-	Abhash Kumar <a-kumar2@ti.com>, linux-can@vger.kernel.org, linux-phy@lists.infradead.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] phy: phy-can-transceiver: Add suspend operation for
- tcan1043
-Message-ID: <3tmfs4ou7hrw6y35to6ugnwz5445h5bjapfhyfwoviqrgk3jy2@47imiewocfaz>
-References: <20260630-phy-can-transceiver-suspend-resume-support-v1-1-6842c2d697e4@bootlin.com>
+	dkim=pass (2048-bit key) header.d=mleia.com header.i=@mleia.com header.b="rvGrjhs4";
+	dkim=pass (2048-bit key) header.d=mleia.com header.i=@mleia.com header.b="rvGrjhs4"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mleia.com; s=mail;
+	t=1788942281; bh=DALhJgrp1N9sdmCEOJnvPHzTPos7appyxxVQnOEMFCw=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=rvGrjhs4cfqezCJ6hO0AJ62He6bHVP8uw0YXLGtu5sbsG0wXu/5zCZ65jVSllKuSp
+	 7uX14J/0ozSfzLe8xVzKZwO6PQ6/Ln9GzgF2KTyHiIlA5SFEoc5W3rZyj5SkP9MoPs
+	 DHAK0SaFNzAOTv8W3fjNSdXOzu3wGRhsGufLqdsoPg9ddXAYi2MXt1sc8zzMWG6WeZ
+	 lp5RudD6KD4M4zz6+wkYnAqvevlpPBgs+nerzAtxWsOAU/G8XnIa+0O7pvuFx6YosK
+	 n47k0eDeoCzxXrxxAwyylucyqzTfV5s8EtBr904uzOHvikCcUv1qJm2UZv9FgToWTg
+	 mfw1y+VAyVZLQ==
+Received: from mail.mleia.com (localhost [127.0.0.1])
+	by mail.mleia.com (Postfix) with ESMTP id 9133887006;
+	Wed,  9 Sep 2026 08:24:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mleia.com; s=mail;
+	t=1788942281; bh=DALhJgrp1N9sdmCEOJnvPHzTPos7appyxxVQnOEMFCw=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=rvGrjhs4cfqezCJ6hO0AJ62He6bHVP8uw0YXLGtu5sbsG0wXu/5zCZ65jVSllKuSp
+	 7uX14J/0ozSfzLe8xVzKZwO6PQ6/Ln9GzgF2KTyHiIlA5SFEoc5W3rZyj5SkP9MoPs
+	 DHAK0SaFNzAOTv8W3fjNSdXOzu3wGRhsGufLqdsoPg9ddXAYi2MXt1sc8zzMWG6WeZ
+	 lp5RudD6KD4M4zz6+wkYnAqvevlpPBgs+nerzAtxWsOAU/G8XnIa+0O7pvuFx6YosK
+	 n47k0eDeoCzxXrxxAwyylucyqzTfV5s8EtBr904uzOHvikCcUv1qJm2UZv9FgToWTg
+	 mfw1y+VAyVZLQ==
+Message-ID: <e337bf5c-6ecf-4a65-b8e7-e11bb9aba8ff@mleia.com>
+Date: Wed, 9 Sep 2026 11:24:34 +0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260630-phy-can-transceiver-suspend-resume-support-v1-1-6842c2d697e4@bootlin.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 07/13] ARM: imx: remove i.MX31 SoC support
+To: Arnd Bergmann <arnd@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Linus Walleij <linusw@kernel.org>, Russell King <linux@armlinux.org.uk>
+Cc: Drew Fustini <fustini@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
+ Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ Liviu Dudau <liviu.dudau@arm.com>, Sudeep Holla <sudeep.holla@kernel.org>,
+ Lorenzo Pieralisi <lpieralisi@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, Stefan Agner <stefan@agner.ch>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Aaro Koskinen <aaro.koskinen@iki.fi>, Andreas Kemnade
+ <andreas@kemnade.info>, Kevin Hilman <khilman@baylibre.com>,
+ Roger Quadros <rogerq@kernel.org>, Tony Lindgren <tony@atomide.com>,
+ Nicolas Ferre <nicolas.ferre@microchip.com>,
+ Claudiu Beznea <claudiu.beznea@tuxon.dev>, Andrew Lunn <andrew@lunn.ch>,
+ Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
+ Gregory Clement <gregory.clement@bootlin.com>,
+ Robert Jarzmik <robert.jarzmik@free.fr>,
+ Kristoffer Ericson <kristoffer.ericson@gmail.com>,
+ Ethan Nelson-Moore <enelsonmoore@gmail.com>,
+ Geert Uytterhoeven <geert@linux-m68k.org>,
+ Alexander Sverdlin <alexander.sverdlin@siemens.com>,
+ Shawn Guo <shawnguo@kernel.org>, Karl Mehltretter <kmehltretter@gmail.com>,
+ "David Hildenbrand (Arm)" <david@kernel.org>,
+ Nicolas Pitre <npitre@baylibre.com>, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ devicetree@vger.kernel.org, imx@lists.linux.dev,
+ linux-stm32@st-md-mailman.stormreply.com, linux-omap@vger.kernel.org,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>
+References: <20260908152808.3928630-1-arnd@kernel.org>
+ <20260908152808.3928630-8-arnd@kernel.org>
+From: Vladimir Zapolskiy <vz@mleia.com>
+In-Reply-To: <20260908152808.3928630-8-arnd@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-CRM114-Version: 20100106-BlameMichelson ( TRE 0.8.0 (BSD) ) MR-49551924 
+X-CRM114-CacheID: sfid-20260909_082441_623355_2FCF1B4C 
+X-CRM114-Status: GOOD (  16.73  )
 
-On Tue, Jun 30, 2026 at 02:28:46PM +0200, Thomas Richard (TI) wrote:
-> Add suspend operation for tcan1043. It switches the PHY in Sleep mode, the
-> lowest power mode of the device. If a bus wake-up pattern or a local
-> wake-up event occurs, the PHY transitions to Standby mode, set its internal
-> WAKERQ flag and set the INH output high. In Sleep mode INH is floating.
+On 9/8/26 18:27, Arnd Bergmann wrote:
+> From: Arnd Bergmann <arnd@arndb.de>
 > 
-> The WAKERQ flag prevents transition to Go-to-Sleep mode. The only way to
-> clear it is to switch to Normal mode. So to reach Sleep mode, we firstly
-> switch to Normal mode, then to Go-to-Sleep mode.
+> The Freescale i.MX31 was an early SoC based on the ARM1136r0 CPU core. It
+> was used in the Bug Labs modular computer but ultimately much less
+> popular than most other i.MX SoCs.
 > 
-> Suspend sequence (PHY is off):
+> As the ARM1136r0 support is causing a lot of extra maintenance effort
+> to keep alive and there are no known users, remove i.MX31 in order to
+> allow removing support for that CPU core altogether.
 > 
->     Standby -> Normal -> Go-to-Sleep -> Sleep
+> The related i.MX35 is based on a slightly newer ARM1136r1 CPU core that
+> does not have this problem, so there is no reason to remove that.
 > 
-> Suspend sequence (PHY is on):
-> 
->     Normal -> Go-to-Sleep -> Sleep
-> 
-> Signed-off-by: Thomas Richard (TI) <thomas.richard@bootlin.com>
-> ---
->  drivers/phy/phy-can-transceiver.c | 56 ++++++++++++++++++++++++++++++++++-----
->  1 file changed, 49 insertions(+), 7 deletions(-)
-> 
-> diff --git a/drivers/phy/phy-can-transceiver.c b/drivers/phy/phy-can-transceiver.c
-> index 75dc49e75ca0..2bca1a173fcc 100644
-> --- a/drivers/phy/phy-can-transceiver.c
-> +++ b/drivers/phy/phy-can-transceiver.c
-> @@ -5,6 +5,7 @@
->   * Copyright (C) 2021 Texas Instruments Incorporated - https://www.ti.com
->   *
->   */
-> +#include <linux/delay.h>
->  #include <linux/gpio/consumer.h>
->  #include <linux/phy/phy.h>
->  #include <linux/platform_device.h>
-> @@ -12,25 +13,28 @@
->  #include <linux/module.h>
->  #include <linux/mux/consumer.h>
->  
-> +struct can_transceiver_phy {
-> +	struct phy *generic_phy;
-> +	struct gpio_desc *silent_gpio;
-> +	struct gpio_desc *standby_gpio;
-> +	struct gpio_desc *enable_gpio;
-> +	struct can_transceiver_priv *priv;
-> +};
-> +
->  struct can_transceiver_data {
->  	u32 flags;
->  #define CAN_TRANSCEIVER_STB_PRESENT	BIT(0)
->  #define CAN_TRANSCEIVER_EN_PRESENT	BIT(1)
->  #define CAN_TRANSCEIVER_DUAL_CH		BIT(2)
->  #define CAN_TRANSCEIVER_SILENT_PRESENT	BIT(3)
-> +	int	(*suspend)(struct can_transceiver_phy *phy);
->  };
->  
-> -struct can_transceiver_phy {
-> -	struct phy *generic_phy;
-> -	struct gpio_desc *silent_gpio;
-> -	struct gpio_desc *standby_gpio;
-> -	struct gpio_desc *enable_gpio;
-> -	struct can_transceiver_priv *priv;
-> -};
->  
->  struct can_transceiver_priv {
->  	struct mux_state *mux_state;
->  	int num_ch;
-> +	const struct can_transceiver_data *data;
->  	struct can_transceiver_phy can_transceiver_phy[] __counted_by(num_ch);
->  };
->  
-> @@ -76,12 +80,28 @@ static const struct phy_ops can_transceiver_phy_ops = {
->  	.owner		= THIS_MODULE,
->  };
->  
-> +static int tcan1043_suspend(struct can_transceiver_phy *phy)
-> +{
-> +	/* Switch to Normal mode, it clears WAKERQ */
-> +	gpiod_set_value_cansleep(phy->standby_gpio, 0);
-> +	gpiod_set_value_cansleep(phy->enable_gpio, 1);
-> +
-> +	/* Switch to Go-to-Sleep mode */
-> +	gpiod_set_value_cansleep(phy->standby_gpio, 1);
-> +
-> +	/* Wait transition to Sleep mode */
-> +	fsleep(5);
-> +
-> +	return 0;
-> +}
-> +
->  static const struct can_transceiver_data tcan1042_drvdata = {
->  	.flags = CAN_TRANSCEIVER_STB_PRESENT,
->  };
->  
->  static const struct can_transceiver_data tcan1043_drvdata = {
->  	.flags = CAN_TRANSCEIVER_STB_PRESENT | CAN_TRANSCEIVER_EN_PRESENT,
-> +	.suspend = tcan1043_suspend,
->  };
->  
->  static const struct can_transceiver_data tja1048_drvdata = {
-> @@ -115,6 +135,26 @@ static struct phy *can_transceiver_phy_xlate(struct device *dev,
->  	return priv->can_transceiver_phy[idx].generic_phy;
->  }
->  
-> +static int can_transceiver_phy_suspend(struct device *dev)
-> +{
-> +	struct can_transceiver_priv *priv = dev_get_drvdata(dev);
-> +	const struct can_transceiver_data *data = priv->data;
-> +	int ret, i;
-> +
-> +	for (i = 0; i < priv->num_ch; i++) {
-> +		if (data->suspend) {
-> +			ret = data->suspend(&priv->can_transceiver_phy[i]);
-> +			if (ret)
-> +				return ret;
-> +		}
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static DEFINE_SIMPLE_DEV_PM_OPS(can_transceiver_phy_pm_ops,
-> +				can_transceiver_phy_suspend, NULL);
+> Cc: Russell King <linux@armlinux.org.uk>
+> Cc: Frank Li <Frank.Li@nxp.com>
+> Cc: Sascha Hauer <s.hauer@pengutronix.de>
+> Cc: Pengutronix Kernel Team <kernel@pengutronix.de>
+> Cc: Fabio Estevam <festevam@gmail.com>
+> Cc: Rob Herring <robh@kernel.org>
+> Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
+> Cc: Conor Dooley <conor+dt@kernel.org>
+> Cc: imx@lists.linux.dev
+> Cc: devicetree@vger.kernel.org
+> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
 
-I believe you didn't add resume() callback here based on the assumption that the
-CAN transceiver driver will call phy_power_off() during suspend and
-phy_power_on() during resume. But that implicit assumption is wrong since the
-PHY driver should act on its own and not rely on the consumer's behavior. In
-that sense, resume() callback should be present and it should undo suspend().
+Acked-by: Vladimir Zapolskiy <vz@mleia.com>
 
-- Mani
+I still do possess a LogicPD i.MX31 Lite board, which boots the upstream
+kernel, but there is no plan to maintain it further.
 
 -- 
-மணிவண்ணன் சதாசிவம்
+Best wishes,
+Vladimir
