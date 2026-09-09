@@ -1,79 +1,95 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5514E1DA57;
-	Wed,  9 Sep 2026 00:01:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C306B1643B;
+	Wed,  9 Sep 2026 00:01:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788912067; cv=none; b=HJEO2J5gjYwRlenoX2ZCcQ+AoyWP2QyCr9GHbRb5G1rOZo0r+VhYAnyqEPn0vLEa1qg46E7egyZxGfbh9kRcpNxxjvcf8lnFznLqzyHAxsnFkzbNC9KtFbQLGu7jyYLwu9KNNz247ePRAlSJHo3JBuqcW37KnbCmLnE+WHZmh9A=
+	t=1788912079; cv=none; b=FrBlHiqwVYX6eop/MCTU2Eeg8V/ktvbU860bgvoN2vc8ZB9vTYitR2AEkJXHdKClYo3fbO2rUrfBYvO1mfhHsJlmYbVMWPUAKc0JLh2K2on4S+MZ1SVoOmZXAqwDtO+3pjGV4gxJOwSED82ADiD9QjL12XAspdSvE93DlLmOVX8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788912067; c=relaxed/simple;
-	bh=HwY5YhcFBdtLoVKno9zLvoqbbLnoNw6zYKyxZtGZd8o=;
-	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=VQtrb5h2IQr62v1SZi1w51wD0JXvdwJn/9f2q/oxvAGhGuqIJbYYXQzEbqYGWEox87k59bK8adhBuEibJgg3d1zbnhBOmEOw03tmMzI2/kbKs18mRyBqJ7MS84slpIAVvs2a6Fxrq6op0yby1qi4csYtVs+cqvC/0d3lGfp9GNs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K5kJ9674; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788912079; c=relaxed/simple;
+	bh=TC+AdfY5wfm6r30Pha+XuqlDXv5g8AbcqPX5qnkRyKg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=A4iesxX9t7TNYKn1ImN2wrmjieE9+X1XozykikMRxWe1nSYCW0P/49oanxNNtTRb4vMDG5NoclJ7sSSIJPAnrriqOBfLT0gRGSMN71jO6O6xPkVN/kfnW5NXpdDP5FUVwqDuc/+sJvdLu8jaA6pnk+AbFeZCQBDl/R6oM//eWfo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Io+uKMUS; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K5kJ9674"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD8F21F00A3A;
-	Wed,  9 Sep 2026 00:01:05 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Io+uKMUS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 536161F00A3A;
+	Wed,  9 Sep 2026 00:01:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788912065;
-	bh=SKyRPMGxBhZU9sMrN+qGSV4EIXXEDHgkSTG5S4UPUuE=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=K5kJ9674uURCrsuhlpa6HvhkM3ayuWCgOwmrbgTY9eJoWyqhT9ODkEihqZ9yAVJ1i
-	 1RSYFdpY714ai9c3R0DEcp2f7bVpUeHLSB1B9hQKyFKCPdYsi0OftPOJqkrzIPwEXa
-	 rF8KDKo1aibdPeMQsCXgB6457xSDSaSyvDwwvIAa7TETCZMfTzG3j+nxTthu0I8pX7
-	 UhWDsxYsqVsiPDxvv4ubYD8i0SMOSL3N8obD53Jo1Yd43aJ2CVBuJKCfS+CxgKCeh0
-	 YxZjW410Dst31wMWAvVVy81Db8oTzVb5AnWQGONPudyWfHXfo7SbmAXz47xNruj8mm
-	 +4DLWkL9L8HVA==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 624A9380820D;
-	Wed,  9 Sep 2026 00:00:05 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	s=k20260515; t=1788912078;
+	bh=0UTzGNUczp4DjsKEH5ve8IeesYqL56R6Vh31ixYFRRo=;
+	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
+	b=Io+uKMUSGTY0up/vQAofqyDHn97v9QnMf7Xg0Ira8cjPiE8dH3uhQdluwegTThNCv
+	 KHx0draH0CbqH7Vy8EXdwXEwFZmk2tv05Hy7oIboD9Ojz9J3r50tKZlEiWDZQBWCdZ
+	 qWlztS5t3nj5M9OSCMZLS1ka7ONSbAcqz8WMhMLO+mEM17rvZo7nv/dv7ZPF5s5X42
+	 kgxrNU/MhxWLN0MpwsSh+lqKQvOzyUq6TtkWFR3+QmUlUHWM2yD2sTByHuJgtqeoA8
+	 1rtUUagdcIL0uboclLguEtMwbZnI679Tm31kTJAH5QUmyCnqBzNACznuSiqjTVXsN1
+	 JllNwkc91HXXw==
+Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
+	id 18585CE18F4; Tue,  8 Sep 2026 17:01:18 -0700 (PDT)
+Date: Tue, 8 Sep 2026 17:01:18 -0700
+From: "Paul E. McKenney" <paulmck@kernel.org>
+To: Kunwu Chan <kunwu.chan@gmail.com>
+Cc: jiangshanlai@gmail.com, josh@joshtriplett.org, rostedt@goodmis.org,
+	mathieu.desnoyers@efficios.com, rcu@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 10/13] srcutree: Skip callback scheduling for atomic SRCU
+ grace periods
+Message-ID: <ec409022-0e89-477c-a900-537e7cb7285a@paulmck-laptop>
+Reply-To: paulmck@kernel.org
+References: <20260907075829.2073224-1-kunwu.chan@linux.dev>
+ <20260907075829.2073224-11-kunwu.chan@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCHv3 net] net: ll_temac: Return actual error from
- of_get_mac_address()
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <178891200414.71040.17612268760920600379.git-patchwork-notify@kernel.org>
-Date: Wed, 09 Sep 2026 00:00:04 +0000
-References: <20260903213241.1040204-1-rosenp@gmail.com>
-In-Reply-To: <20260903213241.1040204-1-rosenp@gmail.com>
-To: Rosen Penev <rosenp@gmail.com>
-Cc: netdev@vger.kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
- michal.simek@amd.com, esben@geanix.com, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260907075829.2073224-11-kunwu.chan@linux.dev>
 
-Hello:
-
-This patch was applied to netdev/net-next.git (main)
-by Jakub Kicinski <kuba@kernel.org>:
-
-On Thu,  3 Sep 2026 14:32:41 -0700 you wrote:
-> When of_get_mac_address() fails, return the actual error code (rc)
-> instead of the hardcoded -ENODEV. This preserves the original error
-> information, which may be more specific (e.g., -EINVAL, -EPROBE_DEFER)
-> and helps callers handle the failure appropriately.
+On Mon, Sep 07, 2026 at 03:58:26PM +0800, Kunwu Chan wrote:
+> From: Kunwu Chan <kunwu.chan@gmail.com>
 > 
-> Use dev_err_probe() to avoid printing an extra error message in case of
-> -EPROBE_DEFER.
+> call_srcu() is forbidden on atomic srcu_struct, so srcu_gp_end() never
+> has callbacks to invoke for them.  Yet it schedules callback invocation,
+> which for atomic SRCU's SRCU_SIZE_SMALL state arms the boot CPU's
+> ->delay_work timer every grace period, only for srcu_invoke_callbacks()
+> to find nothing to do.
 > 
-> [...]
+> Skip this for atomic SRCU.
+> 
+> Signed-off-by: Kunwu Chan <kunwu.chan@gmail.com>
 
-Here is the summary with links:
-  - [PATCHv3,net] net: ll_temac: Return actual error from of_get_mac_address()
-    https://git.kernel.org/netdev/net-next/c/3d80284b244e
+Nice optimization, thank you!  This does not matter for correctness,
+and thus does not affect bisectability, so I have queued it as is for
+testing and further review.
 
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
+							Thanx, Paul
 
-
+> ---
+>  kernel/rcu/srcutree.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/kernel/rcu/srcutree.c b/kernel/rcu/srcutree.c
+> index 2d2a12f86115..c19f59725706 100644
+> --- a/kernel/rcu/srcutree.c
+> +++ b/kernel/rcu/srcutree.c
+> @@ -1018,10 +1018,10 @@ static void srcu_gp_end(struct srcu_struct *ssp, bool is_atomic)
+>  
+>  	/* Initiate callback invocation as needed. */
+>  	ss_state = smp_load_acquire(&sup->srcu_size_state);
+> -	if (ss_state < SRCU_SIZE_WAIT_BARRIER) {
+> +	if (!is_atomic && ss_state < SRCU_SIZE_WAIT_BARRIER) {
+>  		srcu_schedule_cbs_sdp(per_cpu_ptr(ssp->sda, get_boot_cpu_id()),
+>  					cbdelay);
+> -	} else {
+> +	} else if (!is_atomic) {
+>  		idx = rcu_seq_ctr(gpseq) % ARRAY_SIZE(snp->srcu_have_cbs);
+>  		srcu_for_each_node_breadth_first(ssp, snp) {
+>  			raw_spin_lock_irq_rcu_node(snp);
+> -- 
+> 2.43.0
+> 
