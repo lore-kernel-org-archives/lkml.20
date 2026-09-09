@@ -1,263 +1,140 @@
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com [209.85.215.197])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AF083BB126
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 19:24:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11EEA559CB5
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 19:27:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788981858; cv=none; b=LWqNE3uvcNhEwhe1A//2yfZHj7hOEsjFhpwjfCay7KWL+f9kzA62BOkL07+ch/00juekMxPHwvY9ogs3LRP9L2ve6xWJoXy56e7xFnCNfIeokabxfLO5QSWz0prB50oUb1duC7pa3dy0DkQT4NnydgYQzuBYWqwLyY5skduPpmQ=
+	t=1788982065; cv=none; b=ol7ib3F5DjXs8lErTipfVg6xPAFTlI9wNjPxh9pNvoUxEeCVzG8Tc6lTWeglc+UvV64CjiLGVf6/GmQ8jCWj9plw2Si4t4Q8xq5vT50AotbunoEU4/2sYcI7wve8k1pdubyjW4dEk7u6GK1vV80CmIJYd46YQklBM/dCu/4zTrw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788981858; c=relaxed/simple;
-	bh=nEewE9vNn2GKeus40xjVARF+cnc+CRqiCdYnkkQKlwc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ZrM13w48M76XIKResEn/0ALvF4ROP89JRPmo7lq8bCAJLGLWNGbHKlaDt5fiujPhHomX2PNVopVuVw2QDGO+l4VJhnxIau5dfGkdOj2UB2T63oC0Sk9UA9QRfAmjRpkCmRY8P80CW1WtWg2ttvo1nzlD5Ak0w+lCQbS4/3JNa+Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OGFVHknF; arc=none smtp.client-ip=209.85.128.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788982065; c=relaxed/simple;
+	bh=I6oSFTNds+s9NlLuPGCHhSDpMwOfaItLVXSFUxWxScg=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=FgpauYgSiOUvYHUbhDmpY8HngB2643RjN2Y6rgB7usc2iLNSjE2NqvvVfgeI23ZrM1k5eWBRfPLYUumwBU7bhVVtOsY/ZPF56JZby8UXrpJnZj/W0rxyyZOuKyRxBAWKlUsTmDcuVzMMkTxi2wQKLEfnsy1tyFcSptE8AcrkxU0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=YGWOZNqp; arc=none smtp.client-ip=209.85.215.197
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OGFVHknF"
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-49b0d8bc2aaso76530815e9.0
-        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 12:24:15 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="YGWOZNqp"
+Received: by mail-pg1-f197.google.com with SMTP id 41be03b00d2f7-cbee6bb8408so7508223a12.3
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 12:27:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788981854; x=1789586654; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=xU/TVU9R6QqVQBU8DMj4Dr025QCTEz1Y5w5z0voxEUA=;
-        b=OGFVHknFhzOw4audTOZBQVJ88n/kzsb7VO/F1kywWGgHZBIpqVu0/YJWXueKYD1AWH
-         BPWGb2NvG1jMYxIUw/+X1VFk55QSI8FrD47eVQ8HJ4h4is5Bynrth8DSxuVUMsNKjKp7
-         Fip6DyJXIAMP4WTNls8WubPtPl8wpD/+xkf9BkKyGqOf91xeUoQ6wLeyH4fSGuuFzJO6
-         n+N1PAlco4ed3PgMEIMEXBewQBAKSsWhrDj/ovzYAH56K6qfbMU8iE1WyoqAZj7na0aY
-         7cjeW2NJLcViGXzkDcIet+efWwNOufFo2LC0GroE2R7439d8RoLfYWlaSE32ORWcwWzY
-         yGYA==
+        d=google.com; s=20251104; t=1788982063; x=1789586863; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=UQpI0mVgouyaN7zxfkMJtMw/cMIll+7enT9xQjnBa90=;
+        b=YGWOZNqpwWSQZssIceuc+Oq0o5L+c6lKtB+agZmWMsR8d/qetGqnWVeRFh0lQJ84gz
+         pDZ8CZQZFrogjhqimX4URHg4pZWHrfwHoEyzjV4erCpY7q5xwZlNdhpeQ8JasYwDhN8m
+         KJS178nk5QferruqTk2O3NOxdKWgpvVjxvXv5nNRJ5b31KprPsWorQ/lZtSvk9eqaq5m
+         a0PpJOA+ML5GXQJzkiGHDqBnjnioM4BDLTmpYZIHcRJXhCb6OzehMs776Lk5P+iiOf3C
+         1l1oquoQSd3eyJMcKDzV94VVZnSWJizkTaUY2+t7ZZlI8yVQZXTVK/2+qVSystOpz/KH
+         ZXfA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788981854; x=1789586654;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=xU/TVU9R6QqVQBU8DMj4Dr025QCTEz1Y5w5z0voxEUA=;
-        b=Q7EDrg4IKGi6R5IoywN15z3T7CaQMID3pPbdiN+KrUK/JQO5/BeVrKONezotvTwbLM
-         BYH+HZW+ussurIgrGDkM1h4/9N8tlHAO04zJqLHzKR2DBxineocf+AWMqmc2/aUrN06z
-         wuM204RJeivyTRNRrIs7nv8vPEO29u1IPahffG/E2U/udc3XOHTwsa9MSiMKzcjMtGeu
-         1mE5mMLDShqOmNPcuA9Edx7Zt0RVNHPsFUNXzIbqrBYxqGupRst5gaA2KAQKZXwZbsqI
-         bfajzemy0iX+a34J1eb+0cC3w0PBIEV6RAw1RlyJLjLnlyzeOGAsX61uqEy3hdCjVFQp
-         ehcg==
-X-Forwarded-Encrypted: i=1; AKwUvBwzWSPpuYCTK4JH1Sic9E+bgf4zqpsVPDqwhmwfowrh3OjT9UJzBeeDqI2yltcMh9/DV1dbn6F4VTheWQw=@vger.kernel.org
-X-Gm-Message-State: AFuF++k7m0oTzRE/OWmrOU1lMvm+B9DoMpDnYCTizCeIzuxqbjfupiWb
-	NJF6/S3T7M9O/tI3NyVpW0VIvs6voiDaKo4tEOffPjxWsLZcH50HCAxC
-X-Gm-Gg: AYBFou0OP4MfwhYpVR1+QTFMD79neG1brZIYf4d37sxjuHwMo2IO/w8X5sWbQQys1/N
-	2JfeSuhmqr5NqiGN0RYH3wmTHqWzIXqQczaL/hDhaEYTz2RjHXFlGFNvjo6AoRM0dFPR0UtjOC4
-	zuuy+sTJvU8s4eiyGBC2vg1XtDbepamHYpVwg/R/xP++V6ErE2GPzBJOKiZfb4gb7Uo4aJhxNmj
-	LPwK17bY9wG3MABIprdxGe/JZ1KX2eAB3KKZ5BFJFkDAvQfIJGzaRsOv297LhoL85pGu55nYYaQ
-	My7lOGSGNDbutscnWRcpUeEXVtwKlhO5MYgPtaoorKBQf6Ow9o02CsqNq3g9HLPOA7/zPjloV8C
-	hziKpaNToJz8BFNavX52asF1uKD8izGn/G1oTCoGtwtzjaJ6BHAapv65bmRsoQyw6eHCbQwk+5R
-	fKbHCCBhRX/gx4v/MLX5oYwiZH15W9nWyZryR3MiZkWX4jWLdTrJ2X4SFBeYKgYhN0wH/meleP+
-	1c7Mcxn9/FuLFYKPJgnfJjW9xpZV2cCdvxUnXWtNuaj4RiJjyWRPK4=
-X-Received: by 2002:a05:600c:c173:b0:49c:cedc:3c36 with SMTP id 5b1f17b1804b1-49cf82a514cmr391436765e9.16.1788981854243;
-        Wed, 09 Sep 2026 12:24:14 -0700 (PDT)
-Received: from localhost.localdomain (mob-31-26-103-238.net.vodafone.it. [31.26.103.238])
-        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-49d26bf9490sm10925625e9.9.2026.09.09.12.24.10
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 09 Sep 2026 12:24:12 -0700 (PDT)
-From: Oleg Keri <okerixx@gmail.com>
-To: Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Sumit Gupta <sumitg@nvidia.com>,
-	Beata Michalska <beata.michalska@arm.com>,
-	Prasanna Kumar T S M <ptsm@linux.microsoft.com>,
-	Russell King <linux@armlinux.org.uk>,
-	Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	Sudeep Holla <sudeep.holla@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Viresh Kumar <viresh.kumar@linaro.org>
-Cc: linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	linux-riscv@lists.infradead.org,
-	driver-core@lists.linux.dev,
-	linux-pm@vger.kernel.org,
-	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-Subject: [PATCH v2 2/2] cpufreq: update capacity_freq_ref when the boost state changes
-Date: Wed,  9 Sep 2026 21:23:51 +0200
-Message-ID: <20260909192351.33910-3-okerixx@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260909192351.33910-1-okerixx@gmail.com>
-References: <20260909192351.33910-1-okerixx@gmail.com>
+        d=1e100.net; s=20251104; t=1788982063; x=1789586863;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=UQpI0mVgouyaN7zxfkMJtMw/cMIll+7enT9xQjnBa90=;
+        b=IvQJ88YmIGz/KgvX+ibWa5zlV6Z9QEj9VSjDx9QILJu7prw1QDm6ggWlsV3M9TzF5u
+         Er3UU7Paub40aOigJZyFfV4Fgwo9ckbXFQcIxS0Q4o9otw5HKH8GLPGif/TVsQYogrEH
+         A/RBak43Rin5WYE4cBfQP8SezbBNNhfxO20XURLbvbDUS5spIW6T1p68g5ZxV//rTnbb
+         3OmzFJwg9p4traRlbwX/TRAsLLlilzl6Th+zp+ruwuxaSPZVBE6WHm0vBM0/IRbjdyKa
+         87Fh+tYxoENnf8TF+Hss/S/rdCoIEU/3PrZt6Kx0Yd0+aN9+h6wtA+QRmfI7oORuuM83
+         yhrQ==
+X-Forwarded-Encrypted: i=1; AKwUvBy2kqjinEWPQGqrTK7R9MqdJk4M1Cs1Rqr1kkXmwi8ESAKFK8ksfeC9FEJuv1KX21GeOWJSQ5ioWaxvOdU=@vger.kernel.org
+X-Gm-Message-State: AFuF++mjhhMbtdR/gcdiJnItgbxy0cnCOZYQUlMZ70h0DRAbf7C21idY
+	2anH40jf4O6LDxI5Wj4BoMkCa8lBqSRn2W5RPt2+yNJOU/cbyFNJ0y9ChRSm/pQX+9iAR1s13EM
+	Doa2ZHw==
+X-Received: from pfbmt7.prod.google.com ([2002:a05:6a00:6e67:b0:869:6fdc:2a86])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a20:9e4e:b0:3d3:ae40:51e0
+ with SMTP id adf61e73a8af0-3da3a045196mr58708633637.20.1788982063138; Wed, 09
+ Sep 2026 12:27:43 -0700 (PDT)
+Date: Wed, 9 Sep 2026 12:27:42 -0700
+In-Reply-To: <daa3875e-420d-4de5-9a1f-8c4138a1dbd8@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+References: <20260904004342.3162959-1-seanjc@google.com> <20260904004342.3162959-2-seanjc@google.com>
+ <daa3875e-420d-4de5-9a1f-8c4138a1dbd8@kernel.org>
+Message-ID: <aqGzLkjuQn5ALdYi@google.com>
+Subject: Re: [PATCH v3 1/4] KVM: guest_memfd: Gracefully handle xarray errors
+ when binding a memslot
+From: Sean Christopherson <seanjc@google.com>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Stefan Teodorescu <fane@google.com>, Dennis Tighe <dtighe@google.com>, 
+	Sashiko Bot <sashiko-bot@kernel.org>, Yan Zhao <yan.y.zhao@intel.com>
+Content-Type: text/plain; charset="us-ascii"
 
-capacity_freq_ref is latched from policy->cpuinfo.max_freq by
-init_cpu_capacity_callback() on CPUFREQ_CREATE_POLICY, and never
-updated afterwards.
+On Mon, Sep 07, 2026, David Hildenbrand (Arm) wrote:
+> On 9/4/26 02:43, Sean Christopherson wrote:
+> > If inserting a memslot into a guest_memfd's bindings xarray fails,
+> > propagate the error back to the caller, i.e. fail memslot creation as well.
+> > Signalling success and continuing on with memslot creation results in
+> > use-after-free, as the guest_memfd instance will remain reachable via the
+> > memslot after the file is freed (kvm_gmem_release() won't nullify the file
+> > pointer due to lack of a valid binding).
+> > 
+> > Opportunistically WARN and reject binding if KVM_MEMSLOT_GMEM_ONLY is
+> > already set, partly to guard against goofs elsewhere, but mostly so that
+> > KVM doesn't need to worry about clobbering flags when unwinding on failure.
+> > 
+> > Fixes: a7800aa80ea4 ("KVM: Add KVM_CREATE_GUEST_MEMFD ioctl() for guest-specific backing memory")
+> > Cc: stable@vger.kernel.org
+> > Reported-by: Stefan Teodorescu <fane@google.com>
+> > Reported-by: Dennis Tighe <dtighe@google.com>
+> > Reported-by: Sashiko Bot <sashiko-bot@kernel.org>
+> > Closes: https://lore.kernel.org/all/20260823135031.4F6DC1F000E9%40smtp.kernel.org
+> > Signed-off-by: Sean Christopherson <seanjc@google.com>
+> > ---
+> >  virt/kvm/guest_memfd.c | 15 +++++++++++++--
+> >  1 file changed, 13 insertions(+), 2 deletions(-)
+> > 
+> > diff --git a/virt/kvm/guest_memfd.c b/virt/kvm/guest_memfd.c
+> > index b596486d184c..0b48e9a775aa 100644
+> > --- a/virt/kvm/guest_memfd.c
+> > +++ b/virt/kvm/guest_memfd.c
+> > @@ -612,10 +612,14 @@ int kvm_gmem_bind(struct kvm *kvm, struct kvm_memory_slot *slot,
+> >  	struct inode *inode;
+> >  	struct file *file;
+> >  	int r = -EINVAL;
+> > +	void *xar;
+> >  
+> >  	BUILD_BUG_ON(sizeof(gpa_t) != sizeof(offset));
+> >  	BUILD_BUG_ON(sizeof(gfn_t) != sizeof(slot->gmem.pgoff));
+> >  
+> > +	if (WARN_ON_ONCE(slot->flags & KVM_MEMSLOT_GMEM_ONLY))
+> > +		return -EINVAL;
+> > +
+> >  	file = fget(fd);
+> >  	if (!file)
+> >  		return -EBADF;
+> > @@ -654,7 +658,15 @@ int kvm_gmem_bind(struct kvm *kvm, struct kvm_memory_slot *slot,
+> >  	if (kvm_gmem_supports_mmap(inode))
+> >  		slot->flags |= KVM_MEMSLOT_GMEM_ONLY;
+> >  
+> > -	xa_store_range(&f->bindings, start, end - 1, slot, GFP_KERNEL);
+> > +	xar = xa_store_range(&f->bindings, start, end - 1, slot, GFP_KERNEL);
+> > +
+> > +	r = xa_is_err(xar) ? xa_err(xar) : 0;
+> 
+> 
+> r = xa_err(xar);
+> 
+> Should be sufficient, right?
 
-cpufreq_frequency_table_cpuinfo() excludes CPUFREQ_BOOST_FREQ entries
-while boost is disabled, so on a system that boots with boost off the
-latched value is the non-boost maximum.  Enabling boost later raises
-policy->cpuinfo.max_freq but leaves capacity_freq_ref behind.
+Yes.  I didn't like relying on what I thought were internal xarray details, but
+I missed that xa_err() itself checks xa_is_err().
+ 
+> mm/memremap.c:pagemap_range() uses that and just avoids the intermediate xar
+> value completely.
+> 
+> r = xa_err(xa_store_range(...);
 
-Two things then go wrong on arm64, where the AMU drives frequency
-invariance.  amu_scale_freq_tick() caps the computed scale at
-SCHED_CAPACITY_SCALE, so a CPU running above capacity_freq_ref
-saturates at 1024: the scheduler cannot tell a boosted CPU from one at
-the sustained maximum, and utilisation is underestimated.  And
-arch_freq_get_on_cpu(), which reverses that computation, cannot report
-more than capacity_freq_ref, so cpuinfo_avg_freq is pinned to the
-non-boost maximum.
+Ya, it's ugly, but I do think it's less ugly than the intermediate xar.
 
-On a Snapdragon X2 Elite (Glymur) laptop with a 4032000 kHz sustained
-and a 4723200 kHz boost OPP, cpuinfo_avg_freq reads exactly 4032000
-while the CPU runs at 4723200; a fixed workload completes in 1.72 s
-rather than the 2.01 s that frequency would imply.
-
-Factor the update out of init_cpu_capacity_callback() into
-topology_update_freq_ref() and call it from policy_set_boost(), which
-is the common path for the global boost knob, the per-policy one, and
-the CPU online path.
-
-Signed-off-by: Oleg Keri <okerixx@gmail.com>
----
- arch/arm/include/asm/topology.h   |  1 +
- arch/arm64/include/asm/topology.h |  1 +
- arch/riscv/include/asm/topology.h |  1 +
- drivers/base/arch_topology.c      | 19 +++++++++++++------
- drivers/cpufreq/cpufreq.c         |  2 ++
- include/linux/arch_topology.h     |  1 +
- include/linux/cpufreq.h           |  7 +++++++
- 7 files changed, 26 insertions(+), 6 deletions(-)
-
-diff --git a/arch/arm/include/asm/topology.h b/arch/arm/include/asm/topology.h
-index ad36b6570067..a776a79885ee 100644
---- a/arch/arm/include/asm/topology.h
-+++ b/arch/arm/include/asm/topology.h
-@@ -11,6 +11,7 @@
- #ifndef CONFIG_BL_SWITCHER
- /* Replace task scheduler's default frequency-invariant accounting */
- #define arch_set_freq_scale topology_set_freq_scale
-+#define arch_update_freq_ref topology_update_freq_ref
- #define arch_scale_freq_capacity topology_get_freq_scale
- #define arch_scale_freq_invariant topology_scale_freq_invariant
- #define arch_scale_freq_ref topology_get_freq_ref
-diff --git a/arch/arm64/include/asm/topology.h b/arch/arm64/include/asm/topology.h
-index b9eaf4ad7085..a4b96a7ee4a5 100644
---- a/arch/arm64/include/asm/topology.h
-+++ b/arch/arm64/include/asm/topology.h
-@@ -22,6 +22,7 @@ void update_freq_counters_refs(void);
- /* Replace task scheduler's default frequency-invariant accounting */
- #define arch_scale_freq_tick topology_scale_freq_tick
- #define arch_set_freq_scale topology_set_freq_scale
-+#define arch_update_freq_ref topology_update_freq_ref
- #define arch_scale_freq_capacity topology_get_freq_scale
- #define arch_scale_freq_invariant topology_scale_freq_invariant
- #define arch_scale_freq_ref topology_get_freq_ref
-diff --git a/arch/riscv/include/asm/topology.h b/arch/riscv/include/asm/topology.h
-index fe1a8bf6902d..a363d72c174f 100644
---- a/arch/riscv/include/asm/topology.h
-+++ b/arch/riscv/include/asm/topology.h
-@@ -11,6 +11,7 @@
- /* Replace task scheduler's default frequency-invariant accounting */
- #define arch_scale_freq_tick		topology_scale_freq_tick
- #define arch_set_freq_scale		topology_set_freq_scale
-+#define arch_update_freq_ref		topology_update_freq_ref
- #define arch_scale_freq_capacity	topology_get_freq_scale
- #define arch_scale_freq_invariant	topology_scale_freq_invariant
- #define arch_scale_freq_ref		topology_get_freq_ref
-diff --git a/drivers/base/arch_topology.c b/drivers/base/arch_topology.c
-index 8c5e47c28d9a..79eb1681065d 100644
---- a/drivers/base/arch_topology.c
-+++ b/drivers/base/arch_topology.c
-@@ -317,6 +317,18 @@ bool __init topology_parse_cpu_capacity(struct device_node *cpu_node, int cpu)
- 	return !ret;
- }
- 
-+void topology_update_freq_ref(const struct cpumask *cpus, unsigned int max_freq)
-+{
-+	int cpu;
-+
-+	for_each_cpu(cpu, cpus) {
-+		per_cpu(capacity_freq_ref, cpu) = max_freq;
-+		freq_inv_set_max_ratio(cpu,
-+				       per_cpu(capacity_freq_ref, cpu) * HZ_PER_KHZ);
-+	}
-+}
-+EXPORT_SYMBOL_GPL(topology_update_freq_ref);
-+
- void __weak freq_inv_set_max_ratio(int cpu, u64 max_rate)
- {
- }
-@@ -392,7 +404,6 @@ init_cpu_capacity_callback(struct notifier_block *nb,
- 			   void *data)
- {
- 	struct cpufreq_policy *policy = data;
--	int cpu;
- 
- 	if (val != CPUFREQ_CREATE_POLICY)
- 		return 0;
-@@ -403,11 +414,7 @@ init_cpu_capacity_callback(struct notifier_block *nb,
- 
- 	cpumask_andnot(cpus_to_visit, cpus_to_visit, policy->related_cpus);
- 
--	for_each_cpu(cpu, policy->related_cpus) {
--		per_cpu(capacity_freq_ref, cpu) = policy->cpuinfo.max_freq;
--		freq_inv_set_max_ratio(cpu,
--				       per_cpu(capacity_freq_ref, cpu) * HZ_PER_KHZ);
--	}
-+	topology_update_freq_ref(policy->related_cpus, policy->cpuinfo.max_freq);
- 
- 	if (cpumask_empty(cpus_to_visit)) {
- 		if (raw_capacity) {
-diff --git a/drivers/cpufreq/cpufreq.c b/drivers/cpufreq/cpufreq.c
-index 96515880b4ac..a70805a1d9d3 100644
---- a/drivers/cpufreq/cpufreq.c
-+++ b/drivers/cpufreq/cpufreq.c
-@@ -594,6 +594,8 @@ static int policy_set_boost(struct cpufreq_policy *policy, bool enable)
- 		return ret;
- 	}
- 
-+	arch_update_freq_ref(policy->related_cpus, policy->cpuinfo.max_freq);
-+
- 	return 0;
- }
- 
-diff --git a/include/linux/arch_topology.h b/include/linux/arch_topology.h
-index ebd7f8935f96..4974f5e1a7fe 100644
---- a/include/linux/arch_topology.h
-+++ b/include/linux/arch_topology.h
-@@ -31,6 +31,7 @@ static inline unsigned long topology_get_freq_scale(int cpu)
- 
- void topology_set_freq_scale(const struct cpumask *cpus, unsigned long cur_freq,
- 			     unsigned long max_freq);
-+void topology_update_freq_ref(const struct cpumask *cpus, unsigned int max_freq);
- bool topology_scale_freq_invariant(void);
- 
- enum scale_freq_source {
-diff --git a/include/linux/cpufreq.h b/include/linux/cpufreq.h
-index 35ce665edfd8..5b904e13eb21 100644
---- a/include/linux/cpufreq.h
-+++ b/include/linux/cpufreq.h
-@@ -1235,6 +1235,13 @@ void arch_set_freq_scale(const struct cpumask *cpus,
- }
- #endif
- 
-+#ifndef arch_update_freq_ref
-+static __always_inline
-+void arch_update_freq_ref(const struct cpumask *cpus, unsigned int max_freq)
-+{
-+}
-+#endif
-+
- /* the following are really really optional */
- extern struct freq_attr cpufreq_freq_attr_scaling_available_freqs;
- extern struct freq_attr cpufreq_freq_attr_scaling_boost_freqs;
--- 
-2.55.0
-
+	r = xa_err(xa_store_range(&f->bindings, start, end - 1, slot, GFP_KERNEL));
