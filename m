@@ -1,34 +1,72 @@
-Received: from out28-103.mail.aliyun.com (out28-103.mail.aliyun.com [115.124.28.103])
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 451D23769E7
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 07:47:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.103
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D12CE39A056;
+	Wed,  9 Sep 2026 07:48:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788940043; cv=none; b=Q0yuSg9ZgWQkxsen7PasSG+ndhA84N/pFkXgPmEOgyitBGF1+GIAwfZJHTarUAyF4GgZ5LRYZ2M+Hxi4U9iWpb1pOxBeDl+gSfn2oWmOQHZhalOHsA2yhdjv+RuM6+IxF5TZU+f12peBcbj8Cj7ZWyfIcBCW49C6hW1J1YUX4Vw=
+	t=1788940086; cv=none; b=NCl5cUABNezmux4SnNG1zAYd9yVMi4iku1IECW10n2PvE7uDNWy0bEU5UKxAHG1ZZPhJmRVLpMrwZRx3A8+u2YFbgE/NURxvCS9xaSgFpcXhmaqbK8mUEe9ZZH2A7VmJqvzpxxNEVHP7RQeQuMXq+px6Qusqb734t7JOhLnw3u8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788940043; c=relaxed/simple;
-	bh=5453fASl0WEGmAEfrSQYq3vWQ3pezdx3MV8eBjtTQko=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=biA7p5YPb0pbHpG0Ph0DmgjxMrmyHnXXeI/AqV6CjqwQnpluITQk3+LwbL1FP9PZSmmxuen8n9sv4UvSEcUIGQJAAq1/zAn2ztl1JcFCw8c3SjhjsWMl/jW6UTXqrdvpGw7aXJNFgXkYNAoMLaKvkOHWLKSYDryelHoYxWZB5wY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=open-hieco.net; spf=pass smtp.mailfrom=open-hieco.net; arc=none smtp.client-ip=115.124.28.103
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=open-hieco.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=open-hieco.net
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07436956|-1;BR=01201311R611S83rulernew998_84748_2000303;CH=blue;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.172705-0.00782085-0.819474;FP=18101722540256330983|1|1|1|0|-1|-1|-1;HT=maildocker-contentspam033037032089;MF=yehuaisheng@open-hieco.net;NM=1;PH=DS;RN=7;RT=7;SR=0;TI=SMTPD_---.j9KD.hT_1788940023;
-Received: from centos9p-03(mailfrom:yehuaisheng@open-hieco.net fp:SMTPD_---.j9KD.hT_1788940023 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Wed, 09 Sep 2026 15:47:11 +0800
-From: Huaisheng Ye <yehuaisheng@open-hieco.net>
-To: muchun.song@linux.dev,
-	osalvador@suse.de,
-	linux-mm@kvack.org
-Cc: david@kernel.org,
-	akpm@linux-foundation.org,
+	s=arc-20240116; t=1788940086; c=relaxed/simple;
+	bh=YwruzpVomfozQZLhxg9EnmVDG16ojJZrrjSrRnUMIYs=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=BrI7DVAjJAjGBjGaZN0qLhN3ZtKMcWN0+PBF4DNZ7DuAvtbZWRhk07aJh5wukFgS32jz89x3Yq2GdjdoeQDF0bxWKQ/DorzNEaMfE0blOw35QFp9XylVvjmmo7feKzMiRm2H/R3MIU9bZxPV8Vdf3dQXCg1a2nlAFz9Y2Xbbe2E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=LuPaEWon; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="LuPaEWon"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 6E2314E415AF;
+	Wed,  9 Sep 2026 07:48:02 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 40D2960448;
+	Wed,  9 Sep 2026 07:48:02 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id BDC5711C7AF62;
+	Wed,  9 Sep 2026 09:47:57 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1788940080; h=from:subject:date:message-id:to:cc:mime-version:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=5CsIfRyzFe2btViu+CIi4c6ueRMBh9o52Hwe0iHRbww=;
+	b=LuPaEWonx1X7Qhk2sJJSwHPzdHvV93Dn/2wSNByZ3tNAiiFqnWUnC19dPVri7yn7EnSQbm
+	FQj3x85JlagKj/TQLWaX5EfErJP+pzhkLXcWSFgCxeiQokcYeIOu9Ht6IHgD+Ei/Zz52/Z
+	L1n4nICYbtU+tY7Ek5b+5pFAp8poo8PUxYAW1Bj/63XzHrpx0w5BmYWppw8rh0QLWCFCN5
+	GdlpwAEldqBCWiw639aRMW3vYpr95pQ4WafDVz/vW3mvVE7LaYGd5ycp2uutPWmmYMOVIg
+	gQQcwenx8DaymhKbFOXtt0CU8io1z6ueGYdyIjH3jGuOEf/RQLh4XFih9G0mgA==
+From: Maxime Chevallier <maxime.chevallier@bootlin.com>
+To: Andrew Lunn <andrew+netdev@lunn.ch>,
+	davem@davemloft.net,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Russell King <linux@armlinux.org.uk>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	=?UTF-8?q?Alexis=20Lothor=C3=A9?= <alexis.lothore@bootlin.com>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Emil Renner Berthing <kernel@esmil.dk>,
+	Minda Chen <minda.chen@starfivetech.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Kevin Hilman <khilman@baylibre.com>,
+	Jerome Brunet <jbrunet@baylibre.com>,
+	Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+	Jan Petrous <jan.petrous@oss.nxp.com>,
+	Ovidiu Panait <ovidiu.panait.rb@renesas.com>,
+	Jose.Abreu@synopsys.com
+Cc: Maxime Chevallier <maxime.chevallier@bootlin.com>,
+	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Huaisheng Ye <yehuaisheng@open-hieco.net>
-Subject: [PATCH] mm/hugetlb: account for allowed nodes when gathering surplus pages
-Date: Wed,  9 Sep 2026 15:46:42 +0800
-Message-ID: <20260909074642.7308-1-yehuaisheng@open-hieco.net>
-X-Mailer: git-send-email 2.52.0
+	thomas.petazzoni@bootlin.com,
+	linux-arm-kernel@lists.infradead.org,
+	linux-stm32@st-md-mailman.stormreply.com,
+	PKneuper@dspace.de,
+	David Laight <david.laight.linux@gmail.com>
+Subject: [PATCH net 2/6] net: stmmac: selftests: Validate EEE based on the actual LPI timer value
+Date: Wed,  9 Sep 2026 09:47:35 +0200
+Message-ID: <20260909074740.1247762-3-maxime.chevallier@bootlin.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260909074740.1247762-1-maxime.chevallier@bootlin.com>
+References: <20260909074740.1247762-1-maxime.chevallier@bootlin.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -36,110 +74,111 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-Hugetlb reservations are accounted globally, but hugetlb_acct_memory()
-also verifies that the current cpuset and MPOL_BIND policy contain enough
-free huge pages to add a new reservation.
+The EEE selftest is a 2-step test :
+ - It validates that we enter in LPI mode with the
+   irq_tx_path_in_lpi_mode_n counter
+ - It then validates that we exit LPI when sending a frame, with the
+   irq_tx_path_exit_lpi_mode_n counter.
 
-gather_surplus_pages() calculates its allocation shortfall from the global
-free and reserved counters. If the global pool has enough free pages, but
-those pages reside outside the nodes allowed by the task, it allocates no
-surplus pages. The subsequent allowed_mems_nr() check then rejects the
-reservation and mmap() fails with ENOMEM, even when
-nr_overcommit_hugepages permits allocating surplus pages on the allowed
-nodes.
+The current state of the test lacks 2 main things :
 
-Calculate both the global shortfall and the shortfall within the allowed
-nodes, and allocate the larger of the two. Include surplus pages allocated
-outside hugetlb_lock in both calculations when rechecking after reacquiring
-the lock. These pages are constrained by alloc_nodemask, so they satisfy
-both shortages.
+ - We don't know exactly when was the previous frame sent (it's from the
+   previous selftest)
 
-Easy way to reproduce this issue with 2+ NUMA nodes system:
+ - The timeout is hardcoded, while the LPI is entered after a
+   user-configurable delay. On top of that, the timeout loop uses a
+   pre-decrement iterator (--retries) that actually only iterate nine
+   times, so 900ms while the default LPI value is 1 second.
 
-  # echo 0 > /sys/kernel/mm/hugepages/hugepages-2048kB/nr_hugepage
-  # echo 3 > /sys/devices/system/node/node0/hugepages/hugepages-2048kB/nr_hugepages
-  # echo 1 > /sys/kernel/mm/hugepages/hugepages-2048kB/nr_overcommit_hugepages
-  # cd tools/testing/selftests/mm
-  # numactl --membind=1 ./hugetlb-mmap 2 21
-  TAP version 13
-  # [INFO] detected hugetlb page size: 2048 KiB
-  # [INFO] detected hugetlb page size: 1048576 KiB
-  # 2048 kB hugepages
-  1..2
-  # Mapping 2 Mbytes
-  Bail out! mmap: Cannot allocate memory (12)
-  # Planned tests != run tests (2 != 0)
-  # Totals: pass:0 fail:0 xfail:0 xpass:0 skip:0 error:0
+Let's therefore make it more deterministic :
 
-This fixes hugetlb mappings when, for example, a task runs with
-MPOL_BIND on Node 1 while the existing free huge pages are on Node 0.
+ - Send a frame at the beginning of the test
+ - Wait for more than the lpi timer value, we timeout after about twice
+   the value,
+ - Then send another frame, and verify that we do go out of LPI, also
+   with a timeout.
 
-Similar issue also could be found in ltp if the free pages of global pool
-reside outside the nodes allowed by the application.
-  # cd ltp/testcases/kernel/mem/hugetlb/hugemmap/
-  # numactl --cpunodebind=0 --membind=1 ./hugemmap10
+Note that the test's goal isn't to validate the LPI timer value itself,
+only that we enter/leave LPI mode.
 
-Signed-off-by: Huaisheng Ye <yehuaisheng@open-hieco.net>
+Fixes: 091810dbded9 ("net: stmmac: Introduce selftests support")
+Signed-off-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
 ---
- mm/hugetlb.c | 21 +++++++++++++++++----
- 1 file changed, 17 insertions(+), 4 deletions(-)
+ .../stmicro/stmmac/stmmac_selftests.c         | 33 ++++++++++++++-----
+ 1 file changed, 25 insertions(+), 8 deletions(-)
 
-diff --git a/mm/hugetlb.c b/mm/hugetlb.c
-index 7857728457952..b078953099fe5 100644
---- a/mm/hugetlb.c
-+++ b/mm/hugetlb.c
-@@ -116,6 +116,7 @@ struct mutex *hugetlb_fault_mutex_table __ro_after_init;
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_selftests.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_selftests.c
+index 6503678b646e..4564b9f29194 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_selftests.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_selftests.c
+@@ -462,7 +462,7 @@ static int stmmac_test_mmc(struct stmmac_priv *priv)
+ static int stmmac_test_eee(struct stmmac_priv *priv)
+ {
+ 	struct stmmac_extra_stats *initial, *final;
+-	int retries = 10;
++	unsigned long timeout, max_duration;
+ 	int ret;
  
- /* Forward declaration */
- static int hugetlb_acct_memory(struct hstate *h, long delta);
-+static unsigned int allowed_mems_nr(struct hstate *h);
- static void hugetlb_vma_lock_free(struct vm_area_struct *vma);
- static void hugetlb_vma_lock_alloc(struct vm_area_struct *vma);
- static void __hugetlb_vma_unlock_write_free(struct vm_area_struct *vma);
-@@ -2224,6 +2225,19 @@ static nodemask_t *policy_mbind_nodemask(gfp_t gfp)
- 	return NULL;
- }
+ 	if (!priv->dma_cap.eee || !priv->eee_active)
+@@ -478,14 +478,18 @@ static int stmmac_test_eee(struct stmmac_priv *priv)
+ 		goto out_free_initial;
+ 	}
  
-+/*
-+ * Reservations are globally accounted, but they must also be backed by free
-+ * pages on nodes allowed by the current cpuset and MPOL_BIND policy.
-+ */
-+static long surplus_pages_needed(struct hstate *h, long delta, long allocated)
-+{
-+	long global_free = (long)h->free_huge_pages + allocated;
-+	long allowed_free = (long)allowed_mems_nr(h) + allocated;
+-	memcpy(initial, &priv->xstats, sizeof(*initial));
+-
++	/* Send a frame, then wait to enter LPI */
+ 	ret = stmmac_test_mac_loopback(priv);
+ 	if (ret)
+ 		goto out_free_final;
+ 
++	max_duration = usecs_to_jiffies(2 * priv->tx_lpi_timer);
 +
-+	return max((long)h->resv_huge_pages + delta - global_free,
-+		   delta - allowed_free);
-+}
++	memcpy(initial, &priv->xstats, sizeof(*initial));
 +
- /*
-  * Increase the hugetlb pool such that it can accommodate a reservation
-  * of size 'delta'.
-@@ -2246,7 +2260,7 @@ static int gather_surplus_pages(struct hstate *h, long delta)
- 		alloc_nodemask = cpuset_current_mems_allowed;
+ 	/* We have no traffic in the line so, sooner or later it will go LPI */
+-	while (--retries) {
++	timeout = jiffies + max_duration;
++	while (!time_after(jiffies, timeout)) {
+ 		memcpy(final, &priv->xstats, sizeof(*final));
  
- 	lockdep_assert_held(&hugetlb_lock);
--	needed = (h->resv_huge_pages + delta) - h->free_huge_pages;
-+	needed = surplus_pages_needed(h, delta, 0);
- 	if (needed <= 0) {
- 		h->resv_huge_pages += delta;
- 		return 0;
-@@ -2277,11 +2291,10 @@ static int gather_surplus_pages(struct hstate *h, long delta)
+ 		if (final->irq_tx_path_in_lpi_mode_n >
+@@ -494,17 +498,30 @@ static int stmmac_test_eee(struct stmmac_priv *priv)
+ 		msleep(100);
+ 	}
  
- 	/*
- 	 * After retaking hugetlb_lock, we need to recalculate 'needed'
--	 * because either resv_huge_pages or free_huge_pages may have changed.
-+	 * because either resv_huge_pages or the free page counts may have changed.
- 	 */
- 	spin_lock_irq(&hugetlb_lock);
--	needed = (h->resv_huge_pages + delta) -
--			(h->free_huge_pages + allocated);
-+	needed = surplus_pages_needed(h, delta, allocated);
- 	if (needed > 0) {
- 		if (alloc_ok)
- 			goto retry;
+-	if (!retries) {
++	memcpy(final, &priv->xstats, sizeof(*final));
++	if (final->irq_tx_path_in_lpi_mode_n <=
++	    initial->irq_tx_path_in_lpi_mode_n) {
+ 		ret = -ETIMEDOUT;
+ 		goto out_free_final;
+ 	}
+ 
+-	if (final->irq_tx_path_in_lpi_mode_n <=
+-	    initial->irq_tx_path_in_lpi_mode_n) {
+-		ret = -EINVAL;
++	/* TX something so we go out of LPI */
++	ret = stmmac_test_mac_loopback(priv);
++	if (ret)
+ 		goto out_free_final;
++
++	/* Wait for the exit LPI interrupt */
++	timeout = jiffies + max_duration;
++	while (!time_after(jiffies, timeout)) {
++		memcpy(final, &priv->xstats, sizeof(*final));
++
++		if (final->irq_tx_path_exit_lpi_mode_n >
++		    initial->irq_tx_path_exit_lpi_mode_n)
++			break;
++		msleep(100);
+ 	}
+ 
++	memcpy(final, &priv->xstats, sizeof(*final));
+ 	if (final->irq_tx_path_exit_lpi_mode_n <=
+ 	    initial->irq_tx_path_exit_lpi_mode_n) {
+ 		ret = -EINVAL;
 -- 
-2.52.0
+2.55.0
 
