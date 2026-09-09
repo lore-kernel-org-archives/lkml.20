@@ -1,116 +1,106 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from out-zbxj-a67.jellyfish.systems (out-zbxj-a67.jellyfish.systems [198.54.127.67])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AC663C9EE0
-	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 23:50:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B6814825B6
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 23:55:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.54.127.67
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788997846; cv=none; b=o5yvNCzasOBY2d02qBz2jeElouEZs4Ua7tTsm0/9so4ejnUWc5bYfC4ZjdBToO5Z9hWihE5WYEAYSG1E40ExiBUMc83wDhLxTyug3Ekvw9RDgib6TZrZq9qCH83d5auxq4ZRW2DgGCdvpXDP2xnW2cjmXDcuyh6LArwBSb0wxJo=
+	t=1788998153; cv=none; b=krbXDLL5YXIC0+pltBeGFIED7bAU6xKsp90DDMg5GVDjlzgOT1RwKEAtAmWT9qo/4YP/fKJlj/71q1jA5k3ctfgSmp/2mTWXxUfgICuFgviQZYjb2mi25KhgR/JWh32AL9pRe8tl+8W7TYVSWA9Iknyiy17wsrhaMw2UoUDQdHw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788997846; c=relaxed/simple;
-	bh=ogsazr23TnNRPEH4QBannd29S7wFZj3scZUV3BZ64hA=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=gyW4Yi7qr96h48aEojn7hP5grloRR87On2PUNQVTW5CD/PAvm2aetDNp28t+GFCfuExk+SERQpusvgld0Fx8YAfkKymF+Sb3t2Do21Zb7umpPUbn/NBZ/UHRRucWM2WQQPTNdbDQ/Bn0KDB46lmhTJH3htY9zccpYGefRUuInfc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=dDvjdVS8; arc=none smtp.client-ip=192.198.163.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1788998153; c=relaxed/simple;
+	bh=5qk7BOw2pJ5DRi/y2Ft6dCgao63lL/TCifogQvFY3E4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=CvL7du81B+Syg4nTFi2ArRJpJ2AH5w/kHQQkJbxxpt7m6GHGscJI0Ms01rkR/hcsb6cSz57oF+qJ8ooUFZuu+ofEgBbYWh+rxIsNnH8WLyksMzfgVQn+MltXir+fJbxtinE9Z9h3JY24D7cuEKROzZ2ipvZ6TdXyBoLJ+LmtSzs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=tychen.cc; spf=pass smtp.mailfrom=tychen.cc; dkim=pass (2048-bit key) header.d=tychen.cc header.i=@tychen.cc header.b=EPVxsCbz; arc=none smtp.client-ip=198.54.127.67
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=tychen.cc
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tychen.cc
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="dDvjdVS8"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788997844; x=1820533844;
-  h=message-id:subject:from:to:cc:date:in-reply-to:
-   references:content-transfer-encoding:mime-version;
-  bh=ogsazr23TnNRPEH4QBannd29S7wFZj3scZUV3BZ64hA=;
-  b=dDvjdVS8YZRVt53zq2Sbnq2WOb3vx1c08QQVzWlByciE8NWFJkUh28h9
-   B4rNvZZV/SMqr9fC7HOelDDgpQKfjkBaHjdluUZhppmbUumPOBP+iKprt
-   yZnHqs6OH8Ia5X8ClplBn2LSVeqylr7CzczHrrdWn7Wf3Z79fiXi+icDd
-   zi9KaXLLlni1BjGMc83EQtOIAG+Upo2dVG5ngJ/B7N5vTX3vOsvWcO3BX
-   ZxP9ArmPG/rqEaaVqbQ4Rjb/yIwUoZ9eMNzvua6V/fjt8C7hXHdxjRE0L
-   HxpcgWgh7+SU8h5geHkUjrhfXURq+FVVPH1VKbAusy5NYW6J7GHYAyP+x
-   g==;
-X-CSE-ConnectionGUID: 1wxaNZreRDCNi+SgbEd38A==
-X-CSE-MsgGUID: EEtKOjY9Q9i/O/Hvc5G9ew==
-X-IronPort-AV: E=McAfee;i="6800,10657,11900"; a="76996844"
-X-IronPort-AV: E=Sophos;i="6.25,271,1779174000"; 
-   d="scan'208";a="76996844"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
-  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Sep 2026 16:50:44 -0700
-X-CSE-ConnectionGUID: eDTC9dMYTiqDAjGEdU2GjQ==
-X-CSE-MsgGUID: tHmngvieRkKoYZEJvnhP+A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,271,1779174000"; 
-   d="scan'208";a="271442997"
-Received: from ssimmeri-mobl2.amr.corp.intel.com (HELO [10.125.111.187]) ([10.125.111.187])
-  by orviesa007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Sep 2026 16:50:43 -0700
-Message-ID: <f84b135af4b34c34166c557a9a99cd07e7f167bd.camel@linux.intel.com>
-Subject: Re: [PATCH] tools/power/x86/intel-speed-select: Clean up more build
- artifacts in 'clean' target
-From: srinivas pandruvada <srinivas.pandruvada@linux.intel.com>
-To: Jiri Slaby <jirislaby@kernel.org>, zhangjiao2
-	 <zhangjiao2@cmss.chinamobile.com>
-Cc: raj.khem@gmail.com, linux-kernel@vger.kernel.org, trivial@kernel.org
-Date: Wed, 09 Sep 2026 16:50:43 -0700
-In-Reply-To: <bbbf056a-a86e-4ad4-97a4-4a32a36eafa2@kernel.org>
-References: <20260901093657.1884-1-zhangjiao2@cmss.chinamobile.com>
-	 <bbbf056a-a86e-4ad4-97a4-4a32a36eafa2@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
+	dkim=pass (2048-bit key) header.d=tychen.cc header.i=@tychen.cc header.b="EPVxsCbz"
+Received: from 192.168.5.7 (unknown [23.142.132.69])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mail.spacemail.com (Postfix) with ESMTPSA id 4hgHkC2CxVz2x99;
+	Wed, 09 Sep 2026 23:55:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tychen.cc;
+	s=spacemail; t=1788998133;
+	bh=1z3Z8gwjIPEJ7RUurdh1RsBPbnoHaInN21ppueWrqqM=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=EPVxsCbz1LPCAxLcZgiOsedsqzRRSGjZ6JPsEEA3TU9opRqGOLKW1p4c0+eucT89d
+	 NItqVcuK+XOGakvFLMit+6z1tLJ/W3cmGARIC08kiOws+MBQ+zGpPOc/eVf/WVIHaP
+	 RPkEsj/tYWB0ooWque7FrnfbaXXq62hOQTxko82e/IGb7/uFrjK/AGzZLJP6kY3BQk
+	 ixVsilravnf4s+bNp9usLKRTuv84plip8G8S9uYuyLWJ5YdUYGJR6dFMDt4Qt5t899
+	 9PY2un3xwUcOUENCndcyt0aXFdpkdyN7VUtxv1dNdidS3egif2+IRBKW+lgpjmQXvL
+	 p3gsrs4zGGfMA==
+From: Tianyi Chen <hi@tychen.cc>
+To: Mike Rapoport <rppt@kernel.org>
+Cc: akpm@linux-foundation.org,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	hi@tychen.cc
+Subject: [PATCH v3 1/2] memblock tests: model the low allocation limit within dummy memory
+Date: Thu, 10 Sep 2026 07:55:28 +0800
+Message-ID: <f16c272cd52316b83c35d87987b4d8687c4a3182.1788997523.git.hi@tychen.cc>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <cover.1788997523.git.hi@tychen.cc>
+References: <cover.1788997523.git.hi@tychen.cc>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-Envelope-From: hi@tychen.cc
 
-On Tue, 2026-09-08 at 09:39 +0200, Jiri Slaby wrote:
-> On 01. 09. 26, 11:36, zhangjiao2 wrote:
-> > From: zhang jiao <zhangjiao2@cmss.chinamobile.com>
-> >=20
-> > The 'clean' target currently leaves behind .* .o.cmd and .* .o.d
-> > files,
-> > as well as the generated 'include' directory. Extend the target to
-> > remove these so 'make clean' fully resets the build tree.
-> >=20
-> > Signed-off-by: zhang jiao <zhangjiao2@cmss.chinamobile.com>
-> > ---
-> > =C2=A0 tools/power/x86/intel-speed-select/Makefile | 2 ++
-> > =C2=A0 1 file changed, 2 insertions(+)
-> >=20
-> > diff --git a/tools/power/x86/intel-speed-select/Makefile
-> > b/tools/power/x86/intel-speed-select/Makefile
-> > index 6b299aae2ded..46874e4cee51 100644
-> > --- a/tools/power/x86/intel-speed-select/Makefile
-> > +++ b/tools/power/x86/intel-speed-select/Makefile
-> > @@ -54,6 +54,8 @@ clean:
-> > =C2=A0=C2=A0	rm -f $(ALL_PROGRAMS)
-> > =C2=A0=C2=A0	rm -rf $(OUTPUT)include/linux/isst_if.h
-> > =C2=A0=C2=A0	find $(or $(OUTPUT),.) -name '*.o' -delete -o -name
-> > '\.*.d' -delete
-> > +	find $(or $(OUTPUT),.) -name '.*.o.cmd' -delete -o -name
-> > '.*.o.d' -delete
->=20
-> There are no *.d at this point (removed by the previous find). You
-> can=20
-> do it on one line (as many of the other tools/):
-> find $(or $(OUTPUT),.) -name '*.o' -delete -o -name '.*.o.d' -delete
-> -o=20
-> -name '.*.o.cmd' -delete
->=20
-> > +	find $(or $(OUTPUT),.) -type d -name 'include' -exec rm -
-> > rf {} +
->=20
-> So you can remove "rm -rf $(OUTPUT)include/linux/isst_if.h" above,
-> right?
+The simulator represents physical addresses using the address of its
+allocated buffer. That buffer can lie above the default
+ARCH_LOW_ADDRESS_LIMIT, preventing meaningful memblock_alloc_low()
+tests.
 
-Hi Zhang,
+Use the architecture override in asm/dma.h to place the limit halfway
+through the memory registered by setup_memblock(). Resolve the limit
+after allocating the buffer, leaving registered memory on both sides.
 
-This makes sense.
-Please resubmit.
+Assisted-by: LLM
+Signed-off-by: Tianyi Chen <hi@tychen.cc>
+---
+ tools/testing/memblock/asm/dma.h      | 6 ++++++
+ tools/testing/memblock/tests/common.c | 6 ++++++
+ 2 files changed, 12 insertions(+)
 
-Thanks,
-Srinivas
+diff --git a/tools/testing/memblock/asm/dma.h b/tools/testing/memblock/asm/dma.h
+index 13ff8e5d22ef..6607408dcf25 100644
+--- a/tools/testing/memblock/asm/dma.h
++++ b/tools/testing/memblock/asm/dma.h
+@@ -2,4 +2,10 @@
+ #ifndef _TOOLS_DMA_H
+ #define _TOOLS_DMA_H
+ 
++#include <linux/types.h>
++
++phys_addr_t dummy_physical_memory_low_limit(void);
++
++#define ARCH_LOW_ADDRESS_LIMIT dummy_physical_memory_low_limit()
++
+ #endif
+diff --git a/tools/testing/memblock/tests/common.c b/tools/testing/memblock/tests/common.c
+index 3250c8e5124b..ac032610a56e 100644
+--- a/tools/testing/memblock/tests/common.c
++++ b/tools/testing/memblock/tests/common.c
+@@ -118,6 +118,12 @@ phys_addr_t dummy_physical_memory_base(void)
+ 	return (phys_addr_t)memory_block.base;
+ }
+ 
++phys_addr_t dummy_physical_memory_low_limit(void)
++{
++	/* The low limit is halfway through memory registered by setup_memblock(). */
++	return dummy_physical_memory_base() + MEM_SIZE / 2;
++}
++
+ static void usage(const char *prog)
+ {
+ 	BUILD_BUG_ON(ARRAY_SIZE(help_opts) != ARRAY_SIZE(long_opts) - 1);
+-- 
+2.55.0
 
->=20
-> thanks,
