@@ -1,157 +1,166 @@
-Received: from out30-111.freemail.mail.aliyun.com (out30-111.freemail.mail.aliyun.com [115.124.30.111])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx1-f44.google.com (mail-yx1-f44.google.com [74.125.224.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BE98488205;
-	Wed,  9 Sep 2026 10:01:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.111
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 944333EDE63
+	for <linux-kernel@vger.kernel.org>; Wed,  9 Sep 2026 10:01:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788948087; cv=none; b=NmsDHSQH8CnBr2oKSHIPgG28ZU69XG5JNEIF73K897i/TfiLMqZjrFDf2lcBqBXfvM7Qbq6jZAO/JaM24ktmhJWnGmqcoiaXjJZJ6g+thFN/2xUI4VN/UUArlDDSQRi0vOfnIWgY3R6yOdAs0pR6uZhrKBetkTYh8hM7JxTFr8s=
+	t=1788948093; cv=none; b=EKlmT6XyK9ZqWmJ/ZzRSHfsPxZHmSOpm6QNcLrsBdkhD/EaTdoLbWkiBIAiynb+Rog+xecf3CKmwH6EQhP+upoSt6CCNGBrk1ailXa29VbnRvNukwezEb7seOisrJkfQuGl0TgMfAw6xtXfJJT0WCYcNfM/+X7NrSTSDfMW0xD4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788948087; c=relaxed/simple;
-	bh=CA2yHOHqwfjCQGComYCkoGwgkhF02XDf0NC0iDnQsag=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=AGzoDw0oLKvrBzEYAfMfQnWTz9svjcK+XKM88bKGEYxitL2/zOK+UdJmHt5R/5kk0VHQY2ZkFvcIyNV4/qWlHhWoffUzSVE/0b4r1lG/A5KMOI8ex85hhQ2mK/SDAZPawS+7hEmfOwq7orP+EupufEJ+MQVzSvmQuRwa8/FfH8A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=SO4PymNR; arc=none smtp.client-ip=115.124.30.111
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	s=arc-20240116; t=1788948093; c=relaxed/simple;
+	bh=XRPintYB66K90WWvosFbfNFMrCSstXNSaa8RFhDin48=;
+	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=hoSYBqXyOVzgXxoK8pgUd7yb5wszXOAaF2PcKxSPuIWe9rkMOxHa5I+8m3lMReYQDebPX9T2npOMUK4BcuJgB4VIXu9dojfh/P7QuE3wYgNikNYsEy4wUBiNZElOxfY8k08T0Y5KKoZDuSnNMFmPKQ14lvAO5eV88FcuiNN6mKw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=knKN5ddo; arc=none smtp.client-ip=74.125.224.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="SO4PymNR"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1788948077; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
-	bh=rAhR1QM/zeuhEomiumpssWgA9rCCG1Ag1irSYP33RaY=;
-	b=SO4PymNR4ShaycYfQs1qRey9t9uHNQ6AUyGjYCtzxubeOXDqGaxZBRFJtHN5v1Z8okI7XFD1yf25N23+LvvrVxoEUxFxfia8jf0cZJXnhvM/NAdMRYNGLrArrhcaRVl1ZtW7SRVXICNN4fl7VOrPhIMwTgEK64vW2PYeVzqK6W0=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R141e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033032089153;MF=baolin.wang@linux.alibaba.com;NM=1;PH=DS;RN=27;SR=0;TI=SMTPD_---0XAefrqA_1788948073;
-Received: from 30.74.144.119(mailfrom:baolin.wang@linux.alibaba.com fp:SMTPD_---0XAefrqA_1788948073 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Wed, 09 Sep 2026 18:01:15 +0800
-Message-ID: <feb76c81-db9d-4a36-9a31-0b2b31e3c3fb@linux.alibaba.com>
-Date: Wed, 9 Sep 2026 18:01:13 +0800
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="knKN5ddo"
+Received: by mail-yx1-f44.google.com with SMTP id 956f58d0204a3-66fcf87897fso4303946d50.3
+        for <linux-kernel@vger.kernel.org>; Wed, 09 Sep 2026 03:01:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1788948089; x=1789552889; darn=vger.kernel.org;
+        h=content-type:mime-version:references:message-id:in-reply-to:subject
+         :cc:to:from:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=uNBljcBd5pVR40/qSQbRzR+DUQkxJ6419XWxuVBt6mg=;
+        b=knKN5ddo70WoGAqNT1cXYO4RFeqwvEyrgjfzjOTWh0ZI7z0eldN3H9OZHWMzP8Acyc
+         tkz5Nq+NpL9Cl5yMr8vTo0h9DtLwMvjbjnDgVE8UFTKEmvfFzDvpIlPVvcrimFFtQsEo
+         9LMLjq2kA6FBn+PaMr1Wioy/GDYPYiJ+jn72tqftRAgcEk9VbaqC4hfgdzSPCARhEotX
+         w4SSP7FiMBXRm2/0SbJmABzHUA1B8TZXd/3bFMQTALw7vLkROtUu6a2BAfQX7j4rcz1J
+         dtvgs9uG01uy8plVKUXdLdoz0XvRykaSAj+NBOUpnmtxaC9UCWL3SAKZbwYtnXRJGMsw
+         df8A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788948089; x=1789552889;
+        h=content-type:mime-version:references:message-id:in-reply-to:subject
+         :cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=uNBljcBd5pVR40/qSQbRzR+DUQkxJ6419XWxuVBt6mg=;
+        b=lz4Fbf08LbxyyDXl/9108WGuFPIZ2f/uFIkw0qMeTZ0a4RhERsV2Fq+FWzj2IJ+pi8
+         z4EUZ0wYWzfJW4URx9EpjwdxutiDMEPDBNg1FVFgMWVzzYVqqFBBGGqnDBxzURRUtSoT
+         CcsXFakjtt2bRMmSU+TG/EHahcfsa1YLSucyroNRy9GyeOhjUI2zfr5eVGhLgkWCtZ+3
+         kmNZp8kp1boJdLvaNNLSEZyQVQOxj2y+xoITw1QNclRpLVsXJRNQmjxt47dVa1ZUbz+b
+         nA9b8FmaqkQTn/Z7niqG7jXFvRrDEIV1s6IQRt6wFyo80RXuFHpO7FfXAI/ss9nBmif7
+         C5JA==
+X-Forwarded-Encrypted: i=1; AKwUvBxa3u74kMDRWZ6nlTuADHk6GqDJ33CEQVIY7OmZbSW2lh3gYofoHvrMdhFkVSVv0qE3MlO1fgvOAURiDVQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++lEB3/wXxX7kNWTQ1EwyPcai3rjn+twy/QhXJjVEbKJxDIHcWsw
+	1xt7vfIXulydb0jChsP/oezY5FeK1eo+oOWi161pkB9vNoyVrwv2I5/UxdGoVjT/wg==
+X-Gm-Gg: AYBFou3GCFDaEi1xRbR0Rs1qQbitSLCD87DA3IFAyMdxV8EgH5hBVSR24DJ0ihFcgUt
+	3MF0mu1WTry4BDs92SnetwR8EGOOyAXv2MbnB4saPbCKlbrCYoBiHdOFEsDcogS6OGtGyqe2XZT
+	v40wWgB/jEbd2qTM5FTmMH9EZr0eNnyghJWCTB+UsuL2Cy3zNa028KiFahmALJzMq6S/wRyWDOp
+	L12wO84k4s4F8YCjKBZjeM7CF4b0blU3J09jS73UWty1NIa5Q7jX4+d/kM8hBqoF5xP4be8CZ8k
+	GloXHsT0j8AcZurkrfLDw+8pf3NK8buqDWBSHUFPtxPSQmkFe6eM5uMafKb6U+XAbhyNKLMlOsv
+	MhB4nY1e9sFELrWoHrRkwaBFOkecSVddvWYsiMXG9i17olkSI5nwM4YnW4xf7MwWymmPqVhf+KC
+	OlG7kJvOxQl/AmPZeFieaCbOf+1mYRGuRoIPnFCDK2V4hb+QU/wpZHr278eQ9sYSpPtpUt6OLSe
+	xk0SXwSIicT59kybSMNmtovJ9Ib+mPYtteyh1/PGniIqe3BXSn9WiTHl38=
+X-Received: by 2002:a05:690c:88:b0:864:6f4d:ef7f with SMTP id 00721157ae682-87121acbbc5mr139590577b3.7.1788948088169;
+        Wed, 09 Sep 2026 03:01:28 -0700 (PDT)
+Received: from darker.attlocal.net (172-10-233-147.lightspeed.sntcca.sbcglobal.net. [172.10.233.147])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8714a0b654dsm107264887b3.25.2026.09.09.03.01.23
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 09 Sep 2026 03:01:26 -0700 (PDT)
+Date: Wed, 9 Sep 2026 03:01:22 -0700 (PDT)
+From: Hugh Dickins <hughd@google.com>
+To: Andrew Morton <akpm@linux-foundation.org>
+cc: Ackerley Tng <ackerleytng@google.com>, 
+    Alexander Viro <viro@zeniv.linux.org.uk>, Alexandre Ghiti <alex@ghiti.fr>, 
+    Baolin Wang <baolin.wang@linux.alibaba.com>, 
+    Barry Song <baohua@kernel.org>, Binbin Wu <binbin.wu@linux.intel.com>, 
+    Christian Brauner <brauner@kernel.org>, Christoph Hellwig <hch@lst.de>, 
+    Christoph Lameter <cl@gentwo.org>, 
+    Claudio Imbrenda <imbrenda@linux.ibm.com>, 
+    David Hildenbrand <david@kernel.org>, JP Kobryn <jp.kobryn@linux.dev>, 
+    Jan Kara <jack@suse.cz>, Jens Axboe <axboe@kernel.dk>, 
+    Johannes Weiner <hannes@cmpxchg.org>, Kairui Song <ryncsn@gmail.com>, 
+    Kiryl Shutsemau <kas@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
+    Leonardo Bras <leobras.c@gmail.com>, Lorenzo Stoakes <ljs@kernel.org>, 
+    Marcelo Tosatti <mtosatti@redhat.com>, 
+    Matthew Wilcox <willy@infradead.org>, 
+    Mel Gorman <mgorman@techsingularity.net>, 
+    Miaohe Lin <linmiaohe@huawei.com>, Michal Hocko <mhocko@suse.com>, 
+    Minchan Kim <minchan@kernel.org>, Muchun Song <muchun.song@linux.dev>, 
+    Oscar Salvador <osalvador@suse.de>, Peter Zijlstra <peterz@infradead.org>, 
+    Qi Zheng <qi.zheng@linux.dev>, Rik van Riel <riel@surriel.com>, 
+    Sebastian Andrzej Siewior <bigeasy@linutronix.de>, 
+    Shakeel Butt <shakeel.butt@linux.dev>, 
+    Suren Baghdasaryan <surenb@google.com>, 
+    Vlastimil Babka <vbabka@kernel.org>, 
+    Yang Shi <yang@os.amperecomputing.com>, Yu Zhao <yuzhao@google.com>, 
+    Zach O'Keefe <zokeefe@google.com>, Zi Yan <ziy@nvidia.com>, 
+    linux-block@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
+    linux-kernel@vger.kernel.org, linux-mm@kvack.org
+Subject: [PATCH v2 10/26] mm/fbatch: remove several uses of
+ mlock_drain_local()
+In-Reply-To: <e28f9a94-4339-f8ac-8301-6be3c9b5b7ce@google.com>
+Message-ID: <9633684f-e5c4-d92b-8295-5cccaa18fc36@google.com>
+References: <e28f9a94-4339-f8ac-8301-6be3c9b5b7ce@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 08/19] selftests/mm: add folio-order check for address
- ranges
-To: Kiryl Shutsemau <kirill@shutemov.name>, akpm@linux-foundation.org,
- david@kernel.org, ljs@kernel.org, rppt@kernel.org
-Cc: linux-mm@kvack.org, linux-kselftest@vger.kernel.org,
- linux-kernel@vger.kernel.org, usama.anjum@arm.com, usama.arif@linux.dev,
- nico.pache@linux.dev, ziy@nvidia.com, baohua@kernel.org, dev.jain@arm.com,
- hughd@google.com, lance.yang@linux.dev, liam@infradead.org, mhocko@suse.com,
- ryan.roberts@arm.com, shuah@kernel.org, surenb@google.com,
- vbabka@kernel.org, agordeev@linux.ibm.com, jgg@ziepe.ca, leon@kernel.org,
- kernel-team@meta.com, "Kiryl Shutsemau (Meta)" <kas@kernel.org>
-References: <20260908125105.1510704-1-kirill@shutemov.name>
- <20260908125105.1510704-9-kirill@shutemov.name>
-From: Baolin Wang <baolin.wang@linux.alibaba.com>
-In-Reply-To: <20260908125105.1510704-9-kirill@shutemov.name>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=US-ASCII
 
+Remove several uses of mlock_drain_local(): they were workarounds for
+when that sequence of operations tended to leave folios in mlock_fbatch
+with debilitating raised refcount (and no good if the task changed CPU).
 
+Signed-off-by: Hugh Dickins <hughd@google.com>
+---
+ mm/huge_memory.c | 2 --
+ mm/migrate.c     | 2 --
+ mm/rmap.c        | 4 ----
+ 3 files changed, 8 deletions(-)
 
-On 9/8/26 8:50 PM, Kiryl Shutsemau wrote:
-> From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
-> 
-> An mTHP collapse test needs to know that a range is backed by folios of the
-> target order, and that they sit where a collapse would put them.  Nothing
-> answers that today: is_backed_by_folio() classifies the folio behind a
-> single page, and check_huge_anon() reads smaps AnonHugePages, which only
-> accounts PMD mappings.
-
-Have you checked check_large_folios() in vm_util.c? It seems to meet 
-your requirements, or am I missing something?
-
-> Add is_range_backed_by_order().  It requires every folio-sized, folio-
-> aligned part of the range to map one folio of that order, head to tail,
-> with the head at the start of the part.
-> 
-> A part backed by two smaller folios fails, and so does a folio mapped off
-> its natural alignment.  The mTHP cases need both to tell a collapsed range
-> from the one beside it.
-> 
-> Assisted-by: LLM
-> Reviewed-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
-> Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
-> Signed-off-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
-> ---
->   tools/testing/selftests/mm/vm_util.c | 47 ++++++++++++++++++++++++++++
->   tools/testing/selftests/mm/vm_util.h |  2 ++
->   2 files changed, 49 insertions(+)
-> 
-> diff --git a/tools/testing/selftests/mm/vm_util.c b/tools/testing/selftests/mm/vm_util.c
-> index 3ea42a7a2a3e..4947612e8b3d 100644
-> --- a/tools/testing/selftests/mm/vm_util.c
-> +++ b/tools/testing/selftests/mm/vm_util.c
-> @@ -552,6 +552,53 @@ bool is_backed_by_folio(char *vaddr, int order, int pagemap_fd,
->   	return false;
->   }
->   
-> +/**
-> + * is_range_backed_by_order() - check that a range is backed by @order folios
-> + * @start: start of the range, a multiple of the folio size
-> + * @len: length of the range in bytes, a multiple of the folio size
-> + * @order: the folio order to check for
-> + * @pagemap_fd: open /proc/<pid>/pagemap of the range's owner
-> + * @kpageflags_fd: open /proc/kpageflags
-> + *
-> + * Every folio-sized, folio-aligned part of the range must map one folio of
-> + * @order, head to tail, with the head at the start of the part.  A part
-> + * backed by several smaller folios fails, and so does a folio mapped off
-> + * its natural alignment.
-> + *
-> + * Returns: true if the whole range is backed that way, false otherwise.
-> + */
-> +bool is_range_backed_by_order(char *start, size_t len, int order,
-> +			      int pagemap_fd, int kpageflags_fd)
-> +{
-> +	const unsigned long nr_pages = 1UL << order;
-> +	const size_t folio_size = nr_pages * psize();
-> +	char *vaddr;
-> +
-> +	if ((uintptr_t)start % folio_size || len % folio_size)
-> +		return false;
-> +
-> +	for (vaddr = start; vaddr < start + len; vaddr += folio_size) {
-> +		const unsigned long pfn = pagemap_get_pfn(pagemap_fd, vaddr);
-> +		unsigned long i;
-> +
-> +		/* Not present, or a tail page */
-> +		if (pfn == -1UL || pfn % nr_pages)
-> +			return false;
-> +
-> +		for (i = 1; i < nr_pages; i++) {
-> +			char *page = vaddr + i * psize();
-> +
-> +			if (pagemap_get_pfn(pagemap_fd, page) != pfn + i)
-> +				return false;
-> +		}
-> +
-> +		if (!is_backed_by_folio(vaddr, order, pagemap_fd, kpageflags_fd))
-> +			return false;
-> +	}
-> +
-> +	return true;
-> +}
-> +
->   /* If `ioctls' non-NULL, the allowed ioctls will be returned into the var */
->   int uffd_register_with_ioctls(int uffd, void *addr, uint64_t len,
->   			      bool miss, bool wp, bool minor, uint64_t *ioctls)
-> diff --git a/tools/testing/selftests/mm/vm_util.h b/tools/testing/selftests/mm/vm_util.h
-> index 56a28ce7d029..e509fc4012a5 100644
-> --- a/tools/testing/selftests/mm/vm_util.h
-> +++ b/tools/testing/selftests/mm/vm_util.h
-> @@ -99,6 +99,8 @@ int gather_folio_orders(char *vaddr_start, size_t len,
->   		int pagemap_fd, int kpageflags_fd, int orders[], int nr_orders);
->   bool is_backed_by_folio(char *vaddr, int order, int pagemap_fd,
->   			int kpageflags_fd);
-> +bool is_range_backed_by_order(char *start, size_t len, int order,
-> +			      int pagemap_fd, int kpageflags_fd);
->   
->   int uffd_register(int uffd, void *addr, uint64_t len,
->   		  bool miss, bool wp, bool minor);
+diff --git a/mm/huge_memory.c b/mm/huge_memory.c
+index d53e5443b802..3628b5bd1359 100644
+--- a/mm/huge_memory.c
++++ b/mm/huge_memory.c
+@@ -3570,8 +3570,6 @@ static bool __discard_anon_folio_pmd_locked(struct vm_area_struct *vma,
+ 	folio_remove_rmap_pmd(folio, pmd_page(orig_pmd), vma);
+ 	zap_deposited_table(mm, pmdp);
+ 	add_mm_counter(mm, MM_ANONPAGES, -HPAGE_PMD_NR);
+-	if (vma->vm_flags & VM_LOCKED)
+-		mlock_drain_local();
+ 	folio_put(folio);
+ 
+ 	return true;
+diff --git a/mm/migrate.c b/mm/migrate.c
+index 15b45832bcfa..1939d6ed19c9 100644
+--- a/mm/migrate.c
++++ b/mm/migrate.c
+@@ -447,8 +447,6 @@ static bool remove_migration_pte(struct folio *folio,
+ 				folio_add_file_rmap_pte(folio, new, vma);
+ 			set_pte_at(vma->vm_mm, pvmw.address, pvmw.pte, pte);
+ 		}
+-		if (READ_ONCE(vma->vm_flags) & VM_LOCKED)
+-			mlock_drain_local();
+ 
+ 		trace_remove_migration_pte(pvmw.address, pte_val(pte),
+ 					   compound_order(new));
+diff --git a/mm/rmap.c b/mm/rmap.c
+index d1819fd69938..1ee42d60d77d 100644
+--- a/mm/rmap.c
++++ b/mm/rmap.c
+@@ -2396,8 +2396,6 @@ static bool try_to_unmap_one(struct folio *folio, struct vm_area_struct *vma,
+ 		}
+ finish_unmap:
+ 		folio_remove_rmap_ptes(folio, page, nr_pages, vma);
+-		if (vma->vm_flags & VM_LOCKED)
+-			mlock_drain_local();
+ 		folio_put_refs(folio, nr_pages);
+ 
+ 		/*
+@@ -2771,8 +2769,6 @@ static bool try_to_migrate_one(struct folio *folio, struct vm_area_struct *vma,
+ 			hugetlb_remove_rmap(folio);
+ 		else
+ 			folio_remove_rmap_pte(folio, subpage, vma);
+-		if (vma->vm_flags & VM_LOCKED)
+-			mlock_drain_local();
+ 		folio_put(folio);
+ 	}
+ 
+-- 
+2.51.0
 
